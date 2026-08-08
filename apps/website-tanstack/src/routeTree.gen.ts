@@ -9,11 +9,14 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as AuthDotmdRouteImport } from './routes/auth[.]md'
 import { Route as FeedDotxmlRouteImport } from './routes/feed[.]xml'
 import { Route as PostsDotjsonRouteImport } from './routes/posts[.]json'
 import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as Char123LocaleChar125RouteRouteImport } from './routes/{-$locale}/route'
+import { Route as DotwellKnownApiCatalogRouteImport } from './routes/[.]well-known/api-catalog'
+import { Route as DotwellKnownOauthProtectedResourceRouteImport } from './routes/[.]well-known/oauth-protected-resource'
 import { Route as ApiBaiduPushRouteImport } from './routes/api/baidu-push'
 import { Route as ApiHealthRouteImport } from './routes/api/health'
 import { Route as Char123LocaleChar125IndexRouteImport } from './routes/{-$locale}/index'
@@ -26,12 +29,15 @@ import { Route as Char123LocaleChar125DemoRouteImport } from './routes/{-$locale
 import { Route as Char123LocaleChar125I18nSeoScannerRouteImport } from './routes/{-$locale}/i18n-seo-scanner'
 import { Route as Char123LocaleChar125TmsRouteImport } from './routes/{-$locale}/tms'
 import { Route as Char123LocaleChar125TranslateRouteImport } from './routes/{-$locale}/translate'
+import { Route as DotwellKnownAgentSkillsIndexDotjsonRouteImport } from './routes/[.]well-known/agent-skills/index[.]json'
+import { Route as DotwellKnownMcpServerCardDotjsonRouteImport } from './routes/[.]well-known/mcp/server-card[.]json'
 import { Route as ApiProxyAhrefsAnalyticsRouteImport } from './routes/api/proxy/ahrefs-analytics'
 import { Route as Char123LocaleChar125DocsPrivacyNoticeRouteImport } from './routes/{-$locale}/_docs/privacy-notice'
 import { Route as Char123LocaleChar125DocsPrivacyNoticeDotmdRouteImport } from './routes/{-$locale}/_docs/privacy-notice[.]md'
 import { Route as Char123LocaleChar125DocsTermsOfServiceRouteImport } from './routes/{-$locale}/_docs/terms-of-service'
 import { Route as Char123LocaleChar125DocsTermsOfServiceDotmdRouteImport } from './routes/{-$locale}/_docs/terms-of-service[.]md'
 import { Route as Char123LocaleChar125PlaygroundPlaygroundRouteImport } from './routes/{-$locale}/_playground/playground'
+import { Route as DotwellKnownAgentSkillsSkillSKILLDotmdRouteImport } from './routes/[.]well-known/agent-skills/$skill/SKILL[.]md'
 import { Route as Char123LocaleChar125DocsBlogIndexRouteImport } from './routes/{-$locale}/_docs/blog/index'
 import { Route as Char123LocaleChar125DocsBlogSplatRouteImport } from './routes/{-$locale}/_docs/blog/$'
 import { Route as Char123LocaleChar125DocsBlogSearchRouteImport } from './routes/{-$locale}/_docs/blog/search'
@@ -44,6 +50,11 @@ import { Route as Char123LocaleChar125BlogRawSplatRouteImport } from './routes/{
 import { Route as Char123LocaleChar125DocRawSplatRouteImport } from './routes/{-$locale}/doc/raw/$'
 import { Route as Char123LocaleChar125FrequentQuestionsRawSplatRouteImport } from './routes/{-$locale}/frequent-questions/raw/$'
 
+const AuthDotmdRoute = AuthDotmdRouteImport.update({
+  id: '/auth.md',
+  path: '/auth.md',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const FeedDotxmlRoute = FeedDotxmlRouteImport.update({
   id: '/feed.xml',
   path: '/feed.xml',
@@ -68,6 +79,17 @@ const Char123LocaleChar125RouteRoute =
   Char123LocaleChar125RouteRouteImport.update({
     id: '/{-$locale}',
     path: '/{-$locale}',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const DotwellKnownApiCatalogRoute = DotwellKnownApiCatalogRouteImport.update({
+  id: '/.well-known/api-catalog',
+  path: '/.well-known/api-catalog',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DotwellKnownOauthProtectedResourceRoute =
+  DotwellKnownOauthProtectedResourceRouteImport.update({
+    id: '/.well-known/oauth-protected-resource',
+    path: '/.well-known/oauth-protected-resource',
     getParentRoute: () => rootRouteImport,
   } as any)
 const ApiBaiduPushRoute = ApiBaiduPushRouteImport.update({
@@ -136,6 +158,18 @@ const Char123LocaleChar125TranslateRoute =
     path: '/translate',
     getParentRoute: () => Char123LocaleChar125RouteRoute,
   } as any)
+const DotwellKnownAgentSkillsIndexDotjsonRoute =
+  DotwellKnownAgentSkillsIndexDotjsonRouteImport.update({
+    id: '/.well-known/agent-skills/index.json',
+    path: '/.well-known/agent-skills/index.json',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const DotwellKnownMcpServerCardDotjsonRoute =
+  DotwellKnownMcpServerCardDotjsonRouteImport.update({
+    id: '/.well-known/mcp/server-card.json',
+    path: '/.well-known/mcp/server-card.json',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiProxyAhrefsAnalyticsRoute = ApiProxyAhrefsAnalyticsRouteImport.update({
   id: '/api/proxy/ahrefs-analytics',
   path: '/api/proxy/ahrefs-analytics',
@@ -170,6 +204,12 @@ const Char123LocaleChar125PlaygroundPlaygroundRoute =
     id: '/playground',
     path: '/playground',
     getParentRoute: () => Char123LocaleChar125PlaygroundRouteRoute,
+  } as any)
+const DotwellKnownAgentSkillsSkillSKILLDotmdRoute =
+  DotwellKnownAgentSkillsSkillSKILLDotmdRouteImport.update({
+    id: '/.well-known/agent-skills/$skill/SKILL.md',
+    path: '/.well-known/agent-skills/$skill/SKILL.md',
+    getParentRoute: () => rootRouteImport,
   } as any)
 const Char123LocaleChar125DocsBlogIndexRoute =
   Char123LocaleChar125DocsBlogIndexRouteImport.update({
@@ -240,10 +280,13 @@ const Char123LocaleChar125FrequentQuestionsRawSplatRoute =
 
 export interface FileRoutesByFullPath {
   '/{-$locale}': typeof Char123LocaleChar125RouteRouteWithChildren
+  '/auth.md': typeof AuthDotmdRoute
   '/feed.xml': typeof FeedDotxmlRoute
   '/posts.json': typeof PostsDotjsonRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/.well-known/api-catalog': typeof DotwellKnownApiCatalogRoute
+  '/.well-known/oauth-protected-resource': typeof DotwellKnownOauthProtectedResourceRoute
   '/api/baidu-push': typeof ApiBaiduPushRoute
   '/api/health': typeof ApiHealthRoute
   '/{-$locale}/$': typeof Char123LocaleChar125SplatRoute
@@ -254,12 +297,15 @@ export interface FileRoutesByFullPath {
   '/{-$locale}/tms': typeof Char123LocaleChar125TmsRoute
   '/{-$locale}/translate': typeof Char123LocaleChar125TranslateRoute
   '/{-$locale}/': typeof Char123LocaleChar125IndexRoute
+  '/.well-known/agent-skills/index.json': typeof DotwellKnownAgentSkillsIndexDotjsonRoute
+  '/.well-known/mcp/server-card.json': typeof DotwellKnownMcpServerCardDotjsonRoute
   '/api/proxy/ahrefs-analytics': typeof ApiProxyAhrefsAnalyticsRoute
   '/{-$locale}/privacy-notice': typeof Char123LocaleChar125DocsPrivacyNoticeRoute
   '/{-$locale}/privacy-notice.md': typeof Char123LocaleChar125DocsPrivacyNoticeDotmdRoute
   '/{-$locale}/terms-of-service': typeof Char123LocaleChar125DocsTermsOfServiceRoute
   '/{-$locale}/terms-of-service.md': typeof Char123LocaleChar125DocsTermsOfServiceDotmdRoute
   '/{-$locale}/playground': typeof Char123LocaleChar125PlaygroundPlaygroundRoute
+  '/.well-known/agent-skills/$skill/SKILL.md': typeof DotwellKnownAgentSkillsSkillSKILLDotmdRoute
   '/{-$locale}/blog/$': typeof Char123LocaleChar125DocsBlogSplatRoute
   '/{-$locale}/blog/search': typeof Char123LocaleChar125DocsBlogSearchRoute
   '/{-$locale}/doc/$': typeof Char123LocaleChar125DocsDocSplatRoute
@@ -273,11 +319,14 @@ export interface FileRoutesByFullPath {
   '/{-$locale}/frequent-questions/': typeof Char123LocaleChar125DocsFrequentQuestionsIndexRoute
 }
 export interface FileRoutesByTo {
+  '/auth.md': typeof AuthDotmdRoute
   '/feed.xml': typeof FeedDotxmlRoute
   '/posts.json': typeof PostsDotjsonRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/{-$locale}': typeof Char123LocaleChar125IndexRoute
+  '/.well-known/api-catalog': typeof DotwellKnownApiCatalogRoute
+  '/.well-known/oauth-protected-resource': typeof DotwellKnownOauthProtectedResourceRoute
   '/api/baidu-push': typeof ApiBaiduPushRoute
   '/api/health': typeof ApiHealthRoute
   '/{-$locale}/$': typeof Char123LocaleChar125SplatRoute
@@ -287,12 +336,15 @@ export interface FileRoutesByTo {
   '/{-$locale}/i18n-seo-scanner': typeof Char123LocaleChar125I18nSeoScannerRoute
   '/{-$locale}/tms': typeof Char123LocaleChar125TmsRoute
   '/{-$locale}/translate': typeof Char123LocaleChar125TranslateRoute
+  '/.well-known/agent-skills/index.json': typeof DotwellKnownAgentSkillsIndexDotjsonRoute
+  '/.well-known/mcp/server-card.json': typeof DotwellKnownMcpServerCardDotjsonRoute
   '/api/proxy/ahrefs-analytics': typeof ApiProxyAhrefsAnalyticsRoute
   '/{-$locale}/privacy-notice': typeof Char123LocaleChar125DocsPrivacyNoticeRoute
   '/{-$locale}/privacy-notice.md': typeof Char123LocaleChar125DocsPrivacyNoticeDotmdRoute
   '/{-$locale}/terms-of-service': typeof Char123LocaleChar125DocsTermsOfServiceRoute
   '/{-$locale}/terms-of-service.md': typeof Char123LocaleChar125DocsTermsOfServiceDotmdRoute
   '/{-$locale}/playground': typeof Char123LocaleChar125PlaygroundPlaygroundRoute
+  '/.well-known/agent-skills/$skill/SKILL.md': typeof DotwellKnownAgentSkillsSkillSKILLDotmdRoute
   '/{-$locale}/blog/$': typeof Char123LocaleChar125DocsBlogSplatRoute
   '/{-$locale}/blog/search': typeof Char123LocaleChar125DocsBlogSearchRoute
   '/{-$locale}/doc/$': typeof Char123LocaleChar125DocsDocSplatRoute
@@ -308,12 +360,15 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/{-$locale}': typeof Char123LocaleChar125RouteRouteWithChildren
+  '/auth.md': typeof AuthDotmdRoute
   '/feed.xml': typeof FeedDotxmlRoute
   '/posts.json': typeof PostsDotjsonRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/{-$locale}/_docs': typeof Char123LocaleChar125DocsRouteRouteWithChildren
   '/{-$locale}/_playground': typeof Char123LocaleChar125PlaygroundRouteRouteWithChildren
+  '/.well-known/api-catalog': typeof DotwellKnownApiCatalogRoute
+  '/.well-known/oauth-protected-resource': typeof DotwellKnownOauthProtectedResourceRoute
   '/api/baidu-push': typeof ApiBaiduPushRoute
   '/api/health': typeof ApiHealthRoute
   '/{-$locale}/$': typeof Char123LocaleChar125SplatRoute
@@ -324,12 +379,15 @@ export interface FileRoutesById {
   '/{-$locale}/tms': typeof Char123LocaleChar125TmsRoute
   '/{-$locale}/translate': typeof Char123LocaleChar125TranslateRoute
   '/{-$locale}/': typeof Char123LocaleChar125IndexRoute
+  '/.well-known/agent-skills/index.json': typeof DotwellKnownAgentSkillsIndexDotjsonRoute
+  '/.well-known/mcp/server-card.json': typeof DotwellKnownMcpServerCardDotjsonRoute
   '/api/proxy/ahrefs-analytics': typeof ApiProxyAhrefsAnalyticsRoute
   '/{-$locale}/_docs/privacy-notice': typeof Char123LocaleChar125DocsPrivacyNoticeRoute
   '/{-$locale}/_docs/privacy-notice.md': typeof Char123LocaleChar125DocsPrivacyNoticeDotmdRoute
   '/{-$locale}/_docs/terms-of-service': typeof Char123LocaleChar125DocsTermsOfServiceRoute
   '/{-$locale}/_docs/terms-of-service.md': typeof Char123LocaleChar125DocsTermsOfServiceDotmdRoute
   '/{-$locale}/_playground/playground': typeof Char123LocaleChar125PlaygroundPlaygroundRoute
+  '/.well-known/agent-skills/$skill/SKILL.md': typeof DotwellKnownAgentSkillsSkillSKILLDotmdRoute
   '/{-$locale}/_docs/blog/$': typeof Char123LocaleChar125DocsBlogSplatRoute
   '/{-$locale}/_docs/blog/search': typeof Char123LocaleChar125DocsBlogSearchRoute
   '/{-$locale}/_docs/doc/$': typeof Char123LocaleChar125DocsDocSplatRoute
@@ -346,10 +404,13 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/{-$locale}'
+    | '/auth.md'
     | '/feed.xml'
     | '/posts.json'
     | '/robots.txt'
     | '/sitemap.xml'
+    | '/.well-known/api-catalog'
+    | '/.well-known/oauth-protected-resource'
     | '/api/baidu-push'
     | '/api/health'
     | '/{-$locale}/$'
@@ -360,12 +421,15 @@ export interface FileRouteTypes {
     | '/{-$locale}/tms'
     | '/{-$locale}/translate'
     | '/{-$locale}/'
+    | '/.well-known/agent-skills/index.json'
+    | '/.well-known/mcp/server-card.json'
     | '/api/proxy/ahrefs-analytics'
     | '/{-$locale}/privacy-notice'
     | '/{-$locale}/privacy-notice.md'
     | '/{-$locale}/terms-of-service'
     | '/{-$locale}/terms-of-service.md'
     | '/{-$locale}/playground'
+    | '/.well-known/agent-skills/$skill/SKILL.md'
     | '/{-$locale}/blog/$'
     | '/{-$locale}/blog/search'
     | '/{-$locale}/doc/$'
@@ -379,11 +443,14 @@ export interface FileRouteTypes {
     | '/{-$locale}/frequent-questions/'
   fileRoutesByTo: FileRoutesByTo
   to:
+    | '/auth.md'
     | '/feed.xml'
     | '/posts.json'
     | '/robots.txt'
     | '/sitemap.xml'
     | '/{-$locale}'
+    | '/.well-known/api-catalog'
+    | '/.well-known/oauth-protected-resource'
     | '/api/baidu-push'
     | '/api/health'
     | '/{-$locale}/$'
@@ -393,12 +460,15 @@ export interface FileRouteTypes {
     | '/{-$locale}/i18n-seo-scanner'
     | '/{-$locale}/tms'
     | '/{-$locale}/translate'
+    | '/.well-known/agent-skills/index.json'
+    | '/.well-known/mcp/server-card.json'
     | '/api/proxy/ahrefs-analytics'
     | '/{-$locale}/privacy-notice'
     | '/{-$locale}/privacy-notice.md'
     | '/{-$locale}/terms-of-service'
     | '/{-$locale}/terms-of-service.md'
     | '/{-$locale}/playground'
+    | '/.well-known/agent-skills/$skill/SKILL.md'
     | '/{-$locale}/blog/$'
     | '/{-$locale}/blog/search'
     | '/{-$locale}/doc/$'
@@ -413,12 +483,15 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/{-$locale}'
+    | '/auth.md'
     | '/feed.xml'
     | '/posts.json'
     | '/robots.txt'
     | '/sitemap.xml'
     | '/{-$locale}/_docs'
     | '/{-$locale}/_playground'
+    | '/.well-known/api-catalog'
+    | '/.well-known/oauth-protected-resource'
     | '/api/baidu-push'
     | '/api/health'
     | '/{-$locale}/$'
@@ -429,12 +502,15 @@ export interface FileRouteTypes {
     | '/{-$locale}/tms'
     | '/{-$locale}/translate'
     | '/{-$locale}/'
+    | '/.well-known/agent-skills/index.json'
+    | '/.well-known/mcp/server-card.json'
     | '/api/proxy/ahrefs-analytics'
     | '/{-$locale}/_docs/privacy-notice'
     | '/{-$locale}/_docs/privacy-notice.md'
     | '/{-$locale}/_docs/terms-of-service'
     | '/{-$locale}/_docs/terms-of-service.md'
     | '/{-$locale}/_playground/playground'
+    | '/.well-known/agent-skills/$skill/SKILL.md'
     | '/{-$locale}/_docs/blog/$'
     | '/{-$locale}/_docs/blog/search'
     | '/{-$locale}/_docs/doc/$'
@@ -450,17 +526,30 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   Char123LocaleChar125RouteRoute: typeof Char123LocaleChar125RouteRouteWithChildren
+  AuthDotmdRoute: typeof AuthDotmdRoute
   FeedDotxmlRoute: typeof FeedDotxmlRoute
   PostsDotjsonRoute: typeof PostsDotjsonRoute
   RobotsDottxtRoute: typeof RobotsDottxtRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  DotwellKnownApiCatalogRoute: typeof DotwellKnownApiCatalogRoute
+  DotwellKnownOauthProtectedResourceRoute: typeof DotwellKnownOauthProtectedResourceRoute
   ApiBaiduPushRoute: typeof ApiBaiduPushRoute
   ApiHealthRoute: typeof ApiHealthRoute
+  DotwellKnownAgentSkillsIndexDotjsonRoute: typeof DotwellKnownAgentSkillsIndexDotjsonRoute
+  DotwellKnownMcpServerCardDotjsonRoute: typeof DotwellKnownMcpServerCardDotjsonRoute
   ApiProxyAhrefsAnalyticsRoute: typeof ApiProxyAhrefsAnalyticsRoute
+  DotwellKnownAgentSkillsSkillSKILLDotmdRoute: typeof DotwellKnownAgentSkillsSkillSKILLDotmdRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/auth.md': {
+      id: '/auth.md'
+      path: '/auth.md'
+      fullPath: '/auth.md'
+      preLoaderRoute: typeof AuthDotmdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/feed.xml': {
       id: '/feed.xml'
       path: '/feed.xml'
@@ -494,6 +583,20 @@ declare module '@tanstack/react-router' {
       path: '/{-$locale}'
       fullPath: '/{-$locale}'
       preLoaderRoute: typeof Char123LocaleChar125RouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/.well-known/api-catalog': {
+      id: '/.well-known/api-catalog'
+      path: '/.well-known/api-catalog'
+      fullPath: '/.well-known/api-catalog'
+      preLoaderRoute: typeof DotwellKnownApiCatalogRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/.well-known/oauth-protected-resource': {
+      id: '/.well-known/oauth-protected-resource'
+      path: '/.well-known/oauth-protected-resource'
+      fullPath: '/.well-known/oauth-protected-resource'
+      preLoaderRoute: typeof DotwellKnownOauthProtectedResourceRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/baidu-push': {
@@ -580,6 +683,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char123LocaleChar125TranslateRouteImport
       parentRoute: typeof Char123LocaleChar125RouteRoute
     }
+    '/.well-known/agent-skills/index.json': {
+      id: '/.well-known/agent-skills/index.json'
+      path: '/.well-known/agent-skills/index.json'
+      fullPath: '/.well-known/agent-skills/index.json'
+      preLoaderRoute: typeof DotwellKnownAgentSkillsIndexDotjsonRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/.well-known/mcp/server-card.json': {
+      id: '/.well-known/mcp/server-card.json'
+      path: '/.well-known/mcp/server-card.json'
+      fullPath: '/.well-known/mcp/server-card.json'
+      preLoaderRoute: typeof DotwellKnownMcpServerCardDotjsonRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/proxy/ahrefs-analytics': {
       id: '/api/proxy/ahrefs-analytics'
       path: '/api/proxy/ahrefs-analytics'
@@ -621,6 +738,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/{-$locale}/playground'
       preLoaderRoute: typeof Char123LocaleChar125PlaygroundPlaygroundRouteImport
       parentRoute: typeof Char123LocaleChar125PlaygroundRouteRoute
+    }
+    '/.well-known/agent-skills/$skill/SKILL.md': {
+      id: '/.well-known/agent-skills/$skill/SKILL.md'
+      path: '/.well-known/agent-skills/$skill/SKILL.md'
+      fullPath: '/.well-known/agent-skills/$skill/SKILL.md'
+      preLoaderRoute: typeof DotwellKnownAgentSkillsSkillSKILLDotmdRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/{-$locale}/_docs/blog/': {
       id: '/{-$locale}/_docs/blog/'
@@ -810,13 +934,22 @@ const Char123LocaleChar125RouteRouteWithChildren =
 
 const rootRouteChildren: RootRouteChildren = {
   Char123LocaleChar125RouteRoute: Char123LocaleChar125RouteRouteWithChildren,
+  AuthDotmdRoute: AuthDotmdRoute,
   FeedDotxmlRoute: FeedDotxmlRoute,
   PostsDotjsonRoute: PostsDotjsonRoute,
   RobotsDottxtRoute: RobotsDottxtRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  DotwellKnownApiCatalogRoute: DotwellKnownApiCatalogRoute,
+  DotwellKnownOauthProtectedResourceRoute:
+    DotwellKnownOauthProtectedResourceRoute,
   ApiBaiduPushRoute: ApiBaiduPushRoute,
   ApiHealthRoute: ApiHealthRoute,
+  DotwellKnownAgentSkillsIndexDotjsonRoute:
+    DotwellKnownAgentSkillsIndexDotjsonRoute,
+  DotwellKnownMcpServerCardDotjsonRoute: DotwellKnownMcpServerCardDotjsonRoute,
   ApiProxyAhrefsAnalyticsRoute: ApiProxyAhrefsAnalyticsRoute,
+  DotwellKnownAgentSkillsSkillSKILLDotmdRoute:
+    DotwellKnownAgentSkillsSkillSKILLDotmdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

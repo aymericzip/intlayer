@@ -8,6 +8,12 @@ import {
   App_Dashboard,
   App_Onboarding,
   App_Pricing,
+  LlmsTxt_Path,
+  Website_Doc_Root_Path,
+  WellKnown_AgentSkillsIndex_Path,
+  WellKnown_ApiCatalog_Path,
+  WellKnown_McpServerCard_Path,
+  WellKnown_OAuthProtectedResource_Path,
 } from '@intlayer/design-system/routes';
 import type { NextConfig } from 'next';
 import { withIntlayer } from 'next-intlayer/server';
@@ -137,7 +143,53 @@ const secureHeaders = {
   referrerPolicy: 'same-origin',
 } satisfies Parameters<typeof createSecureHeaders>[0];
 
+/**
+ * Web-linking (RFC 8288) entry points advertised on every page response, so an
+ * agent that fetches a single URL discovers the machine-readable resources
+ * without having to guess well-known paths or parse HTML.
+ *
+ * Every relation used here is IANA-registered: `api-catalog` (RFC 9727),
+ * `service-doc` (RFC 8631), `describedby` (W3C) and `oauth-protected-resource`
+ * (RFC 9728).
+ */
+const agentDiscoveryLinks: { url: string; rel: string; type?: string }[] = [
+  {
+    url: WellKnown_ApiCatalog_Path,
+    rel: 'api-catalog',
+    type: 'application/linkset+json',
+  },
+  { url: Website_Doc_Root_Path, rel: 'service-doc', type: 'text/html' },
+  { url: LlmsTxt_Path, rel: 'describedby', type: 'text/plain' },
+  {
+    url: WellKnown_AgentSkillsIndex_Path,
+    rel: 'describedby',
+    type: 'application/json',
+  },
+  {
+    url: WellKnown_McpServerCard_Path,
+    rel: 'describedby',
+    type: 'application/json',
+  },
+  {
+    url: WellKnown_OAuthProtectedResource_Path,
+    rel: 'oauth-protected-resource',
+    type: 'application/json',
+  },
+];
+
+/**
+ * Serializes the discovery links into a single comma-separated `Link` header
+ * value, as permitted by RFC 8288 section 3.
+ */
+const agentDiscoveryLinkHeader = agentDiscoveryLinks
+  .map(
+    ({ url, rel, type }) =>
+      `<${url}>; rel="${rel}"${type ? `; type="${type}"` : ''}`
+  )
+  .join(', ');
+
 const globalHeaders = [
+  { key: 'Link', value: agentDiscoveryLinkHeader },
   { key: 'Cross-Origin-Opener-Policy', value: 'same-origin' },
   { key: 'Cross-Origin-Embedder-Policy', value: 'same-origin' },
   {

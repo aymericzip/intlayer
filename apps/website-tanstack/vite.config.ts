@@ -1,5 +1,13 @@
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import {
+  LlmsTxt_Path,
+  Website_Doc_Root_Path,
+  WellKnown_AgentSkillsIndex_Path,
+  WellKnown_ApiCatalog_Path,
+  WellKnown_McpServerCard_Path,
+  WellKnown_OAuthProtectedResource_Path,
+} from '@intlayer/design-system/routes';
 import babel from '@rolldown/plugin-babel';
 import tailwindcss from '@tailwindcss/vite';
 import { tanstackStart } from '@tanstack/react-start/plugin/vite';
@@ -16,6 +24,42 @@ import {
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+
+/**
+ * Web-linking (RFC 8288) entry points advertised on every page response, so an
+ * agent that fetches a single URL discovers the machine-readable resources
+ * without having to guess well-known paths or parse HTML.
+ *
+ * Every relation used here is IANA-registered: `api-catalog` (RFC 9727),
+ * `service-doc` (RFC 8631), `describedby` (W3C) and `oauth-protected-resource`
+ * (RFC 9728).
+ */
+const agentDiscoveryLinkHeader = [
+  {
+    url: WellKnown_ApiCatalog_Path,
+    rel: 'api-catalog',
+    type: 'application/linkset+json',
+  },
+  { url: Website_Doc_Root_Path, rel: 'service-doc', type: 'text/html' },
+  { url: LlmsTxt_Path, rel: 'describedby', type: 'text/plain' },
+  {
+    url: WellKnown_AgentSkillsIndex_Path,
+    rel: 'describedby',
+    type: 'application/json',
+  },
+  {
+    url: WellKnown_McpServerCard_Path,
+    rel: 'describedby',
+    type: 'application/json',
+  },
+  {
+    url: WellKnown_OAuthProtectedResource_Path,
+    rel: 'oauth-protected-resource',
+    type: 'application/json',
+  },
+]
+  .map(({ url, rel, type }) => `<${url}>; rel="${rel}"; type="${type}"`)
+  .join(', ');
 
 const rawMarkdownPlugin = {
   name: 'raw-markdown-plugin',
@@ -34,12 +78,52 @@ const rawMarkdownPlugin = {
 const MD_REWRITE_PATTERN =
   /^(\/[a-z]{2}(?:-[A-Z]{2})?)?\/(doc|blog|frequent-questions)\/(.+?)\.md(\?.*)?$/;
 
+/**
+ * Same rewrite, driven by content negotiation instead of a `.md` suffix, so a
+ * documentation URL answers with markdown when an agent asks for it while the
+ * address stays unchanged. Mirrors `server/middleware/0.mdAcceptRewrite.ts`,
+ * which performs the production-side rewrite.
+ */
+const MD_ACCEPT_PATTERN =
+  /^(\/[a-z]{2}(?:-[A-Z]{2})?)?\/(doc|blog|frequent-questions)\/([^?]+)(\?.*)?$/;
+
+const NON_DOCUMENT_PATHS = new Set(['doc/search', 'doc/chat']);
+
+/** Compares Accept quality values so a browser is never served markdown. */
+const prefersMarkdown = (acceptHeader: string | undefined): boolean => {
+  if (!acceptHeader) return false;
+
+  let markdownQuality = 0;
+  let htmlQuality = 0;
+
+  for (const entry of acceptHeader.split(',')) {
+    const trimmed = entry.trim();
+    const mediaType = trimmed.split(';')[0]?.trim().toLowerCase();
+    const rawQuality = trimmed.match(/;\s*q=([0-9.]+)/)?.[1];
+    const parsedQuality =
+      rawQuality === undefined ? 1 : Number.parseFloat(rawQuality);
+    const quality = Number.isNaN(parsedQuality) ? 1 : parsedQuality;
+
+    if (mediaType === 'text/markdown') {
+      markdownQuality = Math.max(markdownQuality, quality);
+    } else if (mediaType === 'text/html') {
+      htmlQuality = Math.max(htmlQuality, quality);
+    }
+  }
+
+  return markdownQuality > 0 && markdownQuality >= htmlQuality;
+};
+
 const mdRawRewritePlugin = {
   name: 'md-raw-rewrite',
   configureServer(server: {
     middlewares: {
       use: (
-        fn: (req: { url?: string }, _: unknown, next: () => void) => void
+        fn: (
+          req: { url?: string; headers?: Record<string, unknown> },
+          _: unknown,
+          next: () => void
+        ) => void
       ) => void;
     };
   }) {
@@ -52,6 +136,26 @@ const mdRawRewritePlugin = {
         const slug = match[3];
         const query = match[4] ?? '';
         req.url = `${locale}/${section}/raw/${slug}${query}`;
+        next();
+        return;
+      }
+
+      const accept = req.headers?.accept;
+      if (prefersMarkdown(typeof accept === 'string' ? accept : undefined)) {
+        const acceptMatch = url.match(MD_ACCEPT_PATTERN);
+        if (acceptMatch) {
+          const locale = acceptMatch[1] ?? '';
+          const section = acceptMatch[2];
+          const slug = acceptMatch[3];
+          const query = acceptMatch[4] ?? '';
+
+          if (
+            !slug.startsWith('raw/') &&
+            !NON_DOCUMENT_PATHS.has(`${section}/${slug}`)
+          ) {
+            req.url = `${locale}/${section}/raw/${slug}${query}`;
+          }
+        }
       }
       next();
     });
@@ -179,6 +283,7 @@ export default defineConfig(async ({ mode }) => {
     .join('; ');
 
   const headers = {
+    Link: agentDiscoveryLinkHeader,
     'Content-Security-Policy': cspString,
     'Cross-Origin-Opener-Policy': 'same-origin',
     'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',

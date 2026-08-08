@@ -25,7 +25,7 @@ For a better experience, we recommend using the **Intlayer MCP Server**. It prov
 ### Usage
 
 - **Local server (stdio):** `npx -y @intlayer/mcp`
-- **Remote server (SSE):** `https://mcp.intlayer.org`
+- **Remote server (Streamable HTTP):** `https://mcp.intlayer.org`
 
 For more information, see the [Intlayer MCP Server documentation](https://intlayer.org/doc/mcp-server.md).
 

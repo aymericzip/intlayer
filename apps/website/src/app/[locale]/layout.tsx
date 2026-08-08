@@ -1,3 +1,4 @@
+import { WebMCPTools } from '@components/WebMCP';
 import type { FC, PropsWithChildren } from 'react';
 import { AppProviders } from '@/providers/AppProviders';
 
@@ -13,6 +14,8 @@ const RootLayout: FC<PropsWithChildren> = ({ children }) => (
       title="Intlayer RSS Feed"
       href="/feed.xml"
     />
+    {/* Exposes the documentation to agents via the WebMCP browser API */}
+    <WebMCPTools />
     {children}
   </AppProviders>
 );

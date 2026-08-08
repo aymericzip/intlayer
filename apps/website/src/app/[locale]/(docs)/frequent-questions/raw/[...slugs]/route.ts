@@ -2,6 +2,7 @@ import {
   getFrequentQuestion,
   getFrequentQuestionMetadataBySlug,
 } from '@intlayer/docs';
+import { prefersMarkdown } from '@utils/markdownNegotiation';
 
 type RouteContext = {
   params: {
@@ -56,8 +57,13 @@ export async function GET(request: Request, context: RouteContext) {
     };
 
     // Decide representation from explicit query first, then Accept header
+    // `prefersMarkdown` compares quality values, so an agent sending
+    // `text/markdown,text/html;q=0.9` is not mistaken for a browser.
     const wantsHtml =
-      format === 'html' || (format === '' && accept.includes('text/html'));
+      format === 'html' ||
+      (format === '' &&
+        !prefersMarkdown(accept) &&
+        accept.includes('text/html'));
     const wantsText =
       format === 'txt' ||
       (format === '' &&
@@ -134,11 +140,15 @@ export async function HEAD(request: Request, context: RouteContext) {
         ? 'text/html; charset=utf-8'
         : format === 'txt'
           ? 'text/plain; charset=utf-8'
-          : accept.includes('text/html')
-            ? 'text/html; charset=utf-8'
-            : accept.includes('text/plain') || accept.includes('*/*')
-              ? 'text/plain; charset=utf-8'
-              : 'text/markdown; charset=utf-8';
+          : // An explicit `format=md`, or an Accept header that ranks markdown
+            // above HTML, pins markdown so HEAD keeps agreeing with GET.
+            format === 'md' || format === 'markdown' || prefersMarkdown(accept)
+            ? 'text/markdown; charset=utf-8'
+            : accept.includes('text/html')
+              ? 'text/html; charset=utf-8'
+              : accept.includes('text/plain') || accept.includes('*/*')
+                ? 'text/plain; charset=utf-8'
+                : 'text/markdown; charset=utf-8';
 
     return new Response(null, {
       status: 200,

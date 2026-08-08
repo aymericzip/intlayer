@@ -1,6 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { defaultLocale } from 'intlayer';
 import { loadBlogRaw } from '~/serverFunctions/blog';
+import { prefersMarkdown } from '~/utils/markdownNegotiation';
 
 export const Route = createFileRoute('/{-$locale}/blog/raw/$')({
   server: {
@@ -37,9 +38,13 @@ export const Route = createFileRoute('/{-$locale}/blog/raw/$')({
           };
 
           const isHead = request.method.toUpperCase() === 'HEAD';
+          // `prefersMarkdown` compares quality values, so an agent sending
+          // `text/markdown,text/html;q=0.9` is not mistaken for a browser.
           const wantsHtml =
             format === 'html' ||
-            (format === '' && accept.includes('text/html'));
+            (format === '' &&
+              !prefersMarkdown(accept) &&
+              accept.includes('text/html'));
           const wantsText =
             format === 'txt' ||
             (format === '' &&

@@ -10,6 +10,7 @@ import { defaultLocale, getHTMLTextDir } from 'intlayer';
 import { IntlayerProvider } from 'react-intlayer';
 import { ChunkErrorListener } from '~/components/ChunkErrorListener';
 import { ServiceWorkerSubscriber } from '~/components/ServiceWorker/ServiceWorkerSubscriber';
+import { WebMCPTools } from '~/components/WebMCP';
 import appCss from '~/globals.css?url';
 import { AnimatePresenceProvider } from '~/providers/AnimatePresenceProvider';
 import { FirstConsultationProvider } from '~/providers/FirstConsultationProvider';
@@ -116,6 +117,8 @@ function RootDocument({ children }: { children: React.ReactNode }) {
               <Toaster />
               <ChunkErrorListener />
               <ServiceWorkerSubscriber />
+              {/* Exposes the documentation to agents via the WebMCP browser API */}
+              <WebMCPTools />
               {import.meta.env.VITE_AHREFS_KEY && (
                 <script
                   async

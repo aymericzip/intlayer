@@ -57,6 +57,7 @@ import { stripeRoute, stripeRouter } from '@routes/stripe.routes';
 import { tagRoute, tagRouter } from '@routes/tags.routes';
 import { translateRoute, translationRouter } from '@routes/translate.routes';
 import { userRoute, userRouter } from '@routes/user.routes';
+import { registerWellKnownRoutes } from '@routes/wellKnown.routes';
 import { processAuditJobs } from '@services/audit/recursiveAudit.service';
 import { startTranslationWorker } from '@services/translationWorker.service';
 // Utils
@@ -202,6 +203,11 @@ const startServer = async () => {
   app.get('/health', async (_request, reply) => {
     return reply.status(200).send({ status: 'ok' });
   });
+
+  // OAuth discovery documents. Registered before the auth hooks below so they
+  // stay publicly readable — a client must be able to read them precisely
+  // because it does not yet hold a token.
+  registerWellKnownRoutes(app);
 
   // Session Auth
   const auth = initializeAuth(dbClient as any);

@@ -4,6 +4,8 @@
 export const App_Domain = 'app.intlayer.org' as const;
 export const Website_Domain = 'intlayer.org' as const;
 export const Showcase_Domain = 'showcase.intlayer.org' as const;
+export const Backend_Domain = 'back.intlayer.org' as const;
+export const Mcp_Domain = 'mcp.intlayer.org' as const;
 
 // ============================================================
 // App paths — relative (app.intlayer.org)
@@ -485,6 +487,39 @@ export const Showcase_Submit_Path = '/submit' as const;
 export const Showcase_Root = `https://${Showcase_Domain}` as const;
 export const Showcase_Submit =
   `https://${Showcase_Domain}${Showcase_Submit_Path}` as const;
+
+// ============================================================
+// Backend absolute URLs — https://back.intlayer.org
+// ============================================================
+export const Backend_Root = `https://${Backend_Domain}` as const;
+export const Backend_Health = `https://${Backend_Domain}/health` as const;
+export const Backend_OAuth2_Token =
+  `https://${Backend_Domain}/oauth2/token` as const;
+
+// ============================================================
+// MCP absolute URLs — https://mcp.intlayer.org
+// ============================================================
+export const Mcp_Root = `https://${Mcp_Domain}` as const;
+export const Mcp_Sse = `https://${Mcp_Domain}/sse` as const;
+
+// ============================================================
+// Agent discovery paths — relative
+//
+// Well-known documents that let AI agents discover the site's APIs,
+// skills and authentication without scraping HTML.
+// ============================================================
+export const WellKnown_ApiCatalog_Path = '/.well-known/api-catalog' as const;
+export const WellKnown_OAuthProtectedResource_Path =
+  '/.well-known/oauth-protected-resource' as const;
+export const WellKnown_OAuthAuthorizationServer_Path =
+  '/.well-known/oauth-authorization-server' as const;
+export const WellKnown_McpServerCard_Path =
+  '/.well-known/mcp/server-card.json' as const;
+export const WellKnown_AgentSkills_Path = '/.well-known/agent-skills' as const;
+export const WellKnown_AgentSkillsIndex_Path =
+  `${WellKnown_AgentSkills_Path}/index.json` as const;
+export const AuthMd_Path = '/auth.md' as const;
+export const LlmsTxt_Path = '/llms.txt' as const;
 
 // ============================================================
 // External links
