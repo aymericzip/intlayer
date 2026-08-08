@@ -2,6 +2,10 @@ import { DocPageLayout } from '@components/DocPage/DocPageLayout';
 import { getDocData } from '@components/DocPage/docData';
 import { getImageWithMetadata } from '@components/getImageWithMetadata';
 import { getDocMetadataBySlug } from '@intlayer/docs';
+import {
+  getSlugsStaticParams,
+  type SlugsStaticParams,
+} from '@utils/docMetadata';
 import { getLocalizedUrl, getMultilingualUrls, Locales } from 'intlayer';
 import type { Metadata } from 'next';
 import type { LocalPromiseParams, NextLayoutIntlayer } from 'next-intlayer';
@@ -12,12 +16,10 @@ export type DocProps = {
 
 export type DocPageProps = LocalPromiseParams<DocProps>;
 
-export const generateStaticParams = async () => {
+export const generateStaticParams = async (): Promise<SlugsStaticParams[]> => {
   const docMetadata = await getDocMetadataBySlug([]);
 
-  const slugList: string[][] = docMetadata.map((meta) => meta.slugs);
-
-  return slugList;
+  return getSlugsStaticParams(docMetadata);
 };
 
 export const generateMetadata = async ({

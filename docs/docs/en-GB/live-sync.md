@@ -12,6 +12,10 @@ keywords:
   - Intlayer
   - Next.js
   - Vite
+slugs:
+  - doc
+  - concept
+  - live-sync
 history:
   - version: 9.0.0
     date: 2026-07-08

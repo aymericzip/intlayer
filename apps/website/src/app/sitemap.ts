@@ -18,14 +18,19 @@ import {
   getFrequentQuestionMetadataBySlug,
   getLegalMetadataBySlug,
 } from '@intlayer/docs';
+import { filterRoutableFiles } from '@utils/docMetadata';
 import { getMultilingualUrls } from 'intlayer';
 import type { MetadataRoute } from 'next';
 
 const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
-  const docs = await getDocMetadataBySlug([]);
-  const blob = await getBlogMetadataBySlug([]);
-  const legal = await getLegalMetadataBySlug([]);
-  const frequentQuestions = await getFrequentQuestionMetadataBySlug([]);
+  // Files without `slugs` front matter (`readme.md`…) resolve to the home page
+  // URL, so they are filtered out to avoid duplicating it in the sitemap.
+  const docs = filterRoutableFiles(await getDocMetadataBySlug([]));
+  const blob = filterRoutableFiles(await getBlogMetadataBySlug([]));
+  const legal = filterRoutableFiles(await getLegalMetadataBySlug([]));
+  const frequentQuestions = filterRoutableFiles(
+    await getFrequentQuestionMetadataBySlug([])
+  );
 
   const legalSitemap: MetadataRoute.Sitemap = legal.map((legal) => ({
     url: legal.url,

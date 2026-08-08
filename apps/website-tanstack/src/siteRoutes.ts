@@ -24,6 +24,21 @@ const toISO = (date: Date | string): string =>
   date instanceof Date ? date.toISOString() : date;
 
 /**
+ * Keeps only the files exposed as their own page.
+ *
+ * A markdown file without `slugs` front matter — `readme.md`, or a page still
+ * being drafted — resolves to a `relativeUrl` of `/`, which would otherwise
+ * duplicate the home page in the sitemap and in the prerender list.
+ *
+ * @param filesMetadata - Metadata of every file of a documentation section.
+ * @returns The metadata of the files owning a dedicated URL.
+ */
+const filterRoutableFiles = <FileMetadataType extends { slugs: string[] }>(
+  filesMetadata: FileMetadataType[]
+): FileMetadataType[] =>
+  filesMetadata.filter((fileMetadata) => fileMetadata.slugs.length > 0);
+
+/**
  * Static sitemap entries shared between the sitemap route and prerender config.
  * `lastmod` is omitted here and added dynamically at call time.
  */
@@ -70,10 +85,10 @@ export async function buildSitemapEntries(): Promise<SitemapUrlEntry[]> {
   const now = new Date().toISOString();
 
   const [docs, blogs, legal, frequentQuestions] = await Promise.all([
-    getDocMetadataBySlug([]),
-    getBlogMetadataBySlug([]),
-    getLegalMetadataBySlug([]),
-    getFrequentQuestionMetadataBySlug([]),
+    getDocMetadataBySlug([]).then(filterRoutableFiles),
+    getBlogMetadataBySlug([]).then(filterRoutableFiles),
+    getLegalMetadataBySlug([]).then(filterRoutableFiles),
+    getFrequentQuestionMetadataBySlug([]).then(filterRoutableFiles),
   ]);
 
   return [
@@ -111,10 +126,10 @@ export async function buildSitemapEntries(): Promise<SitemapUrlEntry[]> {
  */
 export async function buildDynamicPrerenderPaths(): Promise<string[]> {
   const [docs, blogs, legal, frequentQuestions] = await Promise.all([
-    getDocMetadataBySlug([]),
-    getBlogMetadataBySlug([]),
-    getLegalMetadataBySlug([]),
-    getFrequentQuestionMetadataBySlug([]),
+    getDocMetadataBySlug([]).then(filterRoutableFiles),
+    getBlogMetadataBySlug([]).then(filterRoutableFiles),
+    getLegalMetadataBySlug([]).then(filterRoutableFiles),
+    getFrequentQuestionMetadataBySlug([]).then(filterRoutableFiles),
   ]);
 
   return [

@@ -1,6 +1,10 @@
 import { BlogPageLayout } from '@components/BlogPage/BlogPageLayout';
 import { getBlogData } from '@components/BlogPage/blogData';
 import { getBlogMetadataBySlug } from '@intlayer/docs';
+import {
+  getSlugsStaticParams,
+  type SlugsStaticParams,
+} from '@utils/docMetadata';
 import { getLocalizedUrl, getMultilingualUrls, Locales } from 'intlayer';
 import type { Metadata } from 'next';
 import type { LocalPromiseParams, NextLayoutIntlayer } from 'next-intlayer';
@@ -11,12 +15,10 @@ export type BlogProps = {
 
 export type BlogPageProps = LocalPromiseParams<BlogProps>;
 
-export const generateStaticParams = async () => {
+export const generateStaticParams = async (): Promise<SlugsStaticParams[]> => {
   const blogMetadata = await getBlogMetadataBySlug([]);
 
-  const slugList: string[][] = blogMetadata.map((meta) => meta.slugs);
-
-  return slugList;
+  return getSlugsStaticParams(blogMetadata);
 };
 
 export const generateMetadata = async ({
