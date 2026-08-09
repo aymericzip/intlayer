@@ -10,6 +10,8 @@ export * from './mergeQualifiedDictionaries';
 export * from './normalizeDictionary';
 export * from './orderDictionaries';
 export * from './qualifiedDictionary';
+export * from './qualifiedDictionaryDeclaration';
+export * from './qualifiedDynamicLoader';
 export * from './removeContentNodeByKeyPath';
 export * from './renameContentNodeByKeyPath';
 export * from './updateNodeChildren';

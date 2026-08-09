@@ -9,10 +9,12 @@ import { mergeDictionaries } from './mergeDictionaries';
 import {
   COMPOSITE_ID_SEPARATOR,
   DEFAULT_VARIANT_ID,
+} from './qualifiedDictionary';
+import {
   getDictionaryCompositeIds,
   getDictionaryQualifierTypes,
   QUALIFIER_ORDER,
-} from './qualifiedDictionary';
+} from './qualifiedDictionaryDeclaration';
 
 /**
  * Merges sibling dictionaries sharing the same key, honouring qualifiers.

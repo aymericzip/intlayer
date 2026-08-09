@@ -6,24 +6,28 @@ import { describe, expect, it } from 'vitest';
 import { t } from '../transpiler';
 import { mergeQualifiedDictionaries } from './mergeQualifiedDictionaries';
 import {
-  getDictionaryCompositeIds,
-  getDictionaryQualifierIds,
-  getDictionaryQualifierTypes,
   getDictionarySelectorCacheKey,
-  getVariantIds,
   isQualifiedDictionaryGroup,
-  isQualifiedDynamicLoaderMap,
   parseDictionarySelector,
-  QUALIFIER_DYNAMIC_TYPES_KEY,
-  type QualifiedDynamicLoaderMap,
   resolveDictionaryArgument,
   resolveProviderVariant,
   resolveQualifiedDictionary,
-  resolveQualifiedDynamicContent,
-  resolveQualifiedDynamicContentAsync,
   serializeVariant,
   serializeVariantChain,
 } from './qualifiedDictionary';
+import {
+  getDictionaryCompositeIds,
+  getDictionaryQualifierIds,
+  getDictionaryQualifierTypes,
+  getVariantIds,
+} from './qualifiedDictionaryDeclaration';
+import {
+  isQualifiedDynamicLoaderMap,
+  QUALIFIER_DYNAMIC_TYPES_KEY,
+  type QualifiedDynamicLoaderMap,
+  resolveQualifiedDynamicContent,
+  resolveQualifiedDynamicContentAsync,
+} from './qualifiedDynamicLoader';
 
 describe('getDictionaryQualifierTypes', () => {
   it('should return an empty array for an unqualified dictionary', () => {
