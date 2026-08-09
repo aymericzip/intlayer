@@ -9,6 +9,7 @@ import {
   INTLAYER_USAGE_REGEX,
   optimizeSourceFile,
   type PruneContext,
+  preserveNestedDictionaryFields,
   renameFieldsInSourceFile,
   SOURCE_FILE_REGEX,
 } from '@intlayer/babel';
@@ -21,6 +22,10 @@ import {
   getAppLogger,
 } from '@intlayer/config/logger';
 import { normalizePath } from '@intlayer/config/utils';
+import {
+  getNestedDictionaryGraph,
+  getNestedDictionaryReferences,
+} from '@intlayer/core/dictionaryManipulator';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
 import {
   buildComponentFilesList,
@@ -108,6 +113,18 @@ export const intlayerOptimize = async (
       dictionaryKeyToImportModeMap[dictionary.key] =
         dictionary.importMode ?? importMode ?? IMPORT_MODE;
     });
+
+    // Dictionaries pulled in by `nest()`: resolved at runtime by `getNesting`
+    // through the dictionary registry, never by a `useIntlayer` call site.
+    const nestedDictionaryReferences = getNestedDictionaryReferences(
+      Object.values(dictionaries)
+    );
+
+    // Dictionaries holding `nest()` references: their static import is
+    // re-pointed at the companion module carrying the nest targets.
+    const nestingDictionaryKeys = [
+      ...getNestedDictionaryGraph(Object.values(dictionaries)).keys(),
+    ];
 
     const isBuildOptimizeEnabled = (
       _config: unknown,
@@ -387,6 +404,13 @@ export const intlayerOptimize = async (
             }
           }
 
+          // Phase 2.5: Keep `nest()` targets resolvable — must run before the
+          // rename maps of Phase 4 are built.
+          preserveNestedDictionaryFields(
+            pruneContext,
+            nestedDictionaryReferences
+          );
+
           // Phase 3: Warn about untracked bindings (plain variable assignments)
           for (const [
             dictionaryKey,
@@ -664,6 +688,7 @@ export const intlayerOptimize = async (
               // runtime which reads from `dictionaries.mjs`. Emptying that module
               // would break all compat runtime lookups, so we preserve it.
               replaceDictionaryEntry: !compatCallers?.length,
+              nestingDictionaryKeys,
               dictionaryModeMap: dictionaryKeyToImportModeMap,
               isServer: options?.ssr === true,
               compatCallers,
@@ -671,6 +696,8 @@ export const intlayerOptimize = async (
           );
 
           if (!transformResult) return null;
+
+          console.log({ code: transformResult.code });
 
           return {
             code: transformResult.code,

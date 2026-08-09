@@ -4,6 +4,7 @@ import { BLUE } from '@intlayer/config/colors';
 import {
   formatDictionarySelectorEnvVar,
   formatNodeTypeToEnvVar,
+  formatOptimizedNestingEnvVar,
   getConfigEnvVars,
 } from '@intlayer/config/envVars';
 import { colorize, getAppLogger } from '@intlayer/config/logger';
@@ -153,6 +154,11 @@ export const intlayerPlugin = (
         if (isBuildCommand) {
           const dictionaries = getDictionaries(intlayerConfig);
 
+          // Mirrors the optimize plugin's own `apply` condition: the local
+          // `nest()` resolver may only be selected when that transform runs,
+          // since it is the transform that injects the nest attachment.
+          const isOptimizeEnabled = intlayerConfig.build.optimize !== false;
+
           if (Object.keys(dictionaries).length === 0) {
             appLogger(
               'No dictionaries found. Please check your configuration.',
@@ -188,6 +194,15 @@ export const intlayerPlugin = (
             // Tree shacking env var based on config
             ...formatNodeTypeToEnvVar(
               unusedNodeTypes,
+              (key) => `process.env.${key}`,
+              (value) => `"${value}"`
+            ),
+
+            // Selects the local `nest()` resolver, which reads the nest
+            // targets attached to each dictionary by the optimize transform
+            // instead of the registry that transform empties.
+            ...formatOptimizedNestingEnvVar(
+              isOptimizeEnabled,
               (key) => `process.env.${key}`,
               (value) => `"${value}"`
             ),

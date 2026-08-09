@@ -355,6 +355,33 @@ describe('babel-plugin-intlayer-optimize', () => {
     });
   });
 
+  describe('Dictionary entry replacement', () => {
+    const dictionaryEntryCode = `
+      import _hashCommon from './dictionaries/common.json' with { type: 'json' };
+      import _hashDashboard from './dictionaries/dashboard.json' with { type: 'json' };
+
+      const dictionaries = {
+        "common": _hashCommon,
+        "dashboard": _hashDashboard
+      };
+      const getDictionaries = () => dictionaries;
+
+      export { getDictionaries };
+      export default dictionaries;
+    `;
+
+    it('should empty the dictionary entry', () => {
+      const output = transform(
+        dictionaryEntryCode,
+        { replaceDictionaryEntry: true },
+        '/app/.intlayer/dictionaries.mjs'
+      );
+
+      expect(output).not.toContain('common.json');
+      expect(output).toContain('const dictionaries = {}');
+    });
+  });
+
   describe('getIntlayer', () => {
     it('should transform getIntlayer statically in static mode', () => {
       const code = `

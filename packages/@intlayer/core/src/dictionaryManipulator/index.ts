@@ -2,6 +2,7 @@ export * from './editDictionaryByKeyPath';
 export * from './getContentNodeByKeyPath';
 export * from './getDefaultNode';
 export * from './getEmptyNode';
+export * from './getNestedDictionaryReferences';
 export * from './getNodeChildren';
 export * from './getNodeType';
 export * from './mergeDictionaries';

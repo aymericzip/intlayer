@@ -5,6 +5,7 @@ import {
   createPruneContext,
   makeUsageAnalyzerBabelPlugin,
   type PruneContext,
+  preserveNestedDictionaryFields,
 } from './babel-plugin-intlayer-usage-analyzer';
 import { BABEL_PARSER_OPTIONS } from './transformers';
 
@@ -1446,5 +1447,83 @@ describe('makeUsageAnalyzerBabelPlugin', () => {
         expect(ctx.dictionaryKeyToFieldUsageMap.has('about')).toBe(false);
       });
     });
+  });
+});
+
+describe('preserveNestedDictionaryFields', () => {
+  it('should never rename fields of a nest target', () => {
+    const pruneContext = createPruneContext();
+
+    preserveNestedDictionaryFields(
+      pruneContext,
+      new Map([['common', new Set(['period'])]])
+    );
+
+    expect(pruneContext.dictionariesSkippingFieldRename.has('common')).toBe(
+      true
+    );
+  });
+
+  it('should seed a usage entry for a nest-only dictionary so it gets pruned', () => {
+    const pruneContext = createPruneContext();
+
+    preserveNestedDictionaryFields(
+      pruneContext,
+      new Map([['common', new Set(['period', 'submit'])]])
+    );
+
+    expect(pruneContext.dictionaryKeyToFieldUsageMap.get('common')).toEqual(
+      new Set(['period', 'submit'])
+    );
+  });
+
+  it('should union nested fields into an existing call-site usage entry', () => {
+    const pruneContext = createPruneContext();
+    pruneContext.dictionaryKeyToFieldUsageMap.set('common', new Set(['title']));
+
+    preserveNestedDictionaryFields(
+      pruneContext,
+      new Map([['common', new Set(['period'])]])
+    );
+
+    expect(pruneContext.dictionaryKeyToFieldUsageMap.get('common')).toEqual(
+      new Set(['title', 'period'])
+    );
+  });
+
+  it('should keep an existing "all" usage untouched', () => {
+    const pruneContext = createPruneContext();
+    pruneContext.dictionaryKeyToFieldUsageMap.set('common', 'all');
+
+    preserveNestedDictionaryFields(
+      pruneContext,
+      new Map([['common', new Set(['period'])]])
+    );
+
+    expect(pruneContext.dictionaryKeyToFieldUsageMap.get('common')).toBe('all');
+  });
+
+  it('should widen to "all" when the whole dictionary is nested', () => {
+    const pruneContext = createPruneContext();
+    pruneContext.dictionaryKeyToFieldUsageMap.set('common', new Set(['title']));
+
+    preserveNestedDictionaryFields(pruneContext, new Map([['common', 'all']]));
+
+    expect(pruneContext.dictionaryKeyToFieldUsageMap.get('common')).toBe('all');
+  });
+
+  it('should not seed a usage entry when a source file failed to parse', () => {
+    const pruneContext = createPruneContext();
+    pruneContext.hasUnparsableSourceFiles = true;
+
+    preserveNestedDictionaryFields(
+      pruneContext,
+      new Map([['common', new Set(['period'])]])
+    );
+
+    expect(pruneContext.dictionaryKeyToFieldUsageMap.has('common')).toBe(false);
+    expect(pruneContext.dictionariesSkippingFieldRename.has('common')).toBe(
+      true
+    );
   });
 });

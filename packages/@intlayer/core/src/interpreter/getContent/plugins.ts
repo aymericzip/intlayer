@@ -25,6 +25,7 @@ import { getEnumeration } from '../getEnumeration';
 import { getGender } from '../getGender';
 import { getInsertion } from '../getInsertion';
 import { type GetNestingResult, getNesting } from '../getNesting';
+import { getNesting as getNestingOptimized } from '../getNesting.optimized';
 import { getPlural } from '../getPlural';
 import { getSelect } from '../getSelect';
 import { getTranslation } from '../getTranslation';
@@ -581,6 +582,20 @@ export type NestedCond<T, S, _L> = T extends {
     : never
   : never;
 
+/**
+ * Resolver used to turn a nested node into content.
+ *
+ * Optimized builds set `INTLAYER_OPTIMIZED_NESTING` so bundlers fold this to
+ * the local resolver and dead-code-eliminate the registry-based one — together
+ * with its `getIntlayer` import, and therefore the whole
+ * `@intlayer/dictionaries-entry` module. That is what allows the dictionaries
+ * entry to be emptied while `nest()` keeps working.
+ */
+const resolveNesting =
+  process.env.INTLAYER_OPTIMIZED_NESTING === 'true'
+    ? getNestingOptimized
+    : getNesting;
+
 /** Nested plugin. Replaces node with the result of `getNesting`. */
 export const nestedPlugin = (locale?: LocalesValues): Plugins =>
   process.env.INTLAYER_NODE_TYPE_NESTED === 'false'
@@ -591,7 +606,7 @@ export const nestedPlugin = (locale?: LocalesValues): Plugins =>
           typeof node === 'object' &&
           (node?.nodeType === NodeTypes.NESTED || node?.nodeType === 'n'),
         transform: (node: NestedContent, props) =>
-          getNesting(
+          resolveNesting(
             node[NodeTypes.NESTED].dictionaryKey,
             node[NodeTypes.NESTED].path,
             {
@@ -643,6 +658,16 @@ export interface NodeProps {
   locale?: Locale;
   dictionaryPath?: string;
   children?: any;
+  /**
+   * Dictionaries referenced through `nest()`, attached to the consuming
+   * dictionary by the build optimization and threaded down by
+   * `deepTransformNode`.
+   *
+   * Present only in optimized builds, where the global dictionary registry is
+   * stripped and `getNesting` resolves from this map instead. See
+   * `getNesting.optimized.ts`.
+   */
+  nestedDictionaries?: Record<string, unknown>;
   /**
    * Forces eager traversal of plain objects in `deepTransformNode`. By default
    * traversal is lazy (property getters), so callers that discard the returned

@@ -5,6 +5,7 @@ import { IMPORT_MODE } from '@intlayer/config/defaultValues';
 import {
   formatDictionarySelectorEnvVar,
   formatNodeTypeToEnvVar,
+  formatOptimizedNestingEnvVar,
   getConfigEnvVars,
 } from '@intlayer/config/envVars';
 import { colorize, getAppLogger } from '@intlayer/config/logger';
@@ -20,6 +21,7 @@ import {
   getUnusedNodeTypes,
   normalizePath,
 } from '@intlayer/config/utils';
+import { getNestedDictionaryGraph } from '@intlayer/core/dictionaryManipulator';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
 import { prepareIntlayer } from '@intlayer/engine/build';
 import { logConfigDetails } from '@intlayer/engine/cli';
@@ -224,6 +226,12 @@ const getPruneConfig = (
       dictionary.importMode ?? importMode ?? IMPORT_MODE;
   });
 
+  // Dictionaries holding `nest()` references: their static import is re-pointed
+  // at the companion module carrying the nest targets.
+  const nestingDictionaryKeys = [
+    ...getNestedDictionaryGraph(Object.values(dictionaries)).keys(),
+  ];
+
   return {
     experimental: {
       swcPlugins: [
@@ -245,6 +253,7 @@ const getPruneConfig = (
             importMode,
             filesList,
             replaceDictionaryEntry: true,
+            nestingDictionaryKeys,
             dictionaryModeMap,
             extraCallers: swcExtraCallers ?? [],
           },
@@ -436,6 +445,11 @@ export const withIntlayerSync = <T extends Partial<NextConfig>>(
 
       // Tree shacking based on unused node types
       ...formatNodeTypeToEnvVar(unusedNodeTypes),
+
+      // Selects the local `nest()` resolver, which reads the nest targets
+      // attached to each dictionary by the optimize transform instead of the
+      // registry that transform empties.
+      ...formatOptimizedNestingEnvVar(intlayerConfig.build.optimize !== false),
 
       // Tree shacking the dictionary selector logic
       // (collections / variants)

@@ -122,6 +122,21 @@ export type OptimizePluginOptions = {
    */
   replaceDictionaryEntry: boolean;
   /**
+   * Keys of the dictionaries that reference other dictionaries through
+   * `nest()`.
+   *
+   * For those, the injected static import points at the generated companion
+   * module (`<dictionariesDir>/nested/<key>.mjs`) instead of the raw JSON. The
+   * companion re-exports the dictionary with its nest targets attached, so
+   * `getNesting` resolves them from that local reference rather than from the
+   * global registry this plugin empties — and each target lands in the chunk of
+   * the dictionary referencing it.
+   *
+   * Dynamic and fetch modes need nothing here: their generated loaders already
+   * attach the same targets per locale.
+   */
+  nestingDictionaryKeys?: string[];
+  /**
    * If true, the plugin will activate the dynamic import of the dictionaries. It will rely on Suspense to load the dictionaries.
    */
   importMode: 'static' | 'dynamic' | 'fetch' | undefined;
@@ -189,35 +204,54 @@ const makeIdent = (
   return t.identifier(`_${hash}`);
 };
 
+/**
+ * Builds the module specifier pointing at `targetPath` from `fromFile`, with
+ * forward slashes and an explicit `./` prefix so bundlers never treat it as a
+ * bare package specifier.
+ */
+const toRelativeSpecifier = (fromFile: string, targetPath: string): string => {
+  // Fix windows path
+  const relativePath = normalizePath(relative(dirname(fromFile), targetPath));
+
+  // Fix relative path
+  if (!relativePath.startsWith('./') && !relativePath.startsWith('../')) {
+    return `./${relativePath}`;
+  }
+
+  return relativePath;
+};
+
+/**
+ * Subdirectory of the compiled dictionaries holding the companion modules that
+ * re-export a dictionary with its `nest()` targets attached. Mirrors
+ * `NESTED_DICTIONARIES_SUBDIR` in `@intlayer/engine`.
+ */
+const NESTED_DICTIONARIES_SUBDIR = 'nested';
+
 const computeImport = (
   fromFile: string,
   dictionariesDir: string,
   dynamicDictionariesDir: string,
   fetchDictionariesDir: string,
   key: string,
-  importMode: 'static' | 'dynamic' | 'fetch'
+  importMode: 'static' | 'dynamic' | 'fetch',
+  hasNestedDictionaries = false
 ): string => {
-  let relativePath = join(dictionariesDir, `${key}.json`);
+  // Static mode is the only one needing the companion: the dynamic and fetch
+  // loaders already attach the nest targets per locale.
+  let dictionaryPath = hasNestedDictionaries
+    ? join(dictionariesDir, NESTED_DICTIONARIES_SUBDIR, `${key}.mjs`)
+    : join(dictionariesDir, `${key}.json`);
 
   if (importMode === 'fetch') {
-    relativePath = join(fetchDictionariesDir, `${key}.mjs`);
+    dictionaryPath = join(fetchDictionariesDir, `${key}.mjs`);
   }
 
   if (importMode === 'dynamic') {
-    relativePath = join(dynamicDictionariesDir, `${key}.mjs`);
+    dictionaryPath = join(dynamicDictionariesDir, `${key}.mjs`);
   }
 
-  let rel = relative(dirname(fromFile), relativePath);
-
-  // Fix windows path
-  rel = normalizePath(rel);
-
-  // Fix relative path
-  if (!rel.startsWith('./') && !rel.startsWith('../')) {
-    rel = `./${rel}`;
-  }
-
-  return rel;
+  return toRelativeSpecifier(fromFile, dictionaryPath);
 };
 
 const getKeyFromArgument = (
@@ -1004,15 +1038,25 @@ export const intlayerOptimizeBabelPlugin = (babel: {
           const fetchDictionariesDir = state.opts.fetchDictionariesDir;
           const imports: BabelTypes.ImportDeclaration[] = [];
 
+          const nestingDictionaryKeys = new Set(
+            state.opts.nestingDictionaryKeys ?? []
+          );
+
           // Generate static JSON imports (getIntlayer always uses JSON dictionaries)
           for (const [key, ident] of state._newStaticImports!) {
+            // Dictionaries holding `nest()` references are imported through
+            // their companion module, which re-exports them with the nest
+            // targets attached.
+            const hasNestedDictionaries = nestingDictionaryKeys.has(key);
+
             const rel = computeImport(
               file,
               dictionariesDir,
               dynamicDictionariesDir,
               fetchDictionariesDir,
               key,
-              'static'
+              'static',
+              hasNestedDictionaries
             );
 
             const importDeclarationNode = t.importDeclaration(
@@ -1021,9 +1065,14 @@ export const intlayerOptimizeBabelPlugin = (babel: {
             );
 
             // Add 'type: json' attribute for JSON files
-            importDeclarationNode.attributes = [
-              t.importAttribute(t.identifier('type'), t.stringLiteral('json')),
-            ];
+            if (!hasNestedDictionaries) {
+              importDeclarationNode.attributes = [
+                t.importAttribute(
+                  t.identifier('type'),
+                  t.stringLiteral('json')
+                ),
+              ];
+            }
 
             imports.push(importDeclarationNode);
           }

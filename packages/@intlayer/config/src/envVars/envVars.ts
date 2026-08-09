@@ -67,6 +67,36 @@ export const formatDictionarySelectorEnvVar = (
     : { [wrapKey('INTLAYER_DICTIONARY_SELECTOR')]: wrapValue('false') };
 
 /**
+ * Returns the env-var definition selecting the local `nest()` resolver, which
+ * reads the nest targets the optimizer attached to each dictionary instead of
+ * looking them up in the global registry.
+ *
+ * Emit it only when the optimize transform actually runs, since it is that
+ * transform which injects the attachment. Setting it to `"true"` lets bundlers
+ * dead-code-eliminate the registry-based resolver, and with it the
+ * `@intlayer/dictionaries-entry` import — which is what allows the dictionaries
+ * entry to be emptied while nesting keeps working.
+ *
+ * @example
+ * formatOptimizedNestingEnvVar(true)
+ * // { INTLAYER_OPTIMIZED_NESTING: '"true"' }
+ *
+ * formatOptimizedNestingEnvVar(false)
+ * // {}
+ *
+ * formatOptimizedNestingEnvVar(true, (k) => `process.env.${k}`, (v) => `"${v}"`)
+ * // { 'process.env.INTLAYER_OPTIMIZED_NESTING': '"true"' }
+ */
+export const formatOptimizedNestingEnvVar = (
+  isOptimized: boolean,
+  wrapKey = (key: string) => key,
+  wrapValue = (value: string) => value
+): Record<string, string> =>
+  isOptimized
+    ? { [wrapKey('INTLAYER_OPTIMIZED_NESTING')]: wrapValue('true') }
+    : {};
+
+/**
  * Returns env-var definitions for the full Intlayer config to be injected at
  * build time. Allows bundlers to dead-code-eliminate unused routing modes,
  * rewrite logic, storage mechanisms, and editor code.

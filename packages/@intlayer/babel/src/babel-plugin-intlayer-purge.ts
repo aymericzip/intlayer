@@ -3,6 +3,7 @@ import { join } from 'node:path';
 import type { PluginObject, PluginPass } from '@babel/core';
 import { transformSync } from '@babel/core';
 import type * as BabelTypes from '@babel/types';
+import type { NestedFieldReferences } from '@intlayer/core/dictionaryManipulator';
 import {
   buildNestedRenameMapFromContent,
   getNestedRenameEntryAtPath,
@@ -13,6 +14,7 @@ import {
   makeUsageAnalyzerBabelPlugin,
   type NestedRenameMap,
   type PruneContext,
+  preserveNestedDictionaryFields,
 } from './babel-plugin-intlayer-usage-analyzer';
 import { extractScriptBlocks } from './extractScriptBlocks';
 import {
@@ -82,6 +84,15 @@ export type PurgePluginOptions = {
    * `content` glob patterns.
    */
   componentFilesList: string[];
+
+  /**
+   * Dictionaries referenced through `nest()`, mapped to the top-level fields
+   * those references read (`'all'` when the whole dictionary is nested).
+   *
+   * Those fields are resolved at runtime by `getNesting` using their original
+   * names, so they must survive purging and must never be renamed.
+   */
+  nestedDictionaryReferences?: Map<string, NestedFieldReferences>;
 
   /**
    * Per-dictionary import-mode overrides, keyed by dictionary `key`.
@@ -600,6 +611,7 @@ const runPurgePipeline = (options: PurgePluginOptions): PruneContext => {
     dynamicDictionariesDir,
     componentFilesList,
     dictionaryKeyToImportModeMap,
+    nestedDictionaryReferences,
     compatCallers,
   } = options;
 
@@ -619,6 +631,12 @@ const runPurgePipeline = (options: PurgePluginOptions): PruneContext => {
   for (const sourceFilePath of componentFilesList) {
     if (!SOURCE_FILE_REGEX.test(sourceFilePath)) continue;
     analyzeSourceFileSync(sourceFilePath, pruneContext, compatCallers);
+  }
+
+  // Phase 1.5: Keep `nest()` targets resolvable — must run before the rename
+  // maps are built so nest targets are excluded from field renaming.
+  if (nestedDictionaryReferences) {
+    preserveNestedDictionaryFields(pruneContext, nestedDictionaryReferences);
   }
 
   // Phase 2: Build field-rename maps (minify only).

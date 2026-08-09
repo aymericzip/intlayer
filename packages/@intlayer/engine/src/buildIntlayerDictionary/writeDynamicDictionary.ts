@@ -45,26 +45,78 @@ const DICTIONARIES_SUBDIR = 'json'; // Necessary to add a static first dir for T
 const escapeJsLiteral = (value: string): string =>
   value.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
 
+/** Loader expression for one `(key, locale)` per-locale chunk. */
+const buildPerLocaleLoader = (
+  key: string,
+  locale: string,
+  format: 'cjs' | 'esm'
+): string => {
+  const path = `./${DICTIONARIES_SUBDIR}/${key}/${locale}.json`;
+
+  return format === 'esm'
+    ? `import('${path}').then(m => m.default)`
+    : `Promise.resolve(require('${path}'))`;
+};
+
 /**
  * Generates the content of a dictionary entry point file.
+ *
+ * When the dictionary references other dictionaries through `nest()`, the
+ * loader for a locale resolves the referenced dictionaries alongside it and
+ * attaches them as `nestedDictionaries`. The nest targets then travel in the
+ * same lazy chunk as their consumer, and `getNesting` resolves them from that
+ * local reference instead of the global registry — which the build
+ * optimization strips.
+ *
+ * @param key - The dictionary key.
+ * @param locales - Locales to emit a loader for.
+ * @param format - Output module format.
+ * @param nestedKeys - Keys referenced through `nest()`, transitively.
  */
 export const generateDictionaryEntryPoint = (
   key: string,
   locales: string[],
-  format: 'cjs' | 'esm' = 'esm'
+  format: 'cjs' | 'esm' = 'esm',
+  nestedKeys: string[] = []
 ): string => {
   const sortedLocales = [...locales].sort((a, b) =>
     String(a).localeCompare(String(b))
   );
+  const sortedNestedKeys = [...nestedKeys].sort((a, b) => a.localeCompare(b));
 
   const safeKey = escapeJsLiteral(key);
 
   const localeEntries = sortedLocales
     .map((locale) => {
       const safeLocale = escapeJsLiteral(locale);
-      return format === 'esm'
-        ? `  '${safeLocale}': () => import('./${DICTIONARIES_SUBDIR}/${safeKey}/${safeLocale}.json').then(m => m.default)`
-        : `  '${safeLocale}': () => Promise.resolve(require('./${DICTIONARIES_SUBDIR}/${safeKey}/${safeLocale}.json'))`;
+      const ownLoader = buildPerLocaleLoader(safeKey, safeLocale, format);
+
+      if (sortedNestedKeys.length === 0) {
+        return `  '${safeLocale}': () => ${ownLoader}`;
+      }
+
+      const nestedLoaders = sortedNestedKeys
+        .map((nestedKey) =>
+          buildPerLocaleLoader(escapeJsLiteral(nestedKey), safeLocale, format)
+        )
+        .join(',\n      ');
+
+      const attachedEntries = sortedNestedKeys
+        .map(
+          (nestedKey, index) =>
+            `'${escapeJsLiteral(nestedKey)}': _nested[${index}]`
+        )
+        .join(', ');
+
+      return (
+        `  '${safeLocale}': () => Promise.all([\n` +
+        `      ${ownLoader},\n` +
+        `      ${nestedLoaders}\n` +
+        `    ]).then(([_dictionary, ..._nested]) => ({\n` +
+        `      ..._dictionary,\n` +
+        `      nestedDictionaries: { ${attachedEntries} }\n` +
+        `    }))`
+      );
     })
     .join(',\n');
 
@@ -220,7 +272,8 @@ export const generateQualifiedDictionaryEntryPoint = (
 export const writeDynamicDictionary = async (
   mergedDictionaries: PlainMergedDictionaryOutput,
   configuration: IntlayerConfig,
-  formats: ('cjs' | 'esm')[] = OUTPUT_FORMAT
+  formats: ('cjs' | 'esm')[] = OUTPUT_FORMAT,
+  nestedDictionaryGraph: Map<string, Set<string>> = new Map()
 ): Promise<LocalizedDictionaryOutput> => {
   const { locales, defaultLocale } = configuration.internationalization;
   const { dynamicDictionariesDir } = configuration.system;
@@ -273,7 +326,9 @@ export const writeDynamicDictionary = async (
 
       await parallelize(formats, async (format) => {
         const extension = format === 'cjs' ? 'cjs' : 'mjs';
-        const content = generateDictionaryEntryPoint(key, locales, format);
+        const content = generateDictionaryEntryPoint(key, locales, format, [
+          ...(nestedDictionaryGraph.get(key) ?? []),
+        ]);
 
         const dynEntryPath = resolve(
           dynamicDictionariesDir,

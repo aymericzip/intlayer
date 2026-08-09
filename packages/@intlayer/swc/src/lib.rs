@@ -61,6 +61,7 @@
 //!         fetch_dictionaries_dir: "/project/.intlayer/fetch_dictionaries".into(),
 //!         import_mode: Some("static".into()),
 //!         replace_dictionary_entry: Some(false),
+//!         nesting_dictionary_keys: vec![],
 //!         files_list: vec![],
 //!         dictionary_mode_map: None,
 //!         extra_callers: vec![],
@@ -95,6 +96,11 @@ use swc_core::plugin::{
 };
 
 static DEBUG_LOG: bool = false;
+
+/// Subdirectory of the compiled dictionaries holding the companion modules that
+/// re-export a dictionary with its `nest()` targets attached. Mirrors
+/// `NESTED_DICTIONARIES_SUBDIR` in `@intlayer/engine`.
+static NESTED_DICTIONARIES_SUBDIR: &str = "nested";
 
 // ─────────────────────────────────────────────────────────────────────────────
 //  PLUGIN OPTIONS
@@ -197,6 +203,20 @@ pub struct PluginConfig {
     /// `export const getDictionaries = () => ({})`.
     #[serde(rename = "replaceDictionaryEntry")]
     pub replace_dictionary_entry: Option<bool>,
+
+    /// Keys of the dictionaries that reference other dictionaries through `nest()`.
+    ///
+    /// For those, the injected static import points at the generated companion
+    /// module (`<dictionariesDir>/nested/<key>.mjs`) instead of the raw JSON.
+    /// The companion re-exports the dictionary with its nest targets attached,
+    /// so `getNesting` resolves them from that local reference rather than from
+    /// the global registry this plugin empties — and each target lands in the
+    /// chunk of the dictionary referencing it.
+    ///
+    /// Dynamic and fetch modes need nothing here: their generated loaders
+    /// already attach the same targets per locale.
+    #[serde(rename = "nestingDictionaryKeys", default)]
+    pub nesting_dictionary_keys: Vec<String>,
 
     /// Allowlist of absolute file paths to transform. When empty, all files are processed.
     #[serde(rename = "filesList")]
@@ -1077,6 +1097,12 @@ pub fn process_transform(
     let extra_use_dynamic_helpers =
         import_mode == "dynamic" || import_mode == "fetch" || pre_pass.extra_has_dynamic_call;
 
+    let nesting_dictionary_keys: HashSet<&str> = cfg
+        .nesting_dictionary_keys
+        .iter()
+        .map(String::as_str)
+        .collect();
+
     let mut visitor = TransformVisitor {
         dictionaries_dir: &cfg.dictionaries_dir,
         dynamic_dictionaries_dir: &cfg.dynamic_dictionaries_dir,
@@ -1113,7 +1139,18 @@ pub fn process_transform(
         }
 
         for (key, ident) in visitor.new_static_imports.iter().rev() {
-            let dict_file_abs = Path::new(dictionaries_dir).join(format!("{}.json", key));
+            // Dictionaries holding `nest()` references are imported through
+            // their companion module, which re-exports them with the nest
+            // targets attached. Companions are ES modules, so they carry no
+            // `with { type: "json" }` attribute.
+            let has_nested_dictionaries = nesting_dictionary_keys.contains(key.as_str());
+            let dict_file_abs = if has_nested_dictionaries {
+                Path::new(dictionaries_dir)
+                    .join(NESTED_DICTIONARIES_SUBDIR)
+                    .join(format!("{}.mjs", key))
+            } else {
+                Path::new(dictionaries_dir).join(format!("{}.json", key))
+            };
             let import_path = relative_import_path(&dict_file_abs, file_dir_abs);
 
             body.insert(
@@ -1126,20 +1163,30 @@ pub fn process_transform(
                     })],
                     src: Box::new(Str::from(import_path)),
                     type_only: false,
-                    with: Some(Box::new(ObjectLit {
-                        span: DUMMY_SP,
-                        props: vec![PropOrSpread::Prop(Box::new(Prop::KeyValue(KeyValueProp {
-                            key: PropName::Ident(
-                                Ident::new(Atom::from("type"), DUMMY_SP, SyntaxContext::empty())
-                                    .into(),
-                            ),
-                            value: Box::new(Expr::Lit(Lit::Str(Str {
-                                span: DUMMY_SP,
-                                value: Atom::from("json").into(),
-                                raw: None,
-                            }))),
-                        })))],
-                    })),
+                    with: if has_nested_dictionaries {
+                        None
+                    } else {
+                        Some(Box::new(ObjectLit {
+                            span: DUMMY_SP,
+                            props: vec![PropOrSpread::Prop(Box::new(Prop::KeyValue(
+                                KeyValueProp {
+                                    key: PropName::Ident(
+                                        Ident::new(
+                                            Atom::from("type"),
+                                            DUMMY_SP,
+                                            SyntaxContext::empty(),
+                                        )
+                                        .into(),
+                                    ),
+                                    value: Box::new(Expr::Lit(Lit::Str(Str {
+                                        span: DUMMY_SP,
+                                        value: Atom::from("json").into(),
+                                        raw: None,
+                                    }))),
+                                },
+                            )))],
+                        }))
+                    },
                     phase: ImportPhase::Evaluation,
                 })),
             );
@@ -1247,6 +1294,7 @@ mod tests {
             fetch_dictionaries_dir: "/app/.intlayer/fetch_dictionaries".to_string(),
             import_mode: Some(mode.to_string()),
             replace_dictionary_entry: Some(false),
+            nesting_dictionary_keys: vec![],
             files_list: vec![],
             dictionary_mode_map: None,
             extra_callers: vec![],
@@ -1625,6 +1673,30 @@ mod tests {
             import _FsHhNfuhm85_dyn from "../.intlayer/dynamic_dictionaries/locale-switcher.mjs";
             import { useDictionaryDynamic as useIntlayer } from "vue-intlayer";
             const t = useIntlayer(_FsHhNfuhm85_dyn, "locale-switcher");
+            "#,
+        );
+    }
+
+    #[test]
+    fn nesting_dictionary_uses_companion_module() {
+        let mut cfg = get_config("static");
+        cfg.nesting_dictionary_keys = vec!["dashboard".to_string()];
+
+        test_transform(
+            Syntax::default(),
+            None,
+            |_| TestFolder {
+                cfg: cfg.clone(),
+                filename: "/app/src/page.tsx".to_string(),
+            },
+            r#"
+            import { useIntlayer } from "react-intlayer";
+            const t = useIntlayer("dashboard");
+            "#,
+            r#"
+            import _CmH1DEyhuop from "../.intlayer/dictionaries/nested/dashboard.mjs";
+            import { useDictionary as useIntlayer } from "react-intlayer";
+            const t = useIntlayer(_CmH1DEyhuop);
             "#,
         );
     }

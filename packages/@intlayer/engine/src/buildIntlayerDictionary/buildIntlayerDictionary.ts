@@ -1,6 +1,9 @@
 import { IMPORT_MODE, OUTPUT_FORMAT } from '@intlayer/config/defaultValues';
 import { colorizeKey, getAppLogger } from '@intlayer/config/logger';
-import { isQualifiedDictionaryGroup } from '@intlayer/core/dictionaryManipulator';
+import {
+  getNestedDictionaryGraph,
+  isQualifiedDictionaryGroup,
+} from '@intlayer/core/dictionaryManipulator';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import { readDictionariesFromDisk } from '../utils/readDictionariesFromDisk';
@@ -15,6 +18,7 @@ import {
   type PlainMergedDictionaryOutput,
   writeMergedDictionaries,
 } from './writeMergedDictionary';
+import { writeNestedDictionaries } from './writeNestedDictionary';
 import { writeUnmergedDictionaries } from './writeUnmergedDictionary';
 
 export type BuildDictionariesOptions = Partial<{
@@ -84,6 +88,20 @@ export const buildDictionary = async (
     configuration
   );
 
+  // `nest()` dependency graph, read back from disk so it stays complete on
+  // incremental rebuilds where only a subset of dictionaries was regenerated.
+  // Every artifact kind attaches its dependencies, letting `getNesting` resolve
+  // them locally instead of through the registry the optimizer strips.
+  const nestedDictionaryGraph = getNestedDictionaryGraph(
+    Object.values(
+      readDictionariesFromDisk<Record<string, Dictionary>>(
+        configuration.system.dictionariesDir
+      )
+    )
+  );
+
+  await writeNestedDictionaries(nestedDictionaryGraph, configuration, formats);
+
   const dictionariesToBuildDynamic: PlainMergedDictionaryOutput = {};
   const qualifiedDictionariesToBuildDynamic: QualifiedMergedDictionaryOutput =
     {};
@@ -128,13 +146,36 @@ export const buildDictionary = async (
     }
   }
 
+  // A lazily loaded dictionary resolves its `nest()` references from chunks
+  // loaded by the same loader, so its nest targets need dynamic artifacts of
+  // their own — whatever import mode they declare for their own call sites.
+  for (const consumerKey of Object.keys(dictionariesToBuildDynamic)) {
+    for (const nestedKey of nestedDictionaryGraph.get(consumerKey) ?? []) {
+      if (dictionariesToBuildDynamic[nestedKey]) continue;
+
+      const nestedResult = mergedDictionaries[nestedKey];
+      if (
+        !nestedResult ||
+        isQualifiedDictionaryGroup(nestedResult.dictionary)
+      ) {
+        continue;
+      }
+
+      dictionariesToBuildDynamic[nestedKey] = {
+        dictionaryPath: nestedResult.dictionaryPath,
+        dictionary: nestedResult.dictionary,
+      };
+    }
+  }
+
   let dynamicDictionaries: LocalizedDictionaryOutput | null = null;
 
   if (Object.keys(dictionariesToBuildDynamic).length > 0) {
     dynamicDictionaries = await writeDynamicDictionary(
       dictionariesToBuildDynamic,
       configuration,
-      formats
+      formats,
+      nestedDictionaryGraph
     );
   }
 
@@ -161,7 +202,8 @@ export const buildDictionary = async (
       fetchDictionaries = await writeFetchDictionary(
         dictionariesToBuildFetch,
         configuration,
-        formats
+        formats,
+        nestedDictionaryGraph
       );
     }
   }

@@ -3,6 +3,7 @@ import {
   type GetConfigurationOptions,
   getConfiguration,
 } from '@intlayer/config/node';
+import { getNestedDictionaryGraph } from '@intlayer/core/dictionaryManipulator';
 import { buildComponentFilesList } from '@intlayer/engine/utils';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Dictionary } from '@intlayer/types/dictionary';
@@ -103,6 +104,12 @@ export const getOptimizePluginOptions = (
     dictionaryModeMap[dictionary.key] = dictionary.importMode ?? importMode;
   });
 
+  // Dictionaries holding `nest()` references: their static import is re-pointed
+  // at the companion module carrying the nest targets.
+  const nestingDictionaryKeys = [
+    ...getNestedDictionaryGraph(dictionaries).keys(),
+  ];
+
   return {
     optimize,
     dictionariesDir,
@@ -114,6 +121,7 @@ export const getOptimizePluginOptions = (
     fetchDictionariesDir,
     fetchDictionariesEntryPath,
     replaceDictionaryEntry: true,
+    nestingDictionaryKeys,
     importMode,
     dictionaryModeMap,
     filesList,

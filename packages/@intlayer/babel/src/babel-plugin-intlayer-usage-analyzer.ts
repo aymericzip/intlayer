@@ -4,6 +4,7 @@ import type {
   CallerDescriptor,
   CallerValueSource,
 } from '@intlayer/config/callers';
+import type { NestedFieldReferences } from '@intlayer/core/dictionaryManipulator';
 
 // ── PruneContext types ────────────────────────────────────────────────────────
 
@@ -150,6 +151,72 @@ export const createPruneContext = (): PruneContext => ({
   dictionariesSkippingFieldRename: new Set(),
   pendingFrameworkAnalysis: new Map(),
 });
+
+/**
+ * Records `nest()` references in a prune context so nest targets stay
+ * resolvable — and no larger than they need to be — after purge and minify.
+ *
+ * A nested node stores the ORIGINAL dot path of the field it reads
+ * (`nest('common', 'period')` → `'period'`) and `getNesting` resolves it at
+ * runtime against the compiled JSON. That drives three adjustments:
+ *
+ * - Nest targets never take part in field renaming, since the stored path
+ *   would no longer match the renamed keys.
+ * - A target already consumed by a call site keeps its analysed fields plus
+ *   the nested ones, so neither consumer loses content.
+ * - A target reached *only* through `nest()` is given a usage entry holding
+ *   exactly the nested fields. Without one, the purge pass leaves the whole
+ *   dictionary untouched; with one, it trims the dictionary down to what the
+ *   nest references actually read. This matters most for `dynamic` / `fetch`
+ *   dictionaries, whose full static snapshot would otherwise be pulled into
+ *   the eager bundle just to satisfy a single nested field.
+ *
+ * Seeding is skipped when a source file failed to parse: that file could
+ * reference the dictionary in a way the analysis never saw, which is the same
+ * guard the purge pass applies to keys with no usage entry.
+ *
+ * @param pruneContext - Shared analysis state to update in place.
+ * @param nestedDictionaryReferences - Nest-target key → referenced top-level
+ *   fields, as returned by `getNestedDictionaryReferences`.
+ */
+export const preserveNestedDictionaryFields = (
+  pruneContext: PruneContext,
+  nestedDictionaryReferences: Map<string, NestedFieldReferences>
+): void => {
+  for (const [
+    dictionaryKey,
+    nestedFields,
+  ] of nestedDictionaryReferences.entries()) {
+    pruneContext.dictionariesSkippingFieldRename.add(dictionaryKey);
+
+    const currentFieldUsage =
+      pruneContext.dictionaryKeyToFieldUsageMap.get(dictionaryKey);
+
+    // A whole-dictionary reference (`nest('common')`) reads every field, so no
+    // field set can describe it — leave the dictionary unpruned.
+    if (nestedFields === 'all') {
+      pruneContext.dictionaryKeyToFieldUsageMap.set(dictionaryKey, 'all');
+      continue;
+    }
+
+    if (!currentFieldUsage) {
+      if (pruneContext.hasUnparsableSourceFiles) continue;
+
+      pruneContext.dictionaryKeyToFieldUsageMap.set(
+        dictionaryKey,
+        new Set(nestedFields)
+      );
+      continue;
+    }
+
+    // Already consumed by a call site that reads every field.
+    if (currentFieldUsage === 'all') continue;
+
+    for (const nestedField of nestedFields) {
+      currentFieldUsage.add(nestedField);
+    }
+  }
+};
 
 // ── Usage-analyzer Babel plugin ───────────────────────────────────────────────
 

@@ -58,6 +58,10 @@ export const getDictionary = <
       dictionaryPath: resolvedDictionary.filePath,
       keyPath: [],
       plugins: appliedPlugins,
+      // Attached by the build optimization so `nest()` resolves without the
+      // global registry. Undefined in unoptimized builds, where the
+      // registry-based resolver is used instead.
+      nestedDictionaries: resolvedDictionary.nestedDictionaries,
     };
 
     return getContent(resolvedDictionary.content, props, appliedPlugins);
