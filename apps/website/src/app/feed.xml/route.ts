@@ -1,19 +1,33 @@
 import { getBlogMetadataBySlug, getDocMetadataBySlug } from '@intlayer/docs';
 import RSS from 'rss';
 
+/**
+ * Parses a markdown frontmatter date, discarding unparsable values.
+ *
+ * A typo in the frontmatter (`2024-24-12`) builds an `Invalid Date` whose
+ * `toISOString()` throws, which would fail the whole feed rather than a single
+ * item, so unusable dates are treated as absent.
+ *
+ * @param rawDate - Raw frontmatter date value.
+ * @returns The parsed date, or `undefined` when missing or unparsable.
+ */
+const parseFrontmatterDate = (rawDate?: string): Date | undefined => {
+  if (!rawDate) return undefined;
+
+  const parsedDate = new Date(rawDate);
+
+  return Number.isNaN(parsedDate.getTime()) ? undefined : parsedDate;
+};
+
 export async function GET() {
   const blogs = await getBlogMetadataBySlug([]);
   const docs = await getDocMetadataBySlug([]);
 
   const allPosts = [...blogs, ...docs].sort((a, b) => {
     const dateA =
-      a.createdAt || a.updatedAt
-        ? new Date(a.createdAt || a.updatedAt).getTime()
-        : 0;
+      parseFrontmatterDate(a.createdAt ?? a.updatedAt)?.getTime() ?? 0;
     const dateB =
-      b.createdAt || b.updatedAt
-        ? new Date(b.createdAt || b.updatedAt).getTime()
-        : 0;
+      parseFrontmatterDate(b.createdAt ?? b.updatedAt)?.getTime() ?? 0;
     return dateB - dateA;
   });
 
@@ -32,10 +46,8 @@ export async function GET() {
   });
 
   for (const post of allPosts) {
-    const publishedDate = post.createdAt ? new Date(post.createdAt) : undefined;
-    const updatedDate = post.updatedAt
-      ? new Date(post.updatedAt)
-      : publishedDate;
+    const publishedDate = parseFrontmatterDate(post.createdAt);
+    const updatedDate = parseFrontmatterDate(post.updatedAt) ?? publishedDate;
 
     feed.item({
       title: post.title,

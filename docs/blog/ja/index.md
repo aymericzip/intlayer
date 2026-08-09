@@ -1,5 +1,5 @@
 ---
-createdAt: 2024-24-12
+createdAt: 2024-12-24
 updatedAt: 2025-06-29
 title: ブログ
 description: Intlayer、国際化、その他に関連するすべてのトピックを発見します

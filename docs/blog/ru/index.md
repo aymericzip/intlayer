@@ -1,5 +1,5 @@
 ---
-createdAt: 2024-24-12
+createdAt: 2024-12-24
 updatedAt: 2025-06-29
 title: Блог
 description: Узнайте о всех темах, связанных с Intlayer, интернационализацией и другими

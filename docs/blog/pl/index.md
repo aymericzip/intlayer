@@ -1,5 +1,5 @@
 ---
-createdAt: 2024-24-12
+createdAt: 2024-12-24
 updatedAt: 2025-06-29
 title: Blog
 description: Odkryj wszystkie tematy związane z Intlayer, internacjonalizacją i innymi

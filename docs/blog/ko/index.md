@@ -1,5 +1,5 @@
 ---
-createdAt: 2024-24-12
+createdAt: 2024-12-24
 updatedAt: 2025-06-29
 title: 블로그
 description: Intlayer, 국제화, 기타 관련된 모든 주제를 알아보세요
