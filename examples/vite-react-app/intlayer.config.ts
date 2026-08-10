@@ -9,13 +9,13 @@ const config: IntlayerConfig = {
     defaultLocale: Locales.ENGLISH,
   },
   editor: {
-    // enabled: true,
+    enabled: true,
     applicationURL: 'http://localhost:5173',
     editorURL: 'http://localhost:8000',
     cmsURL: 'http://localhost:3000',
     backendURL: 'http://localhost:3100',
-    // clientId: process.env.INTLAYER_CLIENT_ID,
-    // clientSecret: process.env.INTLAYER_CLIENT_SECRET,
+    clientId: process.env.INTLAYER_CLIENT_ID,
+    clientSecret: process.env.INTLAYER_CLIENT_SECRET,
   },
   ai: {
     provider: 'openai',

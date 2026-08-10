@@ -24,6 +24,7 @@ export class DictionariesLogger {
   private remoteError: string | undefined;
   private pluginTotal = 0;
   private pluginDone = 0;
+  private pluginNames: string[] = [];
   private pluginError: string | undefined;
 
   constructor() {
@@ -99,6 +100,20 @@ export class DictionariesLogger {
     this.render();
   };
 
+  /**
+   * Register the names of the plugins providing dictionaries.
+   * They are displayed next to the plugin progress counters, e.g.
+   * `Plugin content: 6/6 (sync-json, load-po)`.
+   *
+   * @param names - Names of the plugins exposing a `loadDictionaries` hook
+   */
+  setPluginNames(names: string[]) {
+    if (this.isFinished) return;
+    // Guard against plugins declared without a name at runtime
+    this.pluginNames = names.filter((name) => Boolean(name));
+    this.render();
+  }
+
   setPluginTotal(total: number) {
     if (this.isFinished) return;
     this.pluginTotal = total;
@@ -114,9 +129,18 @@ export class DictionariesLogger {
     this.render();
   }
 
-  setPluginError(error?: Error) {
+  /**
+   * Flag the plugin line as errored.
+   *
+   * @param error - Error thrown while loading the plugin dictionaries
+   * @param pluginName - Name of the plugin that threw, prefixed to the message
+   */
+  setPluginError(error?: Error, pluginName?: string) {
     if (this.isFinished) return;
-    this.pluginError = extractErrorMessage(error);
+    const errorMessage = extractErrorMessage(error);
+    this.pluginError = pluginName
+      ? `${pluginName}: ${errorMessage}`
+      : errorMessage;
     this.render();
   }
 
@@ -177,8 +201,13 @@ export class DictionariesLogger {
       }
     }
 
-    // Plugin line: show error or progress counts
+    // Plugin line: show error or progress counts, suffixed by the plugin names
     if (pluginTotal > 0 || this.pluginError) {
+      const pluginNamesSuffix =
+        this.pluginNames.length > 0
+          ? colorize(` (${this.pluginNames.join(', ')})`, ANSIColors.GREY)
+          : '';
+
       if (this.pluginError) {
         lines.push(
           `${this.prefix} ${x} Plugin content: ${colorize(
@@ -188,11 +217,11 @@ export class DictionariesLogger {
         );
       } else if (isPluginDone) {
         lines.push(
-          `${this.prefix} ${v} Plugin content: ${colorize(`${pluginDone}`, ANSIColors.GREEN)}${colorize(`/${pluginTotal}`, ANSIColors.GREY)}`
+          `${this.prefix} ${v} Plugin content: ${colorize(`${pluginDone}`, ANSIColors.GREEN)}${colorize(`/${pluginTotal}`, ANSIColors.GREY)}${pluginNamesSuffix}`
         );
       } else {
         lines.push(
-          `${this.prefix} ${clock} Plugin content: ${colorize(`${pluginDone}`, ANSIColors.BLUE)}${colorize(`/${pluginTotal}`, ANSIColors.GREY)}`
+          `${this.prefix} ${clock} Plugin content: ${colorize(`${pluginDone}`, ANSIColors.BLUE)}${colorize(`/${pluginTotal}`, ANSIColors.GREY)}${pluginNamesSuffix}`
         );
       }
     }

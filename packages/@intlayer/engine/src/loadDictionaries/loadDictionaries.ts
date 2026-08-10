@@ -180,6 +180,8 @@ export const loadDictionaries = async (
     (plugin) => plugin.loadDictionaries
   );
 
+  logger.setPluginNames(pluginsWithLoadDictionaries.map(({ name }) => name));
+
   const loadPluginDictionariesPromise = pluginsWithLoadDictionaries.map(
     async (plugin) => {
       try {
@@ -189,7 +191,7 @@ export const loadDictionaries = async (
 
         return (res as Dictionary[] | undefined) ?? [];
       } catch (error) {
-        logger.setPluginError(error as Error);
+        logger.setPluginError(error as Error, plugin.name);
 
         return [];
       }
