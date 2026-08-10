@@ -1,5 +1,7 @@
 /** @module buildBreadcrumbsJsonLd */
 
+import { normalizeJsonLdUrl } from './normalizeJsonLdUrl';
+
 export type BreadcrumbItem = {
   name: string;
   url: string;
@@ -30,9 +32,10 @@ export const buildBreadcrumbsJsonLd = ({
     '@type': 'ListItem' as const,
     position: index + 1,
     name: item.name,
-    item:
+    item: normalizeJsonLdUrl(
       item.url.startsWith('http') || !domain
         ? item.url
-        : `https://${domain}${item.url}`,
+        : `https://${domain}${item.url}`
+    ),
   })),
 });

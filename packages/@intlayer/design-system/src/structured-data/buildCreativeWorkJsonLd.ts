@@ -1,5 +1,8 @@
 /** @module buildCreativeWorkJsonLd */
 
+import { normalizeJsonLdUrl } from './normalizeJsonLdUrl';
+
+
 /**
  * Formats a date as ISO 8601 `YYYY-MM-DD`, the shape Schema.org expects.
  *
@@ -91,19 +94,19 @@ export const buildCreativeWorkJsonLd = ({
           name: publisherName,
           logo: {
             '@type': 'ImageObject' as const,
-            url: publisherLogoUrl,
+            url: normalizeJsonLdUrl(publisherLogoUrl),
           },
         },
       }
     : {}),
   name,
   headline: name,
-  ...(ogImageUrl ? { image: ogImageUrl } : {}),
+  ...(ogImageUrl ? { image: normalizeJsonLdUrl(ogImageUrl) } : {}),
   text: content,
   description,
-  url,
-  datePublished: formatDate(datePublished),
-  dateModified: formatDate(dateModified),
+  url: normalizeJsonLdUrl(url),
+  datePublished: datePublished ? formatDate(datePublished) : undefined,
+  dateModified: dateModified ? formatDate(dateModified) : undefined,
   version,
   keywords,
   license:

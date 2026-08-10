@@ -60,7 +60,7 @@ const DocumentationRouter = {
   ViteAndSolid: 'https://intlayer.org/doc/environment/vite-and-solid.md',
   ViteAndSvelte: 'https://intlayer.org/doc/environment/vite-and-svelte.md',
   ViteAndPreact: 'https://intlayer.org/doc/environment/vite-and-preact.md',
-  TanStackRouter: 'https://intlayer.org/doc/environment/tanstack.md',
+  TanStackRouter: 'https://intlayer.org/doc/environment/tanstack-start.md',
   NuxtAndVue: 'https://intlayer.org/doc/environment/nuxt-and-vue.md',
   Angular: 'https://intlayer.org/doc/environment/angular.md',
   SvelteKit: 'https://intlayer.org/doc/environment/sveltekit.md',
@@ -68,7 +68,7 @@ const DocumentationRouter = {
     'https://intlayer.org/doc/environment/react-native-and-expo.md',
   Lynx: 'https://intlayer.org/doc/environment/lynx-and-react.md',
   Express: 'https://intlayer.org/doc/environment/express.md',
-  NestJS: 'https://intlayer.org/doc/environment/nestjs.md',
+  NestJS: 'https://intlayer.org/doc/environment/nest.md',
   Fastify: 'https://intlayer.org/doc/environment/fastify.md',
   Default: 'https://intlayer.org/doc/get-started',
 

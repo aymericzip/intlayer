@@ -1,5 +1,7 @@
 /** @module buildAuthorJsonLd */
 
+import { normalizeJsonLdUrl, normalizeJsonLdUrls } from './normalizeJsonLdUrl';
+
 export type SchemaOrgPersonNode = {
   '@type': 'Person';
   '@id'?: string;
@@ -19,11 +21,11 @@ export const buildAuthorJsonLd = (
   '@type': 'Person' as const,
   '@id': profile?.id,
   name: profile?.name ?? fallbackName,
-  url: profile?.url ?? fallbackUrl,
+  url: normalizeJsonLdUrl(profile?.url ?? fallbackUrl),
   jobTitle: profile?.title ?? profile?.jobTitle,
-  image: profile?.image,
-  sameAs: profile?.socialMedias?.length
-    ? profile.socialMedias
-    : profile?.sameAs,
+  image: normalizeJsonLdUrl(profile?.image),
+  sameAs: normalizeJsonLdUrls(
+    profile?.socialMedias?.length ? profile.socialMedias : profile?.sameAs
+  ),
   knowsAbout: profile?.knowsAbout?.length ? profile.knowsAbout : undefined,
 });

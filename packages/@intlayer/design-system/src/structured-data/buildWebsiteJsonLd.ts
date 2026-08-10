@@ -1,5 +1,7 @@
 /** @module buildWebsiteJsonLd */
 
+import { normalizeJsonLdUrl } from './normalizeJsonLdUrl';
+
 export type BuildWebsiteJsonLdParams = {
   /** Canonical home URL of the website (e.g. "https://intlayer.org"). */
   url: string;
@@ -44,33 +46,37 @@ export const buildWebsiteJsonLd = ({
   rssUrl,
   rssName = 'Intlayer RSS Feed',
   rssDescription = DEFAULT_RSS_FEED_DESCRIPTION,
-}: BuildWebsiteJsonLdParams) => ({
-  '@context': 'https://schema.org' as const,
-  '@type': 'WebSite' as const,
-  url,
-  name: 'Intlayer',
-  potentialAction: {
-    '@type': 'SearchAction' as const,
-    target: `${searchUrl}?search={search_term_string}`,
-    'query-input': 'required name=search_term_string',
-  },
-  inLanguage: locales,
-  keywords,
-  ...(rssUrl
-    ? {
-        subjectOf: {
-          '@type': 'DataFeed' as const,
-          name: rssName,
-          description: rssDescription,
-          url: rssUrl,
-          encodingFormat: 'application/rss+xml',
-          inLanguage: locales,
-          creator: {
-            '@type': 'Organization' as const,
-            name: 'Intlayer',
-            url,
+}: BuildWebsiteJsonLdParams) => {
+  const normalizedUrl = normalizeJsonLdUrl(url);
+
+  return {
+    '@context': 'https://schema.org' as const,
+    '@type': 'WebSite' as const,
+    url: normalizedUrl,
+    name: 'Intlayer',
+    potentialAction: {
+      '@type': 'SearchAction' as const,
+      target: `${normalizeJsonLdUrl(searchUrl)}?search={search_term_string}`,
+      'query-input': 'required name=search_term_string',
+    },
+    inLanguage: locales,
+    keywords,
+    ...(rssUrl
+      ? {
+          subjectOf: {
+            '@type': 'DataFeed' as const,
+            name: rssName,
+            description: rssDescription,
+            url: normalizeJsonLdUrl(rssUrl),
+            encodingFormat: 'application/rss+xml',
+            inLanguage: locales,
+            creator: {
+              '@type': 'Organization' as const,
+              name: 'Intlayer',
+              url: normalizedUrl,
+            },
           },
-        },
-      }
-    : {}),
-});
+        }
+      : {}),
+  };
+};

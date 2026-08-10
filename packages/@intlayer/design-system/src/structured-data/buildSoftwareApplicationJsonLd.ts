@@ -1,5 +1,7 @@
 /** @module buildSoftwareApplicationJsonLd */
 
+import { normalizeJsonLdUrl } from './normalizeJsonLdUrl';
+
 export type BuildSoftwareApplicationJsonLdParams = {
   /** Display name of the application. */
   name: string;
@@ -70,57 +72,61 @@ export const buildSoftwareApplicationJsonLd = ({
   ratingValue = DEFAULT_AGGREGATE_RATING.ratingValue,
   ratingCount = DEFAULT_AGGREGATE_RATING.ratingCount,
   reviewCount,
-}: BuildSoftwareApplicationJsonLdParams) => ({
-  '@context': 'https://schema.org' as const,
-  '@type': 'SoftwareApplication' as const,
-  name,
-  url,
-  description,
-  softwareVersion,
-  license:
-    'https://raw.githubusercontent.com/aymericzip/intlayer/refs/heads/main/LICENSE',
-  author: {
-    '@type': 'Organization' as const,
-    name: 'Intlayer',
-    url: authorUrl,
-    logo: logoUrl,
-    sameAs: githubUrl ? [githubUrl] : undefined,
-  },
-  publisher: {
-    '@type': 'Organization' as const,
-    name: 'Intlayer',
-    url: authorUrl,
-    logo: logoUrl,
-  },
-  keywords,
-  creator: {
-    '@type': 'Person' as const,
-    name: 'Aymeric PINEAU',
-    url: 'https://github.com/aymericzip',
-  },
-  applicationCategory: 'DeveloperApplication',
-  applicationSubCategory: 'Developer Tools',
-  image: logoUrl
-    ? logoUrl.replace('/assets/logo.png', '/cover.png')
-    : undefined,
-  operatingSystem,
-  datePublished,
-  audience: {
-    '@type': 'Audience' as const,
-    audienceType,
-  },
-  mainEntityOfPage: mainEntityUrl ?? url,
-  offers: {
-    '@type': 'Offer' as const,
-    price: offersPrice,
-    priceCurrency: offersPriceCurrency,
-  },
-  aggregateRating: {
-    '@type': 'AggregateRating' as const,
-    ratingValue,
-    ratingCount,
-    reviewCount: reviewCount ?? ratingCount,
-    bestRating: 5,
-    worstRating: 1.5,
-  },
-});
+}: BuildSoftwareApplicationJsonLdParams) => {
+  const normalizedUrl = normalizeJsonLdUrl(url);
+  const normalizedLogoUrl = normalizeJsonLdUrl(logoUrl);
+  const normalizedAuthorUrl = normalizeJsonLdUrl(authorUrl);
+
+  return {
+    '@context': 'https://schema.org' as const,
+    '@type': 'SoftwareApplication' as const,
+    name,
+    url: normalizedUrl,
+    description,
+    softwareVersion,
+    license:
+      'https://raw.githubusercontent.com/aymericzip/intlayer/refs/heads/main/LICENSE',
+    author: {
+      '@type': 'Organization' as const,
+      name: 'Intlayer',
+      url: normalizedAuthorUrl,
+      logo: normalizedLogoUrl,
+      sameAs: githubUrl ? [normalizeJsonLdUrl(githubUrl)] : undefined,
+    },
+    publisher: {
+      '@type': 'Organization' as const,
+      name: 'Intlayer',
+      url: normalizedAuthorUrl,
+      logo: normalizedLogoUrl,
+    },
+    keywords,
+    creator: {
+      '@type': 'Person' as const,
+      name: 'Aymeric PINEAU',
+      url: 'https://github.com/aymericzip',
+    },
+    applicationCategory: 'DeveloperApplication',
+    applicationSubCategory: 'Developer Tools',
+    image: normalizedLogoUrl?.replace('/assets/logo.png', '/cover.png'),
+    operatingSystem,
+    datePublished,
+    audience: {
+      '@type': 'Audience' as const,
+      audienceType,
+    },
+    mainEntityOfPage: normalizeJsonLdUrl(mainEntityUrl) ?? normalizedUrl,
+    offers: {
+      '@type': 'Offer' as const,
+      price: offersPrice,
+      priceCurrency: offersPriceCurrency,
+    },
+    aggregateRating: {
+      '@type': 'AggregateRating' as const,
+      ratingValue,
+      ratingCount,
+      reviewCount: reviewCount ?? ratingCount,
+      bestRating: 5,
+      worstRating: 1.5,
+    },
+  };
+};
