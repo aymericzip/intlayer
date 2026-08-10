@@ -188,7 +188,7 @@ export const ComponentExample = () => {
 このアプローチにより、以下のことが可能になります：
 
 1. **開発スピードの向上**
-   - `.content.{{ts|mjs|cjs|json}}`ファイルはVSCode拡張機能を使用して作成できます
+   - `.content.{ts|js|mjs|cjs|json|tsx|jsx|md|mdx|yaml|yml}`ファイルはVSCode拡張機能を使用して作成できます
    - IDEのAI補完ツール（GitHub Copilotなど）がコンテンツの宣言を支援し、コピー＆ペーストを削減します
 
 2. **コードベースのクリーンアップ**

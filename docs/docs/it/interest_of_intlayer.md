@@ -207,7 +207,7 @@ export const ComponentExample = () => {
 Questo approccio ti consente di:
 
 1. **Aumentare la velocità di sviluppo**
-   - I file `.content.{{ts|mjs|cjs|json}}` possono essere creati utilizzando un'estensione VSCode
+   - I file `.content.{ts|js|mjs|cjs|json|tsx|jsx|md|mdx|yaml|yml}` possono essere creati utilizzando un'estensione VSCode
    - Gli strumenti di autocompletamento IA nel tuo IDE (come GitHub Copilot) possono aiutarti a dichiarare il tuo contenuto, riducendo il copia/incolla
 
 2. **Pulire la tua base di codice**

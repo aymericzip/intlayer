@@ -204,7 +204,7 @@ const ComponentExample = () => {
 This approach allows you to:
 
 1. **Increase the speed of development**
-   - `.content.{{ts|mjs|cjs|json}}` files can be created using a VSCode extension
+   - `.content.{ts|js|mjs|cjs|json|tsx|jsx|md|mdx|yaml|yml}` files can be created using a VSCode extension
    - Autocompletion AI tools in your IDE (such as GitHub Copilot) can help you declare your content, reducing copy/paste
 
 2. **Clean your codebase**

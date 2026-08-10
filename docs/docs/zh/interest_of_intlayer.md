@@ -188,7 +188,7 @@ export const ComponentExample = () => {
 这种方法允许你：
 
 1. **提高开发速度**
-   - 可以使用 VSCode 插件创建 `.content.{{ts|mjs|cjs|json}}` 文件
+   - 可以使用 VSCode 插件创建 `.content.{ts|js|mjs|cjs|json|tsx|jsx|md|mdx|yaml|yml}` 文件
    - IDE 中的 AI 自动补全工具（例如 GitHub Copilot）可以帮助你声明内容，减少复制/粘贴
 
 2. **保持代码库的整洁**

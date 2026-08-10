@@ -191,7 +191,7 @@ export const ComponentExample = () => {
 يتيح لك هذا النهج:
 
 1. **زيادة سرعة التطوير**
-   - يمكن إنشاء ملفات `.content.{{ts|mjs|cjs|json}}` باستخدام امتداد VSCode
+   - يمكن إنشاء ملفات `.content.{ts|js|mjs|cjs|json|tsx|jsx|md|mdx|yaml|yml}` باستخدام امتداد VSCode
    - أدوات إكمال الذكاء الاصطناعي في محررك (مثل GitHub Copilot) يمكنها مساعدتك في التصريح عن محتواك، مما يقلل النسخ واللصق
 
 2. **تنظيف codebase الخاص بك**

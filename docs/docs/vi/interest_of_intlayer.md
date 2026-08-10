@@ -210,7 +210,7 @@ export const ComponentExample = () => {
 Cách tiếp cận này cho phép bạn:
 
 1. **Tăng tốc độ phát triển**
-   - Các tệp `.content.{{ts|mjs|cjs|json}}` có thể được tạo bằng cách sử dụng extension VSCode
+   - Các tệp `.content.{ts|js|mjs|cjs|json|tsx|jsx|md|mdx|yaml|yml}` có thể được tạo bằng cách sử dụng extension VSCode
    - Các công cụ hoàn thành tự động AI trong IDE của bạn (như GitHub Copilot) có thể giúp bạn khai báo nội dung của bạn, giảm copy/paste
 
 2. **Làm sạch codebase của bạn**

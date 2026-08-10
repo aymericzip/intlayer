@@ -207,7 +207,7 @@ export const ComponentExample = () => {
 이러한 방식을 적용하면 다음과 같은 혁신적인 효과를 얻을 수 있습니다:
 
 1. **개발 생산성의 대폭 향상**
-   - `.content.{{ts|mjs|cjs|json}}` 파일 선언을 돕는 VSCode 공식 확장 프로그램 지원
+   - `.content.{ts|js|mjs|cjs|json|tsx|jsx|md|mdx|yaml|yml}` 파일 선언을 돕는 VSCode 공식 확장 프로그램 지원
    - IDE의 AI 자동완성 도구(예: GitHub Copilot)가 문맥을 정확히 파악하여 콘텐츠 선언을 도와 복사/붙여넣기 수작업이 극적으로 축소됨
 
 2. **청결한 코드베이스 유지**
