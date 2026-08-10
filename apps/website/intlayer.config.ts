@@ -87,6 +87,10 @@ const config: CustomIntlayerConfig = {
     enabled: false,
     output: ({ fileName }) => `./${fileName}.content.ts`,
   },
+  build: {
+    minify: true,
+    purge: true,
+  },
   editor: {
     enabled: true,
     liveSync: false,

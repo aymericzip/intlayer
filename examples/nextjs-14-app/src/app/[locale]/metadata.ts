@@ -1,10 +1,14 @@
-import { getTranslation } from 'intlayer';
+import { defaultLocale, getTranslation } from 'intlayer';
 import type { Metadata } from 'next';
 import type { LocalParams } from 'next-intlayer';
 
 export const generateMetadata = ({
   params: { locale },
 }: LocalParams): Metadata => {
+  // `LocalParams` leaves `locale` optional so the type also fits the root
+  // layout, which Next.js renders without route params.
+  const resolvedLocale = locale ?? defaultLocale;
+
   return {
     title: getTranslation<string>(
       {
@@ -12,7 +16,7 @@ export const generateMetadata = ({
         fr: 'titre de la page',
         es: 'título de la página',
       },
-      locale
+      resolvedLocale
     ),
     description: getTranslation(
       {
@@ -20,7 +24,7 @@ export const generateMetadata = ({
         es: 'descripción de la página',
         fr: '',
       },
-      locale
+      resolvedLocale
     ),
   };
 };

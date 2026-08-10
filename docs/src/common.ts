@@ -131,11 +131,25 @@ export const getFileMetadata = async <
   return formatMetadata(docKey as string, file, locale) as R;
 };
 
-export const getFileMetadataRecord = async <
+/**
+ * Per-locale metadata records, keyed by the entry map they were built from.
+ *
+ * Building a record parses the frontmatter of every document of a category, and
+ * callers such as {@link getFileMetadataBySlug} need the whole record just to
+ * resolve a single slug — which a static site generator repeats for every page
+ * it renders. Documents are read once per process anyway (each entry caches its
+ * own read), so the derived metadata is equally safe to keep.
+ */
+const fileMetadataRecordCache = new WeakMap<
+  Record<string, unknown>,
+  Map<LocalesValues, Promise<Record<string, FileMetadata>>>
+>();
+
+const buildFileMetadataRecord = async <
   F extends Record<string, Record<LocalesValues, Promise<string>>>,
 >(
   files: F,
-  locale: LocalesValues = defaultLocale as LocalesValues
+  locale: LocalesValues
 ): Promise<Record<keyof F, FileMetadata>> => {
   const results = await Promise.allSettled(
     Object.entries(files).map(async ([key]) => {
@@ -151,6 +165,29 @@ export const getFileMetadataRecord = async <
     .map((r) => r.value);
   const filesResult = Object.fromEntries(filesEntries);
   return filesResult as Record<keyof F, FileMetadata>;
+};
+
+export const getFileMetadataRecord = async <
+  F extends Record<string, Record<LocalesValues, Promise<string>>>,
+>(
+  files: F,
+  locale: LocalesValues = defaultLocale as LocalesValues
+): Promise<Record<keyof F, FileMetadata>> => {
+  let localeCache = fileMetadataRecordCache.get(files);
+
+  if (!localeCache) {
+    localeCache = new Map();
+    fileMetadataRecordCache.set(files, localeCache);
+  }
+
+  let record = localeCache.get(locale);
+
+  if (!record) {
+    record = buildFileMetadataRecord(files, locale);
+    localeCache.set(locale, record);
+  }
+
+  return (await record) as Record<keyof F, FileMetadata>;
 };
 
 export const getFileMetadataBySlug = async <

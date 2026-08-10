@@ -33,6 +33,20 @@ import { defu } from 'defu';
 import type { NextConfig } from 'next';
 import type { NextJsWebpackConfig } from 'next/dist/server/config-shared';
 import nextPackageJSON from 'next/package.json' with { type: 'json' };
+import {
+  type FieldRenameMapByDictionaryKey,
+  prepareSwcOptimization,
+  resolveSwcLogLevel,
+} from './prepareSwcOptimization';
+import {
+  getIsSwcPluginSupported,
+  MINIMUM_SWC_PLUGIN_NEXT_VERSION,
+} from './swcPluginCompatibility';
+
+export {
+  getIsSwcPluginSupported,
+  MINIMUM_SWC_PLUGIN_NEXT_VERSION,
+} from './swcPluginCompatibility';
 
 /**
  * Resolve the Next.js version from the *user's* project at runtime.
@@ -52,10 +66,16 @@ const getNextVersionFlags = (intlayerConfig: IntlayerConfig) => {
   }
 
   return {
+    nextVersion,
     isGteNext13: compareVersions(nextVersion, '≥', '13.0.0'),
     isGteNext15: compareVersions(nextVersion, '≥', '15.0.0'),
     isGteNext16: compareVersions(nextVersion, '≥', '16.0.0'),
     isTurbopackStable: compareVersions(nextVersion, '≥', '15.3.0'),
+    /**
+     * Whether this Next.js release can load the `@intlayer/swc` Wasm plugin.
+     * See {@link MINIMUM_SWC_PLUGIN_NEXT_VERSION}.
+     */
+    isSwcPluginSupported: getIsSwcPluginSupported(nextVersion),
   };
 };
 
@@ -99,14 +119,31 @@ const resolvePluginPath = (
   return pluginPathResolved;
 };
 
-const getPruneConfig = (
-  intlayerConfig: IntlayerConfig,
-  isBuildCommand: boolean,
-  isTurbopackEnabled: boolean,
-  isDevCommand: boolean,
-  isGteNext13: boolean,
-  swcExtraCallers?: SwcExtraCallerConfig[]
-): Partial<NextConfig> => {
+type GetPruneConfigParams = {
+  intlayerConfig: IntlayerConfig;
+  isBuildCommand: boolean;
+  isTurbopackEnabled: boolean;
+  isDevCommand: boolean;
+  isGteNext13: boolean;
+  /** Whether the resolved Next.js version can load the Wasm plugin. */
+  isSwcPluginSupported: boolean;
+  /** Resolved Next.js version, reported when the plugin has to stand down. */
+  nextVersion: string;
+  swcExtraCallers?: SwcExtraCallerConfig[];
+  fieldRenameMap?: FieldRenameMapByDictionaryKey;
+};
+
+const getPruneConfig = ({
+  intlayerConfig,
+  isBuildCommand,
+  isTurbopackEnabled,
+  isDevCommand,
+  isGteNext13,
+  isSwcPluginSupported,
+  nextVersion,
+  swcExtraCallers,
+  fieldRenameMap,
+}: GetPruneConfigParams): Partial<NextConfig> => {
   const { optimize } = intlayerConfig.build;
   const importMode =
     intlayerConfig.build.importMode ?? intlayerConfig.dictionary?.importMode;
@@ -134,7 +171,25 @@ const getPruneConfig = (
   runOnce(
     join(baseDir, '.intlayer', 'cache', 'intlayer-prune-plugin-enabled.lock'),
     () => {
-      if (isSwcPluginAvailable) {
+      if (isSwcPluginAvailable && !isSwcPluginSupported) {
+        logger(
+          [
+            `Build optimization ${colorize('disabled', ANSIColors.GREY_DARK)}:`,
+            colorize('@intlayer/swc', ANSIColors.GREY_LIGHT),
+            colorize(
+              `cannot run on Next.js ${nextVersion} — its bundled SWC predates the`,
+              ANSIColors.GREY
+            ),
+            colorize(
+              'stable Wasm plugin ABI. Upgrade to Next.js',
+              ANSIColors.GREY
+            ),
+            colorize(MINIMUM_SWC_PLUGIN_NEXT_VERSION, ANSIColors.BLUE),
+            colorize('or later to enable it.', ANSIColors.GREY),
+          ],
+          { level: 'warn' }
+        );
+      } else if (isSwcPluginAvailable) {
         logger([
           `Build optimization ${colorize('enabled', ANSIColors.GREEN)}`,
           colorize(`(import mode:`, ANSIColors.GREY_DARK),
@@ -191,7 +246,11 @@ const getPruneConfig = (
     }
   );
 
-  if (!isSwcPluginAvailable) {
+  // Registering the plugin on a host that cannot load it is not a degraded
+  // build but a failed one: SWC aborts with `failed to invoke plugin`. Standing
+  // down leaves the app running off the runtime dictionary registry, which the
+  // transform would otherwise have emptied.
+  if (!isSwcPluginAvailable || !isSwcPluginSupported) {
     return {};
   }
 
@@ -256,6 +315,10 @@ const getPruneConfig = (
             nestingDictionaryKeys,
             dictionaryModeMap,
             extraCallers: swcExtraCallers ?? [],
+            // Rewrites `content.title` → `content.a` to match the compiled
+            // dictionaries the `build.minify` pass already renamed.
+            fieldRenameMap: fieldRenameMap ?? {},
+            logLevel: resolveSwcLogLevel(intlayerConfig),
           },
         ],
       ],
@@ -294,6 +357,16 @@ type WebpackParams = Parameters<NextJsWebpackConfig>;
 type WithIntlayerOptions = GetConfigurationOptions & {
   enableTurbopack?: boolean;
   swcExtraCallers?: SwcExtraCallerConfig[];
+
+  /**
+   * Field-rename tables produced by the purge / minify pipeline, forwarded to
+   * the `@intlayer/swc` plugin so it rewrites source accesses to match the
+   * renamed dictionaries.
+   *
+   * @internal Set by {@link withIntlayer}; `withIntlayerSync` on its own runs
+   * no dictionary rewrite, so it leaves this unset and no rename is applied.
+   */
+  fieldRenameMap?: FieldRenameMapByDictionaryKey;
 };
 
 /**
@@ -364,8 +437,14 @@ export const withIntlayerSync = <T extends Partial<NextConfig>>(
 
   const appLogger = getAppLogger(intlayerConfig);
 
-  const { isGteNext13, isGteNext15, isGteNext16, isTurbopackStable } =
-    getNextVersionFlags(intlayerConfig);
+  const {
+    nextVersion,
+    isGteNext13,
+    isGteNext15,
+    isGteNext16,
+    isTurbopackStable,
+    isSwcPluginSupported,
+  } = getNextVersionFlags(intlayerConfig);
 
   const isTurbopackEnabledFromCommand = isGteNext16
     ? // Next@16 enables turbopack by default; disable with --webpack
@@ -575,14 +654,17 @@ export const withIntlayerSync = <T extends Partial<NextConfig>>(
     return config;
   };
 
-  const pruneConfig: Partial<NextConfig> = getPruneConfig(
+  const pruneConfig: Partial<NextConfig> = getPruneConfig({
     intlayerConfig,
     isBuildCommand,
-    isTurbopackEnabled ?? false,
+    isTurbopackEnabled: isTurbopackEnabled ?? false,
     isDevCommand,
     isGteNext13,
-    configOptions?.swcExtraCallers
-  );
+    isSwcPluginSupported,
+    nextVersion,
+    swcExtraCallers: configOptions?.swcExtraCallers,
+    fieldRenameMap: configOptions?.fieldRenameMap,
+  });
 
   const intlayerNextConfig: Partial<NextConfig> = defu(
     getNewConfig(),
@@ -638,7 +720,29 @@ export const withIntlayer = async <T extends NextConfig | Partial<NextConfig>>(
     });
   }
 
+  // Remove unused content fields and rename the remaining ones to short
+  // aliases, then hand the rename tables to `withIntlayerSync` so the SWC
+  // plugin rewrites the matching source accesses. Only meaningful for a
+  // production build — the optimize pipeline is off during `next dev`.
+  //
+  // `isSwcPluginUsable` gates the dictionary rewrite on the plugin actually
+  // running: it is the only half that fixes up the source, so minifying without
+  // it would leave the code reading field names the dictionaries no longer have.
+  const { isSwcPluginSupported } = getNextVersionFlags(intlayerConfig);
+
+  const fieldRenameMap = isBuildCommand
+    ? await prepareSwcOptimization(intlayerConfig, {
+        configOptions: resolvedConfigOptions,
+        swcExtraCallers: configOptions?.swcExtraCallers,
+        isSwcPluginUsable:
+          isSwcPluginSupported && getIsSwcPluginAvailable(intlayerConfig),
+      })
+    : {};
+
   const nextConfigResolved = await nextConfig;
 
-  return withIntlayerSync(nextConfigResolved, resolvedConfigOptions);
+  return withIntlayerSync(nextConfigResolved, {
+    ...resolvedConfigOptions,
+    fieldRenameMap,
+  });
 };

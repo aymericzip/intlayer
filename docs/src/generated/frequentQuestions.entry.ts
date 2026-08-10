@@ -32,7 +32,10 @@ try {
   }
 }
 
-const readLocale = (
+/**
+ * Reads a document, preferring the requested locale and falling back to English.
+ */
+const readLocaleFile = async (
   relativeAfterLocale: string,
   locale: LocalesValues
 ): Promise<string> => {
@@ -41,21 +44,50 @@ const readLocale = (
     `./frequent_questions/${locale}/${relativeAfterLocale}`
   );
   if (existsSync(target1)) {
-    return readFile(target1, 'utf8');
+    return await readFile(target1, 'utf8');
   }
   const target2 = join(
     baseDir,
     `./frequent_questions/en/${relativeAfterLocale}`
   );
   if (existsSync(target2)) {
-    return readFile(target2, 'utf8');
+    return await readFile(target2, 'utf8');
   }
 
-  return Promise.reject(
-    new Error(
-      `[docs] File not found: ${relativeAfterLocale} - locale: ${locale} - path: ${target1} - path: ${target2}`
-    )
+  throw new Error(
+    `[docs] File not found: ${relativeAfterLocale} - locale: ${locale} - path: ${target1} - path: ${target2}`
   );
+};
+
+/**
+ * Builds a lazy, awaitable handle over a document.
+ *
+ * The entry map below holds one handle per document *per locale*, so reading
+ * eagerly would pull every markdown file of every locale into memory as soon as
+ * this module is imported — hundreds of megabytes, duplicated in every
+ * prerender worker, for the handful of documents a page actually renders.
+ *
+ * The returned value is a thenable rather than a promise: consumers only ever
+ * `await` it, and `await` triggers `then`, so the file is read on first use and
+ * the resulting promise is cached for subsequent reads.
+ */
+const readLocale = (
+  relativeAfterLocale: string,
+  locale: LocalesValues
+): Promise<string> => {
+  let pendingRead: Promise<string> | undefined;
+
+  const read = (): Promise<string> => {
+    pendingRead ??= readLocaleFile(relativeAfterLocale, locale);
+    return pendingRead;
+  };
+
+  return {
+    // biome-ignore lint/suspicious/noThenProperty: the thenable is intentional — `await` is what triggers the lazy read.
+    then: (onFulfilled, onRejected) => read().then(onFulfilled, onRejected),
+    catch: (onRejected) => read().catch(onRejected),
+    finally: (onFinally) => read().finally(onFinally),
+  } as Promise<string>;
 };
 
 export const frequentQuestionsEntry = {

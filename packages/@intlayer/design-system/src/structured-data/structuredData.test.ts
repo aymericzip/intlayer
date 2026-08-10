@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { buildCreativeWorkJsonLd } from './buildCreativeWorkJsonLd';
 import { buildSoftwareApplicationJsonLd } from './buildSoftwareApplicationJsonLd';
 import { buildWebsiteJsonLd } from './buildWebsiteJsonLd';
 
@@ -11,6 +12,14 @@ const websiteParams = {
   locales: ['en', 'fr'],
   keywords: ['i18n', 'localization'],
   rssUrl: 'https://intlayer.org/feed.xml',
+};
+
+const creativeWorkParams = {
+  name: 'Blog',
+  description: 'Discover all topics related to Intlayer.',
+  content: '# Blog',
+  keywords: 'i18n',
+  audienceType: 'Developers',
 };
 
 const softwareApplicationParams = {
@@ -99,5 +108,41 @@ describe('buildSoftwareApplicationJsonLd', () => {
     expect(aggregateRating.ratingValue).toBe('4.5');
     expect(aggregateRating.ratingCount).toBe(12);
     expect(aggregateRating.reviewCount).toBe(8);
+  });
+});
+
+describe('buildCreativeWorkJsonLd', () => {
+  it('formats valid dates as Schema.org YYYY-MM-DD', () => {
+    const { datePublished, dateModified } = buildCreativeWorkJsonLd({
+      ...creativeWorkParams,
+      datePublished: new Date('2024-12-24'),
+      dateModified: new Date('2025-06-29'),
+    });
+
+    expect(datePublished).toBe('2024-12-24');
+    expect(dateModified).toBe('2025-06-29');
+  });
+
+  it('omits unparsable frontmatter dates instead of throwing', () => {
+    // `2024-24-12` — a real typo in the blog frontmatter — used to bubble up a
+    // `RangeError: Invalid Date` that aborted the whole static export.
+    const buildWithInvalidDate = () =>
+      buildCreativeWorkJsonLd({
+        ...creativeWorkParams,
+        datePublished: new Date('2024-24-12'),
+        dateModified: new Date('2024-24-12'),
+      });
+
+    expect(buildWithInvalidDate).not.toThrow();
+    expect(buildWithInvalidDate().datePublished).toBeUndefined();
+    expect(buildWithInvalidDate().dateModified).toBeUndefined();
+  });
+
+  it('omits dates that were never provided', () => {
+    const { datePublished, dateModified } =
+      buildCreativeWorkJsonLd(creativeWorkParams);
+
+    expect(datePublished).toBeUndefined();
+    expect(dateModified).toBeUndefined();
   });
 });

@@ -35,7 +35,33 @@ codegen-units = 1    # Maximize optimizations
 serde = { version = "1.0.207", features = ["derive"] }
 serde_json = "1.0.125"
 pathdiff = "0.2"
-swc_core = { version = "52.0.0", features = [
+# ─────────────────────────────────────────────────────────────────────────────
+#  DO NOT BUMP PAST 54.x WITHOUT RE-READING THIS
+# ─────────────────────────────────────────────────────────────────────────────
+# A Wasm plugin can only be loaded by a host whose `swc_ecma_ast` schema it
+# understands, and SWC's forward-compatibility guarantee runs one way: a plugin
+# built against an *older* CBOR-era `swc_core` keeps working on *newer* hosts,
+# never the reverse.
+#
+# So the pin has to sit at the oldest Next.js release we want to support, and
+# `54.x` is the newest `swc_core` still on `swc_ecma_ast` 19 — the schema
+# Next.js 16.1.0 ships. Bumping to 55+ moves the plugin to schema 20 and drops
+# Next.js 16.1 and 16.2; the plugin would only load on 16.3+.
+#
+# Host schemas, read out of the shipped `@next/swc` binaries:
+#
+#   next 14.2.x  swc_ecma_ast 0.112.7  rkyv ABI    — cannot load this plugin
+#   next 15.5.x  swc_ecma_ast 14.0.0   rkyv ABI    — cannot load this plugin
+#   next 16.0.x  swc_ecma_ast 16.0.0   rkyv ABI    — cannot load this plugin
+#   next 16.1.x  swc_ecma_ast 19.0.0   CBOR ABI    — exact match, the floor
+#   next 16.2.x  swc_ecma_ast 20.0.1   CBOR ABI    — forward compatible
+#   next 16.3.x  swc_ecma_ast 25.0.0   CBOR ABI    — forward compatible
+#
+# `next-intlayer` refuses to register the plugin below the floor, so those
+# builds fall back to running unoptimised instead of failing. Whenever this pin
+# moves, update `MINIMUM_SWC_PLUGIN_NEXT_VERSION` in
+# `packages/next-intlayer/src/server/withIntlayer.ts` to match.
+swc_core = { version = "54.0.0", features = [
   "ecma_utils",
   "ecma_visit",
   "ecma_ast",
@@ -47,7 +73,12 @@ twox-hash = "2.1.0"
 base62 = "2.2.1"
 
 [dev-dependencies]
-swc_core = { version = "52.0.0", features = [
+swc_core = { version = "54.0.0", features = [
   "testing_transform",
   "ecma_plugin_transform",
 ] }
+
+[lints.rust]
+# `swc_ast_unknown` is set from `.cargo/config.toml` for the Wasm targets only;
+# without this the native `cargo test` build warns about it as an unknown cfg.
+unexpected_cfgs = { level = "warn", check-cfg = ['cfg(swc_ast_unknown)'] }

@@ -12,6 +12,7 @@ import { getNormalizedFilesListSet } from './normalizedFilesList';
 const PACKAGE_LIST = [
   'intlayer',
   '@intlayer/core',
+  '@intlayer/core/interpreter',
   'react-intlayer',
   'react-intlayer/client',
   'react-intlayer/server',

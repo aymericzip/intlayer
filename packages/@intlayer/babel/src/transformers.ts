@@ -1,4 +1,10 @@
-import { type TransformOptions, transformAsync } from '@babel/core';
+import { transformAsync } from '@babel/core';
+// Typed from `@babel/parser` rather than `@babel/core`'s
+// `InputOptions['parserOpts']` (Babel 8's rename of `TransformOptions`): the
+// two describe the same shape, but naming `@babel/core` in an exported type
+// pulls its declaration file into every consumer's type-check, and that file
+// needs `@types/convert-source-map` to resolve.
+import type { ParserOptions } from '@babel/parser';
 import { makeFieldRenameBabelPlugin } from './babel-plugin-intlayer-field-rename';
 import {
   intlayerOptimizeBabelPlugin,
@@ -17,25 +23,24 @@ import { extractScriptBlocks, injectScriptBlocks } from './extractScriptBlocks';
  * Babel parser options covering the superset of syntaxes used across all
  * supported frameworks (React / Vue / Svelte / Angular / …).
  */
-export const BABEL_PARSER_OPTIONS: NonNullable<TransformOptions['parserOpts']> =
-  {
-    sourceType: 'module',
-    allowImportExportEverywhere: true,
-    plugins: [
-      'typescript',
-      'jsx',
-      'decorators-legacy',
-      'classProperties',
-      'objectRestSpread',
-      'asyncGenerators',
-      'functionBind',
-      'exportDefaultFrom',
-      'exportNamespaceFrom',
-      'dynamicImport',
-      'nullishCoalescingOperator',
-      'optionalChaining',
-    ],
-  };
+export const BABEL_PARSER_OPTIONS: ParserOptions = {
+  sourceType: 'module',
+  allowImportExportEverywhere: true,
+  plugins: [
+    'typescript',
+    'jsx',
+    'decorators-legacy',
+    'classProperties',
+    'objectRestSpread',
+    'asyncGenerators',
+    'functionBind',
+    'exportDefaultFrom',
+    'exportNamespaceFrom',
+    'dynamicImport',
+    'nullishCoalescingOperator',
+    'optionalChaining',
+  ],
+};
 
 /**
  * Fast pre-check: matches files that could contain native intlayer calls

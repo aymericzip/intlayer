@@ -3,7 +3,16 @@ import { join } from 'node:path';
 import type { PluginObject, PluginPass } from '@babel/core';
 import { transformSync } from '@babel/core';
 import type * as BabelTypes from '@babel/types';
+import * as ANSIColors from '@intlayer/config/colors';
+import {
+  colorize,
+  colorizeKey,
+  colorizeNumber,
+  getAppLogger,
+} from '@intlayer/config/logger';
 import type { NestedFieldReferences } from '@intlayer/core/dictionaryManipulator';
+import { formatPath } from '@intlayer/engine/utils';
+import type { IntlayerConfig } from '@intlayer/types/config';
 import {
   buildNestedRenameMapFromContent,
   getNestedRenameEntryAtPath,
@@ -116,14 +125,25 @@ export type PurgePluginOptions = {
    * Defaults to `[]` (no compat callers) when omitted.
    */
   compatCallers?: CompatCallerConfig[];
+
+  /**
+   * Logging configuration used to report what the pipeline purged and
+   * minified, so a Babel- or SWC-driven build prints the same summary as the
+   * Vite one.  Mirrors `log` in `intlayer.config.ts`; omit to fall back to the
+   * logger defaults.
+   */
+  logConfig?: Pick<IntlayerConfig, 'log'>;
 };
+
+/** Application logger used to report the pipeline's progress. */
+type PurgeLogger = ReturnType<typeof getAppLogger>;
 
 // ── Shared module-level state ─────────────────────────────────────────────────
 
 /**
  * Cache of built {@link PruneContext} objects, keyed by the project's
  * `baseDir`.  Each context is built exactly once per Node.js process:
- * {@link runPurgePipeline} registers the context before running so every
+ * {@link runIntlayerPurgePipeline} registers the context before running so every
  * subsequent transform is a no-op cache hit.
  */
 const _pruneContextCache = new Map<string, PruneContext>();
@@ -394,8 +414,11 @@ const buildRenameMapsSynchronously = (
   dictionariesDir: string,
   dynamicDictionariesDir: string,
   dictionaryKeyToImportModeMap: PurgePluginOptions['dictionaryKeyToImportModeMap'],
-  pruneContext: PruneContext
+  pruneContext: PruneContext,
+  logger: PurgeLogger
 ): void => {
+  let partiallyMinifiedDictionariesCount = 0;
+
   for (const [
     dictionaryKey,
     fieldUsage,
@@ -448,13 +471,40 @@ const buildRenameMapsSynchronously = (
     const opaqueFieldMap =
       pruneContext.dictionaryKeysWithOpaqueFields.get(dictionaryKey);
     if (opaqueFieldMap) {
-      for (const occurrence of opaqueFieldMap.values()) {
-        const renameEntry = getNestedRenameEntryAtPath(
-          nestedRenameMap,
-          occurrence.fieldPath
+      const dangerousOccurrences = [...opaqueFieldMap.values()].filter(
+        (occurrence) =>
+          (getNestedRenameEntryAtPath(nestedRenameMap, occurrence.fieldPath)
+            ?.children.size ?? 0) > 0
+      );
+
+      if (dangerousOccurrences.length > 0) {
+        partiallyMinifiedDictionariesCount += 1;
+
+        logger(
+          [
+            `Dictionary`,
+            colorizeKey(dictionaryKey),
+            `partially minified.`,
+            ...dangerousOccurrences.flatMap((occurrence) => [
+              `\n    Opaque field:`,
+              colorize(`'${occurrence.fieldPath.join('.')}'`, ANSIColors.BLUE),
+              `(nested keys preserved for stability).`,
+              ...occurrence.locations.map(
+                (location) => `\n      at ${formatPath(location)}`
+              ),
+            ]),
+          ],
+          { level: 'warn', isVerbose: true }
         );
-        if (renameEntry && renameEntry.children.size > 0) {
-          renameEntry.children = new Map();
+
+        for (const occurrence of dangerousOccurrences) {
+          const renameEntry = getNestedRenameEntryAtPath(
+            nestedRenameMap,
+            occurrence.fieldPath
+          );
+          if (renameEntry) {
+            renameEntry.children = new Map();
+          }
         }
       }
     }
@@ -466,9 +516,56 @@ const buildRenameMapsSynchronously = (
       );
     }
   }
+
+  if (partiallyMinifiedDictionariesCount > 0) {
+    logger([
+      `Partially minified`,
+      colorizeNumber(partiallyMinifiedDictionariesCount),
+      `dictionar${partiallyMinifiedDictionariesCount === 1 ? 'y' : 'ies'}`,
+      `(preserved nested keys for opaque fields).`,
+    ]);
+  }
 };
 
 // ── Dictionary file writing ───────────────────────────────────────────────────
+
+/**
+ * Names of the top-level content fields of a compiled dictionary, whatever
+ * shape its `content` uses.  Used to report which fields the purge removed.
+ */
+const readContentFieldNames = (
+  content: CompiledDictionaryJson['content']
+): string[] => {
+  // Shape A – fields live inside each locale object.
+  if (isTranslationNode(content)) {
+    const firstLocaleValue = Object.values(content.translation)[0];
+    return isPlainRecord(firstLocaleValue) ? Object.keys(firstLocaleValue) : [];
+  }
+
+  // Shape B / dynamic – flat content record.
+  if (isPlainRecord(content)) return Object.keys(content);
+
+  return [];
+};
+
+/**
+ * Running totals of the purge, reported once the whole pipeline is done.
+ */
+type PurgeStats = {
+  /** Dictionary key → number of fields removed from it. */
+  prunedFieldsCountPerDictionary: Map<string, number>;
+  /**
+   * Dictionary keys whose "pruned fields" line has already been printed.  A
+   * key spans several files (one static, one per locale), and they all remove
+   * the same fields.
+   */
+  loggedPrunedDictionaryKeys: Set<string>;
+  /**
+   * Dictionary keys whose "analysis is incomplete" warning has already been
+   * printed, deduplicated the same way.
+   */
+  loggedIncompleteAnalysisKeys: Set<string>;
+};
 
 /**
  * Reads a compiled dictionary JSON file, applies the purge and/or minify
@@ -483,7 +580,9 @@ const processDictionaryFile = (
   dictionaryKind: 'static' | 'dynamic',
   pruneContext: PruneContext,
   shouldPurge: boolean,
-  shouldMinify: boolean
+  shouldMinify: boolean,
+  logger: PurgeLogger,
+  stats: PurgeStats
 ): void => {
   let parsedDict: CompiledDictionaryJson;
   try {
@@ -495,7 +594,19 @@ const processDictionaryFile = (
   }
 
   const { key: dictionaryKey } = parsedDict;
-  if (!dictionaryKey) return;
+
+  if (!dictionaryKey) {
+    logger(
+      [
+        `Dictionary file`,
+        formatPath(filePath),
+        `is missing a "key" field. Skipping prune for this file.`,
+      ],
+      { level: 'warn' }
+    );
+    return;
+  }
+
   if (pruneContext.dictionariesWithEdgeCases.has(dictionaryKey)) return;
 
   let modified = false;
@@ -508,16 +619,71 @@ const processDictionaryFile = (
         dictionaryKind === 'static'
           ? pruneStaticDictionaryContent
           : pruneDynamicDictionaryContent;
+      const originalFieldNames = readContentFieldNames(parsedDict.content);
       const { prunedDictionary, wasRecognised } = pruneDictionaryContent(
         parsedDict,
         fieldUsage
       );
       if (!wasRecognised) {
         pruneContext.dictionariesWithEdgeCases.add(dictionaryKey);
+        logger(
+          [
+            `Unrecognised content structure in dictionary`,
+            colorizeKey(dictionaryKey),
+            `(file:`,
+            `${formatPath(filePath)}).`,
+            `Skipping prune for this dictionary.`,
+          ],
+          { level: 'warn' }
+        );
         return;
       }
+
+      const removedFieldNames = originalFieldNames.filter(
+        (fieldName) => !fieldUsage.has(fieldName)
+      );
+
+      if (removedFieldNames.length > 0) {
+        stats.prunedFieldsCountPerDictionary.set(
+          dictionaryKey,
+          removedFieldNames.length
+        );
+
+        if (!stats.loggedPrunedDictionaryKeys.has(dictionaryKey)) {
+          stats.loggedPrunedDictionaryKeys.add(dictionaryKey);
+          logger(
+            [
+              `Pruned`,
+              colorizeNumber(removedFieldNames.length),
+              `unused field${removedFieldNames.length === 1 ? '' : 's'} from`,
+              `${colorizeKey(dictionaryKey)}:`,
+              removedFieldNames
+                .map((fieldName) => colorize(fieldName, ANSIColors.GREY_LIGHT))
+                .join(', '),
+            ],
+            { isVerbose: true }
+          );
+        }
+      }
+
       parsedDict = prunedDictionary;
       modified = true;
+    } else if (
+      !fieldUsage &&
+      pruneContext.hasUnparsableSourceFiles &&
+      !stats.loggedIncompleteAnalysisKeys.has(dictionaryKey)
+    ) {
+      // An unparsable source file might be the one referencing this key, so its
+      // usage set cannot be trusted to be empty.
+      stats.loggedIncompleteAnalysisKeys.add(dictionaryKey);
+      logger(
+        [
+          `Skipping prune for dictionary`,
+          colorizeKey(dictionaryKey),
+          `: analysis is incomplete due to earlier source-file parse failures.`,
+        ],
+        { level: 'warn' }
+      );
     }
   }
 
@@ -557,8 +723,15 @@ const processAllDictionaryFiles = (
   dynamicDictionariesDir: string,
   pruneContext: PruneContext,
   shouldPurge: boolean,
-  shouldMinify: boolean
+  shouldMinify: boolean,
+  logger: PurgeLogger
 ): void => {
+  const stats: PurgeStats = {
+    prunedFieldsCountPerDictionary: new Map(),
+    loggedPrunedDictionaryKeys: new Set(),
+    loggedIncompleteAnalysisKeys: new Set(),
+  };
+
   if (existsSync(dictionariesDir)) {
     for (const entry of readdirSync(dictionariesDir)) {
       if (!entry.endsWith('.json')) continue;
@@ -567,7 +740,9 @@ const processAllDictionaryFiles = (
         'static',
         pruneContext,
         shouldPurge,
-        shouldMinify
+        shouldMinify,
+        logger,
+        stats
       );
     }
   }
@@ -583,13 +758,89 @@ const processAllDictionaryFiles = (
             'dynamic',
             pruneContext,
             shouldPurge,
-            shouldMinify
+            shouldMinify,
+            logger,
+            stats
           );
         }
       } catch {
         // Unreadable key directory – skip.
       }
     }
+  }
+
+  const totalPrunedFieldsCount = [
+    ...stats.prunedFieldsCountPerDictionary.values(),
+  ].reduce((total, count) => total + count, 0);
+  const totalPrunedDictionariesCount =
+    stats.prunedFieldsCountPerDictionary.size;
+
+  if (totalPrunedFieldsCount > 0) {
+    logger([
+      `Pruned`,
+      colorizeNumber(totalPrunedFieldsCount),
+      `unused field${totalPrunedFieldsCount === 1 ? '' : 's'} across`,
+      colorizeNumber(totalPrunedDictionariesCount),
+      `dictionar${totalPrunedDictionariesCount === 1 ? 'y' : 'ies'}.`,
+    ]);
+  }
+};
+
+// ── Reporting helpers ─────────────────────────────────────────────────────────
+
+/**
+ * Explains why the requested steps did nothing: the visual editor needs the
+ * full dictionary content, so both purge and minify stand down when it is on.
+ */
+const logStepDisabledByEditor = (
+  logger: PurgeLogger,
+  purge: boolean,
+  minify: boolean
+): void => {
+  const explainDisabled = (stepLabel: string) =>
+    logger([
+      stepLabel,
+      'is',
+      colorize('disabled', ANSIColors.GREY_DARK),
+      'because',
+      colorize('editor.enabled', ANSIColors.BLUE),
+      'is',
+      colorize('true', ANSIColors.GREY_DARK),
+      '— the editor requires full dictionary content.',
+    ]);
+
+  if (purge) explainDisabled('Dictionary purge');
+  if (minify) explainDisabled('Dictionary minification');
+};
+
+/**
+ * Reports the dictionaries whose consumption could not be tracked statically,
+ * with the source files responsible — those keep their full content.
+ */
+const logUntrackedBindings = (
+  logger: PurgeLogger,
+  pruneContext: PruneContext
+): void => {
+  for (const [
+    dictionaryKey,
+    sourceFilePaths,
+  ] of pruneContext.dictionaryKeysWithUntrackedBindings) {
+    logger(
+      [
+        `Dictionary`,
+        colorizeKey(dictionaryKey),
+        `cannot be purged or minified.`,
+        `\n    Reason: the result of`,
+        `${colorize(`useIntlayer(`, ANSIColors.GREY_LIGHT)}${colorizeKey(
+          `'${dictionaryKey}'`
+        )}${colorize(`)`, ANSIColors.GREY_LIGHT)}`,
+        `is assigned to a plain variable in:`,
+        ...sourceFilePaths.map(
+          (filePath) => `\n      - ${formatPath(filePath)}`
+        ),
+      ],
+      { level: 'warn' }
+    );
   }
 };
 
@@ -599,8 +850,22 @@ const processAllDictionaryFiles = (
  * Runs the full purge/minify pipeline for the given options, using a
  * module-level cache so the work happens at most once per process per
  * unique `baseDir`.
+ *
+ * Exported so bundler integrations that do not go through Babel can drive the
+ * same pipeline. The Next.js integration is the main consumer: its SWC plugin
+ * runs as a per-file Wasm transform with no filesystem access, so the analysis
+ * and the dictionary rewrite happen here, in Node, and only the resulting
+ * field-rename tables (see {@link serializeFieldRenameMap}) are forwarded to
+ * the plugin.
+ *
+ * **This performs file I/O**: it reads every source file listed in
+ * `componentFilesList` and overwrites the compiled dictionary JSON files
+ * in-place. Call it at most once per build, after the dictionaries have been
+ * built.
  */
-const runPurgePipeline = (options: PurgePluginOptions): PruneContext => {
+export const runIntlayerPurgePipeline = (
+  options: PurgePluginOptions
+): PruneContext => {
   const {
     baseDir,
     purge,
@@ -613,6 +878,7 @@ const runPurgePipeline = (options: PurgePluginOptions): PruneContext => {
     dictionaryKeyToImportModeMap,
     nestedDictionaryReferences,
     compatCallers,
+    logConfig,
   } = options;
 
   const cachedContext = _pruneContextCache.get(baseDir);
@@ -621,11 +887,24 @@ const runPurgePipeline = (options: PurgePluginOptions): PruneContext => {
   const pruneContext = createPruneContext();
   _pruneContextCache.set(baseDir, pruneContext);
 
+  const logger = getAppLogger(logConfig);
+
   const shouldPurge = purge && !editorEnabled;
   const shouldMinify = minify && !editorEnabled;
 
+  if (editorEnabled && (purge || minify)) {
+    logStepDisabledByEditor(logger, purge, minify);
+  }
+
   if ((!shouldPurge && !shouldMinify) || optimize === false)
     return pruneContext;
+
+  if (shouldPurge) {
+    logger(['Dictionary purge', colorize('enabled', ANSIColors.GREEN)]);
+  }
+  if (shouldMinify) {
+    logger(['Dictionary minification', colorize('enabled', ANSIColors.GREEN)]);
+  }
 
   // Phase 1: Synchronously analyse all component source files.
   for (const sourceFilePath of componentFilesList) {
@@ -639,13 +918,17 @@ const runPurgePipeline = (options: PurgePluginOptions): PruneContext => {
     preserveNestedDictionaryFields(pruneContext, nestedDictionaryReferences);
   }
 
+  // Phase 1.6: Warn about the dictionaries the analysis could not follow.
+  logUntrackedBindings(logger, pruneContext);
+
   // Phase 2: Build field-rename maps (minify only).
   if (shouldMinify) {
     buildRenameMapsSynchronously(
       dictionariesDir,
       dynamicDictionariesDir,
       dictionaryKeyToImportModeMap,
-      pruneContext
+      pruneContext,
+      logger
     );
   }
 
@@ -655,7 +938,8 @@ const runPurgePipeline = (options: PurgePluginOptions): PruneContext => {
     dynamicDictionariesDir,
     pruneContext,
     shouldPurge,
-    shouldMinify
+    shouldMinify,
+    logger
   );
 
   return pruneContext;
@@ -717,7 +1001,7 @@ export const intlayerPurgeBabelPlugin = (_babel: {
   name: 'intlayer-purge',
 
   pre(this: PluginPass) {
-    runPurgePipeline(this.opts as PurgePluginOptions);
+    runIntlayerPurgePipeline(this.opts as PurgePluginOptions);
   },
 
   visitor: {

@@ -159,6 +159,74 @@ export const getNestedRenameEntryAtPath = (
   return renameEntry;
 };
 
+// ── Serialisation for non-Babel consumers ─────────────────────────────────────
+
+/**
+ * JSON-serialisable form of a {@link NestedRenameEntry}.
+ *
+ * Mirrors `FieldRenameNode` in the `@intlayer/swc` crate — both sides must stay
+ * in sync.
+ */
+export type SerializedFieldRenameEntry = {
+  /** Short alphabetic alias the field is renamed to (`'a'`, `'b'`, …). */
+  shortName: string;
+  /** Rename table of the fields nested inside this one. */
+  children: SerializedFieldRenameMap;
+};
+
+/** JSON-serialisable form of a {@link NestedRenameMap}. */
+export type SerializedFieldRenameMap = Record<
+  string,
+  SerializedFieldRenameEntry
+>;
+
+/** Recursively converts a {@link NestedRenameMap} to its serialisable form. */
+const serializeNestedRenameMap = (
+  renameMap: NestedRenameMap
+): SerializedFieldRenameMap => {
+  const serialized: SerializedFieldRenameMap = {};
+
+  for (const [fieldName, renameEntry] of renameMap) {
+    serialized[fieldName] = {
+      shortName: renameEntry.shortName,
+      children: serializeNestedRenameMap(renameEntry.children),
+    };
+  }
+
+  return serialized;
+};
+
+/**
+ * Converts the field-rename tables of a {@link PruneContext} into a plain JSON
+ * object, keyed by dictionary key.
+ *
+ * Consumed by bundler integrations that cannot run the Babel rename plugin and
+ * must forward the tables to another transformer — currently the `@intlayer/swc`
+ * Wasm plugin used by Next.js, which rewrites the source accesses itself.
+ *
+ * Dictionaries flagged as structural edge cases are omitted: the JSON pipeline
+ * leaves them untouched, so their source accesses must stay untouched too.
+ * Empty tables are omitted as well, so the result is empty when there is
+ * nothing to rename.
+ */
+export const serializeFieldRenameMap = (
+  pruneContext: PruneContext
+): Record<string, SerializedFieldRenameMap> => {
+  const serialized: Record<string, SerializedFieldRenameMap> = {};
+
+  for (const [
+    dictionaryKey,
+    renameMap,
+  ] of pruneContext.dictionaryKeyToFieldRenameMap) {
+    if (renameMap.size === 0) continue;
+    if (pruneContext.dictionariesWithEdgeCases.has(dictionaryKey)) continue;
+
+    serialized[dictionaryKey] = serializeNestedRenameMap(renameMap);
+  }
+
+  return serialized;
+};
+
 // ── Field-rename Babel plugin ─────────────────────────────────────────────────
 
 /**

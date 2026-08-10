@@ -79,6 +79,74 @@ Three import modes are supported:
 | `dynamic` | `useDictionaryDynamic` | Dynamic `.mjs` import |
 | `fetch`   | `useDictionaryDynamic` | Fetch `.mjs` import   |
 
+### Field renaming (`build.minify`)
+
+When the compiled dictionaries have been minified — every user-defined content field renamed to a short alphabetic alias — the plugin rewrites the matching source accesses so both sides keep agreeing:
+
+**Before**
+
+```ts
+const { title } = useIntlayer("about");
+const content = useIntlayer("about");
+content.section.subtitle;
+```
+
+**After**
+
+```ts
+const { d: title } = useIntlayer("about");
+const content = useIntlayer("about");
+content.b.a;
+```
+
+Destructuring (including nested patterns, local aliases and defaults), member chains, optional chaining, static computed accesses (`content["title"]`), array indexes (`content.list[0].title`) and signal-style accessors (`content().title`) are all handled. Dynamic accesses (`content[key]`) stop the rewrite, leaving the rest of the chain untouched.
+
+The rename tables come from the `fieldRenameMap` option. Deciding _which_ fields are unused and _what_ alias each gets requires reading every component source file and rewriting the dictionary JSON — file I/O and cross-file state a per-file Wasm transform cannot do — so that analysis runs in Node (in `@intlayer/babel`, driven by `withIntlayer`) and only its result is handed to this plugin.
+
+### Build reporting
+
+The plugin transforms one file at a time with no cross-file state, so all it can report is a line per file. That is a tracing aid, not build output — the purge and minify summaries a build normally prints (which dictionaries were pruned, which fields were removed, what was partially minified) come from the Node-side pipeline and follow `log.mode` in `intlayer.config.*`, exactly as in a Vite build.
+
+`logLevel` is therefore `"off"` unless you ask for tracing:
+
+| Level     | Output                                                                      |
+| --------- | --------------------------------------------------------------------------- |
+| `"off"`   | Nothing (default)                                                           |
+| `"info"`  | One line per transformed file: injected imports and renamed field count     |
+| `"debug"` | Everything above, plus skipped files and the emitted code of each transform |
+
+With `next-intlayer`, set `INTLAYER_SWC_LOG_LEVEL=info` (or `debug`) to turn it on; `log.mode: "disabled"` silences it regardless.
+
+---
+
+## Next.js compatibility
+
+An SWC Wasm plugin can only be loaded by a host that speaks its `swc_ecma_ast`
+schema. **Next.js 16.1.0 is the minimum**: it is the first release built on
+SWC's forward-compatible plugin ABI, where the AST travels as self-describing
+CBOR instead of rkyv, so one binary keeps working on later releases. Earlier
+releases require an exact schema match and reject the plugin.
+
+| Next.js | `swc_ecma_ast` | Plugin loads   |
+| ------- | -------------- | -------------- |
+| 14.2.x  | 0.112.7        | ❌ rkyv ABI    |
+| 15.5.x  | 14.0.0         | ❌ rkyv ABI    |
+| 16.0.x  | 16.0.0         | ❌ rkyv ABI    |
+| 16.1.x  | 19.0.0         | ✅ exact match |
+| 16.2.x  | 20.0.1         | ✅             |
+| 16.3.x  | 25.0.0         | ✅             |
+
+You do not have to check this yourself: `withIntlayer` from
+[`next-intlayer`](https://www.npmjs.com/package/next-intlayer) reads the Next.js
+version from your project and simply does not register the plugin below 16.1.0.
+Those builds succeed, they just run without the bundle optimisation instead of
+failing with `failed to invoke plugin`.
+
+This is also why the crate pins `swc_core` to the `54.x` line rather than the
+latest release: `54.x` is the newest `swc_core` still on `swc_ecma_ast` 19, the
+schema Next.js 16.1 ships. Moving the pin forward would raise the minimum
+supported Next.js version with it.
+
 ---
 
 ## Usage: Next.js / SWC Wasm plugin (recommended)
@@ -112,6 +180,8 @@ const nextConfig: NextConfig = {
           replaceDictionaryEntry: false,
           filesList: [], // empty = transform all files
           dictionaryModeMap: {}, // per-key overrides, e.g. { "heavy-dict": "dynamic" }
+          fieldRenameMap: {}, // minified field aliases, e.g. { about: { title: { shortName: "a", children: {} } } }
+          logLevel: "off", // "off" | "info" | "debug"
         },
       ],
     ],
@@ -148,8 +218,7 @@ fn my_transform(program: Program, file_path: &str) -> Program {
         fetch_dictionaries_dir: "/project/.intlayer/fetch_dictionaries".into(),
         import_mode: Some("static".into()),
         replace_dictionary_entry: Some(false),
-        files_list: vec![],
-        dictionary_mode_map: None,
+        ..PluginConfig::default()
     };
     process_transform(program, config, file_path.into())
 }
@@ -166,22 +235,34 @@ cargo build-wasip1 --release
 cargo build --target wasm32-wasip1 --features plugin --release
 ```
 
+Build through the alias, or at least through this crate's `.cargo/config.toml`:
+it sets `--cfg=swc_ast_unknown` for `wasm32` targets, which is what opts the
+binary into the forward-compatible ABI. Built without it, the plugin only loads
+on hosts sharing its exact `swc_ecma_ast` version, and the first Next.js release
+that adds an AST node breaks every build using it.
+
 ---
 
 ## Plugin configuration reference
 
 All fields correspond to the JSON object passed as the second element of each `swcPlugins` tuple.
 
-| Field                    | Type                               | Default    | Description                                         |
-| ------------------------ | ---------------------------------- | ---------- | --------------------------------------------------- |
-| `dictionariesDir`        | `string`                           | required   | Absolute path to compiled `.json` dictionaries      |
-| `dictionariesEntryPath`  | `string`                           | required   | Absolute path to the generated entry `.mjs` file    |
-| `dynamicDictionariesDir` | `string`                           | required   | Absolute path for dynamic `.mjs` modules            |
-| `fetchDictionariesDir`   | `string`                           | required   | Absolute path for fetch `.mjs` modules              |
-| `importMode`             | `"static" \| "dynamic" \| "fetch"` | `"static"` | Global import strategy                              |
-| `replaceDictionaryEntry` | `boolean`                          | `false`    | Replace entry file with empty stubs                 |
-| `filesList`              | `string[]`                         | `[]`       | Allowlist of absolute file paths; empty = all files |
-| `dictionaryModeMap`      | `Record<string, string>`           | `{}`       | Per-dictionary import mode overrides                |
+| Field                    | Type                               | Default    | Description                                          |
+| ------------------------ | ---------------------------------- | ---------- | ---------------------------------------------------- |
+| `dictionariesDir`        | `string`                           | required   | Absolute path to compiled `.json` dictionaries       |
+| `dictionariesEntryPath`  | `string`                           | required   | Absolute path to the generated entry `.mjs` file     |
+| `dynamicDictionariesDir` | `string`                           | required   | Absolute path for dynamic `.mjs` modules             |
+| `fetchDictionariesDir`   | `string`                           | required   | Absolute path for fetch `.mjs` modules               |
+| `importMode`             | `"static" \| "dynamic" \| "fetch"` | `"static"` | Global import strategy                               |
+| `replaceDictionaryEntry` | `boolean`                          | `false`    | Replace entry file with empty stubs                  |
+| `filesList`              | `string[]`                         | `[]`       | Allowlist of absolute file paths; empty = all files  |
+| `dictionaryModeMap`      | `Record<string, string>`           | `{}`       | Per-dictionary import mode overrides                 |
+| `nestingDictionaryKeys`  | `string[]`                         | `[]`       | Keys imported through their `nested/` companion      |
+| `extraCallers`           | `ExtraCallerConfig[]`              | `[]`       | Compat-adapter callers to rewrite like `useIntlayer` |
+| `fieldRenameMap`         | `Record<string, FieldRenameMap>`   | `{}`       | Minified field aliases, per dictionary key           |
+| `logLevel`               | `"off" \| "info" \| "debug"`       | `"off"`    | Build-time reporting verbosity                       |
+
+`FieldRenameMap` is a recursive object mapping each original field name to `{ shortName: string; children: FieldRenameMap }`.
 
 ---
 
@@ -189,9 +270,28 @@ All fields correspond to the JSON object passed as the second element of each `s
 
 The following symbols are exported by this crate:
 
-- **`PluginConfig`** – configuration struct (mirrors the JSON options above).
+- **`PluginConfig`** – configuration struct (mirrors the JSON options above). Implements `Default`, so `..PluginConfig::default()` keeps call sites stable as options are added.
+- **`ExtraCallerConfig` / `NamespaceOptionConfig`** – compat-adapter caller descriptors.
+- **`FieldRenameMap` / `FieldRenameNode`** – the minified field alias tables.
+- **`LogLevel`** – build-time reporting verbosity.
 - **`process_transform(program, cfg, filename) -> Program`** – core transform function; accepts and returns an SWC `Program` AST.
 - **`normalize_path(path: &str) -> String`** – normalises Windows-style backslash paths to forward slashes for cross-platform path diffing.
+
+### Crate layout
+
+| Module             | Responsibility                                               |
+| ------------------ | ------------------------------------------------------------ |
+| `config`           | Plugin option types and their wire format                    |
+| `ast`              | Small helpers for reading and building AST nodes             |
+| `paths`            | Path normalisation and relative module specifiers            |
+| `packages`         | Recognised package specifiers and generated-file conventions |
+| `extra_caller`     | Namespace resolution for compat-adapter callers              |
+| `field_rename`     | Source-side content field renaming (`build.minify`)          |
+| `pre_pass`         | Caller discovery and the file-level dynamic/static decision  |
+| `optimize`         | Call-site and import-specifier rewriting                     |
+| `imports`          | Injection of the dictionary imports the rewrite created      |
+| `dictionary_entry` | Emptying of the generated dictionaries entry module          |
+| `logger`           | Build-time reporting                                         |
 
 ---
 

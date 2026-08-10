@@ -5,6 +5,7 @@ import {
   generateShortFieldName,
   getNestedRenameEntryAtPath,
   makeFieldRenameBabelPlugin,
+  serializeFieldRenameMap,
 } from './babel-plugin-intlayer-field-rename';
 import {
   createPruneContext,
@@ -580,5 +581,75 @@ describe('makeFieldRenameBabelPlugin', () => {
       expect(outputB).toContain('content.a');
       expect(outputB).not.toMatch(/content\.footer\b/);
     });
+  });
+});
+
+// ── serializeFieldRenameMap ───────────────────────────────────────────────────
+
+describe('serializeFieldRenameMap', () => {
+  it('converts the nested rename maps into plain JSON objects', () => {
+    const pruneContext = makeContext(
+      new Map([
+        [
+          'about',
+          buildNestedRenameMapFromContent({
+            // sorted: section → 'a', title → 'b'
+            section: { subtitle: 'S', title: 'T' },
+            title: 'T',
+          }),
+        ],
+      ])
+    );
+
+    expect(serializeFieldRenameMap(pruneContext)).toEqual({
+      about: {
+        section: {
+          shortName: 'a',
+          children: {
+            subtitle: { shortName: 'a', children: {} },
+            title: { shortName: 'b', children: {} },
+          },
+        },
+        title: { shortName: 'b', children: {} },
+      },
+    });
+  });
+
+  it('omits dictionaries flagged as structural edge cases', () => {
+    const pruneContext = makeContext(
+      new Map([
+        ['about', buildNestedRenameMapFromContent({ title: 'T' })],
+        ['contact', buildNestedRenameMapFromContent({ title: 'T' })],
+      ])
+    );
+    pruneContext.dictionariesWithEdgeCases.add('contact');
+
+    expect(Object.keys(serializeFieldRenameMap(pruneContext))).toEqual([
+      'about',
+    ]);
+  });
+
+  it('omits dictionaries whose rename map is empty', () => {
+    const pruneContext = makeContext(
+      new Map([['about', buildNestedRenameMapFromContent('a plain string')]])
+    );
+
+    expect(serializeFieldRenameMap(pruneContext)).toEqual({});
+  });
+
+  it('returns an empty object when nothing was minified', () => {
+    expect(serializeFieldRenameMap(createPruneContext())).toEqual({});
+  });
+
+  it('produces a structure that survives a JSON round-trip', () => {
+    const pruneContext = makeContext(
+      new Map([
+        ['about', buildNestedRenameMapFromContent({ section: { title: 'T' } })],
+      ])
+    );
+
+    const serialized = serializeFieldRenameMap(pruneContext);
+
+    expect(JSON.parse(JSON.stringify(serialized))).toEqual(serialized);
   });
 });

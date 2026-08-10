@@ -1,4 +1,5 @@
 import {
+  defaultLocale,
   getHTMLTextDir,
   getTranslation,
   type StrictModeLocaleMap,
@@ -14,8 +15,10 @@ export { generateStaticParams } from 'next-intlayer';
 export const generateMetadata = ({
   params: { locale },
 }: LocalParams): Metadata => {
+  // `LocalParams` leaves `locale` optional so the type also fits the root
+  // layout, which Next.js renders without route params.
   const t = <T extends string>(content: StrictModeLocaleMap<T>) =>
-    getTranslation(content, locale);
+    getTranslation(content, locale ?? defaultLocale);
 
   const title = t<string>({
     en: 'Create Next App',

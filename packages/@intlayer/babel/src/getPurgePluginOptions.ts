@@ -118,6 +118,7 @@ export const getPurgePluginOptions = (
     componentFilesList,
     dictionaryKeyToImportModeMap,
     nestedDictionaryReferences: getNestedDictionaryReferences(dictionaries),
+    logConfig: { log: config.log },
     ...overrides,
   };
 };

@@ -3,3 +3,19 @@
 build-wasip1 = "build --target wasm32-wasip1 --features plugin"
 # Build the Wasm plugin binary for wasm32-unknown-unknown targets.
 build-wasm32 = "build --target wasm32-unknown-unknown --features plugin"
+
+# Opt the Wasm builds into SWC's forward-compatible plugin ABI.
+#
+# Since `@swc/core@1.15.0` the host serialises the AST with CBOR instead of
+# rkyv, and every AST enum carries an extra `Unknown` variant. Together they let
+# a plugin keep working against a *newer* host: CBOR is self-describing, so
+# fields the plugin does not know about survive the round-trip, and node kinds
+# added by a later ECMAScript standard deserialise as `Unknown` instead of
+# aborting the whole transform.
+#
+# Without this cfg the plugin is pinned to hosts sharing its exact
+# `swc_ecma_ast` version, and the first Next.js release that adds an AST variant
+# breaks every build using it. See
+# https://swc.rs/docs/plugin/ecmascript/compatibility
+[target.'cfg(target_arch = "wasm32")']
+rustflags = ["--cfg=swc_ast_unknown"]
