@@ -31,6 +31,47 @@ import { createPrimaryInstanceGuard } from './dedupePlugin';
 
 const PROXY_PLUGIN_NAME = 'vite-intlayer-middleware-plugin';
 
+/**
+ * Name of the Vite plugin `nitro/vite` registers in preview mode. It mounts the
+ * built Nitro server — which already carries the Intlayer proxy as a Nitro
+ * middleware — inside the Vite preview server.
+ */
+const NITRO_PREVIEW_PLUGIN_NAME = 'nitro:preview';
+
+/**
+ * Header Nitro's prerenderer sets on every request it issues to the server it
+ * is generating pages from. Its value is the route being generated.
+ */
+const NITRO_PRERENDER_HEADER = 'x-nitro-prerender';
+
+/**
+ * Environment flag TanStack Start sets on the build process while it prerenders
+ * pages through a Vite preview server. The preview server — and therefore this
+ * middleware — runs in that same process, so the flag is readable here.
+ */
+const TANSTACK_PRERENDER_ENV_VAR = 'TSS_PRERENDERING';
+
+/**
+ * Detects requests issued by a prerenderer rather than by a real visitor.
+ *
+ * Prerendered pages are written to disk and then served to every visitor, so
+ * their content must depend on the URL alone. Anything client-specific — a
+ * locale cookie, a persisted locale on the response — would either be baked
+ * into a static file or make the generated page depend on the machine running
+ * the build.
+ *
+ * @param req - The incoming request.
+ * @returns `true` when the request comes from a prerender pass.
+ *
+ * @example
+ * ```ts
+ * isPrerenderRequest({ headers: { 'x-nitro-prerender': '/about' } }); // true
+ * ```
+ */
+const isPrerenderRequest = (req: IncomingMessage): boolean =>
+  Boolean(req.headers[NITRO_PRERENDER_HEADER]) ||
+  process.env[TANSTACK_PRERENDER_ENV_VAR] === 'true';
+
 export type IntlayerProxyPluginOptions = {
   /**
    * A function that allows you to ignore specific requests from the intlayer proxy.
@@ -182,11 +223,12 @@ export const createIntlayerProxyHandler = (
    * Retrieves the locale from storage (cookies, localStorage, sessionStorage).
    *
    * Returns `undefined` when the stored locale is not allowed to drive locale
-   * resolution (auto mode on a dev/preview server), which makes every caller
-   * fall through to `Accept-Language` detection and then the default locale.
+   * resolution (auto mode on a dev/preview server, or a prerender pass, whose
+   * output must stay URL-driven), which makes every caller fall through to
+   * `Accept-Language` detection and then the default locale.
    */
   const getStorageLocale = (req: IncomingMessage): Locale | undefined => {
-    if (!canUseStorageLocale) return undefined;
+    if (!canUseStorageLocale || isPrerenderRequest(req)) return undefined;
 
     const locale = getLocaleFromStorageServer({
       getCookie: (name: string) => getCookie(name, req.headers.cookie),
@@ -387,7 +429,10 @@ export const createIntlayerProxyHandler = (
       }
     }
 
-    if (persistLocale) {
+    // A prerendered response is stored as a static file and replayed to every
+    // visitor, so persisting the locale on it would hand the locale of the
+    // build machine to everyone hitting that page.
+    if (persistLocale && !isPrerenderRequest(req)) {
       persistLocaleOnResponse(res, persistLocale);
     }
 
@@ -1088,6 +1133,11 @@ export const intlayerProxy = (options?: IntlayerProxyPluginOptions): Plugin => {
   // `intlayerProxy()` call.
   const guard = createPrimaryInstanceGuard(PROXY_PLUGIN_NAME);
 
+  // Set during `configResolved`: `nitro/vite` serves the *built* Nitro server
+  // from inside the preview server, and that build already carries the proxy as
+  // a Nitro middleware (see `nitroModule` below).
+  let isNitroServingPreview = false;
+
   /**
    * Nitro module injected automatically by `nitro/vite`.
    *
@@ -1141,6 +1191,10 @@ export const intlayerProxy = (options?: IntlayerProxyPluginOptions): Plugin => {
     // Decide whether this is the primary instance before registering middleware.
     configResolved: (config: { plugins: readonly { name: string }[] }) => {
       guard.resolve(config);
+      isNitroServingPreview = config.plugins.some(
+        (registeredPlugin) =>
+          registeredPlugin.name === NITRO_PREVIEW_PLUGIN_NAME
+      );
     },
     // Injected into nitroConfig.modules by the `nitro/vite` plugin so the
     // locale-routing middleware is registered in the production Nitro server.
@@ -1155,6 +1209,14 @@ export const intlayerProxy = (options?: IntlayerProxyPluginOptions): Plugin => {
     // Vite preview server
     configurePreviewServer: (server) => {
       if (!guard.isPrimary) return;
+      // With Nitro, the preview server forwards every request to the built
+      // Nitro server, whose pipeline already starts with this proxy. Adding a
+      // second layer here would run locale resolution twice on the same
+      // request: the first pass rewrites `req.url` (and the locale request
+      // header), the second pass reads that rewritten URL as if it came from
+      // the browser and can redirect it back — the redirect ping-pong that
+      // shows up as "max redirects reached" while prerendering.
+      if (isNitroServingPreview) return;
       logProxyEnabled();
       server.middlewares.use(handler);
     },

@@ -58,6 +58,10 @@ export default async (event: H3EventLike): Promise<Response | void> =>
         'accept-language': event.headers.get('accept-language') ?? '',
         'x-forwarded-host': event.headers.get('x-forwarded-host') ?? '',
         'x-forwarded-proto': event.headers.get('x-forwarded-proto') ?? '',
+        // Nitro's prerenderer tags its requests with this header; the proxy
+        // reads it to keep prerendered pages URL-driven (no stored locale, no
+        // locale persisted onto a response that becomes a static file).
+        'x-nitro-prerender': event.headers.get('x-nitro-prerender') ?? '',
       } as Record<string, string>,
     } as unknown as IncomingMessage;
 
