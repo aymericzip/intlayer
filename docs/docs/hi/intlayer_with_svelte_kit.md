@@ -387,7 +387,7 @@ export const getLocale = (event: RequestEvent): Locale => {
 };
 ```
 
-> `getLocaleFromStorage` आपके कॉन्फ़िगरेशन के अनुसार हेडर या कुकी से locale की जांच करेगा। अधिक जानकारी के लिए देखें [Configuration](https://intlayer.org/doc/configuration)।
+> `getLocaleFromStorage` आपके कॉन्फ़िगरेशन के अनुसार हेडर या कुकी से locale की जांच करेगा। अधिक जानकारी के लिए देखें [Configuration](https://intlayer.org/doc/concept/configuration)।
 
 > `localeDetector` फ़ंक्शन `Accept-Language` हेडर को प्रोसेस करेगा और सबसे उपयुक्त मैच लौटाएगा।
 

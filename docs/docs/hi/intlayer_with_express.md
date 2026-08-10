@@ -277,7 +277,7 @@ export default config;
 - अनुवादित सामग्री के **इनलाइन पूर्वावलोकन**।
 - अनुवादों को आसानी से बनाने और अपडेट करने के लिए **त्वरित क्रियाएं**।
 
-एक्सटेंशन का उपयोग कैसे करें, इसके लिए देखें [Intlayer VS Code एक्सटेंशन दस्तावेज़](https://intlayer.org/doc/hi/vs-code-extension)।
+एक्सटेंशन का उपयोग कैसे करें, इसके लिए देखें [Intlayer VS Code एक्सटेंशन दस्तावेज़](https://intlayer.org/hi/doc/vs-code-extension)।
 
 ### Git कॉन्फ़िगरेशन
 

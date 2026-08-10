@@ -262,7 +262,7 @@ export default config;
 - **معاينات داخلية** للمحتوى المترجم.
 - **إجراءات سريعة** لإنشاء الترجمات وتحديثها بسهولة.
 
-لمزيد من التفاصيل حول كيفية استخدام الامتداد، راجع [توثيق امتداد Intlayer لـ VS Code](https://intlayer.org/doc/ar/vs-code-extension).
+لمزيد من التفاصيل حول كيفية استخدام الامتداد، راجع [توثيق امتداد Intlayer لـ VS Code](https://intlayer.org/ar/doc/vs-code-extension).
 
 ### إعدادات Git
 

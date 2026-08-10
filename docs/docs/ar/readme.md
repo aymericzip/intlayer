@@ -74,7 +74,7 @@ Intlayer هو **حل i18n حديث** لتطبيقات الويب والهاتف 
 
 ابدأ رحلتك مع Intlayer اليوم واختبر نهجًا أكثر سلاسة وقوة في التدويل.
 
-<a href="https://intlayer.org/doc/ar/concept/content" rel="">
+<a href="https://intlayer.org/ar/doc/concept/content" rel="">
   <img src="https://img.shields.io/badge/ابدأ-FFFFFF?style=for-the-badge&logo=rocket&logoColor=black" />
 </a>
 
@@ -173,7 +173,7 @@ const HomePage = () => {
   <li><a href="https://intlayer.org/doc/concept/cms" rel=''>نظام إدارة المحتوى Intlayer CMS</a></li>
   <li><a href="https://intlayer.org/doc/concept/content" rel=''>القاموس</a>
     <ul>
-      <li><a href="https://intlayer.org/doc/concept/content/per-locale-file" rel=''>ملف إعلان المحتوى لكل لغة</a></li>
+      <li><a href="https://intlayer.org/doc/concept/per-locale-file" rel=''>ملف إعلان المحتوى لكل لغة</a></li>
       <li><a href="https://intlayer.org/doc/concept/content/translation" rel=''>الترجمة</a></li>
       <li><a href="https://intlayer.org/doc/concept/content/enumeration" rel=''>التعداد</a></li>
       <li><a href="https://intlayer.org/doc/concept/content/condition" rel=''>الشرط</a></li>
@@ -194,7 +194,7 @@ const HomePage = () => {
     <ul>
       <li><a href="https://intlayer.org/doc/environment/nextjs/15" rel=''>Next.js 15</a></li>
       <li><a href="https://intlayer.org/doc/environment/nextjs/14" rel=''>Next.js 14 (موجه التطبيق)</a></li>
-      <li><a href="https://intlayer.org/doc/environment/nextjs/next-with-Page-Router" rel=''>Next.js موجه الصفحات</a></li>
+      <li><a href="https://intlayer.org/doc/environment/nextjs/next-with-page-router" rel=''>Next.js موجه الصفحات</a></li>
       <li><a href="https://intlayer.org/doc/environment/nextjs/compiler" rel=''>Next.js باستخدام المترجم</a></li>
     </ul>
   </li>
@@ -223,7 +223,7 @@ const HomePage = () => {
   <li><a href="https://intlayer.org/doc/environment/sveltekit" rel=''>SvelteKit</a></li>
   <li><a href="https://intlayer.org/doc/environment/vite-and-preact" rel=''>Vite + Preact</a></li>
   <li><a href="https://intlayer.org/doc/environment/vite-and-vue" rel=''>Vite + Vue</a></li>
-  <li><a href="https://intlayer.org/doc/environment/vite-and-nuxt" rel=''>Vite + Nuxt</a></li>
+  <li><a href="https://intlayer.org/doc/environment/nuxt-and-vue" rel=''>Vite + Nuxt</a></li>
   <li><a href="https://intlayer.org/doc/environment/vite-and-solid" rel=''>Vite + Solid</a></li>
   <li><a href="https://intlayer.org/doc/environment/angular" rel=''>أنجولار</a></li>
   <li>

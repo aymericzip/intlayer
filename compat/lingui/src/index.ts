@@ -9,7 +9,7 @@
  * Messages are served from intlayer's `messages` dictionary rather than
  * lingui's compiled catalogs. ICU MessageFormat syntax is fully supported.
  *
- * @see https://intlayer.org/doc/compat/lingui
+ * @see https://intlayer.org/doc/compatibility/lingui
  */
 
 // ── @lingui/core re-exports ────────────────────────────────────────────────

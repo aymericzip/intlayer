@@ -112,7 +112,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-Використовуючи цю конфігурацію, усі файли для кожної локалі будуть згенеровані з мовою за замовчуванням, встановленою на English. Вона також включає генерацію `.content` файлів за допомогою команди `transform` та компілятора. (Див. [Компілятор](https://intlayer.org/doc/compiler) або [Transform](https://intlayer.org/doc/concept/cli/transform) для докладнішої інформації.)
+Використовуючи цю конфігурацію, усі файли для кожної локалі будуть згенеровані з мовою за замовчуванням, встановленою на English. Вона також включає генерацію `.content` файлів за допомогою команди `transform` та компілятора. (Див. [Компілятор](https://intlayer.org/doc/compiler) або [Transform](https://intlayer.org/doc/concept/cli/extract) для докладнішої інформації.)
 
 ## Один файл з кількома перекладами
 

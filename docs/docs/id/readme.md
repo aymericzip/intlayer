@@ -173,7 +173,7 @@ Jelajahi dokumentasi lengkap kami untuk memulai dengan Intlayer dan pelajari car
   <li><a href="https://intlayer.org/doc/concept/cms" rel=''>Intlayer CMS</a></li>
   <li><a href="https://intlayer.org/doc/concept/content" rel=''>Kamus</a>
     <ul>
-      <li><a href="https://intlayer.org/doc/concept/content/per-locale-file" rel=''>File Deklarasi Konten Per-Locale</a></li>
+      <li><a href="https://intlayer.org/doc/concept/per-locale-file" rel=''>File Deklarasi Konten Per-Locale</a></li>
       <li><a href="https://intlayer.org/doc/concept/content/translation" rel=''>Terjemahan</a></li>
       <li><a href="https://intlayer.org/doc/concept/content/enumeration" rel=''>Enumerasi</a></li>
       <li><a href="https://intlayer.org/doc/concept/content/condition" rel=''>Kondisi</a></li>
@@ -194,7 +194,7 @@ Jelajahi dokumentasi lengkap kami untuk memulai dengan Intlayer dan pelajari car
     <ul>
       <li><a href="https://intlayer.org/doc/environment/nextjs/15" rel=''>Next.js 15</a></li>
       <li><a href="https://intlayer.org/doc/environment/nextjs/14" rel=''>Next.js 14 (App Router)</a></li>
-      <li><a href="https://intlayer.org/doc/environment/nextjs/next-with-Page-Router" rel=''>Next.js Page Router</a></li>
+      <li><a href="https://intlayer.org/doc/environment/nextjs/next-with-page-router" rel=''>Next.js Page Router</a></li>
       <li><a href="https://intlayer.org/doc/environment/nextjs/compiler" rel=''>Next.js menggunakan compiler</a></li>
     </ul>
   </li>
@@ -223,7 +223,7 @@ Jelajahi dokumentasi lengkap kami untuk memulai dengan Intlayer dan pelajari car
   <li><a href="https://intlayer.org/doc/environment/sveltekit" rel=''>SvelteKit</a></li>
   <li><a href="https://intlayer.org/doc/environment/vite-and-preact" rel=''>Vite + Preact</a></li>
   <li><a href="https://intlayer.org/doc/environment/vite-and-vue" rel=''>Vite + Vue</a></li>
-  <li><a href="https://intlayer.org/doc/environment/vite-and-nuxt" rel=''>Vite + Nuxt</a></li>
+  <li><a href="https://intlayer.org/doc/environment/nuxt-and-vue" rel=''>Vite + Nuxt</a></li>
   <li><a href="https://intlayer.org/doc/environment/vite-and-solid" rel=''>Vite + Solid</a></li>
   <li><a href="https://intlayer.org/doc/environment/angular" rel=''>Angular</a></li>
   <li>

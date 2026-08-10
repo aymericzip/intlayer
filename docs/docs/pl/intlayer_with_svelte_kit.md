@@ -387,7 +387,7 @@ export const getLocale = (event: RequestEvent): Locale => {
 };
 ```
 
-> `getLocaleFromStorage` sprawdzi lokalizację na podstawie nagłówka lub ciasteczka w zależności od Twojej konfiguracji. Zobacz [Konfiguracja](https://intlayer.org/doc/configuration) po więcej szczegółów.
+> `getLocaleFromStorage` sprawdzi lokalizację na podstawie nagłówka lub ciasteczka w zależności od Twojej konfiguracji. Zobacz [Konfiguracja](https://intlayer.org/doc/concept/configuration) po więcej szczegółów.
 
 > Funkcja `localeDetector` przetworzy nagłówek `Accept-Language` i zwróci najlepsze dopasowanie.
 
