@@ -290,3 +290,5 @@ GitHub Star 수는 프로젝트의 인지도, 커뮤니티의 신뢰도 및 장�
 `intlayer`는 기존의 `react-intl`, `react-i18next`, `next-intl`, `next-i18next` 및 `vue-i18n` 사전 네임스페이스들을 동시에 손쉽게 지배하고 가공하도록 지원합니다.
 
 `intlayer` 문법 형태로 다국어를 간편히 선언만 해두면, intlayer가 번거롭고 복잡한 기존 프레임워크 규격(예: `/messages/{{locale}}/{{namespace}}.json`)에 맞춰 빌드 타임에 자동으로 사전 파일을 추출 및 변환해 줍니다.
+
+현재 사용 중인 i18n 라이브러리의 API를 그대로 유지하고 싶다면, `intlayer`는 **호환 어댑터(compat adapters)** 도 제공합니다. `react-i18next`, `next-intl`, `react-intl`, `vue-i18n` 등과 완전히 동일한 API를 노출하지만, 실제 콘텐츠는 Intlayer 사전에서 제공되는 패키지입니다. 덕분에 코드를 다시 작성하지 않고 점진적으로 마이그레이션할 수 있습니다. [호환 어댑터 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/index.md)를 참고하세요.

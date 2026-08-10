@@ -293,3 +293,5 @@ Bintang GitHub adalah indikator kuat dari popularitas proyek, kepercayaan komuni
 `intlayer` juga dapat membantu mengelola namespace `react-intl`, `react-i18next`, `next-intl`, `next-i18next`, dan `vue-i18n` Anda.
 
 Menggunakan `intlayer`, Anda dapat mendeklarasikan konten dalam format pustaka i18n favorit Anda, dan intlayer akan menghasilkan namespace Anda di lokasi pilihan Anda (contoh: `/messages/{{locale}}/{{namespace}}.json`).
+
+Jika Anda ingin tetap menggunakan API pustaka i18n Anda saat ini, `intlayer` juga menyediakan **compat adapter**: paket yang mengekspos API yang persis sama dengan `react-i18next`, `next-intl`, `react-intl`, `vue-i18n`, dan lainnya, tetapi dilayani oleh kamus Intlayer. Ini memungkinkan Anda bermigrasi secara bertahap tanpa menulis ulang kode Anda. Lihat [dokumentasi Compat Adapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/index.md).

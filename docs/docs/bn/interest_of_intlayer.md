@@ -234,3 +234,5 @@ GitHub স্টার হলো একটি প্রজেক্টের জ
 `intlayer` আপনার `react-intl`, `react-i18next`, `next-intl`, `next-i18next` এবং `vue-i18n` নেমস্পেসগুলি পরিচালনা করতেও সহায়তা করতে পারে।
 
 `intlayer` ব্যবহার করে, আপনি আপনার প্রিয় i18n লাইব্রেরির ফরম্যাটে আপনার বিষয়বস্তু ঘোষণা করতে পারেন এবং intlayer আপনার পছন্দের অবস্থানে আপনার নেমস্পেস তৈরি করবে (উদাহরণ: `/messages/{{locale}}/{{namespace}}.json`)।
+
+আপনি যদি আপনার বর্তমান i18n লাইব্রেরির API ব্যবহার করা চালিয়ে যেতে চান, তবে `intlayer` **compat adapters**ও সরবরাহ করে: এমন প্যাকেজ যা `react-i18next`, `next-intl`, `react-intl`, `vue-i18n` এবং আরও অনেক লাইব্রেরির হুবহু একই API প্রকাশ করে, কিন্তু Intlayer ডিকশনারি থেকে পরিবেশন করা হয়। এর ফলে আপনি কোড পুনরায় না লিখেই ধাপে ধাপে মাইগ্রেট করতে পারেন। দেখুন [Compat Adapters ডকুমেন্টেশন](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/index.md)।

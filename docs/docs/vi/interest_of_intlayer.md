@@ -293,3 +293,5 @@ Sao GitHub là một chỉ số mạnh mẽ về mức độ phổ biến của 
 `intlayer` cũng có thể giúp quản lý các không gian tên `react-intl`, `react-i18next`, `next-intl`, `next-i18next` và `vue-i18n` của bạn.
 
 Sử dụng `intlayer`, bạn có thể khai báo nội dung của mình theo định dạng của thư viện i18n yêu thích và intlayer sẽ tạo các không gian tên của bạn tại vị trí bạn chọn (ví dụ: `/messages/{{locale}}/{{namespace}}.json`).
+
+Nếu bạn muốn tiếp tục sử dụng API của thư viện i18n hiện tại, `intlayer` cũng cung cấp **compat adapter**: các gói phơi bày chính xác cùng API với `react-i18next`, `next-intl`, `react-intl`, `vue-i18n` và nhiều thư viện khác, nhưng nội dung được cung cấp bởi từ điển Intlayer. Điều này cho phép bạn di chuyển dần dần mà không cần viết lại mã của mình. Xem [tài liệu Compat Adapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/index.md).

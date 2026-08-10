@@ -275,3 +275,5 @@ GitHub सितारे किसी प्रोजेक्ट की लो
 `intlayer` आपके `react-intl`, `react-i18next`, `next-intl`, `next-i18next`, और `vue-i18n` नेमस्पेस को प्रबंधित करने में भी मदद कर सकता है।
 
 `intlayer` का उपयोग करके, आप अपनी पसंदीदा i18n लाइब्रेरी के प्रारूप में अपनी सामग्री घोषित कर सकते हैं, और intlayer आपकी पसंद के स्थान पर आपके नेमस्पेस उत्पन्न करेगा (उदाहरण: `/messages/{{locale}}/{{namespace}}.json)।
+
+यदि आप अपनी वर्तमान i18n लाइब्रेरी का API उपयोग करना जारी रखना चाहते हैं, तो `intlayer` **compat adapters** भी प्रदान करता है: ऐसे पैकेज जो `react-i18next`, `next-intl`, `react-intl`, `vue-i18n` और अन्य के बिल्कुल समान API उपलब्ध कराते हैं, लेकिन सामग्री Intlayer डिक्शनरी से आती है। इससे आप अपना कोड दोबारा लिखे बिना क्रमिक रूप से माइग्रेट कर सकते हैं। देखें [Compat Adapters दस्तावेज़ीकरण](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/index.md)।
