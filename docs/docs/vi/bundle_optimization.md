@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-25
-updatedAt: 2026-06-07
+updatedAt: 2026-08-09
 title: Tối ưu hóa dung lượng Bundle & Hiệu suất i18n
 description: Giảm dung lượng bundle của ứng dụng bằng cách tối ưu hóa nội dung quốc tế hóa (i18n). Tìm hiểu cách tận dụng tree shaking và tải 지연 (lazy loading) cho các từ điển với Intlayer.
 keywords:
@@ -16,6 +16,12 @@ slugs:
   - concept
   - bundle-optimization
 history:
+  - version: 9.2.1
+    date: 2026-08-09
+    changes: "`purge` và `minify` giờ đã hoạt động trên Next.js thông qua `@intlayer/swc` — không cần `babel.config.js`"
+  - version: 8.12.0
+    date: 2026-06-24
+    changes: "Liệt kê các plugin Babel theo đúng thứ tự pipeline (extract → purge → minify → optimize) trong các bảng tham chiếu"
   - version: 8.12.0
     date: 2026-06-07
     changes: "Thêm `intlayerPurgeBabelPlugin` và `intlayerMinifyBabelPlugin` cho Babel/Webpack; làm rõ quá trình thực thi của các plugin"
@@ -191,12 +197,14 @@ Trình tối ưu hóa build của Intlayer được chia làm nhiều plugin ri�
 
 Những plugin này được khai báo trực tiếp vào `babel.config.js` ở các dự án phụ thuộc cấu hình Webpack (như Next.js dùng Babel, CRA, hoặc Webpack tùy chỉnh v.v.).
 
+Bảng dưới đây liệt kê chúng theo đúng thứ tự pipeline (cùng thứ tự mà chúng phải xuất hiện trong `babel.config.js`):
+
 | Plugin                        | Công dụng                                                                                                                                     |
 | :---------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------- |
 | `intlayerExtractBabelPlugin`  | Quét các file `.content.ts` và ghi nội dung từ điển đã biên dịch thành định dạng chuẩn vào thư mục `.intlayer/`                               |
-| `intlayerOptimizeBabelPlugin` | Viết lại `useIntlayer('key')` thành `useDictionary(hash)` và tự động inject thư viện `import` để nạp từ điển khớp tương ứng                   |
 | `intlayerPurgeBabelPlugin`    | Quét toàn bộ mã nguồn, thực hiện loại bỏ (remove) **các trường nội dung không được sử dụng** ở file từ điển JSON tại `.intlayer/**/*.json`    |
 | `intlayerMinifyBabelPlugin`   | **Rút ngắn tên (rename) khóa (keys) của nội dung** thành ký tự ngắn rút gọn (vd: `title` đổi thành `a`) ở JSON cũng như bên trong Source Code |
+| `intlayerOptimizeBabelPlugin` | Viết lại `useIntlayer('key')` thành `useDictionary(hash)` và tự động inject thư viện `import` để nạp từ điển khớp tương ứng                   |
 
 > **Thứ tự sắp xếp của plugin là rất quan trọng.** Trong `babel.config.js` của bạn, các plugin purge và minify phải được đặt **trước** plugin optimize. Bước optimize thay thế `useIntlayer('key')` bằng một hàm gọi không minh bạch `useDictionary(hash)`, điều này có khả năng làm mất thông tin dictionary-key gốc - vốn là thông tin cần thiết để purge và minify có thể định danh các trường thuộc tính đang được ứng dụng.
 
@@ -205,9 +213,9 @@ Mỗi plugin Babel sẽ đi kèm một helper option để đọc trực tiếp 
 | Options helper               | Dùng cùng với                 |
 | :--------------------------- | :---------------------------- |
 | `getExtractPluginOptions()`  | `intlayerExtractBabelPlugin`  |
-| `getOptimizePluginOptions()` | `intlayerOptimizeBabelPlugin` |
 | `getPurgePluginOptions()`    | `intlayerPurgeBabelPlugin`    |
 | `getMinifyPluginOptions()`   | `intlayerMinifyBabelPlugin`   |
+| `getOptimizePluginOptions()` | `intlayerOptimizeBabelPlugin` |
 
 ### Các plugin của Vite (`vite-intlayer`)
 
@@ -220,6 +228,20 @@ Những người dùng Vite **không bao giờ phải cấu hình cái này mộ
 | Dictionary minify     | Tương tự quy trình cắt giảm và rút ngắn độ dài JSON của `intlayerMinifyBabelPlugin` qua JSON                                                       |
 | Babel transform       | Tương tự quá trình viết lại tên khóa (key rename) bên nguồn code của `intlayerMinifyBabelPlugin` + thay phiên mã của `intlayerOptimizeBabelPlugin` |
 
+### Plugin SWC (`@intlayer/swc`)
+
+Người dùng Next.js cũng **không bao giờ cấu hình những thứ này trực tiếp**. Từ **v9.2.1**, `withIntlayer()` trong `next.config.ts` chạy toàn bộ pipeline — purge, minify và viết lại import — chỉ dựa trên hai cờ `build.purge` và `build.minify`.
+
+Công việc được chia làm hai, vì một plugin Wasm của SWC chỉ biến đổi một tệp tại một thời điểm và không có quyền truy cập hệ thống tệp:
+
+| Lượt xử lý                                 | Chạy ở đâu                       | Làm gì                                                                                   |
+| :----------------------------------------- | :------------------------------- | :--------------------------------------------------------------------------------------- |
+| Phân tích sử dụng + purge/minify JSON      | Node, bên trong `withIntlayer()` | Đọc mọi tệp nguồn của component, viết lại `.intlayer/**/*.json`, tạo ra các bảng đổi tên |
+| Viết lại mã nguồn (`content.title` → `.a`) | `@intlayer/swc` (Wasm)           | Áp dụng các bảng đổi tên cho những truy cập thuộc tính tương ứng trong mã của bạn        |
+| Viết lại import (`useIntlayer` → dict)     | `@intlayer/swc` (Wasm)           | Giống `intlayerOptimizeBabelPlugin`                                                      |
+
+Việc xác định _những_ trường nào không được dùng và mỗi trường nhận _bí danh_ nào đòi hỏi trạng thái xuyên tệp và I/O tệp, nên nửa đó chạy trong Node; plugin SWC chỉ nhận các bảng kết quả.
+
 ## Tùy chỉnh thiết lập dựa vào Platform (nền tảng)
 
 <Tabs>
@@ -227,9 +249,11 @@ Những người dùng Vite **không bao giờ phải cấu hình cái này mộ
 
 ### Next.js
 
-Next.js yêu cầu có plugin `@intlayer/swc` cho bước optimize (bước thay thế các lệnh import của hệ thống), do Next.js dùng lõi SWC làm công cụ biên dịch tự động.
+Next.js cần plugin `@intlayer/swc`, vì Next.js dùng SWC để build. Từ **v9.2.1**, chỉ một gói này đã bao trọn toàn bộ pipeline — tối ưu hóa (viết lại import), purge và minify.
 
 > Plugin này không cài đặt theo mặc định bởi vì nền tảng hỗ trợ (API SWC Plugins) trên Next.js vẫn còn là một thử nghiệm. Do đó sẽ có thay đổi khi nó được cập nhật.
+
+> **Next.js 16.1.0 là phiên bản tối thiểu.** Đây là bản phát hành đầu tiên được xây dựng trên ABI plugin Wasm tương thích tiến của SWC; các bản trước đó từ chối plugin. `withIntlayer` đọc phiên bản Next.js của dự án và đơn giản là không đăng ký plugin nếu thấp hơn 16.1.0 — các build đó vẫn thành công, chỉ là chạy mà không có tối ưu hóa bundle.
 
 <Tabs>
  <Tab value="npm">
@@ -265,32 +289,39 @@ intlayer-swc-plugin = "*"
 
 Sau khi hoàn tất, Intlayer có thể tìm kiếm và ứng dụng tự động nó cho phần compile hệ thống.
 
-Để áp dụng các bước thao tác **purge và minify** (chức năng xóa bỏ các trường hoặc cấu trúc bị dư thừa, đặt biệt danh thay thế cho file), nên thực hiện bổ sung cài `@intlayer/babel` và thiết lập trên config của Babel. Vì bản thân lõi Next.js dù sử dụng SWC trong quy trình dịch mã cho code (transform) nhưng lại luôn thực hiện phân giải config cài đặt của Babel (qua file `babel.config.js`). Cho nên plugin của Babel sẽ vận hành như bước khởi động tiền đề trước khi chạy SWC.
+Các lượt **purge và minify** (xóa trường và đổi tên trường) không cần gói bổ sung nào cũng không cần `babel.config.js`. Hãy bọc cấu hình của bạn bằng `withIntlayer` và bật các cờ trong `intlayer.config.ts`:
 
-```bash packageManager="npm"
-npm install -D @intlayer/babel
+```typescript fileName="next.config.ts"
+import { withIntlayer } from "next-intlayer/server";
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {/* cấu hình của bạn */};
+
+export default withIntlayer(nextConfig);
 ```
 
-```javascript fileName="babel.config.js"
-const {
-  intlayerPurgeBabelPlugin,
-  intlayerMinifyBabelPlugin,
-  getPurgePluginOptions,
-  getMinifyPluginOptions,
-} = require("@intlayer/babel");
+```typescript fileName="intlayer.config.ts"
+import type { IntlayerConfig } from "intlayer";
 
-module.exports = {
-  presets: ["next/babel"],
-  plugins: [
-    // Purge: hủy bỏ các trường đã không còn sử dụng được tìm thấy bên trong .intlayer/**/*.json
-    [intlayerPurgeBabelPlugin, getPurgePluginOptions()],
-    // Minify: rút gọn và rút ngắn tên cho các JSON + sửa lệnh ở trên source code
-    [intlayerMinifyBabelPlugin, getMinifyPluginOptions()],
-    // Lưu ý: Không cần đến khai báo `intlayerOptimizeBabelPlugin` ở đây vì
-    // @intlayer/swc đã tiếp quản tiến trình biến đổi useIntlayer → useDictionary.
-  ],
+const config: IntlayerConfig = {
+  build: {
+    purge: true, // xóa các trường nội dung không dùng khỏi JSON được đóng gói
+    minify: true, // đổi tên khóa trường nội dung thành bí danh ngắn
+  },
 };
+
+export default config;
 ```
+
+Trong quá trình `next build`, `withIntlayer` phân tích mã nguồn, viết lại các từ điển đã biên dịch và chuyển các bảng đổi tên trường thu được cho `@intlayer/swc`, plugin này cập nhật những truy cập thuộc tính tương ứng trong mã của bạn.
+
+> Hãy dùng `withIntlayer` bất đồng bộ, không phải `withIntlayerSync`. Biến thể đồng bộ không chạy pipeline phân tích, nên purge và minify không có tác dụng với nó.
+
+> Purge và minify chỉ chạy khi `next build` — pipeline tối ưu hóa tắt trong lúc `next dev`.
+
+> Chúng cũng bị tắt khi có cấu hình các lời gọi từ bộ chuyển đổi tương thích (`swcExtraCallers`, do các gói tương thích như `@intlayer/next-intl` hay `@intlayer/react-i18next` thiết lập): những điểm gọi đó vô hình với bộ phân tích sử dụng, nên purge sẽ xóa mất các trường mà mã vẫn đang đọc. Việc viết lại import vẫn hoạt động.
+
+**Các phiên bản trước (trước 9.2.1)** yêu cầu `@intlayer/babel` và một tệp `babel.config.js` khai báo `intlayerPurgeBabelPlugin` và `intlayerMinifyBabelPlugin`. Tệp đó không còn cần thiết và có thể xóa.
 
  </Tab>
  <Tab value="vite">
@@ -447,6 +478,8 @@ export default config;
 
 > Lưu ý: Sự can thiệp minify sẽ ngừng thực hiện nếu cờ `optimize` được kích ở mức `false` hoặc lúc bộ hiển thị bằng editor đang dùng tham số `editor.enabled` = `true` (do phía editor thiết kế cần đọc đúng định dạng khai báo nguồn nội dung ban đầu từ file config).
 
+> Trên Next.js, minify cũng bị bỏ qua khi `@intlayer/swc` không được cài đặt hoặc không thể tải (Next.js dưới 16.1.0). Plugin chính là nửa viết lại các truy cập trong mã nguồn, nên đổi tên từ điển mà thiếu nó sẽ khiến mã của bạn đọc những tên trường không còn tồn tại.
+
 > Sự can thiệp bằng minify đồng thời mất kiểm soát khi tải từ các lệnh gọi JSON ngoại lai của server api khác thông qua thông số gán thiết lập mặc định qua file nguồn `importMode: 'fetch'` — điều này giải quyết và chống phá hỏng liên lạc bằng json của đầu ra máy chủ do nếu app tại máy tính người xài thay danh định gốc trên code sẽ đứt đường tiếp nhận dữ liệu phía cloud.
 
 ### Hệ chức năng gạt bỏ rác Purging (xóa trắng các khóa thuộc tính trống hoặc dư)
@@ -475,7 +508,7 @@ export default config;
 { "title": "…", "subtitle": "…" }
 ```
 
-> Hãy cân nhắc bởi Purge cũng chẳng khác gì minify, hệ sẽ phớt lờ thao tác nếu như thông số thuộc `optimize` để là `false` hay công cụ trình hỗ trợ `editor.enabled` đang mở (true).
+> Hãy cân nhắc bởi Purge cũng chẳng khác gì minify, hệ sẽ phớt lờ thao tác nếu như thông số thuộc `optimize` để là `false` hay công cụ trình hỗ trợ `editor.enabled` đang mở (true). Trên Next.js, nó còn bị bỏ qua khi `@intlayer/swc` không khả dụng và khi có cấu hình các lời gọi từ bộ chuyển đổi tương thích.
 
 > Ngoài ra chức năng của hệ cũng bảo lưu quy trình rủi ro và buộc dừng tiến trình purge (như khi không parse được code nguồn để phân tích), hoặc lệnh trả biến ở bộ thu nhận `useIntlayer` xài như thông số ẩn hoặc bị mã hóa ngầm lúc khai báo truyền tin nên analyzer bot mất dấu để định hướng hành tung của nội dung nguồn (một trường hợp cụ thể đó là kiểu trải dữ liệu `spread` cho vô Object bự xài nhưng quên không destructure rõ ràng tham số lúc dùng trong prop). Tại ranh giới bất an kiểu này hệ tự ép lấy sạch sành sanh cho yên tâm trọn gói JSON mà khỏi sợ cắt lố làm mất dữ liệu oan.
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-25
-updatedAt: 2026-06-07
+updatedAt: 2026-08-09
 title: 最佳化 i18n 打包體積與效能
 description: 透過最佳化國際化（i18n）內容來縮減應用程式包的大小。了解如何利用 Intlayer 實現字典的 tree shaking 和延遲載入（lazy loading）。
 keywords:
@@ -16,6 +16,12 @@ slugs:
   - concept
   - bundle-optimization
 history:
+  - version: 9.2.1
+    date: 2026-08-09
+    changes: "`purge` 與 `minify` 現在可透過 `@intlayer/swc` 在 Next.js 上運作 — 不需要 `babel.config.js`"
+  - version: 8.12.0
+    date: 2026-06-24
+    changes: "在參考表中依所需的流水線順序列出 Babel 外掛（extract → purge → minify → optimize）"
   - version: 8.12.0
     date: 2026-06-07
     changes: "為 Babel/Webpack 引入了 `intlayerPurgeBabelPlugin` 和 `intlayerMinifyBabelPlugin`，明確了外掛程式管線"
@@ -191,12 +197,14 @@ Intlayer 的建置最佳化被劃分為若干個職責單一的外掛程式。�
 
 這些被直接運用在基於 Webpack 設定的 `babel.config.js` 當中（比如使用了 Babel 的 Next.js、CRA，或是自訂的 Webpack 等）。
 
+下表依所需的流水線順序列出它們（與它們必須在 `babel.config.js` 中出現的順序相同）：
+
 | 外掛程式                      | 功能說明                                                                                               |
 | :---------------------------- | :----------------------------------------------------------------------------------------------------- |
 | `intlayerExtractBabelPlugin`  | 掃描 `.content.ts` 檔案並把編譯好的字典寫入 `.intlayer/`                                               |
-| `intlayerOptimizeBabelPlugin` | 將 `useIntlayer('key')` 重寫為 `useDictionary(hash)` 並注入匹配對應字典的 `import` 語句                |
 | `intlayerPurgeBabelPlugin`    | 掃描所有原始碼檔案，從已編譯的 `.intlayer/**/*.json` 字典檔案中刪除**未被使用的內容欄位**              |
 | `intlayerMinifyBabelPlugin`   | **重新命名內容欄位的鍵（keys）** 為簡短的字母別名（例如 `title` 變成 `a`），作用範圍包括 JSON 與原始碼 |
+| `intlayerOptimizeBabelPlugin` | 將 `useIntlayer('key')` 重寫為 `useDictionary(hash)` 並注入匹配對應字典的 `import` 語句                |
 
 > **外掛程式的執行順序很重要。** 在您的 `babel.config.js` 裡，purge 和 minify 的外掛程式必須放置在 optimize 外掛程式**之前**。最佳化步驟（optimize）會把 `useIntlayer('key')` 替換為模糊的 `useDictionary(hash)`，此舉抹除了能夠讓 purge 和 minify 識別哪些欄位被使用過的字典 key 資訊。
 
@@ -205,9 +213,9 @@ Intlayer 的建置最佳化被劃分為若干個職責單一的外掛程式。�
 | 選項助手                     | 配套外掛程式                  |
 | :--------------------------- | :---------------------------- |
 | `getExtractPluginOptions()`  | `intlayerExtractBabelPlugin`  |
-| `getOptimizePluginOptions()` | `intlayerOptimizeBabelPlugin` |
 | `getPurgePluginOptions()`    | `intlayerPurgeBabelPlugin`    |
 | `getMinifyPluginOptions()`   | `intlayerMinifyBabelPlugin`   |
+| `getOptimizePluginOptions()` | `intlayerOptimizeBabelPlugin` |
 
 ### Vite 外掛程式 (`vite-intlayer`)
 
@@ -220,6 +228,20 @@ Vite 使用者**不需要直接對它們進行設定**。當您在 `vite.config.
 | Dictionary minify  | 等同於 `intlayerMinifyBabelPlugin` 的 JSON 寫入步驟                                     |
 | Babel transform    | 等同於 `intlayerMinifyBabelPlugin` 的程式碼重新命名步驟 + `intlayerOptimizeBabelPlugin` |
 
+### SWC 外掛（`@intlayer/swc`）
+
+Next.js 使用者同樣**從不直接設定這些**。自 **v9.2.1** 起，`next.config.ts` 中的 `withIntlayer()` 僅憑 `build.purge` 與 `build.minify` 兩個旗標就會執行完整流水線 —— 清除、壓縮與匯入重寫。
+
+工作被分成兩部分，因為 SWC Wasm 外掛一次只轉換一個檔案，且無法存取檔案系統：
+
+| 階段                                 | 執行位置                       | 作用                                                           |
+| :----------------------------------- | :----------------------------- | :------------------------------------------------------------- |
+| 使用分析 + JSON 清除/壓縮            | Node，位於 `withIntlayer()` 內 | 讀取每個元件原始檔，重寫 `.intlayer/**/*.json`，產生重新命名表 |
+| 原始碼重寫（`content.title` → `.a`） | `@intlayer/swc`（Wasm）        | 將重新命名表套用到你程式碼中對應的屬性存取                     |
+| 匯入重寫（`useIntlayer` → dict）     | `@intlayer/swc`（Wasm）        | 與 `intlayerOptimizeBabelPlugin` 相同                          |
+
+判斷_哪些_欄位未被使用以及每個欄位取得_什麼_別名，需要跨檔案狀態與檔案 I/O，因此這一半在 Node 中執行；SWC 外掛只接收產生的表。
+
 ## 各平台設定指南
 
 <Tabs>
@@ -227,9 +249,11 @@ Vite 使用者**不需要直接對它們進行設定**。當您在 `vite.config.
 
 ### Next.js
 
-Next.js 需要依靠 `@intlayer/swc` 外掛程式來進行最佳化步驟（匯入重寫），因為 Next.js 採用 SWC 作為編譯器。
+Next.js 需要 `@intlayer/swc` 外掛，因為 Next.js 使用 SWC 進行建置。自 **v9.2.1** 起，這一個套件即可涵蓋整條流水線 —— 最佳化（匯入重寫）、清除與壓縮。
 
 > 該外掛程式並未預設安裝，因為 SWC 外掛程式在 Next.js 當中目前仍處於實驗階段。未來這部分有可能會發生改變。
+
+> **Next.js 16.1.0 是最低版本。** 它是首個基於 SWC 向前相容 Wasm 外掛 ABI 建置的版本；更早的版本會拒絕該外掛。`withIntlayer` 會讀取你專案的 Next.js 版本，低於 16.1.0 時乾脆不註冊該外掛 —— 這些建置仍會成功，只是在沒有打包最佳化的情況下執行。
 
 <Tabs>
  <Tab value="npm">
@@ -265,32 +289,39 @@ intlayer-swc-plugin = "*"
 
 安裝完畢後，Intlayer 將會自動偵測並使用該外掛程式。
 
-至於**清除（purge）和最小化（minify）**步驟（即欄位移除和欄位重新命名），請連同 `@intlayer/babel` 一併安裝並加入 Babel 外掛程式。由於 Next.js 依靠 SWC 處理程式碼轉化，但仍會評估 `babel.config.js` 以決定外掛程式設定，因此上述 Babel 外掛程式能夠在進入 SWC 前作為預處理步驟得以執行。
+**清除與壓縮**階段（欄位移除與欄位重新命名）不需要額外套件，也不需要 `babel.config.js`。用 `withIntlayer` 包住你的設定，並在 `intlayer.config.ts` 中開啟相應旗標：
 
-```bash packageManager="npm"
-npm install -D @intlayer/babel
+```typescript fileName="next.config.ts"
+import { withIntlayer } from "next-intlayer/server";
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {/* 你的設定 */};
+
+export default withIntlayer(nextConfig);
 ```
 
-```javascript fileName="babel.config.js"
-const {
-  intlayerPurgeBabelPlugin,
-  intlayerMinifyBabelPlugin,
-  getPurgePluginOptions,
-  getMinifyPluginOptions,
-} = require("@intlayer/babel");
+```typescript fileName="intlayer.config.ts"
+import type { IntlayerConfig } from "intlayer";
 
-module.exports = {
-  presets: ["next/babel"],
-  plugins: [
-    // Purge: 移除 .intlayer/**/*.json 裡未被使用的內容欄位
-    [intlayerPurgeBabelPlugin, getPurgePluginOptions()],
-    // Minify: 對 JSON 以及原始碼裡的內容欄位的鍵（keys）進行重新命名
-    [intlayerMinifyBabelPlugin, getMinifyPluginOptions()],
-    // 注意: 在這裡不需要使用 intlayerOptimizeBabelPlugin，因為
-    // @intlayer/swc 已經處理了 useIntlayer → useDictionary 的重寫過程。
-  ],
+const config: IntlayerConfig = {
+  build: {
+    purge: true, // 從打包的 JSON 中移除未使用的內容欄位
+    minify: true, // 將內容欄位鍵重新命名為簡短別名
+  },
 };
+
+export default config;
 ```
+
+在 `next build` 期間，`withIntlayer` 會分析你的原始碼、重寫已編譯的字典，並將產生的欄位重新命名表交給 `@intlayer/swc`，由它更新你程式碼中對應的屬性存取。
+
+> 請使用非同步的 `withIntlayer`，而不是 `withIntlayerSync`。同步版本不會執行分析流水線，因此清除與壓縮對它沒有效果。
+
+> 清除與壓縮僅在 `next build` 時執行 —— 最佳化流水線在 `next dev` 期間是關閉的。
+
+> 當設定了相容轉接器呼叫方時它們也會被停用（`swcExtraCallers`，由 `@intlayer/next-intl`、`@intlayer/react-i18next` 等相容套件設定）：這些呼叫點對使用分析器不可見，因此清除會移除程式碼仍在讀取的欄位。匯入重寫仍保持啟用。
+
+**更早的版本（9.2.1 之前）** 需要 `@intlayer/babel` 以及一個宣告 `intlayerPurgeBabelPlugin` 與 `intlayerMinifyBabelPlugin` 的 `babel.config.js`。該檔案不再需要，可以刪除。
 
  </Tab>
  <Tab value="vite">
@@ -447,6 +478,8 @@ export default config;
 
 > 如果在 `optimize` 被設為 `false`、又或是啟用了視覺化編輯器也就是當 `editor.enabled` 設定為了 `true` 時（由於編輯器需要保留欄位名稱以便做後續處理），重新命名這個操作都將會被跳過。
 
+> 在 Next.js 上，當 `@intlayer/swc` 未安裝或無法載入時（Next.js 低於 16.1.0），壓縮同樣會被略過。重寫原始碼存取的正是這個外掛，因此在沒有它的情況下重新命名字典，會讓你的程式碼讀取已不存在的欄位名稱。
+
 > 同理，如果是利用了 `importMode: 'fetch'` 來載入欄位時此過程同樣不適用。因為它們的內容會以原始命名由後端 API 所提供，對客戶端內容隨意重新命名會破壞客戶端與伺服器端的匹配契約。
 
 ### 欄位清除 / Purging (去掉未被引用的欄位內容)
@@ -475,7 +508,7 @@ export default config;
 { "title": "…", "subtitle": "…" }
 ```
 
-> 與前邊提到的類似，當 `optimize` 是 `false` 或是開啟了視覺化編輯器(`editor.enabled` 取值 `true`) 時，它會選擇跳過對資料的清除操作。
+> 與前邊提到的類似，當 `optimize` 是 `false` 或是開啟了視覺化編輯器(`editor.enabled` 取值 `true`) 時，它會選擇跳過對資料的清除操作。 在 Next.js 上，當 `@intlayer/swc` 不可用以及設定了相容轉接器呼叫方時，還會被額外略過。
 
 > 當檢測到某份程式碼因為異常無法順利解析、又或者當把由 `useIntlayer` 輸出的值以靜態解析器難以預測分析的模式在不同元件中來回丟（比如被打包成物件傳入等而未被進行解構）的時候，它同樣會跳過，以此保守地保留整部字典的全部資訊，避免意外發生。
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-25
-updatedAt: 2026-06-07
+updatedAt: 2026-08-09
 title: 优化 i18n 打包体积与性能
 description: 通过优化国际化（i18n）内容来减小应用程序包的大小。了解如何利用 Intlayer 实现字典的 tree shaking 和延迟加载（lazy loading）。
 keywords:
@@ -16,6 +16,12 @@ slugs:
   - concept
   - bundle-optimization
 history:
+  - version: 9.2.1
+    date: 2026-08-09
+    changes: "`purge` 和 `minify` 现在可通过 `@intlayer/swc` 在 Next.js 上工作 — 无需 `babel.config.js`"
+  - version: 8.12.0
+    date: 2026-06-24
+    changes: "在参考表中按所需的流水线顺序列出 Babel 插件（extract → purge → minify → optimize）"
   - version: 8.12.0
     date: 2026-06-07
     changes: "为 Babel/Webpack 引入了 `intlayerPurgeBabelPlugin` 和 `intlayerMinifyBabelPlugin`，明确了插件管线"
@@ -191,12 +197,14 @@ Intlayer 的构建优化被划分为若干个职责单一的插件。了解它�
 
 这些被直接运用在基于 Webpack 设置的 `babel.config.js` 当中（比如使用了 Babel 的 Next.js、CRA，或是自定义的 Webpack 等）。
 
+下表按所需的流水线顺序列出它们（与它们必须在 `babel.config.js` 中出现的顺序相同）：
+
 | 插件                          | 功能说明                                                                                             |
 | :---------------------------- | :--------------------------------------------------------------------------------------------------- |
 | `intlayerExtractBabelPlugin`  | 扫描 `.content.ts` 文件并把编译好的字典写入 `.intlayer/`                                             |
-| `intlayerOptimizeBabelPlugin` | 将 `useIntlayer('key')` 重写为 `useDictionary(hash)` 并注入匹配对应字典的 `import` 语句              |
 | `intlayerPurgeBabelPlugin`    | 扫描所有源代码文件，从已编译的 `.intlayer/**/*.json` 字典文件中删除**未被使用的内容字段**            |
 | `intlayerMinifyBabelPlugin`   | **重命名内容字段的键（keys）** 为简短的字母别名（例如 `title` 变成 `a`），作用范围包括 JSON 与源代码 |
+| `intlayerOptimizeBabelPlugin` | 将 `useIntlayer('key')` 重写为 `useDictionary(hash)` 并注入匹配对应字典的 `import` 语句              |
 
 > **插件的执行顺序很重要。** 在你的 `babel.config.js` 里，purge 和 minify 的插件必须放置在 optimize 插件**之前**。优化步骤（optimize）会把 `useIntlayer('key')` 替换为模糊的 `useDictionary(hash)`，此举抹除了能够让 purge 和 minify 识别哪些字段被使用过的字典 key 信息。
 
@@ -205,9 +213,9 @@ Intlayer 的构建优化被划分为若干个职责单一的插件。了解它�
 | 选项助手                     | 配套插件                      |
 | :--------------------------- | :---------------------------- |
 | `getExtractPluginOptions()`  | `intlayerExtractBabelPlugin`  |
-| `getOptimizePluginOptions()` | `intlayerOptimizeBabelPlugin` |
 | `getPurgePluginOptions()`    | `intlayerPurgeBabelPlugin`    |
 | `getMinifyPluginOptions()`   | `intlayerMinifyBabelPlugin`   |
+| `getOptimizePluginOptions()` | `intlayerOptimizeBabelPlugin` |
 
 ### Vite 插件 (`vite-intlayer`)
 
@@ -220,6 +228,20 @@ Vite 用户**不需要直接对它们进行配置**。当你在 `vite.config.ts`
 | Dictionary minify | 等同于 `intlayerMinifyBabelPlugin` 的 JSON 写入步骤                                 |
 | Babel transform   | 等同于 `intlayerMinifyBabelPlugin` 的代码重命名步骤 + `intlayerOptimizeBabelPlugin` |
 
+### SWC 插件（`@intlayer/swc`）
+
+Next.js 用户同样**从不直接配置这些**。自 **v9.2.1** 起，`next.config.ts` 中的 `withIntlayer()` 仅凭 `build.purge` 和 `build.minify` 两个标志就会运行完整流水线 —— 清除、压缩和导入重写。
+
+工作被分成两部分，因为 SWC Wasm 插件一次只转换一个文件，且无法访问文件系统：
+
+| 阶段                               | 运行位置                       | 作用                                                         |
+| :--------------------------------- | :----------------------------- | :----------------------------------------------------------- |
+| 使用分析 + JSON 清除/压缩          | Node，位于 `withIntlayer()` 内 | 读取每个组件源文件，重写 `.intlayer/**/*.json`，生成重命名表 |
+| 源码重写（`content.title` → `.a`） | `@intlayer/swc`（Wasm）        | 将重命名表应用到你代码中对应的属性访问                       |
+| 导入重写（`useIntlayer` → dict）   | `@intlayer/swc`（Wasm）        | 与 `intlayerOptimizeBabelPlugin` 相同                        |
+
+判断_哪些_字段未被使用以及每个字段获得_什么_别名，需要跨文件状态和文件 I/O，因此这一半在 Node 中运行；SWC 插件只接收生成的表。
+
 ## 各平台配置指南
 
 <Tabs>
@@ -227,9 +249,11 @@ Vite 用户**不需要直接对它们进行配置**。当你在 `vite.config.ts`
 
 ### Next.js
 
-Next.js 需要依靠 `@intlayer/swc` 插件来进行优化步骤（导入重写），因为 Next.js 采用 SWC 作为编译器。
+Next.js 需要 `@intlayer/swc` 插件，因为 Next.js 使用 SWC 进行构建。自 **v9.2.1** 起，这一个包即可覆盖整条流水线 —— 优化（导入重写）、清除和压缩。
 
 > 该插件并未默认安装，因为 SWC 插件在 Next.js 当中目前仍处于实验阶段。未来这部分有可能会发生改变。
+
+> **Next.js 16.1.0 是最低版本。** 它是首个基于 SWC 向前兼容 Wasm 插件 ABI 构建的版本；更早的版本会拒绝该插件。`withIntlayer` 会读取你项目的 Next.js 版本，低于 16.1.0 时干脆不注册该插件 —— 这些构建仍会成功，只是在没有打包优化的情况下运行。
 
 <Tabs>
  <Tab value="npm">
@@ -265,32 +289,39 @@ intlayer-swc-plugin = "*"
 
 安装完毕后，Intlayer 将会自动侦测并使用该插件。
 
-至于**清除（purge）和最小化（minify）**步骤（即字段移除和字段重命名），请连同 `@intlayer/babel` 一并安装并加入 Babel 插件。由于 Next.js 依靠 SWC 处理代码转化，但仍会评估 `babel.config.js` 以决定插件配置，因此上述 Babel 插件能够在进入 SWC 前作为预处理步骤得以执行。
+**清除和压缩**阶段（字段移除与字段重命名）不需要额外的包，也不需要 `babel.config.js`。用 `withIntlayer` 包裹你的配置，并在 `intlayer.config.ts` 中开启相应标志：
 
-```bash packageManager="npm"
-npm install -D @intlayer/babel
+```typescript fileName="next.config.ts"
+import { withIntlayer } from "next-intlayer/server";
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {/* 你的配置 */};
+
+export default withIntlayer(nextConfig);
 ```
 
-```javascript fileName="babel.config.js"
-const {
-  intlayerPurgeBabelPlugin,
-  intlayerMinifyBabelPlugin,
-  getPurgePluginOptions,
-  getMinifyPluginOptions,
-} = require("@intlayer/babel");
+```typescript fileName="intlayer.config.ts"
+import type { IntlayerConfig } from "intlayer";
 
-module.exports = {
-  presets: ["next/babel"],
-  plugins: [
-    // Purge: 移除 .intlayer/**/*.json 里未被使用的内容字段
-    [intlayerPurgeBabelPlugin, getPurgePluginOptions()],
-    // Minify: 对 JSON 以及源代码里的内容字段的键（keys）进行重命名
-    [intlayerMinifyBabelPlugin, getMinifyPluginOptions()],
-    // 注意: 在这里不需要使用 intlayerOptimizeBabelPlugin，因为
-    // @intlayer/swc 已经处理了 useIntlayer → useDictionary 的重写过程。
-  ],
+const config: IntlayerConfig = {
+  build: {
+    purge: true, // 从打包的 JSON 中移除未使用的内容字段
+    minify: true, // 将内容字段键重命名为简短别名
+  },
 };
+
+export default config;
 ```
+
+在 `next build` 期间，`withIntlayer` 会分析你的源码、重写已编译的字典，并将生成的字段重命名表传给 `@intlayer/swc`，由它更新你代码中对应的属性访问。
+
+> 请使用异步的 `withIntlayer`，而不是 `withIntlayerSync`。同步版本不会运行分析流水线，因此清除和压缩对它没有效果。
+
+> 清除和压缩仅在 `next build` 时运行 —— 优化流水线在 `next dev` 期间是关闭的。
+
+> 当配置了兼容适配器调用方时它们也会被禁用（`swcExtraCallers`，由 `@intlayer/next-intl`、`@intlayer/react-i18next` 等兼容包设置）：这些调用点对使用分析器不可见，因此清除会移除代码仍在读取的字段。导入重写仍保持启用。
+
+**更早的版本（9.2.1 之前）** 需要 `@intlayer/babel` 以及一个声明 `intlayerPurgeBabelPlugin` 和 `intlayerMinifyBabelPlugin` 的 `babel.config.js`。该文件不再需要，可以删除。
 
  </Tab>
  <Tab value="vite">
@@ -447,6 +478,8 @@ export default config;
 
 > 如果在 `optimize` 被设为 `false`、又或是启用了可视化编辑器也就是当 `editor.enabled` 设定为了 `true` 时（由于编辑器需要保留字段名称以便做后续处理），重命名这个操作都将会被跳过。
 
+> 在 Next.js 上，当 `@intlayer/swc` 未安装或无法加载时（Next.js 低于 16.1.0），压缩同样会被跳过。重写源码访问的正是这个插件，因此在没有它的情况下重命名字典，会让你的代码读取已不存在的字段名。
+
 > 同理，如果是利用了 `importMode: 'fetch'` 来载入字段时此过程同样不适用。因为它们的内容会以原始命名由后端 API 所提供，对客户端内容随意重命名会破坏客户端与服务端的匹配契约。
 
 ### 字段清除 / Purging (去掉未被引用的字段内容)
@@ -475,7 +508,7 @@ export default config;
 { "title": "…", "subtitle": "…" }
 ```
 
-> 与前边提到的类似，当 `optimize` 是 `false` 或是开启了可视化编辑器(`editor.enabled` 取值 `true`) 时，它会选择跳过对数据的清除操作。
+> 与前边提到的类似，当 `optimize` 是 `false` 或是开启了可视化编辑器(`editor.enabled` 取值 `true`) 时，它会选择跳过对数据的清除操作。 在 Next.js 上，当 `@intlayer/swc` 不可用以及配置了兼容适配器调用方时，还会被额外跳过。
 
 > 当检测到某份代码因为异常无法顺利解析、又或者当把由 `useIntlayer` 输出的值以静态解析器难以预测分析的模式在不同组件中来回丢（比如被打包成对象传入等而未被进行解构）的时候，它同样会跳过，以此保守地保留整部字典的全部信息，避免意外发生。
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-25
-updatedAt: 2026-06-07
+updatedAt: 2026-08-09
 title: i18n बंडल साइज़ और परफॉरमेंस ऑप्टिमाइज़ेशन
 description: अंतर्राष्ट्रीयकरण (i18n) कंटेंट को ऑप्टिमाइज़ करके अपने एप्लिकेशन के बंडल साइज़ को कम करें। जानें कि Intlayer के साथ डिक्शनरी के लिए ट्री शेकिंग (tree shaking) और लेज़ी लोडिंग (lazy loading) का उपयोग कैसे करें।
 keywords:
@@ -16,6 +16,12 @@ slugs:
   - concept
   - bundle-optimization
 history:
+  - version: 9.2.1
+    date: 2026-08-09
+    changes: "`purge` और `minify` अब `@intlayer/swc` के माध्यम से Next.js पर काम करते हैं — `babel.config.js` की आवश्यकता नहीं"
+  - version: 8.12.0
+    date: 2026-06-24
+    changes: "संदर्भ तालिकाओं में Babel प्लगइन्स को आवश्यक पाइपलाइन क्रम में सूचीबद्ध करें (extract → purge → minify → optimize)"
   - version: 8.12.0
     date: 2026-06-07
     changes: "Babel/Webpack के लिए `intlayerPurgeBabelPlugin` और `intlayerMinifyBabelPlugin` जोड़ा गया; प्लगइन पाइपलाइन को स्पष्ट किया गया"
@@ -191,12 +197,14 @@ Intlayer का बिल्ड ऑप्टिमाइज़ेशन कई �
 
 इनका उपयोग सीधे तौर पर Webpack-आधारित सेटअप (Babel के साथ Next.js, CRA, कस्टम Webpack, आदि) के लिए `babel.config.js` में किया जाता है।
 
+नीचे दी गई तालिका उन्हें आवश्यक पाइपलाइन क्रम में सूचीबद्ध करती है (वही क्रम जिसमें उन्हें `babel.config.js` में आना चाहिए):
+
 | प्लगइन                        | यह क्या करता है                                                                                                                                     |
 | :---------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `intlayerExtractBabelPlugin`  | `.content.ts` फ़ाइलों को स्कैन करता है और कंपाइल की गई डिक्शनरी को `.intlayer/` में लिखता है                                                        |
-| `intlayerOptimizeBabelPlugin` | `useIntlayer('key')` को `useDictionary(hash)` में फिर से लिखता है (rewrite) और मिलान वाली डिक्शनरी का `import` इंजेक्ट करता है                      |
 | `intlayerPurgeBabelPlugin`    | सभी स्रोत (source) फ़ाइलों को स्कैन करता है, संकलित (compiled) `.intlayer/**/*.json` डिक्शनरी फ़ाइलों से **अप्रयुक्त कंटेंट फ़ील्ड** को हटा देता है |
 | `intlayerMinifyBabelPlugin`   | JSON फ़ाइलों और स्रोत कोड दोनों में **कंटेंट फ़ील्ड कीज़ (keys) का नाम बदलकर** छोटे अल्फाबेटिकल उपनाम (alias) कर देता है (जैसे `title` → `a`)       |
+| `intlayerOptimizeBabelPlugin` | `useIntlayer('key')` को `useDictionary(hash)` में फिर से लिखता है (rewrite) और मिलान वाली डिक्शनरी का `import` इंजेक्ट करता है                      |
 
 > **प्लगइन का क्रम महत्वपूर्ण है।** आपके `babel.config.js` में purge और minify प्लगइन ऑप्टिमाइज़ (optimize) प्लगइन से **पहले** आने चाहिए। ऑप्टिमाइज़ पास `useIntlayer('key')` को एक अपारदर्शी (opaque) `useDictionary(hash)` कॉल से बदल देता है, जिससे डिक्शनरी की-की (key) जानकारी मिट जाती है, जिसकी आवश्यकता purge और minify पास को यह पहचानने के लिए होती है कि किन फ़ील्ड्स का उपयोग किया जा रहा है।
 
@@ -205,9 +213,9 @@ Intlayer का बिल्ड ऑप्टिमाइज़ेशन कई �
 | Options helper               | किसके साथ उपयोग किया जाता है  |
 | :--------------------------- | :---------------------------- |
 | `getExtractPluginOptions()`  | `intlayerExtractBabelPlugin`  |
-| `getOptimizePluginOptions()` | `intlayerOptimizeBabelPlugin` |
 | `getPurgePluginOptions()`    | `intlayerPurgeBabelPlugin`    |
 | `getMinifyPluginOptions()`   | `intlayerMinifyBabelPlugin`   |
+| `getOptimizePluginOptions()` | `intlayerOptimizeBabelPlugin` |
 
 ### Vite प्लगइन्स (`vite-intlayer`)
 
@@ -220,6 +228,20 @@ Vite उपयोगकर्ता **इन्हें कभी भी सी
 | Dictionary minify  | `intlayerMinifyBabelPlugin` के JSON राइट पास के समान                                           |
 | Babel transform    | `intlayerMinifyBabelPlugin` के स्रोत कोड का नाम बदलने और `intlayerOptimizeBabelPlugin` के समान |
 
+### SWC प्लगइन (`@intlayer/swc`)
+
+Next.js उपयोगकर्ता भी **इन्हें कभी सीधे कॉन्फ़िगर नहीं करते**। **v9.2.1** से, `next.config.ts` में `withIntlayer()` केवल `build.purge` और `build.minify` फ़्लैग्स के आधार पर पूरी पाइपलाइन चलाता है — purge, minify और import पुनर्लेखन।
+
+काम दो हिस्सों में बँटा है, क्योंकि एक SWC Wasm प्लगइन एक बार में एक ही फ़ाइल रूपांतरित करता है और उसके पास फ़ाइल सिस्टम तक पहुँच नहीं होती:
+
+| चरण                                      | कहाँ चलता है                   | क्या करता है                                                                                               |
+| :--------------------------------------- | :----------------------------- | :--------------------------------------------------------------------------------------------------------- |
+| उपयोग विश्लेषण + JSON purge/minify       | Node, `withIntlayer()` के भीतर | हर कंपोनेंट स्रोत फ़ाइल पढ़ता है, `.intlayer/**/*.json` को पुनः लिखता है, और पुनर्नामकरण तालिकाएँ बनाता है |
+| स्रोत पुनर्लेखन (`content.title` → `.a`) | `@intlayer/swc` (Wasm)         | पुनर्नामकरण तालिकाओं को आपके कोड में संबंधित प्रॉपर्टी एक्सेस पर लागू करता है                              |
+| Import पुनर्लेखन (`useIntlayer` → dict)  | `@intlayer/swc` (Wasm)         | `intlayerOptimizeBabelPlugin` के समान                                                                      |
+
+यह तय करना कि _कौन-से_ फ़ील्ड अप्रयुक्त हैं और प्रत्येक को _कौन-सा_ उपनाम मिलेगा, इसके लिए फ़ाइलों के बीच स्थिति और फ़ाइल I/O चाहिए; इसलिए वह आधा हिस्सा Node में चलता है और SWC प्लगइन को केवल परिणामी तालिकाएँ मिलती हैं।
+
 ## प्लेटफ़ॉर्म के अनुसार सेटअप
 
 <Tabs>
@@ -227,9 +249,11 @@ Vite उपयोगकर्ता **इन्हें कभी भी सी
 
 ### Next.js
 
-Next.js को ऑप्टिमाइज़ (import rewrite) पास के लिए `@intlayer/swc` प्लगइन की आवश्यकता होती है, क्योंकि Next.js बिल्ड के लिए SWC का उपयोग करता है।
+Next.js को `@intlayer/swc` प्लगइन चाहिए, क्योंकि Next.js बिल्ड के लिए SWC का उपयोग करता है। **v9.2.1** से यह अकेला पैकेज पूरी पाइपलाइन को कवर करता है — ऑप्टिमाइज़ (import पुनर्लेखन), purge और minify।
 
 > यह प्लगइन डिफ़ॉल्ट रूप से इंस्टॉल नहीं होता है क्योंकि SWC प्लगइन्स अभी भी Next.js के लिए प्रायोगिक (experimental) हैं। भविष्य में यह बदल सकता है।
+
+> **Next.js 16.1.0 न्यूनतम संस्करण है।** यह SWC के फ़ॉरवर्ड-संगत Wasm प्लगइन ABI पर बना पहला रिलीज़ है; इससे पुराने रिलीज़ प्लगइन को अस्वीकार कर देते हैं। `withIntlayer` आपके प्रोजेक्ट का Next.js संस्करण पढ़ता है और 16.1.0 से नीचे प्लगइन को पंजीकृत ही नहीं करता — वे बिल्ड फिर भी सफल होते हैं, बस बंडल ऑप्टिमाइज़ेशन के बिना चलते हैं।
 
 <Tabs>
  <Tab value="npm">
@@ -265,32 +289,39 @@ intlayer-swc-plugin = "*"
 
 एक बार इंस्टॉल हो जाने पर, Intlayer स्वचालित रूप से प्लगइन का पता लगाएगा और उसका उपयोग करेगा।
 
-**purge और minify** पास (फ़ील्ड हटाना और फ़ील्ड का नाम बदलना) के लिए, इसके साथ `@intlayer/babel` इंस्टॉल करें और Babel प्लगइन्स जोड़ें। क्योंकि Next.js ट्रांसफ़ॉर्मेशन के लिए SWC का उपयोग करता है लेकिन फिर भी प्लगइन कॉन्फ़िगरेशन के लिए `babel.config.js` का मूल्यांकन (evaluates) करता है, Babel प्लगइन्स SWC से पहले एक प्री-पास के रूप में चलते हैं।
+**Purge और minify** चरणों (फ़ील्ड हटाना और फ़ील्ड का नाम बदलना) के लिए किसी अतिरिक्त पैकेज या `babel.config.js` की आवश्यकता नहीं है। अपने कॉन्फ़िग को `withIntlayer` से लपेटें और `intlayer.config.ts` में फ़्लैग्स चालू करें:
 
-```bash packageManager="npm"
-npm install -D @intlayer/babel
+```typescript fileName="next.config.ts"
+import { withIntlayer } from "next-intlayer/server";
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {/* आपका कॉन्फ़िग */};
+
+export default withIntlayer(nextConfig);
 ```
 
-```javascript fileName="babel.config.js"
-const {
-  intlayerPurgeBabelPlugin,
-  intlayerMinifyBabelPlugin,
-  getPurgePluginOptions,
-  getMinifyPluginOptions,
-} = require("@intlayer/babel");
+```typescript fileName="intlayer.config.ts"
+import type { IntlayerConfig } from "intlayer";
 
-module.exports = {
-  presets: ["next/babel"],
-  plugins: [
-    // Purge: .intlayer/**/*.json से अप्रयुक्त कंटेंट फ़ील्ड हटाएँ
-    [intlayerPurgeBabelPlugin, getPurgePluginOptions()],
-    // Minify: JSON + स्रोत कोड में कंटेंट फ़ील्ड कीज़ (keys) का नाम बदलें
-    [intlayerMinifyBabelPlugin, getMinifyPluginOptions()],
-    // नोट: यहाँ intlayerOptimizeBabelPlugin की आवश्यकता नहीं है क्योंकि
-    // @intlayer/swc ही useIntlayer → useDictionary रीराइट (rewrite) को संभालता है।
-  ],
+const config: IntlayerConfig = {
+  build: {
+    purge: true, // बंडल किए गए JSON से अप्रयुक्त कंटेंट फ़ील्ड हटाता है
+    minify: true, // कंटेंट फ़ील्ड कुंजियों का नाम छोटे उपनामों में बदलता है
+  },
 };
+
+export default config;
 ```
+
+`next build` के दौरान, `withIntlayer` आपके स्रोतों का विश्लेषण करता है, संकलित शब्दकोशों को पुनः लिखता है, और परिणामी फ़ील्ड-पुनर्नामकरण तालिकाएँ `@intlayer/swc` को भेजता है, जो आपके कोड में संबंधित प्रॉपर्टी एक्सेस को अपडेट करता है।
+
+> `withIntlayerSync` नहीं, बल्कि एसिंक्रोनस `withIntlayer` का उपयोग करें। सिंक्रोनस संस्करण विश्लेषण पाइपलाइन नहीं चलाता, इसलिए उसके साथ purge और minify का कोई प्रभाव नहीं होता।
+
+> Purge और minify केवल `next build` पर चलते हैं — ऑप्टिमाइज़ पाइपलाइन `next dev` के दौरान बंद रहती है।
+
+> जब कम्पैट-अडैप्टर कॉलर्स कॉन्फ़िगर किए जाते हैं तब भी ये अक्षम हो जाते हैं (`swcExtraCallers`, जिन्हें `@intlayer/next-intl` या `@intlayer/react-i18next` जैसे कम्पैट पैकेज सेट करते हैं): वे कॉल साइट्स उपयोग विश्लेषक को दिखाई नहीं देतीं, इसलिए purge उन फ़ील्ड्स को हटा देगा जिन्हें कोड अब भी पढ़ता है। Import पुनर्लेखन सक्रिय रहता है।
+
+**पुराने संस्करणों (9.2.1 से पहले)** में `@intlayer/babel` और एक `babel.config.js` की आवश्यकता होती थी जो `intlayerPurgeBabelPlugin` और `intlayerMinifyBabelPlugin` घोषित करे। अब उस फ़ाइल की आवश्यकता नहीं है और उसे हटाया जा सकता है।
 
  </Tab>
  <Tab value="vite">
@@ -447,6 +478,8 @@ export default config;
 
 > जब `optimize` `false` होता है या जब `editor.enabled` `true` होता है (विज़ुअल एडिटर को संपादन (editing) की अनुमति देने के लिए मूल फ़ील्ड नामों की आवश्यकता होती है) तो मिनिफिकेशन छोड़ दिया जाता है (skipped)।
 
+> Next.js पर, minification तब भी छोड़ दिया जाता है जब `@intlayer/swc` इंस्टॉल न हो या लोड न हो सके (16.1.0 से नीचे का Next.js)। स्रोत एक्सेस को पुनः लिखने वाला आधा हिस्सा यही प्लगइन है, इसलिए इसके बिना शब्दकोशों का नाम बदलने पर आपका कोड ऐसे फ़ील्ड नाम पढ़ता रह जाएगा जो अब मौजूद नहीं हैं।
+
 > `importMode: 'fetch'` के माध्यम से लोड की गई डिक्शनरी के लिए भी मिनिफिकेशन छोड़ दिया जाता है क्योंकि उनका JSON मूल फ़ील्ड नामों का उपयोग करके रिमोट API से परोसा (served) जाता है — क्लाइंट-साइड कीज़ का नाम बदलने से सर्वर/क्लाइंट अनुबंध (contract) टूट जाएगा।
 
 ### Purging (अप्रयुक्त फ़ील्ड हटाना)
@@ -475,7 +508,7 @@ export default config;
 { "title": "…", "subtitle": "…" }
 ```
 
-> जब `optimize` `false` होता है या जब `editor.enabled` `true` होता है तो पर्ज (Purge) छोड़ दिया जाता है (skipped)।
+> जब `optimize` `false` होता है या जब `editor.enabled` `true` होता है तो पर्ज (Purge) छोड़ दिया जाता है (skipped)। Next.js पर यह तब भी छोड़ दिया जाता है जब `@intlayer/swc` उपलब्ध न हो, और जब कम्पैट-अडैप्टर कॉलर्स कॉन्फ़िगर किए गए हों।
 
 > पर्ज (Purge) को उस समय भी सुरक्षित (conservatively) रूप से छोड़ दिया जाता है जब किसी स्रोत फ़ाइल को पार्स (parse) नहीं किया जा सकता है, या जब `useIntlayer` के परिणाम को किसी वेरिएबल को सौंपा (assigned) जाता है और उन तरीकों से पास किया जाता है जिन्हें स्टेटिक एनालाइज़र ट्रैक नहीं कर सकता है (जैसे किसी ऑब्जेक्ट में स्प्रेड (spread) करना, डिस्ट्रक्चरिंग के बिना प्रोप (prop) के रूप में पास करना)। उन मामलों में, पूरी डिक्शनरी सुरक्षित (preserved) रखी जाती है।
 

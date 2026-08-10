@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-25
-updatedAt: 2026-06-07
+updatedAt: 2026-08-09
 title: تحسين حجم وأداء حزمة i18n
 description: قم بتقليل حجم حزمة تطبيقك عن طريق تحسين محتوى التدويل (i18n). تعلم كيفية الاستفادة من "tree shaking" والتحميل الكسول (lazy loading) للقواميس مع Intlayer.
 keywords:
@@ -16,6 +16,12 @@ slugs:
   - concept
   - bundle-optimization
 history:
+  - version: 9.2.1
+    date: 2026-08-09
+    changes: "`purge` و`minify` تعمل الآن على Next.js عبر `@intlayer/swc` — لا حاجة إلى `babel.config.js`"
+  - version: 8.12.0
+    date: 2026-06-24
+    changes: "سرد إضافات Babel بالترتيب المطلوب لخط المعالجة (extract → purge → minify → optimize) في الجداول المرجعية"
   - version: 8.12.0
     date: 2026-06-07
     changes: "تمت إضافة `intlayerPurgeBabelPlugin` و `intlayerMinifyBabelPlugin` لـ Babel/Webpack؛ توضيح مسار الإضافات (plugin pipeline)"
@@ -191,12 +197,14 @@ export default {
 
 تُستخدم هذه مباشرة في `babel.config.js` للإعدادات المستندة إلى Webpack (مثل Next.js مع Babel، CRA، Webpack المخصص، إلخ).
 
+يسرد الجدول أدناه هذه الإضافات بالترتيب المطلوب لخط المعالجة (وهو الترتيب نفسه الذي يجب أن تظهر به في `babel.config.js`):
+
 | الإضافة                       | ما تفعله                                                                                                             |
 | :---------------------------- | :------------------------------------------------------------------------------------------------------------------- |
 | `intlayerExtractBabelPlugin`  | تمسح ملفات `.content.ts` وتكتب القواميس المجمعة إلى `.intlayer/`                                                     |
-| `intlayerOptimizeBabelPlugin` | تعيد كتابة `useIntlayer('key')` → `useDictionary(hash)` وتحقن الـ `import` المطابق للقاموس                           |
 | `intlayerPurgeBabelPlugin`    | تمسح جميع ملفات المصدر، تزيل **حقول المحتوى غير المستخدمة** من ملفات القاموس المجمعة `.intlayer/**/*.json`           |
 | `intlayerMinifyBabelPlugin`   | **تعيد تسمية مفاتيح حقول المحتوى** إلى أسماء مستعارة أبجدية قصيرة (`title` → `a`) في كل من ملفات JSON والكود المصدري |
+| `intlayerOptimizeBabelPlugin` | تعيد كتابة `useIntlayer('key')` → `useDictionary(hash)` وتحقن الـ `import` المطابق للقاموس                           |
 
 > **ترتيب الإضافات مهم.** في `babel.config.js` يجب أن تظهر إضافات التطهير (purge) والتصغير (minify) **قبل** إضافة التحسين (optimize). تقوم خطوة التحسين باستبدال `useIntlayer('key')` باستدعاء مبهم لـ `useDictionary(hash)`، مما يمحو معلومات مفتاح القاموس التي تحتاجها خطوات التطهير والتصغير لتحديد الحقول المستخدمة.
 
@@ -205,9 +213,9 @@ export default {
 | مساعد الخيارات (Options helper) | يُستخدم مع                    |
 | :------------------------------ | :---------------------------- |
 | `getExtractPluginOptions()`     | `intlayerExtractBabelPlugin`  |
-| `getOptimizePluginOptions()`    | `intlayerOptimizeBabelPlugin` |
 | `getPurgePluginOptions()`       | `intlayerPurgeBabelPlugin`    |
 | `getMinifyPluginOptions()`      | `intlayerMinifyBabelPlugin`   |
+| `getOptimizePluginOptions()`    | `intlayerOptimizeBabelPlugin` |
 
 ### إضافات Vite (`vite-intlayer`)
 
@@ -220,6 +228,20 @@ export default {
 | Dictionary minify   | نفس مسار كتابة JSON في `intlayerMinifyBabelPlugin`                                             |
 | Babel transform     | نفس مسار إعادة تسمية كود المصدر لـ `intlayerMinifyBabelPlugin` + `intlayerOptimizeBabelPlugin` |
 
+### إضافة SWC (`@intlayer/swc`)
+
+مستخدمو Next.js أيضًا **لا يهيئون هذه الإضافات مباشرةً أبدًا**. منذ الإصدار **v9.2.1**، تشغّل `withIntlayer()` في `next.config.ts` خط المعالجة الكامل — التنقية والتصغير وإعادة كتابة عمليات الاستيراد — اعتمادًا على العَلَمين `build.purge` و`build.minify` فقط.
+
+العمل مقسوم إلى نصفين، لأن إضافة SWC بصيغة Wasm تحوّل ملفًا واحدًا في كل مرة ولا تملك وصولًا إلى نظام الملفات:
+
+| المرحلة                                      | أين تُنفَّذ                 | ماذا تفعل                                                                                |
+| :------------------------------------------- | :-------------------------- | :--------------------------------------------------------------------------------------- |
+| تحليل الاستخدام + تنقية/تصغير JSON           | Node، داخل `withIntlayer()` | تقرأ كل ملف مصدر للمكوّنات، وتعيد كتابة `.intlayer/**/*.json`، وتنتج جداول إعادة التسمية |
+| إعادة كتابة المصدر (`content.title` ← `.a`)  | `@intlayer/swc` (Wasm)      | تطبّق جداول إعادة التسمية على عمليات الوصول إلى الخصائص المقابلة في شيفرتك               |
+| إعادة كتابة الاستيراد (`useIntlayer` ← dict) | `@intlayer/swc` (Wasm)      | مثل `intlayerOptimizeBabelPlugin`                                                        |
+
+إن تحديد _أي_ الحقول غير مستخدمة و_أي_ اسم مستعار يحصل عليه كل حقل يتطلب حالة عابرة للملفات وعمليات إدخال/إخراج على الملفات، لذلك يعمل ذلك النصف داخل Node؛ ولا تتلقى إضافة SWC سوى الجداول الناتجة.
+
 ## الإعداد حسب المنصة
 
 <Tabs>
@@ -227,9 +249,11 @@ export default {
 
 ### Next.js
 
-يتطلب Next.js إضافة `@intlayer/swc` لخطوة التحسين (إعادة كتابة الاستيراد)، لأن Next.js يستخدم SWC للبناء.
+يتطلب Next.js إضافة `@intlayer/swc`، لأن Next.js يستخدم SWC في عمليات البناء. منذ الإصدار **v9.2.1**، تغطي هذه الحزمة الواحدة خط المعالجة بأكمله — التحسين (إعادة كتابة الاستيراد) والتنقية والتصغير.
 
 > لا يتم تثبيت هذا المكون الإضافي افتراضيًا لأن مكونات SWC لا تزال تجريبية لـ Next.js. قد يتغير هذا في المستقبل.
+
+> **Next.js 16.1.0 هو الحد الأدنى للإصدار.** فهو أول إصدار مبني على واجهة ABI لإضافات Wasm المتوافقة مستقبليًا في SWC؛ أما الإصدارات الأقدم فترفض الإضافة. تقرأ `withIntlayer` إصدار Next.js في مشروعك ولا تسجّل الإضافة إطلاقًا دون 16.1.0 — وتظل تلك البناءات ناجحة، غير أنها تعمل من دون تحسين الحزمة.
 
 <Tabs>
  <Tab value="npm">
@@ -265,32 +289,39 @@ intlayer-swc-plugin = "*"
 
 بمجرد التثبيت، سيكتشف Intlayer ويستخدم الإضافة تلقائيًا.
 
-بالنسبة لخطوات **التطهير (purge) والتصغير (minify)** (إزالة الحقول وإعادة تسميتها)، قم بتثبيت `@intlayer/babel` بجانبه وأضف إضافات Babel. نظرًا لأن Next.js يستخدم SWC للتحويل ولكنه لا يزال يقيّم `babel.config.js` لإعدادات الإضافات، يتم تشغيل إضافات Babel كخطوة مسبقة قبل SWC.
+لا تحتاج مرحلتا **التنقية والتصغير** (إزالة الحقول وإعادة تسميتها) إلى أي حزمة إضافية ولا إلى `babel.config.js`. غلّف إعداداتك بـ `withIntlayer` وفعّل العَلَمين في `intlayer.config.ts`:
 
-```bash packageManager="npm"
-npm install -D @intlayer/babel
+```typescript fileName="next.config.ts"
+import { withIntlayer } from "next-intlayer/server";
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {/* إعداداتك */};
+
+export default withIntlayer(nextConfig);
 ```
 
-```javascript fileName="babel.config.js"
-const {
-  intlayerPurgeBabelPlugin,
-  intlayerMinifyBabelPlugin,
-  getPurgePluginOptions,
-  getMinifyPluginOptions,
-} = require("@intlayer/babel");
+```typescript fileName="intlayer.config.ts"
+import type { IntlayerConfig } from "intlayer";
 
-module.exports = {
-  presets: ["next/babel"],
-  plugins: [
-    // Purge: يزيل حقول المحتوى غير المستخدمة من .intlayer/**/*.json
-    [intlayerPurgeBabelPlugin, getPurgePluginOptions()],
-    // Minify: يعيد تسمية مفاتيح حقول المحتوى في ملف JSON + الكود المصدري
-    [intlayerMinifyBabelPlugin, getMinifyPluginOptions()],
-    // ملاحظة: intlayerOptimizeBabelPlugin غير مطلوب هنا لأن
-    // @intlayer/swc يتعامل مع إعادة كتابة useIntlayer → useDictionary.
-  ],
+const config: IntlayerConfig = {
+  build: {
+    purge: true, // يزيل حقول المحتوى غير المستخدمة من JSON المضمّن في الحزمة
+    minify: true, // يعيد تسمية مفاتيح حقول المحتوى إلى أسماء مستعارة قصيرة
+  },
 };
+
+export default config;
 ```
+
+أثناء `next build`، تحلّل `withIntlayer` مصادرك، وتعيد كتابة القواميس المُجمَّعة، ثم تمرّر جداول إعادة تسمية الحقول الناتجة إلى `@intlayer/swc`، التي تحدّث عمليات الوصول إلى الخصائص المقابلة في شيفرتك.
+
+> استخدم `withIntlayer` غير المتزامنة، لا `withIntlayerSync`. فالنسخة المتزامنة لا تشغّل خط معالجة التحليل، ولذلك لا أثر للتنقية والتصغير معها.
+
+> تعمل التنقية والتصغير عند `next build` فقط — إذ يكون خط معالجة التحسين متوقفًا أثناء `next dev`.
+
+> كما تتعطلان عند تهيئة مستدعِيات محوّلات التوافق (`swcExtraCallers`، التي تضبطها حزم التوافق مثل `@intlayer/next-intl` أو `@intlayer/react-i18next`): فمواضع الاستدعاء تلك غير مرئية لمحلّل الاستخدام، ومن ثم فإن التنقية ستزيل حقولًا لا تزال الشيفرة تقرؤها. أما إعادة كتابة الاستيراد فتبقى فعّالة.
+
+**كانت الإصدارات الأقدم (قبل 9.2.1)** تتطلب `@intlayer/babel` وملف `babel.config.js` يعلن `intlayerPurgeBabelPlugin` و`intlayerMinifyBabelPlugin`. لم يعد ذلك الملف ضروريًا ويمكن حذفه.
 
  </Tab>
  <Tab value="vite">
@@ -447,6 +478,8 @@ export default config;
 
 > يتم تخطي التصغير عندما يكون `optimize` في وضع `false` أو عندما يكون `editor.enabled` في وضع `true` (يحتاج المحرر المرئي إلى أسماء الحقول الأصلية للسماح بالتحرير).
 
+> في Next.js، يُتخطى التصغير أيضًا عندما لا تكون `@intlayer/swc` مثبّتة أو يتعذر تحميلها (إصدار Next.js أقل من 16.1.0). فالإضافة هي النصف الذي يعيد كتابة عمليات الوصول في المصدر، ومن ثم فإن إعادة تسمية القواميس من دونها ستترك شيفرتك تقرأ أسماء حقول لم تعد موجودة.
+
 > يتم أيضًا تخطي التصغير بالنسبة للقواميس التي تم تحميلها عبر `importMode: 'fetch'` لأن ملف JSON الخاص بهم يُقدّم من واجهة برمجة تطبيقات (API) بعيدة باستخدام أسماء الحقول الأصلية — سيؤدي تغيير أسماء المفاتيح من جانب العميل إلى كسر العقد بين الخادم/العميل.
 
 ### التطهير (إزالة الحقول غير المستخدمة)
@@ -475,7 +508,7 @@ export default config;
 { "title": "…", "subtitle": "…" }
 ```
 
-> يتم تخطي التطهير (Purge) عندما يكون `optimize` في وضع `false` أو عندما يكون `editor.enabled` في وضع `true`.
+> يتم تخطي التطهير (Purge) عندما يكون `optimize` في وضع `false` أو عندما يكون `editor.enabled` في وضع `true`. وفي Next.js تُتخطى كذلك عندما تكون `@intlayer/swc` غير متاحة، وعند تهيئة مستدعِيات محوّلات التوافق.
 
 > يتم أيضًا تخطي التطهير كإجراء احترازي عندما يتعذر تحليل ملف المصدر، أو عندما يتم تعيين نتيجة `useIntlayer` لمتغير ويتم تمريرها بطرق لا يستطيع المحلل الثابت تتبعها (مثل وضعها في كائن بطريقة النشر، تمريرها كخاصية بدون تفكيك الهيكل). في تلك الحالات، يتم الاحتفاظ بالقاموس بالكامل.
 

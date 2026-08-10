@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-25
-updatedAt: 2026-06-07
+updatedAt: 2026-08-09
 title: i18n 번들 크기 및 성능 최적화
 description: 국제화(i18n) 콘텐츠를 최적화하여 애플리케이션 번들 크기를 줄이세요. Intlayer를 통해 사전(dictionary)의 트리 쉐이킹(tree shaking)과 지연 로딩(lazy loading)을 활용하는 방법을 알아봅니다.
 keywords:
@@ -16,6 +16,12 @@ slugs:
   - concept
   - bundle-optimization
 history:
+  - version: 9.2.1
+    date: 2026-08-09
+    changes: "`purge`와 `minify`가 이제 `@intlayer/swc`를 통해 Next.js에서 동작합니다 — `babel.config.js`가 필요 없습니다"
+  - version: 8.12.0
+    date: 2026-06-24
+    changes: "참조 표에서 Babel 플러그인을 필수 파이프라인 순서(extract → purge → minify → optimize)로 나열"
   - version: 8.12.0
     date: 2026-06-07
     changes: "Babel/Webpack용 `intlayerPurgeBabelPlugin` 및 `intlayerMinifyBabelPlugin` 추가, 플러그인 파이프라인 명확화"
@@ -191,12 +197,14 @@ Intlayer의 빌드 최적화는 각각 단일 책임을 갖는 여러 개별 플
 
 이들은 Webpack 기반 설정(Babel을 사용하는 Next.js, CRA, 커스텀 Webpack 등)의 `babel.config.js`에서 직접 사용됩니다.
 
+아래 표는 필수 파이프라인 순서(즉 `babel.config.js`에 나타나야 하는 순서와 동일)로 나열합니다:
+
 | 플러그인                      | 기능                                                                                                               |
 | :---------------------------- | :----------------------------------------------------------------------------------------------------------------- |
 | `intlayerExtractBabelPlugin`  | `.content.ts` 파일을 스캔하여 컴파일된 사전을 `.intlayer/`에 작성합니다.                                           |
-| `intlayerOptimizeBabelPlugin` | `useIntlayer('key')`를 `useDictionary(hash)`로 재작성하고 일치하는 사전의 `import`를 주입합니다.                   |
 | `intlayerPurgeBabelPlugin`    | 모든 소스 파일을 스캔하여 컴파일된 `.intlayer/**/*.json` 사전 파일에서 **사용되지 않는 콘텐츠 필드**를 제거합니다. |
 | `intlayerMinifyBabelPlugin`   | JSON 파일과 소스 코드 모두에서 **콘텐츠 필드 키를 짧은 알파벳 별칭**(`title` → `a`)으로 **이름을 변경**합니다.     |
+| `intlayerOptimizeBabelPlugin` | `useIntlayer('key')`를 `useDictionary(hash)`로 재작성하고 일치하는 사전의 `import`를 주입합니다.                   |
 
 > **플러그인 순서가 중요합니다.** `babel.config.js`에서 purge 및 minify 플러그인은 optimize 플러그인 **앞에** 나타나야 합니다. optimize 패스는 `useIntlayer('key')`를 불투명한 `useDictionary(hash)` 호출로 대체하여 purge 및 minify 패스가 어떤 필드가 사용되는지 식별하는 데 필요한 사전 키 정보를 지웁니다.
 
@@ -205,9 +213,9 @@ Intlayer의 빌드 최적화는 각각 단일 책임을 갖는 여러 개별 플
 | 옵션 헬퍼                    | 사용하는 플러그인             |
 | :--------------------------- | :---------------------------- |
 | `getExtractPluginOptions()`  | `intlayerExtractBabelPlugin`  |
-| `getOptimizePluginOptions()` | `intlayerOptimizeBabelPlugin` |
 | `getPurgePluginOptions()`    | `intlayerPurgeBabelPlugin`    |
 | `getMinifyPluginOptions()`   | `intlayerMinifyBabelPlugin`   |
+| `getOptimizePluginOptions()` | `intlayerOptimizeBabelPlugin` |
 
 ### Vite 플러그인 (`vite-intlayer`)
 
@@ -220,6 +228,20 @@ Vite 사용자는 **이를 직접 구성하지 않습니다**. `vite.config.ts`�
 | Dictionary minify  | `intlayerMinifyBabelPlugin`의 JSON 작성 패스와 동일                                      |
 | Babel transform    | `intlayerMinifyBabelPlugin`의 소스 코드 이름 변경 + `intlayerOptimizeBabelPlugin`과 동일 |
 
+### SWC 플러그인 (`@intlayer/swc`)
+
+Next.js 사용자도 **이것들을 직접 설정하지 않습니다**. **v9.2.1**부터 `next.config.ts`의 `withIntlayer()`가 `build.purge`와 `build.minify` 플래그만으로 퍼지, 압축, 임포트 재작성이라는 전체 파이프라인을 실행합니다.
+
+SWC Wasm 플러그인은 한 번에 한 파일만 변환하고 파일 시스템에 접근할 수 없기 때문에 작업이 둘로 나뉩니다:
+
+| 패스                                 | 실행 위치                   | 하는 일                                                                                         |
+| :----------------------------------- | :-------------------------- | :---------------------------------------------------------------------------------------------- |
+| 사용 분석 + JSON 퍼지/압축           | Node, `withIntlayer()` 내부 | 모든 컴포넌트 소스 파일을 읽고 `.intlayer/**/*.json`을 재작성하며 이름 변경 테이블을 생성합니다 |
+| 소스 재작성 (`content.title` → `.a`) | `@intlayer/swc` (Wasm)      | 이름 변경 테이블을 코드의 해당 속성 접근에 적용합니다                                           |
+| 임포트 재작성 (`useIntlayer` → dict) | `@intlayer/swc` (Wasm)      | `intlayerOptimizeBabelPlugin`과 동일                                                            |
+
+_어떤_ 필드가 사용되지 않는지, 각 필드가 _어떤_ 별칭을 받을지 결정하려면 파일 간 상태와 파일 I/O가 필요하므로 그 절반은 Node에서 실행되며, SWC 플러그인은 결과 테이블만 전달받습니다.
+
 ## 플랫폼별 설정
 
 <Tabs>
@@ -227,9 +249,11 @@ Vite 사용자는 **이를 직접 구성하지 않습니다**. `vite.config.ts`�
 
 ### Next.js
 
-Next.js는 빌드 시 SWC를 사용하므로 optimize(가져오기 재작성) 패스를 위해 `@intlayer/swc` 플러그인이 필요합니다.
+Next.js는 빌드에 SWC를 사용하므로 `@intlayer/swc` 플러그인이 필요합니다. **v9.2.1**부터 이 하나의 패키지가 최적화(임포트 재작성), 퍼지, 압축 등 전체 파이프라인을 담당합니다.
 
 > Next.js에서 SWC 플러그인이 아직 실험 단계이므로 이 플러그인은 기본적으로 설치되지 않습니다. 향후 변경될 수 있습니다.
+
+> **Next.js 16.1.0이 최소 버전입니다.** SWC의 상위 호환 Wasm 플러그인 ABI 위에 구축된 첫 릴리스이며, 이전 릴리스는 플러그인을 거부합니다. `withIntlayer`는 프로젝트의 Next.js 버전을 읽고 16.1.0 미만에서는 플러그인을 아예 등록하지 않습니다 — 해당 빌드는 여전히 성공하며 단지 번들 최적화 없이 실행됩니다.
 
 <Tabs>
  <Tab value="npm">
@@ -265,32 +289,39 @@ intlayer-swc-plugin = "*"
 
 설치되면 Intlayer가 플러그인을 자동으로 감지하여 사용합니다.
 
-**purge 및 minify** 패스(필드 제거 및 필드 이름 변경)의 경우 `@intlayer/babel`을 함께 설치하고 Babel 플러그인을 추가합니다. Next.js는 변환을 위해 SWC를 사용하지만 플러그인 구성을 위해 `babel.config.js`를 계속 평가하므로 Babel 플러그인은 SWC 이전의 사전 패스(pre-pass)로 실행됩니다.
+**퍼지와 압축** 패스(필드 제거 및 필드 이름 변경)에는 추가 패키지도 `babel.config.js`도 필요하지 않습니다. 설정을 `withIntlayer`로 감싸고 `intlayer.config.ts`에서 플래그를 켜십시오:
 
-```bash packageManager="npm"
-npm install -D @intlayer/babel
+```typescript fileName="next.config.ts"
+import { withIntlayer } from "next-intlayer/server";
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {/* 당신의 설정 */};
+
+export default withIntlayer(nextConfig);
 ```
 
-```javascript fileName="babel.config.js"
-const {
-  intlayerPurgeBabelPlugin,
-  intlayerMinifyBabelPlugin,
-  getPurgePluginOptions,
-  getMinifyPluginOptions,
-} = require("@intlayer/babel");
+```typescript fileName="intlayer.config.ts"
+import type { IntlayerConfig } from "intlayer";
 
-module.exports = {
-  presets: ["next/babel"],
-  plugins: [
-    // Purge: .intlayer/**/*.json에서 사용되지 않는 콘텐츠 필드 제거
-    [intlayerPurgeBabelPlugin, getPurgePluginOptions()],
-    // Minify: JSON + 소스 코드에서 콘텐츠 필드 키의 이름 변경
-    [intlayerMinifyBabelPlugin, getMinifyPluginOptions()],
-    // 주의: @intlayer/swc가 useIntlayer → useDictionary 재작성을 처리하므로
-    // intlayerOptimizeBabelPlugin은 여기서 필요하지 않습니다.
-  ],
+const config: IntlayerConfig = {
+  build: {
+    purge: true, // 번들된 JSON에서 사용되지 않는 콘텐츠 필드를 제거합니다
+    minify: true, // 콘텐츠 필드 키를 짧은 별칭으로 변경합니다
+  },
 };
+
+export default config;
 ```
+
+`next build` 동안 `withIntlayer`가 소스를 분석하고 컴파일된 사전을 재작성한 뒤, 생성된 필드 이름 변경 테이블을 `@intlayer/swc`에 전달하면 플러그인이 코드의 해당 속성 접근을 갱신합니다.
+
+> `withIntlayerSync`가 아니라 비동기 `withIntlayer`를 사용하십시오. 동기 버전은 분석 파이프라인을 실행하지 않으므로 퍼지와 압축이 적용되지 않습니다.
+
+> 퍼지와 압축은 `next build`에서만 실행됩니다 — 최적화 파이프라인은 `next dev` 중에는 꺼져 있습니다.
+
+> 호환 어댑터 호출자가 설정된 경우에도 비활성화됩니다(`swcExtraCallers`, `@intlayer/next-intl`이나 `@intlayer/react-i18next` 같은 호환 패키지가 설정합니다). 이러한 호출 지점은 사용 분석기에 보이지 않으므로 퍼지하면 코드가 여전히 읽는 필드를 제거하게 됩니다. 임포트 재작성은 계속 활성 상태로 유지됩니다.
+
+**이전 버전(9.2.1 이전)** 에서는 `@intlayer/babel`과 `intlayerPurgeBabelPlugin` 및 `intlayerMinifyBabelPlugin`을 선언하는 `babel.config.js`가 필요했습니다. 이 파일은 더 이상 필요하지 않으며 삭제할 수 있습니다.
 
  </Tab>
  <Tab value="vite">
@@ -447,6 +478,8 @@ export default config;
 
 > `optimize`가 `false`이거나 `editor.enabled`가 `true`일 때(비주얼 에디터에서는 편집을 위해 원본 필드 이름이 필요함) 최소화는 건너뜁니다.
 
+> Next.js에서는 `@intlayer/swc`가 설치되지 않았거나 로드할 수 없는 경우(16.1.0 미만의 Next.js)에도 압축이 건너뛰어집니다. 소스 접근을 재작성하는 쪽이 바로 이 플러그인이므로, 이것 없이 사전만 이름을 바꾸면 코드가 더 이상 존재하지 않는 필드 이름을 읽게 됩니다.
+
 > `importMode: 'fetch'`를 통해 로드된 사전에서도 최소화는 건너뜁니다. JSON이 원본 필드 이름을 사용하여 원격 API에서 제공되기 때문입니다(클라이언트 측 키의 이름을 변경하면 서버/클라이언트 규약이 깨짐).
 
 ### 파지 (사용하지 않는 필드 제거)
@@ -475,7 +508,7 @@ export default config;
 { "title": "…", "subtitle": "…" }
 ```
 
-> `optimize`가 `false`이거나 `editor.enabled`가 `true`일 때 파지(purge)는 건너뜁니다.
+> `optimize`가 `false`이거나 `editor.enabled`가 `true`일 때 파지(purge)는 건너뜁니다. Next.js에서는 `@intlayer/swc`를 사용할 수 없을 때, 그리고 호환 어댑터 호출자가 설정된 경우에도 추가로 건너뜁니다.
 
 > 소스 파일을 구문 분석할 수 없거나 `useIntlayer`의 결과가 변수에 할당되고 정적 분석기가 추적할 수 없는 방식으로 전달될 때(예: 객체에 스프레드, 구조 분해 없이 prop으로 전달) 파지도 보수적으로 건너뜁니다. 이런 경우에는 전체 사전이 유지됩니다.
 

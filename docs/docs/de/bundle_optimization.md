@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-25
-updatedAt: 2026-06-07
+updatedAt: 2026-08-09
 title: Optimierung der i18n-Bundle-Größe & Leistung
 description: Reduzieren Sie die Bundle-Größe Ihrer Anwendung, indem Sie den Inhalt der Internationalisierung (i18n) optimieren. Erfahren Sie, wie Sie Tree Shaking und Lazy Loading für Wörterbücher mit Intlayer nutzen.
 keywords:
@@ -16,6 +16,12 @@ slugs:
   - concept
   - bundle-optimization
 history:
+  - version: 9.2.1
+    date: 2026-08-09
+    changes: "`purge` und `minify` funktionieren jetzt in Next.js über `@intlayer/swc` — kein `babel.config.js` erforderlich"
+  - version: 8.12.0
+    date: 2026-06-24
+    changes: "Babel-Plugins in den Referenztabellen in der erforderlichen Pipeline-Reihenfolge auflisten (extract → purge → minify → optimize)"
   - version: 8.12.0
     date: 2026-06-07
     changes: "Hinzufügen von `intlayerPurgeBabelPlugin` und `intlayerMinifyBabelPlugin` für Babel/Webpack; Klarstellung der Plugin-Pipeline"
@@ -191,12 +197,14 @@ Die Build-Optimierung von Intlayer ist auf mehrere diskrete Plugins aufgeteilt, 
 
 Diese werden direkt in der `babel.config.js` für Webpack-basierte Setups verwendet (Next.js mit Babel, CRA, benutzerdefiniertes Webpack usw.).
 
+Die folgende Tabelle listet sie in der erforderlichen Pipeline-Reihenfolge auf (dieselbe Reihenfolge, in der sie in `babel.config.js` erscheinen müssen):
+
 | Plugin                        | Was es tut                                                                                                                  |
 | :---------------------------- | :-------------------------------------------------------------------------------------------------------------------------- |
 | `intlayerExtractBabelPlugin`  | Scannt `.content.ts`-Dateien und schreibt kompilierte Wörterbücher nach `.intlayer/`                                        |
-| `intlayerOptimizeBabelPlugin` | Schreibt `useIntlayer('key')` → `useDictionary(hash)` um und fügt den passenden `import` des Wörterbuchs ein                |
 | `intlayerPurgeBabelPlugin`    | Scannt alle Quelldateien und entfernt **nicht verwendete Inhaltsfelder** aus den kompilierten `.intlayer/**/*.json`-Dateien |
 | `intlayerMinifyBabelPlugin`   | **Benennt Inhaltsfeld-Schlüssel um** in kurze alphabetische Aliase (`title` → `a`) in JSON-Dateien und im Quellcode         |
+| `intlayerOptimizeBabelPlugin` | Schreibt `useIntlayer('key')` → `useDictionary(hash)` um und fügt den passenden `import` des Wörterbuchs ein                |
 
 > **Die Reihenfolge der Plugins ist wichtig.** In Ihrer `babel.config.js` müssen das Purge- und Minify-Plugin **vor** dem Optimize-Plugin aufgeführt sein. Der Optimize-Pass ersetzt `useIntlayer('key')` durch einen undurchsichtigen `useDictionary(hash)`-Aufruf, wodurch die Information über den Wörterbuchschlüssel gelöscht wird, die der Purge- und Minify-Pass benötigen, um zu identifizieren, welche Felder verwendet werden.
 
@@ -205,9 +213,9 @@ Jedes Babel-Plugin verfügt über einen entsprechenden Options-Helfer, der Ihre 
 | Options-Helfer               | Verwendet mit                 |
 | :--------------------------- | :---------------------------- |
 | `getExtractPluginOptions()`  | `intlayerExtractBabelPlugin`  |
-| `getOptimizePluginOptions()` | `intlayerOptimizeBabelPlugin` |
 | `getPurgePluginOptions()`    | `intlayerPurgeBabelPlugin`    |
 | `getMinifyPluginOptions()`   | `intlayerMinifyBabelPlugin`   |
+| `getOptimizePluginOptions()` | `intlayerOptimizeBabelPlugin` |
 
 ### Vite Plugins (`vite-intlayer`)
 
@@ -220,6 +228,20 @@ Vite-Benutzer **konfigurieren diese nie direkt**. Sie werden automatisch eingeri
 | Dictionary minify    | Gleich wie die JSON-Schreibphase des `intlayerMinifyBabelPlugin`                                     |
 | Babel transform      | Gleich wie die Quellcode-Umbenennung des `intlayerMinifyBabelPlugin` + `intlayerOptimizeBabelPlugin` |
 
+### SWC-Plugin (`@intlayer/swc`)
+
+Auch Next.js-Nutzer **konfigurieren diese nie direkt**. Seit **v9.2.1** führt `withIntlayer()` in `next.config.ts` die vollständige Pipeline aus — Purge, Minify und Import-Umschreibung — allein anhand der Flags `build.purge` und `build.minify`.
+
+Die Arbeit ist zweigeteilt, denn ein SWC-Wasm-Plugin transformiert jeweils nur eine Datei und hat keinen Dateisystemzugriff:
+
+| Durchlauf                                       | Wo er läuft                          | Was er tut                                                                                              |
+| :---------------------------------------------- | :----------------------------------- | :------------------------------------------------------------------------------------------------------ |
+| Nutzungsanalyse + JSON-Purge/Minify             | Node, innerhalb von `withIntlayer()` | Liest jede Komponenten-Quelldatei, schreibt `.intlayer/**/*.json` neu, erzeugt die Umbenennungstabellen |
+| Quellcode-Umschreibung (`content.title` → `.a`) | `@intlayer/swc` (Wasm)               | Wendet die Umbenennungstabellen auf die passenden Eigenschaftszugriffe in Ihrem Code an                 |
+| Import-Umschreibung (`useIntlayer` → dict)      | `@intlayer/swc` (Wasm)               | Wie `intlayerOptimizeBabelPlugin`                                                                       |
+
+Zu entscheiden, _welche_ Felder ungenutzt sind und _welchen_ Alias jedes erhält, erfordert dateiübergreifenden Zustand und Datei-I/O; diese Hälfte läuft daher in Node, und das SWC-Plugin erhält nur die resultierenden Tabellen.
+
 ## Setup nach Plattform
 
 <Tabs>
@@ -227,9 +249,11 @@ Vite-Benutzer **konfigurieren diese nie direkt**. Sie werden automatisch eingeri
 
 ### Next.js
 
-Next.js erfordert das Plugin `@intlayer/swc` für den Optimize-Pass (Import-Umschreibung), da Next.js SWC für Builds verwendet.
+Next.js benötigt das `@intlayer/swc`-Plugin, da Next.js SWC für Builds verwendet. Seit **v9.2.1** deckt dieses eine Paket die gesamte Pipeline ab — Optimierung (Import-Umschreibung), Purge und Minify.
 
 > Dieses Plugin ist nicht standardmäßig installiert, da SWC-Plugins für Next.js noch experimentell sind. Dies kann sich in Zukunft ändern.
+
+> **Next.js 16.1.0 ist die Mindestversion.** Es ist die erste Version, die auf SWCs vorwärtskompatibler Wasm-Plugin-ABI aufbaut; frühere Versionen weisen das Plugin ab. `withIntlayer` liest Ihre Next.js-Version und registriert das Plugin unterhalb von 16.1.0 einfach nicht — diese Builds sind weiterhin erfolgreich, sie laufen nur ohne Bundle-Optimierung.
 
 <Tabs>
  <Tab value="npm">
@@ -265,32 +289,39 @@ intlayer-swc-plugin = "*"
 
 Nach der Installation erkennt Intlayer das Plugin automatisch und verwendet es.
 
-Für die **Purge- und Minify**-Durchgänge (Feldentfernung und Feldumbenennung) installieren Sie parallel `@intlayer/babel` und fügen Sie die Babel-Plugins hinzu. Da Next.js SWC für die Transformation verwendet, aber weiterhin `babel.config.js` für die Plugin-Konfiguration auswertet, werden die Babel-Plugins als Vorpass vor SWC ausgeführt.
+Die **Purge- und Minify-Durchläufe** (Feldentfernung und Feldumbenennung) benötigen kein zusätzliches Paket und kein `babel.config.js`. Umschließen Sie Ihre Konfiguration mit `withIntlayer` und schalten Sie die Flags in `intlayer.config.ts` um:
 
-```bash packageManager="npm"
-npm install -D @intlayer/babel
+```typescript fileName="next.config.ts"
+import { withIntlayer } from "next-intlayer/server";
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {/* Ihre Konfiguration */};
+
+export default withIntlayer(nextConfig);
 ```
 
-```javascript fileName="babel.config.js"
-const {
-  intlayerPurgeBabelPlugin,
-  intlayerMinifyBabelPlugin,
-  getPurgePluginOptions,
-  getMinifyPluginOptions,
-} = require("@intlayer/babel");
+```typescript fileName="intlayer.config.ts"
+import type { IntlayerConfig } from "intlayer";
 
-module.exports = {
-  presets: ["next/babel"],
-  plugins: [
-    // Purge: Entfernt nicht verwendete Inhaltsfelder aus .intlayer/**/*.json
-    [intlayerPurgeBabelPlugin, getPurgePluginOptions()],
-    // Minify: Benennt Inhaltsfeld-Schlüssel im JSON + Quellcode um
-    [intlayerMinifyBabelPlugin, getMinifyPluginOptions()],
-    // Hinweis: intlayerOptimizeBabelPlugin wird hier NICHT benötigt, da
-    // @intlayer/swc die Umschreibung useIntlayer → useDictionary übernimmt.
-  ],
+const config: IntlayerConfig = {
+  build: {
+    purge: true, // entfernt ungenutzte Inhaltsfelder aus dem gebündelten JSON
+    minify: true, // benennt Inhaltsfeldschlüssel in kurze Aliase um
+  },
 };
+
+export default config;
 ```
+
+Während `next build` analysiert `withIntlayer` Ihre Quellen, schreibt die kompilierten Wörterbücher neu und übergibt die resultierenden Feldumbenennungstabellen an `@intlayer/swc`, das die passenden Eigenschaftszugriffe in Ihrem Code aktualisiert.
+
+> Verwenden Sie das asynchrone `withIntlayer`, nicht `withIntlayerSync`. Die synchrone Variante führt die Analyse-Pipeline nicht aus, sodass Purge und Minify damit keine Wirkung haben.
+
+> Purge und Minify laufen nur bei `next build` — die Optimierungs-Pipeline ist während `next dev` deaktiviert.
+
+> Sie sind außerdem deaktiviert, wenn Kompatibilitäts-Adapter-Aufrufer konfiguriert sind (`swcExtraCallers`, gesetzt von den Kompatibilitätspaketen wie `@intlayer/next-intl` oder `@intlayer/react-i18next`): Diese Aufrufstellen sind für den Nutzungsanalysator unsichtbar, sodass Purge Felder entfernen würde, die der Code noch liest. Die Import-Umschreibung bleibt aktiv.
+
+**Frühere Versionen (vor 9.2.1)** benötigten `@intlayer/babel` und eine `babel.config.js`, die `intlayerPurgeBabelPlugin` und `intlayerMinifyBabelPlugin` deklariert. Diese Datei wird nicht mehr benötigt und kann gelöscht werden.
 
  </Tab>
  <Tab value="vite">
@@ -447,6 +478,8 @@ export default config;
 
 > Die Minifizierung wird übersprungen, wenn `optimize` auf `false` gesetzt ist oder wenn `editor.enabled` auf `true` steht (der visuelle Editor benötigt die ursprünglichen Feldnamen, um die Bearbeitung zu ermöglichen).
 
+> Unter Next.js wird die Minifizierung außerdem übersprungen, wenn `@intlayer/swc` nicht installiert ist oder nicht geladen werden kann (Next.js unterhalb von 16.1.0). Das Plugin ist die Hälfte, die die Quellcode-Zugriffe umschreibt; die Wörterbücher ohne es umzubenennen, würde Ihren Code Feldnamen lesen lassen, die es nicht mehr gibt.
+
 > Die Minifizierung wird ebenfalls für Wörterbücher übersprungen, die über `importMode: 'fetch'` geladen werden, da deren JSON von einer Remote-API mit den ursprünglichen Feldnamen bereitgestellt wird — das Umbenennen der clientseitigen Schlüssel würde den Server/Client-Vertrag brechen.
 
 ### Purging (Entfernen ungenutzter Felder)
@@ -475,7 +508,7 @@ export default config;
 { "title": "…", "subtitle": "…" }
 ```
 
-> Der Purge wird übersprungen, wenn `optimize` auf `false` oder `editor.enabled` auf `true` gesetzt ist.
+> Der Purge wird übersprungen, wenn `optimize` auf `false` oder `editor.enabled` auf `true` gesetzt ist. Unter Next.js wird sie zusätzlich übersprungen, wenn `@intlayer/swc` nicht verfügbar ist und wenn Kompatibilitäts-Adapter-Aufrufer konfiguriert sind.
 
 > Der Purge wird auch konservativ übersprungen, wenn eine Quelldatei nicht analysiert werden kann, oder wenn das Ergebnis von `useIntlayer` einer Variablen zugewiesen und auf eine Weise weitergegeben wird, die der statische Analysator nicht verfolgen kann (z.B. in ein Objekt eingefügt oder als Prop ohne Destrukturierung übergeben). In diesen Fällen wird das gesamte Wörterbuch beibehalten.
 

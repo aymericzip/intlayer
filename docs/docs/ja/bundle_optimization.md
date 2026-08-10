@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-25
-updatedAt: 2026-06-07
+updatedAt: 2026-08-09
 title: i18nバンドルサイズとパフォーマンスの最適化
 description: 国際化（i18n）コンテンツを最適化し、アプリケーションのバンドルサイズを削減します。Intlayerを使用して辞書のツリーシェイキングと遅延読み込みを活用する方法を学びます。
 keywords:
@@ -16,6 +16,12 @@ slugs:
   - concept
   - bundle-optimization
 history:
+  - version: 9.2.1
+    date: 2026-08-09
+    changes: "`purge` と `minify` が `@intlayer/swc` を通じて Next.js で動作するようになりました — `babel.config.js` は不要です"
+  - version: 8.12.0
+    date: 2026-06-24
+    changes: "リファレンス表で Babel プラグインを必要なパイプライン順（extract → purge → minify → optimize）で列挙"
   - version: 8.12.0
     date: 2026-06-07
     changes: "Babel/Webpack用の `intlayerPurgeBabelPlugin` と `intlayerMinifyBabelPlugin` を追加、プラグインのパイプラインを明確化"
@@ -191,12 +197,14 @@ Intlayerのビルド最適化は、それぞれ単一の責任を持つ複数の
 
 これらは、Webpackベースのセットアップ（Babelを使用したNext.js、CRA、カスタムWebpackなど）の `babel.config.js` で直接使用されます。
 
+以下の表は、必要なパイプライン順（`babel.config.js` に記述しなければならない順序と同じ）で列挙しています:
+
 | プラグイン                    | 役割                                                                                                                                      |
 | :---------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------- |
 | `intlayerExtractBabelPlugin`  | `.content.ts` ファイルをスキャンし、コンパイルされた辞書を `.intlayer/` に書き込みます                                                    |
-| `intlayerOptimizeBabelPlugin` | `useIntlayer('key')` を `useDictionary(hash)` に書き換え、一致する辞書の `import` を注入します                                            |
 | `intlayerPurgeBabelPlugin`    | すべてのソースファイルをスキャンし、コンパイルされた `.intlayer/**/*.json` から**未使用のフィールド**を削除します                         |
 | `intlayerMinifyBabelPlugin`   | JSONファイルとソースコードの両方で、**コンテンツフィールドキーを短いアルファベットのエイリアス**（例：`title` → `a`）に**名前変更**します |
+| `intlayerOptimizeBabelPlugin` | `useIntlayer('key')` を `useDictionary(hash)` に書き換え、一致する辞書の `import` を注入します                                            |
 
 > **プラグインの順序は重要です。** `babel.config.js` では、purgeとminifyのプラグインは、optimizeのプラグインの**前**に記述する必要があります。最適化パスは `useIntlayer('key')` を不透明な `useDictionary(hash)` 呼び出しに置き換えるため、purgeパスとminifyパスが使用されているフィールドを識別するために必要な辞書キー情報が消去されてしまいます。
 
@@ -205,9 +213,9 @@ Intlayerのビルド最適化は、それぞれ単一の責任を持つ複数の
 | オプションヘルパー           | 一緒に使用するプラグイン      |
 | :--------------------------- | :---------------------------- |
 | `getExtractPluginOptions()`  | `intlayerExtractBabelPlugin`  |
-| `getOptimizePluginOptions()` | `intlayerOptimizeBabelPlugin` |
 | `getPurgePluginOptions()`    | `intlayerPurgeBabelPlugin`    |
 | `getMinifyPluginOptions()`   | `intlayerMinifyBabelPlugin`   |
+| `getOptimizePluginOptions()` | `intlayerOptimizeBabelPlugin` |
 
 ### Vite プラグイン (`vite-intlayer`)
 
@@ -220,6 +228,20 @@ Viteユーザーは**これらを直接設定することはありません**。
 | Dictionary minify      | `intlayerMinifyBabelPlugin` のJSON書き込みパスと同じ                                    |
 | Babel transform        | `intlayerMinifyBabelPlugin` のソースコード名変更 + `intlayerOptimizeBabelPlugin` と同じ |
 
+### SWC プラグイン (`@intlayer/swc`)
+
+Next.js ユーザーも**これらを直接設定することはありません**。**v9.2.1** 以降、`next.config.ts` の `withIntlayer()` が `build.purge` と `build.minify` フラグだけを元に、パージ・ミニファイ・インポート書き換えというパイプライン全体を実行します。
+
+SWC の Wasm プラグインは一度に 1 ファイルしか変換できず、ファイルシステムにアクセスできないため、処理は 2 つに分かれています:
+
+| パス                                        | 実行場所                      | 処理内容                                                                                                         |
+| :------------------------------------------ | :---------------------------- | :--------------------------------------------------------------------------------------------------------------- |
+| 使用状況の解析 + JSON のパージ/ミニファイ   | Node、`withIntlayer()` の内部 | すべてのコンポーネントのソースファイルを読み取り、`.intlayer/**/*.json` を書き換え、リネームテーブルを生成します |
+| ソースの書き換え (`content.title` → `.a`)   | `@intlayer/swc` (Wasm)        | リネームテーブルをコード内の該当するプロパティアクセスに適用します                                               |
+| インポートの書き換え (`useIntlayer` → dict) | `@intlayer/swc` (Wasm)        | `intlayerOptimizeBabelPlugin` と同じ                                                                             |
+
+_どの_ フィールドが未使用か、そして各フィールドが _どの_ エイリアスを受け取るかを決定するには、ファイル横断の状態とファイル I/O が必要です。そのためこの半分は Node 上で実行され、SWC プラグインは生成されたテーブルだけを受け取ります。
+
 ## プラットフォーム別の設定
 
 <Tabs>
@@ -227,9 +249,11 @@ Viteユーザーは**これらを直接設定することはありません**。
 
 ### Next.js
 
-Next.jsはビルドにSWCを使用するため、最適化（インポートの書き換え）パスには `@intlayer/swc` プラグインが必要です。
+Next.js はビルドに SWC を使用するため、`@intlayer/swc` プラグインが必要です。**v9.2.1** 以降、このパッケージ 1 つでパイプライン全体 — 最適化（インポート書き換え）、パージ、ミニファイ — をカバーします。
 
 > SWCプラグインはNext.jsではまだ実験的であるため、このプラグインはデフォルトではインストールされません。将来的に変更される可能性があります。
+
+> **Next.js 16.1.0 が最小バージョンです。** SWC の前方互換な Wasm プラグイン ABI 上に構築された最初のリリースであり、それ以前のリリースはプラグインを拒否します。`withIntlayer` はプロジェクトの Next.js バージョンを読み取り、16.1.0 未満ではプラグインを登録しません — それらのビルドは引き続き成功し、単にバンドル最適化なしで実行されます。
 
 <Tabs>
  <Tab value="npm">
@@ -265,32 +289,39 @@ intlayer-swc-plugin = "*"
 
 インストールされると、Intlayerはプラグインを自動的に検出して使用します。
 
-**purgeおよびminify**パス（フィールドの削除とフィールドの名前変更）については、一緒に `@intlayer/babel` をインストールし、Babelプラグインを追加します。Next.jsは変換にSWCを使用しますが、プラグイン設定のために `babel.config.js` を評価するため、BabelプラグインはSWCの前の事前パスとして実行されます。
+**パージとミニファイ**のパス（フィールドの削除とリネーム）には、追加パッケージも `babel.config.js` も不要です。設定を `withIntlayer` でラップし、`intlayer.config.ts` でフラグを有効にしてください:
 
-```bash packageManager="npm"
-npm install -D @intlayer/babel
+```typescript fileName="next.config.ts"
+import { withIntlayer } from "next-intlayer/server";
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {/* あなたの設定 */};
+
+export default withIntlayer(nextConfig);
 ```
 
-```javascript fileName="babel.config.js"
-const {
-  intlayerPurgeBabelPlugin,
-  intlayerMinifyBabelPlugin,
-  getPurgePluginOptions,
-  getMinifyPluginOptions,
-} = require("@intlayer/babel");
+```typescript fileName="intlayer.config.ts"
+import type { IntlayerConfig } from "intlayer";
 
-module.exports = {
-  presets: ["next/babel"],
-  plugins: [
-    // Purge: .intlayer/**/*.json から未使用のコンテンツフィールドを削除します
-    [intlayerPurgeBabelPlugin, getPurgePluginOptions()],
-    // Minify: JSON + ソースコード内のコンテンツフィールドキーの名前を変更します
-    [intlayerMinifyBabelPlugin, getMinifyPluginOptions()],
-    // 注意: @intlayer/swc が useIntlayer → useDictionary の書き換えを処理するため、
-    // intlayerOptimizeBabelPluginはここでは不要です。
-  ],
+const config: IntlayerConfig = {
+  build: {
+    purge: true, // バンドルされた JSON から未使用のコンテンツフィールドを削除します
+    minify: true, // コンテンツフィールドのキーを短いエイリアスにリネームします
+  },
 };
+
+export default config;
 ```
+
+`next build` の実行中、`withIntlayer` はソースを解析し、コンパイル済み辞書を書き換え、生成されたフィールドのリネームテーブルを `@intlayer/swc` に渡します。プラグインはコード内の該当するプロパティアクセスを更新します。
+
+> `withIntlayerSync` ではなく、非同期の `withIntlayer` を使用してください。同期版は解析パイプラインを実行しないため、パージとミニファイは効果がありません。
+
+> パージとミニファイは `next build` 時にのみ実行されます — 最適化パイプラインは `next dev` 中は無効です。
+
+> 互換アダプターの呼び出し元が設定されている場合（`swcExtraCallers`。`@intlayer/next-intl` や `@intlayer/react-i18next` などの互換パッケージが設定します）も無効になります。これらの呼び出し箇所は使用状況アナライザーから見えないため、パージするとコードがまだ読んでいるフィールドを削除してしまいます。インポートの書き換えは有効なままです。
+
+**それ以前のバージョン（9.2.1 より前）** では `@intlayer/babel` と、`intlayerPurgeBabelPlugin` および `intlayerMinifyBabelPlugin` を宣言する `babel.config.js` が必要でした。このファイルはもう不要で、削除できます。
 
  </Tab>
  <Tab value="vite">
@@ -447,6 +478,8 @@ export default config;
 
 > `optimize` が `false` の場合、または `editor.enabled` が `true` の場合（ビジュアルエディタでは編集を可能にするために元のフィールド名が必要なため）、最小化はスキップされます。
 
+> Next.js では、`@intlayer/swc` がインストールされていない、または読み込めない場合（16.1.0 未満の Next.js）にもミニファイはスキップされます。ソース側のアクセスを書き換えるのはこのプラグインなので、これなしで辞書をリネームすると、コードが存在しないフィールド名を読むことになります。
+
 > `importMode: 'fetch'` 経由で読み込まれた辞書の場合も最小化はスキップされます。これは、そのJSONが元のフィールド名を使用してリモートAPIから提供されるためであり、クライアント側のキーの名前を変更するとサーバー/クライアントの規約が壊れるためです。
 
 ### パージ（Purging - 未使用フィールドの削除）
@@ -475,7 +508,7 @@ export default config;
 { "title": "…", "subtitle": "…" }
 ```
 
-> `optimize` が `false` の場合、または `editor.enabled` が `true` の場合、パージはスキップされます。
+> `optimize` が `false` の場合、または `editor.enabled` が `true` の場合、パージはスキップされます。 Next.js では、さらに `@intlayer/swc` が利用できない場合、および互換アダプターの呼び出し元が設定されている場合にもスキップされます。
 
 > ソースファイルが解析できない場合、または `useIntlayer` の結果が変数に割り当てられ、静的アナライザーが追跡できない方法（例：オブジェクトへのスプレッド、分割代入せずにプロップとして渡すなど）で渡された場合も、パージは保守的にスキップされます。このような場合は、完全な辞書が保持されます。
 
