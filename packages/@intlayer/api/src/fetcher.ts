@@ -1,4 +1,32 @@
 /**
+ * Error thrown when the backend answers with a non-ok response.
+ *
+ * Carries the HTTP status and the backend error code alongside the message, so
+ * callers can tell a transient failure (5xx, network) from a deterministic one
+ * (4xx) instead of blindly retrying.
+ */
+export class FetcherError extends Error {
+  /** HTTP status code of the response. */
+  public readonly status: number;
+  /** Error code returned by the backend, when available (ex: `DICTIONARY_NOT_FOUND`). */
+  public readonly code?: string;
+  /** Raw error payload returned by the backend. */
+  public readonly data?: unknown;
+
+  constructor(
+    message: string,
+    details: { status: number; code?: string; data?: unknown }
+  ) {
+    super(message);
+
+    this.name = 'FetcherError';
+    this.status = details.status;
+    this.code = details.code;
+    this.data = details.data;
+  }
+}
+
+/**
  * Type definition for options used in the fetcher function.
  * Extends the standard RequestInit interface (excluding 'body'),
  * and adds 'body' and 'params' properties for convenience.
@@ -184,10 +212,17 @@ export const fetcher = async <T>(
   const response = await fetch(urlResult, formattedOptions);
 
   if (!response.ok) {
-    const result = await response.json();
+    const result = await response.json().catch(() => undefined);
 
     // You can customize the error message or include more details
-    throw new Error(JSON.stringify(result.error) ?? 'An error occurred');
+    throw new FetcherError(
+      JSON.stringify(result?.error) ?? 'An error occurred',
+      {
+        status: response.status,
+        code: result?.error?.code,
+        data: result?.error,
+      }
+    );
   }
   return await response.json();
 };

@@ -133,7 +133,21 @@ const getIsPurgePipelineEnabled = (
   return true;
 };
 
-/** Lazily loads `@intlayer/babel`, or `null` when it is not installed. */
+/**
+ * Exports this module needs from `@intlayer/babel`. Checked one by one so a
+ * version predating the purge pipeline is rejected like a missing package,
+ * instead of failing later with `runIntlayerPurgePipeline is not a function`.
+ */
+const REQUIRED_BABEL_EXPORTS = [
+  'getPurgePluginOptions',
+  'runIntlayerPurgePipeline',
+  'serializeFieldRenameMap',
+] as const satisfies readonly (keyof IntlayerBabelModule)[];
+
+/**
+ * Lazily loads `@intlayer/babel`, or `null` when it is not installed or too old
+ * to expose the purge pipeline.
+ */
 const loadIntlayerBabel = (
   intlayerConfig: IntlayerConfig
 ): IntlayerBabelModule | null => {
@@ -141,11 +155,33 @@ const loadIntlayerBabel = (
     const requireFunction =
       intlayerConfig.build?.require ?? getProjectRequire();
 
-    return requireFunction('@intlayer/babel') as IntlayerBabelModule;
+    const intlayerBabel = requireFunction(
+      '@intlayer/babel'
+    ) as Partial<IntlayerBabelModule>;
+
+    const hasEveryRequiredExport = REQUIRED_BABEL_EXPORTS.every(
+      (exportName) => typeof intlayerBabel?.[exportName] === 'function'
+    );
+
+    if (!hasEveryRequiredExport) return null;
+
+    return intlayerBabel as IntlayerBabelModule;
   } catch {
     return null;
   }
 };
+
+/**
+ * Whether the purge / minify pipeline can run at all, i.e. whether a usable
+ * `@intlayer/babel` is resolvable from the project.
+ *
+ * Used by `withIntlayer` to keep the build report honest: announcing
+ * `Dictionary minification enabled` while the pipeline cannot load would describe a
+ * pass that never happens.
+ */
+export const getIsPurgePipelineAvailable = (
+  intlayerConfig: IntlayerConfig
+): boolean => loadIntlayerBabel(intlayerConfig) !== null;
 
 /**
  * Runs the purge / minify pipeline and writes the resulting field-rename
@@ -162,9 +198,18 @@ const runPurgePipelineOnce = async (
   const intlayerBabel = loadIntlayerBabel(intlayerConfig);
 
   if (!intlayerBabel) {
+    // Not verbose: the build asked for purge / minify and is silently getting
+    // neither, which is exactly the kind of thing a default build must report.
     appLogger(
-      'Skipping dictionary purge: the @intlayer/babel package is not installed.',
-      { level: 'warn', isVerbose: true }
+      [
+        'Dictionary purge and minification are',
+        colorize('disabled', ANSIColors.GREY_DARK),
+        'because',
+        colorize('@intlayer/babel', ANSIColors.GREY_LIGHT),
+        'is missing or too old to expose the purge pipeline — install it in',
+        'this project to enable them.',
+      ],
+      { level: 'warn' }
     );
     return;
   }
@@ -175,13 +220,33 @@ const runPurgePipelineOnce = async (
     serializeFieldRenameMap,
   } = intlayerBabel;
 
-  // The pipeline reports what it purged and minified through the intlayer
-  // logger, matching the Vite build output.
-  const pruneContext = runIntlayerPurgePipeline(
-    getPurgePluginOptions({ configOptions, dictionaries })
-  );
+  // `runOnce` discards whatever this callback throws, so a pipeline failure
+  // would otherwise leave the build with no dictionaries rewritten and no
+  // explanation of why.
+  let fieldRenameMap: FieldRenameMapByDictionaryKey;
 
-  const fieldRenameMap = serializeFieldRenameMap(pruneContext);
+  try {
+    // The pipeline reports what it purged and minified through the intlayer
+    // logger, matching the Vite build output.
+    const pruneContext = runIntlayerPurgePipeline(
+      getPurgePluginOptions({ configOptions, dictionaries })
+    );
+
+    fieldRenameMap = serializeFieldRenameMap(pruneContext);
+  } catch (pipelineError) {
+    appLogger(
+      [
+        'Dictionary purge and minification',
+        colorize('failed', ANSIColors.RED),
+        '— the compiled dictionaries are left untouched.',
+        pipelineError instanceof Error
+          ? `(${pipelineError.message})`
+          : String(pipelineError),
+      ],
+      { level: 'error' }
+    );
+    return;
+  }
 
   await mkdir(dirname(fieldRenameMapFilePath), { recursive: true });
   await writeFile(

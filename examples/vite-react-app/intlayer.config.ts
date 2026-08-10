@@ -9,7 +9,7 @@ const config: IntlayerConfig = {
     defaultLocale: Locales.ENGLISH,
   },
   editor: {
-    enabled: true,
+    // enabled: true,
     applicationURL: 'http://localhost:5173',
     editorURL: 'http://localhost:8000',
     cmsURL: 'http://localhost:3000',
@@ -45,6 +45,7 @@ const config: IntlayerConfig = {
     storage: ['cookie', 'localStorage', 'header'],
   },
   build: {
+    optimize: true,
     minify: true,
     purge: true,
   },

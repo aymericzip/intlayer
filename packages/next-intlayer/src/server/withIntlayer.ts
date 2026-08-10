@@ -35,6 +35,7 @@ import type { NextJsWebpackConfig } from 'next/dist/server/config-shared';
 import nextPackageJSON from 'next/package.json' with { type: 'json' };
 import {
   type FieldRenameMapByDictionaryKey,
+  getIsPurgePipelineAvailable,
   prepareSwcOptimization,
   resolveSwcLogLevel,
 } from './prepareSwcOptimization';
@@ -144,7 +145,8 @@ const getPruneConfig = ({
   swcExtraCallers,
   fieldRenameMap,
 }: GetPruneConfigParams): Partial<NextConfig> => {
-  const { optimize } = intlayerConfig.build;
+  const { optimize, minify, purge } = intlayerConfig.build;
+  const editorEnabled = intlayerConfig.editor.enabled;
   const importMode =
     intlayerConfig.build.importMode ?? intlayerConfig.dictionary?.importMode;
   const {
@@ -196,6 +198,27 @@ const getPruneConfig = ({
           colorize(importMode ?? IMPORT_MODE, ANSIColors.BLUE),
           colorize(`)`, ANSIColors.GREY_DARK),
         ]);
+
+        // The purge / minify pipeline stands down — with its own explanation —
+        // when the editor needs full dictionary content, when compat-adapter
+        // callers hide call sites from the usage analyser, or when
+        // `@intlayer/babel` (which runs it) is not resolvable.
+        const isPurgePipelineEnabled =
+          !editorEnabled &&
+          !swcExtraCallers?.length &&
+          getIsPurgePipelineAvailable(intlayerConfig);
+
+        if (isPurgePipelineEnabled && minify) {
+          logger(
+            `Dictionary minification ${colorize('enabled', ANSIColors.GREEN)}`
+          );
+        }
+
+        if (isPurgePipelineEnabled && purge) {
+          logger(
+            `Dictionary purge unused keys ${colorize('enabled', ANSIColors.GREEN)}`
+          );
+        }
       } else {
         logger([
           colorize('Recommended: Install', ANSIColors.GREY),
@@ -234,10 +257,11 @@ const getPruneConfig = ({
           isEnabled = !isDevCommand;
         }
 
+        // Only the enabled state is reported: disabling the compiler is an
+        // explicit configuration choice, so announcing it on every build adds
+        // noise without telling the user anything they did not ask for.
         if (isEnabled) {
           logger('Intlayer compiler enabled');
-        } else {
-          logger('Intlayer compiler disabled');
         }
       }
     },

@@ -98,6 +98,12 @@ const config: CustomIntlayerConfig = {
   dictionary: {
     importMode: 'dynamic',
   },
+  build: {
+    optimize: true,
+    minify: true,
+    purge: true,
+  },
+
   // ai: {
   //   provider: 'openai',
   //   model: 'gpt-5-mini',

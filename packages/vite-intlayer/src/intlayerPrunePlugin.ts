@@ -270,18 +270,15 @@ export const intlayerPrune = (
             colorize('editor.enabled', ANSIColors.BLUE),
             'is',
             colorize('true', ANSIColors.GREY_DARK),
-            '— the editor requires full dictionary content.',
+            colorize(
+              '— the editor requires full dictionary content',
+              ANSIColors.GREY
+            ),
           ]),
         { cacheTimeoutMs: 1000 * 10 }
       );
       return false;
     }
-
-    runOnce(
-      join(baseDir, '.intlayer', 'cache', 'intlayer-purge-plugin-enabled.lock'),
-      () => logger(['Dictionary purge', colorize('enabled', ANSIColors.GREEN)]),
-      { cacheTimeoutMs: 1000 * 10 }
-    );
 
     return true;
   };

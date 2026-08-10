@@ -4,7 +4,6 @@ import type {
   LogFunctions,
 } from '@intlayer/types/config';
 import { defu } from 'defu';
-import { loadEnvFile } from '../loadEnvFile';
 import type { LoadExternalFileOptions } from '../loadExternalFile/loadExternalFile';
 import type { SandBoxContextOptions } from '../loadExternalFile/parseFileContent';
 import { cacheMemory } from '../utils/cacheMemory';
@@ -70,16 +69,6 @@ export const getConfigurationAndFilePath = (
   const { configurationFilePath, numCustomConfiguration } =
     searchConfigurationFile(baseDir);
 
-  // Merge the variables from the resolved env file (e.g. the CLI `--env-file`)
-  // on top of `process.env` without mutating the real environment. This lets
-  // credential fallbacks (`INTLAYER_CLIENT_ID` / `INTLAYER_CLIENT_SECRET`) be
-  // resolved from the env file even when the configuration file does not wire
-  // `process.env` into `editor.clientId` / `editor.clientSecret` itself.
-  const env: NodeJS.ProcessEnv = {
-    ...process.env,
-    ...loadEnvFile({ env: options?.env, envFile: options?.envFile }),
-  };
-
   let storedConfiguration: IntlayerConfig;
   let customConfiguration: CustomIntlayerConfig | undefined;
 
@@ -103,16 +92,14 @@ export const getConfigurationAndFilePath = (
     storedConfiguration = buildConfigurationFields(
       customConfiguration,
       options?.baseDir,
-      options?.logFunctions,
-      env
+      options?.logFunctions
     );
   } else {
     // No configuration file found, use default configuration
     storedConfiguration = buildConfigurationFields(
       {},
       options?.baseDir,
-      options?.logFunctions,
-      env
+      options?.logFunctions
     );
   }
 

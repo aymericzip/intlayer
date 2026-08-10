@@ -169,13 +169,13 @@ describe('runIntlayerPurgePipeline', () => {
     );
   });
 
-  it('reports that purge and minification are enabled', () => {
+  it('leaves announcing the enabled steps to the bundler plugin', () => {
     const { lines, logConfig } = captureLogs();
 
     runIntlayerPurgePipeline(buildOptions(fixture, { logConfig }));
 
-    expect(lines).toContain('Dictionary purge enabled');
-    expect(lines).toContain('Dictionary minification enabled');
+    expect(lines).not.toContain('Dictionary purge enabled');
+    expect(lines).not.toContain('Dictionary minification enabled');
   });
 
   it('reports the pruned fields and the build summary', () => {
@@ -215,12 +215,8 @@ describe('runIntlayerPurgePipeline', () => {
       buildOptions(fixture, { logConfig, editorEnabled: true })
     );
 
-    expect(lines).toContain(
-      'Dictionary purge is disabled because editor.enabled is true — the editor requires full dictionary content.'
-    );
-    expect(lines).toContain(
-      'Dictionary minification is disabled because editor.enabled is true — the editor requires full dictionary content.'
-    );
+    expect(lines).toContain('Dictionary purge is disabled');
+    expect(lines).toContain('Dictionary minification is disabled');
 
     // Content is left fully intact for the editor.
     expect(readDictionary(fixture.dictionariesDir)).toEqual({

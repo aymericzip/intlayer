@@ -3,6 +3,7 @@ import type {
   AddDictionaryResult,
   DeleteDictionaryParam,
   DeleteDictionaryResult,
+  GetDictionariesByKeysResult,
   GetDictionariesKeysResult,
   GetDictionariesParams,
   GetDictionariesResult,
@@ -95,6 +96,32 @@ export const getDictionaryAPI = (
     );
 
   /**
+   * Retrieves several dictionaries at once from their keys, in a single
+   * request. Keys matching no dictionary are absent from the result, so the
+   * caller should reconcile the response against the requested keys.
+   *
+   * @param dictionaryKeys - Dictionary keys to retrieve.
+   * @param version - Dictionary version of content.
+   */
+  const getDictionariesByKeys = async (
+    dictionaryKeys: string[],
+    version?: GetDictionaryQuery['version'],
+    otherOptions: FetcherOptions = {}
+  ) =>
+    await fetcher<GetDictionariesByKeysResult>(
+      `${PROJECT_API_ROUTE}/by-keys`,
+      authAPIOptions,
+      otherOptions,
+      {
+        cache: 'no-store',
+        params: {
+          keys: dictionaryKeys.join(','),
+          version: version?.toString(),
+        },
+      }
+    );
+
+  /**
    * Adds a new dictionary to the database.
    * @param dictionary - Dictionary data.
    */
@@ -166,6 +193,7 @@ export const getDictionaryAPI = (
     getDictionariesKeys,
     getDictionariesUpdateTimestamp,
     getDictionary,
+    getDictionariesByKeys,
     pushDictionaries,
     addDictionary,
     updateDictionary,

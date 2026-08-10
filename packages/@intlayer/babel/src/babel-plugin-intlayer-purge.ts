@@ -806,7 +806,10 @@ const logStepDisabledByEditor = (
       colorize('editor.enabled', ANSIColors.BLUE),
       'is',
       colorize('true', ANSIColors.GREY_DARK),
-      '— the editor requires full dictionary content.',
+      colorize(
+        '— the editor requires full dictionary content',
+        ANSIColors.GREY
+      ),
     ]);
 
   if (purge) explainDisabled('Dictionary purge');
@@ -898,13 +901,6 @@ export const runIntlayerPurgePipeline = (
 
   if ((!shouldPurge && !shouldMinify) || optimize === false)
     return pruneContext;
-
-  if (shouldPurge) {
-    logger(['Dictionary purge', colorize('enabled', ANSIColors.GREEN)]);
-  }
-  if (shouldMinify) {
-    logger(['Dictionary minification', colorize('enabled', ANSIColors.GREEN)]);
-  }
 
   // Phase 1: Synchronously analyse all component source files.
   for (const sourceFilePath of componentFilesList) {

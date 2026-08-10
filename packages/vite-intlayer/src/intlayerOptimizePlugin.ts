@@ -610,13 +610,28 @@ export const intlayerOptimize = async (
               'cache',
               'intlayer-optimize-plugin-enabled.lock'
             ),
-            () =>
+            () => {
               logger([
                 `Build optimization ${colorize('enabled', ANSIColors.GREEN)}`,
                 colorize('(import mode:', ANSIColors.GREY_DARK),
                 colorize(importMode ?? IMPORT_MODE, ANSIColors.BLUE),
                 colorize(')', ANSIColors.GREY_DARK),
-              ]),
+              ]);
+
+              // Mirrors `isAnalysisEnabled`: the editor requires full
+              // dictionary content, so neither pass runs while it is enabled.
+              if (!editorEnabled && minify) {
+                logger(
+                  `Dictionary minification ${colorize('enabled', ANSIColors.GREEN)}`
+                );
+              }
+
+              if (!editorEnabled && purge) {
+                logger(
+                  `Dictionary purge unused keys ${colorize('enabled', ANSIColors.GREEN)}`
+                );
+              }
+            },
             { cacheTimeoutMs: 1000 * 10 }
           );
 
