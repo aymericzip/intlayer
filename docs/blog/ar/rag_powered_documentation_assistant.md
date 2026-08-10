@@ -304,7 +304,7 @@ RAG هي واحدة من أبسط وأقوى الطرق لجعل نماذج ال
 - قناة تغذية راجعة
 - أداة لاستراتيجية المنتج
 
-👉 [جرب العرض التوضيحي هنا](https://intlayer.org/doc/ar/why) 👉 [تحقق من قالب الكود على GitHub](https://github.com/aymericzip/smart_doc_RAG)
+👉 [جرب العرض التوضيحي هنا](https://intlayer.org/ar/doc/why) 👉 [تحقق من قالب الكود على GitHub](https://github.com/aymericzip/smart_doc_RAG)
 
 وإذا كنت تجرب RAG أيضًا، أود أن أسمع كيف تستخدمها.
 

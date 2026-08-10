@@ -252,7 +252,7 @@ Używamy SSE do strumieniowania odpowiedzi z trasy API.
 Jak wspomniano, używamy gpt-4-turbo bez trybu "myślenia". Odpowiedzi są trafne, a opóźnienia niskie.
 Eksperymentowaliśmy z gpt-5, ale opóźnienia były zbyt duże (czasami do 15 sekund na odpowiedź). Jednak wrócimy do tego w przyszłości.
 
-👉 [Wypróbuj demo tutaj](https://intlayer.org/doc/pl/why) 👉 [Sprawdź szablon kodu na GitHub](https://github.com/aymericzip/smart_doc_RAG)
+👉 [Wypróbuj demo tutaj](https://intlayer.org/pl/doc/why) 👉 [Sprawdź szablon kodu na GitHub](https://github.com/aymericzip/smart_doc_RAG)
 
 </Step>
 

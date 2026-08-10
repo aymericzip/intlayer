@@ -404,7 +404,7 @@ export const getLocale = (event: RequestEvent): Locale => {
 };
 ```
 
-> `getLocaleFromStorage` verificará o locale a partir do header ou cookie dependendo da sua configuração. Veja [Configuração](https://intlayer.org/doc/configuration) para mais detalhes.
+> `getLocaleFromStorage` verificará o locale a partir do header ou cookie dependendo da sua configuração. Veja [Configuração](https://intlayer.org/doc/concept/configuration) para mais detalhes.
 
 > A função `localeDetector` tratará o header `Accept-Language` e retornará a melhor correspondência.
 

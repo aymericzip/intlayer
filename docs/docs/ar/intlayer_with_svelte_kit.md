@@ -387,7 +387,7 @@ export const getLocale = (event: RequestEvent): Locale => {
 };
 ```
 
-> `getLocaleFromStorage` سيتحقق من اللغة من الهيدر أو الكوكي حسب تكوينك. راجع [Configuration](https://intlayer.org/doc/configuration) لمزيد من التفاصيل.
+> `getLocaleFromStorage` سيتحقق من اللغة من الهيدر أو الكوكي حسب تكوينك. راجع [Configuration](https://intlayer.org/doc/concept/configuration) لمزيد من التفاصيل.
 
 > دالة `localeDetector` ستتعامل مع هيدر `Accept-Language` وتعيد أفضل تطابق.
 

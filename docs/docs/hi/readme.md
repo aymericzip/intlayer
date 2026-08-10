@@ -173,7 +173,7 @@ Intlayer के साथ शुरुआत करने और इसे अ�
   <li><a href="https://intlayer.org/doc/concept/cms" rel=''>Intlayer CMS</a></li>
   <li><a href="https://intlayer.org/doc/concept/content" rel=''>शब्दकोश</a>
     <ul>
-      <li><a href="https://intlayer.org/doc/concept/content/per-locale-file" rel=''>प्रति-स्थानीय सामग्री घोषणा फ़ाइल</a></li>
+      <li><a href="https://intlayer.org/doc/concept/per-locale-file" rel=''>प्रति-स्थानीय सामग्री घोषणा फ़ाइल</a></li>
       <li><a href="https://intlayer.org/doc/concept/content/translation" rel=''>अनुवाद</a></li>
       <li><a href="https://intlayer.org/doc/concept/content/enumeration" rel=''>सूचीकरण</a></li>
       <li><a href="https://intlayer.org/doc/concept/content/condition" rel=''>शर्त</a></li>
@@ -194,7 +194,7 @@ Intlayer के साथ शुरुआत करने और इसे अ�
     <ul>
       <li><a href="https://intlayer.org/doc/environment/nextjs/15" rel=''>Next.js 15</a></li>
       <li><a href="https://intlayer.org/doc/environment/nextjs/14" rel=''>Next.js 14 (App Router)</a></li>
-      <li><a href="https://intlayer.org/doc/environment/nextjs/next-with-Page-Router" rel=''>Next.js Page Router</a></li>
+      <li><a href="https://intlayer.org/doc/environment/nextjs/next-with-page-router" rel=''>Next.js Page Router</a></li>
       <li><a href="https://intlayer.org/doc/environment/nextjs/compiler" rel=''>कंपाइलर के साथ Next.js</a></li>
     </ul>
   </li>
@@ -223,7 +223,7 @@ Intlayer के साथ शुरुआत करने और इसे अ�
   <li><a href="https://intlayer.org/doc/environment/sveltekit" rel=''>SvelteKit</a></li>
   <li><a href="https://intlayer.org/doc/environment/vite-and-preact" rel=''>Vite + Preact</a></li>
   <li><a href="https://intlayer.org/doc/environment/vite-and-vue" rel=''>Vite + Vue</a></li>
-  <li><a href="https://intlayer.org/doc/environment/vite-and-nuxt" rel=''>Vite + Nuxt</a></li>
+  <li><a href="https://intlayer.org/doc/environment/nuxt-and-vue" rel=''>Vite + Nuxt</a></li>
   <li><a href="https://intlayer.org/doc/environment/vite-and-solid" rel=''>Vite + Solid</a></li>
   <li><a href="https://intlayer.org/doc/environment/angular" rel=''>Angular</a></li>
   <li>

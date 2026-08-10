@@ -392,7 +392,7 @@ export const getLocale = (event: RequestEvent): Locale => {
 };
 ```
 
-> `getLocaleFromStorage` 将根据你的配置从 header 或 cookie 检查语言环境。有关更多详情，请参阅[配置](https://intlayer.org/doc/configuration)。
+> `getLocaleFromStorage` 将根据你的配置从 header 或 cookie 检查语言环境。有关更多详情，请参阅[配置](https://intlayer.org/doc/concept/configuration)。
 
 > `localeDetector` 函数将处理 `Accept-Language` header 并返回最佳匹配。
 

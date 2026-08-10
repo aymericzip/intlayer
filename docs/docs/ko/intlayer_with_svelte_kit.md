@@ -404,7 +404,7 @@ export const getLocale = (event: RequestEvent): Locale => {
 };
 ```
 
-> `getLocaleFromStorage`는 구성에 따라 헤더 또는 쿠키에서 로케일을 확인합니다. 자세한 내용은 [Configuration](https://intlayer.org/doc/configuration) 문서를 참조하세요.
+> `getLocaleFromStorage`는 구성에 따라 헤더 또는 쿠키에서 로케일을 확인합니다. 자세한 내용은 [Configuration](https://intlayer.org/doc/concept/configuration) 문서를 참조하세요.
 
 > `localeDetector` 함수는 `Accept-Language` 헤더를 처리하여 가장 적합한 로케일을 반환합니다.
 
