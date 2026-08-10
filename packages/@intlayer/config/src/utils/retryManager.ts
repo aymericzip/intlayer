@@ -6,6 +6,12 @@ export type RetryManagerOptions = {
   maxRetry?: number;
   /** delay between attempts, in milliseconds */
   delay?: number;
+  /**
+   * Decides whether a given error is worth another attempt. Returning `false`
+   * gives up immediately, which avoids replaying a request that can only fail
+   * again (ex: a `404`). Every error is retried when omitted.
+   */
+  shouldRetry?: (error: unknown) => boolean;
   /** function to call when an error occurs */
   onError?: (details: {
     error: string;
@@ -36,6 +42,7 @@ export const retryManager =
     {
       maxRetry = DEFAULT_MAX_RETRY,
       delay = DEFAULT_DELAY,
+      shouldRetry,
       onError,
       onMaxTryReached,
     }: RetryManagerOptions = {}
@@ -50,6 +57,16 @@ export const retryManager =
       } catch (err) {
         lastError = err;
         const error = extractErrorMessage(err);
+
+        // Give up right away on an error that another attempt cannot fix
+        if (shouldRetry && !shouldRetry(err)) {
+          if (onMaxTryReached) {
+            onMaxTryReached({ error, attempt, maxRetry });
+            return null as R;
+          }
+
+          throw err;
+        }
 
         // If this was the last attempt, handle max retry reached
         if (attempt >= maxRetry) {

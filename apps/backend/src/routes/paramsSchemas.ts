@@ -51,6 +51,24 @@ export const dictionaryKeyParamsSchema = {
   },
 } as const;
 
+/**
+ * Query schema for the batch dictionary endpoint. `keys` accepts either a
+ * comma-separated string or a repeated query parameter.
+ */
+export const dictionaryKeysQuerySchema = {
+  type: 'object',
+  required: ['keys'],
+  properties: {
+    keys: {
+      anyOf: [
+        { type: 'string', minLength: 1 },
+        { type: 'array', items: { type: 'string', minLength: 1 } },
+      ],
+    },
+    version: { type: 'string' },
+  },
+} as const;
+
 export const environmentIdParamsSchema = {
   type: 'object',
   required: ['environmentId'],

@@ -1,5 +1,6 @@
 export * from './autoDecorateContent';
 export * from './buildComponentFilesList';
+export * from './chunkArray';
 export * from './chunkJSON';
 export * from './formatter';
 export * from './getChunk';

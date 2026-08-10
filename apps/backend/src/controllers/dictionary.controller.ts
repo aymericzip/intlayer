@@ -13,6 +13,7 @@ import * as dictionaryService from '@services/dictionary.service';
 import * as projectService from '@services/project.service';
 import { addTranslationJob } from '@services/translationQueue.service';
 import * as webhooksService from '@services/webhook.service';
+import { ensureArrayQueryFilter } from '@utils/ensureArrayQueryFilter';
 import { ensureMongoDocumentToObject } from '@utils/ensureMongoDocumentToObject';
 import { type AppError, ErrorHandler } from '@utils/errors';
 import {
@@ -320,6 +321,105 @@ export const getDictionaryByKey = async (
 
     const responseData = formatResponse<DictionaryAPI>({
       data: apiResult,
+    });
+
+    return reply.send(responseData);
+  } catch (error) {
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
+  }
+};
+
+export type GetDictionariesByKeysQuery = {
+  /**
+   * Dictionary keys to retrieve, either as a comma-separated string or as a
+   * repeated query parameter.
+   */
+  keys: string | string[];
+  version?: string;
+};
+export type GetDictionariesByKeysResult = ResponseData<DictionaryAPI[]>;
+
+/**
+ * Maximum number of dictionary keys accepted by a single batch request. Keeps
+ * the generated query string within safe URL length limits.
+ */
+export const MAX_DICTIONARY_KEYS_PER_REQUEST = 25;
+
+/**
+ * Retrieves several dictionaries at once from their keys.
+ *
+ * Batch counterpart of {@link getDictionaryByKey}, used to pull remote
+ * dictionaries with far fewer round trips. Keys that resolve to no dictionary
+ * of the current project are simply absent from the response, so callers can
+ * reconcile the returned list against the keys they requested. A key shared by
+ * several qualified dictionaries (`variant` / `item`) yields every sibling.
+ */
+export const getDictionariesByKeys = async (
+  request: FastifyRequest<{ Querystring: GetDictionariesByKeysQuery }>,
+  reply: FastifyReply
+): Promise<void> => {
+  const { project, user, roles } = request.session || {};
+  const { keys, version } = request.query;
+
+  if (!project) {
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'PROJECT_NOT_DEFINED'
+    );
+  }
+  if (!user) {
+    return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
+  }
+
+  const dictionaryKeys = [
+    ...new Set(
+      (ensureArrayQueryFilter(keys) ?? [])
+        .map((dictionaryKey) => dictionaryKey.trim())
+        .filter((dictionaryKey) => dictionaryKey.length > 0)
+    ),
+  ];
+
+  if (dictionaryKeys.length === 0) {
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'NO_DICTIONARIES_PROVIDED'
+    );
+  }
+
+  if (dictionaryKeys.length > MAX_DICTIONARY_KEYS_PER_REQUEST) {
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'DICTIONARY_INVALID_FIELDS'
+    );
+  }
+
+  try {
+    const dictionaries = await dictionaryService.getDictionariesByKeys(
+      dictionaryKeys,
+      project.id
+    );
+
+    if (
+      !hasPermission(
+        roles || [],
+        'dictionary:read'
+      )({
+        ...request.session,
+        targetDictionaries: dictionaries,
+      })
+    ) {
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'PERMISSION_DENIED'
+      );
+    }
+
+    const dictionariesAPI = dictionaries.map((dictionary) =>
+      mapDictionaryToAPI(dictionary, version)
+    );
+
+    const responseData = formatResponse<DictionaryAPI[]>({
+      data: dictionariesAPI,
     });
 
     return reply.send(responseData);

@@ -123,9 +123,11 @@ export const loadRemoteDictionaries = async (
       );
     }
 
-    const orderedDistantDictionaryKeys = dictionariesIdToFetch
-      .map(([, data]) => data.key)
-      .sort(sortAlphabetically);
+    // Several qualified dictionaries can share a key, so keys are deduplicated:
+    // one request per key already returns all of its siblings.
+    const orderedDistantDictionaryKeys = [
+      ...new Set(dictionariesIdToFetch.map(([, data]) => data.key)),
+    ].sort(sortAlphabetically);
 
     // Report pending for keys to be fetched so totals are visible immediately
     if (orderedDistantDictionaryKeys.length > 0) {
@@ -149,7 +151,17 @@ export const loadRemoteDictionaries = async (
       distantDictionariesData
     );
 
-    return [...cachedDictionaries, ...distantDictionaries];
+    // Fetching by key also returns the up-to-date siblings of a stale
+    // dictionary, so drop the cached copies the remote just sent back.
+    const fetchedDictionaryIds = new Set(
+      distantDictionaries.map((dictionary) => dictionary.id)
+    );
+
+    const notRefetchedCachedDictionaries = cachedDictionaries.filter(
+      (dictionary) => !fetchedDictionaryIds.has(dictionary.id)
+    );
+
+    return [...notRefetchedCachedDictionaries, ...distantDictionaries];
   } catch (error) {
     options?.onError?.(error as Error);
     return [];

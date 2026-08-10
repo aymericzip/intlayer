@@ -2,6 +2,7 @@ import {
   addDictionary,
   deleteDictionary,
   getDictionaries,
+  getDictionariesByKeys,
   getDictionariesKeys,
   getDictionariesUpdateTimestamp,
   getDictionaryByKey,
@@ -13,6 +14,7 @@ import type { Routes } from '@/types/Routes';
 import {
   dictionaryIdParamsSchema,
   dictionaryKeyParamsSchema,
+  dictionaryKeysQuerySchema,
 } from './paramsSchemas';
 
 export const dictionaryRoute = '/api/dictionary';
@@ -34,6 +36,11 @@ export const getDictionaryRoutes = () =>
     getDictionariesUpdateTimestamp: {
       urlModel: '/update',
       url: `${baseURL}/update`,
+      method: 'GET',
+    },
+    getDictionariesByKeys: {
+      urlModel: '/by-keys',
+      url: `${baseURL}/by-keys`,
       method: 'GET',
     },
     getDictionary: {
@@ -75,6 +82,11 @@ export const dictionaryRouter = async (fastify: FastifyInstance) => {
   fastify.get(
     getDictionaryRoutes().getDictionariesUpdateTimestamp.urlModel,
     getDictionariesUpdateTimestamp
+  );
+  fastify.get(
+    getDictionaryRoutes().getDictionariesByKeys.urlModel,
+    { schema: { querystring: dictionaryKeysQuerySchema } },
+    getDictionariesByKeys
   );
   fastify.get(
     getDictionaryRoutes().getDictionary.urlModel,
