@@ -144,7 +144,6 @@
     "react-intlayer": "workspace:*"
   },
   "devDependencies": {
-    "@intlayer/babel": "workspace:*",
     "@types/node": "26.2.0",
     "@types/react": ">=16.0.0",
     "@types/react-dom": ">=16.0.0",
