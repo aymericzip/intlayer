@@ -207,7 +207,7 @@ export const ComponentExample = () => {
 Tento přístup vám umožňuje:
 
 1. **Zrychlit vývoj**
-   - Soubory `.content.{{ts|mjs|cjs|json}}` lze vytvářet pomocí rozšíření pro VSCode
+   - Soubory `.content.{ts|js|mjs|cjs|json|tsx|jsx|md|mdx|yaml|yml}` lze vytvářet pomocí rozšíření pro VSCode
    - Nástroje AI pro automatické doplňování ve vašem IDE (jako je GitHub Copilot) vám mohou pomoci s deklarací obsahu, čímž se omezí kopírování/vkládání
 
 2. **Vyčistit vaši kódovou základnu**

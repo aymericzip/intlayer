@@ -210,7 +210,7 @@ export const ComponentExample = () => {
 Pendekatan ini memungkinkan Anda untuk:
 
 1. **Meningkatkan kecepatan pengembangan**
-   - File `.content.{{ts|mjs|cjs|json}}` dapat dibuat menggunakan ekstensi VSCode
+   - File `.content.{ts|js|mjs|cjs|json|tsx|jsx|md|mdx|yaml|yml}` dapat dibuat menggunakan ekstensi VSCode
    - Alat AI autocompletion di IDE Anda (seperti GitHub Copilot) dapat membantu Anda mendeklarasikan konten Anda, mengurangi copy/paste
 
 2. **Membersihkan codebase Anda**

@@ -207,7 +207,7 @@ export const ComponentExample = () => {
 Bu yaklaşım şunları yapmanızı sağlar:
 
 1. **Geliştirme hızını artırın**
-   - `.content.{{ts|mjs|cjs|json}}` dosyaları bir VSCode eklentisi kullanılarak oluşturulabilir
+   - `.content.{ts|js|mjs|cjs|json|tsx|jsx|md|mdx|yaml|yml}` dosyaları bir VSCode eklentisi kullanılarak oluşturulabilir
    - IDE'nizdeki AI otomatik tamamlama araçları (GitHub Copilot gibi) içeriğinizi bildirmenize yardımcı olarak kopyala/yapıştır işlemlerini azaltabilir
 
 2. **Kod tabanınızı temizleyin**
