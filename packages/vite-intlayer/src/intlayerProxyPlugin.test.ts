@@ -427,6 +427,133 @@ describe('createIntlayerProxyHandler (routing.enableProxy modes)', () => {
   });
 });
 
+describe('createIntlayerProxyHandler (prerendering)', () => {
+  type ProxyHandler = (
+    req: IncomingMessage,
+    res: ServerResponse<IncomingMessage>,
+    next: () => void
+  ) => void;
+
+  /**
+   * Builds a production handler (the one a Nitro build mounts) with a stored
+   * `fr` locale, so any leak of the build machine's storage into a prerendered
+   * page shows up as an /fr redirect.
+   */
+  const createProductionHandler = async (): Promise<ProxyHandler> => {
+    vi.resetModules();
+    mockGetLocaleFromStorage.mockReturnValue('fr');
+    mockLocaleDetector.mockImplementation((_h, _l, def: string) => def);
+    const mod = await import('./intlayerProxyPlugin');
+    return mod.createIntlayerProxyHandler();
+  };
+
+  afterEach(() => {
+    mockGetLocaleFromStorage.mockReturnValue(undefined);
+    delete process.env.TSS_PRERENDERING;
+  });
+
+  it('ignores the stored locale on a Nitro prerender request', async () => {
+    // Without this, the locale cookie of whoever/whatever ran the build would
+    // decide which locale gets baked into the static page for `/`.
+    const handler = await createProductionHandler();
+    const req = makeReq('/', { 'x-nitro-prerender': '/' });
+    const res = makeRes();
+    const next = vi.fn();
+    handler(req, res, next);
+
+    expect(res.writeHead).not.toHaveBeenCalled();
+    expect(req.url).toBe('/');
+    expect(next).toHaveBeenCalled();
+  });
+
+  it('ignores the stored locale while TanStack Start prerenders', async () => {
+    // TanStack Start flags the whole build process instead of tagging each
+    // request, since its prerenderer talks to a Vite preview server.
+    process.env.TSS_PRERENDERING = 'true';
+    const handler = await createProductionHandler();
+    const req = makeReq('/');
+    const res = makeRes();
+    const next = vi.fn();
+    handler(req, res, next);
+
+    expect(res.writeHead).not.toHaveBeenCalled();
+    expect(next).toHaveBeenCalled();
+  });
+
+  it('does not persist the locale on a prerendered redirect (/en → /)', async () => {
+    // Structural redirects still apply — only the Set-Cookie must not be, since
+    // the prerendered response is replayed to every visitor. The stored `fr`
+    // locale must not divert the redirect to /fr either.
+    const handler = await createProductionHandler();
+    const req = makeReq('/en', { 'x-nitro-prerender': '/en' });
+    const res = makeRes();
+    handler(req, res, vi.fn());
+
+    expect(res.writeHead).toHaveBeenCalledWith(302, { Location: '/' });
+    expect(res.__headers['Set-Cookie']).toBeUndefined();
+  });
+
+  it('still strips /en → / while TanStack Start prerenders, without a cookie', async () => {
+    // Same guarantee on the TanStack path, which flags the process instead of
+    // tagging each request: the prefix-stripping redirect is URL-driven and
+    // must survive, the locale persistence attached to it must not.
+    process.env.TSS_PRERENDERING = 'true';
+    const handler = await createProductionHandler();
+    const req = makeReq('/en/about');
+    const res = makeRes();
+    handler(req, res, vi.fn());
+
+    expect(res.writeHead).toHaveBeenCalledWith(302, { Location: '/about' });
+    expect(res.__headers['Set-Cookie']).toBeUndefined();
+    expect(mockSetLocaleInStorage).not.toHaveBeenCalled();
+  });
+
+  it('still honours the stored locale for a regular request', async () => {
+    // Guard: the prerender bypass must not leak into normal traffic.
+    const handler = await createProductionHandler();
+    const req = makeReq('/');
+    const res = makeRes();
+    handler(req, res, vi.fn());
+
+    expect(res.writeHead).toHaveBeenCalledWith(302, { Location: '/fr' });
+  });
+});
+
+describe('intlayerProxy (preview server registration)', () => {
+  /** Minimal Vite preview server stub exposing the middleware stack. */
+  const makePreviewServer = () => ({
+    middlewares: { use: vi.fn() },
+  });
+
+  it('does not add a preview middleware when Nitro serves the preview', async () => {
+    // The built Nitro server already runs this proxy as a Nitro middleware, so
+    // registering it here too would resolve the locale twice per request.
+    vi.resetModules();
+    const mod = await import('./intlayerProxyPlugin');
+    const plugin = mod.intlayerProxy();
+    plugin.configResolved?.({
+      plugins: [{ name: 'nitro:preview' }, { name: plugin.name }],
+    } as never);
+
+    const server = makePreviewServer();
+    (plugin.configurePreviewServer as (previewServer: unknown) => void)(server);
+
+    expect(server.middlewares.use).not.toHaveBeenCalled();
+  });
+
+  it('adds a preview middleware for a plain (Nitro-less) preview server', async () => {
+    vi.resetModules();
+    const mod = await import('./intlayerProxyPlugin');
+    const plugin = mod.intlayerProxy();
+    plugin.configResolved?.({ plugins: [{ name: plugin.name }] } as never);
+
+    const server = makePreviewServer();
+    (plugin.configurePreviewServer as (previewServer: unknown) => void)(server);
+
+    expect(server.middlewares.use).toHaveBeenCalledTimes(1);
+  });
+});
+
 describe('createIntlayerProxyHandler (search-params)', () => {
   let handler: (
     req: IncomingMessage,

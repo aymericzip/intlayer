@@ -1,7 +1,7 @@
 import type { IncomingMessage, ServerResponse } from 'node:http';
-import * as ANSIColors from '@intlayer/config/colors';
-import { colorize, getAppLogger } from '@intlayer/config/logger';
+import { getAppLogger } from '@intlayer/config/logger';
 import { getConfiguration } from '@intlayer/config/node';
+import { formatProxyEnabledMessage } from '@intlayer/core/localization';
 import { createIntlayerProxyHandler } from './intlayerProxyPlugin';
 
 /**
@@ -40,7 +40,11 @@ type H3EventLike = {
 
 const intlayerConfig = getConfiguration();
 const logger = getAppLogger(intlayerConfig);
-logger(`Intlayer proxy ${colorize('enabled', ANSIColors.GREEN)}`, {
+// A Nitro server is a production server, so the stored locale always drives
+// redirects here — hence the `false`. This runs once per server process; the
+// Vite preview server deliberately does not add a second proxy layer on top of
+// this one (see `configurePreviewServer` in `intlayerProxyPlugin`).
+logger(formatProxyEnabledMessage(false), {
   level: 'info',
 });
 
@@ -78,6 +82,8 @@ export default async (event: H3EventLike): Promise<Response | void> =>
      *   - headers.host   : domain-based locale routing
      *   - headers.accept-language : browser Accept-Language fallback
      *   - headers.x-forwarded-* : forwarded host/proto for reverse-proxy setups
+     *   - headers.x-nitro-prerender : marks a request issued by Nitro's
+     *     prerenderer, which keeps the generated page URL-driven
      *
      * headers must be a mutable plain object because setLocaleInStorageServer
      * writes Set-Cookie back via req.headers[name] = value.
@@ -91,6 +97,7 @@ export default async (event: H3EventLike): Promise<Response | void> =>
         'accept-language': event.headers.get('accept-language') ?? '',
         'x-forwarded-host': event.headers.get('x-forwarded-host') ?? '',
         'x-forwarded-proto': event.headers.get('x-forwarded-proto') ?? '',
+        'x-nitro-prerender': event.headers.get('x-nitro-prerender') ?? '',
       } as Record<string, string>,
     } as unknown as IncomingMessage;
 
