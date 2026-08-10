@@ -294,3 +294,5 @@ export const ComponentExample = () => {
 `intlayer` також може допомогти в управлінні просторами назв `react-intl`, `react-i18next`, `next-intl`, `next-i18next` та `vue-i18n`.
 
 За допомогою `intlayer` ви можете оголосити свій вміст у форматі вашої улюбленої бібліотеки i18n, і intlayer згенерує простори назв у вибраному вами місці (наприклад: `/messages/{{locale}}/{{namespace}}.json`).
+
+Якщо ви хочете й надалі використовувати API вашої поточної бібліотеки i18n, `intlayer` також надає **адаптери сумісності (compat adapters)**: пакети, що надають точно такий самий API, як `react-i18next`, `next-intl`, `react-intl`, `vue-i18n` та інші, але з вмістом зі словників Intlayer. Це дозволяє мігрувати поступово, не переписуючи код. Див. [документацію адаптерів сумісності](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/index.md).

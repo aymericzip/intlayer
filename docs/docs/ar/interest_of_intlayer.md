@@ -274,3 +274,5 @@ export const ComponentExample = () => {
 يمكن لـ `intlayer` أيضًا المساعدة في إدارة مساحات الأسماء الخاصة بـ `react-intl` و `react-i18next` و `next-intl` و `next-i18next` و `vue-i18n`.
 
 باستخدام `intlayer`، يمكنك التصريح عن المحتوى الخاص بك بتنسيق مكتبة i18n المفضلة لديك، وسيقوم intlayer بإنشاء مساحات الأسماء الخاصة بك في الموقع الذي تختاره (مثال: `/messages/{{locale}}/{{namespace}}.json`).
+
+إذا كنت ترغب في الاستمرار في استخدام واجهة برمجة التطبيقات الخاصة بمكتبة i18n الحالية لديك، فإن `intlayer` يوفر أيضًا **محوّلات التوافق (compat adapters)**: حزم تكشف نفس واجهة برمجة التطبيقات تمامًا مثل `react-i18next` و `next-intl` و `react-intl` و `vue-i18n` وغيرها، لكن يتم تزويدها بقواميس Intlayer. هذا يتيح لك الترحيل تدريجيًا دون إعادة كتابة الشيفرة الخاصة بك. راجع [توثيق محوّلات التوافق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/index.md).

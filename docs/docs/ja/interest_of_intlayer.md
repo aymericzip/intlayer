@@ -271,3 +271,5 @@ GitHubスター数は、プロジェクトの知名度、コミュニティか�
 `intlayer`は、`react-intl`、`react-i18next`、`next-intl`、`next-i18next`、`vue-i18n`の名前空間の管理にも役立ちます。
 
 `intlayer`を使用すると、お気に入りのi18nライブラリの形式でコンテンツを宣言でき、intlayerは任意の場所に名前空間を生成します（例：`/messages/{{locale}}/{{namespace}}.json`）。
+
+現在の i18n ライブラリの API を使い続けたい場合、`intlayer` は **互換アダプター（compat adapters）** も提供しています。これは `react-i18next`、`next-intl`、`react-intl`、`vue-i18n` などとまったく同じ API を公開しつつ、内容は Intlayer の辞書から提供されるパッケージです。これにより、コードを書き直すことなく段階的に移行できます。[互換アダプターのドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/index.md)をご覧ください。

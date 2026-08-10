@@ -290,3 +290,5 @@ As estrelas no GitHub são um forte indicador da popularidade de um projeto, da 
 `intlayer` também pode ajudar a gerenciar seus namespaces para `react-intl`, `react-i18next`, `next-intl`, `next-i18next` e `vue-i18n`.
 
 Utilizando `intlayer`, você pode declarar seu conteúdo no formato de sua biblioteca i18n favorita, e o intlayer gerará seus namespaces no local de sua escolha (exemplo: `/messages/{{locale}}/{{namespace}}.json`).
+
+Se você quiser continuar usando a API da sua biblioteca i18n atual, o `intlayer` também fornece **adaptadores de compatibilidade (compat adapters)**: pacotes que expõem exatamente a mesma API que `react-i18next`, `next-intl`, `react-intl`, `vue-i18n` e outras, mas servidos pelos dicionários do Intlayer. Isso permite migrar progressivamente sem reescrever seu código. Consulte a [documentação dos adaptadores de compatibilidade](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/index.md).

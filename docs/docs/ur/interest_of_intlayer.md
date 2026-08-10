@@ -271,3 +271,5 @@ export const ComponentExample = () => {
 `intlayer` آپ کے `react-intl` ، `react-i18next` ، `next-intl` ، `next-i18next` ، اور `vue-i18n` نیم اسپیسز (namespaces) کو منظم کرنے میں بھی مدد کر سکتا ہے۔
 
 Intlayer کا استعمال کرتے ہوئے، آپ اپنے پسندیدہ i18n لائبریری کے فارمیٹ میں اپنے مواد کا اعلان کر سکتے ہیں، اور intlayer آپ کی پسند کے مقام پر آپ کے نیم اسپیسز تیار کرے گا (مثال کے طور پر: `/messages/{{locale}}/{{namespace}}.json`)۔
+
+اگر آپ اپنی موجودہ i18n لائبریری کا API استعمال کرتے رہنا چاہتے ہیں، تو `intlayer` **کمپیٹ اڈاپٹرز (compat adapters)** بھی فراہم کرتا ہے: ایسے پیکجز جو `react-i18next` ، `next-intl` ، `react-intl` ، `vue-i18n` اور دیگر کا بالکل وہی API فراہم کرتے ہیں، لیکن مواد Intlayer ڈکشنریز سے آتا ہے۔ اس سے آپ اپنا کوڈ دوبارہ لکھے بغیر بتدریج منتقل ہو سکتے ہیں۔ دیکھیں [کمپیٹ اڈاپٹرز کی دستاویزات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/index.md)۔

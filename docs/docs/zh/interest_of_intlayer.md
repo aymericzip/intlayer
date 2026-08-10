@@ -271,3 +271,5 @@ GitHub Star 数是衡量项目受欢迎程度、社区信任度以及长期相�
 `intlayer` 还可以帮助管理你的 `react-intl`、`react-i18next`、`next-intl`、`next-i18next` 以及 `vue-i18n` 命名空间。
 
 使用 `intlayer`，你可以声明你喜欢的 i18n 库格式的内容，并且 intlayer 将在你想指定的路径下生成命名空间（例如：`/messages/{{locale}}/{{namespace}}.json`）。
+
+如果你想继续使用当前 i18n 库的 API，`intlayer` 还提供了 **兼容适配器（compat adapters）**：这些包暴露与 `react-i18next`、`next-intl`、`react-intl`、`vue-i18n` 等完全相同的 API，但内容由 Intlayer 词典提供。这样你就可以逐步迁移，而无需重写代码。参见[兼容适配器文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/index.md)。

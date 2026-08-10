@@ -290,3 +290,5 @@ Les étoiles GitHub sont un indicateur fort de la popularité d'un projet, de la
 `intlayer` může také pomoci spravovat vaše jmenné prostory pro `react-intl`, `react-i18next`, `next-intl`, `next-i18next` a `vue-i18n`.
 
 Pomocí `intlayer` můžete deklarovat svůj obsah ve formátu vaší oblíbené knihovny i18n a intlayer vygeneruje vaše jmenné prostory v umístění podle vašeho výběru (příklad: `/messages/{{locale}}/{{namespace}}.json`).
+
+Pokud chcete nadále používat API své současné i18n knihovny, `intlayer` nabízí také **compat adaptéry**: balíčky, které vystavují přesně stejné API jako `react-i18next`, `next-intl`, `react-intl`, `vue-i18n` a další, ale obsah dodávají z Intlayer slovníků. Díky tomu můžete migrovat postupně, aniž byste museli přepisovat svůj kód. Viz [dokumentace compat adaptérů](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/index.md).
