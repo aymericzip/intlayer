@@ -1,5 +1,7 @@
 /** @module buildCreativeWorkJsonLd */
 
+import { normalizeJsonLdUrl } from './normalizeJsonLdUrl';
+
 // ISO 8601 date formatter — Schema.org requires YYYY-MM-DD.
 const formatDate = (date: Date): string => {
   if (!(date instanceof Date)) {
@@ -81,17 +83,17 @@ export const buildCreativeWorkJsonLd = ({
           name: publisherName,
           logo: {
             '@type': 'ImageObject' as const,
-            url: publisherLogoUrl,
+            url: normalizeJsonLdUrl(publisherLogoUrl),
           },
         },
       }
     : {}),
   name,
   headline: name,
-  ...(ogImageUrl ? { image: ogImageUrl } : {}),
+  ...(ogImageUrl ? { image: normalizeJsonLdUrl(ogImageUrl) } : {}),
   text: content,
   description,
-  url,
+  url: normalizeJsonLdUrl(url),
   datePublished: datePublished ? formatDate(datePublished) : undefined,
   dateModified: dateModified ? formatDate(dateModified) : undefined,
   version,

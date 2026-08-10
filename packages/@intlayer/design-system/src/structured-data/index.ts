@@ -32,3 +32,4 @@ export {
   type BuildWebsiteJsonLdParams,
   buildWebsiteJsonLd,
 } from './buildWebsiteJsonLd';
+export { normalizeJsonLdUrl, normalizeJsonLdUrls } from './normalizeJsonLdUrl';

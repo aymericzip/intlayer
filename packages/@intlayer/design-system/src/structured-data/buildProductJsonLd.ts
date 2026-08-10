@@ -1,5 +1,7 @@
 /** @module buildProductJsonLd */
 
+import { normalizeJsonLdUrl } from './normalizeJsonLdUrl';
+
 /** Minimal Schema.org Offer node. */
 export type SchemaOrgOffer = {
   '@type': 'Offer';
@@ -36,10 +38,10 @@ export const buildProductJsonLd = ({
 }: BuildProductJsonLdParams) => ({
   '@context': 'https://schema.org' as const,
   '@type': 'Product' as const,
-  url,
+  url: normalizeJsonLdUrl(url),
   name,
   description,
-  image: imageUrl,
+  image: normalizeJsonLdUrl(imageUrl),
   brand: {
     '@type': 'Brand' as const,
     name: brandName,

@@ -1,5 +1,7 @@
 /** @module buildOrganizationJsonLd */
 
+import { normalizeJsonLdUrl, normalizeJsonLdUrls } from './normalizeJsonLdUrl';
+
 export type BuildOrganizationJsonLdParams = {
   /** Canonical URL of the organization (e.g. "https://intlayer.org"). */
   url: string;
@@ -28,24 +30,28 @@ export const buildOrganizationJsonLd = ({
   knowsAbout,
   sameAs,
   availableLanguages,
-}: BuildOrganizationJsonLdParams) => ({
-  '@context': 'https://schema.org' as const,
-  '@type': 'Organization' as const,
-  name: 'Intlayer',
-  url,
-  logo: {
-    '@type': 'ImageObject' as const,
-    url: logoUrl,
-  },
-  foundingDate: '2024',
-  slogan,
-  knowsAbout,
-  sameAs,
-  contactPoint: {
-    '@type': 'ContactPoint' as const,
-    email: 'contact@intlayer.org',
-    contactType: 'customer support',
-    url,
-    availableLanguage: availableLanguages,
-  },
-});
+}: BuildOrganizationJsonLdParams) => {
+  const normalizedUrl = normalizeJsonLdUrl(url);
+
+  return {
+    '@context': 'https://schema.org' as const,
+    '@type': 'Organization' as const,
+    name: 'Intlayer',
+    url: normalizedUrl,
+    logo: {
+      '@type': 'ImageObject' as const,
+      url: normalizeJsonLdUrl(logoUrl),
+    },
+    foundingDate: '2024',
+    slogan,
+    knowsAbout,
+    sameAs: normalizeJsonLdUrls(sameAs),
+    contactPoint: {
+      '@type': 'ContactPoint' as const,
+      email: 'contact@intlayer.org',
+      contactType: 'customer support',
+      url: normalizedUrl,
+      availableLanguage: availableLanguages,
+    },
+  };
+};

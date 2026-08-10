@@ -196,7 +196,7 @@ export const Website_ReleasesV8_Path = '/doc/releases/v8' as const;
 export const Website_Doc_Environment_NextJS_Path =
   '/doc/environment/nextjs' as const;
 export const Website_Doc_Environment_NextJS_16_Path =
-  '/doc/environment/nextjs/16' as const;
+  '/doc/environment/nextjs' as const;
 export const Website_Doc_Environment_NextJS_15_Path =
   '/doc/environment/nextjs/15' as const;
 export const Website_Doc_Environment_NextJS_14_Path =
@@ -212,11 +212,12 @@ export const Website_Doc_Environment_ViteAndReact_ReactRouterV7_Path =
 export const Website_Doc_Environment_ViteAndReact_ReactRouterV7_FSRoutes_Path =
   '/doc/environment/vite-and-react/react-router-v7-fs-routes' as const;
 export const Website_Doc_Environment_Tanstack_Path =
-  '/doc/environment/tanstack' as const;
-export const Website_Doc_Environment_Lit_Path = '/doc/environment/lit' as const;
+  '/doc/environment/tanstack-start' as const;
+export const Website_Doc_Environment_Lit_Path =
+  '/doc/environment/vite-and-lit' as const;
 export const Website_Doc_Environment_Nodejs_Path = '/doc/concept/cli' as const;
 export const Website_Doc_Environment_Adonis_Path =
-  '/doc/environment/adonis' as const;
+  '/doc/environment/adonisjs' as const;
 export const Website_Doc_Environment_ViteAndVue_Path =
   '/doc/environment/vite-and-vue' as const;
 export const Website_Doc_Environment_ViteAndSolid_Path =
@@ -238,7 +239,7 @@ export const Website_Doc_Environment_Lynx_Path =
 export const Website_Doc_Environment_Express_Path =
   '/doc/environment/express' as const;
 export const Website_Doc_Environment_NestJS_Path =
-  '/doc/environment/nestjs' as const;
+  '/doc/environment/nest' as const;
 export const Website_Doc_Environment_Fastify_Path =
   '/doc/environment/fastify' as const;
 export const Website_Doc_Environment_Hono_Path =
@@ -417,7 +418,7 @@ export const Doc_ReleasesV6_Path = '/releases/v6' as const;
 export const Doc_ReleasesV7_Path = '/releases/v7' as const;
 export const Doc_ReleasesV8_Path = '/releases/v8' as const;
 export const Doc_Environment_NextJS_Path = '/environment/nextjs' as const;
-export const Doc_Environment_NextJS_16_Path = '/environment/nextjs/16' as const;
+export const Doc_Environment_NextJS_16_Path = '/environment/nextjs' as const;
 export const Doc_Environment_NextJS_15_Path = '/environment/nextjs/15' as const;
 export const Doc_Environment_NextJS_14_Path = '/environment/nextjs/14' as const;
 export const Doc_Environment_CRA_Path =
@@ -429,10 +430,11 @@ export const Doc_Environment_ViteAndReact_ReactRouterV7_Path =
   '/environment/vite-and-react/react-router-v7' as const;
 export const Doc_Environment_ViteAndReact_ReactRouterV7_FSRoutes_Path =
   '/environment/vite-and-react/react-router-v7-fs-routes' as const;
-export const Doc_Environment_Tanstack_Path = '/environment/tanstack' as const;
-export const Doc_Environment_Lit_Path = '/environment/lit' as const;
+export const Doc_Environment_Tanstack_Path =
+  '/environment/tanstack-start' as const;
+export const Doc_Environment_Lit_Path = '/environment/vite-and-lit' as const;
 export const Doc_Environment_Nodejs_Path = '/concept/cli' as const;
-export const Doc_Environment_Adonis_Path = '/environment/adonis' as const;
+export const Doc_Environment_Adonis_Path = '/environment/adonisjs' as const;
 export const Doc_Environment_ViteAndVue_Path =
   '/environment/vite-and-vue' as const;
 export const Doc_Environment_ViteAndSolid_Path =
@@ -450,7 +452,7 @@ export const Doc_Environment_ReactNativeAndExpo_Path =
   '/environment/react-native-and-expo' as const;
 export const Doc_Environment_Lynx_Path = '/environment/lynx-and-react' as const;
 export const Doc_Environment_Express_Path = '/environment/express' as const;
-export const Doc_Environment_NestJS_Path = '/environment/nestjs' as const;
+export const Doc_Environment_NestJS_Path = '/environment/nest' as const;
 export const Doc_Environment_Fastify_Path = '/environment/fastify' as const;
 export const Doc_Environment_Hono_Path = '/environment/hono' as const;
 

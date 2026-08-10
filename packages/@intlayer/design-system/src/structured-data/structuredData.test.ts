@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest';
+import { buildOrganizationJsonLd } from './buildOrganizationJsonLd';
 import { buildSoftwareApplicationJsonLd } from './buildSoftwareApplicationJsonLd';
 import { buildWebsiteJsonLd } from './buildWebsiteJsonLd';
+import { normalizeJsonLdUrl } from './normalizeJsonLdUrl';
 
 /** Minimum description length Google expects on a Dataset node. */
 const MINIMUM_DATASET_DESCRIPTION_LENGTH = 50;
@@ -99,5 +101,78 @@ describe('buildSoftwareApplicationJsonLd', () => {
     expect(aggregateRating.ratingValue).toBe('4.5');
     expect(aggregateRating.ratingCount).toBe(12);
     expect(aggregateRating.reviewCount).toBe(8);
+  });
+
+  // Call sites concatenate `Website_Home` (which ends with a slash) with a
+  // leading-slash path, so the builder receives doubled slashes.
+  it('collapses doubled slashes in every emitted URL', () => {
+    const softwareApplicationJsonLd = buildSoftwareApplicationJsonLd({
+      ...softwareApplicationParams,
+      url: 'https://intlayer.org/',
+      authorUrl: 'https://intlayer.org/',
+      logoUrl: 'https://intlayer.org//assets/logo.png',
+      githubUrl: 'https://github.com//aymericzip/intlayer',
+      mainEntityUrl: 'https://intlayer.org//translate',
+    });
+
+    expect(softwareApplicationJsonLd.author.logo).toBe(
+      'https://intlayer.org/assets/logo.png'
+    );
+    expect(softwareApplicationJsonLd.publisher.logo).toBe(
+      'https://intlayer.org/assets/logo.png'
+    );
+    expect(softwareApplicationJsonLd.image).toBe(
+      'https://intlayer.org/cover.png'
+    );
+    expect(softwareApplicationJsonLd.author.sameAs).toEqual([
+      'https://github.com/aymericzip/intlayer',
+    ]);
+    expect(softwareApplicationJsonLd.mainEntityOfPage).toBe(
+      'https://intlayer.org/translate'
+    );
+  });
+});
+
+describe('buildOrganizationJsonLd', () => {
+  it('collapses doubled slashes in the logo and sameAs URLs', () => {
+    const organizationJsonLd = buildOrganizationJsonLd({
+      url: 'https://intlayer.org/',
+      logoUrl: 'https://intlayer.org//assets/logo.png',
+      slogan: 'i18n made simple',
+      knowsAbout: ['i18n'],
+      sameAs: ['https://github.com//aymericzip/intlayer'],
+      availableLanguages: ['en', 'fr'],
+    });
+
+    expect(organizationJsonLd.logo.url).toBe(
+      'https://intlayer.org/assets/logo.png'
+    );
+    expect(organizationJsonLd.sameAs).toEqual([
+      'https://github.com/aymericzip/intlayer',
+    ]);
+  });
+});
+
+describe('normalizeJsonLdUrl', () => {
+  it('preserves the protocol separator and protocol-relative prefixes', () => {
+    expect(normalizeJsonLdUrl('https://intlayer.org//cover.png')).toBe(
+      'https://intlayer.org/cover.png'
+    );
+    expect(normalizeJsonLdUrl('//cdn.intlayer.org//cover.png')).toBe(
+      '//cdn.intlayer.org/cover.png'
+    );
+    expect(normalizeJsonLdUrl('https://intlayer.org/cover.png')).toBe(
+      'https://intlayer.org/cover.png'
+    );
+  });
+
+  it('collapses runs longer than two slashes', () => {
+    expect(normalizeJsonLdUrl('https://intlayer.org///doc//search')).toBe(
+      'https://intlayer.org/doc/search'
+    );
+  });
+
+  it('passes undefined through untouched', () => {
+    expect(normalizeJsonLdUrl(undefined)).toBeUndefined();
   });
 });
