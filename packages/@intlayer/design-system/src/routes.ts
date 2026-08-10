@@ -195,6 +195,7 @@ export const Website_Doc_SelfHosting_Path = '/doc/self-hosting' as const;
 export const Website_ReleasesV6_Path = '/doc/releases/v6' as const;
 export const Website_ReleasesV7_Path = '/doc/releases/v7' as const;
 export const Website_ReleasesV8_Path = '/doc/releases/v8' as const;
+export const Website_ReleasesV9_Path = '/doc/releases/v9' as const;
 export const Website_Doc_Environment_NextJS_Path =
   '/doc/environment/nextjs' as const;
 export const Website_Doc_Environment_NextJS_16_Path =
