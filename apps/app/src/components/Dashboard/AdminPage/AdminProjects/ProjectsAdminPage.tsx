@@ -7,7 +7,6 @@ import { Button } from '@intlayer/design-system/button';
 import { CopyToClipboard } from '@intlayer/design-system/copy-to-clipboard';
 import { useSearch } from '@intlayer/design-system/hooks';
 import { Checkbox, SearchInput } from '@intlayer/design-system/input';
-
 import {
   NumberItemsSelector,
   Pagination,
@@ -17,18 +16,16 @@ import { getAppAdminProjectRoute } from '@intlayer/design-system/routes';
 import { Table } from '@intlayer/design-system/table';
 import { cn } from '@intlayer/design-system/utils';
 import {
-  type ColumnDef,
   flexRender,
-  getCoreRowModel,
   type RowSelectionState,
   type SortingState,
-  useReactTable,
 } from '@tanstack/react-table';
 import { ChevronDown, ChevronUp, Trash2 } from 'lucide-react';
 import { type FC, useEffect, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
 import { useSearchParamState } from '#hooks/useSearchParamState';
+import { type DataTableColumnDef, useDataTable } from '#utils/reactTable';
 import { ProjectsAdminSkeleton } from './ProjectsAdminSkeleton';
 
 type SortOrder = 'asc' | 'desc';
@@ -80,7 +77,7 @@ export const ProjectsAdminPageContent: FC = () => {
     .map((idx) => projects[parseInt(idx, 10)]?.id)
     .filter(Boolean) as string[];
 
-  const columns: ColumnDef<ProjectAPI>[] = [
+  const columns: DataTableColumnDef<ProjectAPI>[] = [
     {
       id: 'selection',
       enableSorting: false,
@@ -234,7 +231,7 @@ export const ProjectsAdminPageContent: FC = () => {
     },
   ];
 
-  const table = useReactTable({
+  const table = useDataTable({
     data: projects,
     columns,
     state: { sorting, rowSelection },
@@ -252,7 +249,6 @@ export const ProjectsAdminPageContent: FC = () => {
         setParams({ sortBy: '', sortOrder: 'asc', page: 1 });
       }
     },
-    getCoreRowModel: getCoreRowModel(),
   });
 
   const handleSearch = (value: string) => {

@@ -13,11 +13,6 @@ import { Tag } from '@intlayer/design-system/tag';
 import { useFocusUnmergedDictionary } from '@intlayer/editor-react';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import {
-  type ColumnDef,
-  getCoreRowModel,
-  useReactTable,
-} from '@tanstack/react-table';
-import {
   ArrowRight,
   ChevronDown,
   ChevronsUpDown,
@@ -29,6 +24,7 @@ import { type FC, Suspense, useMemo } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { useDate } from 'react-intlayer/format';
 import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
+import { type DataTableColumnDef, useDataTable } from '#utils/reactTable';
 import { DictionaryListSkeleton } from './DictionaryListSkeleton';
 import { DictionaryModals } from './DictionaryModals';
 import { DictionaryTable } from './DictionaryTable';
@@ -81,7 +77,7 @@ export const DictionaryListDashboardContent: FC = () => {
     </Button>
   );
 
-  const columns = useMemo<ColumnDef<Dictionary>[]>(
+  const columns = useMemo<DataTableColumnDef<Dictionary>[]>(
     () => [
       {
         id: 'selection',
@@ -387,7 +383,7 @@ export const DictionaryListDashboardContent: FC = () => {
     ]
   );
 
-  const table = useReactTable({
+  const table = useDataTable({
     data: dashboard.data.dictionaries,
     columns,
     state: {
@@ -396,7 +392,6 @@ export const DictionaryListDashboardContent: FC = () => {
     },
     onRowSelectionChange: dashboard.state.setRowSelection,
     onColumnVisibilityChange: dashboard.state.setColumnVisibility,
-    getCoreRowModel: getCoreRowModel(),
     getRowId: (row) => row.id || row.key,
     enableRowSelection: (row) => !!row.original.id,
   });

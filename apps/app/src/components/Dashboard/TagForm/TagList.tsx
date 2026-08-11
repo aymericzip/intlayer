@@ -12,12 +12,7 @@ import {
   Pagination,
   ShowingResultsNumberItems,
 } from '@intlayer/design-system/pagination';
-import {
-  type ColumnDef,
-  getCoreRowModel,
-  type RowSelectionState,
-  useReactTable,
-} from '@tanstack/react-table';
+import type { RowSelectionState } from '@tanstack/react-table';
 import {
   ArrowRight,
   ChevronDown,
@@ -39,6 +34,7 @@ import { useIntlayer } from 'react-intlayer';
 import { useDate } from 'react-intlayer/format';
 import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
 import { useSearchParamState } from '#hooks/useSearchParamState';
+import { type DataTableColumnDef, useDataTable } from '#utils/reactTable';
 import { DictionaryTable } from '../DictionaryListDashboard/DictionaryTable';
 import { DeleteTagsModal } from './DeleteTagsModal';
 import { TagCreationForm } from './TagCreationForm';
@@ -130,7 +126,7 @@ export const TagList: FC = () => {
     refetch();
   }, [tagsToDelete, deleteTag, refetch]);
 
-  const columns = useMemo<ColumnDef<TagAPI>[]>(
+  const columns = useMemo<DataTableColumnDef<TagAPI>[]>(
     () => [
       {
         id: 'selection',
@@ -229,12 +225,11 @@ export const TagList: FC = () => {
     [params.sortBy, params.sortOrder, formatDate]
   );
 
-  const table = useReactTable({
+  const table = useDataTable({
     data: tags,
     columns,
     state: { rowSelection },
     onRowSelectionChange: setRowSelection,
-    getCoreRowModel: getCoreRowModel(),
     getRowId: (row) => row.key,
   });
 

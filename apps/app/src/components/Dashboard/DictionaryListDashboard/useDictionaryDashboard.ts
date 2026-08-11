@@ -7,7 +7,10 @@ import {
 import { usePersistedStore } from '@intlayer/design-system/hooks';
 import { useDictionariesRecord } from '@intlayer/editor-react';
 import type { Dictionary } from '@intlayer/types/dictionary';
-import type { RowSelectionState, VisibilityState } from '@tanstack/react-table';
+import type {
+  ColumnVisibilityState,
+  RowSelectionState,
+} from '@tanstack/react-table';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useDashboardRightPanel } from '#hooks/useDashboardRightPanel';
 import { useSearchParamState } from '#hooks/useSearchParamState';
@@ -66,7 +69,7 @@ export const useDictionaryDashboard = () => {
     {}
   );
   const [columnVisibility, setColumnVisibility] =
-    usePersistedStore<VisibilityState>('dict-visibility', {
+    usePersistedStore<ColumnVisibilityState>('dict-visibility', {
       id: false,
       createdAt: false,
     });

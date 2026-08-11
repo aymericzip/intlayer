@@ -15,18 +15,13 @@ import {
 } from '@intlayer/design-system/pagination';
 import { Table } from '@intlayer/design-system/table';
 import { cn } from '@intlayer/design-system/utils';
-import {
-  type ColumnDef,
-  flexRender,
-  getCoreRowModel,
-  type SortingState,
-  useReactTable,
-} from '@tanstack/react-table';
+import { flexRender, type SortingState } from '@tanstack/react-table';
 import { ChevronDown, ChevronUp, Trash2 } from 'lucide-react';
 import { type FC, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
 import { useSearchParamState } from '#hooks/useSearchParamState';
+import { type DataTableColumnDef, useDataTable } from '#utils/reactTable';
 import { CreatePromoCodeModal } from './CreatePromoCodeModal';
 import { PromoCodesAdminSkeleton } from './PromoCodesAdminSkeleton';
 
@@ -70,7 +65,7 @@ export const PromoCodesAdminPage: FC = () => {
     await updatePromoCode({ id: row.id, active: !row.active });
   };
 
-  const columns: ColumnDef<any>[] = [
+  const columns: DataTableColumnDef<any>[] = [
     {
       accessorKey: 'id',
       enableSorting: false,
@@ -208,7 +203,7 @@ export const PromoCodesAdminPage: FC = () => {
     },
   ];
 
-  const table = useReactTable({
+  const table = useDataTable({
     data: promoCodes,
     columns,
     state: { sorting },
@@ -226,7 +221,6 @@ export const PromoCodesAdminPage: FC = () => {
         setParams({ sortBy: '', sortOrder: 'asc', page: 1 });
       }
     },
-    getCoreRowModel: getCoreRowModel(),
   });
 
   return (

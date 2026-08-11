@@ -1,22 +1,19 @@
 import { Table } from '@intlayer/design-system/table';
 import { cn } from '@intlayer/design-system/utils';
-import {
-  flexRender,
-  type Table as ReactTableType,
-  type Row,
-} from '@tanstack/react-table';
+import { flexRender, type RowData } from '@tanstack/react-table';
 import { memo, type ReactNode, useEffect } from 'react';
+import type { DataTableInstance, DataTableRow } from '#utils/reactTable';
 import { useDashboardScroll } from '../DashboardScrollContext';
 
-type DataTableProps<TData> = {
-  table: ReactTableType<TData>;
+type DataTableProps<TData extends RowData> = {
+  table: DataTableInstance<TData>;
   isPending: boolean;
   noDataFound: string;
-  onRowClick: (row: Row<TData>) => void;
+  onRowClick: (row: DataTableRow<TData>) => void;
   skeleton: ReactNode;
 };
 
-const DataTableComponent = <TData,>({
+const DataTableComponent = <TData extends RowData>({
   table,
   isPending,
   noDataFound,

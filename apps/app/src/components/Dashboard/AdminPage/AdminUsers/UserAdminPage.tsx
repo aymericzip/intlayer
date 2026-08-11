@@ -15,7 +15,6 @@ import { Button } from '@intlayer/design-system/button';
 import { CopyToClipboard } from '@intlayer/design-system/copy-to-clipboard';
 import { useSearch } from '@intlayer/design-system/hooks';
 import { Checkbox, SearchInput } from '@intlayer/design-system/input';
-
 import {
   NumberItemsSelector,
   Pagination,
@@ -27,11 +26,9 @@ import { SwitchSelector } from '@intlayer/design-system/switch-selector';
 import { Table } from '@intlayer/design-system/table';
 import { cn } from '@intlayer/design-system/utils';
 import {
-  type ColumnDef,
   flexRender,
-  getCoreRowModel,
+  type RowSelectionState,
   type SortingState,
-  useReactTable,
 } from '@tanstack/react-table';
 import { ChevronDown, ChevronUp, Trash2 } from 'lucide-react';
 import { type FC, useEffect, useState } from 'react';
@@ -39,6 +36,7 @@ import { useIntlayer } from 'react-intlayer';
 import { Link } from '#components/Link/Link';
 import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
 import { useSearchParamState } from '#hooks/useSearchParamState';
+import { type DataTableColumnDef, useDataTable } from '#utils/reactTable';
 import { UsersAdminSkeleton } from './UsersAdminSkeleton';
 
 export const UsersAdminPageContent: FC = () => {
@@ -58,7 +56,7 @@ export const UsersAdminPageContent: FC = () => {
   const { mutateAsync: deleteUserById, isPending: isDeleting } =
     useDeleteUser();
   const { mutateAsync: updateUser } = useUpdateUser();
-  const [rowSelection, setRowSelection] = useState<Record<string, boolean>>({});
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
 
   const { data: organizationsData } = useGetOrganizations({
     fetchAll: 'true',
@@ -99,7 +97,7 @@ export const UsersAdminPageContent: FC = () => {
     ? [{ id: params.sortBy, desc: params.sortOrder === 'desc' }]
     : [];
 
-  const columns: ColumnDef<UserAPI>[] = [
+  const columns: DataTableColumnDef<UserAPI>[] = [
     {
       id: 'selection',
       enableSorting: false,
@@ -369,7 +367,7 @@ export const UsersAdminPageContent: FC = () => {
     },
   ];
 
-  const table = useReactTable({
+  const table = useDataTable({
     data: users,
     columns,
     state: { sorting, rowSelection },
@@ -387,7 +385,6 @@ export const UsersAdminPageContent: FC = () => {
         setParams({ sortBy: '', sortOrder: 'asc', page: 1 });
       }
     },
-    getCoreRowModel: getCoreRowModel(),
   });
 
   const selectedUserIds = Object.keys(rowSelection)

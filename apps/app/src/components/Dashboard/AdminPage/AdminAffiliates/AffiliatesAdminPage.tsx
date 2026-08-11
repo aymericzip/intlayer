@@ -15,13 +15,7 @@ import {
 import { getAppAdminAffiliateRoute } from '@intlayer/design-system/routes';
 import { Table } from '@intlayer/design-system/table';
 import { cn } from '@intlayer/design-system/utils';
-import {
-  type ColumnDef,
-  flexRender,
-  getCoreRowModel,
-  type SortingState,
-  useReactTable,
-} from '@tanstack/react-table';
+import { flexRender, type SortingState } from '@tanstack/react-table';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { type FC, useMemo, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
@@ -29,6 +23,7 @@ import { SendInvitationModal } from '#components/AffiliatePage/SendInvitationMod
 import { Link } from '#components/Link/Link';
 import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
 import { useSearchParamState } from '#hooks/useSearchParamState';
+import { type DataTableColumnDef, useDataTable } from '#utils/reactTable';
 import { AffiliatesAdminSkeleton } from './AffiliatesAdminSkeleton';
 
 const STATUS_COLOR: Record<AffiliateAPI['status'], BadgeColor> = {
@@ -159,7 +154,7 @@ export const AffiliatesAdminPage: FC = () => {
     ? [{ id: params.sortBy as string, desc: params.sortOrder === 'desc' }]
     : [];
 
-  const columns: ColumnDef<AffiliateAPI>[] = [
+  const columns: DataTableColumnDef<AffiliateAPI>[] = [
     {
       accessorKey: 'id',
       enableSorting: false,
@@ -271,7 +266,7 @@ export const AffiliatesAdminPage: FC = () => {
     },
   ];
 
-  const table = useReactTable({
+  const table = useDataTable({
     data: affiliates,
     columns,
     state: { sorting },
@@ -289,7 +284,6 @@ export const AffiliatesAdminPage: FC = () => {
         setParams({ sortBy: '', sortOrder: 'asc', page: 1 });
       }
     },
-    getCoreRowModel: getCoreRowModel(),
   });
 
   return (

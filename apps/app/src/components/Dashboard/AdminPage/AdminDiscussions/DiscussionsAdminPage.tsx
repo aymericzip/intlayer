@@ -9,7 +9,6 @@ import { Avatar } from '@intlayer/design-system/avatar';
 import { CopyToClipboard } from '@intlayer/design-system/copy-to-clipboard';
 import { useSearch } from '@intlayer/design-system/hooks';
 import { SearchInput } from '@intlayer/design-system/input';
-
 import { Modal } from '@intlayer/design-system/modal';
 import {
   NumberItemsSelector,
@@ -19,18 +18,13 @@ import {
 import { getAppAdminUserRoute } from '@intlayer/design-system/routes';
 import { Table } from '@intlayer/design-system/table';
 import { cn } from '@intlayer/design-system/utils';
-import {
-  type ColumnDef,
-  flexRender,
-  getCoreRowModel,
-  type SortingState,
-  useReactTable,
-} from '@tanstack/react-table';
+import { flexRender, type SortingState } from '@tanstack/react-table';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { type FC, useEffect, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { Link } from '#components/Link/Link';
 import { useSearchParamState } from '#hooks/useSearchParamState';
+import { type DataTableColumnDef, useDataTable } from '#utils/reactTable';
 import { DiscussionAdminDetail } from './DiscussionAdminDetail';
 import { DiscussionsAdminSkeleton } from './DiscussionsAdminSkeleton';
 
@@ -99,7 +93,7 @@ export const DiscussionsAdminPageContent: FC = () => {
     ? [{ id: params.sortBy, desc: params.sortOrder === 'desc' }]
     : [];
 
-  const columns: ColumnDef<DiscussionAPI>[] = [
+  const columns: DataTableColumnDef<DiscussionAPI>[] = [
     {
       accessorKey: 'id',
       enableSorting: true,
@@ -274,7 +268,7 @@ export const DiscussionsAdminPageContent: FC = () => {
     },
   ];
 
-  const table = useReactTable({
+  const table = useDataTable({
     data: discussions,
     columns,
     state: { sorting },
@@ -290,7 +284,6 @@ export const DiscussionsAdminPageContent: FC = () => {
         setParams({ sortBy: '', sortOrder: 'asc', page: 1 });
       }
     },
-    getCoreRowModel: getCoreRowModel(),
   });
 
   const handleSearch = (value: string) => {

@@ -4,16 +4,16 @@ import { Container } from '@intlayer/design-system/container';
 import { Checkbox, SearchInput } from '@intlayer/design-system/input';
 import { PopoverStatic } from '@intlayer/design-system/popover';
 import type { Dictionary } from '@intlayer/types/dictionary';
-import type { Table } from '@tanstack/react-table';
 import { Columns, Filter, GitMerge, Plus, Trash2 } from 'lucide-react';
 import type { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import { useIntlayer } from 'react-intlayer';
+import type { DataTableInstance } from '#utils/reactTable';
 import type { useDictionaryDashboard } from './useDictionaryDashboard';
 
 interface DictionaryToolbarProps {
   dashboard: ReturnType<typeof useDictionaryDashboard>;
-  table: Table<Dictionary>;
+  table: DataTableInstance<Dictionary>;
 }
 
 export const DictionaryToolbar: FC<DictionaryToolbarProps> = ({
