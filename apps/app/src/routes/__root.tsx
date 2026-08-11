@@ -14,6 +14,7 @@ import { Toaster } from '@intlayer/design-system/toaster';
 import type { QueryClient } from '@tanstack/react-query';
 import {
   createRootRouteWithContext,
+  getRouteApi,
   HeadContent,
   Scripts,
 } from '@tanstack/react-router';
@@ -29,7 +30,8 @@ import { ErrorComponent } from '#components/ErrorComponent';
 import { ServiceWorkerSubscriber } from '#components/ServiceWorker/ServiceWorkerSubscriber';
 import { sessionQueryOptions } from '#utils/auth.tsx';
 import packageJson from '../../package_mock.json' with { type: 'json' };
-import { Route as LocaleRoute } from './{-$locale}/route';
+
+const localeRoute = getRouteApi('/{-$locale}');
 
 interface MyRouterContext {
   queryClient: QueryClient;
@@ -152,7 +154,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 });
 
 function RootDocument({ children }: { children: React.ReactNode }) {
-  const { locale = defaultLocale } = LocaleRoute.useParams();
+  const { locale = defaultLocale } = localeRoute.useParams();
   const { queryClient } = Route.useRouteContext();
 
   return (

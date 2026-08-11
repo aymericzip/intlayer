@@ -253,13 +253,15 @@ export default config;
 ```tsx fileName="src/routes/__root.tsx"
 import {
   createRootRouteWithContext,
+  getRouteApi,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
 import { defaultLocale, getHTMLTextDir } from "intlayer";
 import { type ReactNode } from "react";
 import { IntlayerProvider } from "react-intlayer";
-import { Route as LocaleRoute } from "./{-$locale}/route";
+
+const localeRoute = getRouteApi("/{-$locale}");
 
 export const Route = createRootRouteWithContext<{}>()({
   head: () => ({
@@ -281,7 +283,7 @@ export const Route = createRootRouteWithContext<{}>()({
 });
 
 function RootDocument({ children }: { children: ReactNode }) {
-  const params = LocaleRoute.useParams();
+  const params = localeRoute.useParams();
   const locale = params?.locale ?? defaultLocale;
 
   return (
@@ -614,7 +616,7 @@ export const LocaleSwitcher: FC = () => {
 
 ```tsx fileName="src/routes/__root.tsx"
 function RootDocument({ children }: { children: ReactNode }) {
-  const params = LocaleRoute.useParams();
+  const params = localeRoute.useParams();
   const locale = params?.locale ?? defaultLocale;
 
   return (

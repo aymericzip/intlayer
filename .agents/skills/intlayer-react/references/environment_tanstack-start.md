@@ -68,7 +68,7 @@ With Intlayer, you can:
 
 <Tabs defaultTab="video">
   <Tab label="Video" value="video">
-  
+
 <iframe title="The best i18n solution for Tanstack Start? Discover Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/_XTdKVWaeqg?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
   </Tab>
@@ -191,6 +191,7 @@ Configure your root layout to support internationalization by using `useMatches`
 ```tsx fileName="src/routes/__root.tsx"
 import {
   createRootRouteWithContext,
+  getRouteApi,
   HeadContent,
   Outlet,
   Scripts,
@@ -199,14 +200,15 @@ import { defaultLocale, getHTMLTextDir } from "intlayer";
 import { type ReactNode } from "react";
 import { IntlayerProvider } from "react-intlayer";
 import Header from "#/components/Header";
-import { Route as LocaleRoute } from "./{-$locale}/route";
+
+const localeRoute = getRouteApi("/{-$locale}");
 
 export const Route = createRootRouteWithContext<{}>()({
   shellComponent: RootDocument,
 });
 
 function RootDocument({ children }: { children: ReactNode }) {
-  const { locale = defaultLocale } = LocaleRoute.useParams();
+  const { locale = defaultLocale } = localeRoute.useParams();
 
   return (
     <html dir={getHTMLTextDir(locale)} lang={locale}>
@@ -372,8 +374,7 @@ import { LOCALE_ROUTE } from "@/components/localized-link";
 import type { FileRouteTypes } from "@/routeTree.gen";
 
 type StripLocalePrefix<T extends string> = T extends
-  | `/${typeof LOCALE_ROUTE}`
-  | `/${typeof LOCALE_ROUTE}/`
+  `/${typeof LOCALE_ROUTE}` | `/${typeof LOCALE_ROUTE}/`
   ? "/"
   : T extends `/${typeof LOCALE_ROUTE}/${infer Rest}`
     ? `/${Rest}`

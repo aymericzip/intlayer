@@ -6,6 +6,7 @@ import { Toaster } from '@intlayer/design-system/toaster';
 import type { QueryClient } from '@tanstack/react-query';
 import {
   createRootRouteWithContext,
+  getRouteApi,
   HeadContent,
   Scripts,
 } from '@tanstack/react-router';
@@ -18,7 +19,8 @@ import appCss from '~/globals.css?url';
 import { AnimatePresenceProvider } from '~/providers/AnimatePresenceProvider';
 import { FirstConsultationProvider } from '~/providers/FirstConsultationProvider';
 import shikiCss from '~/shiki.css?url';
-import { Route as LocaleRoute } from './{-$locale}/route';
+
+const localeRoute = getRouteApi('/{-$locale}');
 
 interface MyRouterContext {
   queryClient: QueryClient;
@@ -106,7 +108,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 });
 
 function RootDocument({ children }: { children: React.ReactNode }) {
-  const { locale = defaultLocale } = LocaleRoute.useParams();
+  const { locale = defaultLocale } = localeRoute.useParams();
 
   return (
     <html dir={getHTMLTextDir(locale)} lang={locale} suppressHydrationWarning>

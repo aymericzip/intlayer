@@ -13,6 +13,7 @@ import { Toaster } from '@intlayer/design-system/toaster';
 import type { QueryClient } from '@tanstack/react-query';
 import {
   createRootRouteWithContext,
+  getRouteApi,
   HeadContent,
   Scripts,
 } from '@tanstack/react-router';
@@ -28,7 +29,8 @@ import PostHogProvider from '#/integrations/posthog/provider';
 import { SITE_DESCRIPTION, SITE_TITLE, SITE_URL } from '#/lib/site';
 import appCss from '#/styles.css?url';
 import packageJson from '../../package_mock.json' with { type: 'json' };
-import { Route as LocaleRoute } from './{-$locale}/route';
+
+const localeRoute = getRouteApi('/{-$locale}');
 
 interface MyRouterContext {
   queryClient: QueryClient;
@@ -155,7 +157,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   // Try to find locale in params of any active match
-  const { locale = defaultLocale } = LocaleRoute.useParams();
+  const { locale = defaultLocale } = localeRoute.useParams();
 
   return (
     <html dir={getHTMLTextDir(locale)} lang={locale} suppressHydrationWarning>

@@ -36,25 +36,30 @@ export const Route = createFileRoute("/${localeSegment}")({
 
 /**
  * Root route document (`routes/__root.tsx`) providing `<html>` + the Intlayer
- * provider, with the locale read from the `{-$locale}` route param.
+ * provider, with the locale read from the locale segment route params.
+ *
+ * The route is reached through `getRouteApi(<route id>)` rather than by
+ * importing `<segment>/route`, so the root never imports a child route module —
+ * the recommended way to consume another route's typed hooks.
  */
-export const ROOT_TEMPLATE_TS = `import {
+export const buildRootTemplateTs = (localeSegment: string): string => `import {
   createRootRoute,
+  getRouteApi,
   HeadContent,
   Scripts,
-  useParams,
 } from "@tanstack/react-router";
 import { defaultLocale, getHTMLTextDir } from "intlayer";
 import type { ReactNode } from "react";
 import { IntlayerProvider } from "react-intlayer";
+
+const localeRoute = getRouteApi("/${localeSegment}");
 
 export const Route = createRootRoute({
   shellComponent: RootDocument,
 });
 
 function RootDocument({ children }: { children: ReactNode }) {
-  const params = useParams({ strict: false });
-  const locale = params.locale ?? defaultLocale;
+  const { locale = defaultLocale } = localeRoute.useParams();
 
   return (
     <html dir={getHTMLTextDir(locale)} lang={locale}>
@@ -70,22 +75,24 @@ function RootDocument({ children }: { children: ReactNode }) {
 }
 `;
 
-export const ROOT_TEMPLATE_JS = `import {
+/** JavaScript counterpart of {@link buildRootTemplateTs}. */
+export const buildRootTemplateJs = (localeSegment: string): string => `import {
   createRootRoute,
+  getRouteApi,
   HeadContent,
   Scripts,
-  useParams,
 } from "@tanstack/react-router";
 import { defaultLocale, getHTMLTextDir } from "intlayer";
 import { IntlayerProvider } from "react-intlayer";
+
+const localeRoute = getRouteApi("/${localeSegment}");
 
 export const Route = createRootRoute({
   shellComponent: RootDocument,
 });
 
 function RootDocument({ children }) {
-  const params = useParams({ strict: false });
-  const locale = params.locale ?? defaultLocale;
+  const { locale = defaultLocale } = localeRoute.useParams();
 
   return (
     <html dir={getHTMLTextDir(locale)} lang={locale}>

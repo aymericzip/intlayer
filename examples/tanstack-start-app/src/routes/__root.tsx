@@ -1,5 +1,6 @@
 import {
   createRootRouteWithContext,
+  getRouteApi,
   HeadContent,
   Scripts,
 } from '@tanstack/react-router';
@@ -11,7 +12,8 @@ import Header from '#/components/Header';
 import { LocaleSwitcher } from '#/components/locale-switcher';
 
 import appCss from '../styles.css?url';
-import { Route as LocaleRoute } from './{-$locale}/route';
+
+const localeRoute = getRouteApi('/{-$locale}');
 
 export const Route = createRootRouteWithContext<{}>()({
   head: () => ({
@@ -39,7 +41,7 @@ export const Route = createRootRouteWithContext<{}>()({
 });
 
 function RootDocument({ children }: { children: ReactNode }) {
-  const params = LocaleRoute.useParams();
+  const params = localeRoute.useParams();
   const locale = params?.locale ?? defaultLocale;
 
   return (

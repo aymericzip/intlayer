@@ -271,13 +271,15 @@ Configura il tuo layout root per supportare l'internazionalizzazione utilizzando
 ```tsx fileName="src/routes/__root.tsx"
 import {
   createRootRouteWithContext,
+  getRouteApi,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
 import { defaultLocale, getHTMLTextDir } from "intlayer";
 import { type ReactNode } from "react";
 import { IntlayerProvider } from "react-intlayer";
-import { Route as LocaleRoute } from "./{-$locale}/route";
+
+const localeRoute = getRouteApi("/{-$locale}");
 
 export const Route = createRootRouteWithContext<{}>()({
   head: () => ({
@@ -299,7 +301,7 @@ export const Route = createRootRouteWithContext<{}>()({
 });
 
 function RootDocument({ children }: { children: ReactNode }) {
-  const params = LocaleRoute.useParams();
+  const params = localeRoute.useParams();
   const locale = params?.locale ?? defaultLocale;
 
   return (
@@ -632,7 +634,7 @@ Come visto nel Passaggio 5, puoi gestire gli attributi `lang` e `dir` del tag `h
 
 ```tsx fileName="src/routes/__root.tsx"
 function RootDocument({ children }: { children: ReactNode }) {
-  const params = LocaleRoute.useParams();
+  const params = localeRoute.useParams();
   const locale = params?.locale ?? defaultLocale;
 
   return (

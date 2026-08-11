@@ -254,19 +254,21 @@ import {
   HeadContent,
   Scripts,
   createRootRouteWithContext,
+  getRouteApi,
 } from "@tanstack/solid-router";
 import { HydrationScript } from "solid-js/web";
 import { Suspense, type ParentComponent } from "solid-js";
 import { IntlayerProvider } from "solid-intlayer";
 import { defaultLocale, getHTMLTextDir } from "intlayer";
-import { Route as LocaleRoute } from "./{-$locale}/route";
+
+const localeRoute = getRouteApi("/{-$locale}");
 
 export const Route = createRootRouteWithContext()({
   shellComponent: RootComponent,
 });
 
 const RootComponent: ParentComponent = (props) => {
-  const params = LocaleRoute.useParams();
+  const params = localeRoute.useParams();
   const locale = params()?.locale ?? defaultLocale;
 
   return (
@@ -551,7 +553,7 @@ Comme vu à l'étape 5, vous pouvez gérer les attributs `lang` et `dir` de la b
 
 ```tsx fileName="src/routes/__root.tsx"
 const RootComponent: ParentComponent = (props) => {
-  const params = LocaleRoute.useParams();
+  const params = localeRoute.useParams();
   const locale = params()?.locale ?? defaultLocale;
 
   return (

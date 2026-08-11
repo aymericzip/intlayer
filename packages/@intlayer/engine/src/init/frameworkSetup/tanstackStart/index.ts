@@ -13,8 +13,8 @@ import { detectTanStackRoutesDir, hasTanStackStartDeps } from './detect';
 import { getLocaleSegment, restructureRoutesIntoLocale } from './restructure';
 import {
   buildLocaleRouteTemplate,
-  ROOT_TEMPLATE_JS,
-  ROOT_TEMPLATE_TS,
+  buildRootTemplateJs,
+  buildRootTemplateTs,
 } from './templates';
 import { type TransformResult, wrapRootWithProvider } from './transforms';
 
@@ -141,12 +141,16 @@ export const tanStackStartAdapter: FrameworkAdapter = {
     // 3. Root document — transform an existing `__root`, else scaffold one.
     const existingRoot = await findAppFile(rootDir, routesDir, '__root');
     if (existingRoot) {
-      await transformExistingFile(rootDir, existingRoot, wrapRootWithProvider);
+      await transformExistingFile(rootDir, existingRoot, (code) =>
+        wrapRootWithProvider(code, activeLocaleSegment)
+      );
     } else {
       await createIfMissing(
         rootDir,
         join(routesDir, `__root.${scriptExtension}`),
-        useTypeScript ? ROOT_TEMPLATE_TS : ROOT_TEMPLATE_JS,
+        useTypeScript
+          ? buildRootTemplateTs(activeLocaleSegment)
+          : buildRootTemplateJs(activeLocaleSegment),
         'root document'
       );
     }

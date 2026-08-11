@@ -1,8 +1,15 @@
 import * as recast from 'recast';
 import { babelTsParser } from '../../../utils/babelParser';
-import { ensureNamedImport } from '../../utils/astImports';
+import {
+  ensureNamedImport,
+  firstInsertIndex,
+  isModuleScopeBinding,
+} from '../../utils/astImports';
 
 const { builders: b, namedTypes: n } = recast.types;
+
+/** Module-scope identifier bound to the locale route's typed API. */
+const LOCALE_ROUTE_API_VARIABLE = 'localeRoute';
 
 /** babel-ts parser handles TypeScript *and* JSX. */
 const parseTsx = (code: string): any =>
@@ -83,20 +90,24 @@ const patternBindsName = (node: any, name: string): boolean => {
 };
 
 /**
- * Inserts `const locale = …` once, at the top of the function body. A single
- * self-contained statement is used (rather than an intermediate `params` const)
- * so it can never collide with a `params` variable the document already
- * declares. Expression-bodied arrow functions are first converted to a block so
- * the declaration has somewhere to live.
+ * Inserts `const { locale = defaultLocale } = localeRoute.useParams();` once, at
+ * the top of the function body. The destructuring form binds only `locale`, so
+ * it can never collide with a `params` variable the document already declares.
+ * Expression-bodied arrow functions are first converted to a block so the
+ * declaration has somewhere to live.
  *
  * No-ops when `locale` is already bound in the function — whether as a simple
  * identifier, through a destructuring pattern (e.g.
- * `const { locale = defaultLocale } = useLoaderData()`), or as a function
+ * `const { locale = defaultLocale } = Route.useLoaderData()`), or as a function
  * parameter — so the injected declaration never collides with one the document
  * already provides (which would produce an
  * `Identifier 'locale' has already been declared` parse error).
+ *
+ * @returns `true` when the declaration was injected, `false` when the document
+ * already binds `locale` itself. Callers use this to skip the imports and the
+ * route API declaration the injected statement would have needed.
  */
-const ensureLocaleFromParams = (funcNode: any): void => {
+const ensureLocaleFromParams = (funcNode: any): boolean => {
   if (funcNode.body?.type !== 'BlockStatement') {
     funcNode.body = b.blockStatement([b.returnStatement(funcNode.body)]);
   }
@@ -109,13 +120,52 @@ const ensureLocaleFromParams = (funcNode: any): void => {
   const declaredInParams = (funcNode.params ?? []).some((param: any) =>
     patternBindsName(param, 'locale')
   );
-  if (declaredInBody || declaredInParams) return;
+  if (declaredInBody || declaredInParams) return false;
 
   const statement = parseTsx(
-    'const locale = useParams({ strict: false }).locale ?? defaultLocale;'
+    `const { locale = defaultLocale } = ${LOCALE_ROUTE_API_VARIABLE}.useParams();`
   ).program.body[0];
   funcNode.body.body.unshift(statement);
+  return true;
 };
+
+/**
+ * Ensures the module-scope `const localeRoute = getRouteApi("/<segment>");`
+ * declaration the injected locale statement reads from, inserted right after the
+ * import block.
+ *
+ * Referencing the locale route by id keeps the root document free of an import
+ * of `<segment>/route` — importing a child route module from `__root` is
+ * discouraged, since the generated route tree already imports the root.
+ *
+ * No-ops when `localeRoute` is already bound at module scope, reusing that
+ * binding rather than redeclaring it (which would be a parse error).
+ *
+ * @returns `true` when the declaration was inserted, `false` when an existing
+ * binding was reused.
+ */
+const ensureLocaleRouteApi = (ast: any, localeSegment: string): boolean => {
+  if (isModuleScopeBinding(ast, LOCALE_ROUTE_API_VARIABLE)) return false;
+
+  const declaration = parseTsx(
+    `const ${LOCALE_ROUTE_API_VARIABLE} = getRouteApi("/${localeSegment}");`
+  ).program.body[0];
+  ast.program.body.splice(firstInsertIndex(ast), 0, declaration);
+  return true;
+};
+
+/**
+ * Puts a blank line between the import block and the inserted route API
+ * declaration — recast prints a spliced statement flush against the preceding
+ * line, which reads as part of the imports.
+ */
+const separateRouteApiDeclaration = (printedCode: string): string =>
+  printedCode.replace(
+    new RegExp(
+      `([^\\n])\\n(const ${LOCALE_ROUTE_API_VARIABLE} = getRouteApi\\()`
+    ),
+    '$1\n\n$2'
+  );
 
 /** Sets `lang={locale}` and `dir={getHTMLTextDir(locale)}` on the first `<html>` element. */
 const setHtmlLangAndDir = (ast: any): void => {
@@ -155,12 +205,19 @@ const setHtmlLangAndDir = (ast: any): void => {
 
 /**
  * Wraps the `{children}` of a TanStack Start root document with
- * `IntlayerProvider`, deriving the locale from the `{-$locale}` route param.
+ * `IntlayerProvider`, deriving the locale from the locale segment route params.
  * Safe and idempotent: bails (returns the original code) when the provider is
  * already present, when no `<html>` document function is found, or when there is
  * no `{children}` placeholder to wrap.
+ *
+ * @param code Source of the project's `__root` document.
+ * @param localeSegment Locale segment directory in use — `{-$locale}` for every
+ * routing mode but `prefix-all`, which uses the required `$locale`.
  */
-export const wrapRootWithProvider = (code: string): TransformResult => {
+export const wrapRootWithProvider = (
+  code: string,
+  localeSegment: string
+): TransformResult => {
   const ast = parseTsx(code);
 
   if (code.includes('IntlayerProvider')) return { code, status: 'already' };
@@ -189,12 +246,26 @@ export const wrapRootWithProvider = (code: string): TransformResult => {
 
   if (!wrapped) return { code, status: 'skipped' };
 
+  const injectedLocaleDeclaration = ensureLocaleFromParams(funcNode);
+
   ensureNamedImport(ast, 'IntlayerProvider', 'react-intlayer');
-  ensureNamedImport(ast, 'useParams', '@tanstack/react-router');
-  ensureNamedImport(ast, 'defaultLocale', 'intlayer');
+  // Only needed by the injected declaration: a document that already derives its
+  // own `locale` must not be given unused imports or a stray route API const.
+  let insertedRouteApi = false;
+  if (injectedLocaleDeclaration) {
+    ensureNamedImport(ast, 'getRouteApi', '@tanstack/react-router');
+    ensureNamedImport(ast, 'defaultLocale', 'intlayer');
+    insertedRouteApi = ensureLocaleRouteApi(ast, localeSegment);
+  }
   ensureNamedImport(ast, 'getHTMLTextDir', 'intlayer');
-  ensureLocaleFromParams(funcNode);
   setHtmlLangAndDir(ast);
 
-  return { code: recast.print(ast).code, status: 'wrapped' };
+  const printedCode = recast.print(ast).code;
+
+  return {
+    code: insertedRouteApi
+      ? separateRouteApiDeclaration(printedCode)
+      : printedCode,
+    status: 'wrapped',
+  };
 };

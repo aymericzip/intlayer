@@ -111,11 +111,14 @@ export const Route = createFileRoute("/")({
     // Root document wrapped with the provider + locale derivation.
     const root = await readFileAt('src/routes/__root.tsx');
     expect(root).toContain('IntlayerProvider');
+    expect(root).toContain('const localeRoute = getRouteApi("/{-$locale}")');
     expect(root).toContain(
-      'const locale = useParams({ strict: false }).locale ?? defaultLocale'
+      'const { locale = defaultLocale } = localeRoute.useParams()'
     );
     expect(root).toContain('lang={locale}');
     expect(root).toContain('dir={getHTMLTextDir(locale)}');
+    // The route API is referenced by id — the root never imports the route module.
+    expect(root).not.toContain('{-$locale}/route');
   });
 
   it('scaffolds a root document when none exists', async () => {
@@ -127,6 +130,11 @@ export const Route = createFileRoute("/")({
     const root = await readFileAt('src/routes/__root.tsx');
     expect(root).toContain('IntlayerProvider');
     expect(root).toContain('createRootRoute');
+    expect(root).toContain('const localeRoute = getRouteApi("/{-$locale}")');
+    expect(root).toContain(
+      'const { locale = defaultLocale } = localeRoute.useParams()'
+    );
+    expect(root).not.toContain('{-$locale}/route');
   });
 
   it('keeps api routes at the root and rewrites imports of moved files', async () => {
@@ -183,7 +191,7 @@ export const Route = createRootRoute({ shellComponent: RootDocument });
     // Provider added and locale declared (no dangling reference) via a block body.
     expect(root).toContain('<IntlayerProvider locale={locale}>');
     expect(root).toContain(
-      'const locale = useParams({ strict: false }).locale ?? defaultLocale'
+      'const { locale = defaultLocale } = localeRoute.useParams()'
     );
     expect(root).toContain('return');
     expect(root).toContain('lang={locale}');
@@ -214,7 +222,9 @@ export const Route = createRootRoute({ shellComponent: RootDocument });
     // Exactly one `const params` — the pre-existing one — survives.
     expect(root.match(/const params =/g)?.length).toBe(1);
     expect(root).toContain('<IntlayerProvider locale={locale}>');
-    expect(root).toContain('const locale =');
+    expect(root).toContain(
+      'const { locale = defaultLocale } = localeRoute.useParams()'
+    );
   });
 
   it('does not inject a duplicate locale declared via destructuring', async () => {
@@ -245,6 +255,56 @@ export const Route = createRootRoute({ shellComponent: RootDocument });
     expect(root).toContain('const { locale = defaultLocale, messages }');
     expect(root).toContain('<IntlayerProvider locale={locale}>');
     expect(root).toContain('lang={locale}');
+  });
+
+  it('reuses a locale already read through getRouteApi without adding unused imports', async () => {
+    await writeFileAt(
+      'src/routes/__root.tsx',
+      `import {
+  createRootRoute,
+  getRouteApi,
+  HeadContent,
+  Scripts,
+} from "@tanstack/react-router";
+import { defaultLocale } from "intlayer";
+import type { ReactNode } from "react";
+
+const localeRoute = getRouteApi("/{-$locale}");
+
+function RootDocument({ children }: { children: ReactNode }) {
+  const { locale = defaultLocale } = localeRoute.useParams();
+
+  return (
+    <html>
+      <head>
+        <HeadContent />
+      </head>
+      <body>
+        {children}
+        <Scripts />
+      </body>
+    </html>
+  );
+}
+
+export const Route = createRootRoute({ shellComponent: RootDocument });
+`
+    );
+    await writeFileAt('src/routes/index.tsx', 'export const Route = null;\n');
+
+    await tanStackStartAdapter.setup(context());
+
+    const root = await readFileAt('src/routes/__root.tsx');
+    // The existing locale binding and route API are reused, never duplicated.
+    expect(
+      root.match(/const \{ locale = defaultLocale \} = localeRoute\.useParams/g)
+        ?.length
+    ).toBe(1);
+    expect(root.match(/const localeRoute = getRouteApi/g)?.length).toBe(1);
+    expect(root.match(/const locale =/g)).toBeNull();
+    expect(root).toContain('<IntlayerProvider locale={locale}>');
+    expect(root).toContain('lang={locale}');
+    expect(root).toContain('dir={getHTMLTextDir(locale)}');
   });
 
   it('does not inject a duplicate locale declared as a function parameter', async () => {
@@ -303,7 +363,7 @@ export const Route = createRootRoute({ shellComponent: RootDocument });
       /import \{[^}]*defaultLocale[^}]*\} from ["']intlayer["']/
     );
     expect(root).toContain(
-      'const locale = useParams({ strict: false }).locale ?? defaultLocale'
+      'const { locale = defaultLocale } = localeRoute.useParams()'
     );
     // getHTMLTextDir was not previously bound, so it is still imported.
     expect(root).toContain('getHTMLTextDir');
@@ -332,6 +392,11 @@ export const Route = createFileRoute("/")({
     expect(localeRoute).toContain('createFileRoute("/$locale")');
     expect(localeRoute).toContain('to: "/$locale"');
     expect(localeRoute).not.toContain('{-$locale}');
+
+    // The scaffolded root reads params from that same required segment.
+    const root = await readFileAt('src/routes/__root.tsx');
+    expect(root).toContain('const localeRoute = getRouteApi("/$locale")');
+    expect(root).not.toContain('{-$locale}');
   });
 
   it('skips restructure for prefix-all routing (existing $locale segment)', async () => {
@@ -347,6 +412,10 @@ export const Route = createFileRoute("/")({
     expect(await exists('src/routes/$locale/index.tsx')).toBe(true);
     expect(await exists('src/routes/{-$locale}/$locale/index.tsx')).toBe(false);
     expect(await exists('src/routes/{-$locale}/index.tsx')).toBe(false);
+
+    // The root targets the segment actually in use, not the mode's default one.
+    const root = await readFileAt('src/routes/__root.tsx');
+    expect(root).toContain('const localeRoute = getRouteApi("/$locale")');
   });
 
   it('is idempotent (already-structured project is left intact)', async () => {
