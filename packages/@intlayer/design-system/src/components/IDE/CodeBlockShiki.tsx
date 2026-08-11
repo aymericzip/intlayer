@@ -1,113 +1,75 @@
 'use client';
 
 import { type FC, type ReactNode, useEffect, useState } from 'react';
-import type {
-  BundledLanguage,
-  BundledTheme,
-  HighlighterGeneric,
-} from 'shiki/bundle/web';
+import type { BundledTheme } from 'shiki/bundle/web';
 import { CodeDefault } from './CodeBlockClient';
+import {
+  type CodeLanguage,
+  type LanguageGrammar,
+  type ResolvedCodeLanguage,
+  resolveCodeLanguage,
+} from './shikiLanguages';
 
-// Map of loaded modules to avoid re-importing
-const languageCache = new Map<BundledLanguage, any>();
-const themeCache = new Map<BundledTheme, any>();
+/** Theme registration, as default-exported by the `shiki/themes/*` modules. */
+type ThemeRegistration =
+  typeof import('shiki/themes/github-dark.mjs')['default'];
 
-// Lazy load language modules
-const loadLanguage = async (lang: BundledLanguage): Promise<any> => {
-  if (languageCache.has(lang)) return languageCache.get(lang);
-
-  let languageModule: any;
-  switch (lang) {
-    case 'angular-html':
-      languageModule = await import('shiki/langs/angular-html.mjs');
-      break;
-    case 'angular-ts':
-      languageModule = await import('shiki/langs/angular-ts.mjs');
-      break;
-    case 'astro':
-      languageModule = await import('shiki/langs/astro.mjs');
-      break;
-    case 'typescript':
-    case 'ts':
-      languageModule = await import('shiki/langs/typescript.mjs');
-      break;
-    case 'javascript':
-    case 'js':
-    case 'cjs':
-    case 'mjs':
-      languageModule = await import('shiki/langs/javascript.mjs');
-      break;
-    case 'bash':
-    case 'sh':
-    case 'shell':
-      languageModule = await import('shiki/langs/bash.mjs');
-      break;
-    case 'json':
-      languageModule = await import('shiki/langs/json.mjs');
-      break;
-    case 'jsonc':
-    case 'json5':
-      languageModule = await import('shiki/langs/json5.mjs');
-      break;
-    case 'tsx':
-    case 'jsx':
-      languageModule = await import('shiki/langs/tsx.mjs');
-      break;
-    case 'vue':
-      languageModule = await import('shiki/langs/vue.mjs');
-      break;
-    case 'svelte':
-      languageModule = await import('shiki/langs/svelte.mjs');
-      break;
-    case 'markdown':
-    case 'md':
-    case 'mdx':
-      languageModule = await import('shiki/langs/markdown.mjs');
-      break;
-    case 'css':
-      languageModule = await import('shiki/langs/css.mjs');
-      break;
-    case 'html':
-      languageModule = await import('shiki/langs/html.mjs');
-      break;
-    case 'xml':
-      languageModule = await import('shiki/langs/xml.mjs');
-      break;
-    case 'yml':
-    case 'yaml':
-      languageModule = await import('shiki/langs/yaml.mjs');
-      break;
-    default:
-      languageModule = await import('shiki/langs/typescript.mjs');
-      break;
-  }
-
-  const language = languageModule.default;
-  languageCache.set(lang, language);
-  return language;
+/** Minimal Shiki highlighter surface used here, with unrestricted language ids. */
+type CodeHighlighter = {
+  getLoadedLanguages(): string[];
+  getLoadedThemes(): string[];
+  loadLanguage(grammar: LanguageGrammar): Promise<void>;
+  loadTheme(theme: ThemeRegistration): Promise<void>;
+  codeToHtml(code: string, options: { lang: string; theme: string }): string;
 };
 
-// Lazy load theme modules
-const loadTheme = async (themeName: BundledTheme): Promise<any> => {
-  if (themeCache.has(themeName)) return themeCache.get(themeName);
+// Map of in-flight/loaded modules to avoid re-importing
+const languageCache = new Map<string, Promise<LanguageGrammar>>();
+const themeCache = new Map<BundledTheme, Promise<ThemeRegistration>>();
 
-  let themeModule: any;
-  switch (themeName) {
-    case 'github-dark':
-      themeModule = await import('shiki/themes/github-dark.mjs');
-      break;
-    default:
-      themeModule = await import('shiki/themes/github-light.mjs');
-      break;
-  }
+/**
+ * Lazy load the grammar of an already resolved language.
+ *
+ * @returns The grammar registrations, or `null` for languages Shiki renders
+ * without a grammar (plain text).
+ */
+const loadLanguage = async ({
+  id,
+  loadGrammar,
+}: ResolvedCodeLanguage): Promise<LanguageGrammar | null> => {
+  if (!loadGrammar) return null;
 
-  const theme = themeModule.default;
-  themeCache.set(themeName, theme);
-  return theme;
+  const cachedLanguage = languageCache.get(id);
+  if (cachedLanguage) return cachedLanguage;
+
+  const languagePromise = loadGrammar().then((module) => module.default);
+  languageCache.set(id, languagePromise);
+
+  return languagePromise;
+};
+
+/**
+ * Lazy load a theme module.
+ */
+const loadTheme = async (
+  themeName: BundledTheme
+): Promise<ThemeRegistration> => {
+  const cachedTheme = themeCache.get(themeName);
+  if (cachedTheme) return cachedTheme;
+
+  const themePromise = (
+    themeName === 'github-dark'
+      ? import('shiki/themes/github-dark.mjs')
+      : import('shiki/themes/github-light.mjs')
+  ).then((module) => module.default);
+
+  themeCache.set(themeName, themePromise);
+
+  return themePromise;
 };
 
 // Singleton Highlighter Instance
-let highlighterPromise: Promise<HighlighterGeneric<any, any>> | null = null;
+let highlighterPromise: Promise<CodeHighlighter> | null = null;
 
 const getHighlighterInstance = async () => {
   if (!highlighterPromise) {
@@ -122,23 +84,32 @@ const getHighlighterInstance = async () => {
   return highlighterPromise;
 };
 
-// Create a promise for highlighting
+/**
+ * Highlight a snippet, lazily loading only the grammar and theme it needs.
+ *
+ * The language is resolved to a canonical Shiki id first, so that the id passed
+ * to `codeToHtml` always matches the grammar that was loaded.
+ */
 const highlightCode = async (
-  code: any,
-  lang: BundledLanguage,
+  code: ReactNode,
+  lang: CodeLanguage,
   isDarkMode?: boolean
 ): Promise<string> => {
   const themeName: BundledTheme = isDarkMode ? 'github-dark' : 'github-light';
+  const resolvedLanguage = resolveCodeLanguage(lang);
 
   // Load highlighter, language, and theme in parallel
   const [highlighter, languageModule, themeModule] = await Promise.all([
     getHighlighterInstance(),
-    loadLanguage(lang),
+    loadLanguage(resolvedLanguage),
     loadTheme(themeName),
   ]);
 
   // Load into the singleton instance if not already loaded
-  if (!highlighter.getLoadedLanguages().includes(lang)) {
+  if (
+    languageModule &&
+    !highlighter.getLoadedLanguages().includes(resolvedLanguage.id)
+  ) {
     await highlighter.loadLanguage(languageModule);
   }
   if (!highlighter.getLoadedThemes().includes(themeName)) {
@@ -146,14 +117,14 @@ const highlightCode = async (
   }
 
   return highlighter.codeToHtml(String(code), {
-    lang,
+    lang: resolvedLanguage.id,
     theme: themeName,
   });
 };
 
 export type CodeBlockShikiProps = {
   children: ReactNode;
-  lang: BundledLanguage;
+  lang: CodeLanguage;
   isDarkMode?: boolean;
 };
 

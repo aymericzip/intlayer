@@ -3,7 +3,6 @@
 import { cn } from '@utils/cn';
 import type { FC, HTMLAttributes, ReactNode } from 'react';
 import { useEffect, useMemo, useState } from 'react';
-import type { BundledLanguage } from 'shiki/bundle/web';
 import { Container } from '../Container';
 import { ExpandCollapse } from '../ExpandCollapse';
 import { CodeBlock } from './CodeBlockClient';
@@ -19,6 +18,7 @@ import { CodeFormatSelector } from './CodeFormatSelector';
 import { ContentDeclarationFormatSelector } from './ContentDeclarationFormatSelector';
 import { CopyCode } from './CopyCode';
 import { PackageManagerSelector } from './PackageManagerSelector';
+import type { CodeLanguage } from './shikiLanguages';
 
 export type CodeCompAttributes = {
   fileName?: string;
@@ -31,7 +31,7 @@ export type CodeCompAttributes = {
 type CodeCompProps = {
   children: ReactNode;
   fileName?: string;
-  language: BundledLanguage;
+  language: CodeLanguage;
   isDarkMode?: boolean;
   showHeader?: boolean;
   showLineNumbers?: boolean;

@@ -7,10 +7,10 @@ import {
   type ParsedMarkdown,
   renderMarkdown,
 } from 'react-intlayer/markdown';
-import type { BundledLanguage } from 'shiki/bundle/web';
 import { H1, H2, H3, H4, H5, H6 } from '../Headers';
 import { Code } from '../IDE/Code';
 import { CodeProvider } from '../IDE/CodeContext';
+import type { CodeLanguage } from '../IDE/shikiLanguages';
 import { Link } from '../Link';
 import { Tab } from '../Tab';
 import { TabProvider } from '../Tab/TabContext';
@@ -66,7 +66,7 @@ const MemoizedCodeBlock = memo(
     }
 
     const language = (className?.replace(/lang(?:uage)?-/, '') ||
-      'plaintext') as BundledLanguage;
+      'plaintext') as CodeLanguage;
 
     return (
       <Code {...rest} language={language} showHeader isDarkMode={isDarkMode}>

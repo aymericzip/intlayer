@@ -9,33 +9,17 @@
  */
 
 import { type ReactNode, useEffect, useRef, useState } from 'react';
-import type { BundledLanguage } from 'shiki/bundle/web';
 import type { CodeFormat } from './CodeContext';
+import { type CodeLanguage, resolveCodeLanguage } from './shikiLanguages';
 
 type Props = {
   /** Raw TypeScript source code (the canonical "source of truth"). */
   children: ReactNode;
   /** Language of the source (e.g. 'tsx', 'typescript'). */
-  originalLang: BundledLanguage;
+  originalLang: CodeLanguage;
   /** Currently selected format: 'typescript' | 'esm' | 'commonjs'. */
   targetFormat: Exclude<CodeFormat, 'json'>;
   isDarkMode?: boolean;
-};
-
-/**
- * Map display language names to Shiki grammar identifiers.
- * Shiki's web bundle does not ship a separate 'jsx' grammar — tsx handles both.
- */
-const toShikiLang = (lang: string): string => {
-  switch (lang) {
-    case 'jsx':
-      return 'tsx';
-    case 'mjs':
-    case 'cjs':
-      return 'javascript';
-    default:
-      return lang;
-  }
 };
 
 export const CodeBlockHighlight = ({
@@ -53,7 +37,7 @@ export const CodeBlockHighlight = ({
     (async () => {
       try {
         let code = children;
-        let shikiLang = toShikiLang(originalLang);
+        let shikiLang = resolveCodeLanguage(originalLang).id;
 
         // Only import the transformer when we actually need it.
         if (targetFormat !== 'typescript') {
@@ -62,7 +46,9 @@ export const CodeBlockHighlight = ({
           );
           if (cancelled) return;
           code = transformCode(String(children), targetFormat);
-          shikiLang = toShikiLang(deriveLanguage(originalLang, targetFormat));
+          shikiLang = resolveCodeLanguage(
+            deriveLanguage(originalLang, targetFormat)
+          ).id;
         }
 
         const { codeToHtml } = await import('shiki/bundle/web');

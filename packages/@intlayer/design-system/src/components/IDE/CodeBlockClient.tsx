@@ -6,9 +6,9 @@ import {
   type ReactNode,
   Suspense,
 } from 'react';
-import type { BundledLanguage } from 'shiki/bundle/web';
+import type { CodeLanguage } from './shikiLanguages';
 
-export type { BundledLanguage as CodeLanguage } from 'shiki/bundle/web';
+export type { CodeLanguage } from './shikiLanguages';
 
 export const CodeDefault: FC<{ children: ReactNode }> = ({ children }) => (
   <div className="min-w-0 max-w-full overflow-x-auto">
@@ -38,7 +38,7 @@ const CodeBlockShiki = lazy(() =>
 
 export type CodeBlockProps = {
   children: React.ReactNode;
-  lang: BundledLanguage;
+  lang: CodeLanguage;
   isDarkMode?: boolean;
   isEditable?: boolean;
   onChange?: (content: string) => void;

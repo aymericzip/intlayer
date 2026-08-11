@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 import { MarkdownRenderer as MarkdownRendererIntlayer } from 'react-intlayer';
-import type { BundledLanguage } from 'shiki/bundle/web';
 import { Code } from './Code';
+import type { CodeLanguage } from './shikiLanguages';
 
 type MarkdownRendererProps = {
   isDarkMode?: boolean;
@@ -18,7 +18,7 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
         <Code
           {...props}
           isDarkMode={isDarkMode}
-          language={props.className?.replace('lang-', '') as BundledLanguage}
+          language={props.className?.replace('lang-', '') as CodeLanguage}
           showHeader={false}
           className="text-xs leading-5"
         >
