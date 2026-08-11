@@ -1,12 +1,14 @@
 ---
 createdAt: 2025-06-07
-updatedAt: 2026-05-31
-title: Máy chủ Intlayer LSP
-description: Tìm hiểu cách Máy chủ Ngôn ngữ Intlayer cung cấp tính năng Đi tới Định nghĩa (Go-to-Definition) và các tính năng IDE khác cho useIntlayer, getIntlayer và các lệnh gọi liên quan trên tất cả các trình soạn thảo được hỗ trợ.
+updatedAt: 2026-08-10
+title: Máy chủ LSP Intlayer
+description: Tìm hiểu cách máy chủ ngôn ngữ Intlayer mang đến khả năng đi tới định nghĩa, tìm tham chiếu, xem trước khi rê chuột, tự động hoàn thành khóa và chẩn đoán cho IDE và tác nhân AI của bạn.
 keywords:
   - LSP
-  - Máy chủ Ngôn ngữ
-  - Đi tới Định nghĩa
+  - Máy chủ ngôn ngữ
+  - Go to Definition
+  - Tự động hoàn thành
+  - Chẩn đoán
   - IDE
   - Intlayer
   - VS Code
@@ -16,56 +18,58 @@ slugs:
   - doc
   - lsp
 history:
+  - version: 9.1.3
+    date: 2026-08-10
+    changes: "Bổ sung tìm tham chiếu, xem nhanh khi rê chuột, tự động hoàn thành và chẩn đoán"
   - version: 8.12.0
     date: 2026-06-01
     changes: "Release LSP"
 author: aymericzip
 ---
 
-# Máy chủ Intlayer LSP
+# Máy chủ LSP Intlayer
 
-**Máy chủ Ngôn ngữ Intlayer (LSP)** là một triển khai của [Giao thức Máy chủ Ngôn ngữ (LSP)](https://microsoft.github.io/language-server-protocol/) nhằm nâng cao IDE của bạn bằng trí thông minh nhận biết cấu trúc Intlayer. Hiện tại, máy chủ cung cấp tính năng **Đi tới Định nghĩa (Go to Definition)** cho các lệnh gọi khóa từ điển, cho phép bạn nhảy trực tiếp từ `useIntlayer("my-key")` trong thành phần của mình sang tệp `.content.ts` khai báo khóa đó.
+**Máy chủ ngôn ngữ Intlayer** là một hiện thực của [Language Server Protocol (LSP)](https://microsoft.github.io/language-server-protocol/) giúp IDE — và tác nhân AI — của bạn hiểu Intlayer. Nó kết nối một lệnh gọi như `useIntlayer("home")` với tệp `.content.ts` khai báo nó, theo cả hai chiều.
 
 ---
 
-## Tại sao nên sử dụng LSP?
+## Tính năng
 
-Khi bạn sử dụng Intlayer, kết nối giữa một lệnh gọi như `useIntlayer("homepage")` và khai báo của nó trong `src/homepage.content.ts` là ẩn định. Nếu không có công cụ, bạn phải tìm kiếm tệp theo cách thủ công. LSP làm cho liên kết đó trở nên rõ ràng:
+| Tính năng                  | Phím tắt            | Mô tả                                                                                                     |
+| -------------------------- | ------------------- | --------------------------------------------------------------------------------------------------------- |
+| **Đi tới định nghĩa**      | `F12` / `Cmd+Nhấp`  | Nhảy từ một khóa từ điển hoặc chỗ dùng một trường tới khai báo của nó trong tệp nội dung                  |
+| **Tìm tất cả tham chiếu**  | `Shift+F12`         | Từ một tệp nội dung, liệt kê mọi vị trí gọi có dùng khóa hoặc trường đó                                   |
+| **Xem nhanh khi rê chuột** | rê con trỏ          | Xem trước các trường của một từ điển, hoặc giá trị đã dịch của một trường, mà không rời khỏi tệp          |
+| **Tự động hoàn thành**     | `"` `'` `` ` `` `.` | Gợi ý các khóa từ điển đã khai báo bên trong getter, và các trường nội dung sau `.` hoặc khi phá cấu trúc |
+| **Chẩn đoán**              | tự động             | Cảnh báo khi một khóa không được khai báo trong bất kỳ tệp nội dung nào                                   |
 
-**Nhận thức của tác nhân AI**
+Có hai hành vi bổ sung đáng lưu ý:
 
-Các tác nhân lập trình AI (Cursor, Windsurf, GitHub Copilot, Claude Code, Codex) dựa vào máy chủ ngôn ngữ để giải quyết các ký hiệu và hiểu mối quan hệ chéo giữa các tệp. Khi Intlayer LSP đang chạy, các tác nhân có thể đi theo lệnh gọi `useIntlayer("key")` trở lại khai báo của nó, mang lại cho chúng ngữ cảnh chính xác về các khóa nội dung có sẵn, cấu trúc của từng từ điển và tệp nào cần đọc hoặc chỉnh sửa.
+- **Từ điển được hợp nhất** — một khóa trải trên nhiều tệp nội dung sẽ trả về một kết quả cho mỗi tệp, nhờ đó bạn có thể tới từng khai báo.
+- **Hỗ trợ monorepo** — máy chủ phân giải tệp `intlayer.config.*` _gần nhất_ với mỗi tệp, nhờ đó nhiều dự án trong cùng một workspace đều có từ điển riêng.
 
-**Đi tới Định nghĩa**
+### Các lệnh gọi được hỗ trợ
 
-Đặt con trỏ của bạn lên bất kỳ chuỗi khóa từ điển nào bên trong lệnh gọi getter được hỗ trợ và nhấn `F12` (hoặc `Cmd/Ctrl+Click`). Trình soạn thảo sẽ mở tệp khai báo nội dung và đặt con trỏ vào dòng `key:`.
+Khóa được đọc từ một đối số chuỗi theo vị trí, hoặc từ một đối tượng tùy chọn (`{ namespace }`, `{ id }`).
 
-**Hỗ trợ từ điển được gộp**
+| Thư viện                    | Lệnh gọi                                                 |
+| --------------------------- | -------------------------------------------------------- |
+| **Intlayer**                | `useIntlayer`, `getIntlayer`                             |
+| **i18next / react-i18next** | `useTranslation`, `getFixedT`, `t`, `Trans`              |
+| **next-intl / use-intl**    | `useTranslations`, `getTranslations`, `createTranslator` |
+| **react-intl**              | `formatMessage`, `FormattedMessage`                      |
+| **Lingui**                  | `useLingui`, `t`, `Trans`, `_`                           |
+| **vue-i18n**                | `useI18n`                                                |
 
-Một khóa có thể được chia ra ở nhiều tệp nội dung khác nhau (Intlayer sẽ gộp chúng lại). Máy chủ trả về một vị trí (`Location`) trên mỗi tệp nguồn để bạn có thể điều hướng đến từng khai báo.
+Điều này áp dụng cho mọi gói `*-intlayer` (`next-intlayer`, `react-intlayer`, `vue-intlayer`, `svelte-intlayer`, `solid-intlayer`, `preact-intlayer`, `angular-intlayer`, `lit-intlayer`, `express-intlayer`, `hono-intlayer`, `fastify-intlayer`, `intlayer`), cũng như cho các gói adapter compat cho phép bạn giữ nguyên cú pháp i18n hiện có.
 
-**Hoạt động ở mọi nơi**
-
-Hỗ trợ tất cả các gói `*-intlayer` (`next-intlayer`, `react-intlayer`, `vue-intlayer`, `svelte-intlayer`, `solid-intlayer`, `preact-intlayer`, `angular-intlayer`, `lit-intlayer`, `express-intlayer`, `hono-intlayer`, `fastify-intlayer`, `adonis-intlayer`, `intlayer`).
-
-### Các lệnh gọi getter được hỗ trợ
-
-Máy chủ phát hiện các lệnh gọi hàm sau và trích xuất đối số chuỗi ký tự đầu tiên làm khóa từ điển:
-
-| Hàm           | Ví dụ                         |
-| ------------- | ----------------------------- |
-| `useIntlayer` | `useIntlayer("hero")`         |
-| `getIntlayer` | `getIntlayer("hero", locale)` |
-
-Các generic của TypeScript và các đối số bổ sung đều bị bỏ qua — chỉ chuỗi khóa mới quan trọng.
-
-> `useDictionary` và `getDictionary` nhận một đối tượng `Dictionary` đã được nhập làm đối số đầu tiên của chúng thay vì một khóa chuỗi, do đó chúng không được hưởng lợi từ tính năng Đi tới Định nghĩa và không được theo dõi bởi máy chủ.
+> Từ điển được đọc từ kết quả build, vì vậy hãy chạy `npx intlayer build` — hoặc giữ máy chủ phát triển đang chạy — để máy chủ có dữ liệu mà phân giải.
 
 ---
 
 ## Cài đặt
 
-Máy chủ LSP được phân phối như một phần của `@intlayer/lsp`:
+Máy chủ được phát hành dưới dạng tệp nhị phân `intlayer-lsp` trong `@intlayer/lsp`:
 
 ```bash packageManager="npm"
 npm install --save-dev @intlayer/lsp
@@ -83,43 +87,43 @@ pnpm add --save-dev @intlayer/lsp
 bun add --dev @intlayer/lsp
 ```
 
-Gói này cung cấp tệp nhị phân `intlayer-lsp`, được trình soạn thảo sử dụng làm tệp thực thi của máy chủ.
+Hãy cài đặt toàn cục (`npm install -g @intlayer/lsp`) nếu trình soạn thảo của bạn cần `intlayer-lsp` nằm trong `PATH` — đây là trường hợp của plugin Claude Code và của mọi cấu hình bên dưới gọi trực tiếp tệp nhị phân.
 
 ---
 
-## Thiết lập như một Plugin Claude Code
+## Thiết lập
 
-Intlayer LSP có sẵn dưới dạng **plugin Claude Code** được lưu trữ trực tiếp trong kho lưu trữ GitHub của Intlayer. Việc cài đặt nó giúp Claude Code có nhận thức gốc về tính năng Đi tới Định nghĩa cho tất cả các lệnh gọi `useIntlayer` / `getIntlayer` của bạn.
+<Tabs defaultTab="vscode">
+  <Tab label="VS Code" value="vscode">
 
-### 1. Cài đặt tệp nhị phân máy chủ ngôn ngữ
+Cài [tiện ích mở rộng Intlayer cho VS Code](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension). Máy chủ ngôn ngữ đã được đóng gói kèm từ v8.12.0 và tự khởi động — **không cần cấu hình gì**.
 
-```bash packageManager="npm"
-npm install -g @intlayer/lsp
-```
+Xem [tài liệu tiện ích mở rộng VS Code](https://intlayer.org/doc/vs-code-extension) để biết các tính năng khác.
 
-```bash packageManager="yarn"
-yarn global add @intlayer/lsp
-```
+  </Tab>
+  <Tab label="Cursor / Windsurf" value="cursor">
 
-```bash packageManager="pnpm"
-pnpm add -g @intlayer/lsp
-```
+[Cursor](https://www.cursor.com/) và [Windsurf](https://windsurf.com/) là các bản fork của VS Code và dùng chung hệ sinh thái tiện ích mở rộng. Chỉ cần cài [tiện ích mở rộng Intlayer cho VS Code](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension) một lần là máy chủ tự kích hoạt — **không cần cấu hình gì**.
 
-Thao tác này sẽ đặt tệp nhị phân `intlayer-lsp` vào biến môi trường PATH của bạn, đây là tệp được gọi bởi mục `lspServers` trong plugin.
+  </Tab>
+  <Tab label="Claude Code" value="claude-code">
 
-### 2. Đăng ký thị trường Intlayer và cài đặt plugin
+Intlayer cung cấp một **plugin cho Claude Code** được lưu trữ ngay trong kho mã Intlayer. Nó giúp Claude Code phân giải ký hiệu thật sự cho các khóa từ điển thay vì phải dùng `grep`.
+
+Đưa tệp nhị phân vào `PATH`, sau đó đăng ký marketplace và cài plugin:
 
 ```bash
+npm install -g @intlayer/lsp
+
 claude plugin marketplace add intlayer@github:aymericzip/intlayer
 claude plugin install intlayer-lsp@intlayer
-claude plugin enable intlayer-lsp@intlayer
 ```
 
-Claude Code sẽ thêm `"intlayer-lsp@intlayer": true` vào danh sách `enabledPlugins` của bạn và tự động khởi động máy chủ ngôn ngữ trên các loại tệp được hỗ trợ (`.ts`, `.tsx`, `.js`, `.jsx`, `.vue`, `.svelte`).
+`install` cũng đồng thời bật plugin. **Hãy khởi động lại Claude Code** — các máy chủ ngôn ngữ được nạp lúc khởi động, nên trước đó plugin chưa có tác dụng.
 
-### 3. Bật công cụ LSP (nếu chưa hoạt động)
+Sau đó Claude Code sẽ khởi chạy máy chủ trên các tệp `.ts`, `.tsx`, `.js`, `.jsx`, `.vue`, `.astro` và `.svelte`, đồng thời dùng `goToDefinition`, `findReferences` và `hover` khi duyệt mã của bạn.
 
-Một số phiên bản Claude Code yêu cầu cờ tính năng LSP phải được đặt. Thêm nội dung sau vào tệp `~/.claude/settings.json` của bạn nếu tính năng Đi tới Định nghĩa không hoạt động sau khi cài đặt:
+Nếu đi tới định nghĩa vẫn không hoạt động, phiên bản Claude Code của bạn có thể đang giới hạn công cụ LSP sau một cờ:
 
 ```json fileName="~/.claude/settings.json"
 {
@@ -129,61 +133,10 @@ Một số phiên bản Claude Code yêu cầu cờ tính năng LSP phải đư�
 }
 ```
 
-Khởi động lại Claude Code — từ giờ nó sẽ sử dụng `goToDefinition`, `findReferences` và các thao tác LSP khác khi điều hướng cơ sở mã Intlayer của bạn thay vì sử dụng `grep`.
+  </Tab>
+  <Tab label="Zed" value="zed">
 
----
-
-## Thiết lập trong VS Code (thông qua tiện ích mở rộng — khuyến nghị)
-
-Nếu bạn đã cài đặt [tiện ích mở rộng Intlayer VS Code](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension), máy chủ ngôn ngữ sẽ tự động bắt đầu. Không cần cấu hình thêm. LSP được tích hợp trực tiếp vào tiện ích mở rộng VSCode từ phiên bản 8.12.0.
-
-> Xem [tài liệu tiện ích mở rộng VS Code](https://intlayer.org/doc/vs-code-extension) để biết cách cài đặt và các tính năng khác.
-
----
-
-## Thiết lập thủ công trong VS Code
-
-Nếu bạn không sử dụng tiện ích mở rộng Intlayer, bạn có thể kết nối máy chủ ngôn ngữ theo cách thủ công bằng cách sử dụng một tiện ích mở rộng ứng dụng khách LSP chung như [**vscode-glspc**](https://marketplace.visualstudio.com/items?itemName=sibiraj-s.vscode-scss-formatter) hoặc bằng cách viết một tiện ích mở rộng nhỏ của riêng bạn. Phương pháp khuyến nghị là sử dụng tiện ích mở rộng Intlayer.
-
-Để tham khảo, máy chủ được khởi chạy thông qua tệp nhị phân `intlayer-lsp` qua stdio:
-
-```json fileName=".vscode/settings.json"
-{
-  "intlayer.languageServer.command": "npx",
-  "intlayer.languageServer.args": ["@intlayer/lsp"]
-}
-```
-
-Tiện ích mở rộng Intlayer đọc các cài đặt này để khởi chạy máy chủ. Nếu bạn chỉ dựa vào tiện ích mở rộng, không cần cài đặt thủ công.
-
----
-
-## Thiết lập trong Cursor
-
-[Cursor](https://www.cursor.com/) là một bản phân nhánh của VS Code với các tính năng AI tích hợp. Nó sử dụng cùng một hệ sinh thái tiện ích mở rộng, vì vậy **tiện ích mở rộng Intlayer VS Code** hoạt động mà không cần bất kỳ cấu hình bổ sung nào — hãy cài đặt nó một lần và Cursor sẽ tự động phát hiện.
-
-Nếu bạn thích cấu hình thủ công, Cursor cũng đọc tệp `.vscode/settings.json` từ thư mục gốc của không gian làm việc, do đó đoạn mã VS Code ở trên sẽ áp dụng trực tiếp.
-
----
-
-## Thiết lập trong Windsurf
-
-[Windsurf](https://windsurf.com/) (phát triển bởi Codeium) là một trình soạn thảo dựa trên VS Code khác. Cài đặt tiện ích mở rộng Intlayer từ VS Code Marketplace và máy chủ ngôn ngữ sẽ tự động được kích hoạt, giống hệt như trong VS Code và Cursor.
-
-Để cấu hình thủ công, hãy tạo tệp `.vscode/settings.json` tại thư mục gốc của dự án:
-
-```json fileName=".vscode/settings.json"
-{
-  "intlayer.languageServer.command": "npx",
-  "intlayer.languageServer.args": ["@intlayer/lsp"]
-}
-```
-
----
-
-## Thiết lập trong Zed
-
-[Zed](https://zed.dev/) hỗ trợ LSP gốc thông qua cài đặt ngôn ngữ của nó. Thêm một mục trong cài đặt người dùng Zed của bạn (`~/.config/zed/settings.json`):
+Zed hỗ trợ LSP sẵn có. Hãy thêm máy chủ vào thiết lập người dùng của bạn:
 
 ```json fileName="~/.config/zed/settings.json"
 {
@@ -196,47 +149,21 @@ Nếu bạn thích cấu hình thủ công, Cursor cũng đọc tệp `.vscode/s
     }
   },
   "languages": {
-    "TypeScript": {
-      "language_servers": ["intlayer-lsp", "..."]
-    },
-    "TSX": {
-      "language_servers": ["intlayer-lsp", "..."]
-    },
-    "JavaScript": {
-      "language_servers": ["intlayer-lsp", "..."]
-    },
-    "Vue.js": {
-      "language_servers": ["intlayer-lsp", "..."]
-    },
-    "Svelte": {
-      "language_servers": ["intlayer-lsp", "..."]
-    }
+    "TypeScript": { "language_servers": ["intlayer-lsp", "..."] },
+    "TSX": { "language_servers": ["intlayer-lsp", "..."] },
+    "JavaScript": { "language_servers": ["intlayer-lsp", "..."] },
+    "Vue.js": { "language_servers": ["intlayer-lsp", "..."] },
+    "Svelte": { "language_servers": ["intlayer-lsp", "..."] }
   }
 }
 ```
 
-Dấu giữ chỗ `"..."` yêu cầu Zed giữ các máy chủ ngôn ngữ mặc định của nó cùng với máy chủ Intlayer.
+Ký hiệu `"..."` giữ lại các máy chủ ngôn ngữ mặc định của Zed bên cạnh máy chủ của Intlayer.
 
----
+  </Tab>
+  <Tab label="Neovim" value="neovim">
 
-## Thiết lập cho CLI Tác nhân AI (Claude Code, Codex, v.v.)
-
-**Claude Code** có hỗ trợ plugin LSP hạng nhất — hãy làm theo các bước [thiết lập Plugin Claude Code](#thiết-lập-như-một-plugin-claude-code) ở trên để có được trải nghiệm Đi tới Định nghĩa đầy đủ trực tiếp trong các phiên terminal của bạn.
-
-**OpenAI Codex** và các công cụ dựa trên terminal khác chưa hoạt động như máy chủ khách LSP — chúng đọc và ghi tệp trực tiếp thay vì duy trì một phiên máy chủ ngôn ngữ liên tục. Đối với những công cụ đó, giá trị của việc chạy LSP đến một cách gián tiếp: khi máy chủ hoạt động trong một trình soạn thảo đồng hành (VS Code, Cursor, Windsurf, ...), chỉ mục trực tiếp của trình soạn thảo sẽ có sẵn cho bất kỳ tác nhân AI nào có thể truy vấn nó thông qua ngữ cảnh do trình soạn thảo cung cấp (ví dụ: Cursor Composer, Windsurf Cascade, GitHub Copilot Chat).
-
-Nếu bạn chỉ làm việc trong terminal mà không mở trình soạn thảo, bạn có thể khởi động máy chủ ngôn ngữ trong nền để nó sẵn sàng cho bất kỳ trình soạn thảo nào sau đó kết nối với cùng một không gian làm việc:
-
-```bash
-# Giữ cho máy chủ tiếp tục chạy trong nền
-npx @intlayer/lsp &
-```
-
----
-
-## Thiết lập thủ công trong Neovim
-
-Sử dụng [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig), đăng ký cấu hình máy chủ tùy chỉnh:
+Dùng [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig), hãy đăng ký một cấu hình máy chủ tùy chỉnh:
 
 ```lua fileName="~/.config/nvim/init.lua"
 local lspconfig = require('lspconfig')
@@ -245,7 +172,7 @@ local configs = require('lspconfig.configs')
 if not configs.intlayer_lsp then
   configs.intlayer_lsp = {
     default_config = {
-      -- Khởi chạy máy chủ bằng npx để bạn không cần cài đặt toàn cục
+      -- Khởi chạy máy chủ bằng npx để không cần cài đặt toàn cục
       cmd = { 'npx', '--yes', '@intlayer/lsp' },
       filetypes = {
         'typescript',
@@ -267,21 +194,10 @@ end
 lspconfig.intlayer_lsp.setup({})
 ```
 
-Sau khi khởi động lại Neovim, việc nhấn `gd` trên một khóa Intlayer sẽ kích hoạt Đi tới Định nghĩa.
+Sau khi khởi động lại Neovim, `gd` trên một khóa từ điển sẽ chạy Đi tới định nghĩa và `gr` sẽ chạy Tìm tham chiếu.
 
----
-
-## Thiết lập thủ công trong các Trình soạn thảo khác
-
-Bất kỳ trình soạn thảo nào hỗ trợ Giao thức Máy chủ Ngôn ngữ đều có thể sử dụng `@intlayer/lsp`. Máy chủ:
-
-- **Truyền tải** – Node.js IPC / stdio (tiêu chuẩn)
-- **Tệp thực thi** – `npx @intlayer/lsp` (hoặc tệp nhị phân `intlayer-lsp` được cài đặt cục bộ)
-- **Khả năng** – `definitionProvider: true`, `textDocumentSync: Incremental`
-
-Tham khảo tài liệu LSP của trình soạn thảo của bạn để biết định dạng cấu hình chính xác (ví dụ: `languageserver.json` cho [coc.nvim](https://github.com/neoclide/coc.nvim), hoặc cài đặt ứng dụng khách LSP trong [Helix](https://helix-editor.com)).
-
-### Ví dụ: coc.nvim
+  </Tab>
+  <Tab label="coc.nvim" value="coc">
 
 ```json fileName="~/.config/nvim/coc-settings.json"
 {
@@ -307,9 +223,14 @@ Tham khảo tài liệu LSP của trình soạn thảo của bạn để biết 
 }
 ```
 
-### Ví dụ: Helix
+  </Tab>
+  <Tab label="Helix" value="helix">
 
 ```toml fileName="~/.config/helix/languages.toml"
+[language-server.intlayer-lsp]
+command = "npx"
+args = ["@intlayer/lsp"]
+
 [[language]]
 name = "typescript"
 language-servers = ["intlayer-lsp", "typescript-language-server"]
@@ -317,36 +238,54 @@ language-servers = ["intlayer-lsp", "typescript-language-server"]
 [[language]]
 name = "tsx"
 language-servers = ["intlayer-lsp", "typescript-language-server"]
-
-[language-server.intlayer-lsp]
-command = "npx"
-args = ["@intlayer/lsp"]
 ```
+
+  </Tab>
+  <Tab label="Trình soạn thảo khác" value="other">
+
+Mọi trình soạn thảo hỗ trợ LSP đều có thể chạy `@intlayer/lsp`. Hãy trỏ nó tới:
+
+- **Tệp thực thi** — `npx @intlayer/lsp`, hoặc tệp nhị phân `intlayer-lsp`
+- **Phương thức truyền** — stdio (chuẩn)
+- **Khả năng** — `definitionProvider`, `referencesProvider`, `hoverProvider`, `completionProvider` (ký tự kích hoạt `"` `'` `` ` `` `.`), chẩn đoán dạng push, `textDocumentSync: Incremental`
+- **Mẫu thư mục gốc** — `intlayer.config.ts`, `intlayer.config.js`, `package.json`
+
+Hãy tham khảo tài liệu LSP của trình soạn thảo để biết định dạng cấu hình chính xác.
+
+  </Tab>
+</Tabs>
+
+---
+
+## Ghi chú về tác nhân AI trên terminal
+
+**Claude Code** hoạt động như một client LSP thực thụ — xem tab ở trên.
+
+**OpenAI Codex** và phần lớn công cụ terminal khác không phải là client LSP: chúng đọc và ghi tệp trực tiếp. Chạy riêng máy chủ không giúp ích cho chúng; giá trị đến từ việc máy chủ đang hoạt động trong một trình soạn thảo đi kèm mà tác nhân có thể truy vấn chỉ mục (Cursor Composer, Windsurf Cascade, Copilot Chat).
 
 ---
 
 ## Cách hoạt động
 
-Khi máy chủ khởi động, nó sẽ giải quyết cấu hình Intlayer từ thư mục gốc của không gian làm việc bằng cách sử dụng `getConfiguration()`. Điều này cung cấp cho nó các đường dẫn `build` và `system` cần thiết để tìm các từ điển được biên dịch.
+Với mỗi tệp, máy chủ tìm tệp `intlayer.config.*` gần nhất và nạp cấu hình của dự án đó để tìm các từ điển đã biên dịch. Cấu hình, từ điển và danh sách tệp nguồn được lưu vào bộ nhớ đệm với TTL ngắn, và bị vô hiệu mỗi khi một tệp nội dung đang được theo dõi thay đổi.
 
-Trên mỗi yêu cầu **Đi tới Định nghĩa**:
+Khi có yêu cầu, máy chủ phân tích tài liệu (qua [oxc](https://oxc.rs/)) và xem xét vị trí con trỏ:
 
-1. Máy chủ đọc toàn bộ văn bản của tài liệu đang mở.
-2. Nó quét các lệnh gọi getter (`useIntlayer`, `getIntlayer`, v.v.) bằng cách sử dụng một biểu thức chính quy.
-3. Nó kiểm tra xem vị trí con trỏ có nằm trong một trong những lệnh gọi đó hay không.
-4. Nếu có, nó sẽ trích xuất khóa từ điển (nhóm chụp 3 của biểu thức chính quy) và gọi `getUnmergedDictionaries()` để xác định vị trí của từng tệp nội dung khai báo khóa đó.
-5. Nó đọc từng tệp phù hợp và tìm dòng chính xác chứa `key: "<key>"` để định vị con trỏ một cách chính xác.
-6. Nó trả về một mảng gồm các đối tượng `Location` — một đối tượng trên mỗi tệp nguồn.
-
-Cấu hình được giải quyết một cách lazy và được lưu vào bộ nhớ cache cho mỗi phiên; nó sẽ được đặt lại trên mỗi yêu cầu `initialize` (ví dụ: khi bạn mở một thư mục không gian làm việc mới).
+1. **Trên một chuỗi khóa** (`useIntlayer("home")`) → trả về mọi tệp nội dung khai báo khóa đó, đặt con trỏ tại dòng `key:` của nó.
+2. **Trên một chỗ dùng trường** (`content.title`, một thuộc tính được phá cấu trúc, `t('path.to.field')`, `<Trans>`, …) → truy ngược biến về từ điển của nó và trả về trường tương ứng bên trong các tệp nội dung.
+3. **Từ một tệp nội dung** → chạy tra cứu ngược, quét mã nguồn dự án để tìm các vị trí gọi khóa hoặc trường đó.
 
 ---
 
 ## Khắc phục sự cố
 
-| Triệu chứng                            | Nguyên nhân có thể                | Giải pháp                                                                                                 |
-| -------------------------------------- | --------------------------------- | --------------------------------------------------------------------------------------------------------- |
-| Đi tới Định nghĩa không hoạt động      | Máy chủ không chạy                | Kiểm tra xem `@intlayer/lsp` đã được cài đặt chưa và trình soạn thảo có đang khởi chạy nó không           |
-| Phát hiện sai thư mục gốc              | Nhiều thư mục không gian làm việc | Đảm bảo thư mục chứa `intlayer.config.ts` là thư mục không gian làm việc đầu tiên                         |
-| Không tìm thấy định nghĩa cho một khóa | Cấu hình chưa được giải quyết     | Xác minh xem `intlayer.config.ts` (hoặc `.js`) có tồn tại trong thư mục gốc của không gian làm việc không |
-| Máy chủ gặp sự cố khi khởi động        | Phiên bản Node.js quá cũ          | Yêu cầu Node.js ≥ 14.18                                                                                   |
+| Hiện tượng                                                         | Nguyên nhân có thể             | Cách khắc phục                                                                |
+| ------------------------------------------------------------------ | ------------------------------ | ----------------------------------------------------------------------------- |
+| Hoàn toàn không có gì xảy ra                                       | Máy chủ không chạy             | Kiểm tra `@intlayer/lsp` đã được cài và trình soạn thảo có khởi chạy nó không |
+| Chạy được trong trình soạn thảo nhưng không chạy trong Claude Code | Cài plugin giữa phiên làm việc | Khởi động lại Claude Code — máy chủ ngôn ngữ được nạp lúc khởi động           |
+| Không tìm thấy định nghĩa cho một khóa                             | Từ điển chưa được build        | Chạy `npx intlayer build`, hoặc khởi động máy chủ phát triển                  |
+| Mọi khóa đều bị báo là chưa khai báo                               | Chưa phân giải được cấu hình   | Kiểm tra có tệp `intlayer.config.ts` (hoặc `.js`) ở gốc dự án                 |
+| Dùng nhầm dự án trong monorepo                                     | Thiếu cấu hình cho từng gói    | Thêm `intlayer.config.*` vào mỗi gói có khai báo nội dung riêng               |
+| Máy chủ sập khi khởi động                                          | Phiên bản Node.js quá cũ       | Yêu cầu Node.js ≥ 14.18                                                       |
+
+Trong VS Code, máy chủ ghi log vào **Xem → Output → “Intlayer LSP”** — hữu ích để xác nhận cấu hình nào đã được phân giải và tìm thấy bao nhiêu từ điển.

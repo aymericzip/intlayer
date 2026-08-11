@@ -1,12 +1,14 @@
 ---
 createdAt: 2025-06-07
-updatedAt: 2026-05-31
+updatedAt: 2026-08-10
 title: Server LSP Intlayer
-description: Pelajari bagaimana Server Bahasa Intlayer menyediakan fitur "Go-to-Definition" dan fitur IDE lainnya untuk useIntlayer, getIntlayer, dan panggilan terkait di semua editor yang didukung.
+description: Pelajari bagaimana language server Intlayer menghadirkan Go-to-Definition, pencarian referensi, pratinjau saat hover, autocomplete kunci, dan diagnostik ke IDE dan agen AI Anda.
 keywords:
   - LSP
-  - Server Bahasa
+  - Language Server
   - Go to Definition
+  - Autocomplete
+  - Diagnostik
   - IDE
   - Intlayer
   - VS Code
@@ -16,6 +18,9 @@ slugs:
   - doc
   - lsp
 history:
+  - version: 9.1.3
+    date: 2026-08-10
+    changes: "Menambahkan pencarian referensi, hover, autocomplete, dan diagnostik"
   - version: 8.12.0
     date: 2026-06-01
     changes: "Release LSP"
@@ -24,48 +29,47 @@ author: aymericzip
 
 # Server LSP Intlayer
 
-**Server Bahasa Intlayer (LSP)** adalah implementasi [Language Server Protocol (LSP)](https://microsoft.github.io/language-server-protocol/) yang meningkatkan IDE Anda dengan kecerdasan yang memahami Intlayer. Saat ini, server menyediakan fitur **Go to Definition** untuk panggilan kunci kamus, memungkinkan Anda melompat langsung dari `useIntlayer("my-key")` di komponen Anda ke file `.content.ts` yang mendeklarasikannya.
+**Language server Intlayer** adalah implementasi [Language Server Protocol (LSP)](https://microsoft.github.io/language-server-protocol/) yang membuat IDE — dan agen AI — Anda memahami Intlayer. Ia menghubungkan pemanggilan seperti `useIntlayer("home")` dengan berkas `.content.ts` yang mendeklarasikannya, dua arah.
 
 ---
 
-## Mengapa Menggunakan LSP?
+## Fitur
 
-Saat Anda menggunakan Intlayer, hubungan antara panggilan seperti `useIntlayer("homepage")` dan deklarasinya di `src/homepage.content.ts` bersifat implisit. Tanpa alat bantu, Anda harus mencari file tersebut secara manual. LSP membuat tautan tersebut menjadi eksplisit:
+| Fitur                    | Pintasan            | Fungsinya                                                                                                           |
+| ------------------------ | ------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| **Ke definisi**          | `F12` / `Cmd+Klik`  | Melompat dari kunci kamus atau penggunaan field ke deklarasinya di berkas konten                                    |
+| **Cari semua referensi** | `Shift+F12`         | Dari berkas konten, menampilkan setiap lokasi pemanggilan yang memakai kunci atau field tersebut                    |
+| **Hover**                | arahkan kursor      | Melihat field sebuah kamus, atau nilai terjemahan sebuah field, tanpa meninggalkan berkas                           |
+| **Autocomplete**         | `"` `'` `` ` `` `.` | Menyarankan kunci kamus yang dideklarasikan di dalam getter, dan field konten setelah `.` atau saat destrukturisasi |
+| **Diagnostik**           | otomatis            | Memperingatkan saat sebuah kunci tidak dideklarasikan di berkas konten mana pun                                     |
 
-**Kesadaran agen AI**
+Ada dua perilaku tambahan yang perlu diketahui:
 
-Agen pengkodean AI (Cursor, Windsurf, GitHub Copilot, Claude Code, Codex) mengandalkan server bahasa untuk menyelesaikan simbol dan memahami hubungan lintas file. Dengan menjalankan Intlayer LSP, agen dapat mengikuti `useIntlayer("key")` kembali ke deklarasinya, memberikan mereka konteks yang akurat tentang kunci konten yang tersedia, bentuk setiap kamus, dan file mana yang harus dibaca atau diedit.
+- **Kamus tergabung** — kunci yang terbagi di beberapa berkas konten mengembalikan satu hasil per berkas, sehingga Anda dapat menuju setiap deklarasi.
+- **Ramah monorepo** — server menyelesaikan `intlayer.config.*` yang _terdekat_ dengan setiap berkas, sehingga beberapa proyek dalam satu workspace masing-masing memiliki kamusnya sendiri.
 
-**Go to Definition**
+### Pemanggilan yang didukung
 
-Tempatkan kursor Anda pada string kunci kamus apa pun di dalam panggilan getter yang didukung dan tekan `F12` (atau `Cmd/Ctrl+Click`). Editor akan membuka file deklarasi konten dan memposisikan kursor pada baris `key:`.
+Kunci dibaca dari argumen string posisional atau dari objek opsi (`{ namespace }`, `{ id }`).
 
-**Dukungan kamus yang digabungkan**
+| Pustaka                     | Pemanggilan                                              |
+| --------------------------- | -------------------------------------------------------- |
+| **Intlayer**                | `useIntlayer`, `getIntlayer`                             |
+| **i18next / react-i18next** | `useTranslation`, `getFixedT`, `t`, `Trans`              |
+| **next-intl / use-intl**    | `useTranslations`, `getTranslations`, `createTranslator` |
+| **react-intl**              | `formatMessage`, `FormattedMessage`                      |
+| **Lingui**                  | `useLingui`, `t`, `Trans`, `_`                           |
+| **vue-i18n**                | `useI18n`                                                |
 
-Kunci dapat dibagi di beberapa file konten (Intlayer menggabungkannya). Server mengembalikan satu `Location` per file sumber sehingga Anda dapat menavigasi ke setiap deklarasi.
+Ini berlaku untuk semua paket `*-intlayer` (`next-intlayer`, `react-intlayer`, `vue-intlayer`, `svelte-intlayer`, `solid-intlayer`, `preact-intlayer`, `angular-intlayer`, `lit-intlayer`, `express-intlayer`, `hono-intlayer`, `fastify-intlayer`, `intlayer`), serta untuk paket adapter compat yang memungkinkan Anda mempertahankan sintaks i18n yang sudah ada.
 
-**Bekerja di mana saja**
-
-Mendukung semua paket `*-intlayer` (`next-intlayer`, `react-intlayer`, `vue-intlayer`, `svelte-intlayer`, `solid-intlayer`, `preact-intlayer`, `angular-intlayer`, `lit-intlayer`, `express-intlayer`, `hono-intlayer`, `fastify-intlayer`, `adonis-intlayer`, `intlayer`).
-
-### Panggilan getter yang didukung
-
-Server mendeteksi panggilan fungsi berikut dan mengekstrak argumen string-literal pertama sebagai kunci kamus:
-
-| Fungsi        | Contoh                        |
-| ------------- | ----------------------------- |
-| `useIntlayer` | `useIntlayer("hero")`         |
-| `getIntlayer` | `getIntlayer("hero", locale)` |
-
-TypeScript generics dan argumen ekstra diabaikan — hanya string kunci yang penting.
-
-> `useDictionary` dan `getDictionary` mengambil objek `Dictionary` yang sudah diimpor sebagai argumen pertama mereka, bukan kunci string, sehingga mereka tidak mendapatkan manfaat dari Go-to-Definition dan tidak dilacak oleh server.
+> Kamus dibaca dari hasil build, jadi jalankan `npx intlayer build` — atau biarkan dev server tetap berjalan — agar server punya sesuatu untuk diselesaikan.
 
 ---
 
 ## Instalasi
 
-Server LSP didistribusikan sebagai bagian dari `@intlayer/lsp`:
+Server didistribusikan sebagai biner `intlayer-lsp` di dalam `@intlayer/lsp`:
 
 ```bash packageManager="npm"
 npm install --save-dev @intlayer/lsp
@@ -83,43 +87,43 @@ pnpm add --save-dev @intlayer/lsp
 bun add --dev @intlayer/lsp
 ```
 
-Paket ini mengekspos biner `intlayer-lsp`, yang digunakan editor sebagai executable server.
+Pasang secara global (`npm install -g @intlayer/lsp`) bila editor Anda membutuhkan `intlayer-lsp` di `PATH` — ini berlaku untuk plugin Claude Code dan untuk setiap konfigurasi di bawah yang memanggil biner secara langsung.
 
 ---
 
-## Pengaturan sebagai Plugin Claude Code
+## Penyiapan
 
-Intlayer LSP tersedia sebagai **plugin Claude Code** yang dihosting langsung di repositori GitHub Intlayer. Menginstalnya memberikan Claude Code kesadaran native Go-to-Definition untuk semua panggilan `useIntlayer` / `getIntlayer` Anda.
+<Tabs defaultTab="vscode">
+  <Tab label="VS Code" value="vscode">
 
-### 1. Instal biner server bahasa
+Pasang [ekstensi Intlayer untuk VS Code](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension). Language server sudah disertakan sejak v8.12.0 dan berjalan otomatis — **tanpa konfigurasi apa pun**.
 
-```bash packageManager="npm"
-npm install -g @intlayer/lsp
-```
+Lihat [dokumentasi ekstensi VS Code](https://intlayer.org/doc/vs-code-extension) untuk fitur lainnya.
 
-```bash packageManager="yarn"
-yarn global add @intlayer/lsp
-```
+  </Tab>
+  <Tab label="Cursor / Windsurf" value="cursor">
 
-```bash packageManager="pnpm"
-pnpm add -g @intlayer/lsp
-```
+[Cursor](https://www.cursor.com/) dan [Windsurf](https://windsurf.com/) adalah fork VS Code dan memakai ekosistem ekstensi yang sama. Pasang [ekstensi Intlayer untuk VS Code](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension) sekali dan server aktif otomatis — **tanpa konfigurasi apa pun**.
 
-Ini menempatkan biner `intlayer-lsp` pada PATH Anda, yang dipanggil oleh entri `lspServers` pada plugin.
+  </Tab>
+  <Tab label="Claude Code" value="claude-code">
 
-### 2. Daftarkan marketplace Intlayer dan instal plugin
+Intlayer menyediakan **plugin Claude Code** yang dihosting di repositori Intlayer. Plugin ini memberi Claude Code resolusi simbol yang sesungguhnya untuk kunci kamus Anda, alih-alih kembali memakai `grep`.
+
+Letakkan biner di `PATH` Anda, lalu daftarkan marketplace dan pasang plugin:
 
 ```bash
+npm install -g @intlayer/lsp
+
 claude plugin marketplace add intlayer@github:aymericzip/intlayer
 claude plugin install intlayer-lsp@intlayer
-claude plugin enable intlayer-lsp@intlayer
 ```
 
-Claude Code akan menambahkan `"intlayer-lsp@intlayer": true` ke `enabledPlugins` Anda dan secara otomatis memulai server bahasa pada tipe file yang didukung (`.ts`, `.tsx`, `.js`, `.jsx`, `.vue`, `.svelte`).
+`install` sekaligus mengaktifkan plugin. **Mulai ulang Claude Code** — language server dimuat saat startup, jadi sebelum itu plugin belum berpengaruh.
 
-### 3. Aktifkan alat LSP (jika belum aktif)
+Claude Code kemudian menjalankan server pada berkas `.ts`, `.tsx`, `.js`, `.jsx`, `.vue`, `.astro`, dan `.svelte`, serta memakai `goToDefinition`, `findReferences`, dan `hover` saat menelusuri kode Anda.
 
-Beberapa versi Claude Code memerlukan flag fitur LSP untuk disetel. Tambahkan yang berikut ke `~/.claude/settings.json` Anda jika Go-to-Definition tidak berfungsi setelah instalasi:
+Jika Go-to-Definition masih tidak bekerja, versi Claude Code Anda mungkin membatasi alat LSP di balik sebuah flag:
 
 ```json fileName="~/.claude/settings.json"
 {
@@ -129,61 +133,10 @@ Beberapa versi Claude Code memerlukan flag fitur LSP untuk disetel. Tambahkan ya
 }
 ```
 
-Mulai ulang Claude Code — sekarang ia akan menggunakan `goToDefinition`, `findReferences`, dan operasi LSP lainnya saat menavigasi basis kode Intlayer Anda alih-alih kembali ke `grep`.
+  </Tab>
+  <Tab label="Zed" value="zed">
 
----
-
-## Pengaturan di VS Code (melalui ekstensi — direkomendasikan)
-
-Jika Anda memiliki [ekstensi VS Code Intlayer](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension) yang terinstal, server bahasa akan dimulai secara otomatis. Tidak diperlukan konfigurasi tambahan. LSP terintegrasi langsung ke dalam ekstensi VSCode sejak v8.12.0.
-
-> Lihat [dokumentasi ekstensi VS Code](https://intlayer.org/doc/vs-code-extension) untuk instalasi dan fitur lainnya.
-
----
-
-## Pengaturan Manual di VS Code
-
-Jika Anda tidak menggunakan ekstensi Intlayer, Anda dapat menghubungkan server bahasa secara manual menggunakan ekstensi klien LSP generik seperti [**vscode-glspc**](https://marketplace.visualstudio.com/items?itemName=sibiraj-s.vscode-scss-formatter) atau dengan menulis ekstensi kecil Anda sendiri. Pendekatan yang direkomendasikan adalah menggunakan ekstensi Intlayer.
-
-Sebagai referensi, server diluncurkan melalui biner `intlayer-lsp` melalui stdio:
-
-```json fileName=".vscode/settings.json"
-{
-  "intlayer.languageServer.command": "npx",
-  "intlayer.languageServer.args": ["@intlayer/lsp"]
-}
-```
-
-Ekstensi Intlayer membaca pengaturan ini untuk meluncurkan server. Jika Anda hanya mengandalkan ekstensi, tidak diperlukan pengaturan manual.
-
----
-
-## Pengaturan di Cursor
-
-[Cursor](https://www.cursor.com/) adalah fork VS Code dengan fitur AI bawaan. Ini menggunakan ekosistem ekstensi yang sama, sehingga **ekstensi VS Code Intlayer** bekerja tanpa konfigurasi ekstra — instal sekali dan Cursor akan mendeteksinya secara otomatis.
-
-Jika Anda lebih memilih konfigurasi manual, Cursor juga membaca `.vscode/settings.json` dari root workspace, sehingga cuplikan VS Code di atas berlaku secara langsung.
-
----
-
-## Pengaturan di Windsurf
-
-[Windsurf](https://windsurf.com/) (oleh Codeium) adalah editor berbasis VS Code lainnya. Instal ekstensi Intlayer dari VS Code Marketplace dan server bahasa akan aktif secara otomatis, persis seperti di VS Code dan Cursor.
-
-Untuk konfigurasi manual, buat `.vscode/settings.json` di root proyek:
-
-```json fileName=".vscode/settings.json"
-{
-  "intlayer.languageServer.command": "npx",
-  "intlayer.languageServer.args": ["@intlayer/lsp"]
-}
-```
-
----
-
-## Pengaturan di Zed
-
-[Zed](https://zed.dev/) memiliki dukungan LSP native melalui pengaturan bahasanya. Tambahkan entri di pengaturan pengguna Zed Anda (`~/.config/zed/settings.json`):
+Zed mendukung LSP secara bawaan. Tambahkan server ke pengaturan pengguna Anda:
 
 ```json fileName="~/.config/zed/settings.json"
 {
@@ -196,47 +149,21 @@ Untuk konfigurasi manual, buat `.vscode/settings.json` di root proyek:
     }
   },
   "languages": {
-    "TypeScript": {
-      "language_servers": ["intlayer-lsp", "..."]
-    },
-    "TSX": {
-      "language_servers": ["intlayer-lsp", "..."]
-    },
-    "JavaScript": {
-      "language_servers": ["intlayer-lsp", "..."]
-    },
-    "Vue.js": {
-      "language_servers": ["intlayer-lsp", "..."]
-    },
-    "Svelte": {
-      "language_servers": ["intlayer-lsp", "..."]
-    }
+    "TypeScript": { "language_servers": ["intlayer-lsp", "..."] },
+    "TSX": { "language_servers": ["intlayer-lsp", "..."] },
+    "JavaScript": { "language_servers": ["intlayer-lsp", "..."] },
+    "Vue.js": { "language_servers": ["intlayer-lsp", "..."] },
+    "Svelte": { "language_servers": ["intlayer-lsp", "..."] }
   }
 }
 ```
 
-Placeholder `"..."` memberi tahu Zed untuk mempertahankan server bahasa defaultnya bersama dengan server Intlayer.
+Placeholder `"..."` mempertahankan language server bawaan Zed berdampingan dengan milik Intlayer.
 
----
+  </Tab>
+  <Tab label="Neovim" value="neovim">
 
-## Pengaturan untuk CLI Agen AI (Claude Code, Codex, dll.)
-
-**Claude Code** memiliki dukungan plugin LSP kelas satu — ikuti [pengaturan Plugin Claude Code](#pengaturan-sebagai-plugin-claude-code) di atas untuk mendapatkan pengalaman penuh Go-to-Definition secara langsung di sesi terminal Anda.
-
-**OpenAI Codex** dan alat berbasis terminal lainnya belum bertindak sebagai klien LSP — mereka membaca dan menulis file secara langsung daripada mempertahankan sesi server bahasa yang persisten. Untuk alat-alat tersebut, nilai dari menjalankan LSP datang secara tidak langsung: ketika server aktif di editor pendamping (VS Code, Cursor, Windsurf, ...) indeks langsung editor tersedia untuk agen AI apa pun yang dapat menanyakannya melalui konteks yang disediakan editor (misalnya, Cursor Composer, Windsurf Cascade, GitHub Copilot Chat).
-
-Jika Anda bekerja murni di terminal tanpa editor yang terbuka, Anda dapat memulai server bahasa di latar belakang sehingga siap untuk editor mana pun yang kemudian terhubung ke workspace yang sama:
-
-```bash
-# Biarkan server tetap hidup di latar belakang
-npx @intlayer/lsp &
-```
-
----
-
-## Pengaturan Manual di Neovim
-
-Menggunakan [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig), daftarkan konfigurasi server khusus:
+Dengan [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig), daftarkan konfigurasi server kustom:
 
 ```lua fileName="~/.config/nvim/init.lua"
 local lspconfig = require('lspconfig')
@@ -245,7 +172,7 @@ local configs = require('lspconfig.configs')
 if not configs.intlayer_lsp then
   configs.intlayer_lsp = {
     default_config = {
-      -- Luncurkan server dengan npx sehingga Anda tidak memerlukan instalasi global
+      -- Jalankan server dengan npx agar tidak perlu instalasi global
       cmd = { 'npx', '--yes', '@intlayer/lsp' },
       filetypes = {
         'typescript',
@@ -267,21 +194,10 @@ end
 lspconfig.intlayer_lsp.setup({})
 ```
 
-Setelah memulai ulang Neovim, menekan `gd` di atas kunci Intlayer akan memicu Go to Definition.
+Setelah memulai ulang Neovim, `gd` di atas kunci kamus menjalankan Ke Definisi dan `gr` menjalankan Cari Referensi.
 
----
-
-## Pengaturan Manual di Editor Lain
-
-Editor apa pun yang mendukung Language Server Protocol dapat menggunakan `@intlayer/lsp`. Server:
-
-- **Transportasi** – Node.js IPC / stdio (standar)
-- **Executable** – `npx @intlayer/lsp` (atau biner `intlayer-lsp` yang diinstal secara lokal)
-- **Kemampuan** – `definitionProvider: true`, `textDocumentSync: Incremental`
-
-Konsultasikan dokumentasi LSP editor Anda untuk format konfigurasi yang tepat (misalnya, `languageserver.json` untuk [coc.nvim](https://github.com/neoclide/coc.nvim), atau pengaturan klien LSP di [Helix](https://helix-editor.com)).
-
-### Contoh: coc.nvim
+  </Tab>
+  <Tab label="coc.nvim" value="coc">
 
 ```json fileName="~/.config/nvim/coc-settings.json"
 {
@@ -307,9 +223,14 @@ Konsultasikan dokumentasi LSP editor Anda untuk format konfigurasi yang tepat (m
 }
 ```
 
-### Contoh: Helix
+  </Tab>
+  <Tab label="Helix" value="helix">
 
 ```toml fileName="~/.config/helix/languages.toml"
+[language-server.intlayer-lsp]
+command = "npx"
+args = ["@intlayer/lsp"]
+
 [[language]]
 name = "typescript"
 language-servers = ["intlayer-lsp", "typescript-language-server"]
@@ -317,36 +238,54 @@ language-servers = ["intlayer-lsp", "typescript-language-server"]
 [[language]]
 name = "tsx"
 language-servers = ["intlayer-lsp", "typescript-language-server"]
-
-[language-server.intlayer-lsp]
-command = "npx"
-args = ["@intlayer/lsp"]
 ```
 
----
+  </Tab>
+  <Tab label="Editor lain" value="other">
 
-## Cara Kerja
+Editor apa pun yang mendukung LSP dapat menjalankan `@intlayer/lsp`. Arahkan ke:
 
-Ketika server dimulai, ia menyelesaikan konfigurasi Intlayer dari root workspace menggunakan `getConfiguration()`. Ini memberikan jalur `build` dan `system` yang diperlukan untuk menemukan kamus yang dikompilasi.
+- **Executable** — `npx @intlayer/lsp`, atau biner `intlayer-lsp`
+- **Transport** — stdio (standar)
+- **Kapabilitas** — `definitionProvider`, `referencesProvider`, `hoverProvider`, `completionProvider` (karakter pemicu `"` `'` `` ` `` `.`), diagnostik push, `textDocumentSync: Incremental`
+- **Pola root** — `intlayer.config.ts`, `intlayer.config.js`, `package.json`
 
-Pada setiap permintaan **Go to Definition**:
+Lihat dokumentasi LSP editor Anda untuk format konfigurasi yang tepat.
 
-1. Server membaca teks lengkap dari dokumen yang terbuka.
-2. Server memindai panggilan getter (`useIntlayer`, `getIntlayer`, dll.) menggunakan ekspresi reguler.
-3. Server memeriksa apakah posisi kursor jatuh di dalam salah satu panggilan tersebut.
-4. Jika ya, ia mengekstrak kunci kamus (grup tangkapan 3 dari regex) dan memanggil `getUnmergedDictionaries()` untuk menemukan setiap file konten yang mendeklarasikan kunci tersebut.
-5. Ia membaca setiap file yang cocok dan menemukan baris persis yang berisi `key: "<key>"` untuk memposisikan kursor secara tepat.
-6. Ia mengembalikan array objek `Location` — satu per file sumber.
-
-Konfigurasi diselesaikan secara malas (lazy) dan di-cache per sesi; ia disetel ulang pada setiap permintaan `initialize` (misalnya, ketika Anda membuka folder workspace baru).
+  </Tab>
+</Tabs>
 
 ---
 
-## Pemecahan Masalah
+## Catatan tentang agen AI di terminal
 
-| Gejala                                     | Penyebab yang mungkin          | Solusi                                                                           |
-| ------------------------------------------ | ------------------------------ | -------------------------------------------------------------------------------- |
-| Go to Definition tidak melakukan apa-apa   | Server tidak berjalan          | Periksa apakah `@intlayer/lsp` terinstal dan editor meluncurkannya               |
-| Root workspace yang salah terdeteksi       | Beberapa folder workspace      | Pastikan folder yang berisi `intlayer.config.ts` adalah folder workspace pertama |
-| Definisi tidak ditemukan untuk suatu kunci | Konfigurasi tidak diselesaikan | Verifikasi `intlayer.config.ts` (atau `.js`) ada di root workspace               |
-| Server crash saat start                    | Versi Node.js terlalu usang    | Memerlukan Node.js ≥ 14.18                                                       |
+**Claude Code** bertindak sebagai klien LSP sungguhan — lihat tab di atas.
+
+**OpenAI Codex** dan sebagian besar alat terminal lain bukan klien LSP: mereka membaca dan menulis berkas secara langsung. Menjalankan server sendirian tidak membantu mereka; manfaatnya muncul saat server aktif di editor pendamping yang indeksnya bisa dikueri oleh agen (Cursor Composer, Windsurf Cascade, Copilot Chat).
+
+---
+
+## Cara kerjanya
+
+Untuk setiap berkas, server mencari `intlayer.config.*` terdekat dan memuat konfigurasi proyek tersebut guna menemukan kamus hasil kompilasi. Konfigurasi, kamus, dan daftar berkas sumber di-cache dengan TTL singkat, dan dibatalkan setiap kali berkas konten yang dipantau berubah.
+
+Pada setiap permintaan, server mem-parsing dokumen (via [oxc](https://oxc.rs/)) dan memeriksa posisi kursor:
+
+1. **Pada string kunci** (`useIntlayer("home")`) → mengembalikan setiap berkas konten yang mendeklarasikan kunci itu, diposisikan pada baris `key:`-nya.
+2. **Pada penggunaan field** (`content.title`, properti hasil destrukturisasi, `t('path.to.field')`, `<Trans>`, …) → menelusuri variabel kembali ke kamusnya dan mengembalikan field yang cocok di dalam berkas konten.
+3. **Dari berkas konten** → menjalankan pencarian balik, memindai sumber proyek untuk menemukan lokasi pemanggilan kunci atau field tersebut.
+
+---
+
+## Pemecahan masalah
+
+| Gejala                                      | Kemungkinan penyebab            | Solusi                                                                                 |
+| ------------------------------------------- | ------------------------------- | -------------------------------------------------------------------------------------- |
+| Tidak terjadi apa-apa                       | Server tidak berjalan           | Periksa `@intlayer/lsp` sudah terpasang dan editor Anda menjalankannya                 |
+| Bekerja di editor, tidak di Claude Code     | Plugin dipasang di tengah sesi  | Mulai ulang Claude Code — language server dimuat saat startup                          |
+| Definisi untuk sebuah kunci tidak ditemukan | Kamus belum dibangun            | Jalankan `npx intlayer build`, atau mulai dev server Anda                              |
+| Semua kunci dilaporkan tidak dideklarasikan | Konfigurasi tidak terselesaikan | Pastikan ada `intlayer.config.ts` (atau `.js`) di root proyek Anda                     |
+| Proyek yang salah dipakai di monorepo       | Konfigurasi per paket tidak ada | Tambahkan `intlayer.config.*` pada setiap paket yang mendeklarasikan kontennya sendiri |
+| Server crash saat mulai                     | Versi Node.js terlalu lama      | Membutuhkan Node.js ≥ 14.18                                                            |
+
+Di VS Code, server menulis log ke **View → Output → "Intlayer LSP"** — berguna untuk memastikan konfigurasi mana yang terselesaikan dan berapa kamus yang ditemukan.

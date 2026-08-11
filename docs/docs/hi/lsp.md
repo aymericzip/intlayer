@@ -1,12 +1,14 @@
 ---
 createdAt: 2025-06-07
-updatedAt: 2026-05-31
+updatedAt: 2026-08-10
 title: Intlayer LSP सर्वर
-description: जानें कि कैसे Intlayer लैंग्वेज सर्वर सभी समर्थित एडिटर्स में useIntlayer, getIntlayer और संबंधित कॉल्स के लिए परिभाषा पर जाएं (Go-to-Definition) और अन्य IDE सुविधाएँ प्रदान करता है।
+description: जानें कि Intlayer लैंग्वेज सर्वर आपके IDE और AI एजेंट में परिभाषा पर जाना, संदर्भ खोजना, होवर पूर्वावलोकन, कुंजी ऑटोकम्प्लीशन और डायग्नोस्टिक्स कैसे लाता है।
 keywords:
   - LSP
   - लैंग्वेज सर्वर
-  - परिभाषा पर जाएं
+  - Go to Definition
+  - ऑटोकम्प्लीशन
+  - डायग्नोस्टिक्स
   - IDE
   - Intlayer
   - VS Code
@@ -16,6 +18,9 @@ slugs:
   - doc
   - lsp
 history:
+  - version: 9.1.3
+    date: 2026-08-10
+    changes: "संदर्भ खोज, होवर, ऑटोकम्प्लीशन और डायग्नोस्टिक्स जोड़े गए"
   - version: 8.12.0
     date: 2026-06-01
     changes: "Release LSP"
@@ -24,48 +29,47 @@ author: aymericzip
 
 # Intlayer LSP सर्वर
 
-**Intlayer लैंग्वेज सर्वर (LSP)** एक [लैंग्वेज सर्वर प्रोटोकॉल (LSP)](https://microsoft.github.io/language-server-protocol/) कार्यान्वयन है जो Intlayer-सचेत बुद्धिमत्ता के साथ आपके IDE को बेहतर बनाता है। यह वर्तमान में डिक्शनरी कुंजी कॉल्स के लिए **परिभाषा पर जाएं (Go to Definition)** की सुविधा प्रदान करता है, जिससे आप अपने कंपोनेंट में `useIntlayer("my-key")` से सीधे उस `.content.ts` फ़ाइल पर जा सकते हैं जो इसे घोषित करती है।
+**Intlayer लैंग्वेज सर्वर** [Language Server Protocol (LSP)](https://microsoft.github.io/language-server-protocol/) का एक कार्यान्वयन है जो आपके IDE — और आपके AI एजेंट — को Intlayer के प्रति सजग बनाता है। यह `useIntlayer("home")` जैसे कॉल को उस `.content.ts` फ़ाइल से जोड़ता है जो उसे घोषित करती है, दोनों दिशाओं में।
 
 ---
 
-## LSP का उपयोग क्यों करें?
+## विशेषताएँ
 
-जब आप Intlayer का उपयोग करते हैं, तो `useIntlayer("homepage")` जैसे कॉल और `src/homepage.content.ts` में इसकी घोषणा के बीच संबंध अंतर्निहित होता है। बिना टूल्स के, आपको मैन्युअल रूप से फ़ाइल खोजनी होगी। LSP उस लिंक को स्पष्ट बनाता है:
+| विशेषता              | शॉर्टकट             | यह क्या करता है                                                                                |
+| -------------------- | ------------------- | ---------------------------------------------------------------------------------------------- |
+| **परिभाषा पर जाएँ**  | `F12` / `Cmd+क्लिक` | किसी डिक्शनरी कुंजी या फ़ील्ड के उपयोग से कंटेंट फ़ाइल में उसकी घोषणा पर पहुँचें               |
+| **सभी संदर्भ खोजें** | `Shift+F12`         | किसी कंटेंट फ़ाइल से, उस कुंजी या फ़ील्ड का उपयोग करने वाले हर कॉल स्थान की सूची दें           |
+| **होवर**             | कर्सर ले जाएँ       | फ़ाइल छोड़े बिना किसी डिक्शनरी के फ़ील्ड, या किसी फ़ील्ड का अनूदित मान देखें                   |
+| **ऑटोकम्प्लीशन**     | `"` `'` `` ` `` `.` | गेटर के भीतर घोषित डिक्शनरी कुंजियाँ, और `.` के बाद या डीस्ट्रक्चरिंग में कंटेंट फ़ील्ड सुझाएँ |
+| **डायग्नोस्टिक्स**   | स्वतः               | चेतावनी दें जब कोई कुंजी किसी भी कंटेंट फ़ाइल में घोषित न हो                                   |
 
-**AI एजेंट जागरूकता**
+दो अतिरिक्त व्यवहार जानने योग्य हैं:
 
-AI कोडिंग एजेंट (Cursor, Windsurf, GitHub Copilot, Claude Code, Codex) प्रतीकों को हल करने और फ़ाइल-क्रॉस संबंधों को समझने के लिए लैंग्वेज सर्वर पर निर्भर करते हैं। Intlayer LSP चलने के साथ, एजेंट `useIntlayer("key")` का उसकी घोषणा तक पीछा कर सकते हैं, जिससे उन्हें उपलब्ध कंटेंट कुंजियों, प्रत्येक डिक्शनरी के आकार और किन फ़ाइलों को पढ़ना या संपादित करना है, इसके बारे में सटीक संदर्भ मिलता है।
+- **मर्ज की गई डिक्शनरियाँ** — कई कंटेंट फ़ाइलों में बँटी कुंजी हर फ़ाइल के लिए एक परिणाम लौटाती है, जिससे आप हर घोषणा तक जा सकते हैं।
+- **मोनोरेपो-अनुकूल** — सर्वर हर फ़ाइल के _निकटतम_ `intlayer.config.*` को हल करता है, जिससे एक ही वर्कस्पेस के कई प्रोजेक्ट्स को अपनी-अपनी डिक्शनरियाँ मिलती हैं।
 
-**परिभाषा पर जाएं**
+### समर्थित कॉल
 
-किसी भी समर्थित गेटर कॉल के अंदर किसी डिक्शनरी कुंजी स्ट्रिंग पर अपना कर्सर रखें और `F12` (या `Cmd/Ctrl+Click`) दबाएं। एडिटर कंटेंट घोषणा फ़ाइल खोलता है और कर्सर को `key:` लाइन पर रखता है।
+कुंजी या तो स्थिति-आधारित स्ट्रिंग आर्ग्युमेंट से पढ़ी जाती है, या विकल्प ऑब्जेक्ट (`{ namespace }`, `{ id }`) से।
 
-**मर्ज की गई डिक्शनरी का समर्थन**
+| लाइब्रेरी                   | कॉल                                                      |
+| --------------------------- | -------------------------------------------------------- |
+| **Intlayer**                | `useIntlayer`, `getIntlayer`                             |
+| **i18next / react-i18next** | `useTranslation`, `getFixedT`, `t`, `Trans`              |
+| **next-intl / use-intl**    | `useTranslations`, `getTranslations`, `createTranslator` |
+| **react-intl**              | `formatMessage`, `FormattedMessage`                      |
+| **Lingui**                  | `useLingui`, `t`, `Trans`, `_`                           |
+| **vue-i18n**                | `useI18n`                                                |
 
-एक कुंजी को कई कंटेंट फ़ाइलों में विभाजित किया जा सकता है (Intlayer उन्हें मर्ज करता है)। सर्वर प्रति स्रोत फ़ाइल एक स्थान (`Location`) लौटाता है ताकि आप प्रत्येक घोषणा पर जा सकें।
+यह हर `*-intlayer` पैकेज (`next-intlayer`, `react-intlayer`, `vue-intlayer`, `svelte-intlayer`, `solid-intlayer`, `preact-intlayer`, `angular-intlayer`, `lit-intlayer`, `express-intlayer`, `hono-intlayer`, `fastify-intlayer`, `intlayer`) के लिए काम करता है, और उन compat अडैप्टर पैकेजों के लिए भी जो आपको अपना मौजूदा i18n सिंटैक्स बनाए रखने देते हैं।
 
-**हर जगह काम करता है**
-
-सभी `*-intlayer` पैकेजों का समर्थन करता है (`next-intlayer`, `react-intlayer`, `vue-intlayer`, `svelte-intlayer`, `solid-intlayer`, `preact-intlayer`, `angular-intlayer`, `lit-intlayer`, `express-intlayer`, `hono-intlayer`, `fastify-intlayer`, `adonis-intlayer`, `intlayer`)।
-
-### समर्थित गेटर कॉल्स
-
-सर्वर निम्नलिखित फ़ंक्शन कॉल्स का पता लगाता है और पहले स्ट्रिंग-लिटरल तर्क को डिक्शनरी कुंजी के रूप में निकालता है:
-
-| फ़ंक्शन       | उदाहरण                        |
-| ------------- | ----------------------------- |
-| `useIntlayer` | `useIntlayer("hero")`         |
-| `getIntlayer` | `getIntlayer("hero", locale)` |
-
-TypeScript जेनिरिक्स और अतिरिक्त तर्कों को अनदेखा कर दिया जाता है — केवल कुंजी स्ट्रिंग मायने रखती है।
-
-> `useDictionary` और `getDictionary` एक स्ट्रिंग कुंजी के बजाय पहले तर्क के रूप में पहले से इम्पोर्टेड `Dictionary` ऑब्जेक्ट लेते हैं, इसलिए वे परिभाषा पर जाएं सुविधा से लाभान्वित नहीं होते हैं और सर्वर द्वारा ट्रैक नहीं किए जाते हैं।
+> डिक्शनरियाँ बिल्ड आउटपुट से पढ़ी जाती हैं, इसलिए `npx intlayer build` चलाएँ — या अपना डेव सर्वर चालू रखें — ताकि सर्वर के पास हल करने को कुछ हो।
 
 ---
 
 ## इंस्टॉलेशन
 
-LSP सर्वर `@intlayer/lsp` के हिस्से के रूप में वितरित किया जाता है:
+सर्वर `@intlayer/lsp` में `intlayer-lsp` बाइनरी के रूप में वितरित होता है:
 
 ```bash packageManager="npm"
 npm install --save-dev @intlayer/lsp
@@ -83,43 +87,43 @@ pnpm add --save-dev @intlayer/lsp
 bun add --dev @intlayer/lsp
 ```
 
-यह पैकेज `intlayer-lsp` बाइनरी को उजागर करता है, जिसे एडिटर्स सर्वर एक्ज़ीक्यूटेबल के रूप में उपयोग करते हैं।
+यदि आपके एडिटर को `PATH` में `intlayer-lsp` चाहिए तो इसके बजाय इसे ग्लोबली इंस्टॉल करें (`npm install -g @intlayer/lsp`) — Claude Code प्लगइन और नीचे दिए हर उस कॉन्फ़िगरेशन के लिए यही स्थिति है जो बाइनरी को सीधे कॉल करता है।
 
 ---
 
-## Claude Code प्लगइन के रूप में सेटअप करें
+## सेटअप
 
-Intlayer LSP सीधे Intlayer GitHub रिपॉजिटरी में होस्ट किए गए **Claude Code प्लगइन** के रूप में उपलब्ध है। इसे इंस्टॉल करने से Claude Code को आपके सभी `useIntlayer` / `getIntlayer` कॉल्स के लिए मूल परिभाषा पर जाएं (Go-to-Definition) की जागरूकता मिलती है।
+<Tabs defaultTab="vscode">
+  <Tab label="VS Code" value="vscode">
 
-### 1. लैंग्वेज सर्वर बाइनरी इंस्टॉल करें
+[Intlayer VS Code एक्सटेंशन](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension) इंस्टॉल करें। लैंग्वेज सर्वर v8.12.0 से इसमें शामिल है और स्वतः शुरू होता है — **किसी कॉन्फ़िगरेशन की ज़रूरत नहीं**।
 
-```bash packageManager="npm"
-npm install -g @intlayer/lsp
-```
+अन्य सुविधाओं के लिए [VS Code एक्सटेंशन दस्तावेज़](https://intlayer.org/doc/vs-code-extension) देखें।
 
-```bash packageManager="yarn"
-yarn global add @intlayer/lsp
-```
+  </Tab>
+  <Tab label="Cursor / Windsurf" value="cursor">
 
-```bash packageManager="pnpm"
-pnpm add -g @intlayer/lsp
-```
+[Cursor](https://www.cursor.com/) और [Windsurf](https://windsurf.com/) VS Code के फ़ोर्क हैं और उसी एक्सटेंशन इकोसिस्टम का उपयोग करते हैं। [Intlayer VS Code एक्सटेंशन](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension) एक बार इंस्टॉल करें और सर्वर स्वतः सक्रिय हो जाता है — **किसी कॉन्फ़िगरेशन की ज़रूरत नहीं**।
 
-यह `intlayer-lsp` बाइनरी को आपके PATH पर रखता है, जिसे प्लगइन की `lspServers` प्रविष्टि कॉल करती है।
+  </Tab>
+  <Tab label="Claude Code" value="claude-code">
 
-### 2. Intlayer मार्केटप्लेस पंजीकृत करें और प्लगइन इंस्टॉल करें
+Intlayer एक **Claude Code प्लगइन** देता है जो Intlayer रिपॉज़िटरी में होस्ट है। यह Claude Code को `grep` पर लौटने के बजाय आपकी डिक्शनरी कुंजियों के लिए वास्तविक सिंबल रिज़ॉल्यूशन देता है।
+
+बाइनरी को अपने `PATH` में रखें, फिर marketplace रजिस्टर करें और प्लगइन इंस्टॉल करें:
 
 ```bash
+npm install -g @intlayer/lsp
+
 claude plugin marketplace add intlayer@github:aymericzip/intlayer
 claude plugin install intlayer-lsp@intlayer
-claude plugin enable intlayer-lsp@intlayer
 ```
 
-Claude Code आपके `enabledPlugins` में `"intlayer-lsp@intlayer": true` जोड़ देगा और समर्थित फ़ाइल प्रकारों (`.ts`, `.tsx`, `.js`, `.jsx`, `.vue`, `.svelte`) पर स्वचालित रूप से लैंग्वेज सर्वर शुरू कर देगा।
+`install` प्लगइन को सक्षम भी कर देता है। **Claude Code पुनः आरंभ करें** — लैंग्वेज सर्वर स्टार्टअप पर लोड होते हैं, इसलिए तब तक प्लगइन का कोई असर नहीं होता।
 
-### 3. LSP टूल सक्षम करें (यदि पहले से सक्रिय नहीं है)
+इसके बाद Claude Code `.ts`, `.tsx`, `.js`, `.jsx`, `.vue`, `.astro` और `.svelte` फ़ाइलों पर सर्वर शुरू करता है, और आपके कोड में नेविगेट करते समय `goToDefinition`, `findReferences` और `hover` का उपयोग करता है।
 
-कुछ Claude Code संस्करणों को LSP फ़ीचर फ़्लैग सेट करने की आवश्यकता होती है। यदि इंस्टॉलेशन के बाद परिभाषा पर जाएं काम नहीं कर रहा है, तो अपनी `~/.claude/settings.json` में निम्नलिखित जोड़ें:
+यदि परिभाषा पर जाना अब भी काम नहीं करता, तो संभव है कि आपका Claude Code संस्करण LSP टूल को किसी फ़्लैग के पीछे रखता हो:
 
 ```json fileName="~/.claude/settings.json"
 {
@@ -129,61 +133,10 @@ Claude Code आपके `enabledPlugins` में `"intlayer-lsp@intlayer": tr
 }
 ```
 
-Claude Code को पुनरारंभ करें — यह अब Intlayer कोडबेस को नेविगेट करते समय `grep` पर वापस जाने के बजाय `goToDefinition`, `findReferences` और अन्य LSP ऑपरेशन्स का उपयोग करेगा।
+  </Tab>
+  <Tab label="Zed" value="zed">
 
----
-
-## VS Code में सेटअप (एक्सटेंशन के माध्यम से — अनुशंसित)
-
-यदि आपके पास [Intlayer VS Code एक्सटेंशन](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension) इंस्टॉल है, तो लैंग्वेज सर्वर स्वचालित रूप से शुरू हो जाता है। किसी अतिरिक्त कॉन्फ़िगरेशन की आवश्यकता नहीं है। LSP को v8.12.0 के बाद से सीधे VSCode एक्सटेंशन में एकीकृत किया गया है।
-
-> इंस्टॉलेशन और अन्य सुविधाओं के लिए [VS Code एक्सटेंशन दस्तावेज़](https://intlayer.org/doc/vs-code-extension) देखें।
-
----
-
-## VS Code में मैन्युअल सेटअप
-
-यदि आप Intlayer एक्सटेंशन का उपयोग नहीं कर रहे हैं, तो आप [**vscode-glspc**](https://marketplace.visualstudio.com/items?itemName=sibiraj-s.vscode-scss-formatter) जैसे सामान्य LSP क्लाइंट एक्सटेंशन का उपयोग करके या अपना खुद का छोटा एक्सटेंशन लिखकर मैन्युअल रूप से लैंग्वेज सर्वर को कनेक्ट कर सकते हैं। अनुशंसित तरीका Intlayer एक्सटेंशन का उपयोग करना है।
-
-संदर्भ के लिए, सर्वर stdio पर `intlayer-lsp` बाइनरी के माध्यम से लॉन्च होता है:
-
-```json fileName=".vscode/settings.json"
-{
-  "intlayer.languageServer.command": "npx",
-  "intlayer.languageServer.args": ["@intlayer/lsp"]
-}
-```
-
-Intlayer एक्सटेंशन सर्वर लॉन्च करने के लिए इन सेटिंग्स को पढ़ता है। यदि आप पूरी तरह से एक्सटेंशन पर निर्भर हैं, तो किसी मैन्युअल सेटिंग्स की आवश्यकता नहीं है।
-
----
-
-## Cursor में सेटअप
-
-[Cursor](https://www.cursor.com/) अंतर्निहित AI सुविधाओं वाला एक VS Code फ़ोर्क है। यह समान एक्सटेंशन पारिस्थितिकी तंत्र का उपयोग करता है, इसलिए **Intlayer VS Code एक्सटेंशन** बिना किसी अतिरिक्त कॉन्फ़िगरेशन के काम करता है — इसे एक बार इंस्टॉल करें और Cursor इसे स्वचालित रूप से चुन लेता है।
-
-यदि आप मैन्युअल कॉन्फ़िगरेशन पसंद करते हैं, तो Cursor वर्कस्पेस रूट से `.vscode/settings.json` भी पढ़ता है, इसलिए उपरोक्त VS Code स्निपेट सीधे लागू होता है।
-
----
-
-## Windsurf में सेटअप
-
-[Windsurf](https://windsurf.com/) (Codeium द्वारा) एक अन्य VS Code-आधारित एडिटर है। VS Code मार्केटप्लेस से Intlayer एक्सटेंशन इंस्टॉल करें और लैंग्वेज सर्वर स्वचालित रूप से सक्रिय हो जाता है, ठीक वैसे ही जैसे VS Code और Cursor में होता है।
-
-मैन्युअल कॉन्फ़िगरेशन के लिए, प्रोजेक्ट रूट पर `.vscode/settings.json` बनाएं:
-
-```json fileName=".vscode/settings.json"
-{
-  "intlayer.languageServer.command": "npx",
-  "intlayer.languageServer.args": ["@intlayer/lsp"]
-}
-```
-
----
-
-## Zed में सेटअप
-
-[Zed](https://zed.dev/) में इसकी भाषा सेटिंग्स के माध्यम से मूल LSP समर्थन है। अपने Zed उपयोगकर्ता सेटिंग्स (`~/.config/zed/settings.json`) में एक प्रविष्टि जोड़ें:
+Zed में LSP का मूल समर्थन है। सर्वर को अपनी यूज़र सेटिंग्स में जोड़ें:
 
 ```json fileName="~/.config/zed/settings.json"
 {
@@ -196,47 +149,21 @@ Intlayer एक्सटेंशन सर्वर लॉन्च करन�
     }
   },
   "languages": {
-    "TypeScript": {
-      "language_servers": ["intlayer-lsp", "..."]
-    },
-    "TSX": {
-      "language_servers": ["intlayer-lsp", "..."]
-    },
-    "JavaScript": {
-      "language_servers": ["intlayer-lsp", "..."]
-    },
-    "Vue.js": {
-      "language_servers": ["intlayer-lsp", "..."]
-    },
-    "Svelte": {
-      "language_servers": ["intlayer-lsp", "..."]
-    }
+    "TypeScript": { "language_servers": ["intlayer-lsp", "..."] },
+    "TSX": { "language_servers": ["intlayer-lsp", "..."] },
+    "JavaScript": { "language_servers": ["intlayer-lsp", "..."] },
+    "Vue.js": { "language_servers": ["intlayer-lsp", "..."] },
+    "Svelte": { "language_servers": ["intlayer-lsp", "..."] }
   }
 }
 ```
 
-`"..."` प्लेसहोल्डर Zed को Intlayer वाले के साथ अपने डिफ़ॉल्ट लैंग्वेज सर्वर्स को रखने के लिए कहता है।
+`"..."` प्लेसहोल्डर Zed के डिफ़ॉल्ट लैंग्वेज सर्वरों को Intlayer वाले के साथ बनाए रखता है।
 
----
+  </Tab>
+  <Tab label="Neovim" value="neovim">
 
-## AI एजेंट CLI (Claude Code, Codex, आदि) के लिए सेटअप
-
-**Claude Code** में प्रथम श्रेणी का LSP प्लगइन समर्थन है — सीधे अपने टर्मिनल सत्रों में परिभाषा पर जाने का पूर्ण अनुभव प्राप्त करने के लिए उपरोक्त [Claude Code प्लगइन सेटअप](#claude-code-प्लगइन-के-रूप-में-सेटअप-करें) का पालन करें।
-
-**OpenAI Codex** और अन्य टर्मिनल-आधारित उपकरण अभी तक LSP क्लाइंट के रूप में कार्य नहीं करते हैं — वे लगातार लैंग्वेज सर्वर सत्र बनाए रखने के बजाय सीधे फ़ाइलों को पढ़ते और लिखते हैं। उन उपकरणों के लिए, LSP चलने का मूल्य अप्रत्यक्ष रूप से आता है: जब सर्वर एक साथी एडिटर (VS Code, Cursor, Windsurf, ...) में सक्रिय होता है, तो एडिटर का लाइव इंडेक्स किसी भी AI एजेंट के लिए उपलब्ध होता है जो एडिटर द्वारा प्रदान किए गए संदर्भ (जैसे, Cursor Composer, Windsurf Cascade, GitHub Copilot Chat) के माध्यम से इसे क्वेरी कर सकता है।
-
-यदि आप बिना एडिटर खोले विशुद्ध रूप से टर्मिनल में काम कर रहे हैं, तो आप बैकग्राउंड में लैंग्वेज सर्वर शुरू कर सकते हैं ताकि यह किसी भी एडिटर के लिए तैयार रहे जो बाद में उसी वर्कस्पेस से जुड़ता है:
-
-```bash
-# सर्वर को बैकग्राउंड में चालू रखें
-npx @intlayer/lsp &
-```
-
----
-
-## Neovim में मैन्युअल सेटअप
-
-[nvim-lspconfig](https://github.com/neovim/nvim-lspconfig) का उपयोग करके, एक कस्टम सर्वर कॉन्फ़िगरेशन पंजीकृत करें:
+[nvim-lspconfig](https://github.com/neovim/nvim-lspconfig) का उपयोग करते हुए, एक कस्टम सर्वर कॉन्फ़िगरेशन रजिस्टर करें:
 
 ```lua fileName="~/.config/nvim/init.lua"
 local lspconfig = require('lspconfig')
@@ -245,7 +172,7 @@ local configs = require('lspconfig.configs')
 if not configs.intlayer_lsp then
   configs.intlayer_lsp = {
     default_config = {
-      -- npx के साथ सर्वर लॉन्च करें ताकि आपको वैश्विक इंस्टॉलेशन की आवश्यकता न हो
+      -- सर्वर को npx से चलाएँ ताकि ग्लोबल इंस्टॉल की ज़रूरत न पड़े
       cmd = { 'npx', '--yes', '@intlayer/lsp' },
       filetypes = {
         'typescript',
@@ -267,21 +194,10 @@ end
 lspconfig.intlayer_lsp.setup({})
 ```
 
-Neovim को पुनरारंभ करने के बाद, Intlayer कुंजी पर `gd` दबाने से परिभाषा पर जाएं कॉल होगा।
+Neovim पुनः आरंभ करने के बाद, किसी डिक्शनरी कुंजी पर `gd` परिभाषा पर जाएँ चलाता है और `gr` संदर्भ खोजें चलाता है।
 
----
-
-## अन्य एडिटर्स में मैन्युअल सेटअप
-
-कोई भी एडिटर जो लैंग्वेज सर्वर प्रोटोकॉल का समर्थन करता है, `@intlayer/lsp` का उपयोग कर सकता है। सर्वर:
-
-- **ट्रांसपोर्ट** – Node.js IPC / stdio (मानक)
-- **एक्ज़ीक्यूटेबल** – `npx @intlayer/lsp` (या स्थानीय रूप से स्थापित `intlayer-lsp` बाइनरी)
-- **क्षमताएं** – `definitionProvider: true`, `textDocumentSync: Incremental`
-
-सटीक कॉन्फ़िगरेशन प्रारूप के लिए अपने एडिटर के LSP दस्तावेज़ों से परामर्श लें (उदाहरण के लिए, [coc.nvim](https://github.com/neoclide/coc.nvim) के लिए `languageserver.json`, या [Helix](https://helix-editor.com) में LSP क्लाइंट सेटिंग्स)।
-
-### उदाहरण: coc.nvim
+  </Tab>
+  <Tab label="coc.nvim" value="coc">
 
 ```json fileName="~/.config/nvim/coc-settings.json"
 {
@@ -307,9 +223,14 @@ Neovim को पुनरारंभ करने के बाद, Intlayer �
 }
 ```
 
-### उदाहरण: Helix
+  </Tab>
+  <Tab label="Helix" value="helix">
 
 ```toml fileName="~/.config/helix/languages.toml"
+[language-server.intlayer-lsp]
+command = "npx"
+args = ["@intlayer/lsp"]
+
 [[language]]
 name = "typescript"
 language-servers = ["intlayer-lsp", "typescript-language-server"]
@@ -317,36 +238,54 @@ language-servers = ["intlayer-lsp", "typescript-language-server"]
 [[language]]
 name = "tsx"
 language-servers = ["intlayer-lsp", "typescript-language-server"]
-
-[language-server.intlayer-lsp]
-command = "npx"
-args = ["@intlayer/lsp"]
 ```
+
+  </Tab>
+  <Tab label="अन्य एडिटर" value="other">
+
+LSP सक्षम कोई भी एडिटर `@intlayer/lsp` चला सकता है। उसे यह बताएँ:
+
+- **एक्ज़ीक्यूटेबल** — `npx @intlayer/lsp`, या `intlayer-lsp` बाइनरी
+- **ट्रांसपोर्ट** — stdio (मानक)
+- **क्षमताएँ** — `definitionProvider`, `referencesProvider`, `hoverProvider`, `completionProvider` (ट्रिगर वर्ण `"` `'` `` ` `` `.`), पुश डायग्नोस्टिक्स, `textDocumentSync: Incremental`
+- **रूट पैटर्न** — `intlayer.config.ts`, `intlayer.config.js`, `package.json`
+
+सटीक कॉन्फ़िगरेशन प्रारूप के लिए अपने एडिटर का LSP दस्तावेज़ देखें।
+
+  </Tab>
+</Tabs>
+
+---
+
+## टर्मिनल AI एजेंट्स पर टिप्पणी
+
+**Claude Code** एक वास्तविक LSP क्लाइंट की तरह काम करता है — ऊपर का टैब देखें।
+
+**OpenAI Codex** और अधिकांश अन्य टर्मिनल टूल LSP क्लाइंट नहीं हैं: वे फ़ाइलें सीधे पढ़ते और लिखते हैं। सर्वर को अकेले चलाने से उन्हें मदद नहीं मिलती; लाभ तब मिलता है जब वह किसी सहयोगी एडिटर में सक्रिय हो जिसका इंडेक्स एजेंट क्वेरी कर सके (Cursor Composer, Windsurf Cascade, Copilot Chat)।
 
 ---
 
 ## यह कैसे काम करता है
 
-जब सर्वर शुरू होता है, तो यह `getConfiguration()` का उपयोग करके वर्कस्पेस रूट से Intlayer कॉन्फ़िगरेशन को हल करता है। यह इसे संकलित डिक्शनरी खोजने के लिए आवश्यक `build` और `system` पथ देता है।
+हर फ़ाइल के लिए सर्वर निकटतम `intlayer.config.*` खोजता है और उस प्रोजेक्ट का कॉन्फ़िगरेशन लोड करके संकलित डिक्शनरियाँ ढूँढता है। कॉन्फ़िगरेशन, डिक्शनरियाँ और स्रोत-फ़ाइल सूची छोटे TTL के साथ कैश होती हैं, और किसी निगरानी-अधीन कंटेंट फ़ाइल के बदलते ही अमान्य कर दी जाती हैं।
 
-प्रत्येक **परिभाषा पर जाएं** अनुरोध पर:
+अनुरोध पर, सर्वर दस्तावेज़ को ([oxc](https://oxc.rs/) के ज़रिए) पार्स करता है और कर्सर की स्थिति जाँचता है:
 
-1. सर्वर खुली हुई दस्तावेज़ का पूरा टेक्स्ट पढ़ता.
-2. यह एक नियमित अभिव्यक्ति का उपयोग करके गेटर कॉल्स (`useIntlayer`, `getIntlayer` आदि) को स्कैन करता है।
-3. यह जांचता है कि क्या कर्सर की स्थिति उन कॉल्स में से किसी एक के अंदर आती है।
-4. यदि ऐसा होता है, तो यह डिक्शनरी कुंजी (रेगेक्स का कैप्चर समूह 3) निकालता है और उस कुंजी को घोषित करने वाली प्रत्येक कंटेंट फ़ाइल का पता लगाने के लिए `getUnmergedDictionaries()` को कॉल करता है।
-5. यह प्रत्येक मिलान वाली फ़ाइल को पढ़ता है और कर्सर को सटीक रूप से स्थान देने के लिए `key: "<key>"` वाली सटीक लाइन ढूंढता है।
-6. यह `Location` ऑब्जेक्ट्स का एक सरणी लौटाता है — प्रति स्रोत फ़ाइल एक।
-
-कॉन्फ़िगरेशन को सुस्ती से हल किया जाता है और प्रति सत्र कैश किया जाता है; यह प्रत्येक `initialize` अनुरोध पर रीसेट होता है (उदाहरण के लिए, जब आप एक नया वर्कस्पेस फ़ोल्डर खोलते हैं)।
+1. **किसी कुंजी स्ट्रिंग पर** (`useIntlayer("home")`) → उस कुंजी को घोषित करने वाली हर कंटेंट फ़ाइल लौटाता है, उसकी `key:` पंक्ति पर स्थित।
+2. **किसी फ़ील्ड उपयोग पर** (`content.title`, कोई डीस्ट्रक्चर की गई प्रॉपर्टी, `t('path.to.field')`, `<Trans>`, …) → वेरिएबल को उसकी डिक्शनरी तक पीछे हल करता है और कंटेंट फ़ाइलों में संगत फ़ील्ड लौटाता है।
+3. **किसी कंटेंट फ़ाइल से** → उलटी खोज चलाता है, और उस कुंजी या फ़ील्ड के कॉल स्थानों के लिए प्रोजेक्ट स्रोतों को स्कैन करता है।
 
 ---
 
-## समस्या निवारण
+## समस्या-निवारण
 
-| लक्षण                                  | संभावित कारण                   | समाधान                                                                        |
-| -------------------------------------- | ------------------------------ | ----------------------------------------------------------------------------- |
-| परिभाषा पर जाएं कुछ नहीं करता          | सर्वर नहीं चल रहा है           | जांचें कि क्या `@intlayer/lsp` इंस्टॉल है और एडिटर इसे लॉन्च कर रहा है        |
-| गलत वर्कस्पेस रूट का पता चला           | एकाधिक वर्कस्पेस फ़ोल्डर       | सुनिश्चित करें कि `intlayer.config.ts` वाली फ़ोल्डर पहली वर्कस्पेस फ़ोल्डर है |
-| किसी कुंजी के लिए परिभाषाएँ नहीं मिलीं | कॉन्फ़िगरेशन हल नहीं हुआ       | सत्यापित करें कि वर्कस्पेस रूट पर `intlayer.config.ts` (या `.js`) मौजूद है    |
-| सर्वर स्टार्टअप पर क्रैश हो जाता है    | Node.js संस्करण बहुत पुराना है | Node.js ≥ 14.18 की आवश्यकता है                                                |
+| लक्षण                                       | संभावित कारण                     | समाधान                                                                      |
+| ------------------------------------------- | -------------------------------- | --------------------------------------------------------------------------- |
+| कुछ भी नहीं होता                            | सर्वर नहीं चल रहा                | जाँचें कि `@intlayer/lsp` इंस्टॉल है और आपका एडिटर उसे शुरू करता है         |
+| एडिटर में काम करता है, Claude Code में नहीं | सत्र के बीच प्लगइन इंस्टॉल किया  | Claude Code पुनः आरंभ करें — लैंग्वेज सर्वर स्टार्टअप पर लोड होते हैं       |
+| किसी कुंजी की परिभाषा नहीं मिलती            | डिक्शनरियाँ बिल्ड नहीं हुईं      | `npx intlayer build` चलाएँ, या अपना डेव सर्वर शुरू करें                     |
+| हर कुंजी अघोषित बताई जाती है                | कॉन्फ़िगरेशन हल नहीं हुआ         | सत्यापित करें कि प्रोजेक्ट रूट में `intlayer.config.ts` (या `.js`) मौजूद है |
+| मोनोरेपो में ग़लत प्रोजेक्ट उपयोग हुआ       | प्रति-पैकेज कॉन्फ़िगरेशन नहीं है | अपना कंटेंट घोषित करने वाले हर पैकेज में `intlayer.config.*` जोड़ें         |
+| शुरू होते ही सर्वर क्रैश हो जाता है         | Node.js संस्करण बहुत पुराना      | Node.js ≥ 14.18 आवश्यक है                                                   |
+
+VS Code में सर्वर **View → Output → "Intlayer LSP"** में लॉग लिखता है — यह पुष्टि करने में उपयोगी कि कौन-सा कॉन्फ़िगरेशन हल हुआ और कितनी डिक्शनरियाँ मिलीं।

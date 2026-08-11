@@ -1,12 +1,14 @@
 ---
 createdAt: 2025-06-07
-updatedAt: 2026-05-31
-title: خادم Intlayer LSP
-description: تعرف على كيفية توفير خادم لغة Intlayer لميزة الانتقال إلى التعريف وميزات IDE الأخرى لاستدعاءات useIntlayer وgetIntlayer والاستدعاءات ذات الصلة عبر جميع المحررات المدعومة.
+updatedAt: 2026-08-10
+title: خادم LSP الخاص بـ Intlayer
+description: تعرّف على كيفية إتاحة خادم اللغة الخاص بـ Intlayer للانتقال إلى التعريف، والبحث عن المراجع، والمعاينة عند التحويم، والإكمال التلقائي للمفاتيح، والتشخيصات داخل محرّرك ووكيل الذكاء الاصطناعي لديك.
 keywords:
   - LSP
   - خادم اللغة
-  - الانتقال إلى التعريف
+  - Go to Definition
+  - الإكمال التلقائي
+  - التشخيصات
   - IDE
   - Intlayer
   - VS Code
@@ -16,56 +18,58 @@ slugs:
   - doc
   - lsp
 history:
+  - version: 9.1.3
+    date: 2026-08-10
+    changes: "إضافة البحث عن المراجع والتحويم والإكمال التلقائي والتشخيصات"
   - version: 8.12.0
     date: 2026-06-01
     changes: "Release LSP"
 author: aymericzip
 ---
 
-# خادم Intlayer LSP
+# خادم LSP الخاص بـ Intlayer
 
-**خادم لغة Intlayer (LSP)** هو تطبيق لـ [بروتوكول خادم اللغة (LSP)](https://microsoft.github.io/language-server-protocol/) يعمل على تحسين بيئة التطوير المتكاملة (IDE) الخاصة بك بذكاء يدعم Intlayer. يوفر حاليًا ميزة **الانتقال إلى التعريف (Go to Definition)** لاستدعاءات مفاتيح القاموس، مما يتيح لك الانتقال مباشرة من `useIntlayer("my-key")` في مكونك إلى ملف `.content.ts` الذي يعلن عنه.
+**خادم اللغة الخاص بـ Intlayer** هو تنفيذ لـ [Language Server Protocol (LSP)](https://microsoft.github.io/language-server-protocol/) يجعل محرّرك — ووكيل الذكاء الاصطناعي لديك — على دراية بـ Intlayer. فهو يربط استدعاءً مثل `useIntlayer("home")` بملف `.content.ts` الذي يصرّح عنه، في الاتجاهين معًا.
 
 ---
 
-## لماذا تستخدم الـ LSP؟
+## المزايا
 
-عند استخدام Intlayer، يكون الاتصال بين استدعاء مثل `useIntlayer("homepage")` والإعلان عنه في `src/homepage.content.ts` ضمنيًا. بدون أدوات، يجب عليك البحث عن الملف يدويًا. يجعل الـ LSP هذا الرابط صريحًا:
+| الميزة                   | الاختصار            | الوصف                                                                                |
+| ------------------------ | ------------------- | ------------------------------------------------------------------------------------ |
+| **الانتقال إلى التعريف** | `F12` / `Cmd+نقر`   | الانتقال من مفتاح قاموس أو موضع استخدام حقل إلى تصريحه في ملف المحتوى                |
+| **البحث عن كل المراجع**  | `Shift+F12`         | من ملف محتوى، سرد كل مواضع الاستدعاء التي تستخدم ذلك المفتاح أو الحقل                |
+| **التحويم**              | مرّر المؤشر فوقه    | معاينة حقول القاموس، أو القيمة المترجمة لحقل ما، دون مغادرة الملف                    |
+| **الإكمال التلقائي**     | `"` `'` `` ` `` `.` | اقتراح مفاتيح القواميس المصرّح بها داخل الدالة، وحقول المحتوى بعد `.` أو عند التفكيك |
+| **التشخيصات**            | تلقائي              | التحذير عندما لا يكون المفتاح مصرّحًا به في أي ملف محتوى                             |
 
-**وعي وكيل الذكاء الاصطناعي**
+هناك سلوكان إضافيان يستحقان المعرفة:
 
-تعتمد وكلاء البرمجة القائمون على الذكاء الاصطناعي (Cursor, Windsurf, GitHub Copilot, Claude Code, Codex) على خادم اللغة لحل الرموز وفهم العلاقات عبر الملفات. مع تشغيل خادم لغة Intlayer، يمكن للوكلاء تتبع `useIntlayer("key")` للعودة إلى إعلانه، مما يمنحهم سياقًا دقيقًا حول مفاتيح المحتوى المتاحة، وهيكل كل قاموس، والملفات التي يجب قراءتها أو تحريرها.
+- **القواميس المدمجة** — المفتاح الموزّع على عدة ملفات محتوى يُعيد نتيجة واحدة لكل ملف، بحيث يمكنك الانتقال إلى كل تصريح.
+- **متوافق مع المستودعات الأحادية** — يحدّد الخادم ملف `intlayer.config.*` _الأقرب_ إلى كل ملف، بحيث يحصل كل مشروع ضمن مساحة العمل نفسها على قواميسه الخاصة.
 
-**الانتقال إلى التعريف**
+### الاستدعاءات المدعومة
 
-ضع المؤشر على أي سلسلة مفاتيح قاموس داخل استدعاء جلب مدعوم واضغط على `F12` (أو `Cmd/Ctrl+Click`). يفتح المحرر ملف إعلان المحتوى ويضع المؤشر على سطر `:key`.
+يُقرأ المفتاح إمّا من وسيط نصّي موضعي أو من كائن خيارات (`{ namespace }`، `{ id }`).
 
-**دعم القواميس المدمجة**
+| المكتبة                     | الاستدعاءات                                              |
+| --------------------------- | -------------------------------------------------------- |
+| **Intlayer**                | `useIntlayer`, `getIntlayer`                             |
+| **i18next / react-i18next** | `useTranslation`, `getFixedT`, `t`, `Trans`              |
+| **next-intl / use-intl**    | `useTranslations`, `getTranslations`, `createTranslator` |
+| **react-intl**              | `formatMessage`, `FormattedMessage`                      |
+| **Lingui**                  | `useLingui`, `t`, `Trans`, `_`                           |
+| **vue-i18n**                | `useI18n`                                                |
 
-يمكن تقسيم المفتاح عبر ملفات محتوى متعددة (يقوم Intlayer بدمجها). يعيد الخادم موقعًا واحدًا (`Location`) لكل ملف مصدر بحيث يمكنك التنقل إلى كل إعلان.
+يعمل هذا مع كل حزم `*-intlayer` (`next-intlayer`، `react-intlayer`، `vue-intlayer`، `svelte-intlayer`، `solid-intlayer`، `preact-intlayer`، `angular-intlayer`، `lit-intlayer`، `express-intlayer`، `hono-intlayer`، `fastify-intlayer`، `intlayer`)، ومع حزم المحوّلات التوافقية التي تتيح لك الإبقاء على صياغة i18n الحالية لديك.
 
-**يعمل في كل مكان**
-
-يدعم جميع حزم `*-intlayer` (`next-intlayer`, `react-intlayer`, `vue-intlayer`, `svelte-intlayer`, `solid-intlayer`, `preact-intlayer`, `angular-intlayer`, `lit-intlayer`, `express-intlayer`, `hono-intlayer`, `fastify-intlayer`, `adonis-intlayer`, `intlayer`).
-
-### استدعاءات الجلب المدعومة
-
-يكتشف الخادم استدعاءات الوظائف التالية ويستخرج الوسيط الأول لسلسلة الأحرف كمفتاح للقاموس:
-
-| الوظيفة       | مثال                          |
-| ------------- | ----------------------------- |
-| `useIntlayer` | `useIntlayer("hero")`         |
-| `getIntlayer` | `getIntlayer("hero", locale)` |
-
-يتم تجاهل جينيريك TypeScript والوسائط الإضافية — فقط سلسلة المفاتيح هي ما يهم.
-
-> تأخذ `useDictionary` و`getDictionary` كائن `Dictionary` مستورد بالفعل كوسيط أول لها بدلاً من مفتاح سلسلة أحرف، لذا فهي لا تستفيد من ميزة الانتقال إلى التعريف ولا يتم تتبعها بواسطة الخادم.
+> تُقرأ القواميس من ناتج البناء، لذا شغّل `npx intlayer build` — أو أبقِ خادم التطوير قيد التشغيل — كي يجد الخادم ما يحلّه.
 
 ---
 
 ## التثبيت
 
-يتم توزيع خادم LSP كجزء من حزمة `@intlayer/lsp`:
+يُوزَّع الخادم بوصفه الملف التنفيذي `intlayer-lsp` ضمن `@intlayer/lsp`:
 
 ```bash packageManager="npm"
 npm install --save-dev @intlayer/lsp
@@ -83,43 +87,43 @@ pnpm add --save-dev @intlayer/lsp
 bun add --dev @intlayer/lsp
 ```
 
-تكشف الحزمة عن الملف الثنائي `intlayer-lsp` الذي تستخدمه المحررات كملف تشغيلي للخادم.
+ثبّته عالميًا بدلًا من ذلك (`npm install -g @intlayer/lsp`) إذا كان محرّرك يحتاج إلى `intlayer-lsp` ضمن `PATH` — وهذا ينطبق على إضافة Claude Code وعلى أي إعداد أدناه يستدعي الملف التنفيذي مباشرة.
 
 ---
 
-## الإعداد كملحق لـ Claude Code
+## الإعداد
 
-يتوفر خادم لغة Intlayer كـ **ملحق لـ Claude Code** يتم استضافته مباشرة في مستودع Intlayer على GitHub. يمنح تثبيته وعيًا أصيلاً لـ Claude Code بميزة الانتقال إلى التعريف لجميع استدعاءات `useIntlayer` / `getIntlayer` الخاصة بك.
+<Tabs defaultTab="vscode">
+  <Tab label="VS Code" value="vscode">
 
-### 1. تثبيت الملف الثنائي لخادم اللغة
+ثبّت [إضافة Intlayer لـ VS Code](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension). خادم اللغة مُضمَّن منذ الإصدار v8.12.0 ويبدأ تلقائيًا — **لا حاجة إلى أي إعداد**.
 
-```bash packageManager="npm"
-npm install -g @intlayer/lsp
-```
+راجع [توثيق إضافة VS Code](https://intlayer.org/doc/vs-code-extension) للاطلاع على بقية المزايا.
 
-```bash packageManager="yarn"
-yarn global add @intlayer/lsp
-```
+  </Tab>
+  <Tab label="Cursor / Windsurf" value="cursor">
 
-```bash packageManager="pnpm"
-pnpm add -g @intlayer/lsp
-```
+[Cursor](https://www.cursor.com/) و[Windsurf](https://windsurf.com/) نسختان مشتقتان من VS Code وتستخدمان منظومة الإضافات نفسها. ثبّت [إضافة Intlayer لـ VS Code](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension) مرة واحدة ليُفعَّل الخادم تلقائيًا — **لا حاجة إلى أي إعداد**.
 
-يضع هذا الملف الثنائي `intlayer-lsp` في مسار PATH الخاص بك، وهو ما يستدعيه إدخال `lspServers` الخاص بالملحق.
+  </Tab>
+  <Tab label="Claude Code" value="claude-code">
 
-### 2. تسجيل سوق Intlayer وتثبيت الملحق
+يوفّر Intlayer **إضافة لـ Claude Code** مستضافة في مستودع Intlayer. وهي تمنح Claude Code تحليلًا حقيقيًا للرموز الخاصة بمفاتيح قواميسك بدلًا من اللجوء إلى `grep`.
+
+ضَع الملف التنفيذي ضمن `PATH`، ثم سجّل الـ marketplace وثبّت الإضافة:
 
 ```bash
+npm install -g @intlayer/lsp
+
 claude plugin marketplace add intlayer@github:aymericzip/intlayer
 claude plugin install intlayer-lsp@intlayer
-claude plugin enable intlayer-lsp@intlayer
 ```
 
-سيضيف Claude Code القيمة `"intlayer-lsp@intlayer": true` إلى قائمة الـ `enabledPlugins` الخاصة بك ويبدأ خادم اللغة تلقائيًا في أنواع الملفات المدعومة (`.ts`, `.tsx`, `.js`, `.jsx`, `.vue`, `.svelte`).
+يقوم `install` بتفعيل الإضافة أيضًا. **أعد تشغيل Claude Code** — إذ تُحمَّل خوادم اللغة عند بدء التشغيل، فلا تأثير للإضافة قبل ذلك.
 
-### 3. تمكين أداة LSP (إذا لم تكن نشطة بالفعل)
+عندئذٍ يشغّل Claude Code الخادم على ملفات `.ts` و`.tsx` و`.js` و`.jsx` و`.vue` و`.astro` و`.svelte`، ويستخدم `goToDefinition` و`findReferences` و`hover` أثناء تنقّلك في الشيفرة.
 
-تتطلب بعض إصدارات Claude Code تعيين علامة ميزة LSP. أضف ما يلي إلى ملف `~/.claude/settings.json` إذا كانت ميزة الانتقال إلى التعريف لا تعمل بعد التثبيت:
+إذا ظل الانتقال إلى التعريف بلا استجابة، فقد يكون إصدار Claude Code لديك يقيّد أداة LSP خلف راية:
 
 ```json fileName="~/.claude/settings.json"
 {
@@ -129,61 +133,10 @@ claude plugin enable intlayer-lsp@intlayer
 }
 ```
 
-أعد تشغيل Claude Code — سيعتمد الآن على `goToDefinition` و`findReferences` وعمليات LSP الأخرى عند التنقل في قاعدة كود Intlayer بدلاً من الرجوع إلى `grep`.
+  </Tab>
+  <Tab label="Zed" value="zed">
 
----
-
-## الإعداد في VS Code (عبر الملحق — موصى به)
-
-إذا كان لديك [ملحق Intlayer لـ VS Code](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension) مثبتًا، فسيبدأ خادم اللغة تلقائيًا. لا يلزم إعداد إضافي. تم دمج LSP مباشرة في إضافة VSCode منذ الإصدار 8.12.0.
-
-> راجع [وثائق ملحق VS Code](https://intlayer.org/doc/vs-code-extension) لمعرفة كيفية التثبيت والميزات الأخرى.
-
----
-
-## الإعداد اليدوي في VS Code
-
-إذا كنت لا تستخدم ملحق Intlayer، فيمكنك توصيل خادم اللغة يدويًا باستخدام ملحق عميل LSP عام مثل [**vscode-glspc**](https://marketplace.visualstudio.com/items?itemName=sibiraj-s.vscode-scss-formatter) أو عن طريق كتابة ملحق صغير خاص بك. الطريقة الموصى بها هي استخدام ملحق Intlayer.
-
-كمرجع، يتم تشغيل الخادم عبر الملف الثنائي `intlayer-lsp` عبر stdio:
-
-```json fileName=".vscode/settings.json"
-{
-  "intlayer.languageServer.command": "npx",
-  "intlayer.languageServer.args": ["@intlayer/lsp"]
-}
-```
-
-يقرأ ملحق Intlayer هذه الإعدادات لتشغيل الخادم. إذا كنت تعتمد فقط على الملحق، فلن تحتاج إلى أي إعدادات يدوية.
-
----
-
-## الإعداد في Cursor
-
-[Cursor](https://www.cursor.com/) هو نسخة مخصصة من VS Code تأتي بميزات ذكاء اصطناعي مدمجة. ويستخدم نفس نظام الملحقات البيئي، لذا فإن **ملحق Intlayer لـ VS Code** يعمل بدون أي إعداد إضافي — قم بتثبيته مرة واحدة وسيكتشفه Cursor تلقائيًا.
-
-إذا كنت تفضل الإعداد اليدوي، يقرأ Cursor أيضًا ملف `.vscode/settings.json` من جذر مساحة العمل، لذا ينطبق رمز VS Code أعلاه مباشرة.
-
----
-
-## الإعداد في Windsurf
-
-[Windsurf](https://windsurf.com/) (من تطوير Codeium) هو محرر آخر يعتمد على VS Code. قم بتثبيت ملحق Intlayer من سوق VS Code وسينشط خادم اللغة تلقائيًا، تمامًا كما هو الحال في VS Code وCursor.
-
-للإعداد اليدوي، أنشئ ملف `.vscode/settings.json` في جذر المشروع:
-
-```json fileName=".vscode/settings.json"
-{
-  "intlayer.languageServer.command": "npx",
-  "intlayer.languageServer.args": ["@intlayer/lsp"]
-}
-```
-
----
-
-## الإعداد في Zed
-
-يتميز [Zed](https://zed.dev/) بدعم LSP أصيل من خلال إعدادات اللغة. أضف إدخالاً في إعدادات مستخدم Zed الخاصة بك (`~/.config/zed/settings.json`):
+يدعم Zed بروتوكول LSP أصلًا. أضف الخادم إلى إعدادات المستخدم لديك:
 
 ```json fileName="~/.config/zed/settings.json"
 {
@@ -196,47 +149,21 @@ claude plugin enable intlayer-lsp@intlayer
     }
   },
   "languages": {
-    "TypeScript": {
-      "language_servers": ["intlayer-lsp", "..."]
-    },
-    "TSX": {
-      "language_servers": ["intlayer-lsp", "..."]
-    },
-    "JavaScript": {
-      "language_servers": ["intlayer-lsp", "..."]
-    },
-    "Vue.js": {
-      "language_servers": ["intlayer-lsp", "..."]
-    },
-    "Svelte": {
-      "language_servers": ["intlayer-lsp", "..."]
-    }
+    "TypeScript": { "language_servers": ["intlayer-lsp", "..."] },
+    "TSX": { "language_servers": ["intlayer-lsp", "..."] },
+    "JavaScript": { "language_servers": ["intlayer-lsp", "..."] },
+    "Vue.js": { "language_servers": ["intlayer-lsp", "..."] },
+    "Svelte": { "language_servers": ["intlayer-lsp", "..."] }
   }
 }
 ```
 
-يخبر العنصر النائب `"..."` محرر Zed بالاحتفاظ بخوادم اللغة الافتراضية جنبًا إلى جنب مع خادم Intlayer.
+يُبقي العنصر النائب `"..."` خوادم اللغة الافتراضية في Zed جنبًا إلى جنب مع خادم Intlayer.
 
----
+  </Tab>
+  <Tab label="Neovim" value="neovim">
 
-## الإعداد لواجهات خط أوامر وكلاء الذكاء الاصطناعي (Claude Code، Codex، إلخ)
-
-يتمتع **Claude Code** بدعم من الدرجة الأولى لملحقات LSP — اتبع [إعداد ملحق Claude Code](#الإعداد-كملحق-لـ-claude-code) أعلاه للحصول على تجربة الانتقال إلى التعريف الكاملة مباشرة في جلسات الطرفية الخاصة بك.
-
-لا تعمل **OpenAI Codex** وأدوات الطرفية الأخرى كعملاء LSP حتى الآن — فهي تقرأ وتكتب الملفات مباشرة بدلاً من الحفاظ على جلسة خادم لغة مستمرة. بالنسبة لهذه الأدوات، تأتي قيمة تشغيل خادم لغة LSP بشكل غير مباشر: عندما يكون الخادم نشطًا في محرر مصاحب (VS Code, Cursor, Windsurf, ...)، يتوفر فهرس المحرر المباشر لأي وكيل ذكاء اصطناعي يمكنه الاستعلام عنه من خلال السياق الذي يوفره المحرر (على سبيل المثال، Cursor Composer, Windsurf Cascade, GitHub Copilot Chat).
-
-إذا كنت تعمل فقط في الطرفية دون فتح محرر، يمكنك بدء خادم اللغة في الخلفية حتى يكون جاهزًا لأي محرر يتصل لاحقًا بمساحة العمل نفسها:
-
-```bash
-# حافظ على تشغيل الخادم في الخلفية
-npx @intlayer/lsp &
-```
-
----
-
-## الإعداد اليدوي في Neovim
-
-باستخدام [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig)، قم بتسجيل إعداد خادم مخصص:
+باستخدام [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig)، سجّل إعداد خادم مخصّصًا:
 
 ```lua fileName="~/.config/nvim/init.lua"
 local lspconfig = require('lspconfig')
@@ -245,7 +172,7 @@ local configs = require('lspconfig.configs')
 if not configs.intlayer_lsp then
   configs.intlayer_lsp = {
     default_config = {
-      -- قم بتشغيل الخادم باستخدام npx حتى لا تحتاج إلى تثبيت عالمي
+      -- شغّل الخادم عبر npx لتفادي الحاجة إلى تثبيت عالمي
       cmd = { 'npx', '--yes', '@intlayer/lsp' },
       filetypes = {
         'typescript',
@@ -267,21 +194,10 @@ end
 lspconfig.intlayer_lsp.setup({})
 ```
 
-بعد إعادة تشغيل Neovim، سيؤدي الضغط على `gd` فوق مفتاح Intlayer إلى استدعاء ميزة الانتقال إلى التعريف.
+بعد إعادة تشغيل Neovim، يؤدي `gd` فوق مفتاح قاموس إلى الانتقال إلى التعريف، ويؤدي `gr` إلى البحث عن المراجع.
 
----
-
-## الإعداد اليدوي في المحررات الأخرى
-
-يمكن لأي محرر يدعم بروتوكول خادم اللغة استخدام `@intlayer/lsp`. مواصفات الخادم:
-
-- **النقل** – Node.js IPC / stdio (قياسي)
-- **الملف التشغيلي** – `npx @intlayer/lsp` (أو الملف الثنائي `intlayer-lsp` المثبت محليًا)
-- **القدرات** – `definitionProvider: true`, `textDocumentSync: Incremental`
-
-استشر وثائق LSP الخاصة بمحررك لمعرفة تنسيق الإعداد الدقيق (على سبيل المثال، `languageserver.json` لـ [coc.nvim](https://github.com/neoclide/coc.nvim)، أو إعدادات عميل LSP في [Helix](https://helix-editor.com)).
-
-### مثال: coc.nvim
+  </Tab>
+  <Tab label="coc.nvim" value="coc">
 
 ```json fileName="~/.config/nvim/coc-settings.json"
 {
@@ -307,9 +223,14 @@ lspconfig.intlayer_lsp.setup({})
 }
 ```
 
-### مثال: Helix
+  </Tab>
+  <Tab label="Helix" value="helix">
 
 ```toml fileName="~/.config/helix/languages.toml"
+[language-server.intlayer-lsp]
+command = "npx"
+args = ["@intlayer/lsp"]
+
 [[language]]
 name = "typescript"
 language-servers = ["intlayer-lsp", "typescript-language-server"]
@@ -317,36 +238,54 @@ language-servers = ["intlayer-lsp", "typescript-language-server"]
 [[language]]
 name = "tsx"
 language-servers = ["intlayer-lsp", "typescript-language-server"]
-
-[language-server.intlayer-lsp]
-command = "npx"
-args = ["@intlayer/lsp"]
 ```
+
+  </Tab>
+  <Tab label="محرّرات أخرى" value="other">
+
+يمكن لأي محرّر يدعم LSP تشغيل `@intlayer/lsp`. وجّهه إلى:
+
+- **الملف التنفيذي** — `npx @intlayer/lsp`، أو الملف التنفيذي `intlayer-lsp`
+- **النقل** — stdio (قياسي)
+- **القدرات** — `definitionProvider`، `referencesProvider`، `hoverProvider`، `completionProvider` (محارف التفعيل `"` `'` `` ` `` `.`)، تشخيصات مدفوعة، `textDocumentSync: Incremental`
+- **أنماط الجذر** — `intlayer.config.ts`، `intlayer.config.js`، `package.json`
+
+راجع توثيق LSP الخاص بمحرّرك لمعرفة صيغة الإعداد الدقيقة.
+
+  </Tab>
+</Tabs>
 
 ---
 
-## كيف يعمل؟
+## ملاحظة حول وكلاء الذكاء الاصطناعي في الطرفية
 
-عندما يبدأ الخادم، فإنه يقوم بحل إعداد Intlayer من جذر مساحة العمل باستخدام `getConfiguration()`. يمنحه هذا مسارات `build` و`system` اللازمة للعثور على القواميس المترجمة.
+**Claude Code** يعمل كعميل LSP حقيقي — انظر التبويب أعلاه.
 
-عند كل طلب **انتقال إلى التعريف**:
+**OpenAI Codex** ومعظم أدوات الطرفية الأخرى ليست عملاء LSP: فهي تقرأ الملفات وتكتبها مباشرة. تشغيل الخادم وحده لا يفيدها؛ إنما تأتي الفائدة من كونه نشطًا في محرّر مرافق يستطيع الوكيل الاستعلام عن فهرسه (Cursor Composer، Windsurf Cascade، Copilot Chat).
 
-1. يقرأ الخادم النص الكامل للمستند المفتوح.
-2. يقوم بمسح استدعاءات الجلب (`useIntlayer`، `getIntlayer`، إلخ) باستخدام تعبير نمطي.
-3. يتحقق مما إذا كان موضع المؤشر يقع داخل أحد تلك الاستدعاءات.
-4. إذا كان الأمر كذلك، فإنه يستخرج مفتاح القاموس (مجموعة الالتقاط 3 من التعبير النمطي) ويستدعي `getUnmergedDictionaries()` لتحديد موقع كل ملف محتوى يعلن عن هذا المفتاح.
-5. يقرأ كل ملف مطابق ويبحث عن السطر الدقيق الذي يحتوي على `"key: "<key"` لوضع المؤشر بدقة.
-6. يعيد مصفوفة من كائنات `Location` — واحد لكل ملف مصدر.
+---
 
-يتم حل الإعداد بشكل كسول وتخزينه مؤقتًا لكل جلسة؛ ويتم إعادة تعيينه عند كل طلب `initialize` (على سبيل المثال، عند فتح مجلد مساحة عمل جديد).
+## آلية العمل
+
+لكل ملف، يحدّد الخادم أقرب ملف `intlayer.config.*` ويحمّل إعدادات ذلك المشروع للعثور على القواميس المُصرَّفة. وتُخزَّن الإعدادات والقواميس وقائمة الملفات المصدرية مؤقتًا بمُدد صلاحية قصيرة، ويُبطَل التخزين كلما تغيّر ملف محتوى مُراقَب.
+
+عند كل طلب، يحلّل الخادم المستند (عبر [oxc](https://oxc.rs/)) ويفحص موضع المؤشر:
+
+1. **فوق نص المفتاح** (`useIntlayer("home")`) ← يُعيد كل ملف محتوى يصرّح بذلك المفتاح، مع التموضع عند سطر `key:` الخاص به.
+2. **فوق موضع استخدام حقل** (`content.title`، أو خاصية مُفكَّكة، أو `t('path.to.field')`، أو `<Trans>`، …) ← يتتبّع المتغيّر رجوعًا إلى قاموسه ويُعيد الحقل المطابق داخل ملفات المحتوى.
+3. **انطلاقًا من ملف محتوى** ← ينفّذ البحث العكسي، فيمسح مصادر المشروع بحثًا عن مواضع استدعاء ذلك المفتاح أو الحقل.
 
 ---
 
 ## استكشاف الأخطاء وإصلاحها
 
-| العرض                              | السبب المحتمل           | الحل                                                                               |
-| ---------------------------------- | ----------------------- | ---------------------------------------------------------------------------------- |
-| الانتقال إلى التعريف لا يفعل شيئًا | الخادم لا يعمل          | تحقق من تثبيت `@intlayer/lsp` وأن المحرر يقوم بتشغيله                              |
-| تم اكتشاف جذر مساحة عمل خاطئ       | مجلدات مساحة عمل متعددة | تأكد من أن المجلد الذي يحتوي على `intlayer.config.ts` هو المجلد الأول لمساحة العمل |
-| لم يتم العثور على تعريفات للمفتاح  | لم يتم حل الإعداد       | تحقق من وجود `intlayer.config.ts` (أو `.js`) في جذر مساحة العمل                    |
-| الخادم يتعطل عند البدء             | إصدار Node.js قديم جدًا | يتطلب Node.js ≥ 14.18                                                              |
+| العَرَض                                    | السبب المرجّح              | الحل                                                         |
+| ------------------------------------------ | -------------------------- | ------------------------------------------------------------ |
+| لا يحدث أي شيء إطلاقًا                     | الخادم غير مُشغَّل         | تحقّق من تثبيت `@intlayer/lsp` ومن أن محرّرك يشغّله          |
+| يعمل في المحرّر ولا يعمل في Claude Code    | تثبيت الإضافة أثناء الجلسة | أعد تشغيل Claude Code — فخوادم اللغة تُحمَّل عند بدء التشغيل |
+| لا يُعثر على تعريفات لمفتاح ما             | لم تُبنَ القواميس          | شغّل `npx intlayer build`، أو ابدأ خادم التطوير              |
+| الإبلاغ عن كل المفاتيح بأنها غير مصرّح بها | تعذّر تحليل الإعدادات      | تأكّد من وجود `intlayer.config.ts` (أو `.js`) في جذر مشروعك  |
+| استخدام مشروع خاطئ داخل مستودع أحادي       | غياب إعداد لكل حزمة        | أضف `intlayer.config.*` إلى كل حزمة تصرّح بمحتواها الخاص     |
+| تعطّل الخادم عند البدء                     | إصدار Node.js قديم جدًا    | يتطلّب Node.js ‏≥ 14.18                                      |
+
+في VS Code، يسجّل الخادم مخرجاته في **عرض ← الإخراج ← «Intlayer LSP»** — وهو مفيد لتأكيد أي إعداد جرى تحليله وكم قاموسًا عُثر عليه.

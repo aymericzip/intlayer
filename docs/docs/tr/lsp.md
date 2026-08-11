@@ -1,12 +1,14 @@
 ---
 createdAt: 2025-06-07
-updatedAt: 2026-05-31
+updatedAt: 2026-08-10
 title: Intlayer LSP Sunucusu
-description: Intlayer Dil Sunucusunun, desteklenen tüm editörlerde useIntlayer, getIntlayer ve ilgili çağrılar için Tanıma Git (Go-to-Definition) ve diğer IDE özelliklerini nasıl sağladığını öğrenin.
+description: Intlayer dil sunucusunun IDE’nize ve yapay zekâ ajanınıza tanıma gitme, referans arama, imleçle önizleme, anahtar otomatik tamamlama ve tanılama özelliklerini nasıl kazandırdığını öğrenin.
 keywords:
   - LSP
   - Dil Sunucusu
-  - Tanıma Git
+  - Go to Definition
+  - Otomatik tamamlama
+  - Tanılama
   - IDE
   - Intlayer
   - VS Code
@@ -16,6 +18,9 @@ slugs:
   - doc
   - lsp
 history:
+  - version: 9.1.3
+    date: 2026-08-10
+    changes: "Referans arama, imleçle önizleme, otomatik tamamlama ve tanılama eklendi"
   - version: 8.12.0
     date: 2026-06-01
     changes: "Release LSP"
@@ -24,48 +29,47 @@ author: aymericzip
 
 # Intlayer LSP Sunucusu
 
-**Intlayer Dil Sunucusu (LSP)**, IDE'nizi Intlayer farkındalığına sahip bir zeka ile geliştiren bir [Dil Sunucusu Protokolü (LSP)](https://microsoft.github.io/language-server-protocol/) uygulamasıdır. Şu anda sözlük anahtarı çağrıları için **Tanıma Git (Go to Definition)** özelliği sunarak, bileşeninizdeki `useIntlayer("my-key")` çağrısından onu tanımlayan `.content.ts` dosyasına doğrudan atlamanızı sağlar.
+**Intlayer dil sunucusu**, IDE’nizi — ve yapay zekâ ajanınızı — Intlayer’dan haberdar kılan bir [Language Server Protocol (LSP)](https://microsoft.github.io/language-server-protocol/) uygulamasıdır. `useIntlayer("home")` gibi bir çağrıyı, onu bildiren `.content.ts` dosyasına iki yönlü olarak bağlar.
 
 ---
 
-## Neden LSP Kullanmalısınız?
+## Özellikler
 
-Intlayer kullandığınızda, `useIntlayer("homepage")` gibi bir çağrı ile bunun `src/homepage.content.ts` içindeki tanımı arasındaki bağlantı örtüktür. Araçlar olmadan, dosyayı manuel olarak aramanız gerekir. LSP bu bağlantıyı açık hale getirir:
+| Özellik                  | Kısayol                | Ne yapar                                                                                                        |
+| ------------------------ | ---------------------- | --------------------------------------------------------------------------------------------------------------- |
+| **Tanıma git**           | `F12` / `Cmd+Tık`      | Bir sözlük anahtarından veya alan kullanımından içerik dosyasındaki bildirimine atlar                           |
+| **Tüm referansları bul** | `Shift+F12`            | Bir içerik dosyasından, o anahtarı veya alanı kullanan tüm çağrı noktalarını listeler                           |
+| **İmleçle önizleme**     | imleci üzerine getirin | Bir sözlüğün alanlarını veya bir alanın çevrilmiş değerini dosyadan çıkmadan gösterir                           |
+| **Otomatik tamamlama**   | `"` `'` `` ` `` `.`    | Bir getter içinde bildirilmiş sözlük anahtarlarını, `.` sonrasında veya yapı bozumunda içerik alanlarını önerir |
+| **Tanılama**             | otomatik               | Bir anahtar hiçbir içerik dosyasında bildirilmemişse uyarır                                                     |
 
-**AI Ajanı Farkındalığı**
+Bilinmeye değer iki ek davranış vardır:
 
-AI kodlama ajanları (Cursor, Windsurf, GitHub Copilot, Claude Code, Codex), sembolleri çözmek ve dosyalar arası ilişkileri anlamak için dil sunucusuna güvenir. Intlayer LSP çalışırken, ajanlar `useIntlayer("key")` çağrısını tanımına kadar takip edebilir; bu da onlara mevcut içerik anahtarları, her bir sözlüğün yapısı ve hangi dosyaların okunması veya düzenlenmesi gerektiği konusunda doğru bağlam sağlar.
+- **Birleştirilmiş sözlükler** — birkaç içerik dosyasına bölünmüş bir anahtar, dosya başına bir sonuç döndürür; böylece her bildirime gidebilirsiniz.
+- **Monorepo uyumlu** — sunucu her dosyaya _en yakın_ `intlayer.config.*` dosyasını çözer; böylece tek bir çalışma alanındaki birden çok proje kendi sözlüklerine sahip olur.
 
-**Tanıma Git**
+### Desteklenen çağrılar
 
-Desteklenen bir getter çağrısı içindeki herhangi bir sözlük anahtarı dizesinin üzerine imlecinizi getirin ve `F12` (veya `Cmd/Ctrl+Tıklama`) tuşuna basın. Editör, içerik tanımlama dosyasını açar ve imleci `key:` satırına yerleştirir.
+Anahtar, konumsal bir dize argümanından ya da bir seçenekler nesnesinden (`{ namespace }`, `{ id }`) okunur.
 
-**Birleştirilmiş Sözlük Desteği**
+| Kütüphane                   | Çağrılar                                                 |
+| --------------------------- | -------------------------------------------------------- |
+| **Intlayer**                | `useIntlayer`, `getIntlayer`                             |
+| **i18next / react-i18next** | `useTranslation`, `getFixedT`, `t`, `Trans`              |
+| **next-intl / use-intl**    | `useTranslations`, `getTranslations`, `createTranslator` |
+| **react-intl**              | `formatMessage`, `FormattedMessage`                      |
+| **Lingui**                  | `useLingui`, `t`, `Trans`, `_`                           |
+| **vue-i18n**                | `useI18n`                                                |
 
-Bir anahtar birden fazla içerik dosyasına bölünmüş olabilir (Intlayer bunları birleştirir). Sunucu, her kaynak dosya için bir konum (`Location`) döndürür, böylece her tanıma gidebilirsiniz.
+Bu, tüm `*-intlayer` paketleri (`next-intlayer`, `react-intlayer`, `vue-intlayer`, `svelte-intlayer`, `solid-intlayer`, `preact-intlayer`, `angular-intlayer`, `lit-intlayer`, `express-intlayer`, `hono-intlayer`, `fastify-intlayer`, `intlayer`) ve mevcut i18n sözdiziminizi korumanızı sağlayan compat adaptör paketleri için çalışır.
 
-**Her Yerde Çalışır**
-
-Tüm `*-intlayer` paketlerini destekler (`next-intlayer`, `react-intlayer`, `vue-intlayer`, `svelte-intlayer`, `solid-intlayer`, `preact-intlayer`, `angular-intlayer`, `lit-intlayer`, `express-intlayer`, `hono-intlayer`, `fastify-intlayer`, `adonis-intlayer`, `intlayer`).
-
-### Desteklenen Getter Çağrıları
-
-Sunucu, aşağıdaki işlev çağrılarını algılar ve ilk dize değişmezi argümanını sözlük anahtarı olarak çıkarır:
-
-| İşlev         | Örnek                         |
-| ------------- | ----------------------------- |
-| `useIntlayer` | `useIntlayer("hero")`         |
-| `getIntlayer` | `getIntlayer("hero", locale)` |
-
-TypeScript jenerikleri ve ekstra argümanlar yoksayılır — yalnızca anahtar dizesi önemlidir.
-
-> `useDictionary` ve `getDictionary`, bir dize anahtarı yerine zaten içe aktarılmış bir `Dictionary` nesnesini ilk argüman olarak alır, bu nedenle Tanıma Git özelliğinden yararlanmazlar ve sunucu tarafından izlenmezler.
+> Sözlükler derleme çıktısından okunur; bu nedenle sunucunun çözecek bir şeyi olması için `npx intlayer build` çalıştırın veya geliştirme sunucunuzu açık tutun.
 
 ---
 
 ## Kurulum
 
-LSP sunucusu, `@intlayer/lsp` paketinin bir parçası olarak dağıtılır:
+Sunucu, `@intlayer/lsp` içinde `intlayer-lsp` ikili dosyası olarak dağıtılır:
 
 ```bash packageManager="npm"
 npm install --save-dev @intlayer/lsp
@@ -83,43 +87,43 @@ pnpm add --save-dev @intlayer/lsp
 bun add --dev @intlayer/lsp
 ```
 
-Paket, editörlerin sunucu yürütülebilir dosyası olarak kullandığı `intlayer-lsp` ikili dosyasını (binary) sunar.
+Editörünüz `intlayer-lsp` komutunu `PATH` üzerinde arıyorsa bunun yerine küresel olarak kurun (`npm install -g @intlayer/lsp`) — Claude Code eklentisi ve aşağıdaki ikili dosyayı doğrudan çağıran her yapılandırma için durum budur.
 
 ---
 
-## Claude Code Eklentisi Olarak Kurulum
+## Kurulum ve yapılandırma
 
-Intlayer LSP, doğrudan Intlayer GitHub deposunda barındırılan bir **Claude Code eklentisi** olarak mevcuttur. Bunu yüklemek, Claude Code'a tüm `useIntlayer` / `getIntlayer` çağrılarınız için yerel Tanıma Git farkındalığı kazandırır.
+<Tabs defaultTab="vscode">
+  <Tab label="VS Code" value="vscode">
 
-### 1. Dil Sunucusu İkili Dosyasını Yükleyin
+[Intlayer VS Code eklentisini](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension) kurun. Dil sunucusu v8.12.0’dan beri paketin içindedir ve otomatik başlar — **yapılandırma gerekmez**.
 
-```bash packageManager="npm"
-npm install -g @intlayer/lsp
-```
+Diğer özellikler için [VS Code eklentisi belgelerine](https://intlayer.org/doc/vs-code-extension) bakın.
 
-```bash packageManager="yarn"
-yarn global add @intlayer/lsp
-```
+  </Tab>
+  <Tab label="Cursor / Windsurf" value="cursor">
 
-```bash packageManager="pnpm"
-pnpm add -g @intlayer/lsp
-```
+[Cursor](https://www.cursor.com/) ve [Windsurf](https://windsurf.com/), VS Code çatallarıdır ve aynı eklenti ekosistemini kullanır. [Intlayer VS Code eklentisini](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension) bir kez kurun; sunucu otomatik olarak etkinleşir — **yapılandırma gerekmez**.
 
-Bu, eklentinin `lspServers` girişinin çağırdığı `intlayer-lsp` ikili dosyasını PATH'inize yerleştirir.
+  </Tab>
+  <Tab label="Claude Code" value="claude-code">
 
-### 2. Intlayer Pazaryerini Kaydedin ve Eklentiyi Yükleyin
+Intlayer, Intlayer deposunda barındırılan bir **Claude Code eklentisi** sunar. Bu eklenti, Claude Code’a `grep`’e geri düşmek yerine sözlük anahtarlarınız için gerçek sembol çözümlemesi kazandırır.
+
+İkili dosyayı `PATH`’inize ekleyin, ardından marketplace’i kaydedip eklentiyi kurun:
 
 ```bash
+npm install -g @intlayer/lsp
+
 claude plugin marketplace add intlayer@github:aymericzip/intlayer
 claude plugin install intlayer-lsp@intlayer
-claude plugin enable intlayer-lsp@intlayer
 ```
 
-Claude Code, `enabledPlugins` ayarlarınıza `"intlayer-lsp@intlayer": true` ekleyecek ve desteklenen dosya türlerinde (`.ts`, `.tsx`, `.js`, `.jsx`, `.vue`, `.svelte`) dil sunucusunu otomatik olarak başlatacaktır.
+`install` eklentiyi aynı zamanda etkinleştirir. **Claude Code’u yeniden başlatın** — dil sunucuları başlangıçta yüklenir, bu nedenle eklenti o ana kadar etkili olmaz.
 
-### 3. LSP Aracını Etkinleştirin (Henüz aktif değilse)
+Claude Code ardından sunucuyu `.ts`, `.tsx`, `.js`, `.jsx`, `.vue`, `.astro` ve `.svelte` dosyalarında başlatır ve kodunuzda gezinirken `goToDefinition`, `findReferences` ve `hover` kullanır.
 
-Bazı Claude Code sürümleri, LSP özellik bayrağının ayarlanmasını gerektirir. Kurulumdan sonra Tanıma Git çalışmıyorsa `~/.claude/settings.json` dosyanıza aşağıdakileri ekleyin:
+Tanıma gitme hâlâ çalışmıyorsa, Claude Code sürümünüz LSP aracını bir bayrağın arkasında tutuyor olabilir:
 
 ```json fileName="~/.claude/settings.json"
 {
@@ -129,61 +133,10 @@ Bazı Claude Code sürümleri, LSP özellik bayrağının ayarlanmasını gerekt
 }
 ```
 
-Claude Code'u yeniden başlatın — Intlayer kod tabanınızda gezinirken artık `grep` yöntemine başvurmak yerine `goToDefinition`, `findReferences` ve diğer LSP işlemlerini kullanacaktır.
+  </Tab>
+  <Tab label="Zed" value="zed">
 
----
-
-## VS Code'da Kurulum (Uzantı Aracılığıyla — Önerilen)
-
-Eğer [Intlayer VS Code uzantısı](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension) yüklüyse, dil sunucusu otomatik olarak başlar. Ek yapılandırma gerekmez. LSP, v8.12.0 sürümünden itibaren doğrudan VSCode eklentisine entegre edilmiştir.
-
-> Kurulum ve diğer özellikler için [VS Code uzantısı belgelerine](https://intlayer.org/doc/vs-code-extension) bakın.
-
----
-
-## VS Code'da Manuel Kurulum
-
-Intlayer uzantısını kullanmıyorsanız, dil sunucusunu [**vscode-glspc**](https://marketplace.visualstudio.com/items?itemName=sibiraj-s.vscode-scss-formatter) gibi genel bir LSP istemci uzantısı kullanarak veya kendi küçük uzantınızı yazarak manuel olarak bağlayabilirsiniz. Önerilen yaklaşım Intlayer uzantısını kullanmaktır.
-
-Referans için, sunucu stdio üzerinden `intlayer-lsp` ikili dosyası ile başlatılır:
-
-```json fileName=".vscode/settings.json"
-{
-  "intlayer.languageServer.command": "npx",
-  "intlayer.languageServer.args": ["@intlayer/lsp"]
-}
-```
-
-Intlayer uzantısı, sunucuyu başlatmak için bu ayarları okur. Yalnızca uzantıya güveniyorsanız, manuel ayarlara gerek yoktur.
-
----
-
-## Cursor'da Kurulum
-
-[Cursor](https://www.cursor.com/), yerleşik AI özelliklerine sahip bir VS Code çatalıdır (fork). Aynı uzantı ekosistemini kullanır, bu nedenle **Intlayer VS Code uzantısı** herhangi bir ek yapılandırma olmadan çalışır — bir kez yükleyin ve Cursor bunu otomatik olarak algılar.
-
-Manuel bir yapılandırmayı tercih ederseniz, Cursor da çalışma alanı kökünden `.vscode/settings.json` dosyasını okur, böylece yukarıdaki VS Code kod parçacığı doğrudan uygulanır.
-
----
-
-## Windsurf'te Kurulum
-
-[Windsurf](https://windsurf.com/) (Codeium tarafından geliştirilmiştir), VS Code tabanlı bir diğer editördür. VS Code Pazaryeri'nden Intlayer uzantısını yükleyin; dil sunucusu, VS Code ve Cursor'da olduğu gibi otomatik olarak etkinleşir.
-
-Manuel yapılandırma için, proje kökünde `.vscode/settings.json` dosyası oluşturun:
-
-```json fileName=".vscode/settings.json"
-{
-  "intlayer.languageServer.command": "npx",
-  "intlayer.languageServer.args": ["@intlayer/lsp"]
-}
-```
-
----
-
-## Zed'de Kurulum
-
-[Zed](https://zed.dev/), dil ayarları aracılığıyla yerel LSP desteğine sahiptir. Zed kullanıcı ayarlarınıza (`~/.config/zed/settings.json`) bir giriş ekleyin:
+Zed yerleşik LSP desteğine sahiptir. Sunucuyu kullanıcı ayarlarınıza ekleyin:
 
 ```json fileName="~/.config/zed/settings.json"
 {
@@ -196,47 +149,21 @@ Manuel yapılandırma için, proje kökünde `.vscode/settings.json` dosyası ol
     }
   },
   "languages": {
-    "TypeScript": {
-      "language_servers": ["intlayer-lsp", "..."]
-    },
-    "TSX": {
-      "language_servers": ["intlayer-lsp", "..."]
-    },
-    "JavaScript": {
-      "language_servers": ["intlayer-lsp", "..."]
-    },
-    "Vue.js": {
-      "language_servers": ["intlayer-lsp", "..."]
-    },
-    "Svelte": {
-      "language_servers": ["intlayer-lsp", "..."]
-    }
+    "TypeScript": { "language_servers": ["intlayer-lsp", "..."] },
+    "TSX": { "language_servers": ["intlayer-lsp", "..."] },
+    "JavaScript": { "language_servers": ["intlayer-lsp", "..."] },
+    "Vue.js": { "language_servers": ["intlayer-lsp", "..."] },
+    "Svelte": { "language_servers": ["intlayer-lsp", "..."] }
   }
 }
 ```
 
-`"..."` yer tutucusu, Zed'e Intlayer sunucusunun yanında varsayılan dil sunucularını da tutmasını söyler.
+`"..."` yer tutucusu, Zed’in varsayılan dil sunucularını Intlayer’ınkiyle birlikte korur.
 
----
+  </Tab>
+  <Tab label="Neovim" value="neovim">
 
-## AI Ajanı CLI'ları (Claude Code, Codex vb.) İçin Kurulum
-
-**Claude Code**, birinci sınıf LSP eklenti desteğine sahiptir — doğrudan terminal oturumlarınızda tam Tanıma Git deneyimini elde etmek için yukarıdaki [Claude Code Eklentisi kurulumunu](#claude-code-eklentisi-olarak-kurulum) takip edin.
-
-**OpenAI Codex** ve diğer terminal tabanlı araçlar henüz LSP istemcileri olarak hareket etmemektedir — kalıcı bir dil sunucusu oturumu sürdürmek yerine dosyaları doğrudan okuyup yazarlar. Bu araçlar için, LSP'nin çalışıyor olmasının değeri dolaylı olarak ortaya çıkar: Sunucu bir yardımcı editörde (VS Code, Cursor, Windsurf, ...) aktif olduğunda, editörün canlı dizini, editör tarafından sağlanan bağlam (örneğin, Cursor Composer, Windsurf Cascade, GitHub Copilot Chat) aracılığıyla sorgulayabilen herhangi bir AI ajanının kullanımına sunulur.
-
-Açık bir editör olmadan yalnızca bir terminalde çalışıyorsanız, dil sunucusunu arka planda başlatabilirsiniz, böylece daha sonra aynı çalışma alanına bağlanan herhangi bir editör için hazır olur:
-
-```bash
-# Sunucuyu arka planda aktif tutun
-npx @intlayer/lsp &
-```
-
----
-
-## Neovim'de Manuel Kurulum
-
-[nvim-lspconfig](https://github.com/neovim/nvim-lspconfig) kullanarak özel bir sunucu yapılandırması kaydedin:
+[nvim-lspconfig](https://github.com/neovim/nvim-lspconfig) ile özel bir sunucu yapılandırması kaydedin:
 
 ```lua fileName="~/.config/nvim/init.lua"
 local lspconfig = require('lspconfig')
@@ -245,7 +172,7 @@ local configs = require('lspconfig.configs')
 if not configs.intlayer_lsp then
   configs.intlayer_lsp = {
     default_config = {
-      -- Sunucuyu npx ile başlatın, böylece genel kuruluma gerek kalmaz
+      -- Küresel kuruluma gerek kalmaması için sunucuyu npx ile başlatın
       cmd = { 'npx', '--yes', '@intlayer/lsp' },
       filetypes = {
         'typescript',
@@ -267,21 +194,10 @@ end
 lspconfig.intlayer_lsp.setup({})
 ```
 
-Neovim'i yeniden başlattıktan sonra, bir Intlayer anahtarı üzerinde `gd` tuşuna basmak Tanıma Git işlemini çağıracaktır.
+Neovim’i yeniden başlattıktan sonra, bir sözlük anahtarı üzerinde `gd` Tanıma Git’i, `gr` ise Referansları Bul’u çalıştırır.
 
----
-
-## Diğer Editörlerde Manuel Kurulum
-
-Dil Sunucusu Protokolünü destekleyen herhangi bir editör `@intlayer/lsp` kullanabilir. Sunucu:
-
-- **Taşıma (Transport)** – Node.js IPC / stdio (standart)
-- **Yürütülebilir Dosya** – `npx @intlayer/lsp` (veya yerel olarak yüklenmiş `intlayer-lsp` ikili dosyası)
-- **Yetenekler** – `definitionProvider: true`, `textDocumentSync: Incremental`
-
-Tam yapılandırma biçimi için editörünüzün LSP belgelerine başvurun (örneğin, [coc.nvim](https://github.com/neoclide/coc.nvim) için `languageserver.json` veya [Helix](https://helix-editor.com) içindeki LSP istemci ayarları).
-
-### Örnek: coc.nvim
+  </Tab>
+  <Tab label="coc.nvim" value="coc">
 
 ```json fileName="~/.config/nvim/coc-settings.json"
 {
@@ -307,9 +223,14 @@ Tam yapılandırma biçimi için editörünüzün LSP belgelerine başvurun (ör
 }
 ```
 
-### Örnek: Helix
+  </Tab>
+  <Tab label="Helix" value="helix">
 
 ```toml fileName="~/.config/helix/languages.toml"
+[language-server.intlayer-lsp]
+command = "npx"
+args = ["@intlayer/lsp"]
+
 [[language]]
 name = "typescript"
 language-servers = ["intlayer-lsp", "typescript-language-server"]
@@ -317,36 +238,54 @@ language-servers = ["intlayer-lsp", "typescript-language-server"]
 [[language]]
 name = "tsx"
 language-servers = ["intlayer-lsp", "typescript-language-server"]
-
-[language-server.intlayer-lsp]
-command = "npx"
-args = ["@intlayer/lsp"]
 ```
 
----
+  </Tab>
+  <Tab label="Diğer editörler" value="other">
 
-## Nasıl Çalışır?
+LSP destekleyen her editör `@intlayer/lsp` çalıştırabilir. Şunları belirtin:
 
-Sunucu başlatıldığında, `getConfiguration()` kullanarak çalışma alanı kökünden Intlayer yapılandırmasını çözer. Bu, derlenmiş sözlükleri bulmak için gereken `build` ve `system` yollarını sunucuya sağlar.
+- **Çalıştırılabilir dosya** — `npx @intlayer/lsp` veya `intlayer-lsp` ikili dosyası
+- **Taşıma** — stdio (standart)
+- **Yetenekler** — `definitionProvider`, `referencesProvider`, `hoverProvider`, `completionProvider` (tetikleyici karakterler `"` `'` `` ` `` `.`), push tanılama, `textDocumentSync: Incremental`
+- **Kök desenleri** — `intlayer.config.ts`, `intlayer.config.js`, `package.json`
 
-Her **Tanıma Git** isteğinde:
+Tam yapılandırma biçimi için editörünüzün LSP belgelerine bakın.
 
-1. Sunucu, açık olan belgenin tam metnini okur.
-2. Düzenli bir ifade (regex) kullanarak getter çağrılarını (`useIntlayer`, `getIntlayer` vb.) tarar.
-3. İmleç konumunun bu çağrılardan birinin içine düşüp düşmediğini kontrol eder.
-4. Öyleyse, sözlük anahtarını (regex'in yakalama grubu 3) çıkarır ve bu anahtarı tanımlayan her bir içerik dosyasını bulmak için `getUnmergedDictionaries()` işlevini çağırır.
-5. Eşleşen her dosyayı okur ve imleci tam olarak konumlandırmak için `key: "<key>"` içeren satırı bulur.
-6. Kaynak dosya başına bir adet olmak üzere `Location` nesnelerinden oluşan bir dizi döndürür.
-
-Yapılandırma tembelce (lazy) çözülür ve oturum başına önbelleğe alınır; her `initialize` isteğinde (örneğin yeni bir çalışma alanı klasörü açtığınızda) sıfırlanır.
+  </Tab>
+</Tabs>
 
 ---
 
-## Sorun Giderme
+## Terminal yapay zekâ ajanları hakkında not
 
-| Belirti                              | Olası Neden                        | Çözüm                                                                                         |
-| ------------------------------------ | ---------------------------------- | --------------------------------------------------------------------------------------------- |
-| Tanıma Git hiçbir şey yapmıyor       | Sunucu çalışmıyor                  | `@intlayer/lsp` paketinin kurulu olduğunu ve editörün bunu başlattığını kontrol edin          |
-| Yanlış çalışma alanı kökü algılandı  | Birden fazla çalışma alanı klasörü | `intlayer.config.ts` dosyasını içeren klasörün ilk çalışma alanı klasörü olduğundan emin olun |
-| Bir anahtar için tanımlar bulunamadı | Yapılandırma çözülmedi             | `intlayer.config.ts` (veya `.js`) dosyasının çalışma alanı kökünde mevcut olduğunu doğrulayın |
-| Sunucu başlangıçta çöküyor           | Node.js sürümü çok eski            | Node.js ≥ 14.18 gerektirir                                                                    |
+**Claude Code** gerçek bir LSP istemcisi gibi davranır — yukarıdaki sekmeye bakın.
+
+**OpenAI Codex** ve diğer terminal araçlarının çoğu LSP istemcisi değildir: dosyaları doğrudan okur ve yazarlar. Sunucuyu tek başına çalıştırmak onlara yardımcı olmaz; asıl fayda, ajanın dizinini sorgulayabildiği bir yardımcı editörde (Cursor Composer, Windsurf Cascade, Copilot Chat) etkin olmasından gelir.
+
+---
+
+## Nasıl çalışır
+
+Sunucu her dosya için en yakın `intlayer.config.*` dosyasını bulur ve derlenmiş sözlükleri bulmak üzere o projenin yapılandırmasını yükler. Yapılandırma, sözlükler ve kaynak dosya listesi kısa TTL’lerle önbelleğe alınır ve izlenen bir içerik dosyası değiştiğinde geçersiz kılınır.
+
+Bir istek geldiğinde sunucu belgeyi ([oxc](https://oxc.rs/) ile) ayrıştırır ve imleç konumunu inceler:
+
+1. **Bir anahtar dizesi üzerinde** (`useIntlayer("home")`) → o anahtarı bildiren her içerik dosyasını, `key:` satırına konumlanmış olarak döndürür.
+2. **Bir alan kullanımı üzerinde** (`content.title`, yapı bozumuyla alınmış bir özellik, `t('path.to.field')`, `<Trans>`, …) → değişkeni sözlüğüne kadar çözer ve içerik dosyalarındaki eşleşen alanı döndürür.
+3. **Bir içerik dosyasından** → ters aramayı çalıştırır ve proje kaynaklarını o anahtarın veya alanın çağrı noktaları için tarar.
+
+---
+
+## Sorun giderme
+
+| Belirti                                       | Olası neden                      | Çözüm                                                                     |
+| --------------------------------------------- | -------------------------------- | ------------------------------------------------------------------------- |
+| Hiçbir şey olmuyor                            | Sunucu çalışmıyor                | `@intlayer/lsp` kurulu mu ve editörünüz onu başlatıyor mu kontrol edin    |
+| Editörde çalışıyor, Claude Code’da çalışmıyor | Eklenti oturum ortasında kuruldu | Claude Code’u yeniden başlatın — dil sunucuları başlangıçta yüklenir      |
+| Bir anahtar için tanım bulunamıyor            | Sözlükler derlenmemiş            | `npx intlayer build` çalıştırın veya geliştirme sunucunuzu başlatın       |
+| Her anahtar bildirilmemiş olarak raporlanıyor | Yapılandırma çözülemedi          | Proje kökünüzde bir `intlayer.config.ts` (veya `.js`) olduğunu doğrulayın |
+| Monorepo’da yanlış proje kullanılıyor         | Paket başına yapılandırma eksik  | Kendi içeriğini bildiren her pakete bir `intlayer.config.*` ekleyin       |
+| Sunucu başlangıçta çöküyor                    | Node.js sürümü çok eski          | Node.js ≥ 14.18 gerektirir                                                |
+
+VS Code’da sunucu **Görünüm → Çıktı → “Intlayer LSP”** altına log yazar — hangi yapılandırmanın çözüldüğünü ve kaç sözlük bulunduğunu doğrulamak için kullanışlıdır.
