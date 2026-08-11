@@ -16,6 +16,48 @@ import { watch } from '@intlayer/engine/watcher';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Compiler } from 'webpack';
 
+/**
+ * Minimal structural view of a webpack `DefinePlugin` instance, limited to the
+ * `definitions` record it exposes. Typed locally rather than imported because
+ * `webpack.DefinePlugin` is reachable only through the `Compiler` instance at
+ * runtime, and the host bundler may resolve its own webpack copy.
+ */
+type DefinePluginLike = {
+  definitions?: Record<string, unknown>;
+};
+
+/**
+ * Narrows an entry of `compiler.options.plugins` to a `DefinePlugin` instance.
+ *
+ * @param plugin - Any entry of the webpack `plugins` array (may be a function,
+ *                 `undefined` or `false` when the host config uses conditional
+ *                 plugin lists).
+ */
+const isDefinePlugin = (plugin: unknown): plugin is DefinePluginLike =>
+  typeof plugin === 'object' &&
+  plugin !== null &&
+  plugin.constructor?.name === 'DefinePlugin';
+
+/**
+ * Checks whether the host bundler already replaces the whole `process.env`
+ * expression through its own `DefinePlugin`.
+ *
+ * Create React App defines `process.env` as an object literal holding its
+ * `REACT_APP_*` variables. Declaring a second, differently-valued `process.env`
+ * makes webpack emit `Conflicting values for 'process.env'`, which CRA
+ * escalates to a build failure whenever `process.env.CI` is set (the default on
+ * CI servers). When the host already provides that replacement, every
+ * `process.env.*` read resolves against its object literal instead of a bare
+ * `process`, so the catch-all define is redundant and can be skipped.
+ *
+ * @param compiler - The webpack compiler the Intlayer plugin is applied to.
+ */
+const getHasHostProcessEnvDefine = (compiler: Compiler): boolean =>
+  (compiler.options.plugins ?? []).some(
+    (plugin) =>
+      isDefinePlugin(plugin) && 'process.env' in (plugin.definitions ?? {})
+  );
+
 // Watch mode or on time build
 export class IntlayerPlugin {
   private isWatching = false; // Flag to ensure we only start the watcher after the first build
@@ -114,7 +156,12 @@ export class IntlayerPlugin {
       // every read in development where the dictionary scan is skipped. Specific
       // keys (below) and host bundler defines (e.g. `process.env.NODE_ENV`) take
       // precedence over this object, so chunk-level tree shaking is preserved.
-      'process.env': '({})',
+      // Omitted when the host bundler already defines `process.env` itself, as
+      // two conflicting values for the same key make webpack warn — and CRA
+      // turns that warning into an error under `CI=true`.
+      ...(getHasHostProcessEnvDefine(compiler)
+        ? {}
+        : { 'process.env': '({})' }),
       ...env,
     }).apply(compiler);
 
