@@ -1,4 +1,7 @@
-import { ReactQueryProvider } from '@intlayer/design-system/providers';
+import {
+  DeferredAuthProvider,
+  ReactQueryProvider,
+} from '@intlayer/design-system/providers';
 import { Toaster } from '@intlayer/design-system/toaster';
 import type { QueryClient } from '@tanstack/react-query';
 import {
@@ -126,7 +129,13 @@ function RootDocument({ children }: { children: React.ReactNode }) {
                   data-key={import.meta.env.VITE_AHREFS_KEY}
                 />
               )}
-              <FirstConsultationProvider>{children}</FirstConsultationProvider>
+              {/* Session/OAuth are not needed to render this site, so they
+                  wait for the load event instead of competing with hydration. */}
+              <DeferredAuthProvider>
+                <FirstConsultationProvider>
+                  {children}
+                </FirstConsultationProvider>
+              </DeferredAuthProvider>
             </ReactQueryProvider>
           </AnimatePresenceProvider>
         </IntlayerProvider>

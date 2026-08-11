@@ -6,6 +6,7 @@ import { useConfiguration } from '@intlayer/editor-react';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { getAuthAPI } from '../../libs/auth';
+import { useIsAuthFetchEnabled } from '../../providers/DeferredAuthProvider';
 
 export type UseSessionResult = {
   /** The current session: `undefined` while loading, `null` if fetched and no session, otherwise the session. */
@@ -27,6 +28,7 @@ export const useSession = (
     configuration ?? { editor }) as IntlayerConfig;
 
   const queryClient = useQueryClient();
+  const isAuthFetchEnabled = useIsAuthFetchEnabled();
 
   // Keep TanStack generics internal so they don't leak into the d.ts
   const { data, isFetched, refetch } = useQuery({
@@ -50,7 +52,9 @@ export const useSession = (
     // extended session without a manual reload.
     refetchOnWindowFocus: true,
     refetchOnReconnect: true,
-    enabled: !sessionProp,
+    // Held back until after page load when a `DeferredAuthProvider` is mounted
+    // (content sites); unconditional everywhere else (the CMS dashboard).
+    enabled: !sessionProp && isAuthFetchEnabled,
   });
 
   const session = data ?? (isFetched ? null : undefined);

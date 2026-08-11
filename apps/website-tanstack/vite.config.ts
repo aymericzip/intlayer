@@ -79,6 +79,76 @@ const MD_REWRITE_PATTERN =
   /^(\/[a-z]{2}(?:-[A-Z]{2})?)?\/(doc|blog|frequent-questions)\/(.+?)\.md(\?.*)?$/;
 
 /**
+ * Registers `server/staticPages.ts` as a Nitro middleware.
+ *
+ * `nitro/vite` collects the `.nitro` property of every Vite plugin, in plugin
+ * order, and runs each as a Nitro module. Placing this plugin *after*
+ * `intlayerProxy()` in the plugin list therefore appends the handler after the
+ * locale proxy's own, which is what keeps locale redirects ahead of static
+ * serving. Files under `server/middleware/` cannot express that ordering —
+ * Nitro scans them into `options.handlers` before any module runs.
+ */
+/**
+ * Vite's command for the current run, captured so `closeBundle` can tell a real
+ * production build from a dev server or a Vitest run — both of which also close
+ * bundles, against directories that hold no shippable output.
+ */
+let viteCommand: 'build' | 'serve' | undefined;
+
+const staticPagesPlugin = {
+  name: 'static-prerendered-pages',
+  configResolved(config: { command: 'build' | 'serve' }) {
+    viteCommand = config.command;
+  },
+  /**
+   * Compresses the client bundle as its environment closes.
+   *
+   * Nitro copies this output into `.output/public` and then globs that
+   * directory to bake the asset manifest into the server bundle. Its static
+   * handler can only encoding-negotiate variants present in that manifest, so
+   * the `.br` / `.gz` files have to exist *before* the Nitro build — which is
+   * exactly here. Compressing later (in `postbuild`) produces files the server
+   * never learns about, and JS and CSS ship uncompressed.
+   */
+  closeBundle: {
+    order: 'post' as const,
+    async handler(this: {
+      environment?: { name?: string; config?: { build?: { outDir?: string } } };
+    }) {
+      if (viteCommand !== 'build') return;
+
+      const environment = this.environment;
+      if (environment?.name !== 'client') return;
+
+      const outDir = environment.config?.build?.outDir;
+      if (!outDir) return;
+
+      const { compressDirectory } = await import('./scripts/compress-static');
+      await compressDirectory(resolve(__dirname, outDir), 'client bundle');
+    },
+  },
+  nitro: {
+    name: 'static-prerendered-pages',
+    setup(nitro: {
+      options: {
+        dev: boolean;
+        handlers: { route: string; handler: string; middleware: boolean }[];
+      };
+    }) {
+      // In dev there is no prerender output to serve, and Vite owns the
+      // request pipeline anyway.
+      if (nitro.options.dev) return;
+
+      nitro.options.handlers.push({
+        route: '/**',
+        handler: resolve(__dirname, 'server/staticPages.ts'),
+        middleware: true,
+      });
+    },
+  },
+};
+
+/**
  * Same rewrite, driven by content negotiation instead of a `.md` suffix, so a
  * documentation URL answers with markdown when an agent asks for it while the
  * address stays unchanged. Mirrors `server/middleware/0.mdAcceptRewrite.ts`,
@@ -360,6 +430,7 @@ export default defineConfig(async ({ mode }) => {
         },
       }),
       intlayer(),
+      staticPagesPlugin,
       tailwindcss(),
       tanstackStart({
         router: {
