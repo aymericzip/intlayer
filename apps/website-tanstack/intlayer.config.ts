@@ -85,7 +85,7 @@ const config: CustomIntlayerConfig = {
     output: ({ fileName }) => `./${fileName}.content.ts`,
   },
   build: {
-    optimize: true,
+    optimize: undefined, // Keep default, optimize in prod only
     minify: true,
     purge: true,
   },

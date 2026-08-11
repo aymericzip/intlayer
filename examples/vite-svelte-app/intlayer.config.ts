@@ -21,7 +21,7 @@ const config: IntlayerConfig = {
   },
 
   build: {
-    optimize: true,
+    optimize: undefined, // Keep default, optimize in prod only
     minify: true,
     purge: true,
   },

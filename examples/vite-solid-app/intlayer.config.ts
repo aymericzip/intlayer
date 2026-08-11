@@ -18,7 +18,7 @@ const config: IntlayerConfig = {
     importMode: 'dynamic',
   },
   build: {
-    optimize: true,
+    optimize: undefined, // Keep default, optimize in prod only
     minify: true,
     purge: true,
   },

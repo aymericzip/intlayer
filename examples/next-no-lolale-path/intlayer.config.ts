@@ -10,7 +10,7 @@ const config: IntlayerConfig = {
     storage: ['header'],
   },
   build: {
-    optimize: true,
+    optimize: undefined, // Keep default, optimize in prod only
   },
   dictionary: {
     importMode: 'fetch',

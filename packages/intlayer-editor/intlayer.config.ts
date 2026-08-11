@@ -25,7 +25,7 @@ const config: IntlayerConfig = {
     strictMode: 'strict',
   },
   build: {
-    optimize: true,
+    optimize: undefined, // Keep default, optimize in prod only
     traversePattern: [
       'client/src/**/*.{ts,tsx,mjs}',
       `${dirname(require.resolve('@intlayer/design-system'))}/**/*`,

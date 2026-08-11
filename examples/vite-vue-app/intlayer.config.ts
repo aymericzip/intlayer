@@ -26,7 +26,7 @@ const config: IntlayerConfig = {
     clientSecret: process.env.INTLAYER_CLIENT_SECRET,
   },
   build: {
-    optimize: true,
+    optimize: undefined, // Keep default, optimize in prod only
     minify: true,
     purge: true,
   },
@@ -43,9 +43,7 @@ const config: IntlayerConfig = {
     enabled: false,
     output: ({ fileName }) => `./${fileName}.content.ts`,
   },
-  // build: {
-  //   optimize: true,
-  // },
+
   dictionary: {
     importMode: 'dynamic',
   },
