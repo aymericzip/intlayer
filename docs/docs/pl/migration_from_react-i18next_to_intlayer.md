@@ -361,13 +361,6 @@ Intlayer używa module augmentation, aby zapewnić pełny intellisense TypeScrip
 
 ---
 
-## Szybka migracja
-
-Następujące kroki są minimalne wymagane aby uruchomić istniejącą aplikację `react-i18next` na Intlayer bez zmian kodu.
-
-<Steps>
-
-<Step number={1} title="Zainstaluj zależności">
 ## Idź dalej
 
 - **Visual Editor** — Zarządzaj tłumaczeniami wizualnie w przeglądarce: [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md)

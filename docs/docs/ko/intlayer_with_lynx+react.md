@@ -84,6 +84,10 @@ Intlayer는 단순한 i18n 솔루션 그 이상으로 관리에 도움이 되는
 
 ---
 
+<Steps>
+
+<Step number={1} title="의존성 설치">
+
 ### 패키지
 
 - **intlayer**  

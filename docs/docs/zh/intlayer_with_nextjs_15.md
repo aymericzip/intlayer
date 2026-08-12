@@ -433,8 +433,6 @@ export const ServerComponentExample: FC = () => {
 
 > 要了解有关 `useIntlayer` 钩子的更多信息，请参阅[文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/next-intlayer/useIntlayer.md)。
 
-<Steps>
-
 </Step>
 
 <Step number={7} title="配置中间件以检测语言环境">

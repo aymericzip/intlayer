@@ -75,7 +75,7 @@ Intlayer は単なる i18n ソリューションではなく、**自己ホスト
 
 <Tabs defaultTab="video">
   <Tab label="ビデオ" value="video">
-  
+
 <iframe title="ViteとReactに最適なi18nソリューション？Intlayerを発見" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?si=VaKmrYMmXjo3xpk2"/>
 
   </Tab>
@@ -104,6 +104,10 @@ Intlayer は単なる i18n ソリューションではなく、**自己ホスト
 </Tabs>
 
 GitHubの[Application Template](https://github.com/aymericzip/intlayer-vite-react-template)を参照してください。
+
+<Steps>
+
+<Step number={9} title="HTMLの言語属性と方向属性を切り替える" isOptional={true}>
 
 #### フックの実装
 

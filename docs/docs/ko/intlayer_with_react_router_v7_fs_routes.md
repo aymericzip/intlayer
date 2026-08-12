@@ -162,7 +162,7 @@ bun add vite-intlayer --dev
 
 </Step>
 
-</Steps>
+<Step number={5} title="레이아웃 컴포넌트 생성">
 
 #### 파일 구조
 

@@ -319,9 +319,9 @@ const changeLocale = (event: Event) => {
 Intlayer सीधे आपके Svelte एप्लिकेशन में Markdown सामग्री को रेंडर करने का समर्थन करता है। डिफ़ॉल्ट रूप से, Markdown को सादा टेक्स्ट के रूप में माना जाता है। Markdown को समृद्ध HTML में बदलने के लिए, आप `@humanspeak/svelte-markdown` या किसी अन्य markdown पार्सर को एकीकृत कर सकते हैं।
 
 > `intlayer` पैकेज का उपयोग क�
-> </Steps>
+> </Step>
 
-e}>
+<Step number={8} title="intlayer संपादक / CMS सेट करें" isOptional={true}>
 
 intlayer संपादक सेट करने के लिए, आपको [intlayer संपादक दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md) का पालन करना होगा।
 

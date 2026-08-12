@@ -312,14 +312,6 @@ export default config;
 
 ---
 
-## Szybka migracja
-
-Następujące kroki są minimalne wymagane aby uruchomić istniejącą aplikację `next-intl` na Intlayer bez zmian kodu.
-
-<Steps>
-
-<Step number={1} title="Zainstaluj zależności">
-
 Zainstaluj pakiety rdzenia Intlayer i adapter compat `@intlayer/next-intl`:
 
 ## Konfiguracja TypeScript

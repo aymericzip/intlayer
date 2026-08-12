@@ -514,8 +514,6 @@ const ComponentExample = () => {
 
 > 要了解有关 `useIntlayer` 钩子的更多信息，请参阅[文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/next-intlayer/useIntlayer.md)。
 
-<Steps>
-
 </Step>
 
 <Step number={8} title="元数据的国际化">

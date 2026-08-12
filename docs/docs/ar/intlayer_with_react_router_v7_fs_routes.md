@@ -144,7 +144,7 @@ bun add vite-intlayer --dev
 
 </Step>
 
-</Steps>
+<Step number={5} title="إنشاء مكونات التخطيط">
 
 #### بنية الملفات
 

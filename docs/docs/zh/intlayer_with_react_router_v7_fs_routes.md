@@ -131,6 +131,10 @@ export default config;
 
 > 通过此配置文件，您可以设置本地化的 URL、中间件重定向、cookie 名称、内容声明的位置和扩展名，禁用控制台中的 Intlayer 日志等。有关可用参数的完整列表，请参阅[配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
 
+<Steps>
+
+<Step number={5} title="创建根布局">
+
 #### 文件结构
 
 ```bash

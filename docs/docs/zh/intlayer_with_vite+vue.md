@@ -444,8 +444,6 @@ Intlayer 提供了多种 API 来访问您的内容：
 
 > 如果您的应用程序已经存在，您可以结合使用 [Intlayer 编译器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md) 和 [提取命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/extract.md) 在一秒钟内转换成干个组件。
 
-<Steps>
-
 </Step>
 
 <Step number={6} title="更改内容语言">

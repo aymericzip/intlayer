@@ -161,7 +161,7 @@ The core package that provides internationalisation tools for configuration mana
 
 </Step>
 
-</Steps>
+<Step number={5} title="Create Layout Components">
 
 #### File Structure
 

@@ -98,6 +98,10 @@ Następujące kroki są minimalne wymagane aby uruchomić istniejącą aplikacj�
 
 Zainstaluj pakiety rdzenia Intlayer i adapter compat:
 
+</Step>
+
+</Steps>
+
 ## Pełna migracja
 
 Poniższe kroki są opcjonalne i można je wykonywać stopniowo. Odblokowują one pełny zestaw funkcji Intlayer: edytor wizualny, CMS, pliki zawartości z typami, automatyczne tłumaczenie oparte na AI i wiele więcej.

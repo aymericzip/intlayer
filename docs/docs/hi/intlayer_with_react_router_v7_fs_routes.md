@@ -145,7 +145,7 @@ bun add vite-intlayer --dev
 
 </Step>
 
-</Steps>
+<Step number={5} title="लेआउट कंपोनेंट बनाएं">
 
 #### फ़ाइल संरचना
 

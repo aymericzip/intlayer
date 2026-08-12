@@ -314,7 +314,7 @@ Intlayer 提供了多种 API 来访问您的内容：
   - 使用 `const content = useIntlayer("myContent");` 以及 `{{ content.myContent }}` / `<content.myContent />`。
   - 或者使用 `const { myContent } = useIntlayer("myContent");` 以及 `{{ myContent}}` / `<myContent/>` 来解构内容。
 
-<Steps>
+</Step>
 
 <Step number={6} title="更改内容语言">
 

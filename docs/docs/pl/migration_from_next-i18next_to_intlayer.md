@@ -335,13 +335,6 @@ Intlayer uses module augmentation to provide full TypeScript intellisense for yo
 
 ---
 
-## Szybka migracja
-
-Następujące kroki są minimalne wymagane aby uruchomić istniejącą aplikację Next.js Pages Router na Intlayer bez zmian kodu w stronach i komponentach.
-
-<Steps>
-
-<Step number={1} title="Zainstaluj zależności">
 ## Idź dalej
 
 - **Visual Editor** — Zarządzaj tłumaczeniami wizualnie w przeglądarce: [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md)

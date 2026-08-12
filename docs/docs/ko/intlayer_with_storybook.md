@@ -266,10 +266,12 @@ export default preview;
 
 > `locale` 값은 `intlayer.config.ts`에 선언된 로케일과 일치해야 합니다.
 
+</Step>
+</Steps>
 </Tab>
 <Tab value="Webpack Setup">
 
-</Step>
+<Steps>
 
 <Step number={1} title="종속성 설치">
 
@@ -391,14 +393,12 @@ const preview: Preview = {
 export default preview;
 ```
 
+</Step>
+</Steps>
 </Tab>
 </Tabs>
 
 ---
-
-</Step>
-
-</Steps>
 
 ## 콘텐츠 선언
 

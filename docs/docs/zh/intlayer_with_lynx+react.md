@@ -67,6 +67,10 @@ Intlayer 不仅仅是一个 i18n 解决方案，还提供了一个**自托管的
 
 ---
 
+<Steps>
+
+<Step number={1} title="安装依赖">
+
 ### Packages
 
 - **intlayer**  

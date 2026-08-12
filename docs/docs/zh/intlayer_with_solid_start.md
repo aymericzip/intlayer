@@ -572,7 +572,7 @@ export const Nav: Component = () => {
 
 <Step number={10} title="创建语言切换器组件">
 
-将切换器渲染为**真实的 <a> 锚点**而非 `<select>`：当前页面的每种语言都会变为可爬取的链接，并且可以在新标签页中打开，这是仅依靠 JavaScript 的控件无法提供的。
+将切换器渲染为**真实的 `<a>` 锚点**而非 `<select>`：当前页面的每种语言都会变为可爬取的链接，并且可以在新标签页中打开，这是仅依靠 JavaScript 的控件无法提供的。
 
 `getPathWithoutLocale` 会从当前路径中剥离语言段，而 `getLocalizedUrl` 会为目标语言重新构建它，因此这些链接会遵循你的路由模式，无需硬编码任何内容。导航是改变渲染语言的原因 —— `[[locale]]` 路由从 URL 中推导语言 —— 而 `setLocale` 会将选择保存在 `INTLAYER_LOCALE` cookie 中，以便以后访问无语言前缀的 URL 时能解析为相同的语言。
 

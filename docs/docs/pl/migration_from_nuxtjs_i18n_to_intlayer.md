@@ -307,13 +307,6 @@ Intlayer używa module augmentation, aby zapewnić pełny TypeScript intellisens
 
 ---
 
-## Szybka migracja
-
-Następujące kroki są minimalne wymagane aby uruchomić istniejącą aplikację Nuxt na Intlayer bez zmian kodu w komponentach.
-
-<Steps>
-
-<Step number={1} title="Zainstaluj zależności">
 ## Idź dalej
 
 - **Visual Editor** — Zarządzaj tłumaczeniami wizualnie w przeglądarce: [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md)
