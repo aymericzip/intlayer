@@ -93,20 +93,15 @@ const config: CustomIntlayerConfig = {
     enabled: false,
     liveSync: false,
     dictionaryPriorityStrategy: 'local_first',
-    // applicationURL: import.meta.env.VITE_URL,
-    // editorURL: import.meta.env.VITE_EDITOR_URL,
-    // cmsURL: import.meta.env.VITE_CMS_URL,
-    // backendURL: import.meta.env.VITE_BACKEND_URL,
-    // clientId: import.meta.env.INTLAYER_CLIENT_ID,
-    // clientSecret: import.meta.env.INTLAYER_CLIENT_SECRET,
+    applicationURL: import.meta.env.VITE_URL,
+    editorURL: import.meta.env.VITE_EDITOR_URL,
+    cmsURL: import.meta.env.VITE_CMS_URL,
+    backendURL: import.meta.env.VITE_BACKEND_URL,
+    clientId: import.meta.env.INTLAYER_CLIENT_ID,
+    clientSecret: import.meta.env.INTLAYER_CLIENT_SECRET,
   },
   dictionary: {
     importMode: 'dynamic',
-  },
-  build: {
-    optimize: true,
-    minify: true,
-    purge: true,
   },
 
   // ai: {
