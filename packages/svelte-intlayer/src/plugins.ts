@@ -59,10 +59,12 @@ let markdownRendererModulesPromise: Promise<MarkdownRendererModules> | null =
   null;
 
 if (process.env.INTLAYER_NODE_TYPE_MARKDOWN !== 'false') {
-  void import('@intlayer/core/markdown').then((m) => {
-    _getMarkdownMetadata = m.getMarkdownMetadata;
-    _compile = m.compile;
-  });
+  void import('@intlayer/core/markdown')
+    .then((m) => {
+      _getMarkdownMetadata = m.getMarkdownMetadata;
+      _compile = m.compile;
+    })
+    .catch(() => {});
 
   markdownRendererModulesPromise = Promise.all([
     import('./markdown/MarkdownMetadataRenderer.svelte'),
@@ -88,12 +90,18 @@ if (process.env.INTLAYER_NODE_TYPE_MARKDOWN !== 'false') {
       };
     }
   );
+
+  // Read later by `resolveMarkdownRenderer`, so the rejection must stay on the
+  // promise: a `.catch()` chained into it would resolve with `undefined` and be
+  // mistaken for loaded renderers. Handle it on the side instead, so an aborted
+  // chunk load never escapes as an unhandled rejection.
+  markdownRendererModulesPromise.catch(() => {});
 }
 
 if (process.env.INTLAYER_NODE_TYPE_HTML !== 'false') {
-  void import('./html/HTMLWithSelector.svelte').then(
-    (m) => (_HTMLWithSelector = m.default)
-  );
+  void import('./html/HTMLWithSelector.svelte')
+    .then((m) => (_HTMLWithSelector = m.default))
+    .catch(() => {});
 }
 
 /**

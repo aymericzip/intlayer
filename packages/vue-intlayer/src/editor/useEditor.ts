@@ -21,24 +21,28 @@ const startEditor = (locale: Ref<Locale> | undefined): (() => void) => {
   let stopLocaleWatch: (() => void) | null = null;
   let stopped = false;
 
-  import('@intlayer/editor').then(({ initEditorClient }) => {
-    if (stopped) return;
-    const manager = initEditorClient();
+  import('@intlayer/editor')
+    .then(({ initEditorClient }) => {
+      if (stopped) return;
+      const manager = initEditorClient();
 
-    if (locale) {
-      stopLocaleWatch = watchEffect(() => {
-        const l = locale.value;
-        if (l) manager.currentLocale.set(l as Locale);
-      });
-    }
-  });
+      if (locale) {
+        stopLocaleWatch = watchEffect(() => {
+          const l = locale.value;
+          if (l) manager.currentLocale.set(l as Locale);
+        });
+      }
+    })
+    .catch(() => {});
 
   return () => {
     stopped = true;
     stopLocaleWatch?.();
-    import('@intlayer/editor').then(({ stopEditorClient }) => {
-      stopEditorClient();
-    });
+    import('@intlayer/editor')
+      .then(({ stopEditorClient }) => {
+        stopEditorClient();
+      })
+      .catch(() => {});
   };
 };
 

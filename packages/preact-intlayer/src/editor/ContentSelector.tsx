@@ -28,9 +28,11 @@ export const ContentSelector: FunctionalComponent<
       typeof window === 'undefined'
     )
       return;
-    import('@intlayer/editor').then(({ defineIntlayerElements }) => {
-      defineIntlayerElements();
-    });
+    import('@intlayer/editor')
+      .then(({ defineIntlayerElements }) => {
+        defineIntlayerElements();
+      })
+      .catch(() => {});
   }, [isEnabled]);
 
   if (process.env.INTLAYER_EDITOR_ENABLED === 'false' || !isEnabled) {

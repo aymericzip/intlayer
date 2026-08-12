@@ -16,11 +16,13 @@ export const useEditor = () => {
   const [manager, setManager] = createSignal<EditorStateManager | null>(null);
 
   onMount(() => {
-    import('@intlayer/editor').then(({ initEditorClient }) => {
-      const managerInstance = initEditorClient();
+    import('@intlayer/editor')
+      .then(({ initEditorClient }) => {
+        const managerInstance = initEditorClient();
 
-      setManager(managerInstance);
-    });
+        setManager(managerInstance);
+      })
+      .catch(() => {});
   });
 
   createEffect(() => {
@@ -33,8 +35,10 @@ export const useEditor = () => {
   });
 
   onCleanup(() => {
-    import('@intlayer/editor').then(({ stopEditorClient }) => {
-      stopEditorClient();
-    });
+    import('@intlayer/editor')
+      .then(({ stopEditorClient }) => {
+        stopEditorClient();
+      })
+      .catch(() => {});
   });
 };

@@ -614,7 +614,7 @@ describe('images', () => {
     renderFn(compileMarkdown(markdown));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`
-      "<p>
+      "<p><img src="/xyz.png">
       </p>"
     `);
   });
@@ -634,7 +634,7 @@ describe('images', () => {
     renderFn(compileMarkdown(markdown));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`
-      "<p>
+      "<p><img alt="test" src="/xyz.png">
       </p>"
     `);
   });
@@ -644,7 +644,7 @@ describe('images', () => {
     renderFn(compileMarkdown(markdown));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`
-      "<p>
+      "<p><img alt="test" title="foo" src="/xyz.png">
       </p>"
     `);
   });
@@ -683,7 +683,7 @@ describe('links', () => {
     renderFn(compileMarkdown(['[foo][1]', '[1]: /xyz.png'].join('\n')));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`
-      "<p><span>[foo][1]</span>
+      "<p><a href="/xyz.png">foo</a>
       </p>"
     `);
   });
@@ -692,7 +692,7 @@ describe('links', () => {
     renderFn(compileMarkdown(['[foo] [1]', '[1]: /xyz.png'].join('\n')));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`
-      "<p><span>[foo] [1]</span>
+      "<p><a href="/xyz.png">foo</a>
       </p>"
     `);
   });
@@ -701,7 +701,7 @@ describe('links', () => {
     renderFn(compileMarkdown(['[foo][1]', '[1]: /xyz.png "bar"'].join('\n')));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`
-      "<p><span>[foo][1]</span>
+      "<p><a href="/xyz.png" title="bar">foo</a>
       </p>"
     `);
   });
@@ -710,7 +710,7 @@ describe('links', () => {
     renderFn(compileMarkdown(['[foo][1]', '[1]: </xyz.png>'].join('\n')));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`
-      "<p><span>[foo][1]</span>
+      "<p><a href="/xyz.png">foo</a>
       </p>"
     `);
   });
@@ -719,7 +719,7 @@ describe('links', () => {
     renderFn(compileMarkdown(['[foo] [1]', '[1]: </xyz.png>'].join('\n')));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`
-      "<p><span>[foo] [1]</span>
+      "<p><a href="/xyz.png">foo</a>
       </p>"
     `);
   });
@@ -728,7 +728,7 @@ describe('links', () => {
     renderFn(compileMarkdown(['[foo][1]', '[1]: </xyz.png> "bar"'].join('\n')));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`
-      "<p><span>[foo][1]</span>
+      "<p><a href="/xyz.png" title="bar">foo</a>
       </p>"
     `);
   });

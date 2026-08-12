@@ -37,9 +37,11 @@ if (
   process.env.INTLAYER_NODE_TYPE_MARKDOWN !== 'false' ||
   process.env.INTLAYER_NODE_TYPE_HTML !== 'false'
 ) {
-  void import('./markdown/installIntlayerMarkdown').then((m) => {
-    _markdownInstall = m as any;
-  });
+  void import('./markdown/installIntlayerMarkdown')
+    .then((m) => {
+      _markdownInstall = m as any;
+    })
+    .catch(() => {});
 }
 
 /** ---------------------------------------------

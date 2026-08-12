@@ -109,15 +109,19 @@ export const installIntlayer = (
   app.provide(INTLAYER_SYMBOL, client);
 
   if (process.env.INTLAYER_EDITOR_ENABLED !== 'false') {
-    import('../editor/useEditor').then(({ useEditor }) => {
-      useEditor(app);
-    });
+    import('../editor/useEditor')
+      .then(({ useEditor }) => {
+        useEditor(app);
+      })
+      .catch(() => {});
   }
 
   if (process.env.INTLAYER_ANALYTICS_ENABLED !== 'false') {
-    import('../analytics/useAnalytics').then(({ useAnalytics }) => {
-      useAnalytics(app);
-    });
+    import('../analytics/useAnalytics')
+      .then(({ useAnalytics }) => {
+        useAnalytics(app);
+      })
+      .catch(() => {});
   }
 
   return app;

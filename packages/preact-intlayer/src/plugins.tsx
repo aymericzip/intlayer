@@ -49,6 +49,13 @@ const htmlRendererModulePromise =
     ? import('./html/HTMLRenderer').then((m) => m.HTMLRenderer)
     : null;
 
+// These preloads are read later by `useLoadDynamic`, so the rejection must stay
+// on the promise: a `.catch()` chained into it would resolve with `undefined`
+// and be mistaken for a loaded module. Handle it on the side instead, so an
+// aborted chunk load never escapes as an unhandled rejection.
+markdownRendererModulePromise?.catch(() => {});
+htmlRendererModulePromise?.catch(() => {});
+
 /** ---------------------------------------------
  * INTLAYER NODE PLUGIN
  * --------------------------------------------- */

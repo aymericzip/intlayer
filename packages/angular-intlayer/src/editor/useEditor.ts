@@ -45,10 +45,12 @@ export const useEditor = (client?: IntlayerProvider | null): void => {
   let stopped = false;
 
   // Initialise the editor client
-  import('@intlayer/editor').then(({ initEditorClient }) => {
-    if (stopped) return;
-    manager.set(initEditorClient());
-  });
+  import('@intlayer/editor')
+    .then(({ initEditorClient }) => {
+      if (stopped) return;
+      manager.set(initEditorClient());
+    })
+    .catch(() => {});
 
   // Keep the editor locale in sync with the Angular locale signal
   const effectRef = runInInjectionContext(injector, () =>
@@ -64,9 +66,11 @@ export const useEditor = (client?: IntlayerProvider | null): void => {
     stopped = true;
     effectRef.destroy();
     manager.set(null);
-    import('@intlayer/editor').then(({ stopEditorClient }) => {
-      stopEditorClient();
-    });
+    import('@intlayer/editor')
+      .then(({ stopEditorClient }) => {
+        stopEditorClient();
+      })
+      .catch(() => {});
   });
 };
 

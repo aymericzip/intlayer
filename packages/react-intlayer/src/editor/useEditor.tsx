@@ -18,18 +18,22 @@ export const useEditor = () => {
   useEffect(() => {
     if (process.env.INTLAYER_EDITOR_ENABLED === 'false' || !isEnabled) return;
 
-    import('@intlayer/editor').then(({ initEditorClient }) => {
-      const manager = initEditorClient();
-      managerRef.current = manager;
+    import('@intlayer/editor')
+      .then(({ initEditorClient }) => {
+        const manager = initEditorClient();
+        managerRef.current = manager;
 
-      if (locale) manager.currentLocale.set(locale as Locale);
-    });
+        if (locale) manager.currentLocale.set(locale as Locale);
+      })
+      .catch(() => {});
 
     return () => {
       managerRef.current = null;
-      import('@intlayer/editor').then(({ stopEditorClient }) => {
-        stopEditorClient();
-      });
+      import('@intlayer/editor')
+        .then(({ stopEditorClient }) => {
+          stopEditorClient();
+        })
+        .catch(() => {});
     };
   }, []);
 

@@ -29,23 +29,27 @@ export const useEditor = (): (() => void) => {
   let unsubscribeLocale: (() => void) | null = null;
   let stopped = false;
 
-  import('@intlayer/editor').then(({ initEditorClient }) => {
-    if (stopped) return;
-    const manager: EditorStateManager = initEditorClient();
-    const client = getIntlayerClient();
+  import('@intlayer/editor')
+    .then(({ initEditorClient }) => {
+      if (stopped) return;
+      const manager: EditorStateManager = initEditorClient();
+      const client = getIntlayerClient();
 
-    manager.currentLocale.set(client.locale as Locale);
+      manager.currentLocale.set(client.locale as Locale);
 
-    unsubscribeLocale = client.subscribe((newLocale) => {
-      manager.currentLocale.set(newLocale as Locale);
-    });
-  });
+      unsubscribeLocale = client.subscribe((newLocale) => {
+        manager.currentLocale.set(newLocale as Locale);
+      });
+    })
+    .catch(() => {});
 
   return () => {
     stopped = true;
     unsubscribeLocale?.();
-    import('@intlayer/editor').then(({ stopEditorClient }) => {
-      stopEditorClient();
-    });
+    import('@intlayer/editor')
+      .then(({ stopEditorClient }) => {
+        stopEditorClient();
+      })
+      .catch(() => {});
   };
 };

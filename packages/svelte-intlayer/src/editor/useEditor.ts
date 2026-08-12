@@ -19,21 +19,25 @@ export const useEditor = () => {
   let unsubscribeLocale: (() => void) | null = null;
 
   onMount(() => {
-    import('@intlayer/editor').then(({ initEditorClient }) => {
-      const manager: EditorStateManager = initEditorClient();
+    import('@intlayer/editor')
+      .then(({ initEditorClient }) => {
+        const manager: EditorStateManager = initEditorClient();
 
-      // Subscribe immediately — Svelte stores call the subscriber with the
-      // current value on subscription, so the initial locale is set right away.
-      unsubscribeLocale = intlayerStore.subscribe(({ locale }) => {
-        if (locale) manager.currentLocale.set(locale as Locale);
-      });
-    });
+        // Subscribe immediately — Svelte stores call the subscriber with the
+        // current value on subscription, so the initial locale is set right away.
+        unsubscribeLocale = intlayerStore.subscribe(({ locale }) => {
+          if (locale) manager.currentLocale.set(locale as Locale);
+        });
+      })
+      .catch(() => {});
   });
 
   onDestroy(() => {
     unsubscribeLocale?.();
-    import('@intlayer/editor').then(({ stopEditorClient }) => {
-      stopEditorClient();
-    });
+    import('@intlayer/editor')
+      .then(({ stopEditorClient }) => {
+        stopEditorClient();
+      })
+      .catch(() => {});
   });
 };

@@ -25,17 +25,19 @@ class EditorController implements ReactiveController {
     this._stopped = false;
     if (process.env.INTLAYER_EDITOR_ENABLED === 'false' || !isEnabled) return;
 
-    import('@intlayer/editor').then(({ initEditorClient }) => {
-      if (this._stopped) return;
-      const manager: EditorStateManager = initEditorClient();
-      const client = getIntlayerClient();
+    import('@intlayer/editor')
+      .then(({ initEditorClient }) => {
+        if (this._stopped) return;
+        const manager: EditorStateManager = initEditorClient();
+        const client = getIntlayerClient();
 
-      manager.currentLocale.set(client.locale as Locale);
+        manager.currentLocale.set(client.locale as Locale);
 
-      this._unsubscribeLocale = client.subscribe((newLocale) => {
-        manager.currentLocale.set(newLocale as Locale);
-      });
-    });
+        this._unsubscribeLocale = client.subscribe((newLocale) => {
+          manager.currentLocale.set(newLocale as Locale);
+        });
+      })
+      .catch(() => {});
   }
 
   hostDisconnected(): void {
@@ -43,9 +45,11 @@ class EditorController implements ReactiveController {
     this._unsubscribeLocale?.();
     this._unsubscribeLocale = null;
 
-    import('@intlayer/editor').then(({ stopEditorClient }) => {
-      stopEditorClient();
-    });
+    import('@intlayer/editor')
+      .then(({ stopEditorClient }) => {
+        stopEditorClient();
+      })
+      .catch(() => {});
   }
 }
 
@@ -91,24 +95,28 @@ export function useEditor(host?: ReactiveControllerHost): void | (() => void) {
     let stopped = false;
     let unsubscribeLocale: (() => void) | null = null;
 
-    import('@intlayer/editor').then(({ initEditorClient }) => {
-      if (stopped) return;
-      const manager: EditorStateManager = initEditorClient();
-      const client = getIntlayerClient();
+    import('@intlayer/editor')
+      .then(({ initEditorClient }) => {
+        if (stopped) return;
+        const manager: EditorStateManager = initEditorClient();
+        const client = getIntlayerClient();
 
-      manager.currentLocale.set(client.locale as Locale);
+        manager.currentLocale.set(client.locale as Locale);
 
-      unsubscribeLocale = client.subscribe((newLocale) => {
-        manager.currentLocale.set(newLocale as Locale);
-      });
-    });
+        unsubscribeLocale = client.subscribe((newLocale) => {
+          manager.currentLocale.set(newLocale as Locale);
+        });
+      })
+      .catch(() => {});
 
     return () => {
       stopped = true;
       unsubscribeLocale?.();
-      import('@intlayer/editor').then(({ stopEditorClient }) => {
-        stopEditorClient();
-      });
+      import('@intlayer/editor')
+        .then(({ stopEditorClient }) => {
+          stopEditorClient();
+        })
+        .catch(() => {});
     };
   }
 
