@@ -77,7 +77,7 @@
     "typecheck": "bun turbo typecheck '--filter=./packages/**' '--filter=./docs' '--filter=./apps/backend' '--filter=./plugins/**' '--filter=./compat/**' --concurrency=1"
   },
   "resolutions": {
-    "preact": "10.29.0",
+    "preact": "10.29.8",
     "react": "19.2.8",
     "react-dom": "19.2.8"
   },

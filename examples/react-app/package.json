@@ -28,7 +28,7 @@
   "dependencies": {
     "@testing-library/jest-dom": "7.0.1",
     "@testing-library/react": "16.3.2",
-    "@testing-library/user-event": "14.6.3",
+    "@testing-library/user-event": "14.6.4",
     "@types/jest": "30.0.0",
     "@types/node": "26.2.0",
     "@types/react": "19.2.18",
@@ -36,7 +36,7 @@
     "autoprefixer": "10.5.4",
     "intlayer": "workspace:*",
     "intlayer-cli": "workspace:*",
-    "postcss-preset-env": "10.6.0",
+    "postcss-preset-env": "11.3.2",
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "react-intlayer": "workspace:*",
@@ -49,6 +49,6 @@
     "@tailwindcss/postcss": "4.3.3",
     "intlayer-editor": "workspace:*",
     "react-scripts-intlayer": "workspace:*",
-    "tailwindcss": "4.2.0"
+    "tailwindcss": "4.2.4"
   }
 }
