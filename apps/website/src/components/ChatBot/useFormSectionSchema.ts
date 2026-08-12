@@ -1,5 +1,5 @@
 import { useIntlayer } from 'next-intlayer';
-import { z } from 'zod/v4';
+import { z } from 'zod';
 
 export const useFormSectionSchema = () => {
   const { questionRequiredError, questionInvalidTypeError } = useIntlayer(

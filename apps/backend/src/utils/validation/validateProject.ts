@@ -1,5 +1,5 @@
 import { getOrganizationById } from '@services/organization.service';
-import z from 'zod';
+import { z } from 'zod';
 import type { Project, ProjectAPI } from '@/types/project.types';
 
 export type ProjectFields = (keyof Project)[];

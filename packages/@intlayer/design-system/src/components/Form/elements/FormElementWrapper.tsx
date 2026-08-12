@@ -3,7 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import type { FC, HTMLProps, SubmitEvent } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { z } from 'zod/v4';
+import { z } from 'zod';
 
 const Schema = z.object({
   test: z.string().min(3, 'test error'),

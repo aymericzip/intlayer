@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { z } from 'zod/v4';
+import { z } from 'zod';
 import { Select } from '../Select';
 import { MultiSelect } from '../Select/Multiselect';
 import {

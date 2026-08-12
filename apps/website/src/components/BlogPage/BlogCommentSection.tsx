@@ -11,7 +11,7 @@ import {
 import { getIntlayer } from 'intlayer';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, useEffect, useState } from 'react';
-import { z } from 'zod/v4';
+import { z } from 'zod';
 
 type CommentStatus = 'pending' | 'approved' | 'rejected';
 

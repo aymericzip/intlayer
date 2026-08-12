@@ -1,5 +1,5 @@
 import { getOrganizationById } from '@services/organization.service';
-import z from 'zod';
+import { z } from 'zod';
 import type { Tag } from '@/types/tag.types';
 
 export type TagFields = (keyof Tag)[];

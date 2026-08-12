@@ -7,11 +7,19 @@ Fastify REST API for Intlayer CMS. `https://api.intlayer.org`. Consumed by `apps
 ```sh
 bun run dev          # watch mode (bun --watch ./src/index.ts)
 bun run build        # tsdown build → dist/
-bun run test         # vitest run
+bun run test         # vitest run (node runtime — see note below)
 bun run lint         # biome lint
 bun run lint:fix     # biome lint --write
 bun run typecheck    # tsc --noEmit
 ```
+
+Unlike the other workspaces, `test` runs `bun vitest` (node) rather than
+`bun --bun vitest`. Under `bun --bun`, Vite's SSR transform drops zod's
+re-exported `z` namespace (`import * as z` + `export { z }` in its ESM entry),
+so `import { z } from 'zod'` — and `'zod/v4'` — resolve to `undefined` and every
+validation schema throws at import time. Plain bun and node both handle the
+module correctly; only the test transform is affected. Keep the flag off until
+that is fixed upstream.
 
 ## Path aliases (tsconfig)
 

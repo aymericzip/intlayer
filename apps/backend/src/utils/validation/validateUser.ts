@@ -1,4 +1,4 @@
-import z from 'zod';
+import { z } from 'zod';
 import type { User, UserAPI } from '@/types/user.types';
 
 export type UserFields = (keyof User)[];

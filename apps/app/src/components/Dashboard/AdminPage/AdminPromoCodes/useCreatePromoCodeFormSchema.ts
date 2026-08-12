@@ -1,5 +1,5 @@
 import { useIntlayer } from 'react-intlayer';
-import { z } from 'zod/v4';
+import { z } from 'zod';
 
 export const useCreatePromoCodeFormSchema = () => {
   const content = useIntlayer('admin-promo-codes');

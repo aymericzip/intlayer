@@ -1,4 +1,4 @@
-import z from 'zod';
+import { z } from 'zod';
 import type { Organization, OrganizationAPI } from '@/types/organization.types';
 
 export type OrganizationFields = (keyof Organization)[];

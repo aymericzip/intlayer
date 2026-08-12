@@ -21,7 +21,7 @@ import { MaxHeightSmoother } from '@intlayer/design-system/max-height-smoother';
 import { Shield } from 'lucide-react';
 import { type FC, useEffect, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { z } from 'zod/v4';
+import { z } from 'zod';
 import { CurrentProviderInfo } from './CurrentProviderInfo';
 import { OIDCConfigForm } from './OIDCConfigForm';
 import { SAMLConfigForm } from './SAMLConfigForm';

@@ -10,7 +10,7 @@ import {
   useForm as useFormReactHookForm,
   useFormState,
 } from 'react-hook-form';
-import type { ZodObject, z } from 'zod/v4';
+import type { ZodObject, z } from 'zod';
 
 type FormProps<T extends ZodObject> = HTMLAttributes<HTMLFormElement> &
   FormProviderProps<z.infer<T>> & {

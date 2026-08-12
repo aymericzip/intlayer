@@ -1,5 +1,5 @@
 import { useIntlayer } from 'react-intlayer';
-import { z } from 'zod/v4';
+import { z } from 'zod';
 
 export const QUALIFIER_TYPES = ['none', 'item', 'variant'] as const;
 export type QualifierType = (typeof QUALIFIER_TYPES)[number];

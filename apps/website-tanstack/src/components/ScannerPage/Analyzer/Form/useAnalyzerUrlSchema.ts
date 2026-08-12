@@ -1,5 +1,5 @@
 import { getIntlayer } from 'intlayer';
-import { z } from 'zod/v4';
+import { z } from 'zod';
 
 export const useAnalyzerUrlSchema = () => {
   const { invalidUrlError } = getIntlayer('analyzer-form');

@@ -17,7 +17,7 @@ import { MaxHeightSmoother } from '@intlayer/design-system/max-height-smoother';
 import { Mail } from 'lucide-react';
 import { type FC, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { z } from 'zod/v4';
+import { z } from 'zod';
 
 /**
  * Builds the mailer configuration form schema.

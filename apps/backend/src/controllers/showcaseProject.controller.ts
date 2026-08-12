@@ -20,7 +20,7 @@ import {
 } from '@utils/responseData';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import { t } from 'fastify-intlayer';
-import z from 'zod';
+import { z } from 'zod';
 import type { ShowcaseProjectAPI } from '@/types/showcaseProject.types';
 
 const getUserId = (request: FastifyRequest): string | undefined =>

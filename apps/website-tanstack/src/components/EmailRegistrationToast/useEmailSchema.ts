@@ -1,5 +1,5 @@
 import { useIntlayer } from 'react-intlayer';
-import { z } from 'zod/v4';
+import { z } from 'zod';
 
 export const useEmailSchema = () => {
   const { requiredErrorEmail, invalidTypeErrorEmail } = useIntlayer(

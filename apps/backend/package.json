@@ -67,7 +67,7 @@
     "publish:latest": "bun publish --access public --tag latest || true",
     "start": "cross-env NODE_ENV=production node dist/esm/index.mjs",
     "start:stripe": "stripe listen --forward-to localhost:3100/webhook/stripe",
-    "test": "bun --bun vitest run",
+    "test": "bun vitest run",
     "test:watch": "bun --bun vitest",
     "typecheck": "tsc --noEmit --project tsconfig.types.json"
   },

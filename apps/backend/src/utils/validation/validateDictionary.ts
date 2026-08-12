@@ -1,5 +1,5 @@
 import { findProjects } from '@services/project.service';
-import z from 'zod';
+import { z } from 'zod';
 import type { Dictionary } from '@/types/dictionary.types';
 
 export type DictionaryFields = (keyof Dictionary)[];
