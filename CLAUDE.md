@@ -95,7 +95,7 @@ For code that is destined to be kept in the codebase, you should validate that p
 
 - Use full and clear var name, no abbreviations
 - Use clean and strong typing, no any. Use Generic when possible
-- Add JSDoc
+- Add JSDoc, but keep comment concise
 - Use arrow functions
 - Implement and test unit test when applicable and run bun test
 - Assume dev server running; if not, wait 5sec, then 10sec, then 15sec, check output last save timestamp. If not updated, build manually.
