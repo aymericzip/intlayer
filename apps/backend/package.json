@@ -96,7 +96,6 @@
     "defu": "6.1.7",
     "dotenv": "17.4.2",
     "fastify": "5.11.3",
-    "fastify": "5.11.3",
     "fastify-intlayer": "workspace:*",
     "ioredis": "6.0.0",
     "mongodb": "7.5.0",

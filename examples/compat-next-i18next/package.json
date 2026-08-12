@@ -15,7 +15,6 @@
     "@intlayer/types": "workspace:*",
     "intlayer": "workspace:*",
     "next": "16.3.0",
-    "next": "16.3.0",
     "next-intlayer": "workspace:*",
     "react": "19.2.8",
     "react-dom": "19.2.8",
