@@ -9,6 +9,7 @@ import type {
   HuggingFaceProviderOptions,
   LMStudioProviderOptions,
   MistralProviderOptions,
+  MoonshotAIProviderOptions,
   OpenAIProviderOptions,
   OpenRouterProviderOptions,
   TogetherAIProviderOptions,
@@ -59,5 +60,6 @@ declare module '@intlayer/types/config' {
     bedrock: AmazonBedrockProviderOptions;
     togetherai: TogetherAIProviderOptions;
     lmstudio: LMStudioProviderOptions;
+    moonshotai: MoonshotAIProviderOptions;
   }
 }

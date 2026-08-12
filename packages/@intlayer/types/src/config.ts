@@ -576,6 +576,7 @@ export enum AiProviders {
   GOOGLEGENERATIVEAI = 'googlegenerativeai',
   TOGETHERAI = 'togetherai',
   LMSTUDIO = 'lmstudio',
+  MOONSHOTAI = 'moonshotai',
 }
 
 export type CommonAiConfig = {

@@ -20,6 +20,7 @@ import type {
   HuggingFaceProvider,
 } from '@ai-sdk/huggingface';
 import type { createMistral, MistralProvider } from '@ai-sdk/mistral';
+import type { createMoonshotAI, MoonshotAIProvider } from '@ai-sdk/moonshotai';
 import type { createOpenAI, OpenAIProvider } from '@ai-sdk/openai';
 import type {
   createOpenAICompatible,
@@ -62,6 +63,7 @@ type GroqModel = Parameters<GroqProvider>[0];
 type HuggingFaceModel = Parameters<HuggingFaceProvider>[0];
 type TogetherAIModel = Parameters<TogetherAIProvider>[0];
 type LMStudioModel = Parameters<OpenAICompatibleProvider>[0];
+type MoonshotAIModel = Parameters<MoonshotAIProvider>[0];
 
 export type OpenAIProviderOptions = Parameters<typeof createOpenAI>[0];
 export type AnthropicProviderOptions = Parameters<typeof createAnthropic>[0];
@@ -85,6 +87,7 @@ export type TogetherAIProviderOptions = Parameters<typeof createTogetherAI>[0];
 export type LMStudioProviderOptions = Parameters<
   typeof createOpenAICompatible
 >[0];
+export type MoonshotAIProviderOptions = Parameters<typeof createMoonshotAI>[0];
 
 export type SystemMessage =
   | string
@@ -116,6 +119,7 @@ export type Model =
   | HuggingFaceModel
   | TogetherAIModel
   | LMStudioModel
+  | MoonshotAIModel
   | (string & {});
 
 /**
@@ -187,6 +191,9 @@ export type AIOptions = (
   | ({
       provider: AiProviders.LMSTUDIO | `${AiProviders.LMSTUDIO}`;
     } & LMStudioProviderOptions)
+  | ({
+      provider: AiProviders.MOONSHOTAI | `${AiProviders.MOONSHOTAI}`;
+    } & MoonshotAIProviderOptions)
   | ({ provider?: undefined } & OpenAIProviderOptions)
 ) &
   CommonAIOptions;
@@ -664,6 +671,32 @@ const getLanguageModel = async (
       });
 
       return lmstudio(selectedModel as string);
+    }
+
+    case AiProviders.MOONSHOTAI: {
+      const {
+        provider,
+        model,
+        temperature,
+        applicationContext,
+        dataSerialization,
+        apiKey: _apiKey,
+        baseURL: _baseURL,
+        ...otherOptions
+      } = aiOptions as any;
+
+      const { createMoonshotAI } =
+        await loadModule<typeof import('@ai-sdk/moonshotai')>(
+          '@ai-sdk/moonshotai'
+        );
+
+      const moonshotai = createMoonshotAI({
+        apiKey,
+        baseURL,
+        ...otherOptions,
+      });
+
+      return moonshotai(selectedModel as string);
     }
 
     default: {
