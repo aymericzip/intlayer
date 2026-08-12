@@ -1,5 +1,5 @@
 import { findProjects } from '@services/project.service';
-import { z } from 'zod';
+import z from 'zod';
 import type { Dictionary } from '@/types/dictionary.types';
 
 export type DictionaryFields = (keyof Dictionary)[];
@@ -66,7 +66,7 @@ export const validateDictionary = async (
         errors.projectIds = errors.projectIds || [];
         errors.projectIds.push('Project not found'); // Some or all projects were not found
       }
-    } catch (e) {
+    } catch (_e) {
       errors.projectIds = errors.projectIds || [];
       errors.projectIds.push('Project not found');
     }

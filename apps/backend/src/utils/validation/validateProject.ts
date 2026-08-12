@@ -1,5 +1,5 @@
 import { getOrganizationById } from '@services/organization.service';
-import { z } from 'zod';
+import z from 'zod';
 import type { Project, ProjectAPI } from '@/types/project.types';
 
 export type ProjectFields = (keyof Project)[];
@@ -151,7 +151,7 @@ export const validateProject = async (
           );
         }
       }
-    } catch (e) {
+    } catch (_e) {
       if (fieldsToCheck.includes('organizationId') && project.organizationId) {
         errors.organizationId = ['Organization not found'];
       }

@@ -102,9 +102,10 @@ describe('getMarkdownMetadata', () => {
     expect(metadata).toEqual({
       title: 'Test Document',
       tags: ['tag1', 'tag2'],
-      config: '',
-      count: 42,
-      enabled: 'true',
+      config: {
+        enabled: 'true',
+        count: 42,
+      },
       authors: [
         {
           name: 'John Doe',

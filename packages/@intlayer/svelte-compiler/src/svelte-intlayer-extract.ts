@@ -1,5 +1,5 @@
 import { readFileSync, writeFileSync } from 'node:fs';
-import { parse as babelParse, types as t, traverse } from '@babel/core';
+import { parseSync as babelParse, types as t, traverse } from '@babel/core';
 import { DEFAULT_LOCALE } from '@intlayer/config/defaultValues';
 import type { Locale } from '@intlayer/types/allLocales';
 import MagicString from 'magic-string';
@@ -28,6 +28,8 @@ const detectExistingIntlayerCall = (
 
   try {
     const ast = babelParse(scriptText, {
+      configFile: false,
+      babelrc: false,
       parserOpts: { sourceType: 'module', plugins: ['typescript', 'jsx'] },
     });
 
@@ -330,6 +332,8 @@ export const intlayerSvelteExtract = (
 
     try {
       const babelAst = babelParse(scriptContent, {
+        configFile: false,
+        babelrc: false,
         parserOpts: {
           sourceType: 'module',
           plugins: ['typescript', 'jsx'],

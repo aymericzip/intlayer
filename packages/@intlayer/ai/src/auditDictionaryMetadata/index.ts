@@ -1,6 +1,6 @@
 import { readAsset } from 'utils:asset';
 import { generateText, Output } from 'ai';
-import { z } from 'zod';
+import z from 'zod';
 import type { AIConfig, AIOptions } from '../aiSdk';
 
 type Tag = {

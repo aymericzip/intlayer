@@ -1019,9 +1019,21 @@ const createRules = (
 // Removed compilerCache completely to avoid issues with props changes not invalidating cache
 // const compilerCache = new Map<string, unknown>();
 
+/** Link/image reference definitions (`[id]: target "title"`) collected while parsing. */
+export type MarkdownReferences = Record<
+  string,
+  { target: string; title?: string }
+>;
+
 export type ParsedMarkdown = {
   ast: any[];
   footnotes: FootnoteDef[];
+  /**
+   * Reference definitions gathered during parsing. They must be carried over to
+   * the render stage, since `refLink` / `refImage` nodes only store the
+   * reference id and resolve their target at render time.
+   */
+  references: MarkdownReferences;
   inline: boolean;
 };
 
@@ -1032,7 +1044,7 @@ export const parseMarkdown = (
 ): ParsedMarkdown => {
   const dummyCreateElement = () => null;
   const footnotes: FootnoteDef[] = [];
-  const refs: Record<string, { target: string; title?: string }> = {};
+  const refs: MarkdownReferences = {};
 
   const attrStringToMap = (
     tag: HTMLTag,
@@ -1158,7 +1170,7 @@ export const parseMarkdown = (
     }
   }
 
-  return { ast, footnotes, inline };
+  return { ast, footnotes, references: refs, inline };
 };
 
 export const renderMarkdownAst = (
@@ -1182,7 +1194,7 @@ export const renderMarkdownAst = (
   };
   const createElement = createElementFactory(ctx, options);
   const footnotes = parsed.footnotes || [];
-  const refs: Record<string, { target: string; title?: string }> = {};
+  const refs: MarkdownReferences = parsed.references ?? {};
 
   const attrStringToMap = () => null; // Not needed during render
   const containsBlockSyntax = () => false; // Not needed during render

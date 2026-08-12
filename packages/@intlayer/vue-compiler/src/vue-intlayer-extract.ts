@@ -1,5 +1,5 @@
 import { readFileSync, writeFileSync } from 'node:fs';
-import { parse as babelParse, types as t, traverse } from '@babel/core';
+import { parseSync as babelParse, types as t, traverse } from '@babel/core';
 import { DEFAULT_LOCALE } from '@intlayer/config/defaultValues';
 import type { Locale } from '@intlayer/types/allLocales';
 import vueSfc from '@vue/compiler-sfc';
@@ -31,6 +31,8 @@ const detectExistingIntlayerCall = (
 
   try {
     const ast = babelParse(scriptText, {
+      configFile: false,
+      babelrc: false,
       parserOpts: { sourceType: 'module', plugins: ['typescript', 'jsx'] },
     });
 
@@ -393,6 +395,8 @@ export const intlayerVueExtract = (
 
     try {
       const ast = babelParse(scriptText, {
+        configFile: false,
+        babelrc: false,
         parserOpts: {
           sourceType: 'module',
           plugins: ['typescript', 'jsx'],
