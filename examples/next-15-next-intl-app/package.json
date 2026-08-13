@@ -8,16 +8,16 @@
     "test": "echo 'No tests yet'"
   },
   "dependencies": {
-    "date-fns": "4.1.0",
+    "date-fns": "4.4.0",
     "intlayer": "workspace:*",
-    "next": "15.5.15",
-    "next-intl": "4.9.0",
+    "next": "15.5.23",
+    "next-intl": "4.9.2",
     "react": "19.2.8",
     "react-dom": "19.2.8"
   },
   "devDependencies": {
     "@intlayer/sync-json-plugin": "workspace:*",
-    "@types/lodash": "4.17.5",
+    "@types/lodash": "4.17.25",
     "@types/node": "20.14.5",
     "@types/react": "19.2.18",
     "intlayer": "workspace:*",

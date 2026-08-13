@@ -16,7 +16,7 @@
   "dependencies": {
     "fuse.js": "7.5.0",
     "intlayer": "workspace:*",
-    "next": "15.5.18",
+    "next": "15.5.23",
     "next-intlayer": "workspace:*",
     "react": "19.2.8",
     "react-dom": "19.2.8"
