@@ -1,17 +1,19 @@
 ---
 createdAt: 2026-08-12
 updatedAt: 2026-08-12
-title: ESLint plugin | Lint pravidla pro Intlayer
-description: Odhalte natvrdo zapsané řetězce a dynamická volání, která kompilátor Intlayer nedokáže optimalizovat, pomocí eslint-plugin-intlayer. Funguje s ESLint i oxlint napříč React, Vue, Svelte, Angular a Astro.
+title: Plugin ESLint | Pravidla lintování pro Intlayer
+description: Odhalujte natvrdo zapsané řetězce, dynamická volání, která kompilátor Intlayer nedokáže optimalizovat, a nepoužitý obsah slovníků pomocí eslint-plugin-intlayer. Funguje s ESLint a oxlint v Reactu, Vue, Svelte, Angularu a Astru.
 keywords:
   - Intlayer
   - ESLint
   - oxlint
-  - Lintování
+  - Linting
   - i18n
   - Internacionalizace
   - no-raw-text
-  - Natvrdo zapsané řetězce
+  - Hardcoded řetězce
+  - Nepoužité překlady
+  - Mrtvý obsah
   - React
   - Vue
   - Svelte
@@ -26,14 +28,15 @@ history:
 author: aymericzip
 ---
 
-# ESLint x OXLint plugin
+# Plugin ESLint x OXLint
 
-`eslint-plugin-intlayer` odhaluje dva druhy i18n chyb, které TypeScript vidět nedokáže:
+`eslint-plugin-intlayer` zachycuje typy chyb i18n, které TypeScript nedokáže odhalit:
 
-1. **Natvrdo zapsaný text**, který se nikdy nedostal do slovníku.
-2. **Dynamická volání**, která projdou typovou kontrolou a běží, ale která kompilátor Intlayer nedokáže optimalizovat.
+1. **Natvrdo zapsaný text (hardcoded text)**, který nebyl vložen do slovníku.
+2. **Dynamická volání**, která projdou typovou kontrolou a fungují, ale kompilátor Intlayer je nedokáže optimalizovat.
+3. **Mrtvý obsah (Dead content)** — slovníky a pole, které v projektu nic nečte (volitelné / opt-in).
 
-Neznámé klíče slovníku, neznámé cesty k polím a chybějící locale jsou už chybami při kompilaci, takže je plugin neopakuje.
+Neznámé klíče slovníků, neznámé cesty polí a chybějící lokality jsou již chybami kompilace, takže je plugin neopakuje.
 
 ## Instalace
 
@@ -53,7 +56,7 @@ Vyžaduje ESLint 9 nebo novější (flat config).
 
 ## Použití
 
-Plugin běží jak v ESLint, tak v [oxlint](https://oxc.rs) — stejná pravidla, stejné volby.
+Plugin funguje jak v ESLint, tak v [oxlint](https://oxc.rs) — se stejnými pravidly a možnostmi.
 
 <Tabs defaultTab="eslint">
   <Tab label="ESLint" value="eslint">
@@ -64,7 +67,7 @@ import intlayer from "eslint-plugin-intlayer";
 export default [...intlayer.configs.recommended];
 ```
 
-Nebo zapínejte pravidla jedno po druhém:
+Nebo aktivujte pravidla jednotlivě:
 
 ```javascript fileName="eslint.config.mjs" codeFormat="esm"
 import intlayer from "eslint-plugin-intlayer";
@@ -77,6 +80,7 @@ export default [
       "intlayer/static-dictionary-key": "error",
       "intlayer/no-dynamic-field-access": "error",
       "intlayer/enforce-adapter-import": "warn",
+      "intlayer/no-unused-content": "warn",
     },
   },
 ];
@@ -97,28 +101,32 @@ export default [
 }
 ```
 
-Dvě výhrady: podpora JS pluginů v oxlint je stále ve fázi alpha a oxlint nepodporuje vlastní parsery — soubory `.vue`, `.svelte`, `.astro` a Angular šablony se tam tedy nelintují. Spouštějte oxlint nad soubory JS/TS/JSX a zbytek nechte na ESLint.
+Dvě upozornění: podpora JS pluginů v oxlint je stále ve fázi alfa a oxlint nepodporuje vlastní parsery — proto zde soubory `.vue`, `.svelte`, `.astro` a šablony Angularu nejsou kontrolovány. Spusťte oxlint na souborech JS/TS/JSX a pro zbytek použijte ESLint.
+
+Pravidlo `no-unused-content` je výše záměrně vynecháno: vyžaduje pracovní adresář a cestu ke kontrolovanému souboru z kontextu pravidla, což alfa můstek JS pluginů nezaručuje. Spusťte jej pod ESLintem.
 
   </Tab>
 </Tabs>
 
-### Konfigurace
+### Konfigurace (Configs)
 
-| Konfigurace     | `no-raw-text`               | `static-dictionary-key` | `no-dynamic-field-access` | `enforce-adapter-import` |
-| --------------- | --------------------------- | ----------------------- | ------------------------- | ------------------------ |
-| `recommended`   | warn                        | error                   | error                     | off                      |
-| `strict`        | error (+ literály mimo JSX) | error                   | error                     | error                    |
-| `contract-only` | off                         | error                   | error                     | off                      |
+| Konfigurace     | `no-raw-text`               | `static-dictionary-key` | `no-dynamic-field-access` | `enforce-adapter-import` | `no-unused-content` |
+| --------------- | --------------------------- | ----------------------- | ------------------------- | ------------------------ | ------------------- |
+| `recommended`   | warn                        | error                   | error                     | off                      | off                 |
+| `strict`        | error (+ literály mimo JSX) | error                   | error                     | error                    | off                 |
+| `contract-only` | off                         | error                   | error                     | off                      | off                 |
 
-`recommended` nechává `no-raw-text` na `warn` záměrně: namířit toto pravidlo na existující codebase odhalí všechny nepřeložené řetězce najednou, což by nemělo rozbít váš build hned první den.
+Předvolba `recommended` záměrně ponechává `no-raw-text` na úrovni `warn`: její spuštění nad existující kódovou bází zobrazí všechny nepřeložené řetězce najednou, což by nemělo rozbít váš build hned první den.
 
-`enforce-adapter-import` je ve výchozím stavu vypnuté — pokud ho chcete, zapněte ho explicitně.
+`enforce-adapter-import` je ve výchozím nastavení vypnuto — pokud jej chcete, explicitně jej zapněte.
+
+`no-unused-content` je vypnuto ve všech konfiguracích včetně `strict`. Je to jediné pravidlo, které čte vaši konfiguraci Intlayer a prochází zdrojové soubory z disku, takže jeho zapnutí by mělo být záměrnou volbou, nikoli automatickou předvolbou.
 
 ## Pravidla
 
 ### `no-raw-text`
 
-Hlásí text určený uživateli, který není deklarován ve slovníku. Používá stejnou detekci jako `intlayer extract`, takže názvy značek, CSS třídy a technické identifikátory se ignorují.
+Hlásí text určený pro uživatele, který není deklarován ve slovníku. Používá stejnou detekci jako `intlayer extract`, takže názvy značek, třídy CSS a technické identifikátory jsou ignorovány.
 
 ```jsx
 // ✗ Nahlášeno
@@ -130,29 +138,29 @@ const { title } = useIntlayer("home");
 <h1>{title}</h1>
 ```
 
-Soubory deklarace obsahu (`*.content.ts`, …) se přeskakují.
+Soubory deklarace obsahu (`*.content.ts`, …) jsou přeskočeny.
 
 Chcete-li opravit celý soubor najednou, spusťte `npx intlayer extract` a nechte kompilátor přesunout řetězce do slovníku za vás.
 
-**Volby**
+**Možnosti**
 
 ```javascript fileName="eslint.config.mjs" codeFormat="esm"
 {
   "intlayer/no-raw-text": [
     "warn",
     {
-      // Atributy, jejichž hodnota je text určený uživateli.
+      // Atributy, jejichž hodnotou je text pro uživatele.
       // Výchozí: title, placeholder, alt, aria-label, label
       attributes: ["title", "placeholder", "alt", "aria-label", "label"],
 
-      // Elementy, jejichž obsah nikdy není text určený uživateli.
+      // Elementy, jejichž obsah nikdy není textem pro uživatele.
       // Výchozí: code, pre, script, style
       ignoreElements: ["code", "pre", "script", "style"],
 
-      // Regulární výrazy pro text, který se nikdy nemá hlásit.
+      // Regulární výrazy pro text, který se nemá nikdy hlásit.
       ignorePatterns: ["^Powered by"],
 
-      // Hlásit i řetězcové literály mimo značky. Výchozí: false
+      // Hlásit také řetězcové literály mimo značky. Výchozí: false
       includeStringLiterals: false,
     },
   ],
@@ -163,7 +171,7 @@ Chcete-li opravit celý soubor najednou, spusťte `npx intlayer extract` a necht
 
 Vyžaduje, aby klíč slovníku byl řetězcový literál.
 
-Kompilátor může slovník předem načíst pouze tehdy, když dokáže klíč přečíst přímo v místě volání. U vypočítaného klíče optimalizaci tiše přeskočí a místo toho do bundle zahrne všechny slovníky.
+Kompilátor může přednačíst slovník pouze tehdy, když dokáže přečíst klíč přímo v místě volání. Při použití vypočteného klíče optimalizaci tiše přeskočí a místo toho přibalí každý slovník.
 
 ```typescript
 // ✗ Nahlášeno
@@ -180,13 +188,13 @@ useIntlayer("home");
 getTranslations({ namespace: "home" });
 ```
 
-Platí to pro `useIntlayer`, `getIntlayer` a každý compat adaptér (`useTranslation`, `useTranslations`, `formatMessage`, `<FormattedMessage id>`, `<Trans i18nKey>`, …).
+To platí pro `useIntlayer`, `getIntlayer` a všechny kompatibilní adaptéry (`useTranslation`, `useTranslations`, `formatMessage`, `<FormattedMessage id>`, `<Trans i18nKey>`, …).
 
 ### `no-dynamic-field-access`
 
-Vyžaduje, aby pole, které ze slovníku čtete, bylo staticky známé.
+Vyžaduje, aby pole, které čtete ze slovníku, bylo staticky známé.
 
-Kompilátor odstraňuje pole, u nichž nevidí použití. Vypočítaný přístup je pro něj neviditelný, takže čtení může za běhu vrátit `undefined`.
+Kompilátor odstraňuje pole, u kterých nevidí využití. Dynamický přístup je pro něj neviditelný, takže čtení může za běhu vrátit `undefined`.
 
 ```typescript
 // ✗ Nahlášeno
@@ -205,7 +213,7 @@ t("hero.title");
 
 ### `enforce-adapter-import`
 
-Upřednostňuje compat adaptér `@intlayer/*` před původním balíčkem. Původní se na Intlayer vyřeší jen tehdy, když je nastaven alias bundleru; adaptér vždy. Automaticky opravitelné pomocí `--fix`.
+Dává přednost kompatibilnímu adaptéru `@intlayer/*` před původním balíčkem. Původní balíček se na Intlayer překládá pouze při nakonfigurovaném aliasu bundleru; adaptér funguje vždy. Automaticky opravitelné pomocí `--fix`.
 
 ```typescript
 // ✗ Nahlášeno
@@ -217,9 +225,66 @@ import { useTranslation } from "@intlayer/react-i18next";
 import { getTranslations } from "@intlayer/next-intl/server";
 ```
 
+### `no-unused-content`
+
+**Ve výchozím nastavení vypnuto.** Hlásí obsah, který v projektu nic nečte, a navíc klíče slovníků deklarované na více než jednom místě.
+
+```typescript fileName="src/home.content.ts"
+export default {
+  key: "home", // ✗ Nahlášeno, pokud žádný volající v projektu nežádá "home"
+  content: {
+    title: t({ cs: "Název", en: "Title" }),
+
+    // ✗ Nahlášeno, pokud nic nečte `hero`
+    hero: {
+      subtitle: t({ cs: "Podnázev", en: "Subtitle" }),
+    },
+  },
+};
+```
+
+Na rozdíl od jiných pravidel toto pravidlo nemůže rozhodnout pouze na základě otevřeného souboru — pole je nepoužité pouze ve vztahu k celému projektu. Při první deklaraci obsahu v běhu lintu načte vaši konfiguraci Intlayer, prohledá zdrojové soubory podle konfigurace (`build.traversePattern`, `compiler.transformPattern`) a spustí stejný analyzátor využití, který pohání `@intlayer/lsp` a přeškrtnutí „nepoužitého“ v rozšíření VS Code. Výsledek se ukládá do mezipaměti na `cacheTtl` milisekund, takže skenování proběhne jednou za běh a nikoli pro každý soubor.
+
+**Možnosti**
+
+```javascript fileName="eslint.config.mjs" codeFormat="esm"
+{
+  "intlayer/no-unused-content": [
+    "warn",
+    {
+      // Hlásit klíče slovníků, na které nic neodkazuje. Výchozí: true
+      reportUnusedDictionaries: true,
+
+      // Hlásit pole obsahu, která nic nečte. Výchozí: true
+      reportUnusedFields: true,
+
+      // Hlásit duplicitní klíče deklarované na více místech. Výchozí: true
+      reportDuplicateKeys: true,
+
+      // Regulární výrazy pro cesty polí, které se nemají nikdy hlásit.
+      ignoreFields: ["^meta"],
+
+      // Kořen projektu, od kterého skenování začíná. Výchozí: pracovní adresář ESLint
+      baseDir: process.cwd(),
+
+      // Doba opětovného použití skenu projektu (v ms). Výchozí: 30000
+      cacheTtl: 30000,
+    },
+  ],
+}
+```
+
+Snižte `cacheTtl`, pokud lintujete z dlouhotrvajícího serveru editoru a chcete, aby se úpravy projevily dříve; nastavte `baseDir`, když jeden běh lintu zahrnuje několik projektů Intlayer v monorepu.
+
+> **Přiklání se k tichu.** Falešně pozitivní výsledek by zde smazal překlad, proto se nic nehlásí, pokud je slovník konzumován způsobem, který analýza nedokáže sledovat: objekt obsahu předaný jako celek, překladatelská funkce vázaná z něj (`const t = useTranslations("home")`), deklarace dosažená přímým importem (`useDictionary(myDictionary)`), volání `nest()` z jiného slovníku nebo seznam polí neúplný kvůli operátoru spread. Jednosouborové komponenty (`.vue`, `.svelte`, `.astro`) se počítají jako využívající každé pole zmíněných slovníků, protože jejich bloky skriptů se zde neparsují.
+
+`reportDuplicateKeys` čte nesloučené slovníky, které build zapisuje do `.intlayer/`, takže zůstává neaktivní, dokud projekt nebyl alespoň jednou sestaven. Dvě deklarace sdílející klíč se sloučí, což je legitimní vzor — hlášení existuje proto, že pole definované na obou stranách tiše zachová pouze jednu ze dvou hodnot.
+
+Analyzátor se načítá z `@intlayer/lsp`, který je distribuován jako ESM. Pravidlo proto vyžaduje verzi Node schopnou provést `require()` modulu ES — Node 20.19+ nebo 22.12+. Na starších verzích raději nehlásí nic, než aby způsobilo selhání lintu.
+
 ## Frameworky
 
-Všechna pravidla fungují napříč všemi integracemi Intlayer, včetně vnitřku šablon Vue, Svelte a Angular. Stačí ESLintu říct, který parser čte který typ souboru.
+Každé pravidlo funguje ve všech integracích Intlayer, včetně šablon Vue, Svelte a Angularu. Stačí pouze určit ESLintu, který parser má číst daný typ souboru.
 
 | Framework                 | Soubory           | Parser                            |
 | ------------------------- | ----------------- | --------------------------------- |
@@ -228,7 +293,7 @@ Všechna pravidla fungují napříč všemi integracemi Intlayer, včetně vnit�
 | Vue, Nuxt                 | `.vue`            | `vue-eslint-parser`               |
 | Svelte, SvelteKit         | `.svelte`         | `svelte-eslint-parser`            |
 | Angular                   | `.ts`             | `typescript-eslint`               |
-| Angular šablony           | `.component.html` | `@angular-eslint/template-parser` |
+| Šablony Angularu          | `.component.html` | `@angular-eslint/template-parser` |
 | Astro                     | `.astro`          | `astro-eslint-parser`             |
 
 ```javascript fileName="eslint.config.mjs" codeFormat="esm"
@@ -266,6 +331,6 @@ export default [
 ];
 ```
 
-Instalujte jen ty parsery, které váš projekt potřebuje.
+Nainstalujte pouze ty parsery, které váš projekt vyžaduje.
 
-> **Známé omezení.** V šablonách Vue a Angular není výraz jako `{{ content[key] }}` kontrolován pravidlem `no-dynamic-field-access`. Dynamická čtení zapsaná ve script bloku se detekují normálně.
+> **Známé omezení.** V šablonách Vue a Angularu výraz jako `{{ content[key] }}` není kontrolován pravidlem `no-dynamic-field-access`. Dynamická čtení zapsaná ve skriptovém bloku jsou zachycena normálně.

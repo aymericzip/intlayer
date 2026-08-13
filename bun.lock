@@ -2208,6 +2208,8 @@
       "version": "9.3.1",
       "dependencies": {
         "@intlayer/config": "workspace:*",
+        "@intlayer/lsp": "workspace:*",
+        "fast-glob": "3.3.3",
       },
       "devDependencies": {
         "@angular-eslint/template-parser": "22.1.0",
@@ -2230,9 +2232,6 @@
       "peerDependencies": {
         "eslint": ">=9.0.0",
       },
-      "optionalPeers": [
-        "eslint",
-      ],
     },
     "packages/express-intlayer": {
       "name": "express-intlayer",

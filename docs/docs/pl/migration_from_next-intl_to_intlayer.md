@@ -314,6 +314,20 @@ export default config;
 
 Zainstaluj pakiety rdzenia Intlayer i adapter compat `@intlayer/next-intl`:
 
+## Co można usunąć po migracji
+
+Po wdrożeniu `@intlayer/next-intl` można usunąć następujący boilerplate `next-intl`:
+
+| Plik / wzorzec                                        | Dlaczego już nie jest potrzebny                                                                                                                                                      |
+| ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `src/i18n.ts` → eksport `getRequestConfig`            | Intlayer kompiluje słowniki w czasie budowania; nie ma ładowania wiadomości dla każdego żądania. Zachowaj plik tylko jeśli eksportuje również pomocniki routingu `createNavigation`. |
+| Wywołanie `loadMessages()` / `getMessages()` w layout | `NextIntlClientProvider` z `@intlayer/next-intl` czyta ze skompilowanych danych wyjściowych; prop `messages` nie jest wymagany.                                                      |
+| Importy `locales/{locale}/*.json` w layout            | Pakiety JSON są potrzebne tylko jeśli nadal używasz pluginu `syncJSON`. Po migracji do plików `.content.ts` możesz usunąć folder JSON.                                               |
+
+Gdy będziesz gotowy, aby pójść dalej, Intlayer **automatycznie odkrywa wszystkie pliki `.content.ts` i `.content.json` gdziekolwiek w twoim codebase** (domyślnie gdziekolwiek wewnątrz `./src`). Możesz umieścić plik `about.content.ts` tuż obok `about/page.tsx` i Intlayer podciągnie go w czasie budowania bez żadnej dodatkowej konfiguracji — bez importów, bez rejestracji, bez scentralizowanego pliku indeksu. Sprawia to, że współlokalizowanie tłumaczeń ze stronami i komponentami jest całkowicie pozbawione tarcia.
+
+---
+
 ## Konfiguracja TypeScript
 
 Intlayer używa module augmentation aby zapewnić pełny TypeScript intellisense dla Twoich kluczy tłumaczeń. Upewnij się, że Twój `tsconfig.json` zawiera auto-generowane typy:

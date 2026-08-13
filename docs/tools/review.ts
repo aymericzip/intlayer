@@ -13,12 +13,7 @@ import { defaultLocale, locales } from '../intlayer.config';
 
 // Fill the list of files to audit if you want to audit only a subset of the files
 // If empty list is provided, the audit will run on all markdown files present in the /en folder
-const DOC_PATTERN: string[] = [
-  './docs/en/**/*.md',
-  './blog/en/**/*.md',
-  './frequent_questions/en/**/*.md',
-  './legal/en/**/*.md',
-];
+const DOC_PATTERN: string[] = ['./docs/en/eslint.md'];
 const EXCLUDED_GLOB_PATTEN: string[] = [
   '**/_*',
   '**/node_modules/**',
@@ -29,7 +24,7 @@ const EXCLUDED_GLOB_PATTEN: string[] = [
 // 'report'    → log every block that needs attention, then the final synthesis
 // 'synthesis' → log only the final synthesis (documents up to date / to edit)
 // 'apply'     → generate the translations with AI // NEVER TOUCH IT
-const MODE: ReviewDocMode = 'apply';
+const MODE: ReviewDocMode = 'report';
 
 // Number of files to process simultaneously
 const NB_SIMULTANEOUS_FILE_PROCESSED: number = 1;

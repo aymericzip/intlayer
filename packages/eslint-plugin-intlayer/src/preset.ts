@@ -31,7 +31,8 @@ export const GENERATED_OUTPUT_GLOBS = ['**/.intlayer/**'];
  * surfaces every untranslated string at once, which should not break a build on
  * day one. `enforce-adapter-import` is deliberately absent: importing from the
  * original package is valid once the bundler alias is configured, so it is
- * opt-in through the `strict` preset.
+ * opt-in through the `strict` preset. `no-unused-content` is absent from every
+ * preset — it scans the project from disk, which no preset should impose.
  */
 export const RECOMMENDED_RULES: Partial<
   Record<IntlayerRuleName, Linter.RuleEntry>

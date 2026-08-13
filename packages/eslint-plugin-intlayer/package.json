@@ -76,7 +76,9 @@
     "typecheck": "tsc --noEmit --project tsconfig.types.json"
   },
   "dependencies": {
-    "@intlayer/config": "workspace:*"
+    "@intlayer/config": "workspace:*",
+    "@intlayer/lsp": "workspace:*",
+    "fast-glob": "3.3.3"
   },
   "devDependencies": {
     "@angular-eslint/template-parser": "22.1.0",

@@ -40,7 +40,8 @@
     },
     "./utils": {
       "types": "./dist/types/utils.d.ts",
-      "import": "./dist/esm/utils.mjs"
+      "import": "./dist/esm/utils.mjs",
+      "default": "./dist/esm/utils.mjs"
     },
     "./package.json": "./package.json"
   },

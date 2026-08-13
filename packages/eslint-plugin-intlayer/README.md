@@ -61,11 +61,11 @@ export default [
 
 ### Configs
 
-| Config          | `no-raw-text`              | `static-dictionary-key` | `no-dynamic-field-access` | `enforce-adapter-import` |
-| --------------- | -------------------------- | ----------------------- | ------------------------- | ------------------------ |
-| `recommended`   | warn                       | error                   | error                     | off                      |
-| `strict`        | error (+ non-JSX literals) | error                   | error                     | error                    |
-| `contract-only` | off                        | error                   | error                     | off                      |
+| Config          | `no-raw-text`              | `static-dictionary-key` | `no-dynamic-field-access` | `enforce-adapter-import` | `no-unused-content` |
+| --------------- | -------------------------- | ----------------------- | ------------------------- | ------------------------ | ------------------- |
+| `recommended`   | warn                       | error                   | error                     | off                      | off                 |
+| `strict`        | error (+ non-JSX literals) | error                   | error                     | error                    | off                 |
+| `contract-only` | off                        | error                   | error                     | off                      | off                 |
 
 `recommended` keeps `no-raw-text` at `warn` on purpose: pointing it at an
 existing codebase surfaces every untranslated string at once, which should not
@@ -73,6 +73,10 @@ block a build on day one.
 
 Use `contract-only` when translation coverage is already tracked by
 `intlayer test` in CI and you only want the rules that protect the build output.
+
+`no-unused-content` is off in every config, `strict` included. It is the one
+rule that reads the Intlayer configuration and walks your source files from
+disk, so enabling it should be a deliberate choice.
 
 ### Frameworks
 
@@ -292,6 +296,56 @@ import { getTranslations } from "@intlayer/next-intl/server";
 
 The mapping is derived from `@intlayer/config/callers`, so a library added to
 the shared registry is covered here automatically.
+
+### no-unused-content
+
+Off by default. Reports dictionaries and content fields that nothing in the
+project reads, plus keys declared in more than one place.
+
+```ts
+// home.content.ts
+export default {
+  key: "home", // ✗ unusedDictionary — no caller anywhere asks for "home"
+  content: {
+    title: t({ en: "Title" }),
+    hero: {
+      // ✗ unusedField — nothing reads `hero`
+      subtitle: t({ en: "Subtitle" }),
+    },
+  },
+};
+```
+
+Unlike the other rules, this one cannot answer from the file in front of it: a
+field is unused only relative to the whole project. On the first content file of
+a lint run it loads your Intlayer configuration, globs the source files it
+declares (`build.traversePattern`, `compiler.transformPattern`) and runs the
+same analyser `@intlayer/lsp` and the VS Code extension use. The result is cached
+for `cacheTtl` milliseconds.
+
+```js
+{
+  "intlayer/no-unused-content": ["warn", {
+    reportUnusedDictionaries: true,  // dictionary keys nothing references
+    reportUnusedFields: true,        // content fields nothing reads
+    reportDuplicateKeys: true,       // keys declared in more than one place
+    ignoreFields: ["^meta"],         // regexes for field paths to never report
+    baseDir: process.cwd(),          // project root the scan starts from
+    cacheTtl: 30000,                 // how long one scan is reused, in ms
+  }],
+}
+```
+
+It errs towards silence, because a false positive here deletes a translation.
+Nothing is reported when the dictionary is consumed in a way the analysis cannot
+follow — the content object passed on as a whole, a translator function bound
+from it, a declaration reached through a direct import, a `nest()` from another
+dictionary, or a field list made non-exhaustive by a spread. Single-file
+components (`.vue`, `.svelte`, `.astro`) count as using every field of the
+dictionaries they mention, since their script blocks are not parsed here.
+
+`reportDuplicateKeys` reads the unmerged dictionaries the build writes to
+`.intlayer/`, so it stays quiet until the project has been built at least once.
 
 ## How it stays in sync
 

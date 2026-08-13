@@ -7,18 +7,22 @@ import {
 import { enforceAdapterImport } from './rules/enforceAdapterImport';
 import { noDynamicFieldAccess } from './rules/noDynamicFieldAccess';
 import { noRawText } from './rules/noRawText';
+import { noUnusedContent } from './rules/noUnusedContent';
 import { staticDictionaryKey } from './rules/staticDictionaryKey';
 import { getReactVersion } from './utils/reactVersion';
 
 /**
  * Every rule this plugin ships, keyed by the name used in configuration.
  *
- * The rules split into two families:
+ * The rules split into three families:
  * - **Coverage** (`no-raw-text`) — user-facing copy that never reached a
  *   dictionary. Nothing else in the toolchain reports it.
  * - **Compiler contract** (`static-dictionary-key`, `no-dynamic-field-access`)
  *   — call shapes that type-check and run, but that the Babel/SWC passes cannot
  *   analyse, so they silently lose the optimize pass or read a purged field.
+ * - **Dead content** (`no-unused-content`) — dictionaries and fields nothing
+ *   reads. Off in every preset: it is the only rule that scans the whole
+ *   project from disk, so enabling it is a cost the user should opt into.
  *
  * Deliberately absent: unknown dictionary keys, unknown field paths and missing
  * required locales. The generated `__DictionaryRegistry` module augmentation
@@ -30,6 +34,7 @@ export const rules = {
   'static-dictionary-key': staticDictionaryKey,
   'no-dynamic-field-access': noDynamicFieldAccess,
   'enforce-adapter-import': enforceAdapterImport,
+  'no-unused-content': noUnusedContent,
 } satisfies ESLint.Plugin['rules'];
 
 /** Rule names this plugin exposes. */
@@ -96,6 +101,12 @@ const createConfig = (
  * `enforce-adapter-import` is opt-in: importing from the original package is
  * perfectly valid once the bundler alias is set up, so a project that has done
  * that should not be nagged. Only `strict` turns it on.
+ *
+ * `no-unused-content` is in no preset at all, `strict` included. It reads the
+ * Intlayer configuration and walks the project's source files from disk, which
+ * is a different order of cost from the AST-only rules and depends on build
+ * output for its duplicate report — spreading a preset should never quietly
+ * turn that on.
  */
 export const configs: Record<IntlayerConfigName, Linter.Config[]> = {
   recommended: createConfig('recommended', RECOMMENDED_RULES),
@@ -119,6 +130,7 @@ export {
   RECOMMENDED_RULES,
 } from './preset';
 export type { NoRawTextOptions } from './rules/noRawText';
+export type { NoUnusedContentOptions } from './rules/noUnusedContent';
 export { getReactVersion } from './utils/reactVersion';
 export { meta };
 

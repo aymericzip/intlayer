@@ -335,6 +335,17 @@ Intlayer uses module augmentation to provide full TypeScript intellisense for yo
 
 ---
 
+## Konfiguracja Git
+
+Dodaj wygenerowany przez Intlayer katalog do pliku `.gitignore`:
+
+```plaintext fileName=".gitignore"
+# Ignoruj pliki wygenerowane przez Intlayer
+.intlayer
+```
+
+---
+
 ## Idź dalej
 
 - **Visual Editor** — Zarządzaj tłumaczeniami wizualnie w przeglądarce: [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md)

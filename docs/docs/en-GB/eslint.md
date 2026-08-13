@@ -2,16 +2,18 @@
 createdAt: 2026-08-12
 updatedAt: 2026-08-12
 title: ESLint Plugin | Lint rules for Intlayer
-description: Catch hardcoded strings and dynamic calls the Intlayer compiler cannot optimise, with eslint-plugin-intlayer. Works with ESLint and oxlint, across React, Vue, Svelte, Angular and Astro.
+description: Catch hardcoded strings, dynamic calls the Intlayer compiler cannot optimize, and unused dictionary content, with eslint-plugin-intlayer. Works with ESLint and oxlint, across React, Vue, Svelte, Angular and Astro.
 keywords:
   - Intlayer
   - ESLint
   - oxlint
   - Linting
   - i18n
-  - Internationalisation
+  - Internationalization
   - no-raw-text
   - Hardcoded strings
+  - Unused translations
+  - Dead content
   - React
   - Vue
   - Svelte
@@ -22,16 +24,17 @@ slugs:
 history:
   - version: 9.3.1
     date: 2026-08-12
-    changes: "Initial history"
+    changes: "Init history"
 author: aymericzip
 ---
 
 # ESLint x OXLint Plugin
 
-`eslint-plugin-intlayer` catches the two kinds of i18n mistake TypeScript cannot:
+`eslint-plugin-intlayer` catches the kinds of i18n mistake TypeScript cannot:
 
 1. **Hardcoded text** that never made it into a dictionary.
-2. **Dynamic calls** that type-check and run, but that the Intlayer compiler cannot optimise.
+2. **Dynamic calls** that type-check and run, but that the Intlayer compiler cannot optimize.
+3. **Dead content** — dictionaries and fields nothing in the project reads (opt-in).
 
 Unknown dictionary keys, unknown field paths and missing locales are already compile errors, so the plugin does not repeat them.
 
@@ -77,6 +80,7 @@ export default [
       "intlayer/static-dictionary-key": "error",
       "intlayer/no-dynamic-field-access": "error",
       "intlayer/enforce-adapter-import": "warn",
+      "intlayer/no-unused-content": "warn",
     },
   },
 ];
@@ -99,20 +103,24 @@ export default [
 
 Two caveats: oxlint's JS plugin support is still alpha, and oxlint does not support custom parsers — so `.vue`, `.svelte`, `.astro` and Angular templates are not linted there. Run oxlint over your JS/TS/JSX files and keep ESLint for the rest.
 
+`no-unused-content` is left out above on purpose: it needs the working directory and the linted file path from the rule context, which the alpha JS plugin bridge does not guarantee. Run it under ESLint.
+
   </Tab>
 </Tabs>
 
 ### Configs
 
-| Config          | `no-raw-text`              | `static-dictionary-key` | `no-dynamic-field-access` | `enforce-adapter-import` |
-| --------------- | -------------------------- | ----------------------- | ------------------------- | ------------------------ |
-| `recommended`   | warn                       | error                   | error                     | off                      |
-| `strict`        | error (+ non-JSX literals) | error                   | error                     | error                    |
-| `contract-only` | off                        | error                   | error                     | off                      |
+| Config          | `no-raw-text`              | `static-dictionary-key` | `no-dynamic-field-access` | `enforce-adapter-import` | `no-unused-content` |
+| --------------- | -------------------------- | ----------------------- | ------------------------- | ------------------------ | ------------------- |
+| `recommended`   | warn                       | error                   | error                     | off                      | off                 |
+| `strict`        | error (+ non-JSX literals) | error                   | error                     | error                    | off                 |
+| `contract-only` | off                        | error                   | error                     | off                      | off                 |
 
 `recommended` keeps `no-raw-text` at `warn` on purpose: pointing it at an existing codebase surfaces every untranslated string at once, which should not break your build on day one.
 
 `enforce-adapter-import` is off by default — enable it explicitly if you want it.
+
+`no-unused-content` is off in every config, `strict` included. It is the one rule that reads your Intlayer configuration and walks your source files from disk, so turning it on should be a deliberate choice rather than something a preset does for you.
 
 ## Rules
 
@@ -163,7 +171,7 @@ To fix a whole file at once, run `npx intlayer extract` and let the compiler mov
 
 Requires the dictionary key to be a string literal.
 
-The compiler can only pre-load a dictionary when it can read the key directly at the call site. With a computed key it silently skips the optimisation and bundles every dictionary instead.
+The compiler can only pre-load a dictionary when it can read the key directly at the call site. With a computed key it silently skips the optimization and bundles every dictionary instead.
 
 ```typescript
 // ✗ Reported
@@ -216,6 +224,63 @@ import { getTranslations } from "next-intl/server";
 import { useTranslation } from "@intlayer/react-i18next";
 import { getTranslations } from "@intlayer/next-intl/server";
 ```
+
+### `no-unused-content`
+
+**Off by default.** Reports content nothing in your project reads, plus dictionary keys declared in more than one place.
+
+```typescript fileName="src/home.content.ts"
+export default {
+  key: "home", // ✗ Reported when no caller anywhere asks for "home"
+  content: {
+    title: t({ "en-GB": "Title", en: "Title" }),
+
+    // ✗ Reported when nothing reads `hero`
+    hero: {
+      subtitle: t({ "en-GB": "Subtitle", en: "Subtitle" }),
+    },
+  },
+};
+```
+
+Unlike the other rules, this one cannot answer from the file in front of it — a field is unused only relative to the whole project. On the first content declaration of a lint run it loads your Intlayer configuration, globs the source files that configuration declares (`build.traversePattern`, `compiler.transformPattern`) and runs the same usage analyser that powers `@intlayer/lsp` and the "unused" strikethrough in the VS Code extension. The result is cached for `cacheTtl` milliseconds, so the scan happens once per run rather than once per file.
+
+**Options**
+
+```javascript fileName="eslint.config.mjs" codeFormat="esm"
+{
+  "intlayer/no-unused-content": [
+    "warn",
+    {
+      // Report dictionary keys nothing references. Default: true
+      reportUnusedDictionaries: true,
+
+      // Report content fields nothing reads. Default: true
+      reportUnusedFields: true,
+
+      // Report keys declared in more than one place. Default: true
+      reportDuplicateKeys: true,
+
+      // Regular expressions for field paths to never report.
+      ignoreFields: ["^meta"],
+
+      // Project root the scan starts from. Default: ESLint's working directory
+      baseDir: process.cwd(),
+
+      // How long one project scan is reused, in ms. Default: 30000
+      cacheTtl: 30000,
+    },
+  ],
+}
+```
+
+Lower `cacheTtl` when you lint from a long-lived editor server and want your edits reflected sooner; set `baseDir` when a single lint run spans several Intlayer projects in a monorepo.
+
+> **It errs towards silence.** A false positive here deletes a translation, so nothing is reported when the dictionary is consumed in a way the analysis cannot follow: the content object passed on as a whole, a translator function bound from it (`const t = useTranslations("home")`), a declaration reached through a direct import (`useDictionary(myDictionary)`), a `nest()` from another dictionary, or a field list made non-exhaustive by a spread. Single-file components (`.vue`, `.svelte`, `.astro`) count as using every field of the dictionaries they mention, because their script blocks are not parsed here.
+
+`reportDuplicateKeys` reads the unmerged dictionaries the build writes under `.intlayer/`, so it stays quiet until the project has been built at least once. Two declarations sharing a key are merged, which is a legitimate pattern — the report exists because a field defined on both sides silently keeps only one of the two values.
+
+The analyser is loaded from `@intlayer/lsp`, which ships as ESM. The rule therefore needs a Node version that can `require()` an ES module — Node 20.19+ or 22.12+. On anything older it reports nothing rather than failing the lint run.
 
 ## Frameworks
 

@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-08-12
 updatedAt: 2026-08-12
-title: ESLint-Plugin | Lint-Regeln für Intlayer
-description: Erkennen Sie hartkodierte Strings und dynamische Aufrufe, die der Intlayer-Compiler nicht optimieren kann, mit eslint-plugin-intlayer. Funktioniert mit ESLint und oxlint, über React, Vue, Svelte, Angular und Astro hinweg.
+title: ESLint Plugin | Linting-Regeln für Intlayer
+description: Erkennen Sie hartcodierte Zeichenketten, dynamische Aufrufe, die der Intlayer-Compiler nicht optimieren kann, und ungenutzte Wörterbuchinhalte mit eslint-plugin-intlayer. Funktioniert mit ESLint und oxlint für React, Vue, Svelte, Angular und Astro.
 keywords:
   - Intlayer
   - ESLint
@@ -11,7 +11,9 @@ keywords:
   - i18n
   - Internationalisierung
   - no-raw-text
-  - Hartkodierte Strings
+  - Hartcodierte Zeichenketten
+  - Ungenutzte Übersetzungen
+  - Toter Inhalt
   - React
   - Vue
   - Svelte
@@ -22,18 +24,19 @@ slugs:
 history:
   - version: 9.3.1
     date: 2026-08-12
-    changes: "Historie initialisiert"
+    changes: "Initialer Verlauf"
 author: aymericzip
 ---
 
-# ESLint-x-OXLint-Plugin
+# ESLint x OXLint Plugin
 
-`eslint-plugin-intlayer` erkennt die beiden Arten von i18n-Fehlern, die TypeScript nicht sehen kann:
+`eslint-plugin-intlayer` erkennt die typischen i18n-Fehler, die TypeScript nicht erfassen kann:
 
-1. **Hartkodierter Text**, der nie in ein Dictionary gelangt ist.
-2. **Dynamische Aufrufe**, die die Typprüfung bestehen und laufen, die der Intlayer-Compiler aber nicht optimieren kann.
+1. **Hartcodierter Text**, der nie in einem Wörterbuch deklariert wurde.
+2. **Dynamische Aufrufe**, die die Typüberprüfung bestehen und ausgeführt werden, die der Intlayer-Compiler jedoch nicht optimieren kann.
+3. **Toter Inhalt** — Wörterbücher und Felder, die an keiner Stelle im Projekt gelesen werden (Opt-in).
 
-Unbekannte Dictionary-Keys, unbekannte Feldpfade und fehlende Locales sind bereits Compile-Fehler, deshalb wiederholt das Plugin sie nicht.
+Unbekannte Wörterbuchschlüssel, unbekannte Feldpfade und fehlende Locales sind bereits Kompilierungsfehler, weshalb das Plugin diese nicht wiederholt.
 
 ## Installation
 
@@ -49,11 +52,11 @@ pnpm add --save-dev eslint-plugin-intlayer
 yarn add --dev eslint-plugin-intlayer
 ```
 
-Erfordert ESLint 9 oder neuer (Flat Config).
+Erfordert ESLint 9 oder höher (Flat Config).
 
 ## Verwendung
 
-Das Plugin läuft sowohl in ESLint als auch in [oxlint](https://oxc.rs) — dieselben Regeln, dieselben Optionen.
+Das Plugin funktioniert sowohl in ESLint als auch in [oxlint](https://oxc.rs) — dieselben Regeln, dieselben Optionen.
 
 <Tabs defaultTab="eslint">
   <Tab label="ESLint" value="eslint">
@@ -64,7 +67,7 @@ import intlayer from "eslint-plugin-intlayer";
 export default [...intlayer.configs.recommended];
 ```
 
-Oder aktivieren Sie die Regeln einzeln:
+Oder aktivieren Sie Regeln einzeln:
 
 ```javascript fileName="eslint.config.mjs" codeFormat="esm"
 import intlayer from "eslint-plugin-intlayer";
@@ -77,6 +80,7 @@ export default [
       "intlayer/static-dictionary-key": "error",
       "intlayer/no-dynamic-field-access": "error",
       "intlayer/enforce-adapter-import": "warn",
+      "intlayer/no-unused-content": "warn",
     },
   },
 ];
@@ -97,42 +101,46 @@ export default [
 }
 ```
 
-Zwei Einschränkungen: Die JS-Plugin-Unterstützung von oxlint befindet sich noch im Alpha-Stadium, und oxlint unterstützt keine benutzerdefinierten Parser — `.vue`-, `.svelte`-, `.astro`-Dateien und Angular-Templates werden dort also nicht gelintet. Führen Sie oxlint über Ihre JS/TS/JSX-Dateien aus und behalten Sie ESLint für den Rest.
+Zwei Hinweise: Die JS-Plugin-Unterstützung von oxlint befindet sich noch im Alpha-Stadium und oxlint unterstützt keine benutzerdefinierten Parser — `.vue`-, `.svelte`-, `.astro`-Dateien und Angular-Templates werden dort daher nicht geprüft. Führen Sie oxlint für Ihre JS/TS/JSX-Dateien aus und behalten Sie ESLint für den Rest bei.
+
+`no-unused-content` wird oben absichtlich weggelassen: Die Regel benötigt das Arbeitsverzeichnis und den Pfad der geprüften Datei aus dem Regelkontext, was die Alpha-Bridge für JS-Plugins nicht garantiert. Führen Sie diese Regel unter ESLint aus.
 
   </Tab>
 </Tabs>
 
 ### Konfigurationen
 
-| Konfiguration   | `no-raw-text`                    | `static-dictionary-key` | `no-dynamic-field-access` | `enforce-adapter-import` |
-| --------------- | -------------------------------- | ----------------------- | ------------------------- | ------------------------ |
-| `recommended`   | warn                             | error                   | error                     | off                      |
-| `strict`        | error (+ Literale außerhalb JSX) | error                   | error                     | error                    |
-| `contract-only` | off                              | error                   | error                     | off                      |
+| Konfiguration   | `no-raw-text`                     | `static-dictionary-key` | `no-dynamic-field-access` | `enforce-adapter-import` | `no-unused-content` |
+| --------------- | --------------------------------- | ----------------------- | ------------------------- | ------------------------ | ------------------- |
+| `recommended`   | warn                              | error                   | error                     | off                      | off                 |
+| `strict`        | error (+ Nicht-JSX-Zeichenfolgen) | error                   | error                     | error                    | off                 |
+| `contract-only` | off                               | error                   | error                     | off                      | off                 |
 
-`recommended` belässt `no-raw-text` bewusst auf `warn`: Richtet man die Regel auf eine bestehende Codebase, tauchen alle nicht übersetzten Strings auf einmal auf, was Ihren Build nicht schon am ersten Tag brechen sollte.
+`recommended` belässt `no-raw-text` absichtlich bei `warn`: Bei Anwendung auf eine bestehende Codebasis werden alle unübersetzten Zeichenfolgen auf einmal gemeldet, was Ihren Build nicht von Tag eins an blockieren sollte.
 
-`enforce-adapter-import` ist standardmäßig deaktiviert — aktivieren Sie sie explizit, wenn Sie sie möchten.
+`enforce-adapter-import` ist standardmäßig deaktiviert — aktivieren Sie die Regel bei Bedarf explizit.
+
+`no-unused-content` ist in allen Konfigurationen standardmäßig deaktiviert, einschließlich `strict`. Es ist die einzige Regel, die Ihre Intlayer-Konfiguration liest und Ihre Quelldateien vom Dateisystem durchsucht. Die Aktivierung sollte daher eine bewusste Entscheidung sein und nicht automatisch über ein Preset erfolgen.
 
 ## Regeln
 
 ### `no-raw-text`
 
-Meldet nutzerseitigen Text, der nicht in einem Dictionary deklariert ist. Die Regel verwendet dieselbe Erkennung wie `intlayer extract`, sodass Markennamen, CSS-Klassen und technische Bezeichner ignoriert werden.
+Meldet benutzerorientierten Text, der nicht in einem Wörterbuch deklariert ist. Verwendet dieselbe Erkennung wie `intlayer extract`, sodass Markennamen, CSS-Klassen und technische Bezeichner ignoriert werden.
 
 ```jsx
 // ✗ Gemeldet
 <h1>Welcome to our documentation</h1>
 <input placeholder="Enter your email address" />
 
-// ✓ In Ordnung
+// ✓ Gültig
 const { title } = useIntlayer("home");
 <h1>{title}</h1>
 ```
 
-Content-Deklarationsdateien (`*.content.ts`, …) werden übersprungen.
+Inhaltsdeklarationsdateien (`*.content.ts`, …) werden übersprungen.
 
-Um eine ganze Datei auf einmal zu korrigieren, führen Sie `npx intlayer extract` aus und lassen Sie den Compiler die Strings für Sie in ein Dictionary verschieben.
+Um eine Datei vollständig auf einmal zu korrigieren, führen Sie `npx intlayer extract` aus und lassen Sie den Compiler die Strings in ein Wörterbuch überführen.
 
 **Optionen**
 
@@ -141,18 +149,18 @@ Um eine ganze Datei auf einmal zu korrigieren, führen Sie `npx intlayer extract
   "intlayer/no-raw-text": [
     "warn",
     {
-      // Attribute, deren Wert nutzerseitiger Text ist.
+      // Attribute, deren Wert benutzerorientierter Text ist.
       // Standard: title, placeholder, alt, aria-label, label
       attributes: ["title", "placeholder", "alt", "aria-label", "label"],
 
-      // Elemente, deren Inhalt nie nutzerseitiger Text ist.
+      // Elemente, deren Inhalt niemals benutzerorientierter Text ist.
       // Standard: code, pre, script, style
       ignoreElements: ["code", "pre", "script", "style"],
 
-      // Reguläre Ausdrücke für Text, der nie gemeldet werden soll.
+      // Reguläre Ausdrücke für Text, der niemals gemeldet werden soll.
       ignorePatterns: ["^Powered by"],
 
-      // Auch String-Literale außerhalb von Markup melden. Standard: false
+      // Auch Zeichenketten-Literale außerhalb von Markup melden. Standard: false
       includeStringLiterals: false,
     },
   ],
@@ -161,9 +169,9 @@ Um eine ganze Datei auf einmal zu korrigieren, führen Sie `npx intlayer extract
 
 ### `static-dictionary-key`
 
-Verlangt, dass der Dictionary-Key ein String-Literal ist.
+Erfordert, dass der Wörterbuchschlüssel ein Zeichenfolgen-Literal ist.
 
-Der Compiler kann ein Dictionary nur dann vorab laden, wenn er den Key direkt an der Aufrufstelle lesen kann. Bei einem berechneten Key überspringt er die Optimierung stillschweigend und bündelt stattdessen jedes Dictionary.
+Der Compiler kann ein Wörterbuch nur dann vorladen, wenn er den Schlüssel direkt am Aufrufort lesen kann. Bei einem dynamisch berechneten Schlüssel wird die Optimierung stillschweigend übersprungen und stattdessen jedes Wörterbuch gebündelt.
 
 ```typescript
 // ✗ Gemeldet
@@ -171,22 +179,22 @@ useIntlayer(dictionaryKey);
 useIntlayer(`home-${suffix}`);
 getTranslations({ namespace: page });
 
-// ✗ Eine Variable ist trotzdem kein Literal
+// ✗ Eine Variable ist immer noch kein Literal
 const key = "home";
 useIntlayer(key);
 
-// ✓ In Ordnung
+// ✓ Gültig
 useIntlayer("home");
 getTranslations({ namespace: "home" });
 ```
 
-Das gilt für `useIntlayer`, `getIntlayer` und jeden Compat-Adapter (`useTranslation`, `useTranslations`, `formatMessage`, `<FormattedMessage id>`, `<Trans i18nKey>`, …).
+Dies gilt für `useIntlayer`, `getIntlayer` und jeden Kompatibilitätsadapter (`useTranslation`, `useTranslations`, `formatMessage`, `<FormattedMessage id>`, `<Trans i18nKey>`, …).
 
 ### `no-dynamic-field-access`
 
-Verlangt, dass das Feld, das Sie aus einem Dictionary lesen, statisch bekannt ist.
+Erfordert, dass das Feld, das Sie aus einem Wörterbuch lesen, statisch bekannt ist.
 
-Der Compiler entfernt Felder, deren Verwendung er nicht sieht. Ein berechneter Zugriff ist für ihn unsichtbar, sodass der Lesevorgang zur Laufzeit `undefined` zurückgeben kann.
+Der Compiler entfernt Felder, deren Verwendung er nicht erkennen kann. Ein berechneter Zugriff ist für ihn unsichtbar, sodass der Lesezugriff zur Laufzeit `undefined` zurückgeben kann.
 
 ```typescript
 // ✗ Gemeldet
@@ -196,7 +204,7 @@ content[fieldName];
 const t = useTranslations("home");
 t(messageKey);
 
-// ✓ In Ordnung
+// ✓ Gültig
 content.title;
 content["title"];
 content.items[0];
@@ -205,21 +213,78 @@ t("hero.title");
 
 ### `enforce-adapter-import`
 
-Bevorzugt den `@intlayer/*`-Compat-Adapter gegenüber dem ursprünglichen Package. Das Original löst nur dann auf Intlayer auf, wenn der Bundler-Alias konfiguriert ist; der Adapter tut es immer. Mit `--fix` automatisch korrigierbar.
+Bevorzugt den Kompatibilitätsadapter `@intlayer/*` gegenüber dem Originalpaket. Das Originalpaket löst nur dann zu Intlayer auf, wenn der Bundler-Alias konfiguriert ist; der Adapter funktioniert immer. Automatisch behebbar mit `--fix`.
 
 ```typescript
 // ✗ Gemeldet
 import { useTranslation } from "react-i18next";
 import { getTranslations } from "next-intl/server";
 
-// ✓ In Ordnung
+// ✓ Gültig
 import { useTranslation } from "@intlayer/react-i18next";
 import { getTranslations } from "@intlayer/next-intl/server";
 ```
 
+### `no-unused-content`
+
+**Standardmäßig deaktiviert.** Meldet Inhalte, die im Projekt nirgends gelesen werden, sowie Wörterbuchschlüssel, die an mehr als einer Stelle deklariert sind.
+
+```typescript fileName="src/home.content.ts"
+export default {
+  key: "home", // ✗ Gemeldet, wenn kein Aufrufer im Projekt "home" abfragt
+  content: {
+    title: t({ de: "Titel", en: "Title" }),
+
+    // ✗ Gemeldet, wenn nichts `hero` liest
+    hero: {
+      subtitle: t({ de: "Untertitel", en: "Subtitle" }),
+    },
+  },
+};
+```
+
+Im Gegensatz zu den anderen Regeln kann diese Regel nicht allein anhand der geprüften Datei entscheiden — ein Feld ist nur relativ zum gesamten Projekt ungenutzt. Bei der ersten Inhaltsdeklaration eines Lint-Laufs lädt sie Ihre Intlayer-Konfiguration, durchsucht die Quelldateien gemäß Konfiguration (`build.traversePattern`, `compiler.transformPattern`) und führt dieselbe Nutzungsanalyse aus, die auch `@intlayer/lsp` und das Durchstreichen von „ungenutzt“ in der VS Code-Erweiterung antreibt. Das Ergebnis wird für `cacheTtl` Millisekunden zwischengespeichert, sodass der Scan einmal pro Durchlauf und nicht für jede Datei ausgeführt wird.
+
+**Optionen**
+
+```javascript fileName="eslint.config.mjs" codeFormat="esm"
+{
+  "intlayer/no-unused-content": [
+    "warn",
+    {
+      // Wörterbuchschlüssel melden, auf die nichts verweist. Standard: true
+      reportUnusedDictionaries: true,
+
+      // Inhaltsfelder melden, die nichts liest. Standard: true
+      reportUnusedFields: true,
+
+      // Schlüssel melden, die an mehr als einer Stelle deklariert sind. Standard: true
+      reportDuplicateKeys: true,
+
+      // Reguläre Ausdrücke für Feldpfade, die niemals gemeldet werden sollen.
+      ignoreFields: ["^meta"],
+
+      // Projekt-Root, ab dem der Scan startet. Standard: ESLint-Arbeitsverzeichnis
+      baseDir: process.cwd(),
+
+      // Wie lange ein Projektscan wiederverwendet wird, in ms. Standard: 30000
+      cacheTtl: 30000,
+    },
+  ],
+}
+```
+
+Verringern Sie `cacheTtl`, wenn Sie mit einem langlebigen Editor-Server linten und Ihre Änderungen schneller sehen möchten; setzen Sie `baseDir`, wenn ein einzelner Lint-Lauf mehrere Intlayer-Projekte in einem Monorepo umfasst.
+
+> **Neigt zur Zurückhaltung.** Ein Fehlalarm würde eine Übersetzung löschen. Daher wird nichts gemeldet, wenn das Wörterbuch auf eine Weise verwendet wird, die die Analyse nicht nachverfolgen kann: das Inhaltsobjekt als Ganzes übergeben, eine gebundene Übersetzerfunktion (`const t = useTranslations("home")`), eine über direkten Import erreichte Deklaration (`useDictionary(myDictionary)`), ein `nest()` aus einem anderen Wörterbuch oder eine Feldliste, die durch einen Spread nicht-exhaustiv ist. Single-File-Komponenten (`.vue`, `.svelte`, `.astro`) gelten als Verwender aller Felder der genannten Wörterbücher, da ihre Script-Blöcke hier nicht analysiert werden.
+
+`reportDuplicateKeys` liest die unzusammengeführten Wörterbücher, die der Build unter `.intlayer/` schreibt, und bleibt daher stumm, bis das Projekt mindestens einmal gebaut wurde. Zwei Deklarationen mit demselben Schlüssel werden zusammengeführt, was ein legitimes Muster ist — die Meldung existiert, da bei einem beidseitig definierten Feld stillschweigend nur einer der beiden Werte beibehalten wird.
+
+Der Analysator wird aus `@intlayer/lsp` geladen, welches als ESM ausgeliefert wird. Die Regel benötigt daher eine Node-Version, die ein ES-Modul via `require()` laden kann — Node 20.19+ oder 22.12+. Bei älteren Versionen meldet sie nichts, anstatt den Lint-Lauf abbrechen zu lassen.
+
 ## Frameworks
 
-Alle Regeln funktionieren über sämtliche Intlayer-Integrationen hinweg, auch innerhalb von Vue-, Svelte- und Angular-Templates. Sie müssen ESLint nur mitteilen, welcher Parser welchen Dateityp liest.
+Jede Regel funktioniert über alle Intlayer-Integrationen hinweg, einschließlich innerhalb von Vue-, Svelte- und Angular-Templates. Sie müssen ESLint lediglich mitteilen, welcher Parser jeden Dateityp liest.
 
 | Framework                 | Dateien           | Parser                            |
 | ------------------------- | ----------------- | --------------------------------- |
@@ -268,4 +333,4 @@ export default [
 
 Installieren Sie nur die Parser, die Ihr Projekt benötigt.
 
-> **Bekannte Einschränkung.** In Vue- und Angular-Templates wird ein Ausdruck wie `{{ content[key] }}` von `no-dynamic-field-access` nicht geprüft. Dynamische Zugriffe, die im Script-Block geschrieben sind, werden normal erkannt.
+> **Bekannte Einschränkung.** In Vue- und Angular-Templates wird ein Ausdruck wie `{{ content[key] }}` nicht von `no-dynamic-field-access` geprüft. Dynamische Zugriffe im Script-Block werden normal erkannt.
