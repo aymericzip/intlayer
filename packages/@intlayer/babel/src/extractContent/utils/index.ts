@@ -7,4 +7,3 @@ export * from './getComponentName';
 export * from './getExistingIntlayerInfo';
 export * from './getOrGenerateKey';
 export * from './resolveDictionaryKey';
-export * from './shouldExtract';

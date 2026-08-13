@@ -3,13 +3,125 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import {
+  COMPAT_I18N_LIBRARIES,
+  detectCompatI18nLibraries,
   detectMissingIntlayerPackages,
   detectOutdatedIntlayerPackages,
+  hasLintTooling,
   isIntlayerPackageName,
   normalizeVersion,
 } from './packageManager';
 
+describe('detectCompatI18nLibraries', () => {
+  it('returns nothing for a project without any i18n library', () => {
+    expect(
+      detectCompatI18nLibraries({ react: '^19.0.0', vite: '^6.0.0' })
+    ).toEqual([]);
+  });
+
+  it('detects a library from its upstream package', () => {
+    expect(
+      detectCompatI18nLibraries({
+        react: '^19.0.0',
+        'react-i18next': '^15.0.0',
+      })
+    ).toEqual(['i18next / react-i18next']);
+  });
+
+  it('detects a library from its already installed Intlayer adapter', () => {
+    expect(detectCompatI18nLibraries({ '@intlayer/lingui': '^6.0.0' })).toEqual(
+      ['Lingui']
+    );
+  });
+
+  it('detects every library of a project using several of them', () => {
+    expect(
+      detectCompatI18nLibraries({
+        next: '^16.0.0',
+        'next-intl': '^3.0.0',
+        i18next: '^25.0.0',
+      })
+    ).toEqual(['i18next / react-i18next', 'next-intl / use-intl']);
+  });
+
+  it('only lists packages compat detection actually wires an adapter for', () => {
+    for (const library of COMPAT_I18N_LIBRARIES) {
+      for (const packageName of library.packages) {
+        const { packagesToInstall, devPackagesToInstall } =
+          detectMissingIntlayerPackages({ [packageName]: '*' });
+
+        // Anything beyond the always-required `intlayer` package means the
+        // compat branch of the detection recognized the dependency.
+        const compatScheduled = [
+          ...packagesToInstall,
+          ...devPackagesToInstall,
+        ].filter((scheduled) => scheduled !== 'intlayer');
+
+        expect(
+          compatScheduled,
+          `${packageName} (${library.label}) is reported as a compat library but detection wires nothing for it`
+        ).not.toEqual([]);
+      }
+    }
+  });
+});
+
+describe('hasLintTooling', () => {
+  it('is true for either supported linter', () => {
+    expect(hasLintTooling({ eslint: '^9.0.0' })).toBe(true);
+    expect(hasLintTooling({ oxlint: '^1.0.0' })).toBe(true);
+  });
+
+  it('is false for a project that does not lint', () => {
+    expect(hasLintTooling({})).toBe(false);
+    expect(hasLintTooling({ react: '^19.0.0', vite: '^6.0.0' })).toBe(false);
+  });
+});
+
 describe('detectMissingIntlayerPackages', () => {
+  describe('lint plugin', () => {
+    it('installs the lint plugin when the project uses ESLint', () => {
+      const result = detectMissingIntlayerPackages({
+        react: '^19.0.0',
+        eslint: '^9.0.0',
+      });
+
+      expect(result.devPackagesToInstall).toContain('eslint-plugin-intlayer');
+    });
+
+    it('installs the lint plugin when the project uses oxlint', () => {
+      const result = detectMissingIntlayerPackages({
+        react: '^19.0.0',
+        oxlint: '^1.0.0',
+      });
+
+      expect(result.devPackagesToInstall).toContain('eslint-plugin-intlayer');
+    });
+
+    it('leaves a project that does not lint alone', () => {
+      const result = detectMissingIntlayerPackages({
+        react: '^19.0.0',
+        vite: '^6.0.0',
+      });
+
+      expect(result.devPackagesToInstall).not.toContain(
+        'eslint-plugin-intlayer'
+      );
+    });
+
+    it('does not reinstall an already-present lint plugin', () => {
+      const result = detectMissingIntlayerPackages({
+        react: '^19.0.0',
+        eslint: '^9.0.0',
+        'eslint-plugin-intlayer': '^9.0.0',
+      });
+
+      expect(result.devPackagesToInstall).not.toContain(
+        'eslint-plugin-intlayer'
+      );
+    });
+  });
+
   describe('use-intl compat', () => {
     it('configures the use-intl vite plugin and ICU flat sync config', () => {
       const result = detectMissingIntlayerPackages({

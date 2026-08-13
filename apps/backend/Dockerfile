@@ -60,6 +60,7 @@ COPY \
     --exclude=packages/express-intlayer \
     --exclude=packages/hono-intlayer \
     --exclude=packages/adonis-intlayer \
+    --exclude=packages/eslint-plugin-intlayer \
     --exclude=plugins \
     --exclude=compat \
     --exclude=docs/assets \

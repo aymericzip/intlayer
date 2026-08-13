@@ -20,6 +20,7 @@ import {
   getGithubWorkflows,
   getMetroConfigTemplate,
   hasIntlayerVitePlugin,
+  hasLintTooling,
   installPackages,
   isVersionAtLeast,
   parseJSONWithComments,
@@ -75,6 +76,9 @@ const DocumentationRouter = {
   // Intlayer Language Server (Go-to-Definition from getter keys to .content files)
   LSP: 'https://intlayer.org/doc/lsp.md',
 
+  // Lint rules for hardcoded text and non-optimizable dynamic calls
+  ESLint: 'https://intlayer.org/doc/eslint.md',
+
   // Check for competitors libs
   NextIntl: 'https://intlayer.org/blog/intlayer-with-next-intl.md',
   ReactI18Next: 'https://intlayer.org/blog/intlayer-with-react-i18next.md',
@@ -82,6 +86,29 @@ const DocumentationRouter = {
   NextI18Next: 'https://intlayer.org/blog/intlayer-with-next-i18next.md',
   VueI18n: 'https://intlayer.org/blog/intlayer-with-vue-i18n.md',
 };
+
+/**
+ * The Intlayer lint setup, as `intlayer init` writes it into `.oxlintrc.json`.
+ *
+ * Declared locally on purpose: `@intlayer/engine` is installed by every Intlayer
+ * user, so it must not depend on a lint plugin to write a handful of strings
+ * into a JSON file. oxlint resolves a plugin's *rules* but not its shipped
+ * *configs*, so the preset cannot be referenced by name there either.
+ *
+ * Mirrors the `recommended` preset of `eslint-plugin-intlayer`; keep in sync
+ * when a rule is enabled by default there.
+ */
+const LINT_PLUGIN_PACKAGE_NAME = 'eslint-plugin-intlayer';
+
+/** Intlayer's generated output — never source, never worth linting. */
+const GENERATED_OUTPUT_GLOBS = ['**/.intlayer/**'];
+
+/** Rules of the `recommended` preset, prefixed by the plugin namespace. */
+const getRecommendedRules = (): Record<string, string> => ({
+  'intlayer/no-raw-text': 'warn',
+  'intlayer/static-dictionary-key': 'error',
+  'intlayer/no-dynamic-field-access': 'error',
+});
 
 /**
  * Helper: Detects the environment and returns the doc URL
@@ -230,6 +257,8 @@ export type InitOptions = {
   noVscodeExtension?: boolean;
   /** Skip writing the Intlayer LSP configuration to `.vscode/settings.json`. */
   noLsp?: boolean;
+  /** Skip enabling the Intlayer lint rules (ESLint / oxlint). */
+  noEslint?: boolean;
   /**
    * Skip framework-specific scaffolding (middleware/proxy, providers in
    * layout/page, example content). Defaults to enabled.
@@ -247,13 +276,6 @@ export type InitOptions = {
    * (`prefix-no-default`) is kept.
    */
   routingMode?: RoutingMode;
-  /**
-   * Extra packages hinted by the interactive init prompt (compat i18n library
-   * selections made before those libraries are actually installed). These are
-   * merged into the dependency map used by {@link detectMissingIntlayerPackages}
-   * so the correct sync plugin and compat adapter are always scheduled.
-   */
-  hintDependencies?: Record<string, string>;
   /**
    * Content organization strategy chosen by the interactive init prompt. Drives
    * the `compiler.output` template (`centralized`) or the injection of the
@@ -298,49 +320,34 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
     ...(packageJson.devDependencies ?? {}),
   };
 
-  // Effective deps = real deps + interactive hint-deps (compat library selections
-  // from the interactive init prompt that haven't been installed yet).
-  const effectiveAllDeps: Record<string, string> = {
-    ...allDeps,
-    ...(options?.hintDependencies ?? {}),
-  };
-
   // INSTALL MISSING INTLAYER DEPENDENCIES
   const packageManager = detectPackageManager(rootDir);
 
   // lingui keeps its catalogs as `.po` (default) or `.json`. Detect which so the
   // matching sync plugin (`syncPO` / `syncJSON`) + dev dependency are chosen.
-  // Also respect the `__lingui_json__` sentinel injected by the interactive init
-  // prompt when the user explicitly selected "Lingui (.json catalogs)".
   const linguiPresent = Boolean(
-    effectiveAllDeps['@lingui/core'] ||
-      effectiveAllDeps['@lingui/react'] ||
-      effectiveAllDeps['@intlayer/lingui']
+    allDeps['@lingui/core'] ||
+      allDeps['@lingui/react'] ||
+      allDeps['@intlayer/lingui']
   );
 
-  // Determine format: prefer filesystem scan, then the interactive sentinel.
   const linguiCatalog = linguiPresent
     ? await detectLinguiCatalogPattern(rootDir)
     : null;
 
-  const hintLinguiJson = Boolean(
-    options?.hintDependencies?.['__lingui_json__']
-  );
   // `linguiCatalogFormat` resolution:
   // 1. Filesystem scan result (authoritative when catalogs already exist)
-  // 2. Interactive sentinel `__lingui_json__` → 'json'
-  // 3. Fallback: 'po' (lingui's default) when lingui is selected but no
-  //    catalogs have been generated yet and no sentinel was injected.
+  // 2. Fallback: 'po' (lingui's default) when lingui is installed but no
+  //    catalogs have been generated yet.
   const linguiCatalogFormat: 'po' | 'json' | null =
-    linguiCatalog?.format ??
-    (linguiPresent ? (hintLinguiJson ? 'json' : 'po') : null);
+    linguiCatalog?.format ?? (linguiPresent ? 'po' : null);
 
   const {
     packagesToInstall,
     devPackagesToInstall,
     compatSyncConfig,
     compatVitePluginConfig,
-  } = detectMissingIntlayerPackages(effectiveAllDeps, {
+  } = detectMissingIntlayerPackages(allDeps, {
     linguiCatalogFormat,
   });
 
@@ -353,7 +360,7 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
 
   if (
     wantsJsonNamespaces &&
-    !effectiveAllDeps['@intlayer/sync-json-plugin'] &&
+    !allDeps['@intlayer/sync-json-plugin'] &&
     !devPackagesToInstall.includes('@intlayer/sync-json-plugin')
   ) {
     devPackagesToInstall.push('@intlayer/sync-json-plugin');
@@ -617,6 +624,95 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
         `${x} Could not update ${colorizePath(settingsJsonPath)}. You may need to add the LSP settings manually.`,
         { level: 'warn' }
       );
+    }
+  }
+
+  // CHECK LINT RULES (eslint-plugin-intlayer)
+  //
+  // Gated on the project already having a linter installed: with no ESLint or
+  // oxlint there is nothing to plug the rules into, and the guidance below
+  // would just be noise. The same check gates the install in
+  // `detectMissingIntlayerPackages`, so the two never disagree.
+  //
+  // Only the oxlint config is patched here: `.oxlintrc.json` is plain JSON and
+  // safe to edit, whereas an ESLint flat config is arbitrary JavaScript that
+  // cannot be rewritten reliably — that one is left to the user, with the
+  // snippet printed below.
+  if (!options?.noEslint && hasLintTooling(allDeps)) {
+    const oxlintConfigPath = '.oxlintrc.json';
+    const hasOxlintConfig = await exists(rootDir, oxlintConfigPath);
+
+    if (hasOxlintConfig) {
+      try {
+        const content = await readFileFromRoot(rootDir, oxlintConfigPath);
+        const oxlintConfig: {
+          jsPlugins?: string[];
+          rules?: Record<string, unknown>;
+          ignorePatterns?: string[];
+        } = parseJSONWithComments(content);
+
+        oxlintConfig.jsPlugins ??= [];
+        oxlintConfig.rules ??= {};
+        oxlintConfig.ignorePatterns ??= [];
+
+        let oxlintUpdated = false;
+
+        // Generated dictionaries are not source; linting them is wasted work.
+        for (const glob of GENERATED_OUTPUT_GLOBS) {
+          if (!oxlintConfig.ignorePatterns.includes(glob)) {
+            oxlintConfig.ignorePatterns.push(glob);
+            oxlintUpdated = true;
+          }
+        }
+
+        if (!oxlintConfig.jsPlugins.includes(LINT_PLUGIN_PACKAGE_NAME)) {
+          oxlintConfig.jsPlugins.push(LINT_PLUGIN_PACKAGE_NAME);
+          oxlintUpdated = true;
+        }
+
+        for (const [ruleName, severity] of Object.entries(
+          getRecommendedRules()
+        )) {
+          if (!oxlintConfig.rules[ruleName]) {
+            oxlintConfig.rules[ruleName] = severity;
+            oxlintUpdated = true;
+          }
+        }
+
+        if (oxlintUpdated) {
+          await writeFileToRoot(
+            rootDir,
+            oxlintConfigPath,
+            JSON.stringify(oxlintConfig, null, 2)
+          );
+          logger(
+            `${v} Added the Intlayer lint rules to ${colorizePath(oxlintConfigPath)}`
+          );
+        } else {
+          logger(
+            `${v} ${colorizePath(oxlintConfigPath)} already includes the Intlayer lint rules`
+          );
+        }
+      } catch {
+        logger(
+          `${x} Could not update ${colorizePath(oxlintConfigPath)}. You may need to add ${colorize(LINT_PLUGIN_PACKAGE_NAME, ANSIColors.MAGENTA)} manually.`,
+          { level: 'warn' }
+        );
+      }
+    } else {
+      // ESLint flat config — print the snippet instead of rewriting the file.
+      logger([
+        colorize('Intlayer lint rules →', ANSIColors.MAGENTA),
+        colorize(
+          `Add ${LINT_PLUGIN_PACKAGE_NAME} to your ESLint flat config to catch hardcoded text and dynamic calls the compiler cannot optimize:`,
+          ANSIColors.GREY_LIGHT
+        ),
+        colorize(
+          `  import intlayer from '${LINT_PLUGIN_PACKAGE_NAME}';\n  export default [...intlayer.configs.recommended];`,
+          ANSIColors.GREY_LIGHT
+        ),
+        colorizePath(DocumentationRouter.ESLint),
+      ]);
     }
   }
 

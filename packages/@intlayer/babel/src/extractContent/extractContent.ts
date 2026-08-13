@@ -3,6 +3,7 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { extname, relative } from 'node:path';
 import type * as t from '@babel/types';
 import * as ANSIColors from '@intlayer/config/colors';
+import { ATTRIBUTES_TO_EXTRACT, shouldExtract } from '@intlayer/config/extract';
 import { colorize, colorizePath, getAppLogger } from '@intlayer/config/logger';
 import {
   type GetConfigurationOptions,
@@ -15,12 +16,7 @@ import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import { extractTsContent } from './babelProcessor';
 import { writeContentHelper } from './contentWriter';
 import { processTsxFile } from './processTsxFile';
-import {
-  ATTRIBUTES_TO_EXTRACT,
-  extractDictionaryKeyFromPath,
-  type PackageName,
-  shouldExtract,
-} from './utils';
+import { extractDictionaryKeyFromPath, type PackageName } from './utils';
 import { extractDictionaryKey } from './utils/extractDictionaryKey';
 import { generateKey } from './utils/generateKey';
 

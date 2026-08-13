@@ -41,6 +41,7 @@ COPY \
     --exclude=packages/express-intlayer \
     --exclude=packages/hono-intlayer \
     --exclude=packages/adonis-intlayer \
+    --exclude=packages/eslint-plugin-intlayer \
     --exclude=docs/assets \
     --exclude=docs/blog \
     --exclude=docs/frequent_questions \

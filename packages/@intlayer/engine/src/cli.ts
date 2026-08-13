@@ -10,6 +10,9 @@ export * from './init/index';
 export type { RoutingMode } from './init/utils';
 export { NEXT_INTLAYER_BABEL_CONFIG_CONTENT } from './init/utils/nextCompilerBabel';
 export {
+  COMPAT_I18N_LIBRARIES,
+  type CompatI18nLibrary,
+  detectCompatI18nLibraries,
   detectPackageManager,
   installPackages,
   type PackageManager,

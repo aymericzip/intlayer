@@ -59,6 +59,7 @@ COPY \
     --exclude=packages/express-intlayer \
     --exclude=packages/hono-intlayer \
     --exclude=packages/adonis-intlayer \
+    --exclude=packages/eslint-plugin-intlayer \
     --exclude=apps/app \
     --exclude=apps/showcase \
     --exclude=apps/website \

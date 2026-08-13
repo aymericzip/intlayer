@@ -144,14 +144,120 @@ export type DetectMissingPackagesOptions = {
    * dependency the lingui compat setup uses.
    */
   linguiCatalogFormat?: 'po' | 'json' | null;
-  /**
-   * Extra package names injected by the interactive init prompt when the user
-   * selects a compat i18n library that is not yet in `package.json`.
-   * These are merged with the real dependency map before running detection so
-   * the correct sync plugin and compat adapter are scheduled for installation.
-   */
-  hintDependencies?: Record<string, string>;
 };
+
+/** An existing i18n library Intlayer ships a compat adapter for. */
+export type CompatI18nLibrary = {
+  /** Human-readable name, used to report the detection back to the user. */
+  label: string;
+  /**
+   * Dependency names that reveal the library — both the upstream packages and
+   * the Intlayer adapters, so a project that already ran `init` is still
+   * recognized.
+   */
+  packages: readonly string[];
+};
+
+/**
+ * Existing i18n libraries Intlayer can adapt, keyed by the dependencies that
+ * reveal them. Mirrors the compat branches of
+ * {@link detectMissingIntlayerPackages}: a library listed here is one that
+ * detection will wire up on its own once its package is in `package.json`.
+ */
+export const COMPAT_I18N_LIBRARIES: readonly CompatI18nLibrary[] = [
+  {
+    label: 'i18next / react-i18next',
+    packages: [
+      'i18next',
+      'react-i18next',
+      '@intlayer/i18next',
+      '@intlayer/react-i18next',
+    ],
+  },
+  {
+    label: 'next-intl / use-intl',
+    packages: [
+      'next-intl',
+      'use-intl',
+      '@intlayer/next-intl',
+      '@intlayer/use-intl',
+    ],
+  },
+  {
+    label: 'vue-i18n',
+    packages: ['vue-i18n', '@intlayer/vue-i18n'],
+  },
+  {
+    label: '@nuxtjs/i18n',
+    packages: ['@nuxtjs/i18n', '@intlayer/nuxtjs-i18n'],
+  },
+  {
+    label: 'next-i18next',
+    packages: ['next-i18next', '@intlayer/next-i18next'],
+  },
+  {
+    label: 'next-translate',
+    packages: ['next-translate', '@intlayer/next-translate'],
+  },
+  {
+    label: 'react-intl',
+    packages: ['react-intl', '@intlayer/react-intl'],
+  },
+  {
+    label: 'Lingui',
+    packages: ['@lingui/core', '@lingui/react', '@intlayer/lingui'],
+  },
+  {
+    label: 'svelte-i18n',
+    packages: ['svelte-i18n', '@intlayer/svelte-i18n'],
+  },
+  {
+    label: '@ngneat/transloco',
+    packages: ['@ngneat/transloco', '@intlayer/transloco'],
+  },
+  {
+    label: '@ngx-translate/core',
+    packages: ['@ngx-translate/core', '@intlayer/ngx-translate'],
+  },
+  {
+    label: 'node-polyglot',
+    packages: ['node-polyglot', '@intlayer/polyglot'],
+  },
+  {
+    label: 'i18n-js',
+    packages: ['i18n-js', '@intlayer/i18n-js'],
+  },
+];
+
+/**
+ * Returns the labels of the compat i18n libraries present in `dependencies`.
+ *
+ * Lets the init flow report (and branch on) the libraries it found without
+ * asking the user, since {@link detectMissingIntlayerPackages} already derives
+ * the adapters, sync plugin and config from the very same dependency map.
+ *
+ * @param dependencies - Merged dependencies of the target project.
+ */
+export const detectCompatI18nLibraries = (
+  dependencies: Record<string, string>
+): string[] =>
+  COMPAT_I18N_LIBRARIES.filter((library) =>
+    library.packages.some((packageName) => Boolean(dependencies[packageName]))
+  ).map((library) => library.label);
+
+/**
+ * True when the project already lints, and so has something to plug the
+ * Intlayer lint rules into.
+ *
+ * `eslint-plugin-intlayer` loads in both ESLint and oxlint, so either linter is
+ * enough. Shared with the init flow so that installing the plugin and wiring up
+ * its configuration are gated on exactly the same condition — a project that
+ * does not lint is left alone entirely.
+ *
+ * @param dependencies - Merged dependencies of the target project.
+ */
+export const hasLintTooling = (dependencies: Record<string, string>): boolean =>
+  Boolean(dependencies.eslint) || Boolean(dependencies.oxlint);
 
 export const detectMissingIntlayerPackages = (
   allDependencies: Record<string, string>,
@@ -162,16 +268,8 @@ export const detectMissingIntlayerPackages = (
   let compatSyncConfig: CompatSyncConfig | undefined;
   let compatVitePluginConfig: CompatVitePluginConfig | undefined;
 
-  // Merge hint deps supplied by the interactive init prompt so that compat
-  // libraries the user declared (but hasn't installed yet) are treated the same
-  // as pre-existing deps when building the install and config lists.
-  const effectiveDependencies: Record<string, string> = {
-    ...allDependencies,
-    ...(options.hintDependencies ?? {}),
-  };
-
   const isInstalled = (packageName: string): boolean =>
-    Boolean(effectiveDependencies[packageName]);
+    Boolean(allDependencies[packageName]);
 
   const addIfMissing = (packageName: string): void => {
     if (!isInstalled(packageName)) {
@@ -219,6 +317,11 @@ export const detectMissingIntlayerPackages = (
 
   if (isInstalled('vite')) {
     addIfMissing('vite-intlayer');
+  }
+
+  // Lint rules — only when the project already lints.
+  if (hasLintTooling(allDependencies)) {
+    addDevIfMissing('eslint-plugin-intlayer');
   }
 
   // -------------------------------------------------------------------------

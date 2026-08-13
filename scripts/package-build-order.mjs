@@ -22,6 +22,7 @@ export const packageBuildOrder = [
   'packages/intlayer',
   'packages/@intlayer/mcp',
   'packages/@intlayer/lsp',
+  'packages/eslint-plugin-intlayer',
   'packages/intlayer-cli',
   'packages/express-intlayer',
   'packages/hono-intlayer',

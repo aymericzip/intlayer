@@ -57,6 +57,11 @@
       "import": "./dist/esm/callers/index.mjs",
       "require": "./dist/cjs/callers/index.cjs"
     },
+    "./extract": {
+      "types": "./dist/types/extract/index.d.ts",
+      "import": "./dist/esm/extract/index.mjs",
+      "require": "./dist/cjs/extract/index.cjs"
+    },
     "./utils": {
       "types": "./dist/types/utils/index.d.ts",
       "require": "./dist/cjs/utils/index.cjs",
@@ -115,6 +120,9 @@
       ],
       "utils": [
         "./dist/types/utils/index.d.ts"
+      ],
+      "extract": [
+        "./dist/types/extract/index.d.ts"
       ],
       "file": [
         "./dist/types/loadExternalFile/index.d.ts"

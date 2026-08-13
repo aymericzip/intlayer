@@ -2022,6 +2022,10 @@ const docDataContent: Dictionary = {
           }),
           default: getDocMetadata('./docs/en/vs_code_extension.md'),
         },
+        eslint: {
+          title: 'ESLint / OXLint',
+          default: getDocMetadata('./docs/en/eslint.md'),
+        },
         'mcp-server': {
           title: t({
             en: 'MCP Server',

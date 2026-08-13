@@ -36,21 +36,22 @@ describe('githubActions', () => {
       bun: 'bun install --frozen-lockfile',
     };
 
-    it.each(
-      Object.keys(execByPackageManager) as PackageManager[]
-    )('uses the %s exec and install commands', (packageManager) => {
-      const [fillWorkflow, testWorkflow] = getGithubWorkflows(packageManager);
+    it.each(Object.keys(execByPackageManager) as PackageManager[])(
+      'uses the %s exec and install commands',
+      (packageManager) => {
+        const [fillWorkflow, testWorkflow] = getGithubWorkflows(packageManager);
 
-      const expectedExec = execByPackageManager[packageManager];
-      const expectedInstall = installByPackageManager[packageManager];
+        const expectedExec = execByPackageManager[packageManager];
+        const expectedInstall = installByPackageManager[packageManager];
 
-      expect(fillWorkflow?.content).toContain(`${expectedExec} build`);
-      expect(fillWorkflow?.content).toContain(`${expectedExec} fill`);
-      expect(fillWorkflow?.content).toContain(expectedInstall);
+        expect(fillWorkflow?.content).toContain(`${expectedExec} build`);
+        expect(fillWorkflow?.content).toContain(`${expectedExec} fill`);
+        expect(fillWorkflow?.content).toContain(expectedInstall);
 
-      expect(testWorkflow?.content).toContain(`${expectedExec} test`);
-      expect(testWorkflow?.content).toContain(expectedInstall);
-    });
+        expect(testWorkflow?.content).toContain(`${expectedExec} test`);
+        expect(testWorkflow?.content).toContain(expectedInstall);
+      }
+    );
 
     it('fills only changed dictionaries in complete mode and provides AI access', () => {
       const [fillWorkflow] = getGithubWorkflows('npm');

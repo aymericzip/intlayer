@@ -1,17 +1,4 @@
 /**
- * Attributes that should be extracted as translatable strings from JSX/HTML elements.
- * This is the single source of truth shared across all Intlayer compiler packages
- * (@intlayer/babel, @intlayer/vue-compiler, @intlayer/svelte-compiler, @intlayer/engine).
- */
-export const ATTRIBUTES_TO_EXTRACT = [
-  'title',
-  'placeholder',
-  'alt',
-  'aria-label',
-  'label',
-] as const;
-
-/**
  * The list of supported Intlayer integration packages.
  * This is the single source of truth for package name validation.
  *
