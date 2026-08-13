@@ -1,6 +1,7 @@
 import type { NodePath, PluginObject } from '@babel/core';
 import type * as BabelTypes from '@babel/types';
 import {
+  CHAINABLE_RUNTIME_METHOD_NAMES,
   INTLAYER_CALLER_NAMES,
   type IntlayerCallerName,
   type NestedRenameEntry,
@@ -444,6 +445,142 @@ const walkObjectDestructuring = (
 };
 
 /**
+ * Renames every field access reachable from `rootPath`, whose value is the
+ * dictionary content root.
+ *
+ * Combines the three ways a content root is consumed: a member-access chain,
+ * a destructuring assignment, and a chainable runtime helper such as
+ * `.onChange(cb)`.
+ */
+const renameContentConsumers = (
+  babelTypes: typeof BabelTypes,
+  rootPath: NodePath<BabelTypes.Node>,
+  renameMap: NestedRenameMap
+): void => {
+  const { finalPath, finalRenameMap } = walkRenameChain(
+    babelTypes,
+    rootPath,
+    renameMap
+  );
+  walkObjectDestructuring(babelTypes, finalPath, finalRenameMap);
+  renameChainedRuntimeCall(babelTypes, finalPath, finalRenameMap);
+};
+
+/**
+ * Handles `content.onChange(cb)` — a runtime subscription rather than a field
+ * access (see {@link CHAINABLE_RUNTIME_METHOD_NAMES}).
+ *
+ * `walkRenameChain` stops at `onChange` because it is absent from the rename
+ * map, which would leave the callback body reading the original field names
+ * while the compiled JSON has already been renamed. This restarts the rename
+ * walk on both sides of the call:
+ *
+ *   - the callback's first parameter receives the same content root, so its
+ *     accesses are renamed with the same map;
+ *   - the helper returns the content object, so the chain continues past it.
+ *
+ * @param refPath - Path whose value is the content root (the object the
+ *   chainable method would be called on).
+ */
+const renameChainedRuntimeCall = (
+  babelTypes: typeof BabelTypes,
+  refPath: NodePath<BabelTypes.Node>,
+  renameMap: NestedRenameMap
+): void => {
+  if (renameMap.size === 0) return;
+
+  const memberPath = refPath.parentPath;
+  if (!memberPath) return;
+
+  const memberNode = memberPath.node;
+  if (
+    (!babelTypes.isMemberExpression(memberNode) &&
+      !babelTypes.isOptionalMemberExpression(memberNode)) ||
+    (memberNode as BabelTypes.MemberExpression).object !== refPath.node
+  ) {
+    return;
+  }
+
+  const propertyNode = (memberNode as BabelTypes.MemberExpression).property;
+  const methodName = (memberNode as BabelTypes.MemberExpression).computed
+    ? babelTypes.isStringLiteral(propertyNode)
+      ? propertyNode.value
+      : undefined
+    : babelTypes.isIdentifier(propertyNode)
+      ? propertyNode.name
+      : undefined;
+
+  if (!methodName || !CHAINABLE_RUNTIME_METHOD_NAMES.has(methodName)) return;
+
+  const callPath = memberPath.parentPath;
+  if (!callPath) return;
+  if (!callPath.isCallExpression() && !callPath.isOptionalCallExpression()) {
+    return;
+  }
+  if ((callPath.node as BabelTypes.CallExpression).callee !== memberNode) {
+    return;
+  }
+
+  const argumentPaths = callPath.get(
+    'arguments'
+  ) as NodePath<BabelTypes.Node>[];
+
+  for (const argumentPath of argumentPaths) {
+    if (
+      !argumentPath.isArrowFunctionExpression() &&
+      !argumentPath.isFunctionExpression()
+    ) {
+      continue;
+    }
+
+    const [firstParameterPath] = argumentPath.get(
+      'params'
+    ) as NodePath<BabelTypes.Node>[];
+    if (!firstParameterPath) continue;
+
+    // ({ title }) => … — destructured directly in the parameter list.
+    if (firstParameterPath.isObjectPattern()) {
+      renameObjectPatternProperties(
+        babelTypes,
+        firstParameterPath.node,
+        argumentPath,
+        renameMap
+      );
+      continue;
+    }
+
+    // (content) => … — rename each access on the parameter.
+    if (!firstParameterPath.isIdentifier()) continue;
+
+    const parameterBinding = argumentPath.scope.getBinding(
+      firstParameterPath.node.name
+    );
+    if (!parameterBinding) continue;
+
+    for (const parameterRefPath of parameterBinding.referencePaths) {
+      renameContentConsumers(babelTypes, parameterRefPath, renameMap);
+    }
+  }
+
+  // The helper returns the content object itself, so keep walking past it —
+  // both when the result is used inline and when it is stored in a variable
+  // (`const content = useIntlayer('key').onChange(cb)`).
+  renameContentConsumers(babelTypes, callPath, renameMap);
+
+  const declaratorNode = callPath.parent;
+  if (
+    babelTypes.isVariableDeclarator(declaratorNode) &&
+    babelTypes.isIdentifier(declaratorNode.id) &&
+    declaratorNode.init === callPath.node
+  ) {
+    const resultBinding = callPath.scope.getBinding(declaratorNode.id.name);
+    for (const resultRefPath of resultBinding?.referencePaths ?? []) {
+      renameContentConsumers(babelTypes, resultRefPath, renameMap);
+    }
+  }
+};
+
+/**
  * Collects the local aliases under which `useIntlayer` / `getIntlayer` are
  * imported in the given program (e.g. `import { useIntlayer as useI } …`
  * yields `useI` → `useIntlayer`).
@@ -576,18 +713,14 @@ export const renameIntlayerFieldAccesses = (
       }
 
       // ── Case 2: useIntlayer('key').fieldA.nested ─────────────────────
+      //           (also useIntlayer('key').onChange(cb))
       if (
         (babelTypes.isMemberExpression(parentNode) ||
           babelTypes.isOptionalMemberExpression(parentNode)) &&
         (parentNode as BabelTypes.MemberExpression).object ===
           callExpressionPath.node
       ) {
-        const { finalPath, finalRenameMap } = walkRenameChain(
-          babelTypes,
-          callExpressionPath,
-          fieldRenameMap
-        );
-        walkObjectDestructuring(babelTypes, finalPath, finalRenameMap);
+        renameContentConsumers(babelTypes, callExpressionPath, fieldRenameMap);
         return;
       }
 
@@ -602,13 +735,13 @@ export const renameIntlayerFieldAccesses = (
         if (!variableBinding) return;
 
         for (const variableReferencePath of variableBinding.referencePaths) {
-          // Direct access: result.fieldA or const { fieldA } = result
-          const { finalPath, finalRenameMap } = walkRenameChain(
+          // Direct access: result.fieldA, const { fieldA } = result, or the
+          // chainable result.onChange(cb)
+          renameContentConsumers(
             babelTypes,
             variableReferencePath,
             fieldRenameMap
           );
-          walkObjectDestructuring(babelTypes, finalPath, finalRenameMap);
 
           // Signal accessor: result().fieldA or const { fieldA } = result()
           // walkRenameChain stops at a CallExpression parent, so we need to
@@ -622,15 +755,7 @@ export const renameIntlayerFieldAccesses = (
           ) {
             const callPath = variableReferencePath.parentPath;
             if (callPath) {
-              const {
-                finalPath: signalFinalPath,
-                finalRenameMap: signalFinalRenameMap,
-              } = walkRenameChain(babelTypes, callPath, fieldRenameMap);
-              walkObjectDestructuring(
-                babelTypes,
-                signalFinalPath,
-                signalFinalRenameMap
-              );
+              renameContentConsumers(babelTypes, callPath, fieldRenameMap);
             }
           }
         }

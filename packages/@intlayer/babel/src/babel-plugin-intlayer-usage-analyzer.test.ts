@@ -337,6 +337,121 @@ describe('makeUsageAnalyzerBabelPlugin', () => {
     });
   });
 
+  describe('vanilla chainable .onChange() subscription', () => {
+    it('reads the fields out of the callback instead of recording onChange', () => {
+      const ctx = analyze(
+        `
+        import { useIntlayer } from 'vanilla-intlayer';
+        const content = useIntlayer('homepage').onChange((newContent) => {
+          document.querySelector('h1').textContent = String(newContent.title);
+        });
+        document.querySelector('p').textContent = String(content.readTheDocs);
+        `,
+        '/app/src/main.ts'
+      );
+
+      const usage = ctx.dictionaryKeyToFieldUsageMap.get('homepage');
+      expect(usage).toEqual(new Set(['title', 'readTheDocs']));
+      expect(usage).not.toContain('onChange');
+      expect(ctx.dictionaryKeysWithUntrackedBindings.has('homepage')).toBe(
+        false
+      );
+    });
+
+    it('does not mark onChange as an opaque field', () => {
+      const ctx = analyze(
+        `
+        import { useIntlayer } from 'vanilla-intlayer';
+        useIntlayer('homepage').onChange((c) => render(c.title));
+        `,
+        '/app/src/main.ts'
+      );
+
+      const opaque = ctx.dictionaryKeysWithOpaqueFields.get('homepage');
+      expect(opaque?.has('onChange')).not.toBe(true);
+      expect(ctx.dictionaryKeyToFieldUsageMap.get('homepage')).toEqual(
+        new Set(['title'])
+      );
+    });
+
+    it('supports a destructured callback parameter', () => {
+      const ctx = analyze(
+        `
+        import { useIntlayer } from 'vanilla-intlayer';
+        useIntlayer('homepage').onChange(({ title, subtitle }) => {
+          render(title, subtitle);
+        });
+        `,
+        '/app/src/main.ts'
+      );
+
+      expect(ctx.dictionaryKeyToFieldUsageMap.get('homepage')).toEqual(
+        new Set(['title', 'subtitle'])
+      );
+    });
+
+    it('follows the content returned by the chained call', () => {
+      const ctx = analyze(
+        `
+        import { useIntlayer } from 'vanilla-intlayer';
+        const content = useIntlayer('homepage')
+          .onChange((c) => render(c.title));
+        el.textContent = String(content.footer);
+        `,
+        '/app/src/main.ts'
+      );
+
+      expect(ctx.dictionaryKeyToFieldUsageMap.get('homepage')).toEqual(
+        new Set(['title', 'footer'])
+      );
+    });
+
+    it('handles onChange called on a plain variable binding', () => {
+      const ctx = analyze(
+        `
+        import { useIntlayer } from 'vanilla-intlayer';
+        const content = useIntlayer('homepage');
+        content.onChange((c) => render(c.title));
+        el.textContent = String(content.footer);
+        `,
+        '/app/src/main.ts'
+      );
+
+      expect(ctx.dictionaryKeyToFieldUsageMap.get('homepage')).toEqual(
+        new Set(['title', 'footer'])
+      );
+      expect(ctx.dictionaryKeysWithUntrackedBindings.has('homepage')).toBe(
+        false
+      );
+    });
+
+    it('keeps every field when the callback consumes the content opaquely', () => {
+      const ctx = analyze(
+        `
+        import { useIntlayer } from 'vanilla-intlayer';
+        useIntlayer('homepage').onChange((c) => renderAll(c));
+        `,
+        '/app/src/main.ts'
+      );
+
+      expect(ctx.dictionaryKeyToFieldUsageMap.get('homepage')).toBe('all');
+    });
+
+    it('still treats an uncalled .onChange reference as a field access', () => {
+      const ctx = analyze(
+        `
+        import { useIntlayer } from 'vanilla-intlayer';
+        const handler = useIntlayer('homepage').onChange;
+        `,
+        '/app/src/main.ts'
+      );
+
+      expect(ctx.dictionaryKeyToFieldUsageMap.get('homepage')).toEqual(
+        new Set(['onChange'])
+      );
+    });
+  });
+
   describe('SFC deferral', () => {
     it('registers Vue files in pendingFrameworkAnalysis for plain variable bindings', () => {
       const ctx = analyze(

@@ -220,6 +220,22 @@ export const preserveNestedDictionaryFields = (
 
 // ── Usage-analyzer Babel plugin ───────────────────────────────────────────────
 
+/**
+ * Methods the runtime attaches to a resolved content object rather than fields
+ * declared in a `.content` file.
+ *
+ * `vanilla-intlayer`'s `useIntlayer` / `useDictionary` assign `onChange` onto
+ * the content they return, so `useIntlayer('app').onChange(cb)` is a
+ * subscription — not a read of a field named `onChange`. Without this list the
+ * analyser records `onChange` as the only consumed field and the purge pass
+ * strips every real field from the compiled dictionary.
+ *
+ * The analyser looks *through* these calls: the callback parameter is analysed
+ * as a fresh content root, and the call result is analysed again because the
+ * helpers return the content object for chaining.
+ */
+export const CHAINABLE_RUNTIME_METHOD_NAMES = new Set(['onChange']);
+
 /** Canonical intlayer caller names that trigger usage analysis. */
 export const INTLAYER_CALLER_NAMES = ['useIntlayer', 'getIntlayer'] as const;
 export type IntlayerCallerName = (typeof INTLAYER_CALLER_NAMES)[number];
@@ -308,8 +324,6 @@ const analyzeCallExpressionUsage = (
   currentSourceFilePath: string,
   isSfcFile: boolean
 ): void => {
-  const parentNode = callExpressionPath.parent;
-
   /** Mark the dictionary key as having an untracked binding in this file. */
   const markUntrackedBinding = (): void => {
     const existingPaths =
@@ -571,74 +585,116 @@ const analyzeCallExpressionUsage = (
     return true;
   };
 
-  // ── Pattern 1: const { fieldA, fieldB } = useIntlayer('key') ──────────────
-  if (
-    babelTypes.isVariableDeclarator(parentNode) &&
-    babelTypes.isObjectPattern(parentNode.id)
-  ) {
-    const accessedFieldNames = new Set<string>();
+  /**
+   * Returns the call path when `memberExprPath` is a chainable runtime helper
+   * being invoked (`content.onChange(cb)`), otherwise `undefined`.
+   *
+   * See {@link CHAINABLE_RUNTIME_METHOD_NAMES}: a bare `content.onChange`
+   * reference that is never called is treated as an ordinary field access, so
+   * only the invoked form is looked through.
+   */
+  const getChainedRuntimeCallPath = (
+    memberExprPath: NodePath<BabelTypes.Node> | null | undefined,
+    fieldName: string
+  ): NodePath<BabelTypes.Node> | undefined => {
+    if (!CHAINABLE_RUNTIME_METHOD_NAMES.has(fieldName)) return undefined;
+    if (!memberExprPath) return undefined;
+
+    const callPath = memberExprPath.parentPath;
+    if (!callPath) return undefined;
+    if (!callPath.isCallExpression() && !callPath.isOptionalCallExpression()) {
+      return undefined;
+    }
     if (
-      collectFieldsFromObjectPattern(
-        parentNode.id,
-        callExpressionPath,
-        accessedFieldNames
-      )
+      (callPath.node as BabelTypes.CallExpression).callee !==
+      memberExprPath.node
     ) {
-      recordFieldUsage(pruneContext, dictionaryKey, accessedFieldNames);
-    } else {
-      recordFieldUsage(pruneContext, dictionaryKey, 'all');
-    }
-    return;
-  }
-
-  // ── Pattern 2: useIntlayer('key').fieldA / useIntlayer('key')?.fieldA ──────
-  if (
-    (babelTypes.isMemberExpression(parentNode) ||
-      babelTypes.isOptionalMemberExpression(parentNode)) &&
-    (parentNode as BabelTypes.MemberExpression).object ===
-      callExpressionPath.node
-  ) {
-    let fieldName: string | undefined;
-
-    if (!parentNode.computed && babelTypes.isIdentifier(parentNode.property)) {
-      fieldName = parentNode.property.name;
-    } else if (
-      parentNode.computed &&
-      babelTypes.isStringLiteral(parentNode.property)
-    ) {
-      fieldName = parentNode.property.value;
+      return undefined;
     }
 
-    if (fieldName) {
-      recordFieldUsage(pruneContext, dictionaryKey, new Set([fieldName]));
+    return callPath;
+  };
 
-      // Check for opaque usage (e.g. passed directly to a prop)
-      const memberExprPath = callExpressionPath.parentPath;
-      if (memberExprPath) {
-        analyzeOpaqueUsage(memberExprPath, [fieldName]);
+  /**
+   * Analyses the callbacks handed to a chainable runtime helper.
+   *
+   * The callback receives the freshly-resolved content root, so its parameter
+   * is walked exactly like `const content = useIntlayer('key')` — either as a
+   * plain binding or as a destructuring pattern.
+   */
+  const analyzeChainedCallbackArguments = (
+    callPath: NodePath<BabelTypes.Node>
+  ): void => {
+    const argumentPaths = callPath.get(
+      'arguments'
+    ) as NodePath<BabelTypes.Node>[];
+
+    for (const argumentPath of argumentPaths) {
+      if (
+        !argumentPath.isArrowFunctionExpression() &&
+        !argumentPath.isFunctionExpression()
+      ) {
+        continue; // not a callback (e.g. an options object) – nothing to read
       }
-    } else {
+
+      const [firstParameterPath] = argumentPath.get(
+        'params'
+      ) as NodePath<BabelTypes.Node>[];
+      if (!firstParameterPath) continue; // callback ignores the content
+
+      // (content) => … — walk the parameter's references.
+      if (firstParameterPath.isIdentifier()) {
+        const parameterBinding = argumentPath.scope.getBinding(
+          firstParameterPath.node.name
+        );
+        if (!parameterBinding) {
+          markUntrackedBinding();
+          continue;
+        }
+
+        const accessedFieldNames = new Set<string>();
+        if (
+          analyzeContentBindingReferences(parameterBinding, accessedFieldNames)
+        ) {
+          markUntrackedBinding();
+        } else {
+          recordFieldUsage(pruneContext, dictionaryKey, accessedFieldNames);
+        }
+        continue;
+      }
+
+      // ({ title }) => … — destructured directly in the parameter list.
+      if (firstParameterPath.isObjectPattern()) {
+        const accessedFieldNames = new Set<string>();
+        if (
+          collectFieldsFromObjectPattern(
+            firstParameterPath.node,
+            argumentPath,
+            accessedFieldNames
+          )
+        ) {
+          recordFieldUsage(pruneContext, dictionaryKey, accessedFieldNames);
+        } else {
+          recordFieldUsage(pruneContext, dictionaryKey, 'all');
+        }
+        continue;
+      }
+
       markUntrackedBinding();
     }
-    return;
-  }
+  };
 
-  // ── Pattern 3: const content = useIntlayer('key') ─────────────────────────
-  if (
-    babelTypes.isVariableDeclarator(parentNode) &&
-    babelTypes.isIdentifier(parentNode.id)
-  ) {
-    const variableName = parentNode.id.name;
-    const variableBinding = callExpressionPath.scope.getBinding(variableName);
-
-    if (!variableBinding) {
-      markUntrackedBinding();
-      return;
-    }
-
-    const accessedTopLevelFieldNames = new Set<string>();
-    let hasUntrackedReferenceAccess = false;
-
+  /**
+   * Walks every reference of a local binding holding the content root,
+   * collecting the top-level fields it reads into `accessedTopLevelFieldNames`.
+   *
+   * @returns `true` when a reference escaped static tracking, meaning the whole
+   *   dictionary must be kept.
+   */
+  const analyzeContentBindingReferences = (
+    variableBinding: { referencePaths: NodePath<BabelTypes.Node>[] },
+    accessedTopLevelFieldNames: Set<string>
+  ): boolean => {
     for (const variableReferencePath of variableBinding.referencePaths) {
       const referenceParentNode = variableReferencePath.parent;
 
@@ -665,17 +721,28 @@ const analyzeCallExpressionUsage = (
         }
 
         if (fieldName) {
+          const memberExprPath = variableReferencePath.parentPath;
+
+          // content.onChange(cb) — a runtime subscription, not a field read.
+          const chainedCallPath = getChainedRuntimeCallPath(
+            memberExprPath,
+            fieldName
+          );
+          if (chainedCallPath) {
+            analyzeChainedCallbackArguments(chainedCallPath);
+            analyzeContentRoot(chainedCallPath);
+            continue;
+          }
+
           accessedTopLevelFieldNames.add(fieldName);
 
           // Check usage of the field to look for opaque consumption
-          const memberExprPath = variableReferencePath.parentPath;
           if (memberExprPath) {
             analyzeOpaqueUsage(memberExprPath, [fieldName]);
           }
         } else {
           // Dynamic computed access – cannot resolve statically
-          hasUntrackedReferenceAccess = true;
-          break;
+          return true;
         }
       } else if (babelTypes.isArrayExpression(referenceParentNode)) {
         // The binding's value escapes into an array literal
@@ -684,8 +751,7 @@ const analyzeCallExpressionUsage = (
         // this dictionary, so we cannot know which fields are used. This is the
         // canonical meta-record / collection access pattern — conservatively
         // keep every field rather than pruning the content to nothing.
-        hasUntrackedReferenceAccess = true;
-        break;
+        return true;
       } else if (
         // Solid / Angular: content() signal accessor → content().field
         (babelTypes.isCallExpression(referenceParentNode) ||
@@ -720,13 +786,24 @@ const analyzeCallExpressionUsage = (
           }
 
           if (fieldName) {
-            accessedTopLevelFieldNames.add(fieldName);
             const memberExprPath = callExprPath?.parentPath;
+
+            // content().onChange(cb) — a runtime subscription, not a field.
+            const chainedCallPath = getChainedRuntimeCallPath(
+              memberExprPath,
+              fieldName
+            );
+            if (chainedCallPath) {
+              analyzeChainedCallbackArguments(chainedCallPath);
+              analyzeContentRoot(chainedCallPath);
+              continue;
+            }
+
+            accessedTopLevelFieldNames.add(fieldName);
             if (memberExprPath) analyzeOpaqueUsage(memberExprPath, [fieldName]);
           } else {
             // content()[dynamicKey] – cannot resolve statically
-            hasUntrackedReferenceAccess = true;
-            break;
+            return true;
           }
         } else if (
           callParent &&
@@ -743,38 +820,142 @@ const analyzeCallExpressionUsage = (
           // fields already added to accessedTopLevelFieldNames by collectFieldsFromObjectPattern
         } else {
           // content() with no field access or passed opaquely → cannot prune
-          hasUntrackedReferenceAccess = true;
-          break;
+          return true;
         }
       } else {
         // Variable used in a non-member-access context (spread, function arg, etc.)
-        hasUntrackedReferenceAccess = true;
-        break;
+        return true;
       }
     }
 
-    if (hasUntrackedReferenceAccess) {
-      markUntrackedBinding();
-    } else if (isSfcFile) {
-      // Vue / Svelte SFC: defer to the framework-specific extractor because
-      // Babel scope analysis cannot see through `.value` or `$` indirection.
-      deferFrameworkAnalysis(variableName);
-    } else if (variableBinding.referencePaths.length === 0) {
-      // Non-SFC file with no visible references – conservatively keep all fields.
-      markUntrackedBinding();
-    } else {
-      recordFieldUsage(pruneContext, dictionaryKey, accessedTopLevelFieldNames);
+    return false;
+  };
+
+  /**
+   * Analyses how the content root referenced by `rootPath` is consumed.
+   *
+   * `rootPath` is the `useIntlayer('key')` call itself, or any expression that
+   * evaluates back to the same content object — currently the result of a
+   * chainable runtime helper such as `.onChange(…)`.
+   */
+  const analyzeContentRoot = (rootPath: NodePath<BabelTypes.Node>): void => {
+    const parentNode = rootPath.parent;
+
+    // ── Pattern 1: const { fieldA, fieldB } = useIntlayer('key') ────────────
+    if (
+      babelTypes.isVariableDeclarator(parentNode) &&
+      babelTypes.isObjectPattern(parentNode.id)
+    ) {
+      const accessedFieldNames = new Set<string>();
+      if (
+        collectFieldsFromObjectPattern(
+          parentNode.id,
+          rootPath,
+          accessedFieldNames
+        )
+      ) {
+        recordFieldUsage(pruneContext, dictionaryKey, accessedFieldNames);
+      } else {
+        recordFieldUsage(pruneContext, dictionaryKey, 'all');
+      }
+      return;
     }
-    return;
-  }
 
-  // ── Pattern 4: bare call – result is discarded ─────────────────────────────
-  if (babelTypes.isExpressionStatement(parentNode)) {
-    return; // no usage to record
-  }
+    // ── Pattern 2: useIntlayer('key').fieldA / useIntlayer('key')?.fieldA ────
+    if (
+      (babelTypes.isMemberExpression(parentNode) ||
+        babelTypes.isOptionalMemberExpression(parentNode)) &&
+      (parentNode as BabelTypes.MemberExpression).object === rootPath.node
+    ) {
+      let fieldName: string | undefined;
 
-  // ── Fallback: result passed as argument, used in ternary, etc. ─────────────
-  markUntrackedBinding();
+      if (
+        !parentNode.computed &&
+        babelTypes.isIdentifier(parentNode.property)
+      ) {
+        fieldName = parentNode.property.name;
+      } else if (
+        parentNode.computed &&
+        babelTypes.isStringLiteral(parentNode.property)
+      ) {
+        fieldName = parentNode.property.value;
+      }
+
+      if (fieldName) {
+        const memberExprPath = rootPath.parentPath;
+
+        // useIntlayer('key').onChange(cb) — a runtime subscription: read the
+        // fields out of the callback instead of recording `onChange` itself.
+        const chainedCallPath = getChainedRuntimeCallPath(
+          memberExprPath,
+          fieldName
+        );
+        if (chainedCallPath) {
+          analyzeChainedCallbackArguments(chainedCallPath);
+          analyzeContentRoot(chainedCallPath);
+          return;
+        }
+
+        recordFieldUsage(pruneContext, dictionaryKey, new Set([fieldName]));
+
+        // Check for opaque usage (e.g. passed directly to a prop)
+        if (memberExprPath) {
+          analyzeOpaqueUsage(memberExprPath, [fieldName]);
+        }
+      } else {
+        markUntrackedBinding();
+      }
+      return;
+    }
+
+    // ── Pattern 3: const content = useIntlayer('key') ───────────────────────
+    if (
+      babelTypes.isVariableDeclarator(parentNode) &&
+      babelTypes.isIdentifier(parentNode.id)
+    ) {
+      const variableName = parentNode.id.name;
+      const variableBinding = rootPath.scope.getBinding(variableName);
+
+      if (!variableBinding) {
+        markUntrackedBinding();
+        return;
+      }
+
+      const accessedTopLevelFieldNames = new Set<string>();
+      const hasUntrackedReferenceAccess = analyzeContentBindingReferences(
+        variableBinding,
+        accessedTopLevelFieldNames
+      );
+
+      if (hasUntrackedReferenceAccess) {
+        markUntrackedBinding();
+      } else if (isSfcFile) {
+        // Vue / Svelte SFC: defer to the framework-specific extractor because
+        // Babel scope analysis cannot see through `.value` or `$` indirection.
+        deferFrameworkAnalysis(variableName);
+      } else if (variableBinding.referencePaths.length === 0) {
+        // Non-SFC file with no visible references – keep all fields.
+        markUntrackedBinding();
+      } else {
+        recordFieldUsage(
+          pruneContext,
+          dictionaryKey,
+          accessedTopLevelFieldNames
+        );
+      }
+      return;
+    }
+
+    // ── Pattern 4: bare call – result is discarded ──────────────────────────
+    if (babelTypes.isExpressionStatement(parentNode)) {
+      return; // no usage to record
+    }
+
+    // ── Fallback: result passed as argument, used in ternary, etc. ──────────
+    markUntrackedBinding();
+  };
+
+  analyzeContentRoot(callExpressionPath);
 };
 
 // ── Compat namespace-caller analysis ──────────────────────────────────────────

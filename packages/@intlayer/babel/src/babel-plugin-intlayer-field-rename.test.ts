@@ -215,6 +215,62 @@ describe('makeFieldRenameBabelPlugin', () => {
       return new Map([['homepage', fieldRenameMap]]);
     };
 
+  describe('vanilla chainable .onChange() subscription', () => {
+    it('renames accesses on the callback parameter', () => {
+      const ctx = makeContext(buildSimpleRenameMap());
+      const code = `
+        import { useIntlayer } from 'vanilla-intlayer';
+        useIntlayer('homepage').onChange((content) => {
+          el.textContent = String(content.title);
+        });
+      `;
+      const output = rename(code, ctx, '/app/src/main.ts');
+      expect(output).toContain('content.b');
+      expect(output).not.toContain('content.title');
+      // `onChange` is a runtime method, never a renamable content field.
+      expect(output).toContain('.onChange(');
+    });
+
+    it('renames a destructured callback parameter', () => {
+      const ctx = makeContext(buildSimpleRenameMap());
+      const code = `
+        import { useIntlayer } from 'vanilla-intlayer';
+        useIntlayer('homepage').onChange(({ title, description }) => {
+          render(title, description);
+        });
+      `;
+      const output = rename(code, ctx, '/app/src/main.ts');
+      expect(output).toContain('b: title');
+      expect(output).toContain('a: description');
+    });
+
+    it('renames accesses on the value the chained call returns', () => {
+      const ctx = makeContext(buildSimpleRenameMap());
+      const code = `
+        import { useIntlayer } from 'vanilla-intlayer';
+        const content = useIntlayer('homepage').onChange((c) => render(c.title));
+        el.textContent = String(content.description);
+      `;
+      const output = rename(code, ctx, '/app/src/main.ts');
+      expect(output).toContain('c.b');
+      expect(output).toContain('content.a');
+    });
+
+    it('renames when onChange is called on a plain variable binding', () => {
+      const ctx = makeContext(buildSimpleRenameMap());
+      const code = `
+        import { useIntlayer } from 'vanilla-intlayer';
+        const content = useIntlayer('homepage');
+        content.onChange((c) => render(c.title));
+        el.textContent = String(content.description);
+      `;
+      const output = rename(code, ctx, '/app/src/main.ts');
+      expect(output).toContain('c.b');
+      expect(output).toContain('content.a');
+      expect(output).toContain('content.onChange(');
+    });
+  });
+
   describe('destructuring pattern', () => {
     it('renames shorthand destructuring { title } → { b: title }', () => {
       const ctx = makeContext(buildSimpleRenameMap());
