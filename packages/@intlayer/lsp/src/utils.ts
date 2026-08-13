@@ -47,6 +47,10 @@ export {
   walkAst,
 } from './oxcUtils';
 export {
+  DICTIONARIES_NOT_BUILT_NOTIFICATION,
+  type DictionariesNotBuiltParams,
+} from './protocol';
+export {
   type CallerVariableBinding,
   collectCallerBindings,
   collectMessageUsages,

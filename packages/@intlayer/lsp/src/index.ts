@@ -55,6 +55,10 @@ import {
 } from './findKeyInContentFile';
 import { type OxcNode, parseText, walkAst } from './oxcUtils';
 import {
+  DICTIONARIES_NOT_BUILT_NOTIFICATION,
+  type DictionariesNotBuiltParams,
+} from './protocol';
+import {
   collectNamespaceReferences,
   findMessageUsageAtOffset,
   matchCallNamespace,
@@ -109,10 +113,18 @@ const SOURCE_FILES_CACHE_TTL_MS = 30_000;
  */
 const projectRoots = new Map<string, string>();
 
+/**
+ * Project roots already reported to the client as having no built dictionary.
+ * Keeps the notification to one per project instead of one per open document;
+ * cleared on invalidation so a later regression is reported again.
+ */
+const buildRequestedProjects = new Set<string>();
+
 const invalidateConfigCaches = () => {
   projectConfigs.clear();
   projectDictionaries.clear();
   projectRoots.clear();
+  buildRequestedProjects.clear();
 
   projectSourceFiles.clear();
 };
@@ -517,6 +529,22 @@ const getContentFieldLocations = async (
 const DIAGNOSTIC_DEBOUNCE_MS = 300;
 const diagnosticTimers = new Map<string, ReturnType<typeof setTimeout>>();
 
+/**
+ * Ask the client to build the project's dictionaries, at most once per project
+ * root. The client answers by running the build, whose output trips the
+ * watcher on `.intlayer/unmerged_dictionary/*.json` and invalidates the caches
+ * here, which re-publishes diagnostics for every open document.
+ */
+const requestDictionaryBuild = (baseDir: string): void => {
+  if (buildRequestedProjects.has(baseDir)) return;
+
+  buildRequestedProjects.add(baseDir);
+  log(`no built dictionary under ${baseDir} — asking the client to build`);
+  connection.sendNotification(DICTIONARIES_NOT_BUILT_NOTIFICATION, {
+    baseDir,
+  } satisfies DictionariesNotBuiltParams);
+};
+
 const computeDiagnostics = (
   text: string,
   config: WorkspaceConfig
@@ -532,6 +560,16 @@ const computeDiagnostics = (
       .map((dictionary) => dictionary?.key)
       .filter((key): key is string => typeof key === 'string')
   );
+
+  // Nothing built: the project has never run a build, or a production build
+  // cleaned `.intlayer/unmerged_dictionary` without rewriting it (only dev
+  // builds and editor-enabled builds write there). Every reference would be
+  // flagged, so request a build rather than fill the file with false
+  // positives.
+  if (knownKeys.size === 0) {
+    requestDictionaryBuild(config.system.baseDir);
+    return [];
+  }
 
   const diagnostics: Diagnostic[] = [];
 
