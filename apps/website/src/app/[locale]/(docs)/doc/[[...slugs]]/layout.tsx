@@ -56,7 +56,9 @@ export const generateMetadata = async ({
   );
 
   return {
-    metadataBase: new URL(process.env.NEXT_PUBLIC_URL!),
+    metadataBase: new URL(
+      process.env.NEXT_PUBLIC_URL || 'http://localhost:3000'
+    ),
     title,
     description: docData.description,
     keywords: docData.keywords,

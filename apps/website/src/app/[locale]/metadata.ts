@@ -30,7 +30,9 @@ export const generateMetadata = async ({
     creator: 'Aymeric PINEAU',
     publisher: 'Intlayer',
     robots: 'index, follow',
-    metadataBase: new URL(process.env.NEXT_PUBLIC_URL!),
+    metadataBase: new URL(
+      process.env.NEXT_PUBLIC_URL || 'http://localhost:3000'
+    ),
     alternates: {
       canonical: getLocalizedUrl(Website_Home, locale),
       languages: {
@@ -73,7 +75,10 @@ export const generateMetadata = async ({
     },
     openGraph: {
       type: 'website',
-      url: getLocalizedUrl(process.env.NEXT_PUBLIC_URL!, locale),
+      url: getLocalizedUrl(
+        process.env.NEXT_PUBLIC_URL || 'http://localhost:3000',
+        locale
+      ),
       title: openGraph.title,
       description,
       siteName: 'Intlayer',

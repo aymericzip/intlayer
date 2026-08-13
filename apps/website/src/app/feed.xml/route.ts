@@ -35,8 +35,11 @@ export async function GET() {
     title: 'Intlayer',
     description:
       'Intlayer is a suite of tools designed to help you manage your internationalization. It is a layer of abstraction between the business logic and the data access layer.',
-    site_url: process.env.NEXT_PUBLIC_URL!,
-    feed_url: new URL('/feed.xml', process.env.NEXT_PUBLIC_URL!).toString(),
+    site_url: process.env.NEXT_PUBLIC_URL || 'http://localhost:3000',
+    feed_url: new URL(
+      '/feed.xml',
+      process.env.NEXT_PUBLIC_URL || 'http://localhost:3000'
+    ).toString(),
     copyright: `${new Date().getFullYear()} Intlayer`,
     language: 'en',
     pubDate: new Date(),
