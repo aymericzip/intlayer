@@ -1,4 +1,4 @@
-# syntax=docker/dockerfile:1.23.0
+# syntax=docker/dockerfile:1.26.0
 
 # Base stage: system deps shared between builder and runner
 FROM node:26-alpine AS base

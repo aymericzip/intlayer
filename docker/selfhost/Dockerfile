@@ -1,4 +1,4 @@
-# syntax=docker/dockerfile:1.23.0
+# syntax=docker/dockerfile:1.26.0
 #
 # Intlayer self-hosting — single all-in-one image.
 # Bundles the dashboard (app), the API (backend) and the datastores

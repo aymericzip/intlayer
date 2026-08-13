@@ -1,4 +1,4 @@
-# syntax=docker/dockerfile:1.23.0
+# syntax=docker/dockerfile:1.26.0
 
 # FROM oven/bun:1.3.2-alpine AS builder
 # Use node because of bun issue blocking at `Creating an optimized production build ...`
