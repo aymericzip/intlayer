@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-12
-updatedAt: 2026-08-12
+updatedAt: 2026-08-13
 title: إضافة ESLint | قواعد الفحص (Lint) لـ Intlayer
 description: اكتشف النصوص المكتوبة يدويًا (hardcoded)، والاستدعاءات الديناميكية التي لا يمكن لمترجم Intlayer تحسينها، ومحتوى القواميس غير المستخدم، باستخدام eslint-plugin-intlayer. متوافقة مع ESLint و oxlint عبر React و Vue و Svelte و Angular و Astro.
 keywords:
@@ -52,7 +52,7 @@ pnpm add --save-dev eslint-plugin-intlayer
 yarn add --dev eslint-plugin-intlayer
 ```
 
-تتطلب الإصدار 9 من ESLint أو أحدث (flat config).
+تتطلب الإصدار 9 من ESLint أو أحدث (flat config). ESLint 10 مدعوم.
 
 ## الاستخدام
 
@@ -67,14 +67,14 @@ import intlayer from "eslint-plugin-intlayer";
 export default [...intlayer.configs.recommended];
 ```
 
-أو قم بتمكين القواعد واحدة تلو الأخرى:
+أو انشر أحد الإعدادات وحدّد مستويات الخطورة بنفسك:
 
 ```javascript fileName="eslint.config.mjs" codeFormat="esm"
 import intlayer from "eslint-plugin-intlayer";
 
 export default [
+  ...intlayer.configs.recommended,
   {
-    plugins: { intlayer },
     rules: {
       "intlayer/no-raw-text": "warn",
       "intlayer/static-dictionary-key": "error",

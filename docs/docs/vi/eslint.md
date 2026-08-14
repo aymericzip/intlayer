@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-12
-updatedAt: 2026-08-12
+updatedAt: 2026-08-13
 title: Plugin ESLint | Quy tắc Lint cho Intlayer
 description: Phát hiện chuỗi văn bản bị hardcode, các lệnh gọi động mà trình biên dịch Intlayer không thể tối ưu hóa và nội dung từ điển không sử dụng với eslint-plugin-intlayer. Hoạt động với ESLint và oxlint trên React, Vue, Svelte, Angular và Astro.
 keywords:
@@ -52,7 +52,7 @@ pnpm add --save-dev eslint-plugin-intlayer
 yarn add --dev eslint-plugin-intlayer
 ```
 
-Yêu cầu ESLint 9 trở lên (flat config).
+Yêu cầu ESLint 9 trở lên (flat config). ESLint 10 được hỗ trợ.
 
 ## Cách sử dụng
 
@@ -67,14 +67,14 @@ import intlayer from "eslint-plugin-intlayer";
 export default [...intlayer.configs.recommended];
 ```
 
-Hoặc bật từng quy tắc một:
+Hoặc trải một cấu hình và tự đặt mức độ nghiêm trọng:
 
 ```javascript fileName="eslint.config.mjs" codeFormat="esm"
 import intlayer from "eslint-plugin-intlayer";
 
 export default [
+  ...intlayer.configs.recommended,
   {
-    plugins: { intlayer },
     rules: {
       "intlayer/no-raw-text": "warn",
       "intlayer/static-dictionary-key": "error",

@@ -51,9 +51,9 @@ export const staticDictionaryKey = createRule<[], MessageIds>(
         dynamicKey:
           'The dictionary key passed to `{{caller}}` must be a string literal. A computed key is invisible to the Intlayer compiler, which then skips the optimize pass and bundles every dictionary.',
         dynamicTemplateKey:
-          'The dictionary key passed to `{{caller}}` interpolates a value. Use a string literal — an interpolated key is invisible to the Intlayer compiler, which then skips the optimize pass and bundles every dictionary.',
+          'The dictionary key passed to `{{caller}}` interpolates a value. An interpolated key is invisible to the Intlayer compiler, which then skips the optimize pass and bundles every dictionary. Use a string literal, or variant (https://intlayer.org/doc/concept/variants) instead.',
         dynamicJsxKey:
-          'The `{{attribute}}` of `<{{caller}}>` must be a static string. A computed value is invisible to the Intlayer compiler, which then cannot resolve the dictionary at build time.',
+          'The `{{attribute}}` of `<{{caller}}>` must be a static string. A computed value is invisible to the Intlayer compiler, which then cannot resolve the dictionary at build time. Use a static string, or variant (https://intlayer.org/doc/concept/variants) instead',
       },
     },
 

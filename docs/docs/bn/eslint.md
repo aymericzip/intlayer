@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-12
-updatedAt: 2026-08-12
+updatedAt: 2026-08-13
 title: ESLint প্লাগইন | Intlayer এর জন্য লিন্ট নিয়ম
 description: eslint-plugin-intlayer ব্যবহার করে হার্ডকোডেড স্ট্রিং, ডাইনামিক কল যা Intlayer কম্পাইলার অপ্টিমাইজ করতে পারে না এবং অব্যবহৃত ডিকশনারি সামগ্রী শনাক্ত করুন। React, Vue, Svelte, Angular এবং Astro জুড়ে ESLint এবং oxlint এর সাথে কাজ করে।
 keywords:
@@ -52,7 +52,7 @@ pnpm add --save-dev eslint-plugin-intlayer
 yarn add --dev eslint-plugin-intlayer
 ```
 
-ESLint 9 বা পরবর্তী সংস্করণ (flat config) প্রয়োজন।
+ESLint 9 বা পরবর্তী সংস্করণ (flat config) প্রয়োজন। ESLint 10 সমর্থিত।
 
 ## ব্যবহার
 
@@ -67,14 +67,14 @@ import intlayer from "eslint-plugin-intlayer";
 export default [...intlayer.configs.recommended];
 ```
 
-অথবা একে একে নিয়মগুলো সক্ষম করুন:
+অথবা একটি কনফিগ ছড়িয়ে দিন এবং তীব্রতা নিজে নির্ধারণ করুন:
 
 ```javascript fileName="eslint.config.mjs" codeFormat="esm"
 import intlayer from "eslint-plugin-intlayer";
 
 export default [
+  ...intlayer.configs.recommended,
   {
-    plugins: { intlayer },
     rules: {
       "intlayer/no-raw-text": "warn",
       "intlayer/static-dictionary-key": "error",

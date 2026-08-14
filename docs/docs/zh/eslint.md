@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-12
-updatedAt: 2026-08-12
+updatedAt: 2026-08-13
 title: ESLint 插件 | Intlayer 的 Lint 规则
 description: 使用 eslint-plugin-intlayer 捕获硬编码字符串、Intlayer 编译器无法优化的动态调用以及未使用的字典内容。支持 ESLint 和 oxlint，适用于 React、Vue、Svelte、Angular 和 Astro。
 keywords:
@@ -52,7 +52,7 @@ pnpm add --save-dev eslint-plugin-intlayer
 yarn add --dev eslint-plugin-intlayer
 ```
 
-需要 ESLint 9 或更高版本（Flat config）。
+需要 ESLint 9 或更高版本（Flat config）。支持 ESLint 10。
 
 ## 使用方法
 
@@ -67,14 +67,14 @@ import intlayer from "eslint-plugin-intlayer";
 export default [...intlayer.configs.recommended];
 ```
 
-或者逐个启用规则：
+或者展开某个配置并自行设置严重级别：
 
 ```javascript fileName="eslint.config.mjs" codeFormat="esm"
 import intlayer from "eslint-plugin-intlayer";
 
 export default [
+  ...intlayer.configs.recommended,
   {
-    plugins: { intlayer },
     rules: {
       "intlayer/no-raw-text": "warn",
       "intlayer/static-dictionary-key": "error",

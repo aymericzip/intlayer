@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-12
-updatedAt: 2026-08-12
+updatedAt: 2026-08-13
 title: ESLint Plugin | Linting-Regeln für Intlayer
 description: Erkennen Sie hartcodierte Zeichenketten, dynamische Aufrufe, die der Intlayer-Compiler nicht optimieren kann, und ungenutzte Wörterbuchinhalte mit eslint-plugin-intlayer. Funktioniert mit ESLint und oxlint für React, Vue, Svelte, Angular und Astro.
 keywords:
@@ -52,7 +52,7 @@ pnpm add --save-dev eslint-plugin-intlayer
 yarn add --dev eslint-plugin-intlayer
 ```
 
-Erfordert ESLint 9 oder höher (Flat Config).
+Erfordert ESLint 9 oder höher (Flat Config). ESLint 10 wird unterstützt.
 
 ## Verwendung
 
@@ -67,14 +67,14 @@ import intlayer from "eslint-plugin-intlayer";
 export default [...intlayer.configs.recommended];
 ```
 
-Oder aktivieren Sie Regeln einzeln:
+Oder fügen Sie eine Konfiguration ein und legen die Schweregrade selbst fest:
 
 ```javascript fileName="eslint.config.mjs" codeFormat="esm"
 import intlayer from "eslint-plugin-intlayer";
 
 export default [
+  ...intlayer.configs.recommended,
   {
-    plugins: { intlayer },
     rules: {
       "intlayer/no-raw-text": "warn",
       "intlayer/static-dictionary-key": "error",

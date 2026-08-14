@@ -16,6 +16,16 @@ ruleTester.run('enforce-adapter-import', enforceAdapterImport, {
       code: `import { useIntlayer } from 'react-intlayer';`,
     },
     {
+      name: '`intlayer` is not an alias of `@intlayer/core`',
+      filename: SOURCE_FILENAME,
+      code: `import { t } from 'intlayer';`,
+    },
+    {
+      name: 'content declaration importing from `intlayer`',
+      filename: SOURCE_FILENAME,
+      code: `import { type Dictionary, t } from 'intlayer';`,
+    },
+    {
       name: 'unrelated package',
       filename: SOURCE_FILENAME,
       code: `import { useState } from 'react';`,

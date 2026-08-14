@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-12
-updatedAt: 2026-08-12
+updatedAt: 2026-08-13
 title: Plugin ESLint | Pravidla lintování pro Intlayer
 description: Odhalujte natvrdo zapsané řetězce, dynamická volání, která kompilátor Intlayer nedokáže optimalizovat, a nepoužitý obsah slovníků pomocí eslint-plugin-intlayer. Funguje s ESLint a oxlint v Reactu, Vue, Svelte, Angularu a Astru.
 keywords:
@@ -52,7 +52,7 @@ pnpm add --save-dev eslint-plugin-intlayer
 yarn add --dev eslint-plugin-intlayer
 ```
 
-Vyžaduje ESLint 9 nebo novější (flat config).
+Vyžaduje ESLint 9 nebo novější (flat config). ESLint 10 je podporován.
 
 ## Použití
 
@@ -67,14 +67,14 @@ import intlayer from "eslint-plugin-intlayer";
 export default [...intlayer.configs.recommended];
 ```
 
-Nebo aktivujte pravidla jednotlivě:
+Nebo rozbalte konfiguraci a závažnosti si nastavte sami:
 
 ```javascript fileName="eslint.config.mjs" codeFormat="esm"
 import intlayer from "eslint-plugin-intlayer";
 
 export default [
+  ...intlayer.configs.recommended,
   {
-    plugins: { intlayer },
     rules: {
       "intlayer/no-raw-text": "warn",
       "intlayer/static-dictionary-key": "error",

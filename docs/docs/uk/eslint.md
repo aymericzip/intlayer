@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-12
-updatedAt: 2026-08-12
+updatedAt: 2026-08-13
 title: Плагін ESLint | Правила лінтингу для Intlayer
 description: Знаходьте жорстко закодовані рядки, динамічні виклики, які компілятор Intlayer не може оптимізувати, та невикористаний вміст словників за допомогою eslint-plugin-intlayer. Працює з ESLint та oxlint для React, Vue, Svelte, Angular та Astro.
 keywords:
@@ -52,7 +52,7 @@ pnpm add --save-dev eslint-plugin-intlayer
 yarn add --dev eslint-plugin-intlayer
 ```
 
-Потрібен ESLint 9 або новішої версії (flat config).
+Потрібен ESLint 9 або новішої версії (flat config). ESLint 10 підтримується.
 
 ## Використання
 
@@ -67,14 +67,14 @@ import intlayer from "eslint-plugin-intlayer";
 export default [...intlayer.configs.recommended];
 ```
 
-Або вмикайте правила окремо:
+Або розгорніть конфігурацію та задайте рівні самостійно:
 
 ```javascript fileName="eslint.config.mjs" codeFormat="esm"
 import intlayer from "eslint-plugin-intlayer";
 
 export default [
+  ...intlayer.configs.recommended,
   {
-    plugins: { intlayer },
     rules: {
       "intlayer/no-raw-text": "warn",
       "intlayer/static-dictionary-key": "error",

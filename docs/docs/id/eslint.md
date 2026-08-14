@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-12
-updatedAt: 2026-08-12
+updatedAt: 2026-08-13
 title: Plugin ESLint | Aturan Lint untuk Intlayer
 description: Deteksi string hardcoded, panggilan dinamis yang tidak dapat dioptimalkan oleh compiler Intlayer, dan konten kamus yang tidak terpakai dengan eslint-plugin-intlayer. Bekerja dengan ESLint dan oxlint di seluruh React, Vue, Svelte, Angular, dan Astro.
 keywords:
@@ -52,7 +52,7 @@ pnpm add --save-dev eslint-plugin-intlayer
 yarn add --dev eslint-plugin-intlayer
 ```
 
-Memerlukan ESLint 9 atau lebih baru (flat config).
+Memerlukan ESLint 9 atau lebih baru (flat config). ESLint 10 didukung.
 
 ## Penggunaan
 
@@ -67,14 +67,14 @@ import intlayer from "eslint-plugin-intlayer";
 export default [...intlayer.configs.recommended];
 ```
 
-Atau aktifkan aturan satu per satu:
+Atau sebarkan sebuah konfigurasi dan tetapkan sendiri tingkat keparahannya:
 
 ```javascript fileName="eslint.config.mjs" codeFormat="esm"
 import intlayer from "eslint-plugin-intlayer";
 
 export default [
+  ...intlayer.configs.recommended,
   {
-    plugins: { intlayer },
     rules: {
       "intlayer/no-raw-text": "warn",
       "intlayer/static-dictionary-key": "error",

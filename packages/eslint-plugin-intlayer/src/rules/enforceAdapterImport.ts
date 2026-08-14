@@ -1,4 +1,4 @@
-import { ALL_CALLERS } from '@intlayer/config/callers';
+import { COMPAT_CALLERS } from '@intlayer/config/callers';
 import { type AstNode, toAstNode } from '../utils/ast';
 import { createRule } from '../utils/createRule';
 
@@ -7,12 +7,19 @@ type MessageIds = 'useAdapterImport';
 const ADAPTER_SCOPE = '@intlayer/';
 
 /**
- * Original library specifier → the `@intlayer/*` adapter that replaces it.
+ * Original third-party library specifier → the `@intlayer/*` adapter that
+ * replaces it, e.g. `next-intl` → `@intlayer/next-intl`.
  *
  * Derived from the shared registry rather than hard-coded: every compat
  * descriptor lists both its original specifiers and their adapter equivalents in
  * `importSources`, so a library added to `@intlayer/config/callers` is covered
  * here for free.
+ *
+ * Built from `COMPAT_CALLERS` only, never `ALL_CALLERS`. Intlayer's own packages
+ * are not a migration pair: `BASE_CALLERS` lists `intlayer` alongside
+ * `@intlayer/core` because `getIntlayer` is importable from both, and treating
+ * the scoped one as an "adapter" would tell users to rewrite ordinary
+ * `from 'intlayer'` imports.
  *
  * Sub-paths line up by position within a descriptor — `next-intl/server` and
  * `@intlayer/next-intl/server` are listed together — so the mapping is built by
@@ -21,7 +28,7 @@ const ADAPTER_SCOPE = '@intlayer/';
 const buildAdapterMap = (): Map<string, string> => {
   const adapterBySpecifier = new Map<string, string>();
 
-  for (const descriptor of ALL_CALLERS) {
+  for (const descriptor of COMPAT_CALLERS) {
     const adapters = descriptor.importSources.filter((source) =>
       source.startsWith(ADAPTER_SCOPE)
     );

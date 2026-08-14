@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-12
-updatedAt: 2026-08-12
+updatedAt: 2026-08-13
 title: Wtyczka ESLint | Reguły lintera dla Intlayer
 description: Wykrywaj zahardkodowane ciągi znaków, wywołania dynamiczne, których kompilator Intlayer nie jest w stanie zoptymalizować, oraz nieużywaną zawartość słowników dzięki eslint-plugin-intlayer. Działa z ESLint i oxlint w React, Vue, Svelte, Angular i Astro.
 keywords:
@@ -52,7 +52,7 @@ pnpm add --save-dev eslint-plugin-intlayer
 yarn add --dev eslint-plugin-intlayer
 ```
 
-Wymaga ESLint w wersji 9 lub nowszej (flat config).
+Wymaga ESLint w wersji 9 lub nowszej (flat config). ESLint 10 jest wspierany.
 
 ## Użycie
 
@@ -67,14 +67,14 @@ import intlayer from "eslint-plugin-intlayer";
 export default [...intlayer.configs.recommended];
 ```
 
-Lub włączaj reguły pojedynczo:
+Albo rozwiń konfigurację i sam ustaw poziomy zgłoszeń:
 
 ```javascript fileName="eslint.config.mjs" codeFormat="esm"
 import intlayer from "eslint-plugin-intlayer";
 
 export default [
+  ...intlayer.configs.recommended,
   {
-    plugins: { intlayer },
     rules: {
       "intlayer/no-raw-text": "warn",
       "intlayer/static-dictionary-key": "error",

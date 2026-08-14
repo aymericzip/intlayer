@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-12
-updatedAt: 2026-08-12
+updatedAt: 2026-08-13
 title: ESLint प्लगइन | Intlayer के लिए लिंट नियम
 description: eslint-plugin-intlayer के साथ हार्डकोडेड स्ट्रिंग्स, ऐसे डायनामिक कॉल्स जिन्हें Intlayer कंपाइलर ऑप्टिमाइज़ नहीं कर सकता, और अप्रयुक्त शब्दकोश सामग्री का पता लगाएं। React, Vue, Svelte, Angular और Astro में ESLint और oxlint के साथ काम करता है।
 keywords:
@@ -52,7 +52,7 @@ pnpm add --save-dev eslint-plugin-intlayer
 yarn add --dev eslint-plugin-intlayer
 ```
 
-ESLint 9 या बाद के संस्करण (flat config) की आवश्यकता है।
+ESLint 9 या बाद के संस्करण (flat config) की आवश्यकता है। ESLint 10 समर्थित है।
 
 ## उपयोग
 
@@ -67,14 +67,14 @@ import intlayer from "eslint-plugin-intlayer";
 export default [...intlayer.configs.recommended];
 ```
 
-या नियमों को एक-एक करके सक्षम करें:
+या किसी कॉन्फ़िग को फैलाएँ और गंभीरता स्वयं तय करें:
 
 ```javascript fileName="eslint.config.mjs" codeFormat="esm"
 import intlayer from "eslint-plugin-intlayer";
 
 export default [
+  ...intlayer.configs.recommended,
   {
-    plugins: { intlayer },
     rules: {
       "intlayer/no-raw-text": "warn",
       "intlayer/static-dictionary-key": "error",

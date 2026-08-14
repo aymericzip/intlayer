@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-12
-updatedAt: 2026-08-12
+updatedAt: 2026-08-13
 title: ESLint プラグイン | Intlayer 用 Lint ルール
 description: eslint-plugin-intlayer を使用して、ハードコードされた文字列、Intlayer コンパイラが最適化できない動的呼び出し、未使用の辞書コンテンツを検出します。React、Vue、Svelte、Angular、Astro に対応し、ESLint および oxlint で動作します。
 keywords:
@@ -52,7 +52,7 @@ pnpm add --save-dev eslint-plugin-intlayer
 yarn add --dev eslint-plugin-intlayer
 ```
 
-ESLint 9 以降（Flat Config）が必要です。
+ESLint 9 以降（Flat Config）が必要です。ESLint 10 に対応しています。
 
 ## 使い方
 
@@ -67,14 +67,14 @@ import intlayer from "eslint-plugin-intlayer";
 export default [...intlayer.configs.recommended];
 ```
 
-またはルールを個別に有効化します:
+または設定を展開し、重大度を自分で指定します:
 
 ```javascript fileName="eslint.config.mjs" codeFormat="esm"
 import intlayer from "eslint-plugin-intlayer";
 
 export default [
+  ...intlayer.configs.recommended,
   {
-    plugins: { intlayer },
     rules: {
       "intlayer/no-raw-text": "warn",
       "intlayer/static-dictionary-key": "error",

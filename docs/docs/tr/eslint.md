@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-12
-updatedAt: 2026-08-12
+updatedAt: 2026-08-13
 title: ESLint Eklentisi | Intlayer için Lint Kuralları
 description: eslint-plugin-intlayer ile sabit kodlanmış metinleri, Intlayer derleyicisinin optimize edemediği dinamik çağrıları ve kullanılmayan sözlük içeriğini yakalayın. React, Vue, Svelte, Angular ve Astro genelinde ESLint ve oxlint ile çalışır.
 keywords:
@@ -52,7 +52,7 @@ pnpm add --save-dev eslint-plugin-intlayer
 yarn add --dev eslint-plugin-intlayer
 ```
 
-ESLint 9 veya üzerini gerektirir (flat config).
+ESLint 9 veya üzerini gerektirir (flat config). ESLint 10 desteklenir.
 
 ## Kullanım
 
@@ -67,14 +67,14 @@ import intlayer from "eslint-plugin-intlayer";
 export default [...intlayer.configs.recommended];
 ```
 
-Veya kuralları tek tek etkinleştirin:
+Veya bir yapılandırmayı yayın ve önem düzeylerini kendiniz belirleyin:
 
 ```javascript fileName="eslint.config.mjs" codeFormat="esm"
 import intlayer from "eslint-plugin-intlayer";
 
 export default [
+  ...intlayer.configs.recommended,
   {
-    plugins: { intlayer },
     rules: {
       "intlayer/no-raw-text": "warn",
       "intlayer/static-dictionary-key": "error",
