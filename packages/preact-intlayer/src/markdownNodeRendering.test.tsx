@@ -52,9 +52,14 @@ describe('preact markdown node rendering', () => {
     container.remove();
   });
 
+  /**
+   * Mounts the picked node and returns a reader for the rendered markup. The
+   * renderer chunk is code-split, so callers must poll the reader through
+   * `waitForMarkup` instead of assuming the first frame is complete.
+   */
   const renderNode = async (
     pickNode: (content: any) => unknown
-  ): Promise<string> => {
+  ): Promise<() => string> => {
     const { getDictionary } = await import('./getDictionary');
     const { MarkdownProvider } = await import('./markdown/MarkdownProvider');
 
@@ -69,31 +74,46 @@ describe('preact markdown node rendering', () => {
       container
     );
 
-    // The renderer chunk is code-split; let it land.
-    await new Promise((resolve) => setTimeout(resolve, 250));
-
-    return container.innerHTML;
+    return () => container.innerHTML;
   };
 
-  it('renders a plain md() node', async () => {
-    const output = await renderNode((content) => content.plainMarkdown);
+  /** Waits for the lazily loaded renderer to emit markup matching `pattern`. */
+  const waitForMarkup = (
+    readMarkup: () => string,
+    pattern: RegExp
+  ): Promise<string> =>
+    vi.waitFor(() => {
+      const markup = readMarkup();
 
-    expect(output).toMatch(/<strong[^>]*>bold<\/strong>/);
+      expect(markup).toMatch(pattern);
+
+      return markup;
+    });
+
+  it('renders a plain md() node', async () => {
+    const readMarkup = await renderNode((content) => content.plainMarkdown);
+
+    await waitForMarkup(readMarkup, /<strong[^>]*>bold<\/strong>/);
   });
 
   it('interpolates {{count}} into plural(md())', async () => {
-    const output = await renderNode((content) => content.pluralMarkdown(5));
+    const readMarkup = await renderNode((content) => content.pluralMarkdown(5));
+
+    const output = await waitForMarkup(readMarkup, /<strong[^>]*>5<\/strong>/);
 
     expect(output).not.toContain('{{count}}');
-    expect(output).toMatch(/<strong[^>]*>5<\/strong>/);
   });
 
   it('interpolates {{name}} into insert(md())', async () => {
-    const output = await renderNode((content) =>
+    const readMarkup = await renderNode((content) =>
       content.insertMarkdown({ name: 'Alice' })
     );
 
+    const output = await waitForMarkup(
+      readMarkup,
+      /<strong[^>]*>Alice<\/strong>/
+    );
+
     expect(output).not.toContain('{{name}}');
-    expect(output).toMatch(/<strong[^>]*>Alice<\/strong>/);
   });
 });

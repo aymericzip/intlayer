@@ -40,9 +40,14 @@ describe('solid html node rendering', () => {
     document.body.innerHTML = '';
   });
 
+  /**
+   * Mounts the picked node and returns a reader for the rendered markup. The
+   * renderer chunk is code-split, so callers must poll the reader through
+   * `waitForMarkup` instead of assuming the first frame is complete.
+   */
   const renderNode = async (
     pickNode: (content: any) => unknown
-  ): Promise<string> => {
+  ): Promise<() => string> => {
     const { getDictionary } = await import('./getDictionary');
 
     const content = getDictionary(htmlDictionary as any, 'en') as any;
@@ -52,31 +57,43 @@ describe('solid html node rendering', () => {
 
     dispose = render(() => pickNode(content) as any, root);
 
-    // The renderer chunk is code-split; let it land.
-    await new Promise((resolve) => setTimeout(resolve, 50));
-
-    return root.innerHTML;
+    return () => root.innerHTML;
   };
 
-  it('renders a plain html() node', async () => {
-    const output = await renderNode((content) => content.plainHtml.use({}));
+  /** Waits for the lazily loaded renderer to emit markup matching `pattern`. */
+  const waitForMarkup = (
+    readMarkup: () => string,
+    pattern: RegExp
+  ): Promise<string> =>
+    vi.waitFor(() => {
+      const markup = readMarkup();
 
-    expect(output).toMatch(/<b[^>]*>World<\/b>/);
+      expect(markup).toMatch(pattern);
+
+      return markup;
+    });
+
+  it('renders a plain html() node', async () => {
+    const readMarkup = await renderNode((content) => content.plainHtml.use({}));
+
+    await waitForMarkup(readMarkup, /<b[^>]*>World<\/b>/);
   });
 
   it('interpolates {{count}} into plural(html())', async () => {
-    const output = await renderNode((content) => content.pluralHtml(5));
+    const readMarkup = await renderNode((content) => content.pluralHtml(5));
+
+    const output = await waitForMarkup(readMarkup, /<b[^>]*>5<\/b>/);
 
     expect(output).not.toContain('{{count}}');
-    expect(output).toMatch(/<b[^>]*>5<\/b>/);
   });
 
   it('interpolates {{name}} into insert(html())', async () => {
-    const output = await renderNode((content) =>
+    const readMarkup = await renderNode((content) =>
       content.insertHtml({ name: 'Alice' })
     );
 
+    const output = await waitForMarkup(readMarkup, /<b[^>]*>Alice<\/b>/);
+
     expect(output).not.toContain('{{name}}');
-    expect(output).toMatch(/<b[^>]*>Alice<\/b>/);
   });
 });
