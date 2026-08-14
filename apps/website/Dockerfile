@@ -1,13 +1,63 @@
 # syntax=docker/dockerfile:1.26.0
+#
+# Build context MUST be the monorepo root:
+#   docker build -f apps/website/Dockerfile -t intlayer/website .
+#
+# The image does not build the monorepo. Every `@intlayer/*` package the website
+# depends on is published, so `prepareStandaloneWorkspace.ts` rewrites the
+# `workspace:` ranges to a registry tag and bun installs them like any consumer
+# would. Only the private `@utils/*` build-config packages stay linked.
+#
+# The build arguments live in the builder stage on purpose: changing a public
+# URL must not invalidate the dependency layer.
 
+ARG NODE_VERSION=26
+ARG BUN_VERSION=1.3.14
+# Registry tag used for the published @intlayer/* packages. Override with
+# `--build-arg INTLAYER_TAG=9.3.2` to pin an exact release.
+ARG INTLAYER_TAG=latest
 
-# FROM oven/bun:1.3.2-alpine AS builder
-# Use node because of bun issue blocking at `Creating an optimized production build ...`
+# ---------------------------------------------------------------------------
+# Stage 1 — dependencies (invalidated only by manifest changes)
+# ---------------------------------------------------------------------------
+# Use node because of a bun issue blocking at `Creating an optimized production build ...`
 # https://github.com/oven-sh/bun/issues/17136
 # https://github.com/oven-sh/bun/issues/4795
-FROM node:26-alpine AS builder
+FROM node:${NODE_VERSION}-alpine AS deps
 
-RUN npm install -g bun@1.3.14
+ARG BUN_VERSION
+ARG INTLAYER_TAG
+
+RUN npm install -g bun@${BUN_VERSION}
+
+ENV CI=true
+# No transitive dependency may pull its own Chromium into this image.
+ENV PUPPETEER_SKIP_DOWNLOAD=true
+
+WORKDIR /workspace
+
+COPY docker/scripts docker/scripts
+COPY utils utils
+COPY package.json package.json
+COPY apps/website/package.json apps/website/package.json
+
+RUN bun docker/scripts/prepareStandaloneWorkspace.ts \
+      --workspace apps/website --tag "${INTLAYER_TAG}"
+
+RUN --mount=type=cache,target=/root/.bun/install/cache \
+    bun install
+
+# intlayer.config.ts addresses the design system by its monorepo path
+# (`../../packages/@intlayer/design-system/dist`); point that path at the
+# installed package.
+RUN sh docker/scripts/linkWorkspacePackages.sh apps/website design-system
+
+# ---------------------------------------------------------------------------
+# Stage 2 — build the standalone Next.js server
+# ---------------------------------------------------------------------------
+FROM deps AS builder
+
+ARG INTLAYER_TAG
 
 ARG INTLAYER_CLIENT_ID
 ARG INTLAYER_CLIENT_SECRET
@@ -33,64 +83,40 @@ ENV NEXT_PUBLIC_GOOGLE_ANALYTICS_ID=${NEXT_PUBLIC_GOOGLE_ANALYTICS_ID}
 ENV NEXT_PUBLIC_ENABLE_SERVICE_WORKER=${NEXT_PUBLIC_ENABLE_SERVICE_WORKER}
 ENV INTLAYER_BACKEND_URL=${INTLAYER_BACKEND_URL}
 
-ENV CI=true
+# src/utils/agentSkills.ts imports `.agents/skills/*/SKILL.md` to publish
+# /.well-known/agent-skills/, so the directory must be in the build.
+COPY .agents .agents
 
-# Create app directory
-WORKDIR /workspace
+COPY apps/website apps/website
 
-# Copy the rest of the source code
-# Remove directories to keep the image slim
-COPY \
-    --exclude=packages/@intlayer/vue-compiler \
-    --exclude=packages/@intlayer/svelte-compiler \
-    --exclude=packages/@intlayer/lsp \
-    --exclude=packages/@intlayer/chrome-extension \
-    --exclude=packages/intlayer-cli \
-    --exclude=packages/react-scripts-intlayer \
-    --exclude=packages/vue-intlayer \
-    --exclude=packages/intlayer-editor \
-    --exclude=packages/solid-intlayer \
-    --exclude=packages/svelte-intlayer \
-    --exclude=packages/preact-intlayer \
-    --exclude=packages/angular-intlayer \
-    --exclude=packages/nuxt-intlayer \
-    --exclude=packages/astro-intlayer \
-    --exclude=packages/react-native-intlayer \
-    --exclude=packages/lynx-intlayer \
-    --exclude=packages/lit-intlayer \
-    --exclude=packages/vanilla-intlayer \
-    --exclude=packages/express-intlayer \
-    --exclude=packages/hono-intlayer \
-    --exclude=packages/adonis-intlayer \
-    --exclude=packages/eslint-plugin-intlayer \
-    --exclude=apps/app \
-    --exclude=apps/showcase \
-    --exclude=apps/website-tanstack \
-    --exclude=plugins \
-    --exclude=compat \
-    --exclude=docs/assets \
-    --exclude=examples \
-    --exclude=plugins \
-    --exclude=**/*.stories.* \
-    . .
+# The COPY above restores the committed manifest, so re-apply the rewrite. The
+# script is idempotent and leaves the already-installed node_modules alone.
+RUN bun docker/scripts/prepareStandaloneWorkspace.ts \
+      --workspace apps/website --tag "${INTLAYER_TAG}"
 
-
-# Install all dependencies (dev + prod) (frozen for reproducible builds)
-RUN bun install
-
-# Build every package in the workspace (uses the root "build" script)
-RUN bun x turbo run build:ci --filter=./apps/website
-
-# Set working directory to the website package and build it
 WORKDIR /workspace/apps/website
 
 ENV NODE_ENV=production
 
-# Build the Next.js website
 RUN bun run --bun next build && bun scripts/generate-sw.ts && bun scripts/baidu-push.ts && bun run preserve
 
-# Runner
-FROM oven/bun:1.3.14-alpine AS runner
+# @intlayer/docs is a serverExternalPackage whose entry reads markdown off the
+# filesystem at request time. Next's file tracing follows requires, not runtime
+# readFile calls, so the markdown would be missing from the standalone output.
+# Copy the resolved package over its own traced location — computed rather than
+# hardcoded, because bun may hoist it to either node_modules root.
+RUN set -eux; \
+    docs_dir="$(bun -e \
+      "console.log(require('node:path').dirname(require.resolve('@intlayer/docs/package.json')))")"; \
+    relative_dir="${docs_dir#/workspace/}"; \
+    target_dir=".next/standalone/${relative_dir}"; \
+    mkdir -p "${target_dir}"; \
+    cp -RL "${docs_dir}/." "${target_dir}/"
+
+# ---------------------------------------------------------------------------
+# Stage 3 — runtime
+# ---------------------------------------------------------------------------
+FROM oven/bun:${BUN_VERSION}-alpine AS runner
 
 WORKDIR /app
 
@@ -102,7 +128,7 @@ RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 
 # Turbopack SSR resolves module paths with a /ROOT/ prefix that maps to the
 # standalone root. Symlinking /ROOT -> /app lets find-up locate package.json
-# when searching up from /ROOT/docs/dist/esm/generated.
+# when searching up from the traced module paths.
 RUN ln -s /app /ROOT
 
 # Copy only the standalone output and necessary static files from builder.
@@ -111,17 +137,6 @@ RUN ln -s /app /ROOT
 COPY --from=builder --chown=appuser:appgroup /workspace/apps/website/.next/standalone ./
 COPY --from=builder --chown=appuser:appgroup /workspace/apps/website/public ./apps/website/public
 COPY --from=builder --chown=appuser:appgroup /workspace/apps/website/.next/static ./apps/website/.next/static
-
-# The Turbopack SSR runtime resolves /ROOT/ to the standalone root (/app/).
-# @intlayer/docs is a serverExternalPackage loaded at /ROOT/docs/... at runtime,
-# so its dist, package.json, and markdown content must live at /app/docs/.
-COPY --from=builder --chown=appuser:appgroup /workspace/docs/dist ./docs/dist
-COPY --from=builder --chown=appuser:appgroup /workspace/docs/package.json ./docs/package.json
-COPY --from=builder --chown=appuser:appgroup /workspace/docs/blog ./docs/blog
-COPY --from=builder --chown=appuser:appgroup /workspace/docs/docs ./docs/docs
-COPY --from=builder --chown=appuser:appgroup /workspace/docs/frequent_questions ./docs/frequent_questions
-COPY --from=builder --chown=appuser:appgroup /workspace/docs/legal ./docs/legal
-
 
 USER appuser
 

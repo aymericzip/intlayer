@@ -1,13 +1,63 @@
 # syntax=docker/dockerfile:1.26.0
+#
+# Build context MUST be the monorepo root:
+#   docker build -f apps/website-tanstack/Dockerfile -t intlayer/website-tanstack .
+#
+# The image does not build the monorepo. Every `@intlayer/*` package this app
+# depends on is published, so `prepareStandaloneWorkspace.ts` rewrites the
+# `workspace:` ranges to a registry tag and bun installs them like any consumer
+# would. Only the private `@utils/*` build-config packages stay linked.
+#
+# The build arguments live in the builder stage on purpose: changing a public
+# URL must not invalidate the dependency layer.
 
+ARG NODE_VERSION=26
+ARG BUN_VERSION=1.3.14
+# Registry tag used for the published @intlayer/* packages. Override with
+# `--build-arg INTLAYER_TAG=9.3.2` to pin an exact release.
+ARG INTLAYER_TAG=latest
 
-# FROM oven/bun:1.3.2-alpine AS builder
-# Use node because of bun issue blocking at `Creating an optimized production build ...`
+# ---------------------------------------------------------------------------
+# Stage 1 — dependencies (invalidated only by manifest changes)
+# ---------------------------------------------------------------------------
+# Use node because of a bun issue blocking at `Creating an optimized production build ...`
 # https://github.com/oven-sh/bun/issues/17136
 # https://github.com/oven-sh/bun/issues/4795
-FROM node:26-alpine AS builder
+FROM node:${NODE_VERSION}-alpine AS deps
 
-RUN npm install -g bun@1.3.14
+ARG BUN_VERSION
+ARG INTLAYER_TAG
+
+RUN npm install -g bun@${BUN_VERSION}
+
+ENV CI=true
+# No transitive dependency may pull its own Chromium into this image.
+ENV PUPPETEER_SKIP_DOWNLOAD=true
+
+WORKDIR /workspace
+
+COPY docker/scripts docker/scripts
+COPY utils utils
+COPY package.json package.json
+COPY apps/website-tanstack/package.json apps/website-tanstack/package.json
+
+RUN bun docker/scripts/prepareStandaloneWorkspace.ts \
+      --workspace apps/website-tanstack --tag "${INTLAYER_TAG}"
+
+RUN --mount=type=cache,target=/root/.bun/install/cache \
+    bun install
+
+# intlayer.config.ts addresses the design system by its monorepo path
+# (`../../packages/@intlayer/design-system/dist`); point that path at the
+# installed package.
+RUN sh docker/scripts/linkWorkspacePackages.sh apps/website-tanstack design-system
+
+# ---------------------------------------------------------------------------
+# Stage 2 — build the SSR bundle
+# ---------------------------------------------------------------------------
+FROM deps AS builder
+
+ARG INTLAYER_TAG
 
 ARG INTLAYER_CLIENT_ID
 ARG INTLAYER_CLIENT_SECRET
@@ -29,69 +79,41 @@ ENV VITE_CMS_URL=${VITE_CMS_URL}
 ENV VITE_BACKEND_DOMAIN=${VITE_BACKEND_DOMAIN}
 ENV VITE_BACKEND_URL=${VITE_BACKEND_URL}
 ENV VITE_ENABLE_SERVICE_WORKER=${VITE_ENABLE_SERVICE_WORKER}
-ENV CI=true
+ENV INTLAYER_BACKEND_URL=${INTLAYER_BACKEND_URL}
 
-# Create app directory
-WORKDIR /workspace
+# src/utils/agentSkills.ts imports `.agents/skills/*/SKILL.md` to publish
+# /.well-known/agent-skills/, so the directory must be in the build.
+COPY .agents .agents
 
-# Copy the rest of the source code
-# Remove directories to keep the image slim
-COPY \
-    --exclude=packages/@intlayer/vue-compiler \
-    --exclude=packages/@intlayer/svelte-compiler \
-    --exclude=packages/@intlayer/swc \
-    --exclude=packages/@intlayer/lsp \
-    --exclude=packages/@intlayer/chrome-extension \
-    --exclude=packages/intlayer-cli \
-    --exclude=packages/react-scripts-intlayer \
-    --exclude=packages/vue-intlayer \
-    --exclude=packages/intlayer-editor \
-    --exclude=packages/solid-intlayer \
-    --exclude=packages/svelte-intlayer \
-    --exclude=packages/preact-intlayer \
-    --exclude=packages/angular-intlayer \
-    --exclude=packages/nuxt-intlayer \
-    --exclude=packages/astro-intlayer \
-    --exclude=packages/react-native-intlayer \
-    --exclude=packages/lynx-intlayer \
-    --exclude=packages/lit-intlayer \
-    --exclude=packages/vanilla-intlayer \
-    --exclude=packages/express-intlayer \
-    --exclude=packages/hono-intlayer \
-    --exclude=packages/adonis-intlayer \
-    --exclude=packages/eslint-plugin-intlayer \
-    --exclude=apps/app \
-    --exclude=apps/showcase \
-    --exclude=apps/website \
-    --exclude=docs/assets \
-    --exclude=examples \
-    --exclude=plugins \
-    --exclude=compat \
-    --exclude=**/*.stories.* \
-    . .
+COPY apps/website-tanstack apps/website-tanstack
 
-# Install all dependencies (dev + prod)
-RUN bun install
+# The COPY above restores the committed manifest, so re-apply the rewrite. The
+# script is idempotent and leaves the already-installed node_modules alone.
+RUN bun docker/scripts/prepareStandaloneWorkspace.ts \
+      --workspace apps/website-tanstack --tag "${INTLAYER_TAG}"
 
-# Build workspace package dependencies (packages/* and docs) that this app depends on
-RUN bun x turbo run build:ci --filter=./packages/** --filter=./docs
-
-# Set working directory to the tanstack website package and build it
 WORKDIR /workspace/apps/website-tanstack
 
 ENV NODE_ENV=production
 
-# Build the React Router website 
 # (Note: postbuild script in package.json will auto-trigger generate-sw.ts)
-RUN bun run build && bun scripts/baidu-push.ts 
+RUN bun run build && bun scripts/baidu-push.ts
 # && bun run preserve ## preserve clean cloudflare cache
 
-# ---------------------------------------------------------
-# Runner Stage
-# ---------------------------------------------------------
-FROM node:26-alpine AS runner
+# Nitro bundles every JS dependency, but @intlayer/docs reads its markdown off
+# the filesystem at request time via existsSync/readFile, so the package itself
+# must sit next to the server bundle. Resolve it rather than hardcoding a path,
+# because bun may hoist it to either node_modules root.
+RUN set -eux; \
+    docs_dir="$(bun -e \
+      "console.log(require('node:path').dirname(require.resolve('@intlayer/docs/package.json')))")"; \
+    mkdir -p .output/server/node_modules/@intlayer; \
+    cp -RL "${docs_dir}" .output/server/node_modules/@intlayer/docs
 
-RUN npm install -g bun@1.3.14
+# ---------------------------------------------------------------------------
+# Stage 3 — runtime
+# ---------------------------------------------------------------------------
+FROM oven/bun:${BUN_VERSION}-alpine AS runner
 
 WORKDIR /app
 
@@ -101,12 +123,9 @@ ENV HOSTNAME=0.0.0.0
 # Create non-root user
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 
-# Nitro bundles all JS dependencies — only the .output dir is needed.
-# @intlayer/docs is an exception: docs.entry.mjs reads markdown files from the
-# filesystem at runtime via existsSync/readFile, so the package must be present
-# alongside the server bundle for those paths to resolve correctly.
+# Nitro bundles all JS dependencies, and the builder already vendored
+# @intlayer/docs into .output/server/node_modules — only .output is needed.
 COPY --from=builder --chown=appuser:appgroup /workspace/apps/website-tanstack/.output ./.output
-COPY --from=builder --chown=appuser:appgroup /workspace/docs ./.output/server/node_modules/@intlayer/docs
 
 USER appuser
 

@@ -1,70 +1,73 @@
 # syntax=docker/dockerfile:1.26.0
+#
+# Build context MUST be the monorepo root:
+#   docker build -f apps/showcase/Dockerfile -t intlayer/showcase .
+#
+# The image does not build the monorepo. Every `@intlayer/*` package the
+# showcase depends on is published, so `prepareStandaloneWorkspace.ts` rewrites
+# the `workspace:` ranges to a registry tag and bun installs them like any
+# consumer would.
 
+ARG NODE_VERSION=26
+ARG BUN_VERSION=1.3.14
+# Registry tag used for the published @intlayer/* packages. Override with
+# `--build-arg INTLAYER_TAG=9.3.2` to pin an exact release.
+ARG INTLAYER_TAG=latest
 
-# FROM oven/bun:1.3.2-alpine AS builder
-# Use node because of bun issue blocking at `Creating an optimized production build ...`
+# ---------------------------------------------------------------------------
+# Stage 1 — dependencies (invalidated only by manifest changes)
+# ---------------------------------------------------------------------------
+# Use node because of a bun issue blocking at `Creating an optimized production build ...`
 # https://github.com/oven-sh/bun/issues/17136
 # https://github.com/oven-sh/bun/issues/4795
-FROM node:26-alpine AS builder
+FROM node:${NODE_VERSION}-alpine AS deps
 
-RUN npm install -g bun@1.3.14
+ARG BUN_VERSION
+ARG INTLAYER_TAG
 
+RUN npm install -g bun@${BUN_VERSION}
 
-# Create app directory
+ENV CI=true
+# No transitive dependency may pull its own Chromium into this image.
+ENV PUPPETEER_SKIP_DOWNLOAD=true
+
 WORKDIR /workspace
 
-# Copy the rest of the source code
-# Remove directories to keep the image slim
-COPY \
-    --exclude=packages/@intlayer/swc \
-    --exclude=packages/@intlayer/lsp \
-    --exclude=packages/@intlayer/vue-compiler \
-    --exclude=packages/@intlayer/svelte-compiler \
-    --exclude=packages/@intlayer/chrome-extension \
-    --exclude=packages/intlayer-cli \
-    --exclude=packages/react-scripts-intlayer \
-    --exclude=packages/vue-intlayer \
-    --exclude=packages/intlayer-editor \
-    --exclude=packages/solid-intlayer \
-    --exclude=packages/svelte-intlayer \
-    --exclude=packages/preact-intlayer \
-    --exclude=packages/angular-intlayer \
-    --exclude=packages/nuxt-intlayer \
-    --exclude=packages/astro-intlayer \
-    --exclude=packages/react-native-intlayer \
-    --exclude=packages/lynx-intlayer \
-    --exclude=packages/lit-intlayer \
-    --exclude=packages/vanilla-intlayer \
-    --exclude=packages/express-intlayer \
-    --exclude=packages/hono-intlayer \
-    --exclude=packages/adonis-intlayer \
-    --exclude=packages/eslint-plugin-intlayer \
-    --exclude=apps/website \
-    --exclude=apps/website-tanstack \        --exclude=apps/app \
-    --exclude=docs/assets \
-    --exclude=examples \
-    --exclude=plugins \
-    --exclude=compat \
-    --exclude=**/*.stories.* \
-    . .
+COPY docker/scripts docker/scripts
+COPY utils utils
+COPY package.json package.json
+COPY apps/showcase/package.json apps/showcase/package.json
 
-# Install all dependencies (dev + prod) (frozen for reproducible builds)
-RUN bun install
+RUN bun docker/scripts/prepareStandaloneWorkspace.ts \
+      --workspace apps/showcase --tag "${INTLAYER_TAG}"
 
-# Build every package in the workspace (uses the root "build" script)
-RUN bun x turbo run build:ci --filter=./apps/showcase
+RUN --mount=type=cache,target=/root/.bun/install/cache \
+    bun install
 
-# Set working directory to the showcase package and build it
+# ---------------------------------------------------------------------------
+# Stage 2 — build the SSR bundle
+# ---------------------------------------------------------------------------
+FROM deps AS builder
+
+ARG INTLAYER_TAG
+
+COPY apps/showcase apps/showcase
+
+# The COPY above restores the committed manifest, so re-apply the rewrite. The
+# script is idempotent and leaves the already-installed node_modules alone.
+RUN bun docker/scripts/prepareStandaloneWorkspace.ts \
+      --workspace apps/showcase --tag "${INTLAYER_TAG}"
+
 WORKDIR /workspace/apps/showcase
 
 ENV NODE_ENV=production
 
-# Build the showcase app
 RUN bun run build && bun run preserve
 
-
-# Runner
-FROM oven/bun:1.3.14-alpine AS runner
+# ---------------------------------------------------------------------------
+# Stage 3 — runtime. Nitro bundles every dependency, so only .output ships.
+# ---------------------------------------------------------------------------
+FROM oven/bun:${BUN_VERSION}-alpine AS runner
 
 WORKDIR /app
 
@@ -73,7 +76,6 @@ ENV NODE_ENV=production
 # Create a non-root user for security
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 
-# Copy ONLY the built output from the builder stage
 COPY --from=builder --chown=appuser:appgroup /workspace/apps/showcase/.output ./.output
 
 USER appuser

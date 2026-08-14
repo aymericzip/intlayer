@@ -1,71 +1,86 @@
 # syntax=docker/dockerfile:1.26.0
+#
+# Build context MUST be the monorepo root:
+#   docker build -f apps/app/Dockerfile -t intlayer/app .
+#
+# The image does not build the monorepo. Every `@intlayer/*` package the
+# dashboard depends on is published, so `prepareStandaloneWorkspace.ts` rewrites
+# the `workspace:` ranges to a registry tag and bun installs them like any
+# consumer would. Only the private `@utils/*` build-config packages stay linked.
+#
+# Layer order is chosen so that editing application sources reuses the
+# dependency layer: manifests are copied first, sources last.
 
-# FROM oven/bun:1.3.2-alpine AS builder
-# Use node because of bun issue blocking at `Creating an optimized production build ...`
+ARG NODE_VERSION=26
+ARG BUN_VERSION=1.3.14
+# Registry tag used for the published @intlayer/* packages. Override with
+# `--build-arg INTLAYER_TAG=9.3.2` to pin an exact release.
+ARG INTLAYER_TAG=latest
+
+# ---------------------------------------------------------------------------
+# Stage 1 — dependencies (invalidated only by manifest changes)
+# ---------------------------------------------------------------------------
+# Use node because of a bun issue blocking at `Creating an optimized production build ...`
 # https://github.com/oven-sh/bun/issues/17136
 # https://github.com/oven-sh/bun/issues/4795
-FROM node:26-alpine AS builder
+FROM node:${NODE_VERSION}-alpine AS deps
 
-RUN npm install -g bun@1.3.14
+ARG BUN_VERSION
+ARG INTLAYER_TAG
+
+RUN npm install -g bun@${BUN_VERSION}
 
 RUN apk add --no-cache build-base zlib-dev autoconf automake
 
-# Create app directory
+ENV CI=true
+# No transitive dependency may pull its own Chromium into this image.
+ENV PUPPETEER_SKIP_DOWNLOAD=true
+
 WORKDIR /workspace
 
-# Copy the rest of the source code
-# Remove directories to keep the image slim
-COPY \
-    --exclude=packages/@intlayer/doc \
-    --exclude=packages/@intlayer/vue-compiler \
-    --exclude=packages/@intlayer/svelte-compiler \
-    --exclude=packages/@intlayer/swc \
-    --exclude=packages/@intlayer/lsp \
-    --exclude=packages/@intlayer/chrome-extension \
-    --exclude=packages/intlayer-cli \
-    --exclude=packages/react-scripts-intlayer \
-    --exclude=packages/vue-intlayer \
-    --exclude=packages/intlayer-editor \
-    --exclude=packages/solid-intlayer \
-    --exclude=packages/svelte-intlayer \
-    --exclude=packages/preact-intlayer \
-    --exclude=packages/angular-intlayer \
-    --exclude=packages/nuxt-intlayer \
-    --exclude=packages/astro-intlayer \
-    --exclude=packages/react-native-intlayer \
-    --exclude=packages/lynx-intlayer \
-    --exclude=packages/lit-intlayer \
-    --exclude=packages/vanilla-intlayer \
-    --exclude=packages/express-intlayer \
-    --exclude=packages/hono-intlayer \
-    --exclude=packages/adonis-intlayer \
-    --exclude=packages/eslint-plugin-intlayer \
-    --exclude=apps/website \
-    --exclude=apps/website-tanstack \
-    --exclude=apps/showcase \
-    --exclude=docs/assets \
-    --exclude=examples \
-    --exclude=plugins \
-    --exclude=compat \
-    --exclude=**/*.stories.* \
-    . .
+COPY docker/scripts docker/scripts
+COPY utils utils
+COPY package.json package.json
+COPY apps/app/package.json apps/app/package.json
 
-# Install all dependencies (dev + prod) (frozen for reproducible builds)
-RUN bun install
+# @intlayer/backend is consumed for its types only (every import in src is an
+# `import type`), and vite erases those. Dropping it keeps the whole backend
+# runtime tree — puppeteer, mongoose, aws-sdk — out of the build.
+RUN bun docker/scripts/prepareStandaloneWorkspace.ts \
+      --workspace apps/app --tag "${INTLAYER_TAG}" --drop @intlayer/backend
 
-# Build every package in the workspace (uses the root "build" script)
-RUN bun x turbo run build:ci --filter=./apps/app
+RUN --mount=type=cache,target=/root/.bun/install/cache \
+    bun install
 
-# Set working directory to the app package and build it
+# intlayer.config.ts addresses the design system by its monorepo path
+# (`../../packages/@intlayer/design-system/dist`); point that path at the
+# installed package.
+RUN sh docker/scripts/linkWorkspacePackages.sh apps/app design-system
+
+# ---------------------------------------------------------------------------
+# Stage 2 — build the SSR bundle
+# ---------------------------------------------------------------------------
+FROM deps AS builder
+
+ARG INTLAYER_TAG
+
+COPY apps/app apps/app
+
+# The COPY above restores the committed manifest, so re-apply the rewrite. The
+# script is idempotent and leaves the already-installed node_modules alone.
+RUN bun docker/scripts/prepareStandaloneWorkspace.ts \
+      --workspace apps/app --tag "${INTLAYER_TAG}" --drop @intlayer/backend
+
 WORKDIR /workspace/apps/app
 
 ENV NODE_ENV=production
 
-# Build the app
 RUN bun run build && bun scripts/generate-sw.ts && bun run preserve
 
-# Runner — use oven/bun base image to avoid npm install overhead
-FROM oven/bun:1.3.14-alpine AS runner
+# ---------------------------------------------------------------------------
+# Stage 3 — runtime. Nitro bundles every dependency, so only .output ships.
+# ---------------------------------------------------------------------------
+FROM oven/bun:${BUN_VERSION}-alpine AS runner
 
 WORKDIR /app
 
