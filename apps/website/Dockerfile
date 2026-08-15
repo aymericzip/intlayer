@@ -86,8 +86,15 @@ WORKDIR /workspace/apps/website
 
 ENV NODE_ENV=production
 
-# Build the Next.js website
-RUN bun run --bun next build && bun scripts/generate-sw.ts && bun scripts/baidu-push.ts && bun run preserve
+# Build the Next.js website.
+# `next build` runs on Node (no `--bun`): the Bun runtime segfaults during
+# process teardown once the build finishes, turning a successful build into
+# exit code 132 / SIGILL.
+# Node's default heap is ~25% of RAM; the build peaks around 5 GB, so raise it.
+RUN NODE_OPTIONS=--max-old-space-size=8192 bun run next build \
+    && bun scripts/generate-sw.ts \
+    && bun scripts/baidu-push.ts \
+    && bun run preserve
 
 # Runner
 FROM oven/bun:1.3.14-alpine AS runner
