@@ -42,7 +42,7 @@ export const GenerativeMenuSwitch = ({
   return (
     <EditorBubble
       options={{ placement: open ? 'bottom-start' : 'top' }}
-      className="flex w-fit max-w-[90vw] rounded-lg border-[1.3px] border-neutral/20 bg-card/95 text-text shadow-xl backdrop-blur [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-xl"
+      className="flex w-fit max-w-[90vw] rounded-lg border-[1.3px] bg-card/95 text-foreground shadow-xl backdrop-blur [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-xl"
     >
       {open && (
         <AISelector
@@ -59,7 +59,7 @@ export const GenerativeMenuSwitch = ({
             color="text"
             size="sm"
             roundedSize="none"
-            className="gap-1 text-text"
+            className="gap-1 text-foreground"
             Icon={Sparkles}
             onClick={() => onOpenChange(true)}
           >

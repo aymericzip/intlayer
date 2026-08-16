@@ -53,7 +53,7 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
   };
 
   return (
-    <div className="flex rounded-xl text-text transition-colors">
+    <div className="flex rounded-xl text-foreground transition-colors">
       <DropDown identifier={DROPDOWN_IDENTIFIER}>
         <DropDown.Trigger
           identifier={DROPDOWN_IDENTIFIER}

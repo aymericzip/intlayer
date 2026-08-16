@@ -93,7 +93,7 @@ export const HeroSection: FC = () => {
               initial={{ opacity: 0, y: 40, filter: 'blur(10px)' }}
               animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
               transition={{ duration: 0.7, ease: 'easeOut' }}
-              className="mb-6 font-extrabold text-5xl text-text leading-[1.1] sm:text-6xl md:text-7xl"
+              className="mb-6 font-extrabold text-5xl text-foreground leading-[1.1] sm:text-6xl md:text-7xl"
             >
               {heroTitle}
             </m.h1>
@@ -156,7 +156,7 @@ export const HeroSection: FC = () => {
 
         {/* Screenshot Preview */}
 
-        {/* 3D WRAPPER 
+        {/* 3D WRAPPER
         We add a wrapper div here to establish the "perspective".
         'perspective-[1200px]' is a Tailwind arbitrary value (or standard CSS perspective: 1200px).
         This creates the "vanishing point".

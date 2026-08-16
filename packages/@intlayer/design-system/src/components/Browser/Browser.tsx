@@ -376,7 +376,7 @@ export const Browser = ({
           className={cn(
             inputVariants(),
             'flex w-full gap-2 rounded-xl p-0.5! supports-[corner-shape:squircle]:rounded-2xl',
-            'bg-neutral/10 text-text/50 placeholder:text-neutral/80'
+            'bg-neutral/10 text-foreground/50 placeholder:text-neutral/80'
           )}
         >
           <label htmlFor="browser-url" className="sr-only">

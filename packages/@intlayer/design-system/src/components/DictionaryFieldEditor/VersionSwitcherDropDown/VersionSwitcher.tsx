@@ -26,7 +26,7 @@ export const VersionSwitcher: FC<VersionSwitcherProps> = ({ panelProps }) => {
 
   return (
     <div
-      className="rounded-xl border border-text text-text transition-colors"
+      className="rounded-xl border border-text text-foreground transition-colors"
       aria-label={versionListLabel.value}
     >
       <DropDown identifier={DROPDOWN_IDENTIFIER}>

@@ -32,7 +32,7 @@ export const DocPageNavigation: FC<DocPageNavigationProps> = ({
           className="wrap-break-words ml-auto flex h-auto w-full max-w-1/2 flex-1 flex-row items-center justify-start gap-2 whitespace-normal text-nowrap rounded-lg px-2 py-5"
         >
           <ChevronLeft className="size-5" />
-          <span className="text-text">{prevDoc?.title}</span>
+          <span className="text-foreground">{prevDoc?.title}</span>
         </Link>
       )}
       {nextDoc && (
@@ -43,7 +43,7 @@ export const DocPageNavigation: FC<DocPageNavigationProps> = ({
           color="neutral"
           className="wrap-break-words ml-auto flex h-auto w-full max-w-1/2 flex-1 flex-1 flex-row items-center justify-end gap-2 whitespace-normal text-nowrap rounded-lg px-2 py-5"
         >
-          <span className="text-text">{nextDoc?.title}</span>
+          <span className="text-foreground">{nextDoc?.title}</span>
           <ChevronRight className="size-5" />
         </Link>
       )}

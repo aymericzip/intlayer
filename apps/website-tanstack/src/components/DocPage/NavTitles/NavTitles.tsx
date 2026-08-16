@@ -16,7 +16,7 @@ const NavTitles2: FC<NavTitles2Props> = ({ title2, activeSectionsId }) => {
   const { pathname } = useLocation();
 
   return (
-    <ul className="my-3 flex w-full min-w-52 flex-col gap-2 border-neutral border-l-[0.5px] pl-3 text-text/80">
+    <ul className="my-3 flex w-full min-w-52 flex-col gap-2 border-neutral border-l-[0.5px] pl-3 text-foreground/80">
       {title2.map((h3) => {
         const { id } = h3;
         const isActive = activeSectionsId === id;
@@ -30,7 +30,7 @@ const NavTitles2: FC<NavTitles2Props> = ({ title2, activeSectionsId }) => {
               color="text"
               variant="invisible-link"
               roundedSize="lg"
-              className="flex text-wrap p-2 text-sm text-text/80 transition-[font-weight] duration-300 hover:font-semibold aria-[current]:bg-none aria-[current]:font-semibold aria-[current]:text-text"
+              className="flex text-wrap p-2 text-foreground/80 text-sm transition-[font-weight] duration-300 hover:font-semibold aria-[current]:bg-none aria-[current]:font-semibold aria-[current]:text-foreground"
               onClick={(e) => {
                 e.preventDefault();
                 const element = document.getElementById(id);
@@ -120,7 +120,7 @@ export const NavTitles: FC = () => {
                 roundedSize="lg"
                 variant="invisible-link"
                 aria-current={isActive ? 'location' : undefined}
-                className="flex text-wrap p-2 text-sm text-text/80 transition-[font-weight] duration-300 hover:font-semibold aria-[current]:bg-none aria-[current]:font-semibold aria-[current]:text-text"
+                className="flex text-wrap p-2 text-foreground/80 text-sm transition-[font-weight] duration-300 hover:font-semibold aria-[current]:bg-none aria-[current]:font-semibold aria-[current]:text-foreground"
                 onClick={(e) => {
                   e.preventDefault();
                   const element = document.getElementById(id);

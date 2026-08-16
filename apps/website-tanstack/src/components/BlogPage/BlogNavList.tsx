@@ -124,7 +124,7 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
                               label={key2}
                               to={sectionDefault?.relativeUrl ?? ''}
                               isActive={isSelfActive && !isSubSectionActive}
-                              className="block w-full flex-row items-center text-nowrap p-2 text-left text-sm transition-colors hover:text-text"
+                              className="block w-full flex-row items-center text-nowrap p-2 text-left text-sm transition-colors hover:text-foreground"
                             >
                               {section2Data?.title}
                             </OptionalLink>
@@ -137,7 +137,7 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
                           <div className="pl-3 text-sm">
                             {subSections2 &&
                               Object.keys(subSections2).length > 0 && (
-                                <div className="flex flex-col items-start gap-2 p-1 text-neutral transition-colors hover:text-text">
+                                <div className="flex flex-col items-start gap-2 p-1 text-neutral transition-colors hover:text-foreground">
                                   {Object.keys(subSections2).map((key3) => {
                                     const section3Data = subSections2[key3];
                                     const slugs =
@@ -158,7 +158,7 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
                                           ''
                                         }
                                         isActive={isActive}
-                                        className="block w-full flex-row items-center text-nowrap p-2 text-left text-xs transition-colors hover:text-text"
+                                        className="block w-full flex-row items-center text-nowrap p-2 text-left text-xs transition-colors hover:text-foreground"
                                       >
                                         {section3Data.title}
                                       </OptionalLink>
@@ -171,7 +171,7 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
                       ) : (
                         <OptionalLink
                           to={sectionDefault?.relativeUrl ?? ''}
-                          className="block w-full flex-row items-center text-nowrap p-2 text-left text-sm transition-colors hover:text-text"
+                          className="block w-full flex-row items-center text-nowrap p-2 text-left text-sm transition-colors hover:text-foreground"
                           label={key2}
                           isActive={isActive}
                         >

@@ -19,7 +19,9 @@ export const TMSSection: FC = () => {
       title={heroTitle}
       description={
         <div className="space-y-4">
-          <p className="text-center font-medium text-text">{heroSubtitle}</p>
+          <p className="text-center font-medium text-foreground">
+            {heroSubtitle}
+          </p>
           <p>{heroDescription}</p>
         </div>
       }

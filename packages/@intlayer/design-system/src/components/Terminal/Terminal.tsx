@@ -130,7 +130,7 @@ export const Terminal: FC<TerminalProps> = ({
               <button
                 type="button"
                 onClick={onClose}
-                className="text-neutral transition-colors hover:text-text"
+                className="text-neutral transition-colors hover:text-foreground"
                 aria-label={content.closeTab.value}
               >
                 ×

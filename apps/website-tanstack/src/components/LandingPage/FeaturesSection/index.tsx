@@ -82,7 +82,7 @@ const Titles: FC<TitlesProps> = ({ sections, activeIndex, isMobile }) => (
       return (
         <motion.h3
           key={section.id.value}
-          className="absolute top-1/4 left-3 inline font-bold text-neutral text-xl leading-snug drop-shadow-sm aria-selected:text-text"
+          className="absolute top-1/4 left-3 inline font-bold text-neutral text-xl leading-snug drop-shadow-sm aria-selected:text-foreground"
           animate={{
             // Convert polar coords to Cartesian (rem units)
             translateX: isActive

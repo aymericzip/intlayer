@@ -52,7 +52,7 @@ export const switchSelectorVariant = cva(
         neutral: 'border-neutral text-neutral',
         light: 'border-white text-white',
         dark: 'border-neutral-800 text-neutral-800',
-        text: 'border-text text-text',
+        text: 'border-text text-foreground',
       },
       disabled: {
         true: 'cursor-not-allowed opacity-50',
@@ -67,7 +67,7 @@ export const switchSelectorVariant = cva(
 );
 
 export const choiceVariant = cva(
-  'z-1 flex-1 cursor-pointer font-medium text-sm transition-all duration-300 ease-in-out aria-selected:cursor-default data-[indicator=true]:text-text-opposite motion-reduce:transition-none',
+  'z-1 flex-1 cursor-pointer font-medium text-sm transition-all duration-300 ease-in-out aria-selected:cursor-default data-[indicator=true]:text-foreground-opposite motion-reduce:transition-none',
   {
     variants: {
       size: {
@@ -88,13 +88,13 @@ export const indicatorVariant = cva(
   {
     variants: {
       color: {
-        primary: 'bg-primary data-[indicator=true]:text-text',
-        secondary: 'bg-secondary data-[indicator=true]:text-text',
-        error: 'bg-error data-[indicator=true]:text-text',
+        primary: 'bg-primary data-[indicator=true]:text-foreground',
+        secondary: 'bg-secondary data-[indicator=true]:text-foreground',
+        error: 'bg-error data-[indicator=true]:text-foreground',
         neutral: 'bg-neutral data-[indicator=true]:text-white',
         light: 'bg-white data-[indicator=true]:text-black',
         dark: 'bg-neutral-800 data-[indicator=true]:text-white',
-        text: 'bg-text data-[indicator=true]:text-text-opposite',
+        text: 'bg-text data-[indicator=true]:text-foreground-opposite',
       },
     },
   }

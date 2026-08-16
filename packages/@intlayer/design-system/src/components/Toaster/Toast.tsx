@@ -45,11 +45,11 @@ export const toastVariants = cva(
       /** Toast visual variants for different message types */
       variant: {
         /** Error state with red styling for failures and warnings */
-        error: 'bg-error/40 text-text',
+        error: 'bg-error/40 text-foreground',
         /** Success state with green styling for confirmations */
-        success: 'bg-success/30 text-text',
+        success: 'bg-success/30 text-foreground',
         /** Default neutral styling for general information */
-        default: 'bg-card/80 text-text',
+        default: 'bg-card/80 text-foreground',
       },
     },
     defaultVariants: {
@@ -164,7 +164,7 @@ export const ToastClose: FC<ComponentProps<typeof ToastPrimitives.Close>> = ({
 }) => (
   <ToastPrimitives.Close
     className={cn(
-      'absolute top-1 right-1 rounded-md p-1 text-text/50 opacity-0 transition-opacity hover:text-text/80 focus:opacity-100 focus:outline-hidden focus:ring-1 group-hover:opacity-100 group-[.error]:text-red-300 group-[.error]:focus:ring-red-400 group-[.error]:focus:ring-offset-red-600 group-[.error]:hover:text-red-50',
+      'absolute top-1 right-1 rounded-md p-1 text-foreground/50 opacity-0 transition-opacity hover:text-foreground/80 focus:opacity-100 focus:outline-hidden focus:ring-1 group-hover:opacity-100 group-[.error]:text-red-300 group-[.error]:focus:ring-red-400 group-[.error]:focus:ring-offset-red-600 group-[.error]:hover:text-red-50',
       className
     )}
     toast-close=""

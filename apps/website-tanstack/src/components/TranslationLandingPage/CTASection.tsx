@@ -25,11 +25,14 @@ const CodeBlockWrapper: FC<CodeBlockWrapperProps> = ({
       border
       borderColor="card"
       background="none"
-      className={cn('relative overflow-hidden text-text-opposite', className)}
+      className={cn(
+        'relative overflow-hidden text-foreground-opposite',
+        className
+      )}
     >
       <div className="mb-2 flex items-center justify-between">
-        <span className="text-text/70 text-xs">{title}</span>
-        <span className="text-text/40 text-xs">CLI</span>
+        <span className="text-foreground/70 text-xs">{title}</span>
+        <span className="text-foreground/40 text-xs">CLI</span>
       </div>
       {children}
     </Container>
@@ -62,10 +65,10 @@ export const CTASection: FC = () => {
       >
         <div className="grid grid-cols-1 items-center gap-6 md:grid-cols-12">
           <div className="md:col-span-7">
-            <h3 className="font-semibold text-2xl text-text md:text-3xl">
+            <h3 className="font-semibold text-2xl text-foreground md:text-3xl">
               {title}
             </h3>
-            <p className="mt-2 max-w-2xl text-base text-text/70">
+            <p className="mt-2 max-w-2xl text-base text-foreground/70">
               {description}
             </p>
             <div className="mt-5 flex flex-col gap-3 sm:flex-row">

@@ -38,7 +38,7 @@ export const FrameworkSelector = ({ frameworks }: FrameworkSelectorProps) => {
         name={logo}
         className={cn(
           'size-4',
-          value === 'next' && 'text-text',
+          value === 'next' && 'text-foreground',
           framework !== value && 'opacity-60 grayscale-60'
         )}
       />

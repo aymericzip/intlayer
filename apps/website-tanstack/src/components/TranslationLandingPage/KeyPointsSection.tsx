@@ -49,10 +49,12 @@ export const KeyPointsSection: FC = () => {
         whileInView="show"
         viewport={{ once: true, amount: 0.25 }}
       >
-        <h2 className="font-semibold text-2xl text-text md:text-3xl">
+        <h2 className="font-semibold text-2xl text-foreground md:text-3xl">
           {title}
         </h2>
-        <p className="mt-2 max-w-2xl text-base text-text/70">{description}</p>
+        <p className="mt-2 max-w-2xl text-base text-foreground/70">
+          {description}
+        </p>
       </motion.div>
 
       <motion.div
@@ -79,13 +81,13 @@ export const KeyPointsSection: FC = () => {
                 >
                   <div className="flex items-start gap-3">
                     <div className="rounded-2xl bg-card/40 p-2">
-                      <IconComponent className="size-5 text-text" />
+                      <IconComponent className="size-5 text-foreground" />
                     </div>
                     <div>
-                      <div className="font-semibold text-base text-text">
+                      <div className="font-semibold text-base text-foreground">
                         {feature.title}
                       </div>
-                      <div className="mt-1 text-sm text-text/70">
+                      <div className="mt-1 text-foreground/70 text-sm">
                         {feature.description}
                       </div>
                     </div>

@@ -27,7 +27,7 @@ export const FinalCTASection: FC = () => {
 
       <div className="relative mx-auto max-w-4xl px-4 text-center md:px-8 lg:px-12">
         <motion.div {...fadeUp}>
-          <h2 className="mb-6 font-bold text-3xl text-text-opposite sm:text-4xl md:text-5xl">
+          <h2 className="mb-6 font-bold text-3xl text-foreground-opposite sm:text-4xl md:text-5xl">
             {finalCtaTitle}
           </h2>
           <p className="mx-auto mb-10 max-w-xl text-lg text-neutral">
@@ -59,7 +59,7 @@ export const FinalCTASection: FC = () => {
               roundedSize="full"
               className="flex flex-row items-center justify-center gap-2"
             >
-              <span className="flex flex-row flex-nowrap items-center gap-2 text-sm text-text sm:text-lg">
+              <span className="flex flex-row flex-nowrap items-center gap-2 text-foreground text-sm sm:text-lg">
                 {finalCtaPrimary}
                 <ArrowRight className="size-5 transition-transform" />
               </span>

@@ -87,7 +87,7 @@ export const UrlDiscoveryList: FC<UrlDiscoveryListProps> = ({
       <div className="flex items-center justify-between gap-4">
         <div>
           <h3 className="font-semibold text-lg">{title}</h3>
-          <p className="mt-0.5 text-sm text-text/60">
+          <p className="mt-0.5 text-foreground/60 text-sm">
             {urls.length} {description}
           </p>
         </div>
@@ -120,7 +120,7 @@ export const UrlDiscoveryList: FC<UrlDiscoveryListProps> = ({
                   label={selectAll.value}
                 />
               </th>
-              <th className="p-3 text-text/60">
+              <th className="p-3 text-foreground/60">
                 {filteredUrls.length === urls.length
                   ? `${urls.length} ${urlsLabel}`
                   : `${filteredUrls.length} / ${urls.length} ${urlsLabel}`}
@@ -154,7 +154,7 @@ export const UrlDiscoveryList: FC<UrlDiscoveryListProps> = ({
         {atLimit && (
           <span className="text-warning text-xs">{maxLimitReached}</span>
         )}
-        <span className="text-sm text-text/60">
+        <span className="text-foreground/60 text-sm">
           {selected.size} / {MAX_URLS} {selectedLabel}
         </span>
         <Button

@@ -133,7 +133,7 @@ export const MarkdownEditor: FC<MarkdownEditorProps> = ({
           onUpdate={handleUpdate}
           slotAfter={<ImageResizer />}
         >
-          <EditorCommand className="z-50 h-auto max-h-[330px] overflow-y-auto rounded-lg border border-neutral/20 bg-card px-1 py-2 text-text shadow-xl transition-all">
+          <EditorCommand className="z-50 h-auto max-h-[330px] overflow-y-auto rounded-lg border bg-card px-1 py-2 text-foreground shadow-xl transition-all">
             <EditorCommandEmpty className="px-2 text-muted-foreground">
               {content.noResults.value}
             </EditorCommandEmpty>
@@ -166,7 +166,7 @@ export const MarkdownEditor: FC<MarkdownEditorProps> = ({
           ) : (
             <EditorBubble
               options={{ placement: 'top' }}
-              className="flex w-fit max-w-[90vw] rounded-lg border-[1.3px] border-neutral/20 bg-card/95 text-text shadow-xl backdrop-blur [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-xl"
+              className="flex w-fit max-w-[90vw] rounded-lg border-[1.3px] bg-card/95 text-foreground shadow-xl backdrop-blur [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-xl"
             >
               {toolbar}
             </EditorBubble>
