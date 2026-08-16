@@ -61,7 +61,7 @@ ESLint 9 یا اس سے نیا ورژن (flat config) درکار ہے۔ ESLint 1
 <Tabs defaultTab="eslint">
   <Tab label="ESLint" value="eslint">
 
-```javascript fileName="eslint.config.mjs" codeFormat="esm"
+```javascript fileName="eslint.config.mjs"
 import intlayer from "eslint-plugin-intlayer";
 
 export default [...intlayer.configs.recommended];
@@ -69,7 +69,7 @@ export default [...intlayer.configs.recommended];
 
 یا کوئی کنفیگ پھیلائیں اور شدت کی سطحیں خود مقرر کریں:
 
-```javascript fileName="eslint.config.mjs" codeFormat="esm"
+```javascript fileName="eslint.config.mjs"
 import intlayer from "eslint-plugin-intlayer";
 
 export default [
@@ -144,7 +144,7 @@ const { title } = useIntlayer("home");
 
 **اختیارات**
 
-```javascript fileName="eslint.config.mjs" codeFormat="esm"
+```javascript fileName="eslint.config.mjs"
 {
   "intlayer/no-raw-text": [
     "warn",
@@ -247,7 +247,7 @@ export default {
 
 **اختیارات**
 
-```javascript fileName="eslint.config.mjs" codeFormat="esm"
+```javascript fileName="eslint.config.mjs"
 {
   "intlayer/no-unused-content": [
     "warn",
@@ -296,7 +296,7 @@ export default {
 | Angular ٹیمپلیٹس          | `.component.html` | `@angular-eslint/template-parser` |
 | Astro                     | `.astro`          | `astro-eslint-parser`             |
 
-```javascript fileName="eslint.config.mjs" codeFormat="esm"
+```javascript fileName="eslint.config.mjs"
 import intlayer from "eslint-plugin-intlayer";
 import tseslint from "typescript-eslint";
 import vueParser from "vue-eslint-parser";

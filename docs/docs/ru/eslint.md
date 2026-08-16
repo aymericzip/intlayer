@@ -61,7 +61,7 @@ yarn add --dev eslint-plugin-intlayer
 <Tabs defaultTab="eslint">
   <Tab label="ESLint" value="eslint">
 
-```javascript fileName="eslint.config.mjs" codeFormat="esm"
+```javascript fileName="eslint.config.mjs"
 import intlayer from "eslint-plugin-intlayer";
 
 export default [...intlayer.configs.recommended];
@@ -69,7 +69,7 @@ export default [...intlayer.configs.recommended];
 
 Либо разверните конфигурацию и задайте уровни сами:
 
-```javascript fileName="eslint.config.mjs" codeFormat="esm"
+```javascript fileName="eslint.config.mjs"
 import intlayer from "eslint-plugin-intlayer";
 
 export default [
@@ -144,7 +144,7 @@ const { title } = useIntlayer("home");
 
 **Параметры**
 
-```javascript fileName="eslint.config.mjs" codeFormat="esm"
+```javascript fileName="eslint.config.mjs"
 {
   "intlayer/no-raw-text": [
     "warn",
@@ -247,7 +247,7 @@ export default {
 
 **Параметры**
 
-```javascript fileName="eslint.config.mjs" codeFormat="esm"
+```javascript fileName="eslint.config.mjs"
 {
   "intlayer/no-unused-content": [
     "warn",
@@ -296,7 +296,7 @@ export default {
 | Шаблоны Angular           | `.component.html` | `@angular-eslint/template-parser` |
 | Astro                     | `.astro`          | `astro-eslint-parser`             |
 
-```javascript fileName="eslint.config.mjs" codeFormat="esm"
+```javascript fileName="eslint.config.mjs"
 import intlayer from "eslint-plugin-intlayer";
 import tseslint from "typescript-eslint";
 import vueParser from "vue-eslint-parser";

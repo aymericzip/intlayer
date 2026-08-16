@@ -61,7 +61,7 @@ Plugin ini berjalan di ESLint dan [oxlint](https://oxc.rs) — aturan yang sama,
 <Tabs defaultTab="eslint">
   <Tab label="ESLint" value="eslint">
 
-```javascript fileName="eslint.config.mjs" codeFormat="esm"
+```javascript fileName="eslint.config.mjs"
 import intlayer from "eslint-plugin-intlayer";
 
 export default [...intlayer.configs.recommended];
@@ -69,7 +69,7 @@ export default [...intlayer.configs.recommended];
 
 Atau sebarkan sebuah konfigurasi dan tetapkan sendiri tingkat keparahannya:
 
-```javascript fileName="eslint.config.mjs" codeFormat="esm"
+```javascript fileName="eslint.config.mjs"
 import intlayer from "eslint-plugin-intlayer";
 
 export default [
@@ -144,7 +144,7 @@ Untuk memperbaiki seluruh file sekaligus, jalankan `npx intlayer extract` dan bi
 
 **Opsi**
 
-```javascript fileName="eslint.config.mjs" codeFormat="esm"
+```javascript fileName="eslint.config.mjs"
 {
   "intlayer/no-raw-text": [
     "warn",
@@ -247,7 +247,7 @@ Berbeda dengan aturan lainnya, aturan ini tidak dapat mengambil keputusan hanya 
 
 **Opsi**
 
-```javascript fileName="eslint.config.mjs" codeFormat="esm"
+```javascript fileName="eslint.config.mjs"
 {
   "intlayer/no-unused-content": [
     "warn",
@@ -296,7 +296,7 @@ Setiap aturan berfungsi di semua integrasi Intlayer, termasuk di dalam template 
 | Template Angular          | `.component.html` | `@angular-eslint/template-parser` |
 | Astro                     | `.astro`          | `astro-eslint-parser`             |
 
-```javascript fileName="eslint.config.mjs" codeFormat="esm"
+```javascript fileName="eslint.config.mjs"
 import intlayer from "eslint-plugin-intlayer";
 import tseslint from "typescript-eslint";
 import vueParser from "vue-eslint-parser";

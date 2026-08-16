@@ -61,7 +61,7 @@ El plugin funciona tanto en ESLint como en [oxlint](https://oxc.rs): las mismas 
 <Tabs defaultTab="eslint">
   <Tab label="ESLint" value="eslint">
 
-```javascript fileName="eslint.config.mjs" codeFormat="esm"
+```javascript fileName="eslint.config.mjs"
 import intlayer from "eslint-plugin-intlayer";
 
 export default [...intlayer.configs.recommended];
@@ -69,7 +69,7 @@ export default [...intlayer.configs.recommended];
 
 O expande una configuración y define tú mismo las severidades:
 
-```javascript fileName="eslint.config.mjs" codeFormat="esm"
+```javascript fileName="eslint.config.mjs"
 import intlayer from "eslint-plugin-intlayer";
 
 export default [
@@ -144,7 +144,7 @@ Para corregir un archivo completo de una vez, ejecuta `npx intlayer extract` y d
 
 **Opciones**
 
-```javascript fileName="eslint.config.mjs" codeFormat="esm"
+```javascript fileName="eslint.config.mjs"
 {
   "intlayer/no-raw-text": [
     "warn",
@@ -247,7 +247,7 @@ A diferencia de las otras reglas, esta no puede responder solo a partir del arch
 
 **Opciones**
 
-```javascript fileName="eslint.config.mjs" codeFormat="esm"
+```javascript fileName="eslint.config.mjs"
 {
   "intlayer/no-unused-content": [
     "warn",
@@ -296,7 +296,7 @@ Todas las reglas funcionan en todas las integraciones de Intlayer, incluso dentr
 | Plantillas de Angular     | `.component.html` | `@angular-eslint/template-parser` |
 | Astro                     | `.astro`          | `astro-eslint-parser`             |
 
-```javascript fileName="eslint.config.mjs" codeFormat="esm"
+```javascript fileName="eslint.config.mjs"
 import intlayer from "eslint-plugin-intlayer";
 import tseslint from "typescript-eslint";
 import vueParser from "vue-eslint-parser";
