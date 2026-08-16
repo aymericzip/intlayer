@@ -81,7 +81,7 @@ export const RelatedPosts: FC<RelatedPostsProps> = ({
 
   return (
     <section className="mt-16 border-border border-t border-dashed pt-8">
-      <h2 className="mb-4 font-semibold text-sm text-text">
+      <h2 className="mb-4 font-semibold text-foreground text-sm">
         {content.relatedPosts}
       </h2>
       <div className="grid grid-cols-1 divide-dashed divide-border sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:grid-cols-4">
@@ -93,7 +93,7 @@ export const RelatedPosts: FC<RelatedPostsProps> = ({
               label={content.visitBlogTitle({ title: post.title })}
               className="group flex flex-col gap-2.5 py-5 no-underline sm:px-5 last:sm:pr-0 first:sm:pl-0"
             >
-              <p className="line-clamp-2 font-medium text-sm text-text-primary transition-colors group-hover:text-text-secondary group-hover:underline">
+              <p className="line-clamp-2 font-medium text-foreground-primary text-sm transition-colors group-hover:text-foreground-secondary group-hover:underline">
                 {post.title}
               </p>
               {post.description && (
@@ -149,7 +149,7 @@ export const LastPosts: FC<LastPostsProps> = ({
 
   return (
     <section className="mt-16 border-border border-t border-dashed pt-8">
-      <h2 className="mb-4 font-semibold text-sm text-text">
+      <h2 className="mb-4 font-semibold text-foreground text-sm">
         {content.lastPosts}
       </h2>
       <div className="grid grid-cols-1 divide-dashed divide-border sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:grid-cols-4">
@@ -161,7 +161,7 @@ export const LastPosts: FC<LastPostsProps> = ({
               label={content.visitBlogTitle({ title: post.title })}
               className="group flex flex-col gap-2.5 py-5 no-underline sm:px-5 last:sm:pr-0 first:sm:pl-0"
             >
-              <p className="line-clamp-2 font-medium text-sm text-text-primary transition-colors group-hover:text-text-secondary group-hover:underline">
+              <p className="line-clamp-2 font-medium text-foreground-primary text-sm transition-colors group-hover:text-foreground-secondary group-hover:underline">
                 {post.title}
               </p>
               {post.description && (

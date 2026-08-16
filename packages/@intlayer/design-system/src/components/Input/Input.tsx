@@ -20,7 +20,7 @@ export const inputVariants = cva(
     variants: {
       variant: {
         default: [
-          'text-text',
+          'text-foreground',
           'bg-neutral-50 dark:bg-neutral-950',
           'ring-text/20',
 

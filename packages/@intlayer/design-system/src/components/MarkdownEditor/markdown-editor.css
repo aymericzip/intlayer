@@ -3,14 +3,14 @@
  *
  * Exposed via the `@intlayer/design-system/markdown-editor.css` export and
  * imported only by consumers that actually use the editor (currently the
- * `apps/app` CMS dashboard), rather than from the shared `tailwind.css`
+ * `apps/app` CMS dashboard), rather than from the shared `styles/globals.css`
  * entry — this keeps the ProseMirror specific rules (placeholder, task
  * checkboxes, image placeholder, drag handle) out of every other consumer's
  * CSS bundle.
  */
 
 :root,
-[data-theme="light"] {
+[data-theme='light'] {
   --novel-highlight-default: #ffffff;
   --novel-highlight-purple: #f6f3f8;
   --novel-highlight-red: #fdebeb;
@@ -27,7 +27,7 @@
   --novel-stone-800: rgba(69, 69, 69);
 }
 
-[data-theme="dark"] {
+[data-theme='dark'] {
   --novel-highlight-default: #000000;
   --novel-highlight-purple: #3f2c4b;
   --novel-highlight-red: #5c1a1a;
@@ -132,7 +132,7 @@
 }
 
 .img-placeholder::before {
-  content: "";
+  content: '';
   box-sizing: border-box;
   position: absolute;
   top: 50%;
@@ -152,23 +152,23 @@
 }
 
 /* Task list checkboxes */
-ul[data-type="taskList"] {
+ul[data-type='taskList'] {
   list-style: none;
   padding: 0;
 }
 
-ul[data-type="taskList"] li > label {
+ul[data-type='taskList'] li > label {
   margin-right: 0.2rem;
   user-select: none;
 }
 
 @media screen and (max-width: 768px) {
-  ul[data-type="taskList"] li > label {
+  ul[data-type='taskList'] li > label {
     margin-right: 0.5rem;
   }
 }
 
-ul[data-type="taskList"] li > label input[type="checkbox"] {
+ul[data-type='taskList'] li > label input[type='checkbox'] {
   -webkit-appearance: none;
   appearance: none;
   background-color: var(--background);
@@ -184,16 +184,16 @@ ul[data-type="taskList"] li > label input[type="checkbox"] {
   place-content: center;
 }
 
-ul[data-type="taskList"] li > label input[type="checkbox"]:hover {
+ul[data-type='taskList'] li > label input[type='checkbox']:hover {
   background-color: var(--accent);
 }
 
-ul[data-type="taskList"] li > label input[type="checkbox"]:active {
+ul[data-type='taskList'] li > label input[type='checkbox']:active {
   background-color: var(--accent);
 }
 
-ul[data-type="taskList"] li > label input[type="checkbox"]::before {
-  content: "";
+ul[data-type='taskList'] li > label input[type='checkbox']::before {
+  content: '';
   width: 0.65em;
   height: 0.65em;
   transform: scale(0);
@@ -203,11 +203,11 @@ ul[data-type="taskList"] li > label input[type="checkbox"]::before {
   clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
 }
 
-ul[data-type="taskList"] li > label input[type="checkbox"]:checked::before {
+ul[data-type='taskList'] li > label input[type='checkbox']:checked::before {
   transform: scale(1);
 }
 
-ul[data-type="taskList"] li[data-checked="true"] > div > p {
+ul[data-type='taskList'] li[data-checked='true'] > div > p {
   color: var(--muted-foreground);
   text-decoration: line-through;
   text-decoration-thickness: 2px;
@@ -260,7 +260,7 @@ ul[data-type="taskList"] li[data-checked="true"] > div > p {
   }
 }
 
-[data-theme="dark"] .drag-handle {
+[data-theme='dark'] .drag-handle {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10' style='fill: rgba(255, 255, 255, 0.5)'%3E%3Cpath d='M3,2 C2.44771525,2 2,1.55228475 2,1 C2,0.44771525 2.44771525,0 3,0 C3.55228475,0 4,0.44771525 4,1 C4,1.55228475 3.55228475,2 3,2 Z M3,6 C2.44771525,6 2,5.55228475 2,5 C2,4.44771525 2.44771525,4 3,4 C3.55228475,4 4,4.44771525 4,5 C4,5.55228475 3.55228475,6 3,6 Z M3,10 C2.44771525,10 2,9.55228475 2,9 C2,8.44771525 2.44771525,8 3,8 C3.55228475,8 4,8.44771525 4,9 C4,9.55228475 3.55228475,10 3,10 Z M7,2 C6.44771525,2 6,1.55228475 6,1 C6,0.44771525 6.44771525,0 7,0 C7.55228475,0 8,0.44771525 8,1 C8,1.55228475 7.55228475,2 7,2 Z M7,6 C6.44771525,6 6,5.55228475 6,5 C6,4.44771525 6.44771525,4 7,4 C7.55228475,4 8,4.44771525 8,5 C8,5.55228475 7.55228475,6 7,6 Z M7,10 C6.44771525,10 6,9.55228475 6,9 C6,8.44771525 6.44771525,8 7,8 C7.55228475,8 8,8.44771525 8,9 C8,9.55228475 7.55228475,10 7,10 Z'%3E%3C/path%3E%3C/svg%3E");
 }
 
@@ -274,7 +274,7 @@ ul[data-type="taskList"] li[data-checked="true"] > div > p {
   background-color: var(--muted) !important;
 }
 
-[data-theme="dark"] .ProseMirror pre.shiki span {
+[data-theme='dark'] .ProseMirror pre.shiki span {
   /* biome-ignore lint/complexity/noImportantStyles: override shiki inline token color with the dark-theme variable */
   color: var(--shiki-dark, inherit) !important;
 }

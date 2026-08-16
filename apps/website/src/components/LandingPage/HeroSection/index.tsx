@@ -8,7 +8,9 @@ import {
   Website_ReleasesV9_Path,
 } from '@intlayer/design-system/routes';
 import { Tag } from '@intlayer/design-system/tag';
-import { ArrowRight, Check, Copy } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { ArrowRight, Check, Copy, Megaphone } from 'lucide-react';
+import { useTheme } from 'next-themes';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { Link } from '~/components/Link/Link';
@@ -34,32 +36,29 @@ export const HeroSection: FC = () => {
   const { isCopied, copy } = useCopyToClipboard('npx intlayer init');
 
   return (
-    <section className="relative flex min-h-[calc(100vh-64px)] w-full flex-col px-4 md:px-8 lg:px-12">
-      <div className="flex flex-1 flex-col items-center justify-center text-center">
-        {/* Centered Content */}
-        <div className="mx-auto mt-16 mb-8 w-full max-w-4xl lg:mb-0">
-          {/* What's New Tag */}
-          {SHOW_WHATS_NEW && (
-            <div className="hero-enter mb-8 flex items-center justify-center gap-2">
-              <Tag
-                size="sm"
-                border="with"
-                color="neutral"
-                className="rounded-full border font-medium text-sm text-text"
-              >
-                {whatsNew}
-              </Tag>
-              <Link
-                to={Website_ReleasesV9_Path}
-                color="neutral"
-                label={whatsNewLabel.value}
-              >
-                <span className="flex items-center gap-1 font-medium text-neutral-500 text-sm sm:text-sm dark:text-neutral-400">
-                  {version} v{packageJSON.version}{' '}
-                  <ArrowRight className="h-3 w-3" />
-                </span>
+    <>
+      <section className="relative flex w-full flex-col px-4 md:px-8 lg:px-12">
+        <div className="flex flex-1 flex-col items-center justify-center pt-16 pb-8">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="mb-8 flex items-center justify-center gap-2"
+            >
+              <Link to={Website_ReleasesV9_Path} label={whatsNewLabel.value}>
+                <Tag
+                  size="sm"
+                  border="with"
+                  className="flex items-center gap-2 rounded-full border font-medium text-foreground text-sm"
+                >
+                  <Megaphone className="size-4" />
+                  <span className="flex items-center gap-1 font-medium text-sm sm:text-sm">
+                    {version} v{packageJSON.version}{' '}
+                    <ArrowRight className="size-3" />
+                  </span>
+                </Tag>
               </Link>
-            </div>
+            </motion.div>
           )}
 
           {/* Title */}
@@ -67,12 +66,14 @@ export const HeroSection: FC = () => {
             {title}
           </h1>
           {/* Subtitle */}
-          <h2
-            className="hero-enter-sharpen mb-6 text-center font-semibold text-text text-xl sm:text-3xl md:text-3xl lg:mb-8 lg:text-4xl"
-            style={{ animationDelay: '0.5s' }}
+          <motion.h2
+            initial={{ filter: 'blur(10px)', opacity: 0, y: 30 }}
+            animate={{ filter: 'blur(0px)', opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+            className="mb-6 text-center font-semibold text-primary text-xl sm:text-3xl md:text-3xl lg:mb-8 lg:text-4xl"
           >
             {subheading}
-          </h2>
+          </motion.h2>
           {/* Description */}
           <p
             className="hero-enter mx-auto max-w-2xl text-center font-medium text-neutral text-sm leading-relaxed sm:text-lg lg:mb-12"
@@ -129,18 +130,19 @@ export const HeroSection: FC = () => {
               <ArrowRight width={20} height={20} />
             </Link>
           </div>
-          {/* Available For Section - Full Viewport Width */}
-          <div
-            className="hero-enter relative right-1/2 left-1/2 mt-8 mr-[-50vw] ml-[-50vw] w-screen text-center"
-            style={{ animationDelay: '1s' }}
-          >
-            <p className="font-medium text-sm text-text tracking-wider sm:text-base">
-              {availableFor}
-            </p>
-            <TechLogos />
-          </div>
         </div>
-      </div>
-    </section>
+      </section>
+      <motion.section
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.0, duration: 0.6 }}
+        className="relative mt-8 w-full border-t"
+      >
+        <p className="hidden font-medium text-foreground text-sm tracking-wider sm:text-base">
+          {availableFor}
+        </p>
+        <TechLogos />
+      </motion.section>
+    </>
   );
 };

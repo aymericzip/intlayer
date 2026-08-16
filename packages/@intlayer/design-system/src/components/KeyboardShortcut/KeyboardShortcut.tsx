@@ -298,7 +298,7 @@ export const KeyboardShortcut: FC<KeyboardShortcutProps> = ({
         'inline-flex items-center justify-center gap-0.5 p-0.5',
         'rounded-lg [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-xl',
         'font-medium font-sans',
-        'border-1 border-neutral/20 text-neutral',
+        'border-1 text-neutral',
         size === 'sm' && 'text-xs',
         size === 'md' && 'text-sm',
         size === 'lg' && 'text-base',
@@ -314,7 +314,7 @@ export const KeyboardShortcut: FC<KeyboardShortcutProps> = ({
             <span
               className={cn(
                 'min-w-4 px-0.5 text-center',
-                isKeyPressed(key) && 'scale-120 font-bold text-text'
+                isKeyPressed(key) && 'scale-120 font-bold text-foreground'
               )}
               suppressHydrationWarning
             >

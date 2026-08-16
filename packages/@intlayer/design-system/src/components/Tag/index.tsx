@@ -193,7 +193,7 @@ const containerVariants = cva('w-fit backdrop-blur', {
       error: 'border-error bg-error/10 text-error',
       warning: 'border-warning bg-warning/10 text-warning',
       neutral: '/10 border-neutral bg-neutral/10 text-neutral',
-      text: 'border-text bg-text/10 text-text',
+      text: 'border-text bg-text/10 text-foreground',
       black: 'border-black bg-black/10 text-black',
       white: 'border-white bg-white/10 text-white',
     },

@@ -46,11 +46,11 @@ export const badgeVariants = cva(
         neutral: 'border-neutral bg-neutral text-neutral hover:bg-neutral-600',
         light: 'border-white bg-white text-white hover:bg-neutral-500',
         dark: 'border-neutral-800 bg-neutral-800 text-neutral-800 hover:bg-neutral-900',
-        text: 'border-text bg-text text-text hover:opacity-80',
+        text: 'border-text bg-text text-foreground hover:opacity-80',
         custom: '',
       },
       variant: {
-        default: 'rounded-lg text-text-opposite',
+        default: 'rounded-lg text-foreground-opposite',
         none: 'border-none bg-opacity-0 text-inherit hover:bg-opacity-0',
         outline: 'rounded-lg border-[1.3px] bg-opacity-0 hover:bg-opacity-30',
         hoverable:

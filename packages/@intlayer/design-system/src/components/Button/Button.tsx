@@ -95,20 +95,23 @@ export const buttonVariants = cva(
       },
       color: {
         primary:
-          'hover-primary-500/20 text-primary ring-primary-500/20 *:text-text-light',
+          'hover-primary-500/20 text-primary ring-primary-500/20 *:text-foreground-light',
         secondary:
-          'hover-secondary-500/20 text-secondary ring-secondary-500/20 *:text-text-light',
-        neutral: 'text-neutral ring-neutral-500/5 *:text-text-light',
-        card: 'hover-card-500/20 text-card ring-card-500/20 *:text-text-light',
-        light: 'hover-white-500/20 text-white ring-white/20 *:text-text-light',
-        dark: 'text-neutral-800 ring-text-light/50 *:text-text-light',
-        text: 'text-text ring-text/20 *:text-text-opposite',
+          'hover-secondary-500/20 text-secondary ring-secondary-500/20 *:text-foreground-light',
+        neutral: 'text-neutral ring-neutral-500/5 *:text-foreground-light',
+        card: 'hover-card-500/20 text-card-foreground ring-card-500/20 *:text-foreground-light',
+        light:
+          'hover-white-500/20 text-white ring-white/20 *:text-foreground-light',
+        dark: 'text-neutral-800 ring-text-light/50 *:text-foreground-light',
+        text: 'text-foreground ring-text/20 *:text-foreground-opposite',
         current:
-          'hover-current-500/10 text-current ring-current/10 *:text-text-light',
-        'text-inverse': 'text-text-opposite ring-text-opposite/20 *:text-text',
-        error: 'hover-error-500/20 text-error ring-error/20 *:text-text-light',
+          'hover-current-500/10 text-current ring-current/10 *:text-foreground-light',
+        'text-inverse':
+          'text-foreground-opposite ring-text-opposite/20 *:text-foreground',
+        error:
+          'hover-error-500/20 text-error ring-error/20 *:text-foreground-light',
         success:
-          'hover-success-500/20 text-success ring-success/20 *:text-text-light',
+          'hover-success-500/20 text-success ring-success/20 *:text-foreground-light',
         custom: '',
       },
       roundedSize: {
@@ -159,13 +162,13 @@ export const buttonVariants = cva(
         ],
         input: [
           // base styles
-          'text-text',
+          'text-foreground',
           'w-full select-text resize-none rounded-2xl text-base shadow-none outline-none supports-[corner-shape:squircle]:rounded-4xl',
           'transition-shadow duration-100 md:text-sm',
           'ring-0', // base ring
           'disabled:opacity-50',
 
-          'text-text',
+          'text-foreground',
           'bg-neutral-50 dark:bg-neutral-950',
           'ring-neutral-100 dark:ring-neutral-700',
 

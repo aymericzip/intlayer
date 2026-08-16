@@ -78,8 +78,8 @@
       "import": "./dist/esm/tailwind.config.mjs",
       "default": "./dist/esm/tailwind.config.mjs"
     },
-    "./css": "./tailwind.css",
-    "./css-output": "./dist/tailwind.css",
+    "./css": "./styles/globals.css",
+    "./css-output": "./dist/styles/globals.css",
     "./markdown-editor.css": "./src/components/MarkdownEditor/markdown-editor.css",
     "./package.json": "./package.json",
     "./accordion": {
@@ -413,14 +413,14 @@
   "files": [
     "dist",
     "package.json",
-    "tailwind.css",
+    "styles/globals.css",
     "tw-source.css",
     "src/components/MarkdownEditor/markdown-editor.css"
   ],
   "scripts": {
     "build": "bun --bun tsdown --config tsdown.config.ts",
     "build:ci": "bun --bun tsdown --config tsdown.config.ts",
-    "build:css": "npx tailwindcss --minify -i ./tailwind.css -o ./dist/tailwind.css",
+    "build:css": "npx tailwindcss --minify -i ./styles/globals.css -o ./dist/styles/globals.css",
     "build:intlayer": "intlayer build",
     "build:package": "bun --bun tsdown --config tsdown.config.ts",
     "build:storybook": "storybook build",

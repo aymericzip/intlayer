@@ -20,7 +20,7 @@ export const SitemapSection: FC<SitemapSectionProps> = memo(
 
     return (
       <>
-        <h3 className="mt-6 mb-3 font-semibold text-lg text-text/80">
+        <h3 className="mt-6 mb-3 font-semibold text-foreground/80 text-lg">
           {sections?.sitemap}
         </h3>
         <div className="mt-2 grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-x-8 gap-y-2 px-2 text-sm">

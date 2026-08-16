@@ -19,7 +19,7 @@ const collapsibleTableVariants = cva(
         full: 'w-full max-w-none',
       },
       variant: {
-        default: 'border-neutral/20 bg-card',
+        default: 'bg-card',
         dark: 'border-[#B5B5B5] bg-[#242424]',
         ghost: 'border-transparent bg-transparent',
         outlined: 'border-2 border-primary/20 bg-background',
@@ -53,8 +53,8 @@ const headerVariants = cva(
       },
       borderStyle: {
         none: '',
-        dashed: 'border-neutral/20 border-b border-dotted',
-        solid: 'border-neutral/20 border-b border-solid',
+        dashed: 'border-b border-dotted',
+        solid: 'border-b border-solid',
       },
     },
     defaultVariants: {
@@ -259,7 +259,7 @@ export const CollapsibleTable: FC<CollapsibleTableProps> = ({
                   <th
                     key={column}
                     className={cn(
-                      'pb-2 text-left font-medium text-sm text-text/70',
+                      'pb-2 text-left font-medium text-foreground/70 text-sm',
                       thClassName
                     )}
                   >
@@ -281,7 +281,7 @@ export const CollapsibleTable: FC<CollapsibleTableProps> = ({
                     <td
                       key={column}
                       className={cn(
-                        'rounded px-3 py-2 text-sm text-text',
+                        'rounded px-3 py-2 text-foreground text-sm',
                         tdClassName
                       )}
                     >

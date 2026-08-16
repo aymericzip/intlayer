@@ -117,7 +117,7 @@ const Titles: FC<TitlesProps> = ({ sections, activeIndex, isMobile }) => (
     {sections.map((section, index) => (
       <motion.h3
         key={section.id.value}
-        className="absolute top-1/4 left-3 inline font-bold text-neutral text-xl leading-snug drop-shadow-sm aria-selected:text-text"
+        className="absolute top-1/4 left-3 inline font-bold text-neutral text-xl leading-snug drop-shadow-sm aria-selected:text-foreground"
         initial={getTitlePlacement(index, INITIAL_ACTIVE_INDEX, isMobile)}
         animate={getTitlePlacement(index, activeIndex, isMobile)}
         role="tab"

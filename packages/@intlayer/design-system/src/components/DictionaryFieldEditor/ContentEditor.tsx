@@ -166,7 +166,7 @@ export const ContentEditor: FC<NodeEditorProps> = ({ dictionary }) => {
                     onClick={() => !isActive && switchSibling(sibling)}
                     className={`rounded-lg px-3 py-1 text-xs transition-colors ${
                       isActive
-                        ? 'bg-text font-semibold text-text-opposite'
+                        ? 'bg-text font-semibold text-foreground-opposite'
                         : 'cursor-pointer border border-border hover:bg-text/10'
                     }`}
                   >
@@ -176,7 +176,7 @@ export const ContentEditor: FC<NodeEditorProps> = ({ dictionary }) => {
               })}
               {currentVariant !== undefined &&
                 !variantDicts.some((d) => d.localId === dictionary.localId) && (
-                  <span className="rounded-lg bg-text px-3 py-1 font-semibold text-text-opposite text-xs">
+                  <span className="rounded-lg bg-text px-3 py-1 font-semibold text-foreground-opposite text-xs">
                     {formatVariant(currentVariant)}
                   </span>
                 )}

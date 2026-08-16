@@ -62,7 +62,7 @@ const TabContext = createContext<TabContextType | undefined>(undefined);
 const tabContainerVariant = cva('relative w-full rounded-lg', {
   variants: {
     background: {
-      with: 'border border-neutral/20 bg-background/2 shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] backdrop-blur',
+      with: 'border bg-background/2 shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] backdrop-blur',
       without: '',
     },
     variant: {

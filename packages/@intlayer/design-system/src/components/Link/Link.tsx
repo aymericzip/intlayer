@@ -58,10 +58,10 @@ export const linkVariants = cva(
           'h-auto justify-start border-inherit bg-current/0 px-1',
 
         button:
-          'relative inline-flex min-h-8 cursor-pointer flex-row items-center justify-center gap-2 rounded-full bg-current px-6 text-center font-medium text-sm text-text ring-0 *:text-text-opposite hover:bg-current/90 hover:ring-5 aria-selected:ring-5 aria-[current]:ring-5 max-md:py-2',
+          'relative inline-flex min-h-8 cursor-pointer flex-row items-center justify-center gap-2 rounded-full bg-current px-6 text-center font-medium text-foreground text-sm ring-0 *:text-foreground-opposite hover:bg-current/90 hover:ring-5 aria-selected:ring-5 aria-[current]:ring-5 max-md:py-2',
 
         'button-outlined':
-          'relative inline-flex min-h-8 cursor-pointer flex-row items-center justify-center gap-2 rounded-full border-[1.3px] border-current px-6 text-center font-medium text-sm text-text ring-0 *:text-text hover:bg-current/20 hover:ring-5 aria-selected:ring-5 aria-[current]:ring-5 max-md:py-2',
+          'relative inline-flex min-h-8 cursor-pointer flex-row items-center justify-center gap-2 rounded-full border-[1.3px] border-current px-6 text-center font-medium text-foreground text-sm ring-0 *:text-foreground hover:bg-current/20 hover:ring-5 aria-selected:ring-5 aria-[current]:ring-5 max-md:py-2',
 
         hoverable:
           'rounded-lg border-none bg-current/0 transition *:text-current! hover:bg-current/10 aria-[current]:bg-current/5',
@@ -84,8 +84,8 @@ export const linkVariants = cva(
         neutral: 'text-neutral',
         light: 'text-white',
         dark: 'text-neutral-800',
-        text: 'text-text',
-        'text-inverse': 'text-text-opposite',
+        text: 'text-foreground',
+        'text-inverse': 'text-foreground-opposite',
         error: 'text-error',
         success: 'text-success',
         custom: '',
@@ -111,10 +111,10 @@ export const linkVariants = cva(
       {
         // Filled Button + Inverse Color (e.g., White Button):
         // We DO NOT override parent text color (it must remain 'text-opposite' so bg-current is white).
-        // We ONLY override children to be 'text-text' (Dark) so they show up on white.
+        // We ONLY override children to be 'text-foreground' (Dark) so they show up on white.
         variant: 'button',
         color: 'text-inverse',
-        class: '*:text-text',
+        class: '*:text-foreground',
       },
       {
         // Outlined Button + Inverse Color (e.g., White Border):
@@ -122,7 +122,7 @@ export const linkVariants = cva(
         // Children must also be 'text-opposite' (White text) to show on dark background.
         variant: 'button-outlined',
         color: 'text-inverse',
-        class: 'text-text-opposite *:text-text-opposite',
+        class: 'text-foreground-opposite *:text-foreground-opposite',
       },
 
       // Min height and padding for button variants

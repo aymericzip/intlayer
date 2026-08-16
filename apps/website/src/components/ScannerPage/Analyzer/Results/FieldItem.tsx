@@ -135,7 +135,7 @@ export const FieldItem: FC<FieldItemProps> = ({
   <div className="grid grid-cols-[auto_auto_1fr_auto] items-center gap-2 rounded-lg px-2 py-1 text-neutral">
     {icon}
     <strong className="min-w-28">{label}:</strong>
-    <span className="flex items-center justify-end gap-2 text-left text-text/70">
+    <span className="flex items-center justify-end gap-2 text-left text-foreground/70">
       <EventTag id={`${id}-success`} event={event} isLoading={isLoading}>
         {children}
       </EventTag>
