@@ -64,7 +64,7 @@ export const PainPointsSection: FC = () => {
               border={true}
               className="relative"
             >
-              <div className="mb-5 flex size-12 items-center justify-center rounded-xl bg-neutral/10 text-foreground">
+              <div className="mb-5 flex size-12 items-center justify-center rounded-lg bg-neutral/10 text-foreground">
                 {iconMap[point.icon.value]}
               </div>
               <h3 className="mb-3 font-semibold text-foreground text-xl">

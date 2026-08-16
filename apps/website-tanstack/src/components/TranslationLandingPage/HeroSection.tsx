@@ -176,7 +176,7 @@ export const HeroSection: FC = () => {
           >
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <div className="rounded-xl bg-text/10 p-2">
+                <div className="rounded-lg bg-text/10 p-2">
                   <Globe className="size-5 text-foreground" />
                 </div>
                 <div className="font-medium text-foreground text-sm">

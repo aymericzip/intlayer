@@ -107,7 +107,7 @@ export const UrlDiscoveryList: FC<UrlDiscoveryListProps> = ({
         placeholder={searchPlaceholder.value}
       />
 
-      <div className="max-h-80 overflow-auto rounded-xl border border-neutral/20 bg-card/50">
+      <div className="max-h-80 overflow-auto rounded-lg border border-neutral/20 bg-card/50">
         <table className="w-full text-left text-sm">
           <thead className="sticky top-0 z-10 bg-card shadow-sm">
             <tr>
