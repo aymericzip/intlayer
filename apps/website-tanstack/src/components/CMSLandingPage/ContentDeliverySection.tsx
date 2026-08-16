@@ -108,7 +108,7 @@ export const ContentDeliverySection: FC = () => {
                 </Tag>
               )}
 
-              <div className="mb-5 flex size-12 items-center justify-center rounded-xl bg-neutral/10 text-foreground">
+              <div className="mb-5 flex size-12 items-center justify-center rounded-lg bg-neutral/10 text-foreground">
                 {iconMap[mode.icon.value] ?? <Zap className="size-6" />}
               </div>
 
