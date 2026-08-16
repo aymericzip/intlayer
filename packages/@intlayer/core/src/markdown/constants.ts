@@ -199,6 +199,8 @@ export const BREAK_THEMATIC_R = /^(?:([-*_])( *\1){2,}) *(?:\n *)+\n/;
 export const CODE_BLOCK_FENCED_R =
   /^(?: {1,3})?(`{3,}|~{3,}) *(\S+)? *([^\n]*?)?\n([\s\S]*?)(?:\1\n?|$)/;
 export const CODE_BLOCK_R = /^(?: {4}[^\n]+\n*)+(?:\n *)+\n?/;
+/** A single line opening or closing a fenced code block, with its indentation. */
+export const FENCE_DELIMITER_R = /^([ \t]*)(`{3,}|~{3,})/;
 export const CODE_INLINE_R = /^(`+)((?:\\`|(?!\1)`|[^`])+)\1/;
 
 /** Newline patterns */

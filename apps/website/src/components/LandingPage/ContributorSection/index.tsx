@@ -15,11 +15,11 @@ const shuffleArray = (array: Contributor[]): Contributor[] => {
   return shuffled;
 };
 
-const contributors = await getContributors()
-  .then(shuffleArray)
-  .then((array) => array.slice(0, 40));
+export const ContributorSection: FC = async () => {
+  const contributors = await getContributors()
+    .then(shuffleArray)
+    .then((array) => array.slice(0, 40));
 
-export const ContributorSection: FC = () => {
   if (contributors.length === 0) {
     return null;
   }

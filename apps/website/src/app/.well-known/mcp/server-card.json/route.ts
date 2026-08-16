@@ -1,8 +1,5 @@
 import { Mcp_Root, Website_Doc_MCP } from '@intlayer/design-system/routes';
 
-/** Re-probe the MCP server at most once an hour. */
-export const revalidate = 3600;
-
 type McpServerInfo = {
   readonly name: string;
   readonly version: string;

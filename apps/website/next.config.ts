@@ -274,6 +274,8 @@ const nextConfig: NextConfig = {
       'zod',
     ],
   },
+  // cacheComponents: true,
+  // partialPrefetching: true,
   outputFileTracingRoot: join(process.cwd(), '../../'),
   reactCompiler: true,
   productionBrowserSourceMaps: true,

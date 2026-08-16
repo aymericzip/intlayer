@@ -5,13 +5,12 @@ import { WebsiteHeader } from '@structuredData/WebsiteHeader';
 import { urlRenamer } from '@utils/markdown';
 import { assertSafeRemoteMarkdownUrl } from '@utils/remoteMarkdownUrl';
 import { getIntlayer, type LocalesValues } from 'intlayer';
+import { connection } from 'next/server';
 import type { LocalPromiseParams } from 'next-intlayer';
 import { IntlayerServerProvider } from 'next-intlayer/server';
 import type { ReactNode } from 'react';
 import { MarkdownPreviewEmptyState } from './MarkdownPreviewEmptyState';
 import { MarkdownPreviewErrorState } from './MarkdownPreviewErrorState';
-
-export const dynamic = 'force-dynamic';
 
 type MarkdownPreviewPageProps = LocalPromiseParams & {
   searchParams: Promise<{ url?: string | string[] }>;
@@ -35,10 +34,20 @@ const fetchRemoteMarkdown = async (source: URL): Promise<string> => {
   return response.text();
 };
 
+/**
+ * Renders a remote markdown document named by the `url` search param.
+ *
+ * `connection()` replaces the `dynamic = 'force-dynamic'` segment config, which
+ * Cache Components does not accept. The page is request-time by nature — it
+ * reads `searchParams` and fetches an arbitrary URL with `no-store`, both of
+ * which return promises that never resolve during a prerender.
+ */
 const MarkdownPreviewPage = async ({
   params,
   searchParams,
 }: MarkdownPreviewPageProps): Promise<ReactNode> => {
+  await connection();
+
   const { locale } = await params;
   const sp = await searchParams;
   const rawUrl = firstString(sp.url);

@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import type { FC } from 'react';
+import { connection } from 'next/server';
 
 export { generateMetadata } from './metadata';
 
@@ -13,7 +13,17 @@ export { generateMetadata } from './metadata';
  * A missing chunk then resolved as a cacheable 200 HTML document, which the CDN
  * pinned under a `.js` URL — the browser refuses to execute it
  * ("MIME type ('text/html') is not executable") and the chunk can never recover.
+ *
+ * `connection()` opts the route into request-time rendering. Cache Components
+ * otherwise rejects the build: `generateMetadata` reads `params` (runtime data)
+ * while this page is fully prerenderable, and streaming metadata into a static
+ * shell is refused unless the deferral is explicit. Request-time rendering is
+ * also what a catch-all 404 wants — nothing here is worth a static shell.
  */
-const NotFoundCatchAllPage: FC = () => notFound();
+const NotFoundCatchAllPage = async (): Promise<never> => {
+  await connection();
+
+  notFound();
+};
 
 export default NotFoundCatchAllPage;

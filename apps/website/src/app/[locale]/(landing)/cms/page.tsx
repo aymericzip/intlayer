@@ -10,10 +10,9 @@ import { generateMetadata } from './metadata';
 
 export { generateMetadata };
 
-const pricings = await getPricing();
-
 const Page: NextPageIntlayer = async ({ params }) => {
   const { locale } = await params;
+  const pricings = await getPricing();
 
   return (
     <IntlayerServerProvider locale={locale}>

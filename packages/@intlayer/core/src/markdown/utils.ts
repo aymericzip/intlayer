@@ -3,6 +3,7 @@ import {
   CAPTURE_LETTER_AFTER_HYPHEN,
   CR_NEWLINE_R,
   DURATION_DELAY_TRIGGER,
+  FENCE_DELIMITER_R,
   FORMFEED_R,
   HTML_CUSTOM_ATTR_R,
   INTERPOLATION_R,
@@ -168,6 +169,12 @@ export const normalizeWhitespace = (source: string): string => {
 /**
  * Safely remove a uniform leading indentation from lines, but do NOT touch
  * the content inside fenced code blocks (``` or ~~~).
+ *
+ * Inside a fenced block the structural indentation is irrelevant: what matters
+ * is the indentation of the opening fence itself, which is the only amount
+ * CommonMark strips from the code lines. A block nested in an indented HTML
+ * element but written with its fence at column 0 therefore keeps its code
+ * verbatim, instead of losing the first level of indentation.
  */
 export const trimLeadingWhitespaceOutsideFences = (
   text: string,
@@ -178,13 +185,31 @@ export const trimLeadingWhitespaceOutsideFences = (
 
   const lines = text.split('\n');
 
-  // Strip the base structural indentation from every line uniformly.
-  // Lines that don't start with the whitespace prefix are left as-is,
-  // which correctly preserves relative indentation inside code fences.
+  /** Indentation and marker of the fence currently open, if any. */
+  let openFence: { indentation: string; marker: string } | null = null;
+
+  const removePrefix = (line: string, prefix: string): string =>
+    prefix && line.startsWith(prefix) ? line.slice(prefix.length) : line;
+
+  // Outside fences, strip the base structural indentation from every line.
+  // Lines that don't start with the whitespace prefix are left as-is.
   const result = lines
-    .map((line) =>
-      line.startsWith(whitespace) ? line.slice(whitespace.length) : line
-    )
+    .map((line) => {
+      const fenceMatch = line.match(FENCE_DELIMITER_R);
+
+      if (!openFence) {
+        if (fenceMatch)
+          openFence = { indentation: fenceMatch[1], marker: fenceMatch[2] };
+        return removePrefix(line, whitespace);
+      }
+
+      const isClosingFence = fenceMatch?.[2].startsWith(openFence.marker);
+      const { indentation } = openFence;
+
+      if (isClosingFence) openFence = null;
+
+      return removePrefix(line, indentation);
+    })
     .join('\n');
 
   const duration = performance.now() - start;

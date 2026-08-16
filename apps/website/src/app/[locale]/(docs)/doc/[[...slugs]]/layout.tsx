@@ -1,12 +1,17 @@
 import { DocPageLayout } from '@components/DocPage/DocPageLayout';
 import { getDocData } from '@components/DocPage/docData';
 import { getImageWithMetadata } from '@components/getImageWithMetadata';
-import { getDocMetadataBySlug } from '@intlayer/docs';
+import { type DocMetadata, getDocMetadataBySlug } from '@intlayer/docs';
 import {
   getSlugsStaticParams,
   type SlugsStaticParams,
 } from '@utils/docMetadata';
-import { getLocalizedUrl, getMultilingualUrls, Locales } from 'intlayer';
+import {
+  getLocalizedUrl,
+  getMultilingualUrls,
+  Locales,
+  type LocalesValues,
+} from 'intlayer';
 import type { Metadata } from 'next';
 import type { LocalPromiseParams, NextLayoutIntlayer } from 'next-intlayer';
 
@@ -22,26 +27,36 @@ export const generateStaticParams = async (): Promise<SlugsStaticParams[]> => {
   return getSlugsStaticParams(docMetadata);
 };
 
+/**
+ * Resolves the document matching the requested slugs.
+ *
+ * `'use cache'` is required by Cache Components: `generateMetadata` runs before
+ * the page, so it performs the first — and therefore uncached — read of the
+ * localized markdown file. That defers metadata to request time while the page,
+ * reading the same file from the in-process cache by then, stays prerenderable;
+ * Cache Components refuses to stream runtime metadata into a static shell.
+ */
+const getDocMetadataForSlugs = async (
+  locale: LocalesValues | undefined,
+  slugs: string[]
+): Promise<DocMetadata | null> => {
+  'use cache';
+
+  const docsData = await getDocMetadataBySlug(['doc', ...slugs], locale, true);
+
+  return docsData.find((doc) => doc.slugs.length === slugs.length + 1) ?? null;
+};
+
 export const generateMetadata = async ({
   params,
 }: DocPageProps): Promise<Metadata> => {
   const { locale, slugs } = await params;
 
-  const docsData = await getDocMetadataBySlug(
-    ['doc', ...(slugs ?? [])],
-    locale,
-    true
-  );
+  const docData = await getDocMetadataForSlugs(locale, slugs ?? []);
 
-  const filteredDocsData = docsData.filter(
-    (doc) => doc.slugs.length === slugs.length + 1
-  );
-
-  if (!filteredDocsData || filteredDocsData.length === 0) {
+  if (!docData) {
     return {};
   }
-
-  const docData = filteredDocsData[0];
 
   const absoluteUrl = docData.url;
   const title = `${docData.title} | Intlayer`;

@@ -7,10 +7,9 @@ import { getPricing } from '@utils/stripe';
 import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider } from 'next-intlayer/server';
 
-const pricings = await getPricing();
-
 const LandingPage: NextPageIntlayer = async ({ params }) => {
   const { locale } = await params;
+  const pricings = await getPricing();
 
   return (
     <IntlayerServerProvider locale={locale}>

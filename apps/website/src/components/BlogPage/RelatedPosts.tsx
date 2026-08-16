@@ -12,8 +12,55 @@ type RelatedPostsProps = {
 };
 
 /**
- * Displays a grid of randomly-selected related blog posts,
- * excluding the currently-viewed post.
+ * FNV-1a 32-bit hash of a string, used to derive a shuffle seed from a
+ * document key.
+ */
+const hashString = (value: string): number => {
+  let hash = 2166136261;
+
+  for (let index = 0; index < value.length; index++) {
+    hash ^= value.charCodeAt(index);
+    hash = Math.imul(hash, 16777619);
+  }
+
+  return hash >>> 0;
+};
+
+/**
+ * Mulberry32 pseudo-random generator returning values in [0, 1).
+ * Deterministic for a given seed.
+ */
+const createRandomGenerator = (seed: number): (() => number) => {
+  let state = seed >>> 0;
+
+  return () => {
+    state = (state + 0x6d2b79f5) >>> 0;
+    let result = Math.imul(state ^ (state >>> 15), 1 | state);
+    result ^= result + Math.imul(result ^ (result >>> 7), 61 | result);
+    return ((result ^ (result >>> 14)) >>> 0) / 4294967296;
+  };
+};
+
+/**
+ * Shuffles by sorting on a seeded random key per item, so the same seed always
+ * yields the same order. Keeps the output stable between prerender, server and
+ * client renders.
+ */
+const shuffleWithSeed = <ItemType,>(
+  items: ItemType[],
+  seed: number
+): ItemType[] => {
+  const random = createRandomGenerator(seed);
+
+  return items
+    .map((item) => ({ item, sortKey: random() }))
+    .sort((a, b) => a.sortKey - b.sortKey)
+    .map(({ item }) => item);
+};
+
+/**
+ * Displays a grid of related blog posts, excluding the currently-viewed post.
+ * The selection is shuffled deterministically from the current document key.
  */
 export const RelatedPosts: FC<RelatedPostsProps> = ({
   allBlogs,
@@ -26,7 +73,7 @@ export const RelatedPosts: FC<RelatedPostsProps> = ({
   const relatedPosts = useMemo(() => {
     const candidates = allBlogs.filter((blog) => blog.docKey !== currentDocKey);
 
-    const shuffled = [...candidates].sort(() => Math.random() - 0.5);
+    const shuffled = shuffleWithSeed(candidates, hashString(currentDocKey));
 
     return shuffled.slice(0, count);
   }, [allBlogs, currentDocKey, count]);
