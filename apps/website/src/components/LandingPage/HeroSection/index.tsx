@@ -1,5 +1,5 @@
 import { Button } from '@intlayer/design-system/button';
-import { Container } from '@intlayer/design-system/container';
+import { Container, ContainerMotion } from '@intlayer/design-system/container';
 import { useCopyToClipboard } from '@intlayer/design-system/copy-to-clipboard';
 import { CodeBlock } from '@intlayer/design-system/ide';
 import {
@@ -37,8 +37,9 @@ export const HeroSection: FC = () => {
 
   return (
     <>
-      <section className="relative flex w-full flex-col px-4 md:px-8 lg:px-12">
+      <section className="relative flex w-full flex-col border-b px-4 md:px-8 lg:px-12">
         <div className="flex flex-1 flex-col items-center justify-center pt-16 pb-8">
+          {SHOW_WHATS_NEW && (
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -47,12 +48,12 @@ export const HeroSection: FC = () => {
             >
               <Link to={Website_ReleasesV9_Path} label={whatsNewLabel.value}>
                 <Tag
-                  size="sm"
+                  size="md"
                   border="with"
                   className="flex items-center gap-2 rounded-full border font-medium text-foreground text-sm"
                 >
                   <Megaphone className="size-4" />
-                  <span className="flex items-center gap-1 font-medium text-sm sm:text-sm">
+                  <span className="no-underline! flex items-center gap-1 font-medium text-sm sm:text-sm">
                     {version} v{packageJSON.version}{' '}
                     <ArrowRight className="size-3" />
                   </span>
@@ -82,10 +83,12 @@ export const HeroSection: FC = () => {
             {description}
           </p>
           {/* Copyable code block */}
-          <Container
-            roundedSize="2xl"
-            className="hero-enter-lift m-auto mt-24 max-w-2xl flex-row items-center p-1 pl-6"
-            style={{ animationDelay: '0.7s' }}
+          <ContainerMotion
+            initial={{ opacity: 0, y: 0 }}
+            animate={{ opacity: 1, y: -30 }}
+            transition={{ delay: 0.7, duration: 0.6 }}
+            roundedSize="xl"
+            className="m-auto mt-24 w-full max-w-2xl flex-row items-center border p-1 pl-6"
           >
             <CodeBlock lang="bash">npx intlayer init</CodeBlock>
             <Button
@@ -96,7 +99,7 @@ export const HeroSection: FC = () => {
               Icon={isCopied ? Check : Copy}
               label={copyButton.value}
             />
-          </Container>
+          </ContainerMotion>
           {/* Action Buttons */}
           <div
             className="hero-enter mt-10 mb-6 flex flex-col justify-center gap-3 sm:flex-row sm:gap-4 lg:mb-10"
@@ -136,7 +139,7 @@ export const HeroSection: FC = () => {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.0, duration: 0.6 }}
-        className="relative mt-8 w-full border-t"
+        className="relative w-full border-b"
       >
         <p className="hidden font-medium text-foreground text-sm tracking-wider sm:text-base">
           {availableFor}

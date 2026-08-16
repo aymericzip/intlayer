@@ -91,7 +91,7 @@ export const FeaturesSection: FC = () => {
               border={true}
               className="group flex flex-col gap-4"
             >
-              <div className="flex size-12 items-center justify-center rounded-xl bg-neutral/10 text-foreground transition-colors group-hover:bg-primary/10 group-hover:text-primary">
+              <div className="flex size-12 items-center justify-center rounded-lg bg-neutral/10 text-foreground transition-colors group-hover:bg-primary/10 group-hover:text-primary">
                 {iconMap[feature.icon.value] ?? <Sparkles className="size-6" />}
               </div>
 

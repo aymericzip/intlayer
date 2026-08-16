@@ -46,7 +46,7 @@ export const VisualEditorSection: FC = () => {
     >
       <video
         ref={videoRef}
-        className="rounded-xl"
+        className="rounded-lg"
         aria-label="Visual Editor"
         loop
         muted
