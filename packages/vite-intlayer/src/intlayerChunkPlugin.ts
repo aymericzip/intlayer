@@ -183,49 +183,60 @@ export const intlayerChunk = (intlayerConfig: IntlayerConfig): Plugin => {
 
     config: () => {
       return {
-        build: {
-          rolldownOptions: {
-            output: {
-              advancedChunks: {
-                groups: [
-                  {
-                    name: (moduleId: string, context: ChunkingContext) => {
-                      const match = DICTIONARY_JSON_PATTERN.exec(
-                        toPosix(moduleId)
-                      );
-                      const locale = match?.groups?.locale;
-                      if (!locale) return null;
+        // Scoped to the client build. Dictionary chunks only exist to be
+        // fetched by a browser, and `build` at the top level would apply to
+        // every environment — re-chunking the server bundle too, where
+        // reordering a dependency's modules can break their initialisation.
+        environments: {
+          client: {
+            build: {
+              rolldownOptions: {
+                output: {
+                  codeSplitting: {
+                    groups: [
+                      {
+                        name: (moduleId: string, context: ChunkingContext) => {
+                          const match = DICTIONARY_JSON_PATTERN.exec(
+                            toPosix(moduleId)
+                          );
+                          const locale = match?.groups?.locale;
+                          if (!locale) return null;
 
-                      const boundaries = resolveBoundaries(moduleId, context);
-                      if (boundaries.length === 0) {
-                        unresolved.push(moduleId);
-                        return null;
-                      }
+                          const boundaries = resolveBoundaries(
+                            moduleId,
+                            context
+                          );
+                          if (boundaries.length === 0) {
+                            unresolved.push(moduleId);
+                            return null;
+                          }
 
-                      const scope =
-                        boundaries.length > 1
-                          ? 'shared'
-                          : toBoundaryName(boundaries[0]!);
+                          const scope =
+                            boundaries.length > 1
+                              ? 'shared'
+                              : toBoundaryName(boundaries[0]!);
 
-                      appLogger(
-                        `Chunk group ${colorize(`intlayer-${scope}-${locale}`, GREY_LIGHT)} ← ${match?.groups?.key && colorizeKey(match?.groups?.key)} (boundaries: ${colorizePath(boundaries.map((path) => relative(intlayerConfig.system.baseDir, path)).join(', '))})`,
-                        { isVerbose: true }
-                      );
+                          appLogger(
+                            `Chunk group ${colorize(`intlayer-${scope}-${locale}`, GREY_LIGHT)} ← ${match?.groups?.key && colorizeKey(match?.groups?.key)} (boundaries: ${colorizePath(boundaries.map((path) => relative(intlayerConfig.system.baseDir, path)).join(', '))})`,
+                            { isVerbose: true }
+                          );
 
-                      return assign(
-                        `intlayer-${scope}-${locale}`,
-                        match?.groups?.key ?? moduleId
-                      );
-                    },
-                    test: isDictionaryModule,
-                    // Dictionaries are small individually; the point is to
-                    // group them, so the surrounding build's size floor must
-                    // not dissolve these chunks back into their parents.
-                    minSize: 0,
-                    minShareCount: 1,
-                    priority: 50,
+                          return assign(
+                            `intlayer-${scope}-${locale}`,
+                            match?.groups?.key ?? moduleId
+                          );
+                        },
+                        test: isDictionaryModule,
+                        // Dictionaries are small individually; the point is to
+                        // group them, so the surrounding build's size floor must
+                        // not dissolve these chunks back into their parents.
+                        minSize: 0,
+                        minShareCount: 1,
+                        priority: 50,
+                      },
+                    ],
                   },
-                ],
+                },
               },
             },
           },
