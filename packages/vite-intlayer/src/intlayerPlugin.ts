@@ -22,6 +22,7 @@ import { getDictionaries } from '@intlayer/dictionaries-entry';
 import { logConfigDetails } from '@intlayer/engine/logConfigDetails';
 import type { PluginOption } from 'vite';
 import { intlayerCompiler } from './IntlayerCompilerPlugin';
+import { intlayerChunk } from './intlayerChunkPlugin';
 import { intlayerMinify } from './intlayerMinifyPlugin';
 import { intlayerOptimize } from './intlayerOptimizePlugin';
 import {
@@ -271,6 +272,10 @@ export const intlayerPlugin = (
   // Minify: compacts dictionary JSON files (parse + re-stringify).
   // Registered after prune so it receives already-pruned output when both options are active.
   plugins.push(intlayerMinify(intlayerConfig, pruneContext));
+
+  // Chunk: regroups the per-dictionary chunks that `importMode: 'dynamic'`
+  // emits, so each code-split boundary loads its content in one request.
+  plugins.push(intlayerChunk(intlayerConfig));
 
   // Compiler: extracts content declared inline in components into dictionaries.
   // Bundled directly into the main plugin so users no longer need to register
