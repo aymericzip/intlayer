@@ -68,7 +68,7 @@ export const AISelectorCommands = ({ onSelect }: AISelectorCommandsProps) => {
               onSelect(text, value as AICompletionOption);
             }}
           >
-            <option.icon className="size-4 text-text" />
+            <option.icon className="size-4 text-foreground" />
             {getOptionLabel(option.value)}
           </Command.Item>
         ))}
@@ -84,7 +84,7 @@ export const AISelectorCommands = ({ onSelect }: AISelectorCommandsProps) => {
             onSelect(text, 'continue');
           }}
         >
-          <StepForward className="size-4 text-text" />
+          <StepForward className="size-4 text-foreground" />
           {content.continueWriting}
         </Command.Item>
       </Command.Group>

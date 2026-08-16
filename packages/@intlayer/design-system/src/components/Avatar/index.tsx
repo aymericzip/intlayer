@@ -185,7 +185,7 @@ export const Avatar: FC<AvatarProps> = ({
       {...props}
     >
       <div className="relative flex aspect-square size-full flex-row items-center justify-center">
-        <div className="absolute top-0 left-0 flex aspect-square size-full flex-col items-center justify-center rounded-full bg-text text-text-opposite">
+        <div className="absolute top-0 left-0 flex aspect-square size-full flex-col items-center justify-center rounded-full bg-text text-foreground-opposite">
           {displayLoader && (
             <Loader className="w-3/4" aria-label="Loading user avatar" />
           )}

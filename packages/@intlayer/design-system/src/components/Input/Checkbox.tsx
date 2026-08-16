@@ -23,7 +23,7 @@ export const checkboxVariants = cva(
     // centered custom checkmark with text-opposite color
     "checked:before:absolute checked:before:inset-0 checked:before:content-['✓']",
     'checked:before:flex checked:before:items-center checked:before:justify-center',
-    'checked:before:text-text-opposite/80',
+    'checked:before:text-foreground-opposite/80',
 
     // Corner shape
     'rounded-xl [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-2xl',
@@ -50,9 +50,9 @@ export const checkboxVariants = cva(
           'border-neutral/30 text-neutral ring-neutral/20 checked:border-neutral checked:bg-neutral',
         light:
           'border-white/30 text-white ring-white/20 checked:border-white checked:bg-white',
-        text: 'border-text/30 text-text ring-text/20 checked:border-text checked:bg-text',
+        text: 'border-text/30 text-foreground ring-text/20 checked:border-text checked:bg-text',
         'text-inverse':
-          'border-text-inverse/30 text-text-inverse ring-text-inverse/20 checked:border-text-inverse checked:bg-text-inverse',
+          'border-text-inverse/30 text-foreground-inverse ring-text-inverse/20 checked:border-text-inverse checked:bg-text-inverse',
         dark: 'border-neutral-800/30 text-neutral-800 ring-neutral-800/20 checked:border-neutral-800 checked:bg-neutral-800',
         error:
           'border-error/30 text-error ring-error/20 checked:border-error checked:bg-error',

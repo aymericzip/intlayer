@@ -36,7 +36,7 @@ export const ProductSectionLayout: FC<ProductSectionLayoutProps> = ({
       </Tag>
 
       {/* Main Title */}
-      <h2 className="mb-6 max-w-5xl text-center font-bold text-2xl text-text leading-tight">
+      <h2 className="mb-6 max-w-5xl text-center font-bold text-2xl text-foreground leading-tight">
         {title}
       </h2>
 

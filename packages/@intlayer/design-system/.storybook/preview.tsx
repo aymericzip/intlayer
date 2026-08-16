@@ -1,6 +1,6 @@
 import type { Preview, StoryContext } from '@storybook/react';
 import { useEffect } from 'react';
-import '../tailwind.css';
+import '../styles/globals.css';
 
 const ThemeProvider = ({
   children,
@@ -24,7 +24,7 @@ const preview: Preview = {
 
       return (
         <ThemeProvider theme={theme}>
-          <div className="min-h-screen bg-background p-4 text-text">
+          <div className="min-h-screen bg-background p-4 text-foreground">
             <Story />
           </div>
         </ThemeProvider>

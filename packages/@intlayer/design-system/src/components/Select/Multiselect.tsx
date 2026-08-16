@@ -439,7 +439,7 @@ const MultiSelectTrigger: FC<
 
         // Background and text
         'bg-neutral-50 dark:bg-neutral-950',
-        'text-text',
+        'text-foreground',
 
         // Focus ring
         'ring-0',
@@ -545,7 +545,7 @@ const MultiSelectList: typeof Command.List = ({ className, children }) => (
 
       // Background and text
       'bg-white dark:bg-neutral-950',
-      'text-text',
+      'text-foreground',
 
       // Border
       'border border-neutral-200 dark:border-neutral-800',

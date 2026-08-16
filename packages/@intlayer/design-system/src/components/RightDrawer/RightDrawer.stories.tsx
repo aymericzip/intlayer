@@ -133,7 +133,7 @@ export const Default: Story = {
     const { open } = useRightDrawer();
 
     return (
-      <div className="min-h-screen bg-background text-text">
+      <div className="min-h-screen bg-background text-foreground">
         <div className="p-6">
           <button
             type="button"
@@ -215,7 +215,7 @@ export const WithBackButton: Story = {
     const { open } = useRightDrawer();
 
     return (
-      <div className="min-h-screen bg-background text-text">
+      <div className="min-h-screen bg-background text-foreground">
         <div className="p-6">
           <button
             type="button"
@@ -318,7 +318,7 @@ export const Controlled: Story = {
     };
 
     return (
-      <div className="min-h-screen bg-background text-text">
+      <div className="min-h-screen bg-background text-foreground">
         <div className="p-6">
           <div className="space-y-4">
             <button
@@ -461,7 +461,7 @@ export const NoOutsideClose: Story = {
     const { open } = useRightDrawer();
 
     return (
-      <div className="min-h-screen bg-background text-text">
+      <div className="min-h-screen bg-background text-foreground">
         <div className="p-6">
           <button
             type="button"
@@ -590,7 +590,7 @@ export const MultipleDrawers: Story = {
     const { open, close, isOpen } = useRightDrawer();
 
     return (
-      <div className="min-h-screen bg-background text-text">
+      <div className="min-h-screen bg-background text-foreground">
         <div className="p-6">
           <div className="space-y-4">
             <div className="grid grid-cols-1 gap-4 md:grid-cols-3">

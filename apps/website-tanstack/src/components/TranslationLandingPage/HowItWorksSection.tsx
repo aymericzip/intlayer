@@ -40,10 +40,12 @@ export const HowItWorksSection: FC = () => {
         whileInView="show"
         viewport={{ once: true, amount: 0.25 }}
       >
-        <h2 className="font-semibold text-2xl text-text md:text-3xl">
+        <h2 className="font-semibold text-2xl text-foreground md:text-3xl">
           {title}
         </h2>
-        <p className="mt-2 max-w-2xl text-base text-text/70">{description}</p>
+        <p className="mt-2 max-w-2xl text-base text-foreground/70">
+          {description}
+        </p>
       </motion.div>
 
       <motion.div

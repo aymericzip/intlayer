@@ -35,7 +35,7 @@ const Accordion = ({ children, ...props }: AccordionProps) => (
     headerClassName="text-lg!"
     contentClassName="divide-y divide-neutral"
   >
-    <div className="mb-8 flex flex-col gap-6 px-4 pt-6 text-sm text-text/80">
+    <div className="mb-8 flex flex-col gap-6 px-4 pt-6 text-foreground/80 text-sm">
       {children}
     </div>
   </AccordionBase>
@@ -75,7 +75,7 @@ export const DocumentationRender: FC<DocumentationRenderProps> = ({
   const isDarkMode = resolvedTheme === 'dark';
 
   return (
-    <div className="m-auto flex max-w-2xl flex-col gap-8 p-4 text-text/90 max-md:px-0">
+    <div className="m-auto flex max-w-2xl flex-col gap-8 p-4 text-foreground/90 max-md:px-0">
       <MarkdownRenderer
         isDarkMode={isDarkMode}
         locale={locale}

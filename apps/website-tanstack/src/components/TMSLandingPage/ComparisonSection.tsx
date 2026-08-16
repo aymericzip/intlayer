@@ -21,7 +21,7 @@ export const ComparisonSection: FC = () => {
     <section className="py-24">
       <div className="mx-auto max-w-5xl px-4 md:px-8 lg:px-12">
         <m.div {...fadeUp} className="mb-16 text-center">
-          <h2 className="font-bold text-3xl text-text sm:text-4xl">
+          <h2 className="font-bold text-3xl text-foreground sm:text-4xl">
             {comparisonTitle}
           </h2>
         </m.div>
@@ -38,7 +38,7 @@ export const ComparisonSection: FC = () => {
           {/* Header */}
           <div className="grid grid-cols-3 bg-neutral/5 p-6 font-semibold text-neutral">
             <div className="col-span-1">{comparisonHeaders.feature}</div>
-            <div className="col-span-1 font-bold text-text">
+            <div className="col-span-1 font-bold text-foreground">
               {comparisonHeaders.intlayer}
             </div>
             <div className="col-span-1 text-neutral/60">
@@ -53,13 +53,13 @@ export const ComparisonSection: FC = () => {
                 key={index}
                 className="grid grid-cols-3 items-center p-6 text-sm hover:bg-neutral/5 sm:text-base"
               >
-                <div className="col-span-1 font-medium text-text">
+                <div className="col-span-1 font-medium text-foreground">
                   {row.feature}
                 </div>
 
                 {/* Intlayer Column */}
-                <div className="col-span-1 flex items-center gap-2 font-semibold text-text">
-                  <span className="flex size-6 items-center justify-center rounded-full bg-text text-text-opposite">
+                <div className="col-span-1 flex items-center gap-2 font-semibold text-foreground">
+                  <span className="flex size-6 items-center justify-center rounded-full bg-text text-foreground-opposite">
                     <Check className="size-3.5" strokeWidth={3} />
                   </span>
                   {row.intlayer}

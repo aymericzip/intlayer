@@ -786,7 +786,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
                       className={cn(
                         'rounded-lg px-3 py-1 text-xs transition-colors',
                         isActive
-                          ? 'bg-text font-semibold text-text-opposite'
+                          ? 'bg-text font-semibold text-foreground-opposite'
                           : 'cursor-pointer border border-border hover:bg-text/10'
                       )}
                     >
@@ -814,7 +814,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
                       className={cn(
                         'rounded-lg px-3 py-1 text-xs transition-colors',
                         isActive
-                          ? 'bg-text font-semibold text-text-opposite'
+                          ? 'bg-text font-semibold text-foreground-opposite'
                           : 'cursor-pointer border border-border hover:bg-text/10'
                       )}
                     >

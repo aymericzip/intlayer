@@ -1,5 +1,5 @@
-@import "@intlayer/design-system/css";
-@import "tailwindcss";
+@import '@intlayer/design-system/css';
+@import 'tailwindcss';
 
 @media (min-width: 1024px) {
   .no-scrollbar {
@@ -19,6 +19,39 @@
     /* Add text-base for context */
     --text-base: 1rem; /* 16px */
     --text-base-leading: 1.5rem; /* 24px */
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes blur-up {
+  from {
+    opacity: 0;
+    filter: blur(10px);
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
   }
 }
 

@@ -73,11 +73,11 @@ export const AnalyzerSiteResults: FC<AnalyzerSiteResultsProps> = ({
   return (
     <div className="flex flex-col pb-6">
       <div className="mb-4 flex items-center justify-between">
-        <span className="font-semibold text-2xl text-text/70">
+        <span className="font-semibold text-2xl text-foreground/70">
           <span className="mr-2 text-neutral">{scoreTitle?.title}:</span>
 
           <Skeleton isLoading={isLoading && !score}>
-            <span className="mr-1 text-text">{score ?? 0}</span>
+            <span className="mr-1 text-foreground">{score ?? 0}</span>
           </Skeleton>
           <span className="text-neutral text-sm">/100</span>
         </span>
