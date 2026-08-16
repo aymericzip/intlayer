@@ -5,23 +5,23 @@ import { nextjsRewrite } from 'intlayer/routing';
 
 export const locales: Locale[] = [
   Locales.ENGLISH,
-  // Locales.RUSSIAN,
-  // Locales.JAPANESE,
+  Locales.RUSSIAN,
+  Locales.JAPANESE,
   Locales.FRENCH,
-  // Locales.KOREAN,
-  // Locales.CHINESE,
-  // Locales.SPANISH,
-  // Locales.GERMAN,
-  // Locales.ARABIC,
-  // Locales.ITALIAN,
-  // Locales.ENGLISH_UNITED_KINGDOM,
-  // Locales.PORTUGUESE,
-  // Locales.HINDI,
-  // Locales.TURKISH,
-  // Locales.POLISH,
-  // Locales.INDONESIAN,
-  // Locales.VIETNAMESE,
-  // Locales.UKRAINIAN,
+  Locales.KOREAN,
+  Locales.CHINESE,
+  Locales.SPANISH,
+  Locales.GERMAN,
+  Locales.ARABIC,
+  Locales.ITALIAN,
+  Locales.ENGLISH_UNITED_KINGDOM,
+  Locales.PORTUGUESE,
+  Locales.HINDI,
+  Locales.TURKISH,
+  Locales.POLISH,
+  Locales.INDONESIAN,
+  Locales.VIETNAMESE,
+  Locales.UKRAINIAN,
 ];
 export const defaultLocale = Locales.ENGLISH;
 
@@ -101,7 +101,10 @@ const config: CustomIntlayerConfig = {
     clientSecret: import.meta.env.INTLAYER_CLIENT_SECRET,
   },
   dictionary: {
-    importMode: 'dynamic',
+    // Stays 'dynamic' so a page ships only the locale it renders. The chunk
+    // fragmentation this used to cause (one request per dictionary) is handled
+    // by the grouping in `vite-intlayer`, not by inlining every locale.
+    importMode: 'static',
   },
 
   // ai: {

@@ -451,6 +451,50 @@ export default defineConfig(async ({ mode }) => {
     build: {
       rolldownOptions: {
         external: ['wasi_snapshot_preview1', 'env'],
+        output: {
+          /**
+           * Groups modules that are always needed together into single chunks.
+           *
+           * Left to itself the bundler emitted a chunk per module: a cold load
+           * of `/` cost 304 JS requests, 247 of them under 5 KB, arriving in a
+           * six-deep waterfall because each level had to execute before the
+           * next was discovered. Grouping trades a little duplication for far
+           * fewer round trips.
+           *
+           * `minShareCount: 2` stops single-consumer modules from being split
+           * out on their own; `minSize` merges anything smaller into its
+           * parent chunk.
+           */
+          advancedChunks: {
+            minSize: 20_000,
+            // Caps any single group so one chunk cannot become a payload every
+            // page must download in full. An explicit `design-system` group
+            // produced a 617 KB chunk that pushed the documentation pages'
+            // head preload from 633 KB to 1.15 MB — consolidation has to stay
+            // bounded to be worth it.
+            maxSize: 160_000,
+            minShareCount: 2,
+            groups: [
+              // 36 `React.lazy` logo components that render together on the
+              // landing page — one dynamic chunk instead of 36 requests.
+              {
+                name: 'tech-logos',
+                test: /TechLogo[\\/]logos[\\/]/,
+                priority: 40,
+              },
+              {
+                name: 'vendor-react',
+                test: /node_modules[\\/](react|react-dom|scheduler)[\\/]/,
+                priority: 30,
+              },
+              {
+                name: 'vendor-tanstack',
+                test: /node_modules[\\/]@tanstack[\\/]/,
+                priority: 30,
+              },
+            ],
+          },
+        },
       },
     },
   };

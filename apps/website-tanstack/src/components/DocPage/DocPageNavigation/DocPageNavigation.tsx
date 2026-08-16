@@ -1,8 +1,7 @@
-import { Container } from '@intlayer/design-system/container';
-import { Link } from '@intlayer/design-system/link';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { Link } from '~/components/Link/Link';
 
 export type DocPageNavigationProps = {
   nextDoc?: {
@@ -41,7 +40,7 @@ export const DocPageNavigation: FC<DocPageNavigationProps> = ({
           label={goToNextSection.label.value}
           variant="button-outlined"
           color="neutral"
-          className="wrap-break-words ml-auto flex h-auto w-full max-w-1/2 flex-1 flex-1 flex-row items-center justify-end gap-2 whitespace-normal text-nowrap rounded-lg px-2 py-5"
+          className="wrap-break-words ml-auto flex h-auto w-full max-w-1/2 flex-1 flex-row items-center justify-end gap-2 whitespace-normal text-nowrap rounded-lg px-2 py-5"
         >
           <span className="text-text">{nextDoc?.title}</span>
           <ChevronRight className="size-5" />
