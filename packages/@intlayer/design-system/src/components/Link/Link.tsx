@@ -53,18 +53,18 @@ export const linkVariants = cva(
     variants: {
       variant: {
         default:
-          'h-auto justify-start border-inherit bg-current/0 px-1 font-medium decoration-[1.5] underline-offset-5 hover:bg-current/0 hover:text-current/80 hover:underline hover:underline-offset-6',
+          'h-auto justify-start border-inherit bg-transparent px-1 font-medium decoration-[1.5] underline-offset-5 hover:bg-transparent hover:text-current/80 hover:underline hover:underline-offset-6',
         'invisible-link':
-          'h-auto justify-start border-inherit bg-current/0 px-1',
+          'h-auto justify-start border-inherit bg-transparent px-1',
 
         button:
-          'relative inline-flex min-h-8 cursor-pointer flex-row items-center justify-center gap-2 rounded-full bg-current px-6 text-center font-medium text-foreground text-sm ring-0 *:text-foreground-opposite hover:bg-current/90 hover:ring-5 aria-selected:ring-5 aria-[current]:ring-5 max-md:py-2',
+          'relative inline-flex min-h-8 cursor-pointer flex-row items-center justify-center gap-2 rounded-full px-6 text-center font-medium text-sm ring-0 hover:ring-5 aria-selected:ring-5 aria-[current]:ring-5 max-md:py-2',
 
         'button-outlined':
-          'relative inline-flex min-h-8 cursor-pointer flex-row items-center justify-center gap-2 rounded-full border-[1.3px] border-current px-6 text-center font-medium text-foreground text-sm ring-0 *:text-foreground hover:bg-current/20 hover:ring-5 aria-selected:ring-5 aria-[current]:ring-5 max-md:py-2',
+          'relative inline-flex min-h-8 cursor-pointer flex-row items-center justify-center gap-2 rounded-full border-[1.3px] px-6 text-center font-medium text-sm ring-0 hover:bg-current/10 hover:ring-5 aria-selected:ring-5 aria-[current]:ring-5 max-md:py-2',
 
         hoverable:
-          'rounded-lg border-none bg-current/0 transition *:text-current! hover:bg-current/10 aria-[current]:bg-current/5',
+          'rounded-lg border-none bg-transparent transition hover:bg-current/10 aria-[current]:bg-current/5',
       },
       roundedSize: {
         none: 'rounded-none',
@@ -78,6 +78,7 @@ export const linkVariants = cva(
           'rounded-[2.5rem] [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-[3rem]',
         full: 'rounded-full',
       },
+      // Pour "default" / "invisible-link" / "hoverable" : juste la couleur du texte
       color: {
         primary: 'text-primary',
         secondary: 'text-secondary',
@@ -85,7 +86,7 @@ export const linkVariants = cva(
         light: 'text-white',
         dark: 'text-neutral-800',
         text: 'text-foreground',
-        'text-inverse': 'text-foreground-opposite',
+        'text-inverse': 'text-foreground-opposite', // seulement utilisé hors button/button-outlined
         error: 'text-error',
         success: 'text-success',
         custom: '',
@@ -103,29 +104,106 @@ export const linkVariants = cva(
         false: 'no-underline',
       },
     },
-    // Compound variants handle height and padding
     compoundVariants: [
-      // ---------------------------------------------------------
-      // FIX START: Correctly Handle Contrast for TEXT_INVERSE
-      // ---------------------------------------------------------
+      // ----------------------------------------------------------------
+      // BUTTON PLEIN : paires fond/texte EXPLICITES, tirées du thème réel
+      // ----------------------------------------------------------------
       {
-        // Filled Button + Inverse Color (e.g., White Button):
-        // We DO NOT override parent text color (it must remain 'text-opposite' so bg-current is white).
-        // We ONLY override children to be 'text-foreground' (Dark) so they show up on white.
+        variant: 'button',
+        color: 'primary',
+        class: 'bg-primary text-primary-foreground ring-primary/20',
+      },
+      {
+        variant: 'button',
+        color: 'secondary',
+        class: 'bg-secondary text-secondary-foreground ring-secondary/20',
+      },
+      {
+        variant: 'button',
+        color: 'neutral',
+        class: 'bg-neutral text-white ring-neutral/20',
+      },
+      {
+        variant: 'button',
+        color: 'light',
+        class: 'bg-white text-black ring-white/20',
+      },
+      {
+        variant: 'button',
+        color: 'dark',
+        class: 'bg-neutral-800 text-white ring-neutral-800/20',
+      },
+      {
+        variant: 'button',
+        color: 'text',
+        class: 'bg-foreground text-background ring-foreground/20',
+      },
+      {
         variant: 'button',
         color: 'text-inverse',
-        class: '*:text-foreground',
+        class: 'bg-background text-foreground ring-foreground/20',
       },
       {
-        // Outlined Button + Inverse Color (e.g., White Border):
-        // Parent is 'text-opposite' (Border is white).
-        // Children must also be 'text-opposite' (White text) to show on dark background.
-        variant: 'button-outlined',
-        color: 'text-inverse',
-        class: 'text-foreground-opposite *:text-foreground-opposite',
+        variant: 'button',
+        color: 'error',
+        class: 'bg-error text-white ring-error/20',
+      },
+      {
+        variant: 'button',
+        color: 'success',
+        class: 'bg-success text-white ring-success/20',
       },
 
-      // Min height and padding for button variants
+      // ----------------------------------------------------------------
+      // BUTTON OUTLINED : bordure + texte de la couleur, fond transparent
+      // ----------------------------------------------------------------
+      {
+        variant: 'button-outlined',
+        color: 'primary',
+        class: 'border-primary text-primary hover:bg-primary/10',
+      },
+      {
+        variant: 'button-outlined',
+        color: 'secondary',
+        class: 'border-secondary text-secondary hover:bg-secondary/10',
+      },
+      {
+        variant: 'button-outlined',
+        color: 'neutral',
+        class: 'border-neutral text-neutral hover:bg-neutral/10',
+      },
+      {
+        variant: 'button-outlined',
+        color: 'light',
+        class: 'border-white text-white hover:bg-white/10',
+      },
+      {
+        variant: 'button-outlined',
+        color: 'dark',
+        class: 'border-neutral-800 text-neutral-800 hover:bg-neutral-800/10',
+      },
+      {
+        variant: 'button-outlined',
+        color: 'text',
+        class: 'border-foreground text-foreground hover:bg-foreground/10',
+      },
+      {
+        variant: 'button-outlined',
+        color: 'text-inverse',
+        class: 'border-background text-background hover:bg-background/10',
+      },
+      {
+        variant: 'button-outlined',
+        color: 'error',
+        class: 'border-error text-error hover:bg-error/10',
+      },
+      {
+        variant: 'button-outlined',
+        color: 'success',
+        class: 'border-success text-success hover:bg-success/10',
+      },
+
+      // Min height et padding selon size (inchangé)
       {
         variant: ['button', 'button-outlined'],
         size: 'sm',
@@ -145,52 +223,6 @@ export const linkVariants = cva(
         variant: ['button', 'button-outlined'],
         size: 'xl',
         class: 'min-h-11 px-10 text-xl max-md:py-4',
-      },
-      // Ring color variants
-      {
-        variant: ['button', 'button-outlined'],
-        color: 'primary',
-        class: 'ring-primary/20',
-      },
-      {
-        variant: ['button', 'button-outlined'],
-        color: 'secondary',
-        class: 'ring-secondary/20',
-      },
-      {
-        variant: ['button', 'button-outlined'],
-        color: 'neutral',
-        class: 'ring-neutral/20',
-      },
-      {
-        variant: ['button', 'button-outlined'],
-        color: 'light',
-        class: 'ring-white/20',
-      },
-      {
-        variant: ['button', 'button-outlined'],
-        color: 'dark',
-        class: 'ring-neutral-800/20',
-      },
-      {
-        variant: ['button', 'button-outlined'],
-        color: 'text',
-        class: 'ring-text/20',
-      },
-      {
-        variant: ['button', 'button-outlined'],
-        color: 'text-inverse',
-        class: 'ring-text-opposite/20',
-      },
-      {
-        variant: ['button', 'button-outlined'],
-        color: 'error',
-        class: 'ring-error/20',
-      },
-      {
-        variant: ['button', 'button-outlined'],
-        color: 'success',
-        class: 'ring-success/20',
       },
     ],
 
