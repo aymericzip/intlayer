@@ -385,12 +385,13 @@ export const I18nBenchmark = ({
             )}
           </div>
           {!vertical && (
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-4">
               <Link
                 label={seeBenchmark.value}
                 variant="button-outlined"
                 color="text"
-                size="sm"
+                size="md"
+                roundedSize="sm"
                 to={External_Github_i18n_benchmark}
               >
                 {seeBenchmark}
@@ -399,7 +400,8 @@ export const I18nBenchmark = ({
                 label={readFullReport.value}
                 variant="button"
                 color="text"
-                size="sm"
+                size="md"
+                roundedSize="sm"
                 to={Website_Benchmark_Path}
               >
                 <span className="flex items-center gap-1">

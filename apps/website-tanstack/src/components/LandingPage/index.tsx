@@ -64,7 +64,7 @@ export const LandingPage: FC = () => {
     <>
       <main
         aria-label={content.landingMainTitle.value}
-        className="flex flex-col gap-10"
+        className="flex flex-col"
       >
         <section aria-label={content.heroSection.value}>
           <HeroSection />
@@ -76,33 +76,31 @@ export const LandingPage: FC = () => {
           </Suspense>
         </section>
 
-        <div className="relative flex w-full flex-col gap-24 overflow-hidden bg-neutral/5 py-16 dark:bg-neutral-900/10">
-          <section aria-label={content.benchmarkSection.value}>
-            <Suspense fallback={<Loader />}>
-              <I18nBenchmarkSection />
-            </Suspense>
-          </section>
+        <section aria-label={content.benchmarkSection.value}>
+          <Suspense fallback={<Loader />}>
+            <I18nBenchmarkSection />
+          </Suspense>
+        </section>
 
-          <section aria-label={content.supportedLanguagesSection.value}>
-            <Suspense fallback={<Loader />}>
-              <LanguageSection />
-            </Suspense>
-          </section>
+        <section aria-label={content.supportedLanguagesSection.value}>
+          <Suspense fallback={<Loader />}>
+            <LanguageSection />
+          </Suspense>
+        </section>
 
-          <section aria-label={content.codeAuditSection.value}>
-            <Suspense fallback={<Loader />}>
-              <AuditSection />
-            </Suspense>
-          </section>
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-x-0 top-0 h-4 bg-background [clip-path:polygon(0_0,100%_0,0_100%)]"
-          />
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-x-0 bottom-0 h-4 bg-background [clip-path:polygon(100%_0,100%_100%,0_100%)]"
-          />
-        </div>
+        <section aria-label={content.codeAuditSection.value}>
+          <Suspense fallback={<Loader />}>
+            <AuditSection />
+          </Suspense>
+        </section>
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 top-0 h-4 bg-background [clip-path:polygon(0_0,100%_0,0_100%)]"
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-4 bg-background [clip-path:polygon(100%_0,100%_100%,0_100%)]"
+        />
 
         <section aria-label={content.productsSection.value}>
           <Suspense fallback={<Loader />}>
