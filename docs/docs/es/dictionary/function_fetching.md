@@ -89,6 +89,29 @@ No es posible obtener contenido desde un archivo JSON, usa un archivo .ts o .js 
 
 En este caso, la función `fakeFetch` simula un retraso para imitar el tiempo de respuesta del servidor. Intlayer ejecuta la función asíncrona y utiliza el resultado como contenido para la clave `text`.
 
+## Obtención de contenido remoto
+
+También puedes asignar una promesa directamente a un campo de contenido. Intlayer la espera mientras construye los diccionarios e incorpora el valor resuelto:
+
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import type { Dictionary } from "intlayer";
+
+const remoteContent = {
+  key: "remote_content",
+  content: {
+    externalContent: fetch("https://example.com").then((res) => res.json()),
+  },
+} satisfies Dictionary;
+
+export default remoteContent;
+```
+
+```plaintext fileName="**/*.content.json" contentDeclarationFormat="json"
+No es posible obtener contenido desde un archivo JSON, usa un archivo .ts o .js en su lugar
+```
+
+> La solicitud se ejecuta en tiempo de compilación, por lo que los datos obtenidos son una instantánea incrustada en el diccionario. Reconstruye tus diccionarios para actualizarlos.
+
 ## Uso de contenido basado en funciones en componentes React
 
 Para usar contenido basado en funciones en un componente React, necesitas importar `useIntlayer` desde `react-intlayer` y llamarlo con el ID del contenido para obtenerlo. Aquí tienes un ejemplo:

@@ -87,6 +87,29 @@ export default asyncFunctionContent;
 
 在这种情况下，`fakeFetch` 函数模拟了一个延迟以模拟服务器响应时间。Intlayer 会执行异步函数，并将结果用作 `text` 键的内容。
 
+## 获取远程内容
+
+你也可以直接将一个 Promise 赋值给内容字段。Intlayer 会在构建字典时等待它，并将解析后的值内联进字典：
+
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import type { Dictionary } from "intlayer";
+
+const remoteContent = {
+  key: "remote_content",
+  content: {
+    externalContent: fetch("https://example.com").then((res) => res.json()),
+  },
+} satisfies Dictionary;
+
+export default remoteContent;
+```
+
+```plaintext fileName="**/*.content.json" contentDeclarationFormat="json"
+无法从JSON文件获取内容，请改用.ts或.js文件
+```
+
+> 该请求在构建时执行，因此获取到的数据是嵌入字典中的快照。重新构建字典即可更新它。
+
 ## 在 React 组件中使用基于函数的内容
 
 要在 React 组件中使用基于函数的内容，您需要从 `react-intlayer` 导入 `useIntlayer` 并使用内容 ID 调用它以获取内容。示例如下：

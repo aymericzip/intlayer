@@ -87,6 +87,29 @@ Không thể lấy nội dung từ file JSON, hãy sử dụng file .ts hoặc .
 
 Trong trường hợp này, hàm `fakeFetch` mô phỏng một độ trễ để giả lập thời gian phản hồi của server. Intlayer thực thi hàm bất đồng bộ và sử dụng kết quả làm nội dung cho khóa `text`.
 
+## Lấy Nội dung Từ Xa
+
+Bạn cũng có thể gán trực tiếp một promise cho một trường nội dung. Intlayer sẽ chờ promise đó khi build các từ điển và nhúng giá trị đã được phân giải:
+
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import type { Dictionary } from "intlayer";
+
+const remoteContent = {
+  key: "remote_content",
+  content: {
+    externalContent: fetch("https://example.com").then((res) => res.json()),
+  },
+} satisfies Dictionary;
+
+export default remoteContent;
+```
+
+```plaintext fileName="**/*.content.json" contentDeclarationFormat="json"
+Không thể lấy nội dung từ file JSON, hãy sử dụng file .ts hoặc .js thay thế
+```
+
+> Yêu cầu được thực thi tại thời điểm build, vì vậy dữ liệu lấy về là một bản chụp được nhúng trong từ điển. Hãy build lại các từ điển để cập nhật.
+
 ## Sử dụng Nội dung Dựa trên Hàm trong Các Thành phần React
 
 Để sử dụng nội dung dựa trên hàm trong một thành phần React, bạn cần import `useIntlayer` từ `react-intlayer` và gọi nó với ID nội dung để lấy nội dung. Dưới đây là một ví dụ:

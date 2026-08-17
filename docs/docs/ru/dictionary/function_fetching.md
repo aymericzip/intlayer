@@ -87,6 +87,29 @@ export default asyncFunctionContent;
 
 В этом случае функция `fakeFetch` имитирует задержку, чтобы смоделировать время отклика сервера. Intlayer выполняет асинхронную функцию и использует результат в качестве содержимого для ключа `text`.
 
+## Получение удалённого контента
+
+Вы также можете присвоить промис непосредственно полю контента. Intlayer дождётся его при сборке словарей и подставит полученное значение:
+
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import type { Dictionary } from "intlayer";
+
+const remoteContent = {
+  key: "remote_content",
+  content: {
+    externalContent: fetch("https://example.com").then((res) => res.json()),
+  },
+} satisfies Dictionary;
+
+export default remoteContent;
+```
+
+```plaintext fileName="**/*.content.json" contentDeclarationFormat="json"
+Невозможно получить контент из JSON-файла, используйте вместо этого файл .ts или .js
+```
+
+> Запрос выполняется во время сборки, поэтому полученные данные — это снимок, встроенный в словарь. Пересоберите словари, чтобы обновить их.
+
 ## Использование контента на основе функций в React-компонентах
 
 Чтобы использовать контент на основе функций в React-компоненте, необходимо импортировать `useIntlayer` из `react-intlayer` и вызвать его с идентификатором контента для получения содержимого. Вот пример:

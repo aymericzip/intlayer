@@ -89,6 +89,29 @@ Não é possível buscar conteúdo de um arquivo JSON, use um arquivo .ts ou .js
 
 Neste caso, a função `fakeFetch` simula um atraso para imitar o tempo de resposta do servidor. O Intlayer executa a função assíncrona e usa o resultado como o conteúdo para a chave `text`.
 
+## Buscando Conteúdo Remoto
+
+Você também pode atribuir uma promise diretamente a um campo de conteúdo. O Intlayer a aguarda durante a construção dos dicionários e insere o valor resolvido:
+
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import type { Dictionary } from "intlayer";
+
+const remoteContent = {
+  key: "remote_content",
+  content: {
+    externalContent: fetch("https://example.com").then((res) => res.json()),
+  },
+} satisfies Dictionary;
+
+export default remoteContent;
+```
+
+```plaintext fileName="**/*.content.json" contentDeclarationFormat="json"
+Não é possível buscar conteúdo de um arquivo JSON, use um arquivo .ts ou .js em vez disso
+```
+
+> A requisição é executada em tempo de build, portanto os dados buscados são um instantâneo embutido no dicionário. Reconstrua seus dicionários para atualizá-los.
+
 ## Usando Conteúdo Baseado em Função em Componentes React
 
 Para usar conteúdo baseado em função em um componente React, você precisa importar `useIntlayer` de `react-intlayer` e chamá-lo com o ID do conteúdo para recuperar o conteúdo. Aqui está um exemplo:

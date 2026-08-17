@@ -85,6 +85,29 @@ No way to fetch content from a JSON file, use a .ts or .js file instead
 
 In this case, the `fakeFetch` function mimics a delay to simulate server response time. Intlayer executes the asynchronous function and uses the result as the content for the `text` key.
 
+## Fetching Remote Content
+
+You can also assign a promise directly to a content field. Intlayer awaits it while building the dictionaries and inlines the resolved value:
+
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import type { Dictionary } from "intlayer";
+
+const remoteContent = {
+  key: "remote_content",
+  content: {
+    externalContent: fetch("https://example.com").then((res) => res.json()),
+  },
+} satisfies Dictionary;
+
+export default remoteContent;
+```
+
+```plaintext fileName="**/*.content.json" contentDeclarationFormat="json"
+No way to fetch content from a JSON file, use a .ts or .js file instead
+```
+
+> The request runs at build time, so the fetched data is a snapshot embedded in the dictionary. Rebuild your dictionaries to refresh it.
+
 ## Using Function-Based Content in React Components
 
 To use function-based content in a React component, you need to import `useIntlayer` from `react-intlayer` and call it with the content ID to retrieve the content. Here's an example:

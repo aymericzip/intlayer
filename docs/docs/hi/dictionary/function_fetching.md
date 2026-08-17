@@ -89,6 +89,29 @@ JSON फ़ाइल से सामग्री प्राप्त कर�
 
 इस मामले में, `fakeFetch` फ़ंक्शन सर्वर प्रतिक्रिया समय का अनुकरण करने के लिए एक विलंब का अनुकरण करता है। Intlayer असिंक्रोनस फ़ंक्शन को निष्पादित करता है और परिणाम को `text` कुंजी के लिए सामग्री के रूप में उपयोग करता है।
 
+## रिमोट सामग्री प्राप्त करना
+
+आप किसी सामग्री फ़ील्ड को सीधे एक प्रॉमिस भी सौंप सकते हैं। Intlayer डिक्शनरी बनाते समय उसका इंतज़ार करता है और हल हुए मान को उसमें शामिल कर देता है:
+
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import type { Dictionary } from "intlayer";
+
+const remoteContent = {
+  key: "remote_content",
+  content: {
+    externalContent: fetch("https://example.com").then((res) => res.json()),
+  },
+} satisfies Dictionary;
+
+export default remoteContent;
+```
+
+```plaintext fileName="**/*.content.json" contentDeclarationFormat="json"
+JSON फ़ाइल से सामग्री प्राप्त करने का कोई तरीका नहीं है, इसके बजाय .ts या .js फ़ाइल का उपयोग करें
+```
+
+> अनुरोध बिल्ड समय पर चलता है, इसलिए प्राप्त डेटा डिक्शनरी में एम्बेड किया गया एक स्नैपशॉट होता है। इसे ताज़ा करने के लिए अपनी डिक्शनरी दोबारा बनाएं।
+
 ## React घटकों में फ़ंक्शन-आधारित सामग्री का उपयोग करना
 
 React घटक में फ़ंक्शन-आधारित सामग्री का उपयोग करने के लिए, आपको `react-intlayer` से `useIntlayer` आयात करना होगा और सामग्री प्राप्त करने के लिए इसे सामग्री आईडी के साथ कॉल करना होगा। यहाँ एक उदाहरण है:

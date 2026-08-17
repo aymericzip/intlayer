@@ -89,6 +89,29 @@ JSONファイルからコンテンツを取得する方法はありません。�
 
 この場合、`fakeFetch` 関数はサーバーの応答時間をシミュレートするために遅延を模倣しています。Intlayer は非同期関数を実行し、その結果を `text` キーのコンテンツとして使用します。
 
+## リモートコンテンツの取得
+
+コンテンツのフィールドに Promise を直接指定することもできます。Intlayer は辞書のビルド時にその Promise を待機し、解決された値を埋め込みます：
+
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import type { Dictionary } from "intlayer";
+
+const remoteContent = {
+  key: "remote_content",
+  content: {
+    externalContent: fetch("https://example.com").then((res) => res.json()),
+  },
+} satisfies Dictionary;
+
+export default remoteContent;
+```
+
+```plaintext fileName="**/*.content.json" contentDeclarationFormat="json"
+JSONファイルからコンテンツを取得する方法はありません。代わりに.tsまたは.jsファイルを使用してください
+```
+
+> リクエストはビルド時に実行されるため、取得したデータは辞書に埋め込まれたスナップショットです。更新するには辞書を再ビルドしてください。
+
 ## Reactコンポーネントで関数ベースのコンテンツを使用する
 
 Reactコンポーネントで関数ベースのコンテンツを使用するには、`react-intlayer`から`useIntlayer`をインポートし、コンテンツIDを渡してコンテンツを取得します。以下は例です：

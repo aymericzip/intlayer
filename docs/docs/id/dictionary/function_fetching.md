@@ -89,6 +89,29 @@ Tidak ada cara untuk mengambil konten dari file JSON, gunakan file .ts atau .js 
 
 Dalam kasus ini, fungsi `fakeFetch` meniru penundaan untuk mensimulasikan waktu respons server. Intlayer menjalankan fungsi asinkron dan menggunakan hasilnya sebagai konten untuk kunci `text`.
 
+## Mengambil Konten Jarak Jauh
+
+Anda juga dapat menetapkan sebuah promise langsung ke sebuah field konten. Intlayer menunggunya saat membangun kamus dan menyisipkan nilai yang telah diselesaikan:
+
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import type { Dictionary } from "intlayer";
+
+const remoteContent = {
+  key: "remote_content",
+  content: {
+    externalContent: fetch("https://example.com").then((res) => res.json()),
+  },
+} satisfies Dictionary;
+
+export default remoteContent;
+```
+
+```plaintext fileName="**/*.content.json" contentDeclarationFormat="json"
+Tidak ada cara untuk mengambil konten dari file JSON, gunakan file .ts atau .js sebagai gantinya
+```
+
+> Permintaan dijalankan pada waktu build, sehingga data yang diambil merupakan snapshot yang tertanam di dalam kamus. Bangun ulang kamus Anda untuk memperbaruinya.
+
 ## Menggunakan Konten Berbasis Fungsi dalam Komponen React
 
 Untuk menggunakan konten berbasis fungsi dalam komponen React, Anda perlu mengimpor `useIntlayer` dari `react-intlayer` dan memanggilnya dengan ID konten untuk mengambil konten tersebut. Berikut adalah contohnya:

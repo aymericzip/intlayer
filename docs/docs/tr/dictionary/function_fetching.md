@@ -87,6 +87,29 @@ JSON dosyasından içerik getirmenin bir yolu yok, bunun yerine .ts veya .js dos
 
 Bu durumda, `fakeFetch` fonksiyonu sunucu yanıt süresini simüle etmek için bir gecikme taklit eder. Intlayer asenkron fonksiyonu çalıştırır ve sonucu `text` anahtarı için içerik olarak kullanır.
 
+## Uzak İçeriği Getirme
+
+Bir içerik alanına doğrudan bir promise de atayabilirsiniz. Intlayer, sözlükleri oluştururken bunu bekler ve çözümlenen değeri gömer:
+
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import type { Dictionary } from "intlayer";
+
+const remoteContent = {
+  key: "remote_content",
+  content: {
+    externalContent: fetch("https://example.com").then((res) => res.json()),
+  },
+} satisfies Dictionary;
+
+export default remoteContent;
+```
+
+```plaintext fileName="**/*.content.json" contentDeclarationFormat="json"
+JSON dosyasından içerik getirmenin bir yolu yok, bunun yerine .ts veya .js dosyası kullanın
+```
+
+> İstek derleme zamanında çalışır, bu nedenle getirilen veri sözlüğe gömülmüş bir anlık görüntüdür. Yenilemek için sözlüklerinizi yeniden oluşturun.
+
 ## React Bileşenlerinde Fonksiyon Tabanlı İçeriği Kullanma
 
 Bir React bileşeninde fonksiyon tabanlı içeriği kullanmak için, `react-intlayer`'dan `useIntlayer`'ı içe aktarmanız ve içeriği almak için içerik ID'si ile çağırmanız gerekir. İşte bir örnek:

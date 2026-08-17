@@ -87,6 +87,29 @@ JSON 파일에서 콘텐츠를 가져올 수 없습니다. 대신 .ts 또는 .js
 
 이 경우, `fakeFetch` 함수는 서버 응답 시간을 시뮬레이션하기 위해 지연을 모방합니다. Intlayer는 비동기 함수를 실행하고 그 결과를 `text` 키의 콘텐츠로 사용합니다.
 
+## 원격 콘텐츠 가져오기
+
+콘텐츠 필드에 프로미스를 직접 할당할 수도 있습니다. Intlayer는 사전을 빌드할 때 이를 기다린 후 해결된 값을 삽입합니다:
+
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import type { Dictionary } from "intlayer";
+
+const remoteContent = {
+  key: "remote_content",
+  content: {
+    externalContent: fetch("https://example.com").then((res) => res.json()),
+  },
+} satisfies Dictionary;
+
+export default remoteContent;
+```
+
+```plaintext fileName="**/*.content.json" contentDeclarationFormat="json"
+JSON 파일에서 콘텐츠를 가져올 수 없습니다. 대신 .ts 또는 .js 파일을 사용하세요.
+```
+
+> 요청은 빌드 시점에 실행되므로 가져온 데이터는 사전에 포함된 스냅샷입니다. 갱신하려면 사전을 다시 빌드하세요.
+
 ## React 컴포넌트에서 함수 기반 콘텐츠 사용하기
 
 React 컴포넌트에서 함수 기반 콘텐츠를 사용하려면, `react-intlayer`에서 `useIntlayer`를 가져와서 콘텐츠 ID로 호출하여 콘텐츠를 가져와야 합니다. 다음은 예시입니다:

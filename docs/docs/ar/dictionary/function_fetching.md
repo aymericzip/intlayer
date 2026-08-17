@@ -89,6 +89,29 @@ export default asyncFunctionContent;
 
 في هذه الحالة، تقوم دالة `fakeFetch` بمحاكاة تأخير لتقليد وقت استجابة الخادم. يقوم Intlayer بتنفيذ الدالة غير المتزامنة ويستخدم النتيجة كمحتوى للمفتاح `text`.
 
+## جلب المحتوى عن بُعد
+
+يمكنك أيضًا إسناد وعد (Promise) مباشرةً إلى حقل محتوى. ينتظر Intlayer نتيجته أثناء بناء القواميس ويُدرج القيمة الناتجة:
+
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import type { Dictionary } from "intlayer";
+
+const remoteContent = {
+  key: "remote_content",
+  content: {
+    externalContent: fetch("https://example.com").then((res) => res.json()),
+  },
+} satisfies Dictionary;
+
+export default remoteContent;
+```
+
+```plaintext fileName="**/*.content.json" contentDeclarationFormat="json"
+لا توجد طريقة لجلب المحتوى من ملف JSON، استخدم ملف .ts أو .js بدلاً من ذلك
+```
+
+> يتم تنفيذ الطلب في وقت البناء، لذا فإن البيانات المجلوبة هي لقطة مضمّنة في القاموس. أعد بناء القواميس لتحديثها.
+
 ## استخدام المحتوى المعتمد على الدوال في مكونات React
 
 لاستخدام المحتوى المعتمد على الدوال في مكون React، تحتاج إلى استيراد `useIntlayer` من `react-intlayer` واستدعاؤه مع معرف المحتوى لاسترجاع المحتوى. إليك مثالاً:

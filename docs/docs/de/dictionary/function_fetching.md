@@ -89,6 +89,29 @@ Es ist nicht möglich, Inhalte aus einer JSON-Datei abzurufen, verwenden Sie sta
 
 In diesem Fall simuliert die Funktion `fakeFetch` eine Verzögerung, um die Serverantwortzeit nachzuahmen. Intlayer führt die asynchrone Funktion aus und verwendet das Ergebnis als Inhalt für den Schlüssel `text`.
 
+## Remote-Inhalte abrufen
+
+Sie können einem Inhaltsfeld auch direkt ein Promise zuweisen. Intlayer wartet es beim Erstellen der Wörterbücher ab und fügt den aufgelösten Wert ein:
+
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import type { Dictionary } from "intlayer";
+
+const remoteContent = {
+  key: "remote_content",
+  content: {
+    externalContent: fetch("https://example.com").then((res) => res.json()),
+  },
+} satisfies Dictionary;
+
+export default remoteContent;
+```
+
+```plaintext fileName="**/*.content.json" contentDeclarationFormat="json"
+Es ist nicht möglich, Inhalte aus einer JSON-Datei abzurufen, verwenden Sie stattdessen eine .ts- oder .js-Datei
+```
+
+> Die Anfrage wird zur Build-Zeit ausgeführt, die abgerufenen Daten sind also eine im Wörterbuch eingebettete Momentaufnahme. Erstellen Sie Ihre Wörterbücher neu, um sie zu aktualisieren.
+
 ## Verwendung von funktionsbasierten Inhalten in React-Komponenten
 
 Um funktionsbasierte Inhalte in einer React-Komponente zu verwenden, müssen Sie `useIntlayer` aus `react-intlayer` importieren und mit der Inhalts-ID aufrufen, um den Inhalt abzurufen. Hier ist ein Beispiel:
