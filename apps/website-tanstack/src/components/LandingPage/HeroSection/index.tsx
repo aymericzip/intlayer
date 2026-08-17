@@ -76,7 +76,8 @@ export const HeroSection: FC = () => {
               <Link to={Website_ReleasesV9_Path} label={whatsNewLabel.value}>
                 <Tag
                   size="md"
-                  className="flex items-center gap-2 rounded-full border bg-card/10 font-medium text-foreground text-sm backdrop-blur-xl"
+                  border="with"
+                  className="flex items-center gap-2 rounded-full border-foreground/20! bg-card/10 font-medium text-foreground text-sm backdrop-blur-xl"
                 >
                   <Megaphone className="size-4" />
                   <span className="no-underline! flex items-center gap-1 font-medium text-sm sm:text-sm">
