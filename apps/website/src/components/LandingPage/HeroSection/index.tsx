@@ -11,7 +11,6 @@ import {
   Website_ReleasesV9_Path,
 } from '@intlayer/design-system/routes';
 import { Tag } from '@intlayer/design-system/tag';
-import { motion } from 'framer-motion';
 import { ArrowRight, Check, Copy } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
@@ -19,8 +18,6 @@ import packageJSON from '../../../../package_mock.json' with { type: 'json' };
 import { TechLogos } from './TechLogos';
 
 const SHOW_WHATS_NEW = true;
-
-const ContainerMotion = motion.create(Container);
 
 export const HeroSection: FC = () => {
   const {
@@ -45,12 +42,7 @@ export const HeroSection: FC = () => {
         <div className="mx-auto mt-16 mb-8 w-full max-w-4xl lg:mb-0">
           {/* What's New Tag */}
           {SHOW_WHATS_NEW && (
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="mb-8 flex items-center justify-center gap-2"
-            >
+            <div className="hero-enter mb-8 flex items-center justify-center gap-2">
               <Tag
                 size="sm"
                 border="with"
@@ -69,7 +61,7 @@ export const HeroSection: FC = () => {
                   <ArrowRight className="h-3 w-3" />
                 </span>
               </Link>
-            </motion.div>
+            </div>
           )}
 
           {/* Title */}
@@ -77,30 +69,24 @@ export const HeroSection: FC = () => {
             {title}
           </h1>
           {/* Subtitle */}
-          <motion.h2
-            initial={{ filter: 'blur(10px)', opacity: 0, y: 30 }}
-            animate={{ filter: 'blur(0px)', opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            className="mb-6 text-center font-semibold text-text text-xl sm:text-3xl md:text-3xl lg:mb-8 lg:text-4xl"
+          <h2
+            className="hero-enter-sharpen mb-6 text-center font-semibold text-text text-xl sm:text-3xl md:text-3xl lg:mb-8 lg:text-4xl"
+            style={{ animationDelay: '0.5s' }}
           >
             {subheading}
-          </motion.h2>
+          </h2>
           {/* Description */}
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.6 }}
-            className="mx-auto max-w-2xl text-center font-medium text-neutral text-sm leading-relaxed sm:text-lg lg:mb-12"
+          <p
+            className="hero-enter mx-auto max-w-2xl text-center font-medium text-neutral text-sm leading-relaxed sm:text-lg lg:mb-12"
+            style={{ animationDelay: '0.6s' }}
           >
             {description}
-          </motion.p>
+          </p>
           {/* Copyable code block */}
-          <ContainerMotion
-            initial={{ opacity: 0, y: 0 }}
-            animate={{ opacity: 1, y: -30 }}
-            transition={{ delay: 0.7, duration: 0.6 }}
+          <Container
             roundedSize="2xl"
-            className="m-auto mt-24 max-w-2xl flex-row items-center p-1 pl-6"
+            className="hero-enter-lift m-auto mt-24 max-w-2xl flex-row items-center p-1 pl-6"
+            style={{ animationDelay: '0.7s' }}
           >
             <CodeBlock lang="bash">npx intlayer init</CodeBlock>
             <Button
@@ -111,13 +97,11 @@ export const HeroSection: FC = () => {
               Icon={isCopied ? Check : Copy}
               label={copyButton.value}
             />
-          </ContainerMotion>
+          </Container>
           {/* Action Buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8, duration: 0.6 }}
-            className="mt-10 mb-6 flex flex-col justify-center gap-3 sm:flex-row sm:gap-4 lg:mb-10"
+          <div
+            className="hero-enter mt-10 mb-6 flex flex-col justify-center gap-3 sm:flex-row sm:gap-4 lg:mb-10"
+            style={{ animationDelay: '0.8s' }}
           >
             <Link
               href={External_Github}
@@ -146,19 +130,17 @@ export const HeroSection: FC = () => {
 
               <ArrowRight width={20} height={20} />
             </Link>
-          </motion.div>
+          </div>
           {/* Available For Section - Full Viewport Width */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.0, duration: 0.6 }}
-            className="relative right-1/2 left-1/2 mt-8 mr-[-50vw] ml-[-50vw] w-screen text-center"
+          <div
+            className="hero-enter relative right-1/2 left-1/2 mt-8 mr-[-50vw] ml-[-50vw] w-screen text-center"
+            style={{ animationDelay: '1s' }}
           >
             <p className="font-medium text-sm text-text tracking-wider sm:text-base">
               {availableFor}
             </p>
             <TechLogos />
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

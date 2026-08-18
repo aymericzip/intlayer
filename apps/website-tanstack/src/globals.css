@@ -89,3 +89,84 @@
   animation-iteration-count: infinite;
   animation-timing-function: ease-in-out;
 }
+
+/**
+ * Hero entrance animations.
+ *
+ * These run in CSS rather than through Motion because the hero is the first
+ * thing painted: a JS-driven entrance cannot start until the bundle has
+ * downloaded, hydrated and run, so on a slow device the hero stayed blank for
+ * seconds and the page's Largest Contentful Paint was its own animation
+ * waiting on hydration. In CSS the same movement begins at first paint.
+ *
+ * `both` holds the opening frame through `animation-delay`, which is what keeps
+ * the stagger — each element waits its turn rather than flashing in first.
+ */
+@keyframes hero-enter {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* The subheading additionally sharpens as it arrives. */
+@keyframes hero-enter-sharpen {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+    filter: blur(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+}
+
+/* The code block settles slightly above where it starts. */
+@keyframes hero-enter-lift {
+  from {
+    opacity: 0;
+    transform: none;
+  }
+  to {
+    opacity: 1;
+    transform: translateY(-30px);
+  }
+}
+
+.hero-enter,
+.hero-enter-sharpen,
+.hero-enter-lift {
+  animation-duration: 0.6s;
+  animation-timing-function: ease-out;
+  animation-fill-mode: both;
+}
+
+.hero-enter {
+  animation-name: hero-enter;
+}
+
+.hero-enter-sharpen {
+  animation-name: hero-enter-sharpen;
+}
+
+.hero-enter-lift {
+  animation-name: hero-enter-lift;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-enter,
+  .hero-enter-sharpen,
+  .hero-enter-lift {
+    animation: none;
+  }
+
+  .hero-enter-lift {
+    transform: translateY(-30px);
+  }
+}
