@@ -102,7 +102,7 @@
     "tsdown": "0.22.14",
     "typescript": "5.9.3",
     "vite": "8.2.1",
-    "vitest": "4.1.10"
+    "vitest": "4.1.11"
   },
   "peerDependencies": {
     "svelte": ">=5.0.0"

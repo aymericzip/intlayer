@@ -445,8 +445,8 @@
     "typecheck_": "tsc --noEmit --project tsconfig.types.json"
   },
   "dependencies": {
-    "@better-auth/passkey": "1.7.0",
-    "@better-auth/sso": "1.7.0",
+    "@better-auth/passkey": "1.7.1",
+    "@better-auth/sso": "1.7.1",
     "@intlayer/api": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
@@ -479,7 +479,7 @@
     "@tiptap/react": "3.30.1",
     "@tiptap/starter-kit": "3.30.1",
     "@tiptap/suggestion": "3.30.1",
-    "better-auth": "1.7.0",
+    "better-auth": "1.7.1",
     "class-variance-authority": "0.7.1",
     "cmdk": "1.1.1",
     "cnfast": "^0.1.0",
@@ -534,7 +534,7 @@
     "vite": "8.2.1",
     "vite-intlayer": "workspace:*",
     "vite-plugin-dts": "5.0.3",
-    "vitest": "4.1.10"
+    "vitest": "4.1.11"
   },
   "peerDependencies": {
     "@better-fetch/fetch": "1.3.1",
@@ -547,7 +547,7 @@
     "framer-motion": "13.1.0",
     "fuse.js": "7.5.0",
     "intlayer": "workspace:*",
-    "lucide-react": "1.31.0",
+    "lucide-react": "1.32.0",
     "react": ">=16.0.0",
     "react-dom": ">=16.0.0",
     "react-hook-form": "7.85.0",
