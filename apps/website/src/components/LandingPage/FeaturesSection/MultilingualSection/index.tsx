@@ -4,7 +4,7 @@ import { Container } from '@intlayer/design-system/container';
 import { Input } from '@intlayer/design-system/input';
 import { Label } from '@intlayer/design-system/label';
 import { motion } from 'framer-motion';
-import { getLocaleName, type Locale, Locales } from 'intlayer';
+import { defaultLocale, getLocaleName, type Locale } from 'intlayer';
 import { useIntlayer, useLocale } from 'next-intlayer';
 import type { FC } from 'react';
 
@@ -53,10 +53,10 @@ export const MultilingualSection: FC<MultilingualSectionProps> = ({
         className="w-full gap-2 px-4 py-2"
       >
         <Label color="neutral" className="text-sm">
-          {getLocaleName(Locales.ENGLISH, currentLocale)}
+          {getLocaleName(defaultLocale, currentLocale)}
         </Label>
         <Input
-          aria-label={`${inputLabel.value} ${getLocaleName(Locales.ENGLISH, currentLocale)}`}
+          aria-label={`${inputLabel.value} ${getLocaleName(defaultLocale, currentLocale)}`}
           value="Hello world"
           onChange={() => null}
         />

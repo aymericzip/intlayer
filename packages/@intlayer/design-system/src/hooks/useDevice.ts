@@ -117,16 +117,32 @@ export const useDevice = (breakpoint: SizeType | number = 'md') => {
   });
 
   useEffect(() => {
-    setResult(calculateIsMobile(breakpoint));
+    const breakpointValue = getBreakpointFromSize(breakpoint);
+    const mobileScreenQuery = window.matchMedia(
+      `(max-width: ${breakpointValue}px)`
+    );
 
-    const handleResize = () => {
-      setResult(calculateIsMobile(breakpoint));
-    };
+    const isMobileUserAgent = checkIsMobileUserAgent();
+    const isIOS = checkIsIOS();
+    const isMac = checkIsMac();
 
-    window.addEventListener('resize', handleResize, { passive: true });
+    const applyMatches = (isMobileScreen: boolean) =>
+      setResult({
+        isMobileScreen,
+        isMobileUserAgent,
+        isMobile: isMobileScreen,
+        isIOS,
+        isMac,
+      });
 
-    // Cleanup listener on unmount
-    return () => window.removeEventListener('resize', handleResize);
+    applyMatches(mobileScreenQuery.matches);
+
+    const handleChange = (event: MediaQueryListEvent) =>
+      applyMatches(event.matches);
+
+    mobileScreenQuery.addEventListener('change', handleChange);
+
+    return () => mobileScreenQuery.removeEventListener('change', handleChange);
   }, [breakpoint]);
 
   return result;

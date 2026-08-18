@@ -31,3 +31,13 @@ vi.mock('react-dom/test-utils', () => {
 
   return { act };
 });
+
+// jsdom ships no ResizeObserver, yet layout-aware components (TabSelector,
+// useItemSelector…) instantiate one on mount.
+if (!('ResizeObserver' in globalThis)) {
+  globalThis.ResizeObserver = class {
+    observe() {}
+    unobserve() {}
+    disconnect() {}
+  } as unknown as typeof ResizeObserver;
+}

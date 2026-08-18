@@ -412,14 +412,8 @@ export default defineConfig(async ({ mode }) => {
         routeRules: {
           '/**': { headers },
           '/assets/**': { headers: immutableAssetHeaders },
-          /**
-           * Static files served from `public/` miss the hashed `/assets/**`
-           * rule above and fall back to a short TTL, so every repeat visitor
-           * re-downloaded them — 168 KB of typeface among them. Their contents
-           * are stable, so they cache like hashed assets; replacing one means
-           * shipping it under a new filename (the font is referenced from the
-           * `@font-face` rule in `@intlayer/design-system`'s `tailwind.css`).
-           */
+
+          '/Geist-VariableFont_wght.woff2': { headers: immutableAssetHeaders },
           '/Geist-VariableFont_wght.ttf': { headers: immutableAssetHeaders },
           '/logo.svg': { headers: immutableAssetHeaders },
           '/cover.png': { headers: immutableAssetHeaders },
@@ -463,48 +457,77 @@ export default defineConfig(async ({ mode }) => {
     build: {
       rolldownOptions: {
         external: ['wasi_snapshot_preview1', 'env'],
-        output: {
-          /**
-           * Groups modules that are always needed together into single chunks.
-           *
-           * Left to itself the bundler emitted a chunk per module: a cold load
-           * of `/` cost 304 JS requests, 247 of them under 5 KB, arriving in a
-           * six-deep waterfall because each level had to execute before the
-           * next was discovered. Grouping trades a little duplication for far
-           * fewer round trips.
-           *
-           * `minShareCount: 2` stops single-consumer modules from being split
-           * out on their own; `minSize` merges anything smaller into its
-           * parent chunk.
-           */
-          advancedChunks: {
-            minSize: 20_000,
-            // Caps any single group so one chunk cannot become a payload every
-            // page must download in full. An explicit `design-system` group
-            // produced a 617 KB chunk that pushed the documentation pages'
-            // head preload from 633 KB to 1.15 MB — consolidation has to stay
-            // bounded to be worth it.
-            maxSize: 160_000,
-            minShareCount: 2,
-            groups: [
-              // 36 `React.lazy` logo components that render together on the
-              // landing page — one dynamic chunk instead of 36 requests.
-              {
-                name: 'tech-logos',
-                test: /TechLogo[\\/]logos[\\/]/,
-                priority: 40,
+      },
+    },
+    environments: {
+      client: {
+        build: {
+          rolldownOptions: {
+            output: {
+              /**
+               * Groups modules that are always needed together into single
+               * chunks.
+               *
+               * Left to itself the bundler emitted a chunk per module: a cold
+               * load of `/` cost 304 JS requests, 247 of them under 5 KB,
+               * arriving in a six-deep waterfall because each level had to
+               * execute before the next was discovered. Grouping trades a
+               * little duplication for far fewer round trips.
+               *
+               * `minShareCount: 2` stops single-consumer modules from being
+               * split out on their own; `minSize` merges anything smaller into
+               * its parent chunk.
+               *
+               * Spelled `codeSplitting` rather than the deprecated
+               * `advancedChunks`: `vite-intlayer`'s chunk plugin groups the
+               * dictionary modules through `codeSplitting`, and rolldown drops
+               * `advancedChunks` outright as soon as anything sets
+               * `codeSplitting` — which silently discarded every group below.
+               *
+               * Declared on the `client` environment rather than on the root
+               * `build`, because a root-level value is inherited by every
+               * environment — including the one `nitro/vite` creates for the
+               * server bundle, whose own `codeSplitting.groups` merges with it
+               * instead of replacing it. `maxSize` then cut packages that
+               * `libChunkName` had deliberately kept whole back into several
+               * chunks: `motion-dom` came out as `motion-dom.mjs`,
+               * `motion-dom2.mjs` and `motion-dom+motion-utils.mjs`, whose
+               * imports form a cycle. The chunk evaluated first then read
+               * `transformPropOrder` before its `var` was assigned, so every
+               * page importing `framer-motion` answered 500 during prerender
+               * with "undefined is not an object". Only the browser pays for
+               * round trips, so the server has nothing to gain here anyway.
+               */
+              codeSplitting: {
+                minSize: 20_000,
+                // Caps any single group so one chunk cannot become a payload
+                // every page must download in full. An explicit
+                // `design-system` group produced a 617 KB chunk that pushed the
+                // documentation pages' head preload from 633 KB to 1.15 MB —
+                // consolidation has to stay bounded to be worth it.
+                maxSize: 160_000,
+                minShareCount: 2,
+                groups: [
+                  // 36 `React.lazy` logo components that render together on the
+                  // landing page — one dynamic chunk instead of 36 requests.
+                  {
+                    name: 'tech-logos',
+                    test: /TechLogo[\\/]logos[\\/]/,
+                    priority: 40,
+                  },
+                  {
+                    name: 'vendor-react',
+                    test: /node_modules[\\/](react|react-dom|scheduler)[\\/]/,
+                    priority: 30,
+                  },
+                  {
+                    name: 'vendor-tanstack',
+                    test: /node_modules[\\/]@tanstack[\\/]/,
+                    priority: 30,
+                  },
+                ],
               },
-              {
-                name: 'vendor-react',
-                test: /node_modules[\\/](react|react-dom|scheduler)[\\/]/,
-                priority: 30,
-              },
-              {
-                name: 'vendor-tanstack',
-                test: /node_modules[\\/]@tanstack[\\/]/,
-                priority: 30,
-              },
-            ],
+            },
           },
         },
       },

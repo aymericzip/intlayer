@@ -106,7 +106,6 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
         rel: 'preconnect',
         href: import.meta.env.VITE_BACKEND_URL,
       },
-      { rel: 'preconnect', href: 'https://i.ytimg.com' },
     ],
   }),
   shellComponent: RootDocument,

@@ -64,10 +64,30 @@ export type TabProps = HTMLAttributes<HTMLDivElement> &
   };
 
 export type TabItemProps = HTMLAttributes<HTMLDivElement> & {
-  label: string;
-  value: string;
+  label?: string;
+  value?: string;
   disabled?: boolean;
   children: ReactNode;
+};
+
+/** A tab item whose identifier has been resolved to a usable string. */
+type ResolvedTabItem = TabItemProps & { value: string };
+
+/**
+ * Resolves the identifier of a tab.
+ *
+ * Both `label` and `value` are optional for markdown-authored tabs
+ * (`<Tab label="next-intl">`), so the identifier falls back to the label, then
+ * to the position, keeping every tab addressable instead of rendering ids from
+ * `undefined`.
+ */
+const resolveTabValue = (
+  { value, label }: TabItemProps,
+  index: number
+): string => {
+  const identifier = value ?? label;
+
+  return typeof identifier === 'string' ? identifier : String(index);
 };
 
 /**
@@ -109,18 +129,23 @@ const TabComponent = ({
   ...props
 }: TabProps) => {
   // Extract TabItem children to get their props
-  const tabItems = Children.toArray(children).filter((child) => {
-    return isValidElement(child) && child.type === TabItem;
-  }) as ReactElement<TabItemProps>[];
+  const tabItems: ResolvedTabItem[] = (
+    Children.toArray(children).filter((child) => {
+      return isValidElement(child) && child.type === TabItem;
+    }) as ReactElement<TabItemProps>[]
+  ).map((child, index) => ({
+    ...child.props,
+    value: resolveTabValue(child.props, index),
+  }));
 
-  const firstTabValue = tabItems[0]?.props?.value;
+  const firstTabValue = tabItems[0]?.value;
   const { tabsValues, setTabsValues } = useTabContext();
   const [activeTab, setActiveTab] = useState(defaultTab ?? firstTabValue ?? '');
   const hasGroup = group && typeof tabsValues === 'object';
   const currentTabValue =
     (hasGroup ? tabsValues?.[group] : activeTab) ?? defaultTab ?? firstTabValue;
   const activeTabIndex = tabItems.findIndex(
-    (tab) => tab.props.value === currentTabValue
+    (tab) => tab.value === currentTabValue
   );
 
   const tabsCount = tabItems.length;
@@ -130,12 +155,12 @@ const TabComponent = ({
     itemCount: tabsCount,
     onSwipeLeft: () => {
       const targetIndex = Math.min(tabsCount - 1, activeTabIndex + 1);
-      const nextValue = tabItems[targetIndex]?.props?.value;
+      const nextValue = tabItems[targetIndex]?.value;
       if (nextValue) handleSetActiveTab(nextValue);
     },
     onSwipeRight: () => {
       const targetIndex = Math.max(0, activeTabIndex - 1);
-      const nextValue = tabItems[targetIndex]?.props?.value;
+      const nextValue = tabItems[targetIndex]?.value;
       if (nextValue) handleSetActiveTab(nextValue);
     },
   });
@@ -168,8 +193,7 @@ const TabComponent = ({
         <div className={cn('flex shrink-0 gap-3 p-3', headerClassName)}>
           <TabSelector
             selectedChoice={currentTabValue}
-            tabs={tabItems.map((child) => {
-              const { label, value, disabled } = child.props;
+            tabs={tabItems.map(({ label, value, disabled }) => {
               const isActive = currentTabValue === value;
               const idFragment = toIdFragment(value);
 
@@ -221,42 +245,43 @@ const TabComponent = ({
               transform: `translateX(-${activeTabIndex * 100 - (isDragging ? dragDeltaPct : 0)}%)`,
             }}
           >
-            {tabItems.map(({ props }, index) => {
-              const { value, children, className: itemClassName } = props;
-              const isActive = index === activeTabIndex;
-              const idFragment = toIdFragment(value);
+            {tabItems.map(
+              ({ value, children, className: itemClassName }, index) => {
+                const isActive = index === activeTabIndex;
+                const idFragment = toIdFragment(value);
 
-              return (
-                <div
-                  key={value}
-                  role="tabpanel"
-                  aria-labelledby={`tab-${idFragment}`}
-                  id={`tabpanel-${idFragment}`}
-                  // `inert` takes the whole subtree out of the tab order and
-                  // the accessibility tree at once. `aria-hidden` alone leaves
-                  // the buttons and links of an off-screen panel focusable,
-                  // which strands keyboard users on invisible controls.
-                  inert={!isActive}
-                  tabIndex={isActive ? 0 : -1}
-                  data-active={isActive}
-                  className={cn(
-                    'w-full min-w-0 p-3 opacity-100 transition-opacity duration-300 ease-in-out',
-                    fullHeight && 'h-full overflow-y-auto',
-                    !isActive && 'pointer-events-none opacity-0', // prevent offscreen interaction
-                    itemClassName
-                  )}
-                >
+                return (
                   <div
+                    key={value}
+                    role="tabpanel"
+                    aria-labelledby={`tab-${idFragment}`}
+                    id={`tabpanel-${idFragment}`}
+                    // `inert` takes the whole subtree out of the tab order and
+                    // the accessibility tree at once. `aria-hidden` alone leaves
+                    // the buttons and links of an off-screen panel focusable,
+                    // which strands keyboard users on invisible controls.
+                    inert={!isActive}
+                    tabIndex={isActive ? 0 : -1}
+                    data-active={isActive}
                     className={cn(
-                      'flex w-full min-w-0 flex-col items-stretch gap-6',
-                      fullHeight && 'min-h-full'
+                      'w-full min-w-0 p-3 opacity-100 transition-opacity duration-300 ease-in-out',
+                      fullHeight && 'h-full overflow-y-auto',
+                      !isActive && 'pointer-events-none opacity-0', // prevent offscreen interaction
+                      itemClassName
                     )}
                   >
-                    {children}
+                    <div
+                      className={cn(
+                        'flex w-full min-w-0 flex-col items-stretch gap-6',
+                        fullHeight && 'min-h-full'
+                      )}
+                    >
+                      {children}
+                    </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              }
+            )}
           </div>
         </div>
       </div>

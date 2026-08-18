@@ -1,6 +1,12 @@
 'use client';
 
-import { type RefObject, useEffect, useRef, useState } from 'react';
+import {
+  type RefObject,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 
 export type ItemSelectorOrientation = 'horizontal' | 'vertical';
 
@@ -20,6 +26,12 @@ type StyleState = HorizontalStyleState | VerticalStyleState;
 
 const selectorDefault = (option: HTMLElement) =>
   option?.getAttribute('aria-selected') === 'true';
+
+/** Attributes whose change moves the indicator to another option. */
+const WATCHED_ATTRIBUTES = ['aria-selected', 'data-active', 'data-indicator'];
+
+/** Delay before the indicator leaves the option the pointer just left. */
+const HOVER_RELEASE_DELAY = 150;
 
 type Options = {
   selector?: (option: HTMLElement, index: number) => boolean;
@@ -42,239 +54,199 @@ export const useItemSelector = (
   const [choiceIndicatorPosition, setChoiceIndicatorPosition] =
     useState<StyleState | null>(null);
 
-  const [hoveredItem, setHoveredItem] = useState<HTMLElement | null>(null);
+  const hoveredItemRef = useRef<HTMLElement | null>(null);
   const hideTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const lastPositionRef = useRef<StyleState | null>(null);
+  const measurementFrameRef = useRef<number | null>(null);
+
+  /*
+   * Callers build their options object inline, so `selector` and `orientation`
+   * are new values on every render. Reading them from refs keeps the observers
+   * below from being torn down and rebuilt each time — a switch selector used
+   * to re-subscribe one MutationObserver per option per render.
+   */
+  const selectorRef = useRef(selector);
+  selectorRef.current = selector;
+
+  const orientationRef = useRef(orientation);
+  orientationRef.current = orientation;
 
   const itemsLength = optionsRefs.current.length;
 
-  const calculatePosition = () => {
-    let targetElement: HTMLElement | null = null;
+  const calculatePosition = useCallback(() => {
+    const targetElement =
+      hoveredItemRef.current ??
+      optionsRefs.current.find(selectorRef.current) ??
+      null;
 
-    if (hoveredItem) {
-      targetElement = hoveredItem;
+    if (hoveredItemRef.current && hideTimeoutRef.current) {
       // Clear any pending hide timeout when hovering over an item
-      if (hideTimeoutRef.current) {
-        clearTimeout(hideTimeoutRef.current);
-        hideTimeoutRef.current = null;
-      }
-    } else {
-      targetElement = optionsRefs.current.find(selector) ?? null;
+      clearTimeout(hideTimeoutRef.current);
+      hideTimeoutRef.current = null;
     }
+
+    const isVertical = orientationRef.current === 'vertical';
 
     if (!targetElement) {
       // Keep previous position but set opacity to 0
-      if (orientation === 'vertical') {
-        const verticalPrev =
-          lastPositionRef.current as VerticalStyleState | null;
-        const newPosition: VerticalStyleState = {
-          top: verticalPrev?.top ?? 0,
-          height: verticalPrev?.height ?? 0,
-          opacity: 0,
-        };
+      if (lastPositionRef.current?.opacity === 0) return;
 
-        if (verticalPrev?.opacity !== 0) {
-          setChoiceIndicatorPosition(newPosition);
-          lastPositionRef.current = newPosition;
-        }
-      } else {
-        const horizontalPrev =
-          lastPositionRef.current as HorizontalStyleState | null;
-        const newPosition: HorizontalStyleState = {
-          left: horizontalPrev?.left ?? 0,
-          width: horizontalPrev?.width ?? 0,
-          opacity: 0,
-        };
+      const newPosition: StyleState = isVertical
+        ? {
+            top:
+              (lastPositionRef.current as VerticalStyleState | null)?.top ?? 0,
+            height:
+              (lastPositionRef.current as VerticalStyleState | null)?.height ??
+              0,
+            opacity: 0,
+          }
+        : {
+            left:
+              (lastPositionRef.current as HorizontalStyleState | null)?.left ??
+              0,
+            width:
+              (lastPositionRef.current as HorizontalStyleState | null)?.width ??
+              0,
+            opacity: 0,
+          };
 
-        if (horizontalPrev?.opacity !== 0) {
-          setChoiceIndicatorPosition(newPosition);
-          lastPositionRef.current = newPosition;
-        }
-      }
+      setChoiceIndicatorPosition(newPosition);
+      lastPositionRef.current = newPosition;
       return;
     }
 
-    if (orientation === 'vertical') {
+    if (isVertical) {
       const top = targetElement.offsetTop;
       const height = targetElement.offsetHeight;
-
-      const newPosition = {
-        top,
-        height,
-        opacity: 1,
-      };
-
-      const prev = lastPositionRef.current as VerticalStyleState | null;
+      const previous = lastPositionRef.current as VerticalStyleState | null;
 
       if (
-        !prev ||
-        prev.top !== top ||
-        prev.height !== height ||
-        prev.opacity !== 1
+        previous?.top === top &&
+        previous.height === height &&
+        previous.opacity === 1
       ) {
-        setChoiceIndicatorPosition(newPosition);
-        lastPositionRef.current = newPosition;
+        return;
       }
-    } else {
-      const left = targetElement.offsetLeft;
-      const width = targetElement.offsetWidth;
 
-      const newPosition = {
-        left,
-        width,
-        opacity: 1,
-      };
+      const newPosition: VerticalStyleState = { top, height, opacity: 1 };
 
-      const prev = lastPositionRef.current as HorizontalStyleState | null;
-
-      if (
-        !prev ||
-        prev.left !== left ||
-        prev.width !== width ||
-        prev.opacity !== 1
-      ) {
-        setChoiceIndicatorPosition(newPosition);
-        lastPositionRef.current = newPosition;
-      }
+      setChoiceIndicatorPosition(newPosition);
+      lastPositionRef.current = newPosition;
+      return;
     }
-  };
+
+    const left = targetElement.offsetLeft;
+    const width = targetElement.offsetWidth;
+    const previous = lastPositionRef.current as HorizontalStyleState | null;
+
+    if (
+      previous?.left === left &&
+      previous.width === width &&
+      previous.opacity === 1
+    ) {
+      return;
+    }
+
+    const newPosition: HorizontalStyleState = { left, width, opacity: 1 };
+
+    setChoiceIndicatorPosition(newPosition);
+    lastPositionRef.current = newPosition;
+  }, [optionsRefs]);
+
+  /**
+   * Defers the measurement to the next frame, and to a single one however many
+   * observers fire.
+   *
+   * Reading `offsetLeft` straight from a mutation, resize or scroll callback
+   * forces a synchronous reflow, and a documentation page mounts one selector
+   * per tab group and one per code block.
+   */
+  const scheduleMeasurement = useCallback(() => {
+    if (measurementFrameRef.current !== null) return;
+
+    measurementFrameRef.current = requestAnimationFrame(() => {
+      measurementFrameRef.current = null;
+      calculatePosition();
+    });
+  }, [calculatePosition]);
 
   useEffect(() => {
-    /*
-     * Measuring inside an animation frame — rather than synchronously on commit
-     * — lets the browser lay the page out once and serve every selector from
-     * that same layout. Reading `offsetLeft` right after a commit instead forces
-     * a synchronous reflow per selector, and a documentation page mounts one
-     * per tab group and one per code block.
-     */
-    const measurementFrame = requestAnimationFrame(calculatePosition);
+    scheduleMeasurement();
 
-    // Event listeners for window events
-    window.addEventListener('resize', calculatePosition);
-    window.addEventListener('DOMContentLoaded', calculatePosition);
+    window.addEventListener('resize', scheduleMeasurement, { passive: true });
+    window.addEventListener('DOMContentLoaded', scheduleMeasurement);
 
-    // MutationObserver to watch for 'aria-selected' changes
-    const mutationObservers: MutationObserver[] = [];
+    const options = optionsRefs.current.filter(Boolean);
 
-    optionsRefs.current.forEach((option) => {
-      if (option) {
-        const observer = new MutationObserver((mutations) => {
-          for (const mutation of mutations) {
-            if (
-              mutation.type === 'attributes' &&
-              (mutation.attributeName === 'aria-selected' ||
-                mutation.attributeName === 'data-active' ||
-                mutation.attributeName === 'data-indicator')
-            ) {
-              calculatePosition();
-              break;
-            }
-          }
-        });
+    // One observer of each kind covers every option: both accept repeated
+    // `observe` calls, so a group of ten options costs two observers, not
+    // twenty.
+    const mutationObserver = new MutationObserver(scheduleMeasurement);
+    const resizeObserver = new ResizeObserver(scheduleMeasurement);
 
-        observer.observe(option, {
-          attributes: true,
-          attributeFilter: ['aria-selected', 'data-active', 'data-indicator'],
-        });
-
-        mutationObservers.push(observer);
-      }
-    });
-
-    // ResizeObserver to watch for size changes
-    const resizeObservers: ResizeObserver[] = [];
-
-    const observeSize = (element: HTMLElement) => {
-      if (!element) return;
-      const resizeObserver = new ResizeObserver(() => {
-        calculatePosition();
-      });
-      resizeObserver.observe(element);
-      resizeObservers.push(resizeObserver);
-    };
-
-    // Observe the selected item
-    const selectedItem = optionsRefs.current.find(selector) ?? null;
-
-    if (selectedItem) {
-      observeSize(selectedItem);
-    }
-
-    // Observe the hovered item
-    if (hoveredItem) {
-      observeSize(hoveredItem);
-    }
-
-    // Add hover event listeners
     const handleMouseEnter = (event: Event) => {
-      // Clear any pending hide timeout
       if (hideTimeoutRef.current) {
         clearTimeout(hideTimeoutRef.current);
         hideTimeoutRef.current = null;
       }
-      setHoveredItem(event.currentTarget as HTMLElement);
+
+      hoveredItemRef.current = event.currentTarget as HTMLElement;
+      scheduleMeasurement();
     };
 
     const handleMouseLeave = () => {
-      // Clear any existing timeout
-      if (hideTimeoutRef.current) {
-        clearTimeout(hideTimeoutRef.current);
-      }
+      if (hideTimeoutRef.current) clearTimeout(hideTimeoutRef.current);
 
-      // Keep the indicator at its current position for 150ms
-      // before removing the hovered item
+      // Keep the indicator where it is for a moment, so moving between two
+      // neighbouring options does not make it blink out and back in.
       hideTimeoutRef.current = setTimeout(() => {
-        setHoveredItem(null);
-      }, 150); // 150ms delay before hiding
+        hoveredItemRef.current = null;
+        scheduleMeasurement();
+      }, HOVER_RELEASE_DELAY);
     };
 
-    if (isHoverable) {
-      optionsRefs.current.forEach((option) => {
-        option?.addEventListener('mouseenter', handleMouseEnter, {
-          passive: true,
-        });
-        option?.addEventListener('mouseleave', handleMouseLeave, {
-          passive: true,
-        });
+    for (const option of options) {
+      mutationObserver.observe(option, {
+        attributes: true,
+        attributeFilter: WATCHED_ATTRIBUTES,
       });
+      resizeObserver.observe(option);
+
+      if (isHoverable) {
+        option.addEventListener('mouseenter', handleMouseEnter, {
+          passive: true,
+        });
+        option.addEventListener('mouseleave', handleMouseLeave, {
+          passive: true,
+        });
+      }
     }
 
     return () => {
-      cancelAnimationFrame(measurementFrame);
-
-      // Clear any pending hide timeout
-      if (hideTimeoutRef.current) {
-        clearTimeout(hideTimeoutRef.current);
+      if (measurementFrameRef.current !== null) {
+        cancelAnimationFrame(measurementFrameRef.current);
+        measurementFrameRef.current = null;
       }
 
-      // Cleanup window event listeners
-      window.removeEventListener('resize', calculatePosition);
-      window.removeEventListener('DOMContentLoaded', calculatePosition);
+      if (hideTimeoutRef.current) {
+        clearTimeout(hideTimeoutRef.current);
+        hideTimeoutRef.current = null;
+      }
 
-      // Disconnect MutationObservers
-      mutationObservers.forEach((observer) => {
-        observer.disconnect();
-      });
+      window.removeEventListener('resize', scheduleMeasurement);
+      window.removeEventListener('DOMContentLoaded', scheduleMeasurement);
 
-      // Disconnect ResizeObservers
-      resizeObservers.forEach((observer) => {
-        observer.disconnect();
-      });
+      mutationObserver.disconnect();
+      resizeObserver.disconnect();
 
-      // Remove hover event listeners
-      optionsRefs.current.forEach((option) => {
-        option?.removeEventListener('mouseenter', handleMouseEnter);
-        option?.removeEventListener('mouseleave', handleMouseLeave);
-      });
+      if (isHoverable) {
+        for (const option of options) {
+          option.removeEventListener('mouseenter', handleMouseEnter);
+          option.removeEventListener('mouseleave', handleMouseLeave);
+        }
+      }
     };
-  }, [
-    optionsRefs,
-    selector,
-    hoveredItem,
-    itemsLength,
-    orientation,
-    isHoverable,
-  ]);
+  }, [optionsRefs, itemsLength, isHoverable, orientation, scheduleMeasurement]);
 
   return { choiceIndicatorPosition, calculatePosition, orientation };
 };

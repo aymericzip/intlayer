@@ -3,7 +3,7 @@ import {
   getSlugsStaticParams,
   type SlugsStaticParams,
 } from '@utils/docMetadata';
-import { getLocalizedUrl, getMultilingualUrls, Locales } from 'intlayer';
+import { defaultLocale, getLocalizedUrl, getMultilingualUrls } from 'intlayer';
 import type { Metadata } from 'next';
 import type { LocalPromiseParams, NextLayoutIntlayer } from 'next-intlayer';
 
@@ -51,7 +51,7 @@ export const generateMetadata = async ({
       canonical: getLocalizedUrl(absoluteUrl, locale),
       languages: {
         ...getMultilingualUrls(absoluteUrl),
-        'x-default': getLocalizedUrl(absoluteUrl, Locales.ENGLISH),
+        'x-default': getLocalizedUrl(absoluteUrl, defaultLocale),
       },
       types: {
         'text/markdown': `${getLocalizedUrl(absoluteUrl, locale)}.md`,
