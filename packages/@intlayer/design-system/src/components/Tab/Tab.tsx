@@ -163,12 +163,9 @@ const TabComponent = ({
         )}
         {...props}
       >
-        {/* Tab Headers */}
-        <div
-          role="tablist"
-          aria-orientation="horizontal"
-          className={cn('flex shrink-0 gap-3 p-3', headerClassName)}
-        >
+        {/* Tab Headers — `TabSelector` is the tablist; wrapping it in another
+            one would nest two, leaving the outer without any `tab` child. */}
+        <div className={cn('flex shrink-0 gap-3 p-3', headerClassName)}>
           <TabSelector
             selectedChoice={currentTabValue}
             tabs={tabItems.map((child) => {

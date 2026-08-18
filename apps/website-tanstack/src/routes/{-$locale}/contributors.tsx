@@ -65,6 +65,9 @@ export const Route = createFileRoute('/{-$locale}/contributors')({
       ],
       links: [
         { rel: 'canonical', href: getAbsoluteUrl(path, locale) },
+        // The contributor list is the only thing on the site that calls
+        // GitHub, so the hint belongs here rather than on every page.
+        { rel: 'preconnect', href: 'https://api.github.com' },
         ...getHreflangLinks(path),
       ],
       scripts: [

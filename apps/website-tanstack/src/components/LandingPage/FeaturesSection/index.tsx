@@ -65,49 +65,68 @@ type TitlesProps = {
   isMobile: boolean;
 };
 
+/**
+ * Places one title on the carousel's arc, relative to the active one.
+ *
+ * Extracted so the same values can be given to `initial` as to `animate`:
+ * Motion renders `initial` into the server markup, where `animate` is only
+ * applied once the browser has hydrated. Without it the active title — by far
+ * the largest text on the page, and so its Largest Contentful Paint — was
+ * served at its stylesheet size and only grew to `fontSize` seconds later.
+ *
+ * @param index - Position of the title being placed.
+ * @param activeIndex - Position of the title currently in focus.
+ * @param isMobile - Whether the narrow-screen type scale applies.
+ */
+const getTitlePlacement = (
+  index: number,
+  activeIndex: number,
+  isMobile: boolean
+) => {
+  const isActive = index === activeIndex;
+  // Define the angle step (in radians) between items.
+  const angleStep = Math.PI / 10;
+  const absIndexDiff = Math.abs(index - activeIndex);
+  // Calculate the angle for this item relative to the active item.
+  const angle = (index - activeIndex) * angleStep;
+  // Define a radius in rem units.
+  const radius = 10;
+
+  const fontConst = isMobile ? 2 : 3;
+
+  return {
+    // Convert polar coords to Cartesian (rem units)
+    translateX: isActive ? '5rem' : `${(radius * Math.cos(angle)) / 4 + 3}rem`,
+    translateY: isActive
+      ? '3rem'
+      : `${
+          (2 / 3) *
+            (radius * Math.sin(angle) * 2 + 2 / (absIndexDiff / 5 + 1)) +
+          3
+        }rem`,
+    opacity: absIndexDiff > 2 ? 0 : absIndexDiff > 1 ? 0.5 : 1,
+    fontSize: `${fontConst / (absIndexDiff + 1)}rem`,
+  };
+};
+
+/** The carousel always opens on the first section. */
+const INITIAL_ACTIVE_INDEX = 0;
+
 const Titles: FC<TitlesProps> = ({ sections, activeIndex, isMobile }) => (
   <>
-    {sections.map((section, index) => {
-      const isActive = index === activeIndex;
-      // Define the angle step (in radians) between items.
-      const angleStep = Math.PI / 10;
-      const absIndexDiff = Math.abs(index - activeIndex);
-      // Calculate the angle for this item relative to the active item.
-      const angle = (index - activeIndex) * angleStep;
-      // Define a radius in rem units.
-      const radius = 10;
-
-      const fontConst = isMobile ? 2 : 3;
-
-      return (
-        <motion.h3
-          key={section.id.value}
-          className="absolute top-1/4 left-3 inline font-bold text-neutral text-xl leading-snug drop-shadow-sm aria-selected:text-text"
-          animate={{
-            // Convert polar coords to Cartesian (rem units)
-            translateX: isActive
-              ? '5rem'
-              : `${(radius * Math.cos(angle)) / 4 + 3}rem`,
-            translateY: isActive
-              ? '3rem'
-              : `${
-                  (2 / 3) *
-                    (
-                      radius * Math.sin(angle) * 2 + 2 / (absIndexDiff / 5 + 1)
-                    ) +
-                  3
-                }rem`,
-            opacity: absIndexDiff > 2 ? 0 : absIndexDiff > 1 ? 0.5 : 1,
-            fontSize: `${fontConst / (absIndexDiff + 1)}rem`,
-          }}
-          role="tab"
-          transition={{ duration: 0.3 }}
-          aria-selected={isActive}
-        >
-          {section.title}
-        </motion.h3>
-      );
-    })}
+    {sections.map((section, index) => (
+      <motion.h3
+        key={section.id.value}
+        className="absolute top-1/4 left-3 inline font-bold text-neutral text-xl leading-snug drop-shadow-sm aria-selected:text-text"
+        initial={getTitlePlacement(index, INITIAL_ACTIVE_INDEX, isMobile)}
+        animate={getTitlePlacement(index, activeIndex, isMobile)}
+        role="tab"
+        transition={{ duration: 0.3 }}
+        aria-selected={index === activeIndex}
+      >
+        {section.title}
+      </motion.h3>
+    ))}
   </>
 );
 

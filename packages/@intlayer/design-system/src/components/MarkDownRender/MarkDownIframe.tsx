@@ -130,10 +130,15 @@ const EmbeddedFrame: FC<EmbeddedFrameProps> = ({
           className
         )}
       >
+        {/*
+         * The poster stands in for the player, so on a page that opens with a
+         * video it is the largest element painted — deferring it would defer
+         * the page's LCP. It is the one image here worth fetching eagerly.
+         */}
         <img
           src={`https://i.ytimg.com/vi/${youtubeVideoId}/hqdefault.jpg`}
           alt=""
-          loading="lazy"
+          fetchPriority="high"
           decoding="async"
           className="size-full object-cover"
         />

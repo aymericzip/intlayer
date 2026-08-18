@@ -4,7 +4,8 @@ import { cn } from '@utils/cn';
 import {
   type FC,
   type ReactNode,
-  useLayoutEffect,
+  useCallback,
+  useEffect,
   useRef,
   useState,
 } from 'react';
@@ -87,23 +88,44 @@ export const ExpandCollapse: FC<ExpandCollapseProps> = ({
 }) => {
   const [codeContainerHeight, setCodeContainerHeight] = useState(0);
   const [isCollapsed, setIsCollapsed] = useState(true);
-  const codeContainerRef = useRef<HTMLDivElement>(null);
+  const resizeObserverRef = useRef<ResizeObserver | null>(null);
   const { expandCollapseContent } = useIntlayer('expand-collapse');
 
   const isTooBig = codeContainerHeight > minHeight;
 
-  useLayoutEffect(() => {
-    const measure = () => {
-      if (codeContainerRef.current) {
-        setCodeContainerHeight(codeContainerRef.current.clientHeight);
-      }
-    };
+  /*
+   * A `ResizeObserver` is handed the size the browser has already computed,
+   * where reading `clientHeight` from an effect forces it to lay the page out
+   * again on the spot. That distinction matters here because a documentation
+   * page mounts one of these per code block: dozens of synchronous reflows over
+   * a very large document. The observer also reports later size changes, which
+   * is what the window `resize` listener used to cover.
+   *
+   * It attaches through a callback ref rather than an effect because crossing
+   * the `minHeight` threshold re-parents the container into `MaxHeightSmoother`
+   * — a different element, which an effect bound to mount would never observe.
+   */
+  const observeContainer = useCallback((container: HTMLDivElement | null) => {
+    resizeObserverRef.current?.disconnect();
+    resizeObserverRef.current = null;
 
-    measure();
+    if (!container) return;
 
-    window.addEventListener('resize', measure);
-    return () => window.removeEventListener('resize', measure);
-  }, [children]);
+    if (typeof ResizeObserver === 'undefined') {
+      setCodeContainerHeight(container.clientHeight);
+      return;
+    }
+
+    const observer = new ResizeObserver(([entry]) => {
+      // Read inside the callback, where the layout is already up to date.
+      if (entry) setCodeContainerHeight(entry.target.clientHeight);
+    });
+
+    observer.observe(container);
+    resizeObserverRef.current = observer;
+  }, []);
+
+  useEffect(() => () => resizeObserverRef.current?.disconnect(), []);
 
   if (!isRollable) {
     return children;
@@ -111,7 +133,7 @@ export const ExpandCollapse: FC<ExpandCollapseProps> = ({
 
   if (!isTooBig) {
     return (
-      <div className={cn('grid w-full', className)} ref={codeContainerRef}>
+      <div className={cn('grid w-full', className)} ref={observeContainer}>
         {children}
       </div>
     );
@@ -123,7 +145,7 @@ export const ExpandCollapse: FC<ExpandCollapseProps> = ({
       minHeight={minHeight}
       className="w-full overflow-x-auto overflow-y-hidden"
     >
-      <div className={cn('grid w-full', className)} ref={codeContainerRef}>
+      <div className={cn('grid w-full', className)} ref={observeContainer}>
         {children}
       </div>
       <button

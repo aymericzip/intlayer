@@ -13,7 +13,6 @@ import { createFileRoute } from '@tanstack/react-router';
 import { defaultLocale, getIntlayer, locales } from 'intlayer';
 import { LandingPage as LandingPageContent } from '~/components/LandingPage';
 import { PageLayout } from '~/layouts/PageLayout';
-import monacoCss from '~/monaco.css?url';
 import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
 import { formatStructuredDataOffers, getPricing } from '~/utils/stripe';
 import packageJson from '../../../package_mock.json' with { type: 'json' };
@@ -61,7 +60,6 @@ export const Route = createFileRoute('/{-$locale}/')({
       ],
       links: [
         { rel: 'canonical', href: getAbsoluteUrl(path, locale) },
-        { rel: 'stylesheet', href: monacoCss },
         ...getHreflangLinks(path),
       ],
       scripts: [

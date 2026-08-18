@@ -369,6 +369,11 @@ export default defineConfig(async ({ mode }) => {
     'Cross-Origin-Embedder-Policy': 'unsafe-none',
   } as const;
 
+  const immutableAssetHeaders = {
+    ...headers,
+    'Cache-Control': 'public, max-age=31536000, immutable',
+  } as const;
+
   return {
     server: {
       headers: mode === 'development' ? {} : headers,
@@ -406,26 +411,19 @@ export default defineConfig(async ({ mode }) => {
         serverDir: resolve(__dirname, 'server'),
         routeRules: {
           '/**': { headers },
-          '/assets/**': {
-            headers: {
-              ...headers,
-              'Cache-Control': 'public, max-age=31536000, immutable',
-            },
-          },
+          '/assets/**': { headers: immutableAssetHeaders },
           /**
-           * The web font is served from `public/` and so misses the hashed
-           * `/assets/**` rule above, leaving it on the default short TTL —
-           * every repeat visitor re-downloaded 168 KB of typeface. It is
-           * content-stable, so it caches like a hashed asset; a replacement
-           * has to ship under a new filename (see `@font-face` in
-           * `@intlayer/design-system`'s `tailwind.css`).
+           * Static files served from `public/` miss the hashed `/assets/**`
+           * rule above and fall back to a short TTL, so every repeat visitor
+           * re-downloaded them — 168 KB of typeface among them. Their contents
+           * are stable, so they cache like hashed assets; replacing one means
+           * shipping it under a new filename (the font is referenced from the
+           * `@font-face` rule in `@intlayer/design-system`'s `tailwind.css`).
            */
-          '/Geist-VariableFont_wght.ttf': {
-            headers: {
-              ...headers,
-              'Cache-Control': 'public, max-age=31536000, immutable',
-            },
-          },
+          '/Geist-VariableFont_wght.ttf': { headers: immutableAssetHeaders },
+          '/logo.svg': { headers: immutableAssetHeaders },
+          '/cover.png': { headers: immutableAssetHeaders },
+          '/github-social-preview.png': { headers: immutableAssetHeaders },
           '/i18n-seo-scanner': {
             headers: {
               ...headers,

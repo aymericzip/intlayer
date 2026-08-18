@@ -18,7 +18,6 @@ import { WebMCPTools } from '~/components/WebMCP';
 import appCss from '~/globals.css?url';
 import { AnimatePresenceProvider } from '~/providers/AnimatePresenceProvider';
 import { FirstConsultationProvider } from '~/providers/FirstConsultationProvider';
-import shikiCss from '~/shiki.css?url';
 
 const localeRoute = getRouteApi('/{-$locale}');
 
@@ -70,8 +69,6 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
     ],
     links: [
       { rel: 'stylesheet', href: appCss },
-      { rel: 'stylesheet', href: shikiCss },
-      { rel: 'preconnect', href: 'https://api.github.com' },
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       {
         rel: 'icon',

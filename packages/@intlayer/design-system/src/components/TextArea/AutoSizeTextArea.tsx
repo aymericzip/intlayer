@@ -144,8 +144,15 @@ export const AutoSizedTextArea: FC<AutoSizedTextAreaProps> = ({
    * identity — recreated every render — repeated that reflow on every render of
    * every ancestor; the height only ever changes with the content, so that is
    * what this watches.
+   *
+   * An empty field is skipped entirely: its height is already the one line the
+   * CSS gives it, so measuring only buys a reflow. That is the common case for
+   * a chat composer sitting unopened on a large page.
    */
   useLayoutEffect(() => {
+    const hasContent = Boolean(props.value ?? props.defaultValue);
+    if (!hasContent) return;
+
     adjustHeight();
   }, [props.value, props.defaultValue, autoSize, maxRows]);
 
