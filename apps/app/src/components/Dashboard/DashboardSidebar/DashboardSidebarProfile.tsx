@@ -135,6 +135,7 @@ export const DashboardSidebarProfile: FC<DashboardSidebarProfileProps> = ({
                 to={App_Dashboard_Profile_Path}
                 label={navigation.viewProfile.label.value}
                 variant="hoverable"
+                className="mb-2 text-center"
               >
                 {navigation.viewProfile.text.value}
               </Link>
