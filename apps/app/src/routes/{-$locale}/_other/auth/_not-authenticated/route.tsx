@@ -23,7 +23,7 @@ export const Route = createFileRoute(
       pathname: location.pathname,
       search,
       locale,
-      accessRule: 'not-authenticated',
+      accessRule: 'public',
       redirectionRoute: redirectUrl ?? App_Home_Path,
     });
   },
