@@ -1,7 +1,9 @@
+import type { IntlayerConfig } from '@intlayer/types/config';
 import { describe, expect, it } from 'vitest';
 import {
   type ChunkingContext,
   createDictionaryModuleParser,
+  intlayerChunk,
   type ModuleGraphNode,
   resolveBoundaries,
   toBoundaryName,
@@ -202,5 +204,40 @@ describe('resolveBoundaries', () => {
 
   it('returns nothing when the module is absent from the graph', () => {
     expect(resolveBoundaries(JSON_ID, createContext({}))).toEqual([]);
+  });
+});
+
+describe('intlayerChunk', () => {
+  const createConfig = (chunkGrouping: boolean): IntlayerConfig =>
+    ({
+      build: { chunkGrouping },
+      dictionary: { importMode: 'dynamic' },
+      system: { dynamicDictionariesDir: '/app/.intlayer/dynamic_dictionary' },
+      log: { mode: 'disabled' },
+    }) as unknown as IntlayerConfig;
+
+  const apply = (chunkGrouping: boolean): boolean => {
+    const plugin = intlayerChunk(createConfig(chunkGrouping));
+    const applyOption = plugin.apply as (
+      config: unknown,
+      env: { command: string }
+    ) => boolean;
+
+    return applyOption({}, { command: 'build' });
+  };
+
+  it('is opt-out through `build.chunkGrouping`', () => {
+    expect(apply(true)).toBe(true);
+    expect(apply(false)).toBe(false);
+  });
+
+  it('stays out of the dev server, where modules are served unbundled', () => {
+    const plugin = intlayerChunk(createConfig(true));
+    const applyOption = plugin.apply as (
+      config: unknown,
+      env: { command: string }
+    ) => boolean;
+
+    expect(applyOption({}, { command: 'serve' })).toBe(false);
   });
 });

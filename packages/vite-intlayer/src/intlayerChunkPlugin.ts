@@ -1,13 +1,5 @@
-import { relative } from 'node:path';
-import { GREY_LIGHT } from '@intlayer/config/colors';
 import { DYNAMIC_DICTIONARIES_JSON_SUBDIR } from '@intlayer/config/defaultValues';
-import {
-  colorize,
-  colorizeKey,
-  colorizeNumber,
-  colorizePath,
-  getAppLogger,
-} from '@intlayer/config/logger';
+import { colorizeNumber, getAppLogger } from '@intlayer/config/logger';
 import { normalizePath } from '@intlayer/config/utils';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Plugin } from 'vite';
@@ -216,7 +208,8 @@ export const intlayerChunk = (intlayerConfig: IntlayerConfig): Plugin => {
      * honest signal, so the group's `test` does the gating instead — it simply
      * matches nothing when no dictionary resolves to dynamic.
      */
-    apply: (_viteConfig, env) => env.command === 'build',
+    apply: (_viteConfig, env) =>
+      intlayerConfig.build.chunkGrouping && env.command === 'build',
 
     config: () => {
       return {

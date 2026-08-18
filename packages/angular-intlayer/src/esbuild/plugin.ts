@@ -249,24 +249,27 @@ export const intlayerEsbuildPlugin = (
       // `fetch` global mode, and that dictionary needs the preload just the
       // same. Only entry points the optimizer imported are ever loaded, so the
       // path check below is the accurate gate.
-      const dynamicDictionariesDir = normalizePath(
-        config.system.dynamicDictionariesDir
-      );
+      if (config.build.dictionariesPreload) {
+        const dynamicDictionariesDir = normalizePath(
+          config.system.dynamicDictionariesDir
+        );
 
-      build.onLoad(
-        { filter: createDynamicEntryFilter(dynamicDictionariesDir) },
-        async ({ path }) => {
-          const posixPath = normalizePath(path);
-          if (!posixPath.startsWith(`${dynamicDictionariesDir}/`)) return null;
+        build.onLoad(
+          { filter: createDynamicEntryFilter(dynamicDictionariesDir) },
+          async ({ path }) => {
+            const posixPath = normalizePath(path);
+            if (!posixPath.startsWith(`${dynamicDictionariesDir}/`))
+              return null;
 
-          const code = await readFile(path, 'utf-8');
-          const result = addDynamicEntryPreload(code, preloadModuleId);
+            const code = await readFile(path, 'utf-8');
+            const result = addDynamicEntryPreload(code, preloadModuleId);
 
-          if (result.skipped) return null;
+            if (result.skipped) return null;
 
-          return { contents: result.code, loader: 'js' };
-        }
-      );
+            return { contents: result.code, loader: 'js' };
+          }
+        );
+      }
 
       if (!preparePromise) {
         preparePromise = prepareIntlayer(config, {

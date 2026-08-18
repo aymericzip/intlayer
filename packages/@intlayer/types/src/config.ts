@@ -734,6 +734,47 @@ export type BuildConfig = {
   purge: boolean;
 
   /**
+   * Group the per-locale dictionary chunks by the code-split boundary that uses
+   * them, so a lazily loaded page fetches its content in one request.
+   *
+   * Default: true
+   *
+   * Without grouping, a dictionary imported dynamically gets its own chunk per
+   * locale, and a page assembled from many components issues dozens of small
+   * requests. Dictionaries reached from several boundaries move to a shared
+   * chunk, so no page ships another page's content.
+   *
+   * Note:
+   * - Only applies to dictionaries using `importMode: 'dynamic'`.
+   * - Only applies to the client build, and only when bundling (not in dev).
+   * - Disable it to let the bundler chunk dictionaries on its own.
+   */
+  chunkGrouping: boolean;
+
+  /**
+   * Load a dictionary together with the chunk that uses it, instead of fetching
+   * it once that chunk renders.
+   *
+   * Default: true
+   *
+   * The generated entry point awaits the browsing locale at the top level,
+   * which makes it an async module: a lazily loaded route is not considered
+   * loaded until its content is there. Readers then render synchronously
+   * instead of suspending, so navigating no longer flashes a loading state.
+   * Only the resolved locale is awaited, so a page still downloads exactly the
+   * language it renders.
+   *
+   * Note:
+   * - Only applies to dictionaries using `importMode: 'dynamic'`.
+   * - Only applies to the client build; the server keeps loading on demand.
+   * - Collections and variants keep loading on demand, since the targeted
+   *   entry is only known at the call site.
+   * - Requires a bundler supporting top-level await (Vite, esbuild). Not
+   *   applied by Metro-based bundlers.
+   */
+  dictionariesPreload: boolean;
+
+  /**
    * Pattern to traverse the code to optimize.
    *
    * Allows to avoid to traverse the code that is not relevant to the optimization.

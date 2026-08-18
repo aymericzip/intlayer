@@ -57,6 +57,8 @@ export const intlayerPreload = (intlayerConfig: IntlayerConfig): Plugin => {
   return {
     name: 'vite-intlayer-preload-plugin',
 
+    apply: () => intlayerConfig.build.dictionariesPreload,
+
     // Runs before the optimize plugin's `post`-enforced transform, which only
     // rewrites component sources and dictionary list entries — never these
     // generated per-key entry points — so the two never touch the same module.

@@ -14,6 +14,8 @@ import type {
 import {
   BUILD_MODE,
   CACHE,
+  CHUNK_GROUPING,
+  DICTIONARIES_PRELOAD,
   MINIFY,
   OUTPUT_FORMAT,
   PURGE,
@@ -410,6 +412,33 @@ const buildBuildFields = (
    * - This option will be ignored if `editor.enabled` is true.
    */
   purge: customConfiguration?.purge ?? PURGE,
+
+  /**
+   * Group the per-locale dictionary chunks by the code-split boundary that uses
+   * them, so a lazily loaded page fetches its content in one request.
+   *
+   * Default: true
+   *
+   * Note:
+   * - Only applies to dictionaries using `importMode: 'dynamic'`.
+   * - Only applies to the client build, and only when bundling (not in dev).
+   */
+  chunkGrouping: customConfiguration?.chunkGrouping ?? CHUNK_GROUPING,
+
+  /**
+   * Load a dictionary together with the chunk that uses it, instead of fetching
+   * it once that chunk renders — so a reader renders synchronously rather than
+   * suspending, and navigating no longer flashes a loading state.
+   *
+   * Default: true
+   *
+   * Note:
+   * - Only applies to dictionaries using `importMode: 'dynamic'`.
+   * - Only applies to the client build; the server keeps loading on demand.
+   * - Requires a bundler supporting top-level await (Vite, esbuild).
+   */
+  dictionariesPreload:
+    customConfiguration?.dictionariesPreload ?? DICTIONARIES_PRELOAD,
 
   /**
    * Pattern to traverse the code to optimize.

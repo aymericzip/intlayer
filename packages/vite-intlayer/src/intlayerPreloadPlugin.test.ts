@@ -14,10 +14,11 @@ import { intlayerPreload } from './intlayerPreloadPlugin';
 const DYNAMIC_DIR = '/app/.intlayer/dynamic_dictionary';
 
 const createConfig = (
-  importMode: 'static' | 'dynamic' | 'fetch'
+  importMode: 'static' | 'dynamic' | 'fetch',
+  dictionariesPreload = true
 ): IntlayerConfig =>
   ({
-    build: { importMode },
+    build: { importMode, dictionariesPreload },
     dictionary: { importMode },
     system: { dynamicDictionariesDir: DYNAMIC_DIR },
     log: { mode: 'disabled' },
@@ -49,6 +50,14 @@ const transform = (
 };
 
 describe('intlayerPreload', () => {
+  it('is opt-out through `build.dictionariesPreload`', () => {
+    const enabled = intlayerPreload(createConfig('dynamic'));
+    const disabled = intlayerPreload(createConfig('dynamic', false));
+
+    expect((enabled.apply as () => boolean)()).toBe(true);
+    expect((disabled.apply as () => boolean)()).toBe(false);
+  });
+
   it('preloads a per-dictionary override under a non-dynamic global mode', () => {
     // A `.content` file can set `importMode: 'dynamic'` on a single dictionary
     // while the configuration stays `static`. The optimizer then imports that

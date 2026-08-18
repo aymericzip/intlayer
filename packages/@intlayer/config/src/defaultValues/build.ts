@@ -37,3 +37,7 @@ export const TYPE_CHECKING = false;
 export const MINIFY = false;
 
 export const PURGE = false;
+
+export const CHUNK_GROUPING = true;
+
+export const DICTIONARIES_PRELOAD = true;
