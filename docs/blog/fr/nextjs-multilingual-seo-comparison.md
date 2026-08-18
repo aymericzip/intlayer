@@ -63,12 +63,12 @@ Ce sont des étapes simples, mais les ignorer peut vous coûter en visibilité.
 
 Les développeurs oublient souvent de référencer correctement leurs pages selon les locales, voyons donc comment cela fonctionne en pratique avec différentes bibliothèques.
 
+<Tabs>
+  <Tab label="next-intl" value="next-intl">
+
 ### **next-intl**
 
-<Tabs>
-  <Tab label="next-intl">
-
-```tsx fileName="src/app/[locale]/about/layout.tsx
+```tsx fileName="src/app/[locale]/about/layout.tsx"
 import type { Metadata } from "next";
 import { locales, defaultLocale } from "@/i18n";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
@@ -155,10 +155,10 @@ export default function robots(): MetadataRoute.Robots {
 }
 ```
 
-### **next-i18next**
-
   </Tab>
-  <Tab label="next-i18next">
+  <Tab label="next-i18next" value="next-i18next">
+
+### **next-i18next**
 
 ```ts fileName="i18n.config.ts"
 export const locales = ["en", "fr"] as const;
@@ -258,10 +258,10 @@ export default function robots(): MetadataRoute.Robots {
 }
 ```
 
-### **Intlayer**
-
   </Tab>
-  <Tab label="intlayer">
+  <Tab label="intlayer" value="intlayer">
+
+### **Intlayer**
 
 ````typescript fileName="src/app/[locale]/about/layout.tsx"
 import { getIntlayer, getMultilingualUrls } from "intlayer";

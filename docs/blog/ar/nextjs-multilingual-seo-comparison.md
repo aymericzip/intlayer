@@ -63,12 +63,12 @@ author: aymericzip
 
 غالبًا ما ينسى المطورون الإشارة بشكل صحيح إلى صفحاتهم عبر اللغات، لذا دعونا نرى كيف يعمل هذا عمليًا مع مكتبات مختلفة.
 
+<Tabs>
+  <Tab label="next-intl" value="next-intl">
+
 ### **next-intl**
 
-<Tabs>
-  <Tab label="next-intl">
-
-```tsx fileName="src/app/[locale]/about/layout.tsx
+```tsx fileName="src/app/[locale]/about/layout.tsx"
 import type { Metadata } from "next";
 import { locales, defaultLocale } from "@/i18n";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
@@ -156,10 +156,10 @@ export default function robots(): MetadataRoute.Robots {
 }
 ```
 
-### **next-i18next**
-
   </Tab>
-  <Tab label="next-i18next">
+  <Tab label="next-i18next" value="next-i18next">
+
+### **next-i18next**
 
 ```ts fileName="i18n.config.ts"
 export const locales = ["en", "fr"] as const;
@@ -259,10 +259,10 @@ export default function robots(): MetadataRoute.Robots {
 }
 ```
 
-### **إنتلاير**
-
   </Tab>
-  <Tab label="intlayer">
+  <Tab label="intlayer" value="intlayer">
+
+### **إنتلاير**
 
 ````typescript fileName="src/app/[locale]/about/layout.tsx"
 import { getIntlayer, getMultilingualUrls } from "intlayer";

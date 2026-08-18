@@ -63,10 +63,10 @@ author: aymericzip
 
 개발자들은 종종 여러 로케일에 걸쳐 페이지를 올바르게 참조하는 것을 잊어버리므로, 다양한 라이브러리에서 이것이 실제로 어떻게 작동하는지 살펴보겠습니다.
 
-### **next-intl**
-
 <Tabs>
-  <Tab label="next-intl">
+  <Tab label="next-intl" value="next-intl">
+
+### **next-intl**
 
 ```tsx fileName="src/app/[locale]/about/layout.tsx"
 import type { Metadata } from "next";
@@ -153,10 +153,10 @@ export default function robots(): MetadataRoute.Robots {
 }
 ```
 
-### **next-i18next**
-
   </Tab>
-  <Tab label="next-i18next">
+  <Tab label="next-i18next" value="next-i18next">
+
+### **next-i18next**
 
 ```ts fileName="i18n.config.ts"
 export const locales = ["en", "fr"] as const;
@@ -256,10 +256,10 @@ export default function robots(): MetadataRoute.Robots {
 }
 ```
 
-### **Intlayer**
-
   </Tab>
-  <Tab label="intlayer">
+  <Tab label="intlayer" value="intlayer">
+
+### **Intlayer**
 
 ````typescript fileName="src/app/[locale]/about/layout.tsx"
 import { getIntlayer, getMultilingualUrls } from "intlayer";

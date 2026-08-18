@@ -159,7 +159,7 @@ pnpm add -D webpack-bundle-analyzer
 bun add -d webpack-bundle-analyzer
 ```
 
-```typescript fileName="webpack.config.ts
+```typescript fileName="webpack.config.ts"
 import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
 
 export default {

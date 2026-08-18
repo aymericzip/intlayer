@@ -63,12 +63,12 @@ author: aymericzip
 
 开发者经常忘记在不同语言环境中正确引用他们的页面，因此让我们看看使用不同库时这是如何实际操作的。
 
+<Tabs>
+  <Tab label="next-intl" value="next-intl">
+
 ### **next-intl**
 
-<Tabs>
-  <Tab label="next-intl">
-
-```tsx fileName="src/app/[locale]/about/layout.tsx
+```tsx fileName="src/app/[locale]/about/layout.tsx"
 import type { Metadata } from "next";
 import { locales, defaultLocale } from "@/i18n";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
@@ -155,10 +155,10 @@ export default function robots(): MetadataRoute.Robots {
 }
 ```
 
-### **next-i18next**
-
   </Tab>
-  <Tab label="next-i18next">
+  <Tab label="next-i18next" value="next-i18next">
+
+### **next-i18next**
 
 ```ts fileName="i18n.config.ts"
 export const locales = ["en", "fr"] as const;
@@ -258,10 +258,10 @@ export default function robots(): MetadataRoute.Robots {
 }
 ```
 
-### **Intlayer**
-
   </Tab>
-  <Tab label="intlayer">
+  <Tab label="intlayer" value="intlayer">
+
+### **Intlayer**
 
 ````typescript fileName="src/app/[locale]/about/layout.tsx"
 import { getIntlayer, getMultilingualUrls } from "intlayer";

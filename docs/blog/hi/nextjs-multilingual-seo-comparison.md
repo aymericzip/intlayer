@@ -63,12 +63,12 @@ author: aymericzip
 
 डेवलपर्स अक्सर अपने पृष्ठों को विभिन्न स्थानीय भाषाओं में सही ढंग से संदर्भित करना भूल जाते हैं, इसलिए आइए देखें कि यह विभिन्न लाइब्रेरीज़ के साथ व्यावहारिक रूप में कैसे काम करता है।
 
+<Tabs>
+  <Tab label="next-intl" value="next-intl">
+
 ### **next-intl**
 
-<Tabs>
-  <Tab label="next-intl">
-
-```tsx fileName="src/app/[locale]/about/layout.tsx
+```tsx fileName="src/app/[locale]/about/layout.tsx"
 import type { Metadata } from "next";
 import { locales, defaultLocale } from "@/i18n";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
@@ -154,10 +154,10 @@ export default function robots(): MetadataRoute.Robots {
 }
 ```
 
-### **next-i18next**
-
   </Tab>
-  <Tab label="next-i18next">
+  <Tab label="next-i18next" value="next-i18next">
+
+### **next-i18next**
 
 ```ts fileName="i18n.config.ts"
 export const locales = ["en", "fr"] as const;
@@ -257,10 +257,10 @@ export default function robots(): MetadataRoute.Robots {
 }
 ```
 
-### **Intlayer**
-
   </Tab>
-  <Tab label="intlayer">
+  <Tab label="intlayer" value="intlayer">
+
+### **Intlayer**
 
 ````typescript fileName="src/app/[locale]/about/layout.tsx"
 import { getIntlayer, getMultilingualUrls } from "intlayer";
