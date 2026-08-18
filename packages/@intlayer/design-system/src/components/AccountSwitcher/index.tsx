@@ -11,7 +11,7 @@ import { Loader } from '../Loader';
  * Represents one signed-in session on this device.
  * Mirrors the shape returned by better-auth's `multiSession.listDeviceSessions`.
  */
-export interface DeviceSession {
+export type DeviceSession = {
   /** The session's token identifier */
   token: string;
   /** User associated with this session */
@@ -21,12 +21,12 @@ export interface DeviceSession {
     email: string;
     image?: string | null;
   };
-}
+};
 
 /**
  * Props for the AccountSwitcher component
  */
-export interface AccountSwitcherProps {
+export type AccountSwitcherProps = {
   /** All sessions currently signed in on this device */
   sessions: DeviceSession[];
   /** The token of the currently active session */
@@ -41,7 +41,7 @@ export interface AccountSwitcherProps {
   isSwitching?: boolean;
   /** Additional CSS classes for the outer container */
   className?: string;
-}
+};
 
 /**
  * AccountSwitcher — displays a list of signed-in sessions on this device and
