@@ -11,7 +11,7 @@ import {
 } from '@intlayer/design-system/structured-data';
 import { createFileRoute } from '@tanstack/react-router';
 import { defaultLocale, getIntlayer, locales } from 'intlayer';
-import { LandingPage as LandingPageContent } from '~/components/LandingPage';
+import { LandingPageWithSwitcher } from '~/components/LandingSwitcher';
 import { PageLayout } from '~/layouts/PageLayout';
 import monacoCss from '~/monaco.css?url';
 import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
@@ -129,8 +129,8 @@ export const Route = createFileRoute('/{-$locale}/')({
 
 function LandingPage() {
   return (
-    <PageLayout mainClassName="max-w-[1300px] mx-auto border-x ">
-      <LandingPageContent />
+    <PageLayout mainClassName="max-w-[1300px] mx-auto border-x relative">
+      <LandingPageWithSwitcher />
     </PageLayout>
   );
 }
