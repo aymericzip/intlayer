@@ -65,20 +65,21 @@ export const DashboardSidebarProfile: FC<DashboardSidebarProfileProps> = ({
 
   const userName = user?.name ?? user?.email ?? '';
   const sessions: DeviceSession[] = (deviceSessions ?? []).map(
-    (s: any) =>
+    (session: any) =>
       ({
-        token: s.session?.token ?? s.token,
+        token: session.session?.token ?? session.token,
         user: {
-          id: s.user?.id ?? '',
-          name: s.user?.name ?? null,
-          email: s.user?.email ?? '',
-          image: s.user?.image ?? null,
+          id: session.user?.id ?? '',
+          name: session.user?.name ?? null,
+          email: session.user?.email ?? '',
+          image: session.user?.image ?? null,
         },
       }) satisfies DeviceSession
   );
 
   const activeSessionToken =
-    sessions.find((s) => s.user.id === user?.id)?.token ?? undefined;
+    sessions.find((session) => session.user.id === user?.id)?.token ??
+    undefined;
 
   const hasMultipleSessions = sessions.length > 1;
   const hasSessions = sessions.length > 0;
