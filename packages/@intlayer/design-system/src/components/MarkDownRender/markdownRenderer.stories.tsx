@@ -67,13 +67,6 @@ export const Default: Story = {
   },
 };
 
-export const WithDarkMode: Story = {
-  args: {
-    children: sampleMarkdown,
-    isDarkMode: true,
-  },
-};
-
 export const SimpleText: Story = {
   args: {
     children: '# Hello World\n\nThis is **markdown** rendering.',

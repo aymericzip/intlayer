@@ -50,8 +50,13 @@ export const Route = createFileRoute('/{-$locale}/_docs/doc/$')({
       throw redirect({ to: getLocalizedUrl(Website_Home_Path, locale) as any });
     }
 
-    const { defaultDocData, docContent, docParsed, prevDocData, nextDocData } =
-      content!;
+    const {
+      defaultDocData,
+      docParsed,
+      codeStyleSheet,
+      prevDocData,
+      nextDocData,
+    } = content!;
 
     const nextDoc: DocPageNavigationProps['nextDoc'] = nextDocData?.docs
       ? {
@@ -71,8 +76,8 @@ export const Route = createFileRoute('/{-$locale}/_docs/doc/$')({
       slugs,
       docData: exactMatch,
       defaultDocData,
-      docContent,
       docParsed,
+      codeStyleSheet,
       nextDoc,
       prevDoc,
       navData,
@@ -81,7 +86,7 @@ export const Route = createFileRoute('/{-$locale}/_docs/doc/$')({
   head: ({ loaderData }) => {
     if (!loaderData?.docData) return {};
 
-    const { docData, docContent, locale: localeFromLoader } = loaderData;
+    const { docData, locale: localeFromLoader } = loaderData;
     const locale = (localeFromLoader as string) ?? defaultLocale;
     const absoluteUrl = docData.url;
 
@@ -182,7 +187,6 @@ export const Route = createFileRoute('/{-$locale}/_docs/doc/$')({
               type: 'TechArticle',
               name: docData.title,
               description: docData.description,
-              content: docContent as string,
               keywords: Array.isArray(docData.keywords)
                 ? docData.keywords.join(', ')
                 : docData.keywords || '',
@@ -221,8 +225,8 @@ function DocumentationPage() {
     slugs,
     docData,
     defaultDocData,
-    docContent,
     docParsed,
+    codeStyleSheet,
     nextDoc,
     prevDoc,
     navData,
@@ -234,11 +238,12 @@ function DocumentationPage() {
     <DocPageLayout docData={navData} activeSlugs={slugs} locale={locale}>
       <DocHeader
         {...docData}
-        markdownContent={docContent}
         baseUpdatedAt={defaultDocData.updatedAt}
         history={docData.history ?? []}
       />
-      <DocumentationRender>{docParsed}</DocumentationRender>
+      <DocumentationRender codeStyleSheet={codeStyleSheet}>
+        {docParsed}
+      </DocumentationRender>
       <DocPageNavigation nextDoc={nextDoc} prevDoc={prevDoc} />
     </DocPageLayout>
   );

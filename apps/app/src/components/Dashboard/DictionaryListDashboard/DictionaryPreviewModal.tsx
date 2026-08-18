@@ -4,7 +4,6 @@ import { Modal } from '@intlayer/design-system/modal';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { useTheme } from '#/providers/ThemeProvider';
 
 type DictionaryPreviewModalProps = {
   isOpen: boolean;
@@ -17,7 +16,6 @@ export const DictionaryPreviewModal: FC<DictionaryPreviewModalProps> = ({
   onClose,
   dictionary,
 }) => {
-  const { resolvedTheme } = useTheme();
   const content = useIntlayer('dictionary-list');
 
   return (
@@ -39,7 +37,7 @@ export const DictionaryPreviewModal: FC<DictionaryPreviewModalProps> = ({
           roundedSize="2xl"
           className="max-h-full min-h-0 w-full flex-1 overflow-auto overflow-scroll bg-text/80 p-2"
         >
-          <CodeBlock lang="json" isDarkMode={resolvedTheme !== 'dark'}>
+          <CodeBlock lang="json">
             {JSON.stringify(dictionary, null, 2)}
           </CodeBlock>
         </Container>

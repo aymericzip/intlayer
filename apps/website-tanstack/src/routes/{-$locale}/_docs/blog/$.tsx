@@ -46,7 +46,7 @@ export const Route = createFileRoute('/{-$locale}/_docs/blog/$')({
       throw redirect({ to: getLocalizedUrl(Website_Home_Path, locale) as any });
     }
 
-    const { blogContent, blogParsed, prevBlogData, nextBlogData } = content!;
+    const { blogParsed, codeStyleSheet, prevBlogData, nextBlogData } = content!;
 
     const nextBlog: DocPageNavigationProps['nextDoc'] = nextBlogData?.blogs
       ? {
@@ -65,8 +65,8 @@ export const Route = createFileRoute('/{-$locale}/_docs/blog/$')({
       locale,
       slugs,
       blogData: exactMatch,
-      blogContent,
       blogParsed,
+      codeStyleSheet,
       nextBlog,
       prevBlog,
       navData,
@@ -197,8 +197,8 @@ function BlogPage() {
     locale,
     slugs,
     blogData,
-    blogContent,
     blogParsed,
+    codeStyleSheet,
     nextBlog,
     prevBlog,
     navData,
@@ -211,8 +211,10 @@ function BlogPage() {
       locale={locale ?? defaultLocale}
       currentBlogDocKey={blogData.docKey}
     >
-      <DocHeader {...blogData} markdownContent={blogContent} />
-      <DocumentationRender>{blogParsed}</DocumentationRender>
+      <DocHeader {...blogData} />
+      <DocumentationRender codeStyleSheet={codeStyleSheet}>
+        {blogParsed}
+      </DocumentationRender>
       <DocPageNavigation nextDoc={nextBlog} prevDoc={prevBlog} />
     </BlogPageLayout>
   );

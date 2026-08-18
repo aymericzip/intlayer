@@ -19,7 +19,7 @@ type AnalyzerPageResultsProps = {
   isLoading?: boolean;
 };
 
-export const createCompOverwrite = (isDarkMode: boolean) => ({
+export const createCompOverwrite = () => ({
   code: ({ className, children, ...props }: HTMLProps<HTMLElement>) => {
     const content = String(children ?? '').replace(/\n$/, '');
     const isBlock = !!className;
@@ -41,7 +41,6 @@ export const createCompOverwrite = (isDarkMode: boolean) => ({
         {...props}
         language={className?.replace('lang-', '') as CodeLanguage}
         showHeader={false}
-        isDarkMode={isDarkMode}
       >
         {children as string}
       </Code>
@@ -56,8 +55,7 @@ export const createCompOverwrite = (isDarkMode: boolean) => ({
 
 export const AnalyzerPageResults: FC<AnalyzerPageResultsProps> = memo(
   ({ data, url, isLoading }) => {
-    const isDarkMode = true;
-    const compOverwrite = createCompOverwrite(isDarkMode);
+    const compOverwrite = createCompOverwrite();
     const { fields, fieldsDescription } = useIntlayer('analyzer-results');
 
     const fieldsList: FieldItemData[] = [

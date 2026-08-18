@@ -4,6 +4,8 @@
  * Client-side Shiki highlighter that also handles TypeScript→ESM/CJS transformation.
  *
  * Everything runs inside a single useEffect so that:
+ * - Nothing is imported at all while the canonical TypeScript source is shown
+ *   and its markup was already highlighted ahead of time.
  * - The transformer is only dynamically imported when a non-TypeScript format is selected.
  * - The previous highlighted HTML stays visible while the new one loads (no white-text flash).
  */
@@ -11,6 +13,7 @@
 import { type ReactNode, useEffect, useRef, useState } from 'react';
 import type { CodeFormat } from './CodeContext';
 import { type CodeLanguage, resolveCodeLanguage } from './shikiLanguages';
+import { SHIKI_THEMES } from './shikiThemes';
 
 type Props = {
   /** Raw TypeScript source code (the canonical "source of truth"). */
@@ -19,19 +22,28 @@ type Props = {
   originalLang: CodeLanguage;
   /** Currently selected format: 'typescript' | 'esm' | 'commonjs'. */
   targetFormat: Exclude<CodeFormat, 'json'>;
-  isDarkMode?: boolean;
+  /** Markup for the TypeScript source, highlighted ahead of time. */
+  initialHtml?: string;
 };
 
 export const CodeBlockHighlight = ({
   children,
   originalLang,
   targetFormat,
-  isDarkMode,
+  initialHtml,
 }: Props) => {
-  const [html, setHtml] = useState<string | null>(null);
-  const prevHtml = useRef<string | null>(null);
+  const [html, setHtml] = useState<string | null>(initialHtml ?? null);
+  const prevHtml = useRef<string | null>(initialHtml ?? null);
 
   useEffect(() => {
+    // The pre-highlighted markup already is the TypeScript rendering — no need
+    // to pull Shiki into the browser until another format is picked.
+    if (initialHtml && targetFormat === 'typescript') {
+      prevHtml.current = initialHtml;
+      setHtml(initialHtml);
+      return;
+    }
+
     let cancelled = false;
 
     (async () => {
@@ -56,7 +68,8 @@ export const CodeBlockHighlight = ({
 
         const out = await codeToHtml(String(code), {
           lang: shikiLang,
-          theme: isDarkMode ? 'github-dark' : 'github-light',
+          themes: SHIKI_THEMES,
+          defaultColor: false,
         });
 
         if (!cancelled) {
@@ -72,7 +85,7 @@ export const CodeBlockHighlight = ({
     return () => {
       cancelled = true;
     };
-  }, [children, originalLang, targetFormat, isDarkMode]);
+  }, [children, originalLang, targetFormat, initialHtml]);
 
   // Keep the previous highlighted output visible while the new one is loading.
   // This prevents the white-text flash on format switches.
@@ -88,6 +101,7 @@ export const CodeBlockHighlight = ({
 
   return (
     <div
+      // biome-ignore lint/security/noDangerouslySetInnerHtml: Shiki generates safe HTML for code highlighting
       dangerouslySetInnerHTML={{ __html: display }}
       style={{ backgroundColor: 'transparent' }}
     />

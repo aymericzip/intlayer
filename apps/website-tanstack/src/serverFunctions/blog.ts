@@ -27,9 +27,17 @@ export const loadBlogPage = createServerFn()
 
     if (!exactMatch) return { exactMatch: null, blogsData, content: null };
 
+    const { highlightMarkdownCodeBlocks } = await import(
+      '~/utils/highlightMarkdown'
+    );
+
     const file = await getBlog(exactMatch.docKey as any, locale);
     const blogContent = urlRenamer(file, locale);
     const blogParsed = parseMarkdown(blogContent);
+
+    // Highlighting here rather than in the browser keeps Shiki's WASM engine
+    // and grammars off the critical path of every article.
+    const codeStyleSheet = await highlightMarkdownCodeBlocks(blogParsed);
 
     const { prevBlogData, nextBlogData } = getPreviousNextBlogData(
       exactMatch.docKey as any,
@@ -44,7 +52,7 @@ export const loadBlogPage = createServerFn()
     return {
       exactMatch: exactMatchWithAuthor,
       blogsData,
-      content: { blogContent, blogParsed, prevBlogData, nextBlogData },
+      content: { blogParsed, codeStyleSheet, prevBlogData, nextBlogData },
     };
   });
 

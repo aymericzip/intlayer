@@ -4,7 +4,6 @@ import { Modal } from '@intlayer/design-system/modal';
 import { Check } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { useTheme } from '#/providers/ThemeProvider';
 
 type ConfigFilePreviewModalProps = {
   isOpen: boolean;
@@ -21,8 +20,6 @@ export const ConfigFilePreviewModal: FC<ConfigFilePreviewModalProps> = ({
   onConfirm,
   isLoading,
 }) => {
-  const { resolvedTheme } = useTheme();
-  const isDarkMode = resolvedTheme === 'dark';
   const content = useIntlayer('repository-link');
 
   return (
@@ -39,9 +36,7 @@ export const ConfigFilePreviewModal: FC<ConfigFilePreviewModalProps> = ({
       <div className="flex size-full flex-col gap-4">
         <div className="min-h-0 flex-1 overflow-auto">
           <div className="max-h-[60vh] overflow-auto rounded-xl bg-text-opposite/80 p-6">
-            <CodeBlock lang="typescript" isDarkMode={isDarkMode}>
-              {fileContent}
-            </CodeBlock>
+            <CodeBlock lang="typescript">{fileContent}</CodeBlock>
           </div>
         </div>
 

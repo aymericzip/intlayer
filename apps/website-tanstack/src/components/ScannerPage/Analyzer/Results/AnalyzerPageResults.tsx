@@ -1,6 +1,5 @@
 import { Code, type CodeLanguage } from '@intlayer/design-system/ide';
 import { FileText, Globe, Link as LinkIcon } from 'lucide-react';
-import { useTheme } from 'next-themes';
 import type { FC, HTMLProps, ReactNode } from 'react';
 import { memo } from 'react';
 import { useIntlayer } from 'react-intlayer';
@@ -21,7 +20,7 @@ type AnalyzerPageResultsProps = {
   isLoading?: boolean;
 };
 
-export const createCompOverwrite = (isDarkMode: boolean) => ({
+export const createCompOverwrite = () => ({
   code: ({ className, children, ...props }: HTMLProps<HTMLElement>) => {
     const content = String(children ?? '').replace(/\n$/, '');
     const isBlock = !!className;
@@ -43,7 +42,6 @@ export const createCompOverwrite = (isDarkMode: boolean) => ({
         {...props}
         language={className?.replace('lang-', '') as CodeLanguage}
         showHeader={false}
-        isDarkMode={isDarkMode}
       >
         {children as string}
       </Code>
@@ -58,9 +56,7 @@ export const createCompOverwrite = (isDarkMode: boolean) => ({
 
 export const AnalyzerPageResults: FC<AnalyzerPageResultsProps> = memo(
   ({ data, url, isLoading }) => {
-    const { resolvedTheme } = useTheme();
-    const isDarkMode = resolvedTheme === 'dark';
-    const compOverwrite = createCompOverwrite(isDarkMode);
+    const compOverwrite = createCompOverwrite();
     const {
       fields,
       fieldsDescription,

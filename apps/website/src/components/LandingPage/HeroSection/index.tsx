@@ -14,7 +14,6 @@ import { Tag } from '@intlayer/design-system/tag';
 import { motion } from 'framer-motion';
 import { ArrowRight, Check, Copy } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
-import { useTheme } from 'next-themes';
 import type { FC } from 'react';
 import packageJSON from '../../../../package_mock.json' with { type: 'json' };
 import { TechLogos } from './TechLogos';
@@ -37,8 +36,6 @@ export const HeroSection: FC = () => {
     copyButton,
   } = useIntlayer('hero-section');
 
-  const { resolvedTheme } = useTheme();
-  const isDarkMode = resolvedTheme === 'dark';
   const { isCopied, copy } = useCopyToClipboard('npx intlayer init');
 
   return (
@@ -105,9 +102,7 @@ export const HeroSection: FC = () => {
             roundedSize="2xl"
             className="m-auto mt-24 max-w-2xl flex-row items-center p-1 pl-6"
           >
-            <CodeBlock lang="bash" isDarkMode={isDarkMode}>
-              npx intlayer init
-            </CodeBlock>
+            <CodeBlock lang="bash">npx intlayer init</CodeBlock>
             <Button
               variant="hoverable"
               color="neutral"

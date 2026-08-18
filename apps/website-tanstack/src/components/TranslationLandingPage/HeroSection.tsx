@@ -13,7 +13,6 @@ import {
   Server,
   Sparkles,
 } from 'lucide-react';
-import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { Link } from '~/components/Link/Link';
@@ -73,7 +72,6 @@ export const HeroSection: FC = () => {
   const reduced = useReducedMotion();
   const { pills, title, description, seeCLICommands, getStartedForFree, card } =
     useIntlayer('hero-section-translation');
-  const { resolvedTheme } = useTheme();
 
   return (
     <>
@@ -187,11 +185,7 @@ export const HeroSection: FC = () => {
             </div>
 
             <CodeBlockWrapper title={card.codeBlockTitle} className="mt-4">
-              <CodeBlock
-                lang="bash"
-                isDarkMode={resolvedTheme === 'dark'}
-                className="text-sm"
-              >
+              <CodeBlock lang="bash" className="text-sm">
                 {card.code.value}
               </CodeBlock>
             </CodeBlockWrapper>

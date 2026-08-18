@@ -46,10 +46,10 @@ const MemoizedCodeBlock = memo(
   ({
     className,
     children,
-    isDarkMode,
+    highlightedHtml,
     lang, // Destructure html lang prop to prevent passing invalid BCP-47 language tag to Code component
     ...rest
-  }: ComponentProps<'code'> & { isDarkMode?: boolean }) => {
+  }: ComponentProps<'code'> & { highlightedHtml?: string }) => {
     const content = String(children ?? '').replace(/\n$/, '');
     const isBlock = !!className;
 
@@ -69,7 +69,12 @@ const MemoizedCodeBlock = memo(
       'plaintext') as CodeLanguage;
 
     return (
-      <Code {...rest} language={language} showHeader isDarkMode={isDarkMode}>
+      <Code
+        {...rest}
+        language={language}
+        showHeader
+        highlightedHtml={highlightedHtml}
+      >
         {content}
       </Code>
     );
@@ -77,14 +82,19 @@ const MemoizedCodeBlock = memo(
   (prevProps, nextProps) =>
     prevProps.children === nextProps.children &&
     prevProps.className === nextProps.className &&
-    prevProps.isDarkMode === nextProps.isDarkMode
+    prevProps.highlightedHtml === nextProps.highlightedHtml
 );
 
-const createCodeRenderer = (isDarkMode?: boolean) => {
-  return function CodeWrapper(props: ComponentProps<'code'>) {
-    return <MemoizedCodeBlock {...props} isDarkMode={isDarkMode} />;
-  };
-};
+/**
+ * Renders a fenced code block.
+ *
+ * `highlightedHtml` reaches this renderer through the code node's attributes:
+ * a pipeline that highlights the markdown ahead of time writes it there, and
+ * the block then paints without loading the highlighter in the browser.
+ */
+const CodeRenderer = (props: ComponentProps<'code'>) => (
+  <MemoizedCodeBlock {...props} />
+);
 
 const BlockquoteRenderer = ({
   className,
@@ -209,12 +219,9 @@ const staticMarkdownComponents = {
 };
 
 // Factory function to create components with dynamic props
-const createMarkdownComponents = (
-  isDarkMode?: boolean,
-  locale?: LocalesValues
-) => ({
+const createMarkdownComponents = (locale?: LocalesValues) => ({
   ...staticMarkdownComponents,
-  code: createCodeRenderer(isDarkMode),
+  code: CodeRenderer,
   a: createLinkRenderer(locale),
 });
 
@@ -223,7 +230,6 @@ export const baseMarkdownComponents = staticMarkdownComponents;
 
 type MarkdownRendererProps = {
   children: string | ParsedMarkdown;
-  isDarkMode?: boolean;
   locale?: LocalesValues;
   forceBlock?: boolean;
   preserveFrontmatter?: boolean;
@@ -232,13 +238,12 @@ type MarkdownRendererProps = {
   wrapper?: ComponentProps<typeof MarkdownRendererIntlayer>['wrapper'];
 };
 
-export const getIntlayerMarkdownOptions = (_isDarkMode?: boolean) => ({
+export const getIntlayerMarkdownOptions = () => ({
   components: baseMarkdownComponents,
 });
 
 export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
   children,
-  isDarkMode = false,
   locale,
   forceBlock,
   preserveFrontmatter,
@@ -246,7 +251,7 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
   components: componentsProp,
   wrapper,
 }) => {
-  const markdownComponents = createMarkdownComponents(isDarkMode, locale);
+  const markdownComponents = createMarkdownComponents(locale);
 
   const markdownContent = renderMarkdown(children, {
     components: {

@@ -6,7 +6,6 @@ import { CodeBlock } from '@intlayer/design-system/ide';
 import { Website_Doc_CLI_Fill_Path } from '@intlayer/design-system/routes';
 import { cn } from '@intlayer/design-system/utils';
 import { useIntlayer } from 'next-intlayer';
-import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
 
 type CodeBlockWrapperProps = {
@@ -47,7 +46,6 @@ export const CTASection: FC = () => {
     quickStartTitle,
     code,
   } = useIntlayer('cta-section');
-  const { resolvedTheme } = useTheme();
 
   return (
     <section
@@ -100,11 +98,7 @@ export const CTASection: FC = () => {
 
           <div className="md:col-span-5">
             <CodeBlockWrapper title={quickStartTitle}>
-              <CodeBlock
-                lang="bash"
-                isDarkMode={resolvedTheme === 'dark'}
-                className="text-sm"
-              >
+              <CodeBlock lang="bash" className="text-sm">
                 {code.value}
               </CodeBlock>
             </CodeBlockWrapper>

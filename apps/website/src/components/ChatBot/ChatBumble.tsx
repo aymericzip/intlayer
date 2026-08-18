@@ -1,6 +1,5 @@
 import { MarkdownRenderer } from '@intlayer/design-system/mark-down-render';
 import { cn } from '@intlayer/design-system/utils';
-import { useTheme } from 'next-themes';
 import type { FC, HTMLAttributes } from 'react';
 
 export enum ChatBumbleType {
@@ -18,8 +17,6 @@ export const ChatBumble: FC<ChatBumbleProps> = ({
   type,
   ...props
 }) => {
-  const { resolvedTheme } = useTheme();
-
   return (
     <div
       className={cn(
@@ -30,9 +27,7 @@ export const ChatBumble: FC<ChatBumbleProps> = ({
       {...props}
     >
       {type === ChatBumbleType.ANSWER ? (
-        <MarkdownRenderer isDarkMode={resolvedTheme === 'dark'}>
-          {children}
-        </MarkdownRenderer>
+        <MarkdownRenderer>{children}</MarkdownRenderer>
       ) : (
         children
       )}

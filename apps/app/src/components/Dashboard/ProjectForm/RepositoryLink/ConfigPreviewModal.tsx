@@ -5,7 +5,6 @@ import { Modal } from '@intlayer/design-system/modal';
 import { Check, RefreshCcw, XCircle } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { useTheme } from '#/providers/ThemeProvider';
 import { useProjectConfigActions } from './hooks/useProjectConfigActions';
 import type {
   ConfigPreviewState,
@@ -103,8 +102,6 @@ export const ConfigPreviewModal: FC<ConfigPreviewModalProps> = ({
   };
 
   const content = useIntlayer('repository-link');
-  const { resolvedTheme } = useTheme();
-  const isDarkMode = resolvedTheme === 'dark';
 
   const isImportMode = !!configPreview;
   const hasContent = !!configPreview?.content || !!viewOnlyConfigContent;
@@ -148,7 +145,7 @@ export const ConfigPreviewModal: FC<ConfigPreviewModalProps> = ({
                         {content.modal?.currentConfig}
                       </p>
                       <div className="max-h-156 overflow-auto rounded-xl bg-text-opposite/80 p-6">
-                        <CodeBlock lang="typescript" isDarkMode={isDarkMode}>
+                        <CodeBlock lang="typescript">
                           {currentConfigContent ?? ''}
                         </CodeBlock>
                       </div>
@@ -158,7 +155,7 @@ export const ConfigPreviewModal: FC<ConfigPreviewModalProps> = ({
                         {content.modal?.newConfig}
                       </p>
                       <div className="max-h-156 overflow-auto rounded-xl bg-text-opposite/80 p-6">
-                        <CodeBlock lang="typescript" isDarkMode={isDarkMode}>
+                        <CodeBlock lang="typescript">
                           {configPreview?.content ?? ''}
                         </CodeBlock>
                       </div>
@@ -167,7 +164,7 @@ export const ConfigPreviewModal: FC<ConfigPreviewModalProps> = ({
                 ) : (
                   <div className="flex flex-col gap-2">
                     <div className="max-h-156 overflow-auto rounded-xl bg-text-opposite/80 p-6">
-                      <CodeBlock lang="typescript" isDarkMode={isDarkMode}>
+                      <CodeBlock lang="typescript">
                         {configPreview?.content ?? viewOnlyConfigContent ?? ''}
                       </CodeBlock>
                     </div>

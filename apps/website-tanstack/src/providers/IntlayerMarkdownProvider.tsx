@@ -1,5 +1,4 @@
 import { getIntlayerMarkdownOptions } from '@intlayer/design-system/mark-down-render';
-import { useTheme } from 'next-themes';
 import type { ComponentProps, FC, PropsWithChildren } from 'react';
 import { MarkdownProvider } from 'react-intlayer/markdown';
 import { Link } from '~/components/Link/Link';
@@ -7,10 +6,7 @@ import { Link } from '~/components/Link/Link';
 export const IntlayerMarkdownProvider: FC<PropsWithChildren> = ({
   children,
 }) => {
-  const { resolvedTheme } = useTheme();
-  const isDark = resolvedTheme === 'dark';
-
-  const markdownOptions = getIntlayerMarkdownOptions(isDark);
+  const markdownOptions = getIntlayerMarkdownOptions();
 
   return (
     <MarkdownProvider

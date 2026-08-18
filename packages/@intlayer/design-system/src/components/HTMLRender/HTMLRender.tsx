@@ -10,31 +10,29 @@ import { Link } from '../Link';
 
 type HTMLRendererProps = {
   children: string;
-  isDarkMode?: boolean;
   locale?: LocalesValues;
   components?: ComponentProps<typeof HTMLRendererIntlayer>['components'];
 };
 
-export const getIntlayerHTMLOptions: (isDarkMode: boolean) => RenderHTMLProps =
-  () => ({
-    components: {
-      h1: (props) => <H1 isClickable={true} {...props} />,
-      h2: (props) => <H2 isClickable={true} className="mt-16" {...props} />,
-      h3: (props) => <H3 isClickable={true} className="mt-5" {...props} />,
-      h4: (props) => <H4 isClickable={true} className="mt-3" {...props} />,
-      h5: (props) => <H5 isClickable={true} className="mt-3" {...props} />,
-      h6: (props) => <H6 isClickable={true} className="mt-3" {...props} />,
-      a: (props) => (
-        <Link
-          isExternalLink={props.href?.startsWith('http')}
-          underlined={true}
-          label=""
-          {...props}
-          color="neutral"
-        />
-      ),
-    },
-  });
+export const getIntlayerHTMLOptions: () => RenderHTMLProps = () => ({
+  components: {
+    h1: (props) => <H1 isClickable={true} {...props} />,
+    h2: (props) => <H2 isClickable={true} className="mt-16" {...props} />,
+    h3: (props) => <H3 isClickable={true} className="mt-5" {...props} />,
+    h4: (props) => <H4 isClickable={true} className="mt-3" {...props} />,
+    h5: (props) => <H5 isClickable={true} className="mt-3" {...props} />,
+    h6: (props) => <H6 isClickable={true} className="mt-3" {...props} />,
+    a: (props) => (
+      <Link
+        isExternalLink={props.href?.startsWith('http')}
+        underlined={true}
+        label=""
+        {...props}
+        color="neutral"
+      />
+    ),
+  },
+});
 
 /**
  * HTMLRenderer Component
@@ -44,11 +42,10 @@ export const getIntlayerHTMLOptions: (isDarkMode: boolean) => RenderHTMLProps =
  */
 export const HTMLRenderer: FC<HTMLRendererProps> = ({
   children,
-  isDarkMode,
   locale,
   components: componentsProp,
 }) => {
-  const htmlOptions = getIntlayerHTMLOptions(isDarkMode ?? false);
+  const htmlOptions = getIntlayerHTMLOptions();
 
   const htmlContent = renderHTML(children, {
     components: {

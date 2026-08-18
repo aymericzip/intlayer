@@ -1,6 +1,6 @@
 'use client';
 
-import { type RefObject, useLayoutEffect, useRef, useState } from 'react';
+import { type RefObject, useEffect, useRef, useState } from 'react';
 
 export type ItemSelectorOrientation = 'horizontal' | 'vertical';
 
@@ -139,8 +139,15 @@ export const useItemSelector = (
     }
   };
 
-  useLayoutEffect(() => {
-    calculatePosition();
+  useEffect(() => {
+    /*
+     * Measuring inside an animation frame — rather than synchronously on commit
+     * — lets the browser lay the page out once and serve every selector from
+     * that same layout. Reading `offsetLeft` right after a commit instead forces
+     * a synchronous reflow per selector, and a documentation page mounts one
+     * per tab group and one per code block.
+     */
+    const measurementFrame = requestAnimationFrame(calculatePosition);
 
     // Event listeners for window events
     window.addEventListener('resize', calculatePosition);
@@ -233,6 +240,8 @@ export const useItemSelector = (
     }
 
     return () => {
+      cancelAnimationFrame(measurementFrame);
+
       // Clear any pending hide timeout
       if (hideTimeoutRef.current) {
         clearTimeout(hideTimeoutRef.current);

@@ -412,6 +412,20 @@ export default defineConfig(async ({ mode }) => {
               'Cache-Control': 'public, max-age=31536000, immutable',
             },
           },
+          /**
+           * The web font is served from `public/` and so misses the hashed
+           * `/assets/**` rule above, leaving it on the default short TTL —
+           * every repeat visitor re-downloaded 168 KB of typeface. It is
+           * content-stable, so it caches like a hashed asset; a replacement
+           * has to ship under a new filename (see `@font-face` in
+           * `@intlayer/design-system`'s `tailwind.css`).
+           */
+          '/Geist-VariableFont_wght.ttf': {
+            headers: {
+              ...headers,
+              'Cache-Control': 'public, max-age=31536000, immutable',
+            },
+          },
           '/i18n-seo-scanner': {
             headers: {
               ...headers,

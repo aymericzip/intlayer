@@ -16,6 +16,7 @@ import {
   YoutubeLogo,
 } from '@intlayer/design-system/social-networks';
 import type { AuthorProfile, DocMetadata } from '@intlayer/docs';
+import { getLocalizedUrl } from 'intlayer';
 import type { FC } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
 import { ApplicationShowcaseMessage } from '../ApplicationShowcaseMessage';
@@ -51,7 +52,6 @@ const getSocialIcon = (url: string, className?: string) => {
 
 type DocHeaderProps = Omit<DocMetadata, 'author'> & {
   author?: AuthorProfile;
-  markdownContent: string;
   baseUpdatedAt?: string;
   history?: {
     version: string;
@@ -66,7 +66,6 @@ export const DocHeader: FC<DocHeaderProps> = ({
   createdAt,
   url,
   relativeUrl,
-  markdownContent,
   githubUrl,
   youtubeVideo,
   applicationTemplate,
@@ -213,7 +212,9 @@ export const DocHeader: FC<DocHeaderProps> = ({
               />
             )}
 
-            <CopyMarkdownMessage markdownContent={markdownContent} />
+            <CopyMarkdownMessage
+              markdownUrl={`${getLocalizedUrl(relativeUrl, locale)}.md`}
+            />
           </div>
         </div>
       </Container>

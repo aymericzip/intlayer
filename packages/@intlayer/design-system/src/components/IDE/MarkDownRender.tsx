@@ -4,20 +4,15 @@ import { Code } from './Code';
 import type { CodeLanguage } from './shikiLanguages';
 
 type MarkdownRendererProps = {
-  isDarkMode?: boolean;
   children: string;
 };
 
-export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
-  children,
-  isDarkMode,
-}) => (
+export const MarkdownRenderer: FC<MarkdownRendererProps> = ({ children }) => (
   <MarkdownRendererIntlayer
     components={{
       code: (props) => (
         <Code
           {...props}
-          isDarkMode={isDarkMode}
           language={props.className?.replace('lang-', '') as CodeLanguage}
           showHeader={false}
           className="text-xs leading-5"

@@ -12,7 +12,6 @@ import { MarkdownRenderer } from '@intlayer/design-system/mark-down-render';
 import { Step, Steps } from '@intlayer/design-system/steps';
 import dynamic from 'next/dynamic';
 import { useLocale } from 'next-intlayer';
-import { useTheme } from 'next-themes';
 import type { ComponentProps, FC, HTMLAttributes } from 'react';
 import { ClickToOpenIframe } from './ClickToOpenIframe';
 
@@ -67,14 +66,10 @@ export const DocumentationRender: FC<DocumentationRenderProps> = ({
   tocMaxDepth = 3,
 }) => {
   const { locale } = useLocale();
-  const { resolvedTheme } = useTheme();
-
-  const isDarkMode = resolvedTheme === 'dark';
 
   return (
     <div className="m-auto flex max-w-2xl flex-col gap-8 p-4 text-text/90 max-md:px-0">
       <MarkdownRenderer
-        isDarkMode={isDarkMode}
         locale={locale}
         components={{
           script: () => null,

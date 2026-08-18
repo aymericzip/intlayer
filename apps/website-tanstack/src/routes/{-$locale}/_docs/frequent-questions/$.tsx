@@ -42,8 +42,8 @@ export const Route = createFileRoute('/{-$locale}/_docs/frequent-questions/$')({
     }
 
     return {
-      blogContent: content!.blogContent,
       blogParsed: content!.blogParsed,
+      codeStyleSheet: content!.codeStyleSheet,
       frequentQuestionData: exactMatch,
       locale,
     };
@@ -155,11 +155,13 @@ export const Route = createFileRoute('/{-$locale}/_docs/frequent-questions/$')({
 });
 
 function FrequentQuestionPage() {
-  const { blogParsed } = Route.useLoaderData();
+  const { blogParsed, codeStyleSheet } = Route.useLoaderData();
 
   return (
     <div className="mx-auto max-w-2xl">
-      <DocumentationRender>{blogParsed}</DocumentationRender>
+      <DocumentationRender codeStyleSheet={codeStyleSheet}>
+        {blogParsed}
+      </DocumentationRender>
     </div>
   );
 }

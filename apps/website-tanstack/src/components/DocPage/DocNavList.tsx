@@ -22,7 +22,7 @@ import {
   FrameworkLogo,
   useFrameworkFilter,
 } from './FrameworkFilter';
-import type { CategorizedDocMetadata, Section } from './types';
+import type { NavCategorizedDoc, NavSection } from './types';
 
 type OptionalLinkProps = ComponentProps<typeof Link> & {
   frameworks?: string[];
@@ -87,7 +87,7 @@ export const OptionalLink: FC<OptionalLinkProps> = ({
 };
 
 type DocNavListProps = {
-  docData: Section;
+  docData: NavSection;
   activeSlugs: string[];
 };
 
@@ -106,16 +106,16 @@ type DocNavListContentProps = DocNavListProps & {
  * - If the parent is hidden, matching child sections are "promoted" to the parent's level.
  */
 const filterSection = (
-  section: Section,
+  section: NavSection,
   filter: string[] | null,
   parentMatches = true,
   depth = 0,
   inheritedFrameworks?: string[]
-): Section => {
+): NavSection => {
   if (!filter) return section;
 
   const entries = Object.entries(section).flatMap(
-    ([key, data]): [string, CategorizedDocMetadata][] => {
+    ([key, data]): [string, NavCategorizedDoc][] => {
       const sectionHasTags = !!data.frameworks;
       const matchesExplicitly =
         filter?.every((f) => data.frameworks?.includes(f)) ?? false;
@@ -137,7 +137,7 @@ const filterSection = (
                 depth + 1,
                 currentFrameworks
               )
-            ) as [string, CategorizedDocMetadata][])
+            ) as [string, NavCategorizedDoc][])
           : [];
       }
 
@@ -158,7 +158,7 @@ const filterSection = (
 
       if (!hasVisibleContent) return [];
 
-      const dataWithFrameworks: CategorizedDocMetadata = {
+      const dataWithFrameworks: NavCategorizedDoc = {
         ...data,
         frameworks: currentFrameworks,
         subSections: filteredSubSections,
@@ -176,7 +176,7 @@ const filterSection = (
         ) {
           return Object.entries(filteredSubSections) as [
             string,
-            CategorizedDocMetadata,
+            NavCategorizedDoc,
           ][];
         }
 
@@ -187,7 +187,7 @@ const filterSection = (
             [key, { ...dataWithFrameworks, subSections: undefined }],
             ...(Object.entries(filteredSubSections) as [
               string,
-              CategorizedDocMetadata,
+              NavCategorizedDoc,
             ][]),
           ];
         }

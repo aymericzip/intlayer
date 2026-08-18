@@ -8,6 +8,7 @@ import {
   PopoverStatic,
   type PopoverType,
   Detail as StaticDetail,
+  usePopoverIds,
 } from './static';
 
 /**
@@ -45,6 +46,7 @@ const Detail: FC<DetailProps> = ({
   ...props
 }) => {
   const popoverRef = useRef<HTMLDivElement>(null);
+  const { triggerId } = usePopoverIds(props.identifier);
   const [computedXAlign, setComputedXAlign] = useState(xAlign);
   const [computedYAlign, setComputedYAlign] = useState(yAlign);
   const [maxWidth, setMaxWidth] = useState<number | undefined>(undefined);
@@ -54,9 +56,7 @@ const Detail: FC<DetailProps> = ({
       if (!popoverRef.current) return;
 
       const popoverElement = popoverRef.current;
-      const triggerElement = document.getElementById(
-        `unrollable-panel-button-${props.identifier}`
-      );
+      const triggerElement = document.getElementById(triggerId);
 
       if (!triggerElement) return;
 
@@ -135,9 +135,7 @@ const Detail: FC<DetailProps> = ({
     const timeoutId = setTimeout(adjustPosition, 0);
 
     // Listen to mouse enter on the trigger to recalculate
-    const triggerElement = document.getElementById(
-      `unrollable-panel-button-${props.identifier}`
-    );
+    const triggerElement = document.getElementById(triggerId);
 
     if (triggerElement) {
       triggerElement.addEventListener('mouseenter', adjustPosition);
@@ -166,7 +164,7 @@ const Detail: FC<DetailProps> = ({
       window.removeEventListener('resize', adjustPosition);
       window.removeEventListener('scroll', adjustPosition, true);
     };
-  }, [props.identifier, xAlign, yAlign]);
+  }, [triggerId, xAlign, yAlign]);
 
   // Use the static Detail component with computed alignment values
   return (

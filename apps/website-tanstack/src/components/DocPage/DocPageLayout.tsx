@@ -5,11 +5,11 @@ import { AsideNavigation } from './AsideNavigation/AsideNavigation';
 import { DocBreadCrumb } from './DocBreadCrumb';
 import { DocNavList } from './DocNavList';
 import { TOCProgressBar } from './TOCProgressBar/TOCProgressBar';
-import type { Section } from './types';
+import type { NavSection } from './types';
 
 type DocPageLayoutProps = {
   children?: ReactNode;
-  docData: Section;
+  docData: NavSection;
   activeSlugs?: string[];
   locale?: LocalesValues;
   displayAsideNavigation?: boolean;

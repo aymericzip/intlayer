@@ -8,7 +8,6 @@ import { Modal } from '@intlayer/design-system/modal';
 import { Copy, CopyCheck, GitCommit, XCircle } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { useTheme } from '#/providers/ThemeProvider';
 import { Link } from '#components/Link/Link';
 
 type CIWorkflowModalProps = {
@@ -33,7 +32,6 @@ export const CIWorkflowModal: FC<CIWorkflowModalProps> = ({
   provider,
 }) => {
   const { ciModal, ciTemplates } = useIntlayer('build-settings');
-  const { resolvedTheme } = useTheme();
   const { mutate: pushConfig, isPending: isPushing } = usePushCIConfig();
 
   const handlePush = () => {
@@ -87,9 +85,7 @@ export const CIWorkflowModal: FC<CIWorkflowModalProps> = ({
               <Loader />
             </div>
           ) : hasContent ? (
-            <CodeBlock lang="yaml" isDarkMode={resolvedTheme === 'dark'}>
-              {displayContent}
-            </CodeBlock>
+            <CodeBlock lang="yaml">{displayContent}</CodeBlock>
           ) : (
             <div className="flex items-center justify-center gap-2 py-8 text-error">
               <XCircle className="size-5" />

@@ -10,11 +10,11 @@ import {
 import { getLocalizedUrl, type LocalesValues } from 'intlayer';
 import type { FC } from 'react';
 import { getDocSubSection } from './docData';
-import type { CategorizedDocMetadata } from './types';
+import type { NavSection } from './types';
 
 type DocBreadCrumbProps = {
   activeSections: string[];
-  docData: Record<string, CategorizedDocMetadata>;
+  docData: NavSection;
   locale: LocalesValues;
 } & Omit<BreadcrumbProps, 'links'>;
 

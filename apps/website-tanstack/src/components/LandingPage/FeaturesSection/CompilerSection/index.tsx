@@ -1,6 +1,5 @@
 import { IDE } from '@intlayer/design-system/ide';
 import { WithResizer } from '@intlayer/design-system/with-resizer';
-import { useTheme } from 'next-themes';
 import type { FC } from 'react';
 import { type Framework, useFramework } from '../FrameworkContext';
 import { FrameworkSelector } from '../FrameworkSelector';
@@ -110,7 +109,6 @@ type CompilerSectionProps = {
 export const CompilerSection: FC<CompilerSectionProps> = ({
   scrollProgress,
 }) => {
-  const { resolvedTheme } = useTheme();
   const { framework } = useFramework();
 
   const tabs = frameworkTabs[framework];
@@ -120,7 +118,6 @@ export const CompilerSection: FC<CompilerSectionProps> = ({
       <FrameworkSelector />
       <div className="flex size-full max-h-110 flex-1 scale-90 flex-row rounded-3xl bg-neutral-200 [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-4xl dark:bg-neutral-950">
         <IDE
-          isDarkMode={resolvedTheme === 'dark'}
           pages={tabs}
           className="mx-auto flex-1 rounded-r-none! text-xs"
           key={framework}

@@ -8,7 +8,6 @@ import {
   Info,
   XCircle,
 } from 'lucide-react';
-import { useTheme } from 'next-themes';
 import type { FC, PropsWithChildren, ReactNode } from 'react';
 import type { AuditEvent, AuditStatus } from './types';
 
@@ -57,8 +56,6 @@ export const EventTag: FC<
     isLoading?: boolean;
   }>
 > = ({ event, id, isLoading, children }) => {
-  const { resolvedTheme } = useTheme();
-  const isDarkMode = resolvedTheme === 'dark';
   const details =
     event?.data?.errorsDetails ??
     event?.data?.warningsDetails ??
@@ -90,7 +87,7 @@ export const EventTag: FC<
                 <p className="font-semibold">{detailsObj.message}</p>
               )}
               <div className="flex flex-col gap-1">
-                <CodeBlock lang="html" isDarkMode={isDarkMode}>
+                <CodeBlock lang="html">
                   {detailsObj.links
                     .map((link: any) =>
                       String(link).replace(/````html\n?|```/g, '')
@@ -100,7 +97,7 @@ export const EventTag: FC<
               </div>
             </div>
           ) : (
-            <CodeBlock lang="json" isDarkMode={isDarkMode}>
+            <CodeBlock lang="json">
               {JSON.stringify(details, null, 2)}
             </CodeBlock>
           )}

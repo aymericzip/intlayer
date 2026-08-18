@@ -22,8 +22,16 @@ export const loadFaqPage = createServerFn()
     if (!exactMatch) return { exactMatch: null, faqsData, content: null };
 
     const file = await getFrequentQuestion(exactMatch.docKey as any, locale);
+    const { highlightMarkdownCodeBlocks } = await import(
+      '~/utils/highlightMarkdown'
+    );
+
     const blogContent = urlRenamer(file, locale);
     const blogParsed = parseMarkdown(blogContent);
+
+    // Highlighting here rather than in the browser keeps Shiki's WASM engine
+    // and grammars off the critical path of every question page.
+    const codeStyleSheet = await highlightMarkdownCodeBlocks(blogParsed);
 
     const exactMatchWithAuthor = {
       ...exactMatch,
@@ -33,7 +41,7 @@ export const loadFaqPage = createServerFn()
     return {
       exactMatch: exactMatchWithAuthor,
       faqsData,
-      content: { blogContent, blogParsed },
+      content: { blogParsed, codeStyleSheet },
     };
   });
 

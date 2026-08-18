@@ -1,6 +1,5 @@
 import { IDE } from '@intlayer/design-system/ide';
 import { SwitchSelector } from '@intlayer/design-system/switch-selector';
-import { useTheme } from 'next-themes';
 import { type FC, useState } from 'react';
 import { type Framework, useFramework } from '../FrameworkContext';
 import { FrameworkSelector } from '../FrameworkSelector';
@@ -164,7 +163,6 @@ type IDESectionProps = {
 };
 
 export const IDESection: FC<IDESectionProps> = ({ scrollProgress }) => {
-  const { resolvedTheme } = useTheme();
   const [mode, setMode] = useState<Mode>('per-component');
   const { framework } = useFramework();
 
@@ -189,7 +187,6 @@ export const IDESection: FC<IDESectionProps> = ({ scrollProgress }) => {
         <FrameworkSelector />
       </div>
       <IDE
-        isDarkMode={resolvedTheme === 'dark'}
         pages={tabs}
         activeTab={activeTab}
         className="mx-auto max-h-110 flex-1 scale-90 text-xs"

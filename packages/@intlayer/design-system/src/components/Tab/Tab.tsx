@@ -15,6 +15,19 @@ import {
 import { TabSelector } from '../TabSelector';
 import { useTabContext } from './TabContext';
 
+/**
+ * Builds an id fragment usable in `id` / `aria-controls`.
+ *
+ * Tab values come from markdown (`<Tab value="Extract command">`), so they can
+ * hold spaces — which makes `aria-controls` reference a list of ids rather than
+ * the one panel, and silently breaks the association for screen readers.
+ */
+const toIdFragment = (value: string) =>
+  value
+    .trim()
+    .replace(/\s+/g, '-')
+    .replace(/[^\w-]/g, '');
+
 // Context for managing tab state
 type TabContextType = {
   activeTab: string;
@@ -151,12 +164,17 @@ const TabComponent = ({
         {...props}
       >
         {/* Tab Headers */}
-        <div className={cn('flex shrink-0 gap-3 p-3', headerClassName)}>
+        <div
+          role="tablist"
+          aria-orientation="horizontal"
+          className={cn('flex shrink-0 gap-3 p-3', headerClassName)}
+        >
           <TabSelector
             selectedChoice={currentTabValue}
             tabs={tabItems.map((child) => {
               const { label, value, disabled } = child.props;
               const isActive = currentTabValue === value;
+              const idFragment = toIdFragment(value);
 
               return (
                 <button
@@ -170,8 +188,8 @@ const TabComponent = ({
                   onClick={() => !disabled && handleSetActiveTab(value)}
                   role="tab"
                   aria-selected={isActive}
-                  aria-controls={`tabpanel-${value}`}
-                  id={`tab-${value}`}
+                  aria-controls={`tabpanel-${idFragment}`}
+                  id={`tab-${idFragment}`}
                   type="button"
                 >
                   {label ?? value}
@@ -191,10 +209,9 @@ const TabComponent = ({
           )}
           {...containerProps}
         >
-          {/* Track */}
+          {/* Track — presentational: it carries the sliding transform, while
+              the panels it holds are the tablist's controlled regions. */}
           <div
-            role="tablist"
-            aria-orientation="horizontal"
             className={cn(
               'grid w-full min-w-0',
               fullHeight && 'h-full',
@@ -210,14 +227,19 @@ const TabComponent = ({
             {tabItems.map(({ props }, index) => {
               const { value, children, className: itemClassName } = props;
               const isActive = index === activeTabIndex;
+              const idFragment = toIdFragment(value);
 
               return (
                 <div
                   key={value}
                   role="tabpanel"
-                  aria-labelledby={`tab-${value}`}
-                  id={`tabpanel-${value}`}
-                  aria-hidden={!isActive}
+                  aria-labelledby={`tab-${idFragment}`}
+                  id={`tabpanel-${idFragment}`}
+                  // `inert` takes the whole subtree out of the tab order and
+                  // the accessibility tree at once. `aria-hidden` alone leaves
+                  // the buttons and links of an off-screen panel focusable,
+                  // which strands keyboard users on invisible controls.
+                  inert={!isActive}
                   tabIndex={isActive ? 0 : -1}
                   data-active={isActive}
                   className={cn(

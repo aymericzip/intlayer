@@ -14,44 +14,30 @@ export const ClickToOpenIframe: FC<ComponentProps<'iframe'>> = ({
 
   const [isShown, setIsShown] = useState(false);
 
-  let label = src ?? '';
-  try {
-    if (src) label = new URL(src).href;
-  } catch {
-    // keep src as label
-  }
+  if (isShown) return <MarkDownIframe src={src} title={title} {...rest} />;
 
-  return isShown ? (
-    <MarkDownIframe src={src} title={title} {...rest} />
-  ) : (
+  return (
     <Container
       roundedSize="2xl"
       border
       borderColor="neutral"
       gap="none"
-      className="relative overflow-hidden"
+      className="relative flex min-h-[12rem] items-center justify-center overflow-hidden bg-text/10"
     >
-      <div
-        className="absolute top-0 left-0 z-10 flex size-full size-full cursor-pointer items-center justify-center bg-text/10 backdrop-blur"
-        role="button"
-        tabIndex={0}
+      {/*
+       * The frame is mounted only once asked for. Rendering it behind the
+       * overlay would defeat the point of the overlay: the embed — and every
+       * request it makes — would still be paid for on load.
+       */}
+      <Button
+        color="text-inverse"
+        size="md"
+        label={content.openIframe.value}
+        Icon={Eye}
         onClick={() => setIsShown(true)}
-        onKeyDown={(e) => e.key === content.enter.value && setIsShown(true)}
       >
-        <Button
-          color="text-inverse"
-          size="md"
-          label={content.openIframe.value}
-          Icon={Eye}
-          onClick={(e) => {
-            e.stopPropagation();
-            setIsShown(true);
-          }}
-        >
-          {content.openIframe}
-        </Button>
-      </div>
-      <MarkDownIframe src={src} title={title} {...rest} />
+        {content.openIframe}
+      </Button>
     </Container>
   );
 };

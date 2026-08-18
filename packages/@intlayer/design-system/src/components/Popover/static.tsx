@@ -1,11 +1,35 @@
 import { cn } from '@utils/cn';
-import type {
-  ComponentProps,
-  DetailedHTMLProps,
-  FC,
-  HTMLAttributes,
+import {
+  type ComponentProps,
+  createContext,
+  type DetailedHTMLProps,
+  type FC,
+  type HTMLAttributes,
+  useContext,
+  useId,
 } from 'react';
 import { Container } from '../Container';
+
+/**
+ * Name the trigger shares with its own `Detail` so both derive the same ids.
+ *
+ * The `identifier` prop names a *kind* of popover ("copy", "history"), and the
+ * same kind legitimately appears many times on one page — a documentation page
+ * renders one copy popover per code block. Deriving the ids from the identifier
+ * alone made every one of them share them, which is invalid HTML and leaves
+ * `aria-labelledby` pointing at whichever element the browser matched first.
+ */
+const PopoverNameContext = createContext<string | null>(null);
+
+/** Ids of a popover pair, unique to the instance that rendered it. */
+export const usePopoverIds = (identifier: string) => {
+  const name = useContext(PopoverNameContext) ?? identifier;
+
+  return {
+    triggerId: `unrollable-panel-button-${name}`,
+    panelId: `unrollable-panel-${name}`,
+  };
+};
 
 /**
  * Props for the main Popover component
@@ -123,16 +147,23 @@ export const PopoverStatic: PopoverType = ({
   className,
   identifier,
   ...props
-}) => (
-  <div
-    className={cn(`group/popover relative flex cursor-pointer`, className)}
-    id={`unrollable-panel-button-${identifier}`}
-    aria-haspopup
-    {...props}
-  >
-    {children}
-  </div>
-);
+}) => {
+  const name = `${identifier}${useId()}`;
+  const { triggerId } = usePopoverIds(name);
+
+  return (
+    <PopoverNameContext value={name}>
+      <div
+        className={cn(`group/popover relative flex cursor-pointer`, className)}
+        id={triggerId}
+        aria-haspopup
+        {...props}
+      >
+        {children}
+      </div>
+    </PopoverNameContext>
+  );
+};
 
 /**
  * Props for the Popover.Detail component
@@ -229,58 +260,62 @@ const Detail: FC<DetailProps> = ({
   className,
   displayArrow = true,
   ...props
-}) => (
-  <Container
-    transparency="xs"
-    role="group"
-    aria-hidden={isHidden}
-    aria-labelledby={`unrollable-panel-button-${identifier}`}
-    id={`unrollable-panel-${identifier}`}
-    className={cn(
-      'absolute z-60 min-w-full rounded-md ring-1 ring-neutral',
+}) => {
+  const { triggerId, panelId } = usePopoverIds(identifier);
 
-      /* Positioning */
-      xAlign === 'start' && 'left-0',
-      xAlign === 'center' && 'left-1/2 -translate-x-1/2',
-      xAlign === 'end' && 'right-0',
-      yAlign === 'below' && 'top-[calc(100%+1rem)]',
-      yAlign === 'above' && 'bottom-[calc(100%+1rem)]',
+  return (
+    <Container
+      transparency="xs"
+      role="group"
+      aria-hidden={isHidden}
+      aria-labelledby={triggerId}
+      id={panelId}
+      className={cn(
+        'absolute z-60 min-w-full rounded-md ring-1 ring-neutral',
 
-      /* Arrow indicator */
-      displayArrow &&
-        'before:absolute before:z-[999] before:h-0 before:w-0 before:content-[""]',
+        /* Positioning */
+        xAlign === 'start' && 'left-0',
+        xAlign === 'center' && 'left-1/2 -translate-x-1/2',
+        xAlign === 'end' && 'right-0',
+        yAlign === 'below' && 'top-[calc(100%+1rem)]',
+        yAlign === 'above' && 'bottom-[calc(100%+1rem)]',
 
-      /* Horizontal positioning */
-      displayArrow && xAlign === 'start' && 'before:left-2',
-      displayArrow &&
-        xAlign === 'center' &&
-        'before:left-1/2 before:-translate-x-1/2',
-      displayArrow && xAlign === 'end' && 'before:right-2',
+        /* Arrow indicator */
+        displayArrow &&
+          'before:absolute before:z-[999] before:h-0 before:w-0 before:content-[""]',
 
-      /* Arrow pointing up (when popover is below trigger) */
-      displayArrow &&
-        yAlign === 'below' &&
-        'before:-top-2.5 before:border-r-[10px] before:border-r-transparent before:border-b-[10px] before:border-b-neutral before:border-l-[10px] before:border-l-transparent',
+        /* Horizontal positioning */
+        displayArrow && xAlign === 'start' && 'before:left-2',
+        displayArrow &&
+          xAlign === 'center' &&
+          'before:left-1/2 before:-translate-x-1/2',
+        displayArrow && xAlign === 'end' && 'before:right-2',
 
-      /* Arrow pointing down (when popover is above trigger) */
-      displayArrow &&
-        yAlign === 'above' &&
-        'before:-bottom-2.5 before:border-t-[10px] before:border-t-neutral before:border-r-[10px] before:border-r-transparent before:border-l-[10px] before:border-l-transparent',
+        /* Arrow pointing up (when popover is below trigger) */
+        displayArrow &&
+          yAlign === 'below' &&
+          'before:-top-2.5 before:border-r-[10px] before:border-r-transparent before:border-b-[10px] before:border-b-neutral before:border-l-[10px] before:border-l-transparent',
 
-      /* Visibility management */
-      'overflow-x-visible opacity-0 transition-all duration-400 ease-in-out',
-      isHidden !== false ? 'invisible' : 'visible opacity-100 delay-800',
-      isOverable &&
-        `group-hover/popover:visible group-hover/popover:opacity-100 group-hover/popover:delay-800`,
-      isFocusable &&
-        `group-focus-within/popover:visible group-focus-within/popover:opacity-100 group-focus-within/popover:delay-800`,
-      className
-    )}
-    {...props}
-  >
-    {children}
-  </Container>
-);
+        /* Arrow pointing down (when popover is above trigger) */
+        displayArrow &&
+          yAlign === 'above' &&
+          'before:-bottom-2.5 before:border-t-[10px] before:border-t-neutral before:border-r-[10px] before:border-r-transparent before:border-l-[10px] before:border-l-transparent',
+
+        /* Visibility management */
+        'overflow-x-visible opacity-0 transition-all duration-400 ease-in-out',
+        isHidden !== false ? 'invisible' : 'visible opacity-100 delay-800',
+        isOverable &&
+          `group-hover/popover:visible group-hover/popover:opacity-100 group-hover/popover:delay-800`,
+        isFocusable &&
+          `group-focus-within/popover:visible group-focus-within/popover:opacity-100 group-focus-within/popover:delay-800`,
+        className
+      )}
+      {...props}
+    >
+      {children}
+    </Container>
+  );
+};
 
 PopoverStatic.Detail = Detail;
 

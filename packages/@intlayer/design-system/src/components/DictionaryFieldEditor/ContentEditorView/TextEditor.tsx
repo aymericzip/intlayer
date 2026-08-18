@@ -234,7 +234,6 @@ export type TextEditorProps = {
   dictionary: Dictionary;
   keyPath: KeyPath[];
   section: ContentNode;
-  isDarkMode?: boolean;
   /**
    * Custom renderer for string leaves. Receives the leaf content and its full
    * key path so the renderer can write edits back to the right location.
@@ -907,7 +906,6 @@ const MarkdownTextEditor: FC<TextEditorProps> = ({
   section,
   keyPath,
   dictionary,
-  isDarkMode,
 }) => {
   const [mode, setMode] = useState(MarkdownViewMode.Edit);
   const { addEditedContent } = useEditedContent();
@@ -955,9 +953,7 @@ const MarkdownTextEditor: FC<TextEditorProps> = ({
 
   const renderMarkdownPreview = (leafContent: string): ReactNode => (
     <Suspense fallback={<Loader />}>
-      <LazyMarkdownRenderer isDarkMode={isDarkMode}>
-        {leafContent}
-      </LazyMarkdownRenderer>
+      <LazyMarkdownRenderer>{leafContent}</LazyMarkdownRenderer>
     </Suspense>
   );
 
@@ -1095,7 +1091,6 @@ export const TextEditor = memo<TextEditorProps>(function TextEditor({
   keyPath,
   dictionary,
   renderSection,
-  isDarkMode,
 }) {
   const { tsxNotEditable } = useIntlayer('navigation-view');
   const nodeType = getNodeType(section);
@@ -1203,7 +1198,6 @@ export const TextEditor = memo<TextEditorProps>(function TextEditor({
         dictionary={dictionary}
         keyPath={keyPath}
         section={section}
-        isDarkMode={isDarkMode}
       />
     );
   }

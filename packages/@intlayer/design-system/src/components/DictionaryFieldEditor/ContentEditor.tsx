@@ -28,7 +28,6 @@ import { NavigationViewNode } from './NavigationView/NavigationViewNode';
 
 type NodeEditorProps = {
   dictionary: Dictionary;
-  isDarkMode?: boolean;
 };
 
 /** Render a variant (named string or structured object) for display. */
@@ -39,10 +38,7 @@ const formatVariant = (
     ? JSON.stringify(variant)
     : (variant ?? '');
 
-export const ContentEditor: FC<NodeEditorProps> = ({
-  dictionary,
-  isDarkMode,
-}) => {
+export const ContentEditor: FC<NodeEditorProps> = ({ dictionary }) => {
   const { itemPagination, variantSwitcher } = useIntlayer('content-editor');
   const { editedContent } = useEditedContent();
   const {
@@ -230,7 +226,6 @@ export const ContentEditor: FC<NodeEditorProps> = ({
               keyPath={deferredKeyPath ?? []}
               section={deferredSection}
               dictionary={activeDictionary}
-              isDarkMode={isDarkMode}
             />
           </div>
         )}

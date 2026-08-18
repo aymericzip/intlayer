@@ -524,11 +524,7 @@ export const I18nBenchmark = ({
                     </div>
                   ) : (
                     <div className="size-full overflow-auto">
-                      <CodeBlock
-                        lang="json"
-                        isDarkMode={isDarkMode}
-                        className="h-full text-xs"
-                      >
+                      <CodeBlock lang="json" className="h-full text-xs">
                         {JSON.stringify(chartData, null, 2)}
                       </CodeBlock>
                     </div>

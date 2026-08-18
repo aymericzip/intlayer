@@ -10,14 +10,22 @@ import { Button, type ButtonProps } from '../Button';
  */
 type CopyButtonProps = {
   /**
-   * The text content to copy to the clipboard
+   * The text content to copy to the clipboard, or a resolver invoked when the
+   * button is pressed.
+   *
+   * The resolver form exists for content that is not worth keeping in memory —
+   * or shipping to the browser — until someone actually asks for it.
+   *
    * @example
    * ```tsx
    * <CopyButton content="Hello World!" />
+   * <CopyButton content={() => fetch(url).then((response) => response.text())} />
    * ```
    */
-  content: string;
-} & Partial<ButtonProps>;
+  content: string | (() => string | Promise<string>);
+  // `content` is also an RDFa attribute on `HTMLAttributes`, whose `string`
+  // type would intersect the resolver form away.
+} & Omit<Partial<ButtonProps>, 'content'>;
 
 /**
  * CopyButton - A specialized button component for copying text to the clipboard
@@ -96,7 +104,8 @@ export const CopyButton: FC<CopyButtonProps> = ({ content, ...props }) => {
   const handleCopy = async () => {
     try {
       setError(false);
-      await navigator.clipboard.writeText(content);
+      const text = typeof content === 'function' ? await content() : content;
+      await navigator.clipboard.writeText(text);
       setCopied(true);
     } catch (error) {
       console.error('Failed to copy text: ', error);

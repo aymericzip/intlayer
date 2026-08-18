@@ -222,6 +222,11 @@
       "import": "./dist/esm/components/IDE/index.mjs",
       "default": "./dist/esm/components/IDE/index.mjs"
     },
+    "./shiki-themes": {
+      "types": "./dist/types/components/IDE/shikiThemes.d.ts",
+      "import": "./dist/esm/components/IDE/shikiThemes.mjs",
+      "default": "./dist/esm/components/IDE/shikiThemes.mjs"
+    },
     "./information-tag": {
       "types": "./dist/types/components/InformationTag/index.d.ts",
       "import": "./dist/esm/components/InformationTag/index.mjs",

@@ -14,17 +14,19 @@ import {
   type CodeToHastOptions,
   codeToHtml,
 } from 'shiki/bundle/web';
+import { SHIKI_THEMES } from './shikiThemes';
 
 export const CodeBlockShiki = (async ({
   children,
   lang,
-  isDarkMode,
   onChange,
   ...props
 }: CodeBlockProps) => {
   const shikiOptions: CodeToHastOptions<BundledLanguage, BundledTheme> = {
     lang,
-    theme: isDarkMode ? 'github-dark' : 'github-light',
+    themes: SHIKI_THEMES,
+    // Both palettes ship as CSS variables, so one markup serves both themes.
+    defaultColor: false,
     transformers: [
       transformerNotationDiff(),
       transformerNotationHighlight(),
@@ -49,7 +51,6 @@ export const CodeBlockShiki = (async ({
 const CodeDefault: FC<CodeBlockProps> = ({
   children,
   isEditable,
-  isDarkMode,
   onChange,
   ...props
 }) => (
@@ -71,7 +72,6 @@ const CodeDefault: FC<CodeBlockProps> = ({
 export type CodeBlockProps = {
   children: string;
   lang: BundledLanguage;
-  isDarkMode?: boolean;
   isEditable?: boolean;
   onChange?: (content: string) => void;
 } & Omit<HTMLAttributes<HTMLDivElement>, 'onChange'>;

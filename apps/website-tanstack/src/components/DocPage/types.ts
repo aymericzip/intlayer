@@ -14,3 +14,23 @@ export type CategorizedDocMetadata = {
    */
   deployed?: boolean;
 };
+
+/**
+ * The only metadata the navigation and the breadcrumb read off a document.
+ *
+ * `DocMetadata` also carries the description, keywords, revision history and
+ * GitHub locations of every page — hundreds of entries' worth on a tree that
+ * ships with each documentation page, none of which the sidebar renders.
+ */
+export type NavDocMetadata = Pick<DocMetadata, 'slugs' | 'relativeUrl' | 'url'>;
+
+/** Navigation tree: the shape of {@link Section} reduced to what it renders. */
+export type NavSection = Record<string, NavCategorizedDoc>;
+
+export type NavCategorizedDoc = Omit<
+  CategorizedDocMetadata,
+  'default' | 'subSections'
+> & {
+  default?: NavDocMetadata;
+  subSections?: NavSection;
+};

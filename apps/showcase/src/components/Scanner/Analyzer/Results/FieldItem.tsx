@@ -56,7 +56,6 @@ export const EventTag: FC<
     isLoading?: boolean;
   }>
 > = ({ event, id, isLoading, children }) => {
-  const isDarkMode = true;
   const details =
     event?.data?.errorsDetails ??
     event?.data?.warningsDetails ??
@@ -88,7 +87,7 @@ export const EventTag: FC<
                 <p className="font-semibold">{detailsObj.message}</p>
               )}
               <div className="flex flex-col gap-1">
-                <CodeBlock lang="html" isDarkMode={isDarkMode}>
+                <CodeBlock lang="html">
                   {detailsObj.links
                     .map((link: any) =>
                       String(link).replace(/````html\n?|```/g, '')
@@ -98,7 +97,7 @@ export const EventTag: FC<
               </div>
             </div>
           ) : (
-            <CodeBlock lang="json" isDarkMode={isDarkMode}>
+            <CodeBlock lang="json">
               {JSON.stringify(details, null, 2)}
             </CodeBlock>
           )}

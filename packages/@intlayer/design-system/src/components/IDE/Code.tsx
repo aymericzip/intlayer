@@ -32,7 +32,12 @@ type CodeCompProps = {
   children: ReactNode;
   fileName?: string;
   language: CodeLanguage;
-  isDarkMode?: boolean;
+  /**
+   * Markup for `children`, highlighted by Shiki ahead of time. When present the
+   * block paints straight from it and the highlighter is never downloaded —
+   * except when the reader switches the block to a non-TypeScript format.
+   */
+  highlightedHtml?: string;
   showHeader?: boolean;
   showLineNumbers?: boolean;
   isRollable?: boolean;
@@ -64,7 +69,7 @@ const parseFormats = (
 export const Code: FC<CodeCompProps> = ({
   children,
   language,
-  isDarkMode,
+  highlightedHtml,
   showHeader = true,
   showLineNumbers = true,
   className,
@@ -243,16 +248,17 @@ export const Code: FC<CodeCompProps> = ({
             <CodeBlockHighlight
               originalLang={language}
               targetFormat={resolvedFormat}
-              isDarkMode={isDarkMode}
+              initialHtml={highlightedHtml}
             >
               {rawCode}
             </CodeBlockHighlight>
           ) : (
             /*
-             * Single-format: use the original Suspense-based async Shiki renderer
-             * (good for SSR / static content).
+             * Single-format: paint the pre-highlighted markup when it was
+             * supplied, otherwise fall back to the Suspense-based async Shiki
+             * renderer.
              */
-            <CodeBlock lang={language} isDarkMode={isDarkMode}>
+            <CodeBlock lang={language} highlightedHtml={highlightedHtml}>
               {rawCode}
             </CodeBlock>
           )}

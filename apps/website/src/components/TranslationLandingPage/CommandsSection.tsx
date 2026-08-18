@@ -5,7 +5,6 @@ import { CodeBlock } from '@intlayer/design-system/ide';
 import { motion, type Variants } from 'framer-motion';
 import { Braces, FileText, Languages } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
-import { useTheme } from 'next-themes';
 import type { FC } from 'react';
 
 type IconMap = {
@@ -36,7 +35,6 @@ export const CommandsSection: FC = () => {
   const { title, description, commands } = useIntlayer(
     'translation-commands-section'
   );
-  const { resolvedTheme } = useTheme();
 
   return (
     <section id="commands" className="mx-auto max-w-6xl px-8 py-20 md:py-28">
@@ -97,11 +95,7 @@ export const CommandsSection: FC = () => {
                       </span>
                       <span className="text-text-dark/40 text-xs">CLI</span>
                     </div>
-                    <CodeBlock
-                      lang="bash"
-                      className="text-sm"
-                      isDarkMode={resolvedTheme === 'dark'}
-                    >
+                    <CodeBlock lang="bash" className="text-sm">
                       {cmd.code.value}
                     </CodeBlock>
                   </Container>

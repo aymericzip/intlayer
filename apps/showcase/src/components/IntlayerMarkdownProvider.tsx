@@ -2,15 +2,11 @@ import { getIntlayerMarkdownOptions } from '@intlayer/design-system/mark-down-re
 import type { FC, PropsWithChildren } from 'react';
 import { MarkdownProvider } from 'react-intlayer/markdown';
 import { Link } from '#components/Link/Link';
-import { useTheme } from './ThemeProvider';
 
 export const IntlayerMarkdownProvider: FC<PropsWithChildren> = ({
   children,
 }) => {
-  const { resolvedTheme } = useTheme();
-  const isDark = resolvedTheme === 'dark';
-
-  const markdownOptions = getIntlayerMarkdownOptions(isDark);
+  const markdownOptions = getIntlayerMarkdownOptions();
 
   return (
     <MarkdownProvider

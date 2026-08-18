@@ -42,7 +42,6 @@ type DictionaryDetailsProps = {
   dictionary: Dictionary;
   mode: ('local' | 'remote')[];
   onSelectSibling?: (dictionary: Dictionary) => void;
-  isDarkMode?: boolean;
 };
 
 type QualifierType = 'collection' | 'variant';

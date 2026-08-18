@@ -2,7 +2,6 @@
 
 import { normalizeJsonLdUrl } from './normalizeJsonLdUrl';
 
-
 /**
  * Formats a date as ISO 8601 `YYYY-MM-DD`, the shape Schema.org expects.
  *
@@ -41,8 +40,14 @@ export type BuildCreativeWorkJsonLdParams = {
   type?: CreativeWorkType;
   name: string;
   description: string;
-  /** Full text / markdown body of the document. */
-  content: string;
+  /**
+   * Full text / markdown body of the document, emitted as `text`.
+   *
+   * Omit it for long documents: `text` duplicates the whole page inside the
+   * `<head>`, which is bytes every reader downloads and parses before the
+   * article itself can paint.
+   */
+  content?: string;
   keywords: string;
   datePublished?: Date;
   dateModified?: Date;
@@ -102,7 +107,7 @@ export const buildCreativeWorkJsonLd = ({
   name,
   headline: name,
   ...(ogImageUrl ? { image: normalizeJsonLdUrl(ogImageUrl) } : {}),
-  text: content,
+  ...(content ? { text: content } : {}),
   description,
   url: normalizeJsonLdUrl(url),
   datePublished: datePublished ? formatDate(datePublished) : undefined,

@@ -241,3 +241,27 @@
 @plugin "@tailwindcss/aspect-ratio";
 
 @source "./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}";
+
+/**
+ * Dual-theme Shiki output.
+ *
+ * Code blocks are highlighted once with both `github-light` and `github-dark`,
+ * and every token carries its two colours as the `--shiki-light` /
+ * `--shiki-dark` custom properties instead of a resolved `color`. One markup
+ * therefore serves both themes, which is what allows the highlighting to be
+ * done ahead of time — at build, on the server — rather than re-run in the
+ * browser whenever the resolved theme changes.
+ *
+ * These rules live here, rather than in each app's `shiki.css`, because they
+ * are what makes the code block components render at all: without them every
+ * token resolves to an undefined variable.
+ */
+.shiki,
+.shiki span {
+  color: var(--shiki-light);
+}
+
+[data-theme="dark"] .shiki,
+[data-theme="dark"] .shiki span {
+  color: var(--shiki-dark);
+}

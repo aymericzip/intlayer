@@ -138,9 +138,16 @@ export const AutoSizedTextArea: FC<AutoSizedTextAreaProps> = ({
     textAreaStyle.height = `${Math.max(Math.min(scrollHeight, maxHeight), minHeight)}px`;
   };
 
+  /*
+   * `adjustHeight` writes a style and then reads `scrollHeight`, which forces
+   * the browser to lay the page out there and then. Depending on the function
+   * identity — recreated every render — repeated that reflow on every render of
+   * every ancestor; the height only ever changes with the content, so that is
+   * what this watches.
+   */
   useLayoutEffect(() => {
     adjustHeight();
-  }, [props.value, props.defaultValue, adjustHeight]);
+  }, [props.value, props.defaultValue, autoSize, maxRows]);
 
   const handleChange: ChangeEventHandler<HTMLTextAreaElement> = (e) => {
     onChange?.(e);
@@ -149,9 +156,6 @@ export const AutoSizedTextArea: FC<AutoSizedTextAreaProps> = ({
 
   const setRef = (el: HTMLTextAreaElement | null) => {
     textAreaRef.current = el;
-    if (el) {
-      adjustHeight();
-    }
   };
 
   return (

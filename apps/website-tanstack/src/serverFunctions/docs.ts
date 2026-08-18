@@ -4,6 +4,7 @@ import { parseMarkdown } from 'react-intlayer/markdown';
 import {
   getDocData,
   getPreviousNextDocMetadata,
+  toNavSection,
 } from '~/components/DocPage/docData';
 import { urlRenamer } from '~/utils/markdown';
 
@@ -26,10 +27,18 @@ export const loadDocPage = createServerFn()
 
     if (!exactMatch) return { exactMatch: null, docsData, content: null };
 
+    const { highlightMarkdownCodeBlocks } = await import(
+      '~/utils/highlightMarkdown'
+    );
+
     const defaultDocData = await getDocMetadata(exactMatch.docKey as any);
     const file = await getDoc(exactMatch.docKey as any, locale);
     const docContent = urlRenamer(file, locale);
     const docParsed = parseMarkdown(docContent);
+
+    // Highlighting here rather than in the browser keeps Shiki's WASM engine
+    // and grammars off the critical path of every documentation page.
+    const codeStyleSheet = await highlightMarkdownCodeBlocks(docParsed);
 
     const { prevDocData, nextDocData } = getPreviousNextDocMetadata(
       exactMatch.docKey as any,
@@ -46,8 +55,8 @@ export const loadDocPage = createServerFn()
       docsData,
       content: {
         defaultDocData,
-        docContent,
         docParsed,
+        codeStyleSheet,
         prevDocData,
         nextDocData,
       },
@@ -57,7 +66,7 @@ export const loadDocPage = createServerFn()
 export const loadNavData = createServerFn()
   .validator((data: { locale: string }) => data)
   .middleware([staticFunctionMiddleware])
-  .handler(async ({ data: { locale } }) => getDocData(locale));
+  .handler(async ({ data: { locale } }) => toNavSection(getDocData(locale)));
 
 export const loadDocRaw = createServerFn()
   .validator((data: { locale: string; slugs: string[] }) => data)
