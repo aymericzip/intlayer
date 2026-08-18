@@ -63,7 +63,7 @@ const Title: FC = () => {
     headingMap,
   });
   return (
-    <span className="w-full flex-1 truncate text-neutral text-xs">
+    <span className="w-full flex-1 truncate text-muted-foreground text-xs">
       {activeParent?.innerText ?? ''}
     </span>
   );

@@ -121,7 +121,7 @@ export const TableOfContents: FC<TableOfContentsProps> = ({
                 color="text"
                 isPageSection
                 variant="hoverable"
-                className="flex w-full items-center justify-between text-wrap p-2 pr-4 text-base text-neutral transition-colors"
+                className="flex w-full items-center justify-between text-wrap p-2 pr-4 text-base text-muted-foreground transition-colors"
               >
                 {heading.innerText}
               </Link>

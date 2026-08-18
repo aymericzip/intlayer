@@ -103,7 +103,7 @@ export const HeroSection: FC = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="mb-8 font-medium text-neutral text-xl sm:text-2xl md:text-3xl"
+              className="mb-8 font-medium text-muted-foreground text-xl sm:text-2xl md:text-3xl"
             >
               {heroSubtitle}
             </m.h2>
@@ -113,7 +113,7 @@ export const HeroSection: FC = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="mx-auto mb-12 max-w-3xl text-balance text-lg text-neutral leading-relaxed"
+              className="mx-auto mb-12 max-w-3xl text-balance text-lg text-muted-foreground leading-relaxed"
             >
               {heroDescription}
             </m.p>
@@ -183,7 +183,7 @@ export const HeroSection: FC = () => {
             className="relative w-full overflow-hidden shadow-2xl"
           >
             {/* Tab bar */}
-            <div className="flex w-full flex-row items-center justify-start gap-1 bg-neutral-200/20 text-neutral text-xs dark:bg-neutral-950/20">
+            <div className="flex w-full flex-row items-center justify-start gap-1 bg-neutral-200/20 text-muted-foreground text-xs dark:bg-neutral-950/20">
               <div className="mx-2 flex items-center justify-start gap-2 p-1">
                 <div className="size-3 rounded-full bg-error" />
                 <div className="size-3 rounded-full bg-yellow-500" />

@@ -27,14 +27,7 @@ const QuestionItem: FC<{
   }, [numberOfColumns, question.value]);
 
   return (
-    <Container
-      itemProp="mainEntity"
-      itemScope
-      itemType="https://schema.org/Question"
-      background="none"
-      border
-      roundedSize="xl"
-    >
+    <div className="rounded-sm border bg-card">
       <MaxHeightSmoother
         isOverable
         isFocusable
@@ -44,9 +37,10 @@ const QuestionItem: FC<{
         <div
           className={cn(
             'px-2 pt-3 sm:px-6',
-            numberOfColumns === 1 && 'w-[80vw]',
+            numberOfColumns === 1 && 'w-[85vw]',
             numberOfColumns === 2 && 'w-[40vw]',
-            numberOfColumns === 3 && 'w-[25vw]'
+            numberOfColumns === 3 && 'w-[20vw]'
+            /* What ? why not a grid */
           )}
         >
           <h3 className="text-wrap pb-4 font-bold text-base" itemProp="name">
@@ -57,7 +51,7 @@ const QuestionItem: FC<{
             itemProp="acceptedAnswer"
             itemScope
             itemType="https://schema.org/Answer"
-            className="text-neutral leading-8"
+            className="text-muted-foreground leading-8"
           >
             <span itemProp="text">{answer}</span>
             {callToAction && (
@@ -73,7 +67,7 @@ const QuestionItem: FC<{
           </div>
         </div>
       </MaxHeightSmoother>
-    </Container>
+    </div>
   );
 };
 
@@ -125,8 +119,8 @@ export const CommonQuestionsSection: FC = () => {
   const columns = distributeItemsIntoColumns(content as any[], numberOfColumns);
 
   return (
-    <section className="m-auto flex w-full max-w-6xl flex-col items-center justify-center">
-      <h2 className="text-neutral">{title}</h2>
+    <section className="m-auto flex w-full max-w-6xl flex-col items-center justify-center p-16">
+      <h2 className="text-3xl">{title}</h2>
 
       <div
         itemScope

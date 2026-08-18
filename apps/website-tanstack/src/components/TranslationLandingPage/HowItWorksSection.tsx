@@ -74,12 +74,12 @@ export const HowItWorksSection: FC = () => {
                     <span className="flex size-8 items-center justify-center rounded-full border-4 border-lime-300 text-lg text-lime-800 dark:border-lime-900 dark:text-lime-600">
                       {s.step}
                     </span>
-                    <IconComponent className="size-6 text-neutral" />
+                    <IconComponent className="size-6 text-muted-foreground" />
                   </div>
                   <h3 className="font-semibold text-sm md:text-lg">
                     {s.title}
                   </h3>
-                  <p className="text-neutral text-xs leading-5">
+                  <p className="text-muted-foreground text-xs leading-5">
                     {s.description}
                   </p>
                 </Container>

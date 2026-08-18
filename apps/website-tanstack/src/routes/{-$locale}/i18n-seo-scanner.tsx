@@ -116,7 +116,9 @@ function AuditContent() {
         <h1 className="max-w-3xl text-center font-bold text-3xl text-foreground leading-tight sm:text-5xl md:text-5xl lg:text-5xl">
           {title}
         </h1>
-        <p className="max-w-2xl text-neutral leading-relaxed">{description}</p>
+        <p className="max-w-2xl text-muted-foreground leading-relaxed">
+          {description}
+        </p>
         <LocalizationAnalyzer />
       </main>
     </div>

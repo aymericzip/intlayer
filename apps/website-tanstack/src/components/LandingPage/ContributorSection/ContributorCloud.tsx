@@ -242,14 +242,14 @@ export const ContributorCloud: FC<ContributorCloudProps> = ({
   return (
     <section
       ref={sectionRef}
-      className="relative w-full py-20 max-md:hidden md:py-32"
+      className="relative w-full border-b py-20 max-md:hidden md:py-32"
     >
       <div className="pointer-events-none mx-auto max-w-7xl p-5 px-4 md:px-8 lg:px-16">
         <div className="flex min-h-40 flex-col gap-12 md:flex-row md:items-center">
           <div className="pointer-events-none relative flex-1"></div>
           <div className="pointer-events-auto relative z-0 flex-1 space-y-6">
             <H2 className="mb-3 font-bold text-3xl sm:text-4xl">{title}</H2>
-            <p className="text-base text-neutral">{subtitle}</p>
+            <p className="text-base text-muted-foreground">{subtitle}</p>
             <div className="flex gap-2">
               <Link
                 to={External_Discord}

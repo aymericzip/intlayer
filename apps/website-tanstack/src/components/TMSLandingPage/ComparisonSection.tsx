@@ -36,7 +36,7 @@ export const ComparisonSection: FC = () => {
           className="overflow-hidden p-0"
         >
           {/* Header */}
-          <div className="grid grid-cols-3 bg-neutral/5 p-6 font-semibold text-neutral">
+          <div className="grid grid-cols-3 bg-neutral/5 p-6 font-semibold text-muted-foreground">
             <div className="col-span-1">{comparisonHeaders.feature}</div>
             <div className="col-span-1 font-bold text-foreground">
               {comparisonHeaders.intlayer}
@@ -66,7 +66,7 @@ export const ComparisonSection: FC = () => {
                 </div>
 
                 {/* Others Column */}
-                <div className="col-span-1 flex items-center gap-2 text-neutral">
+                <div className="col-span-1 flex items-center gap-2 text-muted-foreground">
                   <Minus className="size-4 text-neutral/40" />
                   {row.others}
                 </div>

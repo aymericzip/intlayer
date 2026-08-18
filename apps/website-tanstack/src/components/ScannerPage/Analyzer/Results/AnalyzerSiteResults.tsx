@@ -74,12 +74,14 @@ export const AnalyzerSiteResults: FC<AnalyzerSiteResultsProps> = ({
     <div className="flex flex-col pb-6">
       <div className="mb-4 flex items-center justify-between">
         <span className="font-semibold text-2xl text-foreground/70">
-          <span className="mr-2 text-neutral">{scoreTitle?.title}:</span>
+          <span className="mr-2 text-muted-foreground">
+            {scoreTitle?.title}:
+          </span>
 
           <Skeleton isLoading={isLoading && !score}>
             <span className="mr-1 text-foreground">{score ?? 0}</span>
           </Skeleton>
-          <span className="text-neutral text-sm">/100</span>
+          <span className="text-muted-foreground text-sm">/100</span>
         </span>
 
         <Skeleton isLoading={isLoading && !score}>
@@ -125,7 +127,7 @@ export const AnalyzerSiteResults: FC<AnalyzerSiteResultsProps> = ({
             className="mb-2 h-4 w-full"
             isLoading={isLoading && !domainData?.description}
           >
-            <p className="text-neutral text-sm">
+            <p className="text-muted-foreground text-sm">
               {domainData?.description ?? messages?.noDescription}
             </p>
           </Skeleton>
