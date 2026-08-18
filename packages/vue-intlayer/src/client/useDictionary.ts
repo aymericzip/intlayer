@@ -193,12 +193,36 @@ export const useDictionary = <
   const makeProxy = (path: (string | number)[]) => {
     const handler: ProxyHandler<any> = {
       get(_t, prop: any, _r) {
-        // Make the proxy "ref-like" so templates unwrap {{proxy}} to its current value.
-        if (prop === '__v_isRef') return true;
-
         const leafRef: ComputedRef<any> = computed(() =>
           atPath(source.value, path)
         );
+
+        // Internal Vue / TS properties (`__v_raw`, `__v_isReactive`, well-known
+        // symbols, …) are never content fields. Diving into them would hand
+        // back a fresh proxy, which Vue reads as "yes, I am reactive / here is
+        // my raw target" and walks forever.
+        if (
+          typeof prop === 'symbol' ||
+          (typeof prop === 'string' &&
+            (prop.startsWith('__') || prop.startsWith('$')))
+        ) {
+          // Ref-like, so templates unwrap {{proxy}} to its current value.
+          if (prop === '__v_isRef') return true;
+
+          // Handy escape hatch to get the underlying computed
+          if (prop === '$raw') return leafRef;
+
+          // Primitive coercion in string contexts (e.g. `${node}`, and the
+          // `String()` fallback of Vue's `toDisplayString`). Object-like
+          // content — arrays, nested objects — has to coerce to a string here
+          // too, or the conversion throws "Cannot convert object to primitive
+          // value".
+          if (prop === Symbol.toPrimitive) {
+            return () => String(leafRef.value ?? '');
+          }
+
+          return Reflect.get(_t, prop, _r);
+        }
 
         if (prop === 'value') return leafRef.value ?? '';
 
@@ -208,14 +232,6 @@ export const useDictionary = <
         // Coerce the node to a component when asked
         if (prop === 'c' || prop === 'asComponent')
           return toComponent(() => leafRef.value);
-
-        // Handy escape hatch to get the underlying computed
-        if (prop === '$raw') return leafRef;
-
-        // Primitive coercion in string contexts (e.g., `${node}`)
-        if (prop === Symbol.toPrimitive) {
-          return () => leafRef.value as any;
-        }
 
         // Dive into children reactively
         const nextPath = path.concat(prop as any);

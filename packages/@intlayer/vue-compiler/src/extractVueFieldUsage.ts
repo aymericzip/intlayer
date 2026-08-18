@@ -2,13 +2,18 @@
  * Extracts intlayer dictionary field usage from a Vue SFC for a set of
  * plain variable bindings (i.e. `const content = useIntlayer('key')`).
  *
- * Two access patterns are recognised:
+ * Three access patterns are recognised:
  *
- *   1. `varName.value.fieldName` in script blocks
- *      Vue's `useIntlayer` returns a reactive `Ref<Content>`, so fields are
- *      accessed one level deeper via `.value`.
+ *   1. `varName.fieldName` in script blocks
+ *      `useIntlayer` returns a deep reactive proxy, so content fields are read
+ *      directly on the variable (`content.title`, `content.count(2)`), the
+ *      `.value` unwrapping happening on the leaf node instead.
  *
- *   2. `varName.fieldName` in the template block
+ *   2. `varName.value.fieldName` in script blocks
+ *      Legacy `Ref<Content>` accessor indirection, where fields live one level
+ *      deeper than the variable.
+ *
+ *   3. `varName.fieldName` in the template block
  *      Inside `<template>`, Vue automatically unwraps top-level refs, so
  *      fields are accessed directly without `.value`.
  *
@@ -22,6 +27,31 @@ import vueSfc from '@vue/compiler-sfc';
 /** Escapes special regex characters in a string used as a regex literal. */
 const escapeRegExp = (str: string): string =>
   str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+/**
+ * Runs `fieldRegex` over `source` and adds every captured field name to
+ * `fields`, skipping the `value` accessor of an intlayer node (it addresses the
+ * node wrapper, not a content field).
+ *
+ * Over-approximating is safe here: an extra name only keeps a field that could
+ * have been pruned, while a missing name removes content the app reads.
+ */
+const collectFieldNames = (
+  source: string,
+  fieldRegex: RegExp,
+  fields: Set<string>
+): void => {
+  fieldRegex.lastIndex = 0;
+
+  for (
+    let match = fieldRegex.exec(source);
+    match !== null;
+    match = fieldRegex.exec(source)
+  ) {
+    const field = match[1];
+    if (field && field !== 'value') fields.add(field);
+  }
+};
 
 /** Input descriptor for a single plain variable binding. */
 export type PlainVariableInfo = {
@@ -93,35 +123,35 @@ export const extractVueIntlayerFieldUsage = (
     const fields = new Set<string>();
     const esc = escapeRegExp(variableName);
 
-    // ── 1. Script pattern: varName.value.fieldName ─────────────────────────
-    // Vue's reactive ref accessor; the actual content fields live one level
-    // deeper than the variable itself.
-    const scriptRe = new RegExp(`\\b${esc}\\.value\\.(\\w+)`, 'g');
-    scriptRe.lastIndex = 0;
-    for (
-      let m = scriptRe.exec(scriptSource);
-      m !== null;
-      m = scriptRe.exec(scriptSource)
-    ) {
-      const field = m[1];
-      // Skip chained `.value.value` artefacts
-      if (field !== 'value') fields.add(field);
-    }
+    // ── 1. Script pattern: varName.fieldName ───────────────────────────────
+    // The proxy returned by `useIntlayer` exposes content fields directly, so
+    // scripts read them without any indirection. `.value` is the leaf-node
+    // accessor, never a content field — the deeper name is picked up by the
+    // `.value.` pattern below.
+    collectFieldNames(
+      scriptSource,
+      new RegExp(`\\b${esc}\\.(\\w+)`, 'g'),
+      fields
+    );
 
-    // ── 2. Template pattern: varName.fieldName ─────────────────────────────
+    // ── 2. Script pattern: varName.value.fieldName ─────────────────────────
+    // Legacy reactive ref accessor; the actual content fields live one level
+    // deeper than the variable itself.
+    collectFieldNames(
+      scriptSource,
+      new RegExp(`\\b${esc}\\.value\\.(\\w+)`, 'g'),
+      fields
+    );
+
+    // ── 3. Template pattern: varName.fieldName ─────────────────────────────
     // Inside `<template>` Vue auto-unwraps refs, so content is accessed
     // directly without `.value`.
     if (templateSource) {
-      const templateRe = new RegExp(`\\b${esc}\\.(\\w+)`, 'g');
-
-      templateRe.lastIndex = 0;
-      for (
-        let m = templateRe.exec(templateSource);
-        m !== null;
-        m = templateRe.exec(templateSource)
-      ) {
-        fields.add(m[1]);
-      }
+      collectFieldNames(
+        templateSource,
+        new RegExp(`\\b${esc}\\.(\\w+)`, 'g'),
+        fields
+      );
     }
 
     if (fields.size > 0) {
