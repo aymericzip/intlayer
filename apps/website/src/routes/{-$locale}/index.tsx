@@ -2,7 +2,7 @@ import { Website_Home } from '@intlayer/design-system/routes';
 import { buildProductJsonLd } from '@intlayer/design-system/structured-data';
 import { createFileRoute } from '@tanstack/react-router';
 import { defaultLocale, getIntlayerAsync } from 'intlayer';
-import { LandingPage as LandingPageContent } from '~/components/LandingPage';
+import { LandingPageWithSwitcher } from '~/components/LandingSwitcher';
 import { PageLayout } from '~/layouts/PageLayout';
 import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
 import { formatStructuredDataOffers, getPricing } from '~/utils/stripe';
@@ -100,8 +100,8 @@ export const Route = createFileRoute('/{-$locale}/')({
 
 function LandingPage() {
   return (
-    <PageLayout mainClassName="max-w-[1300px] mx-auto border-x ">
-      <LandingPageContent />
+    <PageLayout mainClassName="max-w-[1300px] mx-auto border-x relative">
+      <LandingPageWithSwitcher />
     </PageLayout>
   );
 }
