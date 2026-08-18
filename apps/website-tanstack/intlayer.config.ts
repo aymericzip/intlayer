@@ -5,23 +5,23 @@ import { nextjsRewrite } from 'intlayer/routing';
 
 export const locales: Locale[] = [
   Locales.ENGLISH,
-  Locales.RUSSIAN,
-  Locales.JAPANESE,
   Locales.FRENCH,
-  Locales.KOREAN,
-  Locales.CHINESE,
-  Locales.SPANISH,
-  Locales.GERMAN,
-  Locales.ARABIC,
-  Locales.ITALIAN,
-  Locales.ENGLISH_UNITED_KINGDOM,
-  Locales.PORTUGUESE,
-  Locales.HINDI,
-  Locales.TURKISH,
-  Locales.POLISH,
-  Locales.INDONESIAN,
-  Locales.VIETNAMESE,
-  Locales.UKRAINIAN,
+  // Locales.RUSSIAN,
+  // Locales.JAPANESE,
+  // Locales.KOREAN,
+  // Locales.CHINESE,
+  // Locales.SPANISH,
+  // Locales.GERMAN,
+  // Locales.ARABIC,
+  // Locales.ITALIAN,
+  // Locales.ENGLISH_UNITED_KINGDOM,
+  // Locales.PORTUGUESE,
+  // Locales.HINDI,
+  // Locales.TURKISH,
+  // Locales.POLISH,
+  // Locales.INDONESIAN,
+  // Locales.VIETNAMESE,
+  // Locales.UKRAINIAN,
 ];
 export const defaultLocale = Locales.ENGLISH;
 
@@ -101,10 +101,14 @@ const config: CustomIntlayerConfig = {
     clientSecret: import.meta.env.INTLAYER_CLIENT_SECRET,
   },
   dictionary: {
-    // Stays 'dynamic' so a page ships only the locale it renders. The chunk
-    // fragmentation this used to cause (one request per dictionary) is handled
-    // by the grouping in `vite-intlayer`, not by inlining every locale.
-    importMode: 'static',
+    // 'dynamic' so a page ships only the locale it renders — 18 locales are far
+    // too many to inline. The two costs this used to carry are handled in
+    // `vite-intlayer` rather than by falling back to 'static': the chunk plugin
+    // groups the per-dictionary chunks per code-split boundary (one request
+    // instead of one per dictionary), and the preload plugin makes each entry
+    // point await its locale as it evaluates, so content arrives with the route
+    // chunk instead of suspending once that chunk renders.
+    importMode: 'dynamic',
   },
 
   // ai: {
