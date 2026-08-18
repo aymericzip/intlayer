@@ -157,7 +157,7 @@ const CommentForm: FC<CommentFormProps> = ({
           </FormButton>
         </div>
 
-        <p className="text-neutral text-xs">
+        <p className="text-muted-foreground text-xs">
           {content.commentsAreModeratedAndWill}
         </p>
       </Form>
@@ -202,7 +202,7 @@ export const BlogCommentSection: FC<BlogCommentSectionProps> = ({
 
       {/* Approved comments list */}
       {comments.length === 0 && submitState !== 'success' ? (
-        <p className="mb-8 border-dotted text-neutral text-sm">
+        <p className="mb-8 border-dotted text-muted-foreground text-sm">
           {content.noCommentsYetBeThe}
         </p>
       ) : (
@@ -223,7 +223,7 @@ export const BlogCommentSection: FC<BlogCommentSectionProps> = ({
                   </span>
                   <time
                     dateTime={comment.createdAt}
-                    className="text-neutral text-xs"
+                    className="text-muted-foreground text-xs"
                   >
                     {formatDate(comment.createdAt)}
                   </time>

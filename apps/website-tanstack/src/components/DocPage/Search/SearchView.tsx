@@ -102,7 +102,7 @@ const SearchResultItem: FC<{
       <div className="flex items-center justify-between gap-2 text-wrap p-3">
         <div className="flex flex-1 flex-col gap-2 text-left">
           <strong className="text-base">{doc.title}</strong>
-          <p className="text-neutral text-sm">{doc.description}</p>
+          <p className="text-muted-foreground text-sm">{doc.description}</p>
           <Breadcrumb links={breadcrumbLinks} className="text-xs opacity-30" />
         </div>
         <ArrowRight size={24} />
@@ -256,7 +256,9 @@ const SearchViewContent: FC<{
       </div>
       <div className="mt-8 flex flex-1 flex-col overflow-y-auto">
         {isNoResult && (
-          <p className="text-center text-neutral text-sm">{noContentText}</p>
+          <p className="text-center text-muted-foreground text-sm">
+            {noContentText}
+          </p>
         )}
         {results.length > 0 && (
           <ul className="flex flex-col gap-10">

@@ -71,7 +71,7 @@ export const VisualEditorSection: FC = () => {
         />
       </video>
       <div className="flex w-full flex-col gap-4">
-        <span className="text-neutral text-sm">{description}</span>
+        <span className="text-muted-foreground text-sm">{description}</span>
         <Link
           href={getLocalizedUrl(Website_Playground_Path, locale)}
           target="_blank"

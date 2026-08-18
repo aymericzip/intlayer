@@ -46,7 +46,7 @@ export const History: FC<HistoryProps> = ({
       </div>
       <Popover.Detail
         identifier="outdated-translation"
-        className="flex min-w-64 flex-1 flex-col gap-2 p-3 text-neutral text-sm"
+        className="flex min-w-64 flex-1 flex-col gap-2 p-3 text-muted-foreground text-sm"
         xAlign="end"
       >
         {isOutdated && (
@@ -91,7 +91,7 @@ export const History: FC<HistoryProps> = ({
                 key={`${index}-${version}-${date}`}
               >
                 <span className="mt-1 text-foreground text-xs">{changes}</span>
-                <div className="flex flex-col items-end justify-between gap-1 px-2 py-1 text-neutral text-sm">
+                <div className="flex flex-col items-end justify-between gap-1 px-2 py-1 text-muted-foreground text-sm">
                   <span className="text-nowrap">v{version}</span>
                   {date && (
                     <span className="text-nowrap">{formatDate(date)}</span>

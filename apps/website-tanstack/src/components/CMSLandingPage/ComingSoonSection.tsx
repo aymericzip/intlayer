@@ -40,7 +40,7 @@ export const ComingSoonSection: FC = () => {
                       </span>
                     )}
                   </h3>
-                  <p className="text-neutral text-sm leading-relaxed">
+                  <p className="text-muted-foreground text-sm leading-relaxed">
                     {feature.description}
                   </p>
                 </div>

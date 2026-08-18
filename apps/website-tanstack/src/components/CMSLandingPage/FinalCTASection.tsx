@@ -30,7 +30,7 @@ export const FinalCTASection: FC = () => {
           <h2 className="mb-6 font-bold text-3xl text-foreground-opposite sm:text-4xl md:text-5xl">
             {finalCtaTitle}
           </h2>
-          <p className="mx-auto mb-10 max-w-xl text-lg text-neutral">
+          <p className="mx-auto mb-10 max-w-xl text-lg text-muted-foreground">
             {finalCtaDescription}
           </p>
           <motion.div

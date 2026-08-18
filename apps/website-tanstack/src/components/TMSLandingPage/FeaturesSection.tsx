@@ -99,7 +99,7 @@ export const FeaturesSection: FC = () => {
                 <h3 className="mb-2 font-semibold text-foreground text-xl">
                   {feature.title}
                 </h3>
-                <p className="text-neutral leading-relaxed">
+                <p className="text-muted-foreground leading-relaxed">
                   {feature.description}
                 </p>
               </div>

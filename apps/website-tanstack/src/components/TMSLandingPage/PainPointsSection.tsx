@@ -70,7 +70,7 @@ export const PainPointsSection: FC = () => {
               <h3 className="mb-3 font-semibold text-foreground text-xl">
                 {point.title}
               </h3>
-              <p className="text-neutral leading-relaxed">
+              <p className="text-muted-foreground leading-relaxed">
                 {point.description}
               </p>
             </MotionContainer>

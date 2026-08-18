@@ -20,7 +20,7 @@ import {
 import { useTheme } from 'next-themes';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import LightRays from '~/components/LightRays';
+import { BackgroundLayout } from '~/components/BackgroundLayout';
 import { Link } from '~/components/Link/Link';
 import packageJSON from '../../../../package_mock.json' with { type: 'json' };
 import { TechLogos } from './TechLogos';
@@ -48,23 +48,7 @@ export const HeroSection: FC = () => {
   return (
     <section className="relative flex min-h-[calc(100vh-60px)] flex-col">
       <section className="relative flex w-full flex-1 flex-col border-b px-4 md:px-8 lg:px-12">
-        <div className="pointer-events-none absolute inset-0 -z-1 hidden dark:block">
-          <LightRays
-            raysOrigin="top-center"
-            raysColor="#ffe1ff"
-            raysSpeed={0.8}
-            lightSpread={0.5}
-            rayLength={3}
-            followMouse={true}
-            mouseInfluence={0.1}
-            noiseAmount={0}
-            distortion={0}
-            className="custom-rays"
-            pulsating={false}
-            fadeDistance={1}
-            saturation={1}
-          />
-        </div>
+        <BackgroundLayout />
         <div className="flex flex-1 flex-col items-center justify-center py-16">
           {SHOW_WHATS_NEW && (
             <motion.div
@@ -98,7 +82,7 @@ export const HeroSection: FC = () => {
             initial={{ filter: 'blur(10px)', opacity: 0, y: 30 }}
             animate={{ filter: 'blur(0px)', opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }}
-            className="mb-6 text-center font-semibold text-primary text-xl sm:text-3xl md:text-3xl lg:mb-8 lg:text-4xl"
+            className="mb-6 text-center font-semibold text-xl sm:text-3xl md:text-3xl lg:mb-8 lg:text-4xl"
           >
             {subheading}
           </motion.h2>
@@ -134,7 +118,7 @@ export const HeroSection: FC = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.6 }}
-            className="mx-auto max-w-xl text-center text-justify text-muted-foreground text-sm leading-relaxed sm:text-lg lg:mb-12"
+            className="mx-auto max-w-xl text-center text-muted-foreground text-sm leading-relaxed sm:text-lg lg:mb-12"
           >
             {description}
           </motion.p>

@@ -40,7 +40,7 @@ export const SwitchThemeSwitcher: FC = () => {
       choices={themeSwitcher}
       value={resolvedTheme}
       onChange={setTheme}
-      color="text"
+      color="foreground"
       size="sm"
     />
   );

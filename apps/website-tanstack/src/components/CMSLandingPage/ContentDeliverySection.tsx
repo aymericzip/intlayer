@@ -75,7 +75,7 @@ export const ContentDeliverySection: FC = () => {
           <h2 className="mb-4 font-bold text-3xl text-foreground sm:text-4xl">
             {deliveryTitle}
           </h2>
-          <p className="mx-auto max-w-2xl text-lg text-neutral">
+          <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
             {deliveryDescription}
           </p>
         </m.div>
@@ -116,7 +116,9 @@ export const ContentDeliverySection: FC = () => {
                 {mode.title}
               </h3>
 
-              <p className="text-neutral leading-relaxed">{mode.description}</p>
+              <p className="text-muted-foreground leading-relaxed">
+                {mode.description}
+              </p>
             </MotionContainer>
           ))}
         </m.div>
