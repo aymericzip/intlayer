@@ -16,6 +16,7 @@
     "solid-js": "1.9.14"
   },
   "devDependencies": {
+    "@types/convert-source-map": "^2.0.3",
     "intlayer-editor": "workspace:*",
     "solid-refresh": "0.7.8",
     "typescript": "7.0.2",

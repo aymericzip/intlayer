@@ -26,7 +26,7 @@ const config: IntlayerConfig = {
     purge: true,
   },
   dictionary: {
-    // importMode: 'dynamic',
+    importMode: 'dynamic',
   },
   compiler: {
     enabled: true,
