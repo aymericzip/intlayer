@@ -5,7 +5,9 @@
   font-style: normal;
   font-weight: 100 900;
   font-display: swap;
-  src: url("/Geist-VariableFont_wght.ttf") format("truetype");
+  src:
+    url("/Geist-VariableFont_wght.woff2") format("woff2"),
+    url("/Geist-VariableFont_wght.ttf") format("truetype");
 }
 
 @theme {

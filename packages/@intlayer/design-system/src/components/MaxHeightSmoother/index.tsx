@@ -155,7 +155,7 @@ export const MaxHeightSmoother: FC<MaxHeightSmootherProps> = ({
     tabIndex={isFocusable ? 0 : undefined}
     role={isFocusable ? 'button' : 'none'}
     className={cn(
-      'group/height-smoother relative grid w-full grid-rows-[0fr] overflow-hidden transition-all duration-700 ease-in-out',
+      'group/height-smoother relative grid w-full grid-rows-[0fr] overflow-hidden transition-[grid-template-rows] duration-700 ease-in-out',
       typeof isHidden !== 'undefined' &&
         !isHidden &&
         'grid-rows-[1fr] overflow-x-auto',

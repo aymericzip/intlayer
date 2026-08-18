@@ -24,7 +24,7 @@ export const MaxWidthSmoother = ({
   return (
     <div
       className={cn(
-        'relative grid h-full grid-cols-[0fr] overflow-x-hidden overflow-y-hidden transition-all duration-500 ease-in-out',
+        'relative grid h-full grid-cols-[0fr] overflow-x-hidden overflow-y-hidden transition-[grid-template-columns] duration-500 ease-in-out',
         isCurrentlyHidden ? '' : 'grid-cols-[1fr]',
         className
       )}

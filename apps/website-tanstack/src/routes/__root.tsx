@@ -69,6 +69,13 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
     ],
     links: [
       { rel: 'stylesheet', href: appCss },
+      {
+        rel: 'preload',
+        as: 'font',
+        type: 'font/woff2',
+        href: '/Geist-VariableFont_wght.woff2',
+        crossOrigin: 'anonymous',
+      },
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       {
         rel: 'icon',
@@ -99,6 +106,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
         rel: 'preconnect',
         href: import.meta.env.VITE_BACKEND_URL,
       },
+      { rel: 'preconnect', href: 'https://i.ytimg.com' },
     ],
   }),
   shellComponent: RootDocument,
