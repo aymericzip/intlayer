@@ -9,7 +9,7 @@ export function NotFoundComponent() {
       <h1 className="mb-4 font-bold text-6xl text-foreground">
         Page not found
       </h1>
-      <p className="mb-8 max-w-md text-base text-neutral">
+      <p className="mb-8 max-w-md text-base text-muted-foreground">
         The page you&apos;re looking for doesn&apos;t exist or has been moved.
       </p>
       <Link to="/" color="text" variant="button" label="Back to home">

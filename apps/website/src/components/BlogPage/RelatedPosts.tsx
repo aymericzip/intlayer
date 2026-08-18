@@ -97,12 +97,12 @@ export const RelatedPosts: FC<RelatedPostsProps> = ({
                 {post.title}
               </p>
               {post.description && (
-                <p className="line-clamp-2 text-neutral text-xs">
+                <p className="line-clamp-2 text-muted-foreground text-xs">
                   {post.description}
                 </p>
               )}
               {post.author && (
-                <p className="mt-auto text-neutral text-xs">
+                <p className="mt-auto text-muted-foreground text-xs">
                   {post.author.name}
                 </p>
               )}
@@ -165,12 +165,12 @@ export const LastPosts: FC<LastPostsProps> = ({
                 {post.title}
               </p>
               {post.description && (
-                <p className="line-clamp-2 text-neutral text-xs">
+                <p className="line-clamp-2 text-muted-foreground text-xs">
                   {post.description}
                 </p>
               )}
               {post.author && (
-                <p className="mt-auto text-neutral text-xs">
+                <p className="mt-auto text-muted-foreground text-xs">
                   {post.author.name}
                 </p>
               )}

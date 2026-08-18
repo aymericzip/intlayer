@@ -70,6 +70,12 @@ export const LandingPage: FC = () => {
           <HeroSection />
         </section>
 
+        <section aria-label={content.keyFeaturesSection.value}>
+          <Suspense fallback={<Loader />}>
+            <FeaturesSection />
+          </Suspense>
+        </section>
+
         <section aria-label={content.whyChooseIntlayerSection.value}>
           <Suspense fallback={<Loader />}>
             <WhyToChoseIntlayerSection />
@@ -93,14 +99,6 @@ export const LandingPage: FC = () => {
             <AuditSection />
           </Suspense>
         </section>
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 top-0 h-4 bg-background [clip-path:polygon(0_0,100%_0,0_100%)]"
-        />
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-4 bg-background [clip-path:polygon(100%_0,100%_100%,0_100%)]"
-        />
 
         <section aria-label={content.productsSection.value}>
           <Suspense fallback={<Loader />}>
@@ -136,11 +134,7 @@ export const LandingPage: FC = () => {
 
 /*
 
-<section aria-label={content.keyFeaturesSection.value}>
-  <Suspense fallback={<Loader />}>
-    <FeaturesSection />
-  </Suspense>
-</section>
+
 
 
 */

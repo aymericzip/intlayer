@@ -40,13 +40,12 @@ export const ChatBotModal: FC = () => {
         )}
       </Modal>
       <Button
-        Icon={Bot}
-        className="fixed! right-5 bottom-5 z-50 rounded-full! opacity-70 hover:scale-110"
-        color="text"
+        className="fixed! right-5 bottom-5 z-50 rounded-full! hover:scale-110"
         size="icon-xl"
-        label={button.label.value}
         onClick={openModal}
-      />
+      >
+        <Bot />
+      </Button>
     </>
   );
 };

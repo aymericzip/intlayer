@@ -57,7 +57,7 @@ export const OptionalLink: FC<OptionalLinkProps> = ({
     return (
       <span
         className={cn(
-          'flex w-full truncate text-nowrap p-2 text-left font-semibold text-neutral transition-color',
+          'flex w-full truncate text-nowrap p-2 text-left font-semibold text-muted-foreground transition-color',
           className
         )}
         {...props}
@@ -351,7 +351,7 @@ export const DocNavListContent: FC<DocNavListContentProps> = ({
                           <div className="pl-3 text-sm">
                             {subSections2 &&
                               Object.keys(subSections2).length > 0 && (
-                                <div className="flex flex-col items-start gap-2 p-1 text-neutral transition-colors hover:text-foreground">
+                                <div className="flex flex-col items-start gap-2 p-1 text-muted-foreground transition-colors hover:text-foreground">
                                   {Object.keys(subSections2).map((key3) => {
                                     const section3Data = subSections2[key3];
                                     const slugs =

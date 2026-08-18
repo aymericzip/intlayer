@@ -93,7 +93,7 @@ function FrequentQuestionsPage() {
             <Container className="flex flex-row items-center justify-between p-3">
               <div className="flex flex-col gap-2">
                 <strong>{frequentQuestion.title}</strong>
-                <p className="text-neutral text-sm">
+                <p className="text-muted-foreground text-sm">
                   {frequentQuestion.description}
                 </p>
               </div>

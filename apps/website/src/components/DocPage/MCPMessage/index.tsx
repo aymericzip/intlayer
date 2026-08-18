@@ -28,7 +28,7 @@ export const MCPMessage: FC = () => {
         className="flex min-w-64 flex-col gap-3 p-3 text-sm"
       >
         <strong>{title}</strong>
-        <p className="text-neutral">{description}</p>
+        <p className="text-muted-foreground">{description}</p>
         <Link
           to={Website_Doc_MCP}
           label={link.label.value}

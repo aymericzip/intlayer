@@ -295,7 +295,7 @@ export const I18nBenchmark = ({
             {/* Framework selector */}
             {!initialFramework && (
               <div>
-                <p className="mb-10 font-bold text-base text-neutral">
+                <p className="mb-10 font-bold text-base text-muted-foreground">
                   {frameworkLabel}
                 </p>
                 <VerticalSwitchSelector
@@ -380,7 +380,7 @@ export const I18nBenchmark = ({
                   >
                     <div>
                       <p className="font-bold text-lg">{label}</p>
-                      <p className="text-neutral text-sm leading-snug">
+                      <p className="text-muted-foreground text-sm leading-snug">
                         {desc}
                       </p>
                     </div>
@@ -477,7 +477,7 @@ export const I18nBenchmark = ({
                       {errorLoadingData}
                     </div>
                   ) : chartData.length === 0 ? (
-                    <div className="flex h-full items-center justify-center text-neutral text-sm">
+                    <div className="flex h-full items-center justify-center text-muted-foreground text-sm">
                       {noData}
                     </div>
                   ) : renderMode === 'graph' ? (
@@ -525,7 +525,7 @@ export const I18nBenchmark = ({
                                   ? `${data.min.toFixed(1)} - ${data.max.toFixed(1)}`
                                   : '-'}
                               </td>
-                              <td className="px-4 py-2 text-neutral text-xs">
+                              <td className="px-4 py-2 text-muted-foreground text-xs">
                                 {data.version ? `v${data.version}` : '-'}
                               </td>
                             </tr>
@@ -565,14 +565,14 @@ export const I18nBenchmark = ({
                   <div className="flex flex-col gap-6">
                     <div className="flex flex-col gap-2">
                       <p className="font-bold text-lg">{whatIsThisMetric}</p>
-                      <p className="text-neutral-500 text-xs leading-relaxed dark:text-neutral">
+                      <p className="text-neutral-500 text-xs leading-relaxed dark:text-muted-foreground">
                         {selectedMetric?.whatIsIt}
                       </p>
                     </div>
 
                     <div className="flex flex-col gap-2">
                       <p className="font-bold text-lg">{whyItsImportant}</p>
-                      <p className="text-neutral-500 text-xs leading-relaxed dark:text-neutral">
+                      <p className="text-neutral-500 text-xs leading-relaxed dark:text-muted-foreground">
                         {selectedMetric?.whyItsImportant}
                       </p>
                     </div>

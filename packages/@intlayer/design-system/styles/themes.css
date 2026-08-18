@@ -20,7 +20,7 @@
   --primary: oklch(94.3% 0.3 326);
   --primary-foreground: oklch(0% 0 0);
 
-  --secondary: oklch(0.92 0.18 95);
+  --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
 
   --accent: oklch(0.97 0 0);
@@ -64,8 +64,8 @@
   --primary: oklch(94.3% 0.051 326);
   --primary-foreground: oklch(0% 0 0);
 
-  --secondary: oklch(0.92 0.18 95);
-  --secondary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.205 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
 
   --accent: oklch(0.27 0 0);
   --accent-foreground: oklch(0.985 0 0);

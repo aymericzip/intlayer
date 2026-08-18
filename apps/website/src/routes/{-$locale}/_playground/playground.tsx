@@ -98,7 +98,7 @@ function PlaygroundPage() {
   return (
     <DashboardContentLayout title={title}>
       <BackgroundLayout />
-      <p className="m-auto my-3 max-w-3xl px-10 text-neutral text-sm">
+      <p className="m-auto my-3 max-w-3xl px-10 text-muted-foreground text-sm">
         {description}
       </p>
       <div className="relative flex flex-1 flex-col items-center px-10 pb-5">
