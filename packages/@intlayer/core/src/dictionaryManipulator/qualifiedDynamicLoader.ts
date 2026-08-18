@@ -1,3 +1,4 @@
+import { QUALIFIER_DYNAMIC_TYPES_KEY } from '@intlayer/config/defaultValues';
 import type {
   Dictionary,
   DictionaryQualifierType,
@@ -11,11 +12,11 @@ import {
 
 /**
  * Marker property carrying the ordered qualifier dimensions on a dynamic loader
- * map. Its presence distinguishes a qualified group loader map (a nested tree
- * of chunks) from a plain dynamic loader map (one chunk per `locale`). Prefixed
- * and unlikely to collide with a real locale code.
+ * map. Defined in `@intlayer/config` so the code generator and the build
+ * plugins can read it without pulling the runtime in, and re-exported here
+ * where its consumers live.
  */
-export const QUALIFIER_DYNAMIC_TYPES_KEY = '__intlayerQualifierTypes';
+export { QUALIFIER_DYNAMIC_TYPES_KEY };
 
 /**
  * A lazily-imported per-locale dictionary chunk loader.

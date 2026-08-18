@@ -2,6 +2,7 @@
 
 import { internationalization } from '@intlayer/config/built';
 import {
+  getPreloadedDictionary,
   isQualifiedDynamicLoaderMap,
   parseDictionarySelector,
   type QualifiedDynamicLoaderMap,
@@ -81,6 +82,17 @@ export const useDictionaryDynamic = <
       loadChunk: (cacheKey, promise) => loadDynamicChunk(cacheKey, promise),
       transform: (dictionary) => getDictionary(dictionary, localeTarget),
     });
+  }
+
+  // A build-tool plugin may have awaited this locale's chunk while the entry
+  // point itself was evaluating, in which case the content is already here and
+  // reading it must not go through the suspender — see `getPreloadedDictionary`.
+  const preloadedDictionary = getPreloadedDictionary(
+    dictionaryPromise,
+    localeTarget
+  );
+  if (preloadedDictionary) {
+    return getDictionary(preloadedDictionary as T, localeTarget);
   }
 
   const plainLoaders = dictionaryPromise as StrictModeLocaleMap<

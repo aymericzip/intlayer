@@ -3,6 +3,7 @@
 import { computed, inject, signal } from '@angular/core';
 import { internationalization } from '@intlayer/config/built';
 import {
+  getPreloadedDictionary,
   isQualifiedDynamicLoaderMap,
   parseDictionarySelector,
   type QualifiedDynamicLoaderMap,
@@ -86,10 +87,21 @@ export const useDictionaryDynamic = <
     () => locale ?? intlayer?.locale() ?? internationalization.defaultLocale
   );
 
-  const dictionary = useLoadDynamic<T>(
-    `${String(key)}.${localeTarget()}`,
-    (dictionaryPromise as any)[localeTarget()]?.()
-  ) as T;
+  // A build-tool plugin may have awaited this locale's chunk while the entry
+  // point evaluated. Using it directly skips `useLoadDynamic`, whose signal
+  // starts empty and only fills in on the promise callback — one frame of blank
+  // content per dictionary, even when nothing has to be fetched.
+  const preloadedDictionary = getPreloadedDictionary(
+    dictionaryPromise,
+    localeTarget()
+  );
+
+  const dictionary =
+    (preloadedDictionary as T | undefined) ??
+    (useLoadDynamic<T>(
+      `${String(key)}.${localeTarget()}`,
+      (dictionaryPromise as any)[localeTarget()]?.()
+    ) as T);
 
   return useDictionary(dictionary, localeTarget() as any);
 };

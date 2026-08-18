@@ -1,6 +1,10 @@
 import { mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
-import { OUTPUT_FORMAT } from '@intlayer/config/defaultValues';
+import {
+  DYNAMIC_DICTIONARIES_JSON_SUBDIR,
+  DYNAMIC_ENTRY_LOADER_MAP_IDENTIFIER,
+  OUTPUT_FORMAT,
+} from '@intlayer/config/defaultValues';
 import { colorizePath } from '@intlayer/config/logger';
 import { assertPathWithin } from '@intlayer/config/utils';
 import {
@@ -35,7 +39,7 @@ export type LocalizedDictionaryOutput = Record<
   LocalizedDictionaryResult
 >;
 
-const DICTIONARIES_SUBDIR = 'json'; // Necessary to add a static first dir for Turbopack
+const DICTIONARIES_SUBDIR = DYNAMIC_DICTIONARIES_JSON_SUBDIR;
 
 /**
  * Escapes a value interpolated into a single-quoted literal of a generated
@@ -122,8 +126,8 @@ export const generateDictionaryEntryPoint = (
 
   if (format === 'esm') {
     return (
-      `const content = {\n${localeEntries}\n};\n\n` +
-      `export default content;\n`
+      `const ${DYNAMIC_ENTRY_LOADER_MAP_IDENTIFIER} = {\n${localeEntries}\n};\n\n` +
+      `export default ${DYNAMIC_ENTRY_LOADER_MAP_IDENTIFIER};\n`
     );
   }
   return `module.exports = {\n${localeEntries}\n};\n`;
@@ -246,8 +250,8 @@ export const generateQualifiedDictionaryEntryPoint = (
 
   if (format === 'esm') {
     return (
-      `const content = {\n${marker},\n${localeEntries}\n};\n\n` +
-      `export default content;\n`
+      `const ${DYNAMIC_ENTRY_LOADER_MAP_IDENTIFIER} = {\n${marker},\n${localeEntries}\n};\n\n` +
+      `export default ${DYNAMIC_ENTRY_LOADER_MAP_IDENTIFIER};\n`
     );
   }
   return `module.exports = {\n${marker},\n${localeEntries}\n};\n`;

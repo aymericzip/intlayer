@@ -74,6 +74,24 @@ export const loadDynamicValue = <T, Source extends DynamicSource>(
   return promise;
 };
 
+/**
+ * Records a value that is already available, so the next
+ * {@link loadDynamicValue} for this key returns it synchronously.
+ *
+ * Used for dictionaries a build-tool plugin awaited while their entry point
+ * evaluated: `createResource` resolves without ever entering a pending state,
+ * so Suspense is not triggered and the first render already has the content.
+ *
+ * An existing entry is never replaced — an in-flight load owns its key.
+ */
+export const seedDynamicValue = <T>(source: DynamicSource, value: T): void => {
+  const key = getDynamicSourceCacheKey(source);
+
+  if (cache.has(key)) return;
+
+  cache.set(key, { status: 'success', value });
+};
+
 const bindPropertyValue = (value: unknown, propertyValue: unknown): unknown =>
   typeof propertyValue === 'function'
     ? propertyValue.bind(value)

@@ -25,6 +25,7 @@ import { intlayerCompiler } from './IntlayerCompilerPlugin';
 import { intlayerChunk } from './intlayerChunkPlugin';
 import { intlayerMinify } from './intlayerMinifyPlugin';
 import { intlayerOptimize } from './intlayerOptimizePlugin';
+import { intlayerPreload } from './intlayerPreloadPlugin';
 import {
   type IntlayerProxyPluginOptions,
   intlayerProxy,
@@ -276,6 +277,11 @@ export const intlayerPlugin = (
   // Chunk: regroups the per-dictionary chunks that `importMode: 'dynamic'`
   // emits, so each code-split boundary loads its content in one request.
   plugins.push(intlayerChunk(intlayerConfig));
+
+  // Preload: makes each dynamic entry point await its locale's dictionary while
+  // it evaluates, so the content travels with the chunk that needs it instead
+  // of being fetched — and suspended on — once that chunk renders.
+  plugins.push(intlayerPreload(intlayerConfig));
 
   // Compiler: extracts content declared inline in components into dictionaries.
   // Bundled directly into the main plugin so users no longer need to register

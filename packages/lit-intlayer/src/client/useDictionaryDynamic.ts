@@ -1,5 +1,6 @@
 import { internationalization } from '@intlayer/config/built';
 import {
+  getPreloadedDictionary,
   isQualifiedDynamicLoaderMap,
   parseDictionarySelector,
   type QualifiedDynamicLoaderMap,
@@ -168,6 +169,23 @@ export const useDictionaryDynamic = <
     }
 
     const cacheKey = `${String(key)}.${currentLocale}`;
+
+    // A build-tool plugin may have awaited this locale's chunk while the entry
+    // point evaluated. Taking it synchronously means the proxy below serves
+    // real values on the element's first render, instead of the empty-string
+    // placeholders it falls back to until a `.then` callback fires.
+    const preloadedDictionary = getPreloadedDictionary(
+      dictionaryPromise,
+      currentLocale
+    );
+
+    if (preloadedDictionary) {
+      cache.set(cacheKey, preloadedDictionary);
+      loadedContent = getDictionary(preloadedDictionary, currentLocale);
+      notify();
+      return;
+    }
+
     const loader = (dictionaryPromise as Record<string, () => Promise<T>>)[
       currentLocale
     ];

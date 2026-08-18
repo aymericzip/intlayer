@@ -1,4 +1,11 @@
+import { readFile } from 'node:fs/promises';
+import { createRequire } from 'node:module';
 import { join } from 'node:path';
+import {
+  addDynamicEntryPreload,
+  createDynamicEntryFilter,
+  resolvePreloadModuleId,
+} from '@intlayer/config/dictionaryPreload';
 import {
   formatDictionarySelectorEnvVar,
   formatNodeTypeToEnvVar,
@@ -13,11 +20,29 @@ import {
   getAlias,
   getHasDictionarySelector,
   getUnusedNodeTypesAsync,
+  normalizePath,
 } from '@intlayer/config/utils';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
 import { prepareIntlayer } from '@intlayer/engine/build';
 import { logConfigDetails } from '@intlayer/engine/cli';
 import { watch } from '@intlayer/engine/watcher';
+
+/**
+ * Absolute id of the locale resolver the injected preamble imports.
+ *
+ * Resolved from this package, which declares `@intlayer/core` as a dependency,
+ * rather than left bare in the emitted source: the importer is a generated
+ * entry point under the application's `.intlayer` directory, and an application
+ * only depends on `intlayer` and its framework binding, so the bare specifier
+ * would resolve from a tree that need not contain the package at all.
+ *
+ * This package ships both module formats, hence the `require` fallback.
+ */
+const preloadModuleId = normalizePath(
+  resolvePreloadModuleId(
+    typeof require !== 'undefined' ? require : createRequire(import.meta.url)
+  )
+);
 
 // Minimal subset of the esbuild Plugin interface to avoid a hard dependency on
 // the `esbuild` package for type resolution. The shape is compatible with
@@ -41,6 +66,18 @@ export interface EsbuildPluginBuild {
       namespace: string;
       resolveDir: string;
     }) => { path: string; namespace?: string } | null | undefined
+  ): void;
+  /** Intercept module contents, so a resolved file can be rewritten. */
+  onLoad(
+    options: { filter: RegExp; namespace?: string },
+    callback: (args: {
+      path: string;
+      namespace: string;
+    }) =>
+      | { contents: string; loader?: string }
+      | null
+      | undefined
+      | Promise<{ contents: string; loader?: string } | null | undefined>
   ): void;
 }
 
@@ -199,6 +236,37 @@ export const intlayerEsbuildPlugin = (
           path: to,
         }));
       }
+
+      // Dictionaries load with the chunk that needs them rather than being
+      // fetched once that chunk renders: the entry point gains a top-level
+      // `await` of the browsing locale, which makes it an async module, so a
+      // lazily loaded route is not considered loaded until its content is
+      // there. Without it every dictionary read renders an empty placeholder
+      // first and fills in a tick later.
+      //
+      // Not gated on the configured `importMode`: a `.content` file can set
+      // `importMode: 'dynamic'` on a single dictionary under a `static` or
+      // `fetch` global mode, and that dictionary needs the preload just the
+      // same. Only entry points the optimizer imported are ever loaded, so the
+      // path check below is the accurate gate.
+      const dynamicDictionariesDir = normalizePath(
+        config.system.dynamicDictionariesDir
+      );
+
+      build.onLoad(
+        { filter: createDynamicEntryFilter(dynamicDictionariesDir) },
+        async ({ path }) => {
+          const posixPath = normalizePath(path);
+          if (!posixPath.startsWith(`${dynamicDictionariesDir}/`)) return null;
+
+          const code = await readFile(path, 'utf-8');
+          const result = addDynamicEntryPreload(code, preloadModuleId);
+
+          if (result.skipped) return null;
+
+          return { contents: result.code, loader: 'js' };
+        }
+      );
 
       if (!preparePromise) {
         preparePromise = prepareIntlayer(config, {

@@ -1,6 +1,7 @@
 import { internationalization } from '@intlayer/config/built';
 import {
   getDictionarySelectorCacheKey,
+  getPreloadedDictionary,
   isQualifiedDynamicLoaderMap,
   parseDictionarySelector,
   QUALIFIER_DYNAMIC_TYPES_KEY,
@@ -26,7 +27,7 @@ import { getDictionary } from '../getDictionary';
 import type { DeepTransformContent } from '../plugins';
 import { IntlayerClientContext, type IntlayerValue } from './IntlayerProvider';
 import { useDictionary } from './useDictionary';
-import { useLoadDynamic } from './useLoadDynamic';
+import { seedDynamicValue, useLoadDynamic } from './useLoadDynamic';
 
 type DynamicDictionarySource = {
   cacheKey: string;
@@ -209,6 +210,18 @@ export const useDictionaryDynamic = <
 
     return dictionaryLoader();
   };
+
+  // A build-tool plugin may have awaited this locale's chunk while the entry
+  // point evaluated. Seeding the resource cache with it makes the resource
+  // below resolve synchronously, so Suspense never sees a pending state.
+  const preloadedDictionary = getPreloadedDictionary(
+    dictionaryLoaders,
+    localeAccessor()
+  );
+
+  if (preloadedDictionary) {
+    seedDynamicValue(dictionarySourceAccessor(), preloadedDictionary);
+  }
 
   const dictionary = useLoadDynamic<T, DynamicDictionarySource>(
     dictionarySourceAccessor,

@@ -31,6 +31,10 @@ export {
   isProxyStorageLocaleEnabled,
   resolveProxyMode,
 } from './proxyMode';
+export {
+  getPreloadLocale,
+  resolveBrowserLocale,
+} from './resolveBrowserLocale';
 export type { LocalizedPathResult } from './rewriteUtils';
 export {
   getCanonicalPath,

@@ -1,4 +1,5 @@
 import {
+  getPreloadedDictionary,
   isQualifiedDynamicLoaderMap,
   type QualifiedDynamicLoaderMap,
   resolveProviderVariant,
@@ -123,6 +124,25 @@ export function useDictionaryDynamic<
   return derived(
     localeStore,
     ($locale, set) => {
+      // A build-tool plugin may have resolved this locale's dictionary while
+      // the entry point evaluated. Publishing it synchronously lets the store
+      // open on real content — otherwise every dynamic dictionary starts on
+      // `loadingProxy()` and flips a microtask later, one placeholder frame
+      // each, even when nothing has to be fetched.
+      const preloadedDictionary = getPreloadedDictionary(
+        dictionaryPromise,
+        $locale
+      );
+
+      if (preloadedDictionary) {
+        set(
+          withState(
+            getDictionary(preloadedDictionary, $locale as DeclaredLocales)
+          )
+        );
+        return;
+      }
+
       // Set loading state immediately with proxy
       set(loadingProxy());
 

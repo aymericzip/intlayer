@@ -1,5 +1,6 @@
-import { relative, sep } from 'node:path';
+import { relative } from 'node:path';
 import { GREY_LIGHT } from '@intlayer/config/colors';
+import { DYNAMIC_DICTIONARIES_JSON_SUBDIR } from '@intlayer/config/defaultValues';
 import {
   colorize,
   colorizeKey,
@@ -7,6 +8,7 @@ import {
   colorizePath,
   getAppLogger,
 } from '@intlayer/config/logger';
+import { normalizePath } from '@intlayer/config/utils';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Plugin } from 'vite';
 
@@ -30,15 +32,49 @@ export type ModuleGraphNode = {
   dynamicImporters: string[];
 };
 
-/** Normalises Windows separators so one pattern matches on every platform. */
-const toPosix = (filePath: string): string => filePath.split(sep).join('/');
+/** A per-locale dictionary chunk, identified from its module id. */
+export type DictionaryModule = {
+  key: string;
+  locale: string;
+};
 
 /**
- * Matches a per-locale dictionary emitted in `dynamic` import mode, whose
- * layout is `<dynamicDictionariesDir>/json/<key>/<locale>.json`.
+ * Builds the parser that recognises a per-locale dictionary chunk emitted in
+ * `dynamic` import mode.
+ *
+ * The layout is read relative to `dynamicDictionariesDir` rather than matched
+ * anywhere in the path, so an application file that happens to sit under its own
+ * `json/<something>/<something>.json` cannot be mistaken for a dictionary.
+ * Everything between the key and the locale is a qualifier dimension
+ * (collections, variants), which is why the middle segments are skipped instead
+ * of being required to be absent.
+ *
+ * @param dynamicDictionariesDir - Absolute, POSIX-normalized dictionaries root.
+ * @returns Parser returning the key and locale, or `null` for any other module.
  */
-export const DICTIONARY_JSON_PATTERN =
-  /\/json\/(?<key>[^/]+)\/(?<locale>[^/]+)\.json$/;
+export const createDictionaryModuleParser = (
+  dynamicDictionariesDir: string
+): ((moduleId: string) => DictionaryModule | null) => {
+  const prefix = `${dynamicDictionariesDir}/${DYNAMIC_DICTIONARIES_JSON_SUBDIR}/`;
+
+  return (moduleId) => {
+    // Vite appends query suffixes (`?import`, `?url`) to module ids.
+    const posixId = normalizePath(moduleId.split('?', 1)[0] ?? moduleId);
+    if (!posixId.startsWith(prefix)) return null;
+
+    const segments = posixId.slice(prefix.length).split('/');
+    // `<key>/…qualifier segments…/<locale>.json` — at least a key and a file.
+    if (segments.length < 2) return null;
+
+    const fileName = segments[segments.length - 1]!;
+    if (!fileName.endsWith('.json')) return null;
+
+    return {
+      key: segments[0]!,
+      locale: fileName.slice(0, -'.json'.length),
+    };
+  };
+};
 
 /** Characters that are unsafe in a chunk file name. */
 const UNSAFE_NAME_CHARACTERS = /[^a-zA-Z0-9]+/g;
@@ -58,7 +94,7 @@ const digest = (value: string): string => {
 
 /** Turns a boundary module id into a readable chunk-name fragment. */
 export const toBoundaryName = (moduleId: string): string => {
-  const fileName = toPosix(moduleId).split('/').pop() ?? 'chunk';
+  const fileName = normalizePath(moduleId).split('/').pop() ?? 'chunk';
   const base = fileName
     .replace(/\.[^.]+$/, '')
     .replace(UNSAFE_NAME_CHARACTERS, '-')
@@ -133,18 +169,19 @@ export const resolveBoundaries = (
  * duplicated across chunks.
  *
  * Because a boundary's dictionaries share one chunk, warming that chunk warms
- * the whole boundary in a single request — which is how `preloadDictionaries`
- * from `react-intlayer` stops content from suspending, without any page loading
- * content belonging to another.
+ * the whole boundary in a single request — which is why the top-level-await
+ * preload (`intlayerPreload`) costs one request per boundary rather than one
+ * per dictionary, without any page loading content belonging to another.
  *
  * @param intlayerConfig - Resolved Intlayer configuration.
  */
 export const intlayerChunk = (intlayerConfig: IntlayerConfig): Plugin => {
-  const importMode =
-    intlayerConfig.build?.importMode ?? intlayerConfig.dictionary?.importMode;
-
-  const dynamicDictionariesDir = toPosix(
+  const dynamicDictionariesDir = normalizePath(
     intlayerConfig.system.dynamicDictionariesDir
+  );
+
+  const parseDictionaryModule = createDictionaryModuleParser(
+    dynamicDictionariesDir
   );
 
   const appLogger = getAppLogger(intlayerConfig);
@@ -162,24 +199,24 @@ export const intlayerChunk = (intlayerConfig: IntlayerConfig): Plugin => {
     return groupName;
   };
 
-  const isDictionaryModule = (moduleId: string): boolean => {
-    const posixId = toPosix(moduleId);
-    return (
-      posixId.startsWith(dynamicDictionariesDir) &&
-      DICTIONARY_JSON_PATTERN.test(posixId)
-    );
-  };
+  const isDictionaryModule = (moduleId: string): boolean =>
+    parseDictionaryModule(moduleId) !== null;
 
   return {
     name: 'vite-intlayer-chunk-plugin',
 
     /**
-     * Grouping only exists to undo build-time fragmentation, so it is skipped
-     * unless there is something to regroup: the dev server serves modules
-     * unbundled, and only `dynamic` mode emits a chunk per dictionary.
+     * Grouping only exists to undo build-time fragmentation, so the dev server —
+     * which serves modules unbundled — is skipped.
+     *
+     * The build is deliberately *not* gated on the configured `importMode`: a
+     * `.content` file can set `importMode: 'dynamic'` on a single dictionary
+     * under a `static` or `fetch` global mode, and those dictionaries fragment
+     * exactly like a fully dynamic build. Modules that reach the graph are the
+     * honest signal, so the group's `test` does the gating instead — it simply
+     * matches nothing when no dictionary resolves to dynamic.
      */
-    apply: (_viteConfig, env) =>
-      env.command === 'build' && importMode === 'dynamic',
+    apply: (_viteConfig, env) => env.command === 'build',
 
     config: () => {
       return {
@@ -196,11 +233,8 @@ export const intlayerChunk = (intlayerConfig: IntlayerConfig): Plugin => {
                     groups: [
                       {
                         name: (moduleId: string, context: ChunkingContext) => {
-                          const match = DICTIONARY_JSON_PATTERN.exec(
-                            toPosix(moduleId)
-                          );
-                          const locale = match?.groups?.locale;
-                          if (!locale) return null;
+                          const dictionary = parseDictionaryModule(moduleId);
+                          if (!dictionary) return null;
 
                           const boundaries = resolveBoundaries(
                             moduleId,
@@ -215,16 +249,9 @@ export const intlayerChunk = (intlayerConfig: IntlayerConfig): Plugin => {
                             boundaries.length > 1
                               ? 'shared'
                               : toBoundaryName(boundaries[0]!);
+                          const groupName = `intlayer-${scope}-${dictionary.locale}`;
 
-                          appLogger(
-                            `Chunk group ${colorize(`intlayer-${scope}-${locale}`, GREY_LIGHT)} ← ${match?.groups?.key && colorizeKey(match?.groups?.key)} (boundaries: ${colorizePath(boundaries.map((path) => relative(intlayerConfig.system.baseDir, path)).join(', '))})`,
-                            { isVerbose: true }
-                          );
-
-                          return assign(
-                            `intlayer-${scope}-${locale}`,
-                            match?.groups?.key ?? moduleId
-                          );
+                          return assign(groupName, dictionary.key);
                         },
                         test: isDictionaryModule,
                         // Dictionaries are small individually; the point is to
@@ -246,8 +273,7 @@ export const intlayerChunk = (intlayerConfig: IntlayerConfig): Plugin => {
 
     /**
      * Reports what the grouping actually did. Silence here means the group
-     * never matched — the usual causes are a dictionary layout that does not
-     * match `DICTIONARY_JSON_PATTERN`, or an `importMode` that emits no
+     * never matched — the usual cause is an `importMode` that emits no
      * per-dictionary chunks at all.
      */
     closeBundle() {

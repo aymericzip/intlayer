@@ -9,6 +9,7 @@ export * from './mergeDictionaries';
 export * from './mergeQualifiedDictionaries';
 export * from './normalizeDictionary';
 export * from './orderDictionaries';
+export * from './preloadedDynamicLoader';
 export * from './qualifiedDictionary';
 export * from './qualifiedDictionaryDeclaration';
 export * from './qualifiedDynamicLoader';

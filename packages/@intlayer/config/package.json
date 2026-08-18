@@ -97,6 +97,11 @@
       "require": "./dist/cjs/defaultValues/index.cjs",
       "import": "./dist/esm/defaultValues/index.mjs"
     },
+    "./dictionaryPreload": {
+      "types": "./dist/types/dictionaryPreload.d.ts",
+      "require": "./dist/cjs/dictionaryPreload.cjs",
+      "import": "./dist/esm/dictionaryPreload.mjs"
+    },
     "./bundle": {
       "types": "./dist/types/bundle/index.d.ts",
       "require": "./dist/cjs/bundle/index.cjs",

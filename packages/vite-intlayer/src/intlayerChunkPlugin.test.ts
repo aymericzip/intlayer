@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import {
   type ChunkingContext,
-  DICTIONARY_JSON_PATTERN,
+  createDictionaryModuleParser,
   type ModuleGraphNode,
   resolveBoundaries,
   toBoundaryName,
@@ -28,28 +28,64 @@ const createContext = (
   },
 });
 
-describe('DICTIONARY_JSON_PATTERN', () => {
-  it('captures the key and locale of a dynamic dictionary', () => {
-    const match = DICTIONARY_JSON_PATTERN.exec(
-      '/app/.intlayer/dynamic_dictionary/json/landing-page/en.json'
-    );
+describe('createDictionaryModuleParser', () => {
+  const DYNAMIC_DICTIONARIES_DIR = '/app/.intlayer/dynamic_dictionary';
+  const parseDictionaryModule = createDictionaryModuleParser(
+    DYNAMIC_DICTIONARIES_DIR
+  );
 
-    expect(match?.groups?.key).toBe('landing-page');
-    expect(match?.groups?.locale).toBe('en');
+  it('reads the key and locale of a dynamic dictionary', () => {
+    expect(
+      parseDictionaryModule(
+        `${DYNAMIC_DICTIONARIES_DIR}/json/landing-page/en.json`
+      )
+    ).toEqual({ key: 'landing-page', locale: 'en' });
   });
 
-  it('captures a region-qualified locale', () => {
-    const match = DICTIONARY_JSON_PATTERN.exec(
-      '/app/.intlayer/dynamic_dictionary/json/landing-page/en-GB.json'
+  it('reads a region-qualified locale', () => {
+    expect(
+      parseDictionaryModule(
+        `${DYNAMIC_DICTIONARIES_DIR}/json/landing-page/en-GB.json`
+      )?.locale
+    ).toBe('en-GB');
+  });
+
+  it('reads a qualified dictionary nested by dimension', () => {
+    expect(
+      parseDictionaryModule(
+        `${DYNAMIC_DICTIONARIES_DIR}/json/products/shoes/premium/fr.json`
+      )
+    ).toEqual({ key: 'products', locale: 'fr' });
+  });
+
+  it('normalizes a Windows module id', () => {
+    const parseWindowsModule = createDictionaryModuleParser(
+      'C:/app/.intlayer/dynamic_dictionary'
     );
 
-    expect(match?.groups?.locale).toBe('en-GB');
+    expect(
+      parseWindowsModule(
+        'C:\\app\\.intlayer\\dynamic_dictionary\\json\\landing-page\\en.json'
+      )
+    ).toEqual({ key: 'landing-page', locale: 'en' });
+  });
+
+  it('ignores the generated entry point next to the chunks', () => {
+    expect(
+      parseDictionaryModule(`${DYNAMIC_DICTIONARIES_DIR}/landing-page.mjs`)
+    ).toBeNull();
+  });
+
+  it('ignores an application file mirroring the dictionary layout', () => {
+    expect(
+      parseDictionaryModule('/app/src/json/landing-page/en.json')
+    ).toBeNull();
   });
 
   it('ignores files outside the per-locale layout', () => {
     expect(
-      DICTIONARY_JSON_PATTERN.test('/app/src/components/Hero/hero.json')
-    ).toBe(false);
+      parseDictionaryModule('/app/src/components/Hero/hero.json')
+    ).toBeNull();
   });
 });
 
