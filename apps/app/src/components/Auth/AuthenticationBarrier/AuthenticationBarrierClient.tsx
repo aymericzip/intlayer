@@ -74,16 +74,8 @@ export const AuthenticationBarrierClient: FC<
       redirectionRoute,
       isEnabled
     );
-  }, [
-    accessRule,
-    redirectionRoute,
-    unauthenticatedRedirectionRoute,
-    sessionClient,
-    isEnabled,
-    pathname,
-    originUrl,
-    navigate,
-  ]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [accessRule, sessionClient, isEnabled, navigate]);
 
   if (isPermissive) {
     return children;
