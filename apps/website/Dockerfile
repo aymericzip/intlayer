@@ -62,7 +62,7 @@ COPY \
     --exclude=packages/eslint-plugin-intlayer \
     --exclude=apps/app \
     --exclude=apps/showcase \
-    --exclude=apps/website \
+    --exclude=apps/website-next \
     --exclude=docs/assets \
     --exclude=examples \
     --exclude=plugins \
@@ -77,7 +77,7 @@ RUN bun install
 RUN bun x turbo run build:ci --filter=./packages/** --filter=./docs
 
 # Set working directory to the tanstack website package and build it
-WORKDIR /workspace/apps/website-tanstack
+WORKDIR /workspace/apps/website
 
 ENV NODE_ENV=production
 
@@ -105,7 +105,7 @@ RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 # @intlayer/docs is an exception: docs.entry.mjs reads markdown files from the
 # filesystem at runtime via existsSync/readFile, so the package must be present
 # alongside the server bundle for those paths to resolve correctly.
-COPY --from=builder --chown=appuser:appgroup /workspace/apps/website-tanstack/.output ./.output
+COPY --from=builder --chown=appuser:appgroup /workspace/apps/website/.output ./.output
 COPY --from=builder --chown=appuser:appgroup /workspace/docs ./.output/server/node_modules/@intlayer/docs
 
 USER appuser

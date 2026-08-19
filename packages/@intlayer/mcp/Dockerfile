@@ -50,7 +50,7 @@ COPY \
     --exclude=plugins \
     --exclude=compat \
     --exclude=apps/website \
-    --exclude=apps/website-tanstack \
+    --exclude=apps/website-next \
     --exclude=apps/showcase \
     --exclude=apps/app \
     --exclude=**/*.stories.* \

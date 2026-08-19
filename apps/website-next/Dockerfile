@@ -65,7 +65,7 @@ COPY \
     --exclude=packages/eslint-plugin-intlayer \
     --exclude=apps/app \
     --exclude=apps/showcase \
-    --exclude=apps/website-tanstack \
+    --exclude=apps/website \
     --exclude=plugins \
     --exclude=compat \
     --exclude=docs/assets \
@@ -79,10 +79,10 @@ COPY \
 RUN bun install
 
 # Build every package in the workspace (uses the root "build" script)
-RUN bun x turbo run build:ci --filter=./apps/website
+RUN bun x turbo run build:ci --filter=./apps/website-next
 
 # Set working directory to the website package and build it
-WORKDIR /workspace/apps/website
+WORKDIR /workspace/apps/website-next
 
 ENV NODE_ENV=production
 
@@ -113,11 +113,11 @@ RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 RUN ln -s /app /ROOT
 
 # Copy only the standalone output and necessary static files from builder.
-# In a monorepo standalone build, static/public files live under apps/website/
+# In a monorepo standalone build, static/public files live under apps/website-next/
 # to match where server.js (running from __dirname) expects them.
-COPY --from=builder --chown=appuser:appgroup /workspace/apps/website/.next/standalone ./
-COPY --from=builder --chown=appuser:appgroup /workspace/apps/website/public ./apps/website/public
-COPY --from=builder --chown=appuser:appgroup /workspace/apps/website/.next/static ./apps/website/.next/static
+COPY --from=builder --chown=appuser:appgroup /workspace/apps/website-next/.next/standalone ./
+COPY --from=builder --chown=appuser:appgroup /workspace/apps/website-next/public ./apps/website-next/public
+COPY --from=builder --chown=appuser:appgroup /workspace/apps/website-next/.next/static ./apps/website-next/.next/static
 
 # The Turbopack SSR runtime resolves /ROOT/ to the standalone root (/app/).
 # @intlayer/docs is a serverExternalPackage loaded at /ROOT/docs/... at runtime,
@@ -139,4 +139,4 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=15s --retries=3 \
   CMD bun -e "const r = await fetch('http://localhost:3000/api/health'); process.exit(r.ok ? 0 : 1)"
 
 # Execute the standalone server
-CMD ["bun", "apps/website/server.js"]
+CMD ["bun", "apps/website-next/server.js"]
