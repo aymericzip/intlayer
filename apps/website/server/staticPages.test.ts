@@ -28,6 +28,10 @@ type StaticPagesHandler = (
 const HOME_PAGE_HTML = `<!doctype html><title>home</title>${'padding'.repeat(300)}`;
 const DOC_PAGE_HTML = `<!doctype html><title>doc</title>${'padding'.repeat(300)}`;
 
+/** Stands in for a `staticFunctionMiddleware` cache entry, seroval payload included. */
+const STATIC_CACHE_NAME = 'be79bcf7ed21a235f33aeca5c60cb2e2edeafa59.json';
+const STATIC_CACHE_JSON = '{"t":{"t":2,"i":0,"a":[]}}';
+
 let handleStaticPage: StaticPagesHandler;
 
 /**
@@ -67,6 +71,9 @@ beforeAll(async () => {
   await mkdir(join(publicDirectory, 'doc', 'get-started'), { recursive: true });
   await mkdir(join(rootDirectory, 'server'), { recursive: true });
   await mkdir(join(publicDirectory, 'ru'), { recursive: true });
+  await mkdir(join(publicDirectory, '__tsr', 'staticServerFnCache'), {
+    recursive: true,
+  });
 
   await writeFile(join(publicDirectory, 'index.html'), HOME_PAGE_HTML);
   await writeFile(
@@ -83,6 +90,10 @@ beforeAll(async () => {
   );
   await writeFile(join(publicDirectory, 'ru', 'index.html'), '<!doctype html>');
   await writeFile(join(publicDirectory, 'robots.txt'), 'User-agent: *');
+  await writeFile(
+    join(publicDirectory, '__tsr', 'staticServerFnCache', STATIC_CACHE_NAME),
+    STATIC_CACHE_JSON
+  );
 
   (globalThis as { __nitro_main__?: string }).__nitro_main__ = pathToFileURL(
     join(rootDirectory, 'server', 'index.mjs')
@@ -146,12 +157,26 @@ describe('staticPages middleware', () => {
     expect(response).toBeUndefined();
   });
 
-  it.each(['/__tsr/serverFn/abc', '/api/health'])(
+  it.each(['/_serverFn/abc', '/api/health'])(
     'leaves %s to the server',
     async (url) => {
       expect(await handleStaticPage(createEvent({ url }))).toBeUndefined();
     }
   );
+
+  it('serves the static server-function cache written by the prerender', async () => {
+    // Nitro's asset manifest is baked before the prerender writes these files,
+    // so its own static handler never learns about them — reaching them at all
+    // depends on this middleware.
+    const response = await handleStaticPage(
+      createEvent({ url: `/__tsr/staticServerFnCache/${STATIC_CACHE_NAME}` })
+    );
+
+    expect(await response?.text()).toBe(STATIC_CACHE_JSON);
+    expect(response?.headers.get('Content-Type')).toBe(
+      'application/json; charset=utf-8'
+    );
+  });
 
   it('ignores non-readable methods', async () => {
     const response = await handleStaticPage(

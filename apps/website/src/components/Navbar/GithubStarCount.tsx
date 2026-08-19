@@ -12,7 +12,13 @@ import { loadGithubStars } from '~/serverFunctions/githubStars';
  * The request itself never reaches GitHub: the server function is resolved at
  * prerender time and the browser reads the static cache it wrote.
  */
-const githubStarsPromise = loadGithubStars();
+const githubStarsPromise = loadGithubStars().catch((error: unknown) => {
+  // A star count is decoration; a rejected promise read through `use()` is not.
+  // Swallowing here keeps a missing static cache or an unreachable GitHub from
+  // taking the whole navbar — and with it the page — into an error boundary.
+  console.error('Error loading GitHub stars:', error);
+  return null;
+});
 
 /**
  * Renders the Intlayer repository star count next to the navbar GitHub link.

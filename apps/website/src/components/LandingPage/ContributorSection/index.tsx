@@ -31,7 +31,14 @@ const shuffleArray = (array: Contributor[]): Contributor[] => {
  */
 const contributorsPromise = loadContributors()
   .then(shuffleArray)
-  .then((contributors) => contributors.slice(0, MAX_DISPLAYED_CONTRIBUTORS));
+  .then((contributors) => contributors.slice(0, MAX_DISPLAYED_CONTRIBUTORS))
+  .catch((error: unknown) => {
+    // The section renders nothing on an empty list, so a rejection is better
+    // absorbed here than read through `use()`: an unreachable GitHub or a
+    // missing static cache would otherwise reach the page's error boundary.
+    console.error('Error loading contributors:', error);
+    return [];
+  });
 
 export const ContributorSection: FC = () => {
   const contributors = use(contributorsPromise);

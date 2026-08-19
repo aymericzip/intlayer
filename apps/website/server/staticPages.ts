@@ -61,10 +61,22 @@ const READABLE_METHODS = new Set(['GET', 'HEAD']);
 
 /**
  * Path prefixes owned by the server rather than by the prerender output.
- * `/__tsr/` carries server-function traffic and `/api/` the app's own routes;
- * neither may ever be shadowed by a file that happens to sit at the same path.
+ * `/_serverFn/` carries server-function RPC calls and `/api/` the app's own
+ * routes; neither may ever be shadowed by a file that happens to sit at the
+ * same path.
+ *
+ * `/__tsr/` is deliberately *not* reserved. Nothing in TanStack Start answers
+ * on that prefix at runtime — the RPC base is `/_serverFn/` — and the only
+ * thing living under it is `/__tsr/staticServerFnCache/*.json`, written by
+ * `staticFunctionMiddleware` during the prerender pass. Those files reach the
+ * public directory after Nitro has baked its asset manifest, so this handler is
+ * the only one that can serve them; reserving the prefix answered every static
+ * server-function read with the SSR catch-all's 404, and the client middleware
+ * parses that body as seroval regardless of status — throwing
+ * "Seroval Error (step: 3)" out of the suspended component and into the page's
+ * error boundary.
  */
-const RESERVED_PATH_PREFIXES = ['/__tsr/', '/api/'] as const;
+const RESERVED_PATH_PREFIXES = ['/_serverFn/', '/api/'] as const;
 
 /**
  * Content encodings this middleware can serve, ordered best-compression first.
