@@ -14,15 +14,31 @@ import { getAbsoluteUrl, getHreflangLinks } from '#/utils/seo';
 import { Link } from '#components/Link/Link';
 
 export const Route = createFileRoute('/{-$locale}/project/$projectId')({
+  /**
+   * Fetches the project from the backend.
+   * A backend failure must not turn the page into a 500 - during prerendering
+   * it would abort the whole build - so it degrades to the "project not found"
+   * state instead.
+   */
   loader: async ({ params }) => {
-    const projectResponse =
-      await getIntlayerAPI().showcaseProject.getShowcaseProjectById(
-        params.projectId
+    try {
+      const projectResponse =
+        await getIntlayerAPI().showcaseProject.getShowcaseProjectById(
+          params.projectId
+        );
+
+      const project = (projectResponse.data ??
+        null) as unknown as ShowcaseProject | null;
+
+      return { project };
+    } catch (error) {
+      console.error(
+        `Failed to load showcase project ${params.projectId}:`,
+        error
       );
 
-    return {
-      project: projectResponse.data as unknown as ShowcaseProject,
-    };
+      return { project: null };
+    }
   },
   component: ProjectPage,
   head: ({ params, loaderData }) => {

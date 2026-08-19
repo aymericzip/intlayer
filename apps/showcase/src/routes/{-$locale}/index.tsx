@@ -1,4 +1,3 @@
-import { getIntlayerAPI } from '@intlayer/api';
 import { useGetShowcaseProjects } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
 import { useSearch } from '@intlayer/design-system/hooks';
@@ -57,42 +56,6 @@ export const Route = createFileRoute('/{-$locale}/')({
         search.isOpenSource === 'true' || search.isOpenSource === true;
     }
     return result;
-  },
-  loaderDeps: ({
-    search: { page, pageSize, search, selectedUseCases, isOpenSource },
-  }) => ({
-    page,
-    pageSize,
-    search,
-    selectedUseCases,
-    isOpenSource,
-  }),
-  loader: async ({ context, deps }) => {
-    await context.queryClient.ensureQueryData({
-      queryKey: [
-        'projects',
-        {
-          page: deps.page ?? 1,
-          pageSize: deps.pageSize ?? 20,
-          search: deps.search ?? '',
-          selectedUseCases: deps.selectedUseCases ?? [],
-          isOpenSource: deps.isOpenSource ?? false,
-        },
-      ],
-      queryFn: () => {
-        try {
-          return getIntlayerAPI().showcaseProject.getShowcaseProjects({
-            page: deps.page ?? 1,
-            pageSize: deps.pageSize ?? 20,
-            search: deps.search ?? '',
-            selectedUseCases: deps.selectedUseCases ?? [],
-            isOpenSource: deps.isOpenSource ?? false,
-          });
-        } catch {
-          return null;
-        }
-      },
-    });
   },
   head: ({ params }) => {
     const { locale } = params;
