@@ -16,7 +16,7 @@ export const EditorLayout: FC<EditorLayoutProps> = ({ children }) => {
         background="none"
         border
         roundedSize="2xl"
-        className="size-full flex-1 flex-col items-center justify-center overflow-hidden"
+        className="relative size-full flex-1 flex-col items-center justify-center overflow-hidden"
       >
         {children}
         <div className="absolute right-2 bottom-2">

@@ -16,6 +16,27 @@ import { useIntlayer } from 'react-intlayer';
 import { NoApplicationURLView } from './NoApplicationURLView/NoApplicationURLView';
 import { useEditedContentPersistence } from './useEditedContentPersistence';
 
+/**
+ * Sandbox applied to the framed application. Dropped for same-origin embeds —
+ * the playground frames the website's own `/demo` page, where `allow-scripts`
+ * together with `allow-same-origin` isolates nothing (the frame can reach
+ * `window.parent` and remove the attribute) and browsers warn about it. Only
+ * the third-party applications the dashboard embeds gain anything from it.
+ */
+const getApplicationSandbox = (applicationURL: string): string | null => {
+  if (typeof window === 'undefined') return 'allow-scripts allow-same-origin';
+
+  try {
+    const isSameOrigin =
+      new URL(applicationURL, window.location.origin).origin ===
+      window.location.origin;
+
+    return isSameOrigin ? null : 'allow-scripts allow-same-origin';
+  } catch {
+    return 'allow-scripts allow-same-origin';
+  }
+};
+
 export const IframeController: FC<{
   iframeRef: RefObject<HTMLIFrameElement | null>;
 }> = ({ iframeRef }) => {
@@ -64,7 +85,7 @@ export const IframeController: FC<{
           'size-full flex-1 overflow-hidden rounded-lg',
           loading && 'hidden'
         )}
-        sandbox="allow-scripts allow-same-origin"
+        sandbox={getApplicationSandbox(editor.applicationURL)}
         ref={iframeRef}
         onLoad={() => {
           setLoading(false);
@@ -72,7 +93,7 @@ export const IframeController: FC<{
         }}
       />
       {!enabled && (
-        <div className="fixed right-4 bottom-4">
+        <div className="absolute right-4 bottom-4 z-20">
           <Button
             label={content.enableEditor.value}
             onClick={enableEditor}

@@ -90,7 +90,7 @@ const config: CustomIntlayerConfig = {
     purge: true,
   },
   editor: {
-    enabled: false,
+    enabled: true,
     liveSync: false,
     dictionaryPriorityStrategy: 'local_first',
     applicationURL: import.meta.env.VITE_URL,
