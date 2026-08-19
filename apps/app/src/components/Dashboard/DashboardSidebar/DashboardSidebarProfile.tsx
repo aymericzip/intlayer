@@ -15,7 +15,7 @@ import {
 import { cn } from '@intlayer/design-system/utils';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { LogOut, User2 } from 'lucide-react';
-import { type FC, useCallback, useState } from 'react';
+import { type FC, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { useLocalizedNavigate } from '#/hooks/useLocalizedNavigate.ts';
 import { Link } from '#components/Link/Link';
@@ -33,7 +33,8 @@ export const DashboardSidebarProfile: FC<DashboardSidebarProfileProps> = ({
   isCollapsed,
 }) => {
   const { isAuthenticated, user, logout } = useUser();
-  const { navigation, goToProfile } = useIntlayer('dashboard-sidebar');
+  const { navigation, goToProfile, accountSwitcher } =
+    useIntlayer('dashboard-sidebar');
   const queryClient = useQueryClient();
   const [isSwitching, setIsSwitching] = useState(false);
   const navigate = useLocalizedNavigate();
@@ -126,6 +127,19 @@ export const DashboardSidebarProfile: FC<DashboardSidebarProfileProps> = ({
                   onAddAccount={handleAddAccount}
                   onSignOut={hasMultipleSessions ? handleSignOut : undefined}
                   isSwitching={isSwitching}
+                  labels={{
+                    accountSwitcherAriaLabel:
+                      accountSwitcher.accountSwitcherAriaLabel,
+                    activeAccountAriaLabel:
+                      accountSwitcher.activeAccountAriaLabel,
+                    switchingAccountAriaLabel:
+                      accountSwitcher.switchingAccountAriaLabel,
+                    addAccountTitle: accountSwitcher.addAccountTitle,
+                    switchToAriaLabel: (name) =>
+                      accountSwitcher.switchToAriaLabel({ name }),
+                    signOutAriaLabel: (name) =>
+                      accountSwitcher.signOutAriaLabel({ name }),
+                  }}
                 />
               )}
 
@@ -137,7 +151,7 @@ export const DashboardSidebarProfile: FC<DashboardSidebarProfileProps> = ({
                 variant="hoverable"
                 className="mb-2 text-center"
               >
-                {navigation.viewProfile.text.value}
+                {navigation.viewProfile.text}
               </Link>
 
               <Button
@@ -147,7 +161,7 @@ export const DashboardSidebarProfile: FC<DashboardSidebarProfileProps> = ({
                 label={navigation.logout.label.value}
                 size="sm"
               >
-                {navigation.logout.text.value}
+                {navigation.logout.text}
               </Button>
             </Container>
           </DropDown.Panel>
@@ -208,6 +222,19 @@ export const DashboardSidebarProfile: FC<DashboardSidebarProfileProps> = ({
                   onAddAccount={handleAddAccount}
                   onSignOut={hasMultipleSessions ? handleSignOut : undefined}
                   isSwitching={isSwitching}
+                  labels={{
+                    accountSwitcherAriaLabel:
+                      accountSwitcher.accountSwitcherAriaLabel,
+                    activeAccountAriaLabel:
+                      accountSwitcher.activeAccountAriaLabel,
+                    switchingAccountAriaLabel:
+                      accountSwitcher.switchingAccountAriaLabel,
+                    addAccountTitle: accountSwitcher.addAccountTitle,
+                    switchToAriaLabel: (name) =>
+                      accountSwitcher.switchToAriaLabel({ name }),
+                    signOutAriaLabel: (name) =>
+                      accountSwitcher.signOutAriaLabel({ name }),
+                  }}
                 />
               )}
 
