@@ -444,9 +444,9 @@ export default defineConfig(async ({ mode }) => {
             '.content.(ts|tsx|js|mjs|cjs|jsx|json|jsonc|json5|md|mdx|yaml|yml)$',
         },
         prerender: {
-          enabled: false,
+          enabled: true,
           crawlLinks: false,
-          concurrency: 20,
+          concurrency: 8,
         },
         pages: localizedPages,
       }),
