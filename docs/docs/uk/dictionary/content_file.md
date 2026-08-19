@@ -542,28 +542,6 @@ export default aboutPageMetaContent;
 
 > Див. [Варіанти](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dynamic_dictionaries/variants.md) для отримання додаткової інформації.
 
-#### `meta` (`Record<string, string | number | boolean>`)
-
-Використовується разом із Динамічними Записами, це поле дозволяє оголошувати записи, керовані CMS, або довільні дані, отримані під час виконання за непрозорим ID. Ідентичність словника визначається довільним набором пар ключ-значення, оголошених у цьому полі `meta`.
-
-**Приклад:**
-
-```typescript
-{
-  key: "product-copy",
-  meta: {
-    id: "prod_abc",
-    userId: "user_123"
-  },
-  content: {
-    name: "Widget Pro",
-    description: "The best widget."
-  }
-}
-```
-
-> Див. [Динамічні Записи](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dynamic_dictionaries/dynamic_content.md) для отримання додаткової інформації.
-
 ### Властивості CMS
 
 ##### `version` (string)

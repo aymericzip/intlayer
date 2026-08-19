@@ -533,28 +533,6 @@ export default aboutPageMetaContent;
 
 > 詳細については、[バリアント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dynamic_dictionaries/variants.md)を参照してください。
 
-#### `meta` (`Record<string, string | number | boolean>`)
-
-動的レコード（Dynamic Records）と組み合わせて使用されるこのフィールドは、CMSで管理されるレコードや、不透明なIDを使用して実行時に取得される任意のデータを宣言することを可能にします。辞書の同一性は、この`meta`フィールドで宣言されたキーと値の任意の組み合わせによって定義されます。
-
-**例:**
-
-```typescript
-{
-  key: "product-copy",
-  meta: {
-    id: "prod_abc",
-    userId: "user_123"
-  },
-  content: {
-    name: "Widget Pro",
-    description: "The best widget."
-  }
-}
-```
-
-> 詳細については、[動的レコード](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dynamic_dictionaries/dynamic_content.md)を参照してください。
-
 ### CMSプロパティ
 
 ##### `version` (string)

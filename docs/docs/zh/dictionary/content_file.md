@@ -533,28 +533,6 @@ export default aboutPageMetaContent;
 
 > 参见 [变体](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dynamic_dictionaries/variants.md) 了解更多信息。
 
-#### `meta` (`Record<string, string | number | boolean>`)
-
-与动态记录 (Dynamic Records) 配合使用，此字段允许通过不透明的 ID 声明 CMS 管理的的记录或在运行时获取的任意数据。字典身份由该 `meta` 字段中声明的任意键值对集定义。
-
-**示例：**
-
-```typescript
-{
-  key: "product-copy",
-  meta: {
-    id: "prod_abc",
-    userId: "user_123"
-  },
-  content: {
-    name: "Widget Pro",
-    description: "The best widget."
-  }
-}
-```
-
-> 参见 [动态记录](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dynamic_dictionaries/dynamic_content.md) 了解更多信息。
-
 ### CMS 属性
 
 ##### `version`（字符串）

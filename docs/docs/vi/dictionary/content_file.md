@@ -539,28 +539,6 @@ Chỉ định độ ưu tiên của từ điển để giải quyết xung độ
 
 > Xem [Biến thể](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dynamic_dictionaries/variants.md) để biết thêm thông tin.
 
-#### `meta` (`Record<string, string | number | boolean>`)
-
-Được sử dụng cùng với Các bản ghi động (Dynamic Records), trường này cho phép khai báo các bản ghi do CMS quản lý hoặc dữ liệu tùy ý được truy xuất tại thời gian chạy bằng một ID ẩn danh. Danh tính từ điển được xác định bởi tập hợp tùy ý các cặp khóa-giá trị được khai báo trong trường `meta` này.
-
-**Ví dụ:**
-
-```typescript
-{
-  key: "product-copy",
-  meta: {
-    id: "prod_abc",
-    userId: "user_123"
-  },
-  content: {
-    name: "Widget Pro",
-    description: "The best widget."
-  }
-}
-```
-
-> Xem [Bản ghi động](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dynamic_dictionaries/dynamic_content.md) để biết thêm thông tin.
-
 ### Thuộc tính CMS
 
 ##### `version` (string)

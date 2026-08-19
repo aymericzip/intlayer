@@ -532,28 +532,6 @@ Used in conjunction with Variants, this field defines named content alternatives
 
 > See [Variants](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dynamic_dictionaries/variants.md) for more information.
 
-#### `meta` (`Record<string, string | number | boolean>`)
-
-Used in conjunction with Dynamic Records, this field allows declaring CMS-managed records or arbitrary data fetched at runtime by an opaque ID. The dictionary identity is defined by the arbitrary set of key-value pairs declared in this `meta` field.
-
-**Example:**
-
-```typescript
-{
-  key: "product-copy",
-  meta: {
-    id: "prod_abc",
-    userId: "user_123"
-  },
-  content: {
-    name: "Widget Pro",
-    description: "The best widget."
-  }
-}
-```
-
-> See [Dynamic Records](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dynamic_dictionaries/dynamic_content.md) for more information.
-
 ### CMS Properties
 
 ##### `version` (string)

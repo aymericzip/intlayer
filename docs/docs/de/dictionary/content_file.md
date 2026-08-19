@@ -536,28 +536,6 @@ Dieses Feld wird in Verbindung mit Varianten verwendet und definiert benannte In
 
 > Siehe [Varianten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dynamic_dictionaries/variants.md) für weitere Informationen.
 
-#### `meta` (`Record<string, string | number | boolean>`)
-
-Dieses Feld wird in Verbindung mit dynamischen Datensätzen (Dynamic Records) verwendet und ermöglicht die Deklaration von CMS-verwalteten Datensätzen oder beliebigen Daten, die zur Laufzeit über eine opake ID abgerufen werden. Die Wörterbuchidentität wird durch die beliebige Menge von Schlüssel-Wert-Paaren definiert, die in diesem `meta`-Feld deklariert sind.
-
-**Beispiel:**
-
-```typescript
-{
-  key: "product-copy",
-  meta: {
-    id: "prod_abc",
-    userId: "user_123"
-  },
-  content: {
-    name: "Widget Pro",
-    description: "The best widget."
-  }
-}
-```
-
-> Siehe [Dynamische Datensätze](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dynamic_dictionaries/dynamic_content.md) für weitere Informationen.
-
 ### CMS-Eigenschaften
 
 ##### `version` (string)

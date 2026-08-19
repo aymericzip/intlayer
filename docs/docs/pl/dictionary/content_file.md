@@ -536,28 +536,6 @@ Używane w połączeniu z Wariantami (Variants), to pole definiuje nazwane alter
 
 > Zobacz [Warianty](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dynamic_dictionaries/variants.md) po więcej informacji.
 
-#### `meta` (`Record<string, string | number | boolean>`)
-
-Używane w połączeniu z Dynamicznymi Rekordami (Dynamic Records), to pole pozwala na deklarowanie rekordów zarządzanych przez CMS lub dowolnych danych pobieranych w czasie wykonywania za pomocą nieprzejrzystego identyfikatora (ID). Tożsamość słownika jest definiowana przez dowolny zestaw par klucz-wartość zadeklarowanych w tym polu `meta`.
-
-**Przykład:**
-
-```typescript
-{
-  key: "product-copy",
-  meta: {
-    id: "prod_abc",
-    userId: "user_123"
-  },
-  content: {
-    name: "Widget Pro",
-    description: "The best widget."
-  }
-}
-```
-
-> Zobacz [Dynamiczne Rekordy](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dynamic_dictionaries/dynamic_content.md) po więcej informacji.
-
 ### Właściwości CMS
 
 ##### `version` (string)

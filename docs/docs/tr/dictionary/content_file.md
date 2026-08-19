@@ -532,28 +532,6 @@ Varyantlar (Variants) ile birlikte kullanılan bu alan, adlandırılmış içeri
 
 > Daha fazla bilgi için [Varyantlar](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dynamic_dictionaries/variants.md) sayfasına bakın.
 
-#### `meta` (`Record<string, string | number | boolean>`)
-
-Dinamik Kayıtlar (Dynamic Records) ile birlikte kullanılan bu alan, CMS tarafından yönetilen kayıtları veya çalışma zamanında opak bir kimlik (ID) ile getirilen rastgele verileri bildirmeyi sağlar. Sözlük kimliği, bu `meta` alanında bildirilen rastgele anahtar-değer çiftleri kümesiyle tanımlanır.
-
-**Örnek:**
-
-```typescript
-{
-  key: "product-copy",
-  meta: {
-    id: "prod_abc",
-    userId: "user_123"
-  },
-  content: {
-    name: "Widget Pro",
-    description: "The best widget."
-  }
-}
-```
-
-> Daha fazla bilgi için [Dinamik Kayıtlar](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dynamic_dictionaries/dynamic_content.md) sayfasına bakın.
-
 ### CMS Özellikleri
 
 ##### `version` (string)

@@ -534,28 +534,6 @@ Variants के संयोजन में उपयोग किया जा
 
 > अधिक जानकारी के लिए [Variants](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dynamic_dictionaries/variants.md) देखें।
 
-#### `meta` (`Record<string, string | number | boolean>`)
-
-Dynamic Records के संयोजन में उपयोग किया जाने वाला, यह फ़ील्ड एक अपारदर्शी आईडी द्वारा रनटाइम पर CMS-प्रबंधित रिकॉर्ड या मनमाने डेटा की घोषणा करने की अनुमति देता है। शब्दकोश की पहचान इस `meta` फ़ील्ड में घोषित कुंजी-मान जोड़े के मनमाने सेट द्वारा परिभाषित होती है।
-
-**उदाहरण:**
-
-```typescript
-{
-  key: "product-copy",
-  meta: {
-    id: "prod_abc",
-    userId: "user_123"
-  },
-  content: {
-    name: "Widget Pro",
-    description: "The best widget."
-  }
-}
-```
-
-> अधिक जानकारी के लिए [Dynamic Records](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dynamic_dictionaries/dynamic_content.md) देखें।
-
 ### CMS गुण
 
 ##### `version` (स्ट्रिंग)

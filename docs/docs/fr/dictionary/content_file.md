@@ -532,28 +532,6 @@ Utilisé en conjonction avec les Variantes, ce champ définit des alternatives d
 
 > Voir [Variantes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dynamic_dictionaries/variants.md) pour plus d'informations.
 
-#### `meta` (`Record<string, string | number | boolean>`)
-
-Utilisé en conjonction avec les Enregistrements Dynamiques, ce champ permet de déclarer des enregistrements gérés par le CMS ou des données arbitraires récupérées à l'exécution par un identifiant opaque. L'identité du dictionnaire est définie par l'ensemble arbitraire de paires clé-valeur déclarées dans ce champ `meta`.
-
-**Exemple :**
-
-```typescript
-{
-  key: "product-copy",
-  meta: {
-    id: "prod_abc",
-    userId: "user_123"
-  },
-  content: {
-    name: "Widget Pro",
-    description: "The best widget."
-  }
-}
-```
-
-> Voir [Enregistrements Dynamiques](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dynamic_dictionaries/dynamic_content.md) pour plus d'informations.
-
 ### Propriétés CMS
 
 ##### `version` (string)
