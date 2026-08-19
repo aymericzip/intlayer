@@ -21,6 +21,34 @@ import { FirstConsultationProvider } from '~/providers/FirstConsultationProvider
 
 const localeRoute = getRouteApi('/{-$locale}');
 
+/**
+ * GA4 measurement id (e.g. `G-XXXXXXXXXX`). When unset — local dev, previews —
+ * the tag is not injected at all.
+ */
+const googleAnalyticsId: string | undefined = import.meta.env
+  .VITE_GOOGLE_ANALYTICS_ID;
+
+/**
+ * gtag.js loader + bootstrap. SPA navigations are reported through GA4 enhanced
+ * measurement ("page changes based on browser history events").
+ */
+const googleAnalyticsScripts = googleAnalyticsId
+  ? [
+      {
+        src: `https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`,
+        async: true,
+      },
+      {
+        children: [
+          'window.dataLayer = window.dataLayer || [];',
+          'function gtag(){dataLayer.push(arguments);}',
+          "gtag('js', new Date());",
+          `gtag('config', '${googleAnalyticsId}');`,
+        ].join(''),
+      },
+    ]
+  : [];
+
 interface MyRouterContext {
   queryClient: QueryClient;
 }
@@ -106,7 +134,21 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
         rel: 'preconnect',
         href: import.meta.env.VITE_BACKEND_URL,
       },
+      ...(googleAnalyticsId
+        ? [
+            {
+              rel: 'preconnect',
+              href: 'https://www.googletagmanager.com',
+              crossOrigin: '',
+            },
+            {
+              rel: 'dns-prefetch',
+              href: 'https://www.googletagmanager.com',
+            },
+          ]
+        : []),
     ],
+    scripts: googleAnalyticsScripts,
   }),
   shellComponent: RootDocument,
 });
