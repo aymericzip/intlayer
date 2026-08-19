@@ -5,7 +5,7 @@ import { useIntlayer } from 'react-intlayer';
 import { TotpForm } from '#components/Auth/TotpForm';
 
 export const Route = createFileRoute(
-  '/{-$locale}/_other/auth/_not-authenticated/2fa'
+  '/{-$locale}/_other/auth/_authentication/2fa'
 )({
   component: TwoFactorPage,
   head: ({ params }) => {

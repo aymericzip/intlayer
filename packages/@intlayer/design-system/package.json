@@ -82,6 +82,11 @@
     "./css-output": "./dist/tailwind.css",
     "./markdown-editor.css": "./src/components/MarkdownEditor/markdown-editor.css",
     "./package.json": "./package.json",
+    "./account-switcher": {
+      "types": "./dist/types/components/AccountSwitcher/index.d.ts",
+      "import": "./dist/esm/components/AccountSwitcher/index.mjs",
+      "default": "./dist/esm/components/AccountSwitcher/index.mjs"
+    },
     "./accordion": {
       "types": "./dist/types/components/Accordion/index.d.ts",
       "import": "./dist/esm/components/Accordion/index.mjs",

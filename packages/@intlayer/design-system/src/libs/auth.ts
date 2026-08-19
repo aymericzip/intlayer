@@ -4,7 +4,11 @@ import { editor } from '@intlayer/config/built';
 import { BACKEND_URL } from '@intlayer/config/defaultValues';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { createAuthClient } from 'better-auth/client';
-import { magicLinkClient, twoFactorClient } from 'better-auth/client/plugins';
+import {
+  magicLinkClient,
+  multiSessionClient,
+  twoFactorClient,
+} from 'better-auth/client/plugins';
 
 const getAuthClient = (backendURL: string) =>
   createAuthClient({
@@ -25,6 +29,7 @@ const getAuthClient = (backendURL: string) =>
       passkeyClient(),
       magicLinkClient() as never,
       ssoClient(),
+      multiSessionClient(),
     ],
   });
 
@@ -72,6 +77,9 @@ export interface AuthAPI {
   listSSOProviders: () => Promise<any>;
   deleteSSOProvider: (args: { providerId: string }) => Promise<any>;
   signInSSO: AuthClient['signIn']['sso'];
+  listDeviceSessions: AuthClient['multiSession']['listDeviceSessions'];
+  setActiveSession: AuthClient['multiSession']['setActive'];
+  revokeDeviceSession: AuthClient['multiSession']['revoke'];
 }
 
 export const getAuthAPI = (
@@ -265,6 +273,23 @@ export const getAuthAPI = (
     return (client.sso as any).deleteProvider({ providerId: args.providerId });
   };
 
+  const listDeviceSessions: AuthClient['multiSession']['listDeviceSessions'] =
+    async (...args) => {
+      return client.multiSession.listDeviceSessions(...args);
+    };
+
+  const setActiveSession: AuthClient['multiSession']['setActive'] = async (
+    ...args
+  ) => {
+    return client.multiSession.setActive(...args);
+  };
+
+  const revokeDeviceSession: AuthClient['multiSession']['revoke'] = async (
+    ...args
+  ) => {
+    return client.multiSession.revoke(...args);
+  };
+
   return {
     getAuthClient: () => client,
     signInEmail,
@@ -304,5 +329,8 @@ export const getAuthAPI = (
     registerSSO,
     listSSOProviders,
     deleteSSOProvider,
+    listDeviceSessions,
+    revokeDeviceSession,
+    setActiveSession,
   };
 };

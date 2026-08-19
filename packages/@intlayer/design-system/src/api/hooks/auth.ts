@@ -19,6 +19,8 @@ export const useLogin = () => {
         ...session,
         user: data.data.user,
       });
+      queryClient.invalidateQueries({ queryKey: ['session'] });
+      queryClient.invalidateQueries({ queryKey: ['deviceSessions'] });
     },
   });
 };

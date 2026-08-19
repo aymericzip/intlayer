@@ -28,7 +28,12 @@ import {
 import { betterAuth } from 'better-auth';
 import { mongodbAdapter } from 'better-auth/adapters/mongodb';
 import { createAuthMiddleware } from 'better-auth/api';
-import { customSession, lastLoginMethod, twoFactor } from 'better-auth/plugins';
+import {
+  customSession,
+  lastLoginMethod,
+  multiSession,
+  twoFactor,
+} from 'better-auth/plugins';
 import { magicLink } from 'better-auth/plugins/magic-link';
 import type { MongoClient } from 'mongodb';
 import { Types } from 'mongoose';
@@ -228,6 +233,7 @@ export const getAuth = (dbClient: MongoClient): Auth => {
     },
 
     plugins: [
+      multiSession(),
       customSession(async ({ session }) => {
         const typedSession = session as unknown as SessionDataApi;
 

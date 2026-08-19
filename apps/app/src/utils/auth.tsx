@@ -71,6 +71,16 @@ export const sessionQueryOptions = {
   gcTime: 30 * 60 * 1000,
 } as const;
 
+export const deviceSessionsQueryOptions = {
+  queryKey: ['deviceSessions'],
+  queryFn: async () => {
+    const intlayerAPI = getAuthAPI();
+    const result = await intlayerAPI.listDeviceSessions();
+    return result?.data ?? [];
+  },
+  staleTime: 60 * 1000,
+} as const;
+
 /**
  * Force a backend round-trip that bypasses better-auth's signed cookie
  * cache (5-min TTL). Used when the cached session would cause a wrongful
@@ -97,6 +107,19 @@ export const refetchFreshSession = async (
 
   queryClient.setQueryData(sessionQueryOptions.queryKey, fresh);
   return fresh;
+};
+
+export const switchAccount = async (
+  queryClient: QueryClient,
+  sessionToken: string
+) => {
+  const intlayerAPI = getAuthAPI();
+
+  await intlayerAPI.setActiveSession({ sessionToken });
+  await refetchFreshSession(queryClient);
+  await queryClient.invalidateQueries({
+    queryKey: deviceSessionsQueryOptions.queryKey,
+  });
 };
 
 const wouldRedirect = (

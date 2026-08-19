@@ -1,4 +1,7 @@
-import { App_Admin_Users_Path } from '@intlayer/design-system/routes';
+import {
+  App_Admin_Users_Path,
+  App_Home_Path,
+} from '@intlayer/design-system/routes';
 import { createFileRoute, Outlet, useLocation } from '@tanstack/react-router';
 import { getIntlayer } from 'intlayer';
 import { useEffect } from 'react';
@@ -55,7 +58,11 @@ function AdminLayout() {
   }, [pathname, navigate]);
 
   return (
-    <AuthenticationBarrier accessRule="admin" locale={locale}>
+    <AuthenticationBarrier
+      accessRule="admin"
+      locale={locale}
+      redirectionRoute={App_Home_Path}
+    >
       <DashboardContentLayout title={navigation.management.title}>
         <AdminTabBar />
         <Outlet />
