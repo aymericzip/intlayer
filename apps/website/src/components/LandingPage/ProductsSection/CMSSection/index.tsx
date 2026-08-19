@@ -1,9 +1,7 @@
-'use client';
-
 import { Website_CMS_Path } from '@intlayer/design-system/routes';
 import { DatabaseIcon } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
+import { useIntlayer } from 'react-intlayer';
 import { ProductSectionLayout } from '../ProductSectionLayout';
 
 export const CMSSection: FC = () => {

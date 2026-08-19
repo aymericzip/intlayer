@@ -1,7 +1,3 @@
-'use client';
-
-import { SearchTrigger } from '@components/DocPage/Search/SearchTrigger';
-import { Link } from '@components/Link/Link';
 import { Accordion } from '@intlayer/design-system/accordion';
 import { Button } from '@intlayer/design-system/button';
 import { ClickOutsideDiv } from '@intlayer/design-system/click-outside-div';
@@ -16,22 +12,24 @@ import {
 } from '@intlayer/design-system/routes';
 import { cn } from '@intlayer/design-system/utils';
 import { ArrowLeftToLine, Bot } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
 import { type ComponentProps, type FC, useEffect, useState } from 'react';
-import { useScrollPositionPersistence } from '@/hooks/useScrollPositionPersistence';
+import { useIntlayer } from 'react-intlayer';
+import { SearchTrigger } from '~/components/DocPage/Search/SearchTrigger';
+import { Link } from '~/components/Link/Link';
+import { useScrollPositionPersistence } from '~/hooks/useScrollPositionPersistence';
 import {
   FrameworkFilter,
   FrameworkLogo,
   useFrameworkFilter,
 } from './FrameworkFilter';
-import type { CategorizedDocMetadata, Section } from './types';
+import type { NavCategorizedDoc, NavSection } from './types';
 
 type OptionalLinkProps = ComponentProps<typeof Link> & {
   frameworks?: string[];
 };
 
 export const OptionalLink: FC<OptionalLinkProps> = ({
-  href,
+  to,
   isActive,
   className,
   frameworks,
@@ -56,7 +54,7 @@ export const OptionalLink: FC<OptionalLinkProps> = ({
     </span>
   );
 
-  if (!href)
+  if (!to)
     return (
       <span
         className={cn(
@@ -71,7 +69,7 @@ export const OptionalLink: FC<OptionalLinkProps> = ({
 
   return (
     <Link
-      href={href}
+      to={to}
       variant="hoverable"
       color="text"
       roundedSize="lg"
@@ -89,7 +87,7 @@ export const OptionalLink: FC<OptionalLinkProps> = ({
 };
 
 type DocNavListProps = {
-  docData: Section;
+  docData: NavSection;
   activeSlugs: string[];
 };
 
@@ -108,16 +106,16 @@ type DocNavListContentProps = DocNavListProps & {
  * - If the parent is hidden, matching child sections are "promoted" to the parent's level.
  */
 const filterSection = (
-  section: Section,
+  section: NavSection,
   filter: string[] | null,
   parentMatches = true,
   depth = 0,
   inheritedFrameworks?: string[]
-): Section => {
+): NavSection => {
   if (!filter) return section;
 
   const entries = Object.entries(section).flatMap(
-    ([key, data]): [string, CategorizedDocMetadata][] => {
+    ([key, data]): [string, NavCategorizedDoc][] => {
       const sectionHasTags = !!data.frameworks;
       const matchesExplicitly =
         filter?.every((f) => data.frameworks?.includes(f)) ?? false;
@@ -139,7 +137,7 @@ const filterSection = (
                 depth + 1,
                 currentFrameworks
               )
-            ) as [string, CategorizedDocMetadata][])
+            ) as [string, NavCategorizedDoc][])
           : [];
       }
 
@@ -160,7 +158,7 @@ const filterSection = (
 
       if (!hasVisibleContent) return [];
 
-      const dataWithFrameworks: CategorizedDocMetadata = {
+      const dataWithFrameworks: NavCategorizedDoc = {
         ...data,
         frameworks: currentFrameworks,
         subSections: filteredSubSections,
@@ -178,7 +176,7 @@ const filterSection = (
         ) {
           return Object.entries(filteredSubSections) as [
             string,
-            CategorizedDocMetadata,
+            NavCategorizedDoc,
           ][];
         }
 
@@ -189,7 +187,7 @@ const filterSection = (
             [key, { ...dataWithFrameworks, subSections: undefined }],
             ...(Object.entries(filteredSubSections) as [
               string,
-              CategorizedDocMetadata,
+              NavCategorizedDoc,
             ][]),
           ];
         }
@@ -224,8 +222,8 @@ export const DocNavListContent: FC<DocNavListContentProps> = ({
     >
       {Object.keys(filteredDocData).map((key1) => {
         const section1Data = filteredDocData[key1];
-        const sectionDefault = section1Data?.default;
-        const subSections = section1Data?.subSections;
+        const sectionDefault = section1Data.default;
+        const subSections = section1Data.subSections;
         const slugs = sectionDefault?.slugs ?? [];
 
         // Check if this section's own slugs match
@@ -264,18 +262,18 @@ export const DocNavListContent: FC<DocNavListContentProps> = ({
           subSections && Object.keys(subSections).length > 0;
         const isActive = isSelfActive || isSubSectionActive;
         // `deployed: false` renders the section rolled (collapsed); default unrolled.
-        const isDeployed = section1Data?.deployed !== false;
+        const isDeployed = section1Data.deployed !== false;
 
         if (!hasSubSections) {
           return (
             <div key={key1}>
               <OptionalLink
-                href={sectionDefault?.relativeUrl ?? ''}
+                to={sectionDefault?.relativeUrl ?? ''}
                 label={key1}
                 isActive={isSelfActive && !isSubSectionActive}
-                frameworks={section1Data?.frameworks}
+                frameworks={section1Data.frameworks}
               >
-                {section1Data?.title}
+                {section1Data.title}
               </OptionalLink>
             </div>
           );
@@ -286,12 +284,12 @@ export const DocNavListContent: FC<DocNavListContentProps> = ({
             <Accordion
               header={
                 <OptionalLink
-                  href={sectionDefault?.relativeUrl ?? ''}
+                  to={sectionDefault?.relativeUrl ?? ''}
                   label={key1}
                   isActive={isSelfActive && !isSubSectionActive}
-                  frameworks={section1Data?.frameworks}
+                  frameworks={section1Data.frameworks}
                 >
-                  {section1Data?.title}
+                  {section1Data.title}
                 </OptionalLink>
               }
               label={key1}
@@ -303,8 +301,8 @@ export const DocNavListContent: FC<DocNavListContentProps> = ({
               <ul className="mt-4 flex flex-col gap-4 border-neutral border-l-[0.5px] p-1 text-base">
                 {Object.keys(subSections).map((key2) => {
                   const section2Data = subSections[key2];
-                  const sectionDefault = section2Data?.default;
-                  const subSections2 = section2Data?.subSections;
+                  const sectionDefault = section2Data.default;
+                  const subSections2 = section2Data.subSections;
                   const hasSubsections =
                     subSections2 && Object.keys(subSections2).length > 0;
                   const slugs = sectionDefault?.slugs ?? [];
@@ -338,7 +336,7 @@ export const DocNavListContent: FC<DocNavListContentProps> = ({
                           header={
                             <OptionalLink
                               label={key2}
-                              href={sectionDefault?.relativeUrl ?? ''}
+                              to={sectionDefault?.relativeUrl ?? ''}
                               isActive={isSelfActive && !isSubSectionActive}
                               className="block w-full flex-row items-center text-nowrap p-2 text-left text-sm transition-colors hover:text-text"
                               frameworks={section2Data?.frameworks}
@@ -358,7 +356,7 @@ export const DocNavListContent: FC<DocNavListContentProps> = ({
                                   {Object.keys(subSections2).map((key3) => {
                                     const section3Data = subSections2[key3];
                                     const slugs =
-                                      section3Data?.default?.slugs ?? [];
+                                      section3Data.default?.slugs ?? [];
                                     const isActive =
                                       slugs.length > 0 &&
                                       slugs.every(
@@ -370,15 +368,15 @@ export const DocNavListContent: FC<DocNavListContentProps> = ({
                                       <OptionalLink
                                         key={key3}
                                         label={key3}
-                                        href={
-                                          section3Data?.default?.relativeUrl ??
+                                        to={
+                                          section3Data.default?.relativeUrl ??
                                           ''
                                         }
                                         isActive={isActive}
                                         className="block w-full flex-row items-center text-nowrap p-2 text-left text-xs transition-colors hover:text-text"
-                                        frameworks={section3Data?.frameworks}
+                                        frameworks={section3Data.frameworks}
                                       >
-                                        {section3Data?.title}
+                                        {section3Data.title}
                                       </OptionalLink>
                                     );
                                   })}
@@ -388,7 +386,7 @@ export const DocNavListContent: FC<DocNavListContentProps> = ({
                         </Accordion>
                       ) : (
                         <OptionalLink
-                          href={sectionDefault?.relativeUrl ?? ''}
+                          to={sectionDefault?.relativeUrl ?? ''}
                           className="block w-full flex-row items-center text-nowrap p-2 text-left text-sm transition-colors hover:text-text"
                           label={key2}
                           isActive={isActive}
@@ -407,13 +405,13 @@ export const DocNavListContent: FC<DocNavListContentProps> = ({
       })}
 
       <div>
-        <OptionalLink href={Website_Blog_Path} label={blogButton.label.value}>
+        <OptionalLink to={Website_Blog_Path} label={blogButton.label.value}>
           {blogButton?.text}
         </OptionalLink>
       </div>
       <div>
         <OptionalLink
-          href={Website_Doc_Chat_Path}
+          to={Website_Doc_Chat_Path}
           label={chatBotButton.label.value}
           className="flex items-center"
         >
@@ -430,6 +428,12 @@ export const DocNavList: FC<DocNavListProps> = ({ docData, activeSlugs }) => {
   const [isHidden, setIsHidden] = useState(isMobile);
   const { collapseButton } = useIntlayer('doc-nav-list');
   const [selectedFramework, setSelectedFramework] = useFrameworkFilter();
+
+  useEffect(() => {
+    if (isMobile !== undefined) {
+      setIsHidden(isMobile);
+    }
+  }, [isMobile]);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {

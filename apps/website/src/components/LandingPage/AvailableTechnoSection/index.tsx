@@ -1,6 +1,3 @@
-'use client';
-
-import { Link } from '@components/Link/Link';
 import {} from '@intlayer/design-system/api';
 import { useDevice, useScreenWidth } from '@intlayer/design-system/hooks';
 import {
@@ -13,7 +10,7 @@ import {
   Website_Doc_Environment_ViteAndSvelte_Path,
   Website_Doc_Environment_ViteAndVue_Path,
 } from '@intlayer/design-system/routes';
-import { TechLogo, type TechLogoName } from '@intlayer/design-system/tech-logo';
+import { TechLogo } from '@intlayer/design-system/tech-logo';
 import { cn } from '@intlayer/design-system/utils';
 import {
   type MotionValue,
@@ -22,9 +19,10 @@ import {
   useScroll,
   useTransform,
 } from 'framer-motion';
-import { useIntlayer } from 'next-intlayer';
 import type { CSSProperties, FC } from 'react';
 import { useRef, useState } from 'react';
+import { useIntlayer } from 'react-intlayer';
+import { Link } from '~/components/Link/Link';
 
 const BASE_SCREEN_WIDTH = 1500;
 
@@ -86,7 +84,7 @@ const LogoItem: FC<LogoItemProps> = ({
         scale: isMobile ? 1 : scale,
       }}
     >
-      <Link href={route} color="custom" label={label}>
+      <Link to={route} color="custom" label={label}>
         <TechLogo
           name={name}
           className={cn(

@@ -1,5 +1,8 @@
-import { useIntlayer } from 'next-intlayer';
+import { Button } from '@intlayer/design-system/button';
+import { App_Auth_SignIn } from '@intlayer/design-system/routes';
 import type { FC } from 'react';
+import { useIntlayer } from 'react-intlayer';
+import { Link } from '~/components/Link/Link';
 import { AnalyzerPageResults } from './Analyzer/Results/AnalyzerPageResults';
 import { AnalyzerSiteResults } from './Analyzer/Results/AnalyzerSiteResults';
 import { BundleContentField } from './Analyzer/Results/BundleContentField';
@@ -27,6 +30,7 @@ interface AnalyzerResultsSectionProps {
   onPause: () => void;
   onResume: () => void;
   onCancel: () => void;
+  isLoggedIn: boolean;
 }
 
 export const AnalyzerResultsSection: FC<AnalyzerResultsSectionProps> = ({
@@ -46,10 +50,23 @@ export const AnalyzerResultsSection: FC<AnalyzerResultsSectionProps> = ({
   onPause,
   onResume,
   onCancel,
+  isLoggedIn,
 }) => {
-  const { discoveringUrls } = useIntlayer('localization-analyzer');
+  const {
+    fullSiteAudit,
+    loginToAuditFullSite,
+    wantToAnalyzeFullSite,
+    discoveringUrls,
+    discoveringUrlsButton,
+  } = useIntlayer('localization-analyzer');
 
   const hasData = mergedData && Object.keys(mergedData).length > 0;
+  const showFullSiteButton =
+    !recursiveJobId &&
+    !isSingleScanLoading &&
+    !isDiscovering &&
+    !discoveredUrls &&
+    hasData;
   const bundleKey = 'bundleContent' as const;
 
   if (!hasData && !isSingleScanLoading) return null;
@@ -73,6 +90,33 @@ export const AnalyzerResultsSection: FC<AnalyzerResultsSectionProps> = ({
         event={mergedData[`url_unusedBundleContent\\${url}`]}
         isLoading={isSingleScanLoading}
       />
+      {showFullSiteButton && (
+        <div className="mt-6 flex flex-col items-center gap-4 border-neutral border-t border-dotted pt-6">
+          <p className="text-neutral text-sm">{wantToAnalyzeFullSite}</p>
+          {isLoggedIn ? (
+            <Button
+              onClick={onDiscoverUrls}
+              disabled={isSingleScanLoading || !url || isDiscovering}
+              variant="outline"
+              color="text"
+              label={fullSiteAudit.value}
+            >
+              {isDiscovering ? discoveringUrlsButton : fullSiteAudit}
+            </Button>
+          ) : (
+            <Link
+              to={`${App_Auth_SignIn}?redirect_url=${encodeURIComponent(
+                typeof window !== 'undefined' ? window.location.href : ''
+              )}`}
+              color="text"
+              variant="button"
+              label={loginToAuditFullSite.value}
+            >
+              {loginToAuditFullSite}
+            </Link>
+          )}
+        </div>
+      )}
       {isDiscovering && (
         <div className="mt-6 border-neutral border-t border-dotted pt-6 text-center text-sm text-text/60">
           {discoveringUrls}

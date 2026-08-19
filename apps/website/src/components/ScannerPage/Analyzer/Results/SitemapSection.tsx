@@ -1,10 +1,8 @@
-'use client';
-
 import { Globe, Link as LinkIcon, Map as MapIcon } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
 import { useTheme } from 'next-themes';
 import type { FC } from 'react';
 import { memo } from 'react';
+import { useIntlayer } from 'react-intlayer';
 import { createCompOverwrite } from './AnalyzerPageResults';
 import { FieldItem } from './FieldItem';
 import type { MergedData } from './types';

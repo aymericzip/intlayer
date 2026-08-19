@@ -1,13 +1,16 @@
-'use client';
-
-import { Link } from '@components/Link/Link';
-import { getHTMLTextDir, getLocaleName } from '@intlayer/core/localization';
+import {
+  getHTMLTextDir,
+  getLocaleName,
+  getPathWithoutLocale,
+} from '@intlayer/core/localization';
 import { Container } from '@intlayer/design-system/container';
 import { DropDown, type PanelProps } from '@intlayer/design-system/drop-down';
 import { Input } from '@intlayer/design-system/input';
+import { useLocation } from '@tanstack/react-router';
 import { MoveVertical } from 'lucide-react';
-import { useIntlayer, useLocale } from 'next-intlayer';
 import { type FC, useRef } from 'react';
+import { useIntlayer, useLocale } from 'react-intlayer';
+import { Link } from '~/components/Link/Link';
 import { useLocaleSearch } from './useLocaleSearch';
 
 export type LocaleSwitcherProps = {
@@ -31,8 +34,9 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
   let localeName = defaultLocaleName.value as string;
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const { locale, pathWithoutLocale, availableLocales, setLocale } =
-    useLocale();
+  const { locale, availableLocales, setLocale } = useLocale();
+  const { pathname } = useLocation();
+  const pathWithoutLocale = getPathWithoutLocale(pathname, availableLocales);
   const { searchResults, handleSearch } = useLocaleSearch(
     availableLocales,
     locale
@@ -106,11 +110,12 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
                         switchTo({ locale: getLocaleName(localeItem, locale) })
                           .value
                       }
-                      href={pathWithoutLocale}
+                      to={pathWithoutLocale}
                       locale={localeItem}
                       isActive={locale === localeItem} // Add aria-current="page" for accessibility
                       variant="hoverable"
                       color="text"
+                      preload="viewport"
                       replace // Will ensure that the "go back" browser button will redirect to the previous page
                       onClick={() => setLocale(localeItem)}
                     >

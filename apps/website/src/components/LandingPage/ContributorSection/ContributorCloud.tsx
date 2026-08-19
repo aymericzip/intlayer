@@ -1,7 +1,3 @@
-'use client';
-
-import type { Contributor } from '@components/Contributors/ContributorsList';
-import { Link } from '@components/Link/Link';
 import { Avatar } from '@intlayer/design-system/avatar';
 import { H2 } from '@intlayer/design-system/headers';
 import {
@@ -13,7 +9,6 @@ import { cn } from '@intlayer/design-system/utils';
 import { motion } from 'framer-motion';
 import { getHTMLTextDir } from 'intlayer';
 import { ArrowRight } from 'lucide-react';
-import { useIntlayer, useLocale } from 'next-intlayer';
 import {
   type CSSProperties,
   type FC,
@@ -21,6 +16,9 @@ import {
   useRef,
   useState,
 } from 'react';
+import { useIntlayer, useLocale } from 'react-intlayer';
+import type { Contributor } from '~/components/Contributors/ContributorsList';
+import { Link } from '~/components/Link/Link';
 
 type ContributorCloudProps = {
   contributors: Contributor[];
@@ -254,7 +252,7 @@ export const ContributorCloud: FC<ContributorCloudProps> = ({
             <p className="text-base text-neutral">{subtitle}</p>
             <div className="flex gap-2">
               <Link
-                href={External_Discord}
+                to={External_Discord}
                 label={discordLinkLabel.value}
                 color="text"
                 variant="button-outlined"
@@ -267,7 +265,7 @@ export const ContributorCloud: FC<ContributorCloudProps> = ({
                 </span>
               </Link>
               <Link
-                href={Website_Contributors_Path}
+                to={Website_Contributors_Path}
                 label={seeAllLink.value}
                 color="text"
                 variant="button"

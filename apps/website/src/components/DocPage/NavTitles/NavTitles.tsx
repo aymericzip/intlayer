@@ -1,9 +1,8 @@
-'use client';
-
-import { Link } from '@components/Link/Link';
 import { useGetElementById } from '@intlayer/design-system/hooks';
-import { useIntlayer, useLocale } from 'next-intlayer';
+import { useLocation } from '@tanstack/react-router';
 import { type FC, useEffect, useRef } from 'react';
+import { useIntlayer } from 'react-intlayer';
+import { Link } from '~/components/Link/Link';
 import { useActiveSection } from '../useActiveSection';
 import { useTitlesTree } from '../useTitlesTree';
 
@@ -14,7 +13,7 @@ type NavTitles2Props = {
 
 const NavTitles2: FC<NavTitles2Props> = ({ title2, activeSectionsId }) => {
   const { linkLabel } = useIntlayer('nav-titles');
-  const { pathWithoutLocale } = useLocale();
+  const { pathname } = useLocation();
 
   return (
     <ul className="my-3 flex w-full min-w-52 flex-col gap-2 border-neutral border-l-[0.5px] pl-3 text-text/80">
@@ -25,7 +24,7 @@ const NavTitles2: FC<NavTitles2Props> = ({ title2, activeSectionsId }) => {
         return (
           <li key={id}>
             <Link
-              href={`${pathWithoutLocale}#${id}`}
+              to={{ pathname: pathname, hash: id } as any}
               label={`${linkLabel}: ${h3.innerText}`}
               aria-current={isActive ? 'location' : undefined}
               color="text"
@@ -55,7 +54,7 @@ const NavTitles2: FC<NavTitles2Props> = ({ title2, activeSectionsId }) => {
 
 export const NavTitles: FC = () => {
   const navRef = useRef<HTMLDivElement>(null);
-  const { pathWithoutLocale } = useLocale();
+  const { pathname } = useLocation();
   const { linkLabel } = useIntlayer('nav-titles');
 
   // Use the custom hook to extract and organize headings
@@ -116,7 +115,7 @@ export const NavTitles: FC = () => {
             <li key={id}>
               <Link
                 label={`${linkLabel.value}: ${h2.innerText}`}
-                href={`${pathWithoutLocale}#${id}`}
+                to={{ pathname: pathname, hash: id } as any}
                 color="text"
                 roundedSize="lg"
                 variant="invisible-link"

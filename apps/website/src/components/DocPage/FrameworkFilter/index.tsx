@@ -1,5 +1,3 @@
-'use client';
-
 import {} from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
 import { usePersistedStore } from '@intlayer/design-system/hooks';
@@ -8,8 +6,8 @@ import { PopoverStatic } from '@intlayer/design-system/popover';
 import { TechLogo, type TechLogoName } from '@intlayer/design-system/tech-logo';
 import { cn } from '@intlayer/design-system/utils';
 import { Filter } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
 import { type ComponentProps, type FC, useState } from 'react';
+import { useIntlayer } from 'react-intlayer';
 
 export type FrameworkLogoKey =
   | 'nextjs'

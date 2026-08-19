@@ -1,5 +1,3 @@
-'use client';
-
 import {
   Form,
   FormButton,
@@ -7,9 +5,9 @@ import {
   useForm,
 } from '@intlayer/design-system/form';
 import { cn } from '@intlayer/design-system/utils';
-import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
-import { useSearchParamState } from '@/hooks/useSearchParamState';
+import { useIntlayer } from 'react-intlayer';
+import { useSearchParamState } from '~/hooks/useSearchParamState';
 import type { AnalyzerFormData } from './useAnalyzerUrlSchema';
 import { useAnalyzerUrlSchema } from './useAnalyzerUrlSchema';
 

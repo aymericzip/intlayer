@@ -1,5 +1,3 @@
-'use client';
-
 import { Button } from '@intlayer/design-system/button';
 import { DictionaryEditor } from '@intlayer/design-system/dictionary-editor';
 import {
@@ -18,8 +16,8 @@ import {
   useFocusUnmergedDictionary,
 } from '@intlayer/editor-react';
 import { PencilRuler } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
 import { type FC, useState } from 'react';
+import { useIntlayer } from 'react-intlayer';
 import { dictionaryListDrawerIdentifier } from '../DictionaryListDrawer/dictionaryListDrawerIdentifier';
 import {
   getDrawerIdentifier,

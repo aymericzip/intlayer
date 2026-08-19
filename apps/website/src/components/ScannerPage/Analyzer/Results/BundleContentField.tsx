@@ -1,13 +1,11 @@
-'use client';
-
-import { Link } from '@components/Link/Link';
 import { Tag } from '@intlayer/design-system/tag';
 import { cn } from '@intlayer/design-system/utils';
 import { Package } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
 import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
 import { memo } from 'react';
+import { useIntlayer } from 'react-intlayer';
+import { Link } from '~/components/Link/Link';
 import { createCompOverwrite } from './AnalyzerPageResults';
 import { FieldItem } from './FieldItem';
 import type { AuditEvent } from './types';
@@ -142,7 +140,7 @@ const BundleSummaryLabel: FC<BundleSummaryLabelProps> = ({ summary }) => {
                           {chunk.isMain ? chunkTable.main : chunkTable.lazy}
                         </Tag>
                         <Link
-                          href={chunk.url}
+                          to={chunk.url}
                           target="_blank"
                           label={chunk.filename}
                           rel="noopener noreferrer"

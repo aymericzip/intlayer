@@ -1,8 +1,8 @@
-import { BackgroundLayout } from '@components/BackgroundLayout';
-import { CommonQuestionsSection } from '@components/LandingPage/CommonQuestionsSection/CommonQuestions';
 import { Loader } from '@intlayer/design-system/loader';
-import { useIntlayer } from 'next-intlayer/server';
 import { type FC, lazy, Suspense } from 'react';
+import { useIntlayer } from 'react-intlayer';
+import { BackgroundLayout } from '~/components/BackgroundLayout';
+import { CommonQuestionsSection } from '~/components/LandingPage/CommonQuestionsSection/CommonQuestions';
 import { HeroSection } from './HeroSection';
 
 const AvailableTechnoSection = lazy(() =>

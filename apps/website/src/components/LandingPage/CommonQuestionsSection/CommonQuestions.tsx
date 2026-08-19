@@ -1,13 +1,11 @@
-'use client';
-
-import { Link } from '@components/Link/Link';
 import { Container } from '@intlayer/design-system/container';
 import { MaxHeightSmoother } from '@intlayer/design-system/max-height-smoother';
 import { Website_FrequentQuestions_Path } from '@intlayer/design-system/routes';
 import { cn } from '@intlayer/design-system/utils';
 import { ArrowRight } from 'lucide-react';
-import { type IntlayerNode, useIntlayer } from 'next-intlayer';
 import { type FC, useMemo, useSyncExternalStore } from 'react';
+import { type IntlayerNode, useIntlayer } from 'react-intlayer';
+import { Link } from '~/components/Link/Link';
 
 const QuestionItem: FC<{
   question: IntlayerNode;
@@ -64,7 +62,7 @@ const QuestionItem: FC<{
             <span itemProp="text">{answer}</span>
             {callToAction && (
               <Link
-                href={callToAction.url.value}
+                to={callToAction.url.value}
                 label={callToAction.label.value}
                 color="text"
                 className="text-sm"
@@ -152,7 +150,7 @@ export const CommonQuestionsSection: FC = () => {
       </div>
 
       <Link
-        href={Website_FrequentQuestions_Path}
+        to={Website_FrequentQuestions_Path}
         label={allFrequentQuestionLink.label.value}
         color="text"
         variant="button"

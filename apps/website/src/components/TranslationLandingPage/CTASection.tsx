@@ -1,12 +1,10 @@
-'use client';
-
-import { Link } from '@components/Link/Link';
 import { Container } from '@intlayer/design-system/container';
 import { CodeBlock } from '@intlayer/design-system/ide';
 import { Website_Doc_CLI_Fill_Path } from '@intlayer/design-system/routes';
 import { cn } from '@intlayer/design-system/utils';
-import { useIntlayer } from 'next-intlayer';
 import type { FC, ReactNode } from 'react';
+import { useIntlayer } from 'react-intlayer';
+import { Link } from '~/components/Link/Link';
 
 type CodeBlockWrapperProps = {
   title: ReactNode;
@@ -70,7 +68,7 @@ export const CTASection: FC = () => {
             </p>
             <div className="mt-5 flex flex-col gap-3 sm:flex-row">
               <Link
-                href="#commands"
+                to="#commands"
                 variant="button-outlined"
                 color="text"
                 className="w-full sm:w-auto"
@@ -85,7 +83,7 @@ export const CTASection: FC = () => {
               </Link>
 
               <Link
-                href={Website_Doc_CLI_Fill_Path}
+                to={Website_Doc_CLI_Fill_Path}
                 variant="button"
                 color="text"
                 className="w-full sm:w-auto"

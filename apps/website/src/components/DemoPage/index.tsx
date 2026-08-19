@@ -1,6 +1,6 @@
-import type { IntlayerNode } from 'next-intlayer';
-import { useIntlayer } from 'next-intlayer/server';
 import type { FC, ReactNode } from 'react';
+import type { IntlayerNode } from 'react-intlayer';
+import { useIntlayer } from 'react-intlayer';
 import { AnimatedDiv } from './AnimatedDiv';
 
 const Item: FC<{

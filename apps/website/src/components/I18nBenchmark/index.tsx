@@ -1,6 +1,3 @@
-'use client';
-
-import { Link } from '@components/Link/Link';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import { H2 } from '@intlayer/design-system/headers';
@@ -20,9 +17,10 @@ import { cn } from '@intlayer/design-system/utils';
 import { useQuery } from '@tanstack/react-query';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ChevronRight } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
 import { useTheme } from 'next-themes';
 import { useEffect, useMemo, useState } from 'react';
+import { useIntlayer } from 'react-intlayer';
+import { Link } from '~/components/Link/Link';
 import { fetchBenchmarkData } from './benchmarkData';
 import { ChartComponent, useLogoImages } from './ChartComponent';
 import {
@@ -218,7 +216,7 @@ export const I18nBenchmark = ({
     isError,
   } = useQuery({
     queryKey: ['benchmarkData', framework, category],
-    queryFn: () => fetchBenchmarkData(framework, category),
+    queryFn: () => fetchBenchmarkData(framework, category as any),
     staleTime: 1000 * 60 * 60, // 1 hour
   });
 
@@ -404,7 +402,7 @@ export const I18nBenchmark = ({
                 variant="button-outlined"
                 color="text"
                 size="sm"
-                href={External_Github_i18n_benchmark}
+                to={External_Github_i18n_benchmark}
               >
                 {seeBenchmark}
               </Link>
@@ -413,7 +411,7 @@ export const I18nBenchmark = ({
                 variant="button"
                 color="text"
                 size="sm"
-                href={Website_Benchmark_Path}
+                to={Website_Benchmark_Path}
               >
                 <span className="flex items-center gap-1">
                   {readFullReport}
@@ -579,9 +577,7 @@ export const I18nBenchmark = ({
                   </div>
                   {!hideControls && (
                     <div className="mt-6 flex flex-col gap-2 border-neutral/20 border-t pt-2 dark:border-neutral/10">
-                      <p className="font-semibold text-sm">
-                        {renderLabel.value}
-                      </p>
+                      <p className="font-semibold text-sm">{renderLabel}</p>
                       <SwitchSelector
                         size="sm"
                         choices={[
@@ -604,7 +600,7 @@ export const I18nBenchmark = ({
       </div>
 
       {/* Library selector — grid layout */}
-      <div className="max-h-70 overflow-y-auto">
+      <div className="max-h-60 overflow-y-auto">
         <div className="flex flex-wrap">
           {allLibs.map((lib, index) => (
             <div

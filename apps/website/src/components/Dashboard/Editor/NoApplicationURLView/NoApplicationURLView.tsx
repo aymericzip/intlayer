@@ -1,8 +1,8 @@
-import { Link } from '@components/Link/Link';
 import { H3 } from '@intlayer/design-system/headers';
 import { Website_Doc_IntlayerCMS_Path } from '@intlayer/design-system/routes';
-import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
+import { useIntlayer } from 'react-intlayer';
+import { Link } from '~/components/Link/Link';
 
 export const NoApplicationURLView: FC = () => {
   const { title, description, documentationLink } = useIntlayer(
@@ -15,7 +15,7 @@ export const NoApplicationURLView: FC = () => {
       <p className="block text-neutral">{description}</p>
       <Link
         label={documentationLink.label.value}
-        href={`${Website_Doc_IntlayerCMS_Path}#configuration`}
+        to={`${Website_Doc_IntlayerCMS_Path}#configuration`}
         color="text"
         className="ml-auto"
         variant="button"

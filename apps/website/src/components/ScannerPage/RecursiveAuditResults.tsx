@@ -2,8 +2,8 @@ import { Button } from '@intlayer/design-system/button';
 import { Tag } from '@intlayer/design-system/tag';
 import { cn } from '@intlayer/design-system/utils';
 import { ChevronDown, ChevronRight, Pause, Play, Square } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
 import { type FC, memo, useState } from 'react';
+import { useIntlayer } from 'react-intlayer';
 import { EventTag } from './Analyzer/Results/FieldItem';
 import type { AuditEvent } from './Analyzer/Results/types';
 

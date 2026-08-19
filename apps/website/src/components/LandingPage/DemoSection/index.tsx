@@ -1,11 +1,9 @@
-'use client';
-
 import {
   SwitchSelector,
   type SwitchSelectorChoices,
 } from '@intlayer/design-system/switch-selector';
-import { useIntlayer } from 'next-intlayer';
 import { type FC, useState } from 'react';
+import { useIntlayer } from 'react-intlayer';
 import { DemoCodeSandbox } from './DemoCodeSandbox';
 
 enum DemoType {

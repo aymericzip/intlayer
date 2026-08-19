@@ -1,9 +1,7 @@
-'use client';
-
 import { useSession } from '@intlayer/design-system/api';
-import { useIntlayer } from 'next-intlayer';
 import { type FC, useEffect, useMemo, useRef, useState } from 'react';
-import { useSearchParamState } from '@/hooks/useSearchParamState';
+import { useIntlayer } from 'react-intlayer';
+import { useSearchParamState } from '~/hooks/useSearchParamState';
 import { AnalyzerLoading } from './Analyzer/AnalyzerLoading';
 import { AnalyzerForm } from './Analyzer/Form/AnalyzerForm';
 import { useAnalyzerUrlSchema } from './Analyzer/Form/useAnalyzerUrlSchema';
@@ -13,6 +11,7 @@ import { useRecursiveScan } from './useRecursiveScan';
 
 export const LocalizationAnalyzer: FC = () => {
   const { session } = useSession();
+  const isLoggedIn = !!session;
 
   const { globalError } = useIntlayer('localization-analyzer');
 
@@ -120,6 +119,7 @@ export const LocalizationAnalyzer: FC = () => {
         onPause={handlePauseRecursiveAudit}
         onResume={handleResumeRecursiveAudit}
         onCancel={handleCancelRecursiveAudit}
+        isLoggedIn={isLoggedIn}
       />
 
       {error && <p className="text-error">{error}</p>}

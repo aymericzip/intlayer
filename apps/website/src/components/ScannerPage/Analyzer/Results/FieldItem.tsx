@@ -1,5 +1,3 @@
-'use client';
-
 import { CodeBlock } from '@intlayer/design-system/ide';
 import { Loader } from '@intlayer/design-system/loader';
 import { Popover } from '@intlayer/design-system/popover';

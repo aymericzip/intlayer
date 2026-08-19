@@ -1,6 +1,4 @@
-'use client';
-
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useLocation, useNavigate } from '@tanstack/react-router';
 import { useCallback, useEffect, useState } from 'react';
 
 type ParamType = 'string' | 'number' | 'boolean';
@@ -86,8 +84,9 @@ const valueToUrlString = (
 export const useSearchParamState = <TConfig extends ConfigMap>(
   config: TConfig
 ) => {
-  const router = useRouter();
-  const searchParams = useSearchParams();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
 
   const computeInitialState = useCallback((): StateFromConfig<TConfig> => {
     const nextState: Record<string, unknown> = {};
@@ -95,16 +94,15 @@ export const useSearchParamState = <TConfig extends ConfigMap>(
       nextState[key] = parseValueFromUrl(searchParams.get(key), cfg);
     }
     return nextState as StateFromConfig<TConfig>;
-  }, [config, searchParams]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [config, location.search]);
 
   const [state, setState] =
     useState<StateFromConfig<TConfig>>(computeInitialState);
 
-  // Keep local state in sync if the URL changes (e.g., back/forward navigation)
   useEffect(() => {
     setState((prev) => {
       const next = computeInitialState();
-      // Shallow compare to prevent unnecessary re-renders
       let changed = false;
       for (const key of Object.keys(next) as Array<keyof typeof next>) {
         if (prev[key] !== next[key]) {
@@ -118,16 +116,15 @@ export const useSearchParamState = <TConfig extends ConfigMap>(
 
   const updateUrl = useCallback(
     (updates: Partial<Record<keyof TConfig, string | null>>) => {
-      const params = new URLSearchParams(searchParams.toString());
+      const params = new URLSearchParams(location.search);
       for (const [key, value] of Object.entries(updates)) {
         if (value === null || typeof value !== 'string') params.delete(key);
         else params.set(key, value);
       }
       const qs = params.toString();
-      const url = qs ? `?${qs}` : '?';
-      router.push(url);
+      navigate({ search: qs ? `?${qs}` : undefined } as any);
     },
-    [router, searchParams]
+    [navigate, location.search]
   );
 
   const setParam = useCallback(

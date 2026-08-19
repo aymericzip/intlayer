@@ -4,27 +4,26 @@ import {
   App_Pricing,
   Website_Home,
 } from '@intlayer/design-system/routes';
+import { createServerFn } from '@tanstack/react-start';
+import { staticFunctionMiddleware } from '@tanstack/start-static-server-functions';
 
-/**
- * Fetches pricing dynamically.
- *
- * `'use cache'` is required by Cache Components: an uncached `fetch` during a
- * prerender returns a promise that never resolves, which would stall every page
- * rendering a pricing table until the build times the page out. `fetch`-level
- * `cache: 'force-cache'` no longer opts into the data cache on its own.
- */
-export const getPricing = async () => {
-  'use cache';
+export const getPricing = createServerFn()
+  // .middleware([staticFunctionMiddleware])
+  .handler(async () => {
+    try {
+      if (
+        !process.env.VITE_STRIPE_PUBLISHABLE_KEY ||
+        process.env.VITE_STRIPE_PUBLISHABLE_KEY.length === 0
+      ) {
+        return null;
+      }
 
-  try {
-    const pricingDataResponse = await getStripeAPI().getPricing({});
-
-    return pricingDataResponse.data;
-  } catch (error) {
-    console.error('Failed to fetch pricing:', error);
-    return null;
-  }
-};
+      const pricingDataResponse = await getStripeAPI().getPricing();
+      return pricingDataResponse.data ?? null;
+    } catch {
+      return null;
+    }
+  });
 
 /**
  * Formatter utility to format the pricing data into Schema.org Offer objects.

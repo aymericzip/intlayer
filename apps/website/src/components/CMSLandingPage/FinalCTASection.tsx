@@ -1,11 +1,10 @@
-'use client';
-
-import { Link } from '@components/Link/Link';
+import { LinkColor, LinkVariant } from '@intlayer/design-system/link';
 import { App_Onboarding, App_Pricing } from '@intlayer/design-system/routes';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
+import { useIntlayer } from 'react-intlayer';
+import { Link } from '~/components/Link/Link';
 
 const fadeUp = {
   initial: { opacity: 0, y: 24 },
@@ -41,7 +40,7 @@ export const FinalCTASection: FC = () => {
             className="flex flex-col justify-center gap-4 sm:flex-row"
           >
             <Link
-              href={App_Pricing}
+              to={App_Pricing}
               variant="button-outlined"
               color="text-inverse"
               label={finalCtaSecondary.value}
@@ -52,7 +51,7 @@ export const FinalCTASection: FC = () => {
             </Link>
 
             <Link
-              href={App_Onboarding}
+              to={App_Onboarding}
               variant="button"
               color="text-inverse"
               label={finalCtaPrimary.value}

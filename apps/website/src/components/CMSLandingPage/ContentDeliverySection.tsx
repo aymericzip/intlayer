@@ -1,11 +1,9 @@
-'use client';
-
 import { Container } from '@intlayer/design-system/container';
 import { Tag } from '@intlayer/design-system/tag';
 import { m, type Variants } from 'framer-motion';
 import { RefreshCw, Server, Zap } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
 import type { FC, ReactNode } from 'react';
+import { useIntlayer } from 'react-intlayer';
 
 // New, cleaner variants using Spring physics
 const containerVariants: Variants = {

@@ -1,5 +1,3 @@
-'use client';
-
 import { useGetElementById } from '@intlayer/design-system/hooks';
 import { type FC, useRef } from 'react';
 import { useActiveSection } from '../useActiveSection';

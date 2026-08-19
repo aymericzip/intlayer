@@ -9,8 +9,8 @@ import {
   useForm,
 } from '@intlayer/design-system/form';
 import { getIntlayer } from 'intlayer';
-import { useIntlayer } from 'next-intlayer';
 import { type FC, useEffect, useState } from 'react';
+import { useIntlayer } from 'react-intlayer';
 import { z } from 'zod';
 
 type CommentStatus = 'pending' | 'approved' | 'rejected';
@@ -31,7 +31,7 @@ type BlogCommentSectionProps = {
   blogSlug: string;
 };
 
-const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL ?? '';
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL ?? '';
 const COMMENTS_API_BASE = `${BACKEND_URL}/api/blog-comments`;
 
 const fetchApprovedComments = async (
@@ -195,12 +195,12 @@ export const BlogCommentSection: FC<BlogCommentSectionProps> = ({
   };
 
   return (
-    <section className="mt-12 border-border border-t border-dotted pt-10">
+    <section className="mt-12 border-border border-t pt-10">
       <h3 className="mb-6 font-medium text-lg text-text">{content.comments}</h3>
 
       {/* Approved comments list */}
       {comments.length === 0 && submitState !== 'success' ? (
-        <p className="mb-8 text-neutral text-sm">
+        <p className="mb-8 border-dotted text-neutral text-sm">
           {content.noCommentsYetBeThe}
         </p>
       ) : (

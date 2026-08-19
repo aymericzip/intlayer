@@ -1,10 +1,8 @@
-'use client';
-
 import { Container } from '@intlayer/design-system/container';
 import { m } from 'framer-motion';
 import { Check, Minus } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
+import { useIntlayer } from 'react-intlayer';
 
 const fadeUp = {
   initial: { opacity: 0, y: 24 },

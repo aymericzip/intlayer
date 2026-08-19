@@ -1,6 +1,6 @@
 import { Code, DollarSign, ListTree, Pencil, Timer, Type } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer/server';
 import type { FC } from 'react';
+import { useIntlayer } from 'react-intlayer';
 import { AnimatedDiv } from './AnimatedDiv';
 
 const iconKeyMap = {

@@ -1,7 +1,18 @@
 @import "@intlayer/design-system/css";
 @import "tailwindcss";
+/* Inlined rather than linked separately: as their own <link> elements these
+   blocked the first render for a round trip each, for a few KB of rules. */
 @import "./shiki.css";
 @import "./monaco.css";
+
+@media (min-width: 1024px) {
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
 
 @layer base {
   /* 1. Standard Scale (Landing Page) */
@@ -48,15 +59,6 @@
   }
   50% {
     transform: translateY(var(--float-distance, 10px));
-  }
-}
-
-@media (min-width: 1024px) {
-  .no-scrollbar {
-    scrollbar-width: none;
-  }
-  .no-scrollbar::-webkit-scrollbar {
-    display: none;
   }
 }
 

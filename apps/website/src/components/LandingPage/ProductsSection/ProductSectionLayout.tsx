@@ -1,9 +1,7 @@
-'use client';
-
-import { Link } from '@components/Link/Link';
-import { Tag, type TagColor } from '@intlayer/design-system/tag';
+import { Tag } from '@intlayer/design-system/tag';
 import { ArrowRightIcon } from 'lucide-react';
 import type { FC, ReactNode } from 'react';
+import { Link } from '~/components/Link/Link';
 
 export interface ProductSectionLayoutProps {
   tag: ReactNode;
@@ -50,7 +48,7 @@ export const ProductSectionLayout: FC<ProductSectionLayoutProps> = ({
       {/* CTA Button */}
       <div className="flex w-full justify-end">
         <Link
-          href={cta.href}
+          to={cta.href}
           isExternalLink={cta.isExternal}
           target={cta.isExternal ? '_blank' : undefined}
           variant="button"

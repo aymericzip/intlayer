@@ -1,8 +1,8 @@
-import { Link } from '@components/Link/Link';
 import { PopoverStatic } from '@intlayer/design-system/popover';
 import { Globe } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer/server';
 import type { FC } from 'react';
+import { useIntlayer } from 'react-intlayer';
+import { Link } from '~/components/Link/Link';
 
 type ApplicationShowcaseMessageProps = {
   applicationShowcaseUrl: string;
@@ -18,7 +18,7 @@ export const ApplicationShowcaseMessage: FC<
   return (
     <PopoverStatic identifier="application-showcase">
       <Link
-        href={applicationShowcaseUrl}
+        to={applicationShowcaseUrl}
         label={label.value}
         color="text"
         className="flex p-2"

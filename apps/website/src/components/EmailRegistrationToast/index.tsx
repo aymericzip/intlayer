@@ -1,5 +1,3 @@
-'use client';
-
 import type { EmailsList } from '@intlayer/backend';
 import { useSubscribeToNewsletter, useUser } from '@intlayer/design-system/api';
 import { Container } from '@intlayer/design-system/container';
@@ -12,8 +10,8 @@ import {
 import { useIsMounted, usePersistedStore } from '@intlayer/design-system/hooks';
 import { cn } from '@intlayer/design-system/utils';
 import { Mail, X } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
 import { type FC, useEffect, useReducer, useRef } from 'react';
+import { useIntlayer } from 'react-intlayer';
 import { type EmailSchemaValue, useEmailSchema } from './useEmailSchema';
 
 const MIN_VISITS_TO_SHOW = 3;

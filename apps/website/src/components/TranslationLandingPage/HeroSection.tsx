@@ -1,6 +1,3 @@
-'use client';
-
-import { Link } from '@components/Link/Link';
 import { Container } from '@intlayer/design-system/container';
 import { CodeBlock } from '@intlayer/design-system/ide';
 import { Website_Doc_CLI_Fill_Path } from '@intlayer/design-system/routes';
@@ -16,8 +13,9 @@ import {
   Server,
   Sparkles,
 } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
 import type { FC, ReactNode } from 'react';
+import { useIntlayer } from 'react-intlayer';
+import { Link } from '~/components/Link/Link';
 
 type CodeBlockWrapperProps = {
   title: ReactNode;
@@ -81,7 +79,7 @@ export const HeroSection: FC = () => {
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <motion.div
           aria-hidden
-          className="absolute -top-24 left-1/2 h-120 w-180 -translate-x-1/2 rounded-full bg-primary/15 blur-3xl"
+          className="absolute -top-24 left-1/2 h-129 w-180 -translate-x-1/2 rounded-full bg-primary/15 blur-3xl"
           animate={reduced ? undefined : { y: [0, 18, 0], scale: [1, 1.03, 1] }}
           transition={
             reduced
@@ -148,7 +146,7 @@ export const HeroSection: FC = () => {
 
             <div className="mt-20 flex flex-col gap-3 sm:flex-row sm:items-center">
               <Link
-                href="#commands"
+                to="#commands"
                 variant="button-outlined"
                 color="text"
                 className="w-full sm:w-auto"
@@ -158,7 +156,7 @@ export const HeroSection: FC = () => {
               </Link>
 
               <Link
-                href={Website_Doc_CLI_Fill_Path}
+                to={Website_Doc_CLI_Fill_Path}
                 variant="button"
                 color="text"
                 className="w-full sm:w-auto"

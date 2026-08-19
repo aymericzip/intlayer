@@ -1,5 +1,3 @@
-'use client';
-
 import { IDE } from '@intlayer/design-system/ide';
 import { WithResizer } from '@intlayer/design-system/with-resizer';
 import type { FC } from 'react';

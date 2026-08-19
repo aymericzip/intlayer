@@ -1,6 +1,3 @@
-'use client';
-
-import { Link } from '@components/Link/Link';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import { useCopyToClipboard } from '@intlayer/design-system/copy-to-clipboard';
@@ -12,8 +9,9 @@ import {
 } from '@intlayer/design-system/routes';
 import { Tag } from '@intlayer/design-system/tag';
 import { ArrowRight, Check, Copy } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
+import { useIntlayer } from 'react-intlayer';
+import { Link } from '~/components/Link/Link';
 import packageJSON from '../../../../package_mock.json' with { type: 'json' };
 import { TechLogos } from './TechLogos';
 
@@ -52,7 +50,7 @@ export const HeroSection: FC = () => {
                 {whatsNew}
               </Tag>
               <Link
-                href={Website_ReleasesV9_Path}
+                to={Website_ReleasesV9_Path}
                 color="neutral"
                 label={whatsNewLabel.value}
               >
@@ -104,7 +102,7 @@ export const HeroSection: FC = () => {
             style={{ animationDelay: '0.8s' }}
           >
             <Link
-              href={External_Github}
+              to={External_Github}
               variant="button-outlined"
               color="text"
               label={supportButton.value}
@@ -116,7 +114,7 @@ export const HeroSection: FC = () => {
             </Link>
 
             <Link
-              href={Website_Doc_Path}
+              to={Website_Doc_Path}
               variant="button"
               color="text"
               label={getStartedButton.value}

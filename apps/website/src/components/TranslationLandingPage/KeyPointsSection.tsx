@@ -1,5 +1,3 @@
-'use client';
-
 import { Container } from '@intlayer/design-system/container';
 import { motion, type Variants } from 'framer-motion';
 import {
@@ -10,8 +8,8 @@ import {
   Layers,
   Sparkles,
 } from 'lucide-react';
-import { type IntlayerNode, useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
+import { type IntlayerNode, useIntlayer } from 'react-intlayer';
 
 type IconMap = {
   [key: string]: FC<{ className?: string }>;

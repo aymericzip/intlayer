@@ -359,7 +359,7 @@ export const navbarContent = {
           pt: 'Doc',
           hi: 'डॉक',
           ar: 'وثيقة',
-          ru: 'Документация',
+          ru: 'Документ',
           tr: 'Doküman',
           pl: 'Dokumentacja',
           id: 'Dokumentasi',

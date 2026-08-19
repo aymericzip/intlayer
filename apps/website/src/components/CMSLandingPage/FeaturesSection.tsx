@@ -1,5 +1,3 @@
-'use client';
-
 import {
   GitMerge,
   Globe,
@@ -8,8 +6,8 @@ import {
   Users,
   Webhook,
 } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
 import type { FC, ReactNode } from 'react';
+import { useIntlayer } from 'react-intlayer';
 import { AnimatedDiv } from './AnimatedDiv';
 
 const iconMap: Record<string, ReactNode> = {

@@ -1,11 +1,9 @@
-'use client';
-
-import { Link } from '@components/Link/Link';
 import { Popover } from '@intlayer/design-system/popover';
 import { getLocalizedUrl } from 'intlayer';
 import { Languages } from 'lucide-react';
-import { useIntlayer, useLocale, useLocaleCookie } from 'next-intlayer';
 import type { FC } from 'react';
+import { useIntlayer, useLocale, useLocaleStorage } from 'react-intlayer';
+import { Link } from '~/components/Link/Link';
 
 type TranslatedContentMessageProps = {
   pageUrl: string;
@@ -14,7 +12,7 @@ type TranslatedContentMessageProps = {
 export const TranslatedContentMessage: FC<TranslatedContentMessageProps> = ({
   pageUrl,
 }) => {
-  const { setLocaleCookie } = useLocaleCookie();
+  const { setLocale } = useLocaleStorage();
   const { locale, defaultLocale } = useLocale();
   const localizedUrl = getLocalizedUrl(pageUrl, defaultLocale);
   const { message, link } = useIntlayer('translated-content-message');
@@ -33,11 +31,11 @@ export const TranslatedContentMessage: FC<TranslatedContentMessageProps> = ({
       >
         <p>{message}</p>
         <Link
-          href={localizedUrl}
+          to={localizedUrl}
           locale={defaultLocale}
           label={link.label.value}
           color="text"
-          onClick={() => setLocaleCookie(defaultLocale)}
+          onClick={() => setLocale(defaultLocale)}
         >
           {link.content}
         </Link>

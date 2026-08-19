@@ -1,5 +1,3 @@
-'use client';
-
 import { IDE } from '@intlayer/design-system/ide';
 import { SwitchSelector } from '@intlayer/design-system/switch-selector';
 import { type FC, useState } from 'react';

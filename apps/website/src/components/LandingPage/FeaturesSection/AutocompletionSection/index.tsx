@@ -1,9 +1,7 @@
-'use client';
-
 import { Container } from '@intlayer/design-system/container';
 import { AutoCompleteTextarea } from '@intlayer/design-system/text-area';
-import { useIntlayer } from 'next-intlayer';
 import { type FC, useState } from 'react';
+import { useIntlayer } from 'react-intlayer';
 
 const getTextContent = (text: string, textProgress: number) => {
   // Pleat text of 3 characters

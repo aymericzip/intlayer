@@ -237,10 +237,6 @@ const docDataContent: Dictionary = {
               title: 'Self-hosting',
               default: getDocMetadata('./docs/en/self_hosting.md'),
             },
-            'live-sync': {
-              title: 'Live sync',
-              default: getDocMetadata('./docs/en/live-sync.md'),
-            },
             analytics: {
               title: 'Analytics',
               default: getDocMetadata('./docs/en/analytics.md'),

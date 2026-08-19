@@ -1,11 +1,9 @@
-'use client';
-
 import { Container } from '@intlayer/design-system/container';
 import { CodeBlock } from '@intlayer/design-system/ide';
 import { motion, type Variants } from 'framer-motion';
 import { Braces, FileText, Languages } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
+import { useIntlayer } from 'react-intlayer';
 
 type IconMap = {
   [key: string]: FC<{ className?: string }>;

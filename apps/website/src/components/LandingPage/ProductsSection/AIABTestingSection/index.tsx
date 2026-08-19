@@ -1,9 +1,7 @@
-'use client';
-
 import { External_AI_Landing_Page } from '@intlayer/design-system/routes';
 import { TestTubeIcon } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
+import { useIntlayer } from 'react-intlayer';
 import { ProductSectionLayout } from '../ProductSectionLayout';
 
 export const AIABTestingSection: FC = () => {

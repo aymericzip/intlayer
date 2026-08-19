@@ -1,23 +1,58 @@
 import type { DocKey, DocMetadata } from '@intlayer/docs';
 import { getIntlayer, Locales, type LocalesValues } from 'intlayer';
-import type { CategorizedDocMetadata, Section } from './types';
+import type { NavCategorizedDoc, NavSection, Section } from './types';
 
 export const getDocData = (locale: LocalesValues = Locales.ENGLISH): Section =>
   getIntlayer('doc-data', locale) satisfies Section;
 
+/**
+ * Reduces a documentation tree to the fields the sidebar and breadcrumb read.
+ *
+ * The full tree carries the complete metadata of every page — description,
+ * keywords, revision history, GitHub locations — and is serialized into every
+ * documentation page. Trimming it removes the bulk of that payload without
+ * changing anything the navigation renders.
+ *
+ * @param section - Full documentation tree, as returned by `getDocData`.
+ * @returns The same tree, holding navigation fields only.
+ */
+export const toNavSection = (section: Section): NavSection =>
+  Object.fromEntries(
+    Object.entries(section).map(([key, data]): [string, NavCategorizedDoc] => [
+      key,
+      {
+        title: data.title,
+        ...(data.frameworks ? { frameworks: data.frameworks } : {}),
+        ...(data.deployed === undefined ? {} : { deployed: data.deployed }),
+        ...(data.default
+          ? {
+              default: {
+                slugs: data.default.slugs,
+                relativeUrl: data.default.relativeUrl,
+                url: data.default.url,
+              },
+            }
+          : {}),
+        ...(data.subSections
+          ? { subSections: toNavSection(data.subSections) }
+          : {}),
+      },
+    ])
+  );
+
 export const getDocSubSection = (
-  docData: Record<string, CategorizedDocMetadata>,
+  docData: NavSection,
   sectionKey: string[]
-): CategorizedDocMetadata | undefined => {
-  let current = docData as unknown as CategorizedDocMetadata; // Use the `docData` object to navigate through sections
+): NavCategorizedDoc | undefined => {
+  let current = docData as unknown as NavCategorizedDoc; // Use the `docData` object to navigate through sections
 
   for (const key of sectionKey) {
     if (current[key as keyof typeof current]) {
       current = current[
         key as keyof typeof current
-      ] as unknown as CategorizedDocMetadata; // Navigate deeper
+      ] as unknown as NavCategorizedDoc; // Navigate deeper
     } else if (current.subSections?.[key]) {
-      current = current.subSections[key] as CategorizedDocMetadata; // Navigate deeper
+      current = current.subSections[key] as NavCategorizedDoc; // Navigate deeper
     } else {
       return undefined; // If key is not found, return an empty string
     }
@@ -43,12 +78,12 @@ export const getDocSection = (
   for (const key of Object.keys(docData)) {
     const docDataValue = docData[key];
 
-    if (typeof docDataValue?.default !== 'undefined') {
+    if (typeof docDataValue.default !== 'undefined') {
       docs.push(docDataValue.default as unknown as DocMetadata);
       paths.push([...presetKeys, key]);
       title.push(docDataValue.title);
     }
-    if (typeof docDataValue?.subSections !== 'undefined') {
+    if (typeof docDataValue.subSections !== 'undefined') {
       const {
         paths: subSectionsPaths,
         docs: subSectionsDocs,

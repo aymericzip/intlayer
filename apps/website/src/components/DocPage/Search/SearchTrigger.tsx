@@ -1,13 +1,12 @@
-'use client';
-
-import { SearchView } from '@components/DocPage/Search/SearchView';
 import { Button } from '@intlayer/design-system/button';
 import { KeyboardShortcut } from '@intlayer/design-system/keyboard-shortcut';
+import { Loader } from '@intlayer/design-system/loader';
 import { Modal } from '@intlayer/design-system/modal';
 import { PopoverStatic } from '@intlayer/design-system/popover';
 import { Search } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
-import { type FC, useState } from 'react';
+import { type FC, Suspense, useState } from 'react';
+import { useIntlayer } from 'react-intlayer';
+import { SearchView } from './SearchView';
 
 type SearchTriggerProps = {
   isMini?: boolean;
@@ -66,10 +65,12 @@ export const SearchTrigger: FC<SearchTriggerProps> = ({ isMini = false }) => {
         padding="md"
         isScrollable
       >
-        <SearchView
-          onClickLink={() => setIsModalOpen(false)}
-          isOpen={isModalOpen}
-        />
+        {isModalOpen && (
+          <SearchView
+            onClickLink={() => setIsModalOpen(false)}
+            isOpen={isModalOpen}
+          />
+        )}
       </Modal>
     </>
   );

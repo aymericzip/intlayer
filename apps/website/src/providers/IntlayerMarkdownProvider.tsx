@@ -1,9 +1,7 @@
-'use client';
-
-import { Link } from '@components/Link/Link';
 import { getIntlayerMarkdownOptions } from '@intlayer/design-system/mark-down-render';
-import { MarkdownProvider } from 'next-intlayer/markdown';
 import type { ComponentProps, FC, PropsWithChildren } from 'react';
+import { MarkdownProvider } from 'react-intlayer/markdown';
+import { Link } from '~/components/Link/Link';
 
 export const IntlayerMarkdownProvider: FC<PropsWithChildren> = ({
   children,
@@ -15,8 +13,15 @@ export const IntlayerMarkdownProvider: FC<PropsWithChildren> = ({
       {...markdownOptions}
       components={{
         ...markdownOptions.components,
-        a: (props: ComponentProps<typeof Link>) => (
-          <Link color="neutral" underlined={true} {...props} />
+        a: ({ href, ...props }: ComponentProps<'a'>) => (
+          <Link
+            // @ts-expect-error
+            color="neutral"
+            underlined={true}
+            {...props}
+            to={href!}
+            prefetch="viewport"
+          />
         ),
       }}
     >

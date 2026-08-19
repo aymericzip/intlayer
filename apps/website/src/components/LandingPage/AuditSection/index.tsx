@@ -1,22 +1,20 @@
-'use client';
-
-import { Link } from '@components/Link/Link';
-import { AnalyzerForm } from '@components/ScannerPage/Analyzer/Form/AnalyzerForm';
 import { getLocalizedUrl } from '@intlayer/core/localization';
 import { Website_Scanner_Path } from '@intlayer/design-system/routes';
-import { useRouter } from 'next/navigation';
-import { useIntlayer, useLocale } from 'next-intlayer';
+import { useNavigate } from '@tanstack/react-router';
 import type { FC } from 'react';
+import { useIntlayer, useLocale } from 'react-intlayer';
+import { Link } from '~/components/Link/Link';
+import { AnalyzerForm } from '~/components/ScannerPage/Analyzer/Form/AnalyzerForm';
 
 export const AuditSection: FC = () => {
   const { title, description, goToScanner } = useIntlayer('audit-page');
-  const router = useRouter();
+  const navigate = useNavigate();
   const { locale } = useLocale();
 
   const handleAnalyze = (url: string) => {
-    router.push(
-      `${getLocalizedUrl(Website_Scanner_Path, locale)}?url=${encodeURIComponent(url)}&auto_start=true`
-    );
+    navigate({
+      to: `${getLocalizedUrl(Website_Scanner_Path, locale)}?url=${encodeURIComponent(url)}&auto_start=true`,
+    });
   };
 
   return (
@@ -30,9 +28,9 @@ export const AuditSection: FC = () => {
       <div className="m-auto flex w-full max-w-lg flex-col justify-end gap-2">
         <AnalyzerForm onAnalyze={handleAnalyze} className="m-auto mt-10" />
         <Link
-          href={Website_Scanner_Path}
+          to={Website_Scanner_Path}
           className="flex w-full items-center justify-end gap-2 px-2 text-sm"
-          label={goToScanner.label.value}
+          label={goToScanner.text.value}
           color="neutral"
         >
           {goToScanner.text}

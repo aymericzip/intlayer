@@ -5,26 +5,25 @@ import { nextjsRewrite } from 'intlayer/routing';
 
 export const locales: Locale[] = [
   Locales.ENGLISH,
-  Locales.RUSSIAN,
-  Locales.JAPANESE,
   Locales.FRENCH,
-  Locales.KOREAN,
-  Locales.CHINESE,
-  Locales.SPANISH,
-  Locales.GERMAN,
-  Locales.ARABIC,
-  Locales.ITALIAN,
-  Locales.ENGLISH_UNITED_KINGDOM,
-  Locales.PORTUGUESE,
-  Locales.HINDI,
-  Locales.TURKISH,
-  Locales.POLISH,
-  Locales.INDONESIAN,
-  Locales.VIETNAMESE,
-  Locales.UKRAINIAN,
+  // Locales.RUSSIAN,
+  // Locales.JAPANESE,
+  // Locales.KOREAN,
+  // Locales.CHINESE,
+  // Locales.SPANISH,
+  // Locales.GERMAN,
+  // Locales.ARABIC,
+  // Locales.ITALIAN,
+  // Locales.ENGLISH_UNITED_KINGDOM,
+  // Locales.PORTUGUESE,
+  // Locales.HINDI,
+  // Locales.TURKISH,
+  // Locales.POLISH,
+  // Locales.INDONESIAN,
+  // Locales.VIETNAMESE,
+  // Locales.UKRAINIAN,
 ];
-export const defaultLocale =
-  (process.env.NEXT_PUBLIC_DEFAULT_LOCALE as Locale) || Locales.ENGLISH;
+export const defaultLocale = Locales.ENGLISH;
 
 const config: CustomIntlayerConfig = {
   internationalization: {
@@ -35,7 +34,6 @@ const config: CustomIntlayerConfig = {
   },
 
   routing: {
-    enableProxy: undefined, // auto handling disabling storage redirection in dev mode
     mode: 'prefix-no-default',
     rewrite: nextjsRewrite({
       '/[locale]/doc/releases/v8': {
@@ -84,7 +82,6 @@ const config: CustomIntlayerConfig = {
     formatCommand: 'bun x biome format "{{file}}" --write --log-level none',
   },
   compiler: {
-    enabled: false,
     output: ({ fileName }) => `./${fileName}.content.ts`,
   },
   build: {
@@ -93,29 +90,37 @@ const config: CustomIntlayerConfig = {
     purge: true,
   },
   editor: {
-    enabled: true,
+    enabled: false,
     liveSync: false,
     dictionaryPriorityStrategy: 'local_first',
-    applicationURL: process.env.NEXT_PUBLIC_URL,
-    editorURL: process.env.NEXT_PUBLIC_EDITOR_URL,
-    cmsURL: process.env.NEXT_PUBLIC_CMS_URL,
-    backendURL: process.env.NEXT_PUBLIC_BACKEND_URL,
-    clientId: process.env.INTLAYER_CLIENT_ID,
-    clientSecret: process.env.INTLAYER_CLIENT_SECRET,
+    applicationURL: import.meta.env.VITE_URL,
+    editorURL: import.meta.env.VITE_EDITOR_URL,
+    cmsURL: import.meta.env.VITE_CMS_URL,
+    backendURL: import.meta.env.VITE_BACKEND_URL,
+    clientId: import.meta.env.INTLAYER_CLIENT_ID,
+    clientSecret: import.meta.env.INTLAYER_CLIENT_SECRET,
   },
   dictionary: {
+    // 'dynamic' so a page ships only the locale it renders — 18 locales are far
+    // too many to inline. The two costs this used to carry are handled in
+    // `vite-intlayer` rather than by falling back to 'static': the chunk plugin
+    // groups the per-dictionary chunks per code-split boundary (one request
+    // instead of one per dictionary), and the preload plugin makes each entry
+    // point await its locale as it evaluates, so content arrives with the route
+    // chunk instead of suspending once that chunk renders.
     importMode: 'dynamic',
   },
-  ai: {
-    provider: 'openai',
-    model: 'gpt-5-mini',
-    apiKey: process.env.OPENAI_API_KEY,
-    applicationContext: [
-      'Intlayer is a developer-friendly internationalization (i18n) solution combined with a multilingual CMS.',
-      'This application contains a landing page, documentation, and the CMS within the dashboard.',
-      'It is intended for developers, so do not hesitate to use technical terms, and keep anglicisms in English. Example: "codebase" instead of "base de code" or "package" instead of "paquets".',
-    ].join('\n'),
-  },
+
+  // ai: {
+  //   provider: 'openai',
+  //   model: 'gpt-5-mini',
+  //   apiKey: import.meta.env.OPENAI_API_KEY,
+  //   applicationContext: [
+  //     'Intlayer is a developer-friendly internationalization (i18n) solution combined with a multilingual CMS.',
+  //     'This application contains a landing page, documentation, and the CMS within the dashboard.',
+  //     'It is intended for developers, so do not hesitate to use technical terms, and keep anglicisms in English. Example: "codebase" instead of "base de code" or "package" instead of "paquets".',
+  //   ].join('\n'),
+  // },
   log: {
     // mode: 'verbose',
   },

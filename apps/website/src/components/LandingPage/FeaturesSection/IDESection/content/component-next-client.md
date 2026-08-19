@@ -3,7 +3,7 @@
 
 "use client";
 
-import { useIntlayer } from "next-intlayer";
+import { useIntlayer } from "react-intlayer";
 
 export const ClientComponentComponent = () => {
   const { title, content } = useIntlayer("client-component");

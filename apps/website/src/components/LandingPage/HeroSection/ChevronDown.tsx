@@ -1,5 +1,3 @@
-'use client';
-
 import { ChevronDownIcon, type LucideProps } from 'lucide-react';
 import type { FC } from 'react';
 

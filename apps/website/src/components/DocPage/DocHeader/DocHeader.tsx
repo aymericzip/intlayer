@@ -1,5 +1,3 @@
-'use client';
-
 import { Avatar } from '@intlayer/design-system/avatar';
 import { Container } from '@intlayer/design-system/container';
 import { useDevice } from '@intlayer/design-system/hooks';
@@ -18,8 +16,9 @@ import {
   YoutubeLogo,
 } from '@intlayer/design-system/social-networks';
 import type { AuthorProfile, DocMetadata } from '@intlayer/docs';
-import { useIntlayer, useLocale } from 'next-intlayer';
+import { getLocalizedUrl } from 'intlayer';
 import type { FC } from 'react';
+import { useIntlayer, useLocale } from 'react-intlayer';
 import { ApplicationShowcaseMessage } from '../ApplicationShowcaseMessage';
 import { ApplicationTemplateMessage } from '../ApplicationTemplateMessage';
 import { ContributionMessage } from '../ContributionMessage';
@@ -53,7 +52,6 @@ const getSocialIcon = (url: string, className?: string) => {
 
 type DocHeaderProps = Omit<DocMetadata, 'author'> & {
   author?: AuthorProfile;
-  markdownContent: string;
   baseUpdatedAt?: string;
   history?: {
     version: string;
@@ -68,7 +66,6 @@ export const DocHeader: FC<DocHeaderProps> = ({
   createdAt,
   url,
   relativeUrl,
-  markdownContent,
   githubUrl,
   youtubeVideo,
   applicationTemplate,
@@ -115,7 +112,7 @@ export const DocHeader: FC<DocHeaderProps> = ({
                   identifier="author-social-medias"
                   xAlign="start"
                   yAlign="below"
-                  className="flex w-auto min-w-0 flex-row gap-2 p-2 group-hover/popover:delay-100"
+                  className="flex w-auto min-w-0 flex-row gap-2 p-2 delay-200 group-hover/popover:delay-100"
                 >
                   {author.socialMedias.map((url) => {
                     const icon = getSocialIcon(
@@ -215,7 +212,9 @@ export const DocHeader: FC<DocHeaderProps> = ({
               />
             )}
 
-            <CopyMarkdownMessage markdownContent={markdownContent} />
+            <CopyMarkdownMessage
+              markdownUrl={`${getLocalizedUrl(relativeUrl, locale)}.md`}
+            />
           </div>
         </div>
       </Container>

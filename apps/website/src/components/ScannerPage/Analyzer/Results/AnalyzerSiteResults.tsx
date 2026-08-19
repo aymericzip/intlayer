@@ -1,11 +1,8 @@
-'use client';
-
 import { Container } from '@intlayer/design-system/container';
 import { Tag } from '@intlayer/design-system/tag';
 import { cn } from '@intlayer/design-system/utils';
-import Image from 'next/image';
-import { useIntlayer } from 'next-intlayer';
 import type { FC, ReactNode } from 'react';
+import { useIntlayer } from 'react-intlayer';
 import type { DomainData } from './types';
 
 // const AnalyzerSiteResultsSkeleton: FC = () => (
@@ -104,12 +101,12 @@ export const AnalyzerSiteResults: FC<AnalyzerSiteResultsProps> = ({
               border
               borderColor="neutral"
             >
-              <Image
+              {' '}
+              <img
                 src={domainData?.image}
                 alt={messages?.websitePreview?.value}
                 width={300}
                 height={180}
-                unoptimized
               />
             </Container>
           )}

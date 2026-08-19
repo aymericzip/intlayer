@@ -1,14 +1,12 @@
-'use client';
-
-import { Link } from '@components/Link/Link';
 import { useAskDocQuestion } from '@intlayer/design-system/api';
 import { Container } from '@intlayer/design-system/container';
 import { usePersistedStore } from '@intlayer/design-system/hooks';
 import { PopoverStatic } from '@intlayer/design-system/popover';
 import { App_Auth_SignIn } from '@intlayer/design-system/routes';
 import { InfoIcon } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
 import { type FC, type ReactNode, useEffect, useRef, useState } from 'react';
+import { useIntlayer } from 'react-intlayer';
+import { Link } from '~/components/Link/Link';
 import { FileReference } from './FileReference';
 import { FormSection } from './FormSection';
 import {
@@ -236,7 +234,7 @@ export const ChatBot: FC<ChatBotProps> = ({
         {hasReachedRateLimit && (
           <div className="overflow-display relative h-0">
             <Container
-              className="absolute bottom-0 left-0 left-1/2 mx-auto mt-3 flex max-w-md -translate-x-1/2 flex-col gap-4 text-center text-sm"
+              className="absolute bottom-0 left-1/2 mx-auto mt-3 flex max-w-md -translate-x-1/2 flex-col gap-4 text-center text-sm"
               borderColor="neutral"
               border
               roundedSize="2xl"
@@ -244,7 +242,7 @@ export const ChatBot: FC<ChatBotProps> = ({
             >
               <span>{rateLimitExceededMessage}</span>
               <Link
-                href={App_Auth_SignIn}
+                to={App_Auth_SignIn}
                 label={signInButton.label.value}
                 color="text"
                 variant="button-outlined"

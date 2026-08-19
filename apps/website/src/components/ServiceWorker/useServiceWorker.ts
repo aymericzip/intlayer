@@ -1,5 +1,3 @@
-'use client';
-
 import { useEffect } from 'react';
 
 export const useServiceWorker = () => {
@@ -10,7 +8,7 @@ export const useServiceWorker = () => {
 
     // Aggressively unregister any existing Service Workers
     // This solves the issue of caching being applied in dev.
-    if (process.env.NEXT_PUBLIC_ENABLE_SERVICE_WORKER !== 'true') {
+    if (import.meta.env.VITE_ENABLE_SERVICE_WORKER !== 'true') {
       navigator.serviceWorker.getRegistrations().then((registrations) => {
         for (const registration of registrations) {
           console.log('🚧 Unregistering Dev Service Worker:', registration);

@@ -1,5 +1,5 @@
-import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
+import { useIntlayer } from 'react-intlayer';
 
 const videoIdEN = 'e_PPG7PTqGU';
 

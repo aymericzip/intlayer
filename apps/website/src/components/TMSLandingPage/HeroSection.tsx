@@ -1,6 +1,3 @@
-'use client';
-
-import { Link } from '@components/Link/Link';
 import { Container } from '@intlayer/design-system/container';
 import {
   App_Dashboard_Projects,
@@ -15,10 +12,10 @@ import {
   useTransform,
 } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
-import Image from 'next/image';
-import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
 import { useRef } from 'react';
+import { useIntlayer } from 'react-intlayer';
+import { Link } from '~/components/Link/Link';
 import TMSScreenshot from './TMS_screenshot.png';
 
 const MotionContainer = m.create(Container);
@@ -123,7 +120,7 @@ export const HeroSection: FC = () => {
               className="flex flex-col justify-center gap-4 sm:flex-row"
             >
               <Link
-                href={App_Pricing}
+                to={App_Pricing}
                 variant="button-outlined"
                 color="text"
                 label={secondaryCta.value}
@@ -134,7 +131,7 @@ export const HeroSection: FC = () => {
               </Link>
 
               <Link
-                href={App_Dashboard_Projects}
+                to={App_Dashboard_Projects}
                 variant="button"
                 color="text"
                 label={primaryCta.value}
@@ -207,3 +204,5 @@ export const HeroSection: FC = () => {
     </LazyMotion>
   );
 };
+
+const Image = (props: any) => <img {...props} />;

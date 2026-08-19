@@ -1,6 +1,7 @@
 import type { SessionAPI } from '@intlayer/backend';
 import { getAuthAPI } from '@intlayer/design-system/libs';
-import { headers } from 'next/headers';
+
+const headers = () => new Headers();
 
 export const getSessionData = async (): Promise<{
   session: SessionAPI | null;

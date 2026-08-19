@@ -1,9 +1,9 @@
-import { Link } from '@components/Link/Link';
 import { Container } from '@intlayer/design-system/container';
 import { H3 } from '@intlayer/design-system/headers';
 import { Website_Doc_IntlayerCMS_Path } from '@intlayer/design-system/routes';
-import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
+import { useIntlayer } from 'react-intlayer';
+import { Link } from '~/components/Link/Link';
 
 export type ApplicationNotRunningError =
   | { type: 'fetch'; status: number; statusText: string }
@@ -46,7 +46,7 @@ export const ApplicationNotRunningView: FC<ApplicationNotRunningViewProps> = ({
           {urlLabel}
           {applicationUrl ? (
             <Link
-              href={applicationUrl}
+              to={applicationUrl}
               className="ml-4 font-bold"
               label={urlLinkLabel.value}
               color="neutral"
@@ -103,7 +103,7 @@ export const ApplicationNotRunningView: FC<ApplicationNotRunningViewProps> = ({
                   ? tip({
                       editorUrl: (
                         <span className="font-bold">
-                          {editorUrl ?? process.env.NEXT_PUBLIC_EDITOR_URL}
+                          {editorUrl ?? import.meta.env.VITE_EDITOR_URL}
                         </span>
                       ),
                       applicationUrl: (
@@ -120,7 +120,7 @@ export const ApplicationNotRunningView: FC<ApplicationNotRunningViewProps> = ({
 
         <Link
           label={documentationLink.label.value}
-          href={Website_Doc_IntlayerCMS_Path as any}
+          to={Website_Doc_IntlayerCMS_Path as any}
           hash="configuration"
           color="text"
           className="ml-auto underline"

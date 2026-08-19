@@ -1,20 +1,19 @@
-'use client';
-
 import { useDevice } from '@intlayer/design-system/hooks';
 import { Loader } from '@intlayer/design-system/loader';
 import { cn } from '@intlayer/design-system/utils';
 import { motion } from 'framer-motion';
-import dynamic from 'next/dynamic';
-import { type IntlayerNode, useIntlayer } from 'next-intlayer';
 import {
   type FC,
+  lazy,
   type PropsWithChildren,
   type ReactNode,
+  Suspense,
   startTransition,
   useEffect,
   useRef,
   useState,
 } from 'react';
+import { type IntlayerNode, useIntlayer } from 'react-intlayer';
 import { FrameworkProvider } from './FrameworkContext';
 
 /* -------------------------------------------------------------------------- */
@@ -285,50 +284,37 @@ export const FeaturesCarousel: FC<FeaturesCarouselProps> = ({
 };
 
 /* -------------------------------------------------------------------------- */
-/*                   Dynamic Imports for Heavy Child Sections                 */
+/*                   Lazy Imports for Heavy Child Sections                    */
 /* -------------------------------------------------------------------------- */
 
-const DynamicIDESection = dynamic(
-  () => import('./IDESection').then((mod) => mod.IDESection),
-  {
-    loading: () => <Loader />,
-  }
+const IDESection = lazy(() =>
+  import('./IDESection').then((mod) => ({ default: mod.IDESection }))
 );
 
-const DynamicMultilingualSection = dynamic(
-  () => import('./MultilingualSection').then((mod) => mod.MultilingualSection),
-  {
-    loading: () => <Loader />,
-  }
+const MultilingualSection = lazy(() =>
+  import('./MultilingualSection').then((mod) => ({
+    default: mod.MultilingualSection,
+  }))
 );
 
-// const DynamicAutocompletionSection = dynamic(
-//   () =>
-//     import('./AutocompletionSection').then((mod) => mod.AutocompletionSection),
-//   {
-//     loading: () => <Loader />,
-//   }
+// const AutocompletionSection = lazy(() =>
+//   import('./AutocompletionSection').then((mod) => ({
+//     default: mod.AutocompletionSection,
+//   }))
 // );
 
-const DynamicVisualEditorSection = dynamic(
-  () => import('./VisualEditorSection').then((mod) => mod.VisualEditorSection),
-  {
-    loading: () => <Loader />,
-  }
+const VisualEditorSection = lazy(() =>
+  import('./VisualEditorSection').then((mod) => ({
+    default: mod.VisualEditorSection,
+  }))
 );
 
-const DynamicCompilerSection = dynamic(
-  () => import('./CompilerSection').then((mod) => mod.CompilerSection),
-  {
-    loading: () => <Loader />,
-  }
+const CompilerSection = lazy(() =>
+  import('./CompilerSection').then((mod) => ({ default: mod.CompilerSection }))
 );
 
-const DynamicTestSection = dynamic(
-  () => import('./TestSection').then((mod) => mod.TestSection),
-  {
-    loading: () => <Loader />,
-  }
+const TestSection = lazy(() =>
+  import('./TestSection').then((mod) => ({ default: mod.TestSection }))
 );
 
 /* -------------------------------------------------------------------------- */
@@ -346,33 +332,55 @@ export const FeaturesSection: FC = () => {
         case 'codebase':
           return {
             ...sectionData,
-            children: <DynamicIDESection scrollProgress={progress} />,
+            children: (
+              <Suspense fallback={<Loader />}>
+                <IDESection scrollProgress={progress} />
+              </Suspense>
+            ),
           };
         case 'visual-editor':
           return {
             ...sectionData,
-            children: <DynamicVisualEditorSection />,
+            children: (
+              <Suspense fallback={<Loader />}>
+                <VisualEditorSection />
+              </Suspense>
+            ),
           };
         case 'multilingual':
           return {
             ...sectionData,
-            children: <DynamicMultilingualSection scrollProgress={progress} />,
+            children: (
+              <Suspense fallback={<Loader />}>
+                <MultilingualSection scrollProgress={progress} />
+              </Suspense>
+            ),
           };
         case 'test':
           return {
             ...sectionData,
-            children: <DynamicTestSection scrollProgress={progress} />,
+            children: (
+              <Suspense fallback={<Loader />}>
+                <TestSection scrollProgress={progress} />
+              </Suspense>
+            ),
           };
         case 'compiler':
           return {
             ...sectionData,
-            children: <DynamicCompilerSection scrollProgress={progress} />,
+            children: (
+              <Suspense fallback={<Loader />}>
+                <CompilerSection scrollProgress={progress} />
+              </Suspense>
+            ),
           };
         // case 'autocomplete':
         //   return {
         //     ...sectionData,
         //     children: (
-        //       <DynamicAutocompletionSection scrollProgress={progress} />
+        //       <Suspense fallback={<Loader />}>
+        //         <AutocompletionSection scrollProgress={progress} />
+        //       </Suspense>
         //     ),
         //   };
         default:

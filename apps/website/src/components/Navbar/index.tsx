@@ -1,7 +1,4 @@
-'use client';
-
-import { Link } from '@components/Link/Link';
-import { LocaleSwitcher } from '@components/LocaleSwitcher/LocaleSwitcher';
+import { getPathWithoutLocale } from '@intlayer/core/localization';
 import { useUser } from '@intlayer/design-system/api';
 import { Avatar } from '@intlayer/design-system/avatar';
 import { Button } from '@intlayer/design-system/button';
@@ -16,18 +13,18 @@ import {
 } from '@intlayer/design-system/routes';
 import { DiscordLogo } from '@intlayer/design-system/social-networks';
 import { TechLogos } from '@intlayer/design-system/tech-logo';
+import { useLocation, useRouter } from '@tanstack/react-router';
 import { Image, StarIcon, VectorSquare } from 'lucide-react';
-import dynamic from 'next/dynamic';
-import { useRouter } from 'next/navigation';
-import { useIntlayer, useLocale } from 'next-intlayer';
 import type { FC, MouseEvent } from 'react';
+import { lazy, Suspense } from 'react';
+import { useIntlayer, useLocale } from 'react-intlayer';
+import { Link } from '~/components/Link/Link';
+import { LocaleSwitcher } from '~/components/LocaleSwitcher/LocaleSwitcher';
 
-const SwitchThemeSwitcher = dynamic(
-  () =>
-    import('@components/ThemeSwitcherDropDown/SwitchThemeSwitcher').then(
-      (mod) => mod.SwitchThemeSwitcher
-    ),
-  { ssr: false }
+const SwitchThemeSwitcher = lazy(() =>
+  import('~/components/ThemeSwitcherDropDown/SwitchThemeSwitcher').then(
+    (mod) => ({ default: mod.SwitchThemeSwitcher })
+  )
 );
 
 const getCleanChoice = (path?: string): string => {
@@ -59,9 +56,11 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
     discord,
   } = useIntlayer('navbar');
   const { isAuthenticated, logout, user } = useUser();
-  const { pathWithoutLocale } = useLocale();
-  const router = useRouter();
+  const { availableLocales } = useLocale();
+  const { pathname } = useLocation();
+  const pathWithoutLocale = getPathWithoutLocale(pathname, availableLocales);
   const { isMobile } = useDevice();
+  const router = useRouter();
   const [hasVisitedApp, setHasVisitedApp] = usePersistedStore<boolean>(
     'hasVisitedApp',
     false
@@ -79,7 +78,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
 
   const handleLogOut = () => {
     logout()
-      .then(() => router.refresh())
+      .then(() => router.invalidate())
       .catch((err) => console.error(err));
   };
 
@@ -113,7 +112,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
       logo={
         <DropDown identifier="navbar-logo" className="flex items-center">
           <Link
-            href={logo.url.value}
+            to={logo.url.value}
             label={logo.label.value}
             color="neutral"
             id="dropdown-trigger-navbar-logo"
@@ -217,11 +216,12 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
           <Link
             id={id?.value}
             key={getCleanChoice(url.value)}
-            href={url.value}
+            to={url.value}
             label={label.value}
             isExternalLink={false}
             isActive={selectedChoice === getCleanChoice(url.value)}
             color="text"
+            preload="viewport"
             variant="invisible-link"
             className="flex text-nowrap px-4 py-0.5 text-sm aria-[current]:bg-current/0"
             onClick={id?.value === 'dashboard' ? handleAppLinkClick : undefined}
@@ -235,11 +235,12 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
           <Link
             id={id?.value}
             key={getCleanChoice(url.value)}
-            href={url.value}
+            to={url.value}
             isExternalLink={false}
             isActive={selectedChoice === getCleanChoice(url.value)}
             label={label.value}
             color="text"
+            preload="viewport"
             variant="invisible-link"
             className="w-full text-nowrap p-3 text-center leading-10 transition hover:font-bold aria-selected:font-bold"
             onClick={id?.value === 'dashboard' ? handleAppLinkClick : undefined}
@@ -252,8 +253,9 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
         <div className="flex w-full flex-col gap-4">
           <Link
             label={github.label.value}
-            href={github.url.value}
+            to={github.url.value}
             variant="button-outlined"
+            preload="viewport"
             color="text"
             className="group/github rounded-2xl! leading-6"
           >
@@ -279,7 +281,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
           ) : (
             <Link
               label={login.label.value}
-              href={login.url.value}
+              to={login.url.value}
               variant="button"
               color="text"
             >
@@ -291,7 +293,9 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
       rightItemsMobile={
         <div className="flex items-center gap-2">
           <LocaleSwitcher />
-          <SwitchThemeSwitcher />
+          <Suspense>
+            <SwitchThemeSwitcher />
+          </Suspense>
           {isAuthenticated && (
             <Avatar
               isLoggedIn={isAuthenticated}
@@ -304,13 +308,16 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
       rightItemsDesktop={
         <>
           <LocaleSwitcher />
-          <SwitchThemeSwitcher />
+          <Suspense>
+            <SwitchThemeSwitcher />
+          </Suspense>
           <Link
             label={discord.label.value}
-            href={discord.url.value}
+            to={discord.url.value}
             target="_blank"
             color="text"
             variant="button-outlined"
+            preload="viewport"
             roundedSize="full"
             rel="noopener noreferrer nofollow"
             className="flex cursor-pointer items-center gap-2 rounded-full border-[1.3px] p-1.5"
@@ -319,7 +326,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
           </Link>
           <Link
             label={github.label.value}
-            href={github.url.value}
+            to={github.url.value}
             color="text"
             variant="button"
             roundedSize="full"
