@@ -163,6 +163,17 @@ const buildSegmentAttrs = (
   };
 };
 
+/**
+ * Advances every point one step toward its target and reports how far the
+ * furthest one travelled.
+ *
+ * The caller uses that distance to decide whether another frame is worth
+ * running: the relaxation is exponential, so once it drops below
+ * {@link SETTLE_THRESHOLD_PX} the grid is visually at rest and redrawing it
+ * only burns the main thread.
+ *
+ * @returns Largest per-axis distance any point moved this step, in pixels.
+ */
 const updateGridPoints = (
   grid: Point[][],
   mouseX: number,
@@ -170,36 +181,56 @@ const updateGridPoints = (
   mouseActive: boolean,
   radius: number,
   strength: number
-): void => {
+): number => {
   const rows = grid.length;
   const columns = grid[0]!.length;
+  let largestMovement = 0;
 
   for (let rowIndex = 0; rowIndex < rows; rowIndex++) {
     for (let columnIndex = 0; columnIndex < columns; columnIndex++) {
       const point = grid[rowIndex]![columnIndex]!;
+      const previousX = point.x;
+      const previousY = point.y;
+
       if (!mouseActive) {
         point.x += (point.baseX - point.x) * 0.08;
         point.y += (point.baseY - point.y) * 0.08;
-        continue;
-      }
-      const deltaX = mouseX - point.baseX;
-      const deltaY = mouseY - point.baseY;
-      const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-
-      if (distance < radius && distance > 0) {
-        const force = (Math.cos((distance / radius) * Math.PI) + 1) / 2;
-        const displacement = force * strength * radius * 0.3;
-        point.x +=
-          (point.baseX + (deltaX / distance) * displacement - point.x) * 0.12;
-        point.y +=
-          (point.baseY + (deltaY / distance) * displacement - point.y) * 0.12;
       } else {
-        point.x += (point.baseX - point.x) * 0.08;
-        point.y += (point.baseY - point.y) * 0.08;
+        const deltaX = mouseX - point.baseX;
+        const deltaY = mouseY - point.baseY;
+        const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+        if (distance < radius && distance > 0) {
+          const force = (Math.cos((distance / radius) * Math.PI) + 1) / 2;
+          const displacement = force * strength * radius * 0.3;
+          point.x +=
+            (point.baseX + (deltaX / distance) * displacement - point.x) * 0.12;
+          point.y +=
+            (point.baseY + (deltaY / distance) * displacement - point.y) * 0.12;
+        } else {
+          point.x += (point.baseX - point.x) * 0.08;
+          point.y += (point.baseY - point.y) * 0.08;
+        }
       }
+
+      const movement = Math.max(
+        Math.abs(point.x - previousX),
+        Math.abs(point.y - previousY)
+      );
+      if (movement > largestMovement) largestMovement = movement;
     }
   }
+
+  return largestMovement;
 };
+
+/**
+ * Per-frame movement below which the grid counts as at rest, in pixels.
+ *
+ * Well under a device pixel, so the frame that crosses it is the last one that
+ * could have changed anything on screen.
+ */
+const SETTLE_THRESHOLD_PX = 0.05;
 
 // ---------------------------------------------------------------------------
 // Component
@@ -234,6 +265,19 @@ export const GridDistortionPattern: FC<GridDistortionPatternProps> = ({
   const svgRef = useRef<SVGSVGElement>(null);
   const mouse = useRef({ x: -9999, y: -9999, active: false });
   const points = useRef<Point[][]>([]);
+  /**
+   * Bumped on every pointer move. The loop records the value it rendered so it
+   * can tell "the pointer is somewhere over the page but has not moved" — which
+   * looks identical frame to frame — from a genuine change.
+   */
+  const pointerMoveCount = useRef(0);
+  /**
+   * Restarts the animation loop after it has parked itself.
+   *
+   * Assigned by the animation effect; the resize, colour and pointer effects
+   * call it so a change they make is picked up even when the grid was at rest.
+   */
+  const wakeLoop = useRef<() => void>(() => undefined);
 
   // Stable refs so the animation loop always sees the latest prop values
   // without needing to restart itself.
@@ -259,6 +303,7 @@ export const GridDistortionPattern: FC<GridDistortionPatternProps> = ({
     if (!svg) return;
     lineRgbRef.current = resolveColorToRgb(resolvedLineColor, svg);
     highlightRgbRef.current = resolveColorToRgb(resolvedHighlightColor, svg);
+    wakeLoop.current();
   }, [resolvedLineColor, resolvedHighlightColor]);
 
   // ---------------------------------------------------------------------------
@@ -289,6 +334,7 @@ export const GridDistortionPattern: FC<GridDistortionPatternProps> = ({
         newGrid.push(row);
       }
       points.current = newGrid;
+      wakeLoop.current();
     };
 
     resize();
@@ -311,9 +357,13 @@ export const GridDistortionPattern: FC<GridDistortionPatternProps> = ({
         y: event.clientY - rect.top,
         active: true,
       };
+      pointerMoveCount.current++;
+      wakeLoop.current();
     };
     const handlePointerLeave = () => {
       mouse.current.active = false;
+      pointerMoveCount.current++;
+      wakeLoop.current();
     };
 
     window.addEventListener('pointermove', handlePointerMove, {
@@ -331,6 +381,20 @@ export const GridDistortionPattern: FC<GridDistortionPatternProps> = ({
   // ---------------------------------------------------------------------------
   // Animation loop — writes directly to SVG DOM, no React state/re-renders
   // ---------------------------------------------------------------------------
+  /**
+   * Runs the grid only while it has something to show.
+   *
+   * Each frame rewrites four attributes on every segment — on a full-viewport
+   * grid that is close to nine thousand `setAttribute` calls. Left running
+   * unconditionally it saturated the main thread of any page embedding the
+   * pattern, which starved React's transition lanes and made every other
+   * scroll-driven animation on the page advance in visible steps.
+   *
+   * So the loop parks itself whenever the grid is at rest and the pointer has
+   * not moved, and while the SVG is scrolled out of view. Anything that can
+   * change the picture — a pointer move, a resize, a colour change, the element
+   * coming back on screen — wakes it through {@link wakeLoop}.
+   */
   useEffect(() => {
     const svg = svgRef.current;
     if (!svg) return;
@@ -339,6 +403,22 @@ export const GridDistortionPattern: FC<GridDistortionPatternProps> = ({
     // to avoid GC pressure from creating/deleting DOM nodes every tick.
     const pathPool: SVGPathElement[] = [];
     let frame = 0;
+    let isRunning = false;
+    let isOnScreen = true;
+    /** Value of `pointerMoveCount` the last rendered frame was drawn for. */
+    let renderedPointerMoveCount = -1;
+
+    const start = () => {
+      if (isRunning || !isOnScreen) return;
+      isRunning = true;
+      frame = requestAnimationFrame(tick);
+    };
+
+    const stop = () => {
+      if (!isRunning) return;
+      isRunning = false;
+      cancelAnimationFrame(frame);
+    };
 
     const ensurePathCount = (count: number) => {
       while (pathPool.length < count) {
@@ -359,9 +439,12 @@ export const GridDistortionPattern: FC<GridDistortionPatternProps> = ({
     const tick = () => {
       const grid = points.current;
       if (!grid.length) {
-        frame = requestAnimationFrame(tick);
+        // No grid yet — the resize effect will wake us once it has built one.
+        isRunning = false;
         return;
       }
+
+      const pointerMoveCountAtFrameStart = pointerMoveCount.current;
 
       const { x: mouseX, y: mouseY, active: mouseActive } = mouse.current;
       const currentRadius = radiusRef.current;
@@ -372,7 +455,7 @@ export const GridDistortionPattern: FC<GridDistortionPatternProps> = ({
       const highlightOpacityBoost = highlightOpacityBoostRef.current;
 
       // Update point positions
-      updateGridPoints(
+      const largestMovement = updateGridPoints(
         grid,
         mouseX,
         mouseY,
@@ -380,6 +463,17 @@ export const GridDistortionPattern: FC<GridDistortionPatternProps> = ({
         currentRadius,
         currentStrength
       );
+
+      // Nothing moved and the pointer is where it already was, so this frame
+      // would repaint the picture already on screen.
+      if (
+        largestMovement < SETTLE_THRESHOLD_PX &&
+        renderedPointerMoveCount === pointerMoveCountAtFrameStart
+      ) {
+        isRunning = false;
+        return;
+      }
+      renderedPointerMoveCount = pointerMoveCountAtFrameStart;
 
       const rows = grid.length;
       const columns = grid[0]!.length;
@@ -451,10 +545,23 @@ export const GridDistortionPattern: FC<GridDistortionPatternProps> = ({
       frame = requestAnimationFrame(tick);
     };
 
-    tick();
+    wakeLoop.current = start;
+
+    // Off-screen the grid cannot be seen, so neither the relaxation nor the
+    // redraw is worth a frame.
+    const visibilityObserver = new IntersectionObserver(([entry]) => {
+      isOnScreen = entry?.isIntersecting ?? true;
+      if (isOnScreen) start();
+      else stop();
+    });
+    visibilityObserver.observe(svg);
+
+    start();
 
     return () => {
-      cancelAnimationFrame(frame);
+      wakeLoop.current = () => undefined;
+      visibilityObserver.disconnect();
+      stop();
       // Clean up path elements we injected
       for (const el of pathPool) {
         el.remove();

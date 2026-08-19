@@ -234,10 +234,21 @@ export const I18nBenchmark = ({
         const scoreB = POPULARITY_SCORES[b.id] ?? 50;
         return scoreB - scoreA;
       });
-  }, [currentFrameworkData, baseApp, framework]);
+  }, [currentFrameworkData, baseApp.value, framework]);
 
   useEffect(() => {
-    setActiveLibs(Object.fromEntries(allLibs.map((lib) => [lib.id, true])));
+    setActiveLibs((previousActiveLibs) => {
+      const libIds = allLibs.map((lib) => lib.id);
+      const isUnchanged =
+        libIds.length === Object.keys(previousActiveLibs).length &&
+        libIds.every((libId) => libId in previousActiveLibs);
+
+      if (isUnchanged) return previousActiveLibs;
+
+      return Object.fromEntries(
+        libIds.map((libId) => [libId, previousActiveLibs[libId] ?? true])
+      );
+    });
   }, [allLibs]);
 
   const toggleLib = (id: string) =>
