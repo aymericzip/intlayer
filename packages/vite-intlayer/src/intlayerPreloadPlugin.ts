@@ -33,11 +33,16 @@ const preloadModuleId = normalizePath(
  * any text appears — the cost that used to push applications towards
  * `importMode: 'static'`, which inlines every locale into the bundle.
  *
- * Appending a top-level `await` to the generated entry point moves that fetch
- * into the module graph: the entry point becomes an async module, so the chunk
- * importing it is not considered loaded until the dictionary is there. Routers
- * that already await route chunks — including on hover, through preloading —
- * then cover dictionaries for free, and the render is synchronous.
+ * Starting that fetch from the generated entry point itself moves it forward to
+ * module-evaluation time: it leaves with the chunk that needs it — on a
+ * router's `import()` of a route, including a preload on hover — instead of
+ * waiting for the consuming component to execute. By the time the read happens
+ * the content is usually already there and the render is synchronous.
+ *
+ * The fetch is deliberately not awaited at the top level. Doing so would make
+ * the entry point an async module and hold up every chunk that imports it,
+ * which permanently strands `React.lazy` boundaries resolving during hydration
+ * on their fallback — see `addDynamicEntryPreload`.
  *
  * Complements the grouping in `intlayerChunk`: grouping decides how many
  * requests a boundary makes, this decides when they start.

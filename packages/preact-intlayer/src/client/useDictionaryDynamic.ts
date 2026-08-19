@@ -81,7 +81,7 @@ export const useDictionaryDynamic = <
     });
   }
 
-  // A build-tool plugin may have awaited this locale's chunk while the entry
+  // A build-tool plugin may have started this locale's chunk while the entry
   // point itself was evaluating, in which case the content is already here and
   // reading it must not go through the suspender — see `getPreloadedDictionary`.
   const preloadedDictionary = getPreloadedDictionary(

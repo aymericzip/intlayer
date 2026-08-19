@@ -108,36 +108,44 @@ const buildPreloadImport = (preloadModuleId: string): string =>
 /**
  * Preamble appended to a generated dynamic entry point.
  *
- * The `await` is top-level on purpose: it makes the entry point an async
- * module, so every chunk that statically imports it — a route component, a
- * lazily loaded section — only finishes evaluating once the awaited locale
- * chunk has arrived. A router's own `import()` of a route therefore already
- * covers that route's dictionaries, and the read during render finds them in
- * place instead of suspending and revealing a pending fallback.
+ * The load is started while the entry point evaluates, but is deliberately
+ * *not* awaited at the top level. Awaiting would make the entry point an async
+ * module, which delays the resolution of every chunk that statically imports
+ * it — including the chunks behind a `React.lazy` boundary. A boundary whose
+ * module resolves that late during hydration stays on its fallback for good:
+ * the framework has already swapped the server markup for the pending state and
+ * does not retry, so the section never appears. Starting the request here and
+ * letting the reader pick the result up keeps the whole benefit of the early
+ * fetch without ever holding up module evaluation.
  *
- * Only the resolved locale is awaited, so a page still downloads exactly the
+ * The gain is in *when* the request starts: it leaves as soon as the chunk that
+ * needs the dictionary is evaluated — on a router's `import()` of a route,
+ * including a preload on hover — rather than once the consuming component
+ * renders. By the time the reader runs, the marker is usually already set and
+ * the read is synchronous, so no loading state is revealed.
+ *
+ * Only the resolved locale is requested, so a page still downloads exactly the
  * language it renders.
  *
  * A failed load is swallowed: leaving the marker unset drops the read back onto
  * the asynchronous path, where the existing loading state surfaces the error.
- * Throwing here would instead break the whole route chunk, turning a missing
- * dictionary into a blank page.
  */
 const PRELOAD_PREAMBLE = [
   '',
-  '// Injected by Intlayer: preloads the browsing locale before render.',
+  '// Injected by Intlayer: starts the browsing locale load with this module.',
   'const __intlayerLocale = __intlayerGetPreloadLocale();',
   `const __intlayerLoader = ${DYNAMIC_ENTRY_LOADER_MAP_IDENTIFIER}[__intlayerLocale];`,
   '',
   `if (typeof window !== 'undefined' && typeof __intlayerLoader === 'function') {`,
-  '  const __intlayerDictionary = await __intlayerLoader().catch(() => undefined);',
-  '',
-  '  if (__intlayerDictionary !== undefined) {',
-  `    ${DYNAMIC_ENTRY_LOADER_MAP_IDENTIFIER}['${PRELOADED_DYNAMIC_KEY}'] = {`,
-  '      locale: __intlayerLocale,',
-  '      dictionary: __intlayerDictionary,',
-  '    };',
-  '  }',
+  '  __intlayerLoader().then(',
+  '    (__intlayerDictionary) => {',
+  `      ${DYNAMIC_ENTRY_LOADER_MAP_IDENTIFIER}['${PRELOADED_DYNAMIC_KEY}'] = {`,
+  '        locale: __intlayerLocale,',
+  '        dictionary: __intlayerDictionary,',
+  '      };',
+  '    },',
+  '    () => undefined',
+  '  );',
   '}',
   '',
 ].join('\n');
@@ -150,7 +158,7 @@ export type PreloadTransformResult =
   | { code?: undefined; skipped: PreloadSkipReason };
 
 /**
- * Adds the top-level-await locale preload to a generated dynamic entry point.
+ * Adds the browsing-locale preload to a generated dynamic entry point.
  *
  * Bundler-agnostic on purpose: the Vite plugin and the esbuild plugin apply the
  * identical transform, and keeping one implementation means the emitted shape

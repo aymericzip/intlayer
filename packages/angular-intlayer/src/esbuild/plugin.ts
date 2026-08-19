@@ -238,11 +238,11 @@ export const intlayerEsbuildPlugin = (
       }
 
       // Dictionaries load with the chunk that needs them rather than being
-      // fetched once that chunk renders: the entry point gains a top-level
-      // `await` of the browsing locale, which makes it an async module, so a
-      // lazily loaded route is not considered loaded until its content is
-      // there. Without it every dictionary read renders an empty placeholder
-      // first and fills in a tick later.
+      // fetched once that chunk renders: the entry point starts the browsing
+      // locale's load as it evaluates, so a lazily loaded route requests its
+      // content on `import()` instead of on first render. Without it every
+      // dictionary read renders an empty placeholder first and fills in a tick
+      // later.
       //
       // Not gated on the configured `importMode`: a `.content` file can set
       // `importMode: 'dynamic'` on a single dictionary under a `static` or

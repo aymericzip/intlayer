@@ -211,8 +211,8 @@ export const useDictionaryDynamic = <
     return dictionaryLoader();
   };
 
-  // A build-tool plugin may have awaited this locale's chunk while the entry
-  // point evaluated. Seeding the resource cache with it makes the resource
+  // A build-tool plugin may have started this locale's chunk while the entry
+  // point evaluated, and it may already have landed. Seeding the resource cache with it makes the resource
   // below resolve synchronously, so Suspense never sees a pending state.
   const preloadedDictionary = getPreloadedDictionary(
     dictionaryLoaders,

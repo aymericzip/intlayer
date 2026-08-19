@@ -757,11 +757,12 @@ export type BuildConfig = {
    *
    * Default: true
    *
-   * The generated entry point awaits the browsing locale at the top level,
-   * which makes it an async module: a lazily loaded route is not considered
-   * loaded until its content is there. Readers then render synchronously
-   * instead of suspending, so navigating no longer flashes a loading state.
-   * Only the resolved locale is awaited, so a page still downloads exactly the
+   * The generated entry point requests the browsing locale as it evaluates, so
+   * the request leaves with the chunk that needs it — on a router's `import()`
+   * of a route, including a preload on hover — instead of once the consuming
+   * component renders. Readers then usually render synchronously instead of
+   * suspending, so navigating no longer flashes a loading state. Only the
+   * resolved locale is requested, so a page still downloads exactly the
    * language it renders.
    *
    * Note:
@@ -769,8 +770,7 @@ export type BuildConfig = {
    * - Only applies to the client build; the server keeps loading on demand.
    * - Collections and variants keep loading on demand, since the targeted
    *   entry is only known at the call site.
-   * - Requires a bundler supporting top-level await (Vite, esbuild). Not
-   *   applied by Metro-based bundlers.
+   * - Not applied by Metro-based bundlers.
    */
   dictionariesPreload: boolean;
 

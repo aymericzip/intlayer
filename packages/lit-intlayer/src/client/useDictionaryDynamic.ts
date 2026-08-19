@@ -170,8 +170,8 @@ export const useDictionaryDynamic = <
 
     const cacheKey = `${String(key)}.${currentLocale}`;
 
-    // A build-tool plugin may have awaited this locale's chunk while the entry
-    // point evaluated. Taking it synchronously means the proxy below serves
+    // A build-tool plugin may have started this locale's chunk while the entry
+    // point evaluated, and it may already have landed. Taking it synchronously means the proxy below serves
     // real values on the element's first render, instead of the empty-string
     // placeholders it falls back to until a `.then` callback fires.
     const preloadedDictionary = getPreloadedDictionary(

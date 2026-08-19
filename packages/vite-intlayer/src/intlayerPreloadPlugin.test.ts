@@ -7,7 +7,7 @@ import type { Plugin } from 'vite';
 import { describe, expect, it } from 'vitest';
 import { intlayerPreload } from './intlayerPreloadPlugin';
 
-// The emitted shape (preamble, single-locale await, window guard, skip rules)
+// The emitted shape (preamble, single-locale request, window guard, skip rules)
 // is covered by `@intlayer/config/dictionaryPreload.test.ts` — these tests only
 // cover what the Vite plugin adds on top: activation and module targeting.
 
@@ -70,7 +70,7 @@ describe('intlayerPreload', () => {
       `${DYNAMIC_DIR}/landing.mjs`
     );
 
-    expect(result?.code).toContain('await __intlayerLoader()');
+    expect(result?.code).toContain('__intlayerLoader().then(');
   });
 
   it('applies the shared preload transform to a generated entry point', () => {
@@ -82,7 +82,7 @@ describe('intlayerPreload', () => {
       `${DYNAMIC_DIR}/landing.mjs`
     );
 
-    expect(result?.code).toContain('await __intlayerLoader()');
+    expect(result?.code).toContain('__intlayerLoader().then(');
     expect(result?.code).toContain(
       `export default ${DYNAMIC_ENTRY_LOADER_MAP_IDENTIFIER};`
     );

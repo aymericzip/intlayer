@@ -25,8 +25,8 @@ export const useDictionaryAsync = async <const T extends Dictionary>(
       locale ?? intlayer?.locale?.value ?? internationalization.defaultLocale
   );
 
-  // A build-tool plugin may have awaited this locale's chunk while the entry
-  // point evaluated. Taking it directly leaves this function with no await
+  // A build-tool plugin may have started this locale's chunk while the entry
+  // point evaluated, and it may already have landed. Taking it directly leaves this function with no await
   // point at all, so an async `setup()` resolves in the same tick and
   // `<Suspense>` never falls back.
   const preloadedDictionary = getPreloadedDictionary(

@@ -134,11 +134,20 @@ describe('resolvePreloadModuleId', () => {
 });
 
 describe('addDynamicEntryPreload', () => {
-  it('appends a top-level await that records the resolved locale', () => {
+  it('appends a preload that records the resolved locale', () => {
     const result = addDynamicEntryPreload(generatedEntry, preloadModuleId);
 
-    expect(result.code).toContain('await __intlayerLoader()');
+    expect(result.code).toContain('__intlayerLoader().then(');
     expect(result.code).toContain(PRELOADED_DYNAMIC_KEY);
+  });
+
+  // Awaiting would make the entry point an async module and hold up every
+  // chunk importing it, which permanently strands a `React.lazy` boundary
+  // resolving during hydration on its fallback.
+  it('never awaits at the top level, so the entry point stays synchronous', () => {
+    const result = addDynamicEntryPreload(generatedEntry, preloadModuleId);
+
+    expect(result.code).not.toContain('await ');
   });
 
   it('imports the locale resolver through the id the plugin resolved, never a bare specifier', () => {
@@ -159,10 +168,10 @@ describe('addDynamicEntryPreload', () => {
     );
   });
 
-  it('awaits a single locale, never the whole loader map', () => {
+  it('requests a single locale, never the whole loader map', () => {
     const result = addDynamicEntryPreload(generatedEntry, preloadModuleId);
 
-    expect(result.code?.match(/await /g)).toHaveLength(1);
+    expect(result.code?.match(/__intlayerLoader\(\)/g)).toHaveLength(1);
     expect(result.code).toContain(
       `${DYNAMIC_ENTRY_LOADER_MAP_IDENTIFIER}[__intlayerLocale]`
     );
@@ -177,7 +186,7 @@ describe('addDynamicEntryPreload', () => {
   it('swallows a failed load so a missing dictionary cannot break the chunk', () => {
     const result = addDynamicEntryPreload(generatedEntry, preloadModuleId);
 
-    expect(result.code).toContain('.catch(() => undefined)');
+    expect(result.code).toContain('() => undefined');
   });
 
   it('skips qualified entry points, whose loaders are a per-locale tree', () => {
