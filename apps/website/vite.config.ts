@@ -444,7 +444,7 @@ export default defineConfig(async ({ mode }) => {
             '.content.(ts|tsx|js|mjs|cjs|jsx|json|jsonc|json5|md|mdx|yaml|yml)$',
         },
         prerender: {
-          enabled: true,
+          enabled: false,
           crawlLinks: false,
           concurrency: 20,
         },
@@ -514,16 +514,6 @@ export default defineConfig(async ({ mode }) => {
                     name: 'tech-logos',
                     test: /TechLogo[\\/]logos[\\/]/,
                     priority: 40,
-                  },
-                  {
-                    name: 'vendor-react',
-                    test: /node_modules[\\/](react|react-dom|scheduler)[\\/]/,
-                    priority: 30,
-                  },
-                  {
-                    name: 'vendor-tanstack',
-                    test: /node_modules[\\/]@tanstack[\\/]/,
-                    priority: 30,
                   },
                 ],
               },
