@@ -32,7 +32,7 @@ import { Route as Char123LocaleChar125DashboardEditorContentRouteRouteImport } f
 import { Route as Char123LocaleChar125OtherAffiliationIndexRouteImport } from './routes/{-$locale}/_other/affiliation/index'
 import { Route as Char123LocaleChar125OtherAffiliationInvitationIdRouteImport } from './routes/{-$locale}/_other/affiliation/$invitationId'
 import { Route as Char123LocaleChar125OtherAuthAuthenticatedRouteRouteImport } from './routes/{-$locale}/_other/auth/_authenticated/route'
-import { Route as Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteImport } from './routes/{-$locale}/_other/auth/_not-authenticated/route'
+import { Route as Char123LocaleChar125OtherAuthAuthenticationRouteRouteImport } from './routes/{-$locale}/_other/auth/_authentication/route'
 import { Route as Char123LocaleChar125OtherAuthCliLoginRouteImport } from './routes/{-$locale}/_other/auth/cli-login'
 import { Route as Char123LocaleChar125OtherAuthDemoRouteImport } from './routes/{-$locale}/_other/auth/demo'
 import { Route as Char123LocaleChar125OtherFindReviewerIndexRouteImport } from './routes/{-$locale}/_other/find-reviewer/index'
@@ -47,9 +47,9 @@ import { Route as Char123LocaleChar125DashboardAdminAdminReviewersRouteRouteImpo
 import { Route as Char123LocaleChar125DashboardAdminAdminUsersRouteRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/users/route'
 import { Route as Char123LocaleChar125DashboardEditorContentEditorRouteImport } from './routes/{-$locale}/_dashboard/_editor/_content/editor'
 import { Route as Char123LocaleChar125DashboardEditorContentTranslateRouteImport } from './routes/{-$locale}/_dashboard/_editor/_content/translate'
-import { Route as Char123LocaleChar125OtherAuthNotAuthenticated2faRouteImport } from './routes/{-$locale}/_other/auth/_not-authenticated/2fa'
-import { Route as Char123LocaleChar125OtherAuthNotAuthenticatedLoginRouteImport } from './routes/{-$locale}/_other/auth/_not-authenticated/login'
-import { Route as Char123LocaleChar125OtherAuthNotAuthenticatedRegisterRouteImport } from './routes/{-$locale}/_other/auth/_not-authenticated/register'
+import { Route as Char123LocaleChar125OtherAuthAuthentication2faRouteImport } from './routes/{-$locale}/_other/auth/_authentication/2fa'
+import { Route as Char123LocaleChar125OtherAuthAuthenticationLoginRouteImport } from './routes/{-$locale}/_other/auth/_authentication/login'
+import { Route as Char123LocaleChar125OtherAuthAuthenticationRegisterRouteImport } from './routes/{-$locale}/_other/auth/_authentication/register'
 import { Route as Char123LocaleChar125OtherAuthPasswordLayoutRouteImport } from './routes/{-$locale}/_other/auth/password/_layout'
 import { Route as Char123LocaleChar125OtherAuthPasswordAskResetRouteImport } from './routes/{-$locale}/_other/auth/password/ask-reset'
 import { Route as Char123LocaleChar125OtherAuthPasswordResetRouteImport } from './routes/{-$locale}/_other/auth/password/reset'
@@ -204,9 +204,9 @@ const Char123LocaleChar125OtherAuthAuthenticatedRouteRoute =
     path: '/auth',
     getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
   } as any)
-const Char123LocaleChar125OtherAuthNotAuthenticatedRouteRoute =
-  Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteImport.update({
-    id: '/auth/_not-authenticated',
+const Char123LocaleChar125OtherAuthAuthenticationRouteRoute =
+  Char123LocaleChar125OtherAuthAuthenticationRouteRouteImport.update({
+    id: '/auth/_authentication',
     path: '/auth',
     getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
   } as any)
@@ -294,26 +294,23 @@ const Char123LocaleChar125DashboardEditorContentTranslateRoute =
     path: '/translate',
     getParentRoute: () => Char123LocaleChar125DashboardEditorContentRouteRoute,
   } as any)
-const Char123LocaleChar125OtherAuthNotAuthenticated2faRoute =
-  Char123LocaleChar125OtherAuthNotAuthenticated2faRouteImport.update({
+const Char123LocaleChar125OtherAuthAuthentication2faRoute =
+  Char123LocaleChar125OtherAuthAuthentication2faRouteImport.update({
     id: '/2fa',
     path: '/2fa',
-    getParentRoute: () =>
-      Char123LocaleChar125OtherAuthNotAuthenticatedRouteRoute,
+    getParentRoute: () => Char123LocaleChar125OtherAuthAuthenticationRouteRoute,
   } as any)
-const Char123LocaleChar125OtherAuthNotAuthenticatedLoginRoute =
-  Char123LocaleChar125OtherAuthNotAuthenticatedLoginRouteImport.update({
+const Char123LocaleChar125OtherAuthAuthenticationLoginRoute =
+  Char123LocaleChar125OtherAuthAuthenticationLoginRouteImport.update({
     id: '/login',
     path: '/login',
-    getParentRoute: () =>
-      Char123LocaleChar125OtherAuthNotAuthenticatedRouteRoute,
+    getParentRoute: () => Char123LocaleChar125OtherAuthAuthenticationRouteRoute,
   } as any)
-const Char123LocaleChar125OtherAuthNotAuthenticatedRegisterRoute =
-  Char123LocaleChar125OtherAuthNotAuthenticatedRegisterRouteImport.update({
+const Char123LocaleChar125OtherAuthAuthenticationRegisterRoute =
+  Char123LocaleChar125OtherAuthAuthenticationRegisterRouteImport.update({
     id: '/register',
     path: '/register',
-    getParentRoute: () =>
-      Char123LocaleChar125OtherAuthNotAuthenticatedRouteRoute,
+    getParentRoute: () => Char123LocaleChar125OtherAuthAuthenticationRouteRoute,
   } as any)
 const Char123LocaleChar125OtherAuthPasswordLayoutRoute =
   Char123LocaleChar125OtherAuthPasswordLayoutRouteImport.update({
@@ -482,7 +479,7 @@ export interface FileRoutesByFullPath {
   '/{-$locale}/scanner': typeof Char123LocaleChar125DashboardScannerRoute
   '/{-$locale}/pricing': typeof Char123LocaleChar125OtherPricingRoute
   '/{-$locale}/': typeof Char123LocaleChar125DashboardIndexRoute
-  '/{-$locale}/auth': typeof Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteWithChildren
+  '/{-$locale}/auth': typeof Char123LocaleChar125OtherAuthAuthenticationRouteRouteWithChildren
   '/{-$locale}/affiliation/$invitationId': typeof Char123LocaleChar125OtherAffiliationInvitationIdRoute
   '/{-$locale}/auth/cli-login': typeof Char123LocaleChar125OtherAuthCliLoginRoute
   '/{-$locale}/auth/demo': typeof Char123LocaleChar125OtherAuthDemoRoute
@@ -499,9 +496,9 @@ export interface FileRoutesByFullPath {
   '/{-$locale}/admin/discussions': typeof Char123LocaleChar125DashboardAdminAdminDiscussionsRoute
   '/{-$locale}/editor': typeof Char123LocaleChar125DashboardEditorContentEditorRoute
   '/{-$locale}/translate': typeof Char123LocaleChar125DashboardEditorContentTranslateRoute
-  '/{-$locale}/auth/2fa': typeof Char123LocaleChar125OtherAuthNotAuthenticated2faRoute
-  '/{-$locale}/auth/login': typeof Char123LocaleChar125OtherAuthNotAuthenticatedLoginRoute
-  '/{-$locale}/auth/register': typeof Char123LocaleChar125OtherAuthNotAuthenticatedRegisterRoute
+  '/{-$locale}/auth/2fa': typeof Char123LocaleChar125OtherAuthAuthentication2faRoute
+  '/{-$locale}/auth/login': typeof Char123LocaleChar125OtherAuthAuthenticationLoginRoute
+  '/{-$locale}/auth/register': typeof Char123LocaleChar125OtherAuthAuthenticationRegisterRoute
   '/{-$locale}/auth/password': typeof Char123LocaleChar125OtherAuthPasswordLayoutRoute
   '/{-$locale}/auth/password/ask-reset': typeof Char123LocaleChar125OtherAuthPasswordAskResetRoute
   '/{-$locale}/auth/password/reset': typeof Char123LocaleChar125OtherAuthPasswordResetRoute
@@ -541,7 +538,7 @@ export interface FileRoutesByTo {
   '/{-$locale}/projects': typeof Char123LocaleChar125DashboardProjectsRoute
   '/{-$locale}/scanner': typeof Char123LocaleChar125DashboardScannerRoute
   '/{-$locale}/pricing': typeof Char123LocaleChar125OtherPricingRoute
-  '/{-$locale}/auth': typeof Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteWithChildren
+  '/{-$locale}/auth': typeof Char123LocaleChar125OtherAuthAuthenticationRouteRouteWithChildren
   '/{-$locale}/affiliation/$invitationId': typeof Char123LocaleChar125OtherAffiliationInvitationIdRoute
   '/{-$locale}/auth/cli-login': typeof Char123LocaleChar125OtherAuthCliLoginRoute
   '/{-$locale}/auth/demo': typeof Char123LocaleChar125OtherAuthDemoRoute
@@ -552,9 +549,9 @@ export interface FileRoutesByTo {
   '/{-$locale}/admin/discussions': typeof Char123LocaleChar125DashboardAdminAdminDiscussionsRoute
   '/{-$locale}/editor': typeof Char123LocaleChar125DashboardEditorContentEditorRoute
   '/{-$locale}/translate': typeof Char123LocaleChar125DashboardEditorContentTranslateRoute
-  '/{-$locale}/auth/2fa': typeof Char123LocaleChar125OtherAuthNotAuthenticated2faRoute
-  '/{-$locale}/auth/login': typeof Char123LocaleChar125OtherAuthNotAuthenticatedLoginRoute
-  '/{-$locale}/auth/register': typeof Char123LocaleChar125OtherAuthNotAuthenticatedRegisterRoute
+  '/{-$locale}/auth/2fa': typeof Char123LocaleChar125OtherAuthAuthentication2faRoute
+  '/{-$locale}/auth/login': typeof Char123LocaleChar125OtherAuthAuthenticationLoginRoute
+  '/{-$locale}/auth/register': typeof Char123LocaleChar125OtherAuthAuthenticationRegisterRoute
   '/{-$locale}/auth/password': typeof Char123LocaleChar125OtherAuthPasswordLayoutRoute
   '/{-$locale}/auth/password/ask-reset': typeof Char123LocaleChar125OtherAuthPasswordAskResetRoute
   '/{-$locale}/auth/password/reset': typeof Char123LocaleChar125OtherAuthPasswordResetRoute
@@ -601,7 +598,7 @@ export interface FileRoutesById {
   '/{-$locale}/_dashboard/': typeof Char123LocaleChar125DashboardIndexRoute
   '/{-$locale}/_dashboard/_editor/_content': typeof Char123LocaleChar125DashboardEditorContentRouteRouteWithChildren
   '/{-$locale}/_other/auth/_authenticated': typeof Char123LocaleChar125OtherAuthAuthenticatedRouteRouteWithChildren
-  '/{-$locale}/_other/auth/_not-authenticated': typeof Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteWithChildren
+  '/{-$locale}/_other/auth/_authentication': typeof Char123LocaleChar125OtherAuthAuthenticationRouteRouteWithChildren
   '/{-$locale}/_other/affiliation/$invitationId': typeof Char123LocaleChar125OtherAffiliationInvitationIdRoute
   '/{-$locale}/_other/auth/cli-login': typeof Char123LocaleChar125OtherAuthCliLoginRoute
   '/{-$locale}/_other/auth/demo': typeof Char123LocaleChar125OtherAuthDemoRoute
@@ -618,9 +615,9 @@ export interface FileRoutesById {
   '/{-$locale}/_dashboard/_admin/admin/discussions': typeof Char123LocaleChar125DashboardAdminAdminDiscussionsRoute
   '/{-$locale}/_dashboard/_editor/_content/editor': typeof Char123LocaleChar125DashboardEditorContentEditorRoute
   '/{-$locale}/_dashboard/_editor/_content/translate': typeof Char123LocaleChar125DashboardEditorContentTranslateRoute
-  '/{-$locale}/_other/auth/_not-authenticated/2fa': typeof Char123LocaleChar125OtherAuthNotAuthenticated2faRoute
-  '/{-$locale}/_other/auth/_not-authenticated/login': typeof Char123LocaleChar125OtherAuthNotAuthenticatedLoginRoute
-  '/{-$locale}/_other/auth/_not-authenticated/register': typeof Char123LocaleChar125OtherAuthNotAuthenticatedRegisterRoute
+  '/{-$locale}/_other/auth/_authentication/2fa': typeof Char123LocaleChar125OtherAuthAuthentication2faRoute
+  '/{-$locale}/_other/auth/_authentication/login': typeof Char123LocaleChar125OtherAuthAuthenticationLoginRoute
+  '/{-$locale}/_other/auth/_authentication/register': typeof Char123LocaleChar125OtherAuthAuthenticationRegisterRoute
   '/{-$locale}/_other/auth/password/_layout': typeof Char123LocaleChar125OtherAuthPasswordLayoutRoute
   '/{-$locale}/_other/auth/password/ask-reset': typeof Char123LocaleChar125OtherAuthPasswordAskResetRoute
   '/{-$locale}/_other/auth/password/reset': typeof Char123LocaleChar125OtherAuthPasswordResetRoute
@@ -781,7 +778,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/_dashboard/'
     | '/{-$locale}/_dashboard/_editor/_content'
     | '/{-$locale}/_other/auth/_authenticated'
-    | '/{-$locale}/_other/auth/_not-authenticated'
+    | '/{-$locale}/_other/auth/_authentication'
     | '/{-$locale}/_other/affiliation/$invitationId'
     | '/{-$locale}/_other/auth/cli-login'
     | '/{-$locale}/_other/auth/demo'
@@ -798,9 +795,9 @@ export interface FileRouteTypes {
     | '/{-$locale}/_dashboard/_admin/admin/discussions'
     | '/{-$locale}/_dashboard/_editor/_content/editor'
     | '/{-$locale}/_dashboard/_editor/_content/translate'
-    | '/{-$locale}/_other/auth/_not-authenticated/2fa'
-    | '/{-$locale}/_other/auth/_not-authenticated/login'
-    | '/{-$locale}/_other/auth/_not-authenticated/register'
+    | '/{-$locale}/_other/auth/_authentication/2fa'
+    | '/{-$locale}/_other/auth/_authentication/login'
+    | '/{-$locale}/_other/auth/_authentication/register'
     | '/{-$locale}/_other/auth/password/_layout'
     | '/{-$locale}/_other/auth/password/ask-reset'
     | '/{-$locale}/_other/auth/password/reset'
@@ -994,11 +991,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char123LocaleChar125OtherAuthAuthenticatedRouteRouteImport
       parentRoute: typeof Char123LocaleChar125OtherRouteRoute
     }
-    '/{-$locale}/_other/auth/_not-authenticated': {
-      id: '/{-$locale}/_other/auth/_not-authenticated'
+    '/{-$locale}/_other/auth/_authentication': {
+      id: '/{-$locale}/_other/auth/_authentication'
       path: '/auth'
       fullPath: '/{-$locale}/auth'
-      preLoaderRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteImport
+      preLoaderRoute: typeof Char123LocaleChar125OtherAuthAuthenticationRouteRouteImport
       parentRoute: typeof Char123LocaleChar125OtherRouteRoute
     }
     '/{-$locale}/_other/auth/cli-login': {
@@ -1099,26 +1096,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char123LocaleChar125DashboardEditorContentTranslateRouteImport
       parentRoute: typeof Char123LocaleChar125DashboardEditorContentRouteRoute
     }
-    '/{-$locale}/_other/auth/_not-authenticated/2fa': {
-      id: '/{-$locale}/_other/auth/_not-authenticated/2fa'
+    '/{-$locale}/_other/auth/_authentication/2fa': {
+      id: '/{-$locale}/_other/auth/_authentication/2fa'
       path: '/2fa'
       fullPath: '/{-$locale}/auth/2fa'
-      preLoaderRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticated2faRouteImport
-      parentRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticatedRouteRoute
+      preLoaderRoute: typeof Char123LocaleChar125OtherAuthAuthentication2faRouteImport
+      parentRoute: typeof Char123LocaleChar125OtherAuthAuthenticationRouteRoute
     }
-    '/{-$locale}/_other/auth/_not-authenticated/login': {
-      id: '/{-$locale}/_other/auth/_not-authenticated/login'
+    '/{-$locale}/_other/auth/_authentication/login': {
+      id: '/{-$locale}/_other/auth/_authentication/login'
       path: '/login'
       fullPath: '/{-$locale}/auth/login'
-      preLoaderRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticatedLoginRouteImport
-      parentRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticatedRouteRoute
+      preLoaderRoute: typeof Char123LocaleChar125OtherAuthAuthenticationLoginRouteImport
+      parentRoute: typeof Char123LocaleChar125OtherAuthAuthenticationRouteRoute
     }
-    '/{-$locale}/_other/auth/_not-authenticated/register': {
-      id: '/{-$locale}/_other/auth/_not-authenticated/register'
+    '/{-$locale}/_other/auth/_authentication/register': {
+      id: '/{-$locale}/_other/auth/_authentication/register'
       path: '/register'
       fullPath: '/{-$locale}/auth/register'
-      preLoaderRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticatedRegisterRouteImport
-      parentRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticatedRouteRoute
+      preLoaderRoute: typeof Char123LocaleChar125OtherAuthAuthenticationRegisterRouteImport
+      parentRoute: typeof Char123LocaleChar125OtherAuthAuthenticationRouteRoute
     }
     '/{-$locale}/_other/auth/password/_layout': {
       id: '/{-$locale}/_other/auth/password/_layout'
@@ -1505,31 +1502,31 @@ const Char123LocaleChar125OtherAuthAuthenticatedRouteRouteWithChildren =
     Char123LocaleChar125OtherAuthAuthenticatedRouteRouteChildren,
   )
 
-interface Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteChildren {
-  Char123LocaleChar125OtherAuthNotAuthenticated2faRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticated2faRoute
-  Char123LocaleChar125OtherAuthNotAuthenticatedLoginRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticatedLoginRoute
-  Char123LocaleChar125OtherAuthNotAuthenticatedRegisterRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticatedRegisterRoute
+interface Char123LocaleChar125OtherAuthAuthenticationRouteRouteChildren {
+  Char123LocaleChar125OtherAuthAuthentication2faRoute: typeof Char123LocaleChar125OtherAuthAuthentication2faRoute
+  Char123LocaleChar125OtherAuthAuthenticationLoginRoute: typeof Char123LocaleChar125OtherAuthAuthenticationLoginRoute
+  Char123LocaleChar125OtherAuthAuthenticationRegisterRoute: typeof Char123LocaleChar125OtherAuthAuthenticationRegisterRoute
 }
 
-const Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteChildren: Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteChildren =
+const Char123LocaleChar125OtherAuthAuthenticationRouteRouteChildren: Char123LocaleChar125OtherAuthAuthenticationRouteRouteChildren =
   {
-    Char123LocaleChar125OtherAuthNotAuthenticated2faRoute:
-      Char123LocaleChar125OtherAuthNotAuthenticated2faRoute,
-    Char123LocaleChar125OtherAuthNotAuthenticatedLoginRoute:
-      Char123LocaleChar125OtherAuthNotAuthenticatedLoginRoute,
-    Char123LocaleChar125OtherAuthNotAuthenticatedRegisterRoute:
-      Char123LocaleChar125OtherAuthNotAuthenticatedRegisterRoute,
+    Char123LocaleChar125OtherAuthAuthentication2faRoute:
+      Char123LocaleChar125OtherAuthAuthentication2faRoute,
+    Char123LocaleChar125OtherAuthAuthenticationLoginRoute:
+      Char123LocaleChar125OtherAuthAuthenticationLoginRoute,
+    Char123LocaleChar125OtherAuthAuthenticationRegisterRoute:
+      Char123LocaleChar125OtherAuthAuthenticationRegisterRoute,
   }
 
-const Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteWithChildren =
-  Char123LocaleChar125OtherAuthNotAuthenticatedRouteRoute._addFileChildren(
-    Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteChildren,
+const Char123LocaleChar125OtherAuthAuthenticationRouteRouteWithChildren =
+  Char123LocaleChar125OtherAuthAuthenticationRouteRoute._addFileChildren(
+    Char123LocaleChar125OtherAuthAuthenticationRouteRouteChildren,
   )
 
 interface Char123LocaleChar125OtherRouteRouteChildren {
   Char123LocaleChar125OtherPricingRoute: typeof Char123LocaleChar125OtherPricingRoute
   Char123LocaleChar125OtherAuthAuthenticatedRouteRoute: typeof Char123LocaleChar125OtherAuthAuthenticatedRouteRouteWithChildren
-  Char123LocaleChar125OtherAuthNotAuthenticatedRouteRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteWithChildren
+  Char123LocaleChar125OtherAuthAuthenticationRouteRoute: typeof Char123LocaleChar125OtherAuthAuthenticationRouteRouteWithChildren
   Char123LocaleChar125OtherAffiliationInvitationIdRoute: typeof Char123LocaleChar125OtherAffiliationInvitationIdRoute
   Char123LocaleChar125OtherAuthCliLoginRoute: typeof Char123LocaleChar125OtherAuthCliLoginRoute
   Char123LocaleChar125OtherAuthDemoRoute: typeof Char123LocaleChar125OtherAuthDemoRoute
@@ -1550,8 +1547,8 @@ const Char123LocaleChar125OtherRouteRouteChildren: Char123LocaleChar125OtherRout
       Char123LocaleChar125OtherPricingRoute,
     Char123LocaleChar125OtherAuthAuthenticatedRouteRoute:
       Char123LocaleChar125OtherAuthAuthenticatedRouteRouteWithChildren,
-    Char123LocaleChar125OtherAuthNotAuthenticatedRouteRoute:
-      Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteWithChildren,
+    Char123LocaleChar125OtherAuthAuthenticationRouteRoute:
+      Char123LocaleChar125OtherAuthAuthenticationRouteRouteWithChildren,
     Char123LocaleChar125OtherAffiliationInvitationIdRoute:
       Char123LocaleChar125OtherAffiliationInvitationIdRoute,
     Char123LocaleChar125OtherAuthCliLoginRoute:
