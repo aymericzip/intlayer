@@ -27,7 +27,13 @@ export type BrowserProps = {
   style?: CSSProperties;
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
   'aria-label'?: string;
-  sandbox?: string;
+  /**
+   * Value of the iframe `sandbox` attribute. Pass `null` to omit the attribute
+   * entirely — required for same-origin embeds, where `allow-scripts` plus
+   * `allow-same-origin` sandboxes nothing (the frame can reach its parent and
+   * strip the attribute) and browsers warn about the combination.
+   */
+  sandbox?: string | null;
   ref?: RefObject<HTMLIFrameElement | null>;
   domainRestriction?: string;
 } & HTMLAttributes<HTMLIFrameElement>;
@@ -523,7 +529,7 @@ export const Browser = ({
           src={currentUrl}
           title={content.iframeTitle.value}
           className="size-full flex-1"
-          sandbox={sandbox}
+          sandbox={sandbox ?? undefined}
           loading="lazy"
           aria-live="polite"
           {...props}
