@@ -20,6 +20,7 @@ import { lazy, Suspense } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
 import { Link } from '~/components/Link/Link';
 import { LocaleSwitcher } from '~/components/LocaleSwitcher/LocaleSwitcher';
+import { GithubStarCount } from './GithubStarCount';
 
 const SwitchThemeSwitcher = lazy(() =>
   import('~/components/ThemeSwitcherDropDown/SwitchThemeSwitcher').then(
@@ -265,6 +266,9 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
               width={18}
               className="mr-1 group-hover/github:fill-text"
             />
+            <Suspense fallback={null}>
+              <GithubStarCount />
+            </Suspense>
           </Link>
 
           {isAuthenticated ? (
@@ -337,6 +341,9 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
               width={18}
               className="mr-1 group-hover/github:fill-text-opposite"
             />
+            <Suspense fallback={null}>
+              <GithubStarCount />
+            </Suspense>
           </Link>
         </>
       }
