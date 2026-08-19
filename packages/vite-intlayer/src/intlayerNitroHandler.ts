@@ -1,8 +1,19 @@
 import type { IncomingMessage, ServerResponse } from 'node:http';
+/**
+ * The configuration as a plain JSON object.
+ *
+ * Bundlers alias `@intlayer/config/built` to the generated
+ * `.intlayer/config/configuration.mjs`, which inlines the resolved
+ * configuration at build time. Loading it through `@intlayer/config/node`
+ * instead would transpile `intlayer.config.ts` with `esbuild` on every server
+ * start, making the built server unable to boot without `node_modules` next to
+ * it - which is exactly what a Nitro deployment output is.
+ */
+import * as builtConfiguration from '@intlayer/config/built';
 import { getAppLogger } from '@intlayer/config/logger';
-import { getConfiguration } from '@intlayer/config/node';
 import { formatProxyEnabledMessage } from '@intlayer/core/localization';
-import { createIntlayerProxyHandler } from './intlayerProxyPlugin';
+import type { IntlayerConfig } from '@intlayer/types/config';
+import { createProxyHandler } from './intlayerProxyHandler';
 
 /**
  * Minimal duck-type for h3 v2's H3Event.
@@ -38,7 +49,7 @@ type H3EventLike = {
   };
 };
 
-const intlayerConfig = getConfiguration();
+const intlayerConfig = builtConfiguration as unknown as IntlayerConfig;
 const logger = getAppLogger(intlayerConfig);
 // A Nitro server is a production server, so the stored locale always drives
 // redirects here — hence the `false`. This runs once per server process; the
@@ -48,7 +59,7 @@ logger(formatProxyEnabledMessage(false), {
   level: 'info',
 });
 
-const nodeMiddleware = createIntlayerProxyHandler();
+const nodeMiddleware = createProxyHandler({ configuration: intlayerConfig });
 
 /**
  * Native h3 v2 event handler for Nitro production servers (TanStack Start, Nuxt, etc.).
@@ -58,7 +69,7 @@ const nodeMiddleware = createIntlayerProxyHandler();
  * and Deno — where `event.node` is `undefined` and `fromNodeMiddleware` crashes with
  * "undefined is not an object (evaluating 'event.node.req')".
  *
- * It bridges h3 v2 events to the Node.js-style `createIntlayerProxyHandler` middleware
+ * It bridges h3 v2 events to the Node.js-style proxy middleware
  * via lightweight IncomingMessage / ServerResponse shims:
  *
  * - **Redirect** (301 / 5xx): builds a Web API `Response` and returns it — Nitro sends
@@ -76,7 +87,7 @@ export default async (event: H3EventLike): Promise<Response | void> =>
     /**
      * Minimal IncomingMessage shim.
      *
-     * Only the fields actually read by createIntlayerProxyHandler are populated:
+     * Only the fields actually read by the proxy middleware are populated:
      *   - url            : the current pathname + search, modified for rewrites
      *   - headers.cookie : locale cookie detection
      *   - headers.host   : domain-based locale routing
@@ -107,7 +118,7 @@ export default async (event: H3EventLike): Promise<Response | void> =>
     /**
      * Minimal ServerResponse shim.
      *
-     * Implements only the methods that createIntlayerProxyHandler invokes:
+     * Implements only the methods that the proxy middleware invokes:
      *   writeHead() — status + Location header for 301 redirects
      *   setHeader() — Set-Cookie written by setLocaleInStorageServer
      *   getHeader() — defensive read-back (not strictly required but safe)
