@@ -23,6 +23,15 @@ export type DeviceSession = {
   };
 };
 
+export type AccountSwitcherLabels = {
+  accountSwitcherAriaLabel?: string;
+  activeAccountAriaLabel?: string;
+  switchingAccountAriaLabel?: string;
+  addAccountTitle?: string;
+  switchToAriaLabel?: (name: string) => string;
+  signOutAriaLabel?: (name: string) => string;
+};
+
 /**
  * Props for the AccountSwitcher component
  */
@@ -41,6 +50,8 @@ export type AccountSwitcherProps = {
   isSwitching?: boolean;
   /** Additional CSS classes for the outer container */
   className?: string;
+  /** Localized labels for accessibility and text */
+  labels?: AccountSwitcherLabels;
 };
 
 /**
@@ -72,6 +83,7 @@ export const AccountSwitcher: FC<AccountSwitcherProps> = ({
   onSignOut,
   isSwitching = false,
   className,
+  labels = {},
 }) => {
   const handleKeyDown = useCallback(
     (e: KeyboardEvent<HTMLButtonElement>, token: string) => {
@@ -86,7 +98,7 @@ export const AccountSwitcher: FC<AccountSwitcherProps> = ({
   return (
     <div
       role="listbox"
-      aria-label="Account switcher"
+      aria-label={labels.accountSwitcherAriaLabel ?? 'Account switcher'}
       className={cn(
         'flex flex-col',
         isSwitching && 'pointer-events-none opacity-50',
@@ -104,7 +116,10 @@ export const AccountSwitcher: FC<AccountSwitcherProps> = ({
             type="button"
             role="option"
             aria-selected={isActive}
-            aria-label={`Switch to ${displayName}`}
+            aria-label={
+              labels.switchToAriaLabel?.(displayName!) ??
+              `Switch to ${displayName}`
+            }
             onClick={() => onSwitch?.(session.token)}
             onKeyDown={(e) => handleKeyDown(e, session.token)}
             className={cn(
@@ -135,14 +150,17 @@ export const AccountSwitcher: FC<AccountSwitcherProps> = ({
                 <Check
                   size={16}
                   className="text-success"
-                  aria-label="Active account"
+                  aria-label={labels.activeAccountAriaLabel ?? 'Active account'}
                 />
               )}
 
               {onSignOut && (
                 <button
                   type="button"
-                  aria-label={`Sign out ${displayName}`}
+                  aria-label={
+                    labels.signOutAriaLabel?.(displayName!) ??
+                    `Sign out ${displayName}`
+                  }
                   onClick={(e) => {
                     e.stopPropagation();
                     onSignOut(session.token);
@@ -164,7 +182,12 @@ export const AccountSwitcher: FC<AccountSwitcherProps> = ({
 
       {isSwitching && (
         <div className="flex items-center justify-center py-2">
-          <Loader className="size-4" aria-label="Switching account…" />
+          <Loader
+            className="size-4"
+            aria-label={
+              labels.switchingAccountAriaLabel ?? 'Switching account…'
+            }
+          />
         </div>
       )}
 
@@ -174,7 +197,7 @@ export const AccountSwitcher: FC<AccountSwitcherProps> = ({
           <button
             type="button"
             onClick={onAddAccount}
-            aria-label="Add another account"
+            aria-label={labels.addAccountTitle ?? 'Add another account'}
             className={cn(
               'flex w-full items-center gap-3 rounded-lg px-3 py-2.5',
               'text-left text-neutral text-sm transition-colors duration-150',
@@ -185,7 +208,7 @@ export const AccountSwitcher: FC<AccountSwitcherProps> = ({
             <div className="flex size-7 items-center justify-center rounded-full border border-neutral/40 border-dashed">
               <Plus size={14} />
             </div>
-            <span>Add another account</span>
+            <span>{labels.addAccountTitle ?? 'Add another account'}</span>
           </button>
         </>
       )}
