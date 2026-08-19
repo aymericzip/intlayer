@@ -1,7 +1,9 @@
 import { type FC, use } from 'react';
-import { getContributors } from '~/api/contributors.api';
 import type { Contributor } from '~/components/Contributors/ContributorsList';
+import { loadContributors } from '~/serverFunctions/contributors';
 import { ContributorCloud } from './ContributorCloud';
+
+const MAX_DISPLAYED_CONTRIBUTORS = 40;
 
 const shuffleArray = (array: Contributor[]): Contributor[] => {
   const shuffled = [...array];
@@ -23,10 +25,13 @@ const shuffleArray = (array: Contributor[]): Contributor[] => {
  * for good — React has already replaced the server markup with the pending
  * state and never retries. Suspending on the promise from inside the component
  * is the same wait, on a path React does recover from.
+ *
+ * The request itself never reaches GitHub: the server function is resolved at
+ * prerender time and the browser reads the static cache it wrote.
  */
-const contributorsPromise = getContributors()
+const contributorsPromise = loadContributors()
   .then(shuffleArray)
-  .then((array) => array.slice(0, 40));
+  .then((contributors) => contributors.slice(0, MAX_DISPLAYED_CONTRIBUTORS));
 
 export const ContributorSection: FC = () => {
   const contributors = use(contributorsPromise);

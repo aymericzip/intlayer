@@ -12,32 +12,13 @@ import { createFileRoute } from '@tanstack/react-router';
 import { defaultLocale, getIntlayer, locales } from 'intlayer';
 import { useIntlayer } from 'react-intlayer';
 import { BackgroundLayout } from '~/components/BackgroundLayout';
-import {
-  type Contributor,
-  ContributorsList,
-} from '~/components/Contributors/ContributorsList';
+import { ContributorsList } from '~/components/Contributors/ContributorsList';
 import { PageLayout } from '~/layouts/PageLayout';
+import { loadContributors } from '~/serverFunctions/contributors';
 import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
 
 export const Route = createFileRoute('/{-$locale}/contributors')({
-  loader: async () => {
-    let contributors: Contributor[] = [];
-    try {
-      const response = await fetch(
-        'https://api.github.com/repos/aymericzip/intlayer/contributors'
-      );
-      if (response.ok) {
-        const data = await response.json();
-        contributors = data.filter(
-          (contributor: Contributor) =>
-            contributor.type !== 'Bot' && !contributor.login.includes('[bot]')
-        );
-      }
-    } catch (error) {
-      console.error('Error fetching contributors:', error);
-    }
-    return { contributors };
-  },
+  loader: async () => ({ contributors: await loadContributors() }),
   head: ({ params }) => {
     const { locale = defaultLocale } = params;
     const path = Website_Contributors;
@@ -65,9 +46,9 @@ export const Route = createFileRoute('/{-$locale}/contributors')({
       ],
       links: [
         { rel: 'canonical', href: getAbsoluteUrl(path, locale) },
-        // The contributor list is the only thing on the site that calls
-        // GitHub, so the hint belongs here rather than on every page.
-        { rel: 'preconnect', href: 'https://api.github.com' },
+        // Every avatar on the page is served from this host, and none of them
+        // is discoverable until the list has rendered.
+        { rel: 'preconnect', href: 'https://avatars.githubusercontent.com' },
         ...getHreflangLinks(path),
       ],
       scripts: [
