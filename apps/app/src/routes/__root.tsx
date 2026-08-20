@@ -73,6 +73,31 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
         { name: 'twitter:card', content: 'summary_large_image' },
         { name: 'twitter:site', content: '@Intlayer183096' },
         { name: 'twitter:creator', content: '@aymericzip' },
+        { name: 'author', content: 'Intlayer' },
+        { name: 'author', content: 'Aymeric PINEAU' },
+        { name: 'creator', content: 'Aymeric PINEAU' },
+        { name: 'publisher', content: 'Intlayer' },
+        { name: 'apple-mobile-web-app-capable', content: 'yes' },
+        { name: 'apple-mobile-web-app-title', content: 'Intlayer' },
+        {
+          name: 'apple-mobile-web-app-status-bar-style',
+          content: 'black-translucent',
+        },
+        {
+          name: 'format-detection',
+          content: 'telephone=yes, date=yes, email=yes, address=yes',
+        },
+        {
+          name: 'theme-color',
+          content: '#FFFFFF',
+          media: '(prefers-color-scheme: light)',
+        },
+        {
+          name: 'theme-color',
+          content: '#000000',
+          media: '(prefers-color-scheme: dark)',
+        },
+        { name: 'color-scheme', content: 'light dark' },
       ],
       links: [
         { rel: 'stylesheet', href: appCss },

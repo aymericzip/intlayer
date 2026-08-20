@@ -5,7 +5,6 @@ import {
   App_Dashboard_Dictionaries_Path,
   App_Dashboard_Organization_Path,
   App_Dashboard_Projects_Path,
-  App_Home_Path,
 } from '@intlayer/design-system/routes';
 import { useQueryClient } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';

@@ -262,13 +262,13 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
           >
             <TechLogos.GITHUB width={25} />
             GitHub
+            <Suspense fallback={null}>
+              <GithubStarCount />
+            </Suspense>
             <StarIcon
               width={18}
               className="mr-1 group-hover/github:fill-text"
             />
-            <Suspense fallback={null}>
-              <GithubStarCount />
-            </Suspense>
           </Link>
 
           {isAuthenticated ? (
@@ -337,13 +337,13 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
             className="group/github flex cursor-pointer items-center gap-1 p-0.5"
           >
             <TechLogos.GITHUB width={25} />
+            <Suspense fallback={null}>
+              <GithubStarCount />
+            </Suspense>
             <StarIcon
               width={18}
               className="mr-1 group-hover/github:fill-text-opposite"
             />
-            <Suspense fallback={null}>
-              <GithubStarCount />
-            </Suspense>
           </Link>
         </>
       }

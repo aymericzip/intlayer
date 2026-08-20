@@ -85,6 +85,17 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
         name: 'format-detection',
         content: 'telephone=no, address=no, email=no',
       },
+      {
+        name: 'theme-color',
+        content: '#FFFFFF',
+        media: '(prefers-color-scheme: light)',
+      },
+      {
+        name: 'theme-color',
+        content: '#000000',
+        media: '(prefers-color-scheme: dark)',
+      },
+      { name: 'color-scheme', content: 'light dark' },
       { property: 'og:site_name', content: 'Intlayer' },
       { name: 'twitter:card', content: 'summary_large_image' },
       { name: 'twitter:site', content: '@Intlayer183096' },
