@@ -296,8 +296,8 @@ export const DashboardAudience: FC = () => {
         </div>
       ) : !hasData ? (
         <Container
-          className="m-auto flex items-center justify-center p-10"
-          roundedSize="2xl"
+          className="m-auto flex w-full items-center justify-center p-10"
+          ndedSize="2xl"
           transparency="none"
           border
           borderColor="neutral"
