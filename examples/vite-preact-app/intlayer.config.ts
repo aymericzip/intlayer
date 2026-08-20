@@ -8,6 +8,18 @@ const config: IntlayerConfig = {
   },
   routing: {
     mode: 'prefix-no-default',
+    rewrite: {
+      '/about': {
+        en: '/about',
+        fr: '/a-propos',
+        es: '/acerca-de',
+      },
+      '/product/[id]': {
+        en: '/product/[id]',
+        fr: '/produit/[id]',
+        es: '/producto/[id]',
+      },
+    },
   },
   editor: {
     enabled: false,

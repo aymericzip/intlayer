@@ -3,8 +3,8 @@ import { describe, expect, it } from 'vitest';
 import {
   getCanonicalPath,
   getInternalPath,
-  getLocalizedPath,
   getRewriteRules,
+  resolveLocalizedPath,
 } from './rewriteUtils';
 
 describe('rewriteUtils', () => {
@@ -52,19 +52,28 @@ describe('rewriteUtils', () => {
     });
   });
 
-  describe('getLocalizedPath', () => {
+  describe('resolveLocalizedPath', () => {
     it('should find localized path from canonical path', () => {
       expect(
-        getLocalizedPath('/products', Locales.FRENCH, normalizedRules)
+        resolveLocalizedPath('/products', Locales.FRENCH, normalizedRules)
       ).toEqual({
         path: '/produits',
         isRewritten: true,
       });
       expect(
-        getLocalizedPath('/products/123', Locales.FRENCH, normalizedRules)
+        resolveLocalizedPath('/products/123', Locales.FRENCH, normalizedRules)
       ).toEqual({
         path: '/produits/123',
         isRewritten: true,
+      });
+    });
+
+    it('should report the untouched path when no rule matches', () => {
+      expect(
+        resolveLocalizedPath('/unknown', Locales.FRENCH, normalizedRules)
+      ).toEqual({
+        path: '/unknown',
+        isRewritten: false,
       });
     });
   });
@@ -162,7 +171,7 @@ describe('rewriteUtils', () => {
     });
   });
 
-  describe('getLocalizedPath with complex patterns', () => {
+  describe('resolveLocalizedPath with complex patterns', () => {
     const complexRules = {
       rules: [
         {
@@ -183,12 +192,14 @@ describe('rewriteUtils', () => {
     };
 
     it('should localize optional catch-all', () => {
-      expect(getLocalizedPath('/blog', Locales.FRENCH, complexRules)).toEqual({
+      expect(
+        resolveLocalizedPath('/blog', Locales.FRENCH, complexRules)
+      ).toEqual({
         path: '/blog',
         isRewritten: true,
       });
       expect(
-        getLocalizedPath('/blog/my-post', Locales.FRENCH, complexRules)
+        resolveLocalizedPath('/blog/my-post', Locales.FRENCH, complexRules)
       ).toEqual({
         path: '/blog/my-post',
         isRewritten: true,
@@ -197,7 +208,7 @@ describe('rewriteUtils', () => {
 
     it('should localize mandatory catch-all', () => {
       expect(
-        getLocalizedPath('/docs/install', Locales.FRENCH, complexRules)
+        resolveLocalizedPath('/docs/install', Locales.FRENCH, complexRules)
       ).toEqual({
         path: '/documentation/install',
         isRewritten: true,

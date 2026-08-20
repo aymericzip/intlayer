@@ -19,6 +19,7 @@ import { HTMLProvider } from 'preact-intlayer/html';
 import { MarkdownProvider } from 'preact-intlayer/markdown';
 import { QualifiedContentDemo } from './components/QualifiedContentDemo';
 import './app.css';
+import { getLocalizedPath, getLocalizedUrl } from 'intlayer';
 import viteLogo from '/vite.svg';
 import preactLogo from './assets/preact.svg';
 import { LocaleSwitcher } from './components/LocaleSwitcher';

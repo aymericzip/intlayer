@@ -44,7 +44,7 @@ export const normalizePath = <const L extends LocalesValues = DeclaredLocales>(
   // Reuse the URL API to isolate the pathname from any host/query/hash.
   const url = checkIsURLAbsolute(withoutLocale)
     ? new URL(withoutLocale)
-    : new URL(withoutLocale, 'http://example.com');
+    : new URL(withoutLocale, 'http://e.com');
 
   const { pathname } = url;
 

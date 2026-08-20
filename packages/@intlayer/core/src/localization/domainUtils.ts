@@ -1,6 +1,8 @@
-import type { Locale } from '@intlayer/types/allLocales';
 import type { RoutingConfig } from '@intlayer/types/config';
-import type { LocalesValues } from '@intlayer/types/module_augmentation';
+import type {
+  DeclaredLocales,
+  LocalesValues,
+} from '@intlayer/types/module_augmentation';
 
 /**
  * The locale → domain map configured under `routing.domains`
@@ -65,7 +67,7 @@ export const getDomainOrigin = (domain: string): string =>
 export const getLocaleFromDomain = (
   hostname: string,
   domains: LocaleDomainMap
-): Locale | undefined => {
+): DeclaredLocales | undefined => {
   if (!domains) return undefined;
 
   const matchingLocales = Object.entries(domains).filter(
@@ -74,7 +76,7 @@ export const getLocaleFromDomain = (
   );
 
   return matchingLocales.length === 1
-    ? (matchingLocales[0]?.[0] as Locale)
+    ? (matchingLocales[0]?.[0] as DeclaredLocales)
     : undefined;
 };
 

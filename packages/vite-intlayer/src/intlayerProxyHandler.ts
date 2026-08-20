@@ -16,10 +16,10 @@ import {
   getDomainOrigin,
   getInternalPath,
   getLocaleFromDomain,
-  getLocalizedPath,
   getRewriteRules,
   isProxyStorageLocaleEnabled,
   localeDetector,
+  resolveLocalizedPath,
   resolveProxyMode,
 } from '@intlayer/core/localization';
 import {
@@ -170,6 +170,32 @@ export const createProxyHandler = (
   const rewriteRules =
     process.env.INTLAYER_ROUTING_REWRITE_RULES !== 'false'
       ? getRewriteRules(rewrite, 'url')
+      : undefined;
+
+  /**
+   * Resolves the locale a localized ("pretty") path belongs to.
+   *
+   * A path such as `/contacto` only exists because a rewrite rule maps it to
+   * the Spanish locale, so it declares its locale just as explicitly as an
+   * `/es` prefix would. Without this, a visitor whose `Accept-Language` (or
+   * stored locale) says `en` gets `/contacto` canonicalized against the
+   * English rules only, which never matches — the proxy then treats it as an
+   * unlocalized path and redirects to `/en/contacto`, a URL no locale owns.
+   *
+   * Only patterns that differ from their canonical form are considered: a rule
+   * whose localized path equals the canonical one (`en: '/contact'`) carries no
+   * locale signal, and matching on it would hijack the default locale's
+   * unprefixed URLs.
+   *
+   * @param path - The request pathname, without any locale prefix.
+   * @returns The locale declared by the path, or `undefined` when it declares none.
+   */
+  const getRewriteLocale = (path: string): Locale | undefined =>
+    rewriteRules
+      ? supportedLocales.find(
+          (candidate) =>
+            getCanonicalPath(path, candidate, rewriteRules) !== path
+        )
       : undefined;
 
   /**
@@ -549,6 +575,12 @@ export const createProxyHandler = (
       locale = defaultLocale;
     }
 
+    // Without a prefix, a localized path is the only locale signal the URL
+    // carries, so it takes precedence over storage / `Accept-Language`.
+    if (!pathLocale) {
+      locale = getRewriteLocale(originalPath) ?? locale;
+    }
+
     if (pathLocale) {
       const pathWithoutLocale =
         originalPath.slice(`/${pathLocale}`.length) || '/';
@@ -709,21 +741,22 @@ export const createProxyHandler = (
       locale = defaultLocale;
     }
 
+    // A localized path names its own locale, and the URL always outranks the
+    // stored / negotiated one — otherwise /a-propos read as 'en' resolves to
+    // no rule and gets redirected to the ownerless /en/a-propos.
+    locale = getRewriteLocale(originalPath) ?? locale;
+
     // Resolve to canonical path.
     // If user visits /a-propos (implied 'fr'), this resolves to /about
     const canonicalPath = getCanonicalPath(originalPath, locale, rewriteRules);
 
     // Determine target localized path for redirection.
     // /about + 'fr' → /a-propos
-    const targetLocalizedPathResult = getLocalizedPath(
+    const { path: targetLocalizedPath } = resolveLocalizedPath(
       canonicalPath,
       locale,
       rewriteRules
     );
-    const targetLocalizedPath =
-      typeof targetLocalizedPathResult === 'string'
-        ? targetLocalizedPathResult
-        : targetLocalizedPathResult.path;
 
     // Construct new path, preserving original search params
     const search = appendLocaleSearchIfNeeded(searchParams, locale);
@@ -793,6 +826,32 @@ export const createProxyHandler = (
       return next();
     }
 
+    // The URL is in canonical form (e.g. /fr/about) while the locale owns a
+    // different pretty URL for it (fr: '/a-propos'). Redirect so the visible
+    // URL is the one the locale owns — the same one `getLocalizedUrl` emits
+    // and the one the SPA router declares a route for. Skipped when the
+    // default-locale prefix has to be stripped anyway: `handleDefaultLocaleRedirect`
+    // resolves the localized path itself, so redirecting here first would
+    // cost a second round trip.
+    if (prefixDefault || pathLocale !== defaultLocale) {
+      const { path: targetLocalizedPath, isRewritten } = resolveLocalizedPath(
+        canonicalPath,
+        pathLocale,
+        rewriteRules
+      );
+
+      if (isRewritten && targetLocalizedPath !== rawPath) {
+        const search = appendLocaleSearchIfNeeded(searchParams, pathLocale);
+
+        return redirectUrl(
+          req,
+          res,
+          constructPath(pathLocale, targetLocalizedPath, search),
+          { originalUrl }
+        );
+      }
+    }
+
     handleDefaultLocaleRedirect({
       req,
       res,
@@ -826,15 +885,11 @@ export const createProxyHandler = (
   }) => {
     // If we don't prefix the default locale AND the path locale IS the default → strip the prefix
     if (!prefixDefault && pathLocale === defaultLocale) {
-      const targetLocalizedPathResult = getLocalizedPath(
+      const { path: targetLocalizedPath } = resolveLocalizedPath(
         canonicalPath,
         pathLocale,
         rewriteRules
       );
-      const targetLocalizedPath =
-        typeof targetLocalizedPathResult === 'string'
-          ? targetLocalizedPathResult
-          : targetLocalizedPathResult.path;
 
       // Construct path without prefix
       const cleanBasePath = basePath.startsWith('/')

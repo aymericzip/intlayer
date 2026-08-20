@@ -1,6 +1,8 @@
 import { internationalization } from '@intlayer/config/built';
-import type { Locale } from '@intlayer/types/allLocales';
-import type { LocalesValues } from '@intlayer/types/module_augmentation';
+import type {
+  DeclaredLocales,
+  LocalesValues,
+} from '@intlayer/types/module_augmentation';
 
 /**
  * Resolves the most specific locale from a user-provided list,
@@ -10,7 +12,7 @@ export const localeResolver = (
   selectedLocale: LocalesValues | LocalesValues[],
   locales: LocalesValues[] = internationalization?.locales,
   defaultLocale: LocalesValues = internationalization?.defaultLocale
-): Locale => {
+): DeclaredLocales => {
   // Ensure we can handle both a single locale or an array of locales uniformly
   const requestedLocales = [selectedLocale].flat();
 
@@ -27,7 +29,7 @@ export const localeResolver = (
         (locale) => normalize(locale) === normalizedRequested
       );
       if (exactMatch) {
-        return exactMatch as Locale;
+        return exactMatch as DeclaredLocales;
       }
 
       // Attempt partial match on language subtag
@@ -38,7 +40,7 @@ export const localeResolver = (
         (locale) => normalize(locale).split('-')[0] === requestedLang
       );
       if (partialMatch) {
-        return partialMatch as Locale;
+        return partialMatch as DeclaredLocales;
       }
     }
   } catch {
@@ -46,5 +48,5 @@ export const localeResolver = (
   }
 
   // If no match was found, return the default
-  return defaultLocale as Locale;
+  return defaultLocale as DeclaredLocales;
 };

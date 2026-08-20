@@ -34,13 +34,16 @@ const mockLocaleDetectorFn = vi.hoisted(() =>
 const mockGetCanonicalPath = vi.hoisted(() =>
   vi.fn((path: string, _locale: string, _rules: unknown): string => path)
 );
-const mockGetLocalizedPath = vi.hoisted(() =>
+const mockResolveLocalizedPath = vi.hoisted(() =>
   vi.fn(
     (
       path: string,
       _locale: string,
       _rules: unknown
-    ): string | { path: string; isRewritten: boolean } => path
+    ): { path: string; isRewritten: boolean } => ({
+      path,
+      isRewritten: false,
+    })
   )
 );
 const mockGetRewriteRules = vi.hoisted(() =>
@@ -80,7 +83,7 @@ const mockNextResponseActions = vi.hoisted(() => ({
 vi.mock('@intlayer/core/localization', async (importOriginal) => ({
   ...(await importOriginal<Record<string, unknown>>()),
   getCanonicalPath: mockGetCanonicalPath,
-  getLocalizedPath: mockGetLocalizedPath,
+  resolveLocalizedPath: mockResolveLocalizedPath,
   getRewriteRules: mockGetRewriteRules,
   localeDetector: vi.fn(),
 }));
@@ -189,7 +192,10 @@ const getResponseSearch = (response: MockResponse): string =>
 /** Clears mock state and restores identity implementations for path helpers. */
 const restorePathMocks = (): void => {
   mockGetCanonicalPath.mockImplementation((path: string) => path);
-  mockGetLocalizedPath.mockImplementation((path: string) => path);
+  mockResolveLocalizedPath.mockImplementation((path: string) => ({
+    path,
+    isRewritten: false,
+  }));
   mockGetRewriteRules.mockReturnValue(undefined);
   mockLocaleDetectorFn.mockReturnValue(undefined);
   mockGetLocaleFromStorage.mockReturnValue(undefined);
@@ -410,7 +416,7 @@ describe('intlayerProxy', () => {
 
     it('keeps the locale prefix when a rewritten localized path starts with the locale letters', () => {
       // `'/fresh'.startsWith('/fr')` must not be mistaken for an existing /fr prefix.
-      mockGetLocalizedPath.mockReturnValue({
+      mockResolveLocalizedPath.mockReturnValue({
         path: '/fresh',
         isRewritten: true,
       });
@@ -984,11 +990,11 @@ describe('intlayerProxy', () => {
           return path;
         }
       );
-      mockGetLocalizedPath.mockImplementation(
+      mockResolveLocalizedPath.mockImplementation(
         (path: string, locale: string) => {
           if (locale === 'fr' && path === '/about')
             return { path: '/a-propos', isRewritten: true };
-          return path;
+          return { path, isRewritten: false };
         }
       );
     });

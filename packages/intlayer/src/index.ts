@@ -144,6 +144,7 @@ export {
   getPathWithoutLocale,
   getPrefix,
   getRewriteRules,
+  isDeclaredLocale,
   localeDetector,
   localeFlatMap,
   localeMap,

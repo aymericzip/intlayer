@@ -76,7 +76,7 @@ export const getPathWithoutLocale = <
   // For relative URLs, use a dummy base to leverage the URL API
   const url = isAbsoluteUrl
     ? new URL(fixedInputUrl)
-    : new URL(fixedInputUrl, 'http://example.com');
+    : new URL(fixedInputUrl, 'http://e.com');
 
   const pathname = url.pathname;
 
@@ -116,8 +116,5 @@ export const getPathWithoutLocale = <
     return url.toString() as PathWithoutLocale<T, L>;
   }
 
-  return url.toString().replace('http://example.com', '') as PathWithoutLocale<
-    T,
-    L
-  >;
+  return url.toString().replace('http://e.com', '') as PathWithoutLocale<T, L>;
 };

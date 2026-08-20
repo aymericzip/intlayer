@@ -4,13 +4,7 @@ import {
   LOCALES,
   ROUTING_MODE,
 } from '@intlayer/config/defaultValues';
-
-// ── Tree-shake constants ──────────────────────────────────────────────────────
-// When these env vars are injected at build time, bundlers eliminate the
-// branches guarded by these constants.
-
-import type { Locale } from '@intlayer/types/allLocales';
-import type { RoutingConfig } from '@intlayer/types/config';
+import type { RewriteRules, RoutingConfig } from '@intlayer/types/config';
 import type {
   DeclaredLocales,
   LocalesValues,
@@ -26,7 +20,7 @@ export type RoutingOptions = {
   locales?: LocalesValues[];
   defaultLocale?: LocalesValues;
   mode?: RoutingConfig['mode'];
-  rewrite?: RoutingConfig['rewrite'];
+  rewrite?: RoutingConfig['rewrite'] | RewriteRules;
   domains?: RoutingConfig['domains'];
   /**
    * The hostname of the page currently being rendered (e.g. `'intlayer.org'`).
@@ -49,9 +43,9 @@ export type RoutingOptions = {
 export const resolveRoutingConfig = (
   options: RoutingOptions = {}
 ): Omit<RoutingOptions, 'defaultLocale' | 'mode' | 'locales'> & {
-  defaultLocale: LocalesValues;
+  defaultLocale: DeclaredLocales;
   mode: RoutingConfig['mode'];
-  locales: LocalesValues[];
+  locales: DeclaredLocales[];
 } => ({
   defaultLocale: internationalization?.defaultLocale ?? DEFAULT_LOCALE,
   mode: routing?.mode ?? ROUTING_MODE,
@@ -61,8 +55,26 @@ export const resolveRoutingConfig = (
   ...options,
 });
 
+/**
+ * Narrows an arbitrary string to a declared locale by membership test.
+ *
+ * `locales` is typed as `DeclaredLocales[]`, so a plain `includes` rejects the
+ * `string` values that actually need testing (a URL segment, a query param, a
+ * stored value). This keeps the check honest and hands back a narrowed type
+ * instead of forcing a cast at every call site.
+ *
+ * @param value - The candidate locale, from a URL segment / storage / header.
+ * @param locales - The locales declared by the configuration.
+ * @returns Whether `value` is one of the declared locales.
+ */
+export const isDeclaredLocale = (
+  value: LocalesValues | undefined | null,
+  locales?: readonly LocalesValues[]
+): value is DeclaredLocales =>
+  !!value && (locales ?? internationalization.locales).includes(value);
+
 export type GetPrefixOptions = {
-  defaultLocale?: LocalesValues;
+  defaultLocale?: ResolvedDefaultLocale;
   mode?: RoutingConfig['mode'];
 };
 
@@ -75,7 +87,7 @@ export type GetPrefixResult = {
   /**
    * The bare locale identifier (e.g. `'fr'`), or `undefined` when no prefix is applied.
    */
-  localePrefix: Locale | undefined;
+  localePrefix: DeclaredLocales | undefined;
 };
 
 /**
@@ -150,7 +162,7 @@ export const getPrefix = <const L extends LocalesValues | undefined>(
       process.env.INTLAYER_ROUTING_MODE !== 'prefix-all' &&
       process.env.INTLAYER_ROUTING_MODE !== 'prefix-no-default') ||
     !locale ||
-    !locales.includes(locale)
+    !isDeclaredLocale(locale, locales)
   ) {
     return {
       prefix: '',
@@ -178,7 +190,7 @@ export const getPrefix = <const L extends LocalesValues | undefined>(
   if (shouldPrefix) {
     return {
       prefix: `${locale}/`,
-      localePrefix: locale as Locale,
+      localePrefix: locale as DeclaredLocales,
     } as GetPrefixResultNarrowed<L>;
   }
 

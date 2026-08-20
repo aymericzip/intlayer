@@ -1,8 +1,9 @@
 import { mkdir } from 'node:fs/promises';
 import { basename, extname, join, relative } from 'node:path';
 import { kebabCaseToCamelCase, normalizePath } from '@intlayer/config/utils';
+import { getRewriteRules } from '@intlayer/core/localization';
 import type { Locale } from '@intlayer/types/allLocales';
-import type { IntlayerConfig } from '@intlayer/types/config';
+import type { IntlayerConfig, RoutingConfig } from '@intlayer/types/config';
 import fg from 'fast-glob';
 import { getPathHash } from '../utils';
 import { writeFileIfChanged } from '../writeFileIfChanged';
@@ -13,6 +14,36 @@ export const getTypeName = (key: string): string =>
 /** Returns lines like: [Locales.FRENCH]: 1; */
 const formatLocales = (locales: Locale[]) =>
   locales.map((locale) => `    "${locale}": 1;`).join('\n');
+
+/**
+ * Serializes the `url` rewrite rules as a type literal, so `getLocalizedPath`
+ * and `getLocalizedUrl` can resolve a canonical path to its localized literal at
+ * the type level. Returns an empty string when the project declares no rewrite —
+ * the consuming types then localize every path to itself.
+ *
+ * Rules are emitted in their normalized form (`:param`, no locale prefix), which
+ * is exactly what the runtime matches against.
+ */
+export const formatRewriteRules = (
+  rewrite: RoutingConfig['rewrite']
+): string => {
+  const rewriteRules = getRewriteRules(rewrite, 'url');
+
+  if (!rewriteRules?.rules?.length) return '';
+
+  const formattedRules = rewriteRules.rules
+    .map(({ canonical, localized }) => {
+      const formattedLocalized = Object.entries(localized)
+        .filter(([, pattern]) => typeof pattern === 'string')
+        .map(([locale, pattern]) => `'${locale}': '${pattern}'`)
+        .join('; ');
+
+      return `'${canonical}': { ${formattedLocalized} }`;
+    })
+    .join('; ');
+
+  return `; rewrite: { ${formattedRules} }`;
+};
 
 const zodToTsString = (schema: any): string => {
   if (!schema) return 'any';
@@ -186,7 +217,8 @@ const generateTypeIndexContent = (
   fileContent += `  interface __EditorRegistry { enabled : ${enabled} }\n\n`;
   // Routing registry (mode + defaultLocale narrowed to literals)
   const routingMode = routing?.mode ?? 'prefix-no-default';
-  fileContent += `  interface __RoutingRegistry { mode: '${routingMode}'; defaultLocale: '${defaultLocale}' }\n`;
+  const formattedRewriteRules = formatRewriteRules(routing?.rewrite);
+  fileContent += `  interface __RoutingRegistry { mode: '${routingMode}'; defaultLocale: '${defaultLocale}'${formattedRewriteRules} }\n`;
   fileContent += `}\n`;
 
   return fileContent;

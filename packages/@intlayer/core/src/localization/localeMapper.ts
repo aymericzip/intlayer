@@ -1,14 +1,16 @@
 import { internationalization, routing } from '@intlayer/config/built';
 import { DEFAULT_LOCALE } from '@intlayer/config/defaultValues';
-import type { Locale } from '@intlayer/types/allLocales';
-import type { LocalesValues } from '@intlayer/types/module_augmentation';
+import type {
+  DeclaredLocales,
+  LocalesValues,
+} from '@intlayer/types/module_augmentation';
 import { getPrefix } from './getPrefix';
 
 export type LocaleData = {
-  locale: Locale;
-  defaultLocale: Locale;
+  locale: DeclaredLocales;
+  defaultLocale: DeclaredLocales;
   isDefault: boolean;
-  locales: Locale[];
+  locales: DeclaredLocales[];
   urlPrefix: string;
 };
 

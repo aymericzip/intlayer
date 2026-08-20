@@ -70,6 +70,8 @@ export const useLocale = ({
           ? window.location.hostname
           : undefined;
 
+      // `setLocale` accepts any string (a router param, a cookie, a header),
+      // while `getLocalizedUrl` is constrained to the declared locales.
       const pathWithLocale = getLocalizedUrl(pathWithoutLocale, locale, {
         currentDomain,
       });

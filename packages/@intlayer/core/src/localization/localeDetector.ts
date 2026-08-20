@@ -1,4 +1,5 @@
 import type { Locale } from '@intlayer/types/allLocales';
+import type { DeclaredLocales } from '@intlayer/types/module_augmentation';
 import { localeResolver } from './localeResolver';
 
 /**
@@ -53,7 +54,7 @@ const parseLanguageTag = (
     return null;
   }
 
-  const languageCode = match[1];
+  const languageCode = match[1] as string;
   const regionCode = match[2];
   const parameters = match[3];
 
@@ -67,10 +68,12 @@ const parseLanguageTag = (
   // Parse parameters to find the quality score ("q")
   if (parameters) {
     const parameterList = parameters.split(';');
+
     for (const parameter of parameterList) {
       const [key, value] = parameter.split('=');
+
       if (key === 'q') {
-        qualityScore = parseFloat(value);
+        qualityScore = parseFloat(value as string);
       }
     }
   }
@@ -94,11 +97,14 @@ const parseAcceptLanguageHeader = (
   const preferences: LanguagePreference[] = [];
 
   for (let index = 0; index < rawTags.length; index++) {
-    const tag = rawTags[index].trim();
-    const parsedLanguage = parseLanguageTag(tag, index);
+    const tag = rawTags[index]?.trim();
 
-    if (parsedLanguage) {
-      preferences.push(parsedLanguage);
+    if (tag) {
+      const parsedLanguage = parseLanguageTag(tag, index);
+
+      if (parsedLanguage) {
+        preferences.push(parsedLanguage);
+      }
     }
   }
 
@@ -229,7 +235,7 @@ export const getPreferredLanguages = (
   return matchResults
     .filter((result) => result.qualityScore > 0)
     .sort(compareMatchResults)
-    .map((result) => availableLanguages[result.providedIndex]);
+    .map((result) => availableLanguages[result.providedIndex]) as string[];
 };
 
 /**
@@ -242,7 +248,7 @@ export const localeDetector = (
   headers: Record<string, string | undefined>,
   availableLocales?: Locale[],
   defaultLocale?: Locale
-): Locale => {
+): DeclaredLocales => {
   const acceptLanguageHeader = headers['accept-language'];
 
   const preferredLocaleStrings = getPreferredLanguages(

@@ -5,7 +5,10 @@ import {
   getPathWithoutLocale,
 } from '@intlayer/core/localization';
 import type { Locale } from '@intlayer/types/allLocales';
-import type { LocalesValues } from '@intlayer/types/module_augmentation';
+import type {
+  DeclaredLocales,
+  LocalesValues,
+} from '@intlayer/types/module_augmentation';
 import { useRouter } from 'next/router.js';
 import { useCallback, useMemo } from 'react';
 import { useLocale as useLocaleReact } from 'react-intlayer';
@@ -44,6 +47,8 @@ export const useLocalePageRouter = ({
 
   const redirectionFunction = useCallback(
     (locale: LocalesValues) => {
+      // `redirectionFunction` accepts any string, while `getLocalizedUrl` is
+      // constrained to the declared locales.
       const pathWithLocale = getLocalizedUrl(pathWithoutLocale, locale);
 
       push(pathWithLocale);

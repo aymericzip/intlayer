@@ -9,6 +9,7 @@ import {
   intlayer as viteIntlayerPlugin,
   intlayerProxy as viteIntlayerProxyPlugin,
 } from 'vite-intlayer';
+import { emitRewrittenPages } from './emitRewrittenPages';
 
 /**
  * Astro integration for Intlayer.
@@ -18,6 +19,7 @@ import {
  * 2. Injecting Vite plugins for aliases, locale-based routing (middleware), and build optimizations (prune).
  * 3. Configuring Vite aliases for dictionary access.
  * 4. Starting a file watcher for dictionary changes during development.
+ * 5. Emitting the prerendered pages at their rewritten (localized) URLs.
  *
  * @returns An Astro integration object.
  *
@@ -68,6 +70,24 @@ export const intlayer = (): AstroIntegration =>
 
         if (configuration.content.watch) {
           await watch({ configuration });
+        }
+      },
+
+      // Astro renders each page from its canonical file-system route, so a
+      // static build has no file for the localized paths declared in
+      // `routing.rewrite`. Mirror them here, otherwise the URLs produced by
+      // `getLocalizedUrl` (links, hreflang, sitemap) 404 once deployed.
+      'astro:build:done': async ({ dir, logger }) => {
+        const configuration = getConfiguration();
+
+        const emittedPages = await emitRewrittenPages(configuration, dir);
+
+        if (emittedPages.length > 0) {
+          logger.info(
+            `Emitted ${emittedPages.length} rewritten page(s): ${emittedPages
+              .map(([from, to]) => `${from} \u2192 ${to}`)
+              .join(', ')}`
+          );
         }
       },
     },

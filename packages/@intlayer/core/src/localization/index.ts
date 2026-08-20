@@ -17,11 +17,12 @@ export { getLocale } from './getLocale';
 export { getLocaleFromPath } from './getLocaleFromPath';
 export { getLocaleLang } from './getLocaleLang';
 export { getLocaleName } from './getLocaleName';
+export { getLocalizedPath } from './getLocalizedPath';
 export { getLocalizedUrl } from './getLocalizedUrl';
 export { getMultilingualUrls } from './getMultilingualUrls';
 export { getPathWithoutLocale } from './getPathWithoutLocale';
 export type { GetPrefixOptions, GetPrefixResult } from './getPrefix';
-export { getPrefix } from './getPrefix';
+export { getPrefix, isDeclaredLocale } from './getPrefix';
 export { localeDetector } from './localeDetector';
 export { localeFlatMap, localeMap, localeRecord } from './localeMapper';
 export { localeResolver } from './localeResolver';
@@ -39,8 +40,8 @@ export type { LocalizedPathResult } from './rewriteUtils';
 export {
   getCanonicalPath,
   getInternalPath,
-  getLocalizedPath,
   getRewritePath,
   getRewriteRules,
+  resolveLocalizedPath,
 } from './rewriteUtils';
 export { validatePrefix } from './validatePrefix';

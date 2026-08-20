@@ -2,6 +2,17 @@ import type { LocalesValues } from '@intlayer/types/module_augmentation';
 
 type Dir = 'ltr' | 'rtl' | 'auto';
 
+const rtlScripts = [
+  'Arab',
+  'Hebr',
+  'Thaa',
+  'Syrc',
+  'Mand',
+  'Adlm',
+  'Rohg',
+  'Nkoo',
+];
+
 /**
  * Returns the text direction of the given locale.
  *
@@ -33,17 +44,7 @@ export const getHTMLTextDir = (locale?: LocalesValues): Dir => {
     }
 
     // Manual fallback for older environments using script detection
-    const maximized = localeInfo.maximize();
-    const rtlScripts = [
-      'Arab',
-      'Hebr',
-      'Thaa',
-      'Syrc',
-      'Mand',
-      'Adlm',
-      'Rohg',
-      'Nkoo',
-    ];
+    const maximized = (localeInfo as Intl.Locale).maximize();
 
     return rtlScripts.includes(maximized.script ?? '') ? 'rtl' : 'ltr';
   } catch {

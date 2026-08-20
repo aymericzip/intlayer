@@ -193,10 +193,10 @@ export type ResolvedRoutingMode = __RoutingRegistry extends {
 
 /** The default locale resolved from the generated registry (falls back to the full LocalesValues union). */
 export type ResolvedDefaultLocale = __RoutingRegistry extends {
-  defaultLocale: infer D extends LocalesValues;
+  defaultLocale: infer D extends DeclaredLocales;
 }
   ? D
-  : LocalesValues;
+  : DeclaredLocales;
 
 // ── Template-literal URL types ────────────────────────────────────────────────
 
@@ -213,20 +213,46 @@ type LocalePrefixSegment<
       : `${L}/`
     : ''; // no-prefix / search-params → no path prefix
 
-/** Prepends a locale path prefix to a URL path (e.g. `'/about'` + `'fr/'` → `'/fr/about'`). */
+/**
+ * Drops a trailing slash, mirroring the normalization `getLocalizedUrl` applies
+ * to the path it builds. The bare root keeps its slash.
+ *
+ * @example
+ * type A = WithoutTrailingSlash<'/fr/'>;      // '/fr'
+ * type B = WithoutTrailingSlash<'/fr/about'>; // '/fr/about'
+ * type C = WithoutTrailingSlash<'/'>;         // '/'
+ */
+type WithoutTrailingSlash<Path extends string> = Path extends `${infer Head}/`
+  ? Head extends ''
+    ? '/'
+    : Head
+  : Path;
+
+/**
+ * Prepends a locale path prefix to a URL, leaving the origin of an absolute URL
+ * untouched and never emitting a trailing slash.
+ *
+ * @example
+ * type A = WithLocalePrefix<'/about', 'fr/'>;                    // '/fr/about'
+ * type B = WithLocalePrefix<'/', 'fr/'>;                         // '/fr'
+ * type C = WithLocalePrefix<'https://example.com/', 'fr/'>;      // 'https://example.com/fr'
+ */
 type WithLocalePrefix<
   Path extends string,
   Prefix extends string,
 > = Prefix extends ''
   ? Path
-  : Path extends `/${infer Rest}`
-    ? `/${Prefix}${Rest}`
-    : Path;
+  : Path extends `${infer Protocol}://${infer Host}/${infer Pathname}`
+    ? `${Protocol}://${Host}${WithoutTrailingSlash<`/${Prefix}${Pathname}`>}`
+    : Path extends `/${infer Rest}`
+      ? WithoutTrailingSlash<`/${Prefix}${Rest}`>
+      : Path;
 
 /**
  * Computes the localized URL string type for a given path, locale, routing mode and default locale.
- * Mirrors the runtime behaviour: the existing locale segment is stripped from `Path` first, then
- * the new locale prefix is prepended (identical to what `getLocalizedUrl` does internally).
+ * Mirrors the runtime behaviour: the existing locale segment is stripped from `Path` first, the
+ * project's `routing.rewrite` rules are applied to the remaining pathname, then the new locale
+ * prefix is prepended (identical to what `getLocalizedUrl` does internally).
  *
  * @example
  * // prefix-no-default, defaultLocale='en'
@@ -234,9 +260,13 @@ type WithLocalePrefix<
  * type B = LocalizedUrl<'/about', 'en'>;      // '/about'
  * type C = LocalizedUrl<'/fr/about', 'en'>;   // '/about'  (existing prefix stripped)
  * type D = LocalizedUrl<'/fr/about', 'fr'>;   // '/fr/about'
+ * type E = LocalizedUrl<'/', 'fr'>;           // '/fr'      (never a trailing slash)
  *
  * // prefix-all
- * type E = LocalizedUrl<'/about', 'en', 'prefix-all', 'en'>;  // '/en/about'
+ * type F = LocalizedUrl<'/about', 'en', 'prefix-all', 'en'>;  // '/en/about'
+ *
+ * // with rewrite: { '/about': { fr: '/a-propos' } }
+ * type G = LocalizedUrl<'/about', 'fr'>;      // '/fr/a-propos'
  */
 export type LocalizedUrl<
   Path extends string,
@@ -247,13 +277,52 @@ export type LocalizedUrl<
 > = [string] extends [Mode]
   ? string // mode is wide → can't narrow
   : Mode extends 'no-prefix'
-    ? PathWithoutLocale<Path, Locales>
+    ? LocalizedUrlPath<PathWithoutLocale<Path, Locales>, L>
     : Mode extends 'search-params'
       ? string // search params too dynamic to type precisely
       : WithLocalePrefix<
-          PathWithoutLocale<Path, Locales>,
+          LocalizedUrlPath<PathWithoutLocale<Path, Locales>, L>,
           LocalePrefixSegment<L, Mode, Default>
         >;
+
+/**
+ * Extracts the pathname of an absolute URL, leaving a relative path untouched.
+ * An absolute URL without a path resolves to the root, mirroring what the
+ * `URL` parsing of the runtime reports.
+ *
+ * @example
+ * type A = UrlPathname<'https://example.com/about'>; // '/about'
+ * type B = UrlPathname<'https://example.com/'>;      // '/'
+ * type C = UrlPathname<'https://example.com'>;       // '/'
+ * type D = UrlPathname<'/about'>;                    // '/about'
+ */
+type UrlPathname<Url extends string> =
+  Url extends `${string}://${string}/${infer Pathname}`
+    ? `/${Pathname}`
+    : Url extends `${string}://${string}`
+      ? '/'
+      : Url;
+
+/**
+ * Computes the localized path string type for a given path, locale, routing
+ * mode and default locale — the type-level counterpart of `getLocalizedPath`.
+ *
+ * It mirrors {@link LocalizedUrl}, except that the origin of an absolute input
+ * is dropped instead of being kept, exactly as the runtime does.
+ *
+ * @example
+ * // prefix-no-default, defaultLocale='en', rewrite: { '/about': { es: '/acerca-de' } }
+ * type A = LocalizedPathname<'/about', 'es'>;                     // '/es/acerca-de'
+ * type B = LocalizedPathname<'https://intlayer.org/about', 'es'>; // '/es/acerca-de'
+ * type C = LocalizedPathname<'https://intlayer.org', 'en'>;       // '/'
+ */
+export type LocalizedPathname<
+  Path extends string,
+  L extends LocalesValues,
+  Mode extends string = ResolvedRoutingMode,
+  Default extends LocalesValues = ResolvedDefaultLocale,
+  Locales extends string = DeclaredLocales & string,
+> = LocalizedUrl<UrlPathname<Path>, L, Mode, Default, Locales>;
 
 /**
  * Extracts the language subtag from a locale string.
@@ -300,3 +369,191 @@ export type PathWithoutLocale<Path extends string, Locales extends string> =
             ? '/'
             : Path
           : Path;
+
+// ── Rewrite rules (URL localization) ──────────────────────────────────────────
+
+/**
+ * Shape of the rewrite rules carried by the generated module augmentation: a
+ * canonical pattern mapped to its localized counterpart per locale, in the
+ * normalized `url` form (route parameters written as `:param`, no locale
+ * prefix).
+ *
+ * @example
+ * { '/about': { en: '/about'; fr: '/a-propos' }; '/product/:id': { fr: '/produit/:id' } }
+ */
+export type RewriteRuleMap = Record<string, Record<string, string>>;
+
+/**
+ * The project's rewrite rules resolved from the generated registry. Falls back
+ * to an empty map — every path then localizes to itself — when the project
+ * declares no `routing.rewrite`, or when the types have not been generated yet.
+ */
+export type ResolvedRewriteRules = __RoutingRegistry extends {
+  rewrite: infer Rules extends RewriteRuleMap;
+}
+  ? Rules
+  : {};
+
+/**
+ * Whether a pattern uses a multi-segment or optional parameter (`:param*`,
+ * `:param+`, `:param?`). Those match a variable number of segments, so the
+ * resolver widens to `string` instead of guessing a shape.
+ */
+type HasVariadicParam<Pattern extends string> = Pattern extends
+  | `${string}*${string}`
+  | `${string}+${string}`
+  | `${string}?${string}`
+  ? true
+  : false;
+
+/** The literal portion of a pattern preceding its first route parameter, without the trailing slash. */
+type PatternPrefix<Pattern extends string> =
+  Pattern extends `${infer Head}:${string}`
+    ? Head extends `${infer Trimmed}/`
+      ? Trimmed
+      : Head
+    : Pattern;
+
+/**
+ * Captures the route parameter values of `Path` against `Pattern`, mirroring
+ * the runtime regex: each `:param` consumes exactly one segment, and every
+ * literal segment must match. Resolves to `never` when the path does not match.
+ *
+ * @example
+ * type A = PatternParams<'/product/123', '/product/:id'>; // ['123']
+ * type B = PatternParams<'/about', '/product/:id'>;       // never
+ */
+type PatternParams<
+  Path extends string,
+  Pattern extends string,
+> = Pattern extends `${infer Head}:${infer AfterParam}`
+  ? Path extends `${Head}${infer Tail}`
+    ? ParamValue<Tail, AfterParam>
+    : never
+  : Path extends Pattern
+    ? []
+    : never;
+
+/**
+ * Consumes one parameter value from `Tail`, then keeps matching the remainder of
+ * the pattern (`AfterParam`, which starts at the parameter name).
+ */
+type ParamValue<
+  Tail extends string,
+  AfterParam extends string,
+> = AfterParam extends `${string}/${infer RestPattern}`
+  ? // The parameter is followed by more pattern: it stops at the next slash.
+    Tail extends `${infer Value}/${infer RestPath}`
+    ? Value extends ''
+      ? never
+      : PatternParams<RestPath, RestPattern> extends infer Params
+        ? [Params] extends [never]
+          ? never
+          : [Value, ...Extract<Params, string[]>]
+        : never
+    : never
+  : // The parameter closes the pattern: it must consume exactly one segment.
+    Tail extends '' | `${string}/${string}`
+    ? never
+    : [Tail];
+
+/**
+ * Substitutes captured parameter values into a localized pattern, left to right.
+ *
+ * @example
+ * type A = FillPattern<'/produit/:id', ['123']>; // '/produit/123'
+ */
+type FillPattern<
+  Pattern extends string,
+  Params extends readonly string[],
+> = Pattern extends `${infer Head}:${infer AfterParam}`
+  ? Params extends readonly [
+      infer Value extends string,
+      ...infer RestParams extends readonly string[],
+    ]
+    ? AfterParam extends `${string}/${infer RestPattern}`
+      ? `${Head}${Value}/${FillPattern<RestPattern, RestParams>}`
+      : `${Head}${Value}`
+    : Pattern
+  : Pattern;
+
+/** Resolves `Path` against a single rewrite rule, or `never` when the rule does not apply. */
+type ResolveRewriteRule<
+  Path extends string,
+  Canonical extends string,
+  Localized,
+  L extends string,
+> = L extends keyof Localized
+  ? Extract<Localized[L], string> extends infer Target extends string
+    ? true extends HasVariadicParam<Canonical> | HasVariadicParam<Target>
+      ? // Variadic patterns are matched loosely: only paths that could plausibly
+        // reach this rule are widened, so a single such rule does not erase the
+        // narrowing of every other path.
+        Path extends `${PatternPrefix<Canonical>}${string}`
+        ? string
+        : never
+      : PatternParams<Path, Canonical> extends infer Params
+        ? [Params] extends [never]
+          ? never
+          : FillPattern<Target, Extract<Params, string[]>>
+        : never
+    : never
+  : never;
+
+/** Union of the localized paths every declared rule can produce for `Path`. */
+type ResolveRewriteRules<
+  Path extends string,
+  L extends string,
+  Rules extends RewriteRuleMap,
+> = {
+  [Canonical in keyof Rules & string]: ResolveRewriteRule<
+    Path,
+    Canonical,
+    Rules[Canonical],
+    L
+  >;
+}[keyof Rules & string];
+
+/**
+ * Computes the localized path of a canonical path for a locale, by applying the
+ * project's `routing.rewrite` rules — the type-level counterpart of
+ * `getLocalizedPath`. A path no rule matches keeps its exact literal type.
+ *
+ * Note: when several rules match, the result is the union of their outputs
+ * while the runtime picks the first declared one.
+ *
+ * @example
+ * // rewrite: { '/about': { fr: '/a-propos' }, '/product/:id': { fr: '/produit/:id' } }
+ * type A = LocalizedPath<'/about', 'fr'>;       // '/a-propos'
+ * type B = LocalizedPath<'/product/123', 'fr'>; // '/produit/123'
+ * type C = LocalizedPath<'/contact', 'fr'>;     // '/contact' (no rule)
+ */
+export type LocalizedPath<
+  Path extends string,
+  L extends LocalesValues = ResolvedDefaultLocale,
+  Rules extends RewriteRuleMap = ResolvedRewriteRules,
+> = string extends Path
+  ? string
+  : string extends L
+    ? string
+    : [keyof Rules] extends [never]
+      ? Path
+      : ResolveRewriteRules<Path, L & string, Rules> extends infer Localized
+        ? [Localized] extends [never]
+          ? Path
+          : Extract<Localized, string>
+        : never;
+
+/**
+ * Applies {@link LocalizedPath} to the pathname of a URL, leaving the origin of
+ * an absolute URL untouched.
+ *
+ * @example
+ * type A = LocalizedUrlPath<'https://example.com/about', 'fr'>; // 'https://example.com/a-propos'
+ */
+type LocalizedUrlPath<
+  Url extends string,
+  L extends LocalesValues,
+> = Url extends `${infer Protocol}://${infer Host}/${infer Pathname}`
+  ? `${Protocol}://${Host}${LocalizedPath<`/${Pathname}`, L>}`
+  : LocalizedPath<Url, L>;

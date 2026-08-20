@@ -12,7 +12,6 @@ export default defineConfig({
   plugins: [
     preact(),
     intlayer(),
-    // intlayerProxy(),
     tailwindcss(),
     visualizer({
       emitFile: true,

@@ -48,9 +48,10 @@ const mockLocaleDetector = vi.hoisted(() =>
 const mockGetCanonicalPath = vi.hoisted(() =>
   vi.fn((path: string): string => path)
 );
-const mockGetLocalizedPath = vi.hoisted(() =>
-  vi.fn((path: string): string => path)
+const mockResolveLocalizedPath = vi.hoisted(() =>
+  vi.fn((path: string) => ({ path, isRewritten: false }))
 );
+const mockGetRewriteRules = vi.hoisted(() => vi.fn((): unknown => undefined));
 
 // ── Module mocks ──────────────────────────────────────────────────────────────
 
@@ -88,8 +89,8 @@ vi.mock('@intlayer/core/localization', () => {
 
   return {
     getCanonicalPath: mockGetCanonicalPath,
-    getLocalizedPath: mockGetLocalizedPath,
-    getRewriteRules: vi.fn(() => undefined),
+    resolveLocalizedPath: mockResolveLocalizedPath,
+    getRewriteRules: mockGetRewriteRules,
     localeDetector: mockLocaleDetector,
     getInternalPath: (canonicalPath: string, locale: string): string => {
       const pathWithLeadingSlash = canonicalPath.startsWith('/')
@@ -631,5 +632,208 @@ describe('createIntlayerProxyHandler (no-prefix)', () => {
       expect.anything()
     );
     expect(String(res.__headers['Set-Cookie'])).toContain('INTLAYER_LOCALE=fr');
+  });
+});
+
+describe('createIntlayerProxyHandler (rewrite rules)', () => {
+  // Mirrors `routing.rewrite: { '/contact': { en: '/contact', fr: '/contactez-nous' } }`
+  // as normalised by `getRewriteRules(..., 'url')`.
+  const rules = {
+    rules: [
+      {
+        canonical: '/contact',
+        localized: { en: '/contact', fr: '/contactez-nous', es: '/contacto' },
+      },
+    ],
+  };
+
+  /** Localized path → canonical, restricted to the given locale like the real helper. */
+  const canonicalPath = (path: string, locale?: string): string => {
+    for (const rule of rules.rules) {
+      const locales = locale ? [locale] : Object.keys(rule.localized);
+      for (const candidate of locales) {
+        const localized =
+          rule.localized[candidate as keyof typeof rule.localized];
+        if (localized === path) return rule.canonical;
+      }
+    }
+    return path;
+  };
+
+  let handler: (
+    req: IncomingMessage,
+    res: ServerResponse<IncomingMessage>,
+    next: () => void
+  ) => void;
+
+  const loadHandler = async () => {
+    vi.resetModules();
+    const mod = await import('./intlayerProxyPlugin');
+    handler = mod.createIntlayerProxyHandler();
+  };
+
+  beforeEach(async () => {
+    mockConfig.internationalization.locales = ['en', 'fr', 'es'];
+    mockConfig.internationalization.defaultLocale = 'en';
+    mockGetLocaleFromStorage.mockReturnValue(undefined);
+    mockGetRewriteRules.mockReturnValue(rules);
+    mockGetCanonicalPath.mockImplementation(canonicalPath as never);
+    mockResolveLocalizedPath.mockImplementation(((
+      path: string,
+      locale: string
+    ) => {
+      const rule = rules.rules.find((entry) => entry.canonical === path);
+      const localized = rule?.localized[locale as keyof typeof rule.localized];
+      return {
+        path: localized ?? path,
+        isRewritten: Boolean(localized) && localized !== path,
+      };
+    }) as never);
+    await loadHandler();
+  });
+
+  afterEach(() => {
+    mockGetRewriteRules.mockReturnValue(undefined);
+    mockGetCanonicalPath.mockImplementation((path: string) => path);
+    mockResolveLocalizedPath.mockImplementation((path: string) => ({
+      path,
+      isRewritten: false,
+    }));
+    mockLocaleDetector.mockImplementation((_h, _l, def: string) => def);
+    mockConfig.routing.mode = 'prefix-no-default';
+  });
+
+  it('serves a default-locale pretty URL despite a conflicting Accept-Language', async () => {
+    // Regression: /contacto was canonicalised against the *detected* locale
+    // only. With Accept-Language: es and 'en' as default… the reverse case:
+    // a Spanish-preferring visitor hitting the default locale's own pretty URL.
+    mockConfig.internationalization.defaultLocale = 'fr';
+    await loadHandler();
+    mockLocaleDetector.mockReturnValue('en');
+
+    const next = vi.fn();
+    const req = makeReq('/contactez-nous', { 'accept-language': 'en-US,en' });
+    const res = makeRes();
+    handler(req, res, next);
+
+    expect(res.writeHead).not.toHaveBeenCalled();
+    expect(req.url).toBe('/contact');
+    expect(next).toHaveBeenCalled();
+  });
+
+  it('redirects a non-default pretty URL to its own locale, not the detected one', () => {
+    // Regression: with Accept-Language: en, /contactez-nous matched no English
+    // rule, so the proxy treated it as unlocalized and redirected to
+    // /en/contactez-nous — a URL no locale owns, hence a 404.
+    mockLocaleDetector.mockReturnValue('en');
+
+    const req = makeReq('/contactez-nous', { 'accept-language': 'en-US,en' });
+    const res = makeRes();
+    handler(req, res, vi.fn());
+
+    expect(res.writeHead).toHaveBeenCalledWith(302, {
+      Location: '/fr/contactez-nous',
+    });
+  });
+
+  it('lets a stored locale lose against the locale the path declares', () => {
+    mockGetLocaleFromStorage.mockReturnValue('es');
+
+    const req = makeReq('/contactez-nous');
+    const res = makeRes();
+    handler(req, res, vi.fn());
+
+    expect(res.writeHead).toHaveBeenCalledWith(302, {
+      Location: '/fr/contactez-nous',
+    });
+  });
+
+  it('leaves the default locale unprefixed canonical path alone', () => {
+    // /contact is both the canonical path and the English localized path, so
+    // it carries no locale signal and must not hijack locale resolution.
+    mockLocaleDetector.mockReturnValue('en');
+
+    const next = vi.fn();
+    const req = makeReq('/contact');
+    const res = makeRes();
+    handler(req, res, next);
+
+    expect(res.writeHead).not.toHaveBeenCalled();
+    expect(req.url).toBe('/contact');
+    expect(next).toHaveBeenCalled();
+  });
+
+  it('redirects a prefixed canonical URL to the locale pretty URL', () => {
+    // Regression: /fr/contact was served as-is in French. The canonical path
+    // carries no rewrite rule for `fr`, so the URL must move to the one the
+    // locale owns — the same one getLocalizedUrl emits.
+    const next = vi.fn();
+    const req = makeReq('/fr/contact');
+    const res = makeRes();
+    handler(req, res, next);
+
+    expect(res.writeHead).toHaveBeenCalledWith(302, {
+      Location: '/fr/contactez-nous',
+    });
+    expect(next).not.toHaveBeenCalled();
+  });
+
+  it('preserves search params when redirecting a prefixed canonical URL', () => {
+    const req = makeReq('/fr/contact?ref=nav');
+    const res = makeRes();
+    handler(req, res, vi.fn());
+
+    expect(res.writeHead).toHaveBeenCalledWith(302, {
+      Location: '/fr/contactez-nous?ref=nav',
+    });
+  });
+
+  it('serves a prefixed pretty URL without redirecting', () => {
+    const next = vi.fn();
+    const req = makeReq('/fr/contactez-nous');
+    const res = makeRes();
+    handler(req, res, next);
+
+    expect(res.writeHead).not.toHaveBeenCalled();
+    expect(req.url).toBe('/fr/contactez-nous');
+    expect(next).toHaveBeenCalled();
+  });
+
+  it('leaves a prefixed path with no rewrite rule alone', () => {
+    const next = vi.fn();
+    const req = makeReq('/fr/pricing');
+    const res = makeRes();
+    handler(req, res, next);
+
+    expect(res.writeHead).not.toHaveBeenCalled();
+    expect(req.url).toBe('/fr/pricing');
+    expect(next).toHaveBeenCalled();
+  });
+
+  it('strips the default locale prefix in one hop instead of redirecting twice', () => {
+    // /en/contact → /contact directly: the English rule maps the canonical path
+    // to itself, so no pretty-URL redirect may be inserted before the strip.
+    const req = makeReq('/en/contact');
+    const res = makeRes();
+    handler(req, res, vi.fn());
+
+    expect(res.writeHead).toHaveBeenCalledWith(
+      302,
+      expect.objectContaining({ Location: '/contact' })
+    );
+  });
+
+  it('resolves the locale from the pretty path in no-prefix mode', async () => {
+    mockConfig.routing.mode = 'no-prefix';
+    await loadHandler();
+    mockLocaleDetector.mockReturnValue('en');
+
+    const next = vi.fn();
+    const req = makeReq('/contactez-nous', { 'accept-language': 'en-US,en' });
+    const res = makeRes();
+    handler(req, res, next);
+
+    expect(req.url).toBe('/fr/contact');
+    expect(next).toHaveBeenCalled();
   });
 });

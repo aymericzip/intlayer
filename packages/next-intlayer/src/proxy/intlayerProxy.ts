@@ -8,10 +8,10 @@ import {
   getDomainOrigin,
   getInternalPath,
   getLocaleFromDomain,
-  getLocalizedPath,
   getRewriteRules,
   isProxyStorageLocaleEnabled,
   type LocaleDomainMap,
+  resolveLocalizedPath,
   resolveProxyMode,
 } from '@intlayer/core/localization';
 import {
@@ -118,6 +118,33 @@ const internalPrefix = !noPrefix;
 const rewriteRules =
   process.env.INTLAYER_ROUTING_REWRITE_RULES !== 'false'
     ? getRewriteRules(rewrite, 'url')
+    : undefined;
+
+/**
+ * Resolves the locale a localized ("pretty") path belongs to.
+ *
+ * A path such as `/a-propos` only exists because a rewrite rule maps it to the
+ * French locale, so it declares its locale just as explicitly as an `/fr`
+ * prefix would. Without this, a visitor whose `Accept-Language` (or stored
+ * locale) says `en` gets `/a-propos` canonicalized against the English rules
+ * only, which never matches — the proxy then treats it as an unlocalized path
+ * and redirects to `/en/a-propos`, a URL no locale owns.
+ *
+ * Only patterns that differ from their canonical form are considered: a rule
+ * whose localized path equals the canonical one (`en: '/about'`) carries no
+ * locale signal, and matching on it would hijack the default locale's
+ * unprefixed URLs.
+ *
+ * @param pathname - The request pathname, without any locale prefix.
+ * @returns The locale declared by the path, or `undefined` when it declares none.
+ */
+const getRewriteLocale = (pathname: string): Locale | undefined =>
+  rewriteRules
+    ? (locales?.find(
+        (candidate) =>
+          getCanonicalPath(pathname, candidate as Locale, rewriteRules) !==
+          pathname
+      ) as Locale | undefined)
     : undefined;
 
 /**
@@ -370,6 +397,10 @@ const handleNoPrefix = (
     locale = defaultLocale as Locale;
   }
 
+  // Without a prefix, a localized path is the only locale signal the URL
+  // carries, so it takes precedence over storage / `Accept-Language`.
+  locale = getRewriteLocale(pathname) ?? locale;
+
   const canonicalPath = getCanonicalPath(
     pathname,
     locale as Locale,
@@ -467,21 +498,22 @@ const handleMissingPathLocale = (
     locale = defaultLocale as Locale;
   }
 
+  // A localized path names its own locale, and the URL always outranks the
+  // stored / negotiated one — otherwise /a-propos read as 'en' resolves to no
+  // rule and gets redirected to the ownerless /en/a-propos.
+  locale = getRewriteLocale(pathname) ?? locale;
+
   // Resolve to canonical path.
   // If user visits /a-propos (implied 'fr'), we resolve to /about
   const canonicalPath = getCanonicalPath(pathname, locale, rewriteRules);
 
   // Determine target localized path for redirection
   // /about + 'fr' -> /a-propos
-  const targetLocalizedPathResult = getLocalizedPath(
+  const { path: targetLocalizedPath } = resolveLocalizedPath(
     canonicalPath,
     locale,
     rewriteRules
   );
-  const targetLocalizedPath =
-    typeof targetLocalizedPathResult === 'string'
-      ? targetLocalizedPathResult
-      : targetLocalizedPathResult.path;
 
   const newPath = constructPath(
     locale,
@@ -531,19 +563,11 @@ const handleExistingPathLocale = (
 
   // 2. Redirect to localized path if needed (Canonical -> Localized)
   // Ex: /fr/about -> /fr/a-propos
-  const targetLocalizedPathResult = getLocalizedPath(
+  const { path: targetLocalizedPath, isRewritten } = resolveLocalizedPath(
     canonicalPath,
     pathLocale,
     rewriteRules
   );
-  const targetLocalizedPath =
-    typeof targetLocalizedPathResult === 'string'
-      ? targetLocalizedPathResult
-      : targetLocalizedPathResult.path;
-  const isRewritten =
-    typeof targetLocalizedPathResult === 'string'
-      ? false
-      : targetLocalizedPathResult.isRewritten;
 
   if (isRewritten && targetLocalizedPath !== rawPath) {
     const newPath = constructPath(
@@ -599,15 +623,11 @@ const handleDefaultLocaleRedirect = (
 ): NextResponse => {
   // Always called with !prefixDefault && pathLocale === defaultLocale (pre-validated by caller).
   // Redirect to strip the default-locale prefix from the URL.
-  const targetLocalizedPathResult = getLocalizedPath(
+  const { path: targetLocalizedPath } = resolveLocalizedPath(
     canonicalPath,
     pathLocale,
     rewriteRules
   );
-  const targetLocalizedPath =
-    typeof targetLocalizedPathResult === 'string'
-      ? targetLocalizedPathResult
-      : targetLocalizedPathResult.path;
 
   const basePathValue = (basePath as string) || '';
   const basePathTrailingSlash = basePathValue.endsWith('/');
