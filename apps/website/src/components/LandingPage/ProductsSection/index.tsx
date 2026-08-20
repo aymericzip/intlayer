@@ -48,7 +48,7 @@ export const ProductsSection: FC = () => {
       ref={sectionRef}
       className="flex min-h-[75vh] w-full items-center justify-center overflow-hidden border-b"
     >
-      <Carousel initialIndex={1} className="space-y-10">
+      <Carousel initialIndex={1} className="space-y-10 overflow-visible">
         {PRODUCTS.map(({ Component, key }) => (
           <Carousel.Item key={key}>
             <div className="max-w-2xl rounded-2xl border bg-card p-6">
