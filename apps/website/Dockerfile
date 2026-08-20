@@ -43,7 +43,6 @@ COPY \
     --exclude=packages/intlayer-cli \
     --exclude=packages/react-scripts-intlayer \
     --exclude=packages/vue-intlayer \
-    --exclude=packages/intlayer-editor \
     --exclude=packages/solid-intlayer \
     --exclude=packages/svelte-intlayer \
     --exclude=packages/preact-intlayer \
