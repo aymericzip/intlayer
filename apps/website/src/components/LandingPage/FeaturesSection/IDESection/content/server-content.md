@@ -1,7 +1,7 @@
 ```tsx
 // src/component/server/Component.tsx
 
-import { useIntlayer } from "react-intlayer";
+import { useIntlayer } from "next-intlayer";
 
 export const Component = () => {
   const { title, content } = useIntlayer("server-component"); // Create related content declaration
