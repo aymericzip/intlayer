@@ -141,57 +141,57 @@ export const AccountSwitcher: FC<AccountSwitcherProps> = ({ className }) => {
         className
       )}
     >
-      {sessions.map((session) => {
-        const isActive = session.token === activeSessionToken;
-        const displayName =
-          session.user.name ?? session.user.email.split('@')[0];
+      {hasMultipleSessions &&
+        sessions.map((session) => {
+          const isActive = session.token === activeSessionToken;
+          const displayName =
+            session.user.name ?? session.user.email.split('@')[0];
 
-        return (
-          <Button
-            key={session.token}
-            type="button"
-            role="option"
-            isActive={isActive}
-            label={switchToAriaLabel({ name: displayName }).value}
-            variant="hoverable"
-            color="text"
-            size="sm"
-            onClick={() => handleSwitch(session.token)}
-            onKeyDown={(e) => handleKeyDown(e, session.token)}
-          >
-            <div className="my-1 flex flex-row items-center justify-evenly gap-5">
-              <Avatar
-                fullname={displayName}
-                src={session.user.image ?? undefined}
-                size="sm"
-                isLoggedIn
-              />
+          return (
+            <Button
+              key={session.token}
+              type="button"
+              role="option"
+              isActive={isActive}
+              label={switchToAriaLabel({ name: displayName }).value}
+              variant="hoverable"
+              color="text"
+              size="sm"
+              onClick={() => handleSwitch(session.token)}
+              onKeyDown={(e) => handleKeyDown(e, session.token)}
+            >
+              <div className="my-1 flex flex-row items-center justify-evenly gap-5">
+                <Avatar
+                  fullname={displayName}
+                  src={session.user.image ?? undefined}
+                  size="sm"
+                  isLoggedIn
+                />
 
-              <div className="flex min-w-0 flex-1 flex-col">
-                <span className="truncate font-semibold text-sm text-text leading-tight">
-                  {displayName}
-                </span>
-                <span className="truncate text-neutral text-xs leading-snug">
-                  {session.user.email}
-                </span>
-              </div>
+                <div className="flex min-w-0 flex-1 flex-col">
+                  <span className="truncate font-semibold text-sm text-text leading-tight">
+                    {displayName}
+                  </span>
+                  <span className="truncate text-neutral text-xs leading-snug">
+                    {session.user.email}
+                  </span>
+                </div>
 
-              <div className="flex shrink-0 items-center">
-                <Loader
-                  className="size-4"
-                  aria-label={switchingAccountAriaLabel.value}
-                  isLoading={isSwitching}
-                >
-                  {isActive && (
-                    <Check
-                      size={16}
-                      className="text-neutral"
-                      aria-label={activeAccountAriaLabel.value}
-                    />
-                  )}
-                </Loader>
+                <div className="flex shrink-0 items-center">
+                  <Loader
+                    className="size-4"
+                    aria-label={switchingAccountAriaLabel.value}
+                    isLoading={isSwitching}
+                  >
+                    {isActive && (
+                      <Check
+                        size={16}
+                        className="text-neutral"
+                        aria-label={activeAccountAriaLabel.value}
+                      />
+                    )}
+                  </Loader>
 
-                {hasMultipleSessions && (
                   <LogOut
                     aria-label={signOutAriaLabel({ name: displayName }).value}
                     onClick={(e) => {
@@ -204,24 +204,24 @@ export const AccountSwitcher: FC<AccountSwitcherProps> = ({ className }) => {
                       'hover:bg-error/10 hover:text-error'
                     )}
                   />
-                )}
+                </div>
               </div>
-            </div>
-          </Button>
-        );
-      })}
+            </Button>
+          );
+        })}
 
-      <hr className="my-1 border-text/10" />
+      {hasMultipleSessions && <hr className="my-1 border-text/10" />}
+
       <Link
         to={App_Auth_SignIn_Path}
         label={addAccountTitle.value}
         variant="hoverable"
         color="neutral"
         size="sm"
-        className="flex w-full flex-row items-center justify-center gap-2 py-1.5"
+        className="flex w-full flex-row items-center justify-center gap-2 px-2 py-1.5"
       >
         <Plus size={16} />
-        <span>{addAccountTitle}</span>
+        <span className="m-auto">{addAccountTitle}</span>
       </Link>
 
       <hr className="my-1 border-text/10" />

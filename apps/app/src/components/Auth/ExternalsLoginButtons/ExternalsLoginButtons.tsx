@@ -3,28 +3,26 @@ import { Button } from '@intlayer/design-system/button';
 import { getAuthAPI } from '@intlayer/design-system/libs';
 import { TechLogos } from '@intlayer/design-system/tech-logo';
 import { cn } from '@intlayer/design-system/utils';
-import { type FC, useEffect } from 'react';
+import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { AppleLogo } from '#components/logos/AppleLogo';
 
 export const GitHubLoginButton: FC<ExternalsLoginButtonsProps> = ({
-  onLogin,
   className,
+  callbackUrl,
 }) => {
-  const { user } = useUser();
   const externalsLoginButtons = useIntlayer('externals-login-buttons');
 
   const loginWithGitHub = async () => {
     const origin = window.location.href;
+    const finalCallbackUrl = callbackUrl
+      ? new URL(callbackUrl, window.location.origin).toString()
+      : origin;
 
     await getAuthAPI().signInSocial({
       provider: 'github',
-      callbackURL: origin,
+      callbackURL: finalCallbackUrl,
     });
-
-    if (user?.email) {
-      onLogin?.();
-    }
   };
 
   return (
@@ -41,23 +39,21 @@ export const GitHubLoginButton: FC<ExternalsLoginButtonsProps> = ({
 };
 
 export const GoogleLoginButton: FC<ExternalsLoginButtonsProps> = ({
-  onLogin,
   className,
+  callbackUrl,
 }) => {
-  const { user } = useUser();
   const externalsLoginButtons = useIntlayer('externals-login-buttons');
 
   const loginWithGoogle = async () => {
     const origin = window.location.href;
+    const finalCallbackUrl = callbackUrl
+      ? new URL(callbackUrl, window.location.origin).toString()
+      : origin;
 
     await getAuthAPI().signInSocial({
       provider: 'google',
-      callbackURL: origin,
+      callbackURL: finalCallbackUrl,
     });
-
-    if (user?.email) {
-      onLogin?.();
-    }
   };
 
   return (
@@ -77,22 +73,21 @@ export const GoogleLoginButton: FC<ExternalsLoginButtonsProps> = ({
 };
 
 export const LinkedInLoginButton: FC<ExternalsLoginButtonsProps> = ({
-  onLogin,
   className,
+  callbackUrl,
 }) => {
   const externalsLoginButtons = useIntlayer('externals-login-buttons');
 
   const loginWithLinkedIn = async () => {
     const origin = window.location.href;
+    const finalCallbackUrl = callbackUrl
+      ? new URL(callbackUrl, window.location.origin).toString()
+      : origin;
 
     await getAuthAPI().signInSocial({
       provider: 'linkedin',
-      callbackURL: origin,
+      callbackURL: finalCallbackUrl,
     });
-
-    if (user?.email) {
-      onLogin?.();
-    }
   };
 
   return (
@@ -112,23 +107,21 @@ export const LinkedInLoginButton: FC<ExternalsLoginButtonsProps> = ({
 };
 
 export const AppleLoginButton: FC<ExternalsLoginButtonsProps> = ({
-  onLogin,
   className,
+  callbackUrl,
 }) => {
-  const { user } = useUser();
   const externalsLoginButtons = useIntlayer('externals-login-buttons');
 
   const loginWithApple = async () => {
     const origin = window.location.href;
+    const finalCallbackUrl = callbackUrl
+      ? new URL(callbackUrl, window.location.origin).toString()
+      : origin;
 
     await getAuthAPI().signInSocial({
       provider: 'apple',
-      callbackURL: origin,
+      callbackURL: finalCallbackUrl,
     });
-
-    if (user?.email) {
-      onLogin?.();
-    }
   };
 
   return (
@@ -148,23 +141,21 @@ export const AppleLoginButton: FC<ExternalsLoginButtonsProps> = ({
 };
 
 export const BitbucketLoginButton: FC<ExternalsLoginButtonsProps> = ({
-  onLogin,
   className,
+  callbackUrl,
 }) => {
-  const { user } = useUser();
   const externalsLoginButtons = useIntlayer('externals-login-buttons');
 
   const loginWithBitbucket = async () => {
     const origin = window.location.href;
+    const finalCallbackUrl = callbackUrl
+      ? new URL(callbackUrl, window.location.origin).toString()
+      : origin;
 
     await getAuthAPI().signInSocial({
       provider: 'atlassian',
-      callbackURL: origin,
+      callbackURL: finalCallbackUrl,
     });
-
-    if (user?.email) {
-      onLogin?.();
-    }
   };
 
   return (
@@ -184,22 +175,21 @@ export const BitbucketLoginButton: FC<ExternalsLoginButtonsProps> = ({
 };
 
 export const GitLabLoginButton: FC<ExternalsLoginButtonsProps> = ({
-  onLogin,
   className,
+  callbackUrl,
 }) => {
   const externalsLoginButtons = useIntlayer('externals-login-buttons');
 
   const loginWithGitLab = async () => {
     const origin = window.location.href;
+    const finalCallbackUrl = callbackUrl
+      ? new URL(callbackUrl, window.location.origin).toString()
+      : origin;
 
     await getAuthAPI().signInSocial({
       provider: 'gitlab',
-      callbackURL: origin,
+      callbackURL: finalCallbackUrl,
     });
-
-    if (user?.email) {
-      onLogin?.();
-    }
   };
 
   return (
@@ -219,9 +209,9 @@ export const GitLabLoginButton: FC<ExternalsLoginButtonsProps> = ({
 };
 
 type ExternalsLoginButtonsProps = {
-  onLogin?: () => void;
   showAll?: boolean;
   className?: string;
+  callbackUrl?: string;
 };
 
 export const ExternalsLoginButtons: FC<ExternalsLoginButtonsProps> = ({

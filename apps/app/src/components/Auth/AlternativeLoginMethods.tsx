@@ -11,21 +11,21 @@ type AlternativeLoginMethodsProps = {
   showAll: boolean;
   setShowAll: (showAll: boolean) => void;
   email?: string;
-  onLogin?: () => void;
+  callbackUrl?: string;
 };
 
 export const AlternativeLoginMethods: FC<AlternativeLoginMethodsProps> = ({
   showAll,
   setShowAll,
   email,
-  onLogin,
+  callbackUrl,
 }) => {
   const externalsLoginButtons = useIntlayer('externals-login-buttons');
 
   return (
     <div className="flex flex-col gap-3">
       <div className="relative flex flex-col justify-center gap-y-3">
-        <PasskeyButton />
+        <PasskeyButton callbackUrl={callbackUrl} />
 
         <SSOButton
           domain={email?.split('@')[1]}
@@ -35,7 +35,7 @@ export const AlternativeLoginMethods: FC<AlternativeLoginMethodsProps> = ({
       </div>
 
       {!IS_SELF_HOSTED && (
-        <ExternalsLoginButtons showAll={showAll} onLogin={onLogin} />
+        <ExternalsLoginButtons showAll={showAll} callbackUrl={callbackUrl} />
       )}
 
       <Button

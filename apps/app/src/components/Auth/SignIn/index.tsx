@@ -47,10 +47,6 @@ export const SignInForm: FC<{
     navigate({ to: getTarget() as any, replace: true });
   };
 
-  const onLogin = () => {
-    navigate({ to: getTarget() as any, replace: true });
-  };
-
   const getEmailContext = () => {
     const email = search.email;
 
@@ -92,10 +88,10 @@ export const SignInForm: FC<{
       onSubmitSuccess={onSubmitSuccess}
       onClickForgotPassword={onClickForgotPassword}
       onClickSignUp={onClickSignUp}
-      onLogin={onLogin}
       defaultEmail={email ?? undefined}
       emailInputRef={emailInputRef}
       isLoading={isPending}
+      callbackUrl={getTarget()}
     />
   );
 };

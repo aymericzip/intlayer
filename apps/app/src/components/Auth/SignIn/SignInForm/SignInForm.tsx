@@ -19,9 +19,9 @@ type SignInFormProps = {
   onClickForgotPassword: () => void;
   onClickSignUp: () => void;
   onSubmitError?: (error: Error) => void;
-  onLogin?: () => Promise<void> | void;
   emailInputRef?: RefObject<HTMLInputElement | null>;
   isLoading?: boolean;
+  callbackUrl?: string;
 };
 
 const Separator: FC = () => {
@@ -42,9 +42,9 @@ export const SignInForm: FC<SignInFormProps> = ({
   onSubmitError,
   onClickForgotPassword,
   onClickSignUp,
-  onLogin,
   emailInputRef,
   isLoading,
+  callbackUrl,
 }) => {
   const SignInSchema = useSignInSchema();
 
@@ -152,7 +152,7 @@ export const SignInForm: FC<SignInFormProps> = ({
         showAll={showAll}
         setShowAll={setShowAll}
         email={email}
-        onLogin={onLogin}
+        callbackUrl={callbackUrl}
       />
     </>
   );

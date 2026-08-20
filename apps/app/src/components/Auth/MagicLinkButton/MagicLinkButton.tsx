@@ -16,11 +16,13 @@ import { type MagicLinkForm, useMagicLinkSchema } from './useMagicLinkSchema';
 type MagicLinkButtonProps = {
   email?: string;
   className?: string;
+  callbackUrl?: string;
 };
 
 export const MagicLinkButton: FC<MagicLinkButtonProps> = ({
   email,
   className,
+  callbackUrl,
 }) => {
   const { text, ariaLabel, successMessage, errorMessage, modal } =
     useIntlayer('magic-link-button');
@@ -47,10 +49,15 @@ export const MagicLinkButton: FC<MagicLinkButtonProps> = ({
   };
 
   const handleSubmit = (data: MagicLinkForm) => {
+    const origin = window.location.href;
+    const finalCallbackUrl = callbackUrl
+      ? new URL(callbackUrl, window.location.origin).toString()
+      : origin;
+
     signInMagicLink(
       {
         email: data.email,
-        callbackURL: window.location.href,
+        callbackURL: finalCallbackUrl,
       },
       {
         onSuccess: () => {

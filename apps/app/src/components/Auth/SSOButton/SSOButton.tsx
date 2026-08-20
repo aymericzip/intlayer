@@ -13,6 +13,7 @@ import { useSearchParamState } from '#hooks/useSearchParamState';
 type SSOButtonProps = {
   domain?: string;
   className?: string;
+  callbackUrl?: string;
 };
 
 /**
@@ -41,6 +42,7 @@ const STORAGE_KEY = 'sso-button-domain';
 export const SSOButton: FC<SSOButtonProps> = ({
   domain: domainProp,
   className,
+  callbackUrl,
 }) => {
   const { params, setParam } = useSearchParamState({
     domain: { type: 'string' },
@@ -104,12 +106,15 @@ export const SSOButton: FC<SSOButtonProps> = ({
     if (!ssoConfig?.providerId) return;
     if (typeof window === 'undefined') return;
 
-    const callbackURL = window.location.href;
+    const origin = window.location.href;
+    const finalCallbackUrl = callbackUrl
+      ? new URL(callbackUrl, window.location.origin).toString()
+      : origin;
 
     signInSSO(
       {
         providerId: ssoConfig.providerId,
-        callbackURL,
+        callbackURL: finalCallbackUrl,
       },
       {
         onError: (error: Error) => {
