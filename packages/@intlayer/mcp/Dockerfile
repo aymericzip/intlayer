@@ -11,8 +11,6 @@ RUN npm install -g bun@1.4.0
 WORKDIR /workspace
 
 COPY \
-    --exclude=packages/@intlayer/vue-compiler \
-    --exclude=packages/@intlayer/svelte-compiler \
     --exclude=packages/@intlayer/webpack \
     --exclude=packages/@intlayer/editor \
     --exclude=packages/@intlayer/editor-react \

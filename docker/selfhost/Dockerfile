@@ -21,8 +21,6 @@ RUN apk add --no-cache build-base zlib-dev autoconf automake
 WORKDIR /workspace
 
 COPY \
-    --exclude=packages/@intlayer/vue-compiler \
-    --exclude=packages/@intlayer/svelte-compiler \
     --exclude=packages/@intlayer/lsp \
     --exclude=packages/@intlayer/chrome-extension \
     --exclude=packages/@intlayer/swc \
@@ -103,8 +101,6 @@ ENV VITE_SELF_HOSTED=${VITE_SELF_HOSTED}
 
 COPY \
     --exclude=packages/@intlayer/doc \
-    --exclude=packages/@intlayer/vue-compiler \
-    --exclude=packages/@intlayer/svelte-compiler \
     --exclude=packages/@intlayer/swc \
     --exclude=packages/@intlayer/lsp \
     --exclude=packages/intlayer-cli \

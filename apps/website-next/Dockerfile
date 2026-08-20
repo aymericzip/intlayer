@@ -41,8 +41,6 @@ WORKDIR /workspace
 # Copy the rest of the source code
 # Remove directories to keep the image slim
 COPY \
-    --exclude=packages/@intlayer/vue-compiler \
-    --exclude=packages/@intlayer/svelte-compiler \
     --exclude=packages/@intlayer/lsp \
     --exclude=packages/@intlayer/chrome-extension \
     --exclude=packages/intlayer-cli \
@@ -75,7 +73,7 @@ COPY \
     . .
 
 
-# Install all dependencies (dev + prod) (frozen for reproducible builds)
+# Install all dependencies (dev + prod)
 RUN bun install
 
 # Build every package in the workspace (uses the root "build" script)

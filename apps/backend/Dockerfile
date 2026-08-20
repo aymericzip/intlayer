@@ -30,8 +30,6 @@ WORKDIR /workspace
 
 # Copy the monorepo, excluding packages not needed by the backend
 COPY \
-    --exclude=packages/@intlayer/vue-compiler \
-    --exclude=packages/@intlayer/svelte-compiler \
     --exclude=packages/@intlayer/lsp \
     --exclude=packages/@intlayer/chrome-extension \
     --exclude=packages/@intlayer/swc \
