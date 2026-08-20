@@ -108,7 +108,7 @@ export const MyComponent: FC = () => {
 
 <Accordion header="AI 에이전트 (AI Agent)">
 
-콘텐츠를 코드와 같은 위치에 두면 대규모 언어 모델(LLM)이 **필요로 하는 컨텍스트가 줄어듭니다**. Intlayer에는 누락된 번역을 테스트하기 위한 **CLI**, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/mcp_server.md)** 및 **[에이전트 스킬(agent skills)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/agent_skills.md)** 등과 같은 일련의 도구가 함께 제공되어 AI 에이전트의 개발자 경험(DX)을 훨씬 더 매끄럽게 만듭니다.
+콘텐츠를 코드와 같은 위치에 두면 대규모 언어 모델(LLM)이 **필요로 하는 컨텍스트가 줄어듭니다**. Intlayer에는 누락된 번역을 테스트하기 위한 **CLI**, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/mcp_server.md)** 및 **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/agent_skills.md)** 등과 같은 일련의 도구가 함께 제공되어 AI 에이전트의 개발자 경험(DX)을 훨씬 더 매끄럽게 만듭니다.
 
 </Accordion>
 

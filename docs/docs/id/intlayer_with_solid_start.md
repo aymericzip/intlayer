@@ -78,7 +78,7 @@ Melingkupi konten aplikasi Anda **memfasilitasi pemeliharaan** untuk aplikasi sk
 
 <Accordion header="Agen AI">
 
-Menempatkan konten bersama **mengurangi konteks yang dibutuhkan** oleh Model Bahasa Besar (LLM). Intlayer juga dilengkapi dengan serangkaian alat, seperti **CLI** untuk menguji terjemahan yang hilang, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**, dan **[keterampilan agen](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, untuk membuat pengalaman pengembang (DX) menjadi lebih lancar bagi agen AI.
+Menempatkan konten bersama **mengurangi konteks yang dibutuhkan** oleh Model Bahasa Besar (LLM). Intlayer juga dilengkapi dengan serangkaian alat, seperti **CLI** untuk menguji terjemahan yang hilang, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**, dan **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/agent_skills.md)**, untuk membuat pengalaman pengembang (DX) menjadi lebih lancar bagi agen AI.
 
 </Accordion>
 

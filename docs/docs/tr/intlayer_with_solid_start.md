@@ -78,7 +78,7 @@ Uygulamanızın içeriğini kapsamlara ayırmak, büyük ölçekli uygulamalar i
 
 <Accordion header="Yapay Zeka Ajanı">
 
-İçeriği aynı yerde konumlandırmak, Büyük Dil Modelleri (LLM'ler) için **gereken bağlamı azaltır**. Intlayer ayrıca yapay zeka ajanları için geliştirici deneyimini (DX) daha da sorunsuz hale getirmek amacıyla eksik çevirileri test etmek için **CLI**, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** ve **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)** gibi bir dizi araçla birlikte gelir.
+İçeriği aynı yerde konumlandırmak, Büyük Dil Modelleri (LLM'ler) için **gereken bağlamı azaltır**. Intlayer ayrıca yapay zeka ajanları için geliştirici deneyimini (DX) daha da sorunsuz hale getirmek amacıyla eksik çevirileri test etmek için **CLI**, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** ve **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/agent_skills.md)** gibi bir dizi araçla birlikte gelir.
 
 </Accordion>
 

@@ -78,7 +78,7 @@ Definire l'ambito del contenuto della tua applicazione **facilita la manutenzion
 
 <Accordion header="Agente AI">
 
-Collocare il contenuto **riduce il contesto necessario** per i modelli di linguaggio di grandi dimensioni (LLM). Intlayer è inoltre fornito con una suite di strumenti, come una **CLI** per verificare le traduzioni mancanti, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/mcp_server.md)** e **[competenze dell'agente](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/agent_skills.md)**, per rendere l'esperienza di sviluppo (DX) ancora più fluida per gli agenti AI.
+Collocare il contenuto **riduce il contesto necessario** per i modelli di linguaggio di grandi dimensioni (LLM). Intlayer è inoltre fornito con una suite di strumenti, come una **CLI** per verificare le traduzioni mancanti, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/mcp_server.md)** e **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/agent_skills.md)**, per rendere l'esperienza di sviluppo (DX) ancora più fluida per gli agenti AI.
 
 </Accordion>
 

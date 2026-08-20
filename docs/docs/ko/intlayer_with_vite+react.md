@@ -63,7 +63,7 @@ Intlayer는 **컴포넌트 수준의 콘텐츠 스코핑**, **지연 로드(lazy
 
 <Accordion header="AI 에이전트">
 
-콘텐츠를 같은 위치에 배치(Co-locating)하면 대규모 언어 모델(LLM)에 필요한 문맥이 줄어듭니다. Intlayer는 또한 누락된 번역을 테스트하기 위한 **CLI**, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/mcp_server.md)**, 그리고 **[에이전트 스킬(agent skills)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/agent_skills.md)**과 같은 도구 모음을 제공하여 AI 에이전트의 개발자 경험(DX)을 더욱 원활하게 만듭니다.
+콘텐츠를 같은 위치에 배치(Co-locating)하면 대규모 언어 모델(LLM)에 필요한 문맥이 줄어듭니다. Intlayer는 또한 누락된 번역을 테스트하기 위한 **CLI**, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/mcp_server.md)**, 그리고 **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/agent_skills.md)**과 같은 도구 모음을 제공하여 AI 에이전트의 개발자 경험(DX)을 더욱 원활하게 만듭니다.
 
 </Accordion>
 
@@ -114,7 +114,7 @@ Intlayer는 **구성 요소 수준 콘텐츠 범위 지정**, **지연 로드 �
 
 <Accordion header="AI 에이전트">
 
-콘텐츠를 같은 위치에 배치하면 LLM(대형 언어 모델)에 **필요한 컨텍스트가 줄어듭니다**. Intlayer에는 누락된 번역을 테스트하기 위한 **CLI**, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** 및 **[agent)와 같은 도구 모음도 함께 제공됩니다. 기술](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, AI 에이전트를 위한 개발자 경험(DX)을 더욱 원활하게 만듭니다.
+콘텐츠를 같은 위치에 배치하면 LLM(대형 언어 모델)에 **필요한 컨텍스트가 줄어듭니다**. Intlayer에는 누락된 번역을 테스트하기 위한 **CLI**, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** 및 **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/agent_skills.md)**, AI 에이전트를 위한 개발자 경험(DX)을 더욱 원활하게 만듭니다.
 
 </Accordion>
 

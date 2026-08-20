@@ -78,7 +78,7 @@ Intlayer는 **컴포넌트 수준의 콘텐츠 스코핑**, **반응형 번역**
 
 <Accordion header="AI 에이전트">
 
-콘텐츠를 같은 위치에 두면 대형 언어 모델(LLM)에 **필요한 컨텍스트가 줄어듭니다**. Intlayer에는 누락된 번역을 테스트하기 위한 **CLI**, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** 및 **[에이전트 스킬](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**과 같은 도구 모음도 함께 제공되어 AI 에이전트의 개발자 경험(DX)을 더욱 매끄럽게 만듭니다.
+콘텐츠를 같은 위치에 두면 대형 언어 모델(LLM)에 **필요한 컨텍스트가 줄어듭니다**. Intlayer에는 누락된 번역을 테스트하기 위한 **CLI**, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** 및 **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/agent_skills.md)**과 같은 도구 모음도 함께 제공되어 AI 에이전트의 개발자 경험(DX)을 더욱 매끄럽게 만듭니다.
 
 </Accordion>
 

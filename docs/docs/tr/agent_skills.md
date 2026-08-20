@@ -1,11 +1,11 @@
 ---
 createdAt: 2026-02-09
 updatedAt: 2026-03-03
-title: Agent Becerileri
+title: Agent Skills
 description: Intlayer Agent Skills'i kullanarak, Metadata, Sitemap ve Server Action'lar için kapsamlı kurulum kılavuzları da dahil olmak üzere AI ajanınızın projenizi anlamasını nasıl geliştireceğinizi öğrenin.
 keywords:
   - Intlayer
-  - Agent Becerileri
+  - Agent Skills
   - AI Ajanı
   - Uluslararasılaştırma
   - Dokümantasyon
@@ -19,13 +19,13 @@ history:
 author: aymericzip
 ---
 
-# Agent Becerileri
+# Agent Skills
 
 ## Kurulum
 
 ### CLI Kullanarak
 
-`intlayer init skills` komutu, projenizde ajan becerilerini kurmanın en kolay yoludur. Ortamınızı tespit eder ve tercih ettiğiniz platformlar için gerekli yapılandırma dosyalarını yükler.
+`intlayer init skills` komutu, projenizde Agent Skills kurmanın en kolay yoludur. Ortamınızı tespit eder ve tercih ettiğiniz platformlar için gerekli yapılandırma dosyalarını yükler.
 
 ```bash packageManager="npm"
 npx intlayer init skills
@@ -54,10 +54,10 @@ npx skills add aymericzip/intlayer-skills
 1. Komut Paletini açın (Ctrl+Shift+P veya Cmd+Shift+P).
 2. `Intlayer: Setup AI Agent Skills` yazın.
 3. Kullandığınız platformu seçin (ör. `VS Code`, `Cursor`, `Windsurf`, `OpenCode`, `Claude Code`, `GitHub Copilot Workspace` vb.).
-4. Yüklemek istediğiniz Becerileri seçin (ör. `Next.js`, `React`, `Vite`, `Compiler`, `Configuration`).
+4. Yüklemek istediğiniz Agent Skills'i seçin (ör. `Next.js`, `React`, `Vite`, `Compiler`, `Configuration`).
 5. Enter'a basın.
 
-## Beceri Listesi
+## Agent Skills Listesi
 
 **intlayer-config**
 

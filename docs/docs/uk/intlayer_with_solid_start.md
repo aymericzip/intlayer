@@ -78,7 +78,7 @@ Intlayer оптимізовано для ідеальної роботи з Soli
 
 <Accordion header="ШІ-агент">
 
-Спільне розміщення контенту **зменшує контекст, необхідний** великим мовним моделям (LLM). Intlayer також постачається з набором інструментів, таких як **CLI** для перевірки відсутніх перекладів, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** та **[навички агента](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, щоб зробити досвід розробки (DX) ще зручнішим для ШІ-агентів.
+Спільне розміщення контенту **зменшує контекст, необхідний** великим мовним моделям (LLM). Intlayer також постачається з набором інструментів, таких як **CLI** для перевірки відсутніх перекладів, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** та **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/agent_skills.md)**, щоб зробити досвід розробки (DX) ще зручнішим для ШІ-агентів.
 
 </Accordion>
 

@@ -78,7 +78,7 @@ Intlayer оптимизирован для идеальной работы с So
 
 <Accordion header="ИИ-агент">
 
-Совместное расположение контента **сокращает контекст**, необходимый большим языковым моделям (LLM). Intlayer также поставляется с набором инструментов, таких как **CLI** для проверки отсутствующих переводов, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** и **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, чтобы сделать опыт разработки (DX) ещё удобнее для ИИ-агентов.
+Совместное расположение контента **сокращает контекст**, необходимый большим языковым моделям (LLM). Intlayer также поставляется с набором инструментов, таких как **CLI** для проверки отсутствующих переводов, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** и **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/agent_skills.md)**, чтобы сделать опыт разработки (DX) ещё удобнее для ИИ-агентов.
 
 </Accordion>
 

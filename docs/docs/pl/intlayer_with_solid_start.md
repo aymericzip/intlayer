@@ -78,7 +78,7 @@ Zakresowanie treści aplikacji **ułatwia utrzymanie** w przypadku aplikacji o d
 
 <Accordion header="Agent AI">
 
-Wspólna lokalizacja treści **zmniejsza kontekst wymagany** przez duże modele językowe (LLM). Intlayer zawiera również zestaw narzędzi, takich jak **CLI** do testowania brakujących tłumaczeń, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** oraz **[umiejętności agenta](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, aby czynić doświadczenie programistyczne (DX) jeszcze płynniejszym dla agentów AI.
+Wspólna lokalizacja treści **zmniejsza kontekst wymagany** przez duże modele językowe (LLM). Intlayer zawiera również zestaw narzędzi, takich jak **CLI** do testowania brakujących tłumaczeń, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** oraz **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/agent_skills.md)**, aby czynić doświadczenie programistyczne (DX) jeszcze płynniejszym dla agentów AI.
 
 </Accordion>
 

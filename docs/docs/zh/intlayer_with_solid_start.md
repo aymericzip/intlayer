@@ -78,7 +78,7 @@ Intlayer 经过优化，可与 Solid 完美配合，提供**组件级内容划�
 
 <Accordion header="AI 代理">
 
-将内容协同定位**减少了大语言模型 (LLM) 所需的上下文**。Intlayer 还附带了一套工具，例如用于测试缺失翻译的 **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** 和 **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**，使 AI 代理的开发人员体验 (DX) 更加顺畅。
+将内容协同定位**减少了大语言模型 (LLM) 所需的上下文**。Intlayer 还附带了一套工具，例如用于测试缺失翻译的 **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** 和 **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)**，使 AI 代理的开发人员体验 (DX) 更加顺畅。
 
 </Accordion>
 

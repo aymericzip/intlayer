@@ -1,11 +1,11 @@
 ---
 createdAt: 2026-02-09
 updatedAt: 2026-03-03
-title: エージェントスキル (Agent Skills)
+title: Agent Skills
 description: Intlayer Agent Skills を利用して、AI エージェントによるプロジェクトの理解を向上させる方法を学びます。メタデータ、サイトマップ、サーバーアクションの包括的なセットアップガイドも含まれています。
 keywords:
   - Intlayer
-  - エージェントスキル
+  - Agent Skills
   - AI エージェント
   - 国際化
   - ドキュメント
@@ -19,13 +19,13 @@ history:
 author: aymericzip
 ---
 
-# エージェントスキル (Agent Skills)
+# Agent Skills
 
 ## セットアップ
 
 ### CLI を使用する
 
-`intlayer init skills` コマンドは、プロジェクトにエージェントスキルをセットアップする最も簡単な方法です。環境を検出し、好みのプラットフォームに必要な設定ファイルをインストールします。
+`intlayer init skills` コマンドは、プロジェクトに Agent Skills をセットアップする最も簡単な方法です。環境を検出し、好みのプラットフォームに必要な設定ファイルをインストールします。
 
 ```bash packageManager="npm"
 npx intlayer init skills
@@ -54,10 +54,10 @@ npx skills add aymericzip/intlayer-skills
 1. コマンドパレットを開きます (Ctrl+Shift+P または Cmd+Shift+P)。
 2. `Intlayer: Setup AI Agent Skills` と入力します。
 3. 使用しているプラットフォームを選択します (例: `VS Code`、`Cursor`、`Windsurf`、`OpenCode`、`Claude Code`、`GitHub Copilot Workspace` など)。
-4. インストールしたいスキルを選択します (例: `Next.js`、`React`、`Vite`、`Compiler`、`Configuration`)。
+4. インストールしたい Agent Skills を選択します (例: `Next.js`、`React`、`Vite`、`Compiler`、`Configuration`)。
 5. Enter キーを押します。
 
-## スキル一覧
+## Agent Skills 一覧
 
 **intlayer-config**
 

@@ -1,11 +1,11 @@
 ---
 createdAt: 2026-02-09
 updatedAt: 2026-03-03
-title: 代理技能
-description: 了解如何使用 Intlayer 代理技能来提高 AI 代理对项目的理解，包括元数据 (Metadata)、站点地图 (Sitemaps) 和服务器操作 (Server Actions) 的全面设置指南。
+title: Agent Skills
+description: 了解如何使用 Intlayer Agent Skills 来提高 AI 代理对项目的理解，包括元数据 (Metadata)、站点地图 (Sitemaps) 和服务器操作 (Server Actions) 的全面设置指南。
 keywords:
   - Intlayer
-  - 代理技能
+  - Agent Skills
   - AI 代理
   - 国际化
   - 文档
@@ -19,13 +19,13 @@ history:
 author: aymericzip
 ---
 
-# 代理技能
+# Agent Skills
 
 ## 设置
 
 ### 使用 CLI
 
-`intlayer init skills` 命令是在项目中设置代理技能的最简单方法。它会检测您的环境并为您喜欢的平台安装必要的配置文件。
+`intlayer init skills` 命令是在项目中设置 Agent Skills 的最简单方法。它会检测您的环境并为您喜欢的平台安装必要的配置文件。
 
 ```bash packageManager="npm"
 npx intlayer init skills
@@ -54,10 +54,10 @@ npx skills add aymericzip/intlayer-skills
 1. 打开命令面板 (Ctrl+Shift+P 或 Cmd+Shift+P)。
 2. 输入 `Intlayer: Setup AI Agent Skills`
 3. 选择您使用的平台（例如 `VS Code`、`Cursor`、`Windsurf`、`OpenCode`、`Claude Code`、`GitHub Copilot Workspace` 等）。
-4. 选择您要安装的技能（例如 `Next.js`、`React`、`Vite`、`Compiler`、`Configuration`）。
+4. 选择您要安装的 Agent Skills（例如 `Next.js`、`React`、`Vite`、`Compiler`、`Configuration`）。
 5. 按 Enter 键。
 
-## 技能列表
+## Agent Skills 列表
 
 **intlayer-config**
 

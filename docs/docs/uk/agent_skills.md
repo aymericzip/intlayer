@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-02-09
 updatedAt: 2026-03-03
-title: Навички агента
+title: Agent Skills
 description: Дізнайтеся, як використовувати Intlayer Agent Skills, щоб покращити розуміння вашого проєкту вашим AI-агентом, включаючи вичерпні посібники з налаштування метаданих, карт сайту та серверних дій.
 keywords:
   - Intlayer
@@ -19,13 +19,13 @@ history:
 author: aymericzip
 ---
 
-# Навички агента
+# Agent Skills
 
 ## Налаштування
 
 ### Використання CLI
 
-Команда `intlayer init skills` - найпростіший спосіб налаштувати навички агента у вашому проєкті. Вона визначає ваше середовище й встановлює необхідні конфігураційні файли для обраних платформ.
+Команда `intlayer init skills` - найпростіший спосіб налаштувати Agent Skills у вашому проєкті. Вона визначає ваше середовище й встановлює необхідні конфігураційні файли для обраних платформ.
 
 ```bash packageManager="npm"
 npx intlayer init skills
@@ -54,10 +54,10 @@ npx skills add aymericzip/intlayer-skills
 1. Відкрийте палітру команд (Ctrl+Shift+P або Cmd+Shift+P).
 2. Введіть `Intlayer: Setup AI Agent Skills`
 3. Виберіть платформу, яку ви використовуєте (наприклад, `VS Code`, `Cursor`, `Windsurf`, `OpenCode`, `Claude Code`, `GitHub Copilot Workspace` тощо).
-4. Виберіть навички, які ви хочете встановити (наприклад, `Next.js`, `React`, `Vite`, `Compiler`, `Configuration`).
+4. Виберіть Agent Skills, які ви хочете встановити (наприклад, `Next.js`, `React`, `Vite`, `Compiler`, `Configuration`).
 5. Натисніть Enter.
 
-## Список навичок
+## Список Agent Skills
 
 **intlayer-config**
 

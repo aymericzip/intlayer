@@ -108,7 +108,7 @@ export const MyComponent: FC = () => {
 
 <Accordion header="AIエージェント">
 
-コンテンツを同一の場所に配置することは、大規模言語モデル（LLM）によって**必要なコンテキストを減らします**。Intlayerには、不足している翻訳をテストするための**CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)**、および**[エージェントスキル](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)**などの一連のツールも付属しており、AIエージェント向けのデベロッパーエクスペリエンス（DX）をさらにスムーズにします。
+コンテンツを同一の場所に配置することは、大規模言語モデル（LLM）によって**必要なコンテキストを減らします**。Intlayerには、不足している翻訳をテストするための**CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)**、および**[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)**などの一連のツールも付属しており、AIエージェント向けのデベロッパーエクスペリエンス（DX）をさらにスムーズにします。
 
 </Accordion>
 

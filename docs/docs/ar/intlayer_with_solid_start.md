@@ -78,7 +78,7 @@ author: aymericzip
 
 <Accordion header="وكيل الذكاء الاصطناعي">
 
-يؤدي تجميع المحتوى في نفس المكان إلى **تقليل السياق المطلوب** بواسطة نماذج اللغات الكبيرة (LLMs). يأتي Intlayer أيضًا مع مجموعة من الأدوات، مثل **CLI** للاختبار عن الترجمات المفقودة، و **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**، و **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**، و **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**، لجعل تجربة المطور (DX) أكثر سلاسة لوكلاء الذكاء الاصطناعي.
+يؤدي تجميع المحتوى في نفس المكان إلى **تقليل السياق المطلوب** بواسطة نماذج اللغات الكبيرة (LLMs). يأتي Intlayer أيضًا مع مجموعة من الأدوات، مثل **CLI** للاختبار عن الترجمات المفقودة، و **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**، و **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**، و **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md)**، لجعل تجربة المطور (DX) أكثر سلاسة لوكلاء الذكاء الاصطناعي.
 
 </Accordion>
 

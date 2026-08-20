@@ -1,11 +1,11 @@
 ---
 createdAt: 2026-02-09
 updatedAt: 2026-03-03
-title: Keterampilan Agen
+title: Agent Skills
 description: Pelajari cara menggunakan Intlayer Agent Skills untuk meningkatkan pemahaman agen AI Anda terhadap proyek Anda, termasuk panduan pengaturan komprehensif untuk Metadata, Sitemaps, dan Server Actions.
 keywords:
   - Intlayer
-  - Keterampilan Agen
+  - Agent Skills
   - Agen AI
   - Internasionalisasi
   - Dokumentasi
@@ -19,13 +19,13 @@ history:
 author: aymericzip
 ---
 
-# Keterampilan Agen
+# Agent Skills
 
 ## Penyiapan
 
 ### Menggunakan CLI
 
-Perintah `intlayer init skills` adalah cara termudah untuk mengatur keterampilan agen di proyek Anda. Perintah ini mendeteksi lingkungan Anda dan menginstal file konfigurasi yang diperlukan untuk platform pilihan Anda.
+Perintah `intlayer init skills` adalah cara termudah untuk mengatur Agent Skills di proyek Anda. Perintah ini mendeteksi lingkungan Anda dan menginstal file konfigurasi yang diperlukan untuk platform pilihan Anda.
 
 ```bash packageManager="npm"
 npx intlayer init skills
@@ -54,10 +54,10 @@ npx skills add aymericzip/intlayer-skills
 1. Buka Command Palette (Ctrl+Shift+P atau Cmd+Shift+P).
 2. Ketik `Intlayer: Setup AI Agent Skills`
 3. Pilih platform yang Anda gunakan (misalnya `VS Code`, `Cursor`, `Windsurf`, `OpenCode`, `Claude Code`, `GitHub Copilot Workspace`, dll.).
-4. Pilih Keterampilan yang ingin Anda instal (misalnya `Next.js`, `React`, `Vite`, `Compiler`, `Configuration`).
+4. Pilih Agent Skills yang ingin Anda instal (misalnya `Next.js`, `React`, `Vite`, `Compiler`, `Configuration`).
 5. Tekan Enter.
 
-## Daftar Keterampilan
+## Daftar Agent Skills
 
 **intlayer-config**
 

@@ -1,11 +1,11 @@
 ---
 createdAt: 2026-02-09
 updatedAt: 2026-03-03
-title: 에이전트 스킬
-description: 메타데이터, 사이트맵 및 서버 액션에 대한 포괄적인 설정 가이드를 포함하여 Intlayer 에이전트 스킬을 사용하여 AI 에이전트의 프로젝트 이해도를 높이는 방법을 배워보세요.
+title: Agent Skills
+description: 메타데이터, 사이트맵 및 서버 액션에 대한 포괄적인 설정 가이드를 포함하여 Intlayer Agent Skills를 사용하여 AI 에이전트의 프로젝트 이해도를 높이는 방법을 배워보세요.
 keywords:
   - Intlayer
-  - 에이전트 스킬
+  - Agent Skills
   - AI 에이전트
   - 국제화
   - 문서
@@ -19,13 +19,13 @@ history:
 author: aymericzip
 ---
 
-# 에이전트 스킬
+# Agent Skills
 
 ## 설정
 
 ### CLI 사용하기
 
-`intlayer init skills` 명령어는 프로젝트에 에이전트 스킬을 설정하는 가장 쉬운 방법입니다. 사용자 환경을 감지하고 선호하는 플랫폼에 필요한 구성 파일을 설치합니다.
+`intlayer init skills` 명령어는 프로젝트에 Agent Skills를 설정하는 가장 쉬운 방법입니다. 사용자 환경을 감지하고 선호하는 플랫폼에 필요한 구성 파일을 설치합니다.
 
 ```bash packageManager="npm"
 npx intlayer init skills
@@ -54,10 +54,10 @@ npx skills add aymericzip/intlayer-skills
 1. 명령 팔레트를 엽니다 (Ctrl+Shift+P 또는 Cmd+Shift+P).
 2. `Intlayer: Setup AI Agent Skills`을 입력합니다.
 3. 사용하는 플랫폼을 선택합니다 (예: `VS Code`, `Cursor`, `Windsurf`, `OpenCode`, `Claude Code`, `GitHub Copilot Workspace` 등).
-4. 설치하려는 스킬을 선택합니다 (예: `Next.js`, `React`, `Vite`, `Compiler`, `Configuration`).
+4. 설치하려는 Agent Skills를 선택합니다 (예: `Next.js`, `React`, `Vite`, `Compiler`, `Configuration`).
 5. Enter를 누릅니다.
 
-## 스킬 목록
+## Agent Skills 목록
 
 **intlayer-config**
 

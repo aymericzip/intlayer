@@ -108,7 +108,7 @@ Ograniczanie zasięgu (scoping) treści Twojej aplikacji **ułatwia utrzymanie**
 
 <Accordion header="Agent AI">
 
-Wspólne umiejscowienie (co-locating) kodu i treści **zmniejsza kontekst wymagany** przez duże modele językowe (LLM). Intlayer jest również dostarczany z pakietem narzędzi, takim jak **CLI** służącym do testowania pod kątem brakujących tłumaczeń, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/mcp_server.md)** oraz **[umiejętności agentów (agent skills)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/agent_skills.md)**, dzięki czemu środowisko programistyczne (DX) dla agentów AI staje się znacznie wygodniejsze.
+Wspólne umiejscowienie (co-locating) kodu i treści **zmniejsza kontekst wymagany** przez duże modele językowe (LLM). Intlayer jest również dostarczany z pakietem narzędzi, takim jak **CLI** służącym do testowania pod kątem brakujących tłumaczeń, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/mcp_server.md)** oraz **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/agent_skills.md)**, dzięki czemu środowisko programistyczne (DX) dla agentów AI staje się znacznie wygodniejsze.
 
 </Accordion>
 

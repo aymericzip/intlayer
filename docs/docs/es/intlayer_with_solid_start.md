@@ -78,7 +78,7 @@ Limitar el alcance del contenido de tu aplicación **facilita el mantenimiento**
 
 <Accordion header="Agente de IA">
 
-Colocar el contenido en la misma ubicación **reduce el contexto necesario** para los grandes modelos de lenguaje (LLM). Intlayer también viene con una suite de herramientas, como un **CLI** para probar traducciones faltantes, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/mcp_server.md)** y **[habilidades de agente](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/agent_skills.md)**, para hacer la experiencia del desarrollador (DX) aún más fluida para los agentes de IA.
+Colocar el contenido en la misma ubicación **reduce el contexto necesario** para los grandes modelos de lenguaje (LLM). Intlayer también viene con una suite de herramientas, como un **CLI** para probar traducciones faltantes, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/mcp_server.md)** y **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/agent_skills.md)**, para hacer la experiencia del desarrollador (DX) aún más fluida para los agentes de IA.
 
 </Accordion>
 

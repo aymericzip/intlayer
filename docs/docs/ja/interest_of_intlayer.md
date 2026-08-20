@@ -48,7 +48,7 @@ author: aymericzip
 
 **AIエージェント**
 
-コンテンツを同じ場所に配置（コローケーション）することで、大規模言語モデル（LLM）に必要な**コンテキストが削減**されます。Intlayerには、翻訳漏れをテストするための**CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)**、**[エージェントスキル](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)**などのツールスイートも付属しており、AIエージェントの開発体験（DX）をさらにスムーズにします。
+コンテンツを同じ場所に配置（コローケーション）することで、大規模言語モデル（LLM）に必要な**コンテキストが削減**されます。Intlayerには、翻訳漏れをテストするための**CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)**、**[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)**などのツールスイートも付属しており、AIエージェントの開発体験（DX）をさらにスムーズにします。
 
 **機能性**
 

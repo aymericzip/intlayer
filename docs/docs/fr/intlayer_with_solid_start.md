@@ -78,7 +78,7 @@ Cibler le contenu de votre application **facilite la maintenance** pour les appl
 
 <Accordion header="Agent IA">
 
-Colocaliser le contenu **réduit le contexte nécessaire** pour les grands modèles de langage (LLM). Intlayer est également livré avec une suite d'outils, tels qu'un **CLI** pour tester les traductions manquantes, le **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/lsp.md)**, le **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/mcp_server.md)**, et des **[compétences d'agent](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/agent_skills.md)**, pour rendre l'expérience développeur (DX) encore plus fluide pour les agents IA.
+Colocaliser le contenu **réduit le contexte nécessaire** pour les grands modèles de langage (LLM). Intlayer est également livré avec une suite d'outils, tels qu'un **CLI** pour tester les traductions manquantes, le **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/lsp.md)**, le **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/mcp_server.md)**, et des **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/agent_skills.md)**, pour rendre l'expérience développeur (DX) encore plus fluide pour les agents IA.
 
 </Accordion>
 

@@ -86,7 +86,7 @@ Intlayer는 React Native와 Expo에서 완벽하게 작동하도록 최적화되
 
 <Accordion header="AI 에이전트">
 
-콘텐츠를 함께 배치하면 대형 언어 모델(LLM)에 필요한 **컨텍스트가 줄어**듭니다. Intlayer는 누락된 번역을 테스트하기 위한 **CLI**, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**, **[에이전트 스킬](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)** 등의 도구 모음을 제공하여 AI 에이전트를 위한 개발자 경험(DX)을 더욱 원활하게 합니다.
+콘텐츠를 함께 배치하면 대형 언어 모델(LLM)에 필요한 **컨텍스트가 줄어**듭니다. Intlayer는 누락된 번역을 테스트하기 위한 **CLI**, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**, **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/agent_skills.md)** 등의 도구 모음을 제공하여 AI 에이전트를 위한 개발자 경험(DX)을 더욱 원활하게 합니다.
 
 </Accordion>
 

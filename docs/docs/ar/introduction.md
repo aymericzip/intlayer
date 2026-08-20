@@ -108,7 +108,7 @@ export const MyComponent: FC = () => {
 
 <Accordion header="وكيل الذكاء الاصطناعي (AI Agent)">
 
-يؤدي تحديد الموقع المشترك للمحتوى إلى **تقليل السياق المطلوب** بواسطة نماذج اللغة الكبيرة (LLMs). تأتي Intlayer أيضًا مع مجموعة من الأدوات، مثل **CLI** لاختبار الترجمات المفقودة، و **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/lsp.md)**، و **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/mcp_server.md)**، و **[مهارات الوكيل (agent skills)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md)**، لجعل تجربة المطور (DX) أكثر سلاسة لوكلاء الذكاء الاصطناعي.
+يؤدي تحديد الموقع المشترك للمحتوى إلى **تقليل السياق المطلوب** بواسطة نماذج اللغة الكبيرة (LLMs). تأتي Intlayer أيضًا مع مجموعة من الأدوات، مثل **CLI** لاختبار الترجمات المفقودة، و **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/lsp.md)**، و **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/mcp_server.md)**، و **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md)**، لجعل تجربة المطور (DX) أكثر سلاسة لوكلاء الذكاء الاصطناعي.
 
 </Accordion>
 

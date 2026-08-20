@@ -78,7 +78,7 @@ Intlayer को Solid के साथ पूरी तरह से काम �
 
 <Accordion header="AI एजेंट">
 
-सामग्री को एक साथ रखने से बड़े भाषा मॉडल (LLMs) के लिए **आवश्यक संदर्भ (context) कम हो जाता है**। Intlayer कई टूल के साथ आता है, जैसे गायब अनुवादों का परीक्षण करने के लिए **CLI**, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**, और **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, ताकि AI एजेंट्स के लिए डेवलपर अनुभव (DX) और भी सुगम हो सके।
+सामग्री को एक साथ रखने से बड़े भाषा मॉडल (LLMs) के लिए **आवश्यक संदर्भ (context) कम हो जाता है**। Intlayer कई टूल के साथ आता है, जैसे गायब अनुवादों का परीक्षण करने के लिए **CLI**, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**, और **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/agent_skills.md)**, ताकि AI एजेंट्स के लिए डेवलपर अनुभव (DX) और भी सुगम हो सके।
 
 </Accordion>
 

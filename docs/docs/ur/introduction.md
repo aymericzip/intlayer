@@ -108,7 +108,7 @@ export const MyComponent: FC = () => {
 
 <Accordion header="AI ایجنٹ (AI Agent)">
 
-مواد کو قریب رکھنا بڑے لینگویج ماڈلز (LLMs) کی طرف سے **درکار سیاق و سباق کو کم کرتا ہے**۔ Intlayer ٹولز کے ایک سوٹ کے ساتھ بھی آتا ہے، جیسے غائب ترجموں کو جانچنے کے لیے **CLI**، **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/lsp.md)**، **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/mcp_server.md)** اور AI ایجنٹس کے لیے ڈیولپر کے تجربے (DX) کو اور بھی ہموار بنانے کے لیے **[ایجنٹ کی مہارتیں (agent skills)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/agent_skills.md)**۔
+مواد کو قریب رکھنا بڑے لینگویج ماڈلز (LLMs) کی طرف سے **درکار سیاق و سباق کو کم کرتا ہے**۔ Intlayer ٹولز کے ایک سوٹ کے ساتھ بھی آتا ہے، جیسے غائب ترجموں کو جانچنے کے لیے **CLI**، **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/lsp.md)**، **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/mcp_server.md)** اور AI ایجنٹس کے لیے ڈیولپر کے تجربے (DX) کو اور بھی ہموار بنانے کے لیے **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/agent_skills.md)**۔
 
 </Accordion>
 

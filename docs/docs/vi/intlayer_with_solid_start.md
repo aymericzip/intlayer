@@ -78,7 +78,7 @@ Giới hạn phạm vi nội dung của ứng dụng **giúp dễ dàng bảo tr
 
 <Accordion header="AI Agent">
 
-Đặt nội dung cùng vị trí **giảm bớt ngữ cảnh cần thiết** cho các Mô hình Ngôn ngữ Lớn (LLM). Intlayer cũng đi kèm với một bộ công cụ, chẳng hạn như **CLI** để kiểm tra các bản dịch còn thiếu, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** và **[kỹ năng agent](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, để giúp trải nghiệm nhà phát triển (DX) trở nên mượt mà hơn nữa cho các AI agent.
+Đặt nội dung cùng vị trí **giảm bớt ngữ cảnh cần thiết** cho các Mô hình Ngôn ngữ Lớn (LLM). Intlayer cũng đi kèm với một bộ công cụ, chẳng hạn như **CLI** để kiểm tra các bản dịch còn thiếu, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** và **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/agent_skills.md)**, để giúp trải nghiệm nhà phát triển (DX) trở nên mượt mà hơn nữa cho các AI agent.
 
 </Accordion>
 

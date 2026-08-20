@@ -1,11 +1,11 @@
 ---
 createdAt: 2026-02-09
 updatedAt: 2026-03-03
-title: Compétences de l'agent
-description: Apprenez à utiliser les compétences de l'agent Intlayer pour améliorer la compréhension de votre projet par votre agent IA, y compris des guides complets pour les métadonnées, les sitemaps et les actions serveur.
+title: Agent Skills
+description: Apprenez à utiliser les Agent Skills Intlayer pour améliorer la compréhension de votre projet par votre agent IA, y compris des guides complets pour les métadonnées, les sitemaps et les actions serveur.
 keywords:
   - Intlayer
-  - Compétences de l'agent
+  - Agent Skills
   - Agent IA
   - Internationalisation
   - Documentation
@@ -19,13 +19,13 @@ history:
 author: aymericzip
 ---
 
-# Compétences de l'agent
+# Agent Skills
 
 ## Configuration
 
 ### Utilisation de la CLI
 
-La commande `intlayer init skills` est le moyen le plus simple de configurer les compétences de l'agent dans votre projet. Elle détecte votre environnement et installe les fichiers de configuration nécessaires pour vos plateformes préférées.
+La commande `intlayer init skills` est le moyen le plus simple de configurer les Agent Skills dans votre projet. Elle détecte votre environnement et installe les fichiers de configuration nécessaires pour vos plateformes préférées.
 
 ```bash packageManager="npm"
 npx intlayer init skills
@@ -54,10 +54,10 @@ npx skills add aymericzip/intlayer-skills
 1. Ouvrez la palette de commandes (Ctrl+Maj+P ou Cmd+Maj+P).
 2. Tapez `Intlayer: Setup AI Agent Skills`
 3. Choisissez la plateforme que vous utilisez (par ex. `VS Code`, `Cursor`, `Windsurf`, `OpenCode`, `Claude Code`, `GitHub Copilot Workspace`, etc.).
-4. Choisissez les compétences que vous souhaitez installer (par ex. `Next.js`, `React`, `Vite`, `Compiler`, `Configuration`).
+4. Choisissez les Agent Skills que vous souhaitez installer (par ex. `Next.js`, `React`, `Vite`, `Compiler`, `Configuration`).
 5. Appuyez sur Entrée.
 
-## Liste des compétences
+## Liste des Agent Skills
 
 **intlayer-config**
 

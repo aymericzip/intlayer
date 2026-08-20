@@ -78,7 +78,7 @@ Das Scoping des Inhalts Ihrer Anwendung **erleichtert die Wartung** für großfl
 
 <Accordion header="KI-Agent">
 
-Das Co-Locating von Inhalten **reduziert den erforderlichen Kontext** für große Sprachmodelle (LLMs). Intlayer bietet außerdem eine Reihe von Tools wie ein **CLI** zum Testen auf fehlende Übersetzungen, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/mcp_server.md)** und **[Agenten-Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/agent_skills.md)**, um die Entwicklererfahrung (DX) für KI-Agenten noch reibungsloser zu gestalten.
+Das Co-Locating von Inhalten **reduziert den erforderlichen Kontext** für große Sprachmodelle (LLMs). Intlayer bietet außerdem eine Reihe von Tools wie ein **CLI** zum Testen auf fehlende Übersetzungen, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/mcp_server.md)** und **[Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/agent_skills.md)**, um die Entwicklererfahrung (DX) für KI-Agenten noch reibungsloser zu gestalten.
 
 </Accordion>
 

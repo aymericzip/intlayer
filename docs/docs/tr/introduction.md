@@ -108,7 +108,7 @@ Uygulamanızın içeriğini bileşenlerinize yakın konumlandırmak (scoping), b
 
 <Accordion header="Yapay Zeka Aracısı (AI Agent)">
 
-İçeriğin koduyla aynı yerde (co-locate) bulunması, Büyük Dil Modellerinin (LLM'ler) **ihtiyaç duyduğu bağlamı azaltır**. Intlayer ayrıca eksik çevirileri test etmek için bir **CLI**, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/mcp_server.md)** ve yapay zeka aracıları için geliştirici deneyimini (DX) daha da pürüzsüz hale getirecek **[aracı yetenekleri (agent skills)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/agent_skills.md)** gibi bir dizi araçla birlikte gelir.
+İçeriğin koduyla aynı yerde (co-locate) bulunması, Büyük Dil Modellerinin (LLM'ler) **ihtiyaç duyduğu bağlamı azaltır**. Intlayer ayrıca eksik çevirileri test etmek için bir **CLI**, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/mcp_server.md)** ve yapay zeka aracıları için geliştirici deneyimini (DX) daha da pürüzsüz hale getirecek **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/agent_skills.md)** gibi bir dizi araçla birlikte gelir.
 
 </Accordion>
 

@@ -1,11 +1,11 @@
 ---
 createdAt: 2026-02-09
 updatedAt: 2026-03-03
-title: مهارات الوكيل
-description: تعرّف على كيفية استخدام مهارات الوكلاء في Intlayer لتحسين فهم وكيل الذكاء الاصطناعي لمشروعك، بما في ذلك أدلة الإعداد الشاملة لبيانات التعريف (Metadata)، وخرائط المواقع (Sitemaps)، وإجراءات الخادم (Server Actions).
+title: Agent Skills
+description: تعرّف على كيفية استخدام Intlayer Agent Skills لتحسين فهم وكيل الذكاء الاصطناعي لمشروعك، بما في ذلك أدلة الإعداد الشاملة لبيانات التعريف (Metadata)، وخرائط المواقع (Sitemaps)، وإجراءات الخادم (Server Actions).
 keywords:
   - Intlayer
-  - مهارات الوكلاء
+  - Agent Skills
   - وكيل الذكاء الاصطناعي
   - التدويل
   - الوثائق
@@ -19,13 +19,13 @@ history:
 author: aymericzip
 ---
 
-# مهارات الوكيل
+# Agent Skills
 
 ## الإعداد
 
 ### استخدام CLI
 
-أمر `intlayer init skills` هو أسهل طريقة لإعداد مهارات الوكلاء في مشروعك. يقوم باكتشاف بيئتك وتثبيت ملفات التهيئة اللازمة للمنصات التي تفضّلها.
+أمر `intlayer init skills` هو أسهل طريقة لإعداد Agent Skills في مشروعك. يقوم باكتشاف بيئتك وتثبيت ملفات التهيئة اللازمة للمنصات التي تفضّلها.
 
 ```bash packageManager="npm"
 npx intlayer init skills
@@ -54,10 +54,10 @@ npx skills add aymericzip/intlayer-skills
 1. افتح لوحة الأوامر (Ctrl+Shift+P أو Cmd+Shift+P).
 2. اكتب `Intlayer: Setup AI Agent Skills`
 3. اختر المنصة التي تستخدمها (مثل `VS Code` و `Cursor` و `Windsurf` و `OpenCode` و `Claude Code` و `GitHub Copilot Workspace` إلخ).
-4. اختر المهارات التي تريد تثبيتها (مثل `Next.js` و `React` و `Vite` و `Compiler` و `Configuration`).
+4. اختر Agent Skills التي تريد تثبيتها (مثل `Next.js` و `React` و `Vite` و `Compiler` و `Configuration`).
 5. اضغط على Enter.
 
-## قائمة المهارات
+## قائمة Agent Skills
 
 **intlayer-config**
 

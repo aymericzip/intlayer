@@ -108,7 +108,7 @@ Die Lokalisierung der Inhalte Ihrer Anwendung **erleichtert die Wartung** für g
 
 <Accordion header="KI-Agent">
 
-Das gemeinsame Ablegen von Inhalten **reduziert den Kontext**, der von großen Sprachmodellen (LLMs) benötigt wird. Intlayer bietet auch eine Reihe von Tools, wie eine **CLI**, um auf fehlende Übersetzungen zu testen, einen **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/lsp.md)**, einen **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/mcp_server.md)** und **[Agenten-Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/agent_skills.md)**, um die Entwicklererfahrung (DX) für KI-Agenten noch reibungsloser zu gestalten.
+Das gemeinsame Ablegen von Inhalten **reduziert den Kontext**, der von großen Sprachmodellen (LLMs) benötigt wird. Intlayer bietet auch eine Reihe von Tools, wie eine **CLI**, um auf fehlende Übersetzungen zu testen, einen **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/lsp.md)**, einen **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/mcp_server.md)** und **[Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/agent_skills.md)**, um die Entwicklererfahrung (DX) für KI-Agenten noch reibungsloser zu gestalten.
 
 </Accordion>
 

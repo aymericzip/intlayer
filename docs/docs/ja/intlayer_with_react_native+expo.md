@@ -83,7 +83,7 @@ Intlayer は、**コンポーネントレベルのコンテンツスコープ**�
 
 <Accordion header="AI エージェント">
 
-コンテンツを同じ場所に配置すると、大規模言語モデル (LLM) によって**必要なコンテキストが削減**されます。Intlayer には、翻訳の欠落をテストする **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**、および **[エージェントスキル](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)** などのツールスイートも付属しており、AI エージェントの開発者エクスペリエンス (DX) がさらにスムーズになります。
+コンテンツを同じ場所に配置すると、大規模言語モデル (LLM) によって**必要なコンテキストが削減**されます。Intlayer には、翻訳の欠落をテストする **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**、および **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)** などのツールスイートも付属しており、AI エージェントの開発者エクスペリエンス (DX) がさらにスムーズになります。
 
 </Accordion>
 

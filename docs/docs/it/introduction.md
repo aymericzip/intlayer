@@ -108,7 +108,7 @@ Dichiarare il contenuto vicino ai tuoi componenti **facilita la manutenzione** p
 
 <Accordion header="Agente IA">
 
-La co-locazione dei contenuti **riduce il contesto necessario** dai grandi modelli linguistici (LLM). Intlayer è inoltre fornito di una suite di strumenti, come una **CLI** per testare le traduzioni mancanti, un **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/lsp.md)**, un **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/mcp_server.md)** e **[competenze degli agenti (agent skills)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/agent_skills.md)**, per rendere l'esperienza dello sviluppatore (DX) ancora più fluida per gli agenti basati su IA.
+La co-locazione dei contenuti **riduce il contesto necessario** dai grandi modelli linguistici (LLM). Intlayer è inoltre fornito di una suite di strumenti, come una **CLI** per testare le traduzioni mancanti, un **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/lsp.md)**, un **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/mcp_server.md)** e **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/agent_skills.md)**, per rendere l'esperienza dello sviluppatore (DX) ancora più fluida per gli agenti basati su IA.
 
 </Accordion>
 

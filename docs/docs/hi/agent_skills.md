@@ -1,11 +1,11 @@
 ---
 createdAt: 2026-02-09
 updatedAt: 2026-03-03
-title: एजेंट स्किल्स
-description: जानें कि Intlayer एजेंट स्किल्स का उपयोग करके अपने AI एजेंट की आपके प्रोजेक्ट की समझ कैसे बेहतर करें, जिसमें मेटाडेटा, साइटमैप और सर्वर क्रियाओं के लिए व्यापक सेटअप गाइड शामिल हैं।
+title: Agent Skills
+description: जानें कि Intlayer Agent Skills का उपयोग करके अपने AI एजेंट की आपके प्रोजेक्ट की समझ कैसे बेहतर करें, जिसमें मेटाडेटा, साइटमैप और सर्वर क्रियाओं के लिए व्यापक सेटअप गाइड शामिल हैं।
 keywords:
   - Intlayer
-  - एजेंट स्किल्स
+  - Agent Skills
   - AI एजेंट
   - Internationalization
   - डॉक्यूमेंटेशन
@@ -19,13 +19,13 @@ history:
 author: aymericzip
 ---
 
-# एजेंट स्किल्स
+# Agent Skills
 
 ## सेटअप
 
 ### CLI का उपयोग करके
 
-`intlayer init skills` कमांड आपके प्रोजेक्ट में एजेंट स्किल्स सेटअप करने का सबसे आसान तरीका है। यह आपके वातावरण का पता लगाता है और आपके पसंदीदा प्लेटफ़ॉर्म के लिए आवश्यक कॉन्फ़िगरेशन फ़ाइलें इंस्टॉल करता है।
+`intlayer init skills` कमांड आपके प्रोजेक्ट में Agent Skills सेटअप करने का सबसे आसान तरीका है। यह आपके वातावरण का पता लगाता है और आपके पसंदीदा प्लेटफ़ॉर्म के लिए आवश्यक कॉन्फ़िगरेशन फ़ाइलें इंस्टॉल करता है।
 
 ```bash packageManager="npm"
 npx intlayer init skills
@@ -54,10 +54,10 @@ npx skills add aymericzip/intlayer-skills
 1. कमांड पैलेट खोलें (Ctrl+Shift+P या Cmd+Shift+P)।
 2. `Intlayer: Setup AI Agent Skills` टाइप करें।
 3. उस प्लेटफ़ॉर्म को चुनें जिसका आप उपयोग करते हैं (उदा. `VS Code`, `Cursor`, `Windsurf`, `OpenCode`, `Claude Code`, `GitHub Copilot Workspace`, आदि)।
-4. वे स्किल्स चुनें जिन्हें आप इंस्टॉल करना चाहते हैं (उदा. `Next.js`, `React`, `Vite`, `Compiler`, `Configuration`)।
+4. वे Agent Skills चुनें जिन्हें आप इंस्टॉल करना चाहते हैं (उदा. `Next.js`, `React`, `Vite`, `Compiler`, `Configuration`)।
 5. Enter दबाएं।
 
-## स्किल्स सूची
+## Agent Skills सूची
 
 **intlayer-config**
 

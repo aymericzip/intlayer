@@ -108,7 +108,7 @@ export const MyComponent: FC = () => {
 
 <Accordion header="AI Agent (ШІ Агенти)">
 
-Спільне розміщення контенту **скорочує контекст, необхідний** для великих мовних моделей (LLMs). Intlayer також постачається з набором інструментів, таких як **CLI** для перевірки відсутніх перекладів, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/mcp_server.md)** та **[навички для агентів (agent skills)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/agent_skills.md)**, щоб зробити процес розробки (DX) ще більш плавним для ШІ-агентів.
+Спільне розміщення контенту **скорочує контекст, необхідний** для великих мовних моделей (LLMs). Intlayer також постачається з набором інструментів, таких як **CLI** для перевірки відсутніх перекладів, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/mcp_server.md)** та **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/agent_skills.md)**, щоб зробити процес розробки (DX) ще більш плавним для ШІ-агентів.
 
 </Accordion>
 
