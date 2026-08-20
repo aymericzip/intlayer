@@ -223,6 +223,8 @@ export const AccountSwitcher: FC<AccountSwitcherProps> = ({ className }) => {
         <Plus size={16} />
         <span>{addAccountTitle}</span>
       </Link>
+
+      <hr className="my-1 border-text/10" />
     </div>
   );
 };

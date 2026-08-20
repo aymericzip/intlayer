@@ -134,8 +134,6 @@ export const DashboardSidebarProfile: FC<DashboardSidebarProfileProps> = ({
             >
               <AccountSwitcher />
 
-              <hr className="my-1 border-text/10" />
-
               <Link
                 to={App_Dashboard_Profile_Path}
                 variant="hoverable"
