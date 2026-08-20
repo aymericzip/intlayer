@@ -71,7 +71,7 @@ COPY \
 RUN bun install
 
 # Build workspace package dependencies (packages/* and docs) that this app depends on
-RUN bun x turbo run build:ci --filter=./packages/** --filter=./docs
+RUN bun x turbo run build:ci --filter=website-tanstack^... --filter=./docs
 
 # Set working directory to the tanstack website package and build it
 WORKDIR /workspace/apps/website
