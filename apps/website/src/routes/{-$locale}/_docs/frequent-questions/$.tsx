@@ -34,7 +34,7 @@ export const Route = createFileRoute('/{-$locale}/_docs/frequent-questions/$')({
         });
       }
       throw redirect({
-        to: `/{-$locale}${App_Home_Path}`,
+        to: `/{-$locale}`,
         params: {
           locale: getPrefix(locale).localePrefix,
         },

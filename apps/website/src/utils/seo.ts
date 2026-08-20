@@ -1,5 +1,9 @@
-import type { Locale } from '@intlayer/types/allLocales';
-import { getLocalizedUrl, type LocalesValues, localeMap } from 'intlayer';
+import {
+  defaultLocale,
+  getLocalizedUrl,
+  type LocalesValues,
+  localeMap,
+} from 'intlayer';
 
 const baseUrl = (import.meta.env.VITE_URL ?? '').replace(/\/$/, '');
 
@@ -30,7 +34,11 @@ export const getAbsoluteUrl = (path: string, locale?: LocalesValues): string =>
 export const getHreflangLinks = (
   path: string
 ): Array<{ rel: string; hrefLang: string; href: string }> => [
-  { rel: 'alternate', hrefLang: 'x-default', href: toAbsoluteUrl(path) },
+  {
+    rel: 'alternate',
+    hrefLang: 'x-default',
+    href: toAbsoluteUrl(path, defaultLocale),
+  },
   ...localeMap(({ locale: mapLocale }) => ({
     rel: 'alternate',
     hrefLang: mapLocale,
