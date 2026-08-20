@@ -1,5 +1,5 @@
 import { Container } from '@intlayer/design-system/container';
-import { App_Auth_ResetPassword } from '@intlayer/design-system/routes';
+import { App_Auth_AskResetPassword } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
 import {
   defaultLocale,
@@ -8,13 +8,15 @@ import {
   localeMap,
 } from 'intlayer';
 import { useIntlayer } from 'react-intlayer';
-import { DefinePasswordForm } from '#components/Auth/DefinePassword';
+import { AskResetPasswordForm } from '#components/Auth/AskResetPassword';
 
-export const Route = createFileRoute('/{-$locale}/_other/auth/password/reset')({
-  component: ResetPasswordPage,
+export const Route = createFileRoute(
+  '/{-$locale}/_other/auth/_authentication/password/ask-reset'
+)({
+  component: AskResetPasswordPage,
   head: ({ params }) => {
     const { locale } = params;
-    const path = App_Auth_ResetPassword;
+    const path = App_Auth_AskResetPassword;
     const content = getIntlayer('reset-password-page', locale);
 
     return {
@@ -49,7 +51,7 @@ export const Route = createFileRoute('/{-$locale}/_other/auth/password/reset')({
   },
 });
 
-function ResetPasswordPage() {
+function AskResetPasswordPage() {
   const { title, title2, description } = useIntlayer('reset-password-page');
 
   return (
@@ -57,16 +59,18 @@ function ResetPasswordPage() {
       <h1 className="hidden">{title}</h1>
       <div className="flex flex-1 flex-col items-center justify-center gap-5 p-5 md:p-10">
         <Container
-          className="w-full max-w-md justify-center gap-16 p-10 text-2xl"
+          className="w-full max-w-md justify-center gap-16"
           padding="xl"
-          roundedSize="xl"
+          roundedSize="3xl"
           transparency="xs"
+          border={true}
+          borderColor="neutral"
         >
           <div className="flex flex-col gap-3 text-center">
-            <h2 className="font-extrabold">{title2}</h2>
-            <span className="text-neutral text-xs">{description}</span>
+            <h2 className="font-extrabold text-2xl">{title2}</h2>
+            <span className="text-md text-neutral">{description}</span>
           </div>
-          <DefinePasswordForm />
+          <AskResetPasswordForm />
         </Container>
       </div>
     </>

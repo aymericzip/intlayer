@@ -619,7 +619,6 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
                 pinDictionaryLabel={String(pinDictionaryLabel)}
                 unpinDictionaryLabel={String(unpinDictionaryLabel)}
                 removeFromSidebarLabel={String(removeFromSidebarLabel)}
-                shouldReduceMotion={shouldReduceMotion}
               />
             ))}
             hoverable

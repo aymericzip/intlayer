@@ -1,5 +1,4 @@
 export * from './Accordion';
-export * from './AccountSwitcher';
 export * from './Avatar';
 export * from './Badge';
 export * from './Breadcrumb';

@@ -109,19 +109,6 @@ export const refetchFreshSession = async (
   return fresh;
 };
 
-export const switchAccount = async (
-  queryClient: QueryClient,
-  sessionToken: string
-) => {
-  const intlayerAPI = getAuthAPI();
-
-  await intlayerAPI.setActiveSession({ sessionToken });
-  await refetchFreshSession(queryClient);
-  await queryClient.invalidateQueries({
-    queryKey: deviceSessionsQueryOptions.queryKey,
-  });
-};
-
 const wouldRedirect = (
   accessRule: Parameters<typeof accessValidation>[0],
   session: SessionAPI | null

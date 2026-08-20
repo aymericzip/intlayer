@@ -1,29 +1,15 @@
-import {
-  AccountSwitcher,
-  type DeviceSession,
-} from '@intlayer/design-system/account-switcher';
 import { useUser } from '@intlayer/design-system/api';
 import { Avatar } from '@intlayer/design-system/avatar';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import { DropDown } from '@intlayer/design-system/drop-down';
-import { getAuthAPI } from '@intlayer/design-system/libs';
-import {
-  App_Auth_SignIn_Path,
-  App_Dashboard_Profile_Path,
-} from '@intlayer/design-system/routes';
+import { App_Dashboard_Profile_Path } from '@intlayer/design-system/routes';
 import { cn } from '@intlayer/design-system/utils';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { LogOut, User2 } from 'lucide-react';
-import { type FC, useState } from 'react';
+import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { useLocalizedNavigate } from '#/hooks/useLocalizedNavigate.ts';
 import { Link } from '#components/Link/Link';
-import {
-  deviceSessionsQueryOptions,
-  refetchFreshSession,
-  switchAccount,
-} from '#utils/auth';
+import { AccountSwitcher } from './AccountSwitcher';
 
 export type DashboardSidebarProfileProps = {
   isCollapsed: boolean;
@@ -33,57 +19,11 @@ export const DashboardSidebarProfile: FC<DashboardSidebarProfileProps> = ({
   isCollapsed,
 }) => {
   const { isAuthenticated, user, logout } = useUser();
-  const { navigation, goToProfile, accountSwitcher } =
-    useIntlayer('dashboard-sidebar');
-  const queryClient = useQueryClient();
-  const [isSwitching, setIsSwitching] = useState(false);
-  const navigate = useLocalizedNavigate();
-  const { data: deviceSessions } = useQuery(deviceSessionsQueryOptions);
-
-  const handleSwitch = async (sessionToken: string) => {
-    setIsSwitching(true);
-    try {
-      await switchAccount(queryClient, sessionToken);
-    } finally {
-      setIsSwitching(false);
-    }
-  };
-
-  const handleSignOut = async (sessionToken: string) => {
-    const authAPI = getAuthAPI();
-    await authAPI.revokeDeviceSession({ sessionToken });
-    await refetchFreshSession(queryClient);
-    await queryClient.invalidateQueries({
-      queryKey: deviceSessionsQueryOptions.queryKey,
-    });
-  };
-
-  const handleAddAccount = () => {
-    navigate({ to: App_Auth_SignIn_Path });
-  };
+  const { navigation, goToProfile } = useIntlayer('dashboard-sidebar');
 
   if (!isAuthenticated) return null;
 
   const userName = user?.name ?? user?.email ?? '';
-  const sessions: DeviceSession[] = (deviceSessions ?? []).map(
-    (session: any) =>
-      ({
-        token: session.session?.token ?? session.token,
-        user: {
-          id: session.user?.id ?? '',
-          name: session.user?.name ?? null,
-          email: session.user?.email ?? '',
-          image: session.user?.image ?? null,
-        },
-      }) satisfies DeviceSession
-  );
-
-  const activeSessionToken =
-    sessions.find((session) => session.user.id === user?.id)?.token ??
-    undefined;
-
-  const hasMultipleSessions = sessions.length > 1;
-  const hasSessions = sessions.length > 0;
 
   return (
     <div
@@ -102,7 +42,7 @@ export const DashboardSidebarProfile: FC<DashboardSidebarProfileProps> = ({
             <Avatar
               fullname={userName}
               isLoggedIn={isAuthenticated}
-              src={user?.image ?? undefined}
+              src={user?.image}
               size="sm"
             />
           </DropDown.Trigger>
@@ -119,29 +59,7 @@ export const DashboardSidebarProfile: FC<DashboardSidebarProfileProps> = ({
               padding="sm"
               roundedSize="2xl"
             >
-              {hasSessions && (
-                <AccountSwitcher
-                  sessions={sessions}
-                  activeSessionToken={activeSessionToken}
-                  onSwitch={handleSwitch}
-                  onAddAccount={handleAddAccount}
-                  onSignOut={hasMultipleSessions ? handleSignOut : undefined}
-                  isSwitching={isSwitching}
-                  labels={{
-                    accountSwitcherAriaLabel:
-                      accountSwitcher.accountSwitcherAriaLabel,
-                    activeAccountAriaLabel:
-                      accountSwitcher.activeAccountAriaLabel,
-                    switchingAccountAriaLabel:
-                      accountSwitcher.switchingAccountAriaLabel,
-                    addAccountTitle: accountSwitcher.addAccountTitle,
-                    switchToAriaLabel: (name) =>
-                      accountSwitcher.switchToAriaLabel({ name }),
-                    signOutAriaLabel: (name) =>
-                      accountSwitcher.signOutAriaLabel({ name }),
-                  }}
-                />
-              )}
+              <AccountSwitcher />
 
               <hr className="my-1 border-text/10" />
 
@@ -214,29 +132,7 @@ export const DashboardSidebarProfile: FC<DashboardSidebarProfileProps> = ({
               padding="sm"
               roundedSize="2xl"
             >
-              {hasSessions && (
-                <AccountSwitcher
-                  sessions={sessions}
-                  activeSessionToken={activeSessionToken}
-                  onSwitch={handleSwitch}
-                  onAddAccount={handleAddAccount}
-                  onSignOut={hasMultipleSessions ? handleSignOut : undefined}
-                  isSwitching={isSwitching}
-                  labels={{
-                    accountSwitcherAriaLabel:
-                      accountSwitcher.accountSwitcherAriaLabel,
-                    activeAccountAriaLabel:
-                      accountSwitcher.activeAccountAriaLabel,
-                    switchingAccountAriaLabel:
-                      accountSwitcher.switchingAccountAriaLabel,
-                    addAccountTitle: accountSwitcher.addAccountTitle,
-                    switchToAriaLabel: (name) =>
-                      accountSwitcher.switchToAriaLabel({ name }),
-                    signOutAriaLabel: (name) =>
-                      accountSwitcher.signOutAriaLabel({ name }),
-                  }}
-                />
-              )}
+              <AccountSwitcher />
 
               <hr className="my-1 border-text/10" />
 
@@ -262,7 +158,7 @@ export const DashboardSidebarProfile: FC<DashboardSidebarProfileProps> = ({
                 size="sm"
                 className="w-full"
               >
-                {navigation.logout.text.value}
+                {navigation.logout.text}
               </Button>
             </Container>
           </DropDown.Panel>

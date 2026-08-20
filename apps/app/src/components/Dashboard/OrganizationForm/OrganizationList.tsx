@@ -136,8 +136,10 @@ export const OrganizationList: FC<OrganizationListProps> = ({
           ) : (
             <Container
               padding="md"
-              roundedSize="xl"
+              roundedSize="2xl"
               className="m-auto flex justify-center p-6"
+              border
+              borderColor="neutral"
             >
               {search ? (
                 <span className="m-auto text-neutral text-sm">

@@ -50,9 +50,6 @@ import { Route as Char123LocaleChar125DashboardEditorContentTranslateRouteImport
 import { Route as Char123LocaleChar125OtherAuthAuthentication2faRouteImport } from './routes/{-$locale}/_other/auth/_authentication/2fa'
 import { Route as Char123LocaleChar125OtherAuthAuthenticationLoginRouteImport } from './routes/{-$locale}/_other/auth/_authentication/login'
 import { Route as Char123LocaleChar125OtherAuthAuthenticationRegisterRouteImport } from './routes/{-$locale}/_other/auth/_authentication/register'
-import { Route as Char123LocaleChar125OtherAuthPasswordLayoutRouteImport } from './routes/{-$locale}/_other/auth/password/_layout'
-import { Route as Char123LocaleChar125OtherAuthPasswordAskResetRouteImport } from './routes/{-$locale}/_other/auth/password/ask-reset'
-import { Route as Char123LocaleChar125OtherAuthPasswordResetRouteImport } from './routes/{-$locale}/_other/auth/password/reset'
 import { Route as Char123LocaleChar125OtherFindReviewerDashboardIndexRouteImport } from './routes/{-$locale}/_other/find-reviewer/dashboard/index'
 import { Route as Char123LocaleChar125DashboardAdminAdminAffiliateIndexRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/affiliate/index'
 import { Route as Char123LocaleChar125DashboardAdminAdminAffiliateIdRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/affiliate/$id'
@@ -71,6 +68,8 @@ import { Route as Char123LocaleChar125DashboardEditorContentDictionaryDictionary
 import { Route as Char123LocaleChar125DashboardEditorContentTagsIndexRouteImport } from './routes/{-$locale}/_dashboard/_editor/_content/tags.index'
 import { Route as Char123LocaleChar125DashboardEditorContentTagsTagKeyRouteImport } from './routes/{-$locale}/_dashboard/_editor/_content/tags.$tagKey'
 import { Route as Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRouteImport } from './routes/{-$locale}/_other/auth/_authenticated/password.change'
+import { Route as Char123LocaleChar125OtherAuthAuthenticationPasswordAskResetRouteImport } from './routes/{-$locale}/_other/auth/_authentication/password/ask-reset'
+import { Route as Char123LocaleChar125OtherAuthAuthenticationPasswordResetRouteImport } from './routes/{-$locale}/_other/auth/_authentication/password/reset'
 import { Route as Char123LocaleChar125OtherFindReviewerDashboardMissionMissionIdRouteImport } from './routes/{-$locale}/_other/find-reviewer/dashboard/mission.$missionId'
 
 const HealthzRoute = HealthzRouteImport.update({
@@ -312,24 +311,6 @@ const Char123LocaleChar125OtherAuthAuthenticationRegisterRoute =
     path: '/register',
     getParentRoute: () => Char123LocaleChar125OtherAuthAuthenticationRouteRoute,
   } as any)
-const Char123LocaleChar125OtherAuthPasswordLayoutRoute =
-  Char123LocaleChar125OtherAuthPasswordLayoutRouteImport.update({
-    id: '/auth/password/_layout',
-    path: '/auth/password',
-    getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
-  } as any)
-const Char123LocaleChar125OtherAuthPasswordAskResetRoute =
-  Char123LocaleChar125OtherAuthPasswordAskResetRouteImport.update({
-    id: '/auth/password/ask-reset',
-    path: '/auth/password/ask-reset',
-    getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
-  } as any)
-const Char123LocaleChar125OtherAuthPasswordResetRoute =
-  Char123LocaleChar125OtherAuthPasswordResetRouteImport.update({
-    id: '/auth/password/reset',
-    path: '/auth/password/reset',
-    getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
-  } as any)
 const Char123LocaleChar125OtherFindReviewerDashboardIndexRoute =
   Char123LocaleChar125OtherFindReviewerDashboardIndexRouteImport.update({
     id: '/find-reviewer/dashboard/',
@@ -453,6 +434,21 @@ const Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRoute =
     path: '/password/change',
     getParentRoute: () => Char123LocaleChar125OtherAuthAuthenticatedRouteRoute,
   } as any)
+const Char123LocaleChar125OtherAuthAuthenticationPasswordAskResetRoute =
+  Char123LocaleChar125OtherAuthAuthenticationPasswordAskResetRouteImport.update(
+    {
+      id: '/password/ask-reset',
+      path: '/password/ask-reset',
+      getParentRoute: () =>
+        Char123LocaleChar125OtherAuthAuthenticationRouteRoute,
+    } as any,
+  )
+const Char123LocaleChar125OtherAuthAuthenticationPasswordResetRoute =
+  Char123LocaleChar125OtherAuthAuthenticationPasswordResetRouteImport.update({
+    id: '/password/reset',
+    path: '/password/reset',
+    getParentRoute: () => Char123LocaleChar125OtherAuthAuthenticationRouteRoute,
+  } as any)
 const Char123LocaleChar125OtherFindReviewerDashboardMissionMissionIdRoute =
   Char123LocaleChar125OtherFindReviewerDashboardMissionMissionIdRouteImport.update(
     {
@@ -499,9 +495,6 @@ export interface FileRoutesByFullPath {
   '/{-$locale}/auth/2fa': typeof Char123LocaleChar125OtherAuthAuthentication2faRoute
   '/{-$locale}/auth/login': typeof Char123LocaleChar125OtherAuthAuthenticationLoginRoute
   '/{-$locale}/auth/register': typeof Char123LocaleChar125OtherAuthAuthenticationRegisterRoute
-  '/{-$locale}/auth/password': typeof Char123LocaleChar125OtherAuthPasswordLayoutRoute
-  '/{-$locale}/auth/password/ask-reset': typeof Char123LocaleChar125OtherAuthPasswordAskResetRoute
-  '/{-$locale}/auth/password/reset': typeof Char123LocaleChar125OtherAuthPasswordResetRoute
   '/{-$locale}/find-reviewer/dashboard/': typeof Char123LocaleChar125OtherFindReviewerDashboardIndexRoute
   '/{-$locale}/admin/affiliate/$id': typeof Char123LocaleChar125DashboardAdminAdminAffiliateIdRoute
   '/{-$locale}/admin/organizations/$id': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIdRoute
@@ -512,6 +505,8 @@ export interface FileRoutesByFullPath {
   '/{-$locale}/dictionary/$dictionaryKey': typeof Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRoute
   '/{-$locale}/tags/$tagKey': typeof Char123LocaleChar125DashboardEditorContentTagsTagKeyRoute
   '/{-$locale}/auth/password/change': typeof Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRoute
+  '/{-$locale}/auth/password/ask-reset': typeof Char123LocaleChar125OtherAuthAuthenticationPasswordAskResetRoute
+  '/{-$locale}/auth/password/reset': typeof Char123LocaleChar125OtherAuthAuthenticationPasswordResetRoute
   '/{-$locale}/find-reviewer/dashboard/mission/$missionId': typeof Char123LocaleChar125OtherFindReviewerDashboardMissionMissionIdRoute
   '/{-$locale}/admin/affiliate/': typeof Char123LocaleChar125DashboardAdminAdminAffiliateIndexRoute
   '/{-$locale}/admin/organizations/': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIndexRoute
@@ -552,9 +547,6 @@ export interface FileRoutesByTo {
   '/{-$locale}/auth/2fa': typeof Char123LocaleChar125OtherAuthAuthentication2faRoute
   '/{-$locale}/auth/login': typeof Char123LocaleChar125OtherAuthAuthenticationLoginRoute
   '/{-$locale}/auth/register': typeof Char123LocaleChar125OtherAuthAuthenticationRegisterRoute
-  '/{-$locale}/auth/password': typeof Char123LocaleChar125OtherAuthPasswordLayoutRoute
-  '/{-$locale}/auth/password/ask-reset': typeof Char123LocaleChar125OtherAuthPasswordAskResetRoute
-  '/{-$locale}/auth/password/reset': typeof Char123LocaleChar125OtherAuthPasswordResetRoute
   '/{-$locale}/find-reviewer/dashboard': typeof Char123LocaleChar125OtherFindReviewerDashboardIndexRoute
   '/{-$locale}/admin/affiliate/$id': typeof Char123LocaleChar125DashboardAdminAdminAffiliateIdRoute
   '/{-$locale}/admin/organizations/$id': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIdRoute
@@ -565,6 +557,8 @@ export interface FileRoutesByTo {
   '/{-$locale}/dictionary/$dictionaryKey': typeof Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRoute
   '/{-$locale}/tags/$tagKey': typeof Char123LocaleChar125DashboardEditorContentTagsTagKeyRoute
   '/{-$locale}/auth/password/change': typeof Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRoute
+  '/{-$locale}/auth/password/ask-reset': typeof Char123LocaleChar125OtherAuthAuthenticationPasswordAskResetRoute
+  '/{-$locale}/auth/password/reset': typeof Char123LocaleChar125OtherAuthAuthenticationPasswordResetRoute
   '/{-$locale}/find-reviewer/dashboard/mission/$missionId': typeof Char123LocaleChar125OtherFindReviewerDashboardMissionMissionIdRoute
   '/{-$locale}/admin/affiliate': typeof Char123LocaleChar125DashboardAdminAdminAffiliateIndexRoute
   '/{-$locale}/admin/organizations': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIndexRoute
@@ -618,9 +612,6 @@ export interface FileRoutesById {
   '/{-$locale}/_other/auth/_authentication/2fa': typeof Char123LocaleChar125OtherAuthAuthentication2faRoute
   '/{-$locale}/_other/auth/_authentication/login': typeof Char123LocaleChar125OtherAuthAuthenticationLoginRoute
   '/{-$locale}/_other/auth/_authentication/register': typeof Char123LocaleChar125OtherAuthAuthenticationRegisterRoute
-  '/{-$locale}/_other/auth/password/_layout': typeof Char123LocaleChar125OtherAuthPasswordLayoutRoute
-  '/{-$locale}/_other/auth/password/ask-reset': typeof Char123LocaleChar125OtherAuthPasswordAskResetRoute
-  '/{-$locale}/_other/auth/password/reset': typeof Char123LocaleChar125OtherAuthPasswordResetRoute
   '/{-$locale}/_other/find-reviewer/dashboard/': typeof Char123LocaleChar125OtherFindReviewerDashboardIndexRoute
   '/{-$locale}/_dashboard/_admin/admin/affiliate/$id': typeof Char123LocaleChar125DashboardAdminAdminAffiliateIdRoute
   '/{-$locale}/_dashboard/_admin/admin/organizations/$id': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIdRoute
@@ -631,6 +622,8 @@ export interface FileRoutesById {
   '/{-$locale}/_dashboard/_editor/_content/dictionary/$dictionaryKey': typeof Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRoute
   '/{-$locale}/_dashboard/_editor/_content/tags/$tagKey': typeof Char123LocaleChar125DashboardEditorContentTagsTagKeyRoute
   '/{-$locale}/_other/auth/_authenticated/password/change': typeof Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRoute
+  '/{-$locale}/_other/auth/_authentication/password/ask-reset': typeof Char123LocaleChar125OtherAuthAuthenticationPasswordAskResetRoute
+  '/{-$locale}/_other/auth/_authentication/password/reset': typeof Char123LocaleChar125OtherAuthAuthenticationPasswordResetRoute
   '/{-$locale}/_other/find-reviewer/dashboard/mission/$missionId': typeof Char123LocaleChar125OtherFindReviewerDashboardMissionMissionIdRoute
   '/{-$locale}/_dashboard/_admin/admin/affiliate/': typeof Char123LocaleChar125DashboardAdminAdminAffiliateIndexRoute
   '/{-$locale}/_dashboard/_admin/admin/organizations/': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIndexRoute
@@ -680,9 +673,6 @@ export interface FileRouteTypes {
     | '/{-$locale}/auth/2fa'
     | '/{-$locale}/auth/login'
     | '/{-$locale}/auth/register'
-    | '/{-$locale}/auth/password'
-    | '/{-$locale}/auth/password/ask-reset'
-    | '/{-$locale}/auth/password/reset'
     | '/{-$locale}/find-reviewer/dashboard/'
     | '/{-$locale}/admin/affiliate/$id'
     | '/{-$locale}/admin/organizations/$id'
@@ -693,6 +683,8 @@ export interface FileRouteTypes {
     | '/{-$locale}/dictionary/$dictionaryKey'
     | '/{-$locale}/tags/$tagKey'
     | '/{-$locale}/auth/password/change'
+    | '/{-$locale}/auth/password/ask-reset'
+    | '/{-$locale}/auth/password/reset'
     | '/{-$locale}/find-reviewer/dashboard/mission/$missionId'
     | '/{-$locale}/admin/affiliate/'
     | '/{-$locale}/admin/organizations/'
@@ -733,9 +725,6 @@ export interface FileRouteTypes {
     | '/{-$locale}/auth/2fa'
     | '/{-$locale}/auth/login'
     | '/{-$locale}/auth/register'
-    | '/{-$locale}/auth/password'
-    | '/{-$locale}/auth/password/ask-reset'
-    | '/{-$locale}/auth/password/reset'
     | '/{-$locale}/find-reviewer/dashboard'
     | '/{-$locale}/admin/affiliate/$id'
     | '/{-$locale}/admin/organizations/$id'
@@ -746,6 +735,8 @@ export interface FileRouteTypes {
     | '/{-$locale}/dictionary/$dictionaryKey'
     | '/{-$locale}/tags/$tagKey'
     | '/{-$locale}/auth/password/change'
+    | '/{-$locale}/auth/password/ask-reset'
+    | '/{-$locale}/auth/password/reset'
     | '/{-$locale}/find-reviewer/dashboard/mission/$missionId'
     | '/{-$locale}/admin/affiliate'
     | '/{-$locale}/admin/organizations'
@@ -798,9 +789,6 @@ export interface FileRouteTypes {
     | '/{-$locale}/_other/auth/_authentication/2fa'
     | '/{-$locale}/_other/auth/_authentication/login'
     | '/{-$locale}/_other/auth/_authentication/register'
-    | '/{-$locale}/_other/auth/password/_layout'
-    | '/{-$locale}/_other/auth/password/ask-reset'
-    | '/{-$locale}/_other/auth/password/reset'
     | '/{-$locale}/_other/find-reviewer/dashboard/'
     | '/{-$locale}/_dashboard/_admin/admin/affiliate/$id'
     | '/{-$locale}/_dashboard/_admin/admin/organizations/$id'
@@ -811,6 +799,8 @@ export interface FileRouteTypes {
     | '/{-$locale}/_dashboard/_editor/_content/dictionary/$dictionaryKey'
     | '/{-$locale}/_dashboard/_editor/_content/tags/$tagKey'
     | '/{-$locale}/_other/auth/_authenticated/password/change'
+    | '/{-$locale}/_other/auth/_authentication/password/ask-reset'
+    | '/{-$locale}/_other/auth/_authentication/password/reset'
     | '/{-$locale}/_other/find-reviewer/dashboard/mission/$missionId'
     | '/{-$locale}/_dashboard/_admin/admin/affiliate/'
     | '/{-$locale}/_dashboard/_admin/admin/organizations/'
@@ -1117,27 +1107,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char123LocaleChar125OtherAuthAuthenticationRegisterRouteImport
       parentRoute: typeof Char123LocaleChar125OtherAuthAuthenticationRouteRoute
     }
-    '/{-$locale}/_other/auth/password/_layout': {
-      id: '/{-$locale}/_other/auth/password/_layout'
-      path: '/auth/password'
-      fullPath: '/{-$locale}/auth/password'
-      preLoaderRoute: typeof Char123LocaleChar125OtherAuthPasswordLayoutRouteImport
-      parentRoute: typeof Char123LocaleChar125OtherRouteRoute
-    }
-    '/{-$locale}/_other/auth/password/ask-reset': {
-      id: '/{-$locale}/_other/auth/password/ask-reset'
-      path: '/auth/password/ask-reset'
-      fullPath: '/{-$locale}/auth/password/ask-reset'
-      preLoaderRoute: typeof Char123LocaleChar125OtherAuthPasswordAskResetRouteImport
-      parentRoute: typeof Char123LocaleChar125OtherRouteRoute
-    }
-    '/{-$locale}/_other/auth/password/reset': {
-      id: '/{-$locale}/_other/auth/password/reset'
-      path: '/auth/password/reset'
-      fullPath: '/{-$locale}/auth/password/reset'
-      preLoaderRoute: typeof Char123LocaleChar125OtherAuthPasswordResetRouteImport
-      parentRoute: typeof Char123LocaleChar125OtherRouteRoute
-    }
     '/{-$locale}/_other/find-reviewer/dashboard/': {
       id: '/{-$locale}/_other/find-reviewer/dashboard/'
       path: '/find-reviewer/dashboard'
@@ -1263,6 +1232,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/{-$locale}/auth/password/change'
       preLoaderRoute: typeof Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRouteImport
       parentRoute: typeof Char123LocaleChar125OtherAuthAuthenticatedRouteRoute
+    }
+    '/{-$locale}/_other/auth/_authentication/password/ask-reset': {
+      id: '/{-$locale}/_other/auth/_authentication/password/ask-reset'
+      path: '/password/ask-reset'
+      fullPath: '/{-$locale}/auth/password/ask-reset'
+      preLoaderRoute: typeof Char123LocaleChar125OtherAuthAuthenticationPasswordAskResetRouteImport
+      parentRoute: typeof Char123LocaleChar125OtherAuthAuthenticationRouteRoute
+    }
+    '/{-$locale}/_other/auth/_authentication/password/reset': {
+      id: '/{-$locale}/_other/auth/_authentication/password/reset'
+      path: '/password/reset'
+      fullPath: '/{-$locale}/auth/password/reset'
+      preLoaderRoute: typeof Char123LocaleChar125OtherAuthAuthenticationPasswordResetRouteImport
+      parentRoute: typeof Char123LocaleChar125OtherAuthAuthenticationRouteRoute
     }
     '/{-$locale}/_other/find-reviewer/dashboard/mission/$missionId': {
       id: '/{-$locale}/_other/find-reviewer/dashboard/mission/$missionId'
@@ -1506,6 +1489,8 @@ interface Char123LocaleChar125OtherAuthAuthenticationRouteRouteChildren {
   Char123LocaleChar125OtherAuthAuthentication2faRoute: typeof Char123LocaleChar125OtherAuthAuthentication2faRoute
   Char123LocaleChar125OtherAuthAuthenticationLoginRoute: typeof Char123LocaleChar125OtherAuthAuthenticationLoginRoute
   Char123LocaleChar125OtherAuthAuthenticationRegisterRoute: typeof Char123LocaleChar125OtherAuthAuthenticationRegisterRoute
+  Char123LocaleChar125OtherAuthAuthenticationPasswordAskResetRoute: typeof Char123LocaleChar125OtherAuthAuthenticationPasswordAskResetRoute
+  Char123LocaleChar125OtherAuthAuthenticationPasswordResetRoute: typeof Char123LocaleChar125OtherAuthAuthenticationPasswordResetRoute
 }
 
 const Char123LocaleChar125OtherAuthAuthenticationRouteRouteChildren: Char123LocaleChar125OtherAuthAuthenticationRouteRouteChildren =
@@ -1516,6 +1501,10 @@ const Char123LocaleChar125OtherAuthAuthenticationRouteRouteChildren: Char123Loca
       Char123LocaleChar125OtherAuthAuthenticationLoginRoute,
     Char123LocaleChar125OtherAuthAuthenticationRegisterRoute:
       Char123LocaleChar125OtherAuthAuthenticationRegisterRoute,
+    Char123LocaleChar125OtherAuthAuthenticationPasswordAskResetRoute:
+      Char123LocaleChar125OtherAuthAuthenticationPasswordAskResetRoute,
+    Char123LocaleChar125OtherAuthAuthenticationPasswordResetRoute:
+      Char123LocaleChar125OtherAuthAuthenticationPasswordResetRoute,
   }
 
 const Char123LocaleChar125OtherAuthAuthenticationRouteRouteWithChildren =
@@ -1534,9 +1523,6 @@ interface Char123LocaleChar125OtherRouteRouteChildren {
   Char123LocaleChar125OtherOnboardingStepRoute: typeof Char123LocaleChar125OtherOnboardingStepRoute
   Char123LocaleChar125OtherAffiliationIndexRoute: typeof Char123LocaleChar125OtherAffiliationIndexRoute
   Char123LocaleChar125OtherFindReviewerIndexRoute: typeof Char123LocaleChar125OtherFindReviewerIndexRoute
-  Char123LocaleChar125OtherAuthPasswordLayoutRoute: typeof Char123LocaleChar125OtherAuthPasswordLayoutRoute
-  Char123LocaleChar125OtherAuthPasswordAskResetRoute: typeof Char123LocaleChar125OtherAuthPasswordAskResetRoute
-  Char123LocaleChar125OtherAuthPasswordResetRoute: typeof Char123LocaleChar125OtherAuthPasswordResetRoute
   Char123LocaleChar125OtherFindReviewerDashboardIndexRoute: typeof Char123LocaleChar125OtherFindReviewerDashboardIndexRoute
   Char123LocaleChar125OtherFindReviewerDashboardMissionMissionIdRoute: typeof Char123LocaleChar125OtherFindReviewerDashboardMissionMissionIdRoute
 }
@@ -1563,12 +1549,6 @@ const Char123LocaleChar125OtherRouteRouteChildren: Char123LocaleChar125OtherRout
       Char123LocaleChar125OtherAffiliationIndexRoute,
     Char123LocaleChar125OtherFindReviewerIndexRoute:
       Char123LocaleChar125OtherFindReviewerIndexRoute,
-    Char123LocaleChar125OtherAuthPasswordLayoutRoute:
-      Char123LocaleChar125OtherAuthPasswordLayoutRoute,
-    Char123LocaleChar125OtherAuthPasswordAskResetRoute:
-      Char123LocaleChar125OtherAuthPasswordAskResetRoute,
-    Char123LocaleChar125OtherAuthPasswordResetRoute:
-      Char123LocaleChar125OtherAuthPasswordResetRoute,
     Char123LocaleChar125OtherFindReviewerDashboardIndexRoute:
       Char123LocaleChar125OtherFindReviewerDashboardIndexRoute,
     Char123LocaleChar125OtherFindReviewerDashboardMissionMissionIdRoute:

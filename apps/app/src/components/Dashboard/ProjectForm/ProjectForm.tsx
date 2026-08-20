@@ -111,6 +111,8 @@ export const ProjectFormContent: FC = () => {
         className="aspect-video w-full max-w-70 shrink-0 overflow-hidden"
         roundedSize="xl"
         background="none"
+        border
+        borderColor="neutral"
       >
         <img
           src={project.imageUrl}

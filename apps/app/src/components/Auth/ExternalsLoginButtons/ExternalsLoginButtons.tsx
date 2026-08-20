@@ -21,13 +21,12 @@ export const GitHubLoginButton: FC<ExternalsLoginButtonsProps> = ({
       provider: 'github',
       callbackURL: origin,
     });
-  };
 
-  useEffect(() => {
     if (user?.email) {
       onLogin?.();
     }
-  }, [user]);
+  };
+
   return (
     <Button
       className={className}
@@ -55,13 +54,11 @@ export const GoogleLoginButton: FC<ExternalsLoginButtonsProps> = ({
       provider: 'google',
       callbackURL: origin,
     });
-  };
 
-  useEffect(() => {
     if (user?.email) {
       onLogin?.();
     }
-  }, [user]);
+  };
 
   return (
     <Button
@@ -83,7 +80,6 @@ export const LinkedInLoginButton: FC<ExternalsLoginButtonsProps> = ({
   onLogin,
   className,
 }) => {
-  const { user } = useUser();
   const externalsLoginButtons = useIntlayer('externals-login-buttons');
 
   const loginWithLinkedIn = async () => {
@@ -93,13 +89,11 @@ export const LinkedInLoginButton: FC<ExternalsLoginButtonsProps> = ({
       provider: 'linkedin',
       callbackURL: origin,
     });
-  };
 
-  useEffect(() => {
     if (user?.email) {
       onLogin?.();
     }
-  }, [user]);
+  };
 
   return (
     <Button
@@ -131,13 +125,11 @@ export const AppleLoginButton: FC<ExternalsLoginButtonsProps> = ({
       provider: 'apple',
       callbackURL: origin,
     });
-  };
 
-  useEffect(() => {
     if (user?.email) {
       onLogin?.();
     }
-  }, [user]);
+  };
 
   return (
     <Button
@@ -169,13 +161,11 @@ export const BitbucketLoginButton: FC<ExternalsLoginButtonsProps> = ({
       provider: 'atlassian',
       callbackURL: origin,
     });
-  };
 
-  useEffect(() => {
     if (user?.email) {
       onLogin?.();
     }
-  }, [user]);
+  };
 
   return (
     <Button
@@ -197,7 +187,6 @@ export const GitLabLoginButton: FC<ExternalsLoginButtonsProps> = ({
   onLogin,
   className,
 }) => {
-  const { user } = useUser();
   const externalsLoginButtons = useIntlayer('externals-login-buttons');
 
   const loginWithGitLab = async () => {
@@ -207,13 +196,11 @@ export const GitLabLoginButton: FC<ExternalsLoginButtonsProps> = ({
       provider: 'gitlab',
       callbackURL: origin,
     });
-  };
 
-  useEffect(() => {
     if (user?.email) {
       onLogin?.();
     }
-  }, [user]);
+  };
 
   return (
     <Button

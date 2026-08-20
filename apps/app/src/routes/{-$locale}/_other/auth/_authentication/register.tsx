@@ -63,6 +63,8 @@ function SignUpPage() {
           padding="xl"
           roundedSize="3xl"
           transparency="xs"
+          border
+          borderColor="neutral"
         >
           <div className="flex flex-col gap-3 text-center">
             <h2 className="font-extrabold">{title2}</h2>
