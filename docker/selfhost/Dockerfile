@@ -15,7 +15,7 @@
 # ---------------------------------------------------------------------------
 FROM node:26-alpine AS backend-builder
 
-RUN npm install -g bun@1.3.14
+RUN npm install -g bun@1.4.0
 RUN apk add --no-cache build-base zlib-dev autoconf automake
 
 WORKDIR /workspace
@@ -81,7 +81,7 @@ RUN find . -path "*/src/*" -type f \( -name "*.ts" -o -name "*.tsx" -o -name "*.
 # ---------------------------------------------------------------------------
 FROM node:26-alpine AS app-builder
 
-RUN npm install -g bun@1.3.14
+RUN npm install -g bun@1.4.0
 RUN apk add --no-cache build-base zlib-dev autoconf automake
 
 WORKDIR /workspace

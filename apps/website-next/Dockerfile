@@ -7,7 +7,7 @@
 # https://github.com/oven-sh/bun/issues/4795
 FROM node:26-alpine AS builder
 
-RUN npm install -g bun@1.3.14
+RUN npm install -g bun@1.4.0
 
 ARG INTLAYER_CLIENT_ID
 ARG INTLAYER_CLIENT_SECRET
@@ -97,7 +97,7 @@ RUN NODE_OPTIONS=--max-old-space-size=8192 bun run next build \
     && bun run preserve
 
 # Runner
-FROM oven/bun:1.3.14-alpine AS runner
+FROM oven/bun:1.4.0-alpine AS runner
 
 WORKDIR /app
 
