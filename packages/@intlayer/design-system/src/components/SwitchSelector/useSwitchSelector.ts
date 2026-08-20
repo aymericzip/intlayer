@@ -19,14 +19,14 @@ export const useSwitchSelector = <T>(
   orientation: ItemSelectorOrientation
 ) => {
   const [valueState, setValue] = useState<T>(
-    value ?? defaultValue ?? choices[0]?.value
+    value ?? defaultValue ?? choices[0]!.value
   );
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   const optionsRefs = useRef<HTMLButtonElement[]>([]);
   const indicatorRef = useRef<HTMLDivElement | null>(null);
   const { choiceIndicatorPosition } = useItemSelector(optionsRefs, {
-    selector: (el) => el.getAttribute('data-indicator') === 'true',
+    selector: (el) => el?.getAttribute('data-indicator') === 'true',
     isHoverable: false,
     orientation,
   });
