@@ -26,7 +26,7 @@ export const WhyToChoseIntlayerSection: FC = () => {
 
           return (
             <AnimatedDiv
-              className="flex max-w-45 flex-col items-center gap-3 self-start p-6 text-center md:max-w-100"
+              className="flex max-w-45 flex-col items-center gap-5 self-start p-6 text-center md:max-w-100"
               key={asset.title.value}
             >
               <div className="flex w-full flex-col items-center gap-4 md:flex-row">
