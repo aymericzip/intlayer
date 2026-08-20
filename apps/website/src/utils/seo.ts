@@ -1,5 +1,5 @@
 import type { Locale } from '@intlayer/types/allLocales';
-import { getLocalizedUrl, localeMap } from 'intlayer';
+import { getLocalizedUrl, type LocalesValues, localeMap } from 'intlayer';
 
 const baseUrl = (import.meta.env.VITE_URL ?? '').replace(/\/$/, '');
 
@@ -20,7 +20,7 @@ const toAbsoluteUrl = (path: string): string => {
  * Returns an absolute localized URL using VITE_URL as the origin.
  * Handles paths that are already absolute (e.g. from @intlayer/docs URL_PREFIX).
  */
-export const getAbsoluteUrl = (path: string, locale?: Locale): string =>
+export const getAbsoluteUrl = (path: string, locale?: LocalesValues): string =>
   toAbsoluteUrl(getLocalizedUrl(path, locale));
 
 /**

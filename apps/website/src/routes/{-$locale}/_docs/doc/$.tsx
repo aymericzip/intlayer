@@ -116,7 +116,7 @@ export const Route = createFileRoute('/{-$locale}/_docs/doc/$')({
         { property: 'og:description', content: docData.description },
       ],
       links: [
-        { rel: 'canonical', href: getAbsoluteUrl(absoluteUrl) },
+        { rel: 'canonical', href: getAbsoluteUrl(absoluteUrl, locale) },
         {
           rel: 'alternate',
           type: 'text/markdown',

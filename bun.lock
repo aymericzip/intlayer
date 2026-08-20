@@ -1393,7 +1393,7 @@
     },
     "packages/@intlayer/ai": {
       "name": "@intlayer/ai",
-      "version": "9.3.2",
+      "version": "9.3.3",
       "dependencies": {
         "@ai-sdk/anthropic": "4.0.39",
         "@ai-sdk/openai": "4.0.42",
@@ -1480,7 +1480,7 @@
     },
     "packages/@intlayer/api": {
       "name": "@intlayer/api",
-      "version": "9.3.2",
+      "version": "9.3.3",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/types": "workspace:*",
@@ -1499,7 +1499,7 @@
     },
     "packages/@intlayer/babel": {
       "name": "@intlayer/babel",
-      "version": "9.3.2",
+      "version": "9.3.3",
       "dependencies": {
         "@babel/core": "8.0.1",
         "@babel/generator": "8.0.0",
@@ -1558,7 +1558,7 @@
     },
     "packages/@intlayer/cli": {
       "name": "@intlayer/cli",
-      "version": "9.3.2",
+      "version": "9.3.3",
       "dependencies": {
         "@clack/prompts": "1.7.0",
         "@intlayer/api": "workspace:*",
@@ -1781,7 +1781,7 @@
     },
     "packages/@intlayer/dynamic-dictionaries-entry": {
       "name": "@intlayer/dynamic-dictionaries-entry",
-      "version": "9.3.2",
+      "version": "9.3.3",
       "dependencies": {
         "@intlayer/config": "workspace:*",
       },
@@ -1819,7 +1819,7 @@
     },
     "packages/@intlayer/editor-react": {
       "name": "@intlayer/editor-react",
-      "version": "9.3.2",
+      "version": "9.3.3",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -1848,7 +1848,7 @@
     },
     "packages/@intlayer/engine": {
       "name": "@intlayer/engine",
-      "version": "9.3.2",
+      "version": "9.3.3",
       "dependencies": {
         "@intlayer/api": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -1959,7 +1959,7 @@
     },
     "packages/@intlayer/remote-dictionaries-entry": {
       "name": "@intlayer/remote-dictionaries-entry",
-      "version": "9.3.2",
+      "version": "9.3.3",
       "dependencies": {
         "@intlayer/config": "workspace:*",
       },
@@ -2011,7 +2011,7 @@
     },
     "packages/@intlayer/swc": {
       "name": "@intlayer/swc",
-      "version": "9.3.2",
+      "version": "9.3.3",
     },
     "packages/@intlayer/types": {
       "name": "@intlayer/types",
@@ -2082,7 +2082,7 @@
     },
     "packages/@intlayer/webpack": {
       "name": "@intlayer/webpack",
-      "version": "9.3.2",
+      "version": "9.3.3",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/dictionaries-entry": "workspace:*",

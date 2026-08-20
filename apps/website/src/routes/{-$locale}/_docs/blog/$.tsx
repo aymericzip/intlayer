@@ -43,7 +43,7 @@ export const Route = createFileRoute('/{-$locale}/_docs/blog/$')({
           to: getLocalizedUrl(blogsData[0].relativeUrl, locale) as any,
         });
       }
-      throw redirect({ to: getLocalizedUrl(Website_Home_Path, locale) as any });
+      throw redirect({ to: getLocalizedUrl(Website_Home_Path, locale) });
     }
 
     const { blogParsed, codeStyleSheet, prevBlogData, nextBlogData } = content!;
@@ -106,7 +106,7 @@ export const Route = createFileRoute('/{-$locale}/_docs/blog/$')({
         { property: 'og:description', content: blogData.description },
       ],
       links: [
-        { rel: 'canonical', href: getAbsoluteUrl(absoluteUrl) },
+        { rel: 'canonical', href: getAbsoluteUrl(absoluteUrl, locale) },
         {
           rel: 'alternate',
           type: 'text/markdown',
