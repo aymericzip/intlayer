@@ -45,8 +45,8 @@ export const GithubStarCount: FC = () => {
   }).format(stars);
 
   return (
-    <span className="mr-2 text-sm tabular-nums leading-none">
+    <strong className="text-sm tabular-nums leading-none">
       {formattedStars}
-    </span>
+    </strong>
   );
 };
