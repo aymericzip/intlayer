@@ -14,6 +14,7 @@
   },
   "scripts": {
     "build": "bun --bun vite build",
+    "postbuild": "bun scripts/compress-static.ts",
     "check": "bun --bun biome check",
     "dev": "bun --bun vite dev --port 3200",
     "format": "bun --bun biome format",

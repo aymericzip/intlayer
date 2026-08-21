@@ -15,7 +15,14 @@ export function getRouter() {
 
     scrollRestoration: true,
     defaultPreload: 'intent',
-    defaultPreloadStaleTime: 0,
+    /**
+     * Route loaders read prerendered content and static project data, so their
+     * result never goes stale within a session. The `defaultPreloadStaleTime:
+     * 0` this replaces expired every preload the moment it landed, so hovering
+     * a link fetched a loader result the click then threw away — and returning
+     * to a page the router already had still flashed the pending component.
+     */
+    defaultStaleTime: Infinity,
     defaultErrorComponent: ErrorComponent,
     defaultNotFoundComponent: NotFoundComponent,
     defaultPendingComponent: Loader,

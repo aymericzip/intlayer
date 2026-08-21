@@ -23,6 +23,7 @@
   "main": "out/main/index.js",
   "scripts": {
     "build": "bun --bun vite build",
+    "postbuild": "bun scripts/compress-static.ts",
     "check": "bun --bun biome check",
     "dev": "bun --bun vite dev --port 3000",
     "format": "bun --bun biome format",

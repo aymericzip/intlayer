@@ -1,3 +1,5 @@
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import {
   App_Admin_Affiliate_Path,
   App_Admin_Dashboard_Path,
@@ -89,6 +91,101 @@ const localizedPages = localeFlatMap(({ urlPrefix }) =>
     },
   }))
 );
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+/**
+ * Port the Vite preview server binds while TanStack Start's prerender crawls
+ * this app.
+ *
+ * The prerender asks Vite for an ephemeral port, but `nitro/vite`'s preview
+ * plugin rewrites that with `config.preview?.port || 3000` — and `0` is falsy,
+ * so the request for "any free port" always resolves to 3000. Whatever else
+ * already holds 3000 (another app's dev server) then answers the crawl, and
+ * every "prerendered" page is written from *that* server's HTML: dev-mode
+ * markup pointing at `/@id/virtual:tanstack-start-dev-client-entry`, which
+ * never hydrates once deployed.
+ */
+const PRERENDER_PREVIEW_PORT = 4000;
+
+/**
+ * Vite's command for the current run, captured so `closeBundle` can tell a real
+ * production build from a dev server or a Vitest run — both of which also close
+ * bundles, against directories that hold no shippable output.
+ */
+let viteCommand: 'build' | 'serve' | undefined;
+
+/**
+ * Serves TanStack Start's prerendered output straight from disk, and
+ * pre-compresses the client bundle so those reads ship Brotli or gzip bytes.
+ *
+ * Both halves have to live in one plugin because both depend on Vite build
+ * hooks — see `server/staticPages.ts` and `scripts/compress-static.ts` for why
+ * neither can be done by Nitro's own static handler or by a `postbuild` step
+ * alone.
+ */
+const staticPagesPlugin = {
+  name: 'static-prerendered-pages',
+  /**
+   * Claims the prerender's preview port back from `nitro/vite`. This plugin is
+   * registered after `nitro()`, so its `config` result is merged last and wins.
+   * `strictPort` then fails the build loudly on a collision, rather than
+   * letting the crawl silently record another server's pages.
+   */
+  config: () => ({
+    preview: { port: PRERENDER_PREVIEW_PORT, strictPort: true },
+  }),
+  configResolved(config: { command: 'build' | 'serve' }) {
+    viteCommand = config.command;
+  },
+  /**
+   * Compresses the client bundle as its environment closes.
+   *
+   * Nitro copies this output into `.output/public` and then globs that
+   * directory to bake the asset manifest into the server bundle. Its static
+   * handler can only encoding-negotiate variants present in that manifest, so
+   * the `.br` / `.gz` files have to exist *before* the Nitro build — which is
+   * exactly here. Compressing later (in `postbuild`) produces files the server
+   * never learns about, and JS and CSS ship uncompressed.
+   */
+  closeBundle: {
+    order: 'post' as const,
+    async handler(this: {
+      environment?: { name?: string; config?: { build?: { outDir?: string } } };
+    }) {
+      if (viteCommand !== 'build') return;
+
+      const environment = this.environment;
+      if (environment?.name !== 'client') return;
+
+      const outDir = environment.config?.build?.outDir;
+      if (!outDir) return;
+
+      const { compressDirectory } = await import('./scripts/compress-static');
+      await compressDirectory(resolve(__dirname, outDir), 'client bundle');
+    },
+  },
+  nitro: {
+    name: 'static-prerendered-pages',
+    setup(nitro: {
+      options: {
+        dev: boolean;
+        handlers: { route: string; handler: string; middleware: boolean }[];
+      };
+    }) {
+      // In dev there is no prerender output to serve, and Vite owns the
+      // request pipeline anyway.
+      if (nitro.options.dev) return;
+
+      nitro.options.handlers.push({
+        route: '/**',
+        handler: resolve(__dirname, 'server/staticPages.ts'),
+        middleware: true,
+      });
+    },
+  },
+};
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), 'VITE_');
@@ -213,6 +310,17 @@ export default defineConfig(({ mode }) => {
     'Cross-Origin-Embedder-Policy': 'unsafe-none',
   } as const;
 
+  /**
+   * Content-hashed bundle output and the handful of never-changing public
+   * assets can be cached for a year. The global rule above only grants a day,
+   * which sends the browser back to revalidate assets whose name already
+   * guarantees their content.
+   */
+  const immutableAssetHeaders = {
+    ...headers,
+    'Cache-Control': 'public, max-age=31536000, immutable',
+  } as const;
+
   return {
     server: {
       headers: mode === 'development' ? {} : headers,
@@ -233,6 +341,13 @@ export default defineConfig(({ mode }) => {
         preset: 'bun',
         routeRules: {
           '/**': { headers },
+          '/assets/**': { headers: immutableAssetHeaders },
+
+          '/Geist-VariableFont_wght.woff2': { headers: immutableAssetHeaders },
+          '/Geist-VariableFont_wght.ttf': { headers: immutableAssetHeaders },
+          '/logo.svg': { headers: immutableAssetHeaders },
+          '/cover.png': { headers: immutableAssetHeaders },
+          '/github-social-preview.png': { headers: immutableAssetHeaders },
         },
         rollupConfig: {
           onwarn(warning, warn) {
@@ -242,6 +357,7 @@ export default defineConfig(({ mode }) => {
         },
       }),
       intlayer(),
+      staticPagesPlugin,
       tailwindcss(),
       tanstackStart({
         router: {
@@ -264,7 +380,6 @@ export default defineConfig(({ mode }) => {
       wasm(),
     ],
     build: {
-      minify: false,
       rolldownOptions: {
         external: ['wasi_snapshot_preview1', 'env'],
       },

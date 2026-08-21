@@ -16,7 +16,15 @@ export function getRouter() {
 
     scrollRestoration: true,
     defaultPreload: 'intent',
-    defaultPreloadStaleTime: 0,
+    /**
+     * Route loaders only prime TanStack Query caches, which own their own
+     * freshness, so re-running them on navigation buys nothing. The
+     * `defaultPreloadStaleTime: 0` this replaces expired every preload the
+     * moment it landed, so hovering a link fetched a loader result the click
+     * then threw away — and returning to a page the router already had still
+     * flashed the pending component.
+     */
+    defaultStaleTime: Infinity,
     defaultNotFoundComponent: NotFoundComponent,
     defaultPendingComponent: Loader,
   });
