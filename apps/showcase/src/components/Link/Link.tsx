@@ -13,6 +13,7 @@ import {
 import { ExternalLink, MoveRight } from 'lucide-react';
 import type { FC } from 'react';
 import { useLocale } from 'react-intlayer';
+import { SITE_URL } from '#/lib/site';
 
 export const LOCALE_ROUTE = '{-$locale}' as const;
 
@@ -30,8 +31,6 @@ export type LinkProps = Omit<LinkUIProps, 'href'> &
     to: StripLocalePrefix<TansStackLinkProps['to']> | (string & {});
   };
 
-const URL = import.meta.env.VITE_SITE_URL;
-
 export const Link: FC<LinkProps> = ({
   variant = 'default',
   to,
@@ -46,6 +45,8 @@ export const Link: FC<LinkProps> = ({
   isPageSection: isPageSectionProp,
   roundedSize,
   size,
+  rel: relProp,
+  target: targetProp,
   ...otherProps
 }) => {
   const { locale: currentLocale } = useLocale();
@@ -53,14 +54,17 @@ export const Link: FC<LinkProps> = ({
 
   // Normalize internal links: convert https://intlayer.org/xxx to /xxx
   let normalizedHref = to;
-  if (typeof to === 'string' && URL && to.startsWith(URL)) {
-    normalizedHref = to.replace(URL, '') || '/';
+  if (typeof to === 'string' && SITE_URL && to.startsWith(SITE_URL)) {
+    normalizedHref = to.replace(SITE_URL, '') || '/';
   }
 
   // Check if external link using normalized href
   const isExternalLink =
     isExternalLinkProp ??
-    checkIsExternalLink({ href: to, isExternalLink: isExternalLinkProp }, URL);
+    checkIsExternalLink(
+      { href: to, isExternalLink: isExternalLinkProp },
+      SITE_URL
+    );
 
   const isPageSection =
     isPageSectionProp ?? normalizedHref?.startsWith('#') ?? false;
@@ -73,13 +77,18 @@ export const Link: FC<LinkProps> = ({
       ? getLocalizedUrl(normalizedHref, locale)
       : normalizedHref;
 
-  const rel = isExternalLink ? 'noopener noreferrer' : undefined;
+  /**
+   * External links always carry the full safety/SEO `rel`, so a caller cannot
+   * accidentally strip `nofollow`. Internal links keep whatever the caller asked for.
+   */
+  const rel = isExternalLink ? 'noopener noreferrer nofollow' : relProp;
 
-  const target = isExternalLink ? '_blank' : '_self';
+  const target = isExternalLink ? '_blank' : (targetProp ?? '_self');
 
   if (isExternalLink || isPageSection) {
     return (
       <a
+        {...otherProps}
         href={href}
         aria-label={label}
         rel={rel}
@@ -95,7 +104,6 @@ export const Link: FC<LinkProps> = ({
             className,
           })
         )}
-        {...otherProps}
       >
         {isButton && isChildrenString ? <span>{children}</span> : children}
         {isExternalLink && isChildrenString && (
@@ -110,6 +118,8 @@ export const Link: FC<LinkProps> = ({
     <TanStackLink
       to={href as TansStackLinkProps['to']}
       aria-label={label}
+      rel={rel}
+      target={target}
       aria-current={isActive ? 'page' : undefined}
       className={cn(
         linkVariants({

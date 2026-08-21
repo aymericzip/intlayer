@@ -290,6 +290,8 @@ export const Link: FC<LinkProps> = (props) => {
     isExternalLink: isExternalLinkProp,
     isPageSection: isPageSectionProp,
     href: hrefProp,
+    rel: relProp,
+    target: targetProp,
     ...otherProps
   } = props;
 
@@ -301,9 +303,13 @@ export const Link: FC<LinkProps> = (props) => {
 
   const isChildrenString = isTextChildren(children);
 
-  const rel = isExternalLink ? 'noopener noreferrer nofollow' : undefined;
+  /**
+   * External links always carry the full safety/SEO `rel`, so a caller cannot
+   * accidentally strip `nofollow`. Internal links keep whatever the caller asked for.
+   */
+  const rel = isExternalLink ? 'noopener noreferrer nofollow' : relProp;
 
-  const target = isExternalLink ? '_blank' : '_self';
+  const target = isExternalLink ? '_blank' : (targetProp ?? '_self');
 
   const resolvedHref =
     locale && hrefProp && !isExternalLink && !isPageSection
@@ -314,6 +320,7 @@ export const Link: FC<LinkProps> = (props) => {
 
   return (
     <a
+      {...otherProps}
       href={href}
       aria-label={label}
       rel={rel}
@@ -330,7 +337,6 @@ export const Link: FC<LinkProps> = (props) => {
           className,
         })
       )}
-      {...otherProps}
     >
       {isButton && isChildrenString ? <span>{children}</span> : children}
 

@@ -1,7 +1,5 @@
 import { Container } from '@intlayer/design-system/container';
 import { Showcase_Root_Path } from '@intlayer/design-system/routes';
-import { useParams } from '@tanstack/react-router';
-import { defaultLocale } from 'intlayer';
 import { ArrowLeft, Code } from 'lucide-react';
 import { useIntlayer } from 'react-intlayer';
 import { useDate } from 'react-intlayer/format';
@@ -85,8 +83,7 @@ export const ProjectFocus = ({ project }: ProjectFocusProps) => {
                 >
                   <DSLink
                     to={project.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    isExternalLink
                     variant="button-outlined"
                     className="flex-1 py-3 text-sm"
                     color="text"
@@ -101,8 +98,6 @@ export const ProjectFocus = ({ project }: ProjectFocusProps) => {
               )}
               <DSLink
                 to={project.websiteUrl}
-                target="_blank"
-                rel="noopener noreferrer"
                 color="text"
                 variant="button"
                 label={contentSidebar.visitWebsite.value}
