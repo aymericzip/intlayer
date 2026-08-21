@@ -1,4 +1,8 @@
-import { Website_NotFound_Path } from '@intlayer/design-system/routes';
+import {
+  Website_Domain,
+  Website_NotFound_Path,
+  WellKnown_AiCatalog_Path,
+} from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
 import { getMultilingualUrls } from 'intlayer';
 
@@ -53,6 +57,9 @@ export const Route = createFileRoute('/robots.txt')({
         if (siteUrl) text += `Host: ${siteUrl}\n`;
         text += `Sitemap: ${siteUrl}/sitemap.xml\n`;
         if (cmsUrl) text += `Sitemap: ${cmsUrl}/sitemap.xml\n`;
+        // Points agents at the ARD capability manifest, the way `Sitemap`
+        // points crawlers at the sitemap.
+        text += `Agentmap: https://${Website_Domain}${WellKnown_AiCatalog_Path}\n`;
 
         return new Response(text, {
           headers: { 'Content-Type': 'text/plain; charset=utf-8' },

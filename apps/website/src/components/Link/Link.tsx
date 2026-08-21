@@ -104,6 +104,8 @@ export const Link: FC<LinkProps> = (props) => {
     to: toProp,
     roundedSize,
     size,
+    rel: relProp,
+    target: targetProp,
     ...otherProps
   } = props;
   const { locale: currentLocale } = useLocale();
@@ -123,12 +125,17 @@ export const Link: FC<LinkProps> = (props) => {
   const isChildrenString = isTextChildren(children);
   const isButton = variant === 'button' || variant === 'button-outlined';
 
-  const rel = isExternalLink ? 'noopener noreferrer' : undefined;
-  const target = isExternalLink ? '_blank' : '_self';
+  /**
+   * External links always carry the full safety/SEO `rel`, so a caller cannot
+   * accidentally strip `nofollow`. Internal links keep whatever the caller asked for.
+   */
+  const rel = isExternalLink ? 'noopener noreferrer nofollow' : relProp;
+  const target = isExternalLink ? '_blank' : (targetProp ?? '_self');
 
   if (isAsset) {
     return (
       <a
+        {...(otherProps as any)}
         href={href}
         aria-label={label}
         rel={rel}
@@ -144,7 +151,6 @@ export const Link: FC<LinkProps> = (props) => {
             className,
           })
         )}
-        {...(otherProps as any)}
       >
         {isButton && isChildrenString ? <span>{children}</span> : children}
         {isExternalLink && isChildrenString && (
@@ -156,6 +162,7 @@ export const Link: FC<LinkProps> = (props) => {
 
   return (
     <TanStackLink
+      {...(otherProps as any)}
       aria-label={label}
       rel={rel}
       target={target}
@@ -170,7 +177,6 @@ export const Link: FC<LinkProps> = (props) => {
           className,
         })
       )}
-      {...(otherProps as any)}
       to={href}
       hash={hashFragment}
       activeOptions={

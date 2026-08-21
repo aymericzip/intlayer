@@ -11,7 +11,16 @@ const ChatBot = lazy(() =>
 
 export const ChatBotModal: FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  // `Modal` keeps its children mounted while closed, so the chat is created on
+  // the first open and kept afterwards — unmounting on close would cut its exit
+  // animation short.
+  const [hasOpenedModal, setHasOpenedModal] = useState(false);
   const { button } = useIntlayer('chatbot-modal');
+
+  const openModal = () => {
+    setHasOpenedModal(true);
+    setIsModalOpen(true);
+  };
 
   return (
     <>
@@ -24,7 +33,7 @@ export const ChatBotModal: FC = () => {
         disableScroll
         hasCloseButton
       >
-        {isModalOpen && (
+        {hasOpenedModal && (
           <Suspense fallback={<Loader />}>
             <ChatBot isActive={isModalOpen} />
           </Suspense>
@@ -36,7 +45,7 @@ export const ChatBotModal: FC = () => {
         color="text"
         size="icon-xl"
         label={button.label.value}
-        onClick={() => setIsModalOpen(true)}
+        onClick={openModal}
       />
     </>
   );

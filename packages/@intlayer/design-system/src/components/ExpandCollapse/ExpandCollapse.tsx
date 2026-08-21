@@ -117,8 +117,11 @@ export const ExpandCollapse: FC<ExpandCollapseProps> = ({
     }
 
     const observer = new ResizeObserver(([entry]) => {
-      // Read inside the callback, where the layout is already up to date.
-      if (entry) setCodeContainerHeight(entry.target.clientHeight);
+      // The entry already carries the measured box, so nothing is read back
+      // from the element. `clientHeight` here would still force a reflow
+      // whenever an earlier observer in the same delivery had dirtied the
+      // styles — and a documentation page delivers one per code block.
+      if (entry) setCodeContainerHeight(entry.contentRect.height);
     });
 
     observer.observe(container);

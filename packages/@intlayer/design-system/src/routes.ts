@@ -512,6 +512,7 @@ export const Mcp_Sse = `https://${Mcp_Domain}/sse` as const;
 // skills and authentication without scraping HTML.
 // ============================================================
 export const WellKnown_ApiCatalog_Path = '/.well-known/api-catalog' as const;
+export const WellKnown_AiCatalog_Path = '/.well-known/ai-catalog.json' as const;
 export const WellKnown_OAuthProtectedResource_Path =
   '/.well-known/oauth-protected-resource' as const;
 export const WellKnown_OAuthAuthorizationServer_Path =

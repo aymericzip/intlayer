@@ -15,6 +15,7 @@ import { Route as PostsDotjsonRouteImport } from './routes/posts[.]json'
 import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as Char123LocaleChar125RouteRouteImport } from './routes/{-$locale}/route'
+import { Route as DotwellKnownAiCatalogDotjsonRouteImport } from './routes/[.]well-known/ai-catalog[.]json'
 import { Route as DotwellKnownApiCatalogRouteImport } from './routes/[.]well-known/api-catalog'
 import { Route as DotwellKnownOauthProtectedResourceRouteImport } from './routes/[.]well-known/oauth-protected-resource'
 import { Route as ApiBaiduPushRouteImport } from './routes/api/baidu-push'
@@ -79,6 +80,12 @@ const Char123LocaleChar125RouteRoute =
   Char123LocaleChar125RouteRouteImport.update({
     id: '/{-$locale}',
     path: '/{-$locale}',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const DotwellKnownAiCatalogDotjsonRoute =
+  DotwellKnownAiCatalogDotjsonRouteImport.update({
+    id: '/.well-known/ai-catalog.json',
+    path: '/.well-known/ai-catalog.json',
     getParentRoute: () => rootRouteImport,
   } as any)
 const DotwellKnownApiCatalogRoute = DotwellKnownApiCatalogRouteImport.update({
@@ -285,6 +292,7 @@ export interface FileRoutesByFullPath {
   '/posts.json': typeof PostsDotjsonRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/.well-known/ai-catalog.json': typeof DotwellKnownAiCatalogDotjsonRoute
   '/.well-known/api-catalog': typeof DotwellKnownApiCatalogRoute
   '/.well-known/oauth-protected-resource': typeof DotwellKnownOauthProtectedResourceRoute
   '/api/baidu-push': typeof ApiBaiduPushRoute
@@ -325,6 +333,7 @@ export interface FileRoutesByTo {
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/{-$locale}': typeof Char123LocaleChar125IndexRoute
+  '/.well-known/ai-catalog.json': typeof DotwellKnownAiCatalogDotjsonRoute
   '/.well-known/api-catalog': typeof DotwellKnownApiCatalogRoute
   '/.well-known/oauth-protected-resource': typeof DotwellKnownOauthProtectedResourceRoute
   '/api/baidu-push': typeof ApiBaiduPushRoute
@@ -367,6 +376,7 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/{-$locale}/_docs': typeof Char123LocaleChar125DocsRouteRouteWithChildren
   '/{-$locale}/_playground': typeof Char123LocaleChar125PlaygroundRouteRouteWithChildren
+  '/.well-known/ai-catalog.json': typeof DotwellKnownAiCatalogDotjsonRoute
   '/.well-known/api-catalog': typeof DotwellKnownApiCatalogRoute
   '/.well-known/oauth-protected-resource': typeof DotwellKnownOauthProtectedResourceRoute
   '/api/baidu-push': typeof ApiBaiduPushRoute
@@ -409,6 +419,7 @@ export interface FileRouteTypes {
     | '/posts.json'
     | '/robots.txt'
     | '/sitemap.xml'
+    | '/.well-known/ai-catalog.json'
     | '/.well-known/api-catalog'
     | '/.well-known/oauth-protected-resource'
     | '/api/baidu-push'
@@ -449,6 +460,7 @@ export interface FileRouteTypes {
     | '/robots.txt'
     | '/sitemap.xml'
     | '/{-$locale}'
+    | '/.well-known/ai-catalog.json'
     | '/.well-known/api-catalog'
     | '/.well-known/oauth-protected-resource'
     | '/api/baidu-push'
@@ -490,6 +502,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/{-$locale}/_docs'
     | '/{-$locale}/_playground'
+    | '/.well-known/ai-catalog.json'
     | '/.well-known/api-catalog'
     | '/.well-known/oauth-protected-resource'
     | '/api/baidu-push'
@@ -531,6 +544,7 @@ export interface RootRouteChildren {
   PostsDotjsonRoute: typeof PostsDotjsonRoute
   RobotsDottxtRoute: typeof RobotsDottxtRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  DotwellKnownAiCatalogDotjsonRoute: typeof DotwellKnownAiCatalogDotjsonRoute
   DotwellKnownApiCatalogRoute: typeof DotwellKnownApiCatalogRoute
   DotwellKnownOauthProtectedResourceRoute: typeof DotwellKnownOauthProtectedResourceRoute
   ApiBaiduPushRoute: typeof ApiBaiduPushRoute
@@ -583,6 +597,13 @@ declare module '@tanstack/react-router' {
       path: '/{-$locale}'
       fullPath: '/{-$locale}'
       preLoaderRoute: typeof Char123LocaleChar125RouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/.well-known/ai-catalog.json': {
+      id: '/.well-known/ai-catalog.json'
+      path: '/.well-known/ai-catalog.json'
+      fullPath: '/.well-known/ai-catalog.json'
+      preLoaderRoute: typeof DotwellKnownAiCatalogDotjsonRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/.well-known/api-catalog': {
@@ -939,6 +960,7 @@ const rootRouteChildren: RootRouteChildren = {
   PostsDotjsonRoute: PostsDotjsonRoute,
   RobotsDottxtRoute: RobotsDottxtRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  DotwellKnownAiCatalogDotjsonRoute: DotwellKnownAiCatalogDotjsonRoute,
   DotwellKnownApiCatalogRoute: DotwellKnownApiCatalogRoute,
   DotwellKnownOauthProtectedResourceRoute:
     DotwellKnownOauthProtectedResourceRoute,

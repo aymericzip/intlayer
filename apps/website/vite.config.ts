@@ -5,6 +5,7 @@ import {
   LlmsTxt_Path,
   Website_Doc_Root_Path,
   WellKnown_AgentSkillsIndex_Path,
+  WellKnown_AiCatalog_Path,
   WellKnown_ApiCatalog_Path,
   WellKnown_McpServerCard_Path,
   WellKnown_OAuthProtectedResource_Path,
@@ -31,11 +32,17 @@ const __dirname = dirname(__filename);
  * agent that fetches a single URL discovers the machine-readable resources
  * without having to guess well-known paths or parse HTML.
  *
- * Every relation used here is IANA-registered: `api-catalog` (RFC 9727),
+ * Every relation used here is IANA-registered — `api-catalog` (RFC 9727),
  * `service-doc` (RFC 8631), `describedby` (W3C) and `oauth-protected-resource`
- * (RFC 9728).
+ * (RFC 9728) — except `ai-catalog`, which the Agentic Resource Discovery
+ * specification defines for its capability manifest.
  */
 const agentDiscoveryLinkHeader = [
+  {
+    url: WellKnown_AiCatalog_Path,
+    rel: 'ai-catalog',
+    type: 'application/ai-catalog+json',
+  },
   {
     url: WellKnown_ApiCatalog_Path,
     rel: 'api-catalog',

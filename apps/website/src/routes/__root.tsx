@@ -2,6 +2,10 @@ import {
   DeferredAuthProvider,
   ReactQueryProvider,
 } from '@intlayer/design-system/providers';
+import {
+  Website_Domain,
+  WellKnown_AiCatalog_Path,
+} from '@intlayer/design-system/routes';
 import { Toaster } from '@intlayer/design-system/toaster';
 import type { QueryClient } from '@tanstack/react-query';
 import {
@@ -144,6 +148,12 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
         type: 'application/rss+xml',
         title: 'Intlayer RSS Feed',
         href: '/feed.xml',
+      },
+      {
+        // Lets an agent that already has the HTML skip the well-known probe.
+        rel: 'ai-catalog',
+        type: 'application/ai-catalog+json',
+        href: `https://${Website_Domain}${WellKnown_AiCatalog_Path}`,
       },
       {
         rel: 'preconnect',
