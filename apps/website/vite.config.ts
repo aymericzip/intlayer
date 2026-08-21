@@ -1,3 +1,4 @@
+import crypto from 'node:crypto';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
@@ -248,6 +249,8 @@ export default defineConfig(async ({ mode }) => {
   const backendUrl = env.VITE_BACKEND_URL;
   const publicUrl = env.VITE_URL;
 
+  const cspNonce = crypto.randomBytes(16).toString('base64');
+
   const cspDirectives = {
     'default-src': ["'self'"],
     'style-src': [
@@ -267,15 +270,15 @@ export default defineConfig(async ({ mode }) => {
     ].filter(Boolean),
     'script-src': [
       "'self'",
+      `'nonce-${cspNonce}'`,
+      "'strict-dynamic'",
       "'unsafe-eval'",
-      "'unsafe-inline'",
       '*.youtube.com',
     ],
     'script-src-elem': [
       "'self'",
-      'data:',
+      `'nonce-${cspNonce}'`,
       "'report-sample'",
-      "'unsafe-inline'",
       domain ? `blob: *.${domain}` : '',
       'static.cloudflareinsights.com',
       '*.googletagmanager.com',
@@ -324,9 +327,7 @@ export default defineConfig(async ({ mode }) => {
       'static.cloudflareinsights.com',
       'cdn.jsdelivr.net',
     ],
-    'object-src': ["'self'", 'data:', domain ? `blob: *.${domain}` : ''].filter(
-      Boolean
-    ),
+    'object-src': ["'self'", domain ? `blob: *.${domain}` : ''].filter(Boolean),
     'frame-src': [
       "'self'",
       '*.youtube.com',
@@ -380,6 +381,9 @@ export default defineConfig(async ({ mode }) => {
     },
     preview: {
       headers,
+    },
+    define: {
+      'import.meta.env.VITE_CSP_NONCE': JSON.stringify(cspNonce),
     },
     resolve: {
       alias: {

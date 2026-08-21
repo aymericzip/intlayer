@@ -32,11 +32,14 @@ const googleAnalyticsId: string | undefined = import.meta.env
  * gtag.js loader + bootstrap. SPA navigations are reported through GA4 enhanced
  * measurement ("page changes based on browser history events").
  */
+const cspNonce = import.meta.env.VITE_CSP_NONCE;
+
 const googleAnalyticsScripts = googleAnalyticsId
   ? [
       {
         src: `https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`,
         async: true,
+        nonce: cspNonce,
       },
       {
         children: [
@@ -45,6 +48,7 @@ const googleAnalyticsScripts = googleAnalyticsId
           "gtag('js', new Date());",
           `gtag('config', '${googleAnalyticsId}');`,
         ].join(''),
+        nonce: cspNonce,
       },
     ]
   : [];

@@ -15,6 +15,9 @@ export function getRouter() {
     defaultPreload: 'intent',
     defaultStaleTime: Infinity,
     defaultNotFoundComponent: NotFoundComponent,
+    ssr: {
+      nonce: import.meta.env.VITE_CSP_NONCE,
+    },
   });
 
   return router;
