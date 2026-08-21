@@ -102,8 +102,8 @@ export const Route = createFileRoute('/{-$locale}/_docs/doc/$')({
     );
 
     return {
-      title: `${docData.title} | Intlayer`,
       meta: [
+        { title: `${docData.title} | Intlayer` },
         { name: 'description', content: docData.description },
         {
           name: 'keywords',

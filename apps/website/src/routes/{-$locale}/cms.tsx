@@ -46,8 +46,8 @@ export const Route = createFileRoute('/{-$locale}/cms')({
     const offers = formatStructuredDataOffers(loaderData?.pricings ?? null);
 
     return {
-      title: title,
       meta: [
+        { title },
         { name: 'description', content: description },
         {
           name: 'keywords',

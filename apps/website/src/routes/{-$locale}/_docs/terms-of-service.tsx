@@ -36,18 +36,18 @@ export const Route = createFileRoute('/{-$locale}/_docs/terms-of-service')({
     );
 
     return {
-      title: String(title),
       meta: [
-        { name: 'description', content: String(description) },
+        { title },
+        { name: 'description', content: description },
         {
           name: 'keywords',
           content: Array.isArray(keywords)
             ? keywords.join(', ')
-            : String(keywords || ''),
+            : keywords || '',
         },
         { property: 'og:url', content: getAbsoluteUrl(path, locale) },
-        { property: 'og:title', content: String(title) },
-        { property: 'og:description', content: String(description) },
+        { property: 'og:title', content: title },
+        { property: 'og:description', content: description },
       ],
       links: [
         { rel: 'canonical', href: getAbsoluteUrl(path, locale) },
@@ -72,7 +72,7 @@ export const Route = createFileRoute('/{-$locale}/_docs/terms-of-service')({
             buildOrganizationJsonLd({
               url: Website_Home,
               logoUrl: `${Website_Home}/assets/logo.png`,
-              slogan: String(orgContent.slogan),
+              slogan: orgContent.slogan,
               knowsAbout: orgContent.knowsAbout as string[],
               sameAs: [External_Github, 'https://twitter.com/intlayer'],
               availableLanguages: locales as string[],
@@ -84,16 +84,16 @@ export const Route = createFileRoute('/{-$locale}/_docs/terms-of-service')({
           children: JSON.stringify(
             buildCreativeWorkJsonLd({
               type: 'WebPage',
-              name: String(title),
-              description: String(description),
+              name: title,
+              description: description,
               content: '',
               keywords: Array.isArray(keywords)
                 ? keywords.join(', ')
-                : String(keywords || ''),
+                : keywords || '',
               datePublished: createdAt ? new Date(createdAt) : undefined,
               dateModified: updatedAt ? new Date(updatedAt) : undefined,
               url: path,
-              audienceType: String(creativeWorkContent.audienceType),
+              audienceType: creativeWorkContent.audienceType,
             })
           ),
         },

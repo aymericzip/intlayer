@@ -70,8 +70,8 @@ export const Route = createFileRoute('/{-$locale}/_docs/frequent-questions/$')({
     );
 
     return {
-      title: `${title} | Intlayer`,
       meta: [
+        { title: `${title} | Intlayer` },
         { name: 'description', content: description },
         {
           name: 'keywords',

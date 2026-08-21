@@ -45,9 +45,9 @@ export const Route = createFileRoute('/{-$locale}/_playground/playground')({
     );
 
     return {
-      title: String(title),
       meta: [
-        { name: 'description', content: String(description) },
+        { title },
+        { name: 'description', content: description },
         {
           name: 'keywords',
           content: Array.isArray(keywords)
@@ -55,8 +55,8 @@ export const Route = createFileRoute('/{-$locale}/_playground/playground')({
             : String(keywords || ''),
         },
         { property: 'og:url', content: getAbsoluteUrl(path, locale) },
-        { property: 'og:title', content: String(title) },
-        { property: 'og:description', content: String(description) },
+        { property: 'og:title', content: title },
+        { property: 'og:description', content: description },
       ],
       links: [
         { rel: 'canonical', href: getAbsoluteUrl(path, locale) },

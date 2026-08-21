@@ -45,18 +45,18 @@ export const Route = createFileRoute('/{-$locale}/_docs/frequent-questions/')({
       : [];
 
     return {
-      title: String(title),
       meta: [
-        { name: 'description', content: String(description) },
+        { title },
+        { name: 'description', content: description },
         {
           name: 'keywords',
           content: Array.isArray(keywords)
             ? keywords.join(', ')
-            : String(keywords || ''),
+            : keywords || '',
         },
         { property: 'og:url', content: getAbsoluteUrl(path, locale) },
-        { property: 'og:title', content: String(title) },
-        { property: 'og:description', content: String(description) },
+        { property: 'og:title', content: title },
+        { property: 'og:description', content: description },
       ],
       links: [
         { rel: 'canonical', href: getAbsoluteUrl(path, locale) },
@@ -81,7 +81,7 @@ export const Route = createFileRoute('/{-$locale}/_docs/frequent-questions/')({
             buildOrganizationJsonLd({
               url: Website_Home,
               logoUrl: `${Website_Home}/assets/logo.png`,
-              slogan: String(orgContent.slogan),
+              slogan: orgContent.slogan,
               knowsAbout: orgContent.knowsAbout as string[],
               sameAs: [External_Github, 'https://twitter.com/intlayer'],
               availableLanguages: locales as string[],
