@@ -44,7 +44,7 @@ const OTPFieldContent = ({
   const { error } = useFormField();
 
   const optionsRefs = useRef<HTMLElement[]>([]);
-  const { choiceIndicatorPosition, calculatePosition } = useItemSelector(
+  const { choiceIndicatorPosition, scheduleMeasurement } = useItemSelector(
     optionsRefs,
     {
       selector,
@@ -53,7 +53,7 @@ const OTPFieldContent = ({
   );
 
   useEffect(() => {
-    calculatePosition();
+    scheduleMeasurement();
   }, []);
 
   return (
@@ -71,7 +71,7 @@ const OTPFieldContent = ({
         defaultValue={field.value}
         maxLength={maxLength}
         pattern="^[0-9]+$"
-        onActiveSlotChange={calculatePosition}
+        onActiveSlotChange={scheduleMeasurement}
         {...(props as any)}
       >
         {children ?? (

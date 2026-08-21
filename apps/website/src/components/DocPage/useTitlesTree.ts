@@ -1,6 +1,7 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 type HeadingChildren = Map<HTMLElement, HTMLElement[]>;
+type HeadingTexts = Map<HTMLElement, string>;
 
 type UseTitlesTreeOptions = {
   /** Array of heading levels to display (e.g., [2, 3, 4] for h2, h3, h4) */
@@ -14,6 +15,15 @@ type UseTitlesTreeReturn = {
   topLevelHeadings: HTMLElement[];
   /** Map of headings to their children */
   headingMap: HeadingChildren;
+  /**
+   * Rendered text of each heading, read once when the tree is built.
+   *
+   * `innerText` is layout-dependent, so reading it forces the browser to lay
+   * the page out again. The navigations built from this tree re-render on
+   * every scroll, and reading it from their render made every heading cost a
+   * reflow.
+   */
+  headingTexts: HeadingTexts;
   /** Whether headings are currently being processed */
   isLoading: boolean;
 };
@@ -29,7 +39,50 @@ export const useTitlesTree = ({
 }: UseTitlesTreeOptions): UseTitlesTreeReturn => {
   const [topLevelHeadings, setTopLevelHeadings] = useState<HTMLElement[]>([]);
   const [headingMap, setHeadingMap] = useState<HeadingChildren>(new Map());
+  const [headingTexts, setHeadingTexts] = useState<HeadingTexts>(new Map());
   const [isLoading, setIsLoading] = useState(true);
+
+  /**
+   * Headings of the last published tree, in document order.
+   *
+   * The MutationObserver below watches the whole content subtree, so it also
+   * fires for changes that leave the headings untouched — a tab indicator
+   * moving, a code block expanding. Publishing a new array and a new Map for
+   * those would restart every effect keyed on the tree, and each restart
+   * re-measures the page.
+   */
+  const publishedHeadingsRef = useRef<HTMLElement[]>([]);
+  const publishedTextsRef = useRef<HeadingTexts>(new Map());
+
+  const publishTree = useCallback(
+    (
+      roots: HTMLElement[],
+      childrenMap: HeadingChildren,
+      texts: HeadingTexts,
+      orderedHeadings: HTMLElement[]
+    ) => {
+      const previousHeadings = publishedHeadingsRef.current;
+      const previousTexts = publishedTextsRef.current;
+      const isUnchanged =
+        previousHeadings.length === orderedHeadings.length &&
+        previousHeadings.every(
+          (heading, index) =>
+            heading === orderedHeadings[index] &&
+            previousTexts.get(heading) === texts.get(heading)
+        );
+
+      setIsLoading(false);
+
+      if (isUnchanged) return;
+
+      publishedHeadingsRef.current = orderedHeadings;
+      publishedTextsRef.current = texts;
+      setTopLevelHeadings(roots);
+      setHeadingMap(childrenMap);
+      setHeadingTexts(texts);
+    },
+    []
+  );
 
   // Stabilize levels across renders even if caller passes a new array instance each time
   const levelsKey = useMemo(
@@ -52,9 +105,7 @@ export const useTitlesTree = ({
     const content = document.getElementById(contentId);
 
     if (!content) {
-      setTopLevelHeadings([]);
-      setHeadingMap(new Map());
-      setIsLoading(false);
+      publishTree([], new Map(), new Map(), []);
       return;
     }
 
@@ -63,15 +114,14 @@ export const useTitlesTree = ({
     const flatHeadings = content.querySelectorAll<HTMLElement>(selector);
 
     if (!flatHeadings || flatHeadings.length === 0) {
-      setTopLevelHeadings([]);
-      setHeadingMap(new Map());
-      setIsLoading(false);
+      publishTree([], new Map(), new Map(), []);
       return;
     }
 
     const orderedHeadings = Array.from(flatHeadings).filter((el) => el.id);
 
-    const childrenMap = new Map<HTMLElement, HTMLElement[]>();
+    const childrenMap: HeadingChildren = new Map();
+    const texts: HeadingTexts = new Map();
     const roots: HTMLElement[] = [];
     const stack: { el: HTMLElement; levelIdx: number }[] = [];
 
@@ -96,13 +146,15 @@ export const useTitlesTree = ({
 
       if (!childrenMap.has(el)) childrenMap.set(el, []);
 
+      // `textContent` rather than `innerText`: same string for these headings,
+      // whose `#` anchor is a CSS pseudo-element, but without the reflow.
+      texts.set(el, el.textContent?.trim() ?? '');
+
       stack.push({ el, levelIdx });
     });
 
-    setTopLevelHeadings(roots);
-    setHeadingMap(childrenMap);
-    setIsLoading(false);
-  }, [contentId, selectorLevels]);
+    publishTree(roots, childrenMap, texts, orderedHeadings);
+  }, [contentId, selectorLevels, publishTree]);
 
   useEffect(() => {
     setIsLoading(true);
@@ -144,6 +196,7 @@ export const useTitlesTree = ({
   return {
     topLevelHeadings,
     headingMap,
+    headingTexts,
     isLoading,
   };
 };

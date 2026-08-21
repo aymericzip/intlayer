@@ -154,7 +154,7 @@ export const Pagination: FC<PaginationProps> = ({
 
   const optionsRefs = useRef<HTMLElement[]>([]);
   const indicatorRef = useRef<HTMLDivElement | null>(null);
-  const { choiceIndicatorPosition, calculatePosition } = useItemSelector(
+  const { choiceIndicatorPosition, scheduleMeasurement } = useItemSelector(
     optionsRefs,
     {
       selector,
@@ -164,11 +164,11 @@ export const Pagination: FC<PaginationProps> = ({
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      calculatePosition();
+      scheduleMeasurement();
     }, 300);
 
     return () => clearTimeout(timer);
-  }, [currentPage, calculatePosition]);
+  }, [currentPage, scheduleMeasurement]);
 
   if (totalPages <= 1) return null;
 

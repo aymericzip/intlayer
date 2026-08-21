@@ -111,13 +111,13 @@ export const TabSelector = <T extends TabSelectorItemProps>({
 }: TabSelectorProps<T>) => {
   const optionsRefs = useRef<HTMLElement[]>([]);
   const indicatorRef = useRef<HTMLDivElement | null>(null);
-  const { choiceIndicatorPosition, calculatePosition } = useItemSelector(
+  const { choiceIndicatorPosition, scheduleMeasurement } = useItemSelector(
     optionsRefs,
     { isHoverable: hoverable, orientation }
   );
 
   useEffect(() => {
-    calculatePosition();
+    scheduleMeasurement();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedChoice]);
 

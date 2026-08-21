@@ -12,6 +12,12 @@ export const AsideNavigation: FC = () => {
   const { title } = useIntlayer('aside-navigation');
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [hasOpenedModal, setHasOpenedModal] = useState(false);
+
+  const openModal = () => {
+    setHasOpenedModal(true);
+    setIsModalOpen(true);
+  };
 
   const { isMobile } = useDevice();
 
@@ -45,7 +51,7 @@ export const AsideNavigation: FC = () => {
                     size="icon-md"
                     variant="outline"
                     label={button.label.value}
-                    onClick={() => setIsModalOpen(true)}
+                    onClick={openModal}
                   />
                 }
                 isLarge={false}
@@ -64,7 +70,9 @@ export const AsideNavigation: FC = () => {
         disableScroll
         hasCloseButton
       >
-        <ChatBot stateReloaderTrigger={isModalOpen} isActive={isModalOpen} />
+        {hasOpenedModal && (
+          <ChatBot stateReloaderTrigger={isModalOpen} isActive={isModalOpen} />
+        )}
       </Modal>
     </>
   );

@@ -7,7 +7,7 @@ export const TOCProgressBar: FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   // Extract headings (h2 and h3) from the document
-  const { topLevelHeadings, headingMap } = useTitlesTree({
+  const { topLevelHeadings, headingMap, headingTexts } = useTitlesTree({
     levels: [2, 3],
     contentId: 'content',
   });
@@ -49,7 +49,8 @@ export const TOCProgressBar: FC = () => {
       style={{ maxHeight: '308px' }}
     >
       {flatHeadings.map((heading) => {
-        const { id, innerText } = heading;
+        const { id } = heading;
+        const title = headingTexts.get(heading) ?? '';
         const isActive = id === activeId;
 
         return (
@@ -57,7 +58,7 @@ export const TOCProgressBar: FC = () => {
             key={id}
             type="button"
             className="group flex h-3 w-6 shrink-0 cursor-pointer items-center justify-center transition-all duration-300"
-            aria-label={innerText}
+            aria-label={title}
             data-toc-active={isActive ? '' : undefined}
             onClick={() => handleScrollTo(id)}
           >

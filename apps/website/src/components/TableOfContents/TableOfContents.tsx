@@ -16,10 +16,12 @@ type TableOfContentsProps = {
 };
 
 type HeadingChildren = Map<HTMLElement, HTMLElement[]>;
+type HeadingTexts = Map<HTMLElement, string>;
 
 type NavTitlesChildrenProps = {
   headings: HTMLElement[];
   childrenMap: HeadingChildren;
+  headingTexts: HeadingTexts;
   depth: number;
   maxDepth: number;
 };
@@ -27,6 +29,7 @@ type NavTitlesChildrenProps = {
 const NavTitlesChildren: FC<NavTitlesChildrenProps> = ({
   headings,
   childrenMap,
+  headingTexts,
   depth,
   maxDepth,
 }) => {
@@ -48,16 +51,17 @@ const NavTitlesChildren: FC<NavTitlesChildrenProps> = ({
     >
       {headings.map((heading) => {
         const { id } = heading;
+        const title = headingTexts.get(heading) ?? '';
         const subChildren = childrenMap.get(heading);
         const hasChildren = subChildren && subChildren.length > 0;
 
-        if ((heading.innerText ?? '').length === 0) return <></>;
+        if (title.length === 0) return <></>;
 
         return (
           <li key={id} className={cn('list-none')}>
             <Link
               href={`#${id}`}
-              label={`${linkLabel.value}: ${heading.innerText}`}
+              label={`${linkLabel.value}: ${title}`}
               color="text"
               variant="hoverable"
               className={cn(
@@ -70,12 +74,13 @@ const NavTitlesChildren: FC<NavTitlesChildrenProps> = ({
                 depth === 6 && 'text-neutral/20 text-xs'
               )}
             >
-              {heading.innerText}
+              {title}
             </Link>
             {hasChildren && (
               <NavTitlesChildren
                 headings={subChildren}
                 childrenMap={childrenMap}
+                headingTexts={headingTexts}
                 depth={depth + 1}
                 maxDepth={maxDepth}
               />
@@ -94,10 +99,11 @@ export const TableOfContents: FC<TableOfContentsProps> = ({
   contentId = 'content',
 }) => {
   const { linkLabel } = useIntlayer('nav-titles');
-  const { topLevelHeadings, headingMap, isLoading } = useTitlesTree({
-    levels,
-    contentId,
-  });
+  const { topLevelHeadings, headingMap, headingTexts, isLoading } =
+    useTitlesTree({
+      levels,
+      contentId,
+    });
 
   if (isLoading || topLevelHeadings.length === 0) {
     return null;
@@ -108,28 +114,30 @@ export const TableOfContents: FC<TableOfContentsProps> = ({
       <ul className="flex flex-1 flex-col gap-3 pt-8 text-sm">
         {topLevelHeadings.map((heading) => {
           const { id } = heading;
+          const title = headingTexts.get(heading) ?? '';
           const children = headingMap.get(heading);
           const hasChildren = children && children.length > 0;
 
-          if ((heading.innerText ?? '').length === 0) return <></>;
+          if (title.length === 0) return <></>;
 
           return (
             <li key={id} className="list-none">
               <Link
                 href={`#${id}`}
-                label={`${linkLabel.value}: ${heading.innerText}`}
+                label={`${linkLabel.value}: ${title}`}
                 color="text"
                 isPageSection
                 variant="hoverable"
                 className="flex w-full items-center justify-between text-wrap p-2 pr-4 text-base text-neutral transition-colors"
               >
-                {heading.innerText}
+                {title}
               </Link>
               {hasChildren && (
                 <div className="border-neutral/20 border-l">
                   <NavTitlesChildren
                     headings={children}
                     childrenMap={headingMap}
+                    headingTexts={headingTexts}
                     depth={1}
                     maxDepth={maxDepth}
                   />

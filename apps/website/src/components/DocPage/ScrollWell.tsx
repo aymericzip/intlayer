@@ -51,7 +51,7 @@ export const ScrollWell: FC<SVGProps<SVGSVGElement>> = (props) => {
 };
 
 const Title: FC = () => {
-  const { topLevelHeadings, headingMap } = useTitlesTree({
+  const { topLevelHeadings, headingMap, headingTexts } = useTitlesTree({
     levels: [2, 3],
     contentId: 'content',
   });
@@ -64,7 +64,7 @@ const Title: FC = () => {
   });
   return (
     <span className="w-full flex-1 truncate text-neutral text-xs">
-      {activeParent?.innerText ?? ''}
+      {(activeParent && headingTexts.get(activeParent)) ?? ''}
     </span>
   );
 };

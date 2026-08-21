@@ -1,5 +1,6 @@
 'use client';
 
+import { scheduleFrameTask } from '@utils/scheduleFrameTask';
 import {
   type RefObject,
   useCallback,
@@ -57,7 +58,7 @@ export const useItemSelector = (
   const hoveredItemRef = useRef<HTMLElement | null>(null);
   const hideTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const lastPositionRef = useRef<StyleState | null>(null);
-  const measurementFrameRef = useRef<number | null>(null);
+  const cancelMeasurementRef = useRef<(() => void) | null>(null);
 
   /*
    * Callers build their options object inline, so `selector` and `orientation`
@@ -159,13 +160,15 @@ export const useItemSelector = (
    *
    * Reading `offsetLeft` straight from a mutation, resize or scroll callback
    * forces a synchronous reflow, and a documentation page mounts one selector
-   * per tab group and one per code block.
+   * per tab group and one per code block. The frame is shared with every other
+   * selector on the page, so React commits their positions in one pass instead
+   * of invalidating layout between two measurements.
    */
   const scheduleMeasurement = useCallback(() => {
-    if (measurementFrameRef.current !== null) return;
+    if (cancelMeasurementRef.current !== null) return;
 
-    measurementFrameRef.current = requestAnimationFrame(() => {
-      measurementFrameRef.current = null;
+    cancelMeasurementRef.current = scheduleFrameTask(() => {
+      cancelMeasurementRef.current = null;
       calculatePosition();
     });
   }, [calculatePosition]);
@@ -223,10 +226,8 @@ export const useItemSelector = (
     }
 
     return () => {
-      if (measurementFrameRef.current !== null) {
-        cancelAnimationFrame(measurementFrameRef.current);
-        measurementFrameRef.current = null;
-      }
+      cancelMeasurementRef.current?.();
+      cancelMeasurementRef.current = null;
 
       if (hideTimeoutRef.current) {
         clearTimeout(hideTimeoutRef.current);
@@ -248,5 +249,11 @@ export const useItemSelector = (
     };
   }, [optionsRefs, itemsLength, isHoverable, orientation, scheduleMeasurement]);
 
-  return { choiceIndicatorPosition, calculatePosition, orientation };
+  return {
+    choiceIndicatorPosition,
+    /** Measures immediately. Prefer `scheduleMeasurement`, which does not force a reflow. */
+    calculatePosition,
+    scheduleMeasurement,
+    orientation,
+  };
 };

@@ -1,4 +1,8 @@
 import { useGetElementOrWindow } from '@intlayer/design-system/hooks';
+import {
+  observeScrollExtent,
+  scheduleFrameTask,
+} from '@intlayer/design-system/utils';
 import { type RefObject, useEffect, useState } from 'react';
 
 type UseActiveSectionOptions = {
@@ -37,84 +41,118 @@ export const useActiveSection = ({
   const [activeChild, setActiveChild] = useState<HTMLElement | null>(null);
 
   useEffect(() => {
-    const getHeadingPosition = (el: HTMLElement): number => {
-      if (!contentElement) {
-        return el.getBoundingClientRect().top + window.scrollY;
+    /**
+     * Offset of every tracked heading within the scroll container, measured
+     * once per layout change instead of once per scroll frame: a long page
+     * holds hundreds of headings, and `getBoundingClientRect()` on each of
+     * them would recompute layout on every frame the user scrolls.
+     */
+    const headingOffsets = new Map<HTMLElement, number>();
+    /** Height the offset is compared against, cached alongside the offsets. */
+    let containerHeight = 0;
+    let areOffsetsStale = true;
+
+    const measureOffsets = () => {
+      headingOffsets.clear();
+
+      const containerTop = contentElement?.getBoundingClientRect().top ?? 0;
+      const containerScroll = contentElement?.scrollTop ?? window.scrollY;
+
+      for (const [parent, children] of headingMap) {
+        for (const heading of [parent, ...children]) {
+          headingOffsets.set(
+            heading,
+            heading.getBoundingClientRect().top - containerTop + containerScroll
+          );
+        }
       }
-      const elRect = el.getBoundingClientRect();
-      const containerRect = contentElement.getBoundingClientRect();
-      return elRect.top - containerRect.top + contentElement.scrollTop;
+
+      containerHeight = contentElement?.clientHeight ?? window.innerHeight;
+      areOffsetsStale = false;
     };
 
     const getActiveSection = () => {
-      // Check if we're using a scrollable container or window
-      const isWindow = !contentElement;
+      if (areOffsetsStale) measureOffsets();
 
-      const offset =
-        scrollOffset ??
-        (isWindow
-          ? window.innerHeight / 3
-          : (contentElement?.clientHeight ?? 0) / 3);
+      const offset = scrollOffset ?? containerHeight / 3;
+      const scrollPosition = contentElement?.scrollTop ?? window.scrollY;
+      const threshold = scrollPosition + offset;
 
-      const scrollPosition = isWindow
-        ? window.scrollY
-        : (contentElement?.scrollTop ?? 0);
-
-      const scrollY = scrollPosition + offset;
+      const isAboveThreshold = (heading: HTMLElement) =>
+        (headingOffsets.get(heading) ?? Number.POSITIVE_INFINITY) < threshold;
 
       // Find the last heading that is above the scroll position
-      const newActiveParent = headings.findLast((heading) => {
-        return getHeadingPosition(heading) < scrollY;
-      });
+      const newActiveParent = headings.findLast(isAboveThreshold) ?? null;
 
-      if (newActiveParent) {
-        if (newActiveParent.id !== activeParent?.id) {
-          setActiveParent(newActiveParent);
-        }
+      const newActiveChild = newActiveParent
+        ? ((headingMap.get(newActiveParent) ?? []).findLast(isAboveThreshold) ??
+          null)
+        : null;
 
-        // Find active child within the active parent's children
-        const children = headingMap.get(newActiveParent) ?? [];
-        const activeChildHeading = children.findLast((child) => {
-          return getHeadingPosition(child) < scrollY;
-        });
-
-        setActiveChild(activeChildHeading ?? null);
-      } else {
-        setActiveParent(null);
-        setActiveChild(null);
-      }
+      setActiveParent((previous) =>
+        previous === newActiveParent ? previous : newActiveParent
+      );
+      setActiveChild((previous) =>
+        previous === newActiveChild ? previous : newActiveChild
+      );
     };
 
-    // Initial detection
-    getActiveSection();
+    let cancelScheduledRead: (() => void) | null = null;
+
+    const scheduleActiveSectionRead = () => {
+      if (cancelScheduledRead) return;
+
+      cancelScheduledRead = scheduleFrameTask(() => {
+        cancelScheduledRead = null;
+        getActiveSection();
+      });
+    };
+
+    const invalidateOffsets = () => {
+      areOffsetsStale = true;
+      scheduleActiveSectionRead();
+    };
+
+    // Initial detection, deferred so that it shares the frame of every other
+    // measurement the page schedules while mounting.
+    scheduleActiveSectionRead();
 
     const navigationElement = navRef?.current;
 
-    // Event listeners for various triggers
-    navigationElement?.addEventListener('click', getActiveSection);
-    containerElement?.addEventListener('scroll', getActiveSection, {
+    // Anything reflowing the content — a font swapping in, an image loading, a
+    // code block collapsing — moves the headings, so the offsets are dropped
+    // rather than refreshed on a timer.
+    const stopObservingContent = contentElement
+      ? observeScrollExtent(contentElement, invalidateOffsets)
+      : null;
+
+    navigationElement?.addEventListener('click', scheduleActiveSectionRead);
+    containerElement?.addEventListener('scroll', scheduleActiveSectionRead, {
       passive: true,
     });
-    containerElement?.addEventListener('resize', getActiveSection, {
-      passive: true,
-    });
-    containerElement?.addEventListener('orientationchange', getActiveSection);
+    window.addEventListener('resize', invalidateOffsets, { passive: true });
+    window.addEventListener('orientationchange', invalidateOffsets);
 
     return () => {
-      navigationElement?.removeEventListener('click', getActiveSection);
-      containerElement?.removeEventListener('scroll', getActiveSection);
-      containerElement?.removeEventListener('resize', getActiveSection);
-      containerElement?.removeEventListener(
-        'orientationchange',
-        getActiveSection
+      cancelScheduledRead?.();
+      stopObservingContent?.();
+
+      navigationElement?.removeEventListener(
+        'click',
+        scheduleActiveSectionRead
       );
+      containerElement?.removeEventListener(
+        'scroll',
+        scheduleActiveSectionRead
+      );
+      window.removeEventListener('resize', invalidateOffsets);
+      window.removeEventListener('orientationchange', invalidateOffsets);
     };
   }, [
     contentElement,
     containerElement,
     headings,
     headingMap,
-    activeParent,
     navRef,
     scrollOffset,
   ]);

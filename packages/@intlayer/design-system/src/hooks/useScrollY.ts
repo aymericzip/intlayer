@@ -1,6 +1,8 @@
 'use client';
 
-import { useCallback, useSyncExternalStore } from 'react';
+import { observeScrollExtent } from '@utils/observeScrollExtent';
+import { scheduleFrameTask } from '@utils/scheduleFrameTask';
+import { useEffect, useState } from 'react';
 import { useGetElementOrWindow } from './useGetElementOrWindow';
 
 type UseScrollYProps = {
@@ -19,90 +21,112 @@ const INITIAL_SCROLL_STATE: UseScrollYResult = {
   scrollYMax: 0,
 };
 
-let lastSnapshot: UseScrollYResult = INITIAL_SCROLL_STATE;
-
+/**
+ * Tracks the vertical scroll of an element — or of the page — as a position and
+ * a 0-to-1 progress.
+ *
+ * @param props.element - Scrollable element. Defaults to the document.
+ * @returns The current offset, its maximum, and the ratio between the two.
+ *
+ * @example
+ * const { scrollPercentage } = useScrollY({ element: contentElement });
+ */
 export const useScrollY = (props?: UseScrollYProps): UseScrollYResult => {
   const { element } = props ?? {};
-
   const containerElement = useGetElementOrWindow(element);
+  const [scrollState, setScrollState] =
+    useState<UseScrollYResult>(INITIAL_SCROLL_STATE);
 
-  const subscribe = useCallback(
-    (onChange: () => void) => {
-      if (typeof window === 'undefined' || !containerElement) return () => {};
-      let raf = 0;
+  useEffect(() => {
+    if (typeof window === 'undefined' || !containerElement) return;
 
-      const handler = () => {
-        if (raf) return;
-        raf = window.requestAnimationFrame(() => {
-          raf = 0;
-          onChange();
-        });
-      };
+    const isElementScroll = containerElement instanceof HTMLElement;
 
-      containerElement.addEventListener('scroll', handler, { passive: true });
+    /**
+     * Travel available to the scroll, cached between layout changes.
+     *
+     * `scrollHeight` and `clientHeight` both flush pending layout, so reading
+     * them on every scroll frame would recompute the whole page while the user
+     * scrolls. Only `scrollTop` is read per frame; the rest is refreshed when
+     * the content or the viewport actually resizes.
+     */
+    let scrollYMax = 0;
 
-      return () => {
-        containerElement.removeEventListener('scroll', handler);
-        if (raf) window.cancelAnimationFrame(raf);
-      };
-    },
-    [containerElement]
-  );
+    const measureScrollRange = () => {
+      const scrollHeight = isElementScroll
+        ? containerElement.scrollHeight
+        : (document.documentElement?.scrollHeight ??
+          document.body?.scrollHeight ??
+          0);
 
-  const getSnapshot = (): UseScrollYResult => {
-    if (typeof window === 'undefined' || !containerElement) {
-      return INITIAL_SCROLL_STATE; // SSR/hydration-safe
-    }
+      const clientHeight = isElementScroll
+        ? containerElement.clientHeight
+        : (document.documentElement?.clientHeight ?? window.innerHeight ?? 0);
 
-    // Handle custom element
-    if (containerElement instanceof HTMLElement) {
-      const scrollY = containerElement.scrollTop;
-      const scrollHeight = containerElement.scrollHeight;
-      const clientHeight = containerElement.clientHeight;
-      const scrollYMax = Math.max(0, scrollHeight - clientHeight);
+      scrollYMax = Math.max(0, scrollHeight - clientHeight);
+    };
+
+    const updateScrollState = () => {
+      const scrollY = isElementScroll
+        ? containerElement.scrollTop
+        : (window.scrollY ?? document.documentElement?.scrollTop ?? 0);
+
       const scrollPercentage = scrollYMax > 0 ? scrollY / scrollYMax : 0;
 
-      if (
-        lastSnapshot.scrollY === scrollY &&
-        lastSnapshot.scrollPercentage === scrollPercentage &&
-        lastSnapshot.scrollYMax === scrollYMax
-      ) {
-        return lastSnapshot;
-      }
+      setScrollState((previousState) =>
+        previousState.scrollY === scrollY &&
+        previousState.scrollPercentage === scrollPercentage &&
+        previousState.scrollYMax === scrollYMax
+          ? previousState
+          : { scrollY, scrollPercentage, scrollYMax }
+      );
+    };
 
-      lastSnapshot = { scrollY, scrollPercentage, scrollYMax };
-      return lastSnapshot;
-    }
+    let cancelScheduledRead: (() => void) | null = null;
 
-    // Handle window
-    const doc = document.documentElement;
-    const body = document.body;
+    const scheduleScrollRead = () => {
+      if (cancelScheduledRead) return;
 
-    const scrollY =
-      window.scrollY ??
-      window.pageYOffset ??
-      doc?.scrollTop ??
-      body?.scrollTop ??
-      0;
+      cancelScheduledRead = scheduleFrameTask(() => {
+        cancelScheduledRead = null;
+        updateScrollState();
+      });
+    };
 
-    const scrollHeight = doc?.scrollHeight ?? body?.scrollHeight ?? 0;
-    const clientHeight = doc?.clientHeight ?? window.innerHeight ?? 0;
-    const scrollYMax = Math.max(0, scrollHeight - clientHeight);
-    const scrollPercentage = scrollYMax > 0 ? scrollY / scrollYMax : 0;
+    let cancelScheduledRangeRead: (() => void) | null = null;
 
-    if (
-      lastSnapshot.scrollY === scrollY &&
-      lastSnapshot.scrollPercentage === scrollPercentage &&
-      lastSnapshot.scrollYMax === scrollYMax
-    ) {
-      return lastSnapshot;
-    }
+    const scheduleRangeRead = () => {
+      if (cancelScheduledRangeRead) return;
 
-    lastSnapshot = { scrollY, scrollPercentage, scrollYMax };
-    return lastSnapshot;
-  };
+      cancelScheduledRangeRead = scheduleFrameTask(() => {
+        cancelScheduledRangeRead = null;
+        measureScrollRange();
+        updateScrollState();
+      });
+    };
 
-  const getServerSnapshot = (): UseScrollYResult => INITIAL_SCROLL_STATE;
+    // Initial measurement, deferred so that it shares the frame of every other
+    // measurement the page schedules while mounting.
+    scheduleRangeRead();
 
-  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+    const stopObservingScrollExtent = observeScrollExtent(
+      isElementScroll ? containerElement : document.documentElement,
+      scheduleRangeRead
+    );
+
+    containerElement.addEventListener('scroll', scheduleScrollRead, {
+      passive: true,
+    });
+    window.addEventListener('resize', scheduleRangeRead, { passive: true });
+
+    return () => {
+      cancelScheduledRead?.();
+      cancelScheduledRangeRead?.();
+      stopObservingScrollExtent();
+      containerElement.removeEventListener('scroll', scheduleScrollRead);
+      window.removeEventListener('resize', scheduleRangeRead);
+    };
+  }, [containerElement]);
+
+  return scrollState;
 };
