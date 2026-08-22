@@ -72,7 +72,7 @@
     "typecheck": "tsc --noEmit --project tsconfig.types.json"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "3.1114.0",
+    "@aws-sdk/client-s3": "3.1116.0",
     "@better-auth/core": "1.7.1",
     "@better-auth/passkey": "1.7.1",
     "@better-auth/sso": "1.7.1",
@@ -90,7 +90,7 @@
     "@octokit/rest": "22.0.1",
     "@react-email/components": "1.0.12",
     "better-auth": "1.7.1",
-    "bullmq": "6.1.2",
+    "bullmq": "6.2.0",
     "cheerio": "1.2.0",
     "cross-env": "10.1.0",
     "defu": "6.1.7",
@@ -105,7 +105,7 @@
     "puppeteer": "25.8.0",
     "react": "19.2.8",
     "react-email": "6.9.2",
-    "resend": "6.20.0",
+    "resend": "6.22.0",
     "sharp": "0.35.3",
     "stripe": "22.5.0",
     "validator": "13.15.35",
