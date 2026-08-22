@@ -1,9 +1,7 @@
-import { usePersistedStore } from '@intlayer/design-system/hooks';
-import { useCallback, useMemo } from 'react';
+import { useScopedSidebarEntries } from '#hooks/useScopedSidebarEntries';
 
 const PINNED_STORAGE_KEY = 'intlayer:pinned-dictionaries';
 const RECENT_STORAGE_KEY = 'intlayer:recent-dictionaries';
-const MAX_RECENT = 5;
 
 export type UseDictionarySidebarReturn = {
   pinnedKeys: string[];
@@ -26,79 +24,32 @@ export type UseDictionarySidebarReturn = {
 /**
  * Manages the list of dictionary keys shown in the sidebar.
  *
- * Two independent lists are persisted in localStorage via usePersistedStore:
- * - Recent visits: the last MAX_RECENT dictionaries the user navigated to.
+ * Two independent lists are persisted in localStorage, scoped to the active
+ * user / organization / project:
+ * - Recent visits: the last dictionaries the user navigated to in that scope.
  * - Pinned: keys the user explicitly pinned; they persist indefinitely.
  *
  * The sidebar shows pinned keys first, then recent non-pinned keys.
  */
 export const useDictionarySidebar = (): UseDictionarySidebarReturn => {
-  const [pinnedKeys, setPinnedKeys] = usePersistedStore<string[]>(
-    PINNED_STORAGE_KEY,
-    []
-  );
-  const [recentKeys, setRecentKeys] = usePersistedStore<string[]>(
-    RECENT_STORAGE_KEY,
-    []
-  );
-
-  const normalizedPinned = useMemo(() => pinnedKeys ?? [], [pinnedKeys]);
-  const normalizedRecent = useMemo(() => recentKeys ?? [], [recentKeys]);
-
-  const trackVisit = useCallback(
-    (dictionaryKey: string): void => {
-      setRecentKeys((prev) => {
-        const list = prev ?? [];
-        const deduplicated = list.filter((k) => k !== dictionaryKey);
-        return [dictionaryKey, ...deduplicated].slice(0, MAX_RECENT);
-      });
-    },
-    [setRecentKeys]
-  );
-
-  const pin = useCallback(
-    (dictionaryKey: string): void => {
-      setPinnedKeys((prev) => {
-        const list = prev ?? [];
-        if (list.includes(dictionaryKey)) return list;
-        return [...list, dictionaryKey];
-      });
-    },
-    [setPinnedKeys]
-  );
-
-  const unpin = useCallback(
-    (dictionaryKey: string): void => {
-      setPinnedKeys((prev) => (prev ?? []).filter((k) => k !== dictionaryKey));
-    },
-    [setPinnedKeys]
-  );
-
-  const removeRecent = useCallback(
-    (dictionaryKey: string): void => {
-      setRecentKeys((prev) => (prev ?? []).filter((k) => k !== dictionaryKey));
-    },
-    [setRecentKeys]
-  );
-
-  const isPinned = useCallback(
-    (dictionaryKey: string): boolean =>
-      normalizedPinned.includes(dictionaryKey),
-    [normalizedPinned]
-  );
-
-  const sidebarKeys = useMemo(
-    () => [
-      ...normalizedPinned,
-      ...normalizedRecent.filter((k) => !normalizedPinned.includes(k)),
-    ],
-    [normalizedPinned, normalizedRecent]
-  );
+  const {
+    pinnedEntries,
+    recentEntries,
+    sidebarEntries,
+    trackVisit,
+    pin,
+    unpin,
+    removeRecent,
+    isPinned,
+  } = useScopedSidebarEntries({
+    pinnedStorageKey: PINNED_STORAGE_KEY,
+    recentStorageKey: RECENT_STORAGE_KEY,
+  });
 
   return {
-    pinnedKeys: normalizedPinned,
-    recentKeys: normalizedRecent,
-    sidebarKeys,
+    pinnedKeys: pinnedEntries,
+    recentKeys: recentEntries,
+    sidebarKeys: sidebarEntries,
     trackVisit,
     pin,
     unpin,

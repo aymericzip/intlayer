@@ -1,9 +1,7 @@
-import { usePersistedStore } from '@intlayer/design-system/hooks';
-import { useCallback, useMemo } from 'react';
+import { useScopedSidebarEntries } from '#hooks/useScopedSidebarEntries';
 
 const PINNED_STORAGE_KEY = 'intlayer:pinned-tags';
 const RECENT_STORAGE_KEY = 'intlayer:recent-tags';
-const MAX_RECENT = 5;
 
 export type UseTagSidebarReturn = {
   pinnedKeys: string[];
@@ -26,78 +24,32 @@ export type UseTagSidebarReturn = {
 /**
  * Manages the list of tag keys shown in the sidebar.
  *
- * Two independent lists are persisted in localStorage via usePersistedStore:
- * - Recent visits: the last MAX_RECENT tags the user navigated to.
+ * Two independent lists are persisted in localStorage, scoped to the active
+ * user / organization / project:
+ * - Recent visits: the last tags the user navigated to in that scope.
  * - Pinned: keys the user explicitly pinned; they persist indefinitely.
  *
  * The sidebar shows pinned keys first, then recent non-pinned keys.
  */
 export const useTagSidebar = (): UseTagSidebarReturn => {
-  const [pinnedKeys, setPinnedKeys] = usePersistedStore<string[]>(
-    PINNED_STORAGE_KEY,
-    []
-  );
-  const [recentKeys, setRecentKeys] = usePersistedStore<string[]>(
-    RECENT_STORAGE_KEY,
-    []
-  );
-
-  const normalizedPinned = useMemo(() => pinnedKeys ?? [], [pinnedKeys]);
-  const normalizedRecent = useMemo(() => recentKeys ?? [], [recentKeys]);
-
-  const trackVisit = useCallback(
-    (tagKey: string): void => {
-      setRecentKeys((prev) => {
-        const list = prev ?? [];
-        const deduplicated = list.filter((k) => k !== tagKey);
-        return [tagKey, ...deduplicated].slice(0, MAX_RECENT);
-      });
-    },
-    [setRecentKeys]
-  );
-
-  const pin = useCallback(
-    (tagKey: string): void => {
-      setPinnedKeys((prev) => {
-        const list = prev ?? [];
-        if (list.includes(tagKey)) return list;
-        return [...list, tagKey];
-      });
-    },
-    [setPinnedKeys]
-  );
-
-  const unpin = useCallback(
-    (tagKey: string): void => {
-      setPinnedKeys((prev) => (prev ?? []).filter((k) => k !== tagKey));
-    },
-    [setPinnedKeys]
-  );
-
-  const removeRecent = useCallback(
-    (tagKey: string): void => {
-      setRecentKeys((prev) => (prev ?? []).filter((k) => k !== tagKey));
-    },
-    [setRecentKeys]
-  );
-
-  const isPinned = useCallback(
-    (tagKey: string): boolean => normalizedPinned.includes(tagKey),
-    [normalizedPinned]
-  );
-
-  const sidebarKeys = useMemo(
-    () => [
-      ...normalizedPinned,
-      ...normalizedRecent.filter((k) => !normalizedPinned.includes(k)),
-    ],
-    [normalizedPinned, normalizedRecent]
-  );
+  const {
+    pinnedEntries,
+    recentEntries,
+    sidebarEntries,
+    trackVisit,
+    pin,
+    unpin,
+    removeRecent,
+    isPinned,
+  } = useScopedSidebarEntries({
+    pinnedStorageKey: PINNED_STORAGE_KEY,
+    recentStorageKey: RECENT_STORAGE_KEY,
+  });
 
   return {
-    pinnedKeys: normalizedPinned,
-    recentKeys: normalizedRecent,
-    sidebarKeys,
+    pinnedKeys: pinnedEntries,
+    recentKeys: recentEntries,
+    sidebarKeys: sidebarEntries,
     trackVisit,
     pin,
     unpin,
