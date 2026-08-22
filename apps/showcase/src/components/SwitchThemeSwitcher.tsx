@@ -33,7 +33,7 @@ export const SwitchThemeSwitcher: FC = () => {
     <SwitchSelector
       choices={themeSwitcher}
       value={resolvedTheme as Modes}
-      onChange={(m) => setTheme(m as 'light' | 'dark' | 'auto')}
+      onChange={setTheme}
       color="text"
       size="sm"
     />

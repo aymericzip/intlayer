@@ -1,9 +1,9 @@
 import { defaultLocale, type LocalesValues } from 'intlayer';
 import { IntlayerClientProvider } from 'next-intlayer';
 import type { IntlayerServerProviderProps } from 'next-intlayer/server';
-import { ThemeProvider } from 'next-themes';
 import type { FC, HTMLProps } from 'react';
 import { IntlayerMarkdownProvider } from '@/providers/IntlayerMarkdownProvider';
+import { ThemeProvider } from '@/providers/ThemeProvider';
 import {
   PageContentLayout,
   type PageContentLayoutProps,

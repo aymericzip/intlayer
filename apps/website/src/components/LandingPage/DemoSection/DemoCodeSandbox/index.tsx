@@ -1,8 +1,7 @@
 import { Container } from '@intlayer/design-system/container';
-import { Loader } from '@intlayer/design-system/loader';
-import { useTheme } from 'next-themes';
-import { type FC, useEffect, useRef, useState } from 'react';
+import { type FC, useRef } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { useTheme } from '~/providers/ThemeProvider';
 
 interface DemoCodeSandboxProps {
   repoPath?: string;

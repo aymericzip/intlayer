@@ -4,8 +4,8 @@ import {
 } from '@intlayer/design-system/switch-selector';
 import type { Modes } from '@intlayer/design-system/theme-switcher-drop-down';
 import { MoonIcon, SunIcon } from 'lucide-react';
-import { useTheme } from 'next-themes';
 import type { FC } from 'react';
+import { useTheme } from '#/providers/ThemeProvider';
 
 export const SwitchThemeSwitcher: FC = () => {
   const { resolvedTheme, setTheme } = useTheme();
@@ -33,7 +33,7 @@ export const SwitchThemeSwitcher: FC = () => {
     <SwitchSelector
       choices={themeSwitcher}
       value={resolvedTheme as Modes}
-      onChange={(m) => setTheme(m as 'light' | 'dark' | 'auto')}
+      onChange={setTheme}
       color="text"
       size="xs"
     />

@@ -3,8 +3,8 @@ import {
   DesktopThemeSwitcher as DesktopThemeSwitcherUI,
   type Modes,
 } from '@intlayer/design-system/theme-switcher-drop-down';
-import { useTheme } from 'next-themes';
 import type { FC } from 'react';
+import { useTheme } from '~/providers/ThemeProvider';
 
 export const DesktopThemeSwitcher: FC = () => {
   const isMounted = useIsMounted();

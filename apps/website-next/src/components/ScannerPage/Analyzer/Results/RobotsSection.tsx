@@ -2,9 +2,9 @@
 
 import { Bot, FileText } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
-import { useTheme } from 'next-themes';
 import type { FC } from 'react';
 import { memo } from 'react';
+import { useTheme } from '@/providers/ThemeProvider';
 import { createCompOverwrite } from './AnalyzerPageResults';
 import { FieldItem } from './FieldItem';
 import type { MergedData } from './types';

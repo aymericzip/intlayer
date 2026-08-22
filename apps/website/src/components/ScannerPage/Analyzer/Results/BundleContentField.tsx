@@ -1,11 +1,11 @@
 import { Tag } from '@intlayer/design-system/tag';
 import { cn } from '@intlayer/design-system/utils';
 import { Package } from 'lucide-react';
-import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
 import { memo } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { Link } from '~/components/Link/Link';
+import { useTheme } from '~/providers/ThemeProvider';
 import { createCompOverwrite } from './AnalyzerPageResults';
 import { FieldItem } from './FieldItem';
 import type { AuditEvent } from './types';

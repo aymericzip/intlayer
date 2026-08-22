@@ -1,9 +1,9 @@
 'use client';
 
 import createGlobe from 'cobe';
-import { useTheme } from 'next-themes';
 import { type FC, memo, type RefObject, useEffect, useRef } from 'react';
 import { useSpring } from 'react-spring';
+import { useTheme } from '@/providers/ThemeProvider';
 
 export const Globe: FC = memo(() => {
   const { resolvedTheme } = useTheme();

@@ -1,20 +1,13 @@
 import {
-  ThemeProvider as NextThemeProvider,
-  useTheme as useNextTheme,
-} from 'next-themes';
+  ThemeProvider as DesignSystemThemeProvider,
+  useTheme,
+} from '@intlayer/design-system/providers';
 import type { FC, ReactNode } from 'react';
 
-export const useTheme = useNextTheme;
+export { useTheme };
 
 export const ThemeProvider: FC<{ children: ReactNode }> = ({ children }) => (
-  <NextThemeProvider
-    attribute="data-theme"
-    defaultTheme="system"
-    enableSystem
-    enableColorScheme
-    disableTransitionOnChange
-    storageKey="intlayer-theme"
-  >
+  <DesignSystemThemeProvider storageKey="intlayer-theme">
     {children}
-  </NextThemeProvider>
+  </DesignSystemThemeProvider>
 );

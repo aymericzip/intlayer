@@ -1,7 +1,7 @@
 import { Terminal } from '@intlayer/design-system/terminal';
 import { type IntlayerNode, useIntlayer } from 'next-intlayer';
-import { useTheme } from 'next-themes';
 import { type FC, useState } from 'react';
+import { useTheme } from '@/providers/ThemeProvider';
 
 type TestSectionProps = {
   scrollProgress: number;

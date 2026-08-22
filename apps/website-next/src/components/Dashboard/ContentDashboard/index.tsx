@@ -5,8 +5,8 @@ import { DictionaryFieldEditor } from '@intlayer/design-system/dictionary-field-
 import { Loader } from '@intlayer/design-system/loader';
 import { App_Dashboard_Dictionaries_Path } from '@intlayer/design-system/routes';
 import { useRouter } from 'next/navigation';
-import { useTheme } from 'next-themes';
 import { type FC, Suspense } from 'react';
+import { useTheme } from '@/providers/ThemeProvider';
 import { EditorConfigurationProvider } from './ConfigurationProvider';
 
 type ContentDashboardContentProps = {

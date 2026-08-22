@@ -73,7 +73,6 @@
     "fuse.js": "7.5.0",
     "intlayer": "workspace:*",
     "lucide-react": "1.33.0",
-    "next-themes": "0.4.6",
     "nitro": "latest",
     "posthog-js": "1.418.6",
     "react": "19.2.8",

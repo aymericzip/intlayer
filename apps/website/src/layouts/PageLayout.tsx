@@ -1,6 +1,6 @@
-import { ThemeProvider } from 'next-themes';
 import type { FC } from 'react';
 import { IntlayerMarkdownProvider } from '~/providers/IntlayerMarkdownProvider';
+import { ThemeProvider } from '~/providers/ThemeProvider';
 import {
   PageContentLayout,
   type PageContentLayoutProps,

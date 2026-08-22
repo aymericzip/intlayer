@@ -21,8 +21,8 @@ import { useQuery } from '@tanstack/react-query';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ChevronRight } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
-import { useTheme } from 'next-themes';
 import { useEffect, useMemo, useState } from 'react';
+import { useTheme } from '@/providers/ThemeProvider';
 import { fetchBenchmarkData } from './benchmarkData';
 import { ChartComponent, useLogoImages } from './ChartComponent';
 import {

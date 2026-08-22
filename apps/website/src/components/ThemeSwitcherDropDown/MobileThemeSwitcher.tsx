@@ -3,8 +3,8 @@ import {
   MobileThemeSwitcher as MobileThemeSwitcherUI,
   type Modes,
 } from '@intlayer/design-system/theme-switcher-drop-down';
-import { useTheme } from 'next-themes';
 import type { FC } from 'react';
+import { useTheme } from '~/providers/ThemeProvider';
 
 export const MobileThemeSwitcher: FC = () => {
   const isMounted = useIsMounted();

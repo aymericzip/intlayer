@@ -1,6 +1,6 @@
 import { Button } from '@intlayer/design-system/button';
-import { useTheme } from 'next-themes';
 import type { FC } from 'react';
+import { useTheme } from '~/providers/ThemeProvider';
 import type { LibInfo } from './constants';
 import { getLibColors } from './constants';
 import { LibLogo } from './LibLogo';

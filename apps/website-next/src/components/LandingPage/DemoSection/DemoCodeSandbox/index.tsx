@@ -1,10 +1,9 @@
 'use client';
 
 import { Container } from '@intlayer/design-system/container';
-import { Loader } from '@intlayer/design-system/loader';
 import { useIntlayer } from 'next-intlayer';
-import { useTheme } from 'next-themes';
-import { type FC, useEffect, useRef, useState } from 'react';
+import { type FC, useRef } from 'react';
+import { useTheme } from '@/providers/ThemeProvider';
 
 interface DemoCodeSandboxProps {
   repoPath?: string;
