@@ -244,7 +244,7 @@ export const DashboardAudience: FC = () => {
 
   const rangeChoices: SwitchSelectorChoices<RangeOption> = RANGE_OPTIONS.map(
     (option) => ({
-      content: rangeLabels[option],
+      content: <span className="whitespace-nowrap">{rangeLabels[option]}</span>,
       value: option,
     })
   );
@@ -252,7 +252,7 @@ export const DashboardAudience: FC = () => {
   const breakdownChoices = [
     {
       content: (
-        <span className="flex items-center justify-center gap-1.5">
+        <span className="flex items-center justify-center gap-1.5 whitespace-nowrap">
           <Globe className="size-3.5" />
           {content.tabLocales}
         </span>
@@ -261,7 +261,7 @@ export const DashboardAudience: FC = () => {
     },
     {
       content: (
-        <span className="flex items-center justify-center gap-1.5">
+        <span className="flex items-center justify-center gap-1.5 whitespace-nowrap">
           <MapPin className="size-3.5" />
           {content.tabLocation}
         </span>
