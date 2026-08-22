@@ -124,6 +124,9 @@ const config: CustomIntlayerConfig = {
   log: {
     // mode: 'verbose',
   },
+  analytics: {
+    enabled: true,
+  },
 };
 
 export default config;
