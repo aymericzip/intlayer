@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-06-07
-updatedAt: 2026-03-03
+updatedAt: 2026-08-21
 title: Документація MCP Server
 description: Дослідіть функції та налаштування MCP Server, щоб оптимізувати управління сервером і операції.
 keywords:
@@ -15,6 +15,9 @@ slugs:
   - doc
   - mcp-server
 history:
+  - version: 9.3.3
+    date: 2026-08-21
+    changes: "Group the platform setup sections into tabs"
   - version: 5.5.12
     date: 2025-07-11
     changes: "Додано налаштування ChatGPT"
@@ -113,13 +116,18 @@ bun x intlayer init mcp
 
 ---
 
-## Налаштування в Cursor
+## Налаштування вручну
+
+<Tabs defaultTab="cursor">
+  <Tab label="Cursor" value="cursor">
+
+### Налаштування в Cursor
 
 Дотримуйтесь [офіційної документації](https://docs.cursor.com/context/mcp), щоб налаштувати MCP-сервер у Cursor.
 
 У корені вашого проєкту додайте наступний конфігураційний файл `.cursor/mcp.json`:
 
-### Локальний сервер (stdio) (рекомендовано)
+#### Локальний сервер (stdio) (рекомендовано)
 
 ```json fileName=".cursor/mcp.json"
 {
@@ -132,7 +140,7 @@ bun x intlayer init mcp
 }
 ```
 
-### Віддалений сервер (Streamable HTTP)
+#### Віддалений сервер (Streamable HTTP)
 
 Для підключення до віддаленого Intlayer MCP сервера за допомогою Server-Sent Events (Streamable HTTP), ви можете налаштувати ваш MCP клієнт на підключення до хостингу.
 
@@ -149,15 +157,16 @@ bun x intlayer init mcp
 
 Це вказує вашому IDE запускати Intlayer MCP server за допомогою `npx`, гарантує, що він завжди використовує останню доступну версію, якщо ви її не закріпите.
 
----
+  </Tab>
+  <Tab label="VS Code" value="vscode">
 
-## Налаштування в VS Code
+### Налаштування в VS Code
 
 Дотримуйтесь [офіційної документації](https://code.visualstudio.com/docs/copilot/chat/mcp-servers) для налаштування MCP сервера у VS Code.
 
 Щоб використовувати Intlayer MCP Server у VS Code, потрібно налаштувати його в налаштуваннях робочого простору або у користувацьких налаштуваннях.
 
-### Локальний сервер (stdio) (рекомендується)
+#### Локальний сервер (stdio) (рекомендується)
 
 Створіть файл `.vscode/mcp.json` у корені вашого проєкту:
 
@@ -173,7 +182,7 @@ bun x intlayer init mcp
 }
 ```
 
-### Віддалений сервер (Streamable HTTP)
+#### Віддалений сервер (Streamable HTTP)
 
 Щоб підключитися до віддаленого Intlayer MCP сервера через Server-Sent Events (Streamable HTTP), ви можете налаштувати ваш MCP-клієнт на підключення до хостингованого сервісу.
 
@@ -188,11 +197,12 @@ bun x intlayer init mcp
 }
 ```
 
----
+  </Tab>
+  <Tab label="ChatGPT" value="chatgpt">
 
-## Налаштування в ChatGPT
+### Налаштування в ChatGPT
 
-### Віддалений сервер (Streamable HTTP)
+#### Віддалений сервер (Streamable HTTP)
 
 Дотримуйтесь [офіційної документації](https://platform.openai.com/docs/mcp#test-and-connect-your-mcp-server), щоб налаштувати MCP сервер у ChatGPT.
 
@@ -209,9 +219,10 @@ bun x intlayer init mcp
 
 7. Натисніть `Save`
 
----
+  </Tab>
+  <Tab label="Claude Desktop" value="claude-desktop">
 
-## Налаштування в Claude Desktop
+### Налаштування в Claude Desktop
 
 Дотримуйтесь [офіційної документації](https://modelcontextprotocol.io/quickstart/user#2-add-the-filesystem-mcp-server) щоб налаштувати MCP-сервер у Claude Desktop.
 
@@ -220,7 +231,7 @@ bun x intlayer init mcp
 - macOS: `~/Library/Application\ Support/Claude/claude_desktop_config.json`
 - Windows: `%APPDATA%\Claude\claude_desktop_config.json`
 
-### Локальний сервер (stdio) (рекомендовано)
+#### Локальний сервер (stdio) (рекомендовано)
 
 ```json fileName="claude_desktop_config.json"
 {
@@ -233,7 +244,7 @@ bun x intlayer init mcp
 }
 ```
 
-### Віддалений сервер (Streamable HTTP)
+#### Віддалений сервер (Streamable HTTP)
 
 ```json fileName="claude_desktop_config.json"
 {
@@ -246,13 +257,14 @@ bun x intlayer init mcp
 }
 ```
 
----
+  </Tab>
+  <Tab label="Claude Code (CLI)" value="claude-code">
 
-## Налаштування в Claude Code (CLI)
+### Налаштування в Claude Code (CLI)
 
 Дотримуйтесь [офіційної документації](https://modelcontextprotocol.io/quickstart/user), щоб налаштувати MCP server в Claude Code.
 
-### Локальний сервер (stdio) (рекомендовано)
+#### Локальний сервер (stdio) (рекомендовано)
 
 Щоб підключити Intlayer MCP сервер до Claude Code, використовуючи stdio:
 
@@ -260,13 +272,16 @@ bun x intlayer init mcp
 claude mcp add intlayer npx -y @intlayer/mcp
 ```
 
-### Віддалений сервер (Streamable HTTP)
+#### Віддалений сервер (Streamable HTTP)
 
 Щоб підключити сервер Intlayer MCP до Claude Code за допомогою Streamable HTTP (SSE):
 
 ```bash
 claude mcp add intlayer https://mcp.intlayer.org -t http
 ```
+
+  </Tab>
+</Tabs>
 
 ---
 
@@ -281,5 +296,3 @@ npm install -g @intlayer/mcp
 # Або використовувати безпосередньо через npx (рекомендовано)
 npx @intlayer/mcp
 ```
-
----

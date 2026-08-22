@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-06-07
-updatedAt: 2026-03-03
+updatedAt: 2026-08-21
 title: Tài liệu Máy chủ MCP
 description: Khám phá các tính năng và cách thiết lập Máy chủ MCP để tối ưu hóa quản lý và vận hành máy chủ của bạn.
 keywords:
@@ -15,6 +15,9 @@ slugs:
   - doc
   - mcp-server
 history:
+  - version: 9.3.3
+    date: 2026-08-21
+    changes: "Group the platform setup sections into tabs"
   - version: 5.5.12
     date: 2025-07-11
     changes: "Thêm thiết lập ChatGPT"
@@ -113,13 +116,18 @@ Lệnh này sẽ:
 
 ---
 
-## Cài đặt trong Cursor
+## Thiết lập thủ công
+
+<Tabs defaultTab="cursor">
+  <Tab label="Cursor" value="cursor">
+
+### Cài đặt trong Cursor
 
 Theo dõi [tài liệu chính thức](https://docs.cursor.com/context/mcp) để cấu hình máy chủ MCP trong Cursor.
 
 Trong thư mục gốc dự án của bạn, thêm tệp cấu hình `.cursor/mcp.json` sau:
 
-### Máy chủ cục bộ (stdio) (khuyến nghị)
+#### Máy chủ cục bộ (stdio) (khuyến nghị)
 
 ```json fileName=".cursor/mcp.json"
 {
@@ -132,7 +140,7 @@ Trong thư mục gốc dự án của bạn, thêm tệp cấu hình `.cursor/mc
 }
 ```
 
-### Máy chủ từ xa (Streamable HTTP)
+#### Máy chủ từ xa (Streamable HTTP)
 
 Để kết nối với máy chủ Intlayer MCP từ xa sử dụng Server-Sent Events (Streamable HTTP), bạn có thể cấu hình client MCP của mình để kết nối với dịch vụ được lưu trữ.
 
@@ -149,15 +157,16 @@ Trong thư mục gốc dự án của bạn, thêm tệp cấu hình `.cursor/mc
 
 Điều này cho IDE của bạn biết để khởi chạy máy chủ Intlayer MCP bằng `npx`, đảm bảo luôn sử dụng phiên bản mới nhất trừ khi bạn cố định phiên bản.
 
----
+  </Tab>
+  <Tab label="VS Code" value="vscode">
 
-## Cài đặt trong VS Code
+### Cài đặt trong VS Code
 
 Theo dõi [tài liệu chính thức](https://code.visualstudio.com/docs/copilot/chat/mcp-servers) để cấu hình máy chủ MCP trong VS Code.
 
 Để sử dụng Intlayer MCP Server với VS Code, bạn cần cấu hình nó trong workspace hoặc cài đặt người dùng của bạn.
 
-### Máy chủ cục bộ (stdio) (khuyến nghị)
+#### Máy chủ cục bộ (stdio) (khuyến nghị)
 
 Tạo một file `.vscode/mcp.json` trong thư mục gốc dự án của bạn:
 
@@ -173,7 +182,7 @@ Tạo một file `.vscode/mcp.json` trong thư mục gốc dự án của bạn:
 }
 ```
 
-### Máy chủ từ xa (Streamable HTTP)
+#### Máy chủ từ xa (Streamable HTTP)
 
 Để kết nối với máy chủ Intlayer MCP từ xa sử dụng Server-Sent Events (Streamable HTTP), bạn có thể cấu hình client MCP của mình để kết nối với dịch vụ được lưu trữ.
 
@@ -188,11 +197,12 @@ Tạo một file `.vscode/mcp.json` trong thư mục gốc dự án của bạn:
 }
 ```
 
----
+  </Tab>
+  <Tab label="ChatGPT" value="chatgpt">
 
-## Cài đặt trong ChatGPT
+### Cài đặt trong ChatGPT
 
-### Máy chủ từ xa (Streamable HTTP)
+#### Máy chủ từ xa (Streamable HTTP)
 
 Theo dõi [tài liệu chính thức](https://platform.openai.com/docs/mcp#test-and-connect-your-mcp-server) để cấu hình máy chủ MCP trong ChatGPT.
 
@@ -209,9 +219,10 @@ Theo dõi [tài liệu chính thức](https://platform.openai.com/docs/mcp#test-
 
 7. Nhấn vào `Save`
 
----
+  </Tab>
+  <Tab label="Claude Desktop" value="claude-desktop">
 
-## Cài đặt trong Claude Desktop
+### Cài đặt trong Claude Desktop
 
 Theo dõi [tài liệu chính thức](https://modelcontextprotocol.io/quickstart/user#2-add-the-filesystem-mcp-server) để cấu hình máy chủ MCP trong Claude Desktop.
 
@@ -220,7 +231,7 @@ Theo dõi [tài liệu chính thức](https://modelcontextprotocol.io/quickstart
 - macOS: `~/Library/Application\ Support/Claude/claude_desktop_config.json`
 - Windows: `%APPDATA%\Claude\claude_desktop_config.json`
 
-### Máy chủ cục bộ (stdio) (khuyến nghị)
+#### Máy chủ cục bộ (stdio) (khuyến nghị)
 
 ```json fileName="claude_desktop_config.json"
 {
@@ -233,7 +244,7 @@ Theo dõi [tài liệu chính thức](https://modelcontextprotocol.io/quickstart
 }
 ```
 
-### Máy chủ từ xa (Streamable HTTP)
+#### Máy chủ từ xa (Streamable HTTP)
 
 ```json fileName="claude_desktop_config.json"
 {
@@ -246,13 +257,14 @@ Theo dõi [tài liệu chính thức](https://modelcontextprotocol.io/quickstart
 }
 ```
 
----
+  </Tab>
+  <Tab label="Claude Code (CLI)" value="claude-code">
 
-## Thiết Lập trong Claude Code (CLI)
+### Thiết Lập trong Claude Code (CLI)
 
 Theo dõi [tài liệu chính thức](https://modelcontextprotocol.io/quickstart/user) để cấu hình MCP server trong Claude Code.
 
-### Local server (stdio) (recommended)
+#### Local server (stdio) (recommended)
 
 Để kết nối máy chủ Intlayer MCP với Claude Code bằng stdio:
 
@@ -260,13 +272,16 @@ Theo dõi [tài liệu chính thức](https://modelcontextprotocol.io/quickstart
 claude mcp add intlayer npx -y @intlayer/mcp
 ```
 
-### Remote server (Streamable HTTP)
+#### Remote server (Streamable HTTP)
 
 Để kết nối máy chủ Intlayer MCP với Claude Code bằng Streamable HTTP (SSE):
 
 ```bash
 claude mcp add intlayer https://mcp.intlayer.org -t http
 ```
+
+  </Tab>
+</Tabs>
 
 ---
 
@@ -281,5 +296,3 @@ npm install -g @intlayer/mcp
 # Hoặc sử dụng trực tiếp với npx (khuyến nghị)
 npx @intlayer/mcp
 ```
-
----

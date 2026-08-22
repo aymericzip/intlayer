@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-06-07
-updatedAt: 2026-03-03
+updatedAt: 2026-08-21
 title: MCP 서버 문서
 description: MCP 서버의 기능과 설정을 탐색하여 서버 관리 및 운영을 최적화하세요.
 keywords:
@@ -15,6 +15,9 @@ slugs:
   - doc
   - mcp-server
 history:
+  - version: 9.3.3
+    date: 2026-08-21
+    changes: "Group the platform setup sections into tabs"
   - version: 5.5.12
     date: 2025-07-11
     changes: "ChatGPT 설정 추가"
@@ -113,13 +116,18 @@ bun x intlayer init mcp
 
 ---
 
-## Cursor에서 설정하기
+## 수동 설정
+
+<Tabs defaultTab="cursor">
+  <Tab label="Cursor" value="cursor">
+
+### Cursor에서 설정하기
 
 Cursor에서 MCP 서버를 구성하려면 [공식 문서](https://docs.cursor.com/context/mcp)를 참고하세요.
 
 프로젝트 루트에 다음과 같은 `.cursor/mcp.json` 구성 파일을 추가합니다:
 
-### 로컬 서버 (stdio) (권장)
+#### 로컬 서버 (stdio) (권장)
 
 ```json fileName=".cursor/mcp.json"
 {
@@ -132,7 +140,7 @@ Cursor에서 MCP 서버를 구성하려면 [공식 문서](https://docs.cursor.c
 }
 ```
 
-### 원격 서버 (Streamable HTTP)
+#### 원격 서버 (Streamable HTTP)
 
 Server-Sent Events (Streamable HTTP)를 사용하여 원격 Intlayer MCP 서버에 연결하려면, MCP 클라이언트를 호스팅된 서비스에 연결하도록 구성할 수 있습니다.
 
@@ -149,15 +157,16 @@ Server-Sent Events (Streamable HTTP)를 사용하여 원격 Intlayer MCP 서버�
 
 이 설정은 IDE가 `npx`를 사용하여 Intlayer MCP 서버를 실행하도록 하여, 버전을 고정하지 않는 한 항상 최신 버전을 사용하도록 보장합니다.
 
----
+  </Tab>
+  <Tab label="VS Code" value="vscode">
 
-## VS Code에서 설정하기
+### VS Code에서 설정하기
 
 [공식 문서](https://code.visualstudio.com/docs/copilot/chat/mcp-servers)를 참고하여 VS Code에서 MCP 서버를 구성하세요.
 
 VS Code에서 Intlayer MCP 서버를 사용하려면 작업 공간 또는 사용자 설정에서 구성해야 합니다.
 
-### 로컬 서버 (stdio) (권장)
+#### 로컬 서버 (stdio) (권장)
 
 프로젝트 루트에 `.vscode/mcp.json` 파일을 생성하세요:
 
@@ -173,7 +182,7 @@ VS Code에서 Intlayer MCP 서버를 사용하려면 작업 공간 또는 사용
 }
 ```
 
-### 원격 서버 (Streamable HTTP)
+#### 원격 서버 (Streamable HTTP)
 
 Server-Sent Events (Streamable HTTP)를 사용하여 원격 Intlayer MCP 서버에 연결하려면, MCP 클라이언트를 호스팅된 서비스에 연결하도록 구성할 수 있습니다.
 
@@ -188,11 +197,12 @@ Server-Sent Events (Streamable HTTP)를 사용하여 원격 Intlayer MCP 서버�
 }
 ```
 
----
+  </Tab>
+  <Tab label="ChatGPT" value="chatgpt">
 
-## ChatGPT 설정
+### ChatGPT 설정
 
-### 원격 서버 (Streamable HTTP)
+#### 원격 서버 (Streamable HTTP)
 
 ChatGPT에서 MCP 서버를 구성하려면 [공식 문서](https://platform.openai.com/docs/mcp#test-and-connect-your-mcp-server)를 참조하세요.
 
@@ -209,9 +219,10 @@ ChatGPT에서 MCP 서버를 구성하려면 [공식 문서](https://platform.ope
 
 7. `Save` 클릭
 
----
+  </Tab>
+  <Tab label="Claude Desktop" value="claude-desktop">
 
-## Claude Desktop 설정
+### Claude Desktop 설정
 
 [공식 문서](https://modelcontextprotocol.io/quickstart/user#2-add-the-filesystem-mcp-server)를 참고하여 Claude Desktop에서 MCP 서버를 설정하세요.
 
@@ -220,7 +231,7 @@ ChatGPT에서 MCP 서버를 구성하려면 [공식 문서](https://platform.ope
 - macOS: `~/Library/Application\ Support/Claude/claude_desktop_config.json`
 - Windows: `%APPDATA%\Claude\claude_desktop_config.json`
 
-### 로컬 서버 (stdio) (권장)
+#### 로컬 서버 (stdio) (권장)
 
 ```json fileName="claude_desktop_config.json"
 {
@@ -233,7 +244,7 @@ ChatGPT에서 MCP 서버를 구성하려면 [공식 문서](https://platform.ope
 }
 ```
 
-### 원격 서버 (Streamable HTTP)
+#### 원격 서버 (Streamable HTTP)
 
 ```json fileName="claude_desktop_config.json"
 {
@@ -246,13 +257,14 @@ ChatGPT에서 MCP 서버를 구성하려면 [공식 문서](https://platform.ope
 }
 ```
 
----
+  </Tab>
+  <Tab label="Claude Code (CLI)" value="claude-code">
 
-## Claude Code (CLI)에서 설정
+### Claude Code (CLI)에서 설정
 
 Claude Code에서 MCP 서버를 구성하려면 [공식 문서](https://modelcontextprotocol.io/quickstart/user)를 따르세요.
 
-### Local server (stdio) (권장)
+#### Local server (stdio) (권장)
 
 Intlayer MCP 서버를 stdio를 사용하여 Claude Code에 연결하려면:
 
@@ -260,13 +272,16 @@ Intlayer MCP 서버를 stdio를 사용하여 Claude Code에 연결하려면:
 claude mcp add intlayer npx -y @intlayer/mcp
 ```
 
-### 원격 서버 (Streamable HTTP)
+#### 원격 서버 (Streamable HTTP)
 
 Streamable HTTP (SSE)를 사용하여 Intlayer MCP 서버를 Claude Code에 연결하려면:
 
 ```bash
 claude mcp add intlayer https://mcp.intlayer.org -t http
 ```
+
+  </Tab>
+</Tabs>
 
 ---
 
@@ -281,5 +296,3 @@ npm install -g @intlayer/mcp
 # 또는 npx로 직접 사용 (권장)
 npx @intlayer/mcp
 ```
-
----

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-07
-updatedAt: 2026-03-03
+updatedAt: 2026-08-21
 title: MCP Sunucu Dokümantasyonu
 description: Sunucu yönetimini ve işlemlerinizi optimize etmek için MCP Sunucusu'nun özelliklerini ve kurulumunu keşfedin.
 keywords:
@@ -15,6 +15,9 @@ slugs:
   - doc
   - mcp-server
 history:
+  - version: 9.3.3
+    date: 2026-08-21
+    changes: "Group the platform setup sections into tabs"
   - version: 5.5.12
     date: 2025-07-11
     changes: "ChatGPT kurulumu eklendi"
@@ -113,13 +116,18 @@ Bu komut şunları yapacaktır:
 
 ---
 
-## Cursor'da Kurulum
+## Manuel kurulum
+
+<Tabs defaultTab="cursor">
+  <Tab label="Cursor" value="cursor">
+
+### Cursor'da Kurulum
 
 Cursor'da MCP sunucusunu yapılandırmak için [resmi dokümantasyonu](https://docs.cursor.com/context/mcp) takip edin.
 
 Proje kökünüzde aşağıdaki `.cursor/mcp.json` yapılandırma dosyasını ekleyin:
 
-### Yerel sunucu (stdio) (önerilen)
+#### Yerel sunucu (stdio) (önerilen)
 
 ```json fileName=".cursor/mcp.json"
 {
@@ -132,7 +140,7 @@ Proje kökünüzde aşağıdaki `.cursor/mcp.json` yapılandırma dosyasını ek
 }
 ```
 
-### Uzak sunucu (Streamable HTTP)
+#### Uzak sunucu (Streamable HTTP)
 
 Server-Sent Events (Streamable HTTP) kullanarak uzak bir Intlayer MCP sunucusuna bağlanmak için, MCP istemcinizi barındırılan servise bağlanacak şekilde yapılandırabilirsiniz.
 
@@ -149,15 +157,16 @@ Server-Sent Events (Streamable HTTP) kullanarak uzak bir Intlayer MCP sunucusuna
 
 Bu, IDE'nize Intlayer MCP sunucusunu `npx` kullanarak başlatmasını söyler, böylece sabitlemediğiniz sürece her zaman en son kullanılabilir sürümü kullanır.
 
----
+  </Tab>
+  <Tab label="VS Code" value="vscode">
 
-## VS Code'da Kurulum
+### VS Code'da Kurulum
 
 VS Code'da MCP sunucusunu yapılandırmak için [resmi dokümantasyonu](https://code.visualstudio.com/docs/copilot/chat/mcp-servers) takip edin.
 
 Intlayer MCP Sunucusunu VS Code ile kullanmak için, çalışma alanınızda veya kullanıcı ayarlarınızda yapılandırmanız gerekir.
 
-### Yerel sunucu (stdio) (önerilen)
+#### Yerel sunucu (stdio) (önerilen)
 
 Proje kökünüzde bir `.vscode/mcp.json` dosyası oluşturun:
 
@@ -173,7 +182,7 @@ Proje kökünüzde bir `.vscode/mcp.json` dosyası oluşturun:
 }
 ```
 
-### Uzak sunucu (Streamable HTTP)
+#### Uzak sunucu (Streamable HTTP)
 
 Server-Sent Events (Streamable HTTP) kullanarak uzak bir Intlayer MCP sunucusuna bağlanmak için, MCP istemcinizi barındırılan servise bağlanacak şekilde yapılandırabilirsiniz.
 
@@ -188,11 +197,12 @@ Server-Sent Events (Streamable HTTP) kullanarak uzak bir Intlayer MCP sunucusuna
 }
 ```
 
----
+  </Tab>
+  <Tab label="ChatGPT" value="chatgpt">
 
-## ChatGPT'de Kurulum
+### ChatGPT'de Kurulum
 
-### Uzak sunucu (Streamable HTTP)
+#### Uzak sunucu (Streamable HTTP)
 
 ChatGPT'de MCP sunucusunu yapılandırmak için [resmi dokümantasyonu](https://platform.openai.com/docs/mcp#test-and-connect-your-mcp-server) takip edin.
 
@@ -209,9 +219,10 @@ ChatGPT'de MCP sunucusunu yapılandırmak için [resmi dokümantasyonu](https://
 
 7. `Save` üzerine tıklayın
 
----
+  </Tab>
+  <Tab label="Claude Desktop" value="claude-desktop">
 
-## Claude Desktop'ta Kurulum
+### Claude Desktop'ta Kurulum
 
 Claude Desktop'ta MCP sunucusunu yapılandırmak için [resmi dokümantasyonu](https://modelcontextprotocol.io/quickstart/user#2-add-the-filesystem-mcp-server) takip edin.
 
@@ -220,7 +231,7 @@ Yapılandırma dosyasının yolu:
 - macOS: `~/Library/Application\ Support/Claude/claude_desktop_config.json`
 - Windows: `%APPDATA%\Claude\claude_desktop_config.json`
 
-### Yerel sunucu (stdio) (önerilen)
+#### Yerel sunucu (stdio) (önerilen)
 
 ```json fileName="claude_desktop_config.json"
 {
@@ -233,7 +244,7 @@ Yapılandırma dosyasının yolu:
 }
 ```
 
-### Uzak sunucu (Streamable HTTP)
+#### Uzak sunucu (Streamable HTTP)
 
 ```json fileName="claude_desktop_config.json"
 {
@@ -246,13 +257,14 @@ Yapılandırma dosyasının yolu:
 }
 ```
 
----
+  </Tab>
+  <Tab label="Claude Code (CLI)" value="claude-code">
 
-## Claude Code'da Kurulum (CLI)
+### Claude Code'da Kurulum (CLI)
 
 MCP sunucusunu Claude Code'da yapılandırmak için [resmi dokumentasyonu](https://modelcontextprotocol.io/quickstart/user) takip edin.
 
-### Lokal sunucu (stdio) (önerilen)
+#### Lokal sunucu (stdio) (önerilen)
 
 Intlayer MCP sunucusunu Claude Code'a stdio kullanarak bağlamak için:
 
@@ -260,13 +272,16 @@ Intlayer MCP sunucusunu Claude Code'a stdio kullanarak bağlamak için:
 claude mcp add intlayer npx -y @intlayer/mcp
 ```
 
-### Uzak sunucu (Streamable HTTP)
+#### Uzak sunucu (Streamable HTTP)
 
 Intlayer MCP sunucusunu Claude Code'a Streamable HTTP (SSE) kullanarak bağlamak için:
 
 ```bash
 claude mcp add intlayer https://mcp.intlayer.org -t http
 ```
+
+  </Tab>
+</Tabs>
 
 ---
 
@@ -281,5 +296,3 @@ npm install -g @intlayer/mcp
 # Veya doğrudan npx ile kullanın (önerilen)
 npx @intlayer/mcp
 ```
-
----

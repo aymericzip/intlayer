@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-06-07
-updatedAt: 2026-03-03
+updatedAt: 2026-08-21
 title: توثيق خادم MCP
 description: استكشف ميزات وإعداد خادم MCP لتحسين إدارة وتشغيل الخادم الخاص بك.
 keywords:
@@ -15,6 +15,9 @@ slugs:
   - doc
   - mcp-server
 history:
+  - version: 9.3.3
+    date: 2026-08-21
+    changes: "Group the platform setup sections into tabs"
   - version: 5.5.12
     date: 2025-07-11
     changes: "إضافة إعداد ChatGPT"
@@ -113,13 +116,18 @@ bun x intlayer init mcp
 
 ---
 
-## الإعداد في Cursor
+## الإعداد اليدوي
+
+<Tabs defaultTab="cursor">
+  <Tab label="Cursor" value="cursor">
+
+### الإعداد في Cursor
 
 اتبع [الوثائق الرسمية](https://docs.cursor.com/context/mcp) لتكوين خادم MCP في Cursor.
 
 في جذر مشروعك، أضف ملف التكوين التالي `.cursor/mcp.json`:
 
-### الخادم المحلي (stdio) (موصى به)
+#### الخادم المحلي (stdio) (موصى به)
 
 ```json fileName=".cursor/mcp.json"
 {
@@ -132,7 +140,7 @@ bun x intlayer init mcp
 }
 ```
 
-### الخادم البعيد (Streamable HTTP)
+#### الخادم البعيد (Streamable HTTP)
 
 للاتصال بخادم Intlayer MCP البعيد باستخدام أحداث الخادم المرسلة (Streamable HTTP)، يمكنك تكوين عميل MCP الخاص بك للاتصال بالخدمة المستضافة.
 
@@ -149,15 +157,16 @@ bun x intlayer init mcp
 
 هذا يخبر بيئة التطوير المتكاملة (IDE) الخاصة بك بتشغيل خادم Intlayer MCP باستخدام `npx`، مما يضمن دائمًا استخدام أحدث إصدار متاح ما لم تقم بتثبيته.
 
----
+  </Tab>
+  <Tab label="VS Code" value="vscode">
 
-## الإعداد في VS Code
+### الإعداد في VS Code
 
 اتبع [الوثائق الرسمية](https://code.visualstudio.com/docs/copilot/chat/mcp-servers) لتكوين خادم MCP في VS Code.
 
 لاستخدام خادم Intlayer MCP مع VS Code، تحتاج إلى تكوينه في إعدادات مساحة العمل أو إعدادات المستخدم الخاصة بك.
 
-### الخادم المحلي (stdio) (موصى به)
+#### الخادم المحلي (stdio) (موصى به)
 
 قم بإنشاء ملف `.vscode/mcp.json` في جذر مشروعك:
 
@@ -173,7 +182,7 @@ bun x intlayer init mcp
 }
 ```
 
-### الخادم البعيد (Streamable HTTP)
+#### الخادم البعيد (Streamable HTTP)
 
 للاتصال بخادم Intlayer MCP البعيد باستخدام أحداث الخادم المرسلة (Streamable HTTP)، يمكنك تكوين عميل MCP الخاص بك للاتصال بالخدمة المستضافة.
 
@@ -188,11 +197,12 @@ bun x intlayer init mcp
 }
 ```
 
----
+  </Tab>
+  <Tab label="ChatGPT" value="chatgpt">
 
-## الإعداد في ChatGPT
+### الإعداد في ChatGPT
 
-### الخادم البعيد (Streamable HTTP)
+#### الخادم البعيد (Streamable HTTP)
 
 اتبع [الوثائق الرسمية](https://platform.openai.com/docs/mcp#test-and-connect-your-mcp-server) لتكوين خادم MCP في ChatGPT.
 
@@ -209,9 +219,10 @@ bun x intlayer init mcp
 
 7. انقر على "حفظ"
 
----
+  </Tab>
+  <Tab label="Claude Desktop" value="claude-desktop">
 
-## الإعداد في Claude Desktop
+### الإعداد في Claude Desktop
 
 اتبع [الوثائق الرسمية](https://modelcontextprotocol.io/quickstart/user#2-add-the-filesystem-mcp-server) لتكوين خادم MCP في Claude Desktop.
 
@@ -220,7 +231,7 @@ bun x intlayer init mcp
 - macOS: `~/Library/Application\ Support/Claude/claude_desktop_config.json`
 - Windows: `%APPDATA%\Claude\claude_desktop_config.json`
 
-### الخادم المحلي (stdio) (موصى به)
+#### الخادم المحلي (stdio) (موصى به)
 
 ```json fileName="claude_desktop_config.json"
 {
@@ -233,7 +244,7 @@ bun x intlayer init mcp
 }
 ```
 
-### الخادم البعيد (Streamable HTTP)
+#### الخادم البعيد (Streamable HTTP)
 
 ```json fileName="claude_desktop_config.json"
 {
@@ -246,13 +257,14 @@ bun x intlayer init mcp
 }
 ```
 
----
+  </Tab>
+  <Tab label="Claude Code (CLI)" value="claude-code">
 
-## الإعداد في Claude Code (CLI)
+### الإعداد في Claude Code (CLI)
 
 اتبع [الوثائق الرسمية](https://modelcontextprotocol.io/quickstart/user) لتكوين خادم MCP في Claude Code.
 
-### خادم محلي (stdio) (موصى به)
+#### خادم محلي (stdio) (موصى به)
 
 لربط خادم Intlayer MCP بـ Claude Code باستخدام stdio:
 
@@ -260,13 +272,16 @@ bun x intlayer init mcp
 claude mcp add intlayer npx -y @intlayer/mcp
 ```
 
-### خادم بعيد (Streamable HTTP)
+#### خادم بعيد (Streamable HTTP)
 
 لربط خادم Intlayer MCP بـ Claude Code باستخدام Streamable HTTP (SSE):
 
 ```bash
 claude mcp add intlayer https://mcp.intlayer.org -t http
 ```
+
+  </Tab>
+</Tabs>
 
 ---
 
@@ -281,5 +296,3 @@ npm install -g @intlayer/mcp
 # أو الاستخدام مباشرة مع npx (موصى به)
 npx @intlayer/mcp
 ```
-
----

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-06-07
-updatedAt: 2026-03-03
+updatedAt: 2026-08-21
 title: MCP 服务器文档
 description: 探索 MCP 服务器的功能和设置，以优化您的服务器管理和操作。
 keywords:
@@ -15,6 +15,9 @@ slugs:
   - doc
   - mcp-server
 history:
+  - version: 9.3.3
+    date: 2026-08-21
+    changes: "Group the platform setup sections into tabs"
   - version: 5.5.12
     date: 2025-07-11
     changes: "添加 ChatGPT 的设置"
@@ -113,13 +116,18 @@ bun x intlayer init mcp
 
 ---
 
-## 在 Cursor 中的设置
+## 手动配置
+
+<Tabs defaultTab="cursor">
+  <Tab label="Cursor" value="cursor">
+
+### 在 Cursor 中的设置
 
 请按照[官方文档](https://docs.cursor.com/context/mcp)配置 Cursor 中的 MCP 服务器。
 
 在您的项目根目录下，添加以下 `.cursor/mcp.json` 配置文件：
 
-### 本地服务器（stdio）（推荐）
+#### 本地服务器（stdio）（推荐）
 
 ```json fileName=".cursor/mcp.json"
 {
@@ -132,7 +140,7 @@ bun x intlayer init mcp
 }
 ```
 
-### 远程服务器（Streamable HTTP）
+#### 远程服务器（Streamable HTTP）
 
 要通过服务器发送事件（Streamable HTTP）连接到远程 Intlayer MCP 服务器，您可以配置 MCP 客户端以连接到托管服务。
 
@@ -149,15 +157,16 @@ bun x intlayer init mcp
 
 这会告诉您的 IDE 使用 `npx` 启动 Intlayer MCP 服务器，确保它始终使用最新可用版本，除非您进行了版本固定。
 
----
+  </Tab>
+  <Tab label="VS Code" value="vscode">
 
-## 在 VS Code 中设置
+### 在 VS Code 中设置
 
 请参阅[官方文档](https://code.visualstudio.com/docs/copilot/chat/mcp-servers)以配置 VS Code 中的 MCP 服务器。
 
 要在 VS Code 中使用 Intlayer MCP 服务器，您需要在工作区或用户设置中进行配置。
 
-### 本地服务器（stdio）（推荐）
+#### 本地服务器（stdio）（推荐）
 
 在你的项目根目录下创建一个 `.vscode/mcp.json` 文件：
 
@@ -173,7 +182,7 @@ bun x intlayer init mcp
 }
 ```
 
-### 远程服务器（Streamable HTTP）
+#### 远程服务器（Streamable HTTP）
 
 要连接到使用服务器发送事件（Streamable HTTP）的远程 Intlayer MCP 服务器，你可以配置你的 MCP 客户端以连接到托管服务。
 
@@ -188,11 +197,12 @@ bun x intlayer init mcp
 }
 ```
 
----
+  </Tab>
+  <Tab label="ChatGPT" value="chatgpt">
 
-## 在 ChatGPT 中设置
+### 在 ChatGPT 中设置
 
-### 远程服务器（Streamable HTTP）
+#### 远程服务器（Streamable HTTP）
 
 请按照[官方文档](https://platform.openai.com/docs/mcp#test-and-connect-your-mcp-server)配置 ChatGPT 中的 MCP 服务器。
 
@@ -209,9 +219,10 @@ bun x intlayer init mcp
 
 7. 点击 “Save”
 
----
+  </Tab>
+  <Tab label="Claude Desktop" value="claude-desktop">
 
-## 在 Claude Desktop 中设置
+### 在 Claude Desktop 中设置
 
 按照[官方文档](https://modelcontextprotocol.io/quickstart/user#2-add-the-filesystem-mcp-server)配置 Claude Desktop 中的 MCP 服务器。
 
@@ -220,7 +231,7 @@ bun x intlayer init mcp
 - macOS: `~/Library/Application\ Support/Claude/claude_desktop_config.json`
 - Windows: `%APPDATA%\Claude\claude_desktop_config.json`
 
-### 本地服务器（stdio）（推荐）
+#### 本地服务器（stdio）（推荐）
 
 ```json fileName="claude_desktop_config.json"
 {
@@ -233,7 +244,7 @@ bun x intlayer init mcp
 }
 ```
 
-### 远程服务器（Streamable HTTP）
+#### 远程服务器（Streamable HTTP）
 
 ```json fileName="claude_desktop_config.json"
 {
@@ -246,13 +257,14 @@ bun x intlayer init mcp
 }
 ```
 
----
+  </Tab>
+  <Tab label="Claude Code (CLI)" value="claude-code">
 
-## 在 Claude Code (CLI) 中设置
+### 在 Claude Code (CLI) 中设置
 
 按照[官方文档](https://modelcontextprotocol.io/quickstart/user)来配置 MCP server 在 Claude Code 中。
 
-### 本地服务器 (stdio) (推荐)
+#### 本地服务器 (stdio) (推荐)
 
 要通过 stdio 将 Intlayer MCP 服务器连接到 Claude Code：
 
@@ -260,13 +272,16 @@ bun x intlayer init mcp
 claude mcp add intlayer npx -y @intlayer/mcp
 ```
 
-### 远程服务器 (Streamable HTTP)
+#### 远程服务器 (Streamable HTTP)
 
 要使用 Streamable HTTP (SSE) 将 Intlayer MCP 服务器连接到 Claude Code：
 
 ```bash
 claude mcp add intlayer https://mcp.intlayer.org -t http
 ```
+
+  </Tab>
+</Tabs>
 
 ---
 

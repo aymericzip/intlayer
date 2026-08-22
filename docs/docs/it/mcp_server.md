@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-06-07
-updatedAt: 2026-03-03
+updatedAt: 2026-08-21
 title: Documentazione del Server MCP
 description: Esplora le funzionalità e la configurazione del Server MCP per ottimizzare la gestione e le operazioni del tuo server.
 keywords:
@@ -15,6 +15,9 @@ slugs:
   - doc
   - mcp-server
 history:
+  - version: 9.3.3
+    date: 2026-08-21
+    changes: "Group the platform setup sections into tabs"
   - version: 5.5.12
     date: 2025-07-11
     changes: "Aggiunta configurazione di ChatGPT"
@@ -113,13 +116,18 @@ Questo comando permetterà di:
 
 ---
 
-## Configurazione in Cursor
+## Configurazione manuale
+
+<Tabs defaultTab="cursor">
+  <Tab label="Cursor" value="cursor">
+
+### Configurazione in Cursor
 
 Segui la [documentazione ufficiale](https://docs.cursor.com/context/mcp) per configurare il server MCP in Cursor.
 
 Nella radice del tuo progetto, aggiungi il seguente file di configurazione `.cursor/mcp.json`:
 
-### Server locale (stdio) (consigliato)
+#### Server locale (stdio) (consigliato)
 
 ```json fileName=".cursor/mcp.json"
 {
@@ -132,7 +140,7 @@ Nella radice del tuo progetto, aggiungi il seguente file di configurazione `.cur
 }
 ```
 
-### Server remoto (Streamable HTTP)
+#### Server remoto (Streamable HTTP)
 
 Per connettersi a un server MCP Intlayer remoto utilizzando Server-Sent Events (Streamable HTTP), puoi configurare il tuo client MCP per connettersi al servizio ospitato.
 
@@ -149,15 +157,16 @@ Per connettersi a un server MCP Intlayer remoto utilizzando Server-Sent Events (
 
 Questo indica al tuo IDE di avviare il server MCP Intlayer usando `npx`, assicurandosi che utilizzi sempre l'ultima versione disponibile a meno che non venga bloccata.
 
----
+  </Tab>
+  <Tab label="VS Code" value="vscode">
 
-## Configurazione in VS Code
+### Configurazione in VS Code
 
 Segui la [documentazione ufficiale](https://code.visualstudio.com/docs/copilot/chat/mcp-servers) per configurare il server MCP in VS Code.
 
 Per utilizzare il server MCP Intlayer con VS Code, devi configurarlo nelle impostazioni del tuo workspace o utente.
 
-### Server locale (stdio) (consigliato)
+#### Server locale (stdio) (consigliato)
 
 Crea un file `.vscode/mcp.json` nella radice del tuo progetto:
 
@@ -173,7 +182,7 @@ Crea un file `.vscode/mcp.json` nella radice del tuo progetto:
 }
 ```
 
-### Server remoto (Streamable HTTP)
+#### Server remoto (Streamable HTTP)
 
 Per connettersi a un server MCP Intlayer remoto utilizzando Server-Sent Events (Streamable HTTP), puoi configurare il tuo client MCP per connettersi al servizio ospitato.
 
@@ -188,11 +197,12 @@ Per connettersi a un server MCP Intlayer remoto utilizzando Server-Sent Events (
 }
 ```
 
----
+  </Tab>
+  <Tab label="ChatGPT" value="chatgpt">
 
-## Configurazione in ChatGPT
+### Configurazione in ChatGPT
 
-### Server remoto (Streamable HTTP)
+#### Server remoto (Streamable HTTP)
 
 Segui la [documentazione ufficiale](https://platform.openai.com/docs/mcp#test-and-connect-your-mcp-server) per configurare il server MCP in ChatGPT.
 
@@ -209,9 +219,10 @@ Segui la [documentazione ufficiale](https://platform.openai.com/docs/mcp#test-an
 
 7. Clicca su `Save`
 
----
+  </Tab>
+  <Tab label="Claude Desktop" value="claude-desktop">
 
-## Configurazione in Claude Desktop
+### Configurazione in Claude Desktop
 
 Segui la [documentazione ufficiale](https://modelcontextprotocol.io/quickstart/user#2-add-the-filesystem-mcp-server) per configurare il server MCP in Claude Desktop.
 
@@ -220,7 +231,7 @@ Percorso del file di configurazione:
 - macOS: `~/Library/Application\ Support/Claude/claude_desktop_config.json`
 - Windows: `%APPDATA%\Claude\claude_desktop_config.json`
 
-### Server locale (stdio) (consigliato)
+#### Server locale (stdio) (consigliato)
 
 ```json fileName="claude_desktop_config.json"
 {
@@ -233,7 +244,7 @@ Percorso del file di configurazione:
 }
 ```
 
-### Server remoto (Streamable HTTP)
+#### Server remoto (Streamable HTTP)
 
 ```json fileName="claude_desktop_config.json"
 {
@@ -246,13 +257,14 @@ Percorso del file di configurazione:
 }
 ```
 
----
+  </Tab>
+  <Tab label="Claude Code (CLI)" value="claude-code">
 
-## Configurazione in Claude Code (CLI)
+### Configurazione in Claude Code (CLI)
 
 Segui la [documentazione ufficiale](https://modelcontextprotocol.io/quickstart/user) per configurare il server MCP in Claude Code.
 
-### Server locale (stdio) (consigliato)
+#### Server locale (stdio) (consigliato)
 
 Per connettere il server Intlayer MCP a Claude Code utilizzando stdio:
 
@@ -260,13 +272,16 @@ Per connettere il server Intlayer MCP a Claude Code utilizzando stdio:
 claude mcp add intlayer npx -y @intlayer/mcp
 ```
 
-### Server remoto (Streamable HTTP)
+#### Server remoto (Streamable HTTP)
 
 Per connettere il server MCP di Intlayer a Claude Code utilizzando Streamable HTTP (SSE):
 
 ```bash
 claude mcp add intlayer https://mcp.intlayer.org -t http
 ```
+
+  </Tab>
+</Tabs>
 
 ---
 
@@ -281,5 +296,3 @@ npm install -g @intlayer/mcp
 # Oppure usa direttamente con npx (consigliato)
 npx @intlayer/mcp
 ```
-
----
