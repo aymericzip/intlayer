@@ -157,14 +157,19 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
       },
       {
         rel: 'preconnect',
+        // Left uncredentialed on purpose: the API client sends
+        // `credentials: 'include'`, which reuses the credentialed socket this
+        // hint opens. `DeferredAuthProvider` only fires that request after the
+        // load event, which is why Lighthouse reports the hint as unused.
         href: import.meta.env.VITE_BACKEND_URL,
       },
       ...(googleAnalyticsId
         ? [
             {
               rel: 'preconnect',
+              // `gtag/js` is loaded as a plain script, not a CORS one, so the
+              // hint must stay anonymous-free to match it.
               href: 'https://www.googletagmanager.com',
-              crossOrigin: '',
             },
             {
               rel: 'dns-prefetch',

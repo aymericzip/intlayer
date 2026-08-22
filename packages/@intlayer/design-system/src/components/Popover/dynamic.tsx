@@ -1,5 +1,6 @@
 'use client';
 
+import { scheduleFrameTask } from '@utils/scheduleFrameTask';
 import type { FC } from 'react';
 import { useLayoutEffect, useRef, useState } from 'react';
 import {
@@ -10,6 +11,12 @@ import {
   Detail as StaticDetail,
   usePopoverIds,
 } from './static';
+
+/** Gap kept between the trigger and the panel, mirroring the `1rem` offset of the static styles. */
+const TRIGGER_GAP = 16;
+
+/** Space kept between the panel and the edges of the viewport. */
+const VIEWPORT_PADDING = 16;
 
 /**
  * Popover Component (Client-side)
@@ -35,7 +42,8 @@ const PopoverComponent: FC<PopoverProps> = (props) => {
  * - Adds automatic positioning adjustment based on viewport
  * - Calculates optimal X/Y alignment to prevent overflow
  * - Dynamically adjusts max-width based on available space
- * - Listens to window resize and scroll events
+ * - Measures only while the panel is open, on a frame shared with the rest of
+ *   the page
  *
  * @param props - Popover Detail component props
  * @returns Positioned popover content with animations and accessibility
@@ -52,41 +60,46 @@ const Detail: FC<DetailProps> = ({
   const [maxWidth, setMaxWidth] = useState<number | undefined>(undefined);
 
   useLayoutEffect(() => {
-    const adjustPosition = () => {
-      if (!popoverRef.current) return;
+    /** Cancels the measurement queued for the next frame, if any. */
+    let cancelScheduledMeasurement: (() => void) | null = null;
+    /** Cancels the read that follows the max-width write, if any. */
+    let cancelScheduledRead: (() => void) | null = null;
+    /** Whether the pointer or the focus is currently inside the trigger. */
+    let isOpen = false;
 
+    const measurePosition = () => {
       const popoverElement = popoverRef.current;
       const triggerElement = document.getElementById(triggerId);
 
-      if (!triggerElement) return;
+      if (!popoverElement || !triggerElement) return;
 
       const triggerRect = triggerElement.getBoundingClientRect();
       const viewportWidth = window.innerWidth;
       const viewportHeight = window.innerHeight;
-      const gap = 16; // 1rem gap
-      const padding = 16; // Additional padding from viewport edges
 
-      // Calculate maximum width based on viewport and trigger position
-      const maxWidthFromLeft = viewportWidth - triggerRect.left - padding;
-      const maxWidthFromRight = triggerRect.right - padding;
+      // Calculate maximum width based on viewport and trigger position, using
+      // the larger of the two sides so the panel can always fit somewhere.
+      const maxWidthFromLeft =
+        viewportWidth - triggerRect.left - VIEWPORT_PADDING;
+      const maxWidthFromRight = triggerRect.right - VIEWPORT_PADDING;
 
-      // Use the larger space to ensure popover can fit
-      const absoluteMaxWidth = Math.max(maxWidthFromLeft, maxWidthFromRight);
+      setMaxWidth(Math.max(maxWidthFromLeft, maxWidthFromRight));
 
-      setMaxWidth(absoluteMaxWidth);
-
-      // Force a layout calculation by temporarily making visible if needed
+      // A panel that is still hidden has no box to measure, so it is revealed
+      // to layout only — `visibility: hidden` keeps it off the screen.
       const wasInvisible = popoverElement.classList.contains('invisible');
       if (wasInvisible) {
         popoverElement.style.visibility = 'hidden';
         popoverElement.classList.remove('invisible');
       }
 
-      // Small delay to ensure max-width is applied and content reflows
-      requestAnimationFrame(() => {
+      // The max-width above still has to be committed and laid out, so the
+      // panel is measured on the next frame rather than right away.
+      cancelScheduledRead = scheduleFrameTask(() => {
+        cancelScheduledRead = null;
+
         const popoverRect = popoverElement.getBoundingClientRect();
 
-        // Restore invisible state if it was invisible
         if (wasInvisible) {
           popoverElement.style.visibility = '';
           popoverElement.classList.add('invisible');
@@ -94,8 +107,8 @@ const Detail: FC<DetailProps> = ({
 
         // Determine optimal Y alignment
         let newYAlign = yAlign;
-        const spaceBelow = viewportHeight - triggerRect.bottom - gap;
-        const spaceAbove = triggerRect.top - gap;
+        const spaceBelow = viewportHeight - triggerRect.bottom - TRIGGER_GAP;
+        const spaceAbove = triggerRect.top - TRIGGER_GAP;
 
         if (yAlign === 'below' && spaceBelow < popoverRect.height) {
           // Not enough space below, try above
@@ -111,8 +124,8 @@ const Detail: FC<DetailProps> = ({
 
         // Determine optimal X alignment
         let newXAlign = xAlign;
-        const spaceRight = viewportWidth - triggerRect.left - padding;
-        const spaceLeft = triggerRect.right - padding;
+        const spaceRight = viewportWidth - triggerRect.left - VIEWPORT_PADDING;
+        const spaceLeft = triggerRect.right - VIEWPORT_PADDING;
 
         if (xAlign === 'start' && spaceRight < popoverRect.width) {
           // Not enough space on the right, try left
@@ -131,38 +144,92 @@ const Detail: FC<DetailProps> = ({
       });
     };
 
-    // Adjust position with a slight delay to ensure DOM is ready
-    const timeoutId = setTimeout(adjustPosition, 0);
+    /**
+     * Defers the measurement to the next frame, and to a single one however
+     * many events fire.
+     *
+     * Reading `getBoundingClientRect()` straight from a scroll, resize or
+     * observer callback forces a synchronous reflow. Sharing one frame with
+     * every other measurement the page schedules keeps the reads in a single
+     * batch, so React commits them all after the last one.
+     */
+    const scheduleMeasurement = () => {
+      if (cancelScheduledMeasurement) return;
 
-    // Listen to mouse enter on the trigger to recalculate
+      cancelScheduledMeasurement = scheduleFrameTask(() => {
+        cancelScheduledMeasurement = null;
+        measurePosition();
+      });
+    };
+
+    /*
+     * Scrolling only matters while the panel is on screen, and a closed
+     * popover is re-measured when it opens — behind an 800ms CSS delay, so the
+     * measurement always lands before anything is painted. Subscribing on open
+     * rather than on mount keeps a page holding several popovers from running
+     * one capture-phase handler per popover on every scroll event, and leaves
+     * a page whose popovers are never opened with no layout work at all.
+     */
+    const handleOpen = () => {
+      if (!isOpen) {
+        isOpen = true;
+        window.addEventListener('scroll', scheduleMeasurement, {
+          passive: true,
+          capture: true,
+        });
+      }
+
+      scheduleMeasurement();
+    };
+
+    const handleClose = () => {
+      if (!isOpen) return;
+
+      isOpen = false;
+      window.removeEventListener('scroll', scheduleMeasurement, true);
+    };
+
     const triggerElement = document.getElementById(triggerId);
 
     if (triggerElement) {
-      triggerElement.addEventListener('mouseenter', adjustPosition);
-      triggerElement.addEventListener('focusin', adjustPosition);
+      triggerElement.addEventListener('mouseenter', handleOpen, {
+        passive: true,
+      });
+      triggerElement.addEventListener('focusin', handleOpen, { passive: true });
+      triggerElement.addEventListener('mouseleave', handleClose, {
+        passive: true,
+      });
+      triggerElement.addEventListener('focusout', handleClose, {
+        passive: true,
+      });
     }
 
-    // Use ResizeObserver to detect popover content size changes
+    // The panel keeps its own size in check: content growing past the viewport
+    // has to flip the alignment even when the user did nothing.
     const resizeObserver = new ResizeObserver(() => {
-      adjustPosition();
+      if (isOpen) scheduleMeasurement();
     });
 
     if (popoverRef.current) {
       resizeObserver.observe(popoverRef.current);
     }
 
-    window.addEventListener('resize', adjustPosition);
-    window.addEventListener('scroll', adjustPosition, true);
+    window.addEventListener('resize', scheduleMeasurement, { passive: true });
 
     return () => {
-      clearTimeout(timeoutId);
+      cancelScheduledMeasurement?.();
+      cancelScheduledRead?.();
+
       if (triggerElement) {
-        triggerElement.removeEventListener('mouseenter', adjustPosition);
-        triggerElement.removeEventListener('focusin', adjustPosition);
+        triggerElement.removeEventListener('mouseenter', handleOpen);
+        triggerElement.removeEventListener('focusin', handleOpen);
+        triggerElement.removeEventListener('mouseleave', handleClose);
+        triggerElement.removeEventListener('focusout', handleClose);
       }
+
       resizeObserver.disconnect();
-      window.removeEventListener('resize', adjustPosition);
-      window.removeEventListener('scroll', adjustPosition, true);
+      window.removeEventListener('resize', scheduleMeasurement);
+      window.removeEventListener('scroll', scheduleMeasurement, true);
     };
   }, [triggerId, xAlign, yAlign]);
 
