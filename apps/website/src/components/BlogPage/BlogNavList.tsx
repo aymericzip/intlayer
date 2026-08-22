@@ -205,7 +205,7 @@ export const BlogNavList: FC<BlogNavListProps> = ({
   return (
     <>
       {isHidden && (
-        <div className="fixed top-20 left-2 z-30 flex flex-col gap-1">
+        <div className="fixed top-20 left-2 z-30 flex flex-col gap-1 md:left-4">
           <SearchTrigger isMini />
           <PopoverStatic identifier="blog-nav-expand">
             <Button
