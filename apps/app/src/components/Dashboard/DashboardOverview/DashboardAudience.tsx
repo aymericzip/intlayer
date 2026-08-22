@@ -1,8 +1,12 @@
 import type { AudienceSeriesPoint, AudienceStats } from '@intlayer/backend';
 import { useGetAnalyticsAudience } from '@intlayer/design-system/api';
 import { Container } from '@intlayer/design-system/container';
+import { ExpandCollapse } from '@intlayer/design-system/expand-collapse';
 import { Loader } from '@intlayer/design-system/loader';
-import { cn } from '@intlayer/design-system/utils';
+import {
+  SwitchSelector,
+  type SwitchSelectorChoices,
+} from '@intlayer/design-system/switch-selector';
 import { getLocaleName } from 'intlayer';
 import { CalendarDays, Eye, Globe, MapPin, Users } from 'lucide-react';
 import { type FC, type ReactNode, useMemo, useState } from 'react';
@@ -58,16 +62,20 @@ type EvolutionChartProps = {
   series: AudienceSeriesPoint[];
   locale: string;
   usersLabel: string;
+  maxLabel: string;
+  chartLabel: string;
 };
 
 /**
  * Lightweight inline SVG area chart of daily distinct visitors. Dependency-free
- * and theme-aware (uses the `primary` token via `currentColor`).
+ * and theme-aware (uses the `text` token via `currentColor`).
  */
 const EvolutionChart: FC<EvolutionChartProps> = ({
   series,
   locale,
   usersLabel,
+  maxLabel,
+  chartLabel,
 }) => {
   const width = 600;
   const height = 160;
@@ -117,14 +125,16 @@ const EvolutionChart: FC<EvolutionChartProps> = ({
         <span>
           {peak} {usersLabel}
         </span>
-        <span className="text-neutral/70">max {maxUsers}</span>
+        <span className="text-neutral/70">
+          {maxLabel} {maxUsers}
+        </span>
       </div>
       <svg
         viewBox={`0 0 ${width} ${height}`}
-        className="h-40 w-full text-primary"
+        className="h-40 w-full text-text"
         preserveAspectRatio="none"
         role="img"
-        aria-label="Visitor evolution chart"
+        aria-label={chartLabel}
       >
         <defs>
           <linearGradient id="audienceArea" x1="0" y1="0" x2="0" y2="1">
@@ -153,6 +163,9 @@ const EvolutionChart: FC<EvolutionChartProps> = ({
   );
 };
 
+/** Collapsed height (px) of a breakdown list before the "show all" toggle appears. */
+const BREAKDOWN_COLLAPSED_HEIGHT = 400;
+
 type BreakdownListProps = {
   rows: { label: ReactNode; users: number; views: number }[];
   usersLabel: string;
@@ -160,7 +173,10 @@ type BreakdownListProps = {
   metric: 'users' | 'views';
 };
 
-/** Ranked horizontal-bar list for a breakdown tab. */
+/**
+ * Ranked horizontal-bar list for a breakdown tab. Long lists (countries can run
+ * to dozens of rows) collapse behind a "show all" toggle.
+ */
 const BreakdownList: FC<BreakdownListProps> = ({
   rows,
   usersLabel,
@@ -170,36 +186,38 @@ const BreakdownList: FC<BreakdownListProps> = ({
   const max = Math.max(1, ...rows.map((row) => row[metric]));
 
   return (
-    <ul className="flex flex-col gap-3">
-      {rows.map((row, index) => {
-        const value = row[metric];
-        const ratio = value / max;
+    <ExpandCollapse minHeight={BREAKDOWN_COLLAPSED_HEIGHT}>
+      <ul className="flex flex-col gap-3 pb-6">
+        {rows.map((row, index) => {
+          const value = row[metric];
+          const ratio = value / max;
 
-        return (
-          <li
-            // biome-ignore lint/suspicious/noArrayIndexKey: rows are stable per fetch and labels can repeat
-            key={index}
-            className="flex flex-col gap-1"
-          >
-            <div className="flex items-center justify-between gap-2 text-sm">
-              <span className="flex min-w-0 items-center gap-2 text-text">
-                {row.label}
-              </span>
-              <span className="shrink-0 text-neutral text-xs">
-                {row.users.toLocaleString()} {usersLabel} ·{' '}
-                {row.views.toLocaleString()} {viewsLabel}
-              </span>
-            </div>
-            <div className="h-1.5 w-full overflow-hidden rounded-full bg-neutral/10">
-              <div
-                className="h-full min-w-1 rounded-full bg-primary/60 transition-all duration-500 ease-out"
-                style={{ width: `${Math.round(ratio * 100)}%` }}
-              />
-            </div>
-          </li>
-        );
-      })}
-    </ul>
+          return (
+            <li
+              // biome-ignore lint/suspicious/noArrayIndexKey: rows are stable per fetch and labels can repeat
+              key={index}
+              className="flex flex-col gap-1"
+            >
+              <div className="flex items-center justify-between gap-2 text-sm">
+                <span className="flex min-w-0 items-center gap-2 text-text">
+                  {row.label}
+                </span>
+                <span className="shrink-0 text-neutral text-xs">
+                  {row.users.toLocaleString()} {usersLabel} ·{' '}
+                  {row.views.toLocaleString()} {viewsLabel}
+                </span>
+              </div>
+              <div className="h-1.5 w-full overflow-hidden rounded-full bg-neutral/10">
+                <div
+                  className="h-full min-w-1 rounded-full bg-text/60 transition-all duration-500 ease-out"
+                  style={{ width: `${Math.round(ratio * 100)}%` }}
+                />
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+    </ExpandCollapse>
   );
 };
 
@@ -223,6 +241,34 @@ export const DashboardAudience: FC = () => {
     30: content.rangeLast30Days.value,
     90: content.rangeLast90Days.value,
   };
+
+  const rangeChoices: SwitchSelectorChoices<RangeOption> = RANGE_OPTIONS.map(
+    (option) => ({
+      content: rangeLabels[option],
+      value: option,
+    })
+  );
+
+  const breakdownChoices = [
+    {
+      content: (
+        <span className="flex items-center justify-center gap-1.5">
+          <Globe className="size-3.5" />
+          {content.tabLocales}
+        </span>
+      ),
+      value: 'locales',
+    },
+    {
+      content: (
+        <span className="flex items-center justify-center gap-1.5">
+          <MapPin className="size-3.5" />
+          {content.tabLocation}
+        </span>
+      ),
+      value: 'location',
+    },
+  ] as SwitchSelectorChoices<BreakdownTab>;
 
   const localeRows = useMemo(
     () =>
@@ -271,23 +317,13 @@ export const DashboardAudience: FC = () => {
           <h2 className="font-semibold text-base text-text">{content.title}</h2>
           <span className="text-neutral text-xs">{content.subtitle}</span>
         </div>
-        <div className="flex items-center gap-1 rounded-lg bg-neutral/10 p-1">
-          {RANGE_OPTIONS.map((option) => (
-            <button
-              key={option}
-              type="button"
-              onClick={() => setRange(option)}
-              className={cn(
-                'rounded-md px-3 py-1 font-medium text-xs transition-colors',
-                range === option
-                  ? 'bg-background text-text shadow-sm'
-                  : 'text-neutral hover:text-text'
-              )}
-            >
-              {rangeLabels[option]}
-            </button>
-          ))}
-        </div>
+        <SwitchSelector
+          choices={rangeChoices}
+          value={range}
+          onChange={setRange}
+          color="text"
+          size="sm"
+        />
       </div>
 
       {isLoading && !audience ? (
@@ -349,6 +385,8 @@ export const DashboardAudience: FC = () => {
                 series={audience.series}
                 locale={locale}
                 usersLabel={content.usersLabel.value}
+                maxLabel={content.maxLabel.value}
+                chartLabel={content.evolutionChartLabel.value}
               />
             </Container>
 
@@ -360,34 +398,14 @@ export const DashboardAudience: FC = () => {
               border
               borderColor="neutral"
             >
-              <div className="flex items-center gap-1 rounded-lg bg-neutral/10 p-1">
-                <button
-                  type="button"
-                  onClick={() => setTab('locales')}
-                  className={cn(
-                    'flex flex-1 items-center justify-center gap-1.5 rounded-md px-3 py-1 font-medium text-xs transition-colors',
-                    tab === 'locales'
-                      ? 'bg-background text-text shadow-sm'
-                      : 'text-neutral hover:text-text'
-                  )}
-                >
-                  <Globe className="size-3.5" />
-                  {content.tabLocales}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setTab('location')}
-                  className={cn(
-                    'flex flex-1 items-center justify-center gap-1.5 rounded-md px-3 py-1 font-medium text-xs transition-colors',
-                    tab === 'location'
-                      ? 'bg-background text-text shadow-sm'
-                      : 'text-neutral hover:text-text'
-                  )}
-                >
-                  <MapPin className="size-3.5" />
-                  {content.tabLocation}
-                </button>
-              </div>
+              <SwitchSelector
+                choices={breakdownChoices}
+                value={tab}
+                onChange={setTab}
+                color="text"
+                size="sm"
+                className="w-full"
+              />
 
               {tab === 'locales' ? (
                 <BreakdownList

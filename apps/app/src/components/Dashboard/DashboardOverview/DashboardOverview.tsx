@@ -348,14 +348,14 @@ export const DashboardOverview: FC = () => {
               {/* Input / Output token split */}
               <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs">
                 <span className="flex items-center gap-1.5">
-                  <span className="size-2 rounded-full bg-blue-400/70" />
+                  <span className="size-2 rounded-full bg-text/70" />
                   <span className="text-neutral">{content.aiInputTokens}</span>
                   <span className="font-medium text-text">
                     {aiStats.totalInputTokens.toLocaleString()}
                   </span>
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <span className="size-2 rounded-full bg-purple-400/70" />
+                  <span className="size-2 rounded-full bg-text/30" />
                   <span className="text-neutral">{content.aiOutputTokens}</span>
                   <span className="font-medium text-text">
                     {aiStats.totalOutputTokens.toLocaleString()}
@@ -396,7 +396,7 @@ export const DashboardOverview: FC = () => {
                         </div>
                         <div className="h-1.5 w-full overflow-hidden rounded-full bg-neutral/10">
                           <div
-                            className="h-full min-w-1 rounded-full bg-purple-400/60 transition-all duration-500 ease-out"
+                            className="h-full min-w-1 rounded-full bg-text/60 transition-all duration-500 ease-out"
                             style={{ width: `${Math.round(ratio * 100)}%` }}
                           />
                         </div>
