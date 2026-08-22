@@ -340,7 +340,7 @@ function DashboardLayout() {
                   ? PANEL_TITLES[activePanel]
                   : sidePanelAriaLabel.value
               }
-              className="ml-3 flex h-full min-h-0 flex-col overflow-hidden rounded-2xl border border-neutral/40 bg-background md:mr-2"
+              className="ml-3 flex h-full min-h-0 flex-col overflow-hidden rounded-2xl border border-neutral/40 bg-background md:mx-2"
             >
               <div className="flex shrink-0 items-center justify-between border-neutral/20 border-b px-3 py-2">
                 <span className="font-medium text-sm" aria-hidden="true">

@@ -35,7 +35,7 @@ export const DocPageLayout: FC<DocPageLayoutProps> = ({
         >
           <DocNavList docData={docData} activeSlugs={['doc', ...activeSlugs]} />
         </aside>
-        <div className="mx-1 mb-3 flex min-h-0 min-w-0 flex-1 flex-row rounded-2xl border border-neutral/40 bg-background md:mr-2">
+        <div className="mx-1 mb-3 flex min-h-0 min-w-0 flex-1 flex-row rounded-2xl border border-neutral/40 bg-background md:mx-2">
           <article
             aria-label={content.documentationContent.value}
             className="no-scrollbar relative mb-3 h-full max-h-[calc(100vh-4.5rem)] w-auto flex-1 grow overflow-auto px-4 pb-24 max-md:pl-10 md:px-10"
