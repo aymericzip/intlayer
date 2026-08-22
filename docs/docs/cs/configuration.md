@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-08-06
+updatedAt: 2026-08-22
 title: Konfigurace (Configuration)
 description: Naučte se, jak nakonfigurovat Intlayer pro vaši aplikaci. Porozumějte různým nastavením a možnostem dostupným pro přizpůsobení Intlayer vašim potřebám.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 9.3.3
+    date: 2026-08-22
+    changes: "Analytika je nyní ve výchozím stavu zapnutá, pokud je nainstalován `@intlayer/analytics`"
   - version: 9.1.3
     date: 2026-08-06
     changes: "Změna `routing.enableProxy` na tři stavy: nenastaveno (auto), `true`, `false`"
@@ -380,8 +383,8 @@ const config: IntlayerConfig = {
   analytics: {
     /**
      * Zda je povoleno shromažďování analytiky (zobrazení stránek, expozice obsahu, A/B události).
-     * Vyžaduje nastavení `editor.clientId` pro atribuci.
-     * Výchozí: false
+     * Vyžaduje nainstalovaný balíček `@intlayer/analytics` a nastavení `editor.clientId` pro atribuci.
+     * Výchozí: true
      */
     enabled: true,
 
@@ -737,13 +740,13 @@ Definuje nastavení pro vestavěný vizuální editor, včetně portu serveru a 
 
 Definuje nastavení související s analytikou Intlayer: shromažďování informací o tom, jaký obsah je uživatelům skutečně zobrazován (zobrazení stránek, expozice obsahu), a podporu A/B testování obsahu.
 
-Analytika je striktně opt-in: nic se neshromažďuje, pokud není `analytics.enabled` explicitně nastaveno na `true` **a** není nakonfigurován projektový klíč (`editor.clientId`) pro atribuci. Je-li vypnuta (výchozí stav), celá integrace analytiky je odstraněna z balíčku vaší aplikace (dead-code elimination).
+Analytika je ve výchozím stavu zapnutá (opt-out): sbírat začne, jakmile je nainstalován balíček `@intlayer/analytics` **a** je nakonfigurován projektový klíč (`editor.clientId`) pro atribuci. Nastavte `analytics.enabled` na `false` — nebo balíček neinstalujte — a celá integrace analytiky je odstraněna z balíčku vaší aplikace (dead-code elimination).
 
-| Pole            | Popis                                                                              | Typ       | Výchozí | Příklad | Poznámka                                                                                                                         |
-| --------------- | ---------------------------------------------------------------------------------- | --------- | ------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `enabled`       | Povolí shromažďování analytiky (zobrazení stránek, expozice obsahu, A/B události). | `boolean` | `false` | `true`  | Vyžaduje nastavení `editor.clientId` pro atribuci; jinak analytika zůstává vypnutá, i když je `enabled` nastaveno na `true`.     |
-| `flushInterval` | Milisekundy mezi automatickým dávkovým odesíláním na backend.                      | `number`  | `20000` | `10000` |                                                                                                                                  |
-| `sampleRate`    | Podíl relací k zaznamenání, od `0` (žádná) do `1` (všechny).                       | `number`  | `1`     | `0.5`   | Vzorkování je deterministické pro každou relaci, takže zaznamenaná relace hlásí všechny své události (žádné částečné trychtýře). |
+| Pole            | Popis                                                                              | Typ       | Výchozí | Příklad | Poznámka                                                                                                                                                                   |
+| --------------- | ---------------------------------------------------------------------------------- | --------- | ------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `enabled`       | Povolí shromažďování analytiky (zobrazení stránek, expozice obsahu, A/B události). | `boolean` | `true`  | `false` | Vyžaduje nainstalovaný balíček `@intlayer/analytics` a nastavení `editor.clientId` pro atribuci; jinak analytika zůstává vypnutá, i když je `enabled` nastaveno na `true`. |
+| `flushInterval` | Milisekundy mezi automatickým dávkovým odesíláním na backend.                      | `number`  | `20000` | `10000` |                                                                                                                                                                            |
+| `sampleRate`    | Podíl relací k zaznamenání, od `0` (žádná) do `1` (všechny).                       | `number`  | `1`     | `0.5`   | Vzorkování je deterministické pro každou relaci, takže zaznamenaná relace hlásí všechny své události (žádné částečné trychtýře).                                           |
 
 ---
 

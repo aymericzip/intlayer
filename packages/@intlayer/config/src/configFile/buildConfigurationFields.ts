@@ -54,7 +54,7 @@ import {
   TYPES_DIR,
   UNMERGED_DICTIONARIES_DIR,
 } from '../defaultValues/system';
-import { getProjectRequire } from '../utils';
+import { getProjectRequire, isPackageInstalled } from '../utils';
 import {
   buildAnalyticsFields,
   buildBrowserConfiguration,
@@ -76,6 +76,12 @@ export {
 } from './buildBrowserConfiguration';
 
 let storedConfiguration: IntlayerConfig;
+
+/**
+ * Optional companion package whose presence in the project dependency tree
+ * opts the application into analytics collection.
+ */
+const ANALYTICS_PACKAGE_NAME = '@intlayer/analytics';
 
 // ---------------------------------------------------------------------------
 // Server-only field builders (Node.js — not browser-safe)
@@ -818,7 +824,10 @@ export const buildConfigurationFields = (
     // Full (extended) shared fields
     internationalization: internationalizationConfig,
     editor: editorConfig,
-    analytics: buildAnalyticsFields(customConfiguration?.analytics),
+    analytics: buildAnalyticsFields(
+      customConfiguration?.analytics,
+      isPackageInstalled(ANALYTICS_PACKAGE_NAME, systemConfig.baseDir)
+    ),
     log: logConfig,
     // Server-only fields
     system: systemConfig,

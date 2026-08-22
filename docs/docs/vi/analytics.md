@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-07-08
-updatedAt: 2026-07-08
+updatedAt: 2026-08-22
 title: Intlayer Analytics | Theo dõi hiển thị nội dung và chạy thử nghiệm A/B
 description: Khám phá cách @intlayer/analytics theo dõi lượt xem trang/ngôn ngữ và lượt hiển thị nội dung, cũng như cách sử dụng nó để chạy thử nghiệm A/B trên nội dung Intlayer của bạn.
 keywords:
@@ -18,6 +18,9 @@ slugs:
   - concept
   - analytics
 history:
+  - version: 9.3.3
+    date: 2026-08-22
+    changes: "Bật phân tích theo mặc định khi `@intlayer/analytics` được cài đặt"
   - version: 9.0.0
     date: 2026-07-08
     changes: "Init doc — gói @intlayer/analytics, theo dõi ở cấp độ provider/node, thử nghiệm A/B, dashboard"
@@ -57,7 +60,7 @@ Intlayer đã cho phép bạn khai báo [Biến thể (Variants)](https://github
 
 ## Cài đặt
 
-`@intlayer/analytics` là một dependency **ngang hàng (peer), tùy chọn** — không bao giờ được tự động cài đặt bởi một gói framework. Hãy thêm nó cùng với `intlayer`:
+`@intlayer/analytics` là **phụ thuộc tùy chọn** của mọi gói framework (`react-intlayer`, `next-intlayer`, `vue-intlayer`, …), nên hầu hết dự án đã có sẵn. Hãy cài đặt tường minh nếu thiết lập của bạn bỏ qua các phụ thuộc tùy chọn (`npm install --no-optional`, …):
 
 ```bash packageManager="npm"
 npm install @intlayer/analytics
@@ -75,11 +78,11 @@ pnpm add @intlayer/analytics
 bun add @intlayer/analytics
 ```
 
-Nếu bạn không cài đặt nó, mọi điểm tích hợp (integration point) sẽ được coi là một hành động trống (no-op) — xem phần [Không tốn phí khi không được cài đặt](#khong-ton-phi-khi-khong-duoc-cai-dat) bên dưới.
+Chỉ cần cài gói là đủ để bật phân tích: `analytics.enabled` mặc định là `true`, và `@intlayer/config` sẽ chuyển thành `false` bất cứ khi nào không tìm thấy gói trong dự án của bạn. Nếu bạn không cài đặt nó, mọi điểm tích hợp (integration point) sẽ được coi là một hành động trống (no-op) — xem phần [Không tốn phí khi không được cài đặt](#khong-ton-phi-khi-khong-duoc-cai-dat) bên dưới.
 
 ## Cấu hình
 
-Analytics **sử dụng lại khối cấu hình `editor` hiện có** — không có schema cấu hình `analytics` riêng biệt để điền vào:
+Phân tích không cần cấu hình để bắt đầu: nó **được bật theo mặc định** và **tái sử dụng khối cấu hình `editor` sẵn có** cho endpoint và khóa dự án.
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import type { IntlayerConfig } from "intlayer";
@@ -99,6 +102,26 @@ export default config;
 - `editor.clientId` — khóa dự án công khai được gắn vào mọi sự kiện được thu nhận. Nó cũng đóng vai trò là **công tắc bật (enable switch)**: analytics hoàn toàn bị vô hiệu hóa (và được loại bỏ bằng tree-shaking, xem bên dưới) cho đến khi `clientId` được định cấu hình.
 
 Nếu bạn tự lưu trữ (self-host) Intlayer, analytics sẽ tự động trỏ đến phiên bản của riêng bạn vì nó dùng chung `editor.backendURL`.
+
+### Cách tắt (opt-out)
+
+Khối `analytics` tùy chọn cho phép tinh chỉnh — hoặc tắt hẳn — việc thu thập:
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import type { IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  analytics: {
+    enabled: false, // Mặc định: true — loại toàn bộ tích hợp khỏi gói ứng dụng
+    flushInterval: 20_000, // Số mili giây giữa hai lần gửi theo lô
+    sampleRate: 1, // Tỷ lệ phiên được ghi lại, từ 0 (không) đến 1 (tất cả)
+  },
+};
+
+export default config;
+```
+
+Gỡ cài đặt `@intlayer/analytics` có tác dụng tương tự `enabled: false`. Xem [tài liệu tham chiếu cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md) để biết danh sách đầy đủ các trường.
 
 ## Hỗ trợ Framework
 
@@ -177,7 +200,7 @@ const variant = client?.getVariant("homepage-hero", [
 `@intlayer/analytics` tuân theo chính xác cùng một mô hình tùy chọn-dependency như `@intlayer/editor`:
 
 - mọi điểm tích hợp đều tải gói này thông qua việc sử dụng **dynamic `import()` được bao bọc trong khối `try/catch`** — một ứng dụng không bao giờ cài đặt `@intlayer/analytics` sẽ không bao giờ bị tăng kích thước bundle hoặc chi phí thời gian chạy, và không bao giờ thấy lỗi;
-- một biến môi trường ở thời điểm biên dịch (`INTLAYER_ANALYTICS_ENABLED`), được đặt tự động thành `'false'` bởi `@intlayer/config` bất cứ khi nào `editor.clientId` không được định cấu hình, cho phép các bundler có thể **loại bỏ mã thừa (dead-code-eliminate)** toàn bộ tích hợp này;
+- một biến môi trường tại thời điểm biên dịch (`INTLAYER_ANALYTICS_ENABLED`), được `@intlayer/config` tự động đặt thành `'false'` khi gói chưa được cài đặt, `analytics.enabled` là `false`, hoặc `editor.clientId` chưa được cấu hình, cho phép các bundler **loại bỏ toàn bộ tích hợp dưới dạng mã chết (dead-code-eliminate)**;
 - analytics bị vô hiệu hóa bên trong iframe xem trước của trình chỉnh sửa / CMS Intlayer, do đó các phiên của trình chỉnh sửa không bao giờ được tính là lưu lượng truy cập thực.
 
 ## Dashboard: Trang Analytics

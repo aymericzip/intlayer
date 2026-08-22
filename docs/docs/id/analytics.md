@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-07-08
-updatedAt: 2026-07-08
+updatedAt: 2026-08-22
 title: Intlayer Analytics | Lacak paparan konten dan jalankan pengujian A/B (A/B testing)
 description: Temukan bagaimana @intlayer/analytics melacak tampilan halaman/lokal dan paparan konten, dan bagaimana menggunakannya untuk menjalankan pengujian A/B (A/B testing) pada konten Intlayer Anda.
 keywords:
@@ -18,6 +18,9 @@ slugs:
   - concept
   - analytics
 history:
+  - version: 9.3.3
+    date: 2026-08-22
+    changes: "Mengaktifkan analitik secara default saat `@intlayer/analytics` terpasang"
   - version: 9.0.0
     date: 2026-07-08
     changes: "Init doc — paket @intlayer/analytics, pelacakan tingkat provider/node, pengujian A/B, dasbor"
@@ -57,7 +60,7 @@ Intlayer telah memungkinkan Anda mendeklarasikan [Varian (Variants)](https://git
 
 ## Instalasi (Installation)
 
-`@intlayer/analytics` adalah kebergantungan (dependency) yang bersifat **sepadan (peer), opsional** — dan paket framework mana pun tidak akan secara otomatis memasangnya. Anda perlu menambahkannya bersama dengan `intlayer`:
+`@intlayer/analytics` adalah **dependensi opsional** dari setiap paket framework (`react-intlayer`, `next-intlayer`, `vue-intlayer`, …), sehingga sebagian besar proyek sudah memilikinya. Pasang secara eksplisit jika setup Anda melewati dependensi opsional (`npm install --no-optional`, …):
 
 ```bash packageManager="npm"
 npm install @intlayer/analytics
@@ -75,11 +78,11 @@ pnpm add @intlayer/analytics
 bun add @intlayer/analytics
 ```
 
-Bila Anda memutuskan untuk tak memasangnya, maka titik temu / integrasi (integration point) ini diselesaikan menjadi hal yang tidak beroperasi atau no-op — silakan periksa rincian dari [Tidak ada biaya apa pun ketika tidak dipasang (Zero-cost ketika tidak dipasang)](#nol-biaya-saat-tidak-diinstal) pada poin selanjutnya di bawah.
+Memasang paketnya sudah cukup untuk menyalakan analitik: `analytics.enabled` bernilai `true` secara default, dan `@intlayer/config` mengubahnya menjadi `false` setiap kali paket tidak ditemukan di proyek Anda. Bila Anda memutuskan untuk tak memasangnya, maka titik temu / integrasi (integration point) ini diselesaikan menjadi hal yang tidak beroperasi atau no-op — silakan periksa rincian dari [Tidak ada biaya apa pun ketika tidak dipasang (Zero-cost ketika tidak dipasang)](#nol-biaya-saat-tidak-diinstal) pada poin selanjutnya di bawah.
 
 ## Konfigurasi (Configuration)
 
-Analytics **menggunakan ulang rancangan pengaturan / blok konfigurasi `editor` yang sudah ada** — jadi tak ada rincian pengaturan maupun bentuk bagan tersendiri (analytics config schema) untuk diisikan:
+Analitik tidak memerlukan konfigurasi untuk memulai: fitur ini **aktif secara default** dan **menggunakan kembali blok konfigurasi `editor` yang sudah ada** untuk endpoint dan kunci proyeknya.
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import type { IntlayerConfig } from "intlayer";
@@ -99,6 +102,26 @@ export default config;
 - `editor.clientId` — merujuk terhadap pengunci (key) bagi proyek publik agar dipertautkan / diatribusikan ke beragam input data. Tak hanya itu fungsinya turut bertindak layaknya **pemicu aktivasi (enable switch)**: analitik sepenuhnya dibuat pada tingkatan non-aktif (dan dalam kondisi ter-tree-shaken, perhatikan penjabarannya di bawah) sampai kemudian di saat fungsi `clientId` ini ditata & dikonfigurasikan.
 
 Dalam situasi ketika melakukan hosting (self-host) mandiri akan halnya fungsi Intlayer ini, analitik bakal terpusat tanpa penyesuaian baru (otomatis) terhadap instalasi server Anda disebabkan rujukan pengaturannya adalah identik terhadap rujukan `editor.backendURL`.
+
+### Menonaktifkan (opt-out)
+
+Blok `analytics` opsional menyetel — atau mematikan — pengumpulan data:
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import type { IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  analytics: {
+    enabled: false, // Default: true — mengeluarkan seluruh integrasi dari bundel
+    flushInterval: 20_000, // Milidetik antara dua pengiriman batch
+    sampleRate: 1, // Fraksi sesi yang direkam, dari 0 (tidak ada) hingga 1 (semua)
+  },
+};
+
+export default config;
+```
+
+Menghapus `@intlayer/analytics` memberi efek yang sama dengan `enabled: false`. Lihat [referensi konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md) untuk daftar bidang lengkapnya.
 
 ## Dukungan Framework (Framework support)
 
@@ -177,7 +200,7 @@ const variant = client?.getVariant("homepage-hero", [
 Fungsi di belakang layer yang senantiasa berlaku dalam hal-ihwal perincian `@intlayer/analytics` sepenuhnya taat terhadap acuan yang lazim dipakai, tak-ubahnya seperti keberadaan pakem atau patokan yang biasa mendasari / membidani / menyelimuti referensi kebergantungan situasional (optional-dependency pattern) dalam serangkaian fungsi dari ranah operasional `@intlayer/editor`:
 
 - di setiap rupa kemunculan pada fase / titik pertautan (integration point) sistem senantiasa mendatangkan wujud dari kumpulan rujukan kodingnya dalam model penanganan kesalahan yaitu mendayagunakan blok rujukan di kerangka kodingan bersandikan **`try/catch` pada rangkaian perincian pemanggil model pemanggil dari fungsi / pola struktur pemrograman pemanggil dinamis `import()` (dynamic `import()`)** — Hal itu mengasumsikan bila ternyata sewaktu sistem di mana di satu aplikasi tak-menyematkan proses pasang modul / instal koding pendukung untuk instrumen ini (di kasus penggunaan rujukan spesifik bagi instalasi alat pelacak seperti instalasi di `@intlayer/analytics`) — itu sama sekali tak akan mengurangi sedikit pun ruang ketersediaan sistem penyedia data atau server karena sistem mengasumsikan penggunanya memang memandang sebelah mata perihal tersebut (yakni tak pernah merilis wujud dukungan alat operasional penganalisa data rujukan aplikasi untuk ukuran besar/bundel pada penyediaan / runtime di sisi sistem dan tidak perlu melihat kegagalan proses).
-- di kala perincian ini sedang berjalan pada fase proses sistem mempabrikasinya menjadi bagian tak-terpisahkan maka hal ini dapat difungsikan pada pengaturan (`INTLAYER_ANALYTICS_ENABLED`) rujukan lingkungan pemrograman bawaan / baku dari waktu-kompilasi.
+- variabel lingkungan saat kompilasi (`INTLAYER_ANALYTICS_ENABLED`), yang otomatis diatur ke `'false'` oleh `@intlayer/config` setiap kali paket tidak terpasang, `analytics.enabled` bernilai `false`, atau `editor.clientId` tidak dikonfigurasi, memungkinkan bundler **menghilangkan seluruh integrasi sebagai kode mati (dead-code-eliminate)**;
   Bentuk pengeset-an rupa-rupa di waktu-awal oleh koding pengatur yakni alat di lingkungan rancangan pemograman (`@intlayer/config`) menyelaraskannya seraya otomatis dikukuhkan kepada bentuk referensi bertuliskankan status `'false'` dan rujukan pengunci dari sisi / sisi koding pendefinisi tak ditemukan keberadaannya dari sisi koding acuan konfigurasi (`editor.clientId`). Proses berkesinambungan menyingkirkan elemen mati demi mencegah rupa serpihan sampah ini disebut sebagai — fitur pembuangan dari elemen kode mubazir (atau perlakuan ini dikenal di dunia sistem sebagai pemicu dalam fungsi acuan yang disebut hal **dead-code-eliminate**).
 
 ## Dasbor (Dashboard): Halaman Analitik

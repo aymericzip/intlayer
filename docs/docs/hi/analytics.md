@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-07-08
-updatedAt: 2026-07-08
+updatedAt: 2026-08-22
 title: Intlayer Analytics | सामग्री के प्रदर्शन को ट्रैक करें और A/B परीक्षण चलाएं
 description: जानें कि @intlayer/analytics कैसे पेज/लोकेल व्यू और सामग्री के प्रदर्शन को ट्रैक करता है, और अपने Intlayer सामग्री पर A/B परीक्षण चलाने के लिए इसका उपयोग कैसे करें।
 keywords:
@@ -18,6 +18,9 @@ slugs:
   - concept
   - analytics
 history:
+  - version: 9.3.3
+    date: 2026-08-22
+    changes: "`@intlayer/analytics` इंस्टॉल होने पर एनालिटिक्स डिफ़ॉल्ट रूप से सक्षम किया गया"
   - version: 9.0.0
     date: 2026-07-08
     changes: "Init doc — @intlayer/analytics पैकेज, प्रोवाइडर/नोड-लेवल ट्रैकिंग, A/B परीक्षण, डैशबोर्ड"
@@ -57,7 +60,7 @@ Intlayer आपको पहले से ही सामग्री [वे�
 
 ## इंस्टालेशन (Installation)
 
-`@intlayer/analytics` एक **पीयर (peer), वैकल्पिक** निर्भरता है — यह कभी भी फ्रेमवर्क पैकेज द्वारा स्वचालित रूप से स्थापित नहीं होता है। इसे `intlayer` के साथ जोड़ें:
+`@intlayer/analytics` हर फ्रेमवर्क पैकेज (`react-intlayer`, `next-intlayer`, `vue-intlayer`, …) की एक **वैकल्पिक निर्भरता (optional dependency)** है, इसलिए अधिकांश प्रोजेक्ट्स में यह पहले से मौजूद होती है। यदि आपका सेटअप वैकल्पिक निर्भरताओं को छोड़ देता है (`npm install --no-optional`, …), तो इसे स्पष्ट रूप से इंस्टॉल करें:
 
 ```bash packageManager="npm"
 npm install @intlayer/analytics
@@ -75,11 +78,11 @@ pnpm add @intlayer/analytics
 bun add @intlayer/analytics
 ```
 
-यदि आप इसे स्थापित नहीं करते हैं, तो प्रत्येक एकीकरण बिंदु (integration point) एक नो-ऑप (no-op) के रूप में हल हो जाता है — नीचे [स्थापित न होने पर शून्य लागत](#स्थापित-न-होने-पर-शून्य-लागत) देखें।
+एनालिटिक्स चालू करने के लिए पैकेज इंस्टॉल करना ही पर्याप्त है: `analytics.enabled` का डिफ़ॉल्ट `true` है, और जब पैकेज आपके प्रोजेक्ट में नहीं मिलता तो `@intlayer/config` इसे `false` कर देता है। यदि आप इसे स्थापित नहीं करते हैं, तो प्रत्येक एकीकरण बिंदु (integration point) एक नो-ऑप (no-op) के रूप में हल हो जाता है — नीचे [स्थापित न होने पर शून्य लागत](#स्थापित-न-होने-पर-शून्य-लागत) देखें।
 
 ## कॉन्फ़िगरेशन (Configuration)
 
-एनालिटिक्स **मौजूदा `editor` कॉन्फ़िगरेशन ब्लॉक का पुन: उपयोग करता है** — भरने के लिए कोई अलग `analytics` कॉन्फ़िगरेशन स्कीमा नहीं है:
+शुरू करने के लिए एनालिटिक्स को किसी कॉन्फ़िगरेशन की आवश्यकता नहीं है: यह **डिफ़ॉल्ट रूप से सक्षम** है और अपने एंडपॉइंट तथा प्रोजेक्ट कुंजी के लिए **मौजूदा `editor` कॉन्फ़िगरेशन ब्लॉक का ही पुनः उपयोग करता है**।
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import type { IntlayerConfig } from "intlayer";
@@ -99,6 +102,26 @@ export default config;
 - `editor.clientId` — प्रत्येक अंतर्ग्रहण घटना के लिए जिम्मेदार सार्वजनिक प्रोजेक्ट कुंजी। यह **सक्षम स्विच (enable switch)** के रूप में भी कार्य करता है: जब तक `clientId` कॉन्फ़िगर नहीं किया जाता है, तब तक एनालिटिक्स पूरी तरह से अक्षम (और ट्री-शेक (tree-shaken), नीचे देखें) रहता है।
 
 यदि आप Intlayer को सेल्फ-होस्ट करते हैं, तो एनालिटिक्स स्वचालित रूप से आपके स्वयं के इंस्टेंस को इंगित करता है क्योंकि यह `editor.backendURL` साझा करता है।
+
+### ऑप्ट-आउट कैसे करें
+
+वैकल्पिक `analytics` ब्लॉक संग्रहण को समायोजित करता है — या बंद कर देता है:
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import type { IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  analytics: {
+    enabled: false, // डिफ़ॉल्ट: true — संपूर्ण इंटीग्रेशन को बंडल से बाहर कर देता है
+    flushInterval: 20_000, // दो बैच फ़्लश के बीच मिलीसेकंड
+    sampleRate: 1, // रिकॉर्ड की जाने वाली सत्रों का अंश, 0 (कोई नहीं) से 1 (सभी) तक
+  },
+};
+
+export default config;
+```
+
+`@intlayer/analytics` को अनइंस्टॉल करने का प्रभाव `enabled: false` के समान ही है। पूरी फ़ील्ड सूची के लिए [कॉन्फ़िगरेशन संदर्भ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md) देखें।
 
 ## फ्रेमवर्क सपोर्ट (Framework support)
 
@@ -177,7 +200,7 @@ const variant = client?.getVariant("homepage-hero", [
 `@intlayer/analytics` पूरी तरह से उसी वैकल्पिक-निर्भरता पैटर्न का पालन करता है जैसा कि `@intlayer/editor`:
 
 - प्रत्येक एकीकरण बिंदु पैकेज को **`try/catch` में लिपटे गतिशील (dynamic) `import()`** के माध्यम से लोड करता है — एक ऐप जो कभी भी `@intlayer/analytics` स्थापित नहीं करता है वह बंडल-आकार या रनटाइम लागत का भुगतान नहीं करता है, और कभी कोई त्रुटि नहीं देखता है;
-- एक संकलन-समय (compile-time) पर्यावरण चर (`INTLAYER_ANALYTICS_ENABLED`), जिसे `@intlayer/config` द्वारा स्वचालित रूप से `'false'` पर सेट किया जाता है जब `editor.clientId` कॉन्फ़िगर नहीं किया जाता है, जिससे बंडलर्स पूरे एकीकरण को **मृत-कोड-समाप्त (dead-code-eliminate)** कर सकते हैं;
+- एक कंपाइल-टाइम एनवायरनमेंट वेरिएबल (`INTLAYER_ANALYTICS_ENABLED`), जिसे `@intlayer/config` तब स्वतः `'false'` कर देता है जब पैकेज इंस्टॉल न हो, `analytics.enabled` `false` हो, या `editor.clientId` कॉन्फ़िगर न हो — जिससे बंडलर संपूर्ण इंटीग्रेशन को **डेड कोड के रूप में हटा (dead-code-eliminate)** सकते हैं;
 - एनालिटिक्स Intlayer संपादक/CMS पूर्वावलोकन (preview) iframe के अंदर अक्षम है, इसलिए संपादक सत्रों को कभी भी वास्तविक ट्रैफ़िक के रूप में नहीं गिना जाता है।
 
 ## डैशबोर्ड: एनालिटिक्स पृष्ठ (Dashboard: Analytics page)

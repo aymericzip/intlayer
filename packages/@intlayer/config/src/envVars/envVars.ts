@@ -164,10 +164,11 @@ export const getConfigEnvVars = (
     envVars[wrapKey('INTLAYER_EDITOR_ENABLED')] = wrapValue('false');
   }
 
-  // Analytics is strictly opt-in (`analytics.enabled === true`) and requires a
-  // project key (`editor.clientId`) for attribution. Otherwise, disable it so
-  // bundlers dead-code-eliminate the whole `@intlayer/analytics` integration
-  // (providers + node plugins).
+  // Analytics is opt-out: `analytics.enabled` defaults to `true` and is
+  // resolved to `false` when the optional `@intlayer/analytics` package is not
+  // installed. It also requires a project key (`editor.clientId`) for
+  // attribution. Otherwise, disable it so bundlers dead-code-eliminate the
+  // whole `@intlayer/analytics` integration (providers + node plugins).
   if (analytics?.enabled !== true || !editor?.clientId) {
     envVars[wrapKey('INTLAYER_ANALYTICS_ENABLED')] = wrapValue('false');
   }

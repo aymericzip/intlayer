@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-08-06
+updatedAt: 2026-08-22
 title: Konfiguration (Configuration)
 description: Erfahren Sie, wie Sie Intlayer für Ihre Anwendung konfigurieren. Verstehen Sie die verschiedenen Einstellungen und Optionen, um Intlayer an Ihre Bedürfnisse anzupassen.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 9.3.3
+    date: 2026-08-22
+    changes: "Analytics standardmäßig aktivieren, sobald `@intlayer/analytics` installiert ist"
   - version: 9.1.3
     date: 2026-08-06
     changes: "`routing.enableProxy` dreistufig machen: nicht gesetzt (auto), `true`, `false`"
@@ -380,8 +383,8 @@ const config: IntlayerConfig = {
   analytics: {
     /**
      * Ob die Analytics-Erfassung aktiviert ist (Seitenaufrufe, Content-Expositionen, A/B-Ereignisse).
-     * Erfordert, dass `editor.clientId` für die Zuordnung gesetzt ist.
-     * Standard: false
+     * Erfordert, dass `@intlayer/analytics` installiert und `editor.clientId` für die Zuordnung gesetzt ist.
+     * Standard: true
      */
     enabled: true,
 
@@ -741,13 +744,13 @@ Definiert Einstellungen für den integrierten Editor, einschließlich Server-Por
 
 Definiert Einstellungen für Intlayer Analytics: die Erfassung, welche Inhalte Nutzern tatsächlich angezeigt werden (Seitenaufrufe, Content-Expositionen), und die Unterstützung von A/B-Tests für Inhalte.
 
-Analytics ist streng Opt-in: Es wird nichts erfasst, es sei denn, `analytics.enabled` ist explizit auf `true` gesetzt **und** ein Projektschlüssel (`editor.clientId`) ist für die Zuordnung konfiguriert. Wenn deaktiviert (Standard), wird die gesamte Analytics-Integration aus Ihrem Anwendungs-Bundle per Dead-Code-Elimination entfernt.
+Analytics ist Opt-out: Es ist standardmäßig aktiviert und beginnt zu erfassen, sobald das Paket `@intlayer/analytics` installiert **und** ein Projektschlüssel (`editor.clientId`) für die Zuordnung konfiguriert ist. Setzen Sie `analytics.enabled` auf `false` — oder installieren Sie das Paket nicht — und die gesamte Analytics-Integration wird aus Ihrem Anwendungs-Bundle per Dead-Code-Elimination entfernt.
 
-| Feld            | Beschreibung                                                                             | Typ       | Standard | Beispiel | Hinweis                                                                                                                                            |
-| --------------- | ---------------------------------------------------------------------------------------- | --------- | -------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `enabled`       | Aktiviert die Analytics-Erfassung (Seitenaufrufe, Content-Expositionen, A/B-Ereignisse). | `boolean` | `false`  | `true`   | Erfordert, dass `editor.clientId` für die Zuordnung gesetzt ist; andernfalls bleibt Analytics deaktiviert, selbst wenn `enabled` auf `true` steht. |
-| `flushInterval` | Millisekunden zwischen automatischen gebündelten Übertragungen an das Backend.           | `number`  | `20000`  | `10000`  |                                                                                                                                                    |
-| `sampleRate`    | Anteil der zu erfassenden Sitzungen, von `0` (keine) bis `1` (alle).                     | `number`  | `1`      | `0.5`    | Das Sampling ist pro Sitzung deterministisch, sodass eine erfasste Sitzung alle ihre Ereignisse meldet (keine unvollständigen Funnels).            |
+| Feld            | Beschreibung                                                                             | Typ       | Standard | Beispiel | Hinweis                                                                                                                                                                                  |
+| --------------- | ---------------------------------------------------------------------------------------- | --------- | -------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `enabled`       | Aktiviert die Analytics-Erfassung (Seitenaufrufe, Content-Expositionen, A/B-Ereignisse). | `boolean` | `true`   | `false`  | Erfordert, dass `@intlayer/analytics` installiert und `editor.clientId` für die Zuordnung gesetzt ist; andernfalls bleibt Analytics deaktiviert, selbst wenn `enabled` auf `true` steht. |
+| `flushInterval` | Millisekunden zwischen automatischen gebündelten Übertragungen an das Backend.           | `number`  | `20000`  | `10000`  |                                                                                                                                                                                          |
+| `sampleRate`    | Anteil der zu erfassenden Sitzungen, von `0` (keine) bis `1` (alle).                     | `number`  | `1`      | `0.5`    | Das Sampling ist pro Sitzung deterministisch, sodass eine erfasste Sitzung alle ihre Ereignisse meldet (keine unvollständigen Funnels).                                                  |
 
 ---
 

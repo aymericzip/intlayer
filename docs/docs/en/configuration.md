@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-08-06
+updatedAt: 2026-08-22
 title: Configuration
 description: Learn how to configure Intlayer for your application. Understand the various settings and options available to customize Intlayer to your needs.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 9.3.3
+    date: 2026-08-22
+    changes: "Enable analytics by default — active as soon as `@intlayer/analytics` is installed"
   - version: 9.1.3
     date: 2026-08-06
     changes: "Make `routing.enableProxy` tri-state: unset (auto), `true`, `false`"
@@ -383,8 +386,8 @@ const config: IntlayerConfig = {
   analytics: {
     /**
      * Whether analytics collection is enabled (page views, content exposures, A/B events).
-     * Requires `editor.clientId` to be set for attribution.
-     * Default: false
+     * Requires `@intlayer/analytics` to be installed, and `editor.clientId` to be set for attribution.
+     * Default: true
      */
     enabled: true,
 
@@ -743,13 +746,13 @@ Defines settings related to the integrated editor, including server port and act
 
 Defines settings related to Intlayer analytics: collecting which content is actually shown to users (page views, content exposures) and powering content A/B testing.
 
-Analytics is strictly opt-in: nothing is collected unless `analytics.enabled` is explicitly set to `true` **and** a project key (`editor.clientId`) is configured for attribution. When disabled (the default), the whole analytics integration is dead-code-eliminated from your application bundle.
+Analytics is opt-out: it is enabled by default, and starts collecting as soon as the [`@intlayer/analytics`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/analytics.md) package is installed **and** a project key (`editor.clientId`) is configured for attribution. Set `analytics.enabled` to `false` — or leave the package uninstalled — and the whole analytics integration is dead-code-eliminated from your application bundle.
 
-| Field           | Description                                                               | Type      | Default | Example | Note                                                                                                                  |
-| --------------- | ------------------------------------------------------------------------- | --------- | ------- | ------- | --------------------------------------------------------------------------------------------------------------------- |
-| `enabled`       | Enables analytics collection (page views, content exposures, A/B events). | `boolean` | `false` | `true`  | Requires `editor.clientId` to be set for attribution; otherwise analytics stays disabled even if `enabled` is `true`. |
-| `flushInterval` | Milliseconds between automatic batched flushes to the backend.            | `number`  | `20000` | `10000` |                                                                                                                       |
-| `sampleRate`    | Fraction of sessions to record, from `0` (none) to `1` (all).             | `number`  | `1`     | `0.5`   | Sampling is deterministic per session, so a recorded session reports all of its events (no partial funnels).          |
+| Field           | Description                                                               | Type      | Default | Example | Note                                                                                                                                                            |
+| --------------- | ------------------------------------------------------------------------- | --------- | ------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `enabled`       | Enables analytics collection (page views, content exposures, A/B events). | `boolean` | `true`  | `false` | Requires `@intlayer/analytics` to be installed and `editor.clientId` to be set for attribution; otherwise analytics stays disabled even if `enabled` is `true`. |
+| `flushInterval` | Milliseconds between automatic batched flushes to the backend.            | `number`  | `20000` | `10000` |                                                                                                                                                                 |
+| `sampleRate`    | Fraction of sessions to record, from `0` (none) to `1` (all).             | `number`  | `1`     | `0.5`   | Sampling is deterministic per session, so a recorded session reports all of its events (no partial funnels).                                                    |
 
 ---
 

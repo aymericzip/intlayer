@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-07-08
-updatedAt: 2026-07-08
+updatedAt: 2026-08-22
 title: Intlayer Analytics | İçerik gösterimini izleyin ve A/B testleri çalıştırın
 description: "@intlayer/analytics'in sayfa/yerel ayar görünümlerini ve içerik gösterimini nasıl izlediğini ve Intlayer içeriğiniz üzerinde A/B testleri çalıştırmak için onu nasıl kullanacağınızı keşfedin."
 keywords:
@@ -18,6 +18,9 @@ slugs:
   - concept
   - analytics
 history:
+  - version: 9.3.3
+    date: 2026-08-22
+    changes: "`@intlayer/analytics` kuruluyken analitiği varsayılan olarak etkinleştir"
   - version: 9.0.0
     date: 2026-07-08
     changes: "Init doc — @intlayer/analytics paketi, provider/node düzeyinde izleme, A/B testi, gösterge paneli"
@@ -57,7 +60,7 @@ Intlayer zaten içerik [Varyantları (Variants)](https://github.com/aymericzip/i
 
 ## Kurulum
 
-`@intlayer/analytics` **eş düzey, isteğe bağlı (peer, optional)** bir bağımlılıktır — bir çerçeve (framework) paketi tarafından asla otomatik olarak kurulmaz. `intlayer`'ın yanına ekleyin:
+`@intlayer/analytics`, her framework paketinin (`react-intlayer`, `next-intlayer`, `vue-intlayer`, …) **isteğe bağlı bağımlılığıdır**; bu nedenle çoğu projede zaten bulunur. Kurulumunuz isteğe bağlı bağımlılıkları atlıyorsa (`npm install --no-optional`, …) paketi açıkça kurun:
 
 ```bash packageManager="npm"
 npm install @intlayer/analytics
@@ -75,11 +78,11 @@ pnpm add @intlayer/analytics
 bun add @intlayer/analytics
 ```
 
-Kurmazsanız, her entegrasyon noktası etkisiz bir işlem (no-op) olarak çözülür — aşağıdaki [Kurulmadığında sıfır maliyet](#kurulmadiginda-sifir-maliyet) bölümüne bakın.
+Analitiği açmak için paketi kurmanız yeterlidir: `analytics.enabled` varsayılan olarak `true`'dur ve paket projenizde bulunamadığında `@intlayer/config` bunu `false` olarak çözümler. Kurmazsanız, her entegrasyon noktası etkisiz bir işlem (no-op) olarak çözülür — aşağıdaki [Kurulmadığında sıfır maliyet](#kurulmadiginda-sifir-maliyet) bölümüne bakın.
 
 ## Yapılandırma
 
-Analytics, **mevcut `editor` yapılandırma bloğunu yeniden kullanır** — doldurulacak ayrı bir `analytics` yapılandırma şeması yoktur:
+Analitiğin başlaması için yapılandırma gerekmez: **varsayılan olarak etkindir** ve uç nokta ile proje anahtarı için **mevcut `editor` yapılandırma bloğunu yeniden kullanır**.
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import type { IntlayerConfig } from "intlayer";
@@ -99,6 +102,26 @@ export default config;
 - `editor.clientId` — yutulan her olaya atfedilen genel proje anahtarı. Aynı zamanda bir **etkinleştirme anahtarı (enable switch)** işlevi görür: `clientId` yapılandırılana kadar analizler tamamen devre dışı bırakılır (ve ölü kod olarak atılır (tree-shaken), aşağıya bakın).
 
 Intlayer'ı kendi başınıza barındırıyorsanız (self-host), analiz otomatik olarak `editor.backendURL`'yi paylaştığı için kendi örneğinize (instance) işaret eder.
+
+### Devre dışı bırakma
+
+İsteğe bağlı `analytics` bloğu veri toplamayı ayarlar — ya da tamamen kapatır:
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import type { IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  analytics: {
+    enabled: false, // Varsayılan: true — tüm entegrasyonu paketin dışında bırakır
+    flushInterval: 20_000, // İki toplu gönderim arasındaki milisaniye
+    sampleRate: 1, // Kaydedilecek oturum oranı, 0 (hiçbiri) ile 1 (tümü) arasında
+  },
+};
+
+export default config;
+```
+
+`@intlayer/analytics` paketini kaldırmak `enabled: false` ile aynı etkiye sahiptir. Alanların tam listesi için [yapılandırma referansına](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) bakın.
 
 ## Çerçeve (Framework) Desteği
 
@@ -177,7 +200,7 @@ const variant = client?.getVariant("homepage-hero", [
 `@intlayer/analytics`, `@intlayer/editor` ile tamamen aynı isteğe bağlı bağımlılık desenini izler:
 
 - Her entegrasyon noktası, paketi **`try/catch` içine sarılmış dinamik bir `import()`** aracılığıyla yükler — `@intlayer/analytics`'i hiç kurmayan bir uygulama hiçbir zaman paket boyutu veya çalışma zamanı (runtime) maliyeti ödemez ve hiçbir zaman bir hata görmez;
-- `editor.clientId` yapılandırılmadığında `@intlayer/config` tarafından otomatik olarak `'false'` olarak ayarlanan derleme zamanı (compile-time) ortam değişkeni (`INTLAYER_ANALYTICS_ENABLED`), paketleyicilerin (bundlers) tüm entegrasyonu **ölü kod olarak elemesini (dead-code-eliminate)** sağlar;
+- derleme zamanı ortam değişkeni (`INTLAYER_ANALYTICS_ENABLED`), paket kurulu değilse, `analytics.enabled` `false` ise ya da `editor.clientId` yapılandırılmamışsa `@intlayer/config` tarafından otomatik olarak `'false'` yapılır ve paketleyicilerin tüm entegrasyonu **ölü kod olarak kaldırmasını (dead-code-eliminate)** sağlar;
 - Analytics, Intlayer düzenleyicisi (editor)/CMS önizleme (preview) iframe'i içinde devre dışı bırakılır, böylece düzenleyici oturumları (editor sessions) hiçbir zaman gerçek trafik olarak sayılmaz.
 
 ## Gösterge Paneli (Dashboard): Analytics sayfası

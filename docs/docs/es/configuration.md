@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-08-06
+updatedAt: 2026-08-22
 title: Configuración (Configuration)
 description: Aprenda a configure Intlayer para su aplicación. Entienda los diversos ajustes y opciones disponibles para personalizar Intlayer según sus necesidades.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 9.3.3
+    date: 2026-08-22
+    changes: "Habilitar las analíticas de forma predeterminada cuando `@intlayer/analytics` está instalado"
   - version: 9.1.3
     date: 2026-08-06
     changes: "Hacer `routing.enableProxy` de tres estados: sin definir (auto), `true`, `false`"
@@ -380,8 +383,8 @@ const config: IntlayerConfig = {
   analytics: {
     /**
      * Si la recopilación de analíticas está habilitada (vistas de página, exposiciones de contenido, eventos A/B).
-     * Requiere que `editor.clientId` esté configurado para la atribución.
-     * Predeterminado: false
+     * Requiere que `@intlayer/analytics` esté instalado y que `editor.clientId` esté configurado para la atribución.
+     * Predeterminado: true
      */
     enabled: true,
 
@@ -742,13 +745,13 @@ Define los ajustes relacionados con el editor integrado, incluido el puerto del 
 
 Define los ajustes relacionados con las analíticas de Intlayer: la recopilación de qué contenido se muestra realmente a los usuarios (vistas de página, exposiciones de contenido) y el soporte de pruebas A/B sobre el contenido.
 
-Las analíticas son estrictamente opcionales (opt-in): no se recopila nada a menos que `analytics.enabled` esté explícitamente establecido en `true` **y** se configure una clave de proyecto (`editor.clientId`) para la atribución. Cuando está deshabilitada (predeterminado), toda la integración de analíticas se elimina del paquete (bundle) de su aplicación (dead-code elimination).
+Las analíticas son de exclusión voluntaria (opt-out): están habilitadas de forma predeterminada y comienzan a recopilar en cuanto el paquete `@intlayer/analytics` está instalado **y** se configura una clave de proyecto (`editor.clientId`) para la atribución. Establezca `analytics.enabled` en `false` —o no instale el paquete— y toda la integración de analíticas se elimina del paquete (bundle) de su aplicación (dead-code elimination).
 
-| Campo           | Descripción                                                                                        | Tipo      | Predeterminado | Ejemplo | Nota                                                                                                                                                       |
-| --------------- | -------------------------------------------------------------------------------------------------- | --------- | -------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `enabled`       | Habilita la recopilación de analíticas (vistas de página, exposiciones de contenido, eventos A/B). | `boolean` | `false`        | `true`  | Requiere que `editor.clientId` esté configurado para la atribución; de lo contrario, las analíticas permanecen deshabilitadas aunque `enabled` sea `true`. |
-| `flushInterval` | Milisegundos entre los envíos por lotes automáticos al backend.                                    | `number`  | `20000`        | `10000` |                                                                                                                                                            |
-| `sampleRate`    | Fracción de sesiones a registrar, de `0` (ninguna) a `1` (todas).                                  | `number`  | `1`            | `0.5`   | El muestreo es determinista por sesión, por lo que una sesión registrada reporta todos sus eventos (sin embudos parciales).                                |
+| Campo           | Descripción                                                                                        | Tipo      | Predeterminado | Ejemplo | Nota                                                                                                                                                                                                  |
+| --------------- | -------------------------------------------------------------------------------------------------- | --------- | -------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `enabled`       | Habilita la recopilación de analíticas (vistas de página, exposiciones de contenido, eventos A/B). | `boolean` | `true`         | `false` | Requiere que `@intlayer/analytics` esté instalado y que `editor.clientId` esté configurado para la atribución; de lo contrario, las analíticas permanecen deshabilitadas aunque `enabled` sea `true`. |
+| `flushInterval` | Milisegundos entre los envíos por lotes automáticos al backend.                                    | `number`  | `20000`        | `10000` |                                                                                                                                                                                                       |
+| `sampleRate`    | Fracción de sesiones a registrar, de `0` (ninguna) a `1` (todas).                                  | `number`  | `1`            | `0.5`   | El muestreo es determinista por sesión, por lo que una sesión registrada reporta todos sus eventos (sin embudos parciales).                                                                           |
 
 ---
 

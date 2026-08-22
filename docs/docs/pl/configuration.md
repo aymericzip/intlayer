@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-08-06
+updatedAt: 2026-08-22
 title: Konfiguracja
 description: Dowiedz się, jak skonfigurować Intlayer dla swojej aplikacji. Zrozum różne ustawienia i opcje dostępne do dostosowania Intlayer do Twoich potrzeb.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 9.3.3
+    date: 2026-08-22
+    changes: "Domyślne włączenie analityki, gdy zainstalowano `@intlayer/analytics`"
   - version: 9.1.3
     date: 2026-08-06
     changes: "Uczynienie `routing.enableProxy` trójstanowym: nieustawione (auto), `true`, `false`"
@@ -380,8 +383,8 @@ const config: IntlayerConfig = {
   analytics: {
     /**
      * Czy zbieranie danych analitycznych jest włączone (odsłony strony, ekspozycje treści, zdarzenia A/B).
-     * Wymaga ustawienia `editor.clientId` na potrzeby atrybucji.
-     * Domyślnie: false
+     * Wymaga zainstalowanego pakietu `@intlayer/analytics` oraz ustawienia `editor.clientId` na potrzeby atrybucji.
+     * Domyślnie: true
      */
     enabled: true,
 
@@ -738,13 +741,13 @@ Definiuje ustawienia edytora wizualnego, w tym port serwera i status aktywacji.
 
 Definiuje ustawienia związane z analityką Intlayer: zbieranie informacji o tym, jakie treści są faktycznie wyświetlane użytkownikom (odsłony strony, ekspozycje treści) oraz obsługę testów A/B treści.
 
-Analityka jest ściśle opt-in: nic nie jest zbierane, dopóki `analytics.enabled` nie zostanie jawnie ustawione na `true` **i** nie skonfigurowano klucza projektu (`editor.clientId`) na potrzeby atrybucji. Gdy jest wyłączona (domyślnie), cała integracja analityczna jest usuwana z pakietu aplikacji (dead-code elimination).
+Analityka działa na zasadzie opt-out: jest włączona domyślnie i zaczyna zbierać dane, gdy tylko pakiet `@intlayer/analytics` jest zainstalowany **i** skonfigurowano klucz projektu (`editor.clientId`) na potrzeby atrybucji. Ustaw `analytics.enabled` na `false` — albo nie instaluj pakietu — a cała integracja analityczna zostanie usunięta z pakietu aplikacji (dead-code elimination).
 
-| Pole            | Opis                                                                                      | Typ       | Domyślnie | Przykład | Uwaga                                                                                                                                             |
-| --------------- | ----------------------------------------------------------------------------------------- | --------- | --------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `enabled`       | Włącza zbieranie danych analitycznych (odsłony strony, ekspozycje treści, zdarzenia A/B). | `boolean` | `false`   | `true`   | Wymaga ustawienia `editor.clientId` na potrzeby atrybucji; w przeciwnym razie analityka pozostaje wyłączona, nawet jeśli `enabled` wynosi `true`. |
-| `flushInterval` | Milisekundy między automatycznymi zbiorczymi wysyłkami do backendu.                       | `number`  | `20000`   | `10000`  |                                                                                                                                                   |
-| `sampleRate`    | Ułamek sesji do rejestrowania, od `0` (brak) do `1` (wszystkie).                          | `number`  | `1`       | `0.5`    | Próbkowanie jest deterministyczne dla sesji, więc zarejestrowana sesja raportuje wszystkie swoje zdarzenia (bez częściowych lejków).              |
+| Pole            | Opis                                                                                      | Typ       | Domyślnie | Przykład | Uwaga                                                                                                                                                                                                |
+| --------------- | ----------------------------------------------------------------------------------------- | --------- | --------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `enabled`       | Włącza zbieranie danych analitycznych (odsłony strony, ekspozycje treści, zdarzenia A/B). | `boolean` | `true`    | `false`  | Wymaga zainstalowanego pakietu `@intlayer/analytics` oraz ustawienia `editor.clientId` na potrzeby atrybucji; w przeciwnym razie analityka pozostaje wyłączona, nawet jeśli `enabled` wynosi `true`. |
+| `flushInterval` | Milisekundy między automatycznymi zbiorczymi wysyłkami do backendu.                       | `number`  | `20000`   | `10000`  |                                                                                                                                                                                                      |
+| `sampleRate`    | Ułamek sesji do rejestrowania, od `0` (brak) do `1` (wszystkie).                          | `number`  | `1`       | `0.5`    | Próbkowanie jest deterministyczne dla sesji, więc zarejestrowana sesja raportuje wszystkie swoje zdarzenia (bez częściowych lejków).                                                                 |
 
 ---
 

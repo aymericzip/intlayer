@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-07-08
-updatedAt: 2026-07-08
+updatedAt: 2026-08-22
 title: Intlayer Analytics | تتبع عرض المحتوى وإجراء اختبارات A/B
 description: اكتشف كيف يقوم @intlayer/analytics بتتبع مشاهدات الصفحات/اللغات وعرض المحتوى، وكيفية استخدامه لإجراء اختبارات A/B على محتوى Intlayer الخاص بك.
 keywords:
@@ -18,6 +18,9 @@ slugs:
   - concept
   - analytics
 history:
+  - version: 9.3.3
+    date: 2026-08-22
+    changes: "تفعيل التحليلات افتراضيًا عند تثبيت `@intlayer/analytics`"
   - version: 9.0.0
     date: 2026-07-08
     changes: "Init doc — @intlayer/analytics package, provider/node-level tracking, A/B testing, dashboard"
@@ -57,7 +60,7 @@ author: aymericzip
 
 ## التثبيت
 
-حزمة `@intlayer/analytics` هي **تبعية نظيرة واختيارية (peer, optional)** — لا يتم تثبيتها تلقائيًا أبدًا بواسطة حزم إطارات العمل. أضفها جنبًا إلى جنب مع `intlayer`:
+`@intlayer/analytics` هي **تبعية اختيارية (optional dependency)** لكل حزمة إطار عمل (`react-intlayer`، `next-intlayer`، `vue-intlayer`، …)، لذا فهي موجودة بالفعل في معظم المشاريع. ثبّتها صراحةً إذا كان إعدادك يتخطى التبعيات الاختيارية (`npm install --no-optional`، …):
 
 ```bash packageManager="npm"
 npm install @intlayer/analytics
@@ -75,11 +78,11 @@ pnpm add @intlayer/analytics
 bun add @intlayer/analytics
 ```
 
-إذا لم تقم بتثبيتها، فإن كل نقطة تكامل تتحول إلى عملية لا تفعل شيئًا (no-op) — انظر [تكلفة صفرية عند عدم التثبيت](#تكلفة-صفرية-عند-عدم-التثبيت) أدناه.
+تثبيت الحزمة هو كل ما يلزم لتفعيل التحليلات: قيمة `analytics.enabled` الافتراضية هي `true`، ويحوّلها `@intlayer/config` إلى `false` عندما لا يعثر على الحزمة في مشروعك. إذا لم تقم بتثبيتها، فإن كل نقطة تكامل تتحول إلى عملية لا تفعل شيئًا (no-op) — انظر [تكلفة صفرية عند عدم التثبيت](#تكلفة-صفرية-عند-عدم-التثبيت) أدناه.
 
 ## التكوين (Configuration)
 
-التحليلات **تعيد استخدام كتلة التكوين `editor` الحالية** — لا يوجد مخطط تكوين `analytics` منفصل لملئه:
+لا تحتاج التحليلات إلى أي إعداد للبدء: فهي **مفعّلة افتراضيًا** و**تعيد استخدام كتلة إعدادات `editor` الموجودة** لنقطة الإرسال ومفتاح المشروع.
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import type { IntlayerConfig } from "intlayer";
@@ -99,6 +102,26 @@ export default config;
 - `editor.clientId` — مفتاح المشروع العام المنسوب إلى كل حدث يتم استيعابه. وهو يعمل أيضًا كـ **مفتاح تفعيل**: تظل التحليلات معطلة تمامًا (ومحذوفة كتعليمات برمجية ميتة، انظر أدناه) حتى يتم تكوين `clientId`.
 
 إذا قمت بالاستضافة الذاتية لـ Intlayer (self-host)، فإن التحليلات تشير تلقائيًا إلى النسخة الخاصة بك لأنها تتشارك `editor.backendURL`.
+
+### إلغاء الاشتراك (Opt-out)
+
+تتيح كتلة `analytics` الاختيارية ضبط عملية الجمع — أو إيقافها تمامًا:
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import type { IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  analytics: {
+    enabled: false, // الافتراضي: true — يستبعد التكامل بالكامل من الحزمة
+    flushInterval: 20_000, // المللي ثانية بين عمليتَي إرسال مجمّعتين
+    sampleRate: 1, // نسبة الجلسات المسجَّلة، من 0 (لا شيء) إلى 1 (الكل)
+  },
+};
+
+export default config;
+```
+
+إلغاء تثبيت `@intlayer/analytics` له نفس أثر `enabled: false`. راجع [مرجع الإعدادات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md) للاطلاع على قائمة الحقول الكاملة.
 
 ## دعم إطارات العمل
 
@@ -177,7 +200,7 @@ const variant = client?.getVariant("homepage-hero", [
 تتبع `@intlayer/analytics` نفس نمط التبعية الاختيارية المتبع في `@intlayer/editor`:
 
 - تقوم كل نقطة تكامل بتحميل الحزمة عبر **استيراد ديناميكي `import()` مغلف بـ `try/catch`** — التطبيق الذي لم يقم أبدًا بتثبيت `@intlayer/analytics` لا يدفع أي تكلفة لحجم الحزمة أو وقت التشغيل، ولا يرى خطأ أبدًا؛
-- متغير البيئة في وقت التجميع (`INTLAYER_ANALYTICS_ENABLED`)، والذي يتم تعيينه تلقائيًا إلى `'false'` بواسطة `@intlayer/config` كلما لم يتم تكوين `editor.clientId`، يسمح للمجمعين (bundlers) بـ **إزالة التعليمات البرمجية الميتة (dead-code-eliminate)** للتكامل بأكمله؛
+- متغيّر بيئة يُحدَّد وقت الترجمة (`INTLAYER_ANALYTICS_ENABLED`)، يضبطه `@intlayer/config` تلقائيًا على `'false'` عندما لا تكون الحزمة مثبّتة، أو تكون `analytics.enabled` تساوي `false`، أو لا يكون `editor.clientId` مُعدًّا، ما يسمح للـ bundlers بـ**إزالة التكامل بالكامل كشيفرة ميتة (dead-code-eliminate)**؛
 - يتم تعطيل التحليلات داخل نافذة إطار المعاينة (iframe) الخاصة بمحرر Intlayer / CMS، لذا لا يتم حساب جلسات المحرر كحركة مرور حقيقية أبدًا.
 
 ## لوحة التحكم (Dashboard): صفحة التحليلات

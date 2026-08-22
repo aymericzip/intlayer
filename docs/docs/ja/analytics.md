@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-07-08
-updatedAt: 2026-07-08
+updatedAt: 2026-08-22
 title: Intlayer Analytics | コンテンツ露出の追跡とA/Bテストの実行
 description: "@intlayer/analyticsがページ/ロケールビューとコンテンツ露出をどのように追跡するか、そしてそれを活用してIntlayerコンテンツでA/Bテストを実行する方法について説明します。"
 keywords:
@@ -18,6 +18,9 @@ slugs:
   - concept
   - analytics
 history:
+  - version: 9.3.3
+    date: 2026-08-22
+    changes: "`@intlayer/analytics` がインストールされている場合、アナリティクスをデフォルトで有効化"
   - version: 9.0.0
     date: 2026-07-08
     changes: "Init doc — @intlayer/analytics パッケージ、プロバイダ/ノードレベルのトラッキング、A/Bテスト、ダッシュボード"
@@ -57,7 +60,7 @@ Intlayerでは、すでにコンテンツの[バリアント (Variants)](https:/
 
 ## インストール
 
-`@intlayer/analytics`は**ピア（peer）、オプション**の依存関係です。フレームワークパッケージによって自動的にインストールされることはありません。`intlayer`と一緒に追加してください：
+`@intlayer/analytics` は各フレームワークパッケージ（`react-intlayer`、`next-intlayer`、`vue-intlayer` など）の**オプショナル依存関係**であるため、ほとんどのプロジェクトにはすでに含まれています。オプショナル依存関係をスキップする構成（`npm install --no-optional` など）の場合は、明示的にインストールしてください:
 
 ```bash packageManager="npm"
 npm install @intlayer/analytics
@@ -75,11 +78,11 @@ pnpm add @intlayer/analytics
 bun add @intlayer/analytics
 ```
 
-インストールしない場合、すべての統合ポイントはNo-Op（何もしない処理）として解決されます — 以下の[未インストール時のゼロコスト](#未インストール時のゼロコスト)を参照してください。
+アナリティクスを有効にするにはパッケージをインストールするだけで十分です。`analytics.enabled` のデフォルトは `true` で、パッケージがプロジェクト内に見つからない場合は `@intlayer/config` が `false` に解決します。インストールしない場合、すべての統合ポイントはNo-Op（何もしない処理）として解決されます — 以下の[未インストール時のゼロコスト](#未インストール時のゼロコスト)を参照してください。
 
 ## 設定
 
-Analyticsは**既存の`editor`設定ブロックを再利用**します。入力する個別の`analytics`設定スキーマはありません：
+アナリティクスは設定なしで動作します。**デフォルトで有効**であり、送信先とプロジェクトキーには**既存の `editor` 設定ブロックをそのまま再利用**します。
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import type { IntlayerConfig } from "intlayer";
@@ -99,6 +102,26 @@ export default config;
 - `editor.clientId` — 収集されたすべてのイベントに紐付けられる公開プロジェクトキー。これは**有効化スイッチ**としても機能します：`clientId`が設定されるまで、アナリティクスは完全に無効化されます（後述のようにツリーシェイキングで削除されます）。
 
 Intlayerをセルフホスト（self-host）している場合、`editor.backendURL`を共有しているため、アナリティクスは自動的にご自身のインスタンスを指します。
+
+### オプトアウトする
+
+任意の `analytics` ブロックで収集を調整、または停止できます:
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import type { IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  analytics: {
+    enabled: false, // デフォルト: true — 統合全体をバンドルから除外します
+    flushInterval: 20_000, // 2 回のバッチ送信の間隔（ミリ秒）
+    sampleRate: 1, // 記録するセッションの割合。0（なし）から 1（すべて）
+  },
+};
+
+export default config;
+```
+
+`@intlayer/analytics` をアンインストールすることは `enabled: false` と同じ効果があります。全フィールドの一覧は[設定リファレンス](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)を参照してください。
 
 ## フレームワークのサポート
 
@@ -177,7 +200,7 @@ const variant = client?.getVariant("homepage-hero", [
 `@intlayer/analytics`は、`@intlayer/editor`とまったく同じオプション依存関係パターンに従っています：
 
 - 各統合ポイントは、**`try/catch`でラップされた動的`import()`**を介してパッケージをロードします。`@intlayer/analytics`をインストールしないアプリでは、バンドルサイズやランタイムコストが発生することはなく、エラーが表示されることもありません。
-- コンパイル時の環境変数（`INTLAYER_ANALYTICS_ENABLED`）は、`editor.clientId`が設定されていない場合に`@intlayer/config`によって自動的に`'false'`に設定されます。これにより、バンドラーが統合全体を**デッドコードとして削除（dead-code-eliminate）**できるようになります。
+- コンパイル時の環境変数（`INTLAYER_ANALYTICS_ENABLED`）は、パッケージがインストールされていない場合、`analytics.enabled` が `false` の場合、または `editor.clientId` が設定されていない場合に、`@intlayer/config` によって自動的に `'false'` に設定されます。これにより、バンドラーが統合全体を**デッドコードとして削除（dead-code-eliminate）**できるようになります。
 - Intlayerエディタ/CMSプレビューのiframe内ではアナリティクスが無効になっているため、エディタセッションが実際のトラフィックとしてカウントされることはありません。
 
 ## ダッシュボード：アナリティクスページ

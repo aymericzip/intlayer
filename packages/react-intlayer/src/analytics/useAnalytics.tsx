@@ -11,10 +11,10 @@ import { setExposureSink } from './exposureSink';
  * and keeps it aware of the current locale.
  *
  * Mirrors {@link useEditor}: the module is loaded via a dynamic `import()` so it
- * ships as its own async chunk, off the critical rendering path. Apps that
- * don't opt in (`analytics.enabled !== true`) pay nothing — the whole body is
- * guarded by `INTLAYER_ANALYTICS_ENABLED` and dead-code-eliminated at build
- * time.
+ * ships as its own async chunk, off the critical rendering path. Apps that opt
+ * out (`analytics.enabled !== true`), or that never install
+ * `@intlayer/analytics`, pay nothing — the whole body is guarded by
+ * `INTLAYER_ANALYTICS_ENABLED` and dead-code-eliminated at build time.
  */
 export const useAnalytics = () => {
   const { locale } = useContext(IntlayerClientContext) ?? {};

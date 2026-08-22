@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-07-08
-updatedAt: 2026-07-08
+updatedAt: 2026-08-22
 title: Intlayer Analytics | 콘텐츠 노출 추적 및 A/B 테스트 실행
 description: "@intlayer/analytics가 페이지/로케일 뷰와 콘텐츠 노출을 추적하는 방법, 그리고 이를 활용해 Intlayer 콘텐츠에서 A/B 테스트를 실행하는 방법을 알아보세요."
 keywords:
@@ -18,6 +18,9 @@ slugs:
   - concept
   - analytics
 history:
+  - version: 9.3.3
+    date: 2026-08-22
+    changes: "`@intlayer/analytics`가 설치되면 애널리틱스를 기본적으로 활성화"
   - version: 9.0.0
     date: 2026-07-08
     changes: "Init doc — @intlayer/analytics 패키지, 프로바이더/노드 레벨 추적, A/B 테스트, 대시보드"
@@ -57,7 +60,7 @@ Intlayer에서는 이미 콘텐츠 [변형(Variants)](https://github.com/aymeric
 
 ## 설치
 
-`@intlayer/analytics`는 **선택적 피어 의존성(peer, optional dependency)**으로, 프레임워크 패키지에 의해 자동으로 설치되지 않습니다. `intlayer`와 함께 설치하세요:
+`@intlayer/analytics`는 모든 프레임워크 패키지(`react-intlayer`, `next-intlayer`, `vue-intlayer` 등)의 **선택적 의존성(optional dependency)**이므로 대부분의 프로젝트에는 이미 설치되어 있습니다. 설정이 선택적 의존성을 건너뛴다면(`npm install --no-optional` 등) 명시적으로 설치하세요:
 
 ```bash packageManager="npm"
 npm install @intlayer/analytics
@@ -75,11 +78,11 @@ pnpm add @intlayer/analytics
 bun add @intlayer/analytics
 ```
 
-패키지를 설치하지 않으면 모든 통합 지점이 아무 동작도 수행하지 않는(no-op) 상태로 해석됩니다 — 아래의 [미설치 시 제로 비용](#미설치-시-제로-비용)을 참고하세요.
+애널리틱스를 켜는 데 필요한 것은 패키지 설치뿐입니다: `analytics.enabled`의 기본값은 `true`이며, 프로젝트에서 패키지를 찾을 수 없으면 `@intlayer/config`가 이를 `false`로 해석합니다. 패키지를 설치하지 않으면 모든 통합 지점이 아무 동작도 수행하지 않는(no-op) 상태로 해석됩니다 — 아래의 [미설치 시 제로 비용](#미설치-시-제로-비용)을 참고하세요.
 
 ## 구성
 
-Analytics는 **기존 `editor` 구성 블록을 재사용**합니다. 채워야 할 별도의 `analytics` 구성 스키마는 없습니다:
+애널리틱스는 시작하는 데 별도의 구성이 필요하지 않습니다: **기본적으로 활성화**되어 있으며, 엔드포인트와 프로젝트 키로 **기존 `editor` 구성 블록을 그대로 재사용**합니다.
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import type { IntlayerConfig } from "intlayer";
@@ -99,6 +102,26 @@ export default config;
 - `editor.clientId` — 수집되는 모든 이벤트에 기여하는 퍼블릭 프로젝트 키. 이는 **활성화 스위치**의 역할도 합니다: `clientId`가 구성될 때까지 분석 기능은 완전히 비활성화(tree-shake 됨) 상태로 유지됩니다.
 
 직접 Intlayer를 호스팅(self-host)하는 경우, `editor.backendURL`을 공유하므로 분석은 자동으로 사용자 자체 인스턴스를 가리킵니다.
+
+### 옵트아웃하기
+
+선택적 `analytics` 블록으로 수집을 조정하거나 완전히 끌 수 있습니다:
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import type { IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  analytics: {
+    enabled: false, // 기본값: true — 전체 통합을 번들에서 제외합니다
+    flushInterval: 20_000, // 두 번의 배치 전송 사이의 밀리초
+    sampleRate: 1, // 기록할 세션 비율, 0(없음)에서 1(전체)까지
+  },
+};
+
+export default config;
+```
+
+`@intlayer/analytics`를 제거하는 것은 `enabled: false`와 동일한 효과를 냅니다. 전체 필드 목록은 [구성 레퍼런스](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 참고하세요.
 
 ## 프레임워크 지원
 
@@ -177,7 +200,7 @@ const variant = client?.getVariant("homepage-hero", [
 `@intlayer/analytics`는 `@intlayer/editor`와 완전히 동일한 선택적 의존성 패턴을 따릅니다:
 
 - 모든 통합 지점은 **`try/catch`로 래핑된 동적 `import()`**를 통해 패키지를 로드합니다 — `@intlayer/analytics`를 아예 설치하지 않는 앱은 번들 크기나 런타임 비용을 지불하지 않으며, 오류가 발생하지 않습니다.
-- `editor.clientId`가 구성되지 않은 경우 `@intlayer/config`에 의해 `'false'`로 자동 설정되는 컴파일 타임 환경 변수(`INTLAYER_ANALYTICS_ENABLED`)는, 번들러가 통합된 코드 전체를 **데드 코드 제거(dead-code-eliminate)**할 수 있게 해줍니다.
+- 컴파일 타임 환경 변수(`INTLAYER_ANALYTICS_ENABLED`)는 패키지가 설치되지 않았거나, `analytics.enabled`가 `false`이거나, `editor.clientId`가 구성되지 않은 경우 `@intlayer/config`에 의해 자동으로 `'false'`로 설정되어 번들러가 전체 통합을 **데드 코드로 제거(dead-code-eliminate)**할 수 있게 합니다;
 - Intlayer 에디터/CMS 미리보기 iframe 내부에서는 Analytics 기능이 비활성화되므로 에디터 세션이 실제 트래픽으로 계산되지 않습니다.
 
 ## 대시보드: Analytics 페이지

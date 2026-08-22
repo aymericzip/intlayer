@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-08-06
+updatedAt: 2026-08-22
 title: Configuration
 description: Apprenez à configurer Intlayer pour votre application. Comprenez les différents paramètres et options disponibles pour personnaliser Intlayer selon vos besoins.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 9.3.3
+    date: 2026-08-22
+    changes: "Activer les analytics par défaut dès que `@intlayer/analytics` est installé"
   - version: 9.1.3
     date: 2026-08-06
     changes: "Rendre `routing.enableProxy` tri-état : non défini (auto), `true`, `false`"
@@ -380,8 +383,8 @@ const config: IntlayerConfig = {
   analytics: {
     /**
      * Indique si la collecte des analytics est activée (pages vues, expositions de contenu, événements A/B).
-     * Nécessite que `editor.clientId` soit défini pour l'attribution.
-     * Par défaut : false
+     * Nécessite que `@intlayer/analytics` soit installé et que `editor.clientId` soit défini pour l'attribution.
+     * Par défaut : true
      */
     enabled: true,
 
@@ -742,13 +745,13 @@ Définit les paramètres liés à l'éditeur intégré, y compris le port du ser
 
 Définit les paramètres liés aux analytics Intlayer : la collecte du contenu réellement affiché aux utilisateurs (pages vues, expositions de contenu) et l'alimentation des tests A/B sur le contenu.
 
-Les analytics sont strictement optionnelles (opt-in) : rien n'est collecté à moins que `analytics.enabled` soit explicitement défini sur `true` **et** qu'une clé de projet (`editor.clientId`) soit configurée pour l'attribution. Lorsqu'elles sont désactivées (par défaut), l'intégralité de l'intégration analytics est éliminée du bundle de votre application (dead-code elimination).
+Les analytics sont désactivables (opt-out) : elles sont activées par défaut et commencent à collecter dès que le paquet `@intlayer/analytics` est installé **et** qu'une clé de projet (`editor.clientId`) est configurée pour l'attribution. Définissez `analytics.enabled` sur `false` — ou n'installez pas le paquet — et l'intégralité de l'intégration analytics est éliminée du bundle de votre application (dead-code elimination).
 
-| Champ           | Description                                                                            | Type      | Par défaut | Exemple | Note                                                                                                                                    |
-| --------------- | -------------------------------------------------------------------------------------- | --------- | ---------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------- |
-| `enabled`       | Active la collecte des analytics (pages vues, expositions de contenu, événements A/B). | `boolean` | `false`    | `true`  | Nécessite que `editor.clientId` soit défini pour l'attribution ; sinon les analytics restent désactivées même si `enabled` vaut `true`. |
-| `flushInterval` | Millisecondes entre les envois groupés automatiques vers le backend.                   | `number`  | `20000`    | `10000` |                                                                                                                                         |
-| `sampleRate`    | Fraction des sessions à enregistrer, de `0` (aucune) à `1` (toutes).                   | `number`  | `1`        | `0.5`   | L'échantillonnage est déterministe par session, donc une session enregistrée rapporte tous ses événements (pas d'entonnoirs partiels).  |
+| Champ           | Description                                                                            | Type      | Par défaut | Exemple | Note                                                                                                                                                                               |
+| --------------- | -------------------------------------------------------------------------------------- | --------- | ---------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `enabled`       | Active la collecte des analytics (pages vues, expositions de contenu, événements A/B). | `boolean` | `true`     | `false` | Nécessite que `@intlayer/analytics` soit installé et que `editor.clientId` soit défini pour l'attribution ; sinon les analytics restent désactivées même si `enabled` vaut `true`. |
+| `flushInterval` | Millisecondes entre les envois groupés automatiques vers le backend.                   | `number`  | `20000`    | `10000` |                                                                                                                                                                                    |
+| `sampleRate`    | Fraction des sessions à enregistrer, de `0` (aucune) à `1` (toutes).                   | `number`  | `1`        | `0.5`   | L'échantillonnage est déterministe par session, donc une session enregistrée rapporte tous ses événements (pas d'entonnoirs partiels).                                             |
 
 ---
 

@@ -518,17 +518,19 @@ export type EditorConfig = {
 /**
  * Configuration for Intlayer analytics (`@intlayer/analytics`).
  *
- * Analytics is strictly **opt-in**: nothing is collected unless `enabled` is
- * explicitly set to `true` AND a project key (`editor.clientId`) is configured
- * for attribution.
+ * Analytics is **opt-out**: `enabled` defaults to `true`, so installing the
+ * optional `@intlayer/analytics` package is enough to start collecting.
+ * Nothing is collected while the package is absent, or while no project key
+ * (`editor.clientId`) is configured for attribution.
  */
 export type AnalyticsConfig = {
   /**
    * Enables analytics collection (page views, content exposures, A/B events).
    *
-   * Default: false
+   * Default: true — effective as soon as the optional `@intlayer/analytics`
+   * package is installed, and resolved to `false` while it is not.
    *
-   * When `false` (the default), the whole `@intlayer/analytics` integration is
+   * When `false`, the whole `@intlayer/analytics` integration is
    * dead-code-eliminated from the application bundle.
    *
    * Usage:

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-08-06
+updatedAt: 2026-08-22
 title: Konfigurasi
 description: Pelajari cara mengonfigurasi Intlayer untuk aplikasi Anda. Pahami berbagai pengaturan dan opsi yang tersedia untuk menyesuaikan Intlayer sesuai kebutuhan Anda.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 9.3.3
+    date: 2026-08-22
+    changes: "Mengaktifkan analitik secara default saat `@intlayer/analytics` terpasang"
   - version: 9.1.3
     date: 2026-08-06
     changes: "Menjadikan `routing.enableProxy` tiga keadaan: tidak diatur (auto), `true`, `false`"
@@ -380,8 +383,8 @@ const config: IntlayerConfig = {
   analytics: {
     /**
      * Apakah pengumpulan analitik diaktifkan (tampilan halaman, eksposur konten, peristiwa A/B).
-     * Membutuhkan `editor.clientId` untuk diatur agar atribusi berfungsi.
-     * Default: false
+     * Membutuhkan `@intlayer/analytics` terpasang dan `editor.clientId` diatur agar atribusi berfungsi.
+     * Default: true
      */
     enabled: true,
 
@@ -739,13 +742,13 @@ Mendefinisikan pengaturan yang terkait dengan editor terintegrasi, termasuk port
 
 Menentukan pengaturan terkait analitik Intlayer: mengumpulkan konten apa yang sebenarnya ditampilkan kepada pengguna (tampilan halaman, eksposur konten) dan mendukung pengujian A/B pada konten.
 
-Analitik bersifat opt-in secara ketat: tidak ada yang dikumpulkan kecuali `analytics.enabled` secara eksplisit diatur ke `true` **dan** kunci proyek (`editor.clientId`) dikonfigurasi untuk atribusi. Saat dinonaktifkan (default), seluruh integrasi analitik dihilangkan dari bundel aplikasi Anda (dead-code elimination).
+Analitik bersifat opt-out: aktif secara default dan mulai mengumpulkan data begitu paket `@intlayer/analytics` terpasang **dan** kunci proyek (`editor.clientId`) dikonfigurasi untuk atribusi. Atur `analytics.enabled` ke `false` — atau jangan pasang paketnya — maka seluruh integrasi analitik dihilangkan dari bundel aplikasi Anda (dead-code elimination).
 
-| Field           | Deskripsi                                                                             | Tipe      | Default | Contoh  | Catatan                                                                                                                                     |
-| --------------- | ------------------------------------------------------------------------------------- | --------- | ------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| `enabled`       | Mengaktifkan pengumpulan analitik (tampilan halaman, eksposur konten, peristiwa A/B). | `boolean` | `false` | `true`  | Membutuhkan `editor.clientId` untuk diatur agar atribusi berfungsi; jika tidak, analitik tetap nonaktif meskipun `enabled` bernilai `true`. |
-| `flushInterval` | Milidetik antara pengiriman batch otomatis ke backend.                                | `number`  | `20000` | `10000` |                                                                                                                                             |
-| `sampleRate`    | Fraksi sesi yang direkam, dari `0` (tidak ada) hingga `1` (semua).                    | `number`  | `1`     | `0.5`   | Sampling bersifat deterministik per sesi, sehingga sesi yang direkam melaporkan semua peristiwanya (tidak ada funnel parsial).              |
+| Field           | Deskripsi                                                                             | Tipe      | Default | Contoh  | Catatan                                                                                                                                                                   |
+| --------------- | ------------------------------------------------------------------------------------- | --------- | ------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `enabled`       | Mengaktifkan pengumpulan analitik (tampilan halaman, eksposur konten, peristiwa A/B). | `boolean` | `true`  | `false` | Membutuhkan `@intlayer/analytics` terpasang dan `editor.clientId` diatur agar atribusi berfungsi; jika tidak, analitik tetap nonaktif meskipun `enabled` bernilai `true`. |
+| `flushInterval` | Milidetik antara pengiriman batch otomatis ke backend.                                | `number`  | `20000` | `10000` |                                                                                                                                                                           |
+| `sampleRate`    | Fraksi sesi yang direkam, dari `0` (tidak ada) hingga `1` (semua).                    | `number`  | `1`     | `0.5`   | Sampling bersifat deterministik per sesi, sehingga sesi yang direkam melaporkan semua peristiwanya (tidak ada funnel parsial).                                            |
 
 ---
 

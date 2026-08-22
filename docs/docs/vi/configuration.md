@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-08-06
+updatedAt: 2026-08-22
 title: Cấu hình (Configuration)
 description: Tìm hiểu cách cấu hình Intlayer cho ứng dụng của bạn. Hiểu các cài đặt và tùy chọn khác nhau có sẵn để tùy chỉnh Intlayer theo nhu cầu của bạn.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 9.3.3
+    date: 2026-08-22
+    changes: "Bật phân tích theo mặc định khi `@intlayer/analytics` được cài đặt"
   - version: 9.1.3
     date: 2026-08-06
     changes: "Chuyển `routing.enableProxy` thành ba trạng thái: không đặt (auto), `true`, `false`"
@@ -379,8 +382,8 @@ const config: IntlayerConfig = {
   analytics: {
     /**
      * Có bật thu thập dữ liệu phân tích hay không (lượt xem trang, hiển thị nội dung, sự kiện A/B).
-     * Yêu cầu phải thiết lập `editor.clientId` để phục vụ việc quy kết (attribution).
-     * Mặc định: false
+     * Yêu cầu đã cài đặt `@intlayer/analytics` và thiết lập `editor.clientId` để phục vụ việc quy kết (attribution).
+     * Mặc định: true
      */
     enabled: true,
 
@@ -736,13 +739,13 @@ Xác định cài đặt cho visual editor, bao gồm cổng máy chủ và tr�
 
 Xác định các cài đặt liên quan đến phân tích của Intlayer: thu thập dữ liệu về nội dung thực sự được hiển thị cho người dùng (lượt xem trang, hiển thị nội dung) và hỗ trợ thử nghiệm A/B trên nội dung.
 
-Tính năng phân tích hoàn toàn là tùy chọn tham gia (opt-in): không có gì được thu thập trừ khi `analytics.enabled` được đặt rõ ràng thành `true` **và** một khóa dự án (`editor.clientId`) được cấu hình để quy kết. Khi bị vô hiệu hóa (mặc định), toàn bộ tích hợp phân tích sẽ bị loại bỏ khỏi gói ứng dụng của bạn (dead-code elimination).
+Tính năng phân tích là tùy chọn từ chối (opt-out): nó được bật theo mặc định và bắt đầu thu thập ngay khi gói `@intlayer/analytics` được cài đặt **và** một khóa dự án (`editor.clientId`) được cấu hình để quy kết. Đặt `analytics.enabled` thành `false` — hoặc không cài gói — thì toàn bộ tích hợp phân tích sẽ bị loại bỏ khỏi gói ứng dụng của bạn (dead-code elimination).
 
-| Trường          | Mô tả                                                                            | Kiểu      | Mặc định | Ví dụ   | Ghi chú                                                                                                                                    |
-| --------------- | -------------------------------------------------------------------------------- | --------- | -------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| `enabled`       | Bật thu thập dữ liệu phân tích (lượt xem trang, hiển thị nội dung, sự kiện A/B). | `boolean` | `false`  | `true`  | Yêu cầu phải thiết lập `editor.clientId` để phục vụ việc quy kết; nếu không, phân tích vẫn bị vô hiệu hóa ngay cả khi `enabled` là `true`. |
-| `flushInterval` | Số mili giây giữa các lần gửi hàng loạt tự động đến backend.                     | `number`  | `20000`  | `10000` |                                                                                                                                            |
-| `sampleRate`    | Tỷ lệ phiên được ghi lại, từ `0` (không có) đến `1` (tất cả).                    | `number`  | `1`      | `0.5`   | Việc lấy mẫu là xác định theo từng phiên, vì vậy một phiên được ghi lại sẽ báo cáo tất cả các sự kiện của nó (không có phễu một phần).     |
+| Trường          | Mô tả                                                                            | Kiểu      | Mặc định | Ví dụ   | Ghi chú                                                                                                                                                                   |
+| --------------- | -------------------------------------------------------------------------------- | --------- | -------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `enabled`       | Bật thu thập dữ liệu phân tích (lượt xem trang, hiển thị nội dung, sự kiện A/B). | `boolean` | `true`   | `false` | Yêu cầu đã cài đặt `@intlayer/analytics` và thiết lập `editor.clientId` để phục vụ việc quy kết; nếu không, phân tích vẫn bị vô hiệu hóa ngay cả khi `enabled` là `true`. |
+| `flushInterval` | Số mili giây giữa các lần gửi hàng loạt tự động đến backend.                     | `number`  | `20000`  | `10000` |                                                                                                                                                                           |
+| `sampleRate`    | Tỷ lệ phiên được ghi lại, từ `0` (không có) đến `1` (tất cả).                    | `number`  | `1`      | `0.5`   | Việc lấy mẫu là xác định theo từng phiên, vì vậy một phiên được ghi lại sẽ báo cáo tất cả các sự kiện của nó (không có phễu một phần).                                    |
 
 ---
 

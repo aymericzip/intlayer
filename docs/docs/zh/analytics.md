@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-07-08
-updatedAt: 2026-07-08
+updatedAt: 2026-08-22
 title: Intlayer Analytics | 跟踪内容曝光并运行 A/B 测试
 description: 探索 @intlayer/analytics 如何跟踪页面/区域设置浏览量和内容曝光，以及如何使用它对您的 Intlayer 内容运行 A/B 测试。
 keywords:
@@ -18,6 +18,9 @@ slugs:
   - concept
   - analytics
 history:
+  - version: 9.3.3
+    date: 2026-08-22
+    changes: "安装 `@intlayer/analytics` 后默认启用分析功能"
   - version: 9.0.0
     date: 2026-07-08
     changes: "Init doc — @intlayer/analytics 包，Provider/Node级别跟踪，A/B 测试，仪表板"
@@ -57,7 +60,7 @@ Intlayer 已经允许您声明内容 [变体 (Variants)](https://github.com/ayme
 
 ## 安装
 
-`@intlayer/analytics` 是一个**对等 (peer)、可选**的依赖项 —— 框架包永远不会自动安装它。请将其与 `intlayer` 一起添加：
+`@intlayer/analytics` 是每个框架包（`react-intlayer`、`next-intlayer`、`vue-intlayer` 等）的**可选依赖（optional dependency）**，因此大多数项目已经安装了它。如果你的安装流程跳过可选依赖（例如 `npm install --no-optional`），请显式安装：
 
 ```bash packageManager="npm"
 npm install @intlayer/analytics
@@ -75,11 +78,11 @@ pnpm add @intlayer/analytics
 bun add @intlayer/analytics
 ```
 
-如果您不安装它，每个集成点都将解析为空操作 (no-op) —— 请参阅下文的[未安装时零成本](#未安装时零成本)。
+只需安装该包即可启用分析功能：`analytics.enabled` 默认为 `true`，当在你的项目中找不到该包时，`@intlayer/config` 会将其解析为 `false`。如果您不安装它，每个集成点都将解析为空操作 (no-op) —— 请参阅下文的[未安装时零成本](#未安装时零成本)。
 
 ## 配置
 
-Analytics **重用了现有的 `editor` 配置块** —— 没有单独的 `analytics` 配置模式需要填写：
+分析功能无需任何配置即可启动：它**默认启用**，并**复用现有的 `editor` 配置块**作为其上报地址和项目密钥。
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import type { IntlayerConfig } from "intlayer";
@@ -99,6 +102,26 @@ export default config;
 - `editor.clientId` — 归因于每个摄取事件的公共项目密钥。它也充当**启用开关**：在配置 `clientId` 之前，分析将保持完全禁用（并被摇树优化去除，见下文）。
 
 如果您自托管 Intlayer，分析会自动指向您自己的实例，因为它共享 `editor.backendURL`。
+
+### 如何关闭
+
+可选的 `analytics` 配置块用于调整——或关闭——数据收集：
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import type { IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  analytics: {
+    enabled: false, // 默认值：true —— 将整个集成排除在打包结果之外
+    flushInterval: 20_000, // 两次批量发送之间的毫秒数
+    sampleRate: 1, // 要记录的会话比例，从 0（不记录）到 1（全部记录）
+  },
+};
+
+export default config;
+```
+
+卸载 `@intlayer/analytics` 与设置 `enabled: false` 效果相同。完整字段列表请参阅[配置参考](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
 
 ## 框架支持
 
@@ -177,7 +200,7 @@ const variant = client?.getVariant("homepage-hero", [
 `@intlayer/analytics` 遵循与 `@intlayer/editor` 完全相同的可选依赖模式：
 
 - 每个集成点通过**包裹在 `try/catch` 中的动态 `import()`** 加载包 —— 从未安装 `@intlayer/analytics` 的应用程序永远不会支付包大小或运行时成本，也永远不会看到错误；
-- 一个编译时环境变量（`INTLAYER_ANALYTICS_ENABLED`），当没有配置 `editor.clientId` 时，它会由 `@intlayer/config` 自动设置为 `'false'`，允许打包器 (bundlers) **将整个集成作为死代码消除 (dead-code-eliminate)**；
+- 一个编译时环境变量（`INTLAYER_ANALYTICS_ENABLED`），当该包未安装、`analytics.enabled` 为 `false`，或未配置 `editor.clientId` 时，它会由 `@intlayer/config` 自动设置为 `'false'`，允许打包器 (bundlers) **将整个集成作为死代码消除 (dead-code-eliminate)**；
 - 分析在 Intlayer 编辑器/CMS 预览 iframe 中被禁用，因此编辑器会话永远不会算作真实流量。
 
 ## 仪表板：Analytics 页面

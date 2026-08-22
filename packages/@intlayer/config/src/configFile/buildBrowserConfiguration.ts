@@ -386,22 +386,31 @@ export const buildEditorFields = (
 /**
  * Build the analytics section of the Intlayer configuration.
  *
- * Analytics is strictly opt-in: `enabled` defaults to `false` and, even when
- * enabled, the runtime additionally requires a project key (`editor.clientId`)
- * for attribution before collecting anything.
+ * Analytics is opt-out: `enabled` defaults to `true`, so installing the
+ * optional `@intlayer/analytics` package is enough to turn it on. The runtime
+ * additionally requires a project key (`editor.clientId`) for attribution
+ * before collecting anything.
+ *
+ * An explicit `enabled` value always wins, so a project whose package manager
+ * hides the package from the project root can still opt back in.
  *
  * @param customConfiguration - Partial user-supplied analytics config.
+ * @param isPackageInstalled - Whether `@intlayer/analytics` is installed in the
+ *   project. Browser callers cannot resolve packages and pass `true`, letting
+ *   the runtime dynamic `import()` fail silently when it is absent.
  * @returns A fully-defaulted {@link AnalyticsConfig}.
  */
 export const buildAnalyticsFields = (
-  customConfiguration?: Partial<AnalyticsConfig>
+  customConfiguration?: Partial<AnalyticsConfig>,
+  isPackageInstalled = true
 ): AnalyticsConfig => ({
   /**
    * Enables analytics collection (page views, content exposures, A/B events).
    *
-   * Default: false
+   * Default: true, as soon as `@intlayer/analytics` is installed.
    */
-  enabled: customConfiguration?.enabled ?? ANALYTICS_ENABLED,
+  enabled:
+    customConfiguration?.enabled ?? (ANALYTICS_ENABLED && isPackageInstalled),
 
   /**
    * Milliseconds between automatic batched flushes to the backend.

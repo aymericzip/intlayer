@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-08-06
+updatedAt: 2026-08-22
 title: Yapılandırma (Configuration)
 description: Uygulamanız için Intlayer'ı nasıl yapılandıracağınızı öğrenin. Intlayer'ı ihtiyaçlarınıza göre özelleştirmek için çeşitli ayarları ve seçenekleri anlayın.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 9.3.3
+    date: 2026-08-22
+    changes: "`@intlayer/analytics` kuruluyken analitiği varsayılan olarak etkinleştir"
   - version: 9.1.3
     date: 2026-08-06
     changes: "`routing.enableProxy` üç durumlu hale getirildi: ayarlanmamış (auto), `true`, `false`"
@@ -380,8 +383,8 @@ const config: IntlayerConfig = {
   analytics: {
     /**
      * Analitik toplamanın etkin olup olmadığı (sayfa görüntülemeleri, içerik gösterimleri, A/B olayları).
-     * Atıflandırma (attribution) için `editor.clientId` ayarlanmış olmalıdır.
-     * Varsayılan: false
+     * `@intlayer/analytics` paketinin kurulu olması ve atıflandırma (attribution) için `editor.clientId` ayarlanmış olması gerekir.
+     * Varsayılan: true
      */
     enabled: true,
 
@@ -737,13 +740,13 @@ Sunucu portu ve etkinleştirme durumu dahil olmak üzere yerleşik görsel edit�
 
 Intlayer analitiğiyle ilgili ayarları tanımlar: kullanıcılara gerçekten gösterilen içeriğin (sayfa görüntülemeleri, içerik gösterimleri) toplanması ve içerik üzerinde A/B testinin desteklenmesi.
 
-Analitik kesinlikle opt-in'dir: `analytics.enabled` açıkça `true` olarak ayarlanmadıkça **ve** atıflandırma için bir proje anahtarı (`editor.clientId`) yapılandırılmadıkça hiçbir şey toplanmaz. Devre dışı bırakıldığında (varsayılan), analitik entegrasyonunun tamamı uygulama paketinizden kaldırılır (dead-code elimination).
+Analitik opt-out'tur: varsayılan olarak etkindir ve `@intlayer/analytics` paketi kurulur kurulmaz **ve** atıflandırma için bir proje anahtarı (`editor.clientId`) yapılandırıldığı anda veri toplamaya başlar. `analytics.enabled` değerini `false` yapın — ya da paketi kurmayın — analitik entegrasyonunun tamamı uygulama paketinizden kaldırılır (dead-code elimination).
 
-| Alan            | Açıklama                                                                                     | Tür       | Varsayılan | Örnek   | Not                                                                                                                           |
-| --------------- | -------------------------------------------------------------------------------------------- | --------- | ---------- | ------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| `enabled`       | Analitik toplamayı etkinleştirir (sayfa görüntülemeleri, içerik gösterimleri, A/B olayları). | `boolean` | `false`    | `true`  | Atıflandırma için `editor.clientId` ayarlanmış olmalıdır; aksi takdirde `enabled` `true` olsa bile analitik devre dışı kalır. |
-| `flushInterval` | Backend'e otomatik toplu gönderimler arasındaki milisaniye.                                  | `number`  | `20000`    | `10000` |                                                                                                                               |
-| `sampleRate`    | Kaydedilecek oturumların oranı, `0` (hiçbiri) ile `1` (tümü) arasında.                       | `number`  | `1`        | `0.5`   | Örnekleme oturum başına belirlenimlidir, bu nedenle kaydedilen bir oturum tüm olaylarını raporlar (kısmi huniler olmaz).      |
+| Alan            | Açıklama                                                                                     | Tür       | Varsayılan | Örnek   | Not                                                                                                                                                                                 |
+| --------------- | -------------------------------------------------------------------------------------------- | --------- | ---------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `enabled`       | Analitik toplamayı etkinleştirir (sayfa görüntülemeleri, içerik gösterimleri, A/B olayları). | `boolean` | `true`     | `false` | `@intlayer/analytics` paketinin kurulu olması ve atıflandırma için `editor.clientId` ayarlanmış olması gerekir; aksi takdirde `enabled` `true` olsa bile analitik devre dışı kalır. |
+| `flushInterval` | Backend'e otomatik toplu gönderimler arasındaki milisaniye.                                  | `number`  | `20000`    | `10000` |                                                                                                                                                                                     |
+| `sampleRate`    | Kaydedilecek oturumların oranı, `0` (hiçbiri) ile `1` (tümü) arasında.                       | `number`  | `1`        | `0.5`   | Örnekleme oturum başına belirlenimlidir, bu nedenle kaydedilen bir oturum tüm olaylarını raporlar (kısmi huniler olmaz).                                                            |
 
 ---
 

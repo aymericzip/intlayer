@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-08-06
+updatedAt: 2026-08-22
 title: Configuratie (Configuration)
 description: Leer hoe u Intlayer configureert voor uw applicatie. Begrijp de verschillende instellingen en opties die beschikbaar zijn om Intlayer aan uw behoeften aan te passen.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 9.3.3
+    date: 2026-08-22
+    changes: "Analytics standaard inschakelen wanneer `@intlayer/analytics` is geïnstalleerd"
   - version: 9.1.3
     date: 2026-08-06
     changes: "`routing.enableProxy` drieledig maken: niet ingesteld (auto), `true`, `false`"
@@ -380,8 +383,8 @@ const config: IntlayerConfig = {
   analytics: {
     /**
      * Of het verzamelen van analytics is ingeschakeld (paginaweergaven, content-exposities, A/B-events).
-     * Vereist dat `editor.clientId` is ingesteld voor attributie.
-     * Standaard: false
+     * Vereist dat `@intlayer/analytics` is geïnstalleerd en dat `editor.clientId` is ingesteld voor attributie.
+     * Standaard: true
      */
     enabled: true,
 
@@ -737,13 +740,13 @@ Definieert de instellingen voor de ingebouwde visuele editor, inclusief de serve
 
 Definieert instellingen voor Intlayer analytics: het verzamelen van welke content daadwerkelijk aan gebruikers wordt getoond (paginaweergaven, content-exposities) en het mogelijk maken van A/B-testen op content.
 
-Analytics is strikt opt-in: er wordt niets verzameld tenzij `analytics.enabled` expliciet is ingesteld op `true` **en** een projectsleutel (`editor.clientId`) is geconfigureerd voor attributie. Wanneer uitgeschakeld (standaard) wordt de volledige analytics-integratie uit uw applicatiebundel verwijderd (dead-code elimination).
+Analytics is opt-out: het staat standaard aan en begint met verzamelen zodra het pakket `@intlayer/analytics` is geïnstalleerd **en** een projectsleutel (`editor.clientId`) is geconfigureerd voor attributie. Zet `analytics.enabled` op `false` — of installeer het pakket niet — en de volledige analytics-integratie wordt uit uw applicatiebundel verwijderd (dead-code elimination).
 
-| Veld            | Beschrijving                                                                                | Type      | Standaard | Voorbeeld | Opmerking                                                                                                                               |
-| --------------- | ------------------------------------------------------------------------------------------- | --------- | --------- | --------- | --------------------------------------------------------------------------------------------------------------------------------------- |
-| `enabled`       | Schakelt het verzamelen van analytics in (paginaweergaven, content-exposities, A/B-events). | `boolean` | `false`   | `true`    | Vereist dat `editor.clientId` is ingesteld voor attributie; anders blijft analytics uitgeschakeld, zelfs als `enabled` op `true` staat. |
-| `flushInterval` | Milliseconden tussen automatische gebundelde verzendingen naar de backend.                  | `number`  | `20000`   | `10000`   |                                                                                                                                         |
-| `sampleRate`    | Fractie van sessies om te registreren, van `0` (geen) tot `1` (alle).                       | `number`  | `1`       | `0.5`     | Sampling is deterministisch per sessie, zodat een geregistreerde sessie al zijn events rapporteert (geen gedeeltelijke funnels).        |
+| Veld            | Beschrijving                                                                                | Type      | Standaard | Voorbeeld | Opmerking                                                                                                                                                                             |
+| --------------- | ------------------------------------------------------------------------------------------- | --------- | --------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `enabled`       | Schakelt het verzamelen van analytics in (paginaweergaven, content-exposities, A/B-events). | `boolean` | `true`    | `false`   | Vereist dat `@intlayer/analytics` is geïnstalleerd en dat `editor.clientId` is ingesteld voor attributie; anders blijft analytics uitgeschakeld, zelfs als `enabled` op `true` staat. |
+| `flushInterval` | Milliseconden tussen automatische gebundelde verzendingen naar de backend.                  | `number`  | `20000`   | `10000`   |                                                                                                                                                                                       |
+| `sampleRate`    | Fractie van sessies om te registreren, van `0` (geen) tot `1` (alle).                       | `number`  | `1`       | `0.5`     | Sampling is deterministisch per sessie, zodat een geregistreerde sessie al zijn events rapporteert (geen gedeeltelijke funnels).                                                      |
 
 ---
 

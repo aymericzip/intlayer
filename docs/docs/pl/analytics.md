@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-07-08
-updatedAt: 2026-07-08
+updatedAt: 2026-08-22
 title: Intlayer Analytics | Śledzenie ekspozycji treści i testy A/B
 description: Dowiedz się, w jaki sposób @intlayer/analytics śledzi wyświetlenia stron/języków i ekspozycję treści oraz jak z niego korzystać do przeprowadzania testów A/B zawartości Intlayer.
 keywords:
@@ -18,6 +18,9 @@ slugs:
   - concept
   - analytics
 history:
+  - version: 9.3.3
+    date: 2026-08-22
+    changes: "Domyślne włączenie analityki, gdy zainstalowano `@intlayer/analytics`"
   - version: 9.0.0
     date: 2026-07-08
     changes: "Init doc — pakiet @intlayer/analytics, śledzenie na poziomie dostawcy (provider)/węzła (node), testy A/B, dashboard"
@@ -57,7 +60,7 @@ Intlayer pozwala ci już deklarować [Warianty (Variants)](https://github.com/ay
 
 ## Instalacja
 
-`@intlayer/analytics` jest zależnością typu **peer, opcjonalną** — nigdy nie jest instalowana automatycznie przez żaden pakiet frameworku. Dodaj ją obok `intlayer`:
+`@intlayer/analytics` jest **opcjonalną zależnością** każdego pakietu frameworka (`react-intlayer`, `next-intlayer`, `vue-intlayer`, …), więc większość projektów już go ma. Zainstaluj go jawnie, jeśli Twoja konfiguracja pomija zależności opcjonalne (`npm install --no-optional`, …):
 
 ```bash packageManager="npm"
 npm install @intlayer/analytics
@@ -75,11 +78,11 @@ pnpm add @intlayer/analytics
 bun add @intlayer/analytics
 ```
 
-Jeśli nie ją zainstalujesz, każdy punkt integracyjny sprowadza się do pustej operacji (no-op) — zobacz [Zerowy koszt, gdy nie zainstalowano](#zerowy-koszt-gdy-nie-zainstalowano) poniżej.
+Instalacja pakietu to wszystko, czego potrzeba, aby włączyć analitykę: `analytics.enabled` domyślnie wynosi `true`, a `@intlayer/config` ustawia je na `false`, gdy pakietu nie da się znaleźć w projekcie. Jeśli nie ją zainstalujesz, każdy punkt integracyjny sprowadza się do pustej operacji (no-op) — zobacz [Zerowy koszt, gdy nie zainstalowano](#zerowy-koszt-gdy-nie-zainstalowano) poniżej.
 
 ## Konfiguracja
 
-Analytics **wykorzystuje ponownie istniejący blok konfiguracji `editor`** — nie ma osobnego schematu konfiguracyjnego `analytics` do uzupełnienia:
+Analityka nie wymaga żadnej konfiguracji, aby ruszyć: jest **włączona domyślnie** i **wykorzystuje istniejący blok konfiguracji `editor`** jako endpoint i klucz projektu.
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import type { IntlayerConfig } from "intlayer";
@@ -99,6 +102,26 @@ export default config;
 - `editor.clientId` — publiczny klucz projektu przypisany do każdego przetworzonego zdarzenia. Służy również jako **przełącznik aktywacji**: analityka pozostaje całkowicie wyłączona (oraz usunięta podczas tree-shakingu, patrz niżej), dopóki `clientId` nie zostanie skonfigurowany.
 
 Jeśli hostujesz sam Intlayer (self-host), analityka automatycznie wskazuje na twoją własną instancję, jako że współdzieli parametr `editor.backendURL`.
+
+### Rezygnacja (opt-out)
+
+Opcjonalny blok `analytics` pozwala dostroić — lub wyłączyć — zbieranie danych:
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import type { IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  analytics: {
+    enabled: false, // Domyślnie: true — usuwa całą integrację z pakietu aplikacji
+    flushInterval: 20_000, // Milisekundy między dwoma zbiorczymi wysyłkami
+    sampleRate: 1, // Ułamek rejestrowanych sesji, od 0 (żadnej) do 1 (wszystkie)
+  },
+};
+
+export default config;
+```
+
+Odinstalowanie `@intlayer/analytics` daje ten sam efekt co `enabled: false`. Pełną listę pól znajdziesz w [dokumentacji konfiguracji](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md).
 
 ## Wsparcie dla Frameworków
 
@@ -177,7 +200,7 @@ const variant = client?.getVariant("homepage-hero", [
 `@intlayer/analytics` podąża za tym samym modelem zależności opcjonalnej co `@intlayer/editor`:
 
 - Zawsze paczka dociągana jest dynamicznie w osłonie **`import()` z klauzulą `try/catch`**.
-- Stała wartość dla buildowania (`INTLAYER_ANALYTICS_ENABLED`) redukuje procesowanie w kodzie zjawiskiem **dead-code-eliminate** do momentu skonfigurowania i deklaracji `editor.clientId`.
+- zmienna środowiskowa ustalana w czasie kompilacji (`INTLAYER_ANALYTICS_ENABLED`), automatycznie ustawiana na `'false'` przez `@intlayer/config`, gdy pakiet nie jest zainstalowany, `analytics.enabled` ma wartość `false` lub nie skonfigurowano `editor.clientId`, pozwala bundlerom **usunąć całą integrację jako martwy kod (dead-code-eliminate)**;
 
 ## Dashboard: Strona Analityki
 
