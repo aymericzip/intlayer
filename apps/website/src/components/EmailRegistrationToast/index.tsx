@@ -181,7 +181,7 @@ export const EmailRegistrationToast: FC = () => {
   return (
     <Container
       className={cn([
-        'group fixed right-0 bottom-5 z-[100] mx-8 translate-x-0 border-2 border-text px-8 py-6 transition-all duration-500',
+        'group fixed right-0 bottom-5 z-100 mx-8 translate-x-0 border-2 border-text px-8 py-6 transition-all duration-500',
         !isVisible && 'translate-x-[120%]',
       ])}
       roundedSize="2xl"
@@ -223,7 +223,7 @@ export const EmailRegistrationToast: FC = () => {
           onClick={handleClose}
           color="text"
           variant="hoverable"
-          className="!absolute top-2 right-2 cursor-pointer"
+          className="absolute! top-2 right-2 cursor-pointer"
           size="icon-md"
         />
       </div>

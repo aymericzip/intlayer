@@ -127,10 +127,10 @@ export const ProductHunt: FC = () => {
   return (
     <Container
       className={cn([
-        'group fixed bottom-5 left-5 z-[100] mr-5 border-2 border-text p-2 transition-all duration-500',
+        'group fixed bottom-5 left-5 z-100 mr-5 border-2 border-text p-2 transition-all duration-500',
         'hover:translate-x-0 hover:translate-y-0 hover:scale-100',
         isMiniaturizable && '-translate-x-1/4 translate-y-1/4 scale-50',
-        !isVisible && '!-translate-x-[120%]',
+        !isVisible && 'translate-x-[120%]!',
       ])}
       roundedSize="2xl"
     >
@@ -138,11 +138,11 @@ export const ProductHunt: FC = () => {
         href="https://www.producthunt.com/posts/intlayer?embed=true&utm_source=badge-featured&utm_medium=badge&utm_souce=badge-intlayer"
         label={linkLabel.value}
         color="custom"
-        className="!no-underline"
+        className="no-underline!"
       >
         <div className="flex flex-row gap-6 rounded-lg p-3">
           <div className="flex flex-col items-center gap-2 rounded-lg">
-            <ProductHuntLogo className="size-[80px]" />
+            <ProductHuntLogo className="size-20" />
             <div className="flex flex-col items-center rounded-lg transition group-hover:scale-110">
               <span className="text-2xl tracking-widest">
                 ▲{' '}
@@ -177,7 +177,7 @@ export const ProductHunt: FC = () => {
         }}
         color="text"
         variant="hoverable"
-        className="!absolute top-2 right-2 cursor-pointer"
+        className="absolute! top-2 right-2 cursor-pointer"
         size="icon-md"
       />
     </Container>
