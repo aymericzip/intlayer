@@ -295,7 +295,7 @@ export const DocNavListContent: FC<DocNavListContentProps> = ({
               label={key1}
               isOpen={isActive ? true : undefined}
               defaultIsOpen={isDeployed}
-              className="py-0! pl-0!"
+              headerClassName="py-1.5 pl-0!"
               isActive={isSubSectionActive}
             >
               <ul className="mt-4 flex flex-col gap-4 border-neutral border-l-[0.5px] p-1 text-base">
@@ -346,7 +346,7 @@ export const DocNavListContent: FC<DocNavListContentProps> = ({
                           }
                           label={key2}
                           isOpen={isActive ? true : undefined}
-                          className="py-0! pl-0!"
+                          headerClassName="py-1.5 pl-0!"
                           isActive={isSubSectionActive}
                         >
                           <div className="pl-3 text-sm">
