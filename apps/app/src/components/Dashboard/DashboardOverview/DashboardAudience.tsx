@@ -1,4 +1,9 @@
-import type { AudienceSeriesPoint, AudienceStats } from '@intlayer/backend';
+import type {
+  AudienceGranularity,
+  AudienceRange,
+  AudienceSeriesPoint,
+  AudienceStats,
+} from '@intlayer/backend';
 import { useGetAnalyticsAudience } from '@intlayer/design-system/api';
 import { Container } from '@intlayer/design-system/container';
 import { ExpandCollapse } from '@intlayer/design-system/expand-collapse';
@@ -12,9 +17,17 @@ import { CalendarDays, Eye, Globe, MapPin, Users } from 'lucide-react';
 import { type FC, type ReactNode, useMemo, useState } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
 
-/** Selectable rolling windows for the audience report. */
-const RANGE_OPTIONS = [7, 30, 90] as const;
-type RangeOption = (typeof RANGE_OPTIONS)[number];
+/** Selectable rolling windows for the audience report, shortest first. */
+const RANGE_OPTIONS = [
+  '1h',
+  '24h',
+  '7d',
+  '30d',
+  '90d',
+  '6mo',
+  '1y',
+  '3y',
+] as const satisfies readonly AudienceRange[];
 
 /** Which breakdown tab is active. */
 type BreakdownTab = 'locales' | 'location';
@@ -60,10 +73,45 @@ const StatTile: FC<StatTileProps> = ({ icon, label, value, hint }) => (
 
 type EvolutionChartProps = {
   series: AudienceSeriesPoint[];
+  granularity: AudienceGranularity;
   locale: string;
   usersLabel: string;
   maxLabel: string;
   chartLabel: string;
+};
+
+/**
+ * Formats a series bucket for the axis ends. Sub-day buckets carry a time and
+ * read as a clock value; day and week buckets as a date; month buckets as a
+ * month and year.
+ */
+const formatBucket = (
+  bucket: string | undefined,
+  granularity: AudienceGranularity,
+  locale: string
+): string => {
+  if (!bucket) return '';
+
+  const isSubDay = granularity === 'minute' || granularity === 'hour';
+  const date = new Date(isSubDay ? `${bucket}:00.000Z` : `${bucket}T00:00:00Z`);
+
+  if (Number.isNaN(date.getTime())) return '';
+
+  if (isSubDay) {
+    return date.toLocaleTimeString(locale, {
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+  }
+
+  if (granularity === 'month') {
+    return date.toLocaleDateString(locale, {
+      month: 'short',
+      year: 'numeric',
+    });
+  }
+
+  return date.toLocaleDateString(locale, { month: 'short', day: 'numeric' });
 };
 
 /**
@@ -72,6 +120,7 @@ type EvolutionChartProps = {
  */
 const EvolutionChart: FC<EvolutionChartProps> = ({
   series,
+  granularity,
   locale,
   usersLabel,
   maxLabel,
@@ -108,16 +157,8 @@ const EvolutionChart: FC<EvolutionChartProps> = ({
     return { areaPath: area, linePath: line, maxUsers: max, peak: peakValue };
   }, [series]);
 
-  const firstDay = series[0]?.day;
-  const lastDay = series[series.length - 1]?.day;
-
-  const formatDay = (day?: string): string =>
-    day
-      ? new Date(`${day}T00:00:00Z`).toLocaleDateString(locale, {
-          month: 'short',
-          day: 'numeric',
-        })
-      : '';
+  const firstBucket = series[0]?.bucket;
+  const lastBucket = series[series.length - 1]?.bucket;
 
   return (
     <div className="flex min-h-0 flex-1 flex-col gap-1">
@@ -160,8 +201,8 @@ const EvolutionChart: FC<EvolutionChartProps> = ({
         </svg>
       </div>
       <div className="flex items-center justify-between text-neutral text-xs">
-        <span>{formatDay(firstDay)}</span>
-        <span>{formatDay(lastDay)}</span>
+        <span>{formatBucket(firstBucket, granularity, locale)}</span>
+        <span>{formatBucket(lastBucket, granularity, locale)}</span>
       </div>
     </div>
   );
@@ -234,19 +275,24 @@ const BreakdownList: FC<BreakdownListProps> = ({
 export const DashboardAudience: FC = () => {
   const content = useIntlayer('dashboard-audience');
   const { locale } = useLocale();
-  const [range, setRange] = useState<RangeOption>(30);
+  const [range, setRange] = useState<AudienceRange>('30d');
   const [tab, setTab] = useState<BreakdownTab>('locales');
 
   const { data, isLoading } = useGetAnalyticsAudience(range);
   const audience = data?.data as AudienceStats | undefined;
 
-  const rangeLabels: Record<RangeOption, string> = {
-    7: content.rangeLast7Days.value,
-    30: content.rangeLast30Days.value,
-    90: content.rangeLast90Days.value,
+  const rangeLabels: Record<AudienceRange, string> = {
+    '1h': content.rangeLast1Hour.value,
+    '24h': content.rangeLast24Hours.value,
+    '7d': content.rangeLast7Days.value,
+    '30d': content.rangeLast30Days.value,
+    '90d': content.rangeLast90Days.value,
+    '6mo': content.rangeLast6Months.value,
+    '1y': content.rangeLast1Year.value,
+    '3y': content.rangeLast3Years.value,
   };
 
-  const rangeChoices: SwitchSelectorChoices<RangeOption> = RANGE_OPTIONS.map(
+  const rangeChoices: SwitchSelectorChoices<AudienceRange> = RANGE_OPTIONS.map(
     (option) => ({
       content: <span className="whitespace-nowrap">{rangeLabels[option]}</span>,
       value: option,
@@ -321,13 +367,17 @@ export const DashboardAudience: FC = () => {
           <h2 className="font-semibold text-base text-text">{content.title}</h2>
           <span className="text-neutral text-xs">{content.subtitle}</span>
         </div>
-        <SwitchSelector
-          choices={rangeChoices}
-          value={range}
-          onChange={setRange}
-          color="text"
-          size="sm"
-        />
+        {/* Eight ranges overflow a narrow header — scroll rather than wrap. */}
+        <div className="-mx-1 max-w-full overflow-x-auto px-1">
+          <SwitchSelector
+            choices={rangeChoices}
+            value={range}
+            onChange={setRange}
+            color="text"
+            size="sm"
+            className="w-max"
+          />
+        </div>
       </div>
 
       {isLoading && !audience ? (
@@ -387,6 +437,7 @@ export const DashboardAudience: FC = () => {
               </h3>
               <EvolutionChart
                 series={audience.series}
+                granularity={audience.granularity}
                 locale={locale}
                 usersLabel={content.usersLabel.value}
                 maxLabel={content.maxLabel.value}

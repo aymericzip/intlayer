@@ -1,4 +1,5 @@
 import type {
+  AudienceRange,
   GetAnalyticsOverviewResult,
   GetAudienceResult,
   GetContentStatsResult,
@@ -53,18 +54,22 @@ export const getAnalyticsAPI = (
 
   /**
    * Audience report: distinct visitors (today / 7d / window), page views, the
-   * daily evolution series, and locale + country breakdowns.
-   * @param days - Rolling window size in days (default 30).
+   * evolution series, and locale + country breakdowns.
+   * @param range - Rolling window, either a named range (`1h`, `24h`, `7d`,
+   *   `30d`, `90d`, `6mo`, `1y`, `3y`) or a number of days (default 30).
    * @returns The audience statistics.
    */
-  const getAudience = async (days = 30, otherOptions: FetcherOptions = {}) =>
+  const getAudience = async (
+    range: AudienceRange | number = 30,
+    otherOptions: FetcherOptions = {}
+  ) =>
     await fetcher<GetAudienceResult>(
       `${ANALYTICS_API_ROUTE}/audience`,
       authAPIOptions,
       otherOptions,
       {
         method: 'GET',
-        params: { days: String(days) },
+        params: typeof range === 'number' ? { days: String(range) } : { range },
       }
     );
 

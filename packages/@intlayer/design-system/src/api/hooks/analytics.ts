@@ -1,26 +1,28 @@
 'use client';
 
+import type { AudienceRange } from '@intlayer/backend';
 import type { UseQueryOptions } from '@tanstack/react-query';
 import { useAnalyticsAPI } from '../useIntlayerAPI';
 import { useAppQuery } from './utils';
 
 /**
  * Fetches the audience report for the active project: distinct visitors
- * (today / 7d / window), page views, the daily evolution series, and locale +
+ * (today / 7d / window), page views, the evolution series, and locale +
  * country breakdowns.
  *
- * @param days - Rolling window size in days (default 30).
+ * @param range - Rolling window, either a named range (`1h`, `24h`, `7d`,
+ *   `30d`, `90d`, `6mo`, `1y`, `3y`) or a number of days (default 30).
  * @param options - Extra react-query options.
  */
 export const useGetAnalyticsAudience = (
-  days = 30,
+  range: AudienceRange | number = 30,
   options?: Partial<UseQueryOptions>
 ) => {
   const analyticsAPI = useAnalyticsAPI();
 
   return useAppQuery({
-    queryKey: ['analytics', 'audience', days],
-    queryFn: ({ signal }) => analyticsAPI.getAudience(days, { signal }),
+    queryKey: ['analytics', 'audience', range],
+    queryFn: ({ signal }) => analyticsAPI.getAudience(range, { signal }),
     requireUser: true,
     requireOrganization: true,
     requireProject: true,

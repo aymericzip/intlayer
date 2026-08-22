@@ -5,6 +5,7 @@ import type { FastifyReply, FastifyRequest } from 'fastify';
 import { Types } from 'mongoose';
 import type {
   AnalyticsOverviewRow,
+  AudienceRange,
   AudienceStats,
   ContentStatRow,
   ExperimentResult,
@@ -163,12 +164,36 @@ export const getExperimentResults = async (
 };
 
 /**
+ * Resolves the requested audience window from the query string. Prefers the
+ * named `?range=` parameter and falls back to the legacy `?days=` one, so
+ * clients predating the named ranges keep working.
+ */
+const resolveAudienceRange = (query: {
+  range?: string;
+  days?: string;
+}): AudienceRange => {
+  if (query.range && analyticsService.isAudienceRange(query.range)) {
+    return query.range;
+  }
+
+  if (query.days) {
+    const days = Number.parseInt(query.days, 10);
+    if (Number.isFinite(days) && days > 0) {
+      return analyticsService.audienceRangeFromDays(days);
+    }
+  }
+
+  return analyticsService.DEFAULT_AUDIENCE_RANGE;
+};
+
+/**
  * Authenticated — audience report for the active project: distinct visitors
- * (today / 7d / window), page views, the daily evolution series, and locale +
- * country breakdowns. Accepts an optional `?days=` window (default 30).
+ * (today / 7d / window), page views, the evolution series, and locale +
+ * country breakdowns. Accepts an optional `?range=` window (`1h`, `24h`, `7d`,
+ * `30d`, `90d`, `6mo`, `1y`, `3y`; default `30d`) or the legacy `?days=`.
  */
 export const getAnalyticsAudience = async (
-  request: FastifyRequest<{ Querystring: { days?: string } }>,
+  request: FastifyRequest<{ Querystring: { range?: string; days?: string } }>,
   reply: FastifyReply
 ): Promise<void> => {
   const { project } = request.session ?? {};
@@ -177,12 +202,10 @@ export const getAnalyticsAudience = async (
     return ErrorHandler.handleGenericErrorResponse(reply, 'PROJECT_NOT_FOUND');
   }
 
-  const rangeDays = Number.parseInt(request.query.days ?? '30', 10);
-
   try {
     const data = await analyticsService.getAudience(
       new Types.ObjectId(String(project.id)),
-      Number.isFinite(rangeDays) ? rangeDays : 30
+      resolveAudienceRange(request.query ?? {})
     );
     return reply.status(200).send(formatResponse<AudienceStats>({ data }));
   } catch (error) {

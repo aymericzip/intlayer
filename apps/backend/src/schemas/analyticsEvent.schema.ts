@@ -3,12 +3,21 @@ import { type Model, model, Schema } from 'mongoose';
 import type {
   AnalyticsRollup,
   AnalyticsRollupSchema,
+  AnalyticsShortTermRollup,
+  AnalyticsShortTermRollupSchema,
   AnalyticsVisitor,
   AnalyticsVisitorSchema,
 } from '@/types/analytics.types';
 
 /** Retention for anonymous visitor markers — 400 days. */
 const VISITOR_TTL_SECONDS = 400 * 24 * 60 * 60;
+
+/**
+ * Retention for sub-day page-view counters — 50 hours. Only the `1h` and `24h`
+ * audience windows read them, so anything past the 24h window plus a margin
+ * for clock skew and late flushes is dead weight.
+ */
+const SHORT_TERM_TTL_SECONDS = 50 * 60 * 60;
 
 /**
  * Pre-aggregated daily analytics counters. Ingestion increments these in bulk;
@@ -123,3 +132,59 @@ export const AnalyticsVisitorModel = model<RenameId<AnalyticsVisitor>>(
   'analyticsVisitor',
   analyticsVisitorSchema
 ) as unknown as Model<AnalyticsVisitor>;
+
+/**
+ * Sub-day page-view counters, one per project + slot + locale. Written
+ * alongside the permanent daily rollups purely to serve the `1h` and `24h`
+ * audience windows, and dropped by the TTL index shortly after.
+ */
+export const analyticsShortTermRollupSchema =
+  new Schema<AnalyticsShortTermRollupSchema>(
+    {
+      projectId: {
+        type: Schema.Types.ObjectId,
+        ref: 'project',
+        required: true,
+        index: true,
+      },
+      slot: { type: String, required: true, index: true },
+      locale: { type: String },
+      count: { type: Number, default: 0 },
+    },
+    {
+      timestamps: true,
+      toJSON: {
+        virtuals: true,
+        versionKey: false,
+        transform(_doc, ret: Record<string, unknown>) {
+          const { _id, ...rest } = ret;
+          return { ...rest, id: (_id as { toString(): string }).toString() };
+        },
+      },
+      toObject: {
+        virtuals: true,
+        transform(_doc, ret: Record<string, unknown>) {
+          const { _id, ...rest } = ret;
+          return { ...rest, id: _id };
+        },
+      },
+    }
+  );
+
+// One counter document per project + slot + locale, so upserts coalesce.
+analyticsShortTermRollupSchema.index(
+  { projectId: 1, slot: 1, locale: 1 },
+  { unique: true }
+);
+// TTL cleanup — these counters are only useful for the last day or so.
+analyticsShortTermRollupSchema.index(
+  { createdAt: 1 },
+  { expireAfterSeconds: SHORT_TERM_TTL_SECONDS }
+);
+
+export const AnalyticsShortTermRollupModel = model<
+  RenameId<AnalyticsShortTermRollup>
+>(
+  'analyticsShortTermRollup',
+  analyticsShortTermRollupSchema
+) as unknown as Model<AnalyticsShortTermRollup>;

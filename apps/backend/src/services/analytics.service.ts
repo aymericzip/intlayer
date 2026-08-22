@@ -1,6 +1,7 @@
 import { createHash } from 'node:crypto';
 import {
   AnalyticsRollupModel,
+  AnalyticsShortTermRollupModel,
   AnalyticsVisitorModel,
 } from '@schemas/analyticsEvent.schema';
 import { ProjectModel } from '@schemas/project.schema';
@@ -8,8 +9,11 @@ import type { AnyBulkWriteOperation, Types } from 'mongoose';
 import type {
   AnalyticsOverviewRow,
   AnalyticsRollupSchema,
+  AnalyticsShortTermRollupSchema,
   AnalyticsVisitorSchema,
   AudienceBreakdownRow,
+  AudienceGranularity,
+  AudienceRange,
   AudienceSeriesPoint,
   AudienceStats,
   ContentStatRow,
@@ -144,6 +148,23 @@ export const resolveProjectIdByClientId = async (
 const toDay = (timestamp: number): string =>
   new Date(timestamp).toISOString().slice(0, 10);
 
+/**
+ * Width of a short-term page-view slot, in minutes. Twelve slots make up the
+ * `1h` series and twelve slots aggregate into each point of the `24h` series.
+ */
+const SHORT_TERM_SLOT_MINUTES = 5;
+
+/** UTC slot bucket (`YYYY-MM-DDTHH:mm`) for a timestamp, floored to the slot. */
+const toSlot = (timestamp: number): string => {
+  const date = new Date(timestamp);
+  date.setUTCSeconds(0, 0);
+  date.setUTCMinutes(
+    Math.floor(date.getUTCMinutes() / SHORT_TERM_SLOT_MINUTES) *
+      SHORT_TERM_SLOT_MINUTES
+  );
+  return date.toISOString().slice(0, 16);
+};
+
 /** Builds the stable per-dimension upsert key for a rollup counter. */
 const buildDedupKey = (parts: (string | undefined)[]): string =>
   parts.map((part) => part ?? '').join(DEDUP_SEPARATOR);
@@ -153,6 +174,8 @@ const buildDedupKey = (parts: (string | undefined)[]): string =>
  *
  * Every event maps to one counter increment; identical dimensions within (and
  * across) batches collapse onto the same document via an upsert on `dedupKey`.
+ * Page views are additionally mirrored into short-lived sub-day counters, which
+ * the `1h` / `24h` audience windows read instead of the daily rollups.
  *
  * @param projectId - The resolved owning project.
  * @param events - The events from one client flush.
@@ -166,6 +189,8 @@ export const ingestEvents = async (
   const operations: AnyBulkWriteOperation<AnalyticsRollupSchema>[] = [];
   // Distinct (day → locale) markers for this session, to record visitors once.
   const visitorDays = new Map<string, string | undefined>();
+  // Page views per `slot|locale`, backing the sub-day audience windows.
+  const slotViews = new Map<string, number>();
 
   for (const rawEvent of events) {
     const event = sanitizeEvent(rawEvent);
@@ -178,6 +203,9 @@ export const ingestEvents = async (
     // background exposure flush doesn't inflate the visitor count).
     if (event.type === 'page_view') {
       visitorDays.set(day, event.locale ?? visitorDays.get(day));
+
+      const slotKey = `${toSlot(event.t)}|${event.locale ?? ''}`;
+      slotViews.set(slotKey, (slotViews.get(slotKey) ?? 0) + increment);
     }
 
     let dimensions: Partial<AnalyticsRollupSchema> = {};
@@ -252,6 +280,32 @@ export const ingestEvents = async (
     }));
 
     await AnalyticsVisitorModel.bulkWrite(visitorOperations, {
+      ordered: false,
+    });
+  }
+
+  // Mirror page views into the short-lived sub-day counters. These expire on
+  // their own TTL and only exist so the `1h` / `24h` windows can be answered.
+  if (slotViews.size > 0) {
+    const slotOperations: AnyBulkWriteOperation<AnalyticsShortTermRollupSchema>[] =
+      [...slotViews].map(([slotKey, views]) => {
+        const separatorIndex = slotKey.indexOf('|');
+        const slot = slotKey.slice(0, separatorIndex);
+        const locale = slotKey.slice(separatorIndex + 1);
+
+        return {
+          updateOne: {
+            filter: { projectId, slot, locale },
+            update: {
+              $setOnInsert: { projectId, slot, locale },
+              $inc: { count: views },
+            },
+            upsert: true,
+          },
+        };
+      });
+
+    await AnalyticsShortTermRollupModel.bulkWrite(slotOperations, {
       ordered: false,
     });
   }
@@ -467,27 +521,244 @@ const countDistinctVisitors = async (
   return result?.total ?? 0;
 };
 
+/** Window size and series bucketing for every selectable audience range. */
+const RANGE_DEFINITIONS: Record<
+  AudienceRange,
+  { hours: number; granularity: AudienceGranularity }
+> = {
+  '1h': { hours: 1, granularity: 'minute' },
+  '24h': { hours: 24, granularity: 'hour' },
+  '7d': { hours: 7 * 24, granularity: 'day' },
+  '30d': { hours: 30 * 24, granularity: 'day' },
+  '90d': { hours: 90 * 24, granularity: 'day' },
+  '6mo': { hours: 183 * 24, granularity: 'week' },
+  '1y': { hours: 365 * 24, granularity: 'week' },
+  '3y': { hours: 1095 * 24, granularity: 'month' },
+};
+
+/** The window used when none is requested. */
+export const DEFAULT_AUDIENCE_RANGE: AudienceRange = '30d';
+
+/** Narrows an untrusted string to a supported audience range. */
+export const isAudienceRange = (value: string): value is AudienceRange =>
+  Object.hasOwn(RANGE_DEFINITIONS, value);
+
 /**
- * Builds the audience report for a project over a rolling window: distinct
- * visitors today / 7d / window, page views, the daily evolution series, and
- * breakdowns by locale (most-consulted) and by country (visitor location).
+ * Maps a legacy `?days=` window onto the closest supported range, so clients
+ * predating the named ranges keep working.
  *
- * @param projectId - The project to report on.
- * @param rangeDays - Size of the rolling window in days (clamped 1..365).
- * @returns The audience statistics.
+ * @param days - The requested window in days.
+ * @returns The narrowest range that covers at least `days`.
  */
-export const getAudience = async (
+export const audienceRangeFromDays = (days: number): AudienceRange => {
+  const dayRanges: AudienceRange[] = ['7d', '30d', '90d', '6mo', '1y', '3y'];
+  const requestedHours = Math.max(1, days) * 24;
+
+  return (
+    dayRanges.find(
+      (range) => RANGE_DEFINITIONS[range].hours >= requestedHours
+    ) ?? '3y'
+  );
+};
+
+/** UTC date of the Monday starting the ISO week that contains `day`. */
+const startOfIsoWeek = (day: string): string => {
+  const date = new Date(`${day}T00:00:00Z`);
+  // getUTCDay() is Sunday-based; shift so Monday is 0.
+  const weekdayIndex = (date.getUTCDay() + 6) % 7;
+  date.setUTCDate(date.getUTCDate() - weekdayIndex);
+  return date.toISOString().slice(0, 10);
+};
+
+/**
+ * Collapses a daily series into wider buckets so long windows stay plottable —
+ * a three-year window is 1095 daily points, which is neither useful on a chart
+ * nor cheap to transfer.
+ *
+ * Users are summed across the days in a bucket, so a weekly point counts
+ * visitor-days rather than distinct weekly visitors. The headline
+ * `usersInRange` remains a true distinct count.
+ *
+ * @param daily - The daily points, oldest first.
+ * @param granularity - Target bucket size.
+ * @returns The bucketed series, oldest first.
+ */
+export const bucketDailySeries = (
+  daily: AudienceSeriesPoint[],
+  granularity: AudienceGranularity
+): AudienceSeriesPoint[] => {
+  if (granularity === 'day') return daily;
+
+  // Insertion order is preserved and `daily` is oldest-first, so the resulting
+  // buckets come out in chronological order without a re-sort.
+  const buckets = new Map<string, AudienceSeriesPoint>();
+
+  for (const point of daily) {
+    const key =
+      granularity === 'month'
+        ? `${point.bucket.slice(0, 7)}-01`
+        : startOfIsoWeek(point.bucket);
+
+    const bucket = buckets.get(key);
+
+    if (bucket) {
+      bucket.users += point.users;
+      bucket.views += point.views;
+    } else {
+      buckets.set(key, {
+        bucket: key,
+        users: point.users,
+        views: point.views,
+      });
+    }
+  }
+
+  return [...buckets.values()];
+};
+
+/**
+ * Audience report for a sub-day window (`1h`, `24h`), read from the short-term
+ * page-view counters and the anonymous visitor markers.
+ *
+ * Visitors are attributed by first sight (`createdAt`), so a bucket counts
+ * visitors that *arrived* in it rather than every session still active — the
+ * markers carry no heartbeat to derive the latter from.
+ */
+const getSubDayAudience = async (
   projectId: Types.ObjectId,
-  rangeDays = 30
-): Promise<AudienceStats> => {
-  const days = Math.max(1, Math.min(rangeDays, 365));
-  const today = dayOffset(0);
-  const sinceDay = dayOffset(days - 1);
-  const since7Day = dayOffset(6);
+  range: AudienceRange,
+  granularity: AudienceGranularity,
+  hours: number
+): Promise<Omit<AudienceStats, 'usersToday' | 'usersLast7Days'>> => {
+  const bucketMinutes = granularity === 'minute' ? SHORT_TERM_SLOT_MINUTES : 60;
+  const bucketMs = bucketMinutes * 60 * 1000;
+
+  // Align the window to bucket boundaries so points stay stable between polls,
+  // and extend it to the end of the running bucket so live data is included.
+  const endMs = Math.ceil(Date.now() / bucketMs) * bucketMs;
+  const startMs = endMs - hours * 60 * 60 * 1000;
+  const startDate = new Date(startMs);
+  const startSlot = toSlot(startMs);
+
+  /**
+   * Groups the visitor markers inside the window by a `$group` key expression.
+   *
+   * @typeParam TKey - Type the key expression evaluates to.
+   */
+  const groupVisitorsBy = <TKey>(expression: unknown) =>
+    AnalyticsVisitorModel.aggregate<{ _id: TKey; users: number }>([
+      { $match: { projectId, createdAt: { $gte: startDate } } },
+      { $group: { _id: expression, users: { $sum: 1 } } },
+    ]);
 
   const [
-    usersToday,
-    usersLast7Days,
+    distinctVisitors,
+    visitorsByBucket,
+    viewsBySlot,
+    viewsByLocale,
+    visitorsByLocale,
+    visitorsByCountry,
+  ] = await Promise.all([
+    AnalyticsVisitorModel.aggregate<{ total: number }>([
+      { $match: { projectId, createdAt: { $gte: startDate } } },
+      { $group: { _id: '$sessionHash' } },
+      { $count: 'total' },
+    ]),
+    groupVisitorsBy<number>({
+      $subtract: [
+        { $toLong: '$createdAt' },
+        { $mod: [{ $toLong: '$createdAt' }, bucketMs] },
+      ],
+    }),
+    AnalyticsShortTermRollupModel.aggregate<{ _id: string; views: number }>([
+      { $match: { projectId, slot: { $gte: startSlot } } },
+      { $group: { _id: '$slot', views: { $sum: '$count' } } },
+    ]),
+    AnalyticsShortTermRollupModel.aggregate<{ _id: string; views: number }>([
+      { $match: { projectId, slot: { $gte: startSlot } } },
+      { $group: { _id: '$locale', views: { $sum: '$count' } } },
+    ]),
+    groupVisitorsBy<string>('$locale'),
+    groupVisitorsBy<string>('$country'),
+  ]);
+
+  const usersByBucketStart = new Map(
+    visitorsByBucket.map((row) => [row._id, row.users])
+  );
+  // Short-term counters are stored per 5-minute slot; an hourly bucket sums the
+  // twelve slots that fall inside it.
+  const viewsByBucketStart = new Map<number, number>();
+  for (const row of viewsBySlot) {
+    const slotMs = new Date(`${row._id}:00.000Z`).getTime();
+    if (!Number.isFinite(slotMs) || slotMs < startMs) continue;
+    const bucketStart = Math.floor(slotMs / bucketMs) * bucketMs;
+    viewsByBucketStart.set(
+      bucketStart,
+      (viewsByBucketStart.get(bucketStart) ?? 0) + row.views
+    );
+  }
+
+  const series: AudienceSeriesPoint[] = [];
+  for (
+    let bucketStart = startMs;
+    bucketStart < endMs;
+    bucketStart += bucketMs
+  ) {
+    series.push({
+      bucket: new Date(bucketStart).toISOString().slice(0, 16),
+      users: usersByBucketStart.get(bucketStart) ?? 0,
+      views: viewsByBucketStart.get(bucketStart) ?? 0,
+    });
+  }
+
+  const viewsByLocaleMap = new Map(
+    viewsByLocale.map((row) => [row._id, row.views])
+  );
+  const usersByLocaleMap = new Map(
+    visitorsByLocale.map((row) => [row._id, row.users])
+  );
+  const byLocale: AudienceBreakdownRow[] = [
+    ...new Set([...usersByLocaleMap.keys(), ...viewsByLocaleMap.keys()]),
+  ]
+    .filter((key) => Boolean(key))
+    .map((key) => ({
+      key,
+      users: usersByLocaleMap.get(key) ?? 0,
+      views: viewsByLocaleMap.get(key) ?? 0,
+    }))
+    .sort((a, b) => b.views - a.views || b.users - a.users);
+
+  const byCountry: AudienceBreakdownRow[] = visitorsByCountry
+    .map((row) => ({ key: row._id || 'ZZ', users: row.users, views: 0 }))
+    .sort((a, b) => b.users - a.users);
+
+  return {
+    usersInRange: distinctVisitors[0]?.total ?? 0,
+    viewsInRange: series.reduce((sum, point) => sum + point.views, 0),
+    range,
+    rangeHours: hours,
+    granularity,
+    series,
+    byLocale,
+    byCountry,
+  };
+};
+
+/**
+ * Audience report for a window of a day or more, read from the permanent daily
+ * rollups and visitor markers. The daily series is collapsed to weekly or
+ * monthly points for the longer windows.
+ */
+const getDailyAudience = async (
+  projectId: Types.ObjectId,
+  range: AudienceRange,
+  granularity: AudienceGranularity,
+  hours: number
+): Promise<Omit<AudienceStats, 'usersToday' | 'usersLast7Days'>> => {
+  const days = hours / 24;
+  const sinceDay = dayOffset(days - 1);
+
+  const [
     usersInRange,
     visitorsByDay,
     viewsByDay,
@@ -495,8 +766,6 @@ export const getAudience = async (
     viewsByLocale,
     visitorsByCountry,
   ] = await Promise.all([
-    AnalyticsVisitorModel.countDocuments({ projectId, day: today }),
-    countDistinctVisitors(projectId, since7Day),
     countDistinctVisitors(projectId, sinceDay),
     AnalyticsVisitorModel.aggregate<{ _id: string; users: number }>([
       { $match: { projectId, day: { $gte: sinceDay } } },
@@ -523,11 +792,11 @@ export const getAudience = async (
   // Build the continuous daily series (fill gaps with zeros).
   const usersByDay = new Map(visitorsByDay.map((row) => [row._id, row.users]));
   const viewsByDayMap = new Map(viewsByDay.map((row) => [row._id, row.views]));
-  const series: AudienceSeriesPoint[] = [];
+  const daily: AudienceSeriesPoint[] = [];
   for (let offset = days - 1; offset >= 0; offset--) {
     const day = dayOffset(offset);
-    series.push({
-      day,
+    daily.push({
+      bucket: day,
       users: usersByDay.get(day) ?? 0,
       views: viewsByDayMap.get(day) ?? 0,
     });
@@ -537,15 +806,16 @@ export const getAudience = async (
   const viewsByLocaleMap = new Map(
     viewsByLocale.map((row) => [row._id, row.views])
   );
-  const localeKeys = new Set<string>([
-    ...visitorsByLocale.map((row) => row._id),
-    ...viewsByLocale.map((row) => row._id),
-  ]);
-  const byLocale: AudienceBreakdownRow[] = [...localeKeys]
+  const usersByLocaleMap = new Map(
+    visitorsByLocale.map((row) => [row._id, row.users])
+  );
+  const byLocale: AudienceBreakdownRow[] = [
+    ...new Set([...usersByLocaleMap.keys(), ...viewsByLocaleMap.keys()]),
+  ]
     .filter((key) => Boolean(key))
     .map((key) => ({
       key,
-      users: visitorsByLocale.find((row) => row._id === key)?.users ?? 0,
+      users: usersByLocaleMap.get(key) ?? 0,
       views: viewsByLocaleMap.get(key) ?? 0,
     }))
     .sort((a, b) => b.views - a.views || b.users - a.users);
@@ -554,16 +824,45 @@ export const getAudience = async (
     .map((row) => ({ key: row._id || 'ZZ', users: row.users, views: 0 }))
     .sort((a, b) => b.users - a.users);
 
-  const viewsInRange = series.reduce((sum, point) => sum + point.views, 0);
-
   return {
-    usersToday,
-    usersLast7Days,
     usersInRange,
-    viewsInRange,
-    rangeDays: days,
-    series,
+    viewsInRange: daily.reduce((sum, point) => sum + point.views, 0),
+    range,
+    rangeHours: hours,
+    granularity,
+    series: bucketDailySeries(daily, granularity),
     byLocale,
     byCountry,
   };
+};
+
+/**
+ * Builds the audience report for a project over a rolling window: distinct
+ * visitors today / 7d / window, page views, the evolution series, and
+ * breakdowns by locale (most-consulted) and by country (visitor location).
+ *
+ * Sub-day windows (`1h`, `24h`) are served from the short-term counters, which
+ * only retain about two days; everything longer reads the permanent daily
+ * rollups.
+ *
+ * @param projectId - The project to report on.
+ * @param range - The rolling window to report over.
+ * @returns The audience statistics.
+ */
+export const getAudience = async (
+  projectId: Types.ObjectId,
+  range: AudienceRange = DEFAULT_AUDIENCE_RANGE
+): Promise<AudienceStats> => {
+  const { hours, granularity } = RANGE_DEFINITIONS[range];
+  const isSubDay = granularity === 'minute' || granularity === 'hour';
+
+  const [usersToday, usersLast7Days, windowStats] = await Promise.all([
+    AnalyticsVisitorModel.countDocuments({ projectId, day: dayOffset(0) }),
+    countDistinctVisitors(projectId, dayOffset(6)),
+    isSubDay
+      ? getSubDayAudience(projectId, range, granularity, hours)
+      : getDailyAudience(projectId, range, granularity, hours),
+  ]);
+
+  return { usersToday, usersLast7Days, ...windowStats };
 };

@@ -106,6 +106,7 @@ export const Link: FC<LinkProps> = (props) => {
     size,
     rel: relProp,
     target: targetProp,
+    'aria-current': ariaCurrentProp,
     ...otherProps
   } = props;
   const { locale: currentLocale } = useLocale();
@@ -132,6 +133,13 @@ export const Link: FC<LinkProps> = (props) => {
   const rel = isExternalLink ? 'noopener noreferrer nofollow' : relProp;
   const target = isExternalLink ? '_blank' : (targetProp ?? '_self');
 
+  /**
+   * A caller-supplied `aria-current` wins over the `isActive` shorthand: an
+   * in-page navigation marks its own sections with `aria-current="location"`,
+   * which the `isActive` fallback would otherwise overwrite with `undefined`.
+   */
+  const ariaCurrent = ariaCurrentProp ?? (isActive ? 'page' : undefined);
+
   if (isAsset) {
     return (
       <a
@@ -140,7 +148,7 @@ export const Link: FC<LinkProps> = (props) => {
         aria-label={label}
         rel={rel}
         target={target}
-        aria-current={isActive ? 'page' : undefined}
+        aria-current={ariaCurrent}
         className={cn(
           linkVariants({
             variant,
@@ -166,7 +174,7 @@ export const Link: FC<LinkProps> = (props) => {
       aria-label={label}
       rel={rel}
       target={target}
-      aria-current={isActive ? 'page' : undefined}
+      aria-current={ariaCurrent}
       className={cn(
         linkVariants({
           variant,

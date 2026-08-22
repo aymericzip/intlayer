@@ -98,13 +98,55 @@ export interface AnalyticsVisitor extends Document {
 export type AnalyticsVisitorSchema = RenameId<AnalyticsVisitor>;
 export type AnalyticsVisitorModelType = Model<AnalyticsVisitor>;
 
-/** One point of the daily audience evolution series. */
+/**
+ * A short-lived page-view counter at sub-day resolution. The permanent daily
+ * rollups cannot be sliced finer than a day, so the "last hour" / "last 24
+ * hours" windows read from these instead. Documents expire automatically, and
+ * the `url` dimension is deliberately dropped to keep the cardinality bounded.
+ */
+export interface AnalyticsShortTermRollup extends Document {
+  id: Types.ObjectId;
+  projectId: Types.ObjectId;
+  /** UTC slot start, `YYYY-MM-DDTHH:mm`, aligned to the slot size. */
+  slot: string;
+  /** Locale the views were served in. */
+  locale?: string;
+  /** Page views accumulated in this slot. */
+  count: number;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export type AnalyticsShortTermRollupSchema = RenameId<AnalyticsShortTermRollup>;
+export type AnalyticsShortTermRollupModelType = Model<AnalyticsShortTermRollup>;
+
+/** Selectable rolling windows for the audience report. */
+export type AudienceRange =
+  | '1h'
+  | '24h'
+  | '7d'
+  | '30d'
+  | '90d'
+  | '6mo'
+  | '1y'
+  | '3y';
+
+/**
+ * Bucket size of the evolution series. Derived from the requested range so a
+ * three-year window does not return a thousand daily points.
+ */
+export type AudienceGranularity = 'minute' | 'hour' | 'day' | 'week' | 'month';
+
+/** One point of the audience evolution series. */
 export type AudienceSeriesPoint = {
-  /** UTC day bucket, `YYYY-MM-DD`. */
-  day: string;
-  /** Distinct visitors that day. */
+  /**
+   * UTC start of the bucket. `YYYY-MM-DDTHH:mm` for the `minute` and `hour`
+   * granularities, `YYYY-MM-DD` for `day`, `week`, and `month`.
+   */
+  bucket: string;
+  /** Distinct visitors first seen in this bucket. */
   users: number;
-  /** Page views that day. */
+  /** Page views in this bucket. */
   views: number;
 };
 
@@ -124,13 +166,17 @@ export type AudienceStats = {
   usersToday: number;
   /** Distinct visitors over the last 7 days. */
   usersLast7Days: number;
-  /** Distinct visitors over the requested window (`rangeDays`). */
+  /** Distinct visitors over the requested window. */
   usersInRange: number;
-  /** Page views over the requested window (`rangeDays`). */
+  /** Page views over the requested window. */
   viewsInRange: number;
-  /** Number of days covered by the series. */
-  rangeDays: number;
-  /** Daily evolution over the requested window, oldest first. */
+  /** The window this report covers. */
+  range: AudienceRange;
+  /** Number of hours covered by the window. */
+  rangeHours: number;
+  /** Bucket size of `series`. */
+  granularity: AudienceGranularity;
+  /** Evolution over the requested window, oldest bucket first. */
   series: AudienceSeriesPoint[];
   /** Most-consulted locales, highest first. */
   byLocale: AudienceBreakdownRow[];
