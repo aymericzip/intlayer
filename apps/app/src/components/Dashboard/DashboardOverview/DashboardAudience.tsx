@@ -120,7 +120,7 @@ const EvolutionChart: FC<EvolutionChartProps> = ({
       : '';
 
   return (
-    <div className="flex flex-col gap-1">
+    <div className="flex min-h-0 flex-1 flex-col gap-1">
       <div className="flex items-start justify-between text-neutral text-xs">
         <span>
           {peak} {usersLabel}
@@ -129,32 +129,36 @@ const EvolutionChart: FC<EvolutionChartProps> = ({
           {maxLabel} {maxUsers}
         </span>
       </div>
-      <svg
-        viewBox={`0 0 ${width} ${height}`}
-        className="h-40 w-full text-text"
-        preserveAspectRatio="none"
-        role="img"
-        aria-label={chartLabel}
-      >
-        <defs>
-          <linearGradient id="audienceArea" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="currentColor" stopOpacity="0.25" />
-            <stop offset="100%" stopColor="currentColor" stopOpacity="0" />
-          </linearGradient>
-        </defs>
-        {areaPath && <path d={areaPath} fill="url(#audienceArea)" />}
-        {linePath && (
-          <path
-            d={linePath}
-            fill="none"
-            stroke="currentColor"
-            strokeWidth={2}
-            strokeLinejoin="round"
-            strokeLinecap="round"
-            vectorEffect="non-scaling-stroke"
-          />
-        )}
-      </svg>
+      {/* Absolutely-positioned SVG so the chart fills whatever height the row
+          gets from its tallest sibling instead of imposing its own. */}
+      <div className="relative min-h-40 flex-1">
+        <svg
+          viewBox={`0 0 ${width} ${height}`}
+          className="absolute inset-0 h-full w-full text-text"
+          preserveAspectRatio="none"
+          role="img"
+          aria-label={chartLabel}
+        >
+          <defs>
+            <linearGradient id="audienceArea" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="currentColor" stopOpacity="0.25" />
+              <stop offset="100%" stopColor="currentColor" stopOpacity="0" />
+            </linearGradient>
+          </defs>
+          {areaPath && <path d={areaPath} fill="url(#audienceArea)" />}
+          {linePath && (
+            <path
+              d={linePath}
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={2}
+              strokeLinejoin="round"
+              strokeLinecap="round"
+              vectorEffect="non-scaling-stroke"
+            />
+          )}
+        </svg>
+      </div>
       <div className="flex items-center justify-between text-neutral text-xs">
         <span>{formatDay(firstDay)}</span>
         <span>{formatDay(lastDay)}</span>
@@ -372,7 +376,7 @@ export const DashboardAudience: FC = () => {
           <div className="flex flex-col gap-4 lg:flex-row">
             {/* Evolution graph */}
             <Container
-              className="flex flex-2 flex-col gap-3 p-5"
+              className="flex min-h-0 flex-2 flex-col gap-3 p-5"
               roundedSize="2xl"
               transparency="none"
               border
