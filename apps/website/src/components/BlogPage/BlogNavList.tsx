@@ -4,7 +4,6 @@ import { ClickOutsideDiv } from '@intlayer/design-system/click-outside-div';
 import { Container } from '@intlayer/design-system/container';
 import { useDevice } from '@intlayer/design-system/hooks';
 import { KeyboardShortcut } from '@intlayer/design-system/keyboard-shortcut';
-import { MaxWidthSmoother } from '@intlayer/design-system/max-width-smoother';
 import { PopoverStatic } from '@intlayer/design-system/popover';
 import { Website_Doc_Path } from '@intlayer/design-system/routes';
 import { cn } from '@intlayer/design-system/utils';
@@ -205,28 +204,34 @@ export const BlogNavList: FC<BlogNavListProps> = ({
 
   return (
     <>
-      <div
-        className={cn(
-          'fixed top-18 left-2 z-50 flex flex-col gap-1 md:hidden',
-          !isHidden && 'hidden'
-        )}
-      >
-        <SearchTrigger isMini />
-        <Button
-          Icon={ArrowLeftToLine}
-          size="icon-md"
-          variant="hoverable"
-          color="text"
-          label={collapseButton.label.value}
-          aria-expanded={false}
-          aria-controls="doc-nav-content"
-          className="rotate-180"
-          onClick={() => setIsHidden(false)}
-        />
-      </div>
+      {isHidden && (
+        <div className="fixed top-20 left-2 z-30 flex flex-col gap-1">
+          <SearchTrigger isMini />
+          <PopoverStatic identifier="blog-nav-expand">
+            <Button
+              Icon={ArrowLeftToLine}
+              size="icon-md"
+              variant="hoverable"
+              color="text"
+              label={collapseButton.label.value}
+              aria-expanded={false}
+              aria-controls="doc-nav-content"
+              className="rotate-180"
+              onClick={() => setIsHidden(false)}
+            />
+            <PopoverStatic.Detail identifier="blog-nav-expand">
+              <KeyboardShortcut
+                shortcut="Alt + ArrowLeft"
+                onTriggered={() => setIsHidden(false)}
+                size="sm"
+              />
+            </PopoverStatic.Detail>
+          </PopoverStatic>
+        </div>
+      )}
       <ClickOutsideDiv
         className={cn(
-          'top-0 left-0 z-40 flex h-full justify-end max-md:fixed',
+          'relative top-0 left-0 z-40 flex h-full justify-end max-md:fixed',
           'max-md:transition-transform max-md:duration-300 max-md:ease-in-out',
           isHidden
             ? 'max-md:pointer-events-none max-md:-translate-x-full'
@@ -247,59 +252,55 @@ export const BlogNavList: FC<BlogNavListProps> = ({
           transparency="xs"
         >
           <div className="relative h-full max-w-80">
-            <Container
-              transparency="xs"
-              className="sticky top-[3.6rem] z-10 m-auto pt-4"
-              roundedSize="none"
+            {/* The content keeps a fixed width and only the clipping wrapper is
+                animated, so nothing re-lays-out during the transition. */}
+            <div
+              id="doc-nav-content"
+              className={cn(
+                'h-full overflow-hidden transition-[width] duration-500 ease-in-out',
+                isHidden ? 'w-0' : 'w-80'
+              )}
+              aria-hidden={Boolean(isHidden)}
+              inert={isHidden ? true : undefined}
             >
-              <div
-                className={cn(
-                  'relative m-auto flex w-full flex-row items-center justify-center gap-2 px-2',
-                  isHidden && 'flex-col-reverse'
-                )}
-              >
-                <SearchTrigger isMini={isHidden} />
-                <PopoverStatic identifier="doc-nav-collapse">
-                  <Button
-                    Icon={ArrowLeftToLine}
-                    size="icon-md"
-                    variant="hoverable"
-                    color="text"
-                    label={collapseButton.label.value}
-                    aria-expanded={!isHidden}
-                    aria-controls="doc-nav-content"
-                    className={cn([
-                      'transition-transform',
-                      isHidden && 'rotate-180',
-                    ])}
-                    onClick={() => setIsHidden((isHidden) => !isHidden)}
-                  />
-                  <PopoverStatic.Detail identifier="doc-nav-collapse">
-                    <KeyboardShortcut
-                      shortcut="Alt + ArrowLeft"
-                      onTriggered={() => setIsHidden((isHidden) => !isHidden)}
-                      size="sm"
-                    />
-                  </PopoverStatic.Detail>
-                </PopoverStatic>
-                <div
-                  className={cn(
-                    'absolute bottom-0 left-0 h-8 w-full translate-y-full bg-linear-to-b from-card/90 backdrop-blur',
-                    isHidden && 'hidden'
-                  )}
+              <div className="relative h-full w-80 overflow-hidden">
+                <Container
+                  transparency="xs"
+                  className="z-10 m-auto pt-4"
+                  roundedSize="none"
+                >
+                  <div className="relative m-auto flex w-full flex-row items-center justify-center gap-2 px-2">
+                    <SearchTrigger isShortcutDisabled={isHidden} />
+                    <PopoverStatic identifier="blog-nav-collapse">
+                      <Button
+                        Icon={ArrowLeftToLine}
+                        size="icon-md"
+                        variant="hoverable"
+                        color="text"
+                        label={collapseButton.label.value}
+                        aria-expanded={!isHidden}
+                        aria-controls="doc-nav-content"
+                        className="transition-transform"
+                        onClick={() => setIsHidden(true)}
+                      />
+                      <PopoverStatic.Detail identifier="blog-nav-collapse">
+                        <KeyboardShortcut
+                          shortcut="Alt + ArrowLeft"
+                          onTriggered={() => setIsHidden(true)}
+                          disabled={isHidden}
+                          size="sm"
+                        />
+                      </PopoverStatic.Detail>
+                    </PopoverStatic>
+                    <div className="absolute bottom-0 left-0 h-8 w-full translate-y-full bg-linear-to-b from-card/90 backdrop-blur" />
+                  </div>
+                </Container>
+
+                <BlogNavListContent
+                  blogData={blogData}
+                  activeSlugs={activeSlugs}
                 />
               </div>
-            </Container>
-
-            <div id="doc-nav-content" className="sticky top-28 pt-0">
-              <MaxWidthSmoother isHidden={Boolean(isHidden)}>
-                <div className="relative overflow-hidden">
-                  <BlogNavListContent
-                    blogData={blogData}
-                    activeSlugs={activeSlugs}
-                  />
-                </div>
-              </MaxWidthSmoother>
             </div>
           </div>
         </Container>

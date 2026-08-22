@@ -10,9 +10,17 @@ import { SearchView } from './SearchView';
 
 type SearchTriggerProps = {
   isMini?: boolean;
+  /**
+   * Disables the `/` shortcut. Use it when the trigger stays mounted while
+   * hidden, so a single visible trigger owns the shortcut at a time.
+   */
+  isShortcutDisabled?: boolean;
 };
 
-export const SearchTrigger: FC<SearchTriggerProps> = ({ isMini = false }) => {
+export const SearchTrigger: FC<SearchTriggerProps> = ({
+  isMini = false,
+  isShortcutDisabled = false,
+}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { searchButton } = useIntlayer('doc-search-trigger');
 
@@ -32,6 +40,7 @@ export const SearchTrigger: FC<SearchTriggerProps> = ({ isMini = false }) => {
             <KeyboardShortcut
               shortcut="/"
               onTriggered={() => setIsModalOpen(true)}
+              disabled={isShortcutDisabled}
               size="sm"
             />
           </PopoverStatic.Detail>
@@ -51,6 +60,7 @@ export const SearchTrigger: FC<SearchTriggerProps> = ({ isMini = false }) => {
             <KeyboardShortcut
               shortcut="/"
               onTriggered={() => setIsModalOpen(true)}
+              disabled={isShortcutDisabled}
               size="sm"
               className="ml-auto"
             />
