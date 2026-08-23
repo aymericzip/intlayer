@@ -7,6 +7,7 @@ export { BitbucketLogo as BITBUCKET } from './logos/Bitbucket';
 export { ChatGPTLogo as CHATGPT } from './logos/ChatGPT';
 export { ClaudeLogo as CLAUDE } from './logos/Claude';
 export { DeepSeekLogo as DEEPSEEK } from './logos/DeepSeek';
+export { ElysiaLogo as ELYSIA } from './logos/Elysia';
 export { ExpressLogo as EXPRESS } from './logos/Express';
 export { FastifyLogo as FASTIFY } from './logos/Fastify';
 export { GeminiLogo as GEMINI } from './logos/Gemini';

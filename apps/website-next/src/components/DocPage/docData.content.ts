@@ -1910,7 +1910,7 @@ const docDataContent: Dictionary = {
           frameworks: ['react', 'react-native', 'expo'],
         },
         node: {
-          title: 'Node & Backend',
+          title: 'Backend',
           subSections: {
             express: {
               title: 'Express.js',
@@ -1936,6 +1936,11 @@ const docDataContent: Dictionary = {
               title: 'Adonis',
               default: getDocMetadata('./docs/en/intlayer_with_adonisjs.md'),
               frameworks: ['adonis', 'node'],
+            },
+            elysia: {
+              title: 'Elysia',
+              default: getDocMetadata('./docs/en/intlayer_with_elysia.md'),
+              frameworks: ['elysia', 'node'],
             },
           },
         },

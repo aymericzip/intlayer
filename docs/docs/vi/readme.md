@@ -234,6 +234,7 @@ Khám phá tài liệu toàn diện của chúng tôi để bắt đầu với I
       <li><a href="https://intlayer.org/doc/environment/fastify" rel=''>Fastify</a></li>
       <li><a href="https://intlayer.org/doc/environment/adonisjs" rel=''>AdonisJS</a></li>
       <li><a href="https://intlayer.org/doc/environment/hono" rel=''>Hono</a></li>
+      <li><a href="https://intlayer.org/doc/environment/elysia" rel=''>Elysia</a></li>
     </ul>
   </li>
 </ul>

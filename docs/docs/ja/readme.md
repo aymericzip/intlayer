@@ -234,6 +234,7 @@ Intlayer の包括的なドキュメントを探索し、Intlayer の使い始�
       <li><a href="https://intlayer.org/doc/environment/fastify" rel=''>Fastify</a></li>
       <li><a href="https://intlayer.org/doc/environment/adonisjs" rel=''>AdonisJS</a></li>
       <li><a href="https://intlayer.org/doc/environment/hono" rel=''>Hono</a></li>
+      <li><a href="https://intlayer.org/doc/environment/elysia" rel=''>Elysia</a></li>
     </ul>
   </li>
 </ul>

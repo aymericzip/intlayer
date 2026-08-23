@@ -2,6 +2,7 @@ export type TechLogoName =
   | 'adonis'
   | 'angular'
   | 'astro'
+  | 'elysia'
   | 'express'
   | 'fastify'
   | 'hono'

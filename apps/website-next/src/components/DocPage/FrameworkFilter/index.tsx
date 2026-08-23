@@ -28,6 +28,7 @@ export type FrameworkLogoKey =
   | 'nest'
   | 'fastify'
   | 'hono'
+  | 'elysia'
   | 'adonis'
   | 'lit'
   | 'vanilla'
@@ -64,6 +65,7 @@ export const frameworks: FrameworkEntry[] = [
   { id: 'nest', label: 'NestJS', logoKey: 'nest' },
   { id: 'fastify', label: 'Fastify', logoKey: 'fastify' },
   { id: 'hono', label: 'Hono', logoKey: 'hono' },
+  { id: 'elysia', label: 'Elysia', logoKey: 'elysia' },
   { id: 'adonis', label: 'Adonis', logoKey: 'adonis' },
   { id: 'lit', label: 'Lit', logoKey: 'lit' },
   { id: 'vanilla', label: 'Vanilla', logoKey: 'vanilla' },
@@ -86,6 +88,7 @@ const logoMap: Record<FrameworkLogoKey, TechLogoName> = {
   nest: 'nestjs',
   fastify: 'fastify',
   hono: 'hono',
+  elysia: 'elysia',
   adonis: 'adonis',
   lit: 'lit',
   vanilla: 'vanilla',

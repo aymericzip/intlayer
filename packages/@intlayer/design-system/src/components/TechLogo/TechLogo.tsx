@@ -21,6 +21,7 @@ const logoRecord: Record<TechLogoName, ReturnType<typeof dynamicLogo>> = {
   adonis: dynamicLogo(() => import('./logos/Adonis'), 'AdonisLogo'),
   angular: dynamicLogo(() => import('./logos/Angular'), 'AngularLogo'),
   astro: dynamicLogo(() => import('./logos/Astro'), 'AstroLogo'),
+  elysia: dynamicLogo(() => import('./logos/Elysia'), 'ElysiaLogo'),
   express: dynamicLogo(() => import('./logos/Express'), 'ExpressLogo'),
   fastify: dynamicLogo(() => import('./logos/Fastify'), 'FastifyLogo'),
   hono: dynamicLogo(() => import('./logos/Hono'), 'HonoLogo'),

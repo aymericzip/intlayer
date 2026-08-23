@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-03
-updatedAt: 2026-04-03
+updatedAt: 2026-08-22
 title: Custom Domains
 description: Configure domain-based locale routing in Intlayer to serve different locales from dedicated hostnames.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - custom_domains
 history:
+  - version: 9.4.0
+    date: 2026-08-22
+    changes: "Narrow the return type of getLocalizedUrl and getLocalizedPath from routing.domains, and emit domain-aware sitemap alternates."
   - version: 8.7.0
     date: 2026-04-03
     changes: "Add domain-based locale routing via routing.domains configuration."
@@ -104,7 +107,7 @@ getLocalizedUrl("/about", "fr", { currentDomain: "intlayer.zh" });
 
 1. The hostname of an absolute input URL (e.g. `https://intlayer.org/about` → `intlayer.org`).
 2. `window.location.hostname` in browser environments.
-3. If neither is available (SSR without explicit option), a relative URL is returned for same-domain locales and no absolute URL is produced - this is the safe fallback.
+3. If neither is available (SSR, static generation), the absolute URL on the locale's domain is returned - this is the safe fallback. A relative URL could not be trusted there: the prefix of an exclusive-domain locale is already stripped, so it would resolve to the wrong locale on whichever domain happens to serve the page.
 
 ```ts
 // Browser - window.location.hostname === 'intlayer.org'
@@ -132,6 +135,38 @@ getMultilingualUrls("/about", { currentDomain: "intlayer.org" });
 ```
 
 These absolute URLs are ready to use in `<link rel="alternate" hreflang="...">` tags for SEO.
+
+## Type Inference
+
+`routing.domains` is serialized into the generated module augmentation, so
+`getLocalizedUrl` and `getLocalizedPath` narrow their return type to the exact
+URL a domain-routed locale resolves to — the prefix suppression included.
+
+```ts
+// routing: { mode: 'prefix-no-default', domains: { en: 'intlayer.org', zh: 'intlayer.zh' } }
+
+getLocalizedUrl("/about", "zh");
+//     ^? "https://intlayer.zh/about" | "/about"
+
+getLocalizedPath("/about", "zh");
+//     ^? "/about"   (never an origin, and no /zh/ prefix)
+```
+
+The URL type is the **union** of the two values the function can return: the
+absolute URL on the locale's domain, and the relative one it returns when the
+page being rendered already lives on that domain. `getLocalizedPath` has no such
+ambiguity - it never emits an origin - so it stays a single literal.
+
+Locales that share a domain keep their normal prefix in the type as well:
+
+```ts
+getLocalizedUrl("/about", "fr");
+//     ^? "https://intlayer.org/fr/about" | "/fr/about"
+```
+
+> Regenerate the types (`npx intlayer build`, or any dev server run) after
+> changing `routing.domains` - the narrowing comes from the generated
+> `__RoutingRegistry`, not from the config file itself.
 
 ## Proxy Behaviour
 
@@ -252,3 +287,5 @@ This produces:
 | `getLocalizedUrl(url, locale, { currentDomain })` | Returns relative or absolute URL depending on whether the target locale is on the current domain. |
 | `getMultilingualUrls(url, { currentDomain })`     | Returns a locale-keyed map of localized URLs, mixing relative and absolute as needed.             |
 | `getPrefix(locale, { domains })`                  | Returns an empty prefix for exclusive-domain locales, normal prefix otherwise.                    |
+| `getLocalizedPath(path, locale, { domains })`     | Returns the path served on the locale's domain, without its prefix - never an origin.             |
+| `generateSitemap(entries, { domains })`           | Emits `hreflang` alternates pointing at each locale's own domain.                                 |

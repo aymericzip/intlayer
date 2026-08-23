@@ -1,4 +1,3 @@
-import {} from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
 import { usePersistedStore } from '@intlayer/design-system/hooks';
 import { Modal } from '@intlayer/design-system/modal';
@@ -24,6 +23,7 @@ export type FrameworkLogoKey =
   | 'astro'
   | 'express'
   | 'nest'
+  | 'elysia'
   | 'fastify'
   | 'hono'
   | 'adonis'
@@ -62,6 +62,7 @@ export const frameworks: FrameworkEntry[] = [
   { id: 'nest', label: 'NestJS', logoKey: 'nest' },
   { id: 'fastify', label: 'Fastify', logoKey: 'fastify' },
   { id: 'hono', label: 'Hono', logoKey: 'hono' },
+  { id: 'elysia', label: 'Elysia', logoKey: 'elysia' },
   { id: 'adonis', label: 'Adonis', logoKey: 'adonis' },
   { id: 'lit', label: 'Lit', logoKey: 'lit' },
   { id: 'vanilla', label: 'Vanilla', logoKey: 'vanilla' },
@@ -88,6 +89,7 @@ const logoMap: Record<FrameworkLogoKey, TechLogoName> = {
   lit: 'lit',
   vanilla: 'vanilla',
   node: 'node',
+  elysia: 'elysia',
 };
 
 export const FrameworkLogo: FC<
