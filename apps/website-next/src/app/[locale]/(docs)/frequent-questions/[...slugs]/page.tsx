@@ -9,7 +9,6 @@ import { CreativeWorkHeader } from '@structuredData/CreativeWorkHeader';
 import { urlRenamer } from '@utils/markdown';
 import { redirect } from 'next/navigation';
 import type { LocalPromiseParams } from 'next-intlayer';
-import { IntlayerServerProvider } from 'next-intlayer/server';
 import type { FrequentQuestionProps } from './layout';
 
 const FrequentQuestionPage = async ({
@@ -39,7 +38,7 @@ const FrequentQuestionPage = async ({
   const blogContent = urlRenamer(file, locale);
 
   return (
-    <IntlayerServerProvider locale={locale}>
+    <>
       {frequentQuestionData && (
         <CreativeWorkHeader
           type="TechArticle"
@@ -57,7 +56,7 @@ const FrequentQuestionPage = async ({
       <div className="mx-auto max-w-2xl">
         <DocumentationRender>{blogContent}</DocumentationRender>
       </div>
-    </IntlayerServerProvider>
+    </>
   );
 };
 

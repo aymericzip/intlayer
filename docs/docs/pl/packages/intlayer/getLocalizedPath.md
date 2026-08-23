@@ -128,6 +128,20 @@ getLocalizedPath("/contact", Locales.FRENCH, manualRules);
 
 ---
 
+### Pomijanie ustawień regionalnych
+
+Gdy nie podano ustawień regionalnych, ścieżka jest lokalizowana dla skonfigurowanego domyślnego ustawienia regionalnego:
+
+```typescript codeFormat="typescript"
+import { getLocalizedPath } from "intlayer";
+
+// Konfiguracja: defaultLocale = Locales.ENGLISH, { '/about': { en: '/about', fr: '/a-propos' } }
+getLocalizedPath("/about");
+// Wynik: "/about"
+```
+
+---
+
 ## Powiązane funkcje
 
 - [`getCanonicalPath`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/intlayer/getCanonicalPath.md): Rozwiązuje zlokalizowaną ścieżkę z powrotem na jej wewnętrzną ścieżkę kanoniczną.

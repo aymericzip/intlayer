@@ -1,5 +1,5 @@
 import type { LocalesValues } from 'intlayer';
-import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
+import { IntlayerProvider, useIntlayer } from 'next-intlayer/server';
 import { type FC, Suspense } from 'react';
 
 const NotFoundPageContent: FC = () => {
@@ -32,9 +32,9 @@ export type NotFoundPageProps = {
  * same UI regardless of how Next.js reached them.
  */
 export const NotFoundPage: FC<NotFoundPageProps> = ({ locale }) => (
-  <IntlayerServerProvider locale={locale}>
+  <IntlayerProvider locale={locale}>
     <Suspense>
       <NotFoundPageContent />
     </Suspense>
-  </IntlayerServerProvider>
+  </IntlayerProvider>
 );

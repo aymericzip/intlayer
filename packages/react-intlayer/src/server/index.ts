@@ -3,8 +3,12 @@ export type { IntlayerServerProviderProps } from './IntlayerServerProvider';
 export {
   IntlayerServerContext as IntlayerServer,
   IntlayerServerProvider,
+  IntlayerServerVariantContext,
   locale,
+  setLocale,
+  setVariant,
 } from './IntlayerServerProvider';
+export { getServerContext, type ServerContext } from './serverContext';
 export { t } from './t';
 export { useDictionary } from './useDictionary';
 export { useDictionaryAsync } from './useDictionaryAsync';

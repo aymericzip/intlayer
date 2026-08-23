@@ -40,7 +40,7 @@ const getDocMetadataForSlugs = async (
   locale: LocalesValues | undefined,
   slugs: string[]
 ): Promise<DocMetadata | null> => {
-  'use cache';
+  //   'use cache';
 
   const docsData = await getDocMetadataBySlug(['doc', ...slugs], locale, true);
 

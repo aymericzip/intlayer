@@ -128,6 +128,20 @@ getLocalizedPath("/contact", Locales.FRENCH, manualRules);
 
 ---
 
+### Опущение локали
+
+Когда локаль не указана, путь локализируется для настроенной локали по умолчанию:
+
+```typescript codeFormat="typescript"
+import { getLocalizedPath } from "intlayer";
+
+// Конфигурация: defaultLocale = Locales.ENGLISH, { '/about': { en: '/about', fr: '/a-propos' } }
+getLocalizedPath("/about");
+// Вывод: "/about"
+```
+
+---
+
 ## Связанные функции
 
 - [`getCanonicalPath`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getCanonicalPath.md): Преобразует локализованный путь обратно во внутренний канонический путь.

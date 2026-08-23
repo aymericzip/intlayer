@@ -34,6 +34,34 @@ export const useIntlayer = () => getServerContext(IntlayerServerContext);
  */
 export const locale = getServerContext(IntlayerServerContext);
 
+/**
+ * Seeds the request-scoped server context locale imperatively — the equivalent
+ * of mounting {@link IntlayerServerProvider} without wrapping the tree.
+ *
+ * Useful in pages that must stay statically rendered while no ambient
+ * request-derived locale source is static-safe (Next.js < 16):
+ *
+ * ```tsx
+ * const Page = async ({ params }) => {
+ *   const { locale } = await params;
+ *   setLocale(locale);
+ *   return <PageContent />;
+ * };
+ * ```
+ */
+export const setLocale = (locale: LocalesValues): void => {
+  IntlayerServerContext._storage().value = locale;
+};
+
+/**
+ * Seeds the request-scoped ambient variant imperatively — the equivalent of
+ * the `variant` prop of {@link IntlayerServerProvider} without wrapping the
+ * tree. See that prop for the accepted shapes.
+ */
+export const setVariant = (variant: ProviderVariant): void => {
+  IntlayerServerVariantContext._storage().value = variant;
+};
+
 export type IntlayerServerProviderProps = PropsWithChildren & {
   locale?: LocalesValues;
   /**

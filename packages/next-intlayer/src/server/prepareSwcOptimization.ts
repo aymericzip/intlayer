@@ -114,8 +114,10 @@ const getIsPurgePipelineEnabled = (
   // dictionaries whose keys no longer match the code reading them.
   if (!isSwcPluginUsable) return false;
 
-  // `editor.enabled` is deliberately not checked here: the pipeline stands down
-  // on its own and explains why, the same way the Vite build does.
+  // `editor.enabled` is deliberately not checked here: it only stands the
+  // field-rename step down — inside the pipeline, and with its own explanation
+  // — the same way the Vite build does. Purging still runs, and the rename map
+  // the SWC plugin receives comes back empty, so source and JSON stay in sync.
 
   if (swcExtraCallers && swcExtraCallers.length > 0) {
     getAppLogger(intlayerConfig)(

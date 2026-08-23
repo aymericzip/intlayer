@@ -62,7 +62,7 @@ export const getServerContext = <T,>({
   return store.value;
 };
 
-type ServerContext<T> = FC<PropsWithChildren<{ value?: T }>> & {
+export type ServerContext<T> = FC<PropsWithChildren<{ value?: T }>> & {
   Provider: FC<PropsWithChildren<{ value?: T }>>;
   Consumer: FC<
     PropsWithChildren<{ children: (context: T | undefined) => ReactNode }>

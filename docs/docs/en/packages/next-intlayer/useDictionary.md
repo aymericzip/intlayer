@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-08-23
+updatedAt: 2026-08-22
 title: useDictionary Hook Documentation | next-intlayer
 description: See how to use the useDictionary hook for next-intlayer package
 keywords:
@@ -19,6 +19,9 @@ slugs:
   - next-intlayer
   - useDictionary
 history:
+  - version: 9.4.0
+    date: 2026-08-22
+    changes: "Update to Next.js >= 9.4.0 architecture"
   - version: 5.5.10
     date: 2025-06-29
     changes: "Init history"
@@ -119,7 +122,7 @@ const ClientComponentExample: FC = () => {
 
 ## Example Usage in React Server Component
 
-If you're using the `useDictionary` hook outside the `IntlayerServerProvider`, the locale must be explicitly provided as a parameter when rendering the component:
+If you're using the `useDictionary` hook outside the `IntlayerProvider` (or `IntlayerServerProvider` for Intlayer < 9.4), the locale must be explicitly provided as a parameter when rendering the component:
 
 ```tsx fileName="ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";

@@ -7,7 +7,7 @@ import { OrganizationHeader } from '@structuredData/OrganizationHeader';
 import { WebsiteHeader } from '@structuredData/WebsiteHeader';
 import type { LocalesValues } from 'intlayer';
 import type { NextPageIntlayer } from 'next-intlayer';
-import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
+import { useIntlayer } from 'next-intlayer/server';
 import type { FC, PropsWithChildren } from 'react';
 import { getContributors } from './contributors.api';
 import { generateMetadata } from './metadata';
@@ -44,13 +44,13 @@ const ContributorsPage: NextPageIntlayer = async ({ params }) => {
   const contributors: Contributor[] = await getContributors();
 
   return (
-    <IntlayerServerProvider locale={locale}>
+    <>
       <WebsiteHeader key={locale} />
       <OrganizationHeader />
       <ContributorsPageContent locale={locale}>
         <ContributorsList contributors={contributors} />
       </ContributorsPageContent>
-    </IntlayerServerProvider>
+    </>
   );
 };
 

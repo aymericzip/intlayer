@@ -752,6 +752,30 @@ const docDataContent: Dictionary = {
               title: 'intlayer',
               default: getDocMetadata('./docs/en/packages/intlayer/exports.md'),
               subSections: {
+                getIntlayer: {
+                  title: 'getIntlayer',
+                  default: getDocMetadata(
+                    './docs/en/packages/intlayer/getIntlayer.md'
+                  ),
+                },
+                getIntlayerAsync: {
+                  title: 'getIntlayerAsync',
+                  default: getDocMetadata(
+                    './docs/en/packages/intlayer/getIntlayerAsync.md'
+                  ),
+                },
+                getDictionary: {
+                  title: 'getDictionary',
+                  default: getDocMetadata(
+                    './docs/en/packages/intlayer/getDictionary.md'
+                  ),
+                },
+                getDictionaryAsync: {
+                  title: 'getDictionaryAsync',
+                  default: getDocMetadata(
+                    './docs/en/packages/intlayer/getDictionaryAsync.md'
+                  ),
+                },
                 getTranslation: {
                   title: 'getTranslation',
                   default: getDocMetadata(

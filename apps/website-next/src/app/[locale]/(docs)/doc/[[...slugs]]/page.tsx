@@ -22,7 +22,6 @@ import { urlRenamer } from '@utils/markdown';
 import { getLocalizedUrl } from 'intlayer';
 import { redirect } from 'next/navigation';
 import type { LocalPromiseParams } from 'next-intlayer';
-import { IntlayerServerProvider } from 'next-intlayer/server';
 import type { DocProps } from './layout';
 
 const DocumentationPage = async ({ params }: LocalPromiseParams<DocProps>) => {
@@ -74,7 +73,7 @@ const DocumentationPage = async ({ params }: LocalPromiseParams<DocProps>) => {
   ];
 
   return (
-    <IntlayerServerProvider locale={locale}>
+    <>
       <WebsiteHeader key={locale} />
       <OrganizationHeader />
       <SoftwareApplicationHeader />
@@ -100,7 +99,7 @@ const DocumentationPage = async ({ params }: LocalPromiseParams<DocProps>) => {
 
       <DocumentationRender>{docContent}</DocumentationRender>
       <DocPageNavigation nextDoc={nextDoc} prevDoc={prevDoc} />
-    </IntlayerServerProvider>
+    </>
   );
 };
 

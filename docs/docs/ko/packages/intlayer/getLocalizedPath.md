@@ -128,6 +128,20 @@ getLocalizedPath("/contact", Locales.FRENCH, manualRules);
 
 ---
 
+### 로케일 생략
+
+로케일이 주어지지 않으면 경로는 구성된 기본 로케일에 대해 로컬화됩니다:
+
+```typescript codeFormat="typescript"
+import { getLocalizedPath } from "intlayer";
+
+// Configuration: defaultLocale = Locales.ENGLISH, { '/about': { en: '/about', fr: '/a-propos' } }
+getLocalizedPath("/about");
+// 출력: "/about"
+```
+
+---
+
 ## 관련 함수
 
 - [`getCanonicalPath`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getCanonicalPath.md): 로컬라이즈된 경로를 내부 정규 경로로 되돌립니다.

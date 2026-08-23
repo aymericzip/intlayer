@@ -1,6 +1,8 @@
 import { defaultLocale, type LocalesValues } from 'intlayer';
-import { IntlayerClientProvider } from 'next-intlayer';
-import type { IntlayerServerProviderProps } from 'next-intlayer/server';
+import {
+  IntlayerProvider,
+  type IntlayerProviderProps,
+} from 'next-intlayer/server';
 import type { FC, HTMLProps } from 'react';
 import { IntlayerMarkdownProvider } from '@/providers/IntlayerMarkdownProvider';
 import { ThemeProvider } from '@/providers/ThemeProvider';
@@ -10,7 +12,7 @@ import {
 } from './PageContentLayout';
 import { RootHTMLLayout } from './RootHTMLLayout';
 
-type PageLayoutProps = IntlayerServerProviderProps &
+type PageLayoutProps = IntlayerProviderProps &
   Omit<PageContentLayoutProps, 'className'> & {
     className?: string;
     mainClassName?: string;
@@ -29,7 +31,7 @@ export const PageLayout: FC<PageLayoutProps> = ({
   bodyProps,
   ...props
 }) => (
-  <IntlayerClientProvider locale={locale}>
+  <IntlayerProvider locale={locale}>
     <RootHTMLLayout
       locale={locale ?? defaultLocale}
       className={className}
@@ -49,5 +51,5 @@ export const PageLayout: FC<PageLayoutProps> = ({
         </PageContentLayout>
       </ThemeProvider>
     </RootHTMLLayout>
-  </IntlayerClientProvider>
+  </IntlayerProvider>
 );

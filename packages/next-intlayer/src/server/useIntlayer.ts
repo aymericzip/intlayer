@@ -1,40 +1,19 @@
-import type { Locale } from '@intlayer/types/allLocales';
 import type {
   DeclaredLocales,
   DictionaryKeys,
   DictionarySelectorForKey,
   LocalesValues,
 } from '@intlayer/types/module_augmentation';
-import React from 'react';
 import { useIntlayer as useIntlayerBase } from 'react-intlayer/server';
-import { getLocale } from './getLocale';
-
-const getCachedLocale =
-  typeof React.cache === 'function' ? React.cache(getLocale) : getLocale;
-
-export const safeUseLocale = (): Locale | undefined => {
-  // getLocale returns a Promise based on your TS error
-  const localeData = getCachedLocale() as Promise<Locale> | Locale;
-
-  if (localeData instanceof Promise) {
-    if (typeof React.use === 'function') {
-      return React.use(localeData); // Safely unwraps in React 19+
-    }
-
-    // React < 19 cannot synchronously unwrap Promises in hooks.
-    // Return undefined to trigger the localeTarget fallback.
-    return undefined;
-  }
-
-  return localeData;
-};
+import { resolveFallbackLocale } from './ambientLocale';
 
 /**
- * On the server side, hook that picks one dictionary by its key and returns the
+ * On the server side, hook picking one dictionary by its key and returning the
  * content for the given locale or selector (`{ item }`, `{ variant }`,
  * optionally combined with `locale`).
  *
- * If the locale is not provided, it will use the locale from the server context.
+ * If the locale is not provided, it will use the locale from the server
+ * context, falling back to the locale carried by the request.
  */
 export const useIntlayer = <
   const T extends DictionaryKeys,
@@ -42,8 +21,9 @@ export const useIntlayer = <
 >(
   key: T,
   localeOrSelector?: A
-): ReturnType<typeof useIntlayerBase<T, A>> => {
-  const storedLocale = safeUseLocale();
-
-  return useIntlayerBase<T, A>(key, localeOrSelector, storedLocale);
-};
+): ReturnType<typeof useIntlayerBase<T, A>> =>
+  useIntlayerBase<T, A>(
+    key,
+    localeOrSelector,
+    resolveFallbackLocale(localeOrSelector) as DeclaredLocales | undefined
+  );

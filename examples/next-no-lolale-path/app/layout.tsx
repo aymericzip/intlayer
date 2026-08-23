@@ -2,8 +2,7 @@ import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 import './globals.css';
 import { getHTMLTextDir, getIntlayer } from 'intlayer';
-import { IntlayerClientProvider } from 'next-intlayer';
-import { getLocale } from 'next-intlayer/server';
+import { getLocale, IntlayerProvider } from 'next-intlayer/server';
 
 export { generateStaticParams } from 'next-intlayer';
 
@@ -27,9 +26,9 @@ const RootLayout = async ({
 
   return (
     <html lang={locale} dir={getHTMLTextDir(locale)}>
-      <IntlayerClientProvider defaultLocale={locale}>
+      <IntlayerProvider locale={locale}>
         <body>{children}</body>
-      </IntlayerClientProvider>
+      </IntlayerProvider>
     </html>
   );
 };

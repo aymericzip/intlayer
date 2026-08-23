@@ -128,6 +128,20 @@ getLocalizedPath("/contact", Locales.FRENCH, manualRules);
 
 ---
 
+### Omissione della Locale
+
+Quando non viene fornita alcuna locale, il percorso viene localizzato per la locale predefinita configurata:
+
+```typescript codeFormat="typescript"
+import { getLocalizedPath } from "intlayer";
+
+// Configuration: defaultLocale = Locales.ENGLISH, { '/about': { en: '/about', fr: '/a-propos' } }
+getLocalizedPath("/about");
+// Output: "/about"
+```
+
+---
+
 ## Funzioni correlate
 
 - [`getCanonicalPath`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/intlayer/getCanonicalPath.md): Risolve un percorso localizzato nel suo path canonico interno.

@@ -3,7 +3,7 @@ import { Container } from '@intlayer/design-system/container';
 import { H1 } from '@intlayer/design-system/headers';
 import { WebsiteHeader } from '@structuredData/WebsiteHeader';
 import type { NextPageIntlayer } from 'next-intlayer';
-import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
+import { useIntlayer } from 'next-intlayer/server';
 import type { FC } from 'react';
 
 const DocumentationSearchPageContent: FC = () => {
@@ -27,14 +27,8 @@ const DocumentationSearchPageContent: FC = () => {
   );
 };
 
-const DocumentationSearchPage: NextPageIntlayer = async ({ params }) => {
-  const { locale } = await params;
-
-  return (
-    <IntlayerServerProvider locale={locale}>
-      <DocumentationSearchPageContent />
-    </IntlayerServerProvider>
-  );
-};
+const DocumentationSearchPage: NextPageIntlayer = () => (
+  <DocumentationSearchPageContent />
+);
 
 export default DocumentationSearchPage;

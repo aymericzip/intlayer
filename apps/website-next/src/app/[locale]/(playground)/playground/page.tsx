@@ -14,7 +14,7 @@ import { SoftwareApplicationHeader } from '@structuredData/SoftwareApplication';
 import { WebsiteHeader } from '@structuredData/WebsiteHeader';
 import dynamic from 'next/dynamic';
 import type { NextPageIntlayer } from 'next-intlayer';
-import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
+import { useIntlayer } from 'next-intlayer/server';
 import type { FC } from 'react';
 
 export { generateMetadata } from './metadata';
@@ -63,12 +63,12 @@ const Playground: NextPageIntlayer = async ({ params }) => {
   const { locale } = await params;
 
   return (
-    <IntlayerServerProvider locale={locale}>
+    <>
       <WebsiteHeader key={locale} />
       <OrganizationHeader />
       <SoftwareApplicationHeader />
       <PlaygroundContent />
-    </IntlayerServerProvider>
+    </>
   );
 };
 

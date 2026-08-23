@@ -128,6 +128,20 @@ getLocalizedPath("/contact", Locales.FRENCH, manualRules);
 
 ---
 
+### Yerel Ayarı Atlamak
+
+Yerel ayar verilmediğinde, yol yapılandırılan varsayılan yerel ayar için yerelleştirilir:
+
+```typescript codeFormat="typescript"
+import { getLocalizedPath } from "intlayer";
+
+// Yapılandırma: defaultLocale = Locales.ENGLISH, { '/about': { en: '/about', fr: '/a-propos' } }
+getLocalizedPath("/about");
+// Çıktı: "/about"
+```
+
+---
+
 ## İlgili Fonksiyonlar
 
 - [`getCanonicalPath`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getCanonicalPath.md): Yerelleştirilmiş bir yolu dahili kanonik yoluna çözer.

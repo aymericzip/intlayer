@@ -3,6 +3,8 @@ export {
   getIntlayer,
   IntlayerClientContext,
   type IntlayerNode,
+  IntlayerProvider,
+  type IntlayerProviderProps,
   localeCookie,
   localeInStorage,
   setLocaleCookie,

@@ -1,6 +1,5 @@
 import type {
   Dictionary,
-  DictionarySelector,
   DictionarySelectorForGroup,
   QualifiedDictionaryGroup,
 } from '@intlayer/types/dictionary';
@@ -9,13 +8,14 @@ import type {
   LocalesValues,
 } from '@intlayer/types/module_augmentation';
 import { useDictionary as useDictionaryBase } from 'react-intlayer/server';
-import { safeUseLocale } from './useIntlayer';
+import { resolveFallbackLocale } from './ambientLocale';
 
 /**
  * On the server side, hook that transforms a dictionary (or qualified
  * dictionary group) and returns the content for the given locale or selector.
  *
- * If the locale is not provided, it will use the locale from the server context.
+ * If the locale is not provided, it will use the locale from the server
+ * context, falling back to the locale carried by the request.
  */
 export const useDictionary = <
   const T extends Dictionary | QualifiedDictionaryGroup,
@@ -26,7 +26,7 @@ export const useDictionary = <
   dictionary: T,
   localeOrSelector?: A
 ): ReturnType<typeof useDictionaryBase<T, A>> => {
-  const storedLocale = safeUseLocale();
+  const fallbackLocale = resolveFallbackLocale(localeOrSelector);
 
-  return useDictionaryBase<T, A>(dictionary, localeOrSelector, storedLocale);
+  return useDictionaryBase<T, A>(dictionary, localeOrSelector, fallbackLocale);
 };

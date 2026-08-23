@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-01-20
+updatedAt: 2026-08-22
 title: Formatters
 description: Locale-aware formatting utilities based on Intl for numbers, percentages, currency, dates, relative time, units, and compact notation. Includes a cached Intl helper.
 keywords:
@@ -19,6 +19,9 @@ slugs:
   - doc
   - formatters
 history:
+  - version: 9.4.0
+    date: 2026-08-22
+    changes: "Update to Next.js >= 9.4.0 architecture"
   - version: 8.0.0
     date: 2026-01-20
     changes: "Add useIntl"
@@ -103,7 +106,7 @@ const PriceDisplay = () => {
 
 ### Available Hooks
 
-All hooks automatically use the locale from `IntlayerProvider` or `IntlayerServerProvider`.
+All hooks automatically use the locale from `IntlayerProvider` (or `IntlayerClientProvider` / `IntlayerServerProvider`).
 
 | Hook                | Description                        | Example Output                |
 | ------------------- | ---------------------------------- | ----------------------------- |

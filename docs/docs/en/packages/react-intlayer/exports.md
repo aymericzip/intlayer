@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-08-22
 title: react-intlayer Package Documentation
 description: React-specific implementation of Intlayer, providing hooks and providers for React applications.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - react-intlayer
   - exports
 history:
+  - version: 9.4.0
+    date: 2026-08-22
+    changes: "Update to Next.js >= 9.4.0 architecture"
   - version: 10.0.0
     date: 2026-06-23
     changes: "Add usePathname utility"
@@ -137,13 +140,13 @@ Import:
 import "react-intlayer/server";
 ```
 
-| Export                   | Type        | Description                                      |
-| ------------------------ | ----------- | ------------------------------------------------ |
-| `IntlayerServerProvider` | `Component` | Provider for server-side rendering.              |
-| `IntlayerServer`         | `Component` | Server-side wrapper for Intlayer content.        |
-| `t`                      | `Function`  | Server-side version of the translation function. |
-| `useLocale`              | `Hook`      | Hook to access locale on the server side.        |
-| `useIntlayer`            | `Hook`      | Server-side version of `useIntlayer`.            |
-| `useDictionary`          | `Hook`      | Server-side version of `useDictionary`.          |
-| `useI18n`                | `Hook`      | Server-side version of `useI18n`.                |
-| `locale`                 | `Function`  | Function to get or set the locale on the server. |
+| Export                   | Type        | Description                                          |
+| ------------------------ | ----------- | ---------------------------------------------------- |
+| `IntlayerServerProvider` | `Component` | Provider for server-side rendering. (Intlayer < 9.4) |
+| `IntlayerServer`         | `Component` | Server-side wrapper for Intlayer content.            |
+| `t`                      | `Function`  | Server-side version of the translation function.     |
+| `useLocale`              | `Hook`      | Hook to access locale on the server side.            |
+| `useIntlayer`            | `Hook`      | Server-side version of `useIntlayer`.                |
+| `useDictionary`          | `Hook`      | Server-side version of `useDictionary`.              |
+| `useI18n`                | `Hook`      | Server-side version of `useI18n`.                    |
+| `locale`                 | `Function`  | Function to get or set the locale on the server.     |

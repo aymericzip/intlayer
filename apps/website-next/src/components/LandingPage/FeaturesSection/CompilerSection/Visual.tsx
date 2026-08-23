@@ -3,8 +3,8 @@
 import { H3 } from '@intlayer/design-system/headers';
 import { Select } from '@intlayer/design-system/select';
 import { getLocaleName } from 'intlayer';
+import { useIntlayer, useLocale } from 'next-intlayer';
 import { type FC, useState } from 'react';
-import { useIntlayer, useLocale } from 'react-intlayer';
 
 type VisualEditorSectionProps = {
   scrollProgress: number;

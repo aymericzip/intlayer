@@ -4,32 +4,39 @@ import type { FC } from 'react';
 
 import { IntlayerProvider, type IntlayerProviderProps } from 'react-intlayer';
 
+/**
+ * @deprecated Use `IntlayerProviderProps` from `next-intlayer/server` instead.
+ */
 export type IntlayerClientProviderProps = IntlayerProviderProps;
 
 /**
- * Provider for client-side components in Next.js.
+ * Client boundary mounted by the unified `IntlayerProvider`.
  *
- * This component wraps the `IntlayerProvider` from `react-intlayer` and is intended
- * to be used within Next.js App Router client components.
+ * Wraps the `IntlayerProvider` from `react-intlayer` so that client components
+ * rendered below a Next.js App Router server component receive the locale and
+ * the ambient variant through context.
  *
  * @param props - The provider props.
  * @returns The provider component.
+ */
+export const IntlayerClientProviderBase: FC<IntlayerProviderProps> = (
+  props
+) => <IntlayerProvider {...props} />;
+
+/**
+ * @deprecated Use `IntlayerProvider` from `next-intlayer/server` instead.
+ * Mounted once in the locale layout, it seeds the request-scoped server
+ * context *and* mounts this client provider, so a single provider covers both
+ * halves of the tree:
  *
- * @example
  * ```tsx
- * 'use client';
+ * import { IntlayerProvider } from 'next-intlayer/server';
  *
- * import { IntlayerClientProvider } from 'next-intlayer';
+ * const LocaleLayout = async ({ children, params }) => {
+ *   const { locale } = await params;
  *
- * export default function ClientLayout({ children, locale }) {
- *   return (
- *     <IntlayerClientProvider locale={locale}>
- *       {children}
- *     </IntlayerClientProvider>
- *   );
- * }
+ *   return <IntlayerProvider locale={locale}>{children}</IntlayerProvider>;
+ * };
  * ```
  */
-export const IntlayerClientProvider: FC<IntlayerProviderProps> = (props) => (
-  <IntlayerProvider {...props} />
-);
+export const IntlayerClientProvider = IntlayerClientProviderBase;

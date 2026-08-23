@@ -7,6 +7,7 @@ import {
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import type { LocalParams, Next14LayoutIntlayer } from 'next-intlayer';
+import { IntlayerProvider } from 'next-intlayer/server';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -42,9 +43,11 @@ const LocaleLayout: Next14LayoutIntlayer = ({
   children,
   params: { locale },
 }) => (
-  <html lang={locale} dir={getHTMLTextDir(locale)}>
-    <body className={inter.className}>{children}</body>
-  </html>
+  <IntlayerProvider locale={locale}>
+    <html lang={locale} dir={getHTMLTextDir(locale)}>
+      <body className={inter.className}>{children}</body>
+    </html>
+  </IntlayerProvider>
 );
 
 export default LocaleLayout;

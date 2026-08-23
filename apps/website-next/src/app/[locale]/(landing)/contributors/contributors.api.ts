@@ -8,7 +8,7 @@ import type { Contributor } from '@components/Contributors/ContributorsList';
  * renders the contributor cloud.
  */
 export const getContributors = async () => {
-  'use cache';
+  //   'use cache';
 
   let contributors: Contributor[] = [];
   try {

@@ -1,9 +1,5 @@
 import Image from 'next/image';
-import {
-  getLocale,
-  IntlayerServerProvider,
-  useIntlayer,
-} from 'next-intlayer/server';
+import { useIntlayer } from 'next-intlayer/server';
 import type { FC } from 'react';
 import { ClientComponentExample } from '@/components/clientComponentExample/ClientComponentExample';
 import { LocaleSwitcher } from '@/components/LocaleSwitcher/LocaleSwitcher';
@@ -80,16 +76,12 @@ const PageContent: FC = () => {
   );
 };
 
-const Page = async () => {
-  const locale = await getLocale();
-
-  return (
-    <IntlayerServerProvider locale={locale}>
-      <PageContent />
-      <ServerComponentExample />
-      <ClientComponentExample />
-    </IntlayerServerProvider>
-  );
-};
+const Page = () => (
+  <>
+    <PageContent />
+    <ServerComponentExample />
+    <ClientComponentExample />
+  </>
+);
 
 export default Page;

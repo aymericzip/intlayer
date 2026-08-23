@@ -7,7 +7,6 @@ import { assertSafeRemoteMarkdownUrl } from '@utils/remoteMarkdownUrl';
 import { getIntlayer, type LocalesValues } from 'intlayer';
 import { connection } from 'next/server';
 import type { LocalPromiseParams } from 'next-intlayer';
-import { IntlayerServerProvider } from 'next-intlayer/server';
 import type { ReactNode } from 'react';
 import { MarkdownPreviewEmptyState } from './MarkdownPreviewEmptyState';
 import { MarkdownPreviewErrorState } from './MarkdownPreviewErrorState';
@@ -54,12 +53,12 @@ const MarkdownPreviewPage = async ({
 
   if (!rawUrl) {
     return (
-      <IntlayerServerProvider locale={locale}>
+      <>
         <WebsiteHeader key={locale} />
         <OrganizationHeader />
         <SoftwareApplicationHeader />
         <MarkdownPreviewEmptyState />
-      </IntlayerServerProvider>
+      </>
     );
   }
 
@@ -77,24 +76,24 @@ const MarkdownPreviewPage = async ({
     );
     const message = err instanceof Error ? err.message : unknownLoadError;
     return (
-      <IntlayerServerProvider locale={locale}>
+      <>
         <WebsiteHeader key={locale} />
         <OrganizationHeader />
         <SoftwareApplicationHeader />
         <MarkdownPreviewErrorState message={message} />
-      </IntlayerServerProvider>
+      </>
     );
   }
 
   return (
-    <IntlayerServerProvider locale={locale}>
+    <>
       <WebsiteHeader key={locale} />
       <OrganizationHeader />
       <SoftwareApplicationHeader />
       <div className="mx-auto max-w-2xl px-10">
         <DocumentationRender>{markdown}</DocumentationRender>
       </div>
-    </IntlayerServerProvider>
+    </>
   );
 };
 

@@ -183,17 +183,21 @@ const setHtmlLang = (ast: any): void => {
 };
 
 /**
- * Wraps the `{children}` of a Next.js App Router **layout** with
- * `IntlayerClientProvider`, deriving the locale via `getLocale()`. Safe and
+ * Wraps the `{children}` of a Next.js App Router **layout** with the unified
+ * `IntlayerProvider`, deriving the locale via `getLocale()`. Safe and
  * idempotent: bails (returns the original code) for client components, when no
  * `{children}` placeholder is found, or when there is no default export.
+ *
+ * `IntlayerProvider` seeds both the server context and the client provider in
+ * one mount, so this is the only provider a Next.js App Router app needs —
+ * pages below the locale layout read locale/variant from it without wrapping
+ * themselves individually (see the removed `wrapPageWithProvider`).
  */
 export const wrapLayoutWithProvider = (code: string): TransformResult => {
   const ast = parseTsx(code);
 
   if (isClientComponent(ast)) return { code, status: 'skipped-client' };
-  if (code.includes('IntlayerClientProvider'))
-    return { code, status: 'already' };
+  if (code.includes('IntlayerProvider')) return { code, status: 'already' };
 
   const funcNode = findDefaultExportFunction(ast);
   if (!funcNode) return { code, status: 'skipped' };
@@ -204,7 +208,7 @@ export const wrapLayoutWithProvider = (code: string): TransformResult => {
       if (wrapped) return false;
       const expression = path.node.expression;
       if (expression?.type === 'Identifier' && expression.name === 'children') {
-        path.replace(buildProviderElement('IntlayerClientProvider', path.node));
+        path.replace(buildProviderElement('IntlayerProvider', path.node));
         wrapped = true;
         return false;
       }
@@ -214,94 +218,11 @@ export const wrapLayoutWithProvider = (code: string): TransformResult => {
 
   if (!wrapped) return { code, status: 'skipped' };
 
-  ensureNamedImport(ast, 'IntlayerClientProvider', 'next-intlayer');
+  ensureNamedImport(ast, 'IntlayerProvider', 'next-intlayer/server');
   ensureNamedImport(ast, 'getLocale', 'next-intlayer/server');
   ensureExportFrom(ast, 'generateStaticParams', 'next-intlayer');
   ensureAwaitedLocale(funcNode);
   setHtmlLang(ast);
-
-  return { code: recast.print(ast).code, status: 'wrapped' };
-};
-
-/** Returns the single top-level JSX return of a function, or the JSX of an expression-bodied arrow. */
-const findSingleJsxReturn = (
-  funcNode: any
-): { kind: 'return'; node: any } | { kind: 'arrow'; node: any } | null => {
-  if (
-    funcNode.type === 'ArrowFunctionExpression' &&
-    funcNode.body.type !== 'BlockStatement'
-  ) {
-    const body =
-      funcNode.body.type === 'JSXElement' ||
-      funcNode.body.type === 'JSXFragment'
-        ? funcNode.body
-        : null;
-    return body ? { kind: 'arrow', node: funcNode } : null;
-  }
-
-  if (funcNode.body.type !== 'BlockStatement') return null;
-
-  // Collect every JSX-returning `return` inside this function, but do not
-  // descend into nested function scopes (e.g. an inner component defined in the
-  // same file). More than one top-level JSX return is ambiguous — bail.
-  const jsxReturns: any[] = [];
-  let functionDepth = 0;
-  recast.visit(funcNode, {
-    visitFunction(path) {
-      functionDepth++;
-      if (functionDepth === 1) {
-        this.traverse(path);
-      }
-      functionDepth--;
-      return false;
-    },
-    visitReturnStatement(path) {
-      const argument = path.node.argument;
-      if (argument?.type === 'JSXElement' || argument?.type === 'JSXFragment') {
-        jsxReturns.push(path.node);
-      }
-      this.traverse(path);
-    },
-  });
-
-  if (jsxReturns.length !== 1) return null;
-  return { kind: 'return', node: jsxReturns[0] };
-};
-
-/**
- * Wraps the returned JSX of a Next.js App Router **page** with
- * `IntlayerServerProvider`, deriving the locale via `getLocale()`. Safe and
- * idempotent: bails for client components, when the page has no single
- * top-level JSX return, or when there is no default export.
- */
-export const wrapPageWithProvider = (code: string): TransformResult => {
-  const ast = parseTsx(code);
-
-  if (isClientComponent(ast)) return { code, status: 'skipped-client' };
-  if (code.includes('IntlayerServerProvider'))
-    return { code, status: 'already' };
-
-  const funcNode = findDefaultExportFunction(ast);
-  if (!funcNode) return { code, status: 'skipped' };
-
-  const jsxReturn = findSingleJsxReturn(funcNode);
-  if (!jsxReturn) return { code, status: 'skipped' };
-
-  if (jsxReturn.kind === 'return') {
-    jsxReturn.node.argument = buildProviderElement(
-      'IntlayerServerProvider',
-      jsxReturn.node.argument
-    );
-  } else {
-    jsxReturn.node.body = buildProviderElement(
-      'IntlayerServerProvider',
-      jsxReturn.node.body
-    );
-  }
-
-  ensureNamedImport(ast, 'IntlayerServerProvider', 'next-intlayer/server');
-  ensureNamedImport(ast, 'getLocale', 'next-intlayer/server');
-  ensureAwaitedLocale(funcNode);
 
   return { code: recast.print(ast).code, status: 'wrapped' };
 };

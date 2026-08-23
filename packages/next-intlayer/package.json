@@ -36,6 +36,11 @@
   "sideEffects": false,
   "exports": {
     ".": {
+      "react-server": {
+        "types": "./dist/types/rsc/index.d.ts",
+        "require": "./dist/cjs/rsc/index.cjs",
+        "import": "./dist/esm/rsc/index.mjs"
+      },
       "types": "./dist/types/index.d.ts",
       "require": "./dist/cjs/index.cjs",
       "import": "./dist/esm/index.mjs"

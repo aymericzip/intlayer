@@ -128,6 +128,20 @@ getLocalizedPath("/contact", Locales.FRENCH, manualRules);
 
 ---
 
+### 省略 Locale
+
+当未提供 locale 时，路径将针对配置的默认 locale 进行本地化：
+
+```typescript codeFormat="typescript"
+import { getLocalizedPath } from "intlayer";
+
+// 配置：defaultLocale = Locales.ENGLISH, { '/about': { en: '/about', fr: '/a-propos' } }
+getLocalizedPath("/about");
+// 输出："/about"
+```
+
+---
+
 ## 相关函数
 
 - [`getCanonicalPath`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getCanonicalPath.md): 将本地化路径解析回其内部规范路径。

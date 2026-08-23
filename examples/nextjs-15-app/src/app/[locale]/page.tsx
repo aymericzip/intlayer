@@ -1,15 +1,12 @@
 import { HomeContent } from '@components/HomeContent';
+import { ServerComponentExample } from '@components/ServerComponentExample';
 import type { NextPageIntlayer } from 'next-intlayer';
-import { IntlayerServerProvider } from 'next-intlayer/server';
 
-const Page: NextPageIntlayer = async ({ params }) => {
-  const { locale } = await params;
-
-  return (
-    <IntlayerServerProvider locale={locale}>
-      <HomeContent />
-    </IntlayerServerProvider>
-  );
-};
+const Page: NextPageIntlayer = () => (
+  <>
+    <HomeContent />
+    <ServerComponentExample />
+  </>
+);
 
 export default Page;

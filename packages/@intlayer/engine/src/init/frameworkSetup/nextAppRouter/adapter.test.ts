@@ -97,16 +97,18 @@ export default function RootLayout({
     const rootLayout = await readFileAt('src/app/layout.tsx');
     expect(rootLayout).toContain('<>{children}</>');
 
-    // Locale layout wrapped with the client provider
+    // Locale layout wrapped with the unified provider
     const localeLayout = await readFileAt('src/app/[locale]/layout.tsx');
-    expect(localeLayout).toContain('IntlayerClientProvider');
+    expect(localeLayout).toContain('IntlayerProvider');
     expect(localeLayout).toContain('const locale = await getLocale();');
     expect(localeLayout).toContain('../globals.css');
 
-    // Page wrapped with the server provider
+    // Existing page is left untouched — the locale layout's IntlayerProvider
+    // already covers it, no per-page provider needed.
     const localePage = await readFileAt('src/app/[locale]/page.tsx');
-    expect(localePage).toContain('IntlayerServerProvider');
-    expect(localePage).toContain('const locale = await getLocale();');
+    expect(localePage).not.toContain('IntlayerServerProvider');
+    expect(localePage).not.toContain('getLocale');
+    expect(localePage).toContain('<h1>Hello</h1>');
   });
 
   it('creates middleware (not proxy) for Next < 16', async () => {
@@ -161,6 +163,6 @@ export default function RootLayout({ children }: any) {
     const localeLayout = await readFileAt('src/app/[locale]/layout.tsx');
     // Left untouched (no provider injected into a client component)
     expect(localeLayout).toContain('"use client"');
-    expect(localeLayout).not.toContain('IntlayerClientProvider');
+    expect(localeLayout).not.toContain('IntlayerProvider');
   });
 });

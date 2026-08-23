@@ -14,7 +14,7 @@ import {
  * `cache: 'force-cache'` no longer opts into the data cache on its own.
  */
 export const getPricing = async () => {
-  'use cache';
+  //   'use cache';
 
   try {
     const pricingDataResponse = await getStripeAPI().getPricing({});

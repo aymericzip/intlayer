@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-08-22
 title: next-intlayer Package Documentation
 description: Next.js-specific integration for Intlayer, providing middleware and providers for App Router and Page Router.
 keywords:
@@ -15,6 +15,9 @@ slugs:
   - next-intlayer
   - exports
 history:
+  - version: 9.4.0
+    date: 2026-08-22
+    changes: "Update to Next.js >= 9.4.0 architecture"
   - version: 10.0.0
     date: 2026-06-23
     changes: "Add usePathname utility"
@@ -75,15 +78,16 @@ or
 import "next-intlayer/server";
 ```
 
-| Component                | Description                                                                                                  | Related Doc |
-| ------------------------ | ------------------------------------------------------------------------------------------------------------ | ----------- |
-| `IntlayerClientProvider` | Provider for client-side components in Next.js App Router. Wraps `IntlayerProvider` from react-intlayer.     | -           |
-| `IntlayerServerProvider` | Provider for server-side components in Next.js (App Router). Provides locale context on the server.          | -           |
-| `IntlayerServer`         | Server-side wrapper for Intlayer content in App Router. Ensures proper locale handling in Server Components. | -           |
-| `HTMLProvider`           | Provider for HTML-related internationalization settings. Allows component overrides for HTML tags.           | -           |
-| `HTMLRenderer`           | Renders HTML content with custom components.                                                                 | -           |
-| `MarkdownProvider`       | Provider for markdown rendering context. Allows custom component overrides for markdown elements.            | -           |
-| `MarkdownRenderer`       | Renders markdown content with custom components.                                                             | -           |
+| Component                | Description                                                                                                                                                                    | Related Doc |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------- |
+| `IntlayerProvider`       | Unified provider for the Next.js App Router. Mounted once in the locale layout, it seeds the request-scoped server context _and_ mounts the client provider. (Intlayer >= 9.4) | -           |
+| `IntlayerClientProvider` | **Deprecated** — use `IntlayerProvider` from `next-intlayer/server`. Provider for client-side components in Next.js App Router. Wraps `IntlayerProvider` from react-intlayer.  | -           |
+| `IntlayerServerProvider` | **Deprecated** — use `IntlayerProvider` from `next-intlayer/server`. Provides locale context on the server. (Intlayer < 9.4)                                                   | -           |
+| `IntlayerServer`         | Server-side wrapper for Intlayer content in App Router. Ensures proper locale handling in Server Components.                                                                   | -           |
+| `HTMLProvider`           | Provider for HTML-related internationalization settings. Allows component overrides for HTML tags.                                                                             | -           |
+| `HTMLRenderer`           | Renders HTML content with custom components.                                                                                                                                   | -           |
+| `MarkdownProvider`       | Provider for markdown rendering context. Allows custom component overrides for markdown elements.                                                                              | -           |
+| `MarkdownRenderer`       | Renders markdown content with custom components.                                                                                                                               | -           |
 
 ### Hooks (Client-side)
 

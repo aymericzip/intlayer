@@ -2,7 +2,6 @@ import { DocumentationRender } from '@components/DocPage/DocumentationRender';
 import { getLegal, getLegalMetadata } from '@intlayer/docs';
 import { CreativeWorkHeader } from '@structuredData/CreativeWorkHeader';
 import type { NextPageIntlayer } from 'next-intlayer';
-import { IntlayerServerProvider } from 'next-intlayer/server';
 import { generateMetadata } from './metadata';
 
 export { generateMetadata };
@@ -14,7 +13,7 @@ const Page: NextPageIntlayer = async ({ params }) => {
     await getLegalMetadata('./legal/en/terms_of_service.md', locale);
 
   return (
-    <IntlayerServerProvider locale={locale}>
+    <>
       <CreativeWorkHeader
         type="WebPage"
         creativeWorkName={title}
@@ -27,7 +26,7 @@ const Page: NextPageIntlayer = async ({ params }) => {
       <div className="m-auto max-w-2xl">
         <DocumentationRender>{file}</DocumentationRender>
       </div>
-    </IntlayerServerProvider>
+    </>
   );
 };
 

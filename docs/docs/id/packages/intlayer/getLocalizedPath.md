@@ -128,6 +128,20 @@ getLocalizedPath("/contact", Locales.FRENCH, manualRules);
 
 ---
 
+### Menghilangkan Locale
+
+Ketika tidak ada locale yang diberikan, path dilokalisasi untuk locale default yang dikonfigurasi:
+
+```typescript codeFormat="typescript"
+import { getLocalizedPath } from "intlayer";
+
+// Konfigurasi: defaultLocale = Locales.ENGLISH, { '/about': { en: '/about', fr: '/a-propos' } }
+getLocalizedPath("/about");
+// Output: "/about"
+```
+
+---
+
 ## Fungsi Terkait
 
 - [`getCanonicalPath`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/getCanonicalPath.md): Mengembalikan path yang dilokalkan ke canonical path internalnya.

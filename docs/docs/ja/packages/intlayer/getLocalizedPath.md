@@ -128,6 +128,20 @@ getLocalizedPath("/contact", Locales.FRENCH, manualRules);
 
 ---
 
+### ロケールの省略
+
+ロケールが指定されていない場合、パスは設定されたデフォルトロケール用にローカライズされます：
+
+```typescript codeFormat="typescript"
+import { getLocalizedPath } from "intlayer";
+
+// Configuration: defaultLocale = Locales.ENGLISH, { '/about': { en: '/about', fr: '/a-propos' } }
+getLocalizedPath("/about");
+// Output: "/about"
+```
+
+---
+
 ## 関連関数
 
 - [`getCanonicalPath`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getCanonicalPath.md): ローカライズされたパスを内部の正規（canonical）パスに解決します。

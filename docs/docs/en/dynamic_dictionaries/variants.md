@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-12
-updatedAt: 2026-08-04
+updatedAt: 2026-08-22
 title: Variants
 description: Use the variant metadata field in Intlayer content files to declare named or structured content alternatives — A/B tests, seasonal banners, feature-flagged copy, CMS records, user-specific content — and switch between them at runtime without code changes.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - concept
   - variants
 history:
+  - version: 9.4.0
+    date: 2026-08-22
+    changes: "Update to Next.js >= 9.4.0 architecture"
   - version: 9.0.0
     date: 2026-06-12
     changes: "Release of the variants feature"
@@ -523,23 +526,43 @@ Declare the variant once on the provider instead, exactly like `locale`:
 
   </Tab>
   <Tab label="Next.js" value="nextjs">
-    ```tsx fileName="layout.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
-    import { IntlayerServerProvider } from "next-intlayer/server";
-    import { IntlayerClientProvider } from "next-intlayer";
+    <Tabs>
+      <Tab label="Intlayer >=9.4" value=">=9.4">
+        ```tsx fileName="layout.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+        import { IntlayerProvider } from "next-intlayer/server";
 
-    export default async function Layout({ children, params }) {
-      const { locale } = await params;
-      const schoolType = await getSchoolType();
+        export default async function Layout({ children, params }) {
+          const { locale } = await params;
+          const schoolType = await getSchoolType();
 
-      return (
-        <IntlayerServerProvider locale={locale} variant={schoolType}>
-          <IntlayerClientProvider locale={locale} variant={schoolType}>
-            {children}
-          </IntlayerClientProvider>
-        </IntlayerServerProvider>
-      );
-    }
-    ```
+          return (
+            <IntlayerProvider locale={locale} variant={schoolType}>
+              {children}
+            </IntlayerProvider>
+          );
+        }
+        ```
+      </Tab>
+      <Tab label="Intlayer <9.4" value="<9.4">
+        ```tsx fileName="layout.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+        import { IntlayerServerProvider } from "next-intlayer/server";
+        import { IntlayerClientProvider } from "next-intlayer";
+
+        export default async function Layout({ children, params }) {
+          const { locale } = await params;
+          const schoolType = await getSchoolType();
+
+          return (
+            <IntlayerServerProvider locale={locale} variant={schoolType}>
+              <IntlayerClientProvider locale={locale} variant={schoolType}>
+                {children}
+              </IntlayerClientProvider>
+            </IntlayerServerProvider>
+          );
+        }
+        ```
+      </Tab>
+    </Tabs>
 
   </Tab>
   <Tab label="Vue" value="vue">

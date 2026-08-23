@@ -128,6 +128,20 @@ getLocalizedPath("/contact", Locales.FRENCH, manualRules);
 
 ---
 
+### Locale को छोड़ना
+
+जब कोई locale नहीं दिया जाता है, तो पथ को कॉन्फ़िगर किए गए डिफ़ॉल्ट locale के लिए स्थानीयकृत किया जाता है:
+
+```typescript codeFormat="typescript"
+import { getLocalizedPath } from "intlayer";
+
+// Configuration: defaultLocale = Locales.ENGLISH, { '/about': { en: '/about', fr: '/a-propos' } }
+getLocalizedPath("/about");
+// Output: "/about"
+```
+
+---
+
 ## संबंधित फ़ंक्शन
 
 - [`getCanonicalPath`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getCanonicalPath.md): स्थानीयकृत पथ को उसके आंतरिक canonical path में वापस हल करता है।

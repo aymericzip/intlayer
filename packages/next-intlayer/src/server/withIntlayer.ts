@@ -146,7 +146,6 @@ const getPruneConfig = ({
   fieldRenameMap,
 }: GetPruneConfigParams): Partial<NextConfig> => {
   const { optimize, minify, purge } = intlayerConfig.build;
-  const editorEnabled = intlayerConfig.editor.enabled;
   const importMode =
     intlayerConfig.build.importMode ?? intlayerConfig.dictionary?.importMode;
   const {
@@ -200,14 +199,15 @@ const getPruneConfig = ({
         ]);
 
         // The purge / minify pipeline stands down — with its own explanation —
-        // when the editor needs full dictionary content, when compat-adapter
-        // callers hide call sites from the usage analyser, or when
-        // `@intlayer/babel` (which runs it) is not resolvable.
+        // when compat-adapter callers hide call sites from the usage analyser,
+        // or when `@intlayer/babel` (which runs it) is not resolvable. The
+        // editor only stands the field-rename step down, not the pipeline.
         const isPurgePipelineEnabled =
-          !editorEnabled &&
           !swcExtraCallers?.length &&
           getIsPurgePipelineAvailable(intlayerConfig);
 
+        // The purge pipeline reports the field-rename step standing down when
+        // the editor is enabled, so this line stays a plain one.
         if (isPurgePipelineEnabled && minify) {
           logger(
             `Dictionary minification ${colorize('enabled', ANSIColors.GREEN)}`

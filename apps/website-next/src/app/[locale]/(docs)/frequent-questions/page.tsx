@@ -3,7 +3,7 @@ import { getFrequentQuestionMetadataRecord } from '@intlayer/docs';
 import { FAQPageHeader } from '@structuredData/FAQPageHeader';
 import { ArrowRight } from 'lucide-react';
 import type { LocalPromiseParams } from 'next-intlayer';
-import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
+import { useIntlayer } from 'next-intlayer/server';
 import { Suspense } from 'react';
 import { Link } from '@/components/Link/Link';
 
@@ -27,7 +27,7 @@ const FrequentQuestionsPage = async ({ params }: LocalPromiseParams) => {
   }));
 
   return (
-    <IntlayerServerProvider locale={locale}>
+    <>
       <FAQPageHeader faqs={faqs} />
       <div className="m-auto flex max-w-2xl flex-col gap-10 p-10 text-center">
         <Suspense>
@@ -55,7 +55,7 @@ const FrequentQuestionsPage = async ({ params }: LocalPromiseParams) => {
           ))}
         </div>
       </div>
-    </IntlayerServerProvider>
+    </>
   );
 };
 

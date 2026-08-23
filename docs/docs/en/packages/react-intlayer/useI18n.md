@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-08-23
+updatedAt: 2026-08-22
 title: useI18n Hook Documentation | react-intlayer
 description: Learn how to use the useI18n hook in the react-intlayer package
 keywords:
@@ -20,6 +20,9 @@ slugs:
   - react-intlayer
   - useI18n
 history:
+  - version: 9.4.0
+    date: 2026-08-22
+    changes: "Update to Next.js >= 9.4.0 architecture"
   - version: 6.0.0
     date: 2025-06-29
     changes: "Initial writing of `useI18n` hook documentation"
@@ -77,6 +80,34 @@ All dictionary keys must be declared within content declaration files to enhance
 
 Examples of using the `useI18n` hook within React components:
 
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
+```tsx fileName="src/App.tsx" codeFormat={["typescript", "esm"]}
+import type { FC } from "react";
+import { ClientComponentExample, ServerComponentExample } from "@components";
+import { IntlayerProvider } from "react-intlayer";
+import { useI18n } from "react-intlayer/server";
+import { Locales } from "intlayer";
+
+const App: FC<{ locale: Locales }> = ({ locale }) => {
+  const t = useI18n("home-page", locale);
+
+  return (
+    <>
+      <p>{t("introduction")}</p>
+      <IntlayerProvider locale={locale}>
+        <ClientComponentExample />
+      </IntlayerProvider>
+      <ServerComponentExample />
+    </>
+  );
+};
+```
+
+ </Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
+
 ```tsx fileName="src/App.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { ClientComponentExample, ServerComponentExample } from "@components";
@@ -100,6 +131,9 @@ const App: FC<{ locale: Locales }> = ({ locale }) => {
   );
 };
 ```
+
+ </Tab>
+</Tabs>
 
 ```tsx fileName="src/components/ComponentExample.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";

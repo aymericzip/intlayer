@@ -128,6 +128,20 @@ getLocalizedPath("/contact", Locales.FRENCH, manualRules);
 
 ---
 
+### Bỏ qua Locale
+
+Khi không có locale nào được cung cấp, đường dẫn được bản địa hóa cho locale mặc định được cấu hình:
+
+```typescript codeFormat="typescript"
+import { getLocalizedPath } from "intlayer";
+
+// Configuration: defaultLocale = Locales.ENGLISH, { '/about': { en: '/about', fr: '/a-propos' } }
+getLocalizedPath("/about");
+// Output: "/about"
+```
+
+---
+
 ## Các hàm liên quan
 
 - [`getCanonicalPath`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getCanonicalPath.md): Giải quyết một đường dẫn được bản địa hóa trở về đường dẫn chuẩn nội bộ (canonical) của nó.

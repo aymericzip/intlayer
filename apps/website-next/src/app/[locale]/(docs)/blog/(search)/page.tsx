@@ -4,7 +4,7 @@ import { H1 } from '@intlayer/design-system/headers';
 import { Loader } from '@intlayer/design-system/loader';
 import { WebsiteHeader } from '@structuredData/WebsiteHeader';
 import type { NextPageIntlayer } from 'next-intlayer';
-import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
+import { useIntlayer } from 'next-intlayer/server';
 import { type FC, Suspense } from 'react';
 
 const BlogSearchPageContent: FC = () => {
@@ -28,15 +28,11 @@ const BlogSearchPageContent: FC = () => {
   );
 };
 
-const BlogSearchPage: NextPageIntlayer = async ({ params }) => {
-  const { locale } = await params;
-
-  return (
-    <IntlayerServerProvider locale={locale}>
-      <WebsiteHeader />
-      <BlogSearchPageContent />
-    </IntlayerServerProvider>
-  );
-};
+const BlogSearchPage: NextPageIntlayer = () => (
+  <>
+    <WebsiteHeader />
+    <BlogSearchPageContent />
+  </>
+);
 
 export default BlogSearchPage;

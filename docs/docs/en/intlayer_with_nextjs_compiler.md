@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-10
-updatedAt: 2026-05-31
+updatedAt: 2026-08-22
 title: "Next.js i18n - Complete guide to translate your app"
 description: "No more i18next. The 2026 guide to building a multilingual (i18n) Next.js app. Translate with AI agents and optimize bundle size, SEO and performances."
 keywords:
@@ -20,6 +20,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-next-no-lolale-path-template
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
+  - version: 9.4.0
+    date: 2026-08-22
+    changes: "Update to Next.js >= 9.4.0 architecture"
   - version: 8.9.0
     date: 2026-05-04
     changes: "Update Solid useIntlayer API usage to direct property access"
@@ -300,8 +303,6 @@ Example of how your page might look:
 
 ```tsx fileName="src/app/page.tsx"
 import type { FC } from "react";
-import { IntlayerServerProvider } from "next-intlayer/server";
-import { getLocale } from "next-intlayer/server";
 
 const PageContent: FC = () => {
   return (
@@ -312,14 +313,8 @@ const PageContent: FC = () => {
   );
 };
 
-export default async function Page() {
-  const locale = await getLocale();
-
-  return (
-    <IntlayerServerProvider locale={locale}>
-      <PageContent />
-    </IntlayerServerProvider>
-  );
+export default function Page() {
+  return <PageContent />;
 }
 ```
 
@@ -345,6 +340,35 @@ export default async function Page() {
   }
 }
 ```
+
+<Tabs>
+  <Tab label='Intlayer >=9.4' value='>=9.4'>
+
+```tsx fileName="src/app/page.tsx"
+import { type FC } from "react";
+import { useIntlayer } from "next-intlayer";
+
+const PageContent: FC = () => {
+  const content = useIntlayer("page-content");
+
+  return (
+    <>
+      <p>{content.getStartedByEditing}</p>
+      <code>src/app/page.tsx</code>
+    </>
+  );
+};
+
+export default function Page() {
+  return <PageContent />;
+}
+```
+
+- **`IntlayerProvider`** is mounted once, in the root layout. It provides the locale to both server and client components, so pages no longer wrap themselves.
+- Without a `[locale]` path segment the locale always comes from the request — the `x-intlayer-locale` header set by the Intlayer proxy, then the locale cookie — which the server hooks read on their own when the provider has not run.
+
+  </Tab>
+  <Tab label='Intlayer <9.4' value='<9.4'>
 
 ```tsx fileName="src/app/page.tsx"
 import { type FC } from "react";
@@ -373,13 +397,14 @@ export default async function Page() {
 }
 ```
 
-  </Tab>
-</Tabs>
-
 - **`IntlayerClientProvider`** is used to provide the locale to client-side components.
 - **`IntlayerServerProvider`** is used to provide the locale to the server children.
 
   > Layout and page cannot share a common server context because the server context system is based on a per-request data store (via [React's cache](https://react.dev/reference/react/cache) mechanism), causing each "context" to be re-created for different segments of the application. Placing the provider in a shared layout would break this isolation, preventing the correct propagation of the server context values to your server components.
+
+  </Tab>
+
+</Tabs>
 
 </Step>
 

@@ -128,6 +128,20 @@ getLocalizedPath("/contact", Locales.FRENCH, manualRules);
 
 ---
 
+### Пропуск локалі
+
+Коли локаль не вказана, шлях локалізується для налаштованої локалі за замовчуванням:
+
+```typescript codeFormat="typescript"
+import { getLocalizedPath } from "intlayer";
+
+// Конфігурація: defaultLocale = Locales.ENGLISH, { '/about': { en: '/about', fr: '/a-propos' } }
+getLocalizedPath("/about");
+// Результат: "/about"
+```
+
+---
+
 ## Пов'язані функції
 
 - [`getCanonicalPath`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/intlayer/getCanonicalPath.md): Відновлює локалізований шлях до внутрішнього канонічного шляху.

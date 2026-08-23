@@ -9,13 +9,14 @@ import type {
   StrictModeLocaleMap,
 } from '@intlayer/types/module_augmentation';
 import { useDictionaryDynamic as useDictionaryDynamicBase } from 'react-intlayer/server';
-import { safeUseLocale } from './useIntlayer';
+import { resolveFallbackLocale } from './ambientLocale';
 
 /**
  * On the server side, hook that lazily loads a dictionary (plain or qualified)
  * and returns the content for the given locale or selector.
  *
- * If the locale is not provided, it will use the locale from the server context.
+ * If the locale is not provided, it will use the locale from the server
+ * context, falling back to the locale carried by the request.
  */
 export const useDictionaryDynamic = <
   const T extends Dictionary,
@@ -27,12 +28,12 @@ export const useDictionaryDynamic = <
   key: string,
   localeOrSelector?: A
 ): ReturnType<typeof useDictionaryDynamicBase<T, A>> => {
-  const storedLocale = safeUseLocale();
+  const fallbackLocale = resolveFallbackLocale(localeOrSelector);
 
   return useDictionaryDynamicBase<T, A>(
     dictionaryPromise,
     key,
     localeOrSelector,
-    storedLocale
+    fallbackLocale
   );
 };

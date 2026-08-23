@@ -20,11 +20,7 @@ import {
   ROOT_LAYOUT_TEMPLATE_JS,
   ROOT_LAYOUT_TEMPLATE_TS,
 } from './templates';
-import {
-  type TransformResult,
-  wrapLayoutWithProvider,
-  wrapPageWithProvider,
-} from './transforms';
+import { type TransformResult, wrapLayoutWithProvider } from './transforms';
 
 /**
  * Creates the locale-detection proxy (Next >= 16) or middleware (Next < 16),
@@ -62,7 +58,7 @@ const ensureProxyOrMiddleware = async (
   logger(`${v} Created ${colorizePath(targetPath)} for locale detection`);
 };
 
-/** Logs the outcome of a layout/page provider-wrap transform. */
+/** Logs the outcome of a layout provider-wrap transform. */
 const logTransformOutcome = (
   filePath: string,
   result: TransformResult
@@ -120,8 +116,10 @@ const createIfMissing = async (
 
 /**
  * Next.js App Router adapter. Scaffolds the locale proxy/middleware, restructures
- * the app into a `[locale]` segment, and wraps the layout/page with the Intlayer
- * providers — all idempotently and without overwriting recognizable user code.
+ * the app into a `[locale]` segment, and wraps the layout with the unified
+ * Intlayer provider — all idempotently and without overwriting recognizable
+ * user code. Pages are never wrapped: `IntlayerProvider` in the locale layout
+ * covers them.
  */
 export const nextAppRouterAdapter: FrameworkAdapter = {
   name: 'Next.js App Router',
@@ -201,11 +199,10 @@ export const nextAppRouterAdapter: FrameworkAdapter = {
       );
     }
 
-    // 5. Locale page — transform an existing one, else scaffold from template.
+    // 5. Locale page — only scaffolded when absent. An existing page needs no
+    // transform: the locale layout's `IntlayerProvider` already covers it.
     const existingPage = await findAppFile(rootDir, localeDir, 'page');
-    if (existingPage) {
-      await transformExistingFile(rootDir, existingPage, wrapPageWithProvider);
-    } else {
+    if (!existingPage) {
       await createIfMissing(
         rootDir,
         join(localeDir, `page.${scriptExtension}`),

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-08-23
+updatedAt: 2026-08-22
 title: t Function Documentation | next-intlayer
 description: See how to use the t function for next-intlayer package
 keywords:
@@ -19,6 +19,9 @@ slugs:
   - next-intlayer
   - t
 history:
+  - version: 9.4.0
+    date: 2026-08-22
+    changes: "Update to Next.js >= 9.4.0 architecture"
   - version: 5.5.10
     date: 2025-06-29
     changes: "Init history"
@@ -154,24 +157,45 @@ const greeting = t(translations);
 
 ### Locale Detection and Context
 
-In `next-intlayer`, the current locale is managed through context providers: `IntlayerClientProvider` and `IntlayerServerProvider`. Ensure these providers wrap your components and the `locale` prop is correctly passed.
+In `next-intlayer`, the current locale is managed through context providers: `IntlayerClientProvider` and `IntlayerServerProvider` (or just `IntlayerProvider` for Intlayer >= 9.4). Ensure these providers wrap your components and the `locale` prop is correctly passed.
 
 #### Example:
 
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
 ```tsx codeFormat={["typescript", "esm", "commonjs"]}
-import type { FC } from "react";
+import type { FC, ReactNode } from "react";
+import type { Locales } from "intlayer";
+import { IntlayerProvider } from "next-intlayer/server";
+
+const Page: FC<{ locale: Locales; children: ReactNode }> = ({
+  locale,
+  children,
+}) => <IntlayerProvider locale={locale}>{children}</IntlayerProvider>;
+```
+
+ </Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
+
+```tsx codeFormat={["typescript", "esm", "commonjs"]}
+import type { FC, ReactNode } from "react";
 import type { Locales } from "intlayer";
 import { IntlayerClientProvider } from "next-intlayer";
 import { IntlayerServerProvider } from "next-intlayer/server";
 
-const Page: FC<{ locale: Locales }> = ({ locale }) => (
+const Page: FC<{ locale: Locales; children: ReactNode }> = ({
+  locale,
+  children,
+}) => (
   <IntlayerServerProvider locale={locale}>
-    <IntlayerClientProvider locale={locale}>
-      {/* Your components here */}
-    </IntlayerClientProvider>
+    <IntlayerClientProvider locale={locale}>{children}</IntlayerClientProvider>
   </IntlayerServerProvider>
 );
 ```
+
+ </Tab>
+</Tabs>
 
 ---
 
@@ -181,7 +205,7 @@ const Page: FC<{ locale: Locales }> = ({ locale }) => (
 
 - **Cause**: The current locale is not properly set, or the translation for the current locale is missing.
 - **Solution**:
-  - Verify that the `IntlayerClientProvider` or `IntlayerServerProvider` is correctly set up with the appropriate `locale`.
+  - Verify that the `IntlayerProvider` (or `IntlayerClientProvider`/`IntlayerServerProvider`) is correctly set up with the appropriate `locale`.
   - Ensure that your translations object includes all the necessary locales.
 
 ### Missing Translations in TypeScript
@@ -218,4 +242,4 @@ For more detailed usage and advanced features, refer to the [next-intlayer docum
 
 ---
 
-**Note**: Remember to set up your `IntlayerClientProvider` and `IntlayerServerProvider` properly to ensure that the current locale is correctly passed down to your components. This is crucial for the `t` function to return the correct translations.
+**Note**: Remember to set up your `IntlayerProvider` (or `IntlayerClientProvider` and `IntlayerServerProvider`) properly to ensure that the current locale is correctly passed down to your components. This is crucial for the `t` function to return the correct translations.

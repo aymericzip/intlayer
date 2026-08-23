@@ -17,7 +17,6 @@ import { CreativeWorkHeader } from '@structuredData/CreativeWorkHeader';
 import { urlRenamer } from '@utils/markdown';
 import { redirect } from 'next/navigation';
 import type { LocalPromiseParams } from 'next-intlayer';
-import { IntlayerServerProvider } from 'next-intlayer/server';
 import type { BlogProps } from './layout';
 
 const BlogPage = async ({ params }: LocalPromiseParams<BlogProps>) => {
@@ -57,7 +56,7 @@ const BlogPage = async ({ params }: LocalPromiseParams<BlogProps>) => {
     : undefined;
 
   return (
-    <IntlayerServerProvider locale={locale}>
+    <>
       {blogData && (
         <CreativeWorkHeader
           type="BlogPosting"
@@ -81,7 +80,7 @@ const BlogPage = async ({ params }: LocalPromiseParams<BlogProps>) => {
       <DocumentationRender>{blogContent}</DocumentationRender>
 
       <DocPageNavigation nextDoc={nextBlog} prevDoc={prevBlog} />
-    </IntlayerServerProvider>
+    </>
   );
 };
 export default BlogPage;

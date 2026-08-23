@@ -35,8 +35,14 @@ export const ROOT_LAYOUT_TEMPLATE_JS = `const RootLayout = ({ children }) => <>{
 export default RootLayout;
 `;
 
-/** Locale layout (`app/[locale]/layout.tsx`) providing `<html>` + client provider. */
-export const LOCALE_LAYOUT_TEMPLATE_TS = `import { type NextLayoutIntlayer, IntlayerClientProvider } from "next-intlayer";
+/**
+ * Locale layout (`app/[locale]/layout.tsx`) providing `<html>` + the unified
+ * provider. `IntlayerProvider` seeds both the server context (read by server
+ * hooks and by any page below, without per-page wrapping) and the client
+ * provider in one mount.
+ */
+export const LOCALE_LAYOUT_TEMPLATE_TS = `import { type NextLayoutIntlayer } from "next-intlayer";
+import { IntlayerProvider } from "next-intlayer/server";
 import { getHTMLTextDir } from "intlayer";
 
 export { generateStaticParams } from "next-intlayer";
@@ -47,9 +53,7 @@ const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
   return (
     <html lang={locale} dir={getHTMLTextDir(locale)}>
       <body>
-        <IntlayerClientProvider locale={locale}>
-          {children}
-        </IntlayerClientProvider>
+        <IntlayerProvider locale={locale}>{children}</IntlayerProvider>
       </body>
     </html>
   );
@@ -58,7 +62,7 @@ const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
 export default LocaleLayout;
 `;
 
-export const LOCALE_LAYOUT_TEMPLATE_JS = `import { IntlayerClientProvider } from "next-intlayer";
+export const LOCALE_LAYOUT_TEMPLATE_JS = `import { IntlayerProvider } from "next-intlayer/server";
 import { getHTMLTextDir } from "intlayer";
 
 export { generateStaticParams } from "next-intlayer";
@@ -69,9 +73,7 @@ const LocaleLayout = async ({ children, params }) => {
   return (
     <html lang={locale} dir={getHTMLTextDir(locale)}>
       <body>
-        <IntlayerClientProvider locale={locale}>
-          {children}
-        </IntlayerClientProvider>
+        <IntlayerProvider locale={locale}>{children}</IntlayerProvider>
       </body>
     </html>
   );

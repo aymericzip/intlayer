@@ -128,6 +128,20 @@ getLocalizedPath("/contact", Locales.FRENCH, manualRules);
 
 ---
 
+### حذف الإعدادات الإقليمية
+
+عندما لا يتم تحديد أي إعدادات إقليمية، يتم تحديد المسار للإعدادات الإقليمية الافتراضية المكونة:
+
+```typescript codeFormat="typescript"
+import { getLocalizedPath } from "intlayer";
+
+// التكوين: defaultLocale = Locales.ENGLISH, { '/about': { en: '/about', fr: '/a-propos' } }
+getLocalizedPath("/about");
+// النتيجة: "/about"
+```
+
+---
+
 ## الدوال ذات الصلة
 
 - [`getCanonicalPath`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getCanonicalPath.md): يُعيد مسارًا مترجمًا إلى مساره القانوني الداخلي.
