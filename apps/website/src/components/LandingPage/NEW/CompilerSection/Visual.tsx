@@ -1,0 +1,63 @@
+import { H3 } from '@intlayer/design-system/headers';
+import { Select } from '@intlayer/design-system/select';
+import { getLocaleName, Locales } from 'intlayer';
+import { type FC, useEffect, useState } from 'react';
+import { useIntlayer, useLocale } from 'react-intlayer';
+
+export const VisualEditorSection: FC = () => {
+  const { availableLocales } = useLocale();
+  const [isControlled, setIsControlled] = useState(false);
+  const [manualLocale, setManualLocale] = useState<string>(Locales.ENGLISH);
+
+  const [locale, setLocale] = useState<string>(Locales.ENGLISH);
+
+  useEffect(() => {
+    if (isControlled || !availableLocales.length) return;
+
+    const interval = setInterval(() => {
+      const randomLocale =
+        availableLocales[Math.floor(Math.random() * availableLocales.length)];
+
+      setLocale(randomLocale);
+    }, 2000);
+
+    return () => clearInterval(interval);
+  }, [isControlled, availableLocales]);
+
+  /*   if (isControlled) {
+    locale = manualLocale;
+  }
+  */
+  const { title, paragraph, selectPlaceholder, localeSelectorTrigger } =
+    useIntlayer('compiler-section', locale);
+
+  return (
+    <div className="relative z-0 flex size-full flex-col justify-center gap-10 overflow-hidden rounded-r-lg border bg-background p-6 text-center">
+      <H3>{title}</H3>
+      <p className="text-muted-foreground text-sm">{paragraph}</p>
+      <div className="absolute right-6 bottom-6">
+        <Select
+          value={locale}
+          onValueChange={(value) => {
+            setIsControlled(true);
+            setManualLocale(value);
+          }}
+        >
+          <Select.Trigger
+            className="ml-auto py-1 text-sm"
+            aria-label={localeSelectorTrigger.value}
+          >
+            <Select.Value placeholder={selectPlaceholder.value} />
+          </Select.Trigger>
+          <Select.Content>
+            {availableLocales.map((locale) => (
+              <Select.Item key={locale} value={locale}>
+                {getLocaleName(locale)}
+              </Select.Item>
+            ))}
+          </Select.Content>
+        </Select>
+      </div>
+    </div>
+  );
+};

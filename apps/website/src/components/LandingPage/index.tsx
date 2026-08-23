@@ -24,7 +24,9 @@ const WhyToChoseIntlayerSection = lazy(() =>
 );
 
 const FeaturesSection = lazy(() =>
-  import('./FeaturesSection').then((mod) => ({ default: mod.FeaturesSection }))
+  import('./NEW/RedesignedFeatures').then((mod) => ({
+    default: mod.FeaturesSection,
+  }))
 );
 
 const I18nBenchmarkSection = lazy(() =>
@@ -105,11 +107,7 @@ export const LandingPage: FC = () => {
             <ProductsSection />
           </Suspense>
         </section>
-        <section aria-label={content.technologiesSection.value}>
-          <Suspense fallback={<Loader />}>
-            <AvailableTechnoSection />
-          </Suspense>
-        </section>
+
         <section aria-label={content.liveDemoSection.value}>
           <Suspense fallback={<Loader />}>
             <DemoSection />
