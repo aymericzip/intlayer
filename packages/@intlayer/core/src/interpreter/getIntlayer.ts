@@ -21,12 +21,32 @@ import type {
 import { getDictionary } from './getDictionary';
 
 /**
+ * Object.prototype methods libraries call on arbitrary values while inspecting
+ * them — TanStack Router's `isPlainObject` reaches for `hasOwnProperty` on
+ * every value it deep-compares. Answering them with another path proxy turns
+ * a missing dictionary into `hasOwnProperty is not a function`, thrown deep
+ * inside the consumer, so they are forwarded to the real implementations.
+ */
+const PROTOTYPE_METHOD_NAMES = new Set<string | symbol>([
+  'hasOwnProperty',
+  'isPrototypeOf',
+  'propertyIsEnumerable',
+  'toLocaleString',
+]);
+
+/**
  * Creates a Recursive Proxy that returns the path of the accessed key
  * stringified. This prevents the app from crashing on undefined access.
+ *
+ * The proxy wraps a function so that calling any leaf — `keywords.join(', ')`,
+ * `title.trim()` — resolves to the path too, instead of throwing
+ * `join is not a function`. Being callable also keeps structural checks
+ * (`Object.prototype.toString`) from mistaking it for a plain object worth
+ * walking.
  */
 const createSafeFallback = (path = ''): any => {
-  return new Proxy({} as Record<string | symbol, unknown>, {
-    get: (_target, prop) => {
+  return new Proxy((() => path) as Record<string | symbol, any>, {
+    get: (target, prop) => {
       if (
         prop === 'toJSON' ||
         prop === Symbol.toPrimitive ||
@@ -37,6 +57,11 @@ const createSafeFallback = (path = ''): any => {
       }
       if (prop === 'then') {
         return undefined; // Prevent it from being treated as a Promise
+      }
+      if (PROTOTYPE_METHOD_NAMES.has(prop)) {
+        return (Object.prototype as Record<string | symbol, any>)[prop].bind(
+          target
+        );
       }
       if (prop === Symbol.iterator) {
         return function* () {

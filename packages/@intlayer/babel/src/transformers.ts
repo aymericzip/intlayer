@@ -12,6 +12,7 @@ import {
 } from './babel-plugin-intlayer-optimize';
 import {
   type CompatCallerConfig,
+  INTLAYER_CALLER_NAMES,
   makeUsageAnalyzerBabelPlugin,
   type PruneContext,
 } from './babel-plugin-intlayer-usage-analyzer';
@@ -43,18 +44,16 @@ export const BABEL_PARSER_OPTIONS: ParserOptions = {
 };
 
 /**
- * Fast pre-check: matches files that could contain native intlayer calls
- * (`useIntlayer` / `getIntlayer`). Used by the optimize/transform pass, which
- * only rewrites native calls.
- */
-export const INTLAYER_USAGE_REGEX = /\b(use|get)Intlayer\b/;
-
-/**
  * Builds a fast pre-check regex that matches files potentially containing
  * native intlayer calls and/or the given compat namespace caller names.
  *
  * The result is used to skip files that definitely contain none of the
  * relevant function names, avoiding unnecessary Babel parsing.
+ *
+ * The native names come from {@link INTLAYER_CALLER_NAMES} rather than being
+ * spelled out here: a name missing from this regex silently opts every file
+ * using it out of the optimize, purge and minify passes, leaving its calls to
+ * resolve through the dictionary registry — empty in browser bundles.
  *
  * Compat caller names are NOT hardcoded here — they are provided at runtime by
  * the compat adapter packages that configure the usage-analysis pipeline.
@@ -64,17 +63,20 @@ export const INTLAYER_USAGE_REGEX = /\b(use|get)Intlayer\b/;
  * @returns A `RegExp` matching any of the native or provided caller names.
  */
 export const buildUsageCheckRegex = (extraCallerNames?: string[]): RegExp => {
-  const callerNames = [
-    'useIntlayer',
-    'getIntlayer',
-    ...(extraCallerNames ?? []),
-  ];
+  const callerNames = [...INTLAYER_CALLER_NAMES, ...(extraCallerNames ?? [])];
   const uniqueNames = [...new Set(callerNames)];
   return new RegExp(`\\b(${uniqueNames.join('|')})\\b`);
 };
 
+/**
+ * Fast pre-check: matches files that could contain native intlayer calls
+ * (`useIntlayer` / `getIntlayer` / `getIntlayerAsync`). Used by the
+ * optimize/transform pass, which only rewrites native calls.
+ */
+export const INTLAYER_USAGE_REGEX = buildUsageCheckRegex();
+
 /** Usage-check regex covering only the native callers (no compat callers). */
-const NATIVE_USAGE_CHECK_REGEX = buildUsageCheckRegex();
+const NATIVE_USAGE_CHECK_REGEX = INTLAYER_USAGE_REGEX;
 
 /** Cache of usage-check regexes, keyed by the compat-caller array reference. */
 const usageCheckRegexCache = new WeakMap<
