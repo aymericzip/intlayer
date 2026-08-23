@@ -98,6 +98,7 @@ const startServer = async () => {
   // Security Headers
   await app.register(fastifyHelmet, {
     contentSecurityPolicy: false,
+    crossOriginResourcePolicy: { policy: 'cross-origin' },
     global: true,
   });
 
