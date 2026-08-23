@@ -37,7 +37,7 @@ const formatPercent = (ratio: number): string => `${Math.round(ratio * 100)}%`;
 
 /** Bar color buckets keyed on completion ratio. */
 const getBarColor = (ratio: number): string => {
-  if (ratio >= 1) return 'bg-success/60';
+  if (ratio >= 1) return 'bg-text/60';
   if (ratio >= 0.5) return 'bg-warning/60';
   return 'bg-error/60';
 };
@@ -71,7 +71,7 @@ type ConfigChipProps = {
   icon: ReactNode;
   label: ReactNode;
   value: ReactNode;
-  tone?: 'success' | 'neutral' | 'warning';
+  tone?: 'text' | 'neutral' | 'warning';
 };
 
 /** A compact team/configuration status chip. */
@@ -86,12 +86,12 @@ const ConfigChip: FC<ConfigChipProps> = ({
     roundedSize="2xl"
     transparency="none"
     border
-    borderColor={tone === 'success' ? 'success' : 'neutral'}
+    borderColor={tone === 'text' ? 'text' : 'neutral'}
   >
     <span
       className={cn(
         'flex size-8 shrink-0 items-center justify-center rounded-lg',
-        tone === 'success' && 'bg-success/10 text-success',
+        tone === 'text' && 'bg-text/10 text-text',
         tone === 'warning' && 'bg-warning/10 text-warning',
         tone === 'neutral' && 'bg-neutral/10 text-neutral'
       )}
@@ -227,7 +227,7 @@ export const DashboardOverview: FC = () => {
             </span>
           </span>
           <span className="flex items-center gap-2">
-            <CheckCircle2 className="size-4 text-success" />
+            <CheckCircle2 className="size-4 text-text" />
             <span className="text-neutral">
               {content.fullyTranslatedLocales}
             </span>
@@ -275,7 +275,7 @@ export const DashboardOverview: FC = () => {
                         </Tag>
                       )}
                       {isComplete && (
-                        <Tag size="xs" color="success">
+                        <Tag size="xs" color="text">
                           {content.completeTag}
                         </Tag>
                       )}
@@ -479,7 +479,7 @@ export const DashboardOverview: FC = () => {
               icon={<Sparkles className="size-4" />}
               label={content.autoFill}
               value={insights.autoFill ? content.enabled : content.disabled}
-              tone={insights.autoFill ? 'success' : 'neutral'}
+              tone={insights.autoFill ? 'text' : 'neutral'}
             />
             <ConfigChip
               icon={<Sparkles className="size-4" />}
@@ -487,13 +487,13 @@ export const DashboardOverview: FC = () => {
               value={
                 insights.aiConfigured ? content.enabled : content.notConfigured
               }
-              tone={insights.aiConfigured ? 'success' : 'warning'}
+              tone={insights.aiConfigured ? 'text' : 'warning'}
             />
             <ConfigChip
               icon={<GitBranch className="size-4" />}
               label={content.repository}
               value={insights.repositoryProvider ?? content.notConnected}
-              tone={insights.repositoryProvider ? 'success' : 'neutral'}
+              tone={insights.repositoryProvider ? 'text' : 'neutral'}
             />
             <ConfigChip
               icon={<ScanLine className="size-4" />}
@@ -503,7 +503,7 @@ export const DashboardOverview: FC = () => {
                   ? content.enabled
                   : content.notConfigured
               }
-              tone={insights.applicationURL ? 'success' : 'neutral'}
+              tone={insights.applicationURL ? 'text' : 'neutral'}
             />
           </div>
         </Container>
