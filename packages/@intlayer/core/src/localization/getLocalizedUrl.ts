@@ -39,6 +39,10 @@ import { type RoutingOptions, resolveRoutingConfig } from './getPrefix';
  *  // no-prefix mode
  *  getLocalizedUrl('/about', 'fr', { locales: ['en', 'fr'], defaultLocale: 'en', mode: 'no-prefix' });
  *  // Returns '/about' for any locale
+ *
+ *  // domain routing
+ *  getLocalizedUrl('/about', 'zh', { domains: { zh: 'intlayer.cn' }, currentDomain: 'intlayer.org' });
+ *  // Returns 'https://intlayer.cn/about' — the domain identifies the locale, so no prefix
  * ```
  *
  * @param url - The original URL string to be processed.
@@ -56,6 +60,10 @@ import { type RoutingOptions, resolveRoutingConfig } from './getPrefix';
  * The return type is narrowed to a template-literal type when both `url` and
  * `currentLocale` are string literals and the routing mode / defaultLocale are
  * not overridden via `options`.
+ *
+ * For a locale mapped to a domain by `routing.domains` it narrows to the union
+ * of the two URLs this function can return — the absolute one on that domain,
+ * and the relative one it returns when the current page already lives there.
  */
 export const getLocalizedUrl = <
   const T extends string,

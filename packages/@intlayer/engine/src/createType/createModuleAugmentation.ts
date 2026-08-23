@@ -1,7 +1,11 @@
 import { mkdir } from 'node:fs/promises';
 import { basename, extname, join, relative } from 'node:path';
 import { kebabCaseToCamelCase, normalizePath } from '@intlayer/config/utils';
-import { getRewriteRules } from '@intlayer/core/localization';
+import {
+  getDomainOrigin,
+  getRewriteRules,
+  isLocaleExclusiveOnDomain,
+} from '@intlayer/core/localization';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { IntlayerConfig, RoutingConfig } from '@intlayer/types/config';
 import fg from 'fast-glob';
@@ -43,6 +47,37 @@ export const formatRewriteRules = (
     .join('; ');
 
   return `; rewrite: { ${formattedRules} }`;
+};
+
+/**
+ * Serializes the `routing.domains` map as a type literal, so `getLocalizedUrl`
+ * and `getLocalizedPath` can resolve the origin of a locale — and the
+ * suppression of its path prefix — at the type level. Returns an empty string
+ * when the project maps no locale to a domain.
+ *
+ * Each entry carries the two facts the consuming types need, both computed with
+ * the very helpers the runtime uses:
+ * - `origin`: the normalized origin ({@link getDomainOrigin}), prepended to the
+ *   localized path when the target locale lives on another domain.
+ * - `exclusive`: whether the locale is the only one on that hostname
+ *   ({@link isLocaleExclusiveOnDomain}), in which case the domain identifies the
+ *   locale and no path prefix is emitted.
+ */
+export const formatDomains = (domains: RoutingConfig['domains']): string => {
+  const domainEntries = Object.entries(domains ?? {}).filter(
+    ([, domain]) => typeof domain === 'string' && domain.length > 0
+  ) as [string, string][];
+
+  if (!domainEntries.length) return '';
+
+  const formattedDomains = domainEntries
+    .map(
+      ([locale, domain]) =>
+        `'${locale}': { origin: '${getDomainOrigin(domain)}'; exclusive: ${isLocaleExclusiveOnDomain(locale, domains)} }`
+    )
+    .join('; ');
+
+  return `; domains: { ${formattedDomains} }`;
 };
 
 const zodToTsString = (schema: any): string => {
@@ -215,10 +250,12 @@ const generateTypeIndexContent = (
   fileContent += `  interface __StrictModeRegistry { mode: '${strictKey}' }\n\n`;
   // Editor registry
   fileContent += `  interface __EditorRegistry { enabled : ${enabled} }\n\n`;
-  // Routing registry (mode + defaultLocale narrowed to literals)
+  // Routing registry (mode + defaultLocale narrowed to literals, rewrite rules
+  // and domain map serialized as type literals)
   const routingMode = routing?.mode ?? 'prefix-no-default';
   const formattedRewriteRules = formatRewriteRules(routing?.rewrite);
-  fileContent += `  interface __RoutingRegistry { mode: '${routingMode}'; defaultLocale: '${defaultLocale}'${formattedRewriteRules} }\n`;
+  const formattedDomains = formatDomains(routing?.domains);
+  fileContent += `  interface __RoutingRegistry { mode: '${routingMode}'; defaultLocale: '${defaultLocale}'${formattedRewriteRules}${formattedDomains} }\n`;
   fileContent += `}\n`;
 
   return fileContent;

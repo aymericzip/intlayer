@@ -7,8 +7,11 @@ import {
 import type { RewriteRules, RoutingConfig } from '@intlayer/types/config';
 import type {
   DeclaredLocales,
+  DomainRuleMap,
+  IsDomainExclusive,
   LocalesValues,
   ResolvedDefaultLocale,
+  ResolvedDomains,
   ResolvedRoutingMode,
 } from '@intlayer/types/module_augmentation';
 import { isLocaleExclusiveOnDomain } from './domainUtils';
@@ -95,26 +98,31 @@ export type GetPrefixResult = {
  *
  * Distributes over union locales — calling `getPrefix('fr')` in `prefix-no-default`
  * mode with `defaultLocale = 'en'` resolves to `{ prefix: 'fr/'; localePrefix: 'fr' }`.
+ * A locale served from its own exclusive domain resolves to an empty prefix, as
+ * the hostname already identifies it.
  *
- * Note: domain-based routing and "locale not in locales" edge cases may return an
- * empty result at runtime regardless of what this type reports.
+ * Note: the "locale not in locales" edge case returns an empty result at runtime
+ * regardless of what this type reports.
  */
 export type GetPrefixResultNarrowed<
   L extends LocalesValues | undefined,
   Mode extends string = ResolvedRoutingMode,
   Default extends LocalesValues = ResolvedDefaultLocale,
+  Domains extends DomainRuleMap = ResolvedDomains,
 > = L extends string
   ? [string] extends [L] // L is wide (string / LocalesValues) → distribute over declared locales
-    ? GetPrefixResultNarrowed<DeclaredLocales, Mode, Default>
-    : [string] extends [Mode]
-      ? GetPrefixResult // mode is wide → fall back to generic result
-      : Mode extends 'prefix-all'
-        ? { prefix: `${L}/`; localePrefix: L }
-        : Mode extends 'prefix-no-default'
-          ? L extends Default
-            ? { prefix: ''; localePrefix: undefined }
-            : { prefix: `${L}/`; localePrefix: L }
-          : { prefix: ''; localePrefix: undefined } // no-prefix / search-params
+    ? GetPrefixResultNarrowed<DeclaredLocales, Mode, Default, Domains>
+    : IsDomainExclusive<L, Domains> extends true
+      ? { prefix: ''; localePrefix: undefined } // the domain identifies the locale
+      : [string] extends [Mode]
+        ? GetPrefixResult // mode is wide → fall back to generic result
+        : Mode extends 'prefix-all'
+          ? { prefix: `${L}/`; localePrefix: L }
+          : Mode extends 'prefix-no-default'
+            ? L extends Default
+              ? { prefix: ''; localePrefix: undefined }
+              : { prefix: `${L}/`; localePrefix: L }
+            : { prefix: ''; localePrefix: undefined } // no-prefix / search-params
   : { prefix: ''; localePrefix: undefined }; // locale is undefined
 
 /**

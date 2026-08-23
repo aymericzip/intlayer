@@ -497,6 +497,115 @@ describe('docReview', () => {
       );
     });
 
+    it('reports a paragraph missing inside an aligned section when the changed lines are unknown', () => {
+      // Both documents share the same single section, so the section-level
+      // alignment pairs them. Without opening that section, the base paragraph
+      // the translation never received would stay invisible.
+      const baseText = [
+        '## Section',
+        '',
+        'First paragraph 111.',
+        '',
+        'Second paragraph 222.',
+        '',
+      ].join('\n');
+      const targetText = ['## Section', '', 'Premier paragraphe 111.', ''].join(
+        '\n'
+      );
+
+      const { plan } = buildAlignmentPlan({
+        baseText,
+        targetText,
+        changedLines: undefined,
+      });
+
+      const insertActions = plan.actions.filter(
+        (action) => action.kind === 'insert_new'
+      );
+      expect(insertActions).toHaveLength(1);
+    });
+
+    it('reuses everything when the changed lines are known to be empty', () => {
+      // An empty array is not the same as `undefined`: git answered, and it
+      // answered that nothing changed, so no section is opened.
+      const baseText = [
+        '## Section',
+        '',
+        'First paragraph 111.',
+        '',
+        'Second paragraph 222.',
+        '',
+      ].join('\n');
+      const targetText = ['## Section', '', 'Premier paragraphe 111.', ''].join(
+        '\n'
+      );
+
+      const { plan, segmentsToReview } = buildAlignmentPlan({
+        baseText,
+        targetText,
+        changedLines: [],
+      });
+
+      expect(segmentsToReview).toHaveLength(0);
+      expect(plan.actions.every((action) => action.kind === 'reuse')).toBe(
+        true
+      );
+    });
+
+    it('keeps a target-only paragraph verbatim when it is reported as delete', () => {
+      // Comparing a whole document surfaces a translation-only paragraph as
+      // `delete` for visibility, but the merge must still keep its content.
+      const baseText = ['## Section', '', 'First paragraph 111.', ''].join(
+        '\n'
+      );
+      const targetText = [
+        '## Section',
+        '',
+        'Premier paragraphe 111.',
+        '',
+        'Paragraphe obsolète propre à la traduction.',
+        '',
+      ].join('\n');
+
+      const { plan, targetBlocks } = buildAlignmentPlan({
+        baseText,
+        targetText,
+        changedLines: undefined,
+      });
+
+      expect(plan.actions.some((action) => action.kind === 'delete')).toBe(
+        true
+      );
+
+      const merged = mergeReviewedSegments(plan, targetBlocks, new Map());
+      expect(merged).toContain('Paragraphe obsolète propre à la traduction.');
+    });
+
+    it('reports no divergence when a document is compared with itself', () => {
+      // Opening every section must not turn aligned blocks into false
+      // positives: an identical document has strictly nothing to report.
+      const text = [
+        '# Title',
+        '',
+        'Hello world.',
+        '',
+        '## Section',
+        '',
+        'Body 1234.',
+        '',
+      ].join('\n');
+
+      const { plan } = buildAlignmentPlan({
+        baseText: text,
+        targetText: text,
+        changedLines: undefined,
+      });
+
+      expect(plan.actions.every((action) => action.kind === 'reuse')).toBe(
+        true
+      );
+    });
+
     it('keeps a target-only section verbatim even when it is reported as delete', () => {
       // The translation has a section the base no longer aligns to (e.g. a
       // reordering the aligner cannot follow). It is reported as `delete` but the
@@ -597,6 +706,54 @@ describe('docReview', () => {
 
       expect(report.blocks).toHaveLength(0);
       expect(formatReviewReport(report)).toContain('No changes needed.');
+    });
+
+    it('reports a block missing inside an aligned section without any changed line', () => {
+      // The `doc review` tool runs with no git history behind it; comparing a
+      // document with its translation must still surface untranslated content
+      // living inside a section both documents share.
+      const baseText = [
+        '## Section',
+        '',
+        'First paragraph 111.',
+        '',
+        'Second paragraph 222.',
+        '',
+      ].join('\n');
+      const targetText = ['## Section', '', 'Premier paragraphe 111.', ''].join(
+        '\n'
+      );
+
+      const report = buildReviewReport({ baseText, targetText });
+
+      expect(report.summary.insertNew).toBe(1);
+      // Aligned prose cannot be flagged without knowing which lines changed.
+      expect(report.summary.review).toBe(0);
+      expect(
+        report.blocks.find((block) => block.action === 'insert_new')
+          ?.baseContent
+      ).toContain('Second paragraph 222.');
+    });
+
+    it('reports a translation-only block inside an aligned section as delete', () => {
+      const baseText = ['## Section', '', 'First paragraph 111.', ''].join(
+        '\n'
+      );
+      const targetText = [
+        '## Section',
+        '',
+        'Premier paragraphe 111.',
+        '',
+        'Paragraphe obsolète propre à la traduction.',
+        '',
+      ].join('\n');
+
+      const report = buildReviewReport({ baseText, targetText });
+
+      expect(report.summary.delete).toBe(1);
+      expect(
+        report.blocks.find((block) => block.action === 'delete')?.targetContent
+      ).toContain('Paragraphe obsolète propre à la traduction.');
     });
 
     it('formats a readable log with base and target labels', () => {

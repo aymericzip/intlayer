@@ -198,6 +198,62 @@ export type ResolvedDefaultLocale = __RoutingRegistry extends {
   ? D
   : DeclaredLocales;
 
+// ── Domain routing (routing.domains) ──────────────────────────────────────────
+
+/**
+ * What the generated module augmentation records about the domain serving one
+ * locale: the normalized origin to prepend to its URLs, and whether that
+ * hostname serves this locale alone.
+ */
+export type DomainRegistryEntry = { origin: string; exclusive: boolean };
+
+/**
+ * Shape of the locale → domain map carried by the generated module augmentation.
+ *
+ * @example
+ * { en: { origin: 'https://intlayer.org'; exclusive: false }; zh: { origin: 'https://intlayer.cn'; exclusive: true } }
+ */
+export type DomainRuleMap = Record<string, DomainRegistryEntry>;
+
+/**
+ * The project's domain map resolved from the generated registry. Falls back to
+ * an empty map — no locale is then served from its own domain — when the project
+ * declares no `routing.domains`, or when the types have not been generated yet.
+ */
+export type ResolvedDomains = __RoutingRegistry extends {
+  domains: infer Domains extends DomainRuleMap;
+}
+  ? Domains
+  : {};
+
+/**
+ * The origin of the domain serving `L`, or `never` when the locale maps to none.
+ *
+ * @example
+ * // domains: { zh: { origin: 'https://intlayer.cn'; exclusive: true } }
+ * type A = LocaleDomainOrigin<'zh', ResolvedDomains>; // 'https://intlayer.cn'
+ * type B = LocaleDomainOrigin<'fr', ResolvedDomains>; // never
+ */
+export type LocaleDomainOrigin<
+  L extends string,
+  Domains extends DomainRuleMap = ResolvedDomains,
+> = L extends keyof Domains ? Extract<Domains[L]['origin'], string> : never;
+
+/**
+ * Whether `L` is the only locale mapped to its domain. The domain then identifies
+ * the locale on its own, so its paths carry no locale prefix — the type-level
+ * counterpart of `isLocaleExclusiveOnDomain`.
+ *
+ * @example
+ * // domains: { en: 'intlayer.org', fr: 'intlayer.org', zh: 'intlayer.cn' }
+ * type A = IsDomainExclusive<'zh'>; // true  → https://intlayer.cn/about
+ * type B = IsDomainExclusive<'fr'>; // false → https://intlayer.org/fr/about
+ */
+export type IsDomainExclusive<
+  L extends string,
+  Domains extends DomainRuleMap = ResolvedDomains,
+> = L extends keyof Domains ? Domains[L]['exclusive'] : false;
+
 // ── Template-literal URL types ────────────────────────────────────────────────
 
 /** Computes the locale path segment (e.g. `'fr/'`) for a given locale and routing mode. */
@@ -214,7 +270,7 @@ type LocalePrefixSegment<
     : ''; // no-prefix / search-params → no path prefix
 
 /**
- * Drops a trailing slash, mirroring the normalization `getLocalizedUrl` applies
+ * Drops a trailing slash, mirroring the normalization `getLocalizedPath` applies
  * to the path it builds. The bare root keeps its slash.
  *
  * @example
@@ -229,61 +285,19 @@ type WithoutTrailingSlash<Path extends string> = Path extends `${infer Head}/`
   : Path;
 
 /**
- * Prepends a locale path prefix to a URL, leaving the origin of an absolute URL
- * untouched and never emitting a trailing slash.
+ * Prepends a locale path prefix to a path, never emitting a trailing slash.
  *
  * @example
- * type A = WithLocalePrefix<'/about', 'fr/'>;                    // '/fr/about'
- * type B = WithLocalePrefix<'/', 'fr/'>;                         // '/fr'
- * type C = WithLocalePrefix<'https://example.com/', 'fr/'>;      // 'https://example.com/fr'
+ * type A = WithLocalePrefix<'/about', 'fr/'>; // '/fr/about'
+ * type B = WithLocalePrefix<'/', 'fr/'>;      // '/fr'
+ * type C = WithLocalePrefix<'/about/', ''>;   // '/about'
  */
 type WithLocalePrefix<
   Path extends string,
   Prefix extends string,
-> = Prefix extends ''
-  ? Path
-  : Path extends `${infer Protocol}://${infer Host}/${infer Pathname}`
-    ? `${Protocol}://${Host}${WithoutTrailingSlash<`/${Prefix}${Pathname}`>}`
-    : Path extends `/${infer Rest}`
-      ? WithoutTrailingSlash<`/${Prefix}${Rest}`>
-      : Path;
-
-/**
- * Computes the localized URL string type for a given path, locale, routing mode and default locale.
- * Mirrors the runtime behaviour: the existing locale segment is stripped from `Path` first, the
- * project's `routing.rewrite` rules are applied to the remaining pathname, then the new locale
- * prefix is prepended (identical to what `getLocalizedUrl` does internally).
- *
- * @example
- * // prefix-no-default, defaultLocale='en'
- * type A = LocalizedUrl<'/about', 'fr'>;      // '/fr/about'
- * type B = LocalizedUrl<'/about', 'en'>;      // '/about'
- * type C = LocalizedUrl<'/fr/about', 'en'>;   // '/about'  (existing prefix stripped)
- * type D = LocalizedUrl<'/fr/about', 'fr'>;   // '/fr/about'
- * type E = LocalizedUrl<'/', 'fr'>;           // '/fr'      (never a trailing slash)
- *
- * // prefix-all
- * type F = LocalizedUrl<'/about', 'en', 'prefix-all', 'en'>;  // '/en/about'
- *
- * // with rewrite: { '/about': { fr: '/a-propos' } }
- * type G = LocalizedUrl<'/about', 'fr'>;      // '/fr/a-propos'
- */
-export type LocalizedUrl<
-  Path extends string,
-  L extends LocalesValues,
-  Mode extends string = ResolvedRoutingMode,
-  Default extends LocalesValues = ResolvedDefaultLocale,
-  Locales extends string = DeclaredLocales & string,
-> = [string] extends [Mode]
-  ? string // mode is wide → can't narrow
-  : Mode extends 'no-prefix'
-    ? LocalizedUrlPath<PathWithoutLocale<Path, Locales>, L>
-    : Mode extends 'search-params'
-      ? string // search params too dynamic to type precisely
-      : WithLocalePrefix<
-          LocalizedUrlPath<PathWithoutLocale<Path, Locales>, L>,
-          LocalePrefixSegment<L, Mode, Default>
-        >;
+> = Path extends `/${infer Rest}`
+  ? WithoutTrailingSlash<`/${Prefix}${Rest}`>
+  : Path;
 
 /**
  * Extracts the pathname of an absolute URL, leaving a relative path untouched.
@@ -304,17 +318,124 @@ type UrlPathname<Url extends string> =
       : Url;
 
 /**
- * Computes the localized path string type for a given path, locale, routing
- * mode and default locale — the type-level counterpart of `getLocalizedPath`.
+ * Extracts the origin of an absolute URL, and the empty string for a relative
+ * path — exactly the base `getLocalizedUrl` keeps when the target locale maps to
+ * no domain of its own.
  *
- * It mirrors {@link LocalizedUrl}, except that the origin of an absolute input
- * is dropped instead of being kept, exactly as the runtime does.
+ * @example
+ * type A = UrlOrigin<'https://example.com/about'>; // 'https://example.com'
+ * type B = UrlOrigin<'https://example.com'>;       // 'https://example.com'
+ * type C = UrlOrigin<'/about'>;                    // ''
+ */
+type UrlOrigin<Url extends string> =
+  Url extends `${infer Protocol}://${infer Host}/${string}`
+    ? `${Protocol}://${Host}`
+    : Url extends `${infer Protocol}://${infer Host}`
+      ? `${Protocol}://${Host}`
+      : '';
+
+/**
+ * The path half of a localized URL, shared by {@link LocalizedPathname} and
+ * {@link LocalizedUrl}: the origin and the existing locale segment are stripped,
+ * the project's `routing.rewrite` rules are applied, then the locale prefix of
+ * the routing mode is prepended — unless the locale is served from its own
+ * exclusive domain, where the hostname already identifies it.
+ */
+type LocalizedPathBody<
+  Path extends string,
+  L extends LocalesValues,
+  Mode extends string,
+  Default extends LocalesValues,
+  Locales extends string,
+  Domains extends DomainRuleMap,
+> =
+  LocalizedPath<
+    PathWithoutLocale<UrlPathname<Path>, Locales>,
+    L
+  > extends infer Rewritten extends string
+    ? Mode extends 'no-prefix'
+      ? Rewritten // the mode emits no locale segment, and no normalization either
+      : WithLocalePrefix<
+          Rewritten,
+          IsDomainExclusive<L & string, Domains> extends true
+            ? '' // the domain identifies the locale — no prefix to add
+            : LocalePrefixSegment<L & string, Mode, Default & string>
+        >
+    : never;
+
+/**
+ * Computes the localized URL string type for a given path, locale, routing mode,
+ * default locale and domain map. Mirrors the runtime behaviour of
+ * `getLocalizedUrl`: the existing locale segment is stripped from `Path`, the
+ * project's `routing.rewrite` rules are applied to the remaining pathname, the
+ * new locale prefix is prepended, and an origin is put in front of the result.
+ *
+ * When the locale is mapped to a domain via `routing.domains` the result is a
+ * union of the two URLs the runtime can produce: the absolute URL on that domain
+ * (cross-domain link, and the fallback whenever the current domain is unknown —
+ * SSR, static generation) and the relative one it returns when the page being
+ * rendered already lives on that domain.
+ *
+ * @example
+ * // prefix-no-default, defaultLocale='en'
+ * type A = LocalizedUrl<'/about', 'fr'>;      // '/fr/about'
+ * type B = LocalizedUrl<'/about', 'en'>;      // '/about'
+ * type C = LocalizedUrl<'/fr/about', 'en'>;   // '/about'  (existing prefix stripped)
+ * type D = LocalizedUrl<'/fr/about', 'fr'>;   // '/fr/about'
+ * type E = LocalizedUrl<'/', 'fr'>;           // '/fr'      (never a trailing slash)
+ *
+ * // prefix-all
+ * type F = LocalizedUrl<'/about', 'en', 'prefix-all', 'en'>;  // '/en/about'
+ *
+ * // with rewrite: { '/about': { fr: '/a-propos' } }
+ * type G = LocalizedUrl<'/about', 'fr'>;      // '/fr/a-propos'
+ *
+ * // with domains: { zh: 'intlayer.cn' } (exclusive → no locale prefix)
+ * type H = LocalizedUrl<'/about', 'zh'>;      // 'https://intlayer.cn/about' | '/about'
+ */
+export type LocalizedUrl<
+  Path extends string,
+  L extends LocalesValues,
+  Mode extends string = ResolvedRoutingMode,
+  Default extends LocalesValues = ResolvedDefaultLocale,
+  Locales extends string = DeclaredLocales & string,
+  Domains extends DomainRuleMap = ResolvedDomains,
+> = [string] extends [Mode]
+  ? string // mode is wide → can't narrow
+  : Mode extends 'search-params'
+    ? string // search params too dynamic to type precisely
+    : LocalizedPathBody<
+          Path,
+          L,
+          Mode,
+          Default,
+          Locales,
+          Domains
+        > extends infer LocalPath extends string
+      ? [LocaleDomainOrigin<L & string, Domains>] extends [never]
+        ? `${UrlOrigin<Path>}${LocalPath}`
+        :
+            | `${LocaleDomainOrigin<L & string, Domains>}${LocalPath}`
+            | `${UrlOrigin<Path>}${LocalPath}`
+      : never;
+
+/**
+ * Computes the localized path string type for a given path, locale, routing
+ * mode, default locale and domain map — the type-level counterpart of
+ * `getLocalizedPath`.
+ *
+ * It mirrors {@link LocalizedUrl}, except that no origin is ever emitted: the one
+ * of an absolute input is dropped, and a locale mapped to a domain resolves to
+ * the path served on that domain rather than to its absolute URL.
  *
  * @example
  * // prefix-no-default, defaultLocale='en', rewrite: { '/about': { es: '/acerca-de' } }
  * type A = LocalizedPathname<'/about', 'es'>;                     // '/es/acerca-de'
  * type B = LocalizedPathname<'https://intlayer.org/about', 'es'>; // '/es/acerca-de'
  * type C = LocalizedPathname<'https://intlayer.org', 'en'>;       // '/'
+ *
+ * // with domains: { zh: 'intlayer.cn' } (exclusive → no locale prefix)
+ * type D = LocalizedPathname<'/about', 'zh'>;                     // '/about'
  */
 export type LocalizedPathname<
   Path extends string,
@@ -322,7 +443,12 @@ export type LocalizedPathname<
   Mode extends string = ResolvedRoutingMode,
   Default extends LocalesValues = ResolvedDefaultLocale,
   Locales extends string = DeclaredLocales & string,
-> = LocalizedUrl<UrlPathname<Path>, L, Mode, Default, Locales>;
+  Domains extends DomainRuleMap = ResolvedDomains,
+> = [string] extends [Mode]
+  ? string // mode is wide → can't narrow
+  : Mode extends 'search-params'
+    ? string // search params too dynamic to type precisely
+    : LocalizedPathBody<Path, L, Mode, Default, Locales, Domains>;
 
 /**
  * Extracts the language subtag from a locale string.
@@ -543,17 +669,3 @@ export type LocalizedPath<
           ? Path
           : Extract<Localized, string>
         : never;
-
-/**
- * Applies {@link LocalizedPath} to the pathname of a URL, leaving the origin of
- * an absolute URL untouched.
- *
- * @example
- * type A = LocalizedUrlPath<'https://example.com/about', 'fr'>; // 'https://example.com/a-propos'
- */
-type LocalizedUrlPath<
-  Url extends string,
-  L extends LocalesValues,
-> = Url extends `${infer Protocol}://${infer Host}/${infer Pathname}`
-  ? `${Protocol}://${Host}${LocalizedPath<`/${Pathname}`, L>}`
-  : LocalizedPath<Url, L>;

@@ -62,9 +62,12 @@ export type BuildReviewReportInput = {
   /** The existing target (translated) document, possibly empty. */
   targetText: string;
   /**
-   * 1-based line numbers that changed in the base document. When omitted, only
-   * inserted and deleted blocks are reported (no aligned block is flagged for
-   * review since there is no way to know which ones changed).
+   * 1-based line numbers that changed in the base document.
+   *
+   * When omitted the whole document is compared, and only inserted and deleted
+   * blocks are reported (no aligned block is flagged for review since there is
+   * no way to know which ones changed). An empty array means nothing changed,
+   * and no block at all is reported.
    */
   changedLines?: number[];
 };

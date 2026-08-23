@@ -481,6 +481,14 @@ describe('getLocalizedUrl', () => {
       expect(result).toBe('https://intlayer.zh/about');
     });
 
+    it('should prepend the locale domain in no-prefix mode', () => {
+      const result = getLocalizedUrl('/about', Locales.CHINESE, {
+        ...domainOptions,
+        mode: 'no-prefix',
+      });
+      expect(result).toBe('https://intlayer.zh/about');
+    });
+
     it('should not generate domain URL when domains option is absent', () => {
       const result = getLocalizedUrl('/about', Locales.CHINESE, {
         locales: [Locales.ENGLISH, Locales.CHINESE],

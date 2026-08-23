@@ -8,14 +8,25 @@ import {
   type SegmentToReview,
 } from './rebuildDocument';
 import { segmentDocument, segmentSections } from './segmentDocument';
-import type { Block, FingerprintedBlock, PlannedAction } from './types';
+import type {
+  AlignmentPlan,
+  Block,
+  FingerprintedBlock,
+  PlannedAction,
+} from './types';
 
 export type BuildAlignmentPlanInput = {
   /** The base (source) document, used as the translation reference. */
   baseText: string;
   /** The existing target (translated) document, possibly empty. */
   targetText: string;
-  /** 1-based line numbers that changed in the base document, when known. */
+  /**
+   * 1-based line numbers that changed in the base document.
+   *
+   * `undefined` means the changed lines are unknown (no git history available):
+   * every section is then compared block by block. An empty array means nothing
+   * changed, and every aligned block is reused.
+   */
   changedLines: number[] | undefined;
 };
 
@@ -68,6 +79,12 @@ const fingerprintSectionFineBlocks = (section: Block): FingerprintedBlock[] => {
  *    whole section. Within a changed section a target block with no base
  *    counterpart is **kept as-is** (reused) rather than deleted, so a translation
  *    that has extra paragraphs never loses content.
+ *    When `changedLines` is `undefined` the changed lines are simply unknown, so
+ *    **every** section is inspected instead of none: aligned blocks are still
+ *    reused (there is no way to tell which translation went stale), but blocks
+ *    living on one side only are reported as `insert_new` / `delete`. This is
+ *    what makes a plain "compare this document with its translation" run — one
+ *    with no git history behind it — report anything at all.
  *
  * Section-level insertions and deletions stay whole: a brand-new section is
  * translated as one unit, and a target section with no base counterpart is
@@ -82,7 +99,11 @@ export const buildAlignmentPlan = ({
   targetText,
   changedLines,
 }: BuildAlignmentPlanInput): BuildAlignmentPlanOutput => {
-  const changedLineNumbers = Array.isArray(changedLines) ? changedLines : [];
+  // `undefined` means "which lines changed is unknown" (no git history to read),
+  // which is not the same as "no line changed": the former must still compare the
+  // two documents, the latter must reuse everything.
+  const hasChangedLineInformation = Array.isArray(changedLines);
+  const changedLineNumbers = changedLines ?? [];
 
   const baseSections = fingerprintBlockList(segmentSections(baseText));
   const targetSections = fingerprintBlockList(segmentSections(targetText));
@@ -95,6 +116,16 @@ export const buildAlignmentPlan = ({
     baseSections,
     changedLineNumbers
   );
+
+  /**
+   * Whether a section must be opened and inspected block by block.
+   *
+   * Without changed-line information every section is inspected, so comparing a
+   * document with its translation from scratch still reports the blocks that
+   * exist on one side only. With changed lines, only the touched sections are.
+   */
+  const isSectionToInspect = (sectionIndex: number): boolean =>
+    !hasChangedLineInformation || changedSectionIndexes.has(sectionIndex);
 
   // Flattened blocks the plan refers to by index. Reused/deleted/inserted
   // sections contribute their whole-section block; changed sections contribute
@@ -131,14 +162,14 @@ export const buildAlignmentPlan = ({
     const targetSection = targetSections[pair.targetIndex]!;
 
     // Unchanged section → reuse the existing translation verbatim.
-    if (!changedSectionIndexes.has(pair.baseIndex)) {
+    if (!isSectionToInspect(pair.baseIndex)) {
       const baseIndex = pushBaseBlock(baseSection);
       const targetIndex = pushTargetBlock(targetSection);
       actions.push({ kind: 'reuse', baseIndex, targetIndex });
       continue;
     }
 
-    // Changed section → align its fine blocks and review only what changed.
+    // Inspected section → align its fine blocks and review only what changed.
     const baseFineBlocks = fingerprintSectionFineBlocks(baseSection);
     const targetFineBlocks = fingerprintSectionFineBlocks(targetSection);
     const fineAlignment = alignBaseAndTargetBlocks(
@@ -151,12 +182,22 @@ export const buildAlignmentPlan = ({
     );
 
     for (const finePair of fineAlignment) {
-      // Target-only fine block: keep it (no data loss), do not delete.
+      // Target-only fine block. Its content is kept either way — `delete` is
+      // reported for visibility only and the merge keeps it verbatim (see
+      // {@link mergeReviewedSegments}).
+      // With changed lines the author's edit is known precisely, so an unmatched
+      // target block is most likely the translator's own prose split and stays
+      // silent. Without them the whole document is being compared, and such a
+      // block is exactly the divergence the report exists to surface.
       if (finePair.baseIndex === -1 && finePair.targetIndex !== null) {
         const targetIndex = pushTargetBlock(
           targetFineBlocks[finePair.targetIndex]!
         );
-        actions.push({ kind: 'reuse', baseIndex: -1, targetIndex });
+        actions.push(
+          hasChangedLineInformation
+            ? { kind: 'reuse', baseIndex: -1, targetIndex }
+            : { kind: 'delete', targetIndex }
+        );
         continue;
       }
 

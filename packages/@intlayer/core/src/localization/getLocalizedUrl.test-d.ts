@@ -63,3 +63,95 @@ describe('LocalizedUrl', () => {
     >().toEqualTypeOf<'/about'>();
   });
 });
+
+/**
+ * Domain routing, exercised against an explicit domain map — the same shape the
+ * generated module augmentation feeds it as `__RoutingRegistry['domains']`.
+ *
+ * `en` and `fr` share `intlayer.org` (prefix routing still applies), while `zh`
+ * is alone on `intlayer.cn` (the hostname identifies the locale, so no prefix).
+ */
+describe('LocalizedUrl with routing.domains', () => {
+  type Locales = 'en' | 'fr' | 'zh';
+  type Domains = {
+    en: { origin: 'https://intlayer.org'; exclusive: false };
+    fr: { origin: 'https://intlayer.org'; exclusive: false };
+    zh: { origin: 'https://intlayer.cn'; exclusive: true };
+  };
+  type Url<Path extends string, L extends Locales> = LocalizedUrl<
+    Path,
+    L,
+    'prefix-no-default',
+    'en',
+    Locales,
+    Domains
+  >;
+
+  it('should drop the locale prefix of a locale alone on its domain', () => {
+    expectTypeOf<Url<'/about', 'zh'>>().toEqualTypeOf<
+      'https://intlayer.cn/about' | '/about'
+    >();
+  });
+
+  it('should keep the locale prefix of a locale sharing its domain', () => {
+    expectTypeOf<Url<'/about', 'fr'>>().toEqualTypeOf<
+      'https://intlayer.org/fr/about' | '/fr/about'
+    >();
+    expectTypeOf<Url<'/about', 'en'>>().toEqualTypeOf<
+      'https://intlayer.org/about' | '/about'
+    >();
+  });
+
+  it('should strip an existing locale segment before switching domain', () => {
+    expectTypeOf<Url<'/zh/about', 'zh'>>().toEqualTypeOf<
+      'https://intlayer.cn/about' | '/about'
+    >();
+    expectTypeOf<Url<'/fr/about', 'zh'>>().toEqualTypeOf<
+      'https://intlayer.cn/about' | '/about'
+    >();
+  });
+
+  it('should keep the root slash of a domain-exclusive locale', () => {
+    expectTypeOf<Url<'/', 'zh'>>().toEqualTypeOf<
+      'https://intlayer.cn/' | '/'
+    >();
+  });
+
+  it('should replace the origin of an absolute URL with the locale domain', () => {
+    expectTypeOf<Url<'https://intlayer.org/about', 'zh'>>().toEqualTypeOf<
+      'https://intlayer.cn/about' | 'https://intlayer.org/about'
+    >();
+  });
+
+  it('should leave a locale mapped to no domain untouched', () => {
+    type PartialDomains = {
+      zh: { origin: 'https://intlayer.cn'; exclusive: true };
+    };
+
+    expectTypeOf<
+      LocalizedUrl<
+        '/about',
+        'fr',
+        'prefix-no-default',
+        'en',
+        Locales,
+        PartialDomains
+      >
+    >().toEqualTypeOf<'/fr/about'>();
+  });
+
+  it('should keep the domain origin in no-prefix mode', () => {
+    expectTypeOf<
+      LocalizedUrl<'/about', 'zh', 'no-prefix', 'en', Locales, Domains>
+    >().toEqualTypeOf<'https://intlayer.cn/about' | '/about'>();
+  });
+
+  it('should drop the prefix in prefix-all mode too', () => {
+    expectTypeOf<
+      LocalizedUrl<'/about', 'zh', 'prefix-all', 'en', Locales, Domains>
+    >().toEqualTypeOf<'https://intlayer.cn/about' | '/about'>();
+    expectTypeOf<
+      LocalizedUrl<'/about', 'fr', 'prefix-all', 'en', Locales, Domains>
+    >().toEqualTypeOf<'https://intlayer.org/fr/about' | '/fr/about'>();
+  });
+});

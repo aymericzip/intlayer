@@ -1,5 +1,6 @@
 import type { RoutingConfig } from '@intlayer/types/config';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
+import { checkIsURLAbsolute } from '../utils/checkIsURLAbsolute';
 import { getMultilingualUrls } from './getMultilingualUrls';
 import { type RoutingOptions, resolveRoutingConfig } from './getPrefix';
 
@@ -18,12 +19,12 @@ export type GenerateSitemapOptions = {
   /**
    * Whether to include xhtml:link alternate tags for multilingual support.
    *
-   * When enabled, alternate links are only generated for modes where URLs
-   * differ per locale:
+   * When enabled, alternate links are only generated for routing setups where
+   * URLs differ per locale:
    * - 'prefix-no-default': included
    * - 'prefix-all': included
    * - 'search-params': included
-   * - 'no-prefix': excluded (all locales share the same URL)
+   * - 'no-prefix': excluded, unless `domains` gives locales distinct hostnames
    *
    * @default true
    */
@@ -32,19 +33,30 @@ export type GenerateSitemapOptions = {
   defaultLocale?: LocalesValues;
   mode?: RoutingConfig['mode'];
   rewrite?: RoutingConfig['rewrite'];
+  domains?: RoutingConfig['domains'];
 };
 
 /**
- * Returns whether xhtml:link alternate tags should be generated for the given routing mode.
+ * Returns whether xhtml:link alternate tags should be generated for the given
+ * routing mode and domain map.
  *
  * Alternates are meaningful only when locale URLs are distinct:
- * - 'no-prefix' produces identical URLs for all locales → no alternates
+ * - 'no-prefix' produces identical URLs for all locales → no alternates, unless
+ *   `routing.domains` serves some locales from their own hostname
  * - all other modes produce distinct URLs → alternates are generated
  */
 const shouldIncludeAlternates = (
   mode: RoutingConfig['mode'],
-  xhtmlLinks: boolean
-): boolean => xhtmlLinks && mode !== 'no-prefix';
+  xhtmlLinks: boolean,
+  domains: RoutingConfig['domains']
+): boolean =>
+  xhtmlLinks && (mode !== 'no-prefix' || hasConfiguredDomain(domains));
+
+/** Whether at least one locale is mapped to a domain of its own. */
+const hasConfiguredDomain = (domains: RoutingConfig['domains']): boolean =>
+  Object.values(domains ?? {}).some(
+    (domain) => typeof domain === 'string' && domain.length > 0
+  );
 
 /**
  * Generates a single `<url>` sitemap entry for the given path.
@@ -101,15 +113,24 @@ export const generateSitemapUrl = (
   ];
 
   const hasFileExtension = /\.[a-z0-9]+$/i.test(path);
-  if (shouldIncludeAlternates(resolved.mode, xhtmlLinks) && !hasFileExtension) {
+  if (
+    shouldIncludeAlternates(resolved.mode, xhtmlLinks, resolved.domains) &&
+    !hasFileExtension
+  ) {
     const alternates = getMultilingualUrls(
       path,
       routingOptions as RoutingOptions
     );
 
-    for (const [lang, localePath] of Object.entries(alternates)) {
+    for (const [lang, localeUrl] of Object.entries(alternates)) {
+      // A locale served from its own domain already yields an absolute URL —
+      // prefixing it with `siteUrl` again would corrupt it.
+      const alternateUrl = checkIsURLAbsolute(localeUrl)
+        ? localeUrl
+        : `${siteUrl}${localeUrl}`;
+
       lines.push(
-        `    <xhtml:link rel="alternate" hreflang="${lang}" href="${siteUrl}${localePath}"/>`
+        `    <xhtml:link rel="alternate" hreflang="${lang}" href="${alternateUrl}"/>`
       );
     }
 
@@ -158,7 +179,11 @@ export const generateSitemap = (
   const { siteUrl, xhtmlLinks = true, ...routingOptions } = options;
 
   const resolved = resolveRoutingConfig(routingOptions as RoutingOptions);
-  const includeAlternates = shouldIncludeAlternates(resolved.mode, xhtmlLinks);
+  const includeAlternates = shouldIncludeAlternates(
+    resolved.mode,
+    xhtmlLinks,
+    resolved.domains
+  );
 
   const xmlEntries = entries.map((entry) =>
     generateSitemapUrl(entry.path, {

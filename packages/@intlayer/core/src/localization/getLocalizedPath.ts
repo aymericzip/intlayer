@@ -41,6 +41,9 @@ import {
  * getLocalizedPath('/contact', 'fr');     // '/fr/contact' (no rewrite rule matches)
  * getLocalizedPath('https://intlayer.org/about', 'fr'); // '/fr/a-propos' (origin dropped)
  *
+ * // routing: { domains: { zh: 'intlayer.cn' } } — zh is alone on that hostname
+ * getLocalizedPath('/about', 'zh');       // '/about'  (the domain identifies the locale)
+ *
  * // Manual rules, bypassing the configuration
  * getLocalizedPath('/contact', 'fr', {
  *   rewrite: { '/contact': { fr: '/contactez-nous' } },

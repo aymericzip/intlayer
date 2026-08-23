@@ -148,3 +148,39 @@ describe('LocalizedPathname', () => {
     >().toEqualTypeOf<'/es/about'>();
   });
 });
+
+/**
+ * `getLocalizedPath` never emits an origin, so `routing.domains` reaches it only
+ * through the prefix it suppresses for a locale alone on its domain.
+ */
+describe('LocalizedPathname with routing.domains', () => {
+  type Locales = 'en' | 'fr' | 'zh';
+  type Domains = {
+    en: { origin: 'https://intlayer.org'; exclusive: false };
+    fr: { origin: 'https://intlayer.org'; exclusive: false };
+    zh: { origin: 'https://intlayer.cn'; exclusive: true };
+  };
+  type Path<P extends string, L extends Locales> = LocalizedPathname<
+    P,
+    L,
+    'prefix-no-default',
+    'en',
+    Locales,
+    Domains
+  >;
+
+  it('should drop the prefix of a locale alone on its domain', () => {
+    expectTypeOf<Path<'/about', 'zh'>>().toEqualTypeOf<'/about'>();
+    expectTypeOf<Path<'/', 'zh'>>().toEqualTypeOf<'/'>();
+  });
+
+  it('should keep the prefix of a locale sharing its domain', () => {
+    expectTypeOf<Path<'/about', 'fr'>>().toEqualTypeOf<'/fr/about'>();
+  });
+
+  it('should never emit the locale domain as an origin', () => {
+    expectTypeOf<
+      Path<'https://intlayer.org/about', 'zh'>
+    >().toEqualTypeOf<'/about'>();
+  });
+});
