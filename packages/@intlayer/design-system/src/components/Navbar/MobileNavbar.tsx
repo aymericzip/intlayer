@@ -4,7 +4,13 @@ import { useScrollBlockage } from '@hooks/useScrollBlockage';
 import { useScrollDetection } from '@hooks/useScrollDetection';
 import { cn } from '@utils/cn';
 import { m, type Variants } from 'framer-motion';
-import { type ReactElement, type ReactNode, useRef, useState } from 'react';
+import {
+  type ReactElement,
+  type ReactNode,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { MaxHeightSmoother } from '../MaxHeightSmoother';
 import type { TabSelectorItemProps } from '../TabSelector';
 import { Burger } from './Burger';
@@ -139,6 +145,7 @@ export const MobileNavbar = <T extends TabSelectorItemProps>({
 }: MobileNavbarProps<T>) => {
   const [isHidden, setIsHidden] = useState<boolean>(false);
   const [isUnrolled, setIsUnrolled] = useState<boolean>(false);
+  const [headerHeight, setHeaderHeight] = useState<number>(0);
 
   const navRef = useRef<HTMLDivElement>(null);
 
@@ -153,7 +160,40 @@ export const MobileNavbar = <T extends TabSelectorItemProps>({
     isEnabled: !isUnrolled && rollable,
   });
 
-  const backDivHeight = !isHidden ? (navRef.current?.clientHeight ?? 0) : 0;
+  /**
+   * Measures the collapsed header so the rolled-down panel can size itself to
+   * the rest of the viewport.
+   *
+   * Reading `clientHeight` from the render body forced a layout on every
+   * render, and `useScrollDetection` re-renders this component on each wheel
+   * event — so the measurement ran once per scroll frame. A `ResizeObserver`
+   * callback runs *after* layout, which makes the same read free, and the
+   * height is published only when it actually changed.
+   */
+  useEffect(() => {
+    const headerElement = navRef.current;
+
+    if (!headerElement) return;
+
+    const resizeObserver = new ResizeObserver(([entry]) => {
+      if (!entry) return;
+
+      // Border box, to stay equivalent to the `clientHeight` this replaces:
+      // `contentRect` would drop the header's vertical padding.
+      const measuredHeight =
+        entry.borderBoxSize?.[0]?.blockSize ?? entry.contentRect.height;
+
+      setHeaderHeight((previousHeight) =>
+        previousHeight === measuredHeight ? previousHeight : measuredHeight
+      );
+    });
+
+    resizeObserver.observe(headerElement);
+
+    return () => resizeObserver.disconnect();
+  }, []);
+
+  const backDivHeight = isHidden ? 0 : headerHeight;
 
   const isBurgerShowed = topSections.length + bottomSections.length > 0;
 
