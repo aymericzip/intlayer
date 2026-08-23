@@ -81,3 +81,68 @@ describe('generateSitemap', () => {
     expect(result).toContain('href="https://intlayer.cn/about"');
   });
 });
+
+describe('entryPerLocale', () => {
+  it('should emit one loc per locale, each carrying the full alternate set', () => {
+    const result = generateSitemap([{ path: '/about' }], {
+      ...baseOptions,
+      entryPerLocale: true,
+    });
+
+    expect(result).toContain('<loc>https://intlayer.org/about</loc>');
+    expect(result).toContain('<loc>https://intlayer.org/fr/about</loc>');
+    expect(result).toContain('<loc>https://intlayer.org/zh/about</loc>');
+    expect(result.match(/<url>/g)).toHaveLength(3);
+    expect(
+      result.match(
+        /<xhtml:link rel="alternate" hreflang="x-default" href="https:\/\/intlayer\.org\/about"\/>/g
+      )
+    ).toHaveLength(3);
+  });
+
+  it('should repeat the entry metadata on every locale entry', () => {
+    const result = generateSitemap(
+      [{ path: '/about', changefreq: 'monthly', priority: 0.8 }],
+      { ...baseOptions, entryPerLocale: true }
+    );
+
+    expect(result.match(/<changefreq>monthly<\/changefreq>/g)).toHaveLength(3);
+    expect(result.match(/<priority>0\.8<\/priority>/g)).toHaveLength(3);
+  });
+
+  it('should not submit a locale served from its own domain', () => {
+    const result = generateSitemap([{ path: '/about' }], {
+      ...baseOptions,
+      domains,
+      entryPerLocale: true,
+    });
+
+    // `zh` lives on intlayer.cn, so it stays an alternate without its own loc
+    expect(result).not.toContain('<loc>https://intlayer.cn/about</loc>');
+    expect(result).toContain(
+      '<xhtml:link rel="alternate" hreflang="zh" href="https://intlayer.cn/about"/>'
+    );
+    expect(result.match(/<url>/g)).toHaveLength(2);
+  });
+
+  it('should emit a single entry for a path pointing at a file', () => {
+    const result = generateSitemap([{ path: '/llms.txt' }], {
+      ...baseOptions,
+      entryPerLocale: true,
+    });
+
+    expect(result.match(/<url>/g)).toHaveLength(1);
+    expect(result).toContain('<loc>https://intlayer.org/llms.txt</loc>');
+    expect(result).not.toContain('xhtml:link');
+  });
+
+  it('should emit a single entry when locale URLs are identical', () => {
+    const result = generateSitemap([{ path: '/about' }], {
+      ...baseOptions,
+      mode: 'no-prefix',
+      entryPerLocale: true,
+    });
+
+    expect(result.match(/<url>/g)).toHaveLength(1);
+  });
+});

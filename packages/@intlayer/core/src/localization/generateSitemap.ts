@@ -29,6 +29,27 @@ export type GenerateSitemapOptions = {
    * @default true
    */
   xhtmlLinks?: boolean;
+  /**
+   * Whether to emit one `<url>` entry per locale instead of a single entry for
+   * the default locale carrying the alternates.
+   *
+   * Both forms are valid for search engines, but only a URL listed as a `<loc>`
+   * is reported as submitted: an alternate-only locale is discoverable, yet
+   * Search Console attributes it no referring sitemap. Enabling this gives
+   * every localized URL its own entry, each repeating the complete alternate
+   * set, which is the form Google documents for large multilingual sites.
+   *
+   * Multiplies the entry count by the number of locales, so keep an eye on the
+   * 50 000 URL / 50 MB per-file limits — split into a sitemap index beyond it.
+   *
+   * Only applies where alternates apply: locale URLs must be distinct (see
+   * `xhtmlLinks`) and the path must not point at a file. Locales served from
+   * their own domain are left out, as a sitemap may only submit URLs of the
+   * site it is hosted on.
+   *
+   * @default false
+   */
+  entryPerLocale?: boolean;
   locales?: LocalesValues[];
   defaultLocale?: LocalesValues;
   mode?: RoutingConfig['mode'];
@@ -59,7 +80,38 @@ const hasConfiguredDomain = (domains: RoutingConfig['domains']): boolean =>
   );
 
 /**
- * Generates a single `<url>` sitemap entry for the given path.
+ * Assembles a single `<url>` block from an absolute location and its metadata.
+ *
+ * @param location - The absolute URL to declare as `<loc>`.
+ * @param metadata - The optional `lastmod` / `changefreq` / `priority` values.
+ * @param alternateLines - Pre-rendered `<xhtml:link>` lines, empty when none.
+ * @returns A `<url>` XML string.
+ */
+const buildUrlEntry = (
+  location: string,
+  metadata: Omit<SitemapUrlEntry, 'path'>,
+  alternateLines: string[]
+): string => {
+  const { lastmod, changefreq, priority } = metadata;
+
+  return [
+    '  <url>',
+    `    <loc>${location}</loc>`,
+    lastmod ? `    <lastmod>${lastmod}</lastmod>` : null,
+    changefreq ? `    <changefreq>${changefreq}</changefreq>` : null,
+    priority !== undefined ? `    <priority>${priority}</priority>` : null,
+    ...alternateLines,
+    '  </url>',
+  ]
+    .filter(Boolean)
+    .join('\n');
+};
+
+/**
+ * Generates the `<url>` sitemap entries for the given path.
+ *
+ * Emits a single entry for the default locale, or — with `entryPerLocale` — one
+ * entry per localized URL, each repeating the same alternate set.
  *
  * Example:
  *
@@ -78,15 +130,15 @@ const hasConfiguredDomain = (domains: RoutingConfig['domains']): boolean =>
  * //     <loc>https://example.com/dashboard</loc>
  * //     <changefreq>weekly</changefreq>
  * //     <priority>0.8</priority>
- * //     <xhtml:link rel="alternate" hrefLang="en" href="https://example.com/dashboard"/>
- * //     <xhtml:link rel="alternate" hrefLang="fr" href="https://example.com/fr/dashboard"/>
- * //     <xhtml:link rel="alternate" hrefLang="x-default" href="https://example.com/dashboard"/>
+ * //     <xhtml:link rel="alternate" hreflang="en" href="https://example.com/dashboard"/>
+ * //     <xhtml:link rel="alternate" hreflang="fr" href="https://example.com/fr/dashboard"/>
+ * //     <xhtml:link rel="alternate" hreflang="x-default" href="https://example.com/dashboard"/>
  * //   </url>
  * ```
  *
- * @param path - The canonical path to generate the entry for.
+ * @param path - The canonical path to generate the entries for.
  * @param options - Configuration options.
- * @returns A `<url>` XML string.
+ * @returns One or more `<url>` XML strings, joined by a newline.
  */
 export const generateSitemapUrl = (
   path: string,
@@ -98,50 +150,55 @@ export const generateSitemapUrl = (
     priority,
     lastmod,
     xhtmlLinks = true,
+    entryPerLocale = false,
     ...routingOptions
   } = options;
 
   const resolved = resolveRoutingConfig(routingOptions as RoutingOptions);
-  const fullUrl = `${siteUrl}${path}`;
+  const defaultLocaleUrl = `${siteUrl}${path}`;
+  const metadata = { changefreq, priority, lastmod };
 
-  const lines: (string | null)[] = [
-    '  <url>',
-    `    <loc>${fullUrl}</loc>`,
-    lastmod ? `    <lastmod>${lastmod}</lastmod>` : null,
-    changefreq ? `    <changefreq>${changefreq}</changefreq>` : null,
-    priority !== undefined ? `    <priority>${priority}</priority>` : null,
+  // A path pointing at a file (`/llms.txt`) has no localized counterpart.
+  const hasFileExtension = /\.[a-z0-9]+$/i.test(path);
+  const includeAlternates =
+    shouldIncludeAlternates(resolved.mode, xhtmlLinks, resolved.domains) &&
+    !hasFileExtension;
+
+  if (!includeAlternates) return buildUrlEntry(defaultLocaleUrl, metadata, []);
+
+  const alternates = getMultilingualUrls(
+    path,
+    routingOptions as RoutingOptions
+  );
+
+  /**
+   * A locale served from its own domain already yields an absolute URL —
+   * prefixing it with `siteUrl` again would corrupt it.
+   */
+  const toAbsoluteUrl = (localeUrl: string): string =>
+    checkIsURLAbsolute(localeUrl) ? localeUrl : `${siteUrl}${localeUrl}`;
+
+  const alternateLines = [
+    ...Object.entries(alternates).map(
+      ([locale, localeUrl]) =>
+        `    <xhtml:link rel="alternate" hreflang="${locale}" href="${toAbsoluteUrl(localeUrl)}"/>`
+    ),
+    `    <xhtml:link rel="alternate" hreflang="x-default" href="${defaultLocaleUrl}"/>`,
   ];
 
-  const hasFileExtension = /\.[a-z0-9]+$/i.test(path);
-  if (
-    shouldIncludeAlternates(resolved.mode, xhtmlLinks, resolved.domains) &&
-    !hasFileExtension
-  ) {
-    const alternates = getMultilingualUrls(
-      path,
-      routingOptions as RoutingOptions
-    );
+  if (!entryPerLocale)
+    return buildUrlEntry(defaultLocaleUrl, metadata, alternateLines);
 
-    for (const [lang, localeUrl] of Object.entries(alternates)) {
-      // A locale served from its own domain already yields an absolute URL —
-      // prefixing it with `siteUrl` again would corrupt it.
-      const alternateUrl = checkIsURLAbsolute(localeUrl)
-        ? localeUrl
-        : `${siteUrl}${localeUrl}`;
+  const localeUrls = Object.values(alternates)
+    .map(toAbsoluteUrl)
+    // A sitemap may only submit URLs of the site serving it, so locales living
+    // on their own domain stay alternates and belong to their own sitemap.
+    .filter((localeUrl) => localeUrl.startsWith(siteUrl))
+    .filter((localeUrl, index, urls) => urls.indexOf(localeUrl) === index);
 
-      lines.push(
-        `    <xhtml:link rel="alternate" hreflang="${lang}" href="${alternateUrl}"/>`
-      );
-    }
-
-    lines.push(
-      `    <xhtml:link rel="alternate" hreflang="x-default" href="${fullUrl}"/>`
-    );
-  }
-
-  lines.push('  </url>');
-
-  return lines.filter(Boolean).join('\n');
+  return localeUrls
+    .map((localeUrl) => buildUrlEntry(localeUrl, metadata, alternateLines))
+    .join('\n');
 };
 
 /**
@@ -176,7 +233,12 @@ export const generateSitemap = (
   entries: SitemapUrlEntry[],
   options: GenerateSitemapOptions
 ): string => {
-  const { siteUrl, xhtmlLinks = true, ...routingOptions } = options;
+  const {
+    siteUrl,
+    xhtmlLinks = true,
+    entryPerLocale = false,
+    ...routingOptions
+  } = options;
 
   const resolved = resolveRoutingConfig(routingOptions as RoutingOptions);
   const includeAlternates = shouldIncludeAlternates(
@@ -190,6 +252,7 @@ export const generateSitemap = (
       ...entry,
       siteUrl,
       xhtmlLinks,
+      entryPerLocale,
       ...routingOptions,
     })
   );

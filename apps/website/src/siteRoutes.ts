@@ -1,13 +1,11 @@
 import {
-  Website_Blog_Search_Path,
+  Website_Blog_Path,
   Website_CMS_Path,
   Website_Contributors_Path,
   Website_Demo_Path,
   Website_Doc_Path,
-  Website_Doc_Search_Path,
   Website_FrequentQuestions_Path,
   Website_Home_Path,
-  Website_NotFound_Path,
   Website_Playground_Path,
   Website_Scanner_Path,
   Website_TMS_Path,
@@ -39,8 +37,38 @@ const filterRoutableFiles = <FileMetadataType extends { slugs: string[] }>(
   filesMetadata.filter((fileMetadata) => fileMetadata.slugs.length > 0);
 
 /**
+ * Drops entries whose path was already emitted, keeping the first occurrence.
+ *
+ * A path can legitimately appear in two sources — a static entry that is also a
+ * documentation page, a doc and an FAQ resolving to the same slug — and a
+ * duplicated `<loc>` makes search engines pick between two conflicting
+ * `lastmod` values.
+ *
+ * @param entries - The concatenated sitemap entries, most authoritative first.
+ * @returns The entries with a unique path each.
+ */
+const dedupeEntriesByPath = (entries: SitemapUrlEntry[]): SitemapUrlEntry[] => {
+  const seenPaths = new Set<string>();
+
+  return entries.filter((entry) => {
+    if (seenPaths.has(entry.path)) return false;
+
+    seenPaths.add(entry.path);
+    return true;
+  });
+};
+
+/**
  * Static sitemap entries shared between the sitemap route and prerender config.
  * `lastmod` is omitted here and added dynamically at call time.
+ *
+ * Deliberately absent, do not re-add:
+ * - `Website_NotFound_Path` — disallowed by `routes/robots[.]txt.ts`, and a
+ *   sitemap must never submit a URL robots.txt blocks.
+ * - `Website_Doc_Search_Path` — an internal search result page, which Google's
+ *   guidelines ask to keep out of the index.
+ * - `Website_Doc_Path` — `/doc/get-started` is already emitted by the docs
+ *   metadata below, with a real `lastmod` rather than the build time.
  */
 export const staticSitemapEntries: Omit<SitemapUrlEntry, 'lastmod'>[] = [
   { path: Website_Home_Path, changefreq: 'monthly', priority: 1 },
@@ -51,15 +79,12 @@ export const staticSitemapEntries: Omit<SitemapUrlEntry, 'lastmod'>[] = [
   { path: Website_Demo_Path, changefreq: 'monthly', priority: 0.8 },
   { path: Website_Playground_Path, changefreq: 'monthly', priority: 0.8 },
   { path: Website_Scanner_Path, changefreq: 'monthly', priority: 0.8 },
-  { path: Website_Doc_Path, changefreq: 'monthly', priority: 0.8 },
   {
     path: Website_FrequentQuestions_Path,
     changefreq: 'monthly',
     priority: 0.8,
   },
-  { path: Website_NotFound_Path, changefreq: 'never', priority: 0.1 },
-  { path: Website_Doc_Search_Path, changefreq: 'never', priority: 0.1 },
-  { path: Website_Blog_Search_Path, changefreq: 'weekly', priority: 0.7 },
+  { path: Website_Blog_Path, changefreq: 'weekly', priority: 0.7 },
 ];
 
 /**
@@ -91,7 +116,7 @@ export async function buildSitemapEntries(): Promise<SitemapUrlEntry[]> {
     getFrequentQuestionMetadataBySlug([]).then(filterRoutableFiles),
   ]);
 
-  return [
+  return dedupeEntriesByPath([
     ...staticSitemapEntries.map((e) => ({ ...e, lastmod: now })),
     ...legal.map((legalEl) => ({
       path: legalEl.relativeUrl,
@@ -117,7 +142,7 @@ export async function buildSitemapEntries(): Promise<SitemapUrlEntry[]> {
       changefreq: 'monthly',
       priority: 0.4,
     })),
-  ];
+  ]);
 }
 
 /**

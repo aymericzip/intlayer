@@ -44,6 +44,8 @@ export const getAppReviewerProfileRoute = (reviewerId: string) =>
 export const getAppReviewerMissionRoute = (missionId: string) =>
   `/find-reviewer/dashboard/mission/${missionId}` as const;
 
+/** Root of the authentication section, usable as a `Disallow` prefix. */
+export const App_Auth_Path = '/auth' as const;
 export const App_Auth_SignIn_Path = '/auth/login' as const;
 export const App_Auth_SignUp_Path = '/auth/register' as const;
 export const App_Auth_TwoFactor_Path = '/auth/2fa' as const;

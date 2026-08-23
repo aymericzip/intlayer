@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as HealthzRouteImport } from './routes/healthz'
+import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as Char123LocaleChar125RouteRouteImport } from './routes/{-$locale}/route'
 import { Route as Char123LocaleChar125SplatRouteImport } from './routes/{-$locale}/$'
@@ -75,6 +76,11 @@ import { Route as Char123LocaleChar125OtherFindReviewerDashboardMissionMissionId
 const HealthzRoute = HealthzRouteImport.update({
   id: '/healthz',
   path: '/healthz',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RobotsDottxtRoute = RobotsDottxtRouteImport.update({
+  id: '/robots.txt',
+  path: '/robots.txt',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -461,6 +467,7 @@ const Char123LocaleChar125OtherFindReviewerDashboardMissionMissionIdRoute =
 export interface FileRoutesByFullPath {
   '/{-$locale}': typeof Char123LocaleChar125RouteRouteWithChildren
   '/healthz': typeof HealthzRoute
+  '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/{-$locale}/$': typeof Char123LocaleChar125SplatRoute
   '/{-$locale}/404': typeof Char123LocaleChar125404Route
@@ -520,6 +527,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/{-$locale}': typeof Char123LocaleChar125DashboardIndexRoute
   '/healthz': typeof HealthzRoute
+  '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/{-$locale}/$': typeof Char123LocaleChar125SplatRoute
   '/{-$locale}/404': typeof Char123LocaleChar125404Route
@@ -573,6 +581,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/{-$locale}': typeof Char123LocaleChar125RouteRouteWithChildren
   '/healthz': typeof HealthzRoute
+  '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/{-$locale}/_dashboard': typeof Char123LocaleChar125DashboardRouteRouteWithChildren
   '/{-$locale}/_other': typeof Char123LocaleChar125OtherRouteRouteWithChildren
@@ -639,6 +648,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/{-$locale}'
     | '/healthz'
+    | '/robots.txt'
     | '/sitemap.xml'
     | '/{-$locale}/$'
     | '/{-$locale}/404'
@@ -698,6 +708,7 @@ export interface FileRouteTypes {
   to:
     | '/{-$locale}'
     | '/healthz'
+    | '/robots.txt'
     | '/sitemap.xml'
     | '/{-$locale}/$'
     | '/{-$locale}/404'
@@ -750,6 +761,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/{-$locale}'
     | '/healthz'
+    | '/robots.txt'
     | '/sitemap.xml'
     | '/{-$locale}/_dashboard'
     | '/{-$locale}/_other'
@@ -815,6 +827,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   Char123LocaleChar125RouteRoute: typeof Char123LocaleChar125RouteRouteWithChildren
   HealthzRoute: typeof HealthzRoute
+  RobotsDottxtRoute: typeof RobotsDottxtRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
 }
 
@@ -825,6 +838,13 @@ declare module '@tanstack/react-router' {
       path: '/healthz'
       fullPath: '/healthz'
       preLoaderRoute: typeof HealthzRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/robots.txt': {
+      id: '/robots.txt'
+      path: '/robots.txt'
+      fullPath: '/robots.txt'
+      preLoaderRoute: typeof RobotsDottxtRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sitemap.xml': {
@@ -1589,6 +1609,7 @@ const Char123LocaleChar125RouteRouteWithChildren =
 const rootRouteChildren: RootRouteChildren = {
   Char123LocaleChar125RouteRoute: Char123LocaleChar125RouteRouteWithChildren,
   HealthzRoute: HealthzRoute,
+  RobotsDottxtRoute: RobotsDottxtRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
 }
 export const routeTree = rootRouteImport
