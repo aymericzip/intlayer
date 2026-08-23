@@ -73,7 +73,7 @@ export const IDE: FC<IDEProps> = ({
           <div className="size-3 rounded-full bg-yellow-500" />
           <div className="size-3 rounded-full bg-green-500" />
         </div>
-        <div className="flex size-full overflow-y-auto">
+        <div className="flex h-full divide-x overflow-y-auto border-x">
           {tabs.map(({ path }, index) => {
             const fullPath = path.split('/');
             const title = fullPath[fullPath.length - 1];
@@ -84,8 +84,8 @@ export const IDE: FC<IDEProps> = ({
                 className={cn(
                   'flex h-8 min-w-20 max-w-100 items-center justify-start truncate text-nowrap px-3 py-1 transition',
                   isActive
-                    ? 'bg-foreground text-background'
-                    : 'cursor-pointer hover:bg-foreground/50 hover:text-background'
+                    ? 'bg-background font-medium text-foreground'
+                    : 'cursor-pointer opacity-80 hover:text-foreground hover:opacity-100'
                 )}
                 key={title}
                 onClick={() => setActiveTab(index)}
@@ -109,12 +109,12 @@ export const IDE: FC<IDEProps> = ({
               </div>
             </WithResizer>
 
-            <div className="size-full flex-1 overflow-auto pt-2 text-xs">
+            <div className="size-full flex-1 overflow-auto bg-background text-xs">
               {content && (
                 <MarkdownRenderer isDarkMode={isDarkMode}>
                   {content}
                 </MarkdownRenderer>
-              )}{' '}
+              )}
             </div>
           </div>
         </div>

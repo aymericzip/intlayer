@@ -31,13 +31,13 @@ const shuffleArray = (array: string[], limit?: number) => {
 
 const LocalCard: FC<{ locale: string }> = ({ locale, ...props }) => (
   <div
-    className="group z-10 mx-8 inline-flex shrink-0 rounded-lg border transition-transform duration-300 hover:scale-105"
+    className="group z-10 mx-8 inline-flex shrink-0 scale-95 rounded-lg border transition-transform duration-300 hover:scale-100"
     {...props}
   >
     <div className="flex flex-row items-center gap-5 px-3 py-1">
       <Flag
         locale={locale as Locale}
-        className="size-5 rounded-sm grayscale-80 transition duration-300 group-hover:grayscale-0"
+        className="size-5 rounded-sm grayscale-50 transition duration-300 group-hover:grayscale-0"
         width={640}
         height={480}
         loading="lazy"
