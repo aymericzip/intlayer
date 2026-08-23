@@ -1,3 +1,4 @@
+import cn from 'cnfast';
 import type { FC } from 'react';
 import { MarkdownRenderer as MarkdownRendererIntlayer } from 'react-intlayer';
 import { Code } from './Code';
@@ -5,12 +6,14 @@ import type { CodeLanguage } from './shikiLanguages';
 
 type MarkdownRendererProps = {
   isDarkMode?: boolean;
+  codeClassName?: string;
   children: string;
 };
 
 export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
   children,
   isDarkMode,
+  codeClassName,
 }) => (
   <MarkdownRendererIntlayer
     components={{
@@ -20,7 +23,7 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
           isDarkMode={isDarkMode}
           language={props.className?.replace('lang-', '') as CodeLanguage}
           showHeader={false}
-          className="text-xs leading-5"
+          className={cn('text-xs leading-5', codeClassName)}
         >
           {props.children as string}
         </Code>
