@@ -3,6 +3,7 @@ import type { AudienceSeriesPoint } from '@/types/analytics.types';
 import {
   audienceRangeFromDays,
   bucketDailySeries,
+  buildBreakdownRows,
   DEFAULT_AUDIENCE_RANGE,
   isAudienceRange,
 } from './analytics.service';
@@ -101,5 +102,76 @@ describe('bucketDailySeries', () => {
 
   it('handles an empty series', () => {
     expect(bucketDailySeries([], 'month')).toEqual([]);
+  });
+});
+
+describe('buildBreakdownRows', () => {
+  it('merges both sides, defaulting a key missing from one to zero', () => {
+    const rows = buildBreakdownRows(
+      new Map([
+        ['fr', 3],
+        ['en', 1],
+      ]),
+      new Map([
+        ['fr', 30],
+        ['de', 5],
+      ])
+    );
+
+    expect(rows).toEqual([
+      { key: 'fr', users: 3, views: 30 },
+      { key: 'de', users: 0, views: 5 },
+      { key: 'en', users: 1, views: 0 },
+    ]);
+  });
+
+  it('ranks by views by default, breaking ties on users', () => {
+    const rows = buildBreakdownRows(
+      new Map([
+        ['/a', 1],
+        ['/b', 9],
+      ]),
+      new Map([
+        ['/a', 10],
+        ['/b', 10],
+      ])
+    );
+
+    expect(rows.map((row) => row.key)).toEqual(['/b', '/a']);
+  });
+
+  it('ranks by users when asked, breaking ties on views', () => {
+    const rows = buildBreakdownRows(
+      new Map([
+        ['FR', 2],
+        ['US', 7],
+      ]),
+      new Map([['FR', 100]]),
+      'users'
+    );
+
+    expect(rows.map((row) => row.key)).toEqual(['US', 'FR']);
+  });
+
+  it('drops empty keys — an event with no locale or no url is not a bucket', () => {
+    const rows = buildBreakdownRows(new Map([['', 5]]), new Map([['', 50]]));
+
+    expect(rows).toEqual([]);
+  });
+
+  it('caps the number of rows so an unbounded page dimension stays readable', () => {
+    const views = new Map(
+      Array.from({ length: 400 }, (_, index) => [`/page-${index}`, index])
+    );
+
+    const rows = buildBreakdownRows(new Map(), views);
+
+    expect(rows).toHaveLength(250);
+    // The cap keeps the head of the ranking, not an arbitrary slice.
+    expect(rows[0]).toEqual({ key: '/page-399', users: 0, views: 399 });
+  });
+
+  it('handles two empty sides', () => {
+    expect(buildBreakdownRows(new Map(), new Map())).toEqual([]);
   });
 });

@@ -134,7 +134,7 @@ export const AnalyticsVisitorModel = model<RenameId<AnalyticsVisitor>>(
 ) as unknown as Model<AnalyticsVisitor>;
 
 /**
- * Sub-day page-view counters, one per project + slot + locale. Written
+ * Sub-day page-view counters, one per project + slot + locale + url. Written
  * alongside the permanent daily rollups purely to serve the `1h` and `24h`
  * audience windows, and dropped by the TTL index shortly after.
  */
@@ -149,6 +149,7 @@ export const analyticsShortTermRollupSchema =
       },
       slot: { type: String, required: true, index: true },
       locale: { type: String },
+      url: { type: String },
       count: { type: Number, default: 0 },
     },
     {
@@ -171,9 +172,11 @@ export const analyticsShortTermRollupSchema =
     }
   );
 
-// One counter document per project + slot + locale, so upserts coalesce.
+// One counter document per project + slot + locale + url, so upserts coalesce.
+// `syncIndexes` in `connectDB` drops the previous (project, slot, locale) index
+// — left in place it would reject the second url written to a slot.
 analyticsShortTermRollupSchema.index(
-  { projectId: 1, slot: 1, locale: 1 },
+  { projectId: 1, slot: 1, locale: 1, url: 1 },
   { unique: true }
 );
 // TTL cleanup — these counters are only useful for the last day or so.

@@ -118,6 +118,12 @@ export const createAnalyticsClient = (
   let started = false;
   let detachListeners: (() => void) | null = null;
 
+  // Path of the most recent page view, so an automatic route-change signal for
+  // a page already recorded is ignored. Routers call `pushState` for
+  // query-only and hash-only updates (filters, tabs, modals, scroll sync),
+  // each of which would otherwise land as another view of the same page.
+  let lastPageViewUrl: string | null = null;
+
   // Exposure keys already recorded for the current page view. React (and other
   // frameworks) resolve content nodes on every re-render; without this gate a
   // component re-rendering 60×/s would count 60 exposures per second. The set
@@ -156,13 +162,22 @@ export const createAnalyticsClient = (
   const trackPageView: AnalyticsClient['trackPageView'] = (event = {}) => {
     if (!sampledIn) return;
 
+    const url = event.url ?? currentUrl();
+    const reason = event.reason ?? 'initial';
+
+    // Only the automatic navigation signal is deduplicated: a provider asking
+    // for an `initial` or `locale_change` view is reporting something the
+    // pathname alone cannot express.
+    if (reason === 'route_change' && url === lastPageViewUrl) return;
+    lastPageViewUrl = url;
+
     // A new page view starts a fresh exposure window.
     seenExposureKeys = new Set<string>();
 
     enqueue({
       type: 'page_view',
       t: Date.now(),
-      url: event.url ?? currentUrl(),
+      url,
       locale: event.locale ?? ambientLocale,
       ref: event.ref ?? referrerHost(),
       vw:
@@ -171,7 +186,7 @@ export const createAnalyticsClient = (
       vh:
         event.vh ??
         (typeof window !== 'undefined' ? window.innerHeight : undefined),
-      reason: event.reason ?? 'initial',
+      reason,
     });
   };
 

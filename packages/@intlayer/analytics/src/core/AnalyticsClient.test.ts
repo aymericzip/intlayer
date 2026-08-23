@@ -117,6 +117,47 @@ describe('createAnalyticsClient', () => {
     expect(sentEvents()[0].type).toBe('conversion');
   });
 
+  it('ignores a route change that lands on the page already recorded', () => {
+    const client = createAnalyticsClient(config);
+
+    // A router pushing a query-only update reports the same pathname twice.
+    client.trackPageView({ url: '/pricing', reason: 'route_change' });
+    client.trackPageView({ url: '/pricing', reason: 'route_change' });
+    client.flush();
+
+    expect(
+      sentEvents().filter((event) => event.type === 'page_view')
+    ).toHaveLength(1);
+  });
+
+  it('records a route change back to a page left in between', () => {
+    const client = createAnalyticsClient(config);
+
+    client.trackPageView({ url: '/pricing', reason: 'route_change' });
+    client.trackPageView({ url: '/docs', reason: 'route_change' });
+    client.trackPageView({ url: '/pricing', reason: 'route_change' });
+    client.flush();
+
+    const views = sentEvents().filter((event) => event.type === 'page_view');
+    expect(views.map((view) => view.url)).toEqual([
+      '/pricing',
+      '/docs',
+      '/pricing',
+    ]);
+  });
+
+  it('records a locale change on the same path as its own view', () => {
+    const client = createAnalyticsClient(config);
+
+    client.trackPageView({ url: '/pricing', reason: 'route_change' });
+    client.trackPageView({ url: '/pricing', reason: 'locale_change' });
+    client.flush();
+
+    expect(
+      sentEvents().filter((event) => event.type === 'page_view')
+    ).toHaveLength(2);
+  });
+
   it('does not send anything when the buffer is empty', () => {
     const client = createAnalyticsClient(config);
     client.flush();

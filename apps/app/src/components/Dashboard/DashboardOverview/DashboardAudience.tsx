@@ -13,7 +13,14 @@ import {
   type SwitchSelectorChoices,
 } from '@intlayer/design-system/switch-selector';
 import { getLocaleName } from 'intlayer';
-import { CalendarDays, Eye, Globe, MapPin, Users } from 'lucide-react';
+import {
+  CalendarDays,
+  Eye,
+  FileText,
+  Globe,
+  MapPin,
+  Users,
+} from 'lucide-react';
 import { type FC, type ReactNode, useMemo, useState } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
 
@@ -30,7 +37,7 @@ const RANGE_OPTIONS = [
 ] as const satisfies readonly AudienceRange[];
 
 /** Which breakdown tab is active. */
-type BreakdownTab = 'locales' | 'location';
+type BreakdownTab = 'locales' | 'location' | 'pages';
 
 /**
  * Converts an ISO 3166-1 alpha-2 country code to its flag emoji.
@@ -219,6 +226,26 @@ type BreakdownListProps = {
 };
 
 /**
+ * Formats the counters shown next to a breakdown row. A dimension the
+ * breakdown cannot carry is left out rather than printed as a zero — pages are
+ * counted in views only, countries in visitors only.
+ */
+const formatRowCounters = (
+  row: { users: number; views: number },
+  usersLabel: string,
+  viewsLabel: string,
+  metric: 'users' | 'views'
+): string[] =>
+  (
+    [
+      ['users', row.users, usersLabel],
+      ['views', row.views, viewsLabel],
+    ] as const
+  )
+    .filter(([dimension, value]) => value > 0 || dimension === metric)
+    .map(([, value, label]) => `${value.toLocaleString()} ${label}`);
+
+/**
  * Ranked horizontal-bar list for a breakdown tab. Long lists (countries can run
  * to dozens of rows) collapse behind a "show all" toggle.
  */
@@ -248,8 +275,9 @@ const BreakdownList: FC<BreakdownListProps> = ({
                   {row.label}
                 </span>
                 <span className="shrink-0 text-neutral text-xs">
-                  {row.users.toLocaleString()} {usersLabel} ·{' '}
-                  {row.views.toLocaleString()} {viewsLabel}
+                  {formatRowCounters(row, usersLabel, viewsLabel, metric).join(
+                    ' · '
+                  )}
                 </span>
               </div>
               <div className="h-1.5 w-full overflow-hidden rounded-full bg-neutral/10">
@@ -268,7 +296,8 @@ const BreakdownList: FC<BreakdownListProps> = ({
 
 /**
  * Audience analytics section: distinct visitors (today / 7d / range), page
- * views, a visitor-evolution graph, and Locales / Location breakdown tabs.
+ * views, a visitor-evolution graph, and Locales / Location / Pages breakdown
+ * tabs.
  * Backed by `@intlayer/analytics` ingestion; renders an empty state until data
  * is collected.
  */
@@ -318,6 +347,15 @@ export const DashboardAudience: FC = () => {
       ),
       value: 'location',
     },
+    {
+      content: (
+        <span className="flex items-center justify-center gap-1.5 whitespace-nowrap">
+          <FileText className="size-3.5" />
+          {content.tabPages}
+        </span>
+      ),
+      value: 'pages',
+    },
   ] as SwitchSelectorChoices<BreakdownTab>;
 
   const localeRows = useMemo(
@@ -351,6 +389,24 @@ export const DashboardAudience: FC = () => {
         views: row.views,
       })),
     [audience?.byCountry, content.unknownCountry]
+  );
+
+  const pageRows = useMemo(
+    () =>
+      (audience?.byPage ?? []).map((row) => ({
+        label: (
+          <>
+            <FileText className="size-3.5 shrink-0 text-neutral" />
+            {/* Paths outrun the column, so the full value stays on hover. */}
+            <span className="truncate" title={row.key}>
+              {row.key}
+            </span>
+          </>
+        ),
+        users: row.users,
+        views: row.views,
+      })),
+    [audience?.byPage]
   );
 
   const hasData =
@@ -462,19 +518,28 @@ export const DashboardAudience: FC = () => {
                 className="w-full"
               />
 
-              {tab === 'locales' ? (
+              {tab === 'locales' && (
                 <BreakdownList
                   rows={localeRows}
                   usersLabel={content.usersLabel.value}
                   viewsLabel={content.viewsLabel.value}
                   metric="views"
                 />
-              ) : (
+              )}
+              {tab === 'location' && (
                 <BreakdownList
                   rows={countryRows}
                   usersLabel={content.usersLabel.value}
                   viewsLabel={content.viewsLabel.value}
                   metric="users"
+                />
+              )}
+              {tab === 'pages' && (
+                <BreakdownList
+                  rows={pageRows}
+                  usersLabel={content.usersLabel.value}
+                  viewsLabel={content.viewsLabel.value}
+                  metric="views"
                 />
               )}
             </Container>

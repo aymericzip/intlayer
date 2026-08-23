@@ -1,5 +1,6 @@
 import { logger } from '@logger';
 import { AccountModel } from '@schemas/account.schema';
+import { AnalyticsShortTermRollupModel } from '@schemas/analyticsEvent.schema';
 import { AuditModel } from '@schemas/audit.schema';
 import { AuditJobModel } from '@schemas/auditJob.schema';
 import { AuditPageModel } from '@schemas/auditPage.schema';
@@ -46,6 +47,10 @@ export const connectDB = async (): Promise<mongo.MongoClient> => {
     await AuditModel.syncIndexes();
     await AuditJobModel.syncIndexes();
     await AuditPageModel.syncIndexes();
+    // `syncIndexes` (rather than `createIndexes`) so the superseded
+    // (project, slot, locale) unique index is dropped — it would otherwise
+    // reject sub-day counters for a second page in the same slot.
+    await AnalyticsShortTermRollupModel.syncIndexes();
 
     dbClientInstance = client.connection.getClient();
 

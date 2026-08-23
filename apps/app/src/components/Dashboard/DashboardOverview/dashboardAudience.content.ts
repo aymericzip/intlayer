@@ -2,7 +2,7 @@ import { type Dictionary, t } from 'intlayer';
 
 /**
  * Content for the audience analytics section of the dashboard overview
- * (visitors, evolution graph, and locale / location breakdowns).
+ * (visitors, evolution graph, and locale / location / page breakdowns).
  */
 const dashboardAudienceContent = {
   key: 'dashboard-audience',
@@ -407,6 +407,26 @@ const dashboardAudienceContent = {
       id: 'Lokasi',
       vi: 'Vị trí',
       uk: 'Місцезнаходження',
+    }),
+    tabPages: t({
+      en: 'Pages',
+      fr: 'Pages',
+      es: 'Páginas',
+      de: 'Seiten',
+      ja: 'ページ',
+      zh: '页面',
+      ru: 'Страницы',
+      ko: '페이지',
+      ar: 'الصفحات',
+      it: 'Pagine',
+      'en-GB': 'Pages',
+      pt: 'Páginas',
+      hi: 'पृष्ठ',
+      tr: 'Sayfalar',
+      pl: 'Strony',
+      id: 'Halaman',
+      vi: 'Trang',
+      uk: 'Сторінки',
     }),
     usersLabel: t({
       en: 'users',

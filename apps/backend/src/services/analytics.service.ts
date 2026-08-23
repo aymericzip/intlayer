@@ -165,6 +165,18 @@ const toSlot = (timestamp: number): string => {
   return date.toISOString().slice(0, 16);
 };
 
+/** One sub-day page-view counter accumulated while reading an ingest batch. */
+type SlotViewCounter = {
+  /** UTC slot start the views fall into. */
+  slot: string;
+  /** Locale the views were served in. */
+  locale: string;
+  /** Pathname the views were recorded on. */
+  url: string;
+  /** Views accumulated for this slot + locale + url. */
+  views: number;
+};
+
 /** Builds the stable per-dimension upsert key for a rollup counter. */
 const buildDedupKey = (parts: (string | undefined)[]): string =>
   parts.map((part) => part ?? '').join(DEDUP_SEPARATOR);
@@ -189,8 +201,8 @@ export const ingestEvents = async (
   const operations: AnyBulkWriteOperation<AnalyticsRollupSchema>[] = [];
   // Distinct (day → locale) markers for this session, to record visitors once.
   const visitorDays = new Map<string, string | undefined>();
-  // Page views per `slot|locale`, backing the sub-day audience windows.
-  const slotViews = new Map<string, number>();
+  // Page views per slot + locale + url, backing the sub-day audience windows.
+  const slotViews = new Map<string, SlotViewCounter>();
 
   for (const rawEvent of events) {
     const event = sanitizeEvent(rawEvent);
@@ -204,8 +216,20 @@ export const ingestEvents = async (
     if (event.type === 'page_view') {
       visitorDays.set(day, event.locale ?? visitorDays.get(day));
 
-      const slotKey = `${toSlot(event.t)}|${event.locale ?? ''}`;
-      slotViews.set(slotKey, (slotViews.get(slotKey) ?? 0) + increment);
+      const slot = toSlot(event.t);
+      const slotKey = buildDedupKey([slot, event.locale, event.url]);
+      const counter = slotViews.get(slotKey);
+
+      if (counter) {
+        counter.views += increment;
+      } else {
+        slotViews.set(slotKey, {
+          slot,
+          locale: event.locale,
+          url: event.url,
+          views: increment,
+        });
+      }
     }
 
     let dimensions: Partial<AnalyticsRollupSchema> = {};
@@ -288,22 +312,16 @@ export const ingestEvents = async (
   // their own TTL and only exist so the `1h` / `24h` windows can be answered.
   if (slotViews.size > 0) {
     const slotOperations: AnyBulkWriteOperation<AnalyticsShortTermRollupSchema>[] =
-      [...slotViews].map(([slotKey, views]) => {
-        const separatorIndex = slotKey.indexOf('|');
-        const slot = slotKey.slice(0, separatorIndex);
-        const locale = slotKey.slice(separatorIndex + 1);
-
-        return {
-          updateOne: {
-            filter: { projectId, slot, locale },
-            update: {
-              $setOnInsert: { projectId, slot, locale },
-              $inc: { count: views },
-            },
-            upsert: true,
+      [...slotViews.values()].map(({ slot, locale, url, views }) => ({
+        updateOne: {
+          filter: { projectId, slot, locale, url },
+          update: {
+            $setOnInsert: { projectId, slot, locale, url },
+            $inc: { count: views },
           },
-        };
-      });
+          upsert: true,
+        },
+      }));
 
     await AnalyticsShortTermRollupModel.bulkWrite(slotOperations, {
       ordered: false,
@@ -521,6 +539,43 @@ const countDistinctVisitors = async (
   return result?.total ?? 0;
 };
 
+/**
+ * Maximum rows returned per breakdown. Locales and countries are naturally
+ * bounded, but the page dimension is not — a site with dynamic routes can hold
+ * thousands of distinct paths, and only the head of that list is readable.
+ */
+const MAX_BREAKDOWN_ROWS = 250;
+
+/**
+ * Merges per-key visitor and view counts into one ranked breakdown.
+ *
+ * A key missing from either side counts as zero, and empty keys are dropped —
+ * an event that carried no locale or no url is not a bucket anyone can act on.
+ *
+ * @param usersByKey - Distinct visitors per key.
+ * @param viewsByKey - Page views per key.
+ * @param metric - Which count ranks the rows; the other breaks ties.
+ * @returns The ranked rows, capped to {@link MAX_BREAKDOWN_ROWS}.
+ */
+export const buildBreakdownRows = (
+  usersByKey: Map<string, number>,
+  viewsByKey: Map<string, number>,
+  metric: 'users' | 'views' = 'views'
+): AudienceBreakdownRow[] =>
+  [...new Set([...usersByKey.keys(), ...viewsByKey.keys()])]
+    .filter((key) => Boolean(key))
+    .map((key) => ({
+      key,
+      users: usersByKey.get(key) ?? 0,
+      views: viewsByKey.get(key) ?? 0,
+    }))
+    .sort((rowA, rowB) =>
+      metric === 'users'
+        ? rowB.users - rowA.users || rowB.views - rowA.views
+        : rowB.views - rowA.views || rowB.users - rowA.users
+    )
+    .slice(0, MAX_BREAKDOWN_ROWS);
+
 /** Window size and series bucketing for every selectable audience range. */
 const RANGE_DEFINITIONS: Record<
   AudienceRange,
@@ -618,7 +673,8 @@ export const bucketDailySeries = (
 
 /**
  * Audience report for a sub-day window (`1h`, `24h`), read from the short-term
- * page-view counters and the anonymous visitor markers.
+ * page-view counters (which carry the page dimension) and the anonymous
+ * visitor markers.
  *
  * Visitors are attributed by first sight (`createdAt`), so a bucket counts
  * visitors that *arrived* in it rather than every session still active — the
@@ -656,6 +712,7 @@ const getSubDayAudience = async (
     visitorsByBucket,
     viewsBySlot,
     viewsByLocale,
+    viewsByPage,
     visitorsByLocale,
     visitorsByCountry,
   ] = await Promise.all([
@@ -677,6 +734,12 @@ const getSubDayAudience = async (
     AnalyticsShortTermRollupModel.aggregate<{ _id: string; views: number }>([
       { $match: { projectId, slot: { $gte: startSlot } } },
       { $group: { _id: '$locale', views: { $sum: '$count' } } },
+    ]),
+    AnalyticsShortTermRollupModel.aggregate<{ _id: string; views: number }>([
+      { $match: { projectId, slot: { $gte: startSlot } } },
+      { $group: { _id: '$url', views: { $sum: '$count' } } },
+      { $sort: { views: -1 } },
+      { $limit: MAX_BREAKDOWN_ROWS },
     ]),
     groupVisitorsBy<string>('$locale'),
     groupVisitorsBy<string>('$country'),
@@ -711,26 +774,21 @@ const getSubDayAudience = async (
     });
   }
 
-  const viewsByLocaleMap = new Map(
-    viewsByLocale.map((row) => [row._id, row.views])
+  const byLocale = buildBreakdownRows(
+    new Map(visitorsByLocale.map((row) => [row._id, row.users])),
+    new Map(viewsByLocale.map((row) => [row._id, row.views]))
   );
-  const usersByLocaleMap = new Map(
-    visitorsByLocale.map((row) => [row._id, row.users])
-  );
-  const byLocale: AudienceBreakdownRow[] = [
-    ...new Set([...usersByLocaleMap.keys(), ...viewsByLocaleMap.keys()]),
-  ]
-    .filter((key) => Boolean(key))
-    .map((key) => ({
-      key,
-      users: usersByLocaleMap.get(key) ?? 0,
-      views: viewsByLocaleMap.get(key) ?? 0,
-    }))
-    .sort((a, b) => b.views - a.views || b.users - a.users);
 
-  const byCountry: AudienceBreakdownRow[] = visitorsByCountry
-    .map((row) => ({ key: row._id || 'ZZ', users: row.users, views: 0 }))
-    .sort((a, b) => b.users - a.users);
+  const byCountry = buildBreakdownRows(
+    new Map(visitorsByCountry.map((row) => [row._id || 'ZZ', row.users])),
+    new Map(),
+    'users'
+  );
+
+  const byPage = buildBreakdownRows(
+    new Map(),
+    new Map(viewsByPage.map((row) => [row._id, row.views]))
+  );
 
   return {
     usersInRange: distinctVisitors[0]?.total ?? 0,
@@ -741,6 +799,7 @@ const getSubDayAudience = async (
     series,
     byLocale,
     byCountry,
+    byPage,
   };
 };
 
@@ -764,6 +823,7 @@ const getDailyAudience = async (
     viewsByDay,
     visitorsByLocale,
     viewsByLocale,
+    viewsByPage,
     visitorsByCountry,
   ] = await Promise.all([
     countDistinctVisitors(projectId, sinceDay),
@@ -782,6 +842,12 @@ const getDailyAudience = async (
     AnalyticsRollupModel.aggregate<{ _id: string; views: number }>([
       { $match: { projectId, type: 'page_view', day: { $gte: sinceDay } } },
       { $group: { _id: '$locale', views: { $sum: '$count' } } },
+    ]),
+    AnalyticsRollupModel.aggregate<{ _id: string; views: number }>([
+      { $match: { projectId, type: 'page_view', day: { $gte: sinceDay } } },
+      { $group: { _id: '$url', views: { $sum: '$count' } } },
+      { $sort: { views: -1 } },
+      { $limit: MAX_BREAKDOWN_ROWS },
     ]),
     AnalyticsVisitorModel.aggregate<{ _id: string; users: number }>([
       { $match: { projectId, day: { $gte: sinceDay } } },
@@ -803,26 +869,22 @@ const getDailyAudience = async (
   }
 
   // Merge locale users + views into a single ranked breakdown.
-  const viewsByLocaleMap = new Map(
-    viewsByLocale.map((row) => [row._id, row.views])
+  const byLocale = buildBreakdownRows(
+    new Map(visitorsByLocale.map((row) => [row._id, row.users])),
+    new Map(viewsByLocale.map((row) => [row._id, row.views]))
   );
-  const usersByLocaleMap = new Map(
-    visitorsByLocale.map((row) => [row._id, row.users])
-  );
-  const byLocale: AudienceBreakdownRow[] = [
-    ...new Set([...usersByLocaleMap.keys(), ...viewsByLocaleMap.keys()]),
-  ]
-    .filter((key) => Boolean(key))
-    .map((key) => ({
-      key,
-      users: usersByLocaleMap.get(key) ?? 0,
-      views: viewsByLocaleMap.get(key) ?? 0,
-    }))
-    .sort((a, b) => b.views - a.views || b.users - a.users);
 
-  const byCountry: AudienceBreakdownRow[] = visitorsByCountry
-    .map((row) => ({ key: row._id || 'ZZ', users: row.users, views: 0 }))
-    .sort((a, b) => b.users - a.users);
+  const byCountry = buildBreakdownRows(
+    new Map(visitorsByCountry.map((row) => [row._id || 'ZZ', row.users])),
+    new Map(),
+    'users'
+  );
+
+  // Visitor markers carry no url, so pages are ranked on views alone.
+  const byPage = buildBreakdownRows(
+    new Map(),
+    new Map(viewsByPage.map((row) => [row._id, row.views]))
+  );
 
   return {
     usersInRange,
@@ -833,13 +895,15 @@ const getDailyAudience = async (
     series: bucketDailySeries(daily, granularity),
     byLocale,
     byCountry,
+    byPage,
   };
 };
 
 /**
  * Builds the audience report for a project over a rolling window: distinct
  * visitors today / 7d / window, page views, the evolution series, and
- * breakdowns by locale (most-consulted) and by country (visitor location).
+ * breakdowns by locale (most-consulted), by country (visitor location), and by
+ * page (most-consulted paths).
  *
  * Sub-day windows (`1h`, `24h`) are served from the short-term counters, which
  * only retain about two days; everything longer reads the permanent daily

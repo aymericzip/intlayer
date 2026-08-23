@@ -101,8 +101,10 @@ export type AnalyticsVisitorModelType = Model<AnalyticsVisitor>;
 /**
  * A short-lived page-view counter at sub-day resolution. The permanent daily
  * rollups cannot be sliced finer than a day, so the "last hour" / "last 24
- * hours" windows read from these instead. Documents expire automatically, and
- * the `url` dimension is deliberately dropped to keep the cardinality bounded.
+ * hours" windows read from these instead. Documents expire automatically.
+ *
+ * Cardinality stays bounded by traffic rather than by site size: a slot can
+ * only hold as many `(locale, url)` counters as it received page views.
  */
 export interface AnalyticsShortTermRollup extends Document {
   id: Types.ObjectId;
@@ -111,6 +113,8 @@ export interface AnalyticsShortTermRollup extends Document {
   slot: string;
   /** Locale the views were served in. */
   locale?: string;
+  /** Pathname of the page the views were recorded on. */
+  url?: string;
   /** Page views accumulated in this slot. */
   count: number;
   createdAt: Date;
@@ -150,9 +154,9 @@ export type AudienceSeriesPoint = {
   views: number;
 };
 
-/** A ranked audience breakdown row (by locale or by country). */
+/** A ranked audience breakdown row (by locale, by country, or by page). */
 export type AudienceBreakdownRow = {
-  /** The locale code or country code. */
+  /** The locale code, country code, or page pathname. */
   key: string;
   /** Distinct visitors for this bucket. */
   users: number;
@@ -182,6 +186,12 @@ export type AudienceStats = {
   byLocale: AudienceBreakdownRow[];
   /** Visitor location breakdown, highest first. */
   byCountry: AudienceBreakdownRow[];
+  /**
+   * Most-consulted pages, highest first. Keyed by pathname, so a localized
+   * route contributes one row per locale prefix (`/en/pricing`, `/fr/pricing`).
+   * Visitors are not attributed per page — only `views` is populated.
+   */
+  byPage: AudienceBreakdownRow[];
 };
 
 /** Aggregated page/locale totals for the dashboard overview. */
