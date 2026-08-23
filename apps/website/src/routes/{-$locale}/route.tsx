@@ -34,7 +34,13 @@ export const Route = createFileRoute('/{-$locale}')({
         },
         {
           name: 'keywords',
-          content: keywords.join(', '),
+          // A dictionary missing from the client registry resolves to the
+          // fallback proxy, whose nodes are not arrays. Calling `join` on one
+          // throws, and a rejected `head` drops the meta of *every* route in
+          // the chain — so the array shape is checked, as in every other route.
+          content: Array.isArray(keywords)
+            ? keywords.join(', ')
+            : String(keywords || ''),
         },
         { property: 'og:title', content: openGraph.title },
         { property: 'og:description', content: description },

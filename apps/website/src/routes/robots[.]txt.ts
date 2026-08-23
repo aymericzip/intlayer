@@ -58,8 +58,13 @@ export const Route = createFileRoute('/robots.txt')({
         text += `Sitemap: ${siteUrl}/sitemap.xml\n`;
         if (cmsUrl) text += `Sitemap: ${cmsUrl}/sitemap.xml\n`;
         // Points agents at the ARD capability manifest, the way `Sitemap`
-        // points crawlers at the sitemap.
-        text += `Agentmap: https://${Website_Domain}${WellKnown_AiCatalog_Path}\n`;
+        // points crawlers at the sitemap. `Agentmap` is not a registered
+        // directive, and validators (Lighthouse included) report an unknown
+        // one as a malformed robots.txt — which risks the whole file being
+        // mistrusted. The manifest is already advertised by the
+        // `Link: rel="ai-catalog"` response header and its well-known path, so
+        // this stays a comment: still readable, never invalid.
+        text += `# Agentmap: https://${Website_Domain}${WellKnown_AiCatalog_Path}\n`;
 
         return new Response(text, {
           headers: { 'Content-Type': 'text/plain; charset=utf-8' },

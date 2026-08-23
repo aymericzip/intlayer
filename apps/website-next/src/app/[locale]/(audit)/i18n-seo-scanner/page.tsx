@@ -4,7 +4,7 @@ import { OrganizationHeader } from '@structuredData/OrganizationHeader';
 import { ScannerSoftwareApplicationHeader } from '@structuredData/ScannerSoftwareApplicationHeader';
 import { WebsiteHeader } from '@structuredData/WebsiteHeader';
 import type { NextPageIntlayer } from 'next-intlayer';
-import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
+import { useIntlayer } from 'next-intlayer/server';
 import { type FC, Suspense } from 'react';
 
 export { generateMetadata } from './metadata';
@@ -32,12 +32,12 @@ const AuditPage: NextPageIntlayer = async ({ params }) => {
   const { locale } = await params;
 
   return (
-    <IntlayerServerProvider locale={locale}>
+    <>
       <WebsiteHeader key={locale} />
       <OrganizationHeader />
       <ScannerSoftwareApplicationHeader />
       <AuditContent />
-    </IntlayerServerProvider>
+    </>
   );
 };
 
