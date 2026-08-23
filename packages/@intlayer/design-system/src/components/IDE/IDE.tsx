@@ -107,8 +107,12 @@ export const IDE: FC<IDEProps> = ({
               </div>
             </WithResizer>
 
-            <div className="size-full flex-1 overflow-auto bg-background text-xs">
-              {content && <MarkdownRenderer>{content}</MarkdownRenderer>}
+            <div className="size-full flex-1 overflow-auto bg-background text-xs [&>pre]:bg-red-400!">
+              {content && (
+                <MarkdownRenderer codeClassName="bg-background rounded-none">
+                  {content}
+                </MarkdownRenderer>
+              )}
             </div>
           </div>
         </div>

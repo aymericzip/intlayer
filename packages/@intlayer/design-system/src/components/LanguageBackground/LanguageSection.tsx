@@ -53,11 +53,10 @@ const LocalCard: FC<{ locale: string }> = ({ locale, ...props }) => (
   </div>
 );
 
-const LocalCardList: FC<{ localeList: string[]; className?: string }> = ({
-  localeList,
-  className,
-  ...props
-}) => (
+export const LocalCardList: FC<{
+  localeList: string[];
+  className?: string;
+}> = ({ localeList, className, ...props }) => (
   <div className="relative flex w-full overflow-hidden" {...props}>
     <div
       className={cn('inline-flex shrink-0 will-change-transform', className)}
@@ -96,7 +95,7 @@ export const LanguageSection: FC<HTMLAttributes<HTMLElement>> = ({
 
   return (
     <section
-      className={cn('w-full overflow-hidden border-b py-6', className)}
+      className={cn('w-full overflow-hidden py-3', className)}
       {...props}
     >
       <div className="relative flex w-full flex-col gap-5 py-3">

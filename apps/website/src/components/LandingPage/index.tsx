@@ -24,7 +24,7 @@ const WhyToChoseIntlayerSection = lazy(() =>
 );
 
 const FeaturesSection = lazy(() =>
-  import('./NEW/RedesignedFeatures').then((mod) => ({
+  import('./FeaturesSection').then((mod) => ({
     default: mod.FeaturesSection,
   }))
 );
