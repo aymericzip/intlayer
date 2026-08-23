@@ -167,7 +167,7 @@ export const IDESection: FC = () => {
         isDarkMode={resolvedTheme === 'dark'}
         pages={tabs}
         activeTab={0}
-        className="m-0! mx-auto flex-1 p-0! text-xs"
+        className="m-0! mx-auto flex-1 p-0! text-xs [&>pre:bg-back]:bg-background"
         key={`${mode}-${framework}`}
       />
     </div>

@@ -109,9 +109,9 @@ export const Terminal: FC<TerminalProps> = ({
 
   return (
     <Container
-      roundedSize="2xl"
+      roundedSize="lg"
       className={cn(
-        'flex min-w-0 max-w-full flex-col overflow-hidden font-mono',
+        'flex min-w-0 max-w-full flex-col overflow-hidden border font-mono',
         className
       )}
       {...containerProps}
