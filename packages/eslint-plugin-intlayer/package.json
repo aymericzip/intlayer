@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-intlayer",
-  "version": "9.3.3",
+  "version": "9.4.0-canary.0",
   "private": false,
   "description": "ESLint (and oxlint) plugin for Intlayer. Catches untranslated strings and the dynamic call shapes the Intlayer compiler cannot optimize.",
   "keywords": [
