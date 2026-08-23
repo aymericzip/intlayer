@@ -3,6 +3,7 @@ import { Container } from '@intlayer/design-system/container';
 import { ArrowUpRight } from 'lucide-react';
 import type React from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { useNumber } from 'react-intlayer/format';
 import { Link } from '~/components/Link/Link';
 
 export type Contributor = {
@@ -21,6 +22,7 @@ export const ContributorsList: React.FC<ContributorsListProps> = ({
   contributors: contributorsData,
 }) => {
   const { label } = useIntlayer('contributors-list');
+  const formatNumber = useNumber();
 
   return (
     <div className="mx-auto max-w-7xl px-4 lg:px-8">
@@ -52,7 +54,7 @@ export const ContributorsList: React.FC<ContributorsListProps> = ({
                 {contributor.contributions && (
                   <p className="text-sm">
                     <span className="font-semibold">
-                      {contributor.contributions.toLocaleString()}
+                      {formatNumber(contributor.contributions)}
                     </span>{' '}
                     {label}
                   </p>

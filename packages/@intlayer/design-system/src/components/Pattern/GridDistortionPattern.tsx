@@ -1,8 +1,8 @@
 'use client';
 
+import { useTheme } from '@providers/ThemeProvider';
 import { cn } from '@utils/cn';
 import { type FC, type SVGProps, useEffect, useRef } from 'react';
-import { useIsDarkMode } from '../../hooks/useIsDarkMode';
 
 // ---------------------------------------------------------------------------
 // Theme configuration — tweak these to adjust the grid appearance globally
@@ -255,8 +255,8 @@ export const GridDistortionPattern: FC<GridDistortionPatternProps> = ({
   className,
   ...props
 }) => {
-  const isDarkMode = useIsDarkMode();
-  const theme = isDarkMode ? DARK_THEME : LIGHT_THEME;
+  const { resolvedTheme } = useTheme();
+  const theme = resolvedTheme === 'dark' ? DARK_THEME : LIGHT_THEME;
 
   // Explicit props win; otherwise fall back to the active theme's defaults.
   const resolvedLineColor = lineColor ?? theme.lineColor;

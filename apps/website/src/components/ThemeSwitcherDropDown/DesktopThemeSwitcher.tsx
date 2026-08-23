@@ -1,24 +1,9 @@
-import { useIsMounted } from '@intlayer/design-system/hooks';
-import {
-  DesktopThemeSwitcher as DesktopThemeSwitcherUI,
-  type Modes,
-} from '@intlayer/design-system/theme-switcher-drop-down';
+import { DesktopThemeSwitcher as DesktopThemeSwitcherUI } from '@intlayer/design-system/theme-switcher-drop-down';
 import type { FC } from 'react';
 import { useTheme } from '~/providers/ThemeProvider';
 
 export const DesktopThemeSwitcher: FC = () => {
-  const isMounted = useIsMounted();
-  const { resolvedTheme, setTheme, systemTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
 
-  if (!isMounted) {
-    return null;
-  }
-
-  return (
-    <DesktopThemeSwitcherUI
-      theme={resolvedTheme as Modes}
-      setTheme={setTheme}
-      systemTheme={systemTheme as Modes}
-    />
-  );
+  return <DesktopThemeSwitcherUI theme={theme} setTheme={setTheme} />;
 };

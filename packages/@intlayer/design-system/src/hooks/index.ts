@@ -2,7 +2,6 @@ export * from './useDevice';
 export * from './useGetElementById';
 export * from './useGetElementOrWindow';
 export * from './useHorizontalSwipe';
-export * from './useIsDarkMode';
 export * from './useIsMounted';
 export * from './useItemSelector';
 export * from './useKeyboardDetector';

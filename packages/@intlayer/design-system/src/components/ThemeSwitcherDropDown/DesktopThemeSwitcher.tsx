@@ -1,7 +1,7 @@
 'use client';
 
 import { CircleDashed, Moon, Sun } from 'lucide-react';
-import { type FC, useState } from 'react';
+import type { FC } from 'react';
 import { Button, type ButtonProps } from '../Button';
 import { Container } from '../Container';
 import { DropDown } from '../DropDown';
@@ -12,7 +12,6 @@ const ButtonItem: FC<ButtonProps> = ({ Icon, children, ...props }) => (
     <Button
       className="w-full cursor-pointer rounded-lg p-1 text-left hover:bg-text/10 focus:bg-text-opposite/20 focus:outline-hidden disabled:text-white/25"
       Icon={Icon}
-      data-mode="system"
       role="option"
       variant="none"
       {...props}
@@ -23,30 +22,15 @@ const ButtonItem: FC<ButtonProps> = ({ Icon, children, ...props }) => (
 );
 
 type DesktopThemeSwitcherProps = {
+  /** Preference currently persisted — `system` while following the OS. */
   theme: Modes;
   setTheme: (theme: Modes) => void;
-  systemTheme: Modes;
 };
 
 export const DesktopThemeSwitcher: FC<DesktopThemeSwitcherProps> = ({
   theme,
   setTheme,
-  systemTheme,
 }) => {
-  const isThemeSystemTheme = systemTheme === theme;
-  const defaultMode = isThemeSystemTheme ? 'system' : theme;
-
-  const [mode, setMode] = useState<Modes>(defaultMode);
-
-  const switchMode = (mode: Modes) => {
-    if (mode === 'system') {
-      setTheme(systemTheme ?? 'light');
-    } else {
-      setTheme(mode);
-    }
-    setMode(mode);
-  };
-
   const panelIdentifier = 'theme-switcher';
 
   return (
@@ -56,33 +40,33 @@ export const DesktopThemeSwitcher: FC<DesktopThemeSwitcherProps> = ({
         identifier={panelIdentifier}
         aria-label="Theme selector"
       >
-        {mode === 'system' && <CircleDashed data-mode="system" />}
-        {mode === 'light' && <Sun data-mode="light" />}
-        {mode === 'dark' && <Moon data-mode="dark" />}
+        {theme === 'system' && <CircleDashed data-mode="system" />}
+        {theme === 'light' && <Sun data-mode="light" />}
+        {theme === 'dark' && <Moon data-mode="dark" />}
       </DropDown.Trigger>
 
       <DropDown.Panel identifier={panelIdentifier} isFocusable isOverable>
         <Container className="min-w-25 items-start p-1" separator="y">
           <ButtonItem
             Icon={CircleDashed}
-            onClick={() => switchMode('system')}
-            isActive={mode === 'system'}
+            onClick={() => setTheme('system')}
+            isActive={theme === 'system'}
             label="Restore to system mode"
           >
             System
           </ButtonItem>
           <ButtonItem
             Icon={Sun}
-            onClick={() => switchMode('light')}
-            isActive={mode === 'light'}
+            onClick={() => setTheme('light')}
+            isActive={theme === 'light'}
             label="Switch to light mode"
           >
             Light
           </ButtonItem>
           <ButtonItem
             Icon={Moon}
-            onClick={() => switchMode('dark')}
-            isActive={mode === 'dark'}
+            onClick={() => setTheme('dark')}
+            isActive={theme === 'dark'}
             label="Switch to dark mode"
           >
             Dark

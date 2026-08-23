@@ -3,7 +3,6 @@
 import {
   createContext,
   type FC,
-  memo,
   type PropsWithChildren,
   useCallback,
   useContext,
@@ -24,9 +23,6 @@ const THEME_ATTRIBUTE = 'data-theme';
 
 /** Media query resolving the OS colour scheme. */
 const DARK_MEDIA_QUERY = '(prefers-color-scheme: dark)';
-
-/** `localStorage` key holding the preference when none is provided. */
-const DEFAULT_STORAGE_KEY = 'theme';
 
 const isServer = typeof window === 'undefined';
 
@@ -64,8 +60,12 @@ const themeScript = (
   element.style.colorScheme = theme;
 };
 
+/** Serializes the bootstrap and its arguments into inline script source. */
+const buildBootstrap = (storageKey: string): string =>
+  `(${themeScript})(${JSON.stringify(storageKey)},${JSON.stringify(THEME_ATTRIBUTE)},${JSON.stringify(DARK_MEDIA_QUERY)})`;
+
 /** Reads the persisted preference, discarding unknown values. */
-const getStoredTheme = (storageKey: string): Theme | undefined => {
+const getStoredTheme = (storageKey: string): Theme => {
   try {
     const storedTheme = localStorage.getItem(storageKey);
 
@@ -80,12 +80,8 @@ const getStoredTheme = (storageKey: string): Theme | undefined => {
     // Storage can throw (private mode, blocked cookies).
   }
 
-  return undefined;
+  return 'system';
 };
-
-/** Resolves the OS colour scheme. */
-const getSystemTheme = (): ResolvedTheme =>
-  window.matchMedia(DARK_MEDIA_QUERY).matches ? 'dark' : 'light';
 
 /**
  * Suppresses CSS transitions while the theme attribute flips, so every themed
@@ -118,8 +114,6 @@ type ThemeContextValue = {
   theme: Theme;
   /** Theme applied to `<html>`. `undefined` until the client resolves it. */
   resolvedTheme: ResolvedTheme | undefined;
-  /** OS colour scheme. `undefined` until the client resolves it. */
-  systemTheme: ResolvedTheme | undefined;
   /** Persists a preference and applies it. */
   setTheme: (theme: Theme) => void;
 };
@@ -130,7 +124,6 @@ const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
 const fallbackThemeContext: ThemeContextValue = {
   theme: 'system',
   resolvedTheme: undefined,
-  systemTheme: undefined,
   setTheme: () => undefined,
 };
 
@@ -152,26 +145,8 @@ export type ThemeProviderProps = {
   nonce?: string;
 };
 
-type ThemeScriptProps = {
-  storageKey: string;
-  nonce?: string;
-};
-
-const ThemeScript: FC<ThemeScriptProps> = memo(({ storageKey, nonce }) => (
-  <script
-    suppressHydrationWarning
-    // Browsers hide the nonce value from the DOM API, so echoing it while
-    // hydrating would mismatch the server markup.
-    nonce={isServer ? nonce : ''}
-    // biome-ignore lint/security/noDangerouslySetInnerHtml: the bootstrap has to run before hydration, and its content is built from literals
-    dangerouslySetInnerHTML={{
-      __html: `(${themeScript})(${JSON.stringify(storageKey)},${JSON.stringify(THEME_ATTRIBUTE)},${JSON.stringify(DARK_MEDIA_QUERY)})`,
-    }}
-  />
-));
-
 const Theme: FC<PropsWithChildren<ThemeProviderProps>> = ({
-  storageKey = DEFAULT_STORAGE_KEY,
+  storageKey = 'theme',
   nonce,
   children,
 }) => {
@@ -184,33 +159,30 @@ const Theme: FC<PropsWithChildren<ThemeProviderProps>> = ({
 
   const resolvedTheme = theme === 'system' ? systemTheme : theme;
 
+  // Read the browser state back before the first paint, then keep following
+  // the OS preference and the other tabs.
   useIsomorphicLayoutEffect(() => {
-    setThemeState(getStoredTheme(storageKey) ?? 'system');
-    setSystemTheme(getSystemTheme());
-  }, [storageKey]);
-
-  // Follow the OS colour scheme.
-  useEffect(() => {
     const media = window.matchMedia(DARK_MEDIA_QUERY);
-    const handleChange = (event: MediaQueryListEvent) =>
+
+    setThemeState(getStoredTheme(storageKey));
+    setSystemTheme(media.matches ? 'dark' : 'light');
+
+    const handleSystemChange = (event: MediaQueryListEvent) =>
       setSystemTheme(event.matches ? 'dark' : 'light');
 
-    media.addEventListener('change', handleChange);
-
-    return () => media.removeEventListener('change', handleChange);
-  }, []);
-
-  // Keep every tab of the app on the same theme.
-  useEffect(() => {
-    const handleStorage = (event: StorageEvent) => {
+    const handleStorageChange = (event: StorageEvent) => {
       if (event.key !== storageKey) return;
 
-      setThemeState(getStoredTheme(storageKey) ?? 'system');
+      setThemeState(getStoredTheme(storageKey));
     };
 
-    window.addEventListener('storage', handleStorage);
+    media.addEventListener('change', handleSystemChange);
+    window.addEventListener('storage', handleStorageChange);
 
-    return () => window.removeEventListener('storage', handleStorage);
+    return () => {
+      media.removeEventListener('change', handleSystemChange);
+      window.removeEventListener('storage', handleStorageChange);
+    };
   }, [storageKey]);
 
   // Mirror the resolved theme onto `<html>`.
@@ -219,7 +191,7 @@ const Theme: FC<PropsWithChildren<ThemeProviderProps>> = ({
 
     const element = document.documentElement;
 
-    // The inline script already applied it on the initial load.
+    // The inline bootstrap already applied it on the initial load.
     if (element.getAttribute(THEME_ATTRIBUTE) === resolvedTheme) return;
 
     const restoreTransitions = suppressTransitions(nonce);
@@ -244,13 +216,19 @@ const Theme: FC<PropsWithChildren<ThemeProviderProps>> = ({
   );
 
   const value = useMemo<ThemeContextValue>(
-    () => ({ theme, resolvedTheme, systemTheme, setTheme }),
-    [theme, resolvedTheme, systemTheme, setTheme]
+    () => ({ theme, resolvedTheme, setTheme }),
+    [theme, resolvedTheme, setTheme]
   );
 
   return (
     <ThemeContext.Provider value={value}>
-      <ThemeScript storageKey={storageKey} nonce={nonce} />
+      <script
+        // Browsers hide the nonce value from the DOM API, so echoing it while
+        // hydrating would mismatch the server markup.
+        nonce={isServer ? nonce : ''}
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: the bootstrap has to run before hydration, and its content is built from literals
+        dangerouslySetInnerHTML={{ __html: buildBootstrap(storageKey) }}
+      />
       {children}
     </ThemeContext.Provider>
   );

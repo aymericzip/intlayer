@@ -8,6 +8,16 @@ import { useIntlayer, useLocale } from 'react-intlayer';
 import { useDate } from 'react-intlayer/format';
 import { Link } from '~/components/Link/Link';
 
+/**
+ * Documentation dates are calendar days (`YYYY-MM-DD`), which `Date` parses as
+ * UTC midnight. Formatting them in the ambient time zone would resolve to the
+ * previous day on any runtime behind UTC — so the pages prerendered on a UTC
+ * builder and the browser rendering them in, say, `America/Guatemala` would
+ * disagree on the day and fail hydration. Pinning the zone keeps both sides on
+ * the calendar day the document actually carries.
+ */
+const CALENDAR_DAY_TIME_ZONE = 'UTC';
+
 type HistoryProps = {
   pageUrl: string;
   updatedAt: string;
@@ -58,6 +68,7 @@ export const History: FC<HistoryProps> = ({
                   day: 'numeric',
                   month: 'long',
                   year: 'numeric',
+                  timeZone: CALENDAR_DAY_TIME_ZONE,
                 })}
               </strong>
               {message.after}
@@ -94,7 +105,11 @@ export const History: FC<HistoryProps> = ({
                 <div className="flex flex-col items-end justify-between gap-1 px-2 py-1 text-neutral text-sm">
                   <span className="text-nowrap">v{version}</span>
                   {date && (
-                    <span className="text-nowrap">{formatDate(date)}</span>
+                    <span className="text-nowrap">
+                      {formatDate(date, {
+                        timeZone: CALENDAR_DAY_TIME_ZONE,
+                      })}
+                    </span>
                   )}
                 </div>
               </li>

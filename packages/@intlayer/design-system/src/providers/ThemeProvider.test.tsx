@@ -28,13 +28,12 @@ const getProbeValue = (testId: string) =>
   screen.getByTestId(testId).textContent;
 
 const ThemeProbe: FC = () => {
-  const { theme, resolvedTheme, systemTheme, setTheme } = useTheme();
+  const { theme, resolvedTheme, setTheme } = useTheme();
 
   return (
     <div>
       <span data-testid="theme">{theme}</span>
       <span data-testid="resolved-theme">{resolvedTheme ?? 'none'}</span>
-      <span data-testid="system-theme">{systemTheme ?? 'none'}</span>
       <button type="button" onClick={() => setTheme('light')}>
         pick light
       </button>
@@ -85,7 +84,7 @@ describe('ThemeProvider', () => {
 
     expect(getAppliedTheme()).toBe('dark');
     expect(getProbeValue('theme')).toBe('system');
-    expect(getProbeValue('system-theme')).toBe('dark');
+    expect(getProbeValue('resolved-theme')).toBe('dark');
   });
 
   test('discards an unknown persisted value', () => {
@@ -142,8 +141,12 @@ describe('ThemeProvider', () => {
 
     setSystemPreference(true);
 
-    await waitFor(() => expect(getProbeValue('system-theme')).toBe('dark'));
     expect(getAppliedTheme()).toBe('light');
+
+    // Switching back to `system` proves the OS change was tracked meanwhile.
+    fireEvent.click(screen.getByRole('button', { name: 'pick system' }));
+
+    await waitFor(() => expect(getAppliedTheme()).toBe('dark'));
   });
 
   test('reads the theme back from the storage key it was given', () => {
