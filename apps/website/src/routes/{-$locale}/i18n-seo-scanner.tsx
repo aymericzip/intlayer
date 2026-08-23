@@ -10,7 +10,7 @@ import {
   buildWebsiteJsonLd,
 } from '@intlayer/design-system/structured-data';
 import { createFileRoute } from '@tanstack/react-router';
-import { defaultLocale, getIntlayer, locales } from 'intlayer';
+import { defaultLocale, getIntlayerAsync, locales } from 'intlayer';
 import { useIntlayer } from 'react-intlayer';
 import { BackgroundLayout } from '~/components/BackgroundLayout';
 import { LocalizationAnalyzer } from '~/components/ScannerPage';
@@ -19,21 +19,27 @@ import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
 import packageJson from '../../../package_mock.json' with { type: 'json' };
 
 export const Route = createFileRoute('/{-$locale}/i18n-seo-scanner')({
-  head: ({ params }) => {
+  head: async ({ params }) => {
     const { locale = defaultLocale } = params;
     const path = Website_Scanner;
-    const { title, description, keywords } = getIntlayer(
+    const { title, description, keywords } = await getIntlayerAsync(
       'i18n-SEO-scanner',
       locale
     );
 
-    const websiteContent = getIntlayer('website-structured-data', locale);
-    const orgContent = getIntlayer('organization-structured-data', locale);
-    const scannerContent = getIntlayer(
+    const websiteContent = await getIntlayerAsync(
+      'website-structured-data',
+      locale
+    );
+    const orgContent = await getIntlayerAsync(
+      'organization-structured-data',
+      locale
+    );
+    const scannerContent = await getIntlayerAsync(
       'scanner-software-structured-data',
       locale
     );
-    const softwareContent = getIntlayer(
+    const softwareContent = await getIntlayerAsync(
       'software-application-structured-data',
       locale
     );

@@ -10,7 +10,7 @@ import {
 import { createFileRoute } from '@tanstack/react-router';
 import {
   defaultLocale,
-  getIntlayer,
+  getIntlayerAsync,
   getLocalizedUrl,
   localeMap,
 } from 'intlayer';
@@ -21,11 +21,11 @@ export const Route = createFileRoute(
   '/{-$locale}/_dashboard/_editor/_content/dictionary/$dictionaryKey'
 )({
   component: DictionaryDetailPage,
-  head: ({ params }) => {
+  head: async ({ params }) => {
     const { locale, dictionaryKey } = params;
     const path = `${App_Dashboard_Dictionaries}/${dictionaryKey}`;
-    const content = getIntlayer('dictionary-dashboard-page', locale);
-    const creativeWorkContent = getIntlayer(
+    const content = await getIntlayerAsync('dictionary-dashboard-page', locale);
+    const creativeWorkContent = await getIntlayerAsync(
       'creative-work-structured-data',
       locale
     );

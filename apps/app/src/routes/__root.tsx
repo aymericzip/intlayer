@@ -18,7 +18,12 @@ import {
   HeadContent,
   Scripts,
 } from '@tanstack/react-router';
-import { defaultLocale, getHTMLTextDir, getIntlayer, locales } from 'intlayer';
+import {
+  defaultLocale,
+  getHTMLTextDir,
+  getIntlayerAsync,
+  locales,
+} from 'intlayer';
 import { Suspense } from 'react';
 import { IntlayerProvider } from 'react-intlayer';
 import { AnimatePresenceProvider } from '#/providers/AnimatePresenceProvider';
@@ -42,16 +47,16 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
   loader: async ({ context: { queryClient } }) => {
     await queryClient.ensureQueryData(sessionQueryOptions);
   },
-  head: () => {
-    const websiteContent = getIntlayer(
+  head: async () => {
+    const websiteContent = await getIntlayerAsync(
       'website-structured-data',
       defaultLocale
     );
-    const orgContent = getIntlayer(
+    const orgContent = await getIntlayerAsync(
       'organization-structured-data',
       defaultLocale
     );
-    const softwareContent = getIntlayer(
+    const softwareContent = await getIntlayerAsync(
       'software-application-structured-data',
       defaultLocale
     );

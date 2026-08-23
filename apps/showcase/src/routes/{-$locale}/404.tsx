@@ -1,14 +1,14 @@
 import { Showcase_Root_Path } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
-import { getIntlayer } from 'intlayer';
+import { getIntlayerAsync } from 'intlayer';
 import { useIntlayer } from 'react-intlayer';
 import { Link } from '#components/Link/Link';
 
 export const Route = createFileRoute('/{-$locale}/404')({
   component: NotFoundComponent,
-  head: ({ params }) => {
+  head: async ({ params }) => {
     const { locale } = params;
-    const content = getIntlayer('404', locale);
+    const content = await getIntlayerAsync('404', locale);
 
     return {
       meta: [

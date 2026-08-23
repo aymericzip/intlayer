@@ -237,7 +237,11 @@ export const preserveNestedDictionaryFields = (
 export const CHAINABLE_RUNTIME_METHOD_NAMES = new Set(['onChange']);
 
 /** Canonical intlayer caller names that trigger usage analysis. */
-export const INTLAYER_CALLER_NAMES = ['useIntlayer', 'getIntlayer'] as const;
+export const INTLAYER_CALLER_NAMES = [
+  'useIntlayer',
+  'getIntlayer',
+  'getIntlayerAsync',
+] as const;
 export type IntlayerCallerName = (typeof INTLAYER_CALLER_NAMES)[number];
 
 // ── Compat-adapter namespace callers ──────────────────────────────────────────
@@ -273,6 +277,23 @@ export const DEFAULT_COMPAT_CALLERS: CompatCallerConfig[] = [];
 
 /** Default namespace used by compat callers when no namespace argument is given. */
 const DEFAULT_COMPAT_NAMESPACE = 'translation';
+
+/**
+ * Climbs past an enclosing `await` expression so that
+ * `const t = await getTranslations('ns')` — or `await getIntlayerAsync('key')`
+ * — is resolved to its variable declarator the same way the synchronous form
+ * is.
+ */
+export const unwrapAwait = (
+  babelTypes: typeof BabelTypes,
+  path: NodePath<BabelTypes.Node>
+): NodePath<BabelTypes.Node> => {
+  const parentPath = path.parentPath;
+  if (parentPath && babelTypes.isAwaitExpression(parentPath.node)) {
+    return parentPath;
+  }
+  return path;
+};
 
 /**
  * Records the usage of a specific dictionary key's fields into `pruneContext`.
@@ -955,7 +976,10 @@ const analyzeCallExpressionUsage = (
     markUntrackedBinding();
   };
 
-  analyzeContentRoot(callExpressionPath);
+  // `getIntlayerAsync('key')` is consumed through its `await`, so the content
+  // root is the await expression — reading the call's own parent would see
+  // only the `AwaitExpression` and give up on every field.
+  analyzeContentRoot(unwrapAwait(babelTypes, callExpressionPath));
 };
 
 // ── Compat namespace-caller analysis ──────────────────────────────────────────
@@ -1168,22 +1192,6 @@ const resolveCompatKeyPrefix = (
   );
   if (resolved === '__default__') return null; // prefix absent
   return resolved; // string or undefined (dynamic)
-};
-
-/**
- * Climbs past an enclosing `await` expression so that
- * `const t = await getTranslations('ns')` is resolved to its variable
- * declarator the same way the synchronous form is.
- */
-const unwrapAwait = (
-  babelTypes: typeof BabelTypes,
-  path: NodePath<BabelTypes.Node>
-): NodePath<BabelTypes.Node> => {
-  const parentPath = path.parentPath;
-  if (parentPath && babelTypes.isAwaitExpression(parentPath.node)) {
-    return parentPath;
-  }
-  return path;
 };
 
 /**

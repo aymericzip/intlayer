@@ -10,7 +10,7 @@ import {
   buildWebsiteJsonLd,
 } from '@intlayer/design-system/structured-data';
 import { createFileRoute } from '@tanstack/react-router';
-import { defaultLocale, getIntlayer, locales } from 'intlayer';
+import { defaultLocale, getIntlayerAsync, locales } from 'intlayer';
 import { BackgroundLayout } from '~/components/BackgroundLayout';
 import { DemoPage } from '~/components/DemoPage';
 import { PageLayout } from '~/layouts/PageLayout';
@@ -18,17 +18,23 @@ import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
 import packageJson from '../../../package_mock.json' with { type: 'json' };
 
 export const Route = createFileRoute('/{-$locale}/demo')({
-  head: ({ params }) => {
+  head: async ({ params }) => {
     const { locale = defaultLocale } = params;
     const path = Website_Demo;
-    const { title, description, keywords } = getIntlayer(
+    const { title, description, keywords } = await getIntlayerAsync(
       'demo-metadata',
       locale
     );
 
-    const websiteContent = getIntlayer('website-structured-data', locale);
-    const orgContent = getIntlayer('organization-structured-data', locale);
-    const softwareContent = getIntlayer(
+    const websiteContent = await getIntlayerAsync(
+      'website-structured-data',
+      locale
+    );
+    const orgContent = await getIntlayerAsync(
+      'organization-structured-data',
+      locale
+    );
+    const softwareContent = await getIntlayerAsync(
       'software-application-structured-data',
       locale
     );

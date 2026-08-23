@@ -4,7 +4,7 @@ import {
   App_Dashboard_Projects_Path,
 } from '@intlayer/design-system/routes';
 import { createFileRoute, redirect } from '@tanstack/react-router';
-import { getIntlayer } from 'intlayer';
+import { getIntlayerAsync } from 'intlayer';
 import { NotFoundComponent } from '#components/NotFoundComponent';
 import { sessionQueryOptions } from '#utils/auth.tsx';
 
@@ -40,9 +40,9 @@ export const Route = createFileRoute('/{-$locale}/404')({
     }
   },
   component: NotFoundComponent,
-  head: ({ params }) => {
+  head: async ({ params }) => {
     const { locale } = params;
-    const content = getIntlayer('404', locale);
+    const content = await getIntlayerAsync('404', locale);
 
     return {
       title: content.metadata.title,

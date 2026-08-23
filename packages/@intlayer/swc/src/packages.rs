@@ -5,7 +5,8 @@
 /// `NESTED_DICTIONARIES_SUBDIR` in `@intlayer/engine`.
 pub const NESTED_DICTIONARIES_SUBDIR: &str = "nested";
 
-/// Packages whose named imports (`useIntlayer` / `getIntlayer`) are rewritten.
+/// Packages whose named imports (`useIntlayer` / `getIntlayer` /
+/// `getIntlayerAsync`) are rewritten.
 pub const PACKAGE_LIST: &[&str] = &[
     "intlayer",
     "@intlayer/core",
@@ -43,4 +44,8 @@ pub const PACKAGE_LIST_DYNAMIC: &[&str] = &[
 ];
 
 /// Native intlayer callers whose first argument is a dictionary key.
-pub const NATIVE_CALLER_NAMES: &[&str] = &["useIntlayer", "getIntlayer"];
+pub const NATIVE_CALLER_NAMES: &[&str] = &["useIntlayer", "getIntlayer", "getIntlayerAsync"];
+
+/// Caller reading a single locale chunk whatever the file's import mode is —
+/// loading one locale instead of the merged dictionary is what it exists for.
+pub const GET_INTLAYER_ASYNC: &str = "getIntlayerAsync";

@@ -254,6 +254,48 @@ describe('makeUsageAnalyzerBabelPlugin', () => {
     });
   });
 
+  describe('getIntlayerAsync support', () => {
+    it('records fields destructured from the awaited result', () => {
+      const ctx = analyze(`
+        import { getIntlayerAsync } from 'intlayer';
+        export const load = async (locale) => {
+          const { title } = await getIntlayerAsync('homepage', locale);
+          return title;
+        };
+      `);
+
+      const usage = ctx.dictionaryKeyToFieldUsageMap.get('homepage');
+      expect(usage).toBeInstanceOf(Set);
+      expect(usage as Set<string>).toContain('title');
+    });
+
+    it('records fields read off the awaited result', () => {
+      const ctx = analyze(`
+        import { getIntlayerAsync } from 'intlayer';
+        export const load = async (locale) =>
+          (await getIntlayerAsync('homepage', locale)).title;
+      `);
+
+      const usage = ctx.dictionaryKeyToFieldUsageMap.get('homepage');
+      expect(usage).toBeInstanceOf(Set);
+      expect(usage as Set<string>).toContain('title');
+    });
+
+    it('records fields read through the awaited binding', () => {
+      const ctx = analyze(`
+        import { getIntlayerAsync } from 'intlayer';
+        export const load = async (locale) => {
+          const content = await getIntlayerAsync('homepage', locale);
+          return content.title;
+        };
+      `);
+
+      const usage = ctx.dictionaryKeyToFieldUsageMap.get('homepage');
+      expect(usage).toBeInstanceOf(Set);
+      expect(usage as Set<string>).toContain('title');
+    });
+  });
+
   describe('aliased imports', () => {
     it('tracks aliased caller names', () => {
       const ctx = analyze(`

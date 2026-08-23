@@ -1,5 +1,9 @@
 import { Website_Demo } from '@intlayer/design-system/routes';
-import { getIntlayer, getLocalizedUrl, getMultilingualUrls } from 'intlayer';
+import {
+  getIntlayerAsync,
+  getLocalizedUrl,
+  getMultilingualUrls,
+} from 'intlayer';
 import type { Metadata } from 'next';
 import type { LocalPromiseParams } from 'next-intlayer';
 
@@ -7,7 +11,10 @@ export const generateMetadata = async ({
   params,
 }: LocalPromiseParams): Promise<Metadata> => {
   const { locale } = await params;
-  const { title, description, keywords } = getIntlayer('demo-metadata', locale);
+  const { title, description, keywords } = await getIntlayerAsync(
+    'demo-metadata',
+    locale
+  );
 
   return {
     title,

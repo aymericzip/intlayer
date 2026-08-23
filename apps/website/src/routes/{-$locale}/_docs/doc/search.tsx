@@ -6,7 +6,7 @@ import {
 } from '@intlayer/design-system/routes';
 import { buildWebsiteJsonLd } from '@intlayer/design-system/structured-data';
 import { createFileRoute, defer } from '@tanstack/react-router';
-import { defaultLocale, getIntlayer, locales } from 'intlayer';
+import { defaultLocale, getIntlayerAsync, locales } from 'intlayer';
 import { useIntlayer } from 'react-intlayer';
 import { DocPageLayout } from '~/components/DocPage/DocPageLayout';
 import { SearchView } from '~/components/DocPage/Search/SearchView';
@@ -19,9 +19,12 @@ export const Route = createFileRoute('/{-$locale}/_docs/doc/search')({
     // sidebar in via `defer` instead of blocking the route transition on it.
     return { locale, navData: defer(loadNavData({ data: { locale } })) };
   },
-  head: ({ params }) => {
+  head: async ({ params }) => {
     const { locale = defaultLocale } = params;
-    const websiteContent = getIntlayer('website-structured-data', locale);
+    const websiteContent = await getIntlayerAsync(
+      'website-structured-data',
+      locale
+    );
 
     return {
       title: 'Search Documentation | Intlayer',

@@ -447,6 +447,108 @@ describe('babel-plugin-intlayer-optimize', () => {
     });
   });
 
+  describe('getIntlayerAsync', () => {
+    it('should read the per-locale loader in static mode', () => {
+      const code = `
+        import { getIntlayerAsync } from "intlayer";
+        const t = await getIntlayerAsync("app", locale);
+      `;
+      const output = transform(
+        code,
+        { importMode: 'static' },
+        '/app/src/page.tsx'
+      );
+      expect(output).not.toContain(
+        'import _dicHash2 from "../.intlayer/dictionaries/app.json" with { type: "json" };'
+      );
+      expect(output).toContain(
+        'import _dicHash2_dyn from "../.intlayer/dynamic_dictionaries/app.mjs";'
+      );
+      expect(output).toContain(
+        'import { getDictionaryAsync as getIntlayerAsync } from "intlayer";'
+      );
+      expect(output).toContain(
+        'await getIntlayerAsync(_dicHash2_dyn, "app", locale)'
+      );
+    });
+
+    it('should read the per-locale loader in dynamic mode', () => {
+      const code = `
+        import { getIntlayerAsync } from "intlayer";
+        const t = await getIntlayerAsync("app", locale);
+      `;
+      const output = transform(
+        code,
+        { importMode: 'dynamic' },
+        '/app/src/page.tsx'
+      );
+      expect(output).toContain(
+        'import _dicHash2_dyn from "../.intlayer/dynamic_dictionaries/app.mjs";'
+      );
+      expect(output).toContain(
+        'await getIntlayerAsync(_dicHash2_dyn, "app", locale)'
+      );
+    });
+
+    it('should read the fetch loader for a fetch dictionary', () => {
+      const code = `
+        import { getIntlayerAsync } from "intlayer";
+        const t = await getIntlayerAsync("app", locale);
+      `;
+      const output = transform(
+        code,
+        { importMode: 'static', dictionaryModeMap: { app: 'fetch' } },
+        '/app/src/page.tsx'
+      );
+      expect(output).toContain(
+        'import _dicHash2_fetch from "../.intlayer/fetch_dictionaries/app.mjs";'
+      );
+      expect(output).toContain(
+        'await getIntlayerAsync(_dicHash2_fetch, "app", locale)'
+      );
+    });
+
+    it('should keep the static helper of a sibling getIntlayer call', () => {
+      const code = `
+        import { getIntlayer, getIntlayerAsync } from "intlayer";
+        const a = getIntlayer("locale-switcher");
+        const b = await getIntlayerAsync("app", locale);
+      `;
+      const output = transform(
+        code,
+        { importMode: 'static' },
+        '/app/src/page.tsx'
+      );
+      expect(output).toContain(
+        'import { getDictionary as getIntlayer, getDictionaryAsync as getIntlayerAsync } from "intlayer";'
+      );
+      expect(output).toContain(
+        'import _dicHash from "../.intlayer/dictionaries/locale-switcher.json" with { type: "json" };'
+      );
+      expect(output).toContain(
+        'import _dicHash2_dyn from "../.intlayer/dynamic_dictionaries/app.mjs";'
+      );
+      expect(output).toContain('const a = getIntlayer(_dicHash);');
+      expect(output).toContain(
+        'await getIntlayerAsync(_dicHash2_dyn, "app", locale)'
+      );
+    });
+
+    it('should leave a non-static key untouched', () => {
+      const code = `
+        import { getIntlayerAsync } from "intlayer";
+        const t = await getIntlayerAsync(key, locale);
+      `;
+      const output = transform(
+        code,
+        { importMode: 'static' },
+        '/app/src/page.tsx'
+      );
+      expect(output).not.toContain('dynamic_dictionaries');
+      expect(output).toContain('await getIntlayerAsync(key, locale)');
+    });
+  });
+
   describe('Aliased Imports', () => {
     it('should transform aliased static imports', () => {
       const code = `

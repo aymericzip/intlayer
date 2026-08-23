@@ -13,7 +13,12 @@ import {
   buildWebsiteJsonLd,
 } from '@intlayer/design-system/structured-data';
 import { createFileRoute, redirect } from '@tanstack/react-router';
-import { defaultLocale, getIntlayer, getLocalizedUrl, locales } from 'intlayer';
+import {
+  defaultLocale,
+  getIntlayerAsync,
+  getLocalizedUrl,
+  locales,
+} from 'intlayer';
 import { BlogPageLayout } from '~/components/BlogPage/BlogPageLayout';
 import { DocHeader } from '~/components/DocPage/DocHeader/DocHeader';
 import {
@@ -72,7 +77,7 @@ export const Route = createFileRoute('/{-$locale}/_docs/blog/$')({
       navData,
     };
   },
-  head: ({ loaderData }) => {
+  head: async ({ loaderData }) => {
     if (
       !loaderData ||
       typeof loaderData !== 'object' ||
@@ -84,9 +89,15 @@ export const Route = createFileRoute('/{-$locale}/_docs/blog/$')({
     const keywords = blogData.keywords;
     const localeStr = (locale as string) ?? defaultLocale;
 
-    const websiteContent = getIntlayer('website-structured-data', localeStr);
-    const orgContent = getIntlayer('organization-structured-data', localeStr);
-    const creativeWorkContent = getIntlayer(
+    const websiteContent = await getIntlayerAsync(
+      'website-structured-data',
+      localeStr
+    );
+    const orgContent = await getIntlayerAsync(
+      'organization-structured-data',
+      localeStr
+    );
+    const creativeWorkContent = await getIntlayerAsync(
       'creative-work-structured-data',
       localeStr
     );

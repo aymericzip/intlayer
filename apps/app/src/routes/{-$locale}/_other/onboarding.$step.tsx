@@ -3,7 +3,7 @@ import { App_Onboarding } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
 import {
   defaultLocale,
-  getIntlayer,
+  getIntlayerAsync,
   getLocalizedUrl,
   localeMap,
 } from 'intlayer';
@@ -33,10 +33,10 @@ export const Route = createFileRoute('/{-$locale}/_other/onboarding/$step')({
     origin: typeof search.origin === 'string' ? search.origin : undefined,
   }),
   component: OnboardingPage,
-  head: ({ params }) => {
+  head: async ({ params }) => {
     const { locale, step } = params;
     const path = `${App_Onboarding}/${step}`;
-    const content = getIntlayer('onboard-page', locale);
+    const content = await getIntlayerAsync('onboard-page', locale);
 
     return {
       links: [

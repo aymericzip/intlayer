@@ -13,7 +13,7 @@ import {
   buildWebsiteJsonLd,
 } from '@intlayer/design-system/structured-data';
 import { createFileRoute } from '@tanstack/react-router';
-import { defaultLocale, getIntlayer, locales } from 'intlayer';
+import { defaultLocale, getIntlayerAsync, locales } from 'intlayer';
 import { lazy, Suspense } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { BackgroundLayout } from '~/components/BackgroundLayout';
@@ -29,17 +29,23 @@ const Editor = lazy(() =>
 );
 
 export const Route = createFileRoute('/{-$locale}/_playground/playground')({
-  head: ({ params }) => {
+  head: async ({ params }) => {
     const { locale = defaultLocale } = params;
     const path = Website_Playground;
-    const { title, description, keywords } = getIntlayer(
+    const { title, description, keywords } = await getIntlayerAsync(
       'playground-metadata',
       locale
     );
 
-    const websiteContent = getIntlayer('website-structured-data', locale);
-    const orgContent = getIntlayer('organization-structured-data', locale);
-    const softwareContent = getIntlayer(
+    const websiteContent = await getIntlayerAsync(
+      'website-structured-data',
+      locale
+    );
+    const orgContent = await getIntlayerAsync(
+      'organization-structured-data',
+      locale
+    );
+    const softwareContent = await getIntlayerAsync(
       'software-application-structured-data',
       locale
     );

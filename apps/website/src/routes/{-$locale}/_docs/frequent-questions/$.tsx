@@ -10,7 +10,7 @@ import {
   buildWebsiteJsonLd,
 } from '@intlayer/design-system/structured-data';
 import { createFileRoute, redirect } from '@tanstack/react-router';
-import { defaultLocale, getIntlayer, getPrefix, locales } from 'intlayer';
+import { defaultLocale, getIntlayerAsync, getPrefix, locales } from 'intlayer';
 import { DocumentationRender } from '~/components/DocPage/DocumentationRender';
 import { loadFaqPage } from '~/serverFunctions/faq';
 import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
@@ -48,7 +48,7 @@ export const Route = createFileRoute('/{-$locale}/_docs/frequent-questions/$')({
       locale,
     };
   },
-  head: ({ loaderData }) => {
+  head: async ({ loaderData }) => {
     if (!loaderData?.frequentQuestionData) return {};
     const { frequentQuestionData, locale } = loaderData;
     const {
@@ -62,9 +62,15 @@ export const Route = createFileRoute('/{-$locale}/_docs/frequent-questions/$')({
       history,
     } = frequentQuestionData;
 
-    const websiteContent = getIntlayer('website-structured-data', locale);
-    const orgContent = getIntlayer('organization-structured-data', locale);
-    const creativeWorkContent = getIntlayer(
+    const websiteContent = await getIntlayerAsync(
+      'website-structured-data',
+      locale
+    );
+    const orgContent = await getIntlayerAsync(
+      'organization-structured-data',
+      locale
+    );
+    const creativeWorkContent = await getIntlayerAsync(
       'creative-work-structured-data',
       locale
     );

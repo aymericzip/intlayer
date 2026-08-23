@@ -3,7 +3,7 @@ import { App_Affiliation } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
 import {
   defaultLocale,
-  getIntlayer,
+  getIntlayerAsync,
   getLocalizedUrl,
   localeMap,
 } from 'intlayer';
@@ -16,10 +16,10 @@ import { redirectIfSelfHosted } from '#utils/selfHosted';
 export const Route = createFileRoute('/{-$locale}/_other/affiliation/')({
   beforeLoad: ({ params }) => redirectIfSelfHosted(params.locale),
   component: AffiliateDashboardPage,
-  head: ({ params }) => {
+  head: async ({ params }) => {
     const { locale } = params;
     const path = App_Affiliation;
-    const content = getIntlayer('affiliation-page', locale);
+    const content = await getIntlayerAsync('affiliation-page', locale);
 
     return {
       links: [

@@ -10,7 +10,7 @@ import {
   buildWebsiteJsonLd,
 } from '@intlayer/design-system/structured-data';
 import { createFileRoute, defer } from '@tanstack/react-router';
-import { defaultLocale, getIntlayer, locales } from 'intlayer';
+import { defaultLocale, getIntlayerAsync, locales } from 'intlayer';
 import { useIntlayer } from 'react-intlayer';
 import { ChatBot } from '~/components/ChatBot';
 import { DocPageLayout } from '~/components/DocPage/DocPageLayout';
@@ -23,11 +23,17 @@ export const Route = createFileRoute('/{-$locale}/_docs/doc/chat')({
     // sidebar in via `defer` instead of blocking the route transition on it.
     return { locale, navData: defer(loadNavData({ data: { locale } })) };
   },
-  head: ({ params }) => {
+  head: async ({ params }) => {
     const { locale = defaultLocale } = params;
 
-    const websiteContent = getIntlayer('website-structured-data', locale);
-    const orgContent = getIntlayer('organization-structured-data', locale);
+    const websiteContent = await getIntlayerAsync(
+      'website-structured-data',
+      locale
+    );
+    const orgContent = await getIntlayerAsync(
+      'organization-structured-data',
+      locale
+    );
 
     return {
       title: 'Chat with Documentation | Intlayer',

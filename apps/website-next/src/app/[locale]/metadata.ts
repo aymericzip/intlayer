@@ -1,5 +1,9 @@
 import { Website_Home } from '@intlayer/design-system/routes';
-import { getIntlayer, getLocalizedUrl, getMultilingualUrls } from 'intlayer';
+import {
+  getIntlayerAsync,
+  getLocalizedUrl,
+  getMultilingualUrls,
+} from 'intlayer';
 import type { Metadata, Viewport } from 'next';
 import type { LocalPromiseParams } from 'next-intlayer';
 
@@ -7,7 +11,7 @@ export const generateMetadata = async ({
   params,
 }: LocalPromiseParams): Promise<Metadata> => {
   const { locale } = await params;
-  const { title, description, keywords, openGraph } = getIntlayer(
+  const { title, description, keywords, openGraph } = await getIntlayerAsync(
     'locale-metadata',
     locale
   );

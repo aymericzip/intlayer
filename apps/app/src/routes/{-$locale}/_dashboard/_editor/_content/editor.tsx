@@ -2,7 +2,7 @@ import { App_Dashboard_Editor } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
 import {
   defaultLocale,
-  getIntlayer,
+  getIntlayerAsync,
   getLocalizedUrl,
   localeMap,
 } from 'intlayer';
@@ -18,10 +18,10 @@ export const Route = createFileRoute(
     path: typeof search.path === 'string' ? search.path : undefined,
   }),
   component: EditorPage,
-  head: ({ params }) => {
+  head: async ({ params }) => {
     const { locale } = params;
     const path = App_Dashboard_Editor;
-    const content = getIntlayer('editor-dashboard-page', locale);
+    const content = await getIntlayerAsync('editor-dashboard-page', locale);
 
     return {
       links: [

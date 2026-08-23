@@ -328,3 +328,39 @@ fn field_rename_runs_before_the_optimize_transform() {
         "#,
     );
 }
+
+#[test]
+fn renames_fields_read_through_an_awaited_async_getter() {
+    // `getIntlayerAsync` hands its content back through an `await`, which the
+    // rename walk must look through exactly like a parenthesis.
+    test_rename(
+        r#"
+        import { getIntlayerAsync } from "intlayer";
+        export const load = async (locale) => {
+            const { title, subtitle } = await getIntlayerAsync("about", locale);
+            return title + subtitle;
+        };
+        "#,
+        r#"
+        import { getIntlayerAsync } from "intlayer";
+        export const load = async (locale) => {
+            const { d: title, c: subtitle } = await getIntlayerAsync("about", locale);
+            return title + subtitle;
+        };
+        "#,
+    );
+}
+
+#[test]
+fn renames_member_access_on_an_awaited_async_getter() {
+    test_rename(
+        r#"
+        import { getIntlayerAsync } from "intlayer";
+        export const load = async (locale) => (await getIntlayerAsync("about", locale)).section.title;
+        "#,
+        r#"
+        import { getIntlayerAsync } from "intlayer";
+        export const load = async (locale) => (await getIntlayerAsync("about", locale)).b.b;
+        "#,
+    );
+}

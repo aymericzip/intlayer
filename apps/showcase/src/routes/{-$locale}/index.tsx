@@ -12,7 +12,7 @@ import {
 } from '@intlayer/design-system/routes';
 import { buildBreadcrumbsJsonLd } from '@intlayer/design-system/structured-data';
 import { createFileRoute } from '@tanstack/react-router';
-import { getIntlayer, getLocalizedUrl } from 'intlayer';
+import { getIntlayerAsync, getLocalizedUrl } from 'intlayer';
 import { useEffect } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { FiltersBar } from '#/components/FiltersBar';
@@ -57,10 +57,10 @@ export const Route = createFileRoute('/{-$locale}/')({
     }
     return result;
   },
-  head: ({ params }) => {
+  head: async ({ params }) => {
     const { locale } = params;
     const path = Showcase_Root_Path;
-    const content = getIntlayer('showcase-index', locale);
+    const content = await getIntlayerAsync('showcase-index', locale);
 
     const canonicalUrl = getAbsoluteUrl(path, locale);
 

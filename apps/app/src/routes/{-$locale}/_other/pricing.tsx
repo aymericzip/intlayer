@@ -11,7 +11,7 @@ import {
 import { createFileRoute } from '@tanstack/react-router';
 import {
   defaultLocale,
-  getIntlayer,
+  getIntlayerAsync,
   getLocalizedUrl,
   localeMap,
 } from 'intlayer';
@@ -42,11 +42,11 @@ export const Route = createFileRoute('/{-$locale}/_other/pricing')({
       typeof search.promoCode === 'string' ? search.promoCode : undefined,
   }),
   component: PricingPage,
-  head: ({ params, loaderData }) => {
+  head: async ({ params, loaderData }) => {
     const { locale } = params;
     const path = App_Pricing;
-    const content = getIntlayer('pricing-page', locale);
-    const productContent = getIntlayer(
+    const content = await getIntlayerAsync('pricing-page', locale);
+    const productContent = await getIntlayerAsync(
       'product-header-structured-data',
       locale
     );

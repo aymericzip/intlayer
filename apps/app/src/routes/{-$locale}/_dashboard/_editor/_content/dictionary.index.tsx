@@ -2,7 +2,7 @@ import { App_Dashboard_Dictionaries } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
 import {
   defaultLocale,
-  getIntlayer,
+  getIntlayerAsync,
   getLocalizedUrl,
   localeMap,
 } from 'intlayer';
@@ -12,10 +12,10 @@ export const Route = createFileRoute(
   '/{-$locale}/_dashboard/_editor/_content/dictionary/'
 )({
   component: DictionaryPage,
-  head: ({ params }) => {
+  head: async ({ params }) => {
     const { locale } = params;
     const path = App_Dashboard_Dictionaries;
-    const content = getIntlayer('dictionary-dashboard-page', locale);
+    const content = await getIntlayerAsync('dictionary-dashboard-page', locale);
 
     return {
       links: [

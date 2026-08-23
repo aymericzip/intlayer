@@ -2,7 +2,7 @@ import { App_Dashboard_Tags } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
 import {
   defaultLocale,
-  getIntlayer,
+  getIntlayerAsync,
   getLocalizedUrl,
   localeMap,
 } from 'intlayer';
@@ -12,10 +12,10 @@ export const Route = createFileRoute(
   '/{-$locale}/_dashboard/_editor/_content/tags/$tagKey'
 )({
   component: TagDetailPage,
-  head: ({ params }) => {
+  head: async ({ params }) => {
     const { locale, tagKey } = params;
     const path = `${App_Dashboard_Tags}/${tagKey}`;
-    const content = getIntlayer('tag-dashboard-page', locale);
+    const content = await getIntlayerAsync('tag-dashboard-page', locale);
 
     return {
       title: content.metadata.title,

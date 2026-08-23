@@ -5,7 +5,7 @@ import {
 } from '@intlayer/design-system/routes';
 import { buildBreadcrumbsJsonLd } from '@intlayer/design-system/structured-data';
 import { createFileRoute } from '@tanstack/react-router';
-import { getIntlayer, getLocalizedUrl } from 'intlayer';
+import { getIntlayerAsync, getLocalizedUrl } from 'intlayer';
 import { useIntlayer } from 'react-intlayer';
 import { ProjectFocus } from '#/components/ProjectFocus/ProjectFocus';
 import { ShowcaseHeader } from '#/components/ShowcaseHeader';
@@ -41,11 +41,11 @@ export const Route = createFileRoute('/{-$locale}/project/$projectId')({
     }
   },
   component: ProjectPage,
-  head: ({ params, loaderData }) => {
+  head: async ({ params, loaderData }) => {
     const { locale, projectId } = params;
 
     const path = `/project/${projectId}`;
-    const content = getIntlayer('showcase-project', locale);
+    const content = await getIntlayerAsync('showcase-project', locale);
     const project = loaderData?.project;
 
     const title = content.metadata.title({

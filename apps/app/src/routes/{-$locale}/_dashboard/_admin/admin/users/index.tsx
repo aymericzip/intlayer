@@ -2,7 +2,7 @@ import { App_Admin_Users } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
 import {
   defaultLocale,
-  getIntlayer,
+  getIntlayerAsync,
   getLocalizedUrl,
   localeMap,
 } from 'intlayer';
@@ -12,10 +12,10 @@ export const Route = createFileRoute(
   '/{-$locale}/_dashboard/_admin/admin/users/'
 )({
   component: UsersAdminPage,
-  head: ({ params }) => {
+  head: async ({ params }) => {
     const { locale } = params;
     const path = App_Admin_Users;
-    const content = getIntlayer('admin-metadata', locale);
+    const content = await getIntlayerAsync('admin-metadata', locale);
 
     return {
       links: [

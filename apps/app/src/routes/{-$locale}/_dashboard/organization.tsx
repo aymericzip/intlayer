@@ -7,7 +7,7 @@ import { buildBreadcrumbsJsonLd } from '@intlayer/design-system/structured-data'
 import { createFileRoute } from '@tanstack/react-router';
 import {
   defaultLocale,
-  getIntlayer,
+  getIntlayerAsync,
   getLocalizedUrl,
   localeMap,
 } from 'intlayer';
@@ -17,10 +17,13 @@ import { OrganizationForm } from '#components/Dashboard/OrganizationForm';
 
 export const Route = createFileRoute('/{-$locale}/_dashboard/organization')({
   component: OrganizationPage,
-  head: ({ params }) => {
+  head: async ({ params }) => {
     const { locale } = params;
     const path = App_Dashboard_Organization;
-    const content = getIntlayer('organization-dashboard-page', locale);
+    const content = await getIntlayerAsync(
+      'organization-dashboard-page',
+      locale
+    );
 
     return {
       links: [

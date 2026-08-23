@@ -104,6 +104,9 @@ impl<'a> FieldRenameContext<'a> {
             Expr::TsAs(ts_as) => self.resolve_value_map(&ts_as.expr),
             Expr::TsNonNull(ts_non_null) => self.resolve_value_map(&ts_non_null.expr),
             Expr::TsSatisfies(ts_satisfies) => self.resolve_value_map(&ts_satisfies.expr),
+            // `await getIntlayerAsync('key')` resolves to the content the call
+            // returns, so the await is transparent to the rename walk.
+            Expr::Await(await_expr) => self.resolve_value_map(&await_expr.arg),
             Expr::Ident(ident) => self.bindings.get(&ident.to_id()).cloned(),
             Expr::Call(call) => self.resolve_call_map(call),
             Expr::Member(member) => self.resolve_member_map(member),

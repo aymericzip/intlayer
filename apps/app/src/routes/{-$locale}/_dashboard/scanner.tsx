@@ -8,7 +8,7 @@ import { buildBreadcrumbsJsonLd } from '@intlayer/design-system/structured-data'
 import { createFileRoute } from '@tanstack/react-router';
 import {
   defaultLocale,
-  getIntlayer,
+  getIntlayerAsync,
   getLocalizedUrl,
   localeMap,
 } from 'intlayer';
@@ -20,10 +20,10 @@ import { DashboardLocalizationScanner } from '#components/ScannerPage';
 
 export const Route = createFileRoute('/{-$locale}/_dashboard/scanner')({
   component: ScannerPage,
-  head: ({ params }) => {
+  head: async ({ params }) => {
     const { locale } = params;
     const path = App_Dashboard_Scanner;
-    const content = getIntlayer('scanner-dashboard-page', locale);
+    const content = await getIntlayerAsync('scanner-dashboard-page', locale);
 
     return {
       links: [

@@ -17,7 +17,12 @@ import {
   HeadContent,
   Scripts,
 } from '@tanstack/react-router';
-import { defaultLocale, getHTMLTextDir, getIntlayer, locales } from 'intlayer';
+import {
+  defaultLocale,
+  getHTMLTextDir,
+  getIntlayerAsync,
+  locales,
+} from 'intlayer';
 import { IntlayerProvider } from 'react-intlayer';
 import { BackgroundLayout } from '#/components/BackgroundLayout';
 import { ErrorComponent } from '#/components/ErrorComponent';
@@ -38,16 +43,16 @@ interface MyRouterContext {
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
   errorComponent: ErrorComponent,
-  head: () => {
-    const websiteContent = getIntlayer(
+  head: async () => {
+    const websiteContent = await getIntlayerAsync(
       'website-structured-data',
       defaultLocale
     );
-    const orgContent = getIntlayer(
+    const orgContent = await getIntlayerAsync(
       'organization-structured-data',
       defaultLocale
     );
-    const softwareContent = getIntlayer(
+    const softwareContent = await getIntlayerAsync(
       'software-application-structured-data',
       defaultLocale
     );

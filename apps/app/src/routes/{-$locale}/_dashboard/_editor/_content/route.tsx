@@ -13,7 +13,11 @@ import { buildBreadcrumbsJsonLd } from '@intlayer/design-system/structured-data'
 import { TabSelector } from '@intlayer/design-system/tab-selector';
 import { cn } from '@intlayer/design-system/utils';
 import { createFileRoute, Outlet, useLocation } from '@tanstack/react-router';
-import { getIntlayer, getLocalizedUrl, getPathWithoutLocale } from 'intlayer';
+import {
+  getIntlayerAsync,
+  getLocalizedUrl,
+  getPathWithoutLocale,
+} from 'intlayer';
 import { Book, Globe, PenTool, Tag } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
@@ -45,9 +49,9 @@ export const Route = createFileRoute('/{-$locale}/_dashboard/_editor/_content')(
       });
     },
     component: EditorLayout,
-    head: ({ params }) => {
+    head: async ({ params }) => {
       const { locale } = params;
-      const content = getIntlayer('content-dashboard-page', locale);
+      const content = await getIntlayerAsync('content-dashboard-page', locale);
 
       return {
         meta: [{ title: String(content.title) }],

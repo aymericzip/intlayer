@@ -11,7 +11,7 @@ import {
   buildWebsiteJsonLd,
 } from '@intlayer/design-system/structured-data';
 import { createFileRoute } from '@tanstack/react-router';
-import { defaultLocale, getIntlayer, locales } from 'intlayer';
+import { defaultLocale, getIntlayerAsync, locales } from 'intlayer';
 import { ArrowRight } from 'lucide-react';
 import { useIntlayer } from 'react-intlayer';
 import { Link } from '~/components/Link/Link';
@@ -24,16 +24,22 @@ export const Route = createFileRoute('/{-$locale}/_docs/frequent-questions/')({
     const frequentQuestions = await loadFaqIndex({ data: { locale } });
     return { locale, frequentQuestions };
   },
-  head: ({ params, loaderData }) => {
+  head: async ({ params, loaderData }) => {
     const { locale = defaultLocale } = params;
     const path = Website_FrequentQuestions;
-    const { title, description, keywords } = getIntlayer(
+    const { title, description, keywords } = await getIntlayerAsync(
       'frequent-questions-page',
       locale
     );
 
-    const websiteContent = getIntlayer('website-structured-data', locale);
-    const orgContent = getIntlayer('organization-structured-data', locale);
+    const websiteContent = await getIntlayerAsync(
+      'website-structured-data',
+      locale
+    );
+    const orgContent = await getIntlayerAsync(
+      'organization-structured-data',
+      locale
+    );
 
     const faqs = loaderData
       ? Object.values(

@@ -1,5 +1,5 @@
 import { createFileRoute, Outlet } from '@tanstack/react-router';
-import { getIntlayer, getLocalizedUrl } from 'intlayer';
+import { getIntlayerAsync, getLocalizedUrl } from 'intlayer';
 import type { FC } from 'react';
 import { useHotDataLoading } from '#hooks/useHotDataLoading.tsx';
 import { useSessionRouterListener } from '#hooks/useSessionRouterListener.ts';
@@ -13,8 +13,8 @@ const LocaleLayout: FC = () => {
 
 export const Route = createFileRoute('/{-$locale}')({
   component: LocaleLayout,
-  head: ({ params }) => {
-    const { title, description, keywords, openGraph } = getIntlayer(
+  head: async ({ params }) => {
+    const { title, description, keywords, openGraph } = await getIntlayerAsync(
       'locale-metadata',
       params.locale
     );

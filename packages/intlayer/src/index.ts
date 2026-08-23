@@ -110,12 +110,14 @@ export {
 } from '@intlayer/core/formatters';
 export {
   getDictionary,
+  getDictionaryAsync,
   getEnumeration,
   /**
    * @deprecated Use `getEnumeration` instead.
    */
   getEnumeration as getEnumerationContent,
   getIntlayer,
+  getIntlayerAsync,
   getNesting,
   getTranslation,
   /**

@@ -3,7 +3,7 @@ import {
   App_Home_Path,
 } from '@intlayer/design-system/routes';
 import { createFileRoute, Outlet, useLocation } from '@tanstack/react-router';
-import { getIntlayer } from 'intlayer';
+import { getIntlayerAsync } from 'intlayer';
 import { useEffect } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { AdminTabBar } from '#components/AdminTabBar';
@@ -24,9 +24,9 @@ export const Route = createFileRoute('/{-$locale}/_dashboard/_admin')({
       accessRule: 'admin',
     });
   },
-  head: ({ params }) => {
+  head: async ({ params }) => {
     const { locale } = params;
-    const content = getIntlayer('admin-metadata', locale);
+    const content = await getIntlayerAsync('admin-metadata', locale);
 
     return {
       title: content.metadata.title,

@@ -28,7 +28,7 @@ const PACKAGE_LIST = [
   'vanilla-intlayer',
 ];
 
-const CALLER_LIST = ['useIntlayer', 'getIntlayer'] as const;
+const CALLER_LIST = ['useIntlayer', 'getIntlayer', 'getIntlayerAsync'] as const;
 
 /**
  * Packages that support dynamic import
@@ -51,6 +51,9 @@ const PACKAGE_LIST_DYNAMIC = [
 
 const STATIC_IMPORT_FUNCTION = {
   getIntlayer: 'getDictionary',
+  // `getIntlayerAsync` always reads a per-locale chunk, in every import mode,
+  // so its helper is the same on both sides of the static/dynamic split.
+  getIntlayerAsync: 'getDictionaryAsync',
   useIntlayer: 'useDictionary',
 } as const;
 
@@ -415,9 +418,10 @@ const resolveHelperPlan = (
 /**
  * Babel plugin that transforms Intlayer function calls and auto-imports dictionaries.
  *
- * This plugin transforms calls to `useIntlayer()` and `getIntlayer()` from various Intlayer
- * packages into optimized dictionary access patterns, automatically importing the required
- * dictionary files based on the configured import mode.
+ * This plugin transforms calls to `useIntlayer()`, `getIntlayer()` and
+ * `getIntlayerAsync()` from various Intlayer packages into optimized dictionary
+ * access patterns, automatically importing the required dictionary files based
+ * on the configured import mode.
  *
  * ## Supported Input Patterns
  *
@@ -428,12 +432,25 @@ const resolveHelperPlan = (
  * import { useIntlayer } from 'react-intlayer';
  * import { useIntlayer } from 'next-intlayer';
  *
- * // getIntlayer
- * import { getIntlayer } from 'intlayer';
+ * // getIntlayer / getIntlayerAsync
+ * import { getIntlayer, getIntlayerAsync } from 'intlayer';
  *
  * // Usage
  * const content = useIntlayer('app');
  * const content = getIntlayer('app');
+ * const content = await getIntlayerAsync('app', locale);
+ * ```
+ *
+ * `getIntlayerAsync` is the exception to the mode table below: it always
+ * resolves to the per-locale loader (`getDictionaryAsync`), in every import
+ * mode, since loading a single locale is what it exists for.
+ *
+ * **Output (any mode):**
+ * ```ts
+ * import _dicHash_dyn from '../../.intlayer/dynamic_dictionaries/app.mjs';
+ * import { getDictionaryAsync as getIntlayerAsync } from 'intlayer';
+ *
+ * const content = await getIntlayerAsync(_dicHash_dyn, 'app', locale);
  * ```
  *
  * ## Transformation Modes
@@ -950,6 +967,8 @@ export const intlayerOptimizeBabelPlugin = (babel: {
               const callerPackage = state._callerPackageMap?.get(callee.name);
               const importMode = state.opts.importMode;
               const isUseIntlayer = originalImportedName === 'useIntlayer';
+              const isGetIntlayerAsync =
+                originalImportedName === 'getIntlayerAsync';
               const dictionaryOverrideMode =
                 state.opts.dictionaryModeMap?.[key];
               const helperPlan =
@@ -960,7 +979,14 @@ export const intlayerOptimizeBabelPlugin = (babel: {
               // Decide per-call mode: 'static' | 'dynamic' | 'fetch'.
               let perCallMode: ImportMode = 'static';
 
-              if (isUseIntlayer && helperPlan === 'dynamic') {
+              if (isGetIntlayerAsync) {
+                // Loading a single locale is the whole point of the async
+                // getter, so it reads a per-locale loader whatever the file's
+                // import mode is — the fetch loader when the dictionary is
+                // remote, the dynamic one otherwise.
+                perCallMode =
+                  dictionaryOverrideMode === 'fetch' ? 'fetch' : 'dynamic';
+              } else if (isUseIntlayer && helperPlan === 'dynamic') {
                 if (dictionaryOverrideMode) {
                   perCallMode = dictionaryOverrideMode;
                 } else if (importMode === 'dynamic' || importMode === 'fetch') {

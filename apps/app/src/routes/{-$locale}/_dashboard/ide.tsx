@@ -10,7 +10,7 @@ import { buildBreadcrumbsJsonLd } from '@intlayer/design-system/structured-data'
 import { createFileRoute } from '@tanstack/react-router';
 import {
   defaultLocale,
-  getIntlayer,
+  getIntlayerAsync,
   getLocalizedUrl,
   localeMap,
 } from 'intlayer';
@@ -22,10 +22,10 @@ import { DashboardContentLayout } from '#components/Dashboard/DashboardContentLa
 
 export const Route = createFileRoute('/{-$locale}/_dashboard/ide')({
   component: IDEPage,
-  head: ({ params }) => {
+  head: async ({ params }) => {
     const { locale } = params;
     const path = App_Dashboard_IDE;
-    const content = getIntlayer('ide-dashboard-page', locale);
+    const content = await getIntlayerAsync('ide-dashboard-page', locale);
 
     return {
       links: [

@@ -12,7 +12,7 @@ import {
   buildWebsiteJsonLd,
 } from '@intlayer/design-system/structured-data';
 import { createFileRoute } from '@tanstack/react-router';
-import { defaultLocale, getIntlayer, locales } from 'intlayer';
+import { defaultLocale, getIntlayerAsync, locales } from 'intlayer';
 import { AiTranslationLandingCore } from '~/components/TranslationLandingPage';
 import { PageLayout } from '~/layouts/PageLayout';
 import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
@@ -24,25 +24,31 @@ export const Route = createFileRoute('/{-$locale}/translate')({
     const pricings = await getPricing();
     return { pricings };
   },
-  head: ({ params, loaderData }) => {
+  head: async ({ params, loaderData }) => {
     const { locale = defaultLocale } = params;
     const path = Website_Translate;
-    const { title, description, keywords } = getIntlayer(
+    const { title, description, keywords } = await getIntlayerAsync(
       'translate-metadata',
       locale
     );
 
-    const websiteContent = getIntlayer('website-structured-data', locale);
-    const orgContent = getIntlayer('organization-structured-data', locale);
-    const translateContent = getIntlayer(
+    const websiteContent = await getIntlayerAsync(
+      'website-structured-data',
+      locale
+    );
+    const orgContent = await getIntlayerAsync(
+      'organization-structured-data',
+      locale
+    );
+    const translateContent = await getIntlayerAsync(
       'translate-software-structured-data',
       locale
     );
-    const translateProductContent = getIntlayer(
+    const translateProductContent = await getIntlayerAsync(
       'translate-product-header-structured-data',
       locale
     );
-    const softwareContent = getIntlayer(
+    const softwareContent = await getIntlayerAsync(
       'software-application-structured-data',
       locale
     );

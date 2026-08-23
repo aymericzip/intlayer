@@ -23,7 +23,7 @@ import {
 import { createFileRoute } from '@tanstack/react-router';
 import {
   defaultLocale,
-  getIntlayer,
+  getIntlayerAsync,
   getLocalizedUrl,
   localeMap,
 } from 'intlayer';
@@ -41,9 +41,9 @@ const searchParams = {
 
 export const Route = createFileRoute('/{-$locale}/_dashboard/assets')({
   component: AssetsPage,
-  head: ({ params }) => {
+  head: async ({ params }) => {
     const { locale } = params;
-    const content = getIntlayer('assets-dashboard-page', locale);
+    const content = await getIntlayerAsync('assets-dashboard-page', locale);
 
     return {
       links: [

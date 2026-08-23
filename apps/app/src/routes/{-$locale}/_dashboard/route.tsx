@@ -17,7 +17,7 @@ import {
 import { cn } from '@intlayer/design-system/utils';
 import { WithResizer } from '@intlayer/design-system/with-resizer';
 import { createFileRoute, Outlet, useLocation } from '@tanstack/react-router';
-import { getIntlayer, getPathWithoutLocale } from 'intlayer';
+import { getIntlayerAsync, getPathWithoutLocale } from 'intlayer';
 import { X } from 'lucide-react';
 import { useEffect, useRef } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
@@ -41,9 +41,9 @@ import { useTagSidebar } from '#hooks/useTagSidebar';
 export const Route = createFileRoute('/{-$locale}/_dashboard')({
   pendingComponent: DashboardSkeleton,
   component: DashboardLayout,
-  head: ({ params }) => {
+  head: async ({ params }) => {
     const { locale } = params;
-    const content = getIntlayer('dashboard-metadata', locale);
+    const content = await getIntlayerAsync('dashboard-metadata', locale);
     const siteUrl = import.meta.env.VITE_SITE_URL;
     const pageUrl = locale ? `${siteUrl}/${locale}` : siteUrl;
 

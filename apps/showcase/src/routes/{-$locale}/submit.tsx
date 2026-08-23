@@ -1,15 +1,15 @@
 import { Showcase_Submit_Path } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
-import { getIntlayer, type Locale } from 'intlayer';
+import { getIntlayerAsync, type Locale } from 'intlayer';
 import { SubmitProjectForm } from '#/components/SubmitProjectForm/SubmitProjectForm';
 import { getAbsoluteUrl, getHreflangLinks } from '#/utils/seo';
 
 export const Route = createFileRoute('/{-$locale}/submit')({
   component: SubmitProjectForm,
-  head: ({ params }) => {
+  head: async ({ params }) => {
     const { locale } = params as { locale?: Locale };
     const path = Showcase_Submit_Path;
-    const content = getIntlayer('showcase-submit', locale);
+    const content = await getIntlayerAsync('showcase-submit', locale);
     const canonicalUrl = getAbsoluteUrl(path, locale);
 
     return {

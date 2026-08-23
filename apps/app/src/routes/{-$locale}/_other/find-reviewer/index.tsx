@@ -2,7 +2,7 @@ import { App_ReviewerMarketplace } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
 import {
   defaultLocale,
-  getIntlayer,
+  getIntlayerAsync,
   getLocalizedUrl,
   localeMap,
 } from 'intlayer';
@@ -12,10 +12,10 @@ import { redirectIfSelfHosted } from '#utils/selfHosted';
 export const Route = createFileRoute('/{-$locale}/_other/find-reviewer/')({
   beforeLoad: ({ params }) => redirectIfSelfHosted(params.locale),
   component: MarketplacePage,
-  head: ({ params }) => {
+  head: async ({ params }) => {
     const { locale } = params;
     const path = App_ReviewerMarketplace;
-    const content = getIntlayer('find-reviewer-page', locale);
+    const content = await getIntlayerAsync('find-reviewer-page', locale);
 
     return {
       links: [

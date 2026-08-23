@@ -3,7 +3,7 @@ import { App_Auth_ResetPassword } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
 import {
   defaultLocale,
-  getIntlayer,
+  getIntlayerAsync,
   getLocalizedUrl,
   localeMap,
 } from 'intlayer';
@@ -14,10 +14,10 @@ export const Route = createFileRoute(
   '/{-$locale}/_other/auth/_authentication/password/reset'
 )({
   component: ResetPasswordPage,
-  head: ({ params }) => {
+  head: async ({ params }) => {
     const { locale } = params;
     const path = App_Auth_ResetPassword;
-    const content = getIntlayer('reset-password-page', locale);
+    const content = await getIntlayerAsync('reset-password-page', locale);
 
     return {
       links: [

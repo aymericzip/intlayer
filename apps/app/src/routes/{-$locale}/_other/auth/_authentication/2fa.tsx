@@ -1,6 +1,6 @@
 import { Container } from '@intlayer/design-system/container';
 import { createFileRoute } from '@tanstack/react-router';
-import { getIntlayer } from 'intlayer';
+import { getIntlayerAsync } from 'intlayer';
 import { useIntlayer } from 'react-intlayer';
 import { TotpForm } from '#components/Auth/TotpForm';
 
@@ -8,9 +8,9 @@ export const Route = createFileRoute(
   '/{-$locale}/_other/auth/_authentication/2fa'
 )({
   component: TwoFactorPage,
-  head: ({ params }) => {
+  head: async ({ params }) => {
     const { locale } = params;
-    const content = getIntlayer('2fa-page', locale);
+    const content = await getIntlayerAsync('2fa-page', locale);
 
     return {
       title: content.metadata.title,

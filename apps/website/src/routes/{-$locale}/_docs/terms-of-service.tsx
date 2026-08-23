@@ -10,7 +10,7 @@ import {
   buildWebsiteJsonLd,
 } from '@intlayer/design-system/structured-data';
 import { createFileRoute } from '@tanstack/react-router';
-import { defaultLocale, getIntlayer, locales } from 'intlayer';
+import { defaultLocale, getIntlayerAsync, locales } from 'intlayer';
 import { DocumentationRender } from '~/components/DocPage/DocumentationRender';
 import { loadLegalContent } from '~/serverFunctions/legal';
 import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
@@ -22,15 +22,21 @@ export const Route = createFileRoute('/{-$locale}/_docs/terms-of-service')({
       data: { locale, docKey: './legal/en/terms_of_service.md' },
     });
   },
-  head: ({ loaderData, params }) => {
+  head: async ({ loaderData, params }) => {
     if (!loaderData) return {};
     const { title, description, keywords, createdAt, updatedAt } = loaderData;
     const { locale = defaultLocale } = params;
     const path = Website_TermsOfService;
 
-    const websiteContent = getIntlayer('website-structured-data', locale);
-    const orgContent = getIntlayer('organization-structured-data', locale);
-    const creativeWorkContent = getIntlayer(
+    const websiteContent = await getIntlayerAsync(
+      'website-structured-data',
+      locale
+    );
+    const orgContent = await getIntlayerAsync(
+      'organization-structured-data',
+      locale
+    );
+    const creativeWorkContent = await getIntlayerAsync(
       'creative-work-structured-data',
       locale
     );

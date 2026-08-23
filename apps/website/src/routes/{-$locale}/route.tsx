@@ -1,5 +1,5 @@
 import { createFileRoute, Outlet, redirect } from '@tanstack/react-router';
-import { getIntlayer, getLocalizedUrl } from 'intlayer';
+import { getIntlayerAsync, getLocalizedUrl } from 'intlayer';
 
 function getRedirectUrl(_pathname: string): string | null {
   return null;
@@ -19,8 +19,8 @@ export const Route = createFileRoute('/{-$locale}')({
       throw redirect({ to: redirectUrl, statusCode: 301 });
     }
   },
-  head: ({ params }) => {
-    const { title, description, keywords, openGraph } = getIntlayer(
+  head: async ({ params }) => {
+    const { title, description, keywords, openGraph } = await getIntlayerAsync(
       'locale-metadata',
       params.locale
     );

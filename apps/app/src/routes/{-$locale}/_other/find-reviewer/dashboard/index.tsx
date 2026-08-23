@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { getIntlayer } from 'intlayer';
+import { getIntlayerAsync } from 'intlayer';
 import { useLocale } from 'react-intlayer';
 import { AuthenticationBarrier } from '#components/Auth/AuthenticationBarrier/AuthenticationBarrier';
 import { ReviewerDashboardPage } from '#components/ReviewerDashboardPage';
@@ -10,9 +10,9 @@ export const Route = createFileRoute(
 )({
   beforeLoad: ({ params }) => redirectIfSelfHosted(params.locale),
   component: DashboardPage,
-  head: ({ params }) => {
+  head: async ({ params }) => {
     const { locale } = params;
-    const content = getIntlayer('reviewer-dashboard-page', locale);
+    const content = await getIntlayerAsync('reviewer-dashboard-page', locale);
 
     return {
       meta: [

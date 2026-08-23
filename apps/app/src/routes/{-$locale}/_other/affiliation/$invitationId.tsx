@@ -2,7 +2,7 @@ import { App_Affiliation } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
 import {
   defaultLocale,
-  getIntlayer,
+  getIntlayerAsync,
   getLocalizedUrl,
   localeMap,
 } from 'intlayer';
@@ -26,10 +26,13 @@ export const Route = createFileRoute(
         : undefined,
   }),
   component: AffiliationPage,
-  head: ({ params }) => {
+  head: async ({ params }) => {
     const { locale } = params;
     const path = App_Affiliation;
-    const content = getIntlayer('affiliation-invitation-page', locale);
+    const content = await getIntlayerAsync(
+      'affiliation-invitation-page',
+      locale
+    );
 
     return {
       links: [

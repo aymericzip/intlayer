@@ -1,5 +1,9 @@
 import { Website_FrequentQuestions } from '@intlayer/design-system/routes';
-import { getIntlayer, getLocalizedUrl, getMultilingualUrls } from 'intlayer';
+import {
+  getIntlayerAsync,
+  getLocalizedUrl,
+  getMultilingualUrls,
+} from 'intlayer';
 import type { Metadata } from 'next';
 import type { LocalPromiseParams } from 'next-intlayer';
 
@@ -8,7 +12,7 @@ export const generateMetadata = async ({
 }: LocalPromiseParams): Promise<Metadata> => {
   const { locale } = await params;
 
-  const { title, description, keywords } = getIntlayer(
+  const { title, description, keywords } = await getIntlayerAsync(
     'frequent-questions-page',
     locale
   );

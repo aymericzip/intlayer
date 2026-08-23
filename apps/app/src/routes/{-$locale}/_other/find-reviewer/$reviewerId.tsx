@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { getIntlayer } from 'intlayer';
+import { getIntlayerAsync } from 'intlayer';
 import { ReviewerProfilePage } from '#components/ReviewerProfilePage';
 import { redirectIfSelfHosted } from '#utils/selfHosted';
 
@@ -8,9 +8,9 @@ export const Route = createFileRoute(
 )({
   beforeLoad: ({ params }) => redirectIfSelfHosted(params.locale),
   component: ReviewerPage,
-  head: ({ params }) => {
+  head: async ({ params }) => {
     const { locale } = params;
-    const content = getIntlayer('reviewer-profile-page', locale);
+    const content = await getIntlayerAsync('reviewer-profile-page', locale);
 
     return {
       meta: [

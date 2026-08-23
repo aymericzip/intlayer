@@ -31,4 +31,13 @@ export const BASE_CALLERS: CallerDescriptor[] = [
     namespaceSources: [{ from: 'argument', index: 0 }],
     translationFunction: 'content',
   },
+  {
+    // Async counterpart of `getIntlayer`: same content shape, reached through
+    // an `await`.
+    callerName: 'getIntlayerAsync',
+    library: 'intlayer',
+    importSources: ['intlayer', '@intlayer/core'],
+    namespaceSources: [{ from: 'argument', index: 0 }],
+    translationFunction: 'content',
+  },
 ];

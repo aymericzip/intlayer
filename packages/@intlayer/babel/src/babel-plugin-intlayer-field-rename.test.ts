@@ -334,6 +334,48 @@ describe('makeFieldRenameBabelPlugin', () => {
     });
   });
 
+  describe('awaited async getter', () => {
+    it('renames fields destructured from the awaited result', () => {
+      const ctx = makeContext(buildSimpleRenameMap());
+      const code = `
+        import { getIntlayerAsync } from 'intlayer';
+        export const load = async (locale) => {
+          const { title, description } = await getIntlayerAsync('homepage', locale);
+          return [title, description];
+        };
+      `;
+      const output = rename(code, ctx);
+      expect(output).toContain('b: title');
+      expect(output).toContain('a: description');
+    });
+
+    it('renames member accesses on the awaited result', () => {
+      const ctx = makeContext(buildSimpleRenameMap());
+      const code = `
+        import { getIntlayerAsync } from 'intlayer';
+        export const load = async (locale) =>
+          (await getIntlayerAsync('homepage', locale)).title;
+      `;
+      const output = rename(code, ctx);
+      expect(output).toContain('.b');
+      expect(output).not.toMatch(/\.title\b/);
+    });
+
+    it('renames member accesses on the awaited binding', () => {
+      const ctx = makeContext(buildSimpleRenameMap());
+      const code = `
+        import { getIntlayerAsync } from 'intlayer';
+        export const load = async (locale) => {
+          const content = await getIntlayerAsync('homepage', locale);
+          return content.title;
+        };
+      `;
+      const output = rename(code, ctx);
+      expect(output).toContain('content.b');
+      expect(output).not.toMatch(/content\.title\b/);
+    });
+  });
+
   describe('no-op cases', () => {
     it('leaves code unchanged when no rename map entry exists for the key', () => {
       const ctx = makeContext(buildSimpleRenameMap());

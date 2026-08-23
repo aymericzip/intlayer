@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-05-31
+updatedAt: 2026-08-22
 title: "TanStack Start i18n - Complete guide to translate your app"
 description: "No more i18next. The 2026 guide to building a multilingual (i18n) TanStack Start app. Translate with AI agents and optimize bundle size, SEO and performances."
 keywords:
@@ -21,6 +21,9 @@ applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-templ
 applicationShowcase: https://intlayer-tanstack-start-template.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
+  - version: 9.4.0
+    date: 2026-08-22
+    changes: "Use getIntlayerAsync in route head functions so metadata loads only the requested locale"
   - version: 8.9.0
     date: 2026-05-04
     changes: "Update Solid useIntlayer API usage to direct property access"
@@ -692,19 +695,21 @@ export default defineConfig({
 
 <Step number={12} title="Internationalize your Metadata">
 
-You can also use the `getIntlayer` hook to access your content dictionaries throughout your application:
+Use `getIntlayerAsync` to access your content dictionaries inside the `head` function.
+
+It behaves like `getIntlayer`, but the build plugin points it at the per-locale dictionary chunk instead of the merged dictionary holding every locale — so metadata for a page ships only the locale it renders. Because it loads that chunk on demand, `head` becomes `async`:
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/react-router";
-import { getIntlayer } from "intlayer";
+import { getIntlayerAsync } from "intlayer";
 
 export const Route = createFileRoute("/{-$locale}/")({
   component: RouteComponent,
-  head: ({ params }) => {
+  head: async ({ params }) => {
     const { locale } = params;
     const path = "/"; // The path for this route
 
-    const metaContent = getIntlayer("app", locale);
+    const metaContent = await getIntlayerAsync("app", locale);
 
     return {
       links: [
@@ -752,7 +757,7 @@ import {
   getRequestHeader,
   getRequestHeaders,
 } from "@tanstack/react-start/server";
-import { getCookie, getIntlayer, getLocale } from "intlayer";
+import { getCookie, getIntlayerAsync, getLocale } from "intlayer";
 
 export const getLocaleServer = createServerFn().handler(async () => {
   const locale = await getLocale({
@@ -767,8 +772,8 @@ export const getLocaleServer = createServerFn().handler(async () => {
     getHeader: (name) => getRequestHeader(name),
   });
 
-  // Retrieve some content using getIntlayer()
-  const content = getIntlayer("app", locale);
+  // Retrieve some content using getIntlayerAsync()
+  const content = await getIntlayerAsync("app", locale);
 
   return { locale, content };
 });

@@ -7,7 +7,7 @@ import {
 import { createFileRoute, redirect } from '@tanstack/react-router';
 import {
   defaultLocale,
-  getIntlayer,
+  getIntlayerAsync,
   getLocalizedUrl,
   localeMap,
 } from 'intlayer';
@@ -33,10 +33,10 @@ export const Route = createFileRoute('/{-$locale}/init')({
     }
   },
   component: SetupPage,
-  head: ({ params }) => {
+  head: async ({ params }) => {
     const { locale } = params;
     const path = App_Init_Path;
-    const content = getIntlayer('setup-page', locale);
+    const content = await getIntlayerAsync('setup-page', locale);
 
     return {
       links: [

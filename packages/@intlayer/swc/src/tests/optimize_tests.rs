@@ -379,3 +379,99 @@ fn whole_directive_prologue_stays_first() {
         "#,
     );
 }
+
+#[test]
+fn get_intlayer_async_reads_the_per_locale_loader_in_static_mode() {
+    // Loading a single locale is what the async getter exists for, so it reads
+    // a dynamic loader even though the file is in static mode.
+    test_transform(
+        Syntax::default(),
+        None,
+        |_| TestFolder {
+            cfg: get_config("static"),
+            filename: "/app/src/page.tsx".to_string(),
+        },
+        r#"
+        import { getIntlayerAsync } from "intlayer";
+        export const load = async (locale) => await getIntlayerAsync("about", locale);
+        "#,
+        r#"
+        import _5sczV2UpZbQ_dyn from "../.intlayer/dynamic_dictionaries/about.mjs";
+        import { getDictionaryAsync as getIntlayerAsync } from "intlayer";
+        export const load = async (locale) => await getIntlayerAsync(_5sczV2UpZbQ_dyn, "about", locale);
+        "#,
+    );
+}
+
+#[test]
+fn get_intlayer_async_reads_the_per_locale_loader_in_dynamic_mode() {
+    test_transform(
+        Syntax::default(),
+        None,
+        |_| TestFolder {
+            cfg: get_config("dynamic"),
+            filename: "/app/src/page.tsx".to_string(),
+        },
+        r#"
+        import { getIntlayerAsync } from "intlayer";
+        export const load = async (locale) => await getIntlayerAsync("about", locale);
+        "#,
+        r#"
+        import _5sczV2UpZbQ_dyn from "../.intlayer/dynamic_dictionaries/about.mjs";
+        import { getDictionaryAsync as getIntlayerAsync } from "intlayer";
+        export const load = async (locale) => await getIntlayerAsync(_5sczV2UpZbQ_dyn, "about", locale);
+        "#,
+    );
+}
+
+#[test]
+fn get_intlayer_async_reads_the_fetch_loader_for_a_fetch_dictionary() {
+    let mut cfg = get_config("static");
+    cfg.dictionary_mode_map = Some(
+        [("about".to_string(), "fetch".to_string())]
+            .into_iter()
+            .collect(),
+    );
+
+    test_transform(
+        Syntax::default(),
+        None,
+        |_| TestFolder {
+            cfg: cfg.clone(),
+            filename: "/app/src/page.tsx".to_string(),
+        },
+        r#"
+        import { getIntlayerAsync } from "intlayer";
+        export const load = async (locale) => await getIntlayerAsync("about", locale);
+        "#,
+        r#"
+        import _5sczV2UpZbQ_fetch from "../.intlayer/fetch_dictionaries/about.mjs";
+        import { getDictionaryAsync as getIntlayerAsync } from "intlayer";
+        export const load = async (locale) => await getIntlayerAsync(_5sczV2UpZbQ_fetch, "about", locale);
+        "#,
+    );
+}
+
+#[test]
+fn get_intlayer_async_leaves_a_sibling_get_intlayer_call_static() {
+    test_transform(
+        Syntax::default(),
+        None,
+        |_| TestFolder {
+            cfg: get_config("static"),
+            filename: "/app/src/page.tsx".to_string(),
+        },
+        r#"
+        import { getIntlayer, getIntlayerAsync } from "intlayer";
+        const c = getIntlayer("locale-switcher");
+        export const load = async (locale) => await getIntlayerAsync("about", locale);
+        "#,
+        r#"
+        import _FsHhNfuhm85 from "../.intlayer/dictionaries/locale-switcher.json" with { type: "json" };
+        import _5sczV2UpZbQ_dyn from "../.intlayer/dynamic_dictionaries/about.mjs";
+        import { getDictionary as getIntlayer, getDictionaryAsync as getIntlayerAsync } from "intlayer";
+        const c = getIntlayer(_FsHhNfuhm85);
+        export const load = async (locale) => await getIntlayerAsync(_5sczV2UpZbQ_dyn, "about", locale);
+        "#,
+    );
+}

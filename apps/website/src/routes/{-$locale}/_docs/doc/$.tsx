@@ -14,7 +14,12 @@ import {
   buildWebsiteJsonLd,
 } from '@intlayer/design-system/structured-data';
 import { createFileRoute, redirect } from '@tanstack/react-router';
-import { defaultLocale, getIntlayer, getLocalizedUrl, locales } from 'intlayer';
+import {
+  defaultLocale,
+  getIntlayerAsync,
+  getLocalizedUrl,
+  locales,
+} from 'intlayer';
 import { DocHeader } from '~/components/DocPage/DocHeader/DocHeader';
 import { DocPageLayout } from '~/components/DocPage/DocPageLayout';
 import {
@@ -83,20 +88,26 @@ export const Route = createFileRoute('/{-$locale}/_docs/doc/$')({
       navData,
     };
   },
-  head: ({ loaderData }) => {
+  head: async ({ loaderData }) => {
     if (!loaderData?.docData) return {};
 
     const { docData, locale: localeFromLoader } = loaderData;
     const locale = (localeFromLoader as string) ?? defaultLocale;
     const absoluteUrl = docData.url;
 
-    const websiteContent = getIntlayer('website-structured-data', locale);
-    const orgContent = getIntlayer('organization-structured-data', locale);
-    const softwareContent = getIntlayer(
+    const websiteContent = await getIntlayerAsync(
+      'website-structured-data',
+      locale
+    );
+    const orgContent = await getIntlayerAsync(
+      'organization-structured-data',
+      locale
+    );
+    const softwareContent = await getIntlayerAsync(
       'software-application-structured-data',
       locale
     );
-    const creativeWorkContent = getIntlayer(
+    const creativeWorkContent = await getIntlayerAsync(
       'creative-work-structured-data',
       locale
     );

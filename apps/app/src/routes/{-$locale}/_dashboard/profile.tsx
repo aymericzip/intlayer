@@ -7,7 +7,7 @@ import { buildBreadcrumbsJsonLd } from '@intlayer/design-system/structured-data'
 import { createFileRoute } from '@tanstack/react-router';
 import {
   defaultLocale,
-  getIntlayer,
+  getIntlayerAsync,
   getLocalizedUrl,
   localeMap,
 } from 'intlayer';
@@ -17,9 +17,9 @@ import { ProfileForm } from '#components/Dashboard/ProfileForm';
 
 export const Route = createFileRoute('/{-$locale}/_dashboard/profile')({
   component: ProfilePage,
-  head: ({ params }) => {
+  head: async ({ params }) => {
     const { locale } = params;
-    const content = getIntlayer('profile-dashboard-page', locale);
+    const content = await getIntlayerAsync('profile-dashboard-page', locale);
 
     return {
       links: [

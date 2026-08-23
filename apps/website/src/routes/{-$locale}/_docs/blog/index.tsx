@@ -6,7 +6,7 @@ import {
 } from '@intlayer/design-system/routes';
 import { buildWebsiteJsonLd } from '@intlayer/design-system/structured-data';
 import { createFileRoute } from '@tanstack/react-router';
-import { defaultLocale, getIntlayer, locales } from 'intlayer';
+import { defaultLocale, getIntlayerAsync, locales } from 'intlayer';
 import { Suspense } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { BlogPageLayout } from '~/components/BlogPage/BlogPageLayout';
@@ -21,9 +21,12 @@ export const Route = createFileRoute('/{-$locale}/_docs/blog/')({
     const navData = await loadBlogNavData({ data: { locale } });
     return { locale, navData };
   },
-  head: ({ params }) => {
+  head: async ({ params }) => {
     const { locale = defaultLocale } = params;
-    const websiteContent = getIntlayer('website-structured-data', locale);
+    const websiteContent = await getIntlayerAsync(
+      'website-structured-data',
+      locale
+    );
 
     return {
       title: 'Blog | Intlayer',

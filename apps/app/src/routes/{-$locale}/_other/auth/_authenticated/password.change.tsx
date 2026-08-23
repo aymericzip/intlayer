@@ -3,7 +3,7 @@ import { App_Auth_ChangePassword } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
 import {
   defaultLocale,
-  getIntlayer,
+  getIntlayerAsync,
   getLocalizedUrl,
   localeMap,
 } from 'intlayer';
@@ -14,10 +14,10 @@ export const Route = createFileRoute(
   '/{-$locale}/_other/auth/_authenticated/password/change'
 )({
   component: ChangePasswordPage,
-  head: ({ params }) => {
+  head: async ({ params }) => {
     const { locale } = params;
     const path = App_Auth_ChangePassword;
-    const content = getIntlayer('change-password-page', locale);
+    const content = await getIntlayerAsync('change-password-page', locale);
 
     return {
       links: [

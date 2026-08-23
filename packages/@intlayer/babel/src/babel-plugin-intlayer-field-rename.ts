@@ -7,6 +7,7 @@ import {
   type NestedRenameEntry,
   type NestedRenameMap,
   type PruneContext,
+  unwrapAwait,
 } from './babel-plugin-intlayer-usage-analyzer';
 
 // ── Field-name helpers ────────────────────────────────────────────────────────
@@ -701,14 +702,18 @@ export const renameIntlayerFieldAccesses = (
         pruneContext.dictionaryKeyToFieldRenameMap.get(dictionaryKey);
       if (!fieldRenameMap || fieldRenameMap.size === 0) return;
 
-      const parentNode = callExpressionPath.parent;
+      // `getIntlayerAsync('key')` is consumed through its `await`, so the
+      // content root is the await expression — the three cases below would
+      // otherwise only ever see an `AwaitExpression` parent.
+      const contentRootPath = unwrapAwait(babelTypes, callExpressionPath);
+      const parentNode = contentRootPath.parent;
 
       // ── Case 1: const { fieldA, fieldB } = useIntlayer('key') ────────
       if (
         babelTypes.isVariableDeclarator(parentNode) &&
         babelTypes.isObjectPattern(parentNode.id)
       ) {
-        walkObjectDestructuring(babelTypes, callExpressionPath, fieldRenameMap);
+        walkObjectDestructuring(babelTypes, contentRootPath, fieldRenameMap);
         return;
       }
 
@@ -718,9 +723,9 @@ export const renameIntlayerFieldAccesses = (
         (babelTypes.isMemberExpression(parentNode) ||
           babelTypes.isOptionalMemberExpression(parentNode)) &&
         (parentNode as BabelTypes.MemberExpression).object ===
-          callExpressionPath.node
+          contentRootPath.node
       ) {
-        renameContentConsumers(babelTypes, callExpressionPath, fieldRenameMap);
+        renameContentConsumers(babelTypes, contentRootPath, fieldRenameMap);
         return;
       }
 

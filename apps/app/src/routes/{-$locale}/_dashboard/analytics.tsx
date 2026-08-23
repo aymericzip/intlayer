@@ -8,7 +8,7 @@ import { buildBreadcrumbsJsonLd } from '@intlayer/design-system/structured-data'
 import { createFileRoute } from '@tanstack/react-router';
 import {
   defaultLocale,
-  getIntlayer,
+  getIntlayerAsync,
   getLocalizedUrl,
   localeMap,
 } from 'intlayer';
@@ -19,10 +19,10 @@ import { DashboardAudience } from '#components/Dashboard/DashboardOverview/Dashb
 
 export const Route = createFileRoute('/{-$locale}/_dashboard/analytics')({
   component: AnalyticsPage,
-  head: ({ params }) => {
+  head: async ({ params }) => {
     const { locale } = params;
     const path = App_Dashboard_Analytics;
-    const content = getIntlayer('analytics-dashboard-page', locale);
+    const content = await getIntlayerAsync('analytics-dashboard-page', locale);
     return {
       links: [
         { rel: 'canonical', href: getLocalizedUrl(path, locale) },

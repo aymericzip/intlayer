@@ -9,7 +9,7 @@ use crate::{
     },
     config::ExtraCallerConfig,
     extra_caller::{resolve_extra_namespace, rewrite_namespace_option, ExtraNamespaceMatch},
-    packages::{PACKAGE_LIST, PACKAGE_LIST_DYNAMIC},
+    packages::{GET_INTLAYER_ASYNC, PACKAGE_LIST, PACKAGE_LIST_DYNAMIC},
     pre_pass::CallerMap,
 };
 use std::collections::{BTreeMap, HashSet};
@@ -227,7 +227,8 @@ impl<'a> TransformVisitor<'a> {
         }
     }
 
-    /// Rewrites a native `useIntlayer` / `getIntlayer` call site.
+    /// Rewrites a native `useIntlayer` / `getIntlayer` / `getIntlayerAsync`
+    /// call site.
     ///
     /// `caller_package` is the package the callee was imported from; `None`
     /// keeps the static helper, matching the Babel pass for a caller reaching
@@ -235,7 +236,7 @@ impl<'a> TransformVisitor<'a> {
     fn rewrite_native_call(
         &mut self,
         call: &mut CallExpr,
-        is_use_intlayer: bool,
+        caller_name: &str,
         caller_package: Option<&str>,
     ) {
         let Some(arg) = call.args.first() else {
@@ -254,7 +255,16 @@ impl<'a> TransformVisitor<'a> {
         let uses_dynamic_helpers =
             caller_package.is_some_and(|package| self.package_uses_dynamic_helpers(package));
 
-        let import_kind = if !is_use_intlayer {
+        let import_kind = if caller_name == GET_INTLAYER_ASYNC {
+            // Loading a single locale is the whole point of the async getter,
+            // so it reads a per-locale loader whatever the file's import mode
+            // is — the fetch loader when the dictionary is remote, the dynamic
+            // one otherwise.
+            match dictionary_override {
+                Some(ImportKind::Fetch) => ImportKind::Fetch,
+                _ => ImportKind::Dynamic,
+            }
+        } else if caller_name != "useIntlayer" {
             ImportKind::Static
         } else if uses_dynamic_helpers {
             dictionary_override.unwrap_or(self.import_mode)
@@ -298,12 +308,12 @@ impl VisitMut for TransformVisitor<'_> {
             return;
         };
         let extra_index = meta.extra_index;
-        let is_use_intlayer = meta.original_name == "useIntlayer";
+        let caller_name = meta.original_name.clone();
         let caller_package = meta.package.clone();
 
         match extra_index {
             Some(extra_index) => self.rewrite_extra_caller_call(call, extra_index),
-            None => self.rewrite_native_call(call, is_use_intlayer, caller_package.as_deref()),
+            None => self.rewrite_native_call(call, &caller_name, caller_package.as_deref()),
         }
     }
 
@@ -345,6 +355,10 @@ impl VisitMut for TransformVisitor<'_> {
                     }
                     "getIntlayer" => {
                         named.imported = Some(ModuleExportName::Ident(make_ident("getDictionary")));
+                    }
+                    GET_INTLAYER_ASYNC => {
+                        named.imported =
+                            Some(ModuleExportName::Ident(make_ident("getDictionaryAsync")));
                     }
                     _ => {}
                 }

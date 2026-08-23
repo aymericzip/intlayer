@@ -7,7 +7,7 @@ import {
   App_Init_Path,
 } from '@intlayer/design-system/routes';
 import { createFileRoute, redirect } from '@tanstack/react-router';
-import { getIntlayer } from 'intlayer';
+import { getIntlayerAsync } from 'intlayer';
 import { useIntlayer, useLocale } from 'react-intlayer';
 import { AuthenticationBarrier } from '#components/Auth/AuthenticationBarrier/AuthenticationBarrier';
 import { DashboardContentLayout } from '#components/Dashboard/DashboardContentLayout';
@@ -74,9 +74,9 @@ export const Route = createFileRoute('/{-$locale}/_dashboard/')({
     });
   },
   component: DashboardIndexPage,
-  head: ({ params }) => {
+  head: async ({ params }) => {
     const { locale } = params;
-    const content = getIntlayer('dashboard-overview', locale);
+    const content = await getIntlayerAsync('dashboard-overview', locale);
 
     return {
       meta: [

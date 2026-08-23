@@ -8,7 +8,7 @@ import { buildBreadcrumbsJsonLd } from '@intlayer/design-system/structured-data'
 import { createFileRoute } from '@tanstack/react-router';
 import {
   defaultLocale,
-  getIntlayer,
+  getIntlayerAsync,
   getLocalizedUrl,
   localeMap,
 } from 'intlayer';
@@ -20,10 +20,10 @@ import { ProjectForm } from '#components/Dashboard/ProjectForm';
 
 export const Route = createFileRoute('/{-$locale}/_dashboard/projects')({
   component: ProjectsPage,
-  head: ({ params }) => {
+  head: async ({ params }) => {
     const { locale } = params;
     const path = App_Dashboard_Projects;
-    const content = getIntlayer('projects-dashboard-page', locale);
+    const content = await getIntlayerAsync('projects-dashboard-page', locale);
 
     return {
       links: [
