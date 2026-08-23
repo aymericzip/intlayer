@@ -476,7 +476,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> La minificación se omite cuando `optimize` es `false` o cuando `editor.enabled` es `true` (el Editor Visual requiere de los nombres de los campos originales para editarlos).
+> La minificación se omite cuando `optimize` es `false`. Cuando `editor.enabled` es `true`, sigue ejecutándose, pero sin el paso de renombrado de campos — el editor visual resuelve las ediciones mediante `keyPath`, por lo que los nombres de campo originales deben conservarse.
 
 > En Next.js, la minificación también se omite cuando `@intlayer/swc` no está instalado o no puede cargarse (Next.js por debajo de 16.1.0). El plugin es la mitad que reescribe los accesos en el código fuente, así que renombrar los diccionarios sin él dejaría tu código leyendo nombres de campos que ya no existen.
 
@@ -508,7 +508,7 @@ export default config;
 { "title": "…", "subtitle": "…" }
 ```
 
-> La purga se omite cuando `optimize` es `false` o cuando `editor.enabled` es `true`. En Next.js se omite además cuando `@intlayer/swc` no está disponible y cuando hay llamadores de adaptadores de compatibilidad configurados.
+> La purga se omite cuando `optimize` es `false`. Permanece activa cuando `editor.enabled` es `true` — un campo purgado no es leído por ningún componente, por lo que el editor nunca lo renderiza. En Next.js se omite además cuando `@intlayer/swc` no está disponible y cuando hay llamadores de adaptadores de compatibilidad configurados.
 
 > La purga también se omite por protección cuando un archivo del código fuente sea irreparable y no logre ejecutarse `useIntlayer` al mismo tiempo que una destructuración. Por lo cual todo el diccionario pasaría a formar parte por completo y sin purgar.
 

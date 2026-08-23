@@ -56,7 +56,7 @@ export default defineConfig({
 2. `build.optimize` est à `true` (ou `undefined`, qui vaut par défaut `true` pour les builds).
 3. `build.minify` est à `true` dans votre configuration Intlayer.
 
-Il est automatiquement **désactivé** lorsque `editor.enabled` est à `true` car l'éditeur a besoin du contenu complet et lisible par l'homme du dictionnaire.
+Lorsque `editor.enabled` est `true`, le plugin s'exécute toujours mais **ignore le renommage des champs** : le renommage réécrit les clés de contenu que l'interpréteur parcourt, donc le `keyPath` reçu par l'éditeur visuel ne correspondrait plus aux dictionnaires non fusionnés qu'il édite. La compaction des espaces et la suppression des métadonnées de premier niveau restent actives.
 
 ## Ce qui est minifié
 

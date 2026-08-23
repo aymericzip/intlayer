@@ -107,6 +107,16 @@ Si la estructura de contenido de un diccionario no puede ser reconocida (por eje
 
 Cuando la poda tiene éxito, `intlayerPrune` también escribe `pruneContext.dictionaryKeyToFieldRenameMap` — un mapeo de nombres de campos originales a alias cortos. `intlayerMinify` lee este mapa para renombrar campos en el JSON de salida, y el paso de renombrado de Babel de `intlayerOptimize` actualiza los accesos a propiedades en los archivos de origen en consecuencia.
 
+## Condiciones de activación
+
+`intlayerPrune` está activo **solo** cuando se cumplen todas las siguientes condiciones:
+
+1. El comando de Vite es `build`.
+2. `build.optimize` es `true` (o `undefined`, que por defecto es `true` en los builds).
+3. `build.purge` es `true` en tu configuración de Intlayer.
+
+Permanece activo cuando `editor.enabled` es `true`: el editor visual resuelve cada edición mediante `dictionaryKey` + `keyPath` contra los diccionarios sin fusionar, que este plugin nunca toca, y un campo purgado es uno que ningún componente lee — por lo que nunca se renderiza ni se puede seleccionar en la página.
+
 ## Descripción
 
 El plugin analiza tu código fuente para identificar qué claves de diccionario se usan realmente. A continuación elimina cualquier contenido no utilizado de los archivos de diccionario empaquetados. Esto es especialmente útil en proyectos grandes con muchos diccionarios donde solo se utiliza un subconjunto en páginas o componentes específicos.

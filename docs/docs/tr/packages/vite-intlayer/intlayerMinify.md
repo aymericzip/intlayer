@@ -56,7 +56,7 @@ export default defineConfig({
 2. `build.optimize` değeri `true` (veya derlemeler için varsayılan olarak `true` olan `undefined`) olduğunda.
 3. Intlayer yapılandırmanızda `build.minify` değeri `true` olduğunda.
 
-Editörün tam ve insan tarafından okunabilir sözlük içeriğine ihtiyacı olduğundan, `editor.enabled` değeri `true` olduğunda otomatik olarak **devre dışı bırakılır**.
+`editor.enabled` `true` olduğunda eklenti çalışmaya devam eder ama **alan adı değiştirmeyi atlar**: yeniden adlandırma, yorumlayıcının dolaştığı içerik anahtarlarını yeniden yazar, bu yüzden görsel düzenleyicinin aldığı `keyPath`, düzenlediği birleştirilmemiş sözlüklerle artık eşleşmez. Boşluk sıkıştırma ve üst düzey meta veri temizleme etkin kalmaya devam eder.
 
 ## Neler Sıkıştırılır?
 

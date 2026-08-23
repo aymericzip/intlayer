@@ -198,6 +198,11 @@ const pruneDynamicDictionaryContent = (
  * Pruned dictionaries are returned as compact JSON (minification is handled
  * separately by `intlayerMinifyPlugin`).
  *
+ * Pruning stays compatible with the visual editor: the editor resolves every
+ * edit through `dictionaryKey` + `keyPath` against the unmerged dictionaries
+ * entry, which this plugin never touches, and a pruned field is one no source
+ * file reads — so it is never rendered and never selectable in the page.
+ *
  * @param intlayerConfig - Resolved intlayer configuration.
  * @param pruneContext   - Shared state produced by the usage analyser that
  *                         runs inside `intlayerOptimizePlugin`.
@@ -209,7 +214,6 @@ export const intlayerPrune = (
   const logger = getAppLogger(intlayerConfig);
 
   const { optimize, purge } = intlayerConfig.build;
-  const editorEnabled = intlayerConfig.editor.enabled;
 
   const {
     dictionariesDir,
@@ -253,32 +257,6 @@ export const intlayerPrune = (
     if (!isBuildCommand) return false;
     if (!isOptimizeActive) return false;
     if (!purge) return false;
-
-    if (editorEnabled) {
-      runOnce(
-        join(
-          baseDir,
-          '.intlayer',
-          'cache',
-          'intlayer-purge-editor-warning.lock'
-        ),
-        () =>
-          logger([
-            'Dictionary purge is',
-            colorize('disabled', ANSIColors.GREY_DARK),
-            'because',
-            colorize('editor.enabled', ANSIColors.BLUE),
-            'is',
-            colorize('true', ANSIColors.GREY_DARK),
-            colorize(
-              '— the editor requires full dictionary content',
-              ANSIColors.GREY
-            ),
-          ]),
-        { cacheTimeoutMs: 1000 * 10 }
-      );
-      return false;
-    }
 
     return true;
   };

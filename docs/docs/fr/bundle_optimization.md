@@ -476,7 +476,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> La minification est ignorée lorsque `optimize` est `false` ou lorsque `editor.enabled` est `true` (l'éditeur visuel requiert les noms de champs originaux pour permettre l'édition).
+> La minification est ignorée lorsque `optimize` est `false`. Lorsque `editor.enabled` est `true`, elle s'exécute toujours, mais sans l'étape de renommage des champs — l'éditeur visuel résout les modifications via `keyPath`, donc les noms de champs originaux doivent être conservés.
 
 > Sur Next.js, la minification est également ignorée lorsque `@intlayer/swc` n'est pas installé ou ne peut pas être chargé (Next.js inférieur à 16.1.0). Le plugin est la moitié qui réécrit les accès dans le source : renommer les dictionnaires sans lui laisserait votre code lire des noms de champs qui n'existent plus.
 
@@ -508,7 +508,7 @@ export default config;
 { "title": "…", "subtitle": "…" }
 ```
 
-> La purge est ignorée lorsque `optimize` est `false` ou lorsque `editor.enabled` est `true`. Sur Next.js, elle est en outre ignorée lorsque `@intlayer/swc` est indisponible, ainsi que lorsque des appelants d'adaptateurs de compatibilité sont configurés.
+> La purge est ignorée lorsque `optimize` est `false`. Elle reste active lorsque `editor.enabled` est `true` — un champ purgé n'est lu par aucun composant, donc l'éditeur ne le rend jamais. Sur Next.js, elle est en outre ignorée lorsque `@intlayer/swc` est indisponible, ainsi que lorsque des appelants d'adaptateurs de compatibilité sont configurés.
 
 > La purge est également ignorée de manière conservative lorsqu'un fichier source ne peut pas être analysé, ou lorsque le résultat de `useIntlayer` est assigné à une variable et transmis de manières que l'analyseur statique ne peut pas suivre (par ex. propagation dans un objet, passé en tant que prop sans déstructuration). Dans ces cas, le dictionnaire complet est conservé.
 

@@ -115,4 +115,4 @@ Lorsque l'élagage réussit, `intlayerPrune` écrit également `pruneContext.dic
 2. `build.optimize` est `true` (ou `undefined`, qui est `true` par défaut pour les builds).
 3. `build.purge` est `true` dans votre configuration Intlayer.
 
-Il est automatiquement **désactivé** quand `editor.enabled` est `true` car l'éditeur a besoin du contenu complet du dictionnaire.
+Il reste actif lorsque `editor.enabled` est `true` : l'éditeur visuel résout chaque modification via `dictionaryKey` + `keyPath` par rapport aux dictionnaires non fusionnés, que ce plugin ne touche jamais, et un champ purgé est un champ qu'aucun composant ne lit — il n'est donc jamais rendu ni sélectionnable dans la page.

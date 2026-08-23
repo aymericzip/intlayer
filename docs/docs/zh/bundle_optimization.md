@@ -476,7 +476,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> 如果在 `optimize` 被设为 `false`、又或是启用了可视化编辑器也就是当 `editor.enabled` 设定为了 `true` 时（由于编辑器需要保留字段名称以便做后续处理），重命名这个操作都将会被跳过。
+> 当 `optimize` 为 `false` 时，压缩会被跳过。当 `editor.enabled` 为 `true` 时，压缩仍会运行，但不执行字段重命名步骤——可视化编辑器通过 `keyPath` 解析编辑内容，因此原始字段名称必须保留。
 
 > 在 Next.js 上，当 `@intlayer/swc` 未安装或无法加载时（Next.js 低于 16.1.0），压缩同样会被跳过。重写源码访问的正是这个插件，因此在没有它的情况下重命名字典，会让你的代码读取已不存在的字段名。
 
@@ -508,7 +508,7 @@ export default config;
 { "title": "…", "subtitle": "…" }
 ```
 
-> 与前边提到的类似，当 `optimize` 是 `false` 或是开启了可视化编辑器(`editor.enabled` 取值 `true`) 时，它会选择跳过对数据的清除操作。 在 Next.js 上，当 `@intlayer/swc` 不可用以及配置了兼容适配器调用方时，还会被额外跳过。
+> 当 `optimize` 为 `false` 时，清除（Purge）会被跳过。当 `editor.enabled` 为 `true` 时，它仍保持启用——被清除的字段不会被任何组件读取，因此编辑器永远不会渲染它。在 Next.js 上，当 `@intlayer/swc` 不可用以及配置了兼容适配器调用方时，还会被额外跳过。
 
 > 当检测到某份代码因为异常无法顺利解析、又或者当把由 `useIntlayer` 输出的值以静态解析器难以预测分析的模式在不同组件中来回丢（比如被打包成对象传入等而未被进行解构）的时候，它同样会跳过，以此保守地保留整部字典的全部信息，避免意外发生。
 

@@ -476,7 +476,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> Minifikasi akan dilompati (skipped) bila `optimize` disetel menjadi `false` atau `editor.enabled` bernilai `true` (Visual editor sangat memerlukan nama field asli untuk mode pengeditan).
+> Minifikasi akan dilewati bila `optimize` disetel menjadi `false`. Ketika `editor.enabled` bernilai `true`, proses ini tetap berjalan, tetapi tanpa langkah penggantian nama field — Visual editor menyelesaikan pengeditan melalui `keyPath`, sehingga nama field asli harus tetap dipertahankan.
 
 > Di Next.js, minifikasi juga dilewati ketika `@intlayer/swc` tidak terpasang atau tidak dapat dimuat (Next.js di bawah 16.1.0). Plugin inilah separuh yang menulis ulang akses di kode sumber, sehingga mengganti nama kamus tanpa plugin tersebut akan membuat kode Anda membaca nama bidang yang sudah tidak ada.
 
@@ -508,7 +508,7 @@ export default config;
 { "title": "…", "subtitle": "…" }
 ```
 
-> Purge akan dilompati ketika `optimize` bernilai `false` atau `editor.enabled` adalah `true`. Di Next.js, ia juga dilewati ketika `@intlayer/swc` tidak tersedia dan ketika pemanggil adapter kompatibilitas dikonfigurasi.
+> Purge akan dilewati ketika `optimize` bernilai `false`. Proses ini tetap aktif ketika `editor.enabled` bernilai `true` — field yang telah dipangkas tidak dibaca oleh komponen mana pun, sehingga editor tidak akan pernah merendernya. Di Next.js, ia juga dilewati ketika `@intlayer/swc` tidak tersedia dan ketika pemanggil adapter kompatibilitas dikonfigurasi.
 
 > Secara konservatif, proses purge tidak akan dilaksanakan jika file asal (source file) gagal dipindai, atau pemanggilan `useIntlayer` disimpan di variabel untuk lalu disebarluaskan di mana proses pindaian statik tak mampu melacak jejaknya (contoh lewat spread function atau pengiriman prop secara untuh). Jika skenario ini terjadi, file kamus tak akan disentuh.
 

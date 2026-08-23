@@ -151,7 +151,11 @@ const minifyGroupEntryNode = (
  * and should be left completely untouched to avoid shipping broken data.
  *
  * Field renaming (property mangling) is applied only for dictionaries that
- * have a known, finite field usage set in `pruneContext.dictionaryKeyToFieldRenameMap`.
+ * have a known, finite field usage set in `pruneContext.dictionaryKeyToFieldRenameMap`,
+ * and only while the visual editor is disabled: renaming rewrites the content
+ * keys the interpreter walks, so the `keyPath` reported to the editor would no
+ * longer resolve against the unmerged dictionaries. The whitespace compaction
+ * and the top-level metadata strip are keyPath-neutral and always run.
  * The corresponding rename is also applied to source-file property accesses by
  * the babel rename pass inside `intlayerOptimize`.  Internal intlayer fields
  * such as `nodeType` are never renamed.
@@ -169,7 +173,12 @@ export const intlayerMinify = (
   const logger = getAppLogger(intlayerConfig);
 
   const { optimize, minify } = intlayerConfig.build;
-  const editorEnabled = intlayerConfig.editor.enabled;
+
+  // Field renaming rewrites the content keys the interpreter walks, so the
+  // `keyPath` emitted by `ContentSelector` would no longer resolve against the
+  // unmerged dictionaries the editor edits. Whitespace compaction and the
+  // top-level metadata strip are keyPath-neutral and stay active.
+  const isFieldRenameEnabled = !intlayerConfig.editor.enabled;
 
   const { dictionariesDir, dynamicDictionariesDir, baseDir } =
     intlayerConfig.system;
@@ -194,7 +203,7 @@ export const intlayerMinify = (
     if (!minify) return false;
     if (!isBuildCommand) return false;
 
-    if (editorEnabled) {
+    if (!isFieldRenameEnabled) {
       runOnce(
         join(
           baseDir,
@@ -204,20 +213,19 @@ export const intlayerMinify = (
         ),
         () =>
           logger([
-            'Dictionary minification is',
+            'Dictionary field renaming is',
             colorize('disabled', ANSIColors.GREY_DARK),
             'because',
             colorize('editor.enabled', ANSIColors.BLUE),
             'is',
             colorize('true', ANSIColors.GREY_DARK),
             colorize(
-              '— the editor requires full dictionary content',
+              '— the editor resolves edits by keyPath against the unmerged dictionaries',
               ANSIColors.GREY
             ),
           ]),
         { cacheTimeoutMs: 1000 * 10 }
       );
-      return false;
     }
 
     return true;
@@ -269,7 +277,7 @@ export const intlayerMinify = (
       }
 
       const fieldRenameMap =
-        pruneContext && dictionaryKey
+        isFieldRenameEnabled && pruneContext && dictionaryKey
           ? pruneContext.dictionaryKeyToFieldRenameMap.get(dictionaryKey)
           : undefined;
 

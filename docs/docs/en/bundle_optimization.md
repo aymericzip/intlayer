@@ -476,7 +476,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> Minification is skipped when `optimize` is `false` or when `editor.enabled` is `true` (the visual editor requires the original field names to allow editing).
+> Minification is skipped when `optimize` is `false`. When `editor.enabled` is `true` it still runs, but without the field-renaming step — the visual editor resolves edits by `keyPath`, so the original field names have to survive.
 
 > On Next.js, minification is also skipped when `@intlayer/swc` is not installed or cannot be loaded (Next.js below 16.1.0). The plugin is the half that rewrites the source accesses, so renaming the dictionaries without it would leave your code reading field names that no longer exist.
 
@@ -508,7 +508,7 @@ export default config;
 { "title": "…", "subtitle": "…" }
 ```
 
-> Purge is skipped when `optimize` is `false` or when `editor.enabled` is `true`. On Next.js it is additionally skipped when `@intlayer/swc` is unavailable, and when compat-adapter callers are configured.
+> Purge is skipped when `optimize` is `false`. It stays active when `editor.enabled` is `true` — a purged field is read by no component, so the editor never renders it. On Next.js it is additionally skipped when `@intlayer/swc` is unavailable, and when compat-adapter callers are configured.
 
 > Purge is also skipped conservatively when a source file cannot be parsed, or when the result of `useIntlayer` is assigned to a variable and passed around in ways the static analyser cannot follow (e.g. spread into an object, passed as a prop without destructuring). In those cases the full dictionary is kept.
 

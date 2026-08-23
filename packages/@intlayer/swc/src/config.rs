@@ -213,6 +213,11 @@ pub struct PluginConfig {
     /// content must be rewritten to match (`content.title` → `content.a`).
     /// Dictionaries whose JSON was left untouched (edge cases, fetch mode,
     /// opaque consumers) are simply absent from the map.
+    ///
+    /// The whole map arrives empty when the visual editor is enabled: renaming
+    /// rewrites the content keys the `keyPath` is built from, and the editor
+    /// resolves every edit by `keyPath` against the unmerged dictionaries.
+    /// Purging still happens, so the dictionaries are still smaller.
     #[serde(rename = "fieldRenameMap", default)]
     pub field_rename_map: BTreeMap<String, FieldRenameMap>,
 

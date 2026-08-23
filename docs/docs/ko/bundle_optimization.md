@@ -476,7 +476,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> `optimize`가 `false`이거나 `editor.enabled`가 `true`일 때(비주얼 에디터에서는 편집을 위해 원본 필드 이름이 필요함) 최소화는 건너뜁니다.
+> `optimize`가 `false`이면 최소화는 건너뜁니다. `editor.enabled`가 `true`이어도 계속 실행되지만, 필드 이름 변경 단계는 건너뜁니다 — 비주얼 에디터는 `keyPath`로 편집 내용을 해석하므로 원본 필드 이름이 그대로 유지되어야 합니다.
 
 > Next.js에서는 `@intlayer/swc`가 설치되지 않았거나 로드할 수 없는 경우(16.1.0 미만의 Next.js)에도 압축이 건너뛰어집니다. 소스 접근을 재작성하는 쪽이 바로 이 플러그인이므로, 이것 없이 사전만 이름을 바꾸면 코드가 더 이상 존재하지 않는 필드 이름을 읽게 됩니다.
 
@@ -508,7 +508,7 @@ export default config;
 { "title": "…", "subtitle": "…" }
 ```
 
-> `optimize`가 `false`이거나 `editor.enabled`가 `true`일 때 파지(purge)는 건너뜁니다. Next.js에서는 `@intlayer/swc`를 사용할 수 없을 때, 그리고 호환 어댑터 호출자가 설정된 경우에도 추가로 건너뜁니다.
+> `optimize`가 `false`이면 파지(purge)는 건너뜁니다. `editor.enabled`가 `true`일 때도 계속 활성 상태를 유지합니다 — 정리된 필드는 어떤 컴포넌트에서도 읽지 않으므로 에디터가 이를 렌더링하는 일은 없습니다. Next.js에서는 `@intlayer/swc`를 사용할 수 없을 때, 그리고 호환 어댑터 호출자가 설정된 경우에도 추가로 건너뜁니다.
 
 > 소스 파일을 구문 분석할 수 없거나 `useIntlayer`의 결과가 변수에 할당되고 정적 분석기가 추적할 수 없는 방식으로 전달될 때(예: 객체에 스프레드, 구조 분해 없이 prop으로 전달) 파지도 보수적으로 건너뜁니다. 이런 경우에는 전체 사전이 유지됩니다.
 

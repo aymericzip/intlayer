@@ -56,7 +56,7 @@ export default defineConfig({
 2. Opcja `build.optimize` ma wartość `true` (lub `undefined`, co dla kompilacji domyślnie oznacza `true`).
 3. Opcja `build.minify` w konfiguracji Intlayer ma wartość `true`.
 
-Wtyczka jest automatycznie **wyłączana**, gdy `editor.enabled` ma wartość `true`, ponieważ edytor wymaga pełnej, czytelnej dla człowieka zawartości słownika.
+Gdy `editor.enabled` ma wartość `true`, wtyczka nadal działa, ale **pomija zmianę nazw pól**: zmiana nazw przepisuje klucze treści, po których porusza się interpreter, więc `keyPath` otrzymywany przez wizualny edytor przestałby pasować do niezmergowanych słowników, które edytuje. Kompresja białych znaków i usuwanie metadanych najwyższego poziomu pozostają aktywne.
 
 ## Co podlega minifikacji
 

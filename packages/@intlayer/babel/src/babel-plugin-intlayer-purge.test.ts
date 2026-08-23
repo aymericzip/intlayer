@@ -208,7 +208,7 @@ describe('runIntlayerPurgePipeline', () => {
     expect(warnings).toEqual([]);
   });
 
-  it('explains that the visual editor stands the pipeline down', () => {
+  it('keeps purging for the visual editor but leaves the field names alone', () => {
     const { lines, logConfig } = captureLogs();
 
     const pruneContext = runIntlayerPurgePipeline(
@@ -216,21 +216,21 @@ describe('runIntlayerPurgePipeline', () => {
     );
 
     expect(lines).toContain(
-      'Dictionary purge is disabled because editor.enabled is true — the editor requires full dictionary content'
-    );
-    expect(lines).toContain(
-      'Dictionary minification is disabled because editor.enabled is true — the editor requires full dictionary content'
+      'Dictionary field renaming is disabled because editor.enabled is true — the editor resolves edits by keyPath against the unmerged dictionaries'
     );
 
-    // Content is left fully intact for the editor.
+    // The unused field still goes — it is read by no component, so the editor
+    // never renders it — but `title` keeps the name the editor resolves its
+    // keyPath against.
     expect(readDictionary(fixture.dictionariesDir)).toEqual({
       key: 'about',
-      content: {
-        title: translationNode('Title'),
-        unusedField: translationNode('Unused'),
-      },
+      content: { title: translationNode('Title') },
     });
-    expect(pruneContext.dictionaryKeyToFieldUsageMap.size).toBe(0);
+
+    expect(pruneContext.dictionaryKeyToFieldUsageMap.get('about')).toEqual(
+      new Set(['title'])
+    );
+    expect(pruneContext.dictionaryKeyToFieldRenameMap.size).toBe(0);
   });
 
   it('warns about a dictionary whose consumption cannot be tracked', () => {

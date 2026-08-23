@@ -56,7 +56,7 @@ export default defineConfig({
 2. Tùy chọn `build.optimize` là `true` (hoặc `undefined`, mặc định sẽ là `true` đối với tiến trình build).
 3. Tùy chọn `build.minify` được đặt là `true` trong cấu hình Intlayer của bạn.
 
-Nó tự động bị **vô hiệu hóa** khi `editor.enabled` là `true` vì editor cần nội dung từ điển đầy đủ và thân thiện với người đọc.
+Khi `editor.enabled` là `true`, plugin vẫn chạy nhưng **bỏ qua bước đổi tên trường**: việc đổi tên viết lại các khóa nội dung mà trình thông dịch duyệt qua, khiến `keyPath` mà trình soạn thảo trực quan nhận được sẽ không còn khớp với các từ điển chưa hợp nhất mà nó đang chỉnh sửa. Việc nén khoảng trắng và loại bỏ metadata cấp cao nhất vẫn được giữ nguyên.
 
 ## Những gì được nén
 

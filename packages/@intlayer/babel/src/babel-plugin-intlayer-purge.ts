@@ -70,8 +70,9 @@ export type PurgePluginOptions = {
   optimize: boolean | undefined;
 
   /**
-   * When `true` the plugin skips all processing to preserve full dictionary
-   * content for the visual editor.  Mirrors `editor.enabled`.
+   * When `true` the plugin still purges and minifies, but skips field renaming
+   * so the `keyPath` reported to the visual editor keeps matching the unmerged
+   * dictionaries it edits.  Mirrors `editor.enabled`.
    */
   editorEnabled: boolean;
 
@@ -789,32 +790,23 @@ const processAllDictionaryFiles = (
 // ── Reporting helpers ─────────────────────────────────────────────────────────
 
 /**
- * Explains why the requested steps did nothing: the visual editor needs the
- * full dictionary content, so both purge and minify stand down when it is on.
+ * Explains the one step the visual editor stands down: renaming the content
+ * fields would break the `keyPath` the editor resolves its edits with. Purge
+ * and the rest of the minification still run.
  */
-const logStepDisabledByEditor = (
-  logger: PurgeLogger,
-  purge: boolean,
-  minify: boolean
-): void => {
-  const explainDisabled = (stepLabel: string) =>
-    logger([
-      stepLabel,
-      'is',
-      colorize('disabled', ANSIColors.GREY_DARK),
-      'because',
-      colorize('editor.enabled', ANSIColors.BLUE),
-      'is',
-      colorize('true', ANSIColors.GREY_DARK),
-      colorize(
-        '— the editor requires full dictionary content',
-        ANSIColors.GREY
-      ),
-    ]);
-
-  if (purge) explainDisabled('Dictionary purge');
-  if (minify) explainDisabled('Dictionary minification');
-};
+const logFieldRenameDisabledByEditor = (logger: PurgeLogger): void =>
+  logger([
+    'Dictionary field renaming is',
+    colorize('disabled', ANSIColors.GREY_DARK),
+    'because',
+    colorize('editor.enabled', ANSIColors.BLUE),
+    'is',
+    colorize('true', ANSIColors.GREY_DARK),
+    colorize(
+      '— the editor resolves edits by keyPath against the unmerged dictionaries',
+      ANSIColors.GREY
+    ),
+  ]);
 
 /**
  * Reports the dictionaries whose consumption could not be tracked statically,
@@ -892,11 +884,17 @@ export const runIntlayerPurgePipeline = (
 
   const logger = getAppLogger(logConfig);
 
-  const shouldPurge = purge && !editorEnabled;
-  const shouldMinify = minify && !editorEnabled;
+  const shouldPurge = Boolean(purge);
+  const shouldMinify = Boolean(minify);
 
-  if (editorEnabled && (purge || minify)) {
-    logStepDisabledByEditor(logger, purge, minify);
+  // Field renaming rewrites the content keys the interpreter walks, so the
+  // `keyPath` reported to the visual editor would no longer resolve against
+  // the unmerged dictionaries it edits. Purging is keyPath-neutral: a purged
+  // field is one no source file reads, so it is never rendered either.
+  const isFieldRenameEnabled = shouldMinify && !editorEnabled;
+
+  if (editorEnabled && minify) {
+    logFieldRenameDisabledByEditor(logger);
   }
 
   if ((!shouldPurge && !shouldMinify) || optimize === false)
@@ -917,8 +915,8 @@ export const runIntlayerPurgePipeline = (
   // Phase 1.6: Warn about the dictionaries the analysis could not follow.
   logUntrackedBindings(logger, pruneContext);
 
-  // Phase 2: Build field-rename maps (minify only).
-  if (shouldMinify) {
+  // Phase 2: Build field-rename maps (minify only, editor disabled only).
+  if (isFieldRenameEnabled) {
     buildRenameMapsSynchronously(
       dictionariesDir,
       dynamicDictionariesDir,
@@ -988,8 +986,10 @@ export const runIntlayerPurgePipeline = (
  * - Intended for **production builds** only.  Dictionary JSON files are
  *   overwritten in-place; running `intlayer build` afterwards restores the
  *   originals.
- * - The plugin is a no-op when `optimize` is `false` or `editorEnabled` is
- *   `true`.
+ * - The plugin is a no-op when `optimize` is `false`.
+ * - When `editorEnabled` is `true`, purge and minify still run but field
+ *   renaming is skipped, so the `keyPath` the visual editor receives keeps
+ *   matching the unmerged dictionaries it edits.
  */
 export const intlayerPurgeBabelPlugin = (_babel: {
   types: typeof BabelTypes;

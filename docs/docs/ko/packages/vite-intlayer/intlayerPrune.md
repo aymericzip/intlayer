@@ -115,4 +115,4 @@ pruning이 성공하면, `intlayerPrune`은 `pruneContext.dictionaryKeyToFieldRe
 2. `build.optimize`가 `true`입니다 (또는 `undefined`인 경우, 빌드에 대해 기본값이 `true`입니다).
 3. Intlayer 구성에서 `build.purge`가 `true`입니다.
 
-`editor.enabled`가 `true`일 때는 편집기가 전체 사전 콘텐츠를 필요로 하기 때문에 자동으로 **비활성화**됩니다.
+`editor.enabled`가 `true`일 때도 활성 상태를 유지합니다. 비주얼 에디터는 병합되지 않은 사전에 대해 `dictionaryKey`와 `keyPath`를 통해 모든 편집을 해석하며, 이 플러그인은 해당 사전을 전혀 건드리지 않습니다. 정리된 필드는 어떤 컴포넌트도 읽지 않는 필드이므로, 렌더링되지도 페이지에서 선택되지도 않습니다.

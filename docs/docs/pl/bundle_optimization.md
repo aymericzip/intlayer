@@ -476,7 +476,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> Krok dla minifikacji musi zostać oddalony w odstawkę, gdy Twoja opcja to `optimize` lub jeżeli udostępniasz systemowo `editor.enabled` i ustawiasz na domyślne `true` (wymuszone jest, aby pola trzymały na ten czas swe niezmącone relacje, dla potrzeb odpowiedniego renderowania Wizualnego Edytora).
+> Minifikacja jest pomijana, gdy `optimize` ma wartość `false`. Gdy `editor.enabled` ma wartość `true`, nadal działa, ale bez etapu zmiany nazw pól — wizualny edytor odwzorowuje edycje za pomocą `keyPath`, więc oryginalne nazwy pól muszą zostać zachowane.
 
 > W Next.js minifikacja jest również pomijana, gdy `@intlayer/swc` nie jest zainstalowany albo nie może zostać załadowany (Next.js poniżej 16.1.0). Wtyczka to ta połowa, która przepisuje odwołania w kodzie źródłowym, więc zmiana nazw w słownikach bez niej pozostawiłaby kod odczytujący nazwy pól, które już nie istnieją.
 
@@ -508,7 +508,7 @@ export default config;
 { "title": "…", "subtitle": "…" }
 ```
 
-> Mechanizm obalenia Purge opiera się głównie o pominięcia w wypadku kiedy brakuje `optimize` opcjonalnej flagi tudzież podczas zadeklarowania trybu pod system Visual Editor (ustawiając `editor.enabled` na rzecz trybu `true`). W Next.js jest dodatkowo pomijany, gdy `@intlayer/swc` jest niedostępny oraz gdy skonfigurowano wywołujących z adapterów kompatybilności.
+> Purge jest pomijany, gdy `optimize` ma wartość `false`. Pozostaje aktywny, gdy `editor.enabled` ma wartość `true` — usunięte pole nie jest odczytywane przez żaden komponent, więc edytor nigdy go nie renderuje. W Next.js jest dodatkowo pomijany, gdy `@intlayer/swc` jest niedostępny oraz gdy skonfigurowano wywołujących z adapterów kompatybilności.
 
 > Co rzadsze zjawiska również tyczą się tego obejścia - dla niemożności sprawdzenia wycinka czy pospolitych struktur dla `useIntlayer` - silnik bezbłędnie zablokuje akcję. Przykładowo dla wywołań w niejednoznacznych tablicach powiązanych metod bez destrukturyzacji by zachować słownikową formę naturalną.
 

@@ -56,7 +56,7 @@ export default defineConfig({
 2. `build.optimize`가 `true`이거나 (빌드의 기본값인 `undefined`여서 `true`로 설정된 경우).
 3. Intlayer 설정에서 `build.minify`가 `true`인 경우.
 
-에디터는 완전하고 사람이 읽을 수 있는 사전 콘텐츠를 필요로 하므로 `editor.enabled`가 `true`이면 자동으로 **비활성화**됩니다.
+`editor.enabled`가 `true`이면 플러그인은 계속 실행되지만 **필드 이름 변경은 건너뜁니다**: 이름 변경은 인터프리터가 순회하는 콘텐츠 키를 다시 작성하므로, 비주얼 에디터가 받는 `keyPath`가 편집 대상인 병합되지 않은 사전과 더 이상 일치하지 않게 됩니다. 공백 압축과 최상위 메타데이터 제거는 계속 활성 상태로 유지됩니다.
 
 ## 압축 대상
 

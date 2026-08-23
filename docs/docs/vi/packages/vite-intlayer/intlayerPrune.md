@@ -115,4 +115,4 @@ Khi pruning thành công, `intlayerPrune` cũng ghi `pruneContext.dictionaryKeyT
 2. `build.optimize` là `true` (hoặc `undefined`, mặc định là `true` cho các bản build).
 3. `build.purge` là `true` trong cấu hình Intlayer của bạn.
 
-Nó được tự động **vô hiệu hóa** khi `editor.enabled` là `true` vì trình chỉnh sửa cần toàn bộ nội dung từ điển.
+Nó vẫn hoạt động khi `editor.enabled` là `true`: trình soạn thảo trực quan phân giải mỗi chỉnh sửa thông qua `dictionaryKey` + `keyPath` dựa trên các từ điển chưa hợp nhất, mà plugin này không bao giờ đụng đến, và một trường đã bị loại bỏ là trường mà không component nào đọc — vì vậy nó không bao giờ được render và cũng không thể chọn được trên trang.

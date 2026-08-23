@@ -120,4 +120,4 @@ When pruning succeeds, `intlayerPrune` also writes `pruneContext.dictionaryKeyTo
 2. `build.optimize` is `true` (or `undefined`, which defaults to `true` for builds).
 3. `build.purge` is `true` in your Intlayer config.
 
-It is automatically **disabled** when `editor.enabled` is `true` because the editor needs the full dictionary content.
+It stays active when `editor.enabled` is `true`: the visual editor resolves every edit through `dictionaryKey` + `keyPath` against the unmerged dictionaries, which this plugin never touches, and a purged field is one no component reads — so it is never rendered and never selectable in the page.

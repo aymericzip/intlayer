@@ -476,7 +476,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> Lưu ý: Sự can thiệp minify sẽ ngừng thực hiện nếu cờ `optimize` được kích ở mức `false` hoặc lúc bộ hiển thị bằng editor đang dùng tham số `editor.enabled` = `true` (do phía editor thiết kế cần đọc đúng định dạng khai báo nguồn nội dung ban đầu từ file config).
+> Việc minify sẽ bị bỏ qua khi `optimize` là `false`. Khi `editor.enabled` là `true`, quá trình này vẫn chạy nhưng không thực hiện bước đổi tên trường — trình soạn thảo trực quan phân giải các chỉnh sửa thông qua `keyPath`, vì vậy tên trường gốc phải được giữ nguyên.
 
 > Trên Next.js, minify cũng bị bỏ qua khi `@intlayer/swc` không được cài đặt hoặc không thể tải (Next.js dưới 16.1.0). Plugin chính là nửa viết lại các truy cập trong mã nguồn, nên đổi tên từ điển mà thiếu nó sẽ khiến mã của bạn đọc những tên trường không còn tồn tại.
 
@@ -508,7 +508,7 @@ export default config;
 { "title": "…", "subtitle": "…" }
 ```
 
-> Hãy cân nhắc bởi Purge cũng chẳng khác gì minify, hệ sẽ phớt lờ thao tác nếu như thông số thuộc `optimize` để là `false` hay công cụ trình hỗ trợ `editor.enabled` đang mở (true). Trên Next.js, nó còn bị bỏ qua khi `@intlayer/swc` không khả dụng và khi có cấu hình các lời gọi từ bộ chuyển đổi tương thích.
+> Purge sẽ bị bỏ qua khi `optimize` là `false`. Nó vẫn hoạt động khi `editor.enabled` là `true` — một trường đã bị loại bỏ sẽ không được component nào đọc đến, nên trình soạn thảo sẽ không bao giờ render nó. Trên Next.js, nó còn bị bỏ qua khi `@intlayer/swc` không khả dụng và khi có cấu hình các lời gọi từ bộ chuyển đổi tương thích.
 
 > Ngoài ra chức năng của hệ cũng bảo lưu quy trình rủi ro và buộc dừng tiến trình purge (như khi không parse được code nguồn để phân tích), hoặc lệnh trả biến ở bộ thu nhận `useIntlayer` xài như thông số ẩn hoặc bị mã hóa ngầm lúc khai báo truyền tin nên analyzer bot mất dấu để định hướng hành tung của nội dung nguồn (một trường hợp cụ thể đó là kiểu trải dữ liệu `spread` cho vô Object bự xài nhưng quên không destructure rõ ràng tham số lúc dùng trong prop). Tại ranh giới bất an kiểu này hệ tự ép lấy sạch sành sanh cho yên tâm trọn gói JSON mà khỏi sợ cắt lố làm mất dữ liệu oan.
 

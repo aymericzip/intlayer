@@ -115,4 +115,4 @@ Gdy przycinanie przebiegnie pomyślnie, `intlayerPrune` zapisuje również `prun
 2. `build.optimize` to `true` (lub `undefined`, które domyślnie przyjmuje wartość `true` dla kompilacji).
 3. `build.purge` to `true` w konfiguracji Intlayer.
 
-Jest automatycznie **wyłączony** gdy `editor.enabled` to `true`, ponieważ edytor wymaga pełnej zawartości słownika.
+Pozostaje aktywny, gdy `editor.enabled` ma wartość `true`: wizualny edytor odwzorowuje każdą edycję za pomocą `dictionaryKey` + `keyPath` względem niezmergowanych słowników, których ta wtyczka nigdy nie dotyka, a usunięte pole to pole, którego nie odczytuje żaden komponent — więc nigdy nie jest renderowane ani wybieralne na stronie.

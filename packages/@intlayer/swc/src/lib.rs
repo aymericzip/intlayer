@@ -49,6 +49,11 @@
 //! on the JavaScript side (`@intlayer/babel`, invoked from `withIntlayer`), and
 //! its result reaches this crate as the `fieldRenameMap` option.
 //!
+//! That option comes back empty when the visual editor is enabled — the editor
+//! resolves its edits by `keyPath`, which renaming would invalidate — so this
+//! crate then only rewrites call sites and imports. Purging is unaffected and
+//! happens on the JavaScript side either way.
+//!
 //! ## Usage as an SWC / Next.js Wasm plugin
 //!
 //! The crate is distributed on npm as

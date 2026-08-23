@@ -476,7 +476,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> La minificazione viene saltata quando `optimize` è `false` o quando `editor.enabled` è `true` (l'editor visuale richiede il nome completo della proprietà per consentire la modifica).
+> La minificazione viene saltata quando `optimize` è `false`. Quando `editor.enabled` è `true`, viene comunque eseguita, ma senza il passaggio di rinomina dei campi — l'editor visuale risolve le modifiche tramite `keyPath`, quindi i nomi dei campi originali devono essere preservati.
 
 > Su Next.js la minificazione viene saltata anche quando `@intlayer/swc` non è installato o non può essere caricato (Next.js sotto la 16.1.0). Il plugin è la metà che riscrive gli accessi nel sorgente, quindi rinominare i dizionari senza di esso lascerebbe il tuo codice a leggere nomi di campi che non esistono più.
 
@@ -508,7 +508,7 @@ export default config;
 { "title": "…", "subtitle": "…" }
 ```
 
-> Il purge viene saltato se `optimize` è `false` o quando `editor.enabled` è `true`. Su Next.js viene inoltre saltato quando `@intlayer/swc` non è disponibile e quando sono configurati chiamanti degli adattatori di compatibilità.
+> Il purge viene saltato quando `optimize` è `false`. Rimane attivo quando `editor.enabled` è `true` — un campo eliminato non viene letto da alcun componente, quindi l'editor non lo renderizza mai. Su Next.js viene inoltre saltato quando `@intlayer/swc` non è disponibile e quando sono configurati chiamanti degli adattatori di compatibilità.
 
 > Il purge viene saltato per precauzione qualora un file non riesca a essere analizzato, oppure se l'oggetto `useIntlayer` viene riversato in altri valori usando parametri dinamici non analizzabili (come distruggere parti non strutturate, assegnazioni generiche ai props ecc.). In questi scenari viene conservato l'intero dizionario.
 

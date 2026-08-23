@@ -56,7 +56,7 @@ export default defineConfig({
 2. `build.optimize` ist `true` (oder `undefined`, was standardmäßig `true` für Builds ist).
 3. `build.minify` ist in Ihrer Intlayer-Konfiguration auf `true` gesetzt.
 
-Es wird automatisch **deaktiviert**, wenn `editor.enabled` auf `true` gesetzt ist, da der Editor den vollständigen, für Menschen lesbaren Wörterbuchinhalt benötigt.
+Wenn `editor.enabled` auf `true` steht, läuft das Plugin weiterhin, **überspringt jedoch die Feldumbenennung**: Das Umbenennen schreibt die Inhaltsschlüssel um, die der Interpreter durchläuft, sodass der `keyPath`, den der visuelle Editor erhält, nicht mehr mit den unzusammengeführten Wörterbüchern übereinstimmen würde, die er bearbeitet. Die Kompaktierung von Leerzeichen und das Entfernen der obersten Metadaten bleiben aktiv.
 
 ## Was wird minifiziert
 

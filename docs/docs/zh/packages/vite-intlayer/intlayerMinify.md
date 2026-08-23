@@ -56,7 +56,7 @@ export default defineConfig({
 2. `build.optimize` 为 `true`（或 `undefined`，构建时默认为 `true`）。
 3. 您的 Intlayer 配置中 `build.minify` 为 `true`。
 
-当 `editor.enabled` 为 `true` 时，它会自动**禁用**，因为编辑器需要完整、人类可读的字典内容。
+当 `editor.enabled` 为 `true` 时，插件仍会运行，但会**跳过字段重命名**：重命名会重写解释器遍历的内容键，这会导致可视化编辑器收到的 `keyPath` 不再与其正在编辑的未合并字典相匹配。空白压缩和顶层元数据清除仍保持启用。
 
 ## 哪些内容会被压缩
 

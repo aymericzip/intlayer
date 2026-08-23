@@ -476,7 +476,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> `optimize` seçeneği `false` olduğunda veya `editor.enabled` `true` olduğunda minification atlanır (görsel düzenleyicinin düzenlemeye olanak tanıması için orijinal alan isimlerine ihtiyacı vardır).
+> `optimize` `false` olduğunda minification atlanır. `editor.enabled` `true` olduğunda yine çalışır, ancak alan adı değiştirme adımı olmadan — görsel düzenleyici düzenlemeleri `keyPath` üzerinden çözer, bu yüzden orijinal alan adlarının korunması gerekir.
 
 > Next.js'te minifikasyon, `@intlayer/swc` kurulu değilse veya yüklenemiyorsa (16.1.0 altındaki Next.js) da atlanır. Eklenti, kaynak kodundaki erişimleri yeniden yazan yarıdır; onsuz sözlükleri yeniden adlandırmak kodunuzun artık var olmayan alan adlarını okumasına yol açardı.
 
@@ -508,7 +508,7 @@ export default config;
 { "title": "…", "subtitle": "…" }
 ```
 
-> `optimize` `false` olduğunda veya `editor.enabled` `true` olduğunda Purge işlemi atlanır. Next.js'te ayrıca `@intlayer/swc` kullanılamadığında ve uyumluluk adaptörü çağıranları yapılandırıldığında atlanır.
+> `optimize` `false` olduğunda Purge işlemi atlanır. `editor.enabled` `true` olduğunda etkin kalmaya devam eder — temizlenen bir alan hiçbir bileşen tarafından okunmaz, bu yüzden düzenleyici onu asla render etmez. Next.js'te ayrıca `@intlayer/swc` kullanılamadığında ve uyumluluk adaptörü çağıranları yapılandırıldığında atlanır.
 
 > Ayrıca, bir kaynak dosyasının ayrıştırılamadığı veya `useIntlayer` sonucunun bir değişkene atanıp (örneğin objeye yayılması, parçalama (destructuring) yapılmadan bir prop olarak iletilmesi gibi) statik analiz aracının takip edemeyeceği yollarla gönderildiği durumlarda Purge işlemi tedbir amaçlı olarak atlanır. Bu durumlarda tüm sözlük bozulmadan korunur.
 

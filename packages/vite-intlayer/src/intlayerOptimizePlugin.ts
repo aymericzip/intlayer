@@ -134,10 +134,14 @@ export const intlayerOptimize = async (
       return (optimize === undefined && isBuildCommand) || optimize === true;
     };
 
+    // Field renaming rewrites the content keys the interpreter walks, so the
+    // `keyPath` reported by `ContentSelector` would no longer resolve against
+    // the unmerged dictionaries the visual editor edits. Purging and the
+    // keyPath-neutral part of minification stay active while the editor is on.
+    const isFieldRenameEnabled = !editorEnabled && !!minify;
+
     const isAnalysisEnabled = (_config: unknown, env: { command: string }) =>
-      !editorEnabled &&
-      (!!purge || !!minify) &&
-      isBuildOptimizeEnabled(_config, env);
+      (!!purge || !!minify) && isBuildOptimizeEnabled(_config, env);
 
     let partiallyMinifiedDictionariesCount = 0;
 
@@ -438,7 +442,7 @@ export const intlayerOptimize = async (
           // Reads each compiled dictionary JSON to discover the full nested
           // user-defined field structure, then builds a NestedRenameMap that
           // assigns short alphabetic aliases at every level.
-          if (minify) {
+          if (isFieldRenameEnabled) {
             for (const [
               dictionaryKey,
               fieldUsage,
@@ -618,15 +622,15 @@ export const intlayerOptimize = async (
                 colorize(')', ANSIColors.GREY_DARK),
               ]);
 
-              // Mirrors `isAnalysisEnabled`: the editor requires full
-              // dictionary content, so neither pass runs while it is enabled.
-              if (!editorEnabled && minify) {
+              // The minify plugin reports the field-rename step standing down
+              // when the editor is enabled, so this line stays a plain one.
+              if (minify) {
                 logger(
                   `Dictionary minification ${colorize('enabled', ANSIColors.GREEN)}`
                 );
               }
 
-              if (!editorEnabled && purge) {
+              if (purge) {
                 logger(
                   `Dictionary purge unused keys ${colorize('enabled', ANSIColors.GREEN)}`
                 );
@@ -669,7 +673,7 @@ export const intlayerOptimize = async (
           // replaces useIntlayer → useDictionary and erases the dictionary key)
           let codeToOptimize = sourceCode;
 
-          if (pruneContext && isUsingIntlayer) {
+          if (isFieldRenameEnabled && pruneContext && isUsingIntlayer) {
             const renamedCode = await renameFieldsInSourceFile(
               sourceFilePath,
               sourceCode,

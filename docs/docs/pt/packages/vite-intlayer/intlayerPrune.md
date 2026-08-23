@@ -115,4 +115,4 @@ Quando a limpeza tem sucesso, `intlayerPrune` também escreve `pruneContext.dict
 2. `build.optimize` é `true` (ou `undefined`, que assume como padrão `true` para builds).
 3. `build.purge` é `true` na sua configuração do Intlayer.
 
-É automaticamente **desativado** quando `editor.enabled` é `true` porque o editor precisa do conteúdo completo do dicionário.
+Ele permanece ativo quando `editor.enabled` é `true`: o editor visual resolve cada edição por meio de `dictionaryKey` + `keyPath` em relação aos dicionários não mesclados, que este plugin nunca toca, e um campo removido é um campo que nenhum componente lê — portanto, nunca é renderizado nem selecionável na página.

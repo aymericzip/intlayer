@@ -115,4 +115,4 @@ Ketika pruning berhasil, `intlayerPrune` juga menulis `pruneContext.dictionaryKe
 2. `build.optimize` adalah `true` (atau `undefined`, yang secara default adalah `true` untuk build).
 3. `build.purge` adalah `true` dalam konfigurasi Intlayer Anda.
 
-Secara otomatis **dinonaktifkan** ketika `editor.enabled` adalah `true` karena editor memerlukan konten kamus lengkap.
+Proses ini tetap aktif ketika `editor.enabled` bernilai `true`: Visual editor menyelesaikan setiap pengeditan melalui `dictionaryKey` + `keyPath` terhadap kamus yang belum digabung, yang tidak pernah disentuh oleh plugin ini, dan field yang dipangkas adalah field yang tidak dibaca oleh komponen mana pun — sehingga tidak pernah dirender maupun dapat dipilih di halaman.

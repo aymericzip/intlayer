@@ -476,7 +476,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> K minifikaci nedojde, pokud je `optimize` nastaveno na `false` nebo pokud `editor.enabled` odpovídá hodnotě `true` (vizuální editor totiž potřebuje znát původní názvy polí, aby umožnil jejich editaci).
+> K minifikaci nedojde, pokud je `optimize` nastaveno na `false`. Pokud je `editor.enabled` `true`, proces stále běží, ale bez kroku přejmenování polí — vizuální editor řeší úpravy pomocí `keyPath`, takže původní názvy polí musí zůstat zachovány.
 
 > V Next.js se minifikace přeskočí také tehdy, když `@intlayer/swc` není nainstalovaný nebo jej nelze načíst (Next.js nižší než 16.1.0). Plugin je ta polovina, která přepisuje přístupy ve zdrojovém kódu, takže přejmenování slovníků bez něj by ponechalo váš kód číst názvy polí, které již neexistují.
 
@@ -508,7 +508,7 @@ export default config;
 { "title": "…", "subtitle": "…" }
 ```
 
-> K purge nedojde, jestliže je `optimize` nastaveno na `false` nebo jestliže je `editor.enabled` `true`. V Next.js se navíc přeskočí, když `@intlayer/swc` není dostupný a když jsou nakonfigurovaní volající kompatibilních adaptérů.
+> K purge nedojde, pokud je `optimize` nastaveno na `false`. Zůstává aktivní, pokud je `editor.enabled` `true` — vyčištěné pole nečte žádná komponenta, takže editor jej nikdy nevykreslí. V Next.js se navíc přeskočí, když `@intlayer/swc` není dostupný a když jsou nakonfigurovaní volající kompatibilních adaptérů.
 
 > Z bezpečnostních důvodů k purge nedojde ani tehdy, pokud nelze správně rozebrat (parse) nějaký zdrojový soubor. Dále se vynechá v situaci, kdy je výsledek z volání `useIntlayer` uložen do proměnné a předán dál způsobem, který statický analyzátor neumí sledovat (např. spread operátorem do objektu, nebo předáním přes properties (props) bez použití destrukce). V těchto případech zůstává celý slovník zachován.
 

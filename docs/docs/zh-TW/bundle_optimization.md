@@ -476,7 +476,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> 如果在 `optimize` 被設為 `false`、又或是啟用了視覺化編輯器也就是當 `editor.enabled` 設定為了 `true` 時（由於編輯器需要保留欄位名稱以便做後續處理），重新命名這個操作都將會被跳過。
+> 當 `optimize` 為 `false` 時，壓縮會被跳過。當 `editor.enabled` 為 `true` 時，壓縮仍會執行，但不會執行欄位重新命名步驟——視覺化編輯器透過 `keyPath` 解析編輯內容，因此原始欄位名稱必須保留。
 
 > 在 Next.js 上，當 `@intlayer/swc` 未安裝或無法載入時（Next.js 低於 16.1.0），壓縮同樣會被略過。重寫原始碼存取的正是這個外掛，因此在沒有它的情況下重新命名字典，會讓你的程式碼讀取已不存在的欄位名稱。
 
@@ -508,7 +508,7 @@ export default config;
 { "title": "…", "subtitle": "…" }
 ```
 
-> 與前邊提到的類似，當 `optimize` 是 `false` 或是開啟了視覺化編輯器(`editor.enabled` 取值 `true`) 時，它會選擇跳過對資料的清除操作。 在 Next.js 上，當 `@intlayer/swc` 不可用以及設定了相容轉接器呼叫方時，還會被額外略過。
+> 當 `optimize` 為 `false` 時，清除（Purge）會被跳過。當 `editor.enabled` 為 `true` 時，它仍保持啟用——被清除的欄位不會被任何元件讀取，因此編輯器永遠不會渲染它。在 Next.js 上，當 `@intlayer/swc` 不可用以及設定了相容轉接器呼叫方時，還會被額外略過。
 
 > 當檢測到某份程式碼因為異常無法順利解析、又或者當把由 `useIntlayer` 輸出的值以靜態解析器難以預測分析的模式在不同元件中來回丟（比如被打包成物件傳入等而未被進行解構）的時候，它同樣會跳過，以此保守地保留整部字典的全部資訊，避免意外發生。
 

@@ -472,7 +472,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> Os propósitos associativos das exclusões nas transformações focando nas extensões da minimização acabam por pautar no pulo perante processos integrando false no seu escopo no otimizador e false focando nos diretórios `editor.enabled`.
+> A minificação é ignorada quando `optimize` é `false`. Quando `editor.enabled` é `true`, ela continua sendo executada, mas sem a etapa de renomeação de campos — o editor visual resolve as edições por meio do `keyPath`, portanto os nomes de campo originais precisam ser preservados.
 
 > No Next.js, a minificação também é ignorada quando o `@intlayer/swc` não está instalado ou não pode ser carregado (Next.js abaixo da 16.1.0). O plugin é a metade que reescreve os acessos no código-fonte, então renomear os dicionários sem ele deixaria seu código lendo nomes de campos que não existem mais.
 
@@ -504,7 +504,7 @@ export default config;
 { "title": "…", "subtitle": "…" }
 ```
 
-> Processos atrelados pautando focos purificados são limitados atrelados nos parâmetros atrelados nos propósitos e diretórios de optimize em restrições do false no otimizador integrando ao formato modular no limite focando no suporte das formatações base false nos diretórios da edição e formatos no construto formatado da extensão construtiva. No Next.js ele é adicionalmente ignorado quando o `@intlayer/swc` está indisponível e quando chamadores de adaptadores de compatibilidade estão configurados.
+> A purga é ignorada quando `optimize` é `false`. Ela permanece ativa quando `editor.enabled` é `true` — um campo removido não é lido por nenhum componente, então o editor nunca o renderiza. No Next.js, ela também é ignorada quando `@intlayer/swc` está indisponível e quando há chamadores de adaptadores de compatibilidade configurados.
 
 > Processos perante o uso na purificação também são suspensos perante focos no método nativo que limitam análises do suporte da base com dados referenciados da função de predefinições e diretrizes voltadas atrelando propósitos de extensão.
 

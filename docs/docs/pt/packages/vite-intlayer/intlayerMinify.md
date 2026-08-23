@@ -56,7 +56,7 @@ O `intlayerMinify` fica ativo **apenas** quando todas as três condições a seg
 2. `build.optimize` é `true` (ou `undefined`, que assume o padrão `true` para builds).
 3. `build.minify` é `true` na sua configuração do Intlayer.
 
-Ele é desativado automaticamente quando `editor.enabled` é `true` porque o editor precisa do conteúdo do dicionário completo e legível por humanos.
+Quando `editor.enabled` é `true`, o plugin continua sendo executado, mas **pula a renomeação de campos**: a renomeação reescreve as chaves de conteúdo percorridas pelo interpretador, então o `keyPath` recebido pelo editor visual não corresponderia mais aos dicionários não mesclados que ele edita. A compactação de espaços em branco e a remoção dos metadados de nível superior permanecem ativas.
 
 ## O que é minificado
 

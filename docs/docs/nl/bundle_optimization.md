@@ -476,7 +476,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> Minificatie wordt overgeslagen wanneer `optimize` `false` is of wanneer `editor.enabled` `true` is (de visuele editor vereist de originele veldnamen om bewerken mogelijk te maken).
+> Minificatie wordt overgeslagen wanneer `optimize` `false` is. Wanneer `editor.enabled` `true` is, blijft het proces wel actief, maar zonder de stap voor het hernoemen van velden — de visuele editor lost bewerkingen op via `keyPath`, dus de originele veldnamen moeten behouden blijven.
 
 > Op Next.js wordt minificatie ook overgeslagen wanneer `@intlayer/swc` niet geïnstalleerd is of niet geladen kan worden (Next.js onder 16.1.0). De plugin is de helft die de broncodetoegangen herschrijft, dus de woordenboeken hernoemen zonder die plugin zou je code veldnamen laten lezen die niet meer bestaan.
 
@@ -508,7 +508,7 @@ export default config;
 { "title": "…", "subtitle": "…" }
 ```
 
-> Purge wordt overgeslagen wanneer `optimize` `false` is of wanneer `editor.enabled` `true` is. Op Next.js wordt het bovendien overgeslagen wanneer `@intlayer/swc` niet beschikbaar is en wanneer compat-adapter-aanroepers geconfigureerd zijn.
+> Purge wordt overgeslagen wanneer `optimize` `false` is. Het blijft actief wanneer `editor.enabled` `true` is — een opgeruimd veld wordt door geen enkele component gelezen, dus de editor rendert het nooit. Op Next.js wordt het bovendien overgeslagen wanneer `@intlayer/swc` niet beschikbaar is en wanneer compat-adapter-aanroepers geconfigureerd zijn.
 
 > Purge wordt ook conservatief overgeslagen wanneer een bronbestand niet geparseerd kan worden, of wanneer het resultaat van `useIntlayer` wordt toegewezen aan een variabele en wordt doorgegeven op manieren die de statische analyzer niet kan volgen (bijv. uitgespreid in een object, doorgegeven als een prop zonder destructuring). In dergelijke gevallen wordt het volledige woordenboek behouden.
 

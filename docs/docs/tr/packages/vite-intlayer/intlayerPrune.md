@@ -115,4 +115,4 @@ Budama başarılı olduğunda, `intlayerPrune` ayrıca `pruneContext.dictionaryK
 2. `build.optimize` `true` olur (veya `undefined`, derlemeler için varsayılan olarak `true` olur).
 3. `build.purge` Intlayer yapılandırmanızda `true` olur.
 
-`editor.enabled` `true` olduğunda otomatik olarak **devre dışı bırakılır** çünkü düzenleyici tam sözlük içeriğine ihtiyaç duyar.
+`editor.enabled` `true` olduğunda etkin kalmaya devam eder: görsel düzenleyici, bu eklentinin asla dokunmadığı birleştirilmemiş sözlüklere karşı her düzenlemeyi `dictionaryKey` + `keyPath` üzerinden çözer ve temizlenen bir alan hiçbir bileşenin okumadığı bir alandır — bu yüzden asla render edilmez ve sayfada seçilemez.

@@ -56,7 +56,7 @@ export default defineConfig({
 2. `build.optimize` bernilai `true` (atau `undefined`, yang secara default bernilai `true` untuk build).
 3. `build.minify` bernilai `true` dalam konfigurasi Intlayer Anda.
 
-Ini secara otomatis **dinonaktifkan** ketika `editor.enabled` bernilai `true` karena editor memerlukan konten kamus yang lengkap dan dapat dibaca manusia.
+Ketika `editor.enabled` bernilai `true`, plugin tetap berjalan tetapi **melewati penggantian nama field**: penggantian nama menulis ulang kunci konten yang dilalui interpreter, sehingga `keyPath` yang diterima Visual editor tidak lagi cocok dengan kamus yang belum digabung yang sedang diedit. Pemadatan whitespace dan penghapusan metadata tingkat atas tetap aktif.
 
 ## Apa yang diminifikasi
 

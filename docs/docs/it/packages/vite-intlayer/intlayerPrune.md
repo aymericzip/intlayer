@@ -115,4 +115,4 @@ Quando la potatura ha successo, `intlayerPrune` scrive anche `pruneContext.dicti
 2. `build.optimize` è `true` (oppure `undefined`, che di default è `true` per i build).
 3. `build.purge` è `true` nella tua configurazione Intlayer.
 
-È automaticamente **disabilitato** quando `editor.enabled` è `true` perché l'editor necessita del contenuto completo del dizionario.
+Rimane attivo quando `editor.enabled` è `true`: l'editor visuale risolve ogni modifica tramite `dictionaryKey` + `keyPath` rispetto ai dizionari non uniti, che questo plugin non tocca mai, e un campo eliminato è un campo che nessun componente legge — quindi non viene mai renderizzato né selezionabile nella pagina.

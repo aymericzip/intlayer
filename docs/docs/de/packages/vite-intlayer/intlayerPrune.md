@@ -115,4 +115,4 @@ Wenn das Pruning erfolgreich ist, schreibt `intlayerPrune` auch `pruneContext.di
 2. `build.optimize` ist `true` (oder `undefined`, was standardmäßig `true` für Builds ist).
 3. `build.purge` ist `true` in Ihrer Intlayer-Konfiguration.
 
-Es wird automatisch **deaktiviert**, wenn `editor.enabled` `true` ist, da der Editor den vollständigen Dictionary-Inhalt benötigt.
+Es bleibt aktiv, wenn `editor.enabled` auf `true` steht: Der visuelle Editor löst jede Bearbeitung über `dictionaryKey` + `keyPath` anhand der unzusammengeführten Wörterbücher auf, die dieses Plugin nie berührt, und ein bereinigtes Feld wird von keiner Komponente gelesen — es wird also nie gerendert und ist auf der Seite nie auswählbar.

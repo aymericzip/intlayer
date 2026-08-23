@@ -476,7 +476,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> Die Minifizierung wird übersprungen, wenn `optimize` auf `false` gesetzt ist oder wenn `editor.enabled` auf `true` steht (der visuelle Editor benötigt die ursprünglichen Feldnamen, um die Bearbeitung zu ermöglichen).
+> Die Minifizierung wird übersprungen, wenn `optimize` auf `false` gesetzt ist. Wenn `editor.enabled` auf `true` steht, läuft sie weiterhin, jedoch ohne den Schritt zur Feldumbenennung — der visuelle Editor löst Bearbeitungen über `keyPath` auf, daher müssen die ursprünglichen Feldnamen erhalten bleiben.
 
 > Unter Next.js wird die Minifizierung außerdem übersprungen, wenn `@intlayer/swc` nicht installiert ist oder nicht geladen werden kann (Next.js unterhalb von 16.1.0). Das Plugin ist die Hälfte, die die Quellcode-Zugriffe umschreibt; die Wörterbücher ohne es umzubenennen, würde Ihren Code Feldnamen lesen lassen, die es nicht mehr gibt.
 
@@ -508,7 +508,7 @@ export default config;
 { "title": "…", "subtitle": "…" }
 ```
 
-> Der Purge wird übersprungen, wenn `optimize` auf `false` oder `editor.enabled` auf `true` gesetzt ist. Unter Next.js wird sie zusätzlich übersprungen, wenn `@intlayer/swc` nicht verfügbar ist und wenn Kompatibilitäts-Adapter-Aufrufer konfiguriert sind.
+> Der Purge wird übersprungen, wenn `optimize` auf `false` gesetzt ist. Er bleibt aktiv, wenn `editor.enabled` auf `true` steht — ein bereinigtes Feld wird von keiner Komponente gelesen, daher rendert der Editor es nie. Unter Next.js wird er zusätzlich übersprungen, wenn `@intlayer/swc` nicht verfügbar ist und wenn Kompatibilitäts-Adapter-Aufrufer konfiguriert sind.
 
 > Der Purge wird auch konservativ übersprungen, wenn eine Quelldatei nicht analysiert werden kann, oder wenn das Ergebnis von `useIntlayer` einer Variablen zugewiesen und auf eine Weise weitergegeben wird, die der statische Analysator nicht verfolgen kann (z.B. in ein Objekt eingefügt oder als Prop ohne Destrukturierung übergeben). In diesen Fällen wird das gesamte Wörterbuch beibehalten.
 

@@ -115,4 +115,4 @@ const { title, description } = useIntlayer("myDict");
 2. `build.optimize` 是 `true`（或 `undefined`，在构建时默认为 `true`）。
 3. 在您的 Intlayer 配置中 `build.purge` 是 `true`。
 
-当 `editor.enabled` 是 `true` 时，它会自动**禁用**，因为编辑器需要完整的字典内容。
+当 `editor.enabled` 为 `true` 时，它仍保持启用：可视化编辑器通过 `dictionaryKey` + `keyPath` 对照未合并的字典来解析每一次编辑，而该插件从不触碰这些字典；被清除的字段是没有任何组件会读取的字段——因此它永远不会被渲染，也无法在页面中被选中。

@@ -56,7 +56,7 @@ export default defineConfig({
 2. `build.optimize` is `true` (or `undefined`, which defaults to `true` for builds).
 3. `build.minify` is `true` in your Intlayer config.
 
-It is automatically **disabled** when `editor.enabled` is `true` because the editor needs the full, human-readable dictionary content.
+When `editor.enabled` is `true`, the plugin still runs but **skips field renaming**: renaming rewrites the content keys the interpreter walks, so the `keyPath` the visual editor receives would no longer match the unmerged dictionaries it edits. Whitespace compaction and the top-level metadata strip stay active.
 
 ## What gets minified
 

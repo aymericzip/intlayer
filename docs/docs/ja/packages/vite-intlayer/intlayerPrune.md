@@ -115,4 +115,4 @@ Pruning が成功すると、`intlayerPrune` は `pruneContext.dictionaryKeyToFi
 2. `build.optimize` が `true` である (または `undefined` で、ビルドではデフォルトで `true`)。
 3. Intlayer の設定で `build.purge` が `true` である。
 
-`editor.enabled` が `true` の場合、エディターが完全な辞書コンテンツを必要とするため、自動的に**無効化**されます。
+`editor.enabled` が `true` の場合でも有効なままです。ビジュアルエディタはマージ前の辞書に対して `dictionaryKey` と `keyPath` を通じて各編集を解決しますが、このプラグインはその辞書に一切触れません。また、パージされたフィールドはどのコンポーネントからも読み取られないフィールドであるため、レンダリングされることも、ページ上で選択できることもありません。
