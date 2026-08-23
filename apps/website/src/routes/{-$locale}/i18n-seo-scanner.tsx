@@ -1,48 +1,38 @@
 import {
   External_Github,
-  Website_Doc_Search,
   Website_Home,
   Website_Scanner,
 } from '@intlayer/design-system/routes';
-import {
-  buildOrganizationJsonLd,
-  buildSoftwareApplicationJsonLd,
-  buildWebsiteJsonLd,
-} from '@intlayer/design-system/structured-data';
+import { buildSoftwareApplicationJsonLd } from '@intlayer/design-system/structured-data';
 import { createFileRoute } from '@tanstack/react-router';
-import { defaultLocale, getIntlayerAsync, locales } from 'intlayer';
+import { defaultLocale, getIntlayerAsync } from 'intlayer';
 import { useIntlayer } from 'react-intlayer';
 import { BackgroundLayout } from '~/components/BackgroundLayout';
 import { LocalizationAnalyzer } from '~/components/ScannerPage';
 import { PageLayout } from '~/layouts/PageLayout';
 import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
+import {
+  getSiteStructuredData,
+  getSiteStructuredDataScripts,
+  getSoftwareStructuredData,
+} from '~/utils/structuredData';
 import packageJson from '../../../package_mock.json' with { type: 'json' };
 
 export const Route = createFileRoute('/{-$locale}/i18n-seo-scanner')({
   head: async ({ params }) => {
     const { locale = defaultLocale } = params;
     const path = Website_Scanner;
-    const { title, description, keywords } = await getIntlayerAsync(
-      'i18n-SEO-scanner',
-      locale
-    );
-
-    const websiteContent = await getIntlayerAsync(
-      'website-structured-data',
-      locale
-    );
-    const orgContent = await getIntlayerAsync(
-      'organization-structured-data',
-      locale
-    );
-    const scannerContent = await getIntlayerAsync(
-      'scanner-software-structured-data',
-      locale
-    );
-    const softwareContent = await getIntlayerAsync(
-      'software-application-structured-data',
-      locale
-    );
+    const [
+      { title, description, keywords },
+      siteStructuredData,
+      softwareStructuredData,
+      scannerContent,
+    ] = await Promise.all([
+      getIntlayerAsync('i18n-SEO-scanner', locale),
+      getSiteStructuredData(locale),
+      getSoftwareStructuredData(locale),
+      getIntlayerAsync('scanner-software-structured-data', locale),
+    ]);
 
     return {
       title,
@@ -63,31 +53,7 @@ export const Route = createFileRoute('/{-$locale}/i18n-seo-scanner')({
         ...getHreflangLinks(path),
       ],
       scripts: [
-        {
-          type: 'application/ld+json',
-          children: JSON.stringify(
-            buildWebsiteJsonLd({
-              url: Website_Home,
-              searchUrl: Website_Doc_Search,
-              locales: locales as string[],
-              keywords: websiteContent.keywords as string[],
-              rssUrl: `${Website_Home}/feed.xml`,
-            })
-          ),
-        },
-        {
-          type: 'application/ld+json',
-          children: JSON.stringify(
-            buildOrganizationJsonLd({
-              url: Website_Home,
-              logoUrl: `${Website_Home}/assets/logo.png`,
-              slogan: String(orgContent.slogan),
-              knowsAbout: orgContent.knowsAbout as string[],
-              sameAs: [External_Github, 'https://twitter.com/intlayer'],
-              availableLanguages: locales as string[],
-            })
-          ),
-        },
+        ...getSiteStructuredDataScripts(siteStructuredData),
         {
           type: 'application/ld+json',
           children: JSON.stringify(
@@ -96,8 +62,8 @@ export const Route = createFileRoute('/{-$locale}/i18n-seo-scanner')({
               url: `${Website_Home}/i18n-seo-scanner`,
               description: String(scannerContent.description),
               softwareVersion: packageJson.version,
-              keywords: softwareContent.keywords as string[],
-              audienceType: String(softwareContent.audienceType),
+              keywords: softwareStructuredData.content.keywords,
+              audienceType: softwareStructuredData.content.audienceType,
               authorUrl: Website_Home,
               logoUrl: `${Website_Home}/assets/logo.png`,
               githubUrl: External_Github,

@@ -1,40 +1,27 @@
-import {
-  External_Github,
-  Website_Contributors,
-  Website_Doc_Search,
-  Website_Home,
-} from '@intlayer/design-system/routes';
-import {
-  buildOrganizationJsonLd,
-  buildWebsiteJsonLd,
-} from '@intlayer/design-system/structured-data';
+import { Website_Contributors } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
-import { defaultLocale, getIntlayerAsync, locales } from 'intlayer';
+import { defaultLocale, getIntlayerAsync } from 'intlayer';
 import { useIntlayer } from 'react-intlayer';
 import { BackgroundLayout } from '~/components/BackgroundLayout';
 import { ContributorsList } from '~/components/Contributors/ContributorsList';
 import { PageLayout } from '~/layouts/PageLayout';
 import { loadContributors } from '~/serverFunctions/contributors';
 import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
+import {
+  getSiteStructuredData,
+  getSiteStructuredDataScripts,
+} from '~/utils/structuredData';
 
 export const Route = createFileRoute('/{-$locale}/contributors')({
   loader: async () => ({ contributors: await loadContributors() }),
   head: async ({ params }) => {
     const { locale = defaultLocale } = params;
     const path = Website_Contributors;
-    const { title, description, keywords } = await getIntlayerAsync(
-      'contributors-metadata',
-      locale
-    );
-
-    const websiteContent = await getIntlayerAsync(
-      'website-structured-data',
-      locale
-    );
-    const orgContent = await getIntlayerAsync(
-      'organization-structured-data',
-      locale
-    );
+    const [{ title, description, keywords }, siteStructuredData] =
+      await Promise.all([
+        getIntlayerAsync('contributors-metadata', locale),
+        getSiteStructuredData(locale),
+      ]);
 
     return {
       meta: [
@@ -57,33 +44,7 @@ export const Route = createFileRoute('/{-$locale}/contributors')({
         { rel: 'preconnect', href: 'https://avatars.githubusercontent.com' },
         ...getHreflangLinks(path),
       ],
-      scripts: [
-        {
-          type: 'application/ld+json',
-          children: JSON.stringify(
-            buildWebsiteJsonLd({
-              url: Website_Home,
-              searchUrl: Website_Doc_Search,
-              locales: locales as string[],
-              keywords: websiteContent.keywords as string[],
-              rssUrl: `${Website_Home}/feed.xml`,
-            })
-          ),
-        },
-        {
-          type: 'application/ld+json',
-          children: JSON.stringify(
-            buildOrganizationJsonLd({
-              url: Website_Home,
-              logoUrl: `${Website_Home}/assets/logo.png`,
-              slogan: String(orgContent.slogan),
-              knowsAbout: orgContent.knowsAbout as string[],
-              sameAs: [External_Github, 'https://twitter.com/intlayer'],
-              availableLanguages: locales as string[],
-            })
-          ),
-        },
-      ],
+      scripts: [...getSiteStructuredDataScripts(siteStructuredData)],
     };
   },
   component: ContributorsPageRoute,

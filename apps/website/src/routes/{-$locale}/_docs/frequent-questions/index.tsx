@@ -1,22 +1,17 @@
 import { Container } from '@intlayer/design-system/container';
-import {
-  External_Github,
-  Website_Doc_Search,
-  Website_FrequentQuestions,
-  Website_Home,
-} from '@intlayer/design-system/routes';
-import {
-  buildFAQPageJsonLd,
-  buildOrganizationJsonLd,
-  buildWebsiteJsonLd,
-} from '@intlayer/design-system/structured-data';
+import { Website_FrequentQuestions } from '@intlayer/design-system/routes';
+import { buildFAQPageJsonLd } from '@intlayer/design-system/structured-data';
 import { createFileRoute } from '@tanstack/react-router';
-import { defaultLocale, getIntlayerAsync, locales } from 'intlayer';
+import { defaultLocale, getIntlayerAsync } from 'intlayer';
 import { ArrowRight } from 'lucide-react';
 import { useIntlayer } from 'react-intlayer';
 import { Link } from '~/components/Link/Link';
 import { loadFaqIndex } from '~/serverFunctions/faq';
 import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
+import {
+  getSiteStructuredData,
+  getSiteStructuredDataScripts,
+} from '~/utils/structuredData';
 
 export const Route = createFileRoute('/{-$locale}/_docs/frequent-questions/')({
   loader: async ({ params }) => {
@@ -27,19 +22,11 @@ export const Route = createFileRoute('/{-$locale}/_docs/frequent-questions/')({
   head: async ({ params, loaderData }) => {
     const { locale = defaultLocale } = params;
     const path = Website_FrequentQuestions;
-    const { title, description, keywords } = await getIntlayerAsync(
-      'frequent-questions-page',
-      locale
-    );
-
-    const websiteContent = await getIntlayerAsync(
-      'website-structured-data',
-      locale
-    );
-    const orgContent = await getIntlayerAsync(
-      'organization-structured-data',
-      locale
-    );
+    const [{ title, description, keywords }, siteStructuredData] =
+      await Promise.all([
+        getIntlayerAsync('frequent-questions-page', locale),
+        getSiteStructuredData(locale),
+      ]);
 
     const faqs = loaderData
       ? Object.values(
@@ -69,31 +56,7 @@ export const Route = createFileRoute('/{-$locale}/_docs/frequent-questions/')({
         ...getHreflangLinks(path),
       ],
       scripts: [
-        {
-          type: 'application/ld+json',
-          children: JSON.stringify(
-            buildWebsiteJsonLd({
-              url: Website_Home,
-              searchUrl: Website_Doc_Search,
-              locales: locales as string[],
-              keywords: websiteContent.keywords as string[],
-              rssUrl: `${Website_Home}/feed.xml`,
-            })
-          ),
-        },
-        {
-          type: 'application/ld+json',
-          children: JSON.stringify(
-            buildOrganizationJsonLd({
-              url: Website_Home,
-              logoUrl: `${Website_Home}/assets/logo.png`,
-              slogan: orgContent.slogan,
-              knowsAbout: orgContent.knowsAbout as string[],
-              sameAs: [External_Github, 'https://twitter.com/intlayer'],
-              availableLanguages: locales as string[],
-            })
-          ),
-        },
+        ...getSiteStructuredDataScripts(siteStructuredData),
         {
           type: 'application/ld+json',
           children: JSON.stringify(buildFAQPageJsonLd({ faqs })),

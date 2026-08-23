@@ -1,22 +1,24 @@
 import {
   App_Dashboard,
   External_Github,
-  Website_Doc_Search,
   Website_Home,
   Website_Translate,
 } from '@intlayer/design-system/routes';
 import {
-  buildOrganizationJsonLd,
   buildProductJsonLd,
   buildSoftwareApplicationJsonLd,
-  buildWebsiteJsonLd,
 } from '@intlayer/design-system/structured-data';
 import { createFileRoute } from '@tanstack/react-router';
-import { defaultLocale, getIntlayerAsync, locales } from 'intlayer';
+import { defaultLocale, getIntlayerAsync } from 'intlayer';
 import { AiTranslationLandingCore } from '~/components/TranslationLandingPage';
 import { PageLayout } from '~/layouts/PageLayout';
 import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
 import { formatStructuredDataOffers, getPricing } from '~/utils/stripe';
+import {
+  getSiteStructuredData,
+  getSiteStructuredDataScripts,
+  getSoftwareStructuredData,
+} from '~/utils/structuredData';
 import packageJson from '../../../package_mock.json' with { type: 'json' };
 
 export const Route = createFileRoute('/{-$locale}/translate')({
@@ -27,31 +29,19 @@ export const Route = createFileRoute('/{-$locale}/translate')({
   head: async ({ params, loaderData }) => {
     const { locale = defaultLocale } = params;
     const path = Website_Translate;
-    const { title, description, keywords } = await getIntlayerAsync(
-      'translate-metadata',
-      locale
-    );
-
-    const websiteContent = await getIntlayerAsync(
-      'website-structured-data',
-      locale
-    );
-    const orgContent = await getIntlayerAsync(
-      'organization-structured-data',
-      locale
-    );
-    const translateContent = await getIntlayerAsync(
-      'translate-software-structured-data',
-      locale
-    );
-    const translateProductContent = await getIntlayerAsync(
-      'translate-product-header-structured-data',
-      locale
-    );
-    const softwareContent = await getIntlayerAsync(
-      'software-application-structured-data',
-      locale
-    );
+    const [
+      { title, description, keywords },
+      siteStructuredData,
+      softwareStructuredData,
+      translateContent,
+      translateProductContent,
+    ] = await Promise.all([
+      getIntlayerAsync('translate-metadata', locale),
+      getSiteStructuredData(locale),
+      getSoftwareStructuredData(locale),
+      getIntlayerAsync('translate-software-structured-data', locale),
+      getIntlayerAsync('translate-product-header-structured-data', locale),
+    ]);
 
     const offers = formatStructuredDataOffers(loaderData?.pricings ?? null);
 
@@ -74,31 +64,7 @@ export const Route = createFileRoute('/{-$locale}/translate')({
         ...getHreflangLinks(path),
       ],
       scripts: [
-        {
-          type: 'application/ld+json',
-          children: JSON.stringify(
-            buildWebsiteJsonLd({
-              url: Website_Home,
-              searchUrl: Website_Doc_Search,
-              locales: locales as string[],
-              keywords: websiteContent.keywords as string[],
-              rssUrl: `${Website_Home}/feed.xml`,
-            })
-          ),
-        },
-        {
-          type: 'application/ld+json',
-          children: JSON.stringify(
-            buildOrganizationJsonLd({
-              url: Website_Home,
-              logoUrl: `${Website_Home}/assets/logo.png`,
-              slogan: String(orgContent.slogan),
-              knowsAbout: orgContent.knowsAbout as string[],
-              sameAs: [External_Github, 'https://twitter.com/intlayer'],
-              availableLanguages: locales as string[],
-            })
-          ),
-        },
+        ...getSiteStructuredDataScripts(siteStructuredData),
         {
           type: 'application/ld+json',
           children: JSON.stringify(
@@ -107,8 +73,8 @@ export const Route = createFileRoute('/{-$locale}/translate')({
               url: `${Website_Home}/translate`,
               description: String(translateContent.description),
               softwareVersion: packageJson.version,
-              keywords: softwareContent.keywords as string[],
-              audienceType: String(softwareContent.audienceType),
+              keywords: softwareStructuredData.content.keywords,
+              audienceType: softwareStructuredData.content.audienceType,
               authorUrl: Website_Home,
               logoUrl: `${Website_Home}/assets/logo.png`,
               githubUrl: External_Github,

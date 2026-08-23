@@ -1,23 +1,16 @@
-import {
-  App_Dashboard,
-  External_Github,
-  Website_CMS,
-  Website_Doc_Search,
-  Website_Home,
-} from '@intlayer/design-system/routes';
-import {
-  buildOrganizationJsonLd,
-  buildProductJsonLd,
-  buildSoftwareApplicationJsonLd,
-  buildWebsiteJsonLd,
-} from '@intlayer/design-system/structured-data';
+import { App_Dashboard, Website_CMS } from '@intlayer/design-system/routes';
+import { buildProductJsonLd } from '@intlayer/design-system/structured-data';
 import { createFileRoute } from '@tanstack/react-router';
-import { defaultLocale, getIntlayerAsync, locales } from 'intlayer';
+import { defaultLocale, getIntlayerAsync } from 'intlayer';
 import { CMSLandingPage } from '~/components/CMSLandingPage';
 import { PageLayout } from '~/layouts/PageLayout';
 import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
 import { formatStructuredDataOffers, getPricing } from '~/utils/stripe';
-import packageJson from '../../../package_mock.json' with { type: 'json' };
+import {
+  getSiteStructuredData,
+  getSiteStructuredDataScripts,
+  getSoftwareStructuredData,
+} from '~/utils/structuredData';
 
 export const Route = createFileRoute('/{-$locale}/cms')({
   loader: async () => {
@@ -27,27 +20,17 @@ export const Route = createFileRoute('/{-$locale}/cms')({
   head: async ({ params, loaderData }) => {
     const { locale = defaultLocale } = params;
     const path = Website_CMS;
-    const { title, description, keywords } = await getIntlayerAsync(
-      'cms-metadata',
-      locale
-    );
-
-    const websiteContent = await getIntlayerAsync(
-      'website-structured-data',
-      locale
-    );
-    const orgContent = await getIntlayerAsync(
-      'organization-structured-data',
-      locale
-    );
-    const softwareContent = await getIntlayerAsync(
-      'software-application-structured-data',
-      locale
-    );
-    const productContent = await getIntlayerAsync(
-      'product-header-structured-data',
-      locale
-    );
+    const [
+      { title, description, keywords },
+      siteStructuredData,
+      softwareStructuredData,
+      productContent,
+    ] = await Promise.all([
+      getIntlayerAsync('cms-metadata', locale),
+      getSiteStructuredData(locale),
+      getSoftwareStructuredData(locale),
+      getIntlayerAsync('product-header-structured-data', locale),
+    ]);
 
     const offers = formatStructuredDataOffers(loaderData?.pricings ?? null);
 
@@ -70,48 +53,10 @@ export const Route = createFileRoute('/{-$locale}/cms')({
         ...getHreflangLinks(path),
       ],
       scripts: [
+        ...getSiteStructuredDataScripts(siteStructuredData),
         {
           type: 'application/ld+json',
-          children: JSON.stringify(
-            buildWebsiteJsonLd({
-              url: Website_Home,
-              searchUrl: Website_Doc_Search,
-              locales: locales as string[],
-              keywords: websiteContent.keywords as string[],
-              rssUrl: `${Website_Home}/feed.xml`,
-            })
-          ),
-        },
-        {
-          type: 'application/ld+json',
-          children: JSON.stringify(
-            buildOrganizationJsonLd({
-              url: Website_Home,
-              logoUrl: `${Website_Home}/assets/logo.png`,
-              slogan: String(orgContent.slogan),
-              knowsAbout: orgContent.knowsAbout as string[],
-              sameAs: [External_Github, 'https://twitter.com/intlayer'],
-              availableLanguages: locales as string[],
-            })
-          ),
-        },
-        {
-          type: 'application/ld+json',
-          children: JSON.stringify(
-            buildSoftwareApplicationJsonLd({
-              name: 'Intlayer',
-              url: Website_Home,
-              description: String(softwareContent.description),
-              softwareVersion: packageJson.version,
-              keywords: softwareContent.keywords as string[],
-              audienceType: String(softwareContent.audienceType),
-              authorUrl: Website_Home,
-              logoUrl: `${Website_Home}/assets/logo.png`,
-              githubUrl: External_Github,
-              operatingSystem: 'Web, iOS, Android',
-              mainEntityUrl: Website_Home,
-            })
-          ),
+          children: softwareStructuredData.application,
         },
         {
           type: 'application/ld+json',

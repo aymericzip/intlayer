@@ -1,7 +1,5 @@
 import {
-  External_Github,
   Website_Blog_Root,
-  Website_Doc_Search,
   Website_Home,
   Website_Home_Path,
 } from '@intlayer/design-system/routes';
@@ -9,16 +7,9 @@ import {
   buildAuthorJsonLd,
   buildBreadcrumbsJsonLd,
   buildCreativeWorkJsonLd,
-  buildOrganizationJsonLd,
-  buildWebsiteJsonLd,
 } from '@intlayer/design-system/structured-data';
 import { createFileRoute, redirect } from '@tanstack/react-router';
-import {
-  defaultLocale,
-  getIntlayerAsync,
-  getLocalizedUrl,
-  locales,
-} from 'intlayer';
+import { defaultLocale, getIntlayerAsync, getLocalizedUrl } from 'intlayer';
 import { BlogPageLayout } from '~/components/BlogPage/BlogPageLayout';
 import { DocHeader } from '~/components/DocPage/DocHeader/DocHeader';
 import {
@@ -28,6 +19,10 @@ import {
 import { DocumentationRender } from '~/components/DocPage/DocumentationRender';
 import { loadBlogNavData, loadBlogPage } from '~/serverFunctions/blog';
 import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
+import {
+  getSiteStructuredData,
+  getSiteStructuredDataScripts,
+} from '~/utils/structuredData';
 
 export const Route = createFileRoute('/{-$locale}/_docs/blog/$')({
   loader: async ({ params }) => {
@@ -89,18 +84,10 @@ export const Route = createFileRoute('/{-$locale}/_docs/blog/$')({
     const keywords = blogData.keywords;
     const localeStr = (locale as string) ?? defaultLocale;
 
-    const websiteContent = await getIntlayerAsync(
-      'website-structured-data',
-      localeStr
-    );
-    const orgContent = await getIntlayerAsync(
-      'organization-structured-data',
-      localeStr
-    );
-    const creativeWorkContent = await getIntlayerAsync(
-      'creative-work-structured-data',
-      localeStr
-    );
+    const [siteStructuredData, creativeWorkContent] = await Promise.all([
+      getSiteStructuredData(localeStr),
+      getIntlayerAsync('creative-work-structured-data', localeStr),
+    ]);
 
     return {
       meta: [
@@ -126,31 +113,7 @@ export const Route = createFileRoute('/{-$locale}/_docs/blog/$')({
         ...getHreflangLinks(absoluteUrl),
       ],
       scripts: [
-        {
-          type: 'application/ld+json',
-          children: JSON.stringify(
-            buildWebsiteJsonLd({
-              url: Website_Home,
-              searchUrl: Website_Doc_Search,
-              locales: locales as string[],
-              keywords: websiteContent.keywords as string[],
-              rssUrl: `${Website_Home}/feed.xml`,
-            })
-          ),
-        },
-        {
-          type: 'application/ld+json',
-          children: JSON.stringify(
-            buildOrganizationJsonLd({
-              url: Website_Home,
-              logoUrl: `${Website_Home}/assets/logo.png`,
-              slogan: String(orgContent.slogan),
-              knowsAbout: orgContent.knowsAbout as string[],
-              sameAs: [External_Github, 'https://twitter.com/intlayer'],
-              availableLanguages: locales as string[],
-            })
-          ),
-        },
+        ...getSiteStructuredDataScripts(siteStructuredData),
         {
           type: 'application/ld+json',
           children: JSON.stringify(

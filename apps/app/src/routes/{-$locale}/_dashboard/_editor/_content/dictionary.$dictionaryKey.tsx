@@ -24,11 +24,10 @@ export const Route = createFileRoute(
   head: async ({ params }) => {
     const { locale, dictionaryKey } = params;
     const path = `${App_Dashboard_Dictionaries}/${dictionaryKey}`;
-    const content = await getIntlayerAsync('dictionary-dashboard-page', locale);
-    const creativeWorkContent = await getIntlayerAsync(
-      'creative-work-structured-data',
-      locale
-    );
+    const [content, creativeWorkContent] = await Promise.all([
+      getIntlayerAsync('dictionary-dashboard-page', locale),
+      getIntlayerAsync('creative-work-structured-data', locale),
+    ]);
 
     const title = `${dictionaryKey} | ${content.metadata.title}`;
 

@@ -1,15 +1,5 @@
 import { Loader } from '@intlayer/design-system/loader';
 import { ReactQueryProvider } from '@intlayer/design-system/providers';
-import {
-  External_Github,
-  Website_Doc_Search,
-  Website_Home,
-} from '@intlayer/design-system/routes';
-import {
-  buildOrganizationJsonLd,
-  buildSoftwareApplicationJsonLd,
-  buildWebsiteJsonLd,
-} from '@intlayer/design-system/structured-data';
 import { Toaster } from '@intlayer/design-system/toaster';
 import type { QueryClient } from '@tanstack/react-query';
 import {
@@ -18,12 +8,7 @@ import {
   HeadContent,
   Scripts,
 } from '@tanstack/react-router';
-import {
-  defaultLocale,
-  getHTMLTextDir,
-  getIntlayerAsync,
-  locales,
-} from 'intlayer';
+import { defaultLocale, getHTMLTextDir } from 'intlayer';
 import { Suspense } from 'react';
 import { IntlayerProvider } from 'react-intlayer';
 import { AnimatePresenceProvider } from '#/providers/AnimatePresenceProvider';
@@ -34,7 +19,7 @@ import appCss from '#/styles.css?url';
 import { ErrorComponent } from '#components/ErrorComponent';
 import { ServiceWorkerSubscriber } from '#components/ServiceWorker/ServiceWorkerSubscriber';
 import { sessionQueryOptions } from '#utils/auth.tsx';
-import packageJson from '../../package_mock.json' with { type: 'json' };
+import { getRootStructuredDataScripts } from '#utils/structuredData';
 
 const localeRoute = getRouteApi('/{-$locale}');
 
@@ -48,18 +33,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
     await queryClient.ensureQueryData(sessionQueryOptions);
   },
   head: async () => {
-    const websiteContent = await getIntlayerAsync(
-      'website-structured-data',
-      defaultLocale
-    );
-    const orgContent = await getIntlayerAsync(
-      'organization-structured-data',
-      defaultLocale
-    );
-    const softwareContent = await getIntlayerAsync(
-      'software-application-structured-data',
-      defaultLocale
-    );
+    const structuredDataScripts = await getRootStructuredDataScripts();
 
     return {
       title: 'Intlayer',
@@ -134,50 +108,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
           href: import.meta.env.VITE_BACKEND_URL,
         },
       ],
-      scripts: [
-        {
-          type: 'application/ld+json',
-          children: JSON.stringify(
-            buildWebsiteJsonLd({
-              url: Website_Home,
-              searchUrl: Website_Doc_Search,
-              locales: locales as string[],
-              keywords: websiteContent.keywords as string[],
-            })
-          ),
-        },
-        {
-          type: 'application/ld+json',
-          children: JSON.stringify(
-            buildOrganizationJsonLd({
-              url: Website_Home,
-              logoUrl: `${Website_Home}/assets/logo.png`,
-              slogan: String(orgContent.slogan),
-              knowsAbout: orgContent.knowsAbout as string[],
-              sameAs: [External_Github, 'https://twitter.com/intlayer'],
-              availableLanguages: locales as string[],
-            })
-          ),
-        },
-        {
-          type: 'application/ld+json',
-          children: JSON.stringify(
-            buildSoftwareApplicationJsonLd({
-              name: 'Intlayer',
-              url: Website_Home,
-              description: String(softwareContent.description),
-              softwareVersion: packageJson.version,
-              keywords: softwareContent.keywords as string[],
-              audienceType: String(softwareContent.audienceType),
-              authorUrl: Website_Home,
-              logoUrl: `${Website_Home}/assets/logo.png`,
-              githubUrl: External_Github,
-              operatingSystem: 'Web, iOS, Android',
-              mainEntityUrl: Website_Home,
-            })
-          ),
-        },
-      ],
+      scripts: [...structuredDataScripts],
     };
   },
   shellComponent: RootDocument,

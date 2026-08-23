@@ -45,11 +45,10 @@ export const Route = createFileRoute('/{-$locale}/_other/pricing')({
   head: async ({ params, loaderData }) => {
     const { locale } = params;
     const path = App_Pricing;
-    const content = await getIntlayerAsync('pricing-page', locale);
-    const productContent = await getIntlayerAsync(
-      'product-header-structured-data',
-      locale
-    );
+    const [content, productContent] = await Promise.all([
+      getIntlayerAsync('pricing-page', locale),
+      getIntlayerAsync('product-header-structured-data', locale),
+    ]);
 
     const offers = formatStructuredDataOffers(
       (loaderData?.pricingData as GetPricingResult['data']) ?? null

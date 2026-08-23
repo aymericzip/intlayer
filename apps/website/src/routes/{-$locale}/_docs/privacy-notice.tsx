@@ -1,22 +1,14 @@
-import {
-  External_Github,
-  Website_Doc_Search,
-  Website_Home,
-  Website_PrivacyPolicy,
-} from '@intlayer/design-system/routes';
-import {
-  buildCreativeWorkJsonLd,
-  buildOrganizationJsonLd,
-  buildWebsiteJsonLd,
-} from '@intlayer/design-system/structured-data';
+import { Website_PrivacyPolicy } from '@intlayer/design-system/routes';
+import { buildCreativeWorkJsonLd } from '@intlayer/design-system/structured-data';
 import { createFileRoute } from '@tanstack/react-router';
-import { defaultLocale, getIntlayerAsync, locales } from 'intlayer';
+import { defaultLocale, getIntlayerAsync } from 'intlayer';
 import { DocumentationRender } from '~/components/DocPage/DocumentationRender';
 import { loadLegalContent } from '~/serverFunctions/legal';
 import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
-
-const formatDate = (dateStr: string): string =>
-  new Date(dateStr).toISO().split('T')[0];
+import {
+  getSiteStructuredData,
+  getSiteStructuredDataScripts,
+} from '~/utils/structuredData';
 
 export const Route = createFileRoute('/{-$locale}/_docs/privacy-notice')({
   loader: async ({ params }) => {
@@ -31,18 +23,10 @@ export const Route = createFileRoute('/{-$locale}/_docs/privacy-notice')({
     const { locale = defaultLocale } = params;
     const path = Website_PrivacyPolicy;
 
-    const websiteContent = await getIntlayerAsync(
-      'website-structured-data',
-      locale
-    );
-    const orgContent = await getIntlayerAsync(
-      'organization-structured-data',
-      locale
-    );
-    const creativeWorkContent = await getIntlayerAsync(
-      'creative-work-structured-data',
-      locale
-    );
+    const [siteStructuredData, creativeWorkContent] = await Promise.all([
+      getSiteStructuredData(locale),
+      getIntlayerAsync('creative-work-structured-data', locale),
+    ]);
 
     return {
       meta: [
@@ -63,31 +47,7 @@ export const Route = createFileRoute('/{-$locale}/_docs/privacy-notice')({
         ...getHreflangLinks(path),
       ],
       scripts: [
-        {
-          type: 'application/ld+json',
-          children: JSON.stringify(
-            buildWebsiteJsonLd({
-              url: Website_Home,
-              searchUrl: Website_Doc_Search,
-              locales: locales as string[],
-              keywords: websiteContent.keywords as string[],
-              rssUrl: `${Website_Home}/feed.xml`,
-            })
-          ),
-        },
-        {
-          type: 'application/ld+json',
-          children: JSON.stringify(
-            buildOrganizationJsonLd({
-              url: Website_Home,
-              logoUrl: `${Website_Home}/assets/logo.png`,
-              slogan: orgContent.slogan,
-              knowsAbout: orgContent.knowsAbout as string[],
-              sameAs: [External_Github, 'https://twitter.com/intlayer'],
-              availableLanguages: locales as string[],
-            })
-          ),
-        },
+        ...getSiteStructuredDataScripts(siteStructuredData),
         {
           type: 'application/ld+json',
           children: JSON.stringify(

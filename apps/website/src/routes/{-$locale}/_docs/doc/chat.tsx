@@ -1,20 +1,15 @@
 import { Container } from '@intlayer/design-system/container';
 import { H1 } from '@intlayer/design-system/headers';
-import {
-  External_Github,
-  Website_Doc_Search,
-  Website_Home,
-} from '@intlayer/design-system/routes';
-import {
-  buildOrganizationJsonLd,
-  buildWebsiteJsonLd,
-} from '@intlayer/design-system/structured-data';
 import { createFileRoute, defer } from '@tanstack/react-router';
-import { defaultLocale, getIntlayerAsync, locales } from 'intlayer';
+import { defaultLocale } from 'intlayer';
 import { useIntlayer } from 'react-intlayer';
 import { ChatBot } from '~/components/ChatBot';
 import { DocPageLayout } from '~/components/DocPage/DocPageLayout';
 import { loadNavData } from '~/serverFunctions/docs';
+import {
+  getSiteStructuredData,
+  getSiteStructuredDataScripts,
+} from '~/utils/structuredData';
 
 export const Route = createFileRoute('/{-$locale}/_docs/doc/chat')({
   loader: ({ params }) => {
@@ -26,43 +21,11 @@ export const Route = createFileRoute('/{-$locale}/_docs/doc/chat')({
   head: async ({ params }) => {
     const { locale = defaultLocale } = params;
 
-    const websiteContent = await getIntlayerAsync(
-      'website-structured-data',
-      locale
-    );
-    const orgContent = await getIntlayerAsync(
-      'organization-structured-data',
-      locale
-    );
+    const siteStructuredData = await getSiteStructuredData(locale);
 
     return {
       title: 'Chat with Documentation | Intlayer',
-      scripts: [
-        {
-          type: 'application/ld+json',
-          children: JSON.stringify(
-            buildWebsiteJsonLd({
-              url: Website_Home,
-              searchUrl: Website_Doc_Search,
-              locales: locales as string[],
-              keywords: websiteContent.keywords as string[],
-            })
-          ),
-        },
-        {
-          type: 'application/ld+json',
-          children: JSON.stringify(
-            buildOrganizationJsonLd({
-              url: Website_Home,
-              logoUrl: `${Website_Home}/assets/logo.png`,
-              slogan: String(orgContent.slogan),
-              knowsAbout: orgContent.knowsAbout as string[],
-              sameAs: [External_Github, 'https://twitter.com/intlayer'],
-              availableLanguages: locales as string[],
-            })
-          ),
-        },
-      ],
+      scripts: [...getSiteStructuredDataScripts(siteStructuredData)],
     };
   },
   component: DocumentationChatPage,

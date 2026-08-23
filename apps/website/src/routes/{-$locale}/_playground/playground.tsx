@@ -1,26 +1,22 @@
 import { editor, internationalization } from '@intlayer/config/built';
 import { Loader } from '@intlayer/design-system/loader';
 import {
-  External_Github,
   Website_Demo_Path,
-  Website_Doc_Search,
-  Website_Home,
   Website_Playground,
 } from '@intlayer/design-system/routes';
-import {
-  buildOrganizationJsonLd,
-  buildSoftwareApplicationJsonLd,
-  buildWebsiteJsonLd,
-} from '@intlayer/design-system/structured-data';
 import { createFileRoute } from '@tanstack/react-router';
-import { defaultLocale, getIntlayerAsync, locales } from 'intlayer';
+import { defaultLocale, getIntlayerAsync } from 'intlayer';
 import { lazy, Suspense } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { BackgroundLayout } from '~/components/BackgroundLayout';
 import { DashboardContentLayout } from '~/components/Dashboard/DashboardContentLayout';
 import { DictionaryLoaderPlayground } from '~/components/Dashboard/Editor/DictionaryLoaderPlayground';
 import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
-import packageJson from '../../../../package_mock.json' with { type: 'json' };
+import {
+  getSiteStructuredData,
+  getSiteStructuredDataScripts,
+  getSoftwareStructuredData,
+} from '~/utils/structuredData';
 
 const Editor = lazy(() =>
   import('~/components/Dashboard/Editor').then((mod) => ({
@@ -32,23 +28,15 @@ export const Route = createFileRoute('/{-$locale}/_playground/playground')({
   head: async ({ params }) => {
     const { locale = defaultLocale } = params;
     const path = Website_Playground;
-    const { title, description, keywords } = await getIntlayerAsync(
-      'playground-metadata',
-      locale
-    );
-
-    const websiteContent = await getIntlayerAsync(
-      'website-structured-data',
-      locale
-    );
-    const orgContent = await getIntlayerAsync(
-      'organization-structured-data',
-      locale
-    );
-    const softwareContent = await getIntlayerAsync(
-      'software-application-structured-data',
-      locale
-    );
+    const [
+      { title, description, keywords },
+      siteStructuredData,
+      softwareStructuredData,
+    ] = await Promise.all([
+      getIntlayerAsync('playground-metadata', locale),
+      getSiteStructuredData(locale),
+      getSoftwareStructuredData(locale),
+    ]);
 
     return {
       meta: [
@@ -69,48 +57,10 @@ export const Route = createFileRoute('/{-$locale}/_playground/playground')({
         ...getHreflangLinks(path),
       ],
       scripts: [
+        ...getSiteStructuredDataScripts(siteStructuredData),
         {
           type: 'application/ld+json',
-          children: JSON.stringify(
-            buildWebsiteJsonLd({
-              url: Website_Home,
-              searchUrl: Website_Doc_Search,
-              locales: locales as string[],
-              keywords: websiteContent.keywords as string[],
-              rssUrl: `${Website_Home}/feed.xml`,
-            })
-          ),
-        },
-        {
-          type: 'application/ld+json',
-          children: JSON.stringify(
-            buildOrganizationJsonLd({
-              url: Website_Home,
-              logoUrl: `${Website_Home}/assets/logo.png`,
-              slogan: String(orgContent.slogan),
-              knowsAbout: orgContent.knowsAbout as string[],
-              sameAs: [External_Github, 'https://twitter.com/intlayer'],
-              availableLanguages: locales as string[],
-            })
-          ),
-        },
-        {
-          type: 'application/ld+json',
-          children: JSON.stringify(
-            buildSoftwareApplicationJsonLd({
-              name: 'Intlayer',
-              url: Website_Home,
-              description: String(softwareContent.description),
-              softwareVersion: packageJson.version,
-              keywords: softwareContent.keywords as string[],
-              audienceType: String(softwareContent.audienceType),
-              authorUrl: Website_Home,
-              logoUrl: `${Website_Home}/assets/logo.png`,
-              githubUrl: External_Github,
-              operatingSystem: 'Web, iOS, Android',
-              mainEntityUrl: Website_Home,
-            })
-          ),
+          children: softwareStructuredData.application,
         },
       ],
     };
