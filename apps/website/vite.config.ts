@@ -468,6 +468,7 @@ export default defineConfig(async ({ mode }) => {
       wasm(),
     ],
     build: {
+      minify: true,
       rolldownOptions: {
         external: ['wasi_snapshot_preview1', 'env'],
       },
@@ -477,40 +478,6 @@ export default defineConfig(async ({ mode }) => {
         build: {
           rolldownOptions: {
             output: {
-              /**
-               * Groups modules that are always needed together into single
-               * chunks.
-               *
-               * Left to itself the bundler emitted a chunk per module: a cold
-               * load of `/` cost 304 JS requests, 247 of them under 5 KB,
-               * arriving in a six-deep waterfall because each level had to
-               * execute before the next was discovered. Grouping trades a
-               * little duplication for far fewer round trips.
-               *
-               * `minShareCount: 2` stops single-consumer modules from being
-               * split out on their own; `minSize` merges anything smaller into
-               * its parent chunk.
-               *
-               * Spelled `codeSplitting` rather than the deprecated
-               * `advancedChunks`: `vite-intlayer`'s chunk plugin groups the
-               * dictionary modules through `codeSplitting`, and rolldown drops
-               * `advancedChunks` outright as soon as anything sets
-               * `codeSplitting` — which silently discarded every group below.
-               *
-               * Declared on the `client` environment rather than on the root
-               * `build`, because a root-level value is inherited by every
-               * environment — including the one `nitro/vite` creates for the
-               * server bundle, whose own `codeSplitting.groups` merges with it
-               * instead of replacing it. `maxSize` then cut packages that
-               * `libChunkName` had deliberately kept whole back into several
-               * chunks: `motion-dom` came out as `motion-dom.mjs`,
-               * `motion-dom2.mjs` and `motion-dom+motion-utils.mjs`, whose
-               * imports form a cycle. The chunk evaluated first then read
-               * `transformPropOrder` before its `var` was assigned, so every
-               * page importing `framer-motion` answered 500 during prerender
-               * with "undefined is not an object". Only the browser pays for
-               * round trips, so the server has nothing to gain here anyway.
-               */
               codeSplitting: {
                 minSize: 20_000,
                 // Caps any single group so one chunk cannot become a payload
