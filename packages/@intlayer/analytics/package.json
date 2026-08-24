@@ -41,6 +41,11 @@
       "require": "./dist/cjs/isEnabled.cjs",
       "import": "./dist/esm/isEnabled.mjs"
     },
+    "./bot": {
+      "types": "./dist/types/utils/isBot.d.ts",
+      "require": "./dist/cjs/utils/isBot.cjs",
+      "import": "./dist/esm/utils/isBot.mjs"
+    },
     "./client": {
       "types": "./dist/types/core/index.d.ts",
       "require": "./dist/cjs/core/index.cjs",

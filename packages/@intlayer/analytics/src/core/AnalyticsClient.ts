@@ -1,4 +1,5 @@
 import { onIdle } from '../utils/idle';
+import { isBotEnvironment } from '../utils/isBot';
 import { assignVariant } from './abTesting';
 import { createEventBuffer, type EventBuffer } from './eventBuffer';
 import { isSampledIn } from './sampling';
@@ -109,7 +110,11 @@ export const createAnalyticsClient = (
   config: AnalyticsClientConfig
 ): AnalyticsClient => {
   const sessionId = getSessionId();
-  const sampledIn = isSampledIn(sessionId, config.sampleRate);
+  // Crawlers, link-preview fetchers and headless runtimes execute JavaScript,
+  // so they reach this point like any visitor. Detected once at creation: the
+  // client then buffers nothing, sends nothing and never starts its timers.
+  const isBotSession = isBotEnvironment();
+  const sampledIn = !isBotSession && isSampledIn(sessionId, config.sampleRate);
   const buffer: EventBuffer = createEventBuffer({ max: config.maxBufferSize });
   const endpoint = `${config.backendURL.replace(/\/$/, '')}/api/analytics/events`;
 
@@ -219,7 +224,10 @@ export const createAnalyticsClient = (
   };
 
   const trackConversion: AnalyticsClient['trackConversion'] = (event) => {
-    // Conversions are never sampled out — they are rare and decisive for A/B.
+    // Conversions are never sampled out — they are rare and decisive for A/B —
+    // but bot traffic is still excluded, or it would skew every variant rate.
+    if (isBotSession) return;
+
     enqueue({
       ...event,
       type: 'conversion',
@@ -280,7 +288,7 @@ export const createAnalyticsClient = (
   };
 
   const start = (): void => {
-    if (started) return;
+    if (started || isBotSession) return;
     started = true;
 
     flushTimer = setInterval(flush, config.flushInterval);

@@ -163,4 +163,44 @@ describe('createAnalyticsClient', () => {
     client.flush();
     expect(sendEventsMock).not.toHaveBeenCalled();
   });
+
+  it('collects nothing for a bot session, conversions included', () => {
+    vi.stubGlobal('navigator', {
+      userAgent: 'Mozilla/5.0 (compatible; Googlebot/2.1)',
+      webdriver: false,
+    } as Navigator);
+
+    const client = createAnalyticsClient(config);
+
+    client.trackPageView({ url: '/pricing' });
+    client.trackContentExposure(exposure());
+    client.trackConversion({
+      experimentKey: 'hero-copy',
+      variant: 'a',
+      goal: 'signup',
+    });
+    client.flush();
+
+    expect(sendEventsMock).not.toHaveBeenCalled();
+
+    vi.unstubAllGlobals();
+  });
+
+  it('never starts timers or listeners for a bot session', () => {
+    vi.stubGlobal('navigator', {
+      userAgent: 'Mozilla/5.0 (compatible; Googlebot/2.1)',
+      webdriver: false,
+    } as Navigator);
+    const setIntervalSpy = vi.spyOn(globalThis, 'setInterval');
+
+    const client = createAnalyticsClient(config);
+    client.start();
+    client.stop();
+
+    expect(setIntervalSpy).not.toHaveBeenCalled();
+    expect(sendEventsMock).not.toHaveBeenCalled();
+
+    setIntervalSpy.mockRestore();
+    vi.unstubAllGlobals();
+  });
 });

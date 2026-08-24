@@ -1,5 +1,6 @@
 import * as analyticsService from '@services/analytics.service';
 import { type AppError, ErrorHandler } from '@utils/errors';
+import { isBotRequest } from '@utils/isBotRequest';
 import { formatResponse, type ResponseData } from '@utils/responseData';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import { Types } from 'mongoose';
@@ -50,12 +51,23 @@ export type GetAudienceResult = ResponseData<AudienceStats>;
  * Public — ingests a batch of analytics events. Attribution is by the public
  * `clientId` (reused from `editor.clientId`). Unknown keys are silently
  * accepted (no data is stored) so the endpoint never leaks project existence.
+ *
+ * Bot traffic is dropped here as well as in the SDK: this endpoint is public
+ * and serves every already-deployed SDK version, so it must not rely on the
+ * client-side gate alone.
  */
 export const ingestAnalyticsEvents = async (
   request: FastifyRequest<{ Body: IngestAnalyticsBody }>,
   reply: FastifyReply
 ): Promise<void> => {
   const { clientId, sessionId, events } = request.body ?? {};
+
+  if (isBotRequest(request)) {
+    // Silently accept — never tell a crawler its events were discarded.
+    return reply
+      .status(200)
+      .send(formatResponse<{ accepted: number }>({ data: { accepted: 0 } }));
+  }
 
   if (!clientId || !Array.isArray(events) || events.length === 0) {
     return reply
