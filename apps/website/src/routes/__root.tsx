@@ -22,6 +22,7 @@ import { WebMCPTools } from '~/components/WebMCP';
 import appCss from '~/globals.css?url';
 import { AnimatePresenceProvider } from '~/providers/AnimatePresenceProvider';
 import { FirstConsultationProvider } from '~/providers/FirstConsultationProvider';
+import { hasInlinedStylesheet } from '~/utils/inlinedStylesheet';
 
 const localeRoute = getRouteApi('/{-$locale}');
 
@@ -115,7 +116,12 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
       { property: 'og:image:alt', content: 'Intlayer' },
     ],
     links: [
-      { rel: 'stylesheet', href: appCss },
+      // Prerendered pages have these rules inlined by
+      // `scripts/inline-critical-css.ts`, which drops this link along the way;
+      // re-rendering it on hydration would fetch the same bytes a second time.
+      // Everywhere else — dev, and any route the prerender did not cover — the
+      // link is still what loads the stylesheet.
+      ...(hasInlinedStylesheet() ? [] : [{ rel: 'stylesheet', href: appCss }]),
       {
         rel: 'preload',
         as: 'font',
