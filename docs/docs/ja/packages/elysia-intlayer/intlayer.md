@@ -87,9 +87,11 @@ const config: IntlayerConfig = {
     locales: [Locales.ENGLISH, Locales.FRENCH],
     defaultLocale: Locales.ENGLISH,
   },
-  middleware: {
-    headerName: "my-locale-header",
-    cookieName: "my-locale-cookie",
+  routing: {
+    storage: [
+      { type: "header", name: "my-locale-header" },
+      { type: "cookie", name: "my-locale-cookie" },
+    ],
   },
 };
 

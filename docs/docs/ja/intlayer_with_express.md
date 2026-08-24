@@ -221,9 +221,11 @@ import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
   // ... その他の設定オプション
-  middleware: {
-    headerName: "my-locale-header",
-    cookieName: "my-locale-cookie",
+  routing: {
+    storage: [
+      { type: "header", name: "my-locale-header" },
+      { type: "cookie", name: "my-locale-cookie" },
+    ],
   },
 };
 
