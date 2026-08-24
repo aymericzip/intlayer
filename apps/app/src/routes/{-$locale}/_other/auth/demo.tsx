@@ -45,7 +45,7 @@ function DemoPage() {
 
       // Force a fresh session fetch so the cookie set by the demo endpoint
       // is picked up before we navigate — bypasses the 5-min staleTime.
-      const freshSession = await queryClient.fetchQuery({
+      const freshSession = await queryClient.query({
         ...sessionQueryOptions,
         staleTime: 0,
       });
