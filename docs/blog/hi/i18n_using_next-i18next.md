@@ -451,6 +451,9 @@ export default function LocaleLayout({
 
 नामस्थान (namespace) के अनुसार अनुवादों को व्यवस्थित करना (जैसे, `common.json`, `about.json`) कोड स्प्लिटिंग को सक्षम बनाता है और बंडल का आकार कम करता है। आप केवल उन अनुवादों को लोड करते हैं जो प्रत्येक पेज के लिए आवश्यक होते हैं, जिससे प्रदर्शन में सुधार होता है।
 
+<Tabs group="locale">
+ <Tab value='en' label='अंग्रेज़ी'>
+
 ```json fileName="src/locales/en/common.json"
 {
   "appTitle": "Next.js i18n App",
@@ -458,12 +461,21 @@ export default function LocaleLayout({
 }
 ```
 
+ </Tab>
+ <Tab value='fr' label='फ़्रेंच'>
+
 ```json fileName="src/locales/fr/common.json"
 {
   "appTitle": "Application Next.js i18n",
   "appDescription": "Exemple d'application Next.js avec internationalisation utilisant i18next"
 }
 ```
+
+ </Tab>
+</Tabs>
+
+<Tabs group="locale">
+ <Tab value='en' label='अंग्रेज़ी'>
 
 ```json fileName="src/locales/en/home.json"
 {
@@ -476,28 +488,55 @@ export default function LocaleLayout({
 }
 ```
 
-```json fileName="src/locales/hi/home.json"
+ </Tab>
+ <Tab value='fr' label='फ़्रेंच'>
+
+```json fileName="src/locales/fr/home.json"
 {
-  "title": "मुखपृष्ठ",
-  "description": "मुखपृष्ठ विवरण",
-  "welcome": "स्वागत है",
-  "greeting": "नमस्ते, दुनिया!",
-  "aboutPage": "के बारे में पृष्ठ",
-  "documentation": "प्रलेखन"
+  "title": "Accueil",
+  "description": "Description de la page d'accueil",
+  "welcome": "Bienvenue",
+  "greeting": "Bonjour le monde!",
+  "aboutPage": "Page À propos",
+  "documentation": "Documentation"
 }
 ```
 
-```json fileName="src/locales/hi/about.json"
+ </Tab>
+</Tabs>
+
+<Tabs group="locale">
+ <Tab value='en' label='अंग्रेज़ी'>
+
+```json fileName="src/locales/en/about.json"
 {
-  "title": "के बारे में",
-  "description": "के बारे में पृष्ठ विवरण",
+  "title": "About",
+  "description": "About page description",
   "counter": {
-    "label": "काउंटर",
-    "increment": "बढ़ाएं",
-    "description": "काउंटर बढ़ाने के लिए बटन पर क्लिक करें"
+    "label": "Counter",
+    "increment": "Increment",
+    "description": "Click the button to increase the counter"
   }
 }
 ```
+
+ </Tab>
+ <Tab value='fr' label='फ़्रेंच'>
+
+```json fileName="src/locales/fr/about.json"
+{
+  "title": "À propos",
+  "description": "Description de la page À propos",
+  "counter": {
+    "label": "Compteur",
+    "increment": "Incrémenter",
+    "description": "Cliquez sur le bouton pour augmenter le compteur"
+  }
+}
+```
+
+ </Tab>
+</Tabs>
 
 </Step>
 

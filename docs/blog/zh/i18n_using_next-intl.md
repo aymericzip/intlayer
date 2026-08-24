@@ -314,6 +314,9 @@ export default async function AboutPage({
 
 按命名空间组织翻译（例如，`common.json`、`about.json`）可以实现代码拆分并减少包大小。您只加载每个页面所需的翻译，从而提升性能。
 
+<Tabs group="locale">
+ <Tab value='en' label='英语'>
+
 ```json fileName="locales/en/common.json"
 {
   "welcome": "Welcome",
@@ -321,12 +324,21 @@ export default async function AboutPage({
 }
 ```
 
+ </Tab>
+ <Tab value='fr' label='法语'>
+
 ```json fileName="locales/fr/common.json"
 {
   "welcome": "Bienvenue",
   "greeting": "Bonjour le monde!"
 }
 ```
+
+ </Tab>
+</Tabs>
+
+<Tabs group="locale">
+ <Tab value='en' label='英语'>
 
 ```json fileName="locales/en/about.json"
 {
@@ -339,16 +351,22 @@ export default async function AboutPage({
 }
 ```
 
+ </Tab>
+ <Tab value='fr' label='法语'>
+
 ```json fileName="locales/fr/about.json"
 {
-  "title": "关于",
-  "description": "关于页面描述",
+  "title": "À propos",
+  "description": "Description de la page À propos",
   "counter": {
-    "label": "计数器",
-    "increment": "递增"
+    "label": "Compteur",
+    "increment": "Incrémenter"
   }
 }
 ```
+
+ </Tab>
+</Tabs>
 
 </Step>
 

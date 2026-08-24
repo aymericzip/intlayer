@@ -315,6 +315,9 @@ Crie arquivos JSON para cada locale e namespace. Essa estrutura permite organiza
 
 Organizar as traduções por namespace (por exemplo, `common.json`, `about.json`) possibilita o code splitting e reduz o tamanho do bundle. Você carrega apenas as traduções necessárias para cada página, melhorando a performance.
 
+<Tabs group="locale">
+ <Tab value='en' label='Inglês'>
+
 ```json fileName="locales/en/common.json"
 {
   "welcome": "Welcome",
@@ -322,12 +325,21 @@ Organizar as traduções por namespace (por exemplo, `common.json`, `about.json`
 }
 ```
 
+ </Tab>
+ <Tab value='fr' label='Francês'>
+
 ```json fileName="locales/fr/common.json"
 {
   "welcome": "Bienvenue",
   "greeting": "Bonjour le monde!"
 }
 ```
+
+ </Tab>
+</Tabs>
+
+<Tabs group="locale">
+ <Tab value='en' label='Inglês'>
 
 ```json fileName="locales/en/about.json"
 {
@@ -340,6 +352,9 @@ Organizar as traduções por namespace (por exemplo, `common.json`, `about.json`
 }
 ```
 
+ </Tab>
+ <Tab value='fr' label='Francês'>
+
 ```json fileName="locales/fr/about.json"
 {
   "title": "À propos",
@@ -350,6 +365,9 @@ Organizar as traduções por namespace (por exemplo, `common.json`, `about.json`
   }
 }
 ```
+
+ </Tab>
+</Tabs>
 
 </Step>
 

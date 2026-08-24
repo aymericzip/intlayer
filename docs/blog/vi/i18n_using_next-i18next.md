@@ -451,6 +451,9 @@ Tạo các tệp JSON cho mỗi locale và namespace. Cấu trúc này cho phép
 
 Tổ chức các bản dịch theo namespace (ví dụ: `common.json`, `about.json`) cho phép tách mã và giảm kích thước gói. Bạn chỉ tải các bản dịch cần thiết cho mỗi trang, cải thiện hiệu suất.
 
+<Tabs group="locale">
+ <Tab value='en' label='Tiếng Anh'>
+
 ```json fileName="src/locales/en/common.json"
 {
   "appTitle": "Next.js i18n App",
@@ -458,12 +461,21 @@ Tổ chức các bản dịch theo namespace (ví dụ: `common.json`, `about.js
 }
 ```
 
+ </Tab>
+ <Tab value='fr' label='Tiếng Pháp'>
+
 ```json fileName="src/locales/fr/common.json"
 {
   "appTitle": "Application Next.js i18n",
   "appDescription": "Exemple d'application Next.js avec internationalisation utilisant i18next"
 }
 ```
+
+ </Tab>
+</Tabs>
+
+<Tabs group="locale">
+ <Tab value='en' label='Tiếng Anh'>
 
 ```json fileName="src/locales/en/home.json"
 {
@@ -476,16 +488,25 @@ Tổ chức các bản dịch theo namespace (ví dụ: `common.json`, `about.js
 }
 ```
 
-```json fileName="src/locales/vi/home.json"
+ </Tab>
+ <Tab value='fr' label='Tiếng Pháp'>
+
+```json fileName="src/locales/fr/home.json"
 {
-  "title": "Trang chủ",
-  "description": "Mô tả trang chủ",
-  "welcome": "Chào mừng",
-  "greeting": "Xin chào thế giới!",
-  "aboutPage": "Trang Giới thiệu",
-  "documentation": "Tài liệu"
+  "title": "Accueil",
+  "description": "Description de la page d'accueil",
+  "welcome": "Bienvenue",
+  "greeting": "Bonjour le monde!",
+  "aboutPage": "Page À propos",
+  "documentation": "Documentation"
 }
 ```
+
+ </Tab>
+</Tabs>
+
+<Tabs group="locale">
+ <Tab value='en' label='Tiếng Anh'>
 
 ```json fileName="src/locales/en/about.json"
 {
@@ -499,17 +520,23 @@ Tổ chức các bản dịch theo namespace (ví dụ: `common.json`, `about.js
 }
 ```
 
-```json fileName="src/locales/vi/about.json"
+ </Tab>
+ <Tab value='fr' label='Tiếng Pháp'>
+
+```json fileName="src/locales/fr/about.json"
 {
-  "title": "Giới thiệu",
-  "description": "Mô tả trang Giới thiệu",
+  "title": "À propos",
+  "description": "Description de la page À propos",
   "counter": {
-    "label": "Bộ đếm",
-    "increment": "Tăng",
-    "description": "Nhấn nút để tăng bộ đếm"
+    "label": "Compteur",
+    "increment": "Incrémenter",
+    "description": "Cliquez sur le bouton pour augmenter le compteur"
   }
 }
 ```
+
+ </Tab>
+</Tabs>
 
 </Step>
 

@@ -451,6 +451,9 @@ export default function LocaleLayout({
 
 通过按命名空间（例如 `common.json`、`about.json`）组织翻译，可以实现代码拆分并减少包大小。您只需加载每个页面所需的翻译，从而提升性能。
 
+<Tabs group="locale">
+ <Tab value='en' label='英语'>
+
 ```json fileName="src/locales/en/common.json"
 {
   "appTitle": "Next.js i18n App",
@@ -458,12 +461,21 @@ export default function LocaleLayout({
 }
 ```
 
+ </Tab>
+ <Tab value='fr' label='法语'>
+
 ```json fileName="src/locales/fr/common.json"
 {
   "appTitle": "Application Next.js i18n",
   "appDescription": "Exemple d'application Next.js avec internationalisation utilisant i18next"
 }
 ```
+
+ </Tab>
+</Tabs>
+
+<Tabs group="locale">
+ <Tab value='en' label='英语'>
 
 ```json fileName="src/locales/en/home.json"
 {
@@ -476,32 +488,8 @@ export default function LocaleLayout({
 }
 ```
 
-通过按命名空间（例如 `common.json`、`about.json`）组织翻译，可以实现代码拆分并减少包大小。您只需加载每个页面所需的翻译，从而提升性能。
-
-```json fileName="src/locales/en/common.json"
-{
-  "appTitle": "Next.js i18n 应用",
-  "appDescription": "使用 i18next 进行国际化的 Next.js 示例应用"
-}
-```
-
-```json fileName="src/locales/fr/common.json"
-{
-  "appTitle": "Application Next.js i18n",
-  "appDescription": "Exemple d'application Next.js avec internationalisation utilisant i18next"
-}
-```
-
-```json fileName="src/locales/en/home.json"
-{
-  "title": "首页",
-  "description": "首页描述",
-  "welcome": "欢迎",
-  "greeting": "你好，世界！",
-  "aboutPage": "关于页面",
-  "documentation": "文档"
-}
-```
+ </Tab>
+ <Tab value='fr' label='法语'>
 
 ```json fileName="src/locales/fr/home.json"
 {
@@ -514,17 +502,26 @@ export default function LocaleLayout({
 }
 ```
 
+ </Tab>
+</Tabs>
+
+<Tabs group="locale">
+ <Tab value='en' label='英语'>
+
 ```json fileName="src/locales/en/about.json"
 {
-  "title": "关于",
-  "description": "关于页面描述",
+  "title": "About",
+  "description": "About page description",
   "counter": {
-    "label": "计数器",
-    "increment": "增加",
-    "description": "点击按钮以增加计数"
+    "label": "Counter",
+    "increment": "Increment",
+    "description": "Click the button to increase the counter"
   }
 }
 ```
+
+ </Tab>
+ <Tab value='fr' label='法语'>
 
 ```json fileName="src/locales/fr/about.json"
 {
@@ -537,6 +534,9 @@ export default function LocaleLayout({
   }
 }
 ```
+
+ </Tab>
+</Tabs>
 
 </Step>
 

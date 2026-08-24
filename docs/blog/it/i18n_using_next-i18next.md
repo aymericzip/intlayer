@@ -451,6 +451,9 @@ Crea file JSON per ogni locale e namespace. Questa struttura ti permette di orga
 
 Organizzare le traduzioni per namespace (ad esempio, `common.json`, `about.json`) consente di effettuare il code splitting e ridurre la dimensione del bundle. Carichi solo le traduzioni necessarie per ogni pagina, migliorando le prestazioni.
 
+<Tabs group="locale">
+ <Tab value='en' label='Inglese'>
+
 ```json fileName="src/locales/en/common.json"
 {
   "appTitle": "Next.js i18n App",
@@ -458,12 +461,21 @@ Organizzare le traduzioni per namespace (ad esempio, `common.json`, `about.json`
 }
 ```
 
+ </Tab>
+ <Tab value='fr' label='Francese'>
+
 ```json fileName="src/locales/fr/common.json"
 {
   "appTitle": "Application Next.js i18n",
   "appDescription": "Exemple d'application Next.js avec internationalisation utilisant i18next"
 }
 ```
+
+ </Tab>
+</Tabs>
+
+<Tabs group="locale">
+ <Tab value='en' label='Inglese'>
 
 ```json fileName="src/locales/en/home.json"
 {
@@ -476,16 +488,25 @@ Organizzare le traduzioni per namespace (ad esempio, `common.json`, `about.json`
 }
 ```
 
-```json fileName="src/locales/it/home.json"
+ </Tab>
+ <Tab value='fr' label='Francese'>
+
+```json fileName="src/locales/fr/home.json"
 {
-  "title": "Home",
-  "description": "Descrizione della pagina principale",
-  "welcome": "Benvenuto",
-  "greeting": "Ciao, mondo!",
-  "aboutPage": "Pagina Informazioni",
-  "documentation": "Documentazione"
+  "title": "Accueil",
+  "description": "Description de la page d'accueil",
+  "welcome": "Bienvenue",
+  "greeting": "Bonjour le monde!",
+  "aboutPage": "Page À propos",
+  "documentation": "Documentation"
 }
 ```
+
+ </Tab>
+</Tabs>
+
+<Tabs group="locale">
+ <Tab value='en' label='Inglese'>
 
 ```json fileName="src/locales/en/about.json"
 {
@@ -499,17 +520,23 @@ Organizzare le traduzioni per namespace (ad esempio, `common.json`, `about.json`
 }
 ```
 
-```json fileName="src/locales/it/about.json"
+ </Tab>
+ <Tab value='fr' label='Francese'>
+
+```json fileName="src/locales/fr/about.json"
 {
-  "title": "Informazioni",
-  "description": "Descrizione della pagina Informazioni",
+  "title": "À propos",
+  "description": "Description de la page À propos",
   "counter": {
-    "label": "Contatore",
-    "increment": "Incrementa",
-    "description": "Clicca il pulsante per aumentare il contatore"
+    "label": "Compteur",
+    "increment": "Incrémenter",
+    "description": "Cliquez sur le bouton pour augmenter le compteur"
   }
 }
 ```
+
+ </Tab>
+</Tabs>
 
 </Step>
 

@@ -451,6 +451,9 @@ Buat file JSON untuk setiap locale dan namespace. Struktur ini memungkinkan Anda
 
 Mengorganisir terjemahan berdasarkan namespace (misalnya, `common.json`, `about.json`) memungkinkan pemisahan kode dan mengurangi ukuran bundle. Anda hanya memuat terjemahan yang dibutuhkan untuk setiap halaman, sehingga meningkatkan performa.
 
+<Tabs group="locale">
+ <Tab value='en' label='Inggris'>
+
 ```json fileName="src/locales/en/common.json"
 {
   "appTitle": "Next.js i18n App",
@@ -458,12 +461,21 @@ Mengorganisir terjemahan berdasarkan namespace (misalnya, `common.json`, `about.
 }
 ```
 
+ </Tab>
+ <Tab value='fr' label='Prancis'>
+
 ```json fileName="src/locales/fr/common.json"
 {
   "appTitle": "Application Next.js i18n",
   "appDescription": "Exemple d'application Next.js avec internationalisation utilisant i18next"
 }
 ```
+
+ </Tab>
+</Tabs>
+
+<Tabs group="locale">
+ <Tab value='en' label='Inggris'>
 
 ```json fileName="src/locales/en/home.json"
 {
@@ -476,16 +488,25 @@ Mengorganisir terjemahan berdasarkan namespace (misalnya, `common.json`, `about.
 }
 ```
 
-```json fileName="src/locales/id/home.json"
+ </Tab>
+ <Tab value='fr' label='Prancis'>
+
+```json fileName="src/locales/fr/home.json"
 {
-  "title": "Beranda",
-  "description": "Deskripsi halaman beranda",
-  "welcome": "Selamat datang",
-  "greeting": "Halo, dunia!",
-  "aboutPage": "Halaman Tentang",
-  "documentation": "Dokumentasi"
+  "title": "Accueil",
+  "description": "Description de la page d'accueil",
+  "welcome": "Bienvenue",
+  "greeting": "Bonjour le monde!",
+  "aboutPage": "Page À propos",
+  "documentation": "Documentation"
 }
 ```
+
+ </Tab>
+</Tabs>
+
+<Tabs group="locale">
+ <Tab value='en' label='Inggris'>
 
 ```json fileName="src/locales/en/about.json"
 {
@@ -499,17 +520,23 @@ Mengorganisir terjemahan berdasarkan namespace (misalnya, `common.json`, `about.
 }
 ```
 
-```json fileName="src/locales/id/about.json"
+ </Tab>
+ <Tab value='fr' label='Prancis'>
+
+```json fileName="src/locales/fr/about.json"
 {
-  "title": "Tentang",
-  "description": "Deskripsi halaman tentang",
+  "title": "À propos",
+  "description": "Description de la page À propos",
   "counter": {
-    "label": "Penghitung",
-    "increment": "Tambah",
-    "description": "Klik tombol untuk menambah penghitung"
+    "label": "Compteur",
+    "increment": "Incrémenter",
+    "description": "Cliquez sur le bouton pour augmenter le compteur"
   }
 }
 ```
+
+ </Tab>
+</Tabs>
 
 </Step>
 

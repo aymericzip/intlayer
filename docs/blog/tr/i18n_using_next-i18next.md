@@ -451,6 +451,9 @@ Her locale ve namespace için JSON dosyaları oluşturun. Bu yapı, çevirileri 
 
 Çevirileri namespace (örneğin, `common.json`, `about.json`) bazında organize etmek, kod bölme (code splitting) yapılmasını sağlar ve paket boyutunu küçültür. Her sayfa için sadece gereken çevirileri yüklersiniz, bu da performansı artırır.
 
+<Tabs group="locale">
+ <Tab value='en' label='İngilizce'>
+
 ```json fileName="src/locales/en/common.json"
 {
   "appTitle": "Next.js i18n App",
@@ -458,12 +461,21 @@ Her locale ve namespace için JSON dosyaları oluşturun. Bu yapı, çevirileri 
 }
 ```
 
+ </Tab>
+ <Tab value='fr' label='Fransızca'>
+
 ```json fileName="src/locales/fr/common.json"
 {
   "appTitle": "Application Next.js i18n",
   "appDescription": "Exemple d'application Next.js avec internationalisation utilisant i18next"
 }
 ```
+
+ </Tab>
+</Tabs>
+
+<Tabs group="locale">
+ <Tab value='en' label='İngilizce'>
 
 ```json fileName="src/locales/en/home.json"
 {
@@ -476,16 +488,25 @@ Her locale ve namespace için JSON dosyaları oluşturun. Bu yapı, çevirileri 
 }
 ```
 
-```json fileName="src/locales/tr/home.json"
+ </Tab>
+ <Tab value='fr' label='Fransızca'>
+
+```json fileName="src/locales/fr/home.json"
 {
-  "title": "Ana Sayfa",
-  "description": "Ana sayfa açıklaması",
-  "welcome": "Hoşgeldiniz",
-  "greeting": "Merhaba dünya!",
-  "aboutPage": "Hakkında Sayfası",
-  "documentation": "Dokümantasyon"
+  "title": "Accueil",
+  "description": "Description de la page d'accueil",
+  "welcome": "Bienvenue",
+  "greeting": "Bonjour le monde!",
+  "aboutPage": "Page À propos",
+  "documentation": "Documentation"
 }
 ```
+
+ </Tab>
+</Tabs>
+
+<Tabs group="locale">
+ <Tab value='en' label='İngilizce'>
 
 ```json fileName="src/locales/en/about.json"
 {
@@ -499,17 +520,23 @@ Her locale ve namespace için JSON dosyaları oluşturun. Bu yapı, çevirileri 
 }
 ```
 
-```json fileName="src/locales/tr/about.json"
+ </Tab>
+ <Tab value='fr' label='Fransızca'>
+
+```json fileName="src/locales/fr/about.json"
 {
-  "title": "Hakkında",
-  "description": "Hakkında sayfası açıklaması",
+  "title": "À propos",
+  "description": "Description de la page À propos",
   "counter": {
-    "label": "Sayaç",
-    "increment": "Arttır",
-    "description": "Sayacı artırmak için butona tıklayın"
+    "label": "Compteur",
+    "increment": "Incrémenter",
+    "description": "Cliquez sur le bouton pour augmenter le compteur"
   }
 }
 ```
+
+ </Tab>
+</Tabs>
 
 </Step>
 

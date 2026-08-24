@@ -68,7 +68,7 @@ author: aymericzip
 
 <iframe
   src="https://ide.intlayer.org/aymericzip/next-intl-template?file=src/i18n.ts"
-  
+
 className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"  
 title="Демонстрация CodeSandbox - Как интернационализировать ваше приложение с помощью Intlayer"  
 sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"  
@@ -315,6 +315,9 @@ export default async function AboutPage({
 
 Организация переводов по пространствам имён (например, `common.json`, `about.json`) позволяет использовать разделение кода (code splitting) и уменьшает размер бандла. Вы загружаете только переводы, необходимые для каждой страницы, что улучшает производительность.
 
+<Tabs group="locale">
+ <Tab value='en' label='Английский'>
+
 ```json fileName="locales/en/common.json"
 {
   "welcome": "Welcome",
@@ -322,12 +325,21 @@ export default async function AboutPage({
 }
 ```
 
+ </Tab>
+ <Tab value='fr' label='Французский'>
+
 ```json fileName="locales/fr/common.json"
 {
   "welcome": "Bienvenue",
   "greeting": "Bonjour le monde!"
 }
 ```
+
+ </Tab>
+</Tabs>
+
+<Tabs group="locale">
+ <Tab value='en' label='Английский'>
 
 ```json fileName="locales/en/about.json"
 {
@@ -340,6 +352,9 @@ export default async function AboutPage({
 }
 ```
 
+ </Tab>
+ <Tab value='fr' label='Французский'>
+
 ```json fileName="locales/fr/about.json"
 {
   "title": "À propos",
@@ -350,6 +365,9 @@ export default async function AboutPage({
   }
 }
 ```
+
+ </Tab>
+</Tabs>
 
 </Step>
 

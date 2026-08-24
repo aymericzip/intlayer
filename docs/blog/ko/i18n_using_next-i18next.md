@@ -451,6 +451,9 @@ export default function LocaleLayout({
 
 네임스페이스별로 번역을 구성하는 것(e.g., `common.json`, `about.json`)은 코드 분할을 가능하게 하고 번들 크기를 줄여줍니다. 각 페이지에 필요한 번역만 로드하므로 성능이 향상됩니다.
 
+<Tabs group="locale">
+ <Tab value='en' label='영어'>
+
 ```json fileName="src/locales/en/common.json"
 {
   "appTitle": "Next.js i18n App",
@@ -458,12 +461,21 @@ export default function LocaleLayout({
 }
 ```
 
+ </Tab>
+ <Tab value='fr' label='프랑스어'>
+
 ```json fileName="src/locales/fr/common.json"
 {
   "appTitle": "Application Next.js i18n",
   "appDescription": "Exemple d'application Next.js avec internationalisation utilisant i18next"
 }
 ```
+
+ </Tab>
+</Tabs>
+
+<Tabs group="locale">
+ <Tab value='en' label='영어'>
 
 ```json fileName="src/locales/en/home.json"
 {
@@ -476,16 +488,25 @@ export default function LocaleLayout({
 }
 ```
 
-```json fileName="src/locales/ko/home.json"
+ </Tab>
+ <Tab value='fr' label='프랑스어'>
+
+```json fileName="src/locales/fr/home.json"
 {
-  "title": "홈",
-  "description": "홈 페이지 설명",
-  "welcome": "환영합니다",
-  "greeting": "안녕하세요, 세계!",
-  "aboutPage": "소개 페이지",
-  "documentation": "문서"
+  "title": "Accueil",
+  "description": "Description de la page d'accueil",
+  "welcome": "Bienvenue",
+  "greeting": "Bonjour le monde!",
+  "aboutPage": "Page À propos",
+  "documentation": "Documentation"
 }
 ```
+
+ </Tab>
+</Tabs>
+
+<Tabs group="locale">
+ <Tab value='en' label='영어'>
 
 ```json fileName="src/locales/en/about.json"
 {
@@ -499,17 +520,23 @@ export default function LocaleLayout({
 }
 ```
 
-```json fileName="src/locales/ko/about.json"
+ </Tab>
+ <Tab value='fr' label='프랑스어'>
+
+```json fileName="src/locales/fr/about.json"
 {
-  "title": "소개",
-  "description": "소개 페이지 설명",
+  "title": "À propos",
+  "description": "Description de la page À propos",
   "counter": {
-    "label": "카운터",
-    "increment": "증가",
-    "description": "버튼을 클릭하여 카운터를 증가시킵니다"
+    "label": "Compteur",
+    "increment": "Incrémenter",
+    "description": "Cliquez sur le bouton pour augmenter le compteur"
   }
 }
 ```
+
+ </Tab>
+</Tabs>
 
 </Step>
 

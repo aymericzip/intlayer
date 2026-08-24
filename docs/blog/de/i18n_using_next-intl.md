@@ -315,6 +315,9 @@ Erstellen Sie JSON-Dateien für jede Locale und jeden Namespace. Diese Struktur 
 
 Die Organisation der Übersetzungen nach Namespace (z. B. `common.json`, `about.json`) ermöglicht Code-Splitting und reduziert die Bundle-Größe. Sie laden nur die Übersetzungen, die für jede Seite benötigt werden, was die Leistung verbessert.
 
+<Tabs group="locale">
+ <Tab value='en' label='Englisch'>
+
 ```json fileName="locales/en/common.json"
 {
   "welcome": "Welcome",
@@ -322,12 +325,21 @@ Die Organisation der Übersetzungen nach Namespace (z. B. `common.json`, `about.
 }
 ```
 
+ </Tab>
+ <Tab value='fr' label='Französisch'>
+
 ```json fileName="locales/fr/common.json"
 {
   "welcome": "Bienvenue",
   "greeting": "Bonjour le monde!"
 }
 ```
+
+ </Tab>
+</Tabs>
+
+<Tabs group="locale">
+ <Tab value='en' label='Englisch'>
 
 ```json fileName="locales/en/about.json"
 {
@@ -340,6 +352,9 @@ Die Organisation der Übersetzungen nach Namespace (z. B. `common.json`, `about.
 }
 ```
 
+ </Tab>
+ <Tab value='fr' label='Französisch'>
+
 ```json fileName="locales/fr/about.json"
 {
   "title": "À propos",
@@ -350,6 +365,9 @@ Die Organisation der Übersetzungen nach Namespace (z. B. `common.json`, `about.
   }
 }
 ```
+
+ </Tab>
+</Tabs>
 
 </Step>
 

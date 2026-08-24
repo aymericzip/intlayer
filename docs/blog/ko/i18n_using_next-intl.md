@@ -315,6 +315,9 @@ export default async function AboutPage({
 
 네임스페이스별로 번역을 구성하는 것(e.g., `common.json`, `about.json`)은 코드 분할을 가능하게 하며 번들 크기를 줄여줍니다. 이렇게 하면 각 페이지에 필요한 번역만 로드하여 성능을 향상시킬 수 있습니다.
 
+<Tabs group="locale">
+ <Tab value='en' label='영어'>
+
 ```json fileName="locales/en/common.json"
 {
   "welcome": "Welcome",
@@ -322,12 +325,21 @@ export default async function AboutPage({
 }
 ```
 
+ </Tab>
+ <Tab value='fr' label='프랑스어'>
+
 ```json fileName="locales/fr/common.json"
 {
   "welcome": "Bienvenue",
   "greeting": "Bonjour le monde!"
 }
 ```
+
+ </Tab>
+</Tabs>
+
+<Tabs group="locale">
+ <Tab value='en' label='영어'>
 
 ```json fileName="locales/en/about.json"
 {
@@ -340,6 +352,9 @@ export default async function AboutPage({
 }
 ```
 
+ </Tab>
+ <Tab value='fr' label='프랑스어'>
+
 ```json fileName="locales/fr/about.json"
 {
   "title": "À propos",
@@ -350,6 +365,9 @@ export default async function AboutPage({
   }
 }
 ```
+
+ </Tab>
+</Tabs>
 
 </Step>
 

@@ -451,6 +451,9 @@ export default function LocaleLayout({
 
 名前空間（例：`common.json`、`about.json`）ごとに翻訳を整理することで、コード分割が可能になり、バンドルサイズを削減できます。これにより、各ページに必要な翻訳のみを読み込むため、パフォーマンスが向上します。
 
+<Tabs group="locale">
+ <Tab value='en' label='英語'>
+
 ```json fileName="src/locales/en/common.json"
 {
   "appTitle": "Next.js i18n App",
@@ -458,12 +461,21 @@ export default function LocaleLayout({
 }
 ```
 
+ </Tab>
+ <Tab value='fr' label='フランス語'>
+
 ```json fileName="src/locales/fr/common.json"
 {
   "appTitle": "Application Next.js i18n",
   "appDescription": "Exemple d'application Next.js avec internationalisation utilisant i18next"
 }
 ```
+
+ </Tab>
+</Tabs>
+
+<Tabs group="locale">
+ <Tab value='en' label='英語'>
 
 ```json fileName="src/locales/en/home.json"
 {
@@ -476,6 +488,9 @@ export default function LocaleLayout({
 }
 ```
 
+ </Tab>
+ <Tab value='fr' label='フランス語'>
+
 ```json fileName="src/locales/fr/home.json"
 {
   "title": "Accueil",
@@ -486,6 +501,12 @@ export default function LocaleLayout({
   "documentation": "Documentation"
 }
 ```
+
+ </Tab>
+</Tabs>
+
+<Tabs group="locale">
+ <Tab value='en' label='英語'>
 
 ```json fileName="src/locales/en/about.json"
 {
@@ -499,6 +520,9 @@ export default function LocaleLayout({
 }
 ```
 
+ </Tab>
+ <Tab value='fr' label='フランス語'>
+
 ```json fileName="src/locales/fr/about.json"
 {
   "title": "À propos",
@@ -510,6 +534,9 @@ export default function LocaleLayout({
   }
 }
 ```
+
+ </Tab>
+</Tabs>
 
 </Step>
 

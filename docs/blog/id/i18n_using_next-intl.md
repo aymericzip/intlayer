@@ -312,6 +312,9 @@ Buat file JSON untuk setiap locale dan namespace. Struktur ini memungkinkan Anda
 
 Mengorganisir terjemahan berdasarkan namespace (misalnya, `common.json`, `about.json`) memungkinkan pemisahan kode dan mengurangi ukuran bundle. Anda hanya memuat terjemahan yang dibutuhkan untuk setiap halaman, sehingga meningkatkan performa.
 
+<Tabs group="locale">
+ <Tab value='en' label='Inggris'>
+
 ```json fileName="locales/en/common.json"
 {
   "welcome": "Welcome",
@@ -319,12 +322,21 @@ Mengorganisir terjemahan berdasarkan namespace (misalnya, `common.json`, `about.
 }
 ```
 
+ </Tab>
+ <Tab value='fr' label='Prancis'>
+
 ```json fileName="locales/fr/common.json"
 {
   "welcome": "Bienvenue",
   "greeting": "Bonjour le monde!"
 }
 ```
+
+ </Tab>
+</Tabs>
+
+<Tabs group="locale">
+ <Tab value='en' label='Inggris'>
 
 ```json fileName="locales/en/about.json"
 {
@@ -337,6 +349,9 @@ Mengorganisir terjemahan berdasarkan namespace (misalnya, `common.json`, `about.
 }
 ```
 
+ </Tab>
+ <Tab value='fr' label='Prancis'>
+
 ```json fileName="locales/fr/about.json"
 {
   "title": "À propos",
@@ -347,6 +362,9 @@ Mengorganisir terjemahan berdasarkan namespace (misalnya, `common.json`, `about.
   }
 }
 ```
+
+ </Tab>
+</Tabs>
 
 </Step>
 

@@ -451,6 +451,9 @@ Create JSON files for each locale and namespace. This structure allows you to or
 
 Organizing translations by namespace (e.g., `common.json`, `about.json`) enables code splitting and reduces bundle size. You only load the translations needed for each page, improving performance.
 
+<Tabs group="locale">
+ <Tab value='en' label='English'>
+
 ```json fileName="src/locales/en/common.json"
 {
   "appTitle": "Next.js i18n App",
@@ -458,12 +461,21 @@ Organizing translations by namespace (e.g., `common.json`, `about.json`) enables
 }
 ```
 
+ </Tab>
+ <Tab value='fr' label='French'>
+
 ```json fileName="src/locales/fr/common.json"
 {
   "appTitle": "Application Next.js i18n",
   "appDescription": "Exemple d'application Next.js avec internationalisation utilisant i18next"
 }
 ```
+
+ </Tab>
+</Tabs>
+
+<Tabs group="locale">
+ <Tab value='en' label='English'>
 
 ```json fileName="src/locales/en/home.json"
 {
@@ -476,6 +488,9 @@ Organizing translations by namespace (e.g., `common.json`, `about.json`) enables
 }
 ```
 
+ </Tab>
+ <Tab value='fr' label='French'>
+
 ```json fileName="src/locales/fr/home.json"
 {
   "title": "Accueil",
@@ -486,6 +501,12 @@ Organizing translations by namespace (e.g., `common.json`, `about.json`) enables
   "documentation": "Documentation"
 }
 ```
+
+ </Tab>
+</Tabs>
+
+<Tabs group="locale">
+ <Tab value='en' label='English'>
 
 ```json fileName="src/locales/en/about.json"
 {
@@ -499,6 +520,9 @@ Organizing translations by namespace (e.g., `common.json`, `about.json`) enables
 }
 ```
 
+ </Tab>
+ <Tab value='fr' label='French'>
+
 ```json fileName="src/locales/fr/about.json"
 {
   "title": "À propos",
@@ -510,6 +534,9 @@ Organizing translations by namespace (e.g., `common.json`, `about.json`) enables
   }
 }
 ```
+
+ </Tab>
+</Tabs>
 
 </Step>
 

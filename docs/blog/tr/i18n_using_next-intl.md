@@ -315,6 +315,9 @@ Her locale ve namespace için JSON dosyaları oluşturun. Bu yapı, çevirileri 
 
 Çevirileri namespace bazında organize etmek (örneğin, `common.json`, `about.json`) kod bölme (code splitting) yapmanızı sağlar ve paket boyutunu küçültür. Her sayfa için yalnızca gereken çevirileri yüklersiniz, bu da performansı artırır.
 
+<Tabs group="locale">
+ <Tab value='en' label='İngilizce'>
+
 ```json fileName="locales/en/common.json"
 {
   "welcome": "Welcome",
@@ -322,12 +325,21 @@ Her locale ve namespace için JSON dosyaları oluşturun. Bu yapı, çevirileri 
 }
 ```
 
+ </Tab>
+ <Tab value='fr' label='Fransızca'>
+
 ```json fileName="locales/fr/common.json"
 {
   "welcome": "Bienvenue",
   "greeting": "Bonjour le monde!"
 }
 ```
+
+ </Tab>
+</Tabs>
+
+<Tabs group="locale">
+ <Tab value='en' label='İngilizce'>
 
 ```json fileName="locales/en/about.json"
 {
@@ -340,6 +352,9 @@ Her locale ve namespace için JSON dosyaları oluşturun. Bu yapı, çevirileri 
 }
 ```
 
+ </Tab>
+ <Tab value='fr' label='Fransızca'>
+
 ```json fileName="locales/fr/about.json"
 {
   "title": "À propos",
@@ -350,6 +365,9 @@ Her locale ve namespace için JSON dosyaları oluşturun. Bu yapı, çevirileri 
   }
 }
 ```
+
+ </Tab>
+</Tabs>
 
 </Step>
 

@@ -314,41 +314,59 @@ export default async function AboutPage({
 
 Організація перекладів за просторами імен (наприклад, `common.json`, `about.json`) дозволяє робити code splitting і зменшувати розмір бандла. Ви завантажуєте лише переклади, потрібні для конкретної сторінки, що покращує продуктивність.
 
+<Tabs group="locale">
+ <Tab value='en' label='Англійська'>
+
 ```json fileName="locales/en/common.json"
 {
-  "welcome": "Ласкаво просимо",
-  "greeting": "Привіт, світ!"
+  "welcome": "Welcome",
+  "greeting": "Hello, world!"
 }
 ```
+
+ </Tab>
+ <Tab value='fr' label='Французька'>
 
 ```json fileName="locales/fr/common.json"
 {
-  "welcome": "Ласкаво просимо",
-  "greeting": "Привіт, світ!"
+  "welcome": "Bienvenue",
+  "greeting": "Bonjour le monde!"
 }
 ```
+
+ </Tab>
+</Tabs>
+
+<Tabs group="locale">
+ <Tab value='en' label='Англійська'>
 
 ```json fileName="locales/en/about.json"
 {
-  "title": "Про",
-  "description": "Опис сторінки «Про»",
+  "title": "About",
+  "description": "About page description",
   "counter": {
-    "label": "Лічильник",
-    "increment": "Збільшити"
+    "label": "Counter",
+    "increment": "Increment"
   }
 }
 ```
 
+ </Tab>
+ <Tab value='fr' label='Французька'>
+
 ```json fileName="locales/fr/about.json"
 {
-  "title": "Про",
-  "description": "Опис сторінки «Про»",
+  "title": "À propos",
+  "description": "Description de la page À propos",
   "counter": {
-    "label": "Лічильник",
-    "increment": "Збільшити"
+    "label": "Compteur",
+    "increment": "Incrémenter"
   }
 }
 ```
+
+ </Tab>
+</Tabs>
 
 </Step>
 

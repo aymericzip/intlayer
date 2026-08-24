@@ -313,6 +313,9 @@ Tạo các tệp JSON cho từng locale và namespace. Cấu trúc này cho phé
 
 Việc tổ chức bản dịch theo namespace (ví dụ: `common.json`, `about.json`) giúp tách mã và giảm kích thước gói. Bạn chỉ tải các bản dịch cần thiết cho mỗi trang, cải thiện hiệu suất.
 
+<Tabs group="locale">
+ <Tab value='en' label='Tiếng Anh'>
+
 ```json fileName="locales/en/common.json"
 {
   "welcome": "Welcome",
@@ -320,12 +323,21 @@ Việc tổ chức bản dịch theo namespace (ví dụ: `common.json`, `about.
 }
 ```
 
+ </Tab>
+ <Tab value='fr' label='Tiếng Pháp'>
+
 ```json fileName="locales/fr/common.json"
 {
   "welcome": "Bienvenue",
   "greeting": "Bonjour le monde!"
 }
 ```
+
+ </Tab>
+</Tabs>
+
+<Tabs group="locale">
+ <Tab value='en' label='Tiếng Anh'>
 
 ```json fileName="locales/en/about.json"
 {
@@ -338,6 +350,9 @@ Việc tổ chức bản dịch theo namespace (ví dụ: `common.json`, `about.
 }
 ```
 
+ </Tab>
+ <Tab value='fr' label='Tiếng Pháp'>
+
 ```json fileName="locales/fr/about.json"
 {
   "title": "À propos",
@@ -348,6 +363,9 @@ Việc tổ chức bản dịch theo namespace (ví dụ: `common.json`, `about.
   }
 }
 ```
+
+ </Tab>
+</Tabs>
 
 </Step>
 

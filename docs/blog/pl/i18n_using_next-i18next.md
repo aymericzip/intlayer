@@ -451,6 +451,9 @@ Utwórz pliki JSON dla każdego locale i przestrzeni nazw. Ta struktura pozwala 
 
 Organizowanie tłumaczeń według przestrzeni nazw (np. `common.json`, `about.json`) umożliwia dzielenie kodu i zmniejsza rozmiar pakietu. Ładujesz tylko tłumaczenia potrzebne dla każdej strony, co poprawia wydajność.
 
+<Tabs group="locale">
+ <Tab value='en' label='Angielski'>
+
 ```json fileName="src/locales/en/common.json"
 {
   "appTitle": "Next.js i18n App",
@@ -458,12 +461,21 @@ Organizowanie tłumaczeń według przestrzeni nazw (np. `common.json`, `about.js
 }
 ```
 
+ </Tab>
+ <Tab value='fr' label='Francuski'>
+
 ```json fileName="src/locales/fr/common.json"
 {
   "appTitle": "Application Next.js i18n",
   "appDescription": "Exemple d'application Next.js avec internationalisation utilisant i18next"
 }
 ```
+
+ </Tab>
+</Tabs>
+
+<Tabs group="locale">
+ <Tab value='en' label='Angielski'>
 
 ```json fileName="src/locales/en/home.json"
 {
@@ -476,16 +488,25 @@ Organizowanie tłumaczeń według przestrzeni nazw (np. `common.json`, `about.js
 }
 ```
 
-```json fileName="src/locales/pl/home.json"
+ </Tab>
+ <Tab value='fr' label='Francuski'>
+
+```json fileName="src/locales/fr/home.json"
 {
-  "title": "Strona główna",
-  "description": "Opis strony głównej",
-  "welcome": "Witamy",
-  "greeting": "Witaj, świecie!",
-  "aboutPage": "Strona O nas",
-  "documentation": "Dokumentacja"
+  "title": "Accueil",
+  "description": "Description de la page d'accueil",
+  "welcome": "Bienvenue",
+  "greeting": "Bonjour le monde!",
+  "aboutPage": "Page À propos",
+  "documentation": "Documentation"
 }
 ```
+
+ </Tab>
+</Tabs>
+
+<Tabs group="locale">
+ <Tab value='en' label='Angielski'>
 
 ```json fileName="src/locales/en/about.json"
 {
@@ -499,17 +520,23 @@ Organizowanie tłumaczeń według przestrzeni nazw (np. `common.json`, `about.js
 }
 ```
 
-```json fileName="src/locales/pl/about.json"
+ </Tab>
+ <Tab value='fr' label='Francuski'>
+
+```json fileName="src/locales/fr/about.json"
 {
-  "title": "O nas",
-  "description": "Opis strony O nas",
+  "title": "À propos",
+  "description": "Description de la page À propos",
   "counter": {
-    "label": "Licznik",
-    "increment": "Zwiększ",
-    "description": "Kliknij przycisk, aby zwiększyć licznik"
+    "label": "Compteur",
+    "increment": "Incrémenter",
+    "description": "Cliquez sur le bouton pour augmenter le compteur"
   }
 }
 ```
+
+ </Tab>
+</Tabs>
 
 </Step>
 

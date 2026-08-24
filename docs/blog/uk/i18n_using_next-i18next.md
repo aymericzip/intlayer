@@ -452,65 +452,92 @@ export default function LocaleLayout({
 
 Організація перекладів за неймспейсами (наприклад, `common.json`, `about.json`) дозволяє розділяти код (code splitting) і зменшувати розмір бандла. Ви завантажуєте лише переклади, потрібні для кожної сторінки, що покращує продуктивність.
 
+<Tabs group="locale">
+ <Tab value='en' label='Англійська'>
+
 ```json fileName="src/locales/en/common.json"
 {
-  "appTitle": "Додаток Next.js i18n",
-  "appDescription": "Приклад додатку Next.js з інтернаціоналізацією за допомогою i18next"
+  "appTitle": "Next.js i18n App",
+  "appDescription": "Example Next.js application with internationalization using i18next"
 }
 ```
+
+ </Tab>
+ <Tab value='fr' label='Французька'>
 
 ```json fileName="src/locales/fr/common.json"
 {
-  "appTitle": "Додаток Next.js i18n",
-  "appDescription": "Приклад додатку Next.js з інтернаціоналізацією за допомогою i18next"
+  "appTitle": "Application Next.js i18n",
+  "appDescription": "Exemple d'application Next.js avec internationalisation utilisant i18next"
 }
 ```
+
+ </Tab>
+</Tabs>
+
+<Tabs group="locale">
+ <Tab value='en' label='Англійська'>
 
 ```json fileName="src/locales/en/home.json"
 {
-  "title": "Головна",
-  "description": "Опис головної сторінки",
-  "welcome": "Ласкаво просимо",
-  "greeting": "Привіт, світ!",
-  "aboutPage": "Сторінка «Про»",
-  "documentation": "Документація"
+  "title": "Home",
+  "description": "Home page description",
+  "welcome": "Welcome",
+  "greeting": "Hello, world!",
+  "aboutPage": "About Page",
+  "documentation": "Documentation"
 }
 ```
+
+ </Tab>
+ <Tab value='fr' label='Французька'>
 
 ```json fileName="src/locales/fr/home.json"
 {
-  "title": "Головна",
-  "description": "Опис головної сторінки",
-  "welcome": "Ласкаво просимо",
-  "greeting": "Привіт, світ!",
-  "aboutPage": "Сторінка «Про»",
-  "documentation": "Документація"
+  "title": "Accueil",
+  "description": "Description de la page d'accueil",
+  "welcome": "Bienvenue",
+  "greeting": "Bonjour le monde!",
+  "aboutPage": "Page À propos",
+  "documentation": "Documentation"
 }
 ```
+
+ </Tab>
+</Tabs>
+
+<Tabs group="locale">
+ <Tab value='en' label='Англійська'>
 
 ```json fileName="src/locales/en/about.json"
 {
-  "title": "Про",
-  "description": "Опис сторінки «Про»",
+  "title": "About",
+  "description": "About page description",
   "counter": {
-    "label": "Лічильник",
-    "increment": "Збільшити",
-    "description": "Натисніть кнопку, щоб збільшити лічильник"
+    "label": "Counter",
+    "increment": "Increment",
+    "description": "Click the button to increase the counter"
   }
 }
 ```
 
+ </Tab>
+ <Tab value='fr' label='Французька'>
+
 ```json fileName="src/locales/fr/about.json"
 {
-  "title": "Про",
-  "description": "Опис сторінки «Про»",
+  "title": "À propos",
+  "description": "Description de la page À propos",
   "counter": {
-    "label": "Лічильник",
-    "increment": "Збільшити",
-    "description": "Натисніть кнопку, щоб збільшити лічильник"
+    "label": "Compteur",
+    "increment": "Incrémenter",
+    "description": "Cliquez sur le bouton pour augmenter le compteur"
   }
 }
 ```
+
+ </Tab>
+</Tabs>
 
 </Step>
 

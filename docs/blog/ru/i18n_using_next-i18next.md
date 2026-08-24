@@ -451,12 +451,18 @@ export default function LocaleLayout({
 
 Организация переводов по пространствам имён (например, `common.json`, `about.json`) позволяет разделять код и уменьшать размер бандла. Вы загружаете только те переводы, которые нужны для каждой страницы, что улучшает производительность.
 
+<Tabs group="locale">
+ <Tab value='en' label='Английский'>
+
 ```json fileName="src/locales/en/common.json"
 {
   "appTitle": "Next.js i18n App",
   "appDescription": "Example Next.js application with internationalization using i18next"
 }
 ```
+
+ </Tab>
+ <Tab value='fr' label='Французский'>
 
 ```json fileName="src/locales/fr/common.json"
 {
@@ -465,32 +471,11 @@ export default function LocaleLayout({
 }
 ```
 
-```json fileName="src/locales/en/home.json"
-{
-  "title": "Home",
-  "description": "Home page description",
-  "welcome": "Welcome",
-  "greeting": "Hello, world!",
-  "aboutPage": "About Page",
-  "documentation": "Documentation"
-}
-```
+ </Tab>
+</Tabs>
 
-Организация переводов по пространствам имён (например, `common.json`, `about.json`) позволяет разделять код и уменьшать размер бандла. Вы загружаете только те переводы, которые нужны для каждой страницы, что улучшает производительность.
-
-```json fileName="src/locales/en/common.json"
-{
-  "appTitle": "Next.js i18n App",
-  "appDescription": "Example Next.js application with internationalization using i18next"
-}
-```
-
-```json fileName="src/locales/ru/common.json"
-{
-  "appTitle": "Приложение Next.js с i18n",
-  "appDescription": "Пример приложения Next.js с интернационализацией с использованием i18next"
-}
-```
+<Tabs group="locale">
+ <Tab value='en' label='Английский'>
 
 ```json fileName="src/locales/en/home.json"
 {
@@ -503,16 +488,25 @@ export default function LocaleLayout({
 }
 ```
 
-```json fileName="src/locales/ru/home.json"
+ </Tab>
+ <Tab value='fr' label='Французский'>
+
+```json fileName="src/locales/fr/home.json"
 {
-  "title": "Главная",
-  "description": "Описание главной страницы",
-  "welcome": "Добро пожаловать",
-  "greeting": "Привет, мир!",
-  "aboutPage": "Страница О нас",
-  "documentation": "Документация"
+  "title": "Accueil",
+  "description": "Description de la page d'accueil",
+  "welcome": "Bienvenue",
+  "greeting": "Bonjour le monde!",
+  "aboutPage": "Page À propos",
+  "documentation": "Documentation"
 }
 ```
+
+ </Tab>
+</Tabs>
+
+<Tabs group="locale">
+ <Tab value='en' label='Английский'>
 
 ```json fileName="src/locales/en/about.json"
 {
@@ -526,17 +520,23 @@ export default function LocaleLayout({
 }
 ```
 
-```json fileName="src/locales/ru/about.json"
+ </Tab>
+ <Tab value='fr' label='Французский'>
+
+```json fileName="src/locales/fr/about.json"
 {
-  "title": "О нас",
-  "description": "Описание страницы О нас",
+  "title": "À propos",
+  "description": "Description de la page À propos",
   "counter": {
-    "label": "Счётчик",
-    "increment": "Увеличить",
-    "description": "Нажмите кнопку, чтобы увеличить счётчик"
+    "label": "Compteur",
+    "increment": "Incrémenter",
+    "description": "Cliquez sur le bouton pour augmenter le compteur"
   }
 }
 ```
+
+ </Tab>
+</Tabs>
 
 </Step>
 

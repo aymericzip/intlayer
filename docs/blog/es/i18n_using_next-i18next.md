@@ -451,6 +451,9 @@ Crea archivos JSON para cada locale y namespace. Esta estructura te permite orga
 
 Organizar las traducciones por namespace (por ejemplo, `common.json`, `about.json`) permite la división de código y reduce el tamaño del paquete. Solo cargas las traducciones necesarias para cada página, mejorando el rendimiento.
 
+<Tabs group="locale">
+ <Tab value='en' label='Inglés'>
+
 ```json fileName="src/locales/en/common.json"
 {
   "appTitle": "Next.js i18n App",
@@ -458,12 +461,21 @@ Organizar las traducciones por namespace (por ejemplo, `common.json`, `about.jso
 }
 ```
 
+ </Tab>
+ <Tab value='fr' label='Francés'>
+
 ```json fileName="src/locales/fr/common.json"
 {
   "appTitle": "Application Next.js i18n",
   "appDescription": "Exemple d'application Next.js avec internationalisation utilisant i18next"
 }
 ```
+
+ </Tab>
+</Tabs>
+
+<Tabs group="locale">
+ <Tab value='en' label='Inglés'>
 
 ```json fileName="src/locales/en/home.json"
 {
@@ -476,28 +488,55 @@ Organizar las traducciones por namespace (por ejemplo, `common.json`, `about.jso
 }
 ```
 
-```json fileName="src/locales/es/home.json"
+ </Tab>
+ <Tab value='fr' label='Francés'>
+
+```json fileName="src/locales/fr/home.json"
 {
-  "title": "Inicio",
-  "description": "Descripción de la página de inicio",
-  "welcome": "Bienvenido",
-  "greeting": "¡Hola, mundo!",
-  "aboutPage": "Página Acerca de",
-  "documentation": "Documentación"
+  "title": "Accueil",
+  "description": "Description de la page d'accueil",
+  "welcome": "Bienvenue",
+  "greeting": "Bonjour le monde!",
+  "aboutPage": "Page À propos",
+  "documentation": "Documentation"
 }
 ```
 
-```json fileName="src/locales/es/about.json"
+ </Tab>
+</Tabs>
+
+<Tabs group="locale">
+ <Tab value='en' label='Inglés'>
+
+```json fileName="src/locales/en/about.json"
 {
-  "title": "Acerca de",
-  "description": "Descripción de la página Acerca de",
+  "title": "About",
+  "description": "About page description",
   "counter": {
-    "label": "Contador",
-    "increment": "Incrementar",
-    "description": "Haz clic en el botón para aumentar el contador"
+    "label": "Counter",
+    "increment": "Increment",
+    "description": "Click the button to increase the counter"
   }
 }
 ```
+
+ </Tab>
+ <Tab value='fr' label='Francés'>
+
+```json fileName="src/locales/fr/about.json"
+{
+  "title": "À propos",
+  "description": "Description de la page À propos",
+  "counter": {
+    "label": "Compteur",
+    "increment": "Incrémenter",
+    "description": "Cliquez sur le bouton pour augmenter le compteur"
+  }
+}
+```
+
+ </Tab>
+</Tabs>
 
 </Step>
 

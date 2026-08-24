@@ -313,6 +313,9 @@ export default async function AboutPage({
 
 名前空間ごとに翻訳を整理することで（例：`common.json`、`about.json`）、コード分割が可能になり、バンドルサイズを削減できます。これにより、各ページに必要な翻訳のみを読み込むため、パフォーマンスが向上します。
 
+<Tabs group="locale">
+ <Tab value='en' label='英語'>
+
 ```json fileName="locales/en/common.json"
 {
   "welcome": "Welcome",
@@ -320,12 +323,21 @@ export default async function AboutPage({
 }
 ```
 
+ </Tab>
+ <Tab value='fr' label='フランス語'>
+
 ```json fileName="locales/fr/common.json"
 {
   "welcome": "Bienvenue",
   "greeting": "Bonjour le monde!"
 }
 ```
+
+ </Tab>
+</Tabs>
+
+<Tabs group="locale">
+ <Tab value='en' label='英語'>
 
 ```json fileName="locales/en/about.json"
 {
@@ -338,6 +350,9 @@ export default async function AboutPage({
 }
 ```
 
+ </Tab>
+ <Tab value='fr' label='フランス語'>
+
 ```json fileName="locales/fr/about.json"
 {
   "title": "À propos",
@@ -348,6 +363,9 @@ export default async function AboutPage({
   }
 }
 ```
+
+ </Tab>
+</Tabs>
 
 </Step>
 

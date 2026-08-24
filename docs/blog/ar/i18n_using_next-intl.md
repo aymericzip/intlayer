@@ -316,6 +316,9 @@ export default async function AboutPage({
 
 تنظيم الترجمات حسب مساحة الأسماء (مثل `common.json`، `about.json`) يمكّن من تقسيم الكود وتقليل حجم الحزمة. تقوم بتحميل الترجمات اللازمة فقط لكل صفحة، مما يحسن الأداء.
 
+<Tabs group="locale">
+ <Tab value='en' label='الإنجليزية'>
+
 ```json fileName="locales/en/common.json"
 {
   "welcome": "Welcome",
@@ -323,12 +326,21 @@ export default async function AboutPage({
 }
 ```
 
+ </Tab>
+ <Tab value='fr' label='الفرنسية'>
+
 ```json fileName="locales/fr/common.json"
 {
   "welcome": "Bienvenue",
   "greeting": "Bonjour le monde!"
 }
 ```
+
+ </Tab>
+</Tabs>
+
+<Tabs group="locale">
+ <Tab value='en' label='الإنجليزية'>
 
 ```json fileName="locales/en/about.json"
 {
@@ -341,16 +353,22 @@ export default async function AboutPage({
 }
 ```
 
+ </Tab>
+ <Tab value='fr' label='الفرنسية'>
+
 ```json fileName="locales/fr/about.json"
 {
   "title": "À propos",
   "description": "Description de la page À propos",
   "counter": {
-    "label": "عداد",
-    "increment": "زيادة"
+    "label": "Compteur",
+    "increment": "Incrémenter"
   }
 }
 ```
+
+ </Tab>
+</Tabs>
 
 </Step>
 

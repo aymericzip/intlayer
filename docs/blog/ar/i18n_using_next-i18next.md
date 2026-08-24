@@ -453,6 +453,9 @@ export default function LocaleLayout({
 
 تنظيم الترجمات حسب مساحة الاسم (مثل `common.json`، `about.json`) يتيح تقسيم الكود ويقلل من حجم الحزمة. تقوم بتحميل الترجمات اللازمة فقط لكل صفحة، مما يحسن الأداء.
 
+<Tabs group="locale">
+ <Tab value='en' label='الإنجليزية'>
+
 ```json fileName="src/locales/en/common.json"
 {
   "appTitle": "Next.js i18n App",
@@ -460,12 +463,21 @@ export default function LocaleLayout({
 }
 ```
 
+ </Tab>
+ <Tab value='fr' label='الفرنسية'>
+
 ```json fileName="src/locales/fr/common.json"
 {
   "appTitle": "Application Next.js i18n",
   "appDescription": "Exemple d'application Next.js avec internationalisation utilisant i18next"
 }
 ```
+
+ </Tab>
+</Tabs>
+
+<Tabs group="locale">
+ <Tab value='en' label='الإنجليزية'>
 
 ```json fileName="src/locales/en/home.json"
 {
@@ -478,28 +490,55 @@ export default function LocaleLayout({
 }
 ```
 
-```json fileName="src/locales/ar/home.json"
+ </Tab>
+ <Tab value='fr' label='الفرنسية'>
+
+```json fileName="src/locales/fr/home.json"
 {
-  "title": "الرئيسية",
-  "description": "وصف صفحة الرئيسية",
-  "welcome": "مرحبًا",
-  "greeting": "مرحبًا بالعالم!",
-  "aboutPage": "صفحة حول",
-  "documentation": "التوثيق"
+  "title": "Accueil",
+  "description": "Description de la page d'accueil",
+  "welcome": "Bienvenue",
+  "greeting": "Bonjour le monde!",
+  "aboutPage": "Page À propos",
+  "documentation": "Documentation"
 }
 ```
 
-```json fileName="src/locales/ar/about.json"
+ </Tab>
+</Tabs>
+
+<Tabs group="locale">
+ <Tab value='en' label='الإنجليزية'>
+
+```json fileName="src/locales/en/about.json"
 {
-  "title": "حول",
-  "description": "وصف صفحة حول",
+  "title": "About",
+  "description": "About page description",
   "counter": {
-    "label": "عداد",
-    "increment": "زيادة",
-    "description": "انقر على الزر لزيادة العداد"
+    "label": "Counter",
+    "increment": "Increment",
+    "description": "Click the button to increase the counter"
   }
 }
 ```
+
+ </Tab>
+ <Tab value='fr' label='الفرنسية'>
+
+```json fileName="src/locales/fr/about.json"
+{
+  "title": "À propos",
+  "description": "Description de la page À propos",
+  "counter": {
+    "label": "Compteur",
+    "increment": "Incrémenter",
+    "description": "Cliquez sur le bouton pour augmenter le compteur"
+  }
+}
+```
+
+ </Tab>
+</Tabs>
 
 </Step>
 

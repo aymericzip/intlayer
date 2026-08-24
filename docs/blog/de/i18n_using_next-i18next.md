@@ -453,12 +453,18 @@ Erstellen Sie JSON-Dateien für jede Locale und jeden Namespace. Diese Struktur 
 
 Die Organisation der Übersetzungen nach Namespace (z. B. `common.json`, `about.json`) ermöglicht Code-Splitting und reduziert die Bundle-Größe. So werden nur die Übersetzungen geladen, die für jede Seite benötigt werden, was die Performance verbessert.
 
+<Tabs group="locale">
+ <Tab value='en' label='Englisch'>
+
 ```json fileName="src/locales/en/common.json"
 {
   "appTitle": "Next.js i18n App",
   "appDescription": "Example Next.js application with internationalization using i18next"
 }
 ```
+
+ </Tab>
+ <Tab value='fr' label='Französisch'>
 
 ```json fileName="src/locales/fr/common.json"
 {
@@ -467,32 +473,11 @@ Die Organisation der Übersetzungen nach Namespace (z. B. `common.json`, `about.
 }
 ```
 
-```json fileName="src/locales/en/home.json"
-{
-  "title": "Home",
-  "description": "Home page description",
-  "welcome": "Welcome",
-  "greeting": "Hello, world!",
-  "aboutPage": "About Page",
-  "documentation": "Documentation"
-}
-```
+ </Tab>
+</Tabs>
 
-Organisieren von Übersetzungen nach Namespace (z. B. `common.json`, `about.json`) ermöglicht Code-Splitting und reduziert die Bundle-Größe. Sie laden nur die Übersetzungen, die für jede Seite benötigt werden, was die Leistung verbessert.
-
-```json fileName="src/locales/en/common.json"
-{
-  "appTitle": "Next.js i18n App",
-  "appDescription": "Beispiel einer Next.js-Anwendung mit Internationalisierung unter Verwendung von i18next"
-}
-```
-
-```json fileName="src/locales/de/common.json"
-{
-  "appTitle": "Next.js i18n App",
-  "appDescription": "Beispiel einer Next.js-Anwendung mit Internationalisierung unter Verwendung von i18next"
-}
-```
+<Tabs group="locale">
+ <Tab value='en' label='Englisch'>
 
 ```json fileName="src/locales/en/home.json"
 {
@@ -505,16 +490,25 @@ Organisieren von Übersetzungen nach Namespace (z. B. `common.json`, `about.json
 }
 ```
 
-```json fileName="src/locales/de/home.json"
+ </Tab>
+ <Tab value='fr' label='Französisch'>
+
+```json fileName="src/locales/fr/home.json"
 {
-  "title": "Startseite",
-  "description": "Beschreibung der Startseite",
-  "welcome": "Willkommen",
-  "greeting": "Hallo, Welt!",
-  "aboutPage": "Über Seite",
-  "documentation": "Dokumentation"
+  "title": "Accueil",
+  "description": "Description de la page d'accueil",
+  "welcome": "Bienvenue",
+  "greeting": "Bonjour le monde!",
+  "aboutPage": "Page À propos",
+  "documentation": "Documentation"
 }
 ```
+
+ </Tab>
+</Tabs>
+
+<Tabs group="locale">
+ <Tab value='en' label='Englisch'>
 
 ```json fileName="src/locales/en/about.json"
 {
@@ -528,17 +522,23 @@ Organisieren von Übersetzungen nach Namespace (z. B. `common.json`, `about.json
 }
 ```
 
-```json fileName="src/locales/de/about.json"
+ </Tab>
+ <Tab value='fr' label='Französisch'>
+
+```json fileName="src/locales/fr/about.json"
 {
-  "title": "Über",
-  "description": "Beschreibung der Über-Seite",
+  "title": "À propos",
+  "description": "Description de la page À propos",
   "counter": {
-    "label": "Zähler",
-    "increment": "Erhöhen",
-    "description": "Klicken Sie auf die Schaltfläche, um den Zähler zu erhöhen"
+    "label": "Compteur",
+    "increment": "Incrémenter",
+    "description": "Cliquez sur le bouton pour augmenter le compteur"
   }
 }
 ```
+
+ </Tab>
+</Tabs>
 
 </Step>
 

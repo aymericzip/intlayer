@@ -313,6 +313,9 @@ export default async function AboutPage({
 
 namespace के अनुसार अनुवादों को व्यवस्थित करना (जैसे, `common.json`, `about.json`) कोड स्प्लिटिंग सक्षम करता है और बंडल आकार को कम करता है। आप केवल उन अनुवादों को लोड करते हैं जो प्रत्येक पेज के लिए आवश्यक हैं, जिससे प्रदर्शन में सुधार होता है।
 
+<Tabs group="locale">
+ <Tab value='en' label='अंग्रेज़ी'>
+
 ```json fileName="locales/en/common.json"
 {
   "welcome": "Welcome",
@@ -320,12 +323,21 @@ namespace के अनुसार अनुवादों को व्यव
 }
 ```
 
+ </Tab>
+ <Tab value='fr' label='फ़्रेंच'>
+
 ```json fileName="locales/fr/common.json"
 {
   "welcome": "Bienvenue",
   "greeting": "Bonjour le monde!"
 }
 ```
+
+ </Tab>
+</Tabs>
+
+<Tabs group="locale">
+ <Tab value='en' label='अंग्रेज़ी'>
 
 ```json fileName="locales/en/about.json"
 {
@@ -338,6 +350,9 @@ namespace के अनुसार अनुवादों को व्यव
 }
 ```
 
+ </Tab>
+ <Tab value='fr' label='फ़्रेंच'>
+
 ```json fileName="locales/fr/about.json"
 {
   "title": "À propos",
@@ -348,6 +363,9 @@ namespace के अनुसार अनुवादों को व्यव
   }
 }
 ```
+
+ </Tab>
+</Tabs>
 
 </Step>
 
