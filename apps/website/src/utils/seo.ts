@@ -13,7 +13,7 @@ const baseUrl = (import.meta.env.VITE_URL ?? '').replace(/\/$/, '');
  * hardcodes "https://intlayer.org/…"), its origin is replaced with baseUrl so
  * the correct deployment domain is always used.
  */
-const toAbsoluteUrl = (path: string): string => {
+export const toAbsoluteUrl = (path: string): string => {
   if (/^https?:\/\//.test(path)) {
     return path.replace(/^https?:\/\/[^/]+/, baseUrl);
   }

@@ -28,6 +28,16 @@ import { useIntlayer } from 'react-intlayer';
 // ------------------------------------------------------------------
 const SWIPE_THRESHOLD_DIVISOR = 5;
 const TRANSITION_DELAY_MS = 50;
+const CONTAINER_VERTICAL_PADDING_PX = 40;
+const CONTAINER_MIN_HEIGHT_PX = 400;
+
+/**
+ * Border-box height carried by a `ResizeObserverEntry`, equivalent to
+ * `offsetHeight` but already computed by the browser during layout, so reading
+ * it never forces a reflow.
+ */
+const getEntryBlockSize = (entry: ResizeObserverEntry): number =>
+  entry.borderBoxSize?.[0]?.blockSize ?? entry.contentRect.height;
 
 // ------------------------------------------------------------------
 // Context Definition
@@ -273,36 +283,6 @@ const CarouselRoot: FC<CarouselProps> = ({
   const [containerHeight, setContainerHeight] = useState<number>(0);
   const [containerWidth, setContainerWidth] = useState<number>(0);
 
-  useLayoutEffect(() => {
-    const calculateDimensions = () => {
-      if (!containerRef.current) return;
-
-      // Track Width
-      const width = containerRef.current.clientWidth;
-      setContainerWidth(width);
-
-      // Track Height (existing logic)
-      const heights = itemsRef.current.map((item) => item?.offsetHeight || 0);
-      const maxHeight = Math.max(0, ...heights);
-      if (maxHeight > 0) {
-        setContainerHeight(maxHeight + 40);
-      }
-    };
-
-    calculateDimensions();
-
-    const observer = new ResizeObserver(() => {
-      calculateDimensions();
-    });
-
-    if (containerRef.current) observer.observe(containerRef.current);
-    itemsRef.current.forEach((item) => {
-      if (item) observer.observe(item);
-    });
-
-    return () => observer.disconnect();
-  }, [totalItems]);
-
   // Drag State
   const [startX, setStartX] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
@@ -310,6 +290,7 @@ const CarouselRoot: FC<CarouselProps> = ({
   // Refs
   const containerRef = useRef<HTMLDivElement>(null);
   const itemsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const itemHeightsRef = useRef<Map<Element, number>>(new Map());
 
   // Navigation Logic
   const handleSwitchItem = (diff: number) => {
@@ -377,29 +358,63 @@ const CarouselRoot: FC<CarouselProps> = ({
     return () => clearInterval(interval);
   }, [selectedIndex, displayedIndex]);
 
-  // Calculate height based on the MAX height of ALL items
+  /**
+   * Tracks the container width and the height of the tallest slide.
+   *
+   * The container height is the *output* of this measurement, so the observer
+   * must never read geometry back from the DOM: React commits the new inline
+   * height between two observer callbacks, and every read after that commit is
+   * a forced reflow. `ResizeObserverEntry` already carries the boxes the
+   * browser computed during layout, which are free to read.
+   */
   useLayoutEffect(() => {
-    const calculateMaxHeight = () => {
-      const heights = itemsRef.current.map((item) => item?.offsetHeight || 0);
-      const maxHeight = Math.max(0, ...heights);
+    const container = containerRef.current;
+    if (!container) return;
+
+    const items = itemsRef.current.filter((item) => item !== null);
+    const itemHeights = itemHeightsRef.current;
+
+    const publishMaxHeight = () => {
+      const maxHeight = Math.max(0, ...itemHeights.values());
 
       if (maxHeight > 0) {
-        setContainerHeight(maxHeight + 40);
+        setContainerHeight(maxHeight + CONTAINER_VERTICAL_PADDING_PX);
       }
     };
 
-    calculateMaxHeight();
-
-    const observer = new ResizeObserver(() => {
-      calculateMaxHeight();
+    // First pass: every read happens before any state write, so the initial
+    // measurement costs a single layout.
+    const initialWidth = container.clientWidth;
+    items.forEach((item) => {
+      itemHeights.set(item, item.offsetHeight);
     });
 
-    itemsRef.current.forEach((item) => {
-      if (item) observer.observe(item);
+    setContainerWidth(initialWidth);
+    publishMaxHeight();
+
+    const observer = new ResizeObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.target === container) {
+          setContainerWidth(entry.contentRect.width);
+          return;
+        }
+
+        itemHeights.set(entry.target, getEntryBlockSize(entry));
+      });
+
+      publishMaxHeight();
     });
 
-    return () => observer.disconnect();
-  }, [totalItems]); // Removed isMounted dependency
+    observer.observe(container);
+    items.forEach((item) => {
+      observer.observe(item);
+    });
+
+    return () => {
+      observer.disconnect();
+      itemHeights.clear();
+    };
+  }, [totalItems]);
 
   return (
     <CarouselContext.Provider
@@ -420,7 +435,7 @@ const CarouselRoot: FC<CarouselProps> = ({
         )}
         style={{
           height: containerHeight > 0 ? containerHeight : 'auto',
-          minHeight: '400px',
+          minHeight: `${CONTAINER_MIN_HEIGHT_PX}px`,
         }}
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
