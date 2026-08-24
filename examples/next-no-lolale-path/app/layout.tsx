@@ -26,9 +26,9 @@ const RootLayout = async ({
 
   return (
     <html lang={locale} dir={getHTMLTextDir(locale)}>
-      <IntlayerProvider locale={locale}>
-        <body>{children}</body>
-      </IntlayerProvider>
+      <body>
+        <IntlayerProvider locale={locale}>{children}</IntlayerProvider>
+      </body>
     </html>
   );
 };

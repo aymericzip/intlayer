@@ -330,10 +330,7 @@ export default LocaleLayout;
  <Tab label='Intlayer <9.4' value='<9.4'>
 
 ```tsx fileName="src/app/[locale]/layout.tsx" codeFormat={["typescript", "esm"]}
-import {
-  type Next14LayoutIntlayer,
-  IntlayerClientProvider,
-} from "next-intlayer";
+import { type Next14LayoutIntlayer, IntlayerProvider } from "next-intlayer";
 import { Inter } from "next/font/google";
 import { getHTMLTextDir } from "intlayer";
 
@@ -345,9 +342,7 @@ const LocaleLayout: Next14LayoutIntlayer = ({
 }) => (
   <html lang={locale} dir={getHTMLTextDir(locale)}>
     <body className={inter.className}>
-      <IntlayerClientProvider locale={locale}>
-        {children}
-      </IntlayerClientProvider>
+      <IntlayerProvider locale={locale}>{children}</IntlayerProvider>
     </body>
   </html>
 );

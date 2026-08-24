@@ -27,7 +27,7 @@ history:
 
 <Tabs defaultTab="video">
   <Tab label="Video" value="video">
-  
+
 <iframe title="The best i18n solution for Next.js? Discover Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/e_PPG7PTqGU?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
   </Tab>
@@ -207,9 +207,7 @@ Configure your Next.js setup to use Intlayer:
 import type { NextConfig } from "next";
 import { withIntlayer } from "next-intlayer/server";
 
-const nextConfig: NextConfig = {
-  /* config options here */
-};
+const nextConfig: NextConfig = {/* config options here */};
 
 export default withIntlayer(nextConfig);
 ```
@@ -218,9 +216,7 @@ export default withIntlayer(nextConfig);
 import { withIntlayer } from "next-intlayer/server";
 
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  /* config options here */
-};
+const nextConfig = {/* config options here */};
 
 export default withIntlayer(nextConfig);
 ```
@@ -229,9 +225,7 @@ export default withIntlayer(nextConfig);
 const { withIntlayer } = require("next-intlayer/server");
 
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  /* config options here */
-};
+const nextConfig = {/* config options here */};
 
 module.exports = withIntlayer(nextConfig);
 ```
@@ -272,7 +266,7 @@ Remove everything from `RootLayout` and replace it with the following code:
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import "./globals.css";
-import { IntlayerClientProvider, LocalPromiseParams } from "next-intlayer";
+import { IntlayerProvider, LocalPromiseParams } from "next-intlayer";
 import { getHTMLTextDir, getIntlayer } from "intlayer";
 import { getLocale } from "next-intlayer/server";
 export { generateStaticParams } from "next-intlayer";
@@ -297,9 +291,9 @@ const RootLayout = async ({
 
   return (
     <html lang={locale} dir={getHTMLTextDir(locale)}>
-      <IntlayerClientProvider defaultLocale={locale}>
-        <body>{children}</body>
-      </IntlayerClientProvider>
+      <body>
+        <IntlayerProvider defaultLocale={locale}>{children}</IntlayerProvider>
+      </body>
     </html>
   );
 };

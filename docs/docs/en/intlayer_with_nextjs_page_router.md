@@ -263,46 +263,22 @@ Implement dynamic routing to serve localized content based on the user's locale.
 
     Modify your `_app.tsx` to include Intlayer providers.
 
-    ```tsx fileName="src/pages/_app.tsx" codeFormat="typescript"
+    ```tsx fileName="src/pages/_app.tsx" codeFormat=["typescript", 'esm', 'cjs']
     import type { FC } from "react";
     import type { AppProps } from "next/app";
-    import { IntlayerClientProvider } from "next-intlayer";
+    import { IntlayerProvider } from "next-intlayer";
 
     const App = FC<AppProps>({ Component, pageProps }) => {
       const { locale } = pageProps;
 
       return (
-        <IntlayerClientProvider locale={locale}>
+        <IntlayerProvider locale={locale}>
           <Component {...pageProps} />
-        </IntlayerClientProvider>
+        </IntlayerProvider>
       );
     }
 
     export default MyApp;
-    ```
-
-    ```jsx fileName="src/pages/_app.mjx" codeFormat="esm"
-    import { IntlayerClientProvider } from "next-intlayer";
-
-    const App = ({ Component, pageProps }) => (
-      <IntlayerClientProvider locale={locale}>
-        <Component {...pageProps} />
-      </IntlayerClientProvider>
-    );
-
-    export default App;
-    ```
-
-    ```jsx fileName="src/pages/_app.csx" codeFormat="commonjs"
-    const { IntlayerClientProvider } = require("next-intlayer");
-
-    const App = ({ Component, pageProps }) => (
-      <IntlayerClientProvider locale={locale}>
-        <Component {...pageProps} />
-      </IntlayerClientProvider>
-    );
-
-    module.exports = App;
     ```
 
 3.  **Set Up `getStaticPaths` and `getStaticProps`:**

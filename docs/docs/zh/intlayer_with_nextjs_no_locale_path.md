@@ -298,9 +298,9 @@ const RootLayout = async ({
 
   return (
     <html lang={locale} dir={getHTMLTextDir(locale)}>
-      <IntlayerProvider locale={locale}>
-        <body>{children}</body>
-      </IntlayerProvider>
+      <body>
+        <IntlayerProvider locale={locale}>{children}</IntlayerProvider>
+      </body>
     </html>
   );
 };
@@ -317,7 +317,7 @@ export default RootLayout;
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import "./globals.css";
-import { IntlayerClientProvider, LocalPromiseParams } from "next-intlayer";
+import { IntlayerProvider, LocalPromiseParams } from "next-intlayer";
 import { getHTMLTextDir, getIntlayer } from "intlayer";
 import { getLocale } from "next-intlayer/server";
 export { generateStaticParams } from "next-intlayer";
@@ -342,9 +342,9 @@ const RootLayout = async ({
 
   return (
     <html lang={locale} dir={getHTMLTextDir(locale)}>
-      <IntlayerClientProvider defaultLocale={locale}>
-        <body>{children}</body>
-      </IntlayerClientProvider>
+      <body>
+        <IntlayerProvider defaultLocale={locale}>{children}</IntlayerProvider>
+      </body>
     </html>
   );
 };

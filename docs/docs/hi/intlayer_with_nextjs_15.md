@@ -299,11 +299,11 @@ const inter = Inter({ subsets: ["latin"] });
 const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
   const { locale } = await params;
   return (
-    <IntlayerProvider locale={locale}>
-      <html lang={locale} dir={getHTMLTextDir(locale)}>
-        <body className={inter.className}>{children}</body>
-      </html>
-    </IntlayerProvider>
+    <html lang={locale} dir={getHTMLTextDir(locale)}>
+      <body className={inter.className}>
+        <IntlayerProvider locale={locale}>{children}</IntlayerProvider>
+      </body>
+    </html>
   );
 };
 
