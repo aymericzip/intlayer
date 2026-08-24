@@ -10,7 +10,6 @@ import {
 } from '@intlayer/design-system/structured-data';
 import { getIntlayerAsync, type LocalesValues, locales } from 'intlayer';
 import packageJson from '../../package_mock.json' with { type: 'json' };
-import { memoizeAsyncByKey } from './cache';
 
 const LOGO_URL = `${Website_Home}/assets/logo.png`;
 const RSS_FEED_URL = `${Website_Home}/feed.xml`;
@@ -87,10 +86,7 @@ const buildSiteStructuredData = async (
  * // → scripts: [...getSiteStructuredDataScripts(siteStructuredData)]
  * ```
  */
-export const getSiteStructuredData = memoizeAsyncByKey(
-  buildSiteStructuredData,
-  locales.length
-);
+export const getSiteStructuredData = buildSiteStructuredData;
 
 /** Emits the site-wide JSON-LD scripts in the order every page declares them. */
 export const getSiteStructuredDataScripts = (
@@ -162,7 +158,4 @@ const buildSoftwareStructuredData = async (
  * blog pages — which never emit an application node — do not pull the
  * `software-application-structured-data` chunk they have no use for.
  */
-export const getSoftwareStructuredData = memoizeAsyncByKey(
-  buildSoftwareStructuredData,
-  locales.length
-);
+export const getSoftwareStructuredData = buildSoftwareStructuredData;
