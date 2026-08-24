@@ -1164,6 +1164,20 @@ const docDataContent: Dictionary = {
                 },
               },
             },
+            'elysia-intlayer': {
+              title: 'elysia-intlayer',
+              default: getDocMetadata(
+                './docs/en/packages/elysia-intlayer/exports.md'
+              ),
+              subSections: {
+                intlayer: {
+                  title: 'intlayer',
+                  default: getDocMetadata(
+                    './docs/en/packages/elysia-intlayer/intlayer.md'
+                  ),
+                },
+              },
+            },
             'hono-intlayer': {
               title: 'hono-intlayer',
               default: getDocMetadata(
