@@ -31,6 +31,14 @@ author: aymericzip
 
 # 使用Intlayer翻译您的Create React App | 国际化(i18n)
 
+<iframe
+  src="https://ide.intlayer.org/aymericzip/intlayer-react-cra-template?file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="演示 CodeSandbox - 如何使用 Intlayer 国际化您的应用程序"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
 请参阅 GitHub 上的[应用模板](https://github.com/aymericzip/intlayer-react-cra-template)。
 
 ## 为什么选择 Intlayer 而不是其他方案？
@@ -612,8 +620,6 @@ export default App;
 - 根据语言环境调整 **文本方向** (`dir`)，提升不同阅读顺序语言的可读性和可用性。
 - 提供更 **无障碍** 的体验，因为辅助技术依赖这些属性以实现最佳功能。
 
-  </Step>
-
 </Steps>
 
 ### 配置 TypeScript
@@ -648,6 +654,8 @@ Intlayer 使用模块增强来利用 TypeScript 的优势，使您的代码库�
 ```
 
 ### 深入了解
+
+为了改进您使用 Intlayer 的开发体验,您可以安装官方的 **Intlayer VS Code Extension**。
 
 要进一步了解，您可以实现 [可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md) 或使用 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md) 外部化您的内容。
 [从 VS Code Marketplace 安装](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)

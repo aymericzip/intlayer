@@ -194,6 +194,8 @@ Các vấn đề gặp phải:
 
 `Tolgee` giải quyết được nhiều vấn đề đã đề cập trước đó. Tôi thấy việc bắt đầu với Tolgee khó khăn hơn so với các công cụ khác có phương pháp tiếp cận tương tự. Nó không cung cấp tính an toàn kiểu dữ liệu, điều này cũng khiến việc phát hiện các khóa bị thiếu tại thời điểm biên dịch trở nên khó khăn hơn nhiều. Tôi đã phải bao bọc các API của Tolgee bằng các API của riêng mình để thêm tính năng phát hiện khóa bị thiếu.
 
+Package này khá nặng (~11.1kb, gấp hơn 2× `react-intlayer`).
+
 Trên TanStack Start, tôi cũng gặp vấn đề về tính phản ứng: khi ngôn ngữ thay đổi, tôi phải ép buộc provider render lại và đăng ký vào các sự kiện thay đổi ngôn ngữ để việc tải ở một ngôn ngữ khác hoạt động chính xác.
 
 **(use-intl)** (`use-intl@4.9.1`):
@@ -208,6 +210,8 @@ Trên TanStack Start, bạn tránh được các cạm bẫy đặc thù của N
 
 Tuy nhiên, nó có cùng những nhược điểm chính như các ngăn công nghệ được xây dựng trên `t('a.b.c')`: tối ưu hóa là có thể nhưng rất tốn thời gian, và các dự án lớn có rủi ro rơi vào các thực hành xấu (namespace + tải động + kiểu dữ liệu).
 
+Package này đặc biệt nặng (~17.3kb, tức là khoảng 3.5× `react-intlayer`).
+
 Các định dạng thông báo cũng khác nhau: `use-intl` sử dụng ICU MessageFormat, trong khi `i18next` sử dụng định dạng riêng của mình - điều này làm phức tạp thêm công cụ hoặc quá trình di chuyển nếu bạn trộn lẫn chúng.
 
 **(Lingui)** (`@lingui/core@5.3.0`):
@@ -217,6 +221,8 @@ Các định dạng thông báo cũng khác nhau: `use-intl` sử dụng ICU Mes
 **(react-intl)** (`react-intl@10.1.1`):
 
 `react-intl` là một triển khai hiệu năng từ nhóm Format.js. Trải nghiệm phát triển vẫn còn rườm rà: `const intl = useIntl()` + `intl.formatMessage({ id: "xx.xx" })` thêm vào sự phức tạp, công việc JavaScript bổ sung và ràng buộc instance i18n toàn cục vào nhiều nút trong cây React.
+
+Package cũng khá nặng (~14.4kb, tức là khoảng 3× `react-intlayer`).
 
 ### 4 - Các khuyến nghị
 

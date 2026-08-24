@@ -295,6 +295,8 @@ export default appContent;
 <div aria-label={String($content.title)}></div>
 ```
 
+> If your app already exists, you can use the [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compiler.md), as well as the [extract command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/extract.md), to transform thousands of components in a second.
+
 </Step>
 
 <Step number={6} title="Change the language of your content" isOptional={true}>
@@ -349,6 +351,8 @@ Intlayer supports rendering Markdown content directly in your Svelte application
 
 > You can also access your markdown front-matter data using the `content.markdownContent.metadata.xxx` property.
 > </Step>
+
+</Step>
 
 <Step number={8} title="Set up the intlayer editor / CMS" isOptional={true}>
 
@@ -452,6 +456,8 @@ In parallel, you can also use the `intlayerProxy` to add server-side routing to 
 
 > Note that to use the `intlayerProxy` in production, you need to switch the `vite-intlayer` package from `devDependencies` to `dependencies`.
 
+> Since Intlayer v9, `intlayerProxy()` is bundled directly into the `intlayer()` plugin and enabled by default through the `routing.enableProxy` option (`true` by default). Registering it separately as shown below is now optional — it is kept for backward compatibility and for setups that need to control plugin order. Set `routing.enableProxy: false` to opt out. See the [v9 release notes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/releases/v9.md).
+
 ```typescript {3,7} fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
 import { svelte } from "@sveltejs/vite-plugin-svelte";
@@ -508,6 +514,132 @@ const changeLocale = (event: Event) => {
 </div>
 ```
 
+</Step>
+
+<Step number={9} title="Internationalized Links" isOptional={true}>
+
+For SEO, it is recommended to prefix your routes with the locale (e.g., `/about`, `/fr/about`).
+
+```svelte fileName="src/lib/components/Link.svelte"
+<script lang="ts">
+  import { getLocalizedUrl } from "intlayer";
+  import { useLocale } from "svelte-intlayer";
+
+  export let href = "";
+  const { locale } = useLocale();
+
+  // Helper to prefix URL
+  $: localizedHref = getLocalizedUrl(href, $locale);
+</script>
+
+<a href={localizedHref}>
+  <slot />
+</a>
+```
+
+</Step>
+
+<Step number={10} title="Extract the content of your components" isOptional={true}>
+
+If you have an existing codebase, transforming thousands of files can be time-consuming.
+
+To ease this process, Intlayer proposes a [compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compiler.md) / [extractor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/extract.md) to transform your components and extract the content.
+
+To set it up, you can add a `compiler` section in your `intlayer.config.ts` file:
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  // ... Rest of your config
+  compiler: {
+    /**
+     * Indicates if the compiler should be enabled.
+     */
+    enabled: true,
+
+    /**
+     * Defines the output files path
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * Indicates if the components should be saved after being transformed.
+     *
+     * - If `true`, the compiler will rewrite the component file in the disk. So the transformation will be permanent, and the compiler will skip the transformation for the next process. That way, the compiler can transform the app, and then it can be removed.
+     *
+     * - If `false`, the compiler will inject the `useIntlayer()` function call into the code in the build output only, and keep the base codebase intact. The transformation will be done only in memory.
+     */
+    saveComponents: false,
+
+    /**
+     * Dictionary key prefix
+     */
+    dictionaryKeyPrefix: "",
+  },
+};
+
+export default config;
+```
+
+<Tabs>
+ <Tab value='Extract command'>
+
+Run the extractor to transform your components and extract the content
+
+```bash packageManager="npm"
+npx intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="bun"
+bun x intlayer extract
+```
+
+</Tab>
+ <Tab value='Babel compiler'>
+
+> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
+
+Update your `vite.config.ts` to include the `intlayerCompiler` plugin:
+
+```ts fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import { intlayer, intlayerCompiler } from "vite-intlayer";
+
+export default defineConfig({
+  plugins: [
+    intlayer(),
+    intlayerCompiler(), // Adds the compiler plugin
+  ],
+});
+```
+
+```bash packageManager="npm"
+npm run build # Or npm run dev
+```
+
+```bash packageManager="pnpm"
+pnpm run build # Or pnpm run dev
+```
+
+```bash packageManager="yarn"
+yarn build # Or yarn dev
+```
+
+```bash packageManager="bun"
+bun run build # Or bun run dev
+```
+
+</Tab>
+</Tabs>
 </Step>
 
 </Steps>

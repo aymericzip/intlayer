@@ -50,33 +50,50 @@ author: aymericzip
 
 `रिएक्ट-आई18नेक्स्ट` या `आई18नेक्स्ट` जैसे मुख्य समाधानों की तुलना में, इंटलेयर एक ऐसा समाधान है जो एकीकृत अनुकूलन के साथ आता है जैसे:
 
+<AccordionGroup>
+
 **पूर्ण रिएक्ट राउटर कवरेज**
 
 इंटलेयर को **लोकेल-अवेयर रूटिंग**, **लोकेल डिटेक्शन के लिए मिडलवेयर**, और स्केलिंग इंटरनेशनलाइजेशन (i18n) के लिए आवश्यक सभी सुविधाओं की पेशकश करके रिएक्ट राउटर के साथ पूरी तरह से काम करने के लिए अनुकूलित किया गया है।
 
 **बंडल का आकार**
 
+<Accordion header="बंडल आकार">
+
 अपने पृष्ठों में विशाल JSON फ़ाइलें लोड करने के बजाय, केवल आवश्यक सामग्री लोड करें। इंटलेयर आपके बंडल और पृष्ठ आकार को 50% तक कम करने में मदद करता है।
 
 **रखरखाव**
+
+<Accordion header="रखरखाव">
 
 आपके एप्लिकेशन की सामग्री का दायरा बड़े पैमाने के अनुप्रयोगों के लिए **रखरखाव की सुविधा प्रदान करता है**। आप अपने संपूर्ण सामग्री कोडबेस की समीक्षा करने के मानसिक बोझ के बिना किसी एक फीचर फ़ोल्डर की नकल कर सकते हैं या उसे हटा सकते हैं। इसके अतिरिक्त, आपकी सामग्री की सटीकता सुनिश्चित करने के लिए Intlayer **पूरी तरह से टाइप किया गया** है।
 
 **एआई एजेंट**
 
+<Accordion header="AI Agent">
+
 सामग्री का सह-स्थानीकरण **बड़े भाषा मॉडल (एलएलएम) द्वारा आवश्यक संदर्भ को कम करता है**। इंटलेयर टूल के एक सूट के साथ भी आता है, जैसे **CLI** ताकि लापता अनुवादों का परीक्षण किया जा सके,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**, और **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/agent_skills.md)**, AI एजेंटों के लिए डेवलपर अनुभव (DX) को और भी आसान बनाने के लिए।
 
 **स्वचालन**
+
+<Accordion header="ऑटोमेशन">
 
 अपने एआई प्रदाता की कीमत पर अपनी पसंद के एलएलएम का उपयोग करके अपने सीआई/सीडी पाइपलाइन में अनुवाद करने के लिए स्वचालन का उपयोग करें। इंटलेयर सामग्री निष्कर्षण को स्वचालित करने के लिए एक **कंपाइलर** के साथ-साथ **पृष्ठभूमि में अनुवाद** में मदद करने के लिए एक [वेब प्लेटफ़ॉर्म](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) भी प्रदान करता है।
 
 **प्रदर्शन**
 
+<Accordion header="Performance">
+
 बड़े पैमाने पर JSON फ़ाइलों को घटकों से जोड़ने से प्रदर्शन और प्रतिक्रियाशीलता संबंधी समस्याएं हो सकती हैं। इंटलेयर बिल्ड समय पर आपकी सामग्री लोडिंग को अनुकूलित करता है।
+
+</Accordion>
 
 **किसी भी देव के साथ स्केलिंग**
 
 सिर्फ एक i18n समाधान से अधिक, Intlayer एक **स्व-होस्टेड [विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** और एक **[पूर्ण] प्रदान करता है सीएमएस](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** आपकी बहुभाषी सामग्री को **वास्तविक समय** में प्रबंधित करने में मदद करता है, जिससे अनुवादकों, कॉपीराइटरों और टीम के अन्य सदस्यों के साथ सहयोग सहज हो जाता है। सामग्री को स्थानीय और/या दूरस्थ रूप से संग्रहीत किया जा सकता है।
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
@@ -113,6 +130,8 @@ npm install intlayer react-intlayer
 npm install vite-intlayer --save-dev
 ```
 
+अपने पसंदीदा package manager का उपयोग करके आवश्यक packages को install करें:
+
 ```bash packageManager="pnpm"
 pnpm add intlayer react-intlayer
 pnpm add vite-intlayer --save-dev
@@ -139,13 +158,78 @@ bun add vite-intlayer --dev
 - **vite-intlayer**  
   इसमें Vite प्लगइन शामिल है जो Intlayer को [Vite बंडलर](https://vite.dev/guide/why.html#why-bundle-for-production) के साथ एकीकृत करता है, साथ ही उपयोगकर्ता की पसंदीदा भाषा का पता लगाने, कुकीज़ प्रबंधित करने, और URL पुनर्निर्देशन को संभालने के लिए मिडलवेयर भी शामिल है।
 
+- **@react-router/fs-routes**
+  वह पैकेज जो React Router v7 के लिए फ़ाइल-सिस्टम आधारित रूटिंग को सक्षम करता है।
+
 </Step>
 
 <Step number={2} title="अपने प्रोजेक्ट का कॉन्फ़िगरेशन">
 
+अपने एप्लिकेशन की भाषाओं को कॉन्फ़िगर करने के लिए एक कॉन्फ़िग फ़ाइल बनाएं:
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { type IntlayerConfig, Locales } from "intlayer";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    defaultLocale: Locales.ENGLISH,
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+  },
+};
+
+export default config;
+```
+
+> इस कॉन्फ़िगरेशन फ़ाइल के माध्यम से, आप स्थानीयकृत URLs, middleware पुनर्निर्देशन, कुकी नाम, आपकी content declarations के स्थान और एक्सटेंशन को सेट अप कर सकते हैं, कंसोल में Intlayer लॉग्स को अक्षम कर सकते हैं, और बहुत कुछ कर सकते हैं। उपलब्ध parameters की संपूर्ण सूची के लिए, [कॉन्फ़िगरेशन documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md) को देखें।
+
+</Step>
+
+<Step number={3} title="अपने Vite कॉन्फ़िगरेशन में Intlayer को एकीकृत करें">
+
+अपने कॉन्फ़िगरेशन में intlayer plugin जोड़ें:
+
+```typescript fileName="vite.config.ts"
+import { reactRouter } from "@react-router/dev/vite";
+import { defineConfig } from "vite";
+import { intlayer } from "vite-intlayer";
+
+export default defineConfig({
+  plugins: [reactRouter(), intlayer()],
+});
+```
+
+> `intlayer()` Vite plugin का उपयोग Intlayer को Vite के साथ integrate करने के लिए किया जाता है। यह content declaration files की building को सुनिश्चित करता है और development mode में उन्हें monitor करता है। यह Vite application के भीतर Intlayer environment variables को परिभाषित करता है। इसके अतिरिक्त, यह performance को optimize करने के लिए aliases प्रदान करता है।
+
+</Step>
+
+<Step number={4} title="React Router v7 फ़ाइल-सिस्टम रूट्स कॉन्फ़िगर करें">
+
+अपने routing configuration को `flatRoutes` के साथ file-system based routes का उपयोग करने के लिए सेट अप करें:
+
+```typescript fileName="app/routes.ts"
+import type { RouteConfig } from "@react-router/dev/routes";
+import { flatRoutes } from "@react-router/fs-routes";
+import { configuration } from "intlayer";
+
+const routes: RouteConfig = flatRoutes({
+  // सामग्री घोषणा फ़ाइलों को routes के रूप में माना जाने से बचाएं
+  ignoredRouteFiles: configuration.content.fileExtensions.map(
+    (fileExtension) => `**/*${fileExtension}`
+  ),
+});
+
+export default routes;
+```
+
+> `@react-router/fs-routes` से `flatRoutes` फ़ंक्शन फ़ाइल-सिस्टम आधारित routing को सक्षम करता है, जहाँ `routes/` डायरेक्टरी में फ़ाइल संरचना आपके एप्लिकेशन की routes को निर्धारित करती है। `ignoredRouteFiles` विकल्प यह सुनिश्चित करता है कि Intlayer कंटेंट घोषणा फ़ाइलें (`.content.ts`, आदि) route फ़ाइलों के रूप में नहीं मानी जाती हैं।
+
 </Step>
 
 <Step number={5} title="लेआउट कंपोनेंट बनाएं">
+
+फ़ाइल-सिस्टम रूटिंग के साथ, आप एक सपाट नामकरण सम्मेलन का उपयोग करते हैं जहाँ डॉट्स (`.`) पथ खंडों का प्रतिनिधित्व करते हैं और कोष्ठक `()` वैकल्पिक खंडों को दर्शाते हैं।
+
+अपनी `app/routes/` निर्देशिका में निम्नलिखित फ़ाइलें बनाएँ:
 
 #### फ़ाइल संरचना
 
@@ -235,120 +319,6 @@ export default function RootLayout({ params }: Route.ComponentProps) {
 }
 ```
 
-</Step>
-
-<Step number={6} title="अपनी सामग्री घोषित करें">
-
-अपनी अनुवादों को संग्रहीत करने के लिए अपनी सामग्री घोषणाएँ बनाएं और प्रबंधित करें:
-
-```tsx fileName="app/routes/[lang]/page.content.ts"
-import { t, type Dictionary } from "intlayer";
-
-const pageContent = {
-  key: "page",
-  content: {
-    title: t({
-      en: "Welcome to React Router v7 + Intlayer",
-      es: "Bienvenido a React Router v7 + Intlayer",
-      fr: "Bienvenue sur React Router v7 + Intlayer",
-    }),
-    description: t({
-      en: "Build multilingual applications with ease using React Router v7 and Intlayer.",
-      es: "Cree aplicaciones multilingües fácilmente usando React Router v7 y Intlayer.",
-      fr: "Créez des applications multilingues facilement avec React Router v7 et Intlayer.",
-    }),
-    aboutLink: t({
-      en: "हमारे बारे में जानें",
-      es: "Aprender Sobre Nosotros",
-      fr: "En savoir plus sur nous",
-    }),
-    homeLink: t({
-      en: "होम",
-      es: "Inicio",
-      fr: "Accueil",
-    }),
-  },
-} satisfies Dictionary;
-
-export default pageContent;
-```
-
-> आपकी सामग्री घोषणाएँ आपकी एप्लिकेशन में कहीं भी परिभाषित की जा सकती हैं जब तक कि वे `contentDir` निर्देशिका (डिफ़ॉल्ट रूप से, `./app`) में शामिल हों। और सामग्री घोषणा फ़ाइल एक्सटेंशन से मेल खाती हों (डिफ़ॉल्ट रूप से, `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`)।
-
-> अधिक विवरण के लिए, [सामग्री घोषणा प्रलेखन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/content_file.md) देखें।
-
-</Step>
-
-<Step number={7} title="स्थानीय-जानकारी वाले घटक बनाएँ">
-
-स्थानीय-जानकारी वाले नेविगेशन के लिए `LocalizedLink` घटक बनाएँ:
-
-```tsx fileName="app/components/localized-link.tsx"
-import type { FC } from "react";
-
-import { getLocalizedUrl, type LocalesValues } from "intlayer";
-import { useLocale } from "react-intlayer";
-import { Link, type LinkProps, type To } from "react-router";
-
-// यह फ़ंक्शन जांचता है कि लिंक बाहरी है या नहीं
-const isExternalLink = (to: string) => /^(https?:)?\/\//.test(to);
-
-// यह फ़ंक्शन दिए गए पते को स्थानीयकृत URL में परिवर्तित करता है
-export const locacalizeTo = (to: To, locale: LocalesValues): To => {
-  if (typeof to === "string") {
-    if (isExternalLink(to)) {
-      return to;
-    }
-
-    return getLocalizedUrl(to, locale);
-  }
-
-  if (isExternalLink(to.pathname ?? "")) {
-    return to;
-  }
-
-  return {
-    ...to,
-    pathname: getLocalizedUrl(to.pathname ?? "", locale),
-  };
-};
-
-// यह स्थानीयकृत लिंक के लिए एक React functional component है
-export const LocalizedLink: FC<LinkProps> = (props) => {
-  const { locale } = useLocale();
-
-  return <Link {...props} to={locacalizeTo(props.to, locale)} />;
-};
-```
-
-यदि आप स्थानीयकृत मार्गों पर नेविगेट करना चाहते हैं, तो आप `useLocalizedNavigate` हुक का उपयोग कर सकते हैं:
-
-```tsx fileName="app/hooks/useLocalizedNavigate.ts"
-import { useLocale } from "react-intlayer";
-import { type NavigateOptions, type To, useNavigate } from "react-router";
-
-import { locacalizeTo } from "~/components/localized-link";
-
-export const useLocalizedNavigate = () => {
-  const navigate = useNavigate();
-  const { locale } = useLocale();
-
-  const localizedNavigate = (to: To, options?: NavigateOptions) => {
-    const localedTo = locacalizeTo(to, locale);
-
-    navigate(localedTo, options);
-  };
-
-  return localizedNavigate;
-};
-```
-
-</Step>
-
-<Step number={8} title="अपने पृष्ठों में Intlayer का उपयोग करें">
-
-अपने एप्लिकेशन में अपने कंटेंट डिक्शनरीज़ तक पहुँचें:
-
 #### स्थानीयकृत होम पेज
 
 ```tsx fileName="app/routes/[lang]/page.tsx"
@@ -370,9 +340,143 @@ export default function Page() {
 }
 ```
 
+</Step>
+
+<Step number={6} title="अपनी सामग्री की घोषणा करें">
+
+अपनी content declarations बनाएं और प्रबंधित करें translations को store करने के लिए। Content files को अपनी route files के साथ रखें:
+
+```tsx fileName="app/routes/($locale)._index.content.ts"
+import { t, type Dictionary } from "intlayer";
+
+const pageContent = {
+  key: "page",
+  content: {
+    title: t({
+      hi: "React Router v7 + Intlayer में आपका स्वागत है",
+      en: "Welcome to React Router v7 + Intlayer",
+      es: "Bienvenido a React Router v7 + Intlayer",
+      fr: "Bienvenue sur React Router v7 + Intlayer",
+    }),
+    description: t({
+      hi: "React Router v7 और Intlayer का उपयोग करके आसानी से बहुभाषी एप्लिकेशन बनाएं।",
+      en: "Build multilingual applications with ease using React Router v7 and Intlayer.",
+      es: "Cree aplicaciones multilingües fácilmente usando React Router v7 y Intlayer.",
+      fr: "Créez des applications multilingues facilement avec React Router v7 et Intlayer.",
+    }),
+    aboutLink: t({
+      hi: "हमारे बारे में जानें",
+      en: "Learn About Us",
+      es: "Aprender Sobre Nosotros",
+      fr: "En savoir plus sur nous",
+    }),
+  },
+} satisfies Dictionary;
+
+export default pageContent;
+```
+
+```tsx fileName="app/routes/($locale).about.content.ts"
+import { t, type Dictionary } from "intlayer";
+
+const aboutContent = {
+  key: "about",
+  content: {
+    title: t({
+      hi: "हमारे बारे में",
+      en: "About Us",
+      es: "Sobre Nosotros",
+      fr: "À propos de nous",
+    }),
+    content: t({
+      hi: "यह हमारे बारे में पृष्ठ की सामग्री है।",
+      en: "This is the about page content.",
+      es: "Este es el contenido de la página de información.",
+      fr: "Ceci est le contenu de la page à propos.",
+    }),
+    homeLink: t({
+      hi: "होम",
+      en: "Home",
+      es: "Inicio",
+      fr: "Accueil",
+    }),
+  },
+} satisfies Dictionary;
+
+export default aboutContent;
+```
+
+> आपकी content declarations आपके application में कहीं भी परिभाषित की जा सकती हैं जब तक वे `contentDir` directory में शामिल हों (डिफ़ॉल्ट रूप से, `./app`). और content declaration file extension से मेल खाएं (डिफ़ॉल्ट रूप से, `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
+
 > `useIntlayer` हुक के बारे में अधिक जानने के लिए, [डॉक्यूमेंटेशन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/react-intlayer/useIntlayer.md) देखें।
 
 > यदि आपका ऐप पहले से मौजूद है, तो आप हजारों घटकों को एक सेकंड में बदलने के लिए [Intlayer कंपाइलर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md) को [एक्सट्रैक्ट कमांड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/extract.md) के साथ उपयोग कर सकते हैं।
+
+</Step>
+
+<Step number={7} title="लोकेल-अवेयर कंपोनेंट्स बनाएँ">
+
+लोकेल-जागरूक नेविगेशन के लिए एक `LocalizedLink` component बनाएं:
+
+```tsx fileName="app/components/localized-link.tsx"
+import type { FC } from "react";
+
+import { getLocalizedUrl, type LocalesValues } from "intlayer";
+import { useLocale } from "react-intlayer";
+import { Link, type LinkProps, type To } from "react-router";
+
+// बाहरी लिंक की जांच करता है
+const isExternalLink = (to: string) => /^(https?:)?\/\//.test(to);
+
+// URL को स्थानीयकृत करता है
+export const locacalizeTo = (to: To, locale: LocalesValues): To => {
+  if (typeof to === "string") {
+    if (isExternalLink(to)) {
+      return to;
+    }
+
+    return getLocalizedUrl(to, locale);
+  }
+
+  if (isExternalLink(to.pathname ?? "")) {
+    return to;
+  }
+
+  return {
+    ...to,
+    pathname: getLocalizedUrl(to.pathname ?? "", locale),
+  };
+};
+
+// स्थानीयकृत लिंक घटक
+export const LocalizedLink: FC<LinkProps> = (props) => {
+  const { locale } = useLocale();
+
+  return <Link {...props} to={locacalizeTo(props.to, locale)} />;
+};
+```
+
+यदि आप लोकलाइज़्ड routes पर नेविगेट करना चाहते हैं, तो आप `useLocalizedNavigate` hook का उपयोग कर सकते हैं:
+
+```tsx fileName="app/hooks/useLocalizedNavigate.ts"
+import { useLocale } from "react-intlayer";
+import { type NavigateOptions, type To, useNavigate } from "react-router";
+
+import { locacalizeTo } from "~/components/localized-link";
+
+export const useLocalizedNavigate = () => {
+  const navigate = useNavigate();
+  const { locale } = useLocale();
+
+  const localizedNavigate = (to: To, options?: NavigateOptions) => {
+    const localedTo = locacalizeTo(to, locale);
+
+    navigate(localedTo, options);
+  };
+
+  return localizedNavigate;
+};
+```
 
 </Step>
 
@@ -458,7 +562,17 @@ export const useI18nHTMLAttributes = () => {
 };
 ```
 
+यह hook पहले से ही layout component (`($locale)._layout.tsx`) में उपयोग किया जा रहा है जो Step 5 में दिखाया गया है।
+
+</Step>
+
 फिर इसे अपने रूट कॉम्पोनेंट में उपयोग करें:
+
+आप अपने एप्लिकेशन में server-side routing जोड़ने के लिए `intlayerProxy` का भी उपयोग कर सकते हैं। यह plugin स्वचालित रूप से URL के आधार पर वर्तमान locale को detect करेगा और appropriate locale cookie सेट करेगा। यदि कोई locale निर्दिष्ट नहीं है, तो plugin उपयोगकर्ता की browser language preferences के आधार पर सबसे appropriate locale determine करेगा। यदि कोई locale detect नहीं होता है, तो यह default locale पर redirect करेगा।
+
+> ध्यान दें कि उत्पादन में `intlayerProxy` का उपयोग करने के लिए, आपको `vite-intlayer` पैकेज को `devDependencies` से `dependencies` में स्विच करना होगा।
+
+> Intlayer v9 के बाद से, `intlayerProxy()` को सीधे `intlayer()` plugin में बंडल किया गया है और `routing.enableProxy` विकल्प के माध्यम से डिफ़ॉल्ट रूप से सक्षम किया गया है (`true` डिफ़ॉल्ट रूप से)। इसे अलग से पंजीकृत करना जैसा कि नीचे दिखाया गया है अब वैकल्पिक है — इसे पिछड़े संगतता के लिए और उन सेटअप के लिए रखा गया है जिन्हें plugin क्रम को नियंत्रित करने की आवश्यकता है। `routing.enableProxy: false` सेट करके अनुमति न दें। [v9 रिलीज़ नोट्स](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/releases/v9.md) देखें।
 
 ```tsx fileName="app/routes/layout.tsx"
 import { Outlet } from "react-router";
@@ -541,6 +655,8 @@ bun x intlayer extract
 
  </Tab>
  <Tab value='बैबेल कंपाइलर'>
+
+> v9 से, `intlayerCompiler` को `intlayer` प्लगइन में शामिल किया गया है। इसलिए आपको इसे मैन्युअल रूप से जोड़ने की आवश्यकता नहीं है।
 
 intlayerCompiler प्लगइन शामिल करने के लिए अपनी `vite.config.ts` अपडेट करें:
 

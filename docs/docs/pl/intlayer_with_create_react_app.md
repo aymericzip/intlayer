@@ -43,14 +43,57 @@ Zobacz [Szablon aplikacji](https://github.com/aymericzip/intlayer-react-cra-temp
 
 ## Czym jest Intlayer?
 
+W porównaniu z głównymi rozwiązaniami, takimi jak `react-i18next` lub `i18next`, Intlayer to rozwiązanie wyposażone w zintegrowane optymalizacje, takie jak:
+
+<AccordionGroup>
+
+<Accordion header="Pełne wsparcie React">
+
 **Intlayer** to innowacyjna, open-source’owa biblioteka do internacjonalizacji (i18n), zaprojektowana, aby uprościć wsparcie wielojęzyczne w nowoczesnych aplikacjach webowych.
 
+</Accordion>
+
+<Accordion header="Rozmiar pakietu">
+
+Zamiast ładować ogromne pliki JSON do swoich stron, ładuj tylko niezbędną zawartość. Intlayer pomaga **zmniejszyć rozmiar pakietu i stron nawet o 50%**.
+
+</Accordion>
+
+<Accordion header="Łatwość utrzymania">
+
+Zakres zawartości aplikacji **ułatwia utrzymanie** aplikacji na dużą skalę. Możesz zduplikować lub usunąć pojedynczy folder funkcji bez obciążenia przeglądem całej bazy kodu zawartości. Dodatkowo, Intlayer jest **w pełni typowany**, aby zapewnić dokładność Twojej zawartości.
+
+</Accordion>
+
+<Accordion header="AI Agent">
+
+Co-locating content **zmniejsza kontekst wymagany** przez Large Language Models (LLMs). Intlayer zawiera również pakiet narzędzi, takich jak **CLI** do testowania brakujących tłumaczeń, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/mcp_server.md)** i **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/agent_skills.md)**, aby jeszcze bardziej usprawnić doświadczenie programisty (DX) dla agentów AI.
+
+</Accordion>
+
 Dzięki Intlayer możesz:
+
+Użyj automatyzacji do tłumaczenia w swoim potoku CI/CD, używając wybranego przez siebie LLM-u na koszt twojego dostawcy AI. Intlayer oferuje również **kompilator** do automatyzacji ekstrakcji treści, a także [platformę webową](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md) pomagającą **tłumaczyć w tle**.
+
+</Accordion>
+
+<Accordion header="Wydajność">
+
+Łączenie dużych plików JSON z komponentami może prowadzić do problemów z wydajnością i reaktywnością. Intlayer optymalizuje ładowanie treści w czasie kompilacji.
+
+</Accordion>
+
+<Accordion header="Skalowanie bez dev">
 
 - **Łatwe zarządzanie tłumaczeniami** za pomocą deklaratywnych słowników na poziomie komponentów.
 - **Dynamiczna lokalizacja metadanych**, tras i treści.
 - **Zapewnienie wsparcia dla TypeScript** dzięki automatycznie generowanym typom, co poprawia autouzupełnianie i wykrywanie błędów.
 - **Korzystanie z zaawansowanych funkcji**, takich jak dynamiczne wykrywanie i zmiana lokalizacji.
+
+</Accordion>
+</AccordionGroup>
+
+---
 
 ## Przewodnik krok po kroku, jak skonfigurować Intlayer w aplikacji React
 

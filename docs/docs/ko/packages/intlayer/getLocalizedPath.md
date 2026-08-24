@@ -31,6 +31,8 @@ author: aymericzip
 
 `getLocalizedPath` 함수는 캐노니컬 경로(애플리케이션 내부 경로)를 제공된 로케일 및 리라이트 규칙에 따라 로컬라이즈된 등가 경로로 변환합니다. 언어별로 달라지는 SEO 친화적 URL을 생성할 때 특히 유용합니다.
 
+이것은 [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getLocalizedUrl.md)의 상대 경로 버전입니다 — 상대 입력의 경우 둘 다 같은 값을 반환합니다. `getLocalizedUrl`과 달리 절대 URL을 반환하지 않습니다: `domains` 설정이 무시되므로 자신의 도메인에서 제공되는 로케일도 경로를 반환합니다. 절대 입력은 허용되지만 원본은 제거됩니다 — 경로, 쿼리 문자열 및 해시만 유지됩니다.
+
 **주요 기능:**
 
 - `[param]` 구문을 사용한 동적 라우트 매개변수를 지원합니다.
@@ -60,11 +62,6 @@ getLocalizedPath(
   - **타입**: `string`
   - **필수**: 예
 
-- `locale: Locales`
-  - **설명**: 경로를 로컬라이즈할 대상 로케일입니다.
-  - **타입**: `Locales`
-  - **필수**: 예
-
 ### 선택적 매개변수
 
 - `rewriteRules?: RoutingConfig['rewrite']`
@@ -72,12 +69,43 @@ getLocalizedPath(
   - **타입**: `RoutingConfig['rewrite']`
   - **기본값**: `configuration.routing.rewrite`
 
+- `options?: object`
+  - **Description**: 라우팅 오버라이드. 모든 항목은 프로젝트의 구성으로 기본값이 설정됩니다.
+  - **Type**: `object`
+
+  - `options.locales?: Locales[]` — 지원하는 로케일. **기본값**: `configuration.internationalization.locales`
+  - `options.defaultLocale?: Locales` — 기본 로케일. **기본값**: `configuration.internationalization.defaultLocale`
+  - `options.mode?: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'` — 경로에 로케일이 표시되는 방식. **기본값**: `configuration.routing.mode`
+  - `options.rewrite?: RoutingConfig['rewrite']` — 사용자 정의 rewrite 규칙. **기본값**: `configuration.routing.rewrite`
+
 ---
 
 ## 반환값
 
 - **타입**: `string`
 - **설명**: 지정된 로케일에 대한 로컬라이즈된 경로입니다.
+
+타입은 구성에서 선언된 재작성 규칙으로부터 좁혀지므로, 편집기는 단순 `string`이 아닌 확인된 경로를 표시합니다:
+
+```typescript codeFormat="typescript"
+// 설정: mode 'prefix-no-default', defaultLocale 'en',
+//                { '/about': { fr: '/a-propos' }, '/product/[id]': { fr: '/produit/[id]' } }
+const about = getLocalizedPath("/about", Locales.FRENCH);
+//    ^? '/fr/a-propos'
+const product = getLocalizedPath("/product/123", Locales.FRENCH);
+//    ^? '/fr/produit/123'
+const contact = getLocalizedPath("/contact", Locales.FRENCH);
+//    ^? '/fr/contact'  (재작성 규칙이 일치하지 않음, 접두사만 적용됨)
+const home = getLocalizedPath("/", Locales.FRENCH);
+//    ^? '/fr'
+```
+
+같은 좁혀진 범위가 [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getLocalizedUrl.md)으로 흐르며, 이는 locale을 prefixing하기 전에 rewrite 규칙을 적용합니다.
+
+두 가지 경우는 컴파일 타임에 해결할 수 없기 때문에 `string`으로 확대됩니다:
+
+- 문자열 리터럴이 아닌 경로 (예: 변수에서 생성된 경로);
+- 다중 세그먼트 또는 선택적 매개변수를 사용하는 규칙과 일치하는 경로 (`[...slug]`, `[[...slug]]`, `:param?`).
 
 ---
 
@@ -125,8 +153,6 @@ const manualRules = {
 getLocalizedPath("/contact", Locales.FRENCH, manualRules);
 // 출력: "/contactez-nous"
 ```
-
----
 
 ### 로케일 생략
 

@@ -91,7 +91,13 @@ Pour la plupart des cas d'utilisation,
 
 - **`--log`** : Mode journalisation uniquement. Ne traduit pas avec l'IA ; à la place, journalise les blocs qui nécessitent une attention (avec les numéros de ligne et le contenu) pour les locales de base et cibles, afin d'aider un autre agent à générer les traductions.
 
-  > Exemple : `npx intlayer doc review --log`
+Je suis prêt à effectuer l'audit de traduction. Cependant, je n'ai pas encore reçu :
+
+> Exemple: `npx intlayer doc review --mode report`
+
+> Exemple : `npx intlayer doc review --log`
+
+Quel que soit le mode, l'exécution se termine par une synthèse listant les documents alignés avec leur document de base et ceux qui ont encore des blocs à modifier.
 
 **Options de sortie des entrées :**
 

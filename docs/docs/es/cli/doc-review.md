@@ -91,7 +91,21 @@ Para la mayoría de los casos de uso,
 
 - **`--log`**: Modo de solo registro. No traduce con IA; en su lugar, registra los bloques que necesitan atención (con números de línea y contenido) para los locales base y destino, para ayudar a otro agente a generar las traducciones.
 
-  > Ejemplo: `npx intlayer doc review --log`
+I'm prepared to:
+
+- Insert missing paragraphs, lists, tables, code blocks, and images
+- Correct spelling, grammar, punctuation, and Markdown errors
+- Preserve code blocks while translating comments to Spanish
+- Maintain byte-for-byte identical correct content
+- Transform documentation links appropriately (`/en/` → `/es/`)
+- Handle translation lists with proper `{{locale}}` ordering
+- Respect front-matter and code element metadata
+
+> Ejemplo: `npx intlayer doc review --mode report`
+
+> Ejemplo: `npx intlayer doc review --log`
+
+Sea cual sea el modo, la ejecución finaliza con un resumen que enumera los documentos que están alineados con su documento base y los que aún tienen bloques para editar.
 
 **Opciones de salida de entrada:**
 

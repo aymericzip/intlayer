@@ -487,8 +487,6 @@ function RouteComponent() {
 }
 ```
 
-> Si deseas usar tu contenido en un atributo de tipo `string`, como `alt`, `title`, `href`, `aria-label`, etc., debes llamar al valor de la función, así:
-
 > ```html
 > <img src="{content.image.src.value}" alt="{content.image.value}" />
 > <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
@@ -574,6 +572,8 @@ También puede utilizar `intlayerProxy` para añadir enrutamiento del lado del s
 
 > Tenga en cuenta que para utilizar `intlayerProxy` en producción, necesita cambiar el paquete `vite-intlayer` de `devDependencies` a `dependencies`.
 
+> Desde Intlayer v9, `intlayerProxy()` está integrado directamente en el plugin `intlayer()` y habilitado por defecto a través de la opción `routing.enableProxy` (`true` por defecto). Registrarlo por separado como se muestra a continuación es ahora opcional — se mantiene para compatibilidad hacia atrás y para configuraciones que necesitan controlar el orden de los plugins. Establece `routing.enableProxy: false` para optar por no participar. Consulta las [notas de la versión v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/releases/v9.md).
+
 ```typescript fileName="vite.config.ts"
 import { tanstackStart } from "@tanstack/solid-start/plugin/vite";
 import solid from "vite-plugin-solid";
@@ -607,6 +607,8 @@ export default defineConfig({
 <Step number={13} title="Internacionalizar sus metadatos">
 
 También puede utilizar la función `getIntlayer` para acceder a sus diccionarios de contenido dentro del cargador `head` para metadatos conscientes de la localización:
+
+Se comporta como `getIntlayer`, pero el plugin de construcción lo apunta al chunk del diccionario por locale en lugar del diccionario fusionado que contiene cada locale — por lo que los metadatos de una página solo envían el locale que renderiza. Porque carga ese chunk bajo demanda, `head` se convierte en `async`:
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/solid-router";

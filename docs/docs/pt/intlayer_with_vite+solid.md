@@ -47,15 +47,22 @@ author: aymericzip
 />
 
   </Tab>
+  <Tab label="Demo" value="demo">
+
+<iframe
+  src="https://intlayer-vite-solid.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo Intlayer Vite + Solid Template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
 </Tabs>
 
 ## Table of Contents
 
 <TOC/>
-
-> Este pacote está em desenvolvimento. Veja a [issue](https://github.com/aymericzip/intlayer/issues/117) para mais informações. Demonstre seu interesse pelo Intlayer para Solid curtindo a issue
-
-<!-- Veja o [Modelo de Aplicação](https://github.com/aymericzip/intlayer-solid-template) no GitHub. -->
 
 ## Por que Intlayer em vez de alternativas?
 
@@ -241,8 +248,6 @@ export default appContent;
 ```
 
 > As suas declarações de conteúdo podem ser definidas em qualquer lugar da sua aplicação assim que forem incluídas no diretório `contentDir` (por padrão, `./src`). E devem corresponder à extensão do ficheiro de declaração de conteúdo (por padrão, `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
-
-> Para mais detalhes, consulte a [documentação de declaração de conteúdo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/content_file.md).
 
 </Step>
 
@@ -491,28 +496,9 @@ export const Link: ParentComponent<AnchorProps> = (props) => {
 };
 ```
 
-</Step>
-
 <Step number={11} title="Renderizar Markdown" isOptional={true}>
 
 O Intlayer suporta a renderização de conteúdo Markdown diretamente na sua aplicação Solid usando o seu próprio parser interno. Por padrão, o Markdown é tratado como texto simples. Para renderizá-lo como HTML rico, envolva a sua aplicação com o `MarkdownProvider`.
-
-```tsx fileName="src/index.tsx"
-import { render } from "solid-js/web";
-import { MarkdownProvider } from "solid-intlayer/markdown";
-import App from "./App";
-
-const root = document.getElementById("root");
-
-render(
-  () => (
-    <MarkdownProvider>
-      <App />
-    </MarkdownProvider>
-  ),
-  root!
-);
-```
 
 Depois pode usá-lo nos seus componentes:
 
@@ -738,19 +724,8 @@ Para melhorar a sua experiência de desenvolvimento com o Intlayer, pode instala
 
 [Instalar a partir do VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
-Esta extensão fornece:
-
-- **Autocompletar** para chaves de tradução.
-- **Deteção de erros em tempo real** para traduções em falta.
-- **Pré-visualizações inline** do conteúdo traduzido.
-- **Ações rápidas** para criar e atualizar traduções facilmente.
-
-Para mais detalhes sobre como usar a extensão, consulte a [documentação da Extensão Intlayer para VS Code](https://intlayer.org/doc/vs-code-extension).
-
 ---
 
 ### Ir Mais Longe
 
 Para ir mais longe, pode implementar o [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md) ou externalizar o seu conteúdo usando o [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md).
-
----

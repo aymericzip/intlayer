@@ -30,8 +30,6 @@ author: aymericzip
 
 ## React 中的示例用法
 
-以下是如何在 React 组件中使用 `useDictionary` 钩子的示例：
-
 ```tsx fileName="./ComponentExample.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useDictionary } from "react-intlayer";

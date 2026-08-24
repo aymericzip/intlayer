@@ -70,6 +70,11 @@ getLocalizedUrl(
 
 ### İsteğe Bağlı Parametreler
 
+- `options?: object`
+  - **Description**: URL yerelleştirme davranışı için yapılandırma nesnesi.
+  - **Type**: `object`
+  - **Required**: Hayır (İsteğe bağlı)
+
 - `locales?: Locales[]`
   - **Açıklama**: Desteklenen yerel ayarlar dizisi. Sağlanmazsa, proje yapılandırmanızdan yapılandırılan yerel ayarları kullanır.
   - **Tür**: `Locales[]`
@@ -209,6 +214,12 @@ getLocalizedUrl(
 
 - **Desteklenmeyen Yerel Ayarlar:**
   - `locales`'te listelenmeyen yerel ayarlar için fonksiyon herhangi bir önek uygulamaz.
+
+- **Yönlendirme Modları:**
+  - `'prefix-no-default'`: Varsayılan yerel ayarın öneki yoktur, diğerlerinin var (ör: `/about`, `/fr/about`)
+  - `'prefix-all'`: Tüm yerel ayarların önekleri var (ör: `/en/about`, `/fr/about`)
+  - `'no-prefix'`: URL'lerde yerel ayar öneki yoktur (yerel ayar başka yerde işlenir)
+  - `'search-params'`: Sorgu parametresi aracılığıyla belirtilen yerel ayar (ör: `/about?locale=fr`)
 
 ---
 

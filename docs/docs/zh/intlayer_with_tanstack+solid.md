@@ -41,6 +41,10 @@ author: aymericzip
 
 ## 为什么选择 Inlayer 而不是替代品？
 
+与 `react-i18next` 或 `i18next` 等主要解决方案相比，Intlayer 是一个附带集成优化的解决方案，例如：
+
+<AccordionGroup>
+
 与“react-i18next”或“i18next”等主要解决方案相比，Intlayer是一个具有集成优化的解决方案，例如：
 
 **完整的 TanStack Start 覆盖**
@@ -51,17 +55,25 @@ Intlayer 经过优化，可与 TanStack Start 和 Solid 完美配合，提供**�
 
 不要将大量 JSON 文件加载到页面中，而只需加载必要的内容。 Intlayer 有助于**将捆绑包和页面大小减少多达 50%**。
 
+</Accordion>
+
 **可维护性**
 
 确定应用程序内容的范围**有利于大型应用程序的维护**。您可以复制或删除单个功能文件夹，而无需承担检查整个内容代码库的精神负担。此外，Intlayer 具有**完全类型化 (fully typed)**，以确保您的内容的准确性。
 
 **人工智能代理**
 
+<Accordion header="AI Agent">
+
 共置内容**减少大型语言模型 (LLM) 所需的上下文**。 Intlayer 还附带了一套工具，例如用于测试缺失翻译的 **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** 和 **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)**，使 AI 代理的开发者体验 (DX) 更加流畅。
 
 **自动化**
 
+<Accordion header="自动化">
+
 使用您选择的法学硕士，通过自动化在 CI/CD 管道中进行翻译，而费用由您的 AI 提供商承担。 Intlayer 还提供了一个**编译器**来自动提取内容，以及一个[网络平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)来帮助**在后台翻译**。
+
+</Accordion>
 
 **表现**
 
@@ -69,7 +81,12 @@ Intlayer 经过优化，可与 TanStack Start 和 Solid 完美配合，提供**�
 
 **无需开发即可扩展**
 
+<Accordion header="使用 none-dev 扩展">
+
 Intlayer 不仅仅是一个 i18n 解决方案，还提供了一个**自托管的[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)**和一个**[完整的 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** 来帮助您管理多语言内容**实时**，与译员、文案人员和其他团队成员无缝协作。内容可以本地和/或远程存储。
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
@@ -596,6 +613,8 @@ export default defineConfig({
 <Step number={12} title="国际化您的元数据">
 
 您也可以使用 `getIntlayer` 函数在 `head` 加载器内访问您的内容字典以获取语言环境感知的元数据：
+
+它的行为类似于 `getIntlayer`，但构建插件将其指向每个语言环境的字典块，而不是包含每个语言环境的合并字典——因此页面的元数据仅包含它呈现的语言环境。由于它按需加载该块，`head` 变成了 `async`：
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/solid-router";

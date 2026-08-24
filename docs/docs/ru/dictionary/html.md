@@ -248,7 +248,7 @@ const myContent = html(
 
 <Tabs group="framework">
   <Tab label="React / Next.js" value="react">
-  
+
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "react-intlayer/html";
 
@@ -285,7 +285,7 @@ const myContent = html(
 
   </Tab>
   <Tab label="Vue" value="vue">
-  
+
     ```typescript fileName="main.ts"
     import { createApp, h } from "vue";
     import { intlayer } from "vue-intlayer";
@@ -330,7 +330,7 @@ const myContent = html(
 
   </Tab>
   <Tab label="Svelte" value="svelte">
-   
+
     ```svelte fileName="App.svelte"
     <script lang="ts">
       import { HTMLProvider } from "svelte-intlayer/html";
@@ -367,7 +367,7 @@ const myContent = html(
 
   </Tab>
   <Tab label="Preact" value="preact">
-   
+
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "preact-intlayer/html";
 
@@ -403,7 +403,7 @@ const myContent = html(
 
   </Tab>
   <Tab label="Solid" value="solid">
-   
+
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "solid-intlayer/html";
 
@@ -486,7 +486,9 @@ const myContent = html(
 <Tabs group="framework">
   <Tab label="React / Next.js" value="react">
     #### Компонент `<HTMLRenderer />`
-    
+
+Отрендерить HTML-строку с конкретными компонентами.
+
     ```tsx
     import { HTMLRenderer } from "react-intlayer/html";
 
@@ -521,9 +523,9 @@ const myContent = html(
 
   </Tab>
   <Tab label="Vue" value="vue">
-   
+
     #### Компонент `<HTMLRenderer />`
-   
+
     ```vue
     <script setup>
     import { HTMLRenderer } from "vue-intlayer/html";
@@ -536,9 +538,9 @@ const myContent = html(
 
   </Tab>
   <Tab label="Svelte" value="svelte">
-  
+
     #### Компонент `<HTMLRenderer />`
-   
+
     ```svelte
     <script lang="ts">
     import { HTMLRenderer } from "svelte-intlayer/html";
@@ -570,9 +572,9 @@ const myContent = html(
 
   </Tab>
   <Tab label="Preact" value="preact">
-   
+
     #### Компонент `<HTMLRenderer />`
-   
+
     ```tsx
     import { HTMLRenderer } from "preact-intlayer/html";
 
@@ -601,9 +603,9 @@ const myContent = html(
 
   </Tab>
   <Tab label="Solid" value="solid">
-   
+
     #### Компонент `<HTMLRenderer />`
-   
+
     ```tsx
     import { HTMLRenderer } from "solid-intlayer/html";
 

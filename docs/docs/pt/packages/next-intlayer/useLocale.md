@@ -104,6 +104,8 @@ O hook `useLocale` aceita os seguintes parâmetros:
 
 ## Valores de Retorno
 
+Quando você invoca o hook `useLocale`, ele retorna um objeto contendo as seguintes propriedades:
+
 - **`locale`**: O local atual definido no contexto do React.
 - **`defaultLocale`**: O local principal definido na configuração.
 - **`availableLocales`**: Uma lista de todos os locais disponíveis conforme definido na configuração.

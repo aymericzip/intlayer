@@ -123,6 +123,30 @@ Confira o [modelo da aplicação](https://github.com/aymericzip/intlayer-astro-t
 Instale os pacotes necessários usando seu gerenciador de pacotes preferido:
 
 ```bash packageManager="npm"
+npx intlayer init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer@canary init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer@canary init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer@canary init --interactive
+```
+
+> a flag `--interactive` é opcional. Use `intlayer-cli init` se você for um agente de IA.
+
+> Este comando detectará seu ambiente e instalará os pacotes necessários. Por exemplo:
+
+```bash packageManager="npm"
+npm install intlayer astro-intlayer
+```
+
+```bash packageManager="npm"
 npm install intlayer astro-intlayer
 # Opcional: Se você adicionar suporte para islands do React
 npm install react react-dom react-intlayer @astrojs/react
@@ -313,11 +337,83 @@ const { title } = getIntlayer('app');
 <h1>{title}</h1>
 ```
 
+> **Nota sobre Configuração de Roteamento:**
+> A estrutura de diretórios que você usa depende da configuração `middleware.routing` em seu `intlayer.config.ts`:
+>
+> - **`prefix-no-default` (padrão):** Mantém a locale padrão na raiz (sem prefixo) e prefixia as outras. Use `[...locale]` para capturar todos os casos.
+> - **`prefix-all`:** Todos os URLs são prefixados com a locale. Você pode usar `[locale]` padrão se não precisar manipular a raiz separadamente.
+> - **`search-param` ou `no-prefix`:** Nenhuma pasta de locale é necessária. A locale é manipulada via parâmetros de busca ou cookies.
+
+</Step>
+
+<Step number={7} title="Add a Locale Switcher">
+
 A integração do Astro adiciona um middleware Vite que ajuda no roteamento sensível ao idioma e nas definições de ambiente durante o desenvolvimento. Você também pode criar links entre idiomas usando sua própria lógica ou ferramentas do `intlayer`, como o `getLocalizedUrl`.
+
+```astro fileName="src/components/LocaleSwitcher.astro"
+---
+import {
+  locales,
+  getLocaleName,
+  getLocalizedUrl,
+  getLocaleFromPath,
+  getPathWithoutLocale,
+  type LocalesValues,
+} from "intlayer";
+
+const locale = getLocaleFromPath(Astro.url.pathname) as LocalesValues;
+const pathWithoutLocale = getPathWithoutLocale(Astro.url.pathname);
+---
+
+<nav>
+  {
+    locales.map((localeItem) => (
+      <a
+        href={getLocalizedUrl(pathWithoutLocale, localeItem)}
+        data-locale={localeItem}
+        aria-current={localeItem === locale ? "page" : undefined}
+      >
+        {getLocaleName(localeItem)}
+      </a>
+    ))
+  }
+</nav>
+
+<script>
+  import { setLocaleInStorageClient, getLocalizedUrl, type LocalesValues } from "intlayer";
+
+  const localeLinks = document.querySelectorAll("[data-locale]");
+
+  localeLinks.forEach((link) => {
+    link.addEventListener("click", (e) => {
+      const locale = link.getAttribute("data-locale") as LocalesValues;
+
+      // Atualizar o cookie de locale
+      setLocaleInStorageClient(locale);
+    });
+  });
+</script>
+
+<style>
+  nav {
+    display: flex;
+    gap: 1rem;
+  }
+  a[aria-current="page"] {
+    font-weight: bold;
+    text-decoration: underline;
+  }
+</style>
+```
+
+> **Nota sobre Persistência:**
+> Usar `setLocaleInStorageClient` no script do lado do cliente garante que a preferência de idioma do usuário seja salva em um cookie. Isso permite que o middleware Intlayer lembre da escolha e redirecione automaticamente o usuário para seu idioma preferido em visitas futuras.
 
 </Step>
 
 <Step number={8} title="Sitemap e Robots.txt">
+
+Intlayer fornece utilitários para gerar sitemaps localizados e arquivos robots.txt dinamicamente.
 
 #### Sitemap
 

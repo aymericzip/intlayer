@@ -214,8 +214,6 @@ Após completar o login:
    - [`npx intlayer push`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/push.md) - Fazer push de dicionários para o CMS
    - [`npx intlayer pull`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/pull.md) - Fazer pull de dicionários do CMS
 
-- [`npx intlayer fill`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/fill.md) - Preencher traduções faltantes
-
 ## Veja também
 
 - [Documentação da CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/index.md)

@@ -76,6 +76,17 @@ const helloWorldContent = {
 module.exports = helloWorldContent;
 ```
 
+```json5 fileName="hello-world.tr.content.json" contentDeclarationFormat="json"
+{
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "hello-world",
+  "locale": "tr", // Önemli
+  "content": {
+    "multilingualContent": "Bileşenimin Başlığı",
+  },
+}
+```
+
 ```json fileName="hello-world.content.ts" contentDeclarationFormat="json"
 {
   "$schema": "https://intlayer.org/schema.json",
@@ -93,6 +104,8 @@ module.exports = helloWorldContent;
 ```
 
 > Önerilen: Bu format, Intlayer'ın görsel düzenleyicisini kullanırken veya çevirileri doğrudan kodda yönetirken en iyisidir.
+
+> Not: Her iki durumda da, içerik deklarasyon dosyası Intlayer tarafından tanınması için `*.content.{ts,tsx,js,jsx,mjs,cjs,json}` adlandırma desenini takip etmelidir. `.[locale]` son eki isteğe bağlıdır ve yalnızca bir adlandırma kuralı olarak kullanılır.
 
 ### Yerel Ayar Başına Dosyalar İçin Global Yapılandırma
 
@@ -145,17 +158,6 @@ const helloWorldContent = {
 export default helloWorldContent;
 ```
 
-```json5 fileName="hello-world.en.content.json" contentDeclarationFormat="json"
-{
-  "$schema": "https://intlayer.org/schema.json",
-  "key": "hello-world",
-  "locale": "en", // Önemli
-  "content": {
-    "multilingualContent": "Title of my component",
-  },
-}
-```
-
 ```json5 fileName="hello-world.es.content.json" contentDeclarationFormat="json"
 {
   "$schema": "https://intlayer.org/schema.json",
@@ -168,8 +170,6 @@ export default helloWorldContent;
 ```
 
 > Önemli: Yerel ayar alanının tanımlandığından emin olun. Bu, Intlayer'a dosyanın hangi dili temsil ettiğini söyler.
-
-> Not: Her iki durumda da, içerik bildirim dosyası Intlayer tarafından tanınmak için `*.content.{ts,tsx,js,jsx,mjs,cjs,json}` adlandırma desenini takip etmelidir. `.[locale]` soneki isteğe bağlıdır ve sadece adlandırma kuralı olarak kullanılır.
 
 ## Formatları Karıştırma
 

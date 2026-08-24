@@ -215,7 +215,32 @@ export default withIntlayer(nextConfig);
 > Плагін Next.js `withIntlayer()` використовується для інтеграції Intlayer із Next.js. Він забезпечує побудову файлів словників і слідкує за ними у режимі dev. Він визначає змінні середовища Intlayer у середовищах [Webpack](https://webpack.js.org/) або [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack). Більше того, він надає псевдоніми для оптимізації продуктивності та повноцінно працює із Серверними Компонентами.
 > </Step>
 
+</Step>
+
 <Step number={4} title="Виявлення мови на ваших сторінках">
+
+Компілятор Intlayer потребує Babel для видобування та оптимізації вашого вмісту. Оновіть ваш `babel.config.js` (або `babel.config.json`), щоб включити плагіни Intlayer:
+
+```typescript fileName="babel.config.js"
+const {
+  intlayerExtractBabelPlugin,
+  intlayerOptimizeBabelPlugin,
+  getExtractPluginOptions,
+  getOptimizePluginOptions,
+} = require("@intlayer/babel");
+
+module.exports = {
+  presets: ["next/babel"],
+  plugins: [
+    [intlayerExtractBabelPlugin, getExtractPluginOptions()],
+    [intlayerOptimizeBabelPlugin, getOptimizePluginOptions()],
+  ],
+};
+```
+
+</Step>
+
+<Step number={5} title="Detect Locale in your pages">
 
 Очистіть контент `RootLayout` та замініть його прикладом нижче:
 
@@ -321,6 +346,9 @@ export default async function Page() {
 }
 ```
 
+<Tabs>
+  <Tab label='Intlayer >=9.4' value='>=9.4'>
+
 ```tsx fileName="src/app/page.tsx"
 import { type FC } from "react";
 import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
@@ -348,13 +376,48 @@ export default async function Page() {
 }
 ```
 
+- **`IntlayerProvider`** монтується один раз у кореневому макеті. Він надає локаль як серверним, так і клієнтським компонентам, тому сторінки більше не обгортаються самі в себе.
+- Без сегмента шляху `[locale]` локаль завжди надходить із запиту — заголовку `x-intlayer-locale`, встановленого проксі Intlayer, потім куки локалі — які серверні хуки читають самостійно, коли провайдер не запущений.
+
   </Tab>
+
 </Tabs>
+
+```tsx fileName="src/app/page.tsx"
+import { type FC } from "react";
+import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
+import { getLocale } from "next-intlayer/server";
+
+const PageContent: FC = () => {
+  const content = useIntlayer("page-content");
+
+  return (
+    <>
+      <p>{content.getStartedByEditing}</p>
+      <code>src/app/page.tsx</code>
+    </>
+  );
+};
+
+export default async function Page() {
+  const locale = await getLocale();
+
+  return (
+    <IntlayerServerProvider locale={locale}>
+      <PageContent />
+    </IntlayerServerProvider>
+  );
+}
+```
 
 - **`IntlayerClientProvider`** використовується для розповсюдження мови до клієнтських компонентів-нащадків.
 - Водночас **`IntlayerServerProvider`** використовується для забезпечення мови серверним компонентам-нащадкам.
 
   > Layout and page cannot share a common server context because the server context system is based on a per-request data store (via [React's cache](https://react.dev/reference/react/cache) mechanism), causing each "context" to be re-created for different segments of the application. Placing the provider in a shared layout would break this isolation, preventing the correct propagation of the server context values to your server components.
+
+ </Tab>
+
+</Tabs>
 
 </Step>
 
@@ -412,6 +475,8 @@ export const config = {
 ```
 
 > `intlayerProxy` використовується для виявлення обраної мови користувача та його перенаправлення на відповідну URL-адресу, як це визначено у [файлі конфігурації](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md). Крім того, це дозволяє зберігати бажану мову користувача у cookie.
+
+> Починаючи з Intlayer v9, це middleware дотримується опції `routing.enableProxy` (`true` за замовчуванням). Установіть `routing.enableProxy: false` у вашій конфігурації, щоб перетворити її на pass-through без видалення цього файлу. Див. [примітки до випуску v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/releases/v9.md).
 
 </Step>
 
@@ -471,6 +536,8 @@ export const LocaleSwitcher: FC = () => {
 
 При використанні `next-intlayer`, словники за замовчуванням включаються в bundle для кожної сторінки. Для оптимізації розміру bundle Intlayer надає опціональний SWC-плагін, який інтелектуально замінює виклики `useIntlayer` за допомогою макросів. Це гарантує, що словники включаються лише в bundle тих сторінок, які їх дійсно використовують.
 
+Плагін `@intlayer/babel` вже інтегрує оптимізацію bundling (див. `babel.config.js`). Але плагін `@intlayer/swc` є більш продуктивним. Якщо ви видалите плагін `@intlayer/babel`, ви можете використовувати плагін `@intlayer/swc`.
+
 Щоб увімкнути цю оптимізацію, встановіть пакет `@intlayer/swc`. Після встановлення `next-intlayer` автоматично виявить і використовуватиме плагін:
 
 ```bash packageManager="npm"
@@ -495,6 +562,8 @@ bun add @intlayer/swc --dev
 
 > Примітка: Якщо ви встановили опцію (у конфігурації словника) `importMode: 'dynamic'` або `importMode: 'fetch'`, вона залежатиме від Suspense, тому вам потрібно буде обгорнути виклики `useIntlayer` у межу `Suspense`. Це означає, що ви не зможете використовувати `useIntlayer` безпосередньо на верхньому рівні ваших компонентів Сторінки / Layout.
 > </Step>
+
+</Step>
 
 <Step number={1} title="Витягніть вміст ваших компонентів" isOptional={true}>
 

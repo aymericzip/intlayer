@@ -77,6 +77,17 @@ const helloWorldContent = {
 module.exports = helloWorldContent;
 ```
 
+```json5 fileName="hello-world.id.content.json" contentDeclarationFormat="json"
+{
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "hello-world",
+  "locale": "id", // Penting
+  "content": {
+    "multilingualContent": "Judul komponen saya",
+  },
+}
+```
+
 ```json fileName="hello-world.content.ts" contentDeclarationFormat="json"
 {
   "$schema": "https://intlayer.org/schema.json",
@@ -94,6 +105,8 @@ module.exports = helloWorldContent;
 ```
 
 > Direkomendasikan: Format ini paling baik digunakan saat memakai editor visual Intlayer atau mengelola terjemahan langsung di dalam kode.
+
+> Catatan: Dalam kedua kasus, file deklarasi konten harus mengikuti pola penamaan `*.content.{ts,tsx,js,jsx,mjs,cjs,json}` untuk dikenali oleh Intlayer. Akhiran `.[locale]` bersifat opsional dan hanya digunakan sebagai konvensi penamaan.
 
 ### Konfigurasi Global untuk File Per-Locale
 
@@ -146,17 +159,6 @@ const helloWorldContent = {
 export default helloWorldContent;
 ```
 
-```json5 fileName="hello-world.en.content.json" contentDeclarationFormat="json"
-{
-  "$schema": "https://intlayer.org/schema.json",
-  "key": "hello-world",
-  "locale": "en", // Penting
-  "content": {
-    "multilingualContent": "Judul komponen saya",
-  },
-}
-```
-
 ```json5 fileName="hello-world.es.content.json" contentDeclarationFormat="json"
 {
   "$schema": "https://intlayer.org/schema.json",
@@ -169,8 +171,6 @@ export default helloWorldContent;
 ```
 
 > Penting: Pastikan field locale didefinisikan. Ini memberitahu Intlayer bahasa apa yang diwakili oleh file tersebut.
-
-> Catatan: Dalam kedua kasus, file deklarasi konten harus mengikuti pola penamaan `*.content.{ts,tsx,js,jsx,mjs,cjs,json}` agar dikenali oleh Intlayer. Sufiks `.[locale]` bersifat opsional dan hanya digunakan sebagai konvensi penamaan.
 
 ## Menggabungkan Format
 

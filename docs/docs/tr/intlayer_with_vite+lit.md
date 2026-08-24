@@ -109,6 +109,8 @@ Bir i18n çözümünden çok daha fazlası olan Intlayer, **kendi kendine barın
 
 ---
 
+[Uygulama Şablonunu](https://github.com/aymericzip/intlayer-vite-lit-template) GitHub'da görün.
+
 ## Vite ve Lit Uygulamasında Intlayer Kurulumu İçin Adım Adım Kılavuz
 
 <Steps>
@@ -477,6 +479,8 @@ Her dil için benzersiz rotalar oluşturmak (SEO için yararlıdır), Intlayer'�
 İlk olarak, Vite yapılandırmanıza `intlayerProxy` ekleyin:
 
 > Üretimde `intlayerProxy` kullanmak için `vite-intlayer` paketini `devDependencies`'tan `dependencies`'a taşımanız gerektiğini unutmayın.
+
+> Intlayer v9'dan itibaren, `intlayerProxy()` doğrudan `intlayer()` plugin'ine paketlenmiştir ve `routing.enableProxy` seçeneği aracılığıyla varsayılan olarak etkindir (`true` varsayılandır). Aşağıda gösterildiği gibi ayrı olarak kaydetmek artık isteğe bağlıdır — geriye dönük uyumluluk ve plugin sırasını kontrol etmesi gereken kurulumlar için saklanmıştır. Devre dışı bırakmak için `routing.enableProxy: false` ayarlayın. [v9 release notlarına](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/releases/v9.md) bakın.
 
 ```typescript {3,7} fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";

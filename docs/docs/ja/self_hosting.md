@@ -64,10 +64,6 @@ Chromium (Puppeteerのスクリーンショット生成に使用) はバック�
 
 ## クイックスタート
 
-```sh
-curl -fsSL https://intlayer.org/install.sh | sh
-```
-
 インストーラーの動作:
 
 1.  `docker` と `docker compose` が存在するかどうかを確認します。
@@ -77,6 +73,8 @@ curl -fsSL https://intlayer.org/install.sh | sh
 5.  URLを表示します: ダッシュボード `:3000`、API `:3100`、メールUI `:8025`、MinIOコンソール `:9001`。
 
 スタックが起動したら、**http://localhost:3000** を開き、最初のIntlayerアカウントを作成してください。
+
+> ダッシュボードは `localhost` で提供されます。[制限事項](#limitations)を参照してください — カスタムドメインは公開イメージではサポートされていません。
 
 ---
 
@@ -102,8 +100,6 @@ curl -fsSL https://intlayer.org/install.sh | sh
 | **redis**   | `redis:7-alpine`                     | 内部                             | ジョブキュー (BullMQ) とキャッシュ (ioredis)                 |
 | **minio**   | `minio/minio`                        | `9000` (S3), `9001` (コンソール) | アバターとスクリーンショット用のS3互換オブジェクトストレージ |
 | **mailpit** | `axllent/mailpit`                    | `1025` (SMTP), `8025` (ウェブUI) | ローカルトランザクションメールシンク                         |
-
-内部ポート (mongo, redis) は、デフォルトではホストに公開されません。
 
 > MinIOポート `9000` は、アップロードされたアセット (アバター、スクリーンショット) が `S3_PUBLIC_URL=http://localhost:9000/intlayer` から直接読み込まれるため、ブラウザから到達可能である必要があります。
 
@@ -159,8 +155,6 @@ curl -fsSL https://intlayer.org/install.sh | sh
 | `MICROSOFT_CLIENT_ID`, `MICROSOFT_CLIENT_SECRET`         | Microsoft OAuthログイン                                                    |
 | `LINKEDIN_CLIENT_ID`, `LINKEDIN_CLIENT_SECRET`           | LinkedIn OAuthログイン                                                     |
 | `ATLASSIAN_CLIENT_ID`, `ATLASSIAN_CLIENT_SECRET`         | Atlassian OAuthログイン                                                    |
-
----
 
 ### グローバルメーラー
 
@@ -247,15 +241,7 @@ const { data: dictionaries } = await dictionaryEndpoint(cms).getDictionaries();
 
 ## アップグレード
 
-既存のデプロイメントでインストーラーを再実行すると、ローリングアップグレードが実行されます。
-
-```sh
-curl -fsSL https://intlayer.org/install.sh | sh
-```
-
 これにより、最新のイメージがプルされ、`docker compose pull && docker compose up -d` でコンテナが再起動されます。既存のボリューム (`mongo-data`、`redis-data`、`minio-data`) は保持され、データ損失はありません。
-
-`./intlayer/` ディレクトリ内で手動でアップグレードするには:
 
 ```sh
 docker compose pull
@@ -320,13 +306,11 @@ docker compose logs mongo
 docker compose logs redis
 ```
 
+ログの上部付近で `MongoDB connection error` を探してください。
+
 ### メールが送信されない
 
 デフォルトでは、すべての送信メールはMailpitによって捕捉されます。送信されたメッセージを確認するには、`http://localhost:8025` を開いてください。実際のメールを送信するには、`.env` で `MAIL_PROVIDER=resend` と `RESEND_API_KEY=<your-key>` を設定し、バックエンドを再起動します。
-
-```sh
-docker compose restart backend
-```
 
 ### MinIOバケットが見つからない
 

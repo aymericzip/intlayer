@@ -73,6 +73,34 @@ author: aymericzip
 
 React कंपोनेंट्स के भीतर `useI18n` हुक का उपयोग करने के उदाहरण:
 
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
+```tsx fileName="src/App.tsx" codeFormat={["typescript", "esm"]}
+import type { FC } from "react";
+import { ClientComponentExample, ServerComponentExample } from "@components";
+import { IntlayerProvider } from "react-intlayer";
+import { useI18n } from "react-intlayer/server";
+import { Locales } from "intlayer";
+
+const App: FC<{ locale: Locales }> = ({ locale }) => {
+  const t = useI18n("home-page", locale);
+
+  return (
+    <>
+      <p>{t("introduction")}</p>
+      <IntlayerProvider locale={locale}>
+        <ClientComponentExample />
+      </IntlayerProvider>
+      <ServerComponentExample />
+    </>
+  );
+};
+```
+
+ </Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
+
 ```tsx fileName="src/App.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { ClientComponentExample, ServerComponentExample } from "@components";
@@ -96,6 +124,9 @@ const App: FC<{ locale: Locales }> = ({ locale }) => {
   );
 };
 ```
+
+ </Tab>
+</Tabs>
 
 ```tsx fileName="src/components/ComponentExample.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";

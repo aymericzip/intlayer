@@ -47,15 +47,22 @@ author: aymericzip
 />
 
   </Tab>
+  <Tab label="Demo" value="demo">
+
+<iframe
+  src="https://intlayer-vite-solid.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo Intlayer Vite + Solid Template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
 </Tabs>
 
 ## Indice
 
 <TOC/>
-
-> Questo pacchetto è in fase di sviluppo. Consulta la [issue](https://github.com/aymericzip/intlayer/issues/117) per maggiori informazioni. Mostra il tuo interesse per Intlayer per Solid mettendo un like alla issue
-
-<!-- Vedi il [Template dell'Applicazione](https://github.com/aymericzip/intlayer-solid-template) su GitHub. -->
 
 ## Perché Intlayer rispetto alle alternative?
 
@@ -164,10 +171,6 @@ bun add vite-intlayer --dev
 
   Il pacchetto principale che fornisce strumenti di internazionalizzazione per la gestione della configurazione, la traduzione, la [dichiarazione dei contenuti](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/content_file.md), la traspilazione e i [comandi CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/cli/index.md).
 
-- **solid-intlayer**
-
-  Il pacchetto che integra Intlayer con l'applicazione Solid. Fornisce provider di contesto e hook per l'internazionalizzazione in Solid.
-
 - **vite-intlayer**
 
   Include il plugin Vite per integrare Intlayer con il [bundler Vite](https://vite.dev/guide/why.html#why-bundle-for-production), oltre a middleware per rilevare la lingua preferita dall'utente, gestire i cookie e gestire il reindirizzamento degli URL.
@@ -243,8 +246,6 @@ export default appContent;
 ```
 
 > Le dichiarazioni di contenuto possono essere definite ovunque nella tua applicazione non appena vengono incluse nella directory `contentDir` (di default, `./src`). E devono corrispondere all'estensione del file di dichiarazione del contenuto (di default, `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
-
-> Per maggiori dettagli, consulta la [documentazione sulla dichiarazione del contenuto](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/content_file.md).
 
 </Step>
 
@@ -493,28 +494,9 @@ export const Link: ParentComponent<AnchorProps> = (props) => {
 };
 ```
 
-</Step>
-
 <Step number={11} title="Renderizzare Markdown" isOptional={true}>
 
 Intlayer supporta il rendering del contenuto Markdown direttamente nella tua applicazione Solid usando il suo parser interno. Per impostazione predefinita, Markdown è trattato come testo normale. Per renderizzarlo come HTML ricco, avvolgi la tua applicazione con il `MarkdownProvider`.
-
-```tsx fileName="src/index.tsx"
-import { render } from "solid-js/web";
-import { MarkdownProvider } from "solid-intlayer/markdown";
-import App from "./App";
-
-const root = document.getElementById("root");
-
-render(
-  () => (
-    <MarkdownProvider>
-      <App />
-    </MarkdownProvider>
-  ),
-  root!
-);
-```
 
 Poi puoi usarlo nei tuoi componenti:
 
@@ -745,5 +727,3 @@ Per migliorare la tua esperienza di sviluppo con Intlayer, puoi installare l'**E
 ### Approfondimenti
 
 Per approfondire, puoi implementare l'[editor visuale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_visual_editor.md) o esternalizzare i tuoi contenuti utilizzando il [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_CMS.md).
-
----

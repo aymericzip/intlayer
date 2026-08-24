@@ -30,8 +30,6 @@ Esta sección proporciona una guía detallada sobre el uso del hook `useDictiona
 
 ## Ejemplo de uso en React
 
-A continuación se muestra un ejemplo de cómo usar el hook `useDictionary` en un componente React:
-
 ```tsx fileName="./ComponentExample.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useDictionary } from "react-intlayer";

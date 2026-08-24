@@ -31,6 +31,8 @@ author: aymericzip
 
 `getEnumeration` 関数は、列挙オブジェクト内の事前定義された条件に基づいて、特定の数量に対応するコンテンツを取得します。条件はキーとして定義されており、その優先順位はオブジェクト内の順序によって決まります。
 
+列挙型の宣言方法の詳細については、[列挙型ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/enumeration.md)を参照してください。
+
 ## パラメーター
 
 - `enumerationContent: QuantityContent<Content>`

@@ -138,6 +138,36 @@ getMultilingualUrls("/about", { currentDomain: "intlayer.org" });
 
 これらの絶対URLは、SEO用の `<link rel="alternate" hreflang="...">` タグですぐに使用できます。
 
+## 型推論
+
+`routing.domains` は生成されたモジュール拡張にシリアライズされるため、
+`getLocalizedUrl` と `getLocalizedPath` は、ドメインルーティングされたロケールが解決する正確な
+URL に戻り値の型を絞り込みます — プリフィックスの抑制を含みます。
+
+```ts
+// routing: { mode: 'prefix-no-default', domains: { en: 'intlayer.org', zh: 'intlayer.zh' } }
+
+getLocalizedUrl("/about", "zh");
+//     ^? "https://intlayer.zh/about" | "/about"
+
+getLocalizedPath("/about", "zh");
+//     ^? "/about"   (オリジンなし、/zh/ プリフィックスなし)
+```
+
+URL 型は、関数が返すことができる 2 つの値の **union** です: ロケールのドメイン上の
+絶対 URL と、レンダリング中のページがそのドメイン上に既に存在する場合に返す相対 URL です。`getLocalizedPath` にはそのような
+曖昧性はありません - オリジンを出力しません - そのため単一のリテラルのままです。
+
+ドメインを共有するロケールは、型でも通常のプリフィックスを保持します:
+
+```ts
+getLocalizedUrl("/about", "fr");
+//     ^? "https://intlayer.org/fr/about" | "/fr/about"
+```
+
+> `routing.domains` を変更した後、型を再生成します (`npx intlayer build`、または任意の dev server 実行) - 絞り込みはコンフィグファイル自体からではなく、生成された
+> `__RoutingRegistry` から来ています。
+
 ## プロキシの動作
 
 ### Next.js
@@ -169,6 +199,8 @@ GET intlayer.zh/about
 ### Vite
 
 `intlayerProxy` Viteプラグインは、開発中に同じロジックを適用します。
+
+> Intlayer v9 以降、`intlayerProxy()` は `intlayer()` プラグインに直接バンドルされており、`routing.enableProxy` オプション (デフォルトでは `true`) で有効になっています。以下のように別々に登録することは現在オプションです — これは後方互換性とプラグインの順序を制御する必要があるセットアップのために保持されています。`routing.enableProxy: false` に設定してオプトアウトしてください。[v9 リリースノート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/releases/v9.md)を参照してください。
 
 ```typescript fileName="vite.config.ts"
 import { defineConfig } from "vite";

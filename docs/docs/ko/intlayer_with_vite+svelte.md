@@ -208,11 +208,7 @@ export default config;
 
 > 이 구성 파일을 통해 로컬라이즈된 URL, 미들웨어 리디렉션, 쿠키 이름, 콘텐츠 선언의 위치 및 확장자 설정, 콘솔에서 Intlayer 로그 비활성화 등 다양한 설정을 할 수 있습니다. 사용 가능한 모든 매개변수 목록은 [구성 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 참조하세요.
 
-</Step>
-
 </Steps>
-
-<Steps>
 
 <Step number={3} title="Vite 구성에 Intlayer 통합하기">
 
@@ -231,101 +227,6 @@ export default defineConfig({
 
 > `intlayer()` Vite 플러그인은 Intlayer를 Vite와 통합하는 데 사용됩니다. 이 플러그인은 콘텐츠 선언 파일의 빌드를 보장하고 개발 모드에서 이를 모니터링합니다. 또한 Vite 애플리케이션 내에서 Intlayer 환경 변수를 정의하며, 성능 최적화를 위한 별칭(alias)도 제공합니다.
 > </Step>
-
-<Step number={4} title="컴포넌트 콘텐츠 추출" isOptional={true}>
-
-기존 코드베이스가 있는 경우 수천 개의 파일을 변환하는 데 시간이 많이 걸릴 수 있습니다.
-
-이 프로세스를 용이하게 하기 위해 Intlayer는 컴포넌트를 변환하고 콘텐츠를 추출하기 위한 [컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md) / [추출기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/extract.md)를 제안합니다.
-
-설정하려면 `intlayer.config.ts` 파일에 `compiler` 섹션을 추가할 수 있습니다.
-
-```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
-import { type IntlayerConfig } from "intlayer";
-
-const config: IntlayerConfig = {
-  // ... 나머지 구성
-  compiler: {
-    /**
-     * 컴파일러 활성화 여부를 나타냅니다.
-     */
-    enabled: true,
-
-    /**
-     * 출력 파일 경로를 정의합니다.
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * 변환 후 컴포넌트를 저장할지 여부를 나타냅니다. 그렇게 하면 컴파일러를 한 번만 실행하여 앱을 변환한 다음 제거할 수 있습니다.
-     */
-    saveComponents: false,
-
-    /**
-     * 사전 키 접두사
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-export default config;
-```
-
-<Tabs>
- <Tab value='추출 명령'>
-
-컴포넌트를 변환하고 콘텐츠를 추출하기 위해 추출기를 실행합니다
-
-```bash packageManager="npm"
-npx intlayer extract
-```
-
-```bash packageManager="pnpm"
-pnpm intlayer extract
-```
-
-```bash packageManager="yarn"
-yarn intlayer extract
-```
-
-```bash packageManager="bun"
-bun x intlayer extract
-```
-
- </Tab>
- <Tab value='Babel 컴파일러'>
-
-> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
-
-`vite.config.ts`를 업데이트하여 `intlayerCompiler` 플러그인을 포함합니다.
-
-```ts fileName="vite.config.ts"
-import { defineConfig } from "vite";
-import { intlayer, intlayerCompiler } from "vite-intlayer";
-
-export default defineConfig({
-  plugins: [
-    intlayer(),
-    intlayerCompiler(), // Adds the compiler plugin
-  ],
-});
-```
-
-```bash packageManager="npm"
-npm run build # 또는 npm run dev
-```
-
-```bash packageManager="pnpm"
-pnpm run build # 또는 pnpm run dev
-```
-
-```bash packageManager="yarn"
-yarn build # 또는 yarn dev
-```
-
-```bash packageManager="bun"
-bun run build # Or bun run dev
-```
 
  </Tab>
 </Tabs>
@@ -396,6 +297,8 @@ export default appContent;
 <div aria-label={$content.title.toString()}></div>
 <div aria-label={String($content.title)}></div>
 ```
+
+> 기존 앱이 있다면, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md)와 [extract command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/extract.md)를 사용하여 수천 개의 컴포넌트를 몇 초 안에 변환할 수 있습니다.
 
 </Step>
 
@@ -556,6 +459,8 @@ $: content = useIntlayer('app', locale);
 
 > `intlayerProxy`를 프로덕션에서 사용하려면 `vite-intlayer` 패키지를 `devDependencies`에서 `dependencies`로 변경해야 합니다.
 
+> Intlayer v9부터 `intlayerProxy()`는 `intlayer()` 플러그인에 직접 번들되어 있으며 `routing.enableProxy` 옵션(`true`가 기본값)을 통해 기본적으로 활성화됩니다. 아래와 같이 별도로 등록하는 것은 이제 선택사항입니다 — 하위 호환성을 위해 그리고 플러그인 순서를 제어해야 하는 설정을 위해 유지됩니다. `routing.enableProxy: false`로 설정하여 옵트아웃할 수 있습니다. [v9 릴리스 노트](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/releases/v9.md)를 참조하세요.
+
 ```typescript {3,7} fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
 import { svelte } from "@sveltejs/vite-plugin-svelte";
@@ -611,6 +516,132 @@ const changeLocale = (event: Event) => {
 </div>
 ```
 
+</Step>
+
+<Step number={9} title="국제화된 링크" isOptional={true}>
+
+SEO를 위해 경로에 locale을 접두사로 붙이는 것이 권장됩니다 (예: `/about`, `/fr/about`).
+
+```svelte fileName="src/lib/components/Link.svelte"
+<script lang="ts">
+  import { getLocalizedUrl } from "intlayer";
+  import { useLocale } from "svelte-intlayer";
+
+  export let href = "";
+  const { locale } = useLocale();
+
+  // URL 접두사 도우미
+  $: localizedHref = getLocalizedUrl(href, $locale);
+</script>
+
+<a href={localizedHref}>
+  <slot />
+</a>
+```
+
+</Step>
+
+<Step number={10} title="컴포넌트에서 콘텐츠 추출" isOptional={true}>
+
+기존 codebase가 있다면 수천 개의 파일을 변환하는 것은 시간이 많이 걸릴 수 있습니다.
+
+이 과정을 쉽게 하기 위해 Intlayer는 컴포넌트를 변환하고 콘텐츠를 추출할 수 있는 [compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md) / [extractor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/extract.md)를 제공합니다.
+
+설정하려면 `intlayer.config.ts` 파일에 `compiler` 섹션을 추가할 수 있습니다:
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  // ... Rest of your config
+  compiler: {
+    /**
+     * 컴파일러가 활성화되어야 하는지 여부를 나타냅니다.
+     */
+    enabled: true,
+
+    /**
+     * 출력 파일 경로를 정의합니다.
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * 변환 후 컴포넌트를 저장해야 하는지 여부를 나타냅니다.
+     *
+     * - `true`인 경우, 컴파일러는 컴포넌트 파일을 디스크에 다시 작성합니다. 따라서 변환이 영구적이 되고, 컴파일러는 다음 프로세스에서 변환을 건너뜁니다. 이렇게 하면 컴파일러가 앱을 변환한 후 제거할 수 있습니다.
+     *
+     * - `false`인 경우, 컴파일러는 `useIntlayer()` 함수 호출을 빌드 출력의 코드에만 주입하고 기본 codebase를 그대로 유지합니다. 변환은 메모리에서만 수행됩니다.
+     */
+    saveComponents: false,
+
+    /**
+     * 사전 키 접두사
+     */
+    dictionaryKeyPrefix: "",
+  },
+};
+
+export default config;
+```
+
+<Tabs>
+ <Tab value='Extract command'>
+
+extractor를 실행하여 컴포넌트를 변환하고 콘텐츠를 추출합니다
+
+```bash packageManager="npm"
+npx intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="bun"
+bun x intlayer extract
+```
+
+ </Tab>
+ <Tab value='Babel compiler'>
+
+> v9 이후로, `intlayerCompiler`은 `intlayer` 플러그인에 포함되어 있습니다. 따라서 수동으로 추가할 필요가 없습니다.
+
+`vite.config.ts`를 업데이트하여 `intlayerCompiler` 플러그인을 포함하세요:
+
+```ts fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import { intlayer, intlayerCompiler } from "vite-intlayer";
+
+export default defineConfig({
+  plugins: [
+    intlayer(),
+    intlayerCompiler(), // 컴파일러 플러그인을 추가합니다
+  ],
+});
+```
+
+```bash packageManager="npm"
+npm run build # 또는 npm run dev
+```
+
+```bash packageManager="pnpm"
+pnpm run build # 또는 pnpm run dev
+```
+
+```bash packageManager="yarn"
+yarn build # 또는 yarn dev
+```
+
+```bash packageManager="bun"
+bun run build # 또는 bun run dev
+```
+
+</Tab>
+</Tabs>
 </Step>
 
 </Steps>
@@ -714,6 +745,8 @@ Intlayer 개발 경험을 향상시키기 위해 공식 **Intlayer VS Code 확�
 - 번역을 쉽게 생성하고 업데이트할 수 있는 **빠른 작업**.
 
 확장 프로그램 사용 방법에 대한 자세한 내용은 [Intlayer VS Code 확장 프로그램 문서](https://intlayer.org/doc/vs-code-extension)를 참조하세요.
+
+---
 
 ### 더 나아가기
 

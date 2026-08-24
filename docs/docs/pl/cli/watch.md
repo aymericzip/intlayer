@@ -48,5 +48,3 @@ Ta komenda jest równoważna z `npx intlayer build --watch --skip-prepare`.
 - **`--with`**: Uruchom komendę równolegle z obserwacją.
 
   > Przykład: `npx intlayer watch --with "next dev --turbopack"`
-
-  > Przykład: `npx intlayer watch --with "next dev --turbopack"`

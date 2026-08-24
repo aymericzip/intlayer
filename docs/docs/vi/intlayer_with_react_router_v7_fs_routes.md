@@ -131,6 +131,49 @@ Không chỉ là giải pháp i18n, Intlayer còn cung cấp **[trình chỉnh s
 
 See [Application Template](https://github.com/aymericzip/intlayer-react-router-v7-template) on GitHub.
 
+<Steps>
+
+<Step number={1} title="Cài đặt Dependencies">
+
+Cài đặt các package cần thiết bằng package manager ưa thích của bạn:
+
+```bash packageManager="npm"
+npm install intlayer react-intlayer
+npm install vite-intlayer --save-dev
+npm install @react-router/fs-routes --save-dev
+npx intlayer init
+```
+
+```bash packageManager="pnpm"
+pnpm add intlayer react-intlayer
+pnpm add vite-intlayer --save-dev
+pnpm add @react-router/fs-routes --save-dev
+```
+
+```bash packageManager="bun"
+bun add intlayer react-intlayer
+bun add vite-intlayer --dev
+bun add @react-router/fs-routes --dev
+bun x intlayer init
+```
+
+- **intlayer**
+
+Gói core cung cấp các công cụ quốc tế hóa để quản lý cấu hình, dịch thuật, [khai báo nội dung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/content_file.md), transpilation, và [lệnh CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/index.md).
+
+- **react-intlayer**
+  Package tích hợp Intlayer với ứng dụng React. Nó cung cấp context providers và hooks cho quốc tế hóa React.
+
+- **vite-intlayer**
+  Bao gồm plugin Vite để tích hợp Intlayer với [Vite bundler](https://vite.dev/guide/why.html#why-bundle-for-production), cũng như middleware để phát hiện ngôn ngữ ưa thích của người dùng, quản lý cookies và xử lý chuyển hướng URL.
+
+- **@react-router/fs-routes**
+  Package cho phép định tuyến dựa trên hệ thống tệp cho React Router v7.
+
+</Step>
+
+<Step number={2} title="Cấu hình dự án của bạn">
+
 Tạo một file cấu hình để cấu hình các ngôn ngữ của ứng dụng của bạn:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
@@ -183,9 +226,13 @@ export default [
 ] satisfies RouteConfig;
 ```
 
+> Hàm `flatRoutes` từ `@react-router/fs-routes` cho phép định tuyến dựa trên hệ thống tệp, trong đó cấu trúc tệp trong thư mục `routes/` xác định các tuyến của ứng dụng của bạn. Tùy chọn `ignoredRouteFiles` đảm bảo rằng các tệp khai báo nội dung Intlayer (`.content.ts`, v.v.) không được coi là các tệp tuyến.
+
 </Step>
 
 <Step number={5} title="Tạo các Component Layout">
+
+Với file-system routing, bạn sử dụng quy ước đặt tên phẳng trong đó các dấu chấm (`.`) đại diện cho các phân đoạn đường dẫn và dấu ngoặc đơn `()` biểu thị các phân đoạn tùy chọn.
 
 Thiết lập root layout và các layout theo ngôn ngữ cụ thể:
 
@@ -260,54 +307,91 @@ export function Layout({
 
 #### Root Layout
 
-```tsx fileName="app/routes/layout.tsx"
-import { IntlayerProvider } from "react-intlayer";
-import { Outlet } from "react-router";
+```tsx fileName="app/components/localized-link.tsx"
+import type { FC } from "react";
 
-import type { Route } from "./+types/layout";
+import { getLocalizedUrl, type LocalesValues } from "intlayer";
+import { useLocale } from "react-intlayer";
+import { Link, type LinkProps, type To } from "react-router";
 
-export default function RootLayout({ params }: Route.ComponentProps) {
-  const { locale } = params;
+const isExternalLink = (to: string) => /^(https?:)?\/\//.test(to);
+
+export const locacalizeTo = (to: To, locale: LocalesValues): To => {
+  if (typeof to === "string") {
+    if (isExternalLink(to)) {
+      return to;
+    }
+
+    return getLocalizedUrl(to, locale);
+  }
+
+  if (isExternalLink(to.pathname ?? "")) {
+    return to;
+  }
+
+  return {
+    ...to,
+    pathname: getLocalizedUrl(to.pathname ?? "", locale),
+  };
+};
+
+export const LocalizedLink: FC<LinkProps> = (props) => {
+  const { locale } = useLocale();
+
+  return <Link {...props} to={locacalizeTo(props.to, locale)} />;
+};
+```
+
+#### Trang Chủ Đã Được Địa Phương Hóa
+
+```tsx fileName="app/routes/[lang]/page.tsx"
+import { useIntlayer } from "react-intlayer";
+import { LocalizedLink } from "~/components/localized-link";
+
+export default function Page() {
+  const { title, description, aboutLink } = useIntlayer("page");
 
   return (
-    <IntlayerProvider locale={locale}>
-      <Outlet />
-    </IntlayerProvider>
+    <div>
+      <h1>{title}</h1>
+      <p>{description}</p>
+      <nav>
+        <LocalizedLink to="/about">{aboutLink}</LocalizedLink>
+      </nav>
+    </div>
   );
 }
 ```
 
 </Step>
 
-<Step number={6} title="Khai báo Nội dung của bạn">
+<Step number={6} title="Khai báo Nội dung của Bạn">
 
-Tạo và quản lý các khai báo nội dung để lưu trữ bản dịch:
+Tạo và quản lý các khai báo nội dung của bạn để lưu trữ các bản dịch. Đặt các tệp nội dung cùng với các tệp route của bạn:
 
-```tsx fileName="app/routes/[lang]/page.content.ts"
+```tsx fileName="app/routes/($locale)._index.content.ts"
 import { t, type Dictionary } from "intlayer";
 
 const pageContent = {
   key: "page",
   content: {
     title: t({
+      vi: "Chào mừng đến với React Router v7 + Intlayer",
       en: "Welcome to React Router v7 + Intlayer",
       es: "Bienvenido a React Router v7 + Intlayer",
       fr: "Bienvenue sur React Router v7 + Intlayer",
     }),
     description: t({
-      en: "Xây dựng các ứng dụng đa ngôn ngữ một cách dễ dàng sử dụng React Router v7 và Intlayer.",
+      vi: "Xây dựng các ứng dụng đa ngôn ngữ một cách dễ dàng bằng cách sử dụng React Router v7 và Intlayer.",
+      en: "Build multilingual applications with ease using React Router v7 and Intlayer.",
       es: "Cree aplicaciones multilingües fácilmente usando React Router v7 y Intlayer.",
       fr: "Créez des applications multilingues facilement avec React Router v7 et Intlayer.",
     }),
     aboutLink: t({
-      en: "Tìm hiểu về chúng tôi",
+      vi: "Tìm Hiểu Về Chúng Tôi",
+      en: "Learn About Us",
       es: "Aprender Sobre Nosotros",
       fr: "En savoir plus sur nous",
-    }),
-    homeLink: t({
-      en: "Trang chủ",
-      es: "Inicio",
-      fr: "Accueil",
     }),
   },
 } satisfies Dictionary;
@@ -315,15 +399,47 @@ const pageContent = {
 export default pageContent;
 ```
 
-> Các khai báo nội dung của bạn có thể được định nghĩa ở bất kỳ đâu trong ứng dụng của bạn miễn là chúng được bao gồm trong thư mục `contentDir` (mặc định là `./app`). Và phải phù hợp với phần mở rộng của tệp khai báo nội dung (mặc định là `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
+```tsx fileName="app/routes/($locale).about.content.ts"
+import { t, type Dictionary } from "intlayer";
 
-> Để biết thêm chi tiết, hãy tham khảo [tài liệu khai báo nội dung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/content_file.md).
+const aboutContent = {
+  key: "about",
+  content: {
+    title: t({
+      vi: "Về chúng tôi",
+      en: "About Us",
+      es: "Sobre Nosotros",
+      fr: "À propos de nous",
+    }),
+    content: t({
+      vi: "Đây là nội dung của trang về chúng tôi.",
+      en: "This is the about page content.",
+      es: "Este es el contenido de la página de información.",
+      fr: "Ceci est le contenu de la page à propos.",
+    }),
+    homeLink: t({
+      vi: "Trang chủ",
+      en: "Home",
+      es: "Inicio",
+      fr: "Accueil",
+    }),
+  },
+} satisfies Dictionary;
+
+export default aboutContent;
+```
+
+> Các khai báo nội dung của bạn có thể được định nghĩa ở bất kỳ đâu trong ứng dụng của bạn miễn là chúng được đưa vào thư mục `contentDir` (mặc định là `./app`). Và phải khớp với phần mở rộng tệp khai báo nội dung (mặc định là `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
+
+> Để tìm hiểu thêm về hook `useIntlayer`, hãy tham khảo [tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/react-intlayer/useIntlayer.md).
+
+> Nếu ứng dụng của bạn đã tồn tại, bạn có thể sử dụng [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md) kết hợp với [lệnh extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/extract.md) để chuyển đổi hàng nghìn component chỉ trong một giây.
 
 </Step>
 
-<Step number={7} title="Tạo các thành phần nhận biết ngôn ngữ">
+<Step number={7} title="Tạo Các Thành Phần Nhận Biết Locale">
 
-Tạo một thành phần `LocalizedLink` để điều hướng nhận biết ngôn ngữ:
+Tạo một component `LocalizedLink` cho điều hướng nhận biết locale:
 
 ```tsx fileName="app/components/localized-link.tsx"
 import type { FC } from "react";
@@ -360,7 +476,7 @@ export const LocalizedLink: FC<LinkProps> = (props) => {
 };
 ```
 
-Trong trường hợp bạn muốn điều hướng đến các route đã được địa phương hóa, bạn có thể sử dụng hook `useLocalizedNavigate`:
+Trong trường hợp bạn muốn điều hướng đến các tuyến đường được bản địa hóa, bạn có thể sử dụng hook `useLocalizedNavigate`:
 
 ```tsx fileName="app/hooks/useLocalizedNavigate.ts"
 import { useLocale } from "react-intlayer";
@@ -381,37 +497,6 @@ export const useLocalizedNavigate = () => {
   return localizedNavigate;
 };
 ```
-
-</Step>
-
-<Step number={8} title="Sử dụng Intlayer trong các Trang của Bạn">
-
-Truy cập các từ điển nội dung của bạn trong toàn bộ ứng dụng:
-
-#### Trang Chủ Đã Được Địa Phương Hóa
-
-```tsx fileName="app/routes/[lang]/page.tsx"
-import { useIntlayer } from "react-intlayer";
-import { LocalizedLink } from "~/components/localized-link";
-
-export default function Page() {
-  const { title, description, aboutLink } = useIntlayer("page");
-
-  return (
-    <div>
-      <h1>{title}</h1>
-      <p>{description}</p>
-      <nav>
-        <LocalizedLink to="/about">{aboutLink}</LocalizedLink>
-      </nav>
-    </div>
-  );
-}
-```
-
-> Để tìm hiểu thêm về hook `useIntlayer`, hãy tham khảo [tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/react-intlayer/useIntlayer.md).
-
-> Nếu ứng dụng của bạn đã tồn tại, bạn có thể sử dụng [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md) kết hợp với [lệnh extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/extract.md) để chuyển đổi hàng nghìn component chỉ trong một giây.
 
 </Step>
 
@@ -497,7 +582,17 @@ export const useI18nHTMLAttributes = () => {
 };
 ```
 
+Hook này đã được sử dụng trong layout component (`($locale)._layout.tsx`) được hiển thị ở Bước 5.
+
+</Step>
+
 Sau đó sử dụng nó trong component gốc của bạn:
+
+Bạn cũng có thể sử dụng `intlayerProxy` để thêm định tuyến phía máy chủ vào ứng dụng của mình. Plugin này sẽ tự động phát hiện locale hiện tại dựa trên URL và đặt cookie locale thích hợp. Nếu không có locale nào được chỉ định, plugin sẽ xác định locale phù hợp nhất dựa trên tùy chọn ngôn ngữ trình duyệt của người dùng. Nếu không phát hiện được locale nào, nó sẽ chuyển hướng đến locale mặc định.
+
+> Lưu ý rằng để sử dụng `intlayerProxy` trong production, bạn cần chuyển package `vite-intlayer` từ `devDependencies` sang `dependencies`.
+
+> Kể từ Intlayer v9, `intlayerProxy()` được đóng gói trực tiếp vào plugin `intlayer()` và được bật theo mặc định thông qua tùy chọn `routing.enableProxy` (`true` theo mặc định). Việc đăng ký nó riêng biệt như được hiển thị bên dưới hiện là tùy chọn — nó được giữ lại để tương thích ngược và cho các cấu hình cần kiểm soát thứ tự plugin. Đặt `routing.enableProxy: false` để không sử dụng. Xem [ghi chú phát hành v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/releases/v9.md).
 
 ```tsx fileName="app/routes/layout.tsx"
 import { Outlet } from "react-router";

@@ -128,6 +128,8 @@ bun x intlayer ci fill --verbose --mode complete
 
 ### Verwendung in CI/CD-Pipelines
 
+Das Ausführen von `intlayer init` erstellt zwei einsatzbereite GitHub Actions-Workflows für Sie (siehe [Scaffolded GitHub Actions](#scaffolded-github-actions) unten). Das Beispiel hier zeigt das äquivalente Setup mit dem `ci`-Befehl für ein Monorepo, bei dem Anmeldedaten pro Projekt aus `INTLAYER_PROJECT_CREDENTIALS` injiziert werden.
+
 In Ihrer CI/CD-Konfiguration (z. B. GitHub Actions, GitLab CI) setzen Sie `INTLAYER_PROJECT_CREDENTIALS` als Geheimnis:
 
 ```yaml

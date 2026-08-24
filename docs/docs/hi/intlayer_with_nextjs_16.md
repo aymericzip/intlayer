@@ -75,6 +75,8 @@ GitHub पर [एप्लिकेशन टेम्प्लेट](https://
 
 `नेक्स्ट-इंटल` या `आई18नेक्स्ट` जैसे मुख्य समाधानों की तुलना में, इंटलेयर एक ऐसा समाधान है जो एकीकृत अनुकूलन के साथ आता है जैसे:
 
+<AccordionGroup>
+
 **पूर्ण Next.js कवरेज**
 
 कुशल रेंडरिंग के लिए इंटलेयर को **सर्वर कंपोनेंट्स** के साथ काम करने के लिए अनुकूलित किया गया है और यह [**टर्बोपैक**](https://nextjs.org/docs/architecture/turbopack) के साथ पूरी तरह से संगत है। यह स्थैतिक रेंडरिंग को अवरुद्ध नहीं करता है और मिडलवेयर के साथ-साथ अंतर्राष्ट्रीयकरण (i18n) को स्केल करने के लिए आवश्यक सभी सुविधाएँ प्रदान करता है।
@@ -85,27 +87,42 @@ GitHub पर [एप्लिकेशन टेम्प्लेट](https://
 
 **बंडल का आकार**
 
+<Accordion header="Bundle साइज़">
+
 अपने पृष्ठों में विशाल JSON फ़ाइलें लोड करने के बजाय, केवल आवश्यक सामग्री लोड करें। इंटलेयर आपके बंडल और पृष्ठ आकार को 50% तक कम करने में मदद करता है।
 
 **रखरखाव**
+
+<Accordion header="रखरखाव">
 
 आपके एप्लिकेशन की सामग्री का दायरा बड़े पैमाने के अनुप्रयोगों के लिए **रखरखाव की सुविधा प्रदान करता है**। आप अपने संपूर्ण सामग्री कोडबेस की समीक्षा करने के मानसिक बोझ के बिना किसी एक फीचर फ़ोल्डर की नकल कर सकते हैं या उसे हटा सकते हैं। इसके अतिरिक्त, आपकी सामग्री की सटीकता सुनिश्चित करने के लिए Intlayer **पूरी तरह से टाइप किया गया** है।
 
 **एआई एजेंट**
 
+<Accordion header="AI Agent">
+
 सामग्री का सह-स्थानीकरण **बड़े भाषा मॉडल (एलएलएम) द्वारा आवश्यक संदर्भ को कम करता है**। इंटलेयर टूल के एक सूट के साथ भी आता है, जैसे **CLI** ताकि लापता अनुवादों का परीक्षण किया जा सके,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**, और **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/agent_skills.md)**, AI एजेंटों के लिए डेवलपर अनुभव (DX) को और भी आसान बनाने के लिए।
 
 **स्वचालन**
+
+<Accordion header="स्वचालन">
 
 अपने एआई प्रदाता की कीमत पर अपनी पसंद के एलएलएम का उपयोग करके अपने सीआई/सीडी पाइपलाइन में अनुवाद करने के लिए स्वचालन का उपयोग करें। इंटलेयर सामग्री निष्कर्षण को स्वचालित करने के लिए एक **कंपाइलर** के साथ-साथ **पृष्ठभूमि में अनुवाद** में मदद करने के लिए एक [वेब प्लेटफ़ॉर्म](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) भी प्रदान करता है।
 
 **प्रदर्शन**
 
+<Accordion header="Performance">
+
 बड़े पैमाने पर JSON फ़ाइलों को घटकों से जोड़ने से प्रदर्शन और प्रतिक्रियाशीलता संबंधी समस्याएं हो सकती हैं। इंटलेयर बिल्ड समय पर आपकी सामग्री लोडिंग को अनुकूलित करता है।
+
+</Accordion>
 
 **किसी भी देव के साथ स्केलिंग**
 
 सिर्फ एक i18n समाधान से अधिक, Intlayer एक **स्व-होस्टेड [विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** और एक **[पूर्ण] प्रदान करता है सीएमएस](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** आपकी बहुभाषी सामग्री को **वास्तविक समय** में प्रबंधित करने में मदद करता है, जिससे अनुवादकों, कॉपीराइटरों और टीम के अन्य सदस्यों के साथ सहयोग सहज हो जाता है। सामग्री को स्थानीय और/या दूरस्थ रूप से संग्रहीत किया जा सकता है।
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
@@ -280,6 +297,36 @@ export default RootLayout;
 
 डायनामिक रूटिंग को लागू करने के लिए, अपने `[locale]` डायरेक्टरी में एक नया लेआउट जोड़कर लोकल के लिए पाथ प्रदान करें:
 
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
+```tsx fileName="src/app/[locale]/layout.tsx" codeFormat={["typescript", "esm"]}
+import { type NextLayoutIntlayer } from "next-intlayer";
+import { IntlayerProvider } from "next-intlayer/server";
+import { Inter } from "next/font/google";
+import { getHTMLTextDir } from "intlayer";
+
+const inter = Inter({ subsets: ["latin"] });
+
+const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
+  const { locale } = await params;
+  return (
+    <IntlayerProvider locale={locale}>
+      <html lang={locale} dir={getHTMLTextDir(locale)}>
+        <body className={inter.className}>{children}</body>
+      </html>
+    </IntlayerProvider>
+  );
+};
+
+export default LocaleLayout;
+```
+
+> एक एकल `IntlayerProvider` पेड़ के दोनों हिस्सों को कवर करता है: यह request-scoped server context को seed करता है जिसे server hooks द्वारा पढ़ा जाता है, और client provider को mount करता है ताकि client components को समान locale प्राप्त हो।
+
+ </Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
+
 ```tsx fileName="src/app/[locale]/layout.tsx" codeFormat={["typescript", "esm"]}
 import { type NextLayoutIntlayer, IntlayerClientProvider } from "next-intlayer";
 import { Inter } from "next/font/google";
@@ -302,6 +349,9 @@ const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
 
 export default LocaleLayout;
 ```
+
+</Tab>
+</Tabs>
 
 > `[locale]` पाथ सेगमेंट का उपयोग लोकल को परिभाषित करने के लिए किया जाता है। उदाहरण: `/en-US/about` `en-US` को संदर्भित करेगा और `/fr/about` `fr` को।
 
@@ -375,6 +425,44 @@ export default pageContent;
 
 <Step number={6} title="अपने कोड में सामग्री का उपयोग करें">
 
+अपने पूरे एप्लिकेशन में अपने content dictionaries को access करें:
+
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
+```tsx fileName="src/app/[locale]/page.tsx" codeFormat={["typescript", "esm"]}
+import type { FC } from "react";
+import { ClientComponentExample } from "@components/ClientComponentExample";
+import { ServerComponentExample } from "@components/ServerComponentExample";
+import { type NextPageIntlayer, useIntlayer } from "next-intlayer";
+
+const PageContent: FC = () => {
+  // पेज कंटेंट प्राप्त करें
+  const content = useIntlayer("page");
+
+  return (
+    <>
+      <p>{content.getStarted.main}</p>
+      <code>{content.getStarted.pageLink}</code>
+    </>
+  );
+};
+
+const Page: NextPageIntlayer = () => (
+  <>
+    <PageContent />
+    <ServerComponentExample />
+
+    <ClientComponentExample />
+  </>
+);
+
+export default Page;
+```
+
+- **`IntlayerProvider`** को locale layout में एक बार mount किया जाता है। यह locale को server और client दोनों components को प्रदान करता है, इसलिए pages अब अपने आप को wrap नहीं करते हैं।
+- Server hooks locale को इस क्रम में resolve करते हैं: call site पर passed locale, फिर provider द्वारा seeded server context, फिर request द्वारा carried locale (Intlayer proxy द्वारा set किया गया `x-intlayer-locale` header, फिर locale cookie)। यह आखिरी step वह है जो client-side navigation पर content को सही रखता है जो केवल page segment को re-render करता है, जहां layout — और इसके साथ provider — re-run नहीं होता है।
+
 अपने एप्लिकेशन में अपनी सामग्री शब्दकोशों तक पहुँचें:
 
 ```tsx fileName="src/app/[locale]/page.tsx" codeFormat={["typescript", "esm"]}
@@ -416,6 +504,9 @@ export default Page;
 
   > लेआउट और पेज एक सामान्य सर्वर संदर्भ साझा नहीं कर सकते क्योंकि सर्वर संदर्भ प्रणाली प्रति अनुरोध डेटा स्टोर (React के कैश [React's cache](https://react.dev/reference/react/cache) मैकेनिज्म के माध्यम से) पर आधारित है, जिससे एप्लिकेशन के विभिन्न सेगमेंट के लिए प्रत्येक "संदर्भ" पुनः बनाया जाता है। प्रदाता को साझा लेआउट में रखना इस पृथक्करण को तोड़ देगा, जिससे आपके सर्वर कंपोनेंट्स को सर्वर संदर्भ मानों का सही प्रसार नहीं हो पाएगा।
 
+ </Tab>
+</Tabs>
+
 ```tsx {4,7} fileName="src/components/ClientComponentExample.tsx" codeFormat={["typescript", "esm"]}
 "use client";
 
@@ -434,6 +525,30 @@ export const ClientComponentExample: FC = () => {
 };
 ```
 
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
+```tsx {2} fileName="src/components/ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
+import type { FC } from "react";
+import { useIntlayer } from "next-intlayer";
+
+export const ServerComponentExample: FC = () => {
+  const content = useIntlayer("server-component-example"); // संबंधित content declaration बनाएं
+
+  return (
+    <div>
+      <h2>{content.title}</h2>
+      <p>{content.content}</p>
+    </div>
+  );
+};
+```
+
+> `next-intlayer` isomorphic import path है: `react-server` export condition server components को ambient-locale implementation देता है, जबकि client components को context-backed वाला मिलता है। यही call दोनों तरफ़ काम करती है।
+
+ </Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
+
 ```tsx {2} fileName="src/components/ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "next-intlayer/server";
@@ -449,6 +564,9 @@ export const ServerComponentExample: FC = () => {
   );
 };
 ```
+
+ </Tab>
+</Tabs>
 
 > यदि आप अपनी सामग्री को किसी `string` एट्रिब्यूट में उपयोग करना चाहते हैं, जैसे कि `alt`, `title`, `href`, `aria-label`, आदि, तो आपको फ़ंक्शन के मान को कॉल करना होगा, जैसे:
 
@@ -478,6 +596,8 @@ export const config = {
 ```
 
 > `intlayerProxy` का उपयोग उपयोगकर्ता की पसंदीदा भाषा का पता लगाने और उन्हें उपयुक्त URL पर पुनर्निर्देशित करने के लिए किया जाता है जैसा कि [कॉन्फ़िगरेशन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md) में निर्दिष्ट है। इसके अतिरिक्त, यह उपयोगकर्ता की पसंदीदा भाषा को कुकी में सहेजने की सुविधा भी प्रदान करता है।
+
+> Intlayer v9 के बाद से, यह middleware `routing.enableProxy` विकल्प को सम्मान करता है (`true` डिफ़ॉल्ट रूप से)। इस फ़ाइल को हटाए बिना इसे pass-through में बदलने के लिए अपने कॉन्फ़िगरेशन में `routing.enableProxy: false` सेट करें। [v9 release notes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/releases/v9.md) देखें।
 
 > यदि आपको कई प्रॉक्सी को एक साथ जोड़ने की आवश्यकता है (उदाहरण के लिए, प्रमाणीकरण या कस्टम प्रॉक्सी के साथ `intlayerProxy`), तो Intlayer अब `multipleProxies` नामक एक सहायक प्रदान करता है।
 
@@ -911,6 +1031,10 @@ bun add @intlayer/swc --dev
 > नोट: यह पैकेज डिफ़ॉल्ट रूप से इंस्टॉल नहीं होता क्योंकि SWC प्लगइन्स अभी Next.js में प्रयोगात्मक हैं। भविष्य में इसमें बदलाव हो सकता है।
 > </Step>
 
+> नोट: यदि आप विकल्प को `importMode: 'dynamic'` या `importMode: 'fetch'` के रूप में सेट करते हैं (अपने `dictionary` कॉन्फ़िगरेशन में), तो यह Suspense पर निर्भर करेगा, इसलिए आपको अपनी `useIntlayer` कॉल को एक `Suspense` boundary में wrap करना होगा। इसका मतलब है कि आप अपने Page / Layout component के top level पर `useIntlayer` का सीधे use नहीं कर सकेंगे।
+
+</Step>
+
 <Step number={14} title="अपने घटकों की सामग्री निकालें" isOptional={true}>
 
 यदि आपके पास मौजूदा कोडबेस है, तो हजारों फ़ाइलों को बदलना समय लेने वाला हो सकता है।
@@ -974,6 +1098,8 @@ bun x intlayer extract
  </Tab>
  <Tab value='बैबेल कंपाइलर'>
 
+> v9 के बाद से, `intlayerCompiler` को `intlayer` प्लगइन में शामिल किया गया है। इसलिए आपको इसे मैन्युअली जोड़ने की आवश्यकता नहीं है।
+
 ```bash packageManager="npm"
 npm install @intlayer/babel --save-dev
 ```
@@ -1024,15 +1150,9 @@ bun run build # Or bun run dev
  </Tab>
 </Tabs>
 
-</Step>
-
 </Steps>
 
 ### TypeScript कॉन्फ़िगर करें
-
-Intlayer TypeScript के लाभ प्राप्त करने और आपके कोडबेस को मजबूत बनाने के लिए मॉड्यूल ऑगमेंटेशन का उपयोग करता है।
-
-![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
 ![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
 
@@ -1052,6 +1172,10 @@ Intlayer TypeScript के लाभ प्राप्त करने और �
 
 ### Git कॉन्फ़िगरेशन
 
+Intlayer module augmentation का उपयोग करता है ताकि TypeScript के लाभों को प्राप्त किया जा सके और आपके codebase को मजबूत किया जा सके।
+
+![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
+
 यह अनुशंसा की जाती है कि Intlayer द्वारा उत्पन्न फ़ाइलों को अनदेखा किया जाए। इससे आप उन्हें अपनी Git रिपॉजिटरी में कमिट करने से बच सकते हैं।
 
 ऐसा करने के लिए, आप अपनी `.gitignore` फ़ाइल में निम्नलिखित निर्देश जोड़ सकते हैं:
@@ -1063,11 +1187,7 @@ Intlayer TypeScript के लाभ प्राप्त करने और �
 
 ### VS कोड एक्सटेंशन
 
-Intlayer के साथ अपने विकास अनुभव को बेहतर बनाने के लिए, आप आधिकारिक **Intlayer VS Code एक्सटेंशन** इंस्टॉल कर सकते हैं।
-
 [VS Code मार्केटप्लेस से इंस्टॉल करें](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-यह एक्सटेंशन प्रदान करता है:
 
 - अनुवाद कुंजियों के लिए **ऑटोकम्प्लीशन**।
 - **अनुवादों के लिए रियल-टाइम त्रुटि पहचान।**
@@ -1077,6 +1197,8 @@ Intlayer के साथ अपने विकास अनुभव को �
 विस्तृत जानकारी के लिए, एक्सटेंशन का उपयोग कैसे करें, देखें [Intlayer VS Code एक्सटेंशन दस्तावेज़](https://intlayer.org/doc/vs-code-extension)।
 
 ### Turbopack पर शब्दकोश परिवर्तनों की निगरानी करें
+
+अपने Intlayer के साथ विकास अनुभव में सुधार करने के लिए, आप आधिकारिक **Intlayer VS Code Extension** को install कर सकते हैं।
 
 जब `next dev --turbopack` कमांड के साथ विकास सर्वर के रूप में Turbopack का उपयोग किया जाता है, तो शब्दकोश परिवर्तन डिफ़ॉल्ट रूप से स्वचालित रूप से पता नहीं चलते हैं।
 
@@ -1091,6 +1213,8 @@ Intlayer के साथ अपने विकास अनुभव को �
   },
 }
 ```
+
+extension के उपयोग के बारे में अधिक विवरण के लिए, [Intlayer VS Code Extension documentation](https://intlayer.org/doc/vs-code-extension) देखें।
 
 ### आगे बढ़ें
 

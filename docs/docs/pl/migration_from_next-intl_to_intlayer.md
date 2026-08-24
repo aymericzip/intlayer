@@ -312,8 +312,6 @@ export default config;
 
 ---
 
-Zainstaluj pakiety rdzenia Intlayer i adapter compat `@intlayer/next-intl`:
-
 ## Co można usunąć po migracji
 
 Po wdrożeniu `@intlayer/next-intl` można usunąć następujący boilerplate `next-intl`:

@@ -248,7 +248,7 @@ Tarayıcı adres çubuğunun her zaman "pretty" (gösterişli) yerelleştirilmi�
 
 <Tabs group='framework'>
   <Tab label="Next.js" value="nextjs">
-  
+
     ```tsx
     'use client';
 
@@ -263,7 +263,7 @@ Tarayıcı adres çubuğunun her zaman "pretty" (gösterişli) yerelleştirilmi�
   </Tab>
 
   <Tab label="React Router" value="reactrouter">
-  
+
     ```tsx
     'use client';
 
@@ -279,7 +279,7 @@ Tarayıcı adres çubuğunun her zaman "pretty" (gösterişli) yerelleştirilmi�
   </Tab>
 
   <Tab label="Vue" value="vue">
-  
+
     ```vue
     <script setup>
     import { useRewriteURL } from "vue-intlayer";
@@ -291,7 +291,7 @@ Tarayıcı adres çubuğunun her zaman "pretty" (gösterişli) yerelleştirilmi�
 
   </Tab>
   <Tab label="Solid" value="solid">
-  
+
     ```tsx
     import { useRewriteURL } from "solid-intlayer";
 
@@ -303,7 +303,7 @@ Tarayıcı adres çubuğunun her zaman "pretty" (gösterişli) yerelleştirilmi�
 
   </Tab>
   <Tab label="Svelte" value="svelte">
-  
+
     ```svelte
     <script>
     import { useRewriteURL } from "svelte-intlayer";
@@ -339,6 +339,8 @@ export function middleware(request: NextRequest) {
 ### Vite Entegrasyonu
 
 SolidJS, Vue ve Svelte için `intlayerProxy` Vite eklentisi geliştirme sırasında yeniden yazmaları (rewrites) yönetir.
+
+> Intlayer v9'dan itibaren, `intlayerProxy()` doğrudan `intlayer()` eklentisinin içinde paketlenmiş ve `routing.enableProxy` seçeneği (`varsayılan olarak true`) aracılığıyla varsayılan olarak etkinleştirilmiştir. Aşağıda gösterildiği gibi ayrı olarak kaydetmek artık isteğe bağlıdır — geriye dönük uyumluluk ve eklenti sırasını kontrol etmesi gereken kurulumlar için tutulmuştur. Çıkmak için `routing.enableProxy: false` ayarlayın. [v9 sürüm notlarına](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/releases/v9.md) bakın.
 
 ```typescript fileName="vite.config.ts"
 import { defineConfig } from "vite";

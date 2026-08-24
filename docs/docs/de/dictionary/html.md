@@ -245,7 +245,7 @@ Sie können das HTML-Rendering global für Ihre gesamte Anwendung konfigurieren.
 
 <Tabs group="framework">
   <Tab label="React / Next.js" value="react">
-  
+
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "react-intlayer/html";
 
@@ -282,7 +282,7 @@ Sie können das HTML-Rendering global für Ihre gesamte Anwendung konfigurieren.
 
   </Tab>
   <Tab label="Vue" value="vue">
-  
+
     ```typescript fileName="main.ts"
     import { createApp, h } from "vue";
     import { intlayer } from "vue-intlayer";
@@ -327,7 +327,7 @@ Sie können das HTML-Rendering global für Ihre gesamte Anwendung konfigurieren.
 
   </Tab>
   <Tab label="Svelte" value="svelte">
-   
+
     ```svelte fileName="App.svelte"
     <script lang="ts">
       import { HTMLProvider } from "svelte-intlayer/html";
@@ -364,7 +364,7 @@ Sie können das HTML-Rendering global für Ihre gesamte Anwendung konfigurieren.
 
   </Tab>
   <Tab label="Preact" value="preact">
-   
+
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "preact-intlayer/html";
 
@@ -400,7 +400,7 @@ Sie können das HTML-Rendering global für Ihre gesamte Anwendung konfigurieren.
 
   </Tab>
   <Tab label="Solid" value="solid">
-   
+
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "solid-intlayer/html";
 
@@ -460,9 +460,9 @@ Sie können das HTML-Rendering global für Ihre gesamte Anwendung konfigurieren.
     export const appConfig: ApplicationConfig = {
       providers: [
         createIntlayerHTMLProvider({
-          renderMarkdown: async (html) => {
-            const { renderMarkdown } = await import('angular-intlayer/html');
-            return renderMarkdown(html);
+          renderHTML: async (html) => {
+            const { renderHTML } = await import('angular-intlayer/html');
+            return renderHTML(html);
           },
         }),
       ],
@@ -519,9 +519,9 @@ Wenn Sie rohe HTML-Strings rendern müssen oder mehr Kontrolle über die Kompone
 
   </Tab>
   <Tab label="Vue" value="vue">
-   
+
     #### `<HTMLRenderer />` Komponente
-   
+
     ```vue
     <script setup>
     import { HTMLRenderer } from "vue-intlayer/html";
@@ -534,9 +534,9 @@ Wenn Sie rohe HTML-Strings rendern müssen oder mehr Kontrolle über die Kompone
 
   </Tab>
   <Tab label="Svelte" value="svelte">
-  
+
     #### `<HTMLRenderer />` Komponente
-   
+
     ```svelte
     <script lang="ts">
     import { HTMLRenderer } from "svelte-intlayer/html";
@@ -568,9 +568,9 @@ Wenn Sie rohe HTML-Strings rendern müssen oder mehr Kontrolle über die Kompone
 
   </Tab>
   <Tab label="Preact" value="preact">
-   
+
     #### `<HTMLRenderer />` Komponente
-   
+
     ```tsx
     import { HTMLRenderer } from "preact-intlayer/html";
 
@@ -599,9 +599,9 @@ Wenn Sie rohe HTML-Strings rendern müssen oder mehr Kontrolle über die Kompone
 
   </Tab>
   <Tab label="Solid" value="solid">
-   
+
     #### `<HTMLRenderer />` Komponente
-   
+
     ```tsx
     import { HTMLRenderer } from "solid-intlayer/html";
 
@@ -634,13 +634,13 @@ Wenn Sie rohe HTML-Strings rendern müssen oder mehr Kontrolle über die Kompone
     Rendern Sie einen HTML-String mit dem Service.
 
     ```typescript
-    import { IntlayerHTMLService } from "angular-intlayer";
+    import { IntlayerHTMLService } from "angular-intlayer/html";
 
     export class MyComponent {
       constructor(private markdownService: IntlayerHTMLService) {}
 
       renderHTML(html: string) {
-        return this.markdownService.renderMarkdown(html);
+        return this.markdownService.renderHTML(html);
       }
     }
     ```

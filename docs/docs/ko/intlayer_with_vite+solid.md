@@ -47,15 +47,22 @@ author: aymericzip
 />
 
   </Tab>
+  <Tab label="데모" value="demo">
+
+<iframe
+  src="https://intlayer-vite-solid.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo Intlayer Vite + Solid Template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
 </Tabs>
 
 ## 목차
 
 <TOC/>
-
-> 이 패키지는 개발 중입니다. 자세한 내용은 [이슈](https://github.com/aymericzip/intlayer/issues/117)를 참조하세요. 이 이슈에 좋아요를 눌러 Solid용 Intlayer에 대한 관심을 표현해 주세요.
-
-<!-- GitHub에서 [애플리케이션 템플릿](https://github.com/aymericzip/intlayer-solid-template)을 확인하세요. -->
 
 ## 대안보다 Intlayer를 선택해야 하는 이유는 무엇입니까?
 
@@ -241,8 +248,6 @@ export default appContent;
 ```
 
 > 콘텐츠 선언은 애플리케이션 내 어디에서든 `contentDir` 디렉토리(기본값은 `./src`)에 포함되기만 하면 정의할 수 있습니다. 그리고 콘텐츠 선언 파일 확장자(기본값은 `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`)와 일치해야 합니다.
-
-> 자세한 내용은 [콘텐츠 선언 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md)를 참조하세요.
 
 </Step>
 
@@ -491,9 +496,37 @@ export const Link: ParentComponent<AnchorProps> = (props) => {
 };
 ```
 
+동시에 `intlayerProxy`를 사용하여 애플리케이션에 서버 측 라우팅을 추가할 수도 있습니다. 이 플러그인은 URL을 기반으로 현재 로케일을 자동으로 감지하고 적절한 로케일 쿠키를 설정합니다. 로케일이 지정되지 않으면 플러그인은 사용자의 브라우저 언어 기본 설정을 기반으로 가장 적절한 로케일을 결정합니다. 로케일이 감지되지 않으면 기본 로케일로 리디렉션됩니다.
+
+> `intlayerProxy`를 프로덕션에서 사용하려면 `vite-intlayer` 패키지를 `devDependencies`에서 `dependencies`로 전환해야 합니다.
+
+> Intlayer v9부터 `intlayerProxy()`는 `intlayer()` 플러그인에 직접 번들되어 있으며 `routing.enableProxy` 옵션(`true`가 기본값)을 통해 기본적으로 활성화됩니다. 아래와 같이 별도로 등록하는 것은 선택사항입니다 — 이전 버전과의 호환성 및 플러그인 순서를 제어해야 하는 설정을 위해 유지됩니다. `routing.enableProxy: false`로 설정하여 옵트아웃할 수 있습니다. [v9 release notes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/releases/v9.md)를 참조하세요.
+
+```typescript {3,7} fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import solid from "vite-plugin-solid";
+import { intlayer } from "vite-intlayer";
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [
+    solid(),
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
+  ],
+});
+```
+
 </Step>
 
 <Step number={11} title="Markdown 렌더링" isOptional={true}>
+
+기존 codebase가 있다면, 수천 개의 파일을 변환하는 것은 시간이 많이 소요될 수 있습니다.
+
+이 프로세스를 간편하게 하기 위해 Intlayer는 컴포넌트를 변환하고 콘텐츠를 추출할 수 있는 [compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md) / [extractor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/extract.md)를 제공합니다.
 
 Intlayer는 자체 내부 파서를 사용하여 Solid 애플리케이션에서 Markdown 콘텐츠를 직접 렌더링하는 것을 지원합니다. 기본적으로 Markdown은 일반 텍스트로 처리됩니다. 풍부한 HTML로 렌더링하려면 애플리케이션을 `MarkdownProvider`로 감싸세요.
 
@@ -514,6 +547,32 @@ render(
 );
 ```
 
+<Tabs>
+ <Tab value='Extract command'>
+
+extractor를 실행하여 컴포넌트를 변환하고 콘텐츠를 추출합니다
+
+```bash packageManager="npm"
+npx intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="bun"
+bun x intlayer extract
+```
+
+ </Tab>
+ <Tab value='Babel compiler'>
+
+> v9 이후로, `intlayerCompiler`는 `intlayer` 플러그인에 포함되어 있습니다. 따라서 수동으로 추가할 필요가 없습니다.
+
 그런 다음 컴포넌트에서 사용할 수 있습니다:
 
 ```tsx
@@ -529,6 +588,22 @@ const MyComponent = () => {
     </div>
   );
 };
+```
+
+```bash packageManager="npm"
+npm run build # 또는 npm run dev
+```
+
+```bash packageManager="pnpm"
+pnpm run build # 또는 pnpm run dev
+```
+
+```bash packageManager="yarn"
+yarn build # 또는 yarn dev
+```
+
+```bash packageManager="bun"
+bun run build # 또는 bun run dev
 ```
 
 </Step>
@@ -644,5 +719,3 @@ Intlayer를 사용한 개발 경험을 개선하기 위해 공식 **Intlayer VS 
 ### 더 나아가기
 
 더 나아가려면 [비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)를 구현하거나 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)를 사용하여 콘텐츠를 외부화할 수 있습니다.
-
----

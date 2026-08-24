@@ -130,6 +130,8 @@ bun x intlayer ci fill --verbose --mode complete
 
 CI/CD設定（例：GitHub Actions、GitLab CI）で、`INTLAYER_PROJECT_CREDENTIALS`をシークレットとして設定します：
 
+> **AI access**: `fill` コマンドは翻訳を生成するために AI アクセスが必要です。`ci` から `INTLAYER_PROJECT_CREDENTIALS` (Intlayer CMS アクセスキー) によって注入された認証情報は、Intlayer バックエンドを通じて AI アクセスを付与するため、別の AI プロバイダーキーは必要ありません。代わりに自分のプロバイダーキーを使用したい場合は、`--provider`、`--model`、および `--api-key` を `intlayer ci fill` に渡してください。`test` コマンドは AI アクセスを必要としません。
+
 ```yaml
 # GitHub Actionsの例
 env:

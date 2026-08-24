@@ -271,8 +271,6 @@ export default preview;
 </Tab>
 <Tab value="Webpack Setup">
 
-<Steps>
-
 <Step number={1} title="종속성 설치">
 
 ```bash packageManager="npm"
@@ -397,8 +395,6 @@ export default preview;
 </Steps>
 </Tab>
 </Tabs>
-
----
 
 ## 콘텐츠 선언
 

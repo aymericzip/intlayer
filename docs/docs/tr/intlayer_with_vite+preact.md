@@ -170,10 +170,6 @@ bun add vite-intlayer --dev
 
   Yapılandırma yönetimi, çeviri, [içerik bildirimi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md), derleme ve [CLI komutları](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/index.md) için temel paket.
 
-- **preact-intlayer**
-
-  Intlayer'ı Preact uygulamasına entegre eden paket. Preact uluslararasılaştırması için bağlam sağlayıcıları ve kancalar sağlar.
-
 - **vite-intlayer**
 
   Intlayer'ı [Vite paketleyici](https://vite.dev/guide/why.html#why-bundle-for-production) ile entegre etmek için Vite eklentisinin yanı sıra kullanıcının tercih ettiği yerel ayarı algılamak, çerezleri yönetmek ve URL yönlendirmesini işlemek için ara yazılımı içerir.
@@ -592,6 +588,8 @@ export default LocaleSwitcher;
 >
 > > - [`useLocale` kancası](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/react-intlayer/useLocale.md) (API `preact-intlayer` için benzerdir)> - [`getLocaleName` kancası](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getLocaleName.md)> - [`getLocalizedUrl` kancası](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getLocalizedUrl.md)> - [`getHTMLTextDir` kancası](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getHTMLTextDir.md)> - [`hreflang` niteliği](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=tr)> - [`lang` niteliği](https://developer.mozilla.org/tr/docs/Web/HTML/Global_attributes/lang)> - [`dir` niteliği](https://developer.mozilla.org/tr/docs/Web/HTML/Global_attributes/dir)> - [`aria-current` niteliği](https://developer.mozilla.org/tr/docs/Web/Accessibility/ARIA/Attributes/aria-current)> - [Popover API](https://developer.mozilla.org/tr/docs/Web/API/Popover_API)
 
+---
+
 </Step>
 
 <Step number={9} title="HTML Dil ve Yön Niteliklerini Değiştirin" isOptional={true}>
@@ -660,6 +658,12 @@ const App: FunctionalComponent = () => (
 
 export default App;
 ```
+
+Bu değişiklikleri uygulayarak, uygulamanız şunları yapacaktır:
+
+- **Dil** (`lang`) özniteliğinin geçerli locale'i doğru şekilde yansıttığından emin olun; bu, SEO ve tarayıcı davranışı için önemlidir.
+- **Metin yönünü** (`dir`) locale'e göre ayarlayın; bu, farklı okuma düzenine sahip diller için okunabilirliği ve kullanılabilirliği artırır.
+- Daha **erişilebilir** bir deneyim sağlayın; yardımcı teknolojiler bu özniteliklere optimal şekilde işlev görmek için bağımlıdır.
 
 </Step>
 

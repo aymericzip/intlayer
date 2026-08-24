@@ -98,20 +98,6 @@ Aby skonfigurować treść wstawiania w swoim projekcie Intlayer, utwórz moduł
   </Tab>
 </Tabs>
 
-```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
-{
-  "$schema": "https://intlayer.org/schema.json",
-  "key": "my_key",
-  "content": {
-    "myInsertion": {
-      "nodeType": "insertion",
-      "insertion": "Cześć, mam na imię {{name}} i mam {{age}} lat!",
-    },
-    "myInsertion2": "Cześć, mam na imię {{name}} i mam {{age}} lat!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
-  },
-}
-```
-
 ## Używanie treści wstawianej z React Intlayer
 
 Aby wykorzystać zawartość wstawki w komponencie React, zaimportuj i użyj hooka `useIntlayer` z pakietu `react-intlayer`. Ten hook pobiera zawartość dla określonego klucza i pozwala przekazać obiekt, który mapuje każde miejsce na wartość, którą chcesz wyświetlić.

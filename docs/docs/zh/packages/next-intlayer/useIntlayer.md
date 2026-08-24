@@ -79,6 +79,35 @@ author: aymericzip
 
 以下示例展示了如何在 Next.js 页面中实现 `useIntlayer` 钩子，根据应用程序当前的语言环境动态加载本地化内容：
 
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
+```tsx fileName="src/pages/[locale]/index.tsx" codeFormat={["typescript", "esm"]}
+import { ClientComponentExample } from "@components/ClientComponentExample";
+import { ServerComponentExample } from "@components/ServerComponentExample";
+import { type NextPageIntlayer } from "next-intlayer";
+import { useIntlayer } from "next-intlayer";
+import { IntlayerProvider } from "next-intlayer/server";
+
+const HomePage: NextPageIntlayer = async ({ params }) => {
+  const { locale } = await params;
+
+  // 获取主页内容
+  const content = useIntlayer("homepage", locale);
+
+  return (
+    <IntlayerProvider locale={locale}>
+      <p>{content.introduction}</p>
+      <ClientComponentExample />
+      <ServerComponentExample />
+    </IntlayerProvider>
+  );
+};
+```
+
+ </Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
+
 ```tsx fileName="src/pages/[locale]/index.tsx" codeFormat={["typescript", "esm"]}
 import { ClientComponentExample } from "@components/ClientComponentExample";
 import { ServerComponentExample } from "@components/ServerComponentExample";
@@ -103,6 +132,9 @@ const HomePage: NextPageIntlayer = async ({ params }) => {
   );
 };
 ```
+
+ </Tab>
+</Tabs>
 
 ```tsx fileName="src/components/ClientComponentExample.tsx" codeFormat={["typescript", "esm"]}
 "use-client";

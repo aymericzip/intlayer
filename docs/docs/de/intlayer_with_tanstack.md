@@ -318,14 +318,6 @@ function RootDocument({ children }: { children: ReactNode }) {
 }
 ```
 
-> Wenn Sie Ihren Inhalt in einem `string`-Attribut verwenden möchten, wie z.B. `alt`, `title`, `href`, `aria-label` usw., müssen Sie den Wert der Funktion aufrufen, zum Beispiel:
-
-> ```html
-> <img src="{content.image.src.value}" alt="{content.image.value}" />
-> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
-> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
-> ```
-
 </Step>
 
 <Step number={6} title="Locale-Layout erstellen">
@@ -561,6 +553,14 @@ function RouteComponent() {
 }
 ```
 
+> Wenn Sie Ihren Inhalt in einem `string`-Attribut verwenden möchten, wie z. B. `alt`, `title`, `href`, `aria-label`, usw., können Sie den Wert der Funktion wie folgt verwenden:
+>
+> ```html
+> <img src="{content.image.src.value}" alt="{content.image.value}" />
+> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
+> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
+> ```
+
 > Um mehr über den `useIntlayer`-Hook zu erfahren, lesen Sie die [Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/react-intlayer/useIntlayer.md).
 
 </Step>
@@ -655,6 +655,8 @@ Sie können auch den `intlayerProxy` verwenden, um serverseitiges Routing zu Ihr
 
 > Beachten Sie, dass Sie zur Verwendung des `intlayerProxy` in der Produktion das Paket `vite-intlayer` von `devDependencies` zu `dependencies` verschieben müssen.
 
+> Seit Intlayer v9 ist `intlayerProxy()` direkt in das `intlayer()`-Plugin integriert und standardmäßig über die Option `routing.enableProxy` (`true` standardmäßig) aktiviert. Die separate Registrierung wie unten gezeigt ist nun optional — sie wird aus Gründen der Rückwärtskompatibilität und für Setups beibehalten, die die Plugin-Reihenfolge kontrollieren müssen. Setzen Sie `routing.enableProxy: false`, um sich abzumelden. Siehe die [v9-Versionshinweise](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/releases/v9.md).
+
 ```typescript fileName="vite.config.ts"
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import viteReact from "@vitejs/plugin-react";
@@ -686,6 +688,8 @@ export default defineConfig({
 </Step>
 
 <Step number={12} title="Metadaten internationalisieren">
+
+Verwenden Sie `getIntlayerAsync`, um auf Ihre Content-Dictionaries innerhalb der `head`-Funktion zuzugreifen.
 
 Sie können auch den `getIntlayer`-Hook verwenden, um in Ihrer gesamten Anwendung auf Ihre Inhaltswörterbücher zuzugreifen:
 
@@ -846,8 +850,6 @@ export const Route = createFileRoute("/{-$locale}/$")({
   component: NotFoundComponent,
 });
 ```
-
----
 
 </Step>
 

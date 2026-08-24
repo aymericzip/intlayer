@@ -138,6 +138,38 @@ getMultilingualUrls("/about", { currentDomain: "intlayer.org" });
 
 Эти абсолютные URL готовы к использованию в тегах `<link rel="alternate" hreflang="...">` для SEO.
 
+## Вывод типов
+
+`routing.domains` сериализуется в созданное расширение модуля, поэтому
+`getLocalizedUrl` и `getLocalizedPath` сужают тип возвращаемого значения до точного
+URL-адреса, на который разрешается локаль с маршрутизацией по доменам — включая подавление префикса.
+
+```ts
+// routing: { mode: 'prefix-no-default', domains: { en: 'intlayer.org', zh: 'intlayer.zh' } }
+
+getLocalizedUrl("/about", "zh");
+//     ^? "https://intlayer.zh/about" | "/about"
+
+getLocalizedPath("/about", "zh");
+//     ^? "/about"   (никогда не является origin, и нет префикса /zh/)
+```
+
+Тип URL является **объединением** двух значений, которые может вернуть функция: абсолютный
+URL-адрес на домене локали и относительный, который она возвращает, когда
+визуализируемая страница уже находится на этом домене. `getLocalizedPath` не имеет такой
+неоднозначности — она никогда не выдает origin — поэтому остается одним литералом.
+
+Локали, которые используют один домен, сохраняют свой обычный префикс в типе:
+
+```ts
+getLocalizedUrl("/about", "fr");
+//     ^? "https://intlayer.org/fr/about" | "/fr/about"
+```
+
+> Повторно создайте типы (`npx intlayer build` или любой запуск dev server) после
+> изменения `routing.domains` — сужение берется из созданного
+> `__RoutingRegistry`, а не из самого файла конфигурации.
+
 ## Поведение прокси
 
 ### Next.js
@@ -169,6 +201,8 @@ GET intlayer.zh/about
 ### Vite
 
 Плагин Vite `intlayerProxy` применяет ту же логику во время разработки:
+
+> Начиная с Intlayer v9, `intlayerProxy()` встроен непосредственно в плагин `intlayer()` и включен по умолчанию через опцию `routing.enableProxy` (`true` по умолчанию). Регистрация его отдельно, как показано ниже, теперь опциональна — она сохранена для обратной совместимости и для конфигураций, которым нужно контролировать порядок плагинов. Установите `routing.enableProxy: false`, чтобы отказаться. См. [примечания к выпуску v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/releases/v9.md).
 
 ```typescript fileName="vite.config.ts"
 import { defineConfig } from "vite";

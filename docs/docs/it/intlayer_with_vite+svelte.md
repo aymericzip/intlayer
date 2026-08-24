@@ -456,6 +456,8 @@ In parallelo, puoi anche utilizzare `intlayerProxy` per aggiungere il routing la
 
 > Nota che per utilizzare `intlayerProxy` in produzione, è necessario spostare il pacchetto `vite-intlayer` da `devDependencies` a `dependencies`.
 
+> A partire da Intlayer v9, `intlayerProxy()` è incluso direttamente nel plugin `intlayer()` e abilitato per impostazione predefinita attraverso l'opzione `routing.enableProxy` (`true` per impostazione predefinita). Registrarlo separatamente come mostrato di seguito è ora facoltativo — viene mantenuto per la compatibilità con le versioni precedenti e per le configurazioni che necessitano di controllare l'ordine dei plugin. Imposta `routing.enableProxy: false` per escluderlo. Vedi le [note di rilascio v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/releases/v9.md).
+
 ```typescript {3,7} fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
 import { svelte } from "@sveltejs/vite-plugin-svelte";
@@ -502,6 +504,29 @@ const changeLocale = (event: Event) => {
     {/each}
   </select>
 </div>
+```
+
+</Step>
+
+<Step number={9} title="Link Internazionalizzati" isOptional={true}>
+
+Per SEO, è consigliato aggiungere un prefisso alle tue route con la locale (ad es. `/about`, `/fr/about`).
+
+```svelte fileName="src/lib/components/Link.svelte"
+<script lang="ts">
+  import { getLocalizedUrl } from "intlayer";
+  import { useLocale } from "svelte-intlayer";
+
+  export let href = "";
+  const { locale } = useLocale();
+
+  // Aiutante per prefissare l'URL
+  $: localizedHref = getLocalizedUrl(href, $locale);
+</script>
+
+<a href={localizedHref}>
+  <slot />
+</a>
 ```
 
 </Step>
@@ -706,6 +731,8 @@ Questa estensione offre:
 - **Azioni rapide** per creare e aggiornare facilmente le traduzioni.
 
 Per maggiori dettagli su come utilizzare l'estensione, consulta la [documentazione della Intlayer VS Code Extension](https://intlayer.org/doc/vs-code-extension).
+
+---
 
 ### Vai oltre
 

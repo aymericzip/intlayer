@@ -89,8 +89,6 @@ Jika Anda menggunakan kerangka kerja yang berbeda untuk bagian aplikasi yang ber
 </Accordion>
 </AccordionGroup>
 
----
-
 ## Mengapa Intlayer dibuat?
 
 Intlayer dibuat untuk mengatasi masalah umum yang mempengaruhi semua library i18n populer seperti `next-intl`, `react-i18next`, `react-intl`, `next-i18next`, `react-intl`, dan `vue-i18n`.

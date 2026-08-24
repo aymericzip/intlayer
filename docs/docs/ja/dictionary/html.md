@@ -245,7 +245,7 @@ HTML ノードで `.use()` メソッドを使用する場合、提供された�
 
 <Tabs group="framework">
   <Tab label="React / Next.js" value="react">
-  
+
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "react-intlayer/html";
 
@@ -282,7 +282,7 @@ HTML ノードで `.use()` メソッドを使用する場合、提供された�
 
   </Tab>
   <Tab label="Vue" value="vue">
-  
+
     ```typescript fileName="main.ts"
     import { createApp, h } from "vue";
     import { intlayer } from "vue-intlayer";
@@ -327,7 +327,7 @@ HTML ノードで `.use()` メソッドを使用する場合、提供された�
 
   </Tab>
   <Tab label="Svelte" value="svelte">
-   
+
     ```svelte fileName="App.svelte"
     <script lang="ts">
       import { HTMLProvider } from "svelte-intlayer/html";
@@ -364,7 +364,7 @@ HTML ノードで `.use()` メソッドを使用する場合、提供された�
 
   </Tab>
   <Tab label="Preact" value="preact">
-   
+
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "preact-intlayer/html";
 
@@ -400,7 +400,7 @@ HTML ノードで `.use()` メソッドを使用する場合、提供された�
 
   </Tab>
   <Tab label="Solid" value="solid">
-   
+
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "solid-intlayer/html";
 
@@ -460,9 +460,9 @@ HTML ノードで `.use()` メソッドを使用する場合、提供された�
     export const appConfig: ApplicationConfig = {
       providers: [
         createIntlayerHTMLProvider({
-          renderMarkdown: async (html) => {
-            const { renderMarkdown } = await import('angular-intlayer/html');
-            return renderMarkdown(html);
+          renderHTML: async (html) => {
+            const { renderHTML } = await import('angular-intlayer/html');
+            return renderHTML(html);
           },
         }),
       ],
@@ -483,7 +483,9 @@ HTML ノードで `.use()` メソッドを使用する場合、提供された�
 <Tabs group="framework">
   <Tab label="React / Next.js" value="react">
     #### `<HTMLRenderer />` コンポーネント
-    
+
+特定のコンポーネントを使用してHTMLの文字列をレンダリングします。
+
     ```tsx
     import { HTMLRenderer } from "react-intlayer/html";
 
@@ -518,9 +520,9 @@ HTML ノードで `.use()` メソッドを使用する場合、提供された�
 
   </Tab>
   <Tab label="Vue" value="vue">
-   
+
     #### `<HTMLRenderer />` コンポーネント
-   
+
     ```vue
     <script setup>
     import { HTMLRenderer } from "vue-intlayer/html";
@@ -533,9 +535,9 @@ HTML ノードで `.use()` メソッドを使用する場合、提供された�
 
   </Tab>
   <Tab label="Svelte" value="svelte">
-  
+
     #### `<HTMLRenderer />` コンポーネント
-   
+
     ```svelte
     <script lang="ts">
     import { HTMLRenderer } from "svelte-intlayer/html";
@@ -567,9 +569,9 @@ HTML ノードで `.use()` メソッドを使用する場合、提供された�
 
   </Tab>
   <Tab label="Preact" value="preact">
-   
+
     #### `<HTMLRenderer />` コンポーネント
-   
+
     ```tsx
     import { HTMLRenderer } from "preact-intlayer/html";
 
@@ -598,9 +600,9 @@ HTML ノードで `.use()` メソッドを使用する場合、提供された�
 
   </Tab>
   <Tab label="Solid" value="solid">
-   
+
     #### `<HTMLRenderer />` コンポーネント
-   
+
     ```tsx
     import { HTMLRenderer } from "solid-intlayer/html";
 

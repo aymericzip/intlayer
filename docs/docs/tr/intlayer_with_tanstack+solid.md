@@ -487,8 +487,6 @@ function RouteComponent() {
 }
 ```
 
-> İçeriğinizi bir `string` niteliğinde kullanmak istiyorsanız, `alt`, `title`, `href`, `aria-label` vb. gibi, fonksiyonun değerini çağırmanız gerekir:
-
 > ```html
 > <img src="{content.image.src.value}" alt="{content.image.value}" />
 > <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
@@ -574,6 +572,8 @@ Uygulamanıza sunucu tarafı yönlendirmesi eklemek için `intlayerProxy`yi de k
 
 > Üretimde `intlayerProxy`yi kullanmak için `vite-intlayer` paketini `devDependencies`dan `dependencies`e taşımanız gerektiğini unutmayın.
 
+> Intlayer v9 sürümünden itibaren, `intlayerProxy()` doğrudan `intlayer()` plugin'ine dahil edilmiştir ve `routing.enableProxy` seçeneği aracılığıyla varsayılan olarak etkinleştirilir (varsayılan olarak `true`). Aşağıda gösterildiği gibi ayrı olarak kaydı artık isteğe bağlıdır — geriye dönük uyumluluk ve plugin sırasını kontrol etmesi gereken kurulumlar için tutulur. Devre dışı bırakmak için `routing.enableProxy: false` olarak ayarlayın. [v9 sürüm notlarına](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/releases/v9.md) bakın.
+
 ```typescript fileName="vite.config.ts"
 import { tanstackStart } from "@tanstack/solid-start/plugin/vite";
 import solid from "vite-plugin-solid";
@@ -607,6 +607,8 @@ export default defineConfig({
 <Step number={13} title="Meta Verilerinizi Uluslararasılaştırın">
 
 Yerel ayara duyarlı meta veriler için `head` yükleyicisi içindeki içerik sözlüklerinize erişmek için `getIntlayer` fonksiyonunu da kullanabilirsiniz:
+
+`getIntlayer` gibi davranır, ancak build plugin'i birleştirilmiş sözlük yerine locale başına sözlük chunk'ına yönlendirir — bu sayede bir sayfanın metaveri yalnızca render ettiği locale'i içerir. Chunk'ı talep üzerine yüklediği için `head` `async` olur:
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/solid-router";
@@ -880,6 +882,81 @@ bun run build # veya bun run dev
 
  </Tab>
 </Tabs>
+
+---
+
+</Step>
+
+<Step number={16} title="Pre-render & Generate Sitemap">
+
+Intlayer, uygulamanız için kolayca bir sitemap oluşturmanıza yardımcı olmak için yerleşik bir sitemap oluşturucusu ile gelir. Yerelleştirilmiş rotaları işler ve arama motorları için gerekli metaveriyi ekler.
+
+> Intlayer tarafından oluşturulan sitemap, `xhtml:link` namespace'ini (Hreflang XML Extensions) destekler. Yalnızca ham URL'leri listeleyen varsayılan sitemap oluşturucularının aksine, Intlayer bir sayfanın tüm dil sürümleri arasında gerekli çift yönlü bağlantıları otomatik olarak oluşturur (örneğin, `/about`, `/about?lang=fr` ve `/about?lang=es`). Bu, arama motorlarının doğru dil sürümünü doğru kitleye dizine eklemesini ve sunmasını sağlar.
+
+Bunu kullanmak için, öncelikle `vite.config.ts` dosyanızı yerelleştirilmiş rotalarınız için ön işlemeyi etkinleştirmek ve varsayılan TanStack Start sitemap oluşturmasını devre dışı bırakmak üzere yapılandırmanız gerekir.
+
+```typescript fileName="vite.config.ts"
+import { localeMap, localeFlatMap } from "intlayer";
+// ... diğer importlar
+
+export const pathList = ["", "/about", "/404"];
+
+const localizedPages = localeFlatMap(({ urlPrefix }) =>
+  pathList.map((path) => ({
+    path: `${urlPrefix}${path}`,
+    prerender: {
+      enabled: true,
+    },
+  }))
+);
+
+export default defineConfig({
+  plugins: [
+    // ... diğer pluginler
+    tanstackStart({
+      // ... diğer config
+      sitemap: {
+        enabled: false,
+      },
+      prerender: {
+        enabled: true,
+        crawlLinks: false,
+        concurrency: 10,
+      },
+      pages: localizedPages,
+    }),
+  ],
+});
+```
+
+Ardından, `generateSitemap` fonksiyonunu kullanan bir `src/routes/sitemap[.]xml.ts` route oluşturun:
+
+```typescript fileName="src/routes/sitemap[.]xml.ts"
+import { createFileRoute } from "@tanstack/solid-router";
+import { generateSitemap } from "intlayer";
+
+const SITE_URL = "http://localhost:3000";
+
+export const Route = createFileRoute("/sitemap.xml")({
+  server: {
+    handlers: {
+      GET: async () => {
+        const sitemap = generateSitemap(
+          [
+            { path: "/", changefreq: "daily", priority: 1.0 },
+            { path: "/about", changefreq: "monthly", priority: 0.8 },
+          ],
+          { siteUrl: SITE_URL }
+        );
+
+        return new Response(sitemap, {
+          headers: { "Content-Type": "application/xml" },
+        });
+      },
+    },
+  },
+});
+```
 
 ---
 

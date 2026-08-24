@@ -71,10 +71,6 @@ Depending on whether you're working on client-side or server-side components in 
 
 ## Dictionary Files
 
-It is crucial that all content keys are defined within content declaration files to prevent runtime errors and ensure type safety. This approach also facilitates TypeScript integration for compile-time validation.
-
-Instructions for setting up content declaration files are available [here](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md).
-
 It's crucial that all content keys are defined within content declaration files to prevent runtime errors and ensure type safety. This approach also facilitates TypeScript integration for compile-time validation.
 
 Instructions for setting up content declaration files are available [here](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/content_file.md).
@@ -82,6 +78,34 @@ Instructions for setting up content declaration files are available [here](https
 ## Example Usage in Next.js
 
 Here's how you can implement the `useIntlayer` hook within a Next.js page to dynamically load localised content based on the application's current locale:
+
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
+```tsx fileName="src/pages/[locale]/index.tsx" codeFormat={["typescript", "esm"]}
+import { ClientComponentExample } from "@components/ClientComponentExample";
+import { ServerComponentExample } from "@components/ServerComponentExample";
+import { type NextPageIntlayer } from "next-intlayer";
+import { useIntlayer } from "next-intlayer";
+import { IntlayerProvider } from "next-intlayer/server";
+
+const HomePage: NextPageIntlayer = async ({ params }) => {
+  const { locale } = await params;
+
+  const content = useIntlayer("homepage", locale);
+
+  return (
+    <IntlayerProvider locale={locale}>
+      <p>{content.introduction}</p>
+      <ClientComponentExample />
+      <ServerComponentExample />
+    </IntlayerProvider>
+  );
+};
+```
+
+ </Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
 
 ```tsx fileName="src/pages/[locale]/index.tsx" codeFormat={["typescript", "esm"]}
 import { ClientComponentExample } from "@components/ClientComponentExample";
@@ -107,6 +131,9 @@ const HomePage: NextPageIntlayer = async ({ params }) => {
   );
 };
 ```
+
+ </Tab>
+</Tabs>
 
 ```tsx fileName="src/components/ClientComponentExample.tsx" codeFormat={["typescript", "esm"]}
 "use-client";

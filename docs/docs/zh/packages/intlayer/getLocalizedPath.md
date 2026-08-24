@@ -31,6 +31,8 @@ author: aymericzip
 
 `getLocalizedPath` 函数根据提供的 locale 和重写规则，将 canonical path（应用内路径，例如 `/about`、`/product/[id]`）解析为其本地化等价路径。它对于生成按语言变化的对 SEO 友好的 URL 非常有用。
 
+它是 [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getLocalizedUrl.md) 的相对路径对应版本 — 对于相对输入，两者都返回相同的值。与 `getLocalizedUrl` 不同的是，它永远不会返回绝对 URL：`domains` 配置被忽略，因此从其自己的域提供的区域设置仍然会产生一个路径。接受绝对输入，但其来源会被删除 — 仅保留其路径、查询字符串和哈希。
+
 **关键特性：**
 
 - 支持使用 `[param]` 语法的动态路由参数。
@@ -60,11 +62,6 @@ getLocalizedPath(
   - **类型**：`string`
   - **必填**：是
 
-- `locale: Locales`
-  - **描述**：目标语言环境，用于本地化路径。
-  - **类型**：`Locales`
-  - **必填**：是
-
 ### 可选参数
 
 - `rewriteRules?: RoutingConfig['rewrite']`
@@ -72,12 +69,43 @@ getLocalizedPath(
   - **类型**：`RoutingConfig['rewrite']`
   - **默认值**：`configuration.routing.rewrite`
 
+- `options?: object`
+  - **Description**: 路由覆盖。每个条目都默认使用你项目的配置。
+  - **Type**: `object`
+
+  - `options.locales?: Locales[]` — 支持的语言环境。**默认值**: `configuration.internationalization.locales`
+  - `options.defaultLocale?: Locales` — 默认语言环境。**默认值**: `configuration.internationalization.defaultLocale`
+  - `options.mode?: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'` — 语言环境在路径中的显示方式。**默认值**: `configuration.routing.mode`
+  - `options.rewrite?: RoutingConfig['rewrite']` — 自定义重写规则。**默认值**: `configuration.routing.rewrite`
+
 ---
 
 ## 返回值
 
 - **类型**：`string`
 - **描述**：为指定语言环境生成的本地化路径。
+
+该类型是从您配置中声明的重写规则缩小的，因此编辑器显示的是解析后的路径而不是裸露的 `string`：
+
+```typescript codeFormat="typescript"
+// 配置: mode 'prefix-no-default', defaultLocale 'en',
+//                { '/about': { fr: '/a-propos' }, '/product/[id]': { fr: '/produit/[id]' } }
+const about = getLocalizedPath("/about", Locales.FRENCH);
+//    ^? '/fr/a-propos'
+const product = getLocalizedPath("/product/123", Locales.FRENCH);
+//    ^? '/fr/produit/123'
+const contact = getLocalizedPath("/contact", Locales.FRENCH);
+//    ^? '/fr/contact'  (没有重写规则匹配，仅应用前缀)
+const home = getLocalizedPath("/", Locales.FRENCH);
+//    ^? '/fr'
+```
+
+同样的收窄流入 [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getLocalizedUrl.md)，它在添加区域设置前缀之前应用重写规则。
+
+两种情况保持扩展为 `string`，因为它们在编译时无法解析：
+
+- 不是字符串字面量的路径（例如从变量构建的路径）；
+- 与使用多段或可选参数的规则匹配的路径（`[...slug]`、`[[...slug]]`、`:param?`）。
 
 ---
 
@@ -125,8 +153,6 @@ const manualRules = {
 getLocalizedPath("/contact", Locales.FRENCH, manualRules);
 // Output: "/contactez-nous"
 ```
-
----
 
 ### 省略 Locale
 

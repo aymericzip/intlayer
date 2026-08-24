@@ -77,8 +77,6 @@ type GetPrefixResult = {
     - **类型**：`Locales`
     - **默认值**：[`项目配置`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md#middleware)
 
-  - `options.mode?: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'`
-
 - **描述**：用于处理本地化的 URL 路由模式。如果未提供，则使用项目配置中设置的模式。
 - **类型**：`'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'`
 - **默认值**：[项目配置](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md#middleware)

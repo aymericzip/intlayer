@@ -373,6 +373,13 @@ app.use(intlayer);
 app.mount("#app");
 ```
 
+> Anda juga dapat memanggil `installIntlayer(app)` langsung sebagai fungsi jika Anda lebih suka:
+>
+> ```javascript
+> import { intlayer } from "vue-intlayer";
+> app.use(intlayer);
+> ```
+
 Akses kamus konten Anda di seluruh aplikasi dengan membuat komponen Vue utama dan menggunakan composable `useIntlayer`:
 
 ```vue fileName="src/HelloWord.vue"
@@ -426,6 +433,8 @@ const countRef = ref(0);
 </template>
 ```
 
+> Jika aplikasi Anda sudah ada, Anda dapat menggunakan [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md), serta [perintah extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/extract.md), untuk mengubah ribuan komponen dalam sekejap.
+
 #### Mengakses Konten di Intlayer
 
 Intlayer menawarkan berbagai API untuk mengakses konten Anda:
@@ -443,8 +452,6 @@ Intlayer menawarkan berbagai API untuk mengakses konten Anda:
   Composable `useIntlayer` mengembalikan sebuah Proxy dengan konten. Proxy ini dapat didestrukturisasi untuk mengakses konten sambil mempertahankan reaktivitas.
   - Gunakan `const content = useIntlayer("myContent");` dan `{{ content.myContent }}` / `<content.myContent />`.
   - Atau gunakan `const { myContent } = useIntlayer("myContent");` dan `{{ myContent }}` / `<myContent/>` untuk mendestrukturisasi konten.
-
-> Jika aplikasi Anda sudah ada, Anda dapat menggunakan [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md) secara kombinasi dengan [perintah extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/extract.md) untuk mengonversi ribuan komponen dalam satu detik.
 
 </Step>
 
@@ -634,6 +641,8 @@ import LocaleSwitcher from "@components/LocaleSwitcher.vue";
 Secara paralel, Anda juga dapat menggunakan `intlayerProxy` untuk menambahkan routing sisi server ke aplikasi Anda. Plugin ini secara otomatis akan mendeteksi locale saat ini berdasarkan URL dan mengatur cookie locale yang sesuai. Jika tidak ada locale yang ditentukan, plugin akan menentukan locale yang paling tepat berdasarkan preferensi bahasa browser pengguna. Jika tidak ada locale yang terdeteksi, maka akan mengarahkan ulang ke locale default.
 
 > Perlu dicatat bahwa untuk menggunakan `intlayerProxy` dalam produksi, Anda perlu memindahkan paket `vite-intlayer` dari `devDependencies` ke `dependencies`.
+
+> Sejak Intlayer v9, `intlayerProxy()` digabungkan langsung ke dalam plugin `intlayer()` dan diaktifkan secara default melalui opsi `routing.enableProxy` (`true` secara default). Mendaftarkannya secara terpisah seperti yang ditunjukkan di bawah ini sekarang bersifat opsional — ini disimpan untuk kompatibilitas ke belakang dan untuk pengaturan yang perlu mengontrol urutan plugin. Atur `routing.enableProxy: false` untuk tidak mengikutinya. Lihat [catatan rilis v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/releases/v9.md).
 
 ```typescript {3,7} fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
@@ -1136,3 +1145,5 @@ Untuk detail lebih lanjut tentang cara menggunakan ekstensi ini, silakan merujuk
 ### Melangkah Lebih Jauh
 
 Untuk melangkah lebih jauh, Anda dapat mengimplementasikan [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) atau mengeksternalisasi konten Anda menggunakan [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md).
+
+---

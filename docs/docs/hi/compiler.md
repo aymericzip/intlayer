@@ -40,6 +40,12 @@ author: aymericzip
 
 ## Intlayer Compiler का उपयोग क्यों करें?
 
+- **स्वचालन**: शब्दकोशों में सामग्री की मैनुअल कॉपी-पेस्टिंग को समाप्त करता है।
+
+- **Speed**: अनुकूलित कंटेंट निष्कर्षण आपकी बिल्ड प्रक्रिया को तेज़ रखता है।
+
+- **Developer Experience**: Content declarations को उसी जगह रखें जहां उनका उपयोग किया जाता है, जिससे maintainability में सुधार होता है।
+
 - **स्वचालन**: सामग्री को शब्दकोशों में मैन्युअल कॉपी-पेस्ट करने की आवश्यकता समाप्त करता है।
 - **गति**: अनुकूलित सामग्री निष्कर्षण सुनिश्चित करता है कि आपका बिल्ड प्रक्रिया तेज़ बनी रहे।
 - **डेवलपर अनुभव**: सामग्री घोषणाओं को वहीं रखें जहां उनका उपयोग होता है, जिससे रखरखाव में सुधार होता है।
@@ -53,6 +59,8 @@ author: aymericzip
 
 - **हेयूरिस्टिक अस्पष्टता**: कंपाइलर को यह अनुमान लगाना होगा कि उपयोगकर्ता-सामना करने वाली सामग्री बनाम एप्लिकेशन लॉजिक क्या है (उदाहरण के लिए, `className="active"`, स्थिति कोड, उत्पाद ID)। जटिल कोडबेस में, यह गलत सकारात्मक या छूटी हुई स्ट्रिंग्स का कारण बन सकता है जिन्हें मैन्युअल एनोटेशन और अपवादों की आवश्यकता होती है।
 - **केवल स्थैतिक निष्कर्षण**: कंपाइलर-आधारित निष्कर्षण स्थैतिक विश्लेषण पर निर्भर करता है। स्ट्रिंग्स जो केवल रनटाइम पर मौजूद होती हैं (API त्रुटि कोड, CMS फ़ील्ड, आदि) को कंपाइलर द्वारा अकेले खोजा या अनुवादित नहीं किया जा सकता है, इसलिए आपको अभी भी एक पूरक रनटाइम i18n रणनीति की आवश्यकता है।
+
+- **Static-only extraction**: Compiler-based extraction static analysis पर निर्भर करती है। Strings जो केवल runtime पर exist करती हैं (API error codes, CMS fields, आदि) को compiler अकेले discover या translate नहीं कर सकता है, इसलिए आपको अभी भी एक complementary runtime i18n strategy की आवश्यकता है।
 
 गहरी वास्तुकला तुलना के लिए, [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/compiler_vs_declarative_i18n.md) ब्लॉग पोस्ट देखें।
 
@@ -94,6 +102,8 @@ export default defineConfig({
 });
 ```
 
+> स्टैंडअलोन `intlayerCompiler()` प्लगइन अभी भी advanced setups के लिए exported है। इसे `intlayer()` के साथ register करना सुरक्षित है — compiler खुद को deduplicate करता है और केवल एक बार चलता है।
+
 See complete tutorial: [Intlayer Compiler with Vite+React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react_compiler.md)
 
 #### फ्रेमवर्क समर्थन
@@ -103,6 +113,10 @@ Vite प्लगइन स्वचालित रूप से विभि�
 - **React / JSX / TSX**: मूल रूप से संभाला जाता है।
 - **Vue**: इसके लिए `@intlayer/vue-compiler` आवश्यक है।
 - **Svelte**: इसके लिए `@intlayer/svelte-compiler` आवश्यक है।
+
+- **Vue**: `@intlayer/vue-compiler` की आवश्यकता है।
+
+- **Svelte**: `@intlayer/svelte-compiler` की आवश्यकता है।
 
 सुनिश्चित करें कि आपने अपने फ्रेमवर्क के लिए उपयुक्त कंपाइलर पैकेज इंस्टॉल किया है:
 

@@ -59,17 +59,25 @@ author: aymericzip
 
 بالمقارنة مع الحلول الرئيسية مثل `react-i18next` أو `use-intl` أو `paraglide`، فإن Intlayer هو الحل الذي يأتي مع تحسينات متكاملة مثل:
 
+<AccordionGroup>
+
 ** تغطية كاملة لـ TanStack Start **
 
 تم تحسين Intlayer بالكامل لـ TanStack Start، مما يوفر **توجيه متعدد اللغات**، **إدارة ملفات تعريف الارتباط**، **إنشاء خريطة الموقع**، **تحميل المحتوى الديناميكي**، وجميع الميزات اللازمة لتوسيع نطاق جهود التدويل (i18n).
 
 **حجم البندل**
 
+<Accordion header="حجم الحزمة">
+
 بدلاً من تحميل ملفات JSON ضخمة إلى صفحاتك، قم بتحميل المحتوى الضروري فقط. يساعد Intlayer **في تقليل أحجام البندل وصفحاتك بنسبة تصل إلى 50%**.
 
 ** الصيانة **
 
+<Accordion header="الصيانة">
+
 يؤدي تحديد نطاق محتوى تطبيقك ** إلى تسهيل الصيانة ** للتطبيقات واسعة النطاق. يمكنك تكرار أو حذف مجلد ميزات واحد دون العبء العقلي لمراجعة قاعدة بيانات المحتوى بالكامل. بالإضافة إلى ذلك، تتم كتابة Intlayer **بالكامل** لضمان دقة المحتوى الخاص بك.
+
+</Accordion>
 
 ** وكيل الذكاء الاصطناعي **
 
@@ -77,15 +85,24 @@ author: aymericzip
 
 **الأتمتة**
 
+<Accordion header="الأتمتة">
+
 استخدم الأتمتة للترجمة في مسار CI/CD الخاص بك باستخدام LLM من اختيارك على حساب مزود الذكاء الاصطناعي الخاص بك. يقدم Intlayer أيضًا **مترجمًا** لأتمتة استخراج المحتوى، بالإضافة إلى [منصة ويب](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) للمساعدة في **الترجمة في الخلفية**.
+
+</Accordion>
 
 **أداء**
 
 يمكن أن يؤدي ربط ملفات JSON الضخمة بالمكونات إلى حدوث مشكلات في الأداء والتفاعل. يعمل Intlayer على تحسين تحميل المحتوى الخاص بك في وقت الإنشاء.
 
+</Accordion>
+
 **التحجيم مع عدم وجود مطور**
 
 أكثر من مجرد حل i18n، يوفر Intlayer **[محررًا مرئيًا] مستضافًا ذاتيًا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** و**[كامل CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** لمساعدتك في إدارة المحتوى متعدد اللغات في **الوقت الفعلي**، مما يجعل التعاون مع المترجمين ومؤلفي النصوص وأعضاء الفريق الآخرين سلسًا. يمكن تخزين المحتوى محليًا و/أو عن بعد.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
@@ -299,14 +316,6 @@ function RootDocument({ children }: { children: ReactNode }) {
   );
 }
 ```
-
-> إذا كنت ترغب في استخدام المحتوى الخاص بك في خاصية من نوع `string`، مثل `alt`، `title`، `href`، `aria-label`، إلخ، يجب عليك استدعاء قيمة الدالة، مثل:
-
-> ```html
-> <img src="{content.image.src.value}" alt="{content.image.value}" />
-> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
-> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
-> ```
 
 </Step>
 
@@ -543,6 +552,14 @@ function RouteComponent() {
 }
 ```
 
+> إذا كنت تريد استخدام محتواك في خاصية `string`، مثل `alt` أو `title` أو `href` أو `aria-label`، إلخ، يمكنك استخدام قيمة الدالة، مثل:
+>
+> ```html
+> <img src="{content.image.src.value}" alt="{content.image.value}" />
+> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
+> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
+> ```
+
 > لمعرفة المزيد حول خطاف `useIntlayer` ، راجع [التوثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/useIntlayer.md).
 
 </Step>
@@ -637,6 +654,8 @@ function RootDocument({ children }: { children: ReactNode }) {
 
 > لاحظ أنه لاستخدام `intlayerProxy` في الإنتاج، تحتاج إلى نقل حزمة `vite-intlayer` من `devDependencies` إلى `dependencies`.
 
+> منذ إصدار Intlayer v9، يتم دمج `intlayerProxy()` مباشرة في مكون `intlayer()` ويتم تفعيله افتراضياً من خلال خيار `routing.enableProxy` (`true` بشكل افتراضي). تسجيله بشكل منفصل كما هو موضح أدناه أصبح اختيارياً الآن — يتم الاحتفاظ به للتوافقية العكسية والإعدادات التي تحتاج إلى التحكم في ترتيب المكونات. اضبط `routing.enableProxy: false` للتحديد عن البحث. اطلع على [ملاحظات إصدار v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/releases/v9.md).
+
 ```typescript fileName="vite.config.ts"
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import viteReact from "@vitejs/plugin-react";
@@ -670,6 +689,8 @@ export default defineConfig({
 <Step number={13} title="تدويل البيانات الوصفية الخاصة بك">
 
 يمكنك أيضًا استخدام خطاف `getIntlayer` للوصول إلى قواميس المحتوى الخاصة بك في جميع أنحاء تطبيقك:
+
+إنها تتصرف مثل `getIntlayer`، لكن مكون البناء يوجهها إلى جزء القاموس الخاص بكل locale بدلاً من القاموس المدمج الذي يحتوي على كل locale — لذا فإن البيانات الوصفية للصفحة تشحن فقط locale الذي يتم تصييره. لأنها تحمل هذا الجزء عند الطلب، يصبح `head` `async`:
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/react-router";
@@ -829,28 +850,6 @@ export const Route = createFileRoute("/{-$locale}/$")({
 });
 ```
 
----
-
-</Step>
-
-<Step number={16} title="تكوين TypeScript">
-
-يستخدم Intlayer توسيع الوحدات (module augmentation) للحصول على فوائد TypeScript وجعل قاعدة الكود الخاصة بك أقوى.
-
-تأكد من أن تكوين TypeScript الخاص بك يتضمن الأنواع المولدة تلقائيًا:
-
-```json5 fileName="tsconfig.json"
-{
-  // ... تكويناتك الحالية
-  include: [
-    // ... التضمينات الحالية الخاصة بك
-    ".intlayer/**/*.ts", // تضمين الأنواع المولدة تلقائيًا
-  ],
-}
-```
-
----
-
 </Step>
 
 <Step number={1} title="استخراج محتوى مكوناتك" isOptional={true}>
@@ -918,18 +917,6 @@ bun x intlayer extract
 
 > Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
 
-```bash packageManager="npm"
-npm install @intlayer/babel --save-dev
-```
-
-```bash packageManager="pnpm"
-pnpm add @intlayer/babel --save-dev
-```
-
-```bash packageManager="yarn"
-yarn add @intlayer/babel --save-dev
-```
-
 ```bash packageManager="bun"
 bun add @intlayer/babel --dev
 ```
@@ -972,6 +959,103 @@ bun run build # Or bun run dev
 
 </Step>
 
+<Step number={16} title="Pre-render & Generate Sitemap">
+
+يأتي Intlayer مع مولد خريطة موقع مدمج لمساعدتك في إنشاء خريطة موقع لتطبيقك بسهولة. يتعامل مع المسارات المحلية ويضيف البيانات الوصفية الضرورية لمحركات البحث.
+
+> خريطة الموقع المُنشأة من قِبل Intlayer تدعم مساحة الأسماء `xhtml:link` (Hreflang XML Extensions). على عكس مولدات خرائط الموقع الافتراضية التي تُدرج عناوين URL الخام فقط، ينشئ Intlayer تلقائياً الروابط ثنائية الاتجاه المطلوبة بين جميع إصدارات الصفحة باللغات المختلفة (على سبيل المثال، `/about` و `/about?lang=fr` و `/about?lang=es`). هذا يضمن أن محركات البحث تفهرس بشكل صحيح وتقدم النسخة الصحيحة من اللغة للجمهور المناسب.
+
+لاستخدامه، تحتاج أولاً إلى تكوين `vite.config.ts` لتفعيل العرض المسبق (pre-rendering) لمساراتك المحلية وتعطيل توليد خريطة الموقع الافتراضية لـ TanStack Start.
+
+```typescript fileName="vite.config.ts"
+import { localeFlatMap } from "intlayer";
+// ... الواردات الأخرى
+
+export const pathList = ["", "/about", "/404"];
+
+const localizedPages = localeFlatMap(({ urlPrefix }) =>
+  pathList.map((path) => ({
+    path: `${urlPrefix}${path}`,
+    prerender: {
+      enabled: true,
+    },
+  }))
+);
+
+export default defineConfig({
+  plugins: [
+    // ... المكونات الإضافية الأخرى
+    tanstackStart({
+      // ... الإعدادات الأخرى
+      sitemap: {
+        enabled: false,
+      },
+      prerender: {
+        enabled: true,
+        crawlLinks: false,
+        concurrency: 10,
+      },
+      pages: localizedPages,
+    }),
+  ],
+});
+```
+
+ثم، قم بإنشاء مسار `src/routes/sitemap[.]xml.ts` يستخدم دالة `generateSitemap`:
+
+```typescript fileName="src/routes/sitemap[.]xml.ts"
+import { createFileRoute } from "@tanstack/react-router";
+import { generateSitemap } from "intlayer";
+
+const SITE_URL = (
+  import.meta.env.VITE_SITE_URL ?? "http://localhost:3000"
+).replace(/\/$/, "");
+
+export const Route = createFileRoute("/sitemap.xml")({
+  server: {
+    handlers: {
+      GET: async () => {
+        const sitemap = generateSitemap(
+          [
+            { path: "/", changefreq: "daily", priority: 1.0 },
+            { path: "/about", changefreq: "monthly", priority: 0.8 },
+          ],
+          { siteUrl: SITE_URL }
+        );
+
+        return new Response(sitemap, {
+          headers: { "Content-Type": "application/xml" },
+        });
+      },
+    },
+  },
+});
+```
+
+---
+
+</Step>
+
+<Step number={17} title="تكوين TypeScript">
+
+يستخدم Intlayer module augmentation للاستفادة من TypeScript وجعل codebase الخاص بك أقوى.
+
+تأكد من أن تكوين TypeScript الخاص بك يتضمن الأنواع المُنشأة تلقائيًا:
+
+```json5 fileName="tsconfig.json"
+{
+  // ... your existing configurations
+  include: [
+    // ... your existing includes
+    ".intlayer/**/*.ts", // تضمين الأنواع المُنشأة تلقائيًا
+  ],
+}
+```
+
+---
+
+</Step>
+
 </Steps>
 
 ### تكوين Git
@@ -984,6 +1068,8 @@ bun run build # Or bun run dev
 # تجاهل الملفات الناتجة عن Intlayer
 .intlayer
 ```
+
+---
 
 ## إضافة VS Code
 

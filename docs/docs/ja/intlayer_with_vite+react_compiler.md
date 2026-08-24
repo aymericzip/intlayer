@@ -232,6 +232,8 @@ export default defineConfig({
 
 > `intlayerCompiler()` Vite プラグインは、コンポーネントからコンテンツを抽出し、`.content` ファイルを書き出すために使用されます。
 
+> Intlayer v9 以降、コンパイラは `intlayer()` プラグインに直接バンドルされており、`compiler.enabled` が `compiler.output` パスで設定されると自動的に有効になります。下記に示すように `intlayerCompiler()` を個別に登録することはオプションになりました — また追加された場合は自動的に重複排除されます。[v9 リリースノート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/releases/v9.md)を参照してください。
+
 </Step>
 
 <Step number={4} title="コードをコンパイルする">

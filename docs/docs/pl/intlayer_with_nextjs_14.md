@@ -52,6 +52,8 @@ author: aymericzip
 
 W porównaniu do głównych rozwiązań, takich jak `next-intl` czy `i18next`, Intlayer jest rozwiązaniem wyposażonym w zintegrowane optymalizacje, takie jak:
 
+<AccordionGroup>
+
 **Pełne pokrycie Next.js**
 
 Intlayer jest zoptymalizowany do współpracy z **Server Components** w celu wydajnego renderowania i jest w pełni kompatybilny z [**Turbopack**](https://nextjs.org/docs/architecture/turbopack). Nie blokuje renderowania statycznego i oferuje oprogramowanie pośredniczące oraz wszystkie funkcje potrzebne do skalowania internacjonalizacji (i18n).
@@ -60,9 +62,13 @@ Intlayer jest zoptymalizowany do współpracy z **Server Components** w celu wyd
 > Routing lokalny jest przydatny ze względu na SEO, rozmiar bundle'a i wydajność. Jeśli go nie potrzebujesz, możesz zapoznać się z tym [przewodnikiem](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_no_locale_path.md).
 > W przypadku Next.js 12, 13, 14 i 15 z App Router zapoznaj się z tym [przewodnikiem] (https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_14.md).
 
+</Accordion>
+
 **Rozmiar bundle'a**
 
 Zamiast ładować ogromne pliki JSON na swoje strony, ładuj tylko niezbędną treść. Intlayer pomaga **zmniejszyć rozmiary bundle'a i stron nawet o 50%**.
+
+</Accordion>
 
 **Łatwość konserwacji**
 
@@ -70,7 +76,11 @@ Określanie zakresu zawartości aplikacji **ułatwia konserwację** aplikacji na
 
 **Agent AI**
 
+<Accordion header="AI Agent">
+
 Wspólna lokalizacja treści **zmniejsza potrzebny kontekst** dzięki modelom dużego języka (LLM). Intlayer zawiera także zestaw narzędzi, taki jak **CLI** do sprawdzania brakujących tłumaczeń**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** i **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/agent_skills.md)**, aby praca programisty (DX) była jeszcze płynniejsza dla agentów AI.
+
+</Accordion>
 
 **Automatyzacja**
 
@@ -78,15 +88,47 @@ Korzystaj z automatyzacji, aby tłumaczyć w swoim potoku CI/CD przy użyciu wyb
 
 **Wydajność**
 
+<Accordion header="Wydajność">
+
 Łączenie ogromnych plików JSON z komponentami może prowadzić do problemów z wydajnością i reaktywnością. Inlayer optymalizuje ładowanie treści w czasie kompilacji.
+
+</Accordion>
 
 **Skalowanie bez użycia dewelopera**
 
 Więcej niż tylko rozwiązanie i18n, Intlayer zapewnia **samodzielny [edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** i **[pełny CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)**, który pomoże Ci zarządzać wielojęzyczną treścią w **w czasie rzeczywistym**, dzięki czemu współpraca z tłumaczami, copywriterami i innymi członkami zespołu będzie płynna. Treść może być przechowywana lokalnie i/lub zdalnie.
 
+</Accordion>
+</AccordionGroup>
+
 ---
 
 ## Przewodnik krok po kroku, jak skonfigurować Intlayer w aplikacji Next.js
+
+<Tabs defaultTab="code">
+  <Tab label="Code" value="code">
+
+<iframe
+  src="https://ide.intlayer.org/aymericzip/intlayer-next-14-template?file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - Jak internacjonalizować aplikację za pomocą Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+  <Tab label="Demo" value="demo">
+
+<iframe
+  src="https://intlayer-next-14-template.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo - intlayer-next-14-template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+</Tabs>
 
 Zobacz [Szablon aplikacji](https://github.com/aymericzip/intlayer-next-14-template) na GitHub.
 
@@ -237,6 +279,8 @@ export const config = {
 
 > `intlayerMiddleware` służy do wykrywania preferowanej lokalizacji użytkownika i przekierowywania go na odpowiedni URL, zgodnie z [konfiguracją](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md). Dodatkowo umożliwia zapisywanie preferowanej lokalizacji użytkownika w ciasteczku.
 
+> Od Intlayer v9, to middleware respektuje opcję `routing.enableProxy` (`true` domyślnie). Ustaw `routing.enableProxy: false` w konfiguracji, aby zmienić go na pass-through bez usuwania tego pliku. Zobacz [notatki wydania v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/releases/v9.md).
+
 > Dostosuj parametr `matcher`, aby odpowiadał trasom Twojej aplikacji. Po więcej szczegółów odsyłamy do [dokumentacji Next.js dotyczącej konfiguracji matcher](https://nextjs.org/docs/app/building-your-application/routing/middleware).
 
 > Jeśli potrzebujesz połączyć kilka middleware'ów razem (na przykład `intlayerMiddleware` z uwierzytelnianiem lub niestandardowymi middleware'ami), Intlayer udostępnia teraz pomocnika o nazwie `multipleMiddlewares`.
@@ -276,6 +320,36 @@ export default RootLayout;
 
 Aby zaimplementować dynamiczne routowanie, podaj ścieżkę dla lokalizacji, dodając nowy layout w katalogu `[locale]`:
 
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
+```tsx fileName="src/app/[locale]/layout.tsx" codeFormat={["typescript", "esm"]}
+import { type Next14LayoutIntlayer } from "next-intlayer";
+import { IntlayerProvider } from "next-intlayer/server";
+import { Inter } from "next/font/google";
+import { getHTMLTextDir } from "intlayer";
+
+const inter = Inter({ subsets: ["latin"] });
+
+const LocaleLayout: Next14LayoutIntlayer = ({
+  children,
+  params: { locale },
+}) => (
+  <IntlayerProvider locale={locale}>
+    <html lang={locale} dir={getHTMLTextDir(locale)}>
+      <body className={inter.className}>{children}</body>
+    </html>
+  </IntlayerProvider>
+);
+
+export default LocaleLayout;
+```
+
+> Jeden `IntlayerProvider` obejmuje obie połowy drzewa: inicjalizuje kontekst serwera ograniczony do zakresu żądania odczytywany przez server hooks i montuje dostawcę klienta, aby komponenty klienta otrzymywały te same ustawienia lokalizacyjne.
+
+ </Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
+
 ```tsx fileName="src/app/[locale]/layout.tsx" codeFormat={["typescript", "esm"]}
 import {
   type Next14LayoutIntlayer,
@@ -301,6 +375,9 @@ const LocaleLayout: Next14LayoutIntlayer = ({
 
 export default LocaleLayout;
 ```
+
+ </Tab>
+</Tabs>
 
 > Segment ścieżki `[locale]` jest używany do określenia lokalizacji. Przykład: `/en-US/about` odnosi się do `en-US`, a `/fr/about` do `fr`.
 
@@ -386,6 +463,40 @@ export default pageContent;
 
 Uzyskaj dostęp do swoich słowników treści w całej aplikacji:
 
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
+```tsx fileName="src/app/[locale]/page.tsx" codeFormat={["typescript", "esm"]}
+import { ClientComponentExample } from "@components/ClientComponentExample";
+import { ServerComponentExample } from "@components/ServerComponentExample";
+import { type Next14PageIntlayer } from "next-intlayer";
+import { useIntlayer } from "next-intlayer";
+
+const Page: Next14PageIntlayer = ({ params: { locale } }) => {
+  const content = useIntlayer("page", locale);
+
+  return (
+    <>
+      <p>
+        {content.getStarted.main}
+        <code>{content.getStarted.pageLink}</code>
+      </p>
+
+      <ServerComponentExample />
+      <ClientComponentExample />
+    </>
+  );
+};
+
+export default Page;
+```
+
+- **`IntlayerProvider`** jest montowany raz, w locale layout. Dostarcza locale zarówno do komponentów server, jak i client, dzięki czemu strony nie zawijają się same.
+- Server hooks rozwiązują locale w tej kolejności: locale przekazany w miejscu wywołania, potem server context zaszczepiony przez provider, potem locale przenoszony przez request (header `x-intlayer-locale` ustawiony przez proxy Intlayer, potem cookie locale). Ten ostatni krok to ten, który utrzymuje treść poprawną podczas nawigacji po stronie client-side, która renderuje ponownie tylko segment strony, gdzie layout — i wraz z nim provider — nie uruchamia się ponownie.
+
+ </Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
+
 ```tsx fileName="src/app/[locale]/page.tsx" codeFormat={["typescript", "esm"]}
 import { ClientComponentExample } from "@components/ClientComponentExample";
 import { ServerComponentExample } from "@components/ServerComponentExample";
@@ -418,6 +529,9 @@ export default Page;
 
 > Layout i strona nie mogą współdzielić wspólnego kontekstu serwera, ponieważ system kontekstu serwera opiera się na magazynie danych dla każdego żądania (poprzez mechanizm [React’s cache](https://react.dev/reference/react/cache)), co powoduje, że każdy „kontekst” jest tworzony na nowo dla różnych segmentów aplikacji. Umieszczenie providera w wspólnym layoucie złamałoby tę izolację, uniemożliwiając prawidłowe propagowanie wartości kontekstu serwera do Twoich komponentów serwerowych.
 
+ </Tab>
+</Tabs>
+
 ```tsx {4,7} fileName="src/components/ClientComponentExample.tsx" codeFormat={["typescript", "esm"]}
 "use client";
 
@@ -436,6 +550,30 @@ const ClientComponentExample: FC = () => {
 };
 ```
 
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
+```tsx {2} fileName="src/components/ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
+import type { FC } from "react";
+import { useIntlayer } from "next-intlayer";
+
+const ServerComponentExample: FC = () => {
+  const content = useIntlayer("server-component-example"); // Utwórz powiązaną deklarację zawartości
+
+  return (
+    <div>
+      <h2>{content.title}</h2>
+      <p>{content.content}</p>
+    </div>
+  );
+};
+```
+
+> `next-intlayer` to izomorficzna ścieżka importu: warunek eksportu `react-server` zapewnia komponentom serwerowym implementację ambient-locale, podczas gdy komponenty klienckie otrzymują implementację opartą na kontekście. To samo wywołanie działa po obu stronach.
+
+ </Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
+
 ```tsx {2} fileName="src/components/ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "next-intlayer/server";
@@ -451,6 +589,9 @@ const ServerComponentExample: FC = () => {
   );
 };
 ```
+
+</Tab>
+</Tabs>
 
 > Jeśli chcesz użyć swojej zawartości w atrybucie typu `string`, takim jak `alt`, `title`, `href`, `aria-label` itp., musisz wywołać wartość funkcji, na przykład:
 
@@ -943,7 +1084,3 @@ Aby uzyskać więcej informacji o korzystaniu z rozszerzenia, zapoznaj się z do
 ### Idź dalej
 
 Aby pójść dalej, możesz zaimplementować [edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md) lub zewnętrznie zarządzać swoją zawartością, korzystając z [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md).
-
-```
-
-```

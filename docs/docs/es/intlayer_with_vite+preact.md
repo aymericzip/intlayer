@@ -61,10 +61,6 @@ author: aymericzip
   </Tab>
 </Tabs>
 
-> Este paquete está en desarrollo. Consulta el [issue](https://github.com/aymericzip/intlayer/issues/118) para más información. Muestra tu interés en Intlayer para Preact dando like al issue.
-
-See [Plantilla de Aplicación](https://github.com/aymericzip/intlayer-vite-preact-template) en GitHub.
-
 ## Tabla de contenidos
 
 <TOC/>
@@ -121,6 +117,8 @@ Más que una simple solución i18n, Intlayer proporciona un **[editor visual] au
 ---
 
 ## Guía paso a paso para configurar Intlayer en una aplicación Vite y Preact
+
+Ver [Plantilla de Aplicación](https://github.com/aymericzip/intlayer-vite-preact-template) en GitHub.
 
 <Steps>
 
@@ -516,6 +514,30 @@ const App: FunctionalComponent = () => (
 export default App;
 ```
 
+En paralelo, también puedes usar `intlayerProxy` para agregar enrutamiento del lado del servidor a tu aplicación. Este plugin detectará automáticamente la locale actual basándose en la URL y establecerá la cookie de locale apropiada. Si no se especifica ninguna locale, el plugin determinará la locale más apropiada basándose en las preferencias de idioma del navegador del usuario. Si no se detecta ninguna locale, redirigirá a la locale predeterminada.
+
+> Tenga en cuenta que para usar `intlayerProxy` en producción, debe cambiar el paquete `vite-intlayer` de `devDependencies` a `dependencies`.
+
+> Desde Intlayer v9, `intlayerProxy()` está incluido directamente en el plugin `intlayer()` y habilitado por defecto a través de la opción `routing.enableProxy` (`true` por defecto). Registrarlo por separado como se muestra a continuación es ahora opcional — se mantiene para compatibilidad hacia atrás y para configuraciones que necesiten controlar el orden de los plugins. Establece `routing.enableProxy: false` para optar por no participar. Consulta las [notas de la versión v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/releases/v9.md).
+
+```typescript {3,7} fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import { intlayer } from "vite-intlayer";
+import preact from "@preact/preset-vite";
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [
+    preact(),
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
+  ],
+});
+```
+
 </Step>
 
 <Step number={8} title="Cambiar la URL cuando cambia el idioma" isOptional={true}>
@@ -592,6 +614,10 @@ export default LocaleSwitcher;
 >
 > > - [Hook `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/react-intlayer/useLocale.md) (la API es similar para `preact-intlayer`)> - [Hook `getLocaleName`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/intlayer/getLocaleName.md)> - [Hook `getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/intlayer/getLocalizedUrl.md)> - [Hook `getHTMLTextDir`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/intlayer/getHTMLTextDir.md)> - [Atributo `hreflang`](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=fr)> - [Atributo `lang`](https://developer.mozilla.org/es/docs/Web/HTML/Global_attributes/lang)> - [Atributo `dir`](https://developer.mozilla.org/es/docs/Web/HTML/Global_attributes/dir)> - [Atributo `aria-current`](https://developer.mozilla.org/es/docs/Web/Accessibility/ARIA/Attributes/aria-current)> - [API Popover](https://developer.mozilla.org/es/docs/Web/API/Popover_API)
 
+A continuación se muestra el **Paso 9** actualizado con explicaciones añadidas y ejemplos de código refinados:
+
+---
+
 </Step>
 
 <Step number={9} title="Cambiar los atributos de idioma y dirección del HTML" isOptional={true}>
@@ -660,6 +686,12 @@ const App: FunctionalComponent = () => (
 
 export default App;
 ```
+
+Al aplicar estos cambios, tu aplicación:
+
+- Asegura que el atributo **language** (`lang`) refleje correctamente la locale actual, lo cual es importante para SEO y el comportamiento del navegador.
+- Ajusta la **dirección del texto** (`dir`) según la locale, mejorando la legibilidad y usabilidad para idiomas con diferentes órdenes de lectura.
+- Proporciona una experiencia más **accesible**, ya que las tecnologías de asistencia dependen de estos atributos para funcionar de manera óptima.
 
 </Step>
 

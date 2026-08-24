@@ -232,6 +232,8 @@ export default defineConfig({
 
 > Plugin Vite `intlayerCompiler()` được sử dụng để trích xuất nội dung từ component và ghi các tệp `.content`.
 
+> Kể từ Intlayer v9, trình compiler được đóng gói trực tiếp vào plugin `intlayer()` và kích hoạt tự động khi `compiler.enabled` được đặt với đường dẫn `compiler.output`. Đăng ký `intlayerCompiler()` riêng biệt như hình dưới đây hiện là tùy chọn — nó sẽ tự loại bỏ nếu cũng được thêm vào. Xem [ghi chú phát hành v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/releases/v9.md).
+
 </Step>
 
 <Step number={4} title="Biên dịch mã của bạn">

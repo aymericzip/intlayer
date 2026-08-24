@@ -61,10 +61,6 @@ author: aymericzip
   </Tab>
 </Tabs>
 
-> Questo pacchetto è in fase di sviluppo. Consulta la [issue](https://github.com/aymericzip/intlayer/issues/118) per maggiori informazioni. Mostra il tuo interesse per Intlayer per Preact mettendo un like alla issue
-
-Consulta il [Template dell'Applicazione](https://github.com/aymericzip/intlayer-vite-preact-template) su GitHub.
-
 ## Table of Contents
 
 <TOC/>
@@ -121,6 +117,8 @@ Più di una semplice soluzione i18n, Intlayer fornisce un **[editor visivo](http
 ---
 
 ## Guida Passo-Passo per Configurare Intlayer in un'Applicazione Vite e Preact
+
+Vedi [Application Template](https://github.com/aymericzip/intlayer-vite-preact-template) su GitHub.
 
 <Steps>
 
@@ -516,6 +514,30 @@ const App: FunctionalComponent = () => (
 export default App;
 ```
 
+In parallelo, puoi anche utilizzare `intlayerProxy` per aggiungere il routing lato server alla tua applicazione. Questo plugin rileverà automaticamente la locale corrente in base all'URL e imposterà il cookie locale appropriato. Se non è specificata alcuna locale, il plugin determinerà la locale più appropriata in base alle preferenze della lingua del browser dell'utente. Se non viene rilevata alcuna locale, reindizzerà alla locale predefinita.
+
+> Nota che per utilizzare `intlayerProxy` in produzione, è necessario spostare il package `vite-intlayer` da `devDependencies` a `dependencies`.
+
+> A partire da Intlayer v9, `intlayerProxy()` è integrato direttamente nel plugin `intlayer()` e abilitato per impostazione predefinita tramite l'opzione `routing.enableProxy` (`true` per impostazione predefinita). Registrarlo separatamente come mostrato di seguito è ora opzionale — è mantenuto per compatibilità con le versioni precedenti e per setup che necessitano di controllare l'ordine dei plugin. Impostare `routing.enableProxy: false` per disattivarlo. Vedi le [note di rilascio v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/releases/v9.md).
+
+```typescript {3,7} fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import { intlayer } from "vite-intlayer";
+import preact from "@preact/preset-vite";
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [
+    preact(),
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
+  ],
+});
+```
+
 </Step>
 
 <Step number={8} title="Cambia l'URL quando cambia la lingua" isOptional={true}>
@@ -592,6 +614,10 @@ export default LocaleSwitcher;
 >
 > > - [Hook `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/react-intlayer/useLocale.md) (l'API è simile per `preact-intlayer`)> - [Hook `getLocaleName`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/intlayer/getLocaleName.md)> - [Hook `getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/intlayer/getLocalizedUrl.md)> - [Hook `getHTMLTextDir`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/intlayer/getHTMLTextDir.md)> - [Attributo `hreflang`](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=fr)> - [Attributo `lang`](https://developer.mozilla.org/it/docs/Web/HTML/Global_attributes/lang)> - [Attributo `dir`](https://developer.mozilla.org/it/docs/Web/HTML/Global_attributes/dir)> - [Attributo `aria-current`](https://developer.mozilla.org/it/docs/Web/Accessibility/ARIA/Attributes/aria-current)> - [API Popover](https://developer.mozilla.org/it/docs/Web/API/Popover_API)
 
+Di seguito è riportato il **Passaggio 9** aggiornato con spiegazioni aggiunte ed esempi di codice perfezionati:
+
+---
+
 </Step>
 
 <Step number={9} title="Cambia gli attributi HTML di lingua e direzione" isOptional={true}>
@@ -660,6 +686,12 @@ const App: FunctionalComponent = () => (
 
 export default App;
 ```
+
+Applicando questi cambiamenti, la tua applicazione:
+
+- Assicurati che l'attributo **language** (`lang`) rifletta correttamente la locale corrente, il che è importante per SEO e comportamento del browser.
+- Regola la **direzione del testo** (`dir`) in base alla locale, migliorando la leggibilità e l'usabilità per le lingue con ordini di lettura diversi.
+- Fornisci un'esperienza più **accessibile**, poiché le tecnologie assistive dipendono da questi attributi per funzionare in modo ottimale.
 
 </Step>
 

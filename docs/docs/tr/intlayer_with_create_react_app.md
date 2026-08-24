@@ -31,11 +31,33 @@ author: aymericzip
 
 # Intlayer ile Create React App çevirin | Uluslararasılaştırma (i18n)
 
+<iframe
+  src="https://ide.intlayer.org/aymericzip/intlayer-react-cra-template?file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - Uygulamanızı Intlayer kullanarak nasıl uluslararasılaştıracağınız"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
 GitHub'da [Uygulama Şablonu](https://github.com/aymericzip/intlayer-react-cra-template)'na bakın.
 
 ## Intlayer Nedir?
 
+`react-i18next` veya `i18next` gibi ana çözümlere kıyasla, Intlayer aşağıdaki gibi entegre optimizasyonlarla gelen bir çözümdür:
+
+<AccordionGroup>
+
+<Accordion header="Tam React kapsamı">
+
 **Intlayer**, modern web uygulamalarında çok dilli desteği basitleştirmek için tasarlanmış yenilikçi, açık kaynaklı bir uluslararasılaştırma (i18n) kütüphanesidir.
+
+</Accordion>
+
+<Accordion header="Bundle boyutu">
+
+Sayfalarınıza massive JSON dosyalarını yüklemek yerine, yalnızca gerekli içeriği yükleyin. Intlayer, **bundle ve sayfa boyutlarınızı %50'ye kadar azaltmanıza** yardımcı olur.
+
+</Accordion>
 
 Intlayer ile şunları yapabilirsiniz:
 
@@ -43,6 +65,35 @@ Intlayer ile şunları yapabilirsiniz:
 - **Meta verileri, rotaları ve içeriği dinamik olarak yerelleştirin**.
 - **Otomatik oluşturulan türlerle TypeScript desteği sağlayın**, otomatik tamamlama ve hata algılamayı iyileştirin.
 - **Dinamik yerel algılama ve değiştirme gibi gelişmiş özelliklerden yararlanın**.
+
+</Accordion>
+
+<Accordion header="AI Agent">
+
+İçeriği birlikte konumlandırmak, Büyük Dil Modelleri (LLM'ler) tarafından ihtiyaç duyulan **bağlamı azaltır**. Intlayer ayrıca, **CLI** (eksik çevirileri test etmek için), **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/mcp_server.md)** ve **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/agent_skills.md)** gibi bir dizi araçla gelir ve bu araçlar, yapay zeka ajanları için geliştirici deneyimini (DX) daha da sorunsuz hale getirir.
+
+</Accordion>
+
+<Accordion header="Otomasyon">
+
+CI/CD pipeline'inizde seçtiğiniz LLM'yi kullanarak otomasyonla çeviri yapın, AI sağlayıcınızın maliyetiyle. Intlayer ayrıca içerik çıkarmayı otomatikleştirmek için bir **derleyici** ve arka planda **çeviriye** yardımcı olmak için bir [web platformu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) sunmaktadır.
+
+</Accordion>
+
+<Accordion header="Performans">
+
+Massive JSON dosyalarını bileşenlere bağlamak performans ve reaktivite sorunlarına yol açabilir. Intlayer, içerik yüklemenizi derleme zamanında optimize eder.
+
+</Accordion>
+
+<Accordion header="none-dev ile Ölçeklendirme">
+
+Sadece bir i18n çözümünden fazlası olan Intlayer, **kendi barındırılan [görsel editör](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md)** ve **[tam CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)** sağlayarak çok dilli içeriğinizi **gerçek zamanlı** olarak yönetmenize ve çevirmenler, metin yazarları ve diğer ekip üyeleriyle sorunsuz işbirliği yapmanıza yardımcı olur. İçerik yerel olarak ve/veya uzaktan saklanabilir.
+
+</Accordion>
+</AccordionGroup>
+
+---
 
 ## React Uygulamasında Intlayer'ı Kurmak İçin Adım Adım Kılavuz
 
@@ -500,6 +551,10 @@ const LocaleSwitcher: FC = () => {
 <Step number={9} title="HTML Dil ve Yön Özniteliklerini Değiştirin" isOptional={true}>
 
 Uygulamanız birden fazla dili desteklediğinde, `<html>` etiketinin `lang` ve `dir` özniteliklerini geçerli yerel ayarla eşleşecek şekilde güncellemek çok önemlidir.
+
+- **Accessibility**: Ekran okuyucuları ve yardımcı teknolojiler, içeriği doğru şekilde telaffuz etmek ve yorumlamak için `lang` özniteliğine dayanır.
+- **Text Rendering**: `dir` (direction) özniteliği, metnin doğru sırada renderlenmiş olmasını sağlar (örneğin, İngilizce için soldan sağa, Arapça veya İbranice için sağdan sola), bu da okunabilirlik için gereklidir.
+- **SEO**: Arama motorları, sayfanızın dilini belirlemek için `lang` özniteliğini kullanır ve arama sonuçlarında doğru yerelleştirilmiş içeriği sunmaya yardımcı olur.
 
 Bunu otomatik olarak işlemek için bir hook oluşturabilirsiniz.
 

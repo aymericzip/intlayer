@@ -109,6 +109,8 @@ Intlayer ist mehr als nur eine i18n-Lösung. Es bietet einen **selbstgehosteten 
 
 ---
 
+Siehe [Application Template](https://github.com/aymericzip/intlayer-vite-lit-template) auf GitHub.
+
 ## Schritt-für-Schritt-Anleitung zur Einrichtung von Intlayer in einer Vite- und Lit-Anwendung
 
 <Steps>
@@ -477,6 +479,8 @@ Um eindeutige Routen für jede Sprache zu erstellen (nützlich für SEO), könne
 Fügen Sie zuerst `intlayerProxy` zu Ihrer Vite-Konfiguration hinzu:
 
 > Beachten Sie, dass Sie zur Verwendung von `intlayerProxy` in der Produktion `vite-intlayer` von `devDependencies` zu `dependencies` verschieben müssen.
+
+> Seit Intlayer v9 ist `intlayerProxy()` direkt im `intlayer()` Plugin gebündelt und standardmäßig über die Option `routing.enableProxy` (`true` standardmäßig) aktiviert. Die separate Registrierung wie unten gezeigt ist nun optional — sie wird aus Gründen der Rückwärtskompatibilität und für Setups, die die Plugin-Reihenfolge kontrollieren müssen, beibehalten. Setzen Sie `routing.enableProxy: false`, um sich abzumelden. Siehe die [v9 Release Notes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/releases/v9.md).
 
 ```typescript {3,7} fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";

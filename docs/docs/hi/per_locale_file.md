@@ -77,6 +77,17 @@ const helloWorldContent = {
 module.exports = helloWorldContent;
 ```
 
+```json5 fileName="hello-world.hi.content.json" contentDeclarationFormat="json"
+{
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "hello-world",
+  "locale": "hi", // महत्वपूर्ण
+  "content": {
+    "multilingualContent": "मेरे कंपोनेंट का शीर्षक",
+  },
+}
+```
+
 ```json fileName="hello-world.content.ts" contentDeclarationFormat="json"
 {
   "$schema": "https://intlayer.org/schema.json",
@@ -92,6 +103,8 @@ module.exports = helloWorldContent;
   }
 }
 ```
+
+> महत्वपूर्ण: सुनिश्चित करें कि locale फ़ील्ड परिभाषित है। यह Intlayer को बताता है कि फ़ाइल किस भाषा का प्रतिनिधित्व करती है।
 
 > अनुशंसित: यह प्रारूप तब सबसे अच्छा होता है जब आप Intlayer के विज़ुअल एडिटर का उपयोग कर रहे हों या सीधे कोड में अनुवादों का प्रबंधन कर रहे हों।
 
@@ -146,17 +159,6 @@ const helloWorldContent = {
 export default helloWorldContent;
 ```
 
-```json5 fileName="hello-world.en.content.json" contentDeclarationFormat="json"
-{
-  "$schema": "https://intlayer.org/schema.json",
-  "key": "hello-world",
-  "locale": "en", // महत्वपूर्ण
-  "content": {
-    "multilingualContent": "मेरे घटक का शीर्षक",
-  },
-}
-```
-
 ```json5 fileName="hello-world.es.content.json" contentDeclarationFormat="json"
 {
   "$schema": "https://intlayer.org/schema.json",
@@ -169,8 +171,6 @@ export default helloWorldContent;
 ```
 
 > महत्वपूर्ण: सुनिश्चित करें कि locale फ़ील्ड परिभाषित है। यह Intlayer को बताता है कि फ़ाइल किस भाषा का प्रतिनिधित्व करती है।
-
-> नोट: दोनों मामलों में, सामग्री घोषणा फ़ाइल को नामकरण पैटर्न `*.content.{ts,tsx,js,jsx,mjs,cjs,json}` का पालन करना चाहिए ताकि Intlayer द्वारा पहचाना जा सके। `.[locale]` प्रत्यय वैकल्पिक है और केवल नामकरण सम्मेलन के रूप में उपयोग किया जाता है।
 
 ## प्रारूपों का मिश्रण
 

@@ -138,6 +138,38 @@ getMultilingualUrls("/about", { currentDomain: "intlayer.org" });
 
 Estas URL absolutas están listas para usarse en etiquetas `<link rel="alternate" hreflang="...">` para SEO.
 
+## Inferencia de Tipos
+
+`routing.domains` se serializa en la augmentación de módulo generada, por lo que
+`getLocalizedUrl` y `getLocalizedPath` reducen su tipo de retorno a la URL exacta
+que una locale enrutada por dominio resuelve — incluyendo la supresión de prefijo.
+
+```ts
+// routing: { mode: 'prefix-no-default', domains: { en: 'intlayer.org', zh: 'intlayer.zh' } }
+
+getLocalizedUrl("/about", "zh");
+//     ^? "https://intlayer.zh/about" | "/about"
+
+getLocalizedPath("/about", "zh");
+//     ^? "/about"   (nunca un origen, y sin prefijo /zh/)
+```
+
+El tipo de URL es la **unión** de los dos valores que la función puede retornar: la
+URL absoluta en el dominio de la locale, y la relativa que retorna cuando la
+página que se está renderizando ya vive en ese dominio. `getLocalizedPath` no tiene tal
+ambigüedad - nunca emite un origen - así que permanece como un literal único.
+
+Las locales que comparten un dominio mantienen su prefijo normal en el tipo también:
+
+```ts
+getLocalizedUrl("/about", "fr");
+//     ^? "https://intlayer.org/fr/about" | "/fr/about"
+```
+
+> Regenera los tipos (`npx intlayer build`, o cualquier ejecución del servidor de desarrollo) después de
+> cambiar `routing.domains` - la reducción proviene del
+> `__RoutingRegistry` generado, no del archivo de configuración mismo.
+
 ## Comportamiento del Proxy
 
 ### Next.js
@@ -169,6 +201,8 @@ GET intlayer.zh/about
 ### Vite
 
 El complemento Vite `intlayerProxy` aplica la misma lógica durante el desarrollo:
+
+> Desde Intlayer v9, `intlayerProxy()` está incluido directamente en el plugin `intlayer()` y habilitado por defecto a través de la opción `routing.enableProxy` (`true` por defecto). Registrarlo por separado como se muestra a continuación ahora es opcional — se mantiene por compatibilidad hacia atrás y para configuraciones que necesitan controlar el orden de los plugins. Establece `routing.enableProxy: false` para optar por no participar. Consulta las [notas de la versión v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/releases/v9.md).
 
 ```typescript fileName="vite.config.ts"
 import { defineConfig } from "vite";

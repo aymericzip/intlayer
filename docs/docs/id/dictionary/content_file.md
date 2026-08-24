@@ -885,35 +885,6 @@ content:
     subtitle: Build amazing applications with ease
 ```
 
-Anda juga dapat membuat file konten dalam format JSON:
-
-```json
-{
-  "key": "welcome-page",
-  "title": "Konten Halaman Selamat Datang",
-  "description": "Konten untuk halaman selamat datang utama",
-  "tags": ["halaman", "selamat datang"],
-  "content": {
-    "hero": {
-      "title": {
-        "nodeType": "translation",
-        "translation": {
-          "en": "Welcome to Our Platform",
-          "fr": "Bienvenue sur Notre Plateforme"
-        }
-      },
-      "subtitle": {
-        "nodeType": "translation",
-        "translation": {
-          "en": "Build amazing applications with ease",
-          "fr": "Construisez des applications incroyables avec facilité"
-        }
-      }
-    }
-  }
-}
-```
-
 ### File Konten Per-Locale
 
 Untuk kamus per-locale, tentukan properti `locale`:

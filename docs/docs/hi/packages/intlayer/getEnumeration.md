@@ -31,6 +31,8 @@ author: aymericzip
 
 `getEnumeration` फ़ंक्शन एक निर्दिष्ट मात्रा के अनुसार पूर्वनिर्धारित शर्तों के आधार पर एक एनेमरेशन ऑब्जेक्ट में संबंधित सामग्री प्राप्त करता है। शर्तें कुंजियों के रूप में परिभाषित होती हैं, और उनकी प्राथमिकता ऑब्जेक्ट में उनके क्रम द्वारा निर्धारित होती है।
 
+enumeration की घोषणा कैसे करें, इस पर अधिक विवरण के लिए, [Enumeration दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/enumeration.md) देखें।
+
 ## पैरामीटर
 
 - `enumerationContent: QuantityContent<Content>`

@@ -138,6 +138,38 @@ getMultilingualUrls("/about", { currentDomain: "intlayer.org" });
 
 These absolute URLs are ready to use in `<link rel="alternate" hreflang="...">` tags for SEO.
 
+## Type Inference
+
+`routing.domains` is serialized into the generated module augmentation, so
+`getLocalizedUrl` and `getLocalizedPath` narrow their return type to the exact
+URL a domain-routed locale resolves to — the prefix suppression included.
+
+```ts
+// routing: { mode: 'prefix-no-default', domains: { en: 'intlayer.org', zh: 'intlayer.zh' } }
+
+getLocalizedUrl("/about", "zh");
+//     ^? "https://intlayer.zh/about" | "/about"
+
+getLocalizedPath("/about", "zh");
+//     ^? "/about"   (never an origin, and no /zh/ prefix)
+```
+
+The URL type is the **union** of the two values the function can return: the
+absolute URL on the locale's domain, and the relative one it returns when the
+page being rendered already lives on that domain. `getLocalizedPath` has no such
+ambiguity - it never emits an origin - so it stays a single literal.
+
+Locales that share a domain keep their normal prefix in the type as well:
+
+```ts
+getLocalizedUrl("/about", "fr");
+//     ^? "https://intlayer.org/fr/about" | "/fr/about"
+```
+
+> Regenerate the types (`npx intlayer build`, or any dev server run) after
+> changing `routing.domains` - the narrowing comes from the generated
+> `__RoutingRegistry`, not from the config file itself.
+
 ## Proxy Behaviour
 
 ### Next.js
@@ -169,6 +201,8 @@ GET intlayer.zh/about
 ### Vite
 
 The `intlayerProxy` Vite plugin applies the same logic during development:
+
+> Since Intlayer v9, `intlayerProxy()` is bundled directly into the `intlayer()` plugin and enabled by default through the `routing.enableProxy` option (`true` by default). Registering it separately as shown below is now optional — it is kept for backward compatibility and for setups that need to control plugin order. Set `routing.enableProxy: false` to opt out. See the [v9 release notes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/releases/v9.md).
 
 ```typescript fileName="vite.config.ts"
 import { defineConfig } from "vite";

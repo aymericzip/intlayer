@@ -732,8 +732,6 @@ export default config;
 | `liveSyncPort`               | Live Sync 서버 포트.                                                                                                                                              | `number`                          | `4000`                              | `4000`                                                                                          |                                                                                                                                                                                                                      |
 | `liveSyncURL`                | Live Sync 서버 URL.                                                                                                                                               | `string`                          | `'http://localhost:{liveSyncPort}'` | `'https://example.com'`                                                                         | 기본적으로 localhost를 가리키며, 원격 Live Sync 서버로 변경할 수 있습니다.                                                                                                                                           |
 
----
-
 ### 애널리틱스 구성 (Analytics)
 
 Intlayer 애널리틱스와 관련된 설정을 정의합니다: 사용자에게 실제로 표시되는 콘텐츠(페이지 뷰, 콘텐츠 노출)를 수집하고 콘텐츠에 대한 A/B 테스트를 지원합니다.
@@ -983,7 +981,14 @@ Intlayer의 내부 경로 및 출력 결과와 관련된 설정입니다. 이러
 
 ### 딕셔너리 구성 (Dictionary)
 
+사전 작업을 제어하는 설정입니다. 자동 채우기 동작 및 컨텐츠 생성을 포함합니다.
+
 자동 채우기 동작 및 콘텐츠 생성을 포함하여 딕셔너리 작업을 제어하기 위한 옵션입니다.
+
+1. **기본값**: 콘텐츠 선언 파일을 생성할 때 기본값 정의
+2. **폴백 동작**: 특정 필드가 정의되지 않을 때 폴백 값을 제공하여 사전 작업 동작을 전역적으로 정의할 수 있음
+
+content declaration 파일 및 configuration 값이 어떻게 적용되는지에 대한 자세한 내용은 [Content File Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md)을 참조하세요.
 
 | 필드                        | 설명                                                                                                                                                   | 타입                                                                                                            | 기본값       | 예시                                                                                        | 참고                                                                                                                                                                                                                                                                                                                                                                           |
 | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------- | ------------ | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -1024,8 +1029,6 @@ Intlayer 로그 출력 맞춤설정을 위한 설정입니다.
 | `mode`   | 로거 모드를 지정합니다.    | `'default'` &#124; <br/> `'verbose'` &#124; <br/> `'disabled'` | `'default'`     | `'verbose'`      | • `'verbose'`: 디버깅을 위해 더 많은 정보를 기록합니다.<br/>• `'disabled'`: 모든 로깅을 비활성화합니다. |
 | `prefix` | 모든 로그 메시지의 접두사. | `string`                                                       | `'[intlayer] '` | `'[my prefix] '` |                                                                                                         |
 
----
-
 ### AI 구성 (AI)
 
 프로바이더, 모델 및 API 키를 포함하여 Intlayer 내의 AI 기능을 관리하기 위한 설정입니다.
@@ -1065,8 +1068,6 @@ Intlayer는 최대의 유연성을 보장하기 위해 다양한 AI 프로바이
 | `baseURL`            | AI API에 대한 기본 URL.                                                                                          | `string`                                                                                                                                                                                                                                                                                                                                                                                                                                             | 없음        | `'https://api.openai.com/v1'` <br/> `'http://localhost:5000'` | 로컬 또는 맞춤형 AI API 엔드포인트를 가리킬 수 있습니다.                                                                                                                                   |
 | `dataSerialization`  | AI 기능에 대한 데이터 직렬화 형식.                                                                               | `'json'` &#124; <br/> `'toon'`                                                                                                                                                                                                                                                                                                                                                                                                                       | `undefined` | `'toon'`                                                      | • `'json'`: 기본값, 안정적임; 더 많은 토큰 소비.<br/>• `'toon'`: 더 적은 토큰 소모, 덜 안정적임.<br/>• 모델에 로직 실행을 위한 추가 파라미터(추론 노력(reasoning effort) 등)를 전달합니다. |
 
----
-
 ### 빌드 구성 (Build)
 
 Intlayer가 애플리케이션의 국제화를 최적화하고 컴파일하는 방법을 제어하기 위한 설정입니다.
@@ -1103,8 +1104,6 @@ Intlayer가 애플리케이션의 국제화를 최적화하고 컴파일하는 �
 | `output`              | 출력 파일의 경로를 정의합니다. `outputDir`을 대체합니다. 템플릿 변수를 지원합니다: `{{fileName}}`, <br/> `{{key}}`, <br/> `{{locale}}`, <br/> `{{extension}}`, <br/> `{{componentFileName}}`, <br/> `{{componentExtension}}`, <br/> `{{format}}`, <br/> `{{componentFormat}}`, <br/> `{{componentDirPath}}` . | `boolean` &#124; <br/> `FilePathPattern` &#124; <br/> `Partial<Record<Locale, boolean &#124; FilePathPattern>>` | `undefined` | `'./{{fileName}}{{extension}}'` <br/> `'/locales/{{locale}}/{{key}}.json'` <br/> `{ en: ({ key }) => './locales/en/${key}.json', fr: '...', es: false }` | • `./` 경로는 컴포넌트 디렉토리를 기준으로 계산됩니다.<br/>• `/` 경로는 프로젝트 루트를 기준으로 계산됩니다.<br/>• `{{locale}}`은 로케일별 생성을 가능하게 합니다.<br/>• 로케일별 객체 정의를 지원합니다. |
 | `noMetadata`          | `true`인 경우 컴파일러는 출력물에서 딕셔너리 메타데이터(key, content wrapper)를 제거합니다.                                                                                                                                                                                                                   | `boolean`                                                                                                       | `false`     | `false` → `{"key":"my-key","content":{"key":"value"}}` <br/> `true` → `{"key":"value"}`                                                                  | • 로케일별 i18next 또는 ICU MessageFormat JSON 출력에 유용합니다.<br/>• `loadJSON` 플러그인과 잘 작동합니다.                                                                                              |
 | `dictionaryKeyPrefix` | 딕셔너리 키 접두사                                                                                                                                                                                                                                                                                            | `string`                                                                                                        | `''`        |                                                                                                                                                          | 추출된 딕셔너리 키에 선택적 접두사를 추가합니다.                                                                                                                                                          |
-
----
 
 ### 사용자 정의 스키마 (Custom Schemas)
 

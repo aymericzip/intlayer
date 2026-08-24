@@ -31,6 +31,8 @@ author: aymericzip
 
 La funzione `getLocalizedPath` risolve un percorso canonico (percorso interno dell'applicazione) nella sua equivalente localizzata in base alla locale fornita e alle regole di riscrittura. È particolarmente utile per generare URL SEO-friendly che variano in base alla lingua.
 
+È l'equivalente relativo di [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/intlayer/getLocalizedUrl.md) — per un input relativo entrambi restituiscono lo stesso valore. A differenza di `getLocalizedUrl`, non restituisce mai un URL assoluto: la configurazione `domains` viene ignorata, quindi una locale servita dal suo proprio dominio restituisce comunque un percorso. Un input assoluto è accettato, ma la sua origine viene scartata — solo il percorso, la query string e l'hash vengono mantenuti.
+
 **Caratteristiche principali:**
 
 - Supporta parametri di route dinamiche usando la sintassi `[param]`.
@@ -60,17 +62,22 @@ getLocalizedPath(
   - **Tipo**: `string`
   - **Obbligatorio**: Sì
 
-- `locale: Locales`
-  - **Descrizione**: La locale di destinazione per la quale il percorso deve essere localizzato.
-  - **Tipo**: `Locales`
-  - **Obbligatorio**: Sì
-
 ### Parametri opzionali
+
+- `locale?: Locales`
+  - **Description**: La locale target per la quale il percorso dovrebbe essere localizzato.
+  - **Type**: `Locales`
+  - **Default**: La locale predefinita della configurazione del tuo progetto.
 
 - `rewriteRules?: RoutingConfig['rewrite']`
   - **Descrizione**: Un oggetto che definisce regole di riscrittura personalizzate. Se non fornito, assume per default la proprietà `routing.rewrite` dalla configurazione del progetto.
   - **Tipo**: `RoutingConfig['rewrite']`
   - **Default**: `configuration.routing.rewrite`
+
+  - `options.locales?: Locales[]` — locale supportati. **Default**: `configuration.internationalization.locales`
+  - `options.defaultLocale?: Locales` — la locale predefinita. **Default**: `configuration.internationalization.defaultLocale`
+  - `options.mode?: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'` — come la locale appare nel percorso. **Default**: `configuration.routing.mode`
+  - `options.rewrite?: RoutingConfig['rewrite']` — regole di riscrittura personalizzate. **Default**: `configuration.routing.rewrite`
 
 ---
 
@@ -78,6 +85,28 @@ getLocalizedPath(
 
 - **Tipo**: `string`
 - **Descrizione**: Il percorso localizzato per la locale specificata.
+
+Il tipo è ristretto dalle regole di riscrittura dichiarate nella tua configurazione, quindi l'editor mostra il percorso risolto anziché una semplice `string`:
+
+```typescript codeFormat="typescript"
+// Configurazione: mode 'prefix-no-default', defaultLocale 'en',
+//                { '/about': { fr: '/a-propos' }, '/product/[id]': { fr: '/produit/[id]' } }
+const about = getLocalizedPath("/about", Locales.FRENCH);
+//    ^? '/fr/a-propos'
+const product = getLocalizedPath("/product/123", Locales.FRENCH);
+//    ^? '/fr/produit/123'
+const contact = getLocalizedPath("/contact", Locales.FRENCH);
+//    ^? '/fr/contact'  (nessuna regola di riscrittura corrisponde, viene applicato solo il prefisso)
+const home = getLocalizedPath("/", Locales.FRENCH);
+//    ^? '/fr'
+```
+
+Lo stesso narrowing fluisce in [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/intlayer/getLocalizedUrl.md), che applica le regole di riscrittura prima di prefissare la locale.
+
+Due to que i casi rimangono allargati a `string`, perché non possono essere risolti al momento della compilazione:
+
+- un percorso che non è un string literal (ad es. uno costruito da una variabile);
+- un percorso che corrisponde a una regola usando un parametro multi-segmento o opzionale (`[...slug]`, `[[...slug]]`, `:param?`).
 
 ---
 
@@ -125,8 +154,6 @@ const manualRules = {
 getLocalizedPath("/contact", Locales.FRENCH, manualRules);
 // Risultato: "/contactez-nous"
 ```
-
----
 
 ### Omissione della Locale
 

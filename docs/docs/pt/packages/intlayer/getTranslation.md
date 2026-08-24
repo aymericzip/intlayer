@@ -31,6 +31,8 @@ author: aymericzip
 
 A função `getTranslationContent` recupera o conteúdo correspondente a um local específico a partir de um conjunto de conteúdo de idioma personalizável. Se o local especificado não for encontrado, ela retorna por padrão o conteúdo do local padrão configurado no projeto.
 
+Para mais detalhes sobre como declarar traduções, consulte a [documentação de Tradução](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/translation.md).
+
 ## Parâmetros
 
 - `languageContent: CustomizableLanguageContent<Content>`

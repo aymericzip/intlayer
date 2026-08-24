@@ -470,6 +470,8 @@ Innanzitutto, aggiungi `intlayerProxy` alla tua configurazione Vite:
 
 > Tieni presente che per utilizzare `intlayerProxy` in produzione, devi spostare `vite-intlayer` da `devDependencies` a `dependencies`.
 
+> A partire da Intlayer v9, `intlayerProxy()` è integrato direttamente nel plugin `intlayer()` ed è abilitato per impostazione predefinita tramite l'opzione `routing.enableProxy` (`true` per impostazione predefinita). Registrarlo separatamente come mostrato di seguito è ora opzionale — è mantenuto per la compatibilità con le versioni precedenti e per le configurazioni che hanno bisogno di controllare l'ordine dei plugin. Impostare `routing.enableProxy: false` per disabilitarlo. Vedi le [note sulla versione v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/releases/v9.md).
+
 ```typescript {3,7} fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
 import { intlayer } from "vite-intlayer";

@@ -575,6 +575,34 @@ export default function RootLayout() {
 
 </Step>
 
+<Step number={11} title="Додати middleware">
+
+Ви також можете використовувати `intlayerProxy` для додавання маршрутизації на стороні сервера до вашої програми. Цей плагін автоматично визначатиме поточну локаль на основі URL-адреси та встановлюватиме відповідну cookie-файл локалі. Якщо локаль не вказана, плагін визначить найбільш відповідну локаль на основі переваг мови браузера користувача. Якщо локаль не виявлена, плагін перенаправить на локаль за умовчанням.
+
+> Зверніть увагу, що для використання `intlayerProxy` у production, вам потрібно перенести пакет `vite-intlayer` з `devDependencies` до `dependencies`.
+
+> Починаючи з версії Intlayer v9, `intlayerProxy()` інтегрований безпосередньо в плагін `intlayer()` і ввімкнений за замовчуванням через опцію `routing.enableProxy` (за замовчуванням `true`). Реєстрація його окремо, як показано нижче, тепер є необов'язковою — вона зберігається для зворотної сумісності та конфігурацій, що потребують контролю порядку плагінів. Встановіть `routing.enableProxy: false`, щоб відмовитися від цього. Див. [примітки до випуску v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/releases/v9.md).
+
+```typescript {3,7} fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react-swc";
+import { intlayer } from "vite-intlayer";
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [
+    react(),
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
+  ],
+});
+```
+
+</Step>
+
 <Step number={1} title="Витягніть вміст ваших компонентів" isOptional={true}>
 
 Якщо у вас є існуюча кодова база, перетворення тисяч файлів може зайняти багато часу.

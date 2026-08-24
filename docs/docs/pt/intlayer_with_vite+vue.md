@@ -103,6 +103,17 @@ Mais do que apenas uma solução i18n, o Intlayer fornece um **[editor visual] a
 />
 
   </Tab>
+  <Tab label="Demo" value="demo">
+
+<iframe
+  src="https://intlayer-vite-vue-template.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo - intlayer-vite-vue-template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
 </Tabs>
 
 Veja o [Modelo de Aplicação](https://github.com/aymericzip/intlayer-vite-vue-template) no GitHub.
@@ -354,6 +365,13 @@ app.use(intlayer);
 app.mount("#app");
 ```
 
+> Você também pode chamar `installIntlayer(app)` diretamente como uma função se preferir:
+>
+> ```javascript
+> import { intlayer } from "vue-intlayer";
+> app.use(intlayer);
+> ```
+
 Acesse seus dicionários de conteúdo em toda a sua aplicação criando um componente Vue principal e utilizando os composables `useIntlayer`:
 
 ```vue fileName="src/HelloWord.vue"
@@ -407,6 +425,8 @@ const countRef = ref(0);
 </template>
 ```
 
+> Se sua aplicação já existe, você pode usar o [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/compiler.md), bem como o [comando extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/extract.md), para transformar milhares de componentes em um segundo.
+
 #### Acessando Conteúdo no Intlayer
 
 O Intlayer oferece diferentes APIs para acessar seu conteúdo:
@@ -424,8 +444,6 @@ O Intlayer oferece diferentes APIs para acessar seu conteúdo:
   O composable `useIntlayer` retorna um Proxy com o conteúdo. Esse proxy pode ser desestruturado para acessar o conteúdo mantendo a reatividade.
   - Use `const content = useIntlayer("myContent");` e `{{ content.myContent }}` / `<content.myContent />`.
   - Ou use `const { myContent } = useIntlayer("myContent");` e `{{ myContent }}` / `<myContent/>` para desestruturar o conteúdo.
-
-> Se a sua aplicação já existe, você pode usar o [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/compiler.md) em conjunto com o [comando extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/extract.md) para converter milhares de componentes em um segundo.
 
 </Step>
 
@@ -613,6 +631,10 @@ import LocaleSwitcher from "@components/LocaleSwitcher.vue";
 ```
 
 Paralelamente, você também pode usar o `intlayerProxy` para adicionar roteamento no lado do servidor à sua aplicação. Este plugin detectará automaticamente o idioma atual com base na URL e definirá o cookie de idioma apropriado. Se nenhum idioma for especificado, o plugin determinará o idioma mais adequado com base nas preferências de idioma do navegador do usuário. Se nenhum idioma for detectado, ele redirecionará para o idioma padrão.
+
+> Observe que para usar o `intlayerProxy` em produção, você precisa mover o pacote `vite-intlayer` de `devDependencies` para `dependencies`.
+
+> Desde o Intlayer v9, `intlayerProxy()` está agrupado diretamente no plugin `intlayer()` e ativado por padrão através da opção `routing.enableProxy` (`true` por padrão). Registrá-lo separadamente conforme mostrado abaixo agora é opcional — é mantido para compatibilidade com versões anteriores e para configurações que precisam controlar a ordem dos plugins. Defina `routing.enableProxy: false` para desativar. Veja as [notas de lançamento da v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/releases/v9.md).
 
 ```typescript {3,7} fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
@@ -894,56 +916,6 @@ import RouterLink from "@components/RouterLink.vue";
 </Step>
 
 <Step number={11} title="Renderizar Markdown" isOptional={true}>
-
-Intlayer suporta a renderização de conteúdo Markdown diretamente na sua aplicação Vue. Por padrão, o Markdown é tratado como texto simples. Para converter Markdown em HTML enriquecido, você pode integrar o [markdown-it](https://github.com/markdown-it/markdown-it), um parser de Markdown.
-
-Isto é particularmente útil quando suas traduções incluem conteúdo formatado como listas, links ou ênfases.
-
-Por padrão, o Intlayer renderiza markdown como string. Mas o Intlayer também fornece uma forma de renderizar markdown em HTML usando a função `installIntlayerMarkdown`.
-
-> Para ver como declarar conteúdo markdown usando o pacote `intlayer`, consulte a [documentação de markdown](https://github.com/aymericzip/intlayer/tree/main/docs/pt/dictionary/markdown.md).
-
-```ts fileName="main.ts"
-import MarkdownIt from "markdown-it";
-import { createApp, h } from "vue";
-import { installIntlayer, installIntlayerMarkdown } from "vue-intlayer";
-
-const app = createApp(App);
-
-app.use(intlayer);
-
-const md = new MarkdownIt({
-  html: true, // permitir tags HTML
-  linkify: true, // auto-linkar URLs
-  typographer: true, // ativar aspas inteligentes, travessões, etc.
-});
-
-// Diga ao Intlayer para usar md.render() sempre que precisar transformar markdown em HTML
-installIntlayerMarkdown(app, (markdown) => {
-  const html = md.render(markdown);
-  return h("div", { innerHTML: html });
-});
-```
-
-Uma vez registrado, você pode usar a sintaxe baseada em componentes para exibir o conteúdo Markdown diretamente:
-
-```vue
-<template>
-  <div>
-    <myMarkdownContent />
-  </div>
-</template>
-
-<script setup lang="ts">
-import { useIntlayer } from "vue-intlayer";
-
-const { myMarkdownContent } = useIntlayer("my-component");
-</script>
-```
-
-</Step>
-
-<Step number={1} title="Extrair o conteúdo dos seus componentes" isOptional={true}>
 
 Se você tiver uma base de código existente, transformar milhares de arquivos pode ser demorado.
 

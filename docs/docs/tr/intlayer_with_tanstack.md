@@ -317,14 +317,6 @@ function RootDocument({ children }: { children: ReactNode }) {
 }
 ```
 
-> İçeriğinizi bir `string` niteliğinde kullanmak istiyorsanız, `alt`, `title`, `href`, `aria-label` vb. gibi, fonksiyonun değerini çağırmanız gerekir:
-
-> ```html
-> <img src="{content.image.src.value}" alt="{content.image.value}" />
-> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
-> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
-> ```
-
 </Step>
 
 <Step number={6} title="Yerel Dil Düzeni Oluşturma">
@@ -560,6 +552,14 @@ function RouteComponent() {
 }
 ```
 
+> İçeriğinizi `alt`, `title`, `href`, `aria-label` gibi bir `string` niteliğinde kullanmak istiyorsanız, fonksiyonun değerini şu şekilde kullanabilirsiniz:
+>
+> ```html
+> <img src="{content.image.src.value}" alt="{content.image.value}" />
+> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
+> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
+> ```
+
 > `useIntlayer` kancasını daha fazla öğrenmek için, [belgelere](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/react-intlayer/useIntlayer.md) bakınız.
 
 </Step>
@@ -654,6 +654,8 @@ Uygulamanıza sunucu tarafı yönlendirme eklemek için `intlayerProxy`'i de kul
 
 > Üretimde `intlayerProxy` kullanmak için, `vite-intlayer` paketini `devDependencies`'den `dependencies`'e geçirmeniz gerektiğini unutmayın.
 
+> Intlayer v9'dan itibaren, `intlayerProxy()` doğrudan `intlayer()` plugin'ine dahil edilmiş ve `routing.enableProxy` seçeneği aracılığıyla varsayılan olarak etkinleştirilmiştir (`true` varsayılan değerdir). Aşağıda gösterildiği gibi ayrı ayrı kaydedilmesi artık isteğe bağlıdır — bu, geriye dönük uyumluluk ve plugin sırasını kontrol etmesi gereken kurulumlar için tutulmuştur. Devre dışı bırakmak için `routing.enableProxy: false` olarak ayarlayın. [v9 sürüm notlarına](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/releases/v9.md) bakın.
+
 ```typescript fileName="vite.config.ts"
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import viteReact from "@vitejs/plugin-react";
@@ -687,6 +689,8 @@ export default defineConfig({
 <Step number={13} title="Meta Verilerinizi Uluslararasılaştırın">
 
 Uygulamanız genelinde içerik sözlüklerinize erişmek için `getIntlayer` hook'unu da kullanabilirsiniz:
+
+`getIntlayer` gibi davranır, ancak build eklentisi bunu her locale için sözlük parçasına yönlendirir, birleştirilmiş sözlüğün yerine (her locale'i tutan) — bu nedenle bir sayfa için metadata yalnızca render ettiği locale'i içerir. İsteğe bağlı olarak bu parçayı yüklediği için, `head` `async` olur:
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/react-router";
@@ -846,28 +850,6 @@ export const Route = createFileRoute("/{-$locale}/$")({
 });
 ```
 
----
-
-</Step>
-
-<Step number={16} title="TypeScript Yapılandırması">
-
-Intlayer, TypeScript'in avantajlarından yararlanmak ve kod tabanınızı daha güçlü hale getirmek için modül genişletme (module augmentation) kullanır.
-
-TypeScript yapılandırmanızın otomatik oluşturulan türleri içerdiğinden emin olun:
-
-```json5 fileName="tsconfig.json"
-{
-  // ... mevcut yapılandırmalarınız
-  include: [
-    // ... mevcut dahil ettikleriniz
-    ".intlayer/**/*.ts", // Otomatik oluşturulan türleri dahil et
-  ],
-}
-```
-
----
-
 </Step>
 
 <Step number={17} title="Bileşenlerinizin içeriğini çıkarın" isOptional={true}>
@@ -967,6 +949,103 @@ bun run build # Or bun run dev
 
  </Tab>
 </Tabs>
+
+---
+
+</Step>
+
+<Step number={16} title="Pre-render & Sitemap Oluştur">
+
+Intlayer, uygulamanız için bir sitemap oluşturmanıza kolayca yardımcı olmak için yerleşik bir sitemap oluşturucusu ile birlikte gelir. Yerelleştirilmiş rotaları işler ve arama motorları için gerekli meta verileri ekler.
+
+> Intlayer tarafından oluşturulan sitemap, `xhtml:link` ad alanını (Hreflang XML Uzantıları) destekler. Yalnızca ham URL'leri listeleyen varsayılan sitemap oluşturucularının aksine, Intlayer bir sayfanın tüm dil sürümleri arasında gerekli çift yönlü bağlantıları otomatik olarak oluşturur (örneğin, `/about`, `/about?lang=fr` ve `/about?lang=es`). Bu, arama motorlarının doğru dil sürümünü doğru kitleye doğru şekilde indekslemesini ve sunmasını sağlar.
+
+Bunu kullanmak için, önce `vite.config.ts` dosyanızı yerelleştirilmiş rotalarınız için ön-işlemeyi etkinleştirmek ve TanStack Start'ın varsayılan sitemap oluşturmayı devre dışı bırakmak üzere yapılandırmanız gerekir.
+
+```typescript fileName="vite.config.ts"
+import { localeFlatMap } from "intlayer";
+// ... diğer importlar
+
+export const pathList = ["", "/about", "/404"];
+
+const localizedPages = localeFlatMap(({ urlPrefix }) =>
+  pathList.map((path) => ({
+    path: `${urlPrefix}${path}`,
+    prerender: {
+      enabled: true,
+    },
+  }))
+);
+
+export default defineConfig({
+  plugins: [
+    // ... diğer eklentiler
+    tanstackStart({
+      // ... diğer konfigürasyon
+      sitemap: {
+        enabled: false,
+      },
+      prerender: {
+        enabled: true,
+        crawlLinks: false,
+        concurrency: 10,
+      },
+      pages: localizedPages,
+    }),
+  ],
+});
+```
+
+Ardından, `generateSitemap` fonksiyonunu kullanan bir `src/routes/sitemap[.]xml.ts` rotası oluşturun:
+
+```typescript fileName="src/routes/sitemap[.]xml.ts"
+import { createFileRoute } from "@tanstack/react-router";
+import { generateSitemap } from "intlayer";
+
+const SITE_URL = (
+  import.meta.env.VITE_SITE_URL ?? "http://localhost:3000"
+).replace(/\/$/, "");
+
+export const Route = createFileRoute("/sitemap.xml")({
+  server: {
+    handlers: {
+      GET: async () => {
+        const sitemap = generateSitemap(
+          [
+            { path: "/", changefreq: "daily", priority: 1.0 },
+            { path: "/about", changefreq: "monthly", priority: 0.8 },
+          ],
+          { siteUrl: SITE_URL }
+        );
+
+        return new Response(sitemap, {
+          headers: { "Content-Type": "application/xml" },
+        });
+      },
+    },
+  },
+});
+```
+
+---
+
+</Step>
+
+<Step number={17} title="TypeScript'i Yapılandır">
+
+Intlayer, TypeScript'in avantajlarından yararlanmak ve codebase'inizi güçlendirmek için module augmentation kullanır.
+
+TypeScript yapılandırmanızın otomatik olarak oluşturulan türleri içerdiğinden emin olun:
+
+```json5 fileName="tsconfig.json"
+{
+  // ... mevcut yapılandırmalarınız
+  include: [
+    // ... mevcut includes'larınız
+    ".intlayer/**/*.ts", // Otomatik olarak oluşturulan türleri dahil edin
+  ],
+}
+```
 
 ---
 

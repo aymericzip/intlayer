@@ -31,11 +31,57 @@ author: aymericzip
 
 # Traduce tu Create React App con Intlayer | Internacionalización (i18n)
 
+<iframe
+  src="https://ide.intlayer.org/aymericzip/intlayer-react-cra-template?file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - Cómo internacionalizar tu aplicación usando Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
 Consulta [Application Template](https://github.com/aymericzip/intlayer-react-cra-template) en GitHub.
 
 ## ¿Qué es Intlayer?
 
+En comparación con soluciones principales como `react-i18next` o `i18next`, Intlayer es una solución que viene con optimizaciones integradas tales como:
+
+<AccordionGroup>
+
+<Accordion header="Cobertura completa de React">
+
 **Intlayer** es una biblioteca innovadora y de código abierto para la internacionalización (i18n) diseñada para simplificar el soporte multilingüe en aplicaciones web modernas.
+
+</Accordion>
+
+<Accordion header="Tamaño del bundle">
+
+En lugar de cargar archivos JSON masivos en tus páginas, carga solo el contenido necesario. Intlayer te ayuda a **reducir el tamaño de tu bundle y páginas hasta un 50%**.
+
+</Accordion>
+
+<Accordion header="Mantenibilidad">
+
+Scoping your application's content **facilitates maintenance** for large-scale applications. You can duplicate or delete a single feature folder without the mental burden of reviewing your entire content codebase. Additionally, Intlayer is **fully typed** to ensure your content's accuracy.
+
+</Accordion>
+
+<Accordion header="Agente de IA">
+
+Co-localizar contenido **reduce el contexto necesario** para los Modelos de Lenguaje Grande (LLMs). Intlayer también viene con un conjunto de herramientas, como un **CLI** para probar traducciones faltantes, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/mcp_server.md)**, y **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/agent_skills.md)**, para hacer la experiencia del desarrollador (DX) aún más fluida para agentes de IA.
+
+</Accordion>
+
+<Accordion header="Automatización">
+
+Utiliza automatización para traducir en tu pipeline de CI/CD usando el LLM de tu elección al costo de tu proveedor de IA. Intlayer también ofrece un **compilador** para automatizar la extracción de contenido, así como una [plataforma web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md) para ayudarte a **traducir en segundo plano**.
+
+</Accordion>
+
+<Accordion header="Rendimiento">
+
+Conectar archivos JSON masivos a componentes puede causar problemas de rendimiento y reactividad. Intlayer optimiza la carga de contenido en tiempo de compilación.
+
+</Accordion>
 
 Con Intlayer, puedes:
 
@@ -43,6 +89,11 @@ Con Intlayer, puedes:
 - **Localizar dinámicamente metadatos**, rutas y contenido.
 - **Garantizar soporte para TypeScript** con tipos autogenerados, mejorando la autocompletación y la detección de errores.
 - **Aprovechar características avanzadas**, como la detección dinámica de locales y el cambio entre ellos.
+
+</Accordion>
+</AccordionGroup>
+
+---
 
 ## Guía paso a paso para configurar Intlayer en una aplicación React
 
@@ -186,32 +237,6 @@ const appContent = {
 export default appContent;
 ```
 
-```jsx fileName="src/app.content.csx" codeFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const appContent = {
-  key: "app",
-  content: {
-    getStarted: t({
-      en: "Get started by editing",
-      fr: "Commencez par éditer",
-      es: "Comience por editar",
-    }),
-    reactLink: {
-      href: "https://reactjs.org",
-      content: t({
-        en: "Learn React",
-        fr: "Apprendre React",
-        es: "Aprender React",
-      }),
-    },
-  },
-};
-
-module.exports = appContent;
-```
-
 > Tus declaraciones de contenido pueden definirse en cualquier lugar de tu aplicación siempre que estén incluidas en el directorio `contentDir` (por defecto, `./src`). Y coincidan con la extensión del archivo de declaración de contenido (por defecto, `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
 
 > Para más detalles, consulta la [documentación de declaración de contenido](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/content_file.md).
@@ -268,6 +293,8 @@ export default App;
 > ```
 >
 > Para aprender más sobre el hook `useIntlayer`, consulta la [documentación](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/react-intlayer/useIntlayer.md).
+
+> Para obtener más información sobre el hook `useIntlayer`, consulta la [documentación](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/react-intlayer/useIntlayer.md).
 
 </Step>
 
@@ -629,6 +656,8 @@ Para ello, puedes agregar las siguientes instrucciones a tu archivo `.gitignore`
 ```
 
 ### Extensión para VS Code
+
+Para mejorar tu experiencia de desarrollo con Intlayer, puedes instalar la extensión oficial **Intlayer VS Code Extension**.
 
 Para mejorar tu experiencia de desarrollo con Intlayer, puedes instalar la extensión oficial **Intlayer VS Code Extension**.
 [Instalar desde el Marketplace de VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)

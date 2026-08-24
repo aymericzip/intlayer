@@ -31,6 +31,8 @@ author: aymericzip
 
 `getLocalizedPath` 関数は、canonical path（内部アプリケーションパス）を提供された locale とリライトルールに基づいてローカライズされたパスに解決します。言語ごとに異なる SEO に適した URL を生成する際に特に有用です。
 
+[`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getLocalizedUrl.md)の相対的なカウンターパートです — 相対入力の場合、両者は同じ値を返します。`getLocalizedUrl`とは異なり、絶対URLを返すことはありません：`domains`設定は無視されるため、独自のドメインから提供されるロケールでもパスが生成されます。絶対入力は受け入れられますが、そのオリジンは削除され、パス、クエリ文字列、ハッシュのみが保持されます。
+
 **主な機能:**
 
 - `[param]` 構文を使用した動的ルートパラメータをサポートします。
@@ -60,11 +62,6 @@ getLocalizedPath(
   - **型**: `string`
   - **必須**: はい
 
-- `locale: Locales`
-  - **説明**: パスをローカライズする対象のロケール。
-  - **型**: `Locales`
-  - **必須**: はい
-
 ### 任意パラメータ
 
 - `rewriteRules?: RoutingConfig['rewrite']`
@@ -72,12 +69,43 @@ getLocalizedPath(
   - **型**: `RoutingConfig['rewrite']`
   - **デフォルト**: `configuration.routing.rewrite`
 
+- `options?: object`
+  - **説明**: ルーティングのオーバーライド。すべてのエントリはプロジェクトの設定にデフォルト設定されます。
+  - **型**: `object`
+
+  - `options.locales?: Locales[]` — サポートされているロケール。**デフォルト**: `configuration.internationalization.locales`
+  - `options.defaultLocale?: Locales` — デフォルトロケール。**デフォルト**: `configuration.internationalization.defaultLocale`
+  - `options.mode?: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'` — パス内でロケールがどのように表示されるか。**デフォルト**: `configuration.routing.mode`
+  - `options.rewrite?: RoutingConfig['rewrite']` — カスタム rewrite ルール。**デフォルト**: `configuration.routing.rewrite`
+
 ---
 
 ## 戻り値
 
 - **型**: `string`
 - **説明**: 指定したロケール向けのローカライズされたパス。
+
+型は設定で宣言された書き直しルールから絞り込まれるため、エディタはベアな `string` ではなく、解決されたパスを表示します:
+
+```typescript codeFormat="typescript"
+// 設定: モード 'prefix-no-default', defaultLocale 'en',
+//      { '/about': { fr: '/a-propos' }, '/product/[id]': { fr: '/produit/[id]' } }
+const about = getLocalizedPath("/about", Locales.FRENCH);
+//    ^? '/fr/a-propos'
+const product = getLocalizedPath("/product/123", Locales.FRENCH);
+//    ^? '/fr/produit/123'
+const contact = getLocalizedPath("/contact", Locales.FRENCH);
+//    ^? '/fr/contact'  (書き換えルールに一致しません。プレフィックスのみが適用されます)
+const home = getLocalizedPath("/", Locales.FRENCH);
+//    ^? '/fr'
+```
+
+同じ絞り込みが [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getLocalizedUrl.md) に流れ込み、ロケールをプレフィックスする前に書き換えルールを適用します。
+
+2つのケースは `string` に拡大されたままです。これらはコンパイル時に解決できないためです：
+
+- 文字列リテラルではないパス（例：変数から構築されたパス）;
+- マルチセグメントまたはオプショナルパラメータを使用するルールにマッチするパス（`[...slug]`、`[[...slug]]`、`:param?`）。
 
 ---
 
@@ -125,8 +153,6 @@ const manualRules = {
 getLocalizedPath("/contact", Locales.FRENCH, manualRules);
 // Output: "/contactez-nous"
 ```
-
----
 
 ### ロケールの省略
 

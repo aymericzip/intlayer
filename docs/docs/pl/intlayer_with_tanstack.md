@@ -59,13 +59,19 @@ Ten przewodnik pokazuje, jak zintegrować **Intlayer** dla płynnej internacjona
 
 W porównaniu do głównych rozwiązań, takich jak „react-i18next”, „use-intl” lub „paraglide”, Intlayer jest rozwiązaniem wyposażonym w zintegrowane optymalizacje, takie jak:
 
+<AccordionGroup>
+
 **Pełne pokrycie TanStack Start**
 
 Intlayer jest w pełni zoptymalizowany pod kątem TanStack Start, zapewniając **wielojęzyczny routing**, **zarządzanie plikami cookie**, **generowanie mapy witryny**, **dynamiczne ładowanie treści** i wszystkie funkcje potrzebne do skalowania wysiłków związanych z internacjonalizacją (i18n).
 
+</Accordion>
+
 **Rozmiar bundle'a**
 
 Zamiast ładować ogromne pliki JSON na swoje strony, ładuj tylko niezbędną treść. Intlayer pomaga **zmniejszyć rozmiary bundle'a i stron nawet o 50%**.
+
+</Accordion>
 
 **Łatwość konserwacji**
 
@@ -73,7 +79,11 @@ Określanie zakresu zawartości aplikacji **ułatwia konserwację** aplikacji na
 
 **Agent AI**
 
+<Accordion header="Agent AI">
+
 Wspólna lokalizacja treści **zmniejsza potrzebny kontekst** dzięki modelom dużego języka (LLM). Intlayer zawiera także zestaw narzędzi, taki jak **CLI** do sprawdzania brakujących tłumaczeń**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** i **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/agent_skills.md)**, aby praca programisty (DX) była jeszcze płynniejsza dla agentów AI.
+
+</Accordion>
 
 **Automatyzacja**
 
@@ -81,11 +91,18 @@ Korzystaj z automatyzacji, aby tłumaczyć w swoim potoku CI/CD przy użyciu wyb
 
 **Wydajność**
 
+<Accordion header="Wydajność">
+
 Łączenie ogromnych plików JSON z komponentami może prowadzić do problemów z wydajnością i reaktywnością. Inlayer optymalizuje ładowanie treści w czasie kompilacji.
+
+</Accordion>
 
 **Skalowanie bez użycia dewelopera**
 
 Więcej niż tylko rozwiązanie i18n, Intlayer zapewnia **samodzielny [edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** i **[pełny CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)**, który pomoże Ci zarządzać wielojęzyczną treścią w **w czasie rzeczywistym**, dzięki czemu współpraca z tłumaczami, copywriterami i innymi członkami zespołu będzie płynna. Treść może być przechowywana lokalnie i/lub zdalnie.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
@@ -299,14 +316,6 @@ function RootDocument({ children }: { children: ReactNode }) {
   );
 }
 ```
-
-> Jeśli chcesz użyć swojej zawartości w atrybucie typu `string`, takim jak `alt`, `title`, `href`, `aria-label` itp., musisz wywołać wartość funkcji, na przykład:
-
-> ```html
-> <img src="{content.image.src.value}" alt="{content.image.value}" />
-> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
-> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
-> ```
 
 </Step>
 
@@ -543,6 +552,14 @@ function RouteComponent() {
 }
 ```
 
+> Jeśli chcesz użyć swojej zawartości w atrybucie `string`, takim jak `alt`, `title`, `href`, `aria-label`, itp., możesz użyć wartości funkcji, na przykład:
+>
+> ```html
+> <img src="{content.image.src.value}" alt="{content.image.value}" />
+> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
+> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
+> ```
+
 > Aby dowiedzieć się więcej o hooku `useIntlayer`, zapoznaj się z [dokumentacją](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/react-intlayer/useIntlayer.md).
 
 </Step>
@@ -637,6 +654,8 @@ Możesz również użyć `intlayerProxy`, aby dodać routing po stronie serwera 
 
 > Uwaga: aby używać `intlayerProxy` w produkcji, musisz przenieść pakiet `vite-intlayer` z `devDependencies` do `dependencies`.
 
+> Od wersji Intlayer v9, `intlayerProxy()` jest bezpośrednio wbudowany w wtyczkę `intlayer()` i włączony domyślnie poprzez opcję `routing.enableProxy` (`true` domyślnie). Rejestrowanie go oddzielnie, jak pokazano poniżej, jest teraz opcjonalne — jest zachowywane dla kompatybilności wstecznej i dla konfiguracji, które muszą kontrolować kolejność wtyczek. Ustaw `routing.enableProxy: false`, aby rezygnować. Zobacz [notatki wydania v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/releases/v9.md).
+
 ```typescript fileName="vite.config.ts"
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import viteReact from "@vitejs/plugin-react";
@@ -668,6 +687,8 @@ export default defineConfig({
 </Step>
 
 <Step number={13} title="Internacjonalizacja metadanych">
+
+Użyj `getIntlayerAsync` aby uzyskać dostęp do swoich słowników zawartości wewnątrz funkcji `head`.
 
 Możesz również użyć hooka `getIntlayer`, aby uzyskać dostęp do słowników treści w całej aplikacji:
 
@@ -829,28 +850,6 @@ export const Route = createFileRoute("/{-$locale}/$")({
 });
 ```
 
----
-
-</Step>
-
-<Step number={16} title="Konfiguracja TypeScript">
-
-Intlayer używa rozszerzenia modułów (module augmentation), aby wykorzystać zalety TypeScript i wzmocnić Twoją bazę kodu.
-
-Upewnij się, że Twoja konfiguracja TypeScript zawiera automatycznie generowane typy:
-
-```json5 fileName="tsconfig.json"
-{
-  // ... Twoje istniejące konfiguracje
-  include: [
-    // ... Twoje istniejące include
-    ".intlayer/**/*.ts", // Dołącz automatycznie generowane typy
-  ],
-}
-```
-
----
-
 </Step>
 
 <Step number={17} title="Wyodrębnij zawartość swoich komponentów" isOptional={true}>
@@ -950,6 +949,103 @@ bun run build # Or bun run dev
 
  </Tab>
 </Tabs>
+
+---
+
+</Step>
+
+<Step number={16} title="Pre-render & Generate Sitemap">
+
+Intlayer wyposażony jest w wbudowany generator mapy witryny, który pomaga łatwo utworzyć mapę witryny dla aplikacji. Obsługuje zlokalizowane trasy i dodaje niezbędne metadane dla wyszukiwarek.
+
+> Generowana przez Intlayer mapa witryny obsługuje przestrzeń nazw `xhtml:link` (Hreflang XML Extensions). W przeciwieństwie do domyślnych generatorów map witryny, które wyświetlają tylko surowe adresy URL, Intlayer automatycznie tworzy wymagane dwukierunkowe linki między wszystkimi wersjami językowymi strony (np. `/about`, `/about?lang=fr` i `/about?lang=es`). Zapewnia to, że wyszukiwarki prawidłowo indeksują i dostarczają odpowiednią wersję językową właściwej publiczności.
+
+Aby go używać, najpierw musisz skonfigurować swój plik `vite.config.ts`, aby włączyć pre-rendering dla zlokalizowanych tras i wyłączyć domyślne generowanie mapy witryny TanStack Start.
+
+```typescript fileName="vite.config.ts"
+import { localeFlatMap } from "intlayer";
+// ... inne importy
+
+export const pathList = ["", "/about", "/404"];
+
+const localizedPages = localeFlatMap(({ urlPrefix }) =>
+  pathList.map((path) => ({
+    path: `${urlPrefix}${path}`,
+    prerender: {
+      enabled: true,
+    },
+  }))
+);
+
+export default defineConfig({
+  plugins: [
+    // ... pozostałe wtyczki
+    tanstackStart({
+      // ... pozostała konfiguracja
+      sitemap: {
+        enabled: false,
+      },
+      prerender: {
+        enabled: true,
+        crawlLinks: false,
+        concurrency: 10,
+      },
+      pages: localizedPages,
+    }),
+  ],
+});
+```
+
+Następnie utwórz trasę `src/routes/sitemap[.]xml.ts`, która wykorzystuje funkcję `generateSitemap`:
+
+```typescript fileName="src/routes/sitemap[.]xml.ts"
+import { createFileRoute } from "@tanstack/react-router";
+import { generateSitemap } from "intlayer";
+
+const SITE_URL = (
+  import.meta.env.VITE_SITE_URL ?? "http://localhost:3000"
+).replace(/\/$/, "");
+
+export const Route = createFileRoute("/sitemap.xml")({
+  server: {
+    handlers: {
+      GET: async () => {
+        const sitemap = generateSitemap(
+          [
+            { path: "/", changefreq: "daily", priority: 1.0 },
+            { path: "/about", changefreq: "monthly", priority: 0.8 },
+          ],
+          { siteUrl: SITE_URL }
+        );
+
+        return new Response(sitemap, {
+          headers: { "Content-Type": "application/xml" },
+        });
+      },
+    },
+  },
+});
+```
+
+---
+
+</Step>
+
+<Step number={17} title="Konfiguruj TypeScript">
+
+Intlayer wykorzystuje module augmentation, aby uzyskać korzyści z TypeScript i uczynić Twoją codebase mocniejszą.
+
+Upewnij się, że Twoja konfiguracja TypeScript zawiera autogenerowane typy:
+
+```json5 fileName="tsconfig.json"
+{
+  // ... twoje istniejące konfiguracje
+  include: [
+    // ... twoje istniejące includy
+    ".intlayer/**/*.ts", // Dołącz auto-generowane typy
+  ],
+}
+```
 
 ---
 

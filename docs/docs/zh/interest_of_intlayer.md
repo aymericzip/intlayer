@@ -38,9 +38,15 @@ author: aymericzip
 
 与 `next-intl` 或 `i18next` 等主要解决方案相比，Intlayer 是一个自带集成优化的解决方案，例如：
 
+<AccordionGroup>
+
 **打包体积 (Bundle size)**
 
 无需在页面中加载庞大的 JSON 文件，只需加载必要的特定内容。Intlayer 可以帮助你**将打包体积和页面大小减少多达 50%**。
+
+</Accordion>
+
+<Accordion header="可维护性">
 
 **可维护性 (Maintainability)**
 
@@ -50,13 +56,21 @@ author: aymericzip
 
 将内容与组件共同放置（Co-location）**减少了大型语言模型（LLMs）所需的上下文**。Intlayer 还提供了一套工具，例如用于测试缺失翻译的 **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)** 以及 **[Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)**，使 AI 智能体的开发体验（DX）更加流畅。
 
+</Accordion>
+
 **功能丰富 (Feature)**
 
 Intlayer 提供了其他 i18n 解决方案所没有的一系列附加功能，例如 [Markdown 支持](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/markdown.md)、[外部内容获取](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/function_fetching.md)、[文件内容加载](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/file.md)、[实时内容更新](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/live.md)、[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)等。
 
+</Accordion>
+
 **自动化 (Automation)**
 
 使用自动化在你的 CI/CD 流程中翻译，可以使用你选择的任何 LLM，成本完全取决于你的 AI 提供商。Intlayer 还提供了一个**编译器**来自动提取内容，以及一个 [网页平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md) 来帮助你**在后台进行翻译工作**。
+
+</Accordion>
+
+<Accordion header="性能">
 
 **性能表现 (Performance)**
 
@@ -66,9 +80,14 @@ Intlayer 提供了其他 i18n 解决方案所没有的一系列附加功能，�
 
 不仅仅是一个 i18n 解决方案，Intlayer 还提供了一个**自主托管的[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)**和一个**[功能完备的 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)**，帮助你**实时**管理多语言内容，使与翻译人员、文案人员和其他团队成员的协作变得无缝衔接。内容可以存储在本地和/或远程。
 
+</Accordion>
+
 **跨框架设计 (Cross framework design)**
 
 如果你在应用程序的不同部分使用不同的框架（例如 React、React-native、Vue、Angular、Svelte 等），Intlayer 提供了一种**在所有主流前端框架中使用通用语法和实现**的方法。你还可以跨设计系统、应用、后端等共享你的内容声明。
+
+</Accordion>
+</AccordionGroup>
 
 ## 为什么要创建 Intlayer？
 

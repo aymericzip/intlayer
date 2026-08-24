@@ -487,8 +487,6 @@ function RouteComponent() {
 }
 ```
 
-> 콘텐츠를 `alt`, `title`, `href`, `aria-label` 등과 같은 `string` 속성에서 사용하려면, 함수의 값을 호출해야 합니다. 예를 들어:
-
 > ```html
 > <img src="{content.image.src.value}" alt="{content.image.value}" />
 > <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
@@ -574,6 +572,8 @@ const RootComponent: ParentComponent = (props) => {
 
 > 프로덕션에서 `intlayerProxy`를 사용하려면 `vite-intlayer` 패키지를 `devDependencies`에서 `dependencies`로 변경해야 합니다.
 
+> Intlayer v9부터 `intlayerProxy()`는 `intlayer()` 플러그인에 직접 번들되어 있으며 `routing.enableProxy` 옵션(`기본값: true`)을 통해 기본적으로 활성화됩니다. 아래와 같이 별도로 등록하는 것은 이제 선택 사항입니다 — 이전 버전과의 호환성과 플러그인 순서를 제어해야 하는 설정을 위해 유지됩니다. `routing.enableProxy: false`로 설정하여 옵트아웃할 수 있습니다. [v9 release notes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/releases/v9.md)를 참조하세요.
+
 ```typescript fileName="vite.config.ts"
 import { tanstackStart } from "@tanstack/solid-start/plugin/vite";
 import solid from "vite-plugin-solid";
@@ -607,6 +607,8 @@ export default defineConfig({
 <Step number={12} title="메타데이터 국제화 (선택 사항)" isOptional={true}>
 
 로케일 인식 메타데이터를 위해 `head` 로더 내에서 `getIntlayer` 함수를 사용하여 콘텐츠 딕셔너리에 접근할 수도 있습니다.
+
+`getIntlayer`처럼 동작하지만, build plugin이 모든 locale을 포함하는 merged dictionary 대신 per-locale dictionary chunk를 가리킵니다 — 따라서 페이지의 metadata는 렌더링하는 locale만 전송됩니다. chunk를 on demand로 로드하기 때문에 `head`는 `async`가 됩니다:
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/solid-router";
@@ -962,9 +964,9 @@ export const Route = createFileRoute("/sitemap.xml")({
 
 <Step number={17} title="TypeScript 구성 (선택 사항)" isOptional={true}>
 
-Intlayer는 모듈 보강(module augmentation)을 사용하여 TypeScript의 이점을 얻고 코드베이스를 더 강력하게 만듭니다.
-
 TypeScript 구성에 자동 생성된 타입이 포함되어 있는지 확인하세요.
+
+TypeScript 설정에 자동 생성된 타입이 포함되어 있는지 확인하세요:
 
 ```json5 fileName="tsconfig.json"
 {

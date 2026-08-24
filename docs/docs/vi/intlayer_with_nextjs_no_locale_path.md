@@ -235,6 +235,24 @@ export default withIntlayer(nextConfig);
 
 > Plugin Next.js `withIntlayer()` được sử dụng để tích hợp Intlayer với Next.js. Nó đảm bảo việc xây dựng các tệp khai báo nội dung và giám sát chúng ở chế độ phát triển. Nó định nghĩa các biến môi trường của Intlayer trong các môi trường [Webpack](https://webpack.js.org/) hoặc [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack). Ngoài ra, nó cung cấp các alias để tối ưu hiệu năng và đảm bảo tương thích với server components.
 
+> Hàm `withIntlayer()` là một hàm promise. Nó cho phép chuẩn bị các từ điển intlayer trước khi build bắt đầu. Nếu bạn muốn sử dụng nó với các plugin khác, bạn có thể await nó. Ví dụ:
+>
+> ```ts
+> const nextConfig = await withIntlayer(nextConfig);
+> const nextConfigWithOtherPlugins = withOtherPlugins(nextConfig);
+>
+> export default nextConfigWithOtherPlugins;
+> ```
+>
+> Nếu bạn muốn sử dụng nó đồng bộ, bạn có thể sử dụng hàm `withIntlayerSync()`. Ví dụ:
+>
+> ```ts
+> const nextConfig = withIntlayerSync(nextConfig);
+> const nextConfigWithOtherPlugins = withOtherPlugins(nextConfig);
+>
+> export default nextConfigWithOtherPlugins;
+> ```
+
 > Hàm `withIntlayer()` là một hàm trả về promise. Nó cho phép chuẩn bị các từ điển của intlayer trước khi quá trình build bắt đầu. Nếu bạn muốn sử dụng nó cùng các plugin khác, bạn có thể await nó. Ví dụ:
 >
 > ```ts
@@ -266,6 +284,52 @@ export default withIntlayer(nextConfig);
 <Step number={4} title="Định nghĩa các route động theo locale">
 
 Xóa mọi nội dung trong `RootLayout` và thay thế bằng mã sau:
+
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
+```tsx {5} fileName="src/app/layout.tsx" codeFormat={["typescript", "esm"]}
+import type { Metadata } from "next";
+import type { ReactNode } from "react";
+import "./globals.css";
+import { getHTMLTextDir, getIntlayer } from "intlayer";
+import { getLocale, IntlayerProvider } from "next-intlayer/server";
+export { generateStaticParams } from "next-intlayer";
+
+export const generateMetadata = async (): Promise<Metadata> => {
+  const locale = await getLocale();
+  const { title, description, keywords } = getIntlayer("metadata", locale);
+
+  return {
+    title,
+    description,
+    keywords,
+  };
+};
+
+const RootLayout = async ({
+  children,
+}: Readonly<{
+  children: ReactNode;
+}>) => {
+  const locale = await getLocale();
+
+  return (
+    <html lang={locale} dir={getHTMLTextDir(locale)}>
+      <IntlayerProvider locale={locale}>
+        <body>{children}</body>
+      </IntlayerProvider>
+    </html>
+  );
+};
+
+export default RootLayout;
+```
+
+> Một `IntlayerProvider` duy nhất bao phủ cả hai phía của cây: nó cung cấp ngữ cảnh máy chủ được xác định theo yêu cầu được đọc bởi các server hooks, và gắn kết client provider để các client components nhận được cùng một locale.
+
+ </Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
 
 ```tsx {3} fileName="src/app/layout.tsx" codeFormat={["typescript", "esm"]}
 import type { Metadata } from "next";
@@ -305,6 +369,9 @@ const RootLayout = async ({
 
 export default RootLayout;
 ```
+
+ </Tab>
+</Tabs>
 
 </Step>
 
@@ -431,6 +498,44 @@ export default pageContent;
 
 Truy cập các từ điển nội dung của bạn trong toàn bộ ứng dụng:
 
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
+```tsx fileName="src/app/page.tsx" codeFormat={["typescript", "esm"]}
+import type { FC } from "react";
+import { ClientComponentExample } from "@components/clientComponentExample/ClientComponentExample";
+import { ServerComponentExample } from "@components/serverComponentExample/ServerComponentExample";
+import { useIntlayer } from "next-intlayer";
+import { NextPage } from "next";
+
+const PageContent: FC = () => {
+  const content = useIntlayer("page");
+
+  return (
+    <>
+      <p>{content.getStarted.main}</p>
+      <code>{content.getStarted.pageLink}</code>
+    </>
+  );
+};
+
+const Page: NextPage = () => (
+  <>
+    <PageContent />
+    <ServerComponentExample />
+    <ClientComponentExample />
+  </>
+);
+
+export default Page;
+```
+
+- **`IntlayerProvider`** được mount một lần, trong root layout. Nó cung cấp locale cho cả server và client components, vì vậy các trang không còn phải wrap chính mình.
+- Khi không có `[locale]` path segment, locale luôn đến từ request — header `x-intlayer-locale` được đặt bởi Intlayer proxy, sau đó là locale cookie — mà các server hooks đọc trực tiếp khi provider chưa chạy.
+
+ </Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
+
 ```tsx fileName="src/app/page.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { ClientComponentExample } from "@components/clientComponentExample/ClientComponentExample";
@@ -469,6 +574,14 @@ const Page: NextPage = async () => {
 export default Page;
 ```
 
+- **`IntlayerClientProvider`** được sử dụng để cung cấp locale cho các component phía client. Nó có thể được đặt trong bất kỳ component cha nào, bao gồm cả layout. Tuy nhiên, đặt nó trong layout được khuyến nghị vì Next.js chia sẻ code layout giữa các trang, làm cho nó hiệu quả hơn. Bằng cách sử dụng `IntlayerClientProvider` trong layout, bạn tránh được việc khởi tạo lại nó cho mỗi trang, cải thiện hiệu suất và duy trì một bối cảnh localization nhất quán trong toàn bộ ứng dụng của bạn.
+- **`IntlayerServerProvider`** được sử dụng để cung cấp locale cho các server children. Nó không thể được đặt trong layout.
+
+> Layout và page không thể chia sẻ một server context chung vì hệ thống server context dựa trên một data store theo từng request (thông qua cơ chế [React's cache](https://react.dev/reference/react/cache)), khiến mỗi "context" được tạo lại cho các segment khác nhau của ứng dụng. Đặt provider trong một shared layout sẽ phá vỡ sự cô lập này, ngăn chặn việc truyền đạt chính xác các giá trị server context tới các server components của bạn.
+
+ </Tab>
+</Tabs>
+
 ```jsx {3,6} fileName="src/components/clientComponentExample/ClientComponentExample.mjx" codeFormat="esm"
 "use client";
 
@@ -485,6 +598,9 @@ const ClientComponentExample = () => {
   );
 };
 ```
+
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
 
 ```jsx {3,6} fileName="src/components/clientComponentExample/ClientComponentExample.csx" codeFormat="commonjs"
 "use client";
@@ -503,6 +619,11 @@ const ClientComponentExample = () => {
 };
 ```
 
+> `next-intlayer` là đường dẫn import đẳng cấu: điều kiện export `react-server` cung cấp cho các server component triển khai ambient-locale, trong khi các client component nhận được triển khai dựa trên context. Cùng một lệnh gọi hoạt động ở cả hai phía.
+
+ </Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
+
 ```tsx {2} fileName="src/components/serverComponentExample/ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "next-intlayer/server";
@@ -518,6 +639,9 @@ export const ServerComponentExample: FC = () => {
   );
 };
 ```
+
+ </Tab>
+</Tabs>
 
 > Nếu bạn muốn sử dụng nội dung của mình trong một thuộc tính `string`, chẳng hạn như `alt`, `title`, `href`, `aria-label`, v.v., bạn phải gọi giá trị của hàm, ví dụ:
 
@@ -545,6 +669,8 @@ export const config = {
 ```
 
 > `intlayerProxy` được dùng để phát hiện ngôn ngữ ưa thích của người dùng và chuyển hướng họ đến URL phù hợp như được chỉ định trong [cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md). Ngoài ra, nó còn cho phép lưu ngôn ngữ ưa thích của người dùng vào cookie.
+
+> Kể từ Intlayer v9, middleware này tuân theo tùy chọn `routing.enableProxy` (`true` theo mặc định). Đặt `routing.enableProxy: false` trong cấu hình của bạn để biến nó thành pass-through mà không cần xóa tệp này. Xem [ghi chú phát hành v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/releases/v9.md).
 
 > Nếu bạn cần xâu chuỗi nhiều proxy với nhau (ví dụ: `intlayerProxy` cùng với proxy xác thực hoặc proxy tuỳ chỉnh), Intlayer hiện cung cấp một helper gọi là `multipleProxies`.
 
@@ -602,6 +728,37 @@ export const LocaleSwitcher: FC = () => {
       </div>
     </div>
   );
+};
+```
+
+> Một cách khác là sử dụng hàm `setLocale` được cung cấp bởi hook `useLocale`. Hàm này sẽ không cho phép prefetching trang. Xem [tài liệu hook `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/next-intlayer/useLocale.md) để biết thêm chi tiết.
+
+> Tham khảo tài liệu:
+>
+> - [`useLocale` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/next-intlayer/useLocale.md)
+> - [`getLocaleName` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getLocaleName.md)
+> - [`getLocalizedUrl` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getLocalizedUrl.md)
+> - [`getHTMLTextDir` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getHTMLTextDir.md)
+> - [`hrefLang` attribute](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=fr)
+> - [`lang` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang)
+> - [`dir` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
+> - [`aria-current` attribute](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
+
+</Step>
+
+<Step number={9} title="Lấy locale hiện tại trong Server Actions" isOptional={true}>
+
+Nếu bạn cần locale hoạt động bên trong một Server Action (ví dụ: để localize emails hoặc chạy logic nhận biết locale), hãy gọi `getLocale` từ `next-intlayer/server`:
+
+```tsx fileName="src/app/actions/getLocale.ts" codeFormat="typescript"
+"use server";
+
+import { getLocale } from "next-intlayer/server";
+
+export const myServerAction = async () => {
+  const locale = await getLocale();
+
+  // Làm gì đó với locale
 };
 ```
 

@@ -47,15 +47,22 @@ author: aymericzip
 />
 
   </Tab>
+  <Tab label="Demo" value="demo">
+
+<iframe
+  src="https://intlayer-vite-solid.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo Intlayer Vite + Solid Template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
 </Tabs>
 
 ## Table of Contents
 
 <TOC/>
-
-> Bu paket geliştirme aşamasındadır. Daha fazla bilgi için [soruna](https://github.com/aymericzip/intlayer/issues/117) bakın. Sorunu beğenerek Solid için Intlayer'a olan ilginizi gösterin
-
-<!-- GitHub'da [Uygulama Şablonu](https://github.com/aymericzip/intlayer-solid-template)'na bakın. -->
 
 ## Neden alternatifler yerine Intlayer?
 
@@ -241,8 +248,6 @@ export default appContent;
 ```
 
 > İçerik bildiriminiz uygulamanızın herhangi bir yerine yerleştirilebilir, yeter ki `contentDir` dizinine dahil edilsin (varsayılan olarak `./src`). Ve içerik bildirimi dosya uzantısı ile eşleşsin (varsayılan olarak `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
-
-> Daha fazla ayrıntı için [içerik bildirimi dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md) bakın.
 
 </Step>
 
@@ -491,28 +496,9 @@ export const Link: ParentComponent<AnchorProps> = (props) => {
 };
 ```
 
-</Step>
-
 <Step number={11} title="Markdown Render Etme" isOptional={true}>
 
 Intlayer, kendi dahili ayrıştırıcısını kullanarak Markdown içeriğini doğrudan Solid uygulamanızda render etmeyi destekler. Varsayılan olarak, Markdown düz metin olarak işlenir. Zengin HTML olarak render etmek için uygulamanızı `MarkdownProvider` ile sarın.
-
-```tsx fileName="src/index.tsx"
-import { render } from "solid-js/web";
-import { MarkdownProvider } from "solid-intlayer/markdown";
-import App from "./App";
-
-const root = document.getElementById("root");
-
-render(
-  () => (
-    <MarkdownProvider>
-      <App />
-    </MarkdownProvider>
-  ),
-  root!
-);
-```
 
 Ardından bunu bileşenlerinizde kullanabilirsiniz:
 
@@ -743,5 +729,3 @@ Intlayer ile geliştirme deneyiminizi iyileştirmek için resmi **Intlayer VS Co
 ### Daha Fazla İlerle
 
 Daha fazla ilerlemek için [görsel düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) veya içeriğinizi [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) kullanarak dışa aktarmayı uygulayabilirsiniz.
-
----

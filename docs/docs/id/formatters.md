@@ -53,6 +53,18 @@ author: aymericzip
 
 Intlayer menyediakan serangkaian pembantu ringan yang dibangun di atas API `Intl` asli, ditambah pembungkus `Intl` yang di-cache untuk menghindari pembuatan formatter berat berulang kali. Utilitas ini sepenuhnya sadar lokal dan dapat digunakan dari paket utama `intlayer`.
 
+**Untuk React, Vue, dan framework lainnya**, gunakan hooks/composables spesifik framework yang secara otomatis terikat ke konteks lokal aplikasi Anda:
+
+| Framework                | Import                                        |
+| ------------------------ | --------------------------------------------- |
+| **React** (client)       | `react-intlayer/format`                       |
+| **React** (server)       | `react-intlayer/server/format`                |
+| **Next.js** (client)     | `next-intlayer/client/format`                 |
+| **Next.js** (server)     | `next-intlayer/server/format`                 |
+| **Vue**                  | `vue-intlayer/format`                         |
+| **Preact**               | `preact-intlayer/format`                      |
+| **Vanilla JS / Node.js** | `intlayer` (memerlukan passing locale manual) |
+
 ## React Formatters
 
 ### Impor
@@ -79,8 +91,6 @@ import {
   getIntlayer,
 } dari "intlayer";
 ```
-
-Jika Anda menggunakan React, hooks juga tersedia; lihat `react-intlayer/format`.
 
 ### Hook yang Tersedia
 
@@ -174,8 +184,6 @@ const MyComponent = () => {
 
 ### `Intl.DisplayNames`
 
-Untuk nama yang dilokalkan dari bahasa, wilayah, mata uang, dan skrip:
-
 ```ts
 import { Intl } from "intlayer";
 
@@ -262,8 +270,6 @@ words.sort(collator.compare); // ["20", "100", "äpfel", "zebra"]
 Untuk konteks non-framework, impor formatter langsung dari `intlayer`. Perhatikan bahwa Anda harus melewatkan locale secara manual.
 
 ### `Intl.PluralRules`
-
-Untuk menentukan bentuk jamak dalam berbagai locale:
 
 ```ts
 import { Intl } from "intlayer";
@@ -473,9 +479,6 @@ getLocaleName("en", "fr"); // "anglais"
 getLocaleName("de", "es"); // "alemán"
 ```
 
-- **displayLocale**: Locale yang ingin didapatkan namanya
-- **targetLocale**: Locale untuk menampilkan nama (default-nya adalah displayLocale)
-
 ### `getLocaleLang(locale?)`
 
 Mengambil kode bahasa dari string locale:
@@ -487,8 +490,6 @@ getLocaleLang("en-US"); // "en"
 getLocaleLang("fr-CA"); // "fr"
 getLocaleLang("de"); // "de"
 ```
-
-- **locale**: Locale yang akan diambil bahasanya (default-nya adalah locale saat ini)
 
 ### `getLocaleFromPath(inputUrl)`
 
@@ -503,9 +504,6 @@ getLocaleFromPath("/dashboard"); // "en" (locale default)
 getLocaleFromPath("https://example.com/es/about"); // "es"
 ```
 
-- **inputUrl**: String URL lengkap atau pathname yang akan diproses
-- **returns**: Locale yang terdeteksi atau locale default jika tidak ditemukan locale
-
 ### `getPathWithoutLocale(inputUrl, locales?)`
 
 Menghapus segmen locale dari URL atau pathname:
@@ -517,10 +515,6 @@ getPathWithoutLocale("/en/dashboard"); // "/dashboard"
 getPathWithoutLocale("/fr/dashboard"); // "/dashboard"
 getPathWithoutLocale("https://example.com/en/about"); // "https://example.com/about"
 ```
-
-- **inputUrl**: String URL lengkap atau pathname yang akan diproses
-- **locales**: Array opsional dari locale yang didukung (default-nya adalah locale yang dikonfigurasi)
-- **returns**: URL tanpa segmen locale
 
 ### `getLocalizedUrl(url, currentLocale, locales?, defaultLocale?, prefixDefault?)`
 
@@ -534,12 +528,6 @@ getLocalizedUrl("/about", "en", ["en", "fr"], "en", false); // "/about"
 getLocalizedUrl("https://example.com/about", "fr", ["en", "fr"], "en", true); // "https://example.com/fr/about"
 ```
 
-- **url**: URL asli yang akan dilokalkan
-- **currentLocale**: Locale saat ini
-- **locales**: Array opsional dari locale yang didukung (default ke locale yang dikonfigurasi)
-- **defaultLocale**: Locale default opsional (default ke locale default yang dikonfigurasi)
-- **prefixDefault**: Apakah akan menambahkan prefix untuk locale default (default ke nilai yang dikonfigurasi)
-
 ### `getHTMLTextDir(locale?)`
 
 Mengembalikan arah teks untuk sebuah locale:
@@ -551,9 +539,6 @@ getHTMLTextDir("en-US"); // "ltr"
 getHTMLTextDir("ar"); // "rtl"
 getHTMLTextDir("he"); // "rtl"
 ```
-
-- **locale**: Locale untuk mendapatkan arah teks (default ke locale saat ini)
-- **returns**: `"ltr"`, `"rtl"`, atau `"auto"`
 
 ## Utilitas Penanganan Konten
 
@@ -570,10 +555,6 @@ const content = getContent(
   "fr"
 );
 ```
-
-- **node**: Node konten yang akan diubah
-- **nodeProps**: Properti untuk konteks transformasi
-- **locale**: Locale opsional (default ke locale default yang dikonfigurasi)
 
 ### `getTranslation(languageContent, locale?, fallback?)`
 
@@ -593,10 +574,6 @@ const content = getTranslation(
 ); // "Bonjour"
 ```
 
-- **languageContent**: Objek yang memetakan locale ke konten
-- **locale**: Locale target (default ke locale default yang dikonfigurasi)
-- **fallback**: Apakah akan kembali ke locale default (default true)
-
 ### `getIntlayer(dictionaryKey, locale?, plugins?)`
 
 Mengambil dan mengubah konten dari kamus berdasarkan kunci:
@@ -607,10 +584,6 @@ import { getIntlayer } from "intlayer";
 const content = getIntlayer("common", "fr");
 const nestedContent = getIntlayer("common", "fr", customPlugins);
 ```
-
-- **dictionaryKey**: Kunci dari kamus yang akan diambil
-- **locale**: Locale opsional (default ke locale default yang dikonfigurasi)
-- **plugins**: Array opsional dari plugin transformasi kustom
 
 ## Catatan
 

@@ -48,45 +48,15 @@ Intlayer предоставляет набор лёгких помощников
 
 ## Кешированный Intl
 
-Экспортируемый `Intl`, это тонкая кешированная обёртка вокруг глобального `Intl`. Он мемоизирует экземпляры `NumberFormat`, `DateTimeFormat`, `RelativeTimeFormat`, `ListFormat`, `DisplayNames`, `Collator` и `PluralRules`, что позволяет избежать повторного создания одного и того же форматтера.
-
 Поскольку создание форматтера относительно дорогостоящее, такое кеширование улучшает производительность без изменения поведения. Обёртка предоставляет тот же API, что и нативный `Intl`, поэтому использование идентично.
-
-- Кеширование происходит на уровне процесса и прозрачно для вызывающих.
 
 > Если `Intl.DisplayNames` недоступен в среде, выводится одно предупреждение только для разработчиков (рекомендуется использовать полифилл).
 
 Примеры:
 
-```ts
-import { Intl } from "intlayer";
-
-// Форматирование чисел
-const numberFormat = new Intl.NumberFormat("en-GB", {
-  style: "currency",
-  currency: "GBP",
-});
-numberFormat.format(1234.5); // "£1,234.50"
-
-// Отображение названий языков, регионов и т.д.
-const displayNames = new Intl.DisplayNames("fr", { type: "language" });
-displayNames.of("en"); // "anglais"
-
-// Сортировка с учётом локали
-const collator = new Intl.Collator("fr", { sensitivity: "base" });
-collator.compare("é", "e"); // 0 (равны)
-
-// Правила множественного числа
-const pluralRules = new Intl.PluralRules("fr");
-pluralRules.select(1); // "one"
-pluralRules.select(2); // "other"
-```
-
 ## React Formatters
 
 ### `Intl.DisplayNames`
-
-Для локализованных названий языков, регионов, валют и систем письма:
 
 ```ts
 import { Intl } from "intlayer";
@@ -115,8 +85,6 @@ regionNames.of("US"); // "États-Unis"
 | `useIntl()`         | Получить привязанный к локали объект `Intl` | Full `Intl` API access        |
 
 ### `Intl.Collator`
-
-Для локализованного сравнения и сортировки строк:
 
 ```ts
 import { Intl } from "intlayer";
@@ -149,8 +117,6 @@ pluralRules.select(11); // "many"
 
 ### `getLocaleName(displayLocale, targetLocale?)`
 
-Получает локализованное название локали на другом языке:
-
 ```ts
 import { getLocaleName } from "intlayer";
 
@@ -158,9 +124,6 @@ getLocaleName("fr", "en"); // "French"
 getLocaleName("en", "fr"); // "anglais"
 getLocaleName("de", "es"); // "alemán"
 ```
-
-- **displayLocale**: Локаль, для которой нужно получить название
-- **targetLocale**: Локаль, на которой будет отображаться название (по умолчанию displayLocale)
 
 ### Доступные Composables
 
@@ -258,8 +221,6 @@ const languageName = displayNames.of("fr");
 
 ### `getLocaleLang(locale?)`
 
-Извлекает код языка из строки локали:
-
 ```ts
 import { getLocaleLang } from "intlayer";
 
@@ -267,8 +228,6 @@ getLocaleLang("en-US"); // "en"
 getLocaleLang("fr-CA"); // "fr"
 getLocaleLang("de"); // "de"
 ```
-
-- **locale**: Локаль, из которой нужно извлечь язык (по умолчанию текущая локаль)
 
 ### Функции форматирования
 
@@ -457,13 +416,6 @@ pluralRules.select(11); // "many"
 
 ### `percentage(value, options?)`
 
-Форматирует число в строку с процентами.
-
-Поведение: значения больше 1 интерпретируются как целые проценты и нормализуются (например, `25` → `25%`, `0.25` → `25%`).
-
-- **value**: `number | string`
-- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
-
 Примеры:
 
 ```ts
@@ -476,12 +428,6 @@ percentage(0.237, { minimumFractionDigits: 1 }); // "23.7%"
 
 ### `currency(value, options?)`
 
-Форматирует значение как локализованную валюту. По умолчанию используется `USD` с двумя десятичными знаками.
-
-- **value**: `number | string`
-- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
-  - Общие поля: `currency` (например, `"EUR"`), `currencyDisplay` (`"symbol" | "code" | "name"`)
-
 Примеры:
 
 ```ts
@@ -493,12 +439,6 @@ currency("5000", { locale: "fr", currency: "CAD", currencyDisplay: "code" }); //
 
 ### `date(date, optionsOrPreset?)`
 
-Форматирует значение даты/времени с помощью `Intl.DateTimeFormat`.
-
-- **date**: `Date | string | number`
-- **optionsOrPreset**: `Intl.DateTimeFormatOptions & { locale?: LocalesValues }` или один из предустановленных вариантов:
-  - Предустановки: `"short" | "long" | "dateOnly" | "timeOnly" | "full"`
-
 Примеры:
 
 ```ts
@@ -509,14 +449,6 @@ date("2025-08-02T14:30:00Z", { locale: "fr", month: "long", day: "numeric" }); /
 ```
 
 ### `relativeTime(from, to = new Date(), options?)`
-
-Форматирует относительное время между двумя моментами с помощью `Intl.RelativeTimeFormat`.
-
-- Передайте "now" в качестве первого аргумента и целевой момент вторым, чтобы получить естественную формулировку.
-- **from**: `Date | string | number`
-- **to**: `Date | string | number` (по умолчанию `new Date()`)
-- **options**: `{ locale?: LocalesValues; unit?: Intl.RelativeTimeFormatUnit; numeric?: Intl.RelativeTimeFormatNumeric; style?: Intl.RelativeTimeFormatStyle }`
-  - По умолчанию `unit` равен `"second"`.
 
 Примеры:
 
@@ -533,13 +465,6 @@ relativeTime(now, twoHoursAgo, { unit: "hour", numeric: "auto" }); // "2 час�
 
 ### `units(value, options?)`
 
-Форматирует числовое значение как локализованную строку с единицей измерения, используя `Intl.NumberFormat` с `style: 'unit'`.
-
-- **value**: `number | string`
-- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
-  - Общие поля: `unit` (например, `"kilometer"`, `"byte"`), `unitDisplay` (`"short" | "narrow" | "long"`)
-  - Значения по умолчанию: `unit: 'day'`, `unitDisplay: 'short'`, `useGrouping: false`
-
 Примеры:
 
 ```ts
@@ -550,11 +475,6 @@ units(1024, { unit: "byte", unitDisplay: "narrow" }); // "1,024B" (зависи�
 ```
 
 ### `compact(value, options?)`
-
-Форматирует число с использованием компактной нотации (например, `1.2K`, `1M`).
-
-- **value**: `number | string`
-- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }` (использует `notation: 'compact'` под капотом)
 
 Примеры:
 
@@ -569,13 +489,6 @@ compact("1000000", { locale: "fr", compactDisplay: "long" }); // "1 million"
 
 ### `list(values, options?)`
 
-Форматирует массив значений в локализованную строку списка с использованием `Intl.ListFormat`.
-
-- **values**: `(string | number)[]`
-- **options**: `Intl.ListFormatOptions & { locale?: LocalesValues }`
-  - Общие поля: `type` (`"conjunction" | "disjunction" | "unit"`), `style` (`"long" | "short" | "narrow"`)
-  - Значения по умолчанию: `type: 'conjunction'`, `style: 'long'`
-
 Примеры:
 
 ```ts
@@ -589,56 +502,6 @@ list([1, 2, 3], { type: "unit" }); // "1, 2, 3"
 ### React
 
 Клиентские компоненты:
-
-```tsx
-import {
-  useNumber,
-  useCurrency,
-  useDate,
-  usePercentage,
-  useCompact,
-  useList,
-  useRelativeTime,
-  useUnit,
-} from "react-intlayer/format";
-// или в приложениях Next.js
-import {
-  useNumber,
-  useCurrency,
-  useDate,
-  usePercentage,
-  useCompact,
-  useList,
-  useRelativeTime,
-  useUnit,
-} from "next-intlayer/client/format";
-
-const MyComponent = () => {
-  const number = useNumber();
-  const currency = useCurrency();
-  const date = useDate();
-  const percentage = usePercentage();
-  const compact = useCompact();
-  const list = useList();
-  const relativeTime = useRelativeTime();
-  const unit = useUnit();
-
-  return (
-    <div>
-      <p>{number(123456.789)}</p>
-      <p>{currency(1234.5, { currency: "EUR" })}</p>
-      <p>{date(new Date(), "short")}</p>
-      <p>{percentage(0.25)}</p>
-      <p>{compact(1200)}</p>
-      <p>{list(["apple", "banana", "orange"])}</p>
-      <p>{relativeTime(new Date(), new Date() + 1000)}</p>
-      <p>{unit(123456.789, { unit: "kilometer" })}</p>
-    </div>
-  );
-};
-```
-
-Серверные компоненты (или React Server runtime):
 
 ```ts
 import {
@@ -664,26 +527,7 @@ import {
 } from "next-intlayer/server/format";
 ```
 
-> Эти хуки будут учитывать локаль из `IntlayerProvider` или `IntlayerServerProvider`
-
 ### Vue
-
-Клиентские компоненты:
-
-```ts
-import {
-  useNumber,
-  useCurrency,
-  useDate,
-  usePercentage,
-  useCompact,
-  useList,
-  useRelativeTime,
-  useUnit,
-} from "vue-intlayer/format";
-```
-
-> Эти композиции будут учитывать локаль из внедренного `IntlayerProvider`
 
 Компоненты клиента:
 
@@ -699,8 +543,6 @@ import {
   useUnit,
 } from "vue-intlayer/format";
 ```
-
-> Эти композиционные функции будут учитывать локаль из внедренного `IntlayerProvider`
 
 ## Примечания
 

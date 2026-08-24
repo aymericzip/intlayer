@@ -138,8 +138,6 @@ getMultilingualUrls(
 // }
 ```
 
----
-
 ### Farklı Yönlendirme Modları
 
 ```typescript
@@ -204,6 +202,12 @@ getMultilingualUrls("/dashboard", {
 
 - **Desteklenmeyen Yerel Ayarlar:**
   - Sadece `locales` dizisinde sağlanan yerel ayarlar URL'leri oluşturmak için dikkate alınır.
+
+- **Yönlendirme Modları:**
+  - `'prefix-no-default'`: Varsayılan yerel ayarın öneki yok, diğerlerinin vardır (örn. `/dashboard`, `/fr/dashboard`)
+  - `'prefix-all'`: Tüm yerel ayarların önekleri vardır (örn. `/en/dashboard`, `/fr/dashboard`)
+  - `'no-prefix'`: URL'lerde yerel ayar öneki yoktur (tüm yerel ayarlar aynı URL'yi döndürür)
+  - `'search-params'`: Yerel ayar sorgu parametresi aracılığıyla belirtilir (örn. `/dashboard?locale=fr`)
 
 ---
 

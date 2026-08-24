@@ -194,6 +194,8 @@ Ide di balik `Wuchale` menarik tetapi belum menjadi solusi yang layak. Saya mene
 
 `Tolgee` mengatasi banyak masalah yang disebutkan sebelumnya. Saya merasa lebih sulit untuk memulai adopsi Tolgee dibandingkan alat lain dengan pendekatan serupa. Ia tidak memberikan type safety, yang juga membuat pendeteksian kunci yang hilang saat compile time jauh lebih sulit. Saya harus membungkus API Tolgee dengan API saya sendiri untuk menambahkan deteksi kunci yang hilang.
 
+Package ini cukup berat (~11.1kb, yang merupakan lebih dari 2× `react-intlayer`).
+
 Pada TanStack Start saya juga memiliki masalah reaktivitas: saat lokal berubah, saya harus memaksa provider untuk me-render ulang dan berlangganan ke event perubahan lokal sehingga pemuatan dalam bahasa lain berperilaku dengan benar.
 
 **(use-intl)** (`use-intl@4.9.1`):
@@ -208,6 +210,8 @@ Pada TanStack Start Anda menghindari jebakan khusus Next.js (`setRequestLocale`,
 
 Namun, ia memiliki kelemahan utama yang sama dengan stack yang dibangun di atas `t('a.b.c')`: optimasi dimungkinkan tetapi sangat memakan waktu, dan proyek besar berisiko jatuh ke dalam praktik buruk (namespace + pemuatan dinamis + tipe).
 
+Paket ini sangat berat (~17.3kb, yang merupakan sekitar 3.5× `react-intlayer`).
+
 Format pesan juga berbeda: `use-intl` menggunakan ICU MessageFormat, sementara `i18next` menggunakan formatnya sendiri-yang memperumit tooling atau migrasi jika Anda mencampurnya.
 
 **(Lingui)** (`@lingui/core@5.3.0`):
@@ -217,6 +221,8 @@ Format pesan juga berbeda: `use-intl` menggunakan ICU MessageFormat, sementara `
 **(react-intl)** (`react-intl@10.1.1`):
 
 `react-intl` adalah implementasi performa dari tim Format.js. DX-nya tetap verbose: `const intl = useIntl()` + `intl.formatMessage({ id: "xx.xx" })` menambah kompleksitas, kerja JavaScript ekstra, dan mengikat instance i18n global ke banyak node di tree React.
+
+Package juga cukup berat (~14.4kb, yang sekitar 3× `react-intlayer`).
 
 ### 4 - Rekomendasi
 

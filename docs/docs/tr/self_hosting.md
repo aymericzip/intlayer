@@ -64,10 +64,6 @@ Chromium (Puppeteer ekran görüntüsü oluşturma için kullanılır) backend g
 
 ## Hızlı Başlangıç
 
-```sh
-curl -fsSL https://intlayer.org/install.sh | sh
-```
-
 Yükleyicinin yaptığı işlemler:
 
 1. `docker` ve `docker compose`'un mevcut olduğunu kontrol eder.
@@ -77,6 +73,8 @@ Yükleyicinin yaptığı işlemler:
 5. URL'leri yazdırır: kontrol paneli `:3000`, API `:3100`, e-posta arayüzü `:8025`, MinIO konsolu `:9001`.
 
 Yığın çalışmaya başladıktan sonra **http://localhost:3000** adresini açın ve ilk hesabınızı oluşturun.
+
+> Dashboard `localhost` üzerinde sunulmaktadır. Bkz. [Sınırlamalar](#limitations) — yayınlanan görüntü özel etki alanlarını desteklemez.
 
 ---
 
@@ -102,8 +100,6 @@ Bir admin mevcut olduğunda, `/init` standart oturum açma sayfasına yönlendir
 | **redis**   | `redis:7-alpine`                                  | dahili                                | İş kuyrukları (BullMQ) ve önbellekleme (ioredis)             |
 | **minio**   | `minio/minio`                                     | `9000` (S3), `9001` (konsol)          | Avatarlar ve ekran görüntüleri için S3 uyumlu nesne depolama |
 | **mailpit** | `axllent/mailpit`                                 | `1025` (SMTP), `8025` (web UI)        | Yerel işlem e-postası alıcısı                                |
-
-Dahili bağlantı noktaları (mongo, redis) varsayılan olarak ana bilgisayara açık değildir.
 
 > MinIO bağlantı noktası `9000` tarayıcı tarafından erişilebilir olmalıdır çünkü yüklenen varlıklar (avatarlar, ekran görüntüleri) doğrudan `S3_PUBLIC_URL=http://localhost:9000/intlayer` adresinden yüklenir.
 
@@ -159,8 +155,6 @@ Dahili bağlantı noktaları (mongo, redis) varsayılan olarak ana bilgisayara a
 | `MICROSOFT_CLIENT_ID`, `MICROSOFT_CLIENT_SECRET`         | Microsoft OAuth girişi                                                      |
 | `LINKEDIN_CLIENT_ID`, `LINKEDIN_CLIENT_SECRET`           | LinkedIn OAuth girişi                                                       |
 | `ATLASSIAN_CLIENT_ID`, `ATLASSIAN_CLIENT_SECRET`         | Atlassian OAuth girişi                                                      |
-
----
 
 ### Global mailer
 
@@ -247,15 +241,7 @@ const { data: dictionaries } = await dictionaryEndpoint(cms).getDictionaries();
 
 ## Yükseltme
 
-Mevcut bir dağıtım üzerinde yükleyiciyi yeniden çalıştırmak, kademeli bir yükseltme gerçekleştirir:
-
-```sh
-curl -fsSL https://intlayer.org/install.sh | sh
-```
-
 Bu, en son görüntüleri çeker ve kapsayıcıları `docker compose pull && docker compose up -d` ile yeniden başlatır. Mevcut birimler (`mongo-data`, `redis-data`, `minio-data`) korunur; veri kaybı olmaz.
-
-Manuel olarak `./intlayer/` dizini içinden yükseltme yapmak için:
 
 ```sh
 docker compose pull
@@ -320,14 +306,11 @@ docker compose logs mongo
 docker compose logs redis
 ```
 
+Log dosyasının üst kısmına yakın yerde `MongoDB connection error` (MongoDB bağlantı hatası) ifadesini arayın.
+
 ### Kontrol Paneli API'ye Ulaşamıyor
 
 `VITE_BACKEND_URL`'in backend'e **tarayıcıdan** (Docker ağı değil) erişilebilen URL ile eşleştiğini doğrulayın. Backend portunu değiştirdiyseniz veya bir ters proxy eklediyseniz, kontrol paneli görüntüsünü yeniden oluşturun:
-
-```sh
-docker compose build app
-docker compose up -d app
-```
 
 ### MinIO Kovası Eksik
 

@@ -89,28 +89,13 @@ bun x intlayer dictionary push
 
   > 示例：`npx intlayer dictionary push --keep-locale-dictionary`
 
-**准备选项：**
-
-- **`--build`**：在推送之前构建字典以确保内容是最新的。true 将强制构建，false 将跳过构建，undefined 将允许使用构建缓存。
-
 **日志选项：**
 
 - **`--verbose`**：启用详细日志以便调试。（CLI 默认启用）
 
 **Git 选项：**
 
-- **`--git-diff`**：仅针对包含从基准（默认 `origin/main`）到当前分支（默认 `HEAD`）的更改的字典运行。
-- **`--git-diff-base`**：指定 git diff 的基准引用（默认 `origin/main`）。
-- **`--git-diff-current`**：指定 git diff 的当前引用（默认 `HEAD`）。
-- **`--uncommitted`**：包含未提交的更改。
-- **`--unpushed`**：包含未推送的更改。
-- **`--untracked`**：包含未跟踪的文件。
-
 - **`--build`**：在推送之前构建字典以确保内容是最新的。设置为 true 将强制构建，false 将跳过构建，undefined 将允许使用构建缓存。
-
-**日志选项：**
-
-- **`--verbose`**：启用详细日志以便调试。（CLI 默认启用）
 
 **Git 选项：**
 

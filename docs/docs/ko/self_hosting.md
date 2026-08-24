@@ -90,10 +90,6 @@ docker run -d --name intlayer \
 
 ## 빠른 시작
 
-```sh
-curl -fsSL https://intlayer.org/install.sh | sh
-```
-
 설치 프로그램의 기능:
 
 1.  `docker` 및 `docker compose`가 설치되어 있는지 확인합니다.
@@ -116,8 +112,6 @@ curl -fsSL https://intlayer.org/install.sh | sh
 | **redis**   | `redis:7-alpine`                   | 내부                          | 작업 큐 (BullMQ) 및 캐싱 (ioredis)              |
 | **minio**   | `minio/minio`                      | `9000` (S3), `9001` (콘솔)    | 아바타 및 스크린샷을 위한 S3 호환 객체 스토리지 |
 | **mailpit** | `axllent/mailpit`                  | `1025` (SMTP), `8025` (웹 UI) | 로컬 트랜잭션 이메일 싱크                       |
-
-내부 포트(mongo, redis)는 기본적으로 호스트에 노출되지 않습니다.
 
 > MinIO 포트 `9000`은 브라우저에서 접근할 수 있어야 합니다. 업로드된 자산(아바타, 스크린샷)은 `S3_PUBLIC_URL=http://localhost:9000/intlayer`에서 직접 로드되기 때문입니다.
 
@@ -173,8 +167,6 @@ curl -fsSL https://intlayer.org/install.sh | sh
 | `MICROSOFT_CLIENT_ID`, `MICROSOFT_CLIENT_SECRET`         | Microsoft OAuth 로그인                                 |
 | `LINKEDIN_CLIENT_ID`, `LINKEDIN_CLIENT_SECRET`           | LinkedIn OAuth 로그인                                  |
 | `ATLASSIAN_CLIENT_ID`, `ATLASSIAN_CLIENT_SECRET`         | Atlassian OAuth 로그인                                 |
-
----
 
 ### Global mailer
 
@@ -261,15 +253,7 @@ const { data: dictionaries } = await dictionaryEndpoint(cms).getDictionaries();
 
 ## 업그레이드
 
-기존 배포에서 설치 프로그램을 다시 실행하면 롤링 업그레이드가 수행됩니다:
-
-```sh
-curl -fsSL https://intlayer.org/install.sh | sh
-```
-
 이는 최신 이미지를 가져오고 `docker compose pull && docker compose up -d`를 사용하여 컨테이너를 다시 시작합니다. 기존 볼륨(`mongo-data`, `redis-data`, `minio-data`)은 보존되므로 데이터 손실이 없습니다.
-
-`./intlayer/` 디렉토리 내부에서 수동으로 업그레이드하려면:
 
 ```sh
 docker compose pull
@@ -334,14 +318,11 @@ docker compose logs mongo
 docker compose logs redis
 ```
 
+로그의 상단 근처에서 `MongoDB connection error`를 찾아보세요.
+
 ### 대시보드가 API에 연결할 수 없음
 
 `VITE_BACKEND_URL`이 **브라우저**에서 백엔드에 접근 가능한 URL(Docker 네트워크가 아님)과 일치하는지 확인하세요. 백엔드 포트를 변경했거나 리버스 프록시를 추가했다면, 대시보드 이미지를 다시 빌드해야 합니다:
-
-```sh
-docker compose build app
-docker compose up -d app
-```
 
 ### MinIO 버킷 누락
 

@@ -90,10 +90,6 @@ docker run -d --name intlayer \
 
 ## Швидкий старт
 
-```sh
-curl -fsSL https://intlayer.org/install.sh | sh
-```
-
 Що робить інсталятор:
 
 1.  Перевіряє наявність `docker` та `docker compose`.
@@ -116,8 +112,6 @@ curl -fsSL https://intlayer.org/install.sh | sh
 | **redis**   | `redis:7-alpine`                    | внутрішній                            | Черги завдань (BullMQ) та кешування (ioredis)              |
 | **minio**   | `minio/minio`                       | `9000` (S3), `9001` (консоль)         | Об'єктне сховище, сумісне з S3, для аватарів та скріншотів |
 | **mailpit** | `axllent/mailpit`                   | `1025` (SMTP), `8025` (веб-інтерфейс) | Локальний приймач транзакційних електронних листів         |
-
-Внутрішні порти (mongo, redis) за замовчуванням не доступні з хосту.
 
 > Порт MinIO `9000` має бути доступним для браузера, оскільки завантажені ресурси (аватари, скріншоти) завантажуються безпосередньо з `S3_PUBLIC_URL=http://localhost:9000/intlayer`.
 
@@ -173,8 +167,6 @@ curl -fsSL https://intlayer.org/install.sh | sh
 | `MICROSOFT_CLIENT_ID`, `MICROSOFT_CLIENT_SECRET`         | Вхід через Microsoft OAuth                                                          |
 | `LINKEDIN_CLIENT_ID`, `LINKEDIN_CLIENT_SECRET`           | Вхід через LinkedIn OAuth                                                           |
 | `ATLASSIAN_CLIENT_ID`, `ATLASSIAN_CLIENT_SECRET`         | Вхід через Atlassian OAuth                                                          |
-
----
 
 ### Глобальний поштовик
 
@@ -261,15 +253,7 @@ const { data: dictionaries } = await dictionaryEndpoint(cms).getDictionaries();
 
 ## Оновлення
 
-Повторний запуск інсталятора на існуючому розгортанні виконує послідовне оновлення:
-
-```sh
-curl -fsSL https://intlayer.org/install.sh | sh
-```
-
 Це завантажує останні образи та перезапускає контейнери за допомогою `docker compose pull && docker compose up -d`. Існуючі томи (`mongo-data`, `redis-data`, `minio-data`) зберігаються — без втрати даних.
-
-Щоб оновити вручну з каталогу `./intlayer/`:
 
 ```sh
 docker compose pull
@@ -334,13 +318,11 @@ docker compose logs mongo
 docker compose logs redis
 ```
 
+Шукайте `MongoDB connection error` близько до початку логу.
+
 ### Електронні листи не надсилаються
 
 За замовчуванням усі вихідні електронні листи захоплюються Mailpit. Відкрийте `http://localhost:8025`, щоб побачити надіслані повідомлення. Щоб надсилати реальні електронні листи, встановіть `MAIL_PROVIDER=resend` та `RESEND_API_KEY=<ваш-ключ>` у `.env`, а потім перезапустіть бекенд:
-
-```sh
-docker compose restart backend
-```
 
 ### Відсутній кошик MinIO
 

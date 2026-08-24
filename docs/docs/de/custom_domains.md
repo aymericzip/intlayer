@@ -138,6 +138,38 @@ getMultilingualUrls("/about", { currentDomain: "intlayer.org" });
 
 Diese absoluten URLs können direkt in `<link rel="alternate" hreflang="...">`-Tags für SEO verwendet werden.
 
+## Typinferenz
+
+`routing.domains` wird in die generierte Modulgaugmentierung serialisiert, daher
+verengen `getLocalizedUrl` und `getLocalizedPath` ihren Rückgabetyp auf die exakte
+URL, die ein domänengestütztes Locale auflöst — einschließlich der Präfixunterdrückung.
+
+```ts
+// routing: { mode: 'prefix-no-default', domains: { en: 'intlayer.org', zh: 'intlayer.zh' } }
+
+getLocalizedUrl("/about", "zh");
+//     ^? "https://intlayer.zh/about" | "/about"
+
+getLocalizedPath("/about", "zh");
+//     ^? "/about"   (niemals ein origin, und kein /zh/ Präfix)
+```
+
+Der URL-Typ ist die **Union** der zwei Werte, die die Funktion zurückgeben kann: die
+absolute URL auf der Domäne des Locales und die relative URL, die sie zurückgibt, wenn die
+gerenderte Seite bereits auf dieser Domäne lebt. `getLocalizedPath` hat diese
+Mehrdeutigkeit nicht — es gibt niemals einen origin aus — daher bleibt es ein einzelnes Literal.
+
+Locales, die sich eine Domäne teilen, behalten ihr normales Präfix im Typ ebenfalls:
+
+```ts
+getLocalizedUrl("/about", "fr");
+//     ^? "https://intlayer.org/fr/about" | "/fr/about"
+```
+
+> Regeneriere die Typen (`npx intlayer build` oder ein beliebiger dev server run) nach dem
+> Ändern von `routing.domains` — die Verengung kommt aus der generierten
+> `__RoutingRegistry`, nicht aus der Konfigurationsdatei selbst.
+
 ## Proxy-Verhalten
 
 ### Next.js
@@ -169,6 +201,8 @@ GET intlayer.zh/about
 ### Vite
 
 Das `intlayerProxy` Vite-Plugin wendet die gleiche Logik während der Entwicklung an:
+
+> Seit Intlayer v9 ist `intlayerProxy()` direkt in das `intlayer()`-Plugin integriert und standardmäßig durch die Option `routing.enableProxy` aktiviert (`true` standardmäßig). Die separate Registrierung wie unten gezeigt ist nun optional — sie wird aus Gründen der Abwärtskompatibilität und für Setups beibehalten, die die Plugin-Reihenfolge kontrollieren müssen. Setzen Sie `routing.enableProxy: false`, um sich abzumelden. Siehe die [v9-Versionshinweise](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/releases/v9.md).
 
 ```typescript fileName="vite.config.ts"
 import { defineConfig } from "vite";

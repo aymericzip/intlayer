@@ -232,6 +232,8 @@ export default defineConfig({
 
 > Das `intlayerCompiler()`-Vite-Plugin wird verwendet, um Inhalte aus Komponenten zu extrahieren und `.content`-Dateien zu schreiben.
 
+> Seit Intlayer v9 ist der Compiler direkt im `intlayer()`-Plugin gebündelt und aktiviert sich automatisch, sobald `compiler.enabled` mit einem `compiler.output`-Pfad gesetzt ist. Die separate Registrierung von `intlayerCompiler()` wie unten gezeigt ist jetzt optional — sie dedupliziert sich selbst, wenn sie auch hinzugefügt wird. Siehe die [v9-Versionshinweise](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/releases/v9.md).
+
 </Step>
 
 <Step number={4} title="Kompilieren Sie Ihren Code">

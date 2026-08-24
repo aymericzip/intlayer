@@ -103,8 +103,6 @@ curl -fsSL https://intlayer.org/install.sh | sh
 | **minio**   | `minio/minio`                        | `9000` (S3), `9001` (कंसोल)    | अवतार और स्क्रीनशॉट के लिए S3-संगत ऑब्जेक्ट स्टोरेज |
 | **mailpit** | `axllent/mailpit`                    | `1025` (SMTP), `8025` (वेब UI) | लोकल ट्रांजैक्शनल ईमेल सिंक                         |
 
-आंतरिक पोर्ट (mongo, redis) डिफ़ॉल्ट रूप से होस्ट पर एक्सपोज़ नहीं किए जाते हैं।
-
 > MinIO पोर्ट `9000` ब्राउज़र द्वारा पहुँच योग्य होना चाहिए क्योंकि अपलोड किए गए एसेट (अवतार, स्क्रीनशॉट) सीधे `S3_PUBLIC_URL=http://localhost:9000/intlayer` से लोड होते हैं।
 
 ---
@@ -159,6 +157,10 @@ curl -fsSL https://intlayer.org/install.sh | sh
 
 ### वैकल्पिक (अनुपस्थिति में फीचर धीरे-धीरे खराब हो जाते हैं)
 
+डिफ़ॉल्ट रूप से, सभी transactional ईमेल `RESEND_API_KEY` का उपयोग करके Resend के माध्यम से भेजे जाते हैं। Self-hosted deployments इसके बजाय **प्रत्येक** ईमेल — non-organization ईमेल जैसे कि password resets और magic links सहित — को environment variables के साथ कॉन्फ़िगर किए गए global mailer के माध्यम से route कर सकते हैं।
+
+`MAIL_PROVIDER` को सेट करें इसे सक्रिय करने के लिए। जब यह सेट नहीं है, तो डिफ़ॉल्ट Resend mailer का उपयोग किया जाता है।
+
 | वेरिएबल                                                  | फीचर                                                                          |
 | -------------------------------------------------------- | ----------------------------------------------------------------------------- |
 | `OPENAI_API_KEY`                                         | AI-सहायता प्राप्त अनुवाद और कंटेंट ऑडिट                                       |
@@ -170,6 +172,8 @@ curl -fsSL https://intlayer.org/install.sh | sh
 | `MICROSOFT_CLIENT_ID`, `MICROSOFT_CLIENT_SECRET`         | Microsoft OAuth लॉगिन                                                         |
 | `LINKEDIN_CLIENT_ID`, `LINKEDIN_CLIENT_SECRET`           | LinkedIn OAuth लॉगिन                                                          |
 | `ATLASSIAN_CLIENT_ID`, `ATLASSIAN_CLIENT_SECRET`         | Atlassian OAuth लॉगिन                                                         |
+
+> प्राधिकार: एक संगठन का अपना mailer (**Organization** dashboard से कॉन्फ़िगर किया गया) global mailer को प्राथमिकता देता है, जो बदले में default Resend key को प्राथमिकता देता है।
 
 ---
 
@@ -238,14 +242,6 @@ const { data: dictionaries } = await dictionaryEndpoint(cms).getDictionaries();
 
 ## अपग्रेड करना
 
-मौजूदा डिप्लॉयमेंट पर इंस्टॉलर को फिर से चलाने से रोलिंग अपग्रेड होता है:
-
-```sh
-curl -fsSL https://intlayer.org/install.sh | sh
-```
-
-यह नवीनतम इमेज को खींचता है और `docker compose pull && docker compose up -d` के साथ कंटेनरों को रीस्टार्ट करता है। मौजूदा वॉल्यूम (`mongo-data`, `redis-data`, `minio-data`) संरक्षित रहते हैं - कोई डेटा हानि नहीं होती है।
-
 `./intlayer/` डायरेक्टरी के अंदर से मैन्युअल रूप से अपग्रेड करने के लिए:
 
 ```sh
@@ -311,13 +307,11 @@ docker compose logs mongo
 docker compose logs redis
 ```
 
+लॉग के शीर्ष के पास `MongoDB connection error` खोजें।
+
 ### ईमेल नहीं भेजा जा रहा है
 
 डिफ़ॉल्ट रूप से, सभी आउटबाउंड ईमेल मेलपिट द्वारा कैप्चर किए जाते हैं। भेजे गए संदेशों को देखने के लिए `http://localhost:8025` खोलें। वास्तविक ईमेल भेजने के लिए, `.env` में `MAIL_PROVIDER=resend` और `RESEND_API_KEY=<your-key>` सेट करें, फिर बैकएंड को रीस्टार्ट करें:
-
-```sh
-docker compose restart backend
-```
 
 ### MinIO बकेट गायब है
 

@@ -35,181 +35,9 @@ Intlayerでは、複数形コンテンツは `plural` 関数を通じて実現�
 
 ## `plural` と `enu` の使い分け
 
-<Tabs group="framework">
-  <Tab label="React" value="react">
-
 To use plural content inside a React component, retrieve it via the `useIntlayer` hook and call it with a count. The active locale and the count are combined to pick the matching CLDR category.
 
-```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
-import type { FC } from "react";
-import { useIntlayer } from "react-intlayer";
-
-const OpeningsComponent: FC<{ count: number }> = ({ count }) => {
-  const { totalOpenings } = useIntlayer("total_openings");
-
-  return (
-    <div>
-      <p>{totalOpenings(count)}</p>
-    </div>
-  );
-};
-
-export default OpeningsComponent;
-```
-
-  </Tab>
-  <Tab label="Next.js" value="nextjs">
-
 To use plural content in Next.js Client Components, retrieve it via the `useIntlayer` hook and call it with a count. Here's an example:
-
-```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
-"use client";
-
-import type { FC } from "react";
-import { useIntlayer } from "next-intlayer";
-
-const OpeningsComponent: FC<{ count: number }> = ({ count }) => {
-  const { totalOpenings } = useIntlayer("total_openings");
-
-  return (
-    <div>
-      <p>{totalOpenings(count)}</p>
-    </div>
-  );
-};
-
-export default OpeningsComponent;
-```
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-To use plural content in Vue components, retrieve it via the `useIntlayer` hook and call it with a count. Here's an example:
-
-```vue fileName="**/*.vue"
-<script setup lang="ts">
-import { useIntlayer } from "vue-intlayer";
-
-defineProps<{ count: number }>();
-
-const { totalOpenings } = useIntlayer("total_openings");
-</script>
-
-<template>
-  <div>
-    <p>{{ totalOpenings(count) }}</p>
-  </div>
-</template>
-```
-
-  </Tab>
-  <Tab label="Svelte" value="svelte">
-
-To use plural content in Svelte components, retrieve it via the `useIntlayer` hook and call it with a count. The store is accessed with `$`. Here's an example:
-
-```svelte fileName="**/*.svelte"
-<script lang="ts">
-import { useIntlayer } from "svelte-intlayer";
-
-export let count: number;
-
-const content = useIntlayer("total_openings");
-</script>
-
-<div>
-  <p>{$content.totalOpenings(count)}</p>
-</div>
-```
-
-  </Tab>
-  <Tab label="Preact" value="preact">
-
-To use plural content in Preact components, retrieve it via the `useIntlayer` hook and call it with a count. Here's an example:
-
-```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
-import type { FC } from "preact";
-import { useIntlayer } from "preact-intlayer";
-
-const OpeningsComponent: FC<{ count: number }> = ({ count }) => {
-  const { totalOpenings } = useIntlayer("total_openings");
-
-  return (
-    <div>
-      <p>{totalOpenings(count)}</p>
-    </div>
-  );
-};
-
-export default OpeningsComponent;
-```
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-To use plural content in SolidJS components, retrieve it via the `useIntlayer` hook and call it with a count. Here's an example:
-
-```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
-import type { Component } from "solid-js";
-import { useIntlayer } from "solid-intlayer";
-
-const OpeningsComponent: Component<{ count: number }> = (props) => {
-  const { totalOpenings } = useIntlayer("total_openings");
-
-  return (
-    <div>
-      <p>{totalOpenings(props.count)}</p>
-    </div>
-  );
-};
-
-export default OpeningsComponent;
-```
-
-  </Tab>
-  <Tab label="Angular" value="angular">
-
-To use plural content in Angular components, retrieve it via the `useIntlayer` hook and call it with a count. Here's an example:
-
-```typescript fileName="app.component.ts" codeFormat="typescript"
-import { Component, Input } from "@angular/core";
-import { useIntlayer } from "angular-intlayer";
-
-@Component({
-  selector: "app-openings",
-  template: `
-    <div>
-      <p>{{ content().totalOpenings(count) }}</p>
-    </div>
-  `,
-})
-export class OpeningsComponent {
-  @Input() count!: number;
-
-  content = useIntlayer("total_openings");
-}
-```
-
-  </Tab>
-  <Tab label="Vanilla JS" value="vanilla">
-
-To use plural content with `vanilla-intlayer`, retrieve it via the `useIntlayer` hook and call it with a count. Here's an example:
-
-```typescript fileName="**/*.ts" codeFormat={["typescript", "esm"]}
-import { installIntlayer, useIntlayer } from "vanilla-intlayer";
-
-installIntlayer();
-
-const content = useIntlayer("total_openings").onChange((newContent) => {
-  document.getElementById("openings")!.textContent =
-    newContent.totalOpenings(5);
-});
-
-// Initial render
-document.getElementById("openings")!.textContent = content.totalOpenings(5);
-```
-
-  </Tab>
-</Tabs>
 
 ## 複数形コンテンツのセットアップ
 
@@ -269,6 +97,31 @@ export default openingsContent;
 
 ## React Intlayer で複数形コンテンツを使用する
 
+<Tabs group="framework">
+  <Tab label="React" value="react">
+
+React コンポーネント内で複数形のコンテンツを使用するには、`useIntlayer` フックを介して取得し、count を指定して呼び出します。アクティブなロケールと count を組み合わせて、一致する CLDR カテゴリを選択します。
+
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
+import type { FC } from "react";
+import { useIntlayer } from "react-intlayer";
+
+const OpeningsComponent: FC<{ count: number }> = ({ count }) => {
+  const { totalOpenings } = useIntlayer("total_openings");
+
+  return (
+    <div>
+      <p>{totalOpenings(count)}</p>
+    </div>
+  );
+};
+
+export default OpeningsComponent;
+```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+
 Reactコンポーネント内で複数形コンテンツを使用するには、`useIntlayer` フック経由で取得し、カウント値を指定して呼び出します。アクティブなロケールとカウント値が組み合わされ、一致するCLDRカテゴリが選択されます。
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
@@ -296,10 +149,123 @@ export default OpeningsComponent;
 
 返された関数は、次の2つの等価な方法で呼び出すことができます。
 
+Vue コンポーネントで複数形のコンテンツを使用するには、`useIntlayer` フックを使用して取得し、count を指定して呼び出します。以下は例です:
+
+```vue fileName="**/*.vue"
+<script setup lang="ts">
+import { useIntlayer } from "vue-intlayer";
+
+defineProps<{ count: number }>();
+
+const { totalOpenings } = useIntlayer("total_openings");
+</script>
+
+<template>
+  <div>
+    <p>{{ totalOpenings(count) }}</p>
+  </div>
+</template>
+```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+Svelte コンポーネントで複数形のコンテンツを使用するには、`useIntlayer` フックを介して取得し、count で呼び出します。ストアは `$` でアクセスされます。以下が例です:
+
+```svelte fileName="**/*.svelte"
+<script lang="ts">
+import { useIntlayer } from "svelte-intlayer";
+
+export let count: number;
+
+const content = useIntlayer("total_openings");
+</script>
+
+<div>
+  <p>{$content.totalOpenings(count)}</p>
+</div>
+```
+
+  </Tab>
+  <Tab label="Preact" value="preact">
+
+Preact コンポーネントで複数形のコンテンツを使用するには、`useIntlayer` フックで取得し、count を指定して呼び出します。以下に例を示します:
+
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
+import type { FC } from "preact";
+import { useIntlayer } from "preact-intlayer";
+
+const OpeningsComponent: FC<{ count: number }> = ({ count }) => {
+  const { totalOpenings } = useIntlayer("total_openings");
+
+  return (
+    <div>
+      <p>{totalOpenings(count)}</p>
+    </div>
+  );
+};
+
+export default OpeningsComponent;
+```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+SolidJS コンポーネントで複数形のコンテンツを使用するには、`useIntlayer` フックを通じて取得し、カウント付きで呼び出します。以下は例です:
+
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
+import type { Component } from "solid-js";
+import { useIntlayer } from "solid-intlayer";
+
+const OpeningsComponent: Component<{ count: number }> = (props) => {
+  const { totalOpenings } = useIntlayer("total_openings");
+
+  return (
+    <div>
+      <p>{totalOpenings(props.count)}</p>
+    </div>
+  );
+};
+
+export default OpeningsComponent;
+```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+
+Angular コンポーネントで複数形のコンテンツを使用するには、`useIntlayer` フックを使用して取得し、カウント付きで呼び出します。次に例を示します：
+
+```typescript fileName="app.component.ts" codeFormat="typescript"
+import { Component, Input } from "@angular/core";
+import { useIntlayer } from "angular-intlayer";
+
+@Component({
+  selector: "app-openings",
+  template: `
+    <div>
+      <p>{{ content().totalOpenings(count) }}</p>
+    </div>
+  `,
+})
+export class OpeningsComponent {
+  @Input() count!: number;
+
+  content = useIntlayer("total_openings");
+}
+```
+
+  </Tab>
+  <Tab label="Vanilla JS" value="vanilla">
+
+`vanilla-intlayer`で複数形コンテンツを使用するには、`useIntlayer`フックを使用して取得し、countを指定して呼び出します。以下は例です:
+
 ```tsx
 totalOpenings(21); // 短縮形: カウントのみ
 totalOpenings({ count: 21 }); // 明示的な形式
 ```
+
+  </Tab>
+</Tabs>
 
 ## カスタムプレースホルダー
 

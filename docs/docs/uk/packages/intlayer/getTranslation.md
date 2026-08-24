@@ -31,6 +31,8 @@ author: aymericzip
 
 Функція `getTranslationContent` отримує вміст, що відповідає певній локалі, із набору налаштовуваного мовного вмісту. Якщо вказаної локалі не знайдено, вона за замовчуванням повертає вміст для локалі за замовчуванням, налаштованої в проєкті.
 
+Для більш детальної інформації про те, як оголошувати переклади, див. [документацію Translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/translation.md).
+
 ## Параметри
 
 - `languageContent: CustomizableLanguageContent<Content>`

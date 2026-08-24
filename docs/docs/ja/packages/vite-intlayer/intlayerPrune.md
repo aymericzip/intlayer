@@ -28,6 +28,8 @@ author: aymericzip
 
 `intlayerPrune` Vite プラグインは、アプリケーションのバンドルから未使用の辞書をツリーシェイクおよびプルーニングするために使用します。これにより、必要な多言語コンテンツのみを含めることで、最終的なバンドルサイズを削減できます。
 
+> このプラグインは [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/vite-intlayer/intlayer.md) を使用する際に、自動的に含まれ設定されます。プラグインスタックを自分で構成する場合にのみ、手動で登録する必要があります。
+
 ## 使用法
 
 ### `intlayer()` の一部として（推奨）

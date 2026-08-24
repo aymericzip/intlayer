@@ -248,7 +248,7 @@ Para garantir que a barra de endereço do navegador reflita sempre a URL localiz
 
 <Tabs group='framework'>
   <Tab label="Next.js" value="nextjs">
-  
+
     ```tsx
     'use client';
 
@@ -263,7 +263,7 @@ Para garantir que a barra de endereço do navegador reflita sempre a URL localiz
   </Tab>
 
   <Tab label="React Router" value="reactrouter">
-  
+
     ```tsx
     'use client';
 
@@ -279,7 +279,7 @@ Para garantir que a barra de endereço do navegador reflita sempre a URL localiz
   </Tab>
 
   <Tab label="Vue" value="vue">
-  
+
     ```vue
     <script setup>
     import { useRewriteURL } from "vue-intlayer";
@@ -291,7 +291,7 @@ Para garantir que a barra de endereço do navegador reflita sempre a URL localiz
 
   </Tab>
   <Tab label="Solid" value="solid">
-  
+
     ```tsx
     import { useRewriteURL } from "solid-intlayer";
 
@@ -303,7 +303,7 @@ Para garantir que a barra de endereço do navegador reflita sempre a URL localiz
 
   </Tab>
   <Tab label="Svelte" value="svelte">
-  
+
     ```svelte
     <script>
     import { useRewriteURL } from "svelte-intlayer";
@@ -339,6 +339,8 @@ export function middleware(request: NextRequest) {
 ### Integração com Vite
 
 Para SolidJS, Vue e Svelte, o plugin Vite `intlayerProxy` gerencia as reescritas durante o desenvolvimento.
+
+> Desde Intlayer v9, `intlayerProxy()` é agrupado diretamente no plugin `intlayer()` e ativado por padrão através da opção `routing.enableProxy` (`true` por padrão). Registrá-lo separadamente como mostrado abaixo agora é opcional — é mantido para compatibilidade retroativa e para configurações que precisam controlar a ordem dos plugins. Defina `routing.enableProxy: false` para desativar. Consulte as [notas de versão v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/releases/v9.md).
 
 ```typescript fileName="vite.config.ts"
 import { defineConfig } from "vite";

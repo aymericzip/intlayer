@@ -267,46 +267,6 @@ const helloWorldContent = {
 export default helloWorldContent;
 ```
 
-```javascript fileName="src/helloWorld.content.cjs" codeFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const appContent = {
-  key: "helloworld",
-  content: {
-    count: t({ en: "count is ", fr: "le compte est ", es: "el recuento es " }),
-    edit: t({
-      en: "Edit <code>components/HelloWorld.vue</code> and save to test HMR",
-      fr: "Éditez <code>components/HelloWorld.vue</code> et enregistrez pour tester HMR",
-      es: "Edita <code>components/HelloWorld.vue</code> y guarda para probar HMR",
-    }),
-    checkOut: t({ en: "Check out ", fr: "Vérifiez ", es: "Compruebe " }),
-    officialStarter: t({
-      en: "the official Vue + Vite starter",
-      fr: "le starter officiel Vue + Vite",
-      es: "el starter oficial Vue + Vite",
-    }),
-    learnMore: t({
-      en: "Learn more about IDE Support for Vue in the ",
-      fr: "En savoir plus sur le support IDE pour Vue dans le ",
-      es: "Aprenda más sobre el soporte IDE para Vue en el ",
-    }),
-    vueDocs: t({
-      en: "Vue Docs Scaling up Guide",
-      fr: "Vue Docs Scaling up Guide",
-      es: "Vue Docs Scaling up Guide",
-    }),
-    readTheDocs: t({
-      en: "Click on the Vite and Vue logos to learn more",
-      fr: "Cliquez sur les logos Vite et Vue pour en savoir plus",
-      es: "Haga clic en los logotipos de Vite y Vue para obtener más información",
-    }),
-  },
-};
-
-module.exports = appContent;
-```
-
 ```json fileName="src/helloWorld.content.json" contentDeclarationFormat="json"
 {
   "$schema": "https://intlayer.org/schema.json",
@@ -397,6 +357,13 @@ app.use(intlayer);
 app.mount("#app");
 ```
 
+> Ayrıca, isterseniz `installIntlayer(app)` işlevini doğrudan bir işlev olarak çağırabilirsiniz:
+>
+> ```javascript
+> import { intlayer } from "vue-intlayer";
+> app.use(intlayer);
+> ```
+
 İçerik sözlüklerinize uygulamanız boyunca erişin ve `useIntlayer` composables kullanarak bir ana Vue bileşeni oluşturun:
 
 ```vue fileName="src/HelloWord.vue"
@@ -450,6 +417,8 @@ const countRef = ref(0);
 </template>
 ```
 
+> Uygulamanız zaten mevcutsa, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md) ve [extract command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/extract.md) kullanarak binlerce bileşeni saniyeler içinde dönüştürebilirsiniz.
+
 #### Intlayer'da İçeriğe Erişim
 
 Intlayer, içeriğinize erişmek için farklı API'ler sunar:
@@ -467,8 +436,6 @@ Intlayer, içeriğinize erişmek için farklı API'ler sunar:
   `useIntlayer` composable, içeriği erişirken reaktifliği koruyan bir Proxy döndürür.
   - `const content = useIntlayer("myContent");` Ve `{{ content.myContent }}` / `<content.myContent />` kullanın.
   - Veya `const { myContent } = useIntlayer("myContent");` Ve `{{ myContent}}` / `<myContent/>` kullanarak içeriği yıkın.
-
-> Eğer uygulamanız zaten mevcutsa, binlerce bileşeni bir saniye içinde dönüştürmek için [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md)'ı [extract komutu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/extract.md) ile birlikte kullanabilirsiniz.
 
 </Step>
 
@@ -545,6 +512,8 @@ const content = useIntlayer("app"); // İlgili intlayer bildirim dosyası oluşt
 
 Vue uygulamasında yerelleştirilmiş yönlendirme eklemek genellikle yerel ayar önekleriyle Vue Router kullanmayı içerir. Bu, her dil için benzersiz rotalar oluşturur, SEO ve SEO dostu URL'ler için kullanışlıdır.
 Örnek:
+
+Please provide:
 
 ```plaintext
 - https://example.com/about
@@ -657,6 +626,8 @@ import LocaleSwitcher from "@components/LocaleSwitcher.vue";
 Paralel olarak, uygulamanıza sunucu tarafı yönlendirme eklemek için `intlayerProxy`'i de kullanabilirsiniz. Bu eklenti, URL'ye göre geçerli yerel ayarı otomatik olarak algılar ve uygun yerel ayar çerezini ayarlar. Hiç yerel ayar belirtilmezse, eklenti kullanıcının tarayıcı dil tercihlerine göre en uygun yerel ayarı belirler. Hiç yerel ayar algılanmazsa, varsayılan yerel ayara yönlendirir.
 
 > Not: Üretimde `intlayerProxy`'i kullanmak için `vite-intlayer` paketini `devDependencies`'den `dependencies`'e taşımalısınız.
+
+> Intlayer v9 sürümünden itibaren, `intlayerProxy()` doğrudan `intlayer()` eklentisine paketlenmiş ve `routing.enableProxy` seçeneği (`true` varsayılan olarak) aracılığıyla varsayılan olarak etkinleştirilmiştir. Aşağıda gösterildiği gibi ayrı olarak kaydettirmek artık isteğe bağlıdır — geriye uyumluluk ve eklenti sırasını kontrol etmesi gereken kurulumlar için tutulmuştur. Devre dışı bırakmak için `routing.enableProxy: false` olarak ayarlayın. [v9 sürüm notlarına](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/releases/v9.md) bakın.
 
 ```typescript {3,7} fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
@@ -1158,3 +1129,5 @@ Uzantının nasıl kullanılacağı hakkında daha fazla ayrıntı için [Intlay
 ### Daha Fazla İlerle
 
 Daha ileri gitmek için [görsel düzenleyiciyi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) uygulayabilir veya içeriğinizi [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) kullanarak dışa aktarabilirsiniz.
+
+Once you provide these blocks with their content, I'll perform the audit and return the fully updated Turkish translation following all the instructions you've outlined.---

@@ -45,8 +45,6 @@ Para mais detalhes sobre como integrar o Intlayer, consulte a seção relevante 
 
 ### Integração com Next.js
 
-///chunkStart### Integração com Next.js
-
 Para integração com Next.js, consulte o [guia de configuração](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_with_nextjs_15.md).
 
 ### Integração com Create React App
@@ -85,6 +83,16 @@ pnpm add intlayer-editor --save-dev
 
 ```bash packageManager="bun"
 bun add intlayer-editor --dev
+```
+
+Com a flag `--with`, você pode iniciar o editor em paralelo com outro comando:
+
+```json5 fileName="package.json"
+{
+  "scripts": {
+    "start:editor": "npx intlayer-editor start --with 'next dev --turbopack'",
+  },
+}
 ```
 
 ## Configuração
@@ -147,6 +155,8 @@ export default config;
    ```
 
    > **Observe que você deve executar sua aplicação em paralelo.** A URL da aplicação deve corresponder à que você configurou no editor (`applicationURL`).
+
+> **Nota que o comando é reexportado pelo pacote `intlayer`. Você pode usar `npx intlayer editor start` em vez disso.**
 
 2. Em seguida, abra a URL fornecida. Por padrão `http://localhost:8000`.
 

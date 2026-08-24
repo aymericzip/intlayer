@@ -31,6 +31,14 @@ author: aymericzip
 
 # Translate your Create React App website using Intlayer | Internationalization (i18n)
 
+<iframe
+  src="https://ide.intlayer.org/aymericzip/intlayer-react-cra-template?file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - How to Internationalise your application using Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
 See [Application Template](https://github.com/aymericzip/intlayer-react-cra-template) on GitHub.
 
 ## Why Intlayer over alternatives?
@@ -138,32 +146,6 @@ bun add intlayer react-intlayer react-scripts-intlayer
 
 - **react-scripts-intlayer**
 
-Includes the `react-scripts-intlayer` commands and plugins for integrating Intlayer with the Create React App based application. These plugins are based on [craco](https://craco.js.org/) and include additional configuration for the [Webpack](https://webpack.js.org/) bundler.
-
-</Step>
-
-<Step number={2} title="Configuration of your project">
-
-Create a config file to configure the languages of your application:
-
-```typescript fileName="intlayer.config.ts"  codeFormat="typescript"
-import { Locales, type IntlayerConfig } from "intlayer";
-
-const config: IntlayerConfig = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // Your other locales
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
 Includes the`react-scripts-intlayer` commands and plugins for integrating Intlayer with the Create React App based application. These plugins are based on [craco](https://craco.js.org/) and include additional configuration for the [Webpack](https://webpack.js.org/) bundler.
 
 </Step>
@@ -188,22 +170,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-> Through this configuration file, you can set up localised URLs, middleware redirection, cookie names, the location and extension of your content declarations, disable Intlayer logs in the console, and more. For a complete list of available parameters, refer to the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md).
-
-</Step>
-
-<Step number={3} title="Integrate Intlayer in Your CRA Configuration">
-
-Change your scripts to use react-intlayer
-
-```json fileName="package.json"
-  "scripts": {
-    "build": "react-scripts-intlayer build",
-    "start": "react-scripts-intlayer start",
-    "transpile": "intlayer build"
-  },
 ```
 
 > Through this configuration file, you can set up localised URLs, middleware redirection, cookie names, the location and extension of your content declarations, disable Intlayer logs in the console, and more. For a complete list of available parameters, refer to the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md).
@@ -326,27 +292,6 @@ export default App;
 >
 > To learn more about the `useIntlayer` hook, refer to the [documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/react-intlayer/useIntlayer.md).
 
-</Step>
-
-<Step number={6} title="Change the language of your content" isOptional={true}>
-
-To change the language of your content, you can use the `setLocale` function provided by the `useLocale` hook. This function allows you to set the locale of the application and update the content accordingly.
-
-```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
-import { Locales } from "intlayer";
-import { useLocale } from "react-intlayer";
-
-const LocaleSwitcher = () => {
-  const { setLocale } = useLocale();
-
-  return (
-    <button onClick={() => setLocale(Locales.English)}>
-      Change Language to English
-    </button>
-  );
-};
-```
-
 > To Learn more about the `useIntlayer` hook, refer to the [documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/react-intlayer/useIntlayer.md).
 
 </Step>
@@ -368,21 +313,6 @@ const LocaleSwitcher = () => {
     </button>
   );
 };
-```
-
-> To Learn more about the `useLocale` hook, refer to the [documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/react-intlayer/useLocale.md).
-
-</Step>
-
-<Step number={7} title="Add localised Routing to your application" isOptional={true}>
-
-The purpose of this step is to make unique routes for each language. This is useful for SEO and SEO-friendly URLs.
-Example:
-
-```plaintext
-- https://example.com/about
-- https://example.com/es/about
-- https://example.com/fr/about
 ```
 
 > To learn more about the `useLocale` hook, refer to the [documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/react-intlayer/useLocale.md).
@@ -724,6 +654,8 @@ To do this, you can add the following instructions to your `.gitignore` file:
 ```
 
 ### VS Code Extension
+
+To improve your development experience with Intlayer, you can install the official **Intlayer VS Code Extension**.
 
 To improve your development experience with Intlayer, you can install the official **Intlayer VS Code Extension**.
 [Install from the VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)

@@ -507,9 +507,9 @@ Intlayer와 함께 개발 경험을 향상시키기 위해 공식 **Intlayer VS 
 
 ### Debug
 
-React Native은 React Web보다 덜 안정적일 수 있으므로 버전 정렬에 각별히 주의하십시오.
-
 Intlayer는 주로 Web Intl API를 대상으로 하며, React Native에서는 적절한 폴리필을 포함해야 합니다.
+
+Intlayer는 주로 Web Intl API를 대상으로 합니다. React Native에서는 적절한 polyfills을 포함해야 합니다.
 
 체크리스트:
 

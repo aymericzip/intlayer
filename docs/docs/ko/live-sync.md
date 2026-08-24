@@ -42,8 +42,6 @@ author: aymericzip
 
 ## 라이브 동기화 활성화
 
-> Live Sync는 지속적인 서버 연결이 필요하며 엔터프라이즈 플랜에서만 사용할 수 있습니다.
-
 Intlayer 구성을 업데이트하여 Live Sync를 활성화하세요:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}

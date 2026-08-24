@@ -40,6 +40,12 @@ author: aymericzip
 
 ## Neden Intlayer Compiler Kullanmalısınız?
 
+- **Otomasyon**: Sözlüklere içerik el ile kopyalayıp yapıştırma işlemini ortadan kaldırır.
+
+- **Hız**: Optimize edilmiş içerik çıkarma, yapı işleminizin hızlı kalmasını sağlar.
+
+- **Developer Experience**: İçerik deklarasyonlarını kullanıldıkları yerde tutun, bakımı iyileştirin.
+
 - **Otomasyon**: İçeriğin sözlüklere manuel olarak kopyalanıp yapıştırılmasını ortadan kaldırır.
 - **Hız**: Derleme sürecinizin hızlı kalmasını sağlayan optimize edilmiş içerik çıkarımı.
 - **Geliştirici Deneyimi**: İçerik bildirimlerini kullanıldıkları yerde tutarak bakım kolaylığı sağlar.
@@ -53,6 +59,8 @@ Derleyici mükemmel bir "hemen çalışır" deneyimi sunarken, aynı zamanda far
 
 - **Sezgisel belirsizlik**: Derleyici, kullanıcıya yönelik içerik ile uygulama mantığı arasındaki farkı tahmin etmek zorundadır (örneğin, `className="active"`, durum kodları, ürün kimlikleri). Karmaşık kod tabanlarında, bu manuel açıklamalar ve istisnalar gerektiren yanlış pozitifler veya kaçırılan dizelerle sonuçlanabilir.
 - **Yalnızca statik çıkarım**: Derleyici tabanlı çıkarım statik analize dayanır. Yalnızca çalışma zamanında var olan dizeler (API hata kodları, CMS alanları vb.) derleyici tarafından tek başına keşfedilemez veya çevrilemez, bu nedenle hala tamamlayıcı bir çalışma zamanı i18n stratejisine ihtiyacınız vardır.
+
+- **Sadece statik çıkarma**: Derleyici tabanlı çıkarma, statik analize dayanır. Yalnızca çalışma zamanında var olan dizeler (API hata kodları, CMS alanları, vb.) derleyici tarafından tek başına keşfedilemez veya çevrilemez, bu nedenle yine de tamamlayıcı bir çalışma zamanı i18n stratejisine ihtiyacınız vardır.
 
 Daha derin bir mimari karşılaştırma için [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/compiler_vs_declarative_i18n.md) blog yazısına bakın.
 
@@ -94,6 +102,8 @@ export default defineConfig({
 });
 ```
 
+> Bağımsız `intlayerCompiler()` eklentisi, gelişmiş kurulumlar için hala dışa aktarılmaktadır. `intlayer()` ile birlikte kaydetmek güvenlidir — derleyici kendisini çoğaltmaz ve yalnızca bir kez çalışır.
+
 See complete tutorial: [Intlayer Compiler with Vite+React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react_compiler.md)
 
 #### Framework Desteği
@@ -102,6 +112,10 @@ Vite eklentisi farklı dosya türlerini otomatik olarak algılar ve işler:
 
 - **React / JSX / TSX**: Yerel olarak desteklenir.
 - **Vue**: `@intlayer/vue-compiler` gerektirir.
+- **Svelte**: `@intlayer/svelte-compiler` gerektirir.
+
+- **Vue**: `@intlayer/vue-compiler` gerektirir.
+
 - **Svelte**: `@intlayer/svelte-compiler` gerektirir.
 
 Framework'ünüz için uygun derleyici paketini kurduğunuzdan emin olun:

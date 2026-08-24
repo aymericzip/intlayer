@@ -104,6 +104,8 @@ const LocaleSwitcher: FC = () => {
 
 ## रिटर्न मान
 
+जब आप `useLocale` hook को invoke करते हैं, तो यह निम्नलिखित properties वाली एक object return करता है:
+
 - **`locale`**: वर्तमान स्थानीय जो React संदर्भ में सेट किया गया है।
 - **`defaultLocale`**: कॉन्फ़िगरेशन में परिभाषित प्राथमिक स्थानीय।
 - **`availableLocales`**: कॉन्फ़िगरेशन में परिभाषित सभी उपलब्ध स्थानीययों की सूची।

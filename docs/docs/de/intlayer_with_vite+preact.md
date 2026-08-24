@@ -61,10 +61,6 @@ author: aymericzip
   </Tab>
 </Tabs>
 
-> Dieses Paket befindet sich in der Entwicklung. Weitere Informationen finden Sie im [Issue](https://github.com/aymericzip/intlayer/issues/118). Zeigen Sie Ihr Interesse an Intlayer für Preact, indem Sie das Issue liken.
-
-Siehe [Anwendungsvorlage](https://github.com/aymericzip/intlayer-vite-preact-template) auf GitHub.
-
 ## Inhaltsverzeichnis
 
 <TOC/>
@@ -592,6 +588,8 @@ export default LocaleSwitcher;
 >
 > > - [`useLocale` Hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/react-intlayer/useLocale.md) (API ist ähnlich für `preact-intlayer`)> - [`getLocaleName` Hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/intlayer/getLocaleName.md)> - [`getLocalizedUrl` Hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/intlayer/getLocalizedUrl.md)> - [`getHTMLTextDir` Hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/intlayer/getHTMLTextDir.md)> - [`hreflang` Attribut](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=de)> - [`lang` Attribut](https://developer.mozilla.org/de/docs/Web/HTML/Global_attributes/lang)> - [`dir` Attribut](https://developer.mozilla.org/de/docs/Web/HTML/Global_attributes/dir)> - [`aria-current` Attribut](https://developer.mozilla.org/de/docs/Web/Accessibility/ARIA/Attributes/aria-current)> - [Popover API](https://developer.mozilla.org/de/docs/Web/API/Popover_API)
 
+---
+
 </Step>
 
 <Step number={9} title="Wechseln der HTML-Sprach- und Richtungsattribute" isOptional={true}>
@@ -660,6 +658,12 @@ const App: FunctionalComponent = () => (
 
 export default App;
 ```
+
+Durch die Anwendung dieser Änderungen wird Ihre Anwendung:
+
+- Stellen Sie sicher, dass das **language**-Attribut (`lang`) das aktuelle Locale korrekt widerspiegelt, was für SEO und das Browserverhalten wichtig ist.
+- Passen Sie die **text direction** (`dir`) gemäß dem Locale an, um die Lesbarkeit und Benutzerfreundlichkeit für Sprachen mit unterschiedlichen Leserichtungen zu verbessern.
+- Bieten Sie ein **barrierefreiereres** Erlebnis, da Hilfstechnologien für optimale Funktionalität auf diese Attribute angewiesen sind.
 
 </Step>
 

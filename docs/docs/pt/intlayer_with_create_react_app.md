@@ -31,18 +31,69 @@ author: aymericzip
 
 # Traduza seu Create React App com Intlayer | Internacionalização (i18n)
 
+<iframe
+  src="https://ide.intlayer.org/aymericzip/intlayer-react-cra-template?file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - Como Internacionalizar sua aplicação usando Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
 Consulte [Application Template](https://github.com/aymericzip/intlayer-react-cra-template) no GitHub.
 
 ## O que é Intlayer?
 
+Em comparação com soluções principais como `react-i18next` ou `i18next`, Intlayer é uma solução que vem com otimizações integradas, tais como:
+
+<AccordionGroup>
+
+<Accordion header="Cobertura completa do React">
+
 **Intlayer** é uma biblioteca inovadora e de código aberto para internacionalização (i18n), projetada para simplificar o suporte multilíngue em aplicações web modernas.
 
+</Accordion>
+
 Com o Intlayer, você pode:
+
+Em vez de carregar ficheiros JSON massivos nas suas páginas, carregue apenas o conteúdo necessário. O Intlayer ajuda a **reduzir o tamanho do seu bundle e das páginas em até 50%**.
+
+</Accordion>
+
+<Accordion header="Manutenibilidade">
 
 - **Gerenciar traduções facilmente** usando dicionários declarativos no nível do componente.
 - **Localizar dinamicamente metadados**, rotas e conteúdo.
 - **Garantir suporte ao TypeScript** com tipos autogerados, melhorando a autocompletação e a detecção de erros.
 - **Aproveitar recursos avançados**, como detecção dinâmica de localidade e troca de idiomas.
+
+</Accordion>
+
+<Accordion header="AI Agent">
+
+Co-locating content **reduz o contexto necessário** por Large Language Models (LLMs). Intlayer também vem com uma suite de ferramentas, como uma **CLI** para testar traduções ausentes,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/mcp_server.md)**, e **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/agent_skills.md)**, para tornar a experiência do desenvolvedor (DX) ainda mais suave para agentes de IA.
+
+</Accordion>
+
+<Accordion header="Automação">
+
+Use automation para traduzir no seu pipeline CI/CD usando o LLM da sua escolha ao custo do seu provedor de IA. Intlayer também oferece um **compiler** para automatizar a extração de conteúdo, bem como uma [plataforma web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md) para ajudar a **traduzir em background**.
+
+</Accordion>
+
+<Accordion header="Performance">
+
+Conectar arquivos JSON massivos a componentes pode levar a problemas de desempenho e reatividade. Intlayer otimiza o carregamento de seu conteúdo no tempo de build.
+
+</Accordion>
+
+<Accordion header="Dimensionamento com none-dev">
+
+Muito mais do que uma solução i18n, o Intlayer fornece um **[editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md) auto-hospedado** e um **[CMS completo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md)** para ajudá-lo a gerenciar seu conteúdo multilíngue em **tempo real**, tornando a colaboração com tradutores, redatores e outros membros da equipe perfeita. O conteúdo pode ser armazenado localmente e/ou remotamente.
+
+</Accordion>
+</AccordionGroup>
+
+---
 
 ## Guia Passo a Passo para Configurar o Intlayer em uma Aplicação React
 
@@ -148,14 +199,6 @@ Altere seus scripts para usar o react-intlayer
 
 Crie e gerencie suas declarações de conteúdo para armazenar traduções:
 
-> Os scripts `react-scripts-intlayer` são baseados no [CRACO](https://craco.js.org/). Você também pode implementar sua própria configuração baseada no plugin craco do intlayer. [Veja o exemplo aqui](https://github.com/aymericzip/intlayer/blob/main/examples/react-app/craco.config.js).
-
-</Step>
-
-<Step number={4} title="Declarar Seu Conteúdo">
-
-Crie e gerencie suas declarações de conteúdo para armazenar traduções:
-
 ```tsx fileName="src/app.content.tsx" codeFormat={["typescript", "esm"]}
 import { t, type Dictionary } from "intlayer";
 import React, { type ReactNode } from "react";
@@ -249,6 +292,8 @@ export default App;
 > <img src="{String(content.image.src)}" alt="{String(content.image)}" />
 > ```
 >
+> Para saber mais sobre o hook `useIntlayer`, consulte a [documentação](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/react-intlayer/useIntlayer.md).
+
 > Para saber mais sobre o hook `useIntlayer`, consulte a [documentação](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/react-intlayer/useIntlayer.md).
 
 </Step>
@@ -540,33 +585,6 @@ export const useI18nHTMLAttributes = () => {
 };
 ```
 
-```jsx fileName="src/hooks/useI18nHTMLAttributes.csx" codeFormat="commonjs"
-const { useEffect } = require("react");
-const { useLocale } = require("react-intlayer");
-const { getHTMLTextDir } = require("intlayer");
-
-/**
- * Atualiza os atributos `lang` e `dir` do elemento HTML <html> com base no idioma atual.
- * - `lang`: Informa navegadores e motores de busca sobre o idioma da página.
- * - `dir`: Garante a ordem de leitura correta (por exemplo, 'ltr' para inglês, 'rtl' para árabe).
- *
- * Essa atualização dinâmica é essencial para renderização de texto adequada, acessibilidade e SEO.
- */
-const useI18nHTMLAttributes = () => {
-  const { locale } = useLocale();
-
-  useEffect(() => {
-    // Atualiza o atributo de idioma para o idioma atual.
-    document.documentElement.lang = locale;
-
-    // Define a direção do texto com base no idioma atual.
-    document.documentElement.dir = getHTMLTextDir(locale);
-  }, [locale]);
-};
-
-module.exports = { useI18nHTMLAttributes };
-```
-
 #### Usando o Hook na Sua Aplicação
 
 Integre o hook no seu componente principal para que os atributos HTML sejam atualizados sempre que o idioma mudar:
@@ -634,6 +652,8 @@ Para fazer isso, você pode adicionar as seguintes instruções ao seu arquivo `
 ```
 
 ### Extensão VS Code
+
+Para melhorar sua experiência de desenvolvimento com Intlayer, você pode instalar a extensão oficial **Intlayer VS Code Extension**.
 
 Para melhorar sua experiência de desenvolvimento com o Intlayer, você pode instalar a **Extensão oficial do Intlayer para VS Code**.
 [Instale a partir do VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)

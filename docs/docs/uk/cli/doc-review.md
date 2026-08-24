@@ -91,7 +91,17 @@ bun x intlayer doc review
 
 - **`--log`**: Режим тільки логування. Не перекладати з допомогою AI; замість цього логувати блоки, які потребують уваги (з номерами рядків і вмістом) для базової та цільової локалей, щоб допомогти іншому агенту згенерувати переклади.
 
-  > Приклад: `npx intlayer doc review --log`
+Please provide:
+
+- The English source file content (BLOCK 1)
+- The Ukrainian translation to audit (BLOCK 2)
+- The mode you'd like me to use (`apply`, `report`, or `synthesis`)
+
+> Приклад: `npx intlayer doc review --mode report`
+
+> Приклад: `npx intlayer doc review --log`
+
+Незалежно від режиму, запуск завершується синтезом, який розраховує документи, вирівняні з їх базовим документом, та ті, які все ще мають блоки для редагування.
 
 **Параметри виводу записів:**
 

@@ -31,6 +31,8 @@ author: aymericzip
 
 The `getLocalizedPath` फ़ंक्शन एक कैनोनिकल पाथ (आंतरिक एप्लिकेशन पाथ) को दिए गए locale और rewrite नियमों के आधार पर उसके लोकलाइज़्ड समतुल्य में resolve करता है। यह विशेष रूप से उन SEO-friendly URLs को जनरेट करने के लिए उपयोगी है जो भाषा के अनुसार बदलते हैं।
 
+यह [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getLocalizedUrl.md) का सापेक्ष समकक्ष है — एक सापेक्ष इनपुट के लिए दोनों समान मान लौटाते हैं। `getLocalizedUrl` के विपरीत, यह कभी भी एक निरपेक्ष URL नहीं लौटाता है: `domains` कॉन्फ़िगरेशन को अनदेखा किया जाता है, इसलिए एक लोकेल जो अपने स्वयं के डोमेन से परोसा जाता है फिर भी एक पथ प्राप्त करता है। एक निरपेक्ष इनपुट स्वीकार किया जाता है, लेकिन इसकी उत्पत्ति को छोड़ दिया जाता है — केवल इसका पथ, क्वेरी स्ट्रिंग और हैश रखे जाते हैं।
+
 **मुख्य विशेषताएँ:**
 
 - `[param]` सिंटैक्स का उपयोग करके डायनामिक रूट पैरामीटर का समर्थन करता है।
@@ -60,12 +62,16 @@ getLocalizedPath(
   - **प्रकार**: `string`
   - **आवश्यक**: हाँ
 
-- `locale: Locales`
-  - **विवरण**: वह लक्षित locale जिसके लिए पथ स्थानीयकृत किया जाना चाहिए।
-  - **प्रकार**: `Locales`
-  - **आवश्यक**: हाँ
-
 ### वैकल्पिक पैरामीटर
+
+- `locale?: Locales`
+  - **Description**: वह target locale जिसके लिए path को localize किया जाना चाहिए।
+  - **Type**: `Locales`
+  - **Default**: आपकी project के configuration का default locale।
+
+- `options?: object`
+  - **Description**: Routing ओवरराइड्स। प्रत्येक entry आपके project के configuration पर default होता है।
+  - **Type**: `object`
 
 - `rewriteRules?: RoutingConfig['rewrite']`
   - **विवरण**: कस्टम rewrite नियमों को परिभाषित करने वाला एक ऑब्जेक्ट। यदि प्रदान नहीं किया गया है, तो यह आपके प्रोजेक्ट कॉन्फ़िगरेशन की `routing.rewrite` प्रॉपर्टी पर डिफॉल्ट होगा।
@@ -78,6 +84,28 @@ getLocalizedPath(
 
 - **प्रकार**: `string`
 - **विवरण**: निर्दिष्ट locale के लिए स्थानीयकृत पथ।
+
+प्रकार आपके कॉन्फ़िगरेशन में घोषित rewrite rules से narrow किया जाता है, इसलिए editor एक bare `string` के बजाय resolved path दिखाता है:
+
+```typescript codeFormat="typescript"
+// कॉन्फ़िगरेशन: मोड 'prefix-no-default', defaultLocale 'en',
+//                { '/about': { fr: '/a-propos' }, '/product/[id]': { fr: '/produit/[id]' } }
+const about = getLocalizedPath("/about", Locales.FRENCH);
+//    ^? '/fr/a-propos'
+const product = getLocalizedPath("/product/123", Locales.FRENCH);
+//    ^? '/fr/produit/123'
+const contact = getLocalizedPath("/contact", Locales.FRENCH);
+//    ^? '/fr/contact'  (कोई रीराइट नियम मेल नहीं खाता, केवल प्रीफिक्स लागू किया जाता है)
+const home = getLocalizedPath("/", Locales.FRENCH);
+//    ^? '/fr'
+```
+
+यही संकीर्णन [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getLocalizedUrl.md) में बहता है, जो locale को prefix करने से पहले rewrite rules को लागू करता है।
+
+दो मामले `string` तक विस्तृत रहते हैं, क्योंकि उन्हें compile time पर resolve नहीं किया जा सकता:
+
+- एक path जो string literal नहीं है (उदाहरण के लिए, एक variable से बनाई गई);
+- एक path जो multi-segment या optional parameter का उपयोग करते हुए एक rule से मेल खाती है (`[...slug]`, `[[...slug]]`, `:param?`)।
 
 ---
 
@@ -125,8 +153,6 @@ const manualRules = {
 getLocalizedPath("/contact", Locales.FRENCH, manualRules);
 // Output: "/contactez-nous"
 ```
-
----
 
 ### Locale को छोड़ना
 

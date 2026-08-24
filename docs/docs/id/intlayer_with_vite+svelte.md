@@ -455,6 +455,8 @@ Secara paralel, Anda juga dapat menggunakan `intlayerProxy` untuk menambahkan ro
 
 > Perlu diperhatikan bahwa untuk menggunakan `intlayerProxy` di produksi, Anda perlu memindahkan paket `vite-intlayer` dari `devDependencies` ke `dependencies`.
 
+> Sejak Intlayer v9, `intlayerProxy()` digabungkan langsung ke dalam plugin `intlayer()` dan diaktifkan secara default melalui opsi `routing.enableProxy` (`true` secara default). Mendaftarkannya secara terpisah seperti yang ditunjukkan di bawah ini sekarang bersifat opsional — ini disimpan untuk kompatibilitas backward dan untuk setup yang perlu mengontrol urutan plugin. Atur `routing.enableProxy: false` untuk opt out. Lihat [catatan rilis v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/releases/v9.md).
+
 ```typescript {3,7} fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
 import { svelte } from "@sveltejs/vite-plugin-svelte";
@@ -508,6 +510,29 @@ const changeLocale = (event: Event) => {
     {/each}
   </select>
 </div>
+```
+
+</Step>
+
+<Step number={9} title="Tautan Terlokalisasi" isOptional={true}>
+
+Untuk SEO, disarankan untuk mengawali routes Anda dengan locale (misalnya, `/about`, `/fr/about`).
+
+```svelte fileName="src/lib/components/Link.svelte"
+<script lang="ts">
+  import { getLocalizedUrl } from "intlayer";
+  import { useLocale } from "svelte-intlayer";
+
+  export let href = "";
+  const { locale } = useLocale();
+
+  // Helper untuk mengawali URL
+  $: localizedHref = getLocalizedUrl(href, $locale);
+</script>
+
+<a href={localizedHref}>
+  <slot />
+</a>
 ```
 
 </Step>
@@ -712,6 +737,8 @@ Ekstensi ini menyediakan:
 - **Tindakan cepat** untuk dengan mudah membuat dan memperbarui terjemahan.
 
 Untuk detail lebih lanjut tentang cara menggunakan ekstensi ini, lihat [dokumentasi Ekstensi VS Code Intlayer](https://intlayer.org/doc/vs-code-extension).
+
+---
 
 ### Melangkah Lebih Jauh
 

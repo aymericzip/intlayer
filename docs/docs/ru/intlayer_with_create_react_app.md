@@ -31,11 +31,33 @@ author: aymericzip
 
 # Переведите ваш Create React App с Intlayer | Интернационализация (i18n)
 
+<iframe
+  src="https://ide.intlayer.org/aymericzip/intlayer-react-cra-template?file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Демо CodeSandbox - Как интернационализировать ваше приложение с помощью Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
 Смотрите [Application Template](https://github.com/aymericzip/intlayer-react-cra-template) на GitHub.
 
 ## Что такое Intlayer?
 
+По сравнению с основными решениями, такими как `react-i18next` или `i18next`, Intlayer — это решение, которое поставляется со встроенными оптимизациями, такими как:
+
+<AccordionGroup>
+
+<Accordion header="Полное покрытие React">
+
 **Intlayer** - это инновационная, открытая библиотека интернационализации (i18n), созданная для упрощения поддержки многоязычности в современных веб-приложениях.
+
+</Accordion>
+
+<Accordion header="Размер пакета">
+
+Вместо загрузки больших JSON файлов на ваши страницы загружайте только необходимый контент. Intlayer помогает **сократить размер пакета и страниц на до 50%**.
+
+</Accordion>
 
 С помощью Intlayer вы можете:
 
@@ -43,6 +65,35 @@ author: aymericzip
 - **Динамически локализовать метаданные**, маршруты и контент.
 - **Обеспечить поддержку TypeScript** с автогенерируемыми типами, улучшая автозаполнение и обнаружение ошибок.
 - **Использовать расширенные функции**, такие как динамическое определение и переключение локали.
+
+</Accordion>
+
+<Accordion header="AI Agent">
+
+Совместное размещение контента **уменьшает контекст, требуемый** для больших языковых моделей (LLM). Intlayer также поставляется с набором инструментов, таких как **CLI** для проверки отсутствующих переводов, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/mcp_server.md)** и **[навыки агента](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/agent_skills.md)**, чтобы сделать опыт разработчика (DX) еще более гладким для AI-агентов.
+
+</Accordion>
+
+<Accordion header="Автоматизация">
+
+Используйте автоматизацию для перевода в вашем CI/CD pipeline, используя LLM по вашему выбору за счет вашего поставщика AI. Intlayer также предлагает **compiler** для автоматизации извлечения контента, а также [веб-платформу](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md) для помощи в **переводе в фоновом режиме**.
+
+</Accordion>
+
+<Accordion header="Производительность">
+
+Подключение больших JSON файлов к компонентам может привести к проблемам производительности и реактивности. Intlayer оптимизирует загрузку вашего контента во время сборки.
+
+</Accordion>
+
+<Accordion header="Масштабирование с none-dev">
+
+Intlayer — это не просто решение i18n, оно предоставляет **самостоятельно размещаемый [визуальный редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md)** и **[полнофункциональную CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md)** для управления многоязычным контентом в **режиме реального времени**, обеспечивая бесперебойное сотрудничество с переводчиками, копирайтерами и другими членами команды. Контент может храниться локально и/или удаленно.
+
+</Accordion>
+</AccordionGroup>
+
+---
 
 ## Пошаговое руководство по настройке Intlayer в React-приложении
 
@@ -239,38 +290,6 @@ const App: FC = () => (
 export default App;
 ```
 
-```jsx {3,6} fileName="src/App.csx" codeFormat="commonjs"
-require("./App.css");
-const logo = require("./logo.svg");
-const { IntlayerProvider, useIntlayer } = require("react-intlayer");
-
-const AppContent = () => {
-  const content = useIntlayer("app");
-
-  return (
-    <div className="App">
-      <img src={logo} className="App-logo" alt="логотип" />
-
-      {content.getStarted}
-      <a
-        className="App-link"
-        href={content.reactLink.href.value}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        {content.reactLink.content}
-      </a>
-    </div>
-  );
-};
-
-const App = () => (
-  <IntlayerProvider>
-    <AppContent />
-  </IntlayerProvider>
-);
-```
-
 > Примечание: если вы хотите использовать ваш контент в атрибуте `string`, таком как `alt`, `title`, `href`, `aria-label` и т.д., необходимо вызвать значение функции, например:
 
 > ```html
@@ -279,6 +298,8 @@ const App = () => (
 > <img src="{String(content.image.src)}" alt="{String(content.image)}" />
 > ```
 >
+> Чтобы узнать больше о хуке `useIntlayer`, обратитесь к [документации](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/react-intlayer/useIntlayer.md).
+
 > Чтобы узнать больше о хуке `useIntlayer`, обратитесь к [документации](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/react-intlayer/useIntlayer.md).
 
 </Step>
@@ -641,6 +662,8 @@ Intlayer использует расширение модулей (module augmen
 ```
 
 ### Расширение VS Code
+
+Чтобы улучшить опыт разработки с Intlayer, вы можете установить официальное **расширение Intlayer VS Code Extension**.
 
 Для улучшения вашего опыта разработки с Intlayer вы можете установить официальное **расширение Intlayer для VS Code**.
 [Установить из VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)

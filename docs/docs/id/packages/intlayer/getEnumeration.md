@@ -31,6 +31,8 @@ author: aymericzip
 
 Fungsi `getEnumeration` mengambil konten yang sesuai dengan kuantitas tertentu berdasarkan kondisi yang telah ditentukan dalam objek enumerasi. Kondisi-kondisi tersebut didefinisikan sebagai kunci, dan prioritasnya ditentukan oleh urutan mereka dalam objek.
 
+Untuk detail lebih lanjut tentang cara mendeklarasikan enumerasi, lihat [dokumentasi Enumeration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/enumeration.md).
+
 ## Parameter
 
 - `enumerationContent: QuantityContent<Content>`

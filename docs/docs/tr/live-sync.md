@@ -42,8 +42,6 @@ Canlı Senkronizasyon, uygulamanızın CMS içerik değişikliklerini çalışma
 
 ## Canlı senkronizasyonu etkinleştirme
 
-> Canlı Senkronizasyon sürekli bir sunucu bağlantısı gerektirir ve yalnızca enterprise planında kullanılabilir.
-
 Intlayer yapılandırmanızı güncelleyerek Canlı Senkronizasyonu etkinleştirin:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
@@ -83,6 +81,19 @@ export default config;
 ```
 
 Uygulamanızı sarmak için Live Sync sunucusunu başlatın:
+
+Standalone server kullanarak örnek:
+
+```json5 fileName="package.json"
+{
+  "scripts": {
+    // ... diğer scriptler
+    "live:start": "npx intlayer live",
+  },
+}
+```
+
+Ayrıca `--process` argümanını kullanarak uygulama sunucunuzu paralel olarak çalıştırabilirsiniz.
 
 Next.js kullanarak örnek:
 

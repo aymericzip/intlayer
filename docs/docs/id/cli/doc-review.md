@@ -91,7 +91,17 @@ Untuk sebagian besar kasus penggunaan,
 
 - **`--log`**: Mode hanya log. Jangan menerjemahkan dengan AI; alih-alih log blok yang memerlukan perhatian (dengan nomor baris dan konten) untuk lokal dasar dan target, untuk membantu agen lain menghasilkan terjemahan.
 
-  > Contoh: `npx intlayer doc review --log`
+Silakan berikan:
+
+- ✅ Konten bahasa Inggris (BLOCK 1 of 3)
+- ✅ Konten bahasa Indonesia saat ini (BLOCK 2 of 3)
+- ✅ Mode operasi yang diinginkan (`apply`, `report`, atau `synthesis`)
+
+> Contoh: `npx intlayer doc review --mode report`
+
+> Contoh: `npx intlayer doc review --log`
+
+Apa pun modusnya, proses run berakhir dengan sintesis yang mencantumkan dokumen yang selaras dengan dokumen dasarnya dan dokumen yang masih memiliki blok untuk diedit.
 
 **Opsi output entri:**
 

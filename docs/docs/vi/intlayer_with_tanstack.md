@@ -317,14 +317,6 @@ function RootDocument({ children }: { children: ReactNode }) {
 }
 ```
 
-> Nếu bạn muốn sử dụng nội dung của mình trong một thuộc tính `string`, như `alt`, `title`, `href`, `aria-label`, v.v., bạn phải gọi giá trị của hàm, ví dụ:
-
-> ```html
-> <img src="{content.image.src.value}" alt="{content.image.value}" />
-> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
-> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
-> ```
-
 </Step>
 
 <Step number={6} title="Tạo Layout Locale">
@@ -560,6 +552,14 @@ function RouteComponent() {
 }
 ```
 
+> Nếu bạn muốn sử dụng nội dung của bạn trong một thuộc tính `string`, chẳng hạn như `alt`, `title`, `href`, `aria-label`, v.v., bạn có thể sử dụng giá trị của hàm, như:
+>
+> ```html
+> <img src="{content.image.src.value}" alt="{content.image.value}" />
+> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
+> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
+> ```
+
 > Để tìm hiểu thêm về hook `useIntlayer`, hãy tham khảo [tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/react-intlayer/useIntlayer.md).
 
 </Step>
@@ -654,6 +654,8 @@ Bạn cũng có thể sử dụng `intlayerProxy` để thêm routing phía serv
 
 > Lưu ý rằng để sử dụng `intlayerProxy` trong môi trường production, bạn cần chuyển gói `vite-intlayer` từ `devDependencies` sang `dependencies`.
 
+> Kể từ Intlayer v9, `intlayerProxy()` được tích hợp trực tiếp vào plugin `intlayer()` và được bật mặc định thông qua tùy chọn `routing.enableProxy` (`true` theo mặc định). Đăng ký nó riêng biệt như được hiển thị dưới đây hiện là tùy chọn — nó được giữ lại để tương thích ngược và cho các thiết lập cần kiểm soát thứ tự plugin. Đặt `routing.enableProxy: false` để từ chối. Xem [ghi chú phát hành v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/releases/v9.md).
+
 ```typescript fileName="vite.config.ts"
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import viteReact from "@vitejs/plugin-react";
@@ -687,6 +689,8 @@ export default defineConfig({
 <Step number={13} title="Quốc tế hóa siêu dữ liệu của bạn">
 
 Bạn cũng có thể sử dụng hook `getIntlayer` để truy cập các từ điển nội dung của bạn trong toàn bộ ứng dụng:
+
+Nó hoạt động giống như `getIntlayer`, nhưng plugin build trỏ nó tới phần từ điển theo từng locale thay vì từ điển đã hợp nhất chứa mọi locale — vì vậy metadata cho một trang chỉ gửi locale mà nó render. Vì nó tải phần đó theo yêu cầu, `head` trở thành `async`:
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/react-router";
@@ -846,28 +850,6 @@ export const Route = createFileRoute("/{-$locale}/$")({
 });
 ```
 
----
-
-</Step>
-
-<Step number={16} title="Cấu hình TypeScript">
-
-Intlayer sử dụng module augmentation để tận dụng các lợi ích của TypeScript và làm cho codebase của bạn mạnh mẽ hơn.
-
-Đảm bảo cấu hình TypeScript của bạn bao gồm các kiểu được tạo tự động:
-
-```json5 fileName="tsconfig.json"
-{
-  // ... các cấu hình hiện có của bạn
-  include: [
-    // ... các include hiện có của bạn
-    ".intlayer/**/*.ts", // Bao gồm các kiểu được tạo tự động
-  ],
-}
-```
-
----
-
 </Step>
 
 <Step number={1} title="Trích xuất nội dung các thành phần của bạn" isOptional={true}>
@@ -967,6 +949,103 @@ bun run build # Or bun run dev
 
  </Tab>
 </Tabs>
+
+---
+
+</Step>
+
+<Step number={16} title="Pre-render & Generate Sitemap">
+
+Intlayer đi kèm với một trình tạo sitemap tích hợp sẵn để giúp bạn tạo sitemap cho ứng dụng của mình một cách dễ dàng. Nó xử lý các tuyến đường đã được bản địa hóa và thêm các siêu dữ liệu cần thiết cho các công cụ tìm kiếm.
+
+> Sitemap được tạo bởi Intlayer hỗ trợ namespace `xhtml:link` (Hreflang XML Extensions). Không giống như các trình tạo sitemap mặc định chỉ liệt kê các URL thô, Intlayer tự động tạo các liên kết hai chiều cần thiết giữa tất cả các phiên bản ngôn ngữ của một trang (ví dụ: `/about`, `/about?lang=fr` và `/about?lang=es`). Điều này đảm bảo các công cụ tìm kiếm lập chỉ mục chính xác và phục vụ phiên bản ngôn ngữ phù hợp cho đúng đối tượng.
+
+Để sử dụng nó, trước tiên bạn cần cấu hình `vite.config.ts` của mình để kích hoạt pre-rendering cho các route đã địa phương hóa của bạn và vô hiệu hóa việc tạo sitemap mặc định của TanStack Start.
+
+```typescript fileName="vite.config.ts"
+import { localeFlatMap } from "intlayer";
+// ... các import khác
+
+export const pathList = ["", "/about", "/404"];
+
+const localizedPages = localeFlatMap(({ urlPrefix }) =>
+  pathList.map((path) => ({
+    path: `${urlPrefix}${path}`,
+    prerender: {
+      enabled: true,
+    },
+  }))
+);
+
+export default defineConfig({
+  plugins: [
+    // ... các plugin khác
+    tanstackStart({
+      // ... cấu hình khác
+      sitemap: {
+        enabled: false,
+      },
+      prerender: {
+        enabled: true,
+        crawlLinks: false,
+        concurrency: 10,
+      },
+      pages: localizedPages,
+    }),
+  ],
+});
+```
+
+Sau đó, tạo một route `src/routes/sitemap[.]xml.ts` sử dụng hàm `generateSitemap`:
+
+```typescript fileName="src/routes/sitemap[.]xml.ts"
+import { createFileRoute } from "@tanstack/react-router";
+import { generateSitemap } from "intlayer";
+
+const SITE_URL = (
+  import.meta.env.VITE_SITE_URL ?? "http://localhost:3000"
+).replace(/\/$/, "");
+
+export const Route = createFileRoute("/sitemap.xml")({
+  server: {
+    handlers: {
+      GET: async () => {
+        const sitemap = generateSitemap(
+          [
+            { path: "/", changefreq: "daily", priority: 1.0 },
+            { path: "/about", changefreq: "monthly", priority: 0.8 },
+          ],
+          { siteUrl: SITE_URL }
+        );
+
+        return new Response(sitemap, {
+          headers: { "Content-Type": "application/xml" },
+        });
+      },
+    },
+  },
+});
+```
+
+---
+
+</Step>
+
+<Step number={17} title="Cấu hình TypeScript">
+
+Intlayer sử dụng module augmentation để tận dụng lợi ích của TypeScript và làm cho codebase của bạn mạnh mẽ hơn.
+
+Đảm bảo cấu hình TypeScript của bạn bao gồm các kiểu được tự động tạo:
+
+```json5 fileName="tsconfig.json"
+{
+  // ... những cấu hình hiện tại của bạn
+  include: [
+    // ... những include hiện tại của bạn
+    ".intlayer/**/*.ts", // Bao gồm các kiểu được tự động tạo
+  ],
+}
+```
 
 ---
 

@@ -248,7 +248,7 @@ To ensure that the browser's address bar always reflects the "pretty" localised 
 
 <Tabs group='framework'>
   <Tab label="Next.js" value="nextjs">
-  
+
     ```tsx
     'use client';
 
@@ -263,7 +263,7 @@ To ensure that the browser's address bar always reflects the "pretty" localised 
   </Tab>
 
   <Tab label="React Router" value="reactrouter">
-  
+
     ```tsx
     'use client';
 
@@ -279,7 +279,7 @@ To ensure that the browser's address bar always reflects the "pretty" localised 
   </Tab>
 
   <Tab label="Vue" value="vue">
-  
+
     ```vue
     <script setup>
     import { useRewriteURL } from "vue-intlayer";
@@ -291,7 +291,7 @@ To ensure that the browser's address bar always reflects the "pretty" localised 
 
   </Tab>
   <Tab label="Solid" value="solid">
-  
+
     ```tsx
     import { useRewriteURL } from "solid-intlayer";
 
@@ -303,7 +303,7 @@ To ensure that the browser's address bar always reflects the "pretty" localised 
 
   </Tab>
   <Tab label="Svelte" value="svelte">
-  
+
     ```svelte
     <script>
     import { useRewriteURL } from "svelte-intlayer";
@@ -339,6 +339,8 @@ export function middleware(request: NextRequest) {
 ### Vite Integration
 
 For SolidJS, Vue, and Svelte, the `intlayerProxy` Vite plugin manages the rewrites during development.
+
+> Since Intlayer v9, `intlayerProxy()` is bundled directly into the `intlayer()` plugin and enabled by default through the `routing.enableProxy` option (`true` by default). Registering it separately as shown below is now optional — it is kept for backward compatibility and for setups that need to control plugin order. Set `routing.enableProxy: false` to opt out. See the [v9 release notes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/releases/v9.md).
 
 ```typescript fileName="vite.config.ts"
 import { defineConfig } from "vite";

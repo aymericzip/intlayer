@@ -72,21 +72,7 @@ bun x intlayer build --watch
 
   > 例: `npx intlayer build --base-dir ./src`
 
-- **`--env`**: 環境を指定します（例：`development`、`production`）。intlayerの設定ファイルで環境変数を使用している場合に便利です。
-
-  > 例: `npx intlayer build --env production`
-
-- **`--env-file`**: 変数を読み込むためのカスタム環境ファイルを指定します。intlayerの設定ファイルで環境変数を使用している場合に便利です。
-
-  > 例: `npx intlayer build --env-file .env.production.local`
-
 - **`--with`**: ビルドと並行してコマンドを開始します。
-
-- **`--base-dir`**: プロジェクトのベースディレクトリを指定します。intlayerの設定を取得するために、コマンドはベースディレクトリ内の `intlayer.config.{ts,js,json,cjs,mjs}` ファイルを探します。
-
-  > 例: `npx intlayer build --base-dir ./src`
-
-- **`--env`**: 環境を指定します（例：`development`、`production`）。intlayerの設定ファイルで環境変数を使用している場合に便利です。
 
   > 例: `npx intlayer build --env production`
 

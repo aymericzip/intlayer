@@ -41,11 +41,15 @@ author: aymericzip
 
 「react-i18next」や「i18next」などの主要なソリューションと比較して、Intlayer は次のような統合された最適化を備えたソリューションです。
 
+<AccordionGroup>
+
 **Vite と React を完全にカバー**
 
 Intlayer は、**コンポーネント レベルのコンテンツ スコープ**、**遅延読み込み翻訳**、および国際化のスケーリング (i18n) に必要なすべての機能を提供することにより、Vite および React と完全に連携するように最適化されています。
 
 **バンドルサイズ**
+
+<Accordion header="Bundle size">
 
 大量の JSON ファイルをページにロードするのではなく、必要なコンテンツのみをロードします。 Intlayer は、**バンドルとページのサイズを最大 50% 削減**するのに役立ちます。
 
@@ -55,19 +59,32 @@ Intlayer は、**コンポーネント レベルのコンテンツ スコープ*
 
 **AI エージェント**
 
+</Accordion>
+
+<Accordion header="AI Agent">
+
 コンテンツを同じ場所に配置すると、大規模言語モデル (LLM) によって **必要なコンテキストが削減**されます。 Intlayer には、翻訳の欠落をテストする **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** などのツール スイートも付属しています。および **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)** により、AI エージェントの開発者エクスペリエンス (DX) がさらにスムーズになります。
 
 **オートメーション**
+
+<Accordion header="自動化">
 
 AI プロバイダーの費用で、選択した LLM を使用して CI/CD パイプラインで自動化を変換します。 Intlayer は、コンテンツ抽出を自動化する **コンパイラー** と、**バックグラウンドでの翻訳**を支援する [Web プラットフォーム](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) も提供します。
 
 **パフォーマンス**
 
+<Accordion header="パフォーマンス">
+
 大量の JSON ファイルをコンポーネントに接続すると、パフォーマンスと反応性の問題が発生する可能性があります。 Intlayer は、ビルド時のコンテンツの読み込みを最適化します。
 
 **非開発によるスケーリング**
 
+<Accordion header="none-devでのスケーリング">
+
 Intlayer は単なる i18n ソリューションではなく、**自己ホスト型 [ビジュアル エディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** と **[完全な CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** を提供します。 **リアルタイム**で多言語コンテンツを管理できるようになり、翻訳者、コピーライター、その他のチーム メンバーとのコラボレーションがシームレスになります。コンテンツはローカルおよび/またはリモートに保存できます。
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
@@ -107,7 +124,512 @@ GitHubの[Application Template](https://github.com/aymericzip/intlayer-vite-reac
 
 <Steps>
 
+<Step number={1} title="依存関係のインストール">
+
+npm を使用して必要なパッケージをインストールします:
+
+```bash packageManager="npm"
+npx intlayer init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer@canary init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer@canary init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer@canary init --interactive
+```
+
+> `--interactive` フラグはオプションです。AI エージェントの場合は `intlayer-cli init` を使用してください。
+
+> このコマンドは、あなたの環境を検出し、必要なパッケージをインストールします。例えば:
+
+```bash packageManager="npm"
+npm install intlayer react-intlayer
+npm install vite-intlayer --save-dev
+```
+
+```bash packageManager="pnpm"
+pnpm add intlayer react-intlayer
+pnpm add vite-intlayer --save-dev
+```
+
+```bash packageManager="yarn"
+yarn add intlayer react-intlayer
+yarn add vite-intlayer --save-dev
+```
+
+```bash packageManager="bun"
+bun add intlayer react-intlayer
+bun add vite-intlayer --dev
+```
+
+- **intlayer**
+  国際化ツールを提供するコアパッケージで、設定管理、翻訳、[コンテンツ宣言](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)、トランスパイル、および[CLIコマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md)を提供します。
+
+- **react-intlayer**
+  Intlayer を React アプリケーションと統合するパッケージです。React の国際化のためのコンテキストプロバイダーとフックを提供します。
+
+- **vite-intlayer**
+  Intlayerを[Viteバンドラー](https://vite.dev/guide/why.html#why-bundle-for-production)と統合するためのViteプラグイン、およびユーザーの優先ロケール検出、Cookie管理、URL リダイレクト処理を行うミドルウェアが含まれています。
+
+</Step>
+
+<Step number={2} title="プロジェクトの設定">
+
+アプリケーションの言語を設定するための config ファイルを作成します:
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { Locales, type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: [
+      Locales.ENGLISH,
+      Locales.FRENCH,
+      Locales.SPANISH,
+      // その他のロケール
+    ],
+    defaultLocale: Locales.ENGLISH,
+  },
+};
+
+export default config;
+```
+
+> この設定ファイルを通じて、ローカライズされた URL、ミドルウェアリダイレクト、Cookie 名、コンテンツ宣言の場所と拡張子、Intlayer ログのコンソールへの出力の無効化など、さまざまな設定ができます。利用可能なパラメータの完全なリストについては、[設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)を参照してください。
+
+</Step>
+
+<Step number={3} title="Intlayer を Vite 設定に統合する">
+
+intlayer プラグインを設定に追加します。
+
+```typescript fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react-swc";
+import { intlayer } from "vite-intlayer";
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [react(), intlayer()],
+});
+```
+
+> `intlayer()` Vite プラグインは、Intlayer と Vite を統合するために使用されます。コンテンツ宣言ファイルのビルドを保証し、開発モードでそれらを監視します。Vite アプリケーション内に Intlayer 環境変数を定義します。さらに、パフォーマンスを最適化するためのエイリアスを提供します。
+
+</Step>
+
+<Step number={4} title="コンテンツの宣言">
+
+コンテンツ宣言を作成・管理して翻訳を保存します:
+
+```tsx fileName="src/app.content.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import { t, type Dictionary } from "intlayer";
+import type { ReactNode } from "react";
+
+const appContent = {
+  key: "app",
+  content: {
+    viteLogo: t({
+      ja: "Vite ロゴ",
+      en: "Vite logo",
+      fr: "Logo Vite",
+      es: "Logo Vite",
+    }),
+    reactLogo: t({
+      ja: "React ロゴ",
+      en: "React logo",
+      fr: "Logo React",
+      es: "Logo React",
+    }),
+
+    title: "Vite + React",
+
+    count: t({
+      ja: "カウント: ",
+      en: "count is ",
+      fr: "le compte est ",
+      es: "el recuento es ",
+    }),
+
+    edit: t<ReactNode>({
+      ja: (
+        <>
+          <code>src/App.tsx</code> を編集して保存し、HMR をテストします
+        </>
+      ),
+      en: (
+        <>
+          Edit <code>src/App.tsx</code> and save to test HMR
+        </>
+      ),
+      fr: (
+        <>
+          Éditez <code>src/App.tsx</code> et enregistrez pour tester HMR
+        </>
+      ),
+      es: (
+        <>
+          Edita <code>src/App.tsx</code> y guarda para probar HMR
+        </>
+      ),
+    }),
+
+    readTheDocs: t({
+      ja: "Vite と React のロゴをクリックして詳細を確認します",
+      en: "Click on the Vite and React logos to learn more",
+      fr: "Cliquez sur les logos Vite et React pour en savoir plus",
+      es: "Haga clic en los logotipos de Vite y React para obtener más información",
+    }),
+  },
+} satisfies Dictionary;
+
+export default appContent;
+```
+
+```json fileName="src/app.content.json" contentDeclarationFormat="json"
+{
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "app",
+  "content": {
+    "viteLogo": {
+      "nodeType": "translation",
+      "translation": {
+        "ja": "Viteロゴ",
+        "en": "Vite logo",
+        "fr": "Logo Vite",
+        "es": "Logo Vite"
+      }
+    },
+    "reactLogo": {
+      "nodeType": "translation",
+      "translation": {
+        "ja": "Reactロゴ",
+        "en": "React logo",
+        "fr": "Logo React",
+        "es": "Logo React"
+      }
+    },
+    "title": {
+      "nodeType": "translation",
+      "translation": {
+        "ja": "Vite + React",
+        "en": "Vite + React",
+        "fr": "Vite + React",
+        "es": "Vite + React"
+      }
+    },
+    "count": {
+      "nodeType": "translation",
+      "translation": {
+        "ja": "カウントは ",
+        "en": "count is ",
+        "fr": "le compte est ",
+        "es": "el recuento es "
+      }
+    },
+    "edit": {
+      "nodeType": "translation",
+      "translation": {
+        "ja": "src/App.tsxを編集して保存し、HMRをテストしてください",
+        "en": "Edit src/App.tsx and save to test HMR",
+        "fr": "Éditez src/App.tsx et enregistrez pour tester HMR",
+        "es": "Edita src/App.tsx y guarda para probar HMR"
+      }
+    },
+    "readTheDocs": {
+      "nodeType": "translation",
+      "translation": {
+        "ja": "ViteおよびReactのロゴをクリックして、詳細を確認してください",
+        "en": "Click on the Vite and React logos to learn more",
+        "fr": "Cliquez sur les logos Vite et React pour en savoir plus",
+        "es": "Haga clic en los logotipos de Vite y React para obtener más información"
+      }
+    }
+  }
+}
+```
+
+> コンテンツ宣言は、`contentDir` ディレクトリ（デフォルトでは `./src`）に含まれている限り、アプリケーション内のどこでも定義できます。そして、コンテンツ宣言ファイル拡張子（デフォルトでは `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`）と一致する必要があります。
+
+> 詳細については、[コンテンツ宣言ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)を参照してください。
+
+> コンテンツファイルに TSX コードが含まれている場合は、コンテンツファイルに `import React from "react";` をインポートすることを検討してください。
+
+</Step>
+
+<Step number={5} title="コードで Intlayer を利用する">
+
+アプリケーション全体でコンテンツ辞書にアクセスします:
+
+```tsx {5,9} fileName="src/App.tsx" codeFormat={["typescript", "esm"]}
+import { useState, type FC } from "react";
+import reactLogo from "./assets/react.svg";
+import viteLogo from "/vite.svg";
+import "./App.css";
+import { IntlayerProvider, useIntlayer } from "react-intlayer";
+
+const AppContent: FC = () => {
+  const [count, setCount] = useState(0);
+  const content = useIntlayer("app");
+
+  return (
+    <>
+      <div>
+        <a href="https://vitejs.dev" target="_blank">
+          <img src={viteLogo} className="logo" alt={content.viteLogo.value} />
+        </a>
+        <a href="https://react.dev" target="_blank">
+          <img
+            src={reactLogo}
+            className="logo react"
+            alt={content.reactLogo.value}
+          />
+        </a>
+      </div>
+      <h1>{content.title}</h1>
+      <div className="card">
+        <button onClick={() => setCount((count) => count + 1)}>
+          {content.count}
+          {count}
+        </button>
+        <p>{content.edit}</p>
+      </div>
+      <p className="read-the-docs">{content.readTheDocs}</p>
+    </>
+  );
+};
+
+const App: FC = () => (
+  <IntlayerProvider>
+    <AppContent />
+  </IntlayerProvider>
+);
+
+export default App;
+```
+
+> `string` 属性（`alt`、`title`、`href`、`aria-label` など）でコンテンツを使用したい場合は、関数の値を次のように使用できます：
+
+> ```html
+> <img src="{content.image.src.value}" alt="{content.image.value}" />
+> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
+> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
+> ```
+
+> `useIntlayer` フックについて詳しく知るには、[ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/useIntlayer.md)を参照してください。
+
+> 既存のアプリケーションがある場合、[Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md)と[extract コマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/extract.md)を使用して、数千のコンポーネントを数秒で変換できます。
+
+</Step>
+
+<Step number={6} title="コンテンツの言語を変更する" isOptional={true}>
+
+コンテンツの言語を変更するには、`useLocale` フックから提供される `setLocale` 関数を使用できます。この関数を使用すると、アプリケーションのロケールを設定し、それに応じてコンテンツを更新できます。
+
+```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat={["typescript", "esm"]}
+import type { FC } from "react";
+import { Locales } from "intlayer";
+import { useLocale } from "react-intlayer";
+
+const LocaleSwitcher: FC = () => {
+  const { setLocale } = useLocale();
+
+  return (
+    <button onClick={() => setLocale(Locales.English)}>言語を英語に変更</button>
+  );
+};
+```
+
+> `useLocale` フックについてさらに詳しく知るには、[ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/useLocale.md)を参照してください。
+
+</Step>
+
+<Step number={7} title="アプリケーションにローカライズされたルーティングを追加する" isOptional={true}>
+
+このステップの目的は、言語ごとに一意のルートを作成することです。これはSEOとSEOフレンドリーなURLに役立ちます。
+例：
+
+```- https://example.com/about
+- https://example.com/ja/about
+- https://example.com/fr/about
+```
+
+> デフォルトでは、デフォルトロケールのルートにはプレフィックスが付きません。デフォルトロケールにプレフィックスを付けたい場合は、設定で `middleware.prefixDefault` オプションを `true` に設定できます。詳細については、[設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)を参照してください。
+
+アプリケーションにローカライズされたルーティングを追加するには、アプリケーションのルートをラップし、ロケールベースのルーティングを処理する `LocaleRouter` コンポーネントを作成できます。[React Router](https://reactrouter.com/home) を使用した例を以下に示します:
+
+```tsx fileName="src/components/LocaleRouter.tsx" codeFormat={["typescript", "esm"]}
+import { localeMap } from "intlayer"; // 'intlayer'からのユーティリティ関数と型
+import type { FC, PropsWithChildren } from "react"; // 関数コンポーネントとpropsのReact型
+import { IntlayerProvider } from "react-intlayer"; // 国際化コンテキスト用のプロバイダー
+import { BrowserRouter, Route, Routes } from "react-router-dom"; // ナビゲーション管理用のルーターコンポーネント
+
+/**
+ * ロケール固有のルートを設定するルーターコンポーネント。
+ * React Routerを使用してナビゲーションを管理し、ローカライズされたコンポーネントをレンダリングします。
+ */
+export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
+  <BrowserRouter>
+    <Routes>
+      {localeMap(({ locale, urlPrefix }) => (
+        <Route
+          // ロケール（例：/en/、/fr/）をキャプチャし、その後のすべてのパスにマッチするルートパターン
+          path={`${urlPrefix}/*`}
+          key={locale}
+          element={
+            <IntlayerProvider locale={locale}>{children}</IntlayerProvider>
+          } // ロケール管理でchildrenをラップ
+        />
+      ))}
+    </Routes>
+  </BrowserRouter>
+);
+```
+
+> 注記: `routing.mode: 'no-prefix' | 'search-params'`を使用する場合、おそらく`localeMap`関数を使用する必要はありません。
+
+Then, you can use the `LocaleRouter` component in your application:
+
+```tsx fileName="src/App.tsx" codeFormat={["typescript", "esm"]}
+import { LocaleRouter } from "./components/LocaleRouter";
+import type { FC } from "react";
+
+// ... AppContentコンポーネント
+
+const App: FC = () => (
+  <LocaleRouter>
+    <AppContent />
+  </LocaleRouter>
+);
+```
+
+並行して、`intlayerProxy` を使用して、アプリケーションにサーバーサイド ルーティングを追加することもできます。このプラグインは、URL に基づいて現在のロケールを自動的に検出し、適切なロケール Cookie を設定します。ロケールが指定されていない場合、プラグインはユーザーのブラウザ言語設定に基づいて最適なロケールを決定します。ロケールが検出されない場合、デフォルト ロケールにリダイレクトされます。
+
+> `intlayerProxy` を本番環境で使用するには、`vite-intlayer` パッケージを `devDependencies` から `dependencies` に移動する必要があることに注意してください。
+
+> Intlayer v9以降、`intlayerProxy()`は`intlayer()`プラグインに直接バンドルされており、`routing.enableProxy`オプション（デフォルトでは`true`）を通じてデフォルトで有効になっています。以下に示すように別々に登録することはオプションになりました — これは後方互換性とプラグインの順序を制御する必要があるセットアップのために保持されています。`routing.enableProxy: false`に設定してオプトアウトしてください。[v9リリースノート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/releases/v9.md)を参照してください。
+
+```typescript {3,7} fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react-swc";
+import { intlayer } from "vite-intlayer";
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [
+    react(),
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
+  ],
+});
+```
+
+</Step>
+
+<Step number={8} title="ロケールが変更されたときにURLを変更する" isOptional={true}>
+
+ロケールが変更されたときにURLを変更するには、`useLocale`フックで提供される`onLocaleChange`プロップを使用できます。並行して、`react-router-dom`から`useLocation`および`useNavigate`フックを使用して、URLパスを更新できます。
+
+```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat={["typescript", "esm"]}
+import { useLocation, useNavigate } from "react-router-dom";
+import {
+  Locales,
+  getHTMLTextDir,
+  getLocaleName,
+  getLocalizedUrl,
+} from "intlayer";
+import { useLocale } from "react-intlayer";
+import { type FC } from "react";
+
+const LocaleSwitcher: FC = () => {
+  const { pathname, search } = useLocation(); // 現在のURLパスを取得します。例: /fr/about?foo=bar
+  const navigate = useNavigate();
+
+  const { locale, availableLocales, setLocale } = useLocale({
+    onLocaleChange: (locale) => {
+      // 更新されたロケールでURLを構築します
+      // 例: /es/about?foo=bar
+      const pathWithLocale = getLocalizedUrl(`${pathname}${search}`, locale);
+
+      // URLパスを更新します
+      navigate(pathWithLocale);
+    },
+  });
+
+  return (
+    <div>
+      <button popoverTarget="localePopover">{getLocaleName(locale)}</button>
+      <div id="localePopover" popover="auto">
+        {availableLocales.map((localeItem) => (
+          <a
+            href={getLocalizedUrl(location.pathname, localeItem)}
+            hrefLang={localeItem}
+            aria-current={locale === localeItem ? "page" : undefined}
+            onClick={(e) => {
+              e.preventDefault();
+              setLocale(localeItem);
+            }}
+            key={localeItem}
+          >
+            <span>
+              {/* ロケール - 例: FR */}
+              {localeItem}
+            </span>
+            <span>
+              {/* 独自のロケールでの言語 - 例: Français */}
+              {getLocaleName(localeItem, locale)}
+            </span>
+            <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
+              {/* 現在のロケールでの言語 - 例: 現在のロケールがLocales.SPANISHに設定されている場合はFrancés */}
+              {getLocaleName(localeItem)}
+            </span>
+            <span dir="ltr" lang={Locales.ENGLISH}>
+              {/* 英語での言語 - 例: French */}
+              {getLocaleName(localeItem, Locales.ENGLISH)}
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  );
+};
+```
+
+> ドキュメントリファレンス:
+>
+> - [`useLocale` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/useLocale.md)
+> - [`getLocaleName` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getLocaleName.md)
+> - [`getLocalizedUrl` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getLocalizedUrl.md)
+> - [`getHTMLTextDir` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getHTMLTextDir.md)
+> - [`hrefLang` 属性](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=fr)
+> - [`lang` 属性](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang)
+> - [`dir` 属性](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
+> - [`aria-current` 属性](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
+
+以下は、追加の説明と改良されたコード例を含む更新された **Step 9** です:
+
+---
+
+</Step>
+
 <Step number={9} title="HTMLの言語属性と方向属性を切り替える" isOptional={true}>
+
+アプリケーションが複数の言語をサポートしている場合、現在のロケールに合わせて `<html>` タグの `lang` および `dir` 属性を更新することが重要です。そうすることで、以下が保証されます:
+
+- **Accessibility**: スクリーンリーダーと支援技術は、正しい `lang` 属性に依存して、コンテンツを正確に発音・解釈します。
+- **Text Rendering**: `dir` (direction) 属性により、テキストが適切な順序でレンダリングされます (例：英語は左から右へ、アラビア語またはヘブライ語は右から左へ)。これは可読性に不可欠です。
+- **SEO**: 検索エンジンは `lang` 属性を使用してページの言語を判断し、検索結果で適切なローカライズされたコンテンツを配信するのに役立ちます。
+
+ロケールが変更されるときにこれらの属性を動的に更新することで、サポートされているすべての言語にわたってユーザーに一貫性のあるアクセスしやすい体験を保証します。
 
 #### フックの実装
 

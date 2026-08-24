@@ -34,6 +34,8 @@ author: aymericzip
 
 ### 实际使用场景
 
+- **以用户语言显示后端错误**：当发生错误时，以用户的母语显示消息可以提高理解度并减少挫折感。这对可能显示在前端组件（如 toast 或 modals）中的动态错误消息特别有用。
+
 - **以用户语言显示后端错误**：当发生错误时，以用户的母语显示消息可以提高理解力并减少挫败感。这对于可能在前端组件（如弹出消息或模态框）中显示的动态错误消息尤为有用。
 
 - **检索多语言内容**：对于从数据库中提取内容的应用程序，国际化确保您可以以多种语言提供这些内容。这对于需要以用户首选语言显示产品描述、文章和其他内容的平台（如电子商务网站或内容管理系统）至关重要。
@@ -43,6 +45,8 @@ author: aymericzip
 
 - **其他通信**：来自后端的任何形式的通信，例如短信消息、系统警报或用户界面更新，都因使用用户的语言而受益，从而确保清晰度并提升整体用户体验。
   通过国际化后端，您的应用程序不仅尊重文化差异，还能更好地符合全球市场需求，这使其成为扩展全球服务的关键步骤。
+
+通过国际化后端，您的应用不仅尊重文化差异，还能更好地适应全球市场需求，这是在全球范围内扩展服务的关键步骤。
 
 ## 入门
 
@@ -209,6 +213,8 @@ app.listen(3000, () => console.log(`Listening on port 3000`));
 - [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/next-intlayer/index.md) 用于 Next.js 应用
 - [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/vite-intlayer/index.md) 用于 Vite 应用
   它还可以无缝地与各种环境中的任何国际化解决方案协同工作，包括浏览器和 API 请求。您可以自定义中间件，通过请求头或 Cookie 来检测语言环境：
+
+它与任何国际化解决方案无缝协作,跨越各种环境,包括浏览器和 API 请求。您可以自定义中间件以通过标头或 cookie 检测区域设置:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";

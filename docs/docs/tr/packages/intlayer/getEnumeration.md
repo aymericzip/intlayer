@@ -31,6 +31,8 @@ author: aymericzip
 
 `getEnumeration` fonksiyonu, bir numaralandırma nesnesindeki önceden tanımlanmış koşullara göre belirli bir miktara karşılık gelen içeriği alır. Koşullar anahtarlar olarak tanımlanır ve öncelik, nesnedeki sıralarına göre belirlenir.
 
+Enumerations bildirimi hakkında daha fazla bilgi için [Enumeration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/enumeration.md) bölümüne bakınız.
+
 ## Parametreler
 
 - `enumerationContent: QuantityContent<Content>`

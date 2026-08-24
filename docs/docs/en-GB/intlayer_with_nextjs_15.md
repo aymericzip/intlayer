@@ -94,6 +94,38 @@ More than just an i18n solution, Intlayer provides an **self-hosted [visual edit
 
 ## Step-by-Step Guide to Set Up Intlayer in a Next.js Application
 
+<Tabs defaultTab="video">
+  <Tab label="Video" value="video">
+
+<iframe title="The best i18n solution for Next.js? Discover Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/e_PPG7PTqGU?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
+
+  </Tab>
+  <Tab label="Code" value="code">
+
+<iframe
+  src="https://ide.intlayer.org/aymericzip/intlayer-next-15-template?file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+  <Tab label="Demo" value="demo">
+
+<iframe
+  src="https://next-15-intlayer-template-xt83.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo - intlayer-next-15-template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+</Tabs>
+
+See [Application Template](https://github.com/aymericzip/intlayer-next-15-template) on GitHub.
+
 <Steps>
 
 <Step number={1} title="Install Dependencies">
@@ -215,6 +247,24 @@ export default withIntlayer(nextConfig);
 
 > The `withIntlayer()` Next.js plugin is used to integrate Intlayer with Next.js. It ensures the building of content declaration files and monitors them in development mode. It defines Intlayer environment variables within the [Webpack](https://webpack.js.org/) or [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack) environments. Additionally, it provides aliases to optimise performance and ensures compatibility with server components.
 
+> The `withIntlayer()` function is a promise function. It allows you to prepare the intlayer dictionaries before the build starts. If you want to use it with other plugins, you can await it. Example:
+>
+> ```tsx
+> const nextConfig = await withIntlayer(nextConfig);
+> const nextConfigWithOtherPlugins = withOtherPlugins(nextConfig);
+>
+> export default nextConfigWithOtherPlugins;
+> ```
+>
+> If you want to use it synchronously, you can use the `withIntlayerSync()` function. Example:
+>
+> ```tsx
+> const nextConfig = withIntlayerSync(nextConfig);
+> const nextConfigWithOtherPlugins = withOtherPlugins(nextConfig);
+>
+> export default nextConfigWithOtherPlugins;
+> ```
+
 </Step>
 
 <Step number={4} title="Define Dynamic Locale Routes">
@@ -233,6 +283,36 @@ export default RootLayout;
 > Keeping the `RootLayout` component empty allows setting the [`lang`](https://developer.mozilla.org/fr/docs/Web/HTML/Global_attributes/lang) and [`dir`](https://developer.mozilla.org/fr/docs/Web/HTML/Global_attributes/dir) attributes on the `<html>` tag.
 
 To implement dynamic routing, provide the path for the locale by adding a new layout in your `[locale]` directory:
+
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
+```tsx fileName="src/app/[locale]/layout.tsx" codeFormat={["typescript", "esm"]}
+import { type NextLayoutIntlayer } from "next-intlayer";
+import { IntlayerProvider } from "next-intlayer/server";
+import { Inter } from "next/font/google";
+import { getHTMLTextDir } from "intlayer";
+
+const inter = Inter({ subsets: ["latin"] });
+
+const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
+  const { locale } = await params;
+  return (
+    <IntlayerProvider locale={locale}>
+      <html lang={locale} dir={getHTMLTextDir(locale)}>
+        <body className={inter.className}>{children}</body>
+      </html>
+    </IntlayerProvider>
+  );
+};
+
+export default LocaleLayout;
+```
+
+> A single `IntlayerProvider` covers both halves of the tree: it seeds the request-scoped server context read by the server hooks, and mounts the client provider so client components receive the same locale.
+
+ </Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
 
 ```tsx fileName="src/app/[locale]/layout.tsx" codeFormat={["typescript", "esm"]}
 import { type NextLayoutIntlayer, IntlayerClientProvider } from "next-intlayer";
@@ -257,6 +337,9 @@ const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
 export default LocaleLayout;
 ```
 
+ </Tab>
+</Tabs>
+
 > The `[locale]` path segment is used to define the locale. Example: `/en-US/about` will refer to `en-US` and `/fr/about` to `fr`.
 
 > At this stage, you will encounter the error: `Error: Missing <html> and <body> tags in the root layout.`. This is expected because the `/app/page.tsx` file is no longer in use and can be removed. Instead, the `[locale]` path segment will activate the `/app/[locale]/page.tsx` page. Consequently, pages will be accessible via paths like `/en`, `/fr`, `/es` in your browser. To set the default locale as the root page, refer to the `middleware` setup in step 7.
@@ -274,6 +357,8 @@ export default LocaleLayout;
 ```
 
 > `generateStaticParams` ensures that your application pre-builds the necessary pages for all locales, reducing runtime computation and improving the user experience. For more details, refer to the [Next.js documentation on generateStaticParams](https://nextjs.org/docs/app/building-your-application/rendering/static-and-dynamic-rendering#generate-static-params).
+
+> Intlayer works with `export const dynamic = 'force-static';` to ensure that the pages are pre-built for all locales.
 
 </Step>
 
@@ -330,6 +415,44 @@ export default pageContent;
 <Step number={6} title="Utilise Content in Your Code">
 
 Access your content dictionaries throughout your application:
+
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
+```tsx fileName="src/app/[locale]/page.tsx" codeFormat={["typescript", "esm"]}
+import type { FC } from "react";
+import { ClientComponentExample } from "@components/ClientComponentExample";
+import { ServerComponentExample } from "@components/ServerComponentExample";
+import { type NextPageIntlayer, useIntlayer } from "next-intlayer";
+
+const PageContent: FC = () => {
+  const content = useIntlayer("page");
+
+  return (
+    <>
+      <p>{content.getStarted.main}</p>
+      <code>{content.getStarted.pageLink}</code>
+    </>
+  );
+};
+
+const Page: NextPageIntlayer = () => (
+  <>
+    <PageContent />
+    <ServerComponentExample />
+
+    <ClientComponentExample />
+  </>
+);
+
+export default Page;
+```
+
+- **`IntlayerProvider`** is mounted once, in the locale layout. It provides the locale to both server and client components, so pages no longer wrap themselves.
+- The server hooks resolve the locale in this order: the locale passed at the call site, then the server context seeded by the provider, then the locale carried by the request (the `x-intlayer-locale` header set by the Intlayer proxy, then the locale cookie). That last step is what keeps content correct on a client-side navigation that re-renders only the page segment, where the layout — and with it the provider — does not re-run.
+
+</Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
 
 ```tsx fileName="src/app/[locale]/page.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
@@ -390,6 +513,30 @@ export const ClientComponentExample: FC = () => {
 };
 ```
 
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
+```tsx {2} fileName="src/components/ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
+import type { FC } from "react";
+import { useIntlayer } from "next-intlayer";
+
+export const ServerComponentExample: FC = () => {
+  const content = useIntlayer("server-component-example"); // Create related content declaration
+
+  return (
+    <div>
+      <h2>{content.title}</h2>
+      <p>{content.content}</p>
+    </div>
+  );
+};
+```
+
+> `next-intlayer` is the isomorphic import path: the `react-server` export condition gives server components the ambient-locale implementation, while client components get the context-backed one. The same call works on both sides.
+
+ </Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
+
 ```tsx {2} fileName="src/components/ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "next-intlayer/server";
@@ -405,6 +552,9 @@ export const ServerComponentExample: FC = () => {
   );
 };
 ```
+
+ </Tab>
+</Tabs>
 
 > If you want to use your content in a `string` attribute, such as `alt`, `title`, `href`, `aria-label`, etc., you can use the value of the function, like:
 
@@ -434,6 +584,21 @@ export const config = {
 > The `intlayerMiddleware` is used to detect the user's preferred locale and redirect them to the appropriate URL as specified in the [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md). Additionally, it enables saving the user's preferred locale in a cookie.
 
 > Since Intlayer v9, this middleware respects the `routing.enableProxy` option (`true` by default). Set `routing.enableProxy: false` in your configuration to turn it into a pass-through without removing this file. See the [v9 release notes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/releases/v9.md).
+
+> If you need to chain several middlewares together (for example, `intlayerMiddleware` with authentication or custom middlewares), Intlayer now provides a helper called `multipleMiddlewares`.
+
+```ts
+import {
+  multipleMiddlewares,
+  intlayerMiddleware,
+} from "next-intlayer/middleware";
+import { customMiddleware } from "@utils/customMiddleware";
+
+export const middleware = multipleMiddlewares([
+  intlayerMiddleware,
+  customMiddleware,
+]);
+```
 
 </Step>
 
@@ -809,6 +974,33 @@ By integrating this `Link` component across your application, you maintain a coh
 
 <Step number={12} title="Optimise your bundle size" isOptional={true}>
 
+If you need the active locale inside a Server Action (e.g., to localise emails or run locale-aware logic), call `getLocale` from `next-intlayer/server`:
+
+```tsx fileName="src/app/actions/getLocale.ts" codeFormat="typescript"
+"use server";
+
+import { getLocale } from "next-intlayer/server";
+
+export const myServerAction = async () => {
+  const locale = await getLocale();
+
+  // Do something with the locale
+};
+```
+
+> The `getLocale` function follows a cascading strategy to determine the user's locale:
+>
+> 1. First, it checks the request headers for a locale value that may have been set by the middleware
+> 2. If no locale is found in headers, it looks for a locale stored in cookies
+> 3. If no cookie is found, it attempts to detect the user's preferred language from their browser settings
+> 4. As a last resort, it falls back to the application's configured default locale
+>
+> This ensures the most appropriate locale is selected based on available context.
+
+</Step>
+
+<Step number={13} title="Optimize your bundle size" isOptional={true}>
+
 When using `next-intlayer`, dictionaries are included in the bundle for every page by default. To optimise bundle size, Intlayer provides an optional SWC plugin that intelligently replaces `useIntlayer` calls using macros. This ensures dictionaries are only included in bundles for pages that actually use them.
 
 To enable this optimisation, install the `@intlayer/swc` package. Once installed, `next-intlayer` will automatically detect and use the plugin:
@@ -832,6 +1024,9 @@ bun add @intlayer/swc --dev
 > Note: This optimisation is only available for Next.js 13 and above.
 
 > Note: This package is not installed by default because SWC plugins are still experimental on Next.js. It may change in the future.
+> </Step>
+
+> Note: If you set the option as `importMode: 'dynamic'` or `importMode: 'fetch'` (in the `dictionary` configuration), it will rely on Suspense, so you will have to wrap your `useIntlayer` calls in a `Suspense` boundary. That means, you will not be able to use the `useIntlayer` directly at the top level of your Page / Layout component.
 > </Step>
 
 </Steps>

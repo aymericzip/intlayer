@@ -91,7 +91,15 @@ W większości przypadków,
 
 - **`--log`**: Tryb tylko logowania. Nie tłumaczy za pomocą AI; zamiast tego loguje bloki wymagające uwagi (wraz z numerami linii i zawartością) dla bazowych i docelowych lokalizacji, aby pomóc innemu agentowi w wygenerowaniu tłumaczeń.
 
-  > Przykład: `npx intlayer doc review --log`
+1. **`apply`** - Translate diverging blocks and output the complete updated Polish file
+2. **`report`** - Log blocks needing attention with line numbers for both base (en) and target (pl) locales without calling AI
+3. **`synthesis`** - Skip per-block output and only provide a final recap of which documents are up-to-date and which need edits
+
+> Przykład: `npx intlayer doc review --mode report`
+
+> Przykład: `npx intlayer doc review --log`
+
+Niezależnie od trybu, uruchomienie kończy się synteezą zawierającą listę dokumentów, które są wyrównane z dokumentem bazowym, oraz te, które nadal mają bloki do edycji.
 
 **Opcje wyjścia wpisu:**
 

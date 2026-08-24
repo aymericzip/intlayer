@@ -91,7 +91,15 @@ Für die meisten Anwendungsfälle,
 
 - **`--log`**: Nur-Protokollierungsmodus. Nicht mit KI übersetzen; stattdessen die Blöcke, die Aufmerksamkeit erfordern (mit Zeilennummern und Inhalt), für die Basis- und Ziel-Locales protokollieren, um einem anderen Agenten bei der Generierung der Übersetzungen zu helfen.
 
-  > Beispiel: `npx intlayer doc review --log`
+- **Bei `apply`**: Die Übersetzung aktualisieren und die vollständige deutsche Datei zurückgeben
+- **Bei `report`**: Die Blöcke dokumentieren, die Aufmerksamkeit benötigen (mit Zeilennummern und Inhalten)
+- **Bei `synthesis`**: Eine Zusammenfassung der aktuellen und zu bearbeitenden Dokumente liefern
+
+> Beispiel: `npx intlayer doc review --mode report`
+
+> Beispiel: `npx intlayer doc review --log`
+
+Unabhängig vom Modus endet der Durchlauf mit einer Zusammenfassung, die die Dokumente auflistet, die mit ihrem Basisdokument abgestimmt sind, und diejenigen, die noch zu bearbeitende Blöcke haben.
 
 **Optionen für die Ausgabe der Einträge:**
 

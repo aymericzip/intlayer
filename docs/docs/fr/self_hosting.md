@@ -64,10 +64,6 @@ Chromium (utilisé pour la génération de captures d'écran Puppeteer) est int�
 
 ## Démarrage rapide
 
-```sh
-curl -fsSL https://intlayer.org/install.sh | sh
-```
-
 Ce que fait l'installateur :
 
 1.  Vérifie que `docker` et `docker compose` sont présents.
@@ -77,6 +73,8 @@ Ce que fait l'installateur :
 5.  Affiche les URL : tableau de bord `:3000`, API `:3100`, UI e-mail `:8025`, console MinIO `:9001`.
 
 Une fois la stack démarrée, ouvrez **http://localhost:3000** et créez votre premier compte.
+
+> Le dashboard est servi sur `localhost`. Voir [Limitations](#limitations) — les domaines personnalisés ne sont pas pris en charge par l'image publiée.
 
 ---
 
@@ -102,8 +100,6 @@ Une fois qu'un admin existe, `/init` redirige vers la page de connexion standard
 | **redis**   | `redis:7-alpine`                                | interne                        | Files d'attente de jobs (BullMQ) et mise en cache (ioredis)              |
 | **minio**   | `minio/minio`                                   | `9000` (S3), `9001` (console)  | Stockage d'objets compatible S3 pour les avatars et les captures d'écran |
 | **mailpit** | `axllent/mailpit`                               | `1025` (SMTP), `8025` (web UI) | Réceptacle local d'e-mails transactionnels                               |
-
-Les ports internes (mongo, redis) ne sont pas exposés à l'hôte par défaut.
 
 > Le port `9000` de MinIO doit être accessible par le navigateur car les assets téléchargés (avatars, captures d'écran) sont chargés directement depuis `S3_PUBLIC_URL=http://localhost:9000/intlayer`.
 
@@ -159,8 +155,6 @@ Les ports internes (mongo, redis) ne sont pas exposés à l'hôte par défaut.
 | `MICROSOFT_CLIENT_ID`, `MICROSOFT_CLIENT_SECRET`         | Connexion OAuth Microsoft                                       |
 | `LINKEDIN_CLIENT_ID`, `LINKEDIN_CLIENT_SECRET`           | Connexion OAuth LinkedIn                                        |
 | `ATLASSIAN_CLIENT_ID`, `ATLASSIAN_CLIENT_SECRET`         | Connexion OAuth Atlassian                                       |
-
----
 
 ### Mailer global
 
@@ -247,15 +241,7 @@ const { data: dictionaries } = await dictionaryEndpoint(cms).getDictionaries();
 
 ## Mise à niveau
 
-Exécuter à nouveau l'installateur sur un déploiement existant effectue une mise à niveau progressive :
-
-```sh
-curl -fsSL https://intlayer.org/install.sh | sh
-```
-
 Ceci télécharge les dernières images et redémarre les conteneurs avec `docker compose pull && docker compose up -d`. Les volumes existants (`mongo-data`, `redis-data`, `minio-data`) sont préservés — aucune perte de données.
-
-Pour effectuer une mise à niveau manuellement depuis le répertoire `./intlayer/` :
 
 ```sh
 docker compose pull
@@ -320,14 +306,11 @@ docker compose logs mongo
 docker compose logs redis
 ```
 
+Recherchez `MongoDB connection error` près du haut du journal.
+
 ### Le tableau de bord ne peut pas atteindre l'API
 
 Vérifiez que `VITE_BACKEND_URL` correspond à l'URL où le backend est accessible depuis le **navigateur** (pas le réseau Docker). Si vous avez modifié le port du backend ou ajouté un proxy inverse, reconstruisez l'image du tableau de bord :
-
-```sh
-docker compose build app
-docker compose up -d app
-```
 
 ### Bucket MinIO manquant
 

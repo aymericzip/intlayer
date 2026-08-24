@@ -77,8 +77,6 @@ type GetPrefixResult = {
     - **타입**: `Locales`
     - **기본값**: [`프로젝트 구성`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md#middleware)
 
-  - `options.mode?: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'`
-
 - **설명**: 로케일 처리를 위한 URL 라우팅 모드입니다. 제공되지 않으면 프로젝트 구성에서 설정된 모드를 사용합니다.
 - **타입**: `'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'`
 - **기본값**: [`프로젝트 구성`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md#middleware)

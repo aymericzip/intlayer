@@ -30,8 +30,6 @@ author: aymericzip
 
 ## Reactでの使用例
 
-以下は、Reactコンポーネントで`useDictionary`フックを使用する例です：
-
 ```tsx fileName="./ComponentExample.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useDictionary } from "react-intlayer";

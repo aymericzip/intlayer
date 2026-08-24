@@ -65,11 +65,17 @@ author: aymericzip
 
 **Vite 全面覆盖**
 
+<Accordion header="Full Vite coverage">
+
 Intlayer 经过优化，可与 Vite 完美配合，提供**与框架无关的内容管理**、**TypeScript 支持**以及扩展国际化 (i18n) 所需的所有功能。
+
+</Accordion>
 
 **捆绑尺寸**
 
 不要将大量 JSON 文件加载到页面中，而只需加载必要的内容。 Intlayer 有助于**将捆绑包和页面大小减少多达 50%**。
+
+</Accordion>
 
 **可维护性**
 
@@ -77,11 +83,17 @@ Intlayer 经过优化，可与 Vite 完美配合，提供**与框架无关的内
 
 **人工智能代理**
 
+<Accordion header="AI Agent">
+
 共置内容**减少大型语言模型 (LLM) 所需的上下文**。 Intlayer 还附带了一套工具，例如用于测试缺失翻译的 **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** 和 **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)**，使 AI 代理的开发者体验 (DX) 更加流畅。
+
+</Accordion>
 
 **自动化**
 
 使用您选择的法学硕士，通过自动化在 CI/CD 管道中进行翻译，而费用由您的 AI 提供商承担。 Intlayer 还提供了一个**编译器**来自动提取内容，以及一个[网络平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)来帮助**在后台翻译**。
+
+</Accordion>
 
 **表现**
 
@@ -89,7 +101,12 @@ Intlayer 经过优化，可与 Vite 完美配合，提供**与框架无关的内
 
 **无需开发即可扩展**
 
+<Accordion header="使用 none-dev 进行扩展">
+
 Intlayer 不仅仅是一个 i18n 解决方案，还提供了一个**自托管的[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)**和一个**[完整的 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** 来帮助您管理多语言内容**实时**，与译员、文案人员和其他团队成员无缝协作。内容可以本地和/或远程存储。
+
+</Accordion>
+</AccordionGroup>
 
 ---
 

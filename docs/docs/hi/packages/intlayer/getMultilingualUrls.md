@@ -138,8 +138,6 @@ getMultilingualUrls(
 // }
 ```
 
----
-
 ### विभिन्न रूटिंग मोड्स
 
 ```typescript
@@ -204,6 +202,12 @@ getMultilingualUrls("/dashboard", {
 
 - **असमर्थित लोकेल:**
   - केवल `locales` एरे में दिए गए लोकेल को ही URL बनाने के लिए माना जाता है।
+
+- **राउटिंग मोड्स:**
+  - `'prefix-no-default'`: डिफ़ॉल्ट लोकेल के पास कोई उपसर्ग नहीं है, अन्य के पास है (उदा., `/dashboard`, `/fr/dashboard`)
+  - `'prefix-all'`: सभी लोकेल के पास उपसर्ग हैं (उदा., `/en/dashboard`, `/fr/dashboard`)
+  - `'no-prefix'`: URLs में कोई लोकेल उपसर्ग नहीं है (सभी लोकेल एक ही URL लौटाते हैं)
+  - `'search-params'`: क्वेरी पैरामीटर के माध्यम से निर्दिष्ट लोकेल (उदा., `/dashboard?locale=fr`)
 
 ---
 

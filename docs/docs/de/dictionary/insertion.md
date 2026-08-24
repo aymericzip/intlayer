@@ -100,20 +100,6 @@ Um Einfügeinhalt in Ihrem Intlayer-Projekt einzurichten, erstellen Sie ein Inha
   </Tab>
 </Tabs>
 
-```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
-{
-  "$schema": "https://intlayer.org/schema.json",
-  "key": "my_key",
-  "content": {
-    "myInsertion": {
-      "nodeType": "insertion",
-      "insertion": "Hallo, mein Name ist {{name}} und ich bin {{age}} Jahre alt!",
-    },
-    "myInsertion2": "Hallo, mein Name ist {{name}} und ich bin {{age}} Jahre alt!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
-  },
-}
-```
-
 ## Verwendung von Einfügeinhalten mit React Intlayer
 
 Um Einfügeinhalte innerhalb einer React-Komponente zu verwenden, importieren Sie den `useIntlayer`-Hook aus dem `react-intlayer`-Paket und verwenden ihn. Dieser Hook ruft den Inhalt für den angegebenen Schlüssel ab und ermöglicht es Ihnen, ein Objekt zu übergeben, das jeden Platzhalter in Ihrem Inhalt auf den Wert abbildet, den Sie anzeigen möchten.

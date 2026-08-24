@@ -214,12 +214,6 @@ bun add intlayer next-intlayer
 
 - **next-intlayer**
 
-  Пакет, що інтегрує Intlayer з Next.js. Він забезпечує провайдери контексту та хуки для інтернаціоналізації в Next.js. Крім того, він включає плагін для Next.js для інтеграції Intlayer з [Webpack](https://webpack.js.org/) або [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack), а також middleware для визначення пріоритетної локалі користувача, керування cookies та обробки перенаправлень URL.
-
-  Основний пакет, який надає інструменти інтернаціоналізації для управління конфігурацією, перекладу, [декларації контенту](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/content_file.md), транспіляції та [CLI-команд](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/index.md).
-
-- **next-intlayer**
-
   Пакет, який інтегрує Intlayer з Next.js. Він надає провайдери контексту та хуки для інтернаціоналізації в Next.js. Крім того, включає плагін Next.js для інтеграції Intlayer з [Webpack](https://webpack.js.org/) або [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack), а також middleware для виявлення переважної локалі користувача, керування cookie та обробки перенаправлень URL.
 
 </Step>
@@ -291,6 +285,8 @@ const nextConfig: NextConfig = {/* параметри конфігурації �
 export default withIntlayer(nextConfig);
 ```
 
+> Плагін `withIntlayer()` Next.js використовується для інтеграції Intlayer з Next.js. Він забезпечує побудову файлів декларації контенту та моніторить їх у режимі розробки. Він визначає змінні середовища Intlayer у середовищах [Webpack](https://webpack.js.org/) або [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack). Крім того, він надає aliases для оптимізації продуктивності та забезпечує сумісність із серверними компонентами.
+
 > Плагін Next.js `withIntlayer()` використовується для інтеграції Intlayer з Next.js. Він забезпечує побудову файлів декларації контенту та відстежує їх у режимі розробки. Він визначає змінні середовища Intlayer у середовищах [Webpack](https://webpack.js.org/) або [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack). Додатково він надає aliases для оптимізації продуктивності та забезпечує сумісність із серверними компонентами.
 >
 > Функція `withIntlayer()` повертає проміс. Вона дозволяє підготувати словники Intlayer перед початком збірки. Якщо ви хочете використовувати її з іншими плагінами, ви можете використати await. Приклад:
@@ -333,6 +329,36 @@ export default RootLayout;
 
 Щоб реалізувати динамічну маршрутизацію, вкажіть шлях для локалі, додавши новий layout у ваш каталог `[locale]`:
 
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
+```tsx fileName="src/app/[locale]/layout.tsx" codeFormat={["typescript", "esm"]}
+import { type NextLayoutIntlayer } from "next-intlayer";
+import { IntlayerProvider } from "next-intlayer/server";
+import { Inter } from "next/font/google";
+import { getHTMLTextDir } from "intlayer";
+
+const inter = Inter({ subsets: ["latin"] });
+
+const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
+  const { locale } = await params;
+  return (
+    <IntlayerProvider locale={locale}>
+      <html lang={locale} dir={getHTMLTextDir(locale)}>
+        <body className={inter.className}>{children}</body>
+      </html>
+    </IntlayerProvider>
+  );
+};
+
+export default LocaleLayout;
+```
+
+> Один `IntlayerProvider` охоплює обидві половини дерева: він забезпечує контекст сервера, обмежений запитом, який читають серверні хуки, і монтує клієнтський провайдер, щоб клієнтські компоненти отримували ту ж саму локаль.
+
+ </Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
+
 ```tsx fileName="src/app/[locale]/layout.tsx" codeFormat={["typescript", "esm", "commonjs"]}
 import { type NextLayoutIntlayer, IntlayerClientProvider } from "next-intlayer";
 import { Inter } from "next/font/google";
@@ -355,6 +381,9 @@ const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
 
 export default LocaleLayout;
 ```
+
+ </Tab>
+</Tabs>
 
 > Сегмент шляху `[locale]` використовується для визначення локалі. Приклад: `/en-US/about` відповідатиме `en-US`, а `/fr/about`, `fr`.
 
@@ -432,6 +461,44 @@ export default pageContent;
 
 Отримуйте доступ до словників контенту у всьому застосунку:
 
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
+```tsx fileName="src/app/[locale]/page.tsx" codeFormat={["typescript", "esm"]}
+import type { FC } from "react";
+import { ClientComponentExample } from "@components/ClientComponentExample";
+import { ServerComponentExample } from "@components/ServerComponentExample";
+import { type NextPageIntlayer, useIntlayer } from "next-intlayer";
+
+const PageContent: FC = () => {
+  const content = useIntlayer("page");
+
+  return (
+    <>
+      <p>{content.getStarted.main}</p>
+      <code>{content.getStarted.pageLink}</code>
+    </>
+  );
+};
+
+const Page: NextPageIntlayer = () => (
+  <>
+    <PageContent />
+    <ServerComponentExample />
+
+    <ClientComponentExample />
+  </>
+);
+
+export default Page;
+```
+
+- **`IntlayerProvider`** монтується один раз у макеті локалі. Він надає локаль як серверним, так і клієнтським компонентам, тому сторінки більше не обертаються самі в себе.
+- Серверні хуки розв'язують локаль у такому порядку: локаль, передана на місці виклику, потім контекст сервера, заповнений провайдером, потім локаль, яка міститься в запиті (заголовок `x-intlayer-locale`, встановлений прокси-сервером Intlayer, потім cookie локалі). Цей останній крок гарантує, що контент залишається коректним під час навігації на клієнтській стороні, яка перерендерює тільки сегмент сторінки, де макет — і разом з ним провайдер — не перезапускається.
+
+ </Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
+
 ```tsx fileName="src/app/[locale]/page.tsx" codeFormat={["typescript", "esm", "commonjs"]}
 import type { FC } from "react";
 import { ClientComponentExample } from "@components/ClientComponentExample";
@@ -491,6 +558,30 @@ export const ClientComponentExample: FC = () => {
 };
 ```
 
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
+```tsx {2} fileName="src/components/ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
+import type { FC } from "react";
+import { useIntlayer } from "next-intlayer";
+
+export const ServerComponentExample: FC = () => {
+  const content = useIntlayer("server-component-example"); // Створити пов'язану декларацію вмісту
+
+  return (
+    <div>
+      <h2>{content.title}</h2>
+      <p>{content.content}</p>
+    </div>
+  );
+};
+```
+
+> `next-intlayer` — це ізоморфний шлях імпорту: умова експорту `react-server` надає серверним компонентам реалізацію ambient-locale, тоді як клієнтські компоненти отримують context-backed. Один і той же виклик працює з обох сторін.
+
+ </Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
+
 ```tsx {2} fileName="src/components/ServerComponentExample.tsx" codeFormat={["typescript", "esm", "commonjs"]}
 import type { FC } from "react";
 import { useIntlayer } from "next-intlayer/server";
@@ -506,6 +597,9 @@ export const ServerComponentExample: FC = () => {
   );
 };
 ```
+
+ </Tab>
+</Tabs>
 
 > Якщо ви хочете використовувати свій вміст в атрибуті типу `string`, наприклад `alt`, `title`, `href`, `aria-label` тощо, ви повинні викликати значення функції, наприклад:
 
@@ -533,6 +627,8 @@ export const config = {
 ```
 
 > `intlayerMiddleware` використовується для визначення переважної мови користувача та перенаправлення його на відповідний URL, як вказано в [конфігурації](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md). Крім того, він дозволяє зберігати перевагу мови користувача в cookie.
+
+> З Intlayer v9 цей middleware дотримується параметра `routing.enableProxy` (`true` за замовчуванням). Встановіть `routing.enableProxy: false` у вашій конфігурації, щоб перетворити його на pass-through без видалення цього файлу. Див. [примітки до випуску v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/releases/v9.md).
 
 > Якщо вам потрібно зв'язати кілька middleware разом (наприклад, `intlayerMiddleware` з автентифікацією або кастомними middleware), Intlayer тепер надає хелпер під назвою `multipleMiddlewares`.
 
@@ -650,90 +746,6 @@ export const generateMetadata = async ({
 };
 
 // ... Rest of the code
-````
-
-````javascript fileName="src/app/[locale]/layout.mjs or src/app/[locale]/page.mjs" codeFormat="esm"
-import { getIntlayer, getMultilingualUrls } from "intlayer";
-
-export const generateMetadata = async ({ params }) => {
-  const { locale } = await params;
-
-  const metadata = getIntlayer("page-metadata", locale);
-
-  /**
-   * Генерує об'єкт, що містить всі URL для кожної локалі.
-   *
-   * Приклад:
-   * ```ts
-   *  getMultilingualUrls('/about');
-   *
-   *  // Повертає
-   *  // {
-   *  //   en: '/about',
-   *  //   fr: '/fr/about',
-   *  //   es: '/es/about'
-   *  // }
-   * ```
-   */
-  const multilingualUrls = getMultilingualUrls("/");
-  const localizedUrl = multilingualUrls[locale];
-
-  return {
-    ...metadata,
-    alternates: {
-      canonical: localizedUrl,
-      languages: { ...multilingualUrls, "x-default": "/" },
-    },
-    openGraph: {
-      url: localizedUrl,
-    },
-  };
-};
-
-// ... Rest of the code
-````
-
-````javascript fileName="src/app/[locale]/layout.cjs or src/app/[locale]/page.cjs" codeFormat="commonjs"
-const { getIntlayer, getMultilingualUrls } = require("intlayer");
-
-const generateMetadata = async ({ params }) => {
-  const { locale } = await params;
-
-  const metadata = getIntlayer("page-metadata", locale);
-
-  /**
-   * Генерує об'єкт, що містить усі URL для кожної локалі.
-   *
-   * Приклад:
-   * ```ts
-   *  getMultilingualUrls('/about');
-   *
-   *  // Повертає
-   *  // {
-   *  //   en: '/about',
-   *  //   fr: '/fr/about',
-   *  //   es: '/es/about'
-   *  // }
-   * ```
-   */
-  const multilingualUrls = getMultilingualUrls("/");
-  const localizedUrl = multilingualUrls[locale];
-
-  return {
-    ...metadata,
-    alternates: {
-      canonical: localizedUrl,
-      languages: { ...multilingualUrls, "x-default": "/" },
-    },
-    openGraph: {
-      url: localizedUrl,
-    },
-  };
-};
-
-module.exports = { generateMetadata };
-
-// ... Решта коду
 ````
 
 > Зверніть увагу, що функція `getIntlayer`, імпортована з `next-intlayer`, повертає ваш контент, обгорнутий в `IntlayerNode`, що дозволяє інтеграцію з візуальним редактором. Натомість функція `getIntlayer`, імпортована з `intlayer`, повертає ваш контент без додаткових властивостей.
@@ -944,156 +956,6 @@ export const LocaleSwitcher: FC = () => {
 };
 ```
 
-```jsx fileName="src/components/LocaleSwitcher.msx" codeFormat="esm"
-"use client";
-
-import {
-  Locales,
-  getHTMLTextDir,
-  getLocaleName,
-  getLocalizedUrl,
-} from "intlayer";
-import { useLocale } from "next-intlayer";
-import Link from "next/link";
-
-export const LocaleSwitcher = () => {
-  const { locale, pathWithoutLocale, availableLocales, setLocale } =
-    useLocale();
-
-  return (
-    <div>
-      <button popoverTarget="localePopover">{getLocaleName(locale)}</button>
-      <div id="localePopover" popover="auto">
-        {availableLocales.map((localeItem) => (
-          <Link
-            href={getLocalizedUrl(pathWithoutLocale, localeItem)}
-            key={localeItem}
-            aria-current={locale === localeItem ? "page" : undefined}
-            onClick={() => setLocale(localeItem)}
-            replace // Це гарантує, що кнопка "назад" в браузері перенаправить на попередню сторінку
-          >
-            <span>
-              {/* Локаль, напр., FR */}
-              {localeItem}
-            </span>
-            <span>
-              {/* Мова у власній локалі, напр., Français */}
-              {getLocaleName(localeItem, locale)}
-            </span>
-            <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* Мова у поточній локалі, напр., Francés коли поточна локаль встановлена в Locales.SPANISH */}
-              {getLocaleName(localeItem)}
-            </span>
-            <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* Назва мови англійською, напр., French */}
-              {getLocaleName(localeItem, Locales.ENGLISH)}
-            key={localeItem}
-            aria-current={locale === localeItem ? "page" : undefined}
-            onClick={() => setLocale(localeItem)}
-            replace // Забезпечить, що кнопка браузера "назад" у браузері перенаправлятиме на попередню сторінку
-          >
-            <span>
-              {/* Локаль - напр. FR */}
-              {localeItem}
-            </span>
-            <span>
-              {/* Мова у власній локалі - напр. Français */}
-              {getLocaleName(localeItem, locale)}
-            </span>
-            <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* Мова у поточній локалі - напр. Francés коли поточна локаль встановлена як Locales.SPANISH */}
-              {getLocaleName(localeItem)}
-            </span>
-            <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* Мова англійською - напр. French */}
-              {getLocaleName(localeItem, Locales.ENGLISH)}
-            </span>
-          </Link>
-        ))}
-      </div>
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/LocaleSwitcher.csx" codeFormat="commonjs"
-"use client";
-
-const {
-  Locales,
-  getHTMLTextDir,
-  getLocaleName,
-  getLocalizedUrl,
-} = require("intlayer");
-const { useLocale } = require("next-intlayer");
-const Link = require("next/link");
-
-export const LocaleSwitcher = () => {
-  const { locale, pathWithoutLocale, availableLocales, setLocale } =
-    useLocale();
-
-  return (
-    <div>
-      <button popoverTarget="localePopover">{getLocaleName(locale)}</button>
-      <div id="localePopover" popover="auto">
-        {availableLocales.map((localeItem) => (
-          <Link
-            href={getLocalizedUrl(pathWithoutLocale, localeItem)}
-            key={localeItem}
-            aria-current={locale === localeItem ? "page" : undefined}
-            onClick={() => setLocale(localeItem)}
-            replace // Забезпечить, що кнопка браузера "назад" у браузері перенаправлятиме на попередню сторінку
-          >
-            <span>
-              {/* Локаль - напр. FR */}
-              {localeItem}
-            </span>
-            <span>
-              {/* Мова у власній локалі - напр. Français */}
-              {getLocaleName(localeItem, locale)}
-            </span>
-            <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* Мова у поточній локалі - напр. Francés коли поточна локаль встановлена як Locales.SPANISH */}
-              {getLocaleName(localeItem)}
-            </span>
-            <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* Мова англійською - напр. French */}
-              {getLocaleName(localeItem, Locales.ENGLISH)}
-            </span>
-          </Link>
-        ))}
-      </div>
-    </div>
-  );
-};
-            aria-current={locale === localeItem ? "page" : undefined}
-            onClick={() => setLocale(localeItem)}
-            replace // Це гарантує, що кнопка браузера "назад" перенаправлятиме на попередню сторінку
-          >
-            <span>
-              {/* Локаль, наприклад FR */}
-              {localeItem}
-            </span>
-            <span>
-              {/* Назва мови у власній локалі, наприклад Français */}
-              {getLocaleName(localeItem, locale)}
-            </span>
-            <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* Назва мови у поточній локалі, наприклад Francés, коли поточна локаль встановлена на Locales.SPANISH */}
-              {getLocaleName(localeItem)}
-            </span>
-            <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* Мова англійською, наприклад French */}
-              {getLocaleName(localeItem, Locales.ENGLISH)}
-            </span>
-          </Link>
-        ))}
-      </div>
-    </div>
-  );
-};
-```
-
 > Іншим способом є використання функції `setLocale`, яку надає хук `useLocale`. Ця функція не дозволяє робити prefetch сторінки. Див. документацію по [`useLocale` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/next-intlayer/useLocale.md) для детальнішої інформації.
 
 > Ви також можете встановити функцію в опції `onLocaleChange`, щоб викликати користувацьку функцію при зміні локалі.
@@ -1187,8 +1049,6 @@ export const Link: FC<PropsWithChildren<NextLinkProps>> = ({
 #### Як це працює
 
 - **Визначення зовнішніх посилань**:
-
-  Допоміжна функція `checkIsExternalLink` визначає, чи є URL зовнішнім. Зовнішні посилання залишаються без змін, оскільки їх не потрібно локалізувати.
 
 - **Отримання поточної локалі**:  
   Хук `useLocale` надає поточну локаль (наприклад, `fr` для французької).

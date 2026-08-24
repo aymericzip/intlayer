@@ -109,6 +109,8 @@ Intlayer оптимізовано для ідеальної роботи з Lit,
 
 ---
 
+Див. [Application Template](https://github.com/aymericzip/intlayer-vite-lit-template) на GitHub.
+
 ## Покрокова інструкція з налаштування Intlayer у додатку Vite та Lit
 
 <Steps>
@@ -477,6 +479,8 @@ export class MyElement extends LitElement {
 Спочатку додайте `intlayerProxy` до вашої конфігурації Vite:
 
 > Зверніть увагу, що для використання `intlayerProxy` у продакшні вам потрібно перемістити `vite-intlayer` з `devDependencies` до `dependencies`.
+
+> Починаючи з Intlayer v9, `intlayerProxy()` включено безпосередньо в плагін `intlayer()` і за замовчуванням увімкнено через опцію `routing.enableProxy` (`true` за замовчуванням). Реєстрація його окремо, як показано нижче, тепер необов'язкова — вона зберігається для зворотної сумісності та для налаштувань, які потребують контролю порядку плагінів. Встановіть `routing.enableProxy: false`, щоб відмовитися. Див. [примітки до випуску v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/releases/v9.md).
 
 ```typescript {3,7} fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";

@@ -297,6 +297,36 @@ export default RootLayout;
 
 Dinamik yönlendirmeyi uygulamak için, `[locale]` dizininizde yeni bir düzen ekleyerek yerel ayar yolunu sağlayın:
 
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
+```tsx fileName="src/app/[locale]/layout.tsx" codeFormat={["typescript", "esm"]}
+import { type NextLayoutIntlayer } from "next-intlayer";
+import { IntlayerProvider } from "next-intlayer/server";
+import { Inter } from "next/font/google";
+import { getHTMLTextDir } from "intlayer";
+
+const inter = Inter({ subsets: ["latin"] });
+
+const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
+  const { locale } = await params;
+  return (
+    <IntlayerProvider locale={locale}>
+      <html lang={locale} dir={getHTMLTextDir(locale)}>
+        <body className={inter.className}>{children}</body>
+      </html>
+    </IntlayerProvider>
+  );
+};
+
+export default LocaleLayout;
+```
+
+> Tek bir `IntlayerProvider` ağacın her iki yarısını da kapsar: istek kapsamlı sunucu bağlamını sunucu hook'ları tarafından okunacak şekilde başlatır ve istemci bileşenlerinin aynı yerel ayarı alması için istemci sağlayıcısını monte eder.
+
+ </Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
+
 ```tsx fileName="src/app/[locale]/layout.tsx" codeFormat={["typescript", "esm"]}
 import { type NextLayoutIntlayer, IntlayerClientProvider } from "next-intlayer";
 import { Inter } from "next/font/google";
@@ -319,6 +349,9 @@ const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
 
 export default LocaleLayout;
 ```
+
+</Tab>
+</Tabs>
 
 > `[locale]` yol segmenti, yerel ayarı tanımlamak için kullanılır. Örnek: `/en-US/about`, `en-US`'ye ve `/fr/about`, `fr`'ye atıfta bulunacaktır.
 
@@ -394,6 +427,44 @@ export default pageContent;
 
 Uygulamanız genelinde içerik sözlüklerinize erişin:
 
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
+```tsx fileName="src/app/[locale]/page.tsx" codeFormat={["typescript", "esm"]}
+import type { FC } from "react";
+import { ClientComponentExample } from "@components/ClientComponentExample";
+import { ServerComponentExample } from "@components/ServerComponentExample";
+import { type NextPageIntlayer, useIntlayer } from "next-intlayer";
+
+const PageContent: FC = () => {
+  const content = useIntlayer("page");
+
+  return (
+    <>
+      <p>{content.getStarted.main}</p>
+      <code>{content.getStarted.pageLink}</code>
+    </>
+  );
+};
+
+const Page: NextPageIntlayer = () => (
+  <>
+    <PageContent />
+    <ServerComponentExample />
+
+    <ClientComponentExample />
+  </>
+);
+
+export default Page;
+```
+
+- **`IntlayerProvider`** yerel ayar düzeninde bir kez bağlanır. Sunucu ve istemci bileşenlerine yerel ayarı sağlar, bu nedenle sayfalar artık kendilerini sarmalamaz.
+- Sunucu kancaları yerel ayarı şu sırayla çözümler: çağrı sitesinde geçirilen yerel ayar, sağlayıcı tarafından seeded edilen sunucu bağlamı, ardından istek tarafından taşınan yerel ayar (Intlayer proxy'si tarafından ayarlanan `x-intlayer-locale` başlığı, ardından yerel ayar çerezi). Son adım, yalnızca sayfa segmentini yeniden render eden istemci tarafı navigasyonunda içeriğin doğru kalmasını sağlar; burada düzen — ve onunla birlikte sağlayıcı — yeniden çalışmaz.
+
+ </Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
+
 ```tsx fileName="src/app/[locale]/page.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { ClientComponentExample } from "@components/ClientComponentExample";
@@ -433,6 +504,9 @@ export default Page;
 
   > Düzen (layout) ve sayfa ortak bir sunucu bağlamını paylaşamaz çünkü sunucu bağlamı sistemi her istek için veri deposuna ([React'in cache](https://react.dev/reference/react/cache) mekanizması aracılığıyla) dayanır ve her "bağlamın" uygulamanın farklı segmentleri için yeniden oluşturulmasına neden olur. Sağlayıcıyı paylaşılan bir düzene yerleştirmek bu izolasyonu bozacak ve sunucu bağlamı değerlerinin sunucu bileşenlerinize doğru şekilde yayılmasını engelleyecektir.
 
+ </Tab>
+</Tabs>
+
 ```tsx {4,7} fileName="src/components/ClientComponentExample.tsx" codeFormat={["typescript", "esm"]}
 "use client";
 
@@ -451,6 +525,30 @@ export const ClientComponentExample: FC = () => {
 };
 ```
 
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
+```tsx {2} fileName="src/components/ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
+import type { FC } from "react";
+import { useIntlayer } from "next-intlayer";
+
+export const ServerComponentExample: FC = () => {
+  const content = useIntlayer("server-component-example"); // İlgili içerik bildirimini oluştur
+
+  return (
+    <div>
+      <h2>{content.title}</h2>
+      <p>{content.content}</p>
+    </div>
+  );
+};
+```
+
+> `next-intlayer` izomorfik import yoludur: `react-server` export koşulu, sunucu bileşenlerine ortam-yerel implementasyonunu verirken, istemci bileşenleri bağlam tabanlı olanı alır. Aynı çağrı her iki tarafta da çalışır.
+
+ </Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
+
 ```tsx {2} fileName="src/components/ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "next-intlayer/server";
@@ -466,6 +564,9 @@ export const ServerComponentExample: FC = () => {
   );
 };
 ```
+
+ </Tab>
+</Tabs>
 
 > İçeriğinizi `alt`, `title`, `href`, `aria-label` vb. gibi bir `string` özniteliğinde kullanmak istiyorsanız, fonksiyonun değerini çağırmalısınız, örneğin:
 
@@ -495,6 +596,8 @@ export const config = {
 ```
 
 > `intlayerProxy`, kullanıcının tercih ettiği yerel ayarı algılamak ve onları [yapılandırmada](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) belirtilen uygun URL'ye yönlendirmek için kullanılır. Ek olarak, kullanıcının tercih ettiği yerel ayarın bir çerezde saklanmasını sağlar.
+
+> Intlayer v9'dan itibaren, bu middleware `routing.enableProxy` seçeneğine saygı gösterir (`true` varsayılan değerdir). Bu dosyayı kaldırmadan pass-through moduna çevirmek için yapılandırmanızda `routing.enableProxy: false` ayarlayın. [v9 sürüm notlarına](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/releases/v9.md) bakın.
 
 > Birden fazla proxy'yi bir zincirleme olarak bağlamanız gerekiyorsa (örneğin, kimlik doğrulama veya özel proxy'lerle birlikte `intlayerProxy`), Intlayer artık `multipleProxies` adında bir yardımcı sunuyor.
 
@@ -929,6 +1032,8 @@ bun add @intlayer/swc --dev
 
 > Not: `dictionary` yapılandırmasında seçeneği `importMode: 'dynamic'` veya `importMode: 'fetch'` olarak ayarlarsanız, Suspense'e dayalı olacaktır, bu nedenle `useIntlayer` çağrılarınızı bir `Suspense` sınırı (boundary) içine sarmalamanız gerekecektir. Bu, `useIntlayer`'ı doğrudan Sayfa / Düzen bileşeninizin en üst düzeyinde kullanamayacağınız anlamına gelir.
 > </Step>
+
+</Step>
 
 <Step number={14} title="Bileşenlerinizin içeriğini çıkarın" isOptional={true}>
 

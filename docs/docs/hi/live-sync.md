@@ -44,7 +44,46 @@ author: aymericzip
 
 > लाइव सिंक के लिए एक निरंतर सर्वर कनेक्शन आवश्यक होता है और यह एंटरप्राइज योजना पर उपलब्ध है।
 
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import type { IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  // ... अन्य कॉन्फ़िगरेशन सेटिंग्स
+  editor: {
+    /**
+     * परिवर्तन detected होने पर locale कॉन्फ़िगरेशन की hot reloading को सक्षम करता है।
+     * उदाहरण के लिए, जब एक dictionary जोड़ी या अपडेट की जाती है, तो एप्लिकेशन
+     * पेज पर प्रदर्शित content को अपडेट करता है।
+     *
+     * क्योंकि hot reloading के लिए server के साथ continuous connection की आवश्यकता होती है, यह
+     * केवल `enterprise` plan के clients के लिए उपलब्ध है।
+     *
+     * Default: false
+     */
+    liveSync: true,
+  },
+  dictionary: {
+    /**
+     * नियंत्रित करता है कि dictionaries कैसे import की जाती हैं:
+     *
+     * - "fetch": Dictionaries को Live Sync API का उपयोग करके dynamically fetch किया जाता है।
+     *   useIntlayer को useDictionaryDynamic से replace करता है।
+     *
+     * Note: Live mode dictionaries को fetch करने के लिए Live Sync API का उपयोग करता है। यदि API call
+     * विफल होती है, तो dictionaries को dynamically import किया जाता है।
+     * Note: केवल remote content और "live" flags वाली dictionaries live mode का उपयोग करती हैं।
+     * अन्य performance के लिए dynamic mode का उपयोग करते हैं।
+     */
+    importMode: "fetch",
+  },
+};
+
+export default config;
+```
+
 अपने Intlayer कॉन्फ़िगरेशन को अपडेट करके लाइव सिंक सक्षम करें:
+
+Standalone server का उपयोग करके उदाहरण:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import type { IntlayerConfig } from "intlayer";

@@ -98,20 +98,6 @@ Khi tích hợp với React Intlayer hoặc Next Intlayer, bạn chỉ cần cun
   </Tab>
 </Tabs>
 
-```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
-{
-  "$schema": "https://intlayer.org/schema.json",
-  "key": "my_key",
-  "content": {
-    "myInsertion": {
-      "nodeType": "insertion",
-      "insertion": "Xin chào, tôi tên là {{name}} và tôi {{age}} tuổi!",
-    },
-    "myInsertion2": "Xin chào, tôi tên là {{name}} và tôi {{age}} tuổi!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
-  },
-}
-```
-
 ## Sử dụng Nội dung Chèn với React Intlayer
 
 Để sử dụng nội dung chèn trong một component React, hãy import và sử dụng hook `useIntlayer` từ package `react-intlayer`. Hook này lấy nội dung theo key được chỉ định và cho phép bạn truyền vào một đối tượng ánh xạ mỗi placeholder trong nội dung với giá trị bạn muốn hiển thị.

@@ -169,21 +169,6 @@ getLocalizedUrl(
 // आउटपुट: डिफ़ॉल्ट (अंग्रेज़ी) लोकल के लिए "/about"
 ```
 
-```javascript codeFormat="commonjs"
-const { getLocalizedUrl, Locales } = require("intlayer");
-
-getLocalizedUrl(
-  "/about",
-  Locales.FRENCH,
-  [Locales.ENGLISH, Locales.FRENCH],
-  Locales.ENGLISH,
-  false
-);
-
-// आउटपुट: फ्रेंच लोकल के लिए "/fr/about"
-// आउटपुट: डिफ़ॉल्ट (अंग्रेज़ी) लोकल के लिए "/about"
-```
-
 ### पूर्ण URL
 
 ```typescript
@@ -235,6 +220,12 @@ getLocalizedUrl(
 
 - **असमर्थित लोकल:**
   - `locales` में सूचीबद्ध नहीं किए गए लोकल के लिए, फ़ंक्शन कोई प्रीफिक्स लागू नहीं करता।
+
+- **राउटिंग मोड्स:**
+  - `'prefix-no-default'`: डिफ़ॉल्ट लोकेल के पास कोई उपसर्ग नहीं है, अन्य के पास हैं (उदाहरण के लिए, `/about`, `/fr/about`)
+  - `'prefix-all'`: सभी लोकेल्स के पास उपसर्ग हैं (उदाहरण के लिए, `/en/about`, `/fr/about`)
+  - `'no-prefix'`: URLs में कोई लोकेल उपसर्ग नहीं (लोकेल कहीं और संभाला जाता है)
+  - `'search-params'`: क्वेरी पैरामीटर के माध्यम से निर्दिष्ट लोकेल (उदाहरण के लिए, `/about?locale=fr`)
 
 ---
 

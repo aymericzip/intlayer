@@ -64,10 +64,6 @@ Chromium (utilizado para la generación de capturas de pantalla de Puppeteer) se
 
 ## Inicio rápido
 
-```sh
-curl -fsSL https://intlayer.org/install.sh | sh
-```
-
 Lo que hace el instalador:
 
 1.  Verifica que `docker` y `docker compose` estén presentes.
@@ -77,6 +73,8 @@ Lo que hace el instalador:
 5.  Imprime las URLs: dashboard `:3000`, API `:3100`, interfaz de usuario de correo electrónico `:8025`, consola de MinIO `:9001`.
 
 Una vez que la pila esté en funcionamiento, abre **http://localhost:3000** y crea tu primera cuenta.
+
+> El dashboard se sirve en `localhost`. Consulta [Limitaciones](#limitations) — los dominios personalizados no son compatibles con la imagen publicada.
 
 ---
 
@@ -102,8 +100,6 @@ Una vez que existe un admin, `/init` redirige a la página estándar de inicio d
 | **redis**   | `redis:7-alpine`                           | interno                              | Colas de trabajos (BullMQ) y almacenamiento en caché (ioredis)                   |
 | **minio**   | `minio/minio`                              | `9000` (S3), `9001` (consola)        | Almacenamiento de objetos compatible con S3 para avatares y capturas de pantalla |
 | **mailpit** | `axllent/mailpit`                          | `1025` (SMTP), `8025` (interfaz web) | Receptor local de correos electrónicos transaccionales                           |
-
-Los puertos internos (mongo, redis) no se exponen al host por defecto.
 
 > El puerto `9000` de MinIO debe ser accesible desde el navegador porque los activos cargados (avatares, capturas de pantalla) se cargan directamente desde `S3_PUBLIC_URL=http://localhost:9000/intlayer`.
 
@@ -159,8 +155,6 @@ Los puertos internos (mongo, redis) no se exponen al host por defecto.
 | `MICROSOFT_CLIENT_ID`, `MICROSOFT_CLIENT_SECRET`         | Inicio de sesión Microsoft OAuth                                                        |
 | `LINKEDIN_CLIENT_ID`, `LINKEDIN_CLIENT_SECRET`           | Inicio de sesión LinkedIn OAuth                                                         |
 | `ATLASSIAN_CLIENT_ID`, `ATLASSIAN_CLIENT_SECRET`         | Inicio de sesión Atlassian OAuth                                                        |
-
----
 
 ### Servicio de correo global
 
@@ -247,15 +241,7 @@ const { data: dictionaries } = await dictionaryEndpoint(cms).getDictionaries();
 
 ## Actualización
 
-Volver a ejecutar el instalador en un despliegue existente realiza una actualización continua:
-
-```sh
-curl -fsSL https://intlayer.org/install.sh | sh
-```
-
 Esto descarga las últimas imágenes y reinicia los contenedores con `docker compose pull && docker compose up -d`. Los volúmenes existentes (`mongo-data`, `redis-data`, `minio-data`) se conservan, sin pérdida de datos.
-
-Para actualizar manualmente desde el directorio `./intlayer/`:
 
 ```sh
 docker compose pull
@@ -320,14 +306,11 @@ docker compose logs mongo
 docker compose logs redis
 ```
 
+Busca `MongoDB connection error` cerca de la parte superior del log.
+
 ### El dashboard no puede conectar con la API
 
 Verifica que `VITE_BACKEND_URL` coincida con la URL donde el backend es accesible desde el **navegador** (no desde la red de Docker). Si cambiaste el puerto del backend o añadiste un proxy inverso, reconstruye la imagen del dashboard:
-
-```sh
-docker compose build app
-docker compose up -d app
-```
 
 ### Falta el bucket de MinIO
 

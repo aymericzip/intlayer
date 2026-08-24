@@ -34,10 +34,6 @@ npm install astro-intlayer
 
 ### インテグレーション
 
-| Function   | Description                                                           |
-| ---------- | --------------------------------------------------------------------- |
-| `intlayer` | プロジェクト内でIntlayerをセットアップするAstroのインテグレーション。 |
-
 `astro-intlayer` パッケージは、プロジェクトで Intlayer を設定するための Astro 統合を提供します。
 
 インポート:

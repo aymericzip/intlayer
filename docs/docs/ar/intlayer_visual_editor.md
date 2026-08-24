@@ -85,6 +85,16 @@ pnpm add intlayer-editor --save-dev
 bun add intlayer-editor --dev
 ```
 
+باستخدام `--with` flag، يمكنك بدء المحرر بالتوازي مع أمر آخر:
+
+```json5 fileName="package.json"
+{
+  "scripts": {
+    "start:editor": "npx intlayer-editor start --with 'next dev --turbopack'",
+  },
+}
+```
+
 ## التكوين
 
 في ملف تكوين Intlayer الخاص بك، يمكنك تخصيص إعدادات المحرر:
@@ -145,6 +155,8 @@ export default config;
    ```
 
    > **لاحظ أنه يجب تشغيل تطبيقك بالتوازي.** يجب أن يتطابق عنوان URL للتطبيق مع الذي قمت بتعيينه في تكوين المحرر (`applicationURL`).
+
+> **ملاحظة: يتم إعادة تصدير الأمر من خلال حزمة `intlayer`. يمكنك استخدام `npx intlayer editor start` بدلاً من ذلك.**
 
 2. ثم افتح عنوان URL المقدم. الافتراضي هو `http://localhost:8000`.
 

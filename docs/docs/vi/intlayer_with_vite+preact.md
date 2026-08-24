@@ -173,10 +173,6 @@ bun add vite-intlayer --dev
 
   Gói cốt lõi cung cấp các công cụ quốc tế hóa cho quản lý cấu hình, dịch thuật, [khai báo nội dung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/content_file.md), biên dịch và [lệnh CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/index.md).
 
-- **preact-intlayer**
-
-  Gói tích hợp Intlayer với ứng dụng Preact. Nó cung cấp các context provider và hook cho việc quốc tế hóa trong Preact.
-
 - **vite-intlayer**
 
   Bao gồm plugin Vite để tích hợp Intlayer với [Vite bundler](https://vite.dev/guide/why.html#why-bundle-for-production), cũng như middleware để phát hiện ngôn ngữ ưu tiên của người dùng, quản lý cookie và xử lý chuyển hướng URL.
@@ -595,6 +591,8 @@ export default LocaleSwitcher;
 >
 > > - [Hook `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/react-intlayer/useLocale.md) (API tương tự cho `preact-intlayer`)> - [Hook `getLocaleName`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getLocaleName.md)> - [Hook `getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getLocalizedUrl.md)> - [Hook `getHTMLTextDir`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getHTMLTextDir.md)> - [Thuộc tính `hreflang`](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=fr)> - [Thuộc tính `lang`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang)> - [Thuộc tính `dir`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)> - [Thuộc tính `aria-current`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)> - [Popover API](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API)
 
+---
+
 </Step>
 
 <Step number={9} title="Chuyển đổi thuộc tính ngôn ngữ và hướng của HTML" isOptional={true}>
@@ -663,6 +661,12 @@ const App: FunctionalComponent = () => (
 
 export default App;
 ```
+
+Bằng cách áp dụng những thay đổi này, ứng dụng của bạn sẽ:
+
+- Đảm bảo thuộc tính **language** (`lang`) phản ánh chính xác locale hiện tại, điều này rất quan trọng cho SEO và hành vi của trình duyệt.
+- Điều chỉnh **text direction** (`dir`) theo locale, nâng cao khả năng đọc và sử dụng cho các ngôn ngữ có thứ tự đọc khác nhau.
+- Cung cấp trải nghiệm **accessible** tốt hơn, vì các công nghệ hỗ trợ phụ thuộc vào các thuộc tính này để hoạt động tối ưu.
 
 </Step>
 

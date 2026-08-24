@@ -55,12 +55,6 @@ import { ... } from "vite-intlayer";
 
 ### 插件
 
-导入：
-
-```tsx
-import "vite-intlayer";
-```
-
 | 功能                 | 描述                                                       | 相关文档                                                                                                               |
 | -------------------- | ---------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
 | `intlayer`           | 主要的 Vite 插件，将 Intlayer 集成到构建流程中。           | [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/vite-intlayer/intlayer.md)           |

@@ -47,15 +47,22 @@ author: aymericzip
 />
 
   </Tab>
+  <Tab label="Demo" value="demo">
+
+<iframe
+  src="https://intlayer-vite-solid.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo Intlayer Vite + Solid Template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
 </Tabs>
 
 ## Table of Contents
 
 <TOC/>
-
-> Gói này đang trong quá trình phát triển. Xem [vấn đề](https://github.com/aymericzip/intlayer/issues/117) để biết thêm thông tin. Thể hiện sự quan tâm của bạn đến Intlayer cho Solid bằng cách thích vấn đề này
-
-<!-- Xem [Mẫu Ứng dụng](https://github.com/aymericzip/intlayer-solid-template) trên GitHub. -->
 
 ## Tại sao Intlayer thay thế các lựa chọn thay thế?
 
@@ -241,8 +248,6 @@ export default appContent;
 ```
 
 > Các khai báo nội dung của bạn có thể được định nghĩa ở bất kỳ đâu trong ứng dụng của bạn miễn là chúng được đưa vào thư mục `contentDir` (mặc định là `./src`). Và phải phù hợp với phần mở rộng file khai báo nội dung (mặc định là `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
-
-> Để biết thêm chi tiết, hãy tham khảo [tài liệu khai báo nội dung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/content_file.md).
 
 </Step>
 
@@ -491,28 +496,9 @@ export const Link: ParentComponent<AnchorProps> = (props) => {
 };
 ```
 
-</Step>
-
 <Step number={11} title="Render Markdown" isOptional={true}>
 
 Intlayer hỗ trợ render nội dung Markdown trực tiếp trong ứng dụng Solid của bạn bằng cách sử dụng trình phân tích cú pháp nội bộ riêng. Theo mặc định, Markdown được xử lý như văn bản thuần túy. Để render nó dưới dạng HTML phong phú, hãy bọc ứng dụng của bạn bằng `MarkdownProvider`.
-
-```tsx fileName="src/index.tsx"
-import { render } from "solid-js/web";
-import { MarkdownProvider } from "solid-intlayer/markdown";
-import App from "./App";
-
-const root = document.getElementById("root");
-
-render(
-  () => (
-    <MarkdownProvider>
-      <App />
-    </MarkdownProvider>
-  ),
-  root!
-);
-```
 
 Sau đó bạn có thể sử dụng nó trong các thành phần của mình:
 
@@ -743,5 +729,3 @@ Nên bỏ qua các tệp được tạo bởi Intlayer. Điều này cho phép b
 ### Tiến xa hơn
 
 Để tiến xa hơn, bạn có thể triển khai [trình soạn thảo trực quan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md) hoặc tách nội dung của bạn ra bên ngoài bằng cách sử dụng [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md).
-
----

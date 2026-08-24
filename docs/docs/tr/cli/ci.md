@@ -130,6 +130,8 @@ bun x intlayer ci fill --verbose --mode complete
 
 CI/CD yapılandırmanızda (örneğin, GitHub Actions, GitLab CI), `INTLAYER_PROJECT_CREDENTIALS`'i bir sır olarak ayarlayın:
 
+> **AI erişimi**: `fill` komutu, çevirileri oluşturmak için AI erişimine ihtiyaç duyar. `INTLAYER_PROJECT_CREDENTIALS` içinden `ci` tarafından enjekte edilen kimlik bilgileri (Intlayer CMS erişim anahtarları) Intlayer backend aracılığıyla AI erişimi sağlar, bu nedenle ayrı bir AI sağlayıcı anahtarı gerekli değildir. Bunun yerine kendi sağlayıcı anahtarınızı kullanmayı tercih ederseniz, `intlayer ci fill` komutuna `--provider`, `--model` ve `--api-key` seçeneklerini geçin. `test` komutu AI erişimi gerektirmez.
+
 ```yaml
 # GitHub Actions örneği
 env:

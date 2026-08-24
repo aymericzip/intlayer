@@ -297,6 +297,8 @@ export default appContent;
 > Eğer uygulamanız zaten mevcutsa, binlerce bileşeni bir saniye içinde dönüştürmek için [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md)'ı [extract komutu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/extract.md) ile birlikte kullanabilirsiniz.
 ```
 
+> Uygulamanız zaten varsa, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md) ve [extract command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/extract.md) kullanarak binlerce bileşeni bir saniyede dönüştürebilirsiniz.
+
 </Step>
 
 <Step number={6} title="İçeriğinizin dilini değiştirin" isOptional={true}>
@@ -455,6 +457,8 @@ Paralel olarak, uygulamanıza sunucu tarafı yönlendirme eklemek için `intlaye
 
 > Üretimde `intlayerProxy` kullanmak için, `vite-intlayer` paketini `devDependencies`'den `dependencies`'e geçirmeniz gerektiğini unutmayın.
 
+> Intlayer v9 sürümünden itibaren, `intlayerProxy()` doğrudan `intlayer()` eklentisine entegre edilmiştir ve `routing.enableProxy` seçeneği (`varsayılan olarak true`) aracılığıyla varsayılan olarak etkinleştirilmiştir. Aşağıda gösterildiği gibi ayrı olarak kaydetmek artık isteğe bağlıdır — geriye dönük uyumluluk ve eklenti sırasını kontrol etmesi gereken kurulumlar için tutulur. Devre dışı bırakmak için `routing.enableProxy: false` değerini ayarlayın. [v9 sürüm notlarına](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/releases/v9.md) bakın.
+
 ```typescript {3,7} fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
 import { svelte } from "@sveltejs/vite-plugin-svelte";
@@ -506,6 +510,29 @@ const changeLocale = (event: Event) => {
 </Step>
 
 <Step number={9} title="Bileşenlerinizin içeriğini çıkarın" isOptional={true}>
+
+SEO için, rotalarınızı locale ile ön ek olarak kullanmanız önerilir (örneğin, `/about`, `/fr/about`).
+
+```svelte fileName="src/lib/components/Link.svelte"
+<script lang="ts">
+  import { getLocalizedUrl } from "intlayer";
+  import { useLocale } from "svelte-intlayer";
+
+  export let href = "";
+  const { locale } = useLocale();
+
+  // URL'yi önek eklemek için yardımcı
+  $: localizedHref = getLocalizedUrl(href, $locale);
+</script>
+
+<a href={localizedHref}>
+  <slot />
+</a>
+```
+
+</Step>
+
+<Step number={10} title="Bileşenlerinizin içeriğini çıkarın" isOptional={true}>
 
 Mevcut bir kod tabanınız varsa, binlerce dosyayı dönüştürmek zaman alıcı olabilir.
 
@@ -705,6 +732,8 @@ Bu eklenti şunları sağlar:
 - Çevirileri kolayca oluşturup güncellemek için **Hızlı işlemler**.
 
 Eklentinin nasıl kullanılacağı hakkında daha fazla bilgi için [Intlayer VS Code Eklentisi dokümantasyonuna](https://intlayer.org/doc/vs-code-extension) bakabilirsiniz.
+
+---
 
 ### Daha İleri Gitmek
 

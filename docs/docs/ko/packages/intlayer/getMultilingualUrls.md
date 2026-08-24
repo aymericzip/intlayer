@@ -31,6 +31,14 @@ author: aymericzip
 
 `getMultilingualUrls` 함수는 주어진 URL에 각 지원되는 로케일을 접두사로 붙여 다국어 URL 매핑을 생성합니다. 절대 URL과 상대 URL 모두를 처리할 수 있으며, 제공된 구성이나 기본값에 따라 적절한 로케일 접두사를 적용합니다.
 
+**주요 특징:**
+
+- 필수 매개변수는 1개입니다: `url`
+- `locales`, `defaultLocale`, `mode`를 포함하는 선택적 `options` 객체
+- 프로젝트의 국제화 설정을 기본값으로 사용합니다
+- 여러 라우팅 모드를 지원합니다: `prefix-no-default`, `prefix-all`, `no-prefix`, `search-params`
+- 모든 로케일을 키로, 해당 URL을 값으로 하는 매핑 객체를 반환합니다
+
 ---
 
 ## 함수 서명
@@ -139,8 +147,6 @@ getMultilingualUrls(
 // }
 ```
 
----
-
 ### 다양한 라우팅 모드
 
 ```typescript
@@ -206,6 +212,12 @@ getMultilingualUrls("/dashboard", {
 - **지원되지 않는 로케일:**
   - `locales` 배열에 제공된 로케일만 URL 생성에 고려됩니다.
 
+- **라우팅 모드:**
+  - `'prefix-no-default'`: 기본 로케일은 접두사가 없고, 다른 로케일은 있음 (예: `/dashboard`, `/fr/dashboard`)
+  - `'prefix-all'`: 모든 로케일에 접두사가 있음 (예: `/en/dashboard`, `/fr/dashboard`)
+  - `'no-prefix'`: URL에 로케일 접두사가 없음 (모든 로케일이 동일한 URL 반환)
+  - `'search-params'`: 쿼리 파라미터를 통해 로케일 지정 (예: `/dashboard?locale=fr`)
+
 ---
 
 ## 애플리케이션에서의 사용법
@@ -224,39 +236,6 @@ export default {
 } satisfies IntlayerConfig;
 
 export default config;
-```
-
-위의 구성은 애플리케이션이 `ENGLISH`, `FRENCH`, `SPANISH`를 지원 언어로 인식하고, `ENGLISH`를 기본 언어로 사용하도록 보장합니다.
-
-이 구성을 사용하면 `getMultilingualUrls` 함수가 애플리케이션에서 지원하는 로케일을 기반으로 다국어 URL 매핑을 동적으로 생성할 수 있습니다:
-
-```typescript
-getMultilingualUrls(
-  "/dashboard",
-  [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-  Locales.ENGLISH
-);
-// 출력:
-// {
-//   en: "/dashboard",
-//   fr: "/fr/dashboard",
-//   es: "/es/dashboard"
-// }
-```
-
-```typescript
-getMultilingualUrls(
-  "https://example.com/dashboard",
-  [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-  Locales.ENGLISH,
-  true
-);
-// 출력:
-// {
-//   en: "https://example.com/en/dashboard",
-//   fr: "https://example.com/fr/dashboard",
-//   es: "https://example.com/es/dashboard"
-// }
 ```
 
 위 구성은 애플리케이션이 `ENGLISH`, `FRENCH`, `SPANISH`를 지원 언어로 인식하고 `ENGLISH`를 기본 언어로 사용하도록 보장합니다.

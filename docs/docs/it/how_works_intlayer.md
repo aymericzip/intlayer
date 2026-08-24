@@ -61,7 +61,9 @@ La fase di build può essere eseguita in tre modi:
    - I dizionari sono generati dai file di contenuto. Di default, i dizionari di Intlayer sono generati nella directory `.intlayer/dictionaries` del progetto.
    - Questi dizionari sono generati in diversi formati per soddisfare tutte le esigenze e ottimizzare le prestazioni dell'applicazione.
 
-3. Generazione dei tipi di dizionari
+3. Generazione dei tipi di dizionario
+
+4. Generazione dei tipi di dizionari
    Basandosi sui tuoi `dizionari`, Intlayer genererà tipi per renderli utilizzabili nella tua applicazione.
 
 - I tipi di dizionari sono generati dai `file di dichiarazione dei contenuti` di Intlayer. Di default, i tipi di dizionari di Intlayer sono generati nella directory `.intlayer/types` del progetto.
@@ -98,12 +100,17 @@ Intlayer fornisce anche un editor visivo per consentirti di modificare i tuoi co
 
 ![editor visivo](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif?raw=true)
 
+- Il server è una semplice applicazione Express che ascolta le richieste dal client e recupera il contenuto della tua applicazione, come i `dictionaries` e la configurazione per renderla accessibile sul lato client.
+- D'altro canto, il client è un'applicazione React che viene utilizzata per interagire con il tuo contenuto usando un'interfaccia visuale.
+
 - Il server è una semplice applicazione Express che ascolta le richieste dal client e recupera il contenuto della tua applicazione, come i `dictionaries` e la configurazione per renderli accessibili dal lato client.
 - D'altra parte, il client è un'applicazione React che viene utilizzata per interagire con i tuoi contenuti tramite un'interfaccia visiva.
   Quando chiami i tuoi contenuti usando `useIntlayer` e l'editor è abilitato, esso avvolge automaticamente le tue stringhe con un oggetto Proxy chiamato `IntlayerNode`. Questo nodo utilizza `window.postMessage` per comunicare con un iframe incapsulato che contiene l'interfaccia dell'editor visivo.
   Dal lato dell'editor, l'editor ascolta questi messaggi e simula un'interazione reale con i tuoi contenuti, permettendoti di modificare il testo direttamente nel contesto della tua applicazione.
 
 ## Ottimizzazione della build dell'app
+
+Per ottimizzare la dimensione del bundle della tua applicazione, Intlayer fornisce due plugin per ottimizzare la build della tua applicazione: i plugin `@intlayer/babel` e `@intlayer/swc`.
 
 Per ottimizzare la dimensione del bundle della tua applicazione, Intlayer fornisce due plugin per ottimizzare la build della tua applicazione: i plugin `@intlayer/babel` e `@intlayer/swc`.
 I plugin Babel e SWC funzionano analizzando l'Abstract Syntax Tree (AST) della tua applicazione per sostituire le chiamate alle funzioni di Intlayer con codice ottimizzato. Questo processo rende il bundle finale più leggero in produzione, assicurando che vengano importati solo i dizionari effettivamente utilizzati, ottimizzando il chunking e riducendo la dimensione del bundle.

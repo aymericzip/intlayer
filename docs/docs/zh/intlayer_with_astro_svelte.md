@@ -65,11 +65,17 @@ author: aymericzip
 
 **完整的 Astro 报道**
 
+<Accordion header="Full Astro 覆盖">
+
 Intlayer 经过优化，可与 Astro 完美配合，提供**多语言路由**、**站点地图**以及扩展国际化 (i18n) 所需的所有功能。
+
+</Accordion>
 
 **捆绑尺寸**
 
 不要将大量 JSON 文件加载到页面中，而只需加载必要的内容。 Intlayer 有助于**将捆绑包和页面大小减少多达 50%**。
+
+</Accordion>
 
 <AccordionGroup>
 <Accordion header="可维护性">
@@ -318,6 +324,14 @@ const { title } = getIntlayer("app", locale);
 </html>
 ```
 
+> 如果您想在 `string` 属性中使用您的内容，例如 `alt`、`title`、`href`、`aria-label` 等，您可以使用函数的返回值，如下所示：
+
+> ```html
+> <img src="{content.image.src.value}" alt="{content.image.value}" />
+> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
+> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
+> ```
+
 > **关于路由设置的说明：**
 > 您使用的目录结构取决于 `intlayer.config.ts` 中的 `middleware.routing` 设置：
 >
@@ -561,6 +575,22 @@ export default defineConfig({
 });
 ```
 
+```bash packageManager="npm"
+npm run build # 或 npm run dev
+```
+
+```bash packageManager="pnpm"
+pnpm run build # 或 pnpm run dev
+```
+
+```bash packageManager="yarn"
+yarn build # 或 yarn dev
+```
+
+```bash packageManager="bun"
+bun run build # 或 bun run dev
+```
+
  </Tab>
 </Tabs>
 
@@ -600,14 +630,6 @@ Intlayer 使用模块扩展来利用 TypeScript，使您的代码库更加健壮
 # 忽略 Intlayer 生成的文件
 .intlayer
 ```
-
-> 如果您想在 `字符串` 属性（如 `alt`、`title`、`href`、`aria-label` 等）中使用内容，可以使用函数的值，例如：
-
-> ```html
-> <img src="{content.image.src.value}" alt="{content.image.value}" />
-> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
-> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
-> ```
 
 ### VS Code 扩展
 

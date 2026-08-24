@@ -246,7 +246,7 @@ const myContent = html(
 
 <Tabs group="framework">
   <Tab label="React / Next.js" value="react">
-  
+
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "react-intlayer/html";
 
@@ -264,7 +264,7 @@ const myContent = html(
 
   </Tab>
   <Tab label="Vue" value="vue">
-  
+
     ```typescript fileName="main.ts"
     import { createApp, h } from "vue";
     import { intlayer } from "vue-intlayer";
@@ -286,7 +286,7 @@ const myContent = html(
 
   </Tab>
   <Tab label="Svelte" value="svelte">
-   
+
     ```svelte fileName="App.svelte"
     <script lang="ts">
       import { HTMLProvider } from "svelte-intlayer/html";
@@ -304,7 +304,7 @@ const myContent = html(
 
   </Tab>
   <Tab label="Preact" value="preact">
-   
+
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "preact-intlayer/html";
 
@@ -321,7 +321,7 @@ const myContent = html(
 
   </Tab>
   <Tab label="Solid" value="solid">
-   
+
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "solid-intlayer/html";
 
@@ -353,6 +353,8 @@ const myContent = html(
       ],
     };
     ```
+
+> استيراد محرك HTML الخاص بك بشكل ديناميكي هو طريقة جيدة لتقليل حجم حزمة تطبيقك.
 
   </Tab>
 </Tabs>
@@ -402,9 +404,9 @@ const myContent = html(
 
   </Tab>
   <Tab label="Vue" value="vue">
-   
+
     #### مكوّن `<HTMLRenderer />`
-   
+
     ```vue
     <script setup>
     import { HTMLRenderer } from "vue-intlayer/html";
@@ -417,9 +419,9 @@ const myContent = html(
 
   </Tab>
   <Tab label="Svelte" value="svelte">
-  
+
     #### المكوّن `<HTMLRenderer />`
-   
+
     ```svelte
     <script lang="ts">
     import { HTMLRenderer } from "svelte-intlayer/html";
@@ -451,9 +453,9 @@ const myContent = html(
 
   </Tab>
   <Tab label="Preact" value="preact">
-   
+
     #### مكوّن `<HTMLRenderer />`
-   
+
     ```tsx
     import { HTMLRenderer } from "preact-intlayer/html";
 
@@ -482,9 +484,9 @@ const myContent = html(
 
   </Tab>
   <Tab label="Solid" value="solid">
-   
+
     #### مكوّن `<HTMLRenderer />`
-   
+
     ```tsx
     import { HTMLRenderer } from "solid-intlayer/html";
 
@@ -523,7 +525,7 @@ const myContent = html(
       constructor(private markdownService: IntlayerHTMLService) {}
 
       renderHTML(html: string) {
-        return this.markdownService.renderMarkdown(html);
+        return this.markdownService.renderHTML(html);
       }
     }
     ```

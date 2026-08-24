@@ -100,20 +100,6 @@ Untuk menyiapkan konten penyisipan dalam proyek Intlayer Anda, buat modul konten
   </Tab>
 </Tabs>
 
-```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
-{
-  "$schema": "https://intlayer.org/schema.json",
-  "key": "my_key",
-  "content": {
-    "myInsertion": {
-      "nodeType": "insertion",
-      "insertion": "Halo, nama saya {{name}} dan saya berumur {{age}} tahun!",
-    },
-    "myInsertion2": "Halo, nama saya {{name}} dan saya berumur {{age}} tahun!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
-  },
-}
-```
-
 ## Menggunakan Konten Insertion dengan React Intlayer
 
 Untuk memanfaatkan konten insertion dalam sebuah komponen React, impor dan gunakan hook `useIntlayer` dari paket `react-intlayer`. Hook ini mengambil konten untuk kunci yang ditentukan dan memungkinkan Anda untuk mengirimkan sebuah objek yang memetakan setiap placeholder dalam konten Anda ke nilai yang ingin Anda tampilkan.

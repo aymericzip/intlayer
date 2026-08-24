@@ -123,6 +123,30 @@ Sehen Sie sich das [Anwendungstemplate](https://github.com/aymericzip/intlayer-a
 Installieren Sie die erforderlichen Pakete mit Ihrem bevorzugten Paketmanager:
 
 ```bash packageManager="npm"
+npx intlayer init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer@canary init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer@canary init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer@canary init --interactive
+```
+
+> das Flag `--interactive` ist optional. Verwenden Sie `intlayer-cli init`, wenn Sie ein KI-Agent sind.
+
+> Dieser Befehl erkennt deine Umgebung und installiert die erforderlichen Pakete. Zum Beispiel:
+
+```bash packageManager="npm"
+npm install intlayer astro-intlayer
+```
+
+```bash packageManager="npm"
 npm install intlayer astro-intlayer
 # Optional: Wenn Sie Unterstützung für React-Islands hinzufügen
 npm install react react-dom react-intlayer @astrojs/react

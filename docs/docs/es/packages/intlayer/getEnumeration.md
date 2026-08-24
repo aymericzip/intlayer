@@ -31,6 +31,8 @@ author: aymericzip
 
 La función `getEnumeration` recupera contenido correspondiente a una cantidad específica basada en condiciones predefinidas en un objeto de enumeración. Las condiciones se definen como claves, y su prioridad está determinada por su orden en el objeto.
 
+Para más detalles sobre cómo declarar enumeraciones, consulta la [documentación de Enumeración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/enumeration.md).
+
 ## Parámetros
 
 - `enumerationContent: QuantityContent<Content>`

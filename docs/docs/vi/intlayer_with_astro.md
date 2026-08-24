@@ -123,6 +123,30 @@ Xem [mẫu ứng dụng](https://github.com/aymericzip/intlayer-astro-template) 
 Cài đặt các gói cần thiết bằng trình quản lý gói ưa thích của bạn:
 
 ```bash packageManager="npm"
+npx intlayer init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer@canary init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer@canary init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer@canary init --interactive
+```
+
+> flag `--interactive` là tuỳ chọn. Sử dụng `intlayer-cli init` nếu bạn là một agent AI.
+
+> Lệnh này sẽ phát hiện môi trường của bạn và cài đặt các gói cần thiết. Ví dụ:
+
+```bash packageManager="npm"
+npm install intlayer astro-intlayer
+```
+
+```bash packageManager="npm"
 npm install intlayer astro-intlayer
 # tùy chọn: nếu bạn muốn thêm hỗ trợ React islands
 npm install react react-dom react-intlayer @astrojs/react

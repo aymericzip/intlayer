@@ -42,13 +42,19 @@ Ten przewodnik pokazuje, jak zintegrować **Intlayer** w celu zapewnienia bezpro
 
 W porównaniu do głównych rozwiązań, takich jak „react-i18next” lub „i18next”, Intlayer jest rozwiązaniem wyposażonym w zintegrowane optymalizacje, takie jak:
 
+<AccordionGroup>
+
 **Pełne pokrycie TanStack Start**
 
 Intlayer jest zoptymalizowany do doskonałej współpracy z TanStack Start i Solid, oferując **routing wielojęzyczny**, **mapę witryny** i wszystkie funkcje potrzebne do skalowania internacjonalizacji (i18n).
 
+</Accordion>
+
 **Rozmiar bundle'a**
 
 Zamiast ładować ogromne pliki JSON na swoje strony, ładuj tylko niezbędną treść. Intlayer pomaga **zmniejszyć rozmiary bundle'a i stron nawet o 50%**.
+
+</Accordion>
 
 **Łatwość konserwacji**
 
@@ -56,7 +62,11 @@ Określanie zakresu zawartości aplikacji **ułatwia konserwację** aplikacji na
 
 **Agent AI**
 
+<Accordion header="Agent AI">
+
 Wspólna lokalizacja treści **zmniejsza potrzebny kontekst** dzięki modelom dużego języka (LLM). Intlayer zawiera także zestaw narzędzi, taki jak **CLI** do sprawdzania brakujących tłumaczeń**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** i **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/agent_skills.md)**, aby praca programisty (DX) była jeszcze płynniejsza dla agentów AI.
+
+</Accordion>
 
 **Automatyzacja**
 
@@ -64,11 +74,18 @@ Korzystaj z automatyzacji, aby tłumaczyć w swoim potoku CI/CD przy użyciu wyb
 
 **Wydajność**
 
+<Accordion header="Wydajność">
+
 Łączenie ogromnych plików JSON z komponentami może prowadzić do problemów z wydajnością i reaktywnością. Inlayer optymalizuje ładowanie treści w czasie kompilacji.
+
+</Accordion>
 
 **Skalowanie bez użycia dewelopera**
 
 Więcej niż tylko rozwiązanie i18n, Intlayer zapewnia **samodzielny [edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** i **[pełny CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)**, który pomoże Ci zarządzać wielojęzyczną treścią w **w czasie rzeczywistym**, dzięki czemu współpraca z tłumaczami, copywriterami i innymi członkami zespołu będzie płynna. Treść może być przechowywana lokalnie i/lub zdalnie.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
@@ -469,8 +486,6 @@ function RouteComponent() {
 }
 ```
 
-> Jeśli chcesz użyć swojej zawartości w atrybucie typu `string`, takim jak `alt`, `title`, `href`, `aria-label` itp., musisz wywołać wartość funkcji, na przykład:
-
 > ```html
 > <img src="{content.image.src.value}" alt="{content.image.value}" />
 > <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
@@ -556,6 +571,8 @@ Możesz również użyć `intlayerProxy`, aby dodać routing po stronie serwera 
 
 > Zauważ, że aby korzystać z `intlayerProxy` w środowisku produkcyjnym, musisz przenieść pakiet `vite-intlayer` z `devDependencies` do `dependencies`.
 
+> Od wersji Intlayer v9, `intlayerProxy()` jest zawarty bezpośrednio w pluginie `intlayer()` i domyślnie włączony za pomocą opcji `routing.enableProxy` (`true` domyślnie). Rejestrowanie go osobno, jak pokazano poniżej, jest teraz opcjonalne — jest utrzymywane dla wstecznej kompatybilności i dla konfiguracji, które muszą kontrolować kolejność pluginów. Ustaw `routing.enableProxy: false` aby zrezygnować. Przejdź do [notatek wydania v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/releases/v9.md).
+
 ```typescript fileName="vite.config.ts"
 import { tanstackStart } from "@tanstack/solid-start/plugin/vite";
 import solid from "vite-plugin-solid";
@@ -587,6 +604,8 @@ export default defineConfig({
 </Step>
 
 <Step number={13} title="Umiędzynarowienie metadanych">
+
+Użyj `getIntlayerAsync` aby uzyskać dostęp do słowników zawartości wewnątrz `head` loader'a dla metadanych uwzględniających lokalizację.
 
 Możesz również użyć funkcji `getIntlayer`, aby uzyskać dostęp do swoich słowników treści wewnątrz loadera `head` w celu uzyskania metadanych uwzględniających lokalizację:
 
@@ -862,6 +881,81 @@ bun run build # Lub bun run dev
 
  </Tab>
 </Tabs>
+
+---
+
+</Step>
+
+<Step number={16} title="Wstępne renderowanie i generowanie mapy witryny">
+
+Intlayer posiada wbudowany generator mapy witryny, który ułatwia tworzenie mapy witryny dla aplikacji. Obsługuje zlokalizowane trasy i dodaje niezbędne metadane dla wyszukiwarek.
+
+> Mapa witryny generowana przez Intlayer obsługuje przestrzeń nazw `xhtml:link` (rozszerzenia Hreflang XML). W przeciwieństwie do domyślnych generatorów map witryn, które wymieniają tylko surowe adresy URL, Intlayer automatycznie tworzy wymagane dwukierunkowe linki między wszystkimi wersjami językowymi strony (np. `/about`, `/about?lang=fr` i `/about?lang=es`). Zapewnia to, że wyszukiwarki prawidłowo indeksują i serwują właściwą wersję językową dla właściwej grupy odbiorców.
+
+Aby go użyć, musisz najpierw skonfigurować `vite.config.ts`, aby włączyć pre-rendering dla zlokalizowanych tras i wyłączyć domyślne generowanie sitemapy TanStack Start.
+
+```typescript fileName="vite.config.ts"
+import { localeMap, localeFlatMap } from "intlayer";
+// ... inne importy
+
+export const pathList = ["", "/about", "/404"];
+
+const localizedPages = localeFlatMap(({ urlPrefix }) =>
+  pathList.map((path) => ({
+    path: `${urlPrefix}${path}`,
+    prerender: {
+      enabled: true,
+    },
+  }))
+);
+
+export default defineConfig({
+  plugins: [
+    // ... inne pluginy
+    tanstackStart({
+      // ... inna konfiguracja
+      sitemap: {
+        enabled: false,
+      },
+      prerender: {
+        enabled: true,
+        crawlLinks: false,
+        concurrency: 10,
+      },
+      pages: localizedPages,
+    }),
+  ],
+});
+```
+
+Następnie utwórz trasę `src/routes/sitemap[.]xml.ts`, która używa funkcji `generateSitemap`:
+
+```typescript fileName="src/routes/sitemap[.]xml.ts"
+import { createFileRoute } from "@tanstack/solid-router";
+import { generateSitemap } from "intlayer";
+
+const SITE_URL = "http://localhost:3000";
+
+export const Route = createFileRoute("/sitemap.xml")({
+  server: {
+    handlers: {
+      GET: async () => {
+        const sitemap = generateSitemap(
+          [
+            { path: "/", changefreq: "daily", priority: 1.0 },
+            { path: "/about", changefreq: "monthly", priority: 0.8 },
+          ],
+          { siteUrl: SITE_URL }
+        );
+
+        return new Response(sitemap, {
+          headers: { "Content-Type": "application/xml" },
+        });
+      },
+    },
+  },
+});
+```
 
 ---
 

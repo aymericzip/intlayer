@@ -33,6 +33,20 @@ history:
 
 `express-intlayer`, Express uygulamaları için güçlü bir uluslararasılaştırma (i18n) middleware'idir. İstemcinin tercihlerine dayalı olarak yerelleştirilmiş yanıtlar sağlayarak backend hizmetlerinizi küresel olarak erişilebilir hale getirmek için tasarlanmıştır. NestJS, Express üzerine inşa edildiğinden, `express-intlayer`'ı NestJS uygulamalarınıza sorunsuzca entegre edebilir ve çok dilli içeriği etkili bir şekilde yönetebilirsiniz.
 
+tical Use Cases
+
+- **Arka Uç Hatalarını Kullanıcının Dilinde Göstermek**: Bir hata oluştuğunda, mesajları kullanıcının ana dilinde göstermek anlayışı artırır ve hayal kırıklığını azaltır. Bu, toast veya modal gibi ön uç bileşenlerinde gösterilebilecek dinamik hata mesajları için özellikle yararlıdır.
+
+- **Çok Dilli İçerik Alma**: Bir veritabanından içerik çeken uygulamalar için, uluslararasılaştırma bu içeriği birden fazla dilde sunmanızı sağlar. Bu, ürün açıklamaları, makaleler ve diğer içeriği kullanıcının tercih ettiği dilde görüntülemesi gereken e-ticaret siteleri veya içerik yönetim sistemleri gibi platformlar için çok önemlidir.
+
+- **Çok Dilli E-postalar Gönderme**: İşlem e-postaları, pazarlama kampanyaları veya bildirimler olsun, e-postaları alıcının dilinde göndermek katılımı ve etkinliği önemli ölçüde artırabilir.
+
+- **Çok Dilli Push Bildirimleri**: Mobil uygulamalar için, push bildirimlerini kullanıcının tercih ettiği dilde göndermek etkileşimi ve kullanıcı alıkanlığını artırabilir. Bu kişisel dokunuş, bildirimleri daha alakalı ve harekete geçirilebilir hale getirebilir.
+
+- **Diğer İletişimler**: SMS mesajları, sistem uyarıları veya kullanıcı arayüzü güncellemeleri gibi backend'den gelen her türlü iletişim, kullanıcının dilinde olmasından yararlanır ve netliği sağlar, genel kullanıcı deneyimini iyileştirir.
+
+Backend'i uluslararasılaştırarak, uygulamanız sadece kültürel farklılıklara saygı göstermekle kalmaz, aynı zamanda küresel pazar ihtiyaçlarıyla daha iyi uyumlanır ve bu da hizmetlerinizi dünya çapında ölçeklendirmenin kilit adımını oluşturur.
+
 ## Başlarken
 
 ### Yeni Bir NestJS Projesi Oluşturun

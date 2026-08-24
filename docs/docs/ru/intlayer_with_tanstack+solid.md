@@ -487,8 +487,6 @@ function RouteComponent() {
 }
 ```
 
-> Если вы хотите использовать ваш контент в атрибуте типа `string`, таком как `alt`, `title`, `href`, `aria-label` и т.д., вы должны вызвать значение функции, например:
-
 > ```html
 > <img src="{content.image.src.value}" alt="{content.image.value}" />
 > <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
@@ -574,6 +572,8 @@ const RootComponent: ParentComponent = (props) => {
 
 > Обратите внимание, что для использования `intlayerProxy` в режиме production вам необходимо перенести пакет `vite-intlayer` из `devDependencies` в `dependencies`.
 
+> Начиная с Intlayer v9, `intlayerProxy()` встроен непосредственно в плагин `intlayer()` и включен по умолчанию через параметр `routing.enableProxy` (`true` по умолчанию). Регистрация его отдельно, как показано ниже, теперь опциональна — она сохранена для обратной совместимости и для конфигураций, которым нужно контролировать порядок плагинов. Установите `routing.enableProxy: false`, чтобы отключить эту функцию. См. [примечания к выпуску v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/releases/v9.md).
+
 ```typescript fileName="vite.config.ts"
 import { tanstackStart } from "@tanstack/solid-start/plugin/vite";
 import solid from "vite-plugin-solid";
@@ -607,6 +607,8 @@ export default defineConfig({
 <Step number={13} title="Интернационализация ваших метаданных">
 
 Вы также можете использовать функцию `getIntlayer` для доступа к вашим словарям контента внутри загрузчика `head` для метаданных с учетом локали:
+
+Она работает как `getIntlayer`, но плагин сборки указывает на словарь для каждого языка вместо объединённого словаря, содержащего все языки — поэтому метаданные страницы отправляют только тот язык, который она отображает. Поскольку она загружает этот словарь по требованию, `head` становится `async`:
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/solid-router";

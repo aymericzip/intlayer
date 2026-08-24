@@ -89,8 +89,6 @@ Nếu bạn sử dụng các khung khác nhau cho các phần khác nhau của �
 </Accordion>
 </AccordionGroup>
 
----
-
 ## Tại sao Intlayer được tạo ra?
 
 Intlayer được tạo ra để giải quyết một vấn đề phổ biến ảnh hưởng đến tất cả các thư viện i18n phổ biến như `next-intl`, `react-i18next`, `react-intl`, `next-i18next`, `react-intl`, và `vue-i18n`.

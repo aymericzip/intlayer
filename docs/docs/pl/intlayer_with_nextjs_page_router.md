@@ -69,7 +69,9 @@ author: aymericzip
 
 W porównaniu do głównych rozwiązań, takich jak `next-intl` czy `i18next`, Intlayer jest rozwiązaniem wyposażonym w zintegrowane optymalizacje, takie jak:
 
-**Pełne pokrycie Next.js**
+<AccordionGroup>
+
+<Accordion header="Pełne pokrycie Next.js">
 
 Intlayer jest zoptymalizowany do współpracy z **Server Components** w celu wydajnego renderowania i jest w pełni kompatybilny z [**Turbopack**](https://nextjs.org/docs/architecture/turbopack). Nie blokuje renderowania statycznego i oferuje oprogramowanie pośredniczące oraz wszystkie funkcje potrzebne do skalowania internacjonalizacji (i18n).
 
@@ -77,30 +79,45 @@ Intlayer jest zoptymalizowany do współpracy z **Server Components** w celu wyd
 > Routing lokalny jest przydatny ze względu na SEO, rozmiar bundle'a i wydajność. Jeśli go nie potrzebujesz, możesz zapoznać się z tym [przewodnikiem](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_no_locale_path.md).
 > W przypadku Next.js 12, 13, 14 i 15 z App Router zapoznaj się z tym [przewodnikiem] (https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_14.md).
 
-**Rozmiar bundle'a**
+</Accordion>
+
+<Accordion header="Rozmiar bundle'a">
 
 Zamiast ładować ogromne pliki JSON na swoje strony, ładuj tylko niezbędną treść. Intlayer pomaga **zmniejszyć rozmiary bundle'a i stron nawet o 50%**.
 
-**Łatwość konserwacji**
+</Accordion>
+
+<Accordion header="Łatwość konserwacji">
 
 Określanie zakresu zawartości aplikacji **ułatwia konserwację** aplikacji na dużą skalę. Możesz powielić lub usunąć pojedynczy folder funkcji bez obciążania psychicznego koniecznością przeglądania całej bazy kodu zawartości. Dodatkowo Inlayer jest **w pełni napisany**, aby zapewnić dokładność treści.
 
-**Agent AI**
+</Accordion>
+
+<Accordion header="Agent AI">
 
 Wspólna lokalizacja treści **zmniejsza potrzebny kontekst** dzięki modelom dużego języka (LLM). Intlayer zawiera także zestaw narzędzi, taki jak **CLI** do sprawdzania brakujących tłumaczeń**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** i **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/agent_skills.md)**, aby praca programisty (DX) była jeszcze płynniejsza dla agentów AI.
 
-**Automatyzacja**
+</Accordion>
+
+<Accordion header="Automatyzacja">
 
 Korzystaj z automatyzacji, aby tłumaczyć w swoim potoku CI/CD przy użyciu wybranego LLM na koszt dostawcy sztucznej inteligencji. Intlayer oferuje także **kompilator** do automatyzacji ekstrakcji treści, a także [platformę internetową] (https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md), która pomaga **tłumaczyć w tle**.
 
-**Wydajność**
+</Accordion>
+
+<Accordion header="Wydajność">
 
 Łączenie ogromnych plików JSON z komponentami może prowadzić do problemów z wydajnością i reaktywnością. Inlayer optymalizuje ładowanie treści w czasie kompilacji.
 
-**Skalowanie bez użycia dewelopera**
+</Accordion>
+
+<Accordion header="Skalowanie bez użycia dewelopera">
 
 Więcej niż tylko rozwiązanie i18n, Intlayer zapewnia **samodzielny [edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** i **[pełny CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)**, który pomoże Ci zarządzać wielojęzyczną treścią w **w czasie rzeczywistym**, dzięki czemu współpraca z tłumaczami, copywriterami i innymi członkami zespołu będzie płynna. Treść może być przechowywana lokalnie i/lub zdalnie.
 
+</Accordion>
+
+</AccordionGroup>
 ---
 
 ## Przewodnik krok po kroku: Konfiguracja Intlayer w aplikacji Next.js z użyciem Page Router
@@ -290,7 +307,7 @@ Zaimplementuj dynamiczne routowanie, aby serwować zlokalizowane treści w zale�
 
     W pliku `[locale]/index.tsx` zdefiniuj ścieżki i propsy, aby obsłużyć różne lokalizacje.
 
-```tsx fileName="src/pages/[locale]/index.tsx" codeFormat={["typescript", "esm"]}
+```tsx fileName="src/pages/[locale]/index.tsx" codeFormat="typescript"
 import type { FC } from "react";
 import type { GetStaticPaths, GetStaticProps } from "next";
 import { type Locales, getConfiguration } from "intlayer";
@@ -319,6 +336,68 @@ export const getStaticProps: GetStaticProps = ({ params }) => {
 };
 
 export default HomePage;
+```
+
+```jsx fileName="src/pages/[locale]/index.mjx" codeFormat="esm"
+import { getConfiguration } from "intlayer";
+import { ComponentExample } from "@components/ComponentExample";
+
+const HomePage = () => <div>{/* Twoja zawartość tutaj */}</div>;
+
+export const getStaticPaths = () => {
+  const { internationalization } = getConfiguration();
+  const { locales } = internationalization;
+
+  const paths = locales.map((locale) => ({
+    params: { locale },
+  }));
+
+  return { paths, fallback: false };
+};
+
+export const getStaticProps = ({ params }) => {
+  const locale = params?.locale;
+
+  return {
+    props: {
+      locale,
+    },
+  };
+};
+```
+
+```jsx fileName="src/pages/[locale]/index.csx" codeFormat="commonjs"
+const { getConfiguration } = require("intlayer");
+const { ComponentExample } = require("@components/ComponentExample");
+
+const HomePage = () => <div>{/* Twoja zawartość tutaj */}</div>;
+
+const getStaticPaths = async () => {
+  const { internationalization } = getConfiguration();
+  const { locales } = internationalization;
+
+  const paths = locales.map((locale) => ({
+    params: { locale },
+  }));
+
+  return { paths, fallback: false };
+};
+
+const getStaticProps = async ({ params }) => {
+  const locale = params?.locale;
+
+  return {
+    props: {
+      locale,
+    },
+  };
+};
+
+module.exports = {
+  getStaticProps,
+  getStaticPaths,
+  default: HomePage,
+};
 ```
 
 > `getStaticPaths` i `getStaticProps` zapewniają, że Twoja aplikacja w Next.js Page Router wstępnie buduje niezbędne strony dla wszystkich lokalizacji. Takie podejście zmniejsza obciążenie podczas działania aplikacji i prowadzi do lepszego doświadczenia użytkownika. Aby uzyskać więcej informacji, zapoznaj się z dokumentacją Next.js dotyczącą [`getStaticPaths`](https://nextjs.org/docs/pages/building-your-application/data-fetching/get-static-paths) oraz [`getStaticProps`](https://nextjs.org/docs/pages/building-your-application/data-fetching/get-static-props).

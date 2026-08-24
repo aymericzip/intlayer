@@ -63,11 +63,15 @@ author: aymericzip
 
 「react-i18next」、「use-intl」、または「paraglide」などの主要なソリューションと比較して、Intlayer は次のような統合された最適化を備えたソリューションです。
 
+<AccordionGroup>
+
 **TanStack Start を完全にカバー**
 
 Intlayer は TanStack Start 用に完全に最適化されており、**多言語ルーティング**、**Cookie 管理**、**サイトマップ生成**、**動的コンテンツ読み込み**、および国際化 (i18n) の取り組みを拡張するために必要なすべての機能を提供します。
 
 **バンドルサイズ**
+
+<Accordion header="バンドルサイズ">
 
 大量の JSON ファイルをページにロードするのではなく、必要なコンテンツのみをロードします。 Intlayer は、**バンドルとページのサイズを最大 50% 削減**するのに役立ちます。
 
@@ -77,19 +81,32 @@ Intlayer は TanStack Start 用に完全に最適化されており、**多言�
 
 **AI エージェント**
 
+</Accordion>
+
+<Accordion header="AI Agent">
+
 コンテンツを同じ場所に配置すると、大規模言語モデル (LLM) によって **必要なコンテキストが削減**されます。 Intlayer には、翻訳の欠落をテストする **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** などのツール スイートも付属しています。および **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)** により、AI エージェントの開発者エクスペリエンス (DX) がさらにスムーズになります。
 
 **オートメーション**
+
+<Accordion header="自動化">
 
 AI プロバイダーの費用で、選択した LLM を使用して CI/CD パイプラインで自動化を変換します。 Intlayer は、コンテンツ抽出を自動化する **コンパイラー** と、**バックグラウンドでの翻訳**を支援する [Web プラットフォーム](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) も提供します。
 
 **パフォーマンス**
 
+<Accordion header="パフォーマンス">
+
 大量の JSON ファイルをコンポーネントに接続すると、パフォーマンスと反応性の問題が発生する可能性があります。 Intlayer は、ビルド時のコンテンツの読み込みを最適化します。
 
 **非開発によるスケーリング**
 
+<Accordion header="none-dev でのスケーリング">
+
 Intlayer は単なる i18n ソリューションではなく、**自己ホスト型 [ビジュアル エディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** と **[完全な CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** を提供します。 **リアルタイム**で多言語コンテンツを管理できるようになり、翻訳者、コピーライター、その他のチーム メンバーとのコラボレーションがシームレスになります。コンテンツはローカルおよび/またはリモートに保存できます。
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
@@ -303,14 +320,6 @@ function RootDocument({ children }: { children: ReactNode }) {
   );
 }
 ```
-
-> コンテンツを `alt`、`title`、`href`、`aria-label` などの `string` 属性で使用したい場合は、関数の値を使用できます。例：
-
-> ```html
-> <img src="{content.image.src.value}" alt="{content.image.value}" />
-> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
-> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
-> ```
 
 </Step>
 
@@ -588,6 +597,14 @@ function RouteComponent() {
 }
 ```
 
+> `string` 属性（`alt`、`title`、`href`、`aria-label` など）でコンテンツを使用したい場合は、関数の値を次のように使用できます：
+>
+> ```html
+> <img src="{content.image.src.value}" alt="{content.image.value}" />
+> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
+> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
+> ```
+
 > `useIntlayer`フックの詳細については、[ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/useIntlayer.md)を参照してください。
 
 </Step>
@@ -682,6 +699,8 @@ function RootDocument({ children }: { children: ReactNode }) {
 
 > `intlayerProxy`を本番環境で使用するには、`vite-intlayer`パッケージを`devDependencies`から`dependencies`に切り替える必要があることに注意してください。
 
+> Intlayer v9 以降、`intlayerProxy()` は `intlayer()` プラグインに直接バンドルされており、`routing.enableProxy` オプション（デフォルトでは `true`）により デフォルトで有効になっています。下記のように別途登録することはオプションになりました — これは後方互換性と、プラグインの順序を制御する必要があるセットアップのために保持されています。`routing.enableProxy: false` に設定することでオプトアウトできます。[v9 リリースノート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/releases/v9.md)を参照してください。
+
 ```typescript fileName="vite.config.ts"
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import viteReact from "@vitejs/plugin-react";
@@ -713,6 +732,8 @@ export default defineConfig({
 </Step>
 
 <Step number={12} title="メタデータの国際化">
+
+`getIntlayerAsync` を使用して、`head` 関数内でコンテンツ辞書にアクセスします。
 
 `getIntlayer`フックを使用して、アプリケーション全体でコンテンツ辞書にアクセスすることもできます：
 
@@ -874,8 +895,6 @@ export const Route = createFileRoute("/{-$locale}/$")({
 });
 ```
 
----
-
 </Step>
 
 <Step number={15} title="コンポーネントのコンテンツを抽出する" isOptional={true}>
@@ -972,8 +991,26 @@ export default defineConfig({
 });
 ```
 
+```bash packageManager="npm"
+npm run build # または npm run dev
+```
+
+```bash packageManager="pnpm"
+pnpm run build # または pnpm run dev
+```
+
+```bash packageManager="yarn"
+yarn build # Or yarn dev
+```
+
+```bash packageManager="bun"
+bun run build # またはbun run dev
+```
+
  </Tab>
 </Tabs>
+
+---
 
 </Step>
 

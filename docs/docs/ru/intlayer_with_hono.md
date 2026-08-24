@@ -142,6 +142,45 @@ const indexContent = {
 export default indexContent;
 ```
 
+```javascript fileName="src/index.content.cjs" codeFormat="commonjs"
+const { t } = require("intlayer");
+
+/** @type {import('intlayer').Dictionary} */
+const indexContent = {
+  key: "index",
+  content: {
+    exampleOfContent: t({
+      ru: "Пример возвращаемого контента на русском языке",
+      en: "Example of returned content in English",
+      fr: "Exemple de contenu renvoyé en français",
+      "es-ES": "Ejemplo de contenido devuelto en español (España)",
+      "es-MX": "Ejemplo de contenido devuelto en español (México)",
+    }),
+  },
+};
+
+module.exports = indexContent;
+```
+
+```json fileName="src/index.content.json" contentDeclarationFormat="json"
+{
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "index",
+  "content": {
+    "exampleOfContent": {
+      "nodeType": "translation",
+      "translation": {
+        "ru": "Пример возвращаемого контента на русском языке",
+        "en": "Example of returned content in English",
+        "fr": "Exemple de contenu renvoyé en français",
+        "es-ES": "Ejemplo de contenido devuelto en español (España)",
+        "es-MX": "Ejemplo de contenido devuelto en español (México)"
+      }
+    }
+  }
+}
+```
+
 > Ваши объявления контента могут быть определены в любом месте вашего приложения, если они включены в каталог `contentDir` (по умолчанию `./src`) и соответствуют расширению файла объявления контента (по умолчанию `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
 
 > Для получения более подробной информации обратитесь к [документации по объявлению контента](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/content_file.md).
@@ -213,6 +252,10 @@ export default config;
 ### Настройка TypeScript
 
 `hono-intlayer` использует возможности TypeScript для улучшения процесса интернационализации. Статическая типизация TypeScript гарантирует, что каждый ключ перевода учтен, что снижает риск пропущенных переводов и улучшает поддерживаемость.
+
+![Автодополнение](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
+
+![Ошибка перевода](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
 
 Убедитесь, что автоматически сгенерированные типы (по умолчанию в `./types/intlayer.d.ts`) включены в ваш файл `tsconfig.json`.
 

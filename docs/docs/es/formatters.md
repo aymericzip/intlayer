@@ -54,45 +54,15 @@ Intlayer proporciona un conjunto de helpers ligeros construidos sobre las APIs n
 
 ## Intl en caché
 
-El `Intl` exportado es un wrapper ligero y en caché alrededor del `Intl` global. Memoiza instancias de `NumberFormat`, `DateTimeFormat`, `RelativeTimeFormat`, `ListFormat`, `DisplayNames`, `Collator` y `PluralRules`, lo que evita reconstruir repetidamente el mismo formateador.
-
 Debido a que la construcción de formateadores es relativamente costosa, esta caché mejora el rendimiento sin cambiar el comportamiento. El wrapper expone la misma API que el `Intl` nativo, por lo que el uso es idéntico.
-
-- La caché es por proceso y transparente para los llamadores.
 
 > Si `Intl.DisplayNames` no está disponible en el entorno, se imprime una única advertencia solo para desarrolladores (considera usar un polyfill).
 
 Ejemplos:
 
-```ts
-import { Intl } from "intlayer";
-
-// Formateo de números
-const numberFormat = new Intl.NumberFormat("en-GB", {
-  style: "currency",
-  currency: "GBP",
-});
-numberFormat.format(1234.5); // "£1,234.50"
-
-// Nombres para idiomas, regiones, etc.
-const displayNames = new Intl.DisplayNames("fr", { type: "language" });
-displayNames.of("en"); // "anglais"
-
-// Ordenación para clasificación
-const collator = new Intl.Collator("fr", { sensitivity: "base" });
-collator.compare("é", "e"); // 0 (igual)
-
-// Reglas de pluralización
-const pluralRules = new Intl.PluralRules("fr");
-pluralRules.select(1); // "one"
-pluralRules.select(2); // "other"
-```
-
 ## Formateadores de React
 
 ### `Intl.DisplayNames`
-
-Para nombres localizados de idiomas, regiones, monedas y escrituras:
 
 ```ts
 import { Intl } from "intlayer";
@@ -121,8 +91,6 @@ Todos los hooks utilizan automáticamente la configuración regional de `Intlaye
 | `useIntl()`         | Obtener objeto `Intl` vinculado a la configuración regional | Full `Intl` API access        |
 
 ### `Intl.Collator`
-
-Para la comparación y ordenación de cadenas conscientes del locale:
 
 ```ts
 import { Intl } from "intlayer";
@@ -155,8 +123,6 @@ pluralRules.select(11); // "many"
 
 ### `getLocaleName(displayLocale, targetLocale?)`
 
-Obtiene el nombre localizado de un locale en otro locale:
-
 ```ts
 import { getLocaleName } from "intlayer";
 
@@ -164,9 +130,6 @@ getLocaleName("fr", "en"); // "French"
 getLocaleName("en", "fr"); // "anglais"
 getLocaleName("de", "es"); // "alemán"
 ```
-
-- **displayLocale**: El locale para el cual obtener el nombre
-- **targetLocale**: El locale en el que se mostrará el nombre (por defecto es displayLocale)
 
 ### Composables Disponibles
 
@@ -235,15 +198,11 @@ getLocaleLang("fr-CA"); // "fr"
 getLocaleLang("de"); // "de"
 ```
 
-- **locale**: El locale del cual extraer el idioma (por defecto es el locale actual)
-
 ## Formateadores Vanilla JS / Node.js
 
 Para contextos sin framework, importa formateadores directamente desde `intlayer`. Ten en cuenta que debes pasar la locale manualmente.
 
 ### `getLocaleFromPath(inputUrl)`
-
-Extrae el segmento de locale de una URL o ruta:
 
 ```ts
 import { getLocaleFromPath } from "intlayer";
@@ -253,9 +212,6 @@ getLocaleFromPath("/fr/dashboard"); // "fr"
 getLocaleFromPath("/dashboard"); // "en" (locale predeterminado)
 getLocaleFromPath("https://example.com/es/about"); // "es"
 ```
-
-- **inputUrl**: La cadena completa de URL o ruta a procesar
-- **returns**: El locale detectado o el locale predeterminado si no se encuentra ningún locale
 
 ### Funciones de Formato
 
@@ -369,6 +325,30 @@ list(["red", "green", "blue"], { locale: "fr", type: "disjunction" }); // "rouge
 
 Todos los helpers a continuación son exportados desde `intlayer`.
 
+```ts
+import { Intl } from "intlayer";
+
+// Formato de números
+const numberFormat = new Intl.NumberFormat("en-GB", {
+  style: "currency",
+  currency: "GBP",
+});
+numberFormat.format(1234.5); // "£1,234.50"
+
+// Nombres para mostrar de idiomas, regiones, etc.
+const displayNames = new Intl.DisplayNames("fr", { type: "language" });
+displayNames.of("en"); // "anglais"
+
+// Intercalación para ordenar
+const collator = new Intl.Collator("fr", { sensitivity: "base" });
+collator.compare("é", "e"); // 0 (equal)
+
+// Reglas de plural
+const pluralRules = new Intl.PluralRules("fr");
+pluralRules.select(1); // "one"
+pluralRules.select(2); // "other"
+```
+
 ### Características Intl Adicionales
 
 #### `Intl.DisplayNames`
@@ -420,12 +400,6 @@ pluralRules.select(11); // "many"
 
 ### `currency(value, options?)`
 
-Formatea un valor como moneda localizada. Por defecto es `USD` con dos dígitos decimales.
-
-- **value**: `number | string`
-- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
-  - Campos comunes: `currency` (por ejemplo, `"EUR"`), `currencyDisplay` (`"symbol" | "code" | "name"`)
-
 Ejemplos:
 
 ```ts
@@ -437,12 +411,6 @@ currency("5000", { locale: "fr", currency: "CAD", currencyDisplay: "code" }); //
 
 ### `date(date, optionsOrPreset?)`
 
-Formatea un valor de fecha/hora con `Intl.DateTimeFormat`.
-
-- **date**: `Date | string | number`
-- **optionsOrPreset**: `Intl.DateTimeFormatOptions & { locale?: LocalesValues }` o uno de los preajustes:
-  - Preajustes: `"short" | "long" | "dateOnly" | "timeOnly" | "full"`
-
 Ejemplos:
 
 ```ts
@@ -453,14 +421,6 @@ date("2025-08-02T14:30:00Z", { locale: "fr", month: "long", day: "numeric" }); /
 ```
 
 ### `relativeTime(from, to = new Date(), options?)`
-
-Formatea el tiempo relativo entre dos instantes con `Intl.RelativeTimeFormat`.
-
-- Pasa "now" como primer argumento y el objetivo como segundo para obtener una frase natural.
-- **from**: `Date | string | number`
-- **to**: `Date | string | number` (por defecto `new Date()`)
-- **options**: `{ locale?: LocalesValues; unit?: Intl.RelativeTimeFormatUnit; numeric?: Intl.RelativeTimeFormatNumeric; style?: Intl.RelativeTimeFormatStyle }`
-  - El valor predeterminado de `unit` es `"second"`.
 
 Ejemplos:
 
@@ -477,13 +437,6 @@ relativeTime(now, twoHoursAgo, { unit: "hour", numeric: "auto" }); // "hace 2 ho
 
 ### `units(value, options?)`
 
-Formatea un valor numérico como una cadena de unidad localizada usando `Intl.NumberFormat` con `style: 'unit'`.
-
-- **value**: `number | string`
-- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
-  - Campos comunes: `unit` (por ejemplo, `"kilometer"`, `"byte"`), `unitDisplay` (`"short" | "narrow" | "long"`)
-  - Valores predeterminados: `unit: 'day'`, `unitDisplay: 'short'`, `useGrouping: false`
-
 Ejemplos:
 
 ```ts
@@ -495,11 +448,6 @@ units(1024, { unit: "byte", unitDisplay: "narrow" }); // "1,024B" (dependiente d
 
 ### `compact(value, options?)`
 
-Formatea un número usando notación compacta (por ejemplo, `1.2K`, `1M`).
-
-- **value**: `number | string`
-- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }` (usa internamente `notation: 'compact'`)
-
 Ejemplos:
 
 ```ts
@@ -510,13 +458,6 @@ compact("1000000", { locale: "fr", compactDisplay: "long" }); // "1 million"
 ```
 
 ### `list(values, options?)`
-
-Formatea un arreglo de valores en una cadena de lista localizada usando `Intl.ListFormat`.
-
-- **values**: `(string | number)[]`
-- **options**: `Intl.ListFormatOptions & { locale?: LocalesValues }`
-  - Campos comunes: `type` (`"conjunction" | "disjunction" | "unit"`), `style` (`"long" | "short" | "narrow"`)
-  - Valores por defecto: `type: 'conjunction'`, `style: 'long'`
 
 Ejemplos:
 
@@ -582,34 +523,6 @@ const MyComponent = () => {
 };
 ```
 
-Componentes del servidor (o tiempo de ejecución del servidor React):
-
-```ts
-import {
-  useNumber,
-  useCurrency,
-  useDate,
-  usePercentage,
-  useCompact,
-  useList,
-  useRelativeTime,
-  useUnit,
-} from "react-intlayer/server/format";
-// o en aplicaciones Next.js
-import {
-  useNumber,
-  useCurrency,
-  useDate,
-  usePercentage,
-  useCompact,
-  useList,
-  useRelativeTime,
-  useUnit,
-} from "next-intlayer/server/format";
-```
-
-> Estos hooks considerarán la configuración regional desde el `IntlayerProvider` o `IntlayerServerProvider`
-
 ### Vue
 
 Componentes cliente:
@@ -626,8 +539,6 @@ import {
   useUnit,
 } from "vue-intlayer/format";
 ```
-
-> Esos composables considerarán la configuración regional del `IntlayerProvider` inyectado.
 
 ### `getIntlayer(dictionaryKey, locale?, plugins?)`
 

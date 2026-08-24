@@ -142,6 +142,45 @@ const indexContent = {
 export default indexContent;
 ```
 
+```javascript fileName="src/index.content.cjs" codeFormat="commonjs"
+const { t } = require("intlayer");
+
+/** @type {import('intlayer').Dictionary} */
+const indexContent = {
+  key: "index",
+  content: {
+    exampleOfContent: t({
+      ja: "英語で返されたコンテンツの例",
+      en: "Example of returned content in English",
+      fr: "Exemple de contenu renvoyé en français",
+      "es-ES": "Ejemplo de contenido devuelto en español (España)",
+      "es-MX": "Ejemplo de contenido devuelto en español (México)",
+    }),
+  },
+};
+
+module.exports = indexContent;
+```
+
+```json fileName="src/index.content.json" contentDeclarationFormat="json"
+{
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "index",
+  "content": {
+    "exampleOfContent": {
+      "nodeType": "translation",
+      "translation": {
+        "ja": "英語で返されたコンテンツの例",
+        "en": "Example of returned content in English",
+        "fr": "Exemple de contenu renvoyé en français",
+        "es-ES": "Ejemplo de contenido devuelto en español (España)",
+        "es-MX": "Ejemplo de contenido devuelto en español (México)"
+      }
+    }
+  }
+}
+```
+
 > コンテンツ宣言は、`contentDir` ディレクトリ (デフォルトは `./src`) に含まれている限り、アプリケーションのどこでも定義できます。また、コンテンツ宣言ファイルの拡張子 (デフォルトは `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`) に一致させる必要があります。
 
 > 詳細については、[コンテンツ宣言のドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)を参照してください。

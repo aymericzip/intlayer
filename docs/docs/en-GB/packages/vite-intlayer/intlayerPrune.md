@@ -28,6 +28,8 @@ author: aymericzip
 
 The `intlayerPrune` Vite plugin is used to tree-shake and prune unused dictionaries from your application's bundle. This helps reduce the final bundle size by only including the necessary multilingual content.
 
+> The plugin is already included and configured automatically when you use [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/vite-intlayer/intlayer.md). You only need to register it manually if you are composing the plugin stack yourself.
+
 ## Usage
 
 ### As part of `intlayer()` (recommended)

@@ -138,6 +138,37 @@ getMultilingualUrls("/about", { currentDomain: "intlayer.org" });
 
 Các URL tuyệt đối này đã sẵn sàng để sử dụng trong các thẻ `<link rel="alternate" hreflang="...">` cho SEO.
 
+## Suy luận kiểu dữ liệu
+
+`routing.domains` được serialize vào module augmentation được tạo, do đó
+`getLocalizedUrl` và `getLocalizedPath` thu hẹp kiểu trả về của chúng thành URL chính xác
+mà một locale được định tuyến theo domain sẽ phân giải thành — bao gồm cả việc loại bỏ prefix.
+
+```ts
+// routing: { mode: 'prefix-no-default', domains: { en: 'intlayer.org', zh: 'intlayer.zh' } }
+
+getLocalizedUrl("/about", "zh");
+//     ^? "https://intlayer.zh/about" | "/about"
+
+getLocalizedPath("/about", "zh");
+//     ^? "/about"   (không bao giờ là origin, và không có /zh/ prefix)
+```
+
+Kiểu URL là **union** của hai giá trị mà hàm có thể trả về: URL tuyệt đối trên domain của locale,
+và URL tương đối mà nó trả về khi trang đang được render đã nằm trên domain đó. `getLocalizedPath` không có sự
+mơ hồ như vậy - nó không bao giờ phát ra một origin - do đó nó vẫn là một literal duy nhất.
+
+Các locale chia sẻ một domain sẽ giữ prefix bình thường của chúng trong kiểu như sau:
+
+```ts
+getLocalizedUrl("/about", "fr");
+//     ^? "https://intlayer.org/fr/about" | "/fr/about"
+```
+
+> Tái tạo các kiểu dữ liệu (`npx intlayer build`, hoặc bất kỳ lần chạy dev server nào) sau khi
+> thay đổi `routing.domains` - việc thu hẹp đến từ
+> `__RoutingRegistry` được tạo, chứ không phải từ chính tệp cấu hình.
+
 ## Hành vi Proxy
 
 ### Next.js
@@ -169,6 +200,8 @@ GET intlayer.zh/about
 ### Vite
 
 Plugin Vite `intlayerProxy` áp dụng logic tương tự trong quá trình phát triển:
+
+> Kể từ Intlayer v9, `intlayerProxy()` được đóng gói trực tiếp vào plugin `intlayer()` và được bật mặc định thông qua tùy chọn `routing.enableProxy` (`true` theo mặc định). Đăng ký nó riêng biệt như hiển thị bên dưới hiện là tùy chọn — nó được giữ lại để tương thích ngược và cho các thiết lập cần kiểm soát thứ tự plugin. Đặt `routing.enableProxy: false` để từ chối. Xem [ghi chú phát hành v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/releases/v9.md).
 
 ```typescript fileName="vite.config.ts"
 import { defineConfig } from "vite";

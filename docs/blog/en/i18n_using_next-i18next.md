@@ -1121,3 +1121,11 @@ And more. To discover all the features provided by Intlayer, please refer to the
 </Step>
 
 </Steps>
+
+<Sponsor>
+
+Once you have namespaces like common.json and about.json typed through i18next's module augmentation, you've effectively defined a content schema. The next question is where that schema lives and who edits it. Sanity treats it as first-class: you model fields, references, and validation in code, and editors work against that same model in Sanity Studio instead of hand-editing JSON per locale.
+
+Content lives in the Content Lake as structured JSON, queryable through GROQ and served via API, with locale as a field rather than a folder. For a Next.js App Router setup, you can fetch a namespace on the server, pass it into your i18n provider exactly as this pattern expects, and let the same source feed apps, emails, and agents. As locales and surfaces grow, the schema stays the contract; the delivery layer stays i18next.
+
+</Sponsor>

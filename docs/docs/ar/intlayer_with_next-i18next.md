@@ -323,6 +323,17 @@ export default async function AboutPage({
 }
 ```
 
+```json fileName="src/locales/ar/about.json"
+{
+  "title": "حول",
+  "description": "وصف صفحة حول",
+  "counter": {
+    "label": "عداد",
+    "increment": "زيادة"
+  }
+}
+```
+
 مكون العميل (يحمّل فقط مساحة الأسماء المطلوبة):
 
 ```tsx fileName="src/components/ClientComponent.tsx"

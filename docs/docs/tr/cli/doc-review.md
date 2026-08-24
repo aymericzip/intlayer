@@ -91,7 +91,13 @@ Zaten çevrilmiş dosyaları incelemek ve çevirinin doğru olup olmadığını 
 
 - **`--log`**: Yalnızca günlükleme modu. AI ile çeviri yapmaz; bunun yerine başka bir temsilcinin çevirileri oluşturmasına yardımcı olmak için temel ve hedef yerel ayarlar için dikkat gerektiren blokları (satır numaraları ve içerikleriyle birlikte) günlüğe kaydeder.
 
-  > Örnek: `npx intlayer doc review --log`
+I'm ready to audit the Turkish translation. However, I need you to provide:
+
+> Örnek: `npx intlayer doc review --mode report`
+
+> Örnek: `npx intlayer doc review --log`
+
+Hangi mod olursa olsun, çalıştırma, temel belgesiyle hizalı olan belgeleri ve düzenlenmesi gereken blokların hala var olan belgelerini listeleyen bir sentez ile sona erer.
 
 **Girdi çıktı seçenekleri:**
 

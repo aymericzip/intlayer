@@ -487,8 +487,6 @@ function RouteComponent() {
 }
 ```
 
-> If you want to use your content in a `string` attribute, such as `alt`, `title`, `href`, `aria-label`, etc., you can use the value of the function, like:
-
 > ```html
 > <img src="{content.image.src.value}" alt="{content.image.value}" />
 > <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
@@ -574,6 +572,8 @@ You can also use the `intlayerProxy` to add server-side routing to your applicat
 
 > Note that to use the `intlayerProxy` in production, you need to switch the `vite-intlayer` package from `devDependencies` to `dependencies`.
 
+> Since Intlayer v9, `intlayerProxy()` is bundled directly into the `intlayer()` plugin and enabled by default through the `routing.enableProxy` option (`true` by default). Registering it separately as shown below is now optional — it is kept for backward compatibility and for setups that need to control plugin order. Set `routing.enableProxy: false` to opt out. See the [v9 release notes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/releases/v9.md).
+
 ```typescript fileName="vite.config.ts"
 import { tanstackStart } from "@tanstack/solid-start/plugin/vite";
 import solid from "vite-plugin-solid";
@@ -607,6 +607,8 @@ export default defineConfig({
 <Step number={13} title="Internationalise Your Metadata">
 
 You can also use the `getIntlayer` function to access your content dictionaries within the `head` loader for locale-aware metadata:
+
+It behaves like `getIntlayer`, but the build plugin points it at the per-locale dictionary chunk instead of the merged dictionary holding every locale — so metadata for a page ships only the locale it renders. Because it loads that chunk on demand, `head` becomes `async`:
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/solid-router";
@@ -888,6 +890,8 @@ bun run build # Or bun run dev
 <Step number={16} title="Generate Sitemap">
 
 Intlayer comes with a built-in sitemap generator to help you create a sitemap for your application easily. It handles localised routes and adds the necessary metadata for search engines.
+
+> The Intlayer generated sitemap supports the `xhtml:link` namespace (Hreflang XML Extensions). Unlike the default sitemap generators that only list raw URLs, Intlayer automatically creates the required bidirectional links between all language versions of a page (e.g., `/about`, `/about?lang=fr`, and `/about?lang=es`). This ensures search engines correctly index and serve the right language version to the right audience.
 
 To use it, you first need to configure your `vite.config.ts` to enable pre-rendering for your localised routes and disable the default TanStack Start sitemap generation.
 

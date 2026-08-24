@@ -39,14 +39,6 @@ bun x intlayer fill
 
 This command analyses your content declaration files for potential issues such as missing translations, structural inconsistencies, or type mismatches. If it finds any problems, **intlayer fill** will propose or apply updates to keep your dictionaries consistent and complete.
 
-Key Points:
-
-- Splits large JSON files into chunks to stay within the AI model's context window limits.
-- Retries translation if the output format is incorrect.
-- Incorporates application and file-specific context for improved translation accuracy.
-- Preserves existing translations by not overwriting them.
-- Processes files, chunks, and locales in parallel using a queue system to increase speed.
-
 ## Key Points:
 
 - Splits large JSON files into chunks to stay within the AI model's context window limits.

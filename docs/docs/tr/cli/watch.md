@@ -48,5 +48,3 @@ Bu komut, `npx intlayer build --watch --skip-prepare` komutunun eşdeğeridir.
 - **`--with`**: İzleme ile paralel olarak komutu başlatır.
 
   > Örnek: `npx intlayer watch --with "next dev --turbopack"`
-
-  > Örnek: `npx intlayer watch --with "next dev --turbopack"`

@@ -145,8 +145,6 @@ bun add intlayer react-intlayer lynx-intlayer
 - **lynx-intlayer**  
   Інтеграція для Lynx, яка надає плагін для інтеграції Intlayer з бандлером Lynx.
 
-///
-
 ---
 
 </Step>

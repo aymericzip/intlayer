@@ -85,6 +85,16 @@ pnpm add intlayer-editor --save-dev
 bun add intlayer-editor --dev
 ```
 
+使用 `--with` 标志，您可以与另一个命令并行启动编辑器：
+
+```json5 fileName="package.json"
+{
+  "scripts": {
+    "start:editor": "npx intlayer-editor start --with 'next dev --turbopack'",
+  },
+}
+```
+
 ## 配置
 
 在您的 Intlayer 配置文件中，您可以自定义编辑器设置：
@@ -145,6 +155,8 @@ export default config;
    ```
 
    > **请注意，您应该并行运行您的应用程序。** 应用程序 URL 应与您在编辑器配置中设置的 URL (`applicationURL`) 匹配。
+
+> **注意该命令由 `intlayer` 包重新导出。你可以改用 `npx intlayer editor start`。**
 
 2. 然后，打开提供的 URL。默认值为 `http://localhost:8000`。
 

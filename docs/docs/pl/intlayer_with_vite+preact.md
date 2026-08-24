@@ -500,6 +500,28 @@ const App: FunctionalComponent = () => (
 export default App;
 ```
 
+> Pamiętaj, że aby używać `intlayerProxy` w produkcji, musisz przenieść pakiet `vite-intlayer` z `devDependencies` do `dependencies`.
+
+> Od wersji Intlayer v9, `intlayerProxy()` jest zabudowany bezpośrednio w plugin `intlayer()` i domyślnie włączony za pomocą opcji `routing.enableProxy` (`true` domyślnie). Rejestrowanie go osobno, jak pokazano poniżej, jest teraz opcjonalne — jest zachowane dla zgodności wstecz i dla konfiguracji, które muszą kontrolować kolejność pluginów. Ustaw `routing.enableProxy: false`, aby zrezygnować. Zobacz [informacje o wydaniu v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/releases/v9.md).
+
+```typescript {3,7} fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import { intlayer } from "vite-intlayer";
+import preact from "@preact/preset-vite";
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [
+    preact(),
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
+  ],
+});
+```
+
 </Step>
 
 <Step number={8} title="Zmień adres URL, gdy zmieni się język" isOptional={true}>
@@ -576,6 +598,10 @@ export default LocaleSwitcher;
 >
 > > - [Hook `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/react-intlayer/useLocale.md) (API jest podobne dla `preact-intlayer`)> - [Hook `getLocaleName`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/intlayer/getLocaleName.md)> - [Hook `getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/intlayer/getLocalizedUrl.md)> - [Hook `getHTMLTextDir`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/intlayer/getHTMLTextDir.md)> - [atrybut `hreflang`](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=fr)> - [atrybut `lang`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang)> - [atrybut `dir`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)> - [atrybut `aria-current`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)> - [Popover API](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API)
 
+Poniżej znajduje się zaktualizowany **Krok 9** ze wzbogaconymi wyjaśnieniami i ulepszonymi przykładami kodu:
+
+---
+
 </Step>
 
 <Step number={9} title="Przełącz atrybuty języka i kierunku HTML" isOptional={true}>
@@ -644,6 +670,12 @@ const App: FunctionalComponent = () => (
 
 export default App;
 ```
+
+Zastosując te zmiany, aplikacja będzie:
+
+- Upewnij się, że atrybut **language** (`lang`) prawidłowo odzwierciedla bieżące ustawienie lokalizacji, co jest ważne dla SEO i zachowania przeglądarki.
+- Dostosuj **kierunek tekstu** (`dir`) zgodnie z lokalizacją, poprawiając czytelność i użyteczność dla języków z różnymi kierunkami czytania.
+- Zapewnij bardziej **dostępne** doświadczenie, ponieważ technologie pomocnicze zależą od tych atrybutów, aby działać optymalnie.
 
 </Step>
 

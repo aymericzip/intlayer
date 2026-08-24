@@ -61,10 +61,6 @@ author: aymericzip
   </Tab>
 </Tabs>
 
-> このパッケージは開発中です。詳細は[issue](https://github.com/aymericzip/intlayer/issues/118)をご覧ください。Intlayer for Preact に関心がある場合は、issue に「いいね」をして興味を示してください。
-
-GitHub の[アプリケーションテンプレート](https://github.com/aymericzip/intlayer-vite-preact-template)もご覧ください。
-
 ## 目次
 
 <TOC/>
@@ -75,9 +71,13 @@ GitHub の[アプリケーションテンプレート](https://github.com/aymeri
 
 **Preact を完全にカバー**
 
+<Accordion header="Full Preact coverage">
+
 Intlayer は、**コンポーネント レベルのコンテンツ スコープ**、**遅延読み込み**、および国際化のスケーリング (i18n) に必要なすべての機能を提供することで、Preact と完全に連携するように最適化されています。
 
 **バンドルサイズ**
+
+<Accordion header="Bundle size">
 
 大量の JSON ファイルをページにロードするのではなく、必要なコンテンツのみをロードします。 Intlayer は、**バンドルとページのサイズを最大 50% 削減**するのに役立ちます。
 
@@ -87,19 +87,32 @@ Intlayer は、**コンポーネント レベルのコンテンツ スコープ*
 
 **AI エージェント**
 
+</Accordion>
+
+<Accordion header="AI Agent">
+
 コンテンツを同じ場所に配置すると、大規模言語モデル (LLM) によって **必要なコンテキストが削減**されます。 Intlayer には、翻訳の欠落をテストする **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** などのツール スイートも付属しています。および **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)** により、AI エージェントの開発者エクスペリエンス (DX) がさらにスムーズになります。
 
 **オートメーション**
+
+<Accordion header="自動化">
 
 AI プロバイダーの費用で、選択した LLM を使用して CI/CD パイプラインで自動化を変換します。 Intlayer は、コンテンツ抽出を自動化する **コンパイラー** と、**バックグラウンドでの翻訳**を支援する [Web プラットフォーム](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) も提供します。
 
 **パフォーマンス**
 
+<Accordion header="パフォーマンス">
+
 大量の JSON ファイルをコンポーネントに接続すると、パフォーマンスと反応性の問題が発生する可能性があります。 Intlayer は、ビルド時のコンテンツの読み込みを最適化します。
 
 **非開発によるスケーリング**
 
+<Accordion header="none-dev でのスケーリング">
+
 Intlayer は単なる i18n ソリューションではなく、**自己ホスト型 [ビジュアル エディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** と **[完全な CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** を提供します。 **リアルタイム**で多言語コンテンツを管理できるようになり、翻訳者、コピーライター、その他のチーム メンバーとのコラボレーションがシームレスになります。コンテンツはローカルおよび/またはリモートに保存できます。
+
+</Accordion>
+</AccordionGroup>
 
 ---
 

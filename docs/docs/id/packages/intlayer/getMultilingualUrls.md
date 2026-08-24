@@ -31,6 +31,14 @@ author: aymericzip
 
 Fungsi `getMultilingualUrls` menghasilkan pemetaan URL multibahasa dengan menambahkan prefix locale yang didukung pada URL yang diberikan. Fungsi ini dapat menangani URL absolut maupun relatif, dengan menerapkan prefix locale yang sesuai berdasarkan konfigurasi yang diberikan atau nilai default.
 
+**Fitur Utama:**
+
+- Hanya 1 parameter yang diperlukan: `url`
+- Object `options` opsional dengan `locales`, `defaultLocale`, dan `mode`
+- Menggunakan konfigurasi internasionalisasi proyek Anda sebagai default
+- Mendukung multiple routing modes: `prefix-no-default`, `prefix-all`, `no-prefix`, dan `search-params`
+- Mengembalikan mapping object dengan semua locale sebagai keys dan URL yang sesuai sebagai values
+
 ---
 
 ## Tanda Tangan Fungsi
@@ -139,8 +147,6 @@ getMultilingualUrls(
 // }
 ```
 
----
-
 ### Mode Routing Berbeda
 
 ```typescript
@@ -205,6 +211,12 @@ getMultilingualUrls("/dashboard", {
 
 - **Locale yang Tidak Didukung:**
   - Hanya locale yang disediakan dalam array `locales` yang dipertimbangkan untuk menghasilkan URL.
+
+- **Mode Routing:**
+  - `'prefix-no-default'`: Locale default tidak memiliki prefix, yang lain memiliki (mis., `/dashboard`, `/fr/dashboard`)
+  - `'prefix-all'`: Semua locale memiliki prefix (mis., `/en/dashboard`, `/fr/dashboard`)
+  - `'no-prefix'`: Tidak ada prefix locale di URL (semua locale mengembalikan URL yang sama)
+  - `'search-params'`: Locale ditentukan melalui parameter query (mis., `/dashboard?locale=fr`)
 
 ---
 

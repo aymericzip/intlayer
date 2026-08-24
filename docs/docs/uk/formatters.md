@@ -51,45 +51,15 @@ author: aymericzip
 
 ## Cached Intl
 
-The exported `Intl` is a thin, cached wrapper around the global `Intl`. It memoizes instances of `NumberFormat`, `DateTimeFormat`, `RelativeTimeFormat`, `ListFormat`, `DisplayNames`, `Collator`, and `PluralRules`, which avoids rebuilding the same formatter repeatedly.
-
 Because formatter construction is relatively expensive, this caching improves performance without changing behavior. The wrapper exposes the same API as the native `Intl`, so usage is identical.
-
-- Кешування здійснюється на рівні процесу й є прозорим для викликачів.
 
 > Якщо `Intl.DisplayNames` недоступний у середовищі, виводиться одне попередження лише для розробників (розгляньте можливість поліфілу).
 
 Приклади:
 
-```ts
-import { Intl } from "intlayer";
-
-// Форматування чисел
-const numberFormat = new Intl.NumberFormat("en-GB", {
-  style: "currency",
-  currency: "GBP",
-});
-numberFormat.format(1234.5); // "£1,234.50"
-
-// Відображувані назви мов, регіонів тощо
-const displayNames = new Intl.DisplayNames("fr", { type: "language" });
-displayNames.of("en"); // "anglais"
-
-// Порівняння рядків для сортування
-const collator = new Intl.Collator("fr", { sensitivity: "base" });
-collator.compare("é", "e"); // 0 (рівні)
-
-// Правила множини
-const pluralRules = new Intl.PluralRules("fr");
-pluralRules.select(1); // "one"
-pluralRules.select(2); // "інше"
-```
-
 ## Утиліти локалей
 
 ### `getLocaleName(displayLocale, targetLocale?)`
-
-Отримує локалізовану назву локалі в іншій локалі:
 
 ```ts
 import { getLocaleName } from "intlayer";
@@ -99,20 +69,9 @@ getLocaleName("en", "fr"); // французькою: "anglais"
 getLocaleName("de", "es"); // іспанською: "alemán"
 ```
 
-- **displayLocale**: Локаль, для якої потрібно отримати назву
-- **targetLocale**: Локаль, в якій відображається назва (за замовчуванням displayLocale)
-
 ### `getLocalizedUrl(url, currentLocale, locales?, defaultLocale?, prefixDefault?)`
 
 Генерує локалізований URL для поточної локалі:
-
-```ts
-import { getLocalizedUrl } from "intlayer";
-
-getLocalizedUrl("/about", "fr", ["en", "fr"], "en", false); // "/fr/about"
-getLocalizedUrl("/about", "en", ["en", "fr"], "en", false); // "/about"
-getLocalizedUrl("https://example.com/about", "fr", ["en", "fr"], "en", true); // "https://example.com/fr/about"
-```
 
 - **url**: Початковий URL для локалізації
 - **currentLocale**: Поточна локаль
@@ -121,8 +80,6 @@ getLocalizedUrl("https://example.com/about", "fr", ["en", "fr"], "en", true); //
 - **prefixDefault**: Чи додавати префікс для локалі за замовчуванням (за замовчуванням, сконфігуроване значення)
 
 ### `getContent(node, nodeProps, locale?)`
-
-Перетворює вузол контенту за допомогою всіх доступних плагінів (translation, enumeration, insertion тощо):
 
 ```ts
 import { getContent } from "intlayer";
@@ -133,10 +90,6 @@ const content = getContent(
   "fr"
 );
 ```
-
-- **node**: Вузол контенту, який потрібно перетворити
-- **nodeProps**: Властивості для контексту перетворення
-- **locale**: Необов'язкова локаль (за замовчуванням використовується налаштована локаль)
 
 ### `getIntlayer(dictionaryKey, locale?, plugins?)`
 
@@ -149,22 +102,9 @@ const content = getIntlayer("common", "fr");
 const nestedContent = getIntlayer("common", "fr", customPlugins);
 ```
 
-- **dictionaryKey**: Ключ словника, який необхідно отримати
-- **locale**: Необов'язкова локаль (за замовчуванням, налаштована локаль за замовчуванням)
-- **plugins**: Необов'язковий масив кастомних плагінів трансформації
-
 ## Форматувачі
 
-Усі допоміжні функції нижче експортуються з `intlayer`.
-
 ### `number(value, options?)`
-
-Форматує числове значення з урахуванням локалі для групування та десяткових знаків.
-
-- **value**: `number | string`
-- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
-
-Examples:
 
 ```ts
 import { number } from "intlayer";
@@ -182,26 +122,7 @@ number(1234.5, { minimumFractionDigits: 2 }); // "1,234.50"
 - **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
   - Типові поля: `currency` (наприклад, `"EUR"`), `currencyDisplay` (`"symbol" | "code" | "name"`)
 
-Приклади:
-
-```ts
-import { currency } from "intlayer";
-
-currency(1234.5, { currency: "EUR" }); // "€1,234.50"
-currency("5000", { locale: "fr", currency: "CAD", currencyDisplay: "code" }); // "5 000,00 CAD"
-```
-
 ### `relativeTime(from, to = new Date(), options?)`
-
-Форматує відносний час між двома моментами за допомогою `Intl.RelativeTimeFormat`.
-
-- Передайте "now" як перший аргумент, а цільовий, як другий, щоб отримати природне формулювання.
-- **from**: `Date | string | number`
-- **to**: `Date | string | number` (за замовчуванням, `new Date()`)
-- **options**: `{ locale?: LocalesValues; unit?: Intl.RelativeTimeFormatUnit; numeric?: Intl.RelativeTimeFormatNumeric; style?: Intl.RelativeTimeFormatStyle }`
-  - За замовчуванням `unit`, `"second"`.
-
-Приклади:
 
 ```ts
 import { relativeTime } from "intlayer";
@@ -216,14 +137,10 @@ relativeTime(now, twoHoursAgo, { unit: "hour", numeric: "auto" }); // "2 год�
 
 ### `units(value, options?)`
 
-Форматує числове значення як локалізований рядок одиниці виміру, використовуючи `Intl.NumberFormat` зі `style: 'unit'`.
-
 - **value**: `number | string`
 - **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
   - Загальні поля: `unit` (наприклад, `"kilometer"`, `"byte"`), `unitDisplay` (`"short" | "narrow" | "long"`)
   - За замовчуванням: `unit: 'day'`, `unitDisplay: 'short'`, `useGrouping: false`
-
-Приклади:
 
 ```ts
 import { units } from "intlayer";
@@ -237,15 +154,6 @@ units(1024, { unit: "byte", unitDisplay: "narrow" }); // "1,024B" (залежи�
 Для контекстів без фреймворку імпортуйте форматери безпосередньо з `intlayer`. Зверніть увагу, що ви повинні передати locale вручну.
 
 ### `list(values, options?)`
-
-Форматує масив значень у локалізований рядок списку за допомогою `Intl.ListFormat`.
-
-- **values**: `(string | number)[]`
-- **options**: `Intl.ListFormatOptions & { locale?: LocalesValues }`
-  - Загальні поля: `type` (`"conjunction" | "disjunction" | "unit"`), `style` (`"long" | "short" | "narrow"`)
-  - За замовчуванням: `type: 'conjunction'`, `style: 'long'`
-
-Приклади:
 
 ```ts
 import { list } from "intlayer";
@@ -490,49 +398,6 @@ getPathWithoutLocale("/fr/dashboard"); // "/dashboard"
 
 Клієнтські компоненти:
 
-```tsx
-import {
-  useNumber,
-  useCurrency,
-  useDate,
-  usePercentage,
-  useCompact,
-  useList,
-  useRelativeTime,
-  useUnit,
-} from "react-intlayer/format";
-// або в Preact-додатках
-// "preact-intlayer/format";
-// або в Next.js-додатках
-// "next-intlayer/client/format";
-
-const MyComponent = () => {
-  const number = useNumber();
-  const currency = useCurrency();
-  const date = useDate();
-  const percentage = usePercentage();
-  const compact = useCompact();
-  const list = useList();
-  const relativeTime = useRelativeTime();
-  const unit = useUnit();
-
-  return (
-    <div>
-      <p>{number(123456.789)}</p>
-      <p>{currency(1234.5, { currency: "EUR" })}</p>
-      <p>{date(new Date(), "short")}</p>
-      <p>{percentage(0.25)}</p>
-      <p>{compact(1200)}</p>
-      <p>{list(["apple", "banana", "orange"])}</p>
-      <p>{relativeTime(new Date(), new Date() + 1000)}</p>
-      <p>{unit(123456.789, { unit: "kilometer" })}</p>
-    </div>
-  );
-};
-```
-
-Серверні компоненти (або React Server runtime):
-
 ```ts
 import {
   useNumber,
@@ -556,8 +421,6 @@ import {
   useUnit,
 } from "next-intlayer/server/format";
 ```
-
-> Ці хуки братимуть до уваги локаль із `IntlayerProvider` або `IntlayerServerProvider`
 
 ### `getHTMLTextDir(locale?)`
 
@@ -589,8 +452,6 @@ import {
   useUnit,
 } from "vue-intlayer/format";
 ```
-
-> Ці composables братимуть до уваги локаль із ін'єктованого `IntlayerProvider`
 
 ### `getTranslation(languageContent, locale?, fallback?)`
 

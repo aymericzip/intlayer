@@ -28,6 +28,8 @@ author: aymericzip
 
 El plugin `intlayerPrune` para Vite se utiliza para aplicar tree-shaking y eliminar los diccionarios no utilizados del bundle de tu aplicación. Esto ayuda a reducir el tamaño final del bundle incluyendo únicamente el contenido multilingüe necesario.
 
+> El plugin ya está incluido y configurado automáticamente cuando usas [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/vite-intlayer/intlayer.md). Solo necesitas registrarlo manualmente si estás componiendo la pila de plugins tú mismo.
+
 ## Uso
 
 ### Como parte de `intlayer()` (recomendado)

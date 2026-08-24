@@ -31,6 +31,14 @@ author: aymericzip
 
 Hàm `getMultilingualUrls` tạo ra một ánh xạ các URL đa ngôn ngữ bằng cách thêm tiền tố URL đã cho với mỗi ngôn ngữ được hỗ trợ. Hàm có thể xử lý cả URL tuyệt đối và tương đối, áp dụng tiền tố ngôn ngữ phù hợp dựa trên cấu hình được cung cấp hoặc mặc định.
 
+**Các Tính Năng Chính:**
+
+- Chỉ 1 tham số là bắt buộc: `url`
+- Object `options` tùy chọn với `locales`, `defaultLocale`, và `mode`
+- Sử dụng cấu hình quốc tế hóa của dự án của bạn làm mặc định
+- Hỗ trợ nhiều chế độ định tuyến: `prefix-no-default`, `prefix-all`, `no-prefix`, và `search-params`
+- Trả về một object ánh xạ với tất cả các locale làm khóa và các URL tương ứng của chúng làm giá trị
+
 ---
 
 ## Chữ Ký Hàm
@@ -139,8 +147,6 @@ getMultilingualUrls(
 // }
 ```
 
----
-
 ### Các Chế Độ Định Tuyến Khác Nhau
 
 ```typescript
@@ -205,6 +211,12 @@ getMultilingualUrls("/dashboard", {
 
 - **Ngôn ngữ không được hỗ trợ:**
   - Chỉ những ngôn ngữ được cung cấp trong mảng `locales` mới được xem xét để tạo URL.
+
+- **Các Chế độ Định tuyến:**
+  - `'prefix-no-default'`: Ngôn ngữ mặc định không có tiền tố, các ngôn ngữ khác có (ví dụ: `/dashboard`, `/fr/dashboard`)
+  - `'prefix-all'`: Tất cả các ngôn ngữ đều có tiền tố (ví dụ: `/en/dashboard`, `/fr/dashboard`)
+  - `'no-prefix'`: Không có tiền tố ngôn ngữ trong URL (tất cả các ngôn ngữ trả về cùng một URL)
+  - `'search-params'`: Ngôn ngữ được chỉ định thông qua tham số truy vấn (ví dụ: `/dashboard?locale=fr`)
 
 ---
 

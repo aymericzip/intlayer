@@ -40,13 +40,19 @@ author: aymericzip
 
 W porównaniu do głównych rozwiązań, takich jak `vue-i18n` czy `i18next`, Intlayer jest rozwiązaniem wyposażonym w zintegrowane optymalizacje, takie jak:
 
+<AccordionGroup>
+
 **Pełne pokrycie Vue**
 
 Intlayer jest zoptymalizowany do doskonałej współpracy z Vue, oferując **zakres treści na poziomie komponentu**, **tłumaczenia reaktywne** i wszystkie funkcje potrzebne do skalowania internacjonalizacji (i18n).
 
 **Rozmiar bundle'a**
 
+<Accordion header="Rozmiar pakietu">
+
 Zamiast ładować ogromne pliki JSON na swoje strony, ładuj tylko niezbędną treść. Intlayer pomaga **zmniejszyć rozmiary bundle'a i stron nawet o 50%**.
+
+</Accordion>
 
 **Łatwość konserwacji**
 
@@ -54,7 +60,11 @@ Określanie zakresu zawartości aplikacji **ułatwia konserwację** aplikacji na
 
 **Agent AI**
 
+<Accordion header="AI Agent">
+
 Wspólna lokalizacja treści **zmniejsza potrzebny kontekst** dzięki modelom dużego języka (LLM). Intlayer zawiera także zestaw narzędzi, taki jak **CLI** do sprawdzania brakujących tłumaczeń**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** i **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/agent_skills.md)**, aby praca programisty (DX) była jeszcze płynniejsza dla agentów AI.
+
+</Accordion>
 
 **Automatyzacja**
 
@@ -62,11 +72,18 @@ Korzystaj z automatyzacji, aby tłumaczyć w swoim potoku CI/CD przy użyciu wyb
 
 **Wydajność**
 
+<Accordion header="Wydajność">
+
 Łączenie ogromnych plików JSON z komponentami może prowadzić do problemów z wydajnością i reaktywnością. Inlayer optymalizuje ładowanie treści w czasie kompilacji.
+
+</Accordion>
 
 **Skalowanie bez użycia dewelopera**
 
 Więcej niż tylko rozwiązanie i18n, Intlayer zapewnia **samodzielny [edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** i **[pełny CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)**, który pomoże Ci zarządzać wielojęzyczną treścią w **w czasie rzeczywistym**, dzięki czemu współpraca z tłumaczami, copywriterami i innymi członkami zespołu będzie płynna. Treść może być przechowywana lokalnie i/lub zdalnie.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
@@ -361,6 +378,8 @@ app.mount("#app");
 
 Uzyskaj dostęp do swoich słowników treści w całej aplikacji, tworząc główny komponent Vue i używając kompozycji `useIntlayer`:
 
+Uzyskaj dostęp do swoich słowników zawartości w całej aplikacji, tworząc główny komponent Vue i używając composables `useIntlayer`:
+
 ```vue fileName="src/HelloWord.vue"
 <script setup lang="ts">
 import { ref } from "vue";
@@ -412,6 +431,8 @@ const countRef = ref(0);
 </template>
 ```
 
+> Jeśli Twoja aplikacja już istnieje, możesz użyć [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compiler.md), a także [polecenia extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/extract.md), aby przekształcić tysiące komponentów w sekundę.
+
 #### Dostęp do treści w Intlayer
 
 Intlayer oferuje różne API do dostępu do Twojej treści:
@@ -429,8 +450,6 @@ Intlayer oferuje różne API do dostępu do Twojej treści:
   Kompozycja `useIntlayer` zwraca Proxy z zawartością. Ten proxy można destrukturyzować, aby uzyskać dostęp do zawartości, zachowując reaktywność.
   - Użyj `const content = useIntlayer("myContent");` oraz `{{ content.myContent }}` / `<content.myContent />`.
   - Lub użyj `const { myContent } = useIntlayer(\"myContent\");` oraz `{{ myContent }}` / `<myContent/>`, aby destrukturyzować zawartość.
-
-> Jeśli Twoja aplikacja już istnieje, możesz użyć [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compiler.md) w połączeniu z [poleceniem extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/extract.md), aby przekonwertować tysiące komponentów w jedną sekundę.
 
 </Step>
 
@@ -620,6 +639,8 @@ import LocaleSwitcher from "@components/LocaleSwitcher.vue";
 Równolegle możesz również użyć `intlayerProxy`, aby dodać routowanie po stronie serwera do swojej aplikacji. Ten plugin automatycznie wykryje bieżący język na podstawie URL i ustawi odpowiedni cookie językowy. Jeśli nie zostanie określony żaden język, plugin wybierze najbardziej odpowiedni język na podstawie preferencji językowych przeglądarki użytkownika. Jeśli nie zostanie wykryty żaden język, nastąpi przekierowanie do domyślnego języka.
 
 > Zauważ, że aby używać `intlayerProxy` w produkcji, musisz przenieść pakiet `vite-intlayer` z `devDependencies` do `dependencies`.
+
+> Od wersji Intlayer v9, `intlayerProxy()` jest dołączony bezpośrednio do wtyczki `intlayer()` i domyślnie włączony przez opcję `routing.enableProxy` (`true` domyślnie). Rejestrowanie go osobno, jak pokazano poniżej, jest teraz opcjonalne — jest utrzymywane dla kompatybilności wstecznej i dla konfiguracji, które muszą kontrolować kolejność wtyczek. Ustaw `routing.enableProxy: false`, aby zrezygnować. Przeczytaj [notatki wydania v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/releases/v9.md).
 
 ```typescript {3,7} fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
@@ -897,56 +918,6 @@ import RouterLink from "@components/RouterLink.vue";
 </Step>
 
 <Step number={11} title="Renderowanie Markdown" isOptional={true}>
-
-Intlayer obsługuje renderowanie zawartości Markdown bezpośrednio w Twojej aplikacji Vue. Domyślnie Markdown jest traktowany jako zwykły tekst. Aby przekształcić Markdown w bogaty HTML, możesz zintegrować [markdown-it](https://github.com/markdown-it/markdown-it), parser Markdown.
-
-Jest to szczególnie przydatne, gdy Twoje tłumaczenia zawierają sformatowaną zawartość, taką jak listy, linki czy wyróżnienia.
-
-Domyślnie Intlayer renderuje markdown jako ciąg znaków. Jednak Intlayer oferuje również sposób na renderowanie markdown do HTML za pomocą funkcji `installIntlayerMarkdown`.
-
-> Aby zobaczyć, jak deklarować zawartość markdown za pomocą pakietu `intlayer`, zobacz [dokumentację markdown](https://github.com/aymericzip/intlayer/tree/main/docs/pl/dictionary/markdown.md).
-
-```ts fileName="main.ts"
-import MarkdownIt from "markdown-it";
-import { createApp, h } from "vue";
-import { installIntlayer, installIntlayerMarkdown } from "vue-intlayer";
-
-const app = createApp(App);
-
-app.use(intlayer);
-
-const md = new MarkdownIt({
-  html: true, // zezwól na tagi HTML
-  linkify: true, // automatyczne linkowanie URL
-  typographer: true, // włącz inteligentne cudzysłowy, myślniki itp.
-});
-
-// Powiedz Intlayer, aby używał md.render() za każdym razem, gdy musi przekształcić markdown na HTML
-installIntlayerMarkdown(app, (markdown) => {
-  const html = md.render(markdown);
-  return h("div", { innerHTML: html });
-});
-```
-
-Po zarejestrowaniu możesz używać składni opartej na komponentach, aby bezpośrednio wyświetlać zawartość Markdown:
-
-```vue
-<template>
-  <div>
-    <myMarkdownContent />
-  </div>
-</template>
-
-<script setup lang="ts">
-import { useIntlayer } from "vue-intlayer";
-
-const { myMarkdownContent } = useIntlayer("my-component");
-</script>
-```
-
-</Step>
-
-<Step number={12} title="Wyodrębnij zawartość swoich komponentów" isOptional={true}>
 
 Jeśli masz istniejącą bazę kodu, transformacja tysięcy plików może być czasochłonna.
 

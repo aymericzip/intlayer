@@ -50,6 +50,18 @@ author: aymericzip
 
 Intlayer नेटिव `Intl` APIs के ऊपर बनाए गए हल्के हेल्पर्स का एक सेट प्रदान करता है, साथ ही भारी फॉर्मेटर्स को बार-बार बनाने से बचने के लिए एक कैश्ड `Intl` रैपर भी शामिल है। ये यूटिलिटीज पूरी तरह से लोकल-आधारित हैं और मुख्य `intlayer` पैकेज से उपयोग की जा सकती हैं।
 
+**React, Vue, और अन्य frameworks के लिए**, अपने ऐप के locale context से स्वचालित रूप से जुड़ने वाले framework-specific hooks/composables का उपयोग करें:
+
+| Framework                | Import                                           |
+| ------------------------ | ------------------------------------------------ |
+| **React** (client)       | `react-intlayer/format`                          |
+| **React** (server)       | `react-intlayer/server/format`                   |
+| **Next.js** (client)     | `next-intlayer/client/format`                    |
+| **Next.js** (server)     | `next-intlayer/server/format`                    |
+| **Vue**                  | `vue-intlayer/format`                            |
+| **Preact**               | `preact-intlayer/format`                         |
+| **Vanilla JS / Node.js** | `intlayer` (मैनुअल locale पासिंग की आवश्यकता है) |
+
 ## React Formatters
 
 ### आयात
@@ -77,8 +89,6 @@ import {
   getIntlayerAsync,
 } from "intlayer";
 ```
-
-यदि आप React का उपयोग कर रहे हैं, तो हुक्स भी उपलब्ध हैं; देखें `react-intlayer/format`।
 
 ### उपलब्ध Hooks
 
@@ -154,8 +164,6 @@ regionNames.of("US"); // "États-Unis"
 ## Vue Formatters
 
 ### `Intl.Collator`
-
-स्थानीय भाषा के अनुसार स्ट्रिंग की तुलना और क्रमबद्धता के लिए:
 
 ```ts
 import { Intl } from "intlayer";
@@ -456,9 +464,6 @@ getLocaleName("en", "fr"); // "anglais"
 getLocaleName("de", "es"); // "alemán"
 ```
 
-- **displayLocale**: उस लोकल का नाम प्राप्त करने के लिए
-- **targetLocale**: जिस लोकल में नाम दिखाना है (डिफ़ॉल्ट रूप से displayLocale)
-
 ### `getLocaleLang(locale?)`
 
 लोकल स्ट्रिंग से भाषा कोड निकालता है:
@@ -470,8 +475,6 @@ getLocaleLang("en-US"); // "en"
 getLocaleLang("fr-CA"); // "fr"
 getLocaleLang("de"); // "de"
 ```
-
-- **locale**: उस लोकल से भाषा निकालने के लिए (डिफ़ॉल्ट रूप से वर्तमान लोकल)
 
 ### `getLocaleFromPath(inputUrl)`
 
@@ -486,9 +489,6 @@ getLocaleFromPath("/dashboard"); // "en" (डिफ़ॉल्ट लोकल)
 getLocaleFromPath("https://example.com/es/about"); // "es"
 ```
 
-- **inputUrl**: पूरी URL स्ट्रिंग या पाथनेम जिसे प्रोसेस करना है
-- **returns**: पता लगाया गया लोकल या डिफ़ॉल्ट लोकल यदि कोई लोकल नहीं मिला हो
-
 ### `getPathWithoutLocale(inputUrl, locales?)`
 
 URL या पाथनेम से लोकल सेगमेंट को हटाता है:
@@ -500,10 +500,6 @@ getPathWithoutLocale("/en/dashboard"); // "/dashboard"
 getPathWithoutLocale("/fr/dashboard"); // "/dashboard"
 getPathWithoutLocale("https://example.com/en/about"); // "https://example.com/about"
 ```
-
-- **inputUrl**: पूरी URL स्ट्रिंग या पाथनेम जिसे प्रोसेस करना है
-- **locales**: समर्थित लोकल्स की वैकल्पिक सूची (डिफ़ॉल्ट रूप से कॉन्फ़िगर किए गए लोकल्स)
-- **returns**: लोकल सेगमेंट के बिना URL
 
 ### `getLocalizedUrl(url, currentLocale, locales?, defaultLocale?, prefixDefault?)`
 
@@ -517,12 +513,6 @@ getLocalizedUrl("/about", "en", ["en", "fr"], "en", false); // "/about"
 getLocalizedUrl("https://example.com/about", "fr", ["en", "fr"], "en", true); // "https://example.com/fr/about"
 ```
 
-- **url**: स्थानीयकृत करने के लिए मूल URL
-- **currentLocale**: वर्तमान लोकल
-- **locales**: समर्थित लोकल्स की वैकल्पिक सूची (डिफ़ॉल्ट रूप से कॉन्फ़िगर किए गए लोकल्स)
-- **defaultLocale**: वैकल्पिक डिफ़ॉल्ट लोकल (डिफ़ॉल्ट रूप से कॉन्फ़िगर किए गए डिफ़ॉल्ट लोकल)
-- **prefixDefault**: क्या डिफ़ॉल्ट लोकल को प्रीफ़िक्स करना है (डिफ़ॉल्ट रूप से कॉन्फ़िगर किए गए मान)
-
 ### `getHTMLTextDir(locale?)`
 
 किसी लोकल के लिए टेक्स्ट दिशा लौटाता है:
@@ -534,9 +524,6 @@ getHTMLTextDir("en-US"); // "ltr"
 getHTMLTextDir("ar"); // "rtl"
 getHTMLTextDir("he"); // "rtl"
 ```
-
-- **locale**: टेक्स्ट दिशा प्राप्त करने के लिए लोकल (डिफ़ॉल्ट रूप से वर्तमान लोकल)
-- **returns**: `"ltr"`, `"rtl"`, या `"auto"`
 
 ## कंटेंट हैंडलिंग उपयोगिताएँ
 
@@ -553,10 +540,6 @@ const content = getContent(
   "fr"
 );
 ```
-
-- **node**: परिवर्तित करने के लिए सामग्री नोड
-- **nodeProps**: रूपांतरण संदर्भ के लिए गुण
-- **locale**: वैकल्पिक लोकल (डिफ़ॉल्ट रूप से कॉन्फ़िगर किए गए डिफ़ॉल्ट लोकल)
 
 ### `getTranslation(languageContent, locale?, fallback?)`
 
@@ -576,10 +559,6 @@ const content = getTranslation(
 ); // "Bonjour"
 ```
 
-- **languageContent**: लोकल को सामग्री से मैप करने वाला ऑब्जेक्ट
-- **locale**: लक्षित लोकल (डिफ़ॉल्ट रूप से कॉन्फ़िगर किए गए डिफ़ॉल्ट लोकल)
-- **fallback**: क्या डिफ़ॉल्ट लोकल पर वापस जाना है (डिफ़ॉल्ट रूप से true)
-
 ### `getIntlayerAsync(dictionaryKey, locale?, plugins?)`
 
 दूरस्थ शब्दकोश से असिंक्रोनस रूप से सामग्री पुनः प्राप्त करता है:
@@ -589,10 +568,6 @@ import { getIntlayerAsync } from "intlayer";
 
 const content = await getIntlayerAsync("common", "fr");
 ```
-
-- **dictionaryKey**: पुनः प्राप्त करने के लिए शब्दकोश की कुंजी
-- **locale**: वैकल्पिक लोकल (डिफ़ॉल्ट रूप से कॉन्फ़िगर किए गए डिफ़ॉल्ट लोकल)
-- **plugins**: कस्टम रूपांतरण प्लगइन्स की वैकल्पिक सूची
 
 ## नोट्स
 

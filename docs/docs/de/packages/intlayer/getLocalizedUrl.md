@@ -143,36 +143,6 @@ getLocalizedUrl(
 // Ausgabe: "/about" für das Standard-Locale (Englisch)
 ```
 
-```javascript codeFormat="esm"
-import { getLocalizedUrl, Locales } from "intlayer";
-
-getLocalizedUrl(
-  "/about",
-  Locales.FRENCH,
-  [Locales.ENGLISH, Locales.FRENCH],
-  Locales.ENGLISH,
-  false
-);
-
-// Ausgabe: "/fr/about" für das französische Locale
-// Ausgabe: "/about" für das Standard-Locale (Englisch)
-```
-
-```javascript codeFormat="commonjs"
-const { getLocalizedUrl, Locales } = require("intlayer");
-
-getLocalizedUrl(
-  "/about",
-  Locales.FRENCH,
-  [Locales.ENGLISH, Locales.FRENCH],
-  Locales.ENGLISH,
-  false
-);
-
-// Ausgabe: "/fr/about" für das französische Locale
-// Ausgabe: "/about" für das Standard-Locale (Englisch)
-```
-
 ### Partielle Konfigurationsüberschreibung
 
 Sie können auch nur einige der optionalen Parameter bereitstellen. Die Funktion verwendet Ihre Projektkonfiguration für alle Parameter, die Sie nicht angeben:
@@ -248,6 +218,12 @@ getLocalizedUrl(
 
 - **Nicht unterstützte Locales:**
   - Für Locales, die nicht in `locales` aufgeführt sind, wird kein Präfix angewendet.
+
+- **Routing-Modi:**
+  - `'prefix-no-default'`: Standardgebietsschema hat kein Präfix, andere haben eines (z. B. `/about`, `/fr/about`)
+  - `'prefix-all'`: Alle Gebietsschemata haben Präfixe (z. B. `/en/about`, `/fr/about`)
+  - `'no-prefix'`: Keine Gebietsschema-Präfixe in URLs (Gebietsschema wird anderswo behandelt)
+  - `'search-params'`: Gebietsschema wird über Abfrageparameter angegeben (z. B. `/about?locale=fr`)
 
 ---
 

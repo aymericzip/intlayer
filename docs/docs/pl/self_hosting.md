@@ -90,10 +90,6 @@ Następnie otwórz **http://localhost:3000**.
 
 ## Szybki start
 
-```sh
-curl -fsSL https://intlayer.org/install.sh | sh
-```
-
 Co robi instalator:
 
 1.  Sprawdza, czy `docker` i `docker compose` są obecne.
@@ -116,8 +112,6 @@ Po uruchomieniu stosu, otwórz **http://localhost:3000** i utwórz swoje pierwsz
 | **redis**     | `redis:7-alpine`                      | wewnętrzny                               | Kolejki zadań (BullMQ) i buforowanie (ioredis)                    |
 | **minio**     | `minio/minio`                         | `9000` (S3), `9001` (konsola)            | Przechowywanie obiektów zgodne z S3 dla awatarów i zrzutów ekranu |
 | **mailpit**   | `axllent/mailpit`                     | `1025` (SMTP), `8025` (interfejs webowy) | Lokalny odbiornik transakcyjnych wiadomości e-mail                |
-
-Wewnętrzne porty (mongo, redis) nie są domyślnie udostępniane na hoście.
 
 > Port MinIO `9000` musi być osiągalny przez przeglądarkę, ponieważ przesłane zasoby (awatary, zrzuty ekranu) są ładowane bezpośrednio z `S3_PUBLIC_URL=http://localhost:9000/intlayer`.
 
@@ -173,8 +167,6 @@ Wewnętrzne porty (mongo, redis) nie są domyślnie udostępniane na hoście.
 | `MICROSOFT_CLIENT_ID`, `MICROSOFT_CLIENT_SECRET`         | Logowanie Microsoft OAuth                                                                       |
 | `LINKEDIN_CLIENT_ID`, `LINKEDIN_CLIENT_SECRET`           | Logowanie LinkedIn OAuth                                                                        |
 | `ATLASSIAN_CLIENT_ID`, `ATLASSIAN_CLIENT_SECRET`         | Logowanie Atlassian OAuth                                                                       |
-
----
 
 ### Globalny dostawca poczty
 
@@ -261,15 +253,7 @@ const { data: dictionaries } = await dictionaryEndpoint(cms).getDictionaries();
 
 ## Aktualizacja
 
-Ponowne uruchomienie instalatora na istniejącym wdrożeniu wykonuje aktualizację krokową:
-
-```sh
-curl -fsSL https://intlayer.org/install.sh | sh
-```
-
 Spowoduje to pobranie najnowszych obrazów i ponowne uruchomienie kontenerów za pomocą `docker compose pull && docker compose up -d`. Istniejące woluminy (`mongo-data`, `redis-data`, `minio-data`) zostaną zachowane — brak utraty danych.
-
-Aby ręcznie zaktualizować z poziomu katalogu `./intlayer/`:
 
 ```sh
 docker compose pull
@@ -334,14 +318,11 @@ docker compose logs mongo
 docker compose logs redis
 ```
 
+Poszukaj `MongoDB connection error` w górnej części dziennika.
+
 ### Pulpit nawigacyjny nie może dotrzeć do API
 
 Sprawdź, czy `VITE_BACKEND_URL` odpowiada adresowi URL, pod którym backend jest osiągalny z **przeglądarki** (nie z sieci Docker). Jeśli zmieniłeś port backendu lub dodałeś reverse proxy, ponownie zbuduj obraz pulpitu nawigacyjnego:
-
-```sh
-docker compose build app
-docker compose up -d app
-```
 
 ### Brak zasobnika MinIO
 

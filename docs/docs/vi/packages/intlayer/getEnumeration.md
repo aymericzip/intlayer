@@ -31,6 +31,8 @@ author: aymericzip
 
 Hàm `getEnumeration` lấy nội dung tương ứng với một số lượng cụ thể dựa trên các điều kiện đã được định nghĩa trước trong một đối tượng liệt kê. Các điều kiện được định nghĩa dưới dạng các khóa, và thứ tự ưu tiên của chúng được xác định theo thứ tự trong đối tượng.
 
+Để biết thêm chi tiết về cách khai báo enumerations, xem [tài liệu Enumeration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/enumeration.md).
+
 ## Tham số
 
 - `enumerationContent: QuantityContent<Content>`

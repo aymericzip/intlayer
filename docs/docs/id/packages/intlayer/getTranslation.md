@@ -31,6 +31,8 @@ author: aymericzip
 
 Fungsi `getTranslationContent` mengambil konten yang sesuai dengan locale tertentu dari sekumpulan konten bahasa yang dapat disesuaikan. Jika locale yang ditentukan tidak ditemukan, fungsi ini akan mengembalikan konten untuk locale default yang dikonfigurasi dalam proyek.
 
+Untuk detail lebih lanjut tentang cara mendeklarasikan terjemahan, lihat [dokumentasi Translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/translation.md).
+
 ## Parameter
 
 - `languageContent: CustomizableLanguageContent<Content>`

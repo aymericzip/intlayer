@@ -311,8 +311,6 @@ export const cmsAuthenticator = createIntlayerCMS({
 
 ### Ihr Projekt mit einer selbst gehosteten Instanz verbinden
 
-Richten Sie Ihre Intlayer-Konfiguration auf Ihr eigenes Backend und Dashboard statt auf `intlayer.org` aus:
-
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import type { IntlayerConfig } from "intlayer";
 
@@ -338,20 +336,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-Setzen Sie die passenden Umgebungsvariablen in Ihrem Projekt:
-
-```sh
-INTLAYER_CMS_URL=http://localhost:3000
-INTLAYER_BACKEND_URL=http://localhost:3100
-INTLAYER_CLIENT_ID=<your-client-id>
-INTLAYER_CLIENT_SECRET=<your-client-secret>
-```
-
-Erstellen Sie Zugangsdaten in Ihrem selbst gehosteten Dashboard unter `http://localhost:3000/projects`.
-
 ### `@intlayer/api` SDK: auf ein selbst gehostetes Backend verweisen
-
-Bei programmatischer Verwendung des SDK übergeben Sie `backendURL` explizit an `createIntlayerCMS`:
 
 ```typescript fileName="cms.ts" codeFormat="typescript"
 import { createIntlayerCMS } from "@intlayer/api";
@@ -372,6 +357,32 @@ const { data: dictionaries } = await dictionaryEndpoint(cms).getDictionaries();
 
 Diese Funktionen erfordern externe Konten und funktionieren weiterhin ohne ihre Schlüssel in der selbst gehosteten `.env`:
 
+```typescript fileName="write-dictionaries.ts" codeFormat="typescript"
+import { createIntlayerCMS } from "@intlayer/api";
+import { dictionaryEndpoint } from "@intlayer/api/dictionary";
+
+const cmsAuthenticator = createIntlayerCMS();
+
+// Erstelle ein neues Wörterbuch
+await dictionaryEndpoint(cmsAuthenticator).addDictionary({
+  key: "my-first-dictionary-key",
+  content: { title: "Hello world" },
+});
+
+// Upsert einer Reihe von Wörterbüchern (erstelle oder aktualisiere sie in einem Aufruf)
+await dictionaryEndpoint(cmsAuthenticator).pushDictionaries([
+  { key: "home", content: { title: "Home" } },
+  { key: "about", content: { title: "About" } },
+]);
+
+// Aktualisiere ein bestehendes Wörterbuch
+await dictionaryEndpoint(cmsAuthenticator).updateDictionary({
+  id: "<dictionary-id>",
+  key: "home",
+  content: { title: "Updated title" },
+});
+```
+
 | Funktion                            | Umgebungsvariable(n)                            |
 | ----------------------------------- | ----------------------------------------------- |
 | KI-Übersetzung / Audit              | `OPENAI_API_KEY`                                |
@@ -383,8 +394,6 @@ Diese Funktionen erfordern externe Konten und funktionieren weiterhin ohne ihre 
 
 ### Datenpersistenz und Upgrades
 
-Drei Docker-Volumes halten alle dauerhaften Daten: `mongo-data`, `redis-data` und `minio-data`. Sie überleben Container-Neustarts und Upgrades. Ein erneutes Ausführen des Installers lädt die neuesten Images herunter und führt ein Rolling `docker compose up -d` durch.
-
 Auf dem Host verfügbare Ports:
 
 | Port   | Dienst                                              |
@@ -394,10 +403,6 @@ Auf dem Host verfügbare Ports:
 | `8025` | Mailpit E-Mail-Web-UI                               |
 | `9000` | MinIO S3 API (erforderlich für Browser-Asset-Laden) |
 | `9001` | MinIO-Konsole                                       |
-
-Eine vollständige Referenz aller verfügbaren Umgebungsvariablen und erweiterten Optionen (Reverse Proxy, benutzerdefinierte Domains, Sicherung/Wiederherstellung) finden Sie im [Self-Hosting-Leitfaden](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/self_hosting.md).
-
----
 
 ## Live Sync
 

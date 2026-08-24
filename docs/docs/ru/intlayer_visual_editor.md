@@ -85,6 +85,16 @@ pnpm add intlayer-editor --save-dev
 bun add intlayer-editor --dev
 ```
 
+С флагом `--with` вы можете запустить редактор параллельно с другой командой:
+
+```json5 fileName="package.json"
+{
+  "scripts": {
+    "start:editor": "npx intlayer-editor start --with 'next dev --turbopack'",
+  },
+}
+```
+
 ## Конфигурация
 
 В вашем файле конфигурации Intlayer вы можете настроить параметры редактора:
@@ -145,6 +155,8 @@ export default config;
    ```
 
    > **Обратите внимание, что ваше приложение должно работать параллельно.** URL приложения должен совпадать с тем, который вы указали в конфигурации редактора (`applicationURL`).
+
+> **Учтите, что команда переэкспортируется пакетом `intlayer`. Вместо этого вы можете использовать `npx intlayer editor start`.**
 
 2. Затем откройте предоставленный URL. По умолчанию `http://localhost:8000`.
 

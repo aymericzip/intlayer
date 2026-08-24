@@ -48,45 +48,15 @@ Intlayer 提供了一组基于原生 `Intl` API 构建的轻量级辅助工具�
 
 ## 缓存的 Intl
 
-导出的 `Intl` 是对全局 `Intl` 的一个轻量级缓存包装器。它会缓存 `NumberFormat`、`DateTimeFormat`、`RelativeTimeFormat`、`ListFormat`、`DisplayNames`、`Collator` 和 `PluralRules` 的实例，从而避免重复构建相同的格式化器。
-
 由于格式化器的构建相对昂贵，这种缓存机制在不改变行为的情况下提升了性能。该包装器暴露了与原生 `Intl` 相同的 API，因此用法完全一致。
-
-- 缓存是按进程进行的，对调用者透明。
 
 > 如果环境中不支持 `Intl.DisplayNames`，则只会打印一次仅限开发者的警告（建议使用 polyfill）。
 
 示例：
 
-```ts
-import { Intl } from "intlayer";
-
-// 数字格式化
-const numberFormat = new Intl.NumberFormat("en-GB", {
-  style: "currency",
-  currency: "GBP",
-});
-numberFormat.format(1234.5); // "£1,234.50"
-
-// 语言、地区等的显示名称
-const displayNames = new Intl.DisplayNames("fr", { type: "language" });
-displayNames.of("en"); // "anglais"
-
-// 用于排序的比较器
-const collator = new Intl.Collator("fr", { sensitivity: "base" });
-collator.compare("é", "e"); // 0（相等）
-
-// 复数规则
-const pluralRules = new Intl.PluralRules("fr");
-pluralRules.select(1); // "one"
-pluralRules.select(2); // "other"
-```
-
 ## 区域设置工具
 
 ### `getLocaleLang(locale?)`
-
-从语言环境字符串中提取语言代码：
 
 ```ts
 import { getLocaleLang } from "intlayer";
@@ -96,27 +66,14 @@ getLocaleLang("fr-CA"); // "fr"
 getLocaleLang("de"); // "de"
 ```
 
-- **locale**: 要提取语言代码的语言环境（默认为当前语言环境）
-
 ### `getLocaleFromPath(inputUrl)`
 
 从 URL 或路径名中提取语言环境段：
-
-```ts
-import { getLocaleFromPath } from "intlayer";
-
-getLocaleFromPath("/en/dashboard"); // "en"
-getLocaleFromPath("/fr/dashboard"); // "fr"
-getLocaleFromPath("/dashboard"); // "en"（默认语言环境）
-getLocaleFromPath("https://example.com/es/about"); // "es"
-```
 
 - **inputUrl**：要处理的完整 URL 字符串或路径名
 - **returns**：检测到的语言环境，如果未找到语言环境则返回默认语言环境
 
 ### `getLocalizedUrl(url, currentLocale, locales?, defaultLocale?, prefixDefault?)`
-
-为当前语言生成本地化 URL：
 
 ```ts
 import { getLocalizedUrl } from "intlayer";
@@ -125,12 +82,6 @@ getLocalizedUrl("/about", "fr", ["en", "fr"], "en", false); // "/fr/about"
 getLocalizedUrl("/about", "en", ["en", "fr"], "en", false); // "/about"
 getLocalizedUrl("https://example.com/about", "fr", ["en", "fr"], "en", true); // "https://example.com/fr/about"
 ```
-
-- **url**：要本地化的原始 URL
-- **currentLocale**：当前语言
-- **locales**：可选的支持语言数组（默认为配置的语言）
-- **defaultLocale**：可选的默认语言环境（默认为配置的默认语言环境）
-- **prefixDefault**：是否为默认语言环境添加前缀（默认为配置值）
 
 ### `getHTMLTextDir(locale?)`
 
@@ -144,14 +95,9 @@ getHTMLTextDir("ar"); // "rtl"
 getHTMLTextDir("he"); // "rtl"
 ```
 
-- **locale**：要获取文本方向的语言环境（默认为当前语言环境）
-- **returns**：返回 `"ltr"`、`"rtl"` 或 `"auto"`
-
 ## 内容处理工具
 
 ### `getContent(node, nodeProps, locale?)`
-
-使用所有可用插件（翻译、枚举、插入等）转换内容节点：
 
 ```ts
 import { getContent } from "intlayer";
@@ -163,27 +109,9 @@ const content = getContent(
 );
 ```
 
-- **node**：要转换的内容节点
-- **nodeProps**：转换上下文的属性
-- **locale**：可选的语言环境（默认为配置的默认语言环境）
-
 ### `getTranslation(languageContent, locale?, fallback?)`
 
 从语言内容对象中提取特定语言环境的内容：
-
-```ts
-import { getTranslation } from "intlayer";
-
-const content = getTranslation(
-  {
-    en: "Hello",
-    fr: "Bonjour",
-    de: "Hallo",
-  },
-  "fr",
-  true
-); // "Bonjour"
-```
 
 - **languageContent**：映射语言环境到内容的对象
 - **locale**：目标语言环境（默认为配置的默认语言环境）
@@ -191,18 +119,12 @@ const content = getTranslation(
 
 ### `getIntlayer(dictionaryKey, locale?, plugins?)`
 
-通过键检索并转换字典中的内容：
-
 ```ts
 import { getIntlayer } from "intlayer";
 
 const content = getIntlayer("common", "fr");
 const nestedContent = getIntlayer("common", "fr", customPlugins);
 ```
-
-- **dictionaryKey**：要检索的字典键
-- **locale**：可选的语言环境（默认为配置的默认语言环境）
-- **plugins**：可选的自定义转换插件数组
 
 ### `getIntlayerAsync(dictionaryKey, locale?, plugins?)`
 
@@ -214,24 +136,11 @@ import { getIntlayerAsync } from "intlayer";
 const content = await getIntlayerAsync("common", "fr");
 ```
 
-- **dictionaryKey**：要检索的字典键
-- **locale**：可选的语言环境（默认为配置的默认语言环境）
-- **plugins**：可选的自定义转换插件数组
-
 ## 格式化工具
 
 以下所有辅助函数均从 `intlayer` 导出。
 
 ### `percentage(value, options?)`
-
-将数字格式化为百分比字符串。
-
-行为：大于 1 的值被解释为完整的百分比并进行归一化（例如，`25` → `25%`，`0.25` → `25%`）。
-
-- **value**: `number | string`
-- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
-
-示例：
 
 ```ts
 import { percentage } from "intlayer";
@@ -430,12 +339,6 @@ pluralRules.select(11); // "many"
 
 使用 `Intl.DateTimeFormat` 格式化日期/时间值。
 
-- **date**: `Date | string | number`
-- **optionsOrPreset**: `Intl.DateTimeFormatOptions & { locale?: LocalesValues }` 或者以下预设之一：
-  - 预设值: `"short" | "long" | "dateOnly" | "timeOnly" | "full"`
-
-示例：
-
 ```ts
 import { date } from "intlayer";
 
@@ -447,13 +350,6 @@ date("2025-08-02T14:30:00Z", { locale: "fr", month: "long", day: "numeric" }); /
 
 使用 `Intl.NumberFormat` 的 `style: 'unit'` 将数值格式化为本地化的单位字符串。
 
-- **value**: `number | string`
-- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
-  - 常用字段：`unit`（例如 `"kilometer"`，`"byte"`），`unitDisplay`（`"short" | "narrow" | "long"`）
-  - 默认值：`unit: 'day'`，`unitDisplay: 'short'`，`useGrouping: false`
-
-示例：
-
 ```ts
 import { units } from "intlayer";
 
@@ -462,11 +358,6 @@ units(1024, { unit: "byte", unitDisplay: "narrow" }); // "1,024B"（依赖于区
 ```
 
 ### `compact(value, options?)`
-
-使用紧凑表示法格式化数字（例如，`1.2K`，`1M`）。
-
-- **value**：`number | string`
-- **options**：`Intl.NumberFormatOptions & { locale?: LocalesValues }`（内部使用 `notation: 'compact'`）
 
 示例：
 
@@ -480,13 +371,6 @@ compact("1000000", { locale: "fr", compactDisplay: "long" }); // "1 million"
 ### `list(values, options?)`
 
 使用 `Intl.ListFormat` 将值数组格式化为本地化的列表字符串。
-
-- **values**: `(string | number)[]`
-- **options**: `Intl.ListFormatOptions & { locale?: LocalesValues }`
-  - 常用字段：`type`（`"conjunction" | "disjunction" | "unit"`），`style`（`"long" | "short" | "narrow"`）
-  - 默认值：`type: 'conjunction'`，`style: 'long'`
-
-示例：
 
 ```ts
 import { list } from "intlayer";
@@ -573,34 +457,6 @@ const MyComponent = () => {
 };
 ```
 
-服务器组件（或 React 服务器运行时）：
-
-```ts
-import {
-  useNumber,
-  useCurrency,
-  useDate,
-  usePercentage,
-  useCompact,
-  useList,
-  useRelativeTime,
-  useUnit,
-} from "react-intlayer/server/format";
-// 或在 Next.js 应用中
-import {
-  useNumber,
-  useCurrency,
-  useDate,
-  usePercentage,
-  useCompact,
-  useList,
-  useRelativeTime,
-  useUnit,
-} from "next-intlayer/server/format";
-```
-
-> 这些钩子将会从 `IntlayerProvider` 或 `IntlayerServerProvider` 中获取语言环境
-
 ### `getTranslation(languageContent, locale?, fallback?)`
 
 为特定语言环境提取内容：
@@ -631,8 +487,6 @@ import {
   useUnit,
 } from "vue-intlayer/format";
 ```
-
-> 这些组合式函数将会使用注入的 `IntlayerProvider` 中的语言环境
 
 ## 注意事项
 

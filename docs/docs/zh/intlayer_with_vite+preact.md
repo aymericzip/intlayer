@@ -71,11 +71,17 @@ author: aymericzip
 
 **完整的 Preact 覆盖**
 
+<Accordion header="Full Preact coverage">
+
 Intlayer 经过优化，可与 Preact 完美配合，提供**组件级内容范围**、**延迟加载翻译**以及​​扩展国际化 (i18n) 所需的所有功能。
+
+</Accordion>
 
 **捆绑尺寸**
 
 不要将大量 JSON 文件加载到页面中，而只需加载必要的内容。 Intlayer 有助于**将捆绑包和页面大小减少多达 50%**。
+
+</Accordion>
 
 **可维护性**
 
@@ -83,11 +89,17 @@ Intlayer 经过优化，可与 Preact 完美配合，提供**组件级内容范�
 
 **人工智能代理**
 
+<Accordion header="AI Agent">
+
 共置内容**减少大型语言模型 (LLM) 所需的上下文**。 Intlayer 还附带了一套工具，例如用于测试缺失翻译的 **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** 和 **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)**，使 AI 代理的开发者体验 (DX) 更加流畅。
 
 **自动化**
 
+<Accordion header="自动化">
+
 使用您选择的法学硕士，通过自动化在 CI/CD 管道中进行翻译，而费用由您的 AI 提供商承担。 Intlayer 还提供了一个**编译器**来自动提取内容，以及一个[网络平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)来帮助**在后台翻译**。
+
+</Accordion>
 
 **表现**
 
@@ -95,7 +107,12 @@ Intlayer 经过优化，可与 Preact 完美配合，提供**组件级内容范�
 
 **无需开发即可扩展**
 
+<Accordion header="使用 none-dev 进行扩展">
+
 Intlayer 不仅仅是一个 i18n 解决方案，还提供了一个**自托管的[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)**和一个**[完整的 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** 来帮助您管理多语言内容**实时**，与译员、文案人员和其他团队成员无缝协作。内容可以本地和/或远程存储。
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
@@ -691,6 +708,68 @@ const App: FunctionalComponent = () => (
 export default App;
 ```
 
+通过应用这些更改，您的应用将:
+
+- 确保 **language** (`lang`) 属性正确反映当前locale，这对SEO和浏览器行为很重要。
+- 根据locale调整 **text direction** (`dir`)，增强可读性和可用性，特别是对于阅读顺序不同的语言。
+- 提供更 **accessible** 的体验，因为辅助技术依赖这些属性才能实现最佳功能。
+
+</Step>
+
+<Step number={10} title="创建本地化链接组件" isOptional={true}>
+
+为了确保您的应用程序的导航尊重当前的语言环境，您可以创建一个自定义 `Link` 组件。该组件自动为内部 URL 添加当前语言的前缀。
+
+这种行为有几个有用的原因:
+
+- **SEO 和用户体验**：本地化的 URL 帮助搜索引擎正确索引特定语言的页面，并为用户提供他们首选语言的内容。
+- **一致性**：通过在整个应用程序中使用本地化链接，你可以保证导航保持在当前的语言环境中，防止意外的语言切换。
+- **可维护性**：将本地化逻辑集中在一个单独的组件中，简化了 URL 的管理。
+
+Below is the implementation of a localized `Link` component in Preact:
+
+```tsx fileName="src/components/Link.tsx" codeFormat={["typescript", "esm"]}
+import { getLocalizedUrl } from "intlayer";
+import { useLocale } from "preact-intlayer";
+import { forwardRef } from "preact/compat";
+import type { JSX } from "preact";
+
+export interface LinkProps extends JSX.HTMLAttributes<HTMLAnchorElement> {
+  href: string;
+}
+
+/**
+ * 用于检查给定 URL 是否为外部链接的实用函数。
+ * 如果 URL 以 http:// 或 https:// 开头，则认为是外部链接。
+ */
+export const checkIsExternalLink = (href?: string): boolean =>
+  /^https?:\/\//.test(href ?? "");
+
+/**
+ * 一个自定义 Link 组件，根据当前语言环境调整 href 属性。
+ * 对于内部链接，它使用 `getLocalizedUrl` 为 URL 前缀添加语言环境（例如 /fr/about）。
+ * 这确保导航保持在同一语言环境上下文中。
+ */
+export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
+  ({ href, children, ...props }, ref) => {
+    const { locale } = useLocale();
+    const isExternalLink = checkIsExternalLink(href);
+
+    // 如果链接是内部链接并提供了有效的 href，则获取本地化的 URL。
+    const hrefI18n =
+      href && !isExternalLink ? getLocalizedUrl(href, locale) : href;
+
+    return (
+      <a href={hrefI18n} ref={ref} {...props}>
+        {children}
+      </a>
+    );
+  }
+);
+
+Link.displayName = "Link";
+```
+
 #### 工作原理
 
 - **检测外部链接**:  
@@ -847,57 +926,9 @@ bun run build # 或 bun run dev
 
 ### （可选）第 10 步：创建本地化链接组件
 
-为了确保您的应用程序导航尊重当前语言环境，您可以创建一个自定义 `Link` 组件。此组件会自动为内部 URL 添加当前语言前缀。
-
-这种行为在以下几个方面非常有用：
-
 - **SEO 和用户体验**：本地化 URL 帮助搜索引擎正确索引特定语言的页面，并为用户提供其首选语言的内容。
 - **一致性**：通过在整个应用程序中使用本地化链接，您可以确保导航保持在当前语言环境内，防止意外的语言切换。
 - **可维护性**：将本地化逻辑集中在单个组件中可以简化 URL 的管理。
-
-以下是 Preact 中本地化 `Link` 组件的实现：
-
-```tsx fileName="src/components/Link.tsx" codeFormat={["typescript", "esm"]}
-import { getLocalizedUrl } from "intlayer";
-import { useLocale } from "preact-intlayer";
-import { forwardRef } from "preact/compat";
-import type { JSX } from "preact";
-
-export interface LinkProps extends JSX.HTMLAttributes<HTMLAnchorElement> {
-  href: string;
-}
-
-/**
- * 检查给定 URL 是否为外部链接的实用函数。
- * 如果 URL 以 http:// 或 https:// 开头，则被视为外部链接。
- */
-export const checkIsExternalLink = (href?: string): boolean =>
-  /^https?:\/\//.test(href ?? "");
-
-/**
- * 一个自定义 Link 组件，根据当前语言环境自适应 href 属性。
- * 对于内部链接，它使用 `getLocalizedUrl` 为 URL 添加语言环境前缀（例如 /fr/about）。
- * 这确保了导航保持在同一语言环境上下文中。
- */
-export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
-  ({ href, children, ...props }, ref) => {
-    const { locale } = useLocale();
-    const isExternalLink = checkIsExternalLink(href);
-
-    // 如果链接是内部的且提供了有效的 href，则获取本地化 URL。
-    const hrefI18n =
-      href && !isExternalLink ? getLocalizedUrl(href, locale) : href;
-
-    return (
-      <a href={hrefI18n} ref={ref} {...props}>
-        {children}
-      </a>
-    );
-  }
-);
-
-Link.displayName = "Link";
-```
 
 #### Sitemap
 
@@ -961,6 +992,17 @@ console.log("SEO files generated successfully.");
 > 对于 Node ESM，建议使用 `generate-seo.mjs`。如果改用 `generate-seo.js`，请确保在 `package.json` 中设置 `"type": "module"`，或以 ESM 模式运行 Node。
 
 #### 工作原理
+
+```json fileName="package.json"
+{
+  "scripts": {
+    "dev": "vite",
+    "prebuild": "node generate-seo.mjs",
+    "build": "vite build",
+    "preview": "vite preview"
+  }
+}
+```
 
 - **检测外部链接**：  
   辅助函数 `checkIsExternalLink` 确定 URL 是否为外部。外部链接保持不变，因为它们不需要本地化。

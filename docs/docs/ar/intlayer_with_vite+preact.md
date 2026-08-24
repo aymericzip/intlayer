@@ -69,17 +69,25 @@ author: aymericzip
 
 بالمقارنة مع الحلول الرئيسية مثل `preact-i18n` أو `i18next`، يعد Intlayer حلاً يأتي مزودًا بتحسينات متكاملة مثل:
 
+<AccordionGroup>
+
 **تغطية كاملة للبريكت**
 
 تم تحسين Intlayer للعمل بشكل مثالي مع Preact من خلال تقديم **نطاق المحتوى على مستوى المكونات** و**الترجمات المحملة البطيئة** وجميع الميزات اللازمة لتوسيع نطاق التدويل (i18n).
 
 **حجم البندل**
 
+<Accordion header="حجم الحزمة">
+
 بدلاً من تحميل ملفات JSON ضخمة إلى صفحاتك، قم بتحميل المحتوى الضروري فقط. يساعد Intlayer **في تقليل أحجام البندل وصفحاتك بنسبة تصل إلى 50%**.
 
 ** الصيانة **
 
+<Accordion header="الصيانة">
+
 يؤدي تحديد نطاق محتوى تطبيقك ** إلى تسهيل الصيانة ** للتطبيقات واسعة النطاق. يمكنك تكرار أو حذف مجلد ميزات واحد دون العبء العقلي لمراجعة قاعدة بيانات المحتوى بالكامل. بالإضافة إلى ذلك، تتم كتابة Intlayer **بالكامل** لضمان دقة المحتوى الخاص بك.
+
+</Accordion>
 
 ** وكيل الذكاء الاصطناعي **
 
@@ -87,15 +95,24 @@ author: aymericzip
 
 **الأتمتة**
 
+<Accordion header="الأتمتة">
+
 استخدم الأتمتة للترجمة في مسار CI/CD الخاص بك باستخدام LLM من اختيارك على حساب مزود الذكاء الاصطناعي الخاص بك. يقدم Intlayer أيضًا **مترجمًا** لأتمتة استخراج المحتوى، بالإضافة إلى [منصة ويب](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) للمساعدة في **الترجمة في الخلفية**.
+
+</Accordion>
 
 **أداء**
 
 يمكن أن يؤدي ربط ملفات JSON الضخمة بالمكونات إلى حدوث مشكلات في الأداء والتفاعل. يعمل Intlayer على تحسين تحميل المحتوى الخاص بك في وقت الإنشاء.
 
+</Accordion>
+
 **التحجيم مع عدم وجود مطور**
 
 أكثر من مجرد حل i18n، يوفر Intlayer **[محررًا مرئيًا] مستضافًا ذاتيًا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** و**[كامل CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** لمساعدتك في إدارة المحتوى متعدد اللغات في **الوقت الفعلي**، مما يجعل التعاون مع المترجمين ومؤلفي النصوص وأعضاء الفريق الآخرين سلسًا. يمكن تخزين المحتوى محليًا و/أو عن بعد.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
@@ -152,10 +169,6 @@ bun add vite-intlayer --dev
 - **intlayer**
 
   الحزمة الأساسية التي توفر أدوات التدويل لإدارة التكوين والترجمة و[إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md) والترجمة البرمجية و[أوامر CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md).
-
-- **preact-intlayer**
-
-  الحزمة التي تدمج Intlayer مع تطبيق Preact. توفر مزودي السياق والخطافات لتدويل Preact.
 
 - **vite-intlayer**
 
@@ -499,6 +512,30 @@ const App: FunctionalComponent = () => (
 export default App;
 ```
 
+بالتوازي، يمكنك أيضًا استخدام `intlayerProxy` لإضافة التوجيه من جانب الخادم إلى تطبيقك. سيكتشف هذا البرنامج الإضافي تلقائيًا اللغة الحالية بناءً على عنوان URL وتعيين ملف تعريف الارتباط للغة المناسب. إذا لم يتم تحديد لغة، فسيحدد البرنامج الإضافي اللغة الأكثر ملاءمة بناءً على تفضيلات لغة مستعرض المستخدم. إذا لم يتم اكتشاف أي لغة، فسيعيد التوجيه إلى اللغة الافتراضية.
+
+> لاحظ أنه لاستخدام `intlayerProxy` في الإنتاج، تحتاج إلى نقل حزمة `vite-intlayer` من `devDependencies` إلى `dependencies`.
+
+> منذ Intlayer v9، يتم تضمين `intlayerProxy()` مباشرة في plugin `intlayer()` وتفعيله افتراضياً من خلال خيار `routing.enableProxy` (`true` بشكل افتراضي). تسجيله بشكل منفصل كما هو موضح أدناه أصبح اختيارياً الآن — يتم الاحتفاظ به لتوافق الإصدارات السابقة والإعدادات التي تحتاج إلى التحكم في ترتيب plugin. عيّن `routing.enableProxy: false` للتحايل عليه. راجع [ملاحظات إصدار v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/releases/v9.md).
+
+```typescript {3,7} fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import { intlayer } from "vite-intlayer";
+import preact from "@preact/preset-vite";
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [
+    preact(),
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
+  ],
+});
+```
+
 </Step>
 
 <Step number={8} title="تغيير عنوان URL عند تغيير اللغة" isOptional={true}>
@@ -575,6 +612,10 @@ export default LocaleSwitcher;
 >
 > > - [خطاف `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/useLocale.md) (واجهة برمجة التطبيقات مماثلة لـ `preact-intlayer`)> - [خطاف `getLocaleName`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getLocaleName.md)> - [خطاف `getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getLocalizedUrl.md)> - [خطاف `getHTMLTextDir`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getHTMLTextDir.md)> - [خاصية `hreflang`](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=ar)> - [خاصية `lang`](https://developer.mozilla.org/ar/docs/Web/HTML/Global_attributes/lang)> - [خاصية `dir`](https://developer.mozilla.org/ar/docs/Web/HTML/Global_attributes/dir)> - [خاصية `aria-current`](https://developer.mozilla.org/ar/docs/Web/Accessibility/ARIA/Attributes/aria-current)> - [واجهة برمجة تطبيقات Popover](https://developer.mozilla.org/ar/docs/Web/API/Popover_API)
 
+فيما يلي **الخطوة 9** المحدثة مع شروحات إضافية وأمثلة كود محسّنة:
+
+---
+
 </Step>
 
 <Step number={9} title="تبديل سمات اللغة والاتجاه لـ HTML" isOptional={true}>
@@ -643,6 +684,12 @@ const App: FunctionalComponent = () => (
 
 export default App;
 ```
+
+من خلال تطبيق هذه التغييرات، سيتمكن تطبيقك من:
+
+- تأكد من أن سمة **اللغة** (`lang`) تعكس بشكل صحيح اللغة الحالية، وهو أمر مهم لتحسين محركات البحث وسلوك المتصفح.
+- اضبط **اتجاه النص** (`dir`) وفقاً للغة، مما يعزز سهولة القراءة وسهولة الاستخدام للغات ذات أوامر قراءة مختلفة.
+- وفر تجربة **يمكن الوصول إليها** بشكل أفضل، حيث تعتمد تقنيات المساعدة على هذه السمات لتعمل بشكل أمثل.
 
 </Step>
 
@@ -813,18 +860,6 @@ bun x intlayer extract
  <Tab value='مترجم Babel'>
 
 > Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
-
-```bash packageManager="npm"
-npm install @intlayer/babel --save-dev
-```
-
-```bash packageManager="pnpm"
-pnpm add @intlayer/babel --save-dev
-```
-
-```bash packageManager="yarn"
-yarn add @intlayer/babel --save-dev
-```
 
 ```bash packageManager="bun"
 bun add @intlayer/babel --dev

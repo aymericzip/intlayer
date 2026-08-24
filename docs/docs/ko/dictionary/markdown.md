@@ -492,7 +492,7 @@ Markdown 렌더링은 **MDX**를 지원합니다 — Markdown 내에서 이름�
 
 <Tabs group="framework">
   <Tab label="React" value="react">
-  
+
     #### `<MarkdownRenderer />` 컴포넌트
 
     특정 옵션으로 Markdown 문자열을 렌더링합니다.
@@ -531,7 +531,7 @@ Markdown 렌더링은 **MDX**를 지원합니다 — Markdown 내에서 이름�
 
   </Tab>
   <Tab label="Next.js" value="nextjs">
-  
+
     #### `<MarkdownRenderer />` 컴포넌트
 
     특정 옵션으로 Markdown 문자열을 렌더링합니다.
@@ -957,6 +957,10 @@ Markdown 렌더링은 **MDX**를 지원합니다 — Markdown 내에서 이름�
   </Tab>
   <Tab label="Angular" value="angular">
 
+> MDX가 지원됨 — Markdown 내에서 사용되는 모든 component 이름(예: `<MyCustomJSXComponent />`)은 `components` 맵에 대해 해석됩니다.
+
+자신의 markdown renderer를 사용할 수도 있습니다:
+
     ```typescript fileName="app.module.ts"
     import { NgModule } from '@angular/core';
     import { IntlayerMarkdownModule } from 'angular-intlayer/markdown';
@@ -1047,7 +1051,7 @@ const MyComponent = () => {
 ```
 
   </Tab>
- 
+
   <Tab label="Vue" value="vue">
 
 Vue에는 내장 `<Suspense>` 구성 요소가 있습니다. Markdown 콘텐츠를 렌더링하는 구성 요소를 `<Suspense>` 경계로 래핑하십시오.

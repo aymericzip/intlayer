@@ -52,8 +52,6 @@ bun x intlayer projects list
 
   > 示例：`npx intlayer projects list --base-dir /path/to/workspace`
 
-  > 示例：`npx intlayer projects list --base-dir /path/to/workspace`
-
 - **`--git-root`**：从 git 根目录开始搜索，而不是基目录。这对于在 monorepo 或 git 仓库中查找所有 Intlayer 项目很有用。
 
   > 示例：`npx intlayer projects list --git-root`

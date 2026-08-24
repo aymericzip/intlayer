@@ -41,17 +41,25 @@ author: aymericzip
 
 بالمقارنة مع الحلول الرئيسية مثل `react-i18next` أو `i18next`، يعد Intlayer حلاً يأتي مزودًا بتحسينات متكاملة مثل:
 
+<AccordionGroup>
+
 ** تغطية كاملة لـ Vite و React **
 
 تم تحسين Intlayer للعمل بشكل مثالي مع Vite وReact من خلال تقديم **نطاق المحتوى على مستوى المكونات** و**الترجمات المحملة البطيئة** وجميع الميزات اللازمة لتوسيع نطاق التدويل (i18n).
 
 **حجم البندل**
 
+<Accordion header="حجم الحزمة">
+
 بدلاً من تحميل ملفات JSON ضخمة إلى صفحاتك، قم بتحميل المحتوى الضروري فقط. يساعد Intlayer **في تقليل أحجام البندل وصفحاتك بنسبة تصل إلى 50%**.
 
 ** الصيانة **
 
+<Accordion header="قابلية الصيانة">
+
 يؤدي تحديد نطاق محتوى تطبيقك ** إلى تسهيل الصيانة ** للتطبيقات واسعة النطاق. يمكنك تكرار أو حذف مجلد ميزات واحد دون العبء العقلي لمراجعة قاعدة بيانات المحتوى بالكامل. بالإضافة إلى ذلك، تتم كتابة Intlayer **بالكامل** لضمان دقة المحتوى الخاص بك.
+
+</Accordion>
 
 ** وكيل الذكاء الاصطناعي **
 
@@ -59,15 +67,24 @@ author: aymericzip
 
 **الأتمتة**
 
+<Accordion header="الأتمتة">
+
 استخدم الأتمتة للترجمة في مسار CI/CD الخاص بك باستخدام LLM من اختيارك على حساب مزود الذكاء الاصطناعي الخاص بك. يقدم Intlayer أيضًا **مترجمًا** لأتمتة استخراج المحتوى، بالإضافة إلى [منصة ويب](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) للمساعدة في **الترجمة في الخلفية**.
+
+</Accordion>
 
 **أداء**
 
 يمكن أن يؤدي ربط ملفات JSON الضخمة بالمكونات إلى حدوث مشكلات في الأداء والتفاعل. يعمل Intlayer على تحسين تحميل المحتوى الخاص بك في وقت الإنشاء.
 
+</Accordion>
+
 **التحجيم مع عدم وجود مطور**
 
 أكثر من مجرد حل i18n، يوفر Intlayer **[محررًا مرئيًا] مستضافًا ذاتيًا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** و**[كامل CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** لمساعدتك في إدارة المحتوى متعدد اللغات في **الوقت الفعلي**، مما يجعل التعاون مع المترجمين ومؤلفي النصوص وأعضاء الفريق الآخرين سلسًا. يمكن تخزين المحتوى محليًا و/أو عن بعد.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
@@ -489,6 +506,8 @@ const App: FC = () => (
 
 > يرجى ملاحظة أنه لاستخدام `intlayerProxy` في بيئة الإنتاج، تحتاج إلى نقل حزمة `vite-intlayer` من `devDependencies` إلى `dependencies`.
 
+> منذ Intlayer v9، يتم دمج `intlayerProxy()` مباشرة في مكون `intlayer()` ويتم تفعيله افتراضياً من خلال خيار `routing.enableProxy` (`true` بشكل افتراضي). تسجيله بشكل منفصل كما هو موضح أدناه أصبح اختياري الآن — يتم الاحتفاظ به للتوافق مع الإصدارات السابقة والإعدادات التي تحتاج إلى التحكم في ترتيب المكونات. عيّن `routing.enableProxy: false` للإلغاء. راجع [ملاحظات الإصدار v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/releases/v9.md).
+
 ```typescript {3,7} fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
@@ -743,6 +762,8 @@ Link.displayName = "Link";
 من خلال دمج هذا المكون `Link` عبر تطبيقك، تحافظ على تجربة مستخدم متماسكة وواعية باللغة، مع الاستفادة أيضًا من تحسين محركات البحث وسهولة الاستخدام.
 </Step>
 
+</Step>
+
 <Step number={1} title="استخراج محتوى مكوناتك" isOptional={true}>
 
 إذا كان لديك قاعدة بيانات كود موجودة، فقد يكون تحويل آلاف الملفات مستهلكًا للوقت.
@@ -807,18 +828,6 @@ bun x intlayer extract
  <Tab value='مترجم Babel'>
 
 > Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
-
-```bash packageManager="npm"
-npm install @intlayer/babel --save-dev
-```
-
-```bash packageManager="pnpm"
-pnpm add @intlayer/babel --save-dev
-```
-
-```bash packageManager="yarn"
-yarn add @intlayer/babel --save-dev
-```
 
 ```bash packageManager="bun"
 bun add @intlayer/babel --dev

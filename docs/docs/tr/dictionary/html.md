@@ -248,7 +248,7 @@ HTML render'lamasını tüm uygulamanız için global olarak yapılandırabilirs
 
 <Tabs group="framework">
   <Tab label="React / Next.js" value="react">
-  
+
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "react-intlayer/html";
 
@@ -285,7 +285,7 @@ HTML render'lamasını tüm uygulamanız için global olarak yapılandırabilirs
 
   </Tab>
   <Tab label="Vue" value="vue">
-  
+
     ```typescript fileName="main.ts"
     import { createApp, h } from "vue";
     import { intlayer } from "vue-intlayer";
@@ -330,7 +330,7 @@ HTML render'lamasını tüm uygulamanız için global olarak yapılandırabilirs
 
   </Tab>
   <Tab label="Svelte" value="svelte">
-   
+
     ```svelte fileName="App.svelte"
     <script lang="ts">
       import { HTMLProvider } from "svelte-intlayer/html";
@@ -346,9 +346,28 @@ HTML render'lamasını tüm uygulamanız için global olarak yapılandırabilirs
     </HTMLProvider>
     ```
 
+    Kendi HTML oluşturucunuzu da kullanabilirsiniz:
+
+    ```svelte fileName="App.svelte"
+    <script lang="ts">
+      import { HTMLProvider } from "svelte-intlayer/html";
+    </script>
+
+    <HTMLProvider
+      renderHTML={async (html) => {
+        const { renderHTML } = await import('svelte-intlayer/html');
+        return renderHTML(html);
+      }}
+    >
+      <slot />
+    </HTMLProvider>
+    ```
+
+    > HTML oluşturucunuzu dinamik olarak içe aktarmak, uygulamanızın bundle boyutunu azaltmanın iyi bir yoludur.
+
   </Tab>
   <Tab label="Preact" value="preact">
-   
+
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "preact-intlayer/html";
 
@@ -384,7 +403,7 @@ HTML render'lamasını tüm uygulamanız için global olarak yapılandırabilirs
 
   </Tab>
   <Tab label="Solid" value="solid">
-   
+
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "solid-intlayer/html";
 
@@ -467,7 +486,7 @@ Ham HTML string'lerini render etmeniz gerekiyorsa veya bileşen eşlemesinde dah
 <Tabs group="framework">
   <Tab label="React / Next.js" value="react">
     #### `<HTMLRenderer />` Bileşeni
-    
+
     ```tsx
     import { HTMLRenderer } from "react-intlayer/html";
 
@@ -501,9 +520,9 @@ Ham HTML string'lerini render etmeniz gerekiyorsa veya bileşen eşlemesinde dah
 
   </Tab>
   <Tab label="Vue" value="vue">
-   
+
     #### `<HTMLRenderer />` Bileşeni
-   
+
     ```vue
     <script setup>
     import { HTMLRenderer } from "vue-intlayer/html";
@@ -516,9 +535,9 @@ Ham HTML string'lerini render etmeniz gerekiyorsa veya bileşen eşlemesinde dah
 
   </Tab>
   <Tab label="Svelte" value="svelte">
-  
+
     #### `<HTMLRenderer />` Bileşeni
-   
+
     ```svelte
     <script lang="ts">
     import { HTMLRenderer } from "svelte-intlayer/html";
@@ -550,9 +569,9 @@ Ham HTML string'lerini render etmeniz gerekiyorsa veya bileşen eşlemesinde dah
 
   </Tab>
   <Tab label="Preact" value="preact">
-   
+
     #### `<HTMLRenderer />` Bileşeni
-   
+
     ```tsx
     import { HTMLRenderer } from "preact-intlayer/html";
 
@@ -581,9 +600,9 @@ Ham HTML string'lerini render etmeniz gerekiyorsa veya bileşen eşlemesinde dah
 
   </Tab>
   <Tab label="Solid" value="solid">
-   
+
     #### `<HTMLRenderer />` Bileşeni
-   
+
     ```tsx
     import { HTMLRenderer } from "solid-intlayer/html";
 

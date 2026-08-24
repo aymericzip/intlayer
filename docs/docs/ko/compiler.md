@@ -40,6 +40,12 @@ author: aymericzip
 
 ## Intlayer 컴파일러를 사용하는 이유
 
+- **자동화**: 사전에 콘텐츠를 수동으로 복사-붙여넣기하는 작업을 제거합니다.
+
+- **Speed**: 최적화된 콘텐츠 추출로 빌드 프로세스를 빠르게 유지합니다.
+
+- **개발자 경험**: 콘텐츠 선언을 사용 위치에 가깝게 유지하여 유지보수성을 개선합니다.
+
 - **자동화**: 콘텐츠를 사전에 수동으로 복사하여 붙여넣는 작업을 제거합니다.
 - **속도**: 빌드 프로세스가 빠르게 유지되도록 최적화된 콘텐츠 추출을 제공합니다.
 - **개발자 경험**: 콘텐츠 선언을 사용되는 위치에 그대로 유지하여 유지보수성을 향상시킵니다.
@@ -53,6 +59,8 @@ author: aymericzip
 
 - **휴리스틱 모호성**: 컴파일러는 사용자 지향 콘텐츠와 애플리케이션 로직(예: `className="active"`, 상태 코드, 제품 ID)을 추측해야 합니다. 복잡한 코드베이스에서는 이것이 오탐지 또는 누락된 문자열로 이어질 수 있으며, 수동 주석 및 예외 처리가 필요합니다.
 - **정적 추출만**: 컴파일러 기반 추출은 정적 분석에 의존합니다. 런타임에만 존재하는 문자열(API 오류 코드, CMS 필드 등)은 컴파일러만으로는 발견하거나 번역할 수 없으므로 여전히 보완적인 런타임 i18n 전략이 필요합니다.
+
+- **정적 전용 추출**: 컴파일러 기반 추출은 정적 분석에 의존합니다. 런타임에만 존재하는 문자열(API 오류 코드, CMS 필드 등)은 컴파일러만으로는 발견하거나 번역할 수 없으므로, 여전히 보완적인 런타임 i18n 전략이 필요합니다.
 
 더 깊은 아키텍처 비교를 위해서는 블로그 게시물 [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/compiler_vs_declarative_i18n.md)을 참조하세요.
 
@@ -94,6 +102,8 @@ export default defineConfig({
 });
 ```
 
+> 독립형 `intlayerCompiler()` 플러그인은 고급 설정을 위해 여전히 내보내집니다. `intlayer()`와 함께 등록하는 것은 안전합니다 — 컴파일러는 자신을 중복 제거하고 한 번만 실행됩니다.
+
 See complete tutorial: [Intlayer Compiler with Vite+React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react_compiler.md)
 
 #### 프레임워크 지원
@@ -102,6 +112,10 @@ Vite 플러그인은 다양한 파일 유형을 자동으로 감지하고 처리
 
 - **React / JSX / TSX**: 기본적으로 처리됩니다.
 - **Vue**: `@intlayer/vue-compiler`가 필요합니다.
+- **Svelte**: `@intlayer/svelte-compiler`가 필요합니다.
+
+- **Vue**: `@intlayer/vue-compiler`가 필요합니다.
+
 - **Svelte**: `@intlayer/svelte-compiler`가 필요합니다.
 
 사용하는 프레임워크에 맞는 컴파일러 패키지를 반드시 설치하세요:

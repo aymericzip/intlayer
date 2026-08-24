@@ -131,6 +131,49 @@ Lebih dari sekedar solusi i18n, Intlayer menyediakan **[editor visual](https://g
 
 See [Application Template](https://github.com/aymericzip/intlayer-react-router-v7-template) on GitHub.
 
+<Steps>
+
+<Step number={1} title="Install Dependencies">
+
+Instal paket yang diperlukan menggunakan package manager pilihan Anda:
+
+```bash packageManager="npm"
+npm install intlayer react-intlayer
+npm install vite-intlayer --save-dev
+npm install @react-router/fs-routes --save-dev
+npx intlayer init
+```
+
+```bash packageManager="pnpm"
+pnpm add intlayer react-intlayer
+pnpm add vite-intlayer --save-dev
+pnpm add @react-router/fs-routes --save-dev
+```
+
+```bash packageManager="bun"
+bun add intlayer react-intlayer
+bun add vite-intlayer --dev
+bun add @react-router/fs-routes --dev
+bun x intlayer init
+```
+
+- **intlayer**
+
+Paket inti yang menyediakan tools internasionalisasi untuk manajemen konfigurasi, terjemahan, [deklarasi konten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md), transpilasi, dan [perintah CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md).
+
+- **react-intlayer**
+  Paket yang mengintegrasikan Intlayer dengan aplikasi React. Menyediakan context providers dan hooks untuk internasionalisasi React.
+
+- **vite-intlayer**
+  Mencakup plugin Vite untuk mengintegrasikan Intlayer dengan [Vite bundler](https://vite.dev/guide/why.html#why-bundle-for-production), serta middleware untuk mendeteksi locale pilihan pengguna, mengelola cookies, dan menangani pengalihan URL.
+
+- **@react-router/fs-routes**
+  Package yang mengaktifkan file-system based routing untuk React Router v7.
+
+</Step>
+
+<Step number={2} title="Konfigurasi proyek Anda">
+
 Buat file konfigurasi untuk mengatur bahasa aplikasi Anda:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
@@ -183,9 +226,13 @@ export default [
 ] satisfies RouteConfig;
 ```
 
+> Fungsi `flatRoutes` dari `@react-router/fs-routes` memungkinkan routing berbasis sistem file, di mana struktur file dalam direktori `routes/` menentukan rute aplikasi Anda. Opsi `ignoredRouteFiles` memastikan bahwa file deklarasi konten Intlayer (`.content.ts`, dll.) tidak diperlakukan sebagai file rute.
+
 </Step>
 
 <Step number={5} title="Buat Komponen Layout">
+
+Dengan file-system routing, Anda menggunakan konvensi penamaan yang rata di mana titik (`.`) mewakili segmen path dan tanda kurung `()` menunjukkan segmen opsional.
 
 Atur layout root Anda dan layout spesifik lokal:
 
@@ -260,19 +307,58 @@ export function Layout({
 
 #### Layout Root
 
-```tsx fileName="app/routes/layout.tsx"
-import { IntlayerProvider } from "react-intlayer";
-import { Outlet } from "react-router";
+```tsx fileName="app/components/localized-link.tsx"
+import type { FC } from "react";
 
-import type { Route } from "./+types/layout";
+import { getLocalizedUrl, type LocalesValues } from "intlayer";
+import { useLocale } from "react-intlayer";
+import { Link, type LinkProps, type To } from "react-router";
 
-export default function RootLayout({ params }: Route.ComponentProps) {
-  const { locale } = params;
+const isExternalLink = (to: string) => /^(https?:)?\/\//.test(to);
+
+export const locacalizeTo = (to: To, locale: LocalesValues): To => {
+  if (typeof to === "string") {
+    if (isExternalLink(to)) {
+      return to;
+    }
+
+    return getLocalizedUrl(to, locale);
+  }
+
+  if (isExternalLink(to.pathname ?? "")) {
+    return to;
+  }
+
+  return {
+    ...to,
+    pathname: getLocalizedUrl(to.pathname ?? "", locale),
+  };
+};
+
+export const LocalizedLink: FC<LinkProps> = (props) => {
+  const { locale } = useLocale();
+
+  return <Link {...props} to={locacalizeTo(props.to, locale)} />;
+};
+```
+
+#### Halaman Beranda yang Dilokalkan
+
+```tsx fileName="app/routes/[lang]/page.tsx"
+import { useIntlayer } from "react-intlayer";
+import { LocalizedLink } from "~/components/localized-link";
+
+export default function Page() {
+  const { title, description, aboutLink } = useIntlayer("page");
 
   return (
-    <IntlayerProvider locale={locale}>
-      <Outlet />
-    </IntlayerProvider>
+    <div>
+      <h1>{title}</h1>
+      <p>{description}</p>
+      <nav>
+        <LocalizedLink to="/about">{aboutLink}</LocalizedLink>
+      </nav>
+    </div>
   );
 }
 ```
@@ -281,33 +367,31 @@ export default function RootLayout({ params }: Route.ComponentProps) {
 
 <Step number={6} title="Deklarasikan Konten Anda">
 
-Buat dan kelola deklarasi konten Anda untuk menyimpan terjemahan:
+Buat dan kelola deklarasi konten Anda untuk menyimpan terjemahan. Tempatkan file konten di samping file rute Anda:
 
-```tsx fileName="app/routes/[lang]/page.content.ts"
+```tsx fileName="app/routes/($locale)._index.content.ts"
 import { t, type Dictionary } from "intlayer";
 
 const pageContent = {
   key: "page",
   content: {
     title: t({
+      id: "Selamat datang di React Router v7 + Intlayer",
       en: "Welcome to React Router v7 + Intlayer",
       es: "Bienvenido a React Router v7 + Intlayer",
       fr: "Bienvenue sur React Router v7 + Intlayer",
     }),
     description: t({
-      en: "Bangun aplikasi multibahasa dengan mudah menggunakan React Router v7 dan Intlayer.",
+      id: "Buat aplikasi multibahasa dengan mudah menggunakan React Router v7 dan Intlayer.",
+      en: "Build multilingual applications with ease using React Router v7 and Intlayer.",
       es: "Cree aplicaciones multilingües fácilmente usando React Router v7 y Intlayer.",
       fr: "Créez des applications multilingues facilement avec React Router v7 et Intlayer.",
     }),
     aboutLink: t({
-      en: "Pelajari Tentang Kami",
+      id: "Pelajari Tentang Kami",
+      en: "Learn About Us",
       es: "Aprender Sobre Nosotros",
       fr: "En savoir plus sur nous",
-    }),
-    homeLink: t({
-      en: "Beranda",
-      es: "Inicio",
-      fr: "Accueil",
     }),
   },
 } satisfies Dictionary;
@@ -315,15 +399,47 @@ const pageContent = {
 export default pageContent;
 ```
 
-> Deklarasi konten Anda dapat didefinisikan di mana saja dalam aplikasi Anda selama sudah dimasukkan ke dalam direktori `contentDir` (secara default, `./app`). Dan sesuai dengan ekstensi file deklarasi konten (secara default, `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
+```tsx fileName="app/routes/($locale).about.content.ts"
+import { t, type Dictionary } from "intlayer";
 
-> Untuk detail lebih lanjut, lihat [dokumentasi deklarasi konten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md).
+const aboutContent = {
+  key: "about",
+  content: {
+    title: t({
+      id: "Tentang Kami",
+      en: "About Us",
+      es: "Sobre Nosotros",
+      fr: "À propos de nous",
+    }),
+    content: t({
+      id: "Ini adalah konten halaman tentang kami.",
+      en: "This is the about page content.",
+      es: "Este es el contenido de la página de información.",
+      fr: "Ceci est le contenu de la page à propos.",
+    }),
+    homeLink: t({
+      id: "Beranda",
+      en: "Home",
+      es: "Inicio",
+      fr: "Accueil",
+    }),
+  },
+} satisfies Dictionary;
+
+export default aboutContent;
+```
+
+> Deklarasi konten Anda dapat didefinisikan di mana saja dalam aplikasi Anda asalkan disertakan dalam direktori `contentDir` (secara default, `./app`). Dan cocok dengan ekstensi file deklarasi konten (secara default, `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
+
+> Untuk mempelajari lebih lanjut tentang hook `useIntlayer`, lihat [dokumentasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/react-intlayer/useIntlayer.md).
+
+> Jika aplikasi Anda sudah ada, Anda dapat menggunakan [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md) secara kombinasi dengan [perintah extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/extract.md) untuk mengonversi ribuan komponen dalam satu detik.
 
 </Step>
 
 <Step number={7} title="Buat Komponen yang Menyadari Locale">
 
-Buat komponen `LocalizedLink` untuk navigasi yang menyadari locale:
+Buat komponen `LocalizedLink` untuk navigasi yang aware terhadap locale:
 
 ```tsx fileName="app/components/localized-link.tsx"
 import type { FC } from "react";
@@ -360,7 +476,7 @@ export const LocalizedLink: FC<LinkProps> = (props) => {
 };
 ```
 
-Jika Anda ingin menavigasi ke rute yang sudah dilokalkan, Anda dapat menggunakan hook `useLocalizedNavigate`:
+Jika Anda ingin menavigasi ke rute yang dilokalisasi, Anda dapat menggunakan hook `useLocalizedNavigate`:
 
 ```tsx fileName="app/hooks/useLocalizedNavigate.ts"
 import { useLocale } from "react-intlayer";
@@ -381,37 +497,6 @@ export const useLocalizedNavigate = () => {
   return localizedNavigate;
 };
 ```
-
-</Step>
-
-<Step number={8} title="Gunakan Intlayer di Halaman Anda">
-
-Akses kamus konten Anda di seluruh aplikasi:
-
-#### Halaman Beranda yang Dilokalkan
-
-```tsx fileName="app/routes/[lang]/page.tsx"
-import { useIntlayer } from "react-intlayer";
-import { LocalizedLink } from "~/components/localized-link";
-
-export default function Page() {
-  const { title, description, aboutLink } = useIntlayer("page");
-
-  return (
-    <div>
-      <h1>{title}</h1>
-      <p>{description}</p>
-      <nav>
-        <LocalizedLink to="/about">{aboutLink}</LocalizedLink>
-      </nav>
-    </div>
-  );
-}
-```
-
-> Untuk mempelajari lebih lanjut tentang hook `useIntlayer`, lihat [dokumentasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/react-intlayer/useIntlayer.md).
-
-> Jika aplikasi Anda sudah ada, Anda dapat menggunakan [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md) secara kombinasi dengan [perintah extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/extract.md) untuk mengonversi ribuan komponen dalam satu detik.
 
 </Step>
 
@@ -497,7 +582,17 @@ export const useI18nHTMLAttributes = () => {
 };
 ```
 
+Hook ini sudah digunakan dalam komponen layout (`($locale)._layout.tsx`) yang ditampilkan di Step 5.
+
+</Step>
+
 Kemudian gunakan di komponen root Anda:
+
+Anda juga dapat menggunakan `intlayerProxy` untuk menambahkan routing di sisi server ke aplikasi Anda. Plugin ini akan secara otomatis mendeteksi locale saat ini berdasarkan URL dan menetapkan cookie locale yang sesuai. Jika tidak ada locale yang ditentukan, plugin akan menentukan locale yang paling sesuai berdasarkan preferensi bahasa browser pengguna. Jika tidak ada locale yang terdeteksi, plugin akan mengarahkan ulang ke locale default.
+
+> Perhatikan bahwa untuk menggunakan `intlayerProxy` di production, Anda perlu memindahkan paket `vite-intlayer` dari `devDependencies` ke `dependencies`.
+
+> Sejak Intlayer v9, `intlayerProxy()` digabungkan langsung ke dalam plugin `intlayer()` dan diaktifkan secara default melalui opsi `routing.enableProxy` (`true` secara default). Mendaftarkannya secara terpisah seperti yang ditunjukkan di bawah ini sekarang bersifat opsional — ini dipertahankan untuk kompatibilitas backward dan untuk setup yang perlu mengontrol urutan plugin. Atur `routing.enableProxy: false` untuk tidak menggunakannya. Lihat [catatan rilis v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/releases/v9.md).
 
 ```tsx fileName="app/routes/layout.tsx"
 import { Outlet } from "react-router";

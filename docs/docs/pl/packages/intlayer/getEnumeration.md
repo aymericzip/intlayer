@@ -31,6 +31,8 @@ author: aymericzip
 
 Funkcja `getEnumeration` pobiera zawartość odpowiadającą określonej ilości na podstawie zdefiniowanych warunków w obiekcie enumeracji. Warunki są zdefiniowane jako klucze, a ich priorytet jest określany przez kolejność w obiekcie.
 
+Aby uzyskać więcej szczegółów na temat deklarowania wyliczeń, zobacz [dokumentację Enumeration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/enumeration.md).
+
 ## Parametry
 
 - `enumerationContent: QuantityContent<Content>`

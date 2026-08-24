@@ -42,9 +42,13 @@ author: aymericzip
 
 **Vue を完全にカバー**
 
+<Accordion header="Vue フルカバレッジ">
+
 Intlayer は、**コンポーネント レベルのコンテンツ スコープ**、**リアクティブな翻訳**、および国際化のスケーリング (i18n) に必要なすべての機能を提供することにより、Vue と完全に連携するように最適化されています。
 
 **バンドルサイズ**
+
+<Accordion header="バンドルサイズ">
 
 大量の JSON ファイルをページにロードするのではなく、必要なコンテンツのみをロードします。 Intlayer は、**バンドルとページのサイズを最大 50% 削減**するのに役立ちます。
 
@@ -54,19 +58,32 @@ Intlayer は、**コンポーネント レベルのコンテンツ スコープ*
 
 **AI エージェント**
 
+</Accordion>
+
+<Accordion header="AI Agent">
+
 コンテンツを同じ場所に配置すると、大規模言語モデル (LLM) によって **必要なコンテキストが削減**されます。 Intlayer には、翻訳の欠落をテストする **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** などのツール スイートも付属しています。および **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)** により、AI エージェントの開発者エクスペリエンス (DX) がさらにスムーズになります。
 
 **オートメーション**
+
+<Accordion header="Automation">
 
 AI プロバイダーの費用で、選択した LLM を使用して CI/CD パイプラインで自動化を変換します。 Intlayer は、コンテンツ抽出を自動化する **コンパイラー** と、**バックグラウンドでの翻訳**を支援する [Web プラットフォーム](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) も提供します。
 
 **パフォーマンス**
 
+<Accordion header="パフォーマンス">
+
 大量の JSON ファイルをコンポーネントに接続すると、パフォーマンスと反応性の問題が発生する可能性があります。 Intlayer は、ビルド時のコンテンツの読み込みを最適化します。
 
 **非開発によるスケーリング**
 
+<Accordion header="none-dev でのスケーリング">
+
 Intlayer は単なる i18n ソリューションではなく、**自己ホスト型 [ビジュアル エディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** と **[完全な CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** を提供します。 **リアルタイム**で多言語コンテンツを管理できるようになり、翻訳者、コピーライター、その他のチーム メンバーとのコラボレーションがシームレスになります。コンテンツはローカルおよび/またはリモートに保存できます。
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
@@ -153,9 +170,6 @@ bun add vite-intlayer --dev
 - **intlayer**
 
   設定管理、翻訳、[コンテンツ宣言](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)、トランスパイル、および[CLIコマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md)のための国際化ツールを提供するコアパッケージです。
-
-- **vue-intlayer**
-  IntlayerをVueアプリケーションに統合するパッケージです。Vueの国際化のためのコンテキストプロバイダーとコンポーザブルを提供します。
 
 - **vite-intlayer**
 
@@ -360,6 +374,13 @@ app.use(intlayer);
 app.mount("#app");
 ```
 
+> または、必要に応じて `installIntlayer(app)` を関数として直接呼び出すこともできます:
+>
+> ```javascript
+> import { intlayer } from "vue-intlayer";
+> app.use(intlayer);
+> ```
+
 メインのVueコンポーネントを作成し、`useIntlayer`のコンポーザブルを使用することで、アプリケーション全体でコンテンツ辞書にアクセスできます。
 
 ```vue fileName="src/HelloWord.vue"
@@ -413,6 +434,8 @@ const countRef = ref(0);
 </template>
 ```
 
+> アプリが既に存在する場合は、[Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md)と[extract コマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/extract.md)を使用して、数千のコンポーネントを数秒で変換できます。
+
 #### Intlayerでのコンテンツへのアクセス
 
 Intlayerは、コンテンツにアクセスするためのさまざまなAPIを提供しています：
@@ -430,8 +453,6 @@ Intlayerは、コンテンツにアクセスするためのさまざまなAPIを
   `useIntlayer` コンポーザブルはコンテンツを持つ Proxy を返します。この Proxy はリアクティビティを保ったままコンテンツにアクセスするために分割代入できます。
   - `const content = useIntlayer("myContent");` と `{{ content.myContent }}` / `<content.myContent />` を使用します。
   - または `const { myContent } = useIntlayer("myContent");` と `{{ myContent }}` / `<myContent/>` を使用してコンテンツを分割代入します。
-
-> アプリケーションが既に存在する場合は、[Intlayer コンパイラ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md) と [抽出コマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/extract.md) を組み合わせて、1 秒で何千ものコンポーネントを変換できます。
 
 </Step>
 
@@ -618,7 +639,11 @@ import LocaleSwitcher from "@components/LocaleSwitcher.vue";
 </template>
 ```
 
+並行して、`intlayerProxy` を使用してアプリケーションにサーバーサイドルーティングを追加することもできます。このプラグインは URL に基づいて現在のロケールを自動的に検出し、適切なロケール cookie を設定します。ロケールが指定されていない場合、プラグインはユーザーのブラウザ言語設定に基づいて最も適切なロケールを決定します。ロケールが検出されない場合、デフォルトロケールにリダイレクトされます。
+
 同時に、`intlayerProxy` を使用してアプリケーションにサーバーサイドルーティングを追加することもできます。このプラグインはURLに基づいて現在のロケールを自動的に検出し、適切なロケールクッキーを設定します。ロケールが指定されていない場合、プラグインはユーザーのブラウザの言語設定に基づいて最適なロケールを判定します。ロケールが検出されない場合は、デフォルトのロケールにリダイレクトします。
+
+> Intlayer v9 以降、`intlayerProxy()` は `intlayer()` プラグインに直接バンドルされており、`routing.enableProxy` オプション（デフォルトは `true`）を通じてデフォルトで有効になっています。以下に示すように個別に登録することはオプションになりました — これは後方互換性と、プラグインの順序を制御する必要があるセットアップのために保持されています。`routing.enableProxy: false` を設定してオプトアウトできます。[v9 リリースノート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/releases/v9.md)を参照してください。
 
 ```typescript {3,7} fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
@@ -1124,3 +1149,5 @@ Intlayer での開発体験を向上させるために、公式の **Intlayer VS
 ### さらに進むために
 
 さらに進むには、[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を実装するか、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)を使用してコンテンツを外部化することができます。
+
+Please paste the content and I'll proceed with the audit.---

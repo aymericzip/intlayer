@@ -44,6 +44,18 @@ author: aymericzip
 />
 
   </Tab>
+
+<Tab label="Démo" value="demo">
+
+<iframe
+  src="https://intlayer-solid-start-template.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Démo Intlayer Solid Start Template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
 </Tabs>
 
 ## Table des matières

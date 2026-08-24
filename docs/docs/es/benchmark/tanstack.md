@@ -194,6 +194,8 @@ La idea detrás de `Wuchale` es interesante pero todavía no es una solución vi
 
 `Tolgee` aborda muchos de los problemas mencionados anteriormente. Me resultó más difícil empezar con ella que con otras herramientas con enfoques similares. No proporciona seguridad de tipos, lo que también dificulta mucho detectar claves faltantes en tiempo de compilación (build time). Tuve que envolver las API de Tolgee con las mías propias para añadir la detección de claves faltantes.
 
+El package es bastante pesado (~11.1kb, lo que es más de 2× `react-intlayer`).
+
 En TanStack Start también tuve problemas de reactividad: al cambiar de idioma, tuve que forzar el renderizado del proveedor y suscribirme a eventos de cambio de idioma para que la carga en otro idioma se comportara correctamente.
 
 **(use-intl)** (`use-intl@4.9.1`):
@@ -208,6 +210,8 @@ En TanStack Start evitas las trampas específicas de Next.js (`setRequestLocale`
 
 Aun así, comparte las mismas desventajas principales que los stacks basados en `t('a.b.c')`: las optimizaciones son posibles pero consumen mucho tiempo, y los proyectos grandes corren el riesgo de caer en malas prácticas (namespaces + carga dinámica + tipos).
 
+El package es especialmente pesado (~17.3kb, que es aproximadamente 3.5× `react-intlayer`).
+
 Los formatos de los mensajes también divergen: `use-intl` usa ICU MessageFormat, mientras que `i18next` usa su propio formato, lo que complica las herramientas o las migraciones si se mezclan.
 
 **(Lingui)** (`@lingui/core@5.3.0`):
@@ -217,6 +221,8 @@ A menudo se elogia a `Lingui`. Personalmente, encontré el flujo de trabajo en t
 **(react-intl)** (`react-intl@10.1.1`):
 
 `react-intl` es una implementación de alto rendimiento del equipo de Format.js. La DX sigue siendo verbosa: `const intl = useIntl()` + `intl.formatMessage({ id: "xx.xx" })` añade complejidad, trabajo extra de JavaScript y vincula la instancia global de i18n a muchos nodos en el árbol de React.
+
+El package también es pesado (~14.4kb, lo que es aproximadamente 3× `react-intlayer`).
 
 ### 4 - Recomendaciones
 

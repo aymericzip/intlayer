@@ -220,6 +220,8 @@ export default withIntlayer(nextConfig);
 
 Configura il middleware per rilevare automaticamente e gestire la lingua preferita dall'utente:
 
+> A partire da Intlayer v9, questo middleware rispetta l'opzione `routing.enableProxy` (`true` per default). Imposta `routing.enableProxy: false` nella tua configurazione per trasformarlo in un pass-through senza rimuovere questo file. Vedi le [note di rilascio v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/releases/v9.md).
+
 ```typescript fileName="src/middleware.ts" codeFormat={["typescript", "esm", "commonjs"]}
 export { intlayerProxy as middleware } from "next-intlayer/middleware";
 

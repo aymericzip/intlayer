@@ -248,7 +248,7 @@ Você pode configurar a renderização de HTML globalmente para toda a sua aplic
 
 <Tabs group="framework">
   <Tab label="React / Next.js" value="react">
-  
+
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "react-intlayer/html";
 
@@ -285,7 +285,7 @@ Você pode configurar a renderização de HTML globalmente para toda a sua aplic
 
   </Tab>
   <Tab label="Vue" value="vue">
-  
+
     ```typescript fileName="main.ts"
     import { createApp, h } from "vue";
     import { intlayer } from "vue-intlayer";
@@ -330,7 +330,7 @@ Você pode configurar a renderização de HTML globalmente para toda a sua aplic
 
   </Tab>
   <Tab label="Svelte" value="svelte">
-   
+
     ```svelte fileName="App.svelte"
     <script lang="ts">
       import { HTMLProvider } from "svelte-intlayer/html";
@@ -346,9 +346,11 @@ Você pode configurar a renderização de HTML globalmente para toda a sua aplic
     </HTMLProvider>
     ```
 
+> Importar seu renderer HTML dinamicamente é uma boa forma de reduzir o tamanho do bundle da sua aplicação.
+
   </Tab>
   <Tab label="Preact" value="preact">
-   
+
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "preact-intlayer/html";
 
@@ -384,7 +386,7 @@ Você pode configurar a renderização de HTML globalmente para toda a sua aplic
 
   </Tab>
   <Tab label="Solid" value="solid">
-   
+
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "solid-intlayer/html";
 
@@ -444,9 +446,9 @@ Você pode configurar a renderização de HTML globalmente para toda a sua aplic
     export const appConfig: ApplicationConfig = {
       providers: [
         createIntlayerHTMLProvider({
-          renderMarkdown: async (html) => {
-            const { renderMarkdown } = await import('angular-intlayer/html');
-            return renderMarkdown(html);
+          renderHTML: async (html) => {
+            const { renderHTML } = await import('angular-intlayer/html');
+            return renderHTML(html);
           },
         }),
       ],
@@ -503,9 +505,9 @@ Se precisar renderizar strings HTML brutas ou tiver mais controlo sobre o mapeam
 
   </Tab>
   <Tab label="Vue" value="vue">
-   
+
     #### Componente `<HTMLRenderer />`
-   
+
     ```vue
     <script setup>
     import { HTMLRenderer } from "vue-intlayer/html";
@@ -518,9 +520,9 @@ Se precisar renderizar strings HTML brutas ou tiver mais controlo sobre o mapeam
 
   </Tab>
   <Tab label="Svelte" value="svelte">
-  
+
     #### Componente `<HTMLRenderer />`
-   
+
     ```svelte
     <script lang="ts">
     import { HTMLRenderer } from "svelte-intlayer/html";
@@ -552,9 +554,9 @@ Se precisar renderizar strings HTML brutas ou tiver mais controlo sobre o mapeam
 
   </Tab>
   <Tab label="Preact" value="preact">
-   
+
     #### Componente `<HTMLRenderer />`
-   
+
     ```tsx
     import { HTMLRenderer } from "preact-intlayer/html";
 
@@ -583,9 +585,9 @@ Se precisar renderizar strings HTML brutas ou tiver mais controlo sobre o mapeam
 
   </Tab>
   <Tab label="Solid" value="solid">
-   
+
     #### Componente `<HTMLRenderer />`
-   
+
     ```tsx
     import { HTMLRenderer } from "solid-intlayer/html";
 
@@ -618,13 +620,13 @@ Se precisar renderizar strings HTML brutas ou tiver mais controlo sobre o mapeam
     Renderize uma string HTML utilizando o serviço.
 
     ```typescript
-    import { IntlayerHTMLService } from "angular-intlayer";
+    import { IntlayerHTMLService } from "angular-intlayer/html";
 
     export class MyComponent {
       constructor(private markdownService: IntlayerHTMLService) {}
 
       renderHTML(html: string) {
-        return this.markdownService.renderMarkdown(html);
+        return this.markdownService.renderHTML(html);
       }
     }
     ```

@@ -214,11 +214,22 @@ export default withIntlayer(nextConfig);
 
 > Плагин Next.js `withIntlayer()` используется для интеграции Intlayer с Next.js. Он обеспечивает сборку файлов деклараций контента и их мониторинг в режиме разработки. Определяет переменные окружения Intlayer в средах [Webpack](https://webpack.js.org/) или [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack). Кроме того, предоставляет алиасы для оптимизации производительности и гарантирует совместимость с серверными компонентами.
 
+> Функция `withIntlayer()` — это асинхронная функция. Если вы хотите использовать её с другими плагинами, вы можете ждать её выполнения. Пример:
+>
+> ```tsx
+> const nextConfig = await withIntlayer(nextConfig);
+> const nextConfigWithOtherPlugins = withOtherPlugins(nextConfig);
+>
+> export default nextConfigWithOtherPlugins;
+> ```
+
 </Step>
 
 <Step number={4} title="Настройка Middleware для определения локали">
 
 Настройте middleware для автоматического определения и обработки предпочтительной локали пользователя:
+
+> Начиная с Intlayer v9, это middleware уважает опцию `routing.enableProxy` (`true` по умолчанию). Установите `routing.enableProxy: false` в вашей конфигурации, чтобы превратить это в pass-through без удаления этого файла. См. [примечания к выпуску v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/releases/v9.md).
 
 ```typescript fileName="src/middleware.ts" codeFormat={["typescript", "esm", "commonjs"]}
 export { intlayerProxy as middleware } from "next-intlayer/middleware";
@@ -476,66 +487,6 @@ const HomePage: FC = () => {
 // ... Остальная часть кода, включая getStaticPaths и getStaticProps
 
 export default HomePage;
-```
-
-```jsx {1,5} fileName="src/pages/[locale]/index.mjx" codeFormat="esm"
-import { useIntlayer } from "next-intlayer";
-import { ComponentExample } from "@components/ComponentExample";
-
-const HomePage = () => {
-  const content = useIntlayer("home");
-
-  return (
-    <div>
-      <h1>{content.getStarted.main}</h1>
-      <code>{content.getStarted.pageLink}</code>
-
-      <ComponentExample />
-      {/* Дополнительные компоненты */}
-    </div>
-  );
-};
-
-// ... Остальная часть кода, включая getStaticPaths и getStaticProps
-
-export default HomePage;
-```
-
-```jsx {1,5} fileName="src/pages/[locale]/index.csx" codeFormat="commonjs"
-const { useIntlayer } = require("next-intlayer");
-const { ComponentExample } = require("@components/ComponentExample");
-
-const HomePage = () => {
-  const content = useIntlayer("home");
-
-  return (
-    <div>
-      <h1>{content.getStarted.main}</h1>
-      <code>{content.getStarted.pageLink}</code>
-
-      <ComponentExample />
-      {/* Дополнительные компоненты */}
-    </div>
-  );
-};
-
-// ... Остальная часть кода, включая getStaticPaths и getStaticProps
-```
-
-```tsx fileName="src/components/ComponentExample.tsx" codeFormat={["typescript", "esm"]}
-import type { FC } from "react";
-import { useIntlayer } from "next-intlayer";
-
-export const ComponentExample: FC = () => {
-  const content = useIntlayer("component-example"); // Убедитесь, что у вас есть соответствующая декларация контента
-
-  return (
-    <div>
-      <h2>{content.title}</h2>
-      <p>{content.content}</p>
-    </div>
-  );
-};
 ```
 
 ```tsx fileName="src/components/ComponentExample.tsx" codeFormat={["typescript", "esm"]}

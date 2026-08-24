@@ -85,6 +85,16 @@ pnpm add intlayer-editor --save-dev
 bun add intlayer-editor --dev
 ```
 
+`--with` 플래그를 사용하면 다른 명령과 병렬로 편집기를 시작할 수 있습니다:
+
+```json5 fileName="package.json"
+{
+  "scripts": {
+    "start:editor": "npx intlayer-editor start --with 'next dev --turbopack'",
+  },
+}
+```
+
 ## 구성
 
 Intlayer 구성 파일에서 편집기 설정을 사용자 정의할 수 있습니다:
@@ -145,6 +155,8 @@ export default config;
    ```
 
    > **애플리케이션을 병렬로 실행해야 합니다.** 애플리케이션 URL은 편집기 구성(`applicationURL`)에 설정한 URL과 일치해야 합니다.
+
+> **참고: 이 명령은 `intlayer` 패키지에서 재내보내집니다. 대신 `npx intlayer editor start`를 사용할 수 있습니다.**
 
 2. 그런 다음 제공된 URL을 엽니다. 기본값은 `http://localhost:8000`입니다.
 

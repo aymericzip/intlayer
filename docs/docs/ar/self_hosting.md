@@ -64,10 +64,6 @@ curl -fsSL https://intlayer.org/install.sh | sh
 
 ## البدء السريع
 
-```sh
-curl -fsSL https://intlayer.org/install.sh | sh
-```
-
 ما يقوم به المثبّت:
 
 1. يتحقق من وجود `docker` و`docker compose`.
@@ -77,6 +73,8 @@ curl -fsSL https://intlayer.org/install.sh | sh
 5. يطبع عناوين URL: لوحة التحكم `:3000`، API `:3100`، واجهة البريد الإلكتروني `:8025`، وحدة تحكم MinIO `:9001`.
 
 بعد تشغيل المكدس، افتح **http://localhost:3000** وأنشئ حسابك الأول.
+
+> لوحة التحكم تعمل على `localhost`. انظر إلى [القيود](#limitations) — النطاقات المخصصة غير مدعومة من قبل الصورة المنشورة.
 
 ---
 
@@ -102,8 +100,6 @@ curl -fsSL https://intlayer.org/install.sh | sh
 | **redis**   | `redis:7-alpine`                     | داخلي                               | قوائم انتظار المهام (BullMQ) والتخزين المؤقت (ioredis) |
 | **minio**   | `minio/minio`                        | `9000` (S3)، `9001` (وحدة التحكم)   | تخزين كائنات متوافق مع S3 للصور الرمزية ولقطات الشاشة  |
 | **mailpit** | `axllent/mailpit`                    | `1025` (SMTP)، `8025` (واجهة الويب) | مجمّع بريد إلكتروني تفاعلي محلي                        |
-
-المنافذ الداخلية (mongo، redis) غير معرّضة للمضيف افتراضياً.
 
 > يجب أن يكون منفذ MinIO `9000` قابلاً للوصول من المتصفح لأن الأصول المرفوعة (الصور الرمزية، لقطات الشاشة) تُحمَّل مباشرة من `S3_PUBLIC_URL=http://localhost:9000/intlayer`.
 
@@ -159,8 +155,6 @@ curl -fsSL https://intlayer.org/install.sh | sh
 | `MICROSOFT_CLIENT_ID`، `MICROSOFT_CLIENT_SECRET`         | تسجيل الدخول عبر OAuth لـ Microsoft                              |
 | `LINKEDIN_CLIENT_ID`، `LINKEDIN_CLIENT_SECRET`           | تسجيل الدخول عبر OAuth لـ LinkedIn                               |
 | `ATLASSIAN_CLIENT_ID`، `ATLASSIAN_CLIENT_SECRET`         | تسجيل الدخول عبر OAuth لـ Atlassian                              |
-
----
 
 ### بريد عام
 
@@ -247,15 +241,7 @@ const { data: dictionaries } = await dictionaryEndpoint(cms).getDictionaries();
 
 ## الترقية
 
-إعادة تشغيل المثبّت على نشر قائم تنفّذ ترقية متدحرجة:
-
-```sh
-curl -fsSL https://intlayer.org/install.sh | sh
-```
-
 يجلب هذا الأمر أحدث الصور ويعيد تشغيل الحاويات باستخدام `docker compose pull && docker compose up -d`. يتم الاحتفاظ بالأحجام الموجودة (`mongo-data`، `redis-data`، `minio-data`) — دون فقدان للبيانات.
-
-للترقية يدوياً من داخل مجلد `./intlayer/`:
 
 ```sh
 docker compose pull
@@ -320,14 +306,11 @@ docker compose logs mongo
 docker compose logs redis
 ```
 
+ابحث عن `MongoDB connection error` بالقرب من أعلى السجل.
+
 ### لوحة التحكم لا تستطيع الوصول إلى API
 
 تحقق من أن `VITE_BACKEND_URL` يطابق عنوان URL حيث يمكن الوصول إلى الخادم الخلفي من **المتصفح** (ليس شبكة Docker). إذا غيّرت منفذ الخادم الخلفي أو أضفت وكيلاً عكسياً، أعد بناء صورة لوحة التحكم:
-
-```sh
-docker compose build app
-docker compose up -d app
-```
 
 ### دلو MinIO مفقود
 

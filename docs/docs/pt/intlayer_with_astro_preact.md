@@ -602,6 +602,12 @@ bun run build # Or bun run dev
 
 ### Configuração do TypeScript
 
+Intlayer utiliza module augmentation para aproveitar os benefícios do TypeScript e tornar seu codebase mais robusto.
+
+![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
+
+![Erro de tradução](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+
 O Intlayer usa o aumento de módulos (module augmentation) para aproveitar o TypeScript, tornando sua base de código mais robusta. Certifique-se de que sua configuração do TypeScript inclua os tipos gerados automaticamente e esteja configurada para o Preact:
 
 ```json5 fileName="tsconfig.json"

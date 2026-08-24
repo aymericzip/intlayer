@@ -91,7 +91,17 @@ Para a maioria dos casos de uso,
 
 - **`--log`**: Modo apenas de registro (log-only). Não traduz com IA; em vez disso, registra os blocos que precisam de atenção (com números de linha e conteúdo) para as localidades base e de destino, a fim de ajudar outro agente a gerar as traduções.
 
-  > Exemplo: `npx intlayer doc review --log`
+Please provide:
+
+- The **English (en) source content** for BLOCK 1
+- The **Portuguese (pt) current translation** for BLOCK 1
+- Confirmation of the **action mode** you'd like me to use (`apply`, `report`, or `synthesis`)
+
+> Exemplo: `npx intlayer doc review --mode report`
+
+> Exemplo: `npx intlayer doc review --log`
+
+Seja qual for o modo, a execução termina com uma síntese listando os documentos que estão alinhados com seu documento base e os que ainda têm blocos para editar.
 
 **Opções de saída da entrada:**
 

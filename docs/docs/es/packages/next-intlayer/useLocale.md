@@ -104,6 +104,8 @@ El hook `useLocale` acepta los siguientes parámetros:
 
 ## Valores de Retorno
 
+Cuando invocas el hook `useLocale`, devuelve un objeto que contiene las siguientes propiedades:
+
 - **`locale`**: La configuración regional actual establecida en el contexto de React.
 - **`defaultLocale`**: La configuración regional principal definida en la configuración.
 - **`availableLocales`**: Una lista de todas las configuraciones regionales disponibles según lo definido en la configuración.

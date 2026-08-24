@@ -102,37 +102,6 @@ export const ServerComponentExample: FC = () => (
 );
 ```
 
-###Traduzioni Inline negli Attributi
-
-La funzione `t` è particolarmente utile per le traduzioni inline negli attributi JSX.
-Quando si localizzano attributi come `alt`, `title`, `href` o `aria-label`, è possibile utilizzare `t` direttamente all'interno dell'attributo.
-
-```jsx
-<button
-  aria-label={t({
-    en: "Submit",
-    fr: "Soumettre",
-    es: "Enviar",
-  })}
->
-  {t({
-    en: "Submit",
-    fr: "Soumettre",
-    es: "Enviar",
-  })}
-  <img
-    src="/path/to/image"
-    alt={t({
-      en: "A beautiful scenery",
-      fr: "Un beau paysage",
-      es: "Un hermoso paisaje",
-    })}
-  />
-</button>
-```
-
----
-
 ### Traduzioni Inline negli Attributi
 
 La funzione `t` è particolarmente utile per le traduzioni inline negli attributi JSX.
@@ -192,6 +161,23 @@ In `next-intlayer`, la locale corrente è gestita tramite provider di contesto: 
 
 #### Esempio:
 
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
+```tsx codeFormat={["typescript", "esm", "commonjs"]}
+import type { FC, ReactNode } from "react";
+import type { Locales } from "intlayer";
+import { IntlayerProvider } from "next-intlayer/server";
+
+const Page: FC<{ locale: Locales; children: ReactNode }> = ({
+  locale,
+  children,
+}) => <IntlayerProvider locale={locale}>{children}</IntlayerProvider>;
+```
+
+ </Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
+
 ```tsx codeFormat={["typescript", "esm", "commonjs"]}
 import type { FC } from "react";
 import type { Locales } from "intlayer";
@@ -206,6 +192,9 @@ const Page: FC<{ locale: Locales }> = ({ locale }) => (
   </IntlayerServerProvider>
 );
 ```
+
+</Tab>
+</Tabs>
 
 ---
 

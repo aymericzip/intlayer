@@ -159,6 +159,23 @@ const greeting = t(translations);
 
 #### 例:
 
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
+```tsx codeFormat={["typescript", "esm", "commonjs"]}
+import type { FC, ReactNode } from "react";
+import type { Locales } from "intlayer";
+import { IntlayerProvider } from "next-intlayer/server";
+
+const Page: FC<{ locale: Locales; children: ReactNode }> = ({
+  locale,
+  children,
+}) => <IntlayerProvider locale={locale}>{children}</IntlayerProvider>;
+```
+
+ </Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
+
 ```tsx codeFormat={["typescript", "esm", "commonjs"]}
 import type { FC } from "react";
 import type { Locales } from "intlayer";
@@ -173,6 +190,9 @@ const Page: FC<{ locale: Locales }> = ({ locale }) => (
   </IntlayerServerProvider>
 );
 ```
+
+ </Tab>
+</Tabs>
 
 ---
 

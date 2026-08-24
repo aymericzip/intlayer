@@ -343,6 +343,9 @@ export default async function Page() {
 }
 ```
 
+<Tabs>
+  <Tab label='Intlayer >=9.4' value='>=9.4'>
+
 ```tsx fileName="src/app/page.tsx"
 import { type FC } from "react";
 import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
@@ -370,13 +373,48 @@ export default async function Page() {
 }
 ```
 
+- **`IntlayerProvider`** монтируется один раз в корневом layout. Он предоставляет locale как серверным, так и клиентским компонентам, поэтому страницы больше не оборачивают себя.
+- Без сегмента пути `[locale]` locale всегда берётся из запроса — заголовка `x-intlayer-locale`, установленного прокси Intlayer, затем из cookie locale — которые серверные хуки читают самостоятельно, когда провайдер ещё не запущен.
+
   </Tab>
+
 </Tabs>
+
+```tsx fileName="src/app/page.tsx"
+import { type FC } from "react";
+import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
+import { getLocale } from "next-intlayer/server";
+
+const PageContent: FC = () => {
+  const content = useIntlayer("page-content");
+
+  return (
+    <>
+      <p>{content.getStartedByEditing}</p>
+      <code>src/app/page.tsx</code>
+    </>
+  );
+};
+
+export default async function Page() {
+  const locale = await getLocale();
+
+  return (
+    <IntlayerServerProvider locale={locale}>
+      <PageContent />
+    </IntlayerServerProvider>
+  );
+}
+```
 
 - **`IntlayerClientProvider`** используется для предоставления языка компонентам на стороне клиента.
 - **`IntlayerServerProvider`** используется для предоставления языка дочерним элементам сервера.
 
   > Layout and page cannot share a common server context because the server context system is based on a per-request data store (via [React's cache](https://react.dev/reference/react/cache) mechanism), causing each "context" to be re-created for different segments of the application. Placing the provider in a shared layout would break this isolation, preventing the correct propagation of the server context values to your server components.
+
+  </Tab>
+
+</Tabs>
 
 </Step>
 
@@ -434,6 +472,8 @@ export const config = {
 ```
 
 > `intlayerProxy` используется для определения предпочтительного языка пользователя и перенаправления его на соответствующий URL, как указано в [конфигурации](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md). Кроме того, он позволяет сохранять предпочтительный язык пользователя в куки.
+
+> Начиная с Intlayer v9, этот middleware соблюдает опцию `routing.enableProxy` (`true` по умолчанию). Установите `routing.enableProxy: false` в вашей конфигурации, чтобы превратить его в pass-through без удаления этого файла. См. [примечания к выпуску v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/releases/v9.md).
 
 </Step>
 
@@ -493,6 +533,8 @@ export const LocaleSwitcher: FC = () => {
 
 При использовании `next-intlayer` словари по умолчанию включаются в бандл для каждой страницы. Для оптимизации размера бандла Intlayer предоставляет дополнительный плагин SWC, который интеллектуально заменяет вызовы `useIntlayer` макросами. Это гарантирует, что словари включаются только в те бандлы страниц, которые их действительно используют.
 
+Плагин `@intlayer/babel` уже интегрирует оптимизацию бандлинга (см. `babel.config.js`). Но плагин `@intlayer/swc` более производителен. Если вы удалите плагин `@intlayer/babel`, вы можете использовать плагин `@intlayer/swc`.
+
 Чтобы включить эту оптимизацию, установите пакет `@intlayer/swc`. После установки `next-intlayer` автоматически обнаружит и использует плагин:
 
 ```bash packageManager="npm"
@@ -517,6 +559,8 @@ bun add @intlayer/swc --dev
 
 > Примечание: Если вы установите параметр `importMode: 'dynamic'` или `importMode: 'fetch'` (в конфигурации `dictionary`), он будет полагаться на Suspense, поэтому вам придется обернуть вызовы `useIntlayer` в границу `Suspense`. Это означает, что вы не сможете использовать `useIntlayer` непосредственно на верхнем уровне вашего компонента Страницы / Лейаута.
 > </Step>
+
+</Step>
 
 <Step number={1} title="Извлечение содержимого ваших компонентов" isOptional={true}>
 

@@ -31,6 +31,14 @@ author: aymericzip
 
 `getMultilingualUrls` 函数通过在给定的 URL 前添加每个支持的语言环境前缀来生成多语言 URL 的映射。它可以处理绝对和相对 URL，根据提供的配置或默认值应用适当的语言环境前缀。
 
+**主要功能：**
+
+- 仅需 1 个参数：`url`
+- 可选的 `options` 对象包含 `locales`、`defaultLocale` 和 `mode`
+- 使用您的项目国际化配置作为默认值
+- 支持多种路由模式：`prefix-no-default`、`prefix-all`、`no-prefix` 和 `search-params`
+- 返回一个映射对象，其中所有语言区域作为键，对应的 URL 作为值
+
 ---
 
 ## 函数签名
@@ -139,8 +147,6 @@ getMultilingualUrls(
 // }
 ```
 
----
-
 ### 不同的路由模式
 
 ```typescript
@@ -205,6 +211,12 @@ getMultilingualUrls("/dashboard", {
 
 - **不支持的语言：**
   - 仅考虑 `locales` 数组中提供的语言来生成 URL。
+
+- **路由模式：**
+  - `'prefix-no-default'`：默认语言没有前缀，其他语言有前缀（例如 `/dashboard`、`/fr/dashboard`）
+  - `'prefix-all'`：所有语言都有前缀（例如 `/en/dashboard`、`/fr/dashboard`）
+  - `'no-prefix'`：URL 中没有语言前缀（所有语言返回相同 URL）
+  - `'search-params'`：通过查询参数指定语言（例如 `/dashboard?locale=fr`）
 
 ---
 

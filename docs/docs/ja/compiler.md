@@ -45,6 +45,12 @@ author: aymericzip
 - **開発者体験**: コンテンツ宣言を使用箇所にそのまま保持し、保守性を向上させます。
 - **ライブアップデート**: 開発中に即時フィードバックを得られるホットモジュールリプレースメント（HMR）をサポートします。
 
+- **Speed**: 最適化されたコンテンツ抽出により、ビルドプロセスの速度が維持されます。
+
+- **Developer Experience**: コンテンツ宣言を使用される場所に保つことで、保守性を向上させます。
+
+- **ライブ更新**: 開発中の即座なフィードバックのための Hot Module Replacement (HMR) をサポートしています。
+
 より詳しい比較については、[Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/compiler_vs_declarative_i18n.md) のブログ記事をご覧ください。
 
 ## Intlayer コンパイラーを使わない理由
@@ -53,6 +59,8 @@ author: aymericzip
 
 - **ヒューリスティックの曖昧さ**：コンパイラーは、ユーザー向けコンテンツとアプリケーションロジック（例：`className="active"`、ステータスコード、製品ID）を推測する必要があります。複雑なコードベースでは、これにより誤検出や見逃された文字列が発生し、手動での注釈と例外処理が必要になる場合があります。
 - **静的抽出のみ**：コンパイラーベースの抽出は静的解析に依存しています。実行時のみ存在する文字列（APIエラーコード、CMSフィールドなど）は、コンパイラー単独では発見または翻訳できないため、補完的なランタイムi18n戦略が必要です。
+
+- **静的のみの抽出**: コンパイラベースの抽出は静的分析に依存します。実行時にのみ存在する文字列（APIエラーコード、CMS フィールドなど）はコンパイラだけでは検出または翻訳できないため、補完的なランタイム i18n 戦略が必要です。
 
 より深いアーキテクチャの比較については、ブログ記事[Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/compiler_vs_declarative_i18n.md)を参照してください。
 
@@ -94,9 +102,13 @@ export default defineConfig({
 });
 ```
 
+> スタンドアロン `intlayerCompiler()` プラグインは、高度なセットアップのためにエクスポートされています。`intlayer()` と一緒に登録するのは安全です — コンパイラが自動的に重複を排除し、1 回だけ実行されます。
+
 See complete tutorial: [Intlayer Compiler with Vite+React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react_compiler.md)
 
 #### フレームワークサポート
+
+Vite プラグインは異なるファイルタイプを自動的に検出して処理します:
 
 Viteプラグインは自動的に異なるファイルタイプを検出し処理します：
 
@@ -105,6 +117,8 @@ Viteプラグインは自動的に異なるファイルタイプを検出し処�
 - **Svelte**: `@intlayer/svelte-compiler` が必要です。
 
 使用しているフレームワークに応じて、適切なコンパイラーパッケージをインストールしてください：
+
+お使いのフレームワークに適切なコンパイラーパッケージをインストールしてください：
 
 ```bash
 # Vue用

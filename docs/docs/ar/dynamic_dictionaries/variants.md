@@ -118,42 +118,6 @@ useIntlayer("hero-banner", { variant: "never-declared" });
 
 #### المتغير الافتراضي
 
-```ts fileName="hero-banner.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
-import { t, type Dictionary } from "intlayer";
-
-const dictionary = {
-  key: "hero-banner",
-  variant: "default",
-  content: {
-    headline: t({
-      en: "Build faster with Intlayer",
-      fr: "Développez plus vite avec Intlayer",
-    }),
-    cta: t({ en: "Get started", fr: "Commencer" }),
-  },
-} satisfies Dictionary;
-
-export default dictionary;
-```
-
-```ts fileName="hero-banner.black-friday.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
-import { t, type Dictionary } from "intlayer";
-
-const dictionary = {
-  key: "hero-banner",
-  variant: "black_friday",
-  content: {
-    headline: t({
-      en: "50 % off — today only",
-      fr: "−50 % — aujourd'hui seulement",
-    }),
-    cta: t({ en: "Shop now", fr: "Acheter maintenant" }),
-  },
-} satisfies Dictionary;
-
-export default dictionary;
-```
-
 <Tabs group="framework">
   <Tab label="React" value="react">
     ```tsx fileName="Hero.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
@@ -559,6 +523,27 @@ const content = useIntlayer("product", { variant: { id: "prod_abc" } });
 
   </Tab>
   <Tab label="Next.js" value="nextjs">
+    <Tabs>
+      <Tab label="Intlayer >=9.4" value=">=9.4">
+
+        ```tsx fileName="layout.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+        import { IntlayerProvider } from "next-intlayer/server";
+
+        export default async function Layout({ children, params }) {
+          const { locale } = await params;
+          const schoolType = await getSchoolType();
+
+          return (
+            <IntlayerProvider locale={locale} variant={schoolType}>
+              {children}
+            </IntlayerProvider>
+          );
+        }
+        ```
+
+      </Tab>
+      <Tab label="Intlayer <9.4" value="<9.4">
+
     ```tsx fileName="layout.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
     import { IntlayerServerProvider } from "next-intlayer/server";
     import { IntlayerClientProvider } from "next-intlayer";
@@ -576,6 +561,9 @@ const content = useIntlayer("product", { variant: { id: "prod_abc" } });
       );
     }
     ```
+
+      </Tab>
+    </Tabs>
 
   </Tab>
   <Tab label="Vue" value="vue">

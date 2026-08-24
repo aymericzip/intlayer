@@ -307,6 +307,37 @@ Implementasikan routing dinamis untuk menyajikan konten yang dilokalkan berdasar
 
         Di `[locale]/index.tsx` Anda, definisikan paths dan props untuk menangani berbagai locale.
 
+```tsx fileName="src/pages/[locale]/index.tsx" codeFormat="typescript"
+import type { FC } from "react";
+import type { GetStaticPaths, GetStaticProps } from "next";
+import { type Locales, getConfiguration } from "intlayer";
+
+const HomePage: FC = () => <div>{/* Konten Anda di sini */}</div>;
+
+export const getStaticPaths: GetStaticPaths = () => {
+  const { internationalization } = getConfiguration();
+  const { locales } = internationalization;
+
+  const paths = locales.map((locale) => ({
+    params: { locale },
+  }));
+
+  return { paths, fallback: false };
+};
+
+export const getStaticProps: GetStaticProps = ({ params }) => {
+  const locale = params?.locale as string;
+
+  return {
+    props: {
+      locale,
+    },
+  };
+};
+
+export default HomePage;
+```
+
 ```jsx fileName="src/pages/[locale]/index.mjx" codeFormat="esm"
 import { getConfiguration } from "intlayer";
 import { ComponentExample } from "@components/ComponentExample";

@@ -1131,8 +1131,5 @@ export default {
    - Leverage tags for categorisation
    - Use the `autoFill` to automatically fill the missing translations
 
-3. **Performance**:
-   - Adjust the content configuration to limit the scope of watched files
-
 - Use live dictionaries only when real-time updates are necessary, (e.g. A/B testing, etc.)
 - Ensure the build transformation plugin (`@intlayer/swc`, or `@intlayer/babel`) is enabled to optimise the dictionary at build time

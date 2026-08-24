@@ -67,8 +67,6 @@ Basé sur vos `dictionnaires`, Intlayer générera des types pour les rendre uti
 
 - Les types de dictionnaires sont générés à partir des `fichiers de déclaration de contenu` d'Intlayer. Par défaut, les types de dictionnaires Intlayer sont générés dans le répertoire `.intlayer/types` du projet.
 
-- L'[augmentation de module](https://www.typescriptlang.org/docs/handbook/declaration-merging.html) d'Intlayer est une fonctionnalité TypeScript qui vous permet de définir des types supplémentaires pour Intlayer. Cela rend l'expérience de développement plus facile en suggérant les arguments disponibles ou requis.
-
 Parmi les types générés, les types de dictionnaires Intlayer ou même les types de configuration de langue sont ajoutés au fichier `types/intlayer.d.ts` et utilisés par d'autres packages. Pour cela, il est nécessaire que le fichier `tsconfig.json` soit configuré pour inclure le répertoire `types` du projet.
 
 ### Étape d'interprétation des dictionnaires
@@ -100,6 +98,9 @@ Intlayer fournit également un éditeur visuel pour vous permettre d'éditer vot
 
 ![éditeur visuel](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif?raw=true)
 
+- Le serveur est une simple application Express qui écoute les requêtes du client et récupère le contenu de votre application, tels que les `dictionaries` et la configuration pour les rendre accessibles côté client.
+- D'autre part, le client est une application React qui est utilisée pour interagir avec votre contenu via une interface visuelle.
+
 - Le serveur est une simple application Express qui écoute les requêtes du client et récupère le contenu de votre application, tels que les `dictionaries` et la configuration pour le rendre accessible côté client.
 - D'autre part, le client est une application React utilisée pour interagir avec votre contenu via une interface visuelle.
   Lorsque vous appelez votre contenu en utilisant `useIntlayer` et que l'éditeur est activé, il enveloppe automatiquement vos chaînes avec un objet Proxy nommé `IntlayerNode`. Ce nœud utilise `window.postMessage` pour communiquer avec un iframe encapsulé contenant l'interface de l'éditeur visuel.  
@@ -109,6 +110,8 @@ Intlayer fournit également un éditeur visuel pour vous permettre d'éditer vot
 
 Pour optimiser la taille du bundle de votre application, Intlayer fournit deux plugins pour optimiser la construction de votre application : les plugins `@intlayer/babel` et `@intlayer/swc`.
 Les plugins Babel et SWC fonctionnent en analysant l'arbre de syntaxe abstraite (AST) de votre application pour remplacer les appels aux fonctions Intlayer par du code optimisé. Ce processus rend votre bundle final plus léger en production en s'assurant que seuls les dictionnaires réellement utilisés sont importés, optimisant ainsi le découpage des chunks et réduisant la taille du bundle.
+
+Les plugins Babel et SWC fonctionnent en analysant l'Abstract Syntax Tree (AST) de votre application pour remplacer les appels des fonctions Intlayer par du code optimisé. Ce processus rend votre bundle final plus léger en production en garantissant que seuls les dictionnaires réellement utilisés sont importés, en optimisant le chunking et en réduisant la taille du bundle.
 
 En mode développement, Intlayer utilise une importation statique centralisée pour les dictionnaires afin de simplifier l'expérience de développement.
 

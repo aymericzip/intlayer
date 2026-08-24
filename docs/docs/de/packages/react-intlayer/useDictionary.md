@@ -30,8 +30,6 @@ Der `useDictionary` Hook ermöglicht es dir, ein Objekt zu verarbeiten, das wie 
 
 ## Beispiel für die Verwendung in React
 
-Nachfolgend ein Beispiel, wie der `useDictionary` Hook in einer React-Komponente verwendet wird:
-
 ```tsx fileName="./ComponentExample.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 tsx fileName="./ComponentExample.tsx" codeFormat="typescript"

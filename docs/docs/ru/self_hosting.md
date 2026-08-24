@@ -90,10 +90,6 @@ docker run -d --name intlayer \
 
 ## Быстрый старт
 
-```sh
-curl -fsSL https://intlayer.org/install.sh | sh
-```
-
 Что делает установщик:
 
 1.  Проверяет наличие `docker` и `docker compose`.
@@ -116,8 +112,6 @@ curl -fsSL https://intlayer.org/install.sh | sh
 | **redis**   | `redis:7-alpine`                      | внутренний                            | Очереди заданий (BullMQ) и кеширование (ioredis)                  |
 | **minio**   | `minio/minio`                         | `9000` (S3), `9001` (консоль)         | S3-совместимое объектное хранилище для аватаров и скриншотов      |
 | **mailpit** | `axllent/mailpit`                     | `1025` (SMTP), `8025` (веб-интерфейс) | Локальный приемник транзакционных электронных писем               |
-
-Внутренние порты (mongo, redis) по умолчанию не открыты на хосте.
 
 > Порт MinIO `9000` должен быть доступен из браузера, поскольку загруженные активы (аватары, скриншоты) загружаются непосредственно из `S3_PUBLIC_URL=http://localhost:9000/intlayer`.
 
@@ -173,8 +167,6 @@ curl -fsSL https://intlayer.org/install.sh | sh
 | `MICROSOFT_CLIENT_ID`, `MICROSOFT_CLIENT_SECRET`         | Вход через Microsoft OAuth                                                                |
 | `LINKEDIN_CLIENT_ID`, `LINKEDIN_CLIENT_SECRET`           | Вход через LinkedIn OAuth                                                                 |
 | `ATLASSIAN_CLIENT_ID`, `ATLASSIAN_CLIENT_SECRET`         | Вход через Atlassian OAuth                                                                |
-
----
 
 ### Глобальная почтовая система
 
@@ -261,15 +253,7 @@ const { data: dictionaries } = await dictionaryEndpoint(cms).getDictionaries();
 
 ## Обновление
 
-Повторный запуск установщика на существующем развертывании выполняет скользящее обновление:
-
-```sh
-curl -fsSL https://intlayer.org/install.sh | sh
-```
-
 Это загружает последние образы и перезапускает контейнеры с помощью `docker compose pull && docker compose up -d`. Существующие тома (`mongo-data`, `redis-data`, `minio-data`) сохраняются — потери данных нет.
-
-Для обновления вручную из директории `./intlayer/`:
 
 ```sh
 docker compose pull
@@ -334,14 +318,11 @@ docker compose logs mongo
 docker compose logs redis
 ```
 
+Найдите `MongoDB connection error` ближе к началу логов.
+
 ### Панель управления не может связаться с API
 
 Убедитесь, что `VITE_BACKEND_URL` соответствует URL, по которому бэкенд доступен из **браузера** (а не из сети Docker). Если вы изменили порт бэкенда или добавили обратный прокси, пересоберите образ панели управления:
-
-```sh
-docker compose build app
-docker compose up -d app
-```
 
 ### Отсутствует корзина MinIO
 

@@ -30,8 +30,6 @@ author: aymericzip
 
 ## مثال على الاستخدام في React
 
-فيما يلي مثال على كيفية استخدام الخطاف `useDictionary` في مكون React:
-
 ```tsx fileName="./ComponentExample.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useDictionary } from "react-intlayer";

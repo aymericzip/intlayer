@@ -493,21 +493,6 @@ const ComponentExample = () => {
 };
 ```
 
-```jsx fileName="src/components/ComponentExample.csx" codeFormat="commonjs"
-const { useIntlayer } = require("next-intlayer");
-
-const ComponentExample = () => {
-  const content = useIntlayer("component-example"); // Stellen Sie sicher, dass Sie eine entsprechende Inhaltsdeklaration haben
-
-  return (
-    <div>
-      <h2>{content.title}</h2>
-      <p>{content.content}</p>
-    </div>
-  );
-};
-```
-
 > Wenn Sie Übersetzungen in `string`-Attributen verwenden (z. B. `alt`, `title`, `href`, `aria-label`), rufen Sie
 
 > den Wert der Funktion wie folgt auf:

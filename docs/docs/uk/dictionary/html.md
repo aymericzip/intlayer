@@ -24,7 +24,7 @@ history:
     changes: "Add `intlayerHTML` plugin object; use `app.use(intlayerHTML)` instead of `app.use(installIntlayerHTML)`"
   - version: 8.5.0
     date: 2026-03-24
-    changes: "move import from `{{framework}}-intlayer` to `{{framework}}-intlayer/html`"
+    changes: "Перенесено імпорт з `{{framework}}-intlayer` до `{{framework}}-intlayer/html`"
   - version: 8.0.0
     date: 2026-01-22
     changes: "Додано HTMLRenderer / useHTMLRenderer / утиліту renderHTML"
@@ -246,7 +246,7 @@ const myContent = html(
 
 <Tabs group="framework">
   <Tab label="React / Next.js" value="react">
-  
+
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "react-intlayer/html";
 
@@ -262,9 +262,28 @@ const myContent = html(
     );
     ```
 
+    Ви також можете використовувати власний рендерер HTML:
+
+    ```tsx fileName="AppProvider.tsx"
+    import { HTMLProvider } from "react-intlayer/html";
+
+    export const AppProvider = ({ children }) => (
+      <HTMLProvider
+        renderHTML={async (html) => {
+          const { renderHTML } = await import('react-intlayer/html');
+          return renderHTML(html);
+        }}
+      >
+        {children}
+      </HTMLProvider>
+    );
+    ```
+
+    > Динамічний імпорт вашого HTML-рендерера — це гарний спосіб зменшити розмір бандла вашого застосунку.
+
   </Tab>
   <Tab label="Vue" value="vue">
-  
+
     ```typescript fileName="main.ts"
     import { createApp, h } from "vue";
     import { intlayer } from "vue-intlayer";
@@ -284,9 +303,32 @@ const myContent = html(
     app.mount("#app");
     ```
 
+    Ви також можете використовувати власний рендерер HTML:
+
+    ```typescript fileName="main.ts"
+    import { createApp, h } from "vue";
+    import { intlayer } from "vue-intlayer";
+    import { intlayerHTML } from "vue-intlayer/html";
+    import App from "./App.vue";
+
+    const app = createApp(App);
+
+    app.use(intlayer);
+    app.use(intlayerHTML, {
+      renderHTML: async (html) => {
+        const { renderHTML } = await import('vue-intlayer/html');
+        return renderHTML(html);
+      },
+    });
+
+    app.mount("#app");
+    ```
+
+    > Динамічний імпорт вашого HTML-рендерера — це гарний спосіб зменшити розмір бандла вашого застосунку.
+
   </Tab>
   <Tab label="Svelte" value="svelte">
-   
+
     ```svelte fileName="App.svelte"
     <script lang="ts">
       import { HTMLProvider } from "svelte-intlayer/html";
@@ -302,9 +344,28 @@ const myContent = html(
     </HTMLProvider>
     ```
 
+    Ви також можете використовувати власний рендерер HTML:
+
+    ```svelte fileName="App.svelte"
+    <script lang="ts">
+      import { HTMLProvider } from "svelte-intlayer/html";
+    </script>
+
+    <HTMLProvider
+      renderHTML={async (html) => {
+        const { renderHTML } = await import('svelte-intlayer/html');
+        return renderHTML(html);
+      }}
+    >
+      <slot />
+    </HTMLProvider>
+    ```
+
+    > Динамічний імпорт вашого HTML-рендерера — це гарний спосіб зменшити розмір бандла вашого застосунку.
+
   </Tab>
   <Tab label="Preact" value="preact">
-   
+
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "preact-intlayer/html";
 
@@ -319,9 +380,28 @@ const myContent = html(
     );
     ```
 
+    Ви також можете використовувати власний рендерер HTML:
+
+    ```tsx fileName="AppProvider.tsx"
+    import { HTMLProvider } from "preact-intlayer/html";
+
+    export const AppProvider = ({ children }) => (
+      <HTMLProvider
+        renderHTML={async (html) => {
+          const { renderHTML } = await import('preact-intlayer/html');
+          return renderHTML(html);
+        }}
+      >
+        {children}
+      </HTMLProvider>
+    );
+    ```
+
+    > Динамічний імпорт вашого HTML-рендерера — це гарний спосіб зменшити розмір бандла вашого застосунку.
+
   </Tab>
   <Tab label="Solid" value="solid">
-   
+
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "solid-intlayer/html";
 
@@ -335,6 +415,25 @@ const myContent = html(
       </HTMLProvider>
     );
     ```
+
+    Ви також можете використовувати власний рендерер HTML:
+
+    ```tsx fileName="AppProvider.tsx"
+    import { HTMLProvider } from "solid-intlayer/html";
+
+    export const AppProvider = (props) => (
+      <HTMLProvider
+        renderHTML={async (html) => {
+          const { renderHTML } = await import('solid-intlayer/html');
+          return renderHTML(html);
+        }}
+      >
+        {props.children}
+      </HTMLProvider>
+    );
+    ```
+
+    > Динамічний імпорт вашого HTML-рендерера — це гарний спосіб зменшити розмір бандла вашого застосунку.
 
   </Tab>
   <Tab label="Angular" value="angular">
@@ -353,6 +452,25 @@ const myContent = html(
       ],
     };
     ```
+
+    Ви також можете використовувати власний рендерер HTML:
+
+    ```typescript fileName="app.config.ts"
+    import { createIntlayerHTMLProvider } from "angular-intlayer/html";
+
+    export const appConfig: ApplicationConfig = {
+      providers: [
+        createIntlayerHTMLProvider({
+          renderHTML: async (html) => {
+            const { renderHTML } = await import('angular-intlayer/html');
+            return renderHTML(html);
+          },
+        }),
+      ],
+    };
+    ```
+
+    > Динамічний імпорт вашого HTML-рендерера — це гарний спосіб зменшити розмір бандла вашого застосунку.
 
   </Tab>
 </Tabs>
@@ -402,9 +520,9 @@ const myContent = html(
 
   </Tab>
   <Tab label="Vue" value="vue">
-   
+
     #### Компонент `<HTMLRenderer />`
-   
+
     ```vue
     <script setup>
     import { HTMLRenderer } from "vue-intlayer/html";
@@ -417,9 +535,9 @@ const myContent = html(
 
   </Tab>
   <Tab label="Svelte" value="svelte">
-  
+
     #### Компонент `<HTMLRenderer />`
-   
+
     ```svelte
     <script lang="ts">
     import { HTMLRenderer } from "svelte-intlayer/html";
@@ -451,9 +569,9 @@ const myContent = html(
 
   </Tab>
   <Tab label="Preact" value="preact">
-   
+
     #### Компонент `<HTMLRenderer />`
-   
+
     ```tsx
     import { HTMLRenderer } from "preact-intlayer/html";
 
@@ -482,9 +600,9 @@ const myContent = html(
 
   </Tab>
   <Tab label="Solid" value="solid">
-   
+
     #### Компонент `<HTMLRenderer />`
-   
+
     ```tsx
     import { HTMLRenderer } from "solid-intlayer/html";
 
@@ -517,13 +635,13 @@ const myContent = html(
     Відтворіть HTML-рядок за допомогою сервісу.
 
     ```typescript
-    import { IntlayerHTMLService } from "angular-intlayer";
+    import { IntlayerHTMLService } from "angular-intlayer/html";
 
     export class MyComponent {
       constructor(private markdownService: IntlayerHTMLService) {}
 
       renderHTML(html: string) {
-        return this.markdownService.renderMarkdown(html);
+        return this.markdownService.renderHTML(html);
       }
     }
     ```

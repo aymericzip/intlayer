@@ -173,10 +173,6 @@ bun add vite-intlayer --dev
 
   Paket inti yang menyediakan alat internasionalisasi untuk manajemen konfigurasi, terjemahan, [deklarasi konten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md), kompilasi, và [perintah CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md).
 
-- **preact-intlayer**
-
-  Paket yang mengintegrasikan Intlayer dengan aplikasi Preact. Ini menyediakan context providers dan hooks untuk internasionalisasi Preact.
-
 - **vite-intlayer**
 
   Termasuk plugin Vite untuk mengintegrasikan Intlayer dengan [Vite bundler](https://vite.dev/guide/why.html#why-bundle-for-production), serta middleware untuk mendeteksi locale yang dipilih pengguna, mengelola cookie, dan menangani pengalihan URL.
@@ -595,6 +591,10 @@ export default LocaleSwitcher;
 >
 > > - [Hook `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/react-intlayer/useLocale.md) (API tương tự cho `preact-intlayer`)> - [Hook `getLocaleName`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/getLocaleName.md)> - [Hook `getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/getLocalizedUrl.md)> - [Hook `getHTMLTextDir`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/getHTMLTextDir.md)> - [Thuộc tính `hreflang`](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=fr)> - [Thuộc tính `lang`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang)> - [Thuộc tính `dir`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)> - [Thuộc tính `aria-current`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)> - [Popover API](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API)
 
+Berikut adalah **Langkah 9** yang diperbarui dengan penjelasan tambahan dan contoh kode yang disempurnakan:
+
+---
+
 </Step>
 
 <Step number={9} title="Ganti atribut bahasa dan arah HTML" isOptional={true}>
@@ -663,6 +663,12 @@ const App: FunctionalComponent = () => (
 
 export default App;
 ```
+
+Dengan menerapkan perubahan-perubahan ini, aplikasi Anda akan:
+
+- Pastikan atribut **language** (`lang`) dengan benar mencerminkan locale saat ini, yang penting untuk SEO dan perilaku browser.
+- Sesuaikan **text direction** (`dir`) menurut locale, meningkatkan keterbacaan dan kegunaan untuk bahasa dengan urutan baca yang berbeda.
+- Sediakan pengalaman yang lebih **accessible**, karena teknologi assistive bergantung pada atribut ini untuk berfungsi secara optimal.
 
 </Step>
 

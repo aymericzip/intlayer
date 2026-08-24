@@ -39,14 +39,6 @@ bun x intlayer fill
 
 Bu komut, içerik bildirim dosyalarınızı eksik çeviriler, yapısal tutarsızlıklar veya tür uyuşmazlıkları gibi potansiyel sorunlar açısından analiz eder. Herhangi bir problem bulursa, **intlayer fill** sözlüklerinizi tutarlı ve eksiksiz tutmak için güncellemeler önerir veya uygular.
 
-Önemli noktalar:
-
-- Büyük JSON dosyalarını AI modelinin bağlam penceresi sınırları içinde kalmak için parçalara böler.
-- Çıktı formatı yanlışsa çeviriyi yeniden dener.
-- Çeviri doğruluğunu artırmak için uygulama ve dosya özel bağlamını dahil eder.
-- Mevcut çevirileri üzerine yazmayarak korur.
-- Hızı artırmak için bir kuyruk sistemi kullanarak dosyaları, parçaları ve yerel ayarları paralel olarak işler.
-
 ## Ana Noktalar:
 
 - Büyük JSON dosyalarını AI modelinin context window limitine uymak için parçalara böler.

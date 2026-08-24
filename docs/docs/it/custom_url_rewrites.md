@@ -248,7 +248,7 @@ Per garantire che la barra degli indirizzi del browser rifletta sempre l'URL loc
 
 <Tabs group='framework'>
   <Tab label="Next.js" value="nextjs">
-  
+
     ```tsx
     'use client';
 
@@ -263,7 +263,7 @@ Per garantire che la barra degli indirizzi del browser rifletta sempre l'URL loc
   </Tab>
 
   <Tab label="React Router" value="reactrouter">
-  
+
     ```tsx
     'use client';
 
@@ -279,7 +279,7 @@ Per garantire che la barra degli indirizzi del browser rifletta sempre l'URL loc
   </Tab>
 
   <Tab label="Vue" value="vue">
-  
+
     ```vue
     <script setup>
     import { useRewriteURL } from "vue-intlayer";
@@ -291,7 +291,7 @@ Per garantire che la barra degli indirizzi del browser rifletta sempre l'URL loc
 
   </Tab>
   <Tab label="Solid" value="solid">
-  
+
     ```tsx
     import { useRewriteURL } from "solid-intlayer";
 
@@ -303,7 +303,7 @@ Per garantire che la barra degli indirizzi del browser rifletta sempre l'URL loc
 
   </Tab>
   <Tab label="Svelte" value="svelte">
-  
+
     ```svelte
     <script>
     import { useRewriteURL } from "svelte-intlayer";
@@ -339,6 +339,8 @@ export function middleware(request: NextRequest) {
 ### Integrazione con Vite
 
 Per SolidJS, Vue e Svelte, il plugin Vite `intlayerProxy` gestisce le riscritture durante lo sviluppo.
+
+> A partire da Intlayer v9, `intlayerProxy()` è incluso direttamente nel plugin `intlayer()` e abilitato per impostazione predefinita tramite l'opzione `routing.enableProxy` (`true` per impostazione predefinita). La registrazione separata come mostrato di seguito è ora facoltativa — viene mantenuta per la compatibilità con le versioni precedenti e per le configurazioni che necessitano di controllare l'ordine dei plugin. Impostare `routing.enableProxy: false` per rinunciare. Vedi le [note sulla versione v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/releases/v9.md).
 
 ```typescript fileName="vite.config.ts"
 import { defineConfig } from "vite";

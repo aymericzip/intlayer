@@ -39,14 +39,6 @@ bun x intlayer fill
 
 Perintah ini menganalisis file deklarasi konten Anda untuk potensi masalah seperti terjemahan yang hilang, ketidakkonsistenan struktural, atau ketidakcocokan tipe. Jika ditemukan masalah, **intlayer fill** akan mengusulkan atau menerapkan pembaruan untuk menjaga kamus Anda tetap konsisten dan lengkap.
 
-Poin-poin penting:
-
-- Membagi file JSON besar menjadi potongan-potongan untuk tetap berada dalam batas jendela konteks model AI.
-- Mencoba ulang terjemahan jika format output tidak benar.
-- Menggabungkan konteks spesifik aplikasi dan file untuk meningkatkan akurasi terjemahan.
-- Mempertahankan terjemahan yang ada dengan tidak menimpa mereka.
-- Memproses file, potongan, dan locale secara paralel menggunakan sistem antrian untuk meningkatkan kecepatan.
-
 ## Poin-Poin Kunci:
 
 - Membagi file JSON besar menjadi chunk untuk tetap berada dalam batas jendela konteks model AI.

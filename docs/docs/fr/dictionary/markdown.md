@@ -492,7 +492,7 @@ Ces utilitaires rendent **des chaînes Markdown brutes** et sont indépendants d
 
 <Tabs group="framework">
   <Tab label="React" value="react">
-  
+
     #### Composant `<MarkdownRenderer />`
 
     Rend une chaîne Markdown avec des options spécifiques.
@@ -531,7 +531,7 @@ Ces utilitaires rendent **des chaînes Markdown brutes** et sont indépendants d
 
   </Tab>
   <Tab label="Next.js" value="nextjs">
-  
+
     #### Composant `<MarkdownRenderer />`
 
     Rend une chaîne Markdown avec des options spécifiques.
@@ -957,6 +957,10 @@ Le `MarkdownProvider` (ou son équivalent dans un framework) configure le pipeli
   </Tab>
   <Tab label="Angular" value="angular">
 
+> MDX est supporté — tout nom de composant utilisé dans votre Markdown (par exemple `<MyCustomJSXComponent />`) est résolu par rapport au mapping `components`.
+
+Vous pouvez également utiliser votre propre moteur de rendu Markdown :
+
     ```typescript fileName="app.module.ts"
     import { NgModule } from '@angular/core';
     import { IntlayerMarkdownModule } from 'angular-intlayer/markdown';
@@ -1047,7 +1051,7 @@ const MyComponent = () => {
 ```
 
   </Tab>
- 
+
   <Tab label="Vue" value="vue">
 
 Vue possède un composant `<Suspense>` intégré. Enveloppez le composant rendant le contenu Markdown dans une limite `<Suspense>`.

@@ -130,6 +130,8 @@ npm install intlayer react-intlayer
 npm install vite-intlayer --save-dev
 ```
 
+Install the necessary packages using your preferred package manager:
+
 ```bash packageManager="pnpm"
 pnpm add intlayer react-intlayer
 pnpm add vite-intlayer --save-dev
@@ -155,13 +157,78 @@ The core package that provides internationalisation tools for configuration mana
 - **vite-intlayer**
   Includes the Vite plugin for integrating Intlayer with the [Vite bundler](https://vite.dev/guide/why.html#why-bundle-for-production), as well as middleware for detecting the user's preferred locale, managing cookies, and handling URL redirection.
 
+- **@react-router/fs-routes**
+  The package that enables file-system based routing for React Router v7.
+
 </Step>
 
 <Step number={2} title="Configuration of your project">
 
+Create a config file to configure the languages of your application:
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { type IntlayerConfig, Locales } from "intlayer";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    defaultLocale: Locales.ENGLISH,
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+  },
+};
+
+export default config;
+```
+
+> Through this configuration file, you can set up localized URLs, middleware redirection, cookie names, the location and extension of your content declarations, disable Intlayer logs in the console, and more. For a complete list of available parameters, refer to the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md).
+
+</Step>
+
+<Step number={3} title="Integrate Intlayer in Your Vite Configuration">
+
+Add the intlayer plugin into your configuration:
+
+```typescript fileName="vite.config.ts"
+import { reactRouter } from "@react-router/dev/vite";
+import { defineConfig } from "vite";
+import { intlayer } from "vite-intlayer";
+
+export default defineConfig({
+  plugins: [reactRouter(), intlayer()],
+});
+```
+
+> The `intlayer()` Vite plugin is used to integrate Intlayer with Vite. It ensures the building of content declaration files and monitors them in development mode. It defines Intlayer environment variables within the Vite application. Additionally, it provides aliases to optimise performance.
+
+</Step>
+
+<Step number={4} title="Configure React Router v7 File-System Routes">
+
+Set up your routing configuration to use file-system based routes with `flatRoutes`:
+
+```typescript fileName="app/routes.ts"
+import type { RouteConfig } from "@react-router/dev/routes";
+import { flatRoutes } from "@react-router/fs-routes";
+import { configuration } from "intlayer";
+
+const routes: RouteConfig = flatRoutes({
+  // Ignore content declaration files from being treated as routes
+  ignoredRouteFiles: configuration.content.fileExtensions.map(
+    (fileExtension) => `**/*${fileExtension}`
+  ),
+});
+
+export default routes;
+```
+
+> The `flatRoutes` function from `@react-router/fs-routes` enables file-system based routing, where the file structure in the `routes/` directory determines your application's routes. The `ignoredRouteFiles` option ensures that Intlayer content declaration files (`.content.ts`, etc.) are not treated as route files.
+
 </Step>
 
 <Step number={5} title="Create Layout Components">
+
+With file-system routing, you use a flat naming convention where dots (`.`) represent path segments and parentheses `()` denote optional segments.
+
+Create the following files in your `app/routes/` directory:
 
 #### File Structure
 
@@ -234,19 +301,58 @@ export function Layout({
 
 #### Root Layout
 
-```tsx fileName="app/routes/layout.tsx"
-import { IntlayerProvider } from "react-intlayer";
-import { Outlet } from "react-router";
+```tsx fileName="app/components/localized-link.tsx"
+import type { FC } from "react";
 
-import type { Route } from "./+types/layout";
+import { getLocalizedUrl, type LocalesValues } from "intlayer";
+import { useLocale } from "react-intlayer";
+import { Link, type LinkProps, type To } from "react-router";
 
-export default function RootLayout({ params }: Route.ComponentProps) {
-  const { locale } = params;
+const isExternalLink = (to: string) => /^(https?:)?\/\//.test(to);
+
+export const locacalizeTo = (to: To, locale: LocalesValues): To => {
+  if (typeof to === "string") {
+    if (isExternalLink(to)) {
+      return to;
+    }
+
+    return getLocalizedUrl(to, locale);
+  }
+
+  if (isExternalLink(to.pathname ?? "")) {
+    return to;
+  }
+
+  return {
+    ...to,
+    pathname: getLocalizedUrl(to.pathname ?? "", locale),
+  };
+};
+
+export const LocalizedLink: FC<LinkProps> = (props) => {
+  const { locale } = useLocale();
+
+  return <Link {...props} to={locacalizeTo(props.to, locale)} />;
+};
+```
+
+#### Localised Home Page
+
+```tsx fileName="app/routes/[lang]/page.tsx"
+import { useIntlayer } from "intlayer";
+import { LocalizedLink } from "~/components/localized-link";
+
+export default function Page() {
+  const { title, description, aboutLink } = useIntlayer("page");
 
   return (
-    <IntlayerProvider locale={locale}>
-      <Outlet />
-    </IntlayerProvider>
+    <div>
+      <h1>{title}</h1>
+      <p>{description}</p>
+      <nav>
+        <LocalizedLink to="/about">{aboutLink}</LocalizedLink>
+      </nav>
+    </div>
   );
 }
 ```
@@ -255,33 +361,32 @@ export default function RootLayout({ params }: Route.ComponentProps) {
 
 <Step number={6} title="Declare Your Content">
 
-Create and manage your content declarations to store translations:
+Create and manage your content declarations to store translations. Place content files alongside your route files:
 
-```tsx fileName="app/routes/[lang]/page.content.ts"
+```tsx fileName="app/routes/($locale)._index.content.ts"
 import { t, type Dictionary } from "intlayer";
 
 const pageContent = {
   key: "page",
   content: {
     title: t({
+      "en-GB": "Welcome to React Router v7 + Intlayer",
       en: "Welcome to React Router v7 + Intlayer",
       es: "Bienvenido a React Router v7 + Intlayer",
       fr: "Bienvenue sur React Router v7 + Intlayer",
     }),
     description: t({
+      "en-GB":
+        "Build multilingual applications with ease using React Router v7 and Intlayer.",
       en: "Build multilingual applications with ease using React Router v7 and Intlayer.",
       es: "Cree aplicaciones multilingües fácilmente usando React Router v7 y Intlayer.",
       fr: "Créez des applications multilingues facilement avec React Router v7 et Intlayer.",
     }),
     aboutLink: t({
+      "en-GB": "Learn About Us",
       en: "Learn About Us",
       es: "Aprender Sobre Nosotros",
       fr: "En savoir plus sur nous",
-    }),
-    homeLink: t({
-      en: "Home",
-      es: "Inicio",
-      fr: "Accueil",
     }),
   },
 } satisfies Dictionary;
@@ -289,9 +394,41 @@ const pageContent = {
 export default pageContent;
 ```
 
-> Your content declarations can be defined anywhere in your application as soon as they are included in the `contentDir` directory (by default, `./app`). And match the content declaration file extension (by default, `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
+```tsx fileName="app/routes/($locale).about.content.ts"
+import { t, type Dictionary } from "intlayer";
 
-> For more details, refer to the [content declaration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/content_file.md).
+const aboutContent = {
+  key: "about",
+  content: {
+    title: t({
+      "en-GB": "About Us",
+      en: "About Us",
+      es: "Sobre Nosotros",
+      fr: "À propos de nous",
+    }),
+    content: t({
+      "en-GB": "This is the about page content.",
+      en: "This is the about page content.",
+      es: "Este es el contenido de la página de información.",
+      fr: "Ceci est le contenu de la page à propos.",
+    }),
+    homeLink: t({
+      "en-GB": "Home",
+      en: "Home",
+      es: "Inicio",
+      fr: "Accueil",
+    }),
+  },
+} satisfies Dictionary;
+
+export default aboutContent;
+```
+
+> Your content declarations can be defined anywhere in your application as soon as they are included into the `contentDir` directory (by default, `./app`). And match the content declaration file extension (by default, `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
+
+> To learn more about the `useIntlayer` hook, refer to the [documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/react-intlayer/useIntlayer.md).
+
+> If your app already exists, you can use the [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compiler.md), as well as the [extract command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/extract.md), to transform thousands of components in a second.
 
 </Step>
 
@@ -334,7 +471,7 @@ export const LocalizedLink: FC<LinkProps> = (props) => {
 };
 ```
 
-If you want to navigate to the localised routes, you can use the `useLocalizedNavigate` hook:
+In the case you want to navigate to the localised routes, you can use the `useLocalizedNavigate` hook:
 
 ```tsx fileName="app/hooks/useLocalizedNavigate.ts"
 import { useLocale } from "react-intlayer";
@@ -346,44 +483,15 @@ export const useLocalizedNavigate = () => {
   const navigate = useNavigate();
   const { locale } = useLocale();
 
-  const localisedNavigate = (to: To, options?: NavigateOptions) => {
+  const localizedNavigate = (to: To, options?: NavigateOptions) => {
     const localedTo = locacalizeTo(to, locale);
 
     navigate(localedTo, options);
   };
 
-  return localisedNavigate;
+  return localizedNavigate;
 };
 ```
-
-</Step>
-
-<Step number={8} title="Utilise Intlayer in Your Pages">
-
-Access your content dictionaries throughout your application:
-
-#### Localised Home Page
-
-```tsx fileName="app/routes/[lang]/page.tsx"
-import { useIntlayer } from "intlayer";
-import { LocalizedLink } from "~/components/localized-link";
-
-export default function Page() {
-  const { title, description, aboutLink } = useIntlayer("page");
-
-  return (
-    <div>
-      <h1>{title}</h1>
-      <p>{description}</p>
-      <nav>
-        <LocalizedLink to="/about">{aboutLink}</LocalizedLink>
-      </nav>
-    </div>
-  );
-}
-```
-
-> To learn more about the `useIntlayer` hook, refer to the [documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/react-intlayer/useIntlayer.md).
 
 </Step>
 
@@ -471,23 +579,6 @@ export const useI18nHTMLAttributes = () => {
 
 Then use it in your root component:
 
-```tsx fileName="app/routes/layout.tsx"
-import { Outlet } from "react-router";
-import { IntlayerProvider } from "react-intlayer";
-
-import { useI18nHTMLAttributes } from "app/hooks/useI18nHTMLAttributes"; // import the hook
-
-export default function RootLayout() {
-  useI18nHTMLAttributes(); // call the hook
-
-  return (
-    <IntlayerProvider>
-      <Outlet />
-    </IntlayerProvider>
-  );
-}
-```
-
 </Step>
 
 <Step number={11} title="Add middleware">
@@ -495,6 +586,8 @@ export default function RootLayout() {
 You can also use the `intlayerProxy` to add server-side routing to your application. This plugin will automatically detect the current locale based on the URL and set the appropriate locale cookie. If no locale is specified, the plugin will determine the most appropriate locale based on the user's browser language preferences. If no locale is detected, it will redirect to the default locale.
 
 > Note that to use the `intlayerProxy` in production, you need to switch the `vite-intlayer` package from `devDependencies` to `dependencies`.
+
+> Since Intlayer v9, `intlayerProxy()` is bundled directly into the `intlayer()` plugin and enabled by default through the `routing.enableProxy` option (`true` by default). Registering it separately as shown below is now optional — it is kept for backward compatibility and for setups that need to control plugin order. Set `routing.enableProxy: false` to opt out. See the [v9 release notes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/releases/v9.md).
 
 ```typescript {3,7} fileName="vite.config.ts"
 import { reactRouter } from "@react-router/dev/vite";
@@ -513,6 +606,110 @@ export default defineConfig({
   ],
 });
 ```
+
+</Step>
+
+<Step number={11} title="Extract the content of your components" isOptional={true}>
+
+If you have an existing codebase, transforming thousands of files can be time-consuming.
+
+To ease this process, Intlayer propose a [compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compiler.md) / [extractor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/extract.md) to transform your components and extract the content.
+
+To set it up, you can add a `compiler` section in your `intlayer.config.ts` file:
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  // ... Rest of your config
+  compiler: {
+    /**
+     * Indicates if the compiler should be enabled.
+     */
+    enabled: true,
+
+    /**
+     * Defines the output files path
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * Indicates if the components should be saved after being transformed.
+     *
+     * - If `true`, the compiler will rewrite the component file in the disk. So the transformation will be permanent, and the compiler will skip the transformation for the next process. That way, the compiler can transform the app, and then it can be removed.
+     *
+     * - If `false`, the compiler will inject the `useIntlayer()` function call into the code in the build output only, and keep the base codebase intact. The transformation will be done only in memory.
+     */
+    saveComponents: false,
+
+    /**
+     * Dictionary key prefix
+     */
+    dictionaryKeyPrefix: "",
+  },
+};
+
+export default config;
+```
+
+<Tabs>
+ <Tab value='Extract command'>
+
+Run the extractor to transform your components and extract the content
+
+```bash packageManager="npm"
+npx intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="bun"
+bun x intlayer extract
+```
+
+ </Tab>
+ <Tab value='Babel compiler'>
+
+> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
+
+Update your `vite.config.ts` to include the `intlayerCompiler` plugin:
+
+```ts fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import { intlayer, intlayerCompiler } from "vite-intlayer";
+
+export default defineConfig({
+  plugins: [
+    intlayer(),
+    intlayerCompiler(), // Adds the compiler plugin
+  ],
+});
+```
+
+```bash packageManager="npm"
+npm run build # Or npm run dev
+```
+
+```bash packageManager="pnpm"
+pnpm run build # Or pnpm run dev
+```
+
+```bash packageManager="yarn"
+yarn build # Or yarn dev
+```
+
+```bash packageManager="bun"
+bun run build # Or bun run dev
+```
+
+ </Tab>
+</Tabs>
 
 ---
 

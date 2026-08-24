@@ -98,6 +98,14 @@ Intlayer ist mehr als nur eine i18n-Lösung. Es bietet einen **selbstgehosteten 
 
 ## Documentation References
 
+<Tabs defaultTab="video">
+  <Tab label="Video" value="video">
+
+<iframe title="So übersetzen Sie eine React Router v7 (File-System Routes) App mit Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
+
+  </Tab>
+  <Tab label="Code" value="code">
+
 - [Intlayer Documentation](https://intlayer.org)
 - [React Router v7 Documentation](https://reactrouter.com/)
 - [React Router fs-routes Documentation](https://reactrouter.com/how-to/file-route-conventions)
@@ -106,13 +114,79 @@ Intlayer ist mehr als nur eine i18n-Lösung. Es bietet einen **selbstgehosteten 
 - [Content Declaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md)
 - [Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md)
 
+  </Tab>
+  <Tab label="Demo" value="demo">
+
 This comprehensive guide provides everything you need to integrate Intlayer with React Router v7 using file-system based routing for a fully internationalized application with locale-aware routing and TypeScript support.
+
+  </Tab>
+</Tabs>
+
+Siehe [Application Template](https://github.com/aymericzip/intlayer-react-router-v7-fs-routes-template) auf GitHub.
 
 <Steps>
 
 <Step number={10} title="Middleware hinzufügen">
 
+Installieren Sie die erforderlichen Pakete mit Ihrem bevorzugten Package Manager:
+
+```bash packageManager="npm"
+npm install intlayer react-intlayer
+npm install vite-intlayer --save-dev
+npm install @react-router/fs-routes --save-dev
+npx intlayer init
+```
+
+```bash packageManager="pnpm"
+pnpm add intlayer react-intlayer
+pnpm add vite-intlayer --save-dev
+pnpm add @react-router/fs-routes --save-dev
+```
+
+```bash packageManager="bun"
+bun add intlayer react-intlayer
+bun add vite-intlayer --dev
+bun add @react-router/fs-routes --dev
+bun x intlayer init
+```
+
+- **intlayer**
+
+Das Core-Paket, das Internationalisierungstools für Konfigurationsmanagement, Übersetzung, [Inhaltsdeklaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/content_file.md), Transpilation und [CLI-Befehle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/index.md) bereitstellt.
+
+- **react-intlayer**
+  Das Paket, das Intlayer mit React-Anwendungen integriert. Es bietet Context-Provider und Hooks für React-Internationalisierung.
+
+- **vite-intlayer**
+  Includes the Vite-Plugin zur Integration von Intlayer mit dem [Vite-Bundler](https://vite.dev/guide/why.html#why-bundle-for-production), sowie Middleware zur Erkennung der bevorzugten Sprache des Benutzers, zur Verwaltung von Cookies und zur Bearbeitung der URL-Umleitung.
+
+- **@react-router/fs-routes**
+  Das Package, das dateiensystembasiertes Routing für React Router v7 ermöglicht.
+
+</Step>
+
+<Step number={2} title="Konfiguration deines Projekts">
+
+Erstellen Sie eine Konfigurationsdatei, um die Sprachen Ihrer Anwendung zu konfigurieren:
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { type IntlayerConfig, Locales } from "intlayer";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    defaultLocale: Locales.ENGLISH,
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+  },
+};
+
+export default config;
+```
+
 Sie können auch das `intlayerProxy` verwenden, um serverseitiges Routing zu Ihrer Anwendung hinzuzufügen. Dieses Plugin erkennt automatisch die aktuelle Locale basierend auf der URL und setzt das entsprechende Locale-Cookie. Wenn keine Locale angegeben ist, bestimmt das Plugin die am besten geeignete Locale basierend auf den Spracheinstellungen des Browsers des Benutzers. Wenn keine Locale erkannt wird, erfolgt eine Weiterleitung zur Standard-Locale.
+
+</Step>
+
+<Step number={3} title="Integrate Intlayer in Your Vite-Konfiguration">
 
 > Beachten Sie, dass Sie, um das `intlayerProxy` in der Produktion zu verwenden, das Paket `vite-intlayer` von `devDependencies` zu `dependencies` verschieben müssen.
 
@@ -547,6 +621,34 @@ Dieser Hook wird bereits in der Layout-Komponente (`root.tsx`) verwendet, die in
 
 </Step>
 
+<Step number={10} title="Middleware hinzufügen">
+
+Sie können auch `intlayerProxy` verwenden, um Server-seitiges Routing zu Ihrer Anwendung hinzuzufügen. Dieses Plugin erkennt automatisch das aktuelle Locale basierend auf der URL und setzt das entsprechende Locale-Cookie. Wenn kein Locale angegeben ist, bestimmt das Plugin das am besten geeignete Locale basierend auf den Spracheinstellungen des Browsers des Benutzers. Wenn kein Locale erkannt wird, wird es zum Standard-Locale weitergeleitet.
+
+> Beachten Sie, dass Sie das `vite-intlayer`-Paket von `devDependencies` zu `dependencies` verschieben müssen, um den `intlayerProxy` in der Produktion zu verwenden.
+
+> Seit Intlayer v9 ist `intlayerProxy()` direkt in das `intlayer()` Plugin integriert und wird standardmäßig über die `routing.enableProxy` Option (`true` als Standard) aktiviert. Eine separate Registrierung wie unten gezeigt ist nun optional — sie wird für Rückwärtskompatibilität und Setups beibehalten, die die Plugin-Reihenfolge kontrollieren müssen. Setzen Sie `routing.enableProxy: false`, um sich abzumelden. Siehe die [v9-Versionshinweise](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/releases/v9.md).
+
+```typescript {3,7} fileName="vite.config.ts"
+import { reactRouter } from "@react-router/dev/vite";
+import { defineConfig } from "vite";
+import { intlayer } from "vite-intlayer";
+
+export default defineConfig({
+  plugins: [
+    reactRouter(),
+
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
+  ],
+});
+```
+
+</Step>
+
 <Step number={11} title="Inhalt Ihrer Komponenten extrahieren" isOptional={true}>
 
 Wenn Sie eine bestehende Codebasis haben, kann die Transformation von Tausenden von Dateien zeitaufwendig sein.
@@ -611,18 +713,6 @@ bun x intlayer extract
  <Tab value='Babel-Compiler'>
 
 > Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
-
-```bash packageManager="npm"
-npm install @intlayer/babel --save-dev
-```
-
-```bash packageManager="pnpm"
-pnpm add @intlayer/babel --save-dev
-```
-
-```bash packageManager="yarn"
-yarn add @intlayer/babel --save-dev
-```
 
 ```bash packageManager="bun"
 bun add @intlayer/babel --dev

@@ -27,34 +27,10 @@ author: aymericzip
 
 ## Определение переводов
 
-<Tabs group="framework">
-  <Tab label="React" value="react">
-
 With `react-intlayer`, you can use translations in React components. Here's an example:
-
-```jsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
-import type { FC } from "react";
-import { useIntlayer } from "react-intlayer";
-
-const MyComponent: FC = () => {
-  const content = useIntlayer("multi_lang");
-
-  return (
-    <div>
-      <p>{content.welcomeMessage}</p>
-    </div>
-  );
-};
-
-export default MyComponent;
-```
-
-This component fetches the corresponding translation based on the current locale set in your application.
 
   </Tab>
   <Tab label="Next.js" value="nextjs">
-
-With `next-intlayer`, you can use translations in React Server Components or Client Components. Here's an example in a Client Component:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 "use client";
@@ -75,69 +51,6 @@ const MyComponent: FC = () => {
 export default MyComponent;
 ```
 
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-With `vue-intlayer`, you can use translations in Vue components. Here's an example:
-
-```vue fileName="**/*.vue"
-<script setup lang="ts">
-import { useIntlayer } from "vue-intlayer";
-
-const content = useIntlayer("multi_lang");
-</script>
-
-<template>
-  <div>
-    <p>{{ content.welcomeMessage }}</p>
-  </div>
-</template>
-```
-
-  </Tab>
-  <Tab label="Svelte" value="svelte">
-
-With `svelte-intlayer`, you can use translations in Svelte components. The hook returns a Svelte store. Here's an example:
-
-```svelte fileName="**/*.svelte"
-<script lang="ts">
-import { useIntlayer } from "svelte-intlayer";
-
-const content = useIntlayer("multi_lang");
-</script>
-
-<div>
-  <p>{$content.welcomeMessage}</p>
-</div>
-```
-
-  </Tab>
-  <Tab label="Preact" value="preact">
-
-With `preact-intlayer`, you can use translations in Preact components. Here's an example:
-
-```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
-import type { FC } from "preact";
-import { useIntlayer } from "preact-intlayer";
-
-const MyComponent: FC = () => {
-  const content = useIntlayer("multi_lang");
-
-  return (
-    <div>
-      <p>{content.welcomeMessage}</p>
-    </div>
-  );
-};
-
-export default MyComponent;
-```
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-With `solid-intlayer`, you can use translations in SolidJS components. Here's an example:
-
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { Component } from "solid-js";
 import { useIntlayer } from "solid-intlayer";
@@ -155,52 +68,6 @@ const MyComponent: Component = () => {
 export default MyComponent;
 ```
 
-  </Tab>
-  <Tab label="Angular" value="angular">
-
-With `angular-intlayer`, you can use translations in Angular components. Here's an example:
-
-```typescript fileName="app.component.ts" codeFormat="typescript"
-import { Component } from "@angular/core";
-import { useIntlayer } from "angular-intlayer";
-
-@Component({
-  selector: "app-my-component",
-  template: `
-    <div>
-      <p>{{ content().welcomeMessage }}</p>
-    </div>
-  `,
-})
-export class MyComponent {
-  content = useIntlayer("multi_lang");
-}
-```
-
-  </Tab>
-  <Tab label="Vanilla JS" value="vanilla">
-
-With `vanilla-intlayer`, you can use translations by subscribing to content changes. Here's an example:
-
-```typescript fileName="**/*.ts" codeFormat={["typescript", "esm"]}
-import { installIntlayer, useIntlayer } from "vanilla-intlayer";
-
-installIntlayer();
-
-const content = useIntlayer("multi_lang").onChange((newContent) => {
-  document.getElementById("welcome-message")!.textContent = String(
-    newContent.welcomeMessage
-  );
-});
-
-// Initial render
-document.getElementById("welcome-message")!.textContent = String(
-  content.welcomeMessage
-);
-```
-
-  </Tab>
-</Tabs>
 ## Конфигурация локалей
 
 Для обеспечения правильной обработки переводов вы можете настроить поддерживаемые локали в файле `intlayer.config.ts`. Эта конфигурация позволяет определить языки, которые поддерживает ваше приложение:

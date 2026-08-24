@@ -52,8 +52,6 @@ Bu komut, Intlayer yapılandırma dosyalarını içeren dizinleri bularak tüm I
 
   > Örnek: `npx intlayer projects list --base-dir /path/to/workspace`
 
-  > Örnek: `npx intlayer projects list --base-dir /path/to/workspace`
-
 - **`--git-root`**: Temel dizin yerine git kök dizininden arama yapar. Bu, monorepo veya git deposundaki tüm Intlayer projelerini bulmak için faydalıdır.
 
   > Örnek: `npx intlayer projects list --git-root`
@@ -199,9 +197,5 @@ $ npx intlayer projects list --json
 - **Proje keşfi**: Bir workspace içindeki Intlayer etkin projeleri bulma
 - **CI/CD**: Otomatik iş akışlarında Intlayer projelerini doğrulama
 - **Dokümantasyon**: Intlayer kullanan tüm projeleri listeleyen dokümantasyon oluşturma
-
-Çıktı, her proje dizinine mutlak yollar sağlar; bu da bu dizinlere gitmeyi veya birden çok Intlayer projesi üzerinde betik tabanlı işlemler yapmayı kolaylaştırır.
-
-- **Dokümantasyon**: Intlayer kullanan tüm projelerin listesini içeren dokümantasyon oluşturma
 
 Çıktı, her proje dizinine mutlak yollar sağlar; bu da birden fazla Intlayer projesine kolayca erişmeyi veya bu projeler üzerinde betiklerle işlem yapmayı kolaylaştırır.

@@ -138,6 +138,32 @@ getMultilingualUrls("/about", { currentDomain: "intlayer.org" });
 
 Bu mutlak URL'ler, SEO için `<link rel="alternate" hreflang="...">` etiketlerinde kullanılmaya hazırdır.
 
+## Tür Çıkarımı
+
+`routing.domains` oluşturulan modül artışına serileştirilir, bu nedenle
+`getLocalizedUrl` ve `getLocalizedPath` dönüş tiplerini, bir etki alanı yönlendirmeli locale'in çözümlediği tam URL'ye daraltır — önek bastırma dahil.
+
+```ts
+// routing: { mode: 'prefix-no-default', domains: { en: 'intlayer.org', zh: 'intlayer.zh' } }
+
+getLocalizedUrl("/about", "zh");
+//     ^? "https://intlayer.zh/about" | "/about"
+
+getLocalizedPath("/about", "zh");
+//     ^? "/about"   (hiçbir zaman origin değil ve /zh/ öneki yok)
+```
+
+URL türü, işlevin döndürebileceği iki değerin **birleşimidir**: locale'in etki alanında kesin URL ve sayfa zaten o etki alanında yer aldığında döndürdüğü göreli URL. `getLocalizedPath`'in böyle bir belirsizliği yoktur - asla bir origin yayınlamaz - bu nedenle tek bir literal olarak kalır.
+
+Bir etki alanını paylaşan locale'ler, tür içinde normal öneklerini de tutar:
+
+```ts
+getLocalizedUrl("/about", "fr");
+//     ^? "https://intlayer.org/fr/about" | "/fr/about"
+```
+
+> `routing.domains` değiştirdikten sonra türleri yeniden oluşturun (`npx intlayer build` veya herhangi bir geliştirme sunucusu çalışması) - daraltma, yapılandırma dosyasının kendisinden değil, oluşturulan `__RoutingRegistry`'den gelir.
+
 ## Proxy Davranışı
 
 ### Next.js
@@ -169,6 +195,8 @@ GET intlayer.zh/about
 ### Vite
 
 `intlayerProxy` Vite eklentisi, geliştirme sırasında aynı mantığı uygular:
+
+> Intlayer v9 itibariyle, `intlayerProxy()` doğrudan `intlayer()` eklentisine paketlenmiş ve `routing.enableProxy` seçeneği aracılığıyla varsayılan olarak etkinleştirilmiştir (`true` varsayılandır). Aşağıda gösterildiği gibi ayrı olarak kaydetmek artık isteğe bağlıdır — geriye dönük uyumluluk ve eklenti sırasını kontrol etmesi gereken kurulumlar için tutulmuştur. Devre dışı bırakmak için `routing.enableProxy: false` olarak ayarlayın. [v9 sürüm notlarına](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/releases/v9.md) bakın.
 
 ```typescript fileName="vite.config.ts"
 import { defineConfig } from "vite";

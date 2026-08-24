@@ -40,6 +40,12 @@ author: aymericzip
 
 ## Mengapa Menggunakan Intlayer Compiler?
 
+- **Otomatisasi**: Menghilangkan penyalinan konten manual ke dalam kamus.
+
+- **Kecepatan**: Ekstraksi konten yang dioptimalkan memastikan proses build Anda tetap cepat.
+
+- **Developer Experience**: Jaga deklarasi konten tetap berada di tempat penggunaannya, meningkatkan maintainability.
+
 - **Otomatisasi**: Menghilangkan penyalinan konten secara manual ke dalam kamus.
 - **Kecepatan**: Ekstraksi konten yang dioptimalkan memastikan proses build Anda tetap cepat.
 - **Pengalaman Pengembang**: Menjaga deklarasi konten tepat di tempat mereka digunakan, meningkatkan pemeliharaan.
@@ -53,6 +59,8 @@ Meskipun compiler menawarkan pengalaman "langsung bekerja" yang sangat baik, com
 
 - **Ambiguitas heuristik**: Compiler harus menebak apa yang merupakan konten yang ditujukan untuk pengguna versus logika aplikasi (misalnya, `className="active"`, kode status, ID produk). Dalam codebase yang kompleks, ini dapat menyebabkan false positive atau string yang terlewat yang memerlukan anotasi manual dan pengecualian.
 - **Ekstraksi hanya statis**: Ekstraksi berbasis compiler bergantung pada analisis statis. String yang hanya ada saat runtime (kode kesalahan API, field CMS, dll.) tidak dapat ditemukan atau diterjemahkan oleh compiler saja, jadi Anda masih memerlukan strategi i18n runtime yang melengkapi.
+
+- **Ekstraksi statis saja**: Ekstraksi berbasis compiler mengandalkan analisis statis. String yang hanya ada saat runtime (kode error API, field CMS, dll.) tidak dapat ditemukan atau diterjemahkan oleh compiler saja, jadi Anda masih memerlukan strategi i18n runtime yang komplementer.
 
 Untuk perbandingan arsitektur yang lebih mendalam, lihat posting blog [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/compiler_vs_declarative_i18n.md).
 
@@ -94,11 +102,17 @@ export default defineConfig({
 });
 ```
 
+> Plugin `intlayerCompiler()` standalone masih diekspor untuk setup lanjutan. Mendaftarkannya bersama `intlayer()` aman — compiler melakukan deduplikasi dirinya sendiri dan berjalan hanya sekali.
+
 See complete tutorial: [Intlayer Compiler with Vite+React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react_compiler.md)
 
 #### Dukungan Framework
 
 Plugin Vite secara otomatis mendeteksi dan menangani berbagai jenis file:
+
+- **React / JSX / TSX**: Ditangani secara native.
+
+- **Vue**: Memerlukan `@intlayer/vue-compiler`.
 
 - **React / JSX / TSX**: Ditangani secara native.
 - **Vue**: Memerlukan `@intlayer/vue-compiler`.

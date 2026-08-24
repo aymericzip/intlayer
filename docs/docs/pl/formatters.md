@@ -53,6 +53,18 @@ author: aymericzip
 
 Intlayer dostarcza zestaw lekkich helperów opartych na natywnych API `Intl`, oraz opakowanie `Intl` z pamięcią podręczną, które zapobiega wielokrotnemu tworzeniu ciężkich formatterów. Te narzędzia są w pełni świadome lokalizacji i mogą być używane z głównego pakietu `intlayer`.
 
+**W przypadku React, Vue i innych frameworków**, użyj hooks/composables specyficznych dla danego frameworku, które automatycznie wiążą się z kontekstem locale Twojej aplikacji:
+
+| Framework                | Import                                               |
+| ------------------------ | ---------------------------------------------------- |
+| **React** (client)       | `react-intlayer/format`                              |
+| **React** (server)       | `react-intlayer/server/format`                       |
+| **Next.js** (client)     | `next-intlayer/client/format`                        |
+| **Next.js** (server)     | `next-intlayer/server/format`                        |
+| **Vue**                  | `vue-intlayer/format`                                |
+| **Preact**               | `preact-intlayer/format`                             |
+| **Vanilla JS / Node.js** | `intlayer` (wymaga ręcznego przekazania lokalizacji) |
+
 ## React Formatters
 
 ### Import
@@ -79,8 +91,6 @@ import {
   getIntlayer,
 } from "intlayer";
 ```
-
-Jeśli używasz React, dostępne są również hooki; zobacz `react-intlayer/format`.
 
 ### Dostępne Hooks
 
@@ -174,8 +184,6 @@ const MyComponent = () => {
 
 ### `Intl.DisplayNames`
 
-Do lokalizowanych nazw języków, regionów, walut i skryptów:
-
 ```ts
 import { Intl } from "intlayer";
 
@@ -262,8 +270,6 @@ words.sort(collator.compare); // ["20", "100", "äpfel", "zebra"]
 W kontekstach bez frameworka, importuj formatters bezpośrednio z `intlayer`. Pamiętaj, że musisz ręcznie przekazać locale.
 
 ### `Intl.PluralRules`
-
-Do określania form liczby mnogiej w różnych lokalizacjach:
 
 ```ts
 import { Intl } from "intlayer";
@@ -473,9 +479,6 @@ getLocaleName("en", "fr"); // "anglais"
 getLocaleName("de", "es"); // "alemán"
 ```
 
-- **displayLocale**: Lokalizacja, dla której pobierana jest nazwa
-- **targetLocale**: Lokalizacja, w której ma być wyświetlona nazwa (domyślnie displayLocale)
-
 ### `getLocaleLang(locale?)`
 
 Wyodrębnia kod języka z ciągu lokalizacji:
@@ -487,8 +490,6 @@ getLocaleLang("en-US"); // "en"
 getLocaleLang("fr-CA"); // "fr"
 getLocaleLang("de"); // "de"
 ```
-
-- **locale**: Lokalizacja, z której ma zostać wyodrębniony język (domyślnie bieżąca lokalizacja)
 
 ### `getLocaleFromPath(inputUrl)`
 
@@ -503,9 +504,6 @@ getLocaleFromPath("/dashboard"); // "en" (domyślna lokalizacja)
 getLocaleFromPath("https://example.com/es/about"); // "es"
 ```
 
-- **inputUrl**: Pełny ciąg URL lub ścieżka do przetworzenia
-- **returns**: Wykryta lokalizacja lub domyślna lokalizacja, jeśli nie znaleziono żadnej lokalizacji
-
 ### `getPathWithoutLocale(inputUrl, locales?)`
 
 Usuwa segment lokalizacji z URL lub ścieżki:
@@ -517,10 +515,6 @@ getPathWithoutLocale("/en/dashboard"); // "/dashboard"
 getPathWithoutLocale("/fr/dashboard"); // "/dashboard"
 getPathWithoutLocale("https://example.com/en/about"); // "https://example.com/about"
 ```
-
-- **inputUrl**: Pełny ciąg URL lub ścieżka do przetworzenia
-- **locales**: Opcjonalna tablica obsługiwanych lokalizacji (domyślnie skonfigurowane lokalizacje)
-- **returns**: URL bez segmentu lokalizacji
 
 ### `getLocalizedUrl(url, currentLocale, locales?, defaultLocale?, prefixDefault?)`
 
@@ -534,12 +528,6 @@ getLocalizedUrl("/about", "en", ["en", "fr"], "en", false); // "/about"
 getLocalizedUrl("https://example.com/about", "fr", ["en", "fr"], "en", true); // "https://example.com/fr/about"
 ```
 
-- **url**: Oryginalny URL do zlokalizowania
-- **currentLocale**: Bieżąca lokalizacja
-- **locales**: Opcjonalna tablica obsługiwanych lokalizacji (domyślnie skonfigurowane lokalizacje)
-- **defaultLocale**: Opcjonalna domyślna lokalizacja (domyślnie skonfigurowana domyślna lokalizacja)
-- **prefixDefault**: Czy poprzedzać domyślną lokalizację prefiksem (domyślnie skonfigurowana wartość)
-
 ### `getHTMLTextDir(locale?)`
 
 Zwraca kierunek tekstu dla lokalizacji:
@@ -551,9 +539,6 @@ getHTMLTextDir("en-US"); // "ltr"
 getHTMLTextDir("ar"); // "rtl"
 getHTMLTextDir("he"); // "rtl"
 ```
-
-- **locale**: Lokalizacja, dla której pobierany jest kierunek tekstu (domyślnie bieżąca lokalizacja)
-- **returns**: `"ltr"`, `"rtl"` lub `"auto"`
 
 ## Narzędzia do obsługi treści
 
@@ -570,10 +555,6 @@ const content = getContent(
   "fr"
 );
 ```
-
-- **node**: Węzeł treści do transformacji
-- **nodeProps**: Właściwości kontekstu transformacji
-- **locale**: Opcjonalna lokalizacja (domyślnie skonfigurowana lokalizacja domyślna)
 
 ### `getTranslation(languageContent, locale?, fallback?)`
 
@@ -593,10 +574,6 @@ const content = getTranslation(
 ); // "Bonjour"
 ```
 
-- **languageContent**: Obiekt mapujący lokalizacje na treści
-- **locale**: Docelowa lokalizacja (domyślnie skonfigurowana lokalizacja domyślna)
-- **fallback**: Czy użyć lokalizacji domyślnej jako zapasowej (domyślnie true)
-
 ### `getIntlayer(dictionaryKey, locale?, plugins?)`
 
 Pobiera i transformuje treść ze słownika na podstawie klucza:
@@ -607,10 +584,6 @@ import { getIntlayer } from "intlayer";
 const content = getIntlayer("common", "fr");
 const nestedContent = getIntlayer("common", "fr", customPlugins);
 ```
-
-- **dictionaryKey**: Klucz słownika do pobrania
-- **locale**: Opcjonalna lokalizacja (domyślnie skonfigurowana lokalizacja domyślna)
-- **plugins**: Opcjonalna tablica niestandardowych wtyczek transformujących
 
 ## Uwagi
 

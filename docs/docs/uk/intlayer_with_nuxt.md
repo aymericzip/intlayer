@@ -639,6 +639,35 @@ export default aboutPageContent;
 
 </Step>
 
+<Step number="6b" title="Створіть Layout з навігацією" isOptional={true}>
+
+Макети Nuxt дозволяють визначити спільну структуру для ваших сторінок. Створіть макет за замовчуванням, який включає перемикач локалі та навігацію:
+
+```vue fileName="layouts/default.vue"
+<script setup lang="ts">
+import Links from "~/components/Links.vue";
+import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
+</script>
+
+<template>
+  <div>
+    <header>
+      <LocaleSwitcher />
+    </header>
+    <main>
+      <slot />
+    </main>
+
+    <Links href="/">Головна</Links>
+    <Links href="/about">Про нас</Links>
+  </div>
+</template>
+```
+
+Компонент `Links` (показаний нижче) забезпечує автоматичну локалізацію внутрішніх навігаційних посилань.
+
+</Step>
+
 </Steps>
 
 ### Конфігурація Git

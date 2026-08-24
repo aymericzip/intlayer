@@ -215,7 +215,32 @@ export default withIntlayer(nextConfig);
 > `withIntlayer()` Next.js eklentisi, Intlayer'ı Next.js ile entegre etmek için kullanılır. Sözlük dosyalarının oluşturulmasını sağlar ve dev modunda onları izler. Intlayer ortam değişkenlerini [Webpack](https://webpack.js.org/) veya [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack) ortamları içinde tanımlar. Dahası, performansı optimize etmek için takma adlar sağlar ve Sunucu Bileşenleriyle tam uyumlu çalışır.
 > </Step>
 
+</Step>
+
 <Step number={4} title="Sayfanızda Dil Algılama">
+
+Intlayer derleyicisi, içeriğinizi çıkarmak ve optimize etmek için Babel gerektirir. `babel.config.js` (veya `babel.config.json`) dosyanızı Intlayer eklentilerini içerecek şekilde güncelleyin:
+
+```typescript fileName="babel.config.js"
+const {
+  intlayerExtractBabelPlugin,
+  intlayerOptimizeBabelPlugin,
+  getExtractPluginOptions,
+  getOptimizePluginOptions,
+} = require("@intlayer/babel");
+
+module.exports = {
+  presets: ["next/babel"],
+  plugins: [
+    [intlayerExtractBabelPlugin, getExtractPluginOptions()],
+    [intlayerOptimizeBabelPlugin, getOptimizePluginOptions()],
+  ],
+};
+```
+
+</Step>
+
+<Step number={5} title="Sayfalarınızda Yerel Ayarı Algılayın">
 
 `RootLayout` bileşeninizin içeriğini temizleyin ve aşağıdaki örnekle değiştirin:
 
@@ -321,6 +346,9 @@ export default async function Page() {
 }
 ```
 
+<Tabs>
+  <Tab label='Intlayer >=9.4' value='>=9.4'>
+
 ```tsx fileName="src/app/page.tsx"
 import { type FC } from "react";
 import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
@@ -348,13 +376,48 @@ export default async function Page() {
 }
 ```
 
+- **`IntlayerProvider`** kök düzeninde bir kez monte edilir. Hem sunucu hem de istemci bileşenlerine yerel ayarı sağlar, bu nedenle sayfaların kendilerini sarmalamalarına gerek kalmaz.
+- `[locale]` yol segmenti olmadan yerel ayar her zaman istekten gelir — Intlayer proxy'si tarafından ayarlanan `x-intlayer-locale` başlığı, ardından yerel ayar çerezi — sunucu kancaları sağlayıcı çalışmadığında kendi başlarına okurlar.
+
   </Tab>
+
 </Tabs>
+
+```tsx fileName="src/app/page.tsx"
+import { type FC } from "react";
+import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
+import { getLocale } from "next-intlayer/server";
+
+const PageContent: FC = () => {
+  const content = useIntlayer("page-content");
+
+  return (
+    <>
+      <p>{content.getStartedByEditing}</p>
+      <code>src/app/page.tsx</code>
+    </>
+  );
+};
+
+export default async function Page() {
+  const locale = await getLocale();
+
+  return (
+    <IntlayerServerProvider locale={locale}>
+      <PageContent />
+    </IntlayerServerProvider>
+  );
+}
+```
 
 - **`IntlayerClientProvider`**, istemci tarafındaki bileşenlere dil sağlamak için kullanılır.
 - **`IntlayerServerProvider`** ise sunucu tarafındaki alt bileşenlere dil sağlamak için kullanılır.
 
   > Layout and page cannot share a common server context because the server context system is based on a per-request data store (via [React's cache](https://react.dev/reference/react/cache) mechanism), causing each "context" to be re-created for different segments of the application. Placing the provider in a shared layout would break this isolation, preventing the correct propagation of the server context values to your server components.
+
+  </Tab>
+
+</Tabs>
 
 </Step>
 
@@ -412,6 +475,8 @@ export const config = {
 ```
 
 > `intlayerProxy`, kullanıcının tercih ettiği dili algılamak ve [yapılandırma dosyası ayarlarında](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) belirtildiği gibi uygun URL'ye yönlendirmek için kullanılır. Ek olarak, kullanıcının tercih ettiği dilin bir çerezde saklanmasına olanak tanır.
+
+> Intlayer v9'dan itibaren, bu middleware `routing.enableProxy` seçeneğini dikkate alır (`true` varsayılandır). Bunu pass-through'a çevirmek için konfigürasyonunuzda `routing.enableProxy: false` ayarlayın ve bu dosyayı silmeyin. [v9 sürüm notlarına](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/releases/v9.md) bakın.
 
 </Step>
 
@@ -471,6 +536,8 @@ export const LocaleSwitcher: FC = () => {
 
 `next-intlayer` kullanıldığında, sözlükler varsayılan olarak her sayfanın paketi (bundle) içinde yer alır. bundle boyutunu optimize etmek için Intlayer, makroları kullanarak `useIntlayer` çağrılarını akıllıca değiştiren isteğe bağlı bir SWC eklentisi sağlar. Bu, sözlüklerin yalnızca onları gerçekten kullanan sayfaların paketlerine dahil edilmesini sağlar.
 
+`@intlayer/babel` eklentisi zaten bundling optimizasyonunu entegre etmiştir (bkz. `babel.config.js`). Ancak `@intlayer/swc` eklentisi daha performanslıdır. `@intlayer/babel` eklentisini kaldırırsanız, `@intlayer/swc` eklentisini kullanabilirsiniz.
+
 Bu optimizasyonu etkinleştirmek için `@intlayer/swc` paketini yükleyin. Yüklendikten sonra `next-intlayer` eklentiyi otomatik olarak algılayacak ve kullanacaktır:
 
 ```bash packageManager="npm"
@@ -495,6 +562,8 @@ bun add @intlayer/swc --dev
 
 > Not: Eğer seçeneği (sözlük yapılandırmasında) `importMode: 'dynamic'` veya `importMode: 'fetch'` olarak ayarlarsanız, bu Suspense'e bağlı olacaktır, bu nedenle `useIntlayer` çağrılarınızı bir `Suspense` sınırı ile sarmalamanız gerekecektir. Bu, `useIntlayer`'ı doğrudan Sayfa / Layout bileşeninizin en üst düzeyinde kullanamayacağınız anlamına gelir.
 > </Step>
+
+</Step>
 
 <Step number={11} title="Bileşenlerinizin içeriğini çıkarın" isOptional={true}>
 

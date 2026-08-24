@@ -470,6 +470,8 @@ document.querySelector<HTMLDivElement>(".edit-note")!.innerHTML =
 
 > 프로덕션에서 `intlayerProxy`를 사용하려면 `vite-intlayer`를 `devDependencies`에서 `dependencies`로 이동해야 한다는 점에 유의하세요.
 
+> Intlayer v9부터 `intlayerProxy()`는 `intlayer()` 플러그인에 직접 번들되어 있으며 `routing.enableProxy` 옵션(`true`가 기본값)을 통해 기본적으로 활성화됩니다. 아래와 같이 별도로 등록하는 것은 선택사항입니다 — 이전 버전과의 호환성 및 플러그인 순서를 제어해야 하는 설정을 위해 유지됩니다. `routing.enableProxy: false`를 설정하여 옵트아웃할 수 있습니다. [v9 release notes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/releases/v9.md)를 참조하세요.
+
 ```typescript {3,7} fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
 import { intlayer } from "vite-intlayer";
@@ -646,8 +648,6 @@ bun run build # 또는 bun run dev
 
  </Tab>
 </Tabs>
-
-</Step>
 
 </Steps>
 

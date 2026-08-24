@@ -123,6 +123,30 @@ Lihat [templat aplikasi](https://github.com/aymericzip/intlayer-astro-template) 
 Instal paket yang diperlukan menggunakan manajer paket pilihan Anda:
 
 ```bash packageManager="npm"
+npx intlayer init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer@canary init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer@canary init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer@canary init --interactive
+```
+
+> flag `--interactive` bersifat opsional. Gunakan `intlayer-cli init` jika Anda adalah agen AI.
+
+> Perintah ini akan mendeteksi lingkungan Anda dan menginstal paket yang diperlukan. Sebagai contoh:
+
+```bash packageManager="npm"
+npm install intlayer astro-intlayer
+```
+
+```bash packageManager="npm"
 npm install intlayer astro-intlayer
 # opsional: jika Anda ingin menambahkan dukungan island React
 npm install react react-dom react-intlayer @astrojs/react

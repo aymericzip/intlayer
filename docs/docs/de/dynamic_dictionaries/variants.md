@@ -523,6 +523,27 @@ Deklarieren Sie die Variante stattdessen einmal am Provider, genau wie `locale`:
 
   </Tab>
   <Tab label="Next.js" value="nextjs">
+    <Tabs>
+      <Tab label="Intlayer >=9.4" value=">=9.4">
+
+        ```tsx fileName="layout.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+        import { IntlayerProvider } from "next-intlayer/server";
+
+        export default async function Layout({ children, params }) {
+          const { locale } = await params;
+          const schoolType = await getSchoolType();
+
+          return (
+            <IntlayerProvider locale={locale} variant={schoolType}>
+              {children}
+            </IntlayerProvider>
+          );
+        }
+        ```
+
+      </Tab>
+      <Tab label="Intlayer <9.4" value="<9.4">
+
     ```tsx fileName="layout.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
     import { IntlayerServerProvider } from "next-intlayer/server";
     import { IntlayerClientProvider } from "next-intlayer";
@@ -540,6 +561,9 @@ Deklarieren Sie die Variante stattdessen einmal am Provider, genau wie `locale`:
       );
     }
     ```
+
+      </Tab>
+    </Tabs>
 
   </Tab>
   <Tab label="Vue" value="vue">

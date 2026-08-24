@@ -492,7 +492,7 @@ Te narzędzia renderują **tylko surowe ciągi znaków Markdown** i są niezale�
 
 <Tabs group="framework">
   <Tab label="React" value="react">
-  
+
     #### Komponent `<MarkdownRenderer />`
 
     Renderuje ciąg znaków Markdown z określonymi opcjami.
@@ -531,7 +531,7 @@ Te narzędzia renderują **tylko surowe ciągi znaków Markdown** i są niezale�
 
   </Tab>
   <Tab label="Next.js" value="nextjs">
-  
+
     #### Komponent `<MarkdownRenderer />`
 
     Renderuje ciąg znaków Markdown z określonymi opcjami.
@@ -957,21 +957,38 @@ Te narzędzia renderują **tylko surowe ciągi znaków Markdown** i są niezale�
   </Tab>
   <Tab label="Angular" value="angular">
 
-    ```typescript fileName="app.module.ts"
-    import { NgModule } from '@angular/core';
-    import { IntlayerMarkdownModule } from 'angular-intlayer/markdown';
+    ```typescript fileName="app.config.ts"
+    import { createIntlayerMarkdownProvider } from "angular-intlayer/markdown";
 
-    @NgModule({
-      imports: [
-        IntlayerMarkdownModule.forRoot({
+    export const appConfig: ApplicationConfig = {
+      providers: [
+        createIntlayerMarkdownProvider({
+          components: {
+            h1: { class: "text-2xl font-bold" },
+          },
+        }),
+      ],
+    };
+    ```
+
+
+    > MDX jest obsługiwany — każda nazwa komponentu użyta wewnątrz twojego Markdown (np. `<MyCustomJSXComponent />`) jest rozwiązywana względem mapy `components`.
+
+    Możesz również użyć własnego renderera markdown:
+
+    ```typescript fileName="app.config.ts"
+    import { createIntlayerMarkdownProvider } from "angular-intlayer/markdown";
+
+    export const appConfig: ApplicationConfig = {
+      providers: [
+        createIntlayerMarkdownProvider({
           renderMarkdown: async (md) => {
             const { renderMarkdown } = await import('angular-intlayer/markdown');
             return renderMarkdown(md);
-          }
-        })
-      ]
-    })
-    export class AppModule {}
+          },
+        }),
+      ],
+    };
     ```
 
     > Dynamiczne importowanie twojego renderera Markdown to świetny sposób na zmniejszenie rozmiaru pakietu twojej aplikacji.
@@ -1047,7 +1064,7 @@ const MyComponent = () => {
 ```
 
   </Tab>
- 
+
   <Tab label="Vue" value="vue">
 
 Vue ma wbudowany komponent `<Suspense>`. Zawiń komponent renderujący zawartość Markdown w granicę `<Suspense>`.

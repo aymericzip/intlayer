@@ -31,6 +31,8 @@ author: aymericzip
 
 Die Funktion `getEnumeration` ruft Inhalte ab, die einer bestimmten Menge entsprechen, basierend auf vordefinierten Bedingungen in einem Enumerationsobjekt. Die Bedingungen sind als Schlüssel definiert, und ihre Priorität wird durch ihre Reihenfolge im Objekt bestimmt.
 
+Weitere Informationen zur Deklaration von Enumerationen finden Sie in der [Enumeration-Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/enumeration.md).
+
 ## Parameter
 
 - `enumerationContent: QuantityContent<Content>`

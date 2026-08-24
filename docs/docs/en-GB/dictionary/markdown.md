@@ -495,7 +495,7 @@ These utilities render **only raw Markdown strings** and are independent of `use
 
 <Tabs group="framework">
   <Tab label="React" value="react">
-  
+
     #### `<MarkdownRenderer />` Component
 
     Renders a Markdown string with specific options.
@@ -534,7 +534,7 @@ These utilities render **only raw Markdown strings** and are independent of `use
 
   </Tab>
   <Tab label="Next.js" value="nextjs">
-  
+
     #### `<MarkdownRenderer />` Component
 
     Renders a Markdown string with specific options.
@@ -960,6 +960,10 @@ The `MarkdownProvider` (or its framework equivalent) configures the Markdown ren
   </Tab>
   <Tab label="Angular" value="angular">
 
+> MDX is supported — any component name used inside your Markdown (e.g. `<MyCustomJSXComponent />`) is resolved against the `components` map.
+
+You can also use your own markdown renderer:
+
     ```typescript fileName="app.module.ts"
     import { NgModule } from '@angular/core';
     import { IntlayerMarkdownModule } from 'angular-intlayer/markdown';
@@ -1050,7 +1054,7 @@ const MyComponent = () => {
 ```
 
   </Tab>
- 
+
   <Tab label="Vue" value="vue">
 
 Vue has a built-in `<Suspense>` component. Wrap the component rendering Markdown content in a `<Suspense>` boundary.

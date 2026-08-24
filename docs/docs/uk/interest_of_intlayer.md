@@ -89,8 +89,6 @@ Intlayer пропонує низку додаткових функцій, яки
 </Accordion>
 </AccordionGroup>
 
----
-
 ## Чому було створено Intlayer?
 
 Intlayer було створено для вирішення поширеної проблеми, яка впливає на всі популярні бібліотеки i18n, такі як `next-intl`, `react-i18next`, `react-intl`, `next-i18next`, `react-intl` та `vue-i18n`.

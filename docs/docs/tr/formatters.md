@@ -48,45 +48,15 @@ Intlayer, yerel `Intl` API'leri üzerine inşa edilmiş hafif yardımcılar küm
 
 ## Önbelleğe Alınmış Intl
 
-Dışa aktarılan `Intl`, global `Intl` etrafında ince, önbelleğe alınmış bir sarmalayıcıdır. `NumberFormat`, `DateTimeFormat`, `RelativeTimeFormat`, `ListFormat`, `DisplayNames`, `Collator` ve `PluralRules` örneklerini önbelleğe alır, bu da aynı biçimlendiriciyi tekrar tekrar yeniden oluşturmaktan kaçınır.
-
 Biçimlendirici yapımı nispeten pahalı olduğundan, bu önbelleğe alma davranış değiştirmeden performansı iyileştirir. Sarmalayıcı yerel `Intl` ile aynı API'yi gösterir, bu yüzden kullanım aynıdır.
-
-- Önbelleğe alma işlem başına şeffaftır ve arayanlara görünmez.
 
 > Eğer `Intl.DisplayNames` ortamda mevcut değilse, tek bir dev-only uyarısı yazdırılır (polyfill düşünün).
 
 Örnekler:
 
-```ts
-import { Intl } from "intlayer";
-
-// Sayı biçimlendirme
-const numberFormat = new Intl.NumberFormat("en-GB", {
-  style: "currency",
-  currency: "GBP",
-});
-numberFormat.format(1234.5); // "£1,234.50"
-
-// Diller, bölgeler vb. için görünen adlar
-const displayNames = new Intl.DisplayNames("fr", { type: "language" });
-displayNames.of("en"); // "anglais"
-
-// Sıralama için karşılaştırma
-const collator = new Intl.Collator("fr", { sensitivity: "base" });
-collator.compare("é", "e"); // 0 (eşit)
-
-// Çoğul kuralları
-const pluralRules = new Intl.PluralRules("fr");
-pluralRules.select(1); // "one"
-pluralRules.select(2); // "other"
-```
-
 ## Yerel Ayar Yardımcıları
 
 ### `getLocaleFromPath(inputUrl)`
-
-Bir URL veya yol adından yerel ayar segmentini çıkarır:
 
 ```ts
 import { getLocaleFromPath } from "intlayer";
@@ -97,28 +67,15 @@ getLocaleFromPath("/dashboard"); // "en" (varsayılan yerel ayar)
 getLocaleFromPath("https://example.com/es/about"); // "es"
 ```
 
-- **inputUrl**: İşlenecek tam URL dizesi veya yol adı
-- **returns**: Algılanan yerel ayar veya yerel ayar bulunamazsa varsayılan yerel ayar
-
 ### `getPathWithoutLocale(inputUrl, locales?)`
 
 Bir URL veya yol adından yerel ayar segmentini kaldırır:
-
-```ts
-import { getPathWithoutLocale } from "intlayer";
-
-getPathWithoutLocale("/en/dashboard"); // "/dashboard"
-getPathWithoutLocale("/fr/dashboard"); // "/dashboard"
-getPathWithoutLocale("https://example.com/en/about"); // "https://example.com/about"
-```
 
 - **inputUrl**: İşlenecek tam URL dizesi veya yol adı
 - **locales**: İsteğe bağlı desteklenen yerel ayarlar dizisi (varsayılan olarak yapılandırılmış yerel ayarlar)
 - **returns**: Yerel ayar segmenti olmadan URL
 
 ### `getLocalizedUrl(url, currentLocale, locales?, defaultLocale?, prefixDefault?)`
-
-Mevcut yerel ayar için yerelleştirilmiş bir URL oluşturur:
 
 ```ts
 import { getLocalizedUrl } from "intlayer";
@@ -127,12 +84,6 @@ getLocalizedUrl("/about", "fr", ["en", "fr"], "en", false); // "/fr/about"
 getLocalizedUrl("/about", "en", ["en", "fr"], "en", false); // "/about"
 getLocalizedUrl("https://example.com/about", "fr", ["en", "fr"], "en", true); // "https://example.com/fr/about"
 ```
-
-- **url**: Yerelleştirilecek orijinal URL
-- **currentLocale**: Mevcut yerel ayar
-- **locales**: İsteğe bağlı desteklenen yerel ayarlar dizisi (varsayılan olarak yapılandırılmış yerel ayarlar)
-- **defaultLocale**: İsteğe bağlı varsayılan yerel ayar (varsayılan olarak yapılandırılmış varsayılan yerel ayar)
-- **prefixDefault**: Varsayılan yerel ayarın öneklenip öneklenmeyeceği (varsayılan olarak yapılandırılmış değer)
 
 ### `getHTMLTextDir(locale?)`
 
@@ -146,14 +97,9 @@ getHTMLTextDir("ar"); // "rtl"
 getHTMLTextDir("he"); // "rtl"
 ```
 
-- **locale**: Metin yönünün alınacağı yerel ayar (varsayılan olarak mevcut yerel ayar)
-- **returns**: `"ltr"`, `"rtl"` veya `"auto"`
-
 ## İçerik İşleme Yardımcıları
 
 ### `getContent(node, nodeProps, locale?)`
-
-Bir içerik düğümünü tüm kullanılabilir eklentilerle dönüştürür (çeviri, numaralandırma, ekleme vb.):
 
 ```ts
 import { getContent } from "intlayer";
@@ -165,27 +111,9 @@ const content = getContent(
 );
 ```
 
-- **node**: Dönüştürülecek içerik düğümü
-- **nodeProps**: Dönüşüm bağlamı için özellikler
-- **locale**: İsteğe bağlı yerel ayar (varsayılan olarak yapılandırılmış varsayılan yerel ayar)
-
 ### `getTranslation(languageContent, locale?, fallback?)`
 
 Bir dil içerik nesnesinden belirli bir yerel ayar için içerik çıkarır:
-
-```ts
-import { getTranslation } from "intlayer";
-
-const content = getTranslation(
-  {
-    en: "Hello",
-    fr: "Bonjour",
-    de: "Hallo",
-  },
-  "fr",
-  true
-); // "Bonjour"
-```
 
 - **languageContent**: Yerel ayarları içeriğe eşleyen nesne
 - **locale**: Hedef yerel ayar (varsayılan olarak yapılandırılmış varsayılan yerel ayar)
@@ -193,18 +121,12 @@ const content = getTranslation(
 
 ### `getIntlayer(dictionaryKey, locale?, plugins?)`
 
-Bir anahtara göre sözlükten içerik alır ve dönüştürür:
-
 ```ts
 import { getIntlayer } from "intlayer";
 
 const content = getIntlayer("common", "fr");
 const nestedContent = getIntlayer("common", "fr", customPlugins);
 ```
-
-- **dictionaryKey**: Alınacak sözlüğün anahtarı
-- **locale**: İsteğe bağlı yerel ayar (varsayılan olarak yapılandırılmış varsayılan yerel ayar)
-- **plugins**: İsteğe bağlı özel dönüşüm eklentileri dizisi
 
 ### `getIntlayerAsync(dictionaryKey, locale?, plugins?)`
 
@@ -216,24 +138,11 @@ import { getIntlayerAsync } from "intlayer";
 const content = await getIntlayerAsync("common", "fr");
 ```
 
-- **dictionaryKey**: Alınacak sözlüğün anahtarı
-- **locale**: İsteğe bağlı yerel ayar (varsayılan olarak yapılandırılmış varsayılan yerel ayar)
-- **plugins**: İsteğe bağlı özel dönüşüm eklentileri dizisi
-
 ## Biçimlendiriciler
 
 Aşağıdaki tüm yardımcılar `intlayer`'dan dışa aktarılır.
 
 ### `percentage(value, options?)`
-
-Bir sayıyı yüzde dizesi olarak biçimlendirir.
-
-Davranış: 1'den büyük değerler tam yüzdeler olarak yorumlanır ve normalleştirilir (ör. `25` → `25%`, `0.25` → `25%`).
-
-- **value**: `number | string`
-- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
-
-Örnekler:
 
 ```ts
 import { percentage } from "intlayer";
@@ -430,13 +339,6 @@ pluralRules.select(11); // "many"
 
 ### `list(values, options?)`
 
-Değerler dizisini `Intl.ListFormat` kullanarak yerelleştirilmiş liste dizesine biçimlendirir.
-
-- **values**: `(string | number)[]`
-- **options**: `Intl.ListFormatOptions & { locale?: LocalesValues }`
-  - Yaygın alanlar: `type` (`"conjunction" | "disjunction" | "unit"`), `style` (`"long" | "short" | "narrow"`)
-  - Varsayılanlar: `type: 'conjunction'`, `style: 'long'`
-
 Örnekler:
 
 ```ts
@@ -485,49 +387,6 @@ getPathWithoutLocale("/fr/dashboard"); // "/dashboard"
 
 İstemci bileşenleri:
 
-```tsx
-import {
-  useNumber,
-  useCurrency,
-  useDate,
-  usePercentage,
-  useCompact,
-  useList,
-  useRelativeTime,
-  useUnit,
-} from "react-intlayer/format";
-// veya Preact uygulamalarında
-// "preact-intlayer/format";
-// veya Next.js uygulamalarında
-// "next-intlayer/client/format";
-
-const MyComponent = () => {
-  const number = useNumber();
-  const currency = useCurrency();
-  const date = useDate();
-  const percentage = usePercentage();
-  const compact = useCompact();
-  const list = useList();
-  const relativeTime = useRelativeTime();
-  const unit = useUnit();
-
-  return (
-    <div>
-      <p>{number(123456.789)}</p>
-      <p>{currency(1234.5, { currency: "EUR" })}</p>
-      <p>{date(new Date(), "short")}</p>
-      <p>{percentage(0.25)}</p>
-      <p>{compact(1200)}</p>
-      <p>{list(["apple", "banana", "orange"])}</p>
-      <p>{relativeTime(new Date(), new Date() + 1000)}</p>
-      <p>{unit(123456.789, { unit: "kilometer" })}</p>
-    </div>
-  );
-};
-```
-
-Sunucu bileşenleri (veya React Server çalışma zamanı):
-
 ```ts
 import {
   useNumber,
@@ -551,8 +410,6 @@ import {
   useUnit,
 } from "next-intlayer/server/format";
 ```
-
-> Bu kancalar `IntlayerProvider` veya `IntlayerServerProvider`'dan yerel ayarı dikkate alacaktır
 
 ### `getHTMLTextDir(locale?)`
 
@@ -584,8 +441,6 @@ import {
   useUnit,
 } from "vue-intlayer/format";
 ```
-
-> Bu composable'lar enjekte edilen `IntlayerProvider`'dan yerel ayarı dikkate alacaktır
 
 ### `getTranslation(languageContent, locale?, fallback?)`
 

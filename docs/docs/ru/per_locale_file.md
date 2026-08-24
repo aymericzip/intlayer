@@ -43,6 +43,18 @@ Intlayer поддерживает два способа объявления м�
 
 Это рекомендуемый подход для большинства случаев использования. Он централизует переводы, что облегчает итерации и интеграцию с CMS.
 
+```tsx fileName="hello-world.ru.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
+import { t, Locales, type Dictionary } from "intlayer";
+
+const helloWorldContent = {
+  key: "hello-world",
+  locale: Locales.RUSSIAN, // Важно
+  content: { multilingualContent: "Название моего компонента" },
+} satisfies Dictionary;
+
+export default helloWorldContent;
+```
+
 ```tsx fileName="hello-world.content.ts" contentDeclarationFormat={["typescript", "esm"]}
 import { t, type Dictionary } from "intlayer";
 
@@ -94,6 +106,8 @@ module.exports = helloWorldContent;
 ```
 
 > Рекомендуется: Этот формат лучше всего подходит при использовании визуального редактора Intlayer или управлении переводами непосредственно в коде.
+
+> Примечание: В обоих случаях файл объявления содержимого должен следовать схеме именования `*.content.{ts,tsx,js,jsx,mjs,cjs,json}` для распознавания Intlayer. Суффикс `.[locale]` необязателен и используется только как соглашение об именовании.
 
 ### Глобальная конфигурация для per-locale файлов
 
@@ -157,20 +171,7 @@ export default helloWorldContent;
 }
 ```
 
-```json5 fileName="hello-world.es.content.json" contentDeclarationFormat="json"
-{
-  "$schema": "https://intlayer.org/schema.json",
-  "key": "hello-world",
-  "locale": "es", // Важно
-  "content": {
-    "multilingualContent": "Título de mi componente",
-  },
-}
-```
-
 > Важно: Убедитесь, что поле locale определено. Оно сообщает Intlayer, на каком языке представлен файл.
-
-> Примечание: В обоих случаях файл декларации контента должен соответствовать шаблону именования `*.content.{ts,tsx,js,jsx,mjs,cjs,json}`, чтобы Intlayer мог его распознать. Суффикс `.[locale]` является необязательным и используется только как соглашение об именовании.
 
 ## Смешивание форматов
 

@@ -232,6 +232,8 @@ export default defineConfig({
 
 > Плагін Vite `intlayerCompiler()` використовується для витягування вмісту з компонентів і запису файлів `.content`.
 
+> З версії Intlayer v9 компілятор включений безпосередньо в плагін `intlayer()` і активується автоматично, коли встановлено `compiler.enabled` з шляхом `compiler.output`. Реєстрація `intlayerCompiler()` окремо, як показано нижче, тепер необов'язкова — вона дедублює себе, якщо також додана. Див. [примітки до випуску v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/releases/v9.md).
+
 </Step>
 
 <Step number={4} title="Компіляція вашого коду">

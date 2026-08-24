@@ -133,6 +133,38 @@ getMultilingualUrls("/about", { currentDomain: "intlayer.org" });
 
 Essas URLs absolutas estão prontas para usar em tags `<link rel="alternate" hreflang="...">` para SEO.
 
+## Inferência de Tipos
+
+`routing.domains` é serializado na augmentação de módulo gerada, então
+`getLocalizedUrl` e `getLocalizedPath` reduzem seu tipo de retorno para a URL exata
+que um locale roteado por domínio resolve — incluindo a supressão de prefixo.
+
+```ts
+// routing: { mode: 'prefix-no-default', domains: { en: 'intlayer.org', zh: 'intlayer.zh' } }
+
+getLocalizedUrl("/about", "zh");
+//     ^? "https://intlayer.zh/about" | "/about"
+
+getLocalizedPath("/about", "zh");
+//     ^? "/about"   (nunca uma origem, e sem prefixo /zh/)
+```
+
+O tipo de URL é a **union** dos dois valores que a função pode retornar: a
+URL absoluta no domínio do locale e a relativa que retorna quando a
+página sendo renderizada já está nesse domínio. `getLocalizedPath` não tem tal
+ambiguidade - nunca emite uma origem - então permanece um literal único.
+
+Locales que compartilham um domínio mantêm seu prefixo normal no tipo também:
+
+```ts
+getLocalizedUrl("/about", "fr");
+//     ^? "https://intlayer.org/fr/about" | "/fr/about"
+```
+
+> Regenere os tipos (`npx intlayer build`, ou qualquer execução do dev server) após
+> alterar `routing.domains` - a redução vem do
+> `__RoutingRegistry` gerado, não do arquivo de configuração em si.
+
 ## Comportamento do Proxy
 
 ### Next.js
@@ -164,6 +196,8 @@ GET intlayer.zh/about
 ### Vite
 
 O plugin Vite `intlayerProxy` aplica a mesma lógica durante o desenvolvimento:
+
+> Desde Intlayer v9, `intlayerProxy()` é empacotado diretamente no plugin `intlayer()` e ativado por padrão através da opção `routing.enableProxy` (`true` por padrão). Registrá-lo separadamente como mostrado abaixo agora é opcional — é mantido para compatibilidade com versões anteriores e para setups que precisam controlar a ordem dos plugins. Defina `routing.enableProxy: false` para desativar. Consulte as [notas de lançamento da v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/releases/v9.md).
 
 ```typescript fileName="vite.config.ts"
 import { defineConfig } from "vite";

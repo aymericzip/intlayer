@@ -43,6 +43,8 @@ author: aymericzip
 
 Panduan ini menunjukkan cara mengintegrasikan **Intlayer** untuk internasionalisasi yang mulus dalam proyek React Router v7 dengan routing yang mendukung locale, dukungan TypeScript, dan praktik pengembangan modern.
 
+Panduan ini fokus pada frontend routing. Untuk routing fs-routes, lihat panduan [Intlayer with React Router v7 File-System Routes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_react_router_v7_fs_routes.md).
+
 ## Table of Contents
 
 <TOC/>
@@ -566,6 +568,34 @@ export default function RootLayout() {
     </IntlayerProvider>
   );
 }
+```
+
+</Step>
+
+<Step number={11} title="Tambahkan middleware">
+
+Anda juga dapat menggunakan `intlayerProxy` untuk menambahkan routing di sisi server ke aplikasi Anda. Plugin ini akan secara otomatis mendeteksi locale saat ini berdasarkan URL dan menetapkan cookie locale yang sesuai. Jika tidak ada locale yang ditentukan, plugin akan menentukan locale yang paling sesuai berdasarkan preferensi bahasa browser pengguna. Jika tidak ada locale yang terdeteksi, plugin akan mengarahkan ke locale default.
+
+> Perlu diketahui bahwa untuk menggunakan `intlayerProxy` di production, Anda perlu memindahkan paket `vite-intlayer` dari `devDependencies` ke `dependencies`.
+
+> Sejak Intlayer v9, `intlayerProxy()` digabungkan langsung ke dalam plugin `intlayer()` dan diaktifkan secara default melalui opsi `routing.enableProxy` (`true` secara default). Mendaftarkannya secara terpisah seperti yang ditunjukkan di bawah ini sekarang bersifat opsional — ini tetap disimpan untuk kompatibilitas mundur dan untuk setup yang perlu mengontrol urutan plugin. Atur `routing.enableProxy: false` untuk tidak menggunakan fitur ini. Lihat [catatan rilis v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/releases/v9.md).
+
+```typescript {3,7} fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react-swc";
+import { intlayer } from "vite-intlayer";
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [
+    react(),
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
+  ],
+});
 ```
 
 </Step>

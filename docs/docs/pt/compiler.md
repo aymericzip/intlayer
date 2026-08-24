@@ -40,6 +40,12 @@ O **Intlayer Compiler** é uma ferramenta poderosa projetada para automatizar o 
 
 ## Por que Usar o Intlayer Compiler?
 
+- **Automação**: Elimina a cópia manual de conteúdo para dicionários.
+
+- **Speed**: Extração de conteúdo otimizada garantindo que seu processo de build permaneça rápido.
+
+- **Developer Experience**: Mantenha as declarações de conteúdo onde são usadas, melhorando a manutenibilidade.
+
 - **Automação**: Elimina a cópia manual e colagem de conteúdo nos dicionários.
 - **Velocidade**: Extração de conteúdo otimizada garantindo que seu processo de build permaneça rápido.
 - **Experiência do Desenvolvedor**: Mantenha as declarações de conteúdo exatamente onde são usadas, melhorando a manutenção.
@@ -54,11 +60,15 @@ Embora o compilador ofereça uma excelente experiência "funciona automaticament
 - **Ambiguidade heurística**: O compilador deve adivinhar o que é conteúdo voltado para o usuário versus a lógica da aplicação (por exemplo, `className="active"`, códigos de status, IDs de produtos). Em bases de código complexas, isso pode levar a falsos positivos ou strings perdidas que exigem anotações manuais e exceções.
 - **Extração apenas estática**: A extração baseada em compilador depende de análise estática. Strings que existem apenas em tempo de execução (códigos de erro de API, campos CMS, etc.) não podem ser descobertas ou traduzidas pelo compilador sozinho, então você ainda precisa de uma estratégia i18n de tempo de execução complementar.
 
+- **Extração estática apenas**: A extração baseada em compilador depende de análise estática. Strings que existem apenas em tempo de execução (códigos de erro de API, campos de CMS, etc.) não podem ser descobertos ou traduzidos pelo compilador sozinho, portanto você ainda precisa de uma estratégia de i18n em tempo de execução complementar.
+
 Para uma comparação arquitetural mais profunda, veja o post do blog [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/compiler_vs_declarative_i18n.md).
 
 Como alternativa, para automatizar seu processo i18n mantendo controle total sobre seu conteúdo, o Intlayer também fornece um comando de auto-extração `intlayer extract` (consulte a [documentação CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/extract.md)), ou o comando `Intlayer: extract content to Dictionary` da extensão Intlayer VS Code (consulte a [documentação da extensão VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/vs_code_extension.md)).
 
 ## Uso
+
+> A forma mais rápida de integrar o compiler é através da configuração interativa: execute `npx intlayer init --interactive` e selecione **Compiler**. No Vite não há nada para configurar — o compiler é conectado diretamente através do plugin principal `intlayer()` (é ativado automaticamente uma vez que `compiler.enabled` está definido e um caminho `compiler.output` é configurado). No Next.js o comando gera o `babel.config.js` mostrado abaixo. O `intlayer init` não-interativo deixa a configuração do compiler intocada.
 
 <Tabs>
  <Tab value='vite'>
@@ -92,11 +102,17 @@ export default defineConfig({
 });
 ```
 
+> O plugin `intlayerCompiler()` independente ainda é exportado para configurações avançadas. Registrá-lo junto com `intlayer()` é seguro — o compilador se deduplica e é executado apenas uma vez.
+
 See complete tutorial: [Intlayer Compiler with Vite+React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_with_vite+react_compiler.md)
 
 #### Suporte a Frameworks
 
 O plugin do Vite detecta e lida automaticamente com diferentes tipos de arquivos:
+
+- **React / JSX / TSX**: Tratado nativamente.
+
+- **Vue**: Requer `@intlayer/vue-compiler`.
 
 - **React / JSX / TSX**: Suportado nativamente.
 - **Vue**: Requer `@intlayer/vue-compiler`.

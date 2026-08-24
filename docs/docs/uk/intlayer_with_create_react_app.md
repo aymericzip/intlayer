@@ -43,7 +43,21 @@ author: aymericzip
 
 ## Що таке Intlayer?
 
+На відміну від основних рішень, таких як `react-i18next` або `i18next`, Intlayer — це рішення, яке поставляється з вбудованими оптимізаціями, такими як:
+
+<AccordionGroup>
+
+<Accordion header="Full React coverage">
+
 **Intlayer**, інноваційна open-source бібліотека для інтернаціоналізації (i18n), розроблена, щоб спростити багатомовну підтримку в сучасних веб-застосунках.
+
+</Accordion>
+
+<Accordion header="Розмір bundle">
+
+Замість завантаження великих JSON-файлів на ваші сторінки завантажуйте лише необхідний контент. Intlayer допомагає **зменшити розмір bundle та сторінок на 50%**.
+
+</Accordion>
 
 За допомогою Intlayer ви можете:
 
@@ -51,6 +65,35 @@ author: aymericzip
 - **Динамічно локалізуйте метадані**, маршрути та контент.
 - **Забезпечте підтримку TypeScript** за допомогою автогенерованих типів, що покращують автодоповнення та виявлення помилок.
 - **Отримайте переваги від розширених можливостей**, таких як динамічне визначення та перемикання локалі.
+
+</Accordion>
+
+<Accordion header="AI Agent">
+
+Співлокалізація контенту **зменшує контекст, необхідний** для великих мовних моделей (LLM). Intlayer також поставляється з набором інструментів, таких як **CLI** для перевірки відсутніх перекладів, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/mcp_server.md)** та **[навички агентів](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/agent_skills.md)**, щоб зробити досвід розробника (DX) ще гладшим для AI-агентів.
+
+</Accordion>
+
+<Accordion header="Автоматизація">
+
+Використовуйте автоматизацію для перекладу у вашому CI/CD pipeline, використовуючи LLM на ваш вибір за рахунок вашого AI-провайдера. Intlayer також пропонує **компілятор** для автоматизації вилучення контенту, а також [веб-платформу](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md) для допомоги в **фоновому перекладі**.
+
+</Accordion>
+
+<Accordion header="Продуктивність">
+
+Підключення великих JSON файлів до компонентів може призвести до проблем із продуктивністю та реактивністю. Intlayer оптимізує завантаження вашого контенту під час збирання.
+
+</Accordion>
+
+<Accordion header="Масштабування без розробників">
+
+Це не просто i18n рішення, Intlayer надає **self-hosted [візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md)** та **[повноцінну CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)** для керування вашим багатомовним контентом у **режимі реального часу**, що робить співпрацю з перекладачами, копірайтерами та іншими членами команди безперешкодною. Контент можна зберігати локально та/або віддалено.
+
+</Accordion>
+</AccordionGroup>
+
+---
 
 ## Покроковий посібник з налаштування Intlayer у React-додатку
 

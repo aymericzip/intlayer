@@ -47,6 +47,17 @@ author: aymericzip
 />
 
   </Tab>
+  <Tab label="演示" value="demo">
+
+<iframe
+  src="https://intlayer-vite-solid.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo Intlayer Vite + Solid 模板"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
 </Tabs>
 
 ## 目录
@@ -707,19 +718,6 @@ bun run build # 或 bun run dev
 
 ### 第3步：在你的 Vite 配置中集成 Intlayer
 
-将 intlayer 插件添加到你的配置中。
-
-```typescript fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react-swc";
-import { intlayer } from "vite-intlayer";
-
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [react(), intlayer()],
-});
-```
-
 > `intlayer()` 是用于将 Intlayer 集成到 Vite 中的插件。它确保内容声明文件的构建，并在开发模式下监视这些文件。它在 Vite 应用中定义了 Intlayer 的环境变量。此外，它还提供别名以优化性能。
 
 #### 网站地图
@@ -825,19 +823,8 @@ console.log("SEO files generated successfully.");
 
 [从 VS Code 市场安装](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
-该扩展提供：
-
-- 翻译键的**自动补全**。
-- 缺失翻译的**实时错误检测**。
-- **已翻译内容的内联预览**。
-- **快速操作**，轻松创建和更新翻译。
-
-有关如何使用该扩展的更多详细信息，请参阅[Intlayer VS Code 扩展文档](https://intlayer.org/doc/vs-code-extension)。
-
 ---
 
 ### 深入了解
 
 要进一步使用，您可以实现[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)或使用[内容管理系统（CMS）](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)将内容外部化。
-
----

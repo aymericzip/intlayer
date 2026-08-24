@@ -248,7 +248,7 @@ Aby zapewnić, że pasek adresu przeglądarki zawsze odzwierciedla „ładny” 
 
 <Tabs group='framework'>
   <Tab label="Next.js" value="nextjs">
-  
+
     ```tsx
     'use client';
 
@@ -263,7 +263,7 @@ Aby zapewnić, że pasek adresu przeglądarki zawsze odzwierciedla „ładny” 
   </Tab>
 
   <Tab label="React Router" value="reactrouter">
-  
+
     ```tsx
     'use client';
 
@@ -279,7 +279,7 @@ Aby zapewnić, że pasek adresu przeglądarki zawsze odzwierciedla „ładny” 
   </Tab>
 
   <Tab label="Vue" value="vue">
-  
+
     ```vue
     <script setup>
     import { useRewriteURL } from "vue-intlayer";
@@ -291,7 +291,7 @@ Aby zapewnić, że pasek adresu przeglądarki zawsze odzwierciedla „ładny” 
 
   </Tab>
   <Tab label="Solid" value="solid">
-  
+
     ```tsx
     import { useRewriteURL } from "solid-intlayer";
 
@@ -303,7 +303,7 @@ Aby zapewnić, że pasek adresu przeglądarki zawsze odzwierciedla „ładny” 
 
   </Tab>
   <Tab label="Svelte" value="svelte">
-  
+
     ```svelte
     <script>
     import { useRewriteURL } from "svelte-intlayer";
@@ -339,6 +339,8 @@ export function middleware(request: NextRequest) {
 ### Integracja z Vite
 
 Dla SolidJS, Vue i Svelte wtyczka Vite `intlayerProxy` zarządza przepisywaniami (rewrites) podczas developmentu.
+
+> Od Intlayer v9, `intlayerProxy()` jest wbudowany bezpośrednio w plugin `intlayer()` i domyślnie włączony za pośrednictwem opcji `routing.enableProxy` (`true` domyślnie). Rejestrowanie go osobno, jak pokazano poniżej, jest teraz opcjonalne — jest utrzymywane ze względu na kompatybilność wsteczną i konfiguracje, które muszą kontrolować kolejność pluginów. Ustaw `routing.enableProxy: false`, aby zrezygnować. Przeczytaj [informacje o wydaniu v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/releases/v9.md).
 
 ```typescript fileName="vite.config.ts"
 import { defineConfig } from "vite";

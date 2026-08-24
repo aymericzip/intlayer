@@ -38,21 +38,31 @@ author: aymericzip
 
 `next-intl`や`i18next`などの主要なソリューションと比較して、Intlayerは以下のような統合された最適化を備えたソリューションです：
 
+<AccordionGroup>
+
 **バンドルサイズ**
 
 ページに巨大なJSONファイルを読み込む代わりに、必要なコンテンツのみを読み込みます。Intlayerは**バンドルサイズとページサイズを最大50%削減**するのに役立ちます。
 
 **メンテナンス性**
 
+<Accordion header="保守性">
+
 アプリケーションのコンテンツのスコープを限定することで、大規模アプリケーションの**メンテナンスが容易**になります。全体のコンテンツコードベースを見直す精神的負担なしに、単一の機能フォルダを複製または削除できます。さらに、Intlayerは**完全に型定義**されているため、コンテンツの正確性が保証されます。
 
 **AIエージェント**
 
+<Accordion header="AI Agent">
+
 コンテンツを同じ場所に配置（コローケーション）することで、大規模言語モデル（LLM）に必要な**コンテキストが削減**されます。Intlayerには、翻訳漏れをテストするための**CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)**、**[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)**などのツールスイートも付属しており、AIエージェントの開発体験（DX）をさらにスムーズにします。
+
+</Accordion>
 
 **機能性**
 
 Intlayerは、他のi18nソリューションにはない、[Markdownサポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/markdown.md)、[外部コンテンツの取得](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/function_fetching.md)、[ファイルコンテンツの読み込み](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/file.md)、[ライブコンテンツ更新](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/live.md)、[ビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)など、多くの追加機能を提供します。
+
+</Accordion>
 
 **自動化**
 
@@ -60,13 +70,21 @@ CI/CDパイプラインでお好みのLLMを使用し、AIプロバイダーの�
 
 **パフォーマンス**
 
+<Accordion header="パフォーマンス">
+
 巨大なJSONファイルをコンポーネントに接続すると、パフォーマンスやリアクティビティの問題が発生する可能性があります。Intlayerはビルド時にコンテンツの読み込みを最適化します。
 
 **非開発者とのスケーリング**
 
+<Accordion header="非開発環境でのスケーリング">
+
 単なるi18nソリューションにとどまらず、Intlayerはセルフホスト可能な**[ビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)**と**[フル機能のCMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)**を提供し、多言語コンテンツを**リアルタイム**で管理できるようにします。これにより、翻訳者、コピーライター、その他のチームメンバーとのコラボレーションがシームレスになります。コンテンツはローカルおよび/またはリモートに保存できます。
 
 **クロスフレームワーク設計**
+
+<Accordion header="クロスフレームワークデザイン">
+
+異なるフレームワークをアプリケーションの異なる部分に使用する場合（例えば、React、React-native、Vue、Angular、Svelte など）、Intlayer は**すべての主要なフロントエンドフレームワーク全体で一般的な構文と実装を使用する**方法を提供します。また、design-system、apps、backend などで content declaration を共有できます。
 
 アプリケーションの異なる部分で異なるフレームワークを使用している場合（例：React、React-Native、Vue、Angular、Svelteなど）、Intlayerは**すべての主要なフロントエンドフレームワークで共通の構文と実装を使用する方法**を提供します。また、デザインシステム、アプリ、バックエンドなどでコンテンツ宣言を共有することもできます。
 

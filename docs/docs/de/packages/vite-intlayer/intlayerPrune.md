@@ -28,6 +28,8 @@ author: aymericzip
 
 Das `intlayerPrune` Vite-Plugin wird verwendet, um ungenutzte Wörterbücher aus Ihrem Anwendungs-Bundle mittels Tree-Shaking zu entfernen. Dadurch wird die endgültige Bundle-Größe reduziert, da nur die notwendigen mehrsprachigen Inhalte enthalten bleiben.
 
+> Das Plugin ist bereits enthalten und wird automatisch konfiguriert, wenn Sie [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/vite-intlayer/intlayer.md) verwenden. Sie müssen es nur manuell registrieren, wenn Sie den Plugin-Stack selbst zusammenstellen.
+
 ## Verwendung
 
 ### As part of `intlayer()` (recommended)

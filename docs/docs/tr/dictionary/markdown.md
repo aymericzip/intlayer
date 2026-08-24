@@ -492,7 +492,7 @@ Bu yardımcı programlar **yalnızca ham Markdown dizelerini** oluşturur ve `us
 
 <Tabs group="framework">
   <Tab label="React" value="react">
-  
+
     #### `<MarkdownRenderer />` Bileşeni
 
     Belirli seçeneklerle bir Markdown dizesini oluşturur.
@@ -531,7 +531,7 @@ Bu yardımcı programlar **yalnızca ham Markdown dizelerini** oluşturur ve `us
 
   </Tab>
   <Tab label="Next.js" value="nextjs">
-  
+
     #### `<MarkdownRenderer />` Bileşeni
 
     Belirli seçeneklerle bir Markdown dizesini oluşturur.
@@ -957,21 +957,38 @@ Bu yardımcı programlar **yalnızca ham Markdown dizelerini** oluşturur ve `us
   </Tab>
   <Tab label="Angular" value="angular">
 
-    ```typescript fileName="app.module.ts"
-    import { NgModule } from '@angular/core';
-    import { IntlayerMarkdownModule } from 'angular-intlayer/markdown';
+    ```typescript fileName="app.config.ts"
+    import { createIntlayerMarkdownProvider } from "angular-intlayer/markdown";
 
-    @NgModule({
-      imports: [
-        IntlayerMarkdownModule.forRoot({
+    export const appConfig: ApplicationConfig = {
+      providers: [
+        createIntlayerMarkdownProvider({
+          components: {
+            h1: { class: "text-2xl font-bold" },
+          },
+        }),
+      ],
+    };
+    ```
+
+
+    > MDX desteklenir — Markdown'ınızın içinde kullanılan herhangi bir bileşen adı (örn. `<MyCustomJSXComponent />`) `components` haritasına göre çözümlenir.
+
+    Kendi markdown oluşturucunuzu da kullanabilirsiniz:
+
+    ```typescript fileName="app.config.ts"
+    import { createIntlayerMarkdownProvider } from "angular-intlayer/markdown";
+
+    export const appConfig: ApplicationConfig = {
+      providers: [
+        createIntlayerMarkdownProvider({
           renderMarkdown: async (md) => {
             const { renderMarkdown } = await import('angular-intlayer/markdown');
             return renderMarkdown(md);
-          }
-        })
-      ]
-    })
-    export class AppModule {}
+          },
+        }),
+      ],
+    };
     ```
 
     > Markdown oluşturucunuzu dinamik olarak içe aktarmak, uygulamanızın bundle boyutunu azaltmanın harika bir yoludur.
@@ -1047,7 +1064,7 @@ const MyComponent = () => {
 ```
 
   </Tab>
- 
+
   <Tab label="Vue" value="vue">
 
 Vue, yerleşik bir `<Suspense>` bileşenine sahiptir. Markdown içeriğini oluşturan bileşeni bir `<Suspense>` sınırına sarın.

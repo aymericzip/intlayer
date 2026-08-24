@@ -143,36 +143,6 @@ getLocalizedUrl(
 // Output: "/about" per la locale predefinita (inglese)
 ```
 
-```javascript codeFormat="esm"
-import { getLocalizedUrl, Locales } from "intlayer";
-
-getLocalizedUrl(
-  "/about",
-  Locales.FRENCH,
-  [Locales.ENGLISH, Locales.FRENCH],
-  Locales.ENGLISH,
-  false
-);
-
-// Output: "/fr/about" per la locale francese
-// Output: "/about" per la locale predefinita (inglese)
-```
-
-```javascript codeFormat="commonjs"
-const { getLocalizedUrl, Locales } = require("intlayer");
-
-getLocalizedUrl(
-  "/about",
-  Locales.FRENCH,
-  [Locales.ENGLISH, Locales.FRENCH],
-  Locales.ENGLISH,
-  false
-);
-
-// Output: "/fr/about" per la locale francese
-// Output: "/about" per la locale predefinita (inglese)
-```
-
 ### Override parziale della configurazione
 
 Puoi fornire anche solo alcuni dei parametri opzionali. La funzione utilizzerà la configurazione del tuo progetto per qualsiasi parametro non specificato:
@@ -248,6 +218,12 @@ getLocalizedUrl(
 
 - **Lingue non supportate:**
   - Per le lingue non elencate in `locales`, la funzione non applica alcun prefisso.
+
+- **Modalità di Routing:**
+  - `'prefix-no-default'`: La locale predefinita non ha prefisso, le altre sì (es. `/about`, `/fr/about`)
+  - `'prefix-all'`: Tutte le locale hanno prefissi (es. `/en/about`, `/fr/about`)
+  - `'no-prefix'`: Nessun prefisso di locale negli URL (locale gestita altrove)
+  - `'search-params'`: Locale specificata tramite parametro di query (es. `/about?locale=fr`)
 
 ---
 

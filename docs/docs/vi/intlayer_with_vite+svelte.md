@@ -297,6 +297,8 @@ export default appContent;
 > Nếu ứng dụng của bạn đã tồn tại, bạn có thể sử dụng [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md) kết hợp với [lệnh extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/extract.md) để chuyển đổi hàng nghìn component chỉ trong một giây.
 ```
 
+> Nếu ứng dụng của bạn đã tồn tại, bạn có thể sử dụng [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md), cũng như [lệnh extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/extract.md), để biến đổi hàng nghìn component chỉ trong một giây.
+
 </Step>
 
 <Step number={6} title="Thay đổi ngôn ngữ của nội dung" isOptional={true}>
@@ -455,6 +457,8 @@ Song song với đó, bạn cũng có thể sử dụng `intlayerProxy` để th
 
 > Lưu ý rằng để sử dụng `intlayerProxy` trong môi trường production, bạn cần chuyển gói `vite-intlayer` từ `devDependencies` sang `dependencies`.
 
+> Kể từ Intlayer v9, `intlayerProxy()` được gộp trực tiếp vào plugin `intlayer()` và được bật theo mặc định thông qua option `routing.enableProxy` (`true` theo mặc định). Đăng ký nó riêng biệt như được hiển thị bên dưới hiện là tùy chọn — nó được giữ lại để tương thích ngược và cho các thiết lập cần kiểm soát thứ tự plugin. Đặt `routing.enableProxy: false` để chọn không tham gia. Xem [ghi chú phát hành v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/releases/v9.md).
+
 ```typescript {3,7} fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
 import { svelte } from "@sveltejs/vite-plugin-svelte";
@@ -509,6 +513,29 @@ const changeLocale = (event: Event) => {
     {/each}
   </select>
 </div>
+```
+
+</Step>
+
+<Step number={9} title="Các Liên Kết Quốc Tế Hóa" isOptional={true}>
+
+Để tối ưu SEO, nên thêm tiền tố locale vào các routes của bạn (ví dụ: `/about`, `/fr/about`).
+
+```svelte fileName="src/lib/components/Link.svelte"
+<script lang="ts">
+  import { getLocalizedUrl } from "intlayer";
+  import { useLocale } from "svelte-intlayer";
+
+  export let href = "";
+  const { locale } = useLocale();
+
+  // Trợ giúp để thêm tiền tố URL
+  $: localizedHref = getLocalizedUrl(href, $locale);
+</script>
+
+<a href={localizedHref}>
+  <slot />
+</a>
 ```
 
 </Step>

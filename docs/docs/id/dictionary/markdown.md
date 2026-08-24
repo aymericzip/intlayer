@@ -492,7 +492,7 @@ Utilitas ini merender **hanya string Markdown mentah** dan independen dari `useI
 
 <Tabs group="framework">
   <Tab label="React" value="react">
-  
+
     #### Komponen `<MarkdownRenderer />`
 
     Merender string Markdown dengan opsi tertentu.
@@ -531,7 +531,7 @@ Utilitas ini merender **hanya string Markdown mentah** dan independen dari `useI
 
   </Tab>
   <Tab label="Next.js" value="nextjs">
-  
+
     #### Komponen `<MarkdownRenderer />`
 
     Merender string Markdown dengan opsi tertentu.
@@ -957,21 +957,38 @@ Utilitas ini merender **hanya string Markdown mentah** dan independen dari `useI
   </Tab>
   <Tab label="Angular" value="angular">
 
-    ```typescript fileName="app.module.ts"
-    import { NgModule } from '@angular/core';
-    import { IntlayerMarkdownModule } from 'angular-intlayer/markdown';
+    ```typescript fileName="app.config.ts"
+    import { createIntlayerMarkdownProvider } from "angular-intlayer/markdown";
 
-    @NgModule({
-      imports: [
-        IntlayerMarkdownModule.forRoot({
+    export const appConfig: ApplicationConfig = {
+      providers: [
+        createIntlayerMarkdownProvider({
+          components: {
+            h1: { class: "text-2xl font-bold" },
+          },
+        }),
+      ],
+    };
+    ```
+
+
+    > MDX didukung — nama komponen apa pun yang digunakan di dalam Markdown Anda (misalnya `<MyCustomJSXComponent />`) diselesaikan terhadap peta `components`.
+
+    Anda juga dapat menggunakan perender markdown Anda sendiri:
+
+    ```typescript fileName="app.config.ts"
+    import { createIntlayerMarkdownProvider } from "angular-intlayer/markdown";
+
+    export const appConfig: ApplicationConfig = {
+      providers: [
+        createIntlayerMarkdownProvider({
           renderMarkdown: async (md) => {
             const { renderMarkdown } = await import('angular-intlayer/markdown');
             return renderMarkdown(md);
-          }
-        })
-      ]
-    })
-    export class AppModule {}
+          },
+        }),
+      ],
+    };
     ```
 
     > Mengimpor perender Markdown Anda secara dinamis adalah cara yang bagus untuk mengurangi ukuran bundel aplikasi Anda.
@@ -1047,7 +1064,7 @@ const MyComponent = () => {
 ```
 
   </Tab>
- 
+
   <Tab label="Vue" value="vue">
 
 Vue memiliki komponen `<Suspense>` bawaan. Bungkus komponen yang merender konten Markdown dalam batasan `<Suspense>`.

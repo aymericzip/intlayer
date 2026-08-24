@@ -70,6 +70,11 @@ getLocalizedUrl(
 
 ### Parameter Opsional
 
+- `options?: object`
+  - **Description**: Objek konfigurasi untuk perilaku lokalisasi URL.
+  - **Type**: `object`
+  - **Required**: Tidak (Opsional)
+
 - `locales?: Locales[]`
   - **Deskripsi**: Array locale yang didukung. Jika tidak disediakan, menggunakan locale yang dikonfigurasi dari konfigurasi proyek Anda.
   - **Tipe**: `Locales[]`
@@ -110,38 +115,6 @@ getLocalizedUrl("/about", Locales.FRENCH);
 
 getLocalizedUrl("/about", Locales.ENGLISH);
 // Output: "/about" atau "/en/about" (tergantung pada pengaturan prefixDefault Anda)
-```
-
-```javascript codeFormat="esm"
-import { getLocalizedUrl, Locales } from "intlayer";
-
-// Secara eksplisit memberikan semua parameter opsional
-getLocalizedUrl(
-  "/about",
-  Locales.FRENCH,
-  [Locales.ENGLISH, Locales.FRENCH], // locales
-  Locales.ENGLISH, // defaultLocale
-  false // prefixDefault
-);
-
-// Output: "/fr/about" untuk locale Bahasa Perancis
-// Output: "/about" untuk locale default (Bahasa Inggris)
-```
-
-```javascript codeFormat="commonjs"
-const { getLocalizedUrl, Locales } = require("intlayer");
-
-// Secara eksplisit memberikan semua parameter opsional
-getLocalizedUrl(
-  "/about",
-  Locales.FRENCH,
-  [Locales.ENGLISH, Locales.FRENCH], // locales
-  Locales.ENGLISH, // defaultLocale
-  false // prefixDefault
-);
-
-// Output: "/fr/about" untuk locale Bahasa Perancis
-// Output: "/about" untuk locale default (Bahasa Inggris)
 ```
 
 ### Penggunaan Lanjutan (Dengan Parameter Opsional)
@@ -244,6 +217,12 @@ getLocalizedUrl(
 
 - **Locale Tidak Didukung:**
   - Untuk locale yang tidak tercantum dalam `locales`, fungsi tidak menerapkan prefix apapun.
+
+- **Mode Routing:**
+  - `'prefix-no-default'`: Locale default tidak memiliki prefix, yang lain memiliki (mis., `/about`, `/fr/about`)
+  - `'prefix-all'`: Semua locale memiliki prefix (mis., `/en/about`, `/fr/about`)
+  - `'no-prefix'`: Tidak ada prefix locale di URL (locale ditangani di tempat lain)
+  - `'search-params'`: Locale ditentukan melalui parameter query (mis., `/about?locale=fr`)
 
 ---
 

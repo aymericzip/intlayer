@@ -38,8 +38,6 @@ author: aymericzip
 
 <TOC/>
 
-Bu kılavuz, Next.js 14 uygulamanızda Intlayer'ı nasıl kuracağınızı ve kullanacağınızı adım adım açıklar. Intlayer, Next.js 14 ile sorunsuz bir şekilde entegre olur ve çok dilli içerik yönetimi sağlar.
-
 ## Neden alternatifler yerine Intlayer?
 
 'Next-intl' veya 'i18next' gibi ana çözümlerle karşılaştırıldığında Intlayer, aşağıdaki gibi entegre optimizasyonlarla gelen bir çözümdür:
@@ -99,6 +97,28 @@ Bir i18n çözümünden çok daha fazlası olan Intlayer, **kendi kendine barın
 
 Bu kılavuzu takip etmek için aşağıdaki araçlara ihtiyacınız olacak:
 
+<iframe
+  src="https://ide.intlayer.org/aymericzip/intlayer-next-14-template?file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - Intlayer kullanarak uygulamanızı nasıl uluslararasılaştıracağınız"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+  <Tab label="Demo" value="demo">
+
+<iframe
+  src="https://intlayer-next-14-template.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo - intlayer-next-14-template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+</Tabs>
+
 - Node.js 18 veya üzeri
 - npm, pnpm veya yarn paket yöneticisi
 - Next.js 14 projesi
@@ -144,6 +164,14 @@ yarn add next-intlayer intlayer
 ```bash packageManager="bun"
 bun add next-intlayer intlayer --save
 ```
+
+- **intlayer**
+
+Internationalization araçlarını sağlayan core package'ı, konfigürasyon yönetimi, çeviri, [içerik bildirimi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md), transpilation ve [CLI komutları](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/index.md) için.
+
+- **next-intlayer**
+
+Intlayer'ı Next.js ile entegre eden paket. Next.js uluslararasılaştırması için context providers ve hooks'ları sağlar. Ayrıca, Intlayer'ı [Webpack](https://webpack.js.org/) veya [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack) ile entegre etmek için Next.js plugin'ini, ayrıca kullanıcının tercih ettiği dili algılamak, çerezleri yönetmek ve URL yeniden yönlendirmesini işlemek için middleware'i içerir.
 
 </Step>
 
@@ -209,6 +237,8 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
+> Bu yapılandırma dosyası aracılığıyla, yerelleştirilmiş URL'ler, middleware yönlendirmesi, cookie adları, içerik bildirimlerinizin konumu ve uzantısı, Intlayer günlüklerini konsolda devre dışı bırakma ve daha fazlasını ayarlayabilirsiniz. Mevcut parametrelerin tam listesi için [yapılandırma belgelerine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) başvurun.
+
 </Step>
 
 <Step number={3} title="Next.js Yapılandırmasını Güncelleme">
@@ -273,6 +303,14 @@ const homeContent = {
 export default homeContent;
 ```
 
+> `intlayerMiddleware`, kullanıcının tercih ettiği dili algılamak ve onları [yapılandırmada](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) belirtilen uygun URL'ye yönlendirmek için kullanılır. Ayrıca, kullanıcının tercih ettiği dili bir çerezde kaydetmeyi sağlar.
+
+> Intlayer v9'dan bu yana, bu middleware `routing.enableProxy` seçeneğini respects eder (`true` varsayılan olarak). Bunu pass-through haline dönüştürmek için konfigürasyonunuzda `routing.enableProxy: false` ayarlayın ve bu dosyayı silmeyin. [v9 release notes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/releases/v9.md) dosyasına bakın.
+
+> Uygulamanızın rotalarıyla eşleşmesi için `matcher` parametresini uyarlayın. Daha fazla ayrıntı için [Next.js matcher yapılandırması belgesine](https://nextjs.org/docs/app/building-your-application/routing/middleware) bakın.
+
+> Birden fazla middleware'i bir araya getirmeniz gerekiyorsa (örneğin, `intlayerMiddleware`'i kimlik doğrulama veya özel middleware'lerle), Intlayer artık `multipleMiddlewares` adında bir yardımcı sağlıyor.
+
 ```json fileName="src/content/home.content.json"
 {
   "title": {
@@ -312,11 +350,72 @@ export default function HomePage() {
 }
 ```
 
+> `RootLayout` bileşenini boş tutmak, [`lang`](https://developer.mozilla.org/fr/docs/Web/HTML/Global_attributes/lang) ve [`dir`](https://developer.mozilla.org/fr/docs/Web/HTML/Global_attributes/dir) özniteliklerini `<html>` etiketine ayarlamaya izin verir.
+
 </Step>
 
 <Step number={6} title="Middleware Kurulumu">
 
+```tsx fileName="src/app/[locale]/layout.tsx" codeFormat={["typescript", "esm"]}
+import { type Next14LayoutIntlayer } from "next-intlayer";
+import { IntlayerProvider } from "next-intlayer/server";
+import { Inter } from "next/font/google";
+import { getHTMLTextDir } from "intlayer";
+
+const inter = Inter({ subsets: ["latin"] });
+
+const LocaleLayout: Next14LayoutIntlayer = ({
+  children,
+  params: { locale },
+}) => (
+  <IntlayerProvider locale={locale}>
+    <html lang={locale} dir={getHTMLTextDir(locale)}>
+      <body className={inter.className}>{children}</body>
+    </html>
+  </IntlayerProvider>
+);
+
+export default LocaleLayout;
+```
+
+> Tek bir `IntlayerProvider`, ağacın her iki yarısını da kapsar: istek kapsamlı sunucu bağlamını tohumlandırır (sunucu hooks'ları tarafından okunur) ve istemci sağlayıcısını monte eder, böylece istemci bileşenleri aynı yerel ayarı alır.
+
 Next.js 14'te çok dilli yönlendirme için middleware kurun:
+
+```tsx fileName="src/app/[locale]/layout.tsx" codeFormat={["typescript", "esm"]}
+import {
+  type Next14LayoutIntlayer,
+  IntlayerClientProvider,
+} from "next-intlayer";
+import { Inter } from "next/font/google";
+import { getHTMLTextDir } from "intlayer";
+
+const inter = Inter({ subsets: ["latin"] });
+
+const LocaleLayout: Next14LayoutIntlayer = ({
+  children,
+  params: { locale },
+}) => (
+  <html lang={locale} dir={getHTMLTextDir(locale)}>
+    <body className={inter.className}>
+      <IntlayerClientProvider locale={locale}>
+        {children}
+      </IntlayerClientProvider>
+    </body>
+  </html>
+);
+
+export default LocaleLayout;
+```
+
+</Tab>
+</Tabs>
+
+> `[locale]` yol segmenti, dili tanımlamak için kullanılır. Örneğin: `/en-US/about` `en-US` dilini ve `/fr/about` ise `fr` dilini ifade eder.
+
+> Bu aşamada şu hatayı alacaksınız: `Error: Missing <html> and <body> tags in the root layout.`. Bu beklenen bir durumdur çünkü `/app/page.tsx` dosyası artık kullanılmamaktadır ve kaldırılabilir. Bunun yerine, `[locale]` path segment `/app/[locale]/page.tsx` sayfasını etkinleştirecektir. Sonuç olarak, sayfalar tarayıcınızda `/en`, `/fr`, `/es` gibi yollar aracılığıyla erişilebilir olacaktır. Varsayılan locale'i kök sayfa olarak ayarlamak için, 4. adımdaki `middleware` kurulumuna başvurun.
+
+Ardından, uygulamanızın Layout'unda `generateStaticParams` fonksiyonunu uygulayın.
 
 ```typescript fileName="src/middleware.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { createMiddleware } from "next-intlayer/middleware";
@@ -332,6 +431,8 @@ export const config = {
   matcher: ["/((?!api|_next|_vercel|.*\\..*).*)"],
 };
 ```
+
+> `generateStaticParams`, uygulamanızın tüm locales için gerekli sayfaları önceden oluşturmasını sağlayarak runtime hesaplamasını azaltır ve kullanıcı deneyimini iyileştirir. Daha fazla bilgi için [Next.js generateStaticParams belgesine](https://nextjs.org/docs/app/building-your-application/rendering/static-and-dynamic-rendering#generate-static-params) bakın.
 
 </Step>
 
@@ -396,11 +497,45 @@ export default function RootLayout({
 }
 ```
 
+```json fileName="src/app/[locale]/page.content.json" contentDeclarationFormat="json"
+{
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "page",
+  "content": {
+    "getStarted": {
+      "nodeType": "translation",
+      "translation": {
+        "tr": "Düzenleyerek başlayın",
+        "en": "Get started by editing",
+        "fr": "Commencez par éditer",
+        "es": "Comience por editar"
+      }
+    },
+    "pageLink": {
+      "nodeType": "translation",
+      "translation": {
+        "tr": "src/app/page.tsx",
+        "en": "src/app/page.tsx",
+        "fr": "src/app/page.tsx",
+        "es": "src/app/page.tsx"
+      }
+    }
+  }
+}
+```
+
+> İçerik deklarasyonlarınız, `contentDir` dizinine dahil edildikleri sürece uygulamanızın herhangi bir yerinde tanımlanabilir (varsayılan olarak `./src`). Ve içerik deklarasyonu dosya uzantısıyla eşleşmelidir (varsayılan olarak `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
+
+> Daha fazla bilgi için [içerik bildirimi belgelerine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md) başvurun.
+
 </Step>
 
 <Step number={8} title="Sayfa Yönlendirme">
 
 Sayfa yönlendirmelerini çok dilli hale getirin:
+
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
 
 ```tsx fileName="src/app/[locale]/page.tsx" codeFormat={["typescript", "esm"]}
 import { useIntlayer } from "next-intlayer";
@@ -418,9 +553,83 @@ export default function HomePage() {
 }
 ```
 
+- **`IntlayerProvider`** yerel düzen içinde bir kez monte edilir. Sunucu ve istemci bileşenlerine yerel ayarları sağlar, bu nedenle sayfalar artık kendilerini sarmalamaz.
+- Sunucu hooks'ları yerel ayarları şu sırayla çözer: çağrı sitesinde geçirilen yerel ayar, ardından sağlayıcı tarafından başlatılan sunucu bağlamı, ardından istekle taşınan yerel ayar (Intlayer proxy'si tarafından ayarlanan `x-intlayer-locale` başlığı, ardından yerel ayar cookie'si). Bu son adım, yalnızca sayfa segmentini yeniden işleyen istemci tarafı navigasyonunda içeriğin doğru kalmasını sağlar; burada düzen — ve onunla birlikte sağlayıcı — yeniden çalışmaz.
+
+ </Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
+
+```tsx fileName="src/app/[locale]/page.tsx" codeFormat={["typescript", "esm"]}
+import { ClientComponentExample } from "@components/ClientComponentExample";
+import { ServerComponentExample } from "@components/ServerComponentExample";
+import { type Next14PageIntlayer } from "next-intlayer";
+import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
+
+const Page: Next14PageIntlayer = ({ params: { locale } }) => {
+  const content = useIntlayer("page", locale);
+
+  return (
+    <>
+      <p>
+        {content.getStarted.main}
+        <code>{content.getStarted.pageLink}</code>
+      </p>
+
+      <IntlayerServerProvider locale={locale}>
+        <ServerComponentExample />
+        <ClientComponentExample />
+      </IntlayerServerProvider>
+    </>
+  );
+};
+
+export default Page;
+```
+
+- **`IntlayerClientProvider`** istemci tarafı bileşenlerine locale sağlamak için kullanılır. Herhangi bir ana bileşene, düzen (layout) dahil olmak üzere yerleştirilebilir. Ancak, düzene yerleştirmek önerilir çünkü Next.js düzen kodunu sayfalar arasında paylaştığı için daha verimlidir. Düzende `IntlayerClientProvider` kullanarak, her sayfa için yeniden başlatmaktan kaçınır, performansı iyileştirir ve uygulamanız genelinde tutarlı bir lokalizasyon bağlamı sağlarsınız.
+- **`IntlayerServerProvider`** sunucu alt öğelerine locale sağlamak için kullanılır. Düzende ayarlanamaz.
+
+> Layout ve page ortak bir server context paylaşamaz çünkü server context sistemi, per-request data store'a dayalıdır ([React's cache](https://react.dev/reference/react/cache) mekanizması aracılığıyla), bu da her "context"in uygulamanın farklı segmentleri için yeniden oluşturulmasına neden olur. Provider'ı shared layout'a yerleştirmek bu izolasyonu bozar, server context değerlerinin server component'lerinize doğru şekilde yayılmasını engeller.
+
 </Step>
 
+```tsx {4,7} fileName="src/components/ClientComponentExample.tsx" codeFormat={["typescript", "esm"]}
+"use client";
+
+import type { FC } from "react";
+import { useIntlayer } from "next-intlayer";
+
+const ClientComponentExample: FC = () => {
+  const content = useIntlayer("client-component-example"); // İlgili içerik bildirimini oluştur
+
+  return (
+    <div>
+      <h2>{content.title}</h2>
+      <p>{content.content}</p>
+    </div>
+  );
+};
+```
+
 <Step number={9} title="Meta Verilerin Uluslararasılaştırılması">
+
+```tsx {2} fileName="src/components/ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
+import type { FC } from "react";
+import { useIntlayer } from "next-intlayer";
+
+const ServerComponentExample: FC = () => {
+  const content = useIntlayer("server-component-example"); // İlgili içerik bildirimini oluştur
+
+  return (
+    <div>
+      <h2>{content.title}</h2>
+      <p>{content.content}</p>
+    </div>
+  );
+};
+```
+
+> `next-intlayer` isomorphic import yoludur: `react-server` export koşulu sunucu bileşenlerine ambient-locale uygulamasını verirken, istemci bileşenleri context-backed olanı alır. Aynı çağrı her iki tarafta da çalışır.
 
 Sayfa meta verilerini uluslararasılaştırın:
 
@@ -462,6 +671,19 @@ export default function HomePage() {
   );
 }
 ```
+
+ </Tab>
+</Tabs>
+
+> İçeriğinizi `alt`, `title`, `href`, `aria-label` gibi bir `string` özniteliğinde kullanmak istiyorsanız, fonksiyonun değerini şu şekilde kullanabilirsiniz:
+
+> ```html
+> <img src="{content.image.src.value}" alt="{content.image.value}" />
+> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
+> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
+> ```
+
+> `useIntlayer` hook hakkında daha fazla bilgi için [belgelere](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/next-intlayer/useIntlayer.md) bakınız.
 
 </Step>
 
@@ -519,9 +741,151 @@ export default function robots(): MetadataRoute.Robots {
 }
 ```
 
+````typescript fileName="src/app/[locale]/layout.tsx or src/app/[locale]/page.tsx" codeFormat={["typescript", "esm"]}
+import { getIntlayer, getMultilingualUrls } from "intlayer";
+import type { Metadata } from "next";
+import type { LocalParams } from "next-intlayer";
+
+export const generateMetadata = ({
+  params: { locale },
+}: LocalParams): Metadata => {
+  const metadata = getIntlayer("page-metadata", locale);
+
+  /**
+   * Her locale için tüm url'leri içeren bir nesne oluşturur.
+   *
+   * Örnek:
+   * ```ts
+   *  getMultilingualUrls('/about');
+   *
+   *  // Döndürür
+   *  // {
+   *  //   en: '/about',
+   *  //   fr: '/fr/about',
+   *  //   es: '/es/about',
+   *  // }
+   * ```
+   */
+  const multilingualUrls = getMultilingualUrls("/");
+  const localizedUrl =
+    multilingualUrls[locale as keyof typeof multilingualUrls];
+
+  return {
+    ...metadata,
+    alternates: {
+      canonical: localizedUrl,
+      languages: { ...multilingualUrls, "x-default": "/" },
+    },
+    openGraph: {
+      url: localizedUrl,
+    },
+  };
+};
+
+// ... Kodun geri kalanı
+````
+
+> `next-intlayer` adresinden içe aktarılan `getIntlayer` işlevinin, içeriğinizi visual editor ile entegrasyon sağlayan bir `IntlayerNode` içinde sarılı şekilde döndürdüğünü unutmayın. Buna karşılık, `intlayer` adresinden içe aktarılan `getIntlayer` işlevi, içeriğinizi ek özelliklere sahip olmaksızın doğrudan döndürür.
+
+Alternatif olarak, metadata'nızı bildirmek için `getTranslation` fonksiyonunu kullanabilirsiniz. Ancak, metadata'nızın çevirisini otomatikleştirmek ve içeriği bir noktada dışarıya çıkarmak için içerik bildirimi dosyalarını kullanmak önerilir.
+
+```typescript fileName="src/app/[locale]/layout.tsx or src/app/[locale]/page.tsx" codeFormat={["typescript", "esm"]}
+import {
+  type IConfigLocales,
+  getTranslation,
+  getMultilingualUrls,
+} from "intlayer";
+import type { Metadata } from "next";
+import type { LocalParams } from "next-intlayer";
+
+export const generateMetadata = ({
+  params: { locale },
+}: LocalParams): Metadata => {
+  const t = <T>(content: IConfigLocales<T>) => getTranslation(content, locale);
+
+  return {
+    title: t<string>({
+      tr: "Başlığım",
+      en: "My title",
+      fr: "Mon titre",
+      es: "Mi título",
+    }),
+    description: t({
+      tr: "Açıklamamız",
+      en: "My description",
+      fr: "Ma description",
+      es: "Mi descripción",
+    }),
+  };
+};
+
+// ... Kodun geri kalanı
+```
+
+> Metadata optimizasyonu hakkında daha fazla bilgi için [resmi Next.js dokumentasyonuna](https://nextjs.org/docs/app/building-your-application/optimizing/metadata) bakın.
+
 </Step>
 
 <Step number={11} title="Yerel Anahtarlayıcı Bileşeni Oluşturma">
+
+`sitemap.xml` ve `robots.txt` dosyalarınızı uluslararasılaştırmak için Intlayer tarafından sağlanan `getMultilingualUrls` fonksiyonunu kullanabilirsiniz. Bu fonksiyon, sitemap'iniz için çok dilli URL'ler oluşturmanıza olanak tanır.
+
+```tsx fileName="src/app/sitemap.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { getMultilingualUrls } from "intlayer";
+import type { MetadataRoute } from "next";
+
+const sitemap = (): MetadataRoute.Sitemap => [
+  {
+    url: "https://example.com",
+    alternates: {
+      languages: {
+        ...getMultilingualUrls("https://example.com"),
+        "x-default": "https://example.com",
+      },
+    },
+  },
+  {
+    url: "https://example.com/login",
+    alternates: {
+      languages: {
+        ...getMultilingualUrls("https://example.com/login"),
+        "x-default": "https://example.com/login",
+      },
+    },
+  },
+  {
+    url: "https://example.com/register",
+    alternates: {
+      languages: {
+        ...getMultilingualUrls("https://example.com/register"),
+        "x-default": "https://example.com/register",
+      },
+    },
+  },
+];
+
+export default sitemap;
+```
+
+```tsx fileName="src/app/robots.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import type { MetadataRoute } from "next";
+import { getMultilingualUrls } from "intlayer";
+
+const getAllMultilingualUrls = (urls: string[]) =>
+  urls.flatMap((url) => Object.values(getMultilingualUrls(url)) as string[]);
+
+const robots = (): MetadataRoute.Robots => ({
+  rules: {
+    userAgent: "*",
+    allow: ["/"],
+    disallow: getAllMultilingualUrls(["/login", "/register"]),
+  },
+  host: "https://example.com",
+  sitemap: `https://example.com/sitemap.xml`,
+});
+
+export default robots;
+```
 
 Uygulamanızın mevcut yerel ayarı saygı göstermesini sağlamak için, bir yerel anahtarlayıcı bileşeni oluşturabilirsiniz. Bu bileşen, dahili URL'leri otomatik olarak mevcut dille önekler, böylece örneğin Fransızca konuşan bir kullanıcı "Hakkında" sayfasına bir bağlantıya tıkladığında, `/fr/hakkinda` yerine `/hakkinda`ya yönlendirilir.
 
@@ -786,8 +1150,6 @@ Bu uzantı şunları sağlar:
 - **Çevirileri kolayca oluşturmak ve güncellemek için hızlı eylemler**.
 
 Uzantının nasıl kullanılacağı hakkında daha fazla detay için, [Intlayer VS Code Uzantısı dokümantasyonu](https://intlayer.org/doc/vs-code-extension)na bakın.
-
----
 
 ### Daha Fazla Bilgi Edinin
 

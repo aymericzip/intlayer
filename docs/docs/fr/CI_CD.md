@@ -170,6 +170,8 @@ jobs:
           labels: translation, automated
 ```
 
+Pour configurer les variables d'environnement, allez sur GitHub → Settings → Secrets and variables → Actions et ajoutez le secret.
+
 > Comme pour Husky, dans le cas d'un monorepo, vous pouvez utiliser l'argument `--base-dir` pour traiter séquentiellement chaque application.
 
 > Par défaut, l'argument `--git-diff` filtre les dictionnaires qui incluent les modifications de la base (par défaut `origin/main`) vers la branche courante (par défaut : `HEAD`).

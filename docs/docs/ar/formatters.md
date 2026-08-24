@@ -52,41 +52,11 @@ author: aymericzip
 
 نظرًا لأن إنشاء أداة التنسيق مكلف نسبيًا، فإن هذا التخزين المؤقت يحسن الأداء دون تغيير السلوك. الغلاف يعرض نفس واجهة برمجة التطبيقات `Intl` الأصلية، لذا فإن الاستخدام متطابق.
 
-- التخزين المؤقت يتم لكل عملية وهو شفاف للمستدعين.
-
 > إذا لم يكن `Intl.DisplayNames` متاحًا في البيئة، يتم طباعة تحذير واحد مخصص للمطور فقط (فكر في استخدام polyfill).
-
-أمثلة:
-
-```ts
-import { Intl } from "intlayer";
-
-// تنسيق الأرقام
-const numberFormat = new Intl.NumberFormat("en-GB", {
-  style: "currency",
-  currency: "GBP",
-});
-numberFormat.format(1234.5); // "£1,234.50"
-
-// أسماء العرض للغات والمناطق، إلخ.
-const displayNames = new Intl.DisplayNames("fr", { type: "language" });
-displayNames.of("en"); // "anglais"
-
-// الترتيب للفرز
-const collator = new Intl.Collator("fr", { sensitivity: "base" });
-collator.compare("é", "e"); // 0 (متساوي)
-
-// قواعد الجمع
-const pluralRules = new Intl.PluralRules("fr");
-pluralRules.select(1); // "واحد"
-pluralRules.select(2); // "آخر"
-```
 
 ## أدوات اللغة
 
 ### `getLocaleFromPath(inputUrl)`
-
-يستخرج جزء اللغة من عنوان URL أو مسار:
 
 ```ts
 import { getLocaleFromPath } from "intlayer";
@@ -97,28 +67,15 @@ getLocaleFromPath("/dashboard"); // "en" (اللغة الافتراضية)
 getLocaleFromPath("https://example.com/es/about"); // "es"
 ```
 
-- **inputUrl**: سلسلة عنوان URL الكاملة أو مسار المعالجة
-- **returns**: اللغة المكتشفة أو اللغة الافتراضية إذا لم يتم العثور على لغة
-
 ### `getPathWithoutLocale(inputUrl, locales?)`
 
 يزيل جزء اللغة من عنوان URL أو مسار:
-
-```ts
-import { getPathWithoutLocale } from "intlayer";
-
-getPathWithoutLocale("/en/dashboard"); // "/dashboard"
-getPathWithoutLocale("/fr/dashboard"); // "/dashboard"
-getPathWithoutLocale("https://example.com/en/about"); // "https://example.com/about"
-```
 
 - **inputUrl**: سلسلة عنوان URL الكاملة أو مسار المعالجة
 - **locales**: مصفوفة اختيارية من اللغات المدعومة (افتراضيًا إلى اللغات المُعدة)
 - **returns**: عنوان URL بدون جزء اللغة
 
 ### `getLocalizedUrl(url, currentLocale, locales?, defaultLocale?, prefixDefault?)`
-
-ينشئ عنوان URL محلي للغة الحالية:
 
 ```ts
 import { getLocalizedUrl } from "intlayer";
@@ -127,12 +84,6 @@ getLocalizedUrl("/about", "fr", ["en", "fr"], "en", false); // "/fr/about"
 getLocalizedUrl("/about", "en", ["en", "fr"], "en", false); // "/about"
 getLocalizedUrl("https://example.com/about", "fr", ["en", "fr"], "en", true); // "https://example.com/fr/about"
 ```
-
-- **url**: عنوان URL الأصلي لتوطينه
-- **currentLocale**: اللغة الحالية
-- **locales**: مصفوفة اختيارية من اللغات المدعومة (افتراضيًا إلى اللغات المُعدة)
-- **defaultLocale**: اللغة الافتراضية الاختيارية (افتراضيًا إلى اللغة الافتراضية المُعدة)
-- **prefixDefault**: ما إذا كان يجب إضافة بادئة للغة الافتراضية (افتراضيًا إلى القيمة المُعدة)
 
 ### `getHTMLTextDir(locale?)`
 
@@ -146,14 +97,9 @@ getHTMLTextDir("ar"); // "rtl"
 getHTMLTextDir("he"); // "rtl"
 ```
 
-- **locale**: اللغة التي يتم الحصول على اتجاه النص لها (افتراضيًا إلى اللغة الحالية)
-- **returns**: `"ltr"`، `"rtl"`، أو `"auto"`
-
 ## أدوات معالجة المحتوى
 
 ### `getContent(node, nodeProps, locale?)`
-
-يقوم بتحويل عقدة المحتوى باستخدام جميع الإضافات المتاحة (الترجمة، الترقيم، الإدراج، إلخ):
 
 ```ts
 import { getContent } from "intlayer";
@@ -165,27 +111,9 @@ const content = getContent(
 );
 ```
 
-- **node**: عقدة المحتوى التي سيتم تحويلها
-- **nodeProps**: خصائص سياق التحويل
-- **locale**: اللغة الاختيارية (افتراضيًا إلى اللغة الافتراضية المُعدة)
-
 ### `getTranslation(languageContent, locale?, fallback?)`
 
 يستخرج المحتوى للغة معينة من كائن محتوى متعدد اللغات:
-
-```ts
-import { getTranslation } from "intlayer";
-
-const content = getTranslation(
-  {
-    en: "Hello",
-    fr: "Bonjour",
-    de: "Hallo",
-  },
-  "fr",
-  true
-); // "Bonjour"
-```
 
 - **languageContent**: كائن يربط اللغات بالمحتوى
 - **locale**: اللغة المستهدفة (الافتراضي هو اللغة الافتراضية المُعدة)
@@ -193,18 +121,12 @@ const content = getTranslation(
 
 ### `getIntlayer(dictionaryKey, locale?, plugins?)`
 
-يسترجع ويحوّل المحتوى من قاموس حسب المفتاح:
-
 ```ts
 import { getIntlayer } from "intlayer";
 
 const content = getIntlayer("common", "fr");
 const nestedContent = getIntlayer("common", "fr", customPlugins);
 ```
-
-- **dictionaryKey**: مفتاح القاموس الذي سيتم استرجاعه
-- **locale**: اللغة الاختيارية (الافتراضي هو اللغة الافتراضية المُعدة)
-- **plugins**: مصفوفة اختيارية من الإضافات المخصصة للتحويل
 
 ### `getIntlayerAsync(dictionaryKey, locale?, plugins?)`
 
@@ -216,24 +138,11 @@ import { getIntlayerAsync } from "intlayer";
 const content = await getIntlayerAsync("common", "fr");
 ```
 
-- **dictionaryKey**: مفتاح القاموس الذي سيتم استرجاعه
-- **locale**: اللغة الاختيارية (الافتراضي هو اللغة الافتراضية المُعدة)
-- **plugins**: مصفوفة اختيارية من الإضافات المخصصة للتحويل
-
 ## أدوات التنسيق
 
 جميع الأدوات التالية مُصدرة من `intlayer`.
 
 ### `percentage(value, options?)`
-
-يقوم بتنسيق رقم كسلسلة نسبة مئوية.
-
-السلوك: القيم الأكبر من 1 تُفسر كنسب مئوية كاملة ويتم تطبيعها (مثلاً، `25` → `25%`، `0.25` → `25%`).
-
-- **value**: `number | string`
-- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
-
-أمثلة:
 
 ```ts
 import { percentage } from "intlayer";
@@ -430,13 +339,6 @@ pluralRules.select(11); // "many"
 
 ### `list(values, options?)`
 
-يقوم بتنسيق مصفوفة من القيم إلى سلسلة قائمة محلية باستخدام `Intl.ListFormat`.
-
-- **values**: `(string | number)[]`
-- **options**: `Intl.ListFormatOptions & { locale?: LocalesValues }`
-  - الحقول الشائعة: `type` (`"conjunction" | "disjunction" | "unit"`)، `style` (`"long" | "short" | "narrow"`)
-  - القيم الافتراضية: `type: 'conjunction'`، `style: 'long'`
-
 أمثلة:
 
 ```ts
@@ -558,34 +460,6 @@ const MyComponent = () => {
 };
 ```
 
-مكونات الخادم (أو وقت تشغيل خادم React):
-
-```ts
-import {
-  useNumber,
-  useCurrency,
-  useDate,
-  usePercentage,
-  useCompact,
-  useList,
-  useRelativeTime,
-  useUnit,
-} from "react-intlayer/server/format";
-// أو في تطبيقات Next.js
-import {
-  useNumber,
-  useCurrency,
-  useDate,
-  usePercentage,
-  useCompact,
-  useList,
-  useRelativeTime,
-  useUnit,
-} from "next-intlayer/server/format";
-```
-
-> ستأخذ هذه الخطافات في الاعتبار اللغة من `IntlayerProvider` أو `IntlayerServerProvider`
-
 ### `getTranslation(languageContent, locale?, fallback?)`
 
 استخراج المحتوى لمحلية معينة:
@@ -616,8 +490,6 @@ import {
   useUnit,
 } from "vue-intlayer/format";
 ```
-
-> ستأخذ هذه التركيبات في الاعتبار اللغة من `IntlayerProvider` المحقون
 
 ## ملاحظات
 

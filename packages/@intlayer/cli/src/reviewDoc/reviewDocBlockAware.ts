@@ -145,7 +145,7 @@ export const reviewFileBlockAware = async (
       writeCurrentState();
     }
     applicationLogger(
-      `${colorize('✔', ANSIColors.GREEN)} File ${formatPath(outputFilePath)} updated successfully (no AI changes needed).`
+      `${colorize('✔', ANSIColors.GREEN)} File ${formatPath(outputFilePath)} updated successfully (no changes needed).`
     );
     return reviewSummary;
   }

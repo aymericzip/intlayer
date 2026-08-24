@@ -376,6 +376,13 @@ app.use(intlayer);
 app.mount("#app");
 ```
 
+> 선호하는 경우 `installIntlayer(app)`을 함수로 직접 호출할 수도 있습니다:
+>
+> ```javascript
+> import { intlayer } from "vue-intlayer";
+> app.use(intlayer);
+> ```
+
 메인 Vue 컴포넌트를 생성하고 `useIntlayer` 컴포저블을 사용하여 애플리케이션 전반에서 콘텐츠 사전에 접근할 수 있습니다:
 
 ```vue fileName="src/HelloWord.vue"
@@ -428,6 +435,8 @@ const countRef = ref(0);
   <p class="read-the-docs">{{ readTheDocs }}</p>
 </template>
 ```
+
+> 기존 앱이 있다면 [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md)와 [extract command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/extract.md)를 사용하여 수천 개의 컴포넌트를 몇 초 안에 변환할 수 있습니다.
 
 #### Intlayer에서 콘텐츠 접근하기
 
@@ -633,6 +642,10 @@ import LocaleSwitcher from "@components/LocaleSwitcher.vue";
 ```
 
 동시에, `intlayerProxy`을 사용하여 애플리케이션에 서버 사이드 라우팅을 추가할 수도 있습니다. 이 플러그인은 URL을 기반으로 현재 로케일을 자동으로 감지하고 적절한 로케일 쿠키를 설정합니다. 로케일이 지정되지 않은 경우, 사용자의 브라우저 언어 설정을 기반으로 가장 적합한 로케일을 결정합니다. 로케일이 감지되지 않으면 기본 로케일로 리디렉션합니다.
+
+> `intlayerProxy`를 프로덕션에서 사용하려면 `vite-intlayer` 패키지를 `devDependencies`에서 `dependencies`로 변경해야 합니다.
+
+> Intlayer v9 이후로, `intlayerProxy()`는 `intlayer()` 플러그인에 직접 번들되어 있으며 `routing.enableProxy` 옵션(`true`가 기본값)을 통해 기본적으로 활성화됩니다. 아래에 표시된 대로 별도로 등록하는 것은 이제 선택사항입니다 — 역호환성 및 플러그인 순서를 제어해야 하는 설정을 위해 유지됩니다. `routing.enableProxy: false`로 설정하여 사용하지 않을 수 있습니다. [v9 릴리스 노트](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/releases/v9.md)를 참조하세요.
 
 ```typescript {3,7} fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
@@ -1134,3 +1147,5 @@ Intlayer와 함께하는 개발 환경을 개선하기 위해 공식 **Intlayer 
 ### 더 나아가기
 
 더 나아가려면 [비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)를 구현하거나 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)를 사용하여 콘텐츠를 외부화할 수 있습니다.
+
+I'm waiting for the actual content blocks to proceed with the audit.---

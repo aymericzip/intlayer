@@ -67,33 +67,50 @@ author: aymericzip
 
 `svelte-i18n` या `i18next` जैसे मुख्य समाधानों की तुलना में, Intlayer एक ऐसा समाधान है जो एकीकृत अनुकूलन के साथ आता है जैसे:
 
+<AccordionGroup>
+
 **पूर्ण विस्तृत कवरेज**
 
 इंटलेयर को **घटक-स्तरीय सामग्री स्कोपिंग**, **प्रतिक्रियाशील अनुवाद**, और स्केलिंग अंतर्राष्ट्रीयकरण (i18n) के लिए आवश्यक सभी सुविधाओं की पेशकश करके स्वेल्टे के साथ पूरी तरह से काम करने के लिए अनुकूलित किया गया है।
 
 **बंडल का आकार**
 
+<Accordion header="Bundle size">
+
 अपने पृष्ठों में विशाल JSON फ़ाइलें लोड करने के बजाय, केवल आवश्यक सामग्री लोड करें। इंटलेयर आपके बंडल और पृष्ठ आकार को 50% तक कम करने में मदद करता है।
 
 **रखरखाव**
+
+<Accordion header="रखरखाव">
 
 आपके एप्लिकेशन की सामग्री का दायरा बड़े पैमाने के अनुप्रयोगों के लिए **रखरखाव की सुविधा प्रदान करता है**। आप अपने संपूर्ण सामग्री कोडबेस की समीक्षा करने के मानसिक बोझ के बिना किसी एक फीचर फ़ोल्डर की नकल कर सकते हैं या उसे हटा सकते हैं। इसके अतिरिक्त, आपकी सामग्री की सटीकता सुनिश्चित करने के लिए Intlayer **पूरी तरह से टाइप किया गया** है।
 
 **एआई एजेंट**
 
+<Accordion header="AI Agent">
+
 सामग्री का सह-स्थानीकरण **बड़े भाषा मॉडल (एलएलएम) द्वारा आवश्यक संदर्भ को कम करता है**। इंटलेयर टूल के एक सूट के साथ भी आता है, जैसे **CLI** ताकि लापता अनुवादों का परीक्षण किया जा सके,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**, और **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/agent_skills.md)**, AI एजेंटों के लिए डेवलपर अनुभव (DX) को और भी आसान बनाने के लिए।
 
 **स्वचालन**
+
+<Accordion header="स्वचालन">
 
 अपने एआई प्रदाता की कीमत पर अपनी पसंद के एलएलएम का उपयोग करके अपने सीआई/सीडी पाइपलाइन में अनुवाद करने के लिए स्वचालन का उपयोग करें। इंटलेयर सामग्री निष्कर्षण को स्वचालित करने के लिए एक **कंपाइलर** के साथ-साथ **पृष्ठभूमि में अनुवाद** में मदद करने के लिए एक [वेब प्लेटफ़ॉर्म](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) भी प्रदान करता है।
 
 **प्रदर्शन**
 
+<Accordion header="प्रदर्शन">
+
 बड़े पैमाने पर JSON फ़ाइलों को घटकों से जोड़ने से प्रदर्शन और प्रतिक्रियाशीलता संबंधी समस्याएं हो सकती हैं। इंटलेयर बिल्ड समय पर आपकी सामग्री लोडिंग को अनुकूलित करता है।
+
+</Accordion>
 
 **किसी भी देव के साथ स्केलिंग**
 
 सिर्फ एक i18n समाधान से अधिक, Intlayer एक **स्व-होस्टेड [विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** और एक **[पूर्ण] प्रदान करता है सीएमएस](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** आपकी बहुभाषी सामग्री को **वास्तविक समय** में प्रबंधित करने में मदद करता है, जिससे अनुवादकों, कॉपीराइटरों और टीम के अन्य सदस्यों के साथ सहयोग सहज हो जाता है। सामग्री को स्थानीय और/या दूरस्थ रूप से संग्रहीत किया जा सकता है।
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
@@ -316,7 +333,42 @@ const changeLocale = (event: Event) => {
 
 <Step number={7} title="मार्कडाउन रेंडर करें" isOptional={true}>
 
+Intlayer Svelte में Markdown और HTML सामग्री को रेंडर करने का समर्थन करता है।
+
 Intlayer सीधे आपके Svelte एप्लिकेशन में Markdown सामग्री को रेंडर करने का समर्थन करता है। डिफ़ॉल्ट रूप से, Markdown को सादा टेक्स्ट के रूप में माना जाता है। Markdown को समृद्ध HTML में बदलने के लिए, आप `@humanspeak/svelte-markdown` या किसी अन्य markdown पार्सर को एकीकृत कर सकते हैं।
+
+```svelte fileName="src/App.svelte"
+<script>
+  import { useIntlayer } from "svelte-intlayer";
+
+  const content = useIntlayer("app");
+</script>
+
+<!-- Markdown को एक Component के रूप में रेंडर करें -->
+{@const MyMarkdownContent = $content.myMarkdownContent}<MyMarkdownContent />
+
+<!-- HTML Content को रेंडर करें -->
+{@html $content.myHtmlContent.toString()}
+
+<!-- कस्टम component overrides के साथ रेंडर करें -->
+{@const MyMarkdownContent = $content.myMarkdownContent.use({
+    h1: (props) => {
+      const h1 = document.createElement('h1');
+      h1.style.color = 'red';
+      h1.textContent = props.children;
+      return h1;
+    },
+    MyCustomComponent: () => {
+       const div = document.createElement('div');
+       div.textContent = 'Custom Logic';
+       return div;
+    }
+  })}
+<MyMarkdownContent />
+```
+
+> [!TIP]
+> आप `$content.markdownContent.metadata.xxx` property का उपयोग करके अपने markdown front-matter डेटा को भी access कर सकते हैं।
 
 > `intlayer` पैकेज का उपयोग क�
 > </Step>
@@ -423,6 +475,8 @@ $: content = useIntlayer('app', locale);
 
 > ध्यान दें कि उत्पादन में `intlayerProxy` का उपयोग करने के लिए, आपको `vite-intlayer` पैकेज को `devDependencies` से `dependencies` में स्विच करना होगा।
 
+> Intlayer v9 के बाद से, `intlayerProxy()` सीधे `intlayer()` प्लगइन में बंडल किया गया है और `routing.enableProxy` विकल्प के माध्यम से डिफ़ॉल्ट रूप से सक्षम है (`true` डिफ़ॉल्ट रूप से)। इसे नीचे दिखाए गए अनुसार अलग से पंजीकृत करना अब वैकल्पिक है — इसे पिछड़े संगतता के लिए और उन सेटअप के लिए रखा गया है जिन्हें प्लगइन ऑर्डर को नियंत्रित करने की आवश्यकता है। `routing.enableProxy: false` सेट करके ऑप्ट आउट करें। [v9 रिलीज़ नोट्स](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/releases/v9.md) देखें।
+
 ```typescript {3,7} fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
 import { svelte } from "@sveltejs/vite-plugin-svelte";
@@ -469,6 +523,29 @@ const changeLocale = (event: Event) => {
     {/each}
   </select>
 </div>
+```
+
+</Step>
+
+<Step number={9} title="अंतर्राष्ट्रीयकृत लिंक" isOptional={true}>
+
+SEO के लिए, यह अनुशंसित है कि आप अपने routes को locale के साथ prefix करें (उदाहरण के लिए, `/about`, `/fr/about`)।
+
+```svelte fileName="src/lib/components/Link.svelte"
+<script lang="ts">
+  import { getLocalizedUrl } from "intlayer";
+  import { useLocale } from "svelte-intlayer";
+
+  export let href = "";
+  const { locale } = useLocale();
+
+  // URL को प्रीफिक्स करने के लिए हेल्पर
+  $: localizedHref = getLocalizedUrl(href, $locale);
+</script>
+
+<a href={localizedHref}>
+  <slot />
+</a>
 ```
 
 </Step>
@@ -535,6 +612,8 @@ bun x intlayer extract
 
  </Tab>
  <Tab value='बैबेल कंपाइलर'>
+
+> v9 के बाद से, `intlayerCompiler` को `intlayer` plugin में शामिल किया गया है। इसलिए आपको इसे manually जोड़ने की आवश्यकता नहीं है।
 
 intlayerCompiler प्लगइन शामिल करने के लिए अपनी `vite.config.ts` अपडेट करें:
 

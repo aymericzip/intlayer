@@ -42,6 +42,45 @@ author: aymericzip
 
 ## 启用实时同步
 
+通过更新你的 Intlayer 配置来启用 Live Sync：
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import type { IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  // ... 其他配置设置
+  editor: {
+    /**
+     * 检测到更改时启用区域配置的热重新加载。
+     * 例如，当添加或更新字典时，应用程序会更新
+     * 页面上显示的内容。
+     *
+     * 因为热重新加载需要与服务器的持续连接，它只
+     * 对 `enterprise` 计划的客户端可用。
+     *
+     * 默认值: false
+     */
+    liveSync: true,
+  },
+  dictionary: {
+    /**
+     * 控制字典的导入方式：
+     *
+     * - "fetch": 使用 Live Sync API 动态获取字典。
+     *   将 useIntlayer 替换为 useDictionaryDynamic。
+     *
+     * 注意: Live 模式使用 Live Sync API 来获取字典。如果 API 调用
+     * 失败，字典会动态导入。
+     * 注意: 只有具有远程内容和 "live" 标志的字典才会使用 live 模式。
+     * 其他字典为了性能考虑使用动态模式。
+     */
+    importMode: "fetch",
+  },
+};
+
+export default config;
+```
+
 > 实时同步需要持续的服务器连接，并且仅在企业版计划中可用。
 
 通过更新您的 Intlayer 配置来启用实时同步：
@@ -168,8 +207,6 @@ export default config;
 - 应用程序 URL 应与您在编辑器配置中设置的 URL (`applicationURL`) 匹配。
 - CMS URL
 - 确保项目配置已推送到 Intlayer CMS。
-
-- 可视化编辑器使用 iframe 来显示您的网站。确保您网站的内容安全策略（CSP）允许 CMS URL 作为 `frame-ancestors`（默认是 'https://intlayer.org'）。检查编辑器控制台是否有任何错误。
 
 ## Useful links
 

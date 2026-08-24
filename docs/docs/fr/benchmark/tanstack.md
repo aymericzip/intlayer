@@ -194,6 +194,8 @@ L'idée derrière `Wuchale` est intéressante mais ce n'est pas encore une solut
 
 `Tolgee` traite bon nombre des problèmes mentionnés plus haut. Je l'ai trouvé plus difficile à prendre en main que d'autres outils aux approches similaires. Il n'offre pas de sécurité de type, ce qui rend également beaucoup plus difficile la détection des clés manquantes à la compilation. J'ai dû wrapper les APIs de Tolgee avec les miennes pour ajouter la détection des clés manquantes.
 
+Le package est assez lourd (~11.1kb, ce qui est plus de 2× `react-intlayer`).
+
 Sur TanStack Start, j'ai également eu des problèmes de réactivité : au changement de locale, je devais forcer le provider à se re-rendre et souscrire aux événements de changement de locale pour que le chargement dans une autre langue se comporte correctement.
 
 **(next-intl)** (`next-intl@4.9.1`) :
@@ -208,6 +210,8 @@ Sur TanStack Start, vous évitez les pièges spécifiques à Next.js (`setReques
 
 Pourtant, elle partage les mêmes inconvénients majeurs que les stacks basées sur `t('a.b.c')` : les optimisations sont possibles mais très gourmandes en temps, et les gros projets risquent de mauvaises pratiques (namespaces + chargement dynamique + types).
 
+Le package est particulièrement lourd (~17.3kb, ce qui représente environ 3.5× `react-intlayer`).
+
 Les formats de messages divergent également : `next-intl` utilise ICU MessageFormat, tandis qu'i18next utilise son propre format - ce qui complique l'outillage ou les migrations si vous les mélangez.
 
 **(Lingui)** (`@lingui/core@5.3.0`) :
@@ -217,6 +221,8 @@ Les formats de messages divergent également : `next-intl` utilise ICU MessageFo
 **(react-intl)** (`react-intl@10.1.1`) :
 
 `react-intl` est une implémentation performante de l'équipe Format.js. La DX reste verbeuse : `const intl = useIntl()` + `intl.formatMessage({ id: "xx.xx" })` ajoute de la complexité, du travail JavaScript supplémentaire et lie l'instance globale i18n à de nombreux nœuds dans l'arbre React.
+
+Le package est également volumineux (~14.4kb, soit environ 3× `react-intlayer`).
 
 ### 4 - Recommandations
 

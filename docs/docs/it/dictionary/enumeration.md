@@ -275,6 +275,36 @@ Per informazioni più dettagliate sulla configurazione e sull'uso, fare riferime
 
 In questo esempio, il componente si adatta dinamicamente in base al numero di auto. Il contenuto corretto viene scelto automaticamente, a seconda dell'intervallo specificato.
 
+```json fileName="**/*.content.json" contentDeclarationFormat="json"
+{
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "ranking_component",
+  "content": {
+    "ordinal": {
+      "nodeType": "enumeration",
+      "enumeration": {
+        "1": {
+          "nodeType": "insertion",
+          "insertion": "{{count}}º posto"
+        },
+        "2": {
+          "nodeType": "insertion",
+          "insertion": "{{count}}º posto"
+        },
+        "3": {
+          "nodeType": "insertion",
+          "insertion": "{{count}}º posto"
+        },
+        "fallback": {
+          "nodeType": "insertion",
+          "insertion": "{{count}}º posto"
+        }
+      }
+    }
+  }
+}
+```
+
 ### Using Ordinal Enumeration
 
 <Tabs group="framework">

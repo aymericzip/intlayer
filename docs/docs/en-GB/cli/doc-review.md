@@ -89,9 +89,15 @@ For most use cases,
 
 **Review mode options:**
 
+- **`--mode [mode]`**: How the review runs. Defaults to `apply`.
+
 - **`--log`**: Log-only mode. Do not translate with AI; instead log the blocks that need attention (with line numbers and content) for the base and target locales, to help another agent generate the translations.
 
-  > Example: `npx intlayer doc review --log`
+> Example: `npx intlayer doc review --mode report`
+
+> Example: `npx intlayer doc review --log`
+
+Whatever the mode, the run ends with a synthesis listing the documents that are aligned with their base document and the ones that still have blocks to edit.
 
 **Entry output options:**
 

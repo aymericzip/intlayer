@@ -248,7 +248,7 @@ Intlayer 在内部将这些模式规范化为统一语法，允许复杂的路�
 
 <Tabs group='framework'>
   <Tab label="Next.js" value="nextjs">
-  
+
     ```tsx
     'use client';
 
@@ -263,7 +263,7 @@ Intlayer 在内部将这些模式规范化为统一语法，允许复杂的路�
   </Tab>
 
   <Tab label="React Router" value="reactrouter">
-  
+
     ```tsx
     'use client';
 
@@ -279,7 +279,7 @@ Intlayer 在内部将这些模式规范化为统一语法，允许复杂的路�
   </Tab>
 
   <Tab label="Vue" value="vue">
-  
+
     ```vue
     <script setup>
     import { useRewriteURL } from "vue-intlayer";
@@ -291,7 +291,7 @@ Intlayer 在内部将这些模式规范化为统一语法，允许复杂的路�
 
   </Tab>
   <Tab label="Solid" value="solid">
-  
+
     ```tsx
     import { useRewriteURL } from "solid-intlayer";
 
@@ -303,7 +303,7 @@ Intlayer 在内部将这些模式规范化为统一语法，允许复杂的路�
 
   </Tab>
   <Tab label="Svelte" value="svelte">
-  
+
     ```svelte
     <script>
     import { useRewriteURL } from "svelte-intlayer";
@@ -339,6 +339,8 @@ export function middleware(request: NextRequest) {
 ### Vite 集成
 
 对于 SolidJS、Vue 和 Svelte，`intlayerProxy` Vite 插件在开发期间管理重写。
+
+> 自 Intlayer v9 起，`intlayerProxy()` 已直接捆绑到 `intlayer()` 插件中，并通过 `routing.enableProxy` 选项默认启用（默认为 `true`）。如下所示单独注册现在是可选的 — 它保留用于向后兼容性和需要控制插件顺序的设置。设置 `routing.enableProxy: false` 来禁用。查看 [v9 发布说明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/releases/v9.md)。
 
 ```typescript fileName="vite.config.ts"
 import { defineConfig } from "vite";

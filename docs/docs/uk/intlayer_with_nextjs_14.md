@@ -105,6 +105,31 @@ Intlayer оптимізовано для роботи з **компонента�
 
 ## Покроковий посібник з налаштування Intlayer у застосунку Next.js
 
+<Tabs defaultTab="code">
+  <Tab label="Code" value="code">
+
+<iframe
+  src="https://ide.intlayer.org/aymericzip/intlayer-next-14-template?file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - Як інтернаціоналізувати вашу програму за допомогою Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+  <Tab label="Demo" value="demo">
+
+<iframe
+  src="https://intlayer-next-14-template.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo - intlayer-next-14-template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+</Tabs>
+
 Дивіться [Шаблон додатку](https://github.com/aymericzip/intlayer-next-14-template) на GitHub.
 
 <Steps>
@@ -254,6 +279,8 @@ export const config = {
 
 > `intlayerMiddleware` використовується для виявлення пріоритетної локалі користувача та перенаправлення його на відповідний URL згідно з [конфігурацією](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md). Додатково, воно дозволяє зберігати пріоритетну локаль користувача в cookie.
 
+> Починаючи з Intlayer v9, цей middleware дотримується опції `routing.enableProxy` (`true` за замовчуванням). Установіть `routing.enableProxy: false` у вашій конфігурації, щоб перетворити його на pass-through без видалення цього файлу. Див. [примітки до випуску v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/releases/v9.md).
+
 > Налаштуйте параметр `matcher`, щоб він відповідав маршрутам вашого застосунку. Для детальнішої інформації зверніться до [документації Next.js щодо конфігурації matcher](https://nextjs.org/docs/app/building-your-application/routing/middleware).
 
 > Якщо потрібно послідовно виконувати кілька middleware (наприклад, `intlayerMiddleware` разом із автентифікацією або кастомними middleware), Intlayer тепер надає хелпер під назвою `multipleMiddlewares`.
@@ -293,6 +320,36 @@ export default RootLayout;
 
 Щоб реалізувати динамічну маршрутизацію, вкажіть шлях для локалі, додавши новий layout у вашу директорію `[locale]`:
 
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
+```tsx fileName="src/app/[locale]/layout.tsx" codeFormat={["typescript", "esm"]}
+import { type Next14LayoutIntlayer } from "next-intlayer";
+import { IntlayerProvider } from "next-intlayer/server";
+import { Inter } from "next/font/google";
+import { getHTMLTextDir } from "intlayer";
+
+const inter = Inter({ subsets: ["latin"] });
+
+const LocaleLayout: Next14LayoutIntlayer = ({
+  children,
+  params: { locale },
+}) => (
+  <IntlayerProvider locale={locale}>
+    <html lang={locale} dir={getHTMLTextDir(locale)}>
+      <body className={inter.className}>{children}</body>
+    </html>
+  </IntlayerProvider>
+);
+
+export default LocaleLayout;
+```
+
+> Один `IntlayerProvider` охоплює обидві половини дерева: він передає server context, область видимості якого обмежена запитом і читається server hooks, та монтує client provider, щоб client components отримували ту саму locale.
+
+ </Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
+
 ```tsx fileName="src/app/[locale]/layout.tsx" codeFormat={["typescript", "esm"]}
 import {
   type Next14LayoutIntlayer,
@@ -318,6 +375,9 @@ const LocaleLayout: Next14LayoutIntlayer = ({
 
 export default LocaleLayout;
 ```
+
+ </Tab>
+</Tabs>
 
 > Сегмент шляху `[locale]` використовується для визначення локалі. Наприклад: `/en-US/about` відповідатиме `en-US`, а `/fr/about`, `fr`.
 
@@ -404,6 +464,40 @@ export default pageContent;
 
 Отримуйте доступ до своїх словників контенту в усьому застосунку:
 
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
+```tsx fileName="src/app/[locale]/page.tsx" codeFormat={["typescript", "esm"]}
+import { ClientComponentExample } from "@components/ClientComponentExample";
+import { ServerComponentExample } from "@components/ServerComponentExample";
+import { type Next14PageIntlayer } from "next-intlayer";
+import { useIntlayer } from "next-intlayer";
+
+const Page: Next14PageIntlayer = ({ params: { locale } }) => {
+  const content = useIntlayer("page", locale);
+
+  return (
+    <>
+      <p>
+        {content.getStarted.main}
+        <code>{content.getStarted.pageLink}</code>
+      </p>
+
+      <ServerComponentExample />
+      <ClientComponentExample />
+    </>
+  );
+};
+
+export default Page;
+```
+
+- **`IntlayerProvider`** монтується один раз у макеті локалі. Він надає локаль як серверним, так і клієнтським компонентам, тому сторінки більше не обертають себе.
+- Серверні hooks розраховують локаль у такому порядку: локаль, передана на місці виклику, потім контекст сервера, сідований провайдером, потім локаль, перенесена запитом (заголовок `x-intlayer-locale`, встановлений Intlayer proxy, потім файл cookie локалі). Цей останній крок — це те, що зберігає вміст у актуальному стані під час навігації на клієнтській стороні, яка повторно відображає лише сегмент сторінки, де макет — разом із провайдером — не запускається.
+
+ </Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
+
 ```tsx fileName="src/app/[locale]/page.tsx" codeFormat={["typescript", "esm"]}
 import { ClientComponentExample } from "@components/ClientComponentExample";
 import { ServerComponentExample } from "@components/ServerComponentExample";
@@ -437,6 +531,9 @@ export default Page;
   > Layout and page cannot share a common server context because the server context system is based on a per-request data store (via [React’s cache](https://react.dev/reference/react/cache) mechanism), causing each “context” to be re-created for different segments of the application. Placing the provider in a shared layout would break this isolation, preventing the correct propagation of the server context values to your server components.
   > Layout and page cannot share a common server context because the server context system is based on a per-request data store (via [React’s cache](https://react.dev/reference/react/cache) mechanism), causing each “context” to be re-created for different segments of the application. Placing the provider in a shared layout would break this isolation, preventing the correct propagation of the server context values to your server components.
 
+ </Tab>
+</Tabs>
+
 ```tsx {4,7} fileName="src/components/ClientComponentExample.tsx" codeFormat={["typescript", "esm"]}
 "use client";
 
@@ -455,6 +552,30 @@ const ClientComponentExample: FC = () => {
 };
 ```
 
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
+```tsx {2} fileName="src/components/ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
+import type { FC } from "react";
+import { useIntlayer } from "next-intlayer";
+
+const ServerComponentExample: FC = () => {
+  const content = useIntlayer("server-component-example"); // Створити пов'язану декларацію вмісту
+
+  return (
+    <div>
+      <h2>{content.title}</h2>
+      <p>{content.content}</p>
+    </div>
+  );
+};
+```
+
+> `next-intlayer` — це ізоморфний шлях імпорту: умова експорту `react-server` надає серверним компонентам реалізацію ambient-locale, тоді як клієнтські компоненти отримують версію, підтримувану контекстом. Один і той же виклик працює на обох сторонах.
+
+ </Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
+
 ```tsx {2} fileName="src/components/ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "next-intlayer/server";
@@ -470,6 +591,9 @@ const ServerComponentExample: FC = () => {
   );
 };
 ```
+
+ </Tab>
+</Tabs>
 
 > Якщо ви хочете використати свій контент в атрибуті типу `string`, наприклад `alt`, `title`, `href`, `aria-label` тощо, вам потрібно викликати значення функції, наприклад:
 

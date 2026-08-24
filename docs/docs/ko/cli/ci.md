@@ -128,6 +128,8 @@ bun x intlayer ci fill --verbose --mode complete
 
 ### CI/CD 파이프라인에서 사용
 
+`intlayer init`을 실행하면 즉시 사용 가능한 두 가지 GitHub Actions workflow를 생성합니다 ([Scaffolded GitHub Actions](#scaffolded-github-actions) 참조). 아래 예제는 monorepo에서 `ci` 명령어를 사용한 동등한 설정을 보여주며, 여기서 자격증명은 `INTLAYER_PROJECT_CREDENTIALS`에서 프로젝트별로 주입됩니다.
+
 CI/CD 구성(예: GitHub Actions, GitLab CI)에서 `INTLAYER_PROJECT_CREDENTIALS`를 비밀 값으로 설정합니다:
 
 ```yaml

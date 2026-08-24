@@ -62,13 +62,19 @@ author: aymericzip
 
 W porównaniu do głównych rozwiązań, takich jak „lit-localize” czy „i18next”, Intlayer jest rozwiązaniem wyposażonym w zintegrowane optymalizacje, takie jak:
 
+<AccordionGroup>
+
 **Pełne pokrycie światłem**
 
 Intlayer jest zoptymalizowany do doskonałej współpracy z Lit, oferując **zakres treści na poziomie komponentów sieciowych**, **obsługę TypeScript** i wszystkie funkcje potrzebne do skalowania umiędzynarodowienia (i18n).
 
+</Accordion>
+
 **Rozmiar bundle'a**
 
 Zamiast ładować ogromne pliki JSON na swoje strony, ładuj tylko niezbędną treść. Intlayer pomaga **zmniejszyć rozmiary bundle'a i stron nawet o 50%**.
+
+</Accordion>
 
 **Łatwość konserwacji**
 
@@ -76,7 +82,11 @@ Określanie zakresu zawartości aplikacji **ułatwia konserwację** aplikacji na
 
 **Agent AI**
 
+<Accordion header="Agent AI">
+
 Wspólna lokalizacja treści **zmniejsza potrzebny kontekst** dzięki modelom dużego języka (LLM). Intlayer zawiera także zestaw narzędzi, taki jak **CLI** do sprawdzania brakujących tłumaczeń**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** i **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/agent_skills.md)**, aby praca programisty (DX) była jeszcze płynniejsza dla agentów AI.
+
+</Accordion>
 
 **Automatyzacja**
 
@@ -84,13 +94,22 @@ Korzystaj z automatyzacji, aby tłumaczyć w swoim potoku CI/CD przy użyciu wyb
 
 **Wydajność**
 
+<Accordion header="Performance">
+
 Łączenie ogromnych plików JSON z komponentami może prowadzić do problemów z wydajnością i reaktywnością. Inlayer optymalizuje ładowanie treści w czasie kompilacji.
+
+</Accordion>
 
 **Skalowanie bez użycia dewelopera**
 
 Więcej niż tylko rozwiązanie i18n, Intlayer zapewnia **samodzielny [edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** i **[pełny CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)**, który pomoże Ci zarządzać wielojęzyczną treścią w **w czasie rzeczywistym**, dzięki czemu współpraca z tłumaczami, copywriterami i innymi członkami zespołu będzie płynna. Treść może być przechowywana lokalnie i/lub zdalnie.
 
+</Accordion>
+</AccordionGroup>
+
 ---
+
+Przejdź do [Application Template](https://github.com/aymericzip/intlayer-vite-lit-template) na GitHubie.
 
 ## Przewodnik krok po kroku dotyczący konfiguracji Intlayer w aplikacji Vite i Lit
 
@@ -460,6 +479,8 @@ Aby stworzyć unikalne trasy dla każdego języka (przydatne dla SEO), możesz u
 Najpierw dodaj `intlayerProxy` do konfiguracji Vite:
 
 > Pamiętaj, że aby korzystać z `intlayerProxy` w środowisku produkcyjnym, musisz przenieść `vite-intlayer` z `devDependencies` do `dependencies`.
+
+> Od wersji Intlayer v9, `intlayerProxy()` jest zawarty bezpośrednio w wtyczce `intlayer()` i domyślnie włączony za pomocą opcji `routing.enableProxy` (domyślnie `true`). Rejestrowanie go osobno, jak pokazano poniżej, jest teraz opcjonalne — jest utrzymywane dla zgodności wstecznej i konfiguracji, które muszą kontrolować kolejność wtyczek. Ustaw `routing.enableProxy: false`, aby zrezygnować. Zobacz [notatki do wydania v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/releases/v9.md).
 
 ```typescript {3,7} fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";

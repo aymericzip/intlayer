@@ -470,6 +470,8 @@ Her dil için benzersiz yollar oluşturmak için (SEO için yararlıdır), sunuc
 
 > Üretimde `intlayerProxy` kullanmak için `vite-intlayer`'ı `devDependencies`'dan `dependencies`'e taşımanız gerektiğini unutmayın.
 
+> Intlayer v9'dan itibaren, `intlayerProxy()` doğrudan `intlayer()` plugin'ine paketlenmiştir ve `routing.enableProxy` seçeneği aracılığıyla varsayılan olarak etkinleştirilmiştir (varsayılan olarak `true`). Aşağıda gösterildiği gibi ayrı olarak kaydettirmek artık isteğe bağlıdır — geriye dönük uyumluluk ve plugin sırasını kontrol etmesi gereken kurulumlar için korunur. Devre dışı bırakmak için `routing.enableProxy: false` ayarlayın. [v9 sürüm notlarına](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/releases/v9.md) bakın.
+
 ```typescript {3,7} fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
 import { intlayer } from "vite-intlayer";

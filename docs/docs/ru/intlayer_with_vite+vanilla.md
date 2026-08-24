@@ -470,6 +470,8 @@ document.querySelector<HTMLDivElement>(".edit-note")!.innerHTML =
 
 > Обратите внимание, что для использования `intlayerProxy` в продакшене вам нужно переместить `vite-intlayer` из `devDependencies` в `dependencies`.
 
+> Начиная с Intlayer v9, `intlayerProxy()` встроен непосредственно в плагин `intlayer()` и включен по умолчанию через опцию `routing.enableProxy` (`true` по умолчанию). Отдельная регистрация, как показано ниже, теперь опциональна — она сохранена для обратной совместимости и для настроек, которым требуется контролировать порядок плагинов. Установите `routing.enableProxy: false` для отказа. См. [заметки выпуска v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/releases/v9.md).
+
 ```typescript {3,7} fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
 import { intlayer } from "vite-intlayer";

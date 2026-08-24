@@ -245,7 +245,7 @@ Puedes configurar el renderizado de HTML de forma global para toda tu aplicació
 
 <Tabs group="framework">
   <Tab label="React / Next.js" value="react">
-  
+
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "react-intlayer/html";
 
@@ -282,7 +282,7 @@ Puedes configurar el renderizado de HTML de forma global para toda tu aplicació
 
   </Tab>
   <Tab label="Vue" value="vue">
-  
+
     ```typescript fileName="main.ts"
     import { createApp, h } from "vue";
     import { intlayer } from "vue-intlayer";
@@ -327,7 +327,7 @@ Puedes configurar el renderizado de HTML de forma global para toda tu aplicació
 
   </Tab>
   <Tab label="Svelte" value="svelte">
-   
+
     ```svelte fileName="App.svelte"
     <script lang="ts">
       import { HTMLProvider } from "svelte-intlayer/html";
@@ -364,7 +364,7 @@ Puedes configurar el renderizado de HTML de forma global para toda tu aplicació
 
   </Tab>
   <Tab label="Preact" value="preact">
-   
+
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "preact-intlayer/html";
 
@@ -400,7 +400,7 @@ Puedes configurar el renderizado de HTML de forma global para toda tu aplicació
 
   </Tab>
   <Tab label="Solid" value="solid">
-   
+
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "solid-intlayer/html";
 
@@ -460,9 +460,9 @@ Puedes configurar el renderizado de HTML de forma global para toda tu aplicació
     export const appConfig: ApplicationConfig = {
       providers: [
         createIntlayerHTMLProvider({
-          renderMarkdown: async (html) => {
-            const { renderMarkdown } = await import('angular-intlayer/html');
-            return renderMarkdown(html);
+          renderHTML: async (html) => {
+            const { renderHTML } = await import('angular-intlayer/html');
+            return renderHTML(html);
           },
         }),
       ],
@@ -519,9 +519,9 @@ Si necesitas renderizar cadenas de HTML sin procesar o tener más control sobre 
 
   </Tab>
   <Tab label="Vue" value="vue">
-   
+
     #### Componente `<HTMLRenderer />`
-   
+
     ```vue
     <script setup>
     import { HTMLRenderer } from "vue-intlayer/html";
@@ -534,9 +534,9 @@ Si necesitas renderizar cadenas de HTML sin procesar o tener más control sobre 
 
   </Tab>
   <Tab label="Svelte" value="svelte">
-  
+
     #### Componente `<HTMLRenderer />`
-   
+
     ```svelte
     <script lang="ts">
     import { HTMLRenderer } from "svelte-intlayer/html";
@@ -568,9 +568,9 @@ Si necesitas renderizar cadenas de HTML sin procesar o tener más control sobre 
 
   </Tab>
   <Tab label="Preact" value="preact">
-   
+
     #### Componente `<HTMLRenderer />`
-   
+
     ```tsx
     import { HTMLRenderer } from "preact-intlayer/html";
 
@@ -599,9 +599,9 @@ Si necesitas renderizar cadenas de HTML sin procesar o tener más control sobre 
 
   </Tab>
   <Tab label="Solid" value="solid">
-   
+
     #### Componente `<HTMLRenderer />`
-   
+
     ```tsx
     import { HTMLRenderer } from "solid-intlayer/html";
 

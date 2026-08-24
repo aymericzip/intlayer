@@ -104,6 +104,8 @@ Der `useLocale` Hook akzeptiert die folgenden Parameter:
 
 ## Rückgabewerte
 
+Wenn Sie den Hook `useLocale` aufrufen, gibt dieser ein Objekt mit den folgenden Eigenschaften zurück:
+
 - **`locale`**: Die aktuelle Sprache, wie im React-Kontext gesetzt.
 - **`defaultLocale`**: Die primäre Sprache, die in der Konfiguration definiert ist.
 - **`availableLocales`**: Eine Liste aller verfügbaren Sprachen, wie in der Konfiguration definiert.

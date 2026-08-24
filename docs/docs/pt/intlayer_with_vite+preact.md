@@ -590,6 +590,8 @@ export default LocaleSwitcher;
 >
 > > - [Hook `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/react-intlayer/useLocale.md) (API é semelhante para `preact-intlayer`)> - [Hook `getLocaleName`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/intlayer/getLocaleName.md)> - [Hook `getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/intlayer/getLocalizedUrl.md)> - [Hook `getHTMLTextDir`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/intlayer/getHTMLTextDir.md)> - [Atributo `hreflang`](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=fr)> - [Atributo `lang`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang)> - [Atributo `dir`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)> - [Atributo `aria-current`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)> - [API Popover](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API)
 
+---
+
 </Step>
 
 <Step number={9} title="Alternar os atributos de idioma e direção do HTML" isOptional={true}>
@@ -658,6 +660,12 @@ const App: FunctionalComponent = () => (
 
 export default App;
 ```
+
+Ao aplicar essas mudanças, sua aplicação irá:
+
+- Certifique-se de que o atributo **language** (`lang`) reflita corretamente a localidade atual, o que é importante para SEO e comportamento do navegador.
+- Ajuste a **direção do texto** (`dir`) de acordo com a localidade, melhorando a legibilidade e usabilidade para idiomas com ordens de leitura diferentes.
+- Forneça uma experiência mais **acessível**, pois as tecnologias assistivas dependem desses atributos para funcionar otimamente.
 
 </Step>
 

@@ -104,6 +104,8 @@ const LocaleSwitcher: FC = () => {
 
 ## 戻り値
 
+`useLocale` フックを呼び出すと、以下のプロパティを含むオブジェクトが返されます:
+
 - **`locale`**: React コンテキストで設定されている現在のロケール。
 - **`defaultLocale`**: 設定で定義された主要なロケール。
 - **`availableLocales`**: 設定で定義された利用可能なすべてのロケールのリスト。

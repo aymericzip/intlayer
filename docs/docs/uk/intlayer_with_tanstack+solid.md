@@ -486,8 +486,6 @@ function RouteComponent() {
 }
 ```
 
-> Якщо ви хочете використовувати свій вміст в атрибуті типу `string`, наприклад `alt`, `title`, `href`, `aria-label` тощо, ви повинні викликати значення функції, наприклад:
-
 > ```html
 > <img src="{content.image.src.value}" alt="{content.image.value}" />
 > <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
@@ -573,6 +571,8 @@ const RootComponent: ParentComponent = (props) => {
 
 > Зверніть увагу, що для використання `intlayerProxy` у продакшні вам потрібно перенести пакет `vite-intlayer` з `devDependencies` до `dependencies`.
 
+> З Intlayer v9, `intlayerProxy()` вбудований безпосередньо в плагін `intlayer()` і увімкнений за замовчуванням через опцію `routing.enableProxy` (`true` за замовчуванням). Реєстрація його окремо, як показано нижче, тепер необов'язкова — вона збережена для зворотної сумісності та для налаштувань, які потребують контролю порядку плагінів. Встановіть `routing.enableProxy: false`, щоб відмовитися. Див. [примітки до випуску v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/releases/v9.md).
+
 ```typescript fileName="vite.config.ts"
 import { tanstackStart } from "@tanstack/solid-start/plugin/vite";
 import solid from "vite-plugin-solid";
@@ -604,6 +604,8 @@ export default defineConfig({
 </Step>
 
 <Step number={13} title="Інтернаціоналізація ваших метаданих">
+
+Використовуйте `getIntlayerAsync` для доступу до ваших словників контенту всередині завантажувача `head` для метаданих з урахуванням мови.
 
 Ви також можете використовувати функцію `getIntlayer`, щоб отримати доступ до ваших словників вмісту в завантажувачі `head` для метаданих з урахуванням локалі:
 
@@ -879,6 +881,81 @@ bun run build # Або bun run dev
 
  </Tab>
 </Tabs>
+
+---
+
+</Step>
+
+<Step number={16} title="Попередній рендеринг і генерація Sitemap">
+
+Intlayer поставляється з вбудованим генератором карти сайту, який допомагає легко створити карту сайту для вашого додатку. Він обробляє локалізовані маршрути та додає необхідні метаданні для пошукових систем.
+
+> Карта сайту, згенерована Intlayer, підтримує простір імен `xhtml:link` (Hreflang XML Extensions). На відміну від стандартних генераторів карт сайту, які просто перелічують сирі URL-адреси, Intlayer автоматично створює необхідні двосторонні посилання між усіма мовними версіями сторінки (наприклад, `/about`, `/about?lang=fr` та `/about?lang=es`). Це гарантує, що пошукові системи коректно індексують та надають правильну мовну версію потрібній аудиторії.
+
+Щоб це використати, вам спочатку потрібно налаштувати `vite.config.ts` для ввімкнення попередньої обробки локалізованих маршрутів і вимкнення генерування карти сайту за замовчуванням TanStack Start.
+
+```typescript fileName="vite.config.ts"
+import { localeMap, localeFlatMap } from "intlayer";
+// ... інші імпорти
+
+export const pathList = ["", "/about", "/404"];
+
+const localizedPages = localeFlatMap(({ urlPrefix }) =>
+  pathList.map((path) => ({
+    path: `${urlPrefix}${path}`,
+    prerender: {
+      enabled: true,
+    },
+  }))
+);
+
+export default defineConfig({
+  plugins: [
+    // ... інші плагіни
+    tanstackStart({
+      // ... інша конфігурація
+      sitemap: {
+        enabled: false,
+      },
+      prerender: {
+        enabled: true,
+        crawlLinks: false,
+        concurrency: 10,
+      },
+      pages: localizedPages,
+    }),
+  ],
+});
+```
+
+Потім створіть маршрут `src/routes/sitemap[.]xml.ts`, який використовує функцію `generateSitemap`:
+
+```typescript fileName="src/routes/sitemap[.]xml.ts"
+import { createFileRoute } from "@tanstack/solid-router";
+import { generateSitemap } from "intlayer";
+
+const SITE_URL = "http://localhost:3000";
+
+export const Route = createFileRoute("/sitemap.xml")({
+  server: {
+    handlers: {
+      GET: async () => {
+        const sitemap = generateSitemap(
+          [
+            { path: "/", changefreq: "daily", priority: 1.0 },
+            { path: "/about", changefreq: "monthly", priority: 0.8 },
+          ],
+          { siteUrl: SITE_URL }
+        );
+
+        return new Response(sitemap, {
+          headers: { "Content-Type": "application/xml" },
+        });
+      },
+    },
+  },
+});
+```
 
 ---
 

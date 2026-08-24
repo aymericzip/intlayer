@@ -33,6 +33,14 @@ author: aymericzip
 
 Siehe [Application Template](https://github.com/aymericzip/intlayer-lynx-template) auf GitHub.
 
+<iframe
+  src="https://ide.intlayer.org/aymericzip/intlayer-lynx-template?file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - Wie man seine Anwendung mit Intlayer internationalisiert"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
 ## Warum Intlayer gegenüber Alternativen?
 
 Im Vergleich zu Hauptlösungen wie „react-native-localize“ oder „i18next“ ist Intlayer eine Lösung, die über integrierte Optimierungen verfügt wie:
@@ -279,32 +287,6 @@ const appContent = {
 export default appContent;
 ```
 
-      de: "Tippen Sie auf das Logo und haben Sie Spaß!",
-      en: "Tap the logo and have fun!",
-      fr: "Appuyez sur le logo et amusez-vous!",
-      es: "¡Toca el logo y diviértete!",
-    }),
-    hint: [
-      t({
-        de: "Bearbeiten",
-        en: "Edit",
-        fr: "Modifier",
-        es: "Editar",
-      }),
-      " src/App.tsx ",
-      t({
-        de: "um Aktualisierungen zu sehen!",
-        en: "to see updates!",
-        fr: "pour voir les mises à jour!",
-        es: "para ver actualizaciones!",
-      }),
-    ],
-
-},
-};
-
-module.exports = appContent;
-
 ````
 
 ```json fileName="src/app.content.json" contentDeclarationFormat="json"
@@ -507,6 +489,11 @@ Um Ihre Entwicklungserfahrung mit Intlayer zu verbessern, können Sie die offizi
 [Im VS Code Marketplace installieren](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
 Diese Erweiterung bietet:
+
+- **Autocompletion** für Übersetzungsschlüssel.
+- **Echtzeit-Fehlererkennung** für fehlende Übersetzungen.
+- **Inline-Vorschau** von übersetztem Inhalt.
+- **Schnellaktionen** zum einfachen Erstellen und Aktualisieren von Übersetzungen.
 
 - **Autovervollständigung** für Übersetzungsschlüssel.
 - **Echtzeit-Fehlererkennung** für fehlende Übersetzungen.

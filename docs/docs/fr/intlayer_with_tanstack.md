@@ -553,8 +553,6 @@ function RouteComponent() {
 }
 ```
 
-> Si vous souhaitez utiliser votre contenu dans un attribut de type `string`, tel que `alt`, `title`, `href`, `aria-label`, etc., vous devez appeler la valeur de la fonction, comme ceci :
-
 > ```html
 > <img src="{content.image.src.value}" alt="{content.image.value}" />
 > <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
@@ -655,6 +653,8 @@ Vous pouvez également utiliser `intlayerProxy` pour ajouter un routage côté s
 
 > Notez que pour utiliser `intlayerProxy` en production, vous devez déplacer le paquet `vite-intlayer` de `devDependencies` vers `dependencies`.
 
+> Depuis Intlayer v9, `intlayerProxy()` est intégré directement dans le plugin `intlayer()` et activé par défaut via l'option `routing.enableProxy` (`true` par défaut). L'enregistrer séparément comme montré ci-dessous est maintenant optionnel — il est conservé pour la compatibilité rétroactive et pour les configurations qui doivent contrôler l'ordre des plugins. Définissez `routing.enableProxy: false` pour refuser. Consultez les [notes de version v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/releases/v9.md).
+
 ```typescript fileName="vite.config.ts"
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import viteReact from "@vitejs/plugin-react";
@@ -688,6 +688,8 @@ export default defineConfig({
 <Step number={12} title="Internationaliser vos métadonnées">
 
 Vous pouvez également utiliser le hook `getIntlayer` pour accéder à vos dictionnaires de contenu dans toute votre application :
+
+Il se comporte comme `getIntlayer`, mais le plugin de build le pointe vers le chunk de dictionnaire par locale au lieu du dictionnaire fusionné contenant toutes les locales — donc les métadonnées d'une page ne livrent que la locale qu'elle rend. Parce qu'il charge ce chunk à la demande, `head` devient `async`:
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/react-router";
@@ -846,8 +848,6 @@ export const Route = createFileRoute("/{-$locale}/$")({
   component: NotFoundComponent,
 });
 ```
-
----
 
 </Step>
 

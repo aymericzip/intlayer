@@ -85,6 +85,16 @@ pnpm add intlayer-editor --save-dev
 bun add intlayer-editor --dev
 ```
 
+`--with` bayrağı ile editörü başka bir komutla paralel olarak başlatabilirsiniz:
+
+```json5 fileName="package.json"
+{
+  "scripts": {
+    "start:editor": "npx intlayer-editor start --with 'next dev --turbopack'",
+  },
+}
+```
+
 ## Yapılandırma
 
 Intlayer yapılandırma dosyanızda düzenleyici ayarlarını özelleştirebilirsiniz:
@@ -145,6 +155,8 @@ export default config;
    ```
 
    > **Uygulamanızı paralel olarak çalıştırmanız gerektiğini unutmayın.** Uygulama URL'si düzenleyici yapılandırmasında ayarladığınızla eşleşmelidir (`applicationURL`).
+
+> **Komutun `intlayer` paketi tarafından yeniden ihraç edildiğini unutmayın. Bunun yerine `npx intlayer editor start` komutunu kullanabilirsiniz.**
 
 2. Ardından, sağlanan URL'yi açın. Varsayılan olarak `http://localhost:8000`.
 

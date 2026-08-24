@@ -738,8 +738,6 @@ Define as definições para o editor visual integrado, incluindo a porta do serv
 | `liveSyncPort`               | A porta do servidor de live sync.                                                                                                                                      | `number`                          | `4000`                              | `4000`                                                                                          |                                                                                                                                                                                                                                                   |
 | `liveSyncURL`                | O URL do servidor de live sync.                                                                                                                                        | `string`                          | `'http://localhost:{liveSyncPort}'` | `'https://example.com'`                                                                         | Aponta para o localhost por padrão; pode ser alterado para um servidor de live sync remoto.                                                                                                                                                       |
 
----
-
 ### Configuração de Analytics
 
 Define as definições relacionadas com os analytics do Intlayer: a recolha do conteúdo que é efetivamente mostrado aos utilizadores (visualizações de página, exposições de conteúdo) e o suporte a testes A/B de conteúdo.
@@ -989,6 +987,13 @@ Configurações relacionadas a caminhos internos e resultados de saída do Intla
 
 ### Configuração do Dicionário
 
+Configurações que controlam operações de dicionário, incluindo comportamento de preenchimento automático e geração de conteúdo.
+
+Esta configuração de dicionário serve dois propósitos principais:
+
+1. **Valores Padrão**: Defina valores padrão ao criar arquivos de declaração de conteúdo
+2. **Comportamento de Fallback**: Forneça valores de fallback quando campos específicos não forem definidos, permitindo que você defina o comportamento da operação de dicionário globalmente
+
 Parâmetros que controlam as operações do dicionário, incluindo o comportamento de preenchimento automático (auto-fill) e geração de conteúdo.
 
 | Campo                       | Descrição                                                                                                                                              | Tipo                                                                                                            | Padrão       | Exemplo                                                                                     | Nota                                                                                                                                                                                                                                                                                                                                                                                                    |
@@ -1030,8 +1035,6 @@ Definições para personalizar a saída de logs do Intlayer.
 | `mode`   | Indica o modo do logger.                | `'default'` &#124; <br/> `'verbose'` &#124; <br/> `'disabled'` | `'default'`     | `'verbose'`        | • `'verbose'`: regista mais informações para depuração.<br/>• `'disabled'`: desativa o logger completamente. |
 | `prefix` | O prefixo para as mensagens de registo. | `string`                                                       | `'[intlayer] '` | `'[meu prefixo] '` |                                                                                                              |
 
----
-
 ### Configuração de IA
 
 Configurações que controlam as funcionalidades de IA do Intlayer, incluindo provedor, modelo e chave de API.
@@ -1071,8 +1074,6 @@ O Intlayer suporta múltiplos provedores de IA para máxima flexibilidade. Os pr
 | `baseURL`            | O URL base para a API de IA.                                                                                                          | `string`                                                                                                                                                                                                                                                                                                                                                                                                                                             | Nenhum      | `'https://api.openai.com/v1'` <br/> `'http://localhost:5000'` | Pode apontar para um endpoint de API de IA local ou personalizado.                                                                                                                                    |
 | `dataSerialization`  | Formato de serialização de dados para as funcionalidades de IA.                                                                       | `'json'` &#124; <br/> `'toon'`                                                                                                                                                                                                                                                                                                                                                                                                                       | `undefined` | `'toon'`                                                      | • `'json'`: padrão, fiável; consome mais tokens.<br/>• `'toon'`: menos tokens, menos consistente.<br/>• Parâmetros adicionais são passados para o modelo como contexto (esforço de raciocínio, etc.). |
 
----
-
 ### Configuração de Build
 
 Parâmetros que controlam como o Intlayer otimiza e compila a internacionalização da sua aplicação.
@@ -1108,8 +1109,6 @@ Configurações que controlam o compilador do Intlayer, que extrai dicionários 
 | `saveComponents`      | Indica se os componentes devem ser salvos após serem transformados.                                                                                                                                                                                                                                                          | `boolean`                                                                                                       | `false`     |                                                                                                                                                          | • Se `true`, o compilador reescreverá o arquivo do componente no disco. A transformação será permanente, e o compilador poderá ser removido.<br/>• Se `false`, o compilador injetará a chamada da função `useIntlayer()` no código apenas na saída da build, mantendo a base de código original intacta. |
 | `output`              | Define o caminho para os ficheiros de saída. Substitui `outputDir`. Suporta variáveis de template: `{{fileName}}`, <br/> `{{key}}`, <br/> `{{locale}}`, <br/> `{{extension}}`, <br/> `{{componentFileName}}`, <br/> `{{componentExtension}}`, <br/> `{{format}}`, <br/> `{{componentFormat}}`, <br/> `{{componentDirPath}}`. | `boolean` &#124; <br/> `FilePathPattern` &#124; <br/> `Partial<Record<Locale, boolean &#124; FilePathPattern>>` | `undefined` | `'./{{fileName}}{{extension}}'` <br/> `'/locales/{{locale}}/{{key}}.json'` <br/> `{ en: ({ key }) => './locales/en/${key}.json', fr: '...', es: false }` | • Caminhos `./` são resolvidos em relação ao diretório da componente.<br/>• Caminhos `/` em relação à raiz.<br/>• `{{locale}}` ativa a geração por idioma.<br/>• Suporta notação de objeto por idioma.                                                                                                   |
 | `noMetadata`          | Se `true`, o compilador omite os metadados do dicionário (chave, wrapper de conteúdo) da saída.                                                                                                                                                                                                                              | `boolean`                                                                                                       | `false`     | `false` → `{"key":"minha-chave","content":{"key":"valor"}}` <br/> `true` → `{"key":"valor"}`                                                             | • Útil para saídas i18next ou ICU MessageFormat JSON.<br/>• Funciona bem com o plugin `loadJSON`.                                                                                                                                                                                                        |
-
----
 
 ### Esquemas Personalizados
 

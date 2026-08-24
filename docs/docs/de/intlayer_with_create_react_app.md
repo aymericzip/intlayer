@@ -25,18 +25,69 @@ author: aymericzip
 
 # Übersetzen Sie Ihre Create React App mit Intlayer | Internationalisierung (i18n)
 
+<iframe
+  src="https://ide.intlayer.org/aymericzip/intlayer-react-cra-template?file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - Wie man eine Anwendung mit Intlayer internationalisiert"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
 Siehe [i18n-react-create-app](https://github.com/aymericzip/intlayer-react-cra-template) für eine vollständige Demonstration.
 
 ## Was ist Intlayer?
 
+Im Vergleich zu Hauptlösungen wie `react-i18next` oder `i18next` ist Intlayer eine Lösung, die mit integrierten Optimierungen wie den folgenden ausgestattet ist:
+
+<AccordionGroup>
+
+<Accordion header="Vollständige React-Abdeckung">
+
 **Intlayer** ist eine innovative, Open-Source-Internationalisierungsbibliothek (i18n), die entwickelt wurde, um die Unterstützung mehrerer Sprachen in modernen Webanwendungen zu vereinfachen.
 
+</Accordion>
+
+<Accordion header="Bundle-Größe">
+
+Anstatt massive JSON-Dateien in Ihre Seiten zu laden, laden Sie nur den notwendigen Inhalt. Intlayer hilft **die Bundle- und Seitengröße um bis zu 50% zu reduzieren**.
+
+</Accordion>
+
+<Accordion header="Wartbarkeit">
+
+Das Scoping des Inhalts Ihrer Anwendung **erleichtert die Wartung** bei großen Anwendungen. Sie können einen einzelnen Feature-Ordner duplizieren oder löschen, ohne die mentale Belastung, Ihre gesamte Content-Codebasis zu überprüfen. Zusätzlich ist Intlayer **vollständig typisiert**, um die Genauigkeit Ihres Inhalts zu gewährleisten.
+
+</Accordion>
+
+<Accordion header="AI Agent">
+
+Das Co-locating von Inhalten **reduziert den Kontext, der von Large Language Models (LLMs) benötigt wird**. Intlayer kommt auch mit einer Reihe von Tools, wie einer **CLI** zum Testen fehlender Übersetzungen, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/mcp_server.md)** und **[Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/agent_skills.md)**, um die Developer Experience (DX) für KI-Agenten noch nahtloser zu gestalten.
+
+</Accordion>
+
+<Accordion header="Automatisierung">
+
+Nutzen Sie Automation, um in Ihrer CI/CD-Pipeline mit dem LLM Ihrer Wahl zu übersetzen, zu Kosten Ihres KI-Anbieters. Intlayer bietet auch einen **Compiler** zur Automatisierung der Content-Extraktion sowie eine [Web-Plattform](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md) zur Unterstützung der **Übersetzung im Hintergrund**.
+
+</Accordion>
+
 Mit Intlayer können Sie:
+
+Das Verbinden großer JSON-Dateien mit Komponenten kann zu Leistungs- und Reaktivitätsproblemen führen. Intlayer optimiert das Laden von Inhalten zur Build-Zeit.
+
+</Accordion>
+
+<Accordion header="Scaling with none-dev">
 
 - **Übersetzungen einfach verwalten** mithilfe deklarativer Wörterbücher auf Komponentenebene.
 - **Metadaten, Routen und Inhalte dynamisch lokalisieren**.
 - **TypeScript-Unterstützung sicherstellen** mit automatisch generierten Typen, die die Autovervollständigung und Fehlererkennung verbessern.
 - **Von erweiterten Funktionen profitieren**, wie dynamischer Lokalisierungserkennung und -umschaltung.
+
+</Accordion>
+</AccordionGroup>
+
+---
 
 ## Schritt-für-Schritt-Anleitung zur Einrichtung von Intlayer in einer React-Anwendung
 

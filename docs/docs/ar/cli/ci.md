@@ -128,6 +128,8 @@ bun x intlayer ci fill --verbose --mode complete
 
 ### الاستخدام في خطوط أنابيب CI/CD
 
+تشغيل `intlayer init` ينشئ لك سير عمل GitHub Actions جاهزة للاستخدام (انظر [سير العمل المُنشأ من GitHub Actions](#scaffolded-github-actions) أدناه). يوضح المثال هنا إعداد معادل باستخدام أمر `ci` لـ monorepo، حيث يتم حقن بيانات الاعتماد لكل مشروع من `INTLAYER_PROJECT_CREDENTIALS`.
+
 في تكوين CI/CD الخاص بك (على سبيل المثال، GitHub Actions أو GitLab CI)، قم بتعيين `INTLAYER_PROJECT_CREDENTIALS` كسر:
 
 ```yaml

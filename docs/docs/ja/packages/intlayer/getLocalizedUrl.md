@@ -31,6 +31,14 @@ author: aymericzip
 
 `getLocalizedUrl` 関数は、指定されたロケールを与えられた URL の前に付加することでローカライズされた URL を生成します。絶対 URL と相対 URL の両方を処理し、設定に基づいて正しいロケールのプレフィックスが適用されることを保証します。
 
+**主な機能:**
+
+- 必須パラメータは `url` と `currentLocale` の2つのみ
+- `locales`、`defaultLocale`、`mode` を含むオプションの `options` オブジェクト
+- プロジェクトの国際化設定をデフォルトとして使用
+- シンプルなケースでは最小限のパラメータで使用でき、複雑なシナリオでは完全にカスタマイズ可能
+- 複数のルーティングモードをサポート: `prefix-no-default`、`prefix-all`、`no-prefix`、`search-params`
+
 ---
 
 ## 関数署名
@@ -135,36 +143,6 @@ getLocalizedUrl(
 // 出力: デフォルト（英語）ロケールの場合 "/about"
 ```
 
-```javascript codeFormat="esm"
-import { getLocalizedUrl, Locales } from "intlayer";
-
-getLocalizedUrl(
-  "/about",
-  Locales.FRENCH,
-  [Locales.ENGLISH, Locales.FRENCH],
-  Locales.ENGLISH,
-  false
-);
-
-// 出力: フランス語ロケールの場合 "/fr/about"
-// 出力: デフォルト（英語）ロケールの場合 "/about"
-```
-
-```javascript codeFormat="commonjs"
-const { getLocalizedUrl, Locales } = require("intlayer");
-
-getLocalizedUrl(
-  "/about",
-  Locales.FRENCH,
-  [Locales.ENGLISH, Locales.FRENCH],
-  Locales.ENGLISH,
-  false
-);
-
-// 出力: フランス語ロケールの場合 "/fr/about"
-// 出力: デフォルト（英語）ロケールの場合 "/about"
-```
-
 ### 部分的な設定のオーバーライド
 
 オプションパラメータの一部のみを指定することもできます。指定しないパラメータについては、関数はプロジェクト設定を使用します:
@@ -240,6 +218,12 @@ getLocalizedUrl(
 
 - **サポートされていないロケール:**
   - `locales` にリストされていないロケールには、関数はプレフィックスを適用しません。
+
+- **ルーティングモード:**
+  - `'prefix-no-default'`: デフォルトロケールにはプレフィックスがなく、他のロケールにはある (例: `/about`, `/fr/about`)
+  - `'prefix-all'`: すべてのロケールにプレフィックスがある (例: `/en/about`, `/fr/about`)
+  - `'no-prefix'`: URLにロケールプレフィックスがない (ロケールは他の場所で処理される)
+  - `'search-params'`: ロケールはクエリパラメータで指定される (例: `/about?locale=fr`)
 
 ---
 

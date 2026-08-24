@@ -85,6 +85,16 @@ pnpm add intlayer-editor --save-dev
 bun add intlayer-editor --dev
 ```
 
+`--with` flag के साथ, आप editor को किसी दूसरी command के साथ समानांतर में शुरू कर सकते हैं:
+
+```json5 fileName="package.json"
+{
+  "scripts": {
+    "start:editor": "npx intlayer-editor start --with 'next dev --turbopack'",
+  },
+}
+```
+
 ## कॉन्फ़िगरेशन
 
 अपने Intlayer कॉन्फ़िगरेशन फ़ाइल में, आप एडिटर सेटिंग्स को अनुकूलित कर सकते हैं:
@@ -145,6 +155,8 @@ export default config;
    ```
 
    > **ध्यान दें कि आपको अपने एप्लिकेशन को समानांतर में चलाना चाहिए।** एप्लिकेशन URL को एडिटर कॉन्फ़िगरेशन (`applicationURL`) में सेट किए गए URL से मेल खाना चाहिए।
+
+   > **ध्यान दें कि कमांड `intlayer` पैकेज द्वारा पुनः निर्यात किया जाता है। आप इसके बजाय `npx intlayer editor start` का उपयोग कर सकते हैं।**
 
 2. फिर, प्रदान किए गए URL को खोलें। डिफ़ॉल्ट रूप से `http://localhost:8000`।
 

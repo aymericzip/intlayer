@@ -77,8 +77,6 @@ type GetPrefixResult = {
     - **型**: `Locales`
     - **デフォルト**: [`プロジェクト設定`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md#middleware)
 
-  - `options.mode?: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'`
-
 - **説明**: ロケール処理のためのURLルーティングモード。指定しない場合は、プロジェクト設定で構成されたモードが使用されます。
 - **型**: `'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'`
 - **デフォルト**: [`プロジェクト設定`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md#middleware)

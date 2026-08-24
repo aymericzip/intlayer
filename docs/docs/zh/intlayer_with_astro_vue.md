@@ -65,11 +65,17 @@ author: aymericzip
 
 **完整的 Astro 报道**
 
+<Accordion header="完整 Astro 覆盖">
+
 Intlayer 经过优化，可与 Astro 完美配合，提供**多语言路由**、**站点地图**以及扩展国际化 (i18n) 所需的所有功能。
+
+</Accordion>
 
 **捆绑尺寸**
 
 不要将大量 JSON 文件加载到页面中，而只需加载必要的内容。 Intlayer 有助于**将捆绑包和页面大小减少多达 50%**。
+
+</Accordion>
 
 <AccordionGroup>
 <Accordion header="可维护性">
@@ -577,6 +583,22 @@ export default defineConfig({
     intlayerCompiler(), // Adds the compiler plugin
   ],
 });
+```
+
+```bash packageManager="npm"
+npm run build # 或 npm run dev
+```
+
+```bash packageManager="pnpm"
+pnpm run build # 或 pnpm run dev
+```
+
+```bash packageManager="yarn"
+yarn build # 或 yarn dev
+```
+
+```bash packageManager="bun"
+bun run build # 或 bun run dev
 ```
 
  </Tab>

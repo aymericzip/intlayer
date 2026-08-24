@@ -53,6 +53,9 @@ Intlayer поддерживает форматированный текстов�
   <Tab label=".content.md" value=".content.md">
     Начиная с версии `8.10.0`, вы можете объявлять Markdown-контент непосредственно в файлах `.content.md`. Intlayer автоматически обнаружит и проанализирует Markdown-контент.
 
+    Начиная с версии `8.10.0`, вы можете объявлять содержимое Markdown непосредственно в файлах `.content.md`. Intlayer будет
+    автоматически обнаруживать и анализировать содержимое Markdown.
+
     ```md fileName="markdown-file.en.content.md"
     ---
     key: my-markdown-content
@@ -100,6 +103,8 @@ Intlayer поддерживает форматированный текстов�
     ```
 
   </Tab>
+
+  </Tab>
   <Tab label="Внешние файлы" value="external-files">
     Импортируйте файлы `.md` напрямую, используя функцию `file`.
 
@@ -132,6 +137,8 @@ Intlayer поддерживает форматированный текстов�
       },
     };
     ```
+
+  </Tab>
 
   </Tab>
 </Tabs>
@@ -497,7 +504,7 @@ Intlayer предоставляет два независимых способа
 
 <Tabs group="framework">
   <Tab label="React" value="react">
-  
+
     #### Компонент `<MarkdownRenderer />`
 
     Отобразите строку Markdown с конкретными параметрами.
@@ -536,7 +543,7 @@ Intlayer предоставляет два независимых способа
 
   </Tab>
   <Tab label="Next.js" value="nextjs">
-  
+
     #### Компонент `<MarkdownRenderer />`
 
     Отрендерить строку Markdown с конкретными опциями.
@@ -1069,7 +1076,7 @@ const MyComponent = () => {
 ```
 
   </Tab>
- 
+
   <Tab label="Vue" value="vue">
 
 В Vue есть встроенный компонент `<Suspense>`. Оберните компонент, рендерящий содержимое Markdown, в границу `<Suspense>`.

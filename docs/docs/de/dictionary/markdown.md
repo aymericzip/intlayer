@@ -492,7 +492,7 @@ Diese Dienstprogramme rendern **nur reine Markdown-Strings** und sind unabhängi
 
 <Tabs group="framework">
   <Tab label="React" value="react">
-  
+
     #### `<MarkdownRenderer />` Komponente
 
     Rendert einen Markdown-String mit bestimmten Optionen.
@@ -531,7 +531,7 @@ Diese Dienstprogramme rendern **nur reine Markdown-Strings** und sind unabhängi
 
   </Tab>
   <Tab label="Next.js" value="nextjs">
-  
+
     #### `<MarkdownRenderer />` Komponente
 
     Rendert einen Markdown-String mit bestimmten Optionen.
@@ -957,21 +957,38 @@ Der `MarkdownProvider` (oder sein Framework-Äquivalent) konfiguriert die Markdo
   </Tab>
   <Tab label="Angular" value="angular">
 
-    ```typescript fileName="app.module.ts"
-    import { NgModule } from '@angular/core';
-    import { IntlayerMarkdownModule } from 'angular-intlayer/markdown';
+    ```typescript fileName="app.config.ts"
+    import { createIntlayerMarkdownProvider } from "angular-intlayer/markdown";
 
-    @NgModule({
-      imports: [
-        IntlayerMarkdownModule.forRoot({
+    export const appConfig: ApplicationConfig = {
+      providers: [
+        createIntlayerMarkdownProvider({
+          components: {
+            h1: { class: "text-2xl font-bold" },
+          },
+        }),
+      ],
+    };
+    ```
+
+
+    > MDX wird unterstützt — jeder in Ihrem Markdown verwendete Komponentenname (z. B. `<MyCustomJSXComponent />`) wird mit dem `components`-Mapping aufgelöst.
+
+    Sie können auch Ihren eigenen Markdown-Renderer verwenden:
+
+    ```typescript fileName="app.config.ts"
+    import { createIntlayerMarkdownProvider } from "angular-intlayer/markdown";
+
+    export const appConfig: ApplicationConfig = {
+      providers: [
+        createIntlayerMarkdownProvider({
           renderMarkdown: async (md) => {
             const { renderMarkdown } = await import('angular-intlayer/markdown');
             return renderMarkdown(md);
-          }
-        })
-      ]
-    })
-    export class AppModule {}
+          },
+        }),
+      ],
+    };
     ```
 
     > Das dynamische Importieren Ihres Markdown-Renderers ist eine gute Möglichkeit, die Bundle-Größe Ihrer Anwendung zu reduzieren.
@@ -1047,7 +1064,7 @@ const MyComponent = () => {
 ```
 
   </Tab>
- 
+
   <Tab label="Vue" value="vue">
 
 Vue hat eine eingebaute `<Suspense>`-Komponente. Umschließen Sie die Komponente, die Markdown-Inhalte rendert, in einer `<Suspense>`-Grenze.

@@ -50,17 +50,25 @@ author: aymericzip
 
 بالمقارنة مع الحلول الرئيسية مثل `react-i18next` أو `i18next`، يعد Intlayer حلاً يأتي مزودًا بتحسينات متكاملة مثل:
 
+<AccordionGroup>
+
 ** تغطية كاملة لجهاز التوجيه React **
 
 تم تحسين Intlayer للعمل بشكل مثالي مع React Router من خلال تقديم **توجيه مدرك للإعدادات المحلية**، **برامج وسيطة للكشف عن الإعدادات المحلية**، وجميع الميزات اللازمة لتوسيع نطاق التدويل (i18n).
 
 **حجم البندل**
 
+<Accordion header="حجم الحزمة">
+
 بدلاً من تحميل ملفات JSON ضخمة إلى صفحاتك، قم بتحميل المحتوى الضروري فقط. يساعد Intlayer **في تقليل أحجام البندل وصفحاتك بنسبة تصل إلى 50%**.
 
 ** الصيانة **
 
+<Accordion header="قابلية الصيانة">
+
 يؤدي تحديد نطاق محتوى تطبيقك ** إلى تسهيل الصيانة ** للتطبيقات واسعة النطاق. يمكنك تكرار أو حذف مجلد ميزات واحد دون العبء العقلي لمراجعة قاعدة بيانات المحتوى بالكامل. بالإضافة إلى ذلك، تتم كتابة Intlayer **بالكامل** لضمان دقة المحتوى الخاص بك.
+
+</Accordion>
 
 ** وكيل الذكاء الاصطناعي **
 
@@ -68,15 +76,24 @@ author: aymericzip
 
 **الأتمتة**
 
+<Accordion header="أتمتة">
+
 استخدم الأتمتة للترجمة في مسار CI/CD الخاص بك باستخدام LLM من اختيارك على حساب مزود الذكاء الاصطناعي الخاص بك. يقدم Intlayer أيضًا **مترجمًا** لأتمتة استخراج المحتوى، بالإضافة إلى [منصة ويب](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) للمساعدة في **الترجمة في الخلفية**.
+
+</Accordion>
 
 **أداء**
 
 يمكن أن يؤدي ربط ملفات JSON الضخمة بالمكونات إلى حدوث مشكلات في الأداء والتفاعل. يعمل Intlayer على تحسين تحميل المحتوى الخاص بك في وقت الإنشاء.
 
+</Accordion>
+
 **التحجيم مع عدم وجود مطور**
 
 أكثر من مجرد حل i18n، يوفر Intlayer **[محررًا مرئيًا] مستضافًا ذاتيًا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** و**[كامل CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** لمساعدتك في إدارة المحتوى متعدد اللغات في **الوقت الفعلي**، مما يجعل التعاون مع المترجمين ومؤلفي النصوص وأعضاء الفريق الآخرين سلسًا. يمكن تخزين المحتوى محليًا و/أو عن بعد.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
@@ -113,6 +130,8 @@ npm install intlayer react-intlayer
 npm install vite-intlayer --save-dev
 ```
 
+قم بتثبيت الحزم الضرورية باستخدام مدير الحزم المفضل لديك:
+
 ```bash packageManager="pnpm"
 pnpm add intlayer react-intlayer
 pnpm add vite-intlayer --save-dev
@@ -138,13 +157,78 @@ bun add vite-intlayer --dev
 - **vite-intlayer**
   تتضمن إضافة Vite لدمج Intlayer مع [مجمّع Vite](https://vite.dev/guide/why.html#why-bundle-for-production)، بالإضافة إلى وسيط للكشف عن اللغة المفضلة للمستخدم، وإدارة الكوكيز، والتعامل مع إعادة توجيه URL.
 
+- **@react-router/fs-routes**
+  الحزمة التي تفعّل التوجيه القائم على نظام الملفات لـ React Router v7.
+
 </Step>
 
 <Step number={2} title="تكوين مشروعك">
 
+أنشئ ملف config لتكوين لغات تطبيقك:
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { type IntlayerConfig, Locales } from "intlayer";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    defaultLocale: Locales.ENGLISH,
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+  },
+};
+
+export default config;
+```
+
+> من خلال ملف الإعدادات هذا، يمكنك إعداد عناوين URL المترجمة، إعادة توجيه Middleware، أسماء ملفات تعريف الارتباط، موقع وامتداد إعلانات المحتوى الخاصة بك، تعطيل سجلات Intlayer في وحدة التحكم، والمزيد. للحصول على قائمة كاملة بالمعاملات المتاحة، راجع [وثائق الإعدادات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
+
+</Step>
+
+<Step number={3} title="دمج Intlayer في تكوين Vite الخاص بك">
+
+أضف مكون intlayer إلى إعدادك:
+
+```typescript fileName="vite.config.ts"
+import { reactRouter } from "@react-router/dev/vite";
+import { defineConfig } from "vite";
+import { intlayer } from "vite-intlayer";
+
+export default defineConfig({
+  plugins: [reactRouter(), intlayer()],
+});
+```
+
+> إضافة `intlayer()` Vite تُستخدم لدمج Intlayer مع Vite. وهي تضمن بناء ملفات إعلان المحتوى ومراقبتها في وضع التطوير. كما تعرّف متغيرات بيئة Intlayer داخل تطبيق Vite. بالإضافة إلى ذلك، توفر بدائل لتحسين الأداء.
+
+</Step>
+
+<Step number={4} title="تكوين مسارات نظام الملفات في React Router v7">
+
+قم بإعداد تكوين التوجيه الخاص بك لاستخدام المسارات المستندة إلى نظام الملفات مع `flatRoutes`:
+
+```typescript fileName="app/routes.ts"
+import type { RouteConfig } from "@react-router/dev/routes";
+import { flatRoutes } from "@react-router/fs-routes";
+import { configuration } from "intlayer";
+
+const routes: RouteConfig = flatRoutes({
+  // تجاهل ملفات إعلان المحتوى من التعامل معها كمسارات
+  ignoredRouteFiles: configuration.content.fileExtensions.map(
+    (fileExtension) => `**/*${fileExtension}`
+  ),
+});
+
+export default routes;
+```
+
+> تمكّن دالة `flatRoutes` من `@react-router/fs-routes` التوجيه القائم على نظام الملفات، حيث يحدد هيكل الملفات في مجلد `routes/` مسارات التطبيق الخاص بك. يضمن خيار `ignoredRouteFiles` عدم معاملة ملفات إعلان محتوى Intlayer (`.content.ts`، إلخ) كملفات توجيه.
+
 </Step>
 
 <Step number={5} title="إنشاء مكونات التخطيط">
+
+مع توجيه نظام الملفات، تستخدم اتفاقية تسمية مسطحة حيث تمثل النقاط (`.`) مقاطع المسار والأقواس `()` تدل على المقاطع الاختيارية.
+
+قم بإنشاء الملفات التالية في دليل `app/routes/` الخاص بك:
 
 #### بنية الملفات
 
@@ -217,71 +301,6 @@ export function Layout({
 
 #### التخطيط الجذري
 
-```tsx fileName="app/routes/layout.tsx"
-import { IntlayerProvider } from "react-intlayer";
-import { Outlet } from "react-router";
-
-import type { Route } from "./+types/layout";
-
-export default function RootLayout({ params }: Route.ComponentProps) {
-  const { locale } = params;
-
-  return (
-    <IntlayerProvider locale={locale}>
-      <Outlet />
-    </IntlayerProvider>
-  );
-}
-```
-
-</Step>
-
-<Step number={6} title="إعلان المحتوى الخاص بك">
-
-قم بإنشاء وإدارة إعلانات المحتوى الخاصة بك لتخزين الترجمات:
-
-```tsx fileName="app/routes/[lang]/page.content.ts"
-import { t, type Dictionary } from "intlayer";
-
-const pageContent = {
-  key: "page",
-  content: {
-    title: t({
-      en: "Welcome to React Router v7 + Intlayer",
-      es: "Bienvenido a React Router v7 + Intlayer",
-      fr: "Bienvenue sur React Router v7 + Intlayer",
-    }),
-    description: t({
-      en: "Build multilingual applications with ease using React Router v7 and Intlayer.",
-      es: "Cree aplicaciones multilingües fácilmente usando React Router v7 y Intlayer.",
-      fr: "Créez des applications multilingues facilement avec React Router v7 et Intlayer.",
-    }),
-    aboutLink: t({
-      en: "تعرف علينا",
-      es: "Aprender Sobre Nosotros",
-      fr: "En savoir plus sur nous",
-    }),
-    homeLink: t({
-      en: "الرئيسية",
-      es: "Inicio",
-      fr: "Accueil",
-    }),
-  },
-} satisfies Dictionary;
-
-export default pageContent;
-```
-
-> يمكن تعريف إعلانات المحتوى الخاصة بك في أي مكان في تطبيقك بمجرد تضمينها في دليل `contentDir` (افتراضيًا، `./app`). ويجب أن تتطابق مع امتداد ملف إعلان المحتوى (افتراضيًا، `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
-
-> لمزيد من التفاصيل، راجع [توثيق إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md).
-
-</Step>
-
-<Step number={7} title="إنشاء مكونات تدرك اللغة">
-
-قم بإنشاء مكون `LocalizedLink` للتنقل المدرك للغة:
-
 ```tsx fileName="app/components/localized-link.tsx"
 import type { FC } from "react";
 
@@ -319,34 +338,6 @@ export const LocalizedLink: FC<LinkProps> = (props) => {
 };
 ```
 
-في حال رغبت في التنقل إلى المسارات المحلية، يمكنك استخدام الخطاف `useLocalizedNavigate`:
-
-```tsx fileName="app/hooks/useLocalizedNavigate.ts"
-import { useLocale } from "react-intlayer";
-import { type NavigateOptions, type To, useNavigate } from "react-router";
-
-import { locacalizeTo } from "~/components/localized-link";
-
-export const useLocalizedNavigate = () => {
-  const navigate = useNavigate();
-  const { locale } = useLocale();
-
-  const localizedNavigate = (to: To, options?: NavigateOptions) => {
-    const localedTo = locacalizeTo(to, locale);
-
-    navigate(localedTo, options);
-  };
-
-  return localizedNavigate;
-};
-```
-
-</Step>
-
-<Step number={8} title="استخدام Intlayer في صفحاتك">
-
-قم بالوصول إلى قواميس المحتوى الخاصة بك في جميع أنحاء تطبيقك:
-
 #### الصفحة الرئيسية المترجمة
 
 ```tsx fileName="app/routes/[lang]/page.tsx"
@@ -368,9 +359,147 @@ export default function Page() {
 }
 ```
 
+</Step>
+
+<Step number={6} title="أعلن عن المحتوى الخاص بك">
+
+قم بإنشاء وإدارة تصريحات المحتوى الخاصة بك لتخزين الترجمات. ضع ملفات المحتوى بجانب ملفات المسارات الخاصة بك:
+
+```tsx fileName="app/routes/($locale)._index.content.ts"
+import { t, type Dictionary } from "intlayer";
+
+const pageContent = {
+  key: "page",
+  content: {
+    title: t({
+      ar: "مرحبا بك في React Router v7 + Intlayer",
+      en: "Welcome to React Router v7 + Intlayer",
+      es: "Bienvenido a React Router v7 + Intlayer",
+      fr: "Bienvenue sur React Router v7 + Intlayer",
+    }),
+    description: t({
+      ar: "بناء تطبيقات متعددة اللغات بسهولة باستخدام React Router v7 و Intlayer.",
+      en: "Build multilingual applications with ease using React Router v7 and Intlayer.",
+      es: "Cree aplicaciones multilingües fácilmente usando React Router v7 y Intlayer.",
+      fr: "Créez des applications multilingues facilement avec React Router v7 et Intlayer.",
+    }),
+    aboutLink: t({
+      ar: "تعرف علينا",
+      en: "Learn About Us",
+      es: "Aprender Sobre Nosotros",
+      fr: "En savoir plus sur nous",
+    }),
+  },
+} satisfies Dictionary;
+
+export default pageContent;
+```
+
+```tsx fileName="app/routes/($locale).about.content.ts"
+import { t, type Dictionary } from "intlayer";
+
+const aboutContent = {
+  key: "about",
+  content: {
+    title: t({
+      ar: "حول",
+      en: "About Us",
+      es: "Sobre Nosotros",
+      fr: "À propos de nous",
+    }),
+    content: t({
+      ar: "هذا هو محتوى صفحة حول.",
+      en: "This is the about page content.",
+      es: "Este es el contenido de la página de información.",
+      fr: "Ceci est le contenu de la page à propos.",
+    }),
+    homeLink: t({
+      ar: "الرئيسية",
+      en: "Home",
+      es: "Inicio",
+      fr: "Accueil",
+    }),
+  },
+} satisfies Dictionary;
+
+export default aboutContent;
+```
+
+> يمكن تعريف إعلانات المحتوى الخاصة بك في أي مكان في التطبيق الخاص بك طالما تم تضمينها في دليل `contentDir` (افتراضياً، `./app`). وتطابق امتداد ملف إعلان المحتوى (افتراضياً، `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
+
 > لمعرفة المزيد عن الخطاف `useIntlayer`، راجع [التوثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/useIntlayer.md).
 
 > إذا كان تطبيقك موجودًا بالفعل، يمكنك استخدام [مترجم Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md)، بالإضافة إلى [أمر الاستخراج](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/extract.md)، لتحويل آلاف المكونات في ثانية واحدة.
+
+</Step>
+
+<Step number={7} title="إنشاء مكونات تدرك اللغة">
+
+أنشئ مكون `LocalizedLink` للملاحة الموجهة حسب اللغة:
+
+```tsx fileName="app/components/localized-link.tsx"
+import type { FC } from "react";
+
+import { getLocalizedUrl, type LocalesValues } from "intlayer";
+import { useLocale } from "react-intlayer";
+import { Link, type LinkProps, type To } from "react-router";
+
+// تحقق مما إذا كان الرابط خارجياً
+const isExternalLink = (to: string) => /^(https?:)?\/\//.test(to);
+
+// تحويل المسار إلى مسار محلي
+export const locacalizeTo = (to: To, locale: LocalesValues): To => {
+  if (typeof to === "string") {
+    if (isExternalLink(to)) {
+      return to;
+    }
+
+    return getLocalizedUrl(to, locale);
+  }
+
+  if (isExternalLink(to.pathname ?? "")) {
+    return to;
+  }
+
+  return {
+    ...to,
+    pathname: getLocalizedUrl(to.pathname ?? "", locale),
+  };
+};
+
+// مكون رابط محلي
+export const LocalizedLink: FC<LinkProps> = (props) => {
+  const { locale } = useLocale();
+
+  return <Link {...props} to={locacalizeTo(props.to, locale)} />;
+};
+```
+
+في حالة رغبتك في التنقل إلى المسارات المحلية، يمكنك استخدام hook `useLocalizedNavigate`:
+
+```tsx fileName="app/hooks/useLocalizedNavigate.ts"
+import { useLocale } from "react-intlayer";
+import { type NavigateOptions, type To, useNavigate } from "react-router";
+
+import { locacalizeTo } from "~/components/localized-link";
+
+export const useLocalizedNavigate = () => {
+  // الحصول على دالة التنقل
+  const navigate = useNavigate();
+  // الحصول على اللغة الحالية
+  const { locale } = useLocale();
+
+  // إنشء دالة تنقل محلية مع دعم اللغات المتعددة
+  const localizedNavigate = (to: To, options?: NavigateOptions) => {
+    // تحويل المسار إلى المسار المحلي
+    const localedTo = locacalizeTo(to, locale);
+
+    navigate(localedTo, options);
+  };
+
+  return localizedNavigate;
+};
+```
 
 </Step>
 
@@ -456,7 +585,17 @@ export const useI18nHTMLAttributes = () => {
 };
 ```
 
+هذا الـ hook يتم استخدامه بالفعل في مكون التخطيط (`($locale)._layout.tsx`) الموضح في الخطوة 5.
+
+</Step>
+
 ثم استخدمه في مكون الجذر الخاص بك:
+
+يمكنك أيضًا استخدام `intlayerProxy` لإضافة التوجيه من جانب الخادم إلى تطبيقك. سيكتشف هذا البرنامج الإضافي تلقائيًا اللغة الحالية بناءً على عنوان URL وتعيين ملف تعريف الارتباط اللغة المناسب. إذا لم تُحدد لغة، فسيحدد البرنامج الإضافي اللغة الأنسب بناءً على تفضيلات اللغة في متصفح المستخدم. إذا لم يتم اكتشاف أي لغة، فسيعيد التوجيه إلى اللغة الافتراضية.
+
+> لاحظ أنه لاستخدام `intlayerProxy` في الإنتاج، يجب عليك نقل حزمة `vite-intlayer` من `devDependencies` إلى `dependencies`.
+
+> منذ Intlayer v9، يتم دمج `intlayerProxy()` مباشرة في plugin `intlayer()` ويتم تفعيله بشكل افتراضي من خلال خيار `routing.enableProxy` (`true` بشكل افتراضي). تسجيله بشكل منفصل كما هو موضح أدناه أصبح اختياريًا الآن — يتم الاحتفاظ به لأسباب التوافقية العكسية والإعدادات التي تحتاج للتحكم في ترتيب plugins. قم بتعيين `routing.enableProxy: false` للانسحاب. اطلع على [ملاحظات الإصدار v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/releases/v9.md).
 
 ```tsx fileName="app/routes/layout.tsx"
 import { Outlet } from "react-router";

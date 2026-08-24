@@ -104,6 +104,8 @@ const LocaleSwitcher: FC = () => {
 
 ## Dönüş Değerleri
 
+`useLocale` hook'unu çağırdığınızda, aşağıdaki özellikleri içeren bir nesne döndürür:
+
 - **`locale`**: React bağlamında ayarlanan mevcut yerel ayar.
 - **`defaultLocale`**: Yapılandırmada tanımlanan birincil yerel ayar.
 - **`availableLocales`**: Yapılandırmada tanımlanan tüm kullanılabilir yerel ayarların listesi.

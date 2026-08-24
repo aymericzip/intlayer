@@ -464,6 +464,8 @@ export default aboutContent;
 
 > Per maggiori dettagli, consulta la [documentazione sulla dichiarazione del contenuto](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/content_file.md).
 
+> Se la tua app esiste già, puoi utilizzare l'[Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/compiler.md), così come il [comando extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/cli/extract.md), per trasformare migliaia di componenti in un secondo.
+
 </Step>
 
 <Step number={7} title="Crea Componenti Consapevoli della Locale">
@@ -614,6 +616,34 @@ export const useI18nHTMLAttributes = () => {
 ```
 
 Questo hook è già utilizzato nel componente di layout (`root.tsx`) mostrato nel Passo 5.
+
+</Step>
+
+<Step number={10} title="Aggiungi middleware">
+
+Puoi anche utilizzare `intlayerProxy` per aggiungere il routing lato server alla tua applicazione. Questo plugin rileva automaticamente la locale corrente in base all'URL e imposta il cookie della locale appropriato. Se nessuna locale è specificata, il plugin determinerà la locale più appropriata in base alle preferenze della lingua del browser dell'utente. Se nessuna locale viene rilevata, reindizzerà alla locale predefinita.
+
+> Nota che per utilizzare `intlayerProxy` in produzione, devi spostare il pacchetto `vite-intlayer` da `devDependencies` a `dependencies`.
+
+> A partire da Intlayer v9, `intlayerProxy()` è raggruppato direttamente nel plugin `intlayer()` e abilitato per impostazione predefinita tramite l'opzione `routing.enableProxy` (`true` per impostazione predefinita). La registrazione separata come mostrato di seguito è ora facoltativa — viene mantenuta per compatibilità con versioni precedenti e per configurazioni che necessitano di controllare l'ordine dei plugin. Impostare `routing.enableProxy: false` per rinunciare. Vedere le [note di rilascio v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/releases/v9.md).
+
+```typescript {3,7} fileName="vite.config.ts"
+import { reactRouter } from "@react-router/dev/vite";
+import { defineConfig } from "vite";
+import { intlayer } from "vite-intlayer";
+
+export default defineConfig({
+  plugins: [
+    reactRouter(),
+
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
+  ],
+});
+```
 
 </Step>
 

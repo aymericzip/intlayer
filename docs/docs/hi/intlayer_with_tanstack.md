@@ -59,33 +59,50 @@ author: aymericzip
 
 `react-i18next` या `use-intl`, या `paraglide` जैसे मुख्य समाधानों की तुलना में, Intlayer एक समाधान है जो एकीकृत अनुकूलन के साथ आता है जैसे:
 
+<AccordionGroup>
+
 **पूर्ण टैनस्टैक प्रारंभ कवरेज**
 
 इंटलेयर टैनस्टैक स्टार्ट के लिए पूरी तरह से अनुकूलित है, जो **बहुभाषी रूटिंग**, **कुकी प्रबंधन**, **साइटमैप जेनरेशन**, **डायनामिक कंटेंट लोडिंग** और आपके अंतर्राष्ट्रीयकरण (i18n) प्रयासों को बढ़ाने के लिए आवश्यक सभी सुविधाएँ प्रदान करता है।
 
 **बंडल का आकार**
 
+<Accordion header="Bundle size">
+
 अपने पृष्ठों में विशाल JSON फ़ाइलें लोड करने के बजाय, केवल आवश्यक सामग्री लोड करें। इंटलेयर आपके बंडल और पृष्ठ आकार को 50% तक कम करने में मदद करता है।
 
 **रखरखाव**
+
+<Accordion header="रखरखाव">
 
 आपके एप्लिकेशन की सामग्री का दायरा बड़े पैमाने के अनुप्रयोगों के लिए **रखरखाव की सुविधा प्रदान करता है**। आप अपने संपूर्ण सामग्री कोडबेस की समीक्षा करने के मानसिक बोझ के बिना किसी एक फीचर फ़ोल्डर की नकल कर सकते हैं या उसे हटा सकते हैं। इसके अतिरिक्त, आपकी सामग्री की सटीकता सुनिश्चित करने के लिए Intlayer **पूरी तरह से टाइप किया गया** है।
 
 **एआई एजेंट**
 
+<Accordion header="AI Agent">
+
 सामग्री का सह-स्थानीकरण **बड़े भाषा मॉडल (एलएलएम) द्वारा आवश्यक संदर्भ को कम करता है**। इंटलेयर टूल के एक सूट के साथ भी आता है, जैसे **CLI** ताकि लापता अनुवादों का परीक्षण किया जा सके,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**, और **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/agent_skills.md)**, AI एजेंटों के लिए डेवलपर अनुभव (DX) को और भी आसान बनाने के लिए।
 
 **स्वचालन**
+
+<Accordion header="Automation">
 
 अपने एआई प्रदाता की कीमत पर अपनी पसंद के एलएलएम का उपयोग करके अपने सीआई/सीडी पाइपलाइन में अनुवाद करने के लिए स्वचालन का उपयोग करें। इंटलेयर सामग्री निष्कर्षण को स्वचालित करने के लिए एक **कंपाइलर** के साथ-साथ **पृष्ठभूमि में अनुवाद** में मदद करने के लिए एक [वेब प्लेटफ़ॉर्म](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) भी प्रदान करता है।
 
 **प्रदर्शन**
 
+<Accordion header="प्रदर्शन">
+
 बड़े पैमाने पर JSON फ़ाइलों को घटकों से जोड़ने से प्रदर्शन और प्रतिक्रियाशीलता संबंधी समस्याएं हो सकती हैं। इंटलेयर बिल्ड समय पर आपकी सामग्री लोडिंग को अनुकूलित करता है।
+
+</Accordion>
 
 **किसी भी देव के साथ स्केलिंग**
 
 सिर्फ एक i18n समाधान से अधिक, Intlayer एक **स्व-होस्टेड [विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** और एक **[पूर्ण] प्रदान करता है सीएमएस](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** आपकी बहुभाषी सामग्री को **वास्तविक समय** में प्रबंधित करने में मदद करता है, जिससे अनुवादकों, कॉपीराइटरों और टीम के अन्य सदस्यों के साथ सहयोग सहज हो जाता है। सामग्री को स्थानीय और/या दूरस्थ रूप से संग्रहीत किया जा सकता है।
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
@@ -299,14 +316,6 @@ function RootDocument({ children }: { children: ReactNode }) {
   );
 }
 ```
-
-> यदि आप अपनी सामग्री को `string` एट्रिब्यूट में उपयोग करना चाहते हैं, जैसे `alt`, `title`, `href`, `aria-label`, आदि, तो आपको फ़ंक्शन के मान को कॉल करना होगा, जैसे:
-
-> ```html
-> <img src="{content.image.src.value}" alt="{content.image.value}" />
-> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
-> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
-> ```
 
 </Step>
 
@@ -543,6 +552,14 @@ function RouteComponent() {
 }
 ```
 
+> अगर आप अपनी content को `string` attribute में use करना चाहते हैं, जैसे `alt`, `title`, `href`, `aria-label`, आदि, तो आप function के value को इस तरह use कर सकते हैं:
+>
+> ```html
+> <img src="{content.image.src.value}" alt="{content.image.value}" />
+> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
+> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
+> ```
+
 > `useIntlayer` हुक के बारे में अधिक जानने के लिए, [दस्तावेज़ीकरण](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/react-intlayer/useIntlayer.md) देखें।
 
 </Step>
@@ -637,6 +654,8 @@ function RootDocument({ children }: { children: ReactNode }) {
 
 > ध्यान दें कि उत्पादन में `intlayerProxy` का उपयोग करने के लिए, आपको `vite-intlayer` पैकेज को `devDependencies` से `dependencies` में स्विच करने की आवश्यकता है।
 
+> Intlayer v9 के बाद से, `intlayerProxy()` सीधे `intlayer()` plugin में बंडल किया गया है और `routing.enableProxy` विकल्प (`डिफ़ॉल्ट रूप से true`) के माध्यम से डिफ़ॉल्ट रूप से सक्षम है। इसे नीचे दिखाए गए अनुसार अलग से रजिस्टर करना अब optional है — इसे backward compatibility और उन सेटअप के लिए रखा गया है जिन्हें plugin order को नियंत्रित करने की आवश्यकता है। `routing.enableProxy: false` सेट करके opt out करें। [v9 रिलीज़ नोट्स](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/releases/v9.md) देखें।
+
 ```typescript fileName="vite.config.ts"
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import viteReact from "@vitejs/plugin-react";
@@ -670,6 +689,8 @@ export default defineConfig({
 <Step number={13} title="अपने मेटाडेटा को अंतर्राष्ट्रीयकृत करें">
 
 आप अपने एप्लिकेशन में अपने सामग्री शब्दकोशों तक पहुंचने के लिए `getIntlayer` हुक का भी उपयोग कर सकते हैं:
+
+यह `getIntlayer` की तरह काम करता है, लेकिन बिल्ड प्लगइन इसे मर्ज किए गए dictionary के बजाय per-locale dictionary chunk की ओर इंगित करता है जो हर locale को होल्ड करता है — इसलिए एक page के लिए metadata केवल उस locale को शिप करता है जिसे यह render करता है। क्योंकि यह उस chunk को demand पर लोड करता है, `head` `async` बन जाता है:
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/react-router";
@@ -829,28 +850,6 @@ export const Route = createFileRoute("/{-$locale}/$")({
 });
 ```
 
----
-
-</Step>
-
-<Step number={16} title="TypeScript कॉन्फ़िगर करें">
-
-Intlayer TypeScript के लाभ प्राप्त करने और आपके कोडबेस को मजबूत बनाने के लिए मॉड्यूल ऑगमेंटेशन का उपयोग करता है।
-
-सुनिश्चित करें कि आपके TypeScript कॉन्फ़िगरेशन में स्वचालित रूप से उत्पन्न प्रकार शामिल हैं:
-
-```json5 fileName="tsconfig.json"
-{
-  // ... आपके मौजूदा कॉन्फ़िगरेशन
-  include: [
-    // ... आपके मौजूदा शामिल
-    ".intlayer/**/*.ts", // स्वचालित रूप से उत्पन्न प्रकार शामिल करें
-  ],
-}
-```
-
----
-
 </Step>
 
 <Step number={1} title="अपने घटकों की सामग्री निकालें" isOptional={true}>
@@ -916,6 +915,8 @@ bun x intlayer extract
  </Tab>
  <Tab value='बैबेल कंपाइलर'>
 
+> v9 के बाद से, `intlayerCompiler` को `intlayer` plugin में शामिल किया गया है। इसलिए आपको इसे मैन्युअल रूप से जोड़ने की आवश्यकता नहीं है।
+
 intlayerCompiler प्लगइन शामिल करने के लिए अपनी `vite.config.ts` अपडेट करें:
 
 ```ts fileName="vite.config.ts"
@@ -951,6 +952,103 @@ bun run build # Or bun run dev
 
  </Tab>
 </Tabs>
+
+---
+
+</Step>
+
+<Step number={16} title="पूर्व-प्रस्तुत करें और साइटमैप जनरेट करें">
+
+Intlayer में एक built-in sitemap generator है जो आपको अपने एप्लिकेशन के लिए आसानी से sitemap बनाने में मदद करता है। यह localized routes को handle करता है और search engines के लिए आवश्यक metadata जोड़ता है।
+
+> Intlayer द्वारा generated sitemap `xhtml:link` namespace (Hreflang XML Extensions) को support करता है। Default sitemap generators के विपरीत जो केवल raw URLs list करते हैं, Intlayer automatically एक page के सभी language versions के बीच required bidirectional links create करता है (उदाहरण के लिए, `/about`, `/about?lang=fr`, और `/about?lang=es`)। यह सुनिश्चित करता है कि search engines सही language version को सही audience को correctly index और serve करें।
+
+इसे उपयोग करने के लिए, आपको पहले अपनी `vite.config.ts` को कॉन्फ़िगर करना होगा ताकि आपके स्थानीयकृत routes के लिए प्री-रेंडरिंग सक्षम हो सके और डिफ़ॉल्ट TanStack Start sitemap जनरेशन को अक्षम किया जा सके।
+
+```typescript fileName="vite.config.ts"
+import { localeFlatMap } from "intlayer";
+// ... अन्य imports
+
+export const pathList = ["", "/about", "/404"];
+
+const localizedPages = localeFlatMap(({ urlPrefix }) =>
+  pathList.map((path) => ({
+    path: `${urlPrefix}${path}`,
+    prerender: {
+      enabled: true,
+    },
+  }))
+);
+
+export default defineConfig({
+  plugins: [
+    // ... अन्य plugins
+    tanstackStart({
+      // ... अन्य config
+      sitemap: {
+        enabled: false,
+      },
+      prerender: {
+        enabled: true,
+        crawlLinks: false,
+        concurrency: 10,
+      },
+      pages: localizedPages,
+    }),
+  ],
+});
+```
+
+फिर, एक `src/routes/sitemap[.]xml.ts` route बनाएं जो `generateSitemap` function का उपयोग करता है:
+
+```typescript fileName="src/routes/sitemap[.]xml.ts"
+import { createFileRoute } from "@tanstack/react-router";
+import { generateSitemap } from "intlayer";
+
+const SITE_URL = (
+  import.meta.env.VITE_SITE_URL ?? "http://localhost:3000"
+).replace(/\/$/, "");
+
+export const Route = createFileRoute("/sitemap.xml")({
+  server: {
+    handlers: {
+      GET: async () => {
+        const sitemap = generateSitemap(
+          [
+            { path: "/", changefreq: "daily", priority: 1.0 },
+            { path: "/about", changefreq: "monthly", priority: 0.8 },
+          ],
+          { siteUrl: SITE_URL }
+        );
+
+        return new Response(sitemap, {
+          headers: { "Content-Type": "application/xml" },
+        });
+      },
+    },
+  },
+});
+```
+
+---
+
+</Step>
+
+<Step number={17} title="TypeScript कॉन्फ़िगर करें">
+
+Intlayer module augmentation का उपयोग करके TypeScript के लाभ प्राप्त करता है और आपके codebase को मजबूत बनाता है।
+
+सुनिश्चित करें कि आपकी TypeScript कॉन्फ़िगरेशन autogenerated प्रकार शामिल करती है:
+
+```json5 fileName="tsconfig.json"
+{
+  // ... आपकी मौजूदा कॉन्फ़िगरेशन
+  include: [
+    // ... आपकी मौजूदा includes
+    ".intlayer/**/*.ts", // ऑटो-जेनरेट किए गए types को शामिल करें
+  ],
+}
+```
 
 ---
 

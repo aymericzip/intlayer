@@ -368,6 +368,13 @@ app.use(intlayer);
 app.mount("#app");
 ```
 
+> Bạn cũng có thể gọi `installIntlayer(app)` trực tiếp dưới dạng một hàm nếu bạn muốn:
+>
+> ```javascript
+> import { intlayer } from "vue-intlayer";
+> app.use(intlayer);
+> ```
+
 Truy cập các từ điển nội dung của bạn trong toàn bộ ứng dụng bằng cách tạo một thành phần Vue chính và sử dụng các composable `useIntlayer`:
 
 ```vue fileName="src/HelloWord.vue"
@@ -421,6 +428,8 @@ const countRef = ref(0);
 </template>
 ```
 
+> Nếu ứng dụng của bạn đã tồn tại, bạn có thể sử dụng [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md), cũng như [extract command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/extract.md), để biến đổi hàng nghìn thành phần trong một giây.
+
 #### Truy cập Nội dung trong Intlayer
 
 Intlayer cung cấp các API khác nhau để truy cập nội dung của bạn:
@@ -438,8 +447,6 @@ Intlayer cung cấp các API khác nhau để truy cập nội dung của bạn:
   Composable `useIntlayer` trả về một Proxy chứa nội dung. Proxy này có thể được phân rã để truy cập nội dung trong khi vẫn giữ được tính phản ứng.
   - Sử dụng `const content = useIntlayer("myContent");` và `{{ content.myContent }}` / `<content.myContent />`.
   - Hoặc sử dụng `const { myContent } = useIntlayer("myContent");` và `{{ myContent}}` / `<myContent/>` để phân rã nội dung.
-
-> Nếu ứng dụng của bạn đã tồn tại, bạn có thể sử dụng [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md) kết hợp với [lệnh extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/extract.md) để chuyển đổi hàng nghìn component chỉ trong một giây.
 
 </Step>
 
@@ -629,6 +636,8 @@ import LocaleSwitcher from "@components/LocaleSwitcher.vue";
 Song song đó, bạn cũng có thể sử dụng `intlayerProxy` để thêm routing phía server vào ứng dụng của bạn. Plugin này sẽ tự động phát hiện locale hiện tại dựa trên URL và thiết lập cookie locale phù hợp. Nếu không có locale nào được chỉ định, plugin sẽ xác định locale phù hợp nhất dựa trên sở thích ngôn ngữ trình duyệt của người dùng. Nếu không phát hiện được locale nào, nó sẽ chuyển hướng về locale mặc định.
 
 > Lưu ý rằng để sử dụng `intlayerProxy` trong môi trường production, bạn cần chuyển gói `vite-intlayer` từ `devDependencies` sang `dependencies`.
+
+> Kể từ Intlayer v9, `intlayerProxy()` được gộp trực tiếp vào plugin `intlayer()` và được bật theo mặc định thông qua tùy chọn `routing.enableProxy` (`true` theo mặc định). Đăng ký nó riêng biệt như được hiển thị dưới đây hiện là tùy chọn — nó được giữ lại để tương thích ngược và cho các thiết lập cần kiểm soát thứ tự plugin. Đặt `routing.enableProxy: false` để từ chối. Xem [ghi chú phát hành v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/releases/v9.md).
 
 ```typescript {3,7} fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
@@ -1131,3 +1140,5 @@ Tiện ích mở rộng này cung cấp:
 ### Tiến xa hơn
 
 Để tiến xa hơn, bạn có thể triển khai [trình soạn thảo trực quan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) hoặc tách nội dung của bạn ra ngoài bằng cách sử dụng [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md).
+
+---

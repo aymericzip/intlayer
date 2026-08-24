@@ -93,11 +93,58 @@ Intlayer는 단순한 i18n 솔루션 그 이상으로 관리에 도움이 되는
 
 ## Next.js 애플리케이션에서 Intlayer 설정 단계별 가이드
 
+<Tabs defaultTab="code">
+  <Tab label="Code" value="code">
+
+<iframe
+  src="https://ide.intlayer.org/aymericzip/intlayer-next-14-template?file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="데모 CodeSandbox - Intlayer를 사용하여 애플리케이션을 국제화하는 방법"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+  <Tab label="Demo" value="demo">
+
+<iframe
+  src="https://intlayer-next-14-template.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="데모 - intlayer-next-14-template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+</Tabs>
+
+[Application Template](https://github.com/aymericzip/intlayer-next-14-template)을 GitHub에서 확인하세요.
+
 <Steps>
 
 <Step number={1} title="의존성 설치">
 
 npm을 사용하여 필요한 패키지를 설치합니다:
+
+```bash packageManager="npm"
+npx intlayer init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer@canary init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer@canary init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer@canary init --interactive
+```
+
+> `--interactive` 플래그는 선택사항입니다. AI 에이전트인 경우 `intlayer-cli init`을 사용하세요.
+
+> 이 명령은 당신의 환경을 감지하고 필요한 패키지를 설치합니다. 예를 들어:
 
 ```bash packageManager="npm"
 npm install intlayer next-intlayer
@@ -195,6 +242,15 @@ export default withIntlayer(nextConfig);
 
 > `withIntlayer()` Next.js 플러그인은 Intlayer를 Next.js와 통합하는 데 사용됩니다. 이 플러그인은 콘텐츠 선언 파일의 빌드를 보장하고 개발 모드에서 이를 모니터링합니다. 또한 [Webpack](https://webpack.js.org/) 또는 [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack) 환경 내에서 Intlayer 환경 변수를 정의합니다. 추가로, 성능 최적화를 위한 별칭(alias)을 제공하며 서버 컴포넌트와의 호환성을 보장합니다.
 
+> `withIntlayer()` 함수는 promise 함수입니다. 다른 플러그인과 함께 사용하려면 await를 사용할 수 있습니다. 예시:
+>
+> ```tsx
+> const nextConfig = await withIntlayer(nextConfig);
+> const nextConfigWithOtherPlugins = withOtherPlugins(nextConfig);
+>
+> export default nextConfigWithOtherPlugins;
+> ```
+
 </Step>
 
 <Step number={4} title="로케일 감지를 위한 미들웨어 구성">
@@ -212,7 +268,24 @@ export const config = {
 
 > `intlayerMiddleware`는 사용자의 선호 로케일을 감지하여 [설정](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)에 지정된 적절한 URL로 리디렉션하는 데 사용됩니다. 또한, 사용자의 선호 로케일을 쿠키에 저장할 수 있도록 합니다.
 
+> Intlayer v9부터, 이 미들웨어는 `routing.enableProxy` 옵션(`true`가 기본값)을 준수합니다. 이 파일을 제거하지 않고 pass-through로 변환하려면 구성에서 `routing.enableProxy: false`를 설정하세요. [v9 릴리스 노트](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/releases/v9.md)를 참조하세요.
+
 > `matcher` 매개변수를 애플리케이션의 라우트에 맞게 조정하세요. 자세한 내용은 [Next.js의 matcher 구성 문서](https://nextjs.org/docs/app/building-your-application/routing/middleware)를 참조하십시오.
+
+> 여러 미들웨어를 함께 체이닝해야 하는 경우(예: 인증 또는 커스텀 미들웨어를 포함한 `intlayerMiddleware`), Intlayer는 이제 `multipleMiddlewares`라는 헬퍼를 제공합니다.
+
+```ts
+import {
+  multipleMiddlewares,
+  intlayerMiddleware,
+} from "next-intlayer/middleware";
+import { customMiddleware } from "@utils/customMiddleware";
+
+export const middleware = multipleMiddlewares([
+  intlayerMiddleware,
+  customMiddleware,
+]);
+```
 
 </Step>
 
@@ -232,6 +305,36 @@ export default RootLayout;
 > `RootLayout` 컴포넌트를 비워두면 `<html>` 태그에 [`lang`](https://developer.mozilla.org/fr/docs/Web/HTML/Global_attributes/lang) 및 [`dir`](https://developer.mozilla.org/fr/docs/Web/HTML/Global_attributes/dir) 속성을 설정할 수 있습니다.
 
 동적 라우팅을 구현하려면 `[locale]` 디렉토리에 새 레이아웃을 추가하여 로케일 경로를 제공하세요:
+
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
+```tsx fileName="src/app/[locale]/layout.tsx" codeFormat={["typescript", "esm"]}
+import { type Next14LayoutIntlayer } from "next-intlayer";
+import { IntlayerProvider } from "next-intlayer/server";
+import { Inter } from "next/font/google";
+import { getHTMLTextDir } from "intlayer";
+
+const inter = Inter({ subsets: ["latin"] });
+
+const LocaleLayout: Next14LayoutIntlayer = ({
+  children,
+  params: { locale },
+}) => (
+  <IntlayerProvider locale={locale}>
+    <html lang={locale} dir={getHTMLTextDir(locale)}>
+      <body className={inter.className}>{children}</body>
+    </html>
+  </IntlayerProvider>
+);
+
+export default LocaleLayout;
+```
+
+> 단일 `IntlayerProvider`는 트리의 두 부분을 모두 처리합니다: 서버 훅에서 읽는 요청 범위의 서버 컨텍스트를 시드하고, 클라이언트 컴포넌트가 동일한 로케일을 받도록 클라이언트 제공자를 마운트합니다.
+
+ </Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
 
 ```tsx fileName="src/app/[locale]/layout.tsx" codeFormat={["typescript", "esm"]}
 import {
@@ -258,6 +361,9 @@ const LocaleLayout: Next14LayoutIntlayer = ({
 
 export default LocaleLayout;
 ```
+
+ </Tab>
+</Tabs>
 
 > `[locale]` 경로 세그먼트는 로케일을 정의하는 데 사용됩니다. 예: `/en-US/about`는 `en-US`를, `/fr/about`는 `fr`를 가리킵니다.
 
@@ -341,6 +447,40 @@ export default pageContent;
 
 애플리케이션 전반에서 콘텐츠 사전을 접근하세요:
 
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
+```tsx fileName="src/app/[locale]/page.tsx" codeFormat={["typescript", "esm"]}
+import { ClientComponentExample } from "@components/ClientComponentExample";
+import { ServerComponentExample } from "@components/ServerComponentExample";
+import { type Next14PageIntlayer } from "next-intlayer";
+import { useIntlayer } from "next-intlayer";
+
+const Page: Next14PageIntlayer = ({ params: { locale } }) => {
+  const content = useIntlayer("page", locale);
+
+  return (
+    <>
+      <p>
+        {content.getStarted.main}
+        <code>{content.getStarted.pageLink}</code>
+      </p>
+
+      <ServerComponentExample />
+      <ClientComponentExample />
+    </>
+  );
+};
+
+export default Page;
+```
+
+- **`IntlayerProvider`**는 locale 레이아웃에 한 번 마운트됩니다. 서버 및 클라이언트 컴포넌트 모두에 locale을 제공하므로 페이지가 더 이상 자신을 래핑하지 않습니다.
+- 서버 hooks는 이 순서대로 locale을 해결합니다: 호출 사이트에서 전달된 locale, provider에 의해 시드된 서버 컨텍스트, 요청에 의해 전달된 locale(`Intlayer` proxy에 의해 설정된 `x-intlayer-locale` 헤더, 그 다음 locale 쿠키). 마지막 단계는 클라이언트 측 네비게이션에서 페이지 세그먼트만 다시 렌더링할 때 콘텐츠가 올바르게 유지되도록 하는 것입니다. 이때 레이아웃(및 provider)은 다시 실행되지 않습니다.
+
+ </Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
+
 ```tsx fileName="src/app/[locale]/page.tsx" codeFormat={["typescript", "esm"]}
 import { ClientComponentExample } from "@components/ClientComponentExample";
 import { ServerComponentExample } from "@components/ServerComponentExample";
@@ -373,6 +513,9 @@ export default Page;
 
 > 레이아웃과 페이지는 공통 서버 컨텍스트를 공유할 수 없습니다. 서버 컨텍스트 시스템이 요청별 데이터 저장소([React의 캐시](https://react.dev/reference/react/cache) 메커니즘)를 기반으로 하기 때문에 애플리케이션의 서로 다른 세그먼트마다 각 “컨텍스트”가 다시 생성됩니다. 프로바이더를 공유 레이아웃에 배치하면 이러한 격리가 깨져 서버 컴포넌트에 서버 컨텍스트 값이 올바르게 전파되지 않습니다.
 
+ </Tab>
+</Tabs>
+
 ```tsx {4,7} fileName="src/components/ClientComponentExample.tsx" codeFormat={["typescript", "esm"]}
 "use client";
 
@@ -391,6 +534,30 @@ const ClientComponentExample: FC = () => {
 };
 ```
 
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
+```tsx {2} fileName="src/components/ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
+import type { FC } from "react";
+import { useIntlayer } from "next-intlayer";
+
+const ServerComponentExample: FC = () => {
+  const content = useIntlayer("server-component-example"); // 관련 콘텐츠 선언 생성
+
+  return (
+    <div>
+      <h2>{content.title}</h2>
+      <p>{content.content}</p>
+    </div>
+  );
+};
+```
+
+> `next-intlayer`는 isomorphic import path입니다: `react-server` export 조건은 서버 컴포넌트에 ambient-locale 구현을 제공하고, 클라이언트 컴포넌트는 context-backed 구현을 받습니다. 동일한 호출이 양쪽에서 작동합니다.
+
+ </Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
+
 ```tsx {2} fileName="src/components/ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "next-intlayer/server";
@@ -406,6 +573,9 @@ const ServerComponentExample: FC = () => {
   );
 };
 ```
+
+ </Tab>
+</Tabs>
 
 > 콘텐츠를 `alt`, `title`, `href`, `aria-label` 등과 같은 `string` 속성에서 사용하려면, 함수의 값을 호출해야 합니다. 예를 들어:
 
@@ -549,47 +719,6 @@ export const generateMetadata = ({ params: { locale } }) => {
     },
   };
 };
-
-// ... 나머지 코드
-````
-
-````javascript fileName="src/app/[locale]/layout.cjs or src/app/[locale]/page.cjs" codeFormat="commonjs"
-const { getIntlayer, getMultilingualUrls } = require("intlayer");
-
-const generateMetadata = ({ params: { locale } }) => {
-  const metadata = getIntlayer("page-metadata", locale);
-
-  /**
-   * 각 로케일에 대한 모든 URL을 포함하는 객체를 생성합니다.
-   *
-   * 예시:
-   * ```ts
-   *  getMultilingualUrls('/about');
-   *
-   *  // 반환값
-   *  // {
-   *  //   en: '/about',
-   *  //   fr: '/fr/about',
-   *  //   es: '/es/about'
-   *  // }
-   * ```
-   */
-  const multilingualUrls = getMultilingualUrls("/");
-  const localizedUrl = multilingualUrls[locale];
-
-  return {
-    ...metadata,
-    alternates: {
-      canonical: localizedUrl,
-      languages: { ...multilingualUrls, "x-default": "/" },
-    },
-    openGraph: {
-      url: localizedUrl,
-    },
-  };
-};
-
-module.exports = { generateMetadata };
 
 // ... 나머지 코드
 ````
@@ -860,6 +989,33 @@ Link.displayName = "Link";
 
 <Step number={12} title="번들 크기 최적화" isOptional={true}>
 
+Server Action 내에서 활성 locale이 필요한 경우(예: 이메일 로컬라이제이션 또는 locale 인식 로직 실행), `next-intlayer/server`에서 `getLocale`을 호출하세요:
+
+```tsx fileName="src/app/actions/getLocale.ts" codeFormat="typescript"
+"use server";
+
+import { getLocale } from "next-intlayer/server";
+
+export const myServerAction = async () => {
+  const locale = await getLocale();
+
+  // locale로 뭔가를 수행합니다
+};
+```
+
+> `getLocale` 함수는 사용자의 로케일을 결정하기 위해 캐스케이딩 전략을 따릅니다:
+>
+> 1. 먼저 미들웨어에 의해 설정되었을 수 있는 로케일 값에 대해 요청 헤더를 확인합니다
+> 2. 헤더에서 로케일을 찾을 수 없으면 쿠키에 저장된 로케일을 찾습니다
+> 3. 쿠키를 찾을 수 없으면 브라우저 설정에서 사용자의 선호 언어를 감지하려고 시도합니다
+> 4. 마지막 수단으로 애플리케이션의 구성된 기본 로케일로 폴백합니다
+>
+> 이는 사용 가능한 컨텍스트를 기반으로 가장 적절한 로케일이 선택되도록 보장합니다.
+
+</Step>
+
+<Step number={13} title="번들 크기 최적화" isOptional={true}>
+
 `next-intlayer`를 사용할 때, 기본적으로 모든 페이지 번들에 사전이 포함됩니다. 번들 크기를 최적화하기 위해 Intlayer는 매크로를 사용하여 `useIntlayer` 호출을 지능적으로 대체하는 선택적 SWC 플러그인을 제공합니다. 이를 통해 실제로 사전을 사용하는 페이지의 번들에만 사전이 포함되도록 보장합니다.
 
 이 최적화를 활성화하려면 `@intlayer/swc` 패키지를 설치하세요. 설치가 완료되면 `next-intlayer`가 자동으로 플러그인을 감지하고 사용합니다:
@@ -933,8 +1089,6 @@ Intlayer와 함께 개발 경험을 향상시키기 위해 공식 **Intlayer VS 
 - **빠른 작업**으로 번역을 쉽게 생성하고 업데이트할 수 있습니다.
 
 확장 기능 사용 방법에 대한 자세한 내용은 [Intlayer VS Code 확장 문서](https://intlayer.org/doc/vs-code-extension)를 참조하세요.
-
----
 
 ### 더 나아가기
 

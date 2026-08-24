@@ -102,37 +102,6 @@ export const ServerComponentExample: FC = () => (
 );
 ```
 
-###एट्रिब्यूट्स में इनलाइन अनुवाद
-
-`t` फ़ंक्शन JSX एट्रिब्यूट्स में इनलाइन अनुवाद के लिए विशेष रूप से उपयोगी है।
-जब आप `alt`, `title`, `href`, या `aria-label` जैसे एट्रिब्यूट्स का स्थानीयकरण कर रहे हों, तो आप सीधे एट्रिब्यूट के भीतर `t` का उपयोग कर सकते हैं।
-
-```jsx
-<button
-  aria-label={t({
-    en: "Submit",
-    fr: "Soumettre",
-    es: "Enviar",
-  })}
->
-  {t({
-    en: "Submit",
-    fr: "Soumettre",
-    es: "Enviar",
-  })}
-  <img
-    src="/path/to/image"
-    alt={t({
-      en: "A beautiful scenery",
-      fr: "Un beau paysage",
-      es: "Un hermoso paisaje",
-    })}
-  />
-</button>
-```
-
----
-
 ### विशेषताओं में इनलाइन अनुवाद
 
 `t` फ़ंक्शन JSX विशेषताओं में इनलाइन अनुवादों के लिए विशेष रूप से उपयोगी है।
@@ -192,6 +161,23 @@ const greeting = t(translations);
 
 #### उदाहरण:
 
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
+```tsx codeFormat={["typescript", "esm", "commonjs"]}
+import type { FC, ReactNode } from "react";
+import type { Locales } from "intlayer";
+import { IntlayerProvider } from "next-intlayer/server";
+
+const Page: FC<{ locale: Locales; children: ReactNode }> = ({
+  locale,
+  children,
+}) => <IntlayerProvider locale={locale}>{children}</IntlayerProvider>;
+```
+
+ </Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
+
 ```tsx codeFormat={["typescript", "esm", "commonjs"]}
 import type { FC } from "react";
 import type { Locales } from "intlayer";
@@ -206,6 +192,9 @@ const Page: FC<{ locale: Locales }> = ({ locale }) => (
   </IntlayerServerProvider>
 );
 ```
+
+</Tab>
+</Tabs>
 
 ---
 

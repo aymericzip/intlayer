@@ -94,6 +94,38 @@ Intlayer는 단순한 i18n 솔루션 그 이상으로 관리에 도움이 되는
 
 ## Next.js 애플리케이션에서 Intlayer 설정 단계별 가이드
 
+<Tabs defaultTab="video">
+  <Tab label="비디오" value="video">
+
+<iframe title="Next.js를 위한 최고의 i18n 솔루션? Intlayer를 발견하세요" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/e_PPG7PTqGU?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
+
+  </Tab>
+  <Tab label="Code" value="code">
+
+<iframe
+  src="https://ide.intlayer.org/aymericzip/intlayer-next-15-template?file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - Intlayer를 사용하여 애플리케이션을 국제화하는 방법"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+  <Tab label="Demo" value="demo">
+
+<iframe
+  src="https://next-15-intlayer-template-xt83.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo - intlayer-next-15-template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+</Tabs>
+
+[Application Template](https://github.com/aymericzip/intlayer-next-15-template)을 GitHub에서 확인하세요.
+
 <Steps>
 
 <Step number={1} title="의존성 설치">
@@ -215,6 +247,24 @@ export default withIntlayer(nextConfig);
 
 > `withIntlayer()` Next.js 플러그인은 Intlayer를 Next.js와 통합하는 데 사용됩니다. 이 플러그인은 콘텐츠 선언 파일을 빌드하고 개발 모드에서 이를 모니터링하는 역할을 합니다. 또한 [Webpack](https://webpack.js.org/) 또는 [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack) 환경 내에서 Intlayer 환경 변수를 정의합니다. 추가로, 성능 최적화를 위한 별칭(alias)을 제공하며 서버 컴포넌트와의 호환성을 보장합니다.
 
+> `withIntlayer()` 함수는 promise 함수입니다. 빌드가 시작되기 전에 intlayer 딕셔너리를 준비할 수 있게 합니다. 다른 플러그인과 함께 사용하려면 await를 할 수 있습니다. 예:
+>
+> ```tsx
+> const nextConfig = await withIntlayer(nextConfig);
+> const nextConfigWithOtherPlugins = withOtherPlugins(nextConfig);
+>
+> export default nextConfigWithOtherPlugins;
+> ```
+>
+> 동기적으로 사용하려면 `withIntlayerSync()` 함수를 사용할 수 있습니다. 예:
+>
+> ```tsx
+> const nextConfig = withIntlayerSync(nextConfig);
+> const nextConfigWithOtherPlugins = withOtherPlugins(nextConfig);
+>
+> export default nextConfigWithOtherPlugins;
+> ```
+
 </Step>
 
 <Step number={4} title="동적 로케일 경로 정의">
@@ -240,6 +290,36 @@ export default RootLayout;
 
 동적 라우팅을 구현하려면 `[locale]` 디렉터리에 새 레이아웃을 추가하여 로케일 경로를 제공합니다:
 
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
+```tsx fileName="src/app/[locale]/layout.tsx" codeFormat={["typescript", "esm"]}
+import { type NextLayoutIntlayer } from "next-intlayer";
+import { IntlayerProvider } from "next-intlayer/server";
+import { Inter } from "next/font/google";
+import { getHTMLTextDir } from "intlayer";
+
+const inter = Inter({ subsets: ["latin"] });
+
+const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
+  const { locale } = await params;
+  return (
+    <IntlayerProvider locale={locale}>
+      <html lang={locale} dir={getHTMLTextDir(locale)}>
+        <body className={inter.className}>{children}</body>
+      </html>
+    </IntlayerProvider>
+  );
+};
+
+export default LocaleLayout;
+```
+
+> 단일 `IntlayerProvider`는 트리의 양쪽 부분을 모두 커버합니다. 요청 범위 서버 컨텍스트를 시드하여 서버 훅에서 읽을 수 있도록 하고, 클라이언트 provider를 마운트하여 클라이언트 컴포넌트가 동일한 locale을 받도록 합니다.
+
+ </Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
+
 ```tsx fileName="src/app/[locale]/layout.tsx" codeFormat={["typescript", "esm"]}
 import { type NextLayoutIntlayer, IntlayerClientProvider } from "next-intlayer";
 import { Inter } from "next/font/google";
@@ -263,6 +343,9 @@ const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
 export default LocaleLayout;
 ```
 
+</Tab>
+</Tabs>
+
 > `[locale]` 경로 세그먼트는 로케일을 정의하는 데 사용됩니다. 예: `/en-US/about`는 `en-US`를, `/fr/about`는 `fr`를 가리킵니다.
 
 > 이 단계에서 `Error: Missing <html> and <body> tags in the root layout.` 오류가 발생할 수 있습니다. 이는 `/app/page.tsx` 파일이 더 이상 사용되지 않으며 제거할 수 있기 때문에 예상되는 현상입니다. 대신, `[locale]` 경로 세그먼트가 `/app/[locale]/page.tsx` 페이지를 활성화합니다. 따라서 브라우저에서 `/en`, `/fr`, `/es`와 같은 경로를 통해 페이지에 접근할 수 있습니다. 기본 로케일을 루트 페이지로 설정하려면 7단계의 `middleware` 설정을 참조하세요.
@@ -280,6 +363,8 @@ export default LocaleLayout;
 ```
 
 > `generateStaticParams`는 애플리케이션이 모든 로케일에 필요한 페이지를 사전 빌드하도록 하여 런타임 계산을 줄이고 사용자 경험을 향상시킵니다. 자세한 내용은 [Next.js의 generateStaticParams 문서](https://nextjs.org/docs/app/building-your-application/rendering/static-and-dynamic-rendering#generate-static-params)를 참조하세요.
+
+> Intlayer는 `export const dynamic = 'force-static';`과 함께 작동하여 모든 로케일에 대해 페이지를 미리 빌드하도록 합니다.
 
 </Step>
 
@@ -344,8 +429,6 @@ export default pageContent;
 
 <Step number={6} title="코드에서 콘텐츠 활용하기">
 
-애플리케이션 전반에서 콘텐츠 사전을 접근하세요:
-
 ```tsx fileName="src/app/[locale]/page.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { ClientComponentExample } from "@components/ClientComponentExample";
@@ -405,6 +488,30 @@ export const ClientComponentExample: FC = () => {
 };
 ```
 
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
+```tsx {2} fileName="src/components/ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
+import type { FC } from "react";
+import { useIntlayer } from "next-intlayer";
+
+export const ServerComponentExample: FC = () => {
+  const content = useIntlayer("server-component-example"); // 관련 컨텐츠 선언 생성
+
+  return (
+    <div>
+      <h2>{content.title}</h2>
+      <p>{content.content}</p>
+    </div>
+  );
+};
+```
+
+> `next-intlayer`는 동형 import 경로입니다: `react-server` export 조건은 server components에 ambient-locale 구현을 제공하고, client components는 context-backed 구현을 받습니다. 같은 호출이 양쪽에서 모두 작동합니다.
+
+ </Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
+
 ```tsx {2} fileName="src/components/ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "next-intlayer/server";
@@ -420,6 +527,9 @@ export const ServerComponentExample: FC = () => {
   );
 };
 ```
+
+</Tab>
+</Tabs>
 
 > 콘텐츠를 `alt`, `title`, `href`, `aria-label` 등과 같은 `string` 속성에서 사용하려면, 함수의 값을 호출해야 합니다. 예를 들어:
 
@@ -447,6 +557,23 @@ export const config = {
 ```
 
 > `intlayerMiddleware`는 사용자의 선호 로케일을 감지하여 [설정](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)에 명시된 적절한 URL로 리디렉션하는 데 사용됩니다. 또한 사용자의 선호 로케일을 쿠키에 저장할 수 있도록 합니다.
+
+> Intlayer v9 이후로, 이 미들웨어는 `routing.enableProxy` 옵션(`true` 기본값)을 준수합니다. 설정에서 `routing.enableProxy: false`를 설정하여 이 파일을 제거하지 않고도 pass-through로 변환할 수 있습니다. [v9 release notes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/releases/v9.md)를 참조하세요.
+
+> 여러 미들웨어를 함께 연결해야 하는 경우(예: 인증 또는 사용자 정의 미들웨어와 함께 `intlayerMiddleware`), Intlayer는 이제 `multipleMiddlewares`라는 헬퍼를 제공합니다.
+
+```ts
+import {
+  multipleMiddlewares,
+  intlayerMiddleware,
+} from "next-intlayer/middleware";
+import { customMiddleware } from "@utils/customMiddleware";
+
+export const middleware = multipleMiddlewares([
+  intlayerMiddleware,
+  customMiddleware,
+]);
+```
 
 </Step>
 
@@ -822,6 +949,33 @@ export const Link: FC<PropsWithChildren<NextLinkProps>> = ({
 </Step>
 
 <Step number={12} title="번들 크기 최적화" isOptional={true}>
+
+Server Action 내에서 활성 로케일이 필요한 경우(예: 이메일 현지화 또는 로케일 인식 로직 실행), `next-intlayer/server`에서 `getLocale`을 호출하세요:
+
+```tsx fileName="src/app/actions/getLocale.ts" codeFormat="typescript"
+"use server";
+
+import { getLocale } from "next-intlayer/server";
+
+export const myServerAction = async () => {
+  const locale = await getLocale();
+
+  // locale로 무언가 수행
+};
+```
+
+> `getLocale` 함수는 사용자의 locale을 결정하기 위해 계층적 전략을 따릅니다:
+>
+> 1. 먼저 미들웨어에서 설정한 locale 값이 있는지 요청 헤더를 확인합니다
+> 2. 헤더에서 locale을 찾을 수 없으면 쿠키에 저장된 locale을 찾습니다
+> 3. 쿠키를 찾을 수 없으면 사용자의 브라우저 설정에서 선호하는 언어를 감지하려고 시도합니다
+> 4. 마지막 수단으로 애플리케이션의 구성된 기본 locale로 돌아갑니다
+>
+> 이는 사용 가능한 컨텍스트를 바탕으로 가장 적절한 locale이 선택되도록 보장합니다.
+
+</Step>
+
+<Step number={13} title="번들 크기 최적화" isOptional={true}>
 
 `next-intlayer`를 사용할 때, 사전(dictionary)은 기본적으로 모든 페이지의 번들에 포함됩니다. 번들 크기를 최적화하기 위해 Intlayer는 매크로를 사용하여 `useIntlayer` 호출을 지능적으로 대체하는 선택적 SWC 플러그인을 제공합니다. 이를 통해 사전은 실제로 사용하는 페이지의 번들에만 포함됩니다.
 

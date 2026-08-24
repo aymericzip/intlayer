@@ -246,7 +246,7 @@ You can configure HTML rendering globally for your entire application. This is i
 
 <Tabs group="framework">
   <Tab label="React / Next.js" value="react">
-  
+
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "react-intlayer/html";
 
@@ -264,7 +264,7 @@ You can configure HTML rendering globally for your entire application. This is i
 
   </Tab>
   <Tab label="Vue" value="vue">
-  
+
     ```typescript fileName="main.ts"
     import { createApp, h } from "vue";
     import { intlayer } from "vue-intlayer";
@@ -286,7 +286,7 @@ You can configure HTML rendering globally for your entire application. This is i
 
   </Tab>
   <Tab label="Svelte" value="svelte">
-   
+
     ```svelte fileName="App.svelte"
     <script lang="ts">
       import { HTMLProvider } from "svelte-intlayer/html";
@@ -304,7 +304,7 @@ You can configure HTML rendering globally for your entire application. This is i
 
   </Tab>
   <Tab label="Preact" value="preact">
-   
+
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "preact-intlayer/html";
 
@@ -321,7 +321,7 @@ You can configure HTML rendering globally for your entire application. This is i
 
   </Tab>
   <Tab label="Solid" value="solid">
-   
+
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "solid-intlayer/html";
 
@@ -353,6 +353,8 @@ You can configure HTML rendering globally for your entire application. This is i
       ],
     };
     ```
+
+> Importing your HTML renderer dynamically is a good way to reduce the bundle size of your application.
 
   </Tab>
 </Tabs>
@@ -402,9 +404,9 @@ If you need to render raw HTML strings or have more control over the component m
 
   </Tab>
   <Tab label="Vue" value="vue">
-   
+
     #### `<HTMLRenderer />` Component
-   
+
     ```vue
     <script setup>
     import { HTMLRenderer } from "vue-intlayer/html";
@@ -417,9 +419,9 @@ If you need to render raw HTML strings or have more control over the component m
 
   </Tab>
   <Tab label="Svelte" value="svelte">
-  
+
     #### `<HTMLRenderer />` Component
-   
+
     ```svelte
     <script lang="ts">
     import { HTMLRenderer } from "svelte-intlayer/html";
@@ -451,9 +453,9 @@ If you need to render raw HTML strings or have more control over the component m
 
   </Tab>
   <Tab label="Preact" value="preact">
-   
+
     #### `<HTMLRenderer />` Component
-   
+
     ```tsx
     import { HTMLRenderer } from "preact-intlayer/html";
 
@@ -482,9 +484,9 @@ If you need to render raw HTML strings or have more control over the component m
 
   </Tab>
   <Tab label="Solid" value="solid">
-   
+
     #### `<HTMLRenderer />` Component
-   
+
     ```tsx
     import { HTMLRenderer } from "solid-intlayer/html";
 
@@ -517,13 +519,13 @@ If you need to render raw HTML strings or have more control over the component m
     Render an HTML string using the service.
 
     ```typescript
-    import { IntlayerHTMLService } from "angular-intlayer";
+    import { IntlayerHTMLService } from "angular-intlayer/html";
 
     export class MyComponent {
       constructor(private markdownService: IntlayerHTMLService) {}
 
       renderHTML(html: string) {
-        return this.markdownService.renderMarkdown(html);
+        return this.markdownService.renderHTML(html);
       }
     }
     ```

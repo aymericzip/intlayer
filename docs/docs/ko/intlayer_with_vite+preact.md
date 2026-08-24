@@ -170,10 +170,6 @@ bun add vite-intlayer --dev
 
   구성 관리, 번역, [콘텐츠 선언](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md), 컴파일 및 [CLI 명령어](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/index.md)를 위한 핵심 패키지입니다.
 
-- **preact-intlayer**
-
-  Intlayer를 Preact 애플리케이션과 통합하는 패키지입니다. Preact 국제화를 위한 컨텍스트 제공자와 훅을 제공합니다.
-
 - **vite-intlayer**
 
   Intlayer를 [Vite 번들러](https://vite.dev/guide/why.html#why-bundle-for-production)와 통합하기 위한 Vite 플러그인과, 사용자의 선호 로케일 감지, 쿠키 관리, URL 리디렉션 처리를 위한 미들웨어를 포함합니다.
@@ -423,6 +419,8 @@ export default App;
 
 > `useIntlayer` 훅에 대해 더 알아보려면 [문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/react-intlayer/useIntlayer.md)를 참고하세요 (`preact-intlayer`도 API가 유사합니다).
 
+> 기존 앱이 있다면, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md)와 [extract 명령어](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/extract.md)를 사용하여 수천 개의 컴포넌트를 몇 초 만에 변환할 수 있습니다.
+
 </Step>
 
 <Step number={6} title="콘텐츠의 언어 변경하기" isOptional={true}>
@@ -514,6 +512,30 @@ const App: FunctionalComponent = () => (
 export default App;
 ```
 
+동시에 `intlayerProxy`를 사용하여 애플리케이션에 서버 측 라우팅을 추가할 수 있습니다. 이 플러그인은 URL 기반으로 현재 로케일을 자동으로 감지하고 적절한 로케일 쿠키를 설정합니다. 로케일이 지정되지 않으면 플러그인은 사용자의 브라우저 언어 설정을 기반으로 가장 적절한 로케일을 결정합니다. 로케일이 감지되지 않으면 기본 로케일로 리다이렉트됩니다.
+
+> `intlayerProxy`를 프로덕션에서 사용하려면 `vite-intlayer` 패키지를 `devDependencies`에서 `dependencies`로 변경해야 합니다.
+
+> Intlayer v9부터 `intlayerProxy()`는 `intlayer()` 플러그인에 직접 번들되어 있으며 `routing.enableProxy` 옵션(`기본값: true`)을 통해 기본적으로 활성화됩니다. 아래와 같이 별도로 등록하는 것은 이제 선택 사항입니다 — 하위 호환성과 플러그인 순서를 제어해야 하는 설정을 위해 유지됩니다. `routing.enableProxy: false`로 설정하여 선택 해제할 수 있습니다. [v9 release notes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/releases/v9.md)를 참조하세요.
+
+```typescript {3,7} fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import { intlayer } from "vite-intlayer";
+import preact from "@preact/preset-vite";
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [
+    preact(),
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
+  ],
+});
+```
+
 </Step>
 
 <Step number={8} title="로캘이 변경될 때 URL 변경" isOptional={true}>
@@ -590,6 +612,10 @@ export default LocaleSwitcher;
 >
 > > - [`useLocale` 훅](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/react-intlayer/useLocale.md) (API는 `preact-intlayer`와 유사합니다)> - [`getLocaleName` 훅](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getLocaleName.md)> - [`getLocalizedUrl` 훅](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getLocalizedUrl.md)> - [`getHTMLTextDir` 훅](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getHTMLTextDir.md)> - [`hreflang` 속성](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=ko)> - [`lang` 속성](https://developer.mozilla.org/ko/docs/Web/HTML/Global_attributes/lang)> - [`dir` 속성](https://developer.mozilla.org/ko/docs/Web/HTML/Global_attributes/dir)> - [`aria-current` 속성](https://developer.mozilla.org/ko/docs/Web/Accessibility/ARIA/Attributes/aria-current)> - [Popover API](https://developer.mozilla.org/ko/docs/Web/API/Popover_API)
 
+다음은 설명과 개선된 코드 예제가 추가된 업데이트된 **Step 9**입니다:
+
+---
+
 </Step>
 
 <Step number={9} title="HTML 언어 및 방향 속성 전환" isOptional={true}>
@@ -658,6 +684,12 @@ const App: FunctionalComponent = () => (
 
 export default App;
 ```
+
+이러한 변경사항을 적용하면 애플리케이션은 다음을 수행합니다:
+
+- **언어** (`lang`) 속성이 현재 locale을 정확하게 반영하도록 하세요. 이는 SEO와 브라우저 동작에 중요합니다.
+- 다양한 읽기 순서를 가진 언어에 대해 **텍스트 방향** (`dir`)을 조정하여 가독성과 사용성을 향상시키세요.
+- 보조 기술이 최적으로 작동할 수 있도록 더욱 **접근 가능한** 경험을 제공하세요.
 
 </Step>
 

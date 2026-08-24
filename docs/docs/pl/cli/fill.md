@@ -39,14 +39,6 @@ bun x intlayer fill
 
 To polecenie analizuje Twoje pliki deklaracji treści pod kątem potencjalnych problemów, takich jak brakujące tłumaczenia, niespójności strukturalne lub niezgodności typów. Jeśli wykryje jakiekolwiek problemy, **intlayer fill** zaproponuje lub zastosuje aktualizacje, aby utrzymać Twoje słowniki spójne i kompletne.
 
-Kluczowe punkty:
-
-- Dzieli duże pliki JSON na fragmenty, aby pozostać w granicach okna kontekstowego modelu AI.
-- Ponawia tłumaczenie, jeśli format wyjściowy jest nieprawidłowy.
-- Włącza kontekst specyficzny dla aplikacji i pliku, aby poprawić dokładność tłumaczenia.
-- Zachowuje istniejące tłumaczenia, nie nadpisując ich.
-- Przetwarza pliki, fragmenty i lokalizacje równolegle przy użyciu systemu kolejkowego, aby zwiększyć prędkość.
-
 ## Kluczowe punkty:
 
 - Dzieli duże pliki JSON na fragmenty, aby pozostać w granicach kontekstu modelu AI.

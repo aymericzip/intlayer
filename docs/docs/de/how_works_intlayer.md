@@ -61,7 +61,9 @@ Der Build-Schritt kann auf drei Arten durchgeführt werden:
    - Wörterbücher werden aus Inhaltsdateien generiert. Standardmäßig werden Intlayer-Wörterbücher im Verzeichnis `.intlayer/dictionaries` des Projekts generiert.
    - Diese Wörterbücher werden in verschiedenen Formaten generiert, um alle Anforderungen zu erfüllen und die Leistung der Anwendung zu optimieren.
 
-3. Generierung von Wörterbuchtypen
+3. Generierung von Dictionary-Typen
+
+4. Generierung von Wörterbuchtypen
    Basierend auf Ihren `Wörterbüchern` generiert Intlayer Typen, um sie in Ihrer Anwendung nutzbar zu machen.
 
 - Wörterbuchtypen werden aus Intlayer-`Content-Deklarationsdateien` generiert. Standardmäßig werden Intlayer-Wörterbuchtypen im Verzeichnis `.intlayer/types` des Projekts generiert.
@@ -103,10 +105,15 @@ Intlayer bietet auch einen visuellen Editor, mit dem Sie Ihre Inhalte visuell be
   Wenn Sie Ihre Inhalte mit `useIntlayer` aufrufen und der Editor aktiviert ist, werden Ihre Strings automatisch mit einem Proxy-Objekt namens `IntlayerNode` umschlossen. Dieses Node verwendet `window.postMessage`, um mit einem eingebetteten iframe zu kommunizieren, das die Oberfläche des visuellen Editors enthält.  
   Auf der Editor-Seite hört der Editor auf diese Nachrichten und simuliert eine echte Interaktion mit Ihren Inhalten, sodass Sie den Text direkt im Kontext Ihrer Anwendung bearbeiten können.
 
+Wenn Sie Ihren Inhalt mit `useIntlayer` aufrufen und der Editor aktiviert ist, werden Ihre Strings automatisch mit einem Proxy-Objekt namens `IntlayerNode` umhüllt. Dieser Node verwendet `window.postMessage`, um mit einem eingebetteten iframe zu kommunizieren, das die visuelle Editor-Oberfläche enthält.
+Auf der Editor-Seite lauscht der Editor auf diese Nachrichten und simuliert reale Interaktionen mit Ihrem Inhalt, sodass Sie Text direkt im Kontext Ihrer Anwendung bearbeiten können.
+
 ## Optimierung des App-Builds
 
 Um die Bundle-Größe Ihrer Anwendung zu optimieren, bietet Intlayer zwei Plugins zur Optimierung des Builds Ihrer Anwendung: `@intlayer/babel` und `@intlayer/swc` Plugins.
 Die Babel- und SWC-Plugins funktionieren, indem sie den Abstract Syntax Tree (AST) Ihrer Anwendung analysieren, um Aufrufe von Intlayer-Funktionen durch optimierten Code zu ersetzen. Dieser Prozess macht Ihr endgültiges Bundle in der Produktion leichter, indem sichergestellt wird, dass nur die tatsächlich verwendeten Wörterbücher importiert werden, das Chunking optimiert und die Bundle-Größe reduziert wird.
+
+Die Babel- und SWC-Plugins funktionieren, indem sie den Abstract Syntax Tree (AST) deiner Anwendung analysieren, um Aufrufe von Intlayer-Funktionen durch optimierten Code zu ersetzen. Dieser Prozess macht dein finales Bundle in der Produktion leichter, indem sichergestellt wird, dass nur die Wörterbücher, die tatsächlich verwendet werden, importiert werden, die Chunking-Optimierung verbessert und die Bundle-Größe reduziert wird.
 
 Im Entwicklungsmodus verwendet Intlayer einen zentralisierten statischen Import für Wörterbücher, um die Entwicklungserfahrung zu vereinfachen.
 

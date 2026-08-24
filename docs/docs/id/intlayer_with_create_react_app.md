@@ -43,7 +43,21 @@ Lihat [Application Template](https://github.com/aymericzip/intlayer-react-cra-te
 
 ## Apa itu Intlayer?
 
+Dibandingkan dengan solusi utama seperti `react-i18next` atau `i18next`, Intlayer adalah solusi yang dilengkapi dengan optimisasi terintegrasi seperti:
+
+<AccordionGroup>
+
+<Accordion header="Cakupan React Lengkap">
+
 **Intlayer** adalah pustaka internasionalisasi (i18n) open-source yang inovatif, dirancang untuk menyederhanakan dukungan multibahasa dalam aplikasi web modern.
+
+</Accordion>
+
+<Accordion header="Ukuran bundle">
+
+Alih-alih memuat file JSON berukuran besar ke halaman Anda, muat hanya konten yang diperlukan. Intlayer membantu **mengurangi ukuran bundle dan halaman Anda hingga 50%**.
+
+</Accordion>
 
 Dengan Intlayer, Anda dapat:
 
@@ -51,6 +65,35 @@ Dengan Intlayer, Anda dapat:
 - **Lokalisisasi metadata**, rute, dan konten secara dinamis.
 - **Pastikan dukungan TypeScript** dengan tipe yang dihasilkan secara otomatis, meningkatkan autocompletion dan deteksi kesalahan.
 - **Manfaatkan fitur canggih**, seperti deteksi dan pergantian locale secara dinamis.
+
+</Accordion>
+
+<Accordion header="AI Agent">
+
+Co-locating content **reduces the context needed** by Large Language Models (LLMs). Intlayer also comes with a suite of tools, such as a **CLI** to test for missing translations,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/mcp_server.md)**, and **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/agent_skills.md)**, to make the developer experience (DX) even smoother for AI agents.
+
+</Accordion>
+
+<Accordion header="Otomasi">
+
+Gunakan otomasi untuk menerjemahkan dalam pipeline CI/CD Anda menggunakan LLM pilihan Anda dengan biaya dari penyedia AI Anda. Intlayer juga menawarkan **compiler** untuk mengotomatisasi ekstraksi konten, serta [platform web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md) untuk membantu **menerjemahkan di latar belakang**.
+
+</Accordion>
+
+<Accordion header="Kinerja">
+
+Menghubungkan file JSON besar ke komponen dapat menyebabkan masalah performa dan reaktivitas. Intlayer mengoptimalkan pemuatan konten Anda pada saat build.
+
+</Accordion>
+
+<Accordion header="Scaling dengan none-dev">
+
+Lebih dari sekadar solusi i18n, Intlayer menyediakan **[editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) yang self-hosted** dan **[CMS lengkap](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)** untuk membantu Anda mengelola konten multibahasa secara **real-time**, membuat kolaborasi dengan penerjemah, copywriter, dan anggota tim lainnya menjadi mulus. Konten dapat disimpan secara lokal dan/atau jarak jauh.
+
+</Accordion>
+</AccordionGroup>
+
+---
 
 ## Panduan Langkah demi Langkah untuk Mengatur Intlayer di Aplikasi React
 

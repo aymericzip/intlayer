@@ -317,14 +317,6 @@ function RootDocument({ children }: { children: ReactNode }) {
 }
 ```
 
-> Jika Anda ingin menggunakan konten Anda dalam atribut `string`, seperti `alt`, `title`, `href`, `aria-label`, dll., Anda harus memanggil nilai fungsi tersebut, seperti:
-
-> ```html
-> <img src="{content.image.src.value}" alt="{content.image.value}" />
-> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
-> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
-> ```
-
 </Step>
 
 <Step number={6} title="Buat Layout Locale">
@@ -560,6 +552,14 @@ function RouteComponent() {
 }
 ```
 
+> Jika Anda ingin menggunakan konten Anda dalam atribut `string`, seperti `alt`, `title`, `href`, `aria-label`, dll., Anda dapat menggunakan nilai dari fungsi, seperti:
+>
+> ```html
+> <img src="{content.image.src.value}" alt="{content.image.value}" />
+> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
+> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
+> ```
+
 > Untuk mempelajari lebih lanjut tentang hook `useIntlayer`, lihat [dokumentasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/react-intlayer/useIntlayer.md).
 
 </Step>
@@ -654,6 +654,8 @@ Anda juga dapat menggunakan `intlayerProxy` untuk menambahkan routing sisi serve
 
 > Perhatikan bahwa untuk menggunakan `intlayerProxy` di produksi, Anda perlu mengganti paket `vite-intlayer` dari `devDependencies` ke `dependencies`.
 
+> Sejak Intlayer v9, `intlayerProxy()` digabungkan langsung ke dalam plugin `intlayer()` dan diaktifkan secara default melalui opsi `routing.enableProxy` (`true` secara default). Mendaftarkannya secara terpisah seperti yang ditunjukkan di bawah ini sekarang bersifat opsional — ini disimpan untuk kompatibilitas backward dan untuk setup yang perlu mengontrol urutan plugin. Atur `routing.enableProxy: false` untuk opt out. Lihat [catatan rilis v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/releases/v9.md).
+
 ```typescript fileName="vite.config.ts"
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import viteReact from "@vitejs/plugin-react";
@@ -687,6 +689,8 @@ export default defineConfig({
 <Step number={13} title="Internasionalisasi Metadata Anda">
 
 Anda juga dapat menggunakan hook `getIntlayer` untuk mengakses kamus konten Anda di seluruh aplikasi Anda:
+
+Perilakunya mirip dengan `getIntlayer`, tetapi plugin build mengarahkannya ke chunk kamus per-locale alih-alih kamus gabungan yang menyimpan setiap locale — jadi metadata untuk halaman hanya mengirimkan locale yang dirender. Karena ia memuat chunk tersebut sesuai permintaan, `head` menjadi `async`:
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/react-router";
@@ -846,28 +850,6 @@ export const Route = createFileRoute("/{-$locale}/$")({
 });
 ```
 
----
-
-</Step>
-
-<Step number={16} title="Konfigurasi TypeScript">
-
-Intlayer menggunakan augmentasi modul untuk mendapatkan manfaat TypeScript dan membuat basis kode Anda lebih kuat.
-
-Pastikan konfigurasi TypeScript Anda menyertakan tipe yang dihasilkan secara otomatis:
-
-```json5 fileName="tsconfig.json"
-{
-  // ... konfigurasi yang ada
-  include: [
-    // ... include yang ada
-    ".intlayer/**/*.ts", // Sertakan tipe yang dihasilkan otomatis
-  ],
-}
-```
-
----
-
 </Step>
 
 <Step number={1} title="Ekstrak konten komponen Anda" isOptional={true}>
@@ -967,6 +949,103 @@ bun run build # Or bun run dev
 
  </Tab>
 </Tabs>
+
+---
+
+</Step>
+
+<Step number={16} title="Pre-render & Generate Sitemap">
+
+Intlayer dilengkapi dengan pembuat sitemap bawaan untuk membantu Anda membuat sitemap untuk aplikasi Anda dengan mudah. Ini menangani rute yang dilokalisasi dan menambahkan metadata yang diperlukan untuk mesin pencari.
+
+> Sitemap yang dihasilkan oleh Intlayer mendukung namespace `xhtml:link` (Hreflang XML Extensions). Berbeda dengan pembuat sitemap default yang hanya menampilkan URL mentah, Intlayer secara otomatis membuat tautan dua arah yang diperlukan antara semua versi bahasa dari sebuah halaman (misalnya, `/about`, `/about?lang=fr`, dan `/about?lang=es`). Ini memastikan mesin pencari dengan benar mengindeks dan melayani versi bahasa yang tepat kepada audiens yang tepat.
+
+Untuk menggunakannya, pertama-tama Anda perlu mengonfigurasi `vite.config.ts` Anda untuk mengaktifkan pre-rendering untuk rute terlokalisasi Anda dan menonaktifkan pembuatan sitemap TanStack Start default.
+
+```typescript fileName="vite.config.ts"
+import { localeFlatMap } from "intlayer";
+// ... import lainnya
+
+export const pathList = ["", "/about", "/404"];
+
+const localizedPages = localeFlatMap(({ urlPrefix }) =>
+  pathList.map((path) => ({
+    path: `${urlPrefix}${path}`,
+    prerender: {
+      enabled: true,
+    },
+  }))
+);
+
+export default defineConfig({
+  plugins: [
+    // ... plugin lainnya
+    tanstackStart({
+      // ... konfigurasi lainnya
+      sitemap: {
+        enabled: false,
+      },
+      prerender: {
+        enabled: true,
+        crawlLinks: false,
+        concurrency: 10,
+      },
+      pages: localizedPages,
+    }),
+  ],
+});
+```
+
+Kemudian, buat rute `src/routes/sitemap[.]xml.ts` yang menggunakan fungsi `generateSitemap`:
+
+```typescript fileName="src/routes/sitemap[.]xml.ts"
+import { createFileRoute } from "@tanstack/react-router";
+import { generateSitemap } from "intlayer";
+
+const SITE_URL = (
+  import.meta.env.VITE_SITE_URL ?? "http://localhost:3000"
+).replace(/\/$/, "");
+
+export const Route = createFileRoute("/sitemap.xml")({
+  server: {
+    handlers: {
+      GET: async () => {
+        const sitemap = generateSitemap(
+          [
+            { path: "/", changefreq: "daily", priority: 1.0 },
+            { path: "/about", changefreq: "monthly", priority: 0.8 },
+          ],
+          { siteUrl: SITE_URL }
+        );
+
+        return new Response(sitemap, {
+          headers: { "Content-Type": "application/xml" },
+        });
+      },
+    },
+  },
+});
+```
+
+---
+
+</Step>
+
+<Step number={17} title="Konfigurasi TypeScript">
+
+Intlayer menggunakan module augmentation untuk mendapatkan keuntungan dari TypeScript dan membuat codebase Anda lebih kuat.
+
+Pastikan konfigurasi TypeScript Anda menyertakan tipe yang dihasilkan secara otomatis:
+
+```json5 fileName="tsconfig.json"
+{
+  // ... konfigurasi yang sudah ada
+  include: [
+    // ... include yang sudah ada
+    ".intlayer/**/*.ts", // Sertakan tipe yang dibuat secara otomatis
+  ],
+}
+```
 
 ---
 

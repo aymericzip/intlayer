@@ -56,43 +56,13 @@ Intlayerは、ネイティブの`Intl` APIの上に構築された軽量なヘ�
 
 エクスポートされる`Intl`は、グローバルな`Intl`の薄いキャッシュラッパーです。`NumberFormat`、`DateTimeFormat`、`RelativeTimeFormat`、`ListFormat`、`DisplayNames`、`Collator`、および`PluralRules`のインスタンスをメモ化し、同じフォーマッターを繰り返し再構築するのを防ぎます。
 
-フォーマッターの構築は比較的コストが高いため、このキャッシュは動作を変えずにパフォーマンスを向上させます。ラッパーはネイティブの`Intl`と同じAPIを公開しているため、使用方法は同一です。
-
-- キャッシュはプロセス単位で行われ、呼び出し元には透過的です。
-
 > 環境に`Intl.DisplayNames`が存在しない場合、開発者向けの警告が一度だけ表示されます（ポリフィルの検討を推奨）。
 
 例：
 
-```ts
-import { Intl } from "intlayer";
-
-// 数値のフォーマット
-const numberFormat = new Intl.NumberFormat("en-GB", {
-  style: "currency",
-  currency: "GBP",
-});
-numberFormat.format(1234.5); // "£1,234.50"
-
-// 言語、地域などの表示名
-const displayNames = new Intl.DisplayNames("fr", { type: "language" });
-displayNames.of("en"); // "anglais"
-
-// ソート用の照合
-const collator = new Intl.Collator("fr", { sensitivity: "base" });
-collator.compare("é", "e"); // 0（等しい）
-
-// 複数形ルール
-const pluralRules = new Intl.PluralRules("fr");
-pluralRules.select(1); // "one"
-pluralRules.select(2); // "other"
-```
-
 ## ロケールユーティリティ
 
 ### `getLocaleLang(locale?)`
-
-ロケール文字列から言語コードを抽出します：
 
 ```ts
 import { getLocaleLang } from "intlayer";
@@ -102,27 +72,14 @@ getLocaleLang("fr-CA"); // "fr"
 getLocaleLang("de"); // "de"
 ```
 
-- **locale**: 言語コードを抽出する対象のロケール（省略時は現在のロケール）
-
 ### `getLocaleFromPath(inputUrl)`
 
 URLまたはパス名からロケール部分を抽出します：
-
-```ts
-import { getLocaleFromPath } from "intlayer";
-
-getLocaleFromPath("/en/dashboard"); // "en"
-getLocaleFromPath("/fr/dashboard"); // "fr"
-getLocaleFromPath("/dashboard"); // "en"（デフォルトのロケール）
-getLocaleFromPath("https://example.com/es/about"); // "es"
-```
 
 - **inputUrl**: 処理する完全なURL文字列またはパス名
 - **returns**: 検出されたロケール、またはロケールが見つからない場合はデフォルトのロケール
 
 ### `getLocalizedUrl(url, currentLocale, locales?, defaultLocale?, prefixDefault?)`
-
-現在のロケールに対応したローカライズされたURLを生成します：
 
 ```ts
 import { getLocalizedUrl } from "intlayer";
@@ -131,12 +88,6 @@ getLocalizedUrl("/about", "fr", ["en", "fr"], "en", false); // "/fr/about"
 getLocalizedUrl("/about", "en", ["en", "fr"], "en", false); // "/about"
 getLocalizedUrl("https://example.com/about", "fr", ["en", "fr"], "en", true); // "https://example.com/fr/about"
 ```
-
-- **url**: ローカライズする元のURL
-- **currentLocale**: 現在のロケール
-- **locales**: サポートされているロケールのオプション配列（デフォルトは設定されたロケール）
-- **defaultLocale**: オプションのデフォルトロケール（設定されたデフォルトロケールが使用されます）
-- **prefixDefault**: デフォルトロケールにプレフィックスを付けるかどうか（設定された値が使用されます）
 
 ### `getHTMLTextDir(locale?)`
 
@@ -150,14 +101,9 @@ getHTMLTextDir("ar"); // "rtl"
 getHTMLTextDir("he"); // "rtl"
 ```
 
-- **locale**: テキスト方向を取得するロケール（デフォルトは現在のロケール）
-- **returns**: `"ltr"`、`"rtl"`、または `"auto"`
-
 ## コンテンツ処理ユーティリティ
 
 ### `getContent(node, nodeProps, locale?)`
-
-すべての利用可能なプラグイン（翻訳、列挙、挿入など）を使ってコンテンツノードを変換します：
 
 ```ts
 import { getContent } from "intlayer";
@@ -169,27 +115,9 @@ const content = getContent(
 );
 ```
 
-- **node**: 変換するコンテンツノード
-- **nodeProps**: 変換コンテキストのプロパティ
-- **locale**: オプションのロケール（デフォルトは設定されたデフォルトロケール）
-
 ### `getTranslation(languageContent, locale?, fallback?)`
 
 言語コンテンツオブジェクトから特定のロケールのコンテンツを抽出します：
-
-```ts
-import { getTranslation } from "intlayer";
-
-const content = getTranslation(
-  {
-    en: "Hello",
-    fr: "Bonjour",
-    de: "Hallo",
-  },
-  "fr",
-  true
-); // "Bonjour"
-```
 
 - **languageContent**: ロケールをコンテンツにマッピングしたオブジェクト
 - **locale**: 対象のロケール（デフォルトは設定されたデフォルトロケール）
@@ -197,18 +125,12 @@ const content = getTranslation(
 
 ### `getIntlayer(dictionaryKey, locale?, plugins?)`
 
-キーによって辞書からコンテンツを取得し変換します：
-
 ```ts
 import { getIntlayer } from "intlayer";
 
 const content = getIntlayer("common", "fr");
 const nestedContent = getIntlayer("common", "fr", customPlugins);
 ```
-
-- **dictionaryKey**: 取得する辞書のキー
-- **locale**: オプションのロケール（デフォルトは設定されたデフォルトロケール）
-- **plugins**: オプションのカスタム変換プラグインの配列
 
 ### `getIntlayerAsync(dictionaryKey, locale?, plugins?)`
 
@@ -220,24 +142,11 @@ import { getIntlayerAsync } from "intlayer";
 const content = await getIntlayerAsync("common", "fr");
 ```
 
-- **dictionaryKey**: 取得する辞書のキー
-- **locale**: オプションのロケール（デフォルトは設定されたデフォルトロケール）
-- **plugins**: オプションのカスタム変換プラグインの配列
-
 ## フォーマッター
 
 以下のすべてのヘルパーは `intlayer` からエクスポートされています。
 
 ### `percentage(value, options?)`
-
-数値をパーセンテージ文字列としてフォーマットします。
-
-動作: 1より大きい値は全体のパーセンテージとして解釈され正規化されます（例：`25` → `25%`、`0.25` → `25%`）。
-
-- **value**: `number | string`
-- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
-
-例:
 
 ```ts
 import { percentage } from "intlayer";
@@ -434,13 +343,6 @@ pluralRules.select(11); // "many"
 
 ### `units(value, options?)`
 
-`Intl.NumberFormat` の `style: 'unit'` を使って数値をローカライズされた単位文字列としてフォーマットします。
-
-- **value**: `number | string`
-- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
-  - 共通フィールド: `unit`（例: `"kilometer"`、`"byte"`）、`unitDisplay`（`"short" | "narrow" | "long"`）
-  - デフォルト: `unit: 'day'`、`unitDisplay: 'short'`、`useGrouping: false`
-
 例:
 
 ```ts
@@ -463,11 +365,6 @@ getLocaleLang("fr-CA"); // "fr"
 
 ### `compact(value, options?)`
 
-数値をコンパクト表記（例: `1.2K`、`1M`）でフォーマットします。
-
-- **value**: `number | string`
-- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`（内部で `notation: 'compact'` を使用）
-
 例:
 
 ```ts
@@ -489,13 +386,6 @@ getPathWithoutLocale("/fr/dashboard"); // "/dashboard"
 ```
 
 ### `list(values, options?)`
-
-`Intl.ListFormat`を使用して、値の配列をローカライズされたリスト文字列にフォーマットします。
-
-- **values**: `(string | number)[]`
-- **options**: `Intl.ListFormatOptions & { locale?: LocalesValues }`
-  - 共通フィールド: `type`（`"conjunction" | "disjunction" | "unit"`）、`style`（`"long" | "short" | "narrow"`）
-  - デフォルト: `type: 'conjunction'`、`style: 'long'`
 
 例:
 
@@ -525,56 +415,6 @@ getHTMLTextDir("he"); // "rtl"
 
 クライアントコンポーネント:
 
-```tsx
-import {
-  useNumber,
-  useCurrency,
-  useDate,
-  usePercentage,
-  useCompact,
-  useList,
-  useRelativeTime,
-  useUnit,
-} from "react-intlayer/format";
-// または Next.js アプリの場合
-import {
-  useNumber,
-  useCurrency,
-  useDate,
-  usePercentage,
-  useCompact,
-  useList,
-  useRelativeTime,
-  useUnit,
-} from "next-intlayer/client/format";
-
-const MyComponent = () => {
-  const number = useNumber();
-  const currency = useCurrency();
-  const date = useDate();
-  const percentage = usePercentage();
-  const compact = useCompact();
-  const list = useList();
-  const relativeTime = useRelativeTime();
-  const unit = useUnit();
-
-  return (
-    <div>
-      <p>{number(123456.789)}</p>
-      <p>{currency(1234.5, { currency: "EUR" })}</p>
-      <p>{date(new Date(), "short")}</p>
-      <p>{percentage(0.25)}</p>
-      <p>{compact(1200)}</p>
-      <p>{list(["apple", "banana", "orange"])}</p>
-      <p>{relativeTime(new Date(), new Date() + 1000)}</p>
-      <p>{unit(123456.789, { unit: "kilometer" })}</p>
-    </div>
-  );
-};
-```
-
-サーバーコンポーネント（または React Server ランタイム）:
-
 ```ts
 import {
   useNumber,
@@ -598,8 +438,6 @@ import {
   useUnit,
 } from "next-intlayer/server/format";
 ```
-
-> これらのフックは `IntlayerProvider` または `IntlayerServerProvider` からロケールを考慮します
 
 ### `getTranslation(languageContent, locale?, fallback?)`
 
@@ -631,8 +469,6 @@ import {
   useUnit,
 } from "vue-intlayer/format";
 ```
-
-> これらのコンポーザブルは、注入された `IntlayerProvider` からロケールを考慮します
 
 ## 注記
 

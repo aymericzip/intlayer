@@ -40,14 +40,22 @@ author: aymericzip
 
 ## 为什么使用 Intlayer 编译器？
 
+- **自动化**: 消除了手动将内容复制粘贴到字典中的需要。
+
+- **Speed**: 优化的内容提取，确保您的构建过程保持快速。
+
 - **自动化**：消除手动将内容复制粘贴到字典中的步骤。
 - **速度**：优化的内容提取，确保构建过程保持快速。
 - **开发者体验**：将内容声明保留在使用它们的位置，提高可维护性。
 - **实时更新**：支持热模块替换（HMR），在开发过程中即时反馈。
 
+- **Live Updates**: 支持 Hot Module Replacement (HMR)，在开发过程中提供即时反馈。
+
 请参阅[Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/compiler_vs_declarative_i18n.md)博客文章，了解更深入的比较。
 
 ## 为什么不使用 Intlayer 编译器？
+
+编译器虽然提供了一个优秀的"开箱即用"的体验，但它也引入了一些你应该了解的权衡：
 
 虽然编译器提供了出色的"开箱即用"体验，但它也引入了一些您应该了解的权衡：
 
@@ -94,6 +102,8 @@ export default defineConfig({
 });
 ```
 
+> 独立的 `intlayerCompiler()` 插件仍然为高级设置导出。与 `intlayer()` 一起注册是安全的——编译器会自行去重并且只运行一次。
+
 See complete tutorial: [Intlayer Compiler with Vite+React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react_compiler.md)
 
 #### 框架支持
@@ -103,6 +113,10 @@ Vite 插件会自动检测并处理不同的文件类型：
 - **React / JSX / TSX**：原生支持。
 - **Vue**：需要安装 `@intlayer/vue-compiler`。
 - **Svelte**：需要安装 `@intlayer/svelte-compiler`。
+
+- **Vue**: 需要 `@intlayer/vue-compiler`。
+
+- **Svelte**: 需要 `@intlayer/svelte-compiler`。
 
 请确保为你的框架安装了相应的编译器包：
 

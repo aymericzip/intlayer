@@ -31,6 +31,8 @@ author: aymericzip
 
 `getTranslationContent` 関数は、カスタマイズ可能な言語コンテンツのセットから特定のロケールに対応するコンテンツを取得します。指定されたロケールが見つからない場合は、プロジェクトで設定されたデフォルトのロケールのコンテンツを返します。
 
+翻訳の宣言方法の詳細については、[翻訳ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/translation.md)を参照してください。
+
 ## パラメーター
 
 - `languageContent: CustomizableLanguageContent<Content>`

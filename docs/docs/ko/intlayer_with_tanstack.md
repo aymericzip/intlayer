@@ -318,14 +318,6 @@ function RootDocument({ children }: { children: ReactNode }) {
 }
 ```
 
-> 콘텐츠를 `alt`, `title`, `href`, `aria-label` 등과 같은 `string` 속성에서 사용하려면, 함수의 값을 호출해야 합니다. 예를 들어:
-
-> ```html
-> <img src="{content.image.src.value}" alt="{content.image.value}" />
-> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
-> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
-> ```
-
 </Step>
 
 <Step number={6} title="로케일 레이아웃 생성">
@@ -561,6 +553,14 @@ function RouteComponent() {
 }
 ```
 
+> `alt`, `title`, `href`, `aria-label` 등과 같은 `string` 속성에서 콘텐츠를 사용하려면 함수의 값을 다음과 같이 사용할 수 있습니다:
+>
+> ```html
+> <img src="{content.image.src.value}" alt="{content.image.value}" />
+> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
+> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
+> ```
+
 > `useIntlayer` 훅에 대해 자세히 알아보려면 [문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/react-intlayer/useIntlayer.md)를 참조하세요.
 
 </Step>
@@ -655,6 +655,8 @@ function RootDocument({ children }: { children: ReactNode }) {
 
 > 프로덕션에서 `intlayerProxy`를 사용하려면 `vite-intlayer` 패키지를 `devDependencies`에서 `dependencies`로 변경해야 합니다.
 
+> Intlayer v9 이후로 `intlayerProxy()`는 `intlayer()` 플러그인에 직접 번들되어 있으며 `routing.enableProxy` 옵션(`true` 기본값)을 통해 기본적으로 활성화됩니다. 아래에 표시된 대로 별도로 등록하는 것은 이제 선택 사항입니다 — 하위 호환성을 위해 그리고 플러그인 순서를 제어해야 하는 설정을 위해 유지됩니다. `routing.enableProxy: false`로 설정하여 제외할 수 있습니다. [v9 release notes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/releases/v9.md)를 참조하세요.
+
 ```typescript fileName="vite.config.ts"
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import viteReact from "@vitejs/plugin-react";
@@ -688,6 +690,8 @@ export default defineConfig({
 <Step number={12} title="메타데이터 국제화(선택 사항)" isOptional={true}>
 
 `getIntlayer` 훅을 사용하여 애플리케이션 전반에서 콘텐츠 사전에 액세스할 수도 있습니다:
+
+`getIntlayer`처럼 동작하지만, 빌드 플러그인이 모든 locale을 포함하는 병합된 dictionary 대신 locale별 dictionary chunk를 가리킵니다 — 따라서 페이지의 메타데이터는 렌더링되는 locale만 포함됩니다. 해당 chunk를 필요에 따라 로드하기 때문에 `head`는 `async`가 됩니다:
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/react-router";
@@ -847,8 +851,6 @@ export const Route = createFileRoute("/{-$locale}/$")({
 });
 ```
 
----
-
 </Step>
 
 <Step number={15} title="컴포넌트에서 콘텐츠 추출(선택 사항)" isOptional={true}>
@@ -928,6 +930,22 @@ export default defineConfig({
     intlayerCompiler(), // Adds the compiler plugin
   ],
 });
+```
+
+```bash packageManager="npm"
+npm run build # 또는 npm run dev
+```
+
+```bash packageManager="pnpm"
+pnpm run build # 또는 pnpm run dev
+```
+
+```bash packageManager="yarn"
+yarn build # 또는 yarn dev
+```
+
+```bash packageManager="bun"
+bun run build # 또는 bun run dev
 ```
 
  </Tab>

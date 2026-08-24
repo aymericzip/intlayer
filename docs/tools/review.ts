@@ -13,7 +13,7 @@ import { defaultLocale, locales } from '../intlayer.config';
 
 // Fill the list of files to audit if you want to audit only a subset of the files
 // If empty list is provided, the audit will run on all markdown files present in the /en folder
-const DOC_PATTERN: string[] = ['./docs/en/eslint.md'];
+const DOC_PATTERN: string[] = ['./docs/en/**/*.md'];
 const EXCLUDED_GLOB_PATTEN: string[] = [
   '**/_*',
   '**/node_modules/**',
@@ -27,7 +27,7 @@ const EXCLUDED_GLOB_PATTEN: string[] = [
 const MODE: ReviewDocMode = 'report';
 
 // Number of files to process simultaneously
-const NB_SIMULTANEOUS_FILE_PROCESSED: number = 1;
+const NB_SIMULTANEOUS_FILE_PROCESSED: number = 8;
 
 const LOCALE_LIST_TO_TRANSLATE: Locale[] = locales.filter(
   // Include all locales except English

@@ -343,6 +343,9 @@ export default async function Page() {
 }
 ```
 
+<Tabs>
+  <Tab label='Intlayer >=9.4' value='>=9.4'>
+
 ```tsx fileName="src/app/page.tsx"
 import { type FC } from "react";
 import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
@@ -370,13 +373,48 @@ export default async function Page() {
 }
 ```
 
+- **`IntlayerProvider`** viene montato una sola volta, nel layout radice. Fornisce la locale sia ai componenti server che client, quindi le pagine non si avvolgono più su se stesse.
+- Senza un segmento di percorso `[locale]`, la locale proviene sempre dalla richiesta — l'header `x-intlayer-locale` impostato dal proxy Intlayer, quindi il cookie della locale — che gli hook del server leggono autonomamente quando il provider non è stato eseguito.
+
   </Tab>
+
 </Tabs>
+
+```tsx fileName="src/app/page.tsx"
+import { type FC } from "react";
+import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
+import { getLocale } from "next-intlayer/server";
+
+const PageContent: FC = () => {
+  const content = useIntlayer("page-content");
+
+  return (
+    <>
+      <p>{content.getStartedByEditing}</p>
+      <code>src/app/page.tsx</code>
+    </>
+  );
+};
+
+export default async function Page() {
+  const locale = await getLocale();
+
+  return (
+    <IntlayerServerProvider locale={locale}>
+      <PageContent />
+    </IntlayerServerProvider>
+  );
+}
+```
 
 - **`IntlayerClientProvider`** serve per fornire la lingua ai componenti client.
 - **`IntlayerServerProvider`** serve per fornire la lingua ai componenti server figli.
 
   > Layout and page cannot share a common server context because the server context system is based on a per-request data store (via [React's cache](https://react.dev/reference/react/cache) mechanism), causing each "context" to be re-created for different segments of the application. Placing the provider in a shared layout would break this isolation, preventing the correct propagation of the server context values to your server components.
+
+  </Tab>
+
+</Tabs>
 
 </Step>
 
@@ -434,6 +472,8 @@ export const config = {
 ```
 
 > `intlayerProxy` rileva la lingua dell'utente e reindirizza all'URL corretto basandosi sulla [configurazione](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/configuration.md). Consente anche di salvare la preferenza in un cookie.
+
+> A partire da Intlayer v9, questo middleware rispetta l'opzione `routing.enableProxy` (`true` per impostazione predefinita). Imposta `routing.enableProxy: false` nella tua configurazione per trasformarlo in un pass-through senza rimuovere questo file. Vedi le [note di rilascio v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/releases/v9.md).
 
 </Step>
 
@@ -493,6 +533,8 @@ export const LocaleSwitcher: FC = () => {
 
 Con `next-intlayer`, i dizionari sono inclusi di default in ogni pagina. Per ottimizzare il bundle, Intlayer offre un plugin SWC opzionale che sostituisce le chiamate `useIntlayer` con macro. Così i dizionari appaiono solo dove servono davvero.
 
+Il plugin `@intlayer/babel` integra già l'ottimizzazione del bundling (vedi `babel.config.js`). Ma il plugin `@intlayer/swc` è più performante. Se rimuovi il plugin `@intlayer/babel`, puoi utilizzare il plugin `@intlayer/swc`.
+
 Installa `@intlayer/swc`. `next-intlayer` lo rileverà e userà automaticamente:
 
 ```bash packageManager="npm"
@@ -517,6 +559,8 @@ bun add @intlayer/swc --dev
 
 > Nota: Se usi `importMode: 'dynamic'` o `'fetch'`, dovrai avvolgere le chiamate `useIntlayer` in un `Suspense`. Non potrai usarlo al livello superiore di Pagina / Layout.
 > </Step>
+
+</Step>
 
 <Step number={1} title="Estrarre il contenuto dei tuoi componenti" isOptional={true}>
 

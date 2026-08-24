@@ -41,8 +41,6 @@ Live Sync allows your app to reflect CMS content changes at runtime. No rebuild 
 
 ## Enabling Live Sync
 
-> Live Sync requires a continuous server connection and is available on the enterprise plan.
-
 Enable Live Sync by updating your Intlayer configuration:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
@@ -83,6 +81,19 @@ export default config;
 ```
 
 Start the Live Sync server to wrap your application:
+
+Example using standalone server:
+
+```json5 fileName="package.json"
+{
+  "scripts": {
+    // ... other scripts
+    "live:start": "npx intlayer live",
+  },
+}
+```
+
+You can also use your application server in parallel using the `--process` argument.
 
 Example using Next.js:
 

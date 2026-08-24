@@ -90,10 +90,6 @@ Kemudian buka **http://localhost:3000**.
 
 ## Memulai Cepat
 
-```sh
-curl -fsSL https://intlayer.org/install.sh | sh
-```
-
 Apa yang dilakukan installer:
 
 1.  Memeriksa bahwa `docker` dan `docker compose` ada.
@@ -116,8 +112,6 @@ Setelah stack aktif, buka **http://localhost:3000** dan buat akun pertama Anda.
 | **redis**   | `redis:7-alpine`                      | internal                       | Job queues (BullMQ) dan caching (ioredis)                               |
 | **minio**   | `minio/minio`                         | `9000` (S3), `9001` (konsol)   | Penyimpanan objek yang kompatibel dengan S3 untuk avatar dan screenshot |
 | **mailpit** | `axllent/mailpit`                     | `1025` (SMTP), `8025` (UI web) | Sink email transaksional lokal                                          |
-
-Port internal (mongo, redis) tidak terekspos ke host secara default.
 
 > Port MinIO `9000` harus dapat dijangkau oleh browser karena aset yang diunggah (avatar, screenshot) dimuat langsung dari `S3_PUBLIC_URL=http://localhost:9000/intlayer`.
 
@@ -173,8 +167,6 @@ Port internal (mongo, redis) tidak terekspos ke host secara default.
 | `MICROSOFT_CLIENT_ID`, `MICROSOFT_CLIENT_SECRET`         | Login Microsoft OAuth                                         |
 | `LINKEDIN_CLIENT_ID`, `LINKEDIN_CLIENT_SECRET`           | Login LinkedIn OAuth                                          |
 | `ATLASSIAN_CLIENT_ID`, `ATLASSIAN_CLIENT_SECRET`         | Login Atlassian OAuth                                         |
-
----
 
 ### Global mailer
 
@@ -261,15 +253,7 @@ const { data: dictionaries } = await dictionaryEndpoint(cms).getDictionaries();
 
 ## Peningkatan
 
-Menjalankan ulang installer pada deployment yang ada akan melakukan rolling upgrade:
-
-```sh
-curl -fsSL https://intlayer.org/install.sh | sh
-```
-
 Ini menarik image terbaru dan memulai ulang kontainer dengan `docker compose pull && docker compose up -d`. Volume yang sudah ada (`mongo-data`, `redis-data`, `minio-data`) dipertahankan — tidak ada kehilangan data.
-
-Untuk meningkatkan secara manual dari dalam direktori `./intlayer/`:
 
 ```sh
 docker compose pull
@@ -334,14 +318,11 @@ docker compose logs mongo
 docker compose logs redis
 ```
 
+Cari `MongoDB connection error` di bagian atas log.
+
 ### Dashboard tidak dapat mencapai API
 
 Verifikasi bahwa `VITE_BACKEND_URL` cocok dengan URL di mana backend dapat dijangkau dari **browser** (bukan jaringan Docker). Jika Anda mengubah port backend atau menambahkan reverse proxy, bangun ulang image dashboard:
-
-```sh
-docker compose build app
-docker compose up -d app
-```
 
 ### Bucket MinIO hilang
 

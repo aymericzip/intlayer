@@ -492,7 +492,7 @@ Markdown रेंडरिंग **MDX** का समर्थन करता
 
 <Tabs group="framework">
   <Tab label="React" value="react">
-  
+
     #### `<MarkdownRenderer />` घटक
 
     विशिष्ट विकल्पों के साथ एक Markdown स्ट्रिंग रेंडर करता है।
@@ -531,7 +531,7 @@ Markdown रेंडरिंग **MDX** का समर्थन करता
 
   </Tab>
   <Tab label="Next.js" value="nextjs">
-  
+
     #### `<MarkdownRenderer />` घटक
 
     विशिष्ट विकल्पों के साथ एक Markdown स्ट्रिंग रेंडर करता है।
@@ -957,21 +957,38 @@ Markdown रेंडरिंग **MDX** का समर्थन करता
   </Tab>
   <Tab label="Angular" value="angular">
 
-    ```typescript fileName="app.module.ts"
-    import { NgModule } from '@angular/core';
-    import { IntlayerMarkdownModule } from 'angular-intlayer/markdown';
+    ```typescript fileName="app.config.ts"
+    import { createIntlayerMarkdownProvider } from "angular-intlayer/markdown";
 
-    @NgModule({
-      imports: [
-        IntlayerMarkdownModule.forRoot({
+    export const appConfig: ApplicationConfig = {
+      providers: [
+        createIntlayerMarkdownProvider({
+          components: {
+            h1: { class: "text-2xl font-bold" },
+          },
+        }),
+      ],
+    };
+    ```
+
+
+    > MDX समर्थित है — आपके Markdown के अंदर उपयोग किए गए किसी भी घटक नाम (उदा. `<MyCustomJSXComponent />`) को `components` मानचित्र के विरुद्ध हल किया जाता है।
+
+    आप अपने स्वयं के मार्कडाउन रेंडरर का भी उपयोग कर सकते हैं:
+
+    ```typescript fileName="app.config.ts"
+    import { createIntlayerMarkdownProvider } from "angular-intlayer/markdown";
+
+    export const appConfig: ApplicationConfig = {
+      providers: [
+        createIntlayerMarkdownProvider({
           renderMarkdown: async (md) => {
             const { renderMarkdown } = await import('angular-intlayer/markdown');
             return renderMarkdown(md);
-          }
-        })
-      ]
-    })
-    export class AppModule {}
+          },
+        }),
+      ],
+    };
     ```
 
     > अपने Markdown रेंडरर को गतिशील रूप से आयात करना आपके एप्लिकेशन के बंडल आकार को कम करने का एक शानदार तरीका है।
@@ -1047,7 +1064,7 @@ const MyComponent = () => {
 ```
 
   </Tab>
- 
+
   <Tab label="Vue" value="vue">
 
 Vue में एक अंतर्निहित `<Suspense>` घटक है। Markdown सामग्री रेंडर करने वाले घटक को `<Suspense>` बाउंड्री में लपेटें।

@@ -56,6 +56,18 @@ author: aymericzip
 
 Intlayer stellt eine Reihe von leichtgewichtigen Helfern bereit, die auf den nativen `Intl`-APIs aufbauen, sowie einen zwischengespeicherten `Intl`-Wrapper, um die wiederholte Erstellung schwerer Formatierer zu vermeiden. Diese Werkzeuge sind vollständig ortsabhängig und können aus dem Hauptpaket `intlayer` verwendet werden.
 
+**Für React, Vue und andere Frameworks** verwenden Sie die Framework-spezifischen Hooks/Composables, die sich automatisch an den Locale-Kontext Ihrer App binden:
+
+| Framework                | Import                                                |
+| ------------------------ | ----------------------------------------------------- |
+| **React** (client)       | `react-intlayer/format`                               |
+| **React** (server)       | `react-intlayer/server/format`                        |
+| **Next.js** (client)     | `next-intlayer/client/format`                         |
+| **Next.js** (server)     | `next-intlayer/server/format`                         |
+| **Vue**                  | `vue-intlayer/format`                                 |
+| **Preact**               | `preact-intlayer/format`                              |
+| **Vanilla JS / Node.js** | `intlayer` (erfordert manuelles Übergeben des Locale) |
+
 ## React Formatters
 
 ### Import
@@ -83,8 +95,6 @@ import {
   getIntlayerAsync,
 } from "intlayer";
 ```
-
-Wenn Sie React verwenden, sind auch Hooks verfügbar; siehe `react-intlayer/format`.
 
 ### Verfügbare Hooks
 
@@ -178,8 +188,6 @@ const MyComponent = () => {
 
 ### `Intl.DisplayNames`
 
-Für lokalisierte Namen von Sprachen, Regionen, Währungen und Schriftsystemen:
-
 ```ts
 import { Intl } from "intlayer";
 
@@ -266,8 +274,6 @@ words.sort(collator.compare); // ["20", "100", "äpfel", "zebra"]
 For non-framework contexts, import formatters directly from `intlayer`. Note that you must pass the locale manually.
 
 ### `Intl.PluralRules`
-
-Zur Bestimmung von Pluralformen in verschiedenen Sprachräumen:
 
 ```ts
 import { Intl } from "intlayer";
@@ -477,9 +483,6 @@ getLocaleName("en", "fr"); // "anglais"
 getLocaleName("de", "es"); // "alemán"
 ```
 
-- **displayLocale**: Die Sprachregion, für die der Name ermittelt werden soll
-- **targetLocale**: Die Sprachregion, in der der Name angezeigt wird (Standard ist displayLocale)
-
 ### `getLocaleLang(locale?)`
 
 Extrahiert den Sprachcode aus einem Locale-String:
@@ -491,8 +494,6 @@ getLocaleLang("en-US"); // "en"
 getLocaleLang("fr-CA"); // "fr"
 getLocaleLang("de"); // "de"
 ```
-
-- **locale**: Die Sprachregion, aus der die Sprache extrahiert werden soll (Standard ist die aktuelle Sprachregion)
 
 ### `getLocaleFromPath(inputUrl)`
 
@@ -507,9 +508,6 @@ getLocaleFromPath("/dashboard"); // "en" (Standard-Sprachregion)
 getLocaleFromPath("https://example.com/es/about"); // "es"
 ```
 
-- **inputUrl**: Der vollständige URL-String oder Pfadname, der verarbeitet werden soll
-- **returns**: Die erkannte Sprachregion oder die Standard-Sprachregion, falls keine gefunden wird
-
 ### `getPathWithoutLocale(inputUrl, locales?)`
 
 Entfernt das Sprachregion-Segment aus einer URL oder einem Pfadnamen:
@@ -521,10 +519,6 @@ getPathWithoutLocale("/en/dashboard"); // "/dashboard"
 getPathWithoutLocale("/fr/dashboard"); // "/dashboard"
 getPathWithoutLocale("https://example.com/en/about"); // "https://example.com/about"
 ```
-
-- **inputUrl**: Der vollständige URL-String oder Pfadname, der verarbeitet werden soll
-- **locales**: Optionale Liste der unterstützten Sprachregionen (Standard sind die konfigurierten Sprachregionen)
-- **returns**: Die URL ohne den Sprachregionsabschnitt
 
 ### `getLocalizedUrl(url, currentLocale, locales?, defaultLocale?, prefixDefault?)`
 
@@ -538,12 +532,6 @@ getLocalizedUrl("/about", "en", ["en", "fr"], "en", false); // "/about"
 getLocalizedUrl("https://example.com/about", "fr", ["en", "fr"], "en", true); // "https://example.com/fr/about"
 ```
 
-- **url**: Die ursprüngliche URL, die lokalisiert werden soll
-- **currentLocale**: Die aktuelle Sprachregion
-- **locales**: Optionale Liste der unterstützten Sprachregionen (Standard sind die konfigurierten Sprachregionen)
-- **defaultLocale**: Optionale Standardsprache (Standard ist die konfigurierte Standardsprache)
-- **prefixDefault**: Ob die Standardsprache als Präfix verwendet wird (Standard ist der konfigurierte Wert)
-
 ### `getHTMLTextDir(locale?)`
 
 Gibt die Schreibrichtung für eine Sprache zurück:
@@ -555,9 +543,6 @@ getHTMLTextDir("en-US"); // "ltr"
 getHTMLTextDir("ar"); // "rtl"
 getHTMLTextDir("he"); // "rtl"
 ```
-
-- **locale**: Die Sprache, für die die Schreibrichtung ermittelt wird (Standard ist die aktuelle Sprache)
-- **returns**: `"ltr"`, `"rtl"` oder `"auto"`
 
 ## Dienstprogramme zur Inhaltsverarbeitung
 
@@ -574,10 +559,6 @@ const content = getContent(
   "fr"
 );
 ```
-
-- **node**: Der zu transformierende Inhaltsknoten
-- **nodeProps**: Eigenschaften für den Transformationskontext
-- **locale**: Optionale Sprache (Standard ist die konfigurierte Standardsprache)
 
 ### `getTranslation(languageContent, locale?, fallback?)`
 
@@ -597,10 +578,6 @@ const content = getTranslation(
 ); // "Bonjour"
 ```
 
-- **languageContent**: Objekt, das Sprachen mit Inhalten abbildet
-- **locale**: Ziel-Sprache (Standard ist die konfigurierte Standardsprache)
-- **fallback**: Ob auf die Standardsprache zurückgegriffen werden soll (Standard ist true)
-
 ### `getIntlayerAsync(dictionaryKey, locale?, plugins?)`
 
 Ruft asynchron Inhalte aus einem entfernten Wörterbuch ab:
@@ -610,10 +587,6 @@ import { getIntlayerAsync } from "intlayer";
 
 const content = await getIntlayerAsync("common", "fr");
 ```
-
-- **dictionaryKey**: Der Schlüssel des abzurufenden Wörterbuchs
-- **locale**: Optionale Locale (Standard ist die konfigurierte Standard-Locale)
-- **plugins**: Optionale Liste von benutzerdefinierten Transformations-Plugins
 
 ## Hinweise
 

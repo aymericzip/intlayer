@@ -31,6 +31,8 @@ author: aymericzip
 
 `getEnumeration` 函数根据枚举对象中预定义的条件，检索与特定数量对应的内容。条件以键的形式定义，其优先级由对象中键的顺序决定。
 
+有关如何声明枚举的更多详细信息，请参见[枚举文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/enumeration.md)。
+
 ## 参数
 
 - `enumerationContent: QuantityContent<Content>`

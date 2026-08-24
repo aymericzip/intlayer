@@ -39,14 +39,6 @@ bun x intlayer fill
 
 Lệnh này phân tích các tệp khai báo nội dung của bạn để tìm các vấn đề tiềm ẩn như thiếu bản dịch, không nhất quán về cấu trúc hoặc không khớp kiểu dữ liệu. Nếu phát hiện bất kỳ vấn đề nào, **intlayer fill** sẽ đề xuất hoặc áp dụng các cập nhật để giữ cho từ điển của bạn nhất quán và đầy đủ.
 
-Điểm chính:
-
-- Chia các tệp JSON lớn thành các phần nhỏ để nằm trong giới hạn cửa sổ ngữ cảnh của mô hình AI.
-- Thử lại bản dịch nếu định dạng đầu ra không đúng.
-- Tích hợp ngữ cảnh cụ thể cho ứng dụng và tệp để cải thiện độ chính xác của bản dịch.
-- Bảo tồn các bản dịch hiện có bằng cách không ghi đè chúng.
-- Xử lý tệp, phần và ngôn ngữ song song bằng hệ thống hàng đợi để tăng tốc độ.
-
 ## Những Điểm Chính:
 
 - Chia các tệp JSON lớn thành các chunks để duy trì trong giới hạn cửa sổ ngữ cảnh của mô hình AI.

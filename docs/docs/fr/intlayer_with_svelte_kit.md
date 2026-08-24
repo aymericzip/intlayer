@@ -113,6 +113,8 @@ Bien plus qu'une simple solution i18n, Intlayer propose un **[éditeur visuel](h
 
 ## Guide étape par étape pour configurer Intlayer dans une application SvelteKit
 
+Voir [Modèle d'application](https://github.com/aymericzip/intlayer-sveltekit-template) sur GitHub.
+
 Pour commencer, créez un nouveau projet SvelteKit. Voici la structure finale que nous allons réaliser :
 
 ```bash
@@ -266,6 +268,8 @@ export default heroContent;
 </Step>
 
 <Step number={5} title="Utilisez Intlayer dans vos composants">
+
+Vous pouvez maintenant utiliser la fonction `useIntlayer` dans n'importe quel composant Svelte. Elle retourne un store réactif qui se met à jour automatiquement lorsque la locale change. La fonction respectera automatiquement la locale actuelle (à la fois lors du SSR et de la navigation côté client).
 
 pour accéder à sa valeur réactive (par exemple, `$content.title`).
 
@@ -611,6 +615,8 @@ Pour permettre aux utilisateurs de changer de langue, mettez à jour l’URL.
 <Step number={10} title="Ajouter un proxy backend" isOptional={true}>
 
 Pour ajouter un proxy backend à votre application SvelteKit, vous pouvez utiliser la fonction `intlayerProxy` fournie par le plugin `vite-intlayer`. Ce plugin détectera automatiquement la meilleure locale pour l'utilisateur en fonction de l'URL, des cookies et des préférences linguistiques du navigateur.
+
+> Depuis Intlayer v9, `intlayerProxy()` est fourni directement dans le plugin `intlayer()` et activé par défaut via l'option `routing.enableProxy` (`true` par défaut). L'enregistrement séparé comme indiqué ci-dessous est désormais optionnel — il est conservé pour la compatibilité rétroactive et les configurations qui nécessitent de contrôler l'ordre des plugins. Définissez `routing.enableProxy: false` pour désactiver cette fonctionnalité. Consultez les [notes de version v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/releases/v9.md).
 
 ```ts fileName="vite.config.ts"
 import { defineConfig } from "vite";

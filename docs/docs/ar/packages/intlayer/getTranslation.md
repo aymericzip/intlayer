@@ -31,6 +31,8 @@ author: aymericzip
 
 تقوم دالة `getTranslationContent` باسترجاع المحتوى المقابل للغة معينة من مجموعة محتويات لغوية قابلة للتخصيص. إذا لم يتم العثور على اللغة المحددة، فإنها تعيد بشكل افتراضي المحتوى الخاص باللغة الافتراضية المكونة في المشروع.
 
+للمزيد من التفاصيل حول كيفية إعلان الترجمات، راجع [وثائق الترجمة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/translation.md).
+
 ## المعاملات
 
 - `languageContent: CustomizableLanguageContent<Content>`

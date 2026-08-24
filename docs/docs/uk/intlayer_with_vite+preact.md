@@ -173,10 +173,6 @@ bun add vite-intlayer --dev
 
   Основний пакет, що надає інструменти інтернаціоналізації для керування конфігурацією, перекладу, [декларації контенту](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/content_file.md), компіляції та [CLI-команд](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/index.md).
 
-- **preact-intlayer**
-
-  Пакет, який інтегрує Intlayer у Preact-застосунок. Надає провайдери контексту та хуки для інтернаціоналізації в Preact.
-
 - **vite-intlayer**
 
   Містить плагін для Vite для інтеграції Intlayer з [Vite bundler](https://vite.dev/guide/why.html#why-bundle-for-production), а також middleware для визначення пріоритетної локалі користувача, керування cookie та обробки перенаправлень URL.
@@ -663,6 +659,10 @@ const App: FunctionalComponent = () => (
 
 export default App;
 ```
+
+- Переконайтеся, що атрибут **мова** (`lang`) правильно відображає поточну локаль, що важливо для SEO та поведінки браузера.
+- Коригуйте **напрям тексту** (`dir`) відповідно до локалі, покращуючи читабельність і зручність використання для мов з різними порядками читання.
+- Забезпечте більш **доступний** досвід, оскільки допоміжні технології залежать від цих атрибутів для оптимального функціонування.
 
 </Step>
 

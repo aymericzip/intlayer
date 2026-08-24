@@ -112,14 +112,6 @@ Mais do que apenas uma solução i18n, o Intlayer fornece um **[editor visual] a
 
 ## Guia passo a passo para configurar o Intlayer no Astro + Lit
 
-<iframe
-  src="https://ide.intlayer.org/aymericzip/intlayer-astro-template?file=intlayer.config.ts"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox - Como internacionalizar sua aplicação com o Intlayer"
-  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-  loading="lazy"
-/>
-
 Confira o [modelo da aplicação](https://github.com/aymericzip/intlayer-astro-template) no GitHub.
 
 <Steps>

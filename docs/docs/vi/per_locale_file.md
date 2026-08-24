@@ -77,6 +77,17 @@ const helloWorldContent = {
 module.exports = helloWorldContent;
 ```
 
+```json5 fileName="hello-world.vi.content.json" contentDeclarationFormat="json"
+{
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "hello-world",
+  "locale": "vi", // Quan trọng
+  "content": {
+    "multilingualContent": "Tiêu đề của thành phần của tôi",
+  },
+}
+```
+
 ```json fileName="hello-world.content.ts" contentDeclarationFormat="json"
 {
   "$schema": "https://intlayer.org/schema.json",
@@ -94,6 +105,8 @@ module.exports = helloWorldContent;
 ```
 
 > Khuyến nghị: Định dạng này là tốt nhất khi sử dụng trình chỉnh sửa trực quan của Intlayer hoặc quản lý bản dịch trực tiếp trong mã.
+
+> Lưu ý: Trong cả hai trường hợp, tệp khai báo nội dung phải tuân theo mẫu đặt tên `*.content.{ts,tsx,js,jsx,mjs,cjs,json}` để được Intlayer nhận diện. Hậu tố `.[locale]` là tùy chọn và chỉ được sử dụng như một quy ước đặt tên.
 
 ### Cấu hình toàn cầu cho các tệp theo từng Locale
 
@@ -146,17 +159,6 @@ const helloWorldContent = {
 export default helloWorldContent;
 ```
 
-```json5 fileName="hello-world.en.content.json" contentDeclarationFormat="json"
-{
-  "$schema": "https://intlayer.org/schema.json",
-  "key": "hello-world",
-  "locale": "en", // Quan trọng
-  "content": {
-    "multilingualContent": "Tiêu đề của thành phần của tôi",
-  },
-}
-```
-
 ```json5 fileName="hello-world.es.content.json" contentDeclarationFormat="json"
 {
   "$schema": "https://intlayer.org/schema.json",
@@ -169,8 +171,6 @@ export default helloWorldContent;
 ```
 
 > Quan trọng: Hãy chắc chắn rằng trường locale được định nghĩa. Nó cho Intlayer biết ngôn ngữ mà file đại diện.
-
-> Lưu ý: Trong cả hai trường hợp, file khai báo nội dung phải tuân theo mẫu đặt tên `*.content.{ts,tsx,js,jsx,mjs,cjs,json}` để được Intlayer nhận diện. Phần hậu tố `.[locale]` là tùy chọn và chỉ được sử dụng như một quy ước đặt tên.
 
 ## Kết hợp các định dạng
 

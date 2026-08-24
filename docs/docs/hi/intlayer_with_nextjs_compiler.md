@@ -345,6 +345,9 @@ export default async function Page() {
 }
 ```
 
+<Tabs>
+  <Tab label='Intlayer >=9.4' value='>=9.4'>
+
 ```tsx fileName="src/app/page.tsx"
 import { type FC } from "react";
 import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
@@ -372,13 +375,48 @@ export default async function Page() {
 }
 ```
 
+- **`IntlayerProvider`** को root layout में एक बार mount किया जाता है। यह server और client दोनों components को locale प्रदान करता है, इसलिए pages अब स्वयं को wrap नहीं करते हैं।
+- बिना `[locale]` path segment के locale हमेशा request से आता है — `x-intlayer-locale` header जो Intlayer proxy द्वारा set किया जाता है, फिर locale cookie — जिसे server hooks अपने आप पढ़ते हैं जब provider नहीं चलाया गया हो।
+
   </Tab>
+
 </Tabs>
+
+```tsx fileName="src/app/page.tsx"
+import { type FC } from "react";
+import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
+import { getLocale } from "next-intlayer/server";
+
+const PageContent: FC = () => {
+  const content = useIntlayer("page-content");
+
+  return (
+    <>
+      <p>{content.getStartedByEditing}</p>
+      <code>src/app/page.tsx</code>
+    </>
+  );
+};
+
+export default async function Page() {
+  const locale = await getLocale();
+
+  return (
+    <IntlayerServerProvider locale={locale}>
+      <PageContent />
+    </IntlayerServerProvider>
+  );
+}
+```
 
 - **`IntlayerClientProvider`** का उपयोग क्लाइंट साइड पर बच्चों को लोकेल प्रदान करने के लिए किया जाता है।
 - जबकि **`IntlayerServerProvider`** का उपयोग सर्वर साइड पर बच्चों को लोकेल प्रदान करने के लिए किया जाता है।
 
   > Layout and page cannot share a common server context because the server context system is based on a per-request data store (via [React's cache](https://react.dev/reference/react/cache) mechanism), causing each "context" to be re-created for different segments of the application. Placing the provider in a shared layout would break this isolation, preventing the correct propagation of the server context values to your server components.
+
+  </Tab>
+
+</Tabs>
 
 </Step>
 
@@ -436,6 +474,8 @@ export const config = {
 ```
 
 > `intlayerProxy` का उपयोग उपयोगकर्ता की पसंदीदा लोकेल का पता लगाने और उन्हें [कॉन्फ़िगरेशन फ़ाइल सेटिंग्स](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md) में निर्दिष्ट उपयुक्त URL पर रीडायरेक्ट करने के लिए किया जाता है। इसके अतिरिक्त, यह उपयोगकर्ता की पसंदीदा लोकेल को कुकी में सहेजने में सक्षम बनाता है।
+
+> Intlayer v9 के बाद से, यह middleware `routing.enableProxy` विकल्प का सम्मान करता है (`true` डिफ़ॉल्ट रूप से)। इसे pass-through में बदलने के लिए अपने कॉन्फ़िगरेशन में `routing.enableProxy: false` सेट करें बिना इस फ़ाइल को हटाए। [v9 release notes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/releases/v9.md) देखें।
 
 </Step>
 
@@ -495,6 +535,8 @@ export const LocaleSwitcher: FC = () => {
 
 `next-intlayer` का उपयोग करते समय, डिक्शनरी डिफ़ॉल्ट रूप से प्रत्येक पेज के बंडल में शामिल की जाएंगी। बंडल आकार को अनुकूलित करने के लिए, Intlayer एक वैकल्पिक SWC प्लगइन प्रदान करता है जो मैक्रो का उपयोग करके `useIntlayer` कॉल्स को बुद्धिमानी से बदल देता है। यह सुनिश्चित करता है कि डिक्शनरी केवल उन पेजों के बंडल में शामिल हैं जो वास्तव में उनका उपयोग करते हैं।
 
+`@intlayer/babel` प्लगइन पहले से ही bundling optimization को एकीकृत करता है (`babel.config.js` देखें)। लेकिन `@intlayer/swc` प्लगइन अधिक प्रदर्शनशील है। यदि आप `@intlayer/babel` प्लगइन को हटा देते हैं, तो आप `@intlayer/swc` प्लगइन का उपयोग कर सकते हैं।
+
 इस अनुकूलन को सक्षम करने के लिए, `@intlayer/swc` पैकेज स्थापित करें। एक बार स्थापित होने के बाद, `next-intlayer` स्वचालित रूप से प्लगइन का पता लगाएगा और उसका उपयोग करेगा:
 
 ```bash packageManager="npm"
@@ -519,6 +561,8 @@ bun add @intlayer/swc --dev
 
 > नोट: यदि आप `importMode: 'dynamic'` या `importMode: 'fetch'` (डिक्शनरी कॉन्फ़िगरेशन में) विकल्प सेट करते हैं, तो यह Suspense पर निर्भर करेगा, इसलिए आपको `useIntlayer` कॉल्स को `Suspense` सीमा में लपेटना होगा। इसका मतलब है कि आप अपने पेज / लेआउट घटक के शीर्ष स्तर पर सीधे `useIntlayer` का उपयोग नहीं कर पाएंगे।
 > </Step>
+
+</Step>
 
 <Step number={1} title="अपने घटकों की सामग्री निकालें" isOptional={true}>
 
@@ -582,6 +626,8 @@ bun x intlayer extract
 
  </Tab>
  <Tab value='बैबेल कंपाइलर'>
+
+> v9 के बाद से, `intlayerCompiler` को `intlayer` plugin में शामिल किया गया है। इसलिए आपको इसे manually जोड़ने की आवश्यकता नहीं है।
 
 ```bash packageManager="npm"
 npm install @intlayer/babel --save-dev

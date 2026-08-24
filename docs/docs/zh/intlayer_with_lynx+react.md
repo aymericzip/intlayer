@@ -33,7 +33,17 @@ author: aymericzip
 
 请参阅 GitHub 上的[应用模板](https://github.com/aymericzip/intlayer-lynx-template)。
 
+<iframe
+  src="https://ide.intlayer.org/aymericzip/intlayer-lynx-template?file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="演示 CodeSandbox - 如何使用 Intlayer 国际化您的应用程序"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
 ## 为什么选择 Inlayer 而不是替代品？
+
+与 `react-native-localize` 或 `i18next` 等主要解决方案相比，Intlayer 是一个带有集成优化的解决方案，例如：
 
 与“react-native-localize”或“i18next”等主要解决方案相比，Intlayer 是一个具有集成优化的解决方案，例如：
 
@@ -41,9 +51,13 @@ author: aymericzip
 
 Intlayer 经过优化，可与 Lynx 和 React 完美配合，提供**组件级内容范围**、**TypeScript 支持**以及扩展国际化 (i18n) 所需的所有功能。
 
+</Accordion>
+
 **捆绑尺寸**
 
 不要将大量 JSON 文件加载到页面中，而只需加载必要的内容。 Intlayer 有助于**将捆绑包和页面大小减少多达 50%**。
+
+</Accordion>
 
 **可维护性**
 
@@ -51,11 +65,17 @@ Intlayer 经过优化，可与 Lynx 和 React 完美配合，提供**组件级�
 
 **人工智能代理**
 
+<Accordion header="AI Agent">
+
 共置内容**减少大型语言模型 (LLM) 所需的上下文**。 Intlayer 还附带了一套工具，例如用于测试缺失翻译的 **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** 和 **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)**，使 AI 代理的开发者体验 (DX) 更加流畅。
+
+</Accordion>
 
 **自动化**
 
 使用您选择的法学硕士，通过自动化在 CI/CD 管道中进行翻译，而费用由您的 AI 提供商承担。 Intlayer 还提供了一个**编译器**来自动提取内容，以及一个[网络平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)来帮助**在后台翻译**。
+
+</Accordion>
 
 **表现**
 
@@ -63,13 +83,56 @@ Intlayer 经过优化，可与 Lynx 和 React 完美配合，提供**组件级�
 
 **无需开发即可扩展**
 
+<Accordion header="使用非开发环境进行扩展">
+
 Intlayer 不仅仅是一个 i18n 解决方案，还提供了一个**自托管的[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)**和一个**[完整的 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** 来帮助您管理多语言内容**实时**，与译员、文案人员和其他团队成员无缝协作。内容可以本地和/或远程存储。
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
 <Steps>
 
 <Step number={1} title="安装依赖">
+
+从你的 Lynx 项目中，安装以下包：
+
+```bash packageManager="npm"
+npx intlayer init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer@canary init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer@canary init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer@canary init --interactive
+```
+
+> `--interactive` 标志是可选的。如果你是 AI 代理，请使用 `intlayer-cli init`。
+
+> 此命令将检测您的环境并安装所需的包。例如：
+
+```bash packageManager="npm"
+npm install intlayer react-intlayer lynx-intlayer
+```
+
+```bash packageManager="pnpm"
+pnpm add intlayer react-intlayer lynx-intlayer
+```
+
+```bash packageManager="yarn"
+yarn add intlayer react-intlayer lynx-intlayer
+```
+
+```bash packageManager="bun"
+bun add intlayer react-intlayer lynx-intlayer
+```
 
 ### Packages
 
@@ -427,6 +490,8 @@ Intlayer 在一个隐藏文件夹中生成类型定义（默认是 `.intlayer`�
 为了提升您使用 Intlayer 的开发体验，您可以安装官方的 **Intlayer VS Code 扩展**。
 
 [从 VS Code 市场安装](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+该扩展提供：
 
 该扩展提供：
 

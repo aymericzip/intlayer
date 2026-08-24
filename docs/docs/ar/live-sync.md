@@ -42,8 +42,6 @@ author: aymericzip
 
 ## تفعيل التزامن الحي
 
-> يتطلب التزامن الحي اتصالًا مستمرًا بالخادم وهو متاح في خطة المؤسسات.
-
 قم بتمكين التزامن الحي عن طريق تحديث تكوين Intlayer الخاص بك:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
@@ -83,7 +81,20 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
+شغّل خادم Live Sync لتغليف تطبيقك:
+
 ابدأ خادم المزامنة الحية لتغليف تطبيقك:
+
+```json5 fileName="package.json"
+{
+  "scripts": {
+    // ... البرامج النصية الأخرى
+    "live:start": "npx intlayer live",
+  },
+}
+```
+
+يمكنك أيضًا استخدام خادم التطبيق الخاص بك بالتوازي باستخدام وسيط `--process`.
 
 مثال باستخدام Next.js:
 

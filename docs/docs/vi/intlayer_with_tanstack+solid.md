@@ -486,8 +486,6 @@ function RouteComponent() {
 }
 ```
 
-> Nếu bạn muốn sử dụng nội dung của mình trong một thuộc tính `string`, như `alt`, `title`, `href`, `aria-label`, v.v., bạn phải gọi giá trị của hàm, ví dụ:
-
 > ```html
 > <img src="{content.image.src.value}" alt="{content.image.value}" />
 > <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
@@ -573,6 +571,8 @@ Bạn cũng có thể sử dụng `intlayerProxy` để thêm điều hướng p
 
 > Lưu ý rằng để sử dụng `intlayerProxy` trong môi trường production, bạn cần chuyển gói `vite-intlayer` từ `devDependencies` sang `dependencies`.
 
+> Kể từ Intlayer v9, `intlayerProxy()` được đóng gói trực tiếp vào plugin `intlayer()` và được bật theo mặc định thông qua tùy chọn `routing.enableProxy` (`true` theo mặc định). Đăng ký riêng như hình dưới đây giờ đây là tùy chọn — nó được giữ lại để tương thích ngược và cho các thiết lập cần kiểm soát thứ tự plugin. Đặt `routing.enableProxy: false` để từ chối. Xem [ghi chú phát hành v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/releases/v9.md).
+
 ```typescript fileName="vite.config.ts"
 import { tanstackStart } from "@tanstack/solid-start/plugin/vite";
 import solid from "vite-plugin-solid";
@@ -606,6 +606,8 @@ export default defineConfig({
 <Step number={13} title="Đa ngôn ngữ hóa Metadata của bạn">
 
 Bạn cũng có thể sử dụng hàm `getIntlayer` để truy cập các từ điển nội dung của mình trong hàm load `head` cho metadata theo ngôn ngữ:
+
+Nó hoạt động giống như `getIntlayer`, nhưng plugin build trỏ nó đến chunk dictionary theo locale thay vì dictionary được merge chứa tất cả các locale — vì vậy metadata cho một trang chỉ ship locale mà nó render. Vì nó tải chunk đó theo yêu cầu, `head` trở thành `async`:
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/solid-router";
@@ -879,6 +881,81 @@ bun run build # Hoặc bun run dev
 
  </Tab>
 </Tabs>
+
+---
+
+</Step>
+
+<Step number={16} title="Pre-render & Generate Sitemap">
+
+Intlayer đi kèm với một trình tạo sitemap tích hợp để giúp bạn tạo sitemap cho ứng dụng của mình một cách dễ dàng. Nó xử lý các tuyến đường được bản địa hóa và thêm siêu dữ liệu cần thiết cho các công cụ tìm kiếm.
+
+> Bản đồ trang web được tạo bởi Intlayer hỗ trợ không gian tên `xhtml:link` (Hreflang XML Extensions). Khác với các trình tạo bản đồ trang web mặc định chỉ liệt kê các URL thô, Intlayer tự động tạo các liên kết lưỡng chiều cần thiết giữa tất cả các phiên bản ngôn ngữ của một trang (ví dụ: `/about`, `/about?lang=fr` và `/about?lang=es`). Điều này đảm bảo các công cụ tìm kiếm lập chỉ mục chính xác và cung cấp phiên bản ngôn ngữ phù hợp cho đúng đối tượng.
+
+Để sử dụng nó, trước tiên bạn cần cấu hình `vite.config.ts` của mình để kích hoạt pre-rendering cho các route được địa phương hóa của bạn và vô hiệu hóa việc tạo sitemap mặc định của TanStack Start.
+
+```typescript fileName="vite.config.ts"
+import { localeMap, localeFlatMap } from "intlayer";
+// ... các import khác
+
+export const pathList = ["", "/about", "/404"];
+
+const localizedPages = localeFlatMap(({ urlPrefix }) =>
+  pathList.map((path) => ({
+    path: `${urlPrefix}${path}`,
+    prerender: {
+      enabled: true,
+    },
+  }))
+);
+
+export default defineConfig({
+  plugins: [
+    // ... các plugin khác
+    tanstackStart({
+      // ... cấu hình khác
+      sitemap: {
+        enabled: false,
+      },
+      prerender: {
+        enabled: true,
+        crawlLinks: false,
+        concurrency: 10,
+      },
+      pages: localizedPages,
+    }),
+  ],
+});
+```
+
+Sau đó, tạo một route `src/routes/sitemap[.]xml.ts` sử dụng hàm `generateSitemap`:
+
+```typescript fileName="src/routes/sitemap[.]xml.ts"
+import { createFileRoute } from "@tanstack/solid-router";
+import { generateSitemap } from "intlayer";
+
+const SITE_URL = "http://localhost:3000";
+
+export const Route = createFileRoute("/sitemap.xml")({
+  server: {
+    handlers: {
+      GET: async () => {
+        const sitemap = generateSitemap(
+          [
+            { path: "/", changefreq: "daily", priority: 1.0 },
+            { path: "/about", changefreq: "monthly", priority: 0.8 },
+          ],
+          { siteUrl: SITE_URL }
+        );
+
+        return new Response(sitemap, {
+          headers: { "Content-Type": "application/xml" },
+        });
+      },
+    },
+  },
+});
+```
 
 ---
 

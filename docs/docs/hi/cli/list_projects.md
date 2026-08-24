@@ -52,8 +52,6 @@ bun x intlayer projects list
 
   > उदाहरण: `npx intlayer projects list --base-dir /path/to/workspace`
 
-  > उदाहरण: `npx intlayer projects list --base-dir /path/to/workspace`
-
 - **`--git-root`**: बेस डायरेक्टरी की बजाय git रूट डायरेक्टरी से खोजें। यह monorepo या git रिपोजिटरी में सभी Intlayer प्रोजेक्ट्स खोजने के लिए उपयोगी है।
 
   > उदाहरण: `npx intlayer projects list --git-root`

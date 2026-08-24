@@ -31,6 +31,14 @@ author: aymericzip
 
 تقوم دالة `getLocalizedUrl` بإنشاء عنوان URL محلي عن طريق إضافة بادئة اللغة المحددة إلى عنوان URL المعطى. تتعامل مع عناوين URL المطلقة والنسبية على حد سواء، مما يضمن تطبيق بادئة اللغة الصحيحة بناءً على التكوين.
 
+**المميزات الرئيسية:**
+
+- معاملان فقط مطلوبان: `url` و `currentLocale`
+- كائن `options` اختياري يحتوي على `locales` و `defaultLocale` و `mode`
+- يستخدم تكوين التدويل في مشروعك كقيم افتراضية
+- يمكن استخدامه بمعاملات بسيطة للحالات البسيطة أو تخصيصه بالكامل للسيناريوهات المعقدة
+- يدعم أوضاع توجيه متعددة: `prefix-no-default` و `prefix-all` و `no-prefix` و `search-params`
+
 ---
 
 ## توقيع الدالة
@@ -135,36 +143,6 @@ getLocalizedUrl(
 // الناتج: "/about" للغة الافتراضية (الإنجليزية)
 ```
 
-```javascript codeFormat="esm"
-import { getLocalizedUrl, Locales } from "intlayer";
-
-getLocalizedUrl(
-  "/about",
-  Locales.FRENCH,
-  [Locales.ENGLISH, Locales.FRENCH],
-  Locales.ENGLISH,
-  false
-);
-
-// الناتج: "/fr/about" للغة الفرنسية
-// الناتج: "/about" للغة الافتراضية (الإنجليزية)
-```
-
-```javascript codeFormat="commonjs"
-const { getLocalizedUrl, Locales } = require("intlayer");
-
-getLocalizedUrl(
-  "/about",
-  Locales.FRENCH,
-  [Locales.ENGLISH, Locales.FRENCH],
-  Locales.ENGLISH,
-  false
-);
-
-// الناتج: "/fr/about" للغة الفرنسية
-// الناتج: "/about" للغة الافتراضية (الإنجليزية)
-```
-
 ### تجاوز الإعدادات الجزئية
 
 يمكنك أيضًا توفير بعض المعاملات الاختيارية فقط. ستستخدم الدالة إعدادات مشروعك لأي معاملات لم تحددها:
@@ -240,6 +218,12 @@ getLocalizedUrl(
 
 - **اللغات غير المدعومة:**
   - بالنسبة للغات غير المدرجة في `locales`، لا تطبق الدالة أي بادئة.
+
+- **أنماط التوجيه:**
+  - `'prefix-no-default'`: اللغة الافتراضية بدون بادئة، والبقية لها بادئات (على سبيل المثال، `/about`, `/fr/about`)
+  - `'prefix-all'`: جميع اللغات لها بادئات (على سبيل المثال، `/en/about`, `/fr/about`)
+  - `'no-prefix'`: لا توجد بادئات لغة في عناوين URL (يتم التعامل مع اللغة في مكان آخر)
+  - `'search-params'`: يتم تحديد اللغة عبر معامل الاستعلام (على سبيل المثال، `/about?locale=fr`)
 
 ---
 

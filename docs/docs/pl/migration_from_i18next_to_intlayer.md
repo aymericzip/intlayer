@@ -98,9 +98,108 @@ Następujące kroki są minimalne wymagane aby uruchomić istniejącą aplikacj�
 
 Zainstaluj pakiety rdzenia Intlayer i adapter compat:
 
+```bash packageManager="npm"
+npx intlayer init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer@canary init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer@canary init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer@canary init --interactive
+```
+
+> flaga `--interactive` jest opcjonalna. Użyj `intlayer-cli init`, jeśli jesteś agentem AI.
+
+> To polecenie wykryje Twoje środowisko i zainstaluje wymagane pakiety. Na przykład:
+
+```bash packageManager="npm"
+npm install intlayer @intlayer/i18next @intlayer/sync-json-plugin
+```
+
+```bash packageManager="pnpm"
+pnpm add intlayer @intlayer/i18next @intlayer/sync-json-plugin
+```
+
+```bash packageManager="yarn"
+yarn add intlayer @intlayer/i18next @intlayer/sync-json-plugin
+```
+
+```bash packageManager="bun"
+bun add intlayer @intlayer/i18next @intlayer/sync-json-plugin
+```
+
+> Możesz zachować zainstalowany `i18next` — adapter kompatybilności używa go jako `devDependency` / `peerDependency` dla typów TypeScript.
+
+</Step>
+
+<Step number={2} title="Skonfiguruj Intlayer">
+
+Polecenie `intlayer init` tworzy starter `intlayer.config.ts`. Zaktualizuj go, aby odpowiadał Twoim istniejącym lokalizacjom i wskaż wtyczkę `syncJSON` na Twoje pliki komunikatów:
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { Locales, type IntlayerConfig } from "intlayer";
+import { syncJSON } from "@intlayer/sync-json-plugin";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: [
+      Locales.ENGLISH,
+      Locales.FRENCH,
+      Locales.SPANISH,
+      // Dodaj tutaj wszystkie istniejące lokalizacje
+    ],
+    defaultLocale: Locales.ENGLISH,
+  },
+  plugins: [
+    syncJSON({
+      // pasuje do składni placeholdera i18next: {{name}}
+      format: "i18next",
+      source: ({ locale }) => `./src/locales/${locale}.json`,
+      location: "src/locales",
+    }),
+  ],
+};
+
+export default config;
+```
+
+> **`source`** mapuje locale na ścieżkę pliku JSON. **`location`** informuje watcher Intlayera, który folder monitorować pod kątem zmian. Opcja `format: 'i18next'` zapewnia, że placeholdery takie jak `{{name}}` są poprawnie parsowane.
+
+</Step>
+
+<Step number={3} title="Zaktualizuj aliasy bundlera (opcjonalnie)">
+
+Jeśli używasz bundlera (Vite, Webpack, esbuild), możesz wstrzyknąć alias modułu, aby `import ... from 'i18next'` automatycznie rozpoznawał `@intlayer/i18next`. To eliminuje potrzebę ręcznej zmiany jakichkolwiek importów w Twoim codebase.
+
+**Dla Vite:**
+
+```typescript fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { defineConfig } from "vite";
+import i18nextVitePlugin from "@intlayer/i18next/plugin";
+
+export default defineConfig({
+  plugins: [i18nextVitePlugin()],
+});
+```
+
+> `i18nextVitePlugin()` opakowuje plugin `intlayer()` z `vite-intlayer` i dodaje
+> alias `i18next` → `@intlayer/i18next` dla Ciebie. Użycie zwykłego pluginu `intlayer()`
+> z `vite-intlayer` kompiluje słowniki, ale **nie** dodaje tego aliasu — musisz wtedy
+> ręcznie zmienić nazwy importów na `@intlayer/i18next` (zobacz następny krok).
+
 </Step>
 
 </Steps>
+
+To jest szybka migracja. Twoja aplikacja teraz działa na Intlayer, zachowując wszystkie `i18next` importy i API w niezmienionej formie.
+
+---
 
 ## Pełna migracja
 

@@ -77,6 +77,17 @@ const helloWorldContent = {
 module.exports = helloWorldContent;
 ```
 
+```json5 fileName="hello-world.ko.content.json" contentDeclarationFormat="json"
+{
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "hello-world",
+  "locale": "ko", // 중요
+  "content": {
+    "multilingualContent": "내 컴포넌트의 제목",
+  },
+}
+```
+
 ```json fileName="hello-world.content.ts" contentDeclarationFormat="json"
 {
   "$schema": "https://intlayer.org/schema.json",
@@ -94,6 +105,8 @@ module.exports = helloWorldContent;
 ```
 
 > 권장: 이 형식은 Intlayer의 시각적 편집기를 사용하거나 코드 내에서 직접 번역을 관리할 때 가장 적합합니다.
+
+> 참고: 두 경우 모두 콘텐츠 선언 파일은 Intlayer에서 인식되도록 `*.content.{ts,tsx,js,jsx,mjs,cjs,json}` 명명 패턴을 따라야 합니다. `.[locale]` 접미사는 선택 사항이며 명명 규칙으로만 사용됩니다.
 
 ### 로케일별 파일에 대한 전역 설정
 
@@ -146,17 +159,6 @@ const helloWorldContent = {
 export default helloWorldContent;
 ```
 
-```json5 fileName="hello-world.en.content.json" contentDeclarationFormat="json"
-{
-  "$schema": "https://intlayer.org/schema.json",
-  "key": "hello-world",
-  "locale": "en", // 중요
-  "content": {
-    "multilingualContent": "내 컴포넌트의 제목",
-  },
-}
-```
-
 ```json5 fileName="hello-world.es.content.json" contentDeclarationFormat="json"
 {
   "$schema": "https://intlayer.org/schema.json",
@@ -169,8 +171,6 @@ export default helloWorldContent;
 ```
 
 > 중요: locale 필드가 정의되어 있는지 반드시 확인하세요. 이 필드는 Intlayer에 해당 파일이 어떤 언어를 나타내는지 알려줍니다.
-
-> 참고: 두 경우 모두, 콘텐츠 선언 파일은 Intlayer에서 인식되기 위해 `*.content.{ts,tsx,js,jsx,mjs,cjs,json}` 명명 패턴을 따라야 합니다. `.[locale]` 접미사는 선택 사항이며 명명 규칙으로만 사용됩니다.
 
 ## 형식 혼합
 

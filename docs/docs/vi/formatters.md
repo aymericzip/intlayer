@@ -53,6 +53,18 @@ author: aymericzip
 
 Intlayer cung cấp một bộ helper nhẹ xây dựng trên các API `Intl` gốc, cùng với một wrapper `Intl` được lưu trong bộ nhớ đệm để tránh việc tạo lại các bộ định dạng nặng nhiều lần. Các tiện ích này hoàn toàn nhận biết locale và có thể được sử dụng từ package chính `intlayer`.
 
+**Đối với React, Vue và các framework khác**, hãy sử dụng các hooks/composables dành riêng cho từng framework mà tự động liên kết với ngữ cảnh locale của ứng dụng của bạn:
+
+| Framework                | Import                                      |
+| ------------------------ | ------------------------------------------- |
+| **React** (client)       | `react-intlayer/format`                     |
+| **React** (server)       | `react-intlayer/server/format`              |
+| **Next.js** (client)     | `next-intlayer/client/format`               |
+| **Next.js** (server)     | `next-intlayer/server/format`               |
+| **Vue**                  | `vue-intlayer/format`                       |
+| **Preact**               | `preact-intlayer/format`                    |
+| **Vanilla JS / Node.js** | `intlayer` (yêu cầu truyền locale thủ công) |
+
 ## React Formatters
 
 ### Import
@@ -79,8 +91,6 @@ import {
   getIntlayer,
 } from "intlayer";
 ```
-
-Nếu bạn sử dụng React, các hook cũng có sẵn; xem `react-intlayer/format`.
 
 ### Các Hook Có Sẵn
 
@@ -174,8 +184,6 @@ const MyComponent = () => {
 
 ### `Intl.DisplayNames`
 
-Dùng để lấy tên địa phương hóa của ngôn ngữ, vùng, tiền tệ và bảng chữ cái:
-
 ```ts
 import { Intl } from "intlayer";
 
@@ -262,8 +270,6 @@ words.sort(collator.compare); // ["20", "100", "äpfel", "zebra"]
 Đối với các ngữ cảnh không sử dụng framework, hãy import các formatter trực tiếp từ `intlayer`. Lưu ý rằng bạn phải truyền locale theo cách thủ công.
 
 ### `Intl.PluralRules`
-
-Dùng để xác định các dạng số nhiều trong các locale khác nhau:
 
 ```ts
 import { Intl } from "intlayer";
@@ -473,9 +479,6 @@ getLocaleName("en", "fr"); // "anglais" // tiếng Anh
 getLocaleName("de", "es"); // "alemán" // tiếng Đức
 ```
 
-- **displayLocale**: Locale cần lấy tên
-- **targetLocale**: Locale để hiển thị tên (mặc định là displayLocale)
-
 ### `getLocaleLang(locale?)`
 
 Trích xuất mã ngôn ngữ từ một chuỗi locale:
@@ -487,8 +490,6 @@ getLocaleLang("en-US"); // "en"
 getLocaleLang("fr-CA"); // "fr"
 getLocaleLang("de"); // "de"
 ```
-
-- **locale**: Locale để trích xuất ngôn ngữ (mặc định là locale hiện tại)
 
 ### `getLocaleFromPath(inputUrl)`
 
@@ -503,9 +504,6 @@ getLocaleFromPath("/dashboard"); // "en" (locale mặc định)
 getLocaleFromPath("https://example.com/es/about"); // "es"
 ```
 
-- **inputUrl**: Chuỗi URL đầy đủ hoặc đường dẫn cần xử lý
-- **returns**: Locale được phát hiện hoặc locale mặc định nếu không tìm thấy locale nào
-
 ### `getPathWithoutLocale(inputUrl, locales?)`
 
 Loại bỏ phần locale khỏi URL hoặc đường dẫn:
@@ -517,10 +515,6 @@ getPathWithoutLocale("/en/dashboard"); // "/dashboard"
 getPathWithoutLocale("/fr/dashboard"); // "/dashboard"
 getPathWithoutLocale("https://example.com/en/about"); // "https://example.com/about"
 ```
-
-- **inputUrl**: Chuỗi URL đầy đủ hoặc đường dẫn cần xử lý
-- **locales**: Mảng tùy chọn các locale được hỗ trợ (mặc định là các locale đã cấu hình)
-- **returns**: URL không có phần locale
 
 ### `getLocalizedUrl(url, currentLocale, locales?, defaultLocale?, prefixDefault?)`
 
@@ -534,12 +528,6 @@ getLocalizedUrl("/about", "en", ["en", "fr"], "en", false); // "/about"
 getLocalizedUrl("https://example.com/about", "fr", ["en", "fr"], "en", true); // "https://example.com/fr/about"
 ```
 
-- **url**: URL gốc cần địa phương hóa
-- **currentLocale**: Locale hiện tại
-- **locales**: Mảng tùy chọn các locale được hỗ trợ (mặc định là các locale đã cấu hình)
-- **defaultLocale**: Locale mặc định tùy chọn (mặc định là locale mặc định đã cấu hình)
-- **prefixDefault**: Có thêm tiền tố locale mặc định hay không (mặc định theo giá trị đã cấu hình)
-
 ### `getHTMLTextDir(locale?)`
 
 Trả về hướng văn bản cho một locale:
@@ -551,9 +539,6 @@ getHTMLTextDir("en-US"); // "ltr"
 getHTMLTextDir("ar"); // "rtl"
 getHTMLTextDir("he"); // "rtl"
 ```
-
-- **locale**: Locale để lấy hướng văn bản (mặc định là locale hiện tại)
-- **returns**: `"ltr"`, `"rtl"`, hoặc `"auto"`
 
 ## Tiện ích Xử lý Nội dung
 
@@ -570,10 +555,6 @@ const content = getContent(
   "fr"
 );
 ```
-
-- **node**: Node nội dung cần chuyển đổi
-- **nodeProps**: Thuộc tính cho ngữ cảnh chuyển đổi
-- **locale**: Locale tùy chọn (mặc định là locale mặc định đã cấu hình)
 
 ### `getTranslation(languageContent, locale?, fallback?)`
 
@@ -593,10 +574,6 @@ const content = getTranslation(
 ); // "Bonjour"
 ```
 
-- **languageContent**: Đối tượng ánh xạ các locale tới nội dung
-- **locale**: Locale mục tiêu (mặc định là locale cấu hình sẵn)
-- **fallback**: Có fallback về locale mặc định hay không (mặc định là true)
-
 ### `getIntlayer(dictionaryKey, locale?, plugins?)`
 
 Lấy và chuyển đổi nội dung từ một từ điển theo key:
@@ -607,10 +584,6 @@ import { getIntlayer } from "intlayer";
 const content = getIntlayer("common", "fr");
 const nestedContent = getIntlayer("common", "fr", customPlugins);
 ```
-
-- **dictionaryKey**: Khóa của từ điển để truy xuất
-- **locale**: Locale tùy chọn (mặc định là locale cấu hình sẵn)
-- **plugins**: Mảng tùy chọn các plugin chuyển đổi tùy chỉnh
 
 ## Ghi chú
 

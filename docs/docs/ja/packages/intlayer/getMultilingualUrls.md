@@ -31,6 +31,14 @@ author: aymericzip
 
 `getMultilingualUrls` 関数は、指定された URL に各サポートされているロケールをプレフィックスとして付加することで、多言語対応の URL マッピングを生成します。絶対 URL と相対 URL の両方に対応しており、提供された設定またはデフォルトに基づいて適切なロケールプレフィックスを適用します。
 
+**主な機能:**
+
+- 必須パラメータは `url` のみ
+- `locales`、`defaultLocale`、`mode` を含むオプションの `options` オブジェクト
+- プロジェクトの国際化設定をデフォルトとして使用
+- 複数のルーティングモードをサポート: `prefix-no-default`、`prefix-all`、`no-prefix`、`search-params`
+- すべてのロケールをキーとし、対応するURLを値とするマッピングオブジェクトを返す
+
 ---
 
 ## 関数シグネチャ
@@ -139,8 +147,6 @@ getMultilingualUrls(
 // }
 ```
 
----
-
 ### 異なるルーティングモード
 
 ```typescript
@@ -206,6 +212,12 @@ getMultilingualUrls("/dashboard", {
 - **サポートされていないロケール:**
   - URL生成には、`locales` 配列に指定されたロケールのみが考慮されます。
 
+- **ルーティングモード:**
+  - `'prefix-no-default'`: デフォルトロケールはプレフィックスなし、その他はあり (例: `/dashboard`, `/fr/dashboard`)
+  - `'prefix-all'`: すべてのロケールがプレフィックス付き (例: `/en/dashboard`, `/fr/dashboard`)
+  - `'no-prefix'`: URLにロケールプレフィックスなし (すべてのロケールが同じURLを返す)
+  - `'search-params'`: クエリパラメータでロケールを指定 (例: `/dashboard?locale=fr`)
+
 ---
 
 ## アプリケーションでの使用方法
@@ -228,55 +240,7 @@ export default config;
 
 上記の設定により、アプリケーションは `ENGLISH`、`FRENCH`、`SPANISH` をサポート言語として認識し、`ENGLISH` をフォールバック言語として使用します。
 
-この設定を使用すると、`getMultilingualUrls` 関数はアプリケーションのサポートロケールに基づいて多言語URLマッピングを動的に生成できます。
-
-```typescript
-getMultilingualUrls(
-  "/dashboard",
-  [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-  Locales.ENGLISH
-);
-// 出力例:
-// {
-//   en: "/dashboard",
-//   fr: "/fr/dashboard",
-//   es: "/es/dashboard"
-// }
-
-getMultilingualUrls(
-  "https://example.com/dashboard",
-  [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-  Locales.ENGLISH,
-  true
-);
-// 出力例:
-// {
-//   en: "https://example.com/en/dashboard",
-
-module.exports = config;
-```
-
-上記の設定により、アプリケーションは `ENGLISH`、`FRENCH`、および `SPANISH` をサポート言語として認識し、`ENGLISH` をフォールバック言語として使用します。
-
-この設定を使用すると、`getMultilingualUrls` 関数はアプリケーションのサポートされているロケールに基づいて、多言語のURLマッピングを動的に生成できます。
-
-```typescript
-getMultilingualUrls(
-  "/dashboard",
-  [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-  Locales.ENGLISH
-);
-// 出力例:
-// {
-//   en: "/dashboard",
-//   fr: "/fr/dashboard",
-//   es: "/es/dashboard"
-// }
-```
-
 上記の設定により、アプリケーションは `ENGLISH`、`FRENCH`、`SPANISH` をサポート言語として認識し、`ENGLISH` をフォールバック言語として使用します。
-
-この設定を使用すると、`getMultilingualUrls` 関数はアプリケーションのサポートされているロケールに基づいて多言語URLマッピングを動的に生成できます：
 
 ```typescript
 getMultilingualUrls(

@@ -42,8 +42,6 @@ La synchronisation en direct permet à votre application de refléter les modifi
 
 ## Activer la synchronisation en direct
 
-> La synchronisation en direct nécessite une connexion continue au serveur et est disponible dans le plan entreprise.
-
 Activez la synchronisation en direct en mettant à jour votre configuration Intlayer :
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
@@ -84,6 +82,19 @@ export default config;
 ```
 
 Démarrez le serveur Live Sync pour envelopper votre application :
+
+Exemple utilisant un serveur autonome :
+
+```json5 fileName="package.json"
+{
+  "scripts": {
+    // ... autres scripts
+    "live:start": "npx intlayer live",
+  },
+}
+```
+
+Vous pouvez également utiliser votre serveur d'application en parallèle en utilisant l'argument `--process`.
 
 Exemple avec Next.js :
 

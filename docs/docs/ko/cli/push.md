@@ -106,21 +106,6 @@ bun x intlayer dictionary push
 - **`--unpushed`**: 푸시되지 않은 변경 사항을 포함합니다.
 - **`--untracked`**: 추적되지 않은 파일을 포함합니다.
 
-- **`--build`**: 푸시 전에 사전을 빌드하여 콘텐츠가 최신 상태인지 확인합니다. true는 빌드를 강제 실행하고, false는 빌드를 건너뛰며, undefined는 빌드 캐시를 사용하도록 허용합니다.
-
-**로그 옵션:**
-
-- **`--verbose`**: 디버깅을 위한 자세한 로깅을 활성화합니다. (기본값은 CLI에서 true)
-
-**Git 옵션:**
-
-- **`--git-diff`**: 기본 브랜치(기본값: `origin/main`)와 현재 브랜치(기본값: `HEAD`) 간의 변경 사항이 포함된 사전에만 실행합니다.
-- **`--git-diff-base`**: git diff의 기준 참조를 지정합니다. (기본값: `origin/main`)
-- **`--git-diff-current`**: git diff의 현재 참조를 지정합니다. (기본값: `HEAD`)
-- **`--uncommitted`**: 커밋되지 않은 변경 사항을 포함합니다.
-- **`--unpushed`**: 푸시되지 않은 변경 사항을 포함합니다.
-- **`--untracked`**: 추적되지 않은 파일을 포함합니다.
-
   > 예시: `npx intlayer dictionary push --git-diff --git-diff-base origin/main --git-diff-current HEAD`
 
   > 예시: `npx intlayer dictionary push --uncommitted --unpushed --untracked`

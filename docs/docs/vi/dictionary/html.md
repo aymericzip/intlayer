@@ -24,7 +24,7 @@ history:
     changes: "Add `intlayerHTML` plugin object; use `app.use(intlayerHTML)` instead of `app.use(installIntlayerHTML)`"
   - version: 8.5.0
     date: 2026-03-24
-    changes: "move import from `{{framework}}-intlayer` to `{{framework}}-intlayer/html`"
+    changes: "Chuyển import từ `{{framework}}-intlayer` sang `{{framework}}-intlayer/html`"
   - version: 8.0.0
     date: 2026-01-22
     changes: "Thêm HTMLRenderer / useHTMLRenderer / tiện ích renderHTML"
@@ -245,7 +245,7 @@ Bạn có thể cấu hình cách render HTML ở mức toàn cục cho toàn b�
 
 <Tabs group="framework">
   <Tab label="React / Next.js" value="react">
-  
+
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "react-intlayer/html";
 
@@ -261,9 +261,28 @@ Bạn có thể cấu hình cách render HTML ở mức toàn cục cho toàn b�
     );
     ```
 
+    Bạn cũng có thể sử dụng trình render HTML của riêng mình:
+
+    ```tsx fileName="AppProvider.tsx"
+    import { HTMLProvider } from "react-intlayer/html";
+
+    export const AppProvider = ({ children }) => (
+      <HTMLProvider
+        renderHTML={async (html) => {
+          const { renderHTML } = await import('react-intlayer/html');
+          return renderHTML(html);
+        }}
+      >
+        {children}
+      </HTMLProvider>
+    );
+    ```
+
+    > Import trình render HTML của bạn theo cách động là một cách tốt để giảm kích thước bundle của ứng dụng.
+
   </Tab>
   <Tab label="Vue" value="vue">
-  
+
     ```typescript fileName="main.ts"
     import { createApp, h } from "vue";
     import { intlayer } from "vue-intlayer";
@@ -283,9 +302,32 @@ Bạn có thể cấu hình cách render HTML ở mức toàn cục cho toàn b�
     app.mount("#app");
     ```
 
+    Bạn cũng có thể sử dụng trình render HTML của riêng mình:
+
+    ```typescript fileName="main.ts"
+    import { createApp, h } from "vue";
+    import { intlayer } from "vue-intlayer";
+    import { intlayerHTML } from "vue-intlayer/html";
+    import App from "./App.vue";
+
+    const app = createApp(App);
+
+    app.use(intlayer);
+    app.use(intlayerHTML, {
+      renderHTML: async (html) => {
+        const { renderHTML } = await import('vue-intlayer/html');
+        return renderHTML(html);
+      },
+    });
+
+    app.mount("#app");
+    ```
+
+    > Import trình render HTML của bạn theo cách động là một cách tốt để giảm kích thước bundle của ứng dụng.
+
   </Tab>
   <Tab label="Svelte" value="svelte">
-   
+
     ```svelte fileName="App.svelte"
     <script lang="ts">
       import { HTMLProvider } from "svelte-intlayer/html";
@@ -301,9 +343,28 @@ Bạn có thể cấu hình cách render HTML ở mức toàn cục cho toàn b�
     </HTMLProvider>
     ```
 
+    Bạn cũng có thể sử dụng trình render HTML của riêng mình:
+
+    ```svelte fileName="App.svelte"
+    <script lang="ts">
+      import { HTMLProvider } from "svelte-intlayer/html";
+    </script>
+
+    <HTMLProvider
+      renderHTML={async (html) => {
+        const { renderHTML } = await import('svelte-intlayer/html');
+        return renderHTML(html);
+      }}
+    >
+      <slot />
+    </HTMLProvider>
+    ```
+
+    > Import trình render HTML của bạn theo cách động là một cách tốt để giảm kích thước bundle của ứng dụng.
+
   </Tab>
   <Tab label="Preact" value="preact">
-   
+
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "preact-intlayer/html";
 
@@ -318,9 +379,28 @@ Bạn có thể cấu hình cách render HTML ở mức toàn cục cho toàn b�
     );
     ```
 
+    Bạn cũng có thể sử dụng trình render HTML của riêng mình:
+
+    ```tsx fileName="AppProvider.tsx"
+    import { HTMLProvider } from "preact-intlayer/html";
+
+    export const AppProvider = ({ children }) => (
+      <HTMLProvider
+        renderHTML={async (html) => {
+          const { renderHTML } = await import('preact-intlayer/html');
+          return renderHTML(html);
+        }}
+      >
+        {children}
+      </HTMLProvider>
+    );
+    ```
+
+    > Import trình render HTML của bạn theo cách động là một cách tốt để giảm kích thước bundle của ứng dụng.
+
   </Tab>
   <Tab label="Solid" value="solid">
-   
+
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "solid-intlayer/html";
 
@@ -334,6 +414,25 @@ Bạn có thể cấu hình cách render HTML ở mức toàn cục cho toàn b�
       </HTMLProvider>
     );
     ```
+
+    Bạn cũng có thể sử dụng trình render HTML của riêng mình:
+
+    ```tsx fileName="AppProvider.tsx"
+    import { HTMLProvider } from "solid-intlayer/html";
+
+    export const AppProvider = (props) => (
+      <HTMLProvider
+        renderHTML={async (html) => {
+          const { renderHTML } = await import('solid-intlayer/html');
+          return renderHTML(html);
+        }}
+      >
+        {props.children}
+      </HTMLProvider>
+    );
+    ```
+
+    > Import trình render HTML của bạn theo cách động là một cách tốt để giảm kích thước bundle của ứng dụng.
 
   </Tab>
   <Tab label="Angular" value="angular">
@@ -352,6 +451,25 @@ Bạn có thể cấu hình cách render HTML ở mức toàn cục cho toàn b�
       ],
     };
     ```
+
+    Bạn cũng có thể sử dụng trình render HTML của riêng mình:
+
+    ```typescript fileName="app.config.ts"
+    import { createIntlayerHTMLProvider } from "angular-intlayer/html";
+
+    export const appConfig: ApplicationConfig = {
+      providers: [
+        createIntlayerHTMLProvider({
+          renderHTML: async (html) => {
+            const { renderHTML } = await import('angular-intlayer/html');
+            return renderHTML(html);
+          },
+        }),
+      ],
+    };
+    ```
+
+    > Import trình render HTML của bạn theo cách động là một cách tốt để giảm kích thước bundle của ứng dụng.
 
   </Tab>
 </Tabs>
@@ -401,9 +519,9 @@ Nếu bạn cần kết xuất chuỗi HTML thô hoặc muốn kiểm soát nhi�
 
   </Tab>
   <Tab label="Vue" value="vue">
-   
+
     #### Thành phần `<HTMLRenderer />`
-   
+
     ```vue
     <script setup>
     import { HTMLRenderer } from "vue-intlayer/html";
@@ -416,9 +534,9 @@ Nếu bạn cần kết xuất chuỗi HTML thô hoặc muốn kiểm soát nhi�
 
   </Tab>
   <Tab label="Svelte" value="svelte">
-  
+
     #### Thành phần `<HTMLRenderer />`
-   
+
     ```svelte
     <script lang="ts">
     import { HTMLRenderer } from "svelte-intlayer/html";
@@ -450,9 +568,9 @@ Nếu bạn cần kết xuất chuỗi HTML thô hoặc muốn kiểm soát nhi�
 
   </Tab>
   <Tab label="Preact" value="preact">
-   
+
     #### Thành phần `<HTMLRenderer />`
-   
+
     ```tsx
     import { HTMLRenderer } from "preact-intlayer/html";
 
@@ -481,9 +599,9 @@ Nếu bạn cần kết xuất chuỗi HTML thô hoặc muốn kiểm soát nhi�
 
   </Tab>
   <Tab label="Solid" value="solid">
-   
+
     #### Thành phần `<HTMLRenderer />`
-   
+
     ```tsx
     import { HTMLRenderer } from "solid-intlayer/html";
 
@@ -516,13 +634,13 @@ Nếu bạn cần kết xuất chuỗi HTML thô hoặc muốn kiểm soát nhi�
     Render một chuỗi HTML bằng cách sử dụng dịch vụ.
 
     ```typescript
-    import { IntlayerHTMLService } from "angular-intlayer";
+    import { IntlayerHTMLService } from "angular-intlayer/html";
 
     export class MyComponent {
       constructor(private markdownService: IntlayerHTMLService) {}
 
       renderHTML(html: string) {
-        return this.markdownService.renderMarkdown(html);
+        return this.markdownService.renderHTML(html);
       }
     }
     ```

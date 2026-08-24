@@ -657,19 +657,6 @@ statusContent: enu({
 Content that varies based on plural rules:
 
 ```typescript
-import { plural } from "intlayer";
-
-pluralContent: plural({
-  one: "One car",
-  other: "{{count}} cars",
-});
-```
-
-> 詳細については、 [Plural Content ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/plural.md) を参照してください。### 挿入コンテンツ (`insert`)
-
-他のコンテンツに挿入できるコンテンツ：
-
-```typescript
 import { insert } from "intlayer";
 
 insertionContent: insert("This text can be inserted anywhere"); // このテキストはどこにでも挿入できます

@@ -91,7 +91,15 @@ Per la maggior parte dei casi d'uso,
 
 - **`--log`**: Modalità solo log. Non traduce con l'IA; registra invece i blocchi che richiedono attenzione (con numeri di riga e contenuto) per i locali base e target, per aiutare un altro agente a generare le traduzioni.
 
-  > Esempio: `npx intlayer doc review --log`
+- **BLOCK 1 of 3** (il contenuto in English)
+- **BLOCK 2 of 3** (il contenuto in Italian da auditare)
+- **BLOCK 3 of 3** (la modalità: `apply`, `report`, o `synthesis`)
+
+> Esempio: `npx intlayer doc review --mode report`
+
+> Esempio: `npx intlayer doc review --log`
+
+Qualunque sia la modalità, l'esecuzione termina con una sintesi che elenca i documenti allineati con il loro documento base e quelli che hanno ancora blocchi da modificare.
 
 **Opzioni di output delle voci:**
 

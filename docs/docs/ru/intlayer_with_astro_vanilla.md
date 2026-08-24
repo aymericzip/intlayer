@@ -126,6 +126,18 @@ npm install intlayer astro-intlayer vanilla-intlayer
 npx intlayer init
 ```
 
+```bash packageManager="pnpm"
+pnpm dlx intlayer@canary init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer@canary init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer@canary init --interactive
+```
+
 > Если вы хотите использовать свой контент в атрибуте `строки`, таком как `alt`, `title`, `href`, `aria-label` и т. д., вы можете использовать значение функции, например:
 
 > ```html
@@ -133,6 +145,10 @@ npx intlayer init
 > <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
 > <img src="{String(content.image.src)}" alt="{String(content.image)}" />
 > ```
+
+```bash packageManager="npm"
+npm install intlayer astro-intlayer vanilla-intlayer
+```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer astro-intlayer vanilla-intlayer
@@ -342,6 +358,14 @@ const { greeting, description, switchLocale } = getIntlayer("app", locale);
   </body>
 </html>
 ```
+
+> Если вы хотите использовать ваш контент в атрибуте `string`, например `alt`, `title`, `href`, `aria-label` и т. д., вы можете использовать значение функции следующим образом:
+
+> ```html
+> <img src="{content.image.src.value}" alt="{content.image.value}" />
+> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
+> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
+> ```
 
 > **Примечание по конфигурации маршрутизации:**
 > Структура каталогов, которую вы используете, зависит от настройки `middleware.routing` в вашем `intlayer.config.ts`:

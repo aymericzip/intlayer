@@ -24,7 +24,7 @@ history:
     changes: "Add `intlayerHTML` plugin object; use `app.use(intlayerHTML)` instead of `app.use(installIntlayerHTML)`"
   - version: 8.5.0
     date: 2026-03-24
-    changes: "move import from `{{framework}}-intlayer` to `{{framework}}-intlayer/html`"
+    changes: "Memindahkan import dari `{{framework}}-intlayer` ke `{{framework}}-intlayer/html`"
   - version: 8.0.0
     date: 2026-01-22
     changes: "Menambahkan HTMLRenderer / useHTMLRenderer / utilitas renderHTML"
@@ -245,7 +245,7 @@ Anda dapat mengonfigurasi rendering HTML secara global untuk seluruh aplikasi An
 
 <Tabs group="framework">
   <Tab label="React / Next.js" value="react">
-  
+
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "react-intlayer/html";
 
@@ -261,9 +261,28 @@ Anda dapat mengonfigurasi rendering HTML secara global untuk seluruh aplikasi An
     );
     ```
 
+    Anda juga dapat menggunakan renderer HTML Anda sendiri:
+
+    ```tsx fileName="AppProvider.tsx"
+    import { HTMLProvider } from "react-intlayer/html";
+
+    export const AppProvider = ({ children }) => (
+      <HTMLProvider
+        renderHTML={async (html) => {
+          const { renderHTML } = await import('react-intlayer/html');
+          return renderHTML(html);
+        }}
+      >
+        {children}
+      </HTMLProvider>
+    );
+    ```
+
+    > Mengimpor renderer HTML Anda secara dinamis adalah cara yang baik untuk mengurangi ukuran bundle aplikasi Anda.
+
   </Tab>
   <Tab label="Vue" value="vue">
-  
+
     ```typescript fileName="main.ts"
     import { createApp, h } from "vue";
     import { intlayer } from "vue-intlayer";
@@ -283,9 +302,32 @@ Anda dapat mengonfigurasi rendering HTML secara global untuk seluruh aplikasi An
     app.mount("#app");
     ```
 
+    Anda juga dapat menggunakan renderer HTML Anda sendiri:
+
+    ```typescript fileName="main.ts"
+    import { createApp, h } from "vue";
+    import { intlayer } from "vue-intlayer";
+    import { intlayerHTML } from "vue-intlayer/html";
+    import App from "./App.vue";
+
+    const app = createApp(App);
+
+    app.use(intlayer);
+    app.use(intlayerHTML, {
+      renderHTML: async (html) => {
+        const { renderHTML } = await import('vue-intlayer/html');
+        return renderHTML(html);
+      },
+    });
+
+    app.mount("#app");
+    ```
+
+    > Mengimpor renderer HTML Anda secara dinamis adalah cara yang baik untuk mengurangi ukuran bundle aplikasi Anda.
+
   </Tab>
   <Tab label="Svelte" value="svelte">
-   
+
     ```svelte fileName="App.svelte"
     <script lang="ts">
       import { HTMLProvider } from "svelte-intlayer/html";
@@ -301,9 +343,28 @@ Anda dapat mengonfigurasi rendering HTML secara global untuk seluruh aplikasi An
     </HTMLProvider>
     ```
 
+    Anda juga dapat menggunakan renderer HTML Anda sendiri:
+
+    ```svelte fileName="App.svelte"
+    <script lang="ts">
+      import { HTMLProvider } from "svelte-intlayer/html";
+    </script>
+
+    <HTMLProvider
+      renderHTML={async (html) => {
+        const { renderHTML } = await import('svelte-intlayer/html');
+        return renderHTML(html);
+      }}
+    >
+      <slot />
+    </HTMLProvider>
+    ```
+
+    > Mengimpor renderer HTML Anda secara dinamis adalah cara yang baik untuk mengurangi ukuran bundle aplikasi Anda.
+
   </Tab>
   <Tab label="Preact" value="preact">
-   
+
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "preact-intlayer/html";
 
@@ -318,9 +379,28 @@ Anda dapat mengonfigurasi rendering HTML secara global untuk seluruh aplikasi An
     );
     ```
 
+    Anda juga dapat menggunakan renderer HTML Anda sendiri:
+
+    ```tsx fileName="AppProvider.tsx"
+    import { HTMLProvider } from "preact-intlayer/html";
+
+    export const AppProvider = ({ children }) => (
+      <HTMLProvider
+        renderHTML={async (html) => {
+          const { renderHTML } = await import('preact-intlayer/html');
+          return renderHTML(html);
+        }}
+      >
+        {children}
+      </HTMLProvider>
+    );
+    ```
+
+    > Mengimpor renderer HTML Anda secara dinamis adalah cara yang baik untuk mengurangi ukuran bundle aplikasi Anda.
+
   </Tab>
   <Tab label="Solid" value="solid">
-   
+
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "solid-intlayer/html";
 
@@ -334,6 +414,25 @@ Anda dapat mengonfigurasi rendering HTML secara global untuk seluruh aplikasi An
       </HTMLProvider>
     );
     ```
+
+    Anda juga dapat menggunakan renderer HTML Anda sendiri:
+
+    ```tsx fileName="AppProvider.tsx"
+    import { HTMLProvider } from "solid-intlayer/html";
+
+    export const AppProvider = (props) => (
+      <HTMLProvider
+        renderHTML={async (html) => {
+          const { renderHTML } = await import('solid-intlayer/html');
+          return renderHTML(html);
+        }}
+      >
+        {props.children}
+      </HTMLProvider>
+    );
+    ```
+
+    > Mengimpor renderer HTML Anda secara dinamis adalah cara yang baik untuk mengurangi ukuran bundle aplikasi Anda.
 
   </Tab>
   <Tab label="Angular" value="angular">
@@ -352,6 +451,25 @@ Anda dapat mengonfigurasi rendering HTML secara global untuk seluruh aplikasi An
       ],
     };
     ```
+
+    Anda juga dapat menggunakan renderer HTML Anda sendiri:
+
+    ```typescript fileName="app.config.ts"
+    import { createIntlayerHTMLProvider } from "angular-intlayer/html";
+
+    export const appConfig: ApplicationConfig = {
+      providers: [
+        createIntlayerHTMLProvider({
+          renderHTML: async (html) => {
+            const { renderHTML } = await import('angular-intlayer/html');
+            return renderHTML(html);
+          },
+        }),
+      ],
+    };
+    ```
+
+    > Mengimpor renderer HTML Anda secara dinamis adalah cara yang baik untuk mengurangi ukuran bundle aplikasi Anda.
 
   </Tab>
 </Tabs>
@@ -401,9 +519,9 @@ Jika Anda perlu merender string HTML mentah atau memiliki kontrol lebih atas pem
 
   </Tab>
   <Tab label="Vue" value="vue">
-   
+
     #### Komponen `<HTMLRenderer />`
-   
+
     ```vue
     <script setup>
     import { HTMLRenderer } from "vue-intlayer/html";
@@ -416,9 +534,9 @@ Jika Anda perlu merender string HTML mentah atau memiliki kontrol lebih atas pem
 
   </Tab>
   <Tab label="Svelte" value="svelte">
-  
+
     #### Komponen `<HTMLRenderer />`
-   
+
     ```svelte
     <script lang="ts">
     import { HTMLRenderer } from "svelte-intlayer/html";
@@ -450,9 +568,9 @@ Jika Anda perlu merender string HTML mentah atau memiliki kontrol lebih atas pem
 
   </Tab>
   <Tab label="Preact" value="preact">
-   
+
     #### Komponen `<HTMLRenderer />`
-   
+
     ```tsx
     import { HTMLRenderer } from "preact-intlayer/html";
 
@@ -481,9 +599,9 @@ Jika Anda perlu merender string HTML mentah atau memiliki kontrol lebih atas pem
 
   </Tab>
   <Tab label="Solid" value="solid">
-   
+
     #### Komponen `<HTMLRenderer />`
-   
+
     ```tsx
     import { HTMLRenderer } from "solid-intlayer/html";
 
@@ -516,13 +634,13 @@ Jika Anda perlu merender string HTML mentah atau memiliki kontrol lebih atas pem
     Render string HTML menggunakan layanan tersebut.
 
     ```typescript
-    import { IntlayerHTMLService } from "angular-intlayer";
+    import { IntlayerHTMLService } from "angular-intlayer/html";
 
     export class MyComponent {
       constructor(private markdownService: IntlayerHTMLService) {}
 
       renderHTML(html: string) {
-        return this.markdownService.renderMarkdown(html);
+        return this.markdownService.renderHTML(html);
       }
     }
     ```

@@ -94,6 +94,38 @@ Más que una simple solución i18n, Intlayer proporciona un **[editor visual] au
 
 ## Guía paso a paso para configurar Intlayer en una aplicación Next.js
 
+<Tabs defaultTab="video">
+  <Tab label="Video" value="video">
+
+<iframe title="¿La mejor solución i18n para Next.js? Descubre Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/e_PPG7PTqGU?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
+
+  </Tab>
+  <Tab label="Code" value="code">
+
+<iframe
+  src="https://ide.intlayer.org/aymericzip/intlayer-next-15-template?file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - Cómo internacionalizar tu aplicación usando Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+  <Tab label="Demo" value="demo">
+
+<iframe
+  src="https://next-15-intlayer-template-xt83.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo - intlayer-next-15-template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+</Tabs>
+
+Consulta [Application Template](https://github.com/aymericzip/intlayer-next-15-template) en GitHub.
+
 <Steps>
 
 <Step number={1} title="Instalar dependencias">
@@ -215,6 +247,24 @@ export default withIntlayer(nextConfig);
 
 > El plugin `withIntlayer()` de Next.js se utiliza para integrar Intlayer con Next.js. Garantiza la construcción de archivos de declaración de contenido y los supervisa en modo de desarrollo. Define variables de entorno de Intlayer dentro de los entornos de [Webpack](https://webpack.js.org/) o [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack). Además, proporciona alias para optimizar el rendimiento y asegura la compatibilidad con componentes del servidor.
 
+> La función `withIntlayer()` es una función promise. Permite preparar los diccionarios de intlayer antes de que comience la compilación. Si deseas utilizarla con otros plugins, puedes esperar a que se complete. Ejemplo:
+>
+> ```tsx
+> const nextConfig = await withIntlayer(nextConfig);
+> const nextConfigWithOtherPlugins = withOtherPlugins(nextConfig);
+>
+> export default nextConfigWithOtherPlugins;
+> ```
+>
+> Si deseas utilizarla de forma síncrona, puedes usar la función `withIntlayerSync()`. Ejemplo:
+>
+> ```tsx
+> const nextConfig = withIntlayerSync(nextConfig);
+> const nextConfigWithOtherPlugins = withOtherPlugins(nextConfig);
+>
+> export default nextConfigWithOtherPlugins;
+> ```
+
 </Step>
 
 <Step number={4} title="Definir Rutas Dinámicas de Localización">
@@ -233,6 +283,36 @@ export default RootLayout;
 > Mantener el componente `RootLayout` vacío permite establecer los atributos [`lang`](https://developer.mozilla.org/es/docs/Web/HTML/Global_attributes/lang) y [`dir`](https://developer.mozilla.org/es/docs/Web/HTML/Global_attributes/dir) en la etiqueta `<html>`.
 
 Para implementar el enrutamiento dinámico, proporcione la ruta para la localización agregando un nuevo layout en su directorio `[locale]`:
+
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
+```tsx fileName="src/app/[locale]/layout.tsx" codeFormat={["typescript", "esm"]}
+import { type NextLayoutIntlayer } from "next-intlayer";
+import { IntlayerProvider } from "next-intlayer/server";
+import { Inter } from "next/font/google";
+import { getHTMLTextDir } from "intlayer";
+
+const inter = Inter({ subsets: ["latin"] });
+
+const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
+  const { locale } = await params;
+  return (
+    <IntlayerProvider locale={locale}>
+      <html lang={locale} dir={getHTMLTextDir(locale)}>
+        <body className={inter.className}>{children}</body>
+      </html>
+    </IntlayerProvider>
+  );
+};
+
+export default LocaleLayout;
+```
+
+> Un único `IntlayerProvider` cubre ambas mitades del árbol: alimenta el contexto del servidor con alcance de solicitud leído por los hooks del servidor, y monta el proveedor del cliente para que los componentes del cliente reciban la misma configuración regional.
+
+ </Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
 
 ```tsx fileName="src/app/[locale]/layout.tsx" codeFormat={["typescript", "esm"]}
 import { type NextLayoutIntlayer, IntlayerClientProvider } from "next-intlayer";
@@ -257,6 +337,9 @@ const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
 export default LocaleLayout;
 ```
 
+ </Tab>
+</Tabs>
+
 > El segmento de ruta `[locale]` se utiliza para definir la configuración regional. Ejemplo: `/en-US/about` se referirá a `en-US` y `/fr/about` a `fr`.
 
 > En esta etapa, encontrará el error: `Error: Missing <html> and <body> tags in the root layout.`. Esto es esperado porque el archivo `/app/page.tsx` ya no se usa y puede eliminarse. En su lugar, el segmento de ruta `[locale]` activará la página `/app/[locale]/page.tsx`. En consecuencia, las páginas serán accesibles a través de rutas como `/en`, `/fr`, `/es` en su navegador. Para establecer la configuración regional predeterminada como la página raíz, consulte la configuración del `middleware` en el paso 7.
@@ -274,6 +357,8 @@ export default LocaleLayout;
 ```
 
 > `generateStaticParams` asegura que su aplicación preconstruya las páginas necesarias para todos los locales, reduciendo el cálculo en runtime y mejorando la experiencia del usuario. Para más detalles, consulte la [documentación de Next.js sobre generateStaticParams](https://nextjs.org/docs/app/building-your-application/rendering/static-and-dynamic-rendering#generate-static-params).
+
+> Intlayer funciona con `export const dynamic = 'force-static';` para garantizar que las páginas se pre-construyen para todas las locales.
 
 </Step>
 
@@ -328,6 +413,44 @@ export default pageContent;
 <Step number={6} title="Utilice el contenido en su código">
 
 Acceda a sus diccionarios de contenido a lo largo de su aplicación:
+
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
+```tsx fileName="src/app/[locale]/page.tsx" codeFormat={["typescript", "esm"]}
+import type { FC } from "react";
+import { ClientComponentExample } from "@components/ClientComponentExample";
+import { ServerComponentExample } from "@components/ServerComponentExample";
+import { type NextPageIntlayer, useIntlayer } from "next-intlayer";
+
+const PageContent: FC = () => {
+  const content = useIntlayer("page");
+
+  return (
+    <>
+      <p>{content.getStarted.main}</p>
+      <code>{content.getStarted.pageLink}</code>
+    </>
+  );
+};
+
+const Page: NextPageIntlayer = () => (
+  <>
+    <PageContent />
+    <ServerComponentExample />
+
+    <ClientComponentExample />
+  </>
+);
+
+export default Page;
+```
+
+- **`IntlayerProvider`** se monta una vez, en el layout de locale. Proporciona el locale tanto a componentes de servidor como de cliente, por lo que las páginas ya no se envuelven a sí mismas.
+- Los server hooks resuelven el locale en este orden: el locale pasado en el sitio de la llamada, luego el contexto del servidor sembrado por el provider, luego el locale llevado por la solicitud (el header `x-intlayer-locale` establecido por el proxy de Intlayer, luego la cookie de locale). Este último paso es lo que mantiene el contenido correcto en una navegación del lado del cliente que solo re-renderiza el segmento de página, donde el layout — y con él el provider — no se ejecuta nuevamente.
+
+ </Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
 
 ```tsx fileName="src/app/[locale]/page.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
@@ -388,6 +511,30 @@ export const ClientComponentExample: FC = () => {
 };
 ```
 
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
+```tsx {2} fileName="src/components/ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
+import type { FC } from "react";
+import { useIntlayer } from "next-intlayer";
+
+export const ServerComponentExample: FC = () => {
+  const content = useIntlayer("server-component-example"); // Crear declaración de contenido relacionada
+
+  return (
+    <div>
+      <h2>{content.title}</h2>
+      <p>{content.content}</p>
+    </div>
+  );
+};
+```
+
+> `next-intlayer` es la ruta de importación isomórfica: la condición de exportación `react-server` proporciona a los componentes de servidor la implementación de locale ambiental, mientras que los componentes de cliente obtienen la implementación respaldada por contexto. La misma llamada funciona en ambos lados.
+
+</Tab>
+<Tab label='Intlayer <9.4' value='<9.4'>
+
 ```tsx {2} fileName="src/components/ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "next-intlayer/server";
@@ -403,6 +550,9 @@ export const ServerComponentExample: FC = () => {
   );
 };
 ```
+
+ </Tab>
+</Tabs>
 
 > Si deseas usar tu contenido en un atributo de tipo `string`, como `alt`, `title`, `href`, `aria-label`, etc., debes llamar al valor de la función, así:
 
@@ -430,6 +580,23 @@ export const config = {
 ```
 
 > El `intlayerMiddleware` se utiliza para detectar la configuración regional preferida del usuario y redirigirlo a la URL apropiada según lo especificado en la [configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md). Además, permite guardar la configuración regional preferida del usuario en una cookie.
+
+> Desde Intlayer v9, este middleware respeta la opción `routing.enableProxy` (`true` por defecto). Establece `routing.enableProxy: false` en tu configuración para convertirlo en un pass-through sin eliminar este archivo. Consulta las [notas de la versión v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/releases/v9.md).
+
+> Si necesitas encadenar varios middlewares juntos (por ejemplo, `intlayerMiddleware` con autenticación o middlewares personalizados), Intlayer ahora proporciona un helper llamado `multipleMiddlewares`.
+
+```ts
+import {
+  multipleMiddlewares,
+  intlayerMiddleware,
+} from "next-intlayer/middleware";
+import { customMiddleware } from "@utils/customMiddleware";
+
+export const middleware = multipleMiddlewares([
+  intlayerMiddleware,
+  customMiddleware,
+]);
+```
 
 </Step>
 
@@ -804,6 +971,33 @@ Al integrar este componente `Link` en toda su aplicación, mantiene una experien
 
 <Step number={12} title="Optimice el tamaño de su paquete" isOptional={true}>
 
+Si necesitas la configuración regional activa dentro de una Server Action (por ejemplo, para localizar correos electrónicos o ejecutar lógica consciente de la configuración regional), llama a `getLocale` desde `next-intlayer/server`:
+
+```tsx fileName="src/app/actions/getLocale.ts" codeFormat="typescript"
+"use server";
+
+import { getLocale } from "next-intlayer/server";
+
+export const myServerAction = async () => {
+  const locale = await getLocale();
+
+  // Hacer algo con la locale
+};
+```
+
+> La función `getLocale` sigue una estrategia en cascada para determinar la locale del usuario:
+>
+> 1. Primero, comprueba los encabezados de solicitud para buscar un valor de locale que pueda haber sido establecido por el middleware
+> 2. Si no se encuentra ninguna locale en los encabezados, busca una locale almacenada en cookies
+> 3. Si no se encuentra ninguna cookie, intenta detectar el idioma preferido del usuario desde la configuración de su navegador
+> 4. Como último recurso, utiliza la locale predeterminada configurada de la aplicación
+>
+> Esto asegura que se seleccione la locale más apropiada en función del contexto disponible.
+
+</Step>
+
+<Step number={13} title="Optimiza el tamaño de tu bundle" isOptional={true}>
+
 Al usar `next-intlayer`, los diccionarios se incluyen en el paquete para cada página de forma predeterminada. Para optimizar el tamaño del bundle, Intlayer proporciona un plugin SWC opcional que reemplaza inteligentemente las llamadas a `useIntlayer` utilizando macros. Esto asegura que los diccionarios solo se incluyan en los paquetes de las páginas que realmente los usan.
 
 Para habilitar esta optimización, instale el paquete `@intlayer/swc`. Una vez instalado, `next-intlayer` detectará y usará automáticamente el plugin:
@@ -827,6 +1021,9 @@ bun add @intlayer/swc --dev
 > Nota: Esta optimización solo está disponible para Next.js 13 y versiones superiores.
 
 > Nota: Este paquete no se instala por defecto porque los plugins SWC aún son experimentales en Next.js. Esto podría cambiar en el futuro.
+> </Step>
+
+> Nota: Si establece la opción como `importMode: 'dynamic'` o `importMode: 'fetch'` (en la configuración `dictionary`), dependerá de Suspense, por lo que tendrá que envolver sus llamadas `useIntlayer` en un límite `Suspense`. Esto significa que no podrá usar `useIntlayer` directamente en el nivel superior de su componente Page / Layout.
 > </Step>
 
 </Steps>

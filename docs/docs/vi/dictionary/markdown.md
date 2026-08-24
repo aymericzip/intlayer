@@ -492,7 +492,7 @@ Các tiện ích này **chỉ render các chuỗi Markdown thô** và độc l�
 
 <Tabs group="framework">
   <Tab label="React" value="react">
-  
+
     #### Component `<MarkdownRenderer />`
 
     Render một chuỗi Markdown với các tùy chọn cụ thể.
@@ -531,7 +531,7 @@ Các tiện ích này **chỉ render các chuỗi Markdown thô** và độc l�
 
   </Tab>
   <Tab label="Next.js" value="nextjs">
-  
+
     #### Component `<MarkdownRenderer />`
 
     Render một chuỗi Markdown với các tùy chọn cụ thể.
@@ -957,21 +957,38 @@ Các tiện ích này **chỉ render các chuỗi Markdown thô** và độc l�
   </Tab>
   <Tab label="Angular" value="angular">
 
-    ```typescript fileName="app.module.ts"
-    import { NgModule } from '@angular/core';
-    import { IntlayerMarkdownModule } from 'angular-intlayer/markdown';
+    ```typescript fileName="app.config.ts"
+    import { createIntlayerMarkdownProvider } from "angular-intlayer/markdown";
 
-    @NgModule({
-      imports: [
-        IntlayerMarkdownModule.forRoot({
+    export const appConfig: ApplicationConfig = {
+      providers: [
+        createIntlayerMarkdownProvider({
+          components: {
+            h1: { class: "text-2xl font-bold" },
+          },
+        }),
+      ],
+    };
+    ```
+
+
+    > Hỗ trợ MDX — bất kỳ tên component nào được sử dụng bên trong Markdown của bạn (ví dụ: `<MyCustomJSXComponent />`) đều được phân giải dựa trên bản đồ `components`.
+
+    Bạn cũng có thể sử dụng trình render markdown của riêng mình:
+
+    ```typescript fileName="app.config.ts"
+    import { createIntlayerMarkdownProvider } from "angular-intlayer/markdown";
+
+    export const appConfig: ApplicationConfig = {
+      providers: [
+        createIntlayerMarkdownProvider({
           renderMarkdown: async (md) => {
             const { renderMarkdown } = await import('angular-intlayer/markdown');
             return renderMarkdown(md);
-          }
-        })
-      ]
-    })
-    export class AppModule {}
+          },
+        }),
+      ],
+    };
     ```
 
     > Việc nhập trình render Markdown của bạn một cách động là một cách tuyệt vời để giảm dung lượng bundle của ứng dụng.
@@ -1047,7 +1064,7 @@ const MyComponent = () => {
 ```
 
   </Tab>
- 
+
   <Tab label="Vue" value="vue">
 
 Vue có một thành phần `<Suspense>` được tích hợp sẵn. Bọc thành phần kết xuất nội dung Markdown trong ranh giới `<Suspense>`.

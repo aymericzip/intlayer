@@ -235,6 +235,24 @@ export default withIntlayer(nextConfig);
 
 > The `withIntlayer()` Next.js 플러그인은 Intlayer를 Next.js와 통합하는 데 사용됩니다. 이 플러그인은 콘텐츠 선언 파일(content declaration files)의 빌드를 보장하고 개발 모드에서 이를 모니터링합니다. 또한 [Webpack](https://webpack.js.org/) 또는 [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack) 환경 내에서 Intlayer 환경 변수를 정의합니다. 추가로 성능 최적화를 위한 alias를 제공하고 서버 컴포넌트와의 호환성을 보장합니다.
 
+> `withIntlayer()` 함수는 promise 함수입니다. 빌드가 시작되기 전에 intlayer 딕셔너리를 준비할 수 있습니다. 다른 플러그인과 함께 사용하려면 이를 await할 수 있습니다. 예:
+>
+> ```ts
+> const nextConfig = await withIntlayer(nextConfig);
+> const nextConfigWithOtherPlugins = withOtherPlugins(nextConfig);
+>
+> export default nextConfigWithOtherPlugins;
+> ```
+>
+> 동기적으로 사용하려면 `withIntlayerSync()` 함수를 사용할 수 있습니다. 예:
+>
+> ```ts
+> const nextConfig = withIntlayerSync(nextConfig);
+> const nextConfigWithOtherPlugins = withOtherPlugins(nextConfig);
+>
+> export default nextConfigWithOtherPlugins;
+> ```
+
 > `withIntlayer()` 함수는 프로미스 함수입니다. 빌드가 시작되기 전에 intlayer 사전(intlayer dictionaries)을 준비할 수 있게 해줍니다. 다른 플러그인과 함께 사용하려면 이를 await할 수 있습니다. 예:
 >
 > ```ts
@@ -264,6 +282,51 @@ export default withIntlayer(nextConfig);
 </Step>
 
 <Step number={4} title="동적 로케일 라우트 정의">
+
+`RootLayout`에서 모든 항목을 제거하고 다음 코드로 바꾸세요:
+
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
+```tsx {5} fileName="src/app/layout.tsx" codeFormat={["typescript", "esm"]}
+import type { Metadata } from "next";
+import type { ReactNode } from "react";
+import "./globals.css";
+import { getHTMLTextDir, getIntlayer } from "intlayer";
+import { getLocale, IntlayerProvider } from "next-intlayer/server";
+export { generateStaticParams } from "next-intlayer";
+
+export const generateMetadata = async (): Promise<Metadata> => {
+  const locale = await getLocale();
+  const { title, description, keywords } = getIntlayer("metadata", locale);
+
+  return {
+    title,
+    description,
+    keywords,
+  };
+};
+
+const RootLayout = async ({
+  children,
+}: Readonly<{
+  children: ReactNode;
+}>) => {
+  const locale = await getLocale();
+
+  return (
+    <html lang={locale} dir={getHTMLTextDir(locale)}>
+      <IntlayerProvider locale={locale}>
+        <body>{children}</body>
+      </IntlayerProvider>
+    </html>
+  );
+};
+
+export default RootLayout;
+```
+
+> 단일 `IntlayerProvider`는 트리의 두 부분을 모두 커버합니다: 서버 훅에서 읽는 request-scoped 서버 컨텍스트를 제공하고, 클라이언트 컴포넌트가 동일한 로케일을 받도록 클라이언트 provider를 마운트합니다.
 
 RootLayout에서 모든 내용을 제거하고 다음 코드로 교체하세요:
 
@@ -305,6 +368,15 @@ const RootLayout = async ({
 
 export default RootLayout;
 ```
+
+ </Tab>
+</Tabs>
+
+</Step>
+
+<Step number={5} title="콘텐츠 선언">
+
+번역을 저장하기 위해 콘텐츠 선언을 생성하고 관리합니다:
 
 ```typescript fileName="src/app/metadata.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
@@ -419,15 +491,49 @@ export default pageContent;
 
 > 자세한 내용은 [콘텐츠 선언 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md)를 참조하세요.
 
-</Step>
-
 </Steps>
-
-<Steps>
 
 <Step number={6} title="코드에서 콘텐츠 활용">
 
 애플리케이션 전체에서 콘텐츠 딕셔너리에 접근하세요:
+
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
+```tsx fileName="src/app/page.tsx" codeFormat={["typescript", "esm"]}
+import type { FC } from "react";
+import { ClientComponentExample } from "@components/clientComponentExample/ClientComponentExample";
+import { ServerComponentExample } from "@components/serverComponentExample/ServerComponentExample";
+import { useIntlayer } from "next-intlayer";
+import { NextPage } from "next";
+
+const PageContent: FC = () => {
+  const content = useIntlayer("page");
+
+  return (
+    <>
+      <p>{content.getStarted.main}</p>
+      <code>{content.getStarted.pageLink}</code>
+    </>
+  );
+};
+
+const Page: NextPage = () => (
+  <>
+    <PageContent />
+    <ServerComponentExample />
+    <ClientComponentExample />
+  </>
+);
+
+export default Page;
+```
+
+- **`IntlayerProvider`**는 루트 레이아웃에 한 번 마운트됩니다. 서버 및 클라이언트 컴포넌트 모두에 로케일을 제공하므로 페이지는 더 이상 자신을 래핑할 필요가 없습니다.
+- `[locale]` 경로 세그먼트가 없으면 로케일은 항상 요청에서 가져옵니다 — Intlayer 프록시가 설정한 `x-intlayer-locale` 헤더, 그 다음 로케일 쿠키 — 프로바이더가 실행되지 않았을 때 서버 훅이 자체적으로 읽습니다.
+
+ </Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
 
 ```tsx fileName="src/app/page.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
@@ -483,6 +589,9 @@ export default Page;
 
   > Layout과 page는 공통의 서버 컨텍스트를 공유할 수 없습니다. 서버 컨텍스트 시스템은 [React의 cache](https://react.dev/reference/react/cache) 메커니즘을 통해 요청별 데이터 저장소에 기반하므로 애플리케이션의 서로 다른 세그먼트마다 각 "context"가 재생성됩니다. 프로바이더를 공유 레이아웃에 배치하면 이러한 격리가 깨져 서버 컴포넌트에 서버 컨텍스트 값을 올바르게 전파하지 못하게 됩니다.
 
+ </Tab>
+</Tabs>
+
 ```tsx {4,7} fileName="src/components/clientComponentExample/ClientComponentExample.tsx" codeFormat={["typescript", "esm"]}
 "use client";
 
@@ -501,6 +610,30 @@ export const ClientComponentExample: FC = () => {
 };
 ```
 
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
+```tsx {2} fileName="src/components/serverComponentExample/ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
+import type { FC } from "react";
+import { useIntlayer } from "next-intlayer";
+
+export const ServerComponentExample: FC = () => {
+  const content = useIntlayer("server-component-example"); // 관련 콘텐츠 선언 생성
+
+  return (
+    <div>
+      <h2>{content.title}</h2>
+      <p>{content.content}</p>
+    </div>
+  );
+};
+```
+
+> `next-intlayer`는 동형(isomorphic) 임포트 경로입니다: `react-server` export 조건은 서버 컴포넌트에 ambient-locale 구현을 제공하고, 클라이언트 컴포넌트는 context 기반 구현을 받습니다. 같은 호출이 양쪽에서 모두 작동합니다.
+
+ </Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
+
 ```tsx {2} fileName="src/components/serverComponentExample/ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "next-intlayer/server";
@@ -517,6 +650,11 @@ export const ServerComponentExample: FC = () => {
 };
 ```
 
+ </Tab>
+</Tabs>
+
+> 만약 `alt`, `title`, `href`, `aria-label` 등의 `string` 속성에서 콘텐츠를 사용하려면, 함수의 값을 다음과 같이 사용할 수 있습니다:
+
 > 콘텐츠를 `alt`, `title`, `href`, `aria-label` 등과 같은 `string` 속성에 사용하려면, 함수의 값을 호출해야 합니다. 예:
 >
 > ```html
@@ -527,6 +665,10 @@ export const ServerComponentExample: FC = () => {
 >
 > `useIntlayer` 훅에 대해 자세히 알아보려면 [문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/next-intlayer/useIntlayer.md)를 참조하세요.
 > </Step>
+
+> `useIntlayer` hook에 대해 자세히 알아보려면 [문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/next-intlayer/useIntlayer.md)를 참조하세요.
+
+</Step>
 
 <Step number={7} title="로케일 감지를 위한 프록시 구성" isOptional={true}>
 
@@ -542,6 +684,8 @@ export const config = {
 ```
 
 > `intlayerProxy`는 사용자의 선호 로케일을 감지하고 [구성](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)에 지정된 대로 적절한 URL로 리디렉션하는 데 사용됩니다. 또한 사용자의 선호 로케일을 쿠키에 저장할 수 있게 해줍니다.
+
+> Intlayer v9 이후, 이 미들웨어는 `routing.enableProxy` 옵션(`true`가 기본값)을 존중합니다. 이 파일을 제거하지 않고 pass-through로 전환하려면 설정에서 `routing.enableProxy: false`를 설정하세요. [v9 release notes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/releases/v9.md)를 참조하세요.
 
 > 여러 프록시를 함께 체인으로 연결해야 하는 경우(예: 인증이나 커스텀 프록시와 함께 `intlayerProxy`를 사용하는 경우), Intlayer는 이제 `multipleProxies`라는 헬퍼를 제공합니다.
 
@@ -671,8 +815,6 @@ bun add @intlayer/swc --dev
 > 참고: 이 패키지는 SWC 플러그인이 Next.js에서 아직 실험적이기 때문에 기본적으로 설치되어 있지 않습니다. 향후 변경될 수 있습니다.
 
 > 참고: 옵션을 `importMode: 'dynamic'` 또는 `importMode: 'fetch'` (in the `dictionary` configuration)로 설정하면 Suspense에 의존하게 되므로 `useIntlayer` 호출을 `Suspense` 경계로 감싸야 합니다. 즉, Page / Layout 컴포넌트의 최상위 수준에서 `useIntlayer`를 직접 사용할 수 없습니다.
-
-</Step>
 
 </Steps>
 

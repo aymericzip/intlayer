@@ -42,8 +42,6 @@ La sincronización en vivo permite que tu aplicación refleje los cambios de con
 
 ## Activar la sincronización en vivo
 
-> Live Sync requiere una conexión continua al servidor y está disponible en el plan enterprise.
-
 Habilita Live Sync actualizando tu configuración de Intlayer:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
@@ -85,6 +83,19 @@ export default config;
 
 Inicie el servidor Live Sync para envolver su aplicación:
 
+Ejemplo usando servidor independiente:
+
+```json5 fileName="package.json"
+{
+  "scripts": {
+    // ... otros scripts
+    "live:start": "npx intlayer live",
+  },
+}
+```
+
+También puedes usar tu servidor de aplicación en paralelo utilizando el argumento `--process`.
+
 Ejemplo usando Next.js:
 
 ```json5 fileName="package.json"
@@ -124,8 +135,6 @@ Cómo funciona:
 ![Esquema de flujo Live Sync CMS/Backend/Servidor Live Sync/Servidor de Aplicación/Frontend](https://github.com/aymericzip/intlayer/blob/main/docs/assets/live_sync_flow_scema.svg)
 
 ## Flujo de trabajo de desarrollo (local)
-
-docs/ko/intlayer_CMS.md
 
 - En desarrollo, todos los diccionarios remotos se obtienen cuando la aplicación se inicia, para que puedas probar actualizaciones rápidamente.
 - Para probar Live Sync localmente con Next.js, envuelve tu servidor de desarrollo:

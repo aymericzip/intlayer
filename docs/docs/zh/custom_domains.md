@@ -138,6 +138,31 @@ getMultilingualUrls("/about", { currentDomain: "intlayer.org" });
 
 这些绝对 URL 已准备好用于 SEO 的 `<link rel="alternate" hreflang="...">` 标签。
 
+## 类型推断
+
+`routing.domains` 被序列化到生成的模块扩展中，因此 `getLocalizedUrl` 和 `getLocalizedPath` 将它们的返回类型缩小到域路由区域设置解析到的确切 URL — 包括前缀抑制。
+
+```ts
+// routing: { mode: 'prefix-no-default', domains: { en: 'intlayer.org', zh: 'intlayer.zh' } }
+
+getLocalizedUrl("/about", "zh");
+//     ^? "https://intlayer.zh/about" | "/about"
+
+getLocalizedPath("/about", "zh");
+//     ^? "/about"   (永远不会是源，也没有 /zh/ 前缀)
+```
+
+URL 类型是函数可以返回的两个值的 **联合**：区域设置域上的绝对 URL，以及当渲染的页面已经存在于该域上时它返回的相对 URL。`getLocalizedPath` 没有这样的歧义 — 它永远不会发出源 — 所以它保持单个字面量。
+
+共享域的区域设置在类型中也保持它们的正常前缀：
+
+```ts
+getLocalizedUrl("/about", "fr");
+//     ^? "https://intlayer.org/fr/about" | "/fr/about"
+```
+
+> 更改 `routing.domains` 后重新生成类型（`npx intlayer build`，或任何开发服务器运行）— 缩小来自生成的 `__RoutingRegistry`，而不是来自配置文件本身。
+
 ## 代理行为
 
 ### Next.js
@@ -169,6 +194,8 @@ GET intlayer.zh/about
 ### Vite
 
 `intlayerProxy` Vite 插件在开发期间应用相同的逻辑：
+
+> 从 Intlayer v9 开始，`intlayerProxy()` 已直接捆绑到 `intlayer()` 插件中，并通过 `routing.enableProxy` 选项默认启用（`true` 为默认值）。如下所示单独注册现已成为可选项 — 保留它是为了向后兼容性以及需要控制插件顺序的设置。设置 `routing.enableProxy: false` 以选择退出。请参阅 [v9 发布说明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/releases/v9.md)。
 
 ```typescript fileName="vite.config.ts"
 import { defineConfig } from "vite";

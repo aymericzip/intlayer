@@ -3,6 +3,7 @@ import {
   type AccordionProps,
 } from '@intlayer/design-system/accordion';
 import { Container } from '@intlayer/design-system/container';
+import { H4 } from '@intlayer/design-system/headers';
 import {
   MarkdownRenderer,
   type ParsedMarkdown,
@@ -105,6 +106,20 @@ export const DocumentationRender: FC<DocumentationRenderProps> = ({
             <Suspense>
               <I18nBenchmark initialFramework={props.framework} />
             </Suspense>
+          ),
+          Sponsor: ({ children, ...props }: ComponentProps<'div'>) => (
+            <Container
+              background="none"
+              transparency="xs"
+              border
+              borderColor="neutral"
+              padding="lg"
+              roundedSize="2xl"
+              {...props}
+            >
+              {/* <H4 className="mb-4 text-text/80">Sponsor</H4> */}
+              <div className="text-sm text-text/80">{children}</div>
+            </Container>
           ),
           ClickToOpenIframe,
           Step,

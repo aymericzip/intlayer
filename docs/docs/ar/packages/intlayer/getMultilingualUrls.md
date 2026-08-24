@@ -138,8 +138,6 @@ getMultilingualUrls(
 // }
 ```
 
----
-
 ### أنماط التوجيه المختلفة
 
 ```typescript
@@ -204,6 +202,12 @@ getMultilingualUrls("/dashboard", {
 
 - **اللغات غير المدعومة:**
   - يتم اعتبار اللغات الموجودة فقط في مصفوفة `locales` عند إنشاء عناوين URL.
+
+- **أنماط التوجيه:**
+  - `'prefix-no-default'`: اللغة الافتراضية بدون بادئة، والبقية لها بادئات (مثال: `/dashboard`, `/fr/dashboard`)
+  - `'prefix-all'`: جميع اللغات لها بادئات (مثال: `/en/dashboard`, `/fr/dashboard`)
+  - `'no-prefix'`: بدون بادئات لغة في عناوين URL (جميع اللغات تُرجع نفس عنوان URL)
+  - `'search-params'`: تحديد اللغة عبر معامل الاستعلام (مثال: `/dashboard?locale=fr`)
 
 ---
 

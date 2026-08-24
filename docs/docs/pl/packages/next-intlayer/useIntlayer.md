@@ -79,6 +79,9 @@ Instrukcje dotyczące konfigurowania plików deklaracji zawartości są dostępn
 
 Oto jak można zaimplementować hook `useIntlayer` na stronie Next.js, aby dynamicznie ładować zlokalizowaną zawartość w oparciu o aktualną lokalizację aplikacji:
 
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
 ```tsx fileName="src/pages/[locale]/index.tsx" codeFormat={["typescript", "esm"]}
 import { ClientComponentExample } from "@components/ClientComponentExample";
 import { ServerComponentExample } from "@components/ServerComponentExample";
@@ -103,6 +106,9 @@ const HomePage: NextPageIntlayer = async ({ params }) => {
   );
 };
 ```
+
+ </Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
 
 ```tsx fileName="src/components/ClientComponentExample.tsx" codeFormat="typescript"
 "use-client";

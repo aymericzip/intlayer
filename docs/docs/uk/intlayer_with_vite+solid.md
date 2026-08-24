@@ -47,15 +47,22 @@ author: aymericzip
 />
 
   </Tab>
+  <Tab label="Демо" value="demo">
+
+<iframe
+  src="https://intlayer-vite-solid.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Демо шаблону Intlayer Vite + Solid"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
 </Tabs>
 
 ## Table of Contents
 
 <TOC/>
-
-> Цей пакет знаходиться в розробці. Див. [issue](https://github.com/aymericzip/intlayer/issues/117) для отримання додаткової інформації. Підтримайте зацікавленість до Intlayer для Solid, поставивши лайк цьому issue
-
-<!-- Див. [шаблон додатка](https://github.com/aymericzip/intlayer-solid-template) на GitHub. -->
 
 ## Чому варто обрати Intlayer, а не альтернативи?
 
@@ -241,8 +248,6 @@ export default appContent;
 ```
 
 > Ваші декларації контенту можуть бути визначені будь-де у вашому застосунку, щойно вони будуть включені до директорії `contentDir` (за замовчуванням, `./src`). І відповідати розширенню файлів декларацій контенту (за замовчуванням, `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
-
-> Для детальнішої інформації зверніться до [документації щодо декларації контенту](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/content_file.md).
 
 </Step>
 
@@ -491,28 +496,9 @@ export const Link: ParentComponent<AnchorProps> = (props) => {
 };
 ```
 
-</Step>
-
 <Step number={11} title="Рендеринг Markdown" isOptional={true}>
 
 Intlayer підтримує рендеринг контенту Markdown безпосередньо у вашому додатку Solid, використовуючи власний внутрішній парсер. За замовчуванням Markdown обробляється як звичайний текст. Щоб відрендерити його як багатий HTML, обгорніть ваш додаток у `MarkdownProvider`.
-
-```tsx fileName="src/index.tsx"
-import { render } from "solid-js/web";
-import { MarkdownProvider } from "solid-intlayer/markdown";
-import App from "./App";
-
-const root = document.getElementById("root");
-
-render(
-  () => (
-    <MarkdownProvider>
-      <App />
-    </MarkdownProvider>
-  ),
-  root!
-);
-```
 
 Потім ви можете використовувати його у ваших компонентах:
 
@@ -743,5 +729,3 @@ console.log("SEO files generated successfully.");
 ### Розширені можливості
 
 Щоб піти далі, ви можете реалізувати [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md) або винести свій вміст, використовуючи [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md).
-
----

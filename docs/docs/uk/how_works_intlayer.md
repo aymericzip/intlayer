@@ -116,6 +116,8 @@ Intlayer також надає візуальний редактор, щоб д�
 Активувавши опцію `importMode = "dynamic"` у [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md), Intlayer використовуватиме динамічний імпорт для завантаження словників. Ця опція вимкнена за замовчуванням, щоб уникнути асинхронної обробки під час рендерингу додатка.
 
 > `@intlayer/babel` доступний за замовчуванням у пакеті `vite-intlayer`,
+
+> `@intlayer/babel` доступний за замовчуванням у пакеті `vite-intlayer`,
 >
 > `@intlayer/swc` не встановлений за замовчуванням у пакеті `next-intlayer`, оскільки плагіни SWC все ще експериментальні в Next.js.
 

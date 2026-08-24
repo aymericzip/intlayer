@@ -492,7 +492,7 @@ author: aymericzip
 
 <Tabs group="framework">
   <Tab label="React" value="react">
-  
+
     #### مكون `<MarkdownRenderer />`
 
     يعرض سلسلة Markdown مع خيارات محددة.
@@ -531,7 +531,7 @@ author: aymericzip
 
   </Tab>
   <Tab label="Next.js" value="nextjs">
-  
+
     #### مكون `<MarkdownRenderer />`
 
     يعرض سلسلة Markdown مع خيارات محددة.
@@ -957,6 +957,10 @@ author: aymericzip
   </Tab>
   <Tab label="Angular" value="angular">
 
+> MDX مدعوم — أي اسم مكون يُستخدم داخل Markdown (مثل `<MyCustomJSXComponent />`) يتم حله مقابل خريطة `components`.
+
+يمكنك أيضًا استخدام markdown renderer الخاص بك:
+
     ```typescript fileName="app.module.ts"
     import { NgModule } from '@angular/core';
     import { IntlayerMarkdownModule } from 'angular-intlayer/markdown';
@@ -1047,7 +1051,7 @@ const MyComponent = () => {
 ```
 
   </Tab>
- 
+
   <Tab label="Vue" value="vue">
 
 يحتوي Vue على مكون `<Suspense>` مضمن. قم بتغليف المكون الذي يعرض محتوى Markdown في حدود `<Suspense>`.

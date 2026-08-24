@@ -100,20 +100,6 @@ Para configurar conteúdo de inserção no seu projeto Intlayer, crie um módulo
   </Tab>
 </Tabs>
 
-```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
-{
-  "$schema": "https://intlayer.org/schema.json",
-  "key": "my_key",
-  "content": {
-    "myInsertion": {
-      "nodeType": "insertion",
-      "insertion": "Hello, my name is {{name}} and I am {{age}} years old!",
-    },
-    "myInsertion2": "Hello, my name is {{name}} and I am {{age}} years old!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
-  },
-}
-```
-
 ## Usando Conteúdo de Inserção com React Intlayer
 
 Para utilizar conteúdo de inserção dentro de um componente React, importe e use o hook `useIntlayer` do pacote `react-intlayer`. Este hook recupera o conteúdo para a chave especificada e permite que você passe um objeto que mapeia cada placeholder no seu conteúdo para o valor que deseja exibir.

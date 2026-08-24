@@ -39,10 +39,14 @@ author: aymericzip
 - **Récupérer du contenu multilingue** : Pour les applications tirant du contenu d'une base de données, l'internationalisation garantit que vous pouvez servir ce contenu dans plusieurs langues. Cela est crucial pour des plateformes comme les sites de commerce électronique ou les systèmes de gestion de contenu qui doivent afficher des descriptions de produits, des articles et d'autres contenus dans la langue préférée de l'utilisateur.
 - **Envoyer des e-mails multilingues** : Qu'il s'agisse d'e-mails transactionnels, de campagnes marketing ou de notifications, envoyer des e-mails dans la langue du destinataire peut augmenter significativement l'engagement et l'efficacité.
 
+- **Envoi d'emails multilingues** : Qu'il s'agisse d'emails transactionnels, de campagnes marketing ou de notifications, envoyer des emails dans la langue du destinataire peut augmenter considérablement l'engagement et l'efficacité.
+
 - **Notifications push multilingues** : Pour les applications mobiles, envoyer des notifications push dans la langue préférée de l'utilisateur peut améliorer l'interaction et la rétention. Cette touche personnelle peut rendre les notifications plus pertinentes et exploitables.
 
 - **Autres communications** : Toute forme de communication depuis le backend, comme les messages SMS, les alertes système ou les mises à jour de l'interface utilisateur, bénéficie d'être dans la langue de l'utilisateur, garantissant clarté et améliorant l'expérience utilisateur globale.
   En internationalisant le backend, votre application respecte non seulement les différences culturelles, mais s'aligne également mieux avec les besoins du marché mondial, ce qui en fait une étape clé pour étendre vos services à l'échelle mondiale.
+
+En internationalisant votre backend, votre application respecte non seulement les différences culturelles, mais s'aligne également mieux avec les besoins du marché mondial, ce qui en fait une étape clé pour mettre à l'échelle vos services dans le monde entier.
 
 ## Démarrage
 
@@ -200,72 +204,6 @@ app.get("/getDictionary_example", (_req, res) => {
 app.listen(3000, () => console.log(`Écoute sur le port 3000`));
 ```
 
-```typescript fileName="src/index.ts" codeFormat="typescript"
-import dictionaryExample from "./index.content";
-
-const app: Express = express();
-
-// Load internationalization request handler
-app.use(intlayer());
-
-// Routes
-app.get("/t_example", (_req, res) => {
-  res.send(
-    t({
-      en: "Example of returned content in English",
-      fr: "Exemple de contenu renvoyé en français",
-      "es-ES": "Ejemplo de contenido devuelto en español (España)",
-      "es-MX": "Ejemplo de contenido devuelto en español (México)",
-    })
-  );
-});
-
-app.get("/getIntlayer_example", (_req, res) => {
-  res.send(getIntlayer("index").exampleOfContent);
-});
-
-app.get("/getDictionary_example", (_req, res) => {
-  res.send(getDictionary(dictionaryExample).exampleOfContent);
-});
-
-// Start server
-app.listen(3000, () => console.log(`Listening on port 3000`));
-```
-
-```javascript fileName="src/index.cjs" codeFormat="commonjs"
-const express = require("express");
-const { intlayer, t, getDictionary, getIntlayer } = require("express-intlayer");
-const dictionaryExample = require("./index.content");
-
-const app = express();
-
-// Charger le gestionnaire de requêtes d'internationalisation
-app.use(intlayer());
-
-// Routes
-app.get("/t_example", (_req, res) => {
-  res.send(
-    t({
-      en: "Example of returned content in English",
-      fr: "Exemple de contenu renvoyé en français",
-      "es-ES": "Ejemplo de contenido devuelto en español (España)",
-      "es-MX": "Ejemplo de contenido devuelto en español (México)",
-    })
-  );
-});
-
-app.get("/getIntlayer_example", (_req, res) => {
-  res.send(getIntlayer("index").exampleOfContent);
-});
-
-app.get("/getDictionary_example", (_req, res) => {
-  res.send(getDictionary(dictionaryExample).exampleOfContent);
-});
-
-// Démarrer le serveur
-app.listen(3000, () => console.log(`Écoute sur le port 3000`));
-```
-
 ### Compatibilité
 
 `express-intlayer` est entièrement compatible avec :
@@ -274,6 +212,8 @@ app.listen(3000, () => console.log(`Écoute sur le port 3000`));
 - [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/next-intlayer/index.md) pour les applications Next.js
 - [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/vite-intlayer/index.md) pour les applications Vite
   Il fonctionne également parfaitement avec toute solution d'internationalisation dans divers environnements, y compris les navigateurs et les requêtes API. Vous pouvez personnaliser le middleware pour détecter la locale via les en-têtes ou les cookies :
+
+Il fonctionne également de manière transparente avec n'importe quelle solution d'internationalisation dans divers environnements, notamment les navigateurs et les requêtes API. Vous pouvez personnaliser le middleware pour détecter la locale via les en-têtes ou les cookies :
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";

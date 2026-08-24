@@ -90,10 +90,6 @@ docker run -d --name intlayer \
 
 ## 快速开始
 
-```sh
-curl -fsSL https://intlayer.org/install.sh | sh
-```
-
 安装程序执行以下操作：
 
 1. 检查 `docker` 和 `docker compose` 是否存在。
@@ -116,8 +112,6 @@ curl -fsSL https://intlayer.org/install.sh | sh
 | **redis**   | `redis:7-alpine`                  | 内部                           | 任务队列 (BullMQ) 和缓存 (ioredis) |
 | **minio**   | `minio/minio`                     | `9000` (S3), `9001` (控制台)   | 用于头像和截图的 S3 兼容对象存储   |
 | **mailpit** | `axllent/mailpit`                 | `1025` (SMTP), `8025` (Web UI) | 本地事务性电子邮件接收器           |
-
-默认情况下，内部端口（mongo、redis）不会暴露给主机。
 
 > MinIO 端口 `9000` 必须可从浏览器访问，因为上传的资产（头像、截图）直接从 `S3_PUBLIC_URL=http://localhost:9000/intlayer` 加载。
 
@@ -173,8 +167,6 @@ curl -fsSL https://intlayer.org/install.sh | sh
 | `MICROSOFT_CLIENT_ID`, `MICROSOFT_CLIENT_SECRET`         | Microsoft OAuth 登录                                   |
 | `LINKEDIN_CLIENT_ID`, `LINKEDIN_CLIENT_SECRET`           | LinkedIn OAuth 登录                                    |
 | `ATLASSIAN_CLIENT_ID`, `ATLASSIAN_CLIENT_SECRET`         | Atlassian OAuth 登录                                   |
-
----
 
 ### 全局邮件服务
 
@@ -261,15 +253,7 @@ const { data: dictionaries } = await dictionaryEndpoint(cms).getDictionaries();
 
 ## 升级
 
-在现有部署上重新运行安装程序会执行滚动升级：
-
-```sh
-curl -fsSL https://intlayer.org/install.sh | sh
-```
-
 这会拉取最新镜像并使用 `docker compose pull && docker compose up -d` 重启容器。现有卷（`mongo-data`、`redis-data`、`minio-data`）会保留——不会丢失数据。
-
-要在 `./intlayer/` 目录中手动升级：
 
 ```sh
 docker compose pull
@@ -334,13 +318,11 @@ docker compose logs mongo
 docker compose logs redis
 ```
 
+在日志的顶部附近查找 `MongoDB connection error`。
+
 ### 电子邮件未发送
 
 默认情况下，所有出站电子邮件都会被 Mailpit 捕获。打开 `http://localhost:8025` 查看已发送的消息。要发送真实电子邮件，请在 `.env` 中设置 `MAIL_PROVIDER=resend` 和 `RESEND_API_KEY=<your-key>`，然后重启后端：
-
-```sh
-docker compose restart backend
-```
 
 ### MinIO 存储桶缺失
 

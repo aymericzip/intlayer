@@ -34,6 +34,14 @@ author: aymericzip
 
 `getLocalizedUrl` 函数通过在给定的 URL 前添加指定的语言环境前缀来生成本地化的 URL。它可以处理绝对 URL 和相对 URL，确保根据配置应用正确的语言环境前缀。
 
+**主要特性:**
+
+- 只需要 2 个参数：`url` 和 `currentLocale`
+- 可选的 `options` 对象，包含 `locales`、`defaultLocale` 和 `mode`
+- 使用您项目的国际化配置作为默认值
+- 可以用最少的参数用于简单情况，或完全自定义用于复杂场景
+- 支持多种路由模式：`prefix-no-default`、`prefix-all`、`no-prefix` 和 `search-params`
+
 ---
 
 ## 函数签名
@@ -138,36 +146,6 @@ getLocalizedUrl(
 // 输出: 对于默认（英语）环境为 "/about"
 ```
 
-```javascript codeFormat="esm"
-import { getLocalizedUrl, Locales } from "intlayer";
-
-getLocalizedUrl(
-  "/about",
-  Locales.FRENCH,
-  [Locales.ENGLISH, Locales.FRENCH],
-  Locales.ENGLISH,
-  false
-);
-
-// 输出: 对于法语区域，结果为 "/fr/about"
-// 输出: 对于默认（英语）区域，结果为 "/about"
-```
-
-```javascript codeFormat="commonjs"
-const { getLocalizedUrl, Locales } = require("intlayer");
-
-getLocalizedUrl(
-  "/about",
-  Locales.FRENCH,
-  [Locales.ENGLISH, Locales.FRENCH],
-  Locales.ENGLISH,
-  false
-);
-
-// 输出: 对于法语区域，结果为 "/fr/about"
-// 输出: 对于默认（英语）区域，结果为 "/about"
-```
-
 ### 部分配置覆盖
 
 您也可以仅提供部分可选参数。该函数将对您未指定的任何参数使用您的项目配置：
@@ -243,6 +221,12 @@ getLocalizedUrl(
 
 - **不支持的语言环境：**
   - 对于未列在 `locales` 中的语言环境，函数不会添加任何前缀。
+
+- **路由模式:**
+  - `'prefix-no-default'`: 默认语言没有前缀，其他语言有前缀 (例如, `/about`, `/fr/about`)
+  - `'prefix-all'`: 所有语言都有前缀 (例如, `/en/about`, `/fr/about`)
+  - `'no-prefix'`: URL 中没有语言前缀（语言在其他地方处理）
+  - `'search-params'`: 通过查询参数指定语言 (例如, `/about?locale=fr`)
 
 ---
 

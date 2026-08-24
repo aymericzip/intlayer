@@ -113,6 +113,8 @@ Intlayer는 단순한 i18n 솔루션 그 이상으로 관리에 도움이 되는
 
 ## SvelteKit 애플리케이션에서 Intlayer 설정 단계별 가이드
 
+GitHub에서 [Application Template](https://github.com/aymericzip/intlayer-sveltekit-template)을 참조하세요.
+
 시작하려면 새 SvelteKit 프로젝트를 생성하세요. 다음은 우리가 만들 최종 구조입니다:
 
 ```bash
@@ -266,6 +268,8 @@ export default heroContent;
 </Step>
 
 <Step number={5} title="컴포넌트에서 Intlayer 사용하기">
+
+이제 모든 Svelte 컴포넌트에서 `useIntlayer` 함수를 사용할 수 있습니다. 이 함수는 로케일이 변경될 때 자동으로 업데이트되는 반응형 스토어를 반환합니다. 이 함수는 현재 로케일을 자동으로 존중합니다 (SSR 및 클라이언트 측 네비게이션 모두).
 
 접두사를 사용해야 합니다 (예: `$content.title`).
 
@@ -612,6 +616,8 @@ goto(localizedPath); // 로케일에 따라 /en/about 또는 /fr/about로 이동
 
 SvelteKit 애플리케이션에 백엔드 프록시를 추가하려면 `vite-intlayer` 플러그인이 제공하는 `intlayerProxy` 함수를 사용할 수 있습니다. 이 플러그인은 URL, 쿠키 및 브라우저 언어 설정을 기반으로 사용자에게 가장 적합한 로케일을 자동으로 감지합니다.
 
+> Intlayer v9부터 `intlayerProxy()`는 `intlayer()` 플러그인에 직접 번들되어 있으며 `routing.enableProxy` 옵션(`true`가 기본값)을 통해 기본적으로 활성화됩니다. 아래와 같이 별도로 등록하는 것은 이제 선택 사항이며, 역호환성 및 플러그인 순서를 제어해야 하는 설정을 위해 유지됩니다. `routing.enableProxy: false`로 설정하여 옵트아웃할 수 있습니다. [v9 릴리스 노트](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/releases/v9.md)를 참조하세요.
+
 ```ts fileName="vite.config.ts"
 import { defineConfig } from "vite";
 import { intlayer } from "vite-intlayer";
@@ -659,52 +665,41 @@ intlayer 에디터 선택기를 시각화하려면 intlayer 콘텐츠에서 컴�
 
 </Step>
 
-</Steps>
+<Step number={12} title="Extract the content of your components" isOptional={true}>
 
-### Git 구성
+기존 codebase가 있다면 수천 개의 파일을 변환하는 것은 시간이 많이 걸릴 수 있습니다.
 
-Intlayer가 생성한 파일은 무시하는 것이 권장됩니다.
+이 프로세스를 간편하게 하기 위해 Intlayer는 컴포넌트를 변환하고 콘텐츠를 추출하는 [compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md) / [extractor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/extract.md)를 제공합니다.
 
-```plaintext fileName=".gitignore"
-# Intlayer가 생성한 파일 무시
-.intlayer
-```
-
----
-
-<Steps>
-
-<Step number={1} title="컴포넌트 콘텐츠 추출" isOptional={true}>
-
-기존 코드베이스가 있는 경우 수천 개의 파일을 변환하는 데 시간이 많이 걸릴 수 있습니다.
-
-이 프로세스를 용이하게 하기 위해 Intlayer는 컴포넌트를 변환하고 콘텐츠를 추출하기 위한 [컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md) / [추출기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/extract.md)를 제안합니다.
-
-설정하려면 `intlayer.config.ts` 파일에 `compiler` 섹션을 추가할 수 있습니다.
+이를 설정하려면 `intlayer.config.ts` 파일에 `compiler` 섹션을 추가할 수 있습니다:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
-  // ... 나머지 구성
+  // ... 나머지 config
   compiler: {
     /**
-     * 컴파일러 활성화 여부를 나타냅니다.
+     * 컴파일러가 활성화되어야 하는지 여부를 나타냅니다.
      */
     enabled: true,
 
     /**
-     * 출력 파일 경로를 정의합니다.
+     * 출력 파일 경로를 정의합니다
      */
     output: ({ fileName, extension }) => `./${fileName}${extension}`,
 
     /**
-     * 변환 후 컴포넌트를 저장할지 여부를 나타냅니다. 그렇게 하면 컴파일러를 한 번만 실행하여 앱을 변환한 다음 제거할 수 있습니다.
+     * 변환 후 컴포넌트를 저장할지 여부를 나타냅니다.
+     *
+     * - `true`인 경우, 컴파일러는 디스크의 컴포넌트 파일을 다시 작성합니다. 따라서 변환은 영구적이며, 컴파일러는 다음 프로세스에서 변환을 건너뜁니다. 이런 방식으로 컴파일러는 앱을 변환한 후 제거할 수 있습니다.
+     *
+     * - `false`인 경우, 컴파일러는 `useIntlayer()` 함수 호출을 빌드 출력의 코드에만 주입하고 기본 codebase를 손상되지 않은 상태로 유지합니다. 변환은 메모리에서만 수행됩니다.
      */
     saveComponents: false,
 
     /**
-     * 사전 키 접두사
+     * 딕셔너리 키 접두사
      */
     dictionaryKeyPrefix: "",
   },
@@ -714,9 +709,9 @@ export default config;
 ```
 
 <Tabs>
- <Tab value='추출 명령'>
+ <Tab value='Extract command'>
 
-컴포넌트를 변환하고 콘텐츠를 추출하기 위해 추출기를 실행합니다
+extractor를 실행하여 컴포넌트를 변환하고 콘텐츠를 추출합니다
 
 ```bash packageManager="npm"
 npx intlayer extract
@@ -735,11 +730,11 @@ bun x intlayer extract
 ```
 
  </Tab>
- <Tab value='Babel 컴파일러'>
+ <Tab value='Babel compiler'>
 
-> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
+> v9부터 `intlayerCompiler`는 `intlayer` 플러그인에 포함되어 있습니다. 따라서 수동으로 추가할 필요가 없습니다.
 
-`vite.config.ts`를 업데이트하여 `intlayerCompiler` 플러그인을 포함합니다.
+`vite.config.ts`를 업데이트하여 `intlayerCompiler` 플러그인을 포함시킵니다:
 
 ```ts fileName="vite.config.ts"
 import { defineConfig } from "vite";
@@ -748,7 +743,7 @@ import { intlayer, intlayerCompiler } from "vite-intlayer";
 export default defineConfig({
   plugins: [
     intlayer(),
-    intlayerCompiler(), // Adds the compiler plugin
+    intlayerCompiler(), // compiler plugin을 추가합니다
   ],
 });
 ```
@@ -766,14 +761,25 @@ yarn build # 또는 yarn dev
 ```
 
 ```bash packageManager="bun"
-bun run build # Or bun run dev
+bun run build # 또는 bun run dev
 ```
 
- </Tab>
+</Tab>
 </Tabs>
 </Step>
 
 </Steps>
+
+### Git 구성
+
+Intlayer가 생성한 파일은 무시하는 것이 권장됩니다.
+
+```plaintext fileName=".gitignore"
+# Intlayer가 생성한 파일 무시
+.intlayer
+```
+
+---
 
 ### 더 나아가기
 

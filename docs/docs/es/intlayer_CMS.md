@@ -255,6 +255,14 @@ Para la guía de configuración completa (activación, inicio del servidor Live 
 
 ### Servicios iniciados
 
+```bash packageManager="npm"
+npm install @intlayer/api
+```
+
+```bash packageManager="yarn"
+yarn add @intlayer/api
+```
+
 | Servicio                   | Puerto(s)                            | Propósito                                             |
 | -------------------------- | ------------------------------------ | ----------------------------------------------------- |
 | **app** (panel de control) | `3000`                               | Interfaz CMS TanStack Start                           |
@@ -269,6 +277,11 @@ Chromium (para la generación de capturas de pantalla con Puppeteer) está inclu
 ### Conectar tu proyecto a una instancia auto-alojada
 
 Apunta tu configuración de Intlayer a tu propio backend y panel de control en lugar de `intlayer.org`:
+
+1. `createIntlayerCMS` — crea un **autenticador** ligero. Solo lleva las credenciales y el token de acceso gestionado; no sabe nada sobre ningún dominio específico.
+2. `dictionaryEndpoint`, `projectEndpoint`, … — **vinculadores de endpoint** por dominio, cada uno importado desde su propia ruta (`@intlayer/api/dictionary`, `@intlayer/api/project`, …). Pasas el autenticador al endpoint que necesitas.
+
+Debido a que cada endpoint se importa por separado, tu bundle incluye solo los dominios que realmente usas — importar `dictionaryEndpoint` nunca incluye el proyecto, AI, u ningún otro cliente de dominio.
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import type { IntlayerConfig } from "intlayer";
@@ -295,6 +308,9 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
+> [!WARNING]
+> Las credenciales del CMS (`clientId` / `clientSecret`) otorgan **acceso de escritura** a tu contenido. Solo crea el autenticador en el **lado del servidor** (server actions, route handlers, scripts, CI). Nunca las importes en código del lado del cliente ni expongas tus credenciales al navegador.
+
 Establece las variables de entorno correspondientes en tu proyecto:
 
 ```sh
@@ -307,8 +323,6 @@ INTLAYER_CLIENT_SECRET=<your-client-secret>
 Crea credenciales de acceso en tu panel de control auto-alojado en `http://localhost:3000/projects`.
 
 ### SDK `@intlayer/api`: apuntar a un backend auto-alojado
-
-Al usar el SDK de forma programática, pasa `backendURL` explícitamente a `createIntlayerCMS`:
 
 ```typescript fileName="cms.ts" codeFormat="typescript"
 import { createIntlayerCMS } from "@intlayer/api";
@@ -327,8 +341,6 @@ const { data: dictionaries } = await dictionaryEndpoint(cms).getDictionaries();
 
 ### Características opcionales
 
-Estas características requieren cuentas externas y funcionan correctamente cuando sus claves no están presentes en el `.env` auto-alojado:
-
 | Característica                         | Variable(s) de entorno                          |
 | -------------------------------------- | ----------------------------------------------- |
 | Traducción / auditoría con IA          | `OPENAI_API_KEY`                                |
@@ -339,8 +351,6 @@ Estas características requieren cuentas externas y funcionan correctamente cuan
 | Correo transaccional via Resend        | `RESEND_API_KEY` (por defecto: Mailpit SMTP)    |
 
 ### Persistencia de datos y actualizaciones
-
-Tres volúmenes de Docker contienen todo el estado persistente: `mongo-data`, `redis-data` y `minio-data`. Sobreviven a los reinicios y actualizaciones de contenedores. Volver a ejecutar el instalador descarga las últimas imágenes y realiza un `docker compose up -d` progresivo.
 
 Puertos expuestos en el host:
 
@@ -353,8 +363,6 @@ Puertos expuestos en el host:
 | `9001` | Consola de MinIO                                                    |
 
 Para una referencia completa de todas las variables de entorno disponibles y opciones avanzadas (proxy inverso, dominios personalizados, respaldo/restauración), consulta la [Guía de Auto-alojamiento](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/self_hosting.md).
-
----
 
 ### Extrayendo un método único
 

@@ -31,6 +31,8 @@ author: aymericzip
 
 Hàm `getTranslationContent` lấy nội dung tương ứng với một locale cụ thể từ một tập hợp nội dung ngôn ngữ có thể tùy chỉnh. Nếu locale được chỉ định không được tìm thấy, hàm sẽ mặc định trả về nội dung của locale mặc định được cấu hình trong dự án.
 
+Để biết thêm chi tiết về cách khai báo translations, hãy xem [tài liệu Translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/translation.md).
+
 ## Tham số
 
 - `languageContent: CustomizableLanguageContent<Content>`

@@ -52,8 +52,6 @@ bun x intlayer projects list
 
   > 例: `npx intlayer projects list --base-dir /path/to/workspace`
 
-  > 例: `npx intlayer projects list --base-dir /path/to/workspace`
-
 - **`--git-root`**: ベースディレクトリではなく git ルートディレクトリから検索します。モノレポや git リポジトリ内のすべての Intlayer プロジェクトを見つけるのに便利です。
 
   > 例: `npx intlayer projects list --git-root`

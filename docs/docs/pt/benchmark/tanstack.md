@@ -194,6 +194,8 @@ O `Paraglide` oferece uma abordagem inovadora e bem pensada. Mesmo assim, neste 
 
 O `Tolgee` resolve muitos dos problemas mencionados anteriormente. Achei mais difícil de começar com ele do que com outras ferramentas com abordagens semelhantes. Ele não fornece segurança de tipos, o que também torna muito difícil encontrar chaves ausentes no momento da compilação. Tive que envolver as APIs do Tolgee com as minhas para adicionar a detecção de chaves ausentes.
 
+O package é bastante pesado (~11.1kb, o que é mais de 2× `react-intlayer`).
+
 No TanStack Start também tive problemas de reatividade: na mudança de localidade, tive que forçar o provedor a renderizar novamente e me inscrever em eventos de mudança de localidade para que o carregamento em outro idioma se comportasse corretamente.
 
 **(use-intl)** (`use-intl@4.9.1`):
@@ -208,6 +210,8 @@ O `react-i18next` é provavelmente a opção mais popular porque foi uma das pri
 
 Ainda assim, compartilha os mesmos grandes pontos negativos que as stacks baseadas em `t('a.b.c')`: as otimizações são possíveis, mas consomem muito tempo, e grandes projetos correm o risco de cair em más práticas (namespaces + carregamento dinâmico + tipos).
 
+O package é especialmente pesado (~17.3kb, o que é aproximadamente 3.5× `react-intlayer`).
+
 Os formatos de mensagem também divergem: o `use-intl` usa ICU MessageFormat, enquanto o `i18next` usa seu próprio formato - o que complica o ferramental ou migrações se você os misturar.
 
 **(Lingui)** (`@lingui/core@5.3.0`):
@@ -217,6 +221,8 @@ O `Lingui` é frequentemente elogiado. Pessoalmente, achei o fluxo de trabalho e
 **(react-intl)** (`react-intl@10.1.1`):
 
 O `react-intl` é uma implementação de alto desempenho da equipe do Format.js. O DX permanece prolixo: `const intl = useIntl()` + `intl.formatMessage({ id: "xx.xx" })` adiciona complexidade, trabalho extra de JavaScript e vincula a instância global de i18n a muitos nós na árvore React.
+
+O package também é pesado (~14.4kb, o que é cerca de 3× `react-intlayer`).
 
 ### 4 - Recomendações
 

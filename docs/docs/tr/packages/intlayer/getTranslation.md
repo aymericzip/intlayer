@@ -31,6 +31,8 @@ author: aymericzip
 
 `getTranslationContent` fonksiyonu, özelleştirilebilir dil içeriğinin bir kümesinden belirli bir yerel ayara karşılık gelen içeriği alır. Belirtilen yerel ayar bulunamazsa, projede yapılandırılan varsayılan yerel ayar için içeriği döndürür.
 
+Çevirileri nasıl bildireceğiniz hakkında daha fazla ayrıntı için bkz. [Çeviri belgeleri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/translation.md).
+
 ## Parametreler
 
 - `languageContent: CustomizableLanguageContent<Content>`

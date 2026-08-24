@@ -42,8 +42,6 @@ La Sincronizzazione Live consente alla tua app di riflettere le modifiche ai con
 
 ## Attivare la sincronizzazione live
 
-> Live Sync richiede una connessione continua al server ed è disponibile nel piano enterprise.
-
 Abilita Live Sync aggiornando la configurazione di Intlayer:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
@@ -84,6 +82,19 @@ export default config;
 ```
 
 Avvia il server Live Sync per avvolgere la tua applicazione:
+
+Esempio utilizzando un server standalone:
+
+```json5 fileName="package.json"
+{
+  "scripts": {
+    // ... altri script
+    "live:start": "npx intlayer live",
+  },
+}
+```
+
+Puoi anche utilizzare il tuo application server in parallelo utilizzando l'argomento `--process`.
 
 Esempio con Next.js:
 

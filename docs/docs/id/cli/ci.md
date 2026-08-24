@@ -128,6 +128,8 @@ bun x intlayer ci fill --verbose --mode complete
 
 ### Menggunakan di pipeline CI/CD
 
+Menjalankan `intlayer init` membuat dua workflow GitHub Actions yang siap digunakan untuk Anda (lihat [Scaffolded GitHub Actions](#scaffolded-github-actions) di bawah). Contoh di sini menunjukkan setup yang setara menggunakan perintah `ci` untuk monorepo, di mana credentials disuntikkan per project dari `INTLAYER_PROJECT_CREDENTIALS`.
+
 Dalam konfigurasi CI/CD Anda (misalnya, GitHub Actions, GitLab CI), setel `INTLAYER_PROJECT_CREDENTIALS` sebagai rahasia:
 
 ```yaml

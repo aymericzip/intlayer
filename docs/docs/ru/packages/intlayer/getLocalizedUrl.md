@@ -143,36 +143,6 @@ getLocalizedUrl(
 // Вывод: "/about" для локали по умолчанию (английский)
 ```
 
-```javascript codeFormat="esm"
-import { getLocalizedUrl, Locales } from "intlayer";
-
-getLocalizedUrl(
-  "/about",
-  Locales.FRENCH,
-  [Locales.ENGLISH, Locales.FRENCH],
-  Locales.ENGLISH,
-  false
-);
-
-// Вывод: "/fr/about" для французской локали
-// Вывод: "/about" для локали по умолчанию (английский)
-```
-
-```javascript codeFormat="commonjs"
-const { getLocalizedUrl, Locales } = require("intlayer");
-
-getLocalizedUrl(
-  "/about",
-  Locales.FRENCH,
-  [Locales.ENGLISH, Locales.FRENCH],
-  Locales.ENGLISH,
-  false
-);
-
-// Вывод: "/fr/about" для французской локали
-// Вывод: "/about" для локали по умолчанию (английский)
-```
-
 ### Частичное переопределение конфигурации
 
 Вы также можете предоставить только некоторые необязательные параметры. Функция будет использовать конфигурацию вашего проекта для любых параметров, которые вы не указали:
@@ -248,6 +218,12 @@ getLocalizedUrl(
 
 - **Неподдерживаемые локали:**
   - Для локалей, не указанных в списке `locales`, функция не применяет никакого префикса.
+
+- **Режимы маршрутизации:**
+  - `'prefix-no-default'`: Локаль по умолчанию не имеет префикса, остальные имеют (например, `/about`, `/fr/about`)
+  - `'prefix-all'`: Все локали имеют префиксы (например, `/en/about`, `/fr/about`)
+  - `'no-prefix'`: Нет префиксов локалей в URL (локаль обрабатывается в другом месте)
+  - `'search-params'`: Локаль указана через параметр запроса (например, `/about?locale=fr`)
 
 ---
 

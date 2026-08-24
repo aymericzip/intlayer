@@ -215,7 +215,32 @@ export default withIntlayer(nextConfig);
 > Plugin Next.js `withIntlayer()` được sử dụng để tích hợp Intlayer với Next.js. Nó đảm bảo việc xây dựng các tệp từ điển và theo dõi chúng trong chế độ dev. Nó xác định các biến môi trường Intlayer bên trong môi trường [Webpack](https://webpack.js.org/) hoặc [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack). Ngoài ra, nó cung cấp các alias để tối ưu hóa hiệu suất và hoạt động mượt mà với Server Components.
 > </Step>
 
+</Step>
+
 <Step number={4} title="Phát hiện ngôn ngữ trên trang của bạn">
+
+Trình biên dịch Intlayer yêu cầu Babel để trích xuất và tối ưu hóa nội dung của bạn. Cập nhật `babel.config.js` (hoặc `babel.config.json`) của bạn để bao gồm các plugin Intlayer:
+
+```typescript fileName="babel.config.js"
+const {
+  intlayerExtractBabelPlugin,
+  intlayerOptimizeBabelPlugin,
+  getExtractPluginOptions,
+  getOptimizePluginOptions,
+} = require("@intlayer/babel");
+
+module.exports = {
+  presets: ["next/babel"],
+  plugins: [
+    [intlayerExtractBabelPlugin, getExtractPluginOptions()],
+    [intlayerOptimizeBabelPlugin, getOptimizePluginOptions()],
+  ],
+};
+```
+
+</Step>
+
+<Step number={5} title="Phát hiện Locale trong các trang của bạn">
 
 Dọn dẹp nội dung `RootLayout` của bạn và thay thế bằng ví dụ bên dưới:
 
@@ -321,6 +346,9 @@ export default async function Page() {
 }
 ```
 
+<Tabs>
+  <Tab label='Intlayer >=9.4' value='>=9.4'>
+
 ```tsx fileName="src/app/page.tsx"
 import { type FC } from "react";
 import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
@@ -348,13 +376,48 @@ export default async function Page() {
 }
 ```
 
+- **`IntlayerProvider`** được gắn một lần trong root layout. Nó cung cấp locale cho cả server và client components, vì vậy các trang không còn phải tự bọc chúng nữa.
+- Mà không có đoạn đường dẫn `[locale]`, locale luôn đến từ request — header `x-intlayer-locale` được thiết lập bởi Intlayer proxy, sau đó là locale cookie — mà các server hooks đọc trên chính chúng khi provider chưa chạy.
+
   </Tab>
+
 </Tabs>
+
+```tsx fileName="src/app/page.tsx"
+import { type FC } from "react";
+import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
+import { getLocale } from "next-intlayer/server";
+
+const PageContent: FC = () => {
+  const content = useIntlayer("page-content");
+
+  return (
+    <>
+      <p>{content.getStartedByEditing}</p>
+      <code>src/app/page.tsx</code>
+    </>
+  );
+};
+
+export default async function Page() {
+  const locale = await getLocale();
+
+  return (
+    <IntlayerServerProvider locale={locale}>
+      <PageContent />
+    </IntlayerServerProvider>
+  );
+}
+```
 
 - **`IntlayerClientProvider`** được sử dụng để cung cấp ngôn ngữ cho các thành phần con phía client.
 - Trong khi **`IntlayerServerProvider`** được sử dụng để cung cấp ngôn ngữ cho các thành phần con phía server.
 
   > Layout and page cannot share a common server context because the server context system is based on a per-request data store (via [React's cache](https://react.dev/reference/react/cache) mechanism), causing each "context" to be re-created for different segments of the application. Placing the provider in a shared layout would break this isolation, preventing the correct propagation of the server context values to your server components.
+
+  </Tab>
+
+</Tabs>
 
 </Step>
 
@@ -412,6 +475,8 @@ export const config = {
 ```
 
 > `intlayerProxy` được sử dụng để phát hiện ngôn ngữ ưu tiên của người dùng và chuyển hướng họ đến URL thích hợp như được xác định trong [các thiết lập của tệp cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md). Thêm vào đó, nó cho phép lưu trữ ngôn ngữ ưu tiên của người dùng trong cookie.
+
+> Kể từ Intlayer v9, middleware này tuân thủ tùy chọn `routing.enableProxy` (`true` theo mặc định). Đặt `routing.enableProxy: false` trong cấu hình của bạn để biến nó thành pass-through mà không cần xóa tệp này. Xem [ghi chú phát hành v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/releases/v9.md).
 
 </Step>
 
@@ -471,6 +536,8 @@ export const LocaleSwitcher: FC = () => {
 
 Khi sử dụng `next-intlayer`, các từ điển mặc định được bao gồm trong bundle cho từng trang. Để tối ưu hóa kích thước bundle, Intlayer cung cấp một plugin SWC tùy chọn giúp thay thế một cách thông minh các lệnh gọi `useIntlayer` bằng macro. Điều này đảm bảo rằng các từ điển chỉ được bao gồm trong bundle của những trang thực sự sử dụng chúng.
 
+Plugin `@intlayer/babel` đã tích hợp tối ưu hóa bundling (xem `babel.config.js`). Tuy nhiên, plugin `@intlayer/swc` có hiệu suất cao hơn. Nếu bạn loại bỏ plugin `@intlayer/babel`, bạn có thể sử dụng plugin `@intlayer/swc`.
+
 Để bật tính năng tối ưu hóa này, hãy cài đặt gói `@intlayer/swc`. Sau khi cài đặt, `next-intlayer` sẽ tự động phát hiện và sử dụng plugin:
 
 ```bash packageManager="npm"
@@ -495,6 +562,8 @@ bun add @intlayer/swc --dev
 
 > Lưu ý: Nếu bạn thiết lập tùy chọn (trong cấu hình từ điển) `importMode: 'dynamic'` hoặc `importMode: 'fetch'`, nó sẽ phụ thuộc vào Suspense, vì vậy bạn sẽ cần bọc các lệnh gọi `useIntlayer` trong một ranh giới `Suspense`. Điều này có nghĩa là bạn không thể sử dụng `useIntlayer` trực tiếp ở cấp cao nhất của thành phần Page / Layout.
 > </Step>
+
+</Step>
 
 <Step number={1} title="Trích xuất nội dung các thành phần của bạn" isOptional={true}>
 

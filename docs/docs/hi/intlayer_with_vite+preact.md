@@ -153,10 +153,6 @@ bun add vite-intlayer --dev
 
   मुख्य पैकेज जो कॉन्फ़िगरेशन प्रबंधन, अनुवाद, [सामग्री घोषणा](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/content_file.md), ट्रांसपाइलेशन, और [CLI कमांड्स](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/index.md) के लिए अंतरराष्ट्रीयकरण उपकरण प्रदान करता है।
 
-- **preact-intlayer**
-
-  वह पैकेज जो Intlayer को Preact एप्लिकेशन के साथ एकीकृत करता है। यह Preact अंतरराष्ट्रीयकरण के लिए संदर्भ प्रदाता और हुक्स प्रदान करता है।
-
 - **vite-intlayer**
 
   इसमें Vite प्लगइन शामिल है जो Intlayer को [Vite बंडलर](https://vite.dev/guide/why.html#why-bundle-for-production) के साथ एकीकृत करता है, साथ ही उपयोगकर्ता की पसंदीदा लोकल का पता लगाने, कुकीज़ प्रबंधित करने, और URL पुनर्निर्देशन को संभालने के लिए मिडलवेयर भी शामिल है।
@@ -269,94 +265,6 @@ const appContent = {
 } satisfies Dictionary;
 
 export default appContent;
-```
-
-```javascript fileName="src/app.content.mjs" codeFormat="esm"
-import { t } from "intlayer";
-// import { h } from 'preact'; // यदि आप सीधे .mjs में JSX का उपयोग करते हैं तो आवश्यक है
-
-/** @type {import('intlayer').Dictionary} */
-const appContent = {
-  key: "app",
-  content: {
-    viteLogo: t({
-      en: "Vite logo",
-      fr: "Logo Vite",
-      es: "Logo Vite",
-    }),
-    preactLogo: t({
-      en: "Preact logo",
-      fr: "Logo Preact",
-      es: "Logo Preact",
-    }),
-
-    title: "Vite + Preact",
-
-    count: t({
-      en: "count is ",
-      fr: "le compte est ",
-      es: "el recuento es ",
-    }),
-
-    edit: t({
-      en: "Edit src/app.jsx and save to test HMR",
-      fr: "Éditez src/app.jsx et enregistrez pour tester HMR",
-      es: "Edita src/app.jsx y guarda para probar HMR",
-    }),
-
-    readTheDocs: t({
-      en: "Click on the Vite and Preact logos to learn more",
-      fr: "Cliquez sur les logos Vite et Preact pour en savoir plus",
-      es: "Haga clic en los logotipos de Vite y Preact para obtener más información",
-    }),
-  },
-};
-
-export default appContent;
-```
-
-```javascript fileName="src/app.content.cjs" codeFormat="commonjs"
-const { t } = require("intlayer");
-// const { h } = require('preact'); // यदि आप सीधे .cjs में JSX का उपयोग करते हैं तो आवश्यक है
-
-/** @type {import('intlayer').Dictionary} */
-const appContent = {
-  key: "app",
-  content: {
-    viteLogo: t({
-      en: "Vite logo",
-      fr: "Logo Vite",
-      es: "Logo Vite",
-    }),
-    preactLogo: t({
-      en: "Preact logo",
-      fr: "Logo Preact",
-      es: "Logo Preact",
-    }),
-
-    title: "Vite + Preact",
-
-    count: t({
-      en: "count is ",
-      fr: "le compte est ",
-      es: "el recuento es ",
-    }),
-
-    edit: t({
-      en: "Edit src/app.tsx and save to test HMR",
-      fr: "Éditez src/app.tsx et enregistrez pour tester HMR",
-      es: "Edita src/app.tsx y guarda para probar HMR",
-    }),
-
-    readTheDocs: t({
-      en: "Click on the Vite and Preact logos to learn more",
-      fr: "Cliquez sur les logos Vite et Preact pour en savoir plus",
-      es: "Haga clic en los logotipos de Vite et Preact pour en savoir plus",
-    }),
-  },
-};
-
-module.exports = appContent;
 ```
 
 ```json fileName="src/app.content.json" codeFormat="json"
@@ -732,6 +640,10 @@ const App: FunctionalComponent = () => (
 export default App;
 ```
 
+- **language** (`lang`) attribute को सुनिश्चित करें कि यह वर्तमान locale को सही तरीके से प्रतिफलित करता है, जो SEO और browser behavior के लिए महत्वपूर्ण है।
+- **text direction** (`dir`) को locale के अनुसार समायोजित करें, विभिन्न पढ़ने के क्रम वाली भाषाओं के लिए readability और usability को बढ़ाते हुए।
+- एक अधिक **accessible** experience प्रदान करें, क्योंकि assistive technologies इन attributes पर निर्भर हैं ताकि optimally कार्य करें।
+
 </Step>
 
 <Step number={10} title="एक स्थानीयकृत लिंक कॉम्पोनेंट बनाना" isOptional={true}>
@@ -900,6 +812,8 @@ bun x intlayer extract
  </Tab>
  <Tab value='बैबेल कंपाइलर'>
 
+> v9 के बाद से, `intlayerCompiler` को `intlayer` plugin में शामिल किया गया है। इसलिए आपको इसे मैन्युअल रूप से जोड़ने की आवश्यकता नहीं है।
+
 intlayerCompiler प्लगइन शामिल करने के लिए अपनी `vite.config.ts` अपडेट करें:
 
 ```ts fileName="vite.config.ts"
@@ -941,14 +855,7 @@ bun run build # Or bun run dev
 
 ### Git कॉन्फ़िगरेशन
 
-यह अनुशंसा की जाती है कि Intlayer द्वारा उत्पन्न फ़ाइलों को अनदेखा किया जाए। यह आपको उन्हें अपने Git रिपॉजिटरी में कमिट करने से बचने की अनुमति देता है।
-
 ऐसा करने के लिए, आप अपनी `.gitignore` फ़ाइल में निम्नलिखित निर्देश जोड़ सकते हैं:
-
-```bash
-#  Intlayer द्वारा उत्पन्न फ़ाइलों को अनदेखा करें
-.intlayer
-```
 
 #### साइटमैप
 

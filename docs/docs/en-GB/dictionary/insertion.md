@@ -34,10 +34,6 @@ In Intlayer, insertion content is achieved through the `insertion` function, whi
 
 When integrated with React Intlayer or Next Intlayer, you can simply provide the data object containing the values for each placeholder, and Intlayer will automatically render the content with the placeholders replaced.
 
-In Intlayer, insertion content is achieved through the `insertion` function, which identifies placeholder fields in a string (such as `{{name}}` or `{{age}}`) that can be replaced dynamically at runtime. This approach allows you to create flexible, template-like strings where specific parts of the content are determined by data passed in from your application.
-
-When integrated with React Intlayer or Next Intlayer, you can simply provide the data object containing the values for each placeholder, and Intlayer will automatically render the content with the placeholders replaced.
-
 ## Setting Up Insertion Content
 
 To set up insertion content in your Intlayer project, create a content module that includes your insertion definitions.

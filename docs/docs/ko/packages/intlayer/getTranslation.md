@@ -31,6 +31,8 @@ author: aymericzip
 
 `getTranslationContent` 함수는 사용자 정의 가능한 언어 콘텐츠 집합에서 특정 로케일에 해당하는 콘텐츠를 가져옵니다. 지정된 로케일을 찾을 수 없는 경우, 프로젝트에 설정된 기본 로케일의 콘텐츠를 반환합니다.
 
+번역 선언 방법에 대한 자세한 내용은 [번역 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/translation.md)를 참조하세요.
+
 ## 매개변수
 
 - `languageContent: CustomizableLanguageContent<Content>`

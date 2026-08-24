@@ -345,6 +345,9 @@ export default async function Page() {
 }
 ```
 
+<Tabs>
+  <Tab label='Intlayer >=9.4' value='>=9.4'>
+
 ```tsx fileName="src/app/page.tsx"
 import { type FC } from "react";
 import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
@@ -372,13 +375,48 @@ export default async function Page() {
 }
 ```
 
+- **`IntlayerProvider`** jest montowany raz, w root layout. Dostarcza locale zarówno komponentom serwerowym, jak i klienckim, więc strony nie zawijają się już same w sobie.
+- Bez segmentu ścieżki `[locale]` locale zawsze pochodzi z żądania — nagłówka `x-intlayer-locale` ustawionego przez proxy Intlayer, a następnie pliku cookie locale — które hooki serwerowe czytają samodzielnie, gdy provider nie został uruchomiony.
+
   </Tab>
+
 </Tabs>
+
+```tsx fileName="src/app/page.tsx"
+import { type FC } from "react";
+import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
+import { getLocale } from "next-intlayer/server";
+
+const PageContent: FC = () => {
+  const content = useIntlayer("page-content");
+
+  return (
+    <>
+      <p>{content.getStartedByEditing}</p>
+      <code>src/app/page.tsx</code>
+    </>
+  );
+};
+
+export default async function Page() {
+  const locale = await getLocale();
+
+  return (
+    <IntlayerServerProvider locale={locale}>
+      <PageContent />
+    </IntlayerServerProvider>
+  );
+}
+```
 
 - **`IntlayerClientProvider`** służy do dostarczania języka dzięcom po stronie klienta (Client Side).
 - **`IntlayerServerProvider`** służy do dostarczania języka dzięcom po stronie serwera (Server Side).
 
   > Layout and page cannot share a common server context because the server context system is based on a per-request data store (via [React's cache](https://react.dev/reference/react/cache) mechanism), causing each "context" to be re-created for different segments of the application. Placing the provider in a shared layout would break this isolation, preventing the correct propagation of the server context values to your server components.
+
+  </Tab>
+
+</Tabs>
 
 </Step>
 
@@ -436,6 +474,8 @@ export const config = {
 ```
 
 > `intlayerProxy` służy do wykrywania preferowanego języka użytkownika i przekierowywania go na odpowiedni adres URL, zgodnie z ustawieniami w [pliku konfiguracyjnym](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md). Dodatkowo umożliwia zapisanie preferowanego języka w ciasteczku (cookie).
+
+> Od wersji Intlayer v9, to middleware respektuje opcję `routing.enableProxy` (`true` domyślnie). Ustaw `routing.enableProxy: false` w swojej konfiguracji, aby przekształcić go w pass-through bez usuwania tego pliku. Zobacz [notatki wydania v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/releases/v9.md).
 
 </Step>
 
@@ -495,6 +535,8 @@ export const LocaleSwitcher: FC = () => {
 
 Podczas korzystania z `next-intlayer` słowniki są domyślnie dołączane do bundle'a dla każdej strony. Aby zoptymalizować rozmiar bundle'a, Intlayer udostępnia opcjonalną wtyczkę SWC, która inteligentnie zastępuje wywołania `useIntlayer` za pomocą makr. Zapewnia to, że słowniki są dołączane tylko do bundle'i stron, które faktycznie z nich korzystają.
 
+Plugin `@intlayer/babel` już integruje optymalizację bundlingu (zobacz `babel.config.js`). Jednak plugin `@intlayer/swc` jest bardziej wydajny. Jeśli usuniesz plugin `@intlayer/babel`, możesz użyć pluginu `@intlayer/swc`.
+
 Aby włączyć tę optymalizację, zainstaluj pakiet `@intlayer/swc`. Po zainstalowaniu `next-intlayer` automatycznie wykryje i użyje wtyczki:
 
 ```bash packageManager="npm"
@@ -519,6 +561,8 @@ bun add @intlayer/swc --dev
 
 > Uwaga: Jeśli ustawisz opcję `importMode: 'dynamic'` lub `importMode: 'fetch'` (w konfiguracji słownika), będzie ona polegać na Suspense, więc będziesz musiał owinąć wywołania `useIntlayer` w granicę `Suspense`. Oznacza to, że nie będziesz mógł używać `useIntlayer` bezpośrednio na najwyższym poziomie komponentu Strony / Layoutu.
 > </Step>
+
+</Step>
 
 <Step number={11} title="Wyodrębnij zawartość swoich komponentów" isOptional={true}>
 

@@ -168,8 +168,6 @@ bun add intlayer react-intlayer
 bun add vite-intlayer --dev
 ```
 
-- **intlayer**
-
 Das Kernpaket, das Internationalisierungswerkzeuge für Konfigurationsmanagement, Übersetzung, [Inhaltserklärung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/content_file.md), Transpilierung und [CLI-Befehle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/index.md) bereitstellt.
 
 - **react-intlayer**
@@ -516,6 +514,8 @@ Parallel dazu können Sie auch das `intlayerProxy` verwenden, um serverseitiges 
 
 > Beachten Sie, dass Sie für die Verwendung von `intlayerProxy` in der Produktion das Paket `vite-intlayer` von `devDependencies` zu `dependencies` verschieben müssen.
 
+> Seit Intlayer v9 ist `intlayerProxy()` direkt im `intlayer()` Plugin enthalten und wird standardmäßig über die `routing.enableProxy` Option (`true` standardmäßig) aktiviert. Das separate Registrieren wie unten gezeigt ist jetzt optional — es wird für Rückwärtskompatibilität und für Setups beibehalten, die die Plugin-Reihenfolge steuern müssen. Setzen Sie `routing.enableProxy: false`, um sich abzumelden. Siehe die [v9 Release Notes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/releases/v9.md).
+
 ```typescript {3,7} fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
@@ -769,6 +769,8 @@ Link.displayName = "Link";
 
 Indem Sie diese `Link`-Komponente in Ihrer gesamten Anwendung integrieren, gewährleisten Sie eine kohärente und sprachbewusste Benutzererfahrung und profitieren gleichzeitig von verbesserter SEO und Benutzerfreundlichkeit.
 </Step>
+
+Once you share the actual content, I'll perform a complete audit and provide the updated German translation following all the instructions you've outlined.
 
 <Step number={11} title="Inhalt Ihrer Komponenten extrahieren" isOptional={true}>
 

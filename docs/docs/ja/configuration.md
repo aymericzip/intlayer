@@ -731,8 +731,6 @@ export default config;
 | `liveSyncPort`               | Live Sync サーバーのポート。                                                                                                                                                                 | `number`                          | `4000`                              | `4000`                                                                                          |                                                                                                                                                                                                                                                      |
 | `liveSyncURL`                | Live Sync サーバーの URL。                                                                                                                                                                   | `string`                          | `'http://localhost:{liveSyncPort}'` | `'https://example.com'`                                                                         | デフォルトで localhost を指します。リモートの Live Sync サーバーを使用する場合は変更可能です。                                                                                                                                                       |
 
----
-
 ### アナリティクス設定 (Analytics)
 
 Intlayerアナリティクスに関する設定を定義します。ユーザーに実際に表示されたコンテンツ（ページビュー、コンテンツの露出）を収集し、コンテンツのA/Bテストを可能にします。
@@ -982,6 +980,13 @@ Intlayerの内部パスと出力結果に関連する設定。これらの設定
 
 ### 辞書設定 (Dictionary)
 
+辞書操作を制御する設定。自動入力動作とコンテンツ生成を含みます。
+
+このディクショナリ設定には、主に2つの目的があります：
+
+1. **デフォルト値**: コンテンツ宣言ファイルを作成する際にデフォルト値を定義する
+2. **フォールバック動作**: 特定のフィールドが定義されていない場合にフォールバック値を提供し、辞書操作の動作をグローバルに定義できるようにする
+
 自動入力動作やコンテンツ生成など、辞書操作を制御するパラメータ。
 
 | フィールド                  | 説明                                                                                                                                          | 型                                                                                                              | デフォルト   | 例                                                                                          | 備考                                                                                                                                                                                                                                                                                                                                                                                                      |
@@ -1023,8 +1028,6 @@ Intlayer からのログ出力をカスタマイズするためのパラメー�
 | `mode`     | ロガーのモードを指定します。     | `'default'` &#124; <br/> `'verbose'` &#124; <br/> `'disabled'` | `'default'`     | `'verbose'`      | • `'verbose'`: デバッグ用により多くの情報を出力します。<br/>• `'disabled'`: ロガーを完全に無効にします。 |
 | `prefix`   | ログメッセージのプレフィックス。 | `string`                                                       | `'[intlayer] '` | `'[my prefix] '` |                                                                                                          |
 
----
-
 ### AI 設定 (AI)
 
 プロバイダー、モデル、API キーなど、Intlayer の AI 機能を制御する設定。
@@ -1064,8 +1067,6 @@ Intlayer は、柔軟性を最大限に高めるために複数の AI プロバ�
 | `baseURL`            | AI API のベース URL。                                                                                                                            | `string`                                                                                                                                                                                                                                                                                                                                                                                                                                             | なし        | `'https://api.openai.com/v1'` <br/> `'http://localhost:5000'` | ローカルまたはカスタムの AI API エンドポイントを指すことができます。                                                                                                                                                 |
 | `dataSerialization`  | AI 機能のデータシリアライゼーション形式。                                                                                                        | `'json'` &#124; <br/> `'toon'`                                                                                                                                                                                                                                                                                                                                                                                                                       | `undefined` | `'toon'`                                                      | • `'json'`: デフォルト、信頼性が高いがトークン消費が多い。<br/>• `'toon'`: トークン消費が少ないが、一貫性に欠ける。<br/>• 推論の努力 (reasoning effort) などの追加パラメータがコンテキストとしてモデルに渡されます。 |
 
----
-
 ### ビルド設定 (Build)
 
 Intlayer がアプリケーションの国際化をどのように最適化およびコンパイルするかを制御するパラメータ。
@@ -1102,8 +1103,6 @@ Intlayer がアプリケーションの国際化をどのように最適化お�
 | `output`              | 出力ファイルのパスを定義します。`outputDir` を上書きします。変数テンプレートをサポート: `{{fileName}}`, <br/> `{{key}}`, <br/> `{{locale}}`, <br/> `{{extension}}`, <br/> `{{componentFileName}}`, <br/> `{{componentExtension}}`, <br/> `{{format}}`, <br/> `{{componentFormat}}`, <br/> `{{componentDirPath}}`。 | `boolean` &#124; <br/> `FilePathPattern` &#124; <br/> `Partial<Record<Locale, boolean &#124; FilePathPattern>>` | `undefined` | `'./{{fileName}}{{extension}}'` <br/> `'/locales/{{locale}}/{{key}}.json'` <br/> `{ en: ({ key }) => './locales/en/${key}.json', fr: '...', es: false }` | • `./` はコンポーネントディレクトリ基準。<br/>• `/` はルート基準。<br/>• `{{locale}}` を含めるとロケールごとの生成がトリガーされます。<br/>• ロケールごとのオブジェクト記法をサポート。 |
 | `noMetadata`          | `true` の場合、出力から辞書のメタデータ (キー、コンテンツラッパー) を除外します。                                                                                                                                                                                                                                  | `boolean`                                                                                                       | `false`     | `false` → `{"key":"my-key","content":{"key":"value"}}` <br/> `true` → `{"key":"value"}`                                                                  | • i18next や ICU MessageFormat JSON 出力に有用。<br/>• `loadJSON` プラグインと組み合わせて使用。                                                                                        |
 | `dictionaryKeyPrefix` | 辞書のキープレフィックス                                                                                                                                                                                                                                                                                           | `string`                                                                                                        | `''`        |                                                                                                                                                          | 抽出された辞書キーにオプションのプレフィックスを追加します。                                                                                                                            |
-
----
 
 ### カスタムスキーマ (Custom Schemas)
 

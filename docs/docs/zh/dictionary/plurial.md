@@ -35,181 +35,9 @@ author: aymericzip
 
 ## 何时使用 `plural` vs `enu`
 
-<Tabs group="framework">
-  <Tab label="React" value="react">
-
 To use plural content inside a React component, retrieve it via the `useIntlayer` hook and call it with a count. The active locale and the count are combined to pick the matching CLDR category.
 
-```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
-import type { FC } from "react";
-import { useIntlayer } from "react-intlayer";
-
-const OpeningsComponent: FC<{ count: number }> = ({ count }) => {
-  const { totalOpenings } = useIntlayer("total_openings");
-
-  return (
-    <div>
-      <p>{totalOpenings(count)}</p>
-    </div>
-  );
-};
-
-export default OpeningsComponent;
-```
-
-  </Tab>
-  <Tab label="Next.js" value="nextjs">
-
 To use plural content in Next.js Client Components, retrieve it via the `useIntlayer` hook and call it with a count. Here's an example:
-
-```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
-"use client";
-
-import type { FC } from "react";
-import { useIntlayer } from "next-intlayer";
-
-const OpeningsComponent: FC<{ count: number }> = ({ count }) => {
-  const { totalOpenings } = useIntlayer("total_openings");
-
-  return (
-    <div>
-      <p>{totalOpenings(count)}</p>
-    </div>
-  );
-};
-
-export default OpeningsComponent;
-```
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-To use plural content in Vue components, retrieve it via the `useIntlayer` hook and call it with a count. Here's an example:
-
-```vue fileName="**/*.vue"
-<script setup lang="ts">
-import { useIntlayer } from "vue-intlayer";
-
-defineProps<{ count: number }>();
-
-const { totalOpenings } = useIntlayer("total_openings");
-</script>
-
-<template>
-  <div>
-    <p>{{ totalOpenings(count) }}</p>
-  </div>
-</template>
-```
-
-  </Tab>
-  <Tab label="Svelte" value="svelte">
-
-To use plural content in Svelte components, retrieve it via the `useIntlayer` hook and call it with a count. The store is accessed with `$`. Here's an example:
-
-```svelte fileName="**/*.svelte"
-<script lang="ts">
-import { useIntlayer } from "svelte-intlayer";
-
-export let count: number;
-
-const content = useIntlayer("total_openings");
-</script>
-
-<div>
-  <p>{$content.totalOpenings(count)}</p>
-</div>
-```
-
-  </Tab>
-  <Tab label="Preact" value="preact">
-
-To use plural content in Preact components, retrieve it via the `useIntlayer` hook and call it with a count. Here's an example:
-
-```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
-import type { FC } from "preact";
-import { useIntlayer } from "preact-intlayer";
-
-const OpeningsComponent: FC<{ count: number }> = ({ count }) => {
-  const { totalOpenings } = useIntlayer("total_openings");
-
-  return (
-    <div>
-      <p>{totalOpenings(count)}</p>
-    </div>
-  );
-};
-
-export default OpeningsComponent;
-```
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-To use plural content in SolidJS components, retrieve it via the `useIntlayer` hook and call it with a count. Here's an example:
-
-```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
-import type { Component } from "solid-js";
-import { useIntlayer } from "solid-intlayer";
-
-const OpeningsComponent: Component<{ count: number }> = (props) => {
-  const { totalOpenings } = useIntlayer("total_openings");
-
-  return (
-    <div>
-      <p>{totalOpenings(props.count)}</p>
-    </div>
-  );
-};
-
-export default OpeningsComponent;
-```
-
-  </Tab>
-  <Tab label="Angular" value="angular">
-
-To use plural content in Angular components, retrieve it via the `useIntlayer` hook and call it with a count. Here's an example:
-
-```typescript fileName="app.component.ts" codeFormat="typescript"
-import { Component, Input } from "@angular/core";
-import { useIntlayer } from "angular-intlayer";
-
-@Component({
-  selector: "app-openings",
-  template: `
-    <div>
-      <p>{{ content().totalOpenings(count) }}</p>
-    </div>
-  `,
-})
-export class OpeningsComponent {
-  @Input() count!: number;
-
-  content = useIntlayer("total_openings");
-}
-```
-
-  </Tab>
-  <Tab label="Vanilla JS" value="vanilla">
-
-To use plural content with `vanilla-intlayer`, retrieve it via the `useIntlayer` hook and call it with a count. Here's an example:
-
-```typescript fileName="**/*.ts" codeFormat={["typescript", "esm"]}
-import { installIntlayer, useIntlayer } from "vanilla-intlayer";
-
-installIntlayer();
-
-const content = useIntlayer("total_openings").onChange((newContent) => {
-  document.getElementById("openings")!.textContent =
-    newContent.totalOpenings(5);
-});
-
-// Initial render
-document.getElementById("openings")!.textContent = content.totalOpenings(5);
-```
-
-  </Tab>
-</Tabs>
 
 ## 设置复数内容
 
@@ -269,7 +97,96 @@ export default openingsContent;
 
 ## 在 React Intlayer 中使用复数内容
 
+<Tabs group="framework">
+  <Tab label="React" value="react">
+
 要在 React 组件中使用复数内容，请通过 `useIntlayer` 钩子获取它，并传入计数进行调用。激活的语言区域和计数将结合在一起以匹配 CLDR 类别。
+
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
+import type { FC } from "react";
+import { useIntlayer } from "react-intlayer";
+
+const OpeningsComponent: FC<{ count: number }> = ({ count }) => {
+  const { totalOpenings } = useIntlayer("total_openings");
+
+  return (
+    <div>
+      <p>{totalOpenings(count)}</p>
+    </div>
+  );
+};
+
+export default OpeningsComponent;
+```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+
+要在 Next.js 客户端组件中使用复数内容，通过 `useIntlayer` hook 检索它，并使用计数调用它。以下是一个示例：
+
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
+"use client";
+
+import type { FC } from "react";
+import { useIntlayer } from "next-intlayer";
+
+const OpeningsComponent: FC<{ count: number }> = ({ count }) => {
+  const { totalOpenings } = useIntlayer("total_openings");
+
+  return (
+    <div>
+      <p>{totalOpenings(count)}</p>
+    </div>
+  );
+};
+
+export default OpeningsComponent;
+```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+要在 Vue 组件中使用复数内容，请通过 `useIntlayer` hook 检索它，并使用计数调用它。以下是一个示例：
+
+```vue fileName="**/*.vue"
+<script setup lang="ts">
+import { useIntlayer } from "vue-intlayer";
+
+defineProps<{ count: number }>();
+
+const { totalOpenings } = useIntlayer("total_openings");
+</script>
+
+<template>
+  <div>
+    <p>{{ totalOpenings(count) }}</p>
+  </div>
+</template>
+```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+要在 Svelte 组件中使用复数内容，需要通过 `useIntlayer` hook 检索它，并使用计数调用它。通过 `$` 访问 store。以下是一个示例：
+
+```svelte fileName="**/*.svelte"
+<script lang="ts">
+import { useIntlayer } from "svelte-intlayer";
+
+export let count: number;
+
+const content = useIntlayer("total_openings");
+</script>
+
+<div>
+  <p>{$content.totalOpenings(count)}</p>
+</div>
+```
+
+  </Tab>
+  <Tab label="Preact" value="preact">
+
+要在 Preact 组件中使用复数内容，通过 `useIntlayer` hook 检索它，并使用计数调用它。以下是一个示例：
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
@@ -293,12 +210,64 @@ const OpeningsComponent: FC<{ count: number }> = ({ count }) => {
 export default OpeningsComponent;
 ```
 
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+要在 SolidJS 组件中使用复数内容，请通过 `useIntlayer` hook 检索它，并使用计数调用它。以下是一个示例：
+
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
+import type { Component } from "solid-js";
+import { useIntlayer } from "solid-intlayer";
+
+const OpeningsComponent: Component<{ count: number }> = (props) => {
+  const { totalOpenings } = useIntlayer("total_openings");
+
+  return (
+    <div>
+      <p>{totalOpenings(props.count)}</p>
+    </div>
+  );
+};
+
+export default OpeningsComponent;
+```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+
+要在 Angular 组件中使用复数内容，通过 `useIntlayer` hook 检索它，并使用计数调用它。以下是一个示例：
+
+```typescript fileName="app.component.ts" codeFormat="typescript"
+import { Component, Input } from "@angular/core";
+import { useIntlayer } from "angular-intlayer";
+
+@Component({
+  selector: "app-openings",
+  template: `
+    <div>
+      <p>{{ content().totalOpenings(count) }}</p>
+    </div>
+  `,
+})
+export class OpeningsComponent {
+  @Input() count!: number;
+
+  content = useIntlayer("total_openings");
+}
+```
+
+  </Tab>
+  <Tab label="Vanilla JS" value="vanilla">
+
 您可以通过两种等效的方式调用返回的函数：
 
 ```tsx
 totalOpenings(21); // 简写：仅传入计数
 totalOpenings({ count: 21 }); // 显式形式
 ```
+
+  </Tab>
+</Tabs>
 
 ## 自定义占位符
 

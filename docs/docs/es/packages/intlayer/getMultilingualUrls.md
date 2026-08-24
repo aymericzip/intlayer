@@ -31,6 +31,14 @@ author: aymericzip
 
 La función `getMultilingualUrls` genera un mapeo de URLs multilingües anteponiendo la URL dada con cada localización soportada. Puede manejar tanto URLs absolutas como relativas, aplicando el prefijo de localización apropiado basado en la configuración proporcionada o los valores predeterminados.
 
+**Características principales:**
+
+- Solo 1 parámetro es requerido: `url`
+- Objeto `options` opcional con `locales`, `defaultLocale`, y `mode`
+- Utiliza la configuración de internacionalización de tu proyecto como valores por defecto
+- Soporta múltiples modos de enrutamiento: `prefix-no-default`, `prefix-all`, `no-prefix`, y `search-params`
+- Devuelve un objeto de mapeo con todas las locales como claves y sus URLs correspondientes como valores
+
 ---
 
 ## Firma de función
@@ -139,8 +147,6 @@ getMultilingualUrls(
 // }
 ```
 
----
-
 ### Diferentes modos de enrutamiento
 
 ```typescript
@@ -205,6 +211,12 @@ getMultilingualUrls("/dashboard", {
 
 - **Idiomas No Soportados:**
   - Solo se consideran los idiomas proporcionados en el arreglo `locales` para generar las URLs.
+
+- **Modos de enrutamiento:**
+  - `'prefix-no-default'`: La locale predeterminada no tiene prefijo, otras sí (p. ej., `/dashboard`, `/fr/dashboard`)
+  - `'prefix-all'`: Todas las locales tienen prefijos (p. ej., `/en/dashboard`, `/fr/dashboard`)
+  - `'no-prefix'`: Sin prefijos de locale en URLs (todas las locales devuelven la misma URL)
+  - `'search-params'`: Locale especificada mediante parámetro de consulta (p. ej., `/dashboard?locale=fr`)
 
 ---
 

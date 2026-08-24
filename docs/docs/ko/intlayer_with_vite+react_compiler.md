@@ -226,6 +226,8 @@ export default defineConfig({
 
 > `intlayerCompiler()` Vite 플러그인은 컴포넌트에서 콘텐츠를 추출하고 `.content` 파일을 작성하는 데 사용됩니다.
 
+> Intlayer v9부터 컴파일러는 `intlayer()` 플러그인에 직접 번들되어 있으며, `compiler.enabled`이 `compiler.output` 경로로 설정되면 자동으로 활성화됩니다. 아래와 같이 `intlayerCompiler()`를 별도로 등록하는 것은 이제 선택 사항입니다. 추가되면 자동으로 중복 제거됩니다. [v9 릴리스 노트](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/releases/v9.md)를 참조하세요.
+
 </Step>
 
 <Step number={4} title="코드 컴파일">
@@ -430,8 +432,6 @@ bun x intlayer fill         # 누락된 번역 채우기
 ```
 
 > 자세한 내용은 [CLI 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/ci.md)를 참조하세요.
-
-</Step>
 
 </Steps>
 

@@ -117,6 +117,9 @@ pnpm dlx intlayer@canary init --interactive
 yarn dlx intlayer@canary init --interactive
 ```
 
+  </Tab>
+</Tabs>
+
 ```bash packageManager="bun"
 bunx intlayer@canary init --interactive
 ```
@@ -156,13 +159,78 @@ bun add vite-intlayer --dev
 - **vite-intlayer**  
   Intlayer를 [Vite 번들러](https://vite.dev/guide/why.html#why-bundle-for-production)와 통합하기 위한 Vite 플러그인과, 사용자의 선호 로케일 감지, 쿠키 관리, URL 리디렉션 처리를 위한 미들웨어를 포함합니다.
 
+- **@react-router/fs-routes**
+  React Router v7을 위한 파일 시스템 기반 라우팅을 활성화하는 패키지입니다.
+
 </Step>
 
 <Step number={2} title="프로젝트 구성">
 
+애플리케이션의 언어를 구성하기 위한 config 파일을 생성합니다:
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { type IntlayerConfig, Locales } from "intlayer";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    defaultLocale: Locales.ENGLISH,
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+  },
+};
+
+export default config;
+```
+
+> 이 구성 파일을 통해 로컬라이즈된 URL, 미들웨어 리다이렉션, 쿠키 이름, 콘텐츠 선언의 위치 및 확장자, Intlayer 로그 비활성화 등을 설정할 수 있습니다. 사용 가능한 모든 매개변수의 전체 목록은 [구성 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 참조하세요.
+
+</Step>
+
+<Step number={3} title="Vite 설정에 Intlayer 통합">
+
+intlayer 플러그인을 설정에 추가하세요:
+
+```typescript fileName="vite.config.ts"
+import { reactRouter } from "@react-router/dev/vite";
+import { defineConfig } from "vite";
+import { intlayer } from "vite-intlayer";
+
+export default defineConfig({
+  plugins: [reactRouter(), intlayer()],
+});
+```
+
+`intlayer()` Vite 플러그인은 Intlayer를 Vite와 통합하는 데 사용됩니다. 콘텐츠 선언 파일의 빌드를 보장하고 개발 모드에서 이를 모니터링합니다. Vite 애플리케이션 내에서 Intlayer 환경 변수를 정의합니다. 또한 성능을 최적화하기 위해 별칭을 제공합니다.
+
+</Step>
+
+<Step number={4} title="React Router v7 파일 시스템 라우트 구성">
+
+파일 시스템 기반 라우트를 `flatRoutes`로 사용하도록 라우팅 구성을 설정합니다:
+
+```typescript fileName="app/routes.ts"
+import type { RouteConfig } from "@react-router/dev/routes";
+import { flatRoutes } from "@react-router/fs-routes";
+import { configuration } from "intlayer";
+
+const routes: RouteConfig = flatRoutes({
+  // 콘텐츠 선언 파일이 경로로 처리되지 않도록 무시
+  ignoredRouteFiles: configuration.content.fileExtensions.map(
+    (fileExtension) => `**/*${fileExtension}`
+  ),
+});
+
+export default routes;
+```
+
+> `@react-router/fs-routes`의 `flatRoutes` 함수는 파일 시스템 기반 라우팅을 활성화하며, `routes/` 디렉토리의 파일 구조가 애플리케이션의 경로를 결정합니다. `ignoredRouteFiles` 옵션은 Intlayer 콘텐츠 선언 파일(`.content.ts` 등)이 라우트 파일로 처리되지 않도록 합니다.
+
 </Step>
 
 <Step number={5} title="레이아웃 컴포넌트 생성">
+
+파일 시스템 라우팅을 사용할 때는 평탄한 명명 규칙을 사용하며, 여기서 점(`.`)은 경로 세그먼트를 나타내고 괄호 `()`는 선택적 세그먼트를 나타냅니다.
+
+`app/routes/` 디렉토리에 다음 파일들을 생성하세요:
 
 #### 파일 구조
 
@@ -235,71 +303,6 @@ export function Layout({
 
 #### 루트 레이아웃
 
-```tsx fileName="app/routes/layout.tsx"
-import { IntlayerProvider } from "react-intlayer";
-import { Outlet } from "react-router";
-
-import type { Route } from "./+types/layout";
-
-export default function RootLayout({ params }: Route.ComponentProps) {
-  const { locale } = params;
-
-  return (
-    <IntlayerProvider locale={locale}>
-      <Outlet />
-    </IntlayerProvider>
-  );
-}
-```
-
-</Step>
-
-<Step number={6} title="콘텐츠 선언하기">
-
-번역을 저장하기 위해 콘텐츠 선언을 생성하고 관리하세요:
-
-```tsx fileName="app/routes/[lang]/page.content.ts"
-import { t, type Dictionary } from "intlayer";
-
-const pageContent = {
-  key: "page",
-  content: {
-    title: t({
-      en: "Welcome to React Router v7 + Intlayer",
-      es: "Bienvenido a React Router v7 + Intlayer",
-      fr: "Bienvenue sur React Router v7 + Intlayer",
-    }),
-    description: t({
-      en: "Build multilingual applications with ease using React Router v7 and Intlayer.",
-      es: "Cree aplicaciones multilingües fácilmente usando React Router v7 y Intlayer.",
-      fr: "Créez des applications multilingues facilement avec React Router v7 et Intlayer.",
-    }),
-    aboutLink: t({
-      en: "Learn About Us",
-      es: "Aprender Sobre Nosotros",
-      fr: "En savoir plus sur nous",
-    }),
-    homeLink: t({
-      en: "Home",
-      es: "Inicio",
-      fr: "Accueil",
-    }),
-  },
-} satisfies Dictionary;
-
-export default pageContent;
-```
-
-> 콘텐츠 선언은 애플리케이션 내 어디서든 정의할 수 있으며, `contentDir` 디렉토리(기본값: `./app`)에 포함되면 자동으로 인식됩니다. 또한 콘텐츠 선언 파일 확장자(기본값: `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`)와 일치해야 합니다.
-
-> 자세한 내용은 [콘텐츠 선언 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md)를 참조하세요.
-
-</Step>
-
-<Step number={7} title="로케일 인식 컴포넌트 생성">
-
-로케일 인식 내비게이션을 위한 `LocalizedLink` 컴포넌트를 생성합니다:
-
 ```tsx fileName="app/components/localized-link.tsx"
 import type { FC } from "react";
 
@@ -336,34 +339,6 @@ export const LocalizedLink: FC<LinkProps> = (props) => {
 };
 ```
 
-로컬라이즈된 경로로 이동하려는 경우, `useLocalizedNavigate` 훅을 사용할 수 있습니다:
-
-```tsx fileName="app/hooks/useLocalizedNavigate.ts"
-import { useLocale } from "react-intlayer";
-import { type NavigateOptions, type To, useNavigate } from "react-router";
-
-import { locacalizeTo } from "~/components/localized-link";
-
-export const useLocalizedNavigate = () => {
-  const navigate = useNavigate();
-  const { locale } = useLocale();
-
-  const localizedNavigate = (to: To, options?: NavigateOptions) => {
-    const localedTo = locacalizeTo(to, locale);
-
-    navigate(localedTo, options);
-  };
-
-  return localizedNavigate;
-};
-```
-
-</Step>
-
-<Step number={8} title="페이지에서 Intlayer 활용하기">
-
-애플리케이션 전반에서 콘텐츠 사전을 액세스하세요:
-
 #### 현지화된 홈 페이지
 
 ```tsx fileName="app/routes/[lang]/page.tsx"
@@ -385,7 +360,140 @@ export default function Page() {
 }
 ```
 
+</Step>
+
+<Step number={6} title="콘텐츠 선언">
+
+콘텐츠 선언을 생성하고 관리하여 번역을 저장합니다. 콘텐츠 파일을 경로 파일 옆에 배치합니다:
+
+```tsx fileName="app/routes/($locale)._index.content.ts"
+import { t, type Dictionary } from "intlayer";
+
+const pageContent = {
+  key: "page",
+  content: {
+    title: t({
+      ko: "React Router v7 + Intlayer에 오신 것을 환영합니다",
+      en: "Welcome to React Router v7 + Intlayer",
+      es: "Bienvenido a React Router v7 + Intlayer",
+      fr: "Bienvenue sur React Router v7 + Intlayer",
+    }),
+    description: t({
+      ko: "React Router v7과 Intlayer를 사용하여 다국어 애플리케이션을 쉽게 구축하세요.",
+      en: "Build multilingual applications with ease using React Router v7 and Intlayer.",
+      es: "Cree aplicaciones multilingües fácilmente usando React Router v7 y Intlayer.",
+      fr: "Créez des applications multilingues facilement avec React Router v7 et Intlayer.",
+    }),
+    aboutLink: t({
+      ko: "저희에 대해 알아보기",
+      en: "Learn About Us",
+      es: "Aprender Sobre Nosotros",
+      fr: "En savoir plus sur nous",
+    }),
+  },
+} satisfies Dictionary;
+
+export default pageContent;
+```
+
+```tsx fileName="app/routes/($locale).about.content.ts"
+import { t, type Dictionary } from "intlayer";
+
+const aboutContent = {
+  key: "about",
+  content: {
+    title: t({
+      ko: "우리에 대해",
+      en: "About Us",
+      es: "Sobre Nosotros",
+      fr: "À propos de nous",
+    }),
+    content: t({
+      ko: "이것은 정보 페이지의 내용입니다.",
+      en: "This is the about page content.",
+      es: "Este es el contenido de la página de información.",
+      fr: "Ceci est le contenu de la page à propos.",
+    }),
+    homeLink: t({
+      ko: "홈",
+      en: "Home",
+      es: "Inicio",
+      fr: "Accueil",
+    }),
+  },
+} satisfies Dictionary;
+
+export default aboutContent;
+```
+
+> 콘텐츠 선언은 `contentDir` 디렉토리에 포함되는 한 애플리케이션의 어느 곳에나 정의할 수 있습니다(기본값: `./app`). 그리고 콘텐츠 선언 파일 확장자와 일치해야 합니다(기본값: `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
+
 > `useIntlayer` 훅에 대해 더 알아보려면 [문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/react-intlayer/useIntlayer.md)를 참조하세요.
+
+> 기존 앱이 있는 경우 [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md) 및 [extract command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/extract.md)를 사용하여 수천 개의 컴포넌트를 한 번에 변환할 수 있습니다.
+
+</Step>
+
+<Step number={7} title="로케일 인식 컴포넌트 생성">
+
+로케일 인식 네비게이션을 위한 `LocalizedLink` 컴포넌트를 생성합니다:
+
+```tsx fileName="app/components/localized-link.tsx"
+import type { FC } from "react";
+
+import { getLocalizedUrl, type LocalesValues } from "intlayer";
+import { useLocale } from "react-intlayer";
+import { Link, type LinkProps, type To } from "react-router";
+
+const isExternalLink = (to: string) => /^(https?:)?\/\//.test(to);
+
+export const locacalizeTo = (to: To, locale: LocalesValues): To => {
+  if (typeof to === "string") {
+    if (isExternalLink(to)) {
+      return to;
+    }
+
+    return getLocalizedUrl(to, locale);
+  }
+
+  if (isExternalLink(to.pathname ?? "")) {
+    return to;
+  }
+
+  return {
+    ...to,
+    pathname: getLocalizedUrl(to.pathname ?? "", locale),
+  };
+};
+
+export const LocalizedLink: FC<LinkProps> = (props) => {
+  const { locale } = useLocale();
+
+  return <Link {...props} to={locacalizeTo(props.to, locale)} />;
+};
+```
+
+로컬라이즈된 경로로 이동하려면 `useLocalizedNavigate` hook을 사용할 수 있습니다:
+
+```tsx fileName="app/hooks/useLocalizedNavigate.ts"
+import { useLocale } from "react-intlayer";
+import { type NavigateOptions, type To, useNavigate } from "react-router";
+
+import { locacalizeTo } from "~/components/localized-link";
+
+export const useLocalizedNavigate = () => {
+  const navigate = useNavigate();
+  const { locale } = useLocale();
+
+  const localizedNavigate = (to: To, options?: NavigateOptions) => {
+    const localedTo = locacalizeTo(to, locale);
+
+    navigate(localedTo, options);
+  };
+
+  return localizedNavigate;
+};
+```
 
 </Step>
 
@@ -471,6 +579,16 @@ export const useI18nHTMLAttributes = () => {
 };
 ```
 
+이 hook은 이미 Step 5에서 보여진 레이아웃 컴포넌트(`($locale)._layout.tsx`)에서 사용되고 있습니다.
+
+</Step>
+
+<Step number={10} title="미들웨어 추가">
+
+`intlayerProxy`를 사용하여 애플리케이션에 서버 측 라우팅을 추가할 수도 있습니다. 이 플러그인은 URL을 기반으로 현재 로케일을 자동으로 감지하고 적절한 로케일 쿠키를 설정합니다. 로케일이 지정되지 않은 경우 플러그인은 사용자의 브라우저 언어 기본 설정을 기반으로 가장 적절한 로케일을 결정합니다. 로케일이 감지되지 않으면 기본 로케일로 리디렉션됩니다.
+
+> `intlayerProxy`를 프로덕션에서 사용하려면 `vite-intlayer` 패키지를 `devDependencies`에서 `dependencies`로 변경해야 합니다.
+
 그런 다음 루트 컴포넌트에서 사용하세요:
 
 ```tsx fileName="app/routes/layout.tsx"
@@ -489,6 +607,112 @@ export default function RootLayout() {
   );
 }
 ```
+
+</Step>
+
+<Step number={11} title="컴포넌트에서 콘텐츠 추출" isOptional={true}>
+
+기존 codebase가 있는 경우, 수천 개의 파일을 변환하는 것은 시간이 걸릴 수 있습니다.
+
+이 과정을 쉽게 하기 위해 Intlayer는 컴포넌트를 변환하고 콘텐츠를 추출하기 위한 [compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md) / [extractor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/extract.md)를 제공합니다.
+
+이를 설정하려면 `intlayer.config.ts` 파일에 `compiler` 섹션을 추가할 수 있습니다:
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  // ... Rest of your config
+  compiler: {
+    /**
+     * 컴파일러를 활성화할지 여부를 나타냅니다.
+     */
+    enabled: true,
+
+    /**
+     * 출력 파일 경로를 정의합니다.
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * 변환된 후 컴포넌트를 저장할지 여부를 나타냅니다.
+     *
+     * - `true`인 경우, 컴파일러는 컴포넌트 파일을 디스크에 다시 작성합니다. 따라서 변환이 영구적이며, 컴파일러는 다음 프로세스에서 변환을 건너뜁니다. 이렇게 하면 컴파일러가 앱을 변환할 수 있으며, 그 후 제거할 수 있습니다.
+     *
+     * - `false`인 경우, 컴파일러는 `useIntlayer()` 함수 호출을 빌드 출력의 코드에만 주입하고 기본 codebase를 그대로 유지합니다. 변환은 메모리에서만 수행됩니다.
+     */
+    saveComponents: false,
+
+    /**
+     * 딕셔너리 키 접두사
+     */
+    dictionaryKeyPrefix: "",
+  },
+};
+
+export default config;
+```
+
+<Tabs>
+ <Tab value='Extract command'>
+
+extractor를 실행하여 컴포넌트를 변환하고 콘텐츠를 추출합니다
+
+```bash packageManager="npm"
+npx intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="bun"
+bun x intlayer extract
+```
+
+ </Tab>
+ <Tab value='Babel compiler'>
+
+> v9 이후로, `intlayerCompiler`가 `intlayer` 플러그인에 포함되어 있습니다. 따라서 수동으로 추가할 필요가 없습니다.
+
+`vite.config.ts`를 업데이트하여 `intlayerCompiler` 플러그인을 포함하세요:
+
+```ts fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import { intlayer, intlayerCompiler } from "vite-intlayer";
+
+export default defineConfig({
+  plugins: [
+    intlayer(),
+    intlayerCompiler(), // 컴파일러 플러그인 추가
+  ],
+});
+```
+
+```bash packageManager="npm"
+npm run build # 또는 npm run dev
+```
+
+```bash packageManager="pnpm"
+pnpm run build # 또는 pnpm run dev
+```
+
+```bash packageManager="yarn"
+yarn build # 또는 yarn dev
+```
+
+```bash packageManager="bun"
+bun run build # 또는 bun run dev
+```
+
+ </Tab>
+</Tabs>
+
+---
 
 </Step>
 

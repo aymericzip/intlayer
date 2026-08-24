@@ -84,8 +84,6 @@ author: aymericzip
 
 <Steps>
 
-<Steps>
-
 <Step number={1} title="安装依赖项">
 
 使用您偏好的包管理器安装必要的包：
@@ -214,6 +212,8 @@ export default withIntlayer(nextConfig);
 
 > Next.js 插件 `withIntlayer()` 用于将 Intlayer 与 Next.js 集成。它确保字典文件的构建，并在开发模式下监视它们。它在 [Webpack](https://webpack.js.org/) 或 [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack) 环境中定义 Intlayer 环境变量。此外，它还提供别名以优化性能，并保留与服务器组件的兼容性。
 > </Step>
+
+</Step>
 
 <Step number={4} title="配置 Babel">
 
@@ -344,6 +344,9 @@ export default async function Page() {
 }
 ```
 
+<Tabs>
+  <Tab label='Intlayer >=9.4' value='>=9.4'>
+
 ```tsx fileName="src/app/page.tsx"
 import { type FC } from "react";
 import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
@@ -371,14 +374,51 @@ export default async function Page() {
 }
 ```
 
+- **`IntlayerProvider`** 在根布局中装载一次。它为服务器和客户端组件都提供语言环境，因此页面不再需要自行包装。
+- 没有 `[locale]` 路径段时，语言环境总是来自请求 — 由 Intlayer 代理设置的 `x-intlayer-locale` 标头，然后是语言环境 cookie — 当提供者未运行时，服务器钩子会自行读取这些值。
+
   </Tab>
+
 </Tabs>
+
+```tsx fileName="src/app/page.tsx"
+import { type FC } from "react";
+import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
+import { getLocale } from "next-intlayer/server";
+
+const PageContent: FC = () => {
+  const content = useIntlayer("page-content");
+
+  return (
+    <>
+      <p>{content.getStartedByEditing}</p>
+      <code>src/app/page.tsx</code>
+    </>
+  );
+};
+
+export default async function Page() {
+  const locale = await getLocale();
+
+  return (
+    <IntlayerServerProvider locale={locale}>
+      <PageContent />
+    </IntlayerServerProvider>
+  );
+}
+```
 
 - **`IntlayerClientProvider`** 用于在客户端向子组件提供语言环境。
 - 而 **`IntlayerServerProvider`** 用于在服务器端向子组件提供语言环境。
 
   > Layout and page cannot share a common server context because the server context system is based on a per-request data store (via [React's cache](https://react.dev/reference/react/cache) mechanism), causing each "context" to be re-created for different segments of the application. Placing the provider in a shared layout would break this isolation, preventing the correct propagation of the server context values to your server components.
   > </Step>
+
+  </Tab>
+
+</Tabs>
+
+</Step>
 
 <Step number={7} title="填写缺失的翻译" isOptional={true}>
 
@@ -436,6 +476,10 @@ export const config = {
 > `intlayerProxy` 用于检测用户的首选语言环境，并根据 [配置文件设置](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md) 将其重定向到适当的 URL。此外，它还支持将用户的首选语言环境保存在 cookie 中。
 > </Step>
 
+> 自 Intlayer v9 起，此中间件遵守 `routing.enableProxy` 选项（默认为 `true`）。在您的配置中设置 `routing.enableProxy: false` 以将其转换为直通，而无需删除此文件。请参阅 [v9 发布说明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/releases/v9.md)。
+
+</Step>
+
 <Step number={9} title="更改内容语言环境" isOptional={true}>
 
 在 Next.js 中更改内容语言环境的最推荐方法是使用 `Link` 组件将用户重定向到包含相应语言环境的路由。这将利用 Next.js 的预取功能，并避免页面强制刷新。
@@ -491,6 +535,8 @@ export const LocaleSwitcher: FC = () => {
 <Step number={10} title="优化包体积" isOptional={true}>
 
 使用 `next-intlayer` 时，字典默认会包含在每个页面的包中。为了优化包体积，Intlayer 提供了一个可选的 SWC 插件，它利用宏智能地优化 `useIntlayer` 调用。这确保了字典仅包含在实际使用它们的页面的包中。
+
+`@intlayer/babel` 插件已经集成了打包优化（见 `babel.config.js`）。但是 `@intlayer/swc` 插件性能更好。如果你移除 `@intlayer/babel` 插件，你可以使用 `@intlayer/swc` 插件。
 
 要启用此优化，请安装 `@intlayer/swc` 包。安装后，`next-intlayer` 会自动检测并使用该插件：
 
@@ -633,8 +679,6 @@ bun run build # Or bun run dev
  </Tab>
 </Tabs>
 </Step>
-
-</Steps>
 
 </Steps>
 

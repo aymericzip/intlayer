@@ -64,10 +64,6 @@ Chromium (wird für die Erzeugung von Puppeteer-Screenshots verwendet) ist im Ba
 
 ## Schnellstart
 
-```sh
-curl -fsSL https://intlayer.org/install.sh | sh
-```
-
 Was der Installer tut:
 
 1.  Überprüft, ob `docker` und `docker compose` vorhanden sind.
@@ -77,6 +73,8 @@ Was der Installer tut:
 5.  Gibt die URLs aus: Dashboard `:3000`, API `:3100`, E-Mail-UI `:8025`, MinIO-Konsole `:9001`.
 
 Nachdem der Stack gestartet ist, öffnen Sie **http://localhost:3000** und erstellen Sie Ihr erstes Konto.
+
+> Das Dashboard wird auf `localhost` bereitgestellt. Siehe [Einschränkungen](#limitations) — benutzerdefinierte Domains werden vom veröffentlichten Image nicht unterstützt.
 
 ---
 
@@ -102,8 +100,6 @@ Sobald ein Admin existiert, leitet `/init` zur Standard-Anmeldeseite weiter.
 | **redis**   | `redis:7-alpine`                     | intern                                         | Job-Warteschlangen (BullMQ) und Caching (ioredis)         |
 | **minio**   | `minio/minio`                        | `9000` (S3), `9001` (Konsole)                  | S3-kompatibler Objektspeicher für Avatare und Screenshots |
 | **mailpit** | `axllent/mailpit`                    | `1025` (SMTP), `8025` (Web-Benutzeroberfläche) | Lokale Transaktions-E-Mail-Senke                          |
-
-Interne Ports (mongo, redis) werden standardmäßig nicht zum Host exponiert.
 
 > MinIO-Port `9000` muss vom Browser erreichbar sein, da hochgeladene Assets (Avatare, Screenshots) direkt von `S3_PUBLIC_URL=http://localhost:9000/intlayer` geladen werden.
 
@@ -159,8 +155,6 @@ Interne Ports (mongo, redis) werden standardmäßig nicht zum Host exponiert.
 | `MICROSOFT_CLIENT_ID`, `MICROSOFT_CLIENT_SECRET`         | Microsoft OAuth-Login                                                |
 | `LINKEDIN_CLIENT_ID`, `LINKEDIN_CLIENT_SECRET`           | LinkedIn OAuth-Login                                                 |
 | `ATLASSIAN_CLIENT_ID`, `ATLASSIAN_CLIENT_SECRET`         | Atlassian OAuth-Login                                                |
-
----
 
 ### Global mailer
 
@@ -250,14 +244,6 @@ const { data: dictionaries } = await dictionaryEndpoint(cms).getDictionaries();
 Ein erneutes Ausführen des Installers auf einer bestehenden Bereitstellung führt ein Rolling-Upgrade durch:
 
 ```sh
-curl -fsSL https://intlayer.org/install.sh | sh
-```
-
-Dies zieht die neuesten Images und startet Container neu mit `docker compose pull && docker compose up -d`. Bestehende Volumes (`mongo-data`, `redis-data`, `minio-data`) bleiben erhalten – kein Datenverlust.
-
-Um manuell aus dem `./intlayer/`-Verzeichnis ein Upgrade durchzuführen:
-
-```sh
 docker compose pull
 docker compose up -d
 ```
@@ -320,13 +306,11 @@ docker compose logs mongo
 docker compose logs redis
 ```
 
+Suchen Sie nach `MongoDB connection error` oben im Log.
+
 ### E-Mail wird nicht gesendet
 
 Standardmäßig werden alle ausgehenden E-Mails von Mailpit abgefangen. Öffnen Sie `http://localhost:8025`, um gesendete Nachrichten anzuzeigen. Um echte E-Mails zu senden, setzen Sie `MAIL_PROVIDER=resend` und `RESEND_API_KEY=<Ihr-Schlüssel>` in `.env` und starten Sie dann das Backend neu:
-
-```sh
-docker compose restart backend
-```
 
 ### MinIO-Bucket fehlt
 

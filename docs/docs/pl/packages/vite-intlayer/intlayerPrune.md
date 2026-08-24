@@ -28,6 +28,8 @@ author: aymericzip
 
 Wtyczka Vite `intlayerPrune` służy do tree-shakingu i usuwania nieużywanych słowników z bundla Twojej aplikacji. Pomaga to zmniejszyć końcowy rozmiar bundla, uwzględniając jedynie niezbędne wielojęzyczne treści.
 
+> Plugin jest już automatycznie włączony i skonfigurowany, gdy używasz [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/vite-intlayer/intlayer.md). Musisz go zarejestrować ręcznie tylko wtedy, gdy skomponujesz stos pluginów samodzielnie.
+
 ## Użycie
 
 ### W ramach `intlayer()` (zalecane)

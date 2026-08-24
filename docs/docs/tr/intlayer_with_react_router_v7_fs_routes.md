@@ -400,8 +400,6 @@ export default function AboutPage() {
 }
 ```
 
-> Eğer uygulamanız zaten mevcutsa, binlerce bileşeni bir saniye içinde dönüştürmek için [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md)'ı [extract komutu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/extract.md) ile birlikte kullanabilirsiniz.
-
 </Step>
 
 <Step number={6} title="İçeriğinizi Bildirin">
@@ -465,6 +463,8 @@ export default aboutContent;
 > İçerik bildirimleriniz, uygulamanızda `contentDir` dizinine (varsayılan olarak `./app`) dahil edildiği sürece herhangi bir yerde tanımlanabilir. Ve içerik bildirim dosya uzantısıyla eşleşmelidir (varsayılan olarak `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
 
 > Daha fazla detay için [içerik bildirim dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md) bakınız.
+
+> Uygulamanız zaten varsa, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md) ve [extract command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/extract.md) kullanarak binlerce bileşeni bir saniyede dönüştürebilirsiniz.
 
 </Step>
 
@@ -616,6 +616,34 @@ export const useI18nHTMLAttributes = () => {
 ```
 
 Bu hook, Adım 5'te gösterilen layout bileşeninde (`root.tsx`) zaten kullanılmaktadır.
+
+</Step>
+
+<Step number={10} title="Middleware ekle">
+
+Ayrıca uygulamanıza sunucu tarafı yönlendirme eklemek için `intlayerProxy`'i kullanabilirsiniz. Bu plugin, URL'ye göre geçerli yerel ayarı otomatik olarak algılayacak ve uygun yerel ayar çerezini ayarlayacaktır. Yerel ayar belirtilmezse, plugin kullanıcının tarayıcı dil tercihlerine göre en uygun yerel ayarı belirleyecektir. Yerel ayar algılanmazsa, varsayılan yerel ayara yönlendirecektir.
+
+> `intlayerProxy`'yi üretimde kullanmak için `vite-intlayer` paketini `devDependencies`'den `dependencies`'ye taşımanız gerektiğini unutmayın.
+
+> Intlayer v9'dan itibaren, `intlayerProxy()` doğrudan `intlayer()` eklentisine paketlenmiş ve `routing.enableProxy` seçeneği aracılığıyla varsayılan olarak etkinleştirilmiştir (varsayılan olarak `true`). Aşağıda gösterildiği gibi ayrı olarak kaydetmek artık isteğe bağlıdır — geriye dönük uyumluluk ve eklenti sırasını kontrol etmesi gereken kurulumlar için korunur. Devre dışı bırakmak için `routing.enableProxy: false` ayarlayın. Bkz. [v9 sürüm notları](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/releases/v9.md).
+
+```typescript {3,7} fileName="vite.config.ts"
+import { reactRouter } from "@react-router/dev/vite";
+import { defineConfig } from "vite";
+import { intlayer } from "vite-intlayer";
+
+export default defineConfig({
+  plugins: [
+    reactRouter(),
+
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
+  ],
+});
+```
 
 </Step>
 

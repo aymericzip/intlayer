@@ -91,7 +91,15 @@ bun x intlayer doc review
 
 - **`--log`**: 로그 전용 모드. AI로 번역하지 않고, 대신 다른 에이전트가 번역을 생성할 수 있도록 기본 및 대상 로케일에 대해 주의가 필요한 블록(줄 번호 및 내용 포함)을 기록합니다.
 
+- **`apply`**: Translate diverging blocks and provide the complete updated file in Korean (ko)
+- **`report`**: Log blocks needing attention with line numbers and content (no AI translation)
+- **`synthesis`**: Skip per-block output and provide only a final recap of up-to-date vs. documents needing edits
+
   > 예시: `npx intlayer doc review --log`
+
+> 예시: `npx intlayer doc review --mode synthesis`
+
+어떤 모드이든, 실행은 기본 문서와 일치하는 문서와 편집할 블록이 남아 있는 문서를 나열하는 종합 보고서로 끝납니다.
 
 **출력 옵션:**
 

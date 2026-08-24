@@ -42,6 +42,45 @@ Live Sync ermöglicht es Ihrer App, CMS-Inhaltsänderungen zur Laufzeit widerzus
 
 ## Live-Synchronisation aktivieren
 
+Aktivieren Sie Live Sync, indem Sie Ihre Intlayer-Konfiguration aktualisieren:
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import type { IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  // ... andere Konfigurationseinstellungen
+  editor: {
+    /**
+     * Aktiviert das Hot Reloading von Locale-Konfigurationen, wenn Änderungen erkannt werden.
+     * Wenn beispielsweise ein Dictionary hinzugefügt oder aktualisiert wird, aktualisiert die
+     * Anwendung den auf der Seite angezeigten Inhalt.
+     *
+     * Da Hot Reloading eine kontinuierliche Verbindung zum Server erfordert, ist es
+     * nur für Clients des `enterprise`-Plans verfügbar.
+     *
+     * Standard: false
+     */
+    liveSync: true,
+  },
+  dictionary: {
+    /**
+     * Steuert, wie Dictionaries importiert werden:
+     *
+     * - "fetch": Dictionaries werden dynamisch mithilfe der Live Sync API abgerufen.
+     *   Ersetzt useIntlayer mit useDictionaryDynamic.
+     *
+     * Hinweis: Der Live-Modus verwendet die Live Sync API zum Abrufen von Dictionaries. Wenn der API-Aufruf
+     * fehlschlägt, werden Dictionaries dynamisch importiert.
+     * Hinweis: Nur Dictionaries mit Remote-Inhalten und "live"-Flags verwenden den Live-Modus.
+     * Andere verwenden den Dynamic-Modus für bessere Leistung.
+     */
+    importMode: "fetch",
+  },
+};
+
+export default config;
+```
+
 > Live Sync erfordert eine kontinuierliche Serververbindung und ist im Enterprise-Plan verfügbar.
 
 Aktivieren Sie Live Sync, indem Sie Ihre Intlayer-Konfiguration aktualisieren:

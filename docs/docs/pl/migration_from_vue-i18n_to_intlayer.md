@@ -99,9 +99,132 @@ Następujące kroki są minimalne wymagane aby uruchomić istniejącą aplikacj�
 
 Zainstaluj pakiety rdzenia Intlayer i adapter compat:
 
+```bash packageManager="npm"
+npx intlayer init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer@canary init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer@canary init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer@canary init --interactive
+```
+
+> flaga `--interactive` jest opcjonalna. Użyj `intlayer-cli init`, jeśli jesteś agentem AI.
+
+> To polecenie wykryje Twoje środowisko i zainstaluje wymagane pakiety. Na przykład:
+
+```bash packageManager="npm"
+npm install intlayer vue-intlayer @intlayer/vue-i18n @intlayer/sync-json-plugin
+```
+
+```bash packageManager="pnpm"
+pnpm add intlayer vue-intlayer @intlayer/vue-i18n @intlayer/sync-json-plugin
+```
+
+```bash packageManager="yarn"
+yarn add intlayer vue-intlayer @intlayer/vue-i18n @intlayer/sync-json-plugin
+```
+
+```bash packageManager="bun"
+bun add intlayer vue-intlayer @intlayer/vue-i18n @intlayer/sync-json-plugin
+```
+
+> Możesz zachować `vue-i18n` zainstalowany — adapter kompatybilności używa go jako `devDependency` / `peerDependency` dla typów TypeScript.
+
+</Step>
+
+<Step number={2} title="Konfiguruj Intlayer">
+
+Polecenie `intlayer init` tworzy plik startowy `intlayer.config.ts`. Zaktualizuj go, aby pasował do twoich istniejących lokalizacji i wskaż wtyczkę `syncJSON` na twoje pliki wiadomości:
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { Locales, type IntlayerConfig } from "intlayer";
+import { syncJSON } from "@intlayer/sync-json-plugin";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: [
+      Locales.ENGLISH,
+      Locales.FRENCH,
+      Locales.SPANISH,
+      // Dodaj wszystkie istniejące lokale tutaj
+    ],
+    defaultLocale: Locales.ENGLISH,
+  },
+  plugins: [
+    syncJSON({
+      // pasuje do składni placeholdera vue-i18n: {name}
+      format: "icu",
+      source: ({ locale }) => `./src/locales/${locale}.json`,
+      location: "src/locales",
+    }),
+  ],
+};
+
+export default config;
+```
+
+> **`source`** mapuje ustawienie regionalne na ścieżkę pliku JSON. **`location`** informuje obserwatora Intlayer, które foldery monitorować w poszukiwaniu zmian. Opcja `format: 'icu'` zapewnia, że symbole zastępcze są analizowane poprawnie dla `vue-i18n`.
+
+</Step>
+
+<Step number={3} title="Dodaj wtyczkę Intlayer do swojego bundlera">
+
+Zawiń istniejącą konfigurację bundlera za pomocą wtyczki compat. Komponuje core'owy plugin Intlayer, podłącza obserwację zawartości i — co krytyczne — **wstrzykuje alias modułu** tak aby istniejące wywołania `import … from 'vue-i18n'` były transparentnie przekierowywane do `@intlayer/vue-i18n` w czasie budowania. Nie są wymagane żadne zmiany plików źródłowych.
+
+**Dla Vite:**
+
+```typescript fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { defineConfig } from "vite";
+import vue from "@vitejs/plugin-vue";
+import { vueI18nVitePlugin } from "@intlayer/vue-i18n/plugin";
+
+export default defineConfig({
+  plugins: [vue(), vueI18nVitePlugin()],
+});
+```
+
+> `vueI18nVitePlugin()` otacza plugin `intlayer()` z `vite-intlayer` i dodaje alias `vue-i18n`. Używając zwykłego pluginu `intlayer()` z `vite-intlayer`, kompiluje słowniki, ale **nie** dodaje aliasu — wtedy musisz ręcznie zmienić nazwy importów na `@intlayer/vue-i18n` (patrz Krok 4).
+
+**Dla Nuxt:**
+
+Jeśli używasz `@nuxtjs/i18n` (integracja Nuxt), zainstaluj `nuxt-intlayer` i dodaj go do swojego `nuxt.config.ts`:
+
+```bash packageManager="npm"
+npm install nuxt-intlayer
+```
+
+```typescript fileName="nuxt.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+export default defineNuxtConfig({
+  modules: ["nuxt-intlayer"],
+  // Możesz bezpiecznie usunąć @nuxtjs/i18n ze swoich modułów
+});
+```
+
+> **Nie potrzebujesz już `createI18n()` ani ręcznego inicjowania providera.** Intlayer kompiluje wszystkie słowniki w **czasie buildowania**, więc nie ma kroku ładowania w runtime. Aliasowany provider obsługuje inicjalizację za Ciebie.
+
 </Step>
 
 </Steps>
+
+To koniec szybkiej migracji. Twoja aplikacja działa teraz na Intlayer, zachowując każdy import `vue-i18n` i API bez zmian.
+
+> **Wpisane klucze tłumaczeń — automatycznie.** Po skompilowaniu słowników przez Intlayer, `useI18n` jest typizowany względem rzeczywistej zawartości, gdy przekażesz opcję `namespace`. Klucze są autocompleted w twoim IDE, a nieprawidłowe ścieżki powodują błędy TypeScript w czasie budowania — nie jest wymagana żadna dodatkowa konfiguracja.
+>
+> ```ts
+> // 'about' to zarejestrowany klucz słownika
+> const { t } = useI18n({ namespace: "about" });
+> t("counter.label"); // ✓ autocompleted
+> t("does.not.exist"); // ✗ TypeScript error
+> ```
+
+---
 
 ## Pełna migracja
 

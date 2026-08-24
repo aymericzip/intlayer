@@ -617,6 +617,8 @@ goto(localizedPath); // Переходить на /en/about або /fr/about з�
 
 Щоб додати backend proxy до вашого застосунку SvelteKit, ви можете використати функцію `intlayerProxy`, що надається плагіном `vite-intlayer`. Цей плагін автоматично визначатиме найкращу локаль для користувача на основі URL, cookies та мовних налаштувань браузера.
 
+> Починаючи з Intlayer v9, `intlayerProxy()` включений безпосередньо в плагін `intlayer()` і ввімкнений за замовчуванням через опцію `routing.enableProxy` (`true` за замовчуванням). Реєстрація його окремо, як показано нижче, тепер опціональна — вона зберігається для зворотної сумісності та для налаштувань, які потребують контролю порядку плагінів. Встановіть `routing.enableProxy: false`, щоб відмовитися. Див. [примітки до випуску v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/releases/v9.md).
+
 ```ts fileName="vite.config.ts"
 import { defineConfig } from "vite";
 import { intlayer } from "vite-intlayer";

@@ -33,6 +33,20 @@ history:
 
 `express-intlayer` est un middleware puissant d'internationalisation (i18n) pour les applications Express, conçu pour rendre vos services backend accessibles à l'échelle mondiale en fournissant des réponses localisées basées sur les préférences du client. Puisque NestJS est construit sur Express, vous pouvez intégrer sans effort `express-intlayer` dans vos applications NestJS pour gérer efficacement le contenu multilingue.
 
+Cas d'utilisation pratiques
+
+- **Affichage des erreurs backend dans la langue de l'utilisateur** : Lorsqu'une erreur se produit, afficher les messages dans la langue maternelle de l'utilisateur améliore la compréhension et réduit la frustration. C'est particulièrement utile pour les messages d'erreur dynamiques qui pourraient être affichés dans des composants front-end comme les toasts ou les modales.
+
+- **Récupération de contenu multilingue** : Pour les applications qui extraient du contenu d'une base de données, l'internationalisation garantit que vous pouvez servir ce contenu dans plusieurs langues. C'est crucial pour les plateformes comme les sites e-commerce ou les systèmes de gestion de contenu qui doivent afficher des descriptions de produits, des articles et d'autres contenus dans la langue préférée par l'utilisateur.
+
+- **Envoi d'e-mails multilingues** : Que ce soit pour des e-mails transactionnels, des campagnes marketing ou des notifications, envoyer des e-mails dans la langue du destinataire peut considérablement augmenter l'engagement et l'efficacité.
+
+- **Notifications Push Multilingues** : Pour les applications mobiles, envoyer des notifications push dans la langue préférée de l'utilisateur peut améliorer l'interaction et la rétention. Cette touche personnelle peut rendre les notifications plus pertinentes et exploitables.
+
+- **Autres Communications** : Toute forme de communication en provenance du backend, telle que les messages SMS, les alertes système ou les mises à jour de l'interface utilisateur, bénéficie d'être dans la langue de l'utilisateur, assurant une clarté et améliorant l'expérience utilisateur globale.
+
+En internationalisant votre backend, votre application respecte non seulement les différences culturelles, mais s'aligne également mieux sur les besoins du marché mondial, ce qui en fait une étape clé pour adapter vos services à l'échelle mondiale.
+
 ## Pour commencer
 
 ### Créer un nouveau projet NestJS

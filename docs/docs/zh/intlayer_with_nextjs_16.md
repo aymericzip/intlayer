@@ -73,6 +73,8 @@ author: aymericzip
 
 ## 为什么选择 Inlayer 而不是替代品？
 
+与 `next-intl` 或 `i18next` 等主流解决方案相比，Intlayer 是一个提供集成优化的解决方案，例如：
+
 与“next-intl”或“i18next”等主要解决方案相比，Intlayer是一个具有集成优化的解决方案，例如：
 
 <AccordionGroup>
@@ -296,6 +298,36 @@ export default RootLayout;
 
 要实现动态路由，请通过在 `[locale]` 目录中添加新布局来提供语言环境路径：
 
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
+```tsx fileName="src/app/[locale]/layout.tsx" codeFormat={["typescript", "esm"]}
+import { type NextLayoutIntlayer } from "next-intlayer";
+import { IntlayerProvider } from "next-intlayer/server";
+import { Inter } from "next/font/google";
+import { getHTMLTextDir } from "intlayer";
+
+const inter = Inter({ subsets: ["latin"] });
+
+const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
+  const { locale } = await params;
+  return (
+    <IntlayerProvider locale={locale}>
+      <html lang={locale} dir={getHTMLTextDir(locale)}>
+        <body className={inter.className}>{children}</body>
+      </html>
+    </IntlayerProvider>
+  );
+};
+
+export default LocaleLayout;
+```
+
+> 单个 `IntlayerProvider` 覆盖树的两个部分：它为服务器 hooks 读取的请求作用域服务器上下文提供种子，并挂载客户端提供者，以便客户端组件接收相同的locale。
+
+ </Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
+
 ```tsx fileName="src/app/[locale]/layout.tsx" codeFormat={["typescript", "esm"]}
 import { type NextLayoutIntlayer, IntlayerClientProvider } from "next-intlayer";
 import { Inter } from "next/font/google";
@@ -318,6 +350,9 @@ const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
 
 export default LocaleLayout;
 ```
+
+ </Tab>
+</Tabs>
 
 > `[locale]` 路径段用于定义语言环境。示例：`/en-US/about` 将引用 `en-US`，而 `/fr/about` 将引用 `fr`。
 
@@ -391,6 +426,43 @@ export default pageContent;
 
 <Step number={6} title="在代码中利用内容">
 
+在整个应用程序中访问你的内容字典：
+
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
+```tsx fileName="src/app/[locale]/page.tsx" codeFormat={["typescript", "esm"]}
+import type { FC } from "react";
+import { ClientComponentExample } from "@components/ClientComponentExample";
+import { ServerComponentExample } from "@components/ServerComponentExample";
+import { type NextPageIntlayer, useIntlayer } from "next-intlayer";
+
+const PageContent: FC = () => {
+  const content = useIntlayer("page");
+
+  return (
+    <>
+      <p>{content.getStarted.main}</p>
+      <code>{content.getStarted.pageLink}</code>
+    </>
+  );
+};
+
+const Page: NextPageIntlayer = () => (
+  <>
+    <PageContent />
+    <ServerComponentExample />
+
+    <ClientComponentExample />
+  </>
+);
+
+export default Page;
+```
+
+- **`IntlayerProvider`** 在 locale layout 中挂载一次。它向服务器和客户端组件提供 locale，因此页面不再需要自己包装。
+- 服务器 hooks 按以下顺序解析 locale：调用站点传递的 locale，然后是由提供者种子化的服务器上下文，然后是请求携带的 locale（由 Intlayer 代理设置的 `x-intlayer-locale` header，然后是 locale cookie）。最后一步是保持内容在客户端导航中正确的原因，在客户端导航中只重新渲染页面段，而 layout——以及它的 provider——不会重新运行。
+
 在整个应用程序中访问您的内容字典：
 
 ```tsx fileName="src/app/[locale]/page.tsx" codeFormat={["typescript", "esm"]}
@@ -432,6 +504,9 @@ export default Page;
 
   > 布局和页面不能共享通用的服务器上下文，因为服务器上下文系统基于每个请求的数据存储（通过 [React 的缓存](https://react.dev/reference/react/cache) 机制），导致每个“上下文”会为应用程序的不同部分重新创建。将提供者放在共享布局中会打破这种隔离，阻止服务器上下文值正确传播到您的服务器组件。
 
+ </Tab>
+</Tabs>
+
 ```tsx {4,7} fileName="src/components/ClientComponentExample.tsx" codeFormat={["typescript", "esm"]}
 "use client";
 
@@ -450,6 +525,30 @@ export const ClientComponentExample: FC = () => {
 };
 ```
 
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
+```tsx {2} fileName="src/components/ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
+import type { FC } from "react";
+import { useIntlayer } from "next-intlayer";
+
+export const ServerComponentExample: FC = () => {
+  const content = useIntlayer("server-component-example"); // 创建相关内容声明
+
+  return (
+    <div>
+      <h2>{content.title}</h2>
+      <p>{content.content}</p>
+    </div>
+  );
+};
+```
+
+> `next-intlayer` 是同构的导入路径：`react-server` 导出条件为服务器组件提供了环境语言环境实现，而客户端组件获得了基于上下文的实现。相同的调用在两端都有效。
+
+ </Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
+
 ```tsx {2} fileName="src/components/ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "next-intlayer/server";
@@ -465,6 +564,9 @@ export const ServerComponentExample: FC = () => {
   );
 };
 ```
+
+ </Tab>
+</Tabs>
 
 > 如果您想在 `string` 属性中使用您的内容，例如 `alt`、`title`、`href`、`aria-label` 等，您必须调用该函数的值，如下所示：
 
@@ -494,6 +596,8 @@ export const config = {
 ```
 
 > `intlayerProxy` 用于检测用户的首选语言环境，并将他们重定向到 [配置](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md) 中指定的相应 URL。此外，它还允许将用户的首选语言环境保存在 cookie 中。
+
+> 从 Intlayer v9 开始，这个中间件遵守 `routing.enableProxy` 选项（默认为 `true`）。在你的配置中设置 `routing.enableProxy: false` 以将其转换为直通模式，而不需要删除此文件。查看 [v9 发布说明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/releases/v9.md)。
 
 > 如果您需要将多个代理链接在一起（例如，带有身份验证的 `intlayerProxy` 或自定义代理），Intlayer 现在提供了一个名为 `multipleProxies` 的助手。
 

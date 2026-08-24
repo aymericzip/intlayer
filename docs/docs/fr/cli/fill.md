@@ -39,14 +39,6 @@ bun x intlayer fill
 
 Cette commande analyse vos fichiers de déclaration de contenu pour détecter d’éventuels problèmes tels que des traductions manquantes, des incohérences structurelles ou des incompatibilités de types. Si elle trouve des problèmes, **intlayer fill** proposera ou appliquera des mises à jour pour garder vos dictionnaires cohérents et complets.
 
-Points clés :
-
-- Divise les grands fichiers JSON en morceaux pour rester dans les limites de la fenêtre de contexte du modèle d'IA.
-- Réessaie la traduction si le format de sortie est incorrect.
-- Intègre le contexte spécifique à l'application et au fichier pour améliorer la précision de la traduction.
-- Préserve les traductions existantes en ne les écrasant pas.
-- Traite les fichiers, les morceaux et les locales en parallèle à l'aide d'un système de file d'attente pour augmenter la vitesse.
-
 ## Points clés :
 
 - Divise les fichiers JSON volumineux en chunks pour rester dans les limites de la fenêtre contextuelle du modèle d'IA.

@@ -50,14 +50,6 @@ Der `init`-Befehl richtet Intlayer automatisch in Ihrem Projekt ein, indem er di
 
 ## Was es macht:
 
-Der `init`-Befehl führt die folgenden Einrichtungsaufgaben aus:
-
-1. **Validiert die Projektstruktur** - Stellt sicher, dass Sie sich in einem gültigen Projektverzeichnis mit einer `package.json`-Datei befinden
-2. **Aktualisiert `.gitignore`** - Fügt `.intlayer` zu Ihrer `.gitignore`-Datei hinzu, um generierte Dateien von der Versionskontrolle auszuschließen
-3. **Konfiguriert TypeScript** - Aktualisiert alle `tsconfig.json`-Dateien, um Intlayer-Typdefinitionen einzuschließen (`.intlayer/**/*.ts`)
-4. **Erstellt Konfigurationsdatei** - Generiert eine `intlayer.config.ts` (für TypeScript-Projekte) oder `intlayer.config.mjs` (für JavaScript-Projekte) mit Standardeinstellungen
-5. **Aktualisiert Vite-Konfiguration** - Wenn eine Vite-Konfigurationsdatei erkannt wird, fügt es den Import des `vite-intlayer`-Plugins hinzu
-
 Der `init`-Befehl führt die folgenden Einrichtungsschritte aus:
 
 1. **Validiert Projektstruktur** - Stellt sicher, dass Sie sich in einem gültigen Projektverzeichnis mit einer `package.json`-Datei befinden

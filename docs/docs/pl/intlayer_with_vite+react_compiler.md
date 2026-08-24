@@ -232,6 +232,8 @@ export default defineConfig({
 
 > Wtyczka Vite `intlayerCompiler()` służy do wyodrębniania treści z komponentów i zapisywania plików `.content`.
 
+> Od wersji Intlayer v9 kompilator jest bezpośrednio wbudowany w plugin `intlayer()` i aktywuje się automatycznie, gdy `compiler.enabled` jest ustawiony za pomocą ścieżki `compiler.output`. Rejestrowanie `intlayerCompiler()` osobno, jak pokazano poniżej, jest teraz opcjonalne — automatycznie się deduplikuje, jeśli zostanie również dodane. Zobacz [notatki wydania v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/releases/v9.md).
+
 </Step>
 
 <Step number={4} title="Skompiluj swój kod">

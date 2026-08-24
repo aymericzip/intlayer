@@ -79,6 +79,36 @@ author: aymericzip
 
 यहाँ बताया गया है कि आप `useIntlayer` हुक को Next.js पेज के भीतर कैसे लागू कर सकते हैं ताकि एप्लिकेशन की वर्तमान स्थानीय भाषा के आधार पर स्थानीयकृत सामग्री को गतिशील रूप से लोड किया जा सके:
 
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
+```tsx fileName="src/pages/[locale]/index.tsx" codeFormat={["typescript", "esm"]}
+import { ClientComponentExample } from "@components/ClientComponentExample";
+import { ServerComponentExample } from "@components/ServerComponentExample";
+import { type NextPageIntlayer } from "next-intlayer";
+import { useIntlayer } from "next-intlayer";
+import { IntlayerProvider } from "next-intlayer/server";
+
+const HomePage: NextPageIntlayer = async ({ params }) => {
+  // पैरामीटर से locale को निकालें
+  const { locale } = await params;
+
+  // होमपेज की सामग्री प्राप्त करें
+  const content = useIntlayer("homepage", locale);
+
+  return (
+    <IntlayerProvider locale={locale}>
+      <p>{content.introduction}</p>
+      <ClientComponentExample />
+      <ServerComponentExample />
+    </IntlayerProvider>
+  );
+};
+```
+
+ </Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
+
 ```tsx fileName="src/pages/[locale]/index.tsx" codeFormat={["typescript", "esm"]}
 import { ClientComponentExample } from "@components/ClientComponentExample";
 import { ServerComponentExample } from "@components/ServerComponentExample";
@@ -103,6 +133,9 @@ const HomePage: NextPageIntlayer = async ({ params }) => {
   );
 };
 ```
+
+ </Tab>
+</Tabs>
 
 ```tsx fileName="src/components/ClientComponentExample.tsx" codeFormat={["typescript", "esm"]}
 "use-client";

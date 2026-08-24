@@ -32,8 +32,6 @@ author: aymericzip
 
 # 使用Intlayer翻译您的Vite and Vue | 国际化(i18n)
 
-请参阅 GitHub 上的[应用模板](https://github.com/aymericzip/intlayer-vite-vue-template)。
-
 ## 目录
 
 <TOC/>
@@ -371,6 +369,13 @@ app.use(intlayer);
 app.mount("#app");
 ```
 
+> 你也可以根据偏好直接调用 `installIntlayer(app)` 作为一个函数：
+>
+> ```javascript
+> import { intlayer } from "vue-intlayer";
+> app.use(intlayer);
+> ```
+
 通过创建主 Vue 组件并使用 `useIntlayer` 组合函数，可以在整个应用中访问内容字典：
 
 ```vue fileName="src/HelloWord.vue"
@@ -424,6 +429,8 @@ const countRef = ref(0);
 </template>
 ```
 
+> 如果你的应用已经存在，你可以使用 [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md) 以及 [extract 命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/extract.md)，在几秒钟内转换数千个组件。
+
 #### 在 Intlayer 中访问内容
 
 Intlayer 提供了多种 API 来访问您的内容：
@@ -441,8 +448,6 @@ Intlayer 提供了多种 API 来访问您的内容：
   `useIntlayer` 组合函数返回一个包含内容的 Proxy。该 Proxy 可以被解构以访问内容，同时保持响应性。
   - 使用 `const content = useIntlayer("myContent");` 并通过 `{{ content.myContent }}` / `<content.myContent />` 访问内容。
   - 或者使用 `const { myContent } = useIntlayer("myContent");` 并通过 `{{ myContent }}` / `<myContent/>` 解构访问内容。
-
-> 如果您的应用程序已经存在，您可以结合使用 [Intlayer 编译器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md) 和 [提取命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/extract.md) 在一秒钟内转换成干个组件。
 
 </Step>
 
@@ -629,7 +634,11 @@ import LocaleSwitcher from "@components/LocaleSwitcher.vue";
 </template>
 ```
 
+同时，你也可以使用 `intlayerProxy` 为你的应用程序添加服务器端路由。这个插件将根据 URL 自动检测当前语言环境并设置相应的语言环境 cookie。如果没有指定语言环境，该插件将根据用户的浏览器语言偏好确定最合适的语言环境。如果未检测到语言环境，它将重定向到默认语言环境。
+
 同时，你也可以使用 `intlayerProxy` 为你的应用添加服务器端路由。该插件会根据 URL 自动检测当前语言环境并设置相应的语言环境 cookie。如果未指定语言环境，插件将根据用户浏览器的语言偏好确定最合适的语言环境。如果仍未检测到语言环境，则会重定向到默认语言环境。
+
+> 自 Intlayer v9 起，`intlayerProxy()` 已直接打包到 `intlayer()` 插件中，并通过 `routing.enableProxy` 选项默认启用（默认为 `true`）。如下所示单独注册它现在是可选的 — 它被保留用于向后兼容性以及需要控制插件顺序的设置。设置 `routing.enableProxy: false` 可退出。查看 [v9 发布说明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/releases/v9.md)。
 
 ```typescript {3,7} fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
@@ -1131,3 +1140,5 @@ Intlayer 使用模块扩展 (module augmentation) 来利用 TypeScript 的优势
 ### 深入了解
 
 要进一步使用，您可以实现[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)或使用[内容管理系统（CMS）](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)将内容外部化。
+
+Once you provide these blocks, I'll perform a complete audit and return the fully updated Chinese translation following all the guidelines you've specified.---

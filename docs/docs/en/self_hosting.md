@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-30
-updatedAt: 2026-07-02
+updatedAt: 2026-08-23
 title: Self-Hosting Intlayer
 description: Run a complete Intlayer instance on your own infrastructure with a single container. No Intlayer Cloud account required.
 keywords:
@@ -19,6 +19,14 @@ author: aymericzip
 # Self-Hosting Intlayer
 
 Intlayer can run on your own infrastructure. No Intlayer Cloud account required. A single all-in-one Docker image bundles the dashboard, the API, and the local datastores (Redis and MinIO) it needs, supervised by [s6-overlay](https://github.com/just-containers/s6-overlay).
+
+One command installs everything:
+
+```sh
+curl -fsSL https://intlayer.org/install.sh | sh
+```
+
+The installer checks for Docker (offering to install it), writes an `intlayer.env` file with your secrets already generated, and pulls the image. It then asks you to fill in your credentials and prints the `docker run` command — see [Quick start](#quick-start).
 
 The only external dependency is **MongoDB**: the backend connects to a MongoDB **Atlas** cluster, which you provide. Everything else runs inside the container.
 
@@ -51,37 +59,83 @@ Chromium (used for Puppeteer screenshot generation) is bundled inside the image.
 
 ## Prerequisites
 
-- **Docker** ≥ 24.
+- **Docker** ≥ 24. The installer offers to install it for you if it is missing (via [get.docker.com](https://get.docker.com) on Linux, Homebrew on macOS).
 - Ports `3000`, `3100`, `9000`, and `9001` available on the host.
 - A Linux or macOS host (or WSL2 on Windows).
 - A **MongoDB Atlas** cluster (a free tier works). Create one at [mongodb.com/atlas](https://www.mongodb.com/atlas).
-- A **Resend** API key for transactional email. Get one at [resend.com](https://resend.com).
+- A **Resend** API key for transactional email. Get one at [resend.com](https://resend.com). A [global SMTP mailer](#global-mailer) works instead.
+
+Everything else — Bun, Redis, MinIO, Chromium — ships inside the image.
 
 ---
 
 ## Quick start
 
-Pull and run the published image, supplying your MongoDB Atlas credentials and secrets:
+### 1. Run the installer
+
+```sh
+curl -fsSL https://intlayer.org/install.sh | sh
+```
+
+It verifies Docker is installed and running, writes `./intlayer.env` with `BETTER_AUTH_SECRET` and `S3_SECRET_ACCESS_KEY` already generated, and pulls the image. It does not start the container — the backend cannot boot without your database credentials.
+
+Re-running the installer is safe: an existing `intlayer.env` is never overwritten, so it doubles as the upgrade path.
+
+### 2. Fill in your credentials
+
+Open `intlayer.env` and complete the values marked `TODO`:
+
+```sh fileName="intlayer.env"
+DB_ID=<atlas-user>
+DB_MDP=<atlas-password>
+DB_CLUSTER=<cluster>.xxxxx.mongodb.net
+RESEND_API_KEY=<your-resend-key>
+```
+
+The file also carries commented-out blocks for the optional features — [SMTP mailer](#global-mailer), `OPENAI_API_KEY`, and the OAuth providers. Uncomment what you need.
+
+> The file is read by `docker run --env-file`, which does not strip quotes and treats everything after `=` as the value. Write bare values, and keep comments on their own lines.
+
+### 3. Start the container
+
+This is the command the installer prints when it finishes:
 
 ```sh
 docker run -d --name intlayer \
+  --restart unless-stopped \
   -p 3000:3000 \
   -p 3100:3100 \
   -p 9000:9000 \
   -p 9001:9001 \
   -v intlayer-data:/data \
-  -e DB_ID="<atlas-user>" \
-  -e DB_MDP="<atlas-password>" \
-  -e DB_CLUSTER="<cluster>.xxxxx.mongodb.net" \
-  -e BETTER_AUTH_SECRET="$(openssl rand -hex 32)" \
-  -e S3_SECRET_ACCESS_KEY="$(openssl rand -hex 16)" \
-  -e RESEND_API_KEY="<your-resend-key>" \
-  aymericzip/intlayer-selfhost
+  --env-file ./intlayer.env \
+  ghcr.io/aymericzip/intlayer-selfhost:latest
 ```
 
-Then open **http://localhost:3000**.
+Then open **http://localhost:3000**. First boot initialises the datastores, so give it a minute.
 
 > The dashboard is served on `localhost`. See [Limitations](#limitations) — custom domains are not supported by the published image.
+
+### Installer settings
+
+The installer reads a few environment variables. Because it is piped into `sh`, pass them to the shell rather than to `curl`:
+
+```sh
+curl -fsSL https://intlayer.org/install.sh | INTLAYER_ENV_FILE=./config/intlayer.env sh
+```
+
+| Variable                  | Default                                       | Description                     |
+| ------------------------- | --------------------------------------------- | ------------------------------- |
+| `INTLAYER_IMAGE`          | `ghcr.io/aymericzip/intlayer-selfhost:latest` | Image to pull                   |
+| `INTLAYER_ENV_FILE`       | `./intlayer.env`                              | Where to write the env file     |
+| `INTLAYER_CONTAINER_NAME` | `intlayer`                                    | Container name                  |
+| `INTLAYER_DATA_VOLUME`    | `intlayer-data`                               | Named volume mounted at `/data` |
+| `INTLAYER_APP_PORT`       | `3000`                                        | Host port for the dashboard     |
+| `INTLAYER_API_PORT`       | `3100`                                        | Host port for the API           |
+| `INTLAYER_S3_PORT`        | `9000`                                        | Host port for the MinIO S3 API  |
+| `INTLAYER_CONSOLE_PORT`   | `9001`                                        | Host port for the MinIO console |
+
+> The four port variables only change the **host** side of the mapping printed in the `docker run` command. The published image has `http://localhost:3000`, `http://localhost:3100` and `http://localhost:9000` compiled into the dashboard bundle at build time, so remapping them leaves the browser pointing at the old ports. Keep the defaults unless you are building your own image — see [Limitations](#limitations).
 
 ---
 
@@ -123,6 +177,7 @@ Once an admin exists, `/init` redirects to the standard sign-in page.
 | `BETTER_AUTH_SECRET`   | _(generated)_                | 32-byte secret for session signing                                                                                                           |
 | `S3_SECRET_ACCESS_KEY` | _(generated)_                | Secret for the bundled MinIO                                                                                                                 |
 | `RESEND_API_KEY`       | _(your key)_                 | Transactional email via Resend. Required for first-run setup unless you configure a global SMTP mailer (see [Global mailer](#global-mailer)) |
+| `SELF_HOSTED`          | `true`                       | Disables the cloud-only API endpoints: Stripe billing, subscriptions, affiliate and promo-code programs, and the reviewer marketplace        |
 
 ### Baked-in defaults (override only if needed)
 
@@ -234,12 +289,12 @@ const { data: dictionaries } = await dictionaryEndpoint(cms).getDictionaries();
 
 ## Upgrading
 
-Pull the latest image and recreate the container. Your data is preserved in the named volume (MinIO/Redis) and in your Atlas cluster (MongoDB):
+Re-run the installer to pull the latest image, then recreate the container. Your `intlayer.env` is left untouched, and your data is preserved in the named volume (MinIO/Redis) and in your Atlas cluster (MongoDB):
 
 ```sh
-docker pull aymericzip/intlayer-selfhost
-docker stop intlayer && docker rm intlayer
-# re-run the `docker run …` command from Quick start
+curl -fsSL https://intlayer.org/install.sh | sh
+docker rm -f intlayer
+# re-run the `docker run …` command from step 3 of Quick start
 ```
 
 ---
@@ -271,7 +326,7 @@ docker run --rm \
 ## Limitations
 
 - **MongoDB must be external (Atlas).** The backend connects only over `mongodb+srv://` (built from `DB_ID` / `DB_MDP` / `DB_CLUSTER`), so a plain `mongodb://host:27017` — including the container's own bundled `mongod` — cannot be used. Provide a MongoDB Atlas cluster.
-- **No custom domain.** All browser-facing `VITE_*` URLs are inlined into the app at build time, and the published image ships with `localhost` values. The dashboard must be accessed at `http://localhost:3000`; serving it on a public domain would require rebuilding the image with the target URLs baked in and is not supported out of the box.
+- **No custom domain, and no port remapping.** All browser-facing `VITE_*` URLs are inlined into the app at build time, and the published image ships with `localhost` values. The dashboard must be accessed at `http://localhost:3000`, the API at `:3100` and MinIO at `:9000`; serving it on a public domain — or on different ports — would require rebuilding the image with the target URLs baked in (`--build-arg VITE_BACKEND_URL=…`) and is not supported out of the box.
 - **Email requires a working mailer.** First-run setup enforces email verification, so either `RESEND_API_KEY` or a [global SMTP mailer](#global-mailer) (`MAIL_PROVIDER=smtp` + `MAIL_SMTP_*`) must be configured. After the first admin signs in, each organization can also configure its own SMTP or Resend mailer from the dashboard.
 
 ---
@@ -280,13 +335,14 @@ docker run --rm \
 
 ### Dashboard loads but the API resets the connection (`ERR_CONNECTION_RESET` on `:3100`)
 
-The backend crashed on startup and is not listening. The most common cause is a missing or invalid MongoDB connection: check that `DB_ID`, `DB_MDP`, and `DB_CLUSTER` are set and correct.
+The backend crashed on startup and is not listening. The most common cause is a missing or invalid MongoDB connection — usually the `TODO` values in `intlayer.env` were never filled in:
 
 ```sh
+grep -E '^DB_(ID|MDP|CLUSTER)=' intlayer.env
 docker logs intlayer
 ```
 
-Look for `MongoDB connection error` near the top of the log.
+Look for `MongoDB connection error` near the top of the log. After correcting `intlayer.env`, recreate the container (`docker rm -f intlayer`, then the `docker run …` command again) — `--env-file` is read at creation time, so editing the file does not affect a running container.
 
 ### First account can't be verified
 
@@ -307,4 +363,5 @@ docker restart intlayer
 - [Intlayer CMS documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
 - [Configuration reference](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md)
 - [CMS SDK — `@intlayer/api`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md#programmatic-access-with-the-intlayerapi-sdk)
-- [Docker Image (aymercizip/intlayer-selfhost)](https://hub.docker.com/repository/docker/aymercizip/intlayer-selfhost/general)
+- [Container image on GHCR](https://github.com/aymericzip/intlayer/pkgs/container/intlayer-selfhost) — `ghcr.io/aymericzip/intlayer-selfhost`
+- [Container image on Docker Hub](https://hub.docker.com/r/aymericzip/intlayer-selfhost) — mirror of the same build

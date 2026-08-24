@@ -100,6 +100,8 @@ npx intlayer fill --unpushed --mode fill    # Заповнює лише відс
 >
 > If you have multiple apps in your repo using separate intlayer instances, you can use the `--base-dir` argument like this:
 
+> Якщо у вашому репозиторіумі є кілька програм, які використовують окремі екземпляри intlayer, ви можете використовувати аргумент `--base-dir` таким чином:
+
 ```bash fileName=".husky/pre-push"
 # Додаток 1
 npx intlayer build --base-dir ./app1

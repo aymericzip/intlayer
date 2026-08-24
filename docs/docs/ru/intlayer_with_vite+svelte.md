@@ -298,6 +298,8 @@ export default appContent;
 > Если ваше приложение уже существует, вы можете использовать [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compiler.md) в сочетании с [командой extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/extract.md), чтобы преобразовать тысячи компонентов за одну секунду.
 ```
 
+> Если ваше приложение уже существует, вы можете использовать [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compiler.md), а также [команду extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/extract.md), чтобы трансформировать тысячи компонентов за секунду.
+
 </Step>
 
 <Step number={6} title="Изменение языка вашего контента" isOptional={true}>
@@ -457,6 +459,8 @@ $: content = useIntlayer('app', locale);
 
 > Обратите внимание, что для использования `intlayerProxy` в продакшене необходимо перевести пакет `vite-intlayer` из `devDependencies` в `dependencies`.
 
+> С версии Intlayer v9 `intlayerProxy()` встроен непосредственно в плагин `intlayer()` и включен по умолчанию через опцию `routing.enableProxy` (`true` по умолчанию). Регистрация его отдельно, как показано ниже, теперь является опциональной — она сохранена для обратной совместимости и для конфигураций, которым необходимо контролировать порядок плагинов. Установите `routing.enableProxy: false` для отключения. См. [примечания к релизу v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/releases/v9.md).
+
 ```typescript {3,7} fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
 import { svelte } from "@sveltejs/vite-plugin-svelte";
@@ -503,6 +507,29 @@ const changeLocale = (event: Event) => {
     {/each}
   </select>
 </div>
+```
+
+Once you provide these, I'll audit the translation and return the fully updated Russian version following all the guidelines you've specified.
+
+<Step number={9} title="Интернационализированные ссылки" isOptional={true}>
+
+Для SEO рекомендуется добавлять префикс локали к вашим маршрутам (например, `/about`, `/fr/about`).
+
+```svelte fileName="src/lib/components/Link.svelte"
+<script lang="ts">
+  import { getLocalizedUrl } from "intlayer";
+  import { useLocale } from "svelte-intlayer";
+
+  export let href = "";
+  const { locale } = useLocale();
+
+  // Вспомогательная функция для префиксации URL
+  $: localizedHref = getLocalizedUrl(href, $locale);
+</script>
+
+<a href={localizedHref}>
+  <slot />
+</a>
 ```
 
 </Step>
@@ -707,6 +734,8 @@ console.log("SEO files generated successfully.");
 - **Быстрые действия** для удобного создания и обновления переводов.
 
 Для получения дополнительной информации о том, как использовать расширение, обратитесь к [документации расширения Intlayer для VS Code](https://intlayer.org/doc/vs-code-extension).
+
+---
 
 ### Продвинуться дальше
 

@@ -57,5 +57,3 @@ Bajo el capó:
 - **`useTranslations`:** Se reimplementa para devolver una función tipada que se vincula automáticamente a tus diccionarios de Intlayer.
 - **`getTranslations`:** En funciones del servidor, obtiene acceso tipado a contenido de Intlayer sin hacer solicitudes de red.
 - **Middleware:** Intlayer proporciona un middleware de routing automático que reconoce locales y gestiona redirecciones.
-
-Tu aplicación mantiene la misma estructura y sintaxis, pero ahora con el poder de Intlayer dirigiendo las traducciones.

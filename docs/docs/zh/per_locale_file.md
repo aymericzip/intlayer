@@ -93,6 +93,19 @@ module.exports = helloWorldContent;
 }
 ```
 
+```json5 fileName="hello-world.zh.content.json" contentDeclarationFormat="json"
+{
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "hello-world",
+  "locale": "zh", // 重要
+  "content": {
+    "multilingualContent": "我的组件标题",
+  },
+}
+```
+
+> 重要：确保定义了 locale 字段。它告诉 Intlayer 该文件代表哪种语言。
+
 > 推荐：当使用 Intlayer 的可视化编辑器或直接在代码中管理翻译时，此格式最佳。
 
 ### 每个语言区域文件的全局配置
@@ -146,17 +159,6 @@ const helloWorldContent = {
 export default helloWorldContent;
 ```
 
-```json5 fileName="hello-world.en.content.json" contentDeclarationFormat="json"
-{
-  "$schema": "https://intlayer.org/schema.json",
-  "key": "hello-world",
-  "locale": "en", // 重要
-  "content": {
-    "multilingualContent": "我的组件标题",
-  },
-}
-```
-
 ```json5 fileName="hello-world.es.content.json" contentDeclarationFormat="json"
 {
   "$schema": "https://intlayer.org/schema.json",
@@ -167,8 +169,6 @@ export default helloWorldContent;
   },
 }
 ```
-
-> 重要提示：确保定义了 locale 字段。它告诉 Intlayer 该文件代表哪种语言。
 
 > 注意：在这两种情况下，内容声明文件必须遵循命名模式 `*.content.{ts,tsx,js,jsx,mjs,cjs,json}`，以便被 Intlayer 识别。`.[locale]` 后缀是可选的，仅作为命名约定使用。
 

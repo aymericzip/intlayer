@@ -376,35 +376,6 @@ const { locale, availableLocales, setLocale } = useLocale();
 
 </Step>
 
-<Step number={6b} title="내비게이션이 포함된 레이아웃 생성" isOptional={true}>
-
-Nuxt 레이아웃을 사용하면 페이지에 공통 구조를 정의할 수 있습니다. 로케일 스위처와 내비게이션을 포함하는 기본 레이아웃을 생성하세요:
-
-```vue fileName="layouts/default.vue"
-<script setup lang="ts">
-import Links from "~/components/Links.vue";
-import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
-</script>
-
-<template>
-  <div>
-    <header>
-      <LocaleSwitcher />
-    </header>
-    <main>
-      <slot />
-    </main>
-
-    <Links href="/">홈</Links>
-    <Links href="/about">소개</Links>
-  </div>
-</template>
-```
-
-`Links` 컴포넌트(아래에 표시됨)는 내부 내비게이션 링크가 자동으로 현지화되도록 보장합니다.
-
-</Step>
-
 <Step number={7} title="애플리케이션에 현지화된 라우팅 추가하기" isOptional={true}>
 
 Nuxt는 `nuxt-intlayer` 모듈을 사용할 때 현지화된 라우팅을 자동으로 처리합니다. 이는 페이지 디렉토리 구조를 기반으로 각 언어별 경로를 자동으로 생성합니다.
@@ -651,6 +622,35 @@ export default aboutPageContent;
   }
 }
 ```
+
+</Step>
+
+<Step number="6b" title="내비게이션과 함께 레이아웃 생성" isOptional={true}>
+
+Nuxt 레이아웃을 사용하면 페이지의 공통 구조를 정의할 수 있습니다. 로케일 전환기와 네비게이션을 포함하는 기본 레이아웃을 만드세요:
+
+```vue fileName="layouts/default.vue"
+<script setup lang="ts">
+import Links from "~/components/Links.vue";
+import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
+</script>
+
+<template>
+  <div>
+    <header>
+      <LocaleSwitcher />
+    </header>
+    <main>
+      <slot />
+    </main>
+
+    <Links href="/">홈</Links>
+    <Links href="/about">정보</Links>
+  </div>
+</template>
+```
+
+`Links` 컴포넌트(아래 표시됨)는 내부 네비게이션 링크가 자동으로 지역화되도록 보장합니다.
 
 </Step>
 

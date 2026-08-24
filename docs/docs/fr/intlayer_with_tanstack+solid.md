@@ -487,10 +487,6 @@ function RouteComponent() {
 }
 ```
 
-> Dans Solid, `useIntlayer` retourne un contenu réactif (par exemple, `content`). Vous pouvez accéder directement à ses propriétés.
->
-> Si vous souhaitez utiliser votre contenu dans un attribut de type `string`, tel que `alt`, `title`, `href`, `aria-label`, etc., vous devez appeler la valeur de la fonction, comme ceci :
-
 > ```html
 > <img src="{content.image.src.value}" alt="{content.image.value}" />
 > <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
@@ -574,6 +570,8 @@ Vous pouvez également utiliser `intlayerProxy` pour ajouter un routage côté s
 
 > Notez que pour utiliser `intlayerProxy` en production, vous devez déplacer le package `vite-intlayer` de `devDependencies` vers `dependencies`.
 
+> Depuis Intlayer v9, `intlayerProxy()` est directement intégré dans le plugin `intlayer()` et activé par défaut via l'option `routing.enableProxy` (`true` par défaut). L'enregistrement séparé comme montré ci-dessous est maintenant optionnel — il est conservé pour la compatibilité rétroactive et pour les configurations qui doivent contrôler l'ordre des plugins. Définissez `routing.enableProxy: false` pour refuser. Consultez les [notes de version v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/releases/v9.md).
+
 ```typescript fileName="vite.config.ts"
 import { tanstackStart } from "@tanstack/solid-start/plugin/vite";
 import solid from "vite-plugin-solid";
@@ -607,6 +605,8 @@ export default defineConfig({
 <Step number={13} title="Internationaliser vos métadonnées">
 
 Vous pouvez également utiliser la fonction `getIntlayer` pour accéder à vos dictionnaires de contenu à l'intérieur du chargeur `head` pour des métadonnées tenant compte de la localisation :
+
+Il se comporte comme `getIntlayer`, mais le plugin de build le pointe vers le chunk de dictionnaire par locale au lieu du dictionnaire fusionné contenant chaque locale — donc les métadonnées d'une page ne livrent que la locale qu'elle affiche. Parce qu'il charge ce chunk à la demande, `head` devient `async`:
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/solid-router";

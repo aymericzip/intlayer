@@ -307,7 +307,7 @@ Triển khai routing động để phục vụ nội dung được địa phươ
 
     Trong file `[locale]/index.tsx` của bạn, định nghĩa các đường dẫn và props để xử lý các locale khác nhau.
 
-```tsx fileName="src/pages/[locale]/index.tsx" codeFormat={["typescript", "esm"]}
+```tsx fileName="src/pages/[locale]/index.tsx" codeFormat="typescript"
 import type { GetStaticPaths, GetStaticProps } from "next";
 import { getConfiguration } from "intlayer";
 
@@ -335,6 +335,68 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 };
 
 export default HomePage;
+```
+
+```jsx fileName="src/pages/[locale]/index.mjx" codeFormat="esm"
+import { getConfiguration } from "intlayer";
+import { ComponentExample } from "@components/ComponentExample";
+
+const HomePage = () => <div>{/* Nội dung của bạn ở đây */}</div>;
+
+export const getStaticPaths = () => {
+  const { internationalization } = getConfiguration();
+  const { locales } = internationalization;
+
+  const paths = locales.map((locale) => ({
+    params: { locale },
+  }));
+
+  return { paths, fallback: false };
+};
+
+export const getStaticProps = ({ params }) => {
+  const locale = params?.locale;
+
+  return {
+    props: {
+      locale,
+    },
+  };
+};
+```
+
+```jsx fileName="src/pages/[locale]/index.csx" codeFormat="commonjs"
+const { getConfiguration } = require("intlayer");
+const { ComponentExample } = require("@components/ComponentExample");
+
+const HomePage = () => <div>{/* Nội dung của bạn ở đây */}</div>;
+
+const getStaticPaths = async () => {
+  const { internationalization } = getConfiguration();
+  const { locales } = internationalization;
+
+  const paths = locales.map((locale) => ({
+    params: { locale },
+  }));
+
+  return { paths, fallback: false };
+};
+
+const getStaticProps = async ({ params }) => {
+  const locale = params?.locale;
+
+  return {
+    props: {
+      locale,
+    },
+  };
+};
+
+module.exports = {
+  getStaticProps,
+  getStaticPaths,
+  default: HomePage,
+};
 ```
 
 > `getStaticPaths` và `getStaticProps` đảm bảo rằng ứng dụng của bạn sẽ xây dựng trước các trang cần thiết cho tất cả các locale trong Next.js Page Router. Cách tiếp cận này giảm thiểu tính toán khi chạy và mang lại trải nghiệm người dùng tốt hơn. Để biết thêm chi tiết, hãy tham khảo tài liệu Next.js về [`getStaticPaths`](https://nextjs.org/docs/pages/building-your-application/data-fetching/get-static-paths) và [`getStaticProps`](https://nextjs.org/docs/pages/building-your-application/data-fetching/get-static-props).

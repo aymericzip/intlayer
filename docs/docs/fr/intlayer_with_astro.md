@@ -123,6 +123,30 @@ Voir le [Modèle d'application](https://github.com/aymericzip/intlayer-astro-tem
 Installez les packages nécessaires en utilisant votre gestionnaire de packages préféré :
 
 ```bash packageManager="npm"
+npx intlayer init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer@canary init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer@canary init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer@canary init --interactive
+```
+
+> le flag `--interactive` est optionnel. Utilisez `intlayer-cli init` si vous êtes un agent IA.
+
+> Cette commande détectera votre environnement et installera les packages requis. Par exemple :
+
+```bash packageManager="npm"
+npm install intlayer astro-intlayer
+```
+
+```bash packageManager="npm"
 npm install intlayer astro-intlayer
 # Optionnel : Ajoutez le support pour les îles React
 npm install react react-dom react-intlayer @astrojs/react

@@ -77,6 +77,9 @@ Wszystkie klucze słownika muszą być zadeklarowane w plikach deklaracji zawart
 
 Przykłady użycia hooka `useI18n` w komponentach React:
 
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
 ```tsx fileName="src/App.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { ClientComponentExample, ServerComponentExample } from "@components";
@@ -101,6 +104,9 @@ const App: FC<{ locale: Locales }> = ({ locale }) => {
 };
 ```
 
+ </Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
+
 ```jsx fileName="src/components/ComponentExample.jsx" codeFormat="esm"
 import { useI18n } from "react-intlayer";
 
@@ -115,6 +121,9 @@ const ComponentExample = () => {
   );
 };
 ```
+
+</Tab>
+</Tabs>
 
 ```jsx fileName="src/components/ComponentExample.cjs" codeFormat="commonjs"
 const { useI18n } = require("react-intlayer");

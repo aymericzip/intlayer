@@ -36,8 +36,6 @@ Bu bölüm, React uygulamalarında görsel düzenleyici olmadan yerelleştirilmi
 
 ## Sunucu Entegrasyonu
 
-`useDictionary` hook'unu `IntlayerProvider` dışında kullanıyorsanız, bileşeni işlerken yerel ayar açıkça parametre olarak sağlanmalıdır:
-
 ```tsx fileName="./ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useDictionary } from "react-intlayer/server";

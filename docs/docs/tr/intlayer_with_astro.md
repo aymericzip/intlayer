@@ -123,6 +123,30 @@ GitHub'daki [uygulama şablonuna](https://github.com/aymericzip/intlayer-astro-t
 Tercih ettiğiniz paket yöneticisini kullanarak gerekli paketleri yükleyin:
 
 ```bash packageManager="npm"
+npx intlayer init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer@canary init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer@canary init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer@canary init --interactive
+```
+
+> `--interactive` bayrağı isteğe bağlıdır. Bir AI aracısıysanız `intlayer-cli init` komutunu kullanın.
+
+> Bu komut ortamınızı algılayacak ve gerekli paketleri yükleyecektir. Örneğin:
+
+```bash packageManager="npm"
+npm install intlayer astro-intlayer
+```
+
+```bash packageManager="npm"
 npm install intlayer astro-intlayer
 # opsiyonel: React islands desteği eklemek isterseniz
 npm install react react-dom react-intlayer @astrojs/react
@@ -457,7 +481,90 @@ Seçtiğiniz framework'ü kullanarak uygulamanızı oluşturmaya devam edin.
 
 <Step number={15} title="Bağımlılıkları Yükleyin">
 
+Mevcut bir codebase'iniz varsa, binlerce dosyayı dönüştürmek zaman alıcı olabilir.
+
+Bu süreci kolaylaştırmak için Intlayer, bileşenlerinizi dönüştürmek ve içeriği çıkarmak için bir [compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md) / [extractor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/extract.md) sunmaktadır.
+
+Bunu ayarlamak için `intlayer.config.ts` dosyanıza bir `compiler` bölümü ekleyebilirsiniz:
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  // ... Kalan yapılandırmanız
+  compiler: {
+    /**
+     * Derleyicinin etkinleştirilip etkinleştirilmeyeceğini gösterir.
+     */
+    enabled: true,
+
+    /**
+     * Çıktı dosyalarının yolunu tanımlar
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * Bileşenlerin dönüştürüldükten sonra kaydedilip kaydedilmeyeceğini gösterir.
+     *
+     * - `true` ise, derleyici bileşen dosyasını diske yeniden yazacaktır. Bu nedenle dönüştürme kalıcı olacak ve derleyici bir sonraki işlem için dönüştürmeyi atlayacaktır. Bu şekilde, derleyici uygulamayı dönüştürebilir ve ardından kaldırılabilir.
+     *
+     * - `false` ise, derleyici `useIntlayer()` işlev çağrısını yalnızca build çıktısında koda enjekte edecek ve temel codebase'i bozulmamış tutacaktır. Dönüştürme yalnızca bellekte yapılacaktır.
+     */
+    saveComponents: false,
+
+    /**
+     * Sözlük anahtarı öneki
+     */
+    dictionaryKeyPrefix: "",
+  },
+};
+
+export default config;
+```
+
+<Tabs>
+ <Tab value='Extract command'>
+
+Çıkartıcıyı çalıştırarak bileşenlerinizi dönüştürün ve içeriği çıkarın
+
+```bash packageManager="npm"
+npx intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="bun"
+bun x intlayer extract
+```
+
+ </Tab>
+ <Tab value='Babel compiler'>
+
+> v9 sürümünden itibaren, `intlayerCompiler` `intlayer` eklentisine dahil edilmiştir. Bu nedenle bunu manuel olarak eklemeniz gerekmez.
+
 Tercih ettiğiniz paket yöneticisini kullanarak gerekli paketleri yükleyin:
+
+```ts fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import { intlayer, intlayerCompiler } from "vite-intlayer";
+
+export default defineConfig({
+  plugins: [
+    intlayer(),
+    intlayerCompiler(), // Compiler eklentisini ekler
+  ],
+});
+```
+
+```bash packageManager="npm"
+npm run build # Veya npm run dev
+```
 
 ```bash packageManager="npm"
 npm install intlayer astro-intlayer

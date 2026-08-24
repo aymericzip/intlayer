@@ -52,8 +52,6 @@ Lệnh này tìm kiếm và liệt kê tất cả các dự án Intlayer bằng 
 
   > Ví dụ: `npx intlayer projects list --base-dir /path/to/workspace`
 
-  > Ví dụ: `npx intlayer projects list --base-dir /path/to/workspace`
-
 - **`--git-root`**: Tìm kiếm từ thư mục gốc của git thay vì thư mục cơ sở. Điều này hữu ích để tìm tất cả các dự án Intlayer trong một monorepo hoặc kho git.
 
   > Ví dụ: `npx intlayer projects list --git-root`

@@ -28,6 +28,8 @@ author: aymericzip
 
 `intlayerPrune` Vite 插件用于对应用包中未使用的字典进行 tree-shaking 和裁剪。这样可以通过仅包含必要的多语言内容来减小最终包的体积。
 
+> 当你使用 [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/vite-intlayer/intlayer.md) 时，该插件已自动包含并配置。只有在你自己组合插件堆栈时，才需要手动注册它。
+
 ## 使用
 
 ### 作为 `intlayer()` 的一部分（推荐）

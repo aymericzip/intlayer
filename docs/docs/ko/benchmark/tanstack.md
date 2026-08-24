@@ -194,6 +194,8 @@ GitHub 스타는 프로젝트의 인기, 커뮤니티 신뢰 및 장기적인 �
 
 `Tolgee`는 앞에서 언급한 많은 문제들을 해결합니다. 비슷한 접근 방식을 가진 다른 도구들보다 시작하기 더 어렵다고 느꼈습니다. 타입 안전성을 제공하지 않아 컴파일 시점에 누락된 키를 찾는 것도 매우 어렵습니다. 누락된 키 감지 기능을 추가하기 위해 Tolgee의 API를 나의 API로 래핑해야 했습니다.
 
+이 패키지는 상당히 무거운 편입니다 (~11.1kb, 이는 `react-intlayer`의 2배 이상입니다).
+
 TanStack Start에서도 반응성 문제가 있었습니다: 로케일 변경 시 프로바이더를 강제 재렌더링하고 로케일 변경 이벤트를 구독하여 다른 언어로의 로딩이 올바르게 작동하도록 해야 했습니다.
 
 **(use-intl)** (`use-intl@4.9.1`):
@@ -208,6 +210,8 @@ TanStack Start에서는 Next.js 전용 함정(`setRequestLocale`, 정적 렌더�
 
 여전히 `t('a.b.c')` 위에 구축된 스택과 동일한 주요 단점을 공유합니다: 최적화는 가능하지만 시간이 매우 많이 소요되며, 대규모 프로젝트는 나쁜 관행(네임스페이스 + 동적 로딩 + 타입)에 빠질 위험이 있습니다.
 
+이 패키지는 특히 무겁습니다 (~17.3kb, 이는 `react-intlayer`의 약 3.5배입니다).
+
 메시지 형식도 다릅니다: `use-intl`은 ICU MessageFormat을 사용하는 반면, `i18next`는 자체 형식을 사용하므로 이들을 섞어서 사용하면 도구 기술이나 마이그레이션이 복잡해집니다.
 
 **(Lingui)** (`@lingui/core@5.3.0`):
@@ -217,6 +221,8 @@ TanStack Start에서는 Next.js 전용 함정(`setRequestLocale`, 정적 렌더�
 **(react-intl)** (`react-intl@10.1.1`):
 
 `react-intl`은 Format.js 팀의 성능 중심 구현입니다. DX는 여전히 장황합니다: `const intl = useIntl()` + `intl.formatMessage({ id: "xx.xx" })`는 복잡성과 추가 JavaScript 작업을 가중시키고 글로벌 i18n 인스턴스를 React 트리의 많은 노드에 묶어둡니다.
+
+패키지도 무겁습니다(~14.4kb, 이는 `react-intlayer`의 약 3배 정도).
 
 ### 4 - 추천 사항
 

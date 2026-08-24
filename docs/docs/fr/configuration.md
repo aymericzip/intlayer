@@ -739,8 +739,6 @@ Définit les paramètres liés à l'éditeur intégré, y compris le port du ser
 | `liveSyncPort`               | Le port du serveur de synchronisation en direct.                                                                                                                                     | `number`                          | `4000`                              | `4000`                                                                                          |                                                                                                                                                                                                                                                                        |
 | `liveSyncURL`                | L'URL du serveur de synchronisation en direct.                                                                                                                                       | `string`                          | `'http://localhost:{liveSyncPort}'` | `'https://example.com'`                                                                         | Pointe vers localhost par défaut ; peut être changé pour un serveur de synchronisation en direct distant.                                                                                                                                                              |
 
----
-
 ### Configuration des Analytics (Analytics Configuration)
 
 Définit les paramètres liés aux analytics Intlayer : la collecte du contenu réellement affiché aux utilisateurs (pages vues, expositions de contenu) et l'alimentation des tests A/B sur le contenu.
@@ -987,9 +985,14 @@ Ces paramètres sont destinés aux cas d'utilisation avancés et à la configura
 | `configDir`               | Répertoire des fichiers de configuration compilés. | `string` | `'.intlayer/config'`              |         |      |
 | `cacheDir`                | Répertoire des fichiers de cache.                  | `string` | `'.intlayer/cache'`               |         |      |
 
----
-
 ### Configuration du Dictionnaire (Dictionary Configuration)
+
+Paramètres qui contrôlent les opérations du dictionnaire, y compris le comportement de remplissage automatique et la génération de contenu.
+
+Cette configuration de dictionnaire sert deux objectifs principaux :
+
+1. **Valeurs par défaut** : Définir les valeurs par défaut lors de la création de fichiers de déclaration de contenu
+2. **Comportement de secours** : Fournir des valeurs de secours lorsque des champs spécifiques ne sont pas définis, ce qui vous permet de définir le comportement de l'opération dictionnaire globalement
 
 Paramètres contrôlant les opérations de dictionnaire, y compris le comportement de remplissage automatique et la génération de contenu.
 
@@ -1032,8 +1035,6 @@ Paramètres pour personnaliser la sortie des logs d'Intlayer.
 | `mode`   | Indique le mode du logger. | `'default'` &#124; <br/> `'verbose'` &#124; <br/> `'disabled'` | `'default'`     | `'verbose'`             | • `'verbose'`: log plus d'infos pour le débogage.<br/>• `'disabled'`: désactive complètement le logger. |
 | `prefix` | Le préfixe du logger.      | `string`                                                       | `'[intlayer] '` | `'[my custom prefix] '` |                                                                                                         |
 
----
-
 ### Configuration AI
 
 Paramètres qui contrôlent les fonctionnalités IA d'Intlayer, y compris le fournisseur, le modèle et la clé API.
@@ -1073,8 +1074,6 @@ Intlayer supporte plusieurs fournisseurs d'IA pour une flexibilité accrue. Les 
 | `baseURL`            | L'URL de base pour l'API IA.                                                                                                                  | `string`                                                                                                                                                                                                                                                                                                                                                                                                                                             | Aucun       | `'https://api.openai.com/v1'` <br/> `'http://localhost:5000'` | Peut pointer vers un point de terminaison d'API IA local ou personnalisé.                                                                                                                                         |
 | `dataSerialization`  | Format de sérialisation des données pour les fonctionnalités IA.                                                                              | `'json'` &#124; <br/> `'toon'`                                                                                                                                                                                                                                                                                                                                                                                                                       | `undefined` | `'toon'`                                                      | • `'json'`: standard, fiable ; utilise plus de tokens.<br/>• `'toon'`: moins de tokens, moins cohérent.<br/>• Des paramètres supplémentaires sont passés au modèle comme contexte (effort de raisonnement, etc.). |
 
----
-
 ### Configuration de Build
 
 Paramètres qui contrôlent comment Intlayer optimise et construit l'internationalisation de votre application.
@@ -1111,8 +1110,6 @@ Paramètres qui contrôlent le compilateur Intlayer, qui extrait les dictionnair
 | `output`              | Définit le chemin des fichiers de sortie. Remplace `outputDir`. Supporte les variables de modèle : `{{fileName}}`, <br/> `{{key}}`, <br/> `{{locale}}`, <br/> `{{extension}}`, <br/> `{{componentFileName}}`, <br/> `{{componentExtension}}`, <br/> `{{format}}`, <br/> `{{componentFormat}}`, <br/> `{{componentDirPath}}`. | `boolean` &#124; <br/> `FilePathPattern` &#124; <br/> `Partial<Record<Locale, boolean &#124; FilePathPattern>>` | `undefined` | `'./{{fileName}}{{extension}}'` <br/> `'/locales/{{locale}}/{{key}}.json'` <br/> `{ en: ({ key }) => './locales/en/${key}.json', fr: '...', es: false }` | • Les chemins `./` sont résolus par rapport au répertoire du composant.<br/>• Les chemins `/` par rapport à la racine.<br/>• `{{locale}}` déclenche la génération séparée par locale.<br/>• Supporte la notation objet par locale.                                                                                |
 | `noMetadata`          | Si `true`, le compilateur omet les métadonnées du dictionnaire (clé, wrapper de contenu) de la sortie.                                                                                                                                                                                                                       | `boolean`                                                                                                       | `false`     | `false` → `{"key":"ma-clé","content":{"key":"valeur"}}` <br/> `true` → `{"key":"valeur"}`                                                                | • Utile pour les sorties JSON i18next ou ICU MessageFormat.<br/>• Fonctionne bien avec le plugin `loadJSON`.                                                                                                                                                                                                      |
 | `dictionaryKeyPrefix` | Préfixe de clé de dictionnaire                                                                                                                                                                                                                                                                                               | `string`                                                                                                        | `''`        |                                                                                                                                                          | Ajoute un préfixe optionnel aux clés de dictionnaire extraites                                                                                                                                                                                                                                                    |
-
----
 
 ### Schémas Personnalisés (Custom Schemas)
 

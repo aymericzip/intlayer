@@ -210,8 +210,6 @@ Después de completar el inicio de sesión:
    - [`npx intlayer push`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/push.md) - Enviar diccionarios al CMS
    - [`npx intlayer pull`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/pull.md) - Extraer diccionarios del CMS
 
-- [`npx intlayer fill`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/fill.md) - Rellenar traducciones faltantes
-
 ## Véase también
 
 - [Documentación del CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/index.md)

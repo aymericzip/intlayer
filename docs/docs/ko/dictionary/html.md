@@ -483,7 +483,9 @@ HTML 노드에서 `.use()` 메서드를 사용할 때, 제공하는 컴포넌트
 <Tabs group="framework">
   <Tab label="React / Next.js" value="react">
     #### `<HTMLRenderer />` 컴포넌트
-    
+
+특정 컴포넌트로 HTML 문자열을 렌더링합니다.
+
     ```tsx
     import { HTMLRenderer } from "react-intlayer/html";
 

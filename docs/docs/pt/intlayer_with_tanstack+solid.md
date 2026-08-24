@@ -487,8 +487,6 @@ function RouteComponent() {
 }
 ```
 
-> Se você quiser usar seu conteúdo em um atributo do tipo `string`, como `alt`, `title`, `href`, `aria-label`, etc., você deve chamar o valor da função, assim:
-
 > ```html
 > <img src="{content.image.src.value}" alt="{content.image.value}" />
 > <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
@@ -574,6 +572,8 @@ Você também pode usar o `intlayerProxy` para adicionar roteamento do lado do s
 
 > Note que para usar o `intlayerProxy` em produção, você precisa trocar o pacote `vite-intlayer` de `devDependencies` para `dependencies`.
 
+> Desde Intlayer v9, `intlayerProxy()` é agrupado diretamente no plugin `intlayer()` e ativado por padrão através da opção `routing.enableProxy` (`true` por padrão). Registrá-lo separadamente conforme mostrado abaixo agora é opcional — é mantido para compatibilidade com versões anteriores e para configurações que precisam controlar a ordem dos plugins. Defina `routing.enableProxy: false` para recusar. Consulte as [notas de lançamento da v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/releases/v9.md).
+
 ```typescript fileName="vite.config.ts"
 import { tanstackStart } from "@tanstack/solid-start/plugin/vite";
 import solid from "vite-plugin-solid";
@@ -607,6 +607,8 @@ export default defineConfig({
 <Step number={13} title="Internacionalizar Seus Metadados">
 
 Você também pode usar a função `getIntlayer` para acessar seus dicionários de conteúdo dentro do loader `head` para metadados cientes de localidade:
+
+Comporta-se como `getIntlayer`, mas o plugin de build aponta para o chunk de dicionário por locale em vez do dicionário mesclado que contém todos os locales — então os metadados de uma página incluem apenas o locale que ela renderiza. Como carrega esse chunk sob demanda, `head` torna-se `async`:
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/solid-router";

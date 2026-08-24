@@ -30,8 +30,6 @@ author: aymericzip
 
 ## Пример использования в React
 
-Ниже приведён пример использования хука `useDictionary` в React-компоненте:
-
 ```tsx fileName="./ComponentExample.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useDictionary } from "react-intlayer";

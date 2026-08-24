@@ -170,10 +170,6 @@ bun add vite-intlayer --dev
 
   Основной пакет, предоставляющий инструменты интернационализации для управления конфигурацией, перевода, [объявления контента](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/content_file.md), компиляции и [CLI-команд](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/index.md).
 
-- **preact-intlayer**
-
-  Пакет, который интегрирует Intlayer с приложением на Preact. Он предоставляет провайдеры контекста и хуки для интернационализации Preact.
-
 - **vite-intlayer**
 
   Включает плагин Vite для интеграции Intlayer с [сборщиком Vite](https://vite.dev/guide/why.html#why-bundle-for-production), а также промежуточное ПО для определения предпочтительной локали пользователя, управления куки и обработки перенаправления URL.
@@ -516,6 +512,30 @@ const App: FunctionalComponent = () => (
 export default App;
 ```
 
+Параллельно вы также можете использовать `intlayerProxy` для добавления маршрутизации на стороне сервера к вашему приложению. Этот плагин автоматически определяет текущую локаль на основе URL и устанавливает соответствующее значение cookie локали. Если локаль не указана, плагин определит наиболее подходящую локаль на основе предпочтений языка браузера пользователя. Если локаль не обнаружена, она перенаправляет на локаль по умолчанию.
+
+> Обратите внимание, что для использования `intlayerProxy` в production необходимо переместить пакет `vite-intlayer` из `devDependencies` в `dependencies`.
+
+> Начиная с Intlayer v9, `intlayerProxy()` встроен непосредственно в плагин `intlayer()` и включен по умолчанию через опцию `routing.enableProxy` (`true` по умолчанию). Регистрация его отдельно, как показано ниже, теперь необязательна — она сохранена для обратной совместимости и для настроек, которым нужно контролировать порядок плагинов. Установите `routing.enableProxy: false` для отключения. См. [примечания к выпуску v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/releases/v9.md).
+
+```typescript {3,7} fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import { intlayer } from "vite-intlayer";
+import preact from "@preact/preset-vite";
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [
+    preact(),
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
+  ],
+});
+```
+
 </Step>
 
 <Step number={8} title="Изменяйте URL при смене локали" isOptional={true}>
@@ -592,6 +612,10 @@ export default LocaleSwitcher;
 >
 > > - [Хук `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/react-intlayer/useLocale.md) (API для `preact-intlayer` аналогично)> - [Хук `getLocaleName`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getLocaleName.md)> - [Хук `getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getLocalizedUrl.md)> - [Хук `getHTMLTextDir`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getHTMLTextDir.md)> - [Атрибут `hreflang`](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=ru)> - [Атрибут `lang`](https://developer.mozilla.org/ru/docs/Web/HTML/Global_attributes/lang)> - [Атрибут `dir`](https://developer.mozilla.org/ru/docs/Web/HTML/Global_attributes/dir)> - [Атрибут `aria-current`](https://developer.mozilla.org/ru/docs/Web/Accessibility/ARIA/Attributes/aria-current)> - [Popover API](https://developer.mozilla.org/ru/docs/Web/API/Popover_API)
 
+Ниже приведена обновленная **Шаг 9** с добавленными объяснениями и уточненными примерами кода:
+
+---
+
 </Step>
 
 <Step number={9} title="Переключайте атрибуты языка и направления HTML" isOptional={true}>
@@ -660,6 +684,12 @@ const App: FunctionalComponent = () => (
 
 export default App;
 ```
+
+Применив эти изменения, ваше приложение будет:
+
+- Убедитесь, что атрибут **language** (`lang`) правильно отражает текущую локаль, что важно для SEO и поведения браузера.
+- Настройте **направление текста** (`dir`) в соответствии с локалью, улучшая читаемость и удобство использования для языков с различными порядками чтения.
+- Обеспечьте более **доступный** опыт, так как вспомогательные технологии зависят от этих атрибутов для оптимального функционирования.
 
 </Step>
 

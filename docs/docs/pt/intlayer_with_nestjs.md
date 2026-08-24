@@ -33,6 +33,20 @@ history:
 
 `express-intlayer` é um middleware poderoso de internacionalização (i18n) para aplicações Express, projetado para tornar seus serviços backend acessíveis globalmente, fornecendo respostas localizadas com base nas preferências do cliente. Como o NestJS é construído sobre o Express, você pode integrar perfeitamente o `express-intlayer` em suas aplicações NestJS para lidar efetivamente com conteúdo multilíngue.
 
+Casos de Uso Prático
+
+- **Exibição de Erros do Backend no Idioma do Usuário**: Quando ocorre um erro, exibir mensagens no idioma nativo do usuário melhora a compreensão e reduz a frustração. Isso é especialmente útil para mensagens de erro dinâmicas que podem ser mostradas em componentes front-end como toasts ou modals.
+
+- **Recuperação de Conteúdo Multilíngue**: Para aplicações que buscam conteúdo de um banco de dados, a internacionalização garante que você possa servir esse conteúdo em múltiplos idiomas. Isso é crucial para plataformas como sites de e-commerce ou sistemas de gerenciamento de conteúdo que precisam exibir descrições de produtos, artigos e outros conteúdos no idioma preferido pelo usuário.
+
+- **Envio de E-mails Multilingues**: Seja para e-mails transacionais, campanhas de marketing ou notificações, enviar e-mails no idioma do destinatário pode aumentar significativamente o engajamento e a eficácia.
+
+- **Notificações Push Multilíngues**: Para aplicações móveis, enviar notificações push na língua preferida do utilizador pode melhorar a interação e retenção. Este toque pessoal pode tornar as notificações mais relevantes e acionáveis.
+
+- **Outras Comunicações**: Qualquer forma de comunicação do backend, como mensagens SMS, alertas do sistema ou atualizações da interface do usuário, beneficia-se de estar no idioma do usuário, garantindo clareza e melhorando a experiência geral do usuário.
+
+Ao internacionalizar o backend, sua aplicação não apenas respeita as diferenças culturais, mas também se alinha melhor com as necessidades do mercado global, tornando-se uma etapa fundamental no dimensionamento de seus serviços em todo o mundo.
+
 ## Começando
 
 ### Criar um novo projeto NestJS

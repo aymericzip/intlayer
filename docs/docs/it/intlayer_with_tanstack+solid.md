@@ -487,8 +487,6 @@ function RouteComponent() {
 }
 ```
 
-> Se vuoi usare il tuo contenuto in un attributo di tipo `string`, come `alt`, `title`, `href`, `aria-label`, ecc., devi chiamare il valore della funzione, ad esempio:
-
 > ```html
 > <img src="{content.image.src.value}" alt="{content.image.value}" />
 > <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
@@ -574,6 +572,8 @@ Puoi anche utilizzare `intlayerProxy` per aggiungere il routing lato server alla
 
 > Tieni presente che per utilizzare `intlayerProxy` in produzione, è necessario spostare il pacchetto `vite-intlayer` da `devDependencies` a `dependencies`.
 
+> A partire da Intlayer v9, `intlayerProxy()` è incluso direttamente nel plugin `intlayer()` e abilitato per impostazione predefinita tramite l'opzione `routing.enableProxy` (`true` per impostazione predefinita). La registrazione separata come mostrato di seguito è ora facoltativa — è mantenuta per la compatibilità con le versioni precedenti e per i setup che hanno bisogno di controllare l'ordine dei plugin. Imposta `routing.enableProxy: false` per disattivare. Vedi le [note di rilascio v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/releases/v9.md).
+
 ```typescript fileName="vite.config.ts"
 import { tanstackStart } from "@tanstack/solid-start/plugin/vite";
 import solid from "vite-plugin-solid";
@@ -607,6 +607,8 @@ export default defineConfig({
 <Step number={13} title="Internazionalizza i tuoi metadati">
 
 Puoi anche usare la funzione `getIntlayer` per accedere ai tuoi dizionari dei contenuti all'interno del loader `head` per i metadati sensibili alla localizzazione:
+
+Si comporta come `getIntlayer`, ma il plugin di build la punta al chunk del dizionario per-locale invece del dizionario unito che contiene ogni locale — quindi i metadati per una pagina spediscono solo il locale che renderizza. Poiché carica quel chunk su richiesta, `head` diventa `async`:
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/solid-router";

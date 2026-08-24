@@ -123,6 +123,30 @@ Intlayer — это больше, чем просто решение i18n. Он 
 Установите необходимые пакеты с помощью вашего менеджера пакетов:
 
 ```bash packageManager="npm"
+npx intlayer init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer@canary init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer@canary init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer@canary init --interactive
+```
+
+> флаг `--interactive` необязателен. Используйте `intlayer-cli init`, если вы AI-агент.
+
+> Эта команда обнаружит вашу среду и установит необходимые пакеты. Например:
+
+```bash packageManager="npm"
+npm install intlayer astro-intlayer
+```
+
+```bash packageManager="npm"
 npm install intlayer astro-intlayer
 # Опционально: добавить поддержку островов React
 npm install react react-dom react-intlayer @astrojs/react

@@ -193,44 +193,6 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // 여기에 다른 로케일을 추가하세요
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // 여기에 다른 로케일을 추가하세요
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
-```
-
 > 이 구성 파일을 통해 지역화된 URL, 미들웨어 리디렉션, 쿠키 이름, 콘텐츠 선언의 위치 및 확장자 설정, 콘솔에서 Intlayer 로그 비활성화 등 다양한 설정을 할 수 있습니다. 사용 가능한 모든 매개변수 목록은 [구성 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 참조하세요.
 
 </Step>
@@ -252,9 +214,20 @@ export default withIntlayer(nextConfig);
 
 > `withIntlayer()` Next.js 플러그인은 Intlayer를 Next.js와 통합하는 데 사용됩니다. 이 플러그인은 콘텐츠 선언 파일을 빌드하고 개발 모드에서 이를 모니터링하는 기능을 보장합니다. 또한 [Webpack](https://webpack.js.org/) 또는 [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack) 환경 내에서 Intlayer 환경 변수를 정의합니다. 추가로, 성능 최적화를 위한 별칭(alias)을 제공하며 서버 컴포넌트와의 호환성을 보장합니다.
 
+> `withIntlayer()` 함수는 promise 함수입니다. 다른 플러그인과 함께 사용하려면 이를 await할 수 있습니다. 예시:
+>
+> ```tsx
+> const nextConfig = await withIntlayer(nextConfig);
+> const nextConfigWithOtherPlugins = withOtherPlugins(nextConfig);
+>
+> export default nextConfigWithOtherPlugins;
+> ```
+
 </Step>
 
 <Step number={4} title="로케일 감지를 위한 미들웨어 구성">
+
+사용자의 선호하는 로케일을 자동으로 감지하고 처리하도록 미들웨어를 설정합니다:
 
 사용자의 선호 로케일을 자동으로 감지하고 처리하기 위해 미들웨어를 설정합니다:
 
@@ -529,22 +502,9 @@ const ComponentExample = () => {
 };
 ```
 
-```jsx fileName="src/components/ComponentExample.csx" codeFormat="commonjs"
-const { useIntlayer } = require("next-intlayer");
-
-const ComponentExample = () => {
-  const content = useIntlayer("component-example"); // 해당하는 콘텐츠 선언이 있는지 확인하세요
-
-  return (
-    <div>
-      <h2>{content.title}</h2>
-      <p>{content.content}</p>
-    </div>
-  );
-};
-```
-
 > `string` 속성(예: `alt`, `title`, `href`, `aria-label`)에서 번역을 사용할 때는 다음과 같이 함수 값을 호출하세요:
+
+> 함수의 값은 다음과 같습니다:
 
 > ```html
 > <img src="{content.image.src.value}" alt="{content.image.value}" />
@@ -968,8 +928,6 @@ bun add @intlayer/swc --dev
 > 참고: 이 최적화는 Next.js 13 이상에서만 사용할 수 있습니다.
 
 > 참고: 이 패키지는 SWC 플러그인이 Next.js에서 아직 실험 단계이기 때문에 기본적으로 설치되지 않습니다. 향후 변경될 수 있습니다.
-
-</Step>
 
 </Steps>
 

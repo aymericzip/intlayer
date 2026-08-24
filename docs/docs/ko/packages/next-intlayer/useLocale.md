@@ -104,6 +104,8 @@ const LocaleSwitcher: FC = () => {
 
 ## 반환 값
 
+`useLocale` 훅을 호출하면 다음 속성을 포함하는 객체가 반환됩니다:
+
 - **`locale`**: React 컨텍스트에 설정된 현재 로케일입니다.
 - **`defaultLocale`**: 구성에서 정의된 기본 로케일입니다.
 - **`availableLocales`**: 구성에서 정의된 사용 가능한 모든 로케일 목록입니다.

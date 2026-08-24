@@ -33,6 +33,14 @@ author: aymericzip
 
 Consulta [Application Template](https://github.com/aymericzip/intlayer-lynx-template) en GitHub.
 
+<iframe
+  src="https://ide.intlayer.org/aymericzip/intlayer-lynx-template?file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - Cómo internacionalizar tu aplicación usando Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
 ## ¿Por qué Intlayer en lugar de alternativas?
 
 En comparación con soluciones principales como `react-native-localize` o `i18next`, Intlayer es una solución que viene con optimizaciones integradas como:
@@ -475,6 +483,11 @@ Para mejorar tu experiencia de desarrollo con Intlayer, puedes instalar la exten
 [Instalar desde el Marketplace de VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
 Esta extensión ofrece:
+
+- **Autocompletado** para claves de traducción.
+- **Detección de errores en tiempo real** para traducciones faltantes.
+- **Vistas previas inline** del contenido traducido.
+- **Acciones rápidas** para crear y actualizar traducciones fácilmente.
 
 - **Autocompletado** para las claves de traducción.
 - **Detección de errores en tiempo real** para traducciones faltantes.

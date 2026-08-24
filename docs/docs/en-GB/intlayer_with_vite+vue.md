@@ -364,6 +364,13 @@ app.use(intlayer);
 app.mount("#app");
 ```
 
+> You can also call `installIntlayer(app)` directly as a function if you prefer:
+>
+> ```javascript
+> import { intlayer } from "vue-intlayer";
+> app.use(intlayer);
+> ```
+
 Access your content dictionaries throughout your application by creating a main Vue component and using the `useIntlayer` composables:
 
 ```vue fileName="src/HelloWord.vue"
@@ -416,6 +423,8 @@ const countRef = ref(0);
   <p class="read-the-docs">{{ readTheDocs }}</p>
 </template>
 ```
+
+> If your app already exists, you can use the [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compiler.md), as well as the [extract command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/extract.md), to transform thousands of components in a second.
 
 #### Accessing Content in Intlayer
 
@@ -622,26 +631,6 @@ import LocaleSwitcher from "@components/LocaleSwitcher.vue";
 
 In parallel, you can also use the `intlayerProxy` to add server-side routing to your application. This plugin will automatically detect the current locale based on the URL and set the appropriate locale cookie. If no locale is specified, the plugin will determine the most appropriate locale based on the user's browser language preferences. If no locale is detected, it will redirect to the default locale.
 
-```typescript {3,7} fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
-import { defineConfig } from "vite";
-import vue from "@vitejs/plugin-vue";
-import { intlayer } from "vite-intlayer";
-
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [
-    vue(),
-    intlayer({
-      proxy: {
-        ignore: (req) => req.url?.startsWith("/api"),
-      },
-    }),
-  ],
-});
-```
-
-</Step>
-
 <Step number={8} title="Change the URL when the locale changes" isOptional={true}>
 
 To automatically update the URL when the user changes the language, you can modify the `LocaleSwitcher` component to use Vue Router:
@@ -801,13 +790,179 @@ export const useI18nHTMLAttributes = () => {
       // Update the language attribute
       document.documentElement.lang = newLocale;
 
+To ensure that your application's navigation respects the current locale, you can create a custom `Link` component. This component automatically prefixes internal URLs with the current language, so that. For example, when a French-speaking user clicks on a link to the "About" page, they are redirected to `/fr/about` instead of `/about`.
+
+This behaviour is useful for several reasons:
+
       // Set the text direction (ltr for most languages, rtl for Arabic, Hebrew, etc.)
       document.documentElement.dir = getHTMLTextDir(newLocale);
     },
     { immediate: true }
   );
 };
+
+```vue fileName="src/components/Link.vue"
+<script setup lang="ts">
+import { getLocalizedUrl } from "intlayer";
+import { computed } from "vue";
+import { useLocale } from "vue-intlayer";
+
+const props = defineProps({
+  href: {
+    type: String,
+    required: true,
+  },
+});
+
+const { locale } = useLocale();
+
+// Check if the link is external
+const isExternalLink = computed(() => /^https?:\/\//.test(props.href || ""));
+
+// Create a localised href for internal links
+const localizedHref = computed(() =>
+  isExternalLink.value ? props.href : getLocalizedUrl(props.href, locale.value)
+);
+</script>
+
+<template>
+  <a :href="localizedHref" v-bind="$attrs">
+    <slot />
+  </a>
+</template>
+```
+
+For use with Vue Router, create a router-specific version:
+
+```vue fileName="src/components/RouterLink.vue"
+<script setup lang="ts">
+import { getLocalizedUrl } from "intlayer";
+import { computed } from "vue";
+import { useLocale } from "vue-intlayer";
+
+const props = defineProps({
+  to: {
+    type: [String, Object],
+    required: true,
+  },
+});
+
+const { locale } = useLocale();
+
+// Create localised to-prop for router-link
+const localizedTo = computed(() => {
+  if (typeof props.to === "string") {
+    return getLocalizedUrl(props.to, locale.value);
+  } else {
+    // If 'to' is an object, localise the path property
+    return {
+      ...props.to,
+      path: getLocalizedUrl(props.to.path ?? "/", locale.value),
+    };
+  }
+});
+</script>
+
+<template>
+  <router-link :to="localizedTo" v-bind="$attrs">
+    <slot />
+  </router-link>
+</template>
+```
+
+Use these components in your application:
+
 ````
+
+Use this composable in your `App.vue` or a global component:
+
+````vue fileName="src/App.vue"
+
+</Step>
+
+<script setup lang="ts">
+import { useI18nHTMLAttributes } from "@composables/useI18nHTMLAttributes";
+
+If you have an existing codebase, transforming thousands of files can be time-consuming.
+
+To ease this process, Intlayer propose a [compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compiler.md) / [extractor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/extract.md) to transform your components and extract the content.
+
+// Apply the HTML attributes based on the current locale
+useI18nHTMLAttributes();
+</script>
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  // ... Rest of your config
+  compiler: {
+    /**
+     * Indicates if the compiler should be enabled.
+     */
+    enabled: true,
+
+    /**
+     * Defines the output files path
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * Indicates if the components should be saved after being transformed.
+     *
+     * - If `true`, the compiler will rewrite the component file in the disk. So the transformation will be permanent, and the compiler will skip the transformation for the next process. That way, the compiler can transform the app, and then it can be removed.
+     *
+     * - If `false`, the compiler will inject the `useIntlayer()` function call into the code in the build output only, and keep the base codebase intact. The transformation will be done only in memory.
+     */
+    saveComponents: false,
+
+    /**
+     * Dictionary key prefix
+     */
+    dictionaryKeyPrefix: "",
+  },
+};
+
+export default config;
+````
+
+<template>
+  <!-- Your app template -->
+</template>
+
+Run the extractor to transform your components and extract the content
+
+```bash packageManager="npm"
+npx intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```
+
+</Step>
+
+<Step number={10} title="Creating a Localised Link Component" isOptional={true}>
+
+      document.documentElement.dir = getHTMLTextDir(newLocale);
+    },
+    { immediate: true }
+
+);
+};
+
+```
+
+ </Tab>
+ <Tab value='Babel compiler'>
+
+> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
 
 Use this composable in your `App.vue` or a global component:
 
@@ -824,33 +979,21 @@ useI18nHTMLAttributes();
 </template>
 ```
 
-</Step>
+```bash packageManager="npm"
+npm run build # Or npm run dev
+```
 
-<Step number={10} title="Creating a Localised Link Component" isOptional={true}>
+```bash packageManager="pnpm"
+pnpm run build # Or pnpm run dev
+```
 
-      document.documentElement.dir = getHTMLTextDir(newLocale);
-    },
-    { immediate: true }
+```bash packageManager="yarn"
+yarn build # Or yarn dev
+```
 
-);
-};
-
-````
-
-Use this composable in your `App.vue` or a global component:
-
-```vue fileName="src/App.vue"
-<script setup lang="ts">
-import { useI18nHTMLAttributes } from "@composables/useI18nHTMLAttributes";
-
-// Apply the HTML attributes based on the current locale
-useI18nHTMLAttributes();
-</script>
-
-<template>
-  <!-- Your app template -->
-</template>
-````
+```bash packageManager="bun"
+bun run build # Or bun run dev
+```
 
 </Step>
 
@@ -981,3 +1124,5 @@ For more details on how to use the extension, refer to the [Intlayer VS Code Ext
 ### Go Further
 
 To go further, you can implement the [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_visual_editor.md) or externalise your content using the [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_CMS.md).
+
+---

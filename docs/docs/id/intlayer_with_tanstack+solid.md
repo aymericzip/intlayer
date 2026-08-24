@@ -486,8 +486,6 @@ function RouteComponent() {
 }
 ```
 
-> Jika Anda ingin menggunakan konten Anda dalam atribut `string`, seperti `alt`, `title`, `href`, `aria-label`, dll., Anda harus memanggil nilai fungsi tersebut, seperti:
-
 > ```html
 > <img src="{content.image.src.value}" alt="{content.image.value}" />
 > <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
@@ -573,6 +571,8 @@ Anda juga dapat menggunakan `intlayerProxy` untuk menambahkan perutean sisi serv
 
 > Perlu diketahui bahwa untuk menggunakan `intlayerProxy` dalam produksi, Anda perlu memindahkan paket `vite-intlayer` dari `devDependencies` ke `dependencies`.
 
+> Sejak Intlayer v9, `intlayerProxy()` digabungkan langsung ke dalam plugin `intlayer()` dan diaktifkan secara default melalui opsi `routing.enableProxy` (`true` secara default). Mendaftarkannya secara terpisah seperti yang ditunjukkan di bawah ini sekarang bersifat opsional — ini dipertahankan untuk kompatibilitas ke belakang dan untuk setup yang perlu mengontrol urutan plugin. Atur `routing.enableProxy: false` untuk tidak menggunakannya. Lihat [catatan rilis v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/releases/v9.md).
+
 ```typescript fileName="vite.config.ts"
 import { tanstackStart } from "@tanstack/solid-start/plugin/vite";
 import solid from "vite-plugin-solid";
@@ -606,6 +606,8 @@ export default defineConfig({
 <Step number={13} title="Internasionalisasi Metadata Anda">
 
 Anda juga dapat menggunakan fungsi `getIntlayer` untuk mengakses kamus konten Anda dalam `head` loader untuk metadata yang sadar akan lokal:
+
+Berperilaku seperti `getIntlayer`, tetapi plugin build mengarahkannya ke chunk kamus per-locale alih-alih kamus gabungan yang menampung setiap locale — jadi metadata untuk halaman hanya mengirimkan locale yang ditampilkannya. Karena memuat chunk tersebut sesuai permintaan, `head` menjadi `async`:
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/solid-router";
@@ -879,6 +881,81 @@ bun run build # Atau bun run dev
 
  </Tab>
 </Tabs>
+
+---
+
+</Step>
+
+<Step number={16} title="Pre-render & Buat Sitemap">
+
+Intlayer dilengkapi dengan generator sitemap bawaan untuk membantu Anda membuat sitemap untuk aplikasi Anda dengan mudah. Ini menangani rute yang dilokalisasi dan menambahkan metadata yang diperlukan untuk mesin pencari.
+
+> Sitemap yang dihasilkan Intlayer mendukung namespace `xhtml:link` (Hreflang XML Extensions). Berbeda dengan generator sitemap default yang hanya mencantumkan URL mentah, Intlayer secara otomatis membuat tautan bidireksional yang diperlukan antara semua versi bahasa dari halaman (misalnya, `/about`, `/about?lang=fr`, dan `/about?lang=es`). Ini memastikan mesin pencari dengan benar mengindeks dan melayani versi bahasa yang tepat kepada audiens yang tepat.
+
+Untuk menggunakannya, Anda terlebih dahulu perlu mengonfigurasi `vite.config.ts` Anda untuk mengaktifkan pre-rendering untuk rute yang dilokalisasi dan menonaktifkan pembuatan sitemap TanStack Start default.
+
+```typescript fileName="vite.config.ts"
+import { localeMap, localeFlatMap } from "intlayer";
+// ... impor lainnya
+
+export const pathList = ["", "/about", "/404"];
+
+const localizedPages = localeFlatMap(({ urlPrefix }) =>
+  pathList.map((path) => ({
+    path: `${urlPrefix}${path}`,
+    prerender: {
+      enabled: true,
+    },
+  }))
+);
+
+export default defineConfig({
+  plugins: [
+    // ... plugin lainnya
+    tanstackStart({
+      // ... konfigurasi lainnya
+      sitemap: {
+        enabled: false,
+      },
+      prerender: {
+        enabled: true,
+        crawlLinks: false,
+        concurrency: 10,
+      },
+      pages: localizedPages,
+    }),
+  ],
+});
+```
+
+Kemudian, buat route `src/routes/sitemap[.]xml.ts` yang menggunakan fungsi `generateSitemap`:
+
+```typescript fileName="src/routes/sitemap[.]xml.ts"
+import { createFileRoute } from "@tanstack/solid-router";
+import { generateSitemap } from "intlayer";
+
+const SITE_URL = "http://localhost:3000";
+
+export const Route = createFileRoute("/sitemap.xml")({
+  server: {
+    handlers: {
+      GET: async () => {
+        const sitemap = generateSitemap(
+          [
+            { path: "/", changefreq: "daily", priority: 1.0 },
+            { path: "/about", changefreq: "monthly", priority: 0.8 },
+          ],
+          { siteUrl: SITE_URL }
+        );
+
+        return new Response(sitemap, {
+          headers: { "Content-Type": "application/xml" },
+        });
+      },
+    },
+  },
+});
+```
 
 ---
 

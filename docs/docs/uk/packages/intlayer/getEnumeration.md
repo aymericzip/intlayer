@@ -31,6 +31,8 @@ author: aymericzip
 
 Функція `getEnumeration` повертає контент, що відповідає певній кількості, на основі заздалегідь визначених умов в об'єкті перечислення. Умови задаються як ключі, а їхній пріоритет визначається порядком їх розташування в об'єкті.
 
+Для більш детальної інформації про те, як оголошувати перелічення, див. [документацію Enumeration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/enumeration.md).
+
 ## Параметри
 
 - `enumerationContent: QuantityContent<Content>`

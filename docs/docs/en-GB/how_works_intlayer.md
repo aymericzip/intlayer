@@ -62,6 +62,8 @@ The build step can be done in three ways:
    - Those dictionaries are generated in different formats to match all needs and optimise the performance of the application.
 
 3. Generation of dictionary types
+
+4. Generation of dictionary types
    Based on your `dictionaries`, Intlayer will generate types to make them usable in your application.
 
 - Dictionary types are generated from Intlayer `content declaration files`. By default, Intlayer dictionary types are generated in the `.intlayer/types` directory of the project.
@@ -100,12 +102,17 @@ Intlayer also provides a visual editor to allow you to edit your content in a vi
 
 - The server is a simple Express application that listens to requests from the client and retrieves the content of your application, such as the `dictionaries` and the configuration to make it accessible on the client side.
 - On the other hand, the client is a React application that is used to interact with your content using a visual interface.
+
+- The server is a simple Express application that listens to requests from the client and retrieves the content of your application, such as the `dictionaries` and the configuration to make it accessible on the client side.
+- On the other hand, the client is a React application that is used to interact with your content using a visual interface.
   When you call your content using `useIntlayer` and the editor is enabled, it automatically wraps your strings with a Proxy object named `IntlayerNode`. This node uses `window.postMessage` to communicate with a wrapped iframe containing the visual editor interface.  
   On the editor side, the editor listens to these messages and simulates real interaction with your content, allowing you to edit text directly in your application's context.
 
 ## App build optimisation
 
 To optimise the bundle size of your application, Intlayer provides two plugins to optimise the build of your application: `@intlayer/babel` and `@intlayer/swc` plugins.  
+The Babel and SWC plugins work by analysing your application's Abstract Syntax Tree (AST) to replace calls of Intlayer functions with optimised code. This process makes your final bundle lighter in production by ensuring that only the dictionaries that are actually used are imported, optimising chunking and reducing bundle size.
+
 The Babel and SWC plugins work by analysing your application's Abstract Syntax Tree (AST) to replace calls of Intlayer functions with optimised code. This process makes your final bundle lighter in production by ensuring that only the dictionaries that are actually used are imported, optimising chunking and reducing bundle size.
 
 In development mode, Intlayer uses a centralised static import for dictionaries to simplify the development experience.

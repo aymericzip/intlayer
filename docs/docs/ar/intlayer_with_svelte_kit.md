@@ -64,17 +64,25 @@ author: aymericzip
 
 بالمقارنة مع الحلول الرئيسية مثل `svelte-i18n` أو `i18next`، يعد Intlayer حلاً يأتي مزودًا بتحسينات متكاملة مثل:
 
+<AccordionGroup>
+
 ** تغطية SvelteKit الكاملة **
 
 تم تحسين Intlayer للعمل بشكل مثالي مع SvelteKit من خلال تقديم **توجيه متعدد اللغات**، **دعم SSR**، وجميع الميزات اللازمة لتوسيع نطاق التدويل (i18n).
 
 **حجم البندل**
 
+<Accordion header="حجم الحزمة">
+
 بدلاً من تحميل ملفات JSON ضخمة إلى صفحاتك، قم بتحميل المحتوى الضروري فقط. يساعد Intlayer **في تقليل أحجام البندل وصفحاتك بنسبة تصل إلى 50%**.
 
 ** الصيانة **
 
+<Accordion header="قابلية الصيانة">
+
 يؤدي تحديد نطاق محتوى تطبيقك ** إلى تسهيل الصيانة ** للتطبيقات واسعة النطاق. يمكنك تكرار أو حذف مجلد ميزات واحد دون العبء العقلي لمراجعة قاعدة بيانات المحتوى بالكامل. بالإضافة إلى ذلك، تتم كتابة Intlayer **بالكامل** لضمان دقة المحتوى الخاص بك.
+
+</Accordion>
 
 ** وكيل الذكاء الاصطناعي **
 
@@ -82,19 +90,30 @@ author: aymericzip
 
 **الأتمتة**
 
+<Accordion header="الأتمتة">
+
 استخدم الأتمتة للترجمة في مسار CI/CD الخاص بك باستخدام LLM من اختيارك على حساب مزود الذكاء الاصطناعي الخاص بك. يقدم Intlayer أيضًا **مترجمًا** لأتمتة استخراج المحتوى، بالإضافة إلى [منصة ويب](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) للمساعدة في **الترجمة في الخلفية**.
+
+</Accordion>
 
 **أداء**
 
 يمكن أن يؤدي ربط ملفات JSON الضخمة بالمكونات إلى حدوث مشكلات في الأداء والتفاعل. يعمل Intlayer على تحسين تحميل المحتوى الخاص بك في وقت الإنشاء.
 
+</Accordion>
+
 **التحجيم مع عدم وجود مطور**
 
 أكثر من مجرد حل i18n، يوفر Intlayer **[محررًا مرئيًا] مستضافًا ذاتيًا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** و**[كامل CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** لمساعدتك في إدارة المحتوى متعدد اللغات في **الوقت الفعلي**، مما يجعل التعاون مع المترجمين ومؤلفي النصوص وأعضاء الفريق الآخرين سلسًا. يمكن تخزين المحتوى محليًا و/أو عن بعد.
 
+</Accordion>
+</AccordionGroup>
+
 ---
 
 ## دليل خطوة بخطوة لإعداد Intlayer في تطبيق SvelteKit
+
+انظر إلى [Application Template](https://github.com/aymericzip/intlayer-sveltekit-template) على GitHub.
 
 للبدء، أنشئ مشروع SvelteKit جديد. إليك الهيكل النهائي الذي سننشئه:
 
@@ -249,6 +268,8 @@ export default heroContent;
 </Step>
 
 <Step number={5} title="استخدام Intlayer في مكوناتك">
+
+الآن يمكنك استخدام دالة `useIntlayer` في أي مكون Svelte. تُرجع مخزنًا تفاعليًا يتم تحديثه تلقائيًا عند تغيير اللغة. ستحترم الدالة تلقائيًا اللغة الحالية (أثناء SSR والتنقل على جانب العميل).
 
 للوصول إلى قيمته التفاعلية (مثلًا، `$content.title`).
 
@@ -595,6 +616,8 @@ goto(localizedPath); // ينتقل إلى /en/about أو /fr/about حسب الل
 
 لإضافة وكيل خلفي إلى تطبيق SvelteKit الخاص بك، يمكنك استخدام دالة `intlayerProxy` المقدمة من إضافة `vite-intlayer`. ستقوم هذه الإضافة بالكشف تلقائيًا عن أفضل لغة للمستخدم بناءً على عنوان URL، والكوكيز، وتفضيلات لغة المتصفح.
 
+> منذ Intlayer v9، يتم تجميع `intlayerProxy()` مباشرة في plugin `intlayer()` وتفعيله بشكل افتراضي من خلال خيار `routing.enableProxy` (`true` بشكل افتراضي). تسجيله بشكل منفصل كما هو موضح أدناه أصبح اختياريًا الآن — يتم الاحتفاظ به لأجل التوافق مع الإصدارات السابقة والإعدادات التي تحتاج إلى التحكم في ترتيب المكونات الإضافية. اضبط `routing.enableProxy: false` للاختيار من عدم المشاركة. راجع [ملاحظات الإصدار v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/releases/v9.md).
+
 ```ts fileName="vite.config.ts"
 import { defineConfig } from "vite";
 import { intlayer } from "vite-intlayer";
@@ -707,18 +730,6 @@ bun x intlayer extract
 
 > Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
 
-```bash packageManager="npm"
-npm install @intlayer/babel --save-dev
-```
-
-```bash packageManager="pnpm"
-pnpm add @intlayer/babel --save-dev
-```
-
-```bash packageManager="yarn"
-yarn add @intlayer/babel --save-dev
-```
-
 ```bash packageManager="bun"
 bun add @intlayer/babel --dev
 ```
@@ -757,10 +768,6 @@ bun run build # Or bun run dev
  </Tab>
 </Tabs>
 
----
-
-</Step>
-
 </Steps>
 
 ### إعدادات Git
@@ -771,6 +778,8 @@ bun run build # Or bun run dev
 # تجاهل الملفات التي تم إنشاؤها بواسطة Intlayer
 .intlayer
 ```
+
+---
 
 ### التعمق أكثر
 

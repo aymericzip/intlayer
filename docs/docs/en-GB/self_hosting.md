@@ -90,10 +90,6 @@ Then open **http://localhost:3000**.
 
 ## Quick start
 
-```sh
-curl -fsSL https://intlayer.org/install.sh | sh
-```
-
 What the installer does:
 
 1. Checks that `docker` and `docker compose` are present.
@@ -116,8 +112,6 @@ After the stack is up, open **http://localhost:3000** and create your first acco
 | **redis**   | `redis:7-alpine`                     | internal                       | Job queues (BullMQ) and caching (ioredis)                |
 | **minio**   | `minio/minio`                        | `9000` (S3), `9001` (console)  | S3-compatible object storage for avatars and screenshots |
 | **mailpit** | `axllent/mailpit`                    | `1025` (SMTP), `8025` (web UI) | Local transactional email sink                           |
-
-Internal ports (mongo, redis) are not exposed to the host by default.
 
 > MinIO port `9000` must be reachable by the browser because uploaded assets (avatars, screenshots) are loaded directly from `S3_PUBLIC_URL=http://localhost:9000/intlayer`.
 
@@ -173,8 +167,6 @@ Internal ports (mongo, redis) are not exposed to the host by default.
 | `MICROSOFT_CLIENT_ID`, `MICROSOFT_CLIENT_SECRET`         | Microsoft OAuth login                                       |
 | `LINKEDIN_CLIENT_ID`, `LINKEDIN_CLIENT_SECRET`           | LinkedIn OAuth login                                        |
 | `ATLASSIAN_CLIENT_ID`, `ATLASSIAN_CLIENT_SECRET`         | Atlassian OAuth login                                       |
-
----
 
 ### Global mailer
 
@@ -261,15 +253,7 @@ const { data: dictionaries } = await dictionaryEndpoint(cms).getDictionaries();
 
 ## Upgrading
 
-Re-running the installer on an existing deployment performs a rolling upgrade:
-
-```sh
-curl -fsSL https://intlayer.org/install.sh | sh
-```
-
 This pulls the latest images and restarts containers with `docker compose pull && docker compose up -d`. Existing volumes (`mongo-data`, `redis-data`, `minio-data`) are preserved — no data loss.
-
-To upgrade manually from inside the `./intlayer/` directory:
 
 ```sh
 docker compose pull
@@ -334,14 +318,11 @@ docker compose logs mongo
 docker compose logs redis
 ```
 
+Look for `MongoDB connection error` near the top of the log.
+
 ### Dashboard cannot reach the API
 
 Verify that `VITE_BACKEND_URL` matches the URL where the backend is reachable from the **browser** (not the Docker network). If you changed the backend port or added a reverse proxy, rebuild the dashboard image:
-
-```sh
-docker compose build app
-docker compose up -d app
-```
 
 ### MinIO bucket missing
 

@@ -402,6 +402,13 @@ app.use(intlayer);
 app.mount("#app");
 ```
 
+> También puedes llamar a `installIntlayer(app)` directamente como una función si lo prefieres:
+>
+> ```javascript
+> import { intlayer } from "vue-intlayer";
+> app.use(intlayer);
+> ```
+
 Accede a tus diccionarios de contenido en toda tu aplicación creando un componente principal de Vue y usando los composables `useIntlayer`:
 
 ```vue fileName="src/HelloWord.vue"
@@ -455,6 +462,8 @@ const countRef = ref(0);
 </template>
 ```
 
+> Si tu aplicación ya existe, puedes usar el [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compiler.md), así como el [comando extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/extract.md), para transformar miles de componentes en un segundo.
+
 #### Accediendo al contenido en Intlayer
 
 Intlayer ofrece diferentes APIs para acceder a tu contenido:
@@ -472,8 +481,6 @@ Intlayer ofrece diferentes APIs para acceder a tu contenido:
   El composable `useIntlayer` devuelve un Proxy con el contenido. Este proxy puede ser desestructurado para acceder al contenido manteniendo la reactividad.
   - Usa `const content = useIntlayer("myContent");` y `{{ content.myContent }}` / `<content.myContent />`.
   - O usa `const { myContent } = useIntlayer("myContent");` y `{{ myContent}}` / `<myContent/>` para desestructurar el contenido.
-
-> Si su aplicación ya existe, puede utilizar el [Compilador Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compiler.md), así como el [comando de extracción](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/extract.md), para transformar miles de componentes en un segundo.
 
 </Step>
 
@@ -661,6 +668,10 @@ import LocaleSwitcher from "@components/LocaleSwitcher.vue";
 ```
 
 Paralelamente, también puede usar el `intlayerProxy` para agregar enrutamiento del lado del servidor a su aplicación. Este plugin detectará automáticamente la configuración regional actual basada en la URL y establecerá la cookie de configuración regional correspondiente. Si no se especifica ninguna configuración regional, el plugin determinará la configuración regional más adecuada según las preferencias de idioma del navegador del usuario. Si no se detecta ninguna configuración regional, redirigirá a la configuración regional predeterminada.
+
+> Tenga en cuenta que para usar `intlayerProxy` en producción, debe cambiar el paquete `vite-intlayer` de `devDependencies` a `dependencies`.
+
+> Desde Intlayer v9, `intlayerProxy()` está incluido directamente en el plugin `intlayer()` y habilitado por defecto a través de la opción `routing.enableProxy` (`true` por defecto). Registrarlo por separado como se muestra a continuación es ahora opcional — se mantiene para compatibilidad hacia atrás y para configuraciones que necesitan controlar el orden de los plugins. Establece `routing.enableProxy: false` para optar por no participar. Consulta las [notas de la versión v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/releases/v9.md).
 
 ```typescript {3,7} fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
@@ -1167,3 +1178,5 @@ Para más detalles sobre cómo usar la extensión, consulta la [documentación d
 ### Ir más allá
 
 Para ir más allá, puedes implementar el [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md) o externalizar tu contenido usando el [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md).
+
+Please share the content you'd like me to review.---

@@ -143,36 +143,6 @@ getLocalizedUrl(
 // Output: "/about" for the default (English) locale
 ```
 
-```javascript codeFormat="esm"
-import { getLocalizedUrl, Locales } from "intlayer";
-
-getLocalizedUrl(
-  "/about",
-  Locales.FRENCH,
-  [Locales.ENGLISH, Locales.FRENCH],
-  Locales.ENGLISH,
-  false
-);
-
-// Output: "/fr/about" for the French locale
-// Output: "/about" for the default (English) locale
-```
-
-```javascript codeFormat="commonjs"
-const { getLocalizedUrl, Locales } = require("intlayer");
-
-getLocalizedUrl(
-  "/about",
-  Locales.FRENCH,
-  [Locales.ENGLISH, Locales.FRENCH],
-  Locales.ENGLISH,
-  false
-);
-
-// Output: "/fr/about" for the French locale
-// Output: "/about" for the default (English) locale
-```
-
 ### Partial Configuration Override
 
 You can also provide only some of the optional parameters. The function will use your project configuration for any parameters you don't specify:
@@ -248,6 +218,12 @@ getLocalizedUrl(
 
 - **Unsupported Locales:**
   - For locales not listed in `locales`, the function does not apply any prefix.
+
+- **Routing Modes:**
+  - `'prefix-no-default'`: Default locale has no prefix, others do (e.g., `/about`, `/fr/about`)
+  - `'prefix-all'`: All locales have prefixes (e.g., `/en/about`, `/fr/about`)
+  - `'no-prefix'`: No locale prefixes in URLs (locale handled elsewhere)
+  - `'search-params'`: Locale specified via query parameter (e.g., `/about?locale=fr`)
 
 ---
 

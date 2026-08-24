@@ -246,7 +246,7 @@ Intlayer внутренне нормализует эти паттерны в е
 
 <Tabs group='framework'>
   <Tab label="Next.js" value="nextjs">
-  
+
     ```tsx
     'use client';
 
@@ -261,7 +261,7 @@ Intlayer внутренне нормализует эти паттерны в е
   </Tab>
 
   <Tab label="React Router" value="reactrouter">
-  
+
     ```tsx
     'use client';
 
@@ -277,7 +277,7 @@ Intlayer внутренне нормализует эти паттерны в е
   </Tab>
 
   <Tab label="Vue" value="vue">
-  
+
     ```vue
     <script setup>
     import { useRewriteURL } from "vue-intlayer";
@@ -289,7 +289,7 @@ Intlayer внутренне нормализует эти паттерны в е
 
   </Tab>
   <Tab label="Solid" value="solid">
-  
+
     ```tsx
     import { useRewriteURL } from "solid-intlayer";
 
@@ -301,7 +301,7 @@ Intlayer внутренне нормализует эти паттерны в е
 
   </Tab>
   <Tab label="Svelte" value="svelte">
-  
+
     ```svelte
     <script>
     import { useRewriteURL } from "svelte-intlayer";
@@ -337,6 +337,8 @@ export function middleware(request: NextRequest) {
 ### Интеграция Vite
 
 Для SolidJS, Vue и Svelte плагин Vite `intlayerProxy` управляет правилами переписывания (rewrites) во время разработки.
+
+> Начиная с Intlayer v9, `intlayerProxy()` встроен непосредственно в плагин `intlayer()` и включен по умолчанию через опцию `routing.enableProxy` (`true` по умолчанию). Регистрация его отдельно, как показано ниже, теперь необязательна — она сохранена для обратной совместимости и для настроек, которым необходимо контролировать порядок плагинов. Установите `routing.enableProxy: false` для отказа. Смотрите [примечания к выпуску v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/releases/v9.md).
 
 ```typescript fileName="vite.config.ts"
 import { defineConfig } from "vite";

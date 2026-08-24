@@ -39,6 +39,8 @@ author: aymericzip
 - **Получение многоязычного контента**: Для приложений, извлекающих контент из базы данных, интернационализация обеспечивает возможность предоставления этого контента на нескольких языках. Это важно для платформ, таких как сайты электронной коммерции или системы управления контентом, которые должны отображать описания товаров, статьи и другой контент на языке, предпочтительном для пользователя.
 - **Отправка многоязычных писем**: Будь то транзакционные письма, маркетинговые кампании или уведомления, отправка писем на языке получателя может значительно повысить вовлеченность и эффективность.
 
+- **Отправка многоязычных писем**: Независимо от того, это транзакционные письма, маркетинговые кампании или уведомления, отправка писем на языке получателя может значительно повысить вовлеченность и эффективность.
+
 - **Многоязычные push-уведомления**: Для мобильных приложений отправка push-уведомлений на предпочтительном языке пользователя может улучшить взаимодействие и удержание. Этот персонализированный подход делает уведомления более актуальными и действенными.
 
 - **Другие виды коммуникации**: Любая форма коммуникации с сервера, такая как SMS-сообщения, системные оповещения или обновления интерфейса пользователя, выигрывает от использования языка пользователя, обеспечивая ясность и улучшая общий пользовательский опыт.
@@ -117,25 +119,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH_MEXICO,
-      Locales.SPANISH_SPAIN,
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
 ```
 
 ### Объявление вашего контента
@@ -219,75 +202,6 @@ app.get("/getDictionary_example", (_req, res) => {
 
 // Запуск сервера
 app.listen(3000, () => console.log(`Listening on port 3000`));
-```
-
-```import express from "express";
-import { intlayer, t, getDictionary, getIntlayer } from "express-intlayer";
-import dictionaryExample from "./index.content";
-
-const app = express();
-
-// Загрузка обработчика запросов интернационализации
-app.use(intlayer());
-
-// Маршруты
-app.get("/t_example", (_req, res) => {
-  res.send(
-    t({
-      ru: "Пример возвращаемого контента на русском",
-      en: "Example of returned content in English",
-      fr: "Exemple de contenu renvoyé en français",
-      "es-ES": "Ejemplo de contenido devuelto en español (España)",
-      "es-MX": "Ejemplo de contenido devuelto en español (México)",
-    })
-  );
-});
-
-app.get("/getIntlayer_example", (_req, res) => {
-  res.send(getIntlayer("index").exampleOfContent);
-});
-
-app.get("/getDictionary_example", (_req, res) => {
-  res.send(getDictionary(dictionaryExample).exampleOfContent);
-});
-
-// Запуск сервера
-app.listen(3000, () => console.log(`Слушаем порт 3000`));
-```
-
-```javascript fileName="src/index.cjs" codeFormat="commonjs"
-const express = require("express");
-const { intlayer, t, getDictionary, getIntlayer } = require("express-intlayer");
-const dictionaryExample = require("./index.content");
-
-const app = express();
-
-// Загрузка обработчика запросов интернационализации
-app.use(intlayer());
-
-// Маршруты
-app.get("/t_example", (_req, res) => {
-  res.send(
-    t({
-      en: "Example of returned content in English",
-      fr: "Exemple de contenu renvoyé en français",
-      "es-ES": "Ejemplo de contenido devuelto en español (España)",
-      "es-MX": "Ejemplo de contenido devuelto en español (México)",
-    })
-  );
-});
-});
-
-app.get("/getIntlayer_example", (_req, res) => {
-  res.send(getIntlayer("index").exampleOfContent);
-});
-
-app.get("/getDictionary_example", (_req, res) => {
-  res.send(getDictionary(dictionaryExample).exampleOfContent);
-});
-
-// Запуск сервера
-app.listen(3000, () => console.log(`Слушаем порт 3000`));
 ```
 
 ### Совместимость

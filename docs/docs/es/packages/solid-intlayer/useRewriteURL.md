@@ -46,8 +46,6 @@ const Layout = (props) => {
 
 ## ¿Por qué usarlo?
 
-/// **URLs canónicas**: Impone una única URL para cada versión localizada de tu contenido, lo cual es crucial para el SEO.
-
 - **Conveniencia para desarrolladores**: Te permite mantener las definiciones internas de rutas canónicas a la vez que expones rutas localizadas y amigables para el usuario al mundo exterior.
 - **Consistencia**: Corrige las URLs cuando los usuarios escriben manualmente una ruta que no sigue tus reglas de localización preferidas.
 

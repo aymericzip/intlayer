@@ -30,8 +30,6 @@ L'hook `useDictionary` ti consente di elaborare un oggetto che assomiglia a un d
 
 ## Esempio di utilizzo in React
 
-Di seguito un esempio di come utilizzare l'hook `useDictionary` in un componente React:
-
 ```tsx fileName="./ComponentExample.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useDictionary } from "react-intlayer";

@@ -343,6 +343,9 @@ export default async function Page() {
 }
 ```
 
+<Tabs>
+  <Tab label='Intlayer >=9.4' value='>=9.4'>
+
 ```tsx fileName="src/app/page.tsx"
 import { type FC } from "react";
 import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
@@ -370,13 +373,48 @@ export default async function Page() {
 }
 ```
 
+- **`IntlayerProvider`** يتم تثبيته مرة واحدة، في تخطيط الجذر. يوفر اللغة لكل من مكونات الخادم والعميل، لذا لا تحتاج الصفحات إلى تغليف نفسها.
+- بدون قطاع مسار `[locale]`، تأتي اللغة دائمًا من الطلب — رأس `x-intlayer-locale` الذي يعينه وكيل Intlayer، ثم ملف تعريف الارتباط للغة — وهو ما يقرأه خوادم الخادم بمفردها عندما لم يتم تشغيل موفر الخدمة.
+
   </Tab>
+
 </Tabs>
+
+```tsx fileName="src/app/page.tsx"
+import { type FC } from "react";
+import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
+import { getLocale } from "next-intlayer/server";
+
+const PageContent: FC = () => {
+  const content = useIntlayer("page-content");
+
+  return (
+    <>
+      <p>{content.getStartedByEditing}</p>
+      <code>src/app/page.tsx</code>
+    </>
+  );
+};
+
+export default async function Page() {
+  const locale = await getLocale();
+
+  return (
+    <IntlayerServerProvider locale={locale}>
+      <PageContent />
+    </IntlayerServerProvider>
+  );
+}
+```
 
 - يُستخدم **`IntlayerClientProvider`** لتوفير اللغة للأبناء في جانب العميل.
 - بينما يُستخدم **`IntlayerServerProvider`** لتوفير اللغة للأبناء في جانب الخادم.
 
   > Layout and page cannot share a common server context because the server context system is based on a per-request data store (via [React's cache](https://react.dev/reference/react/cache) mechanism), causing each "context" to be re-created for different segments of the application. Placing the provider in a shared layout would break this isolation, preventing the correct propagation of the server context values to your server components.
+
+  </Tab>
+
+</Tabs>
 
 </Step>
 
@@ -434,6 +472,8 @@ export const config = {
 ```
 
 > يستخدم `intlayerProxy` لاكتشاف اللغة المفضلة للمستخدم وإعادة توجيهه إلى عنوان URL المناسب كما هو محدد في [إعدادات ملف التهيئة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md). بالإضافة إلى ذلك، فإنه يتيح حفظ لغة المستخدم المفضلة في ملف تعريف ارتباط (cookie).
+
+> منذ Intlayer v9، يحترم هذا الـ middleware خيار `routing.enableProxy` (`true` بشكل افتراضي). اضبط `routing.enableProxy: false` في إعدادك لتحويله إلى pass-through دون إزالة هذا الملف. راجع [ملاحظات إصدار v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/releases/v9.md).
 
 </Step>
 
@@ -493,6 +533,8 @@ export const LocaleSwitcher: FC = () => {
 
 عند استخدام `next-intlayer` ، يتم تضمين القواميس في الحزمة لكل صفحة بشكل افتراضي. لتحسين حجم البندل ، يوفر Intlayer ملحق SWC اختيارياً يستبدل بذكاء استدعاءات `useIntlayer` باستخدام الماكرو. يضمن ذلك تضمين القواميس فقط في حزم الصفحات التي تستخدمها بالفعل.
 
+يقوم المكون الإضافي `@intlayer/babel` بدمج تحسين التجميع بالفعل (انظر `babel.config.js`). لكن المكون الإضافي `@intlayer/swc` أكثر أداءً. إذا قمت بإزالة المكون الإضافي `@intlayer/babel`، يمكنك استخدام المكون الإضافي `@intlayer/swc`.
+
 لتمكين هذا التحسين ، قم بتثبيت حزمة `@intlayer/swc`. بمجرد التثبيت ، سيكتشف `next-intlayer` الملحق ويستخدمه تلقائياً:
 
 ```bash packageManager="npm"
@@ -517,6 +559,8 @@ bun add @intlayer/swc --dev
 
 > ملاحظة: إذا قمت بتعيين الخيار كـ `importMode: 'dynamic'` أو `importMode: 'fetch'` (في تهيئة `dictionary`) ، فسوف يعتمد على Suspense ، لذا سيتعين عليك لف استدعاءات `useIntlayer` بحدود `Suspense`. هذا يعني أنك لن تكون قادرًا على استخدام `useIntlayer` مباشرة في المستوى العلوي لمكون الصفحة / التخطيط الخاص بك.
 > </Step>
+
+</Step>
 
 <Step number={1} title="استخراج محتوى مكوناتك" isOptional={true}>
 

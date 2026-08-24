@@ -33,6 +33,14 @@ author: aymericzip
 
 [애플리케이션 템플릿](https://github.com/aymericzip/intlayer-lynx-template)을 GitHub에서 확인하세요.
 
+<iframe
+  src="https://ide.intlayer.org/aymericzip/intlayer-lynx-template?file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - Intlayer를 사용하여 애플리케이션을 국제화하는 방법"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
 ## 대안보다 Intlayer를 선택해야 하는 이유는 무엇입니까?
 
 'react-native-localize' 또는 'i18next'와 같은 주요 솔루션과 비교할 때 Intlayer는 다음과 같은 통합 최적화가 제공되는 솔루션입니다.
@@ -87,6 +95,44 @@ Intlayer는 단순한 i18n 솔루션 그 이상으로 관리에 도움이 되는
 <Steps>
 
 <Step number={1} title="의존성 설치">
+
+Lynx 프로젝트에서 다음 패키지를 설치하세요:
+
+```bash packageManager="npm"
+npx intlayer init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer@canary init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer@canary init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer@canary init --interactive
+```
+
+> `--interactive` 플래그는 선택사항입니다. AI 에이전트인 경우 `intlayer-cli init`을 사용하세요.
+
+> 이 명령은 당신의 환경을 감지하고 필요한 패키지를 설치합니다. 예를 들어:
+
+```bash packageManager="npm"
+npm install intlayer react-intlayer lynx-intlayer
+```
+
+```bash packageManager="pnpm"
+pnpm add intlayer react-intlayer lynx-intlayer
+```
+
+```bash packageManager="yarn"
+yarn add intlayer react-intlayer lynx-intlayer
+```
+
+```bash packageManager="bun"
+bun add intlayer react-intlayer lynx-intlayer
+```
 
 ### 패키지
 
@@ -446,6 +492,11 @@ Intlayer와 함께 개발 경험을 향상시키려면 공식 **Intlayer VS Code
 [VS Code 마켓플레이스에서 설치하기](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
 이 확장은 다음 기능을 제공합니다:
+
+- **자동완성** 번역 키용.
+- **실시간 오류 감지** 누락된 번역용.
+- **인라인 미리보기** 번역된 콘텐츠용.
+- **빠른 작업** 번역을 쉽게 생성하고 업데이트하기 위해.
 
 - 번역 키에 대한 **자동 완성**.
 - 누락된 번역에 대한 **실시간 오류 감지**.

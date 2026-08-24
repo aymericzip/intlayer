@@ -65,13 +65,19 @@ author: aymericzip
 
 W porównaniu do głównych rozwiązań, takich jak „astro-i18n” czy „i18next”, Intlayer jest rozwiązaniem wyposażonym w zintegrowane optymalizacje, takie jak:
 
+<AccordionGroup>
+
 **Pełny zasięg Astro**
 
 Intlayer jest zoptymalizowany do doskonałej współpracy z Astro, oferując **wielojęzyczny routing**, **mapę witryny** i wszystkie funkcje potrzebne do skalowania internacjonalizacji (i18n).
 
+</Accordion>
+
 **Rozmiar bundle'a**
 
 Zamiast ładować ogromne pliki JSON na swoje strony, ładuj tylko niezbędną treść. Intlayer pomaga **zmniejszyć rozmiary bundle'a i stron nawet o 50%**.
+
+</Accordion>
 
 **Łatwość konserwacji**
 
@@ -79,7 +85,11 @@ Określanie zakresu zawartości aplikacji **ułatwia konserwację** aplikacji na
 
 **Agent AI**
 
+<Accordion header="AI Agent">
+
 Wspólna lokalizacja treści **zmniejsza potrzebny kontekst** dzięki modelom dużego języka (LLM). Intlayer zawiera także zestaw narzędzi, taki jak **CLI** do sprawdzania brakujących tłumaczeń**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** i **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/agent_skills.md)**, aby praca programisty (DX) była jeszcze płynniejsza dla agentów AI.
+
+</Accordion>
 
 **Automatyzacja**
 
@@ -87,11 +97,18 @@ Korzystaj z automatyzacji, aby tłumaczyć w swoim potoku CI/CD przy użyciu wyb
 
 **Wydajność**
 
+<Accordion header="Wydajność">
+
 Łączenie ogromnych plików JSON z komponentami może prowadzić do problemów z wydajnością i reaktywnością. Inlayer optymalizuje ładowanie treści w czasie kompilacji.
+
+</Accordion>
 
 **Skalowanie bez użycia dewelopera**
 
 Więcej niż tylko rozwiązanie i18n, Intlayer zapewnia **samodzielny [edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** i **[pełny CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)**, który pomoże Ci zarządzać wielojęzyczną treścią w **w czasie rzeczywistym**, dzięki czemu współpraca z tłumaczami, copywriterami i innymi członkami zespołu będzie płynna. Treść może być przechowywana lokalnie i/lub zdalnie.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
@@ -104,6 +121,30 @@ Sprawdź [szablon aplikacji](https://github.com/aymericzip/intlayer-astro-templa
 <Step number={1} title="Zainstaluj zależności">
 
 Zainstaluj niezbędne pakiety za pomocą preferowanego menedżera pakietów:
+
+```bash packageManager="npm"
+npx intlayer init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer@canary init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer@canary init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer@canary init --interactive
+```
+
+> flaga `--interactive` jest opcjonalna. Użyj `intlayer-cli init` jeśli jesteś agentem AI.
+
+> To polecenie wykryje twoje środowisko i zainstaluje wymagane pakiety. Na przykład:
+
+```bash packageManager="npm"
+npm install intlayer astro-intlayer
+```
 
 ```bash packageManager="npm"
 npm install intlayer astro-intlayer
@@ -296,11 +337,83 @@ const { title } = getIntlayer('app');
 <h1>{title}</h1>
 ```
 
+> **Uwaga dotycząca konfiguracji routingu:**
+> Struktura katalogów, którą używasz, zależy od ustawienia `middleware.routing` w pliku `intlayer.config.ts`:
+>
+> - **`prefix-no-default` (domyślnie):** Przechowuje domyślny język w katalogu głównym (bez prefiksu) i dodaje prefiksy do pozostałych. Użyj `[...locale]`, aby uwzględnić wszystkie przypadki.
+> - **`prefix-all`:** Wszystkie adresy URL mają prefiks języka. Możesz użyć standardowego `[locale]`, jeśli nie musisz obsługiwać katalogu głównego osobno.
+> - **`search-param` lub `no-prefix`:** Folder z językiem nie jest potrzebny. Język jest obsługiwany za pośrednictwem parametrów wyszukiwania lub ciasteczek.
+
+</Step>
+
+<Step number={7} title="Dodaj przełącznik języka">
+
 Integracja z Astro dodaje oprogramowanie pośredniczące Vite, które pomaga w routingu uwzględniającym język i definiowaniu środowiska podczas programowania. Możesz również użyć własnej logiki lub narzędzi `intlayer`, takich jak `getLocalizedUrl`, aby tworzyć linki między językami.
+
+```astro fileName="src/components/LocaleSwitcher.astro"
+---
+import {
+  locales,
+  getLocaleName,
+  getLocalizedUrl,
+  getLocaleFromPath,
+  getPathWithoutLocale,
+  type LocalesValues,
+} from "intlayer";
+
+const locale = getLocaleFromPath(Astro.url.pathname) as LocalesValues;
+const pathWithoutLocale = getPathWithoutLocale(Astro.url.pathname);
+---
+
+<nav>
+  {
+    locales.map((localeItem) => (
+      <a
+        href={getLocalizedUrl(pathWithoutLocale, localeItem)}
+        data-locale={localeItem}
+        aria-current={localeItem === locale ? "page" : undefined}
+      >
+        {getLocaleName(localeItem)}
+      </a>
+    ))
+  }
+</nav>
+
+<script>
+  import { setLocaleInStorageClient, getLocalizedUrl, type LocalesValues } from "intlayer";
+
+  const localeLinks = document.querySelectorAll("[data-locale]");
+
+  localeLinks.forEach((link) => {
+    link.addEventListener("click", (e) => {
+      const locale = link.getAttribute("data-locale") as LocalesValues;
+
+      // Zaktualizuj ciasteczko ustawień lokalizacji
+      setLocaleInStorageClient(locale);
+    });
+  });
+</script>
+
+<style>
+  nav {
+    display: flex;
+    gap: 1rem;
+  }
+  a[aria-current="page"] {
+    font-weight: bold;
+    text-decoration: underline;
+  }
+</style>
+```
+
+> **Uwaga na temat trwałości:**
+> Użycie `setLocaleInStorageClient` w skrypcie po stronie klienta zapewnia, że preferencja językowa użytkownika jest zapisywana w pliku cookie. Pozwala to middleware'owi Intlayer zapamiętać wybór i automatycznie przekierować użytkownika do preferowanego języka przy kolejnych wizytach.
 
 </Step>
 
 <Step number={8} title="Sitemap i Robots.txt">
+
+Intlayer udostępnia narzędzia do dynamicznego generowania zlokalizowanych map witryny (sitemaps) i plików robots.txt.
 
 #### Mapa witryny
 

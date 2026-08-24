@@ -248,7 +248,7 @@ Intlayer इन पैटर्नों को आंतरिक रूप स
 
 <Tabs group='framework'>
   <Tab label="Next.js" value="nextjs">
-  
+
     ```tsx
     'use client';
 
@@ -264,7 +264,7 @@ Intlayer इन पैटर्नों को आंतरिक रूप स
   </Tab>
 
   <Tab label="React Router" value="reactrouter">
-  
+
     ```tsx
     'use client';
 
@@ -280,7 +280,7 @@ Intlayer इन पैटर्नों को आंतरिक रूप स
   </Tab>
 
   <Tab label="Vue" value="vue">
-  
+
     ```vue
     <script setup>
     import { useRewriteURL } from "vue-intlayer";
@@ -292,7 +292,7 @@ Intlayer इन पैटर्नों को आंतरिक रूप स
 
   </Tab>
   <Tab label="Solid" value="solid">
-  
+
     ```tsx
     import { useRewriteURL } from "solid-intlayer";
 
@@ -304,7 +304,7 @@ Intlayer इन पैटर्नों को आंतरिक रूप स
 
   </Tab>
   <Tab label="Svelte" value="svelte">
-  
+
     ```svelte
     <script>
     import { useRewriteURL } from "svelte-intlayer";
@@ -340,6 +340,8 @@ export function middleware(request: NextRequest) {
 ### Vite एकीकरण
 
 SolidJS, Vue, और Svelte के लिए, `intlayerProxy` Vite प्लगइन विकास के दौरान री-राइट्स को प्रबंधित करता है।
+
+> Intlayer v9 के बाद से, `intlayerProxy()` सीधे `intlayer()` plugin में बंडल किया गया है और `routing.enableProxy` विकल्प (`true` डिफ़ॉल्ट रूप से) के माध्यम से डिफ़ॉल्ट रूप से सक्षम है। इसे अलग से नीचे दिखाए गए अनुसार पंजीकृत करना अब वैकल्पिक है — इसे पिछड़े संगतता के लिए और उन सेटअप के लिए रखा गया है जिन्हें plugin क्रम को नियंत्रित करने की आवश्यकता है। `routing.enableProxy: false` सेट करके बाहर निकलें। [v9 रिलीज़ नोट्स](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/releases/v9.md) देखें।
 
 ```typescript fileName="vite.config.ts"
 import { defineConfig } from "vite";

@@ -39,6 +39,8 @@ author: aymericzip
 
 ## 为什么选择 Inlayer 而不是替代品？
 
+与 `next-intl` 或 `i18next` 等主要解决方案相比，Intlayer 是一个提供了集成优化的解决方案，例如：
+
 与“next-intl”或“i18next”等主要解决方案相比，Intlayer是一个具有集成优化的解决方案，例如：
 
 <AccordionGroup>
@@ -92,6 +94,38 @@ Intlayer 不仅仅是一个 i18n 解决方案，还提供了一个**自托管的
 ---
 
 ## 在 Next.js 应用中设置 Intlayer 的分步指南
+
+<Tabs defaultTab="video">
+  <Tab label="视频" value="video">
+
+<iframe title="Next.js 的最佳 i18n 解决方案？发现 Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/e_PPG7PTqGU?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
+
+  </Tab>
+  <Tab label="代码" value="code">
+
+<iframe
+  src="https://ide.intlayer.org/aymericzip/intlayer-next-15-template?file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="演示 CodeSandbox - 如何使用 Intlayer 国际化你的应用程序"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+  <Tab label="演示" value="demo">
+
+<iframe
+  src="https://next-15-intlayer-template-xt83.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo - intlayer-next-15-template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+</Tabs>
+
+查看 GitHub 上的[应用程序模板](https://github.com/aymericzip/intlayer-next-15-template)。
 
 <Steps>
 
@@ -214,6 +248,24 @@ export default withIntlayer(nextConfig);
 
 > `withIntlayer()` Next.js 插件用于将 Intlayer 集成到 Next.js 中。它确保构建内容声明文件并在开发模式下监视这些文件。在 [Webpack](https://webpack.js.org/) 或 [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack) 环境中定义 Intlayer 环境变量。此外，它还提供别名以优化性能，并确保与服务器组件的兼容性。
 
+> `withIntlayer()` 函数是一个 promise 函数。它允许在构建启动前准备 intlayer 字典。如果你想将它与其他插件一起使用，可以对其进行 await。示例：
+>
+> ```tsx
+> const nextConfig = await withIntlayer(nextConfig);
+> const nextConfigWithOtherPlugins = withOtherPlugins(nextConfig);
+>
+> export default nextConfigWithOtherPlugins;
+> ```
+>
+> 如果你想同步使用它，可以使用 `withIntlayerSync()` 函数。示例：
+>
+> ```tsx
+> const nextConfig = withIntlayerSync(nextConfig);
+> const nextConfigWithOtherPlugins = withOtherPlugins(nextConfig);
+>
+> export default nextConfigWithOtherPlugins;
+> ```
+
 </Step>
 
 <Step number={4} title="定义动态本地化路由">
@@ -232,6 +284,36 @@ export default RootLayout;
 > 保持 `RootLayout` 组件为空，可以设置 `<html>` 标签的 [`lang`](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Global_attributes/lang) 和 [`dir`](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Global_attributes/dir) 属性。
 
 为了实现动态路由，通过在 `[locale]` 目录中添加新的布局来提供语言环境路径：
+
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
+```tsx fileName="src/app/[locale]/layout.tsx" codeFormat={["typescript", "esm"]}
+import { type NextLayoutIntlayer } from "next-intlayer";
+import { IntlayerProvider } from "next-intlayer/server";
+import { Inter } from "next/font/google";
+import { getHTMLTextDir } from "intlayer";
+
+const inter = Inter({ subsets: ["latin"] });
+
+const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
+  const { locale } = await params;
+  return (
+    <IntlayerProvider locale={locale}>
+      <html lang={locale} dir={getHTMLTextDir(locale)}>
+        <body className={inter.className}>{children}</body>
+      </html>
+    </IntlayerProvider>
+  );
+};
+
+export default LocaleLayout;
+```
+
+一个 `IntlayerProvider` 覆盖树的两个部分：它为服务器 hooks 读取的请求作用域服务器上下文提供种子，并挂载客户端提供者，以便客户端组件接收相同的语言环境。
+
+ </Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
 
 ```tsx fileName="src/app/[locale]/layout.tsx" codeFormat={["typescript", "esm"]}
 import { type NextLayoutIntlayer, IntlayerClientProvider } from "next-intlayer";
@@ -256,6 +338,9 @@ const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
 export default LocaleLayout;
 ```
 
+ </Tab>
+</Tabs>
+
 > `[locale]` 路径段用于定义语言环境。例如：`/en-US/about` 将对应 `en-US`，而 `/fr/about` 对应 `fr`。
 
 > 在此阶段，您会遇到错误：`Error: Missing <html> and <body> tags in the root layout.`。这是预期中的，因为 `/app/page.tsx` 文件不再使用，可以删除。取而代之的是，`[locale]` 路径段将激活 `/app/[locale]/page.tsx` 页面。因此，页面将通过浏览器中的路径如 `/en`、`/fr`、`/es` 访问。要将默认语言环境设置为根页面，请参考第7步中的 `middleware` 配置。
@@ -273,6 +358,8 @@ export default LocaleLayout;
 ```
 
 > `generateStaticParams` 确保您的应用程序为所有语言环境预构建必要的页面，从而减少运行时计算并提升用户体验。更多详情，请参阅 [Next.js 关于 generateStaticParams 的文档](https://nextjs.org/docs/app/building-your-application/rendering/static-and-dynamic-rendering#generate-static-params)。
+
+> Intlayer 与 `export const dynamic = 'force-static';` 配合使用，以确保为所有语言预构建页面。
 
 </Step>
 
@@ -329,6 +416,43 @@ export default pageContent;
 
 在整个应用程序中访问您的内容字典：
 
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
+```tsx fileName="src/app/[locale]/page.tsx" codeFormat={["typescript", "esm"]}
+import type { FC } from "react";
+import { ClientComponentExample } from "@components/ClientComponentExample";
+import { ServerComponentExample } from "@components/ServerComponentExample";
+import { type NextPageIntlayer, useIntlayer } from "next-intlayer";
+
+const PageContent: FC = () => {
+  const content = useIntlayer("page");
+
+  return (
+    <>
+      <p>{content.getStarted.main}</p>
+      <code>{content.getStarted.pageLink}</code>
+    </>
+  );
+};
+
+const Page: NextPageIntlayer = () => (
+  <>
+    <PageContent />
+    <ServerComponentExample />
+
+    <ClientComponentExample />
+  </>
+);
+
+export default Page;
+```
+
+- **`IntlayerProvider`** 在本地语言布局中挂载一次。它向服务器和客户端组件提供本地语言，因此页面不再自行包装。
+- 服务器 hooks 按以下顺序解析本地语言：在调用点传递的本地语言，然后是由提供程序设置的服务器上下文，然后是请求中携带的本地语言（由 Intlayer 代理设置的 `x-intlayer-locale` header，然后是本地语言 cookie）。最后一步是保持客户端导航正确的内容，该导航只重新渲染页面段，而布局——以及与之相关的提供程序——不会重新运行。
+
+在整个应用程序中访问您的内容字典：
+
 ```tsx fileName="src/app/[locale]/page.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { ClientComponentExample } from "@components/ClientComponentExample";
@@ -369,6 +493,9 @@ export default Page;
 
 > 布局和页面不能共享公共的服务器上下文，因为服务器上下文系统基于每次请求的数据存储（通过 [React 的缓存](https://react.dev/reference/react/cache) 机制），导致每个“上下文”会为应用程序的不同部分重新创建。在共享布局中放置提供者会破坏这种隔离，阻止服务器上下文值正确传播到你的服务器组件。
 
+</Tab>
+</Tabs>
+
 ```tsx {4,7} fileName="src/components/ClientComponentExample.tsx" codeFormat="typescript"
 "use client";
 
@@ -407,6 +534,11 @@ export const ClientComponentExample: FC = () => {
 };
 ```
 
+> `next-intlayer` 是同构导入路径：`react-server` 导出条件为服务器组件提供环境区域设置实现，而客户端组件获得上下文支持的实现。相同的调用在两侧都有效。
+
+ </Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
+
 ```tsx {2} fileName="src/components/ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "next-intlayer/server";
@@ -422,6 +554,9 @@ export const ServerComponentExample: FC = () => {
   );
 };
 ```
+
+ </Tab>
+</Tabs>
 
 > 如果您想在字符串属性中使用内容，比如 `alt`、`title`、`href`、`aria-label` 等，可以使用函数的值，例如：
 
@@ -449,6 +584,23 @@ export const config = {
 ```
 
 > `intlayerMiddleware` 用于检测用户的首选语言环境，并根据[配置](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)将用户重定向到相应的 URL。此外，它还支持将用户的首选语言环境保存在 cookie 中。
+
+> 自 Intlayer v9 起，此中间件尊重 `routing.enableProxy` 选项（默认为 `true`）。在你的配置中设置 `routing.enableProxy: false` 以将其转换为直通，而无需删除此文件。请查看 [v9 发布说明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/releases/v9.md)。
+
+> 如果您需要将多个中间件链接在一起（例如，`intlayerMiddleware` 与身份验证或自定义中间件），Intlayer 现在提供了一个名为 `multipleMiddlewares` 的辅助函数。
+
+```ts
+import {
+  multipleMiddlewares,
+  intlayerMiddleware,
+} from "next-intlayer/middleware";
+import { customMiddleware } from "@utils/customMiddleware";
+
+export const middleware = multipleMiddlewares([
+  intlayerMiddleware,
+  customMiddleware,
+]);
+```
 
 </Step>
 
@@ -826,6 +978,33 @@ export const Link: FC<PropsWithChildren<NextLinkProps>> = ({
 
 使用 `next-intlayer` 时，字典默认包含在每个页面的包中。为了优化Bundle 大小，Intlayer 提供了一个可选的 SWC 插件，该插件通过宏智能地替换 `useIntlayer` 调用。这确保字典仅包含在实际使用它们的页面的包中。
 
+```tsx fileName="src/app/actions/getLocale.ts" codeFormat="typescript"
+"use server";
+
+import { getLocale } from "next-intlayer/server";
+
+export const myServerAction = async () => {
+  const locale = await getLocale();
+
+  // 使用 locale 做某些事情
+};
+```
+
+> `getLocale` 函数遵循级联策略来确定用户的语言区域设置：
+>
+> 1. 首先，它检查请求头中是否存在由中间件设置的语言区域值
+> 2. 如果在请求头中找不到语言区域，它会查找存储在 cookie 中的语言区域
+> 3. 如果没有找到 cookie，它会尝试从用户的浏览器设置中检测用户的首选语言
+> 4. 作为最后的手段，它会回退到应用程序配置的默认语言区域
+>
+> 这确保了根据可用的上下文选择最合适的语言区域。
+
+</Step>
+
+<Step number={13} title="优化您的 bundle 大小" isOptional={true}>
+
+当使用 `next-intlayer` 时，默认情况下字典会为每个页面包含在 bundle 中。为了优化 bundle 大小，Intlayer 提供了一个可选的 SWC 插件，它可以智能地使用宏替换 `useIntlayer` 调用。这确保字典仅包含在实际使用它们的页面的 bundle 中。
+
 要启用此优化，请安装 `@intlayer/swc` 包。安装后，`next-intlayer` 将自动检测并使用该插件：
 
 ```bash packageManager="npm"
@@ -845,6 +1024,8 @@ bun add @intlayer/swc --dev
 ```
 
 > 注意：此优化仅适用于 Next.js 13 及以上版本。
+
+> 注意：此包默认未安装，因为 SWC 插件在 Next.js 上仍处于实验阶段。它可能在未来发生变化。
 
 > 注意：由于 SWC 插件在 Next.js 中仍处于实验阶段，该包默认未安装，未来可能会有所变动。
 > </Step>

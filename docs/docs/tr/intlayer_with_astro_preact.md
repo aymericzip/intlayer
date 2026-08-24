@@ -328,6 +328,14 @@ const { title } = getIntlayer("app", locale);
 </html>
 ```
 
+> İçeriğinizi bir `string` özniteliğinde, örneğin `alt`, `title`, `href`, `aria-label`, vb. kullanmak istiyorsanız, işlevin değerini şu şekilde kullanabilirsiniz:
+
+> ```html
+> <img src="{content.image.src.value}" alt="{content.image.value}" />
+> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
+> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
+> ```
+
 > **Yönlendirme Kurulumu Hakkında Not:**
 > Kullandığınız dizin yapısı, `intlayer.config.ts` dosyasındaki `middleware.routing` ayarına bağlıdır:
 >
@@ -594,6 +602,12 @@ bun run build # Or bun run dev
 
 ### TypeScript Yapılandırması
 
+Intlayer module augmentation kullanarak TypeScript'in faydalarından yararlanır ve codebase'inizi güçlendirir.
+
+![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
+
+![Çeviri hatası](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+
 Intlayer, kod tabanınızı daha sağlam hale getirmek için TypeScript'ten yararlanmak amacıyla modül artırımı (module augmentation) kullanır. TypeScript yapılandırmanızın otomatik olarak oluşturulan türleri içerdiğinden ve Preact için yapılandırıldığından emin olun:
 
 ```json5 fileName="tsconfig.json"
@@ -620,14 +634,6 @@ Bunu yapmak için `.gitignore` dosyanıza aşağıdaki talimatları ekleyin:
 # Intlayer tarafından oluşturulan dosyaları yoksay
 .intlayer
 ```
-
-> İçeriğinizi `alt`, `title`, `href`, `aria-label` vb. gibi bir `dize` (string) özniteliğinde kullanmak istiyorsanız, işlevin değerini şu şekilde kullanabilirsiniz:
-
-> ```html
-> <img src="{content.image.src.value}" alt="{content.image.value}" />
-> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
-> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
-> ```
 
 ### VS Code Uzantısı
 

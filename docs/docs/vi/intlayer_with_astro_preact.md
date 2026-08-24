@@ -602,6 +602,12 @@ bun run build # Or bun run dev
 
 ### Cấu hình TypeScript
 
+Intlayer sử dụng module augmentation để tận dụng lợi ích của TypeScript và làm cho codebase của bạn mạnh mẽ hơn.
+
+![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
+
+![Lỗi dịch](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+
 Intlayer sử dụng cơ chế mở rộng module (module augmentation) để tận dụng TypeScript, làm cho cơ sở mã của bạn mạnh mẽ hơn. Đảm bảo cấu hình TypeScript của bạn bao gồm các kiểu dữ liệu được tạo tự động và được cấu hình cho Preact:
 
 ```json5 fileName="tsconfig.json"

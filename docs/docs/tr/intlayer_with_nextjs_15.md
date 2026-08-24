@@ -97,6 +97,38 @@ Bir i18n çözümünden çok daha fazlası olan Intlayer, **kendi kendine barın
 
 ## Next.js Uygulamasında Intlayer Kurulumu Adım Adım Kılavuzu
 
+<Tabs defaultTab="video">
+  <Tab label="Video" value="video">
+
+<iframe title="Next.js için en iyi i18n çözümü mü? Intlayer'ı keşfet" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/e_PPG7PTqGU?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
+
+  </Tab>
+  <Tab label="Code" value="code">
+
+<iframe
+  src="https://ide.intlayer.org/aymericzip/intlayer-next-15-template?file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - Uygulamanızı Intlayer Kullanarak Nasıl Uluslararasılaştıracağınız"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+  <Tab label="Demo" value="demo">
+
+<iframe
+  src="https://next-15-intlayer-template-xt83.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo - intlayer-next-15-template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+</Tabs>
+
+[Application Template](https://github.com/aymericzip/intlayer-next-15-template) için GitHub'a bakın.
+
 <Steps>
 
 <Step number={1} title="Bağımlılıkları Kurma">
@@ -219,6 +251,24 @@ export default withIntlayer(nextConfig);
 > `withIntlayer()` Next.js eklentisi, Intlayer'ı Next.js ile entegre etmek için kullanılır. İçerik bildirim dosyalarının oluşturulmasını sağlar ve bunları geliştirme modunda izler. Intlayer ortam değişkenlerini [Webpack](https://webpack.js.org/) veya [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack) ortamlarında tanımlar. Ayrıca, performansı optimize etmek ve sunucu bileşenleriyle uyumluluğu sağlamak için takma adlar sağlar.
 > `withIntlayer()` fonksiyonu promise tabanlı bir fonksiyondur.
 
+> `withIntlayer()` fonksiyonu bir promise fonksiyonudur. Build başlamadan önce intlayer sözlüklerini hazırlamanıza olanak tanır. Bunu diğer eklentilerle kullanmak istiyorsanız, await edebilirsiniz. Örnek:
+>
+> ```tsx
+> const nextConfig = await withIntlayer(nextConfig);
+> const nextConfigWithOtherPlugins = withOtherPlugins(nextConfig);
+>
+> export default nextConfigWithOtherPlugins;
+> ```
+>
+> Bunu senkron olarak kullanmak istiyorsanız, `withIntlayerSync()` fonksiyonunu kullanabilirsiniz. Örnek:
+>
+> ```tsx
+> const nextConfig = withIntlayerSync(nextConfig);
+> const nextConfigWithOtherPlugins = withOtherPlugins(nextConfig);
+>
+> export default nextConfigWithOtherPlugins;
+> ```
+
 </Step>
 
 <Step number={4} title="Dinamik Yerel Rotalar Tanımlama">
@@ -237,6 +287,36 @@ export default RootLayout;
 > `RootLayout` bileşenini boş tutmak, [`lang`](https://developer.mozilla.org/fr/docs/Web/HTML/Global_attributes/lang) ve [`dir`](https://developer.mozilla.org/fr/docs/Web/HTML/Global_attributes/dir) niteliklerini `<html>` etiketine ayarlamanıza izin verir.
 
 Dinamik yönlendirmeyi uygulamak için, `[locale]` dizininizde yeni bir düzen sağlayarak yerel ayar için yolu ekleyin:
+
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
+```tsx fileName="src/app/[locale]/layout.tsx" codeFormat={["typescript", "esm"]}
+import { type NextLayoutIntlayer } from "next-intlayer";
+import { IntlayerProvider } from "next-intlayer/server";
+import { Inter } from "next/font/google";
+import { getHTMLTextDir } from "intlayer";
+
+const inter = Inter({ subsets: ["latin"] });
+
+const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
+  const { locale } = await params;
+  return (
+    <IntlayerProvider locale={locale}>
+      <html lang={locale} dir={getHTMLTextDir(locale)}>
+        <body className={inter.className}>{children}</body>
+      </html>
+    </IntlayerProvider>
+  );
+};
+
+export default LocaleLayout;
+```
+
+Tek bir `IntlayerProvider` ağacın her iki yarısını da kapsar: istek kapsamlı sunucu bağlamını sunucu hook'ları tarafından okunacak şekilde sağlar ve istemci bileşenleri aynı yerel ayarı alacak şekilde istemci sağlayıcısını bağlar.
+
+ </Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
 
 ```tsx fileName="src/app/[locale]/layout.tsx" codeFormat={["typescript", "esm"]}
 import { type NextLayoutIntlayer, IntlayerClientProvider } from "next-intlayer";
@@ -261,6 +341,9 @@ const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
 export default LocaleLayout;
 ```
 
+ </Tab>
+</Tabs>
+
 > `[locale]` yol segmenti, yerel ayarı tanımlamak için kullanılır. Örnek: `/en-US/about` `en-US`'ye, `/fr/about` ise `fr`'ye referans verir.
 
 > Bu aşamada, "Kök düzeninde `<html>` ve `<body>` etiketleri eksik" hatasıyla karşılaşacaksınız. Bu beklenir çünkü `/app/page.tsx` dosyası artık kullanımda değildir ve kaldırılabilir. Bunun yerine, `[locale]` yol segmenti `/app/[locale]/page.tsx` sayfasını etkinleştirir. Sonuç olarak, sayfalar tarayıcınızda `/en`, `/fr`, `/es` gibi yollarla erişilebilir olacaktır. Varsayılan yerel ayarı kök sayfa olarak ayarlamak için adım 7'deki `middleware` kurulumuna bakın.
@@ -278,6 +361,8 @@ export default LocaleLayout;
 ```
 
 > `generateStaticParams`, uygulamanızın tüm yerel ayarlar için gerekli sayfaları önceden oluşturmasını sağlar, böylece çalışma zamanı hesaplamasını azaltır ve kullanıcı deneyimini iyileştirir. Daha fazla detay için [Next.js'in generateStaticParams dokümantasyonuna](https://nextjs.org/docs/app/building-your-application/rendering/static-and-dynamic-rendering#generate-static-params) bakın.
+
+> Intlayer, `export const dynamic = 'force-static';` ile çalışarak sayfaların tüm diller için önceden oluşturulmasını sağlar.
 
 </Step>
 
@@ -333,6 +418,45 @@ export default pageContent;
 
 İçerik sözlüklerinize uygulamanız boyunca erişin:
 
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
+```tsx fileName="src/app/[locale]/page.tsx" codeFormat={["typescript", "esm"]}
+import type { FC } from "react";
+import { ClientComponentExample } from "@components/ClientComponentExample";
+import { ServerComponentExample } from "@components/ServerComponentExample";
+import { type NextPageIntlayer, useIntlayer } from "next-intlayer";
+
+const PageContent: FC = () => {
+  // İçeriği al
+  const content = useIntlayer("page");
+
+  return (
+    <>
+      <p>{content.getStarted.main}</p>
+      <code>{content.getStarted.pageLink}</code>
+    </>
+  );
+};
+
+const Page: NextPageIntlayer = () => (
+  <>
+    <PageContent />
+    <ServerComponentExample />
+
+    <ClientComponentExample />
+  </>
+);
+
+export default Page;
+```
+
+- **`IntlayerProvider`** bir kez, locale layout'unda monte edilir. Hem server hem de client bileşenlerine locale sağlar, böylece sayfalar artık kendilerini sarmaz.
+- Server hook'ları locale'i şu sırayla çözer: çağrı sitesinde geçirilen locale, provider tarafından başlatılan server bağlamı, ardından istek tarafından taşınan locale (`x-intlayer-locale` başlığı Intlayer proxy tarafından ayarlanır, sonra locale cookie'si). Son adım, yalnızca sayfa segmentini yeniden render eden istemci tarafı navigasyonda içeriğin doğru kalmasını sağlayan şeydir; layout — ve onunla birlikte provider — yeniden çalışmaz.
+
+ </Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
+
 ```tsx fileName="src/app/[locale]/page.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { ClientComponentExample } from "@components/ClientComponentExample";
@@ -372,6 +496,9 @@ export default Page;
 
   > Düzen ve sayfa, sunucu bağlam sistemi [React'in cache](https://react.dev/reference/react/cache) mekanizması aracılığıyla istek başına veri deposuna dayandığı için ortak bir sunucu bağlamını paylaşamaz. Sağlayıcıyı paylaşılan bir düzende yerleştirmek, sunucu bileşenlerinize sunucu bağlam değerlerinin doğru şekilde yayılmasını engelleyen bu izolasyonu bozar.
 
+</Tab>
+</Tabs>
+
 ```tsx {4,7} fileName="src/components/ClientComponentExample.tsx" codeFormat={["typescript", "esm"]}
 "use client";
 
@@ -390,6 +517,30 @@ export const ClientComponentExample: FC = () => {
 };
 ```
 
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
+```tsx {2} fileName="src/components/ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
+import type { FC } from "react";
+import { useIntlayer } from "next-intlayer";
+
+export const ServerComponentExample: FC = () => {
+  const content = useIntlayer("server-component-example"); // İlgili içerik bildirimini oluştur
+
+  return (
+    <div>
+      <h2>{content.title}</h2>
+      <p>{content.content}</p>
+    </div>
+  );
+};
+```
+
+> `next-intlayer` isomorphic import yoludur: `react-server` export koşulu server bileşenlerine ambient-locale uygulamasını sağlar, client bileşenleri ise context-backed olanı alır. Aynı çağrı her iki tarafta da çalışır.
+
+ </Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
+
 ```tsx {2} fileName="src/components/ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "next-intlayer/server";
@@ -405,6 +556,9 @@ export const ServerComponentExample: FC = () => {
   );
 };
 ```
+
+ </Tab>
+</Tabs>
 
 > İçeriğinizi bir `string` niteliğinde kullanmak istiyorsanız, `alt`, `title`, `href`, `aria-label` vb. gibi, fonksiyonun değerini çağırmanız gerekir:
 
@@ -432,6 +586,23 @@ export const config = {
 ```
 
 > `intlayerMiddleware`, kullanıcının tercih ettiği yerel ayarı algılar ve onları [yapılandırmada](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md) belirtildiği gibi uygun URL'ye yönlendirir. Ayrıca, kullanıcının tercih ettiği yerel ayarı bir çerezde kaydetmeyi etkinleştirir.
+
+> Intlayer v9 sürümünden itibaren, bu middleware `routing.enableProxy` seçeneğine uyar (`true` varsayılan olarak). Pass-through moduna dönüştürmek için yapılandırmanızda `routing.enableProxy: false` olarak ayarlayın, ancak bu dosyayı silmeyin. [v9 sürüm notlarına](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/releases/v9.md) bakın.
+
+> Birden fazla middleware'i bir araya getirmeniz gerekirse (örneğin, `intlayerMiddleware`'i kimlik doğrulama veya özel middleware'ler ile), Intlayer artık `multipleMiddlewares` adlı bir yardımcı sağlar.
+
+```ts
+import {
+  multipleMiddlewares,
+  intlayerMiddleware,
+} from "next-intlayer/middleware";
+import { customMiddleware } from "@utils/customMiddleware";
+
+export const middleware = multipleMiddlewares([
+  intlayerMiddleware,
+  customMiddleware,
+]);
+```
 
 </Step>
 
@@ -804,6 +975,33 @@ Bu `Link` bileşenini uygulamanız boyunca entegre ederek, tutarlı ve dil bilin
 
 <Step number={12} title="bundle boyutunuzu Optimize Edin" isOptional={true}>
 
+Bir Server Action içinde aktif locale'e ihtiyacınız varsa (örneğin, e-postaları yerelleştirmek veya locale'e uygun mantık çalıştırmak için), `next-intlayer/server` adresinden `getLocale` komutunu çağırın:
+
+```tsx fileName="src/app/actions/getLocale.ts" codeFormat="typescript"
+"use server";
+
+import { getLocale } from "next-intlayer/server";
+
+export const myServerAction = async () => {
+  const locale = await getLocale();
+
+  // locale ile bir şeyler yap
+};
+```
+
+> `getLocale` fonksiyonu, kullanıcının dilini belirlemek için kademeli bir strateji izler:
+>
+> 1. Öncelikle, middleware tarafından ayarlanmış olabilecek bir dil değeri için istek başlıklarını kontrol eder
+> 2. Başlıklarda dil bulunmazsa, çerezlerde depolanan bir dil arar
+> 3. Çerez bulunmazsa, tarayıcı ayarlarından kullanıcının tercih ettiği dili tespit etmeye çalışır
+> 4. Son çare olarak, uygulamanın yapılandırılan varsayılan diline geri döner
+>
+> Bu, mevcut bağlam temelinde en uygun dilin seçilmesini sağlar.
+
+</Step>
+
+<Step number={13} title="Bundle boyutunuzu optimize edin" isOptional={true}>
+
 `next-intlayer` kullanırken, sözlükler varsayılan olarak her sayfa için pakete dahil edilir. bundle boyutunu optimize etmek için, Intlayer isteğe bağlı bir SWC eklentisi sağlar ki bu, `useIntlayer` çağrılarını akıllıca makrolar kullanarak değiştirir. Bu, sözlüklerin sadece onları gerçekten kullanan sayfalar için paketlere dahil edilmesini sağlar.
 
 Bu optimizasyonu etkinleştirmek için, `@intlayer/swc` paketini kurun. Kurulduktan sonra, `next-intlayer` eklentiyi otomatik olarak algılayacak ve kullanacaktır:
@@ -827,6 +1025,9 @@ bun add @intlayer/swc --dev
 > Not: Bu optimizasyon sadece Next.js 13 ve üzeri için kullanılabilir.
 
 > Not: Bu paket varsayılan olarak kurulmaz çünkü SWC eklentileri Next.js'te hala deneyseldir. Gelecekte değişebilir.
+> </Step>
+
+> Not: Eğer seçeneği `importMode: 'dynamic'` veya `importMode: 'fetch'` olarak ayarlarsanız (dictionary yapılandırmasında), Suspense'e bağlı olacaktır, bu nedenle `useIntlayer` çağrılarınızı bir `Suspense` sınırı içinde sarmanız gerekecektir. Bu, `useIntlayer`'ı doğrudan sayfa / düzen bileşeninizin üst düzeyinde kullanamayacağınız anlamına gelir.
 > </Step>
 
 </Steps>

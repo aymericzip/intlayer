@@ -405,6 +405,8 @@ Bu eklenti şunları sağlar:
 
 Eklentinin nasıl kullanılacağına dair daha fazla ayrıntı için [Intlayer VS Code Eklentisi dokümantasyonuna](https://intlayer.org/doc/vs-code-extension) bakın.
 
+---
+
 ### Daha Fazlasını Öğrenin
 
 Daha ileri gitmek için, [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) uygulayabilir veya içeriğinizi [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) kullanarak dışsallaştırabilirsiniz.

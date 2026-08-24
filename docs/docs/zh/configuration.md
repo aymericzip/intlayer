@@ -732,8 +732,6 @@ export default config;
 | `liveSyncPort`               | Live Sync 服务器的端口。                                                                                                         | `number`                          | `4000`                              | `4000`                                                                                          |                                                                                                                                                 |
 | `liveSyncURL`                | Live Sync 服务器的 URL。                                                                                                         | `string`                          | `'http://localhost:{liveSyncPort}'` | `'https://example.com'`                                                                         | 默认指向本地主机；可以更改为指向远程实时同步服务器。                                                                                            |
 
----
-
 ### 分析配置 (Analytics)
 
 定义与 Intlayer 分析相关的设置：收集实际展示给用户的内容（页面浏览量、内容曝光），并支持内容的 A/B 测试。
@@ -983,6 +981,13 @@ export default config;
 
 ### 字典配置 (Dictionary)
 
+控制字典操作的设置，包括自动填充行为和内容生成。
+
+这个字典配置有两个主要目的：
+
+1. **默认值**: 在创建内容声明文件时定义默认值
+2. **回退行为**: 在未定义特定字段时提供回退值，允许您全局定义字典操作行为
+
 控制字典操作的参数，包括自动填充行为和内容生成。
 
 | 字段                        | 说明                                                                                         | 类型                                                                                                            | 默认值       | 示例                                                                                        | 备注                                                                                                                                                                                                                                                                                                        |
@@ -1024,8 +1029,6 @@ dictionary: {
 | `mode`   | 指示日志记录器模式。   | `'default'` &#124; <br/> `'verbose'` &#124; <br/> `'disabled'` | `'default'`     | `'verbose'`     | • `'verbose'`: 记录更多调试信息。<br/>• `'disabled'`: 完全禁用日志记录器。 |
 | `prefix` | 日志中所有消息的前缀。 | `string`                                                       | `'[intlayer] '` | `'[我的前缀] '` |                                                                            |
 
----
-
 ### AI 配置 (AI)
 
 控制 Intlayer AI 功能的设置，包括提供商、模型和 API 密钥。
@@ -1065,8 +1068,6 @@ Intlayer 支持多个 AI 提供商，以提供最大的灵活性。当前支持�
 | `baseURL`            | AI API 的基础 URL。                                                                  | `string`                                                                                                                                                                                                                                                                                                                                                                                                                                             | 无          | `'https://api.openai.com/v1'` <br/> `'http://localhost:5000'` | 可以指向本地或自定义的 AI API 端点。                                                                                                              |
 | `dataSerialization`  | AI 功能的数据序列化格式。                                                            | `'json'` &#124; <br/> `'toon'`                                                                                                                                                                                                                                                                                                                                                                                                                       | `undefined` | `'toon'`                                                      | • `'json'`: 默认，可靠；使用更多 token。<br/>• `'toon'`: token 更少，但也更不稳定。<br/>• 将上下文作为额外参数（reasoning effort 等）传递给模型。 |
 
----
-
 ### 构建配置 (Build)
 
 控制 Intlayer 如何优化和编译应用程序国际化的参数。
@@ -1103,8 +1104,6 @@ Intlayer 支持多个 AI 提供商，以提供最大的灵活性。当前支持�
 | `output`              | 确定输出文件路径。替换 `outputDir`。支持模板变量：`{{fileName}}`, <br/> `{{key}}`, <br/> `{{locale}}`, <br/> `{{extension}}`, <br/> `{{componentFileName}}`, <br/> `{{componentExtension}}`, <br/> `{{format}}`, <br/> `{{componentFormat}}`, <br/> `{{componentDirPath}}` 。 | `boolean` &#124; <br/> `FilePathPattern` &#124; <br/> `Partial<Record<Locale, boolean &#124; FilePathPattern>>` | `undefined` | `'./{{fileName}}{{extension}}'` <br/> `'/locales/{{locale}}/{{key}}.json'` <br/> `{ en: ({ key }) => './locales/en/${key}.json', fr: '...', es: false }` | • `./` 路径相对于组件目录解析。<br/>• `/` 路径相对于项目基础。 <br/>• `{{locale}}` 启用按区域设置生成。<br/>• 支持按区域设置的对象表示法。 |
 | `noMetadata`          | 如果为 `true`，编译器会从输出中删除字典元数据（键、内容包装器）。                                                                                                                                                                                                             | `boolean`                                                                                                       | `false`     | `false` → `{"key":"my-key","content":{"key":"value"}}` <br/> `true` → `{"key":"value"}`                                                                  | • 对于 i18next 格式或 ICU MessageFormat JSON 输出非常有用。<br/>• 与 `loadJSON` 插件很好地配合。                                           |
 | `dictionaryKeyPrefix` | 字典键前缀                                                                                                                                                                                                                                                                    | `string`                                                                                                        | `''`        |                                                                                                                                                          | 为提取的字典键添加可选前缀                                                                                                                 |
-
----
 
 ### 自定义架构 (Custom Schemas)
 

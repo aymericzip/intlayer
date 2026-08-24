@@ -235,6 +235,24 @@ export default withIntlayer(nextConfig);
 
 > El plugin de Next.js `withIntlayer()` se utiliza para integrar Intlayer con Next.js. Asegura la generación de los archivos de declaración de contenido y los vigila en modo de desarrollo. Define las variables de entorno de Intlayer dentro de los entornos de [Webpack](https://webpack.js.org/) o [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack). Además, proporciona alias para optimizar el rendimiento y garantiza la compatibilidad con los server components.
 
+> La función `withIntlayer()` es una función promise. Permite preparar los diccionarios de intlayer antes de que comience la compilación. Si deseas utilizarla con otros plugins, puedes awaitearlo. Ejemplo:
+>
+> ```ts
+> const nextConfig = await withIntlayer(nextConfig);
+> const nextConfigWithOtherPlugins = withOtherPlugins(nextConfig);
+>
+> export default nextConfigWithOtherPlugins;
+> ```
+>
+> Si deseas utilizarla de forma síncrona, puedes usar la función `withIntlayerSync()`. Ejemplo:
+>
+> ```ts
+> const nextConfig = withIntlayerSync(nextConfig);
+> const nextConfigWithOtherPlugins = withOtherPlugins(nextConfig);
+>
+> export default nextConfigWithOtherPlugins;
+> ```
+
 > La función `withIntlayer()` es una función que devuelve una promesa. Permite preparar los diccionarios de Intlayer antes de que comience la compilación. Si quieres usarla con otros plugins, puedes usar await. Ejemplo:
 >
 > ```ts
@@ -266,6 +284,52 @@ export default withIntlayer(nextConfig);
 <Step number={4} title="Definir rutas locales dinámicas">
 
 Elimina todo de `RootLayout` y reemplázalo con el siguiente código:
+
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
+```tsx {5} fileName="src/app/layout.tsx" codeFormat={["typescript", "esm"]}
+import type { Metadata } from "next";
+import type { ReactNode } from "react";
+import "./globals.css";
+import { getHTMLTextDir, getIntlayer } from "intlayer";
+import { getLocale, IntlayerProvider } from "next-intlayer/server";
+export { generateStaticParams } from "next-intlayer";
+
+export const generateMetadata = async (): Promise<Metadata> => {
+  const locale = await getLocale();
+  const { title, description, keywords } = getIntlayer("metadata", locale);
+
+  return {
+    title,
+    description,
+    keywords,
+  };
+};
+
+const RootLayout = async ({
+  children,
+}: Readonly<{
+  children: ReactNode;
+}>) => {
+  const locale = await getLocale();
+
+  return (
+    <html lang={locale} dir={getHTMLTextDir(locale)}>
+      <IntlayerProvider locale={locale}>
+        <body>{children}</body>
+      </IntlayerProvider>
+    </html>
+  );
+};
+
+export default RootLayout;
+```
+
+> Un único `IntlayerProvider` cubre ambas mitades del árbol: proporciona el contexto del servidor con alcance de solicitud leído por los hooks del servidor e instala el proveedor del cliente para que los componentes del cliente reciban la misma locale.
+
+ </Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
 
 ```tsx {3} fileName="src/app/layout.tsx" codeFormat={["typescript", "esm"]}
 import type { Metadata } from "next";
@@ -305,6 +369,9 @@ const RootLayout = async ({
 
 export default RootLayout;
 ```
+
+</Tab>
+</Tabs>
 
 </Step>
 
@@ -424,6 +491,44 @@ export default pageContent;
 
 Accede a los diccionarios de contenido desde cualquier parte de tu aplicación:
 
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
+```tsx fileName="src/app/page.tsx" codeFormat={["typescript", "esm"]}
+import type { FC } from "react";
+import { ClientComponentExample } from "@components/clientComponentExample/ClientComponentExample";
+import { ServerComponentExample } from "@components/serverComponentExample/ServerComponentExample";
+import { useIntlayer } from "next-intlayer";
+import { NextPage } from "next";
+
+const PageContent: FC = () => {
+  const content = useIntlayer("page");
+
+  return (
+    <>
+      <p>{content.getStarted.main}</p>
+      <code>{content.getStarted.pageLink}</code>
+    </>
+  );
+};
+
+const Page: NextPage = () => (
+  <>
+    <PageContent />
+    <ServerComponentExample />
+    <ClientComponentExample />
+  </>
+);
+
+export default Page;
+```
+
+- **`IntlayerProvider`** se monta una sola vez, en el layout raíz. Proporciona la configuración regional tanto a componentes de servidor como de cliente, por lo que las páginas ya no se envuelven a sí mismas.
+- Sin un segmento de ruta `[locale]`, la configuración regional siempre proviene de la solicitud — el encabezado `x-intlayer-locale` establecido por el proxy de Intlayer, luego la cookie de configuración regional — que los hooks del servidor leen por su cuenta cuando el provider no ha sido ejecutado.
+
+ </Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
+
 ```tsx fileName="src/app/page.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { ClientComponentExample } from "@components/clientComponentExample/ClientComponentExample";
@@ -478,6 +583,9 @@ export default Page;
 
 > El layout y la página no pueden compartir un contexto del servidor común porque el sistema de contexto del servidor se basa en un almacenamiento de datos por solicitud (a través del mecanismo de [cache de React](https://react.dev/reference/react/cache)), lo que hace que cada "context" se vuelva a crear para diferentes segmentos de la aplicación. Colocar el provider en un layout compartido rompería este aislamiento, impidiendo la propagación correcta de los valores del contexto del servidor a tus server components.
 
+</Tab>
+</Tabs>
+
 ```tsx {4,7} fileName="src/components/clientComponentExample/ClientComponentExample.tsx" codeFormat={["typescript", "esm"]}
 "use client";
 
@@ -496,6 +604,30 @@ export const ClientComponentExample: FC = () => {
 };
 ```
 
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
+```tsx {2} fileName="src/components/serverComponentExample/ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
+import type { FC } from "react";
+import { useIntlayer } from "next-intlayer";
+
+export const ServerComponentExample: FC = () => {
+  const content = useIntlayer("server-component-example"); // Crear declaración de contenido relacionada
+
+  return (
+    <div>
+      <h2>{content.title}</h2>
+      <p>{content.content}</p>
+    </div>
+  );
+};
+```
+
+> `next-intlayer` es la ruta de importación isomórfica: la condición de exportación `react-server` proporciona a los componentes del servidor la implementación de locale ambiental, mientras que los componentes del cliente obtienen la basada en contexto. La misma llamada funciona en ambos lados.
+
+ </Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
+
 ```tsx {2} fileName="src/components/serverComponentExample/ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "next-intlayer/server";
@@ -512,6 +644,11 @@ export const ServerComponentExample: FC = () => {
 };
 ```
 
+ </Tab>
+</Tabs>
+
+> Si deseas utilizar tu contenido en un atributo `string`, como `alt`, `title`, `href`, `aria-label`, etc., puedes usar el valor de la función, como:
+
 > Si desea usar su contenido en un atributo de tipo `string`, como `alt`, `title`, `href`, `aria-label`, etc., debe invocar el valor de la función, por ejemplo:
 >
 > ```html
@@ -521,6 +658,8 @@ export const ServerComponentExample: FC = () => {
 > ```
 >
 > Para saber más sobre el hook `useIntlayer`, consulte la [documentación](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/next-intlayer/useIntlayer.md).
+
+> Para obtener más información sobre el hook `useIntlayer`, consulta la [documentación](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/next-intlayer/useIntlayer.md).
 
 </Step>
 
@@ -538,6 +677,8 @@ export const config = {
 ```
 
 > El `intlayerProxy` se utiliza para detectar el locale preferido del usuario y redirigirle a la URL correspondiente según se especifica en la [configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md). Además, permite guardar el locale preferido del usuario en una cookie.
+
+> Desde Intlayer v9, este middleware respeta la opción `routing.enableProxy` (`true` por defecto). Establece `routing.enableProxy: false` en tu configuración para convertirlo en un pass-through sin eliminar este archivo. Consulta las [notas de la versión v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/releases/v9.md).
 
 > Si necesitas encadenar varios proxies (por ejemplo, `intlayerProxy` con autenticación o proxies personalizados), Intlayer ahora proporciona un helper llamado `multipleProxies`.
 

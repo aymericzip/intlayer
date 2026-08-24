@@ -102,37 +102,6 @@ export const ServerComponentExample: FC = () => (
 );
 ```
 
-###속성 내 인라인 번역
-
-`t` 함수는 JSX 속성 내 인라인 번역에 특히 유용합니다.
-`alt`, `title`, `href`, `aria-label`과 같은 속성을 현지화할 때, 속성 내에서 직접 `t`를 사용할 수 있습니다.
-
-```jsx
-<button
-  aria-label={t({
-    en: "Submit",
-    fr: "Soumettre",
-    es: "Enviar",
-  })}
->
-  {t({
-    en: "Submit",
-    fr: "Soumettre",
-    es: "Enviar",
-  })}
-  <img
-    src="/path/to/image"
-    alt={t({
-      en: "A beautiful scenery",
-      fr: "Un beau paysage",
-      es: "Un hermoso paisaje",
-    })}
-  />
-</button>
-```
-
----
-
 ### 속성의 인라인 번역
 
 `t` 함수는 JSX 속성의 인라인 번역에 특히 유용합니다.
@@ -192,6 +161,23 @@ const greeting = t(translations);
 
 #### 예시:
 
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
+```tsx codeFormat={["typescript", "esm", "commonjs"]}
+import type { FC, ReactNode } from "react";
+import type { Locales } from "intlayer";
+import { IntlayerProvider } from "next-intlayer/server";
+
+const Page: FC<{ locale: Locales; children: ReactNode }> = ({
+  locale,
+  children,
+}) => <IntlayerProvider locale={locale}>{children}</IntlayerProvider>;
+```
+
+ </Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
+
 ```tsx codeFormat={["typescript", "esm", "commonjs"]}
 import type { FC } from "react";
 import type { Locales } from "intlayer";
@@ -206,6 +192,9 @@ const Page: FC<{ locale: Locales }> = ({ locale }) => (
   </IntlayerServerProvider>
 );
 ```
+
+ </Tab>
+</Tabs>
 
 ---
 

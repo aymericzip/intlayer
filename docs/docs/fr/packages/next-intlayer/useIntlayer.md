@@ -79,6 +79,34 @@ Les instructions pour configurer les fichiers de déclaration de contenu sont di
 
 Voici comment vous pouvez implémenter le hook `useIntlayer` dans une page Next.js pour charger dynamiquement le contenu localisé en fonction de la locale actuelle de l'application :
 
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
+```tsx fileName="src/pages/[locale]/index.tsx" codeFormat={["typescript", "esm"]}
+import { ClientComponentExample } from "@components/ClientComponentExample";
+import { ServerComponentExample } from "@components/ServerComponentExample";
+import { type NextPageIntlayer } from "next-intlayer";
+import { useIntlayer } from "next-intlayer";
+import { IntlayerProvider } from "next-intlayer/server";
+
+const HomePage: NextPageIntlayer = async ({ params }) => {
+  const { locale } = await params;
+
+  const content = useIntlayer("homepage", locale);
+
+  return (
+    <IntlayerProvider locale={locale}>
+      <p>{content.introduction}</p>
+      <ClientComponentExample />
+      <ServerComponentExample />
+    </IntlayerProvider>
+  );
+};
+```
+
+ </Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
+
 ```tsx fileName="src/pages/[locale]/index.tsx" codeFormat={["typescript", "esm"]}
 import { ClientComponentExample } from "@components/ClientComponentExample";
 import { ServerComponentExample } from "@components/ServerComponentExample";
@@ -103,6 +131,9 @@ const HomePage: NextPageIntlayer = async ({ params }) => {
   );
 };
 ```
+
+ </Tab>
+</Tabs>
 
 ```tsx fileName="src/components/ClientComponentExample.tsx" codeFormat={["typescript", "esm"]}
 "use-client";

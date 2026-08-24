@@ -31,6 +31,14 @@ author: aymericzip
 
 The `getMultilingualUrls` function generates a mapping of multilingual URLs by prefixing the given URL with each supported locale. It can handle both absolute and relative URLs, applying the appropriate locale prefix based on the provided configuration or defaults.
 
+**Key Features:**
+
+- Only 1 parameter is required: `url`
+- Optional `options` object with `locales`, `defaultLocale`, and `mode`
+- Uses your project's internationalisation configuration as defaults
+- Supports multiple routing modes: `prefix-no-default`, `prefix-all`, `no-prefix`, and `search-params`
+- Returns a mapping object with all locales as keys and their corresponding URLs as values
+
 ---
 
 ## Function Signature
@@ -139,8 +147,6 @@ getMultilingualUrls(
 // }
 ```
 
----
-
 ### Absolute URLs
 
 ```typescript
@@ -168,6 +174,12 @@ getMultilingualUrls(
 
 - **Unsupported Locales:**
   - Only the locales provided in the `locales` array are considered for generating the URLs.
+
+- **Routing Modes:**
+  - `'prefix-no-default'`: Default locale has no prefix, others do (e.g., `/dashboard`, `/fr/dashboard`)
+  - `'prefix-all'`: All locales have prefixes (e.g., `/en/dashboard`, `/fr/dashboard`)
+  - `'no-prefix'`: No locale prefixes in URLs (all locales return same URL)
+  - `'search-params'`: Locale specified via query parameter (e.g., `/dashboard?locale=fr`)
 
 ---
 

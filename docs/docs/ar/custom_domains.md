@@ -138,6 +138,37 @@ getMultilingualUrls("/about", { currentDomain: "intlayer.org" });
 
 هذه الروابط المطلقة جاهزة للاستخدام في وسوم `<link rel="alternate" hreflang="...">` لـ SEO.
 
+## استدلال النوع
+
+يتم تسلسل `routing.domains` في زيادة الوحدة المُنشأة، لذا
+تُضيّق `getLocalizedUrl` و `getLocalizedPath` نوع الإرجاع الخاص بهما إلى عنوان URL الدقيق
+الذي يحل إليه locale موجَّه بالنطاق — مع إدراج قمع البادئة.
+
+```ts
+// routing: { mode: 'prefix-no-default', domains: { en: 'intlayer.org', zh: 'intlayer.zh' } }
+
+getLocalizedUrl("/about", "zh");
+//     ^? "https://intlayer.zh/about" | "/about"
+
+getLocalizedPath("/about", "zh");
+//     ^? "/about"   (لا يوجد origin، وبدون بادئة /zh/)
+```
+
+نوع عنوان URL هو **اتحاد** القيمتَين اللتين يمكن للدالة أن ترجعهما: عنوان URL المطلق
+على نطاق locale، والعنوان النسبي الذي ترجعه عندما تكون الصفحة المعروضة موجودة بالفعل على ذلك النطاق.
+`getLocalizedPath` لا يحتوي على هذا الغموض — فهو لا يصدر origin أبدًا — لذا يبقى حرفيًا واحدًا.
+
+ال locales التي تشارك نطاقًا تحتفظ بالبادئة العادية الخاصة بها في النوع أيضًا:
+
+```ts
+getLocalizedUrl("/about", "fr");
+//     ^? "https://intlayer.org/fr/about" | "/fr/about"
+```
+
+> أعِد إنشاء الأنواع (`npx intlayer build`، أو أي تشغيل خادم تطوير) بعد
+> تغيير `routing.domains` — التضييق يأتي من
+> `__RoutingRegistry` المُنشأ، وليس من ملف الإعدادات نفسه.
+
 ## سلوك البروكسي (Proxy Behaviour)
 
 ### Next.js
@@ -169,6 +200,8 @@ GET intlayer.zh/about
 ### Vite
 
 يطبق ملحق `intlayerProxy` الخاص بـ Vite نفس المنطق أثناء التطوير:
+
+> منذ Intlayer v9، يتم تجميع `intlayerProxy()` مباشرة في plugin `intlayer()` وتفعيله افتراضياً من خلال خيار `routing.enableProxy` (`true` بشكل افتراضي). تسجيله بشكل منفصل كما هو موضح أدناه أصبح اختياري الآن — يتم الاحتفاظ به للتوافقية العكسية والإعدادات التي تحتاج إلى التحكم في ترتيب plugin. عيّن `routing.enableProxy: false` للانسحاب. انظر [ملاحظات إصدار v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/releases/v9.md).
 
 ```typescript fileName="vite.config.ts"
 import { defineConfig } from "vite";

@@ -48,6 +48,10 @@ author: aymericzip
 
 ## 为什么选择 Inlayer 而不是替代品？
 
+与 `react-i18next` 或 `i18next` 等主流解决方案相比，Intlayer 是一个集成了优化功能的解决方案，例如：
+
+<AccordionGroup>
+
 与“react-i18next”或“i18next”等主要解决方案相比，Intlayer是一个具有集成优化的解决方案，例如：
 
 **完整的 React Router 覆盖**
@@ -58,17 +62,25 @@ Intlayer 经过优化，可与 React Router 完美配合，提供**区域设置�
 
 不要将大量 JSON 文件加载到页面中，而只需加载必要的内容。 Intlayer 有助于**将捆绑包和页面大小减少多达 50%**。
 
+</Accordion>
+
 **可维护性**
 
 确定应用程序内容的范围**有利于大型应用程序的维护**。您可以复制或删除单个功能文件夹，而无需承担检查整个内容代码库的精神负担。此外，Intlayer 具有**完全类型化 (fully typed)**，以确保您的内容的准确性。
 
 **人工智能代理**
 
+<Accordion header="AI Agent">
+
 共置内容**减少大型语言模型 (LLM) 所需的上下文**。 Intlayer 还附带了一套工具，例如用于测试缺失翻译的 **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** 和 **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)**，使 AI 代理的开发者体验 (DX) 更加流畅。
+
+</Accordion>
 
 **自动化**
 
 使用您选择的法学硕士，通过自动化在 CI/CD 管道中进行翻译，而费用由您的 AI 提供商承担。 Intlayer 还提供了一个**编译器**来自动提取内容，以及一个[网络平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)来帮助**在后台翻译**。
+
+</Accordion>
 
 **表现**
 
@@ -76,7 +88,12 @@ Intlayer 经过优化，可与 React Router 完美配合，提供**区域设置�
 
 **无需开发即可扩展**
 
+<Accordion header="使用 none-dev 进行扩展">
+
 Intlayer 不仅仅是一个 i18n 解决方案，还提供了一个**自托管的[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)**和一个**[完整的 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** 来帮助您管理多语言内容**实时**，与译员、文案人员和其他团队成员无缝协作。内容可以本地和/或远程存储。
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
@@ -114,6 +131,49 @@ Intlayer 不仅仅是一个 i18n 解决方案，还提供了一个**自托管的
 
 See [Application Template](https://github.com/aymericzip/intlayer-react-router-v7-template) on GitHub.
 
+<Steps>
+
+<Step number={1} title="安装依赖项">
+
+使用您喜欢的包管理器安装必要的包：
+
+```bash packageManager="npm"
+npm install intlayer react-intlayer
+npm install vite-intlayer --save-dev
+npm install @react-router/fs-routes --save-dev
+npx intlayer init
+```
+
+```bash packageManager="pnpm"
+pnpm add intlayer react-intlayer
+pnpm add vite-intlayer --save-dev
+pnpm add @react-router/fs-routes --save-dev
+```
+
+```bash packageManager="bun"
+bun add intlayer react-intlayer
+bun add vite-intlayer --dev
+bun add @react-router/fs-routes --dev
+bun x intlayer init
+```
+
+- **intlayer**
+
+提供国际化工具的核心包，用于配置管理、翻译、[内容声明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)、转译和 [CLI 命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)。
+
+- **react-intlayer**
+  与 React 应用集成 Intlayer 的包。它为 React 国际化提供上下文提供者和钩子。
+
+- **vite-intlayer**
+  包括用于将 Intlayer 与 [Vite bundler](https://vite.dev/guide/why.html#why-bundle-for-production) 集成的 Vite 插件，以及用于检测用户首选语言、管理 cookie 和处理 URL 重定向的中间件。
+
+- **@react-router/fs-routes**
+  为 React Router v7 启用基于文件系统的路由的包。
+
+</Step>
+
+<Step number={2} title="配置您的项目">
+
 创建一个配置文件来配置您的应用程序语言：
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
@@ -131,9 +191,54 @@ export default config;
 
 > 通过此配置文件，您可以设置本地化的 URL、中间件重定向、cookie 名称、内容声明的位置和扩展名，禁用控制台中的 Intlayer 日志等。有关可用参数的完整列表，请参阅[配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
 
+</Step>
+
+<Step number={3} title="在您的 Vite 配置中集成 Intlayer">
+
+将 intlayer 插件添加到你的配置中：
+
+```typescript fileName="vite.config.ts"
+import { reactRouter } from "@react-router/dev/vite";
+import { defineConfig } from "vite";
+import { intlayer } from "vite-intlayer";
+
+export default defineConfig({
+  plugins: [reactRouter(), intlayer()],
+});
+```
+
+> `intlayer()` Vite 插件用于将 Intlayer 与 Vite 集成。它确保构建内容声明文件并在开发模式下监控它们。它在 Vite 应用程序中定义 Intlayer 环境变量。此外，它还提供别名以优化性能。
+
+</Step>
+
+<Step number={4} title="配置 React Router v7 文件系统路由">
+
+设置您的路由配置以使用带有 `flatRoutes` 的文件系统路由：
+
+```typescript fileName="app/routes.ts"
+import type { RouteConfig } from "@react-router/dev/routes";
+import { flatRoutes } from "@react-router/fs-routes";
+import { configuration } from "intlayer";
+
+const routes: RouteConfig = flatRoutes({
+  // 忽略内容声明文件被视为路由
+  ignoredRouteFiles: configuration.content.fileExtensions.map(
+    (fileExtension) => `**/*${fileExtension}`
+  ),
+});
+
+export default routes;
+```
+
+> `@react-router/fs-routes` 中的 `flatRoutes` 函数启用了基于文件系统的路由，其中 `routes/` 目录中的文件结构决定了应用程序的路由。`ignoredRouteFiles` 选项确保 Intlayer 内容声明文件（`.content.ts` 等）不被视为路由文件。
+
 <Steps>
 
 <Step number={5} title="创建根布局">
+
+通过文件系统路由，你使用一个平面命名约定，其中点号 (`.`) 表示路径段，圆括号 `()` 表示可选段。
+
+在你的 `app/routes/` 目录中创建以下文件：
 
 #### 文件结构
 
@@ -193,10 +298,6 @@ export default function Page() {
   );
 }
 ```
-
-> 想了解更多关于 `useIntlayer` 钩子的内容，请参阅[文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/useIntlayer.md)。
-
-> 如果您的应用程序已经存在，您可以结合使用 [Intlayer 编译器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md) 和 [提取命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/extract.md) 在一秒钟内转换成干个组件。
 
 #### 关于页面
 

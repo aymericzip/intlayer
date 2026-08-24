@@ -232,6 +232,8 @@ export default defineConfig({
 
 > يُستخدم مكون `intlayerCompiler()` الإضافي لـ Vite لاستخراج المحتوى من المكون وكتابة ملفات `.content`.
 
+> منذ Intlayer v9، يتم توزيع المترجم مباشرة في مكون `intlayer()` ويتم تنشيطه تلقائياً بمجرد تعيين `compiler.enabled` مع مسار `compiler.output`. تسجيل `intlayerCompiler()` بشكل منفصل كما هو موضح أدناه هو الآن اختياري — فهو يزيل التكرار تلقائياً إذا تمت إضافته أيضاً. اطلع على [ملاحظات الإصدار v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/releases/v9.md).
+
 </Step>
 
 <Step number={4} title="ترجمة الكود الخاص بك">

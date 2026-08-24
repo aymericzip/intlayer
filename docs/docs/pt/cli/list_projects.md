@@ -52,8 +52,6 @@ Este comando procura e lista todos os projetos Intlayer ao encontrar diretórios
 
   > Exemplo: `npx intlayer projects list --base-dir /path/to/workspace`
 
-  > Exemplo: `npx intlayer projects list --base-dir /path/to/workspace`
-
 - **`--git-root`**: Pesquise a partir do diretório raiz do git em vez do diretório base. Isto é útil para encontrar todos os projetos Intlayer num monorepo ou repositório git.
 
   > Exemplo: `npx intlayer projects list --git-root`
@@ -199,9 +197,5 @@ $ npx intlayer projects list --json
 - **Descoberta de projetos**: Encontrar todos os projetos com Intlayer num workspace
 - **CI/CD**: Verificar projetos Intlayer em workflows automatizados
 - **Documentação**: Gerar documentação listando todos os projetos que usam Intlayer
-
-A saída fornece caminhos absolutos para cada diretório de projeto, facilitando a navegação ou a automatização de operações em múltiplos projetos Intlayer.
-
-- **Documentação**: Gerar documentação listando todos os projetos que usam o Intlayer
 
 A saída fornece caminhos absolutos para cada diretório de projeto, tornando fácil navegar até eles ou escrever scripts para executar operações em vários projetos Intlayer.

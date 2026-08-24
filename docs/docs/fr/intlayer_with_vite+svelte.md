@@ -455,6 +455,8 @@ En parallèle, vous pouvez également utiliser le `intlayerProxy` pour ajouter u
 
 > Notez que pour utiliser le `intlayerProxy` en production, vous devez déplacer le paquet `vite-intlayer` de `devDependencies` vers `dependencies`.
 
+> Depuis Intlayer v9, `intlayerProxy()` est directement intégré au plugin `intlayer()` et activé par défaut via l'option `routing.enableProxy` (`true` par défaut). Son enregistrement séparé comme indiqué ci-dessous est désormais optionnel — il est conservé pour la compatibilité rétroactive et pour les configurations qui ont besoin de contrôler l'ordre des plugins. Définissez `routing.enableProxy: false` pour désactiver cette fonctionnalité. Voir les [notes de version v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/releases/v9.md).
+
 ```typescript {3,7} fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
 import { svelte } from "@sveltejs/vite-plugin-svelte";

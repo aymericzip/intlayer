@@ -43,6 +43,8 @@ author: aymericzip
 
 Bu rehber, React Router v7 projelerinde yerel dil farkındalıklı yönlendirme, TypeScript desteği ve modern geliştirme uygulamaları ile sorunsuz uluslararasılaştırma için **Intlayer**'ın nasıl entegre edileceğini gösterir.
 
+Bu kılavuz ön uç yönlendirmesine odaklanmaktadır. Fs-routes yönlendirmesi için, [Intlayer with React Router v7 File-System Routes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_react_router_v7_fs_routes.md) kılavuzuna başvurun.
+
 ## Table of Contents
 
 <TOC/>
@@ -568,6 +570,34 @@ export default function RootLayout() {
     </IntlayerProvider>
   );
 }
+```
+
+</Step>
+
+<Step number={11} title="Middleware ekle">
+
+Ayrıca uygulamanıza sunucu tarafı yönlendirmesi eklemek için `intlayerProxy` kullanabilirsiniz. Bu plugin, URL'ye dayalı olarak geçerli yerel ayarı otomatik olarak algılar ve uygun yerel ayar cookie'sini ayarlar. Yerel ayar belirtilmezse, plugin kullanıcının tarayıcı dil tercihlerine dayalı olarak en uygun yerel ayarı belirler. Yerel ayar algılanmazsa, varsayılan yerel ayara yönlendirir.
+
+> Üretimde `intlayerProxy` kullanmak için `vite-intlayer` paketini `devDependencies`'den `dependencies`'e taşımanız gerektiğini unutmayın.
+
+> Intlayer v9 sürümünden itibaren, `intlayerProxy()` doğrudan `intlayer()` eklentisine paketlenmiştir ve `routing.enableProxy` seçeneği aracılığıyla varsayılan olarak etkinleştirilmiştir (varsayılan olarak `true`). Aşağıda gösterildiği gibi ayrı olarak kaydetmek artık isteğe bağlıdır — geriye dönük uyumluluk ve eklenti sırası kontrol etmesi gereken kurulumlar için korunur. Devre dışı bırakmak için `routing.enableProxy: false` olarak ayarlayın. [v9 sürüm notlarına](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/releases/v9.md) bakın.
+
+```typescript {3,7} fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react-swc";
+import { intlayer } from "vite-intlayer";
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [
+    react(),
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
+  ],
+});
 ```
 
 </Step>

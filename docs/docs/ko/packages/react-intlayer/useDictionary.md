@@ -30,8 +30,6 @@ author: aymericzip
 
 ## React에서의 사용 예제
 
-아래는 React 컴포넌트에서 `useDictionary` 훅을 사용하는 예제입니다:
-
 ```tsx fileName="./ComponentExample.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useDictionary } from "react-intlayer";

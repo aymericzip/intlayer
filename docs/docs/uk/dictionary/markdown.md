@@ -492,7 +492,7 @@ Intlayer надає два незалежні способи рендеринг�
 
 <Tabs group="framework">
   <Tab label="React" value="react">
-  
+
     #### Компонент `<MarkdownRenderer />`
 
     Рендерить рядок Markdown з певними опціями.
@@ -531,7 +531,7 @@ Intlayer надає два незалежні способи рендеринг�
 
   </Tab>
   <Tab label="Next.js" value="nextjs">
-  
+
     #### Компонент `<MarkdownRenderer />`
 
     Рендерить рядок Markdown з певними опціями.
@@ -957,21 +957,38 @@ Intlayer надає два незалежні способи рендеринг�
   </Tab>
   <Tab label="Angular" value="angular">
 
-    ```typescript fileName="app.module.ts"
-    import { NgModule } from '@angular/core';
-    import { IntlayerMarkdownModule } from 'angular-intlayer/markdown';
+    ```typescript fileName="app.config.ts"
+    import { createIntlayerMarkdownProvider } from "angular-intlayer/markdown";
 
-    @NgModule({
-      imports: [
-        IntlayerMarkdownModule.forRoot({
+    export const appConfig: ApplicationConfig = {
+      providers: [
+        createIntlayerMarkdownProvider({
+          components: {
+            h1: { class: "text-2xl font-bold" },
+          },
+        }),
+      ],
+    };
+    ```
+
+
+    > Підтримується MDX — будь-яка назва компонента, яка використовується всередині вашого Markdown (наприклад, `<MyCustomJSXComponent />`), розпізнається відповідно до карти `components`.
+
+    Ви також можете використовувати власний рендерер markdown:
+
+    ```typescript fileName="app.config.ts"
+    import { createIntlayerMarkdownProvider } from "angular-intlayer/markdown";
+
+    export const appConfig: ApplicationConfig = {
+      providers: [
+        createIntlayerMarkdownProvider({
           renderMarkdown: async (md) => {
             const { renderMarkdown } = await import('angular-intlayer/markdown');
             return renderMarkdown(md);
-          }
-        })
-      ]
-    })
-    export class AppModule {}
+          },
+        }),
+      ],
+    };
     ```
 
     > Динамічний імпорт вашого рендерера Markdown — чудовий спосіб зменшити розмір бандлу вашого додатка.
@@ -1047,7 +1064,7 @@ const MyComponent = () => {
 ```
 
   </Tab>
- 
+
   <Tab label="Vue" value="vue">
 
 Vue має вбудований компонент `<Suspense>`. Оберніть компонент, який відображає вміст Markdown, у межу `<Suspense>`.

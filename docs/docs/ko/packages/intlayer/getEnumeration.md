@@ -31,6 +31,8 @@ author: aymericzip
 
 `getEnumeration` 함수는 열거형 객체에 미리 정의된 조건에 따라 특정 수량에 해당하는 콘텐츠를 가져옵니다. 조건은 키로 정의되며, 우선순위는 객체 내 키의 순서에 의해 결정됩니다.
 
+열거형 선언 방법에 대한 자세한 내용은 [Enumeration 설명서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/enumeration.md)를 참조하세요.
+
 ## 매개변수
 
 - `enumerationContent: QuantityContent<Content>`

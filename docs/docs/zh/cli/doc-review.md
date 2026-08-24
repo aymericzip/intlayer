@@ -91,7 +91,13 @@ bun x intlayer doc review
 
 - **`--log`**：仅记录模式。不使用 AI 进行翻译；而是记录需要关注的块（带有行号和内容），供基础语言环境和目标语言环境参考，以帮助另一个代理生成翻译。
 
-  > 示例：`npx intlayer doc review --log`
+2. **For `report` mode**: Log blocks requiring attention without using AI, noting line numbers and content for both source and target.
+
+> 示例: `npx intlayer doc review --mode report`
+
+> 示例：`npx intlayer doc review --log`
+
+无论采用哪种模式，运行都会以一份综合报告结束，该报告列出与其基础文档对齐的文档和仍有需要编辑的块的文档。
 
 **入口输出选项：**
 

@@ -123,6 +123,30 @@ Check out the [application template](https://github.com/aymericzip/intlayer-astr
 Install the necessary packages using your preferred package manager:
 
 ```bash packageManager="npm"
+npx intlayer init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer@canary init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer@canary init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer@canary init --interactive
+```
+
+> the `--interactive` flag is optional. Use `intlayer-cli init` if you're an AI agent.
+
+> This command will detect your environment and install the required packages. For example:
+
+```bash packageManager="npm"
+npm install intlayer astro-intlayer
+```
+
+```bash packageManager="npm"
 npm install intlayer astro-intlayer
 # Optional: If you add support for React islands
 npm install react react-dom react-intlayer @astrojs/react

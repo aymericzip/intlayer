@@ -39,14 +39,6 @@ bun x intlayer fill
 
 Dieser Befehl analysiert Ihre Content-Deklarationsdateien auf potenzielle Probleme wie fehlende Übersetzungen, strukturelle Inkonsistenzen oder Typabweichungen. Wenn Probleme gefunden werden, schlägt **intlayer fill** Aktualisierungen vor oder wendet sie an, um Ihre Wörterbücher konsistent und vollständig zu halten.
 
-Wichtige Punkte:
-
-- Teilt große JSON-Dateien in Chunks auf, um innerhalb der Kontextfenster-Grenzen des KI-Modells zu bleiben.
-- Wiederholt die Übersetzung, wenn das Ausgabeformat falsch ist.
-- Integriert anwendungs- und dateispezifischen Kontext für verbesserte Übersetzungsgenauigkeit.
-- Erhält bestehende Übersetzungen, indem sie nicht überschrieben werden.
-- Verarbeitet Dateien, Chunks und Locales parallel mithilfe eines Warteschlangensystems, um die Geschwindigkeit zu erhöhen.
-
 ## Wichtige Punkte:
 
 - Teilt große JSON-Dateien in Chunks auf, um innerhalb der Kontextfenster-Limits des AI-Modells zu bleiben.

@@ -30,8 +30,6 @@ Hook `useDictionary` umożliwia przetwarzanie obiektu wyglądającego jak słown
 
 ## Integracja z serwerem
 
-Jeśli używasz hooka `useDictionary` poza `IntlayerProvider`, locale musi być jawnie przekazane jako parametr podczas renderowania komponentu:
-
 ```tsx fileName="./ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useDictionary } from "react-intlayer/server";

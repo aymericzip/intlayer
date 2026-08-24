@@ -102,37 +102,6 @@ export const ServerComponentExample: FC = () => (
 );
 ```
 
-###Встроенные переводы в атрибутах
-
-Функция `t` особенно полезна для встроенных переводов в атрибутах JSX.
-При локализации атрибутов, таких как `alt`, `title`, `href` или `aria-label`, вы можете использовать `t` непосредственно внутри атрибута.
-
-```jsx
-<button
-  aria-label={t({
-    en: "Submit",
-    fr: "Soumettre",
-    es: "Enviar",
-  })}
->
-  {t({
-    en: "Submit",
-    fr: "Soumettre",
-    es: "Enviar",
-  })}
-  <img
-    src="/path/to/image"
-    alt={t({
-      en: "A beautiful scenery",
-      fr: "Un beau paysage",
-      es: "Un hermoso paisaje",
-    })}
-  />
-</button>
-```
-
----
-
 ### Встроенные переводы в атрибутах
 
 Функция `t` особенно полезна для встроенных переводов в атрибутах JSX.
@@ -192,6 +161,23 @@ const greeting = t(translations);
 
 #### Пример:
 
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
+```tsx codeFormat={["typescript", "esm", "commonjs"]}
+import type { FC, ReactNode } from "react";
+import type { Locales } from "intlayer";
+import { IntlayerProvider } from "next-intlayer/server";
+
+const Page: FC<{ locale: Locales; children: ReactNode }> = ({
+  locale,
+  children,
+}) => <IntlayerProvider locale={locale}>{children}</IntlayerProvider>;
+```
+
+ </Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
+
 ```tsx codeFormat={["typescript", "esm", "commonjs"]}
 import type { FC } from "react";
 import type { Locales } from "intlayer";
@@ -206,6 +192,9 @@ const Page: FC<{ locale: Locales }> = ({ locale }) => (
   </IntlayerServerProvider>
 );
 ```
+
+ </Tab>
+</Tabs>
 
 ---
 

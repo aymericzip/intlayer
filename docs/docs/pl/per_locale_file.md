@@ -76,6 +76,17 @@ const helloWorldContent = {
 module.exports = helloWorldContent;
 ```
 
+```json5 fileName="hello-world.pl.content.json" contentDeclarationFormat="json"
+{
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "hello-world",
+  "locale": "pl", // Ważne
+  "content": {
+    "multilingualContent": "Tytuł mojego komponentu",
+  },
+}
+```
+
 ```json fileName="hello-world.content.ts" contentDeclarationFormat="json"
 {
   "$schema": "https://intlayer.org/schema.json",
@@ -93,6 +104,8 @@ module.exports = helloWorldContent;
 ```
 
 > Zalecane: Ten format jest najlepszy podczas korzystania z wizualnego edytora Intlayer lub zarządzania tłumaczeniami bezpośrednio w kodzie.
+
+> Uwaga: W obu przypadkach plik deklaracji zawartości musi być zgodny ze wzorem nazewnictwa `*.content.{ts,tsx,js,jsx,mjs,cjs,json}`, aby być rozpoznany przez Intlayer. Sufiks `.[locale]` jest opcjonalny i używany tylko jako konwencja nazewnictwa.
 
 ### Globalna konfiguracja dla plików dla poszczególnych lokali
 
@@ -145,17 +158,6 @@ const helloWorldContent = {
 export default helloWorldContent;
 ```
 
-```json5 fileName="hello-world.en.content.json" contentDeclarationFormat="json"
-{
-  "$schema": "https://intlayer.org/schema.json",
-  "key": "hello-world",
-  "locale": "en", // Ważne
-  "content": {
-    "multilingualContent": "Tytuł mojego komponentu",
-  },
-}
-```
-
 ```json5 fileName="hello-world.es.content.json" contentDeclarationFormat="json"
 {
   "$schema": "https://intlayer.org/schema.json",
@@ -168,8 +170,6 @@ export default helloWorldContent;
 ```
 
 > Ważne: Upewnij się, że pole locale jest zdefiniowane. Informuje Intlayer, jakiego języka dotyczy plik.
-
-> Uwaga: W obu przypadkach plik deklaracji zawartości musi mieć nazwę zgodną z wzorcem `*.content.{ts,tsx,js,jsx,mjs,cjs,json}`, aby został rozpoznany przez Intlayer. Sufiks `.[locale]` jest opcjonalny i służy tylko jako konwencja nazewnicza.
 
 ## Mieszanie formatów
 

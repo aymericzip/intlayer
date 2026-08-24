@@ -128,6 +128,8 @@ bun x intlayer ci fill --verbose --mode complete
 
 ### 在 CI/CD 管道中使用
 
+运行 `intlayer init` 为你生成两个可立即使用的 GitHub Actions 工作流（参见下面的 [Scaffolded GitHub Actions](#scaffolded-github-actions)）。这个例子展示了在 monorepo 中使用 `ci` 命令的等效设置，其中凭证从 `INTLAYER_PROJECT_CREDENTIALS` 按项目注入。
+
 在您的 CI/CD 配置中（例如，GitHub Actions、GitLab CI），将 `INTLAYER_PROJECT_CREDENTIALS` 设置为密钥：
 
 ```yaml

@@ -46,8 +46,6 @@ const Layout = (props) => {
 
 ## Neden kullanılır?
 
-/// **Yetkili URL'ler**: Her yerelleştirilmiş içerik sürümü için tek bir URL uygulanmasını sağlar; bu SEO için çok önemlidir.
-
 - **Geliştirici Kolaylığı**: İç rota tanımlarınızı kanonik tutmanıza izin verirken, dışarıya kullanıcı dostu, yerelleştirilmiş yollar sunmanızı sağlar.
 - **Tutarlılık**: Kullanıcılar tercih ettiğiniz yerelleştirme kurallarına uymayan bir yolu elle yazdığında URL'leri düzeltir.
 

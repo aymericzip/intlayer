@@ -248,7 +248,7 @@ Intlayer는 내부적으로 이러한 패턴을 통합된 문법으로 정규화
 
 <Tabs group='framework'>
   <Tab label="Next.js" value="nextjs">
-  
+
     ```tsx
     'use client';
 
@@ -263,7 +263,7 @@ Intlayer는 내부적으로 이러한 패턴을 통합된 문법으로 정규화
   </Tab>
 
   <Tab label="React Router" value="reactrouter">
-  
+
     ```tsx
     'use client';
 
@@ -279,7 +279,7 @@ Intlayer는 내부적으로 이러한 패턴을 통합된 문법으로 정규화
   </Tab>
 
   <Tab label="Vue" value="vue">
-  
+
     ```vue
     <script setup>
     import { useRewriteURL } from "vue-intlayer";
@@ -291,7 +291,7 @@ Intlayer는 내부적으로 이러한 패턴을 통합된 문법으로 정규화
 
   </Tab>
   <Tab label="Solid" value="solid">
-  
+
     ```tsx
     import { useRewriteURL } from "solid-intlayer";
 
@@ -303,7 +303,7 @@ Intlayer는 내부적으로 이러한 패턴을 통합된 문법으로 정규화
 
   </Tab>
   <Tab label="Svelte" value="svelte">
-  
+
     ```svelte
     <script>
     import { useRewriteURL } from "svelte-intlayer";
@@ -339,6 +339,8 @@ export function middleware(request: NextRequest) {
 ### Vite 통합
 
 SolidJS, Vue, Svelte의 경우, 개발 중 리라이트를 `intlayerProxy` Vite 플러그인이 관리합니다.
+
+> Intlayer v9부터 `intlayerProxy()`는 `intlayer()` 플러그인에 직접 번들되어 있으며 `routing.enableProxy` 옵션(`true`가 기본값)을 통해 기본적으로 활성화됩니다. 아래와 같이 별도로 등록하는 것은 이제 선택 사항입니다 — 이전 버전과의 호환성 및 플러그인 순서를 제어해야 하는 설정을 위해 유지됩니다. `routing.enableProxy: false`로 설정하여 옵트아웃할 수 있습니다. [v9 release notes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/releases/v9.md)를 참조하세요.
 
 ```typescript fileName="vite.config.ts"
 import { defineConfig } from "vite";

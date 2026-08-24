@@ -56,43 +56,13 @@ Intlayer fournit un ensemble d'aides légères construites sur les API natives `
 
 L'`Intl` exporté est un wrapper léger et mis en cache autour de l'`Intl` global. Il mémorise les instances de `NumberFormat`, `DateTimeFormat`, `RelativeTimeFormat`, `ListFormat`, `DisplayNames`, `Collator` et `PluralRules`, ce qui évite de reconstruire plusieurs fois le même formateur.
 
-Parce que la construction des formateurs est relativement coûteuse, cette mise en cache améliore les performances sans changer le comportement. Le wrapper expose la même API que l'`Intl` natif, donc l'utilisation est identique.
-
-- La mise en cache est par processus et transparente pour les appelants.
-
 > Si `Intl.DisplayNames` n'est pas disponible dans l'environnement, un seul avertissement destiné aux développeurs est affiché (envisagez un polyfill).
 
 Exemples :
 
-```ts
-import { Intl } from "intlayer";
-
-// Formatage des nombres
-const numberFormat = new Intl.NumberFormat("en-GB", {
-  style: "currency",
-  currency: "GBP",
-});
-numberFormat.format(1234.5); // "£1,234.50"
-
-// Noms affichés pour les langues, régions, etc.
-const displayNames = new Intl.DisplayNames("fr", { type: "language" });
-displayNames.of("en"); // "anglais"
-
-// Collation pour le tri
-const collator = new Intl.Collator("fr", { sensitivity: "base" });
-collator.compare("é", "e"); // 0 (égal)
-
-// Règles de pluriel
-const pluralRules = new Intl.PluralRules("fr");
-pluralRules.select(1); // "one"
-pluralRules.select(2); // "other"
-```
-
 ## Utilitaires de locale
 
 ### `getLocaleName(displayLocale, targetLocale?)`
-
-Obtient le nom localisé d'une locale dans une autre locale :
 
 ```ts
 import { getLocaleName } from "intlayer";
@@ -102,28 +72,14 @@ getLocaleName("en", "fr"); // "anglais"
 getLocaleName("de", "es"); // "alemán"
 ```
 
-- **displayLocale** : La locale pour laquelle obtenir le nom
-- **targetLocale** : La locale dans laquelle afficher le nom (par défaut displayLocale)
-
 ### `getLocaleFromPath(inputUrl)`
 
 Extrait le segment de locale d'une URL ou d'un chemin :
-
-```ts
-import { getLocaleFromPath } from "intlayer";
-
-getLocaleFromPath("/en/dashboard"); // "en"
-getLocaleFromPath("/fr/dashboard"); // "fr"
-getLocaleFromPath("/dashboard"); // "en" (locale par défaut)
-getLocaleFromPath("https://example.com/es/about"); // "es"
-```
 
 - **inputUrl** : La chaîne complète de l'URL ou le chemin à traiter
 - **returns** : La locale détectée ou la locale par défaut si aucune locale n'est trouvée
 
 ### `getLocalizedUrl(url, currentLocale, locales?, defaultLocale?, prefixDefault?)`
-
-Génère une URL localisée pour la locale courante :
 
 ```ts
 import { getLocalizedUrl } from "intlayer";
@@ -132,12 +88,6 @@ getLocalizedUrl("/about", "fr", ["en", "fr"], "en", false); // "/fr/about"
 getLocalizedUrl("/about", "en", ["en", "fr"], "en", false); // "/about"
 getLocalizedUrl("https://example.com/about", "fr", ["en", "fr"], "en", true); // "https://example.com/fr/about"
 ```
-
-- **url** : L’URL originale à localiser
-- **currentLocale** : La locale courante
-- **locales** : Tableau optionnel des locales supportées (par défaut les locales configurées)
-- **defaultLocale** : Locale par défaut optionnelle (par défaut la locale par défaut configurée)
-- **prefixDefault** : Indique s’il faut préfixer la locale par défaut (par défaut la valeur configurée)
 
 ### `getHTMLTextDir(locale?)`
 
@@ -151,21 +101,9 @@ getHTMLTextDir("ar"); // "rtl"
 getHTMLTextDir("he"); // "rtl"
 ```
 
-- **locale** : La locale pour laquelle obtenir la direction du texte (par défaut la locale courante)
-- **returns** : `"ltr"`, `"rtl"`, ou `"auto"`
-
 ## Formatteurs
 
-Tous les helpers ci-dessous sont exportés depuis `intlayer`.
-
 ### `number(value, options?)`
-
-Formate une valeur numérique en utilisant le regroupement et les décimales adaptés à la locale.
-
-- **value** : `number | string`
-- **options** : `Intl.NumberFormatOptions & { locale?: LocalesValues }`
-
-Exemples :
 
 ```ts
 import { number } from "intlayer";
@@ -183,24 +121,7 @@ Formate une valeur en devise localisée. Par défaut en `USD` avec deux chiffres
 - **options** : `Intl.NumberFormatOptions & { locale?: LocalesValues }`
   - Champs communs : `currency` (ex. : `"EUR"`), `currencyDisplay` (`"symbol" | "code" | "name"`)
 
-Exemples :
-
-```ts
-import { currency } from "intlayer";
-
-currency(1234.5, { currency: "EUR" }); // "€1,234.50"
-currency("5000", { locale: "fr", currency: "CAD", currencyDisplay: "code" }); // "5 000,00 CAD"
-```
-
 ### `date(date, optionsOrPreset?)`
-
-Formate une valeur date/heure avec `Intl.DateTimeFormat`.
-
-- **date** : `Date | string | number`
-- **optionsOrPreset** : `Intl.DateTimeFormatOptions & { locale?: LocalesValues }` ou l’un des préréglages :
-  - Préréglages : `"short" | "long" | "dateOnly" | "timeOnly" | "full"`
-
-Exemples :
 
 ```ts
 import { date } from "intlayer";
@@ -211,15 +132,11 @@ date("2025-08-02T14:30:00Z", { locale: "fr", month: "long", day: "numeric" }); /
 
 ### `relativeTime(from, to = new Date(), options?)`
 
-Formate un temps relatif entre deux instants avec `Intl.RelativeTimeFormat`.
-
 - Passez "now" comme premier argument et la cible comme second pour obtenir une formulation naturelle.
 - **from** : `Date | string | number`
 - **to** : `Date | string | number` (par défaut `new Date()`)
 - **options** : `{ locale?: LocalesValues; unit?: Intl.RelativeTimeFormatUnit; numeric?: Intl.RelativeTimeFormatNumeric; style?: Intl.RelativeTimeFormatStyle }`
   - L’`unit` par défaut est `"second"`.
-
-Exemples :
 
 ```ts
 import { relativeTime } from "intlayer";
@@ -237,15 +154,6 @@ relativeTime(now, twoHoursAgo, { unit: "hour", numeric: "auto" }); // "il y a 2 
 Pour les contextes sans framework, importez les formatters directement depuis `intlayer`. Notez que vous devez passer la locale manuellement.
 
 ### `units(value, options?)`
-
-Formate une valeur numérique en chaîne localisée avec une unité en utilisant `Intl.NumberFormat` avec `style: 'unit'`.
-
-- **value** : `number | string`
-- **options** : `Intl.NumberFormatOptions & { locale?: LocalesValues }`
-  - Champs communs : `unit` (par exemple, `"kilometer"`, `"byte"`), `unitDisplay` (`"short" | "narrow" | "long"`)
-  - Valeurs par défaut : `unit: 'day'`, `unitDisplay: 'short'`, `useGrouping: false`
-
-Exemples :
 
 ```ts
 import { units } from "intlayer";
@@ -512,11 +420,6 @@ getHTMLTextDir("he"); // "rtl"
 
 ### `compact(value, options?)`
 
-Formate un nombre en utilisant la notation compacte (par exemple, `1.2K`, `1M`).
-
-- **value** : `number | string`
-- **options** : `Intl.NumberFormatOptions & { locale?: LocalesValues }` (utilise `notation: 'compact'` en interne)
-
 Exemples :
 
 ```ts
@@ -527,13 +430,6 @@ compact("1000000", { locale: "fr", compactDisplay: "long" }); // "1 million"
 ```
 
 ### `list(values, options?)`
-
-Formate un tableau de valeurs en une chaîne de liste localisée en utilisant `Intl.ListFormat`.
-
-- **values** : `(string | number)[]`
-- **options** : `Intl.ListFormatOptions & { locale?: LocalesValues }`
-  - Champs communs : `type` (`"conjunction" | "disjunction" | "unit"`), `style` (`"long" | "short" | "narrow"`)
-  - Valeurs par défaut : `type: 'conjunction'`, `style: 'long'`
 
 Exemples :
 
@@ -561,8 +457,6 @@ import {
   useUnit,
 } from "vue-intlayer/format";
 ```
-
-> Ces composables prendront en compte la locale depuis le `IntlayerProvider` injecté
 
 ## Notes
 

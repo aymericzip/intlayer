@@ -317,14 +317,6 @@ function RootDocument({ children }: { children: ReactNode }) {
 }
 ```
 
-> Якщо ви хочете використовувати свій вміст в атрибуті типу `string`, наприклад `alt`, `title`, `href`, `aria-label` тощо, ви повинні викликати значення функції, наприклад:
-
-> ```html
-> <img src="{content.image.src.value}" alt="{content.image.value}" />
-> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
-> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
-> ```
-
 </Step>
 
 <Step number={6} title="Створіть Locale Layout">
@@ -560,6 +552,14 @@ function RouteComponent() {
 }
 ```
 
+> Якщо ви хочете використовувати ваш вміст у атрибуті `string`, такому як `alt`, `title`, `href`, `aria-label` тощо, ви можете використовувати значення функції, як от:
+>
+> ```html
+> <img src="{content.image.src.value}" alt="{content.image.value}" />
+> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
+> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
+> ```
+
 > Щоб дізнатися більше про хук `useIntlayer`, зверніться до [документації](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/react-intlayer/useIntlayer.md).
 
 </Step>
@@ -654,6 +654,8 @@ function RootDocument({ children }: { children: ReactNode }) {
 
 > Зверніть увагу, що щоб використовувати `intlayerProxy` у production, потрібно перемістити пакет `vite-intlayer` з `devDependencies` до `dependencies`.
 
+> Починаючи з Intlayer v9, `intlayerProxy()` включена безпосередньо в плагін `intlayer()` і за замовчуванням ввімкнена через опцію `routing.enableProxy` (`true` за замовчуванням). Реєстрація її окремо, як показано нижче, тепер є необов'язковою — вона зберігається для зворотної сумісності та для налаштувань, які потребують контролю порядку плагінів. Встановіть `routing.enableProxy: false`, щоб відмовитися від цього. Див. [примітки до випуску v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/releases/v9.md).
+
 ```typescript fileName="vite.config.ts"
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import viteReact from "@vitejs/plugin-react";
@@ -685,6 +687,8 @@ export default defineConfig({
 </Step>
 
 <Step number={13} title="Інтернаціоналізуйте свої метадані">
+
+Використовуйте `getIntlayerAsync` для доступу до своїх словників контенту всередині функції `head`.
 
 Ви також можете використовувати хук `getIntlayer`, щоб отримувати ваші словники контенту по всьому застосунку:
 
@@ -846,28 +850,6 @@ export const Route = createFileRoute("/{-$locale}/$")({
 });
 ```
 
----
-
-</Step>
-
-<Step number={16} title="Налаштування TypeScript">
-
-Intlayer використовує module augmentation, щоб отримати переваги TypeScript і зміцнити ваш codebase.
-
-Переконайтеся, що ваша конфігурація TypeScript включає автогенеровані типи:
-
-```json5 fileName="tsconfig.json"
-{
-  // ... ваші наявні конфігурації
-  include: [
-    // ... ваші наявні includes
-    ".intlayer/**/*.ts", // Включає автогенеровані типи
-  ],
-}
-```
-
----
-
 </Step>
 
 <Step number={1} title="Витягніть вміст ваших компонентів" isOptional={true}>
@@ -967,6 +949,103 @@ bun run build # Or bun run dev
 
  </Tab>
 </Tabs>
+
+---
+
+</Step>
+
+<Step number={16} title="Pre-render & Generate Sitemap">
+
+Intlayer має вбудований генератор sitemap, який допомагає легко створити sitemap для вашої програми. Він обробляє локалізовані маршрути та додає необхідні метадані для пошукових систем.
+
+> Карта сайту, згенерована Intlayer, підтримує простір імен `xhtml:link` (Hreflang XML Extensions). На відміну від генераторів карт сайту за замовчуванням, які лише перелічують необроблені URL-адреси, Intlayer автоматично створює необхідні двосторонні посилання між усіма мовними версіями сторінки (наприклад, `/about`, `/about?lang=fr` та `/about?lang=es`). Це забезпечує правильне індексування пошуковими системами та подачу правильної мовної версії відповідній аудиторії.
+
+Щоб використовувати це, спочатку потрібно налаштувати ваш `vite.config.ts` для увімкнення попередньої обробки локалізованих маршрутів і вимкнення генерування карти сайту TanStack Start за замовчуванням.
+
+```typescript fileName="vite.config.ts"
+import { localeFlatMap } from "intlayer";
+// ... інші імпорти
+
+export const pathList = ["", "/about", "/404"];
+
+const localizedPages = localeFlatMap(({ urlPrefix }) =>
+  pathList.map((path) => ({
+    path: `${urlPrefix}${path}`,
+    prerender: {
+      enabled: true,
+    },
+  }))
+);
+
+export default defineConfig({
+  plugins: [
+    // ... інші плагіни
+    tanstackStart({
+      // ... інша конфігурація
+      sitemap: {
+        enabled: false,
+      },
+      prerender: {
+        enabled: true,
+        crawlLinks: false,
+        concurrency: 10,
+      },
+      pages: localizedPages,
+    }),
+  ],
+});
+```
+
+Потім створіть маршрут `src/routes/sitemap[.]xml.ts`, який використовує функцію `generateSitemap`:
+
+```typescript fileName="src/routes/sitemap[.]xml.ts"
+import { createFileRoute } from "@tanstack/react-router";
+import { generateSitemap } from "intlayer";
+
+const SITE_URL = (
+  import.meta.env.VITE_SITE_URL ?? "http://localhost:3000"
+).replace(/\/$/, "");
+
+export const Route = createFileRoute("/sitemap.xml")({
+  server: {
+    handlers: {
+      GET: async () => {
+        const sitemap = generateSitemap(
+          [
+            { path: "/", changefreq: "daily", priority: 1.0 },
+            { path: "/about", changefreq: "monthly", priority: 0.8 },
+          ],
+          { siteUrl: SITE_URL }
+        );
+
+        return new Response(sitemap, {
+          headers: { "Content-Type": "application/xml" },
+        });
+      },
+    },
+  },
+});
+```
+
+---
+
+</Step>
+
+<Step number={17} title="Налаштувати TypeScript">
+
+Intlayer використовує module augmentation для отримання переваг TypeScript та зміцнення вашого codebase.
+
+Переконайтеся, що ваша конфігурація TypeScript включає автоматично згенеровані типи:
+
+```json5 fileName="tsconfig.json"
+{
+  // ... ваші існуючі конфігурації
+  include: [
+    // ... ваші існуючі включення
+    ".intlayer/**/*.ts", // Включіть автоматично згенеровані типи
+  ],
+}
+```
 
 ---
 

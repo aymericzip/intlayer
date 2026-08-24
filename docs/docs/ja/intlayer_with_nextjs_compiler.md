@@ -215,7 +215,32 @@ export default withIntlayer(nextConfig);
 > `withIntlayer()` Next.jsプラグインは、IntlayerとNext.jsを統合するために使用されます。これにより辞書ファイルがビルドされ、devモードで監視されます。[Webpack](https://webpack.js.org/)または[Turbopack](https://nextjs.org/docs/app/api-reference/turbopack)環境内でIntlayer環境変数を定義します。さらに、パフォーマンスを最適化するためのエイリアスを提供し、Server Componentsと完全に連携します。
 > </Step>
 
+</Step>
+
 <Step number={4} title="ページでのロケール検出">
+
+Intlayer コンパイラーは、コンテンツを抽出および最適化するために Babel が必要です。Intlayer プラグインを含めるように `babel.config.js` (または `babel.config.json`) を更新してください:
+
+```typescript fileName="babel.config.js"
+const {
+  intlayerExtractBabelPlugin,
+  intlayerOptimizeBabelPlugin,
+  getExtractPluginOptions,
+  getOptimizePluginOptions,
+} = require("@intlayer/babel");
+
+module.exports = {
+  presets: ["next/babel"],
+  plugins: [
+    [intlayerExtractBabelPlugin, getExtractPluginOptions()],
+    [intlayerOptimizeBabelPlugin, getOptimizePluginOptions()],
+  ],
+};
+```
+
+</Step>
+
+<Step number={5} title="ページでロケールを検出する">
 
 `RootLayout` の内容をクリアし、以下の例に置き換えます：
 
@@ -321,6 +346,9 @@ export default async function Page() {
 }
 ```
 
+<Tabs>
+  <Tab label='Intlayer >=9.4' value='>=9.4'>
+
 ```tsx fileName="src/app/page.tsx"
 import { type FC } from "react";
 import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
@@ -348,13 +376,48 @@ export default async function Page() {
 }
 ```
 
+- **`IntlayerProvider`** はルートレイアウトに一度だけマウントされます。サーバーコンポーネントとクライアントコンポーネント両方にロケールを提供するため、ページ自体がラップされる必要がなくなります。
+- `[locale]` パスセグメントがない場合、ロケールは常にリクエストから取得されます — Intlayer プロキシによって設定された `x-intlayer-locale` ヘッダー、その後ロケール cookie — プロバイダーが実行されていない場合、サーバーフックがこれらを独自に読み取ります。
+
   </Tab>
+
 </Tabs>
+
+```tsx fileName="src/app/page.tsx"
+import { type FC } from "react";
+import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
+import { getLocale } from "next-intlayer/server";
+
+const PageContent: FC = () => {
+  const content = useIntlayer("page-content");
+
+  return (
+    <>
+      <p>{content.getStartedByEditing}</p>
+      <code>src/app/page.tsx</code>
+    </>
+  );
+};
+
+export default async function Page() {
+  const locale = await getLocale();
+
+  return (
+    <IntlayerServerProvider locale={locale}>
+      <PageContent />
+    </IntlayerServerProvider>
+  );
+}
+```
 
 - **`IntlayerClientProvider`** は、クライアントサイドで子要素にロケールを提供するために使用されます。
 - 一方、 **`IntlayerServerProvider`** は、サーバーサイドで子要素にロケールを提供するために使用されます。
 
   > Layout and page cannot share a common server context because the server context system is based on a per-request data store (via [React's cache](https://react.dev/reference/react/cache) mechanism), causing each "context" to be re-created for different segments of the application. Placing the provider in a shared layout would break this isolation, preventing the correct propagation of the server context values to your server components.
+
+  </Tab>
+
+</Tabs>
 
 </Step>
 
@@ -412,6 +475,8 @@ export const config = {
 ```
 
 > `intlayerProxy` は、ユーザーの優先ロケールを検出し、[設定ファイルのセッティング](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)に従って適切なURLにリダイレクトするために使用されます。また、ユーザーの優先ロケールをCookieに保存することも可能です。
+
+> Intlayer v9 以降、このミドルウェアは `routing.enableProxy` オプション（デフォルトでは `true`）を尊重します。このファイルを削除せずにパススルーに変更するには、設定で `routing.enableProxy: false` を設定してください。[v9 リリースノート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/releases/v9.md)を参照してください。
 
 </Step>
 
@@ -471,6 +536,8 @@ export const LocaleSwitcher: FC = () => {
 
 `next-intlayer` を使用する場合、デフォルトで各ページのバンドルに辞書が含まれます。バンドルサイズを最適化するために、Intlayerはマクロを使用して `useIntlayer` コールを賢く置き換えるオプションのSWCプラグインを提供しています。これにより、辞書は実際に使用されるページのバンドルにのみ含まれるようになります。
 
+`@intlayer/babel` プラグインはすでにバンドリング最適化を統合しています（`babel.config.js` を参照）。しかし、`@intlayer/swc` プラグインはより高性能です。`@intlayer/babel` プラグインを削除すれば、`@intlayer/swc` プラグインを使用できます。
+
 この最適化を有効にするには、 `@intlayer/swc` パッケージをインストールします。インストール後、 `next-intlayer` は自動的にプラグインを検出して使用します：
 
 ```bash packageManager="npm"
@@ -495,6 +562,8 @@ bun add @intlayer/swc --dev
 
 > 注: （辞書設定で） `importMode: 'dynamic'` または `importMode: 'fetch'` を設定した場合、Suspense に依存するため、 `useIntlayer` コールを `Suspense` 境界で囲む必要があります。そのため、ページ / レイアウトコンポーネントのトップレベルで直接 `useIntlayer` を使用することはできなくなります。
 > </Step>
+
+</Step>
 
 <Step number={1} title="コンポーネントのコンテンツを抽出する" isOptional={true}>
 

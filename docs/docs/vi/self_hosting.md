@@ -90,10 +90,6 @@ Sau đó mở **http://localhost:3000**.
 
 ## Bắt đầu nhanh
 
-```sh
-curl -fsSL https://intlayer.org/install.sh | sh
-```
-
 Những gì trình cài đặt thực hiện:
 
 1.  Kiểm tra xem `docker` và `docker compose` có tồn tại không.
@@ -116,8 +112,6 @@ Sau khi stack hoạt động, mở **http://localhost:3000** và tạo tài kho�
 | **redis**   | `redis:7-alpine`                           | nội bộ                         | Hàng đợi công việc (BullMQ) và caching (ioredis)                 |
 | **minio**   | `minio/minio`                              | `9000` (S3), `9001` (console)  | Lưu trữ đối tượng tương thích S3 cho avatar và ảnh chụp màn hình |
 | **mailpit** | `axllent/mailpit`                          | `1025` (SMTP), `8025` (web UI) | Nơi nhận email giao dịch cục bộ                                  |
-
-Các cổng nội bộ (mongo, redis) không được phơi bày ra host theo mặc định.
 
 > Cổng MinIO `9000` phải có thể truy cập được bởi trình duyệt vì các tài sản được tải lên (avatars, ảnh chụp màn hình) được tải trực tiếp từ `S3_PUBLIC_URL=http://localhost:9000/intlayer`.
 
@@ -173,8 +167,6 @@ Các cổng nội bộ (mongo, redis) không được phơi bày ra host theo m�
 | `MICROSOFT_CLIENT_ID`, `MICROSOFT_CLIENT_SECRET`         | Đăng nhập Microsoft OAuth                                      |
 | `LINKEDIN_CLIENT_ID`, `LINKEDIN_CLIENT_SECRET`           | Đăng nhập LinkedIn OAuth                                       |
 | `ATLASSIAN_CLIENT_ID`, `ATLASSIAN_CLIENT_SECRET`         | Đăng nhập Atlassian OAuth                                      |
-
----
 
 ### Mailer toàn cầu
 
@@ -261,15 +253,7 @@ const { data: dictionaries } = await dictionaryEndpoint(cms).getDictionaries();
 
 ## Nâng cấp
 
-Chạy lại trình cài đặt trên một triển khai hiện có sẽ thực hiện nâng cấp cuốn chiếu (rolling upgrade):
-
-```sh
-curl -fsSL https://intlayer.org/install.sh | sh
-```
-
 Thao tác này sẽ kéo các image mới nhất và khởi động lại các container với `docker compose pull && docker compose up -d`. Các volume hiện có (`mongo-data`, `redis-data`, `minio-data`) được bảo toàn — không mất dữ liệu.
-
-Để nâng cấp thủ công từ bên trong thư mục `./intlayer/`:
 
 ```sh
 docker compose pull
@@ -334,14 +318,11 @@ docker compose logs mongo
 docker compose logs redis
 ```
 
+Tìm kiếm `MongoDB connection error` gần phía trên của log.
+
 ### Dashboard không thể kết nối tới API
 
 Xác minh rằng `VITE_BACKEND_URL` khớp với URL mà backend có thể truy cập được từ **trình duyệt** (không phải mạng Docker). Nếu bạn đã thay đổi cổng backend hoặc thêm reverse proxy, hãy build lại image dashboard:
-
-```sh
-docker compose build app
-docker compose up -d app
-```
 
 ### Thiếu MinIO bucket
 

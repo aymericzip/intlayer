@@ -83,58 +83,8 @@ export default LocaleSwitcher;
 
 При вызове хука `useLocale` он возвращает объект, содержащий следующие свойства:
 
-- **`locale`**: Текущая локаль, установленная в контексте React.
-- **`defaultLocale`**: Основная локаль, определённая в конфигурации.
-- **`availableLocales`**: Список всех доступных локалей, определённых в конфигурации.
-
-```typescript
-import { useLocale } from "react-intlayer";
-
-const LocaleSelector = () => {
-  const { locale, setLocale, availableLocales } = useLocale();
-
-  const handleLocaleChange = (newLocale) => {
-    setLocale(newLocale);
-  };
-
-  return (
-    <select value={locale} onChange={(e) => handleLocaleChange(e.target.value)}>
-      {availableLocales.map((locale) => (
-        <option key={locale} value={locale}>
-          {locale}
-        </option>
-      ))}
-    </select>
-  );
-};
-
-export default LocaleSelector;
-```
-
 ```jsx fileName="src/components/LocaleSelector.mjx" codeFormat="esm"
 import { useLocale } from "react-intlayer";
-
-const LocaleSelector = () => {
-  const { locale, setLocale, availableLocales } = useLocale();
-
-  const handleLocaleChange = (newLocale) => {
-    setLocale(newLocale);
-  };
-
-  return (
-    <select value={locale} onChange={(e) => handleLocaleChange(e.target.value)}>
-      {availableLocales.map((locale) => (
-        <option key={locale} value={locale}>
-          {locale}
-        </option>
-      ))}
-    </select>
-  );
-};
-```
-
-```jsx fileName="src/components/LocaleSelector.csx" codeFormat="commonjs"
-const { useLocale } = require("react-intlayer");
 
 const LocaleSelector = () => {
   const { locale, setLocale, availableLocales } = useLocale();

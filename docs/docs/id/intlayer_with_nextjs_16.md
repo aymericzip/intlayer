@@ -297,6 +297,36 @@ export default RootLayout;
 
 Untuk mengimplementasikan routing dinamis, sediakan jalur untuk locale dengan menambahkan layout baru di direktori `[locale]` Anda:
 
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
+```tsx fileName="src/app/[locale]/layout.tsx" codeFormat={["typescript", "esm"]}
+import { type NextLayoutIntlayer } from "next-intlayer";
+import { IntlayerProvider } from "next-intlayer/server";
+import { Inter } from "next/font/google";
+import { getHTMLTextDir } from "intlayer";
+
+const inter = Inter({ subsets: ["latin"] });
+
+const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
+  const { locale } = await params;
+  return (
+    <IntlayerProvider locale={locale}>
+      <html lang={locale} dir={getHTMLTextDir(locale)}>
+        <body className={inter.className}>{children}</body>
+      </html>
+    </IntlayerProvider>
+  );
+};
+
+export default LocaleLayout;
+```
+
+> Satu `IntlayerProvider` mencakup kedua bagian dari pohon: itu menyemai konteks server yang bersifat request-scoped yang dibaca oleh server hooks, dan memasang client provider sehingga client components menerima locale yang sama.
+
+ </Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
+
 ```tsx fileName="src/app/[locale]/layout.tsx" codeFormat={["typescript", "esm"]}
 import { type NextLayoutIntlayer, IntlayerClientProvider } from "next-intlayer";
 import { Inter } from "next/font/google";
@@ -319,6 +349,9 @@ const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
 
 export default LocaleLayout;
 ```
+
+ </Tab>
+</Tabs>
 
 > Segmen jalur `[locale]` digunakan untuk menentukan locale. Contoh: `/en-US/about` akan merujuk ke `en-US` dan `/fr/about` ke `fr`.
 
@@ -394,6 +427,44 @@ export default pageContent;
 
 Akses kamus konten Anda di seluruh aplikasi:
 
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
+```tsx fileName="src/app/[locale]/page.tsx" codeFormat={["typescript", "esm"]}
+import type { FC } from "react";
+import { ClientComponentExample } from "@components/ClientComponentExample";
+import { ServerComponentExample } from "@components/ServerComponentExample";
+import { type NextPageIntlayer, useIntlayer } from "next-intlayer";
+
+const PageContent: FC = () => {
+  const content = useIntlayer("page");
+
+  return (
+    <>
+      <p>{content.getStarted.main}</p>
+      <code>{content.getStarted.pageLink}</code>
+    </>
+  );
+};
+
+const Page: NextPageIntlayer = () => (
+  <>
+    <PageContent />
+    <ServerComponentExample />
+
+    <ClientComponentExample />
+  </>
+);
+
+export default Page;
+```
+
+- **`IntlayerProvider`** dipasang sekali, dalam tata letak lokal. Ini menyediakan lokal ke komponen server dan klien, sehingga halaman tidak lagi membungkus diri mereka sendiri.
+- Server hooks menyelesaikan lokal dalam urutan ini: lokal yang diteruskan di situs panggilan, kemudian konteks server yang ditanam oleh provider, kemudian lokal yang dibawa oleh permintaan (header `x-intlayer-locale` yang ditetapkan oleh proxy Intlayer, kemudian cookie lokal). Langkah terakhir ini adalah apa yang menjaga konten tetap benar pada navigasi sisi klien yang me-render hanya segmen halaman, di mana tata letak — dan dengannya provider — tidak berjalan kembali.
+
+ </Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
+
 ```tsx fileName="src/app/[locale]/page.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { ClientComponentExample } from "@components/ClientComponentExample";
@@ -433,6 +504,9 @@ export default Page;
 
   > Layout dan halaman tidak dapat berbagi konteks server yang sama karena sistem konteks server didasarkan pada penyimpanan data per permintaan (melalui mekanisme [cache React](https://react.dev/reference/react/cache)), yang menyebabkan setiap "konteks" dibuat ulang untuk segmen aplikasi yang berbeda. Menempatkan provider di layout bersama akan memecah isolasi ini, sehingga mencegah propagasi nilai konteks server yang benar ke komponen server Anda.
 
+ </Tab>
+</Tabs>
+
 ```tsx {4,7} fileName="src/components/ClientComponentExample.tsx" codeFormat={["typescript", "esm"]}
 "use client";
 
@@ -451,6 +525,30 @@ export const ClientComponentExample: FC = () => {
 };
 ```
 
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
+```tsx {2} fileName="src/components/ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
+import type { FC } from "react";
+import { useIntlayer } from "next-intlayer";
+
+export const ServerComponentExample: FC = () => {
+  const content = useIntlayer("server-component-example"); // Buat deklarasi konten terkait
+
+  return (
+    <div>
+      <h2>{content.title}</h2>
+      <p>{content.content}</p>
+    </div>
+  );
+};
+```
+
+> `next-intlayer` adalah isomorphic import path: kondisi export `react-server` memberikan server components implementasi ambient-locale, sementara client components mendapatkan yang context-backed. Pemanggilan yang sama bekerja di kedua sisi.
+
+ </Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
+
 ```tsx {2} fileName="src/components/ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "next-intlayer/server";
@@ -466,6 +564,9 @@ export const ServerComponentExample: FC = () => {
   );
 };
 ```
+
+ </Tab>
+</Tabs>
 
 > Jika Anda ingin menggunakan konten Anda dalam atribut `string`, seperti `alt`, `title`, `href`, `aria-label`, dll., Anda harus memanggil nilai fungsi tersebut, seperti:
 
@@ -495,6 +596,8 @@ export const config = {
 ```
 
 > `intlayerProxy` digunakan untuk mendeteksi locale pilihan pengguna dan mengarahkan mereka ke URL yang sesuai seperti yang ditentukan dalam [konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md). Selain itu, ini memungkinkan penyimpanan locale pilihan pengguna dalam cookie.
+
+> Sejak Intlayer v9, middleware ini menghormati opsi `routing.enableProxy` (`true` secara default). Atur `routing.enableProxy: false` dalam konfigurasi Anda untuk mengubahnya menjadi pass-through tanpa menghapus file ini. Lihat [catatan rilis v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/releases/v9.md).
 
 > Jika Anda perlu menggabungkan beberapa proxy bersama-sama (misalnya, `intlayerProxy` dengan otentikasi atau proxy kustom), Intlayer sekarang menyediakan helper yang disebut `multipleProxies`.
 
@@ -905,7 +1008,21 @@ export const myServerAction = async () => {
 
 <Step number={13} title="Mendapatkan locale saat ini di Server Actions" isOptional={true}>
 
+Saat menggunakan `next-intlayer`, dictionary disertakan dalam bundle untuk setiap halaman secara default. Untuk mengoptimalkan ukuran bundle, Intlayer menyediakan plugin SWC opsional yang secara cerdas mengganti panggilan `useIntlayer` menggunakan macro. Ini memastikan dictionary hanya disertakan dalam bundle untuk halaman yang benar-benar menggunakannya.
+
 Jika Anda memerlukan locale aktif di dalam Server Action (misalnya, untuk melokalkan email atau menjalankan logika yang sadar locale), panggil `getLocale` dari `next-intlayer/server`:
+
+```bash packageManager="npm"
+npm install @intlayer/swc --save-dev
+```
+
+```bash packageManager="pnpm"
+pnpm add @intlayer/swc --save-dev
+```
+
+```bash packageManager="yarn"
+yarn add @intlayer/swc --save-dev
+```
 
 ```tsx fileName="src/app/actions/getLocale.ts" codeFormat="typescript"
 "use server";
@@ -918,6 +1035,10 @@ export const myServerAction = async () => {
   // Lakukan sesuatu dengan locale
 };
 ```
+
+> Catatan: Optimisasi ini hanya tersedia untuk Next.js 13 dan di atasnya.
+
+> Catatan: Package ini tidak diinstal secara default karena SWC plugins masih dalam tahap eksperimental di Next.js. Ini mungkin berubah di masa depan.
 
 > Fungsi `getLocale` mengikuti strategi cascading untuk menentukan locale pengguna:
 >
@@ -1044,8 +1165,6 @@ bun run build # Or bun run dev
 
  </Tab>
 </Tabs>
-
-</Step>
 
 </Steps>
 

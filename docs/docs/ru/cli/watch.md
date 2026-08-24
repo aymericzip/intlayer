@@ -48,5 +48,3 @@ bun x intlayer watch
 - **`--with`**: Запустить команду параллельно с наблюдением.
 
   > Пример: `npx intlayer watch --with "next dev --turbopack"`
-
-  > Пример: `npx intlayer watch --with "next dev --turbopack"`

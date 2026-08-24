@@ -134,7 +134,3 @@ export default Sidebar;
 
 - [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/next-intlayer/useLocale.md) — 현재 로케일 + 로케일 스위처 (`pathWithoutLocale`도 노출)
 - [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getPathWithoutLocale.md) — 이 훅에서 사용하는 기본 유틸리티
-
-```
-
-```

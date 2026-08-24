@@ -214,8 +214,6 @@ Sau khi hoàn tất đăng nhập:
    - [`npx intlayer push`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/push.md) - Đẩy từ điển lên CMS
    - [`npx intlayer pull`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/pull.md) - Kéo từ điển từ CMS
 
-- [`npx intlayer fill`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/fill.md) - Điền các bản dịch còn thiếu
-
 ## Xem thêm
 
 - [Tài liệu CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/index.md)

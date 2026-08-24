@@ -621,6 +621,35 @@ export default aboutPageContent;
 
 </Step>
 
+<Step number="6b" title="Créer une mise en page avec Navigation" isOptional={true}>
+
+Les layouts Nuxt vous permettent de définir une structure commune pour vos pages. Créez un layout par défaut qui inclut le sélecteur de locale et la navigation :
+
+```vue fileName="layouts/default.vue"
+<script setup lang="ts">
+import Links from "~/components/Links.vue";
+import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
+</script>
+
+<template>
+  <div>
+    <header>
+      <LocaleSwitcher />
+    </header>
+    <main>
+      <slot />
+    </main>
+
+    <Links href="/">Accueil</Links>
+    <Links href="/about">À propos</Links>
+  </div>
+</template>
+```
+
+Le composant `Links` (montré ci-dessous) garantit que les liens de navigation interne sont automatiquement localisés.
+
+</Step>
+
 </Steps>
 
 ### Configuration Git

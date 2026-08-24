@@ -42,31 +42,48 @@ author: aymericzip
 
 **पूर्ण व्यू कवरेज**
 
+<Accordion header="Vue को पूर्ण कवरेज">
+
 Intlayer को **घटक-स्तरीय सामग्री स्कोपिंग**, **प्रतिक्रियाशील अनुवाद**, और स्केलिंग अंतर्राष्ट्रीयकरण (i18n) के लिए आवश्यक सभी सुविधाओं की पेशकश करके Vue के साथ पूरी तरह से काम करने के लिए अनुकूलित किया गया है।
 
 **बंडल का आकार**
+
+<Accordion header="Bundle size">
 
 अपने पृष्ठों में विशाल JSON फ़ाइलें लोड करने के बजाय, केवल आवश्यक सामग्री लोड करें। इंटलेयर आपके बंडल और पृष्ठ आकार को 50% तक कम करने में मदद करता है।
 
 **रखरखाव**
 
+<Accordion header="रखरखाव">
+
 आपके एप्लिकेशन की सामग्री का दायरा बड़े पैमाने के अनुप्रयोगों के लिए **रखरखाव की सुविधा प्रदान करता है**। आप अपने संपूर्ण सामग्री कोडबेस की समीक्षा करने के मानसिक बोझ के बिना किसी एक फीचर फ़ोल्डर की नकल कर सकते हैं या उसे हटा सकते हैं। इसके अतिरिक्त, आपकी सामग्री की सटीकता सुनिश्चित करने के लिए Intlayer **पूरी तरह से टाइप किया गया** है।
 
 **एआई एजेंट**
+
+<Accordion header="AI Agent">
 
 सामग्री का सह-स्थानीकरण **बड़े भाषा मॉडल (एलएलएम) द्वारा आवश्यक संदर्भ को कम करता है**। इंटलेयर टूल के एक सूट के साथ भी आता है, जैसे **CLI** ताकि लापता अनुवादों का परीक्षण किया जा सके,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**, और **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/agent_skills.md)**, AI एजेंटों के लिए डेवलपर अनुभव (DX) को और भी आसान बनाने के लिए।
 
 **स्वचालन**
 
+<Accordion header="ऑटोमेशन">
+
 अपने एआई प्रदाता की कीमत पर अपनी पसंद के एलएलएम का उपयोग करके अपने सीआई/सीडी पाइपलाइन में अनुवाद करने के लिए स्वचालन का उपयोग करें। इंटलेयर सामग्री निष्कर्षण को स्वचालित करने के लिए एक **कंपाइलर** के साथ-साथ **पृष्ठभूमि में अनुवाद** में मदद करने के लिए एक [वेब प्लेटफ़ॉर्म](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) भी प्रदान करता है।
 
 **प्रदर्शन**
 
+<Accordion header="Performance">
+
 बड़े पैमाने पर JSON फ़ाइलों को घटकों से जोड़ने से प्रदर्शन और प्रतिक्रियाशीलता संबंधी समस्याएं हो सकती हैं। इंटलेयर बिल्ड समय पर आपकी सामग्री लोडिंग को अनुकूलित करता है।
+
+</Accordion>
 
 **किसी भी देव के साथ स्केलिंग**
 
 सिर्फ एक i18n समाधान से अधिक, Intlayer एक **स्व-होस्टेड [विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** और एक **[पूर्ण] प्रदान करता है सीएमएस](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** आपकी बहुभाषी सामग्री को **वास्तविक समय** में प्रबंधित करने में मदद करता है, जिससे अनुवादकों, कॉपीराइटरों और टीम के अन्य सदस्यों के साथ सहयोग सहज हो जाता है। सामग्री को स्थानीय और/या दूरस्थ रूप से संग्रहीत किया जा सकता है।
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
@@ -351,6 +368,8 @@ app.mount("#app");
 
 अपने एप्लिकेशन में कंटेंट डिक्शनरीज़ तक पहुंचने के लिए एक मुख्य Vue कंपोनेंट बनाएं और `useIntlayer` कॉम्पोज़ेबल्स का उपयोग करें:
 
+अपने एप्लिकेशन भर में अपने कंटेंट डिक्शनरीज़ को एक्सेस करें एक मुख्य Vue कंपोनेंट बनाकर और `useIntlayer` composables का उपयोग करके:
+
 ```vue fileName="src/HelloWord.vue"
 <script setup lang="ts">
 import { ref } from "vue";
@@ -402,6 +421,8 @@ const countRef = ref(0);
 </template>
 ```
 
+> यदि आपका ऐप पहले से मौजूद है, तो आप [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md) का उपयोग कर सकते हैं, साथ ही [extract command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/extract.md) का भी उपयोग कर सकते हैं, हजारों components को एक सेकंड में बदलने के लिए।
+
 #### Intlayer में कंटेंट तक पहुंचना
 
 Intlayer आपकी सामग्री तक पहुंचने के लिए विभिन्न API प्रदान करता है:
@@ -419,8 +440,6 @@ Intlayer आपकी सामग्री तक पहुंचने के 
   `useIntlayer` कॉम्पोज़ेबल सामग्री के साथ एक प्रॉक्सी लौटाता है। इस प्रॉक्सी को डिस्ट्रक्चर करके सामग्री तक पहुंचा जा सकता है जबकि प्रतिक्रियाशीलता बनी रहती है।
   - `const content = useIntlayer("myContent");` का उपयोग करें और `{{ content.myContent }}` / `<content.myContent />`।
   - या `const { myContent } = useIntlayer(\"myContent\");` का उपयोग करें और `{{ myContent}}` / `<myContent/>` से सामग्री को डिस्ट्रक्चर करें।
-
-> यदि आपका ऐप पहले से मौजूद है, तो आप हजारों घटकों को एक सेकंड में बदलने के लिए [Intlayer कंपाइलर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md) को [एक्सट्रैक्ट कमांड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/extract.md) के साथ उपयोग कर सकते हैं।
 
 </Step>
 
@@ -608,6 +627,10 @@ import LocaleSwitcher from "@components/LocaleSwitcher.vue";
 ```
 
 साथ ही, आप अपने एप्लिकेशन में सर्वर-साइड रूटिंग जोड़ने के लिए `intlayerProxy` का भी उपयोग कर सकते हैं। यह प्लगइन URL के आधार पर वर्तमान स्थानीयता को स्वचालित रूप से पहचान लेगा और उपयुक्त स्थानीयता कुकी सेट करेगा। यदि कोई स्थानीयता निर्दिष्ट नहीं है, तो प्लगइन उपयोगकर्ता के ब्राउज़र भाषा प्राथमिकताओं के आधार पर सबसे उपयुक्त स्थानीयता निर्धारित करेगा। यदि कोई स्थानीयता पता नहीं चलती है, तो यह डिफ़ॉल्ट स्थानीयता पर पुनर्निर्देशित करेगा।
+
+> ध्यान दें कि production में `intlayerProxy` का उपयोग करने के लिए, आपको `vite-intlayer` package को `devDependencies` से `dependencies` में स्थानांतरित करना होगा।
+
+> Intlayer v9 के बाद से, `intlayerProxy()` को सीधे `intlayer()` प्लगइन में बंडल किया गया है और `routing.enableProxy` विकल्प के माध्यम से डिफ़ॉल्ट रूप से सक्षम किया गया है (डिफ़ॉल्ट रूप से `true`)। इसे अलग से रजिस्टर करना जैसा कि नीचे दिखाया गया है अब वैकल्पिक है — इसे पिछड़े संगतता के लिए और उन सेटअप के लिए रखा गया है जिन्हें प्लगइन ऑर्डर को नियंत्रित करने की आवश्यकता है। `routing.enableProxy: false` सेट करके ऑप्ट आउट करें। [v9 रिलीज़ नोट्स](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/releases/v9.md) देखें।
 
 ```typescript {3,7} fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
@@ -946,6 +969,8 @@ bun x intlayer extract
  </Tab>
  <Tab value='बैबेल कंपाइलर'>
 
+> v9 के बाद से, `intlayerCompiler` को `intlayer` plugin में शामिल किया गया है। इसलिए आपको इसे manually add करने की आवश्यकता नहीं है।
+
 intlayerCompiler प्लगइन शामिल करने के लिए अपनी `vite.config.ts` अपडेट करें:
 
 ```ts fileName="vite.config.ts"
@@ -987,14 +1012,7 @@ bun run build # Or bun run dev
 
 ### Git कॉन्फ़िगरेशन
 
-यह अनुशंसित है कि Intlayer द्वारा जनरेट की गई फ़ाइलों को अनदेखा किया जाए। इससे आप उन्हें अपने Git रिपॉजिटरी में कमिट करने से बच सकते हैं।
-
 इसके लिए, आप अपनी `.gitignore` फ़ाइल में निम्नलिखित निर्देश जोड़ सकते हैं:
-
-```plaintext fileName=".gitignore"
-# Intlayer द्वारा उत्पन्न फ़ाइलों को अनदेखा करें
-.intlayer
-```
 
 #### साइटमैप
 
@@ -1117,3 +1135,5 @@ Extension के उपयोग के बारे में अधिक व�
 ### आगे बढ़ें
 
 आगे बढ़ने के लिए, आप [विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md) को लागू कर सकते हैं या अपनी सामग्री को [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md) का उपयोग करके बाहरी रूप से प्रबंधित कर सकते हैं।
+
+---

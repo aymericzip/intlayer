@@ -90,10 +90,6 @@ Quindi apri **http://localhost:3000**.
 
 ## Avvio rapido
 
-```sh
-curl -fsSL https://intlayer.org/install.sh | sh
-```
-
 Cosa fa l'installer:
 
 1.  Verifica che `docker` e `docker compose` siano presenti.
@@ -116,8 +112,6 @@ Dopo che lo stack è attivo, apri **http://localhost:3000** e crea il tuo primo 
 | **redis**   | `redis:7-alpine`                     | internal                       | Code di lavoro (BullMQ) e caching (ioredis)                   |
 | **minio**   | `minio/minio`                        | `9000` (S3), `9001` (console)  | Storage di oggetti compatibile con S3 per avatar e screenshot |
 | **mailpit** | `axllent/mailpit`                    | `1025` (SMTP), `8025` (web UI) | Sink di email transazionali locale                            |
-
-Le porte interne (mongo, redis) non sono esposte all'host per impostazione predefinita.
 
 > La porta `9000` di MinIO deve essere raggiungibile dal browser perché gli asset caricati (avatar, screenshot) vengono caricati direttamente da `S3_PUBLIC_URL=http://localhost:9000/intlayer`.
 
@@ -173,8 +167,6 @@ Le porte interne (mongo, redis) non sono esposte all'host per impostazione prede
 | `MICROSOFT_CLIENT_ID`, `MICROSOFT_CLIENT_SECRET`         | Accesso OAuth di Microsoft                                                |
 | `LINKEDIN_CLIENT_ID`, `LINKEDIN_CLIENT_SECRET`           | Accesso OAuth di LinkedIn                                                 |
 | `ATLASSIAN_CLIENT_ID`, `ATLASSIAN_CLIENT_SECRET`         | Accesso OAuth di Atlassian                                                |
-
----
 
 ### Mailer globale
 
@@ -261,15 +253,7 @@ const { data: dictionaries } = await dictionaryEndpoint(cms).getDictionaries();
 
 ## Aggiornamento
 
-Eseguire nuovamente l'installer su un'implementazione esistente esegue un aggiornamento rolling:
-
-```sh
-curl -fsSL https://intlayer.org/install.sh | sh
-```
-
 Questo scarica le immagini più recenti e riavvia i container con `docker compose pull && docker compose up -d`. I volumi esistenti (`mongo-data`, `redis-data`, `minio-data`) vengono preservati — nessuna perdita di dati.
-
-Per aggiornare manualmente dalla directory `./intlayer/`:
 
 ```sh
 docker compose pull
@@ -334,14 +318,11 @@ docker compose logs mongo
 docker compose logs redis
 ```
 
+Cerca `MongoDB connection error` vicino alla parte superiore del log.
+
 ### La dashboard non riesce a raggiungere l'API
 
 Verifica che `VITE_BACKEND_URL` corrisponda all'URL dove il backend è raggiungibile dal **browser** (non dalla rete Docker). Se hai cambiato la porta del backend o aggiunto un reverse proxy, ricostruisci l'immagine della dashboard:
-
-```sh
-docker compose build app
-docker compose up -d app
-```
 
 ### Bucket MinIO mancante
 

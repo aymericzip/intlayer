@@ -294,6 +294,4 @@ document.getElementById("gender-female")!.textContent =
 - [Tài liệu React Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_create_react_app.md)
 - [Tài liệu Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_15.md)
 
-Những tài nguyên này cung cấp thêm cái nhìn sâu sắc về việc thiết lập và sử dụng Intlayer trên nhiều môi trường và framework khác nhau.
-
 Những tài nguyên này cung cấp thêm những hiểu biết sâu sắc về việc thiết lập và sử dụng Intlayer trên nhiều môi trường và framework khác nhau.

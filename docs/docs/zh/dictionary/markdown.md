@@ -492,7 +492,7 @@ Markdown 渲染支持 **MDX** — 在您的 Markdown 中直接按名称使用任
 
 <Tabs group="framework">
   <Tab label="React" value="react">
-  
+
     #### `<MarkdownRenderer />` 组件
 
     使用特定选项渲染 Markdown 字符串。
@@ -531,7 +531,7 @@ Markdown 渲染支持 **MDX** — 在您的 Markdown 中直接按名称使用任
 
   </Tab>
   <Tab label="Next.js" value="nextjs">
-  
+
     #### `<MarkdownRenderer />` 组件
 
     使用特定选项渲染 Markdown 字符串。
@@ -957,6 +957,10 @@ Markdown 渲染支持 **MDX** — 在您的 Markdown 中直接按名称使用任
   </Tab>
   <Tab label="Angular" value="angular">
 
+> 支持 MDX — 任何在 Markdown 中使用的组件名称（例如 `<MyCustomJSXComponent />`）都会根据 `components` map 进行解析。
+
+你也可以使用自己的 markdown 渲染器：
+
     ```typescript fileName="app.module.ts"
     import { NgModule } from '@angular/core';
     import { IntlayerMarkdownModule } from 'angular-intlayer/markdown';
@@ -1047,7 +1051,7 @@ const MyComponent = () => {
 ```
 
   </Tab>
- 
+
   <Tab label="Vue" value="vue">
 
 Vue内置了`<Suspense>`组件。将渲染Markdown内容的组件包装在`<Suspense>`边界中。

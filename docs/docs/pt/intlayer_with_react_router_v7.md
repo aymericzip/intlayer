@@ -41,6 +41,8 @@ history:
 
 Este guia demonstra como integrar o **Intlayer** para uma internacionalização perfeita em projetos React Router v7 com roteamento sensível à localidade, suporte a TypeScript e práticas modernas de desenvolvimento.
 
+Este guia se concentra no roteamento de frontend. Para roteamento fs-routes, consulte o guia [Intlayer com React Router v7 File-System Routes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_with_react_router_v7_fs_routes.md).
+
 ## Table of Contents
 
 <TOC/>
@@ -181,6 +183,17 @@ bun add vite-intlayer --dev
 />
 
   </Tab>
+  <Tab label="Demo" value="demo">
+
+<iframe
+  src="https://intlayer-react-router-v7.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo - intlayer-react-router-v7-template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
 </Tabs>
 
 See [Application Template](https://github.com/aymericzip/intlayer-react-router-v7-template) on GitHub.
@@ -220,6 +233,8 @@ export default [
 ] satisfies RouteConfig;
 ```
 
+> O plugin `intlayer()` Vite é usado para integrar Intlayer com Vite. Ele garante a construção de arquivos de declaração de conteúdo e os monitora em modo de desenvolvimento. Define variáveis de ambiente do Intlayer dentro da aplicação Vite. Além disso, fornece aliases para otimizar o desempenho.
+
 </Step>
 
 <Step number={4} title="Integrar Intlayer na sua Configuração Vite">
@@ -243,8 +258,6 @@ export default defineConfig({
   ],
 });
 ```
-
-> O plugin Vite `intlayer()` é usado para integrar o Intlayer com o Vite. Ele garante a construção dos arquivos de declaração de conteúdo e os monitora no modo de desenvolvimento. Define variáveis de ambiente do Intlayer dentro da aplicação Vite. Além disso, fornece aliases para otimizar o desempenho.
 
 </Step>
 
@@ -389,6 +402,28 @@ export default function LocalizedLink({ to, ...props }: RouterLinkProps) {
     />
   );
 }
+```
+
+No caso de querer navegar para as rotas localizadas, você pode usar o hook `useLocalizedNavigate`:
+
+```tsx fileName="app/hooks/useLocalizedNavigate.ts"
+import { useLocale } from "react-intlayer";
+import { type NavigateOptions, type To, useNavigate } from "react-router";
+
+import { locacalizeTo } from "~/components/localized-link";
+
+export const useLocalizedNavigate = () => {
+  const navigate = useNavigate();
+  const { locale } = useLocale();
+
+  const localizedNavigate = (to: To, options?: NavigateOptions) => {
+    const localedTo = locacalizeTo(to, locale);
+
+    navigate(localedTo, options);
+  };
+
+  return localizedNavigate;
+};
 ```
 
 </Step>
@@ -539,34 +574,6 @@ export default function RootLayout() {
 </Step>
 
 <Step number={11} title="Compile e Execute Sua Aplicação">
-
-Construa os dicionários de conteúdo e execute sua aplicação:
-
-```bash packageManager="npm"
-# Construir dicionários do Intlayer
-npm run intlayer:build
-
-# Iniciar servidor de desenvolvimento
-npm run dev
-```
-
-```bash packageManager="pnpm"
-# Construir dicionários do Intlayer
-pnpm intlayer:build
-
-# Iniciar servidor de desenvolvimento
-pnpm dev
-```
-
-```bash packageManager="yarn"
-# Construir dicionários do Intlayer
-yarn intlayer:build
-
-# Iniciar servidor de desenvolvimento
-yarn dev
-```
-
-</Step>
 
 <Step number={12} title="Configurar TypeScript">
 

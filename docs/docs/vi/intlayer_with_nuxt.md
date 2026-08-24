@@ -621,6 +621,35 @@ export default aboutPageContent;
 
 </Step>
 
+<Step number="6b" title="Tạo một Layout với Navigation" isOptional={true}>
+
+Nuxt layouts cho phép bạn xác định một cấu trúc chung cho các trang của mình. Tạo một layout mặc định bao gồm bộ chuyển đổi locale và điều hướng:
+
+```vue fileName="layouts/default.vue"
+<script setup lang="ts">
+import Links from "~/components/Links.vue";
+import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
+</script>
+
+<template>
+  <div>
+    <header>
+      <LocaleSwitcher />
+    </header>
+    <main>
+      <slot />
+    </main>
+
+    <Links href="/">Trang chủ</Links>
+    <Links href="/about">Giới thiệu</Links>
+  </div>
+</template>
+```
+
+Thành phần `Links` (được hiển thị dưới đây) đảm bảo rằng các liên kết điều hướng nội bộ được tự động bản địa hóa.
+
+</Step>
+
 </Steps>
 
 ### Cấu hình Git

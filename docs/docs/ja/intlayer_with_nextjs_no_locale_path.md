@@ -60,6 +60,8 @@ GitHub の [アプリケーションテンプレート](https://github.com/aymer
 
 **Next.js を完全にカバー**
 
+<Accordion header="Full Next.js coverage">
+
 Intlayer は、効率的なレンダリングのために **サーバー コンポーネント** と連携するように最適化されており、[**Turbopack**](https://nextjs.org/docs/architecture/turbopack) と完全に互換性があります。静的レンダリングをブロックせず、ミドルウェアとスケーリング国際化 (i18n) に必要なすべての機能を提供します。
 
 > Intlayer は Next.js 12、13、14、15、および 16 と互換性があります。 Next.js Pages Router を使用している場合は、この [ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_page_router.md) を参照してください。
@@ -67,6 +69,8 @@ Intlayer は、効率的なレンダリングのために **サーバー コン�
 > App Router を使用した Next.js 12、13、14、および 15 については、この [ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_14.md) を参照してください。
 
 **バンドルサイズ**
+
+<Accordion header="Bundle size">
 
 大量の JSON ファイルをページにロードするのではなく、必要なコンテンツのみをロードします。 Intlayer は、**バンドルとページのサイズを最大 50% 削減**するのに役立ちます。
 
@@ -76,19 +80,32 @@ Intlayer は、効率的なレンダリングのために **サーバー コン�
 
 **AI エージェント**
 
+</Accordion>
+
+<Accordion header="AI Agent">
+
 コンテンツを同じ場所に配置すると、大規模言語モデル (LLM) によって **必要なコンテキストが削減**されます。 Intlayer には、翻訳の欠落をテストする **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** などのツール スイートも付属しています。および **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)** により、AI エージェントの開発者エクスペリエンス (DX) がさらにスムーズになります。
 
 **オートメーション**
+
+<Accordion header="自動化">
 
 AI プロバイダーの費用で、選択した LLM を使用して CI/CD パイプラインで自動化を変換します。 Intlayer は、コンテンツ抽出を自動化する **コンパイラー** と、**バックグラウンドでの翻訳**を支援する [Web プラットフォーム](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) も提供します。
 
 **パフォーマンス**
 
+<Accordion header="パフォーマンス">
+
 大量の JSON ファイルをコンポーネントに接続すると、パフォーマンスと反応性の問題が発生する可能性があります。 Intlayer は、ビルド時のコンテンツの読み込みを最適化します。
 
 **非開発によるスケーリング**
 
+<Accordion header="none-dev でスケーリング">
+
 Intlayer は単なる i18n ソリューションではなく、**自己ホスト型 [ビジュアル エディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** と **[完全な CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** を提供します。 **リアルタイム**で多言語コンテンツを管理できるようになり、翻訳者、コピーライター、その他のチーム メンバーとのコラボレーションがシームレスになります。コンテンツはローカルおよび/またはリモートに保存できます。
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
@@ -218,6 +235,24 @@ export default withIntlayer(nextConfig);
 
 > `withIntlayer()` の Next.js プラグインは Intlayer を Next.js に統合するために使用されます。コンテンツ宣言ファイルの生成を行い、開発モードでそれらを監視します。[Webpack](https://webpack.js.org/) または [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack) 環境内で Intlayer の環境変数を定義します。さらに、パフォーマンス最適化のためのエイリアスを提供し、サーバーコンポーネントとの互換性を確保します。
 
+> `withIntlayer()` 関数は Promise 関数です。ビルド開始前に intlayer の辞書を準備することができます。他のプラグインと一緒に使用する場合は、await することができます。例:
+>
+> ```ts
+> const nextConfig = await withIntlayer(nextConfig);
+> const nextConfigWithOtherPlugins = withOtherPlugins(nextConfig);
+>
+> export default nextConfigWithOtherPlugins;
+> ```
+>
+> 同期的に使用する場合は、`withIntlayerSync()` 関数を使用できます。例:
+>
+> ```ts
+> const nextConfig = withIntlayerSync(nextConfig);
+> const nextConfigWithOtherPlugins = withOtherPlugins(nextConfig);
+>
+> export default nextConfigWithOtherPlugins;
+> ```
+
 > `withIntlayer()` 関数は Promise 関数です。ビルド開始前に Intlayer の辞書を準備することを可能にします。他のプラグインと一緒に使用する場合は、await できます。例:
 >
 > ```ts
@@ -249,6 +284,52 @@ export default withIntlayer(nextConfig);
 <Step number={4} title="動的ロケールルートを定義する">
 
 `RootLayout` の中身をすべて削除し、次のコードに置き換えてください:
+
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
+```tsx {5} fileName="src/app/layout.tsx" codeFormat={["typescript", "esm"]}
+import type { Metadata } from "next";
+import type { ReactNode } from "react";
+import "./globals.css";
+import { getHTMLTextDir, getIntlayer } from "intlayer";
+import { getLocale, IntlayerProvider } from "next-intlayer/server";
+export { generateStaticParams } from "next-intlayer";
+
+export const generateMetadata = async (): Promise<Metadata> => {
+  const locale = await getLocale();
+  const { title, description, keywords } = getIntlayer("metadata", locale);
+
+  return {
+    title,
+    description,
+    keywords,
+  };
+};
+
+const RootLayout = async ({
+  children,
+}: Readonly<{
+  children: ReactNode;
+}>) => {
+  const locale = await getLocale();
+
+  return (
+    <html lang={locale} dir={getHTMLTextDir(locale)}>
+      <IntlayerProvider locale={locale}>
+        <body>{children}</body>
+      </IntlayerProvider>
+    </html>
+  );
+};
+
+export default RootLayout;
+```
+
+単一の `IntlayerProvider` はツリーの両方の半分をカバーしています。リクエストスコープのサーバーコンテキストをシードし、サーバーフックで読み込まれ、クライアントプロバイダーをマウントして、クライアントコンポーネントが同じロケールを受け取るようにします。
+
+ </Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
 
 ```tsx {3} fileName="src/app/layout.tsx" codeFormat={["typescript", "esm"]}
 import type { Metadata } from "next";
@@ -288,6 +369,15 @@ const RootLayout = async ({
 
 export default RootLayout;
 ```
+
+</Tab>
+</Tabs>
+
+</Step>
+
+<Step number={5} title="コンテンツの宣言">
+
+コンテンツ宣言を作成・管理して翻訳を保存します:
 
 ```typescript fileName="src/app/metadata.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
@@ -408,6 +498,44 @@ export default pageContent;
 
 アプリケーション全体からコンテンツ辞書にアクセスします:
 
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
+```tsx fileName="src/app/page.tsx" codeFormat={["typescript", "esm"]}
+import type { FC } from "react";
+import { ClientComponentExample } from "@components/clientComponentExample/ClientComponentExample";
+import { ServerComponentExample } from "@components/serverComponentExample/ServerComponentExample";
+import { useIntlayer } from "next-intlayer";
+import { NextPage } from "next";
+
+const PageContent: FC = () => {
+  const content = useIntlayer("page");
+
+  return (
+    <>
+      <p>{content.getStarted.main}</p>
+      <code>{content.getStarted.pageLink}</code>
+    </>
+  );
+};
+
+const Page: NextPage = () => (
+  <>
+    <PageContent />
+    <ServerComponentExample />
+    <ClientComponentExample />
+  </>
+);
+
+export default Page;
+```
+
+- **`IntlayerProvider`** はルートレイアウトに一度マウントされます。サーバーコンポーネントとクライアントコンポーネントの両方にロケールを提供するため、ページ自体がラップされることはなくなります。
+- `[locale]` パスセグメントがない場合、ロケールは常にリクエストから取得されます — Intlayer プロキシによって設定された `x-intlayer-locale` ヘッダー、次にロケール Cookie — プロバイダーがまだ実行されていない場合、サーバーフックはこれらを独自に読み取ります。
+
+ </Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
+
 ```tsx fileName="src/app/page.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { ClientComponentExample } from "@components/clientComponentExample/ClientComponentExample";
@@ -457,6 +585,14 @@ const Page: NextPage = async () => {
 export default Page;
 ```
 
+- **`IntlayerClientProvider`** はクライアント側のコンポーネントにロケールを提供するために使用されます。レイアウトを含む任意の親コンポーネントに配置できます。ただし、Next.js がページ間でレイアウトコードを共有するため、レイアウトに配置することが推奨されます。これにより効率性が向上します。`IntlayerClientProvider` をレイアウトで使用することで、ページごとに再初期化することを避け、パフォーマンスを向上させ、アプリケーション全体で一貫したローカライゼーションコンテキストを維持できます。
+- **`IntlayerServerProvider`** はサーバー子要素にロケールを提供するために使用されます。レイアウトに設定することはできません。
+
+> Layout と page は共通のサーバーコンテキストを共有することはできません。サーバーコンテキストシステムは、リクエストごとのデータストア（[React の cache](https://react.dev/reference/react/cache) メカニズム経由）に基づいているため、アプリケーションの異なるセグメントに対して各「コンテキスト」が再作成されます。provider を共有 layout に配置すると、この分離が破られ、サーバーコンテキスト値がサーバーコンポーネントに正しく伝播されなくなります。
+
+ </Tab>
+</Tabs>
+
 ```jsx {3,6} fileName="src/components/clientComponentExample/ClientComponentExample.csx" codeFormat="commonjs"
 "use client";
 
@@ -474,6 +610,30 @@ const ClientComponentExample = () => {
 };
 ```
 
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
+```tsx {2} fileName="src/components/serverComponentExample/ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
+import type { FC } from "react";
+import { useIntlayer } from "next-intlayer";
+
+export const ServerComponentExample: FC = () => {
+  const content = useIntlayer("server-component-example"); // 関連するコンテンツ宣言を作成
+
+  return (
+    <div>
+      <h2>{content.title}</h2>
+      <p>{content.content}</p>
+    </div>
+  );
+};
+```
+
+> `next-intlayer` は isomorphic インポートパスです。`react-server` エクスポート条件により、サーバーコンポーネントは ambient-locale 実装を取得し、クライアントコンポーネントは context-backed の実装を取得します。同じ呼び出しが両側で機能します。
+
+ </Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
+
 ```tsx {2} fileName="src/components/serverComponentExample/ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "next-intlayer/server";
@@ -489,6 +649,9 @@ export const ServerComponentExample: FC = () => {
   );
 };
 ```
+
+ </Tab>
+</Tabs>
 
 > `alt`、`title`、`href`、`aria-label` などの `string` 属性でコンテンツを使用する場合は、関数の値を呼び出す必要があります。例えば:
 
@@ -516,6 +679,8 @@ export const config = {
 ```
 
 > `intlayerProxy` はユーザーの優先ロケールを検出し、[設定](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)に記載された適切な URL へリダイレクトするために使用されます。さらに、ユーザーの優先ロケールをクッキーに保存することも可能にします。
+
+> Intlayer v9 以降、このミドルウェアは `routing.enableProxy` オプション (デフォルトは `true`) を尊重します。このファイルを削除せずにパススルーに変更するには、設定で `routing.enableProxy: false` を設定してください。[v9 リリースノート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/releases/v9.md)を参照してください。
 
 > 複数のプロキシを連結する必要がある場合（例えば、認証やカスタムプロキシと `intlayerProxy` を組み合わせる場合）、Intlayer は `multipleProxies` というヘルパーを提供しています。
 
@@ -594,8 +759,6 @@ export const LocaleSwitcher: FC = () => {
   );
 };
 ```
-
-> 代替方法として、`useLocale` フックが提供する `setLocale` 関数を使用できます。この関数はページのプリフェッチを許可しません。詳細は [`useLocale` フックのドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/next-intlayer/useLocale.md) を参照してください。
 
 > ドキュメント参照：
 >

@@ -31,6 +31,8 @@ author: aymericzip
 
 `getTranslationContent` 函数从一组可自定义的语言内容中检索对应特定语言环境的内容。如果未找到指定的语言环境，则默认返回项目中配置的默认语言环境的内容。
 
+有关如何声明翻译的更多详情，请参阅 [翻译文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/translation.md)。
+
 ## 参数
 
 - `languageContent: CustomizableLanguageContent<Content>`

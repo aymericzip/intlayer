@@ -215,7 +215,32 @@ export default withIntlayer(nextConfig);
 > Plugin Next.js `withIntlayer()` digunakan untuk mengintegrasikan Intlayer dengan Next.js. Ini memastikan pembuatan file kamus dan memantaunya dalam mode dev. Ini mendefinisikan variabel lingkungan Intlayer di dalam lingkungan [Webpack](https://webpack.js.org/) atau [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack). Terlebih lagi, ini menyediakan alias untuk mengoptimalkan kinerja dan bekerja secara menyeluruh dengan Komponen Server.
 > </Step>
 
+</Step>
+
 <Step number={4} title="Deteksi Bahasa di Halaman Anda">
+
+Compiler Intlayer memerlukan Babel untuk mengekstrak dan mengoptimalkan konten Anda. Perbarui `babel.config.js` (atau `babel.config.json`) Anda untuk menyertakan plugin Intlayer:
+
+```typescript fileName="babel.config.js"
+const {
+  intlayerExtractBabelPlugin,
+  intlayerOptimizeBabelPlugin,
+  getExtractPluginOptions,
+  getOptimizePluginOptions,
+} = require("@intlayer/babel");
+
+module.exports = {
+  presets: ["next/babel"],
+  plugins: [
+    [intlayerExtractBabelPlugin, getExtractPluginOptions()],
+    [intlayerOptimizeBabelPlugin, getOptimizePluginOptions()],
+  ],
+};
+```
+
+</Step>
+
+<Step number={5} title="Mendeteksi Locale di halaman Anda">
 
 Kosongkan konten `RootLayout` Anda dan ganti dengan contoh di bawah ini:
 
@@ -321,6 +346,9 @@ export default async function Page() {
 }
 ```
 
+<Tabs>
+  <Tab label='Intlayer >=9.4' value='>=9.4'>
+
 ```tsx fileName="src/app/page.tsx"
 import { type FC } from "react";
 import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
@@ -348,13 +376,48 @@ export default async function Page() {
 }
 ```
 
+- **`IntlayerProvider`** dipasang sekali, dalam root layout. Ini menyediakan locale ke komponen server dan client, sehingga halaman tidak lagi membungkus diri mereka sendiri.
+- Tanpa segmen path `[locale]`, locale selalu berasal dari request — header `x-intlayer-locale` yang diatur oleh proxy Intlayer, kemudian cookie locale — yang dibaca oleh server hooks mereka sendiri ketika provider belum dijalankan.
+
   </Tab>
+
 </Tabs>
+
+```tsx fileName="src/app/page.tsx"
+import { type FC } from "react";
+import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
+import { getLocale } from "next-intlayer/server";
+
+const PageContent: FC = () => {
+  const content = useIntlayer("page-content");
+
+  return (
+    <>
+      <p>{content.getStartedByEditing}</p>
+      <code>src/app/page.tsx</code>
+    </>
+  );
+};
+
+export default async function Page() {
+  const locale = await getLocale();
+
+  return (
+    <IntlayerServerProvider locale={locale}>
+      <PageContent />
+    </IntlayerServerProvider>
+  );
+}
+```
 
 - **`IntlayerClientProvider`** digunakan untuk menyediakan bahasa ke komponen sisi klien.
 - Sementara **`IntlayerServerProvider`** digunakan untuk menyediakan bahasa ke anak-anak server.
 
   > Layout and page cannot share a common server context because the server context system is based on a per-request data store (via [React's cache](https://react.dev/reference/react/cache) mechanism), causing each "context" to be re-created for different segments of the application. Placing the provider in a shared layout would break this isolation, preventing the correct propagation of the server context values to your server components.
+
+  </Tab>
+
+</Tabs>
 
 </Step>
 
@@ -412,6 +475,8 @@ export const config = {
 ```
 
 > `intlayerProxy` digunakan untuk mendeteksi bahasa pilihan pengguna dan mengalihkannya ke URL yang sesuai seperti yang ditentukan dalam [pengaturan file konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md). Selain itu, ini memungkinkan penyimpanan bahasa pilihan pengguna di cookie.
+
+> Sejak Intlayer v9, middleware ini menghormati opsi `routing.enableProxy` (`true` secara default). Atur `routing.enableProxy: false` dalam konfigurasi Anda untuk mengubahnya menjadi pass-through tanpa menghapus file ini. Lihat [catatan rilis v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/releases/v9.md).
 
 </Step>
 
@@ -471,6 +536,8 @@ export const LocaleSwitcher: FC = () => {
 
 Saat menggunakan `next-intlayer`, kamus disertakan dalam bundle untuk setiap halaman secara default. Untuk mengoptimalkan ukuran bundle, Intlayer menyediakan plugin SWC opsional yang secara cerdas mengganti panggilan `useIntlayer` menggunakan makro. Ini memastikan bahwa kamus hanya disertakan dalam bundle halaman yang benar-benar menggunakannya.
 
+Plugin `@intlayer/babel` sudah mengintegrasikan optimasi bundling (lihat `babel.config.js`). Namun plugin `@intlayer/swc` lebih performan. Jika Anda menghapus plugin `@intlayer/babel`, Anda dapat menggunakan plugin `@intlayer/swc`.
+
 Untuk mengaktifkan optimasi ini, instal paket `@intlayer/swc`. Setelah diinstal, `next-intlayer` akan secara otomatis mendeteksi dan menggunakan plugin tersebut:
 
 ```bash packageManager="npm"
@@ -495,6 +562,8 @@ bun add @intlayer/swc --dev
 
 > Catatan: Jika Anda menyetel opsi sebagai `importMode: 'dynamic'` atau `importMode: 'fetch'` (dalam konfigurasi kamus), ini akan bergantung pada Suspense, jadi Anda perlu membungkus panggilan `useIntlayer` Anda dalam batas `Suspense`. Ini berarti Anda tidak dapat menggunakan `useIntlayer` secara langsung di tingkat atas komponen Halaman / Layout Anda.
 > </Step>
+
+</Step>
 
 <Step number={1} title="Ekstrak konten komponen Anda" isOptional={true}>
 

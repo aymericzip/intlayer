@@ -517,6 +517,8 @@ const App: FC = () => (
 
 > Заувага: щоб використовувати `intlayerProxy` у production, потрібно перемістити пакет `vite-intlayer` з `devDependencies` до `dependencies`.
 
+> Починаючи з Intlayer v9, `intlayerProxy()` bundled безпосередньо в плагін `intlayer()` і увімкнено за замовчуванням через параметр `routing.enableProxy` (`true` за замовчуванням). Реєстрація його окремо, як показано нижче, тепер не обов'язкова — вона зберігається для зворотної сумісності та для налаштувань, які потребують контролю порядку плагінів. Встановіть `routing.enableProxy: false` для відмови. Див. [примітки випуску v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/releases/v9.md).
+
 ```typescript {3,7} fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
@@ -769,6 +771,8 @@ Link.displayName = "Link";
   Компонент повертає елемент `<a>` з локалізованою URL-адресою, що гарантує відповідність навігації поточній локалі.
 
 Інтегруючи цей компонент `Link` у весь ваш застосунок, ви підтримуєте узгоджений та орієнтований на мову досвід користувача, а також отримуєте переваги у вигляді покращеного SEO та зручності використання.
+</Step>
+
 </Step>
 
 <Step number={1} title="Витягніть вміст ваших компонентів" isOptional={true}>

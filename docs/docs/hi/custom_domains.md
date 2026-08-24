@@ -138,6 +138,37 @@ getMultilingualUrls("/about", { currentDomain: "intlayer.org" });
 
 ये पूर्ण URL SEO के लिए `<link rel="alternate" hreflang="...">` टैग में उपयोग करने के लिए तैयार हैं।
 
+## Type Inference
+
+`routing.domains` को generated module augmentation में serialize किया जाता है, इसलिए
+`getLocalizedUrl` और `getLocalizedPath` अपने return type को exact
+URL तक narrow करते हैं जिसे एक domain-routed locale resolve करता है — prefix suppression शामिल है।
+
+```ts
+// routing: { mode: 'prefix-no-default', domains: { en: 'intlayer.org', zh: 'intlayer.zh' } }
+
+getLocalizedUrl("/about", "zh");
+//     ^? "https://intlayer.zh/about" | "/about"
+
+getLocalizedPath("/about", "zh");
+//     ^? "/about"   (कभी भी origin नहीं, और कोई /zh/ prefix नहीं)
+```
+
+URL type दोनों values का **union** है जो function return कर सकता है: locale के domain पर
+absolute URL, और relative URL जो तब return होता है जब rendered किया जा रहा page
+पहले से ही उस domain पर रहता है। `getLocalizedPath` के पास ऐसी कोई
+ambiguity नहीं है - यह कभी भी origin emit नहीं करता - इसलिए यह एक single literal रहता है।
+
+Locales जो एक domain share करते हैं अपना normal prefix type में भी keep करते हैं:
+
+```ts
+getLocalizedUrl("/about", "fr");
+//     ^? "https://intlayer.org/fr/about" | "/fr/about"
+```
+
+> `routing.domains` को बदलने के बाद types को regenerate करें (`npx intlayer build`, या कोई dev server run) - narrowing generated
+> `__RoutingRegistry` से आता है, config file से नहीं।
+
 ## प्रॉक्सी व्यवहार (Proxy Behaviour)
 
 ### Next.js
@@ -169,6 +200,8 @@ GET intlayer.zh/about
 ### Vite
 
 `intlayerProxy` Vite प्लगइन विकास के दौरान समान तर्क लागू करता है:
+
+> Intlayer v9 के बाद से, `intlayerProxy()` सीधे `intlayer()` plugin में bundled है और `routing.enableProxy` विकल्प के माध्यम से डिफ़ॉल्ट रूप से सक्षम है (`true` डिफ़ॉल्ट रूप से)। इसे अलग से पंजीकृत करना जैसा कि नीचे दिखाया गया है अब वैकल्पिक है — यह backward compatibility के लिए और उन setups के लिए रखा गया है जिन्हें plugin order को नियंत्रित करने की आवश्यकता है। `routing.enableProxy: false` सेट करके opt out करें। [v9 release notes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/releases/v9.md) देखें।
 
 ```typescript fileName="vite.config.ts"
 import { defineConfig } from "vite";

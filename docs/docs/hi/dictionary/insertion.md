@@ -100,20 +100,6 @@ Intlayer में, सम्मिलन कंटेंट `insertion` फ़�
   </Tab>
 </Tabs>
 
-```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
-{
-  "$schema": "https://intlayer.org/schema.json",
-  "key": "my_key",
-  "content": {
-    "myInsertion": {
-      "nodeType": "insertion",
-      "insertion": "नमस्ते, मेरा नाम {{name}} है और मेरी उम्र {{age}} वर्ष है!",
-    },
-    "myInsertion2": "नमस्ते, मेरा नाम {{name}} है और मेरी उम्र {{age}} वर्ष है!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
-  },
-}
-```
-
 ## React Intlayer के साथ Insertion Content का उपयोग करना
 
 React कंपोनेंट के भीतर insertion content का उपयोग करने के लिए, `react-intlayer` पैकेज से `useIntlayer` हुक को इम्पोर्ट करें और उपयोग करें। यह हुक निर्दिष्ट key के लिए content प्राप्त करता है और आपको एक ऑब्जेक्ट पास करने की अनुमति देता है जो आपके content में प्रत्येक placeholder को उस मान से मैप करता है जिसे आप प्रदर्शित करना चाहते हैं।

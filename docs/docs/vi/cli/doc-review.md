@@ -91,7 +91,15 @@ Lệnh này có thể được sử dụng để đánh giá các tệp đã đ�
 
 - **`--log`**: Chế độ chỉ ghi log. Không dịch bằng AI; thay vào đó, ghi lại các phần cần lưu ý (kèm số dòng và nội dung) cho ngôn ngữ cơ sở và ngôn ngữ đích, nhằm hỗ trợ một agent khác tạo bản dịch.
 
-  > Ví dụ: `npx intlayer doc review --log`
+- **If `apply`**: Translate missing/diverging content and return the complete updated Vietnamese file
+- **If `report`**: Log blocks needing attention with line numbers and content for both locales
+- **If `synthesis`**: Skip per-block output and provide only a final recap of up-to-date vs. documents needing edits
+
+> Ví dụ: `npx intlayer doc review --mode report`
+
+> Ví dụ: `npx intlayer doc review --log`
+
+Bất kể chế độ nào, quá trình chạy kết thúc bằng một tổng hợp liệt kê các tài liệu được căn chỉnh với tài liệu cơ sở của chúng và những tài liệu vẫn còn các khối cần chỉnh sửa.
 
 **Tùy chọn xuất đầu vào:**
 

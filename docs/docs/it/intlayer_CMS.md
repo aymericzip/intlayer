@@ -311,8 +311,6 @@ export const cmsAuthenticator = createIntlayerCMS({
 
 ### Connettere il tuo progetto a un'istanza self-hosted
 
-Punta la tua configurazione Intlayer al tuo backend e dashboard invece di `intlayer.org`:
-
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import type { IntlayerConfig } from "intlayer";
 
@@ -338,20 +336,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-Imposta le variabili d'ambiente corrispondenti nel tuo progetto:
-
-```sh
-INTLAYER_CMS_URL=http://localhost:3000
-INTLAYER_BACKEND_URL=http://localhost:3100
-INTLAYER_CLIENT_ID=<your-client-id>
-INTLAYER_CLIENT_SECRET=<your-client-secret>
-```
-
-Crea le credenziali di accesso nel tuo dashboard self-hosted su `http://localhost:3000/projects`.
-
 ### SDK `@intlayer/api`: puntare a un backend self-hosted
-
-Quando si utilizza l'SDK in modo programmatico, passa `backendURL` esplicitamente a `createIntlayerCMS`:
 
 ```typescript fileName="cms.ts" codeFormat="typescript"
 import { createIntlayerCMS } from "@intlayer/api";
@@ -372,6 +357,32 @@ const { data: dictionaries } = await dictionaryEndpoint(cms).getDictionaries();
 
 Queste funzionalità richiedono account esterni e funzionano correttamente anche quando le loro chiavi sono assenti dal `.env` self-hosted:
 
+```typescript fileName="write-dictionaries.ts" codeFormat="typescript"
+import { createIntlayerCMS } from "@intlayer/api";
+import { dictionaryEndpoint } from "@intlayer/api/dictionary";
+
+const cmsAuthenticator = createIntlayerCMS();
+
+// Creare un nuovo dizionario
+await dictionaryEndpoint(cmsAuthenticator).addDictionary({
+  key: "my-first-dictionary-key",
+  content: { title: "Hello world" },
+});
+
+// Upsert un batch di dizionari (creali o aggiornali in una sola chiamata)
+await dictionaryEndpoint(cmsAuthenticator).pushDictionaries([
+  { key: "home", content: { title: "Home" } },
+  { key: "about", content: { title: "About" } },
+]);
+
+// Aggiornare un dizionario esistente
+await dictionaryEndpoint(cmsAuthenticator).updateDictionary({
+  id: "<dictionary-id>",
+  key: "home",
+  content: { title: "Updated title" },
+});
+```
+
 | Funzionalità                        | Variabile/i d'ambiente                          |
 | ----------------------------------- | ----------------------------------------------- |
 | Traduzione / audit con IA           | `OPENAI_API_KEY`                                |
@@ -383,8 +394,6 @@ Queste funzionalità richiedono account esterni e funzionano correttamente anche
 
 ### Persistenza dei dati e aggiornamenti
 
-Tre volumi Docker contengono tutto lo stato persistente: `mongo-data`, `redis-data` e `minio-data`. Sopravvivono ai riavvii e agli aggiornamenti dei container. Eseguire nuovamente il programma di installazione scarica le immagini più recenti ed esegue un `docker compose up -d` progressivo.
-
 Porte esposte sull'host:
 
 | Porta  | Servizio                                                             |
@@ -394,10 +403,6 @@ Porte esposte sull'host:
 | `8025` | Interfaccia web e-mail Mailpit                                       |
 | `9000` | API S3 MinIO (necessaria per il caricamento degli asset nel browser) |
 | `9001` | Console MinIO                                                        |
-
-Per un riferimento completo di tutte le variabili d'ambiente disponibili e le opzioni avanzate (proxy inverso, domini personalizzati, backup/ripristino), consulta la [Guida al Self-Hosting](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/self_hosting.md).
-
----
 
 ## Live sync
 

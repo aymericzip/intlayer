@@ -133,6 +133,26 @@ Siehe [Application Template](https://github.com/aymericzip/intlayer-vite-svelte-
 Installieren Sie die notwendigen Pakete mit npm:
 
 ```bash packageManager="npm"
+npx intlayer init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer@canary init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer@canary init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer@canary init --interactive
+```
+
+> das Flag `--interactive` ist optional. Verwenden Sie `intlayer-cli init`, wenn Sie ein KI-Agent sind.
+
+> Dieser Befehl erkennt deine Umgebung und installiert die erforderlichen Pakete. Zum Beispiel:
+
+```bash packageManager="npm"
 npm install intlayer svelte-intlayer
 bash packageManager="npm"
 npm install intlayer svelte-intlayer
@@ -445,6 +465,8 @@ Parallel dazu können Sie auch den `intlayerProxy` verwenden, um serverseitiges 
 
 > Hinweis: Um den `intlayerProxy` in der Produktion zu verwenden, müssen Sie das Paket `vite-intlayer` von `devDependencies` zu `dependencies` verschieben.
 
+> Seit Intlayer v9 ist `intlayerProxy()` direkt im `intlayer()` Plugin gebündelt und standardmäßig über die Option `routing.enableProxy` aktiviert (`true` standardmäßig). Die separate Registrierung wie unten gezeigt ist nun optional — sie wird aus Gründen der Abwärtskompatibilität und für Setups beibehalten, die die Plugin-Reihenfolge kontrollieren müssen. Setzen Sie `routing.enableProxy: false`, um sich abzumelden. Siehe die [v9 Release Notes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/releases/v9.md).
+
 ```typescript {3,7} fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
 import { svelte } from "@sveltejs/vite-plugin-svelte";
@@ -726,6 +748,8 @@ Diese Erweiterung bietet:
 - **Schnellaktionen**, um Übersetzungen einfach zu erstellen und zu aktualisieren.
 
 Für weitere Details zur Verwendung der Erweiterung lesen Sie die [Intlayer VS Code Extension Dokumentation](https://intlayer.org/doc/vs-code-extension).
+
+---
 
 ### Weiterführende Schritte
 

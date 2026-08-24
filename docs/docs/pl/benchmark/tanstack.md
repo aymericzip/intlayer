@@ -194,6 +194,8 @@ Idea stojąca za `Wuchale` jest interesująca, ale nie jest to jeszcze opłacaln
 
 `Tolgee` rozwiązuje wiele z wymienionych wcześniej problemów. Uznałem jednak, że trudniej z nim zacząć niż z innymi narzędziami o podobnym podejściu. Nie zapewnia on bezpieczeństwa typów, co sprawia, że bardzo trudno jest wyłapać brakujące klucze w czasie kompilacji. Musiałem opakować API Tolgee we własne API, aby dodać wykrywanie brakujących kluczy.
 
+Package jest dość ciężki (~11.1kb, co jest ponad 2× większe niż `react-intlayer`).
+
 W TanStack Start miałem również problemy z reaktywnością: przy zmianie lokalizacji musiałem wymusić ponowne renderowanie dostawcy i zasubskrybować zdarzenia zmiany lokalizacji, aby ładowanie w innym języku zachowywało się poprawnie.
 
 **(use-intl)** (`use-intl@4.9.1`):
@@ -208,6 +210,8 @@ W TanStack Start unikasz pułapek specyficznych dla Next.js (`setRequestLocale`,
 
 Mimo to ma on te same główne wady co stosy zbudowane na `t('a.b.c')`: optymalizacje są możliwe, ale bardzo czasochłonne, a duże projekty niosą ze sobą ryzyko wpadnięcia w złe praktyki (przestrzenie nazw + ładowanie dynamiczne + typy).
 
+Pakiet jest szczególnie ciężki (~17.3kb, co stanowi około 3.5× `react-intlayer`).
+
 Różnią się również formaty komunikatów: `use-intl` używa ICU MessageFormat, podczas gdy `i18next` używa własnego formatu - co komplikuje narzędzia lub migracje, jeśli się je miesza.
 
 **(Lingui)** (`@lingui/core@5.3.0`):
@@ -217,6 +221,8 @@ Różnią się również formaty komunikatów: `use-intl` używa ICU MessageForm
 **(react-intl)** (`react-intl@10.1.1`):
 
 `react-intl` to wydajna implementacja zespołu Format.js. DX pozostaje rozwlekły: `const intl = useIntl()` + `intl.formatMessage({ id: "xx.xx" })` dodaje złożoność, dodatkową pracę JavaScript i wiąże globalną instancję i18n z wieloma węzłami w drzewie React.
+
+Package jest również ciężki (~14.4kb, co stanowi około 3× `react-intlayer`).
 
 ### 4 - Rekomendacje
 

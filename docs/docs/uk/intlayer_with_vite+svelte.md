@@ -299,6 +299,8 @@ export default appContent;
 > Якщо ваш застосунок уже існує, ви можете скористатися [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compiler.md) у поєднанні з [командой extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/extract.md), щоб перетворити тисячі компонентів за одну секунду.
 ```
 
+> Якщо ваш додаток вже існує, ви можете використовувати [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compiler.md), а також [команду extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/extract.md), щоб трансформувати тисячі компонентів за секунду.
+
 </Step>
 
 <Step number={6} title="Змініть мову вашого вмісту" isOptional={true}>
@@ -456,6 +458,8 @@ $: content = useIntlayer('app', locale);
 Паралельно ви також можете використати `intlayerProxy` для додавання маршрутизації на стороні сервера до вашого застосунку. Цей плагін автоматично визначатиме поточну локаль на основі URL і встановлюватиме відповідний cookie для локалі. Якщо локаль не вказана, плагін обере найвідповіднішу локаль на основі налаштувань мови браузера користувача. Якщо локаль не буде виявлена, плагін виконає перенаправлення на локаль за замовчуванням.
 
 > Зауважте, що для використання `intlayerProxy` в production потрібно перемістити пакет `vite-intlayer` з `devDependencies` до `dependencies`.
+
+> З Intlayer v9, `intlayerProxy()` вбудовано безпосередньо в плагін `intlayer()` та увімкнено за замовчуванням через опцію `routing.enableProxy` (`true` за замовчуванням). Реєстрація її окремо, як показано нижче, тепер є необов'язковою — вона збережена для зворотної сумісності та для налаштувань, яким потрібно контролювати порядок плагінів. Встановіть `routing.enableProxy: false`, щоб відмовитися. Див. [примітки до випуску v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/releases/v9.md).
 
 ```typescript {3,7} fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";

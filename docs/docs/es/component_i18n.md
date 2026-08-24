@@ -174,6 +174,8 @@ Consejo: Para metadatos de página y SEO, también puedes obtener contenido con 
 - Tree-shaking: Solo se incluye el contenido usado por el componente, manteniendo cargas pequeñas en aplicaciones grandes.
 - DX y herramientas: Middleware incorporado, asistentes de SEO y traducciones opcionales mediante Editor Visual/IA agilizan el trabajo diario.
 
+Consulta las comparaciones y patrones en el resumen enfocado en Next.js: https://intlayer.org/blog/next-i18next-vs-next-intl-vs-intlayer
+
 ## Guías y referencias relacionadas
 
 - Configuración React (Vite): https://intlayer.org/doc/environment/vite-and-react
@@ -181,3 +183,5 @@ Consejo: Para metadatos de página y SEO, también puedes obtener contenido con 
 - TanStack Start: https://intlayer.org/doc/environment/tanstack-start
 - Configuración Next.js: https://intlayer.org/doc/environment/nextjs
 - Por qué Intlayer vs. next-intl vs. next-i18next - https://intlayer.org/blog/next-i18next-vs-next-intl-vs-intlayer
+
+Estas páginas incluyen configuración completa, proveedores, enrutamiento y helpers de SEO.

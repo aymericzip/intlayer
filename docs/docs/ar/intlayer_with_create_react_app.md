@@ -31,6 +31,14 @@ author: aymericzip
 
 # ترجم Create React App باستخدام Intlayer | التدويل (i18n)
 
+<iframe
+  src="https://ide.intlayer.org/aymericzip/intlayer-react-cra-template?file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="عرض توضيحي CodeSandbox - كيفية دولية تطبيقك باستخدام Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
 انظر [Application Template](https://github.com/aymericzip/intlayer-react-cra-template) على GitHub.
 
 ## ما هو Intlayer؟
@@ -39,10 +47,53 @@ author: aymericzip
 
 مع Intlayer، يمكنك:
 
+<Accordion header="تغطية React كاملة">
+
+Intlayer مُحسَّن للعمل بشكل مثالي مع React من خلال توفير **نطاق محتوى على مستوى المكون**، و**الترجمات المحملة بطريقة كسولة**، وجميع الميزات المطلوبة لتوسيع التدويل (i18n).
+
+</Accordion>
+
+<Accordion header="حجم الحزمة">
+
+بدلاً من تحميل ملفات JSON ضخمة في صفحاتك، حمّل فقط المحتوى الضروري. يساعدك Intlayer على **تقليل حجم الحزم وأحجام الصفحات بنسبة تصل إلى 50%**.
+
+</Accordion>
+
+<Accordion header="الصيانة">
+
 - **إدارة الترجمات بسهولة** باستخدام قواميس تصريحية على مستوى المكونات.
 - **توطين البيانات الوصفية والمسارات والمحتوى ديناميكيًا**.
 - **ضمان دعم TypeScript** مع الأنواع المولدة تلقائيًا، مما يحسن الإكمال التلقائي واكتشاف الأخطاء.
 - **الاستفادة من الميزات المتقدمة**، مثل اكتشاف اللغة الديناميكي والتبديل.
+
+</Accordion>
+
+<Accordion header="وكيل الذكاء الاصطناعي">
+
+يقلل تجميع المحتوى **السياق المطلوب** من نماذج اللغة الكبيرة (LLMs). يأتي Intlayer أيضًا مع مجموعة من الأدوات، مثل **CLI** للتحقق من الترجمات المفقودة، **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/lsp.md)**، **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/mcp_server.md)**، و**[مهارات الوكيل](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md)**، لجعل تجربة المطور (DX) أكثر سلاسة حتى للوكلاء الذين يعتمدون على الذكاء الاصطناعي.
+
+</Accordion>
+
+<Accordion header="الأتمتة">
+
+استخدم الأتمتة لترجمة في خط أنابيب CI/CD الخاص بك باستخدام نموذج اللغة من اختيارك بتكلفة من موفر AI الخاص بك. يوفر Intlayer أيضًا **مُترجمًا** لأتمتة استخراج المحتوى، بالإضافة إلى [منصة ويب](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md) لمساعدتك في **الترجمة في الخلفية**.
+
+</Accordion>
+
+<Accordion header="الأداء">
+
+قد يؤدي ربط ملفات JSON الضخمة بالمكونات إلى مشاكل في الأداء والاستجابة. يحسّن Intlayer تحميل المحتوى الخاص بك في وقت البناء.
+
+</Accordion>
+
+<Accordion header="التوسع مع non-dev">
+
+أكثر من مجرد حل i18n، يوفر Intlayer **[محرر بصري](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) مستضاف ذاتيًا** و**[نظام CMS كامل](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)** لمساعدتك في إدارة محتواك متعدد اللغات في **الوقت الفعلي**، مما يجعل التعاون مع المترجمين والمحررين وأعضاء الفريق الآخرين سلسًا. يمكن تخزين المحتوى محليًا و/أو عن بعد.
+
+</Accordion>
+</AccordionGroup>
+
+---
 
 ## دليل خطوة بخطوة لإعداد Intlayer في تطبيق React
 
@@ -234,14 +285,6 @@ const App: FC = () => (
 export default App;
 ```
 
-```jsx fileName="src/App.msx" codeFormat="esm"
-const App = () => (
-  <IntlayerProvider>
-    <AppContent />
-  </IntlayerProvider>
-);
-```
-
 > ملاحظة: إذا كنت ترغب في استخدام المحتوى الخاص بك في سمة `string`، مثل `alt`، `title`، `href`، `aria-label`، وما إلى ذلك، يجب عليك استدعاء قيمة الوظيفة، مثل:
 
 > ```html
@@ -251,6 +294,8 @@ const App = () => (
 > ```
 >
 > لمعرفة المزيد عن الخطاف `useIntlayer`، راجع [التوثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/useIntlayer.md).
+
+> لمعرفة المزيد حول hook `useIntlayer`، راجع [التوثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/useIntlayer.md).
 
 </Step>
 
@@ -400,117 +445,6 @@ export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
             element={
               <AppLocalized locale={defaultLocale}>{children}</AppLocalized>
             } // يلتف حول الأطفال مع إدارة اللغة
-          />
-        )
-      }
-    </Routes>
-  </BrowserRouter>
-);
-```
-
-```jsx fileName="src/components/LocaleRouter.csx" codeFormat="commonjs"
-// استيراد التبعيات والوظائف اللازمة
-import { configuration, getPathWithoutLocale } from "intlayer"; // وظائف وأدوات من 'intlayer'
-// وظائف وأدوات من 'intlayer'
-import { IntlayerProvider } from "react-intlayer"; // مزود لسياق التدويل
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Navigate,
-  useLocation,
-} from "react-router-dom"; // مكونات التوجيه لإدارة التنقل
-
-// تفكيك التكوين من Intlayer
-const { internationalization, middleware } = configuration;
-const { locales, defaultLocale } = internationalization;
-
-/**
- * مكون يتعامل مع التوطين ويغلف العناصر الفرعية بسياق اللغة المناسب.
- * يدير الكشف عن اللغة والتحقق منها بناءً على عنوان URL.
- */
-const AppLocalized = ({ children, locale }) => {
-  const { pathname, search } = useLocation(); // الحصول على مسار URL الحالي
-
-  // تحديد اللغة الحالية، مع الرجوع إلى اللغة الافتراضية إذا لم يتم توفيرها
-  const currentLocale = locale ?? defaultLocale;
-
-  // إزالة بادئة اللغة من المسار لإنشاء مسار أساسي
-  const pathWithoutLocale = getPathWithoutLocale(
-    pathname // مسار URL الحالي
-  );
-
-  /**
-   * إذا كانت middleware.prefixDefault صحيحة، يجب دائمًا أن تكون اللغة الافتراضية مسبوقة.
-   */
-  if (middleware.prefixDefault) {
-    // التحقق من صحة اللغة
-    if (!locale || !locales.includes(locale)) {
-      // إعادة التوجيه إلى اللغة الافتراضية مع المسار المحدث
-      return (
-        <Navigate
-          to={`/${defaultLocale}/${pathWithoutLocale}${search}`}
-          replace // استبدال الإدخال الحالي في السجل بالإدخال الجديد
-        />
-      );
-    }
-
-    // تغليف العناصر الفرعية بـ IntlayerProvider وتعيين اللغة الحالية
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  } else {
-    /**
-     * عندما تكون middleware.prefixDefault خاطئة، لا يتم إضافة بادئة للغة الافتراضية.
-     * تأكد من أن اللغة الحالية صالحة وليست اللغة الافتراضية.
-     */
-    if (
-      currentLocale.toString() !== defaultLocale.toString() &&
-      !locales
-        .filter(
-          (locale) => locale.toString() !== defaultLocale.toString() // استبعاد اللغة الافتراضية
-        )
-        .includes(currentLocale) // تحقق إذا كانت اللغة الحالية ضمن قائمة اللغات الصالحة
-    ) {
-      // إعادة التوجيه إلى المسار بدون بادئة اللغة
-      return <Navigate to={`${pathWithoutLocale}${search}`} replace />;
-    }
-
-    // تغليف العناصر الفرعية بـ IntlayerProvider وتعيين اللغة الحالية
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  }
-};
-
-/**
- * مكون موجه يقوم بإعداد مسارات مخصصة للغات.
- * يستخدم React Router لإدارة التنقل وعرض المكونات الموطنة.
- */
-export const LocaleRouter = ({ children }) => (
-  <BrowserRouter>
-    <Routes>
-      {locales
-        .filter(
-          (locale) => middleware.prefixDefault || locale !== defaultLocale
-        )
-        .map((locale) => (
-          <Route
-            // نمط المسار لالتقاط اللغة (مثل /en/، /fr/) ومطابقة جميع المسارات اللاحقة
-            path={`/${locale}/*`}
-            key={locale}
-            element={<AppLocalized locale={locale}>{children}</AppLocalized>} // يغلف العناصر الفرعية بإدارة اللغة
-          />
-        ))}
-
-      {
-        // إذا تم تعطيل إضافة بادئة للغة الافتراضية، قم بعرض العناصر الفرعية مباشرة في المسار الجذر
-        !middleware.prefixDefault && (
-          <Route
-            path="*"
-            element={
-              <AppLocalized locale={defaultLocale}>{children}</AppLocalized>
-            } // يغلف العناصر الفرعية بإدارة اللغة
           />
         )
       }
@@ -724,6 +658,8 @@ export default App;
 ```
 
 ### إضافة VS Code
+
+لتحسين تجربة التطوير الخاصة بك مع Intlayer، يمكنك تثبيت **Intlayer VS Code Extension** الرسمي.
 
 لتحسين تجربة التطوير الخاصة بك مع Intlayer، يمكنك تثبيت **امتداد Intlayer الرسمي لـ VS Code**.
 [التثبيت من سوق VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)

@@ -57,8 +57,6 @@ getLocaleLang(Locales.FRENCH); // 输出: "fr"
 
 ## 边界情况
 
-- **未提供区域设置：**
-
 - 当 `locale` 为 `undefined` 时，函数返回空字符串。
 
 - **格式错误的区域设置字符串：**

@@ -33,6 +33,14 @@ author: aymericzip
 
 Consulta [Application Template](https://github.com/aymericzip/intlayer-lynx-template) su GitHub.
 
+<iframe
+  src="https://ide.intlayer.org/aymericzip/intlayer-lynx-template?file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - Come internazionalizzare la tua applicazione usando Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
 ## Perché Intlayer rispetto alle alternative?
 
 Rispetto alle soluzioni principali come `react-native-localize` o `i18next`, Intlayer è una soluzione dotata di ottimizzazioni integrate come:
@@ -465,15 +473,6 @@ Questo abilita funzionalità come:
 
 ---
 
-Per evitare di commettere file generati automaticamente da Intlayer, aggiungi quanto segue al tuo `.gitignore`:
-
-```bash
-#  Ignora i file generati da Intlayer
-.intlayer
-```
-
----
-
 ## Configurazione Git
 
 Per evitare di committare file auto-generati da Intlayer, aggiungi quanto segue al tuo `.gitignore`:
@@ -492,6 +491,11 @@ Per migliorare la tua esperienza di sviluppo con Intlayer, puoi installare la **
 [Installa dal Marketplace di VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
 Questa estensione offre:
+
+- **Autocompletion** per le chiavi di traduzione.
+- **Rilevamento errori in tempo reale** per le traduzioni mancanti.
+- **Anteprime inline** del contenuto tradotto.
+- **Azioni rapide** per creare e aggiornare facilmente le traduzioni.
 
 - **Autocompletamento** per le chiavi di traduzione.
 - **Rilevamento errori in tempo reale** per traduzioni mancanti.

@@ -40,6 +40,12 @@ author: aymericzip
 
 ## Tại sao nên sử dụng Trình Biên Dịch Intlayer?
 
+- **Automation**: Loại bỏ việc sao chép nội dung thủ công vào các từ điển.
+
+- **Speed**: Trích xuất nội dung được tối ưu hóa đảm bảo quy trình build của bạn vẫn nhanh chóng.
+
+- **Developer Experience**: Giữ các khai báo nội dung ngay tại nơi chúng được sử dụng, cải thiện khả năng bảo trì.
+
 - **Tự động hóa**: Loại bỏ việc sao chép thủ công nội dung vào từ điển.
 - **Tốc độ**: Tối ưu hóa việc trích xuất nội dung đảm bảo quá trình build của bạn vẫn nhanh.
 - **Trải nghiệm nhà phát triển**: Giữ các khai báo nội dung ngay tại nơi chúng được sử dụng, cải thiện khả năng bảo trì.
@@ -53,6 +59,8 @@ Mặc dù trình biên dịch mang lại trải nghiệm "hoạt động ngay" t
 
 - **Sự mơ hồ của heuristic**: Trình biên dịch phải đoán xem đâu là nội dung hướng đến người dùng so với logic ứng dụng (ví dụ: `className="active"`, mã trạng thái, ID sản phẩm). Trong các codebase phức tạp, điều này có thể dẫn đến dương tính giả hoặc các chuỗi bị bỏ sót cần chú thích thủ công và ngoại lệ.
 - **Chỉ trích xuất tĩnh**: Trích xuất dựa trên trình biên dịch dựa vào phân tích tĩnh. Các chuỗi chỉ tồn tại ở thời gian chạy (mã lỗi API, trường CMS, v.v.) không thể được phát hiện hoặc dịch bởi trình biên dịch một mình, vì vậy bạn vẫn cần một chiến lược i18n thời gian chạy bổ sung.
+
+- **Trích xuất chỉ tĩnh**: Trích xuất dựa trên trình biên dịch dựa vào phân tích tĩnh. Các chuỗi chỉ tồn tại trong thời gian chạy (mã lỗi API, các trường CMS, v.v.) không thể được phát hiện hoặc dịch bởi trình biên dịch một mình, vì vậy bạn vẫn cần một chiến lược i18n runtime bổ sung.
 
 Để có so sánh kiến trúc sâu hơn, xem bài viết blog [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/compiler_vs_declarative_i18n.md).
 
@@ -94,11 +102,17 @@ export default defineConfig({
 });
 ```
 
+> Plugin `intlayerCompiler()` độc lập vẫn được export cho các setup nâng cao. Đăng ký nó cùng với `intlayer()` là an toàn — compiler tự động loại bỏ các bản sao và chỉ chạy một lần.
+
 See complete tutorial: [Intlayer Compiler with Vite+React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react_compiler.md)
 
 #### Hỗ trợ Framework
 
 Plugin Vite tự động phát hiện và xử lý các loại file khác nhau:
+
+- **React / JSX / TSX**: Được xử lý một cách native.
+
+- **Vue**: Yêu cầu `@intlayer/vue-compiler`.
 
 - **React / JSX / TSX**: Xử lý một cách tự nhiên.
 - **Vue**: Yêu cầu `@intlayer/vue-compiler`.

@@ -34,6 +34,14 @@ author: aymericzip
 
 `getLocalizedUrl` 함수는 지정된 로케일을 URL 앞에 붙여서 지역화된 URL을 생성합니다. 절대 URL과 상대 URL 모두를 처리하며, 구성에 따라 올바른 로케일 접두사가 적용되도록 보장합니다.
 
+**주요 기능:**
+
+- 필수 매개변수는 `url`과 `currentLocale` 두 가지입니다
+- `locales`, `defaultLocale`, `mode`를 포함하는 선택적 `options` 객체
+- 프로젝트의 국제화 설정을 기본값으로 사용합니다
+- 간단한 경우에는 최소 매개변수로 사용하거나 복잡한 시나리오를 위해 완전히 사용자 정의할 수 있습니다
+- 여러 라우팅 모드를 지원합니다: `prefix-no-default`, `prefix-all`, `no-prefix`, `search-params`
+
 ---
 
 ## 함수 서명
@@ -138,36 +146,6 @@ getLocalizedUrl(
 // 출력: 기본(영어) 로케일의 경우 "/about"
 ```
 
-```javascript codeFormat="esm"
-import { getLocalizedUrl, Locales } from "intlayer";
-
-getLocalizedUrl(
-  "/about",
-  Locales.FRENCH,
-  [Locales.ENGLISH, Locales.FRENCH],
-  Locales.ENGLISH,
-  false
-);
-
-// 출력: 프랑스어 로케일의 경우 "/fr/about"
-// 출력: 기본(영어) 로케일의 경우 "/about"
-```
-
-```javascript codeFormat="commonjs"
-const { getLocalizedUrl, Locales } = require("intlayer");
-
-getLocalizedUrl(
-  "/about",
-  Locales.FRENCH,
-  [Locales.ENGLISH, Locales.FRENCH],
-  Locales.ENGLISH,
-  false
-);
-
-// 출력: 프랑스어 로케일의 경우 "/fr/about"
-// 출력: 기본(영어) 로케일의 경우 "/about"
-```
-
 ### 부분 Configuration Override
 
 선택적 매개변수 중 일부만 제공할 수도 있습니다. 함수는 지정하지 않은 매개변수에 대해 프로젝트 configuration을 사용합니다:
@@ -243,6 +221,12 @@ getLocalizedUrl(
 
 - **지원되지 않는 로케일:**
   - `locales` 목록에 없는 로케일에 대해서는 함수가 접두사를 적용하지 않습니다.
+
+- **라우팅 모드:**
+  - `'prefix-no-default'`: 기본 locale은 prefix가 없고, 다른 locale은 prefix가 있음 (예: `/about`, `/fr/about`)
+  - `'prefix-all'`: 모든 locale이 prefix를 가짐 (예: `/en/about`, `/fr/about`)
+  - `'no-prefix'`: URL에 locale prefix가 없음 (locale은 다른 곳에서 처리됨)
+  - `'search-params'`: Query parameter를 통해 locale이 지정됨 (예: `/about?locale=fr`)
 
 ---
 

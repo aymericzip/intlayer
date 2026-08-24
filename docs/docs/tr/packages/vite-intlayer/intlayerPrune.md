@@ -28,6 +28,8 @@ author: aymericzip
 
 `intlayerPrune` Vite eklentisi, uygulama paketinizden kullanılmayan sözlükleri tree-shake edip budamak için kullanılır. Bu, yalnızca gerekli çokdilli içeriği dahil ederek son bundle boyutunu azaltmaya yardımcı olur.
 
+> Plugin, [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/vite-intlayer/intlayer.md) kullanırken otomatik olarak dahil edilir ve yapılandırılır. Plugin stack'ini kendiniz oluşturuyorsanız, bunu yalnızca manuel olarak kaydetmeniz gerekir.
+
 ## Kullanım
 
 ### `intlayer()` kapsamında (önerilen)

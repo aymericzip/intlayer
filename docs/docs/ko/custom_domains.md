@@ -138,6 +138,38 @@ getMultilingualUrls("/about", { currentDomain: "intlayer.org" });
 
 이러한 절대 URL은 SEO를 위한 `<link rel="alternate" hreflang="...">` 태그에서 바로 사용할 수 있습니다.
 
+## 타입 추론
+
+`routing.domains`은 생성된 모듈 확장(module augmentation)으로 직렬화되므로,
+`getLocalizedUrl`과 `getLocalizedPath`는 도메인 라우팅된 로캘이 해석하는 정확한
+URL로 반환 타입을 좁혀줍니다 — 접두사 억제(prefix suppression)를 포함하여.
+
+```ts
+// routing: { mode: 'prefix-no-default', domains: { en: 'intlayer.org', zh: 'intlayer.zh' } }
+
+getLocalizedUrl("/about", "zh");
+//     ^? "https://intlayer.zh/about" | "/about"
+
+getLocalizedPath("/about", "zh");
+//     ^? "/about"   (origin이 없고, /zh/ 접두사도 없음)
+```
+
+URL 타입은 함수가 반환할 수 있는 두 값의 **합집합**입니다: 로캘의 도메인에서의
+절대 URL과 렌더링되는 페이지가 이미 해당 도메인에 있을 때 반환하는 상대 URL입니다.
+`getLocalizedPath`는 이러한 모호함이 없습니다 — origin을 내보내지 않으므로 —
+단일 리터럴로 유지됩니다.
+
+도메인을 공유하는 로캘은 타입에서도 일반적인 접두사를 유지합니다:
+
+```ts
+getLocalizedUrl("/about", "fr");
+//     ^? "https://intlayer.org/fr/about" | "/fr/about"
+```
+
+> `routing.domains`을 변경한 후 타입을 재생성하세요 (`npx intlayer build` 또는
+> 모든 dev server 실행) — 좁혀지는 타입은 설정 파일 자체가 아니라 생성된
+> `__RoutingRegistry`에서 나옵니다.
+
 ## 프록시 동작
 
 ### Next.js
@@ -169,6 +201,8 @@ GET intlayer.zh/about
 ### Vite
 
 `intlayerProxy` Vite 플러그인은 개발 중에 동일한 로직을 적용합니다.
+
+> Intlayer v9부터 `intlayerProxy()`는 `intlayer()` 플러그인에 직접 번들로 포함되어 있으며 `routing.enableProxy` 옵션(`true`이 기본값)을 통해 기본적으로 활성화됩니다. 아래와 같이 별도로 등록하는 것은 이제 선택 사항이며, 이전 버전과의 호환성과 플러그인 순서를 제어해야 하는 설정을 위해 유지됩니다. `routing.enableProxy: false`로 설정하여 옵트아웃할 수 있습니다. [v9 릴리즈 노트](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/releases/v9.md)를 참조하세요.
 
 ```typescript fileName="vite.config.ts"
 import { defineConfig } from "vite";

@@ -59,7 +59,5 @@ getLocaleLang(Locales.FRENCH); // 출력: "fr"
 
 - **로케일이 제공되지 않은 경우:**
 
-- `locale`가 `undefined`일 때 함수는 빈 문자열을 반환합니다.
-
 - **잘못된 형식의 로케일 문자열:**
   - `locale`이 `language-country` 형식을 따르지 않는 경우(예: `Locales.ENGLISH-US`), 함수는 `'-'` 이전 부분을 안전하게 반환하거나 `'-'`가 없으면 전체 문자열을 반환합니다.

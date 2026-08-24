@@ -70,6 +70,11 @@ getLocalizedUrl(
 
 ### Parametry opcjonalne
 
+- `options?: object`
+  - **Description**: Obiekt konfiguracyjny dla zachowania lokalizacji URL.
+  - **Type**: `object`
+  - **Required**: No (Optional)
+
 - `locales?: Locales[]`
   - **Opis**: Tablica obsługiwanych języków. Jeśli nie zostanie podana, używane są języki skonfigurowane w Twoim projekcie.
   - **Typ**: `Locales[]`
@@ -118,8 +123,6 @@ Możesz zastąpić konfigurację domyślną, podając opcjonalny parametr `optio
 
 ### Podstawowe użycie (Tylko wymagane parametry)
 
-Gdy skonfigurujesz swój projekt z ustawieniami internacjonalizacji, możesz użyć funkcji tylko z wymaganymi parametrami:
-
 ```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getLocalizedUrl, Locales } from "intlayer";
 
@@ -129,29 +132,6 @@ getLocalizedUrl("/about", Locales.FRENCH);
 
 getLocalizedUrl("/about", Locales.ENGLISH);
 // Wynik: "/about" lub "/en/about" (w zależności od ustawienia prefixDefault)
-```
-
-```javascript codeFormat="esm"
-import { getLocalizedUrl, Locales } from "intlayer";
-
-// Jawne podanie wszystkich opcjonalnych parametrów
-getLocalizedUrl(
-  "/about",
-  Locales.FRENCH,
-javascript codeFormat="commonjs"
-const { getLocalizedUrl, Locales } = require("intlayer");
-
-// Jawne podanie wszystkich opcjonalnych parametrów
-getLocalizedUrl(
-  "/about",
-  Locales.FRENCH,
-  [Locales.ENGLISH, Locales.FRENCH], // locales
-  Locales.ENGLISH, // defaultLocale
-  false // prefixDefault
-);
-
-// Wynik: "/fr/about" dla lokalizacji francuskiej
-// Wynik: "/about" dla domyślnej lokalizacji (angielskiej)
 ```
 
 ### Częściowe nadpisanie konfiguracji
@@ -229,6 +209,12 @@ getLocalizedUrl(
 
 - **Nieobsługiwane lokalizacje:**
   - Dla lokalizacji nie wymienionych w `locales`, funkcja nie stosuje żadnego prefiksu.
+
+- **Tryby routingu:**
+  - `'prefix-no-default'`: Domyślna locale bez prefiksu, pozostałe z prefiksem (np. `/about`, `/fr/about`)
+  - `'prefix-all'`: Wszystkie locale z prefiksami (np. `/en/about`, `/fr/about`)
+  - `'no-prefix'`: Brak prefiksów locale w URL-ach (locale obsługiwana w innym miejscu)
+  - `'search-params'`: Locale określona przez parametr zapytania (np. `/about?locale=fr`)
 
 ---
 

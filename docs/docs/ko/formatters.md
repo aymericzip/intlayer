@@ -52,41 +52,11 @@ Intlayer는 네이티브 `Intl` API 위에 구축된 경량 헬퍼 세트와 무
 
 포매터 생성은 상대적으로 비용이 많이 들기 때문에, 이 캐싱은 동작을 변경하지 않으면서 성능을 향상시킵니다. 이 래퍼는 네이티브 `Intl`과 동일한 API를 제공하므로 사용법도 동일합니다.
 
-- 캐싱은 프로세스별로 이루어지며 호출자에게 투명합니다.
-
 > 환경에 `Intl.DisplayNames`가 없으면, 개발자 전용 경고가 한 번 출력됩니다(폴리필 사용을 고려하세요).
-
-예시:
-
-```ts
-import { Intl } from "intlayer";
-
-// 숫자 포맷팅
-const numberFormat = new Intl.NumberFormat("en-GB", {
-  style: "currency",
-  currency: "GBP",
-});
-numberFormat.format(1234.5); // "£1,234.50"
-
-// 언어, 지역 등의 표시 이름
-const displayNames = new Intl.DisplayNames("fr", { type: "language" });
-displayNames.of("en"); // "anglais"
-
-// 정렬을 위한 콜레이션
-const collator = new Intl.Collator("fr", { sensitivity: "base" });
-collator.compare("é", "e"); // 0 (동일)
-
-// 복수형 규칙
-const pluralRules = new Intl.PluralRules("fr");
-pluralRules.select(1); // "one"
-pluralRules.select(2); // "other"
-```
 
 ## 로케일 유틸리티
 
 ### `getLocaleLang(locale?)`
-
-로케일 문자열에서 언어 코드를 추출합니다:
 
 ```ts
 import { getLocaleLang } from "intlayer";
@@ -96,27 +66,14 @@ getLocaleLang("fr-CA"); // "fr"
 getLocaleLang("de"); // "de"
 ```
 
-- **locale**: 언어를 추출할 로케일 (기본값은 현재 로케일)
-
 ### `getLocaleFromPath(inputUrl)`
 
 URL 또는 경로명에서 로케일 부분을 추출합니다:
-
-```ts
-import { getLocaleFromPath } from "intlayer";
-
-getLocaleFromPath("/en/dashboard"); // "en"
-getLocaleFromPath("/fr/dashboard"); // "fr"
-getLocaleFromPath("/dashboard"); // "en" (기본 로케일)
-getLocaleFromPath("https://example.com/es/about"); // "es"
-```
 
 - **inputUrl**: 처리할 전체 URL 문자열 또는 경로명
 - **returns**: 감지된 로케일 또는 로케일이 없을 경우 기본 로케일
 
 ### `getLocalizedUrl(url, currentLocale, locales?, defaultLocale?, prefixDefault?)`
-
-현재 로케일에 맞는 로컬라이즈된 URL을 생성합니다:
 
 ```ts
 import { getLocalizedUrl } from "intlayer";
@@ -125,12 +82,6 @@ getLocalizedUrl("/about", "fr", ["en", "fr"], "en", false); // "/fr/about"
 getLocalizedUrl("/about", "en", ["en", "fr"], "en", false); // "/about"
 getLocalizedUrl("https://example.com/about", "fr", ["en", "fr"], "en", true); // "https://example.com/fr/about"
 ```
-
-- **url**: 로컬라이즈할 원본 URL
-- **currentLocale**: 현재 로케일
-- **locales**: 선택적 지원 로케일 배열 (기본값은 구성된 로케일)
-- **defaultLocale**: 선택적 기본 로케일 (구성된 기본 로케일을 기본값으로 사용)
-- **prefixDefault**: 기본 로케일에 접두사를 붙일지 여부 (구성된 값을 기본값으로 사용)
 
 ### `getHTMLTextDir(locale?)`
 
@@ -144,14 +95,9 @@ getHTMLTextDir("ar"); // "rtl"
 getHTMLTextDir("he"); // "rtl"
 ```
 
-- **locale**: 텍스트 방향을 가져올 로케일 (기본값은 현재 로케일)
-- **returns**: `"ltr"`, `"rtl"`, 또는 `"auto"`
-
 ## 콘텐츠 처리 유틸리티
 
 ### `getContent(node, nodeProps, locale?)`
-
-모든 사용 가능한 플러그인(번역, 열거, 삽입 등)을 사용하여 콘텐츠 노드를 변환합니다:
 
 ```ts
 import { getContent } from "intlayer";
@@ -163,27 +109,9 @@ const content = getContent(
 );
 ```
 
-- **node**: 변환할 콘텐츠 노드
-- **nodeProps**: 변환 컨텍스트를 위한 속성
-- **locale**: 선택적 로케일 (기본값은 구성된 기본 로케일)
-
 ### `getTranslation(languageContent, locale?, fallback?)`
 
 언어 콘텐츠 객체에서 특정 로케일의 콘텐츠를 추출합니다:
-
-```ts
-import { getTranslation } from "intlayer";
-
-const content = getTranslation(
-  {
-    en: "Hello",
-    fr: "Bonjour",
-    de: "Hallo",
-  },
-  "fr",
-  true
-); // "Bonjour"
-```
 
 - **languageContent**: 로케일을 콘텐츠에 매핑한 객체
 - **locale**: 대상 로케일 (기본값은 설정된 기본 로케일)
@@ -191,18 +119,12 @@ const content = getTranslation(
 
 ### `getIntlayer(dictionaryKey, locale?, plugins?)`
 
-키로 사전에서 콘텐츠를 가져오고 변환합니다:
-
 ```ts
 import { getIntlayer } from "intlayer";
 
 const content = getIntlayer("common", "fr");
 const nestedContent = getIntlayer("common", "fr", customPlugins);
 ```
-
-- **dictionaryKey**: 가져올 사전의 키
-- **locale**: 선택적 로케일 (기본 설정된 기본 로케일 사용)
-- **plugins**: 선택적 사용자 정의 변환 플러그인 배열
 
 ### `getIntlayerAsync(dictionaryKey, locale?, plugins?)`
 
@@ -214,24 +136,11 @@ import { getIntlayerAsync } from "intlayer";
 const content = await getIntlayerAsync("common", "fr");
 ```
 
-- **dictionaryKey**: 가져올 사전의 키
-- **locale**: 선택적 로케일 (기본 설정된 기본 로케일 사용)
-- **plugins**: 선택적 사용자 정의 변환 플러그인 배열
-
 ## 포매터(Formatters)
 
 아래의 모든 헬퍼는 `intlayer`에서 내보내집니다.
 
 ### `percentage(value, options?)`
-
-숫자를 백분율 문자열로 포맷합니다.
-
-동작: 1보다 큰 값은 전체 백분율로 해석되어 정규화됩니다 (예: `25` → `25%`, `0.25` → `25%`).
-
-- **value**: `number | string`
-- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
-
-예시:
 
 ```ts
 import { percentage } from "intlayer";
@@ -428,13 +337,6 @@ pluralRules.select(11); // "many"
 
 ### `units(value, options?)`
 
-`Intl.NumberFormat`의 `style: 'unit'`을 사용하여 숫자 값을 현지화된 단위 문자열로 포맷합니다.
-
-- **value**: `number | string`
-- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
-  - 공통 필드: `unit` (예: `"kilometer"`, `"byte"`), `unitDisplay` (`"short" | "narrow" | "long"`)
-  - 기본값: `unit: 'day'`, `unitDisplay: 'short'`, `useGrouping: false`
-
 예제:
 
 ```ts
@@ -457,11 +359,6 @@ getLocaleLang("fr-CA"); // "fr"
 
 ### `compact(value, options?)`
 
-숫자를 축약 표기법(예: `1.2K`, `1M`)으로 포맷합니다.
-
-- **value**: `number | string`
-- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }` (`notation: 'compact'`를 내부적으로 사용)
-
 예제:
 
 ```ts
@@ -483,13 +380,6 @@ getPathWithoutLocale("/fr/dashboard"); // "/dashboard"
 ```
 
 ### `list(values, options?)`
-
-`Intl.ListFormat`을 사용하여 값 배열을 현지화된 목록 문자열로 포맷합니다.
-
-- **values**: `(string | number)[]`
-- **options**: `Intl.ListFormatOptions & { locale?: LocalesValues }`
-  - 공통 필드: `type` (`"conjunction" | "disjunction" | "unit"`), `style` (`"long" | "short" | "narrow"`)
-  - 기본값: `type: 'conjunction'`, `style: 'long'`
 
 예시:
 
@@ -519,56 +409,6 @@ getHTMLTextDir("he"); // "rtl"
 
 클라이언트 컴포넌트:
 
-```tsx
-import {
-  useNumber,
-  useCurrency,
-  useDate,
-  usePercentage,
-  useCompact,
-  useList,
-  useRelativeTime,
-  useUnit,
-} from "react-intlayer/format";
-// 또는 Next.js 앱에서
-import {
-  useNumber,
-  useCurrency,
-  useDate,
-  usePercentage,
-  useCompact,
-  useList,
-  useRelativeTime,
-  useUnit,
-} from "next-intlayer/client/format";
-
-const MyComponent = () => {
-  const number = useNumber();
-  const currency = useCurrency();
-  const date = useDate();
-  const percentage = usePercentage();
-  const compact = useCompact();
-  const list = useList();
-  const relativeTime = useRelativeTime();
-  const unit = useUnit();
-
-  return (
-    <div>
-      <p>{number(123456.789)}</p>
-      <p>{currency(1234.5, { currency: "EUR" })}</p>
-      <p>{date(new Date(), "short")}</p>
-      <p>{percentage(0.25)}</p>
-      <p>{compact(1200)}</p>
-      <p>{list(["apple", "banana", "orange"])}</p>
-      <p>{relativeTime(new Date(), new Date() + 1000)}</p>
-      <p>{unit(123456.789, { unit: "kilometer" })}</p>
-    </div>
-  );
-};
-```
-
-서버 컴포넌트(또는 React 서버 런타임):
-
 ```ts
 import {
   useNumber,
@@ -592,8 +432,6 @@ import {
   useUnit,
 } from "next-intlayer/server/format";
 ```
-
-> 이 훅들은 `IntlayerProvider` 또는 `IntlayerServerProvider`에서 설정된 로케일을 고려합니다.
 
 ### `getTranslation(languageContent, locale?, fallback?)`
 
@@ -626,28 +464,6 @@ import {
 } from "vue-intlayer/format";
 ```
 
-> 이 컴포저블들은 주입된 `IntlayerProvider`에서 로케일을 고려합니다.
-
 ## 문서 변경 이력
-
-| 버전  | 날짜       | 변경 사항        |
-| ----- | ---------- | ---------------- |
-| 5.8.0 | 2025-08-20 | vue 포매터 추가  |
-| 5.8.0 | 2025-08-18 | 포매터 문서 추가 |
-
-클라이언트 컴포넌트:
-
-```ts
-import {
-  useNumber,
-  useCurrency,
-  useDate,
-  usePercentage,
-  useCompact,
-  useList,
-  useRelativeTime,
-  useUnit,
-} from "vue-intlayer/format";
-```
 
 > 이 컴포저블들은 주입된 `IntlayerProvider`에서 로케일을 고려합니다.

@@ -42,17 +42,25 @@ author: aymericzip
 
 بالمقارنة مع الحلول الرئيسية مثل `react-i18next` أو `i18next`، يعد Intlayer حلاً يأتي مزودًا بتحسينات متكاملة مثل:
 
+<AccordionGroup>
+
 ** تغطية كاملة لـ TanStack Start **
 
 تم تحسين Intlayer للعمل بشكل مثالي مع TanStack Start وSolid من خلال تقديم **توجيه متعدد اللغات**، و**sitemap**، وجميع الميزات اللازمة لتوسيع نطاق التدويل (i18n).
 
 **حجم البندل**
 
+<Accordion header="حجم الحزمة">
+
 بدلاً من تحميل ملفات JSON ضخمة إلى صفحاتك، قم بتحميل المحتوى الضروري فقط. يساعد Intlayer **في تقليل أحجام البندل وصفحاتك بنسبة تصل إلى 50%**.
 
 ** الصيانة **
 
+<Accordion header="قابلية الصيانة">
+
 يؤدي تحديد نطاق محتوى تطبيقك ** إلى تسهيل الصيانة ** للتطبيقات واسعة النطاق. يمكنك تكرار أو حذف مجلد ميزات واحد دون العبء العقلي لمراجعة قاعدة بيانات المحتوى بالكامل. بالإضافة إلى ذلك، تتم كتابة Intlayer **بالكامل** لضمان دقة المحتوى الخاص بك.
+
+</Accordion>
 
 ** وكيل الذكاء الاصطناعي **
 
@@ -60,15 +68,24 @@ author: aymericzip
 
 **الأتمتة**
 
+<Accordion header="أتمتة">
+
 استخدم الأتمتة للترجمة في مسار CI/CD الخاص بك باستخدام LLM من اختيارك على حساب مزود الذكاء الاصطناعي الخاص بك. يقدم Intlayer أيضًا **مترجمًا** لأتمتة استخراج المحتوى، بالإضافة إلى [منصة ويب](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) للمساعدة في **الترجمة في الخلفية**.
+
+</Accordion>
 
 **أداء**
 
 يمكن أن يؤدي ربط ملفات JSON الضخمة بالمكونات إلى حدوث مشكلات في الأداء والتفاعل. يعمل Intlayer على تحسين تحميل المحتوى الخاص بك في وقت الإنشاء.
 
+</Accordion>
+
 **التحجيم مع عدم وجود مطور**
 
 أكثر من مجرد حل i18n، يوفر Intlayer **[محررًا مرئيًا] مستضافًا ذاتيًا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** و**[كامل CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** لمساعدتك في إدارة المحتوى متعدد اللغات في **الوقت الفعلي**، مما يجعل التعاون مع المترجمين ومؤلفي النصوص وأعضاء الفريق الآخرين سلسًا. يمكن تخزين المحتوى محليًا و/أو عن بعد.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
@@ -469,8 +486,6 @@ function RouteComponent() {
 }
 ```
 
-> إذا كنت ترغب في استخدام المحتوى الخاص بك في خاصية من نوع `string`، مثل `alt`، `title`، `href`، `aria-label`، إلخ، يجب عليك استدعاء قيمة الدالة، مثل:
-
 > ```html
 > <img src="{content.image.src.value}" alt="{content.image.value}" />
 > <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
@@ -556,6 +571,8 @@ const RootComponent: ParentComponent = (props) => {
 
 > لاحظ أنه لاستخدام `intlayerProxy` في الإنتاج، تحتاج إلى نقل حزمة `vite-intlayer` من `devDependencies` إلى `dependencies`.
 
+> منذ Intlayer v9، يتم دمج `intlayerProxy()` مباشرة في المكون الإضافي `intlayer()` ويتم تفعيله بشكل افتراضي من خلال خيار `routing.enableProxy` (`true` بشكل افتراضي). تسجيل منفصل كما هو موضح أدناه اختياري الآن — يتم الاحتفاظ به للتوافق مع الإصدارات السابقة والإعدادات التي تحتاج إلى التحكم في ترتيب المكون الإضافي. اضبط `routing.enableProxy: false` للتحديث. انظر إلى [ملاحظات الإصدار v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/releases/v9.md).
+
 ```typescript fileName="vite.config.ts"
 import { tanstackStart } from "@tanstack/solid-start/plugin/vite";
 import solid from "vite-plugin-solid";
@@ -589,6 +606,8 @@ export default defineConfig({
 <Step number={13} title="تدويل العناوين (metadata) الخاصة بك">
 
 يمكنك أيضًا استخدام وظيفة `getIntlayer` للوصول إلى قواميس المحتوى الخاصة بك داخل محمل `head` للعناوين المدركة للغة:
+
+يتصرف مثل `getIntlayer`، لكن مكون البناء يوجهه إلى جزء القاموس الخاص بكل لغة بدلاً من القاموس المدمج الذي يحتوي على كل اللغات — لذا فإن البيانات الوصفية للصفحة تشحن فقط بلغة العرض. لأنه يحمل هذا الجزء عند الحاجة، يصبح `head` غير متزامن `async`:
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/solid-router";
@@ -862,6 +881,81 @@ bun run build # أو bun run dev
 
  </Tab>
 </Tabs>
+
+---
+
+</Step>
+
+<Step number={16} title="قبل العرض وإنشاء خريطة الموقع">
+
+يأتي Intlayer مع مولد خريطة الموقع المدمج لمساعدتك في إنشاء خريطة موقع لتطبيقك بسهولة. يتعامل مع المسارات المحلية ويضيف البيانات الوصفية الضرورية لمحركات البحث.
+
+> يدعم Sitemap الذي ينشئه Intlayer مساحة الاسم `xhtml:link` (Hreflang XML Extensions). بخلاف مولدات Sitemap الافتراضية التي تسرد فقط عناوين URL الخام، ينشئ Intlayer تلقائياً الروابط ثنائية الاتجاه المطلوبة بين جميع إصدارات الصفحة بلغات مختلفة (على سبيل المثال، `/about` و `/about?lang=fr` و `/about?lang=es`). هذا يضمن أن محركات البحث تفهرس بشكل صحيح وتقدم نسخة اللغة الصحيحة للجمهور المناسب.
+
+لاستخدامه، تحتاج أولاً إلى تكوين `vite.config.ts` لتفعيل pre-rendering لمساراتك المترجمة وتعطيل إنشاء sitemap الافتراضي لـ TanStack Start.
+
+```typescript fileName="vite.config.ts"
+import { localeMap, localeFlatMap } from "intlayer";
+// ... استيرادات أخرى
+
+export const pathList = ["", "/about", "/404"];
+
+const localizedPages = localeFlatMap(({ urlPrefix }) =>
+  pathList.map((path) => ({
+    path: `${urlPrefix}${path}`,
+    prerender: {
+      enabled: true,
+    },
+  }))
+);
+
+export default defineConfig({
+  plugins: [
+    // ... ملحقات أخرى
+    tanstackStart({
+      // ... إعدادات أخرى
+      sitemap: {
+        enabled: false,
+      },
+      prerender: {
+        enabled: true,
+        crawlLinks: false,
+        concurrency: 10,
+      },
+      pages: localizedPages,
+    }),
+  ],
+});
+```
+
+ثم، قم بإنشاء مسار `src/routes/sitemap[.]xml.ts` يستخدم دالة `generateSitemap`:
+
+```typescript fileName="src/routes/sitemap[.]xml.ts"
+import { createFileRoute } from "@tanstack/solid-router";
+import { generateSitemap } from "intlayer";
+
+const SITE_URL = "http://localhost:3000";
+
+export const Route = createFileRoute("/sitemap.xml")({
+  server: {
+    handlers: {
+      GET: async () => {
+        const sitemap = generateSitemap(
+          [
+            { path: "/", changefreq: "daily", priority: 1.0 },
+            { path: "/about", changefreq: "monthly", priority: 0.8 },
+          ],
+          { siteUrl: SITE_URL }
+        );
+
+        return new Response(sitemap, {
+          headers: { "Content-Type": "application/xml" },
+        });
+      },
+    },
+  },
+});
+```
 
 ---
 

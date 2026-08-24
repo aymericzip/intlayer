@@ -70,6 +70,11 @@ getLocalizedUrl(
 
 ### Tham số tùy chọn
 
+- `options?: object`
+  - **Description**: Đối tượng cấu hình cho hành vi localization của URL.
+  - **Type**: `object`
+  - **Required**: No (Optional)
+
 - `locales?: Locales[]`
   - **Mô tả**: Mảng các locale được hỗ trợ. Nếu không cung cấp, sẽ sử dụng các locale đã cấu hình trong cấu hình dự án của bạn.
   - **Kiểu**: `Locales[]`
@@ -110,38 +115,6 @@ getLocalizedUrl("/about", Locales.FRENCH);
 
 getLocalizedUrl("/about", Locales.ENGLISH);
 // Kết quả: "/about" hoặc "/en/about" (tùy thuộc vào thiết lập prefixDefault của bạn)
-```
-
-```javascript codeFormat="esm"
-import { getLocalizedUrl, Locales } from "intlayer";
-
-// Cung cấp rõ ràng tất cả các tham số tùy chọn
-getLocalizedUrl(
-  "/about",
-  Locales.FRENCH,
-  [Locales.ENGLISH, Locales.FRENCH], // locales
-  Locales.ENGLISH, // defaultLocale
-  false // prefixDefault
-);
-
-// Kết quả: "/fr/about" cho locale tiếng Pháp
-// Kết quả: "/about" cho locale mặc định (tiếng Anh)
-```
-
-```javascript codeFormat="commonjs"
-const { getLocalizedUrl, Locales } = require("intlayer");
-
-// Cung cấp rõ ràng tất cả các tham số tùy chọn
-getLocalizedUrl(
-  "/about",
-  Locales.FRENCH,
-  [Locales.ENGLISH, Locales.FRENCH], // locales
-  Locales.ENGLISH, // defaultLocale
-  false // prefixDefault
-);
-
-// Kết quả: "/fr/about" cho locale tiếng Pháp
-// Kết quả: "/about" cho locale mặc định (tiếng Anh)
 ```
 
 ### Advanced Usage (With Optional Parameters)
@@ -244,6 +217,12 @@ getLocalizedUrl(
 
 - **Locale Không Hỗ Trợ:**
   - Đối với các locale không nằm trong danh sách `locales`, hàm sẽ không áp dụng tiền tố nào.
+
+- **Các chế độ định tuyến:**
+  - `'prefix-no-default'`: Locale mặc định không có tiền tố, những locale khác có (ví dụ: `/about`, `/fr/about`)
+  - `'prefix-all'`: Tất cả các locale đều có tiền tố (ví dụ: `/en/about`, `/fr/about`)
+  - `'no-prefix'`: Không có tiền tố locale trong URL (locale được xử lý ở nơi khác)
+  - `'search-params'`: Locale được chỉ định qua tham số truy vấn (ví dụ: `/about?locale=fr`)
 
 ---
 

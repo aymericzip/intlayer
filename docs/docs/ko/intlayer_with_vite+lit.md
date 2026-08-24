@@ -109,6 +109,8 @@ Intlayer는 단순한 i18n 솔루션 그 이상으로 관리에 도움이 되는
 
 ---
 
+GitHub에서 [Application Template](https://github.com/aymericzip/intlayer-vite-lit-template)을 참고하세요.
+
 ## Vite 및 Lit 애플리케이션에서 Intlayer를 설정하기 위한 단계별 가이드
 
 <Steps>
@@ -477,6 +479,8 @@ export class MyElement extends LitElement {
 먼저 Vite 구성에 `intlayerProxy`를 추가합니다:
 
 > 프로덕션에서 `intlayerProxy`를 사용하려면 `vite-intlayer`를 `devDependencies`에서 `dependencies`로 이동해야 합니다.
+
+> Intlayer v9부터 `intlayerProxy()`는 `intlayer()` 플러그인에 직접 번들로 제공되며 `routing.enableProxy` 옵션(`true`이 기본값)을 통해 기본적으로 활성화됩니다. 아래에 표시된 대로 별도로 등록하는 것은 이제 선택 사항입니다 — 이전 버전과의 호환성 및 플러그인 순서를 제어해야 하는 설정을 위해 유지됩니다. `routing.enableProxy: false`로 설정하여 옵트아웃할 수 있습니다. [v9 릴리스 노트](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/releases/v9.md)를 참조하세요.
 
 ```typescript {3,7} fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";

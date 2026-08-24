@@ -650,16 +650,6 @@ pluralContent: plural({
 });
 ```
 
-> 请参阅 [Plural Content 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/plural.md) 以获取更多信息。### 插入内容 (`insert`)
-
-可以插入到其他内容中的内容：
-
-```typescript
-import { insert } from "intlayer";
-
-insertionContent: insert("这段文本可以插入到任何地方");
-```
-
 > 请参阅 [插入内容 (`insert`) 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/insertion.md) 以获取更多信息。
 
 ### 插入内容 (`insert`)

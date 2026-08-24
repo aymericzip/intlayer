@@ -246,7 +246,7 @@ HTML नोड पर `.use()` विधि का उपयोग करते 
 
 <Tabs group="framework">
   <Tab label="React / Next.js" value="react">
-  
+
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "react-intlayer/html";
 
@@ -264,7 +264,7 @@ HTML नोड पर `.use()` विधि का उपयोग करते 
 
   </Tab>
   <Tab label="Vue" value="vue">
-  
+
     ```typescript fileName="main.ts"
     import { createApp, h } from "vue";
     import { intlayer } from "vue-intlayer";
@@ -286,7 +286,7 @@ HTML नोड पर `.use()` विधि का उपयोग करते 
 
   </Tab>
   <Tab label="Svelte" value="svelte">
-   
+
     ```svelte fileName="App.svelte"
     <script lang="ts">
       import { HTMLProvider } from "svelte-intlayer/html";
@@ -304,7 +304,7 @@ HTML नोड पर `.use()` विधि का उपयोग करते 
 
   </Tab>
   <Tab label="Preact" value="preact">
-   
+
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "preact-intlayer/html";
 
@@ -321,7 +321,7 @@ HTML नोड पर `.use()` विधि का उपयोग करते 
 
   </Tab>
   <Tab label="Solid" value="solid">
-   
+
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "solid-intlayer/html";
 
@@ -335,6 +335,8 @@ HTML नोड पर `.use()` विधि का उपयोग करते 
       </HTMLProvider>
     );
     ```
+
+> अपने HTML renderer को dynamically import करना आपके application के bundle size को कम करने का एक अच्छा तरीका है।
 
   </Tab>
   <Tab label="Angular" value="angular">
@@ -353,6 +355,25 @@ HTML नोड पर `.use()` विधि का उपयोग करते 
       ],
     };
     ```
+
+आप अपना स्वयं का HTML renderer भी उपयोग कर सकते हैं:
+
+    ```typescript fileName="app.config.ts"
+    import { createIntlayerHTMLProvider } from "angular-intlayer/html";
+
+    export const appConfig: ApplicationConfig = {
+      providers: [
+        createIntlayerHTMLProvider({
+          renderHTML: async (html) => {
+            const { renderHTML } = await import('angular-intlayer/html');
+            return renderHTML(html);
+          },
+        }),
+      ],
+    };
+    ```
+
+> अपने HTML renderer को dynamically import करना आपके application के bundle size को कम करने का एक अच्छा तरीका है।
 
   </Tab>
 </Tabs>
@@ -402,9 +423,9 @@ HTML नोड पर `.use()` विधि का उपयोग करते 
 
   </Tab>
   <Tab label="Vue" value="vue">
-   
+
     #### `<HTMLRenderer />` कम्पोनेन्ट
-   
+
     ```vue
     <script setup>
     import { HTMLRenderer } from "vue-intlayer/html";
@@ -417,9 +438,9 @@ HTML नोड पर `.use()` विधि का उपयोग करते 
 
   </Tab>
   <Tab label="Svelte" value="svelte">
-  
+
     #### `<HTMLRenderer />` कम्पोनेन्ट
-   
+
     ```svelte
     <script lang="ts">
     import { HTMLRenderer } from "svelte-intlayer/html";
@@ -451,9 +472,9 @@ HTML नोड पर `.use()` विधि का उपयोग करते 
 
   </Tab>
   <Tab label="Preact" value="preact">
-   
+
     #### `<HTMLRenderer />` कम्पोनेंट
-   
+
     ```tsx
     import { HTMLRenderer } from "preact-intlayer/html";
 
@@ -482,9 +503,9 @@ HTML नोड पर `.use()` विधि का उपयोग करते 
 
   </Tab>
   <Tab label="Solid" value="solid">
-   
+
     #### `<HTMLRenderer />` कम्पोनेंट
-   
+
     ```tsx
     import { HTMLRenderer } from "solid-intlayer/html";
 
@@ -517,13 +538,13 @@ HTML नोड पर `.use()` विधि का उपयोग करते 
     सर्विस का उपयोग करके HTML स्ट्रिंग रेंडर करें।
 
     ```typescript
-    import { IntlayerHTMLService } from "angular-intlayer";
+    import { IntlayerHTMLService } from "angular-intlayer/html";
 
     export class MyComponent {
       constructor(private markdownService: IntlayerHTMLService) {}
 
       renderHTML(html: string) {
-        return this.markdownService.renderMarkdown(html);
+        return this.markdownService.renderHTML(html);
       }
     }
     ```

@@ -138,8 +138,6 @@ getMultilingualUrls(
 // }
 ```
 
----
-
 ### Verschiedene Routing-Modi
 
 ```typescript
@@ -204,6 +202,12 @@ getMultilingualUrls("/dashboard", {
 
 - **Nicht unterstützte Sprachen:**
   - Es werden nur die Sprachen berücksichtigt, die im `locales`-Array angegeben sind, um die URLs zu generieren.
+
+- **Routing-Modi:**
+  - `'prefix-no-default'`: Standardlokalität hat kein Präfix, andere haben eins (z. B. `/dashboard`, `/fr/dashboard`)
+  - `'prefix-all'`: Alle Lokalitäten haben Präfixe (z. B. `/en/dashboard`, `/fr/dashboard`)
+  - `'no-prefix'`: Keine Lokalpräfixe in URLs (alle Lokalitäten geben die gleiche URL zurück)
+  - `'search-params'`: Lokalität wird über Abfrageparameter angegeben (z. B. `/dashboard?locale=fr`)
 
 ---
 

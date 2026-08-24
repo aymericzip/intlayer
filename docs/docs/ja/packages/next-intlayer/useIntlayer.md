@@ -77,6 +77,34 @@ Next.js アプリケーションでクライアントサイドコンポーネン
 
 ## Next.jsでの使用例
 
+`useIntlayer` フックを Next.js ページ内に実装して、アプリケーションの現在のロケールに基づいて動的にローカライズされたコンテンツを読み込む方法を以下に示します:
+
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
+```tsx fileName="src/pages/[locale]/index.tsx" codeFormat={["typescript", "esm"]}
+import { ClientComponentExample } from "@components/ClientComponentExample";
+import { ServerComponentExample } from "@components/ServerComponentExample";
+import { type NextPageIntlayer } from "next-intlayer";
+import { useIntlayer } from "next-intlayer";
+import { IntlayerProvider } from "next-intlayer/server";
+
+const HomePage: NextPageIntlayer = async ({ params }) => {
+  const { locale } = await params;
+
+  // ホームページのコンテンツを取得
+  const content = useIntlayer("homepage", locale);
+
+  return (
+    <IntlayerProvider locale={locale}>
+      <p>{content.introduction}</p>
+      <ClientComponentExample />
+      <ServerComponentExample />
+    </IntlayerProvider>
+  );
+};
+```
+
 以下は、Next.jsのページ内で`useIntlayer`フックを実装し、アプリケーションの現在のロケールに基づいてローカライズされたコンテンツを動的に読み込む方法です。
 
 ```tsx fileName="src/pages/[locale]/index.tsx" codeFormat={["typescript", "esm"]}
@@ -103,6 +131,9 @@ const HomePage: NextPageIntlayer = async ({ params }) => {
   );
 };
 ```
+
+ </Tab>
+</Tabs>
 
 ```tsx fileName="src/components/ClientComponentExample.tsx" codeFormat={["typescript", "esm"]}
 "use-client";

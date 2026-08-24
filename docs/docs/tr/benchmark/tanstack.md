@@ -194,6 +194,8 @@ Karşılaşılan sorunlar:
 
 `Tolgee` daha önce bahsedilen sorunların çoğunu ele alıyor. Benzer yaklaşımlara sahip diğer araçlara göre başlamasının daha zor olduğunu gördüm. Tip güvenliği sağlamıyor, bu da eksik anahtarların build zamanında yakalanmasını çok zorlaştırıyor. Eksik anahtar algılama özelliği eklemek için Tolgee'nin API'larını kendi API'larımla sarmak zorunda kaldım.
 
+Package oldukça ağır (~11.1kb, bu `react-intlayer`'ın 2× katından fazladır).
+
 TanStack Start üzerinde de reaktivite problemlerim oldu: yerel ayar değiştiğinde, sağlayıcıyı yeniden render etmeye zorlamam ve yerel ayar değişikliği olaylarına abone olmam gerekiyordu, böylece başka bir dildeki yükleme düzgün davrandı.
 
 **(use-intl)** (`use-intl@4.9.1`):
@@ -208,6 +210,8 @@ TanStack Start'ta Next.js'e özgü tuzaklardan ( `setRequestLocale`, statik rend
 
 Yine de, `t('a.b.c')` üzerine kurulu teknoloji yığınlarıyla aynı büyük dezavantajları paylaşır: optimizasyonlar mümkündür ancak çok zaman alıcıdır ve büyük projeler kötü uygulamalara (ad alanları + dinamik yükleme + tipler) düşme riski taşır.
 
+Paket özellikle ağır (~17.3kb, bu `react-intlayer`'ın yaklaşık 3.5× kadarı).
+
 Mesaj formatları da farklıdır: `use-intl` ICU MessageFormat kullanırken, `i18next` kendi formatını kullanır - bu da bunları karıştırdığınızda araçları veya geçişleri karmaşıklaştırır.
 
 **(Lingui)** (`@lingui/core@5.3.0`):
@@ -217,6 +221,8 @@ Mesaj formatları da farklıdır: `use-intl` ICU MessageFormat kullanırken, `i1
 **(react-intl)** (`react-intl@10.1.1`):
 
 `react-intl`, Format.js ekibinin performans odaklı bir uygulamasıdır. DX "verbose" kalır: `const intl = useIntl()` + `intl.formatMessage({ id: "xx.xx" })` karmaşıklık, ek JavaScript yükü ekler ve global i18n örneğini React ağacındaki birçok düğüme bağlar.
+
+Paket ayrıca ağırdır (~14.4kb, bu yaklaşık 3× `react-intlayer`).
 
 ### 4 - Öneriler
 

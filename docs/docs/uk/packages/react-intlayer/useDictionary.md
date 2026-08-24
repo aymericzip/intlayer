@@ -30,8 +30,6 @@ Hook `useDictionary` дозволяє обробляти об'єкт, який �
 
 ## Інтеграція на сервері
 
-Якщо ви використовуєте хук `useDictionary` поза межами `IntlayerProvider`, локаль має бути явно передана як параметр під час рендерингу компонента:
-
 ```tsx fileName="./ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useDictionary } from "react-intlayer/server";

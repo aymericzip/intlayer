@@ -99,6 +99,9 @@ O Intlayer também fornece um editor visual para permitir que você edite seu co
 
 ![editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif?raw=true)
 
+- O servidor é uma aplicação Express simples que escuta requisições do cliente e recupera o conteúdo da sua aplicação, como os `dictionaries` e a configuração para torná-lo acessível no lado do cliente.
+- Por outro lado, o cliente é uma aplicação React que é usada para interagir com seu conteúdo usando uma interface visual.
+
 - O servidor é uma aplicação simples em Express que escuta requisições do cliente e recupera o conteúdo da sua aplicação, como os `dictionaries` e a configuração para torná-los acessíveis no lado do cliente.
 - Por outro lado, o cliente é uma aplicação React que é usada para interagir com seu conteúdo usando uma interface visual.
   Quando você chama seu conteúdo usando `useIntlayer` e o editor está ativado, ele automaticamente envolve suas strings com um objeto Proxy chamado `IntlayerNode`. Esse nó usa `window.postMessage` para se comunicar com um iframe encapsulado que contém a interface do editor visual.  
@@ -108,6 +111,8 @@ O Intlayer também fornece um editor visual para permitir que você edite seu co
 
 Para otimizar o tamanho do bundle da sua aplicação, o Intlayer fornece dois plugins para otimizar a construção da sua aplicação: os plugins `@intlayer/babel` e `@intlayer/swc`.
 Os plugins Babel e SWC funcionam analisando a Árvore de Sintaxe Abstrata (AST) da sua aplicação para substituir chamadas das funções do Intlayer por código otimizado. Esse processo torna o pacote final mais leve em produção, garantindo que apenas os dicionários realmente usados sejam importados, otimizando o particionamento e reduzindo o tamanho do bundle.
+
+Os plugins Babel e SWC funcionam analisando a Abstract Syntax Tree (AST) da sua aplicação para substituir chamadas de funções Intlayer por código otimizado. Este processo torna seu bundle final mais leve em produção, garantindo que apenas os dicionários que são realmente usados sejam importados, otimizando o chunking e reduzindo o tamanho do bundle.
 
 No modo de desenvolvimento, o Intlayer usa uma importação estática centralizada para os dicionários, simplificando a experiência de desenvolvimento.
 

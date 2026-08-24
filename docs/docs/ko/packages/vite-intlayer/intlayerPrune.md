@@ -28,6 +28,8 @@ author: aymericzip
 
 `intlayerPrune` Vite 플러그인은 애플리케이션 번들에서 사용되지 않는 사전(dictionary)을 트리 쉐이킹하고 제거(prune)하는 데 사용됩니다. 이를 통해 필요한 다국어 콘텐츠만 포함되어 최종 번들 크기를 줄일 수 있습니다.
 
+> 플러그인은 [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/vite-intlayer/intlayer.md)를 사용할 때 이미 자동으로 포함되고 구성됩니다. 플러그인 스택을 직접 구성하는 경우에만 수동으로 등록하면 됩니다.
+
 ## 사용법
 
 ### `intlayer()`의 일부로 (권장)

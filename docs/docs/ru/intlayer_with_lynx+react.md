@@ -33,6 +33,14 @@ author: aymericzip
 
 Смотрите [шаблон приложения](https://github.com/aymericzip/intlayer-lynx-template) на GitHub.
 
+<iframe
+  src="https://ide.intlayer.org/aymericzip/intlayer-lynx-template?file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - Как интернационализировать вашу приложение с помощью Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
 ## Почему Intlayer лучше альтернатив?
 
 По сравнению с основными решениями, такими как «react-native-localize» или «i18next», Intlayer — это решение со встроенными оптимизациями, такими как:
@@ -485,6 +493,11 @@ Intlayer генерирует определения типов в скрыто�
 [Установить из Marketplace VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
 Это расширение предоставляет:
+
+- **Автодополнение** для ключей переводов.
+- **Обнаружение ошибок в реальном времени** для отсутствующих переводов.
+- **Встроенные предпросмотры** переведённого контента.
+- **Быстрые действия** для легкого создания и обновления переводов.
 
 - **Автозаполнение** для ключей перевода.
 - **Обнаружение ошибок в реальном времени** для отсутствующих переводов.

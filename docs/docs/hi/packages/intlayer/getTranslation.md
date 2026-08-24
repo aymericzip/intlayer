@@ -31,6 +31,8 @@ author: aymericzip
 
 `getTranslationContent` फ़ंक्शन एक सेट से एक विशिष्ट लोकल के अनुरूप सामग्री प्राप्त करता है जिसे अनुकूलित भाषा सामग्री कहा जाता है। यदि निर्दिष्ट लोकल नहीं मिलता है, तो यह परियोजना में कॉन्फ़िगर किए गए डिफ़ॉल्ट लोकल की सामग्री लौटाता है।
 
+अनुवाद घोषित करने के तरीके के बारे में अधिक विवरण के लिए, [अनुवाद दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/translation.md) देखें।
+
 ## पैरामीटर
 
 - `languageContent: CustomizableLanguageContent<Content>`

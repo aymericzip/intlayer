@@ -196,6 +196,8 @@ GitHub 星数是项目受欢迎程度、社区信任和长期相关性的有力�
 
 在 TanStack Start 上我也遇到了响应性问题：切换语言环境时，我必须强制 Provider 重新渲染并订阅语言环境更改事件，切换后的加载才能正常进行。
 
+在 TanStack Start 上，我也遇到了响应性问题：当locale改变时，我必须强制提供者重新渲染并订阅locale-change事件，以便在另一种语言中加载时行为正确。
+
 **(use-intl)** (`use-intl@4.9.1`):
 
 `use-intl` 是 React 生态中最时髦的“intl”成员（与 `next-intl` 同系），常被 AI Agent 推荐，但在我看来，在性能优先的环境下这是错误的。入门相对简单，但在实践中，优化和限制泄漏的过程相当复杂。同样，结合动态加载 + 命名空间 + TypeScript 类型会极大降低开发速度。
@@ -208,6 +210,8 @@ GitHub 星数是项目受欢迎程度、社区信任和长期相关性的有力�
 
 尽管如此，它与基于 `t('a.b.c')` 的技术栈有着相同的重大缺点：优化是可能的，但非常耗时，且大型项目容易陷入不良实践（命名空间 + 动态加载 + 类型）。
 
+该 package 特别重（~17.3kb，约为 `react-intlayer` 的 3.5 倍）。
+
 消息格式也不同：`use-intl` 使用 ICU MessageFormat，而 `i18next` 使用自己的格式--如果混合使用它们，会增加工具链或迁移的复杂度。
 
 **(Lingui)** (`@lingui/core@5.3.0`):
@@ -217,6 +221,8 @@ GitHub 星数是项目受欢迎程度、社区信任和长期相关性的有力�
 **(react-intl)** (`react-intl@10.1.1`):
 
 `react-intl` 是来自 Format.js 团队的高性能实现。但 DX 依然繁琐：`const intl = useIntl()` + `intl.formatMessage({ id: "xx.xx" })` 增加了复杂度和额外的 JavaScript 开销，并将全局 i18n 实例绑定到了 React 树中的许多节点。
+
+该 package 也很重（~14.4kb，大约是 `react-intlayer` 的 3 倍）。
 
 ### 4 - 推荐方案
 

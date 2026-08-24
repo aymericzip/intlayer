@@ -109,6 +109,8 @@ Más que una simple solución i18n, Intlayer proporciona un **[editor visual] au
 
 ---
 
+Ver [Application Template](https://github.com/aymericzip/intlayer-vite-lit-template) en GitHub.
+
 ## Guía paso a paso para configurar Intlayer en una aplicación Vite y Lit
 
 <Steps>
@@ -477,6 +479,8 @@ Para crear rutas únicas para cada idioma (útil para SEO), puedes usar un enrut
 Primero, agrega `intlayerProxy` a tu configuración de Vite:
 
 > Ten en cuenta que para usar `intlayerProxy` en producción, debes mover `vite-intlayer` de `devDependencies` a `dependencies`.
+
+> Desde Intlayer v9, `intlayerProxy()` está incluido directamente en el plugin `intlayer()` y habilitado por defecto a través de la opción `routing.enableProxy` (`true` por defecto). Registrarlo por separado como se muestra a continuación es ahora opcional — se mantiene para compatibilidad hacia atrás y para configuraciones que necesitan controlar el orden de los plugins. Establece `routing.enableProxy: false` para optar por no participar. Consulta las [notas de la versión v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/releases/v9.md).
 
 ```typescript {3,7} fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";

@@ -104,6 +104,8 @@ const LocaleSwitcher: FC = () => {
 
 ## 返回值
 
+当你调用 `useLocale` hook 时，它会返回一个包含以下属性的对象：
+
 - **`locale`**：当前在 React 上下文中设置的语言环境。
 - **`defaultLocale`**：配置中定义的主要语言环境。
 - **`availableLocales`**：配置中定义的所有可用语言环境列表。

@@ -245,7 +245,7 @@ const myContent = html(
 
 <Tabs group="framework">
   <Tab label="React / Next.js" value="react">
-  
+
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "react-intlayer/html";
 
@@ -282,7 +282,7 @@ const myContent = html(
 
   </Tab>
   <Tab label="Vue" value="vue">
-  
+
     ```typescript fileName="main.ts"
     import { createApp, h } from "vue";
     import { intlayer } from "vue-intlayer";
@@ -327,7 +327,7 @@ const myContent = html(
 
   </Tab>
   <Tab label="Svelte" value="svelte">
-   
+
     ```svelte fileName="App.svelte"
     <script lang="ts">
       import { HTMLProvider } from "svelte-intlayer/html";
@@ -364,7 +364,7 @@ const myContent = html(
 
   </Tab>
   <Tab label="Preact" value="preact">
-   
+
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "preact-intlayer/html";
 
@@ -400,7 +400,7 @@ const myContent = html(
 
   </Tab>
   <Tab label="Solid" value="solid">
-   
+
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "solid-intlayer/html";
 
@@ -483,7 +483,9 @@ const myContent = html(
 <Tabs group="framework">
   <Tab label="React / Next.js" value="react">
     #### `<HTMLRenderer />` 组件
-    
+
+使用特定组件渲染 HTML 字符串。
+
     ```tsx
     import { HTMLRenderer } from "react-intlayer/html";
 
@@ -517,9 +519,9 @@ const myContent = html(
 
   </Tab>
   <Tab label="Vue" value="vue">
-   
+
     #### `<HTMLRenderer />` 组件
-   
+
     ```vue
     <script setup>
     import { HTMLRenderer } from "vue-intlayer/html";
@@ -532,9 +534,9 @@ const myContent = html(
 
   </Tab>
   <Tab label="Svelte" value="svelte">
-  
+
     #### `<HTMLRenderer />` 组件
-   
+
     ```svelte
     <script lang="ts">
     import { HTMLRenderer } from "svelte-intlayer/html";
@@ -566,9 +568,9 @@ const myContent = html(
 
   </Tab>
   <Tab label="Preact" value="preact">
-   
+
     #### `<HTMLRenderer />` 组件
-   
+
     ```tsx
     import { HTMLRenderer } from "preact-intlayer/html";
 
@@ -597,9 +599,9 @@ const myContent = html(
 
   </Tab>
   <Tab label="Solid" value="solid">
-   
+
     #### `<HTMLRenderer />` 组件
-   
+
     ```tsx
     import { HTMLRenderer } from "solid-intlayer/html";
 

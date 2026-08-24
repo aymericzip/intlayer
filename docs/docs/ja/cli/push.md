@@ -89,24 +89,9 @@ bun x intlayer dictionary push
 
   > 例: `npx intlayer dictionary push --keep-locale-dictionary`
 
-**準備オプション:**
-
-- **`--build`**: プッシュする前に辞書をビルドして、内容が最新であることを確認します。true はビルドを強制し、false はビルドをスキップし、undefined はビルドのキャッシュを使用することを許可します。
-
 **ログオプション:**
 
 - **`--verbose`**: デバッグのために詳細なログを有効にします。（CLIではデフォルトでtrue）
-
-**Gitオプション:**
-
-- **`--git-diff`**: ベース（デフォルトは `origin/main`）から現在のブランチ（デフォルトは `HEAD`）への変更を含む辞書のみで実行します。
-- **`--git-diff-base`**: git diff のベース参照を指定します（デフォルトは `origin/main`）。
-- **`--git-diff-current`**: git diff の現在の参照を指定します（デフォルトは `HEAD`）。
-- **`--uncommitted`**: コミットされていない変更を含めます。
-- **`--unpushed`**: プッシュされていない変更を含めます。
-- **`--untracked`**: トラッキングされていないファイルを含めます。
-
-- **`--build`**: プッシュ前に辞書をビルドして、内容が最新であることを保証します。`true` はビルドを強制し、`false` はビルドをスキップし、`undefined` はビルドのキャッシュを使用することを許可します。
 
 **ログオプション:**
 

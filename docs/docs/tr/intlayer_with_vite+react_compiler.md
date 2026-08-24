@@ -237,6 +237,8 @@ export default defineConfig({
 
 > `intlayerCompiler()` Vite eklentisi, bileşenden içerik çıkarmak ve `.content` dosyalarını yazmak için kullanılır.
 
+> Intlayer v9'dan itibaren, derleyici doğrudan `intlayer()` eklentisine paketlenmiştir ve `compiler.enabled` ayarlandığında ve `compiler.output` yolu belirtildiğinde otomatik olarak etkinleşir. Aşağıda gösterildiği gibi `intlayerCompiler()`'ı ayrı olarak kaydetmek artık isteğe bağlıdır — eklenirse kendisini çoğaltmaz. [v9 release notlarına](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/releases/v9.md) bakınız.
+
 </Step>
 
 <Step number={4} title="Kodunuzu Derleyin">

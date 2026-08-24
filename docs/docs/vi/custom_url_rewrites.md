@@ -248,7 +248,7 @@ Intlayer nội bộ chuẩn hóa những mẫu này thành một cú pháp thố
 
 <Tabs group='framework'>
   <Tab label="Next.js" value="nextjs">
-  
+
     ```tsx
     'use client';
 
@@ -263,7 +263,7 @@ Intlayer nội bộ chuẩn hóa những mẫu này thành một cú pháp thố
   </Tab>
 
   <Tab label="React Router" value="reactrouter">
-  
+
     ```tsx
     'use client';
 
@@ -279,7 +279,7 @@ Intlayer nội bộ chuẩn hóa những mẫu này thành một cú pháp thố
   </Tab>
 
   <Tab label="Vue" value="vue">
-  
+
     ```vue
     <script setup>
     import { useRewriteURL } from "vue-intlayer";
@@ -291,7 +291,7 @@ Intlayer nội bộ chuẩn hóa những mẫu này thành một cú pháp thố
 
   </Tab>
   <Tab label="Solid" value="solid">
-  
+
     ```tsx
     import { useRewriteURL } from "solid-intlayer";
 
@@ -303,7 +303,7 @@ Intlayer nội bộ chuẩn hóa những mẫu này thành một cú pháp thố
 
   </Tab>
   <Tab label="Svelte" value="svelte">
-  
+
     ```svelte
     <script>
     import { useRewriteURL } from "svelte-intlayer";
@@ -339,6 +339,8 @@ export function middleware(request: NextRequest) {
 ### Tích hợp Vite
 
 Đối với SolidJS, Vue và Svelte, plugin Vite `intlayerProxy` quản lý các rewrite trong quá trình phát triển.
+
+> Kể từ Intlayer v9, `intlayerProxy()` được đóng gói trực tiếp vào plugin `intlayer()` và được bật theo mặc định thông qua tùy chọn `routing.enableProxy` (`true` theo mặc định). Đăng ký nó riêng biệt như được hiển thị bên dưới hiện nay là tùy chọn — nó được giữ lại để tương thích ngược và cho các cài đặt cần kiểm soát thứ tự plugin. Đặt `routing.enableProxy: false` để không tham gia. Xem [ghi chú phát hành v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/releases/v9.md).
 
 ```typescript fileName="vite.config.ts"
 import { defineConfig } from "vite";

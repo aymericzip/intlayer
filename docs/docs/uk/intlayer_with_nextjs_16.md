@@ -297,6 +297,36 @@ export default RootLayout;
 
 Щоб реалізувати динамічну маршрутизацію, вкажіть шлях для локалі, додавши новий макет у вашу директорію `[locale]`:
 
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
+```tsx fileName="src/app/[locale]/layout.tsx" codeFormat={["typescript", "esm"]}
+import { type NextLayoutIntlayer } from "next-intlayer";
+import { IntlayerProvider } from "next-intlayer/server";
+import { Inter } from "next/font/google";
+import { getHTMLTextDir } from "intlayer";
+
+const inter = Inter({ subsets: ["latin"] });
+
+const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
+  const { locale } = await params;
+  return (
+    <IntlayerProvider locale={locale}>
+      <html lang={locale} dir={getHTMLTextDir(locale)}>
+        <body className={inter.className}>{children}</body>
+      </html>
+    </IntlayerProvider>
+  );
+};
+
+export default LocaleLayout;
+```
+
+> Один `IntlayerProvider` охоплює обидві половини дерева: він заповнює контекст сервера, обмежений на рівні запиту, який читається серверними hooks, та монтує клієнтського провайдера, щоб клієнтські компоненти отримували те ж саме locale.
+
+ </Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
+
 ```tsx fileName="src/app/[locale]/layout.tsx" codeFormat={["typescript", "esm"]}
 import { type NextLayoutIntlayer, IntlayerClientProvider } from "next-intlayer";
 import { Inter } from "next/font/google";
@@ -319,6 +349,9 @@ const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
 
 export default LocaleLayout;
 ```
+
+ </Tab>
+</Tabs>
 
 > Сегмент шляху `[locale]` використовується для визначення локалі. Приклад: `/en-US/about` посилатиметься на `en-US`, а `/fr/about`, на `fr`.
 
@@ -394,6 +427,44 @@ export default pageContent;
 
 Отримуйте доступ до ваших словників контенту по всьому додатку:
 
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
+```tsx fileName="src/app/[locale]/page.tsx" codeFormat={["typescript", "esm"]}
+import type { FC } from "react";
+import { ClientComponentExample } from "@components/ClientComponentExample";
+import { ServerComponentExample } from "@components/ServerComponentExample";
+import { type NextPageIntlayer, useIntlayer } from "next-intlayer";
+
+const PageContent: FC = () => {
+  const content = useIntlayer("page");
+
+  return (
+    <>
+      <p>{content.getStarted.main}</p>
+      <code>{content.getStarted.pageLink}</code>
+    </>
+  );
+};
+
+const Page: NextPageIntlayer = () => (
+  <>
+    <PageContent />
+    <ServerComponentExample />
+
+    <ClientComponentExample />
+  </>
+);
+
+export default Page;
+```
+
+- **`IntlayerProvider`** монтується один раз у макеті локалі. Він надає локаль як серверним, так і клієнтським компонентам, тому сторінки більше не обгортають себе.
+- Серверні hooks розв'язують локаль у такому порядку: локаль, передана на місці виклику, потім контекст сервера, заповнений провайдером, потім локаль, передана в запиті (заголовок `x-intlayer-locale`, встановлений Intlayer proxy, потім cookie локалі). Цей останній крок — це те, що зберігає вміст коректним під час навігації на стороні клієнта, яка перемальовує лише сегмент сторінки, де макет — і разом з ним провайдер — не перезапускається.
+
+ </Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
+
 ```tsx fileName="src/app/[locale]/page.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { ClientComponentExample } from "@components/ClientComponentExample";
@@ -433,6 +504,9 @@ export default Page;
 
   > Макет і сторінка не можуть ділити загальний серверний контекст, оскільки система серверного контексту базується на сховищі даних для кожного запиту (через механізм [кешування React](https://react.dev/reference/react/cache)), що призводить до повторного створення кожного "контексту" для різних сегментів додатка. Розміщення провайдера в спільному макеті порушить цю ізоляцію, запобігаючи правильному поширенню значень серверного контексту до ваших серверних компонентів.
 
+ </Tab>
+</Tabs>
+
 ```tsx {4,7} fileName="src/components/ClientComponentExample.tsx" codeFormat={["typescript", "esm"]}
 "use client";
 
@@ -451,6 +525,30 @@ export const ClientComponentExample: FC = () => {
 };
 ```
 
+<Tabs>
+ <Tab label='Intlayer >=9.4' value='>=9.4'>
+
+```tsx {2} fileName="src/components/ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
+import type { FC } from "react";
+import { useIntlayer } from "next-intlayer";
+
+export const ServerComponentExample: FC = () => {
+  const content = useIntlayer("server-component-example"); // Створіть пов'язану декларацію вмісту
+
+  return (
+    <div>
+      <h2>{content.title}</h2>
+      <p>{content.content}</p>
+    </div>
+  );
+};
+```
+
+> `next-intlayer` — це ізоморфний шлях імпорту: умова експорту `react-server` надає серверним компонентам реалізацію з оточуючою локаллю, тоді як клієнтські компоненти отримують реалізацію на основі контексту. Один і той же виклик працює на обох сторонах.
+
+ </Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
+
 ```tsx {2} fileName="src/components/ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "next-intlayer/server";
@@ -466,6 +564,9 @@ export const ServerComponentExample: FC = () => {
   );
 };
 ```
+
+ </Tab>
+</Tabs>
 
 > Якщо ви хочете використовувати свій контент у рядковому атрибуті, такому як `alt`, `title`, `href`, `aria-label` тощо, ви повинні викликати значення функції, наприклад:
 
@@ -495,6 +596,8 @@ export const config = {
 ```
 
 > `intlayerProxy` використовується для виявлення бажаної локалі користувача та перенаправлення його на відповідний URL, як зазначено в [конфігурації](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md). Крім того, він дозволяє зберігати бажану локаль користувача у файлі cookie.
+
+> З версії Intlayer v9 це middleware поважає опцію `routing.enableProxy` (`true` за замовчуванням). Установіть `routing.enableProxy: false` у вашій конфігурації, щоб превратити його на pass-through без видалення цього файлу. Див. [примітки до випуску v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/releases/v9.md).
 
 > Якщо вам потрібно об'єднати кілька проксі разом (наприклад, `intlayerProxy` з аутентифікацією або кастомними проксі), Intlayer тепер надає помічника під назвою `multipleProxies`.
 
@@ -931,6 +1034,8 @@ bun add @intlayer/swc --dev
 
 > Примітка: Якщо ви встановите опцію `importMode: 'dynamic'` або `importMode: 'fetch'` (у конфігурації `dictionary`), вона буде покладатися на Suspense, тому вам доведеться обгорнути ваші виклики `useIntlayer` в межу `Suspense`. Це означає, що ви не зможете використовувати `useIntlayer` безпосередньо на верхньому рівні вашого компонента Page / Layout.
 > </Step>
+
+</Step>
 
 <Step number={1} title="Витягніть вміст ваших компонентів" isOptional={true}>
 

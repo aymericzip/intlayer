@@ -103,6 +103,17 @@ Più di una semplice soluzione i18n, Intlayer fornisce un **[editor visivo](http
 />
 
   </Tab>
+  <Tab label="Demo" value="demo">
+
+<iframe
+  src="https://intlayer-vite-vue-template.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo - intlayer-vite-vue-template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
 </Tabs>
 
 Vedi il [Modello di Applicazione](https://github.com/aymericzip/intlayer-vite-vue-template) su GitHub.
@@ -359,6 +370,8 @@ app.mount("#app");
 
 Accedi ai tuoi dizionari di contenuti in tutta l'applicazione creando un componente Vue principale e utilizzando i composables `useIntlayer`:
 
+Accedi ai tuoi dizionari di contenuti in tutta l'applicazione creando un componente Vue principale e utilizzando i composables `useIntlayer`:
+
 ```vue fileName="src/HelloWord.vue"
 <script setup lang="ts">
 import { ref } from "vue";
@@ -410,6 +423,8 @@ const countRef = ref(0);
 </template>
 ```
 
+> Se la tua app esiste già, puoi usare l'[Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/compiler.md), così come il comando [extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/cli/extract.md), per trasformare migliaia di componenti in un secondo.
+
 #### Accesso ai contenuti in Intlayer
 
 Intlayer offre diverse API per accedere ai tuoi contenuti:
@@ -427,8 +442,6 @@ Intlayer offre diverse API per accedere ai tuoi contenuti:
   Il composable `useIntlayer` restituisce un Proxy con il contenuto. Questo proxy può essere destrutturato per accedere al contenuto mantenendo la reattività.
   - Usa `const content = useIntlayer("myContent");` e `{{ content.myContent }}` / `<content.myContent />`.
   - Oppure usa `const { myContent } = useIntlayer(\"myContent\");` e `{{ myContent}}` / `<myContent/>` per destrutturare il contenuto.
-
-> Se la tua app esiste già, puoi utilizzare l' [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/compiler.md) in combinazione con il [comando extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/cli/extract.md) per convertire migliaia di componenti in un secondo.
 
 </Step>
 
@@ -616,6 +629,10 @@ import LocaleSwitcher from "@components/LocaleSwitcher.vue";
 ```
 
 Parallelamente, puoi anche utilizzare il `intlayerProxy` per aggiungere il routing lato server alla tua applicazione. Questo plugin rileverà automaticamente la locale corrente basandosi sull'URL e imposterà il cookie della locale appropriata. Se non viene specificata alcuna locale, il plugin determinerà la locale più adatta in base alle preferenze linguistiche del browser dell'utente. Se non viene rilevata alcuna locale, effettuerà un reindirizzamento alla locale predefinita.
+
+> Nota che per utilizzare `intlayerProxy` in produzione, è necessario spostare il package `vite-intlayer` da `devDependencies` a `dependencies`.
+
+> A partire da Intlayer v9, `intlayerProxy()` è integrato direttamente nel plugin `intlayer()` ed è abilitato per impostazione predefinita tramite l'opzione `routing.enableProxy` (`true` per impostazione predefinita). Registrarlo separatamente come mostrato di seguito è ora facoltativo — viene mantenuto per la compatibilità con versioni precedenti e per configurazioni che necessitano di controllare l'ordine dei plugin. Impostare `routing.enableProxy: false` per disabilitarlo. Consulta le [note di rilascio v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/releases/v9.md).
 
 ```typescript {3,7} fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
@@ -1118,3 +1135,5 @@ Per maggiori dettagli su come utilizzare l'estensione, consulta la [documentazio
 ### Approfondimenti
 
 Per approfondire, puoi implementare l'[editor visuale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_visual_editor.md) o esternalizzare i tuoi contenuti utilizzando il [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_CMS.md).
+
+Once you share these, I'll audit the Italian translation against the English source and return the fully updated Italian content.---

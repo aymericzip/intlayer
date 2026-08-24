@@ -47,15 +47,22 @@ author: aymericzip
 />
 
   </Tab>
+  <Tab label="Demo" value="demo">
+
+<iframe
+  src="https://intlayer-vite-solid.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo Intlayer Vite + Solid Template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
 </Tabs>
 
 ## Inhaltsverzeichnis
 
 <TOC/>
-
-> Dieses Paket befindet sich in der Entwicklung. Weitere Informationen finden Sie im [Issue](https://github.com/aymericzip/intlayer/issues/117). Zeigen Sie Ihr Interesse an Intlayer für Solid, indem Sie das Issue liken.
-
-<!-- Siehe [Application Template](https://github.com/aymericzip/intlayer-solid-template) auf GitHub. -->
 
 ## Warum Intlayer gegenüber Alternativen?
 
@@ -241,8 +248,6 @@ export default appContent;
 ```
 
 > Ihre Inhaltsdeklarationen können überall in Ihrer Anwendung definiert werden, sobald sie in das Verzeichnis `contentDir` aufgenommen werden (standardmäßig `./src`). Und sie müssen die Dateiendung für Inhaltsdeklarationen erfüllen (standardmäßig `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
-
-> Für weitere Details siehe die [Dokumentation zur Inhaltsdeklaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/content_file.md).
 
 </Step>
 
@@ -490,10 +495,6 @@ export const Link: ParentComponent<AnchorProps> = (props) => {
   return <A {...props} href={localizedHref()} />;
 };
 ```
-
-</Step>
-
-<Step number={11} title="Markdown rendern" isOptional={true}>
 
 Intlayer unterstützt das Rendern von Markdown-Inhalten direkt in Ihrer Solid-Anwendung mit seinem eigenen internen Parser. Standardmäßig wird Markdown als Klartext behandelt. Um es als Rich HTML zu rendern, wickeln Sie Ihre Anwendung mit dem `MarkdownProvider` ein.
 
@@ -743,5 +744,3 @@ Um dein Entwicklungserlebnis mit Intlayer zu verbessern, kannst du die offiziell
 ### Weiterführende Schritte
 
 Um weiterzugehen, können Sie den [visuellen Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md) implementieren oder Ihre Inhalte mit dem [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md) auslagern.
-
----

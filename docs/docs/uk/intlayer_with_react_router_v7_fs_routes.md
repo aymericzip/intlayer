@@ -403,8 +403,6 @@ export default function AboutPage() {
 }
 ```
 
-> Якщо ваш застосунок уже існує, ви можете скористатися [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compiler.md) у поєднанні з [командой extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/extract.md), щоб перетворити тисячі компонентів за одну секунду.
-
 </Step>
 
 <Step number={6} title="Оголосіть свій контент">
@@ -475,6 +473,8 @@ export default aboutContent;
 > Ваші декларації контенту можуть бути визначені будь-де у вашому застосунку, як тільки вони будуть включені до директорії `contentDir` (за замовчуванням `./app`). І відповідати розширенню файлу декларації контенту (за замовчуванням `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
 
 > Для детальнішої інформації див. [документацію щодо декларацій контенту](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/content_file.md).
+
+> Якщо ваш додаток вже існує, ви можете використовувати [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compiler.md), а також [команду extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/extract.md), щоб трансформувати тисячі компонентів за секунду.
 
 </Step>
 
@@ -624,6 +624,34 @@ export const useI18nHTMLAttributes = () => {
 ```
 
 Цей хук уже використовується в компоненті макета (`($locale)._layout.tsx`), показаному в кроці 5.
+
+</Step>
+
+<Step number={10} title="Додайте middleware">
+
+Ви також можете використовувати `intlayerProxy` для додавання маршрутизації на рівні сервера до вашого застосунку. Цей плагін автоматично визначатиме поточну локаль на основі URL та встановлюватиме відповідний cookie локалі. Якщо локаль не вказана, плагін визначатиме найбільш відповідну локаль на основі переваг мови браузера користувача. Якщо локаль не визначена, він перенаправить на локаль за замовчуванням.
+
+> Зверніть увагу, що для використання `intlayerProxy` в production, вам потрібно перемістити пакет `vite-intlayer` з `devDependencies` на `dependencies`.
+
+> З Intlayer v9 `intlayerProxy()` включено безпосередньо в плагін `intlayer()` та увімкнено за замовчуванням через опцію `routing.enableProxy` (`true` за замовчуванням). Реєстрація його окремо, як показано нижче, тепер опціональна — вона збережена для зворотної сумісності та налаштувань, які потребують контролю порядку плагінів. Встановіть `routing.enableProxy: false`, щоб відмовитися. Див. [примітки до випуску v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/releases/v9.md).
+
+```typescript {3,7} fileName="vite.config.ts"
+import { reactRouter } from "@react-router/dev/vite";
+import { defineConfig } from "vite";
+import { intlayer } from "vite-intlayer";
+
+export default defineConfig({
+  plugins: [
+    reactRouter(),
+
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
+  ],
+});
+```
 
 </Step>
 

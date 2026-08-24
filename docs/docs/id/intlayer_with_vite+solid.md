@@ -47,15 +47,22 @@ author: aymericzip
 />
 
   </Tab>
+  <Tab label="Demo" value="demo">
+
+<iframe
+  src="https://intlayer-vite-solid.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo Template Intlayer Vite + Solid"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
 </Tabs>
 
 ## Table of Contents
 
 <TOC/>
-
-> Paket ini sedang dalam pengembangan. Lihat [issue](https://github.com/aymericzip/intlayer/issues/117) untuk informasi lebih lanjut. Tunjukkan minat Anda pada Intlayer untuk Solid dengan menyukai issue tersebut
-
-<!-- Lihat [Application Template](https://github.com/aymericzip/intlayer-solid-template) di GitHub. -->
 
 ## Mengapa Intlayer dibandingkan alternatif?
 
@@ -241,8 +248,6 @@ export default appContent;
 ```
 
 > Deklarasi konten Anda dapat didefinisikan di mana saja dalam aplikasi Anda selama file tersebut dimasukkan ke dalam direktori `contentDir` (secara default, `./src`). Dan sesuai dengan ekstensi file deklarasi konten (secara default, `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
-
-> Untuk detail lebih lanjut, lihat [dokumentasi deklarasi konten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md).
 
 </Step>
 
@@ -491,28 +496,9 @@ export const Link: ParentComponent<AnchorProps> = (props) => {
 };
 ```
 
-</Step>
-
 <Step number={11} title="Render Markdown" isOptional={true}>
 
 Intlayer mendukung rendering konten Markdown langsung di aplikasi Solid Anda menggunakan parser internalnya sendiri. Secara default, Markdown diperlakukan sebagai teks biasa. Untuk merender sebagai HTML yang kaya, bungkus aplikasi Anda dengan `MarkdownProvider`.
-
-```tsx fileName="src/index.tsx"
-import { render } from "solid-js/web";
-import { MarkdownProvider } from "solid-intlayer/markdown";
-import App from "./App";
-
-const root = document.getElementById("root");
-
-render(
-  () => (
-    <MarkdownProvider>
-      <App />
-    </MarkdownProvider>
-  ),
-  root!
-);
-```
 
 Kemudian Anda dapat menggunakannya di komponen Anda:
 
@@ -743,5 +729,3 @@ Untuk meningkatkan pengalaman pengembangan Anda dengan Intlayer, Anda dapat meng
 ### Melangkah Lebih Jauh
 
 Untuk melangkah lebih jauh, Anda dapat mengimplementasikan [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) atau mengeksternalisasi konten Anda menggunakan [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md).
-
----

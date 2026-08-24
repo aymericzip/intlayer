@@ -492,7 +492,7 @@ Queste utility eseguono il rendering **solo di stringhe Markdown pure** e sono i
 
 <Tabs group="framework">
   <Tab label="React" value="react">
-  
+
     #### Componente `<MarkdownRenderer />`
 
     Esegue il rendering di una stringa Markdown con opzioni specifiche.
@@ -531,7 +531,7 @@ Queste utility eseguono il rendering **solo di stringhe Markdown pure** e sono i
 
   </Tab>
   <Tab label="Next.js" value="nextjs">
-  
+
     #### Componente `<MarkdownRenderer />`
 
     Esegue il rendering di una stringa Markdown con opzioni specifiche.
@@ -957,6 +957,10 @@ Il `MarkdownProvider` (o il suo equivalente nel framework) configura la pipeline
   </Tab>
   <Tab label="Angular" value="angular">
 
+> MDX è supportato — qualsiasi nome di componente utilizzato all'interno del tuo Markdown (ad es. `<MyCustomJSXComponent />`) viene risolto rispetto alla mappa `components`.
+
+Puoi anche usare il tuo markdown renderer personalizzato:
+
     ```typescript fileName="app.module.ts"
     import { NgModule } from '@angular/core';
     import { IntlayerMarkdownModule } from 'angular-intlayer/markdown';
@@ -1047,7 +1051,7 @@ const MyComponent = () => {
 ```
 
   </Tab>
- 
+
   <Tab label="Vue" value="vue">
 
 Vue ha un componente `<Suspense>` integrato. Avvolgi il componente che renderizza il contenuto Markdown in un limite `<Suspense>`.

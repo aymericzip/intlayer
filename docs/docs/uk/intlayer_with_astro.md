@@ -123,6 +123,30 @@ Intlayer оптимізовано для ідеальної роботи з Astr
 Встановіть необхідні пакети за допомогою бажаного менеджера пакетів:
 
 ```bash packageManager="npm"
+npx intlayer init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer@canary init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer@canary init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer@canary init --interactive
+```
+
+> прапорець `--interactive` є необов'язковим. Використовуйте `intlayer-cli init`, якщо ви AI-агент.
+
+> Ця команда визначить ваше середовище та встановить необхідні пакети. Наприклад:
+
+```bash packageManager="npm"
+npm install intlayer astro-intlayer
+```
+
+```bash packageManager="npm"
 npm install intlayer astro-intlayer
 # опціонально: якщо ви хочете додати підтримку React islands
 npm install react react-dom react-intlayer @astrojs/react
