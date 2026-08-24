@@ -19,6 +19,7 @@ import type { AuthorProfile, DocMetadata } from '@intlayer/docs';
 import { getLocalizedUrl } from 'intlayer';
 import type { FC } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
+import { toAbsoluteUrl } from '~/utils/seo';
 import { ApplicationShowcaseMessage } from '../ApplicationShowcaseMessage';
 import { ApplicationTemplateMessage } from '../ApplicationTemplateMessage';
 import { ContributionMessage } from '../ContributionMessage';
@@ -83,6 +84,17 @@ export const DocHeader: FC<DocHeaderProps> = ({
     authorGithubLabel,
   } = useIntlayer('doc-header');
 
+  /**
+   * The author profile stores an absolute `intlayer.org` URL so the JSON-LD
+   * `Person.image` stays a resolvable absolute URI. Rendering re-roots it on the
+   * current deployment origin, which keeps the request same-origin — and
+   * therefore served with the immutable `/assets/**` cache headers — on
+   * localhost and on the `intlayer.cn` deployment alike.
+   */
+  const authorImageUrl = author?.image
+    ? toAbsoluteUrl(author.image)
+    : undefined;
+
   return (
     <>
       <header className="z-10 mx-auto mt-5 flex flex-col gap-2 px-4 py-2 text-xs">
@@ -98,7 +110,7 @@ export const DocHeader: FC<DocHeaderProps> = ({
                     className="flex items-center gap-2 text-neutral"
                   >
                     <Avatar
-                      src={author.image}
+                      src={authorImageUrl}
                       alt={authorAvatarAlt({ author: author.name })}
                       size="sm"
                       className="scale-70"
@@ -140,7 +152,7 @@ export const DocHeader: FC<DocHeaderProps> = ({
                 className="flex items-center gap-2 text-neutral"
               >
                 <Avatar
-                  src={author.image}
+                  src={authorImageUrl}
                   alt={authorAvatarAlt({ author: author.name })}
                   size="sm"
                   className="scale-70"
