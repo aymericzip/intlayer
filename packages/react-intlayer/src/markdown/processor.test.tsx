@@ -138,7 +138,7 @@ it('#700 perf regression with unclosed inline syntax', () => {
   );
 
   expect(container.innerHTML).toMatchInlineSnapshot(
-    `"<span>«Cleanliness is the finest of uniforms and a great defender against disease»*. Silver fabric was flowing. A wasp, buzzing, touches the bronze lips of the dragon with delicate <tooltip></tooltip><tooltiptrigger>hymenous wings</tooltiptrigger><tooltipcontent>wings thin like a membrane (hymenous = thin, like a hymen, meaning very thin skin).</tooltipcontent>&lt;/Tooltip&gt;. On the <tooltip></tooltip><tooltiptrigger>carved</tooltiptrigger><tooltipcontent>engraved.</tooltipcontent>&lt;/Tooltip&gt; tree trunk like a <tooltip></tooltip><tooltiptrigger>cradle</tooltiptrigger><tooltipcontent>a swing.</tooltipcontent>&lt;/Tooltip&gt; trough, where the animals quench their thirst, the beehive rests after gathering from the flowers.</span>"`
+    `"<span>«Cleanliness is the finest of uniforms and a great defender against disease»*. Silver fabric was flowing. A wasp, buzzing, touches the bronze lips of the dragon with delicate <tooltip><tooltiptrigger>hymenous wings</tooltiptrigger><tooltipcontent>wings thin like a membrane (hymenous = thin, like a hymen, meaning very thin skin).</tooltipcontent></tooltip>. On the <tooltip><tooltiptrigger>carved</tooltiptrigger><tooltipcontent>engraved.</tooltipcontent></tooltip> tree trunk like a <tooltip><tooltiptrigger>cradle</tooltiptrigger><tooltipcontent>a swing.</tooltipcontent></tooltip> trough, where the animals quench their thirst, the beehive rests after gathering from the flowers.</span>"`
   );
 });
 
@@ -3156,6 +3156,43 @@ describe('components', () => {
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<custombutton>Click me!</custombutton>"`
+    );
+  });
+
+  it('should keep an angle bracket held inside a quoted attribute value', () => {
+    renderFn(
+      compileMarkdown(
+        `<Tabs>\n <Tab label='Intlayer >=9.4' value='>=9.4'>\n\nrecent\n\n </Tab>\n <Tab label='Intlayer <9.4' value='<9.4'>\n\nlegacy\n\n </Tab>\n</Tabs>\n`
+      )
+    );
+
+    expect(container.innerHTML).toMatchInlineSnapshot(
+      `
+      "<tabs><tab label="Intlayer >=9.4" value=">=9.4">
+      <p>recent</p>
+      </tab><tab label="Intlayer <9.4" value="<9.4">
+      <p>legacy</p>
+      </tab></tabs>"
+    `
+    );
+  });
+
+  it('should keep an angle bracket held inside an html attribute value', () => {
+    renderFn(compileMarkdown(`<span data-range='a>b'>hi</span>`));
+
+    expect(container.innerHTML).toMatchInlineSnapshot(
+      `"<span data-range="a>b">hi</span>"`
+    );
+  });
+
+  it('should still read a tag holding an unbalanced quote', () => {
+    renderFn(compileMarkdown(`<Tab label=don't>\nhi it's here\n</Tab>`));
+
+    expect(container.innerHTML).toMatchInlineSnapshot(
+      `
+      "<tab>hi it's here
+      </tab>"
+    `
     );
   });
 

@@ -35,6 +35,27 @@ describe('Tab', () => {
     ]);
   });
 
+  test('keeps ids apart when two values sanitize alike', () => {
+    const { getAllByRole } = render(
+      <Tab>
+        <Tab.Item label="Intlayer >=9.4" value=">=9.4">
+          recent content
+        </Tab.Item>
+        <Tab.Item label="Intlayer <9.4" value="<9.4">
+          legacy content
+        </Tab.Item>
+      </Tab>
+    );
+
+    const tabs = getAllByRole('tab');
+
+    expect(tabs.map((tab) => tab.id)).toEqual(['tab-94', 'tab-94-2']);
+    expect(tabs.map((tab) => tab.getAttribute('aria-controls'))).toEqual([
+      'tabpanel-94',
+      'tabpanel-94-2',
+    ]);
+  });
+
   test('strips whitespace out of ids so aria-controls targets a single panel', () => {
     const { getByRole } = render(
       <Tab>

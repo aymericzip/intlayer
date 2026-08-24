@@ -28,6 +28,28 @@ const toIdFragment = (value: string) =>
     .replace(/\s+/g, '-')
     .replace(/[^\w-]/g, '');
 
+/**
+ * Builds one id fragment per tab, free of collisions.
+ *
+ * Sanitizing alone is not enough: two values can reduce to the same fragment
+ * (`>=9.4` and `<9.4` both reduce to `94`), which would give two tabs the same
+ * DOM id and cross-wire `aria-controls` between their panels.
+ */
+const toIdFragments = (values: string[]): string[] => {
+  const fragmentUsageCount = new Map<string, number>();
+
+  return values.map((value, index) => {
+    const fragment = toIdFragment(value) || String(index);
+    const previousUsageCount = fragmentUsageCount.get(fragment) ?? 0;
+
+    fragmentUsageCount.set(fragment, previousUsageCount + 1);
+
+    return previousUsageCount === 0
+      ? fragment
+      : `${fragment}-${previousUsageCount + 1}`;
+  });
+};
+
 // Context for managing tab state
 type TabContextType = {
   activeTab: string;
@@ -149,6 +171,7 @@ const TabComponent = ({
   );
 
   const tabsCount = tabItems.length;
+  const idFragments = toIdFragments(tabItems.map(({ value }) => value));
 
   const { containerProps, dragDeltaPct, isDragging } = useHorizontalSwipe({
     itemIndex: activeTabIndex,
@@ -193,9 +216,9 @@ const TabComponent = ({
         <div className={cn('flex shrink-0 gap-3 p-3', headerClassName)}>
           <TabSelector
             selectedChoice={currentTabValue}
-            tabs={tabItems.map(({ label, value, disabled }) => {
+            tabs={tabItems.map(({ label, value, disabled }, index) => {
               const isActive = currentTabValue === value;
-              const idFragment = toIdFragment(value);
+              const idFragment = idFragments[index];
 
               return (
                 <button
@@ -248,7 +271,7 @@ const TabComponent = ({
             {tabItems.map(
               ({ value, children, className: itemClassName }, index) => {
                 const isActive = index === activeTabIndex;
-                const idFragment = toIdFragment(value);
+                const idFragment = idFragments[index];
 
                 return (
                   <div

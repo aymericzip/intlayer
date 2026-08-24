@@ -153,4 +153,28 @@ describe('Markdown Core Compiler', () => {
     // Code content must not carry the 4-space structural indentation
     expect(html).not.toContain('    # My content');
   });
+
+  it('should keep an angle bracket held inside a quoted attribute value', () => {
+    const markdown = `<Tab label='Intlayer >=9.4' value='>=9.4'>\n\nrecent\n\n</Tab>`;
+    const html = (compile(markdown, ctx) as any).toString();
+
+    expect(html).toContain('label="Intlayer >=9.4"');
+    expect(html).toContain('value=">=9.4"');
+    expect(html).toContain('recent');
+  });
+
+  it('should not backtrack exponentially through nested tags carrying long attribute lists', () => {
+    // Every character of an inner opening tag must have a single way to be
+    // read; two readings of the same character turn this into 2^n paths.
+    const innerAttributes = Array.from(
+      { length: 20 },
+      (_, index) => `data-index-${index}="value"`
+    ).join(' ');
+    const markdown = `<Tab>\n\n${`<Tab ${innerAttributes}>inner</Tab>\n\n`.repeat(5)}`;
+
+    const start = performance.now();
+    compile(markdown, ctx);
+
+    expect(performance.now() - start).toBeLessThan(500);
+  });
 });
