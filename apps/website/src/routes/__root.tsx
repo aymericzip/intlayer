@@ -22,6 +22,7 @@ import { WebMCPTools } from '~/components/WebMCP';
 import appCss from '~/globals.css?url';
 import { AnimatePresenceProvider } from '~/providers/AnimatePresenceProvider';
 import { FirstConsultationProvider } from '~/providers/FirstConsultationProvider';
+import { loadGithubStars } from '~/serverFunctions/githubStars';
 import { hasInlinedStylesheet } from '~/utils/inlinedStylesheet';
 
 const localeRoute = getRouteApi('/{-$locale}');
@@ -63,6 +64,16 @@ interface MyRouterContext {
 }
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
+  /**
+   * The navbar star count is resolved here rather than from the component so
+   * that it travels with the dehydrated router state instead of costing a
+   * request of its own: read from the navbar, the static cache is only
+   * discovered once the page has hydrated, which puts a round trip at the end
+   * of the critical request chain for a decoration.
+   */
+  loader: async () => ({ githubStars: await loadGithubStars() }),
+  // Rebuilt with the site, so it never goes stale within a session.
+  staleTime: Number.POSITIVE_INFINITY,
   head: () => ({
     meta: [
       {

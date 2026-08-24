@@ -1,5 +1,6 @@
 'use client';
 
+import { observeScrollExtent } from '@utils/observeScrollExtent';
 import { useCallback, useEffect, useState } from 'react';
 
 import { useGetElementOrWindow } from './useGetElementOrWindow';
@@ -88,9 +89,31 @@ export const useScrollDetection = (props?: useScrollDetectionProps) => {
   }, [isEnabled, onScroll, onMobileMove, containerElement]);
 
   useEffect(() => {
-    const isScrollable = window.innerHeight < window.document.body.scrollHeight;
+    if (typeof window === 'undefined') return;
 
-    setIsScrollable(isScrollable);
+    /**
+     * Measured from the observer callback rather than from mount. Observer
+     * callbacks run after layout, so `scrollHeight` is free there, while the
+     * same read in a mount effect flushes the layout of the whole document
+     * inside the hydration commit — the navbar mounts on a page that React has
+     * just rewritten, so nothing is measured yet. The observer also keeps the
+     * answer true as the content grows, which a single measurement never did.
+     */
+    const detectIsScrollable = () => {
+      const nextIsScrollable =
+        window.innerHeight < window.document.body.scrollHeight;
+
+      setIsScrollable((previousIsScrollable) =>
+        previousIsScrollable === nextIsScrollable
+          ? previousIsScrollable
+          : nextIsScrollable
+      );
+    };
+
+    return observeScrollExtent(
+      window.document.documentElement,
+      detectIsScrollable
+    );
   }, []);
 
   return { isScrolled, isScrollable };

@@ -1,48 +1,33 @@
-import { type FC, use } from 'react';
-import { useLocale } from 'react-intlayer';
-import { loadGithubStars } from '~/serverFunctions/githubStars';
+import { getRouteApi } from '@tanstack/react-router';
+import type { FC } from 'react';
+import { useNumber } from 'react-intlayer/format';
 
-/**
- * Started as the module evaluates, but deliberately not awaited at the top
- * level: a top-level `await` makes this an async module, so a lazily loaded
- * chunk would only resolve once the request has landed. Suspending on the
- * promise from inside the component is the same wait, on a path React recovers
- * from during hydration.
- *
- * The request itself never reaches GitHub: the server function is resolved at
- * prerender time and the browser reads the static cache it wrote.
- */
-let githubStarsPromise: Promise<number | null> | null = null;
-
-const getGithubStarsPromise = () => {
-  githubStarsPromise ??= loadGithubStars().catch((error: unknown) => {
-    // A star count is decoration; a rejected promise read through `use()` is not.
-    // Swallowing here keeps a missing static cache or an unreachable GitHub from
-    // taking the whole navbar — and with it the page — into an error boundary.
-    console.error('Error loading GitHub stars:', error);
-    return null;
-  });
-  return githubStarsPromise;
-};
+const rootRoute = getRouteApi('__root__');
 
 /**
  * Renders the Intlayer repository star count next to the navbar GitHub link.
  *
- * Suspends until the count is available, and renders nothing when GitHub could
- * not be reached, so the link keeps its icon-only layout.
+ * The count comes from the root route loader, so it is already part of the
+ * dehydrated router state by the time the navbar hydrates — reading the static
+ * server function cache from here instead would open a request that only starts
+ * once this chunk has been downloaded and run.
+ *
+ * Renders nothing when GitHub could not be reached at build time, so the link
+ * keeps its icon-only layout.
  */
 export const GithubStarCount: FC = () => {
-  const stars = use(getGithubStarsPromise());
-  const { locale } = useLocale();
+  const { githubStars } = rootRoute.useLoaderData();
 
-  if (stars === null) {
-    return null;
+  const format = useNumber();
+
+  if (githubStars === null) {
+    return <></>;
   }
 
-  const formattedStars = new Intl.NumberFormat(locale, {
+  const formattedStars = format(githubStars, {
     notation: 'compact',
     maximumFractionDigits: 1,
-  }).format(stars);
+  });
 
   return (
     <strong className="text-xs tabular-nums leading-none">

@@ -16,17 +16,11 @@ import { TechLogos } from '@intlayer/design-system/tech-logo';
 import { useLocation, useRouter } from '@tanstack/react-router';
 import { Image, StarIcon, VectorSquare } from 'lucide-react';
 import type { FC, MouseEvent } from 'react';
-import { lazy, Suspense } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
 import { Link } from '~/components/Link/Link';
 import { LocaleSwitcher } from '~/components/LocaleSwitcher/LocaleSwitcher';
+import { SwitchThemeSwitcher } from '~/components/ThemeSwitcherDropDown/SwitchThemeSwitcher';
 import { GithubStarCount } from './GithubStarCount';
-
-const SwitchThemeSwitcher = lazy(() =>
-  import('~/components/ThemeSwitcherDropDown/SwitchThemeSwitcher').then(
-    (mod) => ({ default: mod.SwitchThemeSwitcher })
-  )
-);
 
 const getCleanChoice = (path?: string): string => {
   if (!path) return '';
@@ -262,9 +256,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
           >
             <TechLogos.GITHUB width={25} />
             GitHub
-            <Suspense fallback={null}>
-              <GithubStarCount />
-            </Suspense>
+            <GithubStarCount />
             <StarIcon
               width={18}
               className="mr-1 group-hover/github:fill-text"
@@ -297,9 +289,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
       rightItemsMobile={
         <div className="flex items-center gap-2">
           <LocaleSwitcher />
-          <Suspense>
-            <SwitchThemeSwitcher />
-          </Suspense>
+          <SwitchThemeSwitcher />
           {isAuthenticated && (
             <Avatar
               isLoggedIn={isAuthenticated}
@@ -312,9 +302,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
       rightItemsDesktop={
         <>
           <LocaleSwitcher />
-          <Suspense>
-            <SwitchThemeSwitcher />
-          </Suspense>
+          <SwitchThemeSwitcher />
           <Link
             label={discord.label.value}
             to={discord.url.value}
@@ -337,9 +325,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
             className="group/github flex cursor-pointer items-center gap-1 p-0.5"
           >
             <TechLogos.GITHUB width={25} />
-            <Suspense fallback={null}>
-              <GithubStarCount />
-            </Suspense>
+            <GithubStarCount />
             <StarIcon
               width={18}
               className="mr-1 group-hover/github:fill-text-opposite"
