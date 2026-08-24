@@ -38,17 +38,17 @@ export const Route = createFileRoute('/{-$locale}/')({
 
     return {
       meta: [
-        { title: String(title) },
-        { name: 'description', content: String(description) },
+        { title },
+        { name: 'description', content: description },
         {
           name: 'keywords',
           content: Array.isArray(keywords)
             ? keywords.join(', ')
-            : String(keywords || ''),
+            : keywords || '',
         },
         { property: 'og:url', content: getAbsoluteUrl(path, locale) },
-        { property: 'og:title', content: String(title) },
-        { property: 'og:description', content: String(description) },
+        { property: 'og:title', content: title },
+        { property: 'og:description', content: description },
       ],
       links: [
         { rel: 'canonical', href: getAbsoluteUrl(path, locale) },
@@ -66,7 +66,7 @@ export const Route = createFileRoute('/{-$locale}/')({
             buildProductJsonLd({
               url: Website_Home,
               name: 'Intlayer CMS',
-              description: String(productContent.description),
+              description: productContent.description,
               imageUrl:
                 'https://raw.githubusercontent.com/aymericzip/intlayer/main/docs/assets/CMS.png',
               offers,
