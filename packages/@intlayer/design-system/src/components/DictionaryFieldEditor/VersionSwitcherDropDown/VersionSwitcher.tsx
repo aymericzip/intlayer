@@ -67,7 +67,7 @@ export const VersionSwitcher: FC<VersionSwitcherProps> = ({ panelProps }) => {
                     textAlign="left"
                     size="sm"
                   >
-                    <div className="flex flex-1 flex-row items-center justify-between gap-3 px-2 py-1 text-neutral text-sm">
+                    <div className="flex flex-1 flex-row items-center justify-between gap-3 px-2 py-1 text-muted-foreground text-sm">
                       {version}
                     </div>
                   </Button>

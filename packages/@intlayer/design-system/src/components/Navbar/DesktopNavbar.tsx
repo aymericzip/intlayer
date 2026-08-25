@@ -99,7 +99,7 @@ export const DesktopNavbar = <T extends TabSelectorItemProps>({
 
     <TabSelector
       selectedChoice={selectedChoice}
-      className="ml-[2vw] h-auto gap-3 overflow-x-auto text-neutral tracking-wide lg:ml-[5vw] lg:gap-3 xl:ml-[10vw] xl:gap-6"
+      className="ml-[2vw] h-auto gap-3 overflow-x-auto text-muted-foreground tracking-wide lg:ml-[5vw] lg:gap-3 xl:ml-[10vw] xl:gap-6"
       tabs={sections}
       hoverable
       color="text"

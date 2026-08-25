@@ -47,7 +47,7 @@ export const checkboxVariants = cva(
         secondary:
           'border-secondary/30 text-secondary ring-secondary/20 checked:border-secondary checked:bg-secondary',
         neutral:
-          'border-neutral/30 text-neutral ring-neutral/20 checked:border-neutral checked:bg-neutral',
+          'border-neutral/30 text-muted-foreground ring-neutral/20 checked:border-neutral checked:bg-neutral',
         light:
           'border-white/30 text-white ring-white/20 checked:border-white checked:bg-white',
         text: 'border-text/30 text-foreground ring-text/20 checked:border-text checked:bg-text',

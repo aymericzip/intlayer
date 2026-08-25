@@ -211,7 +211,6 @@ export const Modal: FC<ModalProps> = ({
         className={modalVariants({ size, className })}
         role="dialog"
         aria-modal
-        roundedSize="4xl"
         // Force the outer container to have no padding so scrollbars hit the edge
         padding="none"
         {...props}

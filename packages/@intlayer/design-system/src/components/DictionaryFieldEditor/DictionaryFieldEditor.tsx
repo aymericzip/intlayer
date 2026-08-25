@@ -163,7 +163,7 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
           >
             <CopyToClipboard
               text={dictionary.id!}
-              className="text-nowrap text-neutral text-sm"
+              className="text-nowrap text-muted-foreground text-sm"
               size={9}
             >
               {dictionary.id}
