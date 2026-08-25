@@ -70,7 +70,7 @@ export const loadNavData = createServerFn()
 
 export const loadDocRaw = createServerFn()
   .validator((data: { locale: string; slugs: string[] }) => data)
-  // .middleware([staticFunctionMiddleware])
+  .middleware([staticFunctionMiddleware])
   .handler(async ({ data: { locale, slugs } }) => {
     const { getDoc, getDocMetadata, getDocMetadataBySlug, getDocsKeys } =
       await import('@intlayer/docs');

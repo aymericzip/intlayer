@@ -58,7 +58,7 @@ export const loadBlogPage = createServerFn()
 
 export const loadBlogRaw = createServerFn()
   .validator((data: { locale: string; slugs: string[] }) => data)
-  // .middleware([staticFunctionMiddleware])
+  .middleware([staticFunctionMiddleware])
   .handler(async ({ data: { locale, slugs } }) => {
     const { getBlog, getBlogMetadataBySlug } = await import('@intlayer/docs');
 
@@ -80,7 +80,7 @@ export const loadBlogRaw = createServerFn()
 
 export const loadBlogNavData = createServerFn()
   .validator((data: { locale: string }) => data)
-  // .middleware([staticFunctionMiddleware])
+  .middleware([staticFunctionMiddleware])
   .handler(async ({ data: { locale } }) => {
     const { getAuthor } = await import('@intlayer/docs');
     const blogData = getBlogData(locale);

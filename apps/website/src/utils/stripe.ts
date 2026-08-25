@@ -8,7 +8,7 @@ import { createServerFn } from '@tanstack/react-start';
 import { staticFunctionMiddleware } from '@tanstack/start-static-server-functions';
 
 export const getPricing = createServerFn()
-  // .middleware([staticFunctionMiddleware])
+  .middleware([staticFunctionMiddleware])
   .handler(async () => {
     try {
       if (
