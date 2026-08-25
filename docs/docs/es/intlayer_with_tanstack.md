@@ -662,7 +662,7 @@ También puedes usar el `intlayerProxy` para añadir enrutamiento del lado del s
 
 > Ten en cuenta que para usar el `intlayerProxy` en producción, necesitas cambiar el paquete `vite-intlayer` de `devDependencies` a `dependencies`.
 
-> Desde Intlayer v9, `intlayerProxy()` está incluido directamente en el plugin `intlayer()` y habilitado por defecto a través de la opción `routing.enableProxy` (`true` por defecto). Registrarlo por separado como se muestra a continuación es ahora opcional — se mantiene para compatibilidad hacia atrás y para configuraciones que necesitan controlar el orden de los plugins. Establece `routing.enableProxy: false` para desactivarlo. Consulta las [notas de la versión v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/releases/v9.md).
+> Desde Intlayer v9, `intlayerProxy()` está incluido directamente en el plugin `intlayer()` y habilitado por defecto a través de la opción `routing.enableProxy` (`true` por defecto). Registrarlo por separado como se muestra a continuación es ahora opcional: se mantiene para compatibilidad hacia atrás y para configuraciones que necesitan controlar el orden de los plugins. Establece `routing.enableProxy: false` para desactivarlo. Consulta las [notas de la versión v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/releases/v9.md).
 
 ```typescript fileName="vite.config.ts"
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
@@ -696,11 +696,7 @@ export default defineConfig({
 
 <Step number={12} title="Internacionalizar tus metadatos">
 
-Dentro de tus componentes, sigue usando **`useIntlayer`**: es la opción por defecto. El compilador lo reescribe hacia el chunk de diccionario de la locale que realmente se renderiza, así que nada más llega al navegador.
-
-Las funciones `head` de las rutas se ejecutan **fuera** del árbol de React, por lo que `useIntlayer` no está disponible allí. Tienes tres formas de leer un diccionario desde `head`, y cada una equilibra el tamaño del bundle frente a la rapidez con la que el `head` del documento queda listo.
-
-<Tabs defaultTab="cached">
+<Tabs>
 
 <Tab label="Resolución estática" value="static">
 
@@ -758,7 +754,7 @@ Ideal para diccionarios de metadatos pequeños, pocas locales o durante el proto
 
 <Tab label="Resolución dinámica" value="dynamic">
 
-`getIntlayerAsync` —disponible a partir de la **v9.4**— se comporta como `getIntlayer`, pero el plugin de build lo apunta al chunk por locale en `.intlayer/dynamic_dictionaries/` en lugar del diccionario fusionado. Así, una página solo envía la locale que renderiza. Como ese chunk se carga bajo demanda, `head` pasa a ser `async`:
+`getIntlayerAsync` (disponible a partir de la **v9.4**) se comporta como `getIntlayer`, pero el plugin de build lo apunta al chunk por locale en `.intlayer/dynamic_dictionaries/` en lugar del diccionario fusionado. Así, una página solo envía la locale que renderiza. Como ese chunk se carga bajo demanda, `head` pasa a ser `async`:
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/react-router";
@@ -881,17 +877,13 @@ Conservas el chunk por locale sin pagar su coste en la ruta crítica del `head`.
 
 ### ¿Qué resolución debo elegir?
 
-|                           | Resolución estática                  | Resolución dinámica                        | Resolución dinámica cacheada                 |
-| ------------------------- | ------------------------------------ | ------------------------------------------ | -------------------------------------------- |
-| API                       | `getIntlayer`                        | `getIntlayerAsync` (v9.4+)                 | `getIntlayerAsync` en `loader` (v9.4+)       |
-| Firma de `head`           | síncrona                             | `async`                                    | síncrona, lee `loaderData`                   |
-| Locales enviadas          | todas las locales declaradas         | solo la locale solicitada                  | solo la locale solicitada                    |
-| Tamaño del bundle         | crece con cada locale                | constante                                  | constante                                    |
-| Resolución del `head`     | inmediata                            | espera el chunk de locale dentro de `head` | esperado en el loader y luego cacheado       |
-| Impacto en LCP            | ninguno                              | ligero retraso en una ruta fría            | ninguno: fuera de la ruta crítica del `head` |
-| Navegaciones en cliente   | nada que resolver                    | se vuelve a ejecutar en cada coincidencia  | servido desde la caché del router            |
-| Experiencia de desarrollo | la más simple                        | un solo `await`                            | contenido pasado por `loaderData`            |
-| Recomendado para          | pocas locales, diccionarios pequeños | muchas locales, rutas poco visitadas       | muchas locales, rutas muy visitadas          |
+|                           | Resolución estática          | Resolución dinámica                       | Resolución dinámica cacheada           |
+| ------------------------- | ---------------------------- | ----------------------------------------- | -------------------------------------- |
+| API                       | `getIntlayer`                | `getIntlayerAsync` (v9.4+)                | `getIntlayerAsync` en `loader` (v9.4+) |
+| Firma de `head`           | síncrona                     | `async`                                   | síncrona, lee `loaderData`             |
+| Locales enviadas          | todas las locales declaradas | solo la locale solicitada                 | solo la locale solicitada              |
+| Navegaciones en cliente   | nada que resolver            | se vuelve a ejecutar en cada coincidencia | servido desde la caché del router      |
+| Experiencia de desarrollo | la más simple                | un solo `await`                           | contenido pasado por `loaderData`      |
 
 ---
 

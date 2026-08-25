@@ -512,7 +512,7 @@ export const useLocalizedNavigate = () => {
 
 <Step number={9} title="페이지에서 Intlayer 활용하기">
 
-> 컴포넌트 안에서는 기본적으로 **`useIntlayer`** 를 사용하세요. 컴파일러가 렌더링되는 로케일로 해석해 주므로 이것이 권장 방식입니다. `getIntlayer` / `getIntlayerAsync` 는 React 트리 바깥 — 라우트 `head`, 로더, 서버 함수 — 에서만 사용하세요.
+> 컴포넌트 안에서는 기본적으로 **`useIntlayer`** 를 사용하세요. 컴파일러가 렌더링되는 로케일로 해석해 주므로 이것이 권장 방식입니다. `getIntlayer` / `getIntlayerAsync` 는 React 트리 바깥(라우트 `head`, 로더, 서버 함수)에서만 사용하세요.
 
 애플리케이션 전반에서 콘텐츠 사전에 액세스합니다:
 
@@ -662,7 +662,7 @@ return (
 
 > 프로덕션에서 `intlayerProxy`를 사용하려면 `vite-intlayer` 패키지를 `devDependencies`에서 `dependencies`로 변경해야 합니다.
 
-> Intlayer v9 이후로 `intlayerProxy()`는 `intlayer()` 플러그인에 직접 번들되어 있으며 `routing.enableProxy` 옵션(`true` 기본값)을 통해 기본적으로 활성화됩니다. 아래에 표시된 대로 별도로 등록하는 것은 이제 선택 사항입니다 — 하위 호환성을 위해 그리고 플러그인 순서를 제어해야 하는 설정을 위해 유지됩니다. `routing.enableProxy: false`로 설정하여 제외할 수 있습니다. [v9 release notes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/releases/v9.md)를 참조하세요.
+> Intlayer v9 이후로 `intlayerProxy()`는 `intlayer()` 플러그인에 직접 번들되어 있으며 `routing.enableProxy` 옵션(`true` 기본값)을 통해 기본적으로 활성화됩니다. 아래에 표시된 대로 별도로 등록하는 것은 이제 선택 사항입니다. 하위 호환성을 위해 그리고 플러그인 순서를 제어해야 하는 설정을 위해 유지됩니다. `routing.enableProxy: false`로 설정하여 제외할 수 있습니다. [v9 release notes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/releases/v9.md)를 참조하세요.
 
 ```typescript fileName="vite.config.ts"
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
@@ -696,11 +696,7 @@ export default defineConfig({
 
 <Step number={12} title="메타데이터 국제화(선택 사항)" isOptional={true}>
 
-컴포넌트 안에서는 계속 **`useIntlayer`** 를 사용하세요. 기본 선택지는 그대로입니다. 컴파일러가 실제로 렌더링되는 로케일의 사전 청크로 다시 작성하므로, 그 외에는 브라우저로 전송되지 않습니다.
-
-라우트의 `head` 함수는 React 트리 **바깥**에서 실행되므로 그곳에서는 `useIntlayer` 를 쓸 수 없습니다. `head` 에서 사전을 읽는 방법은 세 가지이며, 각각 번들 크기와 문서 `head` 가 준비되는 시점 사이에서 절충합니다.
-
-<Tabs defaultTab="cached">
+<Tabs>
 
 <Tab label="정적 해석" value="static">
 
@@ -758,7 +754,7 @@ export const Route = createFileRoute("/{-$locale}/")({
 
 <Tab label="동적 해석" value="dynamic">
 
-`getIntlayerAsync` — **v9.4** 부터 제공 — 는 `getIntlayer` 와 동일하게 동작하지만, 빌드 플러그인이 병합 사전 대신 `.intlayer/dynamic_dictionaries/` 의 로케일별 청크를 가리키게 합니다. 따라서 페이지는 렌더링하는 로케일만 전송합니다. 해당 청크는 필요할 때 로드되므로 `head` 는 `async` 가 됩니다:
+`getIntlayerAsync`(**v9.4** 부터 제공)는 `getIntlayer` 와 동일하게 동작하지만, 빌드 플러그인이 병합 사전 대신 `.intlayer/dynamic_dictionaries/` 의 로케일별 청크를 가리키게 합니다. 따라서 페이지는 렌더링하는 로케일만 전송합니다. 해당 청크는 필요할 때 로드되므로 `head` 는 `async` 가 됩니다:
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/react-router";
@@ -881,17 +877,13 @@ export const Route = createFileRoute("/{-$locale}/")({
 
 ### 어떤 해석 방식을 선택해야 할까요?
 
-|                       | 정적 해석                    | 동적 해석                        | 캐시된 동적 해석                         |
-| --------------------- | ---------------------------- | -------------------------------- | ---------------------------------------- |
-| API                   | `getIntlayer`                | `getIntlayerAsync` (v9.4+)       | `loader` 안의 `getIntlayerAsync` (v9.4+) |
-| `head` 시그니처       | 동기                         | `async`                          | 동기, `loaderData` 를 읽음               |
-| 전송되는 로케일       | 선언된 모든 로케일           | 요청된 로케일만                  | 요청된 로케일만                          |
-| 번들 크기             | 로케일마다 증가              | 일정                             | 일정                                     |
-| `head` 해석           | 즉시                         | `head` 안에서 로케일 청크를 대기 | 로더에서 대기 후 캐시                    |
-| LCP 영향              | 없음                         | 콜드 라우트에서 약간의 지연      | 없음 — `head` 임계 경로 밖               |
-| 클라이언트 내비게이션 | 해석할 것 없음               | 매칭될 때마다 다시 실행          | 라우터 캐시에서 제공                     |
-| DX                    | 가장 단순함                  | `await` 하나                     | 콘텐츠를 `loaderData` 로 전달            |
-| 적합한 경우           | 로케일이 적고 사전이 작을 때 | 로케일이 많고 방문이 드문 라우트 | 로케일이 많고 방문이 잦은 라우트         |
+|                       | 정적 해석          | 동적 해석                  | 캐시된 동적 해석                         |
+| --------------------- | ------------------ | -------------------------- | ---------------------------------------- |
+| API                   | `getIntlayer`      | `getIntlayerAsync` (v9.4+) | `loader` 안의 `getIntlayerAsync` (v9.4+) |
+| `head` 시그니처       | 동기               | `async`                    | 동기, `loaderData` 를 읽음               |
+| 전송되는 로케일       | 선언된 모든 로케일 | 요청된 로케일만            | 요청된 로케일만                          |
+| 클라이언트 내비게이션 | 해석할 것 없음     | 매칭될 때마다 다시 실행    | 라우터 캐시에서 제공                     |
+| DX                    | 가장 단순함        | `await` 하나               | 콘텐츠를 `loaderData` 로 전달            |
 
 ---
 

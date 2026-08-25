@@ -511,7 +511,7 @@ export const useLocalizedNavigate = () => {
 
 <Step number={9} title="Sử dụng Intlayer trong các Trang của Bạn">
 
-> Hãy dùng **`useIntlayer`** theo mặc định: đây là cách được khuyến nghị để đọc nội dung bên trong component, và trình biên dịch sẽ phân giải nó về đúng locale đang được render. Chỉ dùng `getIntlayer` / `getIntlayerAsync` bên ngoài cây React — `head` của route, loader và server function.
+> Hãy dùng **`useIntlayer`** theo mặc định: đây là cách được khuyến nghị để đọc nội dung bên trong component, và trình biên dịch sẽ phân giải nó về đúng locale đang được render. Chỉ dùng `getIntlayer` / `getIntlayerAsync` bên ngoài cây React: `head` của route, loader và server function.
 
 Truy cập các từ điển nội dung của bạn trong toàn bộ ứng dụng:
 
@@ -661,7 +661,7 @@ Bạn cũng có thể sử dụng `intlayerProxy` để thêm routing phía serv
 
 > Lưu ý rằng để sử dụng `intlayerProxy` trong môi trường production, bạn cần chuyển gói `vite-intlayer` từ `devDependencies` sang `dependencies`.
 
-> Kể từ Intlayer v9, `intlayerProxy()` được tích hợp trực tiếp vào plugin `intlayer()` và được bật mặc định thông qua tùy chọn `routing.enableProxy` (`true` theo mặc định). Đăng ký nó riêng biệt như được hiển thị dưới đây hiện là tùy chọn — nó được giữ lại để tương thích ngược và cho các thiết lập cần kiểm soát thứ tự plugin. Đặt `routing.enableProxy: false` để từ chối. Xem [ghi chú phát hành v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/releases/v9.md).
+> Kể từ Intlayer v9, `intlayerProxy()` được tích hợp trực tiếp vào plugin `intlayer()` và được bật mặc định thông qua tùy chọn `routing.enableProxy` (`true` theo mặc định). Đăng ký nó riêng biệt như được hiển thị dưới đây hiện là tùy chọn; nó được giữ lại để tương thích ngược và cho các thiết lập cần kiểm soát thứ tự plugin. Đặt `routing.enableProxy: false` để từ chối. Xem [ghi chú phát hành v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/releases/v9.md).
 
 ```typescript fileName="vite.config.ts"
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
@@ -695,15 +695,11 @@ export default defineConfig({
 
 <Step number={13} title="Quốc tế hóa siêu dữ liệu của bạn">
 
-Bên trong các component, hãy tiếp tục dùng **`useIntlayer`** — đây vẫn là lựa chọn mặc định. Trình biên dịch viết lại lời gọi này thành chunk từ điển của locale thực sự đang được render, nên không có gì thừa được gửi tới trình duyệt.
-
-Các hàm `head` của route chạy **bên ngoài** cây React, nên `useIntlayer` không khả dụng ở đó. Bạn có ba cách đọc từ điển từ `head`, mỗi cách đánh đổi giữa kích thước bundle và mức độ sớm mà `head` của tài liệu sẵn sàng.
-
-<Tabs defaultTab="cached">
+<Tabs>
 
 <Tab label="Phân giải tĩnh" value="static">
 
-`getIntlayer` phân giải đồng bộ trên từ điển **đã gộp** — từ điển chứa mọi locale đã khai báo. `head` vẫn đồng bộ và không phải await gì cả, nhưng toàn bộ từ điển đa ngữ bị kéo vào chunk của route gửi tới trình duyệt.
+`getIntlayer` phân giải đồng bộ trên từ điển **đã gộp**, tức từ điển chứa mọi locale đã khai báo. `head` vẫn đồng bộ và không phải await gì cả, nhưng toàn bộ từ điển đa ngữ bị kéo vào chunk của route gửi tới trình duyệt.
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/react-router";
@@ -757,7 +753,7 @@ Phù hợp nhất với từ điển metadata nhỏ, ít locale, hoặc khi đan
 
 <Tab label="Phân giải động" value="dynamic">
 
-`getIntlayerAsync` — có sẵn từ **v9.4** — hoạt động giống `getIntlayer`, nhưng plugin build trỏ nó tới chunk theo từng locale trong `.intlayer/dynamic_dictionaries/` thay vì từ điển đã gộp. Nhờ vậy một trang chỉ gửi đúng locale mà nó render. Vì chunk đó được nạp theo yêu cầu, `head` trở thành `async`:
+`getIntlayerAsync` (có sẵn từ **v9.4**) hoạt động giống `getIntlayer`, nhưng plugin build trỏ nó tới chunk theo từng locale trong `.intlayer/dynamic_dictionaries/` thay vì từ điển đã gộp. Nhờ vậy một trang chỉ gửi đúng locale mà nó render. Vì chunk đó được nạp theo yêu cầu, `head` trở thành `async`:
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/react-router";
@@ -805,7 +801,7 @@ export const Route = createFileRoute("/{-$locale}/")({
 });
 ```
 
-> Nếu một `head` đọc nhiều từ điển, hãy phân giải chúng bằng `Promise.all` — await từng `getIntlayerAsync` trên một dòng riêng sẽ khiến các yêu cầu nối đuôi nhau thay vì chạy song song.
+> Nếu một `head` đọc nhiều từ điển, hãy phân giải chúng bằng `Promise.all`; await từng `getIntlayerAsync` trên một dòng riêng sẽ khiến các yêu cầu nối đuôi nhau thay vì chạy song song.
 
 Đánh đổi: import động được phân giải trong lúc `head` chạy, nằm trên đường găng của quá trình render tài liệu. Trên một route "nguội", điều này làm `head` trễ vài mili giây và có thể làm **LCP** kém đi đôi chút.
 
@@ -813,7 +809,7 @@ export const Route = createFileRoute("/{-$locale}/")({
 
 <Tab label="Phân giải động có cache" value="cached">
 
-Hãy phân giải từ điển trong `loader` của route rồi đọc lại từ `loaderData` trong `head`. Loader của các route khớp chạy song song, và `staleTime: Infinity` cho TanStack Router biết kết quả không bao giờ cũ — nhờ đó chunk theo locale chỉ được phân giải một lần rồi phục vụ từ cache của router, giữ cho `head` đồng bộ.
+Hãy phân giải từ điển trong `loader` của route rồi đọc lại từ `loaderData` trong `head`. Loader của các route khớp chạy song song, và `staleTime: Infinity` cho TanStack Router biết kết quả không bao giờ cũ, nhờ đó chunk theo locale chỉ được phân giải một lần rồi phục vụ từ cache của router, giữ cho `head` đồng bộ.
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/react-router";
@@ -880,17 +876,13 @@ Bạn giữ được chunk theo locale mà không phải trả giá trên đư�
 
 ### Nên chọn cách phân giải nào?
 
-|                        | Phân giải tĩnh             | Phân giải động                     | Phân giải động có cache                   |
-| ---------------------- | -------------------------- | ---------------------------------- | ----------------------------------------- |
-| API                    | `getIntlayer`              | `getIntlayerAsync` (v9.4+)         | `getIntlayerAsync` trong `loader` (v9.4+) |
-| Chữ ký của `head`      | đồng bộ                    | `async`                            | đồng bộ, đọc `loaderData`                 |
-| Locale được gửi đi     | mọi locale đã khai báo     | chỉ locale được yêu cầu            | chỉ locale được yêu cầu                   |
-| Kích thước bundle      | tăng theo từng locale      | không đổi                          | không đổi                                 |
-| Phân giải `head`       | tức thì                    | chờ chunk locale ngay trong `head` | chờ trong loader, sau đó cache            |
-| Ảnh hưởng LCP          | không                      | trễ nhẹ trên route nguội           | không — nằm ngoài đường găng của `head`   |
-| Điều hướng phía client | không có gì phải phân giải | chạy lại mỗi lần khớp route        | phục vụ từ cache của router               |
-| Trải nghiệm phát triển | đơn giản nhất              | một lệnh `await`                   | nội dung truyền qua `loaderData`          |
-| Phù hợp nhất cho       | ít locale, từ điển nhỏ     | nhiều locale, route ít được ghé    | nhiều locale, route được ghé thường xuyên |
+|                        | Phân giải tĩnh             | Phân giải động              | Phân giải động có cache                   |
+| ---------------------- | -------------------------- | --------------------------- | ----------------------------------------- |
+| API                    | `getIntlayer`              | `getIntlayerAsync` (v9.4+)  | `getIntlayerAsync` trong `loader` (v9.4+) |
+| Chữ ký của `head`      | đồng bộ                    | `async`                     | đồng bộ, đọc `loaderData`                 |
+| Locale được gửi đi     | mọi locale đã khai báo     | chỉ locale được yêu cầu     | chỉ locale được yêu cầu                   |
+| Điều hướng phía client | không có gì phải phân giải | chạy lại mỗi lần khớp route | phục vụ từ cache của router               |
+| Trải nghiệm phát triển | đơn giản nhất              | một lệnh `await`            | nội dung truyền qua `loaderData`          |
 
 ---
 

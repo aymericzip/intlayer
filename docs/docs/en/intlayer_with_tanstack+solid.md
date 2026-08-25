@@ -464,7 +464,7 @@ export const useLocalizedNavigate = () => {
 
 <Step number={8} title="Utilize Intlayer in Your Pages">
 
-> Use **`useIntlayer`** by default: it is the recommended way to read content inside components, and the compiler resolves it to the locale being rendered. Reach for `getIntlayer` / `getIntlayerAsync` only outside the Solid tree — route `head`, loaders and server functions.
+> Use **`useIntlayer`** by default: it is the recommended way to read content inside components, and the compiler resolves it to the locale being rendered. Reach for `getIntlayer` / `getIntlayerAsync` only outside the Solid tree: route `head`, loaders and server functions.
 
 Access your content dictionaries throughout your application:
 
@@ -582,7 +582,7 @@ You can also use the `intlayerProxy` to add server-side routing to your applicat
 
 > Note that to use the `intlayerProxy` in production, you need to switch the `vite-intlayer` package from `devDependencies` to `dependencies`.
 
-> Since Intlayer v9, `intlayerProxy()` is bundled directly into the `intlayer()` plugin and enabled by default through the `routing.enableProxy` option (`true` by default). Registering it separately as shown below is now optional — it is kept for backward compatibility and for setups that need to control plugin order. Set `routing.enableProxy: false` to opt out. See the [v9 release notes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/releases/v9.md).
+> Since Intlayer v9, `intlayerProxy()` is bundled directly into the `intlayer()` plugin and enabled by default through the `routing.enableProxy` option (`true` by default). Registering it separately as shown below is now optional: it is kept for backward compatibility and for setups that need to control plugin order. Set `routing.enableProxy: false` to opt out. See the [v9 release notes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/releases/v9.md).
 
 ```typescript fileName="vite.config.ts"
 import { tanstackStart } from "@tanstack/solid-start/plugin/vite";
@@ -616,15 +616,11 @@ export default defineConfig({
 
 <Step number={12} title="Internationalize your Metadata">
 
-Inside your components, keep using **`useIntlayer`** — it stays the default. The compiler rewrites it to the dictionary chunk of the locale actually being rendered, so nothing else ships to the browser.
-
-Route `head` functions run **outside** the Solid tree, so `useIntlayer` is not available there. You have three ways to read a dictionary from `head`, and they trade bundle size against how early the document head is ready.
-
-<Tabs defaultTab="cached">
+<Tabs>
 
 <Tab label="Static resolution" value="static">
 
-`getIntlayer` resolves synchronously against the **merged** dictionary — the one holding every declared locale. `head` stays synchronous and nothing is awaited, but the whole multilingual dictionary is pulled into the route chunk sent to the browser.
+`getIntlayer` resolves synchronously against the **merged** dictionary, the one holding every declared locale. `head` stays synchronous and nothing is awaited, but the whole multilingual dictionary is pulled into the route chunk sent to the browser.
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/solid-router";
@@ -678,7 +674,7 @@ Best for small metadata dictionaries, a handful of locales, or while prototyping
 
 <Tab label="Dynamic resolution" value="dynamic">
 
-`getIntlayerAsync` — available from **v9.4** — behaves like `getIntlayer`, but the build plugin points it at the per-locale chunk in `.intlayer/dynamic_dictionaries/` instead of the merged dictionary. A page therefore ships only the locale it renders. Because that chunk is loaded on demand, `head` becomes `async`:
+`getIntlayerAsync` (available from **v9.4**) behaves like `getIntlayer`, but the build plugin points it at the per-locale chunk in `.intlayer/dynamic_dictionaries/` instead of the merged dictionary. A page therefore ships only the locale it renders. Because that chunk is loaded on demand, `head` becomes `async`:
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/solid-router";
@@ -726,7 +722,7 @@ export const Route = createFileRoute("/{-$locale}/")({
 });
 ```
 
-> If a `head` reads several dictionaries, resolve them with `Promise.all` — awaiting each `getIntlayerAsync` on its own line chains the requests instead of running them in parallel.
+> If a `head` reads several dictionaries, resolve them with `Promise.all`: awaiting each `getIntlayerAsync` on its own line chains the requests instead of running them in parallel.
 
 The trade-off: the dynamic import is resolved while `head` runs, on the critical path of the document render. On a cold route this delays the head by a few milliseconds and can slightly degrade **LCP**.
 
@@ -734,7 +730,7 @@ The trade-off: the dynamic import is resolved while `head` runs, on the critical
 
 <Tab label="Cached dynamic resolution" value="cached">
 
-Resolve the dictionary in the route `loader` and read it back from `loaderData` in `head`. Loaders of the matched routes run in parallel, and `staleTime: Infinity` tells TanStack Router the result never goes stale — so the per-locale chunk is resolved once and served from the router cache afterwards, leaving `head` synchronous.
+Resolve the dictionary in the route `loader` and read it back from `loaderData` in `head`. Loaders of the matched routes run in parallel, and `staleTime: Infinity` tells TanStack Router the result never goes stale, so the per-locale chunk is resolved once and served from the router cache afterwards, leaving `head` synchronous.
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/solid-router";
@@ -801,17 +797,13 @@ You keep the per-locale chunk without paying its cost on the head critical path.
 
 ### Which resolution should I pick?
 
-|                      | Static resolution               | Dynamic resolution                    | Cached dynamic resolution               |
-| -------------------- | ------------------------------- | ------------------------------------- | --------------------------------------- |
-| API                  | `getIntlayer`                   | `getIntlayerAsync` (v9.4+)            | `getIntlayerAsync` in `loader` (v9.4+)  |
-| `head` signature     | synchronous                     | `async`                               | synchronous, reads `loaderData`         |
-| Locales shipped      | every declared locale           | requested locale only                 | requested locale only                   |
-| Bundle size          | grows with each locale          | flat                                  | flat                                    |
-| Head resolution      | immediate                       | awaits the locale chunk inside `head` | awaited in the loader, then cached      |
-| LCP impact           | none                            | slight delay on a cold route          | none — off the head critical path       |
-| Client navigations   | nothing to resolve              | re-entered on every match             | served from the router cache            |
-| Developer experience | simplest                        | one `await`                           | content threaded through `loaderData`   |
-| Best for             | few locales, small dictionaries | many locales, rarely visited routes   | many locales, frequently visited routes |
+|                      | Static resolution     | Dynamic resolution         | Cached dynamic resolution              |
+| -------------------- | --------------------- | -------------------------- | -------------------------------------- |
+| API                  | `getIntlayer`         | `getIntlayerAsync` (v9.4+) | `getIntlayerAsync` in `loader` (v9.4+) |
+| `head` signature     | synchronous           | `async`                    | synchronous, reads `loaderData`        |
+| Locales shipped      | every declared locale | requested locale only      | requested locale only                  |
+| Client navigations   | nothing to resolve    | re-entered on every match  | served from the router cache           |
+| Developer experience | simplest              | one `await`                | content threaded through `loaderData`  |
 
 ---
 

@@ -512,7 +512,7 @@ export const useLocalizedNavigate = () => {
 
 <Step number={8} title="Intlayer in Ihren Seiten nutzen">
 
-> Verwenden Sie standardmäßig **`useIntlayer`**: Es ist der empfohlene Weg, Inhalte innerhalb von Komponenten zu lesen, und der Compiler löst den Aufruf auf die gerenderte Locale auf. Greifen Sie nur außerhalb des React-Baums zu `getIntlayer` / `getIntlayerAsync` — im `head` von Routen, in Loadern und Server Functions.
+> Verwenden Sie standardmäßig **`useIntlayer`**: Es ist der empfohlene Weg, Inhalte innerhalb von Komponenten zu lesen, und der Compiler löst den Aufruf auf die gerenderte Locale auf. Greifen Sie nur außerhalb des React-Baums zu `getIntlayer` / `getIntlayerAsync`: im `head` von Routen, in Loadern und Server Functions.
 
 Greifen Sie in Ihrer gesamten Anwendung auf Ihre Inhaltswörterbücher zu:
 
@@ -662,7 +662,7 @@ Sie können auch den `intlayerProxy` verwenden, um serverseitiges Routing zu Ihr
 
 > Beachten Sie, dass Sie zur Verwendung des `intlayerProxy` in der Produktion das Paket `vite-intlayer` von `devDependencies` zu `dependencies` verschieben müssen.
 
-> Seit Intlayer v9 ist `intlayerProxy()` direkt in das `intlayer()`-Plugin integriert und standardmäßig über die Option `routing.enableProxy` (`true` standardmäßig) aktiviert. Die separate Registrierung wie unten gezeigt ist nun optional — sie wird aus Gründen der Rückwärtskompatibilität und für Setups beibehalten, die die Plugin-Reihenfolge kontrollieren müssen. Setzen Sie `routing.enableProxy: false`, um sich abzumelden. Siehe die [v9-Versionshinweise](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/releases/v9.md).
+> Seit Intlayer v9 ist `intlayerProxy()` direkt in das `intlayer()`-Plugin integriert und standardmäßig über die Option `routing.enableProxy` (`true` standardmäßig) aktiviert. Die separate Registrierung wie unten gezeigt ist nun optional; sie wird aus Gründen der Rückwärtskompatibilität und für Setups beibehalten, die die Plugin-Reihenfolge kontrollieren müssen. Setzen Sie `routing.enableProxy: false`, um sich abzumelden. Siehe die [v9-Versionshinweise](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/releases/v9.md).
 
 ```typescript fileName="vite.config.ts"
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
@@ -696,15 +696,11 @@ export default defineConfig({
 
 <Step number={12} title="Metadaten internationalisieren">
 
-Verwenden Sie in Ihren Komponenten weiterhin **`useIntlayer`** — es bleibt der Standard. Der Compiler schreibt den Aufruf auf den Dictionary-Chunk der tatsächlich gerenderten Locale um, sodass nichts anderes an den Browser ausgeliefert wird.
-
-Die `head`-Funktionen einer Route laufen **außerhalb** des React-Baums, dort ist `useIntlayer` also nicht verfügbar. Es gibt drei Wege, ein Dictionary aus `head` zu lesen; sie wägen Bundle-Größe gegen die Geschwindigkeit ab, mit der der Dokument-`head` bereitsteht.
-
-<Tabs defaultTab="cached">
+<Tabs>
 
 <Tab label="Statische Auflösung" value="static">
 
-`getIntlayer` löst synchron gegen das **zusammengeführte** Dictionary auf — jenes, das alle deklarierten Locales enthält. `head` bleibt synchron und es wird nichts erwartet, aber das gesamte mehrsprachige Dictionary landet im Route-Chunk, der an den Browser geht.
+`getIntlayer` löst synchron gegen das **zusammengeführte** Dictionary auf, also gegen jenes, das alle deklarierten Locales enthält. `head` bleibt synchron und es wird nichts erwartet, aber das gesamte mehrsprachige Dictionary landet im Route-Chunk, der an den Browser geht.
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/react-router";
@@ -758,7 +754,7 @@ Am besten für kleine Metadaten-Dictionaries, wenige Locales oder beim Prototypi
 
 <Tab label="Dynamische Auflösung" value="dynamic">
 
-`getIntlayerAsync` — verfügbar ab **v9.4** — verhält sich wie `getIntlayer`, doch das Build-Plugin verweist es auf den Locale-Chunk in `.intlayer/dynamic_dictionaries/` statt auf das zusammengeführte Dictionary. Eine Seite liefert damit nur die Locale aus, die sie rendert. Da dieser Chunk bei Bedarf geladen wird, wird `head` zu `async`:
+`getIntlayerAsync` (verfügbar ab **v9.4**) verhält sich wie `getIntlayer`, doch das Build-Plugin verweist es auf den Locale-Chunk in `.intlayer/dynamic_dictionaries/` statt auf das zusammengeführte Dictionary. Eine Seite liefert damit nur die Locale aus, die sie rendert. Da dieser Chunk bei Bedarf geladen wird, wird `head` zu `async`:
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/react-router";
@@ -806,15 +802,15 @@ export const Route = createFileRoute("/{-$locale}/")({
 });
 ```
 
-> Liest ein `head` mehrere Dictionaries, lösen Sie sie mit `Promise.all` auf — jedes `getIntlayerAsync` einzeln zu awaiten verkettet die Anfragen, statt sie parallel auszuführen.
+> Liest ein `head` mehrere Dictionaries, lösen Sie sie mit `Promise.all` auf; jedes `getIntlayerAsync` einzeln zu awaiten verkettet die Anfragen, statt sie parallel auszuführen.
 
-Der Kompromiss: Der dynamische Import wird während der Ausführung von `head` aufgelöst — auf dem kritischen Pfad des Dokument-Renderings. Auf einer kalten Route verzögert das den `head` um einige Millisekunden und kann den **LCP** leicht verschlechtern.
+Der Kompromiss: Der dynamische Import wird während der Ausführung von `head` aufgelöst, also auf dem kritischen Pfad des Dokument-Renderings. Auf einer kalten Route verzögert das den `head` um einige Millisekunden und kann den **LCP** leicht verschlechtern.
 
 </Tab>
 
 <Tab label="Gecachte dynamische Auflösung" value="cached">
 
-Lösen Sie das Dictionary stattdessen im `loader` der Route auf und lesen Sie es in `head` aus `loaderData` zurück. Die Loader der gematchten Routen laufen parallel, und `staleTime: Infinity` teilt TanStack Router mit, dass das Ergebnis nie veraltet — der Locale-Chunk wird also einmal aufgelöst und danach aus dem Router-Cache bedient, während `head` synchron bleibt.
+Lösen Sie das Dictionary stattdessen im `loader` der Route auf und lesen Sie es in `head` aus `loaderData` zurück. Die Loader der gematchten Routen laufen parallel, und `staleTime: Infinity` teilt TanStack Router mit, dass das Ergebnis nie veraltet, der Locale-Chunk wird also einmal aufgelöst und danach aus dem Router-Cache bedient, während `head` synchron bleibt.
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/react-router";
@@ -881,17 +877,13 @@ Sie behalten den Locale-Chunk, ohne seine Kosten auf dem kritischen Pfad des `he
 
 ### Welche Auflösung soll ich wählen?
 
-|                       | Statische Auflösung                 | Dynamische Auflösung                  | Gecachte dynamische Auflösung                 |
-| --------------------- | ----------------------------------- | ------------------------------------- | --------------------------------------------- |
-| API                   | `getIntlayer`                       | `getIntlayerAsync` (v9.4+)            | `getIntlayerAsync` im `loader` (v9.4+)        |
-| `head`-Signatur       | synchron                            | `async`                               | synchron, liest `loaderData`                  |
-| Ausgelieferte Locales | alle deklarierten Locales           | nur die angeforderte Locale           | nur die angeforderte Locale                   |
-| Bundle-Größe          | wächst mit jeder Locale             | konstant                              | konstant                                      |
-| `head`-Auflösung      | sofort                              | wartet im `head` auf den Locale-Chunk | im Loader erwartet, danach gecacht            |
-| LCP-Auswirkung        | keine                               | leichte Verzögerung auf kalter Route  | keine — außerhalb des kritischen `head`-Pfads |
-| Client-Navigationen   | nichts aufzulösen                   | bei jedem Match erneut ausgeführt     | aus dem Router-Cache bedient                  |
-| Developer Experience  | am einfachsten                      | ein `await`                           | Inhalt über `loaderData` durchgereicht        |
-| Am besten für         | wenige Locales, kleine Dictionaries | viele Locales, selten besuchte Routen | viele Locales, häufig besuchte Routen         |
+|                       | Statische Auflösung       | Dynamische Auflösung              | Gecachte dynamische Auflösung          |
+| --------------------- | ------------------------- | --------------------------------- | -------------------------------------- |
+| API                   | `getIntlayer`             | `getIntlayerAsync` (v9.4+)        | `getIntlayerAsync` im `loader` (v9.4+) |
+| `head`-Signatur       | synchron                  | `async`                           | synchron, liest `loaderData`           |
+| Ausgelieferte Locales | alle deklarierten Locales | nur die angeforderte Locale       | nur die angeforderte Locale            |
+| Client-Navigationen   | nichts aufzulösen         | bei jedem Match erneut ausgeführt | aus dem Router-Cache bedient           |
+| Developer Experience  | am einfachsten            | ein `await`                       | Inhalt über `loaderData` durchgereicht |
 
 ---
 

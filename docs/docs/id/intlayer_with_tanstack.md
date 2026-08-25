@@ -511,7 +511,7 @@ export const useLocalizedNavigate = () => {
 
 <Step number={9} title="Manfaatkan Intlayer di Halaman Anda">
 
-> Gunakan **`useIntlayer`** secara default: ini cara yang direkomendasikan untuk membaca konten di dalam komponen, dan compiler meresolusinya ke locale yang sedang dirender. Gunakan `getIntlayer` / `getIntlayerAsync` hanya di luar pohon React — `head` rute, loader, dan server function.
+> Gunakan **`useIntlayer`** secara default: ini cara yang direkomendasikan untuk membaca konten di dalam komponen, dan compiler meresolusinya ke locale yang sedang dirender. Gunakan `getIntlayer` / `getIntlayerAsync` hanya di luar pohon React: `head` rute, loader, dan server function.
 
 Akses kamus konten Anda di seluruh aplikasi Anda:
 
@@ -661,7 +661,7 @@ Anda juga dapat menggunakan `intlayerProxy` untuk menambahkan routing sisi serve
 
 > Perhatikan bahwa untuk menggunakan `intlayerProxy` di produksi, Anda perlu mengganti paket `vite-intlayer` dari `devDependencies` ke `dependencies`.
 
-> Sejak Intlayer v9, `intlayerProxy()` digabungkan langsung ke dalam plugin `intlayer()` dan diaktifkan secara default melalui opsi `routing.enableProxy` (`true` secara default). Mendaftarkannya secara terpisah seperti yang ditunjukkan di bawah ini sekarang bersifat opsional — ini disimpan untuk kompatibilitas backward dan untuk setup yang perlu mengontrol urutan plugin. Atur `routing.enableProxy: false` untuk opt out. Lihat [catatan rilis v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/releases/v9.md).
+> Sejak Intlayer v9, `intlayerProxy()` digabungkan langsung ke dalam plugin `intlayer()` dan diaktifkan secara default melalui opsi `routing.enableProxy` (`true` secara default). Mendaftarkannya secara terpisah seperti yang ditunjukkan di bawah ini sekarang bersifat opsional: ini disimpan untuk kompatibilitas backward dan untuk setup yang perlu mengontrol urutan plugin. Atur `routing.enableProxy: false` untuk opt out. Lihat [catatan rilis v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/releases/v9.md).
 
 ```typescript fileName="vite.config.ts"
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
@@ -695,15 +695,11 @@ export default defineConfig({
 
 <Step number={13} title="Internasionalisasi Metadata Anda">
 
-Di dalam komponen, tetap gunakan **`useIntlayer`** — ini tetap pilihan default. Compiler menulis ulang pemanggilannya ke chunk kamus untuk locale yang benar-benar dirender, sehingga tidak ada tambahan lain yang dikirim ke browser.
-
-Fungsi `head` pada rute berjalan **di luar** pohon React, sehingga `useIntlayer` tidak tersedia di sana. Ada tiga cara membaca kamus dari `head`, dan masing-masing menukar ukuran bundle dengan seberapa cepat `head` dokumen siap.
-
-<Tabs defaultTab="cached">
+<Tabs>
 
 <Tab label="Resolusi statis" value="static">
 
-`getIntlayer` diselesaikan secara sinkron terhadap kamus **gabungan** — yang memuat seluruh locale yang dideklarasikan. `head` tetap sinkron dan tidak ada yang di-await, tetapi seluruh kamus multibahasa ikut masuk ke chunk rute yang dikirim ke browser.
+`getIntlayer` diselesaikan secara sinkron terhadap kamus **gabungan**, yang memuat seluruh locale yang dideklarasikan. `head` tetap sinkron dan tidak ada yang di-await, tetapi seluruh kamus multibahasa ikut masuk ke chunk rute yang dikirim ke browser.
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/react-router";
@@ -757,7 +753,7 @@ Paling cocok untuk kamus metadata kecil, sedikit locale, atau saat membuat proto
 
 <Tab label="Resolusi dinamis" value="dynamic">
 
-`getIntlayerAsync` — tersedia mulai **v9.4** — berperilaku seperti `getIntlayer`, tetapi plugin build mengarahkannya ke chunk per-locale di `.intlayer/dynamic_dictionaries/` alih-alih kamus gabungan. Dengan begitu sebuah halaman hanya mengirim locale yang dirender. Karena chunk itu dimuat sesuai kebutuhan, `head` menjadi `async`:
+`getIntlayerAsync` (tersedia mulai **v9.4**) berperilaku seperti `getIntlayer`, tetapi plugin build mengarahkannya ke chunk per-locale di `.intlayer/dynamic_dictionaries/` alih-alih kamus gabungan. Dengan begitu sebuah halaman hanya mengirim locale yang dirender. Karena chunk itu dimuat sesuai kebutuhan, `head` menjadi `async`:
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/react-router";
@@ -805,7 +801,7 @@ export const Route = createFileRoute("/{-$locale}/")({
 });
 ```
 
-> Jika sebuah `head` membaca beberapa kamus, selesaikan dengan `Promise.all` — meng-await setiap `getIntlayerAsync` di barisnya sendiri membuat permintaan berantai alih-alih berjalan paralel.
+> Jika sebuah `head` membaca beberapa kamus, selesaikan dengan `Promise.all`; meng-await setiap `getIntlayerAsync` di barisnya sendiri membuat permintaan berantai alih-alih berjalan paralel.
 
 Kompromnya: import dinamis diselesaikan saat `head` berjalan, di jalur kritis rendering dokumen. Pada rute dingin hal ini menunda `head` beberapa milidetik dan dapat sedikit memperburuk **LCP**.
 
@@ -813,7 +809,7 @@ Kompromnya: import dinamis diselesaikan saat `head` berjalan, di jalur kritis re
 
 <Tab label="Resolusi dinamis dengan cache" value="cached">
 
-Selesaikan kamus di `loader` rute lalu baca kembali dari `loaderData` di `head`. Loader rute yang cocok berjalan paralel, dan `staleTime: Infinity` memberi tahu TanStack Router bahwa hasilnya tidak pernah basi — sehingga chunk per-locale diselesaikan sekali lalu disajikan dari cache router, dan `head` tetap sinkron.
+Selesaikan kamus di `loader` rute lalu baca kembali dari `loaderData` di `head`. Loader rute yang cocok berjalan paralel, dan `staleTime: Infinity` memberi tahu TanStack Router bahwa hasilnya tidak pernah basi, sehingga chunk per-locale diselesaikan sekali lalu disajikan dari cache router, dan `head` tetap sinkron.
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/react-router";
@@ -880,17 +876,13 @@ Anda tetap mendapat chunk per-locale tanpa membayar biayanya di jalur kritis `he
 
 ### Resolusi mana yang sebaiknya dipilih?
 
-|                      | Resolusi statis                   | Resolusi dinamis                      | Resolusi dinamis dengan cache           |
-| -------------------- | --------------------------------- | ------------------------------------- | --------------------------------------- |
-| API                  | `getIntlayer`                     | `getIntlayerAsync` (v9.4+)            | `getIntlayerAsync` di `loader` (v9.4+)  |
-| Signature `head`     | sinkron                           | `async`                               | sinkron, membaca `loaderData`           |
-| Locale yang dikirim  | semua locale yang dideklarasikan  | hanya locale yang diminta             | hanya locale yang diminta               |
-| Ukuran bundle        | bertambah tiap locale             | tetap                                 | tetap                                   |
-| Resolusi `head`      | langsung                          | menunggu chunk locale di dalam `head` | ditunggu di loader, lalu di-cache       |
-| Dampak LCP           | tidak ada                         | sedikit tertunda pada rute dingin     | tidak ada — di luar jalur kritis `head` |
-| Navigasi klien       | tidak ada yang perlu diselesaikan | dijalankan ulang setiap kali cocok    | disajikan dari cache router             |
-| Developer experience | paling sederhana                  | satu `await`                          | konten diteruskan lewat `loaderData`    |
-| Paling cocok untuk   | sedikit locale, kamus kecil       | banyak locale, rute jarang dikunjungi | banyak locale, rute sering dikunjungi   |
+|                      | Resolusi statis                   | Resolusi dinamis                   | Resolusi dinamis dengan cache          |
+| -------------------- | --------------------------------- | ---------------------------------- | -------------------------------------- |
+| API                  | `getIntlayer`                     | `getIntlayerAsync` (v9.4+)         | `getIntlayerAsync` di `loader` (v9.4+) |
+| Signature `head`     | sinkron                           | `async`                            | sinkron, membaca `loaderData`          |
+| Locale yang dikirim  | semua locale yang dideklarasikan  | hanya locale yang diminta          | hanya locale yang diminta              |
+| Navigasi klien       | tidak ada yang perlu diselesaikan | dijalankan ulang setiap kali cocok | disajikan dari cache router            |
+| Developer experience | paling sederhana                  | satu `await`                       | konten diteruskan lewat `loaderData`   |
 
 ---
 

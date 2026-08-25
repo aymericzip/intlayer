@@ -511,7 +511,7 @@ export const useLocalizedNavigate = () => {
 
 <Step number={9} title="Sayfalarınızda Intlayer'ı Kullanın">
 
-> Varsayılan olarak **`useIntlayer`** kullanın: bileşenler içinde içerik okumanın önerilen yoludur ve derleyici onu render edilen yerel ayara çözer. `getIntlayer` / `getIntlayerAsync` işlevlerine yalnızca React ağacının dışında başvurun — rota `head`'i, loader'lar ve sunucu işlevleri.
+> Varsayılan olarak **`useIntlayer`** kullanın: bileşenler içinde içerik okumanın önerilen yoludur ve derleyici onu render edilen yerel ayara çözer. `getIntlayer` / `getIntlayerAsync` işlevlerine yalnızca React ağacının dışında başvurun: rota `head`'i, loader'lar ve sunucu işlevleri.
 
 Uygulamanız genelinde içerik sözlüklerinize erişin:
 
@@ -661,7 +661,7 @@ Uygulamanıza sunucu tarafı yönlendirme eklemek için `intlayerProxy`'i de kul
 
 > Üretimde `intlayerProxy` kullanmak için, `vite-intlayer` paketini `devDependencies`'den `dependencies`'e geçirmeniz gerektiğini unutmayın.
 
-> Intlayer v9'dan itibaren, `intlayerProxy()` doğrudan `intlayer()` plugin'ine dahil edilmiş ve `routing.enableProxy` seçeneği aracılığıyla varsayılan olarak etkinleştirilmiştir (`true` varsayılan değerdir). Aşağıda gösterildiği gibi ayrı ayrı kaydedilmesi artık isteğe bağlıdır — bu, geriye dönük uyumluluk ve plugin sırasını kontrol etmesi gereken kurulumlar için tutulmuştur. Devre dışı bırakmak için `routing.enableProxy: false` olarak ayarlayın. [v9 sürüm notlarına](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/releases/v9.md) bakın.
+> Intlayer v9'dan itibaren, `intlayerProxy()` doğrudan `intlayer()` plugin'ine dahil edilmiş ve `routing.enableProxy` seçeneği aracılığıyla varsayılan olarak etkinleştirilmiştir (`true` varsayılan değerdir). Aşağıda gösterildiği gibi ayrı ayrı kaydedilmesi artık isteğe bağlıdır; bu, geriye dönük uyumluluk ve plugin sırasını kontrol etmesi gereken kurulumlar için tutulmuştur. Devre dışı bırakmak için `routing.enableProxy: false` olarak ayarlayın. [v9 sürüm notlarına](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/releases/v9.md) bakın.
 
 ```typescript fileName="vite.config.ts"
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
@@ -695,11 +695,7 @@ export default defineConfig({
 
 <Step number={13} title="Meta Verilerinizi Uluslararasılaştırın">
 
-Bileşenlerinizin içinde **`useIntlayer`** kullanmaya devam edin — varsayılan seçenek olarak kalır. Derleyici onu gerçekten render edilen yerel ayarın sözlük parçasına yeniden yazar, böylece tarayıcıya başka hiçbir şey gönderilmez.
-
-Rotaların `head` fonksiyonları React ağacının **dışında** çalışır, dolayısıyla orada `useIntlayer` kullanılamaz. `head` içinden bir sözlüğü okumanın üç yolu vardır ve her biri paket boyutu ile belge `head`'inin ne kadar erken hazır olduğu arasında bir denge kurar.
-
-<Tabs defaultTab="cached">
+<Tabs>
 
 <Tab label="Statik çözümleme" value="static">
 
@@ -757,7 +753,7 @@ Küçük meta veri sözlükleri, az sayıda yerel ayar veya prototipleme aşamas
 
 <Tab label="Dinamik çözümleme" value="dynamic">
 
-`getIntlayerAsync` — **v9.4** sürümünden itibaren kullanılabilir — `getIntlayer` gibi davranır, ancak build eklentisi onu birleştirilmiş sözlük yerine `.intlayer/dynamic_dictionaries/` içindeki yerel ayar başına parçaya yönlendirir. Böylece bir sayfa yalnızca render ettiği yerel ayarı gönderir. Bu parça talep üzerine yüklendiğinden `head` `async` hâle gelir:
+`getIntlayerAsync` (**v9.4** sürümünden itibaren kullanılabilir) `getIntlayer` gibi davranır, ancak build eklentisi onu birleştirilmiş sözlük yerine `.intlayer/dynamic_dictionaries/` içindeki yerel ayar başına parçaya yönlendirir. Böylece bir sayfa yalnızca render ettiği yerel ayarı gönderir. Bu parça talep üzerine yüklendiğinden `head` `async` hâle gelir:
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/react-router";
@@ -805,7 +801,7 @@ export const Route = createFileRoute("/{-$locale}/")({
 });
 ```
 
-> Bir `head` birden fazla sözlük okuyorsa bunları `Promise.all` ile çözümleyin — her `getIntlayerAsync` çağrısını ayrı satırda beklemek, istekleri paralel çalıştırmak yerine zincirler.
+> Bir `head` birden fazla sözlük okuyorsa bunları `Promise.all` ile çözümleyin; her `getIntlayerAsync` çağrısını ayrı satırda beklemek, istekleri paralel çalıştırmak yerine zincirler.
 
 Ödün: dinamik import, `head` çalışırken, belge render'ının kritik yolunda çözümlenir. Soğuk bir rotada bu, `head`'i birkaç milisaniye geciktirir ve **LCP**'yi bir miktar kötüleştirebilir.
 
@@ -813,7 +809,7 @@ export const Route = createFileRoute("/{-$locale}/")({
 
 <Tab label="Önbellekli dinamik çözümleme" value="cached">
 
-Sözlüğü rotanın `loader`'ında çözümleyin ve `head` içinde `loaderData` üzerinden geri okuyun. Eşleşen rotaların loader'ları paralel çalışır ve `staleTime: Infinity`, TanStack Router'a sonucun hiçbir zaman bayatlamayacağını söyler — böylece yerel ayar başına parça bir kez çözümlenir, sonrasında router önbelleğinden sunulur ve `head` senkron kalır.
+Sözlüğü rotanın `loader`'ında çözümleyin ve `head` içinde `loaderData` üzerinden geri okuyun. Eşleşen rotaların loader'ları paralel çalışır ve `staleTime: Infinity`, TanStack Router'a sonucun hiçbir zaman bayatlamayacağını söyler, böylece yerel ayar başına parça bir kez çözümlenir, sonrasında router önbelleğinden sunulur ve `head` senkron kalır.
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/react-router";
@@ -880,17 +876,13 @@ Yerel ayar başına parçayı, bedelini `head` kritik yolunda ödemeden korursun
 
 ### Hangi çözümlemeyi seçmeliyim?
 
-|                          | Statik çözümleme               | Dinamik çözümleme                         | Önbellekli dinamik çözümleme               |
-| ------------------------ | ------------------------------ | ----------------------------------------- | ------------------------------------------ |
-| API                      | `getIntlayer`                  | `getIntlayerAsync` (v9.4+)                | `loader` içinde `getIntlayerAsync` (v9.4+) |
-| `head` imzası            | senkron                        | `async`                                   | senkron, `loaderData` okur                 |
-| Gönderilen yerel ayarlar | bildirilen tüm yerel ayarlar   | yalnızca istenen yerel ayar               | yalnızca istenen yerel ayar                |
-| Paket boyutu             | her yerel ayarla büyür         | sabit                                     | sabit                                      |
-| `head` çözümlemesi       | anında                         | `head` içinde yerel ayar parçasını bekler | loader'da beklenir, sonra önbelleklenir    |
-| LCP etkisi               | yok                            | soğuk rotada hafif gecikme                | yok — `head` kritik yolunun dışında        |
-| İstemci gezinmeleri      | çözümlenecek bir şey yok       | her eşleşmede yeniden çalışır             | router önbelleğinden sunulur               |
-| Geliştirici deneyimi     | en basiti                      | tek bir `await`                           | içerik `loaderData` üzerinden taşınır      |
-| Şunlar için ideal        | az yerel ayar, küçük sözlükler | çok yerel ayar, az ziyaret edilen rotalar | çok yerel ayar, sık ziyaret edilen rotalar |
+|                          | Statik çözümleme             | Dinamik çözümleme             | Önbellekli dinamik çözümleme               |
+| ------------------------ | ---------------------------- | ----------------------------- | ------------------------------------------ |
+| API                      | `getIntlayer`                | `getIntlayerAsync` (v9.4+)    | `loader` içinde `getIntlayerAsync` (v9.4+) |
+| `head` imzası            | senkron                      | `async`                       | senkron, `loaderData` okur                 |
+| Gönderilen yerel ayarlar | bildirilen tüm yerel ayarlar | yalnızca istenen yerel ayar   | yalnızca istenen yerel ayar                |
+| İstemci gezinmeleri      | çözümlenecek bir şey yok     | her eşleşmede yeniden çalışır | router önbelleğinden sunulur               |
+| Geliştirici deneyimi     | en basiti                    | tek bir `await`               | içerik `loaderData` üzerinden taşınır      |
 
 ---
 

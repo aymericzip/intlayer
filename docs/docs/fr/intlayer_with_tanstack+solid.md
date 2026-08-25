@@ -461,7 +461,7 @@ export const useLocalizedNavigate = () => {
 
 <Step number={9} title="Utiliser Intlayer dans vos pages">
 
-> Utilisez **`useIntlayer`** par défaut : c'est la manière recommandée de lire du contenu dans vos composants, et le compilateur le résout vers la locale rendue. Ne recourez à `getIntlayer` / `getIntlayerAsync` qu'en dehors de l'arbre Solid — le `head` des routes, les loaders et les server functions.
+> Utilisez **`useIntlayer`** par défaut : c'est la manière recommandée de lire du contenu dans vos composants, et le compilateur le résout vers la locale rendue. Ne recourez à `getIntlayer` / `getIntlayerAsync` qu'en dehors de l'arbre Solid : le `head` des routes, les loaders et les server functions.
 
 Accédez à vos dictionnaires de contenu partout dans votre application :
 
@@ -575,7 +575,7 @@ Vous pouvez également utiliser `intlayerProxy` pour ajouter un routage côté s
 
 > Notez que pour utiliser `intlayerProxy` en production, vous devez déplacer le package `vite-intlayer` de `devDependencies` vers `dependencies`.
 
-> Depuis Intlayer v9, `intlayerProxy()` est directement intégré dans le plugin `intlayer()` et activé par défaut via l'option `routing.enableProxy` (`true` par défaut). L'enregistrement séparé comme montré ci-dessous est maintenant optionnel — il est conservé pour la compatibilité rétroactive et pour les configurations qui doivent contrôler l'ordre des plugins. Définissez `routing.enableProxy: false` pour refuser. Consultez les [notes de version v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/releases/v9.md).
+> Depuis Intlayer v9, `intlayerProxy()` est directement intégré dans le plugin `intlayer()` et activé par défaut via l'option `routing.enableProxy` (`true` par défaut). L'enregistrement séparé comme montré ci-dessous est maintenant optionnel : il est conservé pour la compatibilité rétroactive et pour les configurations qui doivent contrôler l'ordre des plugins. Définissez `routing.enableProxy: false` pour refuser. Consultez les [notes de version v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/releases/v9.md).
 
 ```typescript fileName="vite.config.ts"
 import { tanstackStart } from "@tanstack/solid-start/plugin/vite";
@@ -609,11 +609,7 @@ export default defineConfig({
 
 <Step number={13} title="Internationaliser vos métadonnées">
 
-Dans vos composants, continuez d'utiliser **`useIntlayer`** — il reste la solution par défaut. Le compilateur le réécrit vers le chunk de dictionnaire de la locale réellement rendue : rien d'autre n'est envoyé au navigateur.
-
-Les fonctions `head` des routes s'exécutent **en dehors** de l'arbre Solid : `useIntlayer` n'y est pas disponible. Vous disposez de trois façons de lire un dictionnaire depuis `head`, chacune arbitrant entre taille du bundle et rapidité de résolution du `head` du document.
-
-<Tabs defaultTab="cached">
+<Tabs>
 
 <Tab label="Résolution statique" value="static">
 
@@ -671,7 +667,7 @@ Idéal pour de petits dictionnaires de métadonnées, un faible nombre de locale
 
 <Tab label="Résolution dynamique" value="dynamic">
 
-`getIntlayerAsync` — disponible à partir de la **v9.4** — se comporte comme `getIntlayer`, mais le plugin de build le pointe vers le chunk par locale dans `.intlayer/dynamic_dictionaries/` au lieu du dictionnaire fusionné. Une page n'embarque donc que la locale qu'elle rend. Comme ce chunk est chargé à la demande, `head` devient `async` :
+`getIntlayerAsync` (disponible à partir de la **v9.4**) se comporte comme `getIntlayer`, mais le plugin de build le pointe vers le chunk par locale dans `.intlayer/dynamic_dictionaries/` au lieu du dictionnaire fusionné. Une page n'embarque donc que la locale qu'elle rend. Comme ce chunk est chargé à la demande, `head` devient `async` :
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/solid-router";
@@ -719,7 +715,7 @@ export const Route = createFileRoute("/{-$locale}/")({
 });
 ```
 
-> Si un `head` lit plusieurs dictionnaires, résolvez-les avec `Promise.all` — attendre chaque `getIntlayerAsync` sur sa propre ligne enchaîne les requêtes au lieu de les exécuter en parallèle.
+> Si un `head` lit plusieurs dictionnaires, résolvez-les avec `Promise.all` : attendre chaque `getIntlayerAsync` sur sa propre ligne enchaîne les requêtes au lieu de les exécuter en parallèle.
 
 Le compromis : l'import dynamique est résolu pendant l'exécution de `head`, sur le chemin critique du rendu du document. Sur une route froide, cela retarde le `head` de quelques millisecondes et peut légèrement dégrader le **LCP**.
 
@@ -727,7 +723,7 @@ Le compromis : l'import dynamique est résolu pendant l'exécution de `head`, su
 
 <Tab label="Résolution dynamique mise en cache" value="cached">
 
-Résolvez le dictionnaire dans le `loader` de la route, puis relisez-le depuis `loaderData` dans `head`. Les loaders des routes correspondantes s'exécutent en parallèle, et `staleTime: Infinity` indique à TanStack Router que le résultat ne périme jamais — le chunk par locale n'est donc résolu qu'une fois, puis servi depuis le cache du routeur, ce qui laisse `head` synchrone.
+Résolvez le dictionnaire dans le `loader` de la route, puis relisez-le depuis `loaderData` dans `head`. Les loaders des routes correspondantes s'exécutent en parallèle, et `staleTime: Infinity` indique à TanStack Router que le résultat ne périme jamais, le chunk par locale n'est donc résolu qu'une fois, puis servi depuis le cache du routeur, ce qui laisse `head` synchrone.
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/solid-router";
@@ -794,17 +790,13 @@ Vous conservez le chunk par locale sans en payer le coût sur le chemin critique
 
 ### Quelle résolution choisir ?
 
-|                      | Résolution statique                  | Résolution dynamique                    | Résolution dynamique mise en cache        |
-| -------------------- | ------------------------------------ | --------------------------------------- | ----------------------------------------- |
-| API                  | `getIntlayer`                        | `getIntlayerAsync` (v9.4+)              | `getIntlayerAsync` dans `loader` (v9.4+)  |
-| Signature de `head`  | synchrone                            | `async`                                 | synchrone, lit `loaderData`               |
-| Locales embarquées   | toutes les locales déclarées         | uniquement la locale demandée           | uniquement la locale demandée             |
-| Taille du bundle     | croît avec chaque locale             | constante                               | constante                                 |
-| Résolution du `head` | immédiate                            | attend le chunk de locale dans `head`   | attendu dans le loader, puis mis en cache |
-| Impact LCP           | aucun                                | léger retard sur une route froide       | aucun — hors du chemin critique du `head` |
-| Navigations client   | rien à résoudre                      | ré-exécuté à chaque correspondance      | servi depuis le cache du routeur          |
-| DX                   | la plus simple                       | un seul `await`                         | contenu transmis via `loaderData`         |
-| Recommandé pour      | peu de locales, petits dictionnaires | nombreuses locales, routes peu visitées | nombreuses locales, routes très visitées  |
+|                     | Résolution statique          | Résolution dynamique               | Résolution dynamique mise en cache       |
+| ------------------- | ---------------------------- | ---------------------------------- | ---------------------------------------- |
+| API                 | `getIntlayer`                | `getIntlayerAsync` (v9.4+)         | `getIntlayerAsync` dans `loader` (v9.4+) |
+| Signature de `head` | synchrone                    | `async`                            | synchrone, lit `loaderData`              |
+| Locales embarquées  | toutes les locales déclarées | uniquement la locale demandée      | uniquement la locale demandée            |
+| Navigations client  | rien à résoudre              | ré-exécuté à chaque correspondance | servi depuis le cache du routeur         |
+| DX                  | la plus simple               | un seul `await`                    | contenu transmis via `loaderData`        |
 
 ---
 

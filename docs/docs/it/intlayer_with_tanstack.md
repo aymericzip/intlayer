@@ -512,7 +512,7 @@ export const useLocalizedNavigate = () => {
 
 <Step number={9} title="Utilizzare Intlayer nelle tue Pagine">
 
-> Usa **`useIntlayer`** come impostazione predefinita: è il modo consigliato per leggere i contenuti nei componenti e il compilatore lo risolve sulla locale effettivamente renderizzata. Ricorri a `getIntlayer` / `getIntlayerAsync` solo al di fuori dell'albero React — l'`head` delle rotte, i loader e le server function.
+> Usa **`useIntlayer`** come impostazione predefinita: è il modo consigliato per leggere i contenuti nei componenti e il compilatore lo risolve sulla locale effettivamente renderizzata. Ricorri a `getIntlayer` / `getIntlayerAsync` solo al di fuori dell'albero React: l'`head` delle rotte, i loader e le server function.
 
 Accedi ai tuoi dizionari di contenuti in tutta l'applicazione:
 
@@ -662,7 +662,7 @@ Puoi anche utilizzare `intlayerProxy` per aggiungere il routing lato server alla
 
 > Nota che per utilizzare `intlayerProxy` in produzione, è necessario spostare il pacchetto `vite-intlayer` da `devDependencies` a `dependencies`.
 
-> A partire da Intlayer v9, `intlayerProxy()` è integrato direttamente nel plugin `intlayer()` e abilitato per impostazione predefinita tramite l'opzione `routing.enableProxy` (`true` per impostazione predefinita). Registrarlo separatamente come mostrato di seguito è ora facoltativo — viene mantenuto per la compatibilità con le versioni precedenti e per le configurazioni che necessitano di controllare l'ordine dei plugin. Imposta `routing.enableProxy: false` per escluderlo. Vedi le [note di rilascio v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/releases/v9.md).
+> A partire da Intlayer v9, `intlayerProxy()` è integrato direttamente nel plugin `intlayer()` e abilitato per impostazione predefinita tramite l'opzione `routing.enableProxy` (`true` per impostazione predefinita). Registrarlo separatamente come mostrato di seguito è ora facoltativo: viene mantenuto per la compatibilità con le versioni precedenti e per le configurazioni che necessitano di controllare l'ordine dei plugin. Imposta `routing.enableProxy: false` per escluderlo. Vedi le [note di rilascio v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/releases/v9.md).
 
 ```typescript fileName="vite.config.ts"
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
@@ -696,11 +696,7 @@ export default defineConfig({
 
 <Step number={13} title="Internazionalizzare i tuoi Metadati">
 
-Nei tuoi componenti continua a usare **`useIntlayer`**: resta la scelta predefinita. Il compilatore lo riscrive verso il chunk di dizionario della locale effettivamente renderizzata, quindi al browser non arriva nient'altro.
-
-Le funzioni `head` delle rotte vengono eseguite **al di fuori** dell'albero React, perciò lì `useIntlayer` non è disponibile. Hai tre modi per leggere un dizionario da `head`, ciascuno con un compromesso tra dimensione del bundle e rapidità con cui l'`head` del documento è pronto.
-
-<Tabs defaultTab="cached">
+<Tabs>
 
 <Tab label="Risoluzione statica" value="static">
 
@@ -758,7 +754,7 @@ Indicata per dizionari di metadati piccoli, poche locali o in fase di prototipaz
 
 <Tab label="Risoluzione dinamica" value="dynamic">
 
-`getIntlayerAsync` — disponibile dalla **v9.4** — si comporta come `getIntlayer`, ma il plugin di build lo punta al chunk per locale in `.intlayer/dynamic_dictionaries/` anziché al dizionario unificato. Una pagina spedisce quindi solo la locale che renderizza. Poiché quel chunk viene caricato su richiesta, `head` diventa `async`:
+`getIntlayerAsync` (disponibile dalla **v9.4**) si comporta come `getIntlayer`, ma il plugin di build lo punta al chunk per locale in `.intlayer/dynamic_dictionaries/` anziché al dizionario unificato. Una pagina spedisce quindi solo la locale che renderizza. Poiché quel chunk viene caricato su richiesta, `head` diventa `async`:
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/react-router";
@@ -881,17 +877,13 @@ Mantieni il chunk per locale senza pagarne il costo sul percorso critico dell'`h
 
 ### Quale risoluzione scegliere?
 
-|                         | Risoluzione statica             | Risoluzione dinamica                        | Risoluzione dinamica in cache                    |
-| ----------------------- | ------------------------------- | ------------------------------------------- | ------------------------------------------------ |
-| API                     | `getIntlayer`                   | `getIntlayerAsync` (v9.4+)                  | `getIntlayerAsync` nel `loader` (v9.4+)          |
-| Firma di `head`         | sincrona                        | `async`                                     | sincrona, legge `loaderData`                     |
-| Locali spedite          | tutte le locali dichiarate      | solo la locale richiesta                    | solo la locale richiesta                         |
-| Dimensione del bundle   | cresce con ogni locale          | costante                                    | costante                                         |
-| Risoluzione dell'`head` | immediata                       | attende il chunk della locale dentro `head` | atteso nel loader, poi messo in cache            |
-| Impatto su LCP          | nessuno                         | lieve ritardo su una rotta fredda           | nessuno — fuori dal percorso critico dell'`head` |
-| Navigazioni client      | niente da risolvere             | rieseguito a ogni match                     | servito dalla cache del router                   |
-| Developer experience    | la più semplice                 | un solo `await`                             | contenuto passato tramite `loaderData`           |
-| Consigliata per         | poche locali, dizionari piccoli | molte locali, rotte poco visitate           | molte locali, rotte molto visitate               |
+|                      | Risoluzione statica        | Risoluzione dinamica       | Risoluzione dinamica in cache           |
+| -------------------- | -------------------------- | -------------------------- | --------------------------------------- |
+| API                  | `getIntlayer`              | `getIntlayerAsync` (v9.4+) | `getIntlayerAsync` nel `loader` (v9.4+) |
+| Firma di `head`      | sincrona                   | `async`                    | sincrona, legge `loaderData`            |
+| Locali spedite       | tutte le locali dichiarate | solo la locale richiesta   | solo la locale richiesta                |
+| Navigazioni client   | niente da risolvere        | rieseguito a ogni match    | servito dalla cache del router          |
+| Developer experience | la più semplice            | un solo `await`            | contenuto passato tramite `loaderData`  |
 
 ---
 

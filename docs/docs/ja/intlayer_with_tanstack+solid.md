@@ -461,7 +461,7 @@ export const useLocalizedNavigate = () => {
 
 <Step number={9} title="ページでIntlayerを活用する">
 
-> コンポーネント内では既定で **`useIntlayer`** を使用してください。コンパイラがレンダリング対象のロケールへ解決してくれるため、これが推奨される方法です。`getIntlayer` / `getIntlayerAsync` は Solid ツリーの外側 — ルートの `head`、ローダー、サーバー関数 — でのみ使用します。
+> コンポーネント内では既定で **`useIntlayer`** を使用してください。コンパイラがレンダリング対象のロケールへ解決してくれるため、これが推奨される方法です。`getIntlayer` / `getIntlayerAsync` は Solid ツリーの外側（ルートの `head`、ローダー、サーバー関数）でのみ使用します。
 
 アプリケーション全体でコンテンツ辞書にアクセスします：
 
@@ -577,7 +577,7 @@ const RootComponent: ParentComponent = (props) => {
 
 > 本番環境で `intlayerProxy` を使用するには、`vite-intlayer` パッケージを `devDependencies` から `dependencies` に切り替える必要があることに注意してください。
 
-> Intlayer v9 以降、`intlayerProxy()` は `intlayer()` プラグインに直接バンドルされており、`routing.enableProxy` オプション（デフォルトは `true`）を通じてデフォルトで有効になります。以下に示すように個別に登録することはオプションになりました — これは後方互換性とプラグインの順序を制御する必要があるセットアップのために保持されています。`routing.enableProxy: false` に設定してオプトアウトできます。[v9 リリースノート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/releases/v9.md)を参照してください。
+> Intlayer v9 以降、`intlayerProxy()` は `intlayer()` プラグインに直接バンドルされており、`routing.enableProxy` オプション（デフォルトは `true`）を通じてデフォルトで有効になります。以下に示すように個別に登録することはオプションになりました。これは後方互換性とプラグインの順序を制御する必要があるセットアップのために保持されています。`routing.enableProxy: false` に設定してオプトアウトできます。[v9 リリースノート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/releases/v9.md)を参照してください。
 
 ```typescript fileName="vite.config.ts"
 import { tanstackStart } from "@tanstack/solid-start/plugin/vite";
@@ -611,11 +611,7 @@ export default defineConfig({
 
 <Step number={12} title="メタデータの国際化">
 
-コンポーネント内では引き続き **`useIntlayer`** を使ってください。既定はこれです。コンパイラが実際にレンダリングされるロケールの辞書チャンクへ書き換えるため、それ以外はブラウザに送られません。
-
-ルートの `head` 関数は Solid ツリーの**外側**で実行されるため、そこでは `useIntlayer` を利用できません。`head` から辞書を読む方法は 3 つあり、それぞれバンドルサイズとドキュメント `head` が整うまでの速さのトレードオフになります。
-
-<Tabs defaultTab="cached">
+<Tabs>
 
 <Tab label="静的解決" value="static">
 
@@ -796,17 +792,13 @@ export const Route = createFileRoute("/{-$locale}/")({
 
 ### どの解決方法を選ぶべきか
 
-|                     | 静的解決                     | 動的解決                           | キャッシュ付き動的解決                    |
-| ------------------- | ---------------------------- | ---------------------------------- | ----------------------------------------- |
-| API                 | `getIntlayer`                | `getIntlayerAsync`（v9.4+）        | `loader` 内の `getIntlayerAsync`（v9.4+） |
-| `head` のシグネチャ | 同期                         | `async`                            | 同期、`loaderData` を読む                 |
-| 配信されるロケール  | 宣言されたすべてのロケール   | 要求されたロケールのみ             | 要求されたロケールのみ                    |
-| バンドルサイズ      | ロケールごとに増加           | 一定                               | 一定                                      |
-| `head` の解決       | 即時                         | `head` 内でロケールチャンクを待機  | ローダーで待機し、以降はキャッシュ        |
-| LCP への影響        | なし                         | コールドなルートでわずかな遅延     | なし — `head` のクリティカルパス外        |
-| クライアント遷移    | 解決するものなし             | マッチのたびに再実行               | ルーターのキャッシュから提供              |
-| DX                  | 最もシンプル                 | `await` が 1 つ                    | コンテンツを `loaderData` 経由で受け渡し  |
-| 適した用途          | ロケールが少なく辞書も小さい | ロケールが多く訪問頻度の低いルート | ロケールが多く訪問頻度の高いルート        |
+|                     | 静的解決                   | 動的解決                    | キャッシュ付き動的解決                    |
+| ------------------- | -------------------------- | --------------------------- | ----------------------------------------- |
+| API                 | `getIntlayer`              | `getIntlayerAsync`（v9.4+） | `loader` 内の `getIntlayerAsync`（v9.4+） |
+| `head` のシグネチャ | 同期                       | `async`                     | 同期、`loaderData` を読む                 |
+| 配信されるロケール  | 宣言されたすべてのロケール | 要求されたロケールのみ      | 要求されたロケールのみ                    |
+| クライアント遷移    | 解決するものなし           | マッチのたびに再実行        | ルーターのキャッシュから提供              |
+| DX                  | 最もシンプル               | `await` が 1 つ             | コンテンツを `loaderData` 経由で受け渡し  |
 
 ---
 

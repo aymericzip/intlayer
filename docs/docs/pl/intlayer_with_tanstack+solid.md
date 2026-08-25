@@ -460,7 +460,7 @@ export const useLocalizedNavigate = () => {
 
 <Step number={9} title="Użyj Intlayer na swoich stronach">
 
-> Domyślnie używaj **`useIntlayer`**: to zalecany sposób odczytu treści wewnątrz komponentów, a kompilator rozwiązuje go do renderowanej lokalizacji. Po `getIntlayer` / `getIntlayerAsync` sięgaj tylko poza drzewem Solid — w `head` tras, loaderach i funkcjach serwerowych.
+> Domyślnie używaj **`useIntlayer`**: to zalecany sposób odczytu treści wewnątrz komponentów, a kompilator rozwiązuje go do renderowanej lokalizacji. Po `getIntlayer` / `getIntlayerAsync` sięgaj tylko poza drzewem Solid: w `head` tras, loaderach i funkcjach serwerowych.
 
 Zyskaj dostęp do słowników treści w całej aplikacji:
 
@@ -576,7 +576,7 @@ Możesz również użyć `intlayerProxy`, aby dodać routing po stronie serwera 
 
 > Zauważ, że aby korzystać z `intlayerProxy` w środowisku produkcyjnym, musisz przenieść pakiet `vite-intlayer` z `devDependencies` do `dependencies`.
 
-> Od wersji Intlayer v9, `intlayerProxy()` jest zawarty bezpośrednio w pluginie `intlayer()` i domyślnie włączony za pomocą opcji `routing.enableProxy` (`true` domyślnie). Rejestrowanie go osobno, jak pokazano poniżej, jest teraz opcjonalne — jest utrzymywane dla wstecznej kompatybilności i dla konfiguracji, które muszą kontrolować kolejność pluginów. Ustaw `routing.enableProxy: false` aby zrezygnować. Przejdź do [notatek wydania v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/releases/v9.md).
+> Od wersji Intlayer v9, `intlayerProxy()` jest zawarty bezpośrednio w pluginie `intlayer()` i domyślnie włączony za pomocą opcji `routing.enableProxy` (`true` domyślnie). Rejestrowanie go osobno, jak pokazano poniżej, jest teraz opcjonalne: jest utrzymywane dla wstecznej kompatybilności i dla konfiguracji, które muszą kontrolować kolejność pluginów. Ustaw `routing.enableProxy: false` aby zrezygnować. Przejdź do [notatek wydania v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/releases/v9.md).
 
 ```typescript fileName="vite.config.ts"
 import { tanstackStart } from "@tanstack/solid-start/plugin/vite";
@@ -610,15 +610,11 @@ export default defineConfig({
 
 <Step number={13} title="Umiędzynarowienie metadanych">
 
-Wewnątrz komponentów nadal używaj **`useIntlayer`** — pozostaje domyślnym rozwiązaniem. Kompilator przepisuje go na fragment słownika faktycznie renderowanej lokalizacji, więc do przeglądarki nie trafia nic więcej.
-
-Funkcje `head` tras działają **poza** drzewem Solid, więc `useIntlayer` nie jest tam dostępny. Masz trzy sposoby odczytu słownika z `head`, a każdy z nich to kompromis między rozmiarem bundla a tym, jak szybko `head` dokumentu jest gotowy.
-
-<Tabs defaultTab="cached">
+<Tabs>
 
 <Tab label="Rozwiązywanie statyczne" value="static">
 
-`getIntlayer` rozwiązuje się synchronicznie względem **scalonego** słownika — tego, który zawiera wszystkie zadeklarowane lokalizacje. `head` pozostaje synchroniczny i niczego nie oczekuje, ale cały wielojęzyczny słownik trafia do fragmentu trasy wysyłanego do przeglądarki.
+`getIntlayer` rozwiązuje się synchronicznie względem **scalonego** słownika, czyli tego, który zawiera wszystkie zadeklarowane lokalizacje. `head` pozostaje synchroniczny i niczego nie oczekuje, ale cały wielojęzyczny słownik trafia do fragmentu trasy wysyłanego do przeglądarki.
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/solid-router";
@@ -672,7 +668,7 @@ Najlepsze dla małych słowników metadanych, kilku lokalizacji lub na etapie pr
 
 <Tab label="Rozwiązywanie dynamiczne" value="dynamic">
 
-`getIntlayerAsync` — dostępny od **v9.4** — zachowuje się jak `getIntlayer`, ale wtyczka build wskazuje mu fragment per-lokalizacja w `.intlayer/dynamic_dictionaries/` zamiast scalonego słownika. Strona wysyła więc tylko tę lokalizację, którą renderuje. Ponieważ ten fragment ładowany jest na żądanie, `head` staje się `async`:
+`getIntlayerAsync` (dostępny od **v9.4**) zachowuje się jak `getIntlayer`, ale wtyczka build wskazuje mu fragment per-lokalizacja w `.intlayer/dynamic_dictionaries/` zamiast scalonego słownika. Strona wysyła więc tylko tę lokalizację, którą renderuje. Ponieważ ten fragment ładowany jest na żądanie, `head` staje się `async`:
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/solid-router";
@@ -720,7 +716,7 @@ export const Route = createFileRoute("/{-$locale}/")({
 });
 ```
 
-> Jeśli `head` czyta kilka słowników, rozwiąż je przez `Promise.all` — oczekiwanie na każde `getIntlayerAsync` w osobnej linii łańcuchuje żądania zamiast wykonywać je równolegle.
+> Jeśli `head` czyta kilka słowników, rozwiąż je przez `Promise.all`; oczekiwanie na każde `getIntlayerAsync` w osobnej linii łańcuchuje żądania zamiast wykonywać je równolegle.
 
 Kompromis: dynamiczny import jest rozwiązywany w trakcie działania `head`, na ścieżce krytycznej renderowania dokumentu. Na „zimnej” trasie opóźnia to `head` o kilka milisekund i może nieznacznie pogorszyć **LCP**.
 
@@ -728,7 +724,7 @@ Kompromis: dynamiczny import jest rozwiązywany w trakcie działania `head`, na 
 
 <Tab label="Buforowane rozwiązywanie dynamiczne" value="cached">
 
-Rozwiąż słownik w `loaderze` trasy i odczytaj go z `loaderData` w `head`. Loadery dopasowanych tras działają równolegle, a `staleTime: Infinity` informuje TanStack Router, że wynik nigdy się nie dezaktualizuje — fragment per-lokalizacja jest więc rozwiązywany raz, a potem serwowany z cache routera, pozostawiając `head` synchronicznym.
+Rozwiąż słownik w `loaderze` trasy i odczytaj go z `loaderData` w `head`. Loadery dopasowanych tras działają równolegle, a `staleTime: Infinity` informuje TanStack Router, że wynik nigdy się nie dezaktualizuje, fragment per-lokalizacja jest więc rozwiązywany raz, a potem serwowany z cache routera, pozostawiając `head` synchronicznym.
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/solid-router";
@@ -795,17 +791,13 @@ Zachowujesz fragment per-lokalizacja, nie płacąc jego kosztu na ścieżce kryt
 
 ### Które rozwiązywanie wybrać?
 
-|                              | Rozwiązywanie statyczne         | Rozwiązywanie dynamiczne                    | Buforowane rozwiązywanie dynamiczne        |
-| ---------------------------- | ------------------------------- | ------------------------------------------- | ------------------------------------------ |
-| API                          | `getIntlayer`                   | `getIntlayerAsync` (v9.4+)                  | `getIntlayerAsync` w `loaderze` (v9.4+)    |
-| Sygnatura `head`             | synchroniczna                   | `async`                                     | synchroniczna, czyta `loaderData`          |
-| Wysyłane lokalizacje         | wszystkie zadeklarowane         | tylko żądana lokalizacja                    | tylko żądana lokalizacja                   |
-| Rozmiar bundla               | rośnie z każdą lokalizacją      | stały                                       | stały                                      |
-| Rozwiązanie `head`           | natychmiastowe                  | czeka na fragment lokalizacji w `head`      | oczekiwane w loaderze, potem buforowane    |
-| Wpływ na LCP                 | brak                            | niewielkie opóźnienie na zimnej trasie      | brak — poza ścieżką krytyczną `head`       |
-| Nawigacje po stronie klienta | nic do rozwiązania              | wykonywane ponownie przy każdym dopasowaniu | serwowane z cache routera                  |
-| DX                           | najprostsze                     | jeden `await`                               | treść przekazywana przez `loaderData`      |
-| Najlepsze dla                | mało lokalizacji, małe słowniki | wiele lokalizacji, rzadko odwiedzane trasy  | wiele lokalizacji, często odwiedzane trasy |
+|                              | Rozwiązywanie statyczne | Rozwiązywanie dynamiczne                    | Buforowane rozwiązywanie dynamiczne     |
+| ---------------------------- | ----------------------- | ------------------------------------------- | --------------------------------------- |
+| API                          | `getIntlayer`           | `getIntlayerAsync` (v9.4+)                  | `getIntlayerAsync` w `loaderze` (v9.4+) |
+| Sygnatura `head`             | synchroniczna           | `async`                                     | synchroniczna, czyta `loaderData`       |
+| Wysyłane lokalizacje         | wszystkie zadeklarowane | tylko żądana lokalizacja                    | tylko żądana lokalizacja                |
+| Nawigacje po stronie klienta | nic do rozwiązania      | wykonywane ponownie przy każdym dopasowaniu | serwowane z cache routera               |
+| DX                           | najprostsze             | jeden `await`                               | treść przekazywana przez `loaderData`   |
 
 ---
 

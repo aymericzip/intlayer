@@ -516,7 +516,7 @@ export const useLocalizedNavigate = () => {
 
 <Step number={8} title="在您的页面中使用 Intlayer">
 
-> 在组件中请默认使用 **`useIntlayer`**：这是读取内容的推荐方式，编译器会把它解析为当前渲染的语言环境。仅在 React 树之外 —— 路由 `head`、loader 和服务端函数 —— 才使用 `getIntlayer` / `getIntlayerAsync`。
+> 在组件中请默认使用 **`useIntlayer`**：这是读取内容的推荐方式，编译器会把它解析为当前渲染的语言环境。仅在 React 树之外（路由 `head`、loader 和服务端函数）才使用 `getIntlayer` / `getIntlayerAsync`。
 
 在整个应用程序中访问您的内容字典：
 
@@ -666,7 +666,7 @@ return (
 
 > 请注意，要在生产环境中使用 `intlayerProxy`，你需要将 `vite-intlayer` package 从 `devDependencies` 切换到 `dependencies`。
 
-> 自 Intlayer v9 起，`intlayerProxy()` 直接捆绑到 `intlayer()` 插件中，并通过 `routing.enableProxy` 选项默认启用（默认为 `true`）。如下所示单独注册现在是可选的 — 它保留用于向后兼容性和需要控制插件顺序的设置。设置 `routing.enableProxy: false` 以退出。请参阅 [v9 发布说明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/releases/v9.md)。
+> 自 Intlayer v9 起，`intlayerProxy()` 直接捆绑到 `intlayer()` 插件中，并通过 `routing.enableProxy` 选项默认启用（默认为 `true`）。如下所示单独注册现在是可选的，它保留用于向后兼容性和需要控制插件顺序的设置。设置 `routing.enableProxy: false` 以退出。请参阅 [v9 发布说明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/releases/v9.md)。
 
 ```typescript fileName="vite.config.ts"
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
@@ -700,11 +700,7 @@ export default defineConfig({
 
 <Step number={12} title="国际化你的元数据">
 
-在组件内部，请继续使用 **`useIntlayer`** —— 它仍然是默认方式。编译器会将其改写为当前实际渲染语言环境的字典分块，因此不会有多余内容发送到浏览器。
-
-路由的 `head` 函数运行在 React 树**之外**，因此那里无法使用 `useIntlayer`。从 `head` 读取字典有三种方式，它们在包体积与文档 `head` 就绪速度之间各有取舍。
-
-<Tabs defaultTab="cached">
+<Tabs>
 
 <Tab label="静态解析" value="static">
 
@@ -810,7 +806,7 @@ export const Route = createFileRoute("/{-$locale}/")({
 });
 ```
 
-> 如果一个 `head` 要读取多个字典，请用 `Promise.all` 一并解析 —— 逐行 await 每个 `getIntlayerAsync` 会把请求串成链式调用，而不是并行执行。
+> 如果一个 `head` 要读取多个字典，请用 `Promise.all` 一并解析；逐行 await 每个 `getIntlayerAsync` 会把请求串成链式调用，而不是并行执行。
 
 代价是：动态 import 会在 `head` 执行期间解析，处于文档渲染的关键路径上。在冷路由上这会让 `head` 延迟几毫秒，并可能略微拉低 **LCP**。
 
@@ -818,7 +814,7 @@ export const Route = createFileRoute("/{-$locale}/")({
 
 <Tab label="带缓存的动态解析" value="cached">
 
-改为在路由的 `loader` 中解析字典，再于 `head` 中通过 `loaderData` 读回。已匹配路由的 loader 会并行运行，而 `staleTime: Infinity` 告诉 TanStack Router 该结果永不过期 —— 于是按语言环境的分块只解析一次，之后由路由缓存提供，`head` 得以保持同步。
+改为在路由的 `loader` 中解析字典，再于 `head` 中通过 `loaderData` 读回。已匹配路由的 loader 会并行运行，而 `staleTime: Infinity` 告诉 TanStack Router 该结果永不过期，于是按语言环境的分块只解析一次，之后由路由缓存提供，`head` 得以保持同步。
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/react-router";
@@ -885,17 +881,13 @@ export const Route = createFileRoute("/{-$locale}/")({
 
 ### 该选择哪种解析方式？
 
-|                | 静态解析             | 动态解析                     | 带缓存的动态解析                          |
-| -------------- | -------------------- | ---------------------------- | ----------------------------------------- |
-| API            | `getIntlayer`        | `getIntlayerAsync`（v9.4+）  | `loader` 中的 `getIntlayerAsync`（v9.4+） |
-| `head` 签名    | 同步                 | `async`                      | 同步，读取 `loaderData`                   |
-| 发送的语言环境 | 所有已声明的语言环境 | 仅请求的语言环境             | 仅请求的语言环境                          |
-| 包体积         | 随语言环境数量增长   | 恒定                         | 恒定                                      |
-| `head` 解析    | 立即                 | 在 `head` 内等待语言环境分块 | 在 loader 中等待，之后缓存                |
-| LCP 影响       | 无                   | 冷路由上略有延迟             | 无 —— 不在 `head` 关键路径上              |
-| 客户端导航     | 无需解析             | 每次匹配都重新执行           | 由路由缓存提供                            |
-| 开发体验       | 最简单               | 一个 `await`                 | 内容经由 `loaderData` 传递                |
-| 适用场景       | 语言环境少、字典小   | 语言环境多、访问较少的路由   | 语言环境多、访问频繁的路由                |
+|                | 静态解析             | 动态解析                    | 带缓存的动态解析                          |
+| -------------- | -------------------- | --------------------------- | ----------------------------------------- |
+| API            | `getIntlayer`        | `getIntlayerAsync`（v9.4+） | `loader` 中的 `getIntlayerAsync`（v9.4+） |
+| `head` 签名    | 同步                 | `async`                     | 同步，读取 `loaderData`                   |
+| 发送的语言环境 | 所有已声明的语言环境 | 仅请求的语言环境            | 仅请求的语言环境                          |
+| 客户端导航     | 无需解析             | 每次匹配都重新执行          | 由路由缓存提供                            |
+| 开发体验       | 最简单               | 一个 `await`                | 内容经由 `loaderData` 传递                |
 
 ---
 
