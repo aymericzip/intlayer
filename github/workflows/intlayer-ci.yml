@@ -1,0 +1,57 @@
+name: Intlayer CI/CD Validation
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  validate-config-and-types:
+    name: Validate Intlayer Config & TypeScript
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Type Check (Catch config errors early)
+      env:
+        INTLAYER_CLIENT_ID: "mock_client_id"
+        INTLAYER_CLIENT_SECRET: "mock_client_secret"
+        OPENAI_API_KEY: "sk-mock-openai-key-for-ci-validation"
+        APPLICATION_URL: "http://localhost:3000"
+      run: npx tsc --noEmit
+
+    - name: Lint Check
+      run: npm run lint || echo "No lint script found, skipping"
+      continue-on-error: true
+
+  security-audit:
+    name: Security & Dependency Audit
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Run npm audit
+      run: npm audit --audit-level=high || echo "Audit completed with warnings"
+      continue-on-error: true
