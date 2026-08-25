@@ -29,6 +29,8 @@ const FeaturesSection = lazy(() =>
   }))
 );
 
+// You can swap the import to the new section proposition in src/components/LandingPage/NEW/RedesignedFeatures.tsx
+
 const I18nBenchmarkSection = lazy(() =>
   import('./I18nBenchmarkSection').then((mod) => ({
     default: mod.I18nBenchmarkSection,
@@ -92,7 +94,7 @@ export const LandingPage: FC = () => {
 
         <section aria-label={content.supportedLanguagesSection.value}>
           <Suspense fallback={<Loader />}>
-            <LanguageSection />
+            <LanguageSection className="border-b" />
           </Suspense>
         </section>
 

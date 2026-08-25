@@ -154,7 +154,9 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
         padding="md"
       >
         <form className="size-full">
-          <p className="py-4 text-neutral text-sm">{confirmation.message}</p>
+          <p className="py-4 text-muted-foreground text-sm">
+            {confirmation.message}
+          </p>
 
           <div className="mt-12 flex justify-end gap-2 max-md:flex-col">
             <FormButton

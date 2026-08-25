@@ -170,7 +170,7 @@ export const linkVariants = cva(
       {
         variant: 'button-outlined',
         color: 'neutral',
-        class: 'border-neutral text-neutral hover:bg-neutral/10',
+        class: 'border-neutral text-muted-foreground hover:bg-neutral/10',
       },
       {
         variant: 'button-outlined',
