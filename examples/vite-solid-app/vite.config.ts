@@ -1,11 +1,10 @@
 import { visualizer } from 'rollup-plugin-visualizer';
 import { defineConfig } from 'vite';
-import { intlayer, intlayerProxy } from 'vite-intlayer';
+import { intlayer } from 'vite-intlayer';
 import solid from 'vite-plugin-solid';
 
 export default defineConfig({
   plugins: [
-    intlayerProxy(),
     solid(),
     intlayer(),
     visualizer({

@@ -17,7 +17,7 @@ import react, { reactCompilerPreset } from '@vitejs/plugin-react';
 import { localeFlatMap } from 'intlayer';
 import { nitro } from 'nitro/vite';
 import { defineConfig, loadEnv } from 'vite';
-import { intlayer, intlayerProxy } from 'vite-intlayer';
+import { intlayer } from 'vite-intlayer';
 import wasm from 'vite-plugin-wasm';
 import {
   buildDynamicPrerenderPaths,
@@ -168,6 +168,14 @@ const MD_ACCEPT_PATTERN =
   /^(\/[a-z]{2}(?:-[A-Z]{2})?)?\/(doc|blog|frequent-questions)\/([^?]+)(\?.*)?$/;
 
 const NON_DOCUMENT_PATHS = new Set(['doc/search', 'doc/chat']);
+
+/**
+ * Matches the API reference pages — `/doc/packages/...` and every localized
+ * variant — which are excluded from prerendering: they are the largest part of
+ * the page list, and are served on demand instead of being baked at build time.
+ */
+const PACKAGE_DOC_PATH_PATTERN =
+  /^(?:\/[a-z]{2}(?:-[A-Z]{2})?)?\/doc\/packages(?:\/|$)/;
 
 /** Compares Accept quality values so a browser is never served markdown. */
 const prefersMarkdown = (acceptHeader: string | undefined): boolean => {
@@ -418,7 +426,6 @@ export default defineConfig(async ({ mode }) => {
     plugins: [
       rawMarkdownPlugin,
       mdRawRewritePlugin,
-      intlayerProxy(),
       nitro({
         preset: 'bun',
         serverDir: resolve(__dirname, 'server'),
@@ -460,6 +467,7 @@ export default defineConfig(async ({ mode }) => {
           enabled: true,
           crawlLinks: false,
           concurrency: 8,
+          filter: ({ path }) => !PACKAGE_DOC_PATH_PATTERN.test(path),
         },
         pages: localizedPages,
       }),

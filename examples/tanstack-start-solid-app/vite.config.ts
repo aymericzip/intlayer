@@ -3,7 +3,7 @@ import { devtools } from '@tanstack/devtools-vite';
 import { tanstackStart } from '@tanstack/solid-start/plugin/vite';
 import { localeFlatMap } from 'intlayer';
 import { defineConfig } from 'vite';
-import { intlayer, intlayerProxy } from 'vite-intlayer';
+import { intlayer } from 'vite-intlayer';
 import solidPlugin from 'vite-plugin-solid';
 
 export const pathList = ['', '/about', '/404'];
@@ -39,6 +39,5 @@ export default defineConfig({
     }),
     solidPlugin({ ssr: true }),
     intlayer(),
-    intlayerProxy(),
   ],
 });

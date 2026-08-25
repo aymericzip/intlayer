@@ -5,7 +5,7 @@ import { localeFlatMap } from 'intlayer';
 import { nitro } from 'nitro/vite';
 import { visualizer } from 'rollup-plugin-visualizer';
 import { defineConfig } from 'vite';
-import { intlayer, intlayerProxy } from 'vite-intlayer';
+import { intlayer } from 'vite-intlayer';
 
 export const pathList = ['', '/about', '/404'];
 
@@ -20,11 +20,13 @@ const localizedPages = localeFlatMap(({ urlPrefix }) =>
 
 const config = defineConfig({
   plugins: [
-    intlayerProxy({}, { ignore: (req) => req.url?.startsWith('/api') }), // To redirect the user to his own locale. Should be placed before nitro
-
     nitro({ preset: 'bun' }),
 
-    intlayer(),
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith('/api'),
+      },
+    }),
     tailwindcss(),
     tanstackStart({
       router: {

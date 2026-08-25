@@ -43,7 +43,7 @@ import react, { reactCompilerPreset } from '@vitejs/plugin-react';
 import { localeFlatMap } from 'intlayer';
 import { nitro } from 'nitro/vite';
 import { defineConfig, loadEnv } from 'vite';
-import { intlayer, intlayerProxy } from 'vite-intlayer';
+import { intlayer } from 'vite-intlayer';
 import wasm from 'vite-plugin-wasm';
 
 export const pathList = [
@@ -333,12 +333,6 @@ export default defineConfig(({ mode }) => {
       headers,
     },
     plugins: [
-      intlayerProxy(
-        {},
-        {
-          ignore: (req) => req.url?.startsWith('/api'),
-        }
-      ),
       nitro({
         preset: 'bun',
         routeRules: {
@@ -358,7 +352,11 @@ export default defineConfig(({ mode }) => {
           },
         },
       }),
-      intlayer(),
+      intlayer({
+        proxy: {
+          ignore: (req) => req.url?.startsWith('/api'),
+        },
+      }),
       staticPagesPlugin,
       tailwindcss(),
       tanstackStart({

@@ -13,7 +13,7 @@ import { localeFlatMap } from 'intlayer';
 import { nitro } from 'nitro/vite';
 import { visualizer } from 'rollup-plugin-visualizer';
 import { defineConfig, loadEnv } from 'vite';
-import { intlayer, intlayerProxy } from 'vite-intlayer';
+import { intlayer } from 'vite-intlayer';
 import wasm from 'vite-plugin-wasm';
 
 export const pathList = [Showcase_Root_Path, Showcase_Submit_Path];
@@ -281,7 +281,6 @@ export default defineConfig(({ mode }) => {
     },
     plugins: [
       // devtools(),
-      intlayerProxy(),
       nitro({
         preset: 'bun',
         routeRules: {

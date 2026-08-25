@@ -2,7 +2,7 @@ import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import { visualizer } from 'rollup-plugin-visualizer';
 import { defineConfig } from 'vite';
-import { intlayer, intlayerCompiler, intlayerProxy } from 'vite-intlayer';
+import { intlayer, intlayerCompiler } from 'vite-intlayer';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -10,7 +10,6 @@ export default defineConfig({
     minify: false,
   },
   plugins: [
-    intlayerProxy(),
     react(),
     intlayer(),
     intlayerCompiler(),
