@@ -1213,7 +1213,15 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
 
   if (!hasAliasConfiguration) {
     const configuration = getConfiguration({ baseDir: rootDir });
-    const aliases = getAlias({ configuration });
+    // `tsconfig`/`jsconfig` `paths` and `package.json` `imports` both expect
+    // explicitly relative specifiers, so bare relative paths get a `./` prefix.
+    const aliases = getAlias({
+      configuration,
+      formatter: (value) =>
+        value.startsWith('./') || value.startsWith('../')
+          ? value
+          : `./${value}`,
+    });
 
     if (hasTsConfig && tsConfigFiles.length > 0) {
       const tsConfigPath =
@@ -1288,10 +1296,9 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
 
         Object.entries(aliases).forEach(([alias, path]) => {
           const importAlias = alias.replace('@', '#');
-          const importPath = path.startsWith('.') ? path : `./${path}`;
 
           if (!packageJson.imports[importAlias]) {
-            packageJson.imports[importAlias] = importPath;
+            packageJson.imports[importAlias] = path;
             updated = true;
           }
         });
