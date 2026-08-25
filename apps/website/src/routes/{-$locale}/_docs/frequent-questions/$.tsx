@@ -35,16 +35,29 @@ export const Route = createFileRoute('/{-$locale}/_docs/frequent-questions/$')({
       });
     }
 
+    const [siteStructuredData, creativeWorkContent] = await Promise.all([
+      getSiteStructuredData(locale),
+      getIntlayerAsync('creative-work-structured-data', locale),
+    ]);
+
     return {
+      siteStructuredData,
+      creativeWorkContent,
       blogParsed: content!.blogParsed,
       codeStyleSheet: content!.codeStyleSheet,
       frequentQuestionData: exactMatch,
       locale,
     };
   },
-  head: async ({ loaderData }) => {
+  staleTime: Infinity,
+  head: ({ loaderData }) => {
     if (!loaderData?.frequentQuestionData) return {};
-    const { frequentQuestionData, locale } = loaderData;
+    const {
+      frequentQuestionData,
+      locale,
+      siteStructuredData,
+      creativeWorkContent,
+    } = loaderData;
     const {
       title,
       description,
@@ -55,11 +68,6 @@ export const Route = createFileRoute('/{-$locale}/_docs/frequent-questions/$')({
       author,
       history,
     } = frequentQuestionData;
-
-    const [siteStructuredData, creativeWorkContent] = await Promise.all([
-      getSiteStructuredData(locale),
-      getIntlayerAsync('creative-work-structured-data', locale),
-    ]);
 
     return {
       meta: [

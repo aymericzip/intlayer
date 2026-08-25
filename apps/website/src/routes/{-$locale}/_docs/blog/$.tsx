@@ -61,7 +61,14 @@ export const Route = createFileRoute('/{-$locale}/_docs/blog/$')({
         }
       : undefined;
 
+    const [siteStructuredData, creativeWorkContent] = await Promise.all([
+      getSiteStructuredData(locale),
+      getIntlayerAsync('creative-work-structured-data', locale),
+    ]);
+
     return {
+      siteStructuredData,
+      creativeWorkContent,
       locale,
       slugs,
       blogData: exactMatch,
@@ -72,22 +79,18 @@ export const Route = createFileRoute('/{-$locale}/_docs/blog/$')({
       navData,
     };
   },
-  head: async ({ loaderData }) => {
+  staleTime: Infinity,
+  head: ({ loaderData }) => {
     if (
       !loaderData ||
       typeof loaderData !== 'object' ||
       !('blogData' in loaderData)
     )
       return {};
-    const { blogData, locale } = loaderData as any;
+    const { blogData, locale, siteStructuredData, creativeWorkContent } =
+      loaderData as any;
     const absoluteUrl = blogData.url;
     const keywords = blogData.keywords;
-    const localeStr = (locale as string) ?? defaultLocale;
-
-    const [siteStructuredData, creativeWorkContent] = await Promise.all([
-      getSiteStructuredData(localeStr),
-      getIntlayerAsync('creative-work-structured-data', localeStr),
-    ]);
 
     return {
       meta: [

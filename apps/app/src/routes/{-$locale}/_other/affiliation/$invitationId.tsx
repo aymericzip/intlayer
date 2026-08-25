@@ -26,13 +26,20 @@ export const Route = createFileRoute(
         : undefined,
   }),
   component: AffiliationPage,
-  head: async ({ params }) => {
+  loader: async ({ params }) => {
+    const { locale } = params;
+
+    return {
+      content: await getIntlayerAsync('affiliation-invitation-page', locale),
+    };
+  },
+  staleTime: Infinity,
+  head: ({ params, loaderData }) => {
+    if (!loaderData) return {};
+
     const { locale } = params;
     const path = App_Affiliation;
-    const content = await getIntlayerAsync(
-      'affiliation-invitation-page',
-      locale
-    );
+    const { content } = loaderData;
 
     return {
       links: [

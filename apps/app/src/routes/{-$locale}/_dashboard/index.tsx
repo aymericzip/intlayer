@@ -74,9 +74,16 @@ export const Route = createFileRoute('/{-$locale}/_dashboard/')({
     });
   },
   component: DashboardIndexPage,
-  head: async ({ params }) => {
+  loader: async ({ params }) => {
     const { locale } = params;
-    const content = await getIntlayerAsync('dashboard-overview', locale);
+
+    return { content: await getIntlayerAsync('dashboard-overview', locale) };
+  },
+  staleTime: Infinity,
+  head: ({ loaderData }) => {
+    if (!loaderData) return {};
+
+    const { content } = loaderData;
 
     return {
       meta: [

@@ -12,10 +12,18 @@ export const Route = createFileRoute(
   '/{-$locale}/_dashboard/_editor/_content/tags/$tagKey'
 )({
   component: TagDetailPage,
-  head: async ({ params }) => {
+  loader: async ({ params }) => {
+    const { locale } = params;
+
+    return { content: await getIntlayerAsync('tag-dashboard-page', locale) };
+  },
+  staleTime: Infinity,
+  head: ({ params, loaderData }) => {
+    if (!loaderData) return {};
+
     const { locale, tagKey } = params;
     const path = `${App_Dashboard_Tags}/${tagKey}`;
-    const content = await getIntlayerAsync('tag-dashboard-page', locale);
+    const { content } = loaderData;
 
     return {
       title: content.metadata.title,

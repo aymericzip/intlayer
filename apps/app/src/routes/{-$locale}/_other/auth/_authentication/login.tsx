@@ -14,10 +14,18 @@ export const Route = createFileRoute(
   '/{-$locale}/_other/auth/_authentication/login'
 )({
   component: SignInPage,
-  head: async ({ params }) => {
+  loader: async ({ params }) => {
+    const { locale } = params;
+
+    return { content: await getIntlayerAsync('sign-in-page', locale) };
+  },
+  staleTime: Infinity,
+  head: ({ params, loaderData }) => {
+    if (!loaderData) return {};
+
     const { locale } = params;
     const path = App_Auth_SignIn;
-    const content = await getIntlayerAsync('sign-in-page', locale);
+    const { content } = loaderData;
 
     return {
       links: [

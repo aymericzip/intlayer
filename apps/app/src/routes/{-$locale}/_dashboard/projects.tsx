@@ -20,10 +20,20 @@ import { ProjectForm } from '#components/Dashboard/ProjectForm';
 
 export const Route = createFileRoute('/{-$locale}/_dashboard/projects')({
   component: ProjectsPage,
-  head: async ({ params }) => {
+  loader: async ({ params }) => {
+    const { locale } = params;
+
+    return {
+      content: await getIntlayerAsync('projects-dashboard-page', locale),
+    };
+  },
+  staleTime: Infinity,
+  head: ({ params, loaderData }) => {
+    if (!loaderData) return {};
+
     const { locale } = params;
     const path = App_Dashboard_Projects;
-    const content = await getIntlayerAsync('projects-dashboard-page', locale);
+    const { content } = loaderData;
 
     return {
       links: [

@@ -13,26 +13,46 @@ import {
 } from '~/utils/structuredData';
 
 export const Route = createFileRoute('/{-$locale}/cms')({
-  loader: async () => {
-    const pricings = await getPricing();
-    return { pricings };
-  },
-  head: async ({ params, loaderData }) => {
+  loader: async ({ params }) => {
     const { locale = defaultLocale } = params;
-    const path = Website_CMS;
+
     const [
-      { title, description, keywords },
+      pricings,
+      metadata,
       siteStructuredData,
       softwareStructuredData,
       productContent,
     ] = await Promise.all([
+      getPricing(),
       getIntlayerAsync('cms-metadata', locale),
       getSiteStructuredData(locale),
       getSoftwareStructuredData(locale),
       getIntlayerAsync('product-header-structured-data', locale),
     ]);
 
-    const offers = formatStructuredDataOffers(loaderData?.pricings ?? null);
+    return {
+      pricings,
+      metadata,
+      siteStructuredData,
+      softwareStructuredData,
+      productContent,
+    };
+  },
+  head: ({ params, loaderData }) => {
+    if (!loaderData) return {};
+
+    const { locale = defaultLocale } = params;
+    const path = Website_CMS;
+
+    const {
+      metadata,
+      siteStructuredData,
+      softwareStructuredData,
+      productContent,
+    } = loaderData;
+    const { title, description, keywords } = metadata;
+
+    const offers = formatStructuredDataOffers(loaderData.pricings ?? null);
 
     return {
       meta: [

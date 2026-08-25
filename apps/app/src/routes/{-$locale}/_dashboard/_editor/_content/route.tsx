@@ -49,9 +49,19 @@ export const Route = createFileRoute('/{-$locale}/_dashboard/_editor/_content')(
       });
     },
     component: EditorLayout,
-    head: async ({ params }) => {
+    loader: async ({ params }) => {
       const { locale } = params;
-      const content = await getIntlayerAsync('content-dashboard-page', locale);
+
+      return {
+        content: await getIntlayerAsync('content-dashboard-page', locale),
+      };
+    },
+    staleTime: Infinity,
+    head: ({ params, loaderData }) => {
+      if (!loaderData) return {};
+
+      const { locale } = params;
+      const { content } = loaderData;
 
       return {
         meta: [{ title: String(content.title) }],

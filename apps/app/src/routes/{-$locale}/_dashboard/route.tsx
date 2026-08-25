@@ -41,9 +41,17 @@ import { useTagSidebar } from '#hooks/useTagSidebar';
 export const Route = createFileRoute('/{-$locale}/_dashboard')({
   pendingComponent: DashboardSkeleton,
   component: DashboardLayout,
-  head: async ({ params }) => {
+  loader: async ({ params }) => {
     const { locale } = params;
-    const content = await getIntlayerAsync('dashboard-metadata', locale);
+
+    return { content: await getIntlayerAsync('dashboard-metadata', locale) };
+  },
+  staleTime: Infinity,
+  head: ({ params, loaderData }) => {
+    if (!loaderData) return {};
+
+    const { locale } = params;
+    const { content } = loaderData;
     const siteUrl = import.meta.env.VITE_SITE_URL;
     const pageUrl = locale ? `${siteUrl}/${locale}` : siteUrl;
 

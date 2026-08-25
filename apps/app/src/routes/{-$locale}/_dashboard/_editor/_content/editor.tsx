@@ -18,10 +18,18 @@ export const Route = createFileRoute(
     path: typeof search.path === 'string' ? search.path : undefined,
   }),
   component: EditorPage,
-  head: async ({ params }) => {
+  loader: async ({ params }) => {
+    const { locale } = params;
+
+    return { content: await getIntlayerAsync('editor-dashboard-page', locale) };
+  },
+  staleTime: Infinity,
+  head: ({ params, loaderData }) => {
+    if (!loaderData) return {};
+
     const { locale } = params;
     const path = App_Dashboard_Editor;
-    const content = await getIntlayerAsync('editor-dashboard-page', locale);
+    const { content } = loaderData;
 
     return {
       links: [

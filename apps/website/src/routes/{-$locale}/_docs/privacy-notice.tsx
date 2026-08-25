@@ -13,20 +13,31 @@ import {
 export const Route = createFileRoute('/{-$locale}/_docs/privacy-notice')({
   loader: async ({ params }) => {
     const { locale = defaultLocale } = params;
-    return loadLegalContent({
-      data: { locale, docKey: './legal/en/privacy_notice.md' },
-    });
+    const [legalContent, siteStructuredData, creativeWorkContent] =
+      await Promise.all([
+        loadLegalContent({
+          data: { locale, docKey: './legal/en/privacy_notice.md' },
+        }),
+        getSiteStructuredData(locale),
+        getIntlayerAsync('creative-work-structured-data', locale),
+      ]);
+
+    return { ...legalContent, siteStructuredData, creativeWorkContent };
   },
-  head: async ({ loaderData, params }) => {
+  staleTime: Infinity,
+  head: ({ loaderData, params }) => {
     if (!loaderData) return {};
-    const { title, description, keywords, createdAt, updatedAt } = loaderData;
+    const {
+      title,
+      description,
+      keywords,
+      createdAt,
+      updatedAt,
+      siteStructuredData,
+      creativeWorkContent,
+    } = loaderData;
     const { locale = defaultLocale } = params;
     const path = Website_PrivacyPolicy;
-
-    const [siteStructuredData, creativeWorkContent] = await Promise.all([
-      getSiteStructuredData(locale),
-      getIntlayerAsync('creative-work-structured-data', locale),
-    ]);
 
     return {
       meta: [

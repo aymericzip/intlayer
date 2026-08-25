@@ -12,16 +12,21 @@ import {
 } from '~/utils/structuredData';
 
 export const Route = createFileRoute('/{-$locale}/_docs/doc/chat')({
-  loader: ({ params }) => {
+  loader: async ({ params }) => {
     const { locale = defaultLocale } = params;
     // The chat view is independent of the navigation tree, so stream the
     // sidebar in via `defer` instead of blocking the route transition on it.
-    return { locale, navData: defer(loadNavData({ data: { locale } })) };
+    return {
+      locale,
+      navData: defer(loadNavData({ data: { locale } })),
+      siteStructuredData: await getSiteStructuredData(locale),
+    };
   },
-  head: async ({ params }) => {
-    const { locale = defaultLocale } = params;
+  staleTime: Infinity,
+  head: ({ loaderData }) => {
+    if (!loaderData) return {};
 
-    const siteStructuredData = await getSiteStructuredData(locale);
+    const { siteStructuredData } = loaderData;
 
     return {
       title: 'Chat with Documentation | Intlayer',

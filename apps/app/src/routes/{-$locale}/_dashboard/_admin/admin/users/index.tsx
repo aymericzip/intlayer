@@ -12,10 +12,18 @@ export const Route = createFileRoute(
   '/{-$locale}/_dashboard/_admin/admin/users/'
 )({
   component: UsersAdminPage,
-  head: async ({ params }) => {
+  loader: async ({ params }) => {
+    const { locale } = params;
+
+    return { content: await getIntlayerAsync('admin-metadata', locale) };
+  },
+  staleTime: Infinity,
+  head: ({ params, loaderData }) => {
+    if (!loaderData) return {};
+
     const { locale } = params;
     const path = App_Admin_Users;
-    const content = await getIntlayerAsync('admin-metadata', locale);
+    const { content } = loaderData;
 
     return {
       links: [

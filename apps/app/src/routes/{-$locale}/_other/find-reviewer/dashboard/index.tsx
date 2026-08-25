@@ -10,9 +10,18 @@ export const Route = createFileRoute(
 )({
   beforeLoad: ({ params }) => redirectIfSelfHosted(params.locale),
   component: DashboardPage,
-  head: async ({ params }) => {
+  loader: async ({ params }) => {
     const { locale } = params;
-    const content = await getIntlayerAsync('reviewer-dashboard-page', locale);
+
+    return {
+      content: await getIntlayerAsync('reviewer-dashboard-page', locale),
+    };
+  },
+  staleTime: Infinity,
+  head: ({ loaderData }) => {
+    if (!loaderData) return {};
+
+    const { content } = loaderData;
 
     return {
       meta: [

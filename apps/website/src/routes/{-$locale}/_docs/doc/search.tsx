@@ -13,18 +13,21 @@ import { SearchView } from '~/components/DocPage/Search/SearchView';
 import { loadNavData } from '~/serverFunctions/docs';
 
 export const Route = createFileRoute('/{-$locale}/_docs/doc/search')({
-  loader: ({ params }) => {
+  loader: async ({ params }) => {
     const { locale = defaultLocale } = params;
     // The search view is independent of the navigation tree, so stream the
     // sidebar in via `defer` instead of blocking the route transition on it.
-    return { locale, navData: defer(loadNavData({ data: { locale } })) };
+    return {
+      locale,
+      navData: defer(loadNavData({ data: { locale } })),
+      websiteContent: await getIntlayerAsync('website-structured-data', locale),
+    };
   },
-  head: async ({ params }) => {
-    const { locale = defaultLocale } = params;
-    const websiteContent = await getIntlayerAsync(
-      'website-structured-data',
-      locale
-    );
+  staleTime: Infinity,
+  head: ({ loaderData }) => {
+    if (!loaderData) return {};
+
+    const { websiteContent } = loaderData;
 
     return {
       title: 'Search Documentation | Intlayer',

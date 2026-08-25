@@ -13,10 +13,20 @@ export const Route = createFileRoute(
   '/{-$locale}/_dashboard/_editor/_content/translate'
 )({
   component: TranslatePage,
-  head: async ({ params }) => {
+  loader: async ({ params }) => {
+    const { locale } = params;
+
+    return {
+      content: await getIntlayerAsync('translate-dashboard-page', locale),
+    };
+  },
+  staleTime: Infinity,
+  head: ({ params, loaderData }) => {
+    if (!loaderData) return {};
+
     const { locale } = params;
     const path = App_Dashboard_Translate;
-    const content = await getIntlayerAsync('translate-dashboard-page', locale);
+    const { content } = loaderData;
 
     return {
       links: [

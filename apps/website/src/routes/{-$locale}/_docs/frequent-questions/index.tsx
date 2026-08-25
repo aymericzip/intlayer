@@ -16,17 +16,23 @@ import {
 export const Route = createFileRoute('/{-$locale}/_docs/frequent-questions/')({
   loader: async ({ params }) => {
     const { locale = defaultLocale } = params;
-    const frequentQuestions = await loadFaqIndex({ data: { locale } });
-    return { locale, frequentQuestions };
-  },
-  head: async ({ params, loaderData }) => {
-    const { locale = defaultLocale } = params;
-    const path = Website_FrequentQuestions;
-    const [{ title, description, keywords }, siteStructuredData] =
-      await Promise.all([
+    const [frequentQuestions, metadata, siteStructuredData] = await Promise.all(
+      [
+        loadFaqIndex({ data: { locale } }),
         getIntlayerAsync('frequent-questions-page', locale),
         getSiteStructuredData(locale),
-      ]);
+      ]
+    );
+    return { locale, frequentQuestions, metadata, siteStructuredData };
+  },
+  staleTime: Infinity,
+  head: ({ params, loaderData }) => {
+    if (!loaderData) return {};
+
+    const { locale = defaultLocale } = params;
+    const path = Website_FrequentQuestions;
+    const { metadata, siteStructuredData } = loaderData;
+    const { title, description, keywords } = metadata;
 
     const faqs = loaderData
       ? Object.values(

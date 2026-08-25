@@ -15,26 +15,45 @@ import {
 export const Route = createFileRoute('/{-$locale}/')({
   loader: async ({ params }) => {
     const { locale = defaultLocale } = params;
-    const pricings = await getPricing();
-    return { pricings, locale };
-  },
-  head: async ({ params, loaderData }) => {
-    const { locale = defaultLocale } = params;
-    const path = '/';
 
     const [
-      { title, description, keywords },
+      pricings,
+      metadata,
       siteStructuredData,
       softwareStructuredData,
       productContent,
     ] = await Promise.all([
+      getPricing(),
       getIntlayerAsync('landing-metadata', locale),
       getSiteStructuredData(locale),
       getSoftwareStructuredData(locale),
       getIntlayerAsync('product-header-structured-data', locale),
     ]);
 
-    const offers = formatStructuredDataOffers(loaderData?.pricings ?? null);
+    return {
+      pricings,
+      metadata,
+      siteStructuredData,
+      softwareStructuredData,
+      productContent,
+      locale,
+    };
+  },
+  head: ({ params, loaderData }) => {
+    if (!loaderData) return {};
+
+    const { locale = defaultLocale } = params;
+    const path = '/';
+
+    const {
+      metadata,
+      siteStructuredData,
+      softwareStructuredData,
+      productContent,
+    } = loaderData;
+    const { title, description, keywords } = metadata;
+
+    const offers = formatStructuredDataOffers(loaderData.pricings ?? null);
 
     return {
       meta: [

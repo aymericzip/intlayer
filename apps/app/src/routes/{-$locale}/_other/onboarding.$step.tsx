@@ -33,10 +33,18 @@ export const Route = createFileRoute('/{-$locale}/_other/onboarding/$step')({
     origin: typeof search.origin === 'string' ? search.origin : undefined,
   }),
   component: OnboardingPage,
-  head: async ({ params }) => {
+  loader: async ({ params }) => {
+    const { locale } = params;
+
+    return { content: await getIntlayerAsync('onboard-page', locale) };
+  },
+  staleTime: Infinity,
+  head: ({ params, loaderData }) => {
+    if (!loaderData) return {};
+
     const { locale, step } = params;
     const path = `${App_Onboarding}/${step}`;
-    const content = await getIntlayerAsync('onboard-page', locale);
+    const { content } = loaderData;
 
     return {
       links: [

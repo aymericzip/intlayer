@@ -21,13 +21,23 @@ export const Route = createFileRoute(
   '/{-$locale}/_dashboard/_editor/_content/dictionary/$dictionaryKey'
 )({
   component: DictionaryDetailPage,
-  head: async ({ params }) => {
-    const { locale, dictionaryKey } = params;
-    const path = `${App_Dashboard_Dictionaries}/${dictionaryKey}`;
+  loader: async ({ params }) => {
+    const { locale } = params;
+
     const [content, creativeWorkContent] = await Promise.all([
       getIntlayerAsync('dictionary-dashboard-page', locale),
       getIntlayerAsync('creative-work-structured-data', locale),
     ]);
+
+    return { content, creativeWorkContent };
+  },
+  staleTime: Infinity,
+  head: ({ params, loaderData }) => {
+    if (!loaderData) return {};
+
+    const { locale, dictionaryKey } = params;
+    const path = `${App_Dashboard_Dictionaries}/${dictionaryKey}`;
+    const { content, creativeWorkContent } = loaderData;
 
     const title = `${dictionaryKey} | ${content.metadata.title}`;
 

@@ -22,20 +22,18 @@ import {
 import packageJson from '../../../package_mock.json' with { type: 'json' };
 
 export const Route = createFileRoute('/{-$locale}/translate')({
-  loader: async () => {
-    const pricings = await getPricing();
-    return { pricings };
-  },
-  head: async ({ params, loaderData }) => {
+  loader: async ({ params }) => {
     const { locale = defaultLocale } = params;
-    const path = Website_Translate;
+
     const [
-      { title, description, keywords },
+      pricings,
+      metadata,
       siteStructuredData,
       softwareStructuredData,
       translateContent,
       translateProductContent,
     ] = await Promise.all([
+      getPricing(),
       getIntlayerAsync('translate-metadata', locale),
       getSiteStructuredData(locale),
       getSoftwareStructuredData(locale),
@@ -43,7 +41,31 @@ export const Route = createFileRoute('/{-$locale}/translate')({
       getIntlayerAsync('translate-product-header-structured-data', locale),
     ]);
 
-    const offers = formatStructuredDataOffers(loaderData?.pricings ?? null);
+    return {
+      pricings,
+      metadata,
+      siteStructuredData,
+      softwareStructuredData,
+      translateContent,
+      translateProductContent,
+    };
+  },
+  head: ({ params, loaderData }) => {
+    if (!loaderData) return {};
+
+    const { locale = defaultLocale } = params;
+    const path = Website_Translate;
+
+    const {
+      metadata,
+      siteStructuredData,
+      softwareStructuredData,
+      translateContent,
+      translateProductContent,
+    } = loaderData;
+    const { title, description, keywords } = metadata;
+
+    const offers = formatStructuredDataOffers(loaderData.pricings ?? null);
 
     return {
       title,

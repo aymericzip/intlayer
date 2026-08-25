@@ -13,26 +13,42 @@ import {
 } from '~/utils/structuredData';
 
 export const Route = createFileRoute('/{-$locale}/tms')({
-  loader: async () => {
-    const pricings = await getPricing();
-    return { pricings };
-  },
-  head: async ({ params, loaderData }) => {
+  loader: async ({ params }) => {
     const { locale = defaultLocale } = params;
-    const path = Website_TMS;
+
     const [
-      { title, description, keywords },
+      pricings,
+      metadata,
       siteStructuredData,
       softwareStructuredData,
       tmsContent,
     ] = await Promise.all([
+      getPricing(),
       getIntlayerAsync('tms-metadata', locale),
       getSiteStructuredData(locale),
       getSoftwareStructuredData(locale),
       getIntlayerAsync('tms-product-header-structured-data', locale),
     ]);
 
-    const offers = formatStructuredDataOffers(loaderData?.pricings ?? null);
+    return {
+      pricings,
+      metadata,
+      siteStructuredData,
+      softwareStructuredData,
+      tmsContent,
+    };
+  },
+  head: ({ params, loaderData }) => {
+    if (!loaderData) return {};
+
+    const { locale = defaultLocale } = params;
+    const path = Website_TMS;
+
+    const { metadata, siteStructuredData, softwareStructuredData, tmsContent } =
+      loaderData;
+    const { title, description, keywords } = metadata;
+
+    const offers = formatStructuredDataOffers(loaderData.pricings ?? null);
 
     return {
       title,

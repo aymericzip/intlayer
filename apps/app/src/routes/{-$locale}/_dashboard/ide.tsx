@@ -22,10 +22,18 @@ import { DashboardContentLayout } from '#components/Dashboard/DashboardContentLa
 
 export const Route = createFileRoute('/{-$locale}/_dashboard/ide')({
   component: IDEPage,
-  head: async ({ params }) => {
+  loader: async ({ params }) => {
+    const { locale } = params;
+
+    return { content: await getIntlayerAsync('ide-dashboard-page', locale) };
+  },
+  staleTime: Infinity,
+  head: ({ params, loaderData }) => {
+    if (!loaderData) return {};
+
     const { locale } = params;
     const path = App_Dashboard_IDE;
-    const content = await getIntlayerAsync('ide-dashboard-page', locale);
+    const { content } = loaderData;
 
     return {
       links: [

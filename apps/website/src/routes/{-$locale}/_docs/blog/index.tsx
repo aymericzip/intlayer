@@ -18,15 +18,17 @@ import { loadBlogNavData } from '~/serverFunctions/blog';
 export const Route = createFileRoute('/{-$locale}/_docs/blog/')({
   loader: async ({ params }) => {
     const { locale = defaultLocale } = params;
-    const navData = await loadBlogNavData({ data: { locale } });
-    return { locale, navData };
+    const [navData, websiteContent] = await Promise.all([
+      loadBlogNavData({ data: { locale } }),
+      getIntlayerAsync('website-structured-data', locale),
+    ]);
+    return { locale, navData, websiteContent };
   },
-  head: async ({ params }) => {
-    const { locale = defaultLocale } = params;
-    const websiteContent = await getIntlayerAsync(
-      'website-structured-data',
-      locale
-    );
+  staleTime: Infinity,
+  head: ({ loaderData }) => {
+    if (!loaderData) return {};
+
+    const { websiteContent } = loaderData;
 
     return {
       title: 'Blog | Intlayer',

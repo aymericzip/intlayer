@@ -16,10 +16,18 @@ import { redirectIfSelfHosted } from '#utils/selfHosted';
 export const Route = createFileRoute('/{-$locale}/_other/affiliation/')({
   beforeLoad: ({ params }) => redirectIfSelfHosted(params.locale),
   component: AffiliateDashboardPage,
-  head: async ({ params }) => {
+  loader: async ({ params }) => {
+    const { locale } = params;
+
+    return { content: await getIntlayerAsync('affiliation-page', locale) };
+  },
+  staleTime: Infinity,
+  head: ({ params, loaderData }) => {
+    if (!loaderData) return {};
+
     const { locale } = params;
     const path = App_Affiliation;
-    const content = await getIntlayerAsync('affiliation-page', locale);
+    const { content } = loaderData;
 
     return {
       links: [

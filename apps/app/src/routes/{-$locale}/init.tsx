@@ -33,10 +33,18 @@ export const Route = createFileRoute('/{-$locale}/init')({
     }
   },
   component: SetupPage,
-  head: async ({ params }) => {
+  loader: async ({ params }) => {
+    const { locale } = params;
+
+    return { content: await getIntlayerAsync('setup-page', locale) };
+  },
+  staleTime: Infinity,
+  head: ({ params, loaderData }) => {
+    if (!loaderData) return {};
+
     const { locale } = params;
     const path = App_Init_Path;
-    const content = await getIntlayerAsync('setup-page', locale);
+    const { content } = loaderData;
 
     return {
       links: [

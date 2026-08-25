@@ -30,10 +30,15 @@ interface MyRouterContext {
 export const Route = createRootRouteWithContext<MyRouterContext>()({
   errorComponent: ErrorComponent,
   loader: async ({ context: { queryClient } }) => {
-    await queryClient.ensureQueryData(sessionQueryOptions);
+    const [, structuredDataScripts] = await Promise.all([
+      queryClient.ensureQueryData(sessionQueryOptions),
+      getRootStructuredDataScripts(),
+    ]);
+
+    return { structuredDataScripts };
   },
-  head: async () => {
-    const structuredDataScripts = await getRootStructuredDataScripts();
+  head: ({ loaderData }) => {
+    const structuredDataScripts = loaderData?.structuredDataScripts ?? [];
 
     return {
       title: 'Intlayer',

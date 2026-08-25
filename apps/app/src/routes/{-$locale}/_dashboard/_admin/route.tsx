@@ -24,9 +24,16 @@ export const Route = createFileRoute('/{-$locale}/_dashboard/_admin')({
       accessRule: 'admin',
     });
   },
-  head: async ({ params }) => {
+  loader: async ({ params }) => {
     const { locale } = params;
-    const content = await getIntlayerAsync('admin-metadata', locale);
+
+    return { content: await getIntlayerAsync('admin-metadata', locale) };
+  },
+  staleTime: Infinity,
+  head: ({ loaderData }) => {
+    if (!loaderData) return {};
+
+    const { content } = loaderData;
 
     return {
       title: content.metadata.title,

@@ -12,18 +12,26 @@ import {
 } from '~/utils/structuredData';
 
 export const Route = createFileRoute('/{-$locale}/demo')({
-  head: async ({ params }) => {
+  loader: async ({ params }) => {
+    const { locale = defaultLocale } = params;
+
+    const [metadata, siteStructuredData, softwareStructuredData] =
+      await Promise.all([
+        getIntlayerAsync('demo-metadata', locale),
+        getSiteStructuredData(locale),
+        getSoftwareStructuredData(locale),
+      ]);
+
+    return { metadata, siteStructuredData, softwareStructuredData };
+  },
+  staleTime: Infinity,
+  head: ({ params, loaderData }) => {
+    if (!loaderData) return {};
+
     const { locale = defaultLocale } = params;
     const path = Website_Demo;
-    const [
-      { title, description, keywords },
-      siteStructuredData,
-      softwareStructuredData,
-    ] = await Promise.all([
-      getIntlayerAsync('demo-metadata', locale),
-      getSiteStructuredData(locale),
-      getSoftwareStructuredData(locale),
-    ]);
+    const { metadata, siteStructuredData, softwareStructuredData } = loaderData;
+    const { title, description, keywords } = metadata;
 
     return {
       meta: [

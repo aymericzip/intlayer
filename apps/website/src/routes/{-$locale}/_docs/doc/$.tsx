@@ -68,7 +68,17 @@ export const Route = createFileRoute('/{-$locale}/_docs/doc/$')({
         }
       : undefined;
 
+    const [siteStructuredData, softwareStructuredData, creativeWorkContent] =
+      await Promise.all([
+        getSiteStructuredData(locale),
+        getSoftwareStructuredData(locale),
+        getIntlayerAsync('creative-work-structured-data', locale),
+      ]);
+
     return {
+      siteStructuredData,
+      softwareStructuredData,
+      creativeWorkContent,
       locale,
       slugs,
       docData: exactMatch,
@@ -80,19 +90,19 @@ export const Route = createFileRoute('/{-$locale}/_docs/doc/$')({
       navData,
     };
   },
-  head: async ({ loaderData }) => {
+  staleTime: Infinity,
+  head: ({ loaderData }) => {
     if (!loaderData?.docData) return {};
 
-    const { docData, locale: localeFromLoader } = loaderData;
+    const {
+      docData,
+      locale: localeFromLoader,
+      siteStructuredData,
+      softwareStructuredData,
+      creativeWorkContent,
+    } = loaderData;
     const locale = (localeFromLoader as string) ?? defaultLocale;
     const absoluteUrl = docData.url;
-
-    const [siteStructuredData, softwareStructuredData, creativeWorkContent] =
-      await Promise.all([
-        getSiteStructuredData(locale),
-        getSoftwareStructuredData(locale),
-        getIntlayerAsync('creative-work-structured-data', locale),
-      ]);
 
     return {
       meta: [

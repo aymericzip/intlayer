@@ -8,9 +8,16 @@ export const Route = createFileRoute(
   '/{-$locale}/_other/auth/_authentication/2fa'
 )({
   component: TwoFactorPage,
-  head: async ({ params }) => {
+  loader: async ({ params }) => {
     const { locale } = params;
-    const content = await getIntlayerAsync('2fa-page', locale);
+
+    return { content: await getIntlayerAsync('2fa-page', locale) };
+  },
+  staleTime: Infinity,
+  head: ({ loaderData }) => {
+    if (!loaderData) return {};
+
+    const { content } = loaderData;
 
     return {
       title: content.metadata.title,

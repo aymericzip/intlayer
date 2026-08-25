@@ -19,11 +19,11 @@ import {
 import packageJson from '../../../package_mock.json' with { type: 'json' };
 
 export const Route = createFileRoute('/{-$locale}/i18n-seo-scanner')({
-  head: async ({ params }) => {
+  loader: async ({ params }) => {
     const { locale = defaultLocale } = params;
-    const path = Website_Scanner;
+
     const [
-      { title, description, keywords },
+      metadata,
       siteStructuredData,
       softwareStructuredData,
       scannerContent,
@@ -33,6 +33,27 @@ export const Route = createFileRoute('/{-$locale}/i18n-seo-scanner')({
       getSoftwareStructuredData(locale),
       getIntlayerAsync('scanner-software-structured-data', locale),
     ]);
+
+    return {
+      metadata,
+      siteStructuredData,
+      softwareStructuredData,
+      scannerContent,
+    };
+  },
+  staleTime: Infinity,
+  head: ({ params, loaderData }) => {
+    if (!loaderData) return {};
+
+    const { locale = defaultLocale } = params;
+    const path = Website_Scanner;
+    const {
+      metadata,
+      siteStructuredData,
+      softwareStructuredData,
+      scannerContent,
+    } = loaderData;
+    const { title, description, keywords } = metadata;
 
     return {
       title,

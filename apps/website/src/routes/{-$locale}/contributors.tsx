@@ -13,15 +13,24 @@ import {
 } from '~/utils/structuredData';
 
 export const Route = createFileRoute('/{-$locale}/contributors')({
-  loader: async () => ({ contributors: await loadContributors() }),
-  head: async ({ params }) => {
+  loader: async ({ params }) => {
+    const { locale = defaultLocale } = params;
+
+    const [contributors, metadata, siteStructuredData] = await Promise.all([
+      loadContributors(),
+      getIntlayerAsync('contributors-metadata', locale),
+      getSiteStructuredData(locale),
+    ]);
+
+    return { contributors, metadata, siteStructuredData };
+  },
+  head: ({ params, loaderData }) => {
+    if (!loaderData) return {};
+
     const { locale = defaultLocale } = params;
     const path = Website_Contributors;
-    const [{ title, description, keywords }, siteStructuredData] =
-      await Promise.all([
-        getIntlayerAsync('contributors-metadata', locale),
-        getSiteStructuredData(locale),
-      ]);
+    const { metadata, siteStructuredData } = loaderData;
+    const { title, description, keywords } = metadata;
 
     return {
       meta: [

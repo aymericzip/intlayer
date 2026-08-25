@@ -17,13 +17,20 @@ import { OrganizationForm } from '#components/Dashboard/OrganizationForm';
 
 export const Route = createFileRoute('/{-$locale}/_dashboard/organization')({
   component: OrganizationPage,
-  head: async ({ params }) => {
+  loader: async ({ params }) => {
+    const { locale } = params;
+
+    return {
+      content: await getIntlayerAsync('organization-dashboard-page', locale),
+    };
+  },
+  staleTime: Infinity,
+  head: ({ params, loaderData }) => {
+    if (!loaderData) return {};
+
     const { locale } = params;
     const path = App_Dashboard_Organization;
-    const content = await getIntlayerAsync(
-      'organization-dashboard-page',
-      locale
-    );
+    const { content } = loaderData;
 
     return {
       links: [

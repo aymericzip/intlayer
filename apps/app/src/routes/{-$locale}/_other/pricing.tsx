@@ -29,9 +29,16 @@ type PricingSearch = {
 
 export const Route = createFileRoute('/{-$locale}/_other/pricing')({
   beforeLoad: ({ params }) => redirectIfSelfHosted(params.locale),
-  loader: async () => {
-    const pricingData = await getPricingData();
-    return { pricingData };
+  loader: async ({ params }) => {
+    const { locale } = params;
+
+    const [pricingData, content, productContent] = await Promise.all([
+      getPricingData(),
+      getIntlayerAsync('pricing-page', locale),
+      getIntlayerAsync('product-header-structured-data', locale),
+    ]);
+
+    return { pricingData, content, productContent };
   },
   validateSearch: (search: Record<string, unknown>): PricingSearch => ({
     ref:
@@ -42,16 +49,15 @@ export const Route = createFileRoute('/{-$locale}/_other/pricing')({
       typeof search.promoCode === 'string' ? search.promoCode : undefined,
   }),
   component: PricingPage,
-  head: async ({ params, loaderData }) => {
+  head: ({ params, loaderData }) => {
+    if (!loaderData) return {};
+
     const { locale } = params;
     const path = App_Pricing;
-    const [content, productContent] = await Promise.all([
-      getIntlayerAsync('pricing-page', locale),
-      getIntlayerAsync('product-header-structured-data', locale),
-    ]);
+    const { content, productContent } = loaderData;
 
     const offers = formatStructuredDataOffers(
-      (loaderData?.pricingData as GetPricingResult['data']) ?? null
+      (loaderData.pricingData as GetPricingResult['data']) ?? null
     );
 
     return {

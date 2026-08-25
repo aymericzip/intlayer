@@ -41,9 +41,17 @@ const searchParams = {
 
 export const Route = createFileRoute('/{-$locale}/_dashboard/assets')({
   component: AssetsPage,
-  head: async ({ params }) => {
+  loader: async ({ params }) => {
     const { locale } = params;
-    const content = await getIntlayerAsync('assets-dashboard-page', locale);
+
+    return { content: await getIntlayerAsync('assets-dashboard-page', locale) };
+  },
+  staleTime: Infinity,
+  head: ({ params, loaderData }) => {
+    if (!loaderData) return {};
+
+    const { locale } = params;
+    const { content } = loaderData;
 
     return {
       links: [

@@ -14,10 +14,18 @@ export const Route = createFileRoute(
   '/{-$locale}/_other/auth/_authentication/password/reset'
 )({
   component: ResetPasswordPage,
-  head: async ({ params }) => {
+  loader: async ({ params }) => {
+    const { locale } = params;
+
+    return { content: await getIntlayerAsync('reset-password-page', locale) };
+  },
+  staleTime: Infinity,
+  head: ({ params, loaderData }) => {
+    if (!loaderData) return {};
+
     const { locale } = params;
     const path = App_Auth_ResetPassword;
-    const content = await getIntlayerAsync('reset-password-page', locale);
+    const { content } = loaderData;
 
     return {
       links: [

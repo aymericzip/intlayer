@@ -40,9 +40,16 @@ export const Route = createFileRoute('/{-$locale}/404')({
     }
   },
   component: NotFoundComponent,
-  head: async ({ params }) => {
+  loader: async ({ params }) => {
     const { locale } = params;
-    const content = await getIntlayerAsync('404', locale);
+
+    return { content: await getIntlayerAsync('404', locale) };
+  },
+  staleTime: Infinity,
+  head: ({ loaderData }) => {
+    if (!loaderData) return {};
+
+    const { content } = loaderData;
 
     return {
       title: content.metadata.title,
