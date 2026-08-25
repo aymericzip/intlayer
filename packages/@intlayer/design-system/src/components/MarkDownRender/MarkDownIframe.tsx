@@ -206,7 +206,7 @@ export const MarkDownIframe: FC<ComponentProps<'iframe'>> = (props) => {
             rel="noopener noreferrer"
             label=""
             color="neutral"
-            className="inline-flex min-w-0 max-w-[calc(100%-3rem)] items-center gap-2 text-neutral text-xs underline-offset-2 hover:text-foreground hover:underline"
+            className="inline-flex min-w-0 max-w-[calc(100%-3rem)] items-center gap-2 text-muted-foreground text-xs underline-offset-2 hover:text-foreground hover:underline"
           >
             {label}
           </Link>

@@ -102,7 +102,7 @@ const BlockquoteRenderer = ({
 }: ComponentProps<'blockquote'>) => (
   <blockquote
     className={cn(
-      'mt-5 gap-3 border-card border-l-4 pl-5 text-neutral [&_strong]:text-neutral',
+      'mt-5 gap-3 border-card border-l-4 pl-5 text-muted-foreground [&_strong]:text-neutral',
       className
     )}
     {...props}

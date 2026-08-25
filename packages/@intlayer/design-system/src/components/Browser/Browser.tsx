@@ -470,12 +470,12 @@ export const Browser = ({
                   aria-label={content.sitemapButtonLabel.value}
                 >
                   {sitemapLoading ? (
-                    <li className="px-3 py-4 text-center text-neutral text-xs">
+                    <li className="px-3 py-4 text-center text-muted-foreground text-xs">
                       {content.sitemapLoading}
                     </li>
                   ) : sitemapError ||
                     (!sitemapLoading && filteredSitemapUrls.length === 0) ? (
-                    <li className="px-3 py-4 text-center text-neutral text-xs">
+                    <li className="px-3 py-4 text-center text-muted-foreground text-xs">
                       {sitemapError
                         ? content.sitemapError
                         : content.sitemapEmpty}

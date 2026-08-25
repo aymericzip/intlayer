@@ -171,7 +171,7 @@ const CarouselIndicators: FC<CarouselIndicatorsProps> = ({
 
         <Popover.Detail identifier="carousel-prev">
           <div className="flex items-center gap-2 p-2">
-            <span className="whitespace-nowrap text-neutral text-xs">
+            <span className="whitespace-nowrap text-muted-foreground text-xs">
               {previousSlide.value}
             </span>
             <KeyboardShortcut
@@ -220,7 +220,7 @@ const CarouselIndicators: FC<CarouselIndicatorsProps> = ({
 
         <Popover.Detail identifier="carousel-next">
           <div className="flex items-center gap-2 p-2">
-            <span className="whitespace-nowrap text-neutral text-xs">
+            <span className="whitespace-nowrap text-muted-foreground text-xs">
               {nextSlide.value}
             </span>
             <KeyboardShortcut
