@@ -50,10 +50,16 @@ import { getDictionary } from './getDictionary';
 // Fixture dictionary
 // ---------------------------------------------------------------------------
 
-const dict = {
-  key: 'test' as const,
-  content: { greeting: 'Hello World', count: 42 },
-} as const;
+/**
+ * Built per test rather than shared: `getDictionary` memoizes its transform on
+ * the dictionary object, so reusing one fixture across the editor-disabled and
+ * editor-enabled blocks would serve the second block the first one's content.
+ */
+const createDictionary = () =>
+  ({
+    key: 'test' as const,
+    content: { greeting: 'Hello World', count: 42 },
+  }) as const;
 
 // ---------------------------------------------------------------------------
 // renderIntlayerNode – unit tests
@@ -102,17 +108,17 @@ describe('getDictionary – editor disabled', () => {
   });
 
   it('field.value returns the raw string', () => {
-    const result = getDictionary(dict, 'en');
+    const result = getDictionary(createDictionary(), 'en');
     expect(result.greeting.value).toBe('Hello World');
   });
 
   it('field.value returns the raw number', () => {
-    const result = getDictionary(dict, 'en');
+    const result = getDictionary(createDictionary(), 'en');
     expect(result.count.value).toBe(42);
   });
 
   it('field renders as a plain Fragment (no editor wrapper)', () => {
-    const result = getDictionary(dict, 'en');
+    const result = getDictionary(createDictionary(), 'en');
     // When editor is disabled the children passed to renderIntlayerNode is the
     // raw string, so the Proxy wraps a Fragment element.
     expect(result.greeting.type).toBe(Fragment);
@@ -134,12 +140,12 @@ describe('getDictionary – editor enabled', () => {
   });
 
   it('field.value still returns the raw string even when editor is enabled', () => {
-    const result = getDictionary(dict, 'en');
+    const result = getDictionary(createDictionary(), 'en');
     expect(result.greeting.value).toBe('Hello World');
   });
 
   it('field renders through the (mocked) editor wrapper', () => {
-    const result = getDictionary(dict, 'en');
+    const result = getDictionary(createDictionary(), 'en');
     // The children is now the EditedContentRenderer element, not a plain Fragment.
     expect(result.greeting.type).not.toBe(Fragment);
   });

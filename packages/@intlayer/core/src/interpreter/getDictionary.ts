@@ -1,3 +1,4 @@
+import { internationalization } from '@intlayer/config/built';
 import type {
   Dictionary,
   DictionarySelector,
@@ -10,9 +11,15 @@ import type {
   LocalesValues,
 } from '@intlayer/types/module_augmentation';
 import {
+  getDictionarySelectorCacheKey,
   parseDictionarySelector,
   resolveQualifiedDictionary,
 } from '../dictionaryManipulator/qualifiedDictionary';
+import {
+  getDictionaryTransformCacheKey,
+  readTransformCache,
+  writeTransformCache,
+} from './dictionaryTransformCache';
 import type {
   DeepTransformContent,
   IInterpreterPluginState,
@@ -23,11 +30,6 @@ import { getBasePlugins, getContent } from './getContent/getContent';
 
 /**
  * Transforms a dictionary in a single pass, applying each plugin as needed.
- *
- * Also accepts a `QualifiedDictionaryGroup` (collections, variants) together
- * with a selector as second argument — the group is resolved to a single entry
- * (or an ordered array of entries for collections without an `item` selector)
- * before transformation.
  *
  * @param dictionary The dictionary (or qualified dictionary group) to transform.
  * @param localeOrSelector The locale, or a selector object (`{ item }`,
@@ -48,6 +50,19 @@ export const getDictionary = <
   ExtractSelectorLocale<A>
 > => {
   const { locale, selector } = parseDictionarySelector(localeOrSelector);
+
+  // The base plugins are rebuilt on every call, so they cannot identify
+  // themselves — but they are fully determined by the locale, which the key
+  // already carries. Only an explicitly passed array needs its own identity.
+  const cacheKey = getDictionaryTransformCacheKey(
+    locale ?? internationalization.defaultLocale,
+    getDictionarySelectorCacheKey(selector),
+    plugins
+  );
+
+  const cached = readTransformCache<any>(dictionary, cacheKey);
+  if (cached.hit) return cached.content;
+
   const appliedPlugins = plugins ?? getBasePlugins(locale);
 
   const resolved = resolveQualifiedDictionary(dictionary, selector);
@@ -67,11 +82,19 @@ export const getDictionary = <
     return getContent(resolvedDictionary.content, props, appliedPlugins);
   };
 
-  if (resolved === null) return null as any;
+  if (resolved === null) return writeTransformCache(dictionary, cacheKey, null);
 
   if (Array.isArray(resolved)) {
-    return resolved.map(transformDictionary) as any;
+    return writeTransformCache(
+      dictionary,
+      cacheKey,
+      resolved.map(transformDictionary)
+    ) as any;
   }
 
-  return transformDictionary(resolved) as any;
+  return writeTransformCache(
+    dictionary,
+    cacheKey,
+    transformDictionary(resolved)
+  ) as any;
 };

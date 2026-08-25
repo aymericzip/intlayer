@@ -24,6 +24,12 @@ type CallableProxyTarget = (...argumentsList: unknown[]) => unknown;
 const NO_PENDING_PRIMITIVE_FALLBACK = Symbol('NO_PENDING_PRIMITIVE_FALLBACK');
 
 /**
+ * Property exposing the settled value behind a loadable proxy, or `undefined`
+ * while the chunk is still in flight. See {@link unwrapLoadable}.
+ */
+const LOADABLE_SETTLED_VALUE = Symbol('LOADABLE_SETTLED_VALUE');
+
+/**
  * Module-level cache to dedupe dynamic imports by key. Solid resources still own
  * suspense, SSR serialization, hydration, and refetching on source change.
  */
@@ -127,6 +133,11 @@ export const createLoadableProxy = <T>(read: () => T | undefined): T => {
 
         const currentValue = readValueAtPath(read(), path);
 
+        // Answered before the fallbacks below, which would otherwise hand back
+        // another proxy — and a proxy is truthy, so `unwrapLoadable` could
+        // never tell a pending chunk from a settled one.
+        if (property === LOADABLE_SETTLED_VALUE) return currentValue;
+
         if (currentValue !== null && currentValue !== undefined) {
           if (property === Symbol.toPrimitive) {
             return () => currentValue;
@@ -180,6 +191,30 @@ export const createLoadableProxy = <T>(read: () => T | undefined): T => {
   };
 
   return createProxyAtPath([]) as T;
+};
+
+/**
+ * Returns the settled value a loadable proxy stands for, or `undefined` while
+ * its chunk is in flight — and for any value that is not a loadable proxy.
+ *
+ * The read stays tracked, so a caller inside a reactive scope re-runs once the
+ * chunk lands. Interpreting the settled dictionary rather than the stand-in is
+ * what lets `getDictionary` memoize the transform: the stand-in is created per
+ * component and its content changes over time, while the settled dictionary is
+ * one shared object every component resolves to.
+ *
+ * @param value - A loadable proxy, or any other value.
+ */
+export const unwrapLoadable = <T>(value: T): T | undefined => {
+  if (
+    value === null ||
+    (typeof value !== 'object' && typeof value !== 'function')
+  )
+    return undefined;
+
+  return (value as Record<symbol, unknown>)[LOADABLE_SETTLED_VALUE] as
+    | T
+    | undefined;
 };
 
 export const useLoadDynamic = <T, Source extends DynamicSource = string>(

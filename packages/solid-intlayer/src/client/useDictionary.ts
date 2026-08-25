@@ -14,6 +14,7 @@ import { createMemo, useContext } from 'solid-js';
 import { getDictionary } from '../getDictionary';
 import type { DeepTransformContent } from '../plugins';
 import { IntlayerClientContext, type IntlayerValue } from './IntlayerProvider';
+import { unwrapLoadable } from './useLoadDynamic';
 
 /**
  * On the client side, Hook that transforms a dictionary (or qualified
@@ -44,12 +45,20 @@ export const useDictionary = <
   const accessor = createMemo(() => {
     const currentLocale = context?.locale?.();
 
+    // A dynamically loaded dictionary arrives as a per-component stand-in whose
+    // content only appears once the chunk lands. Interpreting the settled
+    // object instead — the one every component resolves to — is what lets
+    // `getDictionary` memoize the transform across components and page
+    // switches. While pending, the stand-in is passed through unchanged so
+    // reads stay safe, and this memo re-runs the moment it settles.
+    const source = unwrapLoadable(dictionary) ?? dictionary;
+
     if (process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false') {
       // Layers the provider's locale and variant under the call-site argument.
       // This is also the seam the build-time optimize transform lands on, which
       // rewrites `useIntlayer('key', selector)` into `useDictionary(dict, …)`.
       return getDictionary<T, A>(
-        dictionary,
+        source,
         resolveDictionaryArgument({
           localeOrSelector,
           contextLocale: currentLocale,
@@ -61,7 +70,7 @@ export const useDictionary = <
 
     const localeTarget = (localeOrSelector ?? currentLocale) as A;
 
-    return getDictionary<T, A>(dictionary, localeTarget);
+    return getDictionary<T, A>(source, localeTarget);
   });
 
   return new Proxy(accessor, {

@@ -57,10 +57,16 @@ import { getDictionary } from './getDictionary';
 // Fixture dictionary
 // ---------------------------------------------------------------------------
 
-const dict = {
-  key: 'test' as const,
-  content: { greeting: 'Hello World', count: 42 },
-} as const;
+/**
+ * Built per test rather than shared: `getDictionary` memoizes its transform on
+ * the dictionary object, so reusing one fixture across the editor-disabled and
+ * editor-enabled blocks would serve the second block the first one's content.
+ */
+const createDictionary = () =>
+  ({
+    key: 'test' as const,
+    content: { greeting: 'Hello World', count: 42 },
+  }) as const;
 
 // ---------------------------------------------------------------------------
 // renderIntlayerNode – unit tests
@@ -115,17 +121,17 @@ describe('getDictionary – editor disabled', () => {
   });
 
   it('field.value returns the raw string', () => {
-    const result = getDictionary(dict, 'en' as any);
+    const result = getDictionary(createDictionary(), 'en' as any);
     expect((result as any).greeting.value).toBe('Hello World');
   });
 
   it('field.value returns the raw number', () => {
-    const result = getDictionary(dict, 'en' as any);
+    const result = getDictionary(createDictionary(), 'en' as any);
     expect((result as any).count.value).toBe(42);
   });
 
   it('field renders as a plain Fragment (no editor wrapper)', () => {
-    const result = getDictionary(dict, 'en' as any);
+    const result = getDictionary(createDictionary(), 'en' as any);
     expect((result as any).greeting.type).toBe(Fragment);
   });
 });
@@ -145,12 +151,12 @@ describe('getDictionary – editor enabled', () => {
   });
 
   it('field.value still returns the raw string', () => {
-    const result = getDictionary(dict, 'en' as any);
+    const result = getDictionary(createDictionary(), 'en' as any);
     expect((result as any).greeting.value).toBe('Hello World');
   });
 
   it('field renders through the (mocked) editor wrapper', () => {
-    const result = getDictionary(dict, 'en' as any);
+    const result = getDictionary(createDictionary(), 'en' as any);
     expect((result as any).greeting.type).not.toBe(Fragment);
   });
 });

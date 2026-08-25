@@ -1,3 +1,4 @@
+export * from './dictionaryTransformCache';
 export * from './getCondition';
 export * from './getContent/index';
 export * from './getDictionary';

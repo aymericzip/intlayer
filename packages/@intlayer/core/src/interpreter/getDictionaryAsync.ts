@@ -21,6 +21,7 @@ import {
   type QualifiedDynamicLoaderMap,
   resolveQualifiedDynamicContentAsync,
 } from '../dictionaryManipulator/qualifiedDynamicLoader';
+import { getPluginsCacheKey } from './dictionaryTransformCache';
 import type {
   DeepTransformContent,
   IInterpreterPluginState,
@@ -110,7 +111,7 @@ export const getDictionaryAsync = async <
 
   const cacheKey = `${key}_${localeTarget}_${getDictionarySelectorCacheKey(
     selector
-  )}_${plugins ? 'custom_plugins' : 'default_plugins'}`;
+  )}_${getPluginsCacheKey(plugins)}`;
 
   const cachedContent = contentPromiseCache.get(cacheKey);
   if (cachedContent) return cachedContent as Promise<any>;

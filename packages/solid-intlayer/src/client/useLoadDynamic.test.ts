@@ -207,3 +207,39 @@ describe('useLoadDynamic', () => {
     expect(loadCount).toBe(2);
   });
 });
+
+/**
+ * `getDictionary` memoizes its transform on the object it is handed. A loadable
+ * proxy is created per component and its content changes when the chunk lands,
+ * so it can never be that object — `unwrapLoadable` is what hands over the
+ * settled dictionary every component resolves to.
+ */
+describe('unwrapLoadable', () => {
+  it('returns undefined while the chunk is in flight', async () => {
+    const { useLoadDynamic, unwrapLoadable } = await importUseLoadDynamic();
+
+    resourceValue = undefined;
+    const pending = useLoadDynamic('pending-chunk', Promise.resolve({}));
+
+    expect(unwrapLoadable(pending)).toBeUndefined();
+  });
+
+  it('returns the settled value once the chunk has landed', async () => {
+    const { useLoadDynamic, unwrapLoadable } = await importUseLoadDynamic();
+
+    const settled = { key: 'hero', content: { headline: 'Welcome' } };
+    resourceValue = settled;
+
+    const loadable = useLoadDynamic('settled-chunk', Promise.resolve(settled));
+
+    expect(unwrapLoadable(loadable)).toBe(settled);
+  });
+
+  it('leaves a value that is not a loadable proxy alone', async () => {
+    const { unwrapLoadable } = await importUseLoadDynamic();
+
+    expect(unwrapLoadable({ key: 'static' })).toBeUndefined();
+    expect(unwrapLoadable(undefined)).toBeUndefined();
+    expect(unwrapLoadable(null)).toBeUndefined();
+  });
+});
