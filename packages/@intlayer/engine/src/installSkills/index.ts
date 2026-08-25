@@ -264,22 +264,66 @@ const getLicenceContent = (): string => {
 
 const ALLOWED_FETCH_HOSTS = new Set(['intlayer.org']);
 
+/** Upper bound on the redirect chain a reference URL may take. */
+const MAX_FETCH_REDIRECTS = 5;
+
 /**
- * Fetches the content of a URL using native fetch.
+ * Parses a URL and rejects it unless it is an HTTPS address on an allowed host.
+ *
+ * @param url - Absolute URL to validate.
+ * @returns The parsed URL.
+ * @throws When the protocol or host is not allowed.
  */
-const fetchUrlContent = async (url: string): Promise<string> => {
+const parseAllowedUrl = (url: string | URL): URL => {
   const parsed = new URL(url);
+
   if (
     parsed.protocol !== 'https:' ||
     !ALLOWED_FETCH_HOSTS.has(parsed.hostname)
   ) {
     throw new Error(`Blocked fetch to disallowed host: ${parsed.hostname}`);
   }
-  const response = await fetch(url, { redirect: 'error' });
-  if (!response.ok) {
-    throw new Error(`Failed to fetch ${url}: ${response.statusText}`);
+
+  return parsed;
+};
+
+/**
+ * Fetches the content of a URL using native fetch.
+ *
+ * Redirects are followed manually so every hop is re-checked against the host
+ * allowlist — a redirect off `intlayer.org` is refused rather than silently
+ * followed. Letting `fetch` refuse them outright (`redirect: 'error'`) instead
+ * reported an unhelpful `TypeError: fetch failed` for a documentation URL that
+ * merely moved.
+ *
+ * @param url - Absolute URL to read.
+ * @returns The response body as text.
+ */
+const fetchUrlContent = async (url: string): Promise<string> => {
+  let target = parseAllowedUrl(url);
+
+  for (let hop = 0; hop <= MAX_FETCH_REDIRECTS; hop++) {
+    const response = await fetch(target, { redirect: 'manual' });
+
+    if (response.status >= 300 && response.status < 400) {
+      const location = response.headers.get('location');
+
+      if (!location) {
+        throw new Error(`Failed to fetch ${url}: redirect without a location`);
+      }
+
+      target = parseAllowedUrl(new URL(location, target));
+      continue;
+    }
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch ${url}: ${response.statusText}`);
+    }
+
+    return response.text();
   }
-  return response.text();
+
+  throw new Error(`Failed to fetch ${url}: too many redirects`);
 };
 
 /**
@@ -292,7 +336,7 @@ export const installSkills = async (
   skills: Skill[]
 ): Promise<string> => {
   // Determine destination directory
-  const relativeDir = PLATFORMS_METADATA[platform].dir ?? 'skills';
+  const relativeDir = PLATFORMS_METADATA[platform]?.dir ?? 'skills';
   const skillsBaseDir = path.join(projectRoot, relativeDir);
 
   // Ensure the base directory exists
