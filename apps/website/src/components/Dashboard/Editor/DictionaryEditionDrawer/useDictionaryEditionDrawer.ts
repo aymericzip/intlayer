@@ -1,4 +1,7 @@
-import { useRightDrawer } from '@intlayer/design-system/right-drawer';
+import {
+  useIsRightDrawerOpen,
+  useRightDrawerActions,
+} from '@intlayer/design-system/right-drawer';
 import {
   type FileContent,
   useEditedContentActions,
@@ -29,11 +32,8 @@ export const useDictionaryEditionDrawer = (
   dictionaryKey: string
 ): DictionaryEditionDrawer => {
   const id = getDrawerIdentifier(dictionaryKey);
-  const {
-    isOpen: isOpenDrawer,
-    open: openDrawer,
-    close: closeDrawer,
-  } = useRightDrawer();
+  const { open: openDrawer, close: closeDrawer } = useRightDrawerActions();
+  const isOpen = useIsRightDrawerOpen(id);
   const { getEditedContentValue } = useEditedContentActions();
   const { focusedContent, setFocusedContent } = useFocusUnmergedDictionary();
 
@@ -44,7 +44,7 @@ export const useDictionaryEditionDrawer = (
   }, [focusedContent, openDrawer, id]);
 
   return {
-    isOpen: isOpenDrawer(id),
+    isOpen,
     focusedContent,
     getEditedContentValue,
     close: () => {

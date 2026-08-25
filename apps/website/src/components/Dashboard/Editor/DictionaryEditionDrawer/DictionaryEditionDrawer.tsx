@@ -8,7 +8,7 @@ import { Modal } from '@intlayer/design-system/modal';
 import { Popover } from '@intlayer/design-system/popover';
 import {
   RightDrawer,
-  useRightDrawer,
+  useRightDrawerActions,
 } from '@intlayer/design-system/right-drawer';
 import { Tag } from '@intlayer/design-system/tag';
 import {
@@ -16,7 +16,7 @@ import {
   useFocusUnmergedDictionary,
 } from '@intlayer/editor-react';
 import { PencilRuler } from 'lucide-react';
-import { type FC, useState } from 'react';
+import { type FC, useDeferredValue, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { dictionaryListDrawerIdentifier } from '../DictionaryListDrawer/dictionaryListDrawerIdentifier';
 import {
@@ -42,7 +42,7 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
   );
 
   const { close } = useDictionaryEditionDrawer(dictionaryKey);
-  const { open } = useRightDrawer();
+  const { open } = useRightDrawerActions();
   const openDictionaryListDrawer = () => open(dictionaryListDrawerIdentifier);
 
   const handleOnBack = () => {
@@ -54,6 +54,35 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
   const { localeDictionaries } = useDictionariesRecord();
   const { focusedContent, setFocusedContent } = useFocusUnmergedDictionary();
 
+  /**
+   * Closing clears the focused content, which would strip the drawer out of the
+   * DOM before its transition could run. Holding on to the last focused
+   * dictionary keeps the panel rendered, and filled, while it slides away.
+   */
+  const focusedDictionaryLocalId = focusedContent?.dictionaryLocalId;
+  const [displayedDictionaryLocalId, setDisplayedDictionaryLocalId] = useState(
+    focusedDictionaryLocalId
+  );
+
+  if (
+    focusedDictionaryLocalId &&
+    focusedDictionaryLocalId !== displayedDictionaryLocalId
+  ) {
+    setDisplayedDictionaryLocalId(focusedDictionaryLocalId);
+  }
+
+  /**
+   * Building the editor body is the expensive half of opening this drawer, and
+   * it lands in the very commit that opens it, blocking the slide. Deferring it
+   * lets React paint the opening drawer first, then fill it in at transition
+   * priority, where the work can yield back to the browser between chunks.
+   */
+  const deferredDictionaryLocalId = useDeferredValue(
+    displayedDictionaryLocalId,
+    undefined
+  );
+  const isBodyReady = deferredDictionaryLocalId === displayedDictionaryLocalId;
+
   const [editionModalOpen, setEditionModalOpen] = useState<boolean>(false);
 
   const onClickDictionaryList = () => {
@@ -61,21 +90,16 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
     handleOnBack();
   };
 
-  if (!focusedContent.dictionaryKey)
-    return (
-      <span className="mx-auto my-10 text-neutral text-sm">
-        {noDictionaryFocused}
-      </span>
-    );
-
   const dictionary = Object.values(localeDictionaries ?? {}).find(
-    (dictionary) => dictionary.localId === focusedContent?.dictionaryLocalId
+    (item) => item.localId === displayedDictionaryLocalId
   );
 
   if (!dictionary)
     return (
       <span className="mx-auto my-10 text-neutral text-sm">
-        {focusedDictionaryNotFound}
+        {displayedDictionaryLocalId
+          ? focusedDictionaryNotFound
+          : noDictionaryFocused}
       </span>
     );
 
@@ -132,15 +156,17 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
         </>
       }
       footer={
-        <SaveForm
-          dictionary={dictionary}
-          mode={['remote']}
-          className="mb-4 flex-col px-3"
-          onDelete={handleOnBack}
-        />
+        isBodyReady && (
+          <SaveForm
+            dictionary={dictionary}
+            mode={['remote']}
+            className="mb-4 flex-col px-3"
+            onDelete={handleOnBack}
+          />
+        )
       }
     >
-      {focusedContent && (
+      {isBodyReady && (
         <>
           <Modal
             isOpen={editionModalOpen}
@@ -185,13 +211,25 @@ export const DictionaryEditionDrawerController: FC<
   const { focusedContent } = useFocusUnmergedDictionary();
   const dictionaryKey: string | undefined = focusedContent?.dictionaryKey;
 
-  if (!dictionaryKey) {
+  /**
+   * Unmounting as soon as focus clears would remove the drawer before it could
+   * animate out. The last focused key stays mounted, and is only replaced once
+   * another dictionary takes focus.
+   */
+  const [mountedDictionaryKey, setMountedDictionaryKey] =
+    useState(dictionaryKey);
+
+  if (dictionaryKey && dictionaryKey !== mountedDictionaryKey) {
+    setMountedDictionaryKey(dictionaryKey);
+  }
+
+  if (!mountedDictionaryKey) {
     return <></>;
   }
 
   return (
     <DictionaryEditionDrawer
-      dictionaryKey={dictionaryKey}
+      dictionaryKey={mountedDictionaryKey}
       isDarkMode={isDarkMode}
     />
   );

@@ -4,7 +4,7 @@ import { useSearch } from '@intlayer/design-system/hooks';
 import { SearchInput } from '@intlayer/design-system/input';
 import {
   RightDrawer,
-  useRightDrawer,
+  useRightDrawerActions,
 } from '@intlayer/design-system/right-drawer';
 import { Tag } from '@intlayer/design-system/tag';
 import {
@@ -23,28 +23,39 @@ import { dictionaryListDrawerIdentifier } from './dictionaryListDrawerIdentifier
 export const DictionaryListDrawer: FC = () => {
   const { drawerTitle, buttonLabel } = useIntlayer('dictionary-list-drawer');
 
-  const { set: setDrawers } = useRightDrawer();
+  const { set: setDrawers } = useRightDrawerActions();
 
   const { localeDictionaries } = useDictionariesRecord();
   const { editedContent } = useEditedContent();
   const { setFocusedContent } = useFocusUnmergedDictionary();
   const { setSearch, search } = useSearch();
 
-  // Create Fuse instance for searching dictionaries
-  const dictionariesArray = Object.values(localeDictionaries);
-  const fuse = new Fuse(dictionariesArray, {
-    keys: ['key', 'title', 'filePath', 'description', 'tags'],
-    threshold: 0.3,
-    includeScore: true,
-  });
+  const dictionariesArray = useMemo(
+    () => Object.values(localeDictionaries ?? {}),
+    [localeDictionaries]
+  );
+
+  // Indexing is O(n) over every dictionary, so it must not run on each render
+  const fuse = useMemo(
+    () =>
+      new Fuse(dictionariesArray, {
+        keys: ['key', 'title', 'filePath', 'description', 'tags'],
+        threshold: 0.3,
+        includeScore: true,
+      }),
+    [dictionariesArray]
+  );
 
   // Filter dictionaries based on search
   const filteredDictionaries = useMemo(() => {
-    if (!search || search.trim() === '') {
-      return Object.values(localeDictionaries);
+    const trimmedSearch = search?.trim() ?? '';
+
+    if (trimmedSearch === '') {
+      return dictionariesArray;
     }
-    return fuse.search(search).map((result) => result.item);
-  }, [search, fuse, localeDictionaries]);
+
+    return fuse.search(trimmedSearch).map((result) => result.item);
+  }, [search, fuse, dictionariesArray]);
 
   const handleClickDictionary = (dictionary: Dictionary) => {
     setFocusedContent({
@@ -59,8 +70,10 @@ export const DictionaryListDrawer: FC = () => {
     });
   };
 
-  const isDictionaryEdited = (dictionaryKey: string) =>
-    Object.keys(editedContent ?? {}).includes(dictionaryKey);
+  const editedDictionaryKeys = useMemo(
+    () => new Set(Object.keys(editedContent ?? {})),
+    [editedContent]
+  );
 
   return (
     <RightDrawer
@@ -91,7 +104,9 @@ export const DictionaryListDrawer: FC = () => {
               size="md"
               isFullWidth
               Icon={
-                isDictionaryEdited(dictionary.localId!) ? Pencil : undefined
+                editedDictionaryKeys.has(dictionary.localId!)
+                  ? Pencil
+                  : undefined
               }
             >
               <div className="flex items-center gap-2 py-1">

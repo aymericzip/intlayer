@@ -11,6 +11,7 @@ import {
   type ReactNode,
   useEffect,
   useRef,
+  useState,
 } from 'react';
 import { createPortal } from 'react-dom';
 import { useIntlayer } from 'react-intlayer';
@@ -20,7 +21,7 @@ import { KeyboardShortcut } from '../KeyboardShortcut';
 import { MaxWidthSmoother } from '../MaxWidthSmoother/index';
 import { Popover } from '../Popover';
 import { isElementAtTopAndNotCovered } from './isElementAtTopAndNotCovered';
-import { useRightDrawer } from './useRightDrawer';
+import { useIsRightDrawerOpen, useRightDrawerActions } from './useRightDrawer';
 
 /**
  * Configuration for the back button functionality in the RightDrawer
@@ -109,13 +110,36 @@ export const RightDrawer: FC<RightDrawerProps> = ({
   const childrenContainerRef = useRef<HTMLDivElement>(null);
   const containerElement = useGetElementOrWindow(container);
 
-  const {
-    open: openDrawer,
-    close: closeDrawer,
-    isOpen: checkIsOpen,
-  } = useRightDrawer();
-  const storeIsOpen = checkIsOpen(identifier);
+  const { open: openDrawer, close: closeDrawer } = useRightDrawerActions();
+  const storeIsOpen = useIsRightDrawerOpen(identifier);
   const isOpen = storeIsOpen;
+
+  /**
+   * A drawer mounted by its parent in the already-open state is inserted into
+   * the DOM at its final width, leaving the transition no previous value to
+   * start from: it pops instead of sliding. Painting the closed state for a
+   * frame first gives the transition its starting point.
+   */
+  const [hasEnteredOpen, setHasEnteredOpen] = useState(false);
+
+  useEffect(() => {
+    if (!isOpen) {
+      setHasEnteredOpen(false);
+      return;
+    }
+
+    let secondFrame = 0;
+    const firstFrame = requestAnimationFrame(() => {
+      secondFrame = requestAnimationFrame(() => setHasEnteredOpen(true));
+    });
+
+    return () => {
+      cancelAnimationFrame(firstFrame);
+      cancelAnimationFrame(secondFrame);
+    };
+  }, [isOpen]);
+
+  const isVisuallyOpen = isOpen && hasEnteredOpen;
 
   useScrollBlockage({
     disableScroll: isOpen,
@@ -124,11 +148,13 @@ export const RightDrawer: FC<RightDrawerProps> = ({
 
   // Handle Click Outside
   useEffect(() => {
+    if (!isOpen) return;
+
     const handleClickOutside = (event: MouseEvent) => {
       try {
         if (!panelRef.current) return;
 
-        const isClickAble = isOpen && closeOnOutsideClick;
+        const isClickAble = closeOnOutsideClick;
         const isClickOutside =
           event.target && !panelRef.current.contains(event.target as Node);
         const isAtTopAndVisible = isElementAtTopAndNotCovered(panelRef.current);
@@ -195,7 +221,7 @@ export const RightDrawer: FC<RightDrawerProps> = ({
 
   return createPortal(
     <div className="fixed top-0 right-0 z-50 flex h-full justify-end">
-      <MaxWidthSmoother isHidden={!isOpen} align="right">
+      <MaxWidthSmoother isHidden={!isVisuallyOpen} align="right">
         <Container
           className="relative flex h-screen w-screen flex-col border-l text-text md:w-100"
           ref={panelRef}

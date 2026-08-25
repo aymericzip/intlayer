@@ -1,9 +1,9 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useCallback, useEffect, useSyncExternalStore } from 'react';
 import { useGetElementOrWindow } from '../useGetElementOrWindow';
 
-import { useScrollBlockageStore } from './useScrollBlockageStore';
+import { scrollBlockageManager } from './useScrollBlockageStore';
 
 type useScrollBlockagePropsReadOnly = {
   disableScroll: undefined;
@@ -17,6 +17,8 @@ type useScrollBlockageProps = {
   element?: HTMLElement; // The element to block the scroll. If not defined, the window will be used
 };
 
+const getServerSnapshot = () => false;
+
 export const useScrollBlockage = (
   props?: useScrollBlockageProps | useScrollBlockagePropsReadOnly
 ) => {
@@ -26,28 +28,37 @@ export const useScrollBlockage = (
     key = 'unnamed_blocker',
   } = props ?? {};
 
-  const { isElementScrollBlocked, addBlockage, removeBlockage } =
-    useScrollBlockageStore();
-
   const containerElement = useGetElementOrWindow(element);
 
   useEffect(() => {
     const el = element ?? window.document.body;
 
     if (disableScroll) {
-      addBlockage(key, el);
+      scrollBlockageManager.addBlockage(key, el);
     } else {
-      removeBlockage(key, el);
+      scrollBlockageManager.removeBlockage(key, el);
     }
 
     return () => {
-      removeBlockage(key, el);
+      scrollBlockageManager.removeBlockage(key, el);
     };
-  }, [addBlockage, disableScroll, element, key, removeBlockage]);
+  }, [disableScroll, element, key]);
 
-  const isScrollBlocked = containerElement
-    ? isElementScrollBlocked(containerElement)
-    : false;
+  // Subscribing to a boolean instead of the blocker list keeps the consumer
+  // from re-rendering when an unrelated element gets blocked or unblocked.
+  const getIsScrollBlocked = useCallback(
+    () =>
+      containerElement
+        ? scrollBlockageManager.isElementScrollBlocked(containerElement)
+        : false,
+    [containerElement]
+  );
+
+  const isScrollBlocked = useSyncExternalStore(
+    scrollBlockageManager.subscribe,
+    getIsScrollBlocked,
+    getServerSnapshot
+  );
 
   return { isScrollBlocked };
 };
