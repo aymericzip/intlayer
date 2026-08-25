@@ -1,4 +1,5 @@
 import * as analyticsService from '@services/analytics.service';
+import { verifyPublicBrowserTokenScope } from '@utils/crypto/publicBrowserToken';
 import { type AppError, ErrorHandler } from '@utils/errors';
 import { isBotRequest } from '@utils/isBotRequest';
 import { formatResponse, type ResponseData } from '@utils/responseData';
@@ -36,21 +37,40 @@ const resolveCountry = (request: FastifyRequest): string => {
 };
 
 export type IngestAnalyticsBody = {
+  /**
+   * Short-lived ingest token obtained from
+   * the public token exchange. Carried in the body rather than an
+   * `Authorization` header because the flush-on-hide path uses
+   * `navigator.sendBeacon`, which cannot set headers.
+   */
+  token?: string;
+  /**
+   * @deprecated Superseded by {@link IngestAnalyticsBody.token}. Still accepted
+   * so already-deployed SDK versions keep reporting.
+   */
   clientId?: string;
   sessionId: string;
   sdkVersion: string;
   events: IncomingAnalyticsEvent[];
 };
 export type IngestAnalyticsResult = ResponseData<{ accepted: number }>;
+
 export type GetAnalyticsOverviewResult = ResponseData<AnalyticsOverviewRow[]>;
 export type GetContentStatsResult = ResponseData<ContentStatRow[]>;
 export type GetExperimentResultsResult = ResponseData<ExperimentResult>;
 export type GetAudienceResult = ResponseData<AudienceStats>;
 
 /**
- * Public — ingests a batch of analytics events. Attribution is by the public
- * `clientId` (reused from `editor.clientId`). Unknown keys are silently
- * accepted (no data is stored) so the endpoint never leaks project existence.
+ * Public — ingests a batch of analytics events.
+ *
+ * Attribution comes from the ingest token minted by
+ * the public token exchange, which the SDK sends either as a bearer
+ * token or — on the `sendBeacon` path, which cannot set headers — in the body.
+ * A bare `clientId` is still accepted so already-deployed SDK versions keep
+ * reporting; that fallback can be dropped once they have cycled out.
+ *
+ * Unknown keys and invalid tokens are silently accepted (no data is stored) so
+ * the endpoint never leaks project existence.
  *
  * Bot traffic is dropped here as well as in the SDK: this endpoint is public
  * and serves every already-deployed SDK version, so it must not rely on the
@@ -60,7 +80,7 @@ export const ingestAnalyticsEvents = async (
   request: FastifyRequest<{ Body: IngestAnalyticsBody }>,
   reply: FastifyReply
 ): Promise<void> => {
-  const { clientId, sessionId, events } = request.body ?? {};
+  const { token, clientId, sessionId, events } = request.body ?? {};
 
   if (isBotRequest(request)) {
     // Silently accept — never tell a crawler its events were discarded.
@@ -69,15 +89,29 @@ export const ingestAnalyticsEvents = async (
       .send(formatResponse<{ accepted: number }>({ data: { accepted: 0 } }));
   }
 
-  if (!clientId || !Array.isArray(events) || events.length === 0) {
+  const bearerToken = request.headers.authorization
+    ?.match(/^Bearer\s+(.+)$/i)?.[1]
+    ?.trim();
+
+  const tokenProjectId = verifyPublicBrowserTokenScope(
+    bearerToken ?? token,
+    'analytics:ingest'
+  )?.projectId;
+
+  if (
+    (!tokenProjectId && !clientId) ||
+    !Array.isArray(events) ||
+    !events.length
+  ) {
     return reply
       .status(200)
       .send(formatResponse<{ accepted: number }>({ data: { accepted: 0 } }));
   }
 
   try {
-    const projectId =
-      await analyticsService.resolveProjectIdByClientId(clientId);
+    const projectId = tokenProjectId
+      ? new Types.ObjectId(tokenProjectId)
+      : await analyticsService.resolveProjectIdByClientId(clientId!);
 
     if (!projectId) {
       // Silently accept — do not reveal whether the key exists.

@@ -100,7 +100,18 @@ export type TrackableEvent<E extends AnalyticsEvent = AnalyticsEvent> = Omit<
  * The batched request body sent to `POST /api/analytics/events`.
  */
 export type AnalyticsIngestBody = {
-  /** Public project key — reused from `editor.clientId`. */
+  /**
+   * Short-lived, ingest-scoped token obtained by exchanging the public
+   * `clientId`. Sent in the body rather than an `Authorization` header because
+   * the flush-on-hide path uses `navigator.sendBeacon`, which cannot set
+   * headers; the `fetch` path sends it both ways.
+   */
+  token?: string;
+  /**
+   * Public project key — reused from `editor.clientId`. Sent only until the
+   * token exchange resolves, so a batch collected on the very first page view
+   * is still attributed.
+   */
   clientId?: string;
   /** Anonymous per-tab session identifier (new tab ⇒ new id; never durable). */
   sessionId: string;

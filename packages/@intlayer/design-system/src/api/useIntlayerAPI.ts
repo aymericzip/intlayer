@@ -29,21 +29,34 @@ import { getUserAPI } from '@intlayer/api/user';
 import { useConfiguration } from '@intlayer/editor-react';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { type AuthAPI, getAuthAPI } from '../libs/auth';
-import { useAuth } from './useAuth';
 
 export type UseIntlayerAuthProps = {
   options?: FetcherOptions;
   intlayerConfiguration?: IntlayerConfig;
+  /**
+   * A short-lived token identifying the **signed-in user**, sent as a bearer.
+   *
+   * Only needed when the session cookie cannot be used — the backend allows
+   * credentialed requests for first-party origins only, so an app served from
+   * another origin has to carry the user's identity explicitly.
+   *
+   * The project's `clientId` / `clientSecret` are deliberately not an option
+   * here: they authenticate as the *project*, grant write access to all of its
+   * content, and must never reach a browser.
+   */
+  sessionToken?: string;
 };
 
 export const useIntlayerOAuthOptions = (props?: UseIntlayerAuthProps) => {
   const configuration = useConfiguration();
-  const { oAuth2AccessToken } = useAuth();
 
+  // On a first-party origin the session cookie authenticates every call (the
+  // fetcher sends `credentials: 'include'`), so no header is needed. Elsewhere
+  // the caller supplies a user session token.
   const options = {
-    ...(oAuth2AccessToken && {
+    ...(props?.sessionToken && {
       headers: {
-        Authorization: `Bearer ${oAuth2AccessToken.accessToken}`,
+        Authorization: `Bearer ${props.sessionToken}`,
       },
     }),
     ...(props?.options ?? {}),

@@ -2,6 +2,7 @@ import { onIdle } from '../utils/idle';
 import { isBotEnvironment } from '../utils/isBot';
 import { assignVariant } from './abTesting';
 import { createEventBuffer, type EventBuffer } from './eventBuffer';
+import { createPublicTokenManager } from './publicToken';
 import { isSampledIn } from './sampling';
 import { getSessionId } from './session';
 import { sendEvents } from './transport';
@@ -117,6 +118,10 @@ export const createAnalyticsClient = (
   const sampledIn = !isBotSession && isSampledIn(sessionId, config.sampleRate);
   const buffer: EventBuffer = createEventBuffer({ max: config.maxBufferSize });
   const endpoint = `${config.backendURL.replace(/\/$/, '')}/api/analytics/events`;
+  const publicToken = createPublicTokenManager({
+    backendURL: config.backendURL,
+    clientId: config.clientId,
+  });
 
   let ambientLocale = '';
   let flushTimer: ReturnType<typeof setInterval> | null = null;
@@ -139,17 +144,23 @@ export const createAnalyticsClient = (
   const flush = (useBeacon = false): void => {
     const events = buffer.drain();
 
+    // Read synchronously: the flush-on-hide path runs during `pagehide` and
+    // cannot await the exchange. Until it resolves, the public `clientId` is
+    // sent instead so the first batch of a visit is still attributed.
+    const token = publicToken.getToken();
+
     // Split into bounded chunks so no single request exceeds transport limits.
     for (let start = 0; start < events.length; start += MAX_EVENTS_PER_SEND) {
       sendEvents(
         endpoint,
         {
-          clientId: config.clientId,
+          token,
+          clientId: token ? undefined : config.clientId,
           sessionId,
           sdkVersion: SDK_VERSION,
           events: events.slice(start, start + MAX_EVENTS_PER_SEND),
         },
-        { useBeacon }
+        { useBeacon, token }
       );
     }
   };
@@ -290,6 +301,10 @@ export const createAnalyticsClient = (
   const start = (): void => {
     if (started || isBotSession) return;
     started = true;
+
+    // Exchanged ahead of the first flush so a token is already cached by the
+    // time a batch — including one sent during `pagehide` — goes out.
+    publicToken.prime();
 
     flushTimer = setInterval(flush, config.flushInterval);
     // Some runtimes (Node during SSR) keep the process alive on timers.

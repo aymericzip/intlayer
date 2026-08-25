@@ -43,7 +43,8 @@ export const getAnalyticsRoutes = () =>
   }) satisfies Routes;
 
 export const analyticsRouter = async (fastify: FastifyInstance) => {
-  // Public ingestion — attributed by the SDK's `clientId`. Rate limited per
+  // Public ingestion — attributed by the SDK's public browser token
+  // (`analytics:ingest` scope), obtained from `POST /api/public/token`. Rate limited per
   // IP: the endpoint is unauthenticated, so it must not be a write amplifier.
   fastify.post(
     getAnalyticsRoutes().ingestAnalyticsEvents.urlModel,

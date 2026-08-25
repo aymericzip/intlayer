@@ -52,6 +52,15 @@
       "require": "./dist/cjs/built.cjs",
       "import": "./dist/esm/built.mjs"
     },
+    "./secrets": {
+      "types": "./dist/types/secrets.d.ts",
+      "browser": {
+        "require": "./dist/cjs/secrets.browser.cjs",
+        "import": "./dist/esm/secrets.browser.mjs"
+      },
+      "require": "./dist/cjs/secrets.cjs",
+      "import": "./dist/esm/secrets.mjs"
+    },
     "./callers": {
       "types": "./dist/types/callers/index.d.ts",
       "import": "./dist/esm/callers/index.mjs",
@@ -119,6 +128,9 @@
       ],
       "built": [
         "./dist/types/built.d.ts"
+      ],
+      "secrets": [
+        "./dist/types/secrets.d.ts"
       ],
       "node": [
         "./dist/types/node.d.ts"

@@ -50,4 +50,43 @@ describe('generateConfigurationContent', () => {
     expect(content).toContain('const schemas = undefined;');
     expect(content).toContain('const plugins = undefined;');
   });
+
+  it('never emits `editor.clientSecret`, in either module format', () => {
+    const withCredentials = {
+      ...configuration,
+      editor: {
+        enabled: true,
+        backendURL: 'https://back.intlayer.org',
+        clientId: 'public_client_id',
+        clientSecret: 'confidential_client_secret',
+      },
+    } as unknown as IntlayerConfig;
+
+    for (const format of ['esm', 'cjs'] as const) {
+      const content = generateConfigurationContent(withCredentials, format);
+
+      // The generated file is inlined by client bundles, so the secret must be
+      // absent by value *and* by key — a `"clientSecret": null` placeholder
+      // would still tell an attacker the project has CMS credentials.
+      expect(content).not.toContain('confidential_client_secret');
+      expect(content).not.toContain('clientSecret');
+
+      // The public project key is still needed in the browser: the analytics
+      // SDK exchanges it for a short-lived ingest token.
+      expect(content).toContain('public_client_id');
+    }
+  });
+
+  it('leaves the source configuration object untouched', () => {
+    const withCredentials = {
+      ...configuration,
+      editor: { enabled: true, clientSecret: 'confidential_client_secret' },
+    } as unknown as IntlayerConfig;
+
+    generateConfigurationContent(withCredentials, 'esm');
+
+    expect(withCredentials.editor.clientSecret).toBe(
+      'confidential_client_secret'
+    );
+  });
 });

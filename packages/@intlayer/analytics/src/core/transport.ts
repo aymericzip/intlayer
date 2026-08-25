@@ -18,12 +18,15 @@ import type { AnalyticsIngestBody } from './types';
  * @param body - The batched payload.
  * @param options - Transport options.
  * @param options.useBeacon - Prefer `sendBeacon` (used when the page is hiding).
+ * @param options.token - Ingest token, sent as a bearer on the `fetch` path.
+ *   `sendBeacon` cannot set headers, which is why the token is also carried in
+ *   the body.
  * @returns `true` when a send was dispatched, `false` otherwise.
  */
 export const sendEvents = (
   endpoint: string,
   body: AnalyticsIngestBody,
-  { useBeacon = false }: { useBeacon?: boolean } = {}
+  { useBeacon = false, token }: { useBeacon?: boolean; token?: string } = {}
 ): boolean => {
   try {
     const payload = JSON.stringify(body);
@@ -42,7 +45,10 @@ export const sendEvents = (
       // keepalive lets the request outlive a same-tab navigation.
       void fetch(endpoint, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
         body: payload,
         keepalive: true,
         // Analytics is best-effort; never send credentials.

@@ -12,6 +12,10 @@ import {
   validateOAuth2AccessToken,
 } from '@services/oAuth2.service';
 import { formatSession } from '@utils/auth/getAuth';
+import {
+  type PublicBrowserTokenContext,
+  verifyPublicBrowserToken,
+} from '@utils/crypto/publicBrowserToken';
 import { type AppError, ErrorHandler } from '@utils/errors';
 import {
   ACCESS_TOKEN_EXPIRES_IN,
@@ -31,6 +35,12 @@ const oauth = new OAuth2Server({
 declare module 'fastify' {
   interface FastifyRequest {
     oauth?: OAuth2Server;
+    /**
+     * Set when the request carries a valid public browser token. It is not a
+     * session: there is no user behind it, and it only authorises the narrow,
+     * public capabilities listed in its scopes.
+     */
+    publicBrowserToken?: PublicBrowserTokenContext;
   }
 }
 
@@ -68,6 +78,18 @@ export const oAuth2Middleware = async (
     const bearerToken = request.headers.authorization
       ?.match(/^Bearer\s+(.+)$/i)?.[1]
       ?.trim();
+
+    // Handle public browser tokens — the credential-free path used by browser
+    // SDKs. Recognised before the OAuth2 library sees the header, which would
+    // otherwise reject it and fail the whole request. No session is created:
+    // routes opting into this auth read `request.publicBrowserToken` and check
+    // the scope themselves.
+    const publicBrowserToken = verifyPublicBrowserToken(bearerToken);
+
+    if (publicBrowserToken) {
+      request.publicBrowserToken = publicBrowserToken;
+      return;
+    }
 
     // Handle CLI session tokens (prefixed with "clisession_")
     if (bearerToken && isCliSessionToken(bearerToken)) {

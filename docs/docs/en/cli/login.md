@@ -118,6 +118,34 @@ INTLAYER_CLIENT_SECRET=your_client_secret
 }
 ```
 
+## Keeping the access key safe
+
+`intlayer login` issues an **access key**: a `clientId` / `clientSecret` pair that every credentialed command (`push`, `pull`, `fill`, `configuration push`, `live`, …) uses to authenticate.
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import type { IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  editor: {
+    clientId: process.env.INTLAYER_CLIENT_ID,
+    clientSecret: process.env.INTLAYER_CLIENT_SECRET,
+  },
+};
+
+export default config;
+```
+
+> **`clientSecret` is a server-side credential.** It grants full project-scoped API access — reading and writing your dictionaries, your project and your organization. Keep it in `.env` (git-ignored) or your CI secret store, and never inline it in the configuration file.
+
+Intlayer enforces this rather than only documenting it:
+
+- `clientSecret` is **stripped from the configuration your bundler inlines**, so it cannot reach a browser bundle whatever framework integration you use. It is only ever read server-side, at runtime, from the environment.
+- `clientId` is different: it is the **public** project key, safe to ship, and used by [`@intlayer/analytics`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/analytics.md#how-events-are-authenticated) to obtain a short-lived, ingest-only token.
+
+Commenting `clientId` out is enough to disable every credentialed behaviour — remote dictionary fetching, CMS access, analytics — even when the environment variables are still defined.
+
+For CI pipelines, prefer the [`ci` command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/ci.md), which injects the credentials for the duration of a single run instead of persisting them.
+
 ## Manual Configuration
 
 If the browser doesn't open automatically, you can manually visit the URL displayed in the terminal.

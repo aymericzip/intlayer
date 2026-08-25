@@ -1,4 +1,5 @@
 import { editor } from '@intlayer/config/built';
+import { getEditorClientSecret } from '@intlayer/config/secrets';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { defu } from 'defu';
 import type { FetcherOptions } from '../fetcher';
@@ -34,6 +35,9 @@ type SectionFactory<Section extends Record<string, unknown>> = (
 ) => Section;
 
 const ONE_MINUTE_MS = 60_000;
+
+/** Whether the current runtime is a browser rather than a server. */
+const isBrowser = (): boolean => typeof window !== 'undefined';
 
 /**
  * Resolves the expiration timestamp (in ms since epoch) from an OAuth2
@@ -167,8 +171,20 @@ export const createAuthManager = (
 ): AuthManager => {
   const { baseFetcherOptions = {}, sessionToken } = options;
 
+  // `editor` comes from the generated build-time configuration, which never
+  // carries `clientSecret` — it would be inlined into client bundles. The
+  // secret is supplied server-side by `@intlayer/config/secrets`, which
+  // resolves to an inert stub in the browser; `hasCredentials` then stays false
+  // there and the OAuth2 exchange never runs.
+  //
+  // Only consulted when the configuration declares a `clientId`, so a project
+  // that comments its credentials out stays uncredentialed even with the
+  // environment variables still defined.
   const resolvedConfig = defu(intlayerConfig ?? {}, {
-    editor,
+    editor: {
+      ...editor,
+      clientSecret: editor?.clientId ? getEditorClientSecret() : undefined,
+    },
   }) as IntlayerConfig;
 
   // `credentials: 'omit'` prevents the browser from attaching session cookies;
@@ -250,6 +266,22 @@ export const createAuthManager = (
     method: AsyncMethod<Arguments, Result>,
     skipAuth = !hasCredentials
   ): AsyncMethod<Arguments, Result> => {
+    // In a browser the project credentials are structurally unavailable, so an
+    // authenticated call would silently go out unauthenticated and come back
+    // 401. Fail with an actionable message instead: a browser must authenticate
+    // as the signed-in *user* (a session token, or the session cookie on a
+    // first-party origin), never as the project.
+    if (skipAuth && !sessionToken && isBrowser()) {
+      return async () => {
+        throw new Error(
+          'Intlayer CMS credentials are not available in the browser. ' +
+            '`clientSecret` is a server-side credential and is never bundled. ' +
+            'Call this from a server route, or pass a user session token: ' +
+            'createIntlayerCMS(config, { sessionToken }).'
+        );
+      };
+    }
+
     if (skipAuth) return method;
 
     return async (...args: Arguments): Promise<Result> => {

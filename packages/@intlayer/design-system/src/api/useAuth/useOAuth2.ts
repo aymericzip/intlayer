@@ -34,6 +34,11 @@ export const useOAuth2 = (
   const { data } = useQuery({
     queryKey: ['oAuth2AccessToken'],
     queryFn: intlayerAPI.getOAuth2AccessToken,
+    // `client_credentials` is a confidential-client grant, so this query only
+    // ever runs where a `clientSecret` is legitimately available — never in a
+    // browser, since the generated build-time configuration omits it and
+    // `@intlayer/config/secrets` resolves to an inert stub there.
+    //
     // Held back until after page load when a `DeferredAuthProvider` is mounted
     // (content sites); unconditional everywhere else (the CMS dashboard).
     enabled:

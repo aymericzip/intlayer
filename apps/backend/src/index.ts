@@ -47,6 +47,7 @@ import {
   organizationRouter,
 } from '@routes/organization.routes';
 import { projectRoute, projectRouter } from '@routes/project.routes';
+import { publicRoute, publicRouter } from '@routes/public.routes';
 import { reviewerRoute, reviewerRouter } from '@routes/reviewer.routes';
 import { searchRoute, searchRouter } from '@routes/search.routes';
 import {
@@ -327,6 +328,7 @@ const startServer = async () => {
   await app.register(searchRouter, { prefix: searchRoute });
   await app.register(newsletterRouter, { prefix: newsletterRoute });
   await app.register(analyticsRouter, { prefix: analyticsRoute });
+  await app.register(publicRouter, { prefix: publicRoute });
   await app.register(githubRouter, { prefix: githubRoute });
   await app.register(gitlabRouter, { prefix: gitlabRoute });
   await app.register(bitbucketRouter, { prefix: bitbucketRoute });

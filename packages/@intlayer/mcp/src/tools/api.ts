@@ -1,5 +1,6 @@
 import { getIntlayerAPI } from '@intlayer/api';
 import { editor } from '@intlayer/config/built';
+import { getEditorClientSecret } from '@intlayer/config/secrets';
 import z from 'zod';
 import type { McpServer } from './docs';
 
@@ -22,7 +23,8 @@ const authSchema = {
 
 const getAPI = async (clientId?: string, clientSecret?: string) => {
   const resolvedClientId = clientId ?? editor.clientId;
-  const resolvedClientSecret = clientSecret ?? editor.clientSecret;
+
+  const resolvedClientSecret = clientSecret ?? getEditorClientSecret();
 
   if (!resolvedClientId || !resolvedClientSecret) {
     throw new Error(

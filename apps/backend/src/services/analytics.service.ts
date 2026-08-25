@@ -144,6 +144,58 @@ export const resolveProjectIdByClientId = async (
   return project?._id ?? null;
 };
 
+/** A project resolved for an ingest-token exchange. */
+export type AnalyticsIngestProject = {
+  id: Types.ObjectId;
+  /**
+   * Origins the project declares as its own, derived from the configuration it
+   * pushed to the CMS. Empty when the project never declared one — a native app
+   * (React Native, Lynx) has no origin to declare.
+   */
+  allowedOrigins: string[];
+};
+
+/** Reduces a configured URL to its origin, or `null` when it is not a URL. */
+const toOrigin = (url: string | undefined): string | null => {
+  if (!url) return null;
+
+  try {
+    return new URL(url).origin;
+  } catch {
+    return null;
+  }
+};
+
+/**
+ * Resolves the project behind a public client id, along with the origins it is
+ * allowed to send analytics from.
+ *
+ * @param clientId - The public project key sent by the SDK.
+ * @returns The project and its declared origins, or `null` when unknown.
+ */
+export const resolveIngestProjectByClientId = async (
+  clientId: string
+): Promise<AnalyticsIngestProject | null> => {
+  const project = await ProjectModel.findOne({
+    'oAuth2Access.clientId': clientId,
+  })
+    .select(
+      '_id configuration.editor.applicationURL configuration.editor.cmsURL'
+    )
+    .lean();
+
+  if (!project) return null;
+
+  const editorConfiguration = project.configuration?.editor;
+
+  const allowedOrigins = [
+    toOrigin(editorConfiguration?.applicationURL),
+    toOrigin(editorConfiguration?.cmsURL),
+  ].filter((origin): origin is string => origin !== null);
+
+  return { id: project._id, allowedOrigins };
+};
+
 /** UTC day bucket (`YYYY-MM-DD`) for a client timestamp. */
 const toDay = (timestamp: number): string =>
   new Date(timestamp).toISOString().slice(0, 10);

@@ -48,6 +48,11 @@
       "require": "./dist/cjs/getIntlayerAPI/analytics.cjs",
       "import": "./dist/esm/getIntlayerAPI/analytics.mjs"
     },
+    "./public": {
+      "types": "./dist/types/public/index.d.ts",
+      "require": "./dist/cjs/public/index.cjs",
+      "import": "./dist/esm/public/index.mjs"
+    },
     "./asset": {
       "types": "./dist/types/getIntlayerAPI/asset.d.ts",
       "require": "./dist/cjs/getIntlayerAPI/asset.cjs",
@@ -165,6 +170,9 @@
       ],
       "analytics": [
         "./dist/types/getIntlayerAPI/analytics.d.ts"
+      ],
+      "public": [
+        "./dist/types/public/index.d.ts"
       ],
       "audit": [
         "./dist/types/getIntlayerAPI/audit.d.ts"

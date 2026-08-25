@@ -1,4 +1,6 @@
 export {
+  type ConversionParams,
+  type ExperimentState,
   getDictionary,
   getIntlayer,
   IntlayerClientContext,
@@ -10,9 +12,11 @@ export {
   setLocaleCookie,
   setLocaleInStorage,
   t,
+  useConversion,
   useDictionary,
   useDictionaryAsync,
   useDictionaryDynamic,
+  useExperiment,
   useI18n,
   useIntl,
   useIntlayer,

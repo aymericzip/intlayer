@@ -48,8 +48,13 @@ import { getStorageAttributes } from '../utils/getStorageAttributes';
  * Browser-safe subset of {@link IntlayerConfig}.
  *
  * Excludes server-only fields (`system`, `content`, `build`, `compiler`,
- * `dictionary`, `ai`) and sensitive editor credentials (`clientId`,
- * `clientSecret`) that must never be shipped to the browser.
+ * `dictionary`, `ai`) and the `editor.clientSecret`, which must never be
+ * shipped to the browser.
+ *
+ * `editor.clientId` is kept: it is the **public** project key, used by
+ * `@intlayer/analytics` to identify the project when exchanging it for a
+ * short-lived ingest token. It grants nothing on its own — every credentialed
+ * backend call needs the secret, which only ever exists server-side.
  */
 export type BrowserIntlayerConfig = {
   internationalization: Pick<
@@ -57,7 +62,7 @@ export type BrowserIntlayerConfig = {
     'locales' | 'defaultLocale'
   >;
   routing: RoutingConfig;
-  editor: Omit<EditorConfig, 'clientId' | 'clientSecret'>;
+  editor: Omit<EditorConfig, 'clientSecret'>;
   analytics: AnalyticsConfig;
   log: Pick<LogConfig, 'mode' | 'prefix'>;
 };
@@ -476,7 +481,8 @@ export const buildLogFields = (
  *
  * Applies defaults for every field and strips all server-only or sensitive
  * information (`system`, `content`, `build`, `compiler`, `dictionary`, `ai`,
- * `editor.clientId`, `editor.clientSecret`).
+ * `editor.clientSecret`). The public `editor.clientId` is kept — see
+ * {@link BrowserIntlayerConfig}.
  *
  * This is the browser counterpart of `buildConfigurationFields`. It is safe
  * to call in browser environments because it has no Node.js dependencies.
@@ -500,11 +506,9 @@ export const buildBrowserConfiguration = (
     customConfig?.internationalization
   );
   const routing = buildRoutingFields(customConfig?.routing);
-  const {
-    clientId: _clientId,
-    clientSecret: _clientSecret,
-    ...editorPublic
-  } = buildEditorFields(customConfig?.editor);
+  const { clientSecret: _clientSecret, ...editorPublic } = buildEditorFields(
+    customConfig?.editor
+  );
   const analytics = buildAnalyticsFields(customConfig?.analytics);
   const { mode, prefix } = buildLogFields(customConfig?.log);
 
@@ -530,33 +534,29 @@ export const buildBrowserConfiguration = (
  */
 export const extractBrowserConfiguration = (
   config: IntlayerConfig
-): BrowserIntlayerConfig => ({
-  internationalization: {
-    locales: config.internationalization.locales,
-    defaultLocale: config.internationalization.defaultLocale,
-  },
-  routing: {
-    mode: config.routing.mode,
-    enableProxy: config.routing.enableProxy,
-    storage: config.routing.storage,
-    basePath: config.routing.basePath,
-    rewrite: config.routing.rewrite,
-  },
-  editor: {
-    applicationURL: config.editor.applicationURL,
-    editorURL: config.editor.editorURL,
-    cmsURL: config.editor.cmsURL,
-    backendURL: config.editor.backendURL,
-    port: config.editor.port,
-    enabled: config.editor.enabled,
-    dictionaryPriorityStrategy: config.editor.dictionaryPriorityStrategy,
-    liveSync: config.editor.liveSync,
-    liveSyncPort: config.editor.liveSyncPort,
-    liveSyncURL: config.editor.liveSyncURL,
-  },
-  analytics: buildAnalyticsFields(config.analytics),
-  log: {
-    mode: config.log.mode,
-    prefix: config.log.prefix,
-  },
-});
+): BrowserIntlayerConfig => {
+  // Destructured rather than picked field by field so that any future addition
+  // to `EditorConfig` is carried over automatically, while `clientSecret` stays
+  // excluded by construction.
+  const { clientSecret: _clientSecret, ...editorPublic } = config.editor;
+
+  return {
+    internationalization: {
+      locales: config.internationalization.locales,
+      defaultLocale: config.internationalization.defaultLocale,
+    },
+    routing: {
+      mode: config.routing.mode,
+      enableProxy: config.routing.enableProxy,
+      storage: config.routing.storage,
+      basePath: config.routing.basePath,
+      rewrite: config.routing.rewrite,
+    },
+    editor: editorPublic,
+    analytics: buildAnalyticsFields(config.analytics),
+    log: {
+      mode: config.log.mode,
+      prefix: config.log.prefix,
+    },
+  };
+};
