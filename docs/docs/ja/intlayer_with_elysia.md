@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-08-23
+updatedAt: 2026-08-24
 title: "Elysia i18n - アプリを翻訳するための完全ガイド"
 description: "もう i18next は不要です。多言語 (i18n) Elysia アプリを構築するための 2026 年のガイド。AI エージェントで翻訳し、バンドルサイズ、SEO、パフォーマンスを最適化します。"
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - elysia
 applicationTemplate: https://github.com/aymericzip/intlayer-elysia-template
 history:
+  - version: 9.4.0
+    date: 2026-08-24
+    changes: "ガイドを Elysia テンプレートに合わせて更新（コンテキストの型付け、Bun のセットアップ、スクリプト）"
   - version: 9.4.0
     date: 2026-08-23
     changes: "Elysia プラグインの初期化"
@@ -90,6 +93,8 @@ yarn add intlayer elysia-intlayer
 bun add intlayer elysia-intlayer
 ```
 
+> Elysia は **Bun** ランタイムを対象としています。`elysia-intlayer` が（Node ベースの Intlayer プラグインが使う `cls-hooked` ライブラリではなく）`AsyncLocalStorage` に依存しているのは、まさに Bun が `async_hooks.createHook` を実装していないためです。
+
 ### セットアップ
 
 プロジェクトルートに `intlayer.config.ts` を作成して、国際化設定を構成します:
@@ -99,12 +104,10 @@ import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
   internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH_MEXICO,
-      Locales.SPANISH_SPAIN,
-    ],
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    /**
+     * 要求されたロケールが見つからない場合にフォールバックとして使用されるデフォルトロケール。
+     */
     defaultLocale: Locales.ENGLISH,
   },
 };
@@ -126,8 +129,7 @@ const indexContent = {
       ja: "英語で返されたコンテンツの例",
       en: "Example of returned content in English",
       fr: "Exemple de contenu renvoyé en français",
-      "es-ES": "Ejemplo de contenido devuelto en español (España)",
-      "es-MX": "Ejemplo de contenido devuelto en español (México)",
+      es: "Ejemplo de contenido devuelto en español",
     }),
   },
 } satisfies Dictionary;
@@ -146,8 +148,7 @@ export default indexContent;
         "ja": "英語で返されたコンテンツの例",
         "en": "Example of returned content in English",
         "fr": "Exemple de contenu renvoyé en français",
-        "es-ES": "Ejemplo de contenido devuelto en español (España)",
-        "es-MX": "Ejemplo de contenido devuelto en español (México)"
+        "es": "Ejemplo de contenido devuelto en español"
       }
     }
   }
@@ -164,19 +165,59 @@ export default indexContent;
 
 ```typescript fileName="src/index.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Elysia } from "elysia";
-import { intlayer, t, getDictionary, getIntlayer } from "elysia-intlayer";
-import dictionaryExample from "./index.content";
+import { intlayer } from "elysia-intlayer";
 
 const app = new Elysia()
   // 国際化プラグインを読み込む
   .use(intlayer())
   // ルート
+  .get("/", ({ intlayer }) => ({
+    // このリクエストに使用されるロケール。`Accept-Language` がネゴシエーションされるか、ストレージから読み取られます
+    locale: intlayer!.locale,
+    greeting: intlayer!.t({
+      ja: "こんにちは",
+      en: "Hello",
+      fr: "Bonjour",
+      es: "Hola",
+    }),
+    content: intlayer!.getIntlayer("index").exampleOfContent,
+  }))
+  .listen(3000);
+
+console.log(
+  `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
+);
+```
+
+> プラグインは **グローバル** な `derive` を通じてコンテキストを登録し、Elysia はそれを `Partial<{ intlayer: IntlayerContext }>` として型付けします。`.use(intlayer())` の後に登録されたルートでは実行時に値が必ず存在するため、`strict` モードの TypeScript を満たすには非 null アサーション（`intlayer!.locale`）またはオプショナルチェーンを使用してください。
+
+ルートコンテキストは以下を公開します:
+
+| プロパティ        | 説明                                                                                       |
+| ----------------- | ------------------------------------------------------------------------------------------ |
+| `locale`          | このリクエストで使用するロケール。`locale_storage` が `locale_detected` より優先されます。 |
+| `locale_storage`  | クッキーまたはヘッダーを通じてクライアントが明示的に要求したロケール。                     |
+| `locale_detected` | リクエストヘッダーからネゴシエートされたロケール。                                         |
+| `defaultLocale`   | `intlayer.config.ts` でフォールバックとして設定されたロケール。                            |
+| `t`               | 翻訳関数。                                                                                 |
+| `getIntlayer`     | キーで辞書を取得する関数。                                                                 |
+| `getDictionary`   | 辞書オブジェクトを処理する関数。                                                           |
+
+同じヘルパーはスタンドアロンとしてもエクスポートされています。`AsyncLocalStorage` を通じて現在のリクエストを解決するため、コンテキストを分割代入せずに呼び出せます:
+
+```typescript fileName="src/index.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { Elysia } from "elysia";
+import { intlayer, t, getDictionary, getIntlayer } from "elysia-intlayer";
+import dictionaryExample from "./index.content";
+
+const app = new Elysia()
+  .use(intlayer())
   .get("/t_example", () =>
     t({
+      ja: "英語で返されたコンテンツの例",
       en: "Example of returned content in English",
       fr: "Exemple de contenu renvoyé en français",
-      "es-ES": "Ejemplo de contenido devuelto en español (España)",
-      "es-MX": "Ejemplo de contenido devuelto en español (México)",
+      es: "Ejemplo de contenido devuelto en español",
     })
   )
   .get("/getIntlayer_example", () => getIntlayer("index").exampleOfContent)
@@ -185,38 +226,61 @@ const app = new Elysia()
     () => getDictionary(dictionaryExample).exampleOfContent
   )
   .listen(3000);
-
-console.log(`Listening on http://${app.server?.hostname}:${app.server?.port}`);
 ```
 
-プラグインはルートコンテキストに `intlayer` オブジェクトも注入します。スタンドアロンヘルパーの代わりに明示的な依存性が必要な場合は、これを使用してください:
+> リクエストコンテキストはレスポンスがマップされた時点で解放されるため、スタンドアロンのヘルパーが既に終了したリクエストに対して解決されることはありません。プラグインが処理するリクエストの外部で呼び出された場合は、設定されたデフォルトロケールにフォールバックします。
 
-```typescript fileName="src/index.ts" codeFormat={["typescript", "esm", "commonjs"]}
-import { Elysia } from "elysia";
-import { intlayer } from "elysia-intlayer";
+### アプリケーションを実行する
 
-const app = new Elysia().use(intlayer()).get("/", ({ intlayer }) => ({
-  // このリクエストに使用されるロケール。`Accept-Language` がネゴシエーションされるか、ストレージから読み取られます
-  locale: intlayer.locale,
-  greeting: intlayer.t({
-    en: "Hello",
-    fr: "Bonjour",
-  }),
-  content: intlayer.getIntlayer("index").exampleOfContent,
-}));
+Intlayer のスクリプトを `package.json` に追加します。`intlayer build` はコンテンツ宣言を `.intlayer` ディレクトリにコンパイルし、TypeScript の型を生成します:
+
+```json fileName="package.json"
+{
+  "scripts": {
+    "dev": "intlayer build && bun run --watch src/index.ts",
+    "build": "intlayer build",
+    "start": "bun run src/index.ts",
+    "i18n:fill": "intlayer fill",
+    "i18n:test": "intlayer test"
+  }
+}
 ```
 
-> ルートコンテキストは `locale`、`defaultLocale`、`locale_storage` (クライアントによって明示的に設定されたロケール)、`locale_detected` (ヘッダーからネゴシエーションされたロケール)、`t`、`getIntlayer`、`getDictionary` を公開します。
+次にサーバーを起動します:
+
+```bash
+bun run dev
+```
+
+`Accept-Language` でロケールネゴシエーションをテストします:
+
+```bash
+curl -H "Accept-Language: fr" http://localhost:3000/
+# {"locale":"fr","greeting":"Bonjour","content":"Exemple de contenu renvoyé en français"}
+
+curl -H "Accept-Language: es" http://localhost:3000/
+# {"locale":"es","greeting":"Hola","content":"Ejemplo de contenido devuelto en español"}
+```
+
+> `bun run src/index.ts` の前に `intlayer build` は必須ではありません。プラグインは Elysia アプリの起動時にも辞書を準備します。事前に実行しておくと、エディタ用の生成型が同期された状態に保たれ、最初のリクエストでのビルドコストを避けられます。
 
 ### 互換性
 
 `elysia-intlayer` は以下と完全に互換性があります:
 
-- [`react-intlayer`](<https://www.google.com/search?q=%5Bhttps://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/index.md%5D(https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/index.md)>) - React アプリケーション向け
-- [`next-intlayer`](<https://www.google.com/search?q=%5Bhttps://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/next-intlayer/index.md%5D(https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/next-intlayer/index.md)>) - Next.js アプリケーション向け
-- [`vite-intlayer`](<https://www.google.com/search?q=%5Bhttps://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/vite-intlayer/index.md%5D(https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/vite-intlayer/index.md)>) - Vite アプリケーション向け
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/index.md) - React アプリケーション向け
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/next-intlayer/index.md) - Next.js アプリケーション向け
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/vite-intlayer/index.md) - Vite アプリケーション向け
 
-また、ブラウザや API リクエストを含むさまざまな環境で、あらゆる国際化ソリューションとシームレスに連携します。ヘッダーまたはクッキーを通じてロケールを検出するようにミドルウェアをカスタマイズできます:
+また、ブラウザや API リクエストを含むさまざまな環境で、あらゆる国際化ソリューションとシームレスに連携します。
+
+デフォルトでは、プラグインは次の順序でロケールを解決します:
+
+1. `INTLAYER_LOCALE` クッキー。
+2. `x-intlayer-locale` ヘッダー。
+3. `Accept-Language` ヘッダーのネゴシエーション。
+
+ロケール検出に使用するクッキーとヘッダーはカスタマイズできます:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
@@ -233,8 +297,6 @@ const config: IntlayerConfig = {
 
 export default config;
 ```
-
-デフォルトでは、`elysia-intlayer` は `Accept-Language` ヘッダーを解析してクライアントの優先言語を判定します。
 
 > 設定と高度なトピックについて詳しく知るには、当社の[ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)をご覧ください。
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-08-23
+updatedAt: 2026-08-24
 title: "Elysia i18n - 完整指南翻译你的应用"
 description: "不再使用 i18next。2026 年构建多语言 (i18n) Elysia 应用的指南。使用 AI 代理翻译并优化 bundle 大小、SEO 和性能。"
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - elysia
 applicationTemplate: https://github.com/aymericzip/intlayer-elysia-template
 history:
+  - version: 9.4.0
+    date: 2026-08-24
+    changes: "使指南与 Elysia 模板保持一致（上下文类型、Bun 配置、脚本）"
   - version: 9.4.0
     date: 2026-08-23
     changes: "init Elysia plugin"
@@ -90,6 +93,8 @@ yarn add intlayer elysia-intlayer
 bun add intlayer elysia-intlayer
 ```
 
+> Elysia 面向 **Bun** 运行时。`elysia-intlayer` 之所以依赖 `AsyncLocalStorage`（而不是基于 Node 的 Intlayer 插件所使用的 `cls-hooked` 库），正是因为 Bun 没有实现 `async_hooks.createHook`。
+
 ### 设置
 
 通过在项目根目录创建 `intlayer.config.ts` 来配置国际化设置：
@@ -99,12 +104,10 @@ import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
   internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH_MEXICO,
-      Locales.SPANISH_SPAIN,
-    ],
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    /**
+     * 当找不到所请求的语言环境时，作为回退使用的默认语言环境。
+     */
     defaultLocale: Locales.ENGLISH,
   },
 };
@@ -126,8 +129,7 @@ const indexContent = {
       zh: "在中文中返回的内容示例",
       en: "Example of returned content in English",
       fr: "Exemple de contenu renvoyé en français",
-      "es-ES": "Ejemplo de contenido devuelto en español (España)",
-      "es-MX": "Ejemplo de contenido devuelto en español (México)",
+      es: "Ejemplo de contenido devuelto en español",
     }),
   },
 } satisfies Dictionary;
@@ -146,8 +148,7 @@ export default indexContent;
         "zh": "在中文中返回的内容示例",
         "en": "Example of returned content in English",
         "fr": "Exemple de contenu renvoyé en français",
-        "es-ES": "Ejemplo de contenido devuelto en español (España)",
-        "es-MX": "Ejemplo de contenido devuelto en español (México)"
+        "es": "Ejemplo de contenido devuelto en español"
       }
     }
   }
@@ -164,19 +165,59 @@ export default indexContent;
 
 ```typescript fileName="src/index.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Elysia } from "elysia";
-import { intlayer, t, getDictionary, getIntlayer } from "elysia-intlayer";
-import dictionaryExample from "./index.content";
+import { intlayer } from "elysia-intlayer";
 
 const app = new Elysia()
   // 加载国际化插件
   .use(intlayer())
   // 路由
+  .get("/", ({ intlayer }) => ({
+    // 用于此请求的语言环境，通过 `Accept-Language` 协商或从存储中读取
+    locale: intlayer!.locale,
+    greeting: intlayer!.t({
+      zh: "你好",
+      en: "Hello",
+      fr: "Bonjour",
+      es: "Hola",
+    }),
+    content: intlayer!.getIntlayer("index").exampleOfContent,
+  }))
+  .listen(3000);
+
+console.log(
+  `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
+);
+```
+
+> 该插件通过 **全局** `derive` 注册其上下文，Elysia 会将其类型标注为 `Partial<{ intlayer: IntlayerContext }>`。对于在 `.use(intlayer())` 之后注册的路由，该值在运行时始终存在，因此请使用非空断言（`intlayer!.locale`）或可选链，以满足 `strict` 模式下的 TypeScript。
+
+路由上下文暴露以下内容：
+
+| 属性              | 描述                                                                 |
+| ----------------- | -------------------------------------------------------------------- |
+| `locale`          | 本次请求要使用的 locale，`locale_storage` 优先于 `locale_detected`。 |
+| `locale_storage`  | 客户端通过 cookie 或 header 显式请求的 locale。                      |
+| `locale_detected` | 从请求头协商得到的 locale。                                          |
+| `defaultLocale`   | 在 `intlayer.config.ts` 中配置为 fallback 的 locale。                |
+| `t`               | 翻译函数。                                                           |
+| `getIntlayer`     | 按 key 获取字典的函数。                                              |
+| `getDictionary`   | 处理字典对象的函数。                                                 |
+
+相同的辅助函数也以独立导出的形式提供。它们通过 `AsyncLocalStorage` 解析当前请求，因此你无需解构上下文即可调用：
+
+```typescript fileName="src/index.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { Elysia } from "elysia";
+import { intlayer, t, getDictionary, getIntlayer } from "elysia-intlayer";
+import dictionaryExample from "./index.content";
+
+const app = new Elysia()
+  .use(intlayer())
   .get("/t_example", () =>
     t({
+      zh: "在中文中返回的内容示例",
       en: "Example of returned content in English",
       fr: "Exemple de contenu renvoyé en français",
-      "es-ES": "Ejemplo de contenido devuelto en español (España)",
-      "es-MX": "Ejemplo de contenido devuelto en español (México)",
+      es: "Ejemplo de contenido devuelto en español",
     })
   )
   .get("/getIntlayer_example", () => getIntlayer("index").exampleOfContent)
@@ -185,38 +226,61 @@ const app = new Elysia()
     () => getDictionary(dictionaryExample).exampleOfContent
   )
   .listen(3000);
-
-console.log(`Listening on http://${app.server?.hostname}:${app.server?.port}`);
 ```
 
-该插件还会将一个 `intlayer` 对象注入到路由上下文中。当您需要显式依赖而不是使用独立帮助函数时，优先使用它：
+> 请求上下文会在响应被映射后释放，因此独立的 helper 永远不会针对已经结束的请求进行解析。当在插件处理的请求之外调用时，它们会回退到配置的默认 locale。
 
-```typescript fileName="src/index.ts" codeFormat={["typescript", "esm", "commonjs"]}
-import { Elysia } from "elysia";
-import { intlayer } from "elysia-intlayer";
+### 运行你的应用
 
-const app = new Elysia().use(intlayer()).get("/", ({ intlayer }) => ({
-  // 用于此请求的语言环境，通过 `Accept-Language` 协商或从存储中读取
-  locale: intlayer.locale,
-  greeting: intlayer.t({
-    en: "Hello",
-    fr: "Bonjour",
-  }),
-  content: intlayer.getIntlayer("index").exampleOfContent,
-}));
+将 Intlayer 脚本添加到你的 `package.json`。`intlayer build` 会将内容声明编译到 `.intlayer` 目录并生成 TypeScript 类型：
+
+```json fileName="package.json"
+{
+  "scripts": {
+    "dev": "intlayer build && bun run --watch src/index.ts",
+    "build": "intlayer build",
+    "start": "bun run src/index.ts",
+    "i18n:fill": "intlayer fill",
+    "i18n:test": "intlayer test"
+  }
+}
 ```
 
-> 路由上下文暴露 `locale`、`defaultLocale`、`locale_storage`（客户端显式设置的语言环境）、`locale_detected`（从请求头协商的语言环境）、`t`、`getIntlayer` 和 `getDictionary`。
+然后启动服务器：
+
+```bash
+bun run dev
+```
+
+使用 `Accept-Language` 测试语言环境协商：
+
+```bash
+curl -H "Accept-Language: fr" http://localhost:3000/
+# {"locale":"fr","greeting":"Bonjour","content":"Exemple de contenu renvoyé en français"}
+
+curl -H "Accept-Language: es" http://localhost:3000/
+# {"locale":"es","greeting":"Hola","content":"Ejemplo de contenido devuelto en español"}
+```
+
+> 在 `bun run src/index.ts` 之前并非严格需要执行 `intlayer build`：插件在 Elysia 应用启动时也会准备字典。提前运行可以让生成的类型与你的编辑器保持同步，并避免首次请求时的构建开销。
 
 ### 兼容性
 
 `elysia-intlayer` 完全兼容：
 
-- [`react-intlayer`](<https://www.google.com/search?q=%5Bhttps://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/index.md%5D(https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/index.md)>) 用于 React 应用
-- [`next-intlayer`](<https://www.google.com/search?q=%5Bhttps://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/next-intlayer/index.md%5D(https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/next-intlayer/index.md)>) 用于 Next.js 应用
-- [`vite-intlayer`](<https://www.google.com/search?q=%5Bhttps://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/vite-intlayer/index.md%5D(https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/vite-intlayer/index.md)>) 用于 Vite 应用
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/index.md) 用于 React 应用
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/next-intlayer/index.md) 用于 Next.js 应用
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/vite-intlayer/index.md) 用于 Vite 应用
 
-它也能与各种环境中的任何国际化解决方案无缝协作，包括浏览器和 API 请求。你可以自定义中间件以通过请求头或 cookie 检测语言环境：
+它也能与各种环境中的任何国际化解决方案无缝协作，包括浏览器和 API 请求。
+
+默认情况下，插件按以下顺序解析语言环境：
+
+1. `INTLAYER_LOCALE` cookie。
+2. `x-intlayer-locale` 请求头。
+3. `Accept-Language` 请求头协商。
+
+你可以自定义用于语言环境检测的 cookie 和请求头：
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
@@ -233,8 +297,6 @@ const config: IntlayerConfig = {
 
 export default config;
 ```
-
-默认情况下，`elysia-intlayer` 将解释 `Accept-Language` 请求头来确定客户端的首选语言。
 
 > 有关配置和高级主题的更多信息，请访问我们的[文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
 

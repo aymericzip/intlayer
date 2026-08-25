@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-08-23
+updatedAt: 2026-08-24
 title: "Elysia i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
 description: "i18next artık değil. 2026 kılavuzu: çok dilli (i18n) Elysia uygulaması oluşturma. AI ajanlarıyla çeviri yapın ve bundle boyutunu, SEO'yu ve performansı optimize edin."
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - elysia
 applicationTemplate: https://github.com/aymericzip/intlayer-elysia-template
 history:
+  - version: 9.4.0
+    date: 2026-08-24
+    changes: "Kılavuzu Elysia şablonuyla hizalar (context tipleme, Bun kurulumu, scriptler)"
   - version: 9.4.0
     date: 2026-08-23
     changes: "init Elysia plugin"
@@ -90,6 +93,8 @@ yarn add intlayer elysia-intlayer
 bun add intlayer elysia-intlayer
 ```
 
+> Elysia **Bun** runtime'ını hedefler. `elysia-intlayer`, Node tabanlı Intlayer pluginlerinin kullandığı `cls-hooked` kütüphanesi yerine `AsyncLocalStorage`'a dayanır; çünkü Bun `async_hooks.createHook` fonksiyonunu implemente etmez.
+
 ### Kurulum
 
 Proje kök dizininde `intlayer.config.ts` dosyası oluşturarak uluslararasılaştırma ayarlarını yapılandırın:
@@ -99,12 +104,10 @@ import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
   internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH_MEXICO,
-      Locales.SPANISH_SPAIN,
-    ],
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    /**
+     * İstenen locale bulunamazsa fallback olarak kullanılan varsayılan locale.
+     */
     defaultLocale: Locales.ENGLISH,
   },
 };
@@ -126,8 +129,7 @@ const indexContent = {
       tr: "İngilizce'de döndürülen içerik örneği",
       en: "Example of returned content in English",
       fr: "Exemple de contenu renvoyé en français",
-      "es-ES": "Ejemplo de contenido devuelto en español (España)",
-      "es-MX": "Ejemplo de contenido devuelto en español (México)",
+      es: "Ejemplo de contenido devuelto en español",
     }),
   },
 } satisfies Dictionary;
@@ -146,8 +148,7 @@ export default indexContent;
         "tr": "İngilizce'de döndürülen içerik örneği",
         "en": "Example of returned content in English",
         "fr": "Exemple de contenu renvoyé en français",
-        "es-ES": "Ejemplo de contenido devuelto en español (España)",
-        "es-MX": "Ejemplo de contenido devuelto en español (México)"
+        "es": "Ejemplo de contenido devuelto en español"
       }
     }
   }
@@ -164,19 +165,59 @@ Elysia uygulamanızı `elysia-intlayer` kullanacak şekilde kurun:
 
 ```typescript fileName="src/index.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Elysia } from "elysia";
-import { intlayer, t, getDictionary, getIntlayer } from "elysia-intlayer";
-import dictionaryExample from "./index.content";
+import { intlayer } from "elysia-intlayer";
 
 const app = new Elysia()
   // Uluslararasılaştırma eklentisini yükle
   .use(intlayer())
   // Rotalar
+  .get("/", ({ intlayer }) => ({
+    // Bu istek için kullanılan locale, `Accept-Language` üzerinden anlaşıldı veya depolamadan okundu
+    locale: intlayer!.locale,
+    greeting: intlayer!.t({
+      tr: "Merhaba",
+      en: "Hello",
+      fr: "Bonjour",
+      es: "Hola",
+    }),
+    content: intlayer!.getIntlayer("index").exampleOfContent,
+  }))
+  .listen(3000);
+
+console.log(
+  `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
+);
+```
+
+> Plugin, context'ini **global** bir `derive` üzerinden kaydeder ve Elysia bunu `Partial<{ intlayer: IntlayerContext }>` olarak tipler. `.use(intlayer())` sonrasında kaydedilen route'larda değer çalışma zamanında her zaman mevcuttur; bu yüzden `strict` modda TypeScript'i memnun etmek için non-null assertion (`intlayer!.locale`) veya optional chaining kullanın.
+
+Route context şunları sunar:
+
+| Özellik           | Açıklama                                                                                    |
+| ----------------- | ------------------------------------------------------------------------------------------- |
+| `locale`          | Bu istek için kullanılacak locale; `locale_storage`, `locale_detected`'a göre önceliklidir. |
+| `locale_storage`  | İstemcinin bir çerez veya başlık aracılığıyla açıkça talep ettiği locale.                   |
+| `locale_detected` | İstek başlıklarından müzakere edilen locale.                                                |
+| `defaultLocale`   | `intlayer.config.ts` içinde fallback olarak yapılandırılan locale.                          |
+| `t`               | Bir çeviri fonksiyonu.                                                                      |
+| `getIntlayer`     | Sözlükleri anahtarına göre almak için bir fonksiyon.                                        |
+| `getDictionary`   | Sözlük nesnelerini işlemek için bir fonksiyon.                                              |
+
+Aynı helper'lar standalone export olarak da sunulur. Mevcut isteği `AsyncLocalStorage` üzerinden çözdükleri için context'i destructure etmeden çağırabilirsiniz:
+
+```typescript fileName="src/index.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { Elysia } from "elysia";
+import { intlayer, t, getDictionary, getIntlayer } from "elysia-intlayer";
+import dictionaryExample from "./index.content";
+
+const app = new Elysia()
+  .use(intlayer())
   .get("/t_example", () =>
     t({
+      tr: "İngilizce'de döndürülen içerik örneği",
       en: "Example of returned content in English",
       fr: "Exemple de contenu renvoyé en français",
-      "es-ES": "Ejemplo de contenido devuelto en español (España)",
-      "es-MX": "Ejemplo de contenido devuelto en español (México)",
+      es: "Ejemplo de contenido devuelto en español",
     })
   )
   .get("/getIntlayer_example", () => getIntlayer("index").exampleOfContent)
@@ -185,38 +226,61 @@ const app = new Elysia()
     () => getDictionary(dictionaryExample).exampleOfContent
   )
   .listen(3000);
-
-console.log(`Listening on http://${app.server?.hostname}:${app.server?.port}`);
 ```
 
-Eklenti ayrıca rota bağlamına bir `intlayer` nesnesi enjekte eder. Bağımsız helper'lar yerine açık bir bağımlılık istediğinizde bunu tercih edin:
+> İstek bağlamı, yanıt map'lendiği anda serbest bırakılır; böylece bağımsız helper'lar hiçbir zaman sonlanmış bir isteğe karşı çözümlenmez. Eklentinin işlediği bir isteğin dışında çağrıldıklarında, yapılandırılmış varsayılan locale'e geri dönerler.
 
-```typescript fileName="src/index.ts" codeFormat={["typescript", "esm", "commonjs"]}
-import { Elysia } from "elysia";
-import { intlayer } from "elysia-intlayer";
+### Uygulamanızı Çalıştırın
 
-const app = new Elysia().use(intlayer()).get("/", ({ intlayer }) => ({
-  // Bu istek için kullanılan locale, `Accept-Language` üzerinden anlaşıldı veya depolamadan okundu
-  locale: intlayer.locale,
-  greeting: intlayer.t({
-    en: "Hello",
-    fr: "Bonjour",
-  }),
-  content: intlayer.getIntlayer("index").exampleOfContent,
-}));
+Intlayer scriptlerini `package.json` dosyanıza ekleyin. `intlayer build`, içerik bildirimlerinizi `.intlayer` dizinine derler ve TypeScript tiplerini üretir:
+
+```json fileName="package.json"
+{
+  "scripts": {
+    "dev": "intlayer build && bun run --watch src/index.ts",
+    "build": "intlayer build",
+    "start": "bun run src/index.ts",
+    "i18n:fill": "intlayer fill",
+    "i18n:test": "intlayer test"
+  }
+}
 ```
 
-> Rota bağlamı `locale`, `defaultLocale`, `locale_storage` (istemci tarafından açıkça ayarlanan locale), `locale_detected` (başlıklardan anlaşılan locale), `t`, `getIntlayer` ve `getDictionary` alanlarını sunar.
+Ardından sunucuyu başlatın:
+
+```bash
+bun run dev
+```
+
+`Accept-Language` ile locale müzakeresini test edin:
+
+```bash
+curl -H "Accept-Language: fr" http://localhost:3000/
+# {"locale":"fr","greeting":"Bonjour","content":"Exemple de contenu renvoyé en français"}
+
+curl -H "Accept-Language: es" http://localhost:3000/
+# {"locale":"es","greeting":"Hola","content":"Ejemplo de contenido devuelto en español"}
+```
+
+> `bun run src/index.ts` öncesinde `intlayer build` kesinlikle zorunlu değildir: plugin, Elysia uygulaması açılırken de sözlükleri hazırlar. Önceden çalıştırmak, üretilen tipleri editörünüz için güncel tutar ve ilk istekteki build maliyetinden kaçınmanızı sağlar.
 
 ### Uyumluluk
 
 `elysia-intlayer` tamamen uyumludur:
 
-- [`react-intlayer`](<https://www.google.com/search?q=%5Bhttps://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/react-intlayer/index.md%5D(https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/react-intlayer/index.md)>) React uygulamaları için
-- [`next-intlayer`](<https://www.google.com/search?q=%5Bhttps://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/next-intlayer/index.md%5D(https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/next-intlayer/index.md)>) Next.js uygulamaları için
-- [`vite-intlayer`](<https://www.google.com/search?q=%5Bhttps://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/vite-intlayer/index.md%5D(https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/vite-intlayer/index.md)>) Vite uygulamaları için
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/react-intlayer/index.md) React uygulamaları için
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/next-intlayer/index.md) Next.js uygulamaları için
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/vite-intlayer/index.md) Vite uygulamaları için
 
-Ayrıca, tarayıcılar ve API istekleri dahil olmak üzere çeşitli ortamlarda herhangi bir uluslararasılaştırma çözümüyle sorunsuz bir şekilde çalışır. Middleware'i özelleştirerek locale'i başlıklar veya çerezler aracılığıyla algılayabilirsiniz:
+Ayrıca, tarayıcılar ve API istekleri dahil olmak üzere çeşitli ortamlarda herhangi bir uluslararasılaştırma çözümüyle sorunsuz bir şekilde çalışır.
+
+Varsayılan olarak plugin, locale'i şu sırayla çözer:
+
+1. `INTLAYER_LOCALE` çerezi.
+2. `x-intlayer-locale` header'ı.
+3. `Accept-Language` header müzakeresi.
+
+Locale tespiti için kullanılan çerezi ve header’ı özelleştirebilirsiniz:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
@@ -233,8 +297,6 @@ const config: IntlayerConfig = {
 
 export default config;
 ```
-
-Varsayılan olarak, `elysia-intlayer` müşterinin tercih ettiği dili belirlemek için `Accept-Language` başlığını yorumlar.
 
 > Yapılandırma ve ileri konular hakkında daha fazla bilgi için lütfen [dokumentasyonumuzu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) ziyaret edin.
 

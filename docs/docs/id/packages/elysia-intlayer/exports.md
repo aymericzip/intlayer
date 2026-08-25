@@ -27,9 +27,23 @@ Paket `elysia-intlayer` menyediakan plugin untuk aplikasi Elysia untuk menangani
 
 ## Instalasi
 
-```bash
-npm install elysia-intlayer
+```bash packageManager="npm"
+npm install intlayer elysia-intlayer
 ```
+
+```bash packageManager="pnpm"
+pnpm add intlayer elysia-intlayer
+```
+
+```bash packageManager="yarn"
+yarn add intlayer elysia-intlayer
+```
+
+```bash packageManager="bun"
+bun add intlayer elysia-intlayer
+```
+
+> `elysia` adalah peer dependency (`>=1.0.0`). Elysia menargetkan runtime **Bun**.
 
 ## Ekspor
 
@@ -37,7 +51,7 @@ npm install elysia-intlayer
 
 Impor:
 
-```tsx
+```ts
 import { intlayer } from "elysia-intlayer";
 ```
 
@@ -49,7 +63,7 @@ import { intlayer } from "elysia-intlayer";
 
 Impor:
 
-```tsx
+```ts
 import { t, getIntlayer, getDictionary } from "elysia-intlayer";
 ```
 
@@ -63,7 +77,7 @@ import { t, getIntlayer, getDictionary } from "elysia-intlayer";
 
 Impor:
 
-```tsx
+```ts
 import type { IntlayerContext, TranslateFunction } from "elysia-intlayer";
 ```
 
@@ -71,3 +85,52 @@ import type { IntlayerContext, TranslateFunction } from "elysia-intlayer";
 | ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `IntlayerContext`   | Bentuk objek `intlayer` yang disuntikkan ke setiap route context: `locale`, `locale_storage`, `locale_detected`, `defaultLocale`, `t`, `getIntlayer`, `getDictionary`. |
 | `TranslateFunction` | Tanda tangan fungsi terjemahan, yang menerjemahkan locale map menjadi konten yang cocok dengan locale request saat ini.                                                |
+
+## Penggunaan
+
+```ts fileName="src/index.ts"
+import { Elysia } from "elysia";
+import { getDictionary, getIntlayer, intlayer, t } from "elysia-intlayer";
+import dictionaryExample from "./index.content";
+
+const app = new Elysia()
+  // Muat plugin internasionalisasi
+  .use(intlayer())
+  // Baca locale dan helper dari context route
+  .get("/", ({ intlayer }) => ({
+    locale: intlayer!.locale,
+    greeting: intlayer!.t({
+      id: "Halo",
+      en: "Hello",
+      fr: "Bonjour",
+      es: "Hola",
+    }),
+    content: intlayer!.getIntlayer("index").exampleOfContent,
+  }))
+  // Atau gunakan helper standalone, yang terikat pada request saat ini
+  .get("/t_example", () =>
+    t({
+      id: "Contoh konten yang dikembalikan dalam bahasa Indonesia",
+      en: "Example of returned content in English",
+      fr: "Exemple de contenu renvoyé en français",
+      es: "Ejemplo de contenido devuelto en español",
+    })
+  )
+  .get("/getIntlayer_example", () => getIntlayer("index").exampleOfContent)
+  .get(
+    "/getDictionary_example",
+    () => getDictionary(dictionaryExample).exampleOfContent
+  )
+  .listen(3000);
+
+console.log(
+  `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
+);
+```
+
+> Plugin mendaftarkan context-nya melalui `derive` **global**, yang oleh Elysia diberi tipe `Partial<{ intlayer: IntlayerContext }>`. Nilainya selalu ada saat runtime untuk route yang didaftarkan setelah `.use(intlayer())`, jadi gunakan non-null assertion (`intlayer!.locale`) — atau optional chaining — agar TypeScript pada mode `strict` puas.
+
+## Dokumentasi Terkait
+
+- [Elysia i18n - Panduan lengkap untuk menerjemahkan aplikasi Anda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_elysia.md)
+- [Konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md)

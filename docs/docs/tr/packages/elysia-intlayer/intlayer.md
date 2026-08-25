@@ -28,22 +28,25 @@ Elysia için `intlayer` eklentisi kullanıcının locale'ini tespit eder ve rout
 
 ## Kullanım
 
-```ts
+```ts fileName="src/index.ts"
 import { Elysia } from "elysia";
 import { intlayer } from "elysia-intlayer";
 
 const app = new Elysia().use(intlayer()).get("/", ({ intlayer }) =>
-  intlayer.t({
+  intlayer!.t({
     tr: "Merhaba",
     en: "Hello",
     fr: "Bonjour",
+    es: "Hola",
   })
 );
 ```
 
+> Plugin, context'ini **global** bir `derive` üzerinden kaydeder ve Elysia bunu `Partial<{ intlayer: IntlayerContext }>` olarak tipler. `.use(intlayer())` sonrasında kaydedilen route'larda değer çalışma zamanında her zaman mevcuttur; bu yüzden `strict` modda TypeScript'i memnun etmek için non-null assertion (`intlayer!.t`) veya optional chaining kullanın.
+
 Aynı helper'lar bağımsız export'lar olarak da mevcuttur; böylece route context'ini destructure etmeden çağırabilirsiniz:
 
-```ts
+```ts fileName="src/index.ts"
 import { Elysia } from "elysia";
 import { intlayer, t } from "elysia-intlayer";
 
@@ -52,6 +55,7 @@ const app = new Elysia().use(intlayer()).get("/", () =>
     tr: "Merhaba",
     en: "Hello",
     fr: "Bonjour",
+    es: "Hola",
   })
 );
 ```
@@ -61,19 +65,48 @@ const app = new Elysia().use(intlayer()).get("/", () =>
 Eklenti aşağıdaki görevleri yerine getirir:
 
 1. **Locale Algılama**: İstemcinin açıkça belirlediği locale'i storage'dan (çerez, başlık) okur, ardından `Accept-Language` başlığından müzakere edilen locale'e geri döner.
-2. **Bağlama Enjeksiyon**: Elysia route context'ine `intlayer` özelliğini ekler; bu özellik şunları içerir:
-   - `locale`: Bu istek için kullanılacak locale; `locale_storage`, `locale_detected`'a göre önceliklidir.
-   - `locale_storage`: İstemcinin bir çerez veya başlık aracılığıyla açıkça talep ettiği locale.
-   - `locale_detected`: İstek başlıklarından müzakere edilen locale.
-   - `defaultLocale`: `intlayer.config.ts` içinde fallback olarak yapılandırılan locale.
-   - `t`: Bir çeviri fonksiyonu.
-   - `getIntlayer`: Sözlükleri anahtarına göre almak için bir fonksiyon.
-   - `getDictionary`: Sözlük nesnelerini işlemek için bir fonksiyon.
+2. **Bağlama Enjeksiyon**: Elysia route context'ine bir `intlayer` özelliği ekler (aşağıdaki Route Context tablosuna bakın).
 3. **Bağlam Yönetimi**: Asenkron bir bağlamı yönetmek için `AsyncLocalStorage` kullanır; böylece global Intlayer fonksiyonları (`t`, `getIntlayer`, `getDictionary`) bağlam nesnesini taşımaya gerek kalmadan isteğe özel locale'e erişebilir.
+4. **Sözlük Hazırlığı**: Plugin oluşturulduğunda `prepareIntlayer` çağrılır, böylece sözlükler uygulama açılırken derlenir.
+
+### Route Context
+
+| Özellik           | Tip                    | Açıklama                                                                                    |
+| ----------------- | ---------------------- | ------------------------------------------------------------------------------------------- |
+| `locale`          | `Locale`               | Bu istek için kullanılacak locale; `locale_storage`, `locale_detected`'a göre önceliklidir. |
+| `locale_storage`  | `Locale` (opsiyonel)   | İstemcinin bir çerez veya başlık aracılığıyla açıkça talep ettiği locale.                   |
+| `locale_detected` | `Locale`               | İstek başlıklarından müzakere edilen locale.                                                |
+| `defaultLocale`   | `Locale`               | `intlayer.config.ts` içinde fallback olarak yapılandırılan locale.                          |
+| `t`               | `TranslateFunction`    | Bir çeviri fonksiyonu.                                                                      |
+| `getIntlayer`     | `typeof getIntlayer`   | Sözlükleri anahtarına göre almak için bir fonksiyon.                                        |
+| `getDictionary`   | `typeof getDictionary` | Sözlük nesnelerini işlemek için bir fonksiyon.                                              |
 
 > Node tabanlı Intlayer eklentilerinin aksine, `elysia-intlayer` `cls-hooked` yerine `AsyncLocalStorage`'a dayanır; çünkü `cls-hooked`, Bun'un uygulamadığı `async_hooks.createHook`'a bağımlıdır.
 
 İstek bağlamı, yanıt map'lendiği anda serbest bırakılır; böylece bağımsız helper'lar hiçbir zaman sonlanmış bir isteğe karşı çözümlenmez. Eklentinin işlediği bir isteğin dışında çağrıldıklarında, yapılandırılmış varsayılan locale'e geri dönerler.
+
+## Locale Çözümleme Sırası
+
+Varsayılan olarak plugin, locale'i şu sırayla çözer:
+
+1. `INTLAYER_LOCALE` çerezi.
+2. `x-intlayer-locale` header'ı.
+3. `Accept-Language` header müzakeresi.
+4. Yapılandırılan `defaultLocale`.
+
+```bash
+# `Accept-Language` üzerinden müzakere edildi
+curl -H "Accept-Language: fr" http://localhost:3000/
+# Bonjour
+
+# Çerez `Accept-Language`'e göre önceliklidir
+curl -H "Accept-Language: fr" -H "Cookie: INTLAYER_LOCALE=es" http://localhost:3000/
+# Hola
+
+# Header `Accept-Language`'e göre önceliklidir
+curl -H "Accept-Language: fr" -H "x-intlayer-locale: es" http://localhost:3000/
+# Hola
+```
 
 ## Yapılandırma
 
@@ -84,7 +117,7 @@ import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
   internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH],
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
     defaultLocale: Locales.ENGLISH,
   },
   routing: {
@@ -99,3 +132,8 @@ export default config;
 ```
 
 > Yapılandırma hakkında daha fazla bilgi için [yapılandırma dokümantasyonunu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) ziyaret edin.
+
+## İlgili Dokümantasyon
+
+- [elysia-intlayer Paket Dokümantasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/elysia-intlayer/exports.md)
+- [Elysia i18n - Uygulamanızı çevirmek için eksiksiz kılavuz](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_elysia.md)

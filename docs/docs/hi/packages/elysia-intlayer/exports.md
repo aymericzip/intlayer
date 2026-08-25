@@ -27,9 +27,23 @@ author: aymericzip
 
 ## स्थापना
 
-```bash
-npm install elysia-intlayer
+```bash packageManager="npm"
+npm install intlayer elysia-intlayer
 ```
+
+```bash packageManager="pnpm"
+pnpm add intlayer elysia-intlayer
+```
+
+```bash packageManager="yarn"
+yarn add intlayer elysia-intlayer
+```
+
+```bash packageManager="bun"
+bun add intlayer elysia-intlayer
+```
+
+> `elysia` एक peer dependency है (`>=1.0.0`)। Elysia **Bun** रनटाइम को लक्षित करता है।
 
 ## निर्यात
 
@@ -37,7 +51,7 @@ npm install elysia-intlayer
 
 इम्पोर्ट:
 
-```tsx
+```ts
 import { intlayer } from "elysia-intlayer";
 ```
 
@@ -49,7 +63,7 @@ import { intlayer } from "elysia-intlayer";
 
 इम्पोर्ट:
 
-```tsx
+```ts
 import { t, getIntlayer, getDictionary } from "elysia-intlayer";
 ```
 
@@ -63,7 +77,7 @@ import { t, getIntlayer, getDictionary } from "elysia-intlayer";
 
 इम्पोर्ट:
 
-```tsx
+```ts
 import type { IntlayerContext, TranslateFunction } from "elysia-intlayer";
 ```
 
@@ -71,3 +85,52 @@ import type { IntlayerContext, TranslateFunction } from "elysia-intlayer";
 | ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `IntlayerContext`   | प्रत्येक route context में इंजेक्ट किए गए `intlayer` ऑब्जेक्ट की संरचना: `locale`, `locale_storage`, `locale_detected`, `defaultLocale`, `t`, `getIntlayer`, `getDictionary`। |
 | `TranslateFunction` | अनुवाद फ़ंक्शन का सिग्नेचर, जो एक locale map को वर्तमान रिक्वेस्ट locale से मेल खाने वाली सामग्री में बदलता है।                                                               |
+
+## उपयोग
+
+```ts fileName="src/index.ts"
+import { Elysia } from "elysia";
+import { getDictionary, getIntlayer, intlayer, t } from "elysia-intlayer";
+import dictionaryExample from "./index.content";
+
+const app = new Elysia()
+  // अंतर्राष्ट्रीयकरण plugin को लोड करें
+  .use(intlayer())
+  // Route context से locale और helpers पढ़ें
+  .get("/", ({ intlayer }) => ({
+    locale: intlayer!.locale,
+    greeting: intlayer!.t({
+      hi: "नमस्ते",
+      en: "Hello",
+      fr: "Bonjour",
+      es: "Hola",
+    }),
+    content: intlayer!.getIntlayer("index").exampleOfContent,
+  }))
+  // या मौजूदा request से बंधे standalone helpers का उपयोग करें
+  .get("/t_example", () =>
+    t({
+      hi: "अंग्रेजी में लौटाई गई सामग्री का उदाहरण",
+      en: "Example of returned content in English",
+      fr: "Exemple de contenu renvoyé en français",
+      es: "Ejemplo de contenido devuelto en español",
+    })
+  )
+  .get("/getIntlayer_example", () => getIntlayer("index").exampleOfContent)
+  .get(
+    "/getDictionary_example",
+    () => getDictionary(dictionaryExample).exampleOfContent
+  )
+  .listen(3000);
+
+console.log(
+  `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
+);
+```
+
+> प्लगइन अपना context एक **ग्लोबल** `derive` के माध्यम से रजिस्टर करता है, जिसे Elysia `Partial<{ intlayer: IntlayerContext }>` के रूप में टाइप करता है। `.use(intlayer())` के बाद रजिस्टर किए गए routes के लिए रनटाइम पर यह मान हमेशा मौजूद रहता है, इसलिए `strict` मोड में TypeScript को संतुष्ट करने के लिए non-null assertion (`intlayer!.locale`) — या optional chaining — का उपयोग करें।
+
+## संबंधित दस्तावेज़
+
+- [Elysia i18n - अपने ऐप्लिकेशन को अनुवाद करने के लिए संपूर्ण गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_elysia.md)
+- [कॉन्फ़िगरेशन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md)

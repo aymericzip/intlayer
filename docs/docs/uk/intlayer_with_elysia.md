@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-08-23
+updatedAt: 2026-08-24
 title: "Elysia i18n - Повний посібник щодо перекладу вашого додатка"
 description: "Більше ніяких i18next. Посібник 2026 року з розробки багатомовного (i18n) додатка Elysia. Перекладайте за допомогою AI агентів та оптимізуйте розмір bundle, SEO та продуктивність."
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - elysia
 applicationTemplate: https://github.com/aymericzip/intlayer-elysia-template
 history:
+  - version: 9.4.0
+    date: 2026-08-24
+    changes: "Узгодження посібника з шаблоном Elysia (типізація контексту, налаштування Bun, скрипти)"
   - version: 9.4.0
     date: 2026-08-23
     changes: "init Elysia plugin"
@@ -90,6 +93,8 @@ yarn add intlayer elysia-intlayer
 bun add intlayer elysia-intlayer
 ```
 
+> Elysia орієнтований на runtime **Bun**. `elysia-intlayer` спирається на `AsyncLocalStorage` (замість бібліотеки `cls-hooked`, яку використовують плагіни Intlayer на базі Node) саме тому, що Bun не реалізує `async_hooks.createHook`.
+
 ### Налаштування
 
 Налаштуйте параметри інтернаціоналізації, створивши `intlayer.config.ts` у корені вашого проекту:
@@ -99,12 +104,10 @@ import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
   internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH_MEXICO,
-      Locales.SPANISH_SPAIN,
-    ],
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    /**
+     * Локаль за замовчуванням, яка використовується як fallback, якщо запитану локаль не знайдено.
+     */
     defaultLocale: Locales.ENGLISH,
   },
 };
@@ -126,8 +129,7 @@ const indexContent = {
       uk: "Приклад контенту, повернутого українською мовою",
       en: "Example of returned content in English",
       fr: "Exemple de contenu renvoyé en français",
-      "es-ES": "Ejemplo de contenido devuelto en español (España)",
-      "es-MX": "Ejemplo de contenido devuelto en español (México)",
+      es: "Ejemplo de contenido devuelto en español",
     }),
   },
 } satisfies Dictionary;
@@ -146,8 +148,7 @@ export default indexContent;
         "uk": "Приклад контенту, повернутого українською мовою",
         "en": "Example of returned content in English",
         "fr": "Exemple de contenu renvoyé en français",
-        "es-ES": "Ejemplo de contenido devuelto en español (España)",
-        "es-MX": "Ejemplo de contenido devuelto en español (México)"
+        "es": "Ejemplo de contenido devuelto en español"
       }
     }
   }
@@ -164,20 +165,59 @@ export default indexContent;
 
 ```typescript fileName="src/index.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Elysia } from "elysia";
-import { intlayer, t, getDictionary, getIntlayer } from "elysia-intlayer";
-import dictionaryExample from "./index.content";
+import { intlayer } from "elysia-intlayer";
 
 const app = new Elysia()
   // Завантажте плагін інтернаціоналізації
   .use(intlayer())
   // Маршрути
+  .get("/", ({ intlayer }) => ({
+    // Мова, яка використовується для цього запиту, узгоджена `Accept-Language` або прочитана з сховища
+    locale: intlayer!.locale,
+    greeting: intlayer!.t({
+      uk: "Привіт",
+      en: "Hello",
+      fr: "Bonjour",
+      es: "Hola",
+    }),
+    content: intlayer!.getIntlayer("index").exampleOfContent,
+  }))
+  .listen(3000);
+
+console.log(
+  `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
+);
+```
+
+> Плагін реєструє свій контекст через **глобальний** `derive`, який Elysia типізує як `Partial<{ intlayer: IntlayerContext }>`. Під час виконання значення завжди присутнє для маршрутів, зареєстрованих після `.use(intlayer())`, тож використовуйте non-null assertion (`intlayer!.locale`) — або optional chaining — щоб задовольнити TypeScript у режимі `strict`.
+
+Контекст маршруту надає:
+
+| Властивість       | Опис                                                                                                 |
+| ----------------- | ---------------------------------------------------------------------------------------------------- |
+| `locale`          | Локаль, яку слід використати для цього запиту; `locale_storage` має пріоритет над `locale_detected`. |
+| `locale_storage`  | Локаль, явно запитана клієнтом через cookie або header.                                              |
+| `locale_detected` | Локаль, узгоджена із заголовків запиту.                                                              |
+| `defaultLocale`   | Локаль, налаштована як fallback у `intlayer.config.ts`.                                              |
+| `t`               | Функція перекладу.                                                                                   |
+| `getIntlayer`     | Функція для отримання словників за ключем.                                                           |
+| `getDictionary`   | Функція для обробки об'єктів словників.                                                              |
+
+Ті самі helpers також експортуються як standalone. Вони отримують поточний запит через `AsyncLocalStorage`, тож ви можете викликати їх без деструктуризації контексту:
+
+```typescript fileName="src/index.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { Elysia } from "elysia";
+import { intlayer, t, getDictionary, getIntlayer } from "elysia-intlayer";
+import dictionaryExample from "./index.content";
+
+const app = new Elysia()
+  .use(intlayer())
   .get("/t_example", () =>
     t({
       uk: "Приклад повернутого вмісту українською мовою",
       en: "Example of returned content in English",
       fr: "Exemple de contenu renvoyé en français",
-      "es-ES": "Ejemplo de contenido devuelto en español (España)",
-      "es-MX": "Ejemplo de contenido devuelto en español (México)",
+      es: "Ejemplo de contenido devuelto en español",
     })
   )
   .get("/getIntlayer_example", () => getIntlayer("index").exampleOfContent)
@@ -186,39 +226,61 @@ const app = new Elysia()
     () => getDictionary(dictionaryExample).exampleOfContent
   )
   .listen(3000);
-
-console.log(`Listening on http://${app.server?.hostname}:${app.server?.port}`);
 ```
 
-Плагін також інжектує об'єкт `intlayer` у контекст маршруту. Віддавайте перевагу йому, коли вам потрібна явна залежність замість автономних помічників:
+> Контекст запиту звільняється одразу після мапінгу відповіді, тож окремі хелпери ніколи не розв'язуються щодо вже завершеного запиту. Якщо їх викликати поза запитом, який обробляє плагін, вони повертаються до налаштованої локалі за замовчуванням.
 
-```typescript fileName="src/index.ts" codeFormat={["typescript", "esm", "commonjs"]}
-import { Elysia } from "elysia";
-import { intlayer } from "elysia-intlayer";
+### Запуск вашого застосунку
 
-const app = new Elysia().use(intlayer()).get("/", ({ intlayer }) => ({
-  // Мова, яка використовується для цього запиту, узгоджена `Accept-Language` або прочитана з сховища
-  locale: intlayer.locale,
-  greeting: intlayer.t({
-    uk: "Привіт",
-    en: "Hello",
-    fr: "Bonjour",
-  }),
-  content: intlayer.getIntlayer("index").exampleOfContent,
-}));
+Додайте скрипти Intlayer до вашого `package.json`. `intlayer build` компілює ваші декларації контенту в директорію `.intlayer` і генерує типи TypeScript:
+
+```json fileName="package.json"
+{
+  "scripts": {
+    "dev": "intlayer build && bun run --watch src/index.ts",
+    "build": "intlayer build",
+    "start": "bun run src/index.ts",
+    "i18n:fill": "intlayer fill",
+    "i18n:test": "intlayer test"
+  }
+}
 ```
 
-> Контекст маршруту надає доступ до `locale`, `defaultLocale`, `locale_storage` (мова явно встановлена клієнтом), `locale_detected` (мова узгоджена на основі заголовків), `t`, `getIntlayer` та `getDictionary`.
+Потім запустіть сервер:
+
+```bash
+bun run dev
+```
+
+Перевірте узгодження локалі за допомогою `Accept-Language`:
+
+```bash
+curl -H "Accept-Language: fr" http://localhost:3000/
+# {"locale":"fr","greeting":"Bonjour","content":"Exemple de contenu renvoyé en français"}
+
+curl -H "Accept-Language: es" http://localhost:3000/
+# {"locale":"es","greeting":"Hola","content":"Ejemplo de contenido devuelto en español"}
+```
+
+> `intlayer build` не є суворо обов'язковим перед `bun run src/index.ts`: плагін також готує словники під час старту застосунку Elysia. Запуск наперед тримає згенеровані типи актуальними для вашого редактора та усуває вартість збірки під час першого запиту.
 
 ### Сумісність
 
 `elysia-intlayer` повністю сумісна з:
 
-- [`react-intlayer`](<https://www.google.com/search?q=%5Bhttps://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/react-intlayer/index.md%5D(https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/react-intlayer/index.md)>) для React додатків
-- [`next-intlayer`](<https://www.google.com/search?q=%5Bhttps://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/next-intlayer/index.md%5D(https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/next-intlayer/index.md)>) для Next.js додатків
-- [`vite-intlayer`](<https://www.google.com/search?q=%5Bhttps://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/vite-intlayer/index.md%5D(https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/vite-intlayer/index.md)>) для Vite додатків
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/react-intlayer/index.md) для React додатків
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/next-intlayer/index.md) для Next.js додатків
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/vite-intlayer/index.md) для Vite додатків
 
-Вона також безперебійно працює з будь-яким рішенням для інтернаціоналізації в різних середовищах, включаючи браузери та API запити. Ви можете налаштувати middleware для визначення локалі через заголовки або cookies:
+Вона також безперебійно працює з будь-яким рішенням для інтернаціоналізації в різних середовищах, включаючи браузери та API запити.
+
+За замовчуванням плагін визначає локаль у такому порядку:
+
+1. Cookie `INTLAYER_LOCALE`.
+2. Заголовок `x-intlayer-locale`.
+3. Узгодження через заголовок `Accept-Language`.
+
+Ви можете налаштувати cookie та заголовок, які використовуються для визначення локалі:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
@@ -235,8 +297,6 @@ const config: IntlayerConfig = {
 
 export default config;
 ```
-
-За замовчуванням `elysia-intlayer` буде інтерпретувати заголовок `Accept-Language` для визначення переважної мови клієнта.
 
 > Для отримання додаткової інформації про конфігурацію та розширені теми відвідайте нашу [документацію](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md).
 

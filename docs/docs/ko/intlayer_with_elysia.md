@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-08-23
+updatedAt: 2026-08-24
 title: "Elysia i18n - 앱을 번역하기 위한 완벽한 가이드"
 description: "더 이상 i18next는 없습니다. 다국어(i18n) Elysia 앱을 빌드하기 위한 2026년 가이드입니다. AI 에이전트로 번역하고 번들 크기, SEO 및 성능을 최적화하세요."
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - elysia
 applicationTemplate: https://github.com/aymericzip/intlayer-elysia-template
 history:
+  - version: 9.4.0
+    date: 2026-08-24
+    changes: "가이드를 Elysia 템플릿에 맞춰 정렬 (컨텍스트 타이핑, Bun 설정, 스크립트)"
   - version: 9.4.0
     date: 2026-08-23
     changes: "init Elysia plugin"
@@ -90,6 +93,8 @@ yarn add intlayer elysia-intlayer
 bun add intlayer elysia-intlayer
 ```
 
+> Elysia는 **Bun** 런타임을 대상으로 합니다. `elysia-intlayer`가 (Node 기반 Intlayer 플러그인이 사용하는 `cls-hooked` 라이브러리 대신) `AsyncLocalStorage`에 의존하는 이유는 바로 Bun이 `async_hooks.createHook`을 구현하지 않기 때문입니다.
+
 ### 설정
 
 프로젝트 루트에 `intlayer.config.ts`를 생성하여 국제화 설정을 구성합니다:
@@ -99,12 +104,10 @@ import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
   internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH_MEXICO,
-      Locales.SPANISH_SPAIN,
-    ],
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    /**
+     * 요청한 로케일을 찾을 수 없을 때 fallback으로 사용되는 기본 로케일입니다.
+     */
     defaultLocale: Locales.ENGLISH,
   },
 };
@@ -126,8 +129,7 @@ const indexContent = {
       ko: "영어로 반환된 콘텐츠의 예",
       en: "Example of returned content in English",
       fr: "Exemple de contenu renvoyé en français",
-      "es-ES": "Ejemplo de contenido devuelto en español (España)",
-      "es-MX": "Ejemplo de contenido devuelto en español (México)",
+      es: "Ejemplo de contenido devuelto en español",
     }),
   },
 } satisfies Dictionary;
@@ -146,8 +148,7 @@ export default indexContent;
         "ko": "영어로 반환된 콘텐츠의 예",
         "en": "Example of returned content in English",
         "fr": "Exemple de contenu renvoyé en français",
-        "es-ES": "Ejemplo de contenido devuelto en español (España)",
-        "es-MX": "Ejemplo de contenido devuelto en español (México)"
+        "es": "Ejemplo de contenido devuelto en español"
       }
     }
   }
@@ -164,20 +165,59 @@ export default indexContent;
 
 ```typescript fileName="src/index.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Elysia } from "elysia";
-import { intlayer, t, getDictionary, getIntlayer } from "elysia-intlayer";
-import dictionaryExample from "./index.content";
+import { intlayer } from "elysia-intlayer";
 
 const app = new Elysia()
   // 국제화 플러그인 로드
   .use(intlayer())
   // Routes
+  .get("/", ({ intlayer }) => ({
+    // 이 요청에 사용된 로케일, `Accept-Language` 협상 또는 스토리지에서 읽음
+    locale: intlayer!.locale,
+    greeting: intlayer!.t({
+      ko: "안녕하세요",
+      en: "Hello",
+      fr: "Bonjour",
+      es: "Hola",
+    }),
+    content: intlayer!.getIntlayer("index").exampleOfContent,
+  }))
+  .listen(3000);
+
+console.log(
+  `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
+);
+```
+
+> 플러그인은 **전역** `derive`를 통해 컨텍스트를 등록하며, Elysia는 이를 `Partial<{ intlayer: IntlayerContext }>`로 타이핑합니다. `.use(intlayer())` 이후에 등록된 라우트에서는 런타임에 값이 항상 존재하므로, `strict` 모드의 TypeScript를 만족시키려면 non-null 어서션(`intlayer!.locale`) 또는 옵셔널 체이닝을 사용하세요.
+
+라우트 컨텍스트는 다음을 노출합니다:
+
+| 속성              | 설명                                                                              |
+| ----------------- | --------------------------------------------------------------------------------- |
+| `locale`          | 이 요청에 사용할 로케일이며, `locale_storage`가 `locale_detected`보다 우선합니다. |
+| `locale_storage`  | 쿠키 또는 헤더를 통해 클라이언트가 명시적으로 요청한 로케일.                      |
+| `locale_detected` | 요청 헤더에서 협상된 로케일.                                                      |
+| `defaultLocale`   | `intlayer.config.ts`에 폴백으로 설정된 로케일.                                    |
+| `t`               | 번역 함수.                                                                        |
+| `getIntlayer`     | 키로 사전을 가져오는 함수.                                                        |
+| `getDictionary`   | 사전 객체를 처리하는 함수.                                                        |
+
+동일한 헬퍼는 독립(standalone) export로도 제공됩니다. `AsyncLocalStorage`를 통해 현재 요청을 해석하므로 컨텍스트를 구조 분해하지 않고 호출할 수 있습니다:
+
+```typescript fileName="src/index.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { Elysia } from "elysia";
+import { intlayer, t, getDictionary, getIntlayer } from "elysia-intlayer";
+import dictionaryExample from "./index.content";
+
+const app = new Elysia()
+  .use(intlayer())
   .get("/t_example", () =>
     t({
       ko: "영어로 반환된 콘텐츠의 예",
       en: "Example of returned content in English",
       fr: "Exemple de contenu renvoyé en français",
-      "es-ES": "Ejemplo de contenido devuelto en español (España)",
-      "es-MX": "Ejemplo de contenido devuelto en español (México)",
+      es: "Ejemplo de contenido devuelto en español",
     })
   )
   .get("/getIntlayer_example", () => getIntlayer("index").exampleOfContent)
@@ -186,39 +226,61 @@ const app = new Elysia()
     () => getDictionary(dictionaryExample).exampleOfContent
   )
   .listen(3000);
-
-console.log(`Listening on http://${app.server?.hostname}:${app.server?.port}`);
 ```
 
-플러그인은 또한 route context에 `intlayer` 객체를 주입합니다. 독립 실행형 헬퍼 대신 명시적 의존성을 원할 때 이를 사용하는 것이 좋습니다:
+> 요청 컨텍스트는 응답이 매핑되면 해제되므로, 독립 헬퍼가 이미 종료된 요청에 대해 해석되는 일은 없습니다. 플러그인이 처리하는 요청 외부에서 호출되면 설정된 기본 로케일로 폴백합니다.
 
-```typescript fileName="src/index.ts" codeFormat={["typescript", "esm", "commonjs"]}
-import { Elysia } from "elysia";
-import { intlayer } from "elysia-intlayer";
+### 애플리케이션 실행하기
 
-const app = new Elysia().use(intlayer()).get("/", ({ intlayer }) => ({
-  // 이 요청에 사용된 로케일, `Accept-Language` 협상 또는 스토리지에서 읽음
-  locale: intlayer.locale,
-  greeting: intlayer.t({
-    ko: "안녕하세요",
-    en: "Hello",
-    fr: "Bonjour",
-  }),
-  content: intlayer.getIntlayer("index").exampleOfContent,
-}));
+`package.json`에 Intlayer 스크립트를 추가하세요. `intlayer build`는 콘텐츠 선언을 `.intlayer` 디렉터리로 컴파일하고 TypeScript 타입을 생성합니다:
+
+```json fileName="package.json"
+{
+  "scripts": {
+    "dev": "intlayer build && bun run --watch src/index.ts",
+    "build": "intlayer build",
+    "start": "bun run src/index.ts",
+    "i18n:fill": "intlayer fill",
+    "i18n:test": "intlayer test"
+  }
+}
 ```
 
-> Route context는 `locale`, `defaultLocale`, `locale_storage` (클라이언트에서 명시적으로 설정한 로케일), `locale_detected` (헤더에서 협상된 로케일), `t`, `getIntlayer` 및 `getDictionary`를 노출합니다.
+그런 다음 서버를 시작하세요:
+
+```bash
+bun run dev
+```
+
+`Accept-Language`로 로케일 협상을 테스트해 보세요:
+
+```bash
+curl -H "Accept-Language: fr" http://localhost:3000/
+# {"locale":"fr","greeting":"Bonjour","content":"Exemple de contenu renvoyé en français"}
+
+curl -H "Accept-Language: es" http://localhost:3000/
+# {"locale":"es","greeting":"Hola","content":"Ejemplo de contenido devuelto en español"}
+```
+
+> `bun run src/index.ts` 전에 `intlayer build`가 반드시 필요한 것은 아닙니다. 플러그인은 Elysia 앱이 부팅될 때도 사전을 준비합니다. 미리 실행해 두면 에디터용 생성 타입이 동기화된 상태로 유지되고 첫 요청에서의 빌드 비용을 피할 수 있습니다.
 
 ### 호환성
 
 `elysia-intlayer`는 다음과 완전히 호환됩니다:
 
-- [`react-intlayer`](<https://www.google.com/search?q=%5Bhttps://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/react-intlayer/index.md%5D(https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/react-intlayer/index.md)>) React 애플리케이션용
-- [`next-intlayer`](<https://www.google.com/search?q=%5Bhttps://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/next-intlayer/index.md%5D(https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/next-intlayer/index.md)>) Next.js 애플리케이션용
-- [`vite-intlayer`](<https://www.google.com/search?q=%5Bhttps://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/vite-intlayer/index.md%5D(https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/vite-intlayer/index.md)>) Vite 애플리케이션용
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/react-intlayer/index.md) React 애플리케이션용
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/next-intlayer/index.md) Next.js 애플리케이션용
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/vite-intlayer/index.md) Vite 애플리케이션용
 
-또한 브라우저 및 API 요청을 포함한 다양한 환경에서 모든 국제화 솔루션과 원활하게 작동합니다. 헤더 또는 쿠키를 통해 로케일을 감지하도록 미들웨어를 커스터마이즈할 수 있습니다:
+또한 브라우저 및 API 요청을 포함한 다양한 환경에서 모든 국제화 솔루션과 원활하게 작동합니다.
+
+기본적으로 플러그인은 다음 순서로 로케일을 결정합니다:
+
+1. `INTLAYER_LOCALE` 쿠키.
+2. `x-intlayer-locale` 헤더.
+3. `Accept-Language` 헤더 협상.
+
+로케일 감지에 사용되는 쿠키와 헤더를 커스터마이즈할 수 있습니다:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
@@ -235,8 +297,6 @@ const config: IntlayerConfig = {
 
 export default config;
 ```
-
-기본적으로 `elysia-intlayer`는 `Accept-Language` 헤더를 해석하여 클라이언트의 선호 언어를 결정합니다.
 
 > 구성 및 고급 주제에 대한 자세한 정보는 [문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 방문하세요.
 

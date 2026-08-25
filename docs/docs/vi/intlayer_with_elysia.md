@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-08-23
+updatedAt: 2026-08-24
 title: "Elysia i18n - Hướng dẫn đầy đủ để dịch ứng dụng của bạn"
 description: "Không còn i18next. Hướng dẫn năm 2026 để xây dựng ứng dụng Elysia đa ngôn ngữ (i18n). Dịch với các tác nhân AI và tối ưu hóa kích thước gói, SEO và hiệu suất."
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - elysia
 applicationTemplate: https://github.com/aymericzip/intlayer-elysia-template
 history:
+  - version: 9.4.0
+    date: 2026-08-24
+    changes: "Đồng bộ hướng dẫn với template Elysia (typing cho context, thiết lập Bun, scripts)"
   - version: 9.4.0
     date: 2026-08-23
     changes: "init Elysia plugin"
@@ -90,6 +93,8 @@ yarn add intlayer elysia-intlayer
 bun add intlayer elysia-intlayer
 ```
 
+> Elysia nhắm tới runtime **Bun**. `elysia-intlayer` dựa trên `AsyncLocalStorage` (thay vì thư viện `cls-hooked` mà các plugin Intlayer chạy trên Node sử dụng) chính vì Bun không triển khai `async_hooks.createHook`.
+
 ### Thiết lập
 
 Cấu hình các cài đặt quốc tế hóa bằng cách tạo một `intlayer.config.ts` ở thư mục gốc của dự án:
@@ -99,12 +104,10 @@ import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
   internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH_MEXICO,
-      Locales.SPANISH_SPAIN,
-    ],
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    /**
+     * Locale mặc định được dùng làm fallback nếu không tìm thấy locale được yêu cầu.
+     */
     defaultLocale: Locales.ENGLISH,
   },
 };
@@ -126,8 +129,7 @@ const indexContent = {
       vi: "Ví dụ về nội dung được trả về bằng tiếng Việt",
       en: "Example of returned content in English",
       fr: "Exemple de contenu renvoyé en français",
-      "es-ES": "Ejemplo de contenido devuelto en español (España)",
-      "es-MX": "Ejemplo de contenido devuelto en español (México)",
+      es: "Ejemplo de contenido devuelto en español",
     }),
   },
 } satisfies Dictionary;
@@ -146,8 +148,7 @@ export default indexContent;
         "vi": "Ví dụ về nội dung được trả về bằng tiếng Việt",
         "en": "Example of returned content in English",
         "fr": "Exemple de contenu renvoyé en français",
-        "es-ES": "Ejemplo de contenido devuelto en español (España)",
-        "es-MX": "Ejemplo de contenido devuelto en español (México)"
+        "es": "Ejemplo de contenido devuelto en español"
       }
     }
   }
@@ -164,19 +165,59 @@ Thiết lập ứng dụng Elysia của bạn để sử dụng `elysia-intlayer
 
 ```typescript fileName="src/index.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Elysia } from "elysia";
-import { intlayer, t, getDictionary, getIntlayer } from "elysia-intlayer";
-import dictionaryExample from "./index.content";
+import { intlayer } from "elysia-intlayer";
 
 const app = new Elysia()
   // Tải plugin quốc tế hóa
   .use(intlayer())
   // Routes
+  .get("/", ({ intlayer }) => ({
+    // Locale được sử dụng cho request này, được thương lượng từ `Accept-Language` hoặc đọc từ storage
+    locale: intlayer!.locale,
+    greeting: intlayer!.t({
+      vi: "Xin chào",
+      en: "Hello",
+      fr: "Bonjour",
+      es: "Hola",
+    }),
+    content: intlayer!.getIntlayer("index").exampleOfContent,
+  }))
+  .listen(3000);
+
+console.log(
+  `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
+);
+```
+
+> Plugin đăng ký context của nó thông qua một `derive` **global**, được Elysia định kiểu là `Partial<{ intlayer: IntlayerContext }>`. Giá trị luôn tồn tại lúc runtime với các route được đăng ký sau `.use(intlayer())`, vì vậy hãy dùng non-null assertion (`intlayer!.locale`) — hoặc optional chaining — để thỏa mãn TypeScript ở chế độ `strict`.
+
+Context của route cung cấp:
+
+| Thuộc tính        | Mô tả                                                                             |
+| ----------------- | --------------------------------------------------------------------------------- |
+| `locale`          | Locale dùng cho request này, `locale_storage` được ưu tiên hơn `locale_detected`. |
+| `locale_storage`  | Locale được client yêu cầu tường minh qua cookie hoặc header.                     |
+| `locale_detected` | Locale được thương lượng từ các header của request.                               |
+| `defaultLocale`   | Locale được cấu hình làm fallback trong `intlayer.config.ts`.                     |
+| `t`               | Một hàm dịch.                                                                     |
+| `getIntlayer`     | Hàm để lấy dictionary theo key.                                                   |
+| `getDictionary`   | Hàm để xử lý các đối tượng dictionary.                                            |
+
+Cùng các helper đó cũng được export dưới dạng standalone. Chúng phân giải request hiện tại thông qua `AsyncLocalStorage`, nên bạn có thể gọi chúng mà không cần destructure context:
+
+```typescript fileName="src/index.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { Elysia } from "elysia";
+import { intlayer, t, getDictionary, getIntlayer } from "elysia-intlayer";
+import dictionaryExample from "./index.content";
+
+const app = new Elysia()
+  .use(intlayer())
   .get("/t_example", () =>
     t({
+      vi: "Ví dụ về nội dung được trả về bằng tiếng Việt",
       en: "Example of returned content in English",
       fr: "Exemple de contenu renvoyé en français",
-      "es-ES": "Ejemplo de contenido devuelto en español (España)",
-      "es-MX": "Ejemplo de contenido devuelto en español (México)",
+      es: "Ejemplo de contenido devuelto en español",
     })
   )
   .get("/getIntlayer_example", () => getIntlayer("index").exampleOfContent)
@@ -185,38 +226,61 @@ const app = new Elysia()
     () => getDictionary(dictionaryExample).exampleOfContent
   )
   .listen(3000);
-
-console.log(`Listening on http://${app.server?.hostname}:${app.server?.port}`);
 ```
 
-Plugin cũng inject một object `intlayer` vào route context. Sử dụng nó khi bạn muốn có một dependency rõ ràng thay vì sử dụng các standalone helpers:
+> Ngữ cảnh của request được giải phóng ngay khi response được map, nên các helper độc lập không bao giờ phân giải dựa trên một request đã kết thúc. Khi được gọi bên ngoài một request do plugin xử lý, chúng quay về locale mặc định đã được cấu hình.
 
-```typescript fileName="src/index.ts" codeFormat={["typescript", "esm", "commonjs"]}
-import { Elysia } from "elysia";
-import { intlayer } from "elysia-intlayer";
+### Chạy ứng dụng của bạn
 
-const app = new Elysia().use(intlayer()).get("/", ({ intlayer }) => ({
-  // Locale được sử dụng cho request này, được thương lượng từ `Accept-Language` hoặc đọc từ storage
-  locale: intlayer.locale,
-  greeting: intlayer.t({
-    en: "Hello",
-    fr: "Bonjour",
-  }),
-  content: intlayer.getIntlayer("index").exampleOfContent,
-}));
+Thêm các script Intlayer vào `package.json` của bạn. `intlayer build` biên dịch các khai báo nội dung vào thư mục `.intlayer` và sinh ra các kiểu TypeScript:
+
+```json fileName="package.json"
+{
+  "scripts": {
+    "dev": "intlayer build && bun run --watch src/index.ts",
+    "build": "intlayer build",
+    "start": "bun run src/index.ts",
+    "i18n:fill": "intlayer fill",
+    "i18n:test": "intlayer test"
+  }
+}
 ```
 
-> Route context exposed `locale`, `defaultLocale`, `locale_storage` (locale được đặt rõ ràng bởi client), `locale_detected` (locale được thương lượng từ headers), `t`, `getIntlayer` và `getDictionary`.
+Sau đó khởi động server:
+
+```bash
+bun run dev
+```
+
+Kiểm tra việc thương lượng locale với `Accept-Language`:
+
+```bash
+curl -H "Accept-Language: fr" http://localhost:3000/
+# {"locale":"fr","greeting":"Bonjour","content":"Exemple de contenu renvoyé en français"}
+
+curl -H "Accept-Language: es" http://localhost:3000/
+# {"locale":"es","greeting":"Hola","content":"Ejemplo de contenido devuelto en español"}
+```
+
+> `intlayer build` không bắt buộc phải chạy trước `bun run src/index.ts`: plugin cũng chuẩn bị dictionary khi ứng dụng Elysia khởi động. Chạy trước giúp các kiểu được sinh ra luôn đồng bộ cho editor của bạn và tránh chi phí build ở request đầu tiên.
 
 ### Tương thích
 
 `elysia-intlayer` hoàn toàn tương thích với:
 
-- [`react-intlayer`](<https://www.google.com/search?q=%5Bhttps://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/react-intlayer/index.md%5D(https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/react-intlayer/index.md)>) cho các ứng dụng React
-- [`next-intlayer`](<https://www.google.com/search?q=%5Bhttps://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/next-intlayer/index.md%5D(https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/next-intlayer/index.md)>) cho các ứng dụng Next.js
-- [`vite-intlayer`](<https://www.google.com/search?q=%5Bhttps://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/vite-intlayer/index.md%5D(https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/vite-intlayer/index.md)>) cho các ứng dụng Vite
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/react-intlayer/index.md) cho các ứng dụng React
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/next-intlayer/index.md) cho các ứng dụng Next.js
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/vite-intlayer/index.md) cho các ứng dụng Vite
 
-Nó cũng hoạt động liền mạch với bất kỳ giải pháp quốc tế hóa nào trong các môi trường khác nhau, bao gồm trình duyệt và các yêu cầu API. Bạn có thể tùy chỉnh middleware để phát hiện locale thông qua các header hoặc cookie:
+Nó cũng hoạt động liền mạch với bất kỳ giải pháp quốc tế hóa nào trong các môi trường khác nhau, bao gồm trình duyệt và các yêu cầu API.
+
+Theo mặc định, plugin phân giải locale theo thứ tự sau:
+
+1. Cookie `INTLAYER_LOCALE`.
+2. Header `x-intlayer-locale`.
+3. Thương lượng qua header `Accept-Language`.
+
+Bạn có thể tuỳ chỉnh cookie và header được dùng để phát hiện locale:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
@@ -233,8 +297,6 @@ const config: IntlayerConfig = {
 
 export default config;
 ```
-
-Theo mặc định, `elysia-intlayer` sẽ giải thích header `Accept-Language` để xác định ngôn ngữ ưa thích của khách hàng.
 
 > Để biết thêm thông tin về cấu hình và các chủ đề nâng cao, hãy truy cập [tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md) của chúng tôi.
 

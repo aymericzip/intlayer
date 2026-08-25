@@ -28,30 +28,32 @@ The `intlayer` plugin for Elysia detects the user's locale and injects an `intla
 
 ## Usage
 
-```ts
+```ts fileName="src/index.ts"
 import { Elysia } from "elysia";
 import { intlayer } from "elysia-intlayer";
 
 const app = new Elysia().use(intlayer()).get("/", ({ intlayer }) =>
-  intlayer.t({
-    "en-GB": "Hello",
+  intlayer!.t({
     en: "Hello",
     fr: "Bonjour",
+    es: "Hola",
   })
 );
 ```
 
+> The plugin registers its context through a **global** `derive`, which Elysia types as `Partial<{ intlayer: IntlayerContext }>`. The value is always present at runtime for routes registered after `.use(intlayer())`, so use the non-null assertion (`intlayer!.t`) — or optional chaining — to satisfy TypeScript in `strict` mode.
+
 The same helpers are available as standalone exports, so you can call them without destructuring the route context:
 
-```ts
+```ts fileName="src/index.ts"
 import { Elysia } from "elysia";
 import { intlayer, t } from "elysia-intlayer";
 
 const app = new Elysia().use(intlayer()).get("/", () =>
   t({
-    "en-GB": "Hello",
     en: "Hello",
     fr: "Bonjour",
+    es: "Hola",
   })
 );
 ```
@@ -61,19 +63,48 @@ const app = new Elysia().use(intlayer()).get("/", () =>
 The plugin performs the following tasks:
 
 1. **Locale Detection**: It reads the locale explicitly set by the client from storage (cookie, header), then falls back to the locale negotiated from the `Accept-Language` header.
-2. **Context Injection**: It adds an `intlayer` property to the Elysia route context, containing:
-   - `locale`: The locale to use for this request, `locale_storage` taking precedence over `locale_detected`.
-   - `locale_storage`: The locale explicitly requested by the client through a cookie or a header.
-   - `locale_detected`: The locale negotiated from the request headers.
-   - `defaultLocale`: The locale configured as fallback in `intlayer.config.ts`.
-   - `t`: A translation function.
-   - `getIntlayer`: A function to retrieve dictionaries by key.
-   - `getDictionary`: A function to process dictionary objects.
+2. **Context Injection**: It adds an `intlayer` property to the Elysia route context (see the Route Context table below).
 3. **Context Management**: It uses `AsyncLocalStorage` to manage an asynchronous context, allowing the global Intlayer functions (`t`, `getIntlayer`, `getDictionary`) to access the request-specific locale without passing the context object around.
+4. **Dictionary Preparation**: It calls `prepareIntlayer` when the plugin is created, so the dictionaries are built when the app boots.
+
+### Route Context
+
+| Property          | Type                   | Description                                                                                    |
+| ----------------- | ---------------------- | ---------------------------------------------------------------------------------------------- |
+| `locale`          | `Locale`               | The locale to use for this request, `locale_storage` taking precedence over `locale_detected`. |
+| `locale_storage`  | `Locale` (optional)    | The locale explicitly requested by the client through a cookie or a header.                    |
+| `locale_detected` | `Locale`               | The locale negotiated from the request headers.                                                |
+| `defaultLocale`   | `Locale`               | The locale configured as fallback in `intlayer.config.ts`.                                     |
+| `t`               | `TranslateFunction`    | A translation function.                                                                        |
+| `getIntlayer`     | `typeof getIntlayer`   | A function to retrieve dictionaries by key.                                                    |
+| `getDictionary`   | `typeof getDictionary` | A function to process dictionary objects.                                                      |
 
 > Unlike the Node-based Intlayer plugins, `elysia-intlayer` relies on `AsyncLocalStorage` instead of `cls-hooked`, because `cls-hooked` depends on `async_hooks.createHook`, which Bun does not implement.
 
 The request context is released once the response is mapped, so the standalone helpers never resolve against an already terminated request. When called outside of a request handled by the plugin, they fall back to the configured default locale.
+
+## Locale Resolution Order
+
+By default, the plugin resolves the locale in this order:
+
+1. The `INTLAYER_LOCALE` cookie.
+2. The `x-intlayer-locale` header.
+3. The `Accept-Language` header negotiation.
+4. The configured `defaultLocale`.
+
+```bash
+# Negotiated from `Accept-Language`
+curl -H "Accept-Language: fr" http://localhost:3000/
+# Bonjour
+
+# The cookie takes precedence over `Accept-Language`
+curl -H "Accept-Language: fr" -H "Cookie: INTLAYER_LOCALE=es" http://localhost:3000/
+# Hola
+
+# The header takes precedence over `Accept-Language`
+curl -H "Accept-Language: fr" -H "x-intlayer-locale: es" http://localhost:3000/
+# Hola
+```
 
 ## Configuration
 
@@ -84,7 +115,7 @@ import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
   internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH],
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
     defaultLocale: Locales.ENGLISH,
   },
   routing: {
@@ -99,3 +130,8 @@ export default config;
 ```
 
 > For more information on configuration, visit the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md).
+
+## Related Doc
+
+- [elysia-intlayer Package Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/elysia-intlayer/exports.md)
+- [Elysia i18n - Complete guide to translate your app](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_elysia.md)

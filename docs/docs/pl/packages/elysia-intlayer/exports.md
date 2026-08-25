@@ -27,9 +27,23 @@ Pakiet `elysia-intlayer` udostępnia wtyczkę dla aplikacji Elysia do obsługi i
 
 ## Instalacja
 
-```bash
-npm install elysia-intlayer
+```bash packageManager="npm"
+npm install intlayer elysia-intlayer
 ```
+
+```bash packageManager="pnpm"
+pnpm add intlayer elysia-intlayer
+```
+
+```bash packageManager="yarn"
+yarn add intlayer elysia-intlayer
+```
+
+```bash packageManager="bun"
+bun add intlayer elysia-intlayer
+```
+
+> `elysia` jest peer dependency (`>=1.0.0`). Elysia jest przeznaczony dla runtime **Bun**.
 
 ## Eksporty
 
@@ -37,7 +51,7 @@ npm install elysia-intlayer
 
 Import:
 
-```tsx
+```ts
 import { intlayer } from "elysia-intlayer";
 ```
 
@@ -49,7 +63,7 @@ import { intlayer } from "elysia-intlayer";
 
 Import:
 
-```tsx
+```ts
 import { t, getIntlayer, getDictionary } from "elysia-intlayer";
 ```
 
@@ -63,7 +77,7 @@ import { t, getIntlayer, getDictionary } from "elysia-intlayer";
 
 Import:
 
-```tsx
+```ts
 import type { IntlayerContext, TranslateFunction } from "elysia-intlayer";
 ```
 
@@ -71,3 +85,52 @@ import type { IntlayerContext, TranslateFunction } from "elysia-intlayer";
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `IntlayerContext`   | Kształt obiektu `intlayer` wstrzykiwanego do każdego kontekstu route: `locale`, `locale_storage`, `locale_detected`, `defaultLocale`, `t`, `getIntlayer`, `getDictionary`. |
 | `TranslateFunction` | Sygnatura funkcji tłumaczenia, przekształcającej locale map w treść odpowiadającą locale bieżącego żądania.                                                                |
+
+## Użycie
+
+```ts fileName="src/index.ts"
+import { Elysia } from "elysia";
+import { getDictionary, getIntlayer, intlayer, t } from "elysia-intlayer";
+import dictionaryExample from "./index.content";
+
+const app = new Elysia()
+  // Załaduj wtyczkę internacjonalizacji
+  .use(intlayer())
+  // Odczytaj locale i helpery z kontekstu trasy
+  .get("/", ({ intlayer }) => ({
+    locale: intlayer!.locale,
+    greeting: intlayer!.t({
+      pl: "Cześć",
+      en: "Hello",
+      fr: "Bonjour",
+      es: "Hola",
+    }),
+    content: intlayer!.getIntlayer("index").exampleOfContent,
+  }))
+  // Albo użyj samodzielnych helperów, powiązanych z bieżącym żądaniem
+  .get("/t_example", () =>
+    t({
+      pl: "Przykład zwróconej treści w języku polskim",
+      en: "Example of returned content in English",
+      fr: "Exemple de contenu renvoyé en français",
+      es: "Ejemplo de contenido devuelto en español",
+    })
+  )
+  .get("/getIntlayer_example", () => getIntlayer("index").exampleOfContent)
+  .get(
+    "/getDictionary_example",
+    () => getDictionary(dictionaryExample).exampleOfContent
+  )
+  .listen(3000);
+
+console.log(
+  `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
+);
+```
+
+> Plugin rejestruje swój kontekst poprzez **globalny** `derive`, który Elysia typuje jako `Partial<{ intlayer: IntlayerContext }>`. W czasie działania wartość jest zawsze obecna dla tras zarejestrowanych po `.use(intlayer())`, dlatego użyj non-null assertion (`intlayer!.locale`) — lub optional chaining — aby zadowolić TypeScript w trybie `strict`.
+
+## Powiązana dokumentacja
+
+- [Elysia i18n - Kompletny przewodnik tłumaczenia aplikacji](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_elysia.md)
+- [Konfiguracja](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md)

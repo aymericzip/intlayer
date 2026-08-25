@@ -27,9 +27,23 @@ author: aymericzip
 
 ## التثبيت
 
-```bash
-npm install elysia-intlayer
+```bash packageManager="npm"
+npm install intlayer elysia-intlayer
 ```
+
+```bash packageManager="pnpm"
+pnpm add intlayer elysia-intlayer
+```
+
+```bash packageManager="yarn"
+yarn add intlayer elysia-intlayer
+```
+
+```bash packageManager="bun"
+bun add intlayer elysia-intlayer
+```
+
+> `elysia` هي peer dependency (`>=1.0.0`). ويستهدف Elysia بيئة تشغيل **Bun**.
 
 ## الصادرات
 
@@ -37,7 +51,7 @@ npm install elysia-intlayer
 
 استيراد:
 
-```tsx
+```ts
 import { intlayer } from "elysia-intlayer";
 ```
 
@@ -49,7 +63,7 @@ import { intlayer } from "elysia-intlayer";
 
 استيراد:
 
-```tsx
+```ts
 import { t, getIntlayer, getDictionary } from "elysia-intlayer";
 ```
 
@@ -63,7 +77,7 @@ import { t, getIntlayer, getDictionary } from "elysia-intlayer";
 
 استيراد:
 
-```tsx
+```ts
 import type { IntlayerContext, TranslateFunction } from "elysia-intlayer";
 ```
 
@@ -71,3 +85,52 @@ import type { IntlayerContext, TranslateFunction } from "elysia-intlayer";
 | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `IntlayerContext`   | شكل كائن `intlayer` المحقون في كل سياق مسار: `locale`، `locale_storage`، `locale_detected`، `defaultLocale`، `t`، `getIntlayer`، `getDictionary`. |
 | `TranslateFunction` | توقيع دالة الترجمة التي تحوّل locale map إلى المحتوى المطابق للـ locale الخاص بالطلب الحالي.                                                      |
+
+## الاستخدام
+
+```ts fileName="src/index.ts"
+import { Elysia } from "elysia";
+import { getDictionary, getIntlayer, intlayer, t } from "elysia-intlayer";
+import dictionaryExample from "./index.content";
+
+const app = new Elysia()
+  // تحميل إضافة التدويل
+  .use(intlayer())
+  // قراءة اللغة والدوال المساعدة من سياق المسار
+  .get("/", ({ intlayer }) => ({
+    locale: intlayer!.locale,
+    greeting: intlayer!.t({
+      ar: "مرحبًا",
+      en: "Hello",
+      fr: "Bonjour",
+      es: "Hola",
+    }),
+    content: intlayer!.getIntlayer("index").exampleOfContent,
+  }))
+  // أو استخدام الدوال المساعدة المستقلة، المرتبطة بالطلب الحالي
+  .get("/t_example", () =>
+    t({
+      ar: "مثال على المحتوى المرجع باللغة العربية",
+      en: "Example of returned content in English",
+      fr: "Exemple de contenu renvoyé en français",
+      es: "Ejemplo de contenido devuelto en español",
+    })
+  )
+  .get("/getIntlayer_example", () => getIntlayer("index").exampleOfContent)
+  .get(
+    "/getDictionary_example",
+    () => getDictionary(dictionaryExample).exampleOfContent
+  )
+  .listen(3000);
+
+console.log(
+  `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
+);
+```
+
+> تسجّل الإضافة سياقها عبر `derive` **عام**، والذي يعطيه Elysia النوع `Partial<{ intlayer: IntlayerContext }>`. تكون القيمة موجودة دائماً وقت التشغيل للمسارات المسجَّلة بعد `.use(intlayer())`، لذا استخدم تأكيد عدم الفراغ (`intlayer!.locale`) — أو التسلسل الاختياري — لإرضاء TypeScript في الوضع `strict`.
+
+## وثائق ذات صلة
+
+- [Elysia i18n - دليل شامل لترجمة تطبيقك](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_elysia.md)
+- [الإعدادات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md)

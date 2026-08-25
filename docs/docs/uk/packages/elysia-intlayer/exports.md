@@ -27,9 +27,23 @@ author: aymericzip
 
 ## Встановлення
 
-```bash
-npm install elysia-intlayer
+```bash packageManager="npm"
+npm install intlayer elysia-intlayer
 ```
+
+```bash packageManager="pnpm"
+pnpm add intlayer elysia-intlayer
+```
+
+```bash packageManager="yarn"
+yarn add intlayer elysia-intlayer
+```
+
+```bash packageManager="bun"
+bun add intlayer elysia-intlayer
+```
+
+> `elysia` — це peer dependency (`>=1.0.0`). Elysia орієнтований на runtime **Bun**.
 
 ## Експорти
 
@@ -37,7 +51,7 @@ npm install elysia-intlayer
 
 Імпорт:
 
-```tsx
+```ts
 import { intlayer } from "elysia-intlayer";
 ```
 
@@ -49,7 +63,7 @@ import { intlayer } from "elysia-intlayer";
 
 Імпорт:
 
-```tsx
+```ts
 import { t, getIntlayer, getDictionary } from "elysia-intlayer";
 ```
 
@@ -63,7 +77,7 @@ import { t, getIntlayer, getDictionary } from "elysia-intlayer";
 
 Імпорт:
 
-```tsx
+```ts
 import type { IntlayerContext, TranslateFunction } from "elysia-intlayer";
 ```
 
@@ -71,3 +85,52 @@ import type { IntlayerContext, TranslateFunction } from "elysia-intlayer";
 | ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `IntlayerContext`   | Форма об'єкта `intlayer`, що впроваджується в кожен контекст маршруту: `locale`, `locale_storage`, `locale_detected`, `defaultLocale`, `t`, `getIntlayer`, `getDictionary`. |
 | `TranslateFunction` | Сигнатура функції перекладу, яка перетворює locale map на вміст, що відповідає локалі поточного запиту.                                                                     |
+
+## Використання
+
+```ts fileName="src/index.ts"
+import { Elysia } from "elysia";
+import { getDictionary, getIntlayer, intlayer, t } from "elysia-intlayer";
+import dictionaryExample from "./index.content";
+
+const app = new Elysia()
+  // Завантажте плагін інтернаціоналізації
+  .use(intlayer())
+  // Читаємо локаль і helpers з контексту маршруту
+  .get("/", ({ intlayer }) => ({
+    locale: intlayer!.locale,
+    greeting: intlayer!.t({
+      uk: "Привіт",
+      en: "Hello",
+      fr: "Bonjour",
+      es: "Hola",
+    }),
+    content: intlayer!.getIntlayer("index").exampleOfContent,
+  }))
+  // Або використовуємо standalone helpers, прив'язані до поточного запиту
+  .get("/t_example", () =>
+    t({
+      uk: "Приклад повернутого вмісту українською мовою",
+      en: "Example of returned content in English",
+      fr: "Exemple de contenu renvoyé en français",
+      es: "Ejemplo de contenido devuelto en español",
+    })
+  )
+  .get("/getIntlayer_example", () => getIntlayer("index").exampleOfContent)
+  .get(
+    "/getDictionary_example",
+    () => getDictionary(dictionaryExample).exampleOfContent
+  )
+  .listen(3000);
+
+console.log(
+  `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
+);
+```
+
+> Плагін реєструє свій контекст через **глобальний** `derive`, який Elysia типізує як `Partial<{ intlayer: IntlayerContext }>`. Під час виконання значення завжди присутнє для маршрутів, зареєстрованих після `.use(intlayer())`, тож використовуйте non-null assertion (`intlayer!.locale`) — або optional chaining — щоб задовольнити TypeScript у режимі `strict`.
+
+## Пов'язана документація
+
+- [Elysia i18n - Повний посібник щодо перекладу вашого додатка](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_elysia.md)
+- [Конфігурація](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md)

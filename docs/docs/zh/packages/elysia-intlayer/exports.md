@@ -27,9 +27,23 @@ author: aymericzip
 
 ## 安装
 
-```bash
-npm install elysia-intlayer
+```bash packageManager="npm"
+npm install intlayer elysia-intlayer
 ```
+
+```bash packageManager="pnpm"
+pnpm add intlayer elysia-intlayer
+```
+
+```bash packageManager="yarn"
+yarn add intlayer elysia-intlayer
+```
+
+```bash packageManager="bun"
+bun add intlayer elysia-intlayer
+```
+
+> `elysia` 是一个 peer dependency（`>=1.0.0`）。Elysia 面向 **Bun** 运行时。
 
 ## 导出
 
@@ -37,7 +51,7 @@ npm install elysia-intlayer
 
 导入：
 
-```tsx
+```ts
 import { intlayer } from "elysia-intlayer";
 ```
 
@@ -49,7 +63,7 @@ import { intlayer } from "elysia-intlayer";
 
 导入：
 
-```tsx
+```ts
 import { t, getIntlayer, getDictionary } from "elysia-intlayer";
 ```
 
@@ -63,7 +77,7 @@ import { t, getIntlayer, getDictionary } from "elysia-intlayer";
 
 导入：
 
-```tsx
+```ts
 import type { IntlayerContext, TranslateFunction } from "elysia-intlayer";
 ```
 
@@ -71,3 +85,52 @@ import type { IntlayerContext, TranslateFunction } from "elysia-intlayer";
 | ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `IntlayerContext`   | 注入到每个路由上下文中的 `intlayer` 对象的结构：`locale`、`locale_storage`、`locale_detected`、`defaultLocale`、`t`、`getIntlayer`、`getDictionary`。 |
 | `TranslateFunction` | 翻译函数的签名，将 locale map 转换为与当前请求 locale 匹配的内容。                                                                                    |
+
+## 用法
+
+```ts fileName="src/index.ts"
+import { Elysia } from "elysia";
+import { getDictionary, getIntlayer, intlayer, t } from "elysia-intlayer";
+import dictionaryExample from "./index.content";
+
+const app = new Elysia()
+  // 加载国际化插件
+  .use(intlayer())
+  // 从路由上下文读取语言环境和辅助函数
+  .get("/", ({ intlayer }) => ({
+    locale: intlayer!.locale,
+    greeting: intlayer!.t({
+      zh: "你好",
+      en: "Hello",
+      fr: "Bonjour",
+      es: "Hola",
+    }),
+    content: intlayer!.getIntlayer("index").exampleOfContent,
+  }))
+  // 或者使用绑定到当前请求的独立辅助函数
+  .get("/t_example", () =>
+    t({
+      zh: "在中文中返回的内容示例",
+      en: "Example of returned content in English",
+      fr: "Exemple de contenu renvoyé en français",
+      es: "Ejemplo de contenido devuelto en español",
+    })
+  )
+  .get("/getIntlayer_example", () => getIntlayer("index").exampleOfContent)
+  .get(
+    "/getDictionary_example",
+    () => getDictionary(dictionaryExample).exampleOfContent
+  )
+  .listen(3000);
+
+console.log(
+  `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
+);
+```
+
+> 该插件通过 **全局** `derive` 注册其上下文，Elysia 会将其类型标注为 `Partial<{ intlayer: IntlayerContext }>`。对于在 `.use(intlayer())` 之后注册的路由，该值在运行时始终存在，因此请使用非空断言（`intlayer!.locale`）或可选链，以满足 `strict` 模式下的 TypeScript。
+
+## 相关文档
+
+- [Elysia i18n - 完整指南翻译你的应用](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_elysia.md)
+- [配置](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-08-23
+updatedAt: 2026-08-24
 title: "Elysia i18n - Panduan lengkap untuk menerjemahkan aplikasi Anda"
 description: "Tidak ada lagi i18next. Panduan 2026 untuk membangun aplikasi Elysia multibahasa (i18n). Terjemahkan dengan AI agents dan optimalkan ukuran bundle, SEO, dan performa."
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - elysia
 applicationTemplate: https://github.com/aymericzip/intlayer-elysia-template
 history:
+  - version: 9.4.0
+    date: 2026-08-24
+    changes: "Menyelaraskan panduan dengan template Elysia (typing context, setup Bun, script)"
   - version: 9.4.0
     date: 2026-08-23
     changes: "init Elysia plugin"
@@ -90,6 +93,8 @@ yarn add intlayer elysia-intlayer
 bun add intlayer elysia-intlayer
 ```
 
+> Elysia menargetkan runtime **Bun**. `elysia-intlayer` mengandalkan `AsyncLocalStorage` (alih-alih library `cls-hooked` yang dipakai plugin Intlayer berbasis Node) justru karena Bun tidak mengimplementasikan `async_hooks.createHook`.
+
 ### Penyiapan
 
 Konfigurasikan pengaturan internasionalisasi dengan membuat `intlayer.config.ts` di root proyek Anda:
@@ -99,12 +104,10 @@ import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
   internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH_MEXICO,
-      Locales.SPANISH_SPAIN,
-    ],
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    /**
+     * Locale default yang dipakai sebagai fallback jika locale yang diminta tidak ditemukan.
+     */
     defaultLocale: Locales.ENGLISH,
   },
 };
@@ -126,8 +129,7 @@ const indexContent = {
       id: "Contoh konten yang dikembalikan dalam bahasa Indonesia",
       en: "Example of returned content in English",
       fr: "Exemple de contenu renvoyé en français",
-      "es-ES": "Ejemplo de contenido devuelto en español (España)",
-      "es-MX": "Ejemplo de contenido devuelto en español (México)",
+      es: "Ejemplo de contenido devuelto en español",
     }),
   },
 } satisfies Dictionary;
@@ -146,8 +148,7 @@ export default indexContent;
         "id": "Contoh konten yang dikembalikan dalam bahasa Indonesia",
         "en": "Example of returned content in English",
         "fr": "Exemple de contenu renvoyé en français",
-        "es-ES": "Ejemplo de contenido devuelto en español (España)",
-        "es-MX": "Ejemplo de contenido devuelto en español (México)"
+        "es": "Ejemplo de contenido devuelto en español"
       }
     }
   }
@@ -164,19 +165,59 @@ Atur aplikasi Elysia Anda untuk menggunakan `elysia-intlayer`:
 
 ```typescript fileName="src/index.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Elysia } from "elysia";
-import { intlayer, t, getDictionary, getIntlayer } from "elysia-intlayer";
-import dictionaryExample from "./index.content";
+import { intlayer } from "elysia-intlayer";
 
 const app = new Elysia()
   // Muat plugin internasionalisasi
   .use(intlayer())
   // Routes
+  .get("/", ({ intlayer }) => ({
+    // Locale yang digunakan untuk permintaan ini, `Accept-Language` dinegosiasikan atau dibaca dari penyimpanan
+    locale: intlayer!.locale,
+    greeting: intlayer!.t({
+      id: "Halo",
+      en: "Hello",
+      fr: "Bonjour",
+      es: "Hola",
+    }),
+    content: intlayer!.getIntlayer("index").exampleOfContent,
+  }))
+  .listen(3000);
+
+console.log(
+  `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
+);
+```
+
+> Plugin mendaftarkan context-nya melalui `derive` **global**, yang oleh Elysia diberi tipe `Partial<{ intlayer: IntlayerContext }>`. Nilainya selalu ada saat runtime untuk route yang didaftarkan setelah `.use(intlayer())`, jadi gunakan non-null assertion (`intlayer!.locale`) — atau optional chaining — agar TypeScript pada mode `strict` puas.
+
+Context route menyediakan:
+
+| Properti          | Deskripsi                                                                                                         |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `locale`          | Locale yang digunakan untuk request ini, dengan `locale_storage` lebih diprioritaskan daripada `locale_detected`. |
+| `locale_storage`  | Locale yang diminta secara eksplisit oleh klien melalui cookie atau header.                                       |
+| `locale_detected` | Locale yang dinegosiasikan dari header request.                                                                   |
+| `defaultLocale`   | Locale yang dikonfigurasi sebagai fallback di `intlayer.config.ts`.                                               |
+| `t`               | Sebuah fungsi terjemahan.                                                                                         |
+| `getIntlayer`     | Fungsi untuk mengambil dictionary berdasarkan key.                                                                |
+| `getDictionary`   | Fungsi untuk memproses objek dictionary.                                                                          |
+
+Helper yang sama juga diekspor secara standalone. Mereka menyelesaikan request saat ini melalui `AsyncLocalStorage`, sehingga Anda bisa memanggilnya tanpa melakukan destructuring pada context:
+
+```typescript fileName="src/index.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { Elysia } from "elysia";
+import { intlayer, t, getDictionary, getIntlayer } from "elysia-intlayer";
+import dictionaryExample from "./index.content";
+
+const app = new Elysia()
+  .use(intlayer())
   .get("/t_example", () =>
     t({
+      id: "Contoh konten yang dikembalikan dalam bahasa Indonesia",
       en: "Example of returned content in English",
       fr: "Exemple de contenu renvoyé en français",
-      "es-ES": "Ejemplo de contenido devuelto en español (España)",
-      "es-MX": "Ejemplo de contenido devuelto en español (México)",
+      es: "Ejemplo de contenido devuelto en español",
     })
   )
   .get("/getIntlayer_example", () => getIntlayer("index").exampleOfContent)
@@ -185,38 +226,61 @@ const app = new Elysia()
     () => getDictionary(dictionaryExample).exampleOfContent
   )
   .listen(3000);
-
-console.log(`Listening on http://${app.server?.hostname}:${app.server?.port}`);
 ```
 
-Plugin ini juga menyuntikkan objek `intlayer` ke dalam konteks route. Lebih baik menggunakannya ketika Anda menginginkan dependensi yang eksplisit dibandingkan dengan helper standalone:
+> Konteks request dilepaskan setelah response dipetakan, sehingga helper mandiri tidak pernah diselesaikan terhadap request yang sudah berakhir. Ketika dipanggil di luar request yang ditangani plugin, keduanya beralih ke locale default yang dikonfigurasi.
 
-```typescript fileName="src/index.ts" codeFormat={["typescript", "esm", "commonjs"]}
-import { Elysia } from "elysia";
-import { intlayer } from "elysia-intlayer";
+### Menjalankan Aplikasi Anda
 
-const app = new Elysia().use(intlayer()).get("/", ({ intlayer }) => ({
-  // Locale yang digunakan untuk permintaan ini, `Accept-Language` dinegosiasikan atau dibaca dari penyimpanan
-  locale: intlayer.locale,
-  greeting: intlayer.t({
-    en: "Hello",
-    fr: "Bonjour",
-  }),
-  content: intlayer.getIntlayer("index").exampleOfContent,
-}));
+Tambahkan script Intlayer ke `package.json` Anda. `intlayer build` mengompilasi deklarasi konten Anda ke direktori `.intlayer` dan menghasilkan tipe TypeScript:
+
+```json fileName="package.json"
+{
+  "scripts": {
+    "dev": "intlayer build && bun run --watch src/index.ts",
+    "build": "intlayer build",
+    "start": "bun run src/index.ts",
+    "i18n:fill": "intlayer fill",
+    "i18n:test": "intlayer test"
+  }
+}
 ```
 
-> Konteks route mengekspos `locale`, `defaultLocale`, `locale_storage` (locale yang secara eksplisit ditetapkan oleh klien), `locale_detected` (locale yang dinegosiasikan dari header), `t`, `getIntlayer` dan `getDictionary`.
+Lalu jalankan server:
+
+```bash
+bun run dev
+```
+
+Uji negosiasi locale dengan `Accept-Language`:
+
+```bash
+curl -H "Accept-Language: fr" http://localhost:3000/
+# {"locale":"fr","greeting":"Bonjour","content":"Exemple de contenu renvoyé en français"}
+
+curl -H "Accept-Language: es" http://localhost:3000/
+# {"locale":"es","greeting":"Hola","content":"Ejemplo de contenido devuelto en español"}
+```
+
+> `intlayer build` tidak wajib dijalankan sebelum `bun run src/index.ts`: plugin juga menyiapkan dictionary saat aplikasi Elysia melakukan boot. Menjalankannya lebih dulu membuat tipe yang dihasilkan tetap sinkron untuk editor Anda dan menghindari biaya build pada request pertama.
 
 ### Kompatibilitas
 
 `elysia-intlayer` sepenuhnya kompatibel dengan:
 
-- [`react-intlayer`](<https://www.google.com/search?q=%5Bhttps://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/react-intlayer/index.md%5D(https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/react-intlayer/index.md)>) untuk aplikasi React
-- [`next-intlayer`](<https://www.google.com/search?q=%5Bhttps://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/next-intlayer/index.md%5D(https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/next-intlayer/index.md)>) untuk aplikasi Next.js
-- [`vite-intlayer`](<https://www.google.com/search?q=%5Bhttps://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/vite-intlayer/index.md%5D(https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/vite-intlayer/index.md)>) untuk aplikasi Vite
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/react-intlayer/index.md) untuk aplikasi React
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/next-intlayer/index.md) untuk aplikasi Next.js
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/vite-intlayer/index.md) untuk aplikasi Vite
 
-Ini juga bekerja dengan mulus dengan solusi internasionalisasi apa pun di berbagai lingkungan, termasuk browser dan permintaan API. Anda dapat menyesuaikan middleware untuk mendeteksi locale melalui header atau cookie:
+Ini juga bekerja dengan mulus dengan solusi internasionalisasi apa pun di berbagai lingkungan, termasuk browser dan permintaan API.
+
+Secara default, plugin menyelesaikan locale dengan urutan berikut:
+
+1. Cookie `INTLAYER_LOCALE`.
+2. Header `x-intlayer-locale`.
+3. Negosiasi header `Accept-Language`.
+
+Anda dapat menyesuaikan cookie dan header yang dipakai untuk deteksi locale:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
@@ -233,8 +297,6 @@ const config: IntlayerConfig = {
 
 export default config;
 ```
-
-Secara default, `elysia-intlayer` akan menginterpretasi header `Accept-Language` untuk menentukan bahasa pilihan klien.
 
 > Untuk informasi lebih lanjut tentang konfigurasi dan topik lanjutan, kunjungi [dokumentasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md) kami.
 
