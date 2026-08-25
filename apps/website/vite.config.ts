@@ -467,7 +467,7 @@ export default defineConfig(async ({ mode }) => {
           enabled: true,
           crawlLinks: false,
           concurrency: 8,
-          filter: ({ path }) => !PACKAGE_DOC_PATH_PATTERN.test(path),
+          // filter: ({ path }) => !PACKAGE_DOC_PATH_PATTERN.test(path),
         },
         pages: localizedPages,
       }),
