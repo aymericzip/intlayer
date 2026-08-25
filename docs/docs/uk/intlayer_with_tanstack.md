@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-06-23
+updatedAt: 2026-08-25
 title: "TanStack Start i18n - Повний посібник з перекладу вашого застосунку"
 description: "Більше ніякого i18next. Посібник 2026 зі створення багатомовного (i18n) застосунку TanStack Start. Перекладайте за допомогою ШІ-агентів та оптимізуйте розмір бандлу, SEO та продуктивність."
 keywords:
@@ -20,6 +20,9 @@ applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-templ
 applicationShowcase: https://intlayer-tanstack-start-template.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
+  - version: 9.4.0
+    date: 2026-08-25
+    changes: "Порівняння статичного, динамічного та кешованого динамічного розвʼязання словників метаданих у функціях head маршрутів"
   - version: 8.9.0
     date: 2026-05-04
     changes: "Оновлення використання API useIntlayer у Solid для прямого доступу до властивостей"
@@ -508,13 +511,14 @@ export const useLocalizedNavigate = () => {
 
 <Step number={9} title="Використовуйте Intlayer на ваших сторінках">
 
+> Використовуйте **`useIntlayer`** за замовчуванням: це рекомендований спосіб читати контент усередині компонентів, і компілятор розвʼязує його у локаль, яка рендериться. Звертайтеся до `getIntlayer` / `getIntlayerAsync` лише поза деревом React — у `head` маршрутів, лоадерах і серверних функціях.
+
 Отримуйте доступ до словників контенту по всьому застосунку:
 
 #### Локалізована головна сторінка
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/react-router";
-import { getIntlayer } from "intlayer";
 import { useIntlayer } from "react-intlayer";
 
 import LocaleSwitcher from "@/components/locale-switcher";
@@ -629,20 +633,23 @@ export const LocaleSwitcher: FC = () => {
 
 <Step number={11} title="Керування атрибутами HTML">
 
-Як показано в Кроці 5, ви можете керувати атрибутами `lang` і `dir` тега `html`, використовуючи `useParams` у вашому кореневому компоненті. Це забезпечує правильне встановлення атрибутів на сервері та клієнті.
+const localeRoute = getRouteApi("/{-$locale}");
 
-```tsx fileName="src/routes/__root.tsx"
 function RootDocument({ children }: { children: ReactNode }) {
-  const params = localeRoute.useParams();
-  const locale = params?.locale ?? defaultLocale;
+const params = localeRoute.useParams();
+const locale = params?.locale ?? defaultLocale;
 
-  return (
-    <html dir={getHTMLTextDir(locale)} lang={locale}>
-      {/* ... */}
-    </html>
-  );
+return (
+<html dir={getHTMLTextDir(locale)} lang={locale}>
+{/* ... _/}
+</html>
+);
+} {/_ ... */}
+</html>
+);
 }
-```
+
+````
 
 ---
 
@@ -680,7 +687,7 @@ export default defineConfig({
     viteReact(),
   ],
 });
-```
+````
 
 ---
 
@@ -688,18 +695,29 @@ export default defineConfig({
 
 <Step number={13} title="Інтернаціоналізуйте свої метадані">
 
-Використовуйте `getIntlayerAsync` для доступу до своїх словників контенту всередині функції `head`.
+Усередині компонентів продовжуйте використовувати **`useIntlayer`** — він залишається варіантом за замовчуванням. Компілятор переписує його на чанк словника тієї локалі, що дійсно рендериться, тож у браузер не потрапляє нічого зайвого.
 
-Ви також можете використовувати хук `getIntlayer`, щоб отримувати ваші словники контенту по всьому застосунку:
+Функції `head` маршрутів виконуються **поза** деревом React, тому `useIntlayer` там недоступний. Є три способи прочитати словник із `head`, і кожен балансує між розміром бандла та тим, наскільки рано готовий `head` документа.
+
+<Tabs defaultTab="cached">
+
+<Tab label="Статичне розвʼязання" value="static">
+
+`getIntlayer` розвʼязується синхронно за **обʼєднаним** словником — тим, що містить усі оголошені локалі. `head` лишається синхронним і нічого не очікує, але весь багатомовний словник потрапляє до чанка маршруту, який надсилається у браузер.
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/react-router";
-import { getIntlayer } from "intlayer";
+import {
+  defaultLocale,
+  getIntlayer,
+  getLocalizedUrl,
+  localeMap,
+} from "intlayer";
 
 export const Route = createFileRoute("/{-$locale}/")({
   component: RouteComponent,
   head: ({ params }) => {
-    const { locale } = params;
+    const { locale = defaultLocale } = params;
     const path = "/"; // The path for this route
 
     const metaContent = getIntlayer("app", locale);
@@ -732,6 +750,147 @@ export const Route = createFileRoute("/{-$locale}/")({
   },
 });
 ```
+
+Найкраще для невеликих словників метаданих, кількох локалей або на етапі прототипування.
+
+</Tab>
+
+<Tab label="Динамічне розвʼязання" value="dynamic">
+
+`getIntlayerAsync` — доступний починаючи з **v9.4** — поводиться як `getIntlayer`, але плагін збірки спрямовує його на пер-локальний чанк у `.intlayer/dynamic_dictionaries/` замість обʼєднаного словника. Тож сторінка віддає лише ту локаль, яку рендерить. Оскільки цей чанк завантажується на вимогу, `head` стає `async`:
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createFileRoute } from "@tanstack/react-router";
+import {
+  defaultLocale,
+  getIntlayerAsync,
+  getLocalizedUrl,
+  localeMap,
+} from "intlayer";
+
+export const Route = createFileRoute("/{-$locale}/")({
+  component: RouteComponent,
+  head: async ({ params }) => {
+    const { locale = defaultLocale } = params;
+    const path = "/"; // The path for this route
+
+    const metaContent = await getIntlayerAsync("app", locale);
+
+    return {
+      links: [
+        // Canonical link: Points to the current localized page
+        { rel: "canonical", href: getLocalizedUrl(path, locale) },
+
+        // Hreflang: Tell Google about all localized versions
+        ...localeMap(({ locale: mapLocale }) => ({
+          rel: "alternate",
+          hrefLang: mapLocale,
+          href: getLocalizedUrl(path, mapLocale),
+        })),
+
+        // x-default: For users in unmatched languages
+        // Define the default fallback locale (usually your primary language)
+        {
+          rel: "alternate",
+          hrefLang: "x-default",
+          href: getLocalizedUrl(path, defaultLocale),
+        },
+      ],
+      meta: [
+        { title: metaContent.title },
+        { name: "description", content: metaContent.meta.description },
+      ],
+    };
+  },
+});
+```
+
+> Якщо `head` читає кілька словників, розвʼязуйте їх через `Promise.all` — очікування кожного `getIntlayerAsync` окремим рядком вибудовує запити в ланцюжок замість паралельного виконання.
+
+Компроміс: динамічний імпорт розвʼязується під час виконання `head`, на критичному шляху рендерингу документа. На «холодному» маршруті це затримує `head` на кілька мілісекунд і може трохи погіршити **LCP**.
+
+</Tab>
+
+<Tab label="Кешоване динамічне розвʼязання" value="cached">
+
+Розвʼяжіть словник у `loader` маршруту й прочитайте його назад із `loaderData` у `head`. Лоадери збіглих маршрутів виконуються паралельно, а `staleTime: Infinity` повідомляє TanStack Router, що результат ніколи не застаріває — пер-локальний чанк розвʼязується один раз, а далі віддається з кешу роутера, лишаючи `head` синхронним.
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createFileRoute } from "@tanstack/react-router";
+import {
+  defaultLocale,
+  getIntlayerAsync,
+  getLocalizedUrl,
+  localeMap,
+} from "intlayer";
+
+export const Route = createFileRoute("/{-$locale}/")({
+  component: RouteComponent,
+  // Resolved in parallel with the other matched routes, off the head critical path
+  loader: async ({ params }) => {
+    const { locale = defaultLocale } = params;
+
+    return { metaContent: await getIntlayerAsync("app", locale) };
+  },
+  // The dictionary never changes for a given locale: resolve the chunk once
+  staleTime: Infinity,
+  head: ({ params, loaderData }) => {
+    const { locale = defaultLocale } = params;
+    const path = "/"; // The path for this route
+
+    return {
+      links: [
+        // Canonical link: Points to the current localized page
+        { rel: "canonical", href: getLocalizedUrl(path, locale) },
+
+        // Hreflang: Tell Google about all localized versions
+        ...localeMap(({ locale: mapLocale }) => ({
+          rel: "alternate",
+          hrefLang: mapLocale,
+          href: getLocalizedUrl(path, mapLocale),
+        })),
+
+        // x-default: For users in unmatched languages
+        // Define the default fallback locale (usually your primary language)
+        {
+          rel: "alternate",
+          hrefLang: "x-default",
+          href: getLocalizedUrl(path, defaultLocale),
+        },
+      ],
+      meta: [
+        { title: loaderData?.metaContent.title },
+        {
+          name: "description",
+          content: loaderData?.metaContent.meta.description,
+        },
+      ],
+    };
+  },
+});
+```
+
+> `head` може бути викликаний до завершення лоадера, тому `loaderData` типізовано як можливо `undefined`. Залиште опціональний ланцюжок або повертайте запасний заголовок.
+
+Ви зберігаєте пер-локальний чанк, не сплачуючи його вартість на критичному шляху `head`. Ціна — DX: контент доводиться явно передавати з лоадера у `head` через `loaderData`.
+
+</Tab>
+
+</Tabs>
+
+### Яке розвʼязання обрати?
+
+|                     | Статичне розвʼязання            | Динамічне розвʼязання                      | Кешоване динамічне розвʼязання             |
+| ------------------- | ------------------------------- | ------------------------------------------ | ------------------------------------------ |
+| API                 | `getIntlayer`                   | `getIntlayerAsync` (v9.4+)                 | `getIntlayerAsync` у `loader` (v9.4+)      |
+| Сигнатура `head`    | синхронна                       | `async`                                    | синхронна, читає `loaderData`              |
+| Надіслані локалі    | усі оголошені локалі            | лише запитана локаль                       | лише запитана локаль                       |
+| Розмір бандла       | зростає з кожною локаллю        | сталий                                     | сталий                                     |
+| Розвʼязання `head`  | миттєве                         | очікує чанк локалі всередині `head`        | очікується у лоадері, далі кешується       |
+| Вплив на LCP        | немає                           | невелика затримка на холодному маршруті    | немає — поза критичним шляхом `head`       |
+| Клієнтські переходи | нічого розвʼязувати             | виконується знову за кожного збігу         | віддається з кешу роутера                  |
+| DX                  | найпростіший                    | один `await`                               | контент передається через `loaderData`     |
+| Найкраще для        | мало локалей, невеликі словники | багато локалей, рідко відвідувані маршрути | багато локалей, часто відвідувані маршрути |
 
 ---
 

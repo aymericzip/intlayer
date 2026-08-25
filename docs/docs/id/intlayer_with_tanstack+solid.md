@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-25
-updatedAt: 2026-06-23
+updatedAt: 2026-08-25
 title: "TanStack Start + Solid i18n - Panduan lengkap menerjemahkan aplikasi Anda"
 description: "Tidak ada lagi i18next. Panduan 2026 untuk membangun aplikasi TanStack Start + Solid multibahasa (i18n). Terjemahkan dengan agen AI dan optimalkan ukuran bundle, SEO, dan performa."
 keywords:
@@ -21,6 +21,9 @@ applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-solid
 applicationShowcase: https://intlayer-tanstack-start-solid.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
+  - version: 9.4.0
+    date: 2026-08-25
+    changes: "Membandingkan resolusi statis, dinamis, dan dinamis dengan cache untuk kamus metadata pada fungsi head rute"
   - version: 8.9.0
     date: 2026-05-04
     changes: "Perbarui penggunaan API useIntlayer Solid ke akses properti langsung"
@@ -457,6 +460,8 @@ export const useLocalizedNavigate = () => {
 
 <Step number={9} title="Gunakan Intlayer di Halaman Anda">
 
+> Gunakan **`useIntlayer`** secara default: ini cara yang direkomendasikan untuk membaca konten di dalam komponen, dan compiler meresolusinya ke locale yang sedang dirender. Gunakan `getIntlayer` / `getIntlayerAsync` hanya di luar pohon Solid — `head` rute, loader, dan server function.
+
 Akses kamus konten Anda di seluruh aplikasi:
 
 #### Halaman Beranda yang Dilokalisasi
@@ -605,18 +610,29 @@ export default defineConfig({
 
 <Step number={13} title="Internasionalisasi Metadata Anda">
 
-Anda juga dapat menggunakan fungsi `getIntlayer` untuk mengakses kamus konten Anda dalam `head` loader untuk metadata yang sadar akan lokal:
+Di dalam komponen, tetap gunakan **`useIntlayer`** — ini tetap pilihan default. Compiler menulis ulang pemanggilannya ke chunk kamus untuk locale yang benar-benar dirender, sehingga tidak ada tambahan lain yang dikirim ke browser.
 
-Berperilaku seperti `getIntlayer`, tetapi plugin build mengarahkannya ke chunk kamus per-locale alih-alih kamus gabungan yang menampung setiap locale — jadi metadata untuk halaman hanya mengirimkan locale yang ditampilkannya. Karena memuat chunk tersebut sesuai permintaan, `head` menjadi `async`:
+Fungsi `head` pada rute berjalan **di luar** pohon Solid, sehingga `useIntlayer` tidak tersedia di sana. Ada tiga cara membaca kamus dari `head`, dan masing-masing menukar ukuran bundle dengan seberapa cepat `head` dokumen siap.
+
+<Tabs defaultTab="cached">
+
+<Tab label="Resolusi statis" value="static">
+
+`getIntlayer` diselesaikan secara sinkron terhadap kamus **gabungan** — yang memuat seluruh locale yang dideklarasikan. `head` tetap sinkron dan tidak ada yang di-await, tetapi seluruh kamus multibahasa ikut masuk ke chunk rute yang dikirim ke browser.
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/solid-router";
-import { getIntlayer } from "intlayer";
+import {
+  defaultLocale,
+  getIntlayer,
+  getLocalizedUrl,
+  localeMap,
+} from "intlayer";
 
 export const Route = createFileRoute("/{-$locale}/")({
   component: RouteComponent,
   head: ({ params }) => {
-    const { locale } = params;
+    const { locale = defaultLocale } = params;
     const path = "/"; // The path for this route
 
     const metaContent = getIntlayer("app", locale);
@@ -649,6 +665,147 @@ export const Route = createFileRoute("/{-$locale}/")({
   },
 });
 ```
+
+Paling cocok untuk kamus metadata kecil, sedikit locale, atau saat membuat prototipe.
+
+</Tab>
+
+<Tab label="Resolusi dinamis" value="dynamic">
+
+`getIntlayerAsync` — tersedia mulai **v9.4** — berperilaku seperti `getIntlayer`, tetapi plugin build mengarahkannya ke chunk per-locale di `.intlayer/dynamic_dictionaries/` alih-alih kamus gabungan. Dengan begitu sebuah halaman hanya mengirim locale yang dirender. Karena chunk itu dimuat sesuai kebutuhan, `head` menjadi `async`:
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createFileRoute } from "@tanstack/solid-router";
+import {
+  defaultLocale,
+  getIntlayerAsync,
+  getLocalizedUrl,
+  localeMap,
+} from "intlayer";
+
+export const Route = createFileRoute("/{-$locale}/")({
+  component: RouteComponent,
+  head: async ({ params }) => {
+    const { locale = defaultLocale } = params;
+    const path = "/"; // The path for this route
+
+    const metaContent = await getIntlayerAsync("app", locale);
+
+    return {
+      links: [
+        // Canonical link: Points to the current localized page
+        { rel: "canonical", href: getLocalizedUrl(path, locale) },
+
+        // Hreflang: Tell Google about all localized versions
+        ...localeMap(({ locale: mapLocale }) => ({
+          rel: "alternate",
+          hrefLang: mapLocale,
+          href: getLocalizedUrl(path, mapLocale),
+        })),
+
+        // x-default: For users in unmatched languages
+        // Define the default fallback locale (usually your primary language)
+        {
+          rel: "alternate",
+          hrefLang: "x-default",
+          href: getLocalizedUrl(path, defaultLocale),
+        },
+      ],
+      meta: [
+        { title: metaContent.title },
+        { name: "description", content: metaContent.meta.description },
+      ],
+    };
+  },
+});
+```
+
+> Jika sebuah `head` membaca beberapa kamus, selesaikan dengan `Promise.all` — meng-await setiap `getIntlayerAsync` di barisnya sendiri membuat permintaan berantai alih-alih berjalan paralel.
+
+Kompromnya: import dinamis diselesaikan saat `head` berjalan, di jalur kritis rendering dokumen. Pada rute dingin hal ini menunda `head` beberapa milidetik dan dapat sedikit memperburuk **LCP**.
+
+</Tab>
+
+<Tab label="Resolusi dinamis dengan cache" value="cached">
+
+Selesaikan kamus di `loader` rute lalu baca kembali dari `loaderData` di `head`. Loader rute yang cocok berjalan paralel, dan `staleTime: Infinity` memberi tahu TanStack Router bahwa hasilnya tidak pernah basi — sehingga chunk per-locale diselesaikan sekali lalu disajikan dari cache router, dan `head` tetap sinkron.
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createFileRoute } from "@tanstack/solid-router";
+import {
+  defaultLocale,
+  getIntlayerAsync,
+  getLocalizedUrl,
+  localeMap,
+} from "intlayer";
+
+export const Route = createFileRoute("/{-$locale}/")({
+  component: RouteComponent,
+  // Resolved in parallel with the other matched routes, off the head critical path
+  loader: async ({ params }) => {
+    const { locale = defaultLocale } = params;
+
+    return { metaContent: await getIntlayerAsync("app", locale) };
+  },
+  // The dictionary never changes for a given locale: resolve the chunk once
+  staleTime: Infinity,
+  head: ({ params, loaderData }) => {
+    const { locale = defaultLocale } = params;
+    const path = "/"; // The path for this route
+
+    return {
+      links: [
+        // Canonical link: Points to the current localized page
+        { rel: "canonical", href: getLocalizedUrl(path, locale) },
+
+        // Hreflang: Tell Google about all localized versions
+        ...localeMap(({ locale: mapLocale }) => ({
+          rel: "alternate",
+          hrefLang: mapLocale,
+          href: getLocalizedUrl(path, mapLocale),
+        })),
+
+        // x-default: For users in unmatched languages
+        // Define the default fallback locale (usually your primary language)
+        {
+          rel: "alternate",
+          hrefLang: "x-default",
+          href: getLocalizedUrl(path, defaultLocale),
+        },
+      ],
+      meta: [
+        { title: loaderData?.metaContent.title },
+        {
+          name: "description",
+          content: loaderData?.metaContent.meta.description,
+        },
+      ],
+    };
+  },
+});
+```
+
+> `head` bisa dipanggil sebelum loader selesai, sehingga `loaderData` bertipe mungkin `undefined`. Pertahankan optional chaining, atau kembalikan judul cadangan.
+
+Anda tetap mendapat chunk per-locale tanpa membayar biayanya di jalur kritis `head`. Harganya adalah developer experience: konten harus diteruskan secara eksplisit dari loader ke `head` melalui `loaderData`.
+
+</Tab>
+
+</Tabs>
+
+### Resolusi mana yang sebaiknya dipilih?
+
+|                      | Resolusi statis                   | Resolusi dinamis                      | Resolusi dinamis dengan cache           |
+| -------------------- | --------------------------------- | ------------------------------------- | --------------------------------------- |
+| API                  | `getIntlayer`                     | `getIntlayerAsync` (v9.4+)            | `getIntlayerAsync` di `loader` (v9.4+)  |
+| Signature `head`     | sinkron                           | `async`                               | sinkron, membaca `loaderData`           |
+| Locale yang dikirim  | semua locale yang dideklarasikan  | hanya locale yang diminta             | hanya locale yang diminta               |
+| Ukuran bundle        | bertambah tiap locale             | tetap                                 | tetap                                   |
+| Resolusi `head`      | langsung                          | menunggu chunk locale di dalam `head` | ditunggu di loader, lalu di-cache       |
+| Dampak LCP           | tidak ada                         | sedikit tertunda pada rute dingin     | tidak ada — di luar jalur kritis `head` |
+| Navigasi klien       | tidak ada yang perlu diselesaikan | dijalankan ulang setiap kali cocok    | disajikan dari cache router             |
+| Developer experience | paling sederhana                  | satu `await`                          | konten diteruskan lewat `loaderData`    |
+| Paling cocok untuk   | sedikit locale, kamus kecil       | banyak locale, rute jarang dikunjungi | banyak locale, rute sering dikunjungi   |
 
 ---
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-25
-updatedAt: 2026-06-23
+updatedAt: 2026-08-25
 title: "TanStack Start + Solid i18n - 앱을 번역하는 완전 가이드"
 description: "i18next는 이제 그만. 2026년 다국어 (i18n) TanStack Start + Solid 앱 구축 가이드. AI 에이전트로 번역하고 번들 크기, SEO, 성능을 최적화하세요."
 keywords:
@@ -22,6 +22,9 @@ applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-solid
 applicationShowcase: https://intlayer-tanstack-start-solid.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
+  - version: 9.4.0
+    date: 2026-08-25
+    changes: "라우트 head 함수에서 메타데이터 사전의 정적·동적·캐시된 동적 해석 비교"
   - version: 8.9.0
     date: 2026-05-04
     changes: "Solid useIntlayer API 사용법을 직접 속성 액세스로 업데이트"
@@ -458,6 +461,8 @@ export const useLocalizedNavigate = () => {
 
 <Step number={9} title="페이지에서 Intlayer 사용">
 
+> 컴포넌트 안에서는 기본적으로 **`useIntlayer`** 를 사용하세요. 컴파일러가 렌더링되는 로케일로 해석해 주므로 이것이 권장 방식입니다. `getIntlayer` / `getIntlayerAsync` 는 Solid 트리 바깥 — 라우트 `head`, 로더, 서버 함수 — 에서만 사용하세요.
+
 애플리케이션 전체에서 콘텐츠 딕셔너리에 접근하세요.
 
 #### 로컬라이즈된 홈 페이지
@@ -606,18 +611,29 @@ export default defineConfig({
 
 <Step number={12} title="메타데이터 국제화 (선택 사항)" isOptional={true}>
 
-로케일 인식 메타데이터를 위해 `head` 로더 내에서 `getIntlayer` 함수를 사용하여 콘텐츠 딕셔너리에 접근할 수도 있습니다.
+컴포넌트 안에서는 계속 **`useIntlayer`** 를 사용하세요. 기본 선택지는 그대로입니다. 컴파일러가 실제로 렌더링되는 로케일의 사전 청크로 다시 작성하므로, 그 외에는 브라우저로 전송되지 않습니다.
 
-`getIntlayer`처럼 동작하지만, build plugin이 모든 locale을 포함하는 merged dictionary 대신 per-locale dictionary chunk를 가리킵니다 — 따라서 페이지의 metadata는 렌더링하는 locale만 전송됩니다. chunk를 on demand로 로드하기 때문에 `head`는 `async`가 됩니다:
+라우트의 `head` 함수는 Solid 트리 **바깥**에서 실행되므로 그곳에서는 `useIntlayer` 를 쓸 수 없습니다. `head` 에서 사전을 읽는 방법은 세 가지이며, 각각 번들 크기와 문서 `head` 가 준비되는 시점 사이에서 절충합니다.
+
+<Tabs defaultTab="cached">
+
+<Tab label="정적 해석" value="static">
+
+`getIntlayer` 는 선언된 모든 로케일을 담은 **병합** 사전을 대상으로 동기적으로 해석됩니다. `head` 는 동기 상태로 남고 아무것도 대기하지 않지만, 다국어 사전 전체가 브라우저로 전송되는 라우트 청크에 포함됩니다.
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/solid-router";
-import { getIntlayer } from "intlayer";
+import {
+  defaultLocale,
+  getIntlayer,
+  getLocalizedUrl,
+  localeMap,
+} from "intlayer";
 
 export const Route = createFileRoute("/{-$locale}/")({
   component: RouteComponent,
   head: ({ params }) => {
-    const { locale } = params;
+    const { locale = defaultLocale } = params;
     const path = "/"; // The path for this route
 
     const metaContent = getIntlayer("app", locale);
@@ -650,6 +666,147 @@ export const Route = createFileRoute("/{-$locale}/")({
   },
 });
 ```
+
+작은 메타데이터 사전, 소수의 로케일, 또는 프로토타이핑 단계에 적합합니다.
+
+</Tab>
+
+<Tab label="동적 해석" value="dynamic">
+
+`getIntlayerAsync` — **v9.4** 부터 제공 — 는 `getIntlayer` 와 동일하게 동작하지만, 빌드 플러그인이 병합 사전 대신 `.intlayer/dynamic_dictionaries/` 의 로케일별 청크를 가리키게 합니다. 따라서 페이지는 렌더링하는 로케일만 전송합니다. 해당 청크는 필요할 때 로드되므로 `head` 는 `async` 가 됩니다:
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createFileRoute } from "@tanstack/solid-router";
+import {
+  defaultLocale,
+  getIntlayerAsync,
+  getLocalizedUrl,
+  localeMap,
+} from "intlayer";
+
+export const Route = createFileRoute("/{-$locale}/")({
+  component: RouteComponent,
+  head: async ({ params }) => {
+    const { locale = defaultLocale } = params;
+    const path = "/"; // The path for this route
+
+    const metaContent = await getIntlayerAsync("app", locale);
+
+    return {
+      links: [
+        // Canonical link: Points to the current localized page
+        { rel: "canonical", href: getLocalizedUrl(path, locale) },
+
+        // Hreflang: Tell Google about all localized versions
+        ...localeMap(({ locale: mapLocale }) => ({
+          rel: "alternate",
+          hrefLang: mapLocale,
+          href: getLocalizedUrl(path, mapLocale),
+        })),
+
+        // x-default: For users in unmatched languages
+        // Define the default fallback locale (usually your primary language)
+        {
+          rel: "alternate",
+          hrefLang: "x-default",
+          href: getLocalizedUrl(path, defaultLocale),
+        },
+      ],
+      meta: [
+        { title: metaContent.title },
+        { name: "description", content: metaContent.meta.description },
+      ],
+    };
+  },
+});
+```
+
+> 하나의 `head` 에서 여러 사전을 읽는다면 `Promise.all` 로 함께 해석하세요. `getIntlayerAsync` 를 한 줄씩 await 하면 요청이 병렬이 아니라 순차적으로 연결됩니다.
+
+절충점: 동적 import 는 문서 렌더링의 임계 경로에서 `head` 가 실행되는 동안 해석됩니다. 콜드 라우트에서는 `head` 가 몇 밀리초 지연되어 **LCP** 가 약간 나빠질 수 있습니다.
+
+</Tab>
+
+<Tab label="캐시된 동적 해석" value="cached">
+
+사전을 라우트 `loader` 에서 해석하고, `head` 에서는 `loaderData` 로 다시 읽어 오세요. 매칭된 라우트의 로더는 병렬로 실행되며, `staleTime: Infinity` 는 결과가 절대 만료되지 않음을 TanStack Router 에 알립니다. 즉 로케일별 청크는 한 번만 해석되고 이후에는 라우터 캐시에서 제공되므로 `head` 는 동기로 유지됩니다.
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createFileRoute } from "@tanstack/solid-router";
+import {
+  defaultLocale,
+  getIntlayerAsync,
+  getLocalizedUrl,
+  localeMap,
+} from "intlayer";
+
+export const Route = createFileRoute("/{-$locale}/")({
+  component: RouteComponent,
+  // Resolved in parallel with the other matched routes, off the head critical path
+  loader: async ({ params }) => {
+    const { locale = defaultLocale } = params;
+
+    return { metaContent: await getIntlayerAsync("app", locale) };
+  },
+  // The dictionary never changes for a given locale: resolve the chunk once
+  staleTime: Infinity,
+  head: ({ params, loaderData }) => {
+    const { locale = defaultLocale } = params;
+    const path = "/"; // The path for this route
+
+    return {
+      links: [
+        // Canonical link: Points to the current localized page
+        { rel: "canonical", href: getLocalizedUrl(path, locale) },
+
+        // Hreflang: Tell Google about all localized versions
+        ...localeMap(({ locale: mapLocale }) => ({
+          rel: "alternate",
+          hrefLang: mapLocale,
+          href: getLocalizedUrl(path, mapLocale),
+        })),
+
+        // x-default: For users in unmatched languages
+        // Define the default fallback locale (usually your primary language)
+        {
+          rel: "alternate",
+          hrefLang: "x-default",
+          href: getLocalizedUrl(path, defaultLocale),
+        },
+      ],
+      meta: [
+        { title: loaderData?.metaContent.title },
+        {
+          name: "description",
+          content: loaderData?.metaContent.meta.description,
+        },
+      ],
+    };
+  },
+});
+```
+
+> `head` 는 로더가 완료되기 전에 호출될 수 있어 `loaderData` 는 `undefined` 가능 타입입니다. 옵셔널 체이닝을 유지하거나 대체 제목을 반환하세요.
+
+로케일별 청크의 이점을 유지하면서 그 비용을 `head` 임계 경로에서 지불하지 않습니다. 대가는 DX 입니다. 콘텐츠를 로더에서 `head` 로 `loaderData` 를 통해 명시적으로 전달해야 합니다.
+
+</Tab>
+
+</Tabs>
+
+### 어떤 해석 방식을 선택해야 할까요?
+
+|                       | 정적 해석                    | 동적 해석                        | 캐시된 동적 해석                         |
+| --------------------- | ---------------------------- | -------------------------------- | ---------------------------------------- |
+| API                   | `getIntlayer`                | `getIntlayerAsync` (v9.4+)       | `loader` 안의 `getIntlayerAsync` (v9.4+) |
+| `head` 시그니처       | 동기                         | `async`                          | 동기, `loaderData` 를 읽음               |
+| 전송되는 로케일       | 선언된 모든 로케일           | 요청된 로케일만                  | 요청된 로케일만                          |
+| 번들 크기             | 로케일마다 증가              | 일정                             | 일정                                     |
+| `head` 해석           | 즉시                         | `head` 안에서 로케일 청크를 대기 | 로더에서 대기 후 캐시                    |
+| LCP 영향              | 없음                         | 콜드 라우트에서 약간의 지연      | 없음 — `head` 임계 경로 밖               |
+| 클라이언트 내비게이션 | 해석할 것 없음               | 매칭될 때마다 다시 실행          | 라우터 캐시에서 제공                     |
+| DX                    | 가장 단순함                  | `await` 하나                     | 콘텐츠를 `loaderData` 로 전달            |
+| 적합한 경우           | 로케일이 적고 사전이 작을 때 | 로케일이 많고 방문이 드문 라우트 | 로케일이 많고 방문이 잦은 라우트         |
 
 ---
 

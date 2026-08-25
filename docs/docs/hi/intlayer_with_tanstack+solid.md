@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-25
-updatedAt: 2026-06-23
+updatedAt: 2026-08-25
 title: "TanStack Start + Solid i18n - अपने ऐप को अनुवाद करने का पूर्ण गाइड"
 description: "अब i18next की जरूरत नहीं। 2026 में TanStack Start + Solid ऐप को बहुभाषी (i18n) बनाने का गाइड। AI एजेंट्स से अनुवाद करें और बंडल साइज़, SEO और परफॉर्मेंस ऑप्टिमाइज़ करें।"
 keywords:
@@ -21,6 +21,9 @@ applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-solid
 applicationShowcase: https://intlayer-tanstack-start-solid.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
+  - version: 9.4.0
+    date: 2026-08-25
+    changes: "रूट के head फ़ंक्शन में मेटाडेटा डिक्शनरी के स्टैटिक, डायनामिक और कैश्ड डायनामिक रिज़ॉल्यूशन की तुलना"
   - version: 8.9.0
     date: 2026-05-04
     changes: "सॉलिड useIntlayer API उपयोग को सीधे प्रॉपर्टी एक्सेस में अपडेट करें"
@@ -457,6 +460,8 @@ export const useLocalizedNavigate = () => {
 
 <Step number={9} title="अपने पेजों में Intlayer का उपयोग करें">
 
+> कंपोनेंट के भीतर डिफ़ॉल्ट रूप से **`useIntlayer`** का उपयोग करें: यह कंटेंट पढ़ने का अनुशंसित तरीका है, और कंपाइलर इसे रेंडर हो रहे लोकेल पर हल कर देता है। `getIntlayer` / `getIntlayerAsync` का उपयोग केवल Solid ट्री के बाहर करें — रूट के `head`, लोडर और सर्वर फ़ंक्शन में।
+
 अपने पूरे एप्लिकेशन में अपने सामग्री शब्दकोशों तक पहुँचें:
 
 #### स्थानीयकृत होम पेज
@@ -605,18 +610,29 @@ export default defineConfig({
 
 <Step number={13} title="अपने मेटाडेटा को अंतर्राष्ट्रीयकृत करें">
 
-आप लोकेल-जागरूक मेटाडेटा के लिए `head` लोडर के भीतर अपने सामग्री शब्दकोशों तक पहुँचने के लिए `getIntlayer` फ़ंक्शन का भी उपयोग कर सकते हैं:
+अपने कंपोनेंट के भीतर **`useIntlayer`** का उपयोग जारी रखें — यही डिफ़ॉल्ट है। कंपाइलर इसे उसी लोकेल के डिक्शनरी चंक पर फिर से लिख देता है जो वास्तव में रेंडर हो रहा है, इसलिए ब्राउज़र तक और कुछ नहीं भेजा जाता।
 
-यह `getIntlayer` की तरह व्यवहार करता है, लेकिन build plugin इसे प्रति-locale dictionary chunk की ओर इंगित करता है, न कि merged dictionary की ओर जो हर locale को रखती है — इसलिए एक page के लिए metadata केवल उस locale को भेजता है जो यह render करता है। क्योंकि यह उस chunk को demand पर load करता है, `head` `async` बन जाता है:
+रूट के `head` फ़ंक्शन Solid ट्री के **बाहर** चलते हैं, इसलिए वहाँ `useIntlayer` उपलब्ध नहीं है। `head` से डिक्शनरी पढ़ने के तीन तरीके हैं, और हर एक बंडल आकार तथा डॉक्यूमेंट `head` कितनी जल्दी तैयार होता है, इनके बीच संतुलन बनाता है।
+
+<Tabs defaultTab="cached">
+
+<Tab label="स्टैटिक रिज़ॉल्यूशन" value="static">
+
+`getIntlayer` **मर्ज की गई** डिक्शनरी — जिसमें सभी घोषित लोकेल होते हैं — के विरुद्ध सिंक्रोनस रूप से हल होता है। `head` सिंक्रोनस रहता है और कुछ भी await नहीं किया जाता, लेकिन पूरी बहुभाषी डिक्शनरी ब्राउज़र को भेजे जाने वाले रूट चंक में शामिल हो जाती है।
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/solid-router";
-import { getIntlayer } from "intlayer";
+import {
+  defaultLocale,
+  getIntlayer,
+  getLocalizedUrl,
+  localeMap,
+} from "intlayer";
 
 export const Route = createFileRoute("/{-$locale}/")({
   component: RouteComponent,
   head: ({ params }) => {
-    const { locale } = params;
+    const { locale = defaultLocale } = params;
     const path = "/"; // The path for this route
 
     const metaContent = getIntlayer("app", locale);
@@ -649,6 +665,147 @@ export const Route = createFileRoute("/{-$locale}/")({
   },
 });
 ```
+
+छोटी मेटाडेटा डिक्शनरी, कुछ ही लोकेल, या प्रोटोटाइपिंग के दौरान सबसे उपयुक्त।
+
+</Tab>
+
+<Tab label="डायनामिक रिज़ॉल्यूशन" value="dynamic">
+
+`getIntlayerAsync` — **v9.4** से उपलब्ध — `getIntlayer` की तरह ही व्यवहार करता है, लेकिन बिल्ड प्लगइन इसे मर्ज की गई डिक्शनरी के बजाय `.intlayer/dynamic_dictionaries/` में मौजूद प्रति-लोकेल चंक की ओर इंगित करता है। इसलिए पेज केवल उसी लोकेल को भेजता है जिसे वह रेंडर करता है। चूँकि वह चंक माँग पर लोड होता है, `head` `async` बन जाता है:
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createFileRoute } from "@tanstack/solid-router";
+import {
+  defaultLocale,
+  getIntlayerAsync,
+  getLocalizedUrl,
+  localeMap,
+} from "intlayer";
+
+export const Route = createFileRoute("/{-$locale}/")({
+  component: RouteComponent,
+  head: async ({ params }) => {
+    const { locale = defaultLocale } = params;
+    const path = "/"; // The path for this route
+
+    const metaContent = await getIntlayerAsync("app", locale);
+
+    return {
+      links: [
+        // Canonical link: Points to the current localized page
+        { rel: "canonical", href: getLocalizedUrl(path, locale) },
+
+        // Hreflang: Tell Google about all localized versions
+        ...localeMap(({ locale: mapLocale }) => ({
+          rel: "alternate",
+          hrefLang: mapLocale,
+          href: getLocalizedUrl(path, mapLocale),
+        })),
+
+        // x-default: For users in unmatched languages
+        // Define the default fallback locale (usually your primary language)
+        {
+          rel: "alternate",
+          hrefLang: "x-default",
+          href: getLocalizedUrl(path, defaultLocale),
+        },
+      ],
+      meta: [
+        { title: metaContent.title },
+        { name: "description", content: metaContent.meta.description },
+      ],
+    };
+  },
+});
+```
+
+> यदि कोई `head` कई डिक्शनरी पढ़ता है, तो उन्हें `Promise.all` से हल करें — हर `getIntlayerAsync` को अलग पंक्ति में await करने से अनुरोध समानांतर चलने के बजाय एक-दूसरे से जुड़कर क्रमबद्ध हो जाते हैं।
+
+समझौता यह है: डायनामिक import तब हल होता है जब `head` चल रहा होता है, यानी डॉक्यूमेंट रेंडर के क्रिटिकल पाथ पर। कोल्ड रूट पर इससे `head` कुछ मिलीसेकंड देर से तैयार होता है और **LCP** थोड़ा बिगड़ सकता है।
+
+</Tab>
+
+<Tab label="कैश्ड डायनामिक रिज़ॉल्यूशन" value="cached">
+
+डिक्शनरी को रूट के `loader` में हल करें और `head` में `loaderData` से वापस पढ़ें। मैच हुए रूट के लोडर समानांतर चलते हैं, और `staleTime: Infinity` TanStack Router को बताता है कि परिणाम कभी बासी नहीं होता — इसलिए प्रति-लोकेल चंक एक ही बार हल होता है और उसके बाद राउटर कैश से मिलता है, जिससे `head` सिंक्रोनस बना रहता है।
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createFileRoute } from "@tanstack/solid-router";
+import {
+  defaultLocale,
+  getIntlayerAsync,
+  getLocalizedUrl,
+  localeMap,
+} from "intlayer";
+
+export const Route = createFileRoute("/{-$locale}/")({
+  component: RouteComponent,
+  // Resolved in parallel with the other matched routes, off the head critical path
+  loader: async ({ params }) => {
+    const { locale = defaultLocale } = params;
+
+    return { metaContent: await getIntlayerAsync("app", locale) };
+  },
+  // The dictionary never changes for a given locale: resolve the chunk once
+  staleTime: Infinity,
+  head: ({ params, loaderData }) => {
+    const { locale = defaultLocale } = params;
+    const path = "/"; // The path for this route
+
+    return {
+      links: [
+        // Canonical link: Points to the current localized page
+        { rel: "canonical", href: getLocalizedUrl(path, locale) },
+
+        // Hreflang: Tell Google about all localized versions
+        ...localeMap(({ locale: mapLocale }) => ({
+          rel: "alternate",
+          hrefLang: mapLocale,
+          href: getLocalizedUrl(path, mapLocale),
+        })),
+
+        // x-default: For users in unmatched languages
+        // Define the default fallback locale (usually your primary language)
+        {
+          rel: "alternate",
+          hrefLang: "x-default",
+          href: getLocalizedUrl(path, defaultLocale),
+        },
+      ],
+      meta: [
+        { title: loaderData?.metaContent.title },
+        {
+          name: "description",
+          content: loaderData?.metaContent.meta.description,
+        },
+      ],
+    };
+  },
+});
+```
+
+> लोडर पूरा होने से पहले भी `head` कॉल हो सकता है, इसलिए `loaderData` का टाइप संभावित रूप से `undefined` है। ऑप्शनल चेनिंग बनाए रखें, या कोई फ़ॉलबैक टाइटल लौटाएँ।
+
+आप प्रति-लोकेल चंक का लाभ बनाए रखते हैं, बिना उसकी लागत `head` के क्रिटिकल पाथ पर चुकाए। कीमत डेवलपर अनुभव की है: कंटेंट को लोडर से `head` तक `loaderData` के ज़रिए स्पष्ट रूप से पहुँचाना पड़ता है।
+
+</Tab>
+
+</Tabs>
+
+### कौन-सा रिज़ॉल्यूशन चुनें?
+
+|                     | स्टैटिक रिज़ॉल्यूशन      | डायनामिक रिज़ॉल्यूशन                  | कैश्ड डायनामिक रिज़ॉल्यूशन              |
+| ------------------- | ------------------------ | ------------------------------------- | --------------------------------------- |
+| API                 | `getIntlayer`            | `getIntlayerAsync` (v9.4+)            | `loader` में `getIntlayerAsync` (v9.4+) |
+| `head` सिग्नेचर     | सिंक्रोनस                | `async`                               | सिंक्रोनस, `loaderData` पढ़ता है        |
+| भेजे गए लोकेल       | सभी घोषित लोकेल          | केवल अनुरोधित लोकेल                   | केवल अनुरोधित लोकेल                     |
+| बंडल आकार           | हर लोकेल के साथ बढ़ता है | स्थिर                                 | स्थिर                                   |
+| `head` रिज़ॉल्यूशन  | तत्काल                   | `head` के भीतर लोकेल चंक की प्रतीक्षा | लोडर में प्रतीक्षा, फिर कैश             |
+| LCP पर असर          | कोई नहीं                 | कोल्ड रूट पर हल्की देरी               | कोई नहीं — `head` क्रिटिकल पाथ से बाहर  |
+| क्लाइंट नेविगेशन    | हल करने को कुछ नहीं      | हर मैच पर दोबारा चलता है              | राउटर कैश से मिलता है                   |
+| डेवलपर अनुभव        | सबसे सरल                 | एक `await`                            | कंटेंट `loaderData` से पास होता है      |
+| किसके लिए सर्वोत्तम | कम लोकेल, छोटी डिक्शनरी  | अधिक लोकेल, कम देखे जाने वाले रूट     | अधिक लोकेल, अधिक देखे जाने वाले रूट     |
 
 ---
 

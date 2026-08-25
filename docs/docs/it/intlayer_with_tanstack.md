@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-06-23
+updatedAt: 2026-08-25
 title: "TanStack Start i18n - Guida completa per tradurre la tua applicazione"
 description: "Niente più i18next. La guida 2026 per creare un'applicazione TanStack Start multilingue (i18n). Traduci con agenti AI e ottimizza la dimensione del bundle, SEO e prestazioni."
 keywords:
@@ -21,6 +21,9 @@ applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-templ
 applicationShowcase: https://intlayer-tanstack-start-template.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
+  - version: 9.4.0
+    date: 2026-08-25
+    changes: "Confrontare la risoluzione statica, dinamica e dinamica in cache dei dizionari di metadati nelle funzioni head delle rotte"
   - version: 8.9.0
     date: 2026-05-04
     changes: "Aggiornare l'uso dell'API useIntlayer di Solid all'accesso diretto alle proprietà"
@@ -509,13 +512,14 @@ export const useLocalizedNavigate = () => {
 
 <Step number={9} title="Utilizzare Intlayer nelle tue Pagine">
 
+> Usa **`useIntlayer`** come impostazione predefinita: è il modo consigliato per leggere i contenuti nei componenti e il compilatore lo risolve sulla locale effettivamente renderizzata. Ricorri a `getIntlayer` / `getIntlayerAsync` solo al di fuori dell'albero React — l'`head` delle rotte, i loader e le server function.
+
 Accedi ai tuoi dizionari di contenuti in tutta l'applicazione:
 
 #### Pagina Home Localizzata
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/react-router";
-import { getIntlayer } from "intlayer";
 import { useIntlayer } from "react-intlayer";
 
 import LocaleSwitcher from "@/components/locale-switcher";
@@ -630,20 +634,23 @@ export const LocaleSwitcher: FC = () => {
 
 <Step number={11} title="Gestione degli Attributi HTML">
 
-Come visto nel Passaggio 5, puoi gestire gli attributi `lang` e `dir` del tag `html` utilizzando `useParams` nel tuo componente root. Questo assicura che gli attributi corretti siano impostati sia sul server che sul client.
+const localeRoute = getRouteApi("/{-$locale}");
 
-```tsx fileName="src/routes/__root.tsx"
 function RootDocument({ children }: { children: ReactNode }) {
-  const params = localeRoute.useParams();
-  const locale = params?.locale ?? defaultLocale;
+const params = localeRoute.useParams();
+const locale = params?.locale ?? defaultLocale;
 
-  return (
-    <html dir={getHTMLTextDir(locale)} lang={locale}>
-      {/* ... */}
-    </html>
-  );
+return (
+<html dir={getHTMLTextDir(locale)} lang={locale}>
+{/* ... _/}
+</html>
+);
+} {/_ ... */}
+</html>
+);
 }
-```
+
+````
 
 ---
 
@@ -681,7 +688,7 @@ export default defineConfig({
     viteReact(),
   ],
 });
-```
+````
 
 ---
 
@@ -689,18 +696,29 @@ export default defineConfig({
 
 <Step number={13} title="Internazionalizzare i tuoi Metadati">
 
-Puoi anche utilizzare l'hook `getIntlayer` per accedere ai tuoi dizionari di contenuti in tutta l'applicazione:
+Nei tuoi componenti continua a usare **`useIntlayer`**: resta la scelta predefinita. Il compilatore lo riscrive verso il chunk di dizionario della locale effettivamente renderizzata, quindi al browser non arriva nient'altro.
 
-Si comporta come `getIntlayer`, ma il plugin di build lo punta al chunk di dizionario per-locale invece del dizionario unito che contiene ogni locale — quindi i metadati per una pagina spediscono solo la locale che renderizza. Poiché carica quel chunk su richiesta, `head` diventa `async`:
+Le funzioni `head` delle rotte vengono eseguite **al di fuori** dell'albero React, perciò lì `useIntlayer` non è disponibile. Hai tre modi per leggere un dizionario da `head`, ciascuno con un compromesso tra dimensione del bundle e rapidità con cui l'`head` del documento è pronto.
+
+<Tabs defaultTab="cached">
+
+<Tab label="Risoluzione statica" value="static">
+
+`getIntlayer` si risolve in modo sincrono sul dizionario **unificato**, quello che contiene tutte le locali dichiarate. `head` resta sincrono e non attende nulla, ma l'intero dizionario multilingue finisce nel chunk della rotta inviato al browser.
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/react-router";
-import { getIntlayer } from "intlayer";
+import {
+  defaultLocale,
+  getIntlayer,
+  getLocalizedUrl,
+  localeMap,
+} from "intlayer";
 
 export const Route = createFileRoute("/{-$locale}/")({
   component: RouteComponent,
   head: ({ params }) => {
-    const { locale } = params;
+    const { locale = defaultLocale } = params;
     const path = "/"; // The path for this route
 
     const metaContent = getIntlayer("app", locale);
@@ -733,6 +751,147 @@ export const Route = createFileRoute("/{-$locale}/")({
   },
 });
 ```
+
+Indicata per dizionari di metadati piccoli, poche locali o in fase di prototipazione.
+
+</Tab>
+
+<Tab label="Risoluzione dinamica" value="dynamic">
+
+`getIntlayerAsync` — disponibile dalla **v9.4** — si comporta come `getIntlayer`, ma il plugin di build lo punta al chunk per locale in `.intlayer/dynamic_dictionaries/` anziché al dizionario unificato. Una pagina spedisce quindi solo la locale che renderizza. Poiché quel chunk viene caricato su richiesta, `head` diventa `async`:
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createFileRoute } from "@tanstack/react-router";
+import {
+  defaultLocale,
+  getIntlayerAsync,
+  getLocalizedUrl,
+  localeMap,
+} from "intlayer";
+
+export const Route = createFileRoute("/{-$locale}/")({
+  component: RouteComponent,
+  head: async ({ params }) => {
+    const { locale = defaultLocale } = params;
+    const path = "/"; // The path for this route
+
+    const metaContent = await getIntlayerAsync("app", locale);
+
+    return {
+      links: [
+        // Canonical link: Points to the current localized page
+        { rel: "canonical", href: getLocalizedUrl(path, locale) },
+
+        // Hreflang: Tell Google about all localized versions
+        ...localeMap(({ locale: mapLocale }) => ({
+          rel: "alternate",
+          hrefLang: mapLocale,
+          href: getLocalizedUrl(path, mapLocale),
+        })),
+
+        // x-default: For users in unmatched languages
+        // Define the default fallback locale (usually your primary language)
+        {
+          rel: "alternate",
+          hrefLang: "x-default",
+          href: getLocalizedUrl(path, defaultLocale),
+        },
+      ],
+      meta: [
+        { title: metaContent.title },
+        { name: "description", content: metaContent.meta.description },
+      ],
+    };
+  },
+});
+```
+
+> Se un `head` legge più dizionari, risolvili con `Promise.all`: attendere ogni `getIntlayerAsync` su una riga separata concatena le richieste invece di eseguirle in parallelo.
+
+Il compromesso: l'import dinamico viene risolto mentre `head` è in esecuzione, sul percorso critico del rendering del documento. Su una rotta fredda questo ritarda l'`head` di qualche millisecondo e può peggiorare leggermente l'**LCP**.
+
+</Tab>
+
+<Tab label="Risoluzione dinamica in cache" value="cached">
+
+Risolvi il dizionario nel `loader` della rotta e rileggilo da `loaderData` dentro `head`. I loader delle rotte corrispondenti girano in parallelo e `staleTime: Infinity` comunica a TanStack Router che il risultato non scade mai: il chunk per locale viene quindi risolto una sola volta e poi servito dalla cache del router, lasciando `head` sincrono.
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createFileRoute } from "@tanstack/react-router";
+import {
+  defaultLocale,
+  getIntlayerAsync,
+  getLocalizedUrl,
+  localeMap,
+} from "intlayer";
+
+export const Route = createFileRoute("/{-$locale}/")({
+  component: RouteComponent,
+  // Resolved in parallel with the other matched routes, off the head critical path
+  loader: async ({ params }) => {
+    const { locale = defaultLocale } = params;
+
+    return { metaContent: await getIntlayerAsync("app", locale) };
+  },
+  // The dictionary never changes for a given locale: resolve the chunk once
+  staleTime: Infinity,
+  head: ({ params, loaderData }) => {
+    const { locale = defaultLocale } = params;
+    const path = "/"; // The path for this route
+
+    return {
+      links: [
+        // Canonical link: Points to the current localized page
+        { rel: "canonical", href: getLocalizedUrl(path, locale) },
+
+        // Hreflang: Tell Google about all localized versions
+        ...localeMap(({ locale: mapLocale }) => ({
+          rel: "alternate",
+          hrefLang: mapLocale,
+          href: getLocalizedUrl(path, mapLocale),
+        })),
+
+        // x-default: For users in unmatched languages
+        // Define the default fallback locale (usually your primary language)
+        {
+          rel: "alternate",
+          hrefLang: "x-default",
+          href: getLocalizedUrl(path, defaultLocale),
+        },
+      ],
+      meta: [
+        { title: loaderData?.metaContent.title },
+        {
+          name: "description",
+          content: loaderData?.metaContent.meta.description,
+        },
+      ],
+    };
+  },
+});
+```
+
+> `head` può essere invocato prima che il loader si risolva, perciò `loaderData` è tipizzato come potenzialmente `undefined`. Mantieni l'optional chaining oppure restituisci un titolo di fallback.
+
+Mantieni il chunk per locale senza pagarne il costo sul percorso critico dell'`head`. Il prezzo è la developer experience: il contenuto va passato esplicitamente dal loader all'`head` tramite `loaderData`.
+
+</Tab>
+
+</Tabs>
+
+### Quale risoluzione scegliere?
+
+|                         | Risoluzione statica             | Risoluzione dinamica                        | Risoluzione dinamica in cache                    |
+| ----------------------- | ------------------------------- | ------------------------------------------- | ------------------------------------------------ |
+| API                     | `getIntlayer`                   | `getIntlayerAsync` (v9.4+)                  | `getIntlayerAsync` nel `loader` (v9.4+)          |
+| Firma di `head`         | sincrona                        | `async`                                     | sincrona, legge `loaderData`                     |
+| Locali spedite          | tutte le locali dichiarate      | solo la locale richiesta                    | solo la locale richiesta                         |
+| Dimensione del bundle   | cresce con ogni locale          | costante                                    | costante                                         |
+| Risoluzione dell'`head` | immediata                       | attende il chunk della locale dentro `head` | atteso nel loader, poi messo in cache            |
+| Impatto su LCP          | nessuno                         | lieve ritardo su una rotta fredda           | nessuno — fuori dal percorso critico dell'`head` |
+| Navigazioni client      | niente da risolvere             | rieseguito a ogni match                     | servito dalla cache del router                   |
+| Developer experience    | la più semplice                 | un solo `await`                             | contenuto passato tramite `loaderData`           |
+| Consigliata per         | poche locali, dizionari piccoli | molte locali, rotte poco visitate           | molte locali, rotte molto visitate               |
 
 ---
 

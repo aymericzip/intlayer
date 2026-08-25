@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-25
-updatedAt: 2026-06-23
+updatedAt: 2026-08-25
 title: "TanStack Start + Solid i18n - Полное руководство по переводу вашего приложения"
 description: "Больше никакого i18next. Руководство 2026 по созданию многоязычного (i18n) приложения TanStack Start + Solid. Переводите с помощью ИИ-агентов и оптимизируйте размер бандла, SEO и производительность."
 keywords:
@@ -22,6 +22,9 @@ applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-solid
 applicationShowcase: https://intlayer-tanstack-start-solid.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
+  - version: 9.4.0
+    date: 2026-08-25
+    changes: "Сравнение статического, динамического и кэшированного динамического разрешения словарей метаданных в функциях head маршрутов"
   - version: 8.9.0
     date: 2026-05-04
     changes: "Обновление использования API useIntlayer в Solid для прямого доступа к свойствам"
@@ -458,6 +461,8 @@ export const useLocalizedNavigate = () => {
 
 <Step number={9} title="Использование Intlayer на ваших страницах">
 
+> Используйте **`useIntlayer`** по умолчанию: это рекомендуемый способ читать контент внутри компонентов, и компилятор разрешает его в отрисовываемую локаль. Обращайтесь к `getIntlayer` / `getIntlayerAsync` только вне дерева Solid — в `head` маршрутов, загрузчиках и серверных функциях.
+
 Получайте доступ к вашим словарям контента во всем приложении:
 
 #### Локализованная домашняя страница
@@ -606,18 +611,29 @@ export default defineConfig({
 
 <Step number={13} title="Интернационализация ваших метаданных">
 
-Вы также можете использовать функцию `getIntlayer` для доступа к вашим словарям контента внутри загрузчика `head` для метаданных с учетом локали:
+Внутри компонентов продолжайте использовать **`useIntlayer`** — он остаётся вариантом по умолчанию. Компилятор переписывает его на чанк словаря той локали, которая реально рендерится, поэтому в браузер не попадает ничего лишнего.
 
-Она работает как `getIntlayer`, но плагин сборки указывает на словарь для каждого языка вместо объединённого словаря, содержащего все языки — поэтому метаданные страницы отправляют только тот язык, который она отображает. Поскольку она загружает этот словарь по требованию, `head` становится `async`:
+Функции `head` маршрутов выполняются **вне** дерева Solid, поэтому `useIntlayer` там недоступен. Есть три способа прочитать словарь из `head`, и каждый из них балансирует между размером бандла и тем, насколько рано готов `head` документа.
+
+<Tabs defaultTab="cached">
+
+<Tab label="Статическое разрешение" value="static">
+
+`getIntlayer` разрешается синхронно по **объединённому** словарю — тому, который содержит все объявленные локали. `head` остаётся синхронным, ничего не ожидается, но весь многоязычный словарь попадает в чанк маршрута, отправляемый в браузер.
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/solid-router";
-import { getIntlayer } from "intlayer";
+import {
+  defaultLocale,
+  getIntlayer,
+  getLocalizedUrl,
+  localeMap,
+} from "intlayer";
 
 export const Route = createFileRoute("/{-$locale}/")({
   component: RouteComponent,
   head: ({ params }) => {
-    const { locale } = params;
+    const { locale = defaultLocale } = params;
     const path = "/"; // The path for this route
 
     const metaContent = getIntlayer("app", locale);
@@ -650,6 +666,147 @@ export const Route = createFileRoute("/{-$locale}/")({
   },
 });
 ```
+
+Подходит для небольших словарей метаданных, малого числа локалей или на этапе прототипирования.
+
+</Tab>
+
+<Tab label="Динамическое разрешение" value="dynamic">
+
+`getIntlayerAsync` — доступен начиная с **v9.4** — ведёт себя как `getIntlayer`, но плагин сборки направляет его на пер-локальный чанк в `.intlayer/dynamic_dictionaries/` вместо объединённого словаря. Поэтому страница отдаёт только ту локаль, которую рендерит. Так как этот чанк загружается по требованию, `head` становится `async`:
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createFileRoute } from "@tanstack/solid-router";
+import {
+  defaultLocale,
+  getIntlayerAsync,
+  getLocalizedUrl,
+  localeMap,
+} from "intlayer";
+
+export const Route = createFileRoute("/{-$locale}/")({
+  component: RouteComponent,
+  head: async ({ params }) => {
+    const { locale = defaultLocale } = params;
+    const path = "/"; // The path for this route
+
+    const metaContent = await getIntlayerAsync("app", locale);
+
+    return {
+      links: [
+        // Canonical link: Points to the current localized page
+        { rel: "canonical", href: getLocalizedUrl(path, locale) },
+
+        // Hreflang: Tell Google about all localized versions
+        ...localeMap(({ locale: mapLocale }) => ({
+          rel: "alternate",
+          hrefLang: mapLocale,
+          href: getLocalizedUrl(path, mapLocale),
+        })),
+
+        // x-default: For users in unmatched languages
+        // Define the default fallback locale (usually your primary language)
+        {
+          rel: "alternate",
+          hrefLang: "x-default",
+          href: getLocalizedUrl(path, defaultLocale),
+        },
+      ],
+      meta: [
+        { title: metaContent.title },
+        { name: "description", content: metaContent.meta.description },
+      ],
+    };
+  },
+});
+```
+
+> Если `head` читает несколько словарей, разрешайте их через `Promise.all` — ожидание каждого `getIntlayerAsync` отдельной строкой выстраивает запросы в цепочку вместо параллельного выполнения.
+
+Компромисс: динамический импорт разрешается во время выполнения `head`, на критическом пути рендеринга документа. На «холодном» маршруте это задерживает `head` на несколько миллисекунд и может немного ухудшить **LCP**.
+
+</Tab>
+
+<Tab label="Кэшированное динамическое разрешение" value="cached">
+
+Разрешите словарь в `loader` маршрута и прочитайте его обратно из `loaderData` в `head`. Загрузчики совпавших маршрутов выполняются параллельно, а `staleTime: Infinity` сообщает TanStack Router, что результат никогда не устаревает — пер-локальный чанк разрешается один раз, а затем отдаётся из кэша роутера, оставляя `head` синхронным.
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createFileRoute } from "@tanstack/solid-router";
+import {
+  defaultLocale,
+  getIntlayerAsync,
+  getLocalizedUrl,
+  localeMap,
+} from "intlayer";
+
+export const Route = createFileRoute("/{-$locale}/")({
+  component: RouteComponent,
+  // Resolved in parallel with the other matched routes, off the head critical path
+  loader: async ({ params }) => {
+    const { locale = defaultLocale } = params;
+
+    return { metaContent: await getIntlayerAsync("app", locale) };
+  },
+  // The dictionary never changes for a given locale: resolve the chunk once
+  staleTime: Infinity,
+  head: ({ params, loaderData }) => {
+    const { locale = defaultLocale } = params;
+    const path = "/"; // The path for this route
+
+    return {
+      links: [
+        // Canonical link: Points to the current localized page
+        { rel: "canonical", href: getLocalizedUrl(path, locale) },
+
+        // Hreflang: Tell Google about all localized versions
+        ...localeMap(({ locale: mapLocale }) => ({
+          rel: "alternate",
+          hrefLang: mapLocale,
+          href: getLocalizedUrl(path, mapLocale),
+        })),
+
+        // x-default: For users in unmatched languages
+        // Define the default fallback locale (usually your primary language)
+        {
+          rel: "alternate",
+          hrefLang: "x-default",
+          href: getLocalizedUrl(path, defaultLocale),
+        },
+      ],
+      meta: [
+        { title: loaderData?.metaContent.title },
+        {
+          name: "description",
+          content: loaderData?.metaContent.meta.description,
+        },
+      ],
+    };
+  },
+});
+```
+
+> `head` может быть вызван до того, как загрузчик завершится, поэтому `loaderData` типизирован как возможно `undefined`. Сохраните опциональную цепочку либо возвращайте запасной заголовок.
+
+Вы сохраняете пер-локальный чанк, не оплачивая его стоимость на критическом пути `head`. Цена — DX: контент приходится явно прокидывать из загрузчика в `head` через `loaderData`.
+
+</Tab>
+
+</Tabs>
+
+### Какое разрешение выбрать?
+
+|                     | Статическое разрешение          | Динамическое разрешение                  | Кэшированное динамическое разрешение     |
+| ------------------- | ------------------------------- | ---------------------------------------- | ---------------------------------------- |
+| API                 | `getIntlayer`                   | `getIntlayerAsync` (v9.4+)               | `getIntlayerAsync` в `loader` (v9.4+)    |
+| Сигнатура `head`    | синхронная                      | `async`                                  | синхронная, читает `loaderData`          |
+| Отправляемые локали | все объявленные локали          | только запрошенная локаль                | только запрошенная локаль                |
+| Размер бандла       | растёт с каждой локалью         | постоянный                               | постоянный                               |
+| Разрешение `head`   | мгновенное                      | ожидает чанк локали внутри `head`        | ожидается в загрузчике, затем кэшируется |
+| Влияние на LCP      | нет                             | небольшая задержка на холодном маршруте  | нет — вне критического пути `head`       |
+| Клиентские переходы | разрешать нечего                | выполняется заново при каждом совпадении | отдаётся из кэша роутера                 |
+| DX                  | самый простой                   | один `await`                             | контент прокидывается через `loaderData` |
+| Лучше всего для     | мало локалей, небольшие словари | много локалей, редко посещаемые маршруты | много локалей, часто посещаемые маршруты |
 
 ---
 

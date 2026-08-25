@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-25
-updatedAt: 2026-06-23
+updatedAt: 2026-08-25
 title: "TanStack Start + Solid i18n - 翻译你的应用的完整指南"
 description: "告别 i18next。2026 年构建多语言 (i18n) TanStack Start + Solid 应用的完整指南。使用 AI 代理翻译并优化包体积、SEO 和性能。"
 keywords:
@@ -22,6 +22,9 @@ applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-solid
 applicationShowcase: https://intlayer-tanstack-start-solid.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
+  - version: 9.4.0
+    date: 2026-08-25
+    changes: "比较路由 head 函数中元数据字典的静态解析、动态解析与带缓存的动态解析"
   - version: 8.9.0
     date: 2026-05-04
     changes: "更新 Solid useIntlayer API 用法以直接访问属性"
@@ -462,6 +465,8 @@ export const useLocalizedNavigate = () => {
 
 <Step number={8} title="在您的页面中使用 Intlayer">
 
+> 在组件中请默认使用 **`useIntlayer`**：这是读取内容的推荐方式，编译器会把它解析为当前渲染的语言环境。仅在 Solid 树之外 —— 路由 `head`、loader 和服务端函数 —— 才使用 `getIntlayer` / `getIntlayerAsync`。
+
 在整个应用程序中访问您的内容字典：
 
 #### 本地化主页
@@ -612,36 +617,47 @@ export default defineConfig({
 
 <Step number={12} title="国际化您的元数据">
 
-您也可以使用 `getIntlayer` 函数在 `head` 加载器内访问您的内容字典以获取语言环境感知的元数据：
+在组件内部，请继续使用 **`useIntlayer`** —— 它仍然是默认方式。编译器会将其改写为当前实际渲染语言环境的字典分块，因此不会有多余内容发送到浏览器。
 
-它的行为类似于 `getIntlayer`，但构建插件将其指向每个语言环境的字典块，而不是包含每个语言环境的合并字典——因此页面的元数据仅包含它呈现的语言环境。由于它按需加载该块，`head` 变成了 `async`：
+路由的 `head` 函数运行在 Solid 树**之外**，因此那里无法使用 `useIntlayer`。从 `head` 读取字典有三种方式，它们在包体积与文档 `head` 就绪速度之间各有取舍。
+
+<Tabs defaultTab="cached">
+
+<Tab label="静态解析" value="static">
+
+`getIntlayer` 会同步地在**合并后的**字典上解析，也就是包含所有已声明语言环境的那一份。`head` 保持同步、无需等待，但整个多语言字典都会被打进发送到浏览器的路由分块中。
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/solid-router";
-import { getIntlayer } from "intlayer";
+import {
+  defaultLocale,
+  getIntlayer,
+  getLocalizedUrl,
+  localeMap,
+} from "intlayer";
 
 export const Route = createFileRoute("/{-$locale}/")({
   component: RouteComponent,
   head: ({ params }) => {
-    const { locale } = params;
-    const path = "/"; // 此路由的路径
+    const { locale = defaultLocale } = params;
+    const path = "/"; // The path for this route
 
     const metaContent = getIntlayer("app", locale);
 
     return {
       links: [
-        // 规范链接：指向当前本地化页面
+        // Canonical link: Points to the current localized page
         { rel: "canonical", href: getLocalizedUrl(path, locale) },
 
-        // Hreflang：告知 Google 所有本地化版本
+        // Hreflang: Tell Google about all localized versions
         ...localeMap(({ locale: mapLocale }) => ({
           rel: "alternate",
           hrefLang: mapLocale,
           href: getLocalizedUrl(path, mapLocale),
         })),
 
-        // x-default：针对不匹配语言的用户
-        // 定义默认回退语言环境（通常是您的主要语言）
+        // x-default: For users in unmatched languages
+        // Define the default fallback locale (usually your primary language)
         {
           rel: "alternate",
           hrefLang: "x-default",
@@ -656,6 +672,147 @@ export const Route = createFileRoute("/{-$locale}/")({
   },
 });
 ```
+
+适合较小的元数据字典、语言环境数量不多的项目，或原型开发阶段。
+
+</Tab>
+
+<Tab label="动态解析" value="dynamic">
+
+`getIntlayerAsync`（自 **v9.4** 起可用）的行为与 `getIntlayer` 相同，但构建插件会让它指向 `.intlayer/dynamic_dictionaries/` 中按语言环境拆分的分块，而不是合并字典。因此页面只会发送它所渲染的那一种语言环境。由于该分块是按需加载的，`head` 变为 `async`：
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createFileRoute } from "@tanstack/solid-router";
+import {
+  defaultLocale,
+  getIntlayerAsync,
+  getLocalizedUrl,
+  localeMap,
+} from "intlayer";
+
+export const Route = createFileRoute("/{-$locale}/")({
+  component: RouteComponent,
+  head: async ({ params }) => {
+    const { locale = defaultLocale } = params;
+    const path = "/"; // The path for this route
+
+    const metaContent = await getIntlayerAsync("app", locale);
+
+    return {
+      links: [
+        // Canonical link: Points to the current localized page
+        { rel: "canonical", href: getLocalizedUrl(path, locale) },
+
+        // Hreflang: Tell Google about all localized versions
+        ...localeMap(({ locale: mapLocale }) => ({
+          rel: "alternate",
+          hrefLang: mapLocale,
+          href: getLocalizedUrl(path, mapLocale),
+        })),
+
+        // x-default: For users in unmatched languages
+        // Define the default fallback locale (usually your primary language)
+        {
+          rel: "alternate",
+          hrefLang: "x-default",
+          href: getLocalizedUrl(path, defaultLocale),
+        },
+      ],
+      meta: [
+        { title: metaContent.title },
+        { name: "description", content: metaContent.meta.description },
+      ],
+    };
+  },
+});
+```
+
+> 如果一个 `head` 要读取多个字典，请用 `Promise.all` 一并解析 —— 逐行 await 每个 `getIntlayerAsync` 会把请求串成链式调用，而不是并行执行。
+
+代价是：动态 import 会在 `head` 执行期间解析，处于文档渲染的关键路径上。在冷路由上这会让 `head` 延迟几毫秒，并可能略微拉低 **LCP**。
+
+</Tab>
+
+<Tab label="带缓存的动态解析" value="cached">
+
+改为在路由的 `loader` 中解析字典，再于 `head` 中通过 `loaderData` 读回。已匹配路由的 loader 会并行运行，而 `staleTime: Infinity` 告诉 TanStack Router 该结果永不过期 —— 于是按语言环境的分块只解析一次，之后由路由缓存提供，`head` 得以保持同步。
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createFileRoute } from "@tanstack/solid-router";
+import {
+  defaultLocale,
+  getIntlayerAsync,
+  getLocalizedUrl,
+  localeMap,
+} from "intlayer";
+
+export const Route = createFileRoute("/{-$locale}/")({
+  component: RouteComponent,
+  // Resolved in parallel with the other matched routes, off the head critical path
+  loader: async ({ params }) => {
+    const { locale = defaultLocale } = params;
+
+    return { metaContent: await getIntlayerAsync("app", locale) };
+  },
+  // The dictionary never changes for a given locale: resolve the chunk once
+  staleTime: Infinity,
+  head: ({ params, loaderData }) => {
+    const { locale = defaultLocale } = params;
+    const path = "/"; // The path for this route
+
+    return {
+      links: [
+        // Canonical link: Points to the current localized page
+        { rel: "canonical", href: getLocalizedUrl(path, locale) },
+
+        // Hreflang: Tell Google about all localized versions
+        ...localeMap(({ locale: mapLocale }) => ({
+          rel: "alternate",
+          hrefLang: mapLocale,
+          href: getLocalizedUrl(path, mapLocale),
+        })),
+
+        // x-default: For users in unmatched languages
+        // Define the default fallback locale (usually your primary language)
+        {
+          rel: "alternate",
+          hrefLang: "x-default",
+          href: getLocalizedUrl(path, defaultLocale),
+        },
+      ],
+      meta: [
+        { title: loaderData?.metaContent.title },
+        {
+          name: "description",
+          content: loaderData?.metaContent.meta.description,
+        },
+      ],
+    };
+  },
+});
+```
+
+> `head` 可能在 loader 完成之前被调用，因此 `loaderData` 的类型可能为 `undefined`。请保留可选链，或返回一个兜底标题。
+
+你保留了按语言环境拆分的分块，却无需在 `head` 的关键路径上付出代价。代价在于开发体验：内容必须通过 `loaderData` 从 loader 显式传递到 `head`。
+
+</Tab>
+
+</Tabs>
+
+### 该选择哪种解析方式？
+
+|                | 静态解析             | 动态解析                     | 带缓存的动态解析                          |
+| -------------- | -------------------- | ---------------------------- | ----------------------------------------- |
+| API            | `getIntlayer`        | `getIntlayerAsync`（v9.4+）  | `loader` 中的 `getIntlayerAsync`（v9.4+） |
+| `head` 签名    | 同步                 | `async`                      | 同步，读取 `loaderData`                   |
+| 发送的语言环境 | 所有已声明的语言环境 | 仅请求的语言环境             | 仅请求的语言环境                          |
+| 包体积         | 随语言环境数量增长   | 恒定                         | 恒定                                      |
+| `head` 解析    | 立即                 | 在 `head` 内等待语言环境分块 | 在 loader 中等待，之后缓存                |
+| LCP 影响       | 无                   | 冷路由上略有延迟             | 无 —— 不在 `head` 关键路径上              |
+| 客户端导航     | 无需解析             | 每次匹配都重新执行           | 由路由缓存提供                            |
+| 开发体验       | 最简单               | 一个 `await`                 | 内容经由 `loaderData` 传递                |
+| 适用场景       | 语言环境少、字典小   | 语言环境多、访问较少的路由   | 语言环境多、访问频繁的路由                |
 
 ---
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-25
-updatedAt: 2026-06-23
+updatedAt: 2026-08-25
 title: "تدويل TanStack Start + Solid - الدليل الكامل لترجمة تطبيقك"
 description: "لا مزيد من i18next. دليل 2026 لبناء تطبيق TanStack Start + Solid متعدد اللغات (i18n). ترجم باستخدام وكلاء الذكاء الاصطناعي وحسّن حجم الحزمة وتحسين محركات البحث والأداء."
 keywords:
@@ -21,6 +21,9 @@ applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-solid
 applicationShowcase: https://intlayer-tanstack-start-solid.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
+  - version: 9.4.0
+    date: 2026-08-25
+    changes: "مقارنة التحليل الثابت والديناميكي والديناميكي المخزَّن مؤقتًا لقواميس البيانات الوصفية داخل دوال head للمسارات"
   - version: 8.9.0
     date: 2026-05-04
     changes: "تحديث استخدام واجهة برمجة تطبيقات useIntlayer في Solid للوصول المباشر إلى الخصائص"
@@ -457,6 +460,8 @@ export const useLocalizedNavigate = () => {
 
 <Step number={9} title="استخدام Intlayer في صفحاتك">
 
+> استخدم **`useIntlayer`** افتراضيًا: فهي الطريقة الموصى بها لقراءة المحتوى داخل المكوّنات، ويقوم المُصرِّف بتحويلها إلى اللغة التي يجري عرضها. لا تلجأ إلى `getIntlayer` / `getIntlayerAsync` إلا خارج شجرة Solid — في `head` المسارات، والمُحمِّلات، ودوال الخادم.
+
 قم بالوصول إلى قواميس المحتوى الخاصة بك عبر تطبيقك:
 
 #### صفحة رئيسية مترجمة
@@ -605,18 +610,29 @@ export default defineConfig({
 
 <Step number={13} title="تدويل العناوين (metadata) الخاصة بك">
 
-يمكنك أيضًا استخدام وظيفة `getIntlayer` للوصول إلى قواميس المحتوى الخاصة بك داخل محمل `head` للعناوين المدركة للغة:
+داخل مكوّناتك، استمر في استخدام **`useIntlayer`** — فهو يبقى الخيار الافتراضي. يعيد المُصرِّف كتابته ليشير إلى جزء القاموس الخاص باللغة التي تُعرَض فعليًا، فلا يُرسَل أي شيء آخر إلى المتصفح.
 
-يتصرف مثل `getIntlayer`، لكن مكون البناء يوجهه إلى جزء القاموس الخاص بكل لغة بدلاً من القاموس المدمج الذي يحتوي على كل اللغات — لذا فإن البيانات الوصفية للصفحة تشحن فقط بلغة العرض. لأنه يحمل هذا الجزء عند الحاجة، يصبح `head` غير متزامن `async`:
+تعمل دوال `head` الخاصة بالمسارات **خارج** شجرة Solid، لذا لا يتوفر `useIntlayer` هناك. لديك ثلاث طرق لقراءة قاموس من داخل `head`، وكل منها يوازن بين حجم الحزمة وسرعة جهوزية `head` المستند.
+
+<Tabs defaultTab="cached">
+
+<Tab label="التحليل الثابت" value="static">
+
+يُحلّ `getIntlayer` بشكل متزامن اعتمادًا على القاموس **المدمج** — الذي يحتوي على كل اللغات المعلنة. يبقى `head` متزامنًا ولا يُنتظر أي شيء، لكن القاموس متعدد اللغات بأكمله يُدرَج داخل جزء المسار المُرسَل إلى المتصفح.
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/solid-router";
-import { getIntlayer } from "intlayer";
+import {
+  defaultLocale,
+  getIntlayer,
+  getLocalizedUrl,
+  localeMap,
+} from "intlayer";
 
 export const Route = createFileRoute("/{-$locale}/")({
   component: RouteComponent,
   head: ({ params }) => {
-    const { locale } = params;
+    const { locale = defaultLocale } = params;
     const path = "/"; // The path for this route
 
     const metaContent = getIntlayer("app", locale);
@@ -649,6 +665,147 @@ export const Route = createFileRoute("/{-$locale}/")({
   },
 });
 ```
+
+الأنسب لقواميس البيانات الوصفية الصغيرة، أو لعدد قليل من اللغات، أو أثناء بناء النماذج الأولية.
+
+</Tab>
+
+<Tab label="التحليل الديناميكي" value="dynamic">
+
+يتصرف `getIntlayerAsync` — المتاح ابتداءً من **الإصدار 9.4** — مثل `getIntlayer`، لكن إضافة البناء توجّهه إلى الجزء الخاص بكل لغة في `.intlayer/dynamic_dictionaries/` بدلًا من القاموس المدمج. لذلك لا ترسل الصفحة سوى اللغة التي تعرضها. ولأن هذا الجزء يُحمَّل عند الطلب، يصبح `head` دالة `async`:
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createFileRoute } from "@tanstack/solid-router";
+import {
+  defaultLocale,
+  getIntlayerAsync,
+  getLocalizedUrl,
+  localeMap,
+} from "intlayer";
+
+export const Route = createFileRoute("/{-$locale}/")({
+  component: RouteComponent,
+  head: async ({ params }) => {
+    const { locale = defaultLocale } = params;
+    const path = "/"; // The path for this route
+
+    const metaContent = await getIntlayerAsync("app", locale);
+
+    return {
+      links: [
+        // Canonical link: Points to the current localized page
+        { rel: "canonical", href: getLocalizedUrl(path, locale) },
+
+        // Hreflang: Tell Google about all localized versions
+        ...localeMap(({ locale: mapLocale }) => ({
+          rel: "alternate",
+          hrefLang: mapLocale,
+          href: getLocalizedUrl(path, mapLocale),
+        })),
+
+        // x-default: For users in unmatched languages
+        // Define the default fallback locale (usually your primary language)
+        {
+          rel: "alternate",
+          hrefLang: "x-default",
+          href: getLocalizedUrl(path, defaultLocale),
+        },
+      ],
+      meta: [
+        { title: metaContent.title },
+        { name: "description", content: metaContent.meta.description },
+      ],
+    };
+  },
+});
+```
+
+> إذا كان `head` يقرأ عدة قواميس، فحلّها باستخدام `Promise.all` — فانتظار كل `getIntlayerAsync` في سطر مستقل يجعل الطلبات متسلسلة بدلًا من تنفيذها بالتوازي.
+
+المقايضة: يُحلّ الاستيراد الديناميكي أثناء تنفيذ `head`، على المسار الحرج لعرض المستند. على مسار "بارد" يؤخر ذلك `head` ببضعة أجزاء من الألف من الثانية وقد يُضعف **LCP** قليلًا.
+
+</Tab>
+
+<Tab label="التحليل الديناميكي المخزَّن مؤقتًا" value="cached">
+
+حلّ القاموس داخل `loader` المسار ثم اقرأه مجددًا من `loaderData` في `head`. تعمل مُحمِّلات المسارات المطابقة على التوازي، ويُخبر `staleTime: Infinity` جهاز التوجيه TanStack Router بأن النتيجة لا تنتهي صلاحيتها أبدًا — فيُحلّ الجزء الخاص باللغة مرة واحدة ثم يُقدَّم من ذاكرة التوجيه المؤقتة، ويبقى `head` متزامنًا.
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createFileRoute } from "@tanstack/solid-router";
+import {
+  defaultLocale,
+  getIntlayerAsync,
+  getLocalizedUrl,
+  localeMap,
+} from "intlayer";
+
+export const Route = createFileRoute("/{-$locale}/")({
+  component: RouteComponent,
+  // Resolved in parallel with the other matched routes, off the head critical path
+  loader: async ({ params }) => {
+    const { locale = defaultLocale } = params;
+
+    return { metaContent: await getIntlayerAsync("app", locale) };
+  },
+  // The dictionary never changes for a given locale: resolve the chunk once
+  staleTime: Infinity,
+  head: ({ params, loaderData }) => {
+    const { locale = defaultLocale } = params;
+    const path = "/"; // The path for this route
+
+    return {
+      links: [
+        // Canonical link: Points to the current localized page
+        { rel: "canonical", href: getLocalizedUrl(path, locale) },
+
+        // Hreflang: Tell Google about all localized versions
+        ...localeMap(({ locale: mapLocale }) => ({
+          rel: "alternate",
+          hrefLang: mapLocale,
+          href: getLocalizedUrl(path, mapLocale),
+        })),
+
+        // x-default: For users in unmatched languages
+        // Define the default fallback locale (usually your primary language)
+        {
+          rel: "alternate",
+          hrefLang: "x-default",
+          href: getLocalizedUrl(path, defaultLocale),
+        },
+      ],
+      meta: [
+        { title: loaderData?.metaContent.title },
+        {
+          name: "description",
+          content: loaderData?.metaContent.meta.description,
+        },
+      ],
+    };
+  },
+});
+```
+
+> قد يُستدعى `head` قبل اكتمال المُحمِّل، لذا فإن نوع `loaderData` قد يكون `undefined`. أبقِ على التسلسل الاختياري، أو أعِد عنوانًا احتياطيًا.
+
+تحتفظ بالجزء الخاص بكل لغة دون دفع تكلفته على المسار الحرج لـ `head`. الثمن هو تجربة المطوّر: يجب تمرير المحتوى صراحةً من المُحمِّل إلى `head` عبر `loaderData`.
+
+</Tab>
+
+</Tabs>
+
+### أي طريقة تحليل ينبغي أن أختار؟
+
+|                    | التحليل الثابت           | التحليل الديناميكي               | التحليل الديناميكي المخزَّن مؤقتًا      |
+| ------------------ | ------------------------ | -------------------------------- | --------------------------------------- |
+| واجهة البرمجة      | `getIntlayer`            | `getIntlayerAsync` (9.4+)        | `getIntlayerAsync` داخل `loader` (9.4+) |
+| توقيع `head`       | متزامن                   | `async`                          | متزامن، يقرأ `loaderData`               |
+| اللغات المُرسَلة   | كل اللغات المعلنة        | اللغة المطلوبة فقط               | اللغة المطلوبة فقط                      |
+| حجم الحزمة         | ينمو مع كل لغة           | ثابت                             | ثابت                                    |
+| تحليل `head`       | فوري                     | ينتظر جزء اللغة داخل `head`      | يُنتظر في المُحمِّل ثم يُخزَّن مؤقتًا   |
+| الأثر على LCP      | لا شيء                   | تأخير طفيف على مسار بارد         | لا شيء — خارج المسار الحرج لـ `head`    |
+| التنقلات في العميل | لا شيء ليُحلّ            | يُعاد تنفيذه عند كل مطابقة       | يُقدَّم من ذاكرة التوجيه المؤقتة        |
+| تجربة المطوّر      | الأبسط                   | `await` واحد                     | المحتوى يُمرَّر عبر `loaderData`        |
+| الأنسب لـ          | لغات قليلة وقواميس صغيرة | لغات كثيرة ومسارات نادرة الزيارة | لغات كثيرة ومسارات كثيرة الزيارة        |
 
 ---
 

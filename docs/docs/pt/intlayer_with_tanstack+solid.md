@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-25
-updatedAt: 2026-05-31
+updatedAt: 2026-08-25
 title: "TanStack Start + Solid i18n - Guia completo para traduzir seu aplicativo"
 description: "Sem mais i18next. O guia 2026 para criar uma aplicação TanStack Start + Solid multilíngue (i18n). Traduza com agentes de IA e otimize o tamanho do bundle, SEO e desempenho."
 keywords:
@@ -22,6 +22,9 @@ applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-solid
 applicationShowcase: https://intlayer-tanstack-start-solid.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
+  - version: 9.4.0
+    date: 2026-08-25
+    changes: "Comparar a resolução estática, dinâmica e dinâmica em cache dos dicionários de metadados nas funções head das rotas"
   - version: 8.9.0
     date: 2026-05-04
     changes: "Atualizar o uso da API useIntlayer do Solid para acesso direto a propriedades"
@@ -458,6 +461,8 @@ export const useLocalizedNavigate = () => {
 
 <Step number={9} title="Utilizar o Intlayer em Suas Páginas">
 
+> Use **`useIntlayer`** por padrão: é a forma recomendada de ler conteúdo dentro dos componentes, e o compilador o resolve para a localidade que está sendo renderizada. Recorra a `getIntlayer` / `getIntlayerAsync` apenas fora da árvore Solid — o `head` das rotas, os loaders e as server functions.
+
 Acesse seus dicionários de conteúdo através da sua aplicação:
 
 #### Página Inicial Localizada
@@ -606,18 +611,29 @@ export default defineConfig({
 
 <Step number={13} title="Internacionalizar Seus Metadados">
 
-Você também pode usar a função `getIntlayer` para acessar seus dicionários de conteúdo dentro do loader `head` para metadados cientes de localidade:
+Dentro dos seus componentes, continue usando **`useIntlayer`** — ele permanece o padrão. O compilador o reescreve para o chunk de dicionário da localidade que está realmente sendo renderizada, então nada mais é enviado ao navegador.
 
-Comporta-se como `getIntlayer`, mas o plugin de build aponta para o chunk de dicionário por locale em vez do dicionário mesclado que contém todos os locales — então os metadados de uma página incluem apenas o locale que ela renderiza. Como carrega esse chunk sob demanda, `head` torna-se `async`:
+As funções `head` das rotas rodam **fora** da árvore Solid, então `useIntlayer` não está disponível ali. Você tem três formas de ler um dicionário a partir do `head`, e cada uma equilibra tamanho do bundle contra a rapidez com que o `head` do documento fica pronto.
+
+<Tabs defaultTab="cached">
+
+<Tab label="Resolução estática" value="static">
+
+`getIntlayer` resolve de forma síncrona contra o dicionário **mesclado** — aquele que contém todas as localidades declaradas. O `head` continua síncrono e nada é aguardado, mas todo o dicionário multilíngue é incluído no chunk da rota enviado ao navegador.
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/solid-router";
-import { getIntlayer } from "intlayer";
+import {
+  defaultLocale,
+  getIntlayer,
+  getLocalizedUrl,
+  localeMap,
+} from "intlayer";
 
 export const Route = createFileRoute("/{-$locale}/")({
   component: RouteComponent,
   head: ({ params }) => {
-    const { locale } = params;
+    const { locale = defaultLocale } = params;
     const path = "/"; // The path for this route
 
     const metaContent = getIntlayer("app", locale);
@@ -650,6 +666,147 @@ export const Route = createFileRoute("/{-$locale}/")({
   },
 });
 ```
+
+Ideal para dicionários de metadados pequenos, poucas localidades ou durante a prototipagem.
+
+</Tab>
+
+<Tab label="Resolução dinâmica" value="dynamic">
+
+`getIntlayerAsync` — disponível a partir da **v9.4** — se comporta como `getIntlayer`, mas o plugin de build o aponta para o chunk por localidade em `.intlayer/dynamic_dictionaries/` em vez do dicionário mesclado. Assim, uma página envia apenas a localidade que renderiza. Como esse chunk é carregado sob demanda, o `head` passa a ser `async`:
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createFileRoute } from "@tanstack/solid-router";
+import {
+  defaultLocale,
+  getIntlayerAsync,
+  getLocalizedUrl,
+  localeMap,
+} from "intlayer";
+
+export const Route = createFileRoute("/{-$locale}/")({
+  component: RouteComponent,
+  head: async ({ params }) => {
+    const { locale = defaultLocale } = params;
+    const path = "/"; // The path for this route
+
+    const metaContent = await getIntlayerAsync("app", locale);
+
+    return {
+      links: [
+        // Canonical link: Points to the current localized page
+        { rel: "canonical", href: getLocalizedUrl(path, locale) },
+
+        // Hreflang: Tell Google about all localized versions
+        ...localeMap(({ locale: mapLocale }) => ({
+          rel: "alternate",
+          hrefLang: mapLocale,
+          href: getLocalizedUrl(path, mapLocale),
+        })),
+
+        // x-default: For users in unmatched languages
+        // Define the default fallback locale (usually your primary language)
+        {
+          rel: "alternate",
+          hrefLang: "x-default",
+          href: getLocalizedUrl(path, defaultLocale),
+        },
+      ],
+      meta: [
+        { title: metaContent.title },
+        { name: "description", content: metaContent.meta.description },
+      ],
+    };
+  },
+});
+```
+
+> Se um `head` lê vários dicionários, resolva-os com `Promise.all` — aguardar cada `getIntlayerAsync` em sua própria linha encadeia as requisições em vez de executá-las em paralelo.
+
+O contraponto: o import dinâmico é resolvido enquanto o `head` executa, no caminho crítico da renderização do documento. Numa rota fria isso atrasa o `head` em alguns milissegundos e pode degradar levemente o **LCP**.
+
+</Tab>
+
+<Tab label="Resolução dinâmica em cache" value="cached">
+
+Resolva o dicionário no `loader` da rota e leia-o de volta a partir de `loaderData` no `head`. Os loaders das rotas correspondentes rodam em paralelo, e `staleTime: Infinity` informa ao TanStack Router que o resultado nunca expira — então o chunk por localidade é resolvido uma única vez e depois servido do cache do router, mantendo o `head` síncrono.
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createFileRoute } from "@tanstack/solid-router";
+import {
+  defaultLocale,
+  getIntlayerAsync,
+  getLocalizedUrl,
+  localeMap,
+} from "intlayer";
+
+export const Route = createFileRoute("/{-$locale}/")({
+  component: RouteComponent,
+  // Resolved in parallel with the other matched routes, off the head critical path
+  loader: async ({ params }) => {
+    const { locale = defaultLocale } = params;
+
+    return { metaContent: await getIntlayerAsync("app", locale) };
+  },
+  // The dictionary never changes for a given locale: resolve the chunk once
+  staleTime: Infinity,
+  head: ({ params, loaderData }) => {
+    const { locale = defaultLocale } = params;
+    const path = "/"; // The path for this route
+
+    return {
+      links: [
+        // Canonical link: Points to the current localized page
+        { rel: "canonical", href: getLocalizedUrl(path, locale) },
+
+        // Hreflang: Tell Google about all localized versions
+        ...localeMap(({ locale: mapLocale }) => ({
+          rel: "alternate",
+          hrefLang: mapLocale,
+          href: getLocalizedUrl(path, mapLocale),
+        })),
+
+        // x-default: For users in unmatched languages
+        // Define the default fallback locale (usually your primary language)
+        {
+          rel: "alternate",
+          hrefLang: "x-default",
+          href: getLocalizedUrl(path, defaultLocale),
+        },
+      ],
+      meta: [
+        { title: loaderData?.metaContent.title },
+        {
+          name: "description",
+          content: loaderData?.metaContent.meta.description,
+        },
+      ],
+    };
+  },
+});
+```
+
+> O `head` pode ser chamado antes de o loader resolver, então `loaderData` é tipado como possivelmente `undefined`. Mantenha o encadeamento opcional ou retorne um título de fallback.
+
+Você mantém o chunk por localidade sem pagar seu custo no caminho crítico do `head`. O preço é a experiência de desenvolvimento: o conteúdo precisa ser repassado explicitamente do loader para o `head` via `loaderData`.
+
+</Tab>
+
+</Tabs>
+
+### Qual resolução escolher?
+
+|                                | Resolução estática                       | Resolução dinâmica                             | Resolução dinâmica em cache                |
+| ------------------------------ | ---------------------------------------- | ---------------------------------------------- | ------------------------------------------ |
+| API                            | `getIntlayer`                            | `getIntlayerAsync` (v9.4+)                     | `getIntlayerAsync` no `loader` (v9.4+)     |
+| Assinatura do `head`           | síncrona                                 | `async`                                        | síncrona, lê `loaderData`                  |
+| Localidades enviadas           | todas as localidades declaradas          | apenas a localidade solicitada                 | apenas a localidade solicitada             |
+| Tamanho do bundle              | cresce a cada localidade                 | constante                                      | constante                                  |
+| Resolução do `head`            | imediata                                 | aguarda o chunk da localidade dentro do `head` | aguardado no loader e depois cacheado      |
+| Impacto no LCP                 | nenhum                                   | pequeno atraso numa rota fria                  | nenhum — fora do caminho crítico do `head` |
+| Navegações no cliente          | nada a resolver                          | reexecutado a cada correspondência             | servido do cache do router                 |
+| Experiência de desenvolvimento | a mais simples                           | um único `await`                               | conteúdo repassado via `loaderData`        |
+| Recomendada para               | poucas localidades, dicionários pequenos | muitas localidades, rotas pouco visitadas      | muitas localidades, rotas muito visitadas  |
 
 ---
 

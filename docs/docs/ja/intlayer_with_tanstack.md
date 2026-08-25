@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-06-23
+updatedAt: 2026-08-25
 title: "TanStack Start i18n - あなたのアプリを翻訳する完全ガイド"
 description: "i18nextはもう不要。2026年に多言語（i18n）TanStack Startアプリを構築するためのガイド。AIエージェントで翻訳し、バンドルサイズ、SEO、パフォーマンスを最適化します。"
 keywords:
@@ -21,6 +21,9 @@ applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-templ
 applicationShowcase: https://intlayer-tanstack-start-template.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
+  - version: 9.4.0
+    date: 2026-08-25
+    changes: "ルートの head 関数におけるメタデータ辞書の静的解決・動的解決・キャッシュ付き動的解決を比較"
   - version: 8.9.0
     date: 2026-05-04
     changes: "Solid の useIntlayer API の使用法を直接プロパティアクセスに更新"
@@ -516,6 +519,8 @@ export const useLocalizedNavigate = () => {
 
 <Step number={9} title="ページでのIntlayerの利用">
 
+> コンポーネント内では既定で **`useIntlayer`** を使用してください。コンパイラがレンダリング対象のロケールへ解決してくれるため、これが推奨される方法です。`getIntlayer` / `getIntlayerAsync` は React ツリーの外側 — ルートの `head`、ローダー、サーバー関数 — でのみ使用します。
+
 アプリケーション全体でコンテンツ辞書にアクセスします：
 
 #### ローカライズされたホームページ
@@ -674,20 +679,23 @@ export const LocaleSwitcher: FC = () => {
 
 <Step number={11} title="HTML属性の管理">
 
-ステップ 5 で見たように、ルートコンポーネントで `useParams` を使用して `html` タグの `lang` および `dir` 属性を管理できます。これにより、サーバーとクライアントで正しい属性が設定されるようになります。
+const localeRoute = getRouteApi("/{-$locale}");
 
-```tsx fileName="src/routes/__root.tsx"
 function RootDocument({ children }: { children: ReactNode }) {
-  const params = localeRoute.useParams();
-  const locale = params?.locale ?? defaultLocale;
+const params = localeRoute.useParams();
+const locale = params?.locale ?? defaultLocale;
 
-  return (
-    <html dir={getHTMLTextDir(locale)} lang={locale}>
-      {/* ... */}
-    </html>
-  );
+return (
+<html dir={getHTMLTextDir(locale)} lang={locale}>
+{/* ... _/}
+</html>
+);
+} {/_ ... */}
+</html>
+);
 }
-```
+
+````
 
 ---
 
@@ -725,7 +733,7 @@ export default defineConfig({
     viteReact(),
   ],
 });
-```
+````
 
 ---
 
@@ -733,18 +741,29 @@ export default defineConfig({
 
 <Step number={12} title="メタデータの国際化">
 
-`getIntlayerAsync` を使用して、`head` 関数内でコンテンツ辞書にアクセスします。
+コンポーネント内では引き続き **`useIntlayer`** を使ってください。既定はこれです。コンパイラが実際にレンダリングされるロケールの辞書チャンクへ書き換えるため、それ以外はブラウザに送られません。
 
-`getIntlayer`フックを使用して、アプリケーション全体でコンテンツ辞書にアクセスすることもできます：
+ルートの `head` 関数は React ツリーの**外側**で実行されるため、そこでは `useIntlayer` を利用できません。`head` から辞書を読む方法は 3 つあり、それぞれバンドルサイズとドキュメント `head` が整うまでの速さのトレードオフになります。
+
+<Tabs defaultTab="cached">
+
+<Tab label="静的解決" value="static">
+
+`getIntlayer` は、宣言されたすべてのロケールを含む**統合**辞書に対して同期的に解決します。`head` は同期のままで待機も発生しませんが、多言語辞書全体がブラウザへ送られるルートチャンクに取り込まれます。
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/react-router";
-import { getIntlayer } from "intlayer";
+import {
+  defaultLocale,
+  getIntlayer,
+  getLocalizedUrl,
+  localeMap,
+} from "intlayer";
 
 export const Route = createFileRoute("/{-$locale}/")({
   component: RouteComponent,
   head: ({ params }) => {
-    const { locale } = params;
+    const { locale = defaultLocale } = params;
     const path = "/"; // The path for this route
 
     const metaContent = getIntlayer("app", locale);
@@ -777,6 +796,147 @@ export const Route = createFileRoute("/{-$locale}/")({
   },
 });
 ```
+
+小さなメタデータ辞書、ロケール数が少ない場合、プロトタイピング時に適しています。
+
+</Tab>
+
+<Tab label="動的解決" value="dynamic">
+
+`getIntlayerAsync`（**v9.4** 以降で利用可能）は `getIntlayer` と同じ振る舞いをしますが、ビルドプラグインが統合辞書ではなく `.intlayer/dynamic_dictionaries/` 内のロケール別チャンクを参照させます。そのためページはレンダリングするロケールのみを配信します。このチャンクはオンデマンドで読み込まれるため、`head` は `async` になります。
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createFileRoute } from "@tanstack/react-router";
+import {
+  defaultLocale,
+  getIntlayerAsync,
+  getLocalizedUrl,
+  localeMap,
+} from "intlayer";
+
+export const Route = createFileRoute("/{-$locale}/")({
+  component: RouteComponent,
+  head: async ({ params }) => {
+    const { locale = defaultLocale } = params;
+    const path = "/"; // The path for this route
+
+    const metaContent = await getIntlayerAsync("app", locale);
+
+    return {
+      links: [
+        // Canonical link: Points to the current localized page
+        { rel: "canonical", href: getLocalizedUrl(path, locale) },
+
+        // Hreflang: Tell Google about all localized versions
+        ...localeMap(({ locale: mapLocale }) => ({
+          rel: "alternate",
+          hrefLang: mapLocale,
+          href: getLocalizedUrl(path, mapLocale),
+        })),
+
+        // x-default: For users in unmatched languages
+        // Define the default fallback locale (usually your primary language)
+        {
+          rel: "alternate",
+          hrefLang: "x-default",
+          href: getLocalizedUrl(path, defaultLocale),
+        },
+      ],
+      meta: [
+        { title: metaContent.title },
+        { name: "description", content: metaContent.meta.description },
+      ],
+    };
+  },
+});
+```
+
+> 1 つの `head` で複数の辞書を読む場合は `Promise.all` でまとめて解決してください。`getIntlayerAsync` を 1 行ずつ await すると、リクエストが並列ではなく直列に連鎖してしまいます。
+
+トレードオフとして、動的インポートはドキュメントレンダリングのクリティカルパス上で `head` の実行中に解決されます。コールドなルートでは `head` が数ミリ秒遅れ、**LCP** がわずかに悪化する可能性があります。
+
+</Tab>
+
+<Tab label="キャッシュ付き動的解決" value="cached">
+
+辞書をルートの `loader` で解決し、`head` では `loaderData` から読み戻します。マッチしたルートのローダーは並行して実行され、`staleTime: Infinity` によって TanStack Router は結果が古くならないと判断します。つまりロケール別チャンクは一度だけ解決され、以降はルーターのキャッシュから提供されるため、`head` は同期のままです。
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createFileRoute } from "@tanstack/react-router";
+import {
+  defaultLocale,
+  getIntlayerAsync,
+  getLocalizedUrl,
+  localeMap,
+} from "intlayer";
+
+export const Route = createFileRoute("/{-$locale}/")({
+  component: RouteComponent,
+  // Resolved in parallel with the other matched routes, off the head critical path
+  loader: async ({ params }) => {
+    const { locale = defaultLocale } = params;
+
+    return { metaContent: await getIntlayerAsync("app", locale) };
+  },
+  // The dictionary never changes for a given locale: resolve the chunk once
+  staleTime: Infinity,
+  head: ({ params, loaderData }) => {
+    const { locale = defaultLocale } = params;
+    const path = "/"; // The path for this route
+
+    return {
+      links: [
+        // Canonical link: Points to the current localized page
+        { rel: "canonical", href: getLocalizedUrl(path, locale) },
+
+        // Hreflang: Tell Google about all localized versions
+        ...localeMap(({ locale: mapLocale }) => ({
+          rel: "alternate",
+          hrefLang: mapLocale,
+          href: getLocalizedUrl(path, mapLocale),
+        })),
+
+        // x-default: For users in unmatched languages
+        // Define the default fallback locale (usually your primary language)
+        {
+          rel: "alternate",
+          hrefLang: "x-default",
+          href: getLocalizedUrl(path, defaultLocale),
+        },
+      ],
+      meta: [
+        { title: loaderData?.metaContent.title },
+        {
+          name: "description",
+          content: loaderData?.metaContent.meta.description,
+        },
+      ],
+    };
+  },
+});
+```
+
+> `head` はローダーの解決前に呼ばれることがあるため、`loaderData` は `undefined` の可能性がある型になります。オプショナルチェーンを残すか、フォールバックのタイトルを返してください。
+
+ロケール別チャンクの利点を保ちつつ、そのコストを `head` のクリティカルパスで支払わずに済みます。代償は DX です。コンテンツをローダーから `head` へ `loaderData` 経由で明示的に受け渡す必要があります。
+
+</Tab>
+
+</Tabs>
+
+### どの解決方法を選ぶべきか
+
+|                     | 静的解決                     | 動的解決                           | キャッシュ付き動的解決                    |
+| ------------------- | ---------------------------- | ---------------------------------- | ----------------------------------------- |
+| API                 | `getIntlayer`                | `getIntlayerAsync`（v9.4+）        | `loader` 内の `getIntlayerAsync`（v9.4+） |
+| `head` のシグネチャ | 同期                         | `async`                            | 同期、`loaderData` を読む                 |
+| 配信されるロケール  | 宣言されたすべてのロケール   | 要求されたロケールのみ             | 要求されたロケールのみ                    |
+| バンドルサイズ      | ロケールごとに増加           | 一定                               | 一定                                      |
+| `head` の解決       | 即時                         | `head` 内でロケールチャンクを待機  | ローダーで待機し、以降はキャッシュ        |
+| LCP への影響        | なし                         | コールドなルートでわずかな遅延     | なし — `head` のクリティカルパス外        |
+| クライアント遷移    | 解決するものなし             | マッチのたびに再実行               | ルーターのキャッシュから提供              |
+| DX                  | 最もシンプル                 | `await` が 1 つ                    | コンテンツを `loaderData` 経由で受け渡し  |
+| 適した用途          | ロケールが少なく辞書も小さい | ロケールが多く訪問頻度の低いルート | ロケールが多く訪問頻度の高いルート        |
 
 ---
 

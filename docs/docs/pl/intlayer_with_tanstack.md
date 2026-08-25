@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-05-31
+updatedAt: 2026-08-25
 title: "TanStack Start i18n - Kompletny przewodnik po tłumaczeniu swojej aplikacji"
 description: "Koniec z i18next. Przewodnik 2026 do budowania wielojęzycznej (i18n) aplikacji TanStack Start. Tłumacz z agentami AI i optymalizuj rozmiar bundle, SEO i wydajność."
 keywords:
@@ -20,6 +20,9 @@ applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-templ
 applicationShowcase: https://intlayer-tanstack-start-template.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
+  - version: 9.4.0
+    date: 2026-08-25
+    changes: "Porównanie statycznego, dynamicznego i buforowanego dynamicznego rozwiązywania słowników metadanych w funkcjach head tras"
   - version: 8.9.0
     date: 2026-05-04
     changes: "Aktualizacja użycia API useIntlayer w Solid do bezpośredniego dostępu do właściwości"
@@ -508,13 +511,14 @@ export const useLocalizedNavigate = () => {
 
 <Step number={9} title="Wykorzystaj Intlayer na swoich stronach">
 
+> Domyślnie używaj **`useIntlayer`**: to zalecany sposób odczytu treści wewnątrz komponentów, a kompilator rozwiązuje go do renderowanej lokalizacji. Po `getIntlayer` / `getIntlayerAsync` sięgaj tylko poza drzewem React — w `head` tras, loaderach i funkcjach serwerowych.
+
 Uzyskaj dostęp do swoich słowników treści w całej aplikacji:
 
 #### Lokalizowana strona główna
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/react-router";
-import { getIntlayer } from "intlayer";
 import { useIntlayer } from "react-intlayer";
 
 import LocaleSwitcher from "@/components/locale-switcher";
@@ -629,20 +633,23 @@ export const LocaleSwitcher: FC = () => {
 
 <Step number={11} title="Zarządzanie atrybutami HTML">
 
-Jak pokazano w Kroku 5, możesz zarządzać atrybutami `lang` i `dir` tagu `html` za pomocą `useParams` w swoim komponencie głównym. Zapewnia to, że poprawne atrybuty są ustawione zarówno na serwerze, jak i kliencie.
+const localeRoute = getRouteApi("/{-$locale}");
 
-```tsx fileName="src/routes/__root.tsx"
 function RootDocument({ children }: { children: ReactNode }) {
-  const params = localeRoute.useParams();
-  const locale = params?.locale ?? defaultLocale;
+const params = localeRoute.useParams();
+const locale = params?.locale ?? defaultLocale;
 
-  return (
-    <html dir={getHTMLTextDir(locale)} lang={locale}>
-      {/* ... */}
-    </html>
-  );
+return (
+<html dir={getHTMLTextDir(locale)} lang={locale}>
+{/* ... _/}
+</html>
+);
+} {/_ ... */}
+</html>
+);
 }
-```
+
+````
 
 ---
 
@@ -680,7 +687,7 @@ export default defineConfig({
     viteReact(),
   ],
 });
-```
+````
 
 ---
 
@@ -688,18 +695,29 @@ export default defineConfig({
 
 <Step number={13} title="Internacjonalizacja metadanych">
 
-Użyj `getIntlayerAsync` aby uzyskać dostęp do swoich słowników zawartości wewnątrz funkcji `head`.
+Wewnątrz komponentów nadal używaj **`useIntlayer`** — pozostaje domyślnym rozwiązaniem. Kompilator przepisuje go na fragment słownika faktycznie renderowanej lokalizacji, więc do przeglądarki nie trafia nic więcej.
 
-Możesz również użyć hooka `getIntlayer`, aby uzyskać dostęp do słowników treści w całej aplikacji:
+Funkcje `head` tras działają **poza** drzewem React, więc `useIntlayer` nie jest tam dostępny. Masz trzy sposoby odczytu słownika z `head`, a każdy z nich to kompromis między rozmiarem bundla a tym, jak szybko `head` dokumentu jest gotowy.
+
+<Tabs defaultTab="cached">
+
+<Tab label="Rozwiązywanie statyczne" value="static">
+
+`getIntlayer` rozwiązuje się synchronicznie względem **scalonego** słownika — tego, który zawiera wszystkie zadeklarowane lokalizacje. `head` pozostaje synchroniczny i niczego nie oczekuje, ale cały wielojęzyczny słownik trafia do fragmentu trasy wysyłanego do przeglądarki.
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/react-router";
-import { getIntlayer } from "intlayer";
+import {
+  defaultLocale,
+  getIntlayer,
+  getLocalizedUrl,
+  localeMap,
+} from "intlayer";
 
 export const Route = createFileRoute("/{-$locale}/")({
   component: RouteComponent,
   head: ({ params }) => {
-    const { locale } = params;
+    const { locale = defaultLocale } = params;
     const path = "/"; // The path for this route
 
     const metaContent = getIntlayer("app", locale);
@@ -732,6 +750,147 @@ export const Route = createFileRoute("/{-$locale}/")({
   },
 });
 ```
+
+Najlepsze dla małych słowników metadanych, kilku lokalizacji lub na etapie prototypowania.
+
+</Tab>
+
+<Tab label="Rozwiązywanie dynamiczne" value="dynamic">
+
+`getIntlayerAsync` — dostępny od **v9.4** — zachowuje się jak `getIntlayer`, ale wtyczka build wskazuje mu fragment per-lokalizacja w `.intlayer/dynamic_dictionaries/` zamiast scalonego słownika. Strona wysyła więc tylko tę lokalizację, którą renderuje. Ponieważ ten fragment ładowany jest na żądanie, `head` staje się `async`:
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createFileRoute } from "@tanstack/react-router";
+import {
+  defaultLocale,
+  getIntlayerAsync,
+  getLocalizedUrl,
+  localeMap,
+} from "intlayer";
+
+export const Route = createFileRoute("/{-$locale}/")({
+  component: RouteComponent,
+  head: async ({ params }) => {
+    const { locale = defaultLocale } = params;
+    const path = "/"; // The path for this route
+
+    const metaContent = await getIntlayerAsync("app", locale);
+
+    return {
+      links: [
+        // Canonical link: Points to the current localized page
+        { rel: "canonical", href: getLocalizedUrl(path, locale) },
+
+        // Hreflang: Tell Google about all localized versions
+        ...localeMap(({ locale: mapLocale }) => ({
+          rel: "alternate",
+          hrefLang: mapLocale,
+          href: getLocalizedUrl(path, mapLocale),
+        })),
+
+        // x-default: For users in unmatched languages
+        // Define the default fallback locale (usually your primary language)
+        {
+          rel: "alternate",
+          hrefLang: "x-default",
+          href: getLocalizedUrl(path, defaultLocale),
+        },
+      ],
+      meta: [
+        { title: metaContent.title },
+        { name: "description", content: metaContent.meta.description },
+      ],
+    };
+  },
+});
+```
+
+> Jeśli `head` czyta kilka słowników, rozwiąż je przez `Promise.all` — oczekiwanie na każde `getIntlayerAsync` w osobnej linii łańcuchuje żądania zamiast wykonywać je równolegle.
+
+Kompromis: dynamiczny import jest rozwiązywany w trakcie działania `head`, na ścieżce krytycznej renderowania dokumentu. Na „zimnej” trasie opóźnia to `head` o kilka milisekund i może nieznacznie pogorszyć **LCP**.
+
+</Tab>
+
+<Tab label="Buforowane rozwiązywanie dynamiczne" value="cached">
+
+Rozwiąż słownik w `loaderze` trasy i odczytaj go z `loaderData` w `head`. Loadery dopasowanych tras działają równolegle, a `staleTime: Infinity` informuje TanStack Router, że wynik nigdy się nie dezaktualizuje — fragment per-lokalizacja jest więc rozwiązywany raz, a potem serwowany z cache routera, pozostawiając `head` synchronicznym.
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createFileRoute } from "@tanstack/react-router";
+import {
+  defaultLocale,
+  getIntlayerAsync,
+  getLocalizedUrl,
+  localeMap,
+} from "intlayer";
+
+export const Route = createFileRoute("/{-$locale}/")({
+  component: RouteComponent,
+  // Resolved in parallel with the other matched routes, off the head critical path
+  loader: async ({ params }) => {
+    const { locale = defaultLocale } = params;
+
+    return { metaContent: await getIntlayerAsync("app", locale) };
+  },
+  // The dictionary never changes for a given locale: resolve the chunk once
+  staleTime: Infinity,
+  head: ({ params, loaderData }) => {
+    const { locale = defaultLocale } = params;
+    const path = "/"; // The path for this route
+
+    return {
+      links: [
+        // Canonical link: Points to the current localized page
+        { rel: "canonical", href: getLocalizedUrl(path, locale) },
+
+        // Hreflang: Tell Google about all localized versions
+        ...localeMap(({ locale: mapLocale }) => ({
+          rel: "alternate",
+          hrefLang: mapLocale,
+          href: getLocalizedUrl(path, mapLocale),
+        })),
+
+        // x-default: For users in unmatched languages
+        // Define the default fallback locale (usually your primary language)
+        {
+          rel: "alternate",
+          hrefLang: "x-default",
+          href: getLocalizedUrl(path, defaultLocale),
+        },
+      ],
+      meta: [
+        { title: loaderData?.metaContent.title },
+        {
+          name: "description",
+          content: loaderData?.metaContent.meta.description,
+        },
+      ],
+    };
+  },
+});
+```
+
+> `head` może zostać wywołany zanim loader się rozwiąże, dlatego `loaderData` ma typ potencjalnie `undefined`. Zachowaj opcjonalne łańcuchowanie lub zwróć tytuł zapasowy.
+
+Zachowujesz fragment per-lokalizacja, nie płacąc jego kosztu na ścieżce krytycznej `head`. Ceną jest DX: treść trzeba jawnie przekazać z loadera do `head` przez `loaderData`.
+
+</Tab>
+
+</Tabs>
+
+### Które rozwiązywanie wybrać?
+
+|                              | Rozwiązywanie statyczne         | Rozwiązywanie dynamiczne                    | Buforowane rozwiązywanie dynamiczne        |
+| ---------------------------- | ------------------------------- | ------------------------------------------- | ------------------------------------------ |
+| API                          | `getIntlayer`                   | `getIntlayerAsync` (v9.4+)                  | `getIntlayerAsync` w `loaderze` (v9.4+)    |
+| Sygnatura `head`             | synchroniczna                   | `async`                                     | synchroniczna, czyta `loaderData`          |
+| Wysyłane lokalizacje         | wszystkie zadeklarowane         | tylko żądana lokalizacja                    | tylko żądana lokalizacja                   |
+| Rozmiar bundla               | rośnie z każdą lokalizacją      | stały                                       | stały                                      |
+| Rozwiązanie `head`           | natychmiastowe                  | czeka na fragment lokalizacji w `head`      | oczekiwane w loaderze, potem buforowane    |
+| Wpływ na LCP                 | brak                            | niewielkie opóźnienie na zimnej trasie      | brak — poza ścieżką krytyczną `head`       |
+| Nawigacje po stronie klienta | nic do rozwiązania              | wykonywane ponownie przy każdym dopasowaniu | serwowane z cache routera                  |
+| DX                           | najprostsze                     | jeden `await`                               | treść przekazywana przez `loaderData`      |
+| Najlepsze dla                | mało lokalizacji, małe słowniki | wiele lokalizacji, rzadko odwiedzane trasy  | wiele lokalizacji, często odwiedzane trasy |
 
 ---
 

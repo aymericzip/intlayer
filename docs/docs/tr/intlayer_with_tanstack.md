@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-06-23
+updatedAt: 2026-08-25
 title: "TanStack Start i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
 description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) TanStack Start uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
 keywords:
@@ -20,6 +20,9 @@ applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-templ
 applicationShowcase: https://intlayer-tanstack-start-template.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
+  - version: 9.4.0
+    date: 2026-08-25
+    changes: "Rota head fonksiyonlarında meta veri sözlüklerinin statik, dinamik ve önbellekli dinamik çözümlemesinin karşılaştırılması"
   - version: 8.9.0
     date: 2026-05-04
     changes: "Solid useIntlayer API kullanımını doğrudan özellik erişimine güncelle"
@@ -508,13 +511,14 @@ export const useLocalizedNavigate = () => {
 
 <Step number={9} title="Sayfalarınızda Intlayer'ı Kullanın">
 
+> Varsayılan olarak **`useIntlayer`** kullanın: bileşenler içinde içerik okumanın önerilen yoludur ve derleyici onu render edilen yerel ayara çözer. `getIntlayer` / `getIntlayerAsync` işlevlerine yalnızca React ağacının dışında başvurun — rota `head`'i, loader'lar ve sunucu işlevleri.
+
 Uygulamanız genelinde içerik sözlüklerinize erişin:
 
 #### Yerelleştirilmiş Ana Sayfa
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/react-router";
-import { getIntlayer } from "intlayer";
 import { useIntlayer } from "react-intlayer";
 
 import LocaleSwitcher from "@/components/locale-switcher";
@@ -629,20 +633,23 @@ export const LocaleSwitcher: FC = () => {
 
 <Step number={11} title="HTML Öznitelik Yönetimi">
 
-Adım 5'te görüldüğü gibi, kök bileşeninizde `useParams` kullanarak `html` etiketinin `lang` ve `dir` özniteliklerini yönetebilirsiniz. Bu, sunucuda ve istemcide doğru özniteliklerin ayarlanmasını sağlar.
+const localeRoute = getRouteApi("/{-$locale}");
 
-```tsx fileName="src/routes/__root.tsx"
 function RootDocument({ children }: { children: ReactNode }) {
-  const params = localeRoute.useParams();
-  const locale = params?.locale ?? defaultLocale;
+const params = localeRoute.useParams();
+const locale = params?.locale ?? defaultLocale;
 
-  return (
-    <html dir={getHTMLTextDir(locale)} lang={locale}>
-      {/* ... */}
-    </html>
-  );
+return (
+<html dir={getHTMLTextDir(locale)} lang={locale}>
+{/* ... _/}
+</html>
+);
+} {/_ ... */}
+</html>
+);
 }
-```
+
+````
 
 ---
 
@@ -680,7 +687,7 @@ export default defineConfig({
     viteReact(),
   ],
 });
-```
+````
 
 ---
 
@@ -688,18 +695,29 @@ export default defineConfig({
 
 <Step number={13} title="Meta Verilerinizi Uluslararasılaştırın">
 
-Uygulamanız genelinde içerik sözlüklerinize erişmek için `getIntlayer` hook'unu da kullanabilirsiniz:
+Bileşenlerinizin içinde **`useIntlayer`** kullanmaya devam edin — varsayılan seçenek olarak kalır. Derleyici onu gerçekten render edilen yerel ayarın sözlük parçasına yeniden yazar, böylece tarayıcıya başka hiçbir şey gönderilmez.
 
-`getIntlayer` gibi davranır, ancak build eklentisi bunu her locale için sözlük parçasına yönlendirir, birleştirilmiş sözlüğün yerine (her locale'i tutan) — bu nedenle bir sayfa için metadata yalnızca render ettiği locale'i içerir. İsteğe bağlı olarak bu parçayı yüklediği için, `head` `async` olur:
+Rotaların `head` fonksiyonları React ağacının **dışında** çalışır, dolayısıyla orada `useIntlayer` kullanılamaz. `head` içinden bir sözlüğü okumanın üç yolu vardır ve her biri paket boyutu ile belge `head`'inin ne kadar erken hazır olduğu arasında bir denge kurar.
+
+<Tabs defaultTab="cached">
+
+<Tab label="Statik çözümleme" value="static">
+
+`getIntlayer`, tüm bildirilen yerel ayarları içeren **birleştirilmiş** sözlük üzerinden senkron olarak çözümlenir. `head` senkron kalır ve hiçbir şey beklenmez, ancak tüm çok dilli sözlük tarayıcıya gönderilen rota parçasına dahil edilir.
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/react-router";
-import { getIntlayer } from "intlayer";
+import {
+  defaultLocale,
+  getIntlayer,
+  getLocalizedUrl,
+  localeMap,
+} from "intlayer";
 
 export const Route = createFileRoute("/{-$locale}/")({
   component: RouteComponent,
   head: ({ params }) => {
-    const { locale } = params;
+    const { locale = defaultLocale } = params;
     const path = "/"; // The path for this route
 
     const metaContent = getIntlayer("app", locale);
@@ -732,6 +750,147 @@ export const Route = createFileRoute("/{-$locale}/")({
   },
 });
 ```
+
+Küçük meta veri sözlükleri, az sayıda yerel ayar veya prototipleme aşaması için idealdir.
+
+</Tab>
+
+<Tab label="Dinamik çözümleme" value="dynamic">
+
+`getIntlayerAsync` — **v9.4** sürümünden itibaren kullanılabilir — `getIntlayer` gibi davranır, ancak build eklentisi onu birleştirilmiş sözlük yerine `.intlayer/dynamic_dictionaries/` içindeki yerel ayar başına parçaya yönlendirir. Böylece bir sayfa yalnızca render ettiği yerel ayarı gönderir. Bu parça talep üzerine yüklendiğinden `head` `async` hâle gelir:
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createFileRoute } from "@tanstack/react-router";
+import {
+  defaultLocale,
+  getIntlayerAsync,
+  getLocalizedUrl,
+  localeMap,
+} from "intlayer";
+
+export const Route = createFileRoute("/{-$locale}/")({
+  component: RouteComponent,
+  head: async ({ params }) => {
+    const { locale = defaultLocale } = params;
+    const path = "/"; // The path for this route
+
+    const metaContent = await getIntlayerAsync("app", locale);
+
+    return {
+      links: [
+        // Canonical link: Points to the current localized page
+        { rel: "canonical", href: getLocalizedUrl(path, locale) },
+
+        // Hreflang: Tell Google about all localized versions
+        ...localeMap(({ locale: mapLocale }) => ({
+          rel: "alternate",
+          hrefLang: mapLocale,
+          href: getLocalizedUrl(path, mapLocale),
+        })),
+
+        // x-default: For users in unmatched languages
+        // Define the default fallback locale (usually your primary language)
+        {
+          rel: "alternate",
+          hrefLang: "x-default",
+          href: getLocalizedUrl(path, defaultLocale),
+        },
+      ],
+      meta: [
+        { title: metaContent.title },
+        { name: "description", content: metaContent.meta.description },
+      ],
+    };
+  },
+});
+```
+
+> Bir `head` birden fazla sözlük okuyorsa bunları `Promise.all` ile çözümleyin — her `getIntlayerAsync` çağrısını ayrı satırda beklemek, istekleri paralel çalıştırmak yerine zincirler.
+
+Ödün: dinamik import, `head` çalışırken, belge render'ının kritik yolunda çözümlenir. Soğuk bir rotada bu, `head`'i birkaç milisaniye geciktirir ve **LCP**'yi bir miktar kötüleştirebilir.
+
+</Tab>
+
+<Tab label="Önbellekli dinamik çözümleme" value="cached">
+
+Sözlüğü rotanın `loader`'ında çözümleyin ve `head` içinde `loaderData` üzerinden geri okuyun. Eşleşen rotaların loader'ları paralel çalışır ve `staleTime: Infinity`, TanStack Router'a sonucun hiçbir zaman bayatlamayacağını söyler — böylece yerel ayar başına parça bir kez çözümlenir, sonrasında router önbelleğinden sunulur ve `head` senkron kalır.
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createFileRoute } from "@tanstack/react-router";
+import {
+  defaultLocale,
+  getIntlayerAsync,
+  getLocalizedUrl,
+  localeMap,
+} from "intlayer";
+
+export const Route = createFileRoute("/{-$locale}/")({
+  component: RouteComponent,
+  // Resolved in parallel with the other matched routes, off the head critical path
+  loader: async ({ params }) => {
+    const { locale = defaultLocale } = params;
+
+    return { metaContent: await getIntlayerAsync("app", locale) };
+  },
+  // The dictionary never changes for a given locale: resolve the chunk once
+  staleTime: Infinity,
+  head: ({ params, loaderData }) => {
+    const { locale = defaultLocale } = params;
+    const path = "/"; // The path for this route
+
+    return {
+      links: [
+        // Canonical link: Points to the current localized page
+        { rel: "canonical", href: getLocalizedUrl(path, locale) },
+
+        // Hreflang: Tell Google about all localized versions
+        ...localeMap(({ locale: mapLocale }) => ({
+          rel: "alternate",
+          hrefLang: mapLocale,
+          href: getLocalizedUrl(path, mapLocale),
+        })),
+
+        // x-default: For users in unmatched languages
+        // Define the default fallback locale (usually your primary language)
+        {
+          rel: "alternate",
+          hrefLang: "x-default",
+          href: getLocalizedUrl(path, defaultLocale),
+        },
+      ],
+      meta: [
+        { title: loaderData?.metaContent.title },
+        {
+          name: "description",
+          content: loaderData?.metaContent.meta.description,
+        },
+      ],
+    };
+  },
+});
+```
+
+> `head`, loader tamamlanmadan önce çağrılabilir; bu nedenle `loaderData` muhtemelen `undefined` olarak tiplenir. Optional chaining'i koruyun veya yedek bir başlık döndürün.
+
+Yerel ayar başına parçayı, bedelini `head` kritik yolunda ödemeden korursunuz. Bedeli geliştirici deneyimidir: içeriğin loader'dan `head`'e `loaderData` üzerinden açıkça taşınması gerekir.
+
+</Tab>
+
+</Tabs>
+
+### Hangi çözümlemeyi seçmeliyim?
+
+|                          | Statik çözümleme               | Dinamik çözümleme                         | Önbellekli dinamik çözümleme               |
+| ------------------------ | ------------------------------ | ----------------------------------------- | ------------------------------------------ |
+| API                      | `getIntlayer`                  | `getIntlayerAsync` (v9.4+)                | `loader` içinde `getIntlayerAsync` (v9.4+) |
+| `head` imzası            | senkron                        | `async`                                   | senkron, `loaderData` okur                 |
+| Gönderilen yerel ayarlar | bildirilen tüm yerel ayarlar   | yalnızca istenen yerel ayar               | yalnızca istenen yerel ayar                |
+| Paket boyutu             | her yerel ayarla büyür         | sabit                                     | sabit                                      |
+| `head` çözümlemesi       | anında                         | `head` içinde yerel ayar parçasını bekler | loader'da beklenir, sonra önbelleklenir    |
+| LCP etkisi               | yok                            | soğuk rotada hafif gecikme                | yok — `head` kritik yolunun dışında        |
+| İstemci gezinmeleri      | çözümlenecek bir şey yok       | her eşleşmede yeniden çalışır             | router önbelleğinden sunulur               |
+| Geliştirici deneyimi     | en basiti                      | tek bir `await`                           | içerik `loaderData` üzerinden taşınır      |
+| Şunlar için ideal        | az yerel ayar, küçük sözlükler | çok yerel ayar, az ziyaret edilen rotalar | çok yerel ayar, sık ziyaret edilen rotalar |
 
 ---
 

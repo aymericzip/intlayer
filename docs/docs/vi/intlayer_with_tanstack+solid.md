@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-25
-updatedAt: 2026-06-23
+updatedAt: 2026-08-25
 title: "TanStack Start + Solid i18n - Hướng dẫn đầy đủ để dịch ứng dụng của bạn"
 description: "Không còn i18next nữa. Hướng dẫn 2026 để xây dựng ứng dụng TanStack Start + Solid đa ngôn ngữ (i18n). Dịch với các AI agent và tối ưu hóa kích thước bundle, SEO và hiệu suất."
 keywords:
@@ -21,6 +21,9 @@ applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-solid
 applicationShowcase: https://intlayer-tanstack-start-solid.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
+  - version: 9.4.0
+    date: 2026-08-25
+    changes: "So sánh phân giải tĩnh, động và động có cache cho từ điển metadata trong hàm head của route"
   - version: 8.9.0
     date: 2026-05-04
     changes: "Cập nhật cách sử dụng API useIntlayer của Solid sang truy cập thuộc tính trực tiếp"
@@ -457,6 +460,8 @@ export const useLocalizedNavigate = () => {
 
 <Step number={9} title="Sử dụng Intlayer trong các trang của bạn">
 
+> Hãy dùng **`useIntlayer`** theo mặc định: đây là cách được khuyến nghị để đọc nội dung bên trong component, và trình biên dịch sẽ phân giải nó về đúng locale đang được render. Chỉ dùng `getIntlayer` / `getIntlayerAsync` bên ngoài cây Solid — `head` của route, loader và server function.
+
 Truy cập các từ điển nội dung của bạn trong toàn bộ ứng dụng:
 
 #### Trang chủ đa ngôn ngữ
@@ -605,18 +610,29 @@ export default defineConfig({
 
 <Step number={13} title="Đa ngôn ngữ hóa Metadata của bạn">
 
-Bạn cũng có thể sử dụng hàm `getIntlayer` để truy cập các từ điển nội dung của mình trong hàm load `head` cho metadata theo ngôn ngữ:
+Bên trong các component, hãy tiếp tục dùng **`useIntlayer`** — đây vẫn là lựa chọn mặc định. Trình biên dịch viết lại lời gọi này thành chunk từ điển của locale thực sự đang được render, nên không có gì thừa được gửi tới trình duyệt.
 
-Nó hoạt động giống như `getIntlayer`, nhưng plugin build trỏ nó đến chunk dictionary theo locale thay vì dictionary được merge chứa tất cả các locale — vì vậy metadata cho một trang chỉ ship locale mà nó render. Vì nó tải chunk đó theo yêu cầu, `head` trở thành `async`:
+Các hàm `head` của route chạy **bên ngoài** cây Solid, nên `useIntlayer` không khả dụng ở đó. Bạn có ba cách đọc từ điển từ `head`, mỗi cách đánh đổi giữa kích thước bundle và mức độ sớm mà `head` của tài liệu sẵn sàng.
+
+<Tabs defaultTab="cached">
+
+<Tab label="Phân giải tĩnh" value="static">
+
+`getIntlayer` phân giải đồng bộ trên từ điển **đã gộp** — từ điển chứa mọi locale đã khai báo. `head` vẫn đồng bộ và không phải await gì cả, nhưng toàn bộ từ điển đa ngữ bị kéo vào chunk của route gửi tới trình duyệt.
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/solid-router";
-import { getIntlayer } from "intlayer";
+import {
+  defaultLocale,
+  getIntlayer,
+  getLocalizedUrl,
+  localeMap,
+} from "intlayer";
 
 export const Route = createFileRoute("/{-$locale}/")({
   component: RouteComponent,
   head: ({ params }) => {
-    const { locale } = params;
+    const { locale = defaultLocale } = params;
     const path = "/"; // The path for this route
 
     const metaContent = getIntlayer("app", locale);
@@ -649,6 +665,147 @@ export const Route = createFileRoute("/{-$locale}/")({
   },
 });
 ```
+
+Phù hợp nhất với từ điển metadata nhỏ, ít locale, hoặc khi đang làm nguyên mẫu.
+
+</Tab>
+
+<Tab label="Phân giải động" value="dynamic">
+
+`getIntlayerAsync` — có sẵn từ **v9.4** — hoạt động giống `getIntlayer`, nhưng plugin build trỏ nó tới chunk theo từng locale trong `.intlayer/dynamic_dictionaries/` thay vì từ điển đã gộp. Nhờ vậy một trang chỉ gửi đúng locale mà nó render. Vì chunk đó được nạp theo yêu cầu, `head` trở thành `async`:
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createFileRoute } from "@tanstack/solid-router";
+import {
+  defaultLocale,
+  getIntlayerAsync,
+  getLocalizedUrl,
+  localeMap,
+} from "intlayer";
+
+export const Route = createFileRoute("/{-$locale}/")({
+  component: RouteComponent,
+  head: async ({ params }) => {
+    const { locale = defaultLocale } = params;
+    const path = "/"; // The path for this route
+
+    const metaContent = await getIntlayerAsync("app", locale);
+
+    return {
+      links: [
+        // Canonical link: Points to the current localized page
+        { rel: "canonical", href: getLocalizedUrl(path, locale) },
+
+        // Hreflang: Tell Google about all localized versions
+        ...localeMap(({ locale: mapLocale }) => ({
+          rel: "alternate",
+          hrefLang: mapLocale,
+          href: getLocalizedUrl(path, mapLocale),
+        })),
+
+        // x-default: For users in unmatched languages
+        // Define the default fallback locale (usually your primary language)
+        {
+          rel: "alternate",
+          hrefLang: "x-default",
+          href: getLocalizedUrl(path, defaultLocale),
+        },
+      ],
+      meta: [
+        { title: metaContent.title },
+        { name: "description", content: metaContent.meta.description },
+      ],
+    };
+  },
+});
+```
+
+> Nếu một `head` đọc nhiều từ điển, hãy phân giải chúng bằng `Promise.all` — await từng `getIntlayerAsync` trên một dòng riêng sẽ khiến các yêu cầu nối đuôi nhau thay vì chạy song song.
+
+Đánh đổi: import động được phân giải trong lúc `head` chạy, nằm trên đường găng của quá trình render tài liệu. Trên một route "nguội", điều này làm `head` trễ vài mili giây và có thể làm **LCP** kém đi đôi chút.
+
+</Tab>
+
+<Tab label="Phân giải động có cache" value="cached">
+
+Hãy phân giải từ điển trong `loader` của route rồi đọc lại từ `loaderData` trong `head`. Loader của các route khớp chạy song song, và `staleTime: Infinity` cho TanStack Router biết kết quả không bao giờ cũ — nhờ đó chunk theo locale chỉ được phân giải một lần rồi phục vụ từ cache của router, giữ cho `head` đồng bộ.
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createFileRoute } from "@tanstack/solid-router";
+import {
+  defaultLocale,
+  getIntlayerAsync,
+  getLocalizedUrl,
+  localeMap,
+} from "intlayer";
+
+export const Route = createFileRoute("/{-$locale}/")({
+  component: RouteComponent,
+  // Resolved in parallel with the other matched routes, off the head critical path
+  loader: async ({ params }) => {
+    const { locale = defaultLocale } = params;
+
+    return { metaContent: await getIntlayerAsync("app", locale) };
+  },
+  // The dictionary never changes for a given locale: resolve the chunk once
+  staleTime: Infinity,
+  head: ({ params, loaderData }) => {
+    const { locale = defaultLocale } = params;
+    const path = "/"; // The path for this route
+
+    return {
+      links: [
+        // Canonical link: Points to the current localized page
+        { rel: "canonical", href: getLocalizedUrl(path, locale) },
+
+        // Hreflang: Tell Google about all localized versions
+        ...localeMap(({ locale: mapLocale }) => ({
+          rel: "alternate",
+          hrefLang: mapLocale,
+          href: getLocalizedUrl(path, mapLocale),
+        })),
+
+        // x-default: For users in unmatched languages
+        // Define the default fallback locale (usually your primary language)
+        {
+          rel: "alternate",
+          hrefLang: "x-default",
+          href: getLocalizedUrl(path, defaultLocale),
+        },
+      ],
+      meta: [
+        { title: loaderData?.metaContent.title },
+        {
+          name: "description",
+          content: loaderData?.metaContent.meta.description,
+        },
+      ],
+    };
+  },
+});
+```
+
+> `head` có thể được gọi trước khi loader hoàn tất, nên `loaderData` được định kiểu là có thể `undefined`. Hãy giữ optional chaining, hoặc trả về một tiêu đề dự phòng.
+
+Bạn giữ được chunk theo locale mà không phải trả giá trên đường găng của `head`. Cái giá là trải nghiệm phát triển: nội dung phải được truyền tường minh từ loader sang `head` qua `loaderData`.
+
+</Tab>
+
+</Tabs>
+
+### Nên chọn cách phân giải nào?
+
+|                        | Phân giải tĩnh             | Phân giải động                     | Phân giải động có cache                   |
+| ---------------------- | -------------------------- | ---------------------------------- | ----------------------------------------- |
+| API                    | `getIntlayer`              | `getIntlayerAsync` (v9.4+)         | `getIntlayerAsync` trong `loader` (v9.4+) |
+| Chữ ký của `head`      | đồng bộ                    | `async`                            | đồng bộ, đọc `loaderData`                 |
+| Locale được gửi đi     | mọi locale đã khai báo     | chỉ locale được yêu cầu            | chỉ locale được yêu cầu                   |
+| Kích thước bundle      | tăng theo từng locale      | không đổi                          | không đổi                                 |
+| Phân giải `head`       | tức thì                    | chờ chunk locale ngay trong `head` | chờ trong loader, sau đó cache            |
+| Ảnh hưởng LCP          | không                      | trễ nhẹ trên route nguội           | không — nằm ngoài đường găng của `head`   |
+| Điều hướng phía client | không có gì phải phân giải | chạy lại mỗi lần khớp route        | phục vụ từ cache của router               |
+| Trải nghiệm phát triển | đơn giản nhất              | một lệnh `await`                   | nội dung truyền qua `loaderData`          |
+| Phù hợp nhất cho       | ít locale, từ điển nhỏ     | nhiều locale, route ít được ghé    | nhiều locale, route được ghé thường xuyên |
 
 ---
 

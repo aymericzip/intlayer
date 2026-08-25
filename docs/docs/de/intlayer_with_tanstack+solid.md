@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-25
-updatedAt: 2026-06-23
+updatedAt: 2026-08-25
 title: "TanStack Start + Solid i18n - Vollständiger Leitfaden zur Übersetzung Ihrer App"
 description: "Kein i18next mehr. Der 2026-Leitfaden zum Erstellen einer mehrsprachigen (i18n) TanStack Start + Solid-App. Übersetzen Sie mit KI-Agenten und optimieren Sie Bundle-Größe, SEO und Performance."
 keywords:
@@ -22,6 +22,9 @@ applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-solid
 applicationShowcase: https://intlayer-tanstack-start-solid.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
+  - version: 9.4.0
+    date: 2026-08-25
+    changes: "Statische, dynamische und gecachte dynamische Auflösung von Metadaten-Dictionaries in head-Funktionen von Routen vergleichen"
   - version: 8.9.0
     date: 2026-05-04
     changes: "Aktualisieren der Solid useIntlayer API-Nutzung auf direkten Eigenschaftszugriff"
@@ -458,6 +461,8 @@ export const useLocalizedNavigate = () => {
 
 <Step number={9} title="Intlayer in Ihren Seiten nutzen">
 
+> Verwenden Sie standardmäßig **`useIntlayer`**: Es ist der empfohlene Weg, Inhalte innerhalb von Komponenten zu lesen, und der Compiler löst den Aufruf auf die gerenderte Locale auf. Greifen Sie nur außerhalb des Solid-Baums zu `getIntlayer` / `getIntlayerAsync` — im `head` von Routen, in Loadern und Server Functions.
+
 Greifen Sie in Ihrer gesamten Anwendung auf Ihre Inhaltswörterbücher zu:
 
 #### Lokalisierte Startseite
@@ -606,18 +611,29 @@ export default defineConfig({
 
 <Step number={13} title="Internationalisieren Sie Ihre Metadaten">
 
-Verwenden Sie `getIntlayerAsync`, um auf Ihre Content-Dictionaries inside the `head` loader für locale-aware metadata zuzugreifen.
+Verwenden Sie in Ihren Komponenten weiterhin **`useIntlayer`** — es bleibt der Standard. Der Compiler schreibt den Aufruf auf den Dictionary-Chunk der tatsächlich gerenderten Locale um, sodass nichts anderes an den Browser ausgeliefert wird.
 
-Sie können auch die Funktion `getIntlayer` verwenden, um innerhalb des `head`-Loaders auf Ihre Inhaltswörterbücher für lokalisierungsbewusste Metadaten zuzugreifen:
+Die `head`-Funktionen einer Route laufen **außerhalb** des Solid-Baums, dort ist `useIntlayer` also nicht verfügbar. Es gibt drei Wege, ein Dictionary aus `head` zu lesen; sie wägen Bundle-Größe gegen die Geschwindigkeit ab, mit der der Dokument-`head` bereitsteht.
+
+<Tabs defaultTab="cached">
+
+<Tab label="Statische Auflösung" value="static">
+
+`getIntlayer` löst synchron gegen das **zusammengeführte** Dictionary auf — jenes, das alle deklarierten Locales enthält. `head` bleibt synchron und es wird nichts erwartet, aber das gesamte mehrsprachige Dictionary landet im Route-Chunk, der an den Browser geht.
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/solid-router";
-import { getIntlayer } from "intlayer";
+import {
+  defaultLocale,
+  getIntlayer,
+  getLocalizedUrl,
+  localeMap,
+} from "intlayer";
 
 export const Route = createFileRoute("/{-$locale}/")({
   component: RouteComponent,
   head: ({ params }) => {
-    const { locale } = params;
+    const { locale = defaultLocale } = params;
     const path = "/"; // The path for this route
 
     const metaContent = getIntlayer("app", locale);
@@ -650,6 +666,147 @@ export const Route = createFileRoute("/{-$locale}/")({
   },
 });
 ```
+
+Am besten für kleine Metadaten-Dictionaries, wenige Locales oder beim Prototyping.
+
+</Tab>
+
+<Tab label="Dynamische Auflösung" value="dynamic">
+
+`getIntlayerAsync` — verfügbar ab **v9.4** — verhält sich wie `getIntlayer`, doch das Build-Plugin verweist es auf den Locale-Chunk in `.intlayer/dynamic_dictionaries/` statt auf das zusammengeführte Dictionary. Eine Seite liefert damit nur die Locale aus, die sie rendert. Da dieser Chunk bei Bedarf geladen wird, wird `head` zu `async`:
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createFileRoute } from "@tanstack/solid-router";
+import {
+  defaultLocale,
+  getIntlayerAsync,
+  getLocalizedUrl,
+  localeMap,
+} from "intlayer";
+
+export const Route = createFileRoute("/{-$locale}/")({
+  component: RouteComponent,
+  head: async ({ params }) => {
+    const { locale = defaultLocale } = params;
+    const path = "/"; // The path for this route
+
+    const metaContent = await getIntlayerAsync("app", locale);
+
+    return {
+      links: [
+        // Canonical link: Points to the current localized page
+        { rel: "canonical", href: getLocalizedUrl(path, locale) },
+
+        // Hreflang: Tell Google about all localized versions
+        ...localeMap(({ locale: mapLocale }) => ({
+          rel: "alternate",
+          hrefLang: mapLocale,
+          href: getLocalizedUrl(path, mapLocale),
+        })),
+
+        // x-default: For users in unmatched languages
+        // Define the default fallback locale (usually your primary language)
+        {
+          rel: "alternate",
+          hrefLang: "x-default",
+          href: getLocalizedUrl(path, defaultLocale),
+        },
+      ],
+      meta: [
+        { title: metaContent.title },
+        { name: "description", content: metaContent.meta.description },
+      ],
+    };
+  },
+});
+```
+
+> Liest ein `head` mehrere Dictionaries, lösen Sie sie mit `Promise.all` auf — jedes `getIntlayerAsync` einzeln zu awaiten verkettet die Anfragen, statt sie parallel auszuführen.
+
+Der Kompromiss: Der dynamische Import wird während der Ausführung von `head` aufgelöst — auf dem kritischen Pfad des Dokument-Renderings. Auf einer kalten Route verzögert das den `head` um einige Millisekunden und kann den **LCP** leicht verschlechtern.
+
+</Tab>
+
+<Tab label="Gecachte dynamische Auflösung" value="cached">
+
+Lösen Sie das Dictionary stattdessen im `loader` der Route auf und lesen Sie es in `head` aus `loaderData` zurück. Die Loader der gematchten Routen laufen parallel, und `staleTime: Infinity` teilt TanStack Router mit, dass das Ergebnis nie veraltet — der Locale-Chunk wird also einmal aufgelöst und danach aus dem Router-Cache bedient, während `head` synchron bleibt.
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createFileRoute } from "@tanstack/solid-router";
+import {
+  defaultLocale,
+  getIntlayerAsync,
+  getLocalizedUrl,
+  localeMap,
+} from "intlayer";
+
+export const Route = createFileRoute("/{-$locale}/")({
+  component: RouteComponent,
+  // Resolved in parallel with the other matched routes, off the head critical path
+  loader: async ({ params }) => {
+    const { locale = defaultLocale } = params;
+
+    return { metaContent: await getIntlayerAsync("app", locale) };
+  },
+  // The dictionary never changes for a given locale: resolve the chunk once
+  staleTime: Infinity,
+  head: ({ params, loaderData }) => {
+    const { locale = defaultLocale } = params;
+    const path = "/"; // The path for this route
+
+    return {
+      links: [
+        // Canonical link: Points to the current localized page
+        { rel: "canonical", href: getLocalizedUrl(path, locale) },
+
+        // Hreflang: Tell Google about all localized versions
+        ...localeMap(({ locale: mapLocale }) => ({
+          rel: "alternate",
+          hrefLang: mapLocale,
+          href: getLocalizedUrl(path, mapLocale),
+        })),
+
+        // x-default: For users in unmatched languages
+        // Define the default fallback locale (usually your primary language)
+        {
+          rel: "alternate",
+          hrefLang: "x-default",
+          href: getLocalizedUrl(path, defaultLocale),
+        },
+      ],
+      meta: [
+        { title: loaderData?.metaContent.title },
+        {
+          name: "description",
+          content: loaderData?.metaContent.meta.description,
+        },
+      ],
+    };
+  },
+});
+```
+
+> `head` kann aufgerufen werden, bevor der Loader fertig ist; `loaderData` ist deshalb als möglicherweise `undefined` typisiert. Behalten Sie die Optional-Chaining-Aufrufe bei oder geben Sie einen Fallback-Titel zurück.
+
+Sie behalten den Locale-Chunk, ohne seine Kosten auf dem kritischen Pfad des `head` zu bezahlen. Der Preis ist die Developer Experience: Der Inhalt muss explizit vom Loader über `loaderData` an den `head` durchgereicht werden.
+
+</Tab>
+
+</Tabs>
+
+### Welche Auflösung soll ich wählen?
+
+|                       | Statische Auflösung                 | Dynamische Auflösung                  | Gecachte dynamische Auflösung                 |
+| --------------------- | ----------------------------------- | ------------------------------------- | --------------------------------------------- |
+| API                   | `getIntlayer`                       | `getIntlayerAsync` (v9.4+)            | `getIntlayerAsync` im `loader` (v9.4+)        |
+| `head`-Signatur       | synchron                            | `async`                               | synchron, liest `loaderData`                  |
+| Ausgelieferte Locales | alle deklarierten Locales           | nur die angeforderte Locale           | nur die angeforderte Locale                   |
+| Bundle-Größe          | wächst mit jeder Locale             | konstant                              | konstant                                      |
+| `head`-Auflösung      | sofort                              | wartet im `head` auf den Locale-Chunk | im Loader erwartet, danach gecacht            |
+| LCP-Auswirkung        | keine                               | leichte Verzögerung auf kalter Route  | keine — außerhalb des kritischen `head`-Pfads |
+| Client-Navigationen   | nichts aufzulösen                   | bei jedem Match erneut ausgeführt     | aus dem Router-Cache bedient                  |
+| Developer Experience  | am einfachsten                      | ein `await`                           | Inhalt über `loaderData` durchgereicht        |
+| Am besten für         | wenige Locales, kleine Dictionaries | viele Locales, selten besuchte Routen | viele Locales, häufig besuchte Routen         |
 
 ---
 
