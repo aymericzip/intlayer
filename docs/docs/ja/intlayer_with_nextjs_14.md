@@ -681,39 +681,6 @@ module.exports = { generateMetadata };
 
 > `next-intlayer` からインポートされる `getIntlayer` 関数は、コンテンツを `IntlayerNode` でラップして返すため、ビジュアルエディタとの統合が可能です。一方、`intlayer` からインポートされる `getIntlayer` 関数は、追加のプロパティなしで直接コンテンツを返します。
 
-また、`getTranslation` 関数を使ってメタデータを宣言することもできます。ただし、メタデータの翻訳を自動化し、コンテンツを外部化するためには、コンテンツ宣言ファイルを使用することが推奨されます。
-
-```typescript fileName="src/app/[locale]/layout.tsx or src/app/[locale]/page.tsx" codeFormat={["typescript", "esm"]}
-import {
-  type IConfigLocales,
-  getTranslation,
-  getMultilingualUrls,
-} from "intlayer";
-import type { Metadata } from "next";
-import type { LocalParams } from "next-intlayer";
-
-export const generateMetadata = ({
-  params: { locale },
-}: LocalParams): Metadata => {
-  const t = <T>(content: IConfigLocales<T>) => getTranslation(content, locale);
-
-  return {
-    title: t<string>({
-      en: "My title",
-      fr: "Mon titre",
-      es: "Mi título",
-    }),
-    description: t({
-      en: "My description",
-      fr: "Ma description",
-      es: "Mi descripción",
-    }),
-  };
-};
-
-// ... 残りのコード
-```
-
 > メタデータの最適化について詳しくは、[公式Next.jsドキュメント](https://nextjs.org/docs/app/building-your-application/optimizing/metadata)をご覧ください。
 
 </Step>

@@ -696,39 +696,6 @@ export const generateMetadata = ({
 
 > Lưu ý rằng hàm `getIntlayer` được nhập từ `next-intlayer` trả về nội dung của bạn được bao bọc trong một `IntlayerNode`, cho phép tích hợp với trình chỉnh sửa trực quan. Ngược lại, hàm `getIntlayer` được nhập từ `intlayer` trả về nội dung của bạn trực tiếp mà không có các thuộc tính bổ sung.
 
-Ngoài ra, bạn có thể sử dụng hàm `getTranslation` để khai báo metadata của mình. Tuy nhiên, việc sử dụng các file khai báo nội dung được khuyến nghị để tự động hóa việc dịch metadata và tách nội dung ra bên ngoài tại một thời điểm nào đó.
-
-```typescript fileName="src/app/[locale]/layout.tsx or src/app/[locale]/page.tsx" codeFormat={["typescript", "esm"]}
-import {
-  type IConfigLocales,
-  getTranslation,
-  getMultilingualUrls,
-} from "intlayer";
-import type { Metadata } from "next";
-import type { LocalParams } from "next-intlayer";
-
-export const generateMetadata = ({
-  params: { locale },
-}: LocalParams): Metadata => {
-  const t = <T>(content: IConfigLocales<T>) => getTranslation(content, locale);
-
-  return {
-    title: t<string>({
-      en: "My title",
-      fr: "Mon titre",
-      es: "Mi título",
-    }),
-    description: t({
-      en: "My description",
-      fr: "Ma description",
-      es: "Mi descripción",
-    }),
-  };
-};
-
-// ... Phần còn lại của mã
-```
-
 > Tìm hiểu thêm về tối ưu hóa metadata [trong tài liệu chính thức của Next.js](https://nextjs.org/docs/app/building-your-application/optimizing/metadata).
 
 </Step>

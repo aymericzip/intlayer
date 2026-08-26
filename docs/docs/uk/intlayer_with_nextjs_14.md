@@ -703,41 +703,6 @@ export const generateMetadata = ({
 
 > Зверніть увагу, що функція `getIntlayer`, імпортована з `next-intlayer`, повертає ваш контент, обгорнутий в `IntlayerNode`, що дозволяє інтеграцію з візуальним редактором. Натомість функція `getIntlayer`, імпортована з `intlayer`, повертає ваш контент без додаткових властивостей.
 
-Альтернативно, ви також можете використовувати функцію `getTranslation` для оголошення ваших метаданих. Проте рекомендується використовувати файли декларації контенту, щоб автоматизувати переклад метаданих і згодом винести контент у зовнішні файли.
-
-```typescript fileName="src/app/[locale]/layout.tsx or src/app/[locale]/page.tsx" codeFormat={["typescript", "esm"]}
-import {
-  type IConfigLocales,
-  getTranslation,
-  getMultilingualUrls,
-} from "intlayer";
-import type { Metadata } from "next";
-import type { LocalParams } from "next-intlayer";
-
-export const generateMetadata = ({
-  params: { locale },
-}: LocalParams): Metadata => {
-  const t = <T>(content: IConfigLocales<T>) => getTranslation(content, locale);
-
-  return {
-    title: t<string>({
-      uk: "Мій заголовок",
-      en: "My title",
-      fr: "Mon titre",
-      es: "Mi título",
-    }),
-    description: t({
-      uk: "Мій опис",
-      en: "My description",
-      fr: "Ma description",
-      es: "Mi descripción",
-    }),
-  };
-};
-
-// ... Решта коду
-```
-
 > Дізнайтеся більше про оптимізацію метаданих в офіційній документації Next.js: [on the official Next.js documentation](https://nextjs.org/docs/app/building-your-application/optimizing/metadata).
 
 </Step>

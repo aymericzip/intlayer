@@ -582,65 +582,6 @@ const ServerComponentExample: FC = () => {
 
 <Step number={8} title="Internazionalizzazione dei tuoi metadati" isOptional={true}>
 
-Nel caso tu voglia internazionalizzare i tuoi metadati, come il titolo della tua pagina, puoi utilizzare la funzione `generateMetadata` fornita da Next.js. All'interno della funzione utilizza la funzione `getTranslation` per tradurre i tuoi metadati.
-
-````typescript fileName="src/app/[locale]/layout.tsx or src/app/[locale]/page.tsx" codeFormat="typescript"
-import {
-  type IConfigLocales,
-  getTranslation,
-  getMultilingualUrls,
-} from "intlayer";
-import type { Metadata } from "next";
-import type { LocalParams } from "next-intlayer";
-
-export const generateMetadata = ({
-  params: { locale },
-}: LocalParams): Metadata => {
-  const t = <T>(content: IConfigLocales<T>) => getTranslation(content, locale);
-
-  /**
-   * Genera un oggetto contenente tutti gli URL per ogni lingua.
-   *
-   * Esempio:
-   * ```ts
-   *  getMultilingualUrls('/about');
-   *
-   *  // Restituisce
-   *  // {
-   *  //   en: '/about',
-   *  //   fr: '/fr/about',
-   *  //   es: '/es/about',
-   *  // }
-   * ```
-   */
-  const multilingualUrls = getMultilingualUrls("/");
-
-  return {
-    title: t<string>({
-      en: "My title",
-      fr: "Mon titre",
-      es: "Mi título",
-      it: "Il mio titolo",
-    }),
-    description: t({
-      en: "My description",
-      fr: "Ma description",
-      es: "Mi descripción",
-      it: "La mia descrizione",
-    }),
-    alternates: {
-      canonical: multilingualUrls[locale as keyof typeof multilingualUrls],
-      languages: { ...multilingualUrls, "x-default": "/" },
-    },
-    openGraph: {
-      url: multilingualUrls[locale],
-    },
-  };
-};
-
-// ... Resto del codice
-````
-
 ```json fileName="src/app/[locale]/metadata.content.json" contentDeclarationFormat="json"
 {
   "key": "page-metadata",
@@ -717,57 +658,6 @@ export const generateMetadata = ({ params: { locale } }) => {
 ````
 
 > Nota che la funzione `getIntlayer` importata da `next-intlayer` restituisce il tuo contenuto avvolto in un `IntlayerNode`, consentendo l'integrazione con l'editor visuale. Al contrario, la funzione `getIntlayer` importata da `intlayer` restituisce il tuo contenuto direttamente senza proprietà aggiuntive.
-
-In alternativa, puoi usare la funzione `getTranslation` per dichiarare i tuoi metadati. Tuttavia, è consigliato utilizzare file di dichiarazione dei contenuti per automatizzare la traduzione dei tuoi metadati e esternalizzare i contenuti a un certo punto.
-
-````javascript fileName="src/app/[locale]/layout.cjs or src/app/[locale]/page.cjs" codeFormat="javascript"
-const { getTranslation, getMultilingualUrls } = require("intlayer");
-
-module.exports.generateMetadata = ({ params: { locale } }) => {
-  const t = (content) => getTranslation(content, locale);
-
-  /**
-   * Genera un oggetto contenente tutti gli URL per ogni lingua.
-   *
-   * Esempio:
-   * ```ts
-   *  getMultilingualUrls('/about');
-   *
-   *  // Restituisce
-   *  // {
-   *  //   en: '/about',
-   *  //   fr: '/fr/about',
-   *  //   es: '/es/about',
-   *  // }
-   * ```
-   */
-  const multilingualUrls = getMultilingualUrls("/");
-
-  return {
-    title: t({
-      en: "My title",
-      fr: "Mon titre",
-      es: "Mi título",
-      it: "Il mio titolo",
-    }),
-    description: t({
-      en: "My description",
-      fr: "Ma description",
-      es: "Mi descripción",
-      it: "La mia descrizione",
-    }),
-    alternates: {
-      canonical: multilingualUrls[locale],
-      languages: { ...multilingualUrls, "x-default": "/" },
-    },
-    openGraph: {
-      url: multilingualUrls[locale],
-    },
-  };
-};
-
-// ... Resto del codice
-````
 
 > Scopri di più sull'ottimizzazione dei metadati [nella documentazione ufficiale di Next.js](https://nextjs.org/docs/app/building-your-application/optimizing/metadata).
 

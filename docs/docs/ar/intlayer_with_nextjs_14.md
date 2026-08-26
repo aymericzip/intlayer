@@ -594,65 +594,6 @@ const ServerComponentExample: FC = () => {
 
 <Step number={8} title="تدويل البيانات الوصفية الخاصة بك" isOptional={true}>
 
-في حال كنت ترغب في تدويل البيانات الوصفية الخاصة بك، مثل عنوان الصفحة، يمكنك استخدام وظيفة `generateMetadata` المقدمة من Next.js. داخل الوظيفة، استخدم وظيفة `getTranslation` لترجمة البيانات الوصفية الخاصة بك.
-
-````typescript fileName="src/app/[locale]/layout.tsx or src/app/[locale]/page.tsx" codeFormat="typescript"
-import {
-  type IConfigLocales,
-  getTranslation,
-  getMultilingualUrls,
-} from "intlayer";
-import type { Metadata } from "next";
-import type { LocalParams } from "next-intlayer";
-
-export const generateMetadata = ({
-  params: { locale },
-}: LocalParams): Metadata => {
-  const t = <T>(content: IConfigLocales<T>) => getTranslation(content, locale);
-
-  /**
-   * ينشئ كائنًا يحتوي على جميع الروابط لكل لغة.
-   *
-   * مثال:
-   * ```ts
-   *  getMultilingualUrls('/about');
-   *
-   *  // النتيجة
-   *  // {
-   *  //   en: '/about',
-   *  //   fr: '/fr/about',
-   *  //   es: '/es/about',
-   *  // }
-   * ```
-   */
-  const multilingualUrls = getMultilingualUrls("/");
-
-  return {
-    title: t<string>({
-      ar: "عنواني",
-      en: "My title",
-      fr: "Mon titre",
-      es: "Mi título",
-    }),
-    description: t({
-      ar: "وصف صفحتي",
-      en: "My description",
-      fr: "Ma description",
-      es: "Mi descripción",
-    }),
-    alternates: {
-      canonical: multilingualUrls[locale as keyof typeof multilingualUrls],
-      languages: { ...multilingualUrls, "x-default": "/" },
-    },
-    openGraph: {
-      url: multilingualUrls[locale],
-    },
-  };
-};
-
-// ... بقية الكود
-````
-
 ```json fileName="src/app/[locale]/metadata.content.json" contentDeclarationFormat="json"
 {
   "key": "page-metadata",
@@ -729,57 +670,6 @@ export const generateMetadata = ({ params: { locale } }) => {
 ````
 
 > لاحظ أن دالة `getIntlayer` المستوردة من `next-intlayer` تُرجع محتواك مُغلفًا في `IntlayerNode`، مما يسمح بالتكامل مع محرر بصري. على النقيض من ذلك، فإن دالة `getIntlayer` المستوردة من `intlayer` تُرجع محتواك مباشرةً بدون خصائص إضافية.
-
-بدلاً من ذلك، يمكنك استخدام دالة `getTranslation` للإعلان عن البيانات الوصفية الخاصة بك. ومع ذلك، يُنصح باستخدام ملفات إعلان المحتوى لأتمتة ترجمة البيانات الوصفية الخاصة بك وإخراج المحتوى في مرحلة ما.
-
-````javascript fileName="src/app/[locale]/layout.cjs or src/app/[locale]/page.cjs" codeFormat="javascript"
-const { getTranslation, getMultilingualUrls } = require("intlayer");
-
-module.exports.generateMetadata = ({ params: { locale } }) => {
-  const t = (content) => getTranslation(content, locale);
-
-  /**
-   * ينشئ كائنًا يحتوي على جميع الروابط لكل لغة.
-   *
-   * مثال:
-   * ```ts
-   *  getMultilingualUrls('/about');
-   *
-   *  // النتيجة
-   *  // {
-   *  //   en: '/about',
-   *  //   fr: '/fr/about',
-   *  //   es: '/es/about',
-   *  // }
-   * ```
-   */
-  const multilingualUrls = getMultilingualUrls("/");
-
-  return {
-    title: t({
-      ar: "عنواني",
-      en: "My title",
-      fr: "Mon titre",
-      es: "Mi título",
-    }),
-    description: t({
-      ar: "وصف صفحتي",
-      en: "My description",
-      fr: "Ma description",
-      es: "Mi descripción",
-    }),
-    alternates: {
-      canonical: multilingualUrls[locale],
-      languages: { ...multilingualUrls, "x-default": "/" },
-    },
-    openGraph: {
-      url: multilingualUrls[locale],
-    },
-  };
-};
-
-// ... بقية الكود
-````
 
 > لمعرفة المزيد عن تحسين البيانات الوصفية [راجع التوثيق الرسمي لـ Next.js](https://nextjs.org/docs/app/building-your-application/optimizing/metadata).
 

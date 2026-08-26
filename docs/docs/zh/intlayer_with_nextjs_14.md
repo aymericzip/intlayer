@@ -695,39 +695,6 @@ module.exports = { generateMetadata };
 
 > 注意，从 `next-intlayer` 导入的 `getIntlayer` 函数会返回包装在 `IntlayerNode` 中的内容，允许与可视化编辑器集成。相比之下，从 `intlayer` 导入的 `getIntlayer` 函数直接返回内容，不带额外属性。
 
-或者，你也可以使用 `getTranslation` 函数来声明你的元数据。不过，推荐使用内容声明文件，以便自动化你的元数据翻译并在某个阶段将内容外部化。
-
-```typescript fileName="src/app/[locale]/layout.tsx or src/app/[locale]/page.tsx" codeFormat={["typescript", "esm"]}
-import {
-  type IConfigLocales,
-  getTranslation,
-  getMultilingualUrls,
-} from "intlayer";
-import type { Metadata } from "next";
-import type { LocalParams } from "next-intlayer";
-
-export const generateMetadata = ({
-  params: { locale },
-}: LocalParams): Metadata => {
-  const t = <T>(content: IConfigLocales<T>) => getTranslation(content, locale);
-
-  return {
-    title: t<string>({
-      en: "My title",
-      fr: "Mon titre",
-      es: "Mi título",
-    }),
-    description: t({
-      en: "My description",
-      fr: "Ma description",
-      es: "Mi descripción",
-    }),
-  };
-};
-
-// ... 代码的其余部分
-```
-
 > 了解有关元数据优化的更多信息，请参阅 [Next.js 官方文档](https://nextjs.org/docs/app/building-your-application/optimizing/metadata)。
 
 </Step>

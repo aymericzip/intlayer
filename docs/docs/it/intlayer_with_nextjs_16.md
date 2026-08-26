@@ -708,40 +708,6 @@ export const generateMetadata = async ({
 
 > Nota che la funzione `getIntlayer` importata da `next-intlayer` restituisce il tuo contenuto racchiuso in un `IntlayerNode`, permettendo l'integrazione con l'editor visivo. Al contrario, la funzione `getIntlayer` importata da `intlayer` restituisce il tuo contenuto direttamente senza proprietà aggiuntive.
 
-In alternativa, puoi utilizzare la funzione `getTranslation` per dichiarare i tuoi metadata. Tuttavia, si consiglia di utilizzare file di dichiarazione dei contenuti per automatizzare la traduzione dei tuoi metadata ed esternalizzare il contenuto a un certo punto.
-
-```typescript fileName="src/app/[locale]/layout.tsx or src/app/[locale]/page.tsx" codeFormat={["typescript", "esm"]}
-import {
-  type IConfigLocales,
-  getTranslation,
-  getMultilingualUrls,
-} from "intlayer";
-import type { Metadata } from "next";
-import type { LocalPromiseParams } from "next-intlayer";
-
-export const generateMetadata = async ({
-  params,
-}: LocalPromiseParams): Promise<Metadata> => {
-  const { locale } = await params;
-  const t = <T>(content: IConfigLocales<T>) => getTranslation(content, locale);
-
-  return {
-    title: t<string>({
-      en: "My title",
-      fr: "Mon titre",
-      es: "Mi título",
-    }),
-    description: t({
-      en: "My description",
-      fr: "Ma description",
-      es: "Mi descripción",
-    }),
-  };
-};
-
-// ... Resto del codice
-```
-
 > Scopri di più sull'ottimizzazione dei metadata [nella documentazione ufficiale di Next.js](https://nextjs.org/docs/app/building-your-application/optimizing/metadata).
 
 </Step>
