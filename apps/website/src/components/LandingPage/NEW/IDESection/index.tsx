@@ -1,9 +1,6 @@
 import { IDE } from '@intlayer/design-system/ide';
-import { SwitchSelector } from '@intlayer/design-system/switch-selector';
-import { useTheme } from 'next-themes';
-import { type FC, useState } from 'react';
-import { type Framework, Mode, useFramework } from '../FrameworkContext';
-import { FrameworkSelector } from '../FrameworkSelector';
+import type { FC } from 'react';
+import { type Framework, useFramework } from '../FrameworkContext';
 import clientComponent from './content/client-component.md';
 import clientComponentI18nEn from './content/client-component-i18n-en.md';
 import clientComponentI18nEs from './content/client-component-i18n-es.md';
@@ -153,7 +150,6 @@ const getCentralizedTabs = (framework: Framework) => {
 };
 
 export const IDESection: FC = () => {
-  const { resolvedTheme } = useTheme();
   const { framework, mode } = useFramework();
 
   const tabs =
@@ -164,10 +160,9 @@ export const IDESection: FC = () => {
   return (
     <div className="flex min-h-90 flex-col items-center justify-center gap-3">
       <IDE
-        isDarkMode={resolvedTheme === 'dark'}
         pages={tabs}
         activeTab={0}
-        className="m-0! mx-auto flex-1 p-0! text-xs [&>pre:bg-back]:bg-background"
+        className="m-0! mx-auto flex-1 p-0! text-xs [&>pre:bg-black]:bg-background"
         key={`${mode}-${framework}`}
       />
     </div>
