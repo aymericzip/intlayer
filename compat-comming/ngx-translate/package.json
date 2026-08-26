@@ -85,7 +85,7 @@
   },
   "devDependencies": {
     "@ngx-translate/core": "^18.0.0",
-    "@types/node": "26.2.0",
+    "@types/node": "26.3.0",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
