@@ -17,11 +17,11 @@ import {
   ExternalLink,
   Megaphone,
 } from 'lucide-react';
-import { useTheme } from 'next-themes';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { BackgroundLayout } from '~/components/BackgroundLayout';
 import { Link } from '~/components/Link/Link';
+import { useTheme } from '~/providers/ThemeProvider';
 import packageJSON from '../../../../package_mock.json' with { type: 'json' };
 import { TechLogos } from './TechLogos';
 

@@ -93,7 +93,7 @@ export const RelatedPosts: FC<RelatedPostsProps> = ({
               label={content.visitBlogTitle({ title: post.title })}
               className="group flex flex-col gap-2.5 py-5 no-underline sm:px-5 last:sm:pr-0 first:sm:pl-0"
             >
-              <p className="line-clamp-2 font-medium text-foreground-primary text-sm transition-colors group-hover:text-foreground-secondary group-hover:underline">
+              <p className="line-clamp-2 font-medium text-foreground text-sm transition-colors group-hover:text-foreground-secondary group-hover:underline">
                 {post.title}
               </p>
               {post.description && (
@@ -161,7 +161,7 @@ export const LastPosts: FC<LastPostsProps> = ({
               label={content.visitBlogTitle({ title: post.title })}
               className="group flex flex-col gap-2.5 py-5 no-underline sm:px-5 last:sm:pr-0 first:sm:pl-0"
             >
-              <p className="line-clamp-2 font-medium text-foreground-primary text-sm transition-colors group-hover:text-foreground-secondary group-hover:underline">
+              <p className="line-clamp-2 font-medium text-foreground text-sm transition-colors group-hover:text-foreground-secondary group-hover:underline">
                 {post.title}
               </p>
               {post.description && (

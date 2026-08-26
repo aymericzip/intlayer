@@ -1,7 +1,7 @@
 import { Terminal } from '@intlayer/design-system/terminal';
-import { useTheme } from 'next-themes';
 import { type FC, useEffect, useState } from 'react';
 import { type IntlayerNode, useIntlayer } from 'react-intlayer';
+import { useTheme } from '~/providers/ThemeProvider';
 
 export const TestSection: FC = () => {
   const content = useIntlayer('test-section');

@@ -59,7 +59,7 @@ export const ComparisonSection: FC = () => {
 
                 {/* Intlayer Column */}
                 <div className="col-span-1 flex items-center gap-2 font-semibold text-foreground">
-                  <span className="flex size-6 items-center justify-center rounded-full bg-text text-foreground-opposite">
+                  <span className="flex size-6 items-center justify-center rounded-full bg-text text-foreground">
                     <Check className="size-3.5" strokeWidth={3} />
                   </span>
                   {row.intlayer}

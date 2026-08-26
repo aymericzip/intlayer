@@ -24,10 +24,7 @@ const CodeBlockWrapper: FC<CodeBlockWrapperProps> = ({
       border
       borderColor="card"
       background="none"
-      className={cn(
-        'relative overflow-hidden text-foreground-opposite',
-        className
-      )}
+      className={cn('relative overflow-hidden text-foreground', className)}
     >
       <div className="mb-2 flex items-center justify-between">
         <span className="text-foreground/70 text-xs">{title}</span>
