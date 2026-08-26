@@ -228,7 +228,7 @@ export const BlogCommentSection: FC<BlogCommentSectionProps> = ({
                     {formatDate(comment.createdAt)}
                   </time>
                 </div>
-                <p className="whitespace-pre-wrap text-foreground-secondary text-sm">
+                <p className="whitespace-pre-wrap text-foreground text-sm">
                   {comment.content}
                 </p>
               </Container>
