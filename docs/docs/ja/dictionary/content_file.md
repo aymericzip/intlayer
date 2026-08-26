@@ -364,15 +364,15 @@ Intlayerの辞書は`Dictionary`型で定義され、その動作を制御する
 
 **例:**
 
-```json
+```jsonc
 // ロケール別辞書
 {
   "key": "about-page",
   "locale": "en",
   "content": {
     "title": "About Us", // これは 'en' の翻訳ノードになります
-    "description": "Learn more about our company"
-  }
+    "description": "Learn more about our company",
+  },
 }
 ```
 
@@ -441,7 +441,7 @@ export default aboutPageMetaContent;
 
 **例：**
 
-```json
+```jsonc
 // すべてのロケールで有効化
 {
   "autoFill": true

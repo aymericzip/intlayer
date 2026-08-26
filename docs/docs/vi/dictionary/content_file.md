@@ -369,15 +369,15 @@ Chuyển đổi từ điển thành từ điển theo từng locale, trong đó 
 
 **Ví dụ:**
 
-```json
+```jsonc
 // Từ điển theo ngôn ngữ
 {
   "key": "about-page",
   "locale": "en",
   "content": {
     "title": "About Us", // Đây trở thành nút dịch cho 'en'
-    "description": "Learn more about our company"
-  }
+    "description": "Learn more about our company",
+  },
 }
 ```
 
@@ -447,7 +447,7 @@ Hướng dẫn tự động điền nội dung từ điển từ các nguồn b�
 
 **Ví dụ:**
 
-```json
+```jsonc
 // Tắt tính năng điền
 {
   "fill": false

@@ -71,7 +71,7 @@ export default defineConfig({
 
 Коли `intlayerPrune` аналізує кодову базу і заповнює карту `pruneContext.dictionaryKeyToFieldRenameMap`, `intlayerMinify` також перейменовує імена полів контенту на короткі аліаси. Наприклад:
 
-```json
+```jsonc
 // до
 { "key": "myDict", "content": { "title": "Hello", "description": "World" } }
 

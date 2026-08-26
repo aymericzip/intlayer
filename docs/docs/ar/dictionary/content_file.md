@@ -367,15 +367,15 @@ export default {
 
 **مثال:**
 
-```json
+```jsonc
 // قاموس حسب اللغة
 {
   "key": "about-page",
   "locale": "en",
   "content": {
     "title": "About Us", // تصبح هذه عقدة ترجمة للغة 'en'
-    "description": "Learn more about our company"
-  }
+    "description": "Learn more about our company",
+  },
 }
 ```
 
@@ -444,7 +444,7 @@ export default aboutPageMetaContent;
 
 **أمثلة:**
 
-```json
+```jsonc
 // تمكين لجميع اللغات
 {
   "autoFill": true

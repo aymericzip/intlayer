@@ -364,15 +364,15 @@ content: { /* ... */ }
 
 **예시:**
 
-```json
+```jsonc
 // 로케일별 사전
 {
   "key": "about-page",
   "locale": "en",
   "content": {
     "title": "About Us", // 'en'에 대한 번역 노드가 됩니다.
-    "description": "Learn more about our company"
-  }
+    "description": "Learn more about our company",
+  },
 }
 ```
 
@@ -441,7 +441,7 @@ export default aboutPageMetaContent;
 
 **예시:**
 
-```json
+```jsonc
 // 모든 로케일에 대해 활성화
 {
   "autoFill": true

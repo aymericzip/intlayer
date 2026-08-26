@@ -366,15 +366,15 @@ Przekształca słownik w słownik per-lokalizacyjny, gdzie każde pole zadeklaro
 
 **Przykład:**
 
-```json
+```jsonc
 // Słownik per-locale
 {
   "key": "about-page",
   "locale": "en",
   "content": {
     "title": "About Us", // To staje się węzłem tłumaczenia dla 'en'
-    "description": "Learn more about our company"
-  }
+    "description": "Learn more about our company",
+  },
 }
 ```
 
@@ -444,7 +444,7 @@ Instrukcje dotyczące automatycznego wypełniania zawartości słownika z zewnę
 
 **Przykłady:**
 
-```json
+```jsonc
 // Wyłącz wypełnianie
 {
   "fill": false

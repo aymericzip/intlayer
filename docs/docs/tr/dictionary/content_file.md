@@ -363,15 +363,15 @@ Sözlüğü, içerikte bildirilen her alanın otomatik olarak bir çeviri düğ�
 
 **Örnek:**
 
-```json
+```jsonc
 // Yerel dil bazlı sözlük
 {
   "key": "about-page",
   "locale": "en",
   "content": {
     "title": "About Us", // Bu 'en' için bir çeviri düğümü olur
-    "description": "Learn more about our company"
-  }
+    "description": "Learn more about our company",
+  },
 }
 ```
 
@@ -440,7 +440,7 @@ Sözlük içeriğini harici kaynaklardan otomatik olarak doldurma talimatları. 
 
 **Örnekler:**
 
-```json
+```jsonc
 // Tüm yerel diller için etkinleştir
 {
   "autoFill": true

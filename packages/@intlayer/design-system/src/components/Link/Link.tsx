@@ -86,7 +86,7 @@ export const linkVariants = cva(
         light: 'text-white',
         dark: 'text-neutral-800',
         text: 'text-foreground',
-        'text-inverse': 'text-foreground-opposite', // seulement utilisé hors button/button-outlined
+        'text-inverse': 'text-foreground-opposite',
         error: 'text-error',
         success: 'text-success',
         custom: '',
@@ -105,9 +105,6 @@ export const linkVariants = cva(
       },
     },
     compoundVariants: [
-      // ----------------------------------------------------------------
-      // BUTTON PLEIN : paires fond/texte EXPLICITES, tirées du thème réel
-      // ----------------------------------------------------------------
       {
         variant: 'button',
         color: 'primary',
@@ -154,9 +151,6 @@ export const linkVariants = cva(
         class: 'bg-success text-white ring-success/20',
       },
 
-      // ----------------------------------------------------------------
-      // BUTTON OUTLINED : bordure + texte de la couleur, fond transparent
-      // ----------------------------------------------------------------
       {
         variant: 'button-outlined',
         color: 'primary',
@@ -203,7 +197,6 @@ export const linkVariants = cva(
         class: 'border-success text-success hover:bg-success/10',
       },
 
-      // Min height et padding selon size (inchangé)
       {
         variant: ['button', 'button-outlined'],
         size: 'sm',

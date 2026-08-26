@@ -71,7 +71,7 @@ Plugin nhắm vào hai vị trí từ điển (được phân giải từ `intla
 
 Khi `intlayerPrune` đã phân tích mã nguồn và cập nhật dữ liệu cho `pruneContext.dictionaryKeyToFieldRenameMap`, `intlayerMinify` cũng đổi tên các trường nội dung thành các bí danh ngắn. Ví dụ:
 
-```json
+```jsonc
 // trước khi đổi
 { "key": "myDict", "content": { "title": "Hello", "description": "World" } }
 

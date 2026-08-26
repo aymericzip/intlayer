@@ -1,15 +1,8 @@
 import { Loader } from '@intlayer/design-system/loader';
 import { type FC, lazy, Suspense } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { BackgroundLayout } from '~/components/BackgroundLayout';
 import { CommonQuestionsSection } from '~/components/LandingPage/CommonQuestionsSection/CommonQuestions';
 import { HeroSection } from './HeroSection';
-
-const AvailableTechnoSection = lazy(() =>
-  import('./AvailableTechnoSection').then((mod) => ({
-    default: mod.AvailableTechnoSection,
-  }))
-);
 
 const LanguageSection = lazy(() =>
   import('@intlayer/design-system/language-background').then((mod) => ({
@@ -131,10 +124,3 @@ export const LandingPage: FC = () => {
     </>
   );
 };
-
-/*
-
-
-
-
-*/

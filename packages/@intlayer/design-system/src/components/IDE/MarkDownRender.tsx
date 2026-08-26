@@ -5,14 +5,12 @@ import { Code } from './Code';
 import type { CodeLanguage } from './shikiLanguages';
 
 type MarkdownRendererProps = {
-  isDarkMode?: boolean;
   codeClassName?: string;
   children: string;
 };
 
 export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
   children,
-  isDarkMode,
   codeClassName,
 }) => (
   <MarkdownRendererIntlayer

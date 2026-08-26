@@ -71,7 +71,7 @@ Le plugin cible deux emplacements de dictionnaire (tels que résolus depuis `int
 
 Lorsque `intlayerPrune` a analysé la codebase et rempli `pruneContext.dictionaryKeyToFieldRenameMap`, `intlayerMinify` renomme également les noms de champs de contenu en alias courts. Par exemple :
 
-```json
+```jsonc
 // avant
 { "key": "myDict", "content": { "title": "Hello", "description": "World" } }
 

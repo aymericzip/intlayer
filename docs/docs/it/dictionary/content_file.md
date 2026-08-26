@@ -364,15 +364,15 @@ Trasforma il dizionario in un dizionario per locale in cui ogni campo dichiarato
 
 **Esempio:**
 
-```json
+```jsonc
 // Dizionario per lingua
 {
   "key": "about-page",
   "locale": "en",
   "content": {
     "title": "About Us", // Questo diventa un nodo di traduzione per 'en'
-    "description": "Learn more about our company"
-  }
+    "description": "Learn more about our company",
+  },
 }
 ```
 
@@ -441,7 +441,7 @@ Istruzioni per il riempimento automatico del contenuto del dizionario da fonti e
 
 **Esempi:**
 
-```json
+```jsonc
 // Abilita per tutte le localizzazioni
 {
   "autoFill": true

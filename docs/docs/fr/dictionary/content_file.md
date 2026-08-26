@@ -363,15 +363,15 @@ Transforme le dictionnaire en un dictionnaire par locale où chaque champ décla
 
 **Exemple :**
 
-```json
+```jsonc
 // Dictionnaire par langue
 {
   "key": "about-page",
   "locale": "en",
   "content": {
     "title": "About Us", // Ceci devient un nœud de traduction pour 'en'
-    "description": "Learn more about our company"
-  }
+    "description": "Learn more about our company",
+  },
 }
 ```
 
@@ -440,7 +440,7 @@ Instructions pour remplir automatiquement le contenu du dictionnaire à partir d
 
 **Exemples :**
 
-```json
+```jsonc
 // Activer pour toutes les locales
 {
   "autoFill": true

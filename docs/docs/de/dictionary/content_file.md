@@ -367,15 +367,15 @@ Wandelt das Wörterbuch in ein pro-Locale-Wörterbuch um, bei dem jedes im Inhal
 
 **Beispiel:**
 
-```json
+```jsonc
 // Einsprachiges Wörterbuch
 {
   "key": "about-page",
   "locale": "en",
   "content": {
     "title": "About Us", // Dies wird zu einem Übersetzungsknoten für 'en'
-    "description": "Learn more about our company"
-  }
+    "description": "Learn more about our company",
+  },
 }
 ```
 
@@ -444,7 +444,7 @@ Anweisungen zum automatischen Ausfüllen von Wörterbuchinhalten aus externen Qu
 
 **Beispiele:**
 
-```json
+```jsonc
 // Für alle Sprachen aktivieren
 {
   "autoFill": true

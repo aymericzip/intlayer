@@ -71,7 +71,7 @@ export default defineConfig({
 
 जब `intlayerPrune` ने कोडबेस का विश्लेषण किया है और `pruneContext.dictionaryKeyToFieldRenameMap` को पॉप्युलेट किया है, तो `intlayerMinify` सामग्री फ़ील्ड नामों का नाम बदलकर छोटे उपनाम भी रख देता है। उदाहरण के लिए:
 
-```json
+```jsonc
 // पहले
 { "key": "myDict", "content": { "title": "Hello", "description": "World" } }
 

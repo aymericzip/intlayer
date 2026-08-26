@@ -71,7 +71,7 @@ Plugin ini menargetkan dua lokasi kamus (seperti yang diselesaikan dari `intlaye
 
 Ketika `intlayerPrune` telah menganalisis codebase dan mengisi `pruneContext.dictionaryKeyToFieldRenameMap`, `intlayerMinify` juga mengganti nama bidang konten menjadi alias pendek. Sebagai contoh:
 
-```json
+```jsonc
 // sebelum
 { "key": "myDict", "content": { "title": "Hello", "description": "World" } }
 
