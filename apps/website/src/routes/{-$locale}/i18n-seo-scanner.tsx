@@ -29,8 +29,8 @@ export const Route = createFileRoute('/{-$locale}/i18n-seo-scanner')({
       scannerContent,
     ] = await Promise.all([
       getIntlayerAsync('i18n-SEO-scanner', locale),
-      getSiteStructuredData(locale),
-      getSoftwareStructuredData(locale),
+      getSiteStructuredData({ data: locale }),
+      getSoftwareStructuredData({ data: locale }),
       getIntlayerAsync('scanner-software-structured-data', locale),
     ]);
 

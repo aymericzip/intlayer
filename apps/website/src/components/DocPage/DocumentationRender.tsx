@@ -9,13 +9,7 @@ import {
   type ParsedMarkdown,
 } from '@intlayer/design-system/mark-down-render';
 import { Step, Steps } from '@intlayer/design-system/steps';
-import {
-  type ComponentProps,
-  type FC,
-  type HTMLAttributes,
-  lazy,
-  Suspense,
-} from 'react';
+import { type ComponentProps, type FC, type HTMLAttributes, lazy } from 'react';
 import { useLocale } from 'react-intlayer';
 import type { FrameworkKey } from '~/components/I18nBenchmark';
 import { Link } from '~/components/Link/Link';
@@ -23,8 +17,10 @@ import { TableOfContents } from '~/components/TableOfContents';
 import { ClickToOpenIframe } from './ClickToOpenIframe';
 import { SectionScroller } from './SectionScroller';
 
+export const preloadI18nBenchmark = () => import('~/components/I18nBenchmark');
+
 const I18nBenchmark = lazy(() =>
-  import('~/components/I18nBenchmark').then((mod) => ({
+  preloadI18nBenchmark().then((mod) => ({
     default: mod.I18nBenchmark,
   }))
 );
@@ -103,9 +99,7 @@ export const DocumentationRender: FC<DocumentationRenderProps> = ({
             />
           ),
           I18nBenchmark: (props: { framework?: FrameworkKey }) => (
-            <Suspense>
-              <I18nBenchmark initialFramework={props.framework} />
-            </Suspense>
+            <I18nBenchmark initialFramework={props.framework} />
           ),
           Sponsor: ({ children, ...props }: ComponentProps<'div'>) => (
             <Container
@@ -117,7 +111,7 @@ export const DocumentationRender: FC<DocumentationRenderProps> = ({
               roundedSize="2xl"
               {...props}
             >
-              {/* <H4 className="mb-4 text-text/80">Sponsor</H4> */}
+              <H4 className="mb-4 text-text/80">Sponsor</H4>
               <div className="text-sm text-text/80">{children}</div>
             </Container>
           ),

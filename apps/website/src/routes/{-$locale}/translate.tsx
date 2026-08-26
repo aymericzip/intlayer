@@ -35,8 +35,8 @@ export const Route = createFileRoute('/{-$locale}/translate')({
     ] = await Promise.all([
       getPricing(),
       getIntlayerAsync('translate-metadata', locale),
-      getSiteStructuredData(locale),
-      getSoftwareStructuredData(locale),
+      getSiteStructuredData({ data: locale }),
+      getSoftwareStructuredData({ data: locale }),
       getIntlayerAsync('translate-software-structured-data', locale),
       getIntlayerAsync('translate-product-header-structured-data', locale),
     ]);

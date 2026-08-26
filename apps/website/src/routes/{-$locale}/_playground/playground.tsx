@@ -18,21 +18,23 @@ import {
   getSoftwareStructuredData,
 } from '~/utils/structuredData';
 
+export const preloadEditor = () => import('~/components/Dashboard/Editor');
 const Editor = lazy(() =>
-  import('~/components/Dashboard/Editor').then((mod) => ({
+  preloadEditor().then((mod) => ({
     default: mod.Editor,
   }))
 );
 
 export const Route = createFileRoute('/{-$locale}/_playground/playground')({
   loader: async ({ params }) => {
+    preloadEditor();
     const { locale = defaultLocale } = params;
 
     const [metadata, siteStructuredData, softwareStructuredData] =
       await Promise.all([
         getIntlayerAsync('playground-metadata', locale),
-        getSiteStructuredData(locale),
-        getSoftwareStructuredData(locale),
+        getSiteStructuredData({ data: locale }),
+        getSoftwareStructuredData({ data: locale }),
       ]);
 
     return { metadata, siteStructuredData, softwareStructuredData };

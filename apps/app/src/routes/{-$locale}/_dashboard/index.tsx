@@ -20,7 +20,7 @@ export const Route = createFileRoute('/{-$locale}/_dashboard/')({
   beforeLoad: async ({ context, params }) => {
     const { locale } = params;
     let session: SessionAPI | null =
-      await context.queryClient.ensureQueryData(sessionQueryOptions);
+      await context.queryClient.query(sessionQueryOptions);
 
     // Client cache is empty — verify with the backend in case the user just
     // logged in server-side and the client cache hasn't caught up yet.
@@ -51,7 +51,7 @@ export const Route = createFileRoute('/{-$locale}/_dashboard/')({
     // flow when the first super-admin still has to be created, otherwise to the
     // sign-in page.
     if (IS_SELF_HOSTED) {
-      const isSetupRequired = await context.queryClient.ensureQueryData(
+      const isSetupRequired = await context.queryClient.query(
         setupStatusQueryOptions
       );
 

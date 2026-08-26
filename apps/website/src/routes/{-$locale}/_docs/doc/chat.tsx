@@ -19,7 +19,7 @@ export const Route = createFileRoute('/{-$locale}/_docs/doc/chat')({
     return {
       locale,
       navData: defer(loadNavData({ data: { locale } })),
-      siteStructuredData: await getSiteStructuredData(locale),
+      siteStructuredData: await getSiteStructuredData({ data: locale }),
     };
   },
   staleTime: Infinity,

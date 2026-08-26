@@ -1,16 +1,15 @@
 import { Container } from '@intlayer/design-system/container';
 import { H1 } from '@intlayer/design-system/headers';
-import {
-  Website_Doc_Search,
-  Website_Home,
-} from '@intlayer/design-system/routes';
-import { buildWebsiteJsonLd } from '@intlayer/design-system/structured-data';
 import { createFileRoute, defer } from '@tanstack/react-router';
-import { defaultLocale, getIntlayerAsync, locales } from 'intlayer';
+import { defaultLocale } from 'intlayer';
 import { useIntlayer } from 'react-intlayer';
 import { DocPageLayout } from '~/components/DocPage/DocPageLayout';
 import { SearchView } from '~/components/DocPage/Search/SearchView';
 import { loadNavData } from '~/serverFunctions/docs';
+import {
+  getSiteStructuredData,
+  getSiteStructuredDataScripts,
+} from '~/utils/structuredData';
 
 export const Route = createFileRoute('/{-$locale}/_docs/doc/search')({
   loader: async ({ params }) => {
@@ -20,31 +19,18 @@ export const Route = createFileRoute('/{-$locale}/_docs/doc/search')({
     return {
       locale,
       navData: defer(loadNavData({ data: { locale } })),
-      websiteContent: await getIntlayerAsync('website-structured-data', locale),
+      siteStructuredData: await getSiteStructuredData({ data: locale }),
     };
   },
   staleTime: Infinity,
   head: ({ loaderData }) => {
     if (!loaderData) return {};
 
-    const { websiteContent } = loaderData;
+    const { siteStructuredData } = loaderData;
 
     return {
       title: 'Search Documentation | Intlayer',
-      scripts: [
-        {
-          type: 'application/ld+json',
-          children: JSON.stringify(
-            buildWebsiteJsonLd({
-              url: Website_Home,
-              searchUrl: Website_Doc_Search,
-              locales: locales as string[],
-              keywords: websiteContent.keywords as string[],
-              rssUrl: `${Website_Home}/feed.xml`,
-            })
-          ),
-        },
-      ],
+      scripts: [...getSiteStructuredDataScripts(siteStructuredData)],
     };
   },
   component: DocumentationSearchPage,

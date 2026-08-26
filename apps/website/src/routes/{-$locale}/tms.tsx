@@ -25,8 +25,8 @@ export const Route = createFileRoute('/{-$locale}/tms')({
     ] = await Promise.all([
       getPricing(),
       getIntlayerAsync('tms-metadata', locale),
-      getSiteStructuredData(locale),
-      getSoftwareStructuredData(locale),
+      getSiteStructuredData({ data: locale }),
+      getSoftwareStructuredData({ data: locale }),
       getIntlayerAsync('tms-product-header-structured-data', locale),
     ]);
 

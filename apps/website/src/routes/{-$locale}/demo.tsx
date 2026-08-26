@@ -18,8 +18,8 @@ export const Route = createFileRoute('/{-$locale}/demo')({
     const [metadata, siteStructuredData, softwareStructuredData] =
       await Promise.all([
         getIntlayerAsync('demo-metadata', locale),
-        getSiteStructuredData(locale),
-        getSoftwareStructuredData(locale),
+        getSiteStructuredData({ data: locale }),
+        getSoftwareStructuredData({ data: locale }),
       ]);
 
     return { metadata, siteStructuredData, softwareStructuredData };

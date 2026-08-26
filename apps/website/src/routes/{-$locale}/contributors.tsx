@@ -19,7 +19,7 @@ export const Route = createFileRoute('/{-$locale}/contributors')({
     const [contributors, metadata, siteStructuredData] = await Promise.all([
       loadContributors(),
       getIntlayerAsync('contributors-metadata', locale),
-      getSiteStructuredData(locale),
+      getSiteStructuredData({ data: locale }),
     ]);
 
     return { contributors, metadata, siteStructuredData };

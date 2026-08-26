@@ -21,7 +21,7 @@ export const Route = createFileRoute('/{-$locale}/init')({
     // The init flow only exists while a self-hosted instance still needs its
     // first super-admin. Once an admin exists (or on the hosted cloud), fall
     // back to the standard sign-in page.
-    const isSetupRequired = await context.queryClient.ensureQueryData(
+    const isSetupRequired = await context.queryClient.query(
       setupStatusQueryOptions
     );
 

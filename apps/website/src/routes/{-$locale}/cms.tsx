@@ -25,8 +25,8 @@ export const Route = createFileRoute('/{-$locale}/cms')({
     ] = await Promise.all([
       getPricing(),
       getIntlayerAsync('cms-metadata', locale),
-      getSiteStructuredData(locale),
-      getSoftwareStructuredData(locale),
+      getSiteStructuredData({ data: locale }),
+      getSoftwareStructuredData({ data: locale }),
       getIntlayerAsync('product-header-structured-data', locale),
     ]);
 

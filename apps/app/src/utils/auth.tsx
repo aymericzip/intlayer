@@ -134,7 +134,7 @@ export const validateAuth = async ({
   accessRule,
   redirectionRoute,
 }: ValidateAuthProps) => {
-  let session = await queryClient.ensureQueryData(sessionQueryOptions);
+  let session = await queryClient.query(sessionQueryOptions);
 
   // Before redirecting, double-check against backend truth: the local
   // cache (or better-auth's cookie cache) may be lagging behind a recent

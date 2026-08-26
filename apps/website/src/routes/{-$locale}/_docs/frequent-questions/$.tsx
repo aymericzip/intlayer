@@ -1,10 +1,11 @@
 import { buildCreativeWorkJsonLd } from '@intlayer/design-system/structured-data';
 import { createFileRoute, redirect } from '@tanstack/react-router';
-import { defaultLocale, getIntlayerAsync, getPrefix } from 'intlayer';
+import { defaultLocale, getPrefix } from 'intlayer';
 import { DocumentationRender } from '~/components/DocPage/DocumentationRender';
 import { loadFaqPage } from '~/serverFunctions/faq';
 import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
 import {
+  getCreativeWorkStructuredData,
   getSiteStructuredData,
   getSiteStructuredDataScripts,
 } from '~/utils/structuredData';
@@ -15,7 +16,14 @@ export const Route = createFileRoute('/{-$locale}/_docs/frequent-questions/$')({
     const slugsStr = (params as any)['*'] || '';
     const slugs = slugsStr ? slugsStr.split('/') : [];
 
-    const result = await loadFaqPage({ data: { locale, slugs } });
+    const [result, siteStructuredData, creativeWorkContent] = await Promise.all(
+      [
+        loadFaqPage({ data: { locale, slugs } }),
+        getSiteStructuredData({ data: locale }),
+        getCreativeWorkStructuredData({ data: locale }),
+      ]
+    );
+
     const { exactMatch, faqsData, content } = result;
 
     if (!exactMatch) {
@@ -34,11 +42,6 @@ export const Route = createFileRoute('/{-$locale}/_docs/frequent-questions/$')({
         },
       });
     }
-
-    const [siteStructuredData, creativeWorkContent] = await Promise.all([
-      getSiteStructuredData(locale),
-      getIntlayerAsync('creative-work-structured-data', locale),
-    ]);
 
     return {
       siteStructuredData,

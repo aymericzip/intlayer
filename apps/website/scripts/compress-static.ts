@@ -131,36 +131,40 @@ const isAlreadyCompressed = async (
 const compressFile = async (
   absolutePath: string
 ): Promise<Omit<CompressionTotals, 'fileCount'> | null> => {
-  const fileStats = await stat(absolutePath);
-  if (fileStats.size < MINIMUM_COMPRESSIBLE_BYTES) return null;
-  if (await isAlreadyCompressed(absolutePath, fileStats.mtimeMs)) return null;
+  try {
+    const fileStats = await stat(absolutePath);
+    if (fileStats.size < MINIMUM_COMPRESSIBLE_BYTES) return null;
+    if (await isAlreadyCompressed(absolutePath, fileStats.mtimeMs)) return null;
 
-  const contents = await readFile(absolutePath);
+    const contents = await readFile(absolutePath);
 
-  const brotliQuality =
-    contents.length > HIGH_QUALITY_BROTLI_LIMIT_BYTES ? 9 : 11;
+    const brotliQuality =
+      contents.length > HIGH_QUALITY_BROTLI_LIMIT_BYTES ? 9 : 11;
 
-  const [brotliContents, gzipContents] = await Promise.all([
-    compressBrotli(contents, {
-      params: {
-        [constants.BROTLI_PARAM_MODE]: constants.BROTLI_MODE_TEXT,
-        [constants.BROTLI_PARAM_QUALITY]: brotliQuality,
-        [constants.BROTLI_PARAM_SIZE_HINT]: contents.length,
-      },
-    }),
-    compressGzip(contents, { level: 9 }),
-  ]);
+    const [brotliContents, gzipContents] = await Promise.all([
+      compressBrotli(contents, {
+        params: {
+          [constants.BROTLI_PARAM_MODE]: constants.BROTLI_MODE_TEXT,
+          [constants.BROTLI_PARAM_QUALITY]: brotliQuality,
+          [constants.BROTLI_PARAM_SIZE_HINT]: contents.length,
+        },
+      }),
+      compressGzip(contents, { level: 9 }),
+    ]);
 
-  await Promise.all([
-    writeFile(`${absolutePath}.br`, brotliContents),
-    writeFile(`${absolutePath}.gz`, gzipContents),
-  ]);
+    await Promise.all([
+      writeFile(`${absolutePath}.br`, brotliContents),
+      writeFile(`${absolutePath}.gz`, gzipContents),
+    ]);
 
-  return {
-    originalBytes: contents.length,
-    brotliBytes: brotliContents.length,
-    gzipBytes: gzipContents.length,
-  };
+    return {
+      originalBytes: contents.length,
+      brotliBytes: brotliContents.length,
+      gzipBytes: gzipContents.length,
+    };
+  } catch {
+    return null;
+  }
 };
 
 /**

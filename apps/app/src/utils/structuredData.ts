@@ -8,6 +8,8 @@ import {
   buildSoftwareApplicationJsonLd,
   buildWebsiteJsonLd,
 } from '@intlayer/design-system/structured-data';
+import { createServerFn } from '@tanstack/react-start';
+import { staticFunctionMiddleware } from '@tanstack/start-static-server-functions';
 import { defaultLocale, getIntlayerAsync, locales } from 'intlayer';
 import packageJson from '../../package_mock.json' with { type: 'json' };
 
@@ -70,31 +72,11 @@ const buildRootStructuredDataScripts = async (): Promise<JsonLdScript[]> => {
   ];
 };
 
-/** In-flight or resolved scripts, shared by every call. */
-let cachedRootStructuredDataScripts: Promise<JsonLdScript[]> | undefined;
-
 /**
- * Returns the JSON-LD scripts of the root document, built at most once.
- *
- * The root `head` runs on every navigation, yet these nodes never vary: they
- * always describe Intlayer at the default locale. Caching the promise both
- * skips the repeated dictionary reads and pays the `JSON.stringify` cost once
- * per process.
- *
- * A rejected build is evicted, or every later call would replay the same
- * failure without ever retrying.
+ * Returns the JSON-LD scripts of the root document, built on the server via `createServerFn`.
  */
-export const getRootStructuredDataScripts = (): Promise<JsonLdScript[]> => {
-  if (!cachedRootStructuredDataScripts) {
-    const pending = buildRootStructuredDataScripts();
-    cachedRootStructuredDataScripts = pending;
-
-    pending.catch(() => {
-      if (cachedRootStructuredDataScripts === pending) {
-        cachedRootStructuredDataScripts = undefined;
-      }
-    });
-  }
-
-  return cachedRootStructuredDataScripts;
-};
+export const getRootStructuredDataScripts = createServerFn({ method: 'GET' })
+  .middleware([staticFunctionMiddleware])
+  .handler(async (): Promise<JsonLdScript[]> => {
+    return buildRootStructuredDataScripts();
+  });

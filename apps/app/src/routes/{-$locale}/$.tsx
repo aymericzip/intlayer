@@ -33,8 +33,7 @@ export const Route = createFileRoute('/{-$locale}/$')({
       return;
     }
 
-    const session =
-      await context.queryClient.ensureQueryData(sessionQueryOptions);
+    const session = await context.queryClient.query(sessionQueryOptions);
 
     if (session) {
       if (session.organization && session.project) {

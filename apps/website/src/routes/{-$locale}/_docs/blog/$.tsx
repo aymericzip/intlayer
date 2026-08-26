@@ -9,7 +9,7 @@ import {
   buildCreativeWorkJsonLd,
 } from '@intlayer/design-system/structured-data';
 import { createFileRoute, redirect } from '@tanstack/react-router';
-import { defaultLocale, getIntlayerAsync, getLocalizedUrl } from 'intlayer';
+import { defaultLocale, getLocalizedUrl } from 'intlayer';
 import { BlogPageLayout } from '~/components/BlogPage/BlogPageLayout';
 import { DocHeader } from '~/components/DocPage/DocHeader/DocHeader';
 import {
@@ -20,6 +20,7 @@ import { DocumentationRender } from '~/components/DocPage/DocumentationRender';
 import { loadBlogNavData, loadBlogPage } from '~/serverFunctions/blog';
 import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
 import {
+  getCreativeWorkStructuredData,
   getSiteStructuredData,
   getSiteStructuredDataScripts,
 } from '~/utils/structuredData';
@@ -30,10 +31,13 @@ export const Route = createFileRoute('/{-$locale}/_docs/blog/$')({
     const slugsStr = (params as any)['*'] || '';
     const slugs = slugsStr ? slugsStr.split('/') : [];
 
-    const [result, navData] = await Promise.all([
-      loadBlogPage({ data: { locale, slugs } }),
-      loadBlogNavData({ data: { locale } }),
-    ]);
+    const [result, navData, siteStructuredData, creativeWorkContent] =
+      await Promise.all([
+        loadBlogPage({ data: { locale, slugs } }),
+        loadBlogNavData({ data: { locale } }),
+        getSiteStructuredData({ data: locale }),
+        getCreativeWorkStructuredData({ data: locale }),
+      ]);
 
     const { exactMatch, blogsData, content } = result;
 
@@ -60,11 +64,6 @@ export const Route = createFileRoute('/{-$locale}/_docs/blog/$')({
           url: getLocalizedUrl(prevBlogData.blogs.relativeUrl, locale),
         }
       : undefined;
-
-    const [siteStructuredData, creativeWorkContent] = await Promise.all([
-      getSiteStructuredData(locale),
-      getIntlayerAsync('creative-work-structured-data', locale),
-    ]);
 
     return {
       siteStructuredData,

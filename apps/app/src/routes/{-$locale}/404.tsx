@@ -11,8 +11,7 @@ import { sessionQueryOptions } from '#utils/auth.tsx';
 export const Route = createFileRoute('/{-$locale}/404')({
   beforeLoad: async ({ params, context }) => {
     const { locale } = params;
-    const session =
-      await context.queryClient.ensureQueryData(sessionQueryOptions);
+    const session = await context.queryClient.query(sessionQueryOptions);
 
     if (session) {
       if (session.organization && session.project) {

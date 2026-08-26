@@ -1,11 +1,12 @@
 import { Website_TermsOfService } from '@intlayer/design-system/routes';
 import { buildCreativeWorkJsonLd } from '@intlayer/design-system/structured-data';
 import { createFileRoute } from '@tanstack/react-router';
-import { defaultLocale, getIntlayerAsync } from 'intlayer';
+import { defaultLocale } from 'intlayer';
 import { DocumentationRender } from '~/components/DocPage/DocumentationRender';
 import { loadLegalContent } from '~/serverFunctions/legal';
 import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
 import {
+  getCreativeWorkStructuredData,
   getSiteStructuredData,
   getSiteStructuredDataScripts,
 } from '~/utils/structuredData';
@@ -18,8 +19,8 @@ export const Route = createFileRoute('/{-$locale}/_docs/terms-of-service')({
         loadLegalContent({
           data: { locale, docKey: './legal/en/terms_of_service.md' },
         }),
-        getSiteStructuredData(locale),
-        getIntlayerAsync('creative-work-structured-data', locale),
+        getSiteStructuredData({ data: locale }),
+        getCreativeWorkStructuredData({ data: locale }),
       ]);
 
     return { ...legalContent, siteStructuredData, creativeWorkContent };

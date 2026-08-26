@@ -31,7 +31,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
   errorComponent: ErrorComponent,
   loader: async ({ context: { queryClient } }) => {
     const [, structuredDataScripts] = await Promise.all([
-      queryClient.ensureQueryData(sessionQueryOptions),
+      queryClient.query(sessionQueryOptions),
       getRootStructuredDataScripts(),
     ]);
 

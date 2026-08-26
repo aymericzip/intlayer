@@ -25,8 +25,8 @@ export const Route = createFileRoute('/{-$locale}/')({
     ] = await Promise.all([
       getPricing(),
       getIntlayerAsync('landing-metadata', locale),
-      getSiteStructuredData(locale),
-      getSoftwareStructuredData(locale),
+      getSiteStructuredData({ data: locale }),
+      getSoftwareStructuredData({ data: locale }),
       getIntlayerAsync('product-header-structured-data', locale),
     ]);
 

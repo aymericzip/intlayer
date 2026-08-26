@@ -20,7 +20,7 @@ export const Route = createFileRoute('/{-$locale}/_docs/frequent-questions/')({
       [
         loadFaqIndex({ data: { locale } }),
         getIntlayerAsync('frequent-questions-page', locale),
-        getSiteStructuredData(locale),
+        getSiteStructuredData({ data: locale }),
       ]
     );
     return { locale, frequentQuestions, metadata, siteStructuredData };

@@ -9,7 +9,7 @@ import {
   buildCreativeWorkJsonLd,
 } from '@intlayer/design-system/structured-data';
 import { createFileRoute, redirect } from '@tanstack/react-router';
-import { defaultLocale, getIntlayerAsync, getLocalizedUrl } from 'intlayer';
+import { defaultLocale, getLocalizedUrl } from 'intlayer';
 import { DocHeader } from '~/components/DocPage/DocHeader/DocHeader';
 import { DocPageLayout } from '~/components/DocPage/DocPageLayout';
 import {
@@ -20,6 +20,7 @@ import { DocumentationRender } from '~/components/DocPage/DocumentationRender';
 import { loadDocPage, loadNavData } from '~/serverFunctions/docs';
 import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
 import {
+  getCreativeWorkStructuredData,
   getSiteStructuredData,
   getSiteStructuredDataScripts,
   getSoftwareStructuredData,
@@ -31,9 +32,18 @@ export const Route = createFileRoute('/{-$locale}/_docs/doc/$')({
     const slugsStr = params['*'] || '';
     const slugs = slugsStr ? slugsStr.split('/') : [];
 
-    const [result, navData] = await Promise.all([
+    const [
+      result,
+      navData,
+      siteStructuredData,
+      softwareStructuredData,
+      creativeWorkContent,
+    ] = await Promise.all([
       loadDocPage({ data: { locale, slugs } }),
       loadNavData({ data: { locale } }),
+      getSiteStructuredData({ data: locale }),
+      getSoftwareStructuredData({ data: locale }),
+      getCreativeWorkStructuredData({ data: locale }),
     ]);
 
     const { exactMatch, docsData, content } = result;
@@ -67,13 +77,6 @@ export const Route = createFileRoute('/{-$locale}/_docs/doc/$')({
           url: getLocalizedUrl(prevDocData.docs.relativeUrl, locale),
         }
       : undefined;
-
-    const [siteStructuredData, softwareStructuredData, creativeWorkContent] =
-      await Promise.all([
-        getSiteStructuredData(locale),
-        getSoftwareStructuredData(locale),
-        getIntlayerAsync('creative-work-structured-data', locale),
-      ]);
 
     return {
       siteStructuredData,
