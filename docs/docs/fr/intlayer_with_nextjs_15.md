@@ -316,16 +316,6 @@ export default LocaleLayout;
 
 Ensuite, implémentez la fonction `generateStaticParams` dans le Layout de votre application.
 
-```tsx {1} fileName="src/app/[locale]/layout.tsx" codeFormat="typescript"
-
-```
-
-> Le segment de chemin `[locale]` est utilisé pour définir la locale. Exemple : `/en-US/about` fera référence à `en-US` et `/fr/about` à `fr`.
-
-> À ce stade, vous rencontrerez l'erreur : `Error: Missing <html> and <body> tags in the root layout.`. Cela est attendu car le fichier `/app/page.tsx` n'est plus utilisé et peut être supprimé. À la place, le segment de chemin `[locale]` activera la page `/app/[locale]/page.tsx`. Par conséquent, les pages seront accessibles via des chemins comme `/en`, `/fr`, `/es` dans votre navigateur. Pour définir la locale par défaut comme page racine, référez-vous à la configuration du `middleware` à l'étape 7.
-
-Ensuite, implémentez la fonction `generateStaticParams` dans le Layout de votre application.
-
 ```tsx {1} fileName="src/app/[locale]/layout.tsx" codeFormat={["typescript", "esm"]}
 export { generateStaticParams } from "next-intlayer"; // Ligne à insérer
 
