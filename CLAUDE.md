@@ -16,7 +16,6 @@ apps/
   app/               TanStack Start dashboard (CMS UI)
   backend/           Fastify API server
   website/           TanStack Start marketing/docs site (deployed)
-  website-next/      Legacy Next.js version of the website
   showcase/          Showcase app
 
 packages/

@@ -60,7 +60,7 @@ COPY \
     --exclude=packages/eslint-plugin-intlayer \
     --exclude=apps/app \
     --exclude=apps/showcase \
-    --exclude=apps/website-next \
+
     --exclude=docs/assets \
     --exclude=examples \
     --exclude=plugins \

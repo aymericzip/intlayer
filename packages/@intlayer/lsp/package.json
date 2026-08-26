@@ -90,9 +90,9 @@
     "@intlayer/engine": "workspace:*",
     "@intlayer/types": "workspace:*",
     "@intlayer/unmerged-dictionaries-entry": "workspace:*",
-    "oxc-parser": "0.144.0",
+    "oxc-parser": "0.147.0",
     "vscode-languageserver": "10.1.0",
-    "vscode-languageserver-textdocument": "1.0.12"
+    "vscode-languageserver-textdocument": "1.0.14"
   },
   "devDependencies": {
     "@types/node": "26.3.0",

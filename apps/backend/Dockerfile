@@ -68,7 +68,7 @@ COPY \
     --exclude=docs/legal \
     --exclude=examples \
     --exclude=apps/website \
-    --exclude=apps/website-next \
+
     --exclude=apps/showcase \
     --exclude=apps/app \
     --exclude=**/*.stories.* \

@@ -40,7 +40,7 @@ COPY \
     --exclude=packages/adonis-intlayer \
     --exclude=packages/eslint-plugin-intlayer \
     --exclude=apps/website \
-    --exclude=apps/website-next \
+
     --exclude=apps/showcase \
     --exclude=docs/assets \
     --exclude=examples \
