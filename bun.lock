@@ -2484,7 +2484,7 @@
     },
     "packages/next-intlayer": {
       "name": "next-intlayer",
-      "version": "9.3.3",
+      "version": "9.4.0",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
