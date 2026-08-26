@@ -1,34 +1,39 @@
-import { BackgroundLayout } from '@components/BackgroundLayout';
-import dynamic from 'next/dynamic';
-import type { FC } from 'react';
+import { type FC, lazy, Suspense } from 'react';
+import { BackgroundLayout } from '~/components/BackgroundLayout';
 
-const HeroSection = dynamic(() =>
-  import('./HeroSection').then((module) => module.HeroSection)
+const HeroSection = lazy(() =>
+  import('./HeroSection').then((module) => ({ default: module.HeroSection }))
 );
 
-const ContentDeliverySection = dynamic(() =>
-  import('./ContentDeliverySection').then(
-    (module) => module.ContentDeliverySection
-  )
+const ContentDeliverySection = lazy(() =>
+  import('./ContentDeliverySection').then((module) => ({
+    default: module.ContentDeliverySection,
+  }))
 );
-const FeaturesSection = dynamic(() =>
-  import('./FeaturesSection').then((module) => module.FeaturesSection)
+const FeaturesSection = lazy(() =>
+  import('./FeaturesSection').then((module) => ({
+    default: module.FeaturesSection,
+  }))
 );
-const ComingSoonSection = dynamic(() =>
-  import('./ComingSoonSection').then((module) => module.ComingSoonSection)
+const ComingSoonSection = lazy(() =>
+  import('./ComingSoonSection').then((module) => ({
+    default: module.ComingSoonSection,
+  }))
 );
-const FinalCTASection = dynamic(() =>
-  import('./FinalCTASection').then((module) => module.FinalCTASection)
+const FinalCTASection = lazy(() =>
+  import('./FinalCTASection').then((module) => ({
+    default: module.FinalCTASection,
+  }))
 );
-const ProductsSection = dynamic(() =>
-  import('@components/LandingPage/ProductsSection').then(
-    (module) => module.ProductsSection
-  )
+const ProductsSection = lazy(() =>
+  import('~/components/LandingPage/ProductsSection').then((module) => ({
+    default: module.ProductsSection,
+  }))
 );
-const ContributorSection = dynamic(() =>
-  import('@components/LandingPage/ContributorSection').then(
-    (module) => module.ContributorSection
-  )
+const ContributorSection = lazy(() =>
+  import('~/components/LandingPage/ContributorSection').then((module) => ({
+    default: module.ContributorSection,
+  }))
 );
 
 export const CMSLandingPage: FC = () => {
@@ -40,24 +45,36 @@ export const CMSLandingPage: FC = () => {
       </BackgroundLayout>
 
       {/* Content Delivery Section */}
-      <ContentDeliverySection />
+      <Suspense>
+        <ContentDeliverySection />
+      </Suspense>
 
       {/* Features Grid Section */}
-      <FeaturesSection />
+      <Suspense>
+        <FeaturesSection />
+      </Suspense>
 
       {/* Coming Soon Section */}
-      <ComingSoonSection />
+      <Suspense>
+        <ComingSoonSection />
+      </Suspense>
 
       {/* Products Section */}
-      <ProductsSection />
+      <Suspense>
+        <ProductsSection />
+      </Suspense>
 
       {/* Community Section */}
       <section>
-        <ContributorSection />
+        <Suspense>
+          <ContributorSection />
+        </Suspense>
       </section>
 
       {/* Final CTA Section */}
-      <FinalCTASection />
+      <Suspense>
+        <FinalCTASection />
+      </Suspense>
     </div>
   );
 };

@@ -1,9 +1,7 @@
-'use client';
-
-import { Link } from '@components/Link/Link';
 import { Tag, type TagColor } from '@intlayer/design-system/tag';
 import { ArrowRightIcon } from 'lucide-react';
 import type { FC, ReactNode } from 'react';
+import { Link } from '~/components/Link/Link';
 
 export interface ProductSectionLayoutProps {
   tag: ReactNode;
@@ -31,26 +29,26 @@ export const ProductSectionLayout: FC<ProductSectionLayoutProps> = ({
       <Tag
         size="sm"
         border="with"
-        color={tagColor}
+        color={tagColor as any /* shhhtt */}
         className="mb-6 rounded-full border font-medium text-sm"
       >
         {tag}
       </Tag>
 
       {/* Main Title */}
-      <h2 className="mb-6 max-w-5xl text-center font-bold text-2xl text-text leading-tight">
+      <h2 className="mb-6 max-w-5xl text-center font-bold text-2xl text-foreground leading-tight">
         {title}
       </h2>
 
       {/* Description */}
-      <div className="mb-10 grow text-left text-neutral leading-relaxed">
+      <div className="mb-10 grow text-left text-muted-foreground leading-relaxed">
         {description}
       </div>
 
       {/* CTA Button */}
       <div className="flex w-full justify-end">
         <Link
-          href={cta.href}
+          to={cta.href}
           isExternalLink={cta.isExternal}
           target={cta.isExternal ? '_blank' : undefined}
           variant="button"

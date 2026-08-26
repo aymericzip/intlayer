@@ -1,13 +1,11 @@
-'use client';
-
 import { Button } from '@intlayer/design-system/button';
 import { HeightResizer } from '@intlayer/design-system/height-resizer';
 import { useDevice } from '@intlayer/design-system/hooks';
 import { Modal } from '@intlayer/design-system/modal';
 import { MoveDiagonal } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
 import { type FC, useState } from 'react';
-import { ChatBot } from '@/components/ChatBot';
+import { useIntlayer } from 'react-intlayer';
+import { ChatBot } from '~/components/ChatBot';
 import { NavTitles } from '../NavTitles/NavTitles';
 
 export const AsideNavigation: FC = () => {
@@ -30,7 +28,7 @@ export const AsideNavigation: FC = () => {
           <div className="absolute bottom-0 left-0 h-8 w-full translate-y-full bg-linear-to-b from-background/90 backdrop-blur" />
         </div>
         <div className="relative flex min-h-0 w-full flex-1 overflow-hidden rounded-2xl md:pt-0">
-          <div className="mt-4 pl-5">
+          <div className="mt-4 flex pl-3">
             <NavTitles />
           </div>
           <HeightResizer

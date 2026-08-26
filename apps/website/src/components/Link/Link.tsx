@@ -1,5 +1,3 @@
-'use client';
-
 import { getLocalizedUrl } from '@intlayer/core/localization';
 import {
   checkIsExternalLink,
@@ -8,14 +6,89 @@ import {
   linkVariants,
 } from '@intlayer/design-system/link';
 import { cn } from '@intlayer/design-system/utils';
+import {
+  Link as TanStackLink,
+  type LinkProps as TanStackLinkProps,
+} from '@tanstack/react-router';
 import { ExternalLink } from 'lucide-react';
-import NextLink, { type LinkProps as NextLinkProps } from 'next/link';
-import { useLocale } from 'next-intlayer';
 import type { FC } from 'react';
+import { useLocale } from 'react-intlayer';
 
-export type LinkProps = LinkUIProps & NextLinkProps;
+export type LinkProps = Omit<TanStackLinkProps, 'to'> &
+  Omit<LinkUIProps, 'href'> & { to: TanStackLinkProps['to'] | (string & {}) };
 
-const URL = process.env.NEXT_PUBLIC_URL;
+const URL = import.meta.env.VITE_URL;
+
+interface LinkInfo {
+  isExternalLink: boolean;
+  isAsset: boolean;
+  href: string;
+}
+
+const getLinkInfo = (
+  toProp: string | { pathname?: string; search?: string } | undefined,
+  locale: string | undefined,
+  isExternalLinkProp: boolean | undefined
+): LinkInfo => {
+  let normalizedHref:
+    | string
+    | { pathname?: string; search?: string }
+    | undefined = toProp;
+
+  if (typeof toProp === 'string' && URL && toProp.startsWith(URL)) {
+    normalizedHref = toProp.replace(URL, '') || '/';
+  } else if (
+    typeof toProp === 'object' &&
+    toProp !== null &&
+    typeof toProp.pathname === 'string' &&
+    URL &&
+    toProp.pathname.startsWith(URL)
+  ) {
+    normalizedHref = {
+      ...toProp,
+      pathname: toProp.pathname.replace(URL, '') || '/',
+    };
+  }
+
+  const pathnameString =
+    typeof normalizedHref === 'string'
+      ? normalizedHref
+      : typeof normalizedHref === 'object' && normalizedHref !== null
+        ? normalizedHref.pathname
+        : undefined;
+
+  const isExternalLink =
+    isExternalLinkProp ??
+    (typeof pathnameString === 'string'
+      ? checkIsExternalLink(
+          {
+            href: pathnameString,
+            isExternalLink: isExternalLinkProp,
+          },
+          URL
+        )
+      : false);
+
+  const isAsset =
+    typeof pathnameString === 'string' &&
+    /\.(png|jpe?g|gif|svg|mp4|webm|pdf|zip|mp3|wav|ogg|vtt|webp)$/i.test(
+      pathnameString
+    );
+
+  const href =
+    locale && normalizedHref && !isExternalLink && !isAsset
+      ? typeof normalizedHref === 'string'
+        ? getLocalizedUrl(normalizedHref, locale)
+        : typeof normalizedHref === 'object' &&
+            normalizedHref !== null &&
+            typeof pathnameString === 'string'
+          ? getLocalizedUrl(pathnameString, locale)
+          : (pathnameString ?? '/')
+      : (pathnameString ??
+        (typeof normalizedHref === 'string' ? normalizedHref : '/'));
+
+  return { isExternalLink, isAsset, href };
+};
 
 export const Link: FC<LinkProps> = (props) => {
   const {
@@ -27,9 +100,8 @@ export const Link: FC<LinkProps> = (props) => {
     isActive,
     underlined,
     locale: localeProp,
-    prefetch,
     isExternalLink: isExternalLinkProp,
-    href: hrefProp,
+    to: toProp,
     roundedSize,
     size,
     ...otherProps
@@ -37,33 +109,53 @@ export const Link: FC<LinkProps> = (props) => {
   const { locale: currentLocale } = useLocale();
   const locale = localeProp ?? currentLocale;
 
-  // Normalize internal links: convert https://intlayer.org/xxx to /xxx
-  let normalizedHref = hrefProp;
-  if (typeof hrefProp === 'string' && URL && hrefProp.startsWith(URL)) {
-    normalizedHref = hrefProp.replace(URL, '') || '/';
-  }
+  const { isExternalLink, isAsset, href } = getLinkInfo(
+    toProp,
+    locale,
+    isExternalLinkProp
+  );
 
-  // Check if external link using normalized href
-  const propsWithNormalizedHref = { ...props, href: normalizedHref };
-  const isExternalLink =
-    isExternalLinkProp ?? checkIsExternalLink(propsWithNormalizedHref, URL);
+  const hashFragment =
+    typeof toProp === 'object' && toProp !== null
+      ? (toProp as TanStackLinkProps).hash
+      : undefined;
 
   const isChildrenString = isTextChildren(children);
   const isButton = variant === 'button' || variant === 'button-outlined';
 
-  const href =
-    locale && normalizedHref && !isExternalLink
-      ? getLocalizedUrl(normalizedHref, locale)
-      : normalizedHref;
-
   const rel = isExternalLink ? 'noopener noreferrer' : undefined;
-
   const target = isExternalLink ? '_blank' : '_self';
 
+  if (isAsset) {
+    return (
+      <a
+        href={href}
+        aria-label={label}
+        rel={rel}
+        target={target}
+        aria-current={isActive ? 'page' : undefined}
+        className={cn(
+          linkVariants({
+            variant,
+            color,
+            underlined,
+            roundedSize,
+            size,
+            className,
+          })
+        )}
+        {...(otherProps as any)}
+      >
+        {isButton && isChildrenString ? <span>{children}</span> : children}
+        {isExternalLink && isChildrenString && (
+          <ExternalLink className="ml-2 inline-block size-4" />
+        )}
+      </a>
+    );
+  }
+
   return (
-    <NextLink
-      prefetch={prefetch}
-      href={href}
+    <TanStackLink
       aria-label={label}
       rel={rel}
       target={target}
@@ -78,13 +170,17 @@ export const Link: FC<LinkProps> = (props) => {
           className,
         })
       )}
-      {...otherProps}
+      {...(otherProps as any)}
+      to={href}
+      hash={hashFragment}
+      activeOptions={
+        hashFragment ? { exact: true, includeHash: true } : undefined
+      }
     >
       {isButton && isChildrenString ? <span>{children}</span> : children}
-
       {isExternalLink && isChildrenString && (
         <ExternalLink className="ml-2 inline-block size-4" />
       )}
-    </NextLink>
+    </TanStackLink>
   );
 };

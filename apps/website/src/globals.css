@@ -1,7 +1,14 @@
-@import "@intlayer/design-system/css";
-@import "tailwindcss";
-@import "./shiki.css";
-@import "./monaco.css";
+@import '@intlayer/design-system/css';
+@import 'tailwindcss';
+
+@media (min-width: 1024px) {
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
 
 @layer base {
   /* 1. Standard Scale (Landing Page) */
@@ -12,6 +19,39 @@
     /* Add text-base for context */
     --text-base: 1rem; /* 16px */
     --text-base-leading: 1.5rem; /* 24px */
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes blur-up {
+  from {
+    opacity: 0;
+    filter: blur(10px);
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
   }
 }
 
@@ -48,15 +88,6 @@
   }
   50% {
     transform: translateY(var(--float-distance, 10px));
-  }
-}
-
-@media (min-width: 1024px) {
-  .no-scrollbar {
-    scrollbar-width: none;
-  }
-  .no-scrollbar::-webkit-scrollbar {
-    display: none;
   }
 }
 

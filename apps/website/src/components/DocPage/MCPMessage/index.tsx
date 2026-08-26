@@ -1,23 +1,21 @@
-'use client';
-
-import { Link } from '@components/Link/Link';
 import { PopoverStatic } from '@intlayer/design-system/popover';
 import { Website_Doc, Website_Doc_MCP } from '@intlayer/design-system/routes';
-import { usePathname } from 'next/navigation';
-import { useIntlayer } from 'next-intlayer';
+import { useLocation } from '@tanstack/react-router';
 import type { FC } from 'react';
+import { useIntlayer } from 'react-intlayer';
+import { Link } from '~/components/Link/Link';
 import { McpLogo } from './McpLogo';
 
 export const MCPMessage: FC = () => {
   const { title, description, link } = useIntlayer('mcp-message');
-  const pathname = usePathname();
+  const pathname = useLocation().pathname;
 
   if (pathname !== Website_Doc) return <></>;
 
   return (
     <PopoverStatic identifier="mcp">
       <Link
-        href={Website_Doc_MCP}
+        to={Website_Doc_MCP}
         label={link.label.value}
         color="text"
         className="flex p-2"
@@ -30,9 +28,9 @@ export const MCPMessage: FC = () => {
         className="flex min-w-64 flex-col gap-3 p-3 text-sm"
       >
         <strong>{title}</strong>
-        <p className="text-neutral">{description}</p>
+        <p className="text-muted-foreground">{description}</p>
         <Link
-          href={Website_Doc_MCP}
+          to={Website_Doc_MCP}
           label={link.label.value}
           color="text"
           className="flex flex-row items-center gap-2 p-3"

@@ -1,5 +1,3 @@
-'use client';
-
 import { m } from 'framer-motion';
 import type { FC, HTMLAttributes, ReactNode } from 'react';
 

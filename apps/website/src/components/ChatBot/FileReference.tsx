@@ -1,8 +1,8 @@
 import { Link } from '@intlayer/design-system/link';
 import { Tag } from '@intlayer/design-system/tag';
 import { File } from 'lucide-react';
-import { type IntlayerNode, useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
+import { type IntlayerNode, useIntlayer } from 'react-intlayer';
 
 const FileReferenceTag: FC<{
   fileTitle: IntlayerNode | string;
@@ -35,7 +35,7 @@ export const FileReference: FC<{
 
   return (
     <div className="pl-4">
-      <span className="text-neutral text-sm">{relatedFilesLabel}</span>
+      <span className="text-muted-foreground text-sm">{relatedFilesLabel}</span>
       <div className="flex min-w-full flex-row gap-2 overflow-x-auto pb-1">
         {uniqFiles.map((fileKey) => {
           const fileData = [...docData, ...blogData]?.find(

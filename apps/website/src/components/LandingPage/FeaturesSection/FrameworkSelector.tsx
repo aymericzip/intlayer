@@ -1,5 +1,3 @@
-'use client';
-
 import { SwitchSelector } from '@intlayer/design-system/switch-selector';
 import { TechLogo } from '@intlayer/design-system/tech-logo';
 import { cn } from '@intlayer/design-system/utils';
@@ -40,7 +38,7 @@ export const FrameworkSelector = ({ frameworks }: FrameworkSelectorProps) => {
         name={logo}
         className={cn(
           'size-4',
-          value === 'next' && 'text-text',
+          value === 'next' && 'text-foreground',
           framework !== value && 'opacity-60 grayscale-60'
         )}
       />
@@ -53,7 +51,7 @@ export const FrameworkSelector = ({ frameworks }: FrameworkSelectorProps) => {
       value={framework}
       onChange={setFramework}
       size="sm"
-      color="neutral"
+      color="secondary"
     />
   );
 };

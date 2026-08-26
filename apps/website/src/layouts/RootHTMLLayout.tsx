@@ -1,14 +1,8 @@
 import { cn } from '@intlayer/design-system/utils';
 import type { LocalesValues } from 'intlayer';
 import { getHTMLTextDir } from 'intlayer';
-import { Geist } from 'next/font/google';
-import type { FC, HTMLProps } from 'react';
 
-const geist = Geist({
-  subsets: ['latin'],
-  display: 'swap',
-  weight: ['300', '400', '500', '600', '700'],
-});
+import type { FC, HTMLProps } from 'react';
 
 export type LocalParams = HTMLProps<HTMLHtmlElement> & {
   bodyProps?: HTMLProps<HTMLBodyElement>;
@@ -28,7 +22,7 @@ export const RootHTMLLayout: FC<LocalParams> = ({
     suppressHydrationWarning
     {...props}
   >
-    <head>
+    <>
       {/* Preconnect and DNS Prefetch for Google Analytics */}
       <link
         rel="preconnect"
@@ -36,11 +30,18 @@ export const RootHTMLLayout: FC<LocalParams> = ({
         crossOrigin=""
       />
       <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
-    </head>
+
+      {/* Preconnect and DNS Prefetch for your first-party backend */}
+      <link
+        rel="preconnect"
+        href={import.meta.env.VITE_BACKEND_URL}
+        crossOrigin=""
+      />
+      <link rel="dns-prefetch" href={import.meta.env.VITE_BACKEND_URL} />
+    </>
     <body
       className={cn(
         'relative flex size-full min-h-screen flex-col overflow-auto overflow-x-clip scroll-smooth bg-background leading-8 transition md:flex',
-        geist.className,
         className
       )}
       {...bodyProps}

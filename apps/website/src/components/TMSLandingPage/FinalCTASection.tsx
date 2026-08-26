@@ -1,12 +1,10 @@
-'use client';
-
-import { Link } from '@components/Link/Link';
 import { LinkColor, LinkVariant } from '@intlayer/design-system/link';
 import { App_Dashboard_Projects } from '@intlayer/design-system/routes';
 import { m } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
+import { useIntlayer } from 'react-intlayer';
+import { Link } from '~/components/Link/Link';
 
 const fadeUp = {
   initial: { opacity: 0, y: 24 },
@@ -26,7 +24,7 @@ export const FinalCTASection: FC = () => {
 
       <div className="relative mx-auto max-w-4xl px-4 text-center md:px-8 lg:px-12">
         <m.div {...fadeUp}>
-          <h2 className="mb-6 font-bold text-3xl text-text-opposite sm:text-4xl md:text-5xl">
+          <h2 className="mb-6 font-bold text-3xl text-foreground-opposite sm:text-4xl md:text-5xl">
             {finalCtaTitle}
           </h2>
           <p className="mx-auto mb-10 max-w-xl text-lg text-neutral-300">
@@ -40,7 +38,7 @@ export const FinalCTASection: FC = () => {
             className="flex justify-center"
           >
             <Link
-              href={App_Dashboard_Projects}
+              to={App_Dashboard_Projects}
               variant="button"
               color="text-inverse"
               label={finalCtaButton.value}
@@ -48,7 +46,7 @@ export const FinalCTASection: FC = () => {
               roundedSize="full"
               className="flex flex-row items-center justify-center gap-2"
             >
-              <span className="flex flex-row flex-nowrap items-center gap-2 text-sm text-text sm:text-lg">
+              <span className="flex flex-row flex-nowrap items-center gap-2 text-foreground text-sm sm:text-lg">
                 {finalCtaButton}
                 <ArrowRight className="size-5 transition-transform" />
               </span>

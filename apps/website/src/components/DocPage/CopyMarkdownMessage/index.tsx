@@ -1,7 +1,7 @@
 import { CopyButton } from '@intlayer/design-system/copy-button';
 import { PopoverStatic } from '@intlayer/design-system/popover';
-import { useIntlayer } from 'next-intlayer/server';
 import type { FC } from 'react';
+import { useIntlayer } from 'react-intlayer';
 
 type CopyMarkdownMessageProps = {
   markdownContent: string;
@@ -21,7 +21,7 @@ export const CopyMarkdownMessage: FC<CopyMarkdownMessageProps> = ({
         xAlign="end"
       >
         <strong>{title}</strong>
-        <p className="text-neutral">{description}</p>
+        <p className="text-muted-foreground">{description}</p>
       </PopoverStatic.Detail>
     </PopoverStatic>
   );

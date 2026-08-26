@@ -1,7 +1,7 @@
-import { AsideNavigation } from '@components/DocPage/AsideNavigation/AsideNavigation';
-import { TOCProgressBar } from '@components/DocPage/TOCProgressBar/TOCProgressBar';
 import type { LocalesValues } from 'intlayer';
 import { type FC, type ReactNode, Suspense } from 'react';
+import { AsideNavigation } from '~/components/DocPage/AsideNavigation/AsideNavigation';
+import { TOCProgressBar } from '~/components/DocPage/TOCProgressBar/TOCProgressBar';
 import { BlogBreadCrumb } from './BlogBreadCrumb';
 import { BlogCommentSection } from './BlogCommentSection';
 import { BlogNavList } from './BlogNavList';

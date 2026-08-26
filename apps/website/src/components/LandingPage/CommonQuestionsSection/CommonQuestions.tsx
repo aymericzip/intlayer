@@ -1,13 +1,11 @@
-'use client';
-
-import { Link } from '@components/Link/Link';
-import { Container } from '@intlayer/design-system/container';
 import { MaxHeightSmoother } from '@intlayer/design-system/max-height-smoother';
 import { Website_FrequentQuestions_Path } from '@intlayer/design-system/routes';
 import { cn } from '@intlayer/design-system/utils';
-import { ArrowRight } from 'lucide-react';
-import { type IntlayerNode, useIntlayer } from 'next-intlayer';
-import { type FC, useMemo, useSyncExternalStore } from 'react';
+import { ArrowRight, ChevronDown } from 'lucide-react';
+import { type FC, useMemo, useState, useSyncExternalStore } from 'react';
+import { type IntlayerNode, useIntlayer } from 'react-intlayer';
+import { BackgroundLayout } from '~/components/BackgroundLayout';
+import { Link } from '~/components/Link/Link';
 
 const QuestionItem: FC<{
   question: IntlayerNode;
@@ -29,14 +27,7 @@ const QuestionItem: FC<{
   }, [numberOfColumns, question.value]);
 
   return (
-    <Container
-      itemProp="mainEntity"
-      itemScope
-      itemType="https://schema.org/Question"
-      background="none"
-      border
-      roundedSize="xl"
-    >
+    <div className="rounded-sm border bg-card">
       <MaxHeightSmoother
         isOverable
         isFocusable
@@ -46,9 +37,10 @@ const QuestionItem: FC<{
         <div
           className={cn(
             'px-2 pt-3 sm:px-6',
-            numberOfColumns === 1 && 'w-[80vw]',
+            numberOfColumns === 1 && 'w-[85vw]',
             numberOfColumns === 2 && 'w-[40vw]',
-            numberOfColumns === 3 && 'w-[25vw]'
+            numberOfColumns === 3 && 'w-[20vw]'
+            /* What ? why not a grid */
           )}
         >
           <h3 className="text-wrap pb-4 font-bold text-base" itemProp="name">
@@ -59,12 +51,12 @@ const QuestionItem: FC<{
             itemProp="acceptedAnswer"
             itemScope
             itemType="https://schema.org/Answer"
-            className="text-neutral leading-8"
+            className="text-muted-foreground leading-8"
           >
             <span itemProp="text">{answer}</span>
             {callToAction && (
               <Link
-                href={callToAction.url.value}
+                to={callToAction.url.value}
                 label={callToAction.label.value}
                 color="text"
                 className="text-sm"
@@ -75,7 +67,7 @@ const QuestionItem: FC<{
           </div>
         </div>
       </MaxHeightSmoother>
-    </Container>
+    </div>
   );
 };
 
@@ -116,7 +108,98 @@ const useResponsiveColumns = (): number => {
   );
 };
 
+const FAQItem: FC<{
+  question: IntlayerNode;
+  answer: IntlayerNode;
+  callToAction?: { label: IntlayerNode; url: IntlayerNode };
+}> = ({ question, answer, callToAction }) => {
+  const [open, setOpen] = useState(false);
+  return (
+    <button
+      type="button"
+      onClick={() => setOpen((x) => !x)}
+      data-open={open}
+      className="group flex w-full cursor-pointer flex-col px-3 py-1 hover:bg-accent data-[open=true]:py-3"
+    >
+      <div className="flex w-full items-center justify-between gap-3">
+        <p itemProp="name">{question}</p>
+
+        <ChevronDown
+          data-open={open}
+          className="size-5 origin-center text-muted-foreground transition-transform duration-200 data-[open=true]:rotate-180"
+        />
+      </div>
+
+      <div
+        data-open={open}
+        className={`grid grid-rows-[0fr] opacity-0 transition-[grid-template-rows,opacity] duration-300 ease-out data-[open=true]:grid-rows-[1fr] data-[open=true]:opacity-100`}
+      >
+        <div
+          itemProp="acceptedAnswer"
+          itemScope
+          itemType="https://schema.org/Answer"
+          className="overflow-hidden"
+        >
+          <p
+            itemProp="text"
+            className="pt-2 text-left text-[15px] text-muted-foreground leading-5"
+          >
+            {answer}
+            {callToAction && (
+              <Link
+                to={callToAction.url.value}
+                label={callToAction.label.value}
+                color="text"
+                className="text-sm"
+              >
+                {callToAction.label}
+              </Link>
+            )}
+          </p>
+        </div>
+      </div>
+    </button>
+  );
+};
+
 export const CommonQuestionsSection: FC = () => {
+  const { content, title, allFrequentQuestionLink } =
+    useIntlayer('common-questions');
+
+  return (
+    <section className="relative flex w-full flex-col items-center justify-center gap-8 p-16">
+      <BackgroundLayout />
+
+      <h2 className="text-3xl">{title}</h2>
+
+      <div
+        itemScope
+        itemType="https://schema.org/FAQPage"
+        className="my-3 flex w-full max-w-2xl flex-col items-start justify-center gap-x-6 overflow-hidden rounded-xl border bg-background [&>button:not(:first-child)]:border-t"
+      >
+        {content.map((data) => (
+          <FAQItem key={data.question} {...data} />
+        ))}
+      </div>
+
+      <Link
+        to={Website_FrequentQuestions_Path}
+        label={allFrequentQuestionLink.label.value}
+        color="text"
+        variant="button"
+        roundedSize="full"
+        className="flex w-auto"
+      >
+        <span className="flex items-center gap-2">
+          {allFrequentQuestionLink.text}
+          <ArrowRight className="size-4" />
+        </span>
+      </Link>
+    </section>
+  );
+};
+
+export const CommonQuestionsSectionOld: FC = () => {
   const { content, title, allFrequentQuestionLink } =
     useIntlayer('common-questions');
 
@@ -127,8 +210,8 @@ export const CommonQuestionsSection: FC = () => {
   const columns = distributeItemsIntoColumns(content as any[], numberOfColumns);
 
   return (
-    <section className="m-auto flex w-full max-w-6xl flex-col items-center justify-center">
-      <h2 className="text-neutral">{title}</h2>
+    <section className="m-auto flex w-full max-w-6xl flex-col items-center justify-center p-16">
+      <h2 className="text-3xl">{title}</h2>
 
       <div
         itemScope
@@ -152,7 +235,7 @@ export const CommonQuestionsSection: FC = () => {
       </div>
 
       <Link
-        href={Website_FrequentQuestions_Path}
+        to={Website_FrequentQuestions_Path}
         label={allFrequentQuestionLink.label.value}
         color="text"
         variant="button"

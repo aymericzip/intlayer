@@ -1,35 +1,31 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-  "extends": "@utils/ts-config",
   "compilerOptions": {
-    "lib": ["dom", "dom.iterable", "esnext", "webworker"],
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "allowJs": true,
-    "skipLibCheck": false,
+    "skipLibCheck": true,
     "strict": true,
     "noEmit": true,
     "esModuleInterop": true,
-    "module": "esnext",
+    "module": "ESNext",
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "incremental": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
     "downlevelIteration": true,
+    "types": ["node", "vite/client"],
     "paths": {
-      "@layouts/*": ["./src/layouts/*"],
-      "@components/*": ["./src/components/*"],
-      "@structuredData/*": ["./src/structuredData/*"],
-      "@utils/*": ["./src/utils/*"],
-      "@hooks/*": ["./src/hooks/*"],
-      "@assets/*": ["./src/assets/*"],
-      "@/*": ["./src/*"]
-    }
+      "~/*": ["./src/*"]
+    },
+    "verbatimModuleSyntax": false
   },
-  "include": ["**/*", ".intlayer/**/*.ts", ".intlayer/types/**/*.ts"],
-  "exclude": ["node_modules", ".next", "public/sw.js"]
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    ".intlayer/**/*.ts",
+    ".intlayer/types/**/*.ts"
+  ],
+  "exclude": ["node_modules", "build", ".output", "public/sw.js"]
 }

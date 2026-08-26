@@ -1,20 +1,19 @@
-'use client';
-
 import { useDevice } from '@intlayer/design-system/hooks';
 import { Loader } from '@intlayer/design-system/loader';
 import { cn } from '@intlayer/design-system/utils';
 import { motion } from 'framer-motion';
-import dynamic from 'next/dynamic';
-import { type IntlayerNode, useIntlayer } from 'next-intlayer';
 import {
   type FC,
+  lazy,
   type PropsWithChildren,
   type ReactNode,
+  Suspense,
   startTransition,
   useEffect,
   useRef,
   useState,
 } from 'react';
+import { type IntlayerNode, useIntlayer } from 'react-intlayer';
 import { FrameworkProvider } from './FrameworkContext';
 
 /* -------------------------------------------------------------------------- */
@@ -44,10 +43,10 @@ const SectionDescription: FC<PropsWithChildren<SectionItemProps>> = ({
   isActive,
 }) => (
   <motion.p
-    className="flex size-full items-center justify-center px-16 text-neutral text-sm md:pr-0 lg:pr-16"
+    className="flex size-full items-center justify-center px-16 text-muted-foreground text-sm md:pr-0 lg:pr-16"
     initial={{ x: '-100%', opacity: 0 }}
     animate={{ x: isActive ? '0%' : '-100%', opacity: isActive ? 1 : 0 }}
-    transition={{ duration: 0.5, ease: 'easeInOut', delay: isActive ? 0.5 : 0 }}
+    transition={{ duration: 0.5, ease: 'easeInOut' }}
   >
     {children}
   </motion.p>
@@ -83,7 +82,7 @@ const Titles: FC<TitlesProps> = ({ sections, activeIndex, isMobile }) => (
       return (
         <motion.h3
           key={section.id.value}
-          className="absolute top-1/4 left-3 inline font-bold text-neutral text-xl leading-snug drop-shadow-sm aria-selected:text-text"
+          className="absolute top-1/4 left-3 inline font-bold text-muted-foreground text-xl leading-snug drop-shadow-sm aria-selected:text-foreground"
           animate={{
             // Convert polar coords to Cartesian (rem units)
             translateX: isActive
@@ -200,7 +199,7 @@ export const FeaturesCarousel: FC<FeaturesCarouselProps> = ({
 
   return (
     <section
-      className="relative z-0 w-screen"
+      className="relative z-0 border-b"
       style={{
         // Make the entire container as tall as the number of sections * 150vh
         height: `${nbSections * 125}vh`,
@@ -211,7 +210,7 @@ export const FeaturesCarousel: FC<FeaturesCarouselProps> = ({
       <div className="sticky top-0 left-0 mb-[70vh] h-[30vh] w-full">
         {/* Progress Bar */}
         <div className="absolute top-20 left-10 flex h-3/5 w-0.5 md:top-[20vh]">
-          <div className="size-full rounded-full bg-neutral/20">
+          <div className="size-full rounded-full bg-border">
             <div
               className="w-full bg-text"
               style={{ height: `${progress * 100}%` }}
@@ -250,7 +249,7 @@ export const FeaturesCarousel: FC<FeaturesCarouselProps> = ({
         {sections.map((section, index) => (
           <div
             className={cn(
-              'absolute top-[37vh] left-0 z-0 h-[20vh] w-full overflow-hidden max-md:bg-background md:top-[50vh] md:h-[50vh] md:w-1/3',
+              'absolute top-[30vh] left-0 z-0 h-[20vh] w-full overflow-hidden max-md:bg-background md:top-[35vh] md:h-[50vh] md:w-1/3',
               index === activeIndex && 'z-10'
             )}
             key={section.id.value}
@@ -266,50 +265,37 @@ export const FeaturesCarousel: FC<FeaturesCarouselProps> = ({
 };
 
 /* -------------------------------------------------------------------------- */
-/*                   Dynamic Imports for Heavy Child Sections                 */
+/*                   Lazy Imports for Heavy Child Sections                    */
 /* -------------------------------------------------------------------------- */
 
-const DynamicIDESection = dynamic(
-  () => import('./IDESection').then((mod) => mod.IDESection),
-  {
-    loading: () => <Loader />,
-  }
+const IDESection = lazy(() =>
+  import('./IDESection').then((mod) => ({ default: mod.IDESection }))
 );
 
-const DynamicMultilingualSection = dynamic(
-  () => import('./MultilingualSection').then((mod) => mod.MultilingualSection),
-  {
-    loading: () => <Loader />,
-  }
+const MultilingualSection = lazy(() =>
+  import('./MultilingualSection').then((mod) => ({
+    default: mod.MultilingualSection,
+  }))
 );
 
-// const DynamicAutocompletionSection = dynamic(
-//   () =>
-//     import('./AutocompletionSection').then((mod) => mod.AutocompletionSection),
-//   {
-//     loading: () => <Loader />,
-//   }
+// const AutocompletionSection = lazy(() =>
+//   import('./AutocompletionSection').then((mod) => ({
+//     default: mod.AutocompletionSection,
+//   }))
 // );
 
-const DynamicVisualEditorSection = dynamic(
-  () => import('./VisualEditorSection').then((mod) => mod.VisualEditorSection),
-  {
-    loading: () => <Loader />,
-  }
+const VisualEditorSection = lazy(() =>
+  import('./VisualEditorSection').then((mod) => ({
+    default: mod.VisualEditorSection,
+  }))
 );
 
-const DynamicCompilerSection = dynamic(
-  () => import('./CompilerSection').then((mod) => mod.CompilerSection),
-  {
-    loading: () => <Loader />,
-  }
+const CompilerSection = lazy(() =>
+  import('./CompilerSection').then((mod) => ({ default: mod.CompilerSection }))
 );
 
-const DynamicTestSection = dynamic(
-  () => import('./TestSection').then((mod) => mod.TestSection),
-  {
-    loading: () => <Loader />,
-  }
+const TestSection = lazy(() =>
+  import('./TestSection').then((mod) => ({ default: mod.TestSection }))
 );
 
 /* -------------------------------------------------------------------------- */
@@ -327,33 +313,55 @@ export const FeaturesSection: FC = () => {
         case 'codebase':
           return {
             ...sectionData,
-            children: <DynamicIDESection scrollProgress={progress} />,
+            children: (
+              <Suspense fallback={<Loader />}>
+                <IDESection scrollProgress={progress} />
+              </Suspense>
+            ),
           };
         case 'visual-editor':
           return {
             ...sectionData,
-            children: <DynamicVisualEditorSection />,
+            children: (
+              <Suspense fallback={<Loader />}>
+                <VisualEditorSection />
+              </Suspense>
+            ),
           };
         case 'multilingual':
           return {
             ...sectionData,
-            children: <DynamicMultilingualSection scrollProgress={progress} />,
+            children: (
+              <Suspense fallback={<Loader />}>
+                <MultilingualSection scrollProgress={progress} />
+              </Suspense>
+            ),
           };
         case 'test':
           return {
             ...sectionData,
-            children: <DynamicTestSection scrollProgress={progress} />,
+            children: (
+              <Suspense fallback={<Loader />}>
+                <TestSection scrollProgress={progress} />
+              </Suspense>
+            ),
           };
         case 'compiler':
           return {
             ...sectionData,
-            children: <DynamicCompilerSection scrollProgress={progress} />,
+            children: (
+              <Suspense fallback={<Loader />}>
+                <CompilerSection scrollProgress={progress} />
+              </Suspense>
+            ),
           };
         // case 'autocomplete':
         //   return {
         //     ...sectionData,
         //     children: (
-        //       <DynamicAutocompletionSection scrollProgress={progress} />
+        //       <Suspense fallback={<Loader />}>
+        //         <AutocompletionSection scrollProgress={progress} />
+        //       </Suspense>
         //     ),
         //   };
         default:

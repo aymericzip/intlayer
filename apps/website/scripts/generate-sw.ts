@@ -5,52 +5,27 @@ async function buildSW() {
   console.log('🏗️  Generating Service Worker...');
 
   const { count, size } = await generateSW({
-    // Output
-    swDest: path.join(process.cwd(), 'public/sw.js'),
+    // Output to the TanStack Start / Nitro public output directory
+    swDest: path.join(process.cwd(), '.output/public/sw.js'),
 
-    // Precache (Static Assets)
-    globDirectory: '.next',
-    // Precache CSS, JS, and Workers.
-    // We do NOT precache HTML here as Next.js pages are dynamic or ISR.
+    // Target the TanStack Start / Nitro client build output
+    globDirectory: '.output/public',
+
+    // Precache critical application shell assets
     globPatterns: [
-      'static/chunks/**/*.js',
-      'static/css/**/*.css',
-      'static/media/**/*.*',
-      'server/app/**/*.*',
+      'manifest.json',
+      'favicon.ico',
+      'logo.svg',
+      'android-chrome-192x192.png',
+      'android-chrome-512x512.png',
+      'assets/*.css',
+      'assets/__root-*.js',
+      'assets/entry-*.js',
+      'assets/index-*.js',
     ],
-    globIgnores: [
-      '**/node_modules/**/*',
-      '**/*.map',
-      'server/middleware*',
-      'server/pages/api/**/*', // Never cache API routes
-    ],
+    globIgnores: ['**/node_modules/**/*', '**/*.map'],
 
-    // Normalize Next.js paths
-    modifyURLPrefix: {
-      'static/': '/_next/static/',
-    },
-
-    // Runtime Caching (The Fix)
     runtimeCaching: [
-      // FIX 1: Cache Next.js Data Fetching (getStaticProps/getServerSideProps)
-      {
-        urlPattern: /\/_next\/data\/.+\.json$/i,
-        handler: 'NetworkFirst',
-        options: {
-          cacheName: 'next-data',
-          networkTimeoutSeconds: 3,
-          expiration: { maxEntries: 32 },
-        },
-      },
-      // FIX 2: Cache Next.js Optimized Images
-      {
-        urlPattern: /\/_next\/image\?url=.+/i,
-        handler: 'StaleWhileRevalidate',
-        options: {
-          cacheName: 'next-optimized-images',
-          expiration: { maxEntries: 64, maxAgeSeconds: 30 * 24 * 60 * 60 },
-        },
-      },
       // Cache Google Fonts & External Fonts
       {
         urlPattern: /^https:\/\/fonts\.(?:googleapis|gstatic)\.com\/.*/i,
@@ -90,7 +65,6 @@ async function buildSW() {
       },
     ],
 
-    // Cleanup
     skipWaiting: true,
     clientsClaim: true,
     cleanupOutdatedCaches: true,

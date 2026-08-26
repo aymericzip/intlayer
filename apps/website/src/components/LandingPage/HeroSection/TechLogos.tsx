@@ -1,4 +1,3 @@
-import { Link } from '@components/Link/Link';
 import {
   Website_Doc_Environment_Angular,
   Website_Doc_Environment_Astro,
@@ -20,6 +19,7 @@ import {
 import { TechLogo, type TechLogoName } from '@intlayer/design-system/tech-logo';
 import { cn } from '@intlayer/design-system/utils';
 import type { FC } from 'react';
+import { Link } from '~/components/Link/Link';
 
 // Animated Technology logos
 const logos = [
@@ -111,11 +111,11 @@ const LogoItem: FC<{
   route: string;
   className?: string;
 }> = ({ name, route, label, className }) => (
-  <Link href={route} label={label} color="custom">
+  <Link to={route} label={label} color="custom">
     <TechLogo
       name={name}
       className={cn(
-        'size-12 shrink-0 opacity-70 transition-opacity duration-200 hover:opacity-100 sm:size-14 md:size-16 lg:size-18',
+        'size-12 shrink-0 opacity-70 transition-opacity duration-200 hover:opacity-100 md:size-10 lg:size-15',
         className
       )}
     />

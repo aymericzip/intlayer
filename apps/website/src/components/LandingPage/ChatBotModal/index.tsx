@@ -1,14 +1,12 @@
-'use client';
-
 import { Button } from '@intlayer/design-system/button';
 import { Loader } from '@intlayer/design-system/loader';
 import { Modal } from '@intlayer/design-system/modal';
 import { Bot } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
 import { type FC, lazy, Suspense, useState } from 'react';
+import { useIntlayer } from 'react-intlayer';
 
 const ChatBot = lazy(() =>
-  import('@components/ChatBot').then((module) => ({ default: module.ChatBot }))
+  import('~/components/ChatBot').then((module) => ({ default: module.ChatBot }))
 );
 
 export const ChatBotModal: FC = () => {
@@ -33,13 +31,14 @@ export const ChatBotModal: FC = () => {
         )}
       </Modal>
       <Button
-        Icon={Bot}
-        className="fixed! right-5 bottom-5 z-50 rounded-full! opacity-70 hover:scale-110"
-        color="text"
+        className="fixed! right-5 bottom-5 z-50 rounded-full! hover:scale-110"
         size="icon-xl"
+        color="foreground"
         label={button.label.value}
         onClick={() => setIsModalOpen(true)}
-      />
+      >
+        <Bot />
+      </Button>
     </>
   );
 };

@@ -1,6 +1,4 @@
-'use client';
-
-import { useIntlayer } from 'next-intlayer';
+import { useIntlayer } from 'react-intlayer';
 import { z } from 'zod';
 
 export const useEmailSchema = () => {

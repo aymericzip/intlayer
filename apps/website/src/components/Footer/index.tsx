@@ -1,13 +1,11 @@
-'use client';
-
 import {
   type LinkGroup,
   Footer as UIFooter,
 } from '@intlayer/design-system/footer';
 import { CHINESE } from '@intlayer/types/locales';
 import { getLocalizedUrl } from 'intlayer';
-import { useIntlayer, useLocale } from 'next-intlayer';
 import type { FC } from 'react';
+import { useIntlayer, useLocale } from 'react-intlayer';
 
 export const Footer: FC = () => {
   const { locale } = useLocale();

@@ -1,6 +1,3 @@
-'use client';
-
-import { Link } from '@components/Link/Link';
 import { useSearchDoc } from '@intlayer/design-system/api';
 import {
   Breadcrumb,
@@ -10,11 +7,10 @@ import { useSearch } from '@intlayer/design-system/hooks';
 import { Input } from '@intlayer/design-system/input';
 import { Loader } from '@intlayer/design-system/loader';
 import type { BlogMetadata, DocMetadata } from '@intlayer/docs';
+import { useLocation, useNavigate } from '@tanstack/react-router';
 import Fuse, { type IFuseOptions } from 'fuse.js';
 import { getIntlayer } from 'intlayer';
 import { ArrowRight, Search } from 'lucide-react';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { useIntlayer, useLocale } from 'next-intlayer';
 import {
   type FC,
   Suspense,
@@ -24,6 +20,8 @@ import {
   useRef,
   useState,
 } from 'react';
+import { useIntlayer, useLocale } from 'react-intlayer';
+import { Link } from '~/components/Link/Link';
 
 // Fuse.js options
 const fuseOptions: IFuseOptions<DocMetadata> = {
@@ -96,7 +94,7 @@ const SearchResultItem: FC<{
       variant="hoverable"
       color="text"
       id={doc.url}
-      href={doc.url.replace(process.env.NEXT_PUBLIC_URL ?? '', '')}
+      to={doc.url.replace(import.meta.env.VITE_URL ?? '', '')}
       className="w-full max-w-full"
       isActive={isSelected}
       onClick={onClickLink}
@@ -104,7 +102,7 @@ const SearchResultItem: FC<{
       <div className="flex items-center justify-between gap-2 text-wrap p-3">
         <div className="flex flex-1 flex-col gap-2 text-left">
           <strong className="text-base">{doc.title}</strong>
-          <p className="text-neutral text-sm">{doc.description}</p>
+          <p className="text-muted-foreground text-sm">{doc.description}</p>
           <Breadcrumb links={breadcrumbLinks} className="text-xs opacity-30" />
         </div>
         <ArrowRight size={24} />
@@ -118,9 +116,9 @@ const SearchViewContent: FC<{
   isOpen?: boolean;
 }> = ({ onClickLink = () => {}, isOpen = false }) => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const searchQueryParam = searchParams.get('search');
+  const navigate = useNavigate();
+  const location = useLocation();
+  const searchQueryParam = new URLSearchParams(location.search).get('search');
   const [selectedIndex, setSelectedIndex] = useState<number>(-1);
   const [frontendResults, setFrontendResults] = useState<DocMetadata[]>([]);
 
@@ -207,11 +205,11 @@ const SearchViewContent: FC<{
 
   const handleNavigate = useCallback(
     (doc: DocMetadata) => {
-      const href = doc.url.replace(process.env.NEXT_PUBLIC_URL ?? '', '');
-      router.push(href);
+      const href = doc.url.replace(import.meta.env.VITE_URL ?? '', '');
+      navigate({ to: href });
       onClickLink();
     },
-    [router, onClickLink]
+    [navigate, onClickLink]
   );
 
   // Handle keyboard navigation
@@ -258,7 +256,9 @@ const SearchViewContent: FC<{
       </div>
       <div className="mt-8 flex flex-1 flex-col overflow-y-auto">
         {isNoResult && (
-          <p className="text-center text-neutral text-sm">{noContentText}</p>
+          <p className="text-center text-muted-foreground text-sm">
+            {noContentText}
+          </p>
         )}
         {results.length > 0 && (
           <ul className="flex flex-col gap-10">

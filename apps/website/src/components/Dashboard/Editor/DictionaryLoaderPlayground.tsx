@@ -1,5 +1,3 @@
-'use client';
-
 import { useDictionariesRecordActions } from '@intlayer/editor-react';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import type { FC } from 'react';

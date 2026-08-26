@@ -1,8 +1,8 @@
-import { Link } from '@components/Link/Link';
 import { PopoverStatic } from '@intlayer/design-system/popover';
 import { YoutubeLogo } from '@intlayer/design-system/social-networks';
-import { useIntlayer } from 'next-intlayer/server';
 import type { FC } from 'react';
+import { useIntlayer } from 'react-intlayer';
+import { Link } from '~/components/Link/Link';
 
 type YoutubeVideoMessageProps = {
   youtubeVideoUrl: string;
@@ -16,7 +16,7 @@ export const YoutubeVideoMessage: FC<YoutubeVideoMessageProps> = ({
   return (
     <PopoverStatic identifier="mcp">
       <Link
-        href={youtubeVideoUrl}
+        to={youtubeVideoUrl}
         label={label.value}
         color="text"
         className="flex p-2"
@@ -29,7 +29,7 @@ export const YoutubeVideoMessage: FC<YoutubeVideoMessageProps> = ({
         className="flex min-w-64 flex-col gap-3 p-3 text-sm"
       >
         <strong>{title}</strong>
-        <p className="text-neutral">{description}</p>
+        <p className="text-muted-foreground">{description}</p>
       </PopoverStatic.Detail>
     </PopoverStatic>
   );

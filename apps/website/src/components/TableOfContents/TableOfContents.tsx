@@ -1,9 +1,7 @@
-'use client';
-
 import { Link } from '@intlayer/design-system/link';
 import { cn } from '@intlayer/design-system/utils';
-import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
+import { useIntlayer } from 'react-intlayer';
 import { useTitlesTree } from '../DocPage/useTitlesTree';
 
 type TableOfContentsProps = {
@@ -123,7 +121,7 @@ export const TableOfContents: FC<TableOfContentsProps> = ({
                 color="text"
                 isPageSection
                 variant="hoverable"
-                className="flex w-full items-center justify-between text-wrap p-2 pr-4 text-base text-neutral transition-colors"
+                className="flex w-full items-center justify-between text-wrap p-2 pr-4 text-base text-muted-foreground transition-colors"
               >
                 {heading.innerText}
               </Link>

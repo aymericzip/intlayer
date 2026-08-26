@@ -1,13 +1,11 @@
-'use client';
-
-import { Link } from '@components/Link/Link';
 import { Tag } from '@intlayer/design-system/tag';
 import { cn } from '@intlayer/design-system/utils';
 import { Package } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
 import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
 import { memo } from 'react';
+import { useIntlayer } from 'react-intlayer';
+import { Link } from '~/components/Link/Link';
 import { createCompOverwrite } from './AnalyzerPageResults';
 import { FieldItem } from './FieldItem';
 import type { AuditEvent } from './types';
@@ -142,28 +140,28 @@ const BundleSummaryLabel: FC<BundleSummaryLabelProps> = ({ summary }) => {
                           {chunk.isMain ? chunkTable.main : chunkTable.lazy}
                         </Tag>
                         <Link
-                          href={chunk.url}
+                          to={chunk.url}
                           target="_blank"
                           label={chunk.filename}
                           rel="noopener noreferrer"
                           color="custom"
-                          className="text-text/70 text-xs"
+                          className="text-foreground/70 text-xs"
                           size="sm"
                         >
                           {chunk.filename}
                         </Link>
                       </span>
                     </TD>
-                    <TD right className="text-text/60">
+                    <TD right className="text-foreground/60">
                       {chunk.fileSize}
                     </TD>
-                    <TD right className="text-text/70">
+                    <TD right className="text-foreground/70">
                       {chunk.totalLocaleSize}
                     </TD>
-                    <TD right className="text-text/70">
+                    <TD right className="text-foreground/70">
                       {chunk.usedLocaleSize}
                     </TD>
-                    <TD right className="text-text/70">
+                    <TD right className="text-foreground/70">
                       {chunk.unusedLocaleSize}
                     </TD>
                     <TD right className={pctClass}>
@@ -191,14 +189,14 @@ const BundleSummaryLabel: FC<BundleSummaryLabelProps> = ({ summary }) => {
           </thead>
           <tbody>
             <tr>
-              <TD className="text-text/60">{totalsTable.allBundles}</TD>
-              <TD right className="text-text/70">
+              <TD className="text-foreground/60">{totalsTable.allBundles}</TD>
+              <TD right className="text-foreground/70">
                 {summary.totalPageSize}
               </TD>
-              <TD right className="text-text/70">
+              <TD right className="text-foreground/70">
                 {summary.renderedContentSize}
               </TD>
-              <TD right className="text-text/70">
+              <TD right className="text-foreground/70">
                 {summary.totalUnusedLocaleSize}
               </TD>
               <TD
@@ -237,7 +235,7 @@ export const BundleContentField: FC<BundleContentFieldProps> = memo(
 
     return (
       <>
-        <h3 className="mt-6 mb-3 font-semibold text-lg text-text/80">
+        <h3 className="mt-6 mb-3 font-semibold text-foreground/80 text-lg">
           {sections?.bundleContent}
         </h3>
         <FieldItem

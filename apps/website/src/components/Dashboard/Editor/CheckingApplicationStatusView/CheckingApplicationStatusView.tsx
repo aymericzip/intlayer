@@ -1,7 +1,7 @@
 import { Container } from '@intlayer/design-system/container';
 import { Loader } from '@intlayer/design-system/loader';
-import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
+import { useIntlayer } from 'react-intlayer';
 
 export const CheckingApplicationStatusView: FC = () => {
   const { checkingApplicationStatus } = useIntlayer(

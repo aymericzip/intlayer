@@ -1,5 +1,3 @@
-'use client';
-
 import { Button } from '@intlayer/design-system/button';
 import { DictionaryEditor } from '@intlayer/design-system/dictionary-editor';
 import {
@@ -18,8 +16,8 @@ import {
   useFocusUnmergedDictionary,
 } from '@intlayer/editor-react';
 import { PencilRuler } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
 import { type FC, useState } from 'react';
+import { useIntlayer } from 'react-intlayer';
 import { dictionaryListDrawerIdentifier } from '../DictionaryListDrawer/dictionaryListDrawerIdentifier';
 import {
   getDrawerIdentifier,
@@ -65,7 +63,7 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
 
   if (!focusedContent.dictionaryKey)
     return (
-      <span className="mx-auto my-10 text-neutral text-sm">
+      <span className="mx-auto my-10 text-muted-foreground text-sm">
         {noDictionaryFocused}
       </span>
     );
@@ -76,7 +74,7 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
 
   if (!dictionary)
     return (
-      <span className="mx-auto my-10 text-neutral text-sm">
+      <span className="mx-auto my-10 text-muted-foreground text-sm">
         {focusedDictionaryNotFound}
       </span>
     );
@@ -109,7 +107,7 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
                 onClick={() => setEditionModalOpen(true)}
               />
               <Popover.Detail identifier="open-dictionary-editor">
-                <span className="whitespace-nowrap p-2 text-neutral text-xs">
+                <span className="whitespace-nowrap p-2 text-muted-foreground text-xs">
                   {openDictionaryEditor.popoverContent}
                 </span>
               </Popover.Detail>

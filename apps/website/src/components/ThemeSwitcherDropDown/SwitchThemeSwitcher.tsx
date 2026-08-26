@@ -1,5 +1,4 @@
-'use client';
-
+import { useIsMounted } from '@intlayer/design-system/hooks';
 import {
   SwitchSelector,
   type SwitchSelectorChoices,
@@ -10,6 +9,7 @@ import { useTheme } from 'next-themes';
 import type { FC } from 'react';
 
 export const SwitchThemeSwitcher: FC = () => {
+  const isMounted = useIsMounted();
   const { resolvedTheme, setTheme } = useTheme();
 
   const themeSwitcher = [
@@ -31,12 +31,16 @@ export const SwitchThemeSwitcher: FC = () => {
     },
   ] as SwitchSelectorChoices<Modes>;
 
+  if (!isMounted) {
+    return null;
+  }
+
   return (
     <SwitchSelector
       choices={themeSwitcher}
       value={resolvedTheme}
       onChange={setTheme}
-      color="text"
+      color="foreground"
       size="sm"
     />
   );

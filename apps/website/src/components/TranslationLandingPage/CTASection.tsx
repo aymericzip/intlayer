@@ -1,13 +1,11 @@
-'use client';
-
-import { Link } from '@components/Link/Link';
 import { Container } from '@intlayer/design-system/container';
 import { CodeBlock } from '@intlayer/design-system/ide';
 import { Website_Doc_CLI_Fill_Path } from '@intlayer/design-system/routes';
 import { cn } from '@intlayer/design-system/utils';
-import { useIntlayer } from 'next-intlayer';
 import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
+import { useIntlayer } from 'react-intlayer';
+import { Link } from '~/components/Link/Link';
 
 type CodeBlockWrapperProps = {
   title: ReactNode;
@@ -27,11 +25,14 @@ const CodeBlockWrapper: FC<CodeBlockWrapperProps> = ({
       border
       borderColor="card"
       background="none"
-      className={cn('relative overflow-hidden text-text-opposite', className)}
+      className={cn(
+        'relative overflow-hidden text-foreground-opposite',
+        className
+      )}
     >
       <div className="mb-2 flex items-center justify-between">
-        <span className="text-text/70 text-xs">{title}</span>
-        <span className="text-text/40 text-xs">CLI</span>
+        <span className="text-foreground/70 text-xs">{title}</span>
+        <span className="text-foreground/40 text-xs">CLI</span>
       </div>
       {children}
     </Container>
@@ -64,15 +65,15 @@ export const CTASection: FC = () => {
       >
         <div className="grid grid-cols-1 items-center gap-6 md:grid-cols-12">
           <div className="md:col-span-7">
-            <h3 className="font-semibold text-2xl text-text md:text-3xl">
+            <h3 className="font-semibold text-2xl text-foreground md:text-3xl">
               {title}
             </h3>
-            <p className="mt-2 max-w-2xl text-base text-text/70">
+            <p className="mt-2 max-w-2xl text-base text-foreground/70">
               {description}
             </p>
             <div className="mt-5 flex flex-col gap-3 sm:flex-row">
               <Link
-                href="#commands"
+                to="#commands"
                 variant="button-outlined"
                 color="text"
                 className="w-full sm:w-auto"
@@ -87,7 +88,7 @@ export const CTASection: FC = () => {
               </Link>
 
               <Link
-                href={Website_Doc_CLI_Fill_Path}
+                to={Website_Doc_CLI_Fill_Path}
                 variant="button"
                 color="text"
                 className="w-full sm:w-auto"

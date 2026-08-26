@@ -1,29 +1,32 @@
-'use client';
-
-import type { FrameworkKey } from '@components/I18nBenchmark';
-import { Link } from '@components/Link/Link';
-import { TableOfContents } from '@components/TableOfContents';
 import {
   Accordion as AccordionBase,
   type AccordionProps,
 } from '@intlayer/design-system/accordion';
 import { Container } from '@intlayer/design-system/container';
-import { MarkdownRenderer } from '@intlayer/design-system/mark-down-render';
+import {
+  MarkdownRenderer,
+  type ParsedMarkdown,
+} from '@intlayer/design-system/mark-down-render';
 import { Step, Steps } from '@intlayer/design-system/steps';
-import dynamic from 'next/dynamic';
-import { useLocale } from 'next-intlayer';
 import { useTheme } from 'next-themes';
-import type { ComponentProps, FC, HTMLAttributes } from 'react';
+import {
+  type ComponentProps,
+  type FC,
+  type HTMLAttributes,
+  lazy,
+  Suspense,
+} from 'react';
+import { useLocale } from 'react-intlayer';
+import type { FrameworkKey } from '~/components/I18nBenchmark';
+import { Link } from '~/components/Link/Link';
+import { TableOfContents } from '~/components/TableOfContents';
 import { ClickToOpenIframe } from './ClickToOpenIframe';
+import { SectionScroller } from './SectionScroller';
 
-const SectionScroller = dynamic(
-  () => import('./SectionScroller').then((mod) => mod.SectionScroller),
-  { ssr: false }
-);
-
-const I18nBenchmark = dynamic(
-  () => import('@components/I18nBenchmark').then((mod) => mod.I18nBenchmark),
-  { ssr: false }
+const I18nBenchmark = lazy(() =>
+  import('~/components/I18nBenchmark').then((mod) => ({
+    default: mod.I18nBenchmark,
+  }))
 );
 
 const Accordion = ({ children, ...props }: AccordionProps) => (
@@ -32,7 +35,7 @@ const Accordion = ({ children, ...props }: AccordionProps) => (
     headerClassName="text-lg!"
     contentClassName="divide-y divide-neutral"
   >
-    <div className="mb-8 flex flex-col gap-6 px-4 pt-6 text-sm text-text/80">
+    <div className="mb-8 flex flex-col gap-6 px-4 pt-6 text-foreground/80 text-sm">
       {children}
     </div>
   </AccordionBase>
@@ -56,7 +59,7 @@ const AccordionGroup = ({
 );
 
 type DocumentationRenderProps = {
-  children: string;
+  children: string | ParsedMarkdown;
   tocLevels?: number[];
   tocMaxDepth?: number;
 };
@@ -72,7 +75,7 @@ export const DocumentationRender: FC<DocumentationRenderProps> = ({
   const isDarkMode = resolvedTheme === 'dark';
 
   return (
-    <div className="m-auto flex max-w-2xl flex-col gap-8 p-4 text-text/90 max-md:px-0">
+    <div className="m-auto flex max-w-2xl flex-col gap-8 p-4 text-foreground/90 max-md:px-0">
       <MarkdownRenderer
         isDarkMode={isDarkMode}
         locale={locale}
@@ -83,7 +86,7 @@ export const DocumentationRender: FC<DocumentationRenderProps> = ({
               underlined={true}
               locale={locale}
               {...props}
-              href={props.href ?? ''}
+              to={props.href ?? ''}
             />
           ),
           Toc: (props: ComponentProps<typeof TableOfContents>) => (
@@ -94,7 +97,9 @@ export const DocumentationRender: FC<DocumentationRenderProps> = ({
             />
           ),
           I18nBenchmark: (props: { framework?: FrameworkKey }) => (
-            <I18nBenchmark initialFramework={props.framework} />
+            <Suspense>
+              <I18nBenchmark initialFramework={props.framework} />
+            </Suspense>
           ),
           ClickToOpenIframe,
           Step,

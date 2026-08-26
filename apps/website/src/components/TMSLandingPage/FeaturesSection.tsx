@@ -1,10 +1,8 @@
-'use client';
-
 import { Container } from '@intlayer/design-system/container';
 import { m, type Variants } from 'framer-motion';
 import { GitBranch, Sparkles, Users, Webhook } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
 import type { FC, ReactNode } from 'react';
+import { useIntlayer } from 'react-intlayer';
 
 // Consistent Spring Animations
 const containerVariants: Variants = {
@@ -71,7 +69,7 @@ export const FeaturesSection: FC = () => {
           variants={headerVariants}
           className="mb-16 text-center"
         >
-          <h2 className="font-bold text-3xl text-text sm:text-4xl">
+          <h2 className="font-bold text-3xl text-foreground sm:text-4xl">
             {featuresTitle}
           </h2>
         </m.div>
@@ -93,15 +91,15 @@ export const FeaturesSection: FC = () => {
               border={true}
               className="group flex flex-col gap-4"
             >
-              <div className="flex size-12 items-center justify-center rounded-xl bg-neutral/10 text-text transition-colors group-hover:bg-primary/10 group-hover:text-primary">
+              <div className="flex size-12 items-center justify-center rounded-lg bg-neutral/10 text-foreground transition-colors group-hover:bg-primary/10 group-hover:text-primary">
                 {iconMap[feature.icon.value] ?? <Sparkles className="size-6" />}
               </div>
 
               <div>
-                <h3 className="mb-2 font-semibold text-text text-xl">
+                <h3 className="mb-2 font-semibold text-foreground text-xl">
                   {feature.title}
                 </h3>
-                <p className="text-neutral leading-relaxed">
+                <p className="text-muted-foreground leading-relaxed">
                   {feature.description}
                 </p>
               </div>

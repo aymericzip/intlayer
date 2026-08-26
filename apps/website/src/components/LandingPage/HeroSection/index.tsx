@@ -1,31 +1,35 @@
-'use client';
-
-import { Link } from '@components/Link/Link';
 import { Button } from '@intlayer/design-system/button';
-import { Container } from '@intlayer/design-system/container';
 import { useCopyToClipboard } from '@intlayer/design-system/copy-to-clipboard';
 import { CodeBlock } from '@intlayer/design-system/ide';
 import {
   External_Github,
+  Website_Doc_Environment_ViteAndReact_Path,
   Website_Doc_Path,
   Website_ReleasesV9_Path,
 } from '@intlayer/design-system/routes';
 import { Tag } from '@intlayer/design-system/tag';
 import { motion } from 'framer-motion';
-import { ArrowRight, Check, Copy } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
+import {
+  ArrowRight,
+  Check,
+  ChevronRight,
+  Copy,
+  ExternalLink,
+  Megaphone,
+} from 'lucide-react';
 import { useTheme } from 'next-themes';
 import type { FC } from 'react';
+import { useIntlayer } from 'react-intlayer';
+import { BackgroundLayout } from '~/components/BackgroundLayout';
+import { Link } from '~/components/Link/Link';
 import packageJSON from '../../../../package_mock.json' with { type: 'json' };
 import { TechLogos } from './TechLogos';
 
 const SHOW_WHATS_NEW = true;
 
-const ContainerMotion = motion.create(Container);
-
 export const HeroSection: FC = () => {
   const {
-    whatsNew,
+    //    whatsNew,
     whatsNewLabel,
     version,
     title,
@@ -42,11 +46,10 @@ export const HeroSection: FC = () => {
   const { isCopied, copy } = useCopyToClipboard('npx intlayer init');
 
   return (
-    <section className="relative flex min-h-[calc(100vh-64px)] w-full flex-col px-4 md:px-8 lg:px-12">
-      <div className="flex flex-1 flex-col items-center justify-center text-center">
-        {/* Centered Content */}
-        <div className="mx-auto mt-16 mb-8 w-full max-w-4xl lg:mb-0">
-          {/* What's New Tag */}
+    <section className="relative flex min-h-[calc(100vh-60px)] flex-col">
+      <section className="relative flex w-full flex-1 flex-col border-b px-4 md:px-8 lg:px-12">
+        <BackgroundLayout />
+        <div className="flex flex-1 flex-col items-center justify-center py-16">
           {SHOW_WHATS_NEW && (
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -54,29 +57,24 @@ export const HeroSection: FC = () => {
               transition={{ duration: 0.6 }}
               className="mb-8 flex items-center justify-center gap-2"
             >
-              <Tag
-                size="sm"
-                border="with"
-                color="neutral"
-                className="rounded-full border font-medium text-sm text-text"
-              >
-                {whatsNew}
-              </Tag>
-              <Link
-                href={Website_ReleasesV9_Path}
-                color="neutral"
-                label={whatsNewLabel.value}
-              >
-                <span className="flex items-center gap-1 font-medium text-neutral-500 text-sm sm:text-sm dark:text-neutral-400">
-                  {version} v{packageJSON.version}{' '}
-                  <ArrowRight className="h-3 w-3" />
-                </span>
+              <Link to={Website_ReleasesV9_Path} label={whatsNewLabel.value}>
+                <Tag
+                  size="md"
+                  border="with"
+                  className="flex items-center gap-2 rounded-full border-foreground/20! bg-card/10 font-medium text-foreground text-sm backdrop-blur-xl"
+                >
+                  <Megaphone className="size-4" />
+                  <span className="no-underline! flex items-center gap-1 font-medium text-sm sm:text-sm">
+                    {version} v{packageJSON.version}{' '}
+                    <ArrowRight className="size-3" />
+                  </span>
+                </Tag>
               </Link>
             </motion.div>
           )}
 
           {/* Title */}
-          <h1 className="mb-4 text-center font-bold text-4xl leading-tight sm:text-4xl md:text-5xl lg:mb-6 lg:text-6xl">
+          <h1 className="mb-3 text-center font-bold text-4xl leading-tight sm:text-4xl md:text-5xl lg:text-6xl">
             {title}
           </h1>
           {/* Subtitle */}
@@ -84,65 +82,73 @@ export const HeroSection: FC = () => {
             initial={{ filter: 'blur(10px)', opacity: 0, y: 30 }}
             animate={{ filter: 'blur(0px)', opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }}
-            className="mb-6 text-center font-semibold text-text text-xl sm:text-3xl md:text-3xl lg:mb-8 lg:text-4xl"
+            className="mb-6 text-center font-semibold text-xl sm:text-3xl md:text-3xl lg:mb-8 lg:text-4xl"
           >
             {subheading}
           </motion.h2>
           {/* Description */}
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.6 }}
-            className="mx-auto max-w-2xl text-center font-medium text-neutral text-sm leading-relaxed sm:text-lg lg:mb-12"
-          >
-            {description}
-          </motion.p>
+
           {/* Copyable code block */}
-          <ContainerMotion
+          <motion.div
             initial={{ opacity: 0, y: 0 }}
             animate={{ opacity: 1, y: -30 }}
             transition={{ delay: 0.7, duration: 0.6 }}
-            roundedSize="2xl"
-            className="m-auto mt-24 max-w-2xl flex-row items-center p-1 pl-6"
+            onClick={copy}
+            className="mt-8 flex w-full max-w-xl cursor-pointer flex-row items-center justify-center rounded-lg border bg-card p-1 py-2 pr-2 pl-4"
           >
-            <CodeBlock lang="bash" isDarkMode={isDarkMode}>
+            <ChevronRight className="size-8 text-muted-foreground" />
+            <CodeBlock
+              className="justify-center"
+              lang="bash"
+              isDarkMode={isDarkMode}
+            >
               npx intlayer init
             </CodeBlock>
             <Button
               variant="hoverable"
               color="neutral"
-              size="icon-xl"
+              size="icon-lg"
+              roundedSize="xl"
               onClick={copy}
               Icon={isCopied ? Check : Copy}
               label={copyButton.value}
             />
-          </ContainerMotion>
+          </motion.div>
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6, duration: 0.6 }}
+            className="mx-auto max-w-xl text-center text-muted-foreground text-sm leading-relaxed sm:text-lg lg:mb-12"
+          >
+            {description}
+          </motion.p>
+
           {/* Action Buttons */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8, duration: 0.6 }}
-            className="mt-10 mb-6 flex flex-col justify-center gap-3 sm:flex-row sm:gap-4 lg:mb-10"
+            className="flex flex-col justify-center gap-3 sm:flex-row sm:gap-4"
           >
             <Link
-              href={External_Github}
+              to={External_Github}
               variant="button-outlined"
               color="text"
               label={supportButton.value}
               isExternalLink={false}
               size="lg"
-              roundedSize="full"
+              roundedSize="sm"
             >
               <span className="block text-sm sm:text-lg">{supportButton}</span>
             </Link>
 
             <Link
-              href={Website_Doc_Path}
+              to={Website_Doc_Path}
               variant="button"
               color="text"
               label={getStartedButton.value}
               size="xl"
-              roundedSize="full"
+              roundedSize="sm"
               className="flex flex-row items-center justify-center gap-2"
             >
               <span className="block text-sm sm:text-lg">
@@ -152,20 +158,25 @@ export const HeroSection: FC = () => {
               <ArrowRight width={20} height={20} />
             </Link>
           </motion.div>
-          {/* Available For Section - Full Viewport Width */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.0, duration: 0.6 }}
-            className="relative right-1/2 left-1/2 mt-8 mr-[-50vw] ml-[-50vw] w-screen text-center"
-          >
-            <p className="font-medium text-sm text-text tracking-wider sm:text-base">
-              {availableFor}
-            </p>
-            <TechLogos />
-          </motion.div>
         </div>
-      </div>
+      </section>
+      <Link to={Website_Doc_Environment_ViteAndReact_Path} label={availableFor}>
+        <div className="flex items-center justify-between gap-4 border-b p-3">
+          <p className="font-mono text-foreground text-sm uppercase tracking-wider sm:text-base">
+            {availableFor}
+          </p>
+          <ExternalLink className="size-5 text-muted-foreground" />
+        </div>
+      </Link>
+
+      <motion.section
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.0, duration: 0.6 }}
+        className="relative w-full border-b"
+      >
+        <TechLogos />
+      </motion.section>
     </section>
   );
 };

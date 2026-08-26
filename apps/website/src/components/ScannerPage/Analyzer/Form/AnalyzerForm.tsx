@@ -1,5 +1,3 @@
-'use client';
-
 import {
   Form,
   FormButton,
@@ -7,9 +5,9 @@ import {
   useForm,
 } from '@intlayer/design-system/form';
 import { cn } from '@intlayer/design-system/utils';
-import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
-import { useSearchParamState } from '@/hooks/useSearchParamState';
+import { useIntlayer } from 'react-intlayer';
+import { useSearchParamState } from '~/hooks/useSearchParamState';
 import type { AnalyzerFormData } from './useAnalyzerUrlSchema';
 import { useAnalyzerUrlSchema } from './useAnalyzerUrlSchema';
 
@@ -55,7 +53,7 @@ export const AnalyzerForm: FC<AnalyzerFormProps> = ({
         aria-label={input.label.value}
         type="url"
         placeholder={input.placeholder.value}
-        className="flex-1 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2"
+        className="flex-1 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2"
       />
       <div className="flex items-stretch gap-2">
         <FormButton
@@ -66,7 +64,7 @@ export const AnalyzerForm: FC<AnalyzerFormProps> = ({
           variant="fade"
           color="custom"
           isLoading={isSubmitting || loading}
-          className="w-full rounded-xl px-5 py-2 font-medium"
+          className="w-full rounded-lg px-5 py-2 font-medium"
         >
           {loading ? button.analyzing : button.analyze}
         </FormButton>
@@ -78,7 +76,7 @@ export const AnalyzerForm: FC<AnalyzerFormProps> = ({
             size="md"
             variant="outline"
             color="text"
-            className="rounded-xl px-5 py-2 font-medium"
+            className="rounded-lg px-5 py-2 font-medium"
           >
             {button.cancel}
           </FormButton>

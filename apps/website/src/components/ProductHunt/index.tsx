@@ -1,16 +1,14 @@
-'use client';
-
-import { Link } from '@components/Link/Link';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import { useDevice, usePersistedStore } from '@intlayer/design-system/hooks';
+import { Link } from '@intlayer/design-system/link';
 import { MaxWidthSmoother } from '@intlayer/design-system/max-width-smoother';
 import { ProductHuntLogo } from '@intlayer/design-system/social-networks';
 import { cn } from '@intlayer/design-system/utils';
 import { useQuery } from '@tanstack/react-query';
 import { X } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
 import { type FC, useEffect, useState } from 'react';
+import { useIntlayer } from 'react-intlayer';
 
 const VISIBLE_START_TIME = 3000;
 const MINIATURIZING_END_TIME = 6000;
@@ -29,7 +27,7 @@ const fetchProductHuntData = async (): Promise<ProductHuntData | null> => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${process.env.NEXT_PUBLIC_PRODUCTHUNT_TOKEN}`,
+        Authorization: `Bearer ${import.meta.env.VITE_PRODUCTHUNT_TOKEN}`,
       },
       body: JSON.stringify({
         query: `
@@ -164,7 +162,7 @@ export const ProductHunt: FC = () => {
             <div className="flex w-72 flex-col gap-2 overflow-hidden rounded-lg">
               <strong className="text-xl uppercase">{title}</strong>
               <span>{content}</span>
-              <span className="text-neutral text-sm">{details}</span>
+              <span className="text-muted-foreground text-sm">{details}</span>
             </div>
           </MaxWidthSmoother>
         </div>

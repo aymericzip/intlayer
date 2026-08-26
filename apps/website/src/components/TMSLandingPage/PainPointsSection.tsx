@@ -1,10 +1,8 @@
-'use client';
-
 import { Container } from '@intlayer/design-system/container';
 import { m, type Variants } from 'framer-motion';
 import { Banknote, EyeOff, RefreshCcw } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
 import type { FC, ReactNode } from 'react';
+import { useIntlayer } from 'react-intlayer';
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -44,7 +42,7 @@ export const PainPointsSection: FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="mb-16 text-center font-bold text-3xl text-text sm:text-4xl"
+          className="mb-16 text-center font-bold text-3xl text-foreground sm:text-4xl"
         >
           {painPointsTitle}
         </m.h2>
@@ -66,13 +64,13 @@ export const PainPointsSection: FC = () => {
               border={true}
               className="relative"
             >
-              <div className="mb-5 flex size-12 items-center justify-center rounded-xl bg-neutral/10 text-text">
+              <div className="mb-5 flex size-12 items-center justify-center rounded-lg bg-neutral/10 text-foreground">
                 {iconMap[point.icon.value]}
               </div>
-              <h3 className="mb-3 font-semibold text-text text-xl">
+              <h3 className="mb-3 font-semibold text-foreground text-xl">
                 {point.title}
               </h3>
-              <p className="text-neutral leading-relaxed">
+              <p className="text-muted-foreground leading-relaxed">
                 {point.description}
               </p>
             </MotionContainer>

@@ -1,8 +1,8 @@
-import { type BlogMetadata, getAuthor } from '@intlayer/docs';
+import type { BlogMetadata } from '@intlayer/docs';
 import type { LocalesValues } from 'intlayer';
-import { useIntlayer } from 'next-intlayer/server';
 import { type FC, useMemo } from 'react';
-import { Link } from '../Link/Link';
+import { useIntlayer } from 'react-intlayer';
+import { Link } from '~/components/Link/Link';
 
 type RelatedPostsProps = {
   allBlogs: BlogMetadata[];
@@ -18,10 +18,9 @@ type RelatedPostsProps = {
 export const RelatedPosts: FC<RelatedPostsProps> = ({
   allBlogs,
   currentDocKey,
-  locale,
   count = 4,
 }) => {
-  const content = useIntlayer('related-posts', locale);
+  const content = useIntlayer('related-posts');
 
   const relatedPosts = useMemo(() => {
     const candidates = allBlogs.filter((blog) => blog.docKey !== currentDocKey);
@@ -35,41 +34,34 @@ export const RelatedPosts: FC<RelatedPostsProps> = ({
 
   return (
     <section className="mt-16 border-border border-t border-dashed pt-8">
-      <h2 className="mb-4 font-semibold text-sm text-text">
+      <h2 className="mb-4 font-semibold text-foreground text-sm">
         {content.relatedPosts}
       </h2>
       <div className="grid grid-cols-1 divide-dashed divide-border sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:grid-cols-4">
-        {relatedPosts.map((post) => {
-          const authorProfile =
-            typeof post.author === 'string'
-              ? getAuthor(post.author)
-              : post.author;
-
-          return (
-            <div key={post.docKey} className="px-2">
-              <Link
-                href={post.relativeUrl}
-                variant="invisible-link"
-                label={content.visitBlogTitle({ title: post.title })}
-                className="group flex flex-col gap-2.5 py-5 no-underline sm:px-5 last:sm:pr-0 first:sm:pl-0"
-              >
-                <p className="line-clamp-2 font-medium text-sm text-text-primary transition-colors group-hover:text-text-secondary group-hover:underline">
-                  {post.title}
+        {relatedPosts.map((post) => (
+          <div key={post.docKey} className="px-2">
+            <Link
+              to={post.relativeUrl}
+              variant="invisible-link"
+              label={content.visitBlogTitle({ title: post.title })}
+              className="group flex flex-col gap-2.5 py-5 no-underline sm:px-5 last:sm:pr-0 first:sm:pl-0"
+            >
+              <p className="line-clamp-2 font-medium text-foreground-primary text-sm transition-colors group-hover:text-foreground-secondary group-hover:underline">
+                {post.title}
+              </p>
+              {post.description && (
+                <p className="line-clamp-2 text-muted-foreground text-xs">
+                  {post.description}
                 </p>
-                {post.description && (
-                  <p className="line-clamp-2 text-neutral text-xs">
-                    {post.description}
-                  </p>
-                )}
-                {authorProfile && (
-                  <p className="mt-auto text-neutral text-xs">
-                    {authorProfile.name}
-                  </p>
-                )}
-              </Link>
-            </div>
-          );
-        })}
+              )}
+              {post.author && (
+                <p className="mt-auto text-muted-foreground text-xs">
+                  {post.author.name}
+                </p>
+              )}
+            </Link>
+          </div>
+        ))}
       </div>
     </section>
   );
@@ -88,10 +80,9 @@ type LastPostsProps = {
 export const LastPosts: FC<LastPostsProps> = ({
   allBlogs,
   currentDocKey,
-  locale,
   count = 4,
 }) => {
-  const content = useIntlayer('related-posts', locale);
+  const content = useIntlayer('related-posts');
 
   const lastPosts = useMemo(() => {
     const candidates = currentDocKey
@@ -111,41 +102,34 @@ export const LastPosts: FC<LastPostsProps> = ({
 
   return (
     <section className="mt-16 border-border border-t border-dashed pt-8">
-      <h2 className="mb-4 font-semibold text-sm text-text">
+      <h2 className="mb-4 font-semibold text-foreground text-sm">
         {content.lastPosts}
       </h2>
       <div className="grid grid-cols-1 divide-dashed divide-border sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:grid-cols-4">
-        {lastPosts.map((post) => {
-          const authorProfile =
-            typeof post.author === 'string'
-              ? getAuthor(post.author)
-              : post.author;
-
-          return (
-            <div key={post.docKey} className="px-2">
-              <Link
-                href={post.relativeUrl}
-                variant="invisible-link"
-                label={content.visitBlogTitle({ title: post.title })}
-                className="group flex flex-col gap-2.5 py-5 no-underline sm:px-5 last:sm:pr-0 first:sm:pl-0"
-              >
-                <p className="line-clamp-2 font-medium text-sm text-text-primary transition-colors group-hover:text-text-secondary group-hover:underline">
-                  {post.title}
+        {lastPosts.map((post) => (
+          <div key={post.docKey} className="px-2">
+            <Link
+              to={post.relativeUrl}
+              variant="invisible-link"
+              label={content.visitBlogTitle({ title: post.title })}
+              className="group flex flex-col gap-2.5 py-5 no-underline sm:px-5 last:sm:pr-0 first:sm:pl-0"
+            >
+              <p className="line-clamp-2 font-medium text-foreground-primary text-sm transition-colors group-hover:text-foreground-secondary group-hover:underline">
+                {post.title}
+              </p>
+              {post.description && (
+                <p className="line-clamp-2 text-muted-foreground text-xs">
+                  {post.description}
                 </p>
-                {post.description && (
-                  <p className="line-clamp-2 text-neutral text-xs">
-                    {post.description}
-                  </p>
-                )}
-                {authorProfile && (
-                  <p className="mt-auto text-neutral text-xs">
-                    {authorProfile.name}
-                  </p>
-                )}
-              </Link>
-            </div>
-          );
-        })}
+              )}
+              {post.author && (
+                <p className="mt-auto text-muted-foreground text-xs">
+                  {post.author.name}
+                </p>
+              )}
+            </Link>
+          </div>
+        ))}
       </div>
     </section>
   );

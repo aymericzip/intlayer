@@ -1,5 +1,3 @@
-'use client';
-
 import { Accordion } from '@intlayer/design-system/accordion';
 import { Button } from '@intlayer/design-system/button';
 import { ClickOutsideDiv } from '@intlayer/design-system/click-outside-div';
@@ -11,11 +9,11 @@ import { PopoverStatic } from '@intlayer/design-system/popover';
 import { Website_Doc_Path } from '@intlayer/design-system/routes';
 import { cn } from '@intlayer/design-system/utils';
 import { ArrowLeftToLine } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
 import { type FC, useState } from 'react';
-import { useScrollPositionPersistence } from '@/hooks/useScrollPositionPersistence';
-import { OptionalLink } from '../DocPage/DocNavList';
-import { SearchTrigger } from '../DocPage/Search/SearchTrigger';
+import { useIntlayer } from 'react-intlayer';
+import { OptionalLink } from '~/components/DocPage/DocNavList';
+import { SearchTrigger } from '~/components/DocPage/Search/SearchTrigger';
+import { useScrollPositionPersistence } from '~/hooks/useScrollPositionPersistence';
 import type { Section } from './types';
 
 type BlogNavListProps = {
@@ -39,8 +37,8 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
     >
       {Object.keys(blogData).map((key1) => {
         const section1Data = blogData[key1];
-        const sectionDefault = section1Data?.default;
-        const subSections = section1Data?.subSections;
+        const sectionDefault = section1Data.default;
+        const subSections = section1Data.subSections;
         const slugs = sectionDefault?.slugs ?? [];
 
         // Check if this section's own slugs match
@@ -78,7 +76,7 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
         return (
           <div key={key1}>
             <OptionalLink
-              href={sectionDefault?.relativeUrl ?? ''}
+              to={sectionDefault?.relativeUrl ?? ''}
               label={key1}
               isActive={isSelfActive && !isSubSectionActive}
             >
@@ -124,9 +122,9 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
                           header={
                             <OptionalLink
                               label={key2}
-                              href={sectionDefault?.relativeUrl ?? ''}
+                              to={sectionDefault?.relativeUrl ?? ''}
                               isActive={isSelfActive && !isSubSectionActive}
-                              className="block w-full flex-row items-center text-nowrap p-2 text-left text-sm transition-colors hover:text-text"
+                              className="block w-full flex-row items-center text-nowrap p-2 text-left text-sm transition-colors hover:text-foreground"
                             >
                               {section2Data?.title}
                             </OptionalLink>
@@ -139,7 +137,7 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
                           <div className="pl-3 text-sm">
                             {subSections2 &&
                               Object.keys(subSections2).length > 0 && (
-                                <div className="flex flex-col items-start gap-2 p-1 text-neutral transition-colors hover:text-text">
+                                <div className="flex flex-col items-start gap-2 p-1 text-muted-foreground transition-colors hover:text-foreground">
                                   {Object.keys(subSections2).map((key3) => {
                                     const section3Data = subSections2[key3];
                                     const slugs =
@@ -155,12 +153,12 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
                                       <OptionalLink
                                         key={key3}
                                         label={key3}
-                                        href={
+                                        to={
                                           section3Data.default?.relativeUrl ??
                                           ''
                                         }
                                         isActive={isActive}
-                                        className="block w-full flex-row items-center text-nowrap p-2 text-left text-xs transition-colors hover:text-text"
+                                        className="block w-full flex-row items-center text-nowrap p-2 text-left text-xs transition-colors hover:text-foreground"
                                       >
                                         {section3Data.title}
                                       </OptionalLink>
@@ -172,8 +170,8 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
                         </Accordion>
                       ) : (
                         <OptionalLink
-                          href={sectionDefault?.relativeUrl ?? ''}
-                          className="block w-full flex-row items-center text-nowrap p-2 text-left text-sm transition-colors hover:text-text"
+                          to={sectionDefault?.relativeUrl ?? ''}
+                          className="block w-full flex-row items-center text-nowrap p-2 text-left text-sm transition-colors hover:text-foreground"
                           label={key2}
                           isActive={isActive}
                         >
@@ -189,7 +187,7 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
         );
       })}
       <div>
-        <OptionalLink href={Website_Doc_Path} label={docButton.label.value}>
+        <OptionalLink to={Website_Doc_Path} label={docButton.label.value}>
           {docButton?.text}
         </OptionalLink>
       </div>
@@ -261,7 +259,7 @@ export const BlogNavList: FC<BlogNavListProps> = ({
                 )}
               >
                 <SearchTrigger isMini={isHidden} />
-                <PopoverStatic identifier="blog-nav-collapse">
+                <PopoverStatic identifier="doc-nav-collapse">
                   <Button
                     Icon={ArrowLeftToLine}
                     size="icon-md"
@@ -269,14 +267,14 @@ export const BlogNavList: FC<BlogNavListProps> = ({
                     color="text"
                     label={collapseButton.label.value}
                     aria-expanded={!isHidden}
-                    aria-controls="blog-nav-content"
+                    aria-controls="doc-nav-content"
                     className={cn([
                       'transition-transform',
                       isHidden && 'rotate-180',
                     ])}
                     onClick={() => setIsHidden((isHidden) => !isHidden)}
                   />
-                  <PopoverStatic.Detail identifier="blog-nav-collapse">
+                  <PopoverStatic.Detail identifier="doc-nav-collapse">
                     <KeyboardShortcut
                       shortcut="Alt + ArrowLeft"
                       onTriggered={() => setIsHidden((isHidden) => !isHidden)}

@@ -4,26 +4,26 @@ import {
   App_Pricing,
   Website_Home,
 } from '@intlayer/design-system/routes';
-import { cache } from 'react';
+import { createServerFn } from '@tanstack/react-start';
+import { staticFunctionMiddleware } from '@tanstack/start-static-server-functions';
 
-/**
- * Fetches pricing dynamically. Cached to run only once per build/request.
- */
-export const getPricing = cache(async () => {
-  try {
-    // Force cache ensures it runs only once at build time in Next.js
-    const pricingDataResponse = await getStripeAPI().getPricing(
-      {},
-      {
-        cache: 'force-cache',
+export const getPricing = createServerFn()
+  // .middleware([staticFunctionMiddleware])
+  .handler(async () => {
+    try {
+      if (
+        !process.env.VITE_STRIPE_PUBLISHABLE_KEY ||
+        process.env.VITE_STRIPE_PUBLISHABLE_KEY.length === 0
+      ) {
+        return null;
       }
-    );
-    return pricingDataResponse.data;
-  } catch (error) {
-    console.error('Failed to fetch pricing:', error);
-    return null;
-  }
-});
+
+      const pricingDataResponse = await getStripeAPI().getPricing();
+      return pricingDataResponse.data ?? null;
+    } catch {
+      return null;
+    }
+  });
 
 /**
  * Formatter utility to format the pricing data into Schema.org Offer objects.

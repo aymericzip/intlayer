@@ -2,8 +2,8 @@ import { Button } from '@intlayer/design-system/button';
 import { Tag } from '@intlayer/design-system/tag';
 import { cn } from '@intlayer/design-system/utils';
 import { ChevronDown, ChevronRight, Pause, Play, Square } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
 import { type FC, memo, useState } from 'react';
+import { useIntlayer } from 'react-intlayer';
 import { EventTag } from './Analyzer/Results/FieldItem';
 import type { AuditEvent } from './Analyzer/Results/types';
 
@@ -72,9 +72,9 @@ const PageRow: FC<{ page: Page }> = ({ page }) => {
           <div className="flex items-center gap-1.5">
             {hasResults ? (
               expanded ? (
-                <ChevronDown className="size-3.5 shrink-0 text-text/40" />
+                <ChevronDown className="size-3.5 shrink-0 text-foreground/40" />
               ) : (
-                <ChevronRight className="size-3.5 shrink-0 text-text/40" />
+                <ChevronRight className="size-3.5 shrink-0 text-foreground/40" />
               )
             ) : (
               <span className="size-3.5 shrink-0" />
@@ -104,7 +104,7 @@ const PageRow: FC<{ page: Page }> = ({ page }) => {
               {page.score}/100
             </Tag>
           ) : (
-            <span className="text-text/40">-</span>
+            <span className="text-foreground/40">-</span>
           )}
         </td>
       </tr>
@@ -203,7 +203,7 @@ export const RecursiveAuditResults: FC<RecursiveAuditResultsProps> = memo(
         </div>
 
         <div className="flex flex-col gap-1">
-          <div className="flex justify-between text-sm text-text/70">
+          <div className="flex justify-between text-foreground/70 text-sm">
             <span>{progressLabel}</span>
             <span>{job.progress}%</span>
           </div>
@@ -213,12 +213,12 @@ export const RecursiveAuditResults: FC<RecursiveAuditResultsProps> = memo(
               style={{ width: `${job.progress}%` }}
             />
           </div>
-          <div className="text-text/50 text-xs">
+          <div className="text-foreground/50 text-xs">
             {job.completedPageCount} / {job.totalPageCount} {pagesAudited}
           </div>
         </div>
 
-        <div className="max-h-[32rem] overflow-auto rounded-xl border border-neutral/20 bg-card/50">
+        <div className="max-h-[32rem] overflow-auto rounded-lg border border-neutral/20 bg-card/50">
           <table className="w-full text-left text-sm">
             <thead className="sticky top-0 z-10 bg-card shadow-sm">
               <tr>

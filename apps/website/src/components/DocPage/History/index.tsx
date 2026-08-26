@@ -1,14 +1,12 @@
-'use client';
-
-import { Link } from '@components/Link/Link';
 import { Container } from '@intlayer/design-system/container';
 import { Popover } from '@intlayer/design-system/popover';
 import { cn } from '@intlayer/design-system/utils';
 import { getLocalizedUrl } from 'intlayer';
 import { Clock } from 'lucide-react';
-import { useIntlayer, useLocale } from 'next-intlayer';
-import { useDate } from 'next-intlayer/format';
 import type { FC } from 'react';
+import { useIntlayer, useLocale } from 'react-intlayer';
+import { useDate } from 'react-intlayer/format';
+import { Link } from '~/components/Link/Link';
 
 type HistoryProps = {
   pageUrl: string;
@@ -48,7 +46,7 @@ export const History: FC<HistoryProps> = ({
       </div>
       <Popover.Detail
         identifier="outdated-translation"
-        className="flex min-w-64 flex-1 flex-col gap-2 p-3 text-neutral text-sm"
+        className="flex min-w-64 flex-1 flex-col gap-2 p-3 text-muted-foreground text-sm"
         xAlign="end"
       >
         {isOutdated && (
@@ -65,7 +63,7 @@ export const History: FC<HistoryProps> = ({
               {message.after}
             </p>
             <Link
-              href={localizedUrl}
+              to={localizedUrl}
               locale={defaultLocale}
               label={link.label.value}
               color="text"
@@ -83,7 +81,7 @@ export const History: FC<HistoryProps> = ({
           transparency="xs"
           aria-label="Document history"
         >
-          <h4 className="mb-2 pb-4 font-medium text-sm text-text">
+          <h4 className="mb-2 pb-4 font-medium text-foreground text-sm">
             {versionHistory.title}
           </h4>
           <ol className="divide-y divide-dashed divide-text/20 overflow-y-auto p-1">
@@ -92,10 +90,12 @@ export const History: FC<HistoryProps> = ({
                 className="flex flex-row items-center justify-between gap-3 px-2 py-1 pr-1.5"
                 key={`${index}-${version}-${date}`}
               >
-                <span className="mt-1 text-text text-xs">{changes}</span>
-                <div className="flex flex-col items-end justify-between gap-1 px-2 py-1 text-neutral text-sm">
+                <span className="mt-1 text-foreground text-xs">{changes}</span>
+                <div className="flex flex-col items-end justify-between gap-1 px-2 py-1 text-muted-foreground text-sm">
                   <span className="text-nowrap">v{version}</span>
-                  <span className="text-nowrap">{formatDate(date)}</span>
+                  {date && (
+                    <span className="text-nowrap">{formatDate(date)}</span>
+                  )}
                 </div>
               </li>
             ))}

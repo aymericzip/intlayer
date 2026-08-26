@@ -1,5 +1,3 @@
-'use client';
-
 import { useGetElementById, useScrollY } from '@intlayer/design-system/hooks';
 import type { FC, SVGProps } from 'react';
 import { useActiveSection } from './useActiveSection';
@@ -65,7 +63,7 @@ const Title: FC = () => {
     headingMap,
   });
   return (
-    <span className="w-full flex-1 truncate text-neutral text-xs">
+    <span className="w-full flex-1 truncate text-muted-foreground text-xs">
       {activeParent?.innerText ?? ''}
     </span>
   );

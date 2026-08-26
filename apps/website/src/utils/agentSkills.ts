@@ -34,8 +34,9 @@ export type AgentSkill = {
 /**
  * Every SKILL.md shipped from the repository's `.agents/skills` directory.
  *
- * Inlined at build time rather than read from disk so the documents survive the
- * `output: 'standalone'` build, which does not trace `.agents/`.
+ * Inlined at build time by the Vite raw-markdown plugin rather than read from
+ * disk, so the documents survive into the standalone server output, which does
+ * not copy `.agents/`.
  */
 const SKILL_DOCUMENTS: readonly string[] = [
   intlayerAngularSkill,

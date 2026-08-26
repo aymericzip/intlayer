@@ -1,11 +1,9 @@
-'use client';
-
 import { usePersistedStore } from '@intlayer/design-system/hooks';
 import { Link } from '@intlayer/design-system/link';
 import { Popover } from '@intlayer/design-system/popover';
 import { TechLogo } from '@intlayer/design-system/tech-logo';
-import { useIntlayer } from 'next-intlayer';
 import type { FC, ReactNode } from 'react';
+import { useIntlayer } from 'react-intlayer';
 
 type SummarizeAIProps = {
   url: string;
@@ -112,7 +110,7 @@ export const SummarizeAI: FC<SummarizeAIProps> = ({ url }) => {
           </Link>
         ))}
 
-        <p className="text-neutral">{description}</p>
+        <p className="text-muted-foreground">{description}</p>
       </Popover.Detail>
     </Popover>
   );

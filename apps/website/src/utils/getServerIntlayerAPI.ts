@@ -1,5 +1,6 @@
 import { getIntlayerAPI, type IntlayerAPI } from '@intlayer/api';
-import { headers } from 'next/headers';
+
+const headers = () => new Headers();
 
 /**
  * This function is useful as cookies are not directly available in the server context (Page / Layout)

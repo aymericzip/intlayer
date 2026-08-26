@@ -1,5 +1,3 @@
-'use client';
-
 import { Browser } from '@intlayer/design-system/browser';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
@@ -13,8 +11,8 @@ import {
   useIframeClickMerger,
   usePostEditorEnabledState,
 } from '@intlayer/editor-react';
-import { useIntlayer } from 'next-intlayer';
 import { type FC, type RefObject, useState } from 'react';
+import { useIntlayer } from 'react-intlayer';
 import { NoApplicationURLView } from './NoApplicationURLView/NoApplicationURLView';
 import { useEditedContentPersistence } from './useEditedContentPersistence';
 

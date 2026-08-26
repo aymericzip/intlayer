@@ -17,7 +17,7 @@ const contributionMessageContent = {
         pt: 'Editar esta documentação',
         hi: 'इस दस्तावेज़ को संपादित करें',
         ar: 'تعديل هذه الوثيقة',
-        ru: 'Редактировать этот документ',
+        ru: 'Изменить эту документацию',
         tr: 'Bu dokümanı düzenle',
         pl: 'Edytuj tę dokumentację',
         id: 'Sunting dokumen ini',

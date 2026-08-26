@@ -1,5 +1,3 @@
-'use client';
-
 import { useSession } from '@intlayer/design-system/api';
 import { EditorProvider as EditorProviderComponent } from '@intlayer/editor-react';
 import type { IntlayerConfig } from '@intlayer/types/config';
@@ -73,7 +71,6 @@ export const EditorProvider: FC<PropsWithChildren<EditorProviderProps>> = ({
       }
     },
     enabled: Boolean(intlayerConfig && applicationURL),
-    staleTime: 30 * 1000, // Cache for 30 seconds
     retry: 1,
   });
 

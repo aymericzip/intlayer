@@ -1,6 +1,3 @@
-'use client';
-
-import { Link } from '@components/Link/Link';
 import { Container } from '@intlayer/design-system/container';
 import { CodeBlock } from '@intlayer/design-system/ide';
 import { Website_Doc_CLI_Fill_Path } from '@intlayer/design-system/routes';
@@ -16,9 +13,10 @@ import {
   Server,
   Sparkles,
 } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
 import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
+import { useIntlayer } from 'react-intlayer';
+import { Link } from '~/components/Link/Link';
 
 type CodeBlockWrapperProps = {
   title: ReactNode;
@@ -35,11 +33,11 @@ export const CodeBlockWrapper: FC<CodeBlockWrapperProps> = ({
     <Container
       roundedSize="2xl"
       padding="md"
-      className={cn('relative text-text-dark', className)}
+      className={cn('relative text-foreground-dark', className)}
     >
       <div className="mb-2 flex items-center justify-between">
-        <span className="text-text-dark/70 text-xs">{title}</span>
-        <span className="text-text-dark/40 text-xs">CLI</span>
+        <span className="text-foreground-dark/70 text-xs">{title}</span>
+        <span className="text-foreground-dark/40 text-xs">CLI</span>
       </div>
       {children}
     </Container>
@@ -62,7 +60,7 @@ export const Pill: FC<{ children: ReactNode; className?: string }> = ({
   return (
     <span
       className={cn(
-        'inline-flex items-center gap-2 rounded-full border-[1.3px] border-text/15 bg-card/30 px-3 py-1 text-text text-xs backdrop-blur supports-[corner-shape:squircle]:rounded-full',
+        'inline-flex items-center gap-2 rounded-full border-[1.3px] border-text/15 bg-card/30 px-3 py-1 text-foreground text-xs backdrop-blur supports-[corner-shape:squircle]:rounded-full',
         className
       )}
     >
@@ -83,7 +81,7 @@ export const HeroSection: FC = () => {
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <motion.div
           aria-hidden
-          className="absolute -top-24 left-1/2 h-120 w-180 -translate-x-1/2 rounded-full bg-primary/15 blur-3xl"
+          className="absolute -top-24 left-1/2 h-129 w-180 -translate-x-1/2 rounded-full bg-primary/15 blur-3xl"
           animate={reduced ? undefined : { y: [0, 18, 0], scale: [1, 1.03, 1] }}
           transition={
             reduced
@@ -117,19 +115,19 @@ export const HeroSection: FC = () => {
       <section className="items-evenly relative mx-auto flex h-[75vh] max-w-6xl flex-col justify-center gap-12 px-8">
         <div className="mb-4 flex flex-wrap gap-2">
           <Pill>
-            <CreditCard className="size-3 text-text" />
+            <CreditCard className="size-3 text-foreground" />
             {pills.freeOpenSource}
           </Pill>
           <Pill>
-            <FileJson className="size-3 text-text" />
+            <FileJson className="size-3 text-foreground" />
             {pills.jsonTranslation}
           </Pill>
           <Pill>
-            <FileText className="size-3 text-text" />
+            <FileText className="size-3 text-foreground" />
             {pills.docsTranslation}
           </Pill>
           <Pill>
-            <Server className="size-3 text-text" />
+            <Server className="size-3 text-foreground" />
             {pills.localLLM}
           </Pill>
         </div>
@@ -140,17 +138,17 @@ export const HeroSection: FC = () => {
           className="grid grid-cols-1 items-start gap-x-8 gap-y-20 md:grid-cols-12"
         >
           <div className="md:col-span-7">
-            <h1 className="text-balance font-semibold text-4xl text-text leading-tight md:text-5xl">
+            <h1 className="text-balance font-semibold text-4xl text-foreground leading-tight md:text-5xl">
               {title}
             </h1>
 
-            <p className="mt-4 max-w-xl text-pretty text-base text-text/70 md:text-lg">
+            <p className="mt-4 max-w-xl text-pretty text-base text-foreground/70 md:text-lg">
               {description}
             </p>
 
             <div className="mt-20 flex flex-col gap-3 sm:flex-row sm:items-center">
               <Link
-                href="#commands"
+                to="#commands"
                 variant="button-outlined"
                 color="text"
                 className="w-full sm:w-auto"
@@ -160,7 +158,7 @@ export const HeroSection: FC = () => {
               </Link>
 
               <Link
-                href={Website_Doc_CLI_Fill_Path}
+                to={Website_Doc_CLI_Fill_Path}
                 variant="button"
                 color="text"
                 className="w-full sm:w-auto"
@@ -178,10 +176,10 @@ export const HeroSection: FC = () => {
           >
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <div className="rounded-xl bg-text/10 p-2">
-                  <Globe className="size-5 text-text" />
+                <div className="rounded-lg bg-text/10 p-2">
+                  <Globe className="size-5 text-foreground" />
                 </div>
-                <div className="font-medium text-sm text-text">
+                <div className="font-medium text-foreground text-sm">
                   {card.title}
                 </div>
               </div>
@@ -198,21 +196,21 @@ export const HeroSection: FC = () => {
               </CodeBlock>
             </CodeBlockWrapper>
 
-            <div className="mt-4 grid grid-cols-2 gap-3 text-text/70 text-xs">
+            <div className="mt-4 grid grid-cols-2 gap-3 text-foreground/70 text-xs">
               <div className="flex items-center gap-2">
-                <CheckCircle2 className="size-4 text-text" />
+                <CheckCircle2 className="size-4 text-foreground" />
                 {card.features.noMonthlyFees}
               </div>
               <div className="flex items-center gap-2">
-                <Languages className="size-4 text-text" />
+                <Languages className="size-4 text-foreground" />
                 {card.features.multiLanguage}
               </div>
               <div className="flex items-center gap-2">
-                <Server className="size-4 text-text" />
+                <Server className="size-4 text-foreground" />
                 {card.features.runsLocally}
               </div>
               <div className="flex items-center gap-2">
-                <Sparkles className="size-4 text-text" />
+                <Sparkles className="size-4 text-foreground" />
                 {card.features.byoKeysLLM}
               </div>
             </div>

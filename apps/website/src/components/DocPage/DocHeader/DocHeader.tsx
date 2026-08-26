@@ -1,5 +1,3 @@
-'use client';
-
 import { Avatar } from '@intlayer/design-system/avatar';
 import { Container } from '@intlayer/design-system/container';
 import { useDevice } from '@intlayer/design-system/hooks';
@@ -18,8 +16,8 @@ import {
   YoutubeLogo,
 } from '@intlayer/design-system/social-networks';
 import type { AuthorProfile, DocMetadata } from '@intlayer/docs';
-import { useIntlayer, useLocale } from 'next-intlayer';
 import type { FC } from 'react';
+import { useIntlayer, useLocale } from 'react-intlayer';
 import { ApplicationShowcaseMessage } from '../ApplicationShowcaseMessage';
 import { ApplicationTemplateMessage } from '../ApplicationTemplateMessage';
 import { ContributionMessage } from '../ContributionMessage';
@@ -98,7 +96,7 @@ export const DocHeader: FC<DocHeaderProps> = ({
                   <Link
                     label={authorGithubLabel({ author: author.name })}
                     href={`https://github.com/${author.github}`}
-                    className="flex items-center gap-2 text-neutral"
+                    className="flex items-center gap-2 text-muted-foreground"
                   >
                     <Avatar
                       src={author.image}
@@ -109,13 +107,13 @@ export const DocHeader: FC<DocHeaderProps> = ({
                     {author.name}
                   </Link>
                 ) : (
-                  <span className="text-neutral">{author.name}</span>
+                  <span className="text-muted-foreground">{author.name}</span>
                 )}
                 <PopoverStatic.Detail
                   identifier="author-social-medias"
                   xAlign="start"
                   yAlign="below"
-                  className="flex w-auto min-w-0 flex-row gap-2 p-2 group-hover/popover:delay-100"
+                  className="flex w-auto min-w-0 flex-row gap-2 p-2 delay-200 group-hover/popover:delay-100"
                 >
                   {author.socialMedias.map((url) => {
                     const icon = getSocialIcon(
@@ -140,7 +138,7 @@ export const DocHeader: FC<DocHeaderProps> = ({
               <Link
                 label={authorGithubLabel({ author: author.name })}
                 href={`https://github.com/${author.github}`}
-                className="flex items-center gap-2 text-neutral"
+                className="flex items-center gap-2 text-muted-foreground"
               >
                 <Avatar
                   src={author.image}
@@ -151,7 +149,7 @@ export const DocHeader: FC<DocHeaderProps> = ({
                 {author.name}
               </Link>
             ) : (
-              <span className="text-neutral">{author.name}</span>
+              <span className="text-muted-foreground">{author.name}</span>
             )}
           </span>
         )}
@@ -159,13 +157,13 @@ export const DocHeader: FC<DocHeaderProps> = ({
           {createdAt && (
             <span className="block">
               {creationLabel}:
-              <span className="ml-2 text-neutral">{createdAt}</span>
+              <span className="ml-2 text-muted-foreground">{createdAt}</span>
             </span>
           )}
           {updatedAt && (
             <span className="block">
               {lastUpdateLabel}:
-              <span className="ml-2 text-neutral">{updatedAt}</span>
+              <span className="ml-2 text-muted-foreground">{updatedAt}</span>
             </span>
           )}
         </div>

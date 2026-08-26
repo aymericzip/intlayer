@@ -1,13 +1,11 @@
-'use client';
-
 import { cn } from '@intlayer/design-system/utils';
 import {
   type FileContent,
   MessageKey,
   useCrossFrameState,
 } from '@intlayer/editor-react';
-import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
+import { useIntlayer } from 'react-intlayer';
 
 export const LongPressMessage: FC = () => {
   const { message } = useIntlayer('long-press-message');
@@ -19,7 +17,7 @@ export const LongPressMessage: FC = () => {
   return (
     <div
       className={cn(
-        'rounded-2xl bg-neutral/30 px-3 py-1 font-bold text-sm text-text transition-opacity duration-100',
+        'rounded-2xl bg-neutral/30 px-3 py-1 font-bold text-foreground text-sm transition-opacity duration-100',
         hoveredContent?.dictionaryKey ? 'opacity-100' : 'opacity-0'
       )}
     >

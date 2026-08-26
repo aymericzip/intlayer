@@ -1,8 +1,8 @@
-import { Link } from '@components/Link/Link';
 import { PopoverStatic } from '@intlayer/design-system/popover';
 import { TechLogos } from '@intlayer/design-system/tech-logo';
-import { useIntlayer } from 'next-intlayer/server';
 import type { FC } from 'react';
+import { useIntlayer } from 'react-intlayer';
+import { Link } from '~/components/Link/Link';
 
 type ApplicationTemplateMessageProps = {
   applicationTemplateUrl: string;
@@ -18,7 +18,7 @@ export const ApplicationTemplateMessage: FC<
   return (
     <PopoverStatic identifier="mcp">
       <Link
-        href={applicationTemplateUrl}
+        to={applicationTemplateUrl}
         label={label.value}
         color="text"
         className="flex p-2"
@@ -31,7 +31,7 @@ export const ApplicationTemplateMessage: FC<
         className="flex min-w-64 flex-col gap-3 p-3 text-sm"
       >
         <strong>{title}</strong>
-        <p className="text-neutral">{description}</p>
+        <p className="text-muted-foreground">{description}</p>
       </PopoverStatic.Detail>
     </PopoverStatic>
   );

@@ -1,10 +1,8 @@
-'use client';
-
 import { Button } from '@intlayer/design-system/button';
 import { Checkbox, SearchInput } from '@intlayer/design-system/input';
 import Fuse from 'fuse.js';
-import { useIntlayer } from 'next-intlayer';
 import { type FC, useMemo, useState } from 'react';
+import { useIntlayer } from 'react-intlayer';
 
 type UrlDiscoveryListProps = {
   urls: string[];
@@ -89,7 +87,7 @@ export const UrlDiscoveryList: FC<UrlDiscoveryListProps> = ({
       <div className="flex items-center justify-between gap-4">
         <div>
           <h3 className="font-semibold text-lg">{title}</h3>
-          <p className="mt-0.5 text-sm text-text/60">
+          <p className="mt-0.5 text-foreground/60 text-sm">
             {urls.length} {description}
           </p>
         </div>
@@ -109,7 +107,7 @@ export const UrlDiscoveryList: FC<UrlDiscoveryListProps> = ({
         placeholder={searchPlaceholder.value}
       />
 
-      <div className="max-h-80 overflow-auto rounded-xl border border-neutral/20 bg-card/50">
+      <div className="max-h-80 overflow-auto rounded-lg border border-neutral/20 bg-card/50">
         <table className="w-full text-left text-sm">
           <thead className="sticky top-0 z-10 bg-card shadow-sm">
             <tr>
@@ -122,7 +120,7 @@ export const UrlDiscoveryList: FC<UrlDiscoveryListProps> = ({
                   label={selectAll.value}
                 />
               </th>
-              <th className="p-3 text-text/60">
+              <th className="p-3 text-foreground/60">
                 {filteredUrls.length === urls.length
                   ? `${urls.length} ${urlsLabel}`
                   : `${filteredUrls.length} / ${urls.length} ${urlsLabel}`}
@@ -156,7 +154,7 @@ export const UrlDiscoveryList: FC<UrlDiscoveryListProps> = ({
         {atLimit && (
           <span className="text-warning text-xs">{maxLimitReached}</span>
         )}
-        <span className="text-sm text-text/60">
+        <span className="text-foreground/60 text-sm">
           {selected.size} / {MAX_URLS} {selectedLabel}
         </span>
         <Button

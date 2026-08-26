@@ -1,11 +1,9 @@
-'use client';
-
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import { MarkDownIframe } from '@intlayer/design-system/mark-down-render';
 import { Eye } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
 import { type ComponentProps, type FC, useState } from 'react';
+import { useIntlayer } from 'react-intlayer';
 
 export const ClickToOpenIframe: FC<ComponentProps<'iframe'>> = ({
   src,

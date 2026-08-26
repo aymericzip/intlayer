@@ -1,9 +1,7 @@
-'use client';
-
 import { Website_TMS_Path } from '@intlayer/design-system/routes';
 import { GlobeIcon } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
+import { useIntlayer } from 'react-intlayer';
 import { ProductSectionLayout } from '../ProductSectionLayout';
 
 export const TMSSection: FC = () => {
@@ -21,7 +19,9 @@ export const TMSSection: FC = () => {
       title={heroTitle}
       description={
         <div className="space-y-4">
-          <p className="text-center font-medium text-text">{heroSubtitle}</p>
+          <p className="text-center font-medium text-foreground">
+            {heroSubtitle}
+          </p>
           <p>{heroDescription}</p>
         </div>
       }

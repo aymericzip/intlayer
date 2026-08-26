@@ -209,8 +209,8 @@ const heroSectionContent = {
   },
   title: 'Landing section content',
   description:
-    'Content declarations for the landing page section. Includes labels, headings, call-to-actions and other UI elements related to the landing section.',
-  tags: ['landing page', 'section content'],
+    'Content declarations for the hero page section. Includes labels, headings, call-to-actions and other UI elements related to the hero section.',
+  tags: ['hero page', 'section content'],
 } satisfies Dictionary;
 
 export default heroSectionContent;

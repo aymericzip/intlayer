@@ -1,11 +1,9 @@
-'use client';
-
 import {
   SwitchSelector,
   type SwitchSelectorChoices,
 } from '@intlayer/design-system/switch-selector';
-import { useIntlayer } from 'next-intlayer';
 import { type FC, useState } from 'react';
+import { useIntlayer } from 'react-intlayer';
 import { DemoCodeSandbox } from './DemoCodeSandbox';
 
 enum DemoType {
@@ -44,18 +42,20 @@ export const DemoSection: FC = () => {
   ] as SwitchSelectorChoices<DemoType>;
 
   return (
-    <section className="z-10 flex w-full flex-col items-center justify-center">
-      <h2 className="text-neutral">{title}</h2>
-
+    <section className="z-10 flex w-full flex-col items-center justify-center border-b p-16">
       <div className="my-6 flex w-full max-w-250 flex-col items-center gap-5 px-10 md:px-20">
-        <SwitchSelector
-          choices={demoSection}
-          defaultValue={demoType}
-          onChange={setDemoType}
-          itemClassName="text-nowrap"
-          color="text"
-          size="sm"
-        />
+        <div className="flex w-full items-center justify-between gap-4">
+          <h2 className="text-3xl">{title}</h2>
+          <SwitchSelector
+            choices={demoSection}
+            defaultValue={demoType}
+            onChange={setDemoType}
+            itemClassName="text-nowrap"
+            color="foreground"
+            size="sm"
+          />
+        </div>
+
         {demoType === DemoType.Nextjs && (
           <DemoCodeSandbox
             repoPath="/aymericzip/intlayer-next-16-template"

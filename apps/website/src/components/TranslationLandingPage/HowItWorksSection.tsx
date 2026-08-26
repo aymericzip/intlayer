@@ -1,10 +1,8 @@
-'use client';
-
 import { Container } from '@intlayer/design-system/container';
 import { motion, type Variants } from 'framer-motion';
 import { CheckCircle2, GitBranch, Layers, Sparkles } from 'lucide-react';
-import { type IntlayerNode, useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
+import { type IntlayerNode, useIntlayer } from 'react-intlayer';
 
 type IconMap = {
   [key: string]: FC<{ className?: string }>;
@@ -42,10 +40,12 @@ export const HowItWorksSection: FC = () => {
         whileInView="show"
         viewport={{ once: true, amount: 0.25 }}
       >
-        <h2 className="font-semibold text-2xl text-text md:text-3xl">
+        <h2 className="font-semibold text-2xl text-foreground md:text-3xl">
           {title}
         </h2>
-        <p className="mt-2 max-w-2xl text-base text-text/70">{description}</p>
+        <p className="mt-2 max-w-2xl text-base text-foreground/70">
+          {description}
+        </p>
       </motion.div>
 
       <motion.div
@@ -74,12 +74,12 @@ export const HowItWorksSection: FC = () => {
                     <span className="flex size-8 items-center justify-center rounded-full border-4 border-lime-300 text-lg text-lime-800 dark:border-lime-900 dark:text-lime-600">
                       {s.step}
                     </span>
-                    <IconComponent className="size-6 text-neutral" />
+                    <IconComponent className="size-6 text-muted-foreground" />
                   </div>
                   <h3 className="font-semibold text-sm md:text-lg">
                     {s.title}
                   </h3>
-                  <p className="text-neutral text-xs leading-5">
+                  <p className="text-muted-foreground text-xs leading-5">
                     {s.description}
                   </p>
                 </Container>

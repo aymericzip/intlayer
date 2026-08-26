@@ -1,7 +1,3 @@
-'use client';
-
-import type { Contributor } from '@components/Contributors/ContributorsList';
-import { Link } from '@components/Link/Link';
 import { Avatar } from '@intlayer/design-system/avatar';
 import { H2 } from '@intlayer/design-system/headers';
 import {
@@ -13,7 +9,6 @@ import { cn } from '@intlayer/design-system/utils';
 import { motion } from 'framer-motion';
 import { getHTMLTextDir } from 'intlayer';
 import { ArrowRight } from 'lucide-react';
-import { useIntlayer, useLocale } from 'next-intlayer';
 import {
   type CSSProperties,
   type FC,
@@ -21,6 +16,9 @@ import {
   useRef,
   useState,
 } from 'react';
+import { useIntlayer, useLocale } from 'react-intlayer';
+import type { Contributor } from '~/components/Contributors/ContributorsList';
+import { Link } from '~/components/Link/Link';
 
 type ContributorCloudProps = {
   contributors: Contributor[];
@@ -244,17 +242,17 @@ export const ContributorCloud: FC<ContributorCloudProps> = ({
   return (
     <section
       ref={sectionRef}
-      className="relative w-full py-20 max-md:hidden md:py-32"
+      className="relative w-full border-b py-20 max-md:hidden md:py-32"
     >
       <div className="pointer-events-none mx-auto max-w-7xl p-5 px-4 md:px-8 lg:px-16">
         <div className="flex min-h-40 flex-col gap-12 md:flex-row md:items-center">
           <div className="pointer-events-none relative flex-1"></div>
           <div className="pointer-events-auto relative z-0 flex-1 space-y-6">
             <H2 className="mb-3 font-bold text-3xl sm:text-4xl">{title}</H2>
-            <p className="text-base text-neutral">{subtitle}</p>
+            <p className="text-base text-muted-foreground">{subtitle}</p>
             <div className="flex gap-2">
               <Link
-                href={External_Discord}
+                to={External_Discord}
                 label={discordLinkLabel.value}
                 color="text"
                 variant="button-outlined"
@@ -267,7 +265,7 @@ export const ContributorCloud: FC<ContributorCloudProps> = ({
                 </span>
               </Link>
               <Link
-                href={Website_Contributors_Path}
+                to={Website_Contributors_Path}
                 label={seeAllLink.value}
                 color="text"
                 variant="button"

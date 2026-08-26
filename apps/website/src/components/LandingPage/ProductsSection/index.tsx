@@ -1,5 +1,3 @@
-'use client';
-
 import { Carousel } from '@intlayer/design-system/carousel';
 import { Container } from '@intlayer/design-system/container';
 import type { FC } from 'react';
@@ -48,19 +46,14 @@ export const ProductsSection: FC = () => {
   return (
     <div
       ref={sectionRef}
-      className="flex min-h-[75vh] w-full items-center justify-center overflow-hidden"
+      className="flex min-h-[75vh] w-full items-center justify-center overflow-hidden border-b"
     >
-      <Carousel initialIndex={1}>
+      <Carousel initialIndex={1} className="space-y-10 overflow-visible">
         {PRODUCTS.map(({ Component, key }) => (
           <Carousel.Item key={key}>
-            <Container
-              roundedSize="3xl"
-              background="with"
-              transparency="xs"
-              className="max-w-2xl p-6"
-            >
+            <div className="max-w-2xl rounded-2xl border bg-card p-6">
               <Component />
-            </Container>
+            </div>
           </Carousel.Item>
         ))}
 

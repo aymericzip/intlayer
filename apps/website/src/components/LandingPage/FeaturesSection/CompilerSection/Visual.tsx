@@ -1,9 +1,8 @@
-'use client';
-
+import { H3 } from '@intlayer/design-system/headers';
 import { Select } from '@intlayer/design-system/select';
 import { getLocaleName, Locales } from 'intlayer';
-import { useIntlayer, useLocale } from 'next-intlayer';
 import { type FC, useState } from 'react';
+import { useIntlayer, useLocale } from 'react-intlayer';
 
 type VisualEditorSectionProps = {
   scrollProgress: number;
@@ -36,9 +35,9 @@ export const VisualEditorSection: FC<VisualEditorSectionProps> = ({
     useIntlayer('compiler-section', locale);
 
   return (
-    <div className="relative z-0 flex size-full flex-col justify-center gap-10 overflow-hidden rounded-r-2xl bg-neutral-50 p-6 text-center dark:bg-neutral-950">
-      <p className="font-bold text-base">{title}</p>
-      <p className="text-neutral text-sm">{paragraph}</p>
+    <div className="relative z-0 flex size-full flex-col justify-center gap-10 overflow-hidden rounded-r-lg border bg-background p-6 text-center">
+      <H3>{title}</H3>
+      <p className="text-muted-foreground text-sm">{paragraph}</p>
       <div className="absolute right-6 bottom-6">
         <Select
           value={locale}
