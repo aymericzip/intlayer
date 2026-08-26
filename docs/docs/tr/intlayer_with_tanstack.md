@@ -556,7 +556,7 @@ function RouteComponent() {
 }
 ```
 
-> İçeriğinizi `alt`, `title`, `href`, `aria-label` gibi bir `string` niteliğinde kullanmak istiyorsanız, fonksiyonun değerini şu şekilde kullanabilirsiniz:
+> İçeriğinizi `alt`, `title`, `href`, `aria-label` gibi `string` niteliğinde kullanmak istiyorsanız, fonksiyonun değerini şu şekilde kullanabilirsiniz:
 >
 > ```html
 > <img src="{content.image.src.value}" alt="{content.image.value}" />
@@ -564,13 +564,379 @@ function RouteComponent() {
 > <img src="{String(content.image.src)}" alt="{String(content.image)}" />
 > ```
 
+> `useIntlayer` hook'u hakkında daha fazla bilgi için [belgeleri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/react-intlayer/useIntlayer.md) inceleyebilirsiniz.
+
+</Step>
+
+<Step number={9} title="Yerel Değiştirici Bileşeni Oluşturun">
+
+Kullanıcıların dil değiştirebilmesini sağlayan bir bileşen oluşturun:
+
+```tsx fileName="src/components/locale-switcher.tsx"
+import { useLocation } from "@tanstack/react-router";
+import {
+  getHTMLTextDir,
+  getLocaleName,
+  getPathWithoutLocale,
+  getPrefix,
+  Locales,
+} from "intlayer";
+import type { FC } from "react";
+import { useLocale } from "react-intlayer";
+
+import { LocalizedLink, type To } from "./localized-link";
+
+export const LocaleSwitcher: FC = () => {
+  const { pathname } = useLocation();
+
+  const { availableLocales, locale, setLocale } = useLocale();
+
+  const pathWithoutLocale = getPathWithoutLocale(pathname);
+
+  return (
+    <ol>
+      {availableLocales.map((localeEl) => (
+        <li key={localeEl}>
+          <LocalizedLink
+            aria-current={localeEl === locale ? "page" : undefined}
+            onClick={() => setLocale(localeEl)}
+            params={{ locale: getPrefix(localeEl).localePrefix }}
+            to={pathWithoutLocale as To}
+          >
+            <span>
+              {/* Yerel - örn: TR */}
+              {localeEl}
+            </span>
+            <span>
+              {/* Dil kendi Yerel dilinde - örn: Türkçe */}
+              {getLocaleName(localeEl, locale)}
+            </span>
+            <span dir={getHTMLTextDir(localeEl)} lang={localeEl}>
+              {/* Dil mevcut Yerel dilinde - örn: Mevcut yerel İspanyolca olarak ayarlandığında Türkçe */}
+              {getLocaleName(localeEl)}
+            </span>
+            <span dir="ltr" lang={Locales.ENGLISH}>
+              {/* Dil İngilizce - örn: Turkish */}
+              {getLocaleName(localeEl, Locales.ENGLISH)}
+            </span>
+          </LocalizedLink>
+        </li>
+      ))}
+    </ol>
+  );
+};
+```
+
+> `useLocale` hook'u hakkında daha fazla bilgi için [belgeleri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/react-intlayer/useLocale.md) inceleyebilirsiniz.
+
+</Step>
+
+<Step number={10} title="HTML Nitelikleri Yönetimi">
+
+Adım 5'te görüldüğü gibi, root bileşeninizde `useParams` kullanarak `html` etiketinin `lang` ve `dir` niteliklerini yönetebilirsiniz. Bu, doğru niteliklerin sunucu ve istemci tarafında ayarlanmasını sağlar.
+
+```tsx fileName="src/routes/__root.tsx"
+const localeRoute = getRouteApi("/{-$locale}");
+
+function RootDocument({ children }: { children: ReactNode }) {
+  const params = localeRoute.useParams();
+  const locale = params?.locale ?? defaultLocale;
+
+  return (
+    <html dir={getHTMLTextDir(locale)} lang={locale}>
+      {/* ... */}
+    </html>
+  );
+}
+```
+
+---
+
+</Step>
+
+<Step number={11} title="Middleware Ekleyin">
+
+Uygulamanıza sunucu tarafı yönlendirme eklemek için `intlayerProxy`'yi de kullanabilirsiniz. Bu eklenti, URL'ye dayalı olarak mevcut dili otomatik olarak algılayacak ve uygun yerel tanımlama bilgisini ayarlayacaktır. Hiçbir yerel belirtilmezse, eklenti kullanıcının tarayıcı dili tercihlerine göre en uygun dili belirleyecektir. Hiçbir yerel algılanmazsa, varsayılan dile yeniden yönlendirecektir.
+
+> `intlayerProxy`'yi üretimde kullanmak için `vite-intlayer` paketini `devDependencies`'den `dependencies`'ye değiştirmeniz gerektiğini unutmayın.
+
+> Intlayer v9 itibariyle, `intlayerProxy()` doğrudan `intlayer()` eklentisine paketlenmiş ve `routing.enableProxy` seçeneği (`varsayılan olarak true`) aracılığıyla varsayılan olarak etkinleştirilmiştir. Aşağıda gösterilen şekilde ayrı olarak kaydetmek artık isteğe bağlıdır: geriye dönük uyumluluk ve eklenti sırasını kontrol etmesi gereken kurulumlar için saklanmıştır. `routing.enableProxy: false` olarak ayarlayarak devre dışı bırakabilirsiniz. [v9 sürüm notlarına](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/releases/v9.md) bakın.
+
+```typescript fileName="vite.config.ts"
+import { tanstackStart } from "@tanstack/react-start/plugin/vite";
+import viteReact from "@vitejs/plugin-react";
+import { nitro } from "nitro/vite";
+import { defineConfig } from "vite";
+import { intlayer } from "vite-intlayer";
+
+export default defineConfig({
+  plugins: [
+    nitro(),
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
+    tanstackStart({
+      router: {
+        routeFileIgnorePattern:
+          ".content.(ts|tsx|js|mjs|cjs|jsx|json|jsonc|json5|md|mdx|yaml|yml)$",
+      },
+    }),
+    viteReact(),
+  ],
+});
+```
+
+---
+
+</Step>
+
+<Step number={12} title="Meta Verilerinizi Uluslararasılaştırın">
+
+<Tabs>
+
+<Tab label="Statik çözümleme" value="static">
+
+`getIntlayer` **birleştirilmiş** sözlüğe karşı senkron olarak çözer, her bir bildirilen dili tutan sözlüktür. `head` senkron kalır ve hiçbir şey beklemez, ancak tüm çok dilli sözlük tarayıcıya gönderilen rota parçasına çekilir.
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createFileRoute } from "@tanstack/react-router";
+import {
+  defaultLocale,
+  getIntlayer,
+  getLocalizedUrl,
+  localeMap,
+} from "intlayer";
+
+export const Route = createFileRoute("/{-$locale}/")({
+  component: RouteComponent,
+  head: ({ params }) => {
+    const { locale = defaultLocale } = params;
+    const path = "/"; // Bu rota için yol
+
+    const metaContent = getIntlayer("app", locale);
+
+    return {
+      links: [
+        // Kanonik bağlantı: Mevcut yerelleştirilmiş sayfayı gösterir
+        { rel: "canonical", href: getLocalizedUrl(path, locale) },
+
+        // Hreflang: Google'a tüm yerelleştirilmiş sürümler hakkında bilgi ver
+        ...localeMap(({ locale: mapLocale }) => ({
+          rel: "alternate",
+          hrefLang: mapLocale,
+          href: getLocalizedUrl(path, mapLocale),
+        })),
+
+        // x-default: Eşleşmeyen dillerdeki kullanıcılar için
+        // Varsayılan fallback dilini tanımla (genellikle birincil diliniz)
+        {
+          rel: "alternate",
+          hrefLang: "x-default",
+          href: getLocalizedUrl(path, defaultLocale),
+        },
+      ],
+      meta: [
+        { title: metaContent.title },
+        { name: "description", content: metaContent.meta.description },
+      ],
+    };
+  },
+});
+```
+
+Küçük meta veri sözlükleri, bir avuç yerel dil veya prototip oluştururken en iyisidir.
+
+</Tab>
+
+<Tab label="Dinamik çözümleme" value="dynamic">
+
+`getIntlayerAsync` (**v9.4** sürümünden itibaren kullanılabilir), `getIntlayer`'e benzer şekilde davranır, ancak yapı eklentisi birleştirilmiş sözlük yerine `.intlayer/dynamic_dictionaries/` içindeki yerel başına parçayı gösterir. Bir sayfa bu nedenle yalnızca oluşturduğu dili gönderir. Bu parça isteğe bağlı yüklendiği için `head` `async` olur:
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createFileRoute } from "@tanstack/react-router";
+import {
+  defaultLocale,
+  getIntlayerAsync,
+  getLocalizedUrl,
+  localeMap,
+} from "intlayer";
+
+export const Route = createFileRoute("/{-$locale}/")({
+  component: RouteComponent,
+  head: async ({ params }) => {
+    const { locale = defaultLocale } = params;
+    const path = "/"; // Bu rota için yol
+
+    const metaContent = await getIntlayerAsync("app", locale);
+
+    return {
+      links: [
+        // Kanonik bağlantı: Mevcut yerelleştirilmiş sayfayı gösterir
+        { rel: "canonical", href: getLocalizedUrl(path, locale) },
+
+        // Hreflang: Google'a tüm yerelleştirilmiş sürümler hakkında bilgi ver
+        ...localeMap(({ locale: mapLocale }) => ({
+          rel: "alternate",
+          hrefLang: mapLocale,
+          href: getLocalizedUrl(path, mapLocale),
+        })),
+
+        // x-default: Eşleşmeyen dillerdeki kullanıcılar için
+        // Varsayılan fallback dilini tanımla (genellikle birincil diliniz)
+        {
+          rel: "alternate",
+          hrefLang: "x-default",
+          href: getLocalizedUrl(path, defaultLocale),
+        },
+      ],
+      meta: [
+        { title: metaContent.title },
+        { name: "description", content: metaContent.meta.description },
+      ],
+    };
+  },
+});
+```
+
+> Bir `head` birden çok sözlüğü okuyor ise, `Promise.all` ile çözümleyin: her `getIntlayerAsync`'i kendi satırında beklemeniz istekleri paralel olarak çalıştırmak yerine zincirlemenize neden olur.
+
+Ödün: dinamik import, `head` çalışırken belge işleme açısından kritik yolda çözülür. Soğuk bir rota üzerinde bu, başlığı birkaç milisaniye geciktirir ve **LCP**'yi hafifçe bozabilir.
+
+</Tab>
+
+<Tab label="Önbelleğe alınan dinamik çözümleme" value="cached">
+
+Sözlüğü rota `loader`'ında çözün ve `head`'de `loaderData`'dan geri okuyun. Eşleşen rotaların yükleyicileri paralel olarak çalışır ve `staleTime: Infinity`, TanStack Router'a sonucun hiçbir zaman eski olmadığını söyler, bu nedenle yerel başına parça bir kez çözülür ve daha sonra router önbelleğinden sunulur, `head`'i senkron bırakır.
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createFileRoute } from "@tanstack/react-router";
+import {
+  defaultLocale,
+  getIntlayerAsync,
+  getLocalizedUrl,
+  localeMap,
+} from "intlayer";
+
+export const Route = createFileRoute("/{-$locale}/")({
+  component: RouteComponent,
+  // Diğer eşleşen rotalar ile paralel olarak çözülür, head kritik yolundan uzakta
+  loader: async ({ params }) => {
+    const { locale = defaultLocale } = params;
+
+    return { metaContent: await getIntlayerAsync("app", locale) };
+  },
+  // Sözlük belirli bir yerel dil için hiçbir zaman değişmez: parçayı bir kez çözün
+  staleTime: Infinity,
+  head: ({ params, loaderData }) => {
+    const { locale = defaultLocale } = params;
+    const path = "/"; // Bu rota için yol
+
+    return {
+      links: [
+        // Kanonik bağlantı: Mevcut yerelleştirilmiş sayfayı gösterir
+        { rel: "canonical", href: getLocalizedUrl(path, locale) },
+
+        // Hreflang: Google'a tüm yerelleştirilmiş sürümler hakkında bilgi ver
+        ...localeMap(({ locale: mapLocale }) => ({
+          rel: "alternate",
+          hrefLang: mapLocale,
+          href: getLocalizedUrl(path, mapLocale),
+        })),
+
+        // x-default: Eşleşmeyen dillerdeki kullanıcılar için
+        // Varsayılan fallback dilini tanımla (genellikle birincil diliniz)
+        {
+          rel: "alternate",
+          hrefLang: "x-default",
+          href: getLocalizedUrl(path, defaultLocale),
+        },
+      ],
+      meta: [
+        { title: loaderData?.metaContent.title },
+        {
+          name: "description",
+          content: loaderData?.metaContent.meta.description,
+        },
+      ],
+    };
+  },
+});
+```
+
+> `head` yükleyici kararlı olmadan önce çağrılabilir, bu nedenle `loaderData` muhtemelen `undefined` olarak yazılır. İsteğe bağlı zincir oluşturmayı tutun veya bir başlık için fallback döndürün.
+
+Yerel başına parçayı, head kritik yolunda maliyetini ödemeden tutarsınız. Fiyat geliştirici deneyimidir: içeriğin `loaderData` aracılığıyla yükleyiciden `head`'e açıkça iletilmesi gerekir.
+
+</Tab>
+
+</Tabs>
+
+### Hangi çözümü seçmeliyim?
+
+|                      | Statik çözüm       | Dinamik çözüm              | Önbelleğe alınmış dinamik çözüm           |
+| -------------------- | ------------------ | -------------------------- | ----------------------------------------- |
+| API                  | `getIntlayer`      | `getIntlayerAsync` (v9.4+) | `getIntlayerAsync` in `loader` (v9.4+)    |
+| `head` imzası        | senkron            | `async`                    | senkron, `loaderData` okur                |
+| Gönderilen diller    | her bildirilen dil | yalnızca istenen dil       | yalnızca istenen dil                      |
+| İstemci navigasyonu  | çözüme gerek yok   | her eşleşmede yeniden gir  | yönlendirici önbelleğinden sunulur        |
+| Geliştirici deneyimi | en basit           | bir `await`                | içerik `loaderData` aracılığıyla iletilir |
+
+---
+
+</Step>
+
+<Step number={13} title="Sunucu eylemlerinizde yerel ayarı alın">
+
+Sunucu eylemleri veya API uç noktalarınızda geçerli yerel ayara erişmek isteyebilirsiniz.
+Bunu `intlayer` öğesinden `getLocale` yardımcısını kullanarak yapabilirsiniz.
+
+TanStack Start'ın sunucu işlevlerini kullanan bir örnek:
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createServerFn } from "@tanstack/react-start";
+import {
+  getRequestHeader,
+  getRequestHeaders,
+} from "@tanstack/react-start/server";
+import { getCookie, getIntlayer, getLocale } from "intlayer";
+
+export const getLocaleServer = createServerFn().handler(async () => {
+  const locale = await getLocale({
+    // İstekten çerezi alın (varsayılan: 'INTLAYER_LOCALE')
+    getCookie: (name) => {
+      const cookieString = getRequestHeader("cookie");
+
+      return getCookie(name, cookieString);
+    },
+    // İstekten başlığı alın (varsayılan: 'x-intlayer-locale')
+    // Accept-Language müzakeresi kullanarak geri dönüş
+    getHeader: (name) => getRequestHeader(name),
+  });
+
+  // getIntlayerAsync() kullanarak bazı içerik alın
+  const content = getIntlayer("app", locale);
+
+  return { locale, content };
+});
+```
+
+---
+
+</Step>
+
+<Step number={14} title="Bulunamayan sayfaları yönetin">
+
+Bir kullanıcı var olmayan bir sayfayı ziyaret ettiğinde, özel bir bulunamayan sayfa görüntüleyebilir ve yerel ön ek, bulunamayan sayfanın nasıl tetiklendiğini etkileyebilir.
+
+#### Yerelleştirilmiş Ana Sayfa
+
 > `useIntlayer` kancasını daha fazla öğrenmek için, [belgelere](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/react-intlayer/useIntlayer.md) bakınız.
 
 </Step>
 
 <Step number={10} title="Bir Dil Değiştirici (Locale Switcher) Bileşeni Oluşturun">
-
-Kullanıcıların dilleri değiştirmesine izin veren bir bileşen oluşturun:
 
 ```tsx fileName="src/components/locale-switcher.tsx"
 import { useLocation } from "@tanstack/react-router";
@@ -633,12 +999,6 @@ export const LocaleSwitcher: FC = () => {
 
 <Step number={11} title="HTML Öznitelik Yönetimi">
 
-const localeRoute = getRouteApi("/{-$locale}");
-
-function RootDocument({ children }: { children: ReactNode }) {
-const params = localeRoute.useParams();
-const locale = params?.locale ?? defaultLocale;
-
 return (
 <html dir={getHTMLTextDir(locale)} lang={locale}>
 {/* ... _/}
@@ -649,157 +1009,15 @@ return (
 );
 }
 
-````
-
----
-
-</Step>
-
-<Step number={12} title="Middleware Ekleme">
-
-Uygulamanıza sunucu tarafı yönlendirme eklemek için `intlayerProxy`'i de kullanabilirsiniz. Bu eklenti, URL'ye göre mevcut yerel ayarı otomatik olarak algılar ve uygun yerel ayar çerezini ayarlar. Hiçbir yerel ayar belirtilmemişse, eklenti kullanıcının tarayıcı dil tercihlerine göre en uygun yerel ayarı belirler. Hiçbir yerel ayar algılanmazsa, varsayılan yerel ayara yönlendirme yapar.
-
-> Üretimde `intlayerProxy` kullanmak için, `vite-intlayer` paketini `devDependencies`'den `dependencies`'e geçirmeniz gerektiğini unutmayın.
-
-> Intlayer v9'dan itibaren, `intlayerProxy()` doğrudan `intlayer()` plugin'ine dahil edilmiş ve `routing.enableProxy` seçeneği aracılığıyla varsayılan olarak etkinleştirilmiştir (`true` varsayılan değerdir). Aşağıda gösterildiği gibi ayrı ayrı kaydedilmesi artık isteğe bağlıdır; bu, geriye dönük uyumluluk ve plugin sırasını kontrol etmesi gereken kurulumlar için tutulmuştur. Devre dışı bırakmak için `routing.enableProxy: false` olarak ayarlayın. [v9 sürüm notlarına](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/releases/v9.md) bakın.
-
-```typescript fileName="vite.config.ts"
-import { tanstackStart } from "@tanstack/react-start/plugin/vite";
-import viteReact from "@vitejs/plugin-react";
-import { nitro } from "nitro/vite";
-import { defineConfig } from "vite";
-import { intlayer } from "vite-intlayer";
-
-export default defineConfig({
-  plugins: [
-    nitro(),
-    intlayer({
-      proxy: {
-        ignore: (req) => req.url?.startsWith("/api"),
-      },
-    }),
-    tanstackStart({
-      router: {
-        routeFileIgnorePattern:
-          ".content.(ts|tsx|js|mjs|cjs|jsx|json|jsonc|json5|md|mdx|yaml|yml)$",
-      },
-    }),
-    viteReact(),
-  ],
-});
-````
-
----
-
-</Step>
-
-<Step number={13} title="Meta Verilerinizi Uluslararasılaştırın">
-
-<Tabs>
-
-<Tab label="Statik çözümleme" value="static">
-
-`getIntlayer`, tüm bildirilen yerel ayarları içeren **birleştirilmiş** sözlük üzerinden senkron olarak çözümlenir. `head` senkron kalır ve hiçbir şey beklenmez, ancak tüm çok dilli sözlük tarayıcıya gönderilen rota parçasına dahil edilir.
-
-```tsx fileName="src/routes/{-$locale}/index.tsx"
-import { createFileRoute } from "@tanstack/react-router";
-import {
-  defaultLocale,
-  getIntlayer,
-  getLocalizedUrl,
-  localeMap,
-} from "intlayer";
-
 export const Route = createFileRoute("/{-$locale}/")({
-  component: RouteComponent,
-  head: ({ params }) => {
-    const { locale = defaultLocale } = params;
-    const path = "/"; // The path for this route
-
-    const metaContent = getIntlayer("app", locale);
-
-    return {
-      links: [
-        // Canonical link: Points to the current localized page
-        { rel: "canonical", href: getLocalizedUrl(path, locale) },
-
-        // Hreflang: Tell Google about all localized versions
-        ...localeMap(({ locale: mapLocale }) => ({
-          rel: "alternate",
-          hrefLang: mapLocale,
-          href: getLocalizedUrl(path, mapLocale),
-        })),
-
-        // x-default: For users in unmatched languages
-        // Define the default fallback locale (usually your primary language)
-        {
-          rel: "alternate",
-          hrefLang: "x-default",
-          href: getLocalizedUrl(path, defaultLocale),
-        },
-      ],
-      meta: [
-        { title: metaContent.title },
-        { name: "description", content: metaContent.meta.description },
-      ],
-    };
-  },
-});
-```
-
-Küçük meta veri sözlükleri, az sayıda yerel ayar veya prototipleme aşaması için idealdir.
-
-</Tab>
-
-<Tab label="Dinamik çözümleme" value="dynamic">
-
-`getIntlayerAsync` (**v9.4** sürümünden itibaren kullanılabilir) `getIntlayer` gibi davranır, ancak build eklentisi onu birleştirilmiş sözlük yerine `.intlayer/dynamic_dictionaries/` içindeki yerel ayar başına parçaya yönlendirir. Böylece bir sayfa yalnızca render ettiği yerel ayarı gönderir. Bu parça talep üzerine yüklendiğinden `head` `async` hâle gelir:
-
-```tsx fileName="src/routes/{-$locale}/index.tsx"
-import { createFileRoute } from "@tanstack/react-router";
-import {
-  defaultLocale,
-  getIntlayerAsync,
-  getLocalizedUrl,
-  localeMap,
-} from "intlayer";
-
-export const Route = createFileRoute("/{-$locale}/")({
-  component: RouteComponent,
-  head: async ({ params }) => {
-    const { locale = defaultLocale } = params;
-    const path = "/"; // The path for this route
+component: RouteComponent,
+head: async ({ params }) => {
+const { locale = defaultLocale } = params;
+const path = "/"; // The path for this route
 
     const metaContent = await getIntlayerAsync("app", locale);
 
-    return {
-      links: [
-        // Canonical link: Points to the current localized page
-        { rel: "canonical", href: getLocalizedUrl(path, locale) },
-
-        // Hreflang: Tell Google about all localized versions
-        ...localeMap(({ locale: mapLocale }) => ({
-          rel: "alternate",
-          hrefLang: mapLocale,
-          href: getLocalizedUrl(path, mapLocale),
-        })),
-
-        // x-default: For users in unmatched languages
-        // Define the default fallback locale (usually your primary language)
-        {
-          rel: "alternate",
-          hrefLang: "x-default",
-          href: getLocalizedUrl(path, defaultLocale),
-        },
-      ],
-      meta: [
-        { title: metaContent.title },
-        { name: "description", content: metaContent.meta.description },
-      ],
-    };
-  },
-});
-```
+````
 
 > Bir `head` birden fazla sözlük okuyorsa bunları `Promise.all` ile çözümleyin; her `getIntlayerAsync` çağrısını ayrı satırda beklemek, istekleri paralel çalıştırmak yerine zincirler.
 
@@ -812,193 +1030,22 @@ export const Route = createFileRoute("/{-$locale}/")({
 Sözlüğü rotanın `loader`'ında çözümleyin ve `head` içinde `loaderData` üzerinden geri okuyun. Eşleşen rotaların loader'ları paralel çalışır ve `staleTime: Infinity`, TanStack Router'a sonucun hiçbir zaman bayatlamayacağını söyler, böylece yerel ayar başına parça bir kez çözümlenir, sonrasında router önbelleğinden sunulur ve `head` senkron kalır.
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
-import { createFileRoute } from "@tanstack/react-router";
-import {
-  defaultLocale,
-  getIntlayerAsync,
-  getLocalizedUrl,
-  localeMap,
-} from "intlayer";
 
-export const Route = createFileRoute("/{-$locale}/")({
-  component: RouteComponent,
-  // Resolved in parallel with the other matched routes, off the head critical path
-  loader: async ({ params }) => {
-    const { locale = defaultLocale } = params;
-
-    return { metaContent: await getIntlayerAsync("app", locale) };
-  },
-  // The dictionary never changes for a given locale: resolve the chunk once
-  staleTime: Infinity,
-  head: ({ params, loaderData }) => {
-    const { locale = defaultLocale } = params;
-    const path = "/"; // The path for this route
-
-    return {
-      links: [
-        // Canonical link: Points to the current localized page
-        { rel: "canonical", href: getLocalizedUrl(path, locale) },
-
-        // Hreflang: Tell Google about all localized versions
-        ...localeMap(({ locale: mapLocale }) => ({
-          rel: "alternate",
-          hrefLang: mapLocale,
-          href: getLocalizedUrl(path, mapLocale),
-        })),
-
-        // x-default: For users in unmatched languages
-        // Define the default fallback locale (usually your primary language)
-        {
-          rel: "alternate",
-          hrefLang: "x-default",
-          href: getLocalizedUrl(path, defaultLocale),
-        },
-      ],
-      meta: [
-        { title: loaderData?.metaContent.title },
-        {
-          name: "description",
-          content: loaderData?.metaContent.meta.description,
-        },
-      ],
-    };
-  },
-});
-```
-
-> `head`, loader tamamlanmadan önce çağrılabilir; bu nedenle `loaderData` muhtemelen `undefined` olarak tiplenir. Optional chaining'i koruyun veya yedek bir başlık döndürün.
-
-Yerel ayar başına parçayı, bedelini `head` kritik yolunda ödemeden korursunuz. Bedeli geliştirici deneyimidir: içeriğin loader'dan `head`'e `loaderData` üzerinden açıkça taşınması gerekir.
-
-</Tab>
-
-</Tabs>
-
-### Hangi çözümlemeyi seçmeliyim?
-
-|                          | Statik çözümleme             | Dinamik çözümleme             | Önbellekli dinamik çözümleme               |
-| ------------------------ | ---------------------------- | ----------------------------- | ------------------------------------------ |
-| API                      | `getIntlayer`                | `getIntlayerAsync` (v9.4+)    | `loader` içinde `getIntlayerAsync` (v9.4+) |
-| `head` imzası            | senkron                      | `async`                       | senkron, `loaderData` okur                 |
-| Gönderilen yerel ayarlar | bildirilen tüm yerel ayarlar | yalnızca istenen yerel ayar   | yalnızca istenen yerel ayar                |
-| İstemci gezinmeleri      | çözümlenecek bir şey yok     | her eşleşmede yeniden çalışır | router önbelleğinden sunulur               |
-| Geliştirici deneyimi     | en basiti                    | tek bir `await`               | içerik `loaderData` üzerinden taşınır      |
-
----
-
-</Step>
-
-<Step number={14} title="Sunucu işlemlerinde yerel ayarı alma">
-
-Sunucu işlemleriniz veya API uç noktalarınızın içinden mevcut yerel ayara erişmek isteyebilirsiniz.
-Bunu `intlayer` paketinden `getLocale` yardımcısını kullanarak yapabilirsiniz.
-
-TanStack Start'ın sunucu fonksiyonlarını kullanan bir örnek:
-
-```tsx fileName="src/routes/{-$locale}/index.tsx"
-import { createServerFn } from "@tanstack/react-start";
-import {
-  getRequestHeader,
-  getRequestHeaders,
-} from "@tanstack/react-start/server";
-import { getCookie, getIntlayer, getLocale } from "intlayer";
-
-export const getLocaleServer = createServerFn().handler(async () => {
-  const locale = await getLocale({
-    // İstekten çerezi al (varsayılan: 'INTLAYER_LOCALE')
-    getCookie: (name) => {
-      const cookieString = getRequestHeader("cookie");
-
-      return getCookie(name, cookieString);
-    },
-    // İstekten başlığı al (varsayılan: 'x-intlayer-locale')
-    // Accept-Language anlaşmasını kullanarak geri dönüş
-    getHeader: (name) => getRequestHeader(name),
-  });
-
-  // getIntlayer() kullanarak bazı içerikleri al
-  const content = getIntlayer("app", locale);
+<Tabs>
+ <Tab value='Extract command'>
 
   return { locale, content };
 });
-```
-
----
-
-</Step>
-
-<Step number={15} title="Bulunamayan sayfaları yönetme">
-
-Bir kullanıcı var olmayan bir sayfayı ziyaret ettiğinde, özel bir bulunamadı sayfası gösterebilirsiniz ve yerel ayar öneki, bulunamadı sayfasının tetiklenme şeklini etkileyebilir.
-
-#### TanStack Router'ın Yerel Ayar Önekleriyle 404 İşlemesini Anlama
-
-TanStack Router'da yerelleştirilmiş rotalarla 404 sayfalarını işlemek, çok katmanlı bir yaklaşım gerektirir:
-
-1. **Özel 404 rotası**: 404 kullanıcı arayüzünü göstermek için özel bir rota
-2. **Rota düzeyinde doğrulama**: Yerel ayar öneklerini doğrular ve geçersiz olanları 404'e yönlendirir
-3. **Catch-all rotası**: Yerel ayar segmenti içindeki eşleşmeyen tüm yolları yakalar
-
-```tsx fileName="src/routes/{-$locale}/404.tsx"
 import { createFileRoute } from "@tanstack/react-router";
 
-// Bu, özel bir /[locale]/404 rotası oluşturur
-// Hem doğrudan bir rota olarak kullanılır hem de diğer dosyalarda bir bileşen olarak içe aktarılır
-export const Route = createFileRoute("/{-$locale}/404")({
-  component: NotFoundComponent,
-});
-
-// notFoundComponent ve catch-all rotalarında yeniden kullanılabilmesi için ayrı olarak dışa aktarılır
-export function NotFoundComponent() {
-  return (
-    <div>
-      <h1>404</h1>
-    </div>
-  );
-}
-```
+````
 
 ```tsx fileName="src/routes/{-$locale}/route.tsx"
-import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
-import { validatePrefix } from "intlayer";
-import { NotFoundComponent } from "./404";
 
-export const Route = createFileRoute("/{-$locale}")({
-  // beforeLoad, rota render edilmeden önce çalışır (hem sunucuda hem de istemcide)
-  // Yerel ayar önekini doğrulamak için ideal yerdir
-  beforeLoad: ({ params }) => {
-    const localeParam = params.locale;
-
-    // validatePrefix, yerel ayarın intlayer yapılandırmanıza göre geçerli olup olmadığını kontrol eder
-    const { isValid, localePrefix } = validatePrefix(localeParam);
-
-    if (!isValid) {
-      // Geçersiz yerel ayar öneki - Geçerli bir yerel ayar öneki ile 404 sayfasına yönlendir
-      throw redirect({
-        to: "/{-$locale}/404",
-        params: { locale: localePrefix },
-      });
-    }
-  },
-  component: Outlet,
-  // notFoundComponent, bir alt rota mevcut olmadığında çağrılır
-  // örn. /en/var-olmayan-sayfa bunu /en düzeni içinde tetikler
-  notFoundComponent: NotFoundComponent,
-});
 ```
 
 ```tsx fileName="src/routes/{-$locale}/$.tsx"
-import { createFileRoute } from "@tanstack/react-router";
-
 import { NotFoundComponent } from "./404";
-
-// $ (splat/catch-all) rotası, diğer rotalarla eşleşmeyen herhangi bir yolu eşleştirir
-// örn. /en/bazı/derin/iç içe/geçersiz/yol
-// Bu, bir yerel ayar içindeki TÜM eşleşmeyen yolların 404 sayfasını göstermesini sağlar
-// Bu olmadan, eşleşmeyen derin yollar boş bir sayfa veya hata gösterebilir
-export const Route = createFileRoute("/{-$locale}/$")({
-  component: NotFoundComponent,
-});
 ```
 
 </Step>
@@ -1014,23 +1061,10 @@ Kurulum için `intlayer.config.ts` dosyanıza bir `compiler` bölümü ekleyebil
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig } from "intlayer";
 
-const config: IntlayerConfig = {
-  // ... Yapılandırmanızın geri kalanı
-  compiler: {
-    /**
-     * Derleyicinin etkinleştirilip etkinleştirilmeyeceğini belirtir.
-     */
-    enabled: true,
-
     /**
      * Çıktı dosyalarının yolunu tanımlar
      */
     output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * Bileşenlerin dönüştürüldükten sonra kaydedilip kaydedilmeyeceğini belirtir. Bu sayede derleyici, uygulamayı dönüştürmek için yalnızca bir kez çalıştırılabilir ve ardından kaldırılabilir.
-     */
-    saveComponents: false,
 
     /**
      * Sözlük anahtarı öneki
@@ -1048,29 +1082,23 @@ export default config;
 Bileşenlerinizi dönüştürmek ve içeriği çıkarmak için çıkarıcıyı çalıştırın
 
 ```bash packageManager="npm"
-npx intlayer extract
+
 ```
 
 ```bash packageManager="pnpm"
-pnpm intlayer extract
+
 ```
 
 ```bash packageManager="yarn"
-yarn intlayer extract
+
 ```
 
 ```bash packageManager="bun"
+
+</Tab>
+</Tabs>
+
 bun x intlayer extract
-```
-
- </Tab>
- <Tab value='Babel derleyicisi'>
-
-> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
-
-`vite.config.ts` dosyanızı `intlayerCompiler` eklentisini içerecek şekilde güncelleyin:
-
-```ts fileName="vite.config.ts"
 import { defineConfig } from "vite";
 import { intlayer, intlayerCompiler } from "vite-intlayer";
 
@@ -1094,68 +1122,24 @@ pnpm run build # Or pnpm run dev
 yarn build # Or yarn dev
 ```
 
-```bash packageManager="bun"
-bun run build # Or bun run dev
-```
-
- </Tab>
-</Tabs>
+````bash packageManager="bun"
 
 ---
 
-</Step>
-
-<Step number={16} title="Pre-render & Sitemap Oluştur">
-
-Intlayer, uygulamanız için bir sitemap oluşturmanıza kolayca yardımcı olmak için yerleşik bir sitemap oluşturucusu ile birlikte gelir. Yerelleştirilmiş rotaları işler ve arama motorları için gerekli meta verileri ekler.
-
-> Intlayer tarafından oluşturulan sitemap, `xhtml:link` ad alanını (Hreflang XML Uzantıları) destekler. Yalnızca ham URL'leri listeleyen varsayılan sitemap oluşturucularının aksine, Intlayer bir sayfanın tüm dil sürümleri arasında gerekli çift yönlü bağlantıları otomatik olarak oluşturur (örneğin, `/about`, `/about?lang=fr` ve `/about?lang=es`). Bu, arama motorlarının doğru dil sürümünü doğru kitleye doğru şekilde indekslemesini ve sunmasını sağlar.
-
-Bunu kullanmak için, önce `vite.config.ts` dosyanızı yerelleştirilmiş rotalarınız için ön-işlemeyi etkinleştirmek ve TanStack Start'ın varsayılan sitemap oluşturmayı devre dışı bırakmak üzere yapılandırmanız gerekir.
-
-```typescript fileName="vite.config.ts"
+bun run build # Or bun run dev
 import { localeFlatMap } from "intlayer";
 // ... diğer importlar
 
 export const pathList = ["", "/about", "/404"];
 
-const localizedPages = localeFlatMap(({ urlPrefix }) =>
-  pathList.map((path) => ({
-    path: `${urlPrefix}${path}`,
-    prerender: {
-      enabled: true,
-    },
-  }))
-);
+I'm ready to help you audit and update the Turkish translation. However, I notice that both the English (en) reference block and the Turkish (tr) block to review appear to be empty in your message.
 
-export default defineConfig({
-  plugins: [
-    // ... diğer eklentiler
-    tanstackStart({
-      // ... diğer konfigürasyon
-      sitemap: {
-        enabled: false,
-      },
-      prerender: {
-        enabled: true,
-        crawlLinks: false,
-        concurrency: 10,
-      },
-      pages: localizedPages,
-    }),
-  ],
-});
-```
+Please provide:
 
-Ardından, `generateSitemap` fonksiyonunu kullanan bir `src/routes/sitemap[.]xml.ts` rotası oluşturun:
+1. **BLOCK 5 of 5 (English source)**: The content in English that should be translated
+2. **Current Turkish translation**: The existing Turkish content that needs to be audited/updated
 
-```typescript fileName="src/routes/sitemap[.]xml.ts"
-import { createFileRoute } from "@tanstack/react-router";
-import { generateSitemap } from "intlayer";
-
-const SITE_URL = (
-  import.meta.env.VITE_SITE_URL ?? "http://localhost:3000"
-).replace(/\/$/, "");
+Please share the content blocks now.---
 
 export const Route = createFileRoute("/sitemap.xml")({
   server: {
@@ -1176,19 +1160,6 @@ export const Route = createFileRoute("/sitemap.xml")({
     },
   },
 });
-```
-
----
-
-</Step>
-
-<Step number={17} title="TypeScript'i Yapılandır">
-
-Intlayer, TypeScript'in avantajlarından yararlanmak ve codebase'inizi güçlendirmek için module augmentation kullanır.
-
-TypeScript yapılandırmanızın otomatik olarak oluşturulan türleri içerdiğinden emin olun:
-
-```json5 fileName="tsconfig.json"
 {
   // ... mevcut yapılandırmalarınız
   include: [
@@ -1196,47 +1167,40 @@ TypeScript yapılandırmanızın otomatik olarak oluşturulan türleri içerdiğ
     ".intlayer/**/*.ts", // Otomatik olarak oluşturulan türleri dahil edin
   ],
 }
-```
-
----
-
-</Step>
-
-</Steps>
 
 ### Git Yapılandırması
 
-Intlayer tarafından oluşturulan dosyaların göz ardı edilmesi önerilir. Bu, bu dosyaların Git deposuna eklenmesini önlemenizi sağlar.
+Intlayer tarafından oluşturulan dosyaları yoksaymak önerilir. Bu, bunları Git deponuza işlemekten kaçınmanızı sağlar.
 
 Bunu yapmak için, `.gitignore` dosyanıza aşağıdaki talimatları ekleyebilirsiniz:
 
 ```plaintext fileName=".gitignore"
 # Intlayer tarafından oluşturulan dosyaları yoksay
 .intlayer
-```
+````
 
 ---
 
-## VS Code Eklentisi
+## VS Code Extension
 
-Intlayer ile geliştirme deneyiminizi iyileştirmek için resmi **Intlayer VS Code Eklentisi**ni yükleyebilirsiniz.
+Intlayer ile geliştirme deneyiminizi iyileştirmek için resmi **Intlayer VS Code Extension**'ını yükleyebilirsiniz.
 
-[VS Code Marketplace'ten Yükleyin](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+[VS Code Marketplace'ten Yükle](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
-Bu eklenti şunları sağlar:
+Bu extension şunları sağlar:
 
-- Çeviri anahtarları için **Otomatik tamamlama**.
-- Eksik çeviriler için **Gerçek zamanlı hata tespiti**.
-- Çevrilmiş içeriğin **Satır içi önizlemeleri**.
-- Çevirileri kolayca oluşturup güncellemek için **Hızlı işlemler**.
+- **Autocompletion** çeviri anahtarları için.
+- **Real-time error detection** eksik çeviriler için.
+- **Inline previews** çevirilen içerik için.
+- **Quick actions** kolayca çeviri oluşturmak ve güncellemek için.
 
-Bu eklentinin nasıl kullanılacağı hakkında daha fazla detay için, [Intlayer VS Code Eklentisi dokümantasyonuna](https://intlayer.org/doc/vs-code-extension) bakabilirsiniz.
+Extension'ın nasıl kullanılacağı hakkında daha fazla ayrıntı için, [Intlayer VS Code Extension belgelerine](https://intlayer.org/doc/vs-code-extension) başvurun.
 
 ---
 
-## Daha İleri Gitmek
+## Daha İleri Gidin
 
-Daha ileri gitmek için, [görsel editörü](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) uygulayabilir veya içeriğinizi [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) kullanarak dışa aktarabilirsiniz.
+Daha ileri gitmek için, [görsel editörü](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) uygulayabilir veya içeriğinizi [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) kullanarak dışsallaştırabilirsiniz.
 
 ---
 
@@ -1246,5 +1210,5 @@ Daha ileri gitmek için, [görsel editörü](https://github.com/aymericzip/intla
 - [Tanstack Start Dokümantasyonu](https://reactrouter.com/)
 - [useIntlayer hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/react-intlayer/useIntlayer.md)
 - [useLocale hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/react-intlayer/useLocale.md)
-- [İçerik Beyanı](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md)
-- [Yapılandırma](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md)
+- [Content Declaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md)
+- [Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md)

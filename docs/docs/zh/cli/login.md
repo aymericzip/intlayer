@@ -118,6 +118,34 @@ INTLAYER_CLIENT_SECRET=your_client_secret
 }
 ```
 
+## 保持访问密钥安全
+
+`intlayer login` 颁发一个**访问密钥**：一个 `clientId` / `clientSecret` 对，每个需要凭证的命令（`push`、`pull`、`fill`、`configuration push`、`live` 等）都使用它来进行身份验证。
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import type { IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  editor: {
+    clientId: process.env.INTLAYER_CLIENT_ID,
+    clientSecret: process.env.INTLAYER_CLIENT_SECRET,
+  },
+};
+
+export default config;
+```
+
+> **`clientSecret` 是一个服务器端凭证。** 它授予完整的项目范围 API 访问权限——读取和写入您的字典、项目和组织。将其保存在 `.env`（被 git 忽略）或您的 CI 密钥存储中，切勿在配置文件中直接内联。
+
+Intlayer 强制执行此操作，而不仅仅是记录它：
+
+- `clientSecret` **从您的 bundler 内联的配置中被删除**，因此无论您使用何种框架集成，它都无法到达浏览器包。它仅在服务器端、运行时从环境中读取。
+- `clientId` 不同：它是**公开的**项目密钥，可以安全地交付，并由 [`@intlayer/analytics`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/analytics.md#how-events-are-authenticated) 使用以获取短期的、仅供摄取的 token。
+
+注释掉 `clientId` 足以禁用每个需要凭证的行为——远程字典获取、CMS 访问、分析——即使环境变量仍然已定义。
+
+对于 CI 管道，推荐使用 [`ci` 命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/ci.md)，它在单次运行期间注入凭证，而不是持久化它们。
+
 ## 手动配置
 
 如果浏览器没有自动打开，您可以手动访问终端中显示的 URL。

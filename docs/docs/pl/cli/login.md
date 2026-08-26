@@ -122,6 +122,34 @@ INTLAYER_CLIENT_SECRET=your_client_secret
 }
 ```
 
+## Bezpieczeństwo klucza dostępu
+
+`intlayer login` wydaje **klucz dostępu**: parę `clientId` / `clientSecret`, którą każde polecenie wymagające uwierzytelnienia (`push`, `pull`, `fill`, `configuration push`, `live`, …) wykorzystuje do autentykacji.
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import type { IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  editor: {
+    clientId: process.env.INTLAYER_CLIENT_ID,
+    clientSecret: process.env.INTLAYER_CLIENT_SECRET,
+  },
+};
+
+export default config;
+```
+
+> **`clientSecret` to poświadczenie po stronie serwera.** Przyznaje pełny dostęp do API na poziomie projektu — czytanie i pisanie słowników, projektu i organizacji. Przechowuj go w `.env` (ignorowany przez git) lub w magazynie wpisów tajnych CI, nigdy nie umieszczaj go w pliku konfiguracyjnym.
+
+Intlayer wymusza to zamiast tylko tego dokumentować:
+
+- `clientSecret` jest **usuwany z konfiguracji, którą bundler встраивает**, więc nie może dotrzeć do bundle'a przeglądarki niezależnie od używanej integracji frameworka. Jest odczytywany tylko po stronie serwera, w czasie wykonania, ze środowiska.
+- `clientId` jest inny: to **publiczny** klucz projektu, bezpieczny do wysyłki i używany przez [`@intlayer/analytics`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/analytics.md#how-events-are-authenticated) do uzyskania krótkotrwałego tokenu tylko do pozyskiwania danych.
+
+Zakomentowanie `clientId` wystarczy, aby wyłączyć każde zachowanie wymagające uwierzytelnienia — pobieranie słowników zdalnych, dostęp do CMS, analizę — nawet gdy zmienne środowiskowe są jeszcze zdefiniowane.
+
+W przypadku potoków CI preferuj [`ci` command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/ci.md), który wstrzykuje poświadczenia na czas pojedynczego uruchomienia zamiast ich utrwalania.
+
 ## Ręczna konfiguracja
 
 Jeśli przeglądarka nie otworzy się automatycznie, możesz ręcznie odwiedzić URL wyświetlony w terminalu.

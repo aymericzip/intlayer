@@ -520,7 +520,7 @@ export const useLocalizedNavigate = () => {
 
 在整个应用程序中访问您的内容字典：
 
-#### 本地化首页
+#### 本地化主页
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/react-router";
@@ -561,7 +561,7 @@ function RouteComponent() {
 }
 ```
 
-> 如果你想在 `string` 属性中使用你的内容，例如 `alt`、`title`、`href`、`aria-label` 等，你可以使用函数的值，如：
+> 如果您想在 `string` 属性中使用您的内容，例如 `alt`、`title`、`href`、`aria-label` 等，您可以使用函数的值，如：
 >
 > ```html
 > <img src="{content.image.src.value}" alt="{content.image.value}" />
@@ -575,7 +575,379 @@ function RouteComponent() {
 
 <Step number={9} title="创建语言切换器组件">
 
-创建一个组件来允许用户改变语言：
+创建一个组件来允许用户更改语言：
+
+```tsx fileName="src/components/locale-switcher.tsx"
+import { useLocation } from "@tanstack/react-router";
+import {
+  getHTMLTextDir,
+  getLocaleName,
+  getPathWithoutLocale,
+  getPrefix,
+  Locales,
+} from "intlayer";
+import type { FC } from "react";
+import { useLocale } from "react-intlayer";
+
+import { LocalizedLink, type To } from "./localized-link";
+
+export const LocaleSwitcher: FC = () => {
+  const { pathname } = useLocation();
+
+  const { availableLocales, locale, setLocale } = useLocale();
+
+  const pathWithoutLocale = getPathWithoutLocale(pathname);
+
+  return (
+    <ol>
+      {availableLocales.map((localeEl) => (
+        <li key={localeEl}>
+          <LocalizedLink
+            aria-current={localeEl === locale ? "page" : undefined}
+            onClick={() => setLocale(localeEl)}
+            params={{ locale: getPrefix(localeEl).localePrefix }}
+            to={pathWithoutLocale as To}
+          >
+            <span>
+              {/* 区域设置 - 例如 FR */}
+              {localeEl}
+            </span>
+            <span>
+              {/* 用其自己的区域设置显示的语言 - 例如 Français */}
+              {getLocaleName(localeEl, locale)}
+            </span>
+            <span dir={getHTMLTextDir(localeEl)} lang={localeEl}>
+              {/* 用当前区域设置显示的语言 - 例如当前区域设置为 Locales.SPANISH 时的 Francés */}
+              {getLocaleName(localeEl)}
+            </span>
+            <span dir="ltr" lang={Locales.ENGLISH}>
+              {/* 用英文显示的语言 - 例如 French */}
+              {getLocaleName(localeEl, Locales.ENGLISH)}
+            </span>
+          </LocalizedLink>
+        </li>
+      ))}
+    </ol>
+  );
+};
+```
+
+> 要了解更多关于 `useLocale` hook 的信息，请参考[文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/useLocale.md)。
+
+</Step>
+
+<Step number={10} title="HTML 属性管理">
+
+如第 5 步所述，您可以在根组件中使用 `useParams` 来管理 `html` 标签的 `lang` 和 `dir` 属性。这确保在服务器和客户端上设置正确的属性。
+
+```tsx fileName="src/routes/__root.tsx"
+const localeRoute = getRouteApi("/{-$locale}");
+
+function RootDocument({ children }: { children: ReactNode }) {
+  const params = localeRoute.useParams();
+  const locale = params?.locale ?? defaultLocale;
+
+  return (
+    <html dir={getHTMLTextDir(locale)} lang={locale}>
+      {/* ... */}
+    </html>
+  );
+}
+```
+
+---
+
+</Step>
+
+<Step number={11} title="添加中间件">
+
+您也可以使用 `intlayerProxy` 为您的应用程序添加服务器端路由。该插件将根据 URL 自动检测当前区域设置并设置适当的区域设置 cookie。如果未指定任何区域设置，该插件将根据用户的浏览器语言偏好确定最合适的区域设置。如果未检测到任何区域设置，它将重定向到默认区域设置。
+
+> 注意，要在生产环境中使用 `intlayerProxy`，您需要将 `vite-intlayer` 软件包从 `devDependencies` 切换到 `dependencies`。
+
+> 从 Intlayer v9 开始，`intlayerProxy()` 直接捆绑在 `intlayer()` 插件中，并通过 `routing.enableProxy` 选项（默认为 `true`）默认启用。如下所示分别注册它现在是可选的：为了向后兼容性和需要控制插件顺序的设置而保留。设置 `routing.enableProxy: false` 以选择退出。请参考 [v9 发行说明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/releases/v9.md)。
+
+```typescript fileName="vite.config.ts"
+import { tanstackStart } from "@tanstack/react-start/plugin/vite";
+import viteReact from "@vitejs/plugin-react";
+import { nitro } from "nitro/vite";
+import { defineConfig } from "vite";
+import { intlayer } from "vite-intlayer";
+
+export default defineConfig({
+  plugins: [
+    nitro(),
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
+    tanstackStart({
+      router: {
+        routeFileIgnorePattern:
+          ".content.(ts|tsx|js|mjs|cjs|jsx|json|jsonc|json5|md|mdx|yaml|yml)$",
+      },
+    }),
+    viteReact(),
+  ],
+});
+```
+
+---
+
+</Step>
+
+<Step number={12} title="国际化您的元数据">
+
+<Tabs>
+
+<Tab label="静态解析" value="static">
+
+`getIntlayer` 针对**合并的**字典（包含每个声明的区域设置的字典）进行同步解析。`head` 保持同步，不会等待任何内容，但整个多语言字典被拉入发送到浏览器的路由块中。
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createFileRoute } from "@tanstack/react-router";
+import {
+  defaultLocale,
+  getIntlayer,
+  getLocalizedUrl,
+  localeMap,
+} from "intlayer";
+
+export const Route = createFileRoute("/{-$locale}/")({
+  component: RouteComponent,
+  head: ({ params }) => {
+    const { locale = defaultLocale } = params;
+    const path = "/"; // 此路由的路径
+
+    const metaContent = getIntlayer("app", locale);
+
+    return {
+      links: [
+        // 规范链接：指向当前本地化页面
+        { rel: "canonical", href: getLocalizedUrl(path, locale) },
+
+        // Hreflang：告诉 Google 所有本地化版本
+        ...localeMap(({ locale: mapLocale }) => ({
+          rel: "alternate",
+          hrefLang: mapLocale,
+          href: getLocalizedUrl(path, mapLocale),
+        })),
+
+        // x-default：适用于语言不匹配的用户
+        // 定义默认的回退区域设置（通常是您的主要语言）
+        {
+          rel: "alternate",
+          hrefLang: "x-default",
+          href: getLocalizedUrl(path, defaultLocale),
+        },
+      ],
+      meta: [
+        { title: metaContent.title },
+        { name: "description", content: metaContent.meta.description },
+      ],
+    };
+  },
+});
+```
+
+最适合小型元数据字典、少数几个区域设置或原型设计时使用。
+
+</Tab>
+
+<Tab label="动态解析" value="dynamic">
+
+`getIntlayerAsync`（从 **v9.4** 开始可用）的行为类似于 `getIntlayer`，但构建插件将其指向 `.intlayer/dynamic_dictionaries/` 中的按区域设置块，而不是合并字典。因此，页面仅发送它呈现的区域设置。由于该块是按需加载的，`head` 变为 `async`：
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createFileRoute } from "@tanstack/react-router";
+import {
+  defaultLocale,
+  getIntlayerAsync,
+  getLocalizedUrl,
+  localeMap,
+} from "intlayer";
+
+export const Route = createFileRoute("/{-$locale}/")({
+  component: RouteComponent,
+  head: async ({ params }) => {
+    const { locale = defaultLocale } = params;
+    const path = "/"; // 此路由的路径
+
+    const metaContent = await getIntlayerAsync("app", locale);
+
+    return {
+      links: [
+        // 规范链接：指向当前本地化页面
+        { rel: "canonical", href: getLocalizedUrl(path, locale) },
+
+        // Hreflang：告诉 Google 所有本地化版本
+        ...localeMap(({ locale: mapLocale }) => ({
+          rel: "alternate",
+          hrefLang: mapLocale,
+          href: getLocalizedUrl(path, mapLocale),
+        })),
+
+        // x-default：适用于语言不匹配的用户
+        // 定义默认的回退区域设置（通常是您的主要语言）
+        {
+          rel: "alternate",
+          hrefLang: "x-default",
+          href: getLocalizedUrl(path, defaultLocale),
+        },
+      ],
+      meta: [
+        { title: metaContent.title },
+        { name: "description", content: metaContent.meta.description },
+      ],
+    };
+  },
+});
+```
+
+> 如果 `head` 读取多个字典，请使用 `Promise.all` 解析它们：在自己的行上等待每个 `getIntlayerAsync` 会链接请求，而不是并行运行它们。
+
+权衡：动态导入在 `head` 运行时解析，在文档呈现的关键路径上。在冷路由上，这会将 head 延迟几毫秒，可能会略微降低 **LCP**。
+
+</Tab>
+
+<Tab label="缓存的动态解析" value="cached">
+
+在路由 `loader` 中解析字典，然后在 `head` 中从 `loaderData` 读取。匹配路由的加载程序并行运行，`staleTime: Infinity` 告诉 TanStack Router 结果永不过期，因此按区域设置块被解析一次，随后从路由器缓存提供，使 `head` 保持同步。
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createFileRoute } from "@tanstack/react-router";
+import {
+  defaultLocale,
+  getIntlayerAsync,
+  getLocalizedUrl,
+  localeMap,
+} from "intlayer";
+
+export const Route = createFileRoute("/{-$locale}/")({
+  component: RouteComponent,
+  // 与其他匹配的路由并行解析，不在 head 关键路径上
+  loader: async ({ params }) => {
+    const { locale = defaultLocale } = params;
+
+    return { metaContent: await getIntlayerAsync("app", locale) };
+  },
+  // 给定区域设置的字典永不改变：解析块一次
+  staleTime: Infinity,
+  head: ({ params, loaderData }) => {
+    const { locale = defaultLocale } = params;
+    const path = "/"; // 此路由的路径
+
+    return {
+      links: [
+        // 规范链接：指向当前本地化页面
+        { rel: "canonical", href: getLocalizedUrl(path, locale) },
+
+        // Hreflang：告诉 Google 所有本地化版本
+        ...localeMap(({ locale: mapLocale }) => ({
+          rel: "alternate",
+          hrefLang: mapLocale,
+          href: getLocalizedUrl(path, mapLocale),
+        })),
+
+        // x-default：适用于语言不匹配的用户
+        // 定义默认的回退区域设置（通常是您的主要语言）
+        {
+          rel: "alternate",
+          hrefLang: "x-default",
+          href: getLocalizedUrl(path, defaultLocale),
+        },
+      ],
+      meta: [
+        { title: loaderData?.metaContent.title },
+        {
+          name: "description",
+          content: loaderData?.metaContent.meta.description,
+        },
+      ],
+    };
+  },
+});
+```
+
+> `head` 可能在加载程序解决之前被调用，因此 `loaderData` 的类型可能为 `undefined`。保持可选链接，或返回回退标题。
+
+您保持按区域设置块而不在 head 关键路径上支付其成本。代价是开发者体验：内容必须通过 `loaderData` 从加载程序显式线程化到 `head`。
+
+</Tab>
+
+</Tabs>
+
+### 我应该选择哪种解析方式？
+
+|                | 静态解析              | 动态解析                   | 缓存动态解析                           |
+| -------------- | --------------------- | -------------------------- | -------------------------------------- |
+| API            | `getIntlayer`         | `getIntlayerAsync` (v9.4+) | `getIntlayerAsync` in `loader` (v9.4+) |
+| `head` 签名    | synchronous           | `async`                    | synchronous, reads `loaderData`        |
+| 传送的语言版本 | every declared locale | requested locale only      | requested locale only                  |
+| 客户端导航     | nothing to resolve    | re-entered on every match  | served from the router cache           |
+| 开发者体验     | simplest              | one `await`                | content threaded through `loaderData`  |
+
+---
+
+</Step>
+
+<Step number={13} title="在服务器操作中检索语言">
+
+您可能希望从服务器操作或 API 端点内访问当前语言。
+您可以使用 `intlayer` 中的 `getLocale` 帮助器来实现此目的。
+
+以下是使用 TanStack Start 服务器函数的示例：
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createServerFn } from "@tanstack/react-start";
+import {
+  getRequestHeader,
+  getRequestHeaders,
+} from "@tanstack/react-start/server";
+import { getCookie, getIntlayer, getLocale } from "intlayer";
+
+export const getLocaleServer = createServerFn().handler(async () => {
+  const locale = await getLocale({
+    // 从请求中获取 cookie (默认: 'INTLAYER_LOCALE')
+    getCookie: (name) => {
+      const cookieString = getRequestHeader("cookie");
+
+      return getCookie(name, cookieString);
+    },
+    // 从请求中获取标头 (默认: 'x-intlayer-locale')
+    // 使用 Accept-Language 协商的回退
+    getHeader: (name) => getRequestHeader(name),
+  });
+
+  // 使用 getIntlayerAsync() 检索一些内容
+  const content = getIntlayer("app", locale);
+
+  return { locale, content };
+});
+```
+
+---
+
+</Step>
+
+<Step number={14} title="管理未找到页面">
+
+当用户访问不存在的页面时，您可以显示自定义的未找到页面，语言前缀可能会影响未找到页面的触发方式。
+
+#### 本地化首页
+
+> 如果你想在 `string` 属性中使用你的内容，例如 `alt`、`title`、`href`、`aria-label` 等，你可以使用函数的值，如：
+>
+> ```html
+> <img src="{content.image.src.value}" alt="{content.image.value}" />
+> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
+> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
+> ```
+
+> 要了解更多关于 `useIntlayer` hook 的信息，请参考[文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/useIntlayer.md)。
+
+</Step>
 
 ```tsx fileName="src/components/locale-switcher.tsx"
 import { useLocation } from "@tanstack/react-router";
@@ -638,12 +1010,6 @@ export const LocaleSwitcher: FC = () => {
 
 <Step number={10} title="HTML 属性管理">
 
-const localeRoute = getRouteApi("/{-$locale}");
-
-function RootDocument({ children }: { children: ReactNode }) {
-const params = localeRoute.useParams();
-const locale = params?.locale ?? defaultLocale;
-
 return (
 <html dir={getHTMLTextDir(locale)} lang={locale}>
 {/* ... _/}
@@ -654,222 +1020,15 @@ return (
 );
 }
 
-````
-
----
-
-</Step>
-
-<Step number={11} title="添加中间件">
-
-你也可以使用 `intlayerProxy` 为你的应用程序添加服务器端路由。这个插件将自动基于 URL 检测当前的语言区域并设置适当的语言区域 cookie。如果没有指定区域设置，该插件将根据用户的浏览器语言首选项确定最合适的区域设置。如果没有检测到区域设置，它将重定向到默认的区域设置。
-
-> 请注意，要在生产环境中使用 `intlayerProxy`，你需要将 `vite-intlayer` package 从 `devDependencies` 切换到 `dependencies`。
-
-> 自 Intlayer v9 起，`intlayerProxy()` 直接捆绑到 `intlayer()` 插件中，并通过 `routing.enableProxy` 选项默认启用（默认为 `true`）。如下所示单独注册现在是可选的，它保留用于向后兼容性和需要控制插件顺序的设置。设置 `routing.enableProxy: false` 以退出。请参阅 [v9 发布说明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/releases/v9.md)。
-
-```typescript fileName="vite.config.ts"
-import { tanstackStart } from "@tanstack/react-start/plugin/vite";
-import viteReact from "@vitejs/plugin-react";
-import { nitro } from "nitro/vite";
-import { defineConfig } from "vite";
-import { intlayer } from "vite-intlayer";
-
-export default defineConfig({
-  plugins: [
-    nitro(),
-    intlayer({
-      proxy: {
-        ignore: (req) => req.url?.startsWith("/api"),
-      },
-    }),
-    tanstackStart({
-      router: {
-        routeFileIgnorePattern:
-          ".content.(ts|tsx|js|mjs|cjs|jsx|json|jsonc|json5|md|mdx|yaml|yml)$",
-      },
-    }),
-    viteReact(),
-  ],
-});
-````
-
----
-
-</Step>
-
-<Step number={12} title="国际化你的元数据">
-
-<Tabs>
-
-<Tab label="静态解析" value="static">
-
-`getIntlayer` 会同步地在**合并后的**字典上解析，也就是包含所有已声明语言环境的那一份。`head` 保持同步、无需等待，但整个多语言字典都会被打进发送到浏览器的路由分块中。
-
-```tsx fileName="src/routes/{-$locale}/index.tsx"
-import { createFileRoute } from "@tanstack/react-router";
-import {
-  defaultLocale,
-  getIntlayer,
-  getLocalizedUrl,
-  localeMap,
-} from "intlayer";
-
 export const Route = createFileRoute("/{-$locale}/")({
-  component: RouteComponent,
-  head: ({ params }) => {
-    const { locale = defaultLocale } = params;
-    const path = "/"; // The path for this route
-
-    const metaContent = getIntlayer("app", locale);
-
-    return {
-      links: [
-        // Canonical link: Points to the current localized page
-        { rel: "canonical", href: getLocalizedUrl(path, locale) },
-
-        // Hreflang: Tell Google about all localized versions
-        ...localeMap(({ locale: mapLocale }) => ({
-          rel: "alternate",
-          hrefLang: mapLocale,
-          href: getLocalizedUrl(path, mapLocale),
-        })),
-
-        // x-default: For users in unmatched languages
-        // Define the default fallback locale (usually your primary language)
-        {
-          rel: "alternate",
-          hrefLang: "x-default",
-          href: getLocalizedUrl(path, defaultLocale),
-        },
-      ],
-      meta: [
-        { title: metaContent.title },
-        { name: "description", content: metaContent.meta.description },
-      ],
-    };
-  },
-});
-```
-
-适合较小的元数据字典、语言环境数量不多的项目，或原型开发阶段。
-
-</Tab>
-
-<Tab label="动态解析" value="dynamic">
-
-`getIntlayerAsync`（自 **v9.4** 起可用）的行为与 `getIntlayer` 相同，但构建插件会让它指向 `.intlayer/dynamic_dictionaries/` 中按语言环境拆分的分块，而不是合并字典。因此页面只会发送它所渲染的那一种语言环境。由于该分块是按需加载的，`head` 变为 `async`：
-
-```tsx fileName="src/routes/{-$locale}/index.tsx"
-import { createFileRoute } from "@tanstack/react-router";
-import {
-  defaultLocale,
-  getIntlayerAsync,
-  getLocalizedUrl,
-  localeMap,
-} from "intlayer";
-
-export const Route = createFileRoute("/{-$locale}/")({
-  component: RouteComponent,
-  head: async ({ params }) => {
-    const { locale = defaultLocale } = params;
-    const path = "/"; // The path for this route
+component: RouteComponent,
+head: async ({ params }) => {
+const { locale = defaultLocale } = params;
+const path = "/"; // The path for this route
 
     const metaContent = await getIntlayerAsync("app", locale);
 
-    return {
-      links: [
-        // Canonical link: Points to the current localized page
-        { rel: "canonical", href: getLocalizedUrl(path, locale) },
-
-        // Hreflang: Tell Google about all localized versions
-        ...localeMap(({ locale: mapLocale }) => ({
-          rel: "alternate",
-          hrefLang: mapLocale,
-          href: getLocalizedUrl(path, mapLocale),
-        })),
-
-        // x-default: For users in unmatched languages
-        // Define the default fallback locale (usually your primary language)
-        {
-          rel: "alternate",
-          hrefLang: "x-default",
-          href: getLocalizedUrl(path, defaultLocale),
-        },
-      ],
-      meta: [
-        { title: metaContent.title },
-        { name: "description", content: metaContent.meta.description },
-      ],
-    };
-  },
-});
-```
-
-> 如果一个 `head` 要读取多个字典，请用 `Promise.all` 一并解析；逐行 await 每个 `getIntlayerAsync` 会把请求串成链式调用，而不是并行执行。
-
-代价是：动态 import 会在 `head` 执行期间解析，处于文档渲染的关键路径上。在冷路由上这会让 `head` 延迟几毫秒，并可能略微拉低 **LCP**。
-
-</Tab>
-
-<Tab label="带缓存的动态解析" value="cached">
-
-改为在路由的 `loader` 中解析字典，再于 `head` 中通过 `loaderData` 读回。已匹配路由的 loader 会并行运行，而 `staleTime: Infinity` 告诉 TanStack Router 该结果永不过期，于是按语言环境的分块只解析一次，之后由路由缓存提供，`head` 得以保持同步。
-
-```tsx fileName="src/routes/{-$locale}/index.tsx"
-import { createFileRoute } from "@tanstack/react-router";
-import {
-  defaultLocale,
-  getIntlayerAsync,
-  getLocalizedUrl,
-  localeMap,
-} from "intlayer";
-
-export const Route = createFileRoute("/{-$locale}/")({
-  component: RouteComponent,
-  // Resolved in parallel with the other matched routes, off the head critical path
-  loader: async ({ params }) => {
-    const { locale = defaultLocale } = params;
-
-    return { metaContent: await getIntlayerAsync("app", locale) };
-  },
-  // The dictionary never changes for a given locale: resolve the chunk once
-  staleTime: Infinity,
-  head: ({ params, loaderData }) => {
-    const { locale = defaultLocale } = params;
-    const path = "/"; // The path for this route
-
-    return {
-      links: [
-        // Canonical link: Points to the current localized page
-        { rel: "canonical", href: getLocalizedUrl(path, locale) },
-
-        // Hreflang: Tell Google about all localized versions
-        ...localeMap(({ locale: mapLocale }) => ({
-          rel: "alternate",
-          hrefLang: mapLocale,
-          href: getLocalizedUrl(path, mapLocale),
-        })),
-
-        // x-default: For users in unmatched languages
-        // Define the default fallback locale (usually your primary language)
-        {
-          rel: "alternate",
-          hrefLang: "x-default",
-          href: getLocalizedUrl(path, defaultLocale),
-        },
-      ],
-      meta: [
-        { title: loaderData?.metaContent.title },
-        {
-          name: "description",
-          content: loaderData?.metaContent.meta.description,
-        },
-      ],
-    };
-  },
-});
-```
+````
 
 > `head` 可能在 loader 完成之前被调用，因此 `loaderData` 的类型可能为 `undefined`。请保留可选链，或返回一个兜底标题。
 
@@ -901,19 +1060,6 @@ export const Route = createFileRoute("/{-$locale}/")({
 以下是使用 TanStack Start 的服务器函数的示例：
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
-import { createServerFn } from "@tanstack/react-start";
-import {
-  getRequestHeader,
-  getRequestHeaders,
-} from "@tanstack/react-start/server";
-import { getCookie, getIntlayer, getLocale } from "intlayer";
-
-export const getLocaleServer = createServerFn().handler(async () => {
-  const locale = await getLocale({
-    // 从请求中获取 cookie（默认：'INTLAYER_LOCALE'）
-    getCookie: (name) => {
-      const cookieString = getRequestHeader("cookie");
-
       return getCookie(name, cookieString);
     },
     // 从请求中获取 header（默认：'x-intlayer-locale'）
@@ -924,9 +1070,7 @@ export const getLocaleServer = createServerFn().handler(async () => {
   // 使用 getIntlayer() 检索一些内容
   const content = getIntlayer("app", locale);
 
-  return { locale, content };
-});
-```
+````
 
 ---
 
@@ -945,65 +1089,15 @@ export const getLocaleServer = createServerFn().handler(async () => {
 3. **捕获所有路由**：捕获 locale 段内任何不匹配的路径
 
 ```tsx fileName="src/routes/{-$locale}/404.tsx"
-import { createFileRoute } from "@tanstack/react-router";
 
-// 这创建了一个专用的 /[locale]/404 路由
-// 它既可以作为直接路由使用，也可以作为组件导入到其他文件中
-export const Route = createFileRoute("/{-$locale}/404")({
-  component: NotFoundComponent,
-});
-
-// 单独导出以便在 notFoundComponent 和捕获所有路由中重复使用
-export function NotFoundComponent() {
-  return (
-    <div>
-      <h1>404</h1>
-    </div>
-  );
-}
 ```
 
 ```tsx fileName="src/routes/{-$locale}/route.tsx"
-import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
-import { validatePrefix } from "intlayer";
-import { NotFoundComponent } from "./404";
 
-export const Route = createFileRoute("/{-$locale}")({
-  // beforeLoad 在路由渲染前运行（在服务器和客户端上）
-  // 这是验证 locale 前缀的理想位置
-  beforeLoad: ({ params }) => {
-    const localeParam = params.locale;
-
-    // validatePrefix 检查 locale 是否根据你的 intlayer 配置有效
-    const { isValid, localePrefix } = validatePrefix(localeParam);
-
-    if (!isValid) {
-      // 无效的 locale 前缀 - 重定向到 404 页面并使用有效的 locale 前缀
-      throw redirect({
-        to: "/{-$locale}/404",
-        params: { locale: localePrefix },
-      });
-    }
-  },
-  component: Outlet,
-  // notFoundComponent 在子路由不存在时调用
-  // 例如：/en/non-existent-page 在 /en 布局内触发此方法
-  notFoundComponent: NotFoundComponent,
-});
 ```
 
 ```tsx fileName="src/routes/{-$locale}/$.tsx"
-import { createFileRoute } from "@tanstack/react-router";
 
-import { NotFoundComponent } from "./404";
-
-// $ (splat/catch-all) 路由匹配任何不匹配其他路由的路径
-// 例如：/en/some/deeply/nested/invalid/path
-// 这确保 locale 内所有不匹配的路径都显示 404 页面
-// 没有这个，不匹配的深层路径可能显示空白页面或错误
-export const Route = createFileRoute("/{-$locale}/$")({
-  component: NotFoundComponent,
-});
 ```
 
 </Step>
@@ -1041,14 +1135,6 @@ const config: IntlayerConfig = {
      */
     saveComponents: false,
 
-    /**
-     * 字典键前缀
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-export default config;
 ```
 
 <Tabs>
@@ -1057,29 +1143,23 @@ export default config;
 运行提取器以转换组件并提取内容
 
 ```bash packageManager="npm"
-npx intlayer extract
+
 ```
 
 ```bash packageManager="pnpm"
-pnpm intlayer extract
+
 ```
 
 ```bash packageManager="yarn"
-yarn intlayer extract
+
 ```
 
 ```bash packageManager="bun"
+
+</Tab>
+</Tabs>
+
 bun x intlayer extract
-```
-
- </Tab>
- <Tab value='Babel compiler'>
-
-> 从 v9 起，`intlayerCompiler` 包含在 `intlayer` 插件中。所以你不需要手动添加它。
-
-更新你的 `vite.config.ts` 以包含 `intlayerCompiler` 插件：
-
-```ts fileName="vite.config.ts"
 import { defineConfig } from "vite";
 import { intlayer, intlayerCompiler } from "vite-intlayer";
 
@@ -1104,38 +1184,19 @@ yarn build # 或 yarn dev
 ```
 
 ```bash packageManager="bun"
-bun run build # 或 bun run dev
-```
-
- </Tab>
-</Tabs>
 
 ---
 
-</Step>
+- **BLOCK 2 of 3**（英文参考）：为空
+- **BLOCK 2 of 3**（中文待审核）：为空
 
-<Step number={16} title="预渲染 & 生成 Sitemap">
+请提供：
+1. **英文源文件内容**（需要审核的参考版本）
+2. **中文现有翻译内容**（需要更新/修正的版本）
 
-Intlayer 配备了内置的 sitemap 生成器，可以帮助你轻松为应用程序创建 sitemap。它处理本地化路由并为搜索引擎添加必要的元数据。
-
-> Intlayer 生成的 sitemap 支持 `xhtml:link` 命名空间（Hreflang XML 扩展）。与仅列出原始 URL 的默认 sitemap 生成器不同，Intlayer 自动在页面的所有语言版本之间创建所需的双向链接（例如，`/about`、`/about?lang=fr` 和 `/about?lang=es`）。这确保搜索引擎正确索引并向正确的受众提供正确的语言版本。
-
-要使用它，你首先需要配置你的 `vite.config.ts` 以为本地化路由启用预渲染并禁用默认的 TanStack Start sitemap 生成。
-
-```typescript fileName="vite.config.ts"
+bun run build # 或 bun run dev
 import { localeFlatMap } from "intlayer";
 // ... 其他导入
-
-export const pathList = ["", "/about", "/404"];
-
-const localizedPages = localeFlatMap(({ urlPrefix }) =>
-  pathList.map((path) => ({
-    path: `${urlPrefix}${path}`,
-    prerender: {
-      enabled: true,
-    },
-  }))
-);
 
 export default defineConfig({
   plugins: [
@@ -1158,13 +1219,9 @@ export default defineConfig({
 
 然后，创建一个 `src/routes/sitemap[.]xml.ts` 路由，使用 `generateSitemap` 函数：
 
-```typescript fileName="src/routes/sitemap[.]xml.ts"
-import { createFileRoute } from "@tanstack/react-router";
-import { generateSitemap } from "intlayer";
+````typescript fileName="src/routes/sitemap[.]xml.ts"
 
-const SITE_URL = (
-  import.meta.env.VITE_SITE_URL ?? "http://localhost:3000"
-).replace(/\/$/, "");
+---
 
 export const Route = createFileRoute("/sitemap.xml")({
   server: {
@@ -1185,19 +1242,6 @@ export const Route = createFileRoute("/sitemap.xml")({
     },
   },
 });
-```
-
----
-
-</Step>
-
-<Step number={17} title="配置 TypeScript">
-
-Intlayer 使用模块扩展以获得 TypeScript 的好处并使你的 codebase 更强大。
-
-确保你的 TypeScript 配置包含自动生成的类型：
-
-```json5 fileName="tsconfig.json"
 {
   // ... 你现有的配置
   include: [
@@ -1205,47 +1249,40 @@ Intlayer 使用模块扩展以获得 TypeScript 的好处并使你的 codebase �
     ".intlayer/**/*.ts", // 包含自动生成的类型
   ],
 }
-```
-
----
-
-</Step>
-
-</Steps>
 
 ### Git 配置
 
-建议忽略 Intlayer 生成的文件。这样可以避免将它们提交到您的 Git 仓库中。
+建议忽略由 Intlayer 生成的文件。这样可以避免将它们提交到 Git 仓库。
 
-要做到这一点，您可以将以下指令添加到您的 `.gitignore` 文件中：
+为此，您可以将以下指令添加到您的 `.gitignore` 文件中：
 
 ```plaintext fileName=".gitignore"
-# 忽略 Intlayer 生成的文件
+# 忽略由 Intlayer 生成的文件
 .intlayer
-```
+````
 
 ---
 
 ## VS Code 扩展
 
-为了提升您使用 Intlayer 的开发体验，您可以安装官方的 **Intlayer VS Code 扩展**。
+为了改进你使用 Intlayer 的开发体验，你可以安装官方的 **Intlayer VS Code 扩展**。
 
-[从 VS Code 市场安装](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+[从 VS Code 应用市场安装](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
-该扩展提供：
+此扩展提供以下功能：
 
-- 翻译键的**自动补全**。
-- 缺失翻译的**实时错误检测**。
-- 翻译内容的**内联预览**。
-- 轻松创建和更新翻译的**快速操作**。
+- **自动完成**翻译密钥。
+- **实时错误检测**缺失的翻译。
+- **内联预览**已翻译的内容。
+- **快速操作**轻松创建和更新翻译。
 
-有关如何使用该扩展的更多详细信息，请参阅[Intlayer VS Code 扩展文档](https://intlayer.org/doc/vs-code-extension)。
+有关如何使用扩展的更多详细信息，请参阅 [Intlayer VS Code 扩展文档](https://intlayer.org/doc/vs-code-extension)。
 
 ---
 
-## 深入探索
+## 更进一步
 
-要进一步使用，您可以实现[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)或使用[内容管理系统（CMS）](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)将内容外部化。
+要更进一步，您可以实现[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)或使用[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)外部化您的内容。
 
 ---
 
@@ -1253,7 +1290,7 @@ Intlayer 使用模块扩展以获得 TypeScript 的好处并使你的 codebase �
 
 - [Intlayer 文档](https://intlayer.org)
 - [Tanstack Start 文档](https://reactrouter.com/)
-- [useIntlayer 钩子](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/useIntlayer.md)
+- [useIntlayer hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/useIntlayer.md)
 - [useLocale hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/useLocale.md)
 - [内容声明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)
 - [配置](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)

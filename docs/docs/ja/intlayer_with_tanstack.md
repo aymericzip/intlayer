@@ -527,12 +527,6 @@ export const useLocalizedNavigate = () => {
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/react-router";
-import {
-  getIntlayer,
-  defaultLocale,
-  localeMap,
-  getLocalizedUrl,
-} from "intlayer";
 import { useIntlayer } from "react-intlayer";
 
 import LocaleSwitcher from "@/components/locale-switcher";
@@ -541,38 +535,6 @@ import { useLocalizedNavigate } from "@/hooks/useLocalizedNavigate";
 
 export const Route = createFileRoute("/{-$locale}/")({
   component: RouteComponent,
-  head: ({ params }) => {
-    const { locale } = params;
-    const path = "/"; // このルートのパス
-
-    const metaContent = getIntlayer("app", locale);
-
-    return {
-      links: [
-        // カノニカルリンク：現在のローカライズされたページを指します
-        { rel: "canonical", href: getLocalizedUrl(path, locale) },
-
-        // Hreflang：すべてのローカライズされたバージョンについてGoogleに伝えます
-        ...localeMap(({ locale: mapLocale }) => ({
-          rel: "alternate",
-          hrefLang: mapLocale,
-          href: getLocalizedUrl(path, mapLocale),
-        })),
-
-        // x-default：一致する言語がないユーザー向け
-        // デフォルトのフォールバックロケールを定義します（通常は主要言語）
-        {
-          rel: "alternate",
-          hrefLang: "x-default",
-          href: getLocalizedUrl(path, defaultLocale),
-        },
-      ],
-      meta: [
-        { title: metaContent.title },
-        { name: "description", content: metaContent.meta.description },
-      ],
-    };
-  },
 });
 
 function RouteComponent() {
@@ -602,6 +564,382 @@ function RouteComponent() {
 }
 ```
 
+> `alt`、`title`、`href`、`aria-label` などの `string` 属性でコンテンツを使用する場合、関数の値を次のように使用できます:
+>
+> ```html
+> <img src="{content.image.src.value}" alt="{content.image.value}" />
+> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
+> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
+> ```
+
+> `useIntlayer` hook の詳細については、[ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/useIntlayer.md)を参照してください。
+
+</Step>
+
+<Step number={9} title="ロケール切り替えコンポーネントを作成する">
+
+ユーザーが言語を変更できるようにするコンポーネントを作成します:
+
+```tsx fileName="src/components/locale-switcher.tsx"
+import { useLocation } from "@tanstack/react-router";
+import {
+  getHTMLTextDir,
+  getLocaleName,
+  getPathWithoutLocale,
+  getPrefix,
+  Locales,
+} from "intlayer";
+import type { FC } from "react";
+import { useLocale } from "react-intlayer";
+
+import { LocalizedLink, type To } from "./localized-link";
+
+export const LocaleSwitcher: FC = () => {
+  const { pathname } = useLocation();
+
+  const { availableLocales, locale, setLocale } = useLocale();
+
+  const pathWithoutLocale = getPathWithoutLocale(pathname);
+
+  return (
+    <ol>
+      {availableLocales.map((localeEl) => (
+        <li key={localeEl}>
+          <LocalizedLink
+            aria-current={localeEl === locale ? "page" : undefined}
+            onClick={() => setLocale(localeEl)}
+            params={{ locale: getPrefix(localeEl).localePrefix }}
+            to={pathWithoutLocale as To}
+          >
+            <span>
+              {/* ロケール - 例: FR */}
+              {localeEl}
+            </span>
+            <span>
+              {/* その言語自体でのロケール - 例: Français */}
+              {getLocaleName(localeEl, locale)}
+            </span>
+            <span dir={getHTMLTextDir(localeEl)} lang={localeEl}>
+              {/* 現在のロケールでの言語 - 例: Locales.SPANISH に設定された現在のロケールでの Francés */}
+              {getLocaleName(localeEl)}
+            </span>
+            <span dir="ltr" lang={Locales.ENGLISH}>
+              {/* 英語での言語 - 例: French */}
+              {getLocaleName(localeEl, Locales.ENGLISH)}
+            </span>
+          </LocalizedLink>
+        </li>
+      ))}
+    </ol>
+  );
+};
+```
+
+> `useLocale` hook の詳細については、[ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/useLocale.md)を参照してください。
+
+</Step>
+
+<Step number={10} title="HTML 属性管理">
+
+ステップ 5 で見たように、ルートコンポーネントで `useParams` を使用して `html` タグの `lang` と `dir` 属性を管理できます。これにより、サーバーとクライアントで正しい属性が設定されます。
+
+```tsx fileName="src/routes/__root.tsx"
+const localeRoute = getRouteApi("/{-$locale}");
+
+function RootDocument({ children }: { children: ReactNode }) {
+  const params = localeRoute.useParams();
+  const locale = params?.locale ?? defaultLocale;
+
+  return (
+    <html dir={getHTMLTextDir(locale)} lang={locale}>
+      {/* ... */}
+    </html>
+  );
+}
+```
+
+---
+
+</Step>
+
+<Step number={11} title="ミドルウェアを追加する">
+
+`intlayerProxy` を使用して、アプリケーションにサーバー側のルーティングを追加することもできます。このプラグインは URL に基づいて現在のロケールを自動的に検出し、適切なロケール cookie を設定します。ロケールが指定されていない場合、プラグインはユーザーのブラウザ言語設定に基づいて最も適切なロケールを決定します。ロケールが検出されない場合、デフォルトロケールにリダイレクトされます。
+
+> 本番環境で `intlayerProxy` を使用するには、`vite-intlayer` パッケージを `devDependencies` から `dependencies` に切り替える必要があります。
+
+> Intlayer v9 以降では、`intlayerProxy()` は `intlayer()` プラグインに直接バンドルされ、`routing.enableProxy` オプション（デフォルトで `true`）を通じてデフォルトで有効になっています。以下に示すように、別途登録することは今や任意です: これは後方互換性と、プラグイン順序を制御する必要があるセットアップのために保持されています。オプトアウトするには `routing.enableProxy: false` を設定してください。[v9 リリースノート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/releases/v9.md)を参照してください。
+
+```typescript fileName="vite.config.ts"
+import { tanstackStart } from "@tanstack/react-start/plugin/vite";
+import viteReact from "@vitejs/plugin-react";
+import { nitro } from "nitro/vite";
+import { defineConfig } from "vite";
+import { intlayer } from "vite-intlayer";
+
+export default defineConfig({
+  plugins: [
+    nitro(),
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
+    tanstackStart({
+      router: {
+        routeFileIgnorePattern:
+          ".content.(ts|tsx|js|mjs|cjs|jsx|json|jsonc|json5|md|mdx|yaml|yml)$",
+      },
+    }),
+    viteReact(),
+  ],
+});
+```
+
+---
+
+</Step>
+
+<Step number={12} title="メタデータを国際化する">
+
+<Tabs>
+
+<Tab label="静的解決" value="static">
+
+`getIntlayer` は**マージされた**ディクショナリに対して同期的に解決します。これはすべての宣言されたロケールを保持しているものです。`head` は同期のままで何も待機しませんが、多言語ディクショナリ全体がブラウザに送信されるルートチャンクに含まれます。
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createFileRoute } from "@tanstack/react-router";
+import {
+  defaultLocale,
+  getIntlayer,
+  getLocalizedUrl,
+  localeMap,
+} from "intlayer";
+
+export const Route = createFileRoute("/{-$locale}/")({
+  component: RouteComponent,
+  head: ({ params }) => {
+    const { locale = defaultLocale } = params;
+    const path = "/"; // このルートのパス
+
+    const metaContent = getIntlayer("app", locale);
+
+    return {
+      links: [
+        // 正規リンク: 現在のローカライズされたページを指す
+        { rel: "canonical", href: getLocalizedUrl(path, locale) },
+
+        // Hreflang: すべてのローカライズされたバージョンについて Google に通知
+        ...localeMap(({ locale: mapLocale }) => ({
+          rel: "alternate",
+          hrefLang: mapLocale,
+          href: getLocalizedUrl(path, mapLocale),
+        })),
+
+        // x-default: マッチしない言語のユーザー向け
+        // デフォルトのフォールバックロケールを定義（通常、プライマリ言語）
+        {
+          rel: "alternate",
+          hrefLang: "x-default",
+          href: getLocalizedUrl(path, defaultLocale),
+        },
+      ],
+      meta: [
+        { title: metaContent.title },
+        { name: "description", content: metaContent.meta.description },
+      ],
+    };
+  },
+});
+```
+
+小さなメタデータディクショナリ、少数のロケール、またはプロトタイピング中に最適です。
+
+</Tab>
+
+<Tab label="動的解決" value="dynamic">
+
+`getIntlayerAsync`（**v9.4** から利用可能）は `getIntlayer` のような動作をしますが、ビルドプラグインはマージされたディクショナリではなく、`.intlayer/dynamic_dictionaries/` のロケール別チャンクを指します。したがって、ページはそれがレンダリングするロケールのみを配信します。そのチャンクはオンデマンドで読み込まれるため、`head` は `async` になります:
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createFileRoute } from "@tanstack/react-router";
+import {
+  defaultLocale,
+  getIntlayerAsync,
+  getLocalizedUrl,
+  localeMap,
+} from "intlayer";
+
+export const Route = createFileRoute("/{-$locale}/")({
+  component: RouteComponent,
+  head: async ({ params }) => {
+    const { locale = defaultLocale } = params;
+    const path = "/"; // このルートのパス
+
+    const metaContent = await getIntlayerAsync("app", locale);
+
+    return {
+      links: [
+        // 正規リンク: 現在のローカライズされたページを指す
+        { rel: "canonical", href: getLocalizedUrl(path, locale) },
+
+        // Hreflang: すべてのローカライズされたバージョンについて Google に通知
+        ...localeMap(({ locale: mapLocale }) => ({
+          rel: "alternate",
+          hrefLang: mapLocale,
+          href: getLocalizedUrl(path, mapLocale),
+        })),
+
+        // x-default: マッチしない言語のユーザー向け
+        // デフォルトのフォールバックロケールを定義（通常、プライマリ言語）
+        {
+          rel: "alternate",
+          hrefLang: "x-default",
+          href: getLocalizedUrl(path, defaultLocale),
+        },
+      ],
+      meta: [
+        { title: metaContent.title },
+        { name: "description", content: metaContent.meta.description },
+      ],
+    };
+  },
+});
+```
+
+> `head` が複数のディクショナリを読む場合、`Promise.all` で解決してください: 各 `getIntlayerAsync` を独自の行で待機すると、リクエストが並行実行ではなく直列実行されます。
+
+トレードオフ: 動的インポートは `head` が実行されている間に、ドキュメントレンダリングの重大パス上で解決されます。コールドルートでは、これにより head を数ミリ秒遅延させ、**LCP** をわずかに低下させる可能性があります。
+
+</Tab>
+
+<Tab label="キャッシュされた動的解決" value="cached">
+
+ルート `loader` でディクショナリを解決し、`head` で `loaderData` から読み直してください。マッチされたルートのローダーは並行実行され、`staleTime: Infinity` は TanStack Router に結果が決してstaleにならないことを伝えるため、ロケール別チャンクは一度解決され、その後ルーターキャッシュから提供されるため、`head` は同期のままです。
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createFileRoute } from "@tanstack/react-router";
+import {
+  defaultLocale,
+  getIntlayerAsync,
+  getLocalizedUrl,
+  localeMap,
+} from "intlayer";
+
+export const Route = createFileRoute("/{-$locale}/")({
+  component: RouteComponent,
+  // 他のマッチされたルートと並行実行され、head の重大パスから外れる
+  loader: async ({ params }) => {
+    const { locale = defaultLocale } = params;
+
+    return { metaContent: await getIntlayerAsync("app", locale) };
+  },
+  // 与えられたロケールに対してディクショナリは決して変わらない: チャンクを一度解決
+  staleTime: Infinity,
+  head: ({ params, loaderData }) => {
+    const { locale = defaultLocale } = params;
+    const path = "/"; // このルートのパス
+
+    return {
+      links: [
+        // 正規リンク: 現在のローカライズされたページを指す
+        { rel: "canonical", href: getLocalizedUrl(path, locale) },
+
+        // Hreflang: すべてのローカライズされたバージョンについて Google に通知
+        ...localeMap(({ locale: mapLocale }) => ({
+          rel: "alternate",
+          hrefLang: mapLocale,
+          href: getLocalizedUrl(path, mapLocale),
+        })),
+
+        // x-default: マッチしない言語のユーザー向け
+        // デフォルトのフォールバックロケールを定義（通常、プライマリ言語）
+        {
+          rel: "alternate",
+          hrefLang: "x-default",
+          href: getLocalizedUrl(path, defaultLocale),
+        },
+      ],
+      meta: [
+        { title: loaderData?.metaContent.title },
+        {
+          name: "description",
+          content: loaderData?.metaContent.meta.description,
+        },
+      ],
+    };
+  },
+});
+```
+
+> `head` はローダーが確定する前に呼び出される可能性があるため、`loaderData` は `undefined` の可能性があるとして型付けされています。オプショナルチェーニングを保持するか、フォールバックタイトルを返してください。
+
+head の重大パスでその コストを支払うことなく、ロケール別チャンクを保持します。代金は開発者体験です: コンテンツは `loaderData` を通じてローダーから `head` に明示的にスレッド処理される必要があります。
+
+</Tab>
+
+</Tabs>
+
+### どの解決方法を選ぶべき？
+
+|                      | 静的解決              | 動的解決                   | キャッシュされた動的解決               |
+| -------------------- | --------------------- | -------------------------- | -------------------------------------- |
+| API                  | `getIntlayer`         | `getIntlayerAsync` (v9.4+) | `getIntlayerAsync` in `loader` (v9.4+) |
+| `head` signature     | synchronous           | `async`                    | synchronous, reads `loaderData`        |
+| Locales shipped      | every declared locale | requested locale only      | requested locale only                  |
+| Client navigations   | nothing to resolve    | re-entered on every match  | served from the router cache           |
+| Developer experience | simplest              | one `await`                | content threaded through `loaderData`  |
+
+---
+
+</Step>
+
+<Step number={13} title="サーバーアクションでロケールを取得する">
+
+サーバーアクションまたはAPIエンドポイント内から現在のロケールにアクセスしたい場合があります。
+`intlayer` から `getLocale` ヘルパーを使用してこれを実行できます。
+
+TanStack Start のサーバー関数を使用した例を示します：
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createServerFn } from "@tanstack/react-start";
+import {
+  getRequestHeader,
+  getRequestHeaders,
+} from "@tanstack/react-start/server";
+import { getCookie, getIntlayer, getLocale } from "intlayer";
+
+export const getLocaleServer = createServerFn().handler(async () => {
+  const locale = await getLocale({
+    // リクエストからクッキーを取得（デフォルト：'INTLAYER_LOCALE'）
+    getCookie: (name) => {
+      const cookieString = getRequestHeader("cookie");
+
+      return getCookie(name, cookieString);
+    },
+    // リクエストからヘッダーを取得（デフォルト：'x-intlayer-locale'）
+    // Accept-Language ネゴシエーションを使用したフォールバック
+    getHeader: (name) => getRequestHeader(name),
+  });
+
+  // getIntlayerAsync() を使用してコンテンツを取得
+  const content = getIntlayer("app", locale);
+
+  return { locale, content };
+});
+```
+
+---
+
+</Step>
+
+<Step number={14} title="見つからないページを管理する">
+
+ユーザーが存在しないページにアクセスした場合、カスタム見つからないページを表示できます。ロケールプレフィックスは見つからないページがトリガーされる方法に影響を与える可能性があります。
+
+#### ローカライズされたホームページ
+
 > `string` 属性（`alt`、`title`、`href`、`aria-label` など）でコンテンツを使用したい場合は、関数の値を次のように使用できます：
 >
 > ```html
@@ -613,10 +951,6 @@ function RouteComponent() {
 > `useIntlayer`フックの詳細については、[ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/useIntlayer.md)を参照してください。
 
 </Step>
-
-<Step number={10} title="ロケールスイッチャーコンポーネントの作成">
-
-ユーザーが言語を変更できるようにするコンポーネントを作成します：
 
 ```tsx fileName="src/components/locale-switcher.tsx"
 import { useLocation } from "@tanstack/react-router";
@@ -679,12 +1013,6 @@ export const LocaleSwitcher: FC = () => {
 
 <Step number={11} title="HTML属性の管理">
 
-const localeRoute = getRouteApi("/{-$locale}");
-
-function RootDocument({ children }: { children: ReactNode }) {
-const params = localeRoute.useParams();
-const locale = params?.locale ?? defaultLocale;
-
 return (
 <html dir={getHTMLTextDir(locale)} lang={locale}>
 {/* ... _/}
@@ -695,222 +1023,15 @@ return (
 );
 }
 
-````
-
----
-
-</Step>
-
-<Step number={12} title="ミドルウェアの追加">
-
-`intlayerProxy`を使用して、アプリケーションにサーバーサイドのルーティングを追加することもできます。このプラグインは、URLに基づいて現在のロケールを自動的に検出し、適切なロケールクッキーを設定します。ロケールが指定されていない場合、ユーザーのブラウザの言語設定に基づいて最も適切なロケールを決定します。ロケールが検出されない場合は、デフォルトのロケールにリダイレクトされます。
-
-> `intlayerProxy`を本番環境で使用するには、`vite-intlayer`パッケージを`devDependencies`から`dependencies`に切り替える必要があることに注意してください。
-
-> Intlayer v9 以降、`intlayerProxy()` は `intlayer()` プラグインに直接バンドルされており、`routing.enableProxy` オプション（デフォルトでは `true`）により デフォルトで有効になっています。下記のように別途登録することはオプションになりました。これは後方互換性と、プラグインの順序を制御する必要があるセットアップのために保持されています。`routing.enableProxy: false` に設定することでオプトアウトできます。[v9 リリースノート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/releases/v9.md)を参照してください。
-
-```typescript fileName="vite.config.ts"
-import { tanstackStart } from "@tanstack/react-start/plugin/vite";
-import viteReact from "@vitejs/plugin-react";
-import { nitro } from "nitro/vite";
-import { defineConfig } from "vite";
-import { intlayer } from "vite-intlayer";
-
-export default defineConfig({
-  plugins: [
-    nitro(),
-    intlayer({
-      proxy: {
-        ignore: (req) => req.url?.startsWith("/api"),
-      },
-    }),
-    tanstackStart({
-      router: {
-        routeFileIgnorePattern:
-          ".content.(ts|tsx|js|mjs|cjs|jsx|json|jsonc|json5|md|mdx|yaml|yml)$",
-      },
-    }),
-    viteReact(),
-  ],
-});
-````
-
----
-
-</Step>
-
-<Step number={12} title="メタデータの国際化">
-
-<Tabs>
-
-<Tab label="静的解決" value="static">
-
-`getIntlayer` は、宣言されたすべてのロケールを含む**統合**辞書に対して同期的に解決します。`head` は同期のままで待機も発生しませんが、多言語辞書全体がブラウザへ送られるルートチャンクに取り込まれます。
-
-```tsx fileName="src/routes/{-$locale}/index.tsx"
-import { createFileRoute } from "@tanstack/react-router";
-import {
-  defaultLocale,
-  getIntlayer,
-  getLocalizedUrl,
-  localeMap,
-} from "intlayer";
-
 export const Route = createFileRoute("/{-$locale}/")({
-  component: RouteComponent,
-  head: ({ params }) => {
-    const { locale = defaultLocale } = params;
-    const path = "/"; // The path for this route
-
-    const metaContent = getIntlayer("app", locale);
-
-    return {
-      links: [
-        // Canonical link: Points to the current localized page
-        { rel: "canonical", href: getLocalizedUrl(path, locale) },
-
-        // Hreflang: Tell Google about all localized versions
-        ...localeMap(({ locale: mapLocale }) => ({
-          rel: "alternate",
-          hrefLang: mapLocale,
-          href: getLocalizedUrl(path, mapLocale),
-        })),
-
-        // x-default: For users in unmatched languages
-        // Define the default fallback locale (usually your primary language)
-        {
-          rel: "alternate",
-          hrefLang: "x-default",
-          href: getLocalizedUrl(path, defaultLocale),
-        },
-      ],
-      meta: [
-        { title: metaContent.title },
-        { name: "description", content: metaContent.meta.description },
-      ],
-    };
-  },
-});
-```
-
-小さなメタデータ辞書、ロケール数が少ない場合、プロトタイピング時に適しています。
-
-</Tab>
-
-<Tab label="動的解決" value="dynamic">
-
-`getIntlayerAsync`（**v9.4** 以降で利用可能）は `getIntlayer` と同じ振る舞いをしますが、ビルドプラグインが統合辞書ではなく `.intlayer/dynamic_dictionaries/` 内のロケール別チャンクを参照させます。そのためページはレンダリングするロケールのみを配信します。このチャンクはオンデマンドで読み込まれるため、`head` は `async` になります。
-
-```tsx fileName="src/routes/{-$locale}/index.tsx"
-import { createFileRoute } from "@tanstack/react-router";
-import {
-  defaultLocale,
-  getIntlayerAsync,
-  getLocalizedUrl,
-  localeMap,
-} from "intlayer";
-
-export const Route = createFileRoute("/{-$locale}/")({
-  component: RouteComponent,
-  head: async ({ params }) => {
-    const { locale = defaultLocale } = params;
-    const path = "/"; // The path for this route
+component: RouteComponent,
+head: async ({ params }) => {
+const { locale = defaultLocale } = params;
+const path = "/"; // The path for this route
 
     const metaContent = await getIntlayerAsync("app", locale);
 
-    return {
-      links: [
-        // Canonical link: Points to the current localized page
-        { rel: "canonical", href: getLocalizedUrl(path, locale) },
-
-        // Hreflang: Tell Google about all localized versions
-        ...localeMap(({ locale: mapLocale }) => ({
-          rel: "alternate",
-          hrefLang: mapLocale,
-          href: getLocalizedUrl(path, mapLocale),
-        })),
-
-        // x-default: For users in unmatched languages
-        // Define the default fallback locale (usually your primary language)
-        {
-          rel: "alternate",
-          hrefLang: "x-default",
-          href: getLocalizedUrl(path, defaultLocale),
-        },
-      ],
-      meta: [
-        { title: metaContent.title },
-        { name: "description", content: metaContent.meta.description },
-      ],
-    };
-  },
-});
-```
-
-> 1 つの `head` で複数の辞書を読む場合は `Promise.all` でまとめて解決してください。`getIntlayerAsync` を 1 行ずつ await すると、リクエストが並列ではなく直列に連鎖してしまいます。
-
-トレードオフとして、動的インポートはドキュメントレンダリングのクリティカルパス上で `head` の実行中に解決されます。コールドなルートでは `head` が数ミリ秒遅れ、**LCP** がわずかに悪化する可能性があります。
-
-</Tab>
-
-<Tab label="キャッシュ付き動的解決" value="cached">
-
-辞書をルートの `loader` で解決し、`head` では `loaderData` から読み戻します。マッチしたルートのローダーは並行して実行され、`staleTime: Infinity` によって TanStack Router は結果が古くならないと判断します。つまりロケール別チャンクは一度だけ解決され、以降はルーターのキャッシュから提供されるため、`head` は同期のままです。
-
-```tsx fileName="src/routes/{-$locale}/index.tsx"
-import { createFileRoute } from "@tanstack/react-router";
-import {
-  defaultLocale,
-  getIntlayerAsync,
-  getLocalizedUrl,
-  localeMap,
-} from "intlayer";
-
-export const Route = createFileRoute("/{-$locale}/")({
-  component: RouteComponent,
-  // Resolved in parallel with the other matched routes, off the head critical path
-  loader: async ({ params }) => {
-    const { locale = defaultLocale } = params;
-
-    return { metaContent: await getIntlayerAsync("app", locale) };
-  },
-  // The dictionary never changes for a given locale: resolve the chunk once
-  staleTime: Infinity,
-  head: ({ params, loaderData }) => {
-    const { locale = defaultLocale } = params;
-    const path = "/"; // The path for this route
-
-    return {
-      links: [
-        // Canonical link: Points to the current localized page
-        { rel: "canonical", href: getLocalizedUrl(path, locale) },
-
-        // Hreflang: Tell Google about all localized versions
-        ...localeMap(({ locale: mapLocale }) => ({
-          rel: "alternate",
-          hrefLang: mapLocale,
-          href: getLocalizedUrl(path, mapLocale),
-        })),
-
-        // x-default: For users in unmatched languages
-        // Define the default fallback locale (usually your primary language)
-        {
-          rel: "alternate",
-          hrefLang: "x-default",
-          href: getLocalizedUrl(path, defaultLocale),
-        },
-      ],
-      meta: [
-        { title: loaderData?.metaContent.title },
-        {
-          name: "description",
-          content: loaderData?.metaContent.meta.description,
-        },
-      ],
-    };
-  },
-});
-```
+````
 
 > `head` はローダーの解決前に呼ばれることがあるため、`loaderData` は `undefined` の可能性がある型になります。オプショナルチェーンを残すか、フォールバックのタイトルを返してください。
 
@@ -942,19 +1063,6 @@ Intlayerの `getLocale` ヘルパーを使用してこれを行うことがで�
 以下は、TanStack Startのサーバー関数を使用した例です：
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
-import { createServerFn } from "@tanstack/react-start";
-import {
-  getRequestHeader,
-  getRequestHeaders,
-} from "@tanstack/react-start/server";
-import { getCookie, getIntlayer, getLocale } from "intlayer";
-
-export const getLocaleServer = createServerFn().handler(async () => {
-  const locale = await getLocale({
-    // リクエストからクッキーを取得する（デフォルト：'INTLAYER_LOCALE'）
-    getCookie: (name) => {
-      const cookieString = getRequestHeader("cookie");
-
       return getCookie(name, cookieString);
     },
     // リクエストからヘッダーを取得する（デフォルト：'x-intlayer-locale'）
@@ -965,9 +1073,7 @@ export const getLocaleServer = createServerFn().handler(async () => {
   // getIntlayer()を使用してコンテンツを取得する
   const content = getIntlayer("app", locale);
 
-  return { locale, content };
-});
-```
+````
 
 ---
 
@@ -986,65 +1092,15 @@ TanStack Routerでは、ローカライズされたルートでの404ページ�
 3. **キャッチオールルート**: ロケールセグメント内の一致しないパスをすべてキャプチャします
 
 ```tsx fileName="src/routes/{-$locale}/404.tsx"
-import { createFileRoute } from "@tanstack/react-router";
 
-// これにより、専用の /[locale]/404 ルートが作成されます
-// これは直接のルートとしても使用され、他のファイルでコンポーネントとしてインポートもされます
-export const Route = createFileRoute("/{-$locale}/404")({
-  component: NotFoundComponent,
-});
-
-// コンポーネントおよびキャッチオールルートで再利用できるように個別にエクスポートされます
-export function NotFoundComponent() {
-  return (
-    <div>
-      <h1>404</h1>
-    </div>
-  );
-}
 ```
 
 ```tsx fileName="src/routes/{-$locale}/route.tsx"
-import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
-import { validatePrefix } from "intlayer";
-import { NotFoundComponent } from "./404";
 
-export const Route = createFileRoute("/{-$locale}")({
-  // beforeLoadは、ルートがレンダリングされる前（サーバーとクライアントの両方）に実行されます
-  // ロケール接頭辞を検証するのに最適な場所です
-  beforeLoad: ({ params }) => {
-    const localeParam = params.locale;
-
-    // validatePrefixは、intlayer構成に従ってロケールが有効かどうかを確認します
-    const { isValid, localePrefix } = validatePrefix(localeParam);
-
-    if (!isValid) {
-      // 無効なロケール接頭辞 - 有効なロケール接頭辞を持つ404ページにリダイレクトします
-      throw redirect({
-        to: "/{-$locale}/404",
-        params: { locale: localePrefix },
-      });
-    }
-  },
-  component: Outlet,
-  // notFoundComponentは、子ルートが存在しないときに呼び出されます
-  // 例：/en/non-existent-page は /en レイアウト内でこれをトリガーします
-  notFoundComponent: NotFoundComponent,
-});
 ```
 
 ```tsx fileName="src/routes/{-$locale}/$.tsx"
-import { createFileRoute } from "@tanstack/react-router";
 
-import { NotFoundComponent } from "./404";
-
-// $（スプラット/キャッチオール）ルートは、他のルートと一致しないパスに一致します
-// 例：/en/some/deeply/nested/invalid/path
-// これにより、ロケール内の一致しないパスがすべて404ページを表示するようになります
-// これがないと、一致しない深いパスが空白ページまたはエラーを表示する可能性があります
-export const Route = createFileRoute("/{-$locale}/$")({
-  component: NotFoundComponent,
-});
 ```
 
 </Step>
@@ -1082,14 +1138,6 @@ const config: IntlayerConfig = {
      */
     saveComponents: false,
 
-    /**
-     * 辞書キーの接頭辞
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-export default config;
 ```
 
 <Tabs>
@@ -1098,29 +1146,23 @@ export default config;
 コンポーネントを変換してコンテンツを抽出するためにエクストラクタを実行します
 
 ```bash packageManager="npm"
-npx intlayer extract
+
 ```
 
 ```bash packageManager="pnpm"
-pnpm intlayer extract
+
 ```
 
 ```bash packageManager="yarn"
-yarn intlayer extract
+
 ```
 
 ```bash packageManager="bun"
+
+</Tab>
+</Tabs>
+
 bun x intlayer extract
-```
-
- </Tab>
- <Tab value='Babelコンパイラ'>
-
-> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
-
-`vite.config.ts` を更新して `intlayerCompiler` プラグインを含めます：
-
-```ts fileName="vite.config.ts"
 import { intlayer, intlayerCompiler } from "vite-intlayer";
 import { defineConfig } from "vite";
 import { devtools } from "@tanstack/devtools-vite";
@@ -1156,38 +1198,17 @@ yarn build # Or yarn dev
 ```
 
 ```bash packageManager="bun"
-bun run build # またはbun run dev
-```
-
- </Tab>
-</Tabs>
 
 ---
 
-</Step>
+1. **BLOCK 2 of 3** - 英語（en）のソース
+2. **BLOCK 2 of 3** - 日本語（ja）の現在の翻訳
 
-<Step number={16} title="サイトマップの生成">
+その後、監査を実施し、完全に更新された日本語ファイルを返します。---
 
-Intlayer には、アプリケーションのサイトマップを簡単に作成できるサイトマップ ジェネレーターが組み込まれています。ローカライズされたルートを処理し、検索エンジンに必要なメタデータを追加します。
-
-> Intlayer によって生成されたサイトマップは、`xhtml:link` 名前空間 (Hreflang XML Extensions) をサポートしています。生の URL のみを表示するデフォルトのサイトマップ ジェネレーターとは異なり、Intlayer はページのすべての言語バージョン (例: `/about`、`/about?lang=fr`、`/about?lang=es`) 間に必要な双方向リンクを自動的に作成します。これにより、検索エンジンが正しい言語バージョンを正しい対象者に正しくインデックス付けして提供できるようになります。
-
-これを使用するには、まず `vite.config.ts` を構成して、ローカライズされたルートのプリレンダリングを有効にし、デフォルトの TanStack Start サイトマップ生成を無効にする必要があります。
-
-```typescript fileName="vite.config.ts"
+bun run build # またはbun run dev
 import { localeFlatMap } from "intlayer";
 // ... その他のインポート
-
-export const pathList = ["", "/about", "/404"];
-
-const localizedPages = localeFlatMap(({ urlPrefix }) =>
-  pathList.map((path) => ({
-    path: `${urlPrefix}${path}`,
-    prerender: {
-      enabled: true,
-    },
-  }))
-);
 
 export default defineConfig({
   plugins: [
@@ -1210,13 +1231,9 @@ export default defineConfig({
 
 次に、`generateSitemap` 関数を使用する `src/routes/sitemap[.]xml.ts` ルートを作成します。
 
-```typescript fileName="src/routes/sitemap[.]xml.ts"
-import { createFileRoute } from "@tanstack/react-router";
-import { generateSitemap } from "intlayer";
+````typescript fileName="src/routes/sitemap[.]xml.ts"
 
-const SITE_URL = (
-  import.meta.env.VITE_SITE_URL ?? "http://localhost:3000"
-).replace(/\/$/, "");
+---
 
 export const Route = createFileRoute("/sitemap.xml")({
   server: {
@@ -1237,19 +1254,6 @@ export const Route = createFileRoute("/sitemap.xml")({
     },
   },
 });
-```
-
----
-
-</Step>
-
-<Step number={17} title="TypeScriptの構成">
-
-Intlayerはモジュール拡張機能を利用して、TypeScriptの利点を活用し、コードベースを強化します。
-
-TypeScriptの構成に自動生成された型が含まれていることを確認してください：
-
-```json5 fileName="tsconfig.json"
 {
   // ... 既存の構成
   include: [
@@ -1257,55 +1261,48 @@ TypeScriptの構成に自動生成された型が含まれていることを確�
     ".intlayer/**/*.ts", // 自動生成された型を含める
   ],
 }
-```
 
----
+### Git Configuration
 
-</Step>
+Intlayerによって生成されたファイルを無視することをお勧めします。これにより、Gitリポジトリにコミットするのを避けることができます。
 
-</Steps>
-
-### Git構成
-
-Intlayerによって生成されたファイルは無視することをお勧めします。これにより、Gitリポジトリにそれらをコミットすることを避けることができます。
-
-これを行うには、`.gitignore`ファイルに以下の指示を追加できます：
+これを行うには、`.gitignore`ファイルに以下の指示を追加できます:
 
 ```plaintext fileName=".gitignore"
-# Intlayerによって生成されたファイルを無視する
+# Intlayerによって生成されたファイルを無視
 .intlayer
-```
+````
 
 ---
 
-## VS Code拡張機能
+## VS Code Extension
 
-Intlayerでの開発体験を向上させるために、公式の**Intlayer VS Code拡張機能**をインストールできます。
+Intlayer での開発体験を向上させるために、公式の **Intlayer VS Code Extension** をインストールできます。
 
-[VS Code Marketplaceからインストール](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+[VS Code Marketplace からインストール](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
-この拡張機能は以下を提供します：
+この拡張機能は以下を提供します:
 
-- 翻訳キーの**オートコンプリート**。
-- 翻訳の欠落に対する**リアルタイムのエラー検出**。
-- 翻訳されたコンテンツの**インラインプレビュー**。
-- 翻訳を簡単に作成および更新するための**クイックアクション**。
+- **翻訳キーの自動補完**。
+- **欠落している翻訳のリアルタイムエラー検出**。
+- **翻訳されたコンテンツのインラインプレビュー**。
+- **翻訳を簡単に作成・更新するクイックアクション**。
 
-拡張機能の使用方法の詳細については、[Intlayer VS Code拡張機能のドキュメント](https://intlayer.org/doc/vs-code-extension)を参照してください。
+拡張機能の使用方法の詳細については、[Intlayer VS Code Extension ドキュメント](https://intlayer.org/doc/vs-code-extension)を参照してください。
 
 ---
 
 ## さらに進む
 
-さらに進むには、[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を実装したり、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)を使用してコンテンツを外部化したりできます。
+さらに進むために、[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を実装するか、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)を使用してコンテンツを外部化することができます。
 
 ---
 
-## ドキュメント参照
+## ドキュメント参考資料
 
-- [Intlayerドキュメント](https://intlayer.org)
-- [TanStack Startドキュメント](https://reactrouter.com/)
-- [useIntlayerフック](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/useIntlayer.md)
-- [useLocaleフック](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/useLocale.md)
-- [コンテンツ宣言](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)
-- [構成](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)
+- [Intlayer ドキュメント](https://intlayer.org)
+- [Tanstack Start ドキュメント](https://reactrouter.com/)
+- [useIntlayer hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/useIntlayer.md)
+- [useLocale hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/useLocale.md)
+- [Content Declaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)
+- [Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)

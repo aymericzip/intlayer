@@ -127,6 +127,8 @@ Para ver cómo configurar los locales disponibles u otros parámetros, consulte 
 
 - **[Login](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/login.md)** - Autenticarse con el CMS de Intlayer y obtener credenciales de acceso
 
+> `intlayer login` emite una **clave de acceso** (`clientId` / `clientSecret`) que utiliza cada comando con credenciales. El secreto es una credencial del lado del servidor y nunca llega a tu paquete cliente — consulta [Keeping the access key safe](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/login.md#keeping-the-access-key-safe).
+
 ### Comandos principales
 
 - **[Build de diccionarios](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/build.md)** - Construya sus diccionarios a partir de archivos de declaración de contenido

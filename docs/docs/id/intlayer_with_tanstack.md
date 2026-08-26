@@ -515,7 +515,7 @@ export const useLocalizedNavigate = () => {
 
 Akses kamus konten Anda di seluruh aplikasi Anda:
 
-#### Halaman Beranda yang Terlokalisasi
+#### Halaman Beranda Terlokalisasi
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/react-router";
@@ -568,9 +568,381 @@ function RouteComponent() {
 
 </Step>
 
-<Step number={10} title="Buat Komponen Locale Switcher">
+<Step number={9} title="Buat Komponen Locale Switcher">
 
-Buat komponen untuk memungkinkan pengguna mengganti bahasa:
+Buat komponen untuk memungkinkan pengguna mengubah bahasa:
+
+```tsx fileName="src/components/locale-switcher.tsx"
+import { useLocation } from "@tanstack/react-router";
+import {
+  getHTMLTextDir,
+  getLocaleName,
+  getPathWithoutLocale,
+  getPrefix,
+  Locales,
+} from "intlayer";
+import type { FC } from "react";
+import { useLocale } from "react-intlayer";
+
+import { LocalizedLink, type To } from "./localized-link";
+
+export const LocaleSwitcher: FC = () => {
+  const { pathname } = useLocation();
+
+  const { availableLocales, locale, setLocale } = useLocale();
+
+  const pathWithoutLocale = getPathWithoutLocale(pathname);
+
+  return (
+    <ol>
+      {availableLocales.map((localeEl) => (
+        <li key={localeEl}>
+          <LocalizedLink
+            aria-current={localeEl === locale ? "page" : undefined}
+            onClick={() => setLocale(localeEl)}
+            params={{ locale: getPrefix(localeEl).localePrefix }}
+            to={pathWithoutLocale as To}
+          >
+            <span>
+              {/* Locale - misalnya FR */}
+              {localeEl}
+            </span>
+            <span>
+              {/* Bahasa dalam Locale-nya sendiri - misalnya Français */}
+              {getLocaleName(localeEl, locale)}
+            </span>
+            <span dir={getHTMLTextDir(localeEl)} lang={localeEl}>
+              {/* Bahasa dalam Locale saat ini - misalnya Francés dengan locale saat ini diatur ke Locales.SPANISH */}
+              {getLocaleName(localeEl)}
+            </span>
+            <span dir="ltr" lang={Locales.ENGLISH}>
+              {/* Bahasa dalam Bahasa Inggris - misalnya French */}
+              {getLocaleName(localeEl, Locales.ENGLISH)}
+            </span>
+          </LocalizedLink>
+        </li>
+      ))}
+    </ol>
+  );
+};
+```
+
+> Untuk mempelajari lebih lanjut tentang hook `useLocale`, lihat [dokumentasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/react-intlayer/useLocale.md).
+
+</Step>
+
+<Step number={10} title="Manajemen Atribut HTML">
+
+Seperti yang terlihat di Step 5, Anda dapat mengelola atribut `lang` dan `dir` dari tag `html` menggunakan `useParams` di komponen root Anda. Ini memastikan bahwa atribut yang benar ditetapkan di server dan klien.
+
+```tsx fileName="src/routes/__root.tsx"
+const localeRoute = getRouteApi("/{-$locale}");
+
+function RootDocument({ children }: { children: ReactNode }) {
+  const params = localeRoute.useParams();
+  const locale = params?.locale ?? defaultLocale;
+
+  return (
+    <html dir={getHTMLTextDir(locale)} lang={locale}>
+      {/* ... */}
+    </html>
+  );
+}
+```
+
+---
+
+</Step>
+
+<Step number={11} title="Tambahkan middleware">
+
+Anda juga dapat menggunakan `intlayerProxy` untuk menambahkan routing sisi server ke aplikasi Anda. Plugin ini akan secara otomatis mendeteksi locale saat ini berdasarkan URL dan menetapkan cookie locale yang sesuai. Jika tidak ada locale yang ditentukan, plugin akan menentukan locale yang paling sesuai berdasarkan preferensi bahasa browser pengguna. Jika tidak ada locale yang terdeteksi, plugin akan mengalihkan ke locale default.
+
+> Perhatikan bahwa untuk menggunakan `intlayerProxy` dalam produksi, Anda perlu memindahkan paket `vite-intlayer` dari `devDependencies` ke `dependencies`.
+
+> Sejak Intlayer v9, `intlayerProxy()` dikemas langsung ke dalam plugin `intlayer()` dan diaktifkan secara default melalui opsi `routing.enableProxy` (`true` secara default). Mendaftarnya secara terpisah seperti yang ditunjukkan di bawah ini sekarang bersifat opsional: ini disimpan untuk kompatibilitas backward dan untuk setup yang perlu mengontrol urutan plugin. Atur `routing.enableProxy: false` untuk tidak memilih. Lihat [catatan rilis v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/releases/v9.md).
+
+```typescript fileName="vite.config.ts"
+import { tanstackStart } from "@tanstack/react-start/plugin/vite";
+import viteReact from "@vitejs/plugin-react";
+import { nitro } from "nitro/vite";
+import { defineConfig } from "vite";
+import { intlayer } from "vite-intlayer";
+
+export default defineConfig({
+  plugins: [
+    nitro(),
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
+    tanstackStart({
+      router: {
+        routeFileIgnorePattern:
+          ".content.(ts|tsx|js|mjs|cjs|jsx|json|jsonc|json5|md|mdx|yaml|yml)$",
+      },
+    }),
+    viteReact(),
+  ],
+});
+```
+
+---
+
+</Step>
+
+<Step number={12} title="Internasionalisasi Metadata Anda">
+
+<Tabs>
+
+<Tab label="Resolusi statis" value="static">
+
+`getIntlayer` menyelesaikan secara sinkron terhadap kamus **merged**, yang memegang setiap locale yang dideklarasikan. `head` tetap sinkron dan tidak ada yang diharapkan, tetapi seluruh kamus multilingua ditarik ke dalam chunk rute yang dikirim ke browser.
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createFileRoute } from "@tanstack/react-router";
+import {
+  defaultLocale,
+  getIntlayer,
+  getLocalizedUrl,
+  localeMap,
+} from "intlayer";
+
+export const Route = createFileRoute("/{-$locale}/")({
+  component: RouteComponent,
+  head: ({ params }) => {
+    const { locale = defaultLocale } = params;
+    const path = "/"; // Path untuk rute ini
+
+    const metaContent = getIntlayer("app", locale);
+
+    return {
+      links: [
+        // Link canonical: Menunjuk ke halaman terlokalisasi saat ini
+        { rel: "canonical", href: getLocalizedUrl(path, locale) },
+
+        // Hreflang: Beritahu Google tentang semua versi terlokalisasi
+        ...localeMap(({ locale: mapLocale }) => ({
+          rel: "alternate",
+          hrefLang: mapLocale,
+          href: getLocalizedUrl(path, mapLocale),
+        })),
+
+        // x-default: Untuk pengguna dalam bahasa yang tidak cocok
+        // Tentukan locale fallback default (biasanya bahasa utama Anda)
+        {
+          rel: "alternate",
+          hrefLang: "x-default",
+          href: getLocalizedUrl(path, defaultLocale),
+        },
+      ],
+      meta: [
+        { title: metaContent.title },
+        { name: "description", content: metaContent.meta.description },
+      ],
+    };
+  },
+});
+```
+
+Terbaik untuk kamus metadata kecil, beberapa locale, atau saat prototyping.
+
+</Tab>
+
+<Tab label="Resolusi dinamis" value="dynamic">
+
+`getIntlayerAsync` (tersedia dari **v9.4**) berperilaku seperti `getIntlayer`, tetapi plugin build mengarahkannya ke chunk per-locale di `.intlayer/dynamic_dictionaries/` bukan kamus merged. Halaman karenanya hanya mengirim locale yang ditampilkannya. Karena chunk itu dimuat sesuai permintaan, `head` menjadi `async`:
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createFileRoute } from "@tanstack/react-router";
+import {
+  defaultLocale,
+  getIntlayerAsync,
+  getLocalizedUrl,
+  localeMap,
+} from "intlayer";
+
+export const Route = createFileRoute("/{-$locale}/")({
+  component: RouteComponent,
+  head: async ({ params }) => {
+    const { locale = defaultLocale } = params;
+    const path = "/"; // Path untuk rute ini
+
+    const metaContent = await getIntlayerAsync("app", locale);
+
+    return {
+      links: [
+        // Link canonical: Menunjuk ke halaman terlokalisasi saat ini
+        { rel: "canonical", href: getLocalizedUrl(path, locale) },
+
+        // Hreflang: Beritahu Google tentang semua versi terlokalisasi
+        ...localeMap(({ locale: mapLocale }) => ({
+          rel: "alternate",
+          hrefLang: mapLocale,
+          href: getLocalizedUrl(path, mapLocale),
+        })),
+
+        // x-default: Untuk pengguna dalam bahasa yang tidak cocok
+        // Tentukan locale fallback default (biasanya bahasa utama Anda)
+        {
+          rel: "alternate",
+          hrefLang: "x-default",
+          href: getLocalizedUrl(path, defaultLocale),
+        },
+      ],
+      meta: [
+        { title: metaContent.title },
+        { name: "description", content: metaContent.meta.description },
+      ],
+    };
+  },
+});
+```
+
+> Jika `head` membaca beberapa kamus, selesaikan dengan `Promise.all`: menunggu setiap `getIntlayerAsync` pada baris sendiri merantai permintaan alih-alih menjalankannya secara paralel.
+
+Tradeoff: impor dinamis diselesaikan saat `head` berjalan, di jalur penting render dokumen. Pada rute dingin ini menunda head selama beberapa milidetik dan dapat sedikit merusak **LCP**.
+
+</Tab>
+
+<Tab label="Resolusi dinamis yang di-cache" value="cached">
+
+Selesaikan kamus di route `loader` dan baca kembali dari `loaderData` di `head`. Loader dari rute yang cocok berjalan secara paralel, dan `staleTime: Infinity` memberi tahu TanStack Router bahwa hasil tidak pernah basi, jadi chunk per-locale diselesaikan sekali dan disajikan dari cache router setelahnya, meninggalkan `head` sinkron.
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createFileRoute } from "@tanstack/react-router";
+import {
+  defaultLocale,
+  getIntlayerAsync,
+  getLocalizedUrl,
+  localeMap,
+} from "intlayer";
+
+export const Route = createFileRoute("/{-$locale}/")({
+  component: RouteComponent,
+  // Diselesaikan secara paralel dengan rute yang cocok lainnya, lepas dari jalur penting head
+  loader: async ({ params }) => {
+    const { locale = defaultLocale } = params;
+
+    return { metaContent: await getIntlayerAsync("app", locale) };
+  },
+  // Kamus tidak pernah berubah untuk locale tertentu: selesaikan chunk sekali
+  staleTime: Infinity,
+  head: ({ params, loaderData }) => {
+    const { locale = defaultLocale } = params;
+    const path = "/"; // Path untuk rute ini
+
+    return {
+      links: [
+        // Link canonical: Menunjuk ke halaman terlokalisasi saat ini
+        { rel: "canonical", href: getLocalizedUrl(path, locale) },
+
+        // Hreflang: Beritahu Google tentang semua versi terlokalisasi
+        ...localeMap(({ locale: mapLocale }) => ({
+          rel: "alternate",
+          hrefLang: mapLocale,
+          href: getLocalizedUrl(path, mapLocale),
+        })),
+
+        // x-default: Untuk pengguna dalam bahasa yang tidak cocok
+        // Tentukan locale fallback default (biasanya bahasa utama Anda)
+        {
+          rel: "alternate",
+          hrefLang: "x-default",
+          href: getLocalizedUrl(path, defaultLocale),
+        },
+      ],
+      meta: [
+        { title: loaderData?.metaContent.title },
+        {
+          name: "description",
+          content: loaderData?.metaContent.meta.description,
+        },
+      ],
+    };
+  },
+});
+```
+
+> `head` dapat dipanggil sebelum loader settles, jadi `loaderData` diketik sebagai kemungkinan `undefined`. Pertahankan rantai opsional, atau kembalikan judul fallback.
+
+Anda menyimpan chunk per-locale tanpa membayar biayanya di jalur penting head. Harganya adalah pengalaman pengembang: konten harus dithread secara eksplisit dari loader ke `head` melalui `loaderData`.
+
+</Tab>
+
+</Tabs>
+
+### Resolusi mana yang harus saya pilih?
+
+|                      | Static resolution     | Dynamic resolution         | Cached dynamic resolution              |
+| -------------------- | --------------------- | -------------------------- | -------------------------------------- |
+| API                  | `getIntlayer`         | `getIntlayerAsync` (v9.4+) | `getIntlayerAsync` in `loader` (v9.4+) |
+| `head` signature     | synchronous           | `async`                    | synchronous, reads `loaderData`        |
+| Locales shipped      | every declared locale | requested locale only      | requested locale only                  |
+| Client navigations   | nothing to resolve    | re-entered on every match  | served from the router cache           |
+| Developer experience | simplest              | one `await`                | content threaded through `loaderData`  |
+
+---
+
+</Step>
+
+<Step number={13} title="Ambil locale di server actions Anda">
+
+Anda mungkin ingin mengakses locale saat ini dari dalam server actions atau API endpoints Anda.
+Anda dapat melakukan ini menggunakan helper `getLocale` dari `intlayer`.
+
+Berikut adalah contoh menggunakan TanStack Start's server functions:
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createServerFn } from "@tanstack/react-start";
+import {
+  getRequestHeader,
+  getRequestHeaders,
+} from "@tanstack/react-start/server";
+import { getCookie, getIntlayer, getLocale } from "intlayer";
+
+export const getLocaleServer = createServerFn().handler(async () => {
+  const locale = await getLocale({
+    // Ambil cookie dari request (default: 'INTLAYER_LOCALE')
+    getCookie: (name) => {
+      const cookieString = getRequestHeader("cookie");
+
+      return getCookie(name, cookieString);
+    },
+    // Ambil header dari request (default: 'x-intlayer-locale')
+    // Fallback menggunakan negosiasi Accept-Language
+    getHeader: (name) => getRequestHeader(name),
+  });
+
+  // Ambil beberapa konten menggunakan getIntlayerAsync()
+  const content = getIntlayer("app", locale);
+
+  return { locale, content };
+});
+```
+
+---
+
+</Step>
+
+<Step number={14} title="Kelola halaman not found">
+
+Ketika pengguna mengunjungi halaman yang tidak ada, Anda dapat menampilkan halaman not found kustom dan prefiks locale dapat mempengaruhi cara halaman not found dipicu.
+
+#### Halaman Beranda yang Terlokalisasi
+
+> Jika Anda ingin menggunakan konten Anda dalam atribut `string`, seperti `alt`, `title`, `href`, `aria-label`, dll., Anda dapat menggunakan nilai dari fungsi, seperti:
+>
+> ```html
+> <img src="{content.image.src.value}" alt="{content.image.value}" />
+> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
+> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
+> ```
+
+> Untuk mempelajari lebih lanjut tentang hook `useIntlayer`, lihat [dokumentasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/react-intlayer/useIntlayer.md).
+
+</Step>
 
 ```tsx fileName="src/components/locale-switcher.tsx"
 import { useLocation } from "@tanstack/react-router";
@@ -633,12 +1005,6 @@ export const LocaleSwitcher: FC = () => {
 
 <Step number={11} title="Manajemen Atribut HTML">
 
-const localeRoute = getRouteApi("/{-$locale}");
-
-function RootDocument({ children }: { children: ReactNode }) {
-const params = localeRoute.useParams();
-const locale = params?.locale ?? defaultLocale;
-
 return (
 <html dir={getHTMLTextDir(locale)} lang={locale}>
 {/* ... _/}
@@ -649,157 +1015,15 @@ return (
 );
 }
 
-````
-
----
-
-</Step>
-
-<Step number={12} title="Tambahkan middleware">
-
-Anda juga dapat menggunakan `intlayerProxy` untuk menambahkan routing sisi server ke aplikasi Anda. Plugin ini akan secara otomatis mendeteksi locale saat ini berdasarkan URL dan mengatur cookie locale yang sesuai. Jika tidak ada locale yang ditentukan, plugin akan menentukan locale yang paling sesuai berdasarkan preferensi bahasa browser pengguna. Jika tidak ada locale yang terdeteksi, itu akan dialihkan ke locale default.
-
-> Perhatikan bahwa untuk menggunakan `intlayerProxy` di produksi, Anda perlu mengganti paket `vite-intlayer` dari `devDependencies` ke `dependencies`.
-
-> Sejak Intlayer v9, `intlayerProxy()` digabungkan langsung ke dalam plugin `intlayer()` dan diaktifkan secara default melalui opsi `routing.enableProxy` (`true` secara default). Mendaftarkannya secara terpisah seperti yang ditunjukkan di bawah ini sekarang bersifat opsional: ini disimpan untuk kompatibilitas backward dan untuk setup yang perlu mengontrol urutan plugin. Atur `routing.enableProxy: false` untuk opt out. Lihat [catatan rilis v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/releases/v9.md).
-
-```typescript fileName="vite.config.ts"
-import { tanstackStart } from "@tanstack/react-start/plugin/vite";
-import viteReact from "@vitejs/plugin-react";
-import { nitro } from "nitro/vite";
-import { defineConfig } from "vite";
-import { intlayer } from "vite-intlayer";
-
-export default defineConfig({
-  plugins: [
-    nitro(),
-    intlayer({
-      proxy: {
-        ignore: (req) => req.url?.startsWith("/api"),
-      },
-    }),
-    tanstackStart({
-      router: {
-        routeFileIgnorePattern:
-          ".content.(ts|tsx|js|mjs|cjs|jsx|json|jsonc|json5|md|mdx|yaml|yml)$",
-      },
-    }),
-    viteReact(),
-  ],
-});
-````
-
----
-
-</Step>
-
-<Step number={13} title="Internasionalisasi Metadata Anda">
-
-<Tabs>
-
-<Tab label="Resolusi statis" value="static">
-
-`getIntlayer` diselesaikan secara sinkron terhadap kamus **gabungan**, yang memuat seluruh locale yang dideklarasikan. `head` tetap sinkron dan tidak ada yang di-await, tetapi seluruh kamus multibahasa ikut masuk ke chunk rute yang dikirim ke browser.
-
-```tsx fileName="src/routes/{-$locale}/index.tsx"
-import { createFileRoute } from "@tanstack/react-router";
-import {
-  defaultLocale,
-  getIntlayer,
-  getLocalizedUrl,
-  localeMap,
-} from "intlayer";
-
 export const Route = createFileRoute("/{-$locale}/")({
-  component: RouteComponent,
-  head: ({ params }) => {
-    const { locale = defaultLocale } = params;
-    const path = "/"; // The path for this route
-
-    const metaContent = getIntlayer("app", locale);
-
-    return {
-      links: [
-        // Canonical link: Points to the current localized page
-        { rel: "canonical", href: getLocalizedUrl(path, locale) },
-
-        // Hreflang: Tell Google about all localized versions
-        ...localeMap(({ locale: mapLocale }) => ({
-          rel: "alternate",
-          hrefLang: mapLocale,
-          href: getLocalizedUrl(path, mapLocale),
-        })),
-
-        // x-default: For users in unmatched languages
-        // Define the default fallback locale (usually your primary language)
-        {
-          rel: "alternate",
-          hrefLang: "x-default",
-          href: getLocalizedUrl(path, defaultLocale),
-        },
-      ],
-      meta: [
-        { title: metaContent.title },
-        { name: "description", content: metaContent.meta.description },
-      ],
-    };
-  },
-});
-```
-
-Paling cocok untuk kamus metadata kecil, sedikit locale, atau saat membuat prototipe.
-
-</Tab>
-
-<Tab label="Resolusi dinamis" value="dynamic">
-
-`getIntlayerAsync` (tersedia mulai **v9.4**) berperilaku seperti `getIntlayer`, tetapi plugin build mengarahkannya ke chunk per-locale di `.intlayer/dynamic_dictionaries/` alih-alih kamus gabungan. Dengan begitu sebuah halaman hanya mengirim locale yang dirender. Karena chunk itu dimuat sesuai kebutuhan, `head` menjadi `async`:
-
-```tsx fileName="src/routes/{-$locale}/index.tsx"
-import { createFileRoute } from "@tanstack/react-router";
-import {
-  defaultLocale,
-  getIntlayerAsync,
-  getLocalizedUrl,
-  localeMap,
-} from "intlayer";
-
-export const Route = createFileRoute("/{-$locale}/")({
-  component: RouteComponent,
-  head: async ({ params }) => {
-    const { locale = defaultLocale } = params;
-    const path = "/"; // The path for this route
+component: RouteComponent,
+head: async ({ params }) => {
+const { locale = defaultLocale } = params;
+const path = "/"; // The path for this route
 
     const metaContent = await getIntlayerAsync("app", locale);
 
-    return {
-      links: [
-        // Canonical link: Points to the current localized page
-        { rel: "canonical", href: getLocalizedUrl(path, locale) },
-
-        // Hreflang: Tell Google about all localized versions
-        ...localeMap(({ locale: mapLocale }) => ({
-          rel: "alternate",
-          hrefLang: mapLocale,
-          href: getLocalizedUrl(path, mapLocale),
-        })),
-
-        // x-default: For users in unmatched languages
-        // Define the default fallback locale (usually your primary language)
-        {
-          rel: "alternate",
-          hrefLang: "x-default",
-          href: getLocalizedUrl(path, defaultLocale),
-        },
-      ],
-      meta: [
-        { title: metaContent.title },
-        { name: "description", content: metaContent.meta.description },
-      ],
-    };
-  },
-});
-```
+````
 
 > Jika sebuah `head` membaca beberapa kamus, selesaikan dengan `Promise.all`; meng-await setiap `getIntlayerAsync` di barisnya sendiri membuat permintaan berantai alih-alih berjalan paralel.
 
@@ -812,193 +1036,22 @@ Kompromnya: import dinamis diselesaikan saat `head` berjalan, di jalur kritis re
 Selesaikan kamus di `loader` rute lalu baca kembali dari `loaderData` di `head`. Loader rute yang cocok berjalan paralel, dan `staleTime: Infinity` memberi tahu TanStack Router bahwa hasilnya tidak pernah basi, sehingga chunk per-locale diselesaikan sekali lalu disajikan dari cache router, dan `head` tetap sinkron.
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
-import { createFileRoute } from "@tanstack/react-router";
-import {
-  defaultLocale,
-  getIntlayerAsync,
-  getLocalizedUrl,
-  localeMap,
-} from "intlayer";
 
-export const Route = createFileRoute("/{-$locale}/")({
-  component: RouteComponent,
-  // Resolved in parallel with the other matched routes, off the head critical path
-  loader: async ({ params }) => {
-    const { locale = defaultLocale } = params;
-
-    return { metaContent: await getIntlayerAsync("app", locale) };
-  },
-  // The dictionary never changes for a given locale: resolve the chunk once
-  staleTime: Infinity,
-  head: ({ params, loaderData }) => {
-    const { locale = defaultLocale } = params;
-    const path = "/"; // The path for this route
-
-    return {
-      links: [
-        // Canonical link: Points to the current localized page
-        { rel: "canonical", href: getLocalizedUrl(path, locale) },
-
-        // Hreflang: Tell Google about all localized versions
-        ...localeMap(({ locale: mapLocale }) => ({
-          rel: "alternate",
-          hrefLang: mapLocale,
-          href: getLocalizedUrl(path, mapLocale),
-        })),
-
-        // x-default: For users in unmatched languages
-        // Define the default fallback locale (usually your primary language)
-        {
-          rel: "alternate",
-          hrefLang: "x-default",
-          href: getLocalizedUrl(path, defaultLocale),
-        },
-      ],
-      meta: [
-        { title: loaderData?.metaContent.title },
-        {
-          name: "description",
-          content: loaderData?.metaContent.meta.description,
-        },
-      ],
-    };
-  },
-});
-```
-
-> `head` bisa dipanggil sebelum loader selesai, sehingga `loaderData` bertipe mungkin `undefined`. Pertahankan optional chaining, atau kembalikan judul cadangan.
-
-Anda tetap mendapat chunk per-locale tanpa membayar biayanya di jalur kritis `head`. Harganya adalah developer experience: konten harus diteruskan secara eksplisit dari loader ke `head` melalui `loaderData`.
-
-</Tab>
-
-</Tabs>
-
-### Resolusi mana yang sebaiknya dipilih?
-
-|                      | Resolusi statis                   | Resolusi dinamis                   | Resolusi dinamis dengan cache          |
-| -------------------- | --------------------------------- | ---------------------------------- | -------------------------------------- |
-| API                  | `getIntlayer`                     | `getIntlayerAsync` (v9.4+)         | `getIntlayerAsync` di `loader` (v9.4+) |
-| Signature `head`     | sinkron                           | `async`                            | sinkron, membaca `loaderData`          |
-| Locale yang dikirim  | semua locale yang dideklarasikan  | hanya locale yang diminta          | hanya locale yang diminta              |
-| Navigasi klien       | tidak ada yang perlu diselesaikan | dijalankan ulang setiap kali cocok | disajikan dari cache router            |
-| Developer experience | paling sederhana                  | satu `await`                       | konten diteruskan lewat `loaderData`   |
-
----
-
-</Step>
-
-<Step number={14} title="Ambil locale dalam server actions Anda">
-
-Anda mungkin ingin mengakses locale saat ini dari dalam server actions atau endpoint API Anda.
-Anda dapat melakukannya menggunakan pembantu `getLocale` dari `intlayer`.
-
-Berikut adalah contoh menggunakan fungsi server TanStack Start:
-
-```tsx fileName="src/routes/{-$locale}/index.tsx"
-import { createServerFn } from "@tanstack/react-start";
-import {
-  getRequestHeader,
-  getRequestHeaders,
-} from "@tanstack/react-start/server";
-import { getCookie, getIntlayer, getLocale } from "intlayer";
-
-export const getLocaleServer = createServerFn().handler(async () => {
-  const locale = await getLocale({
-    // Dapatkan cookie dari permintaan (default: 'INTLAYER_LOCALE')
-    getCookie: (name) => {
-      const cookieString = getRequestHeader("cookie");
-
-      return getCookie(name, cookieString);
-    },
-    // Dapatkan header dari permintaan (default: 'x-intlayer-locale')
-    // Fallback menggunakan negosiasi Accept-Language
-    getHeader: (name) => getRequestHeader(name),
-  });
-
-  // Ambil beberapa konten menggunakan getIntlayer()
-  const content = getIntlayer("app", locale);
+<Tabs>
+ <Tab value='Extract command'>
 
   return { locale, content };
 });
-```
-
----
-
-</Step>
-
-<Step number={15} title="Kelola halaman tidak ditemukan">
-
-Ketika seorang pengguna mengunjungi halaman yang tidak ada, Anda dapat menampilkan halaman tidak ditemukan yang disesuaikan dan awalan locale dapat mempengaruhi cara halaman tidak ditemukan dipicu.
-
-#### Memahami Penanganan 404 TanStack Router dengan Awalan Locale
-
-Di TanStack Router, menangani halaman 404 dengan rute yang dilokalisasi memerlukan pendekatan berlapis:
-
-1. **Rute 404 khusus**: Rute khusus untuk menampilkan UI 404
-2. **Validasi tingkat rute**: Memvalidasi awalan locale dan mengalihkan yang tidak valid ke 404
-3. **Rute catch-all**: Menangkap setiap jalur yang tidak cocok dalam segmen locale
-
-```tsx fileName="src/routes/{-$locale}/404.tsx"
 import { createFileRoute } from "@tanstack/react-router";
 
-// Ini membuat rute /[locale]/404 khusus
-// Ini digunakan baik sebagai rute langsung maupun diimpor sebagai komponen di file lain
-export const Route = createFileRoute("/{-$locale}/404")({
-  component: NotFoundComponent,
-});
-
-// Diekspor secara terpisah sehingga dapat digunakan kembali dalam notFoundComponent dan rute catch-all
-export function NotFoundComponent() {
-  return (
-    <div>
-      <h1>404</h1>
-    </div>
-  );
-}
-```
+````
 
 ```tsx fileName="src/routes/{-$locale}/route.tsx"
-import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
-import { validatePrefix } from "intlayer";
-import { NotFoundComponent } from "./404";
 
-export const Route = createFileRoute("/{-$locale}")({
-  // beforeLoad berjalan sebelum rute merender (di server maupun klien)
-  // Ini adalah tempat yang ideal untuk memvalidasi awalan locale
-  beforeLoad: ({ params }) => {
-    const localeParam = params.locale;
-
-    // validatePrefix memeriksa apakah locale valid sesuai dengan konfigurasi intlayer Anda
-    const { isValid, localePrefix } = validatePrefix(localeParam);
-
-    if (!isValid) {
-      // Awalan locale tidak valid - alihkan ke halaman 404 dengan awalan locale yang valid
-      throw redirect({
-        to: "/{-$locale}/404",
-        params: { locale: localePrefix },
-      });
-    }
-  },
-  component: Outlet,
-  // notFoundComponent dipanggil ketika rute anak tidak ada
-  // misal, /en/non-existent-page memicu ini dalam layout /en
-  notFoundComponent: NotFoundComponent,
-});
 ```
 
 ```tsx fileName="src/routes/{-$locale}/$.tsx"
-import { createFileRoute } from "@tanstack/react-router";
-
 import { NotFoundComponent } from "./404";
-
-// Rute $ (splat/catch-all) cocok dengan jalur mana pun yang tidak cocok dengan rute lain
-// misal, /en/some/deeply/nested/invalid/path
-// Ini memastikan SEMUA jalur yang tidak cocok dalam suatu locale menampilkan halaman 404
-// Tanpa ini, jalur dalam yang tidak cocok mungkin menampilkan halaman kosong atau kesalahan
-export const Route = createFileRoute("/{-$locale}/$")({
-  component: NotFoundComponent,
-});
 ```
 
 </Step>
@@ -1014,23 +1067,10 @@ Untuk mengaturnya, Anda dapat menambahkan bagian `compiler` di file `intlayer.co
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig } from "intlayer";
 
-const config: IntlayerConfig = {
-  // ... Sisa konfigurasi Anda
-  compiler: {
-    /**
-     * Menunjukkan apakah compiler harus diaktifkan.
-     */
-    enabled: true,
-
     /**
      * Menentukan jalur file output
      */
     output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * Menunjukkan apakah komponen harus disimpan setelah diubah. Dengan begitu, compiler dapat dijalankan satu kali saja untuk mengubah aplikasi, lalu dapat dihapus.
-     */
-    saveComponents: false,
 
     /**
      * Prefiks kunci kamus
@@ -1048,29 +1088,23 @@ export default config;
 Jalankan extractor untuk mengubah komponen Anda dan mengekstrak kontennya
 
 ```bash packageManager="npm"
-npx intlayer extract
+
 ```
 
 ```bash packageManager="pnpm"
-pnpm intlayer extract
+
 ```
 
 ```bash packageManager="yarn"
-yarn intlayer extract
+
 ```
 
 ```bash packageManager="bun"
-bun x intlayer extract
-```
 
  </Tab>
- <Tab value='Compiler Babel'>
+</Tabs>
 
-> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
-
-Perbarui `vite.config.ts` Anda untuk menyertakan plugin `intlayerCompiler`:
-
-```ts fileName="vite.config.ts"
+bun x intlayer extract
 import { defineConfig } from "vite";
 import { intlayer, intlayerCompiler } from "vite-intlayer";
 
@@ -1095,25 +1129,10 @@ yarn build # Or yarn dev
 ```
 
 ```bash packageManager="bun"
-bun run build # Or bun run dev
-```
-
- </Tab>
-</Tabs>
 
 ---
 
-</Step>
-
-<Step number={16} title="Pre-render & Generate Sitemap">
-
-Intlayer dilengkapi dengan pembuat sitemap bawaan untuk membantu Anda membuat sitemap untuk aplikasi Anda dengan mudah. Ini menangani rute yang dilokalisasi dan menambahkan metadata yang diperlukan untuk mesin pencari.
-
-> Sitemap yang dihasilkan oleh Intlayer mendukung namespace `xhtml:link` (Hreflang XML Extensions). Berbeda dengan pembuat sitemap default yang hanya menampilkan URL mentah, Intlayer secara otomatis membuat tautan dua arah yang diperlukan antara semua versi bahasa dari sebuah halaman (misalnya, `/about`, `/about?lang=fr`, dan `/about?lang=es`). Ini memastikan mesin pencari dengan benar mengindeks dan melayani versi bahasa yang tepat kepada audiens yang tepat.
-
-Untuk menggunakannya, pertama-tama Anda perlu mengonfigurasi `vite.config.ts` Anda untuk mengaktifkan pre-rendering untuk rute terlokalisasi Anda dan menonaktifkan pembuatan sitemap TanStack Start default.
-
-```typescript fileName="vite.config.ts"
+bun run build # Or bun run dev
 import { localeFlatMap } from "intlayer";
 // ... import lainnya
 
@@ -1149,13 +1168,9 @@ export default defineConfig({
 
 Kemudian, buat rute `src/routes/sitemap[.]xml.ts` yang menggunakan fungsi `generateSitemap`:
 
-```typescript fileName="src/routes/sitemap[.]xml.ts"
-import { createFileRoute } from "@tanstack/react-router";
-import { generateSitemap } from "intlayer";
+````typescript fileName="src/routes/sitemap[.]xml.ts"
 
-const SITE_URL = (
-  import.meta.env.VITE_SITE_URL ?? "http://localhost:3000"
-).replace(/\/$/, "");
+---
 
 export const Route = createFileRoute("/sitemap.xml")({
   server: {
@@ -1176,19 +1191,6 @@ export const Route = createFileRoute("/sitemap.xml")({
     },
   },
 });
-```
-
----
-
-</Step>
-
-<Step number={17} title="Konfigurasi TypeScript">
-
-Intlayer menggunakan module augmentation untuk mendapatkan keuntungan dari TypeScript dan membuat codebase Anda lebih kuat.
-
-Pastikan konfigurasi TypeScript Anda menyertakan tipe yang dihasilkan secara otomatis:
-
-```json5 fileName="tsconfig.json"
 {
   // ... konfigurasi yang sudah ada
   include: [
@@ -1196,55 +1198,48 @@ Pastikan konfigurasi TypeScript Anda menyertakan tipe yang dihasilkan secara oto
     ".intlayer/**/*.ts", // Sertakan tipe yang dibuat secara otomatis
   ],
 }
-```
-
----
-
-</Step>
-
-</Steps>
 
 ### Konfigurasi Git
 
-Disarankan untuk mengabaikan file yang dihasilkan oleh Intlayer. Ini memungkinkan Anda menghindari melakukan commit ke repositori Git Anda.
+Disarankan untuk mengabaikan file yang dihasilkan oleh Intlayer. Ini memungkinkan Anda untuk menghindari commit mereka ke repositori Git Anda.
 
 Untuk melakukan ini, Anda dapat menambahkan instruksi berikut ke file `.gitignore` Anda:
 
 ```plaintext fileName=".gitignore"
 # Abaikan file yang dihasilkan oleh Intlayer
 .intlayer
-```
+````
 
 ---
 
 ## Ekstensi VS Code
 
-Untuk meningkatkan pengalaman pengembangan Anda dengan Intlayer, Anda dapat menginstal **Ekstensi VS Code Intlayer** resmi.
+Untuk meningkatkan pengalaman pengembangan Anda dengan Intlayer, Anda dapat menginstal **Intlayer VS Code Extension** resmi.
 
 [Instal dari VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
 Ekstensi ini menyediakan:
 
 - **Autocompletion** untuk kunci terjemahan.
-- **Deteksi kesalahan waktu nyata** untuk terjemahan yang hilang.
+- **Deteksi kesalahan real-time** untuk terjemahan yang hilang.
 - **Pratinjau inline** dari konten yang diterjemahkan.
 - **Tindakan cepat** untuk dengan mudah membuat dan memperbarui terjemahan.
 
-Untuk detail lebih lanjut tentang cara menggunakan ekstensi, lihat [dokumentasi Ekstensi VS Code Intlayer](https://intlayer.org/doc/vs-code-extension).
+Untuk detail lebih lanjut tentang cara menggunakan ekstensi, lihat [dokumentasi Intlayer VS Code Extension](https://intlayer.org/doc/vs-code-extension).
 
 ---
 
-## Melangkah Lebih Jauh
+## Lanjutkan Lebih Jauh
 
-Untuk melangkah lebih jauh, Anda dapat mengimplementasikan [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) atau mengeksternalisasi konten Anda menggunakan [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md).
+Untuk melanjutkan lebih jauh, Anda dapat menerapkan [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) atau mengekstensikan konten Anda menggunakan [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md).
 
 ---
 
 ## Referensi Dokumentasi
 
 - [Dokumentasi Intlayer](https://intlayer.org)
-- [Dokumentasi TanStack Start](https://reactrouter.com/)
-- [Hook useIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/react-intlayer/useIntlayer.md)
-- [Hook useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/react-intlayer/useLocale.md)
-- [Deklarasi Konten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md)
+- [Dokumentasi Tanstack Start](https://reactrouter.com/)
+- [hook useIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/react-intlayer/useIntlayer.md)
+- [hook useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/react-intlayer/useLocale.md)
+- [Content Declaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md)
 - [Konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md)

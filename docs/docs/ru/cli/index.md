@@ -127,6 +127,8 @@ Intlayer принимает несколько форматов файлов к�
 
 - **[Login](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/login.md)** - Аутентификация в Intlayer CMS и получение учетных данных для доступа
 
+> `intlayer login` выдает **ключ доступа** (`clientId` / `clientSecret`), который используется всеми командами с учетными данными. Секрет является учетными данными на стороне сервера и никогда не попадает в ваш пакет клиента — см. [Keeping the access key safe](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/login.md#keeping-the-access-key-safe).
+
 ### Основные команды
 
 - **[Build Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/build.md)** - Сборка словарей из файлов объявления контента

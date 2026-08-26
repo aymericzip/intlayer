@@ -123,17 +123,6 @@ export default config;
 
 Удаление `@intlayer/analytics` даёт тот же эффект, что и `enabled: false`. Полный список полей см. в [справочнике по конфигурации](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md).
 
-## Поддержка фреймворков
-
-Аналитика встроена в общий `IntlayerProvider` из `react-intlayer`, поэтому она доступна уже сегодня везде, где используется этот провайдер:
-
-| Фреймворк                                                | Статус                                                                                                      |
-| -------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
-| React                                                    | ✅ Доступно                                                                                                 |
-| Next.js (`next-intlayer`)                                | ✅ Доступно (через `react-intlayer`)                                                                        |
-| React Native / Expo (`react-native-intlayer`)            | ✅ Доступно (через `react-intlayer`)                                                                        |
-| Vue, Svelte, Angular, Solid, Preact, Lit, Astro, Vanilla | 🚧 Запланировано — тот же клиент, привязки на уровне провайдера по образцу развертывания `@intlayer/editor` |
-
 ## Использование
 
 ### Автоматическое отслеживание на уровне провайдера
@@ -177,6 +166,34 @@ const CTAButton = () => {
 
 ### Разрешение варианта на стороне клиента
 
+  </Tab>
+</Tabs>
+
+Weights необязательны — передайте один на вариант, чтобы изменить распределение, например `useExperiment("homepage-hero", ["default", "black_friday"], [9, 1])`.
+
+Затем дочерний компонент читает [Variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dynamic_dictionaries/variants.md) словаря, который совпадает:
+
+```tsx fileName="HeroBanner.tsx"
+import { useIntlayer } from "react-intlayer";
+
+export const HeroBanner = ({ variant }: { variant: string }) => {
+  const { headline, cta } = useIntlayer("hero-banner", { variant });
+
+  return (
+    <section>
+      <h1>{headline}</h1>
+      <a>{cta}</a>
+    </section>
+  );
+};
+```
+
+> Чтение варианта в **дочернем** компоненте — это то, что делает это работающим вне React: в Vue, Svelte, Solid и Angular селектор, передаваемый в `useIntlayer`, захватывается при инициализации компонента, поэтому чтение должно происходить в компоненте, который монтируется только после того, как вариант известен.
+
+Если эксперимент охватывает целую страницу, а не отдельный словарь, поместите вариант на provider вместо этого — см. [Ambient variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dynamic_dictionaries/variants.md#ambient-variant). Каждый `useIntlayer` ниже затем разрешается против него без изменения места вызова.
+
+Если вам нужно получить необработанное значение переменной за пределами компонента, обратитесь непосредственно к клиенту:
+
 ```tsx fileName="useHeroVariant.ts" codeFormat="tsx"
 import { getGlobalAnalyticsClient } from "@intlayer/analytics/client";
 
@@ -186,6 +203,8 @@ const variant = client?.getVariant("homepage-hero", [
   "black_friday",
 ]);
 ```
+
+> `getVariant` только присваивает — он не записывает экспозицию. Предпочитайте `useExperiment()`, иначе коэффициент конверсии не будет иметь знаменателя.
 
 ## Конфиденциальность и производительность
 
@@ -235,6 +254,8 @@ const cms = createIntlayerCMS();
 
 const { data: audience } = await analyticsEndpoint(cms).getAudience(30);
 ```
+
+> **Только на стороне сервера.** `createIntlayerCMS()` аутентифицируется с помощью `clientId` + `clientSecret`, и секрет никогда не доступен в браузере — этот фрагмент кода выполнял бы неаутентифицированные запросы, если бы он там работал. Держите его в обработчике маршрута, серверном действии или скрипте.
 
 ## Полезные ссылки
 

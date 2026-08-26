@@ -377,8 +377,6 @@ export default async function Page() {
 - **`IntlayerProvider`** 在根布局中装载一次。它为服务器和客户端组件都提供语言环境，因此页面不再需要自行包装。
 - 没有 `[locale]` 路径段时，语言环境总是来自请求 — 由 Intlayer 代理设置的 `x-intlayer-locale` 标头，然后是语言环境 cookie — 当提供者未运行时，服务器钩子会自行读取这些值。
 
-  </Tab>
-
 </Tabs>
 
 ```tsx fileName="src/app/page.tsx"

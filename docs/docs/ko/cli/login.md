@@ -122,6 +122,34 @@ INTLAYER_CLIENT_SECRET=your_client_secret
 }
 ```
 
+## 접근 키 안전하게 유지하기
+
+`intlayer login`은 **접근 키**를 발급합니다: 모든 인증된 명령어(`push`, `pull`, `fill`, `configuration push`, `live`, …)가 인증할 때 사용하는 `clientId` / `clientSecret` 쌍입니다.
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import type { IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  editor: {
+    clientId: process.env.INTLAYER_CLIENT_ID,
+    clientSecret: process.env.INTLAYER_CLIENT_SECRET,
+  },
+};
+
+export default config;
+```
+
+> **`clientSecret`은 서버 측 자격 증명입니다.** 프로젝트 범위의 전체 API 접근 권한을 부여합니다 — 사전, 프로젝트 및 조직을 읽고 쓸 수 있습니다. `.env`(git에서 무시됨) 또는 CI 비밀 저장소에 보관하고, 절대 구성 파일에 직접 작성하지 마세요.
+
+Intlayer는 이를 단지 문서화하는 것이 아니라 강제합니다:
+
+- `clientSecret`은 **번들러가 인라인하는 구성에서 제거**되므로 어떤 프레임워크 통합을 사용하든 브라우저 번들에 도달할 수 없습니다. 이는 런타임에 환경에서 서버 측에서만 읽힙니다.
+- `clientId`는 다릅니다: 이는 **공개** 프로젝트 키이며 안전하게 배포할 수 있으며, [`@intlayer/analytics`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/analytics.md#how-events-are-authenticated)에서 수명이 짧은 수집 전용 토큰을 얻기 위해 사용됩니다.
+
+`clientId`를 주석 처리하는 것만으로도 환경 변수가 여전히 정의되어 있을 때도 모든 인증된 동작 — 원격 사전 가져오기, CMS 접근, 분석 — 을 비활성화하기에 충분합니다.
+
+CI 파이프라인의 경우, 자격 증명을 유지하는 대신 단일 실행 기간 동안 주입하는 [`ci` 명령어](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/ci.md)를 선호하세요.
+
 ## 수동 구성
 
 브라우저가 자동으로 열리지 않는 경우, 터미널에 표시된 URL을 수동으로 방문할 수 있습니다.

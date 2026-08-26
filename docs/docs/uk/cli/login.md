@@ -118,6 +118,34 @@ INTLAYER_CLIENT_SECRET=your_client_secret
 }
 ```
 
+## Збереження ключа доступу в безпеці
+
+`intlayer login` видає **ключ доступу**: пару `clientId` / `clientSecret`, яку використовують усі команди з авторизацією (`push`, `pull`, `fill`, `configuration push`, `live`, …) для аутентифікації.
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import type { IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  editor: {
+    clientId: process.env.INTLAYER_CLIENT_ID,
+    clientSecret: process.env.INTLAYER_CLIENT_SECRET,
+  },
+};
+
+export default config;
+```
+
+> **`clientSecret` — це серверна облікові дані.** Вони надають повний доступ до API в межах проекту — читання та запис ваших словників, вашого проекту та вашої організації. Зберігайте це в `.env` (git-ignored) або у вашому сховищі секретів CI, і ніколи не вставляйте це в файл конфігурації.
+
+Intlayer забезпечує це, а не просто документує:
+
+- `clientSecret` **видаляється з конфігурації, яку inline ваш bundler**, тому він не може потрапити в bundle браузера, незалежно від того, яку інтеграцію фреймворку ви використовуєте. Він читається лише на сервері під час виконання з навколишнього середовища.
+- `clientId` інший: це **публічний** ключ проекту, безпечний для розповсюдження, і використовується [`@intlayer/analytics`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/analytics.md#how-events-are-authenticated) для отримання короткочасного токена лише для прийому.
+
+Закоментування `clientId` достатньо, щоб вимкнути кожну поведінку з авторизацією — отримання віддалених словників, доступ до CMS, аналітику — навіть якщо змінні середовища все ще визначені.
+
+Для конвеєрів CI надавайте перевагу [`ci` команді](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/ci.md), яка вводить облікові дані на час виконання однієї операції, замість того щоб зберігати їх.
+
 ## Ручна конфігурація
 
 Якщо браузер не відкрився автоматично, ви можете вручну перейти за URL, вказаним у терміналі.

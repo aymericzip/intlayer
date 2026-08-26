@@ -122,6 +122,34 @@ INTLAYER_CLIENT_SECRET=your_client_secret
 }
 ```
 
+## Giữ an toàn cho access key
+
+`intlayer login` cấp một **access key**: một cặp `clientId` / `clientSecret` mà mọi lệnh có xác thực (`push`, `pull`, `fill`, `configuration push`, `live`, …) sử dụng để xác thực.
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import type { IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  editor: {
+    clientId: process.env.INTLAYER_CLIENT_ID,
+    clientSecret: process.env.INTLAYER_CLIENT_SECRET,
+  },
+};
+
+export default config;
+```
+
+> **`clientSecret` là một thông tin xác thực phía máy chủ.** Nó cấp quyền truy cập đầy đủ API trong phạm vi dự án — đọc và ghi từ điển, dự án và tổ chức của bạn. Hãy giữ nó trong `.env` (git-ignored) hoặc kho secret CI của bạn, và không bao giờ inline nó trong tệp cấu hình.
+
+Intlayer thực thi điều này thay vì chỉ ghi tài liệu:
+
+- `clientSecret` bị **loại bỏ khỏi cấu hình mà bundler của bạn inline**, do đó nó không thể đến được browser bundle cho dù bạn sử dụng framework integration nào. Nó chỉ được đọc phía máy chủ, tại runtime, từ môi trường.
+- `clientId` khác: nó là **public** project key, an toàn để ship, và được sử dụng bởi [`@intlayer/analytics`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/analytics.md#how-events-are-authenticated) để lấy một token có thời hạn ngắn, chỉ dùng cho ingest.
+
+Chỉ cần comment `clientId` là đủ để vô hiệu hóa mọi hành vi có xác thực — fetching từ điển từ xa, truy cập CMS, analytics — thậm chí khi các biến môi trường vẫn được định nghĩa.
+
+Đối với CI pipelines, hãy ưu tiên [`ci` command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/ci.md), nó chèn các thông tin xác thực trong suốt một lần chạy duy nhất thay vì duy trì chúng.
+
 ## Cấu hình thủ công
 
 Nếu trình duyệt không tự mở, bạn có thể truy cập thủ công URL hiển thị trong terminal.

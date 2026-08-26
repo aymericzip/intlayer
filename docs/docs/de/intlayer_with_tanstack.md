@@ -516,7 +516,7 @@ export const useLocalizedNavigate = () => {
 
 Greifen Sie in Ihrer gesamten Anwendung auf Ihre Inhaltswörterbücher zu:
 
-#### Lokalisierte Startseite
+#### Lokalisierte Homepage
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/react-router";
@@ -557,6 +557,382 @@ function RouteComponent() {
 }
 ```
 
+> Wenn Sie Ihren Inhalt in einem `string`-Attribut verwenden möchten, wie z. B. `alt`, `title`, `href`, `aria-label`, usw., können Sie den Wert der Funktion verwenden, wie:
+>
+> ```html
+> <img src="{content.image.src.value}" alt="{content.image.value}" />
+> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
+> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
+> ```
+
+> Weitere Informationen zum Hook `useIntlayer` finden Sie in der [Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/react-intlayer/useIntlayer.md).
+
+</Step>
+
+<Step number={9} title="Locale Switcher Component erstellen">
+
+Erstellen Sie eine Komponente, die es Benutzern ermöglicht, Sprachen zu wechseln:
+
+```tsx fileName="src/components/locale-switcher.tsx"
+import { useLocation } from "@tanstack/react-router";
+import {
+  getHTMLTextDir,
+  getLocaleName,
+  getPathWithoutLocale,
+  getPrefix,
+  Locales,
+} from "intlayer";
+import type { FC } from "react";
+import { useLocale } from "react-intlayer";
+
+import { LocalizedLink, type To } from "./localized-link";
+
+export const LocaleSwitcher: FC = () => {
+  const { pathname } = useLocation();
+
+  const { availableLocales, locale, setLocale } = useLocale();
+
+  const pathWithoutLocale = getPathWithoutLocale(pathname);
+
+  return (
+    <ol>
+      {availableLocales.map((localeEl) => (
+        <li key={localeEl}>
+          <LocalizedLink
+            aria-current={localeEl === locale ? "page" : undefined}
+            onClick={() => setLocale(localeEl)}
+            params={{ locale: getPrefix(localeEl).localePrefix }}
+            to={pathWithoutLocale as To}
+          >
+            <span>
+              {/* Locale - z. B. DE */}
+              {localeEl}
+            </span>
+            <span>
+              {/* Sprache in ihrer eigenen Locale - z. B. Deutsch */}
+              {getLocaleName(localeEl, locale)}
+            </span>
+            <span dir={getHTMLTextDir(localeEl)} lang={localeEl}>
+              {/* Sprache in aktueller Locale - z. B. Francés mit aktueller Locale auf Locales.SPANISH */}
+              {getLocaleName(localeEl)}
+            </span>
+            <span dir="ltr" lang={Locales.ENGLISH}>
+              {/* Sprache in Englisch - z. B. German */}
+              {getLocaleName(localeEl, Locales.ENGLISH)}
+            </span>
+          </LocalizedLink>
+        </li>
+      ))}
+    </ol>
+  );
+};
+```
+
+> Weitere Informationen zum Hook `useLocale` finden Sie in der [Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/react-intlayer/useLocale.md).
+
+</Step>
+
+<Step number={10} title="HTML-Attribute verwalten">
+
+Wie in Schritt 5 beschrieben, können Sie die Attribute `lang` und `dir` des `html`-Tags mit `useParams` in Ihrer Root-Komponente verwalten. Dies stellt sicher, dass die korrekten Attribute auf dem Server und dem Client gesetzt werden.
+
+```tsx fileName="src/routes/__root.tsx"
+const localeRoute = getRouteApi("/{-$locale}");
+
+function RootDocument({ children }: { children: ReactNode }) {
+  const params = localeRoute.useParams();
+  const locale = params?.locale ?? defaultLocale;
+
+  return (
+    <html dir={getHTMLTextDir(locale)} lang={locale}>
+      {/* ... */}
+    </html>
+  );
+}
+```
+
+---
+
+</Step>
+
+<Step number={11} title="Middleware hinzufügen">
+
+Sie können auch `intlayerProxy` verwenden, um serverseitiges Routing zu Ihrer Anwendung hinzuzufügen. Dieses Plugin erkennt automatisch die aktuelle Locale basierend auf der URL und setzt das entsprechende Locale-Cookie. Wenn keine Locale angegeben ist, bestimmt das Plugin die am besten geeignete Locale basierend auf den Spracheinstellungen des Browsers des Benutzers. Wenn keine Locale erkannt wird, wird es zur Standard-Locale weitergeleitet.
+
+> Beachten Sie, dass Sie zum Verwenden von `intlayerProxy` in der Produktion das Package `vite-intlayer` von `devDependencies` zu `dependencies` verschieben müssen.
+
+> Seit Intlayer v9 ist `intlayerProxy()` direkt im `intlayer()`-Plugin gebündelt und standardmäßig über die Option `routing.enableProxy` aktiviert (standardmäßig `true`). Die separate Registrierung wie unten gezeigt ist jetzt optional: Sie wird aus Gründen der Rückwärtskompatibilität und für Setups beibehalten, die die Plugin-Reihenfolge steuern müssen. Setzen Sie `routing.enableProxy: false`, um sich abzumelden. Siehe [v9 Release Notes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/releases/v9.md).
+
+```typescript fileName="vite.config.ts"
+import { tanstackStart } from "@tanstack/react-start/plugin/vite";
+import viteReact from "@vitejs/plugin-react";
+import { nitro } from "nitro/vite";
+import { defineConfig } from "vite";
+import { intlayer } from "vite-intlayer";
+
+export default defineConfig({
+  plugins: [
+    nitro(),
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
+    tanstackStart({
+      router: {
+        routeFileIgnorePattern:
+          ".content.(ts|tsx|js|mjs|cjs|jsx|json|jsonc|json5|md|mdx|yaml|yml)$",
+      },
+    }),
+    viteReact(),
+  ],
+});
+```
+
+---
+
+</Step>
+
+<Step number={12} title="Metadaten internationalisieren">
+
+<Tabs>
+
+<Tab label="Statische Auflösung" value="static">
+
+`getIntlayer` wird synchron gegen das **zusammengeführte** Wörterbuch aufgelöst, das jede deklarierte Locale enthält. `head` bleibt synchron und nichts wird abgewartet, aber das gesamte mehrsprachige Wörterbuch wird in den an den Browser gesendeten Route-Chunk gezogen.
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createFileRoute } from "@tanstack/react-router";
+import {
+  defaultLocale,
+  getIntlayer,
+  getLocalizedUrl,
+  localeMap,
+} from "intlayer";
+
+export const Route = createFileRoute("/{-$locale}/")({
+  component: RouteComponent,
+  head: ({ params }) => {
+    const { locale = defaultLocale } = params;
+    const path = "/"; // Der Pfad für diese Route
+
+    const metaContent = getIntlayer("app", locale);
+
+    return {
+      links: [
+        // Canonical-Link: Verweist auf die aktuelle lokalisierte Seite
+        { rel: "canonical", href: getLocalizedUrl(path, locale) },
+
+        // Hreflang: Teilen Sie Google alle lokalisierten Versionen mit
+        ...localeMap(({ locale: mapLocale }) => ({
+          rel: "alternate",
+          hrefLang: mapLocale,
+          href: getLocalizedUrl(path, mapLocale),
+        })),
+
+        // x-default: Für Benutzer in nicht übereinstimmenden Sprachen
+        // Definieren Sie die Standard-Fallback-Locale (normalerweise Ihre Hauptsprache)
+        {
+          rel: "alternate",
+          hrefLang: "x-default",
+          href: getLocalizedUrl(path, defaultLocale),
+        },
+      ],
+      meta: [
+        { title: metaContent.title },
+        { name: "description", content: metaContent.meta.description },
+      ],
+    };
+  },
+});
+```
+
+Am besten für kleine Metadaten-Wörterbücher, eine Handvoll Locales oder während des Prototyping.
+
+</Tab>
+
+<Tab label="Dynamische Auflösung" value="dynamic">
+
+`getIntlayerAsync` (verfügbar ab **v9.4**) verhält sich wie `getIntlayer`, aber das Build-Plugin verweist auf den Locale-spezifischen Chunk in `.intlayer/dynamic_dictionaries/` statt auf das zusammengeführte Wörterbuch. Eine Seite wird daher nur mit der Locale versendet, die sie rendert. Da dieser Chunk bei Bedarf geladen wird, wird `head` zu `async`:
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createFileRoute } from "@tanstack/react-router";
+import {
+  defaultLocale,
+  getIntlayerAsync,
+  getLocalizedUrl,
+  localeMap,
+} from "intlayer";
+
+export const Route = createFileRoute("/{-$locale}/")({
+  component: RouteComponent,
+  head: async ({ params }) => {
+    const { locale = defaultLocale } = params;
+    const path = "/"; // Der Pfad für diese Route
+
+    const metaContent = await getIntlayerAsync("app", locale);
+
+    return {
+      links: [
+        // Canonical-Link: Verweist auf die aktuelle lokalisierte Seite
+        { rel: "canonical", href: getLocalizedUrl(path, locale) },
+
+        // Hreflang: Teilen Sie Google alle lokalisierten Versionen mit
+        ...localeMap(({ locale: mapLocale }) => ({
+          rel: "alternate",
+          hrefLang: mapLocale,
+          href: getLocalizedUrl(path, mapLocale),
+        })),
+
+        // x-default: Für Benutzer in nicht übereinstimmenden Sprachen
+        // Definieren Sie die Standard-Fallback-Locale (normalerweise Ihre Hauptsprache)
+        {
+          rel: "alternate",
+          hrefLang: "x-default",
+          href: getLocalizedUrl(path, defaultLocale),
+        },
+      ],
+      meta: [
+        { title: metaContent.title },
+        { name: "description", content: metaContent.meta.description },
+      ],
+    };
+  },
+});
+```
+
+> Wenn ein `head` mehrere Wörterbücher liest, lösen Sie diese mit `Promise.all` auf: Das Abwarten jedes `getIntlayerAsync` auf seiner eigenen Zeile verkettet die Anforderungen, anstatt sie parallel zu verarbeiten.
+
+Der Kompromiss: Der dynamische Import wird aufgelöst, während `head` auf dem kritischen Pfad des Document-Rendering läuft. Auf einer kalten Route verzögert dies den head um einige Millisekunden und kann **LCP** leicht verschlechtern.
+
+</Tab>
+
+<Tab label="Gecachte dynamische Auflösung" value="cached">
+
+Lösen Sie das Wörterbuch im Route-`loader` auf und lesen Sie es in `head` aus `loaderData` zurück. Loader der übereinstimmenden Routes werden parallel ausgeführt, und `staleTime: Infinity` teilt TanStack Router mit, dass das Ergebnis nie veraltet, daher wird der Locale-spezifische Chunk einmal aufgelöst und anschließend aus dem Router-Cache bereitgestellt, wobei `head` synchron bleibt.
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createFileRoute } from "@tanstack/react-router";
+import {
+  defaultLocale,
+  getIntlayerAsync,
+  getLocalizedUrl,
+  localeMap,
+} from "intlayer";
+
+export const Route = createFileRoute("/{-$locale}/")({
+  component: RouteComponent,
+  // Wird parallel mit den anderen übereinstimmenden Routes aufgelöst, außerhalb des head-kritischen Pfads
+  loader: async ({ params }) => {
+    const { locale = defaultLocale } = params;
+
+    return { metaContent: await getIntlayerAsync("app", locale) };
+  },
+  // Das Wörterbuch ändert sich nie für eine bestimmte Locale: Den Chunk einmal auflösen
+  staleTime: Infinity,
+  head: ({ params, loaderData }) => {
+    const { locale = defaultLocale } = params;
+    const path = "/"; // Der Pfad für diese Route
+
+    return {
+      links: [
+        // Canonical-Link: Verweist auf die aktuelle lokalisierte Seite
+        { rel: "canonical", href: getLocalizedUrl(path, locale) },
+
+        // Hreflang: Teilen Sie Google alle lokalisierten Versionen mit
+        ...localeMap(({ locale: mapLocale }) => ({
+          rel: "alternate",
+          hrefLang: mapLocale,
+          href: getLocalizedUrl(path, mapLocale),
+        })),
+
+        // x-default: Für Benutzer in nicht übereinstimmenden Sprachen
+        // Definieren Sie die Standard-Fallback-Locale (normalerweise Ihre Hauptsprache)
+        {
+          rel: "alternate",
+          hrefLang: "x-default",
+          href: getLocalizedUrl(path, defaultLocale),
+        },
+      ],
+      meta: [
+        { title: loaderData?.metaContent.title },
+        {
+          name: "description",
+          content: loaderData?.metaContent.meta.description,
+        },
+      ],
+    };
+  },
+});
+```
+
+> `head` kann aufgerufen werden, bevor sich der loader abgewickelt hat, sodass `loaderData` möglicherweise als `undefined` eingegeben wird. Behalten Sie das optionale Chaining bei oder geben Sie einen Fallback-Titel zurück.
+
+Sie behalten den Locale-spezifischen Chunk, ohne seine Kosten auf dem head-kritischen Pfad zu zahlen. Der Preis ist die Entwickler-Experience: Der Inhalt muss explizit vom loader zum `head` durch `loaderData` geleitet werden.
+
+</Tab>
+
+</Tabs>
+
+### Welche Auflösung sollte ich wählen?
+
+|                     | Statische Auflösung      | Dynamische Auflösung              | Zwischengespeicherte dynamische Auflösung |
+| ------------------- | ------------------------ | --------------------------------- | ----------------------------------------- |
+| API                 | `getIntlayer`            | `getIntlayerAsync` (v9.4+)        | `getIntlayerAsync` in `loader` (v9.4+)    |
+| `head` Signatur     | synchron                 | `async`                           | synchron, liest `loaderData`              |
+| Locales versendet   | jedes deklarierte Locale | angeforderte Locale nur           | angeforderte Locale nur                   |
+| Client-Navigationen | nichts zu lösen          | bei jedem Match erneut eingegeben | aus dem Router-Cache bereitgestellt       |
+| Entwicklererlebnis  | am einfachsten           | ein `await`                       | Inhalte über `loaderData` verkettet       |
+
+---
+
+</Step>
+
+<Step number={13} title="Rufen Sie das Locale in Ihren Server-Aktionen ab">
+
+Möglicherweise möchten Sie auf das aktuelle Locale von Ihren Server-Aktionen oder API-Endpunkten aus zugreifen.
+Sie können dies mit dem `getLocale`-Helfer von `intlayer` tun.
+
+Hier ist ein Beispiel mit den Server-Funktionen von TanStack Start:
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createServerFn } from "@tanstack/react-start";
+import {
+  getRequestHeader,
+  getRequestHeaders,
+} from "@tanstack/react-start/server";
+import { getCookie, getIntlayer, getLocale } from "intlayer";
+
+export const getLocaleServer = createServerFn().handler(async () => {
+  const locale = await getLocale({
+    // Rufen Sie das Cookie aus der Anfrage ab (Standard: 'INTLAYER_LOCALE')
+    getCookie: (name) => {
+      const cookieString = getRequestHeader("cookie");
+
+      return getCookie(name, cookieString);
+    },
+    // Rufen Sie den Header aus der Anfrage ab (Standard: 'x-intlayer-locale')
+    // Fallback mit Accept-Language-Aushandlung
+    getHeader: (name) => getRequestHeader(name),
+  });
+
+  // Rufen Sie Inhalte mit getIntlayerAsync() ab
+  const content = getIntlayer("app", locale);
+
+  return { locale, content };
+});
+```
+
+---
+
+</Step>
+
+<Step number={14} title="Verwalten Sie Seiten, die nicht gefunden wurden">
+
+Wenn ein Benutzer eine nicht vorhandene Seite besucht, können Sie eine benutzerdefinierte Seite anzeigen, die nicht gefunden wurde, und das Locale-Präfix kann beeinflussen, wie die Seite ausgelöst wird, die nicht gefunden wurde.
+
+#### Lokalisierte Startseite
+
 > Wenn Sie Ihren Inhalt in einem `string`-Attribut verwenden möchten, wie z. B. `alt`, `title`, `href`, `aria-label`, usw., können Sie den Wert der Funktion wie folgt verwenden:
 >
 > ```html
@@ -568,10 +944,6 @@ function RouteComponent() {
 > Um mehr über den `useIntlayer`-Hook zu erfahren, lesen Sie die [Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/react-intlayer/useIntlayer.md).
 
 </Step>
-
-<Step number={9} title="Eine Locale-Switcher-Komponente erstellen">
-
-Erstellen Sie eine Komponente, mit der Benutzer die Sprache wechseln können:
 
 ```tsx fileName="src/components/locale-switcher.tsx"
 import { useLocation } from "@tanstack/react-router";
@@ -634,12 +1006,6 @@ export const LocaleSwitcher: FC = () => {
 
 <Step number={10} title="HTML-Attribute-Verwaltung">
 
-const localeRoute = getRouteApi("/{-$locale}");
-
-function RootDocument({ children }: { children: ReactNode }) {
-const params = localeRoute.useParams();
-const locale = params?.locale ?? defaultLocale;
-
 return (
 <html dir={getHTMLTextDir(locale)} lang={locale}>
 {/* ... _/}
@@ -650,157 +1016,15 @@ return (
 );
 }
 
-````
-
----
-
-</Step>
-
-<Step number={11} title="Middleware hinzufügen">
-
-Sie können auch den `intlayerProxy` verwenden, um serverseitiges Routing zu Ihrer Anwendung hinzuzufügen. Dieses Plugin erkennt automatisch die aktuelle Locale basierend auf der URL und setzt das entsprechende Locale-Cookie. Wenn keine Locale angegeben ist, bestimmt das Plugin die am besten geeignete Locale basierend auf den Spracheinstellungen des Browsers des Benutzers. Wenn keine Locale erkannt wird, wird auf die Standard-Locale weitergeleitet.
-
-> Beachten Sie, dass Sie zur Verwendung des `intlayerProxy` in der Produktion das Paket `vite-intlayer` von `devDependencies` zu `dependencies` verschieben müssen.
-
-> Seit Intlayer v9 ist `intlayerProxy()` direkt in das `intlayer()`-Plugin integriert und standardmäßig über die Option `routing.enableProxy` (`true` standardmäßig) aktiviert. Die separate Registrierung wie unten gezeigt ist nun optional; sie wird aus Gründen der Rückwärtskompatibilität und für Setups beibehalten, die die Plugin-Reihenfolge kontrollieren müssen. Setzen Sie `routing.enableProxy: false`, um sich abzumelden. Siehe die [v9-Versionshinweise](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/releases/v9.md).
-
-```typescript fileName="vite.config.ts"
-import { tanstackStart } from "@tanstack/react-start/plugin/vite";
-import viteReact from "@vitejs/plugin-react";
-import { nitro } from "nitro/vite";
-import { defineConfig } from "vite";
-import { intlayer } from "vite-intlayer";
-
-export default defineConfig({
-  plugins: [
-    nitro(),
-    intlayer({
-      proxy: {
-        ignore: (req) => req.url?.startsWith("/api"),
-      },
-    }),
-    tanstackStart({
-      router: {
-        routeFileIgnorePattern:
-          ".content.(ts|tsx|js|mjs|cjs|jsx|json|jsonc|json5|md|mdx|yaml|yml)$",
-      },
-    }),
-    viteReact(),
-  ],
-});
-````
-
----
-
-</Step>
-
-<Step number={12} title="Metadaten internationalisieren">
-
-<Tabs>
-
-<Tab label="Statische Auflösung" value="static">
-
-`getIntlayer` löst synchron gegen das **zusammengeführte** Dictionary auf, also gegen jenes, das alle deklarierten Locales enthält. `head` bleibt synchron und es wird nichts erwartet, aber das gesamte mehrsprachige Dictionary landet im Route-Chunk, der an den Browser geht.
-
-```tsx fileName="src/routes/{-$locale}/index.tsx"
-import { createFileRoute } from "@tanstack/react-router";
-import {
-  defaultLocale,
-  getIntlayer,
-  getLocalizedUrl,
-  localeMap,
-} from "intlayer";
-
 export const Route = createFileRoute("/{-$locale}/")({
-  component: RouteComponent,
-  head: ({ params }) => {
-    const { locale = defaultLocale } = params;
-    const path = "/"; // The path for this route
-
-    const metaContent = getIntlayer("app", locale);
-
-    return {
-      links: [
-        // Canonical link: Points to the current localized page
-        { rel: "canonical", href: getLocalizedUrl(path, locale) },
-
-        // Hreflang: Tell Google about all localized versions
-        ...localeMap(({ locale: mapLocale }) => ({
-          rel: "alternate",
-          hrefLang: mapLocale,
-          href: getLocalizedUrl(path, mapLocale),
-        })),
-
-        // x-default: For users in unmatched languages
-        // Define the default fallback locale (usually your primary language)
-        {
-          rel: "alternate",
-          hrefLang: "x-default",
-          href: getLocalizedUrl(path, defaultLocale),
-        },
-      ],
-      meta: [
-        { title: metaContent.title },
-        { name: "description", content: metaContent.meta.description },
-      ],
-    };
-  },
-});
-```
-
-Am besten für kleine Metadaten-Dictionaries, wenige Locales oder beim Prototyping.
-
-</Tab>
-
-<Tab label="Dynamische Auflösung" value="dynamic">
-
-`getIntlayerAsync` (verfügbar ab **v9.4**) verhält sich wie `getIntlayer`, doch das Build-Plugin verweist es auf den Locale-Chunk in `.intlayer/dynamic_dictionaries/` statt auf das zusammengeführte Dictionary. Eine Seite liefert damit nur die Locale aus, die sie rendert. Da dieser Chunk bei Bedarf geladen wird, wird `head` zu `async`:
-
-```tsx fileName="src/routes/{-$locale}/index.tsx"
-import { createFileRoute } from "@tanstack/react-router";
-import {
-  defaultLocale,
-  getIntlayerAsync,
-  getLocalizedUrl,
-  localeMap,
-} from "intlayer";
-
-export const Route = createFileRoute("/{-$locale}/")({
-  component: RouteComponent,
-  head: async ({ params }) => {
-    const { locale = defaultLocale } = params;
-    const path = "/"; // The path for this route
+component: RouteComponent,
+head: async ({ params }) => {
+const { locale = defaultLocale } = params;
+const path = "/"; // The path for this route
 
     const metaContent = await getIntlayerAsync("app", locale);
 
-    return {
-      links: [
-        // Canonical link: Points to the current localized page
-        { rel: "canonical", href: getLocalizedUrl(path, locale) },
-
-        // Hreflang: Tell Google about all localized versions
-        ...localeMap(({ locale: mapLocale }) => ({
-          rel: "alternate",
-          hrefLang: mapLocale,
-          href: getLocalizedUrl(path, mapLocale),
-        })),
-
-        // x-default: For users in unmatched languages
-        // Define the default fallback locale (usually your primary language)
-        {
-          rel: "alternate",
-          hrefLang: "x-default",
-          href: getLocalizedUrl(path, defaultLocale),
-        },
-      ],
-      meta: [
-        { title: metaContent.title },
-        { name: "description", content: metaContent.meta.description },
-      ],
-    };
-  },
-});
-```
+````
 
 > Liest ein `head` mehrere Dictionaries, lösen Sie sie mit `Promise.all` auf; jedes `getIntlayerAsync` einzeln zu awaiten verkettet die Anfragen, statt sie parallel auszuführen.
 
@@ -813,103 +1037,6 @@ Der Kompromiss: Der dynamische Import wird während der Ausführung von `head` a
 Lösen Sie das Dictionary stattdessen im `loader` der Route auf und lesen Sie es in `head` aus `loaderData` zurück. Die Loader der gematchten Routen laufen parallel, und `staleTime: Infinity` teilt TanStack Router mit, dass das Ergebnis nie veraltet, der Locale-Chunk wird also einmal aufgelöst und danach aus dem Router-Cache bedient, während `head` synchron bleibt.
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
-import { createFileRoute } from "@tanstack/react-router";
-import {
-  defaultLocale,
-  getIntlayerAsync,
-  getLocalizedUrl,
-  localeMap,
-} from "intlayer";
-
-export const Route = createFileRoute("/{-$locale}/")({
-  component: RouteComponent,
-  // Resolved in parallel with the other matched routes, off the head critical path
-  loader: async ({ params }) => {
-    const { locale = defaultLocale } = params;
-
-    return { metaContent: await getIntlayerAsync("app", locale) };
-  },
-  // The dictionary never changes for a given locale: resolve the chunk once
-  staleTime: Infinity,
-  head: ({ params, loaderData }) => {
-    const { locale = defaultLocale } = params;
-    const path = "/"; // The path for this route
-
-    return {
-      links: [
-        // Canonical link: Points to the current localized page
-        { rel: "canonical", href: getLocalizedUrl(path, locale) },
-
-        // Hreflang: Tell Google about all localized versions
-        ...localeMap(({ locale: mapLocale }) => ({
-          rel: "alternate",
-          hrefLang: mapLocale,
-          href: getLocalizedUrl(path, mapLocale),
-        })),
-
-        // x-default: For users in unmatched languages
-        // Define the default fallback locale (usually your primary language)
-        {
-          rel: "alternate",
-          hrefLang: "x-default",
-          href: getLocalizedUrl(path, defaultLocale),
-        },
-      ],
-      meta: [
-        { title: loaderData?.metaContent.title },
-        {
-          name: "description",
-          content: loaderData?.metaContent.meta.description,
-        },
-      ],
-    };
-  },
-});
-```
-
-> `head` kann aufgerufen werden, bevor der Loader fertig ist; `loaderData` ist deshalb als möglicherweise `undefined` typisiert. Behalten Sie die Optional-Chaining-Aufrufe bei oder geben Sie einen Fallback-Titel zurück.
-
-Sie behalten den Locale-Chunk, ohne seine Kosten auf dem kritischen Pfad des `head` zu bezahlen. Der Preis ist die Developer Experience: Der Inhalt muss explizit vom Loader über `loaderData` an den `head` durchgereicht werden.
-
-</Tab>
-
-</Tabs>
-
-### Welche Auflösung soll ich wählen?
-
-|                       | Statische Auflösung       | Dynamische Auflösung              | Gecachte dynamische Auflösung          |
-| --------------------- | ------------------------- | --------------------------------- | -------------------------------------- |
-| API                   | `getIntlayer`             | `getIntlayerAsync` (v9.4+)        | `getIntlayerAsync` im `loader` (v9.4+) |
-| `head`-Signatur       | synchron                  | `async`                           | synchron, liest `loaderData`           |
-| Ausgelieferte Locales | alle deklarierten Locales | nur die angeforderte Locale       | nur die angeforderte Locale            |
-| Client-Navigationen   | nichts aufzulösen         | bei jedem Match erneut ausgeführt | aus dem Router-Cache bedient           |
-| Developer Experience  | am einfachsten            | ein `await`                       | Inhalt über `loaderData` durchgereicht |
-
----
-
-</Step>
-
-<Step number={13} title="Locale in Ihren Serveraktionen abrufen">
-
-Vielleicht möchten Sie von Ihren Serveraktionen oder API-Endpunkten aus auf die aktuelle Locale zugreifen.
-Dies können Sie mit dem Helfer `getLocale` von `intlayer` tun.
-
-Hier ist ein Beispiel mit den Serverfunktionen von TanStack Start:
-
-```tsx fileName="src/routes/{-$locale}/index.tsx"
-import { createServerFn } from "@tanstack/react-start";
-import {
-  getRequestHeader,
-  getRequestHeaders,
-} from "@tanstack/react-start/server";
-import { getCookie, getIntlayer, getLocale } from "intlayer";
-
-export const getLocaleServer = createServerFn().handler(async () => {
-  const locale = await getLocale({
-    // Cookie aus der Anfrage abrufen (Standard: 'INTLAYER_LOCALE')
-    getCookie: (name) => {
-      const cookieString = getRequestHeader("cookie");
-
       return getCookie(name, cookieString);
     },
     // Header aus der Anfrage abrufen (Standard: 'x-intlayer-locale')
@@ -920,9 +1047,7 @@ export const getLocaleServer = createServerFn().handler(async () => {
   // Inhalte mit getIntlayer() abrufen
   const content = getIntlayer("app", locale);
 
-  return { locale, content };
-});
-```
+````
 
 ---
 
@@ -941,65 +1066,15 @@ In TanStack Router erfordert die Behandlung von 404-Seiten mit lokalisierten Rou
 3. **Catch-all-Route**: Erfasst alle nicht übereinstimmenden Pfade innerhalb des Locale-Segments
 
 ```tsx fileName="src/routes/{-$locale}/404.tsx"
-import { createFileRoute } from "@tanstack/react-router";
 
-// Dies erstellt eine dedizierte /[locale]/404 Route
-// Sie wird sowohl als direkte Route verwendet als auch als Komponente in anderen Dateien importiert
-export const Route = createFileRoute("/{-$locale}/404")({
-  component: NotFoundComponent,
-});
-
-// Separat exportiert, damit sie in notFoundComponent und Catch-all-Routen wiederverwendet werden kann
-export function NotFoundComponent() {
-  return (
-    <div>
-      <h1>404</h1>
-    </div>
-  );
-}
 ```
 
 ```tsx fileName="src/routes/{-$locale}/route.tsx"
-import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
-import { validatePrefix } from "intlayer";
-import { NotFoundComponent } from "./404";
 
-export const Route = createFileRoute("/{-$locale}")({
-  // beforeLoad wird ausgeführt, bevor die Route gerendert wird (sowohl auf dem Server als auch auf dem Client)
-  // Es ist der ideale Ort, um das Locale-Präfix zu validieren
-  beforeLoad: ({ params }) => {
-    const localeParam = params.locale;
-
-    // validatePrefix prüft, ob die Locale gemäß Ihrer Intlayer-Konfiguration gültig ist
-    const { isValid, localePrefix } = validatePrefix(localeParam);
-
-    if (!isValid) {
-      // Ungültiges Locale-Präfix - Weiterleitung zur 404-Seite mit einem gültigen Locale-Präfix
-      throw redirect({
-        to: "/{-$locale}/404",
-        params: { locale: localePrefix },
-      });
-    }
-  },
-  component: Outlet,
-  // notFoundComponent wird aufgerufen, wenn eine untergeordnete Route nicht existiert
-  // z.B. löst /en/nicht-existierende-seite dies innerhalb des /en-Layouts aus
-  notFoundComponent: NotFoundComponent,
-});
 ```
 
 ```tsx fileName="src/routes/{-$locale}/$.tsx"
-import { createFileRoute } from "@tanstack/react-router";
 
-import { NotFoundComponent } from "./404";
-
-// Die $ (Splat/Catch-all) Route entspricht jedem Pfad, der nicht mit anderen Routen übereinstimmt
-// z.B. /en/irgendein/tief/verschachtelter/ungültiger/pfad
-// Dies stellt sicher, dass ALLE nicht übereinstimmenden Pfade innerhalb einer Locale die 404-Seite anzeigen
-// Ohne dies könnten nicht übereinstimmende tiefe Pfade eine leere Seite oder einen Fehler anzeigen
-export const Route = createFileRoute("/{-$locale}/$")({
-  component: NotFoundComponent,
-});
 ```
 
 </Step>
@@ -1015,23 +1090,10 @@ Um es einzurichten, können Sie einen `compiler`-Abschnitt in Ihrer `intlayer.co
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig } from "intlayer";
 
-const config: IntlayerConfig = {
-  // ... Rest Ihrer Konfiguration
-  compiler: {
-    /**
-     * Gibt an, ob der Compiler aktiviert sein soll.
-     */
-    enabled: true,
-
     /**
      * Definiert den Pfad der Ausgabedateien
      */
     output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * Gibt an, ob die Komponenten nach der Transformation gespeichert werden sollen. Auf diese Weise kann der Compiler nur einmal ausgeführt werden, um die App zu transformieren, und dann entfernt werden.
-     */
-    saveComponents: false,
 
     /**
      * Präfix für Wörterbuchschlüssel
@@ -1049,29 +1111,23 @@ export default config;
 Führen Sie den Extractor aus, um Ihre Komponenten zu transformieren und den Inhalt zu extrahieren
 
 ```bash packageManager="npm"
-npx intlayer extract
+
 ```
 
 ```bash packageManager="pnpm"
-pnpm intlayer extract
+
 ```
 
 ```bash packageManager="yarn"
-yarn intlayer extract
+
 ```
 
 ```bash packageManager="bun"
+
+</Tab>
+</Tabs>
+
 bun x intlayer extract
-```
-
- </Tab>
- <Tab value='Babel-Compiler'>
-
-> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
-
-Aktualisieren Sie Ihre `vite.config.ts`, um das `intlayerCompiler`-Plugin aufzunehmen:
-
-```ts fileName="vite.config.ts"
 import { defineConfig } from "vite";
 import { intlayer, intlayerCompiler } from "vite-intlayer";
 
@@ -1096,25 +1152,10 @@ yarn build # Oder yarn dev
 ```
 
 ```bash packageManager="bun"
-bun run build # Or bun run dev
-```
-
- </Tab>
-</Tabs>
 
 ---
 
-</Step>
-
-<Step number={16} title="Sitemap generieren">
-
-Intlayer wird mit einem integrierten Sitemap-Generator geliefert, mit dem Sie ganz einfach eine Sitemap für Ihre Anwendung erstellen können. Er berücksichtigt lokalisierte Routen und fügt die erforderlichen Metadaten für Suchmaschinen hinzu.
-
-> Die von Intlayer generierte Sitemap unterstützt den `xhtml:link`-Namespace (Hreflang XML-Erweiterungen). Im Gegensatz zu Standard-Sitemap-Generatoren, die nur rohe URLs auflisten, erstellt Intlayer automatisch die erforderlichen bidirektionalen Links zwischen allen Sprachversionen einer Seite (z. B. `/about`, `/about?lang=fr` und `/about?lang=es`). Dies stellt sicher, dass Suchmaschinen die richtige Sprachversion korrekt indexieren und der richtigen Zielgruppe bereitstellen.
-
-Um ihn zu verwenden, müssen Sie zuerst Ihre `vite.config.ts` konfigurieren, um das Vorrendern für Ihre lokalisierten Routen zu aktivieren und die standardmäßige TanStack Start Sitemap-Generierung zu deaktivieren.
-
-```typescript fileName="vite.config.ts"
+bun run build # Or bun run dev
 import { localeFlatMap } from "intlayer";
 // ... andere Imports
 
@@ -1150,13 +1191,9 @@ export default defineConfig({
 
 Erstellen Sie dann eine Route `src/routes/sitemap[.]xml.ts`, die die Funktion `generateSitemap` verwendet:
 
-```typescript fileName="src/routes/sitemap[.]xml.ts"
-import { createFileRoute } from "@tanstack/react-router";
-import { generateSitemap } from "intlayer";
+````typescript fileName="src/routes/sitemap[.]xml.ts"
 
-const SITE_URL = (
-  import.meta.env.VITE_SITE_URL ?? "http://localhost:3000"
-).replace(/\/$/, "");
+---
 
 export const Route = createFileRoute("/sitemap.xml")({
   server: {
@@ -1177,19 +1214,6 @@ export const Route = createFileRoute("/sitemap.xml")({
     },
   },
 });
-```
-
----
-
-</Step>
-
-<Step number={17} title="TypeScript konfigurieren">
-
-Intlayer verwendet Module Augmentation, um die Vorteile von TypeScript zu nutzen und Ihre Codebasis robuster zu machen.
-
-Stellen Sie sicher, dass Ihre TypeScript-Konfiguration die automatisch generierten Typen enthält:
-
-```json5 fileName="tsconfig.json"
 {
   // ... Ihre bestehenden Konfigurationen
   include: [
@@ -1197,55 +1221,48 @@ Stellen Sie sicher, dass Ihre TypeScript-Konfiguration die automatisch generiert
     ".intlayer/**/*.ts", // Die automatisch generierten Typen einschließen
   ],
 }
-```
-
----
-
-</Step>
-
-</Steps>
 
 ### Git-Konfiguration
 
-Es wird empfohlen, die von Intlayer generierten Dateien zu ignorieren. So vermeiden Sie, dass diese in Ihr Git-Repository übertragen werden.
+Es wird empfohlen, die von Intlayer generierten Dateien zu ignorieren. Dies ermöglicht es dir, sie nicht in dein Git-Repository zu committen.
 
-Fügen Sie dazu die folgenden Anweisungen zu Ihrer `.gitignore`-Datei hinzu:
+Um dies zu tun, kannst du die folgenden Anweisungen zu deiner `.gitignore`-Datei hinzufügen:
 
 ```plaintext fileName=".gitignore"
-# Die von Intlayer generierten Dateien ignorieren
+# Von Intlayer generierte Dateien ignorieren
 .intlayer
-```
+````
 
 ---
 
-## VS Code Erweiterung
+## VS Code Extension
 
-Um Ihre Entwicklungserfahrung mit Intlayer zu verbessern, können Sie die offizielle **Intlayer VS Code Erweiterung** installieren.
+Um dein Entwicklungserlebnis mit Intlayer zu verbessern, kannst du die offizielle **Intlayer VS Code Extension** installieren.
 
-[Aus dem VS Code Marketplace installieren](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+[Installieren vom VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
-Diese Erweiterung bietet:
+Diese Extension bietet:
 
-- **Autovervollständigung** für Übersetzungsschlüssel.
+- **Autocompletion** für Übersetzungsschlüssel.
 - **Echtzeit-Fehlererkennung** für fehlende Übersetzungen.
-- **Inline-Vorschauen** von übersetzten Inhalten.
-- **Schnellaktionen**, um Übersetzungen einfach zu erstellen und zu aktualisieren.
+- **Inline-Vorschau** von übersetztem Inhalt.
+- **Schnellaktionen** zum einfachen Erstellen und Aktualisieren von Übersetzungen.
 
-Weitere Einzelheiten zur Verwendung der Erweiterung finden Sie in der [Dokumentation zur Intlayer VS Code Erweiterung](https://intlayer.org/doc/vs-code-extension).
-
----
-
-## Weiterführende Informationen
-
-Um noch weiter zu gehen, können Sie den [visuellen Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md) implementieren oder Ihre Inhalte über das [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md) extern verwalten.
+Für weitere Details zur Verwendung der Extension, siehe die [Intlayer VS Code Extension Dokumentation](https://intlayer.org/doc/vs-code-extension).
 
 ---
 
-## Dokumentationsverweise
+## Weiter geht's
 
-- [Intlayer-Dokumentation](https://intlayer.org)
-- [Tanstack Start-Dokumentation](https://reactrouter.com/)
-- [useIntlayer-Hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/react-intlayer/useIntlayer.md)
-- [useLocale-Hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/react-intlayer/useLocale.md)
-- [Inhaltsdeklaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/content_file.md)
-- [Konfiguration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/configuration.md)
+Um weiter zu gehen, können Sie den [visuellen Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md) implementieren oder Ihren Inhalt mit dem [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md) externalisieren.
+
+---
+
+## Dokumentationsreferenzen
+
+- [Intlayer Documentation](https://intlayer.org)
+- [Tanstack Start Documentation](https://reactrouter.com/)
+- [useIntlayer hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/react-intlayer/useIntlayer.md)
+- [useLocale hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/react-intlayer/useLocale.md)
+- [Content Declaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/content_file.md)
+- [Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/configuration.md)

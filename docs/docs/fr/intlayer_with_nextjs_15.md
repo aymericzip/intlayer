@@ -288,6 +288,33 @@ Pour implémenter le routage dynamique, fournissez le chemin pour la locale en a
  <Tab label='Intlayer >=9.4' value='>=9.4'>
 
 ```tsx fileName="src/app/[locale]/layout.tsx" codeFormat={["typescript", "esm"]}
+import { type NextLayoutIntlayer } from "next-intlayer";
+import { IntlayerProvider } from "next-intlayer/server";
+import { Inter } from "next/font/google";
+import { getHTMLTextDir } from "intlayer";
+
+const inter = Inter({ subsets: ["latin"] });
+
+const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
+  const { locale } = await params;
+  return (
+    <html lang={locale} dir={getHTMLTextDir(locale)}>
+      <body className={inter.className}>
+        <IntlayerProvider locale={locale}>{children}</IntlayerProvider>
+      </body>
+    </html>
+  );
+};
+
+export default LocaleLayout;
+```
+
+> A single `IntlayerProvider` covers both halves of the tree: it seeds the request-scoped server context read by the server hooks, and mounts the client provider so client components receive the same locale.
+
+ </Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
+
+```tsx fileName="src/app/[locale]/layout.tsx" codeFormat={["typescript", "esm"]}
 import { type NextLayoutIntlayer, IntlayerClientProvider } from "next-intlayer";
 import { Inter } from "next/font/google";
 import { getHTMLTextDir } from "intlayer";
@@ -309,6 +336,9 @@ const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
 
 export default LocaleLayout;
 ```
+
+ </Tab>
+</Tabs>
 
 > Le segment de chemin `[locale]` est utilisé pour définir la locale. Exemple : `/en-US/about` fera référence à `en-US` et `/fr/about` à `fr`.
 

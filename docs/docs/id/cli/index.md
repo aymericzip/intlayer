@@ -127,6 +127,8 @@ Untuk mempelajari cara mengonfigurasi bahasa yang tersedia atau parameter lainny
 
 - **[Login](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/login.md)** - Autentikasi dengan Intlayer CMS dan dapatkan kredensial akses
 
+> `intlayer login` mengeluarkan sebuah **access key** (`clientId` / `clientSecret`) yang digunakan oleh setiap perintah yang memerlukan kredensial. Secret adalah kredensial sisi server dan tidak pernah mencapai client bundle Anda — lihat [Keeping the access key safe](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/login.md#keeping-the-access-key-safe).
+
 ### Perintah Utama
 
 - **[Build Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/build.md)** - Bangun kamus Anda dari file deklarasi konten

@@ -379,8 +379,6 @@ export default async function Page() {
 - **`IntlayerProvider`** はルートレイアウトに一度だけマウントされます。サーバーコンポーネントとクライアントコンポーネント両方にロケールを提供するため、ページ自体がラップされる必要がなくなります。
 - `[locale]` パスセグメントがない場合、ロケールは常にリクエストから取得されます — Intlayer プロキシによって設定された `x-intlayer-locale` ヘッダー、その後ロケール cookie — プロバイダーが実行されていない場合、サーバーフックがこれらを独自に読み取ります。
 
-  </Tab>
-
 </Tabs>
 
 ```tsx fileName="src/app/page.tsx"

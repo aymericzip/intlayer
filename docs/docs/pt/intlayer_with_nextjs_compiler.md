@@ -376,8 +376,6 @@ export default async function Page() {
 - **`IntlayerProvider`** é montado uma vez, no layout raiz. Ele fornece a localidade para componentes de servidor e cliente, para que as páginas não se envolvam mais.
 - Sem um segmento de caminho `[locale]`, a localidade sempre vem da solicitação — o cabeçalho `x-intlayer-locale` definido pelo proxy Intlayer, depois o cookie de localidade — que os hooks do servidor leem por conta própria quando o provedor não foi executado.
 
-  </Tab>
-
 </Tabs>
 
 ```tsx fileName="src/app/page.tsx"

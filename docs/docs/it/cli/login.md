@@ -118,6 +118,34 @@ INTLAYER_CLIENT_SECRET=your_client_secret
 }
 ```
 
+## Mantenere la chiave di accesso al sicuro
+
+`intlayer login` rilascia una **chiave di accesso**: una coppia `clientId` / `clientSecret` che ogni comando autenticato (`push`, `pull`, `fill`, `configuration push`, `live`, …) utilizza per autenticarsi.
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import type { IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  editor: {
+    clientId: process.env.INTLAYER_CLIENT_ID,
+    clientSecret: process.env.INTLAYER_CLIENT_SECRET,
+  },
+};
+
+export default config;
+```
+
+> **`clientSecret` è una credenziale lato server.** Concede accesso API completo nell'ambito del progetto — lettura e scrittura dei tuoi dizionari, del tuo progetto e della tua organizzazione. Conservala in `.env` (ignorato da git) o nel tuo archivio di secret CI, e non inserirla mai inline nel file di configurazione.
+
+Intlayer lo applica piuttosto che solo documentarlo:
+
+- `clientSecret` è **rimossa dalla configurazione che il tuo bundler incorpora**, quindi non può raggiungere un bundle del browser indipendentemente dall'integrazione del framework che utilizzi. Viene letta solo lato server, a runtime, dall'ambiente.
+- `clientId` è diverso: è la **chiave pubblica** del progetto, sicura da distribuire, ed è utilizzato da [`@intlayer/analytics`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/analytics.md#how-events-are-authenticated) per ottenere un token di breve durata, solo per l'inserimento.
+
+Commentare `clientId` è sufficiente per disabilitare ogni comportamento autenticato — recupero di dizionari remoti, accesso CMS, analytics — anche quando le variabili di ambiente sono ancora definite.
+
+Per le pipeline CI, preferisci il comando [`ci`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/cli/ci.md), che inietta le credenziali per la durata di una singola esecuzione invece di farle persistere.
+
 ## Configurazione Manuale
 
 Se il browser non si apre automaticamente, puoi visitare manualmente l'URL mostrato nel terminale.

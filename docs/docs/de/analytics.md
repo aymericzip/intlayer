@@ -123,17 +123,6 @@ export default config;
 
 Das Deinstallieren von `@intlayer/analytics` hat dieselbe Wirkung wie `enabled: false`. Die vollständige Feldliste finden Sie in der [Konfigurationsreferenz](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/configuration.md).
 
-## Framework-Unterstützung
-
-Analytics ist mit dem freigegebenen `IntlayerProvider` von `react-intlayer` verdrahtet und steht daher heute überall dort zur Verfügung, wo dieser Provider verwendet wird:
-
-| Framework                                                | Status                                                                                            |
-| -------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
-| React                                                    | ✅ Verfügbar                                                                                      |
-| Next.js (`next-intlayer`)                                | ✅ Verfügbar (über `react-intlayer`)                                                              |
-| React Native / Expo (`react-native-intlayer`)            | ✅ Verfügbar (über `react-intlayer`)                                                              |
-| Vue, Svelte, Angular, Solid, Preact, Lit, Astro, Vanilla | 🚧 Geplant — gleicher Client, Provider-Level-Bindungen nach dem `@intlayer/editor` Rollout-Muster |
-
 ## Verwendung
 
 ### Automatische Nachverfolgung auf Provider-Ebene
@@ -177,6 +166,34 @@ const CTAButton = () => {
 
 ### Auflösung einer Variante auf der Clientseite
 
+  </Tab>
+</Tabs>
+
+Gewichtungen sind optional — geben Sie eine pro Variante an, um die Aufteilung zu beeinflussen, z. B. `useExperiment("homepage-hero", ["default", "black_friday"], [9, 1])`.
+
+Das untergeordnete Element liest dann die [Variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dynamic_dictionaries/variants.md) des Wörterbuchs, die übereinstimmt:
+
+```tsx fileName="HeroBanner.tsx"
+import { useIntlayer } from "react-intlayer";
+
+export const HeroBanner = ({ variant }: { variant: string }) => {
+  const { headline, cta } = useIntlayer("hero-banner", { variant });
+
+  return (
+    <section>
+      <h1>{headline}</h1>
+      <a>{cta}</a>
+    </section>
+  );
+};
+```
+
+> Das Lesen der Variante in einer **untergeordneten Komponente** ist das, was dies außerhalb von React funktioniert: In Vue, Svelte, Solid und Angular wird der Selektor, der an `useIntlayer` übergeben wird, erfasst, wenn die Komponente initialisiert wird, daher muss das Lesen in einer Komponente stattfinden, die nur einmal bereitgestellt wird, wenn die Variante bekannt ist.
+
+Wenn das Experiment eine ganze Seite abdeckt und nicht nur ein einzelnes Dictionary, verschieben Sie die Variante stattdessen auf den Provider — siehe [Ambient variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dynamic_dictionaries/variants.md#ambient-variant). Jedes `useIntlayer` darunter wird dann dagegen aufgelöst, ohne dass Änderungen an der Aufrufstelle erforderlich sind.
+
+Wenn du die Raw Assignment außerhalb einer Komponente benötigst, greife direkt auf den Client zu:
+
 ```tsx fileName="useHeroVariant.ts" codeFormat="tsx"
 import { getGlobalAnalyticsClient } from "@intlayer/analytics/client";
 
@@ -186,6 +203,8 @@ const variant = client?.getVariant("homepage-hero", [
   "black_friday",
 ]);
 ```
+
+> `getVariant` weist nur zu — es zeichnet die Exposition nicht auf. Verwenden Sie lieber `useExperiment()`, andernfalls hat die Konversionsrate keinen Nenner.
 
 ## Datenschutz & Leistung
 
@@ -235,6 +254,8 @@ const cms = createIntlayerCMS();
 
 const { data: audience } = await analyticsEndpoint(cms).getAudience(30);
 ```
+
+> **Nur Server-seitig.** `createIntlayerCMS()` authentifiziert sich mit `clientId` + `clientSecret`, und das Secret ist niemals im Browser verfügbar — dieser Code-Schnipsel würde unauthentifizierte Anfragen ausstellen, wenn er dort ausgeführt würde. Halten Sie ihn in einem Route Handler, Server Action oder Script.
 
 ## Nützliche Links
 

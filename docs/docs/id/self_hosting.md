@@ -21,11 +21,15 @@ author: aymericzip
 
 Intlayer dapat berjalan sepenuhnya di infrastruktur Anda sendiri — tidak memerlukan akun Intlayer Cloud. Satu perintah akan mem-boot stack yang siap produksi:
 
+Satu perintah menginstal semuanya:
+
 ```sh
 curl -fsSL https://intlayer.org/install.sh | sh
 ```
 
 Installer mengunduh `docker-compose.yml` dan `.env`, membuat secret yang diperlukan secara otomatis, dan memulai semua kontainer dengan `docker compose up -d`.
+
+Satu-satunya dependensi eksternal adalah **MongoDB**: backend terhubung ke cluster MongoDB **Atlas**, yang Anda sediakan. Semua yang lain berjalan di dalam container.
 
 ## Daftar Isi
 
@@ -60,31 +64,77 @@ Chromium (digunakan untuk pembuatan screenshot Puppeteer) dibundel di dalam imag
 - Port `3000`, `3100`, `8025`, `9000`, dan `9001` tersedia di host.
 - Host Linux atau macOS (atau WSL2 di Windows).
 
+Semuanya — Bun, Redis, MinIO, Chromium — dikirimkan di dalam image.
+
 ---
 
-## Mulai Cepat
+## Memulai dengan cepat
 
-Pull dan jalankan image yang dipublikasikan, dengan menyediakan kredensial dan secrets MongoDB Atlas Anda:
+### 1. Jalankan installer
+
+```sh
+curl -fsSL https://intlayer.org/install.sh | sh
+```
+
+Installer memverifikasi bahwa Docker terinstall dan berjalan, menulis `./intlayer.env` dengan `BETTER_AUTH_SECRET` dan `S3_SECRET_ACCESS_KEY` yang sudah digenerate, dan menarik image. Installer tidak memulai container — backend tidak dapat boot tanpa kredensial database Anda.
+
+Menjalankan installer kembali aman: `intlayer.env` yang sudah ada tidak akan pernah ditimpa, jadi ini juga berfungsi sebagai jalur upgrade.
+
+### 2. Isi kredensial Anda
+
+Buka `intlayer.env` dan lengkapi nilai-nilai yang ditandai `TODO`:
+
+```sh fileName="intlayer.env"
+DB_ID=<atlas-user>
+DB_MDP=<atlas-password>
+DB_CLUSTER=<cluster>.xxxxx.mongodb.net
+RESEND_API_KEY=<your-resend-key>
+```
+
+File ini juga berisi blok yang dikomentari untuk fitur-fitur opsional — [SMTP mailer](#global-mailer), `OPENAI_API_KEY`, dan penyedia OAuth. Uncomment yang Anda butuhkan.
+
+> File dibaca oleh `docker run --env-file`, yang tidak menghapus tanda kutip dan menganggap semua yang setelah `=` sebagai nilai. Tulis nilai tanpa tanda kutip, dan simpan komentar di baris terpisah.
+
+### 3. Mulai container
+
+Ini adalah perintah yang dicetak oleh installer ketika selesai:
 
 ```sh
 docker run -d --name intlayer \
+  --restart unless-stopped \
   -p 3000:3000 \
   -p 3100:3100 \
   -p 9000:9000 \
   -p 9001:9001 \
   -v intlayer-data:/data \
-  -e DB_ID="<atlas-user>" \
-  -e DB_MDP="<atlas-password>" \
-  -e DB_CLUSTER="<cluster>.xxxxx.mongodb.net" \
-  -e BETTER_AUTH_SECRET="$(openssl rand -hex 32)" \
-  -e S3_SECRET_ACCESS_KEY="$(openssl rand -hex 16)" \
-  -e RESEND_API_KEY="<your-resend-key>" \
-  aymericzip/intlayer-selfhost
+  --env-file ./intlayer.env \
+  ghcr.io/aymericzip/intlayer-selfhost:latest
 ```
 
-Kemudian buka **http://localhost:3000**.
+Kemudian buka **http://localhost:3000**. Boot pertama menginisialisasi datastores, jadi tunggu sebentar.
 
-> Dashboard disajikan di `localhost`. Lihat [Batasan](#batasan) — domain kustom tidak didukung oleh image yang dipublikasikan.
+> Dashboard disajikan di `localhost`. Lihat [Limitations](#limitations) — domain kustom tidak didukung oleh image yang dipublikasikan.
+
+### Pengaturan Installer
+
+Installer membaca beberapa variabel environment. Karena di-pipe ke `sh`, teruskan ke shell daripada ke `curl`:
+
+```sh
+curl -fsSL https://intlayer.org/install.sh | INTLAYER_ENV_FILE=./config/intlayer.env sh
+```
+
+| Variable                  | Default                                       | Description                     |
+| ------------------------- | --------------------------------------------- | ------------------------------- |
+| `INTLAYER_IMAGE`          | `ghcr.io/aymericzip/intlayer-selfhost:latest` | Image to pull                   |
+| `INTLAYER_ENV_FILE`       | `./intlayer.env`                              | Where to write the env file     |
+| `INTLAYER_CONTAINER_NAME` | `intlayer`                                    | Container name                  |
+| `INTLAYER_DATA_VOLUME`    | `intlayer-data`                               | Named volume mounted at `/data` |
+| `INTLAYER_APP_PORT`       | `3000`                                        | Host port for the dashboard     |
+| `INTLAYER_API_PORT`       | `3100`                                        | Host port for the API           |
+| `INTLAYER_S3_PORT`        | `9000`                                        | Host port for the MinIO S3 API  |
+| `INTLAYER_CONSOLE_PORT`   | `9001`                                        | Host port for the MinIO console |
+
+> Keempat variabel port hanya mengubah sisi **host** dari mapping yang dicetak dalam perintah `docker run`. Image yang dipublikasikan memiliki `http://localhost:3000`, `http://localhost:3100` dan `http://localhost:9000` dikompilasi ke dalam bundle dashboard pada saat build, jadi remapping mereka membuat browser tetap menunjuk ke port lama. Pertahankan default kecuali Anda membangun image Anda sendiri — lihat [Limitations](#limitations).
 
 ---
 

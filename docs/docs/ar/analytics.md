@@ -123,17 +123,6 @@ export default config;
 
 إلغاء تثبيت `@intlayer/analytics` له نفس أثر `enabled: false`. راجع [مرجع الإعدادات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md) للاطلاع على قائمة الحقول الكاملة.
 
-## دعم إطارات العمل
-
-التحليلات مدمجة في `IntlayerProvider` المشترك من `react-intlayer`، لذا فهي متاحة اليوم في أي مكان يُستخدم فيه هذا المزود:
-
-| إطار العمل (Framework)                                   | الحالة (Status)                                                                      |
-| -------------------------------------------------------- | ------------------------------------------------------------------------------------ |
-| React                                                    | ✅ متاح                                                                              |
-| Next.js (`next-intlayer`)                                | ✅ متاح (عبر `react-intlayer`)                                                       |
-| React Native / Expo (`react-native-intlayer`)            | ✅ متاح (عبر `react-intlayer`)                                                       |
-| Vue, Svelte, Angular, Solid, Preact, Lit, Astro, Vanilla | 🚧 مخطط له — نفس العميل، ارتباطات على مستوى المزود تتبع نمط إطلاق `@intlayer/editor` |
-
 ## الاستخدام
 
 ### التتبع التلقائي على مستوى المزود
@@ -177,6 +166,34 @@ const CTAButton = () => {
 
 ### حل متغير على جانب العميل
 
+  </Tab>
+</Tabs>
+
+الأوزان اختيارية — مرّر واحدًا لكل متغير لتحديل التقسيم، على سبيل المثال `useExperiment("homepage-hero", ["default", "black_friday"], [9, 1])`.
+
+ثم يقرأ العميل [Variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dynamic_dictionaries/variants.md) من القاموس الذي يطابق:
+
+```tsx fileName="HeroBanner.tsx"
+import { useIntlayer } from "react-intlayer";
+
+export const HeroBanner = ({ variant }: { variant: string }) => {
+  const { headline, cta } = useIntlayer("hero-banner", { variant });
+
+  return (
+    <section>
+      <h1>{headline}</h1>
+      <a>{cta}</a>
+    </section>
+  );
+};
+```
+
+> قراءة المتغير في **مكون فرعي** هي ما يجعل هذا يعمل خارج React: في Vue و Svelte و Solid و Angular، يتم التقاط المحدد الذي يتم تمريره إلى `useIntlayer` عند إعداد المكون، لذلك يجب أن تحدث القراءة في مكون يتم تحميله فقط بعد معرفة المتغير.
+
+إذا كانت التجربة تغطي صفحة كاملة بدلاً من قاموس واحد، فقم برفع المتغير إلى موفر البيانات بدلاً من ذلك — انظر [متغير محيط](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dynamic_dictionaries/variants.md#ambient-variant). بعد ذلك، كل `useIntlayer` أدناه يتم حله مقابله دون تغيير موقع الاستدعاء.
+
+إذا كنت بحاجة إلى الوصول المباشر خارج مكون ما، فاستخدم الـ client مباشرة:
+
 ```tsx fileName="useHeroVariant.ts" codeFormat="tsx"
 import { getGlobalAnalyticsClient } from "@intlayer/analytics/client";
 
@@ -186,6 +203,8 @@ const variant = client?.getVariant("homepage-hero", [
   "black_friday",
 ]);
 ```
+
+> `getVariant` فقط يعين — لا يسجل التعرض. فضّل `useExperiment()`، وإلا فإن معدل التحويل لن يكون له مقام.
 
 ## الخصوصية والأداء
 
@@ -235,6 +254,8 @@ const cms = createIntlayerCMS();
 
 const { data: audience } = await analyticsEndpoint(cms).getAudience(30);
 ```
+
+> **خادم فقط.** `createIntlayerCMS()` يتحقق من الهوية باستخدام `clientId` + `clientSecret`، والسر لا يكون متاحًا أبدًا في المتصفح — هذا الجزء من التعليمات البرمجية سيصدر طلبات غير معاد الحصول على إذن لها إذا تم تشغيله هناك. احتفظ به في معالج مسار أو إجراء خادم أو نص برمجي.
 
 ## روابط مفيدة
 

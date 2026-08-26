@@ -21,11 +21,15 @@ author: aymericzip
 
 Intlayer peut fonctionner entièrement sur votre propre infrastructure — aucun compte Intlayer Cloud n'est requis. Une seule commande démarre une stack prête pour la production :
 
+Une seule commande installe tout :
+
 ```sh
 curl -fsSL https://intlayer.org/install.sh | sh
 ```
 
 L'installateur télécharge un fichier `docker-compose.yml` et un fichier `.env`, génère automatiquement les secrets requis et démarre tous les conteneurs avec `docker compose up -d`.
+
+La seule dépendance externe est **MongoDB** : le backend se connecte à un cluster MongoDB **Atlas**, que vous fournissez. Tout le reste s'exécute à l'intérieur du conteneur.
 
 ## Table des matières
 
@@ -60,21 +64,77 @@ Chromium (utilisé pour la génération de captures d'écran Puppeteer) est int�
 - Ports `3000`, `3100`, `8025`, `9000` et `9001` disponibles sur l'hôte.
 - Un hôte Linux ou macOS (ou WSL2 sur Windows).
 
+Tout le reste — Bun, Redis, MinIO, Chromium — est fourni dans l'image.
+
 ---
 
 ## Démarrage rapide
 
-Ce que fait l'installateur :
+### 1. Exécuter l'installateur
 
-1.  Vérifie que `docker` et `docker compose` sont présents.
-2.  Télécharge `docker-compose.yml` et `.env.example` dans `./intlayer/`.
-3.  S'il n'existe pas de fichier `.env`, copie l'exemple et génère des secrets aléatoires pour `BETTER_AUTH_SECRET`, `S3_ACCESS_KEY_ID` et `S3_SECRET_ACCESS_KEY` via `openssl rand`.
-4.  Exécute `docker compose pull` + `docker compose up -d`.
-5.  Affiche les URL : tableau de bord `:3000`, API `:3100`, UI e-mail `:8025`, console MinIO `:9001`.
+```sh
+curl -fsSL https://intlayer.org/install.sh | sh
+```
 
-Une fois la stack démarrée, ouvrez **http://localhost:3000** et créez votre premier compte.
+Il vérifie que Docker est installé et en cours d'exécution, écrit `./intlayer.env` avec `BETTER_AUTH_SECRET` et `S3_SECRET_ACCESS_KEY` déjà générés, et télécharge l'image. Il ne démarre pas le conteneur — le backend ne peut pas démarrer sans vos identifiants de base de données.
 
-> Le dashboard est servi sur `localhost`. Voir [Limitations](#limitations) — les domaines personnalisés ne sont pas pris en charge par l'image publiée.
+Réexécuter l'installateur est sûr : un `intlayer.env` existant n'est jamais écrasé, il sert donc également de chemin de mise à niveau.
+
+### 2. Remplissez vos identifiants
+
+Ouvrez `intlayer.env` et complétez les valeurs marquées `TODO` :
+
+```sh fileName="intlayer.env"
+DB_ID=<atlas-user>
+DB_MDP=<atlas-password>
+DB_CLUSTER=<cluster>.xxxxx.mongodb.net
+RESEND_API_KEY=<your-resend-key>
+```
+
+Le fichier contient également des blocs commentés pour les fonctionnalités optionnelles — [SMTP mailer](#global-mailer), `OPENAI_API_KEY`, et les fournisseurs OAuth. Décommentez ce dont vous avez besoin.
+
+> Le fichier est lu par `docker run --env-file`, qui ne supprime pas les guillemets et traite tout ce qui suit `=` comme la valeur. Écrivez des valeurs nues et gardez les commentaires sur leurs propres lignes.
+
+### 3. Démarrer le conteneur
+
+Ceci est la commande que l'installateur affiche à la fin :
+
+```sh
+docker run -d --name intlayer \
+  --restart unless-stopped \
+  -p 3000:3000 \
+  -p 3100:3100 \
+  -p 9000:9000 \
+  -p 9001:9001 \
+  -v intlayer-data:/data \
+  --env-file ./intlayer.env \
+  ghcr.io/aymericzip/intlayer-selfhost:latest
+```
+
+Ouvrez ensuite **http://localhost:3000**. Le premier démarrage initialise les datastores, donc patientez une minute.
+
+> Le tableau de bord est servi sur `localhost`. Voir [Limitations](#limitations) — les domaines personnalisés ne sont pas pris en charge par l'image publiée.
+
+### Paramètres du programme d'installation
+
+Le programme d'installation lit quelques variables d'environnement. Comme il est dirigé vers `sh`, transmettez-les au shell plutôt qu'à `curl` :
+
+```sh
+curl -fsSL https://intlayer.org/install.sh | INTLAYER_ENV_FILE=./config/intlayer.env sh
+```
+
+| Variable                  | Par défaut                                    | Description                       |
+| ------------------------- | --------------------------------------------- | --------------------------------- |
+| `INTLAYER_IMAGE`          | `ghcr.io/aymericzip/intlayer-selfhost:latest` | Image à télécharger               |
+| `INTLAYER_ENV_FILE`       | `./intlayer.env`                              | Où écrire le fichier env          |
+| `INTLAYER_CONTAINER_NAME` | `intlayer`                                    | Nom du conteneur                  |
+| `INTLAYER_DATA_VOLUME`    | `intlayer-data`                               | Volume nommé monté à `/data`      |
+| `INTLAYER_APP_PORT`       | `3000`                                        | Port hôte pour le tableau de bord |
+| `INTLAYER_API_PORT`       | `3100`                                        | Port hôte pour l'API              |
+| `INTLAYER_S3_PORT`        | `9000`                                        | Port hôte pour l'API S3 MinIO     |
+| `INTLAYER_CONSOLE_PORT`   | `9001`                                        | Port hôte pour la console MinIO   |
+
+> Les quatre variables de port ne modifient que le côté **hôte** du mappage imprimé dans la commande `docker run`. L'image publiée a `http://localhost:3000`, `http://localhost:3100` et `http://localhost:9000` compilés dans le bundle du tableau de bord au moment de la compilation, donc les remapper laisse le navigateur pointant vers les anciens ports. Conservez les valeurs par défaut sauf si vous construisez votre propre image — voir [Limitations](#limitations).
 
 ---
 

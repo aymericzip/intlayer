@@ -19,6 +19,8 @@ author: aymericzip
 
 # Intlayerのセルフホスティング
 
+Intlayerはあなた自身のインフラストラクチャ上で実行できます。Intlayer Cloudアカウントは必要ありません。単一のオールインワンDockerイメージは、ダッシュボード、API、および必要なローカルデータストア（RedisとMinIO）をバンドルし、[s6-overlay](https://github.com/just-containers/s6-overlay)によって監視されています。
+
 Intlayerは、Intlayer Cloudアカウントを必要とせず、独自のインフラストラクチャ上で完全に実行できます。単一のコマンドで、本番環境に対応したスタックを起動します。
 
 ```sh
@@ -26,6 +28,8 @@ curl -fsSL https://intlayer.org/install.sh | sh
 ```
 
 インストーラーは `docker-compose.yml` と `.env` をダウンロードし、必要なシークレットを自動生成して、すべてのコンテナを `docker compose up -d` で起動します。
+
+唯一の外部依存関係は **MongoDB** です。バックエンドは提供する MongoDB **Atlas** クラスターに接続します。その他すべてはコンテナ内で実行されます。
 
 ## 目次
 
@@ -60,21 +64,77 @@ Chromium (Puppeteerのスクリーンショット生成に使用) はバック�
 - ホスト上でポート `3000`、`3100`、`8025`、`9000`、`9001` が利用可能であること。
 - LinuxまたはmacOSホスト（またはWindows上のWSL2）。
 
+その他すべて — Bun、Redis、MinIO、Chromium — はイメージ内に含まれています。
+
 ---
 
 ## クイックスタート
 
-インストーラーの動作:
+### 1. インストーラーを実行する
 
-1.  `docker` と `docker compose` が存在するかどうかを確認します。
-2.  `docker-compose.yml` と `.env.example` を `./intlayer/` にダウンロードします。
-3.  `.env` が存在しない場合、例をコピーし、`BETTER_AUTH_SECRET`、`S3_ACCESS_KEY_ID`、`S3_SECRET_ACCESS_KEY` 用に `openssl rand` を介してランダムなシークレットを生成します。
-4.  `docker compose pull` + `docker compose up -d` を実行します。
-5.  URLを表示します: ダッシュボード `:3000`、API `:3100`、メールUI `:8025`、MinIOコンソール `:9001`。
+```sh
+curl -fsSL https://intlayer.org/install.sh | sh
+```
 
-スタックが起動したら、**http://localhost:3000** を開き、最初のIntlayerアカウントを作成してください。
+Docker がインストールされており実行中であることを確認し、既に生成された `BETTER_AUTH_SECRET` と `S3_SECRET_ACCESS_KEY` を含む `./intlayer.env` を書き込み、イメージをプルします。コンテナを起動しません — バックエンドはデータベース認証情報がないとブートできません。
 
-> ダッシュボードは `localhost` で提供されます。[制限事項](#limitations)を参照してください — カスタムドメインは公開イメージではサポートされていません。
+インストーラーを再実行しても安全です。既存の `intlayer.env` は上書きされないため、アップグレードパスとしても機能します。
+
+### 2. 認証情報を入力する
+
+`intlayer.env` を開き、`TODO` でマークされている値を入力してください：
+
+```sh fileName="intlayer.env"
+DB_ID=<atlas-user>
+DB_MDP=<atlas-password>
+DB_CLUSTER=<cluster>.xxxxx.mongodb.net
+RESEND_API_KEY=<your-resend-key>
+```
+
+ファイルには、オプション機能のためのコメントアウトされたブロックも含まれています — [SMTP mailer](#global-mailer)、`OPENAI_API_KEY`、および OAuth プロバイダー。必要なものをコメント解除してください。
+
+> ファイルは `docker run --env-file` によって読み込まれ、クォートを削除せず、`=` の後のすべてを値として扱います。クォートなしの値を書き、コメントは独立した行に保つようにしてください。
+
+### 3. コンテナを起動する
+
+インストーラーが完了時に出力するコマンドは次の通りです:
+
+```sh
+docker run -d --name intlayer \
+  --restart unless-stopped \
+  -p 3000:3000 \
+  -p 3100:3100 \
+  -p 9000:9000 \
+  -p 9001:9001 \
+  -v intlayer-data:/data \
+  --env-file ./intlayer.env \
+  ghcr.io/aymericzip/intlayer-selfhost:latest
+```
+
+その後、**http://localhost:3000** を開きます。初回起動時はデータストアが初期化されるため、1 分ほど待ってください。
+
+> ダッシュボードは `localhost` で提供されます。[制限事項](#limitations)を参照してください。公開されているイメージではカスタムドメインはサポートされていません。
+
+### インストーラー設定
+
+インストーラーは環境変数をいくつか読み込みます。`sh` にパイプされるため、`curl` ではなくシェルに環境変数を渡してください:
+
+```sh
+curl -fsSL https://intlayer.org/install.sh | INTLAYER_ENV_FILE=./config/intlayer.env sh
+```
+
+| 変数                      | デフォルト                                    | 説明                                       |
+| ------------------------- | --------------------------------------------- | ------------------------------------------ |
+| `INTLAYER_IMAGE`          | `ghcr.io/aymericzip/intlayer-selfhost:latest` | プルするイメージ                           |
+| `INTLAYER_ENV_FILE`       | `./intlayer.env`                              | env ファイルの書き込み先                   |
+| `INTLAYER_CONTAINER_NAME` | `intlayer`                                    | コンテナー名                               |
+| `INTLAYER_DATA_VOLUME`    | `intlayer-data`                               | `/data` にマウントされた名前付きボリューム |
+| `INTLAYER_APP_PORT`       | `3000`                                        | ダッシュボードのホストポート               |
+| `INTLAYER_API_PORT`       | `3100`                                        | API のホストポート                         |
+| `INTLAYER_S3_PORT`        | `9000`                                        | MinIO S3 API のホストポート                |
+| `INTLAYER_CONSOLE_PORT`   | `9001`                                        | MinIO コンソールのホストポート             |
+
+> 4 つのポート変数は、`docker run` コマンドで出力されるマッピングの**ホスト**側のみを変更します。公開されたイメージには、`http://localhost:3000`、`http://localhost:3100`、`http://localhost:9000` がビルド時にダッシュボード bundle にコンパイルされているため、これらをリマップするとブラウザーが古いポートを指し続けます。独自のイメージをビルドしていない限り、デフォルトを保持してください — [制限事項](#limitations)を参照してください。
 
 ---
 

@@ -379,8 +379,6 @@ export default async function Page() {
 - **`IntlayerProvider`** dipasang sekali, dalam root layout. Ini menyediakan locale ke komponen server dan client, sehingga halaman tidak lagi membungkus diri mereka sendiri.
 - Tanpa segmen path `[locale]`, locale selalu berasal dari request — header `x-intlayer-locale` yang diatur oleh proxy Intlayer, kemudian cookie locale — yang dibaca oleh server hooks mereka sendiri ketika provider belum dijalankan.
 
-  </Tab>
-
 </Tabs>
 
 ```tsx fileName="src/app/page.tsx"

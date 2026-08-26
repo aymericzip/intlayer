@@ -131,12 +131,6 @@ const promoBanner = await getDictionaryAsync(bannerLoaderMap, "banner", {
 
 The cache stores the **promise** of each `key + locale + selector` triple, so concurrent calls for the same chunk await a single load. A rejected load is removed from the cache, so a failing chunk is retried on the next call instead of replaying the same failure forever.
 
-Wait, I need to provide the Indonesian translation. Let me correct that:
-
-### Caching dan deduplication
-
-Cache menyimpan **promise** dari setiap triple `key + locale + selector`, sehingga concurrent calls untuk chunk yang sama menunggu single load. A rejected load dihapus dari cache, jadi chunk yang gagal akan dicoba lagi pada panggilan berikutnya daripada memutar ulang kegagalan yang sama selamanya.
-
 ### Locale fallback
 
 Peta loader biasa berjalan sepanjang rantai fallback yang sama seperti mode sinkron: lokal yang diminta terlebih dahulu, kemudian fallback-nya, kemudian `null` jika tidak ada yang memancarkan chunk.

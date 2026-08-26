@@ -127,6 +127,8 @@ Intlayer 接受多种配置文件格式：
 
 - **[Login](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/login.md)** - 在 Intlayer CMS 中进行身份验证并获取访问凭据
 
+> `intlayer login` 生成一个**访问密钥** (`clientId` / `clientSecret`)，每个需要凭证的命令都会使用它。该密钥是服务器端凭证，永远不会到达您的客户端 bundle — 请参阅[保持访问密钥安全](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/login.md#keeping-the-access-key-safe)。
+
 ### 核心命令
 
 - **[Build Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/build.md)** - 从内容声明文件构建字典

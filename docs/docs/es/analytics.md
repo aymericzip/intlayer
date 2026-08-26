@@ -123,17 +123,6 @@ export default config;
 
 Desinstalar `@intlayer/analytics` tiene el mismo efecto que `enabled: false`. Consulta la [referencia de configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md) para ver la lista completa de campos.
 
-## Soporte de frameworks
-
-Analytics está integrado en el `IntlayerProvider` compartido de `react-intlayer`, por lo que está disponible hoy en cualquier lugar donde se use ese proveedor:
-
-| Framework                                                | Estado                                                                                              |
-| -------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
-| React                                                    | ✅ Disponible                                                                                       |
-| Next.js (`next-intlayer`)                                | ✅ Disponible (a través de `react-intlayer`)                                                        |
-| React Native / Expo (`react-native-intlayer`)            | ✅ Disponible (a través de `react-intlayer`)                                                        |
-| Vue, Svelte, Angular, Solid, Preact, Lit, Astro, Vanilla | 🚧 Planeado — mismo cliente, enlaces a nivel de proveedor siguiendo el modelo de `@intlayer/editor` |
-
 ## Uso
 
 ### Seguimiento automático a nivel de proveedor
@@ -177,6 +166,34 @@ const CTAButton = () => {
 
 ### Resolución de una variante en el lado del cliente
 
+  </Tab>
+</Tabs>
+
+Los pesos son opcionales — pasa uno por variante para sesgar la división, por ejemplo `useExperiment("homepage-hero", ["default", "black_friday"], [9, 1])`.
+
+El hijo entonces lee la [Variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dynamic_dictionaries/variants.md) del diccionario que coincide:
+
+```tsx fileName="HeroBanner.tsx"
+import { useIntlayer } from "react-intlayer";
+
+export const HeroBanner = ({ variant }: { variant: string }) => {
+  const { headline, cta } = useIntlayer("hero-banner", { variant });
+
+  return (
+    <section>
+      <h1>{headline}</h1>
+      <a>{cta}</a>
+    </section>
+  );
+};
+```
+
+> Leer la variante en un **componente hijo** es lo que hace que esto funcione fuera de React: en Vue, Svelte, Solid y Angular, el selector pasado a `useIntlayer` se captura cuando el componente se configura, por lo que la lectura debe ocurrir en un componente que solo se monta una vez que se conoce la variante.
+
+Si el experimento cubre una página completa en lugar de un único diccionario, eleva la variante al proveedor en su lugar — consulta [Ambient variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dynamic_dictionaries/variants.md#ambient-variant). Cada `useIntlayer` debajo se resuelve contra él sin cambios en el sitio de llamada.
+
+Si necesitas la asignación sin procesar fuera de un componente, accede al cliente directamente:
+
 ```tsx fileName="useHeroVariant.ts" codeFormat="tsx"
 import { getGlobalAnalyticsClient } from "@intlayer/analytics/client";
 
@@ -186,6 +203,8 @@ const variant = client?.getVariant("homepage-hero", [
   "black_friday",
 ]);
 ```
+
+> `getVariant` solo asigna — no registra la exposición. Prefiere `useExperiment()`, de lo contrario la tasa de conversión no tiene denominador.
 
 ## Privacidad y rendimiento
 
@@ -235,6 +254,8 @@ const cms = createIntlayerCMS();
 
 const { data: audience } = await analyticsEndpoint(cms).getAudience(30);
 ```
+
+> **Solo en el servidor.** `createIntlayerCMS()` se autentica con `clientId` + `clientSecret`, y el secreto nunca está disponible en el navegador — este fragmento emitiría solicitudes no autenticadas si se ejecutara allí. Mantenlo en un controlador de rutas, una acción del servidor o un script.
 
 ## Enlaces útiles
 

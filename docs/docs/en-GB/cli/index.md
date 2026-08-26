@@ -127,6 +127,8 @@ To learn how to configure the available languages or other parameters, take a lo
 
 - **[Login](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/login.md)** - Authenticate with the Intlayer CMS and get the access credentials
 
+> `intlayer login` issues an **access key** (`clientId` / `clientSecret`) that every credentialed command uses. The secret is a server-side credential and never reaches your client bundle — see [Keeping the access key safe](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/login.md#keeping-the-access-key-safe).
+
 ### Core Commands
 
 - **[Build Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/build.md)** - Build your dictionaries from your content declaration files

@@ -127,6 +127,8 @@ Per vedere come configurare le lingue disponibili o altri parametri, fai riferim
 
 - **[Login](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/cli/login.md)** - Autenticati con l'Intlayer CMS e ottieni le credenziali di accesso
 
+> `intlayer login` rilascia una **chiave di accesso** (`clientId` / `clientSecret`) che ogni comando autenticato utilizza. Il secret è una credenziale lato server e non raggiunge mai il tuo client bundle — vedi [Keeping the access key safe](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/cli/login.md#keeping-the-access-key-safe).
+
 ### Comandi principali
 
 - **[Costruisci Dizionari](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/cli/build.md)** - Costruisci i tuoi dizionari dai file di dichiarazione dei contenuti

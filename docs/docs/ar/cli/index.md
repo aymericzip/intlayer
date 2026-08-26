@@ -127,6 +127,8 @@ bun add intlayer-cli -g
 
 - **[Login](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/login.md)** - المصادقة مع Intlayer CMS والحصول على أوراق اعتماد الوصول
 
+> أمر `intlayer login` يصدر **مفتاح وصول** (`clientId` / `clientSecret`) يستخدمه كل أمر معتمد. السر هو بيانات اعتماد من جانب الخادم ولا يصل أبداً إلى حزمة العميل الخاصة بك — انظر [الحفاظ على مفتاح الوصول آمناً](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/login.md#keeping-the-access-key-safe).
+
 ### الأوامر الأساسية
 
 - **[Build Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/build.md)** - بناء القواميس الخاصة بك من ملفات تصريح المحتوى

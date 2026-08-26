@@ -278,30 +278,6 @@ export const config = {
         export default App;
         ```
 
-        ```jsx fileName="src/pages/_app.mjx" codeFormat="esm"
-        import { IntlayerClientProvider } from "next-intlayer";
-
-        const App = ({ Component, pageProps }) => (
-          <IntlayerClientProvider locale={locale}>
-            <Component {...pageProps} />
-          </IntlayerClientProvider>
-        );
-
-        export default App;
-        ```
-
-        ```jsx fileName="src/pages/_app.csx" codeFormat="commonjs"
-        const { IntlayerClientProvider } = require("next-intlayer");
-
-        const App = ({ Component, pageProps }) => (
-          <IntlayerClientProvider locale={locale}>
-            <Component {...pageProps} />
-          </IntlayerClientProvider>
-        );
-
-        module.exports = App;
-        ```
-
 3.  **`getStaticPaths` 및 `getStaticProps` 설정:**
 
     `[locale]/index.tsx` 파일에서 다양한 로케일을 처리하기 위한 경로와 props를 정의합니다.

@@ -127,6 +127,8 @@ Intlayer कई कॉन्फ़िगरेशन फ़ाइल प्र�
 
 - **[Login](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/login.md)** - Intlayer CMS के साथ प्रमाणित हों और एक्सेस क्रेडेंशियल प्राप्त करें
 
+> `intlayer login` एक **access key** (`clientId` / `clientSecret`) जारी करता है जिसका उपयोग हर credentialed command करता है। secret एक server-side credential है और कभी भी आपके client bundle तक नहीं पहुंचता — [Keeping the access key safe](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/login.md#keeping-the-access-key-safe) देखें।
+
 ### मुख्य कमांड (Core Commands)
 
 - **[Build Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/build.md)** - अपनी सामग्री घोषणा फ़ाइलों से अपने शब्दकोश बनाएँ

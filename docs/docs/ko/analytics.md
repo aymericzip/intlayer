@@ -123,17 +123,6 @@ export default config;
 
 `@intlayer/analytics`를 제거하는 것은 `enabled: false`와 동일한 효과를 냅니다. 전체 필드 목록은 [구성 레퍼런스](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 참고하세요.
 
-## 프레임워크 지원
-
-Analytics는 `react-intlayer`의 공유된 `IntlayerProvider`와 연결되어 있으므로, 이 Provider가 사용되는 곳이라면 어디서든 바로 사용할 수 있습니다:
-
-| 프레임워크                                               | 상태                                                                                                  |
-| -------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| React                                                    | ✅ 지원됨                                                                                             |
-| Next.js (`next-intlayer`)                                | ✅ 지원됨 (`react-intlayer`를 통해)                                                                   |
-| React Native / Expo (`react-native-intlayer`)            | ✅ 지원됨 (`react-intlayer`를 통해)                                                                   |
-| Vue, Svelte, Angular, Solid, Preact, Lit, Astro, Vanilla | 🚧 계획됨 — `@intlayer/editor` 배포 패턴을 따르는 동일한 클라이언트, 프로바이더 레벨 바인딩 제공 예정 |
-
 ## 사용법
 
 ### 자동 프로바이더 레벨 추적
@@ -177,6 +166,34 @@ const CTAButton = () => {
 
 ### 클라이언트 측에서 변형 해결(Resolving a variant)
 
+  </Tab>
+</Tabs>
+
+가중치는 선택 사항입니다. 각 변형에 대해 하나씩 전달하여 분할을 조정할 수 있습니다. 예: `useExperiment("homepage-hero", ["default", "black_friday"], [9, 1])`.
+
+자식은 일치하는 사전의 [Variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dynamic_dictionaries/variants.md)를 읽습니다:
+
+```tsx fileName="HeroBanner.tsx"
+import { useIntlayer } from "react-intlayer";
+
+export const HeroBanner = ({ variant }: { variant: string }) => {
+  const { headline, cta } = useIntlayer("hero-banner", { variant });
+
+  return (
+    <section>
+      <h1>{headline}</h1>
+      <a>{cta}</a>
+    </section>
+  );
+};
+```
+
+> **자식** 컴포넌트에서 variant를 읽는 것이 React 외부에서 작동하게 하는 원리입니다: Vue, Svelte, Solid, Angular에서는 `useIntlayer`에 전달된 selector가 컴포넌트 설정 시점에 캡처되므로, 읽기는 variant가 알려진 후에만 마운트되는 컴포넌트에서 발생해야 합니다.
+
+실험이 단일 사전이 아닌 전체 페이지를 포함하는 경우, 변형을 대신 제공자에게 끌어올려야 합니다 — [Ambient variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dynamic_dictionaries/variants.md#ambient-variant)를 참조하세요. 그러면 아래의 모든 `useIntlayer`는 호출 사이트 변경 없이 이에 대해 해결됩니다.
+
+컴포넌트 외부에서 raw assignment가 필요하면 client에 직접 접근하세요:
+
 ```tsx fileName="useHeroVariant.ts" codeFormat="tsx"
 import { getGlobalAnalyticsClient } from "@intlayer/analytics/client";
 
@@ -186,6 +203,8 @@ const variant = client?.getVariant("homepage-hero", [
   "black_friday",
 ]);
 ```
+
+> `getVariant`는 할당만 수행하며, 노출을 기록하지 않습니다. 대신 `useExperiment()`을 사용하세요. 그렇지 않으면 전환율의 분모가 없습니다.
 
 ## 프라이버시 & 성능
 
@@ -235,6 +254,8 @@ const cms = createIntlayerCMS();
 
 const { data: audience } = await analyticsEndpoint(cms).getAudience(30);
 ```
+
+> **서버 측에서만 사용.** `createIntlayerCMS()`는 `clientId` + `clientSecret`으로 인증하며, 이 시크릿은 브라우저에서 절대 사용 불가능합니다 — 이 코드가 브라우저에서 실행되면 인증되지 않은 요청을 발급합니다. 라우트 핸들러, 서버 액션 또는 스크립트에 유지하세요.
 
 ## 유용한 링크
 

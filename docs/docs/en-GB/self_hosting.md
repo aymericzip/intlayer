@@ -21,11 +21,15 @@ author: aymericzip
 
 Intlayer can run entirely on your own infrastructure. No Intlayer Cloud account required. A single command boots a production-ready stack:
 
+One command installs everything:
+
 ```sh
 curl -fsSL https://intlayer.org/install.sh | sh
 ```
 
 The installer downloads a `docker-compose.yml` and a `.env`, auto-generates the required secrets, and starts all containers with `docker compose up -d`.
+
+The only external dependency is **MongoDB**: the backend connects to a MongoDB **Atlas** cluster, which you provide. Everything else runs inside the container.
 
 ## Table of Contents
 
@@ -60,31 +64,77 @@ Chromium (used for Puppeteer screenshot generation) is bundled inside the backen
 - Ports `3000`, `3100`, `8025`, `9000`, and `9001` available on the host.
 - A Linux or macOS host (or WSL2 on Windows).
 
+Everything else — Bun, Redis, MinIO, Chromium — ships inside the image.
+
 ---
 
 ## Quick start
 
-Pull and run the published image, supplying your MongoDB Atlas credentials and secrets:
+### 1. Run the installer
+
+```sh
+curl -fsSL https://intlayer.org/install.sh | sh
+```
+
+It verifies Docker is installed and running, writes `./intlayer.env` with `BETTER_AUTH_SECRET` and `S3_SECRET_ACCESS_KEY` already generated, and pulls the image. It does not start the container — the backend cannot boot without your database credentials.
+
+Re-running the installer is safe: an existing `intlayer.env` is never overwritten, so it doubles as the upgrade path.
+
+### 2. Fill in your credentials
+
+Open `intlayer.env` and complete the values marked `TODO`:
+
+```sh fileName="intlayer.env"
+DB_ID=<atlas-user>
+DB_MDP=<atlas-password>
+DB_CLUSTER=<cluster>.xxxxx.mongodb.net
+RESEND_API_KEY=<your-resend-key>
+```
+
+The file also carries commented-out blocks for the optional features — [SMTP mailer](#global-mailer), `OPENAI_API_KEY`, and the OAuth providers. Uncomment what you need.
+
+> The file is read by `docker run --env-file`, which does not strip quotes and treats everything after `=` as the value. Write bare values, and keep comments on their own lines.
+
+### 3. Start the container
+
+This is the command the installer prints when it finishes:
 
 ```sh
 docker run -d --name intlayer \
+  --restart unless-stopped \
   -p 3000:3000 \
   -p 3100:3100 \
   -p 9000:9000 \
   -p 9001:9001 \
   -v intlayer-data:/data \
-  -e DB_ID="<atlas-user>" \
-  -e DB_MDP="<atlas-password>" \
-  -e DB_CLUSTER="<cluster>.xxxxx.mongodb.net" \
-  -e BETTER_AUTH_SECRET="$(openssl rand -hex 32)" \
-  -e S3_SECRET_ACCESS_KEY="$(openssl rand -hex 16)" \
-  -e RESEND_API_KEY="<your-resend-key>" \
-  aymericzip/intlayer-selfhost
+  --env-file ./intlayer.env \
+  ghcr.io/aymericzip/intlayer-selfhost:latest
 ```
 
-Then open **http://localhost:3000**.
+Then open **http://localhost:3000**. First boot initialises the datastores, so give it a minute.
 
 > The dashboard is served on `localhost`. See [Limitations](#limitations) — custom domains are not supported by the published image.
+
+### Installer settings
+
+The installer reads a few environment variables. Because it is piped into `sh`, pass them to the shell rather than to `curl`:
+
+```sh
+curl -fsSL https://intlayer.org/install.sh | INTLAYER_ENV_FILE=./config/intlayer.env sh
+```
+
+| Variable                  | Default                                       | Description                     |
+| ------------------------- | --------------------------------------------- | ------------------------------- |
+| `INTLAYER_IMAGE`          | `ghcr.io/aymericzip/intlayer-selfhost:latest` | Image to pull                   |
+| `INTLAYER_ENV_FILE`       | `./intlayer.env`                              | Where to write the env file     |
+| `INTLAYER_CONTAINER_NAME` | `intlayer`                                    | Container name                  |
+| `INTLAYER_DATA_VOLUME`    | `intlayer-data`                               | Named volume mounted at `/data` |
+| `INTLAYER_APP_PORT`       | `3000`                                        | Host port for the dashboard     |
+| `INTLAYER_API_PORT`       | `3100`                                        | Host port for the API           |
+| `INTLAYER_S3_PORT`        | `9000`                                        | Host port for the MinIO S3 API  |
+| `INTLAYER_CONSOLE_PORT`   | `9001`                                        | Host port for the MinIO console |
+
+> The four port variables only change the **host** side of the mapping printed in the `docker run` command. The published image has `http://localhost:3000`, `http://localhost:3100` and `http://localhost:9000` compiled into the dashboard bundle at build time, so remapping them leaves the browser pointing at the old ports. Keep the defaults unless you are building your own image — see [Limitations](#limitations).
 
 ---
 

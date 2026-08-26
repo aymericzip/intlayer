@@ -127,6 +127,8 @@ Um zu erfahren, wie Sie verfügbare Sprachen oder andere Parameter konfigurieren
 
 - **[Anmelden](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/login.md)** - Bei Intlayer CMS authentifizieren und Zugangsdaten erhalten
 
+> `intlayer login` stellt einen **Zugangsschlüssel** (`clientId` / `clientSecret`) aus, den jeder authentifizierte Befehl verwendet. Das Geheimnis ist eine serverseitige Anmeldeinformation und gelangt niemals in Ihr Client-Bundle — siehe [Zugangsschlüssel sichern](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/login.md#zugangsschlüssel-sichern).
+
 ### Kernbefehle
 
 - **[Wörterbücher erstellen (Build)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/build.md)** - Erstellen Sie Ihre Wörterbücher aus Inhaltsdeklarationsdateien

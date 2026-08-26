@@ -91,8 +91,6 @@ Para la mayoría de los casos de uso,
 
 - **`--log`**: Modo de solo registro. No traduce con IA; en su lugar, registra los bloques que necesitan atención (con números de línea y contenido) para los locales base y destino, para ayudar a otro agente a generar las traducciones.
 
-I'm prepared to:
-
 - Insert missing paragraphs, lists, tables, code blocks, and images
 - Correct spelling, grammar, punctuation, and Markdown errors
 - Preserve code blocks while translating comments to Spanish

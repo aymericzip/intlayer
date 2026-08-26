@@ -123,17 +123,6 @@ export default config;
 
 `@intlayer/analytics` をアンインストールすることは `enabled: false` と同じ効果があります。全フィールドの一覧は[設定リファレンス](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)を参照してください。
 
-## フレームワークのサポート
-
-Analyticsは`react-intlayer`からの共有`IntlayerProvider`に組み込まれているため、そのプロバイダが使用されている場所であればどこでも今日から利用できます：
-
-| フレームワーク                                           | ステータス                                                                                           |
-| -------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
-| React                                                    | ✅ 利用可能                                                                                          |
-| Next.js (`next-intlayer`)                                | ✅ 利用可能 (`react-intlayer` 経由)                                                                  |
-| React Native / Expo (`react-native-intlayer`)            | ✅ 利用可能 (`react-intlayer` 経由)                                                                  |
-| Vue, Svelte, Angular, Solid, Preact, Lit, Astro, Vanilla | 🚧 計画中 — 同一クライアント、`@intlayer/editor`の展開パターンに従うプロバイダレベルのバインディング |
-
 ## 使用方法
 
 ### 自動プロバイダレベルのトラッキング
@@ -177,6 +166,34 @@ const CTAButton = () => {
 
 ### クライアント側でのバリアント解決
 
+  </Tab>
+</Tabs>
+
+Weights はオプションです — スプリットを調整するために、バリアントごとに 1 つ渡します。例えば、`useExperiment("homepage-hero", ["default", "black_friday"], [9, 1])` のようにします。
+
+子は、一致する辞書の[Variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dynamic_dictionaries/variants.md)を読みます：
+
+```tsx fileName="HeroBanner.tsx"
+import { useIntlayer } from "react-intlayer";
+
+export const HeroBanner = ({ variant }: { variant: string }) => {
+  const { headline, cta } = useIntlayer("hero-banner", { variant });
+
+  return (
+    <section>
+      <h1>{headline}</h1>
+      <a>{cta}</a>
+    </section>
+  );
+};
+```
+
+> **子コンポーネント**でバリアントを読み込むことが、React の外でも機能する理由です。Vue、Svelte、Solid、Angular では、`useIntlayer` に渡されるセレクタはコンポーネントがセットアップされるときにキャプチャされるため、読み込みはバリアントが既知の後にのみマウントされるコンポーネント内で発生する必要があります。
+
+実験が単一の辞書ではなくページ全体をカバーする場合は、variant をプロバイダーにホイストしてください — [Ambient variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dynamic_dictionaries/variants.md#ambient-variant) を参照してください。以下のすべての `useIntlayer` は、呼び出しサイトの変更なしでそれに対して解決されます。
+
+コンポーネント外で生の割り当てが必要な場合は、クライアントに直接アクセスしてください：
+
 ```tsx fileName="useHeroVariant.ts" codeFormat="tsx"
 import { getGlobalAnalyticsClient } from "@intlayer/analytics/client";
 
@@ -186,6 +203,8 @@ const variant = client?.getVariant("homepage-hero", [
   "black_friday",
 ]);
 ```
+
+> `getVariant` は割り当てるだけで、exposure を記録しません。`useExperiment()` を使用することをお勧めします。そうしないと、コンバージョン率の分母がありません。
 
 ## プライバシーとパフォーマンス
 
@@ -235,6 +254,8 @@ const cms = createIntlayerCMS();
 
 const { data: audience } = await analyticsEndpoint(cms).getAudience(30);
 ```
+
+> **サーバーサイドのみ。** `createIntlayerCMS()` は `clientId` + `clientSecret` で認証され、シークレットはブラウザで利用できません — このスニペットがそこで実行されると、認証されていないリクエストが発行されます。ルートハンドラー、サーバーアクション、またはスクリプトに保つようにしてください。
 
 ## 便利なリンク
 

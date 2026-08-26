@@ -127,6 +127,8 @@ Aby dowiedzieć się, jak skonfigurować dostępne języki lub inne parametry, z
 
 - **[Zaloguj](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/login.md)** - Uwierzytelnij się w Intlayer CMS i uzyskaj dane dostępu
 
+> `intlayer login` wydaje **klucz dostępu** (`clientId` / `clientSecret`), który jest używany przez każde polecenie wymagające uwierzytelnienia. Sekret jest poświadczeniem po stronie serwera i nigdy nie trafia do Twojego pakietu klienta — zobacz [Keeping the access key safe](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/login.md#keeping-the-access-key-safe).
+
 ### Polecenia Podstawowe
 
 - **[Buduj Słowniki](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/build.md)** - Zbuduj swoje słowniki z plików deklaracji treści

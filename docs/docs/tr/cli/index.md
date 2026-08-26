@@ -127,6 +127,8 @@ Mevcut dillerin veya diğer parametrelerin nasıl yapılandırılacağını öğ
 
 - **[Login](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/login.md)** - Intlayer CMS ile kimlik doğrulaması yapın ve erişim kimlik bilgilerini alın
 
+> `intlayer login` bir **erişim anahtarı** (`clientId` / `clientSecret`) verir ve her kimlik bilgili komut bu anahtarı kullanır. Gizli anahtar, sunucu tarafı bir kimlik bilgisidir ve hiçbir zaman istemci paketinize ulaşmaz — [Erişim anahtarını güvenli tutma](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/login.md#keeping-the-access-key-safe) bölümüne bakın.
+
 ### Temel Komutlar
 
 - **[Build Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/build.md)** - İçerik bildirimi dosyalarından sözlüklerinizi oluşturun

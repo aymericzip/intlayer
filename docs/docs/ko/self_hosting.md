@@ -19,6 +19,8 @@ author: aymericzip
 
 # Intlayer 자체 호스팅
 
+Intlayer는 자신의 인프라에서 실행할 수 있습니다. Intlayer Cloud 계정이 필요하지 않습니다. 단일 올인원 Docker 이미지는 대시보드, API 및 필요한 로컬 데이터스토어(Redis 및 MinIO)를 번들로 제공하며, [s6-overlay](https://github.com/just-containers/s6-overlay)로 감독됩니다.
+
 Intlayer는 Intlayer Cloud 계정 없이도 자체 인프라에서 완전히 실행될 수 있습니다. 단일 명령으로 프로덕션 준비 스택을 부팅합니다:
 
 ```sh
@@ -26,6 +28,8 @@ curl -fsSL https://intlayer.org/install.sh | sh
 ```
 
 설치 프로그램은 `docker-compose.yml` 및 `.env` 파일을 다운로드하고, 필요한 비밀을 자동으로 생성하며, `docker compose up -d` 명령으로 모든 컨테이너를 시작합니다.
+
+유일한 외부 종속성은 **MongoDB**입니다: 백엔드는 사용자가 제공하는 MongoDB **Atlas** 클러스터에 연결됩니다. 그 외 모든 것은 컨테이너 내부에서 실행됩니다.
 
 ## 목차
 
@@ -60,31 +64,77 @@ Chromium (Puppeteer 스크린샷 생성에 사용됨)은 백엔드 이미지 내
 - 호스트에서 포트 `3000`, `3100`, `8025`, `9000`, `9001`이 사용 가능해야 합니다.
 - Linux 또는 macOS 호스트 (또는 Windows의 WSL2).
 
+나머지 모든 것 — Bun, Redis, MinIO, Chromium — 은 이미지 내에 포함되어 있습니다.
+
 ---
 
 ## 빠른 시작
 
-게시된 이미지를 pull하고 실행한 후 MongoDB Atlas 자격증명과 보안 키를 제공합니다:
+### 1. 설치 프로그램 실행
+
+```sh
+curl -fsSL https://intlayer.org/install.sh | sh
+```
+
+Docker가 설치되어 있고 실행 중인지 확인하고, `BETTER_AUTH_SECRET`과 `S3_SECRET_ACCESS_KEY`가 이미 생성된 상태로 `./intlayer.env`를 작성하며, 이미지를 가져옵니다. 컨테이너를 시작하지는 않습니다 — 백엔드는 데이터베이스 자격 증명 없이는 부팅할 수 없습니다.
+
+설치 프로그램을 다시 실행해도 안전합니다: 기존 `intlayer.env`는 절대 덮어씌워지지 않으므로, 업그레이드 경로로도 작동합니다.
+
+### 2. 자격 증명 입력
+
+`intlayer.env`를 열고 `TODO`로 표시된 값들을 완성하세요:
+
+```sh fileName="intlayer.env"
+DB_ID=<atlas-user>
+DB_MDP=<atlas-password>
+DB_CLUSTER=<cluster>.xxxxx.mongodb.net
+RESEND_API_KEY=<your-resend-key>
+```
+
+이 파일에는 선택적 기능들을 위한 주석 처리된 블록들도 포함되어 있습니다 — [SMTP mailer](#global-mailer), `OPENAI_API_KEY`, OAuth 제공자들. 필요한 것들의 주석을 제거하세요.
+
+> 이 파일은 `docker run --env-file`로 읽혀지며, 따옴표를 제거하지 않고 `=` 이후의 모든 것을 값으로 처리합니다. 따옴표 없는 값을 작성하고, 주석은 별도의 줄에 유지하세요.
+
+### 3. 컨테이너 시작
+
+설치 프로그램이 완료될 때 인쇄하는 명령어입니다:
 
 ```sh
 docker run -d --name intlayer \
+  --restart unless-stopped \
   -p 3000:3000 \
   -p 3100:3100 \
   -p 9000:9000 \
   -p 9001:9001 \
   -v intlayer-data:/data \
-  -e DB_ID="<atlas-user>" \
-  -e DB_MDP="<atlas-password>" \
-  -e DB_CLUSTER="<cluster>.xxxxx.mongodb.net" \
-  -e BETTER_AUTH_SECRET="$(openssl rand -hex 32)" \
-  -e S3_SECRET_ACCESS_KEY="$(openssl rand -hex 16)" \
-  -e RESEND_API_KEY="<your-resend-key>" \
-  aymericzip/intlayer-selfhost
+  --env-file ./intlayer.env \
+  ghcr.io/aymericzip/intlayer-selfhost:latest
 ```
 
-그 다음 **http://localhost:3000**을 엽니다.
+그러면 **http://localhost:3000**을 엽니다. 첫 부팅 시 데이터스토어를 초기화하므로 1분 정도 기다려주세요.
 
-> 대시보드는 `localhost`에서 제공됩니다. [제한 사항](#limitations)을 참고하세요 — 게시된 이미지에서는 커스텀 도메인이 지원되지 않습니다.
+> 대시보드는 `localhost`에서 제공됩니다. [제한 사항](#limitations)을 참조하세요 — 게시된 이미지는 사용자 정의 도메인을 지원하지 않습니다.
+
+### 설치 프로그램 설정
+
+설치 프로그램은 몇 가지 환경 변수를 읽습니다. `sh`로 파이프되기 때문에 `curl`이 아닌 쉘에 전달하세요:
+
+```sh
+curl -fsSL https://intlayer.org/install.sh | INTLAYER_ENV_FILE=./config/intlayer.env sh
+```
+
+| Variable                  | Default                                       | Description                    |
+| ------------------------- | --------------------------------------------- | ------------------------------ |
+| `INTLAYER_IMAGE`          | `ghcr.io/aymericzip/intlayer-selfhost:latest` | 풀할 이미지                    |
+| `INTLAYER_ENV_FILE`       | `./intlayer.env`                              | env 파일을 작성할 위치         |
+| `INTLAYER_CONTAINER_NAME` | `intlayer`                                    | 컨테이너 이름                  |
+| `INTLAYER_DATA_VOLUME`    | `intlayer-data`                               | `/data`에 마운트된 명명된 볼륨 |
+| `INTLAYER_APP_PORT`       | `3000`                                        | 대시보드용 호스트 포트         |
+| `INTLAYER_API_PORT`       | `3100`                                        | API용 호스트 포트              |
+| `INTLAYER_S3_PORT`        | `9000`                                        | MinIO S3 API용 호스트 포트     |
+| `INTLAYER_CONSOLE_PORT`   | `9001`                                        | MinIO 콘솔용 호스트 포트       |
+
+> 네 개의 포트 변수는 `docker run` 명령에 인쇄된 매핑의 **호스트** 측만 변경합니다. 발행된 이미지는 빌드 시간에 `http://localhost:3000`, `http://localhost:3100` 및 `http://localhost:9000`이 대시보드 번들에 컴파일되어 있으므로, 이들을 다시 매핑하면 브라우저가 이전 포트를 가리키게 됩니다. 자신의 이미지를 빌드하지 않는 한 기본값을 유지하세요 — [제한 사항](#limitations)을 참조하세요.
 
 ---
 

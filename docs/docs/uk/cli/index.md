@@ -127,6 +127,8 @@ Intlayer приймає кілька форматів файлів конфіг�
 
 - **[Login](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/login.md)** - Автентифікація в Intlayer CMS та отримання облікових даних доступу
 
+> `intlayer login` видає **ключ доступу** (`clientId` / `clientSecret`), який використовують всі команди з обліковими даними. Секрет — це облікові дані на стороні сервера і ніколи не потрапляють до вашого bundle клієнта — див. [Keeping the access key safe](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/login.md#keeping-the-access-key-safe).
+
 ### Основні команди
 
 - **[Build Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/build.md)** - Створення словників з ваших файлів оголошення контенту

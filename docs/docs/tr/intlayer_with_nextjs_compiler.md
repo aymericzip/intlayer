@@ -379,8 +379,6 @@ export default async function Page() {
 - **`IntlayerProvider`** kök düzeninde bir kez monte edilir. Hem sunucu hem de istemci bileşenlerine yerel ayarı sağlar, bu nedenle sayfaların kendilerini sarmalamalarına gerek kalmaz.
 - `[locale]` yol segmenti olmadan yerel ayar her zaman istekten gelir — Intlayer proxy'si tarafından ayarlanan `x-intlayer-locale` başlığı, ardından yerel ayar çerezi — sunucu kancaları sağlayıcı çalışmadığında kendi başlarına okurlar.
 
-  </Tab>
-
 </Tabs>
 
 ```tsx fileName="src/app/page.tsx"

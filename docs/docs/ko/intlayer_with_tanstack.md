@@ -516,7 +516,7 @@ export const useLocalizedNavigate = () => {
 
 애플리케이션 전반에서 콘텐츠 사전에 액세스합니다:
 
-#### 현지화된 홈 페이지
+#### 로컬라이즈된 홈페이지
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/react-router";
@@ -557,6 +557,382 @@ function RouteComponent() {
 }
 ```
 
+> 콘텐츠를 `alt`, `title`, `href`, `aria-label` 등의 `string` 속성에서 사용하려면 함수의 값을 다음과 같이 사용할 수 있습니다:
+>
+> ```html
+> <img src="{content.image.src.value}" alt="{content.image.value}" />
+> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
+> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
+> ```
+
+> `useIntlayer` hook에 대해 자세히 알아보려면 [문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/react-intlayer/useIntlayer.md)를 참조하세요.
+
+</Step>
+
+<Step number={9} title="로케일 전환 컴포넌트 만들기">
+
+사용자가 언어를 변경할 수 있는 컴포넌트를 만듭니다:
+
+```tsx fileName="src/components/locale-switcher.tsx"
+import { useLocation } from "@tanstack/react-router";
+import {
+  getHTMLTextDir,
+  getLocaleName,
+  getPathWithoutLocale,
+  getPrefix,
+  Locales,
+} from "intlayer";
+import type { FC } from "react";
+import { useLocale } from "react-intlayer";
+
+import { LocalizedLink, type To } from "./localized-link";
+
+export const LocaleSwitcher: FC = () => {
+  const { pathname } = useLocation();
+
+  const { availableLocales, locale, setLocale } = useLocale();
+
+  const pathWithoutLocale = getPathWithoutLocale(pathname);
+
+  return (
+    <ol>
+      {availableLocales.map((localeEl) => (
+        <li key={localeEl}>
+          <LocalizedLink
+            aria-current={localeEl === locale ? "page" : undefined}
+            onClick={() => setLocale(localeEl)}
+            params={{ locale: getPrefix(localeEl).localePrefix }}
+            to={pathWithoutLocale as To}
+          >
+            <span>
+              {/* 로케일 - 예: FR */}
+              {localeEl}
+            </span>
+            <span>
+              {/* 해당 언어의 로케일 - 예: Français */}
+              {getLocaleName(localeEl, locale)}
+            </span>
+            <span dir={getHTMLTextDir(localeEl)} lang={localeEl}>
+              {/* 현재 로케일의 언어 - 예: 현재 로케일이 Locales.SPANISH인 경우 Francés */}
+              {getLocaleName(localeEl)}
+            </span>
+            <span dir="ltr" lang={Locales.ENGLISH}>
+              {/* 영어의 언어 - 예: French */}
+              {getLocaleName(localeEl, Locales.ENGLISH)}
+            </span>
+          </LocalizedLink>
+        </li>
+      ))}
+    </ol>
+  );
+};
+```
+
+> `useLocale` hook에 대해 자세히 알아보려면 [문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/react-intlayer/useLocale.md)를 참조하세요.
+
+</Step>
+
+<Step number={10} title="HTML 속성 관리">
+
+Step 5에서 본 것처럼 루트 컴포넌트에서 `useParams`를 사용하여 `html` 태그의 `lang`과 `dir` 속성을 관리할 수 있습니다. 이렇게 하면 서버와 클라이언트에서 올바른 속성이 설정됩니다.
+
+```tsx fileName="src/routes/__root.tsx"
+const localeRoute = getRouteApi("/{-$locale}");
+
+function RootDocument({ children }: { children: ReactNode }) {
+  const params = localeRoute.useParams();
+  const locale = params?.locale ?? defaultLocale;
+
+  return (
+    <html dir={getHTMLTextDir(locale)} lang={locale}>
+      {/* ... */}
+    </html>
+  );
+}
+```
+
+---
+
+</Step>
+
+<Step number={11} title="미들웨어 추가">
+
+또한 `intlayerProxy`를 사용하여 애플리케이션에 서버 측 라우팅을 추가할 수 있습니다. 이 플러그인은 URL을 기반으로 현재 로케일을 자동으로 감지하고 적절한 로케일 쿠키를 설정합니다. 로케일이 지정되지 않으면 플러그인이 사용자의 브라우저 언어 설정을 기반으로 가장 적절한 로케일을 결정합니다. 로케일이 감지되지 않으면 기본 로케일로 리다이렉트됩니다.
+
+> `intlayerProxy`를 프로덕션에서 사용하려면 `vite-intlayer` 패키지를 `devDependencies`에서 `dependencies`로 변경해야 합니다.
+
+> Intlayer v9 이상에서는 `intlayerProxy()`가 `intlayer()` 플러그인에 직접 번들되며 `routing.enableProxy` 옵션을 통해 기본값으로 활성화됩니다(기본값: `true`). 아래와 같이 별도로 등록하는 것은 선택사항이 되었습니다: 하위 호환성과 플러그인 순서를 제어해야 하는 설정을 위해 유지됩니다. `routing.enableProxy: false`로 설정하여 거부할 수 있습니다. [v9 릴리스 노트](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/releases/v9.md)를 참조하세요.
+
+```typescript fileName="vite.config.ts"
+import { tanstackStart } from "@tanstack/react-start/plugin/vite";
+import viteReact from "@vitejs/plugin-react";
+import { nitro } from "nitro/vite";
+import { defineConfig } from "vite";
+import { intlayer } from "vite-intlayer";
+
+export default defineConfig({
+  plugins: [
+    nitro(),
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
+    tanstackStart({
+      router: {
+        routeFileIgnorePattern:
+          ".content.(ts|tsx|js|mjs|cjs|jsx|json|jsonc|json5|md|mdx|yaml|yml)$",
+      },
+    }),
+    viteReact(),
+  ],
+});
+```
+
+---
+
+</Step>
+
+<Step number={12} title="메타데이터 국제화">
+
+<Tabs>
+
+<Tab label="정적 해석" value="static">
+
+`getIntlayer`는 **병합된** 사전에 대해 동기적으로 해석되며, 이는 선언된 모든 로케일을 포함합니다. `head`는 동기로 유지되며 아무것도 대기하지 않지만, 전체 다국어 사전이 브라우저로 전송되는 라우트 청크로 끌어옵니다.
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createFileRoute } from "@tanstack/react-router";
+import {
+  defaultLocale,
+  getIntlayer,
+  getLocalizedUrl,
+  localeMap,
+} from "intlayer";
+
+export const Route = createFileRoute("/{-$locale}/")({
+  component: RouteComponent,
+  head: ({ params }) => {
+    const { locale = defaultLocale } = params;
+    const path = "/"; // 이 라우트의 경로
+
+    const metaContent = getIntlayer("app", locale);
+
+    return {
+      links: [
+        // 정준 링크: 현재 로컬라이즈된 페이지를 가리킵니다
+        { rel: "canonical", href: getLocalizedUrl(path, locale) },
+
+        // Hreflang: Google에 모든 로컬라이즈된 버전을 알립니다
+        ...localeMap(({ locale: mapLocale }) => ({
+          rel: "alternate",
+          hrefLang: mapLocale,
+          href: getLocalizedUrl(path, mapLocale),
+        })),
+
+        // x-default: 일치하지 않는 언어를 사용하는 사용자를 위해
+        // 기본 폴백 로케일 정의 (보통 주요 언어)
+        {
+          rel: "alternate",
+          hrefLang: "x-default",
+          href: getLocalizedUrl(path, defaultLocale),
+        },
+      ],
+      meta: [
+        { title: metaContent.title },
+        { name: "description", content: metaContent.meta.description },
+      ],
+    };
+  },
+});
+```
+
+작은 메타데이터 사전, 몇 가지 로케일 또는 프로토타이핑 중에 가장 적합합니다.
+
+</Tab>
+
+<Tab label="동적 해석" value="dynamic">
+
+`getIntlayerAsync` (**v9.4**부터 사용 가능)는 `getIntlayer`처럼 동작하지만, 빌드 플러그인이 병합된 사전 대신 `.intlayer/dynamic_dictionaries/`의 로케일별 청크를 가리킵니다. 따라서 페이지는 렌더링되는 로케일만 제공합니다. 해당 청크가 온디맨드로 로드되므로 `head`는 `async`가 됩니다:
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createFileRoute } from "@tanstack/react-router";
+import {
+  defaultLocale,
+  getIntlayerAsync,
+  getLocalizedUrl,
+  localeMap,
+} from "intlayer";
+
+export const Route = createFileRoute("/{-$locale}/")({
+  component: RouteComponent,
+  head: async ({ params }) => {
+    const { locale = defaultLocale } = params;
+    const path = "/"; // 이 라우트의 경로
+
+    const metaContent = await getIntlayerAsync("app", locale);
+
+    return {
+      links: [
+        // 정준 링크: 현재 로컬라이즈된 페이지를 가리킵니다
+        { rel: "canonical", href: getLocalizedUrl(path, locale) },
+
+        // Hreflang: Google에 모든 로컬라이즈된 버전을 알립니다
+        ...localeMap(({ locale: mapLocale }) => ({
+          rel: "alternate",
+          hrefLang: mapLocale,
+          href: getLocalizedUrl(path, mapLocale),
+        })),
+
+        // x-default: 일치하지 않는 언어를 사용하는 사용자를 위해
+        // 기본 폴백 로케일 정의 (보통 주요 언어)
+        {
+          rel: "alternate",
+          hrefLang: "x-default",
+          href: getLocalizedUrl(path, defaultLocale),
+        },
+      ],
+      meta: [
+        { title: metaContent.title },
+        { name: "description", content: metaContent.meta.description },
+      ],
+    };
+  },
+});
+```
+
+> `head`가 여러 사전을 읽으면 `Promise.all`로 해석합니다: 각 `getIntlayerAsync`를 자신의 라인에서 대기하면 요청을 순차적으로 연결하는 대신 병렬로 실행합니다.
+
+트레이드오프: 동적 import는 `head` 실행 중에, 문서 렌더링의 중요 경로에서 해석됩니다. 콜드 라우트에서 이는 head를 몇 밀리초 지연시킬 수 있고 **LCP**를 약간 저하시킬 수 있습니다.
+
+</Tab>
+
+<Tab label="캐시된 동적 해석" value="cached">
+
+라우트 `loader`에서 사전을 해석하고 `head`의 `loaderData`에서 다시 읽습니다. 일치하는 라우트의 로더는 병렬로 실행되고, `staleTime: Infinity`는 TanStack Router에 결과가 절대 만료되지 않음을 알려주므로 로케일별 청크가 한 번 해석되고 이후 라우터 캐시에서 제공되어 `head`를 동기로 유지합니다.
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createFileRoute } from "@tanstack/react-router";
+import {
+  defaultLocale,
+  getIntlayerAsync,
+  getLocalizedUrl,
+  localeMap,
+} from "intlayer";
+
+export const Route = createFileRoute("/{-$locale}/")({
+  component: RouteComponent,
+  // 다른 일치하는 라우트와 병렬로 해석되며, head 중요 경로 밖에서
+  loader: async ({ params }) => {
+    const { locale = defaultLocale } = params;
+
+    return { metaContent: await getIntlayerAsync("app", locale) };
+  },
+  // 주어진 로케일에 대해 사전이 변경되지 않음: 청크를 한 번 해석
+  staleTime: Infinity,
+  head: ({ params, loaderData }) => {
+    const { locale = defaultLocale } = params;
+    const path = "/"; // 이 라우트의 경로
+
+    return {
+      links: [
+        // 정준 링크: 현재 로컬라이즈된 페이지를 가리킵니다
+        { rel: "canonical", href: getLocalizedUrl(path, locale) },
+
+        // Hreflang: Google에 모든 로컬라이즈된 버전을 알립니다
+        ...localeMap(({ locale: mapLocale }) => ({
+          rel: "alternate",
+          hrefLang: mapLocale,
+          href: getLocalizedUrl(path, mapLocale),
+        })),
+
+        // x-default: 일치하지 않는 언어를 사용하는 사용자를 위해
+        // 기본 폴백 로케일 정의 (보통 주요 언어)
+        {
+          rel: "alternate",
+          hrefLang: "x-default",
+          href: getLocalizedUrl(path, defaultLocale),
+        },
+      ],
+      meta: [
+        { title: loaderData?.metaContent.title },
+        {
+          name: "description",
+          content: loaderData?.metaContent.meta.description,
+        },
+      ],
+    };
+  },
+});
+```
+
+> `head`는 로더가 정착되기 전에 호출될 수 있으므로 `loaderData`는 `undefined`일 수 있도록 입력됩니다. 선택적 체이닝을 유지하거나 폴백 제목을 반환하세요.
+
+로케일별 청크를 유지하면서 head 중요 경로에서 비용을 지불하지 않습니다. 대가는 개발자 경험입니다: 콘텐츠는 `loaderData`를 통해 로더에서 `head`로 명시적으로 스레드화되어야 합니다.
+
+</Tab>
+
+</Tabs>
+
+### 어떤 해결 방법을 선택해야 할까요?
+
+|                      | Static resolution     | Dynamic resolution         | Cached dynamic resolution              |
+| -------------------- | --------------------- | -------------------------- | -------------------------------------- |
+| API                  | `getIntlayer`         | `getIntlayerAsync` (v9.4+) | `getIntlayerAsync` in `loader` (v9.4+) |
+| `head` signature     | synchronous           | `async`                    | synchronous, reads `loaderData`        |
+| Locales shipped      | every declared locale | requested locale only      | requested locale only                  |
+| Client navigations   | nothing to resolve    | re-entered on every match  | served from the router cache           |
+| Developer experience | simplest              | one `await`                | content threaded through `loaderData`  |
+
+---
+
+</Step>
+
+<Step number={13} title="서버 액션에서 로케일 검색">
+
+서버 액션이나 API 엔드포인트 내에서 현재 로케일에 액세스하고 싶을 수 있습니다.
+`intlayer`의 `getLocale` 헬퍼를 사용하여 이를 수행할 수 있습니다.
+
+TanStack Start의 서버 함수를 사용한 예시입니다:
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createServerFn } from "@tanstack/react-start";
+import {
+  getRequestHeader,
+  getRequestHeaders,
+} from "@tanstack/react-start/server";
+import { getCookie, getIntlayer, getLocale } from "intlayer";
+
+export const getLocaleServer = createServerFn().handler(async () => {
+  const locale = await getLocale({
+    // 요청에서 쿠키 가져오기 (기본값: 'INTLAYER_LOCALE')
+    getCookie: (name) => {
+      const cookieString = getRequestHeader("cookie");
+
+      return getCookie(name, cookieString);
+    },
+    // 요청에서 헤더 가져오기 (기본값: 'x-intlayer-locale')
+    // Accept-Language 협상을 사용한 폴백
+    getHeader: (name) => getRequestHeader(name),
+  });
+
+  // getIntlayerAsync()를 사용하여 일부 컨텐츠 검색
+  const content = getIntlayer("app", locale);
+
+  return { locale, content };
+});
+```
+
+---
+
+</Step>
+
+<Step number={14} title="찾을 수 없음 페이지 관리">
+
+사용자가 존재하지 않는 페이지를 방문할 때, 사용자 정의 찾을 수 없음 페이지를 표시할 수 있으며 로케일 접두사는 찾을 수 없음 페이지가 트리거되는 방식에 영향을 줄 수 있습니다.
+
+#### 현지화된 홈 페이지
+
 > `alt`, `title`, `href`, `aria-label` 등과 같은 `string` 속성에서 콘텐츠를 사용하려면 함수의 값을 다음과 같이 사용할 수 있습니다:
 >
 > ```html
@@ -568,10 +944,6 @@ function RouteComponent() {
 > `useIntlayer` 훅에 대해 자세히 알아보려면 [문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/react-intlayer/useIntlayer.md)를 참조하세요.
 
 </Step>
-
-<Step number={10} title="로케일 스위처 컴포넌트 생성">
-
-사용자가 언어를 변경할 수 있는 컴포넌트를 만듭니다:
 
 ```tsx fileName="src/components/locale-switcher.tsx"
 import { useLocation } from "@tanstack/react-router";
@@ -634,12 +1006,6 @@ export const LocaleSwitcher: FC = () => {
 
 <Step number={11} title="HTML 속성 관리">
 
-const localeRoute = getRouteApi("/{-$locale}");
-
-function RootDocument({ children }: { children: ReactNode }) {
-const params = localeRoute.useParams();
-const locale = params?.locale ?? defaultLocale;
-
 return (
 <html dir={getHTMLTextDir(locale)} lang={locale}>
 {/* ... _/}
@@ -650,222 +1016,15 @@ return (
 );
 }
 
-````
-
----
-
-</Step>
-
-<Step number={12} title="미들웨어 추가(선택 사항)" isOptional={true}>
-
-`intlayerProxy`를 사용하여 애플리케이션에 서버 사이드 라우팅을 추가할 수도 있습니다. 이 플러그인은 URL을 기반으로 현재 로케일을 자동으로 감지하고 적절한 로케일 쿠키를 설정합니다. 로케일이 지정되지 않은 경우, 플러그인은 사용자의 브라우저 언어 기본 설정에 따라 가장 적합한 로케일을 결정합니다. 로케일이 감지되지 않으면 기본 로케일로 리디렉션합니다.
-
-> 프로덕션에서 `intlayerProxy`를 사용하려면 `vite-intlayer` 패키지를 `devDependencies`에서 `dependencies`로 변경해야 합니다.
-
-> Intlayer v9 이후로 `intlayerProxy()`는 `intlayer()` 플러그인에 직접 번들되어 있으며 `routing.enableProxy` 옵션(`true` 기본값)을 통해 기본적으로 활성화됩니다. 아래에 표시된 대로 별도로 등록하는 것은 이제 선택 사항입니다. 하위 호환성을 위해 그리고 플러그인 순서를 제어해야 하는 설정을 위해 유지됩니다. `routing.enableProxy: false`로 설정하여 제외할 수 있습니다. [v9 release notes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/releases/v9.md)를 참조하세요.
-
-```typescript fileName="vite.config.ts"
-import { tanstackStart } from "@tanstack/react-start/plugin/vite";
-import viteReact from "@vitejs/plugin-react";
-import { nitro } from "nitro/vite";
-import { defineConfig } from "vite";
-import { intlayer } from "vite-intlayer";
-
-export default defineConfig({
-  plugins: [
-    nitro(),
-    intlayer({
-      proxy: {
-        ignore: (req) => req.url?.startsWith("/api"),
-      },
-    }),
-    tanstackStart({
-      router: {
-        routeFileIgnorePattern:
-          ".content.(ts|tsx|js|mjs|cjs|jsx|json|jsonc|json5|md|mdx|yaml|yml)$",
-      },
-    }),
-    viteReact(),
-  ],
-});
-````
-
----
-
-</Step>
-
-<Step number={12} title="메타데이터 국제화(선택 사항)" isOptional={true}>
-
-<Tabs>
-
-<Tab label="정적 해석" value="static">
-
-`getIntlayer` 는 선언된 모든 로케일을 담은 **병합** 사전을 대상으로 동기적으로 해석됩니다. `head` 는 동기 상태로 남고 아무것도 대기하지 않지만, 다국어 사전 전체가 브라우저로 전송되는 라우트 청크에 포함됩니다.
-
-```tsx fileName="src/routes/{-$locale}/index.tsx"
-import { createFileRoute } from "@tanstack/react-router";
-import {
-  defaultLocale,
-  getIntlayer,
-  getLocalizedUrl,
-  localeMap,
-} from "intlayer";
-
 export const Route = createFileRoute("/{-$locale}/")({
-  component: RouteComponent,
-  head: ({ params }) => {
-    const { locale = defaultLocale } = params;
-    const path = "/"; // The path for this route
-
-    const metaContent = getIntlayer("app", locale);
-
-    return {
-      links: [
-        // Canonical link: Points to the current localized page
-        { rel: "canonical", href: getLocalizedUrl(path, locale) },
-
-        // Hreflang: Tell Google about all localized versions
-        ...localeMap(({ locale: mapLocale }) => ({
-          rel: "alternate",
-          hrefLang: mapLocale,
-          href: getLocalizedUrl(path, mapLocale),
-        })),
-
-        // x-default: For users in unmatched languages
-        // Define the default fallback locale (usually your primary language)
-        {
-          rel: "alternate",
-          hrefLang: "x-default",
-          href: getLocalizedUrl(path, defaultLocale),
-        },
-      ],
-      meta: [
-        { title: metaContent.title },
-        { name: "description", content: metaContent.meta.description },
-      ],
-    };
-  },
-});
-```
-
-작은 메타데이터 사전, 소수의 로케일, 또는 프로토타이핑 단계에 적합합니다.
-
-</Tab>
-
-<Tab label="동적 해석" value="dynamic">
-
-`getIntlayerAsync`(**v9.4** 부터 제공)는 `getIntlayer` 와 동일하게 동작하지만, 빌드 플러그인이 병합 사전 대신 `.intlayer/dynamic_dictionaries/` 의 로케일별 청크를 가리키게 합니다. 따라서 페이지는 렌더링하는 로케일만 전송합니다. 해당 청크는 필요할 때 로드되므로 `head` 는 `async` 가 됩니다:
-
-```tsx fileName="src/routes/{-$locale}/index.tsx"
-import { createFileRoute } from "@tanstack/react-router";
-import {
-  defaultLocale,
-  getIntlayerAsync,
-  getLocalizedUrl,
-  localeMap,
-} from "intlayer";
-
-export const Route = createFileRoute("/{-$locale}/")({
-  component: RouteComponent,
-  head: async ({ params }) => {
-    const { locale = defaultLocale } = params;
-    const path = "/"; // The path for this route
+component: RouteComponent,
+head: async ({ params }) => {
+const { locale = defaultLocale } = params;
+const path = "/"; // The path for this route
 
     const metaContent = await getIntlayerAsync("app", locale);
 
-    return {
-      links: [
-        // Canonical link: Points to the current localized page
-        { rel: "canonical", href: getLocalizedUrl(path, locale) },
-
-        // Hreflang: Tell Google about all localized versions
-        ...localeMap(({ locale: mapLocale }) => ({
-          rel: "alternate",
-          hrefLang: mapLocale,
-          href: getLocalizedUrl(path, mapLocale),
-        })),
-
-        // x-default: For users in unmatched languages
-        // Define the default fallback locale (usually your primary language)
-        {
-          rel: "alternate",
-          hrefLang: "x-default",
-          href: getLocalizedUrl(path, defaultLocale),
-        },
-      ],
-      meta: [
-        { title: metaContent.title },
-        { name: "description", content: metaContent.meta.description },
-      ],
-    };
-  },
-});
-```
-
-> 하나의 `head` 에서 여러 사전을 읽는다면 `Promise.all` 로 함께 해석하세요. `getIntlayerAsync` 를 한 줄씩 await 하면 요청이 병렬이 아니라 순차적으로 연결됩니다.
-
-절충점: 동적 import 는 문서 렌더링의 임계 경로에서 `head` 가 실행되는 동안 해석됩니다. 콜드 라우트에서는 `head` 가 몇 밀리초 지연되어 **LCP** 가 약간 나빠질 수 있습니다.
-
-</Tab>
-
-<Tab label="캐시된 동적 해석" value="cached">
-
-사전을 라우트 `loader` 에서 해석하고, `head` 에서는 `loaderData` 로 다시 읽어 오세요. 매칭된 라우트의 로더는 병렬로 실행되며, `staleTime: Infinity` 는 결과가 절대 만료되지 않음을 TanStack Router 에 알립니다. 즉 로케일별 청크는 한 번만 해석되고 이후에는 라우터 캐시에서 제공되므로 `head` 는 동기로 유지됩니다.
-
-```tsx fileName="src/routes/{-$locale}/index.tsx"
-import { createFileRoute } from "@tanstack/react-router";
-import {
-  defaultLocale,
-  getIntlayerAsync,
-  getLocalizedUrl,
-  localeMap,
-} from "intlayer";
-
-export const Route = createFileRoute("/{-$locale}/")({
-  component: RouteComponent,
-  // Resolved in parallel with the other matched routes, off the head critical path
-  loader: async ({ params }) => {
-    const { locale = defaultLocale } = params;
-
-    return { metaContent: await getIntlayerAsync("app", locale) };
-  },
-  // The dictionary never changes for a given locale: resolve the chunk once
-  staleTime: Infinity,
-  head: ({ params, loaderData }) => {
-    const { locale = defaultLocale } = params;
-    const path = "/"; // The path for this route
-
-    return {
-      links: [
-        // Canonical link: Points to the current localized page
-        { rel: "canonical", href: getLocalizedUrl(path, locale) },
-
-        // Hreflang: Tell Google about all localized versions
-        ...localeMap(({ locale: mapLocale }) => ({
-          rel: "alternate",
-          hrefLang: mapLocale,
-          href: getLocalizedUrl(path, mapLocale),
-        })),
-
-        // x-default: For users in unmatched languages
-        // Define the default fallback locale (usually your primary language)
-        {
-          rel: "alternate",
-          hrefLang: "x-default",
-          href: getLocalizedUrl(path, defaultLocale),
-        },
-      ],
-      meta: [
-        { title: loaderData?.metaContent.title },
-        {
-          name: "description",
-          content: loaderData?.metaContent.meta.description,
-        },
-      ],
-    };
-  },
-});
-```
+````
 
 > `head` 는 로더가 완료되기 전에 호출될 수 있어 `loaderData` 는 `undefined` 가능 타입입니다. 옵셔널 체이닝을 유지하거나 대체 제목을 반환하세요.
 
@@ -897,19 +1056,6 @@ export const Route = createFileRoute("/{-$locale}/")({
 다음은 TanStack Start의 서버 함수를 사용한 예입니다:
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
-import { createServerFn } from "@tanstack/react-start";
-import {
-  getRequestHeader,
-  getRequestHeaders,
-} from "@tanstack/react-start/server";
-import { getCookie, getIntlayer, getLocale } from "intlayer";
-
-export const getLocaleServer = createServerFn().handler(async () => {
-  const locale = await getLocale({
-    // 요청에서 쿠키 가져오기(기본값: 'INTLAYER_LOCALE')
-    getCookie: (name) => {
-      const cookieString = getRequestHeader("cookie");
-
       return getCookie(name, cookieString);
     },
     // 요청에서 헤더 가져오기(기본값: 'x-intlayer-locale')
@@ -920,9 +1066,7 @@ export const getLocaleServer = createServerFn().handler(async () => {
   // getIntlayer()를 사용하여 일부 콘텐츠 가져오기
   const content = getIntlayer("app", locale);
 
-  return { locale, content };
-});
-```
+````
 
 ---
 
@@ -941,65 +1085,15 @@ TanStack Router에서 현지화된 경로로 404 페이지를 처리하려면 �
 3. **Catch-all 경로**: 로케일 세그먼트 내에서 일치하지 않는 모든 경로를 캡처
 
 ```tsx fileName="src/routes/{-$locale}/404.tsx"
-import { createFileRoute } from "@tanstack/react-router";
 
-// 이것은 전용 /[locale]/404 경로를 생성합니다.
-// 직접 경로로 사용되거나 다른 파일에서 컴포넌트로 임포트되어 사용됩니다.
-export const Route = createFileRoute("/{-$locale}/404")({
-  component: NotFoundComponent,
-});
-
-// notFoundComponent 및 catch-all 경로에서 재사용할 수 있도록 별도로 내보냅니다.
-export function NotFoundComponent() {
-  return (
-    <div>
-      <h1>404</h1>
-    </div>
-  );
-}
 ```
 
 ```tsx fileName="src/routes/{-$locale}/route.tsx"
-import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
-import { validatePrefix } from "intlayer";
-import { NotFoundComponent } from "./404";
 
-export const Route = createFileRoute("/{-$locale}")({
-  // beforeLoad는 경로가 렌더링되기 전에 실행됩니다(서버 및 클라이언트 모두에서).
-  // 로케일 접두사의 유효성을 검사하기에 이상적인 장소입니다.
-  beforeLoad: ({ params }) => {
-    const localeParam = params.locale;
-
-    // validatePrefix는 intlayer 구성에 따라 로케일이 유효한지 확인합니다.
-    const { isValid, localePrefix } = validatePrefix(localeParam);
-
-    if (!isValid) {
-      // 유효하지 않은 로케일 접두사 - 유효한 로케일 접두사가 포함된 404 페이지로 리디렉션
-      throw redirect({
-        to: "/{-$locale}/404",
-        params: { locale: localePrefix },
-      });
-    }
-  },
-  component: Outlet,
-  // 자식 경로가 존재하지 않을 때 notFoundComponent가 호출됩니다.
-  // 예: /en/존재하지-않는-페이지는 /en 레이아웃 내에서 이를 트리거합니다.
-  notFoundComponent: NotFoundComponent,
-});
 ```
 
 ```tsx fileName="src/routes/{-$locale}/$.tsx"
-import { createFileRoute } from "@tanstack/react-router";
 
-import { NotFoundComponent } from "./404";
-
-// $ (splat/catch-all) 경로는 다른 경로와 일치하지 않는 모든 경로와 일치합니다.
-// 예: /en/어떤/깊게/중첩된/유효하지-않은/경로
-// 이를 통해 로케일 내의 모든 일치하지 않는 경로가 404 페이지를 표시하도록 보장합니다.
-// 이것이 없으면 일치하지 않는 깊은 경로는 빈 페이지나 오류를 표시할 수 있습니다.
-export const Route = createFileRoute("/{-$locale}/$")({
-  component: NotFoundComponent,
-});
 ```
 
 </Step>
@@ -1014,19 +1108,6 @@ export const Route = createFileRoute("/{-$locale}/$")({
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { type IntlayerConfig } from "intlayer";
-
-const config: IntlayerConfig = {
-  // ... 나머지 구성
-  compiler: {
-    /**
-     * 컴파일러 활성화 여부를 나타냅니다.
-     */
-    enabled: true,
-
-    /**
-     * 출력 파일 경로를 정의합니다.
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
 
     /**
      * 변환 후 컴포넌트를 저장할지 여부를 나타냅니다. 그렇게 하면 컴파일러를 한 번만 실행하여 앱을 변환한 다음 제거할 수 있습니다.
@@ -1049,74 +1130,32 @@ export default config;
 컴포넌트를 변환하고 콘텐츠를 추출하기 위해 추출기를 실행합니다
 
 ```bash packageManager="npm"
-npx intlayer extract
+
 ```
 
 ```bash packageManager="pnpm"
-pnpm intlayer extract
+
 ```
 
 ```bash packageManager="yarn"
-yarn intlayer extract
+
 ```
 
 ```bash packageManager="bun"
-bun x intlayer extract
-```
 
- </Tab>
- <Tab value='Babel 컴파일러'>
-
-> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
-
-`vite.config.ts`를 업데이트하여 `intlayerCompiler` 플러그인을 포함합니다.
-
-```ts fileName="vite.config.ts"
-import { defineConfig } from "vite";
-import { intlayer, intlayerCompiler } from "vite-intlayer";
-
-export default defineConfig({
-  plugins: [
-    intlayer(),
-    intlayerCompiler(), // Adds the compiler plugin
-  ],
-});
-```
-
-```bash packageManager="npm"
-npm run build # 또는 npm run dev
-```
-
-```bash packageManager="pnpm"
-pnpm run build # 또는 pnpm run dev
-```
-
-```bash packageManager="yarn"
-yarn build # 또는 yarn dev
-```
-
-```bash packageManager="bun"
-bun run build # 또는 bun run dev
-```
-
- </Tab>
+</Tab>
 </Tabs>
 
 ---
 
-</Step>
+I'm ready to audit the translation. However, I notice that both the reference English block (BLOCK 2 of 3) and the current Korean block (BLOCK 2 of 3) appear to be empty based on what you've provided.
 
-<Step number={16} title="사이트맵 생성(선택 사항)" isOptional={true}>
+Could you please provide:
 
-Intlayer는 애플리케이션의 사이트맵을 쉽게 만들 수 있는 내장 사이트맵 생성기를 제공합니다. 로컬라이즈된 경로를 처리하고 검색 엔진에 필요한 메타데이터를 추가합니다.
+1. **The English (en) source content** - the reference material I should audit against
+2. **The current Korean (ko) translation** - the content that needs to be reviewed and updated
 
-> Intlayer에서 생성한 사이트맵은 `xhtml:link` 네임스페이스(Hreflang XML 확장)를 지원합니다. 원시 URL만 나열하는 기본 사이트맵 생성기와 달리, Intlayer는 페이지의 모든 언어 버전(예: `/about`, `/about?lang=fr`, `/about?lang=es`) 간에 필요한 양항향 링크를 자동으로 생성합니다. 이를 통해 검색 엔진이 올바른 언어 버전을 올바른 사용자에게 색인화하고 제공할 수 있도록 보장합니다.
-
-이를 사용하려면 먼저 로컬라이즈된 경로의 프리렌더링을 활성화하고 기본 TanStack Start 사이트맵 생성을 비활성화하도록 `vite.config.ts`를 구성해야 합니다.
-
-```typescript fileName="vite.config.ts"
-import { localeFlatMap } from "intlayer";
-// ... 기타 임포트
+Once you provide these blocks with the `` and `` delimiters, I'll proceed with the audit and return the fully updated Korean translation.---
 
 export const pathList = ["", "/about", "/404"];
 
@@ -1150,13 +1189,22 @@ export default defineConfig({
 
 그런 다음, `generateSitemap` 함수를 사용하는 `src/routes/sitemap[.]xml.ts` 경로를 생성합니다.
 
-```typescript fileName="src/routes/sitemap[.]xml.ts"
-import { createFileRoute } from "@tanstack/react-router";
-import { generateSitemap } from "intlayer";
+````typescript fileName="src/routes/sitemap[.]xml.ts"
 
-const SITE_URL = (
-  import.meta.env.VITE_SITE_URL ?? "http://localhost:3000"
-).replace(/\/$/, "");
+---
+
+Once you provide the full content for both blocks, I'll be able to audit the Korean translation against the English source and make it fully up-to-date according to all the instructions you've specified.
+
+<Step number={17} title="TypeScript 구성">
+
+I'm ready to assist you with the translation audit. However, I notice that the blocks appear to be empty in your message.
+
+Could you please provide:
+
+1. **BLOCK 3 of 3** (en - English source) - the reference content to audit against
+2. **Current translation** (ko - Korean) - the content that needs to be reviewed and updated
+
+Once you provide these blocks with the content between `` and ``, I'll perform a thorough audit and return the fully updated Korean translation.---
 
 export const Route = createFileRoute("/sitemap.xml")({
   server: {
@@ -1177,19 +1225,6 @@ export const Route = createFileRoute("/sitemap.xml")({
     },
   },
 });
-```
-
----
-
-</Step>
-
-<Step number={17} title="TypeScript 구성(선택 사항)" isOptional={true}>
-
-Intlayer는 모듈 확장을 사용하여 TypeScript의 이점을 얻고 코드베이스를 더욱 견고하게 만듭니다.
-
-TypeScript 구성에 자동 생성된 유형이 포함되어 있는지 확인하세요:
-
-```json5 fileName="tsconfig.json"
 {
   // ... 기존 구성
   include: [
@@ -1197,39 +1232,32 @@ TypeScript 구성에 자동 생성된 유형이 포함되어 있는지 확인하
     ".intlayer/**/*.ts", // 자동 생성된 유형 포함
   ],
 }
-```
-
----
-
-</Step>
-
-</Steps>
 
 ### Git 구성
 
-Intlayer에서 생성된 파일은 무시하는 것이 좋습니다. 이를 통해 Git 저장소에 커밋되는 것을 방지할 수 있습니다.
+Intlayer에서 생성한 파일을 무시하는 것이 좋습니다. 이렇게 하면 Git 저장소에 커밋하는 것을 피할 수 있습니다.
 
-이를 위해 `.gitignore` 파일에 다음 지침을 추가할 수 있습니다:
+이렇게 하려면 `.gitignore` 파일에 다음 지침을 추가할 수 있습니다:
 
 ```plaintext fileName=".gitignore"
-# Intlayer에서 생성된 파일 무시
+# Intlayer에서 생성한 파일 무시
 .intlayer
-```
+````
 
 ---
 
 ## VS Code 확장 프로그램
 
-Intlayer를 사용한 개발 환경을 개선하기 위해 공식 **Intlayer VS Code 확장 프로그램**을 설치할 수 있습니다.
+Intlayer로 개발 경험을 개선하기 위해 공식 **Intlayer VS Code 확장 프로그램**을 설치할 수 있습니다.
 
-[VS Code 마켓플레이스에서 설치](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+[VS Code Marketplace에서 설치](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
 이 확장 프로그램은 다음을 제공합니다:
 
-- 번역 키에 대한 **자동 완성**.
-- 누락된 번역에 대한 **실시간 오류 감지**.
-- 번역된 콘텐츠의 **인라인 미리보기**.
-- 번역을 쉽게 생성하고 업데이트할 수 있는 **빠른 작업**.
+- **자동완성** - 번역 키에 대한 자동완성
+- **실시간 오류 감지** - 누락된 번역에 대한 오류 감지
+- **인라인 미리보기** - 번역된 콘텐츠의 인라인 미리보기
+- **빠른 작업** - 번역을 쉽게 생성하고 업데이트할 수 있는 빠른 작업
 
 확장 프로그램 사용 방법에 대한 자세한 내용은 [Intlayer VS Code 확장 프로그램 문서](https://intlayer.org/doc/vs-code-extension)를 참조하세요.
 
@@ -1237,15 +1265,15 @@ Intlayer를 사용한 개발 환경을 개선하기 위해 공식 **Intlayer VS 
 
 ## 더 나아가기
 
-더 나아가려면 [시각적 편집기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)를 구현하거나 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)를 사용하여 콘텐츠를 외부화할 수 있습니다.
+더 나아가려면 [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)를 구현하거나 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)를 사용하여 콘텐츠를 외부화할 수 있습니다.
 
 ---
 
-## 문서 참고 자료
+## 문서 참고
 
-- [Intlayer 문서](https://intlayer.org)
-- [TanStack Start 문서](https://reactrouter.com/)
-- [useIntlayer 훅](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/react-intlayer/useIntlayer.md)
-- [useLocale 훅](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/react-intlayer/useLocale.md)
-- [콘텐츠 선언](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md)
-- [구성](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)
+- [Intlayer Documentation](https://intlayer.org)
+- [Tanstack Start Documentation](https://reactrouter.com/)
+- [useIntlayer hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/react-intlayer/useIntlayer.md)
+- [useLocale hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/react-intlayer/useLocale.md)
+- [Content Declaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md)
+- [Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)

@@ -118,6 +118,34 @@ INTLAYER_CLIENT_SECRET=your_client_secret
 }
 ```
 
+## Безопасность ключа доступа
+
+`intlayer login` выдает **ключ доступа**: пару `clientId` / `clientSecret`, которую используют все аутентифицированные команды (`push`, `pull`, `fill`, `configuration push`, `live`, …) для аутентификации.
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import type { IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  editor: {
+    clientId: process.env.INTLAYER_CLIENT_ID,
+    clientSecret: process.env.INTLAYER_CLIENT_SECRET,
+  },
+};
+
+export default config;
+```
+
+> **`clientSecret` — это учетные данные на стороне сервера.** Он предоставляет полный доступ к API в области проекта — чтение и запись ваших словарей, вашего проекта и вашей организации. Сохраняйте его в `.env` (игнорируется git) или в хранилище секретов CI, и никогда не встраивайте его непосредственно в файл конфигурации.
+
+Intlayer это обеспечивает, а не только документирует:
+
+- `clientSecret` **удаляется из конфигурации, которую встраивает ваш bundler**, поэтому он не может попасть в bundle браузера, независимо от того, какую интеграцию framework вы используете. Он читается только на стороне сервера, во время выполнения, из окружения.
+- `clientId` отличается: это **открытый** ключ проекта, безопасный для распространения и используемый [`@intlayer/analytics`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/analytics.md#how-events-are-authenticated) для получения краткосрочного токена только для приема.
+
+Достаточно закомментировать `clientId`, чтобы отключить все аутентифицированное поведение — получение удаленных словарей, доступ к CMS, аналитику — даже если переменные окружения все еще определены.
+
+Для CI pipelines предпочитайте [`ci` команду](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/ci.md), которая внедряет учетные данные на время одного запуска вместо их сохранения.
+
 ## Ручная настройка
 
 Если браузер не откроется автоматически, вы можете вручную перейти по URL, отображаемому в терминале.

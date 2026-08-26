@@ -127,6 +127,8 @@ Intlayer chấp nhận nhiều định dạng tệp cấu hình khác nhau:
 
 - **[Đăng nhập](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/login.md)** - Xác thực với Intlayer CMS và nhận thông tin xác thực truy cập
 
+> `intlayer login` cấp một **access key** (`clientId` / `clientSecret`) mà mọi lệnh có xác thực đều sử dụng. Secret là một thông tin xác thực phía server và không bao giờ được gửi tới client bundle của bạn — xem [Keeping the access key safe](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/login.md#keeping-the-access-key-safe).
+
 ### Các lệnh cốt lõi
 
 - **[Xây dựng từ điển](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/build.md)** - Xây dựng từ điển của bạn từ các tệp khai báo nội dung

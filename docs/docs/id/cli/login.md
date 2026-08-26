@@ -118,6 +118,34 @@ INTLAYER_CLIENT_SECRET=your_client_secret
 }
 ```
 
+## Menjaga akses key tetap aman
+
+`intlayer login` mengeluarkan **access key**: pasangan `clientId` / `clientSecret` yang digunakan oleh setiap perintah terautentikasi (`push`, `pull`, `fill`, `configuration push`, `live`, …) untuk autentikasi.
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import type { IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  editor: {
+    clientId: process.env.INTLAYER_CLIENT_ID,
+    clientSecret: process.env.INTLAYER_CLIENT_SECRET,
+  },
+};
+
+export default config;
+```
+
+> **`clientSecret` adalah kredensial sisi server.** Ini memberikan akses API penuh yang dibatasi proyek — membaca dan menulis kamus Anda, proyek, dan organisasi Anda. Simpan di `.env` (git-ignored) atau penyimpanan rahasia CI Anda, dan jangan pernah inline-kan di file konfigurasi.
+
+Intlayer memberlakukan ini daripada hanya mendokumentasikannya:
+
+- `clientSecret` adalah **dihapus dari konfigurasi yang bundler Anda inline**, sehingga tidak dapat mencapai bundle browser apa pun integrasi framework yang Anda gunakan. Ini hanya pernah dibaca sisi server, saat runtime, dari lingkungan.
+- `clientId` berbeda: ini adalah **kunci proyek publik**, aman untuk dikirim, dan digunakan oleh [`@intlayer/analytics`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/analytics.md#how-events-are-authenticated) untuk mendapatkan token berumur pendek dan ingest-only.
+
+Mengomentari `clientId` sudah cukup untuk menonaktifkan setiap perilaku terautentikasi — pengambilan kamus jarak jauh, akses CMS, analytics — bahkan ketika variabel lingkungan masih didefinisikan.
+
+Untuk pipeline CI, lebih suka [`ci` command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/ci.md), yang menyuntikkan kredensial untuk durasi satu run alih-alih mempertahankannya.
+
 ## Konfigurasi Manual
 
 Jika browser tidak terbuka secara otomatis, Anda dapat mengunjungi URL yang ditampilkan di terminal secara manual.

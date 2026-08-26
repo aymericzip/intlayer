@@ -91,8 +91,6 @@ bun x intlayer doc review
 
 - **`--log`**: Режим тільки логування. Не перекладати з допомогою AI; замість цього логувати блоки, які потребують уваги (з номерами рядків і вмістом) для базової та цільової локалей, щоб допомогти іншому агенту згенерувати переклади.
 
-Please provide:
-
 - The English source file content (BLOCK 1)
 - The Ukrainian translation to audit (BLOCK 2)
 - The mode you'd like me to use (`apply`, `report`, or `synthesis`)

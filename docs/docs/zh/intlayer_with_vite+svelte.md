@@ -737,11 +737,6 @@ Could you please provide:
 
 Once you provide these blocks, I'll perform a comprehensive audit and return the fully updated Chinese translation with:
 
-- Missing paragraphs, lists, tables, code blocks, or images inserted
-- Spelling, grammar, punctuation, and Markdown syntax errors corrected
-- Code comments translated to Chinese while preserving code syntax
-- All content structure preserved as in the English version
-
 Please share the content blocks and I'll proceed with the audit.---
 
 ### VS Code 扩展

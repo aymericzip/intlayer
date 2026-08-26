@@ -21,11 +21,15 @@ author: aymericzip
 
 Intlayer có thể chạy hoàn toàn trên hạ tầng của riêng bạn — không yêu cầu tài khoản Intlayer Cloud. Chỉ một lệnh duy nhất sẽ khởi động một stack sẵn sàng cho production:
 
+Một lệnh cài đặt mọi thứ:
+
 ```sh
 curl -fsSL https://intlayer.org/install.sh | sh
 ```
 
 Trình cài đặt sẽ tải xuống `docker-compose.yml` và `.env`, tự động tạo các secret cần thiết, và khởi động tất cả các container với `docker compose up -d`.
+
+Sự phụ thuộc duy nhất bên ngoài là **MongoDB**: backend kết nối với một cluster **Atlas** MongoDB mà bạn cung cấp. Mọi thứ khác chạy bên trong container.
 
 ## Mục lục
 
@@ -60,31 +64,77 @@ Chromium (được sử dụng để tạo ảnh chụp màn hình Puppeteer) đ
 - Các cổng `3000`, `3100`, `8025`, `9000`, và `9001` phải khả dụng trên host.
 - Host chạy Linux hoặc macOS (hoặc WSL2 trên Windows).
 
+Mọi thứ khác — Bun, Redis, MinIO, Chromium — đều được đóng gói trong image.
+
 ---
 
 ## Bắt đầu nhanh
 
-Pull và chạy image được công bố, cung cấp thông tin xác thực và bí mật MongoDB Atlas của bạn:
+### 1. Chạy trình cài đặt
+
+```sh
+curl -fsSL https://intlayer.org/install.sh | sh
+```
+
+Nó xác minh Docker đã được cài đặt và đang chạy, ghi `./intlayer.env` với `BETTER_AUTH_SECRET` và `S3_SECRET_ACCESS_KEY` đã được tạo sẵn, và kéo image. Nó không khởi động container — backend không thể khởi động mà không có thông tin đăng nhập cơ sở dữ liệu của bạn.
+
+Chạy lại trình cài đặt là an toàn: một `intlayer.env` hiện có sẽ không bao giờ bị ghi đè, vì vậy nó cũng đóng vai trò là đường dâng cập nhật.
+
+### 2. Điền thông tin đăng nhập của bạn
+
+Mở `intlayer.env` và hoàn thành các giá trị được đánh dấu `TODO`:
+
+```sh fileName="intlayer.env"
+DB_ID=<atlas-user>
+DB_MDP=<atlas-password>
+DB_CLUSTER=<cluster>.xxxxx.mongodb.net
+RESEND_API_KEY=<your-resend-key>
+```
+
+Tệp này cũng chứa các khối được comment cho các tính năng tùy chọn — [SMTP mailer](#global-mailer), `OPENAI_API_KEY`, và các nhà cung cấp OAuth. Bỏ comment những tính năng bạn cần.
+
+> Tệp được đọc bởi `docker run --env-file`, tệp này không loại bỏ dấu ngoặc kép và xem mọi thứ sau `=` là giá trị. Viết các giá trị không có dấu ngoặc kép, và giữ các comment trên các dòng riêng biệt.
+
+### 3. Khởi động container
+
+Đây là lệnh mà trình cài đặt in ra khi hoàn thành:
 
 ```sh
 docker run -d --name intlayer \
+  --restart unless-stopped \
   -p 3000:3000 \
   -p 3100:3100 \
   -p 9000:9000 \
   -p 9001:9001 \
   -v intlayer-data:/data \
-  -e DB_ID="<atlas-user>" \
-  -e DB_MDP="<atlas-password>" \
-  -e DB_CLUSTER="<cluster>.xxxxx.mongodb.net" \
-  -e BETTER_AUTH_SECRET="$(openssl rand -hex 32)" \
-  -e S3_SECRET_ACCESS_KEY="$(openssl rand -hex 16)" \
-  -e RESEND_API_KEY="<your-resend-key>" \
-  aymericzip/intlayer-selfhost
+  --env-file ./intlayer.env \
+  ghcr.io/aymericzip/intlayer-selfhost:latest
 ```
 
-Sau đó mở **http://localhost:3000**.
+Sau đó mở **http://localhost:3000**. Lần khởi động đầu tiên sẽ khởi tạo các datastores, vì vậy hãy chờ một phút.
 
-> Dashboard được phục vụ trên `localhost`. Xem [Limitations](#limitations) — các miền tùy chỉnh không được hỗ trợ bởi image được công bố.
+> Dashboard được phục vụ trên `localhost`. Xem [Limitations](#limitations) — các custom domains không được hỗ trợ bởi image được công bố.
+
+### Cài đặt Installer
+
+Installer đọc một số biến môi trường. Vì nó được pipe vào `sh`, hãy truyền chúng cho shell thay vì cho `curl`:
+
+```sh
+curl -fsSL https://intlayer.org/install.sh | INTLAYER_ENV_FILE=./config/intlayer.env sh
+```
+
+| Variable                  | Default                                       | Description                      |
+| ------------------------- | --------------------------------------------- | -------------------------------- |
+| `INTLAYER_IMAGE`          | `ghcr.io/aymericzip/intlayer-selfhost:latest` | Image để pull                    |
+| `INTLAYER_ENV_FILE`       | `./intlayer.env`                              | Nơi ghi file env                 |
+| `INTLAYER_CONTAINER_NAME` | `intlayer`                                    | Tên container                    |
+| `INTLAYER_DATA_VOLUME`    | `intlayer-data`                               | Named volume mounted tại `/data` |
+| `INTLAYER_APP_PORT`       | `3000`                                        | Host port cho dashboard          |
+| `INTLAYER_API_PORT`       | `3100`                                        | Host port cho API                |
+| `INTLAYER_S3_PORT`        | `9000`                                        | Host port cho MinIO S3 API       |
+| `INTLAYER_CONSOLE_PORT`   | `9001`                                        | Host port cho MinIO console      |
+
+> Bốn biến port chỉ thay đổi phía **host** của mapping được in trong lệnh `docker run`. Image được công bố có `http://localhost:3000`, `http://localhost:3100` và `http://localhost:9000` được biên dịch vào dashboard bundle tại thời điểm build, vì vậy việc ánh xạ lại chúng làm cho trình duyệt chỉ đến các port cũ. Giữ các giá trị mặc định trừ khi bạn đang xây dựng image của riêng mình — xem [Limitations](#limitations).
 
 ---
 

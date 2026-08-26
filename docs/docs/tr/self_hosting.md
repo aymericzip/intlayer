@@ -21,11 +21,15 @@ author: aymericzip
 
 Intlayer, tamamen kendi altyapınızda çalışabilir; Intlayer Cloud hesabı gerekmez. Tek bir komutla üretime hazır bir yığını başlatabilirsiniz:
 
+Tek bir komut her şeyi kurar:
+
 ```sh
 curl -fsSL https://intlayer.org/install.sh | sh
 ```
 
 Yükleyici, bir `docker-compose.yml` ve bir `.env` indirir, gerekli gizli anahtarları otomatik olarak oluşturur ve tüm kapsayıcıları `docker compose up -d` ile başlatır.
+
+Tek dış bağımlılık **MongoDB**'dir: backend, sağladığınız bir MongoDB **Atlas** cluster'ına bağlanır. Diğer her şey kontainer içinde çalışır.
 
 ## İçindekiler
 
@@ -60,21 +64,77 @@ Chromium (Puppeteer ekran görüntüsü oluşturma için kullanılır) backend g
 - Ana bilgisayarda `3000`, `3100`, `8025`, `9000` ve `9001` bağlantı noktalarının kullanılabilir olması.
 - Bir Linux veya macOS ana bilgisayarı (veya Windows'ta WSL2).
 
+Diğer her şey — Bun, Redis, MinIO, Chromium — image içinde gelir.
+
 ---
 
-## Hızlı Başlangıç
+## Hızlı başlangıç
 
-Yükleyicinin yaptığı işlemler:
+### 1. Installer'ı çalıştırın
 
-1. `docker` ve `docker compose`'un mevcut olduğunu kontrol eder.
-2. `docker-compose.yml` ve `.env.example` dosyalarını `./intlayer/` dizinine indirir.
-3. `.env` dosyası mevcut değilse, örneği kopyalar ve `BETTER_AUTH_SECRET`, `S3_ACCESS_KEY_ID` ve `S3_SECRET_ACCESS_KEY` için `openssl rand` aracılığıyla rastgele gizli anahtarlar oluşturur.
-4. `docker compose pull` + `docker compose up -d` komutlarını çalıştırır.
-5. URL'leri yazdırır: kontrol paneli `:3000`, API `:3100`, e-posta arayüzü `:8025`, MinIO konsolu `:9001`.
+```sh
+curl -fsSL https://intlayer.org/install.sh | sh
+```
 
-Yığın çalışmaya başladıktan sonra **http://localhost:3000** adresini açın ve ilk hesabınızı oluşturun.
+Docker'ın yüklü ve çalışır durumda olduğunu doğrular, `BETTER_AUTH_SECRET` ve `S3_SECRET_ACCESS_KEY` zaten oluşturulmuş şekilde `./intlayer.env` dosyasını yazar ve image'ı çeker. Container'ı başlatmaz — backend, veritabanı kimlik bilgileriniz olmadan önyüklenemiyor.
 
-> Dashboard `localhost` üzerinde sunulmaktadır. Bkz. [Sınırlamalar](#limitations) — yayınlanan görüntü özel etki alanlarını desteklemez.
+Installer'ı yeniden çalıştırmak güvenlidir: mevcut `intlayer.env` asla üzerine yazılmaz, bu nedenle güncelleme yolu olarak da işlev görür.
+
+### 2. Kimlik bilgilerinizi doldurun
+
+`intlayer.env` dosyasını açın ve `TODO` ile işaretlenmiş değerleri tamamlayın:
+
+```sh fileName="intlayer.env"
+DB_ID=<atlas-user>
+DB_MDP=<atlas-password>
+DB_CLUSTER=<cluster>.xxxxx.mongodb.net
+RESEND_API_KEY=<your-resend-key>
+```
+
+Dosya ayrıca isteğe bağlı özellikler için yorum satırı içeren bloklar taşır — [SMTP mailer](#global-mailer), `OPENAI_API_KEY` ve OAuth sağlayıcıları. İhtiyacınız olanların yorum satırını kaldırın.
+
+> Dosya `docker run --env-file` tarafından okunur ve tırnak işaretlerini kaldırmaz ve `=` işaretinden sonraki her şeyi değer olarak kabul eder. Çıplak değerler yazın ve açıklamaları kendi satırlarında tutun.
+
+### 3. Container'ı başlat
+
+Bu, yükleyici bittiğinde yazdıran komuttur:
+
+```sh
+docker run -d --name intlayer \
+  --restart unless-stopped \
+  -p 3000:3000 \
+  -p 3100:3100 \
+  -p 9000:9000 \
+  -p 9001:9001 \
+  -v intlayer-data:/data \
+  --env-file ./intlayer.env \
+  ghcr.io/aymericzip/intlayer-selfhost:latest
+```
+
+Ardından **http://localhost:3000** adresini açın. İlk başlangıçta veri depolarını başlatır, bu nedenle bir dakika bekleyin.
+
+> Dashboard `localhost` üzerinde sunulur. Bkz. [Sınırlamalar](#limitations) — yayınlanan görüntü özel alanları desteklemez.
+
+### Installer ayarları
+
+Installer birkaç ortam değişkenini okur. `sh` içine yönlendirildiği için, onları `curl` yerine shell'e iletin:
+
+```sh
+curl -fsSL https://intlayer.org/install.sh | INTLAYER_ENV_FILE=./config/intlayer.env sh
+```
+
+| Değişken                  | Varsayılan                                    | Açıklama                      |
+| ------------------------- | --------------------------------------------- | ----------------------------- |
+| `INTLAYER_IMAGE`          | `ghcr.io/aymericzip/intlayer-selfhost:latest` | Çekilecek image               |
+| `INTLAYER_ENV_FILE`       | `./intlayer.env`                              | Env dosyasının yazılacağı yer |
+| `INTLAYER_CONTAINER_NAME` | `intlayer`                                    | Container adı                 |
+| `INTLAYER_DATA_VOLUME`    | `intlayer-data`                               | `/data` dizinine bağlı volume |
+| `INTLAYER_APP_PORT`       | `3000`                                        | Dashboard için host portu     |
+| `INTLAYER_API_PORT`       | `3100`                                        | API için host portu           |
+| `INTLAYER_S3_PORT`        | `9000`                                        | MinIO S3 API için host portu  |
+| `INTLAYER_CONSOLE_PORT`   | `9001`                                        | MinIO konsolu için host portu |
+
+> Dört port değişkeni yalnızca `docker run` komutunda yazdırılan eşlemenin **host** tarafını değiştirir. Yayınlanan image, derleme zamanında dashboard bundle'ına `http://localhost:3000`, `http://localhost:3100` ve `http://localhost:9000` derlenmiş olarak sahiptir, bu nedenle onları yeniden eşlemek tarayıcıyı eski portlara işaret ettirir. Kendi image'ınızı oluşturmıyorsanız varsayılanları tutun — [Sınırlamalar](#limitations)'a bakın.
 
 ---
 

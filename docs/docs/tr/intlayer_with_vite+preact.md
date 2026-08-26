@@ -512,6 +512,30 @@ const App: FunctionalComponent = () => (
 export default App;
 ```
 
+Paralel olarak, uygulamanıza sunucu tarafı yönlendirme eklemek için `intlayerProxy`'yi de kullanabilirsiniz. Bu plugin, URL'ye göre geçerli locali otomatik olarak algılayacak ve uygun locale çerezini ayarlayacaktır. Herhangi bir locale belirtilmezse, plugin kullanıcının tarayıcı dil tercihlerine göre en uygun locali belirleyecektir. Herhangi bir locale algılanmazsa, varsayılan locale'ye yönlendirilecektir.
+
+> `intlayerProxy`'yi production ortamında kullanmak için `vite-intlayer` paketini `devDependencies`'den `dependencies`'e taşımanız gerektiğini unutmayın.
+
+> Intlayer v9 sürümünden itibaren, `intlayerProxy()` doğrudan `intlayer()` eklentisine paketlenmiş ve `routing.enableProxy` seçeneği aracılığıyla varsayılan olarak etkinleştirilmiştir (varsayılan olarak `true`). Aşağıda gösterildiği gibi ayrı olarak kaydedilmesi artık isteğe bağlı — geriye dönük uyumluluk ve eklenti sırasını kontrol etmesi gereken ayarlamalar için saklanır. Devre dışı bırakmak için `routing.enableProxy: false` olarak ayarlayın. [v9 sürüm notlarına](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/releases/v9.md) bakın.
+
+```typescript {3,7} fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import { intlayer } from "vite-intlayer";
+import preact from "@preact/preset-vite";
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [
+    preact(),
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
+  ],
+});
+```
+
 </Step>
 
 <Step number={8} title="Yerel ayar değiştiğinde URL'yi değiştirin" isOptional={true}>
@@ -587,6 +611,8 @@ export default LocaleSwitcher;
 > Belge referansları:
 >
 > > - [`useLocale` kancası](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/react-intlayer/useLocale.md) (API `preact-intlayer` için benzerdir)> - [`getLocaleName` kancası](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getLocaleName.md)> - [`getLocalizedUrl` kancası](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getLocalizedUrl.md)> - [`getHTMLTextDir` kancası](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getHTMLTextDir.md)> - [`hreflang` niteliği](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=tr)> - [`lang` niteliği](https://developer.mozilla.org/tr/docs/Web/HTML/Global_attributes/lang)> - [`dir` niteliği](https://developer.mozilla.org/tr/docs/Web/HTML/Global_attributes/dir)> - [`aria-current` niteliği](https://developer.mozilla.org/tr/docs/Web/Accessibility/ARIA/Attributes/aria-current)> - [Popover API](https://developer.mozilla.org/tr/docs/Web/API/Popover_API)
+
+Aşağıda güncellenmiş **Adım 9** ek açıklamalar ve geliştirilmiş kod örnekleri ile verilmiştir:
 
 ---
 

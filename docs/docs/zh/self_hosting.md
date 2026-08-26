@@ -19,6 +19,8 @@ author: aymericzip
 
 # 自托管 Intlayer
 
+Intlayer 可以在您自己的基础设施上运行。无需 Intlayer Cloud 账户。单个一体化 Docker 镜像捆绑了仪表板、API 和它所需的本地数据存储（Redis 和 MinIO），由 [s6-overlay](https://github.com/just-containers/s6-overlay) 监管。
+
 Intlayer 可以完全在您自己的基础设施上运行——无需 Intlayer Cloud 账户。只需一条命令即可启动一个生产就绪的堆栈：
 
 ```sh
@@ -26,6 +28,8 @@ curl -fsSL https://intlayer.org/install.sh | sh
 ```
 
 安装程序会下载 `docker-compose.yml` 和 `.env` 文件，自动生成所需的密钥，并使用 `docker compose up -d` 启动所有容器。
+
+唯一的外部依赖是 **MongoDB**：后端连接到你提供的 MongoDB **Atlas** 集群。其他一切都在容器内运行。
 
 ## 目录
 
@@ -60,31 +64,77 @@ Chromium（用于 Puppeteer 屏幕截图生成）捆绑在后端镜像中——�
 - 主机上端口 `3000`、`3100`、`8025`、`9000` 和 `9001` 可用。
 - Linux 或 macOS 主机（或 Windows 上的 WSL2）。
 
+其他所有内容 — Bun、Redis、MinIO、Chromium — 都包含在镜像中。
+
 ---
 
 ## 快速开始
 
-Pull 并运行已发布的镜像，提供您的 MongoDB Atlas 凭证和密钥：
+### 1. 运行安装程序
+
+```sh
+curl -fsSL https://intlayer.org/install.sh | sh
+```
+
+它验证 Docker 是否已安装且正在运行，将 `./intlayer.env` 写入已生成的 `BETTER_AUTH_SECRET` 和 `S3_SECRET_ACCESS_KEY`，并拉取镜像。它不启动容器 — 后端无法在没有数据库凭证的情况下启动。
+
+重新运行安装程序是安全的：现有的 `intlayer.env` 永远不会被覆盖，因此它也可以作为升级路径。
+
+### 2. 填入你的凭证
+
+打开 `intlayer.env` 并完成标记为 `TODO` 的值：
+
+```sh fileName="intlayer.env"
+DB_ID=<atlas-user>
+DB_MDP=<atlas-password>
+DB_CLUSTER=<cluster>.xxxxx.mongodb.net
+RESEND_API_KEY=<your-resend-key>
+```
+
+该文件还包含了可选功能的注释块 — [SMTP mailer](#global-mailer)、`OPENAI_API_KEY` 和 OAuth 提供商。取消注释你需要的内容。
+
+> 该文件由 `docker run --env-file` 读取，它不会去除引号，并将 `=` 之后的所有内容视为值。写入裸值，并将注释放在单独的行上。
+
+### 3. 启动容器
+
+这是安装程序完成时打印的命令:
 
 ```sh
 docker run -d --name intlayer \
+  --restart unless-stopped \
   -p 3000:3000 \
   -p 3100:3100 \
   -p 9000:9000 \
   -p 9001:9001 \
   -v intlayer-data:/data \
-  -e DB_ID="<atlas-user>" \
-  -e DB_MDP="<atlas-password>" \
-  -e DB_CLUSTER="<cluster>.xxxxx.mongodb.net" \
-  -e BETTER_AUTH_SECRET="$(openssl rand -hex 32)" \
-  -e S3_SECRET_ACCESS_KEY="$(openssl rand -hex 16)" \
-  -e RESEND_API_KEY="<your-resend-key>" \
-  aymericzip/intlayer-selfhost
+  --env-file ./intlayer.env \
+  ghcr.io/aymericzip/intlayer-selfhost:latest
 ```
 
-然后打开 **http://localhost:3000**。
+然后打开 **http://localhost:3000**。首次启动会初始化数据存储，请等待一分钟。
 
-> dashboard 在 `localhost` 上提供。请参阅 [限制](#limitations) — 已发布的镜像不支持自定义域名。
+> 仪表板在 `localhost` 上提供。请参阅[限制](#limitations) — 已发布的镜像不支持自定义域名。
+
+### 安装程序设置
+
+安装程序读取几个环境变量。由于它被管道传输到 `sh`，请将它们传递给 shell 而不是 `curl`：
+
+```sh
+curl -fsSL https://intlayer.org/install.sh | INTLAYER_ENV_FILE=./config/intlayer.env sh
+```
+
+| 变量                      | 默认值                                        | 描述                    |
+| ------------------------- | --------------------------------------------- | ----------------------- |
+| `INTLAYER_IMAGE`          | `ghcr.io/aymericzip/intlayer-selfhost:latest` | 要拉取的镜像            |
+| `INTLAYER_ENV_FILE`       | `./intlayer.env`                              | 环境文件的写入位置      |
+| `INTLAYER_CONTAINER_NAME` | `intlayer`                                    | 容器名称                |
+| `INTLAYER_DATA_VOLUME`    | `intlayer-data`                               | 挂载在 `/data` 的命名卷 |
+| `INTLAYER_APP_PORT`       | `3000`                                        | 仪表板的主机端口        |
+| `INTLAYER_API_PORT`       | `3100`                                        | API 的主机端口          |
+| `INTLAYER_S3_PORT`        | `9000`                                        | MinIO S3 API 的主机端口 |
+| `INTLAYER_CONSOLE_PORT`   | `9001`                                        | MinIO 控制台的主机端口  |
+
+> 四个端口变量仅改变 `docker run` 命令中打印的映射的**主机**端，已发布的镜像在构建时将 `http://localhost:3000`、`http://localhost:3100` 和 `http://localhost:9000` 编译到仪表板包中，因此重新映射它们会导致浏览器指向旧端口。除非您正在构建自己的镜像，否则请保持默认值 — 参见[限制](#limitations)。
 
 ---
 

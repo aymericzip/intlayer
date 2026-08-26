@@ -487,6 +487,8 @@ Ham HTML string'lerini render etmeniz gerekiyorsa veya bileşen eşlemesinde dah
   <Tab label="React / Next.js" value="react">
     #### `<HTMLRenderer />` Bileşeni
 
+Belirli bileşenlerle bir HTML dizesi oluşturun.
+
     ```tsx
     import { HTMLRenderer } from "react-intlayer/html";
 

@@ -123,17 +123,6 @@ export default config;
 
 Désinstaller `@intlayer/analytics` produit le même effet que `enabled: false`. Consultez la [référence de configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md) pour la liste complète des champs.
 
-## Support des frameworks
-
-Analytics est intégré dans le `IntlayerProvider` partagé de `react-intlayer`, il est donc disponible dès aujourd'hui partout où ce provider est utilisé :
-
-| Framework                                                | Statut                                                                                                           |
-| -------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| React                                                    | ✅ Disponible                                                                                                    |
-| Next.js (`next-intlayer`)                                | ✅ Disponible (via `react-intlayer`)                                                                             |
-| React Native / Expo (`react-native-intlayer`)            | ✅ Disponible (via `react-intlayer`)                                                                             |
-| Vue, Svelte, Angular, Solid, Preact, Lit, Astro, Vanilla | 🚧 Planifié — même client, liaisons au niveau du provider suivant le modèle de déploiement de `@intlayer/editor` |
-
 ## Utilisation
 
 ### Suivi automatique au niveau du provider
@@ -177,6 +166,56 @@ const CTAButton = () => {
 
 ### Résolution d'une variante côté client
 
+  </Tab>
+  <Tab label="Angular" value="angular">
+
+`variant` et `isAssigned` sont des `Signal`s — appelez-les pour lire la valeur.
+
+    ```typescript fileName="hero.component.ts"
+    import { Component } from "@angular/core";
+    import { useExperiment } from "angular-intlayer";
+    import { HeroBannerComponent } from "./hero-banner.component";
+
+    @Component({
+      selector: "app-hero",
+      imports: [HeroBannerComponent],
+      template: `@if (experiment.isAssigned()) {
+        <app-hero-banner [variant]="experiment.variant()" />
+      }`,
+    })
+    export class HeroComponent {
+      experiment = useExperiment("homepage-hero", ["default", "black_friday"]);
+    }
+    ```
+
+  </Tab>
+</Tabs>
+
+Les poids sont optionnels — passez-en un par variante pour biaiser la répartition, par exemple `useExperiment("homepage-hero", ["default", "black_friday"], [9, 1])`.
+
+L'enfant lit ensuite la [Variante](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dynamic_dictionaries/variants.md) du dictionnaire qui correspond :
+
+```tsx fileName="HeroBanner.tsx"
+import { useIntlayer } from "react-intlayer";
+
+export const HeroBanner = ({ variant }: { variant: string }) => {
+  const { headline, cta } = useIntlayer("hero-banner", { variant });
+
+  return (
+    <section>
+      <h1>{headline}</h1>
+      <a>{cta}</a>
+    </section>
+  );
+};
+```
+
+> Lire la variante dans un **composant enfant** est ce qui fait que cela fonctionne en dehors de React : dans Vue, Svelte, Solid et Angular, le sélecteur passé à `useIntlayer` est capturé lors de la configuration du composant, donc la lecture doit se faire dans un composant qui ne se monte qu'une fois la variante connue.
+
+Si l'expérience couvre une page entière plutôt qu'un seul dictionnaire, remontez la variante sur le fournisseur à la place — voir [Variante ambiante](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dynamic_dictionaries/variants.md#ambient-variant). Chaque `useIntlayer` ci-dessous se résout alors contre celle-ci sans modification du site d'appel.
+
+Si vous avez besoin de l'assignment brut en dehors d'un composant, accédez directement au client :
+
 ```tsx fileName="useHeroVariant.ts" codeFormat="tsx"
 import { getGlobalAnalyticsClient } from "@intlayer/analytics/client";
 
@@ -186,6 +225,8 @@ const variant = client?.getVariant("homepage-hero", [
   "black_friday",
 ]);
 ```
+
+> `getVariant` assigne uniquement — il n'enregistre pas l'exposition. Préférez `useExperiment()`, sinon le taux de conversion n'a pas de dénominateur.
 
 ## Confidentialité & performance
 
@@ -235,6 +276,8 @@ const cms = createIntlayerCMS();
 
 const { data: audience } = await analyticsEndpoint(cms).getAudience(30);
 ```
+
+> **Côté serveur uniquement.** `createIntlayerCMS()` s'authentifie avec `clientId` + `clientSecret`, et le secret n'est jamais disponible dans le navigateur — ce snippet émettrait des requêtes non authentifiées s'il s'exécutait là. Conservez-le dans un gestionnaire de route, une action serveur ou un script.
 
 ## Liens utiles
 

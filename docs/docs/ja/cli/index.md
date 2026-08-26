@@ -127,6 +127,8 @@ Intlayerは、複数の設定ファイル形式をサポートしています：
 
 - **[Login](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/login.md)** - Intlayer CMSで認証し、アクセス資格情報を取得します。
 
+> `intlayer login` は、すべての認証されたコマンドが使用する **access key** (`clientId` / `clientSecret`) を発行します。シークレットはサーバー側の認証情報であり、クライアント bundle に到達することはありません — [access key の安全な保管](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/login.md#access-key-の安全な保管)を参照してください。
+
 ### コアコマンド
 
 - **[Build Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/build.md)** - コンテンツ宣言ファイルからディクショナリをビルドします。

@@ -122,6 +122,34 @@ INTLAYER_CLIENT_SECRET=your_client_secret
 }
 ```
 
+## Mantendo a chave de acesso segura
+
+`intlayer login` emite uma **chave de acesso**: um par `clientId` / `clientSecret` que todo comando credenciado (`push`, `pull`, `fill`, `configuration push`, `live`, …) usa para autenticar.
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import type { IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  editor: {
+    clientId: process.env.INTLAYER_CLIENT_ID,
+    clientSecret: process.env.INTLAYER_CLIENT_SECRET,
+  },
+};
+
+export default config;
+```
+
+> **`clientSecret` é uma credencial do lado do servidor.** Ela concede acesso total à API com escopo do projeto — leitura e escrita de seus dicionários, seu projeto e sua organização. Mantenha-a em `.env` (ignorado pelo git) ou no armazenamento de segredos do CI, e nunca a coloque inline no arquivo de configuração.
+
+Intlayer impõe isso em vez de apenas documentá-lo:
+
+- `clientSecret` é **removido da configuração que seu bundler incorpora**, portanto não pode chegar a um bundle do navegador qualquer que seja a integração do framework que você use. Ele é apenas lido do lado do servidor, em tempo de execução, a partir do ambiente.
+- `clientId` é diferente: é a **chave pública** do projeto, segura para enviar, e usada por [`@intlayer/analytics`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/analytics.md#how-events-are-authenticated) para obter um token de curta duração, apenas para ingestão.
+
+Comentar `clientId` é suficiente para desabilitar todo comportamento credenciado — busca remota de dicionários, acesso ao CMS, análises — mesmo quando as variáveis de ambiente ainda estão definidas.
+
+Para pipelines de CI, prefira o [`comando ci`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/ci.md), que injeta as credenciais pela duração de uma única execução em vez de persistí-las.
+
 ## Configuração Manual
 
 Se o navegador não abrir automaticamente, você pode visitar manualmente a URL exibida no terminal.

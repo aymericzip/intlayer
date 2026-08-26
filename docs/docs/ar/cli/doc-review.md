@@ -91,8 +91,6 @@ bun x intlayer doc review
 
 - **`--log`**: وضع السجل فقط. لا يترجم باستخدام الذكاء الاصطناعي؛ بدلاً من ذلك، يسجل الكتل التي تحتاج إلى اهتمام (مع أرقام الأسطر والمحتوى) للغتين الأساسية والمستهدفة، لمساعدة وكيل آخر في توليد الترجمات.
 
-Once you provide these blocks, I will:
-
 - If **`apply`**: Translate any missing or diverging content and provide the complete updated Arabic file
 - If **`report`**: Log all blocks requiring attention with line numbers and content differences
 - If **`synthesis`**: Provide only a final recap of documents that are up-to-date vs. those needing edits

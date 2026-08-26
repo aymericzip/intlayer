@@ -250,30 +250,6 @@ export const config = {
         export default MyApp;
         ```
 
-        ```jsx fileName="src/pages/_app.mjx" codeFormat="esm"
-        import { IntlayerClientProvider } from "next-intlayer";
-
-        const App = ({ Component, pageProps }) => (
-          <IntlayerClientProvider locale={locale}>
-            <Component {...pageProps} />
-          </IntlayerClientProvider>
-        );
-
-        export default App;
-        ```
-
-        ```jsx fileName="src/pages/_app.csx" codeFormat="commonjs"
-        const { IntlayerClientProvider } = require("next-intlayer");
-
-        const App = ({ Component, pageProps }) => (
-          <IntlayerClientProvider locale={locale}>
-            <Component {...pageProps} />
-          </IntlayerClientProvider>
-        );
-
-        module.exports = App;
-        ```
-
 3.  **`getStaticPaths` と `getStaticProps` の設定:**
 
 `[locale]/index.tsx` ファイル内で、異なるロケールを処理するためのパスとプロパティを定義します。

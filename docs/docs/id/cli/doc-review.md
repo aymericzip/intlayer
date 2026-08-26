@@ -91,8 +91,6 @@ Untuk sebagian besar kasus penggunaan,
 
 - **`--log`**: Mode hanya log. Jangan menerjemahkan dengan AI; alih-alih log blok yang memerlukan perhatian (dengan nomor baris dan konten) untuk lokal dasar dan target, untuk membantu agen lain menghasilkan terjemahan.
 
-Silakan berikan:
-
 - ✅ Konten bahasa Inggris (BLOCK 1 of 3)
 - ✅ Konten bahasa Indonesia saat ini (BLOCK 2 of 3)
 - ✅ Mode operasi yang diinginkan (`apply`, `report`, atau `synthesis`)

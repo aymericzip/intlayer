@@ -495,6 +495,26 @@ const App: FunctionalComponent = () => (
 export default App;
 ```
 
+> Intlayer v9 के बाद से, `intlayerProxy()` सीधे `intlayer()` plugin में बंडल है और `routing.enableProxy` विकल्प के माध्यम से डिफ़ॉल्ट रूप से सक्षम है (`true` डिफ़ॉल्ट रूप से)। इसे अलग से पंजीकृत करना जैसा कि नीचे दिखाया गया है अब वैकल्पिक है — यह पश्चगामी संगतता के लिए और उन सेटअप के लिए रखा गया है जिन्हें plugin क्रम को नियंत्रित करने की आवश्यकता है। `routing.enableProxy: false` सेट करें। [v9 release notes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/releases/v9.md) देखें।
+
+```typescript {3,7} fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import { intlayer } from "vite-intlayer";
+import preact from "@preact/preset-vite";
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [
+    preact(),
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
+  ],
+});
+```
+
 </Step>
 
 <Step number={8} title="लोकल बदलने पर URL बदलें" isOptional={true}>
@@ -571,6 +591,10 @@ export default LocaleSwitcher;
 >
 > > - [`useLocale` हुक](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/react-intlayer/useLocale.md) (API `preact-intlayer` के लिए समान है)> - [`getLocaleName` हुक](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getLocaleName.md)> - [`getLocalizedUrl` हुक](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getLocalizedUrl.md)> - [`getHTMLTextDir` हुक](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getHTMLTextDir.md)> - [`hreflang` एट्रिब्यूट](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=hi)> - [`lang` एट्रिब्यूट](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang)> - [`dir` एट्रिब्यूट](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)> - [`aria-current` एट्रिब्यूट](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)> - [Popover API](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API)
 
+निम्नलिखित **Step 9** में जोड़ी गई व्याख्याओं और परिष्कृत कोड उदाहरणों के साथ है:
+
+---
+
 </Step>
 
 <Step number={9} title="HTML भाषा और दिशा विशेषताएँ स्विच करें" isOptional={true}>
@@ -639,6 +663,8 @@ const App: FunctionalComponent = () => (
 
 export default App;
 ```
+
+इन परिवर्तनों को लागू करने से, आपका एप्लिकेशन:
 
 - **language** (`lang`) attribute को सुनिश्चित करें कि यह वर्तमान locale को सही तरीके से प्रतिफलित करता है, जो SEO और browser behavior के लिए महत्वपूर्ण है।
 - **text direction** (`dir`) को locale के अनुसार समायोजित करें, विभिन्न पढ़ने के क्रम वाली भाषाओं के लिए readability और usability को बढ़ाते हुए।

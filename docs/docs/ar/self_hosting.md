@@ -21,11 +21,15 @@ author: aymericzip
 
 يمكن تشغيل Intlayer بالكامل على بنيتك التحتية الخاصة — دون الحاجة إلى حساب Intlayer Cloud. يُشغّل أمر واحد مكدساً جاهزاً للإنتاج:
 
+أمر واحد يثبت كل شيء:
+
 ```sh
 curl -fsSL https://intlayer.org/install.sh | sh
 ```
 
 يقوم المثبّت بتنزيل ملف `docker-compose.yml` وملف `.env`، ويولّد الأسرار المطلوبة تلقائياً، ويبدأ تشغيل جميع الحاويات بـ `docker compose up -d`.
+
+الاعتماد الخارجي الوحيد هو **MongoDB**: يتصل الـ backend بـ cluster **Atlas** من MongoDB الذي توفره. كل شيء آخر يعمل داخل الحاوية.
 
 ## جدول المحتويات
 
@@ -60,21 +64,77 @@ curl -fsSL https://intlayer.org/install.sh | sh
 - المنافذ `3000`، `3100`، `8025`، `9000`، و`9001` متاحة على المضيف.
 - مضيف Linux أو macOS (أو WSL2 على Windows).
 
+كل شيء آخر — Bun و Redis و MinIO و Chromium — يتم شحنه داخل الصورة.
+
 ---
 
 ## البدء السريع
 
-ما يقوم به المثبّت:
+### 1. تشغيل المثبِّت
 
-1. يتحقق من وجود `docker` و`docker compose`.
-2. يُنزّل `docker-compose.yml` و`.env.example` إلى `./intlayer/`.
-3. إذا لم يكن هناك `.env`، ينسخ المثال ويولّد أسراراً عشوائية لـ `BETTER_AUTH_SECRET` و`S3_ACCESS_KEY_ID` و`S3_SECRET_ACCESS_KEY` عبر `openssl rand`.
-4. يُشغّل `docker compose pull` + `docker compose up -d`.
-5. يطبع عناوين URL: لوحة التحكم `:3000`، API `:3100`، واجهة البريد الإلكتروني `:8025`، وحدة تحكم MinIO `:9001`.
+```sh
+curl -fsSL https://intlayer.org/install.sh | sh
+```
 
-بعد تشغيل المكدس، افتح **http://localhost:3000** وأنشئ حسابك الأول.
+يتحقق من تثبيت Docker وتشغيله، ويكتب `./intlayer.env` مع `BETTER_AUTH_SECRET` و `S3_SECRET_ACCESS_KEY` التي تم إنشاؤها بالفعل، ويسحب الصورة. لا يبدأ الحاوية — لا يمكن للخادم الخلفي أن يبدأ بدون بيانات اعتماد قاعدة البيانات الخاصة بك.
 
-> لوحة التحكم تعمل على `localhost`. انظر إلى [القيود](#limitations) — النطاقات المخصصة غير مدعومة من قبل الصورة المنشورة.
+تشغيل المثبِّت مرة أخرى آمن: لن يتم استبدال `intlayer.env` الموجود أبدًا، لذا فهو يعمل أيضًا كمسار الترقية.
+
+### 2. ملء بيانات اعتمادك
+
+افتح `intlayer.env` وأكمل القيم المشار إليها بـ `TODO`:
+
+```sh fileName="intlayer.env"
+DB_ID=<atlas-user>
+DB_MDP=<atlas-password>
+DB_CLUSTER=<cluster>.xxxxx.mongodb.net
+RESEND_API_KEY=<your-resend-key>
+```
+
+يحتوي الملف أيضًا على كتل معلقة للميزات الاختيارية — [SMTP mailer](#global-mailer)، `OPENAI_API_KEY`، وموفري OAuth. قم بإلغاء التعليق عما تحتاجه.
+
+> يتم قراءة الملف بواسطة `docker run --env-file`، والذي لا يزيل الاقتباسات ويعامل كل شيء بعد `=` كقيمة. اكتب القيم بدون اقتباسات، وأبقِ التعليقات على أسطرها الخاصة.
+
+### 3. بدء الحاوية
+
+هذا هو الأمر الذي يطبعه المثبِّت عند انتهائه:
+
+```sh
+docker run -d --name intlayer \
+  --restart unless-stopped \
+  -p 3000:3000 \
+  -p 3100:3100 \
+  -p 9000:9000 \
+  -p 9001:9001 \
+  -v intlayer-data:/data \
+  --env-file ./intlayer.env \
+  ghcr.io/aymericzip/intlayer-selfhost:latest
+```
+
+ثم افتح **http://localhost:3000**. يقوم الإقلاع الأول بتهيئة مخازن البيانات، لذا امنحه دقيقة واحدة.
+
+> لوحة التحكم موجودة على `localhost`. انظر [القيود](#limitations) — النطاقات المخصصة غير مدعومة في الصورة المنشورة.
+
+### إعدادات المثبت
+
+يقرأ المثبت بعض متغيرات البيئة. لأنه موجه إلى `sh`، مرر هذه المتغيرات إلى shell بدلاً من تمريرها إلى `curl`:
+
+```sh
+curl -fsSL https://intlayer.org/install.sh | INTLAYER_ENV_FILE=./config/intlayer.env sh
+```
+
+| المتغير                   | القيمة الافتراضية                             | الوصف                             |
+| ------------------------- | --------------------------------------------- | --------------------------------- |
+| `INTLAYER_IMAGE`          | `ghcr.io/aymericzip/intlayer-selfhost:latest` | الصورة المراد سحبها               |
+| `INTLAYER_ENV_FILE`       | `./intlayer.env`                              | حيث يتم كتابة ملف البيئة          |
+| `INTLAYER_CONTAINER_NAME` | `intlayer`                                    | اسم الحاوية                       |
+| `INTLAYER_DATA_VOLUME`    | `intlayer-data`                               | وحدة تخزين مسماة مثبتة في `/data` |
+| `INTLAYER_APP_PORT`       | `3000`                                        | منفذ المضيف لوحة التحكم           |
+| `INTLAYER_API_PORT`       | `3100`                                        | منفذ المضيف للـ API               |
+| `INTLAYER_S3_PORT`        | `9000`                                        | منفذ المضيف لـ MinIO S3 API       |
+| `INTLAYER_CONSOLE_PORT`   | `9001`                                        | منفذ المضيف لوحة MinIO            |
+
+> متغيرات المنافذ الأربعة تغير فقط الجانب **المضيف** من التعيين المطبوع في أمر `docker run`. الصورة المنشورة لديها `http://localhost:3000` و `http://localhost:3100` و `http://localhost:9000` مدرجة في حزمة لوحة التحكم في وقت البناء، لذا فإن إعادة تعيينها تترك المتصفح يشير إلى المنافذ القديمة. احتفظ بالقيم الافتراضية إلا إذا كنت تقوم بإنشاء صورتك الخاصة — انظر [القيود](#limitations).
 
 ---
 

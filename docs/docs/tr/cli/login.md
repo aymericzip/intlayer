@@ -122,6 +122,34 @@ typescript
 }
 ```
 
+## Erişim anahtarını güvende tutma
+
+`intlayer login` bir **erişim anahtarı** yayınlar: her kimlik doğrulamalı komut (`push`, `pull`, `fill`, `configuration push`, `live`, …) tarafından kimlik doğrulaması için kullanılan bir `clientId` / `clientSecret` çiftidir.
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import type { IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  editor: {
+    clientId: process.env.INTLAYER_CLIENT_ID,
+    clientSecret: process.env.INTLAYER_CLIENT_SECRET,
+  },
+};
+
+export default config;
+```
+
+> **`clientSecret` sunucu tarafı kimlik bilgisidir.** Proje kapsamlı tam API erişimi verir — sözlükleriniz, projeniz ve kuruluşunuzu okuyup yazabilir. Bunu `.env` dosyasında (git tarafından yok sayılan) veya CI gizli deposunda tutun ve asla yapılandırma dosyasında satır içine yazmayın.
+
+Intlayer bunu yalnızca belgelemek yerine zorunlu kılar:
+
+- `clientSecret` **bundler tarafından satır içine alınan yapılandırmadan çıkarılır**, bu nedenle hangi framework entegrasyonunu kullanırsanız kullanın bir tarayıcı bundle'ına ulaşamaz. Yalnızca sunucu tarafında çalışma zamanında ortamdan okunur.
+- `clientId` farklıdır: bu **genel** proje anahtarıdır, göndermek için güvenlidir ve [`@intlayer/analytics`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/analytics.md#how-events-are-authenticated) tarafından kısa ömürlü, yalnızca alım tokeni elde etmek için kullanılır.
+
+`clientId` yü açıklama satırına almak, ortam değişkenleri hala tanımlanmış olsa bile her kimlik doğrulamalı davranışı (uzak sözlük getirme, CMS erişimi, analitik) devre dışı bırakmak için yeterlidir.
+
+CI pipeline'ları için, [`ci` komutu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/ci.md)nu tercih edin; bu, kimlik bilgilerini saklamanız yerine tek bir çalıştırmanın süresi boyunca enjekte eder.
+
 ## Manuel Yapılandırma
 
 Tarayıcı otomatik olarak açılmıyorsa, terminalde gösterilen URL'yi kopyalayarak tarayıcınızda manuel olarak ziyaret edebilirsiniz.

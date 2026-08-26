@@ -378,8 +378,6 @@ export default async function Page() {
 - **`IntlayerProvider`** को root layout में एक बार mount किया जाता है। यह server और client दोनों components को locale प्रदान करता है, इसलिए pages अब स्वयं को wrap नहीं करते हैं।
 - बिना `[locale]` path segment के locale हमेशा request से आता है — `x-intlayer-locale` header जो Intlayer proxy द्वारा set किया जाता है, फिर locale cookie — जिसे server hooks अपने आप पढ़ते हैं जब provider नहीं चलाया गया हो।
 
-  </Tab>
-
 </Tabs>
 
 ```tsx fileName="src/app/page.tsx"

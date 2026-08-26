@@ -118,6 +118,34 @@ INTLAYER_CLIENT_SECRET=your_client_secret
 }
 ```
 
+## الحفاظ على مفتاح الوصول آمناً
+
+يصدر `intlayer login` **مفتاح وصول**: زوج `clientId` / `clientSecret` يستخدمه كل أمر مفوّض (`push`, `pull`, `fill`, `configuration push`, `live`, …) للمصادقة.
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import type { IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  editor: {
+    clientId: process.env.INTLAYER_CLIENT_ID,
+    clientSecret: process.env.INTLAYER_CLIENT_SECRET,
+  },
+};
+
+export default config;
+```
+
+> **`clientSecret` بيانات اعتماد من جانب الخادم.** تمنح الوصول الكامل إلى API بنطاق المشروع — قراءة وكتابة قواميس المشروع والمشروع والمؤسسة الخاصة بك. احفظها في `.env` (تم تجاهلها من git) أو متجر أسرار CI الخاص بك، ولا تضمّنها أبداً في ملف الإعدادات.
+
+يفرض Intlayer هذا بدلاً من توثيقه فقط:
+
+- `clientSecret` **تم حذفه من الإعدادات التي ينقلها bundler الخاص بك**، لذا لا يمكن أن يصل إلى حزمة متصفح مهما كان التكامل الإطار الذي تستخدمه. يتم قراءته فقط من جانب الخادم، في وقت التشغيل، من البيئة.
+- `clientId` مختلف: فهو **المفتاح العام** للمشروع، آمن للشحن، وتستخدمه [`@intlayer/analytics`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/analytics.md#how-events-are-authenticated) للحصول على رمز قصير العمر وحصري للإدخال.
+
+التعليق على `clientId` كافٍ لتعطيل كل السلوك المفوّض — جلب القاموس عن بعد، والوصول إلى CMS، والتحليلات — حتى عندما تكون متغيرات البيئة محددة.
+
+بالنسبة لـ CI pipelines، فضّل أمر [`ci`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/ci.md)، الذي يحقن بيانات الاعتماد لمدة تشغيل واحد بدلاً من الاستمرار فيها.
+
 ## التكوين اليدوي
 
 إذا لم يفتح المتصفح تلقائيًا، يمكنك زيارة عنوان URL المعروض في الطرفية يدويًا.

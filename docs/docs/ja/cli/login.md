@@ -118,6 +118,34 @@ INTLAYER_CLIENT_SECRET=your_client_secret
 }
 ```
 
+## アクセスキーの安全性を保つ
+
+`intlayer login` は **アクセスキー** を発行します: `clientId` / `clientSecret` のペアで、すべての認証済みコマンド (`push`, `pull`, `fill`, `configuration push`, `live`, …) が認証に使用します。
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import type { IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  editor: {
+    clientId: process.env.INTLAYER_CLIENT_ID,
+    clientSecret: process.env.INTLAYER_CLIENT_SECRET,
+  },
+};
+
+export default config;
+```
+
+> **`clientSecret` はサーバー側の認証情報です。** プロジェクト範囲の完全な API アクセスを付与します — 辞書、プロジェクト、組織の読み書きができます。`.env` (git で無視) または CI シークレットストアに保管し、設定ファイルにインラインで記述しないでください。
+
+Intlayer はこれを単にドキュメント化するのではなく、強制します:
+
+- `clientSecret` はバンドラーがインラインする設定から **削除される** ため、使用するフレームワーク統合に関わらず、ブラウザバンドルに到達することはできません。サーバー側でのみ、ランタイムで環境から読み込まれます。
+- `clientId` は異なります: これは **公開** プロジェクトキーで、安全に配布でき、[`@intlayer/analytics`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/analytics.md#how-events-are-authenticated) で短時間有効な取り込み専用トークンを取得するために使用されます。
+
+`clientId` をコメントアウトするだけで、環境変数がまだ定義されていても、すべての認証済み動作 — リモート辞書フェッチ、CMS アクセス、analytics — を無効にするのに十分です。
+
+CI パイプラインの場合、[`ci` コマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/ci.md) を使用することをお勧めします。これは単一実行の期間中認証情報を注入し、永続化せず代わりに。
+
 ## 手動設定
 
 ブラウザが自動で開かない場合、ターミナルに表示されている URL を手動で開いてください。

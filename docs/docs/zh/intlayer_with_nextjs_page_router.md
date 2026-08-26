@@ -64,6 +64,8 @@ author: aymericzip
 
 ## 为什么选择 Inlayer 而不是替代品？
 
+与 `next-intl` 或 `i18next` 等主要解决方案相比，Intlayer 是一个具有集成优化的解决方案，例如：
+
 与“next-intl”或“i18next”等主要解决方案相比，Intlayer是一个具有集成优化的解决方案，例如：
 
 <AccordionGroup>
@@ -213,9 +215,20 @@ export default withIntlayer(nextConfig);
 
 > `withIntlayer()` Next.js 插件用于将 Intlayer 集成到 Next.js 中。它确保内容声明文件的构建，并在开发模式下监视这些文件。它在 [Webpack](https://webpack.js.org/) 或 [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack) 环境中定义 Intlayer 环境变量。此外，它提供别名以优化性能，并确保与服务器组件的兼容性。
 
+> `withIntlayer()` 函数是一个 promise 函数。如果你想将它与其他插件一起使用，可以对它进行 await。示例：
+>
+> ```tsx
+> const nextConfig = await withIntlayer(nextConfig);
+> const nextConfigWithOtherPlugins = withOtherPlugins(nextConfig);
+>
+> export default nextConfigWithOtherPlugins;
+> ```
+
 </Step>
 
 <Step number={4} title="配置中间件以检测语言环境">
+
+设置中间件以自动检测并处理用户首选的语言环境：
 
 设置中间件以自动检测并处理用户的首选语言环境：
 
@@ -265,32 +278,6 @@ export const config = {
 
         export default MyApp;
         ```
-
-        ```jsx fileName="src/pages/_app.mjx" codeFormat="esm"
-        import { IntlayerClientProvider } from "next-intlayer";
-
-        const App = ({ Component, pageProps }) => (
-          <IntlayerClientProvider locale={locale}>
-            <Component {...pageProps} />
-          </IntlayerClientProvider>
-        );
-
-        export default App;
-        ```
-
-        ```jsx fileName="src/pages/_app.csx" codeFormat="commonjs"
-
-    const { IntlayerClientProvider } = require("next-intlayer");
-
-const App = ({ Component, pageProps }) => (
-<IntlayerClientProvider locale={locale}>
-<Component {...pageProps} />
-</IntlayerClientProvider>
-);
-
-module.exports = App;
-
-`````
 
 3.  **设置 `getStaticPaths` 和 `getStaticProps`:**
 
@@ -417,7 +404,7 @@ const homeContent = {
 } satisfies Dictionary;
 
 export default homeContent;
-`````
+````
 
 ```json fileName="src/pages/[locale]/home.content.json" contentDeclarationFormat="json"
 {

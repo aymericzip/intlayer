@@ -123,17 +123,6 @@ export default config;
 
 卸载 `@intlayer/analytics` 与设置 `enabled: false` 效果相同。完整字段列表请参阅[配置参考](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
 
-## 框架支持
-
-Analytics 已连接到 `react-intlayer` 共享的 `IntlayerProvider` 中，因此今天只要使用该 provider 的任何地方都可以使用它：
-
-| 框架                                                     | 状态                                                                       |
-| -------------------------------------------------------- | -------------------------------------------------------------------------- |
-| React                                                    | ✅ 可用                                                                    |
-| Next.js (`next-intlayer`)                                | ✅ 可用 (通过 `react-intlayer`)                                            |
-| React Native / Expo (`react-native-intlayer`)            | ✅ 可用 (通过 `react-intlayer`)                                            |
-| Vue, Svelte, Angular, Solid, Preact, Lit, Astro, Vanilla | 🚧 计划中 — 相同的客户端，遵循 `@intlayer/editor` 推出模式的提供商级别绑定 |
-
 ## 使用方法
 
 ### 自动 Provider 级别跟踪
@@ -177,6 +166,34 @@ const CTAButton = () => {
 
 ### 在客户端解析变体
 
+  </Tab>
+</Tabs>
+
+权重是可选的 — 为每个变体传递一个权重来改变分割比例，例如 `useExperiment("homepage-hero", ["default", "black_friday"], [9, 1])`。
+
+子应用随后读取与之匹配的字典的 [Variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dynamic_dictionaries/variants.md)：
+
+```tsx fileName="HeroBanner.tsx"
+import { useIntlayer } from "react-intlayer";
+
+export const HeroBanner = ({ variant }: { variant: string }) => {
+  const { headline, cta } = useIntlayer("hero-banner", { variant });
+
+  return (
+    <section>
+      <h1>{headline}</h1>
+      <a>{cta}</a>
+    </section>
+  );
+};
+```
+
+> 在**子组件**中读取 variant 是使其在 React 之外工作的关键：在 Vue、Svelte、Solid 和 Angular 中，传递给 `useIntlayer` 的选择器在组件设置时被捕获，所以读取必须发生在仅在 variant 已知时才挂载的组件中。
+
+如果实验涵盖整个页面而不是单个字典，请将变体提升到提供者上——参见 [Ambient variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dynamic_dictionaries/variants.md#ambient-variant)。下面的每个 `useIntlayer` 都会针对它进行解析，无需更改调用站点。
+
+如果你需要在组件外部获取原始赋值，直接访问客户端：
+
 ```tsx fileName="useHeroVariant.ts" codeFormat="tsx"
 import { getGlobalAnalyticsClient } from "@intlayer/analytics/client";
 
@@ -186,6 +203,8 @@ const variant = client?.getVariant("homepage-hero", [
   "black_friday",
 ]);
 ```
+
+> `getVariant` 只进行分配——它不记录曝光。优先使用 `useExperiment()`，否则转化率将没有分母。
 
 ## 隐私与性能
 
@@ -235,6 +254,8 @@ const cms = createIntlayerCMS();
 
 const { data: audience } = await analyticsEndpoint(cms).getAudience(30);
 ```
+
+> **仅限服务器端。** `createIntlayerCMS()` 使用 `clientId` + `clientSecret` 进行身份验证，secret 永远不会在浏览器中可用 — 如果此代码片段在浏览器中运行，它将发出未经身份验证的请求。请将其保留在路由处理程序、服务器操作或脚本中。
 
 ## 有用的链接
 
