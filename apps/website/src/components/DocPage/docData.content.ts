@@ -873,6 +873,7 @@ const docDataContent: Dictionary = {
               default: getDocMetadata(
                 './docs/en/packages/react-intlayer/exports.md'
               ),
+              frameworks: ['react'],
               subSections: {
                 IntlayerProvider: {
                   title: 'IntlayerProvider',
@@ -935,6 +936,7 @@ const docDataContent: Dictionary = {
               default: getDocMetadata(
                 './docs/en/packages/next-intlayer/exports.md'
               ),
+              frameworks: ['nextjs', 'react'],
               subSections: {
                 intlayerMiddleware: {
                   title: 'intlayerMiddleware',
@@ -985,6 +987,7 @@ const docDataContent: Dictionary = {
               default: getDocMetadata(
                 './docs/en/packages/vue-intlayer/exports.md'
               ),
+              frameworks: ['vue'],
               subSections: {
                 usePathname: {
                   title: 'usePathname',
@@ -1005,12 +1008,14 @@ const docDataContent: Dictionary = {
               default: getDocMetadata(
                 './docs/en/packages/nuxt-intlayer/exports.md'
               ),
+              frameworks: ['nuxt', 'vue'],
             },
             'svelte-intlayer': {
               title: 'svelte-intlayer',
               default: getDocMetadata(
                 './docs/en/packages/svelte-intlayer/exports.md'
               ),
+              frameworks: ['svelte'],
               subSections: {
                 usePathname: {
                   title: 'usePathname',
@@ -1031,6 +1036,7 @@ const docDataContent: Dictionary = {
               default: getDocMetadata(
                 './docs/en/packages/solid-intlayer/exports.md'
               ),
+              frameworks: ['solid'],
               subSections: {
                 IntlayerProvider: {
                   title: 'IntlayerProvider',
@@ -1069,6 +1075,7 @@ const docDataContent: Dictionary = {
               default: getDocMetadata(
                 './docs/en/packages/preact-intlayer/exports.md'
               ),
+              frameworks: ['preact'],
               subSections: {
                 usePathname: {
                   title: 'usePathname',
@@ -1083,6 +1090,7 @@ const docDataContent: Dictionary = {
               default: getDocMetadata(
                 './docs/en/packages/angular-intlayer/exports.md'
               ),
+              frameworks: ['angular'],
               subSections: {
                 usePathname: {
                   title: 'usePathname',
@@ -1097,24 +1105,28 @@ const docDataContent: Dictionary = {
               default: getDocMetadata(
                 './docs/en/packages/react-native-intlayer/exports.md'
               ),
+              frameworks: ['react'],
             },
             'lynx-intlayer': {
               title: 'lynx-intlayer',
               default: getDocMetadata(
                 './docs/en/packages/lynx-intlayer/exports.md'
               ),
+              frameworks: ['lynx', 'react'],
             },
             'astro-intlayer': {
               title: 'astro-intlayer',
               default: getDocMetadata(
                 './docs/en/packages/astro-intlayer/exports.md'
               ),
+              frameworks: ['astro'],
             },
             'vite-intlayer': {
               title: 'vite-intlayer',
               default: getDocMetadata(
                 './docs/en/packages/vite-intlayer/exports.md'
               ),
+              frameworks: ['vite'],
               subSections: {
                 intlayer: {
                   title: 'intlayer',
@@ -1135,6 +1147,7 @@ const docDataContent: Dictionary = {
               default: getDocMetadata(
                 './docs/en/packages/express-intlayer/exports.md'
               ),
+              frameworks: ['express', 'node'],
               subSections: {
                 intlayer: {
                   title: 'intlayer',
@@ -1155,6 +1168,7 @@ const docDataContent: Dictionary = {
               default: getDocMetadata(
                 './docs/en/packages/fastify-intlayer/exports.md'
               ),
+              frameworks: ['fastify', 'node'],
               subSections: {
                 intlayer: {
                   title: 'intlayer',
@@ -1169,6 +1183,7 @@ const docDataContent: Dictionary = {
               default: getDocMetadata(
                 './docs/en/packages/elysia-intlayer/exports.md'
               ),
+              frameworks: ['elysia', 'node'],
               subSections: {
                 intlayer: {
                   title: 'intlayer',
@@ -1183,6 +1198,7 @@ const docDataContent: Dictionary = {
               default: getDocMetadata(
                 './docs/en/packages/hono-intlayer/exports.md'
               ),
+              frameworks: ['hono', 'node'],
               subSections: {
                 intlayer: {
                   title: 'intlayer',
@@ -1203,6 +1219,7 @@ const docDataContent: Dictionary = {
               default: getDocMetadata(
                 './docs/en/packages/adonis-intlayer/exports.md'
               ),
+              frameworks: ['adonis', 'node'],
               subSections: {
                 intlayer: {
                   title: 'intlayer',
