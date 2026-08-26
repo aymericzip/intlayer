@@ -24,13 +24,12 @@ export const IntlayerClientProviderBase: FC<IntlayerProviderProps> = (
 ) => <IntlayerProvider {...props} />;
 
 /**
- * @deprecated Use `IntlayerProvider` from `next-intlayer/server` instead.
- * Mounted once in the locale layout, it seeds the request-scoped server
- * context *and* mounts this client provider, so a single provider covers both
- * halves of the tree:
+ * @deprecated Use `IntlayerProvider` from `next-intlayer/server` instead
+ *
+ * Mount `IntlayerProvider` once in the locale layout seeds both server and client contexts
  *
  * ```tsx
- * import { IntlayerProvider } from 'next-intlayer/server';
+ * import { IntlayerProvider } from 'next-intlayer';
  *
  * const LocaleLayout = async ({ children, params }) => {
  *   const { locale } = await params;
