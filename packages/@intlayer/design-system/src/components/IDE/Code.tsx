@@ -200,7 +200,7 @@ export const Code: FC<CodeCompProps> = ({
     >
       <Container
         className={cn(
-          'relative min-w-0 max-w-full border text-sm leading-6',
+          'relative min-w-0 max-w-full text-sm leading-6',
           showLineNumbers && 'with-line-number ml-0',
           className
         )}
@@ -258,7 +258,9 @@ export const Code: FC<CodeCompProps> = ({
              * supplied, otherwise fall back to the Suspense-based async Shiki
              * renderer.
              */
+
             <CodeBlock lang={language} highlightedHtml={highlightedHtml}>
+              HERE
               {rawCode}
             </CodeBlock>
           )}

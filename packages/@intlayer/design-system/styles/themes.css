@@ -3,6 +3,10 @@
 
 :root,
 [data-theme='light'] {
+  .shiki span {
+    color: var(--shiki-light);
+  }
+
   color-scheme: light;
 
   --background: oklch(1 0 0);
@@ -47,6 +51,10 @@
 }
 
 [data-theme='dark'] {
+  .shiki span {
+    color: var(--shiki-dark);
+  }
+
   color-scheme: dark;
 
   --background: oklch(0.145 0 0);
