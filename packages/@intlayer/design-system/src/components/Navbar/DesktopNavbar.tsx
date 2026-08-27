@@ -102,7 +102,7 @@ export const DesktopNavbar = <T extends TabSelectorItemProps>({
       className="ml-[2vw] h-auto gap-3 overflow-x-auto text-muted-foreground tracking-wide lg:ml-[5vw] lg:gap-3 xl:ml-[10vw] xl:gap-6"
       tabs={sections}
       hoverable
-      color="text"
+      color="light"
     />
 
     <div className="mr-4 flex items-center justify-end gap-2 md:gap-4">

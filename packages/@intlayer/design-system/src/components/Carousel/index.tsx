@@ -157,7 +157,7 @@ const CarouselIndicators: FC<CarouselIndicatorsProps> = ({
       <Popover identifier="carousel-prev">
         <Button
           variant="hoverable"
-          color="neutral"
+          color="foreground"
           label={previousSlide.value}
           roundedSize="full"
           onClick={(e) => {
@@ -206,7 +206,7 @@ const CarouselIndicators: FC<CarouselIndicatorsProps> = ({
       <Popover identifier="carousel-next">
         <Button
           variant="hoverable"
-          color="neutral"
+          color="foreground"
           roundedSize="full"
           label={nextSlide.value}
           onClick={(e) => {
