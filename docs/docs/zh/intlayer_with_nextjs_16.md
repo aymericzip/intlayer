@@ -842,18 +842,12 @@ export const LocaleSwitcher: FC = () => {
 ```tsx fileName="src/components/LocaleSwitcher.tsx"
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useLocale } from "next-intlayer";
 import { getLocalizedUrl } from "intlayer";
 
 // ... 其余代码
 
-const router = useRouter();
-const { setLocale } = useLocale({
-  onLocaleChange: (locale) => {
-    router.push(getLocalizedUrl(pathWithoutLocale, locale));
-  },
-});
+const { setLocale } = useLocale();
 
 return <button onClick={() => setLocale(Locales.FRENCH)}>更改为法语</button>;
 ```

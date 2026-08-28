@@ -222,9 +222,7 @@ Configure your Next.js setup to use Intlayer:
 import type { NextConfig } from "next";
 import { withIntlayer } from "next-intlayer/server";
 
-const nextConfig: NextConfig = {
-  /* config options here */
-};
+const nextConfig: NextConfig = {/** config options here */};
 
 export default withIntlayer(nextConfig);
 ```
@@ -233,9 +231,7 @@ export default withIntlayer(nextConfig);
 import { withIntlayer } from "next-intlayer/server";
 
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  /* config options here */
-};
+const nextConfig = {/* config options here */};
 
 export default withIntlayer(nextConfig);
 ```
@@ -244,9 +240,7 @@ export default withIntlayer(nextConfig);
 const { withIntlayer } = require("next-intlayer/server");
 
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  /* config options here */
-};
+const nextConfig = {/* config options here */};
 
 module.exports = withIntlayer(nextConfig);
 ```
@@ -1338,18 +1332,12 @@ export const LocaleSwitcher = () => {
 ```tsx fileName="src/components/LocaleSwitcher.tsx"
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useLocale } from "next-intlayer";
 import { getLocalizedUrl } from "intlayer";
 
 // ... Rest of the code
 
-const router = useRouter();
-const { setLocale } = useLocale({
-  onLocaleChange: (locale) => {
-    router.push(getLocalizedUrl(pathWithoutLocale, locale));
-  },
-});
+const { setLocale } = useLocale();
 
 return (
   <button onClick={() => setLocale(Locales.FRENCH)}>Change to French</button>

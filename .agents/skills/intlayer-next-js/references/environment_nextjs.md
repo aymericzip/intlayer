@@ -32,7 +32,7 @@ history:
 
 <Tabs defaultTab="video">
   <Tab label="Video" value="video">
-  
+
 <iframe title="The best i18n solution for Next.js? Discover Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/e_PPG7PTqGU?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
   </Tab>
@@ -205,9 +205,7 @@ Configure your Next.js setup to use Intlayer:
 import type { NextConfig } from "next";
 import { withIntlayer } from "next-intlayer/server";
 
-const nextConfig: NextConfig = {
-  /* config options here */
-};
+const nextConfig: NextConfig = {/* config options here */};
 
 export default withIntlayer(nextConfig);
 ```
@@ -216,9 +214,7 @@ export default withIntlayer(nextConfig);
 import { withIntlayer } from "next-intlayer/server";
 
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  /* config options here */
-};
+const nextConfig = {/* config options here */};
 
 export default withIntlayer(nextConfig);
 ```
@@ -227,9 +223,7 @@ export default withIntlayer(nextConfig);
 const { withIntlayer } = require("next-intlayer/server");
 
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  /* config options here */
-};
+const nextConfig = {/* config options here */};
 
 module.exports = withIntlayer(nextConfig);
 ```
@@ -1325,18 +1319,12 @@ export const LocaleSwitcher = () => {
 ```tsx fileName="src/components/LocaleSwitcher.tsx"
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useLocale } from "next-intlayer";
 import { getLocalizedUrl } from "intlayer";
 
 // ... Rest of the code
 
-const router = useRouter();
-const { setLocale } = useLocale({
-  onLocaleChange: (locale) => {
-    router.push(getLocalizedUrl(pathWithoutLocale, locale));
-  },
-});
+const { setLocale } = useLocale();
 
 return (
   <button onClick={() => setLocale(Locales.FRENCH)}>Change to French</button>

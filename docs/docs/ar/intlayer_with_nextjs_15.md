@@ -838,18 +838,12 @@ export const LocaleSwitcher: FC = () => {
 ```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useLocale } from "next-intlayer";
 import { getLocalizedUrl } from "intlayer";
 
 // ... بقية الكود
 
-const router = useRouter();
-const { setLocale } = useLocale({
-  onLocaleChange: (locale) => {
-    router.push(getLocalizedUrl(pathWithoutLocale, locale));
-  },
-});
+const { setLocale } = useLocale();
 
 return (
   <button onClick={() => setLocale(Locales.FRENCH)}>
