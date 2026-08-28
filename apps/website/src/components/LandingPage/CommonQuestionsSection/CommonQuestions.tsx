@@ -12,7 +12,12 @@ const FAQItem: FC<{
   callToAction?: { label: IntlayerNode; url: IntlayerNode };
 }> = ({ question, answer, callToAction }) => {
   return (
-    <Accordion label={''} header={question} defaultIsOpen={false}>
+    <Accordion
+      itemProp="name"
+      label={question}
+      header={question}
+      defaultIsOpen={false}
+    >
       <div
         itemProp="acceptedAnswer"
         itemScope
