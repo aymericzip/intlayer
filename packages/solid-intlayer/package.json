@@ -123,7 +123,7 @@
     "@solidjs/testing-library": "0.8.10",
     "@testing-library/jest-dom": "7.0.1",
     "@testing-library/user-event": "14.6.4",
-    "@types/node": "26.3.0",
+    "@types/node": "26.4.0",
     "@typescript/typescript6": "^6.0.2",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
