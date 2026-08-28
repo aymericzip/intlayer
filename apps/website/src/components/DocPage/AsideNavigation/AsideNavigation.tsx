@@ -27,11 +27,9 @@ export const AsideNavigation: FC = () => {
     <>
       <div className="relative flex min-h-0 w-70 flex-1 flex-col">
         <div className="relative z-10 mt-10 flex w-full flex-row items-center pt-2">
-          <h2 className="ml-3 text-nowrap text-neutral/80 text-sm uppercase">
+          <h2 className="ml-3 text-nowrap font-mono text-foreground text-sm uppercase">
             {title}
           </h2>
-
-          <div className="absolute bottom-0 left-0 h-8 w-full translate-y-full bg-linear-to-b from-background/90 backdrop-blur" />
         </div>
         <div className="relative flex min-h-0 w-full flex-1 overflow-hidden rounded-2xl md:pt-0">
           <div className="mt-4 flex pl-3">
@@ -40,14 +38,14 @@ export const AsideNavigation: FC = () => {
           <HeightResizer
             initialHeight={250}
             isDisabled={isMobile}
-            className="absolute bottom-0 left-0 size-full bg-background/70 backdrop-blur"
+            className="absolute bottom-0 left-0 size-full bg-background"
           >
             <div className="justify-bottom size-full text-sm">
               <ChatBot
                 additionalButtons={
                   <Button
                     Icon={MoveDiagonal}
-                    color="text"
+                    color="foreground"
                     size="icon-md"
                     variant="outline"
                     label={button.label.value}
@@ -66,7 +64,7 @@ export const AsideNavigation: FC = () => {
         size="xl"
         onClose={() => setIsModalOpen(false)}
         roundedSize="2xl"
-        className="relative m-auto h-[calc(95vh-100px)] overflow-hidden"
+        className="relative m-auto h-[calc(95vh-100px)] overflow-hidden border bg-background blur-none backdrop-blur-none"
         disableScroll
         hasCloseButton
       >

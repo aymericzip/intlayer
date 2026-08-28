@@ -250,10 +250,9 @@ export const HeightResizer: FC<PropsWithChildren<HeightResizerProps>> = ({
     <div
       className={cn(
         'relative h-full w-full border-dashed transition',
+        !isDisabled && 'max-h-[80%] cursor-ns-resize border-t-[1px]',
         !isDisabled &&
-          'max-h-[80%] cursor-ns-resize border-neutral-200 border-t-[1px] dark:border-neutral-950',
-        !isDisabled &&
-          'before:absolute before:top-0 before:left-1/2 before:z-10 before:block before:h-1 before:w-10 before:-translate-x-1/2 before:-translate-y-1/2 before:transform before:cursor-ns-resize before:rounded-full before:bg-neutral-200 before:transition before:content-[""] dark:before:bg-neutral-950',
+          'before:absolute before:top-0 before:left-1/2 before:z-10 before:block before:h-1 before:w-10 before:-translate-x-1/2 before:-translate-y-1/2 before:transform before:cursor-ns-resize before:rounded-full before:bg-muted-foreground before:transition before:content-[""]',
         !isDisabled &&
           'active:border-neutral-400 active:before:bg-neutral-400 dark:active:border-neutral-600 active:dark:before:bg-neutral-600',
         className

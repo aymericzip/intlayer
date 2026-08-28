@@ -63,7 +63,7 @@ const TH: FC<{ children: ReactNode; right?: boolean }> = ({
 }) => (
   <th
     className={cn(
-      'px-3 pt-3 pb-2 font-medium text-neutral/60 text-xs',
+      'px-3 pt-3 pb-2 font-medium text-foreground text-xs',
       right ? 'text-right' : 'text-left'
     )}
   >
