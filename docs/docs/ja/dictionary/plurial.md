@@ -33,12 +33,6 @@ Intlayerでは、複数形コンテンツは `plural` 関数を通じて実現�
 
 [`enu`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/enumeration.md) は自分で定義した数値範囲に基づいてコンテンツを選択しますが、`plural` は選択をCLDRルールに委ねます。これにより、ロシア語、ポーランド語、アラビア語、ウェールズ語などの複雑な複数化ルールを持つ言語でも、剰余ロジックなどを手書きすることなく拡張可能になります。
 
-## `plural` と `enu` の使い分け
-
-To use plural content inside a React component, retrieve it via the `useIntlayer` hook and call it with a count. The active locale and the count are combined to pick the matching CLDR category.
-
-To use plural content in Next.js Client Components, retrieve it via the `useIntlayer` hook and call it with a count. Here's an example:
-
 ## 複数形コンテンツのセットアップ
 
 Intlayerプロジェクトで複数形コンテンツをセットアップするには、`plural` ヘルパーを使用するコンテンツモジュールを作成します。`other` カテゴリは必須であり、ロケールがより具体的なカテゴリを定義していない場合のフォールバックとして使用されます。

@@ -33,12 +33,6 @@ W Intlayer treści w liczbie mnogiej są realizowane za pomocą funkcji `plural`
 
 W przeciwieństwie do [`enu`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/enumeration.md), który wybiera treści na podstawie zdefiniowanych przez Ciebie zakresów liczbowych, `plural` deleguje wybór do reguł CLDR. To właśnie sprawia, że jest on skalowalny dla języków o złożonych regułach pluralizacji, takich jak polski, rosyjski, arabski czy walijski, bez konieczności ręcznego pisania logiki modulo.
 
-## Kiedy używać `plural` vs `enu`
-
-To use plural content inside a React component, retrieve it via the `useIntlayer` hook and call it with a count. The active locale and the count are combined to pick the matching CLDR category.
-
-To use plural content in Next.js Client Components, retrieve it via the `useIntlayer` hook and call it with a count. Here's an example:
-
 ## Konfigurowanie treści w liczbie mnogiej
 
 Aby skonfigurować treści w liczbie mnogiej w swoim projekcie Intlayer, utwórz moduł treści korzystający z pomocnika `plural`. Kategoria `other` jest wymagana i służy jako rezerwowa, gdy dany język nie definiuje bardziej szczegółowej kategorii.

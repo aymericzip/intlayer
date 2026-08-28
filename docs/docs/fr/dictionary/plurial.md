@@ -33,12 +33,6 @@ Dans Intlayer, le contenu au pluriel est réalisé via la fonction `plural`, qui
 
 Contrairement à [`enu`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/enumeration.md), qui sélectionne le contenu en fonction de plages numériques que vous définissez vous-même, `plural` délègue la sélection aux règles CLDR. C'est ce qui le rend évolutif pour les langues ayant des règles de pluralisation complexes, telles que le russe, le polonais, l'arabe ou le gallois, sans avoir à écrire manuellement de logique de modulo.
 
-## Quand utiliser `plural` vs `enu`
-
-To use plural content inside a React component, retrieve it via the `useIntlayer` hook and call it with a count. The active locale and the count are combined to pick the matching CLDR category.
-
-To use plural content in Next.js Client Components, retrieve it via the `useIntlayer` hook and call it with a count. Here's an example:
-
 ## Configuration du contenu au pluriel
 
 Pour configurer du contenu au pluriel dans votre projet Intlayer, créez un module de contenu qui utilise l'assistant `plural`. La catégorie `other` est obligatoire et sert de repli lorsqu'une locale ne définit pas de catégorie plus spécifique.

@@ -33,12 +33,6 @@ Intlayer'da çoğul içerik, CLDR çoğul kategorilerini (`zero`, `one`, `two`, 
 
 Kendi tanımladığınız sayısal aralıklara göre içerik seçen [`enu`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/enumeration.md) işlevinden farklı olarak, `plural` seçimi CLDR kurallarına devreder. Rusça, Lehçe, Arapça veya Galce gibi karmaşık çoğullaştırma kurallarına sahip diller için, elle modülo mantığı yazmak zorunda kalmadan ölçeklenebilir olmasını sağlayan şey budur.
 
-## Ne Zaman `plural` vs `enu` Kullanılmalı?
-
-To use plural content inside a React component, retrieve it via the `useIntlayer` hook and call it with a count. The active locale and the count are combined to pick the matching CLDR category.
-
-To use plural content in Next.js Client Components, retrieve it via the `useIntlayer` hook and call it with a count. Here's an example:
-
 ## Çoğul İçeriği Ayarlama
 
 Intlayer projenizde çoğul içeriği ayarlamak için `plural` yardımcısını kullanan bir içerik modülü oluşturun. `other` kategorisi zorunludur ve bir yerel daha spesifik bir kategori tanımlamadığında yedek olarak kullanılır.

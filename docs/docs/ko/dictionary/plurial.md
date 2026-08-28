@@ -33,12 +33,6 @@ Intlayer에서 복수형 콘텐츠는 `plural` 함수를 통해 구현됩니다.
 
 직접 정의한 숫자 범위를 기반으로 콘텐츠를 선택하는 [`enu`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/enumeration.md)와 달리, `plural`은 선택을 CLDR 규칙에 위임합니다. 이로 인해 러시아어, 폴란드어, 아랍어 또는 웨일스어와 같이 복잡한 복수화 규칙이 있는 언어도 나머지 연산(modulo) 로직을 직접 작성하지 않고도 확장할 수 있습니다.
 
-## `plural` vs `enu` 사용 시기
-
-To use plural content inside a React component, retrieve it via the `useIntlayer` hook and call it with a count. The active locale and the count are combined to pick the matching CLDR category.
-
-To use plural content in Next.js Client Components, retrieve it via the `useIntlayer` hook and call it with a count. Here's an example:
-
 ## 복수형 콘텐츠 설정
 
 Intlayer 프로젝트에서 복수형 콘텐츠를 설정하려면 `plural` 헬퍼를 사용하는 콘텐츠 모듈을 생성하십시오. `other` 범주는 필수이며, 로케일에 더 구체적인 범주가 정의되지 않았을 때 폴백으로 사용됩니다.

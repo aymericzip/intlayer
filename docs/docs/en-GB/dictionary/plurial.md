@@ -33,12 +33,6 @@ To use plural content in Next.js Client Components, retrieve it via the `useIntl
 
 To use plural content in Angular components, retrieve it via the `useIntlayer` hook and call it with a count. Here's an example:
 
-## When to Use `plural` vs `enu`
-
-To use plural content inside a React component, retrieve it via the `useIntlayer` hook and call it with a count. The active locale and the count are combined to pick the matching CLDR category.
-
-To use plural content in Next.js Client Components, retrieve it via the `useIntlayer` hook and call it with a count. Here's an example:
-
 ## Setting Up Plural Content
 
 To set up plural content in your Intlayer project, create a content module that uses the `plural` helper. The `other` category is required and is used as the fallback when a locale doesn't define a more specific category.

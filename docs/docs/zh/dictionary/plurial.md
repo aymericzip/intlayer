@@ -33,12 +33,6 @@ author: aymericzip
 
 与 [`enu`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/enumeration.md) 不同，`enu` 是根据您自己定义的数值范围选择内容的，而 `plural` 将选择权交给 CLDR 规则。这使得它能够扩展到具有复杂复数规则的语言（如俄语、波兰语、阿拉伯语或威尔士语），而无需手动编写求余逻辑。
 
-## 何时使用 `plural` vs `enu`
-
-To use plural content inside a React component, retrieve it via the `useIntlayer` hook and call it with a count. The active locale and the count are combined to pick the matching CLDR category.
-
-To use plural content in Next.js Client Components, retrieve it via the `useIntlayer` hook and call it with a count. Here's an example:
-
 ## 设置复数内容
 
 要在 Intlayer 项目中设置复数内容，请创建一个使用 `plural` 辅助函数的内容模块。`other` 类别是必需的，并在语言区域未定义更具体类别时作为回退方案。

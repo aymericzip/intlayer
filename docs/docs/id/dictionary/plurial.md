@@ -33,12 +33,6 @@ Di Intlayer, konten jamak dicapai melalui fungsi `plural`, yang memetakan katego
 
 Berbeda dengan [`enu`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/enumeration.md), yang memilih konten berdasarkan rentang numerik yang Anda tentukan sendiri, `plural` mendelegasikan pemilihan ke aturan CLDR. Inilah yang membuatnya skalabel untuk bahasa dengan aturan pluralisasi yang kompleks, seperti Rusia, Polandia, Arab, atau Welsh, tanpa harus menulis logika modulo secara manual.
 
-## Kapan Menggunakan `plural` vs `enu`
-
-To use plural content inside a React component, retrieve it via the `useIntlayer` hook and call it with a count. The active locale and the count are combined to pick the matching CLDR category.
-
-To use plural content in Next.js Client Components, retrieve it via the `useIntlayer` hook and call it with a count. Here's an example:
-
 ## Menyiapkan Konten Jamak
 
 Untuk menyiapkan konten jamak dalam proyek Intlayer Anda, buat modul konten yang menggunakan helper `plural`. Kategori `other` wajib ada dan digunakan sebagai fallback ketika lokal tidak menentukan kategori yang lebih spesifik.

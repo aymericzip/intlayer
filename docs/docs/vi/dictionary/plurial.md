@@ -33,12 +33,6 @@ Trong Intlayer, nội dung số nhiều được thực hiện thông qua hàm `
 
 Không giống như [`enu`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/enumeration.md), chọn nội dung dựa trên các phạm vi số do bạn tự xác định, `plural` ủy quyền việc lựa chọn cho các quy tắc CLDR. Đây là điều làm cho nó có thể mở rộng cho các ngôn ngữ có quy tắc số nhiều phức tạp, như tiếng Nga, tiếng Ba Lan, tiếng Ả Rập hoặc tiếng Wales, mà không cần phải tự viết logic modulo.
 
-## Khi nào nên sử dụng `plural` so với `enu`
-
-To use plural content inside a React component, retrieve it via the `useIntlayer` hook and call it with a count. The active locale and the count are combined to pick the matching CLDR category.
-
-To use plural content in Next.js Client Components, retrieve it via the `useIntlayer` hook and call it with a count. Here's an example:
-
 ## Thiết lập nội dung số nhiều
 
 Để thiết lập nội dung số nhiều trong dự án Intlayer của bạn, hãy tạo một mô-đun nội dung sử dụng trợ giúp `plural`. Danh mục `other` là bắt buộc và được sử dụng làm phương án dự phòng khi một ngôn ngữ không xác định danh mục cụ thể hơn.

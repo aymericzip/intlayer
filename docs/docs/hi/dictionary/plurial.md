@@ -33,12 +33,6 @@ Intlayer में, बहुवचन सामग्री `plural` फ़ं�
 
 [`enu`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/enumeration.md) के विपरीत, जो आपके द्वारा स्वयं परिभाषित संख्यात्मक श्रेणियों के आधार पर सामग्री चुनता है, `plural` चयन को CLDR नियमों को सौंपता है। यही कारण है कि यह जटिल बहुवचन नियमों वाली भाषाओं, जैसे रूसी, पोलिश, अरबी, या वेल्श, के लिए स्केलेबल बनाता है, बिना हस्तलिखित मोडुलो (modulo) तर्क के।
 
-## `plural` बनाम `enu` का कब उपयोग करें
-
-To use plural content inside a React component, retrieve it via the `useIntlayer` hook and call it with a count. The active locale and the count are combined to pick the matching CLDR category.
-
-To use plural content in Next.js Client Components, retrieve it via the `useIntlayer` hook and call it with a count. Here's an example:
-
 ## बहुवचन सामग्री सेट करना
 
 अपने Intlayer प्रोजेक्ट में बहुवचन सामग्री सेट करने के लिए, एक सामग्री मॉड्यूल बनाएं जो `plural` हेल्पर का उपयोग करता है। `other` श्रेणी आवश्यक है और इसका उपयोग फ़ालबैक (fallback) के रूप में किया जाता है जब कोई लोकेल अधिक विशिष्ट श्रेणी परिभाषित नहीं करता है।

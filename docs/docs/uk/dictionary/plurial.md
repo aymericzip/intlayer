@@ -33,12 +33,6 @@ author: aymericzip
 
 На відміну від [`enu`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/enumeration.md), який вибирає контент на основі числових діапазонів, визначених вами самостійно, `plural` делегує вибір правилам CLDR. Це робить його масштабованим для мов зі складними правилами множини, таких як українська, польська, арабська або валлійська, без необхідності вручну писати логіку по модулю.
 
-## Коли використовувати `plural` проти `enu`
-
-To use plural content inside a React component, retrieve it via the `useIntlayer` hook and call it with a count. The active locale and the count are combined to pick the matching CLDR category.
-
-To use plural content in Next.js Client Components, retrieve it via the `useIntlayer` hook and call it with a count. Here's an example:
-
 ## Налаштування контенту у множині
 
 Щоб налаштувати контент у множині у вашому проекті Intlayer, створіть модуль контенту, який використовує помічник `plural`. Категорія `other` є обов'язковою і використовується як резервний варіант, коли локаль не визначає більш конкретну категорію.
