@@ -59,7 +59,7 @@ const getColorClass = (color?: LinkColor | `${LinkColor}`): string => {
     neutral: 'text-neutral',
     light: 'text-white',
     dark: 'text-neutral-800',
-    text: 'text-foreground',
+    text: 'text-muted-foreground',
     'text-inverse': 'text-foreground-opposite',
     error: 'text-error',
     success: 'text-success',
@@ -200,7 +200,7 @@ const Span: FC<SpanProps> = ({ children, position, className, ...props }) => (
     itemProp="item"
     className={cn(
       'inline-flex items-center',
-      'font-medium text-neutral-700',
+      'font-medium text-muted-foreground',
       'transition-colors duration-200',
       className
     )}
@@ -369,7 +369,7 @@ export const Breadcrumb: FC<BreadcrumbProps> = ({
               aria-current={ariaCurrent}
               className={cn(
                 'transition-colors duration-200',
-                isActive && 'text-neutral-900'
+                isActive && 'text-foreground'
               )}
             >
               {text}
@@ -385,7 +385,7 @@ export const Breadcrumb: FC<BreadcrumbProps> = ({
                 position={index + 1}
                 locale={locale}
                 aria-current={ariaCurrent}
-                className={cn(isActive && 'cursor-default text-neutral-900')}
+                className={cn(isActive && 'cursor-default text-foreground')}
               >
                 {text}
               </LinkLink>

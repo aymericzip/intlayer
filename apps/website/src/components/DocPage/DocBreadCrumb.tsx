@@ -61,7 +61,7 @@ export const DocBreadCrumb: FC<DocBreadCrumbProps> = ({
       className="mt-12 ml-3 text-xs"
       locale={locale}
       size="xs"
-      color="neutral"
+      color="text"
       {...props}
     />
   );

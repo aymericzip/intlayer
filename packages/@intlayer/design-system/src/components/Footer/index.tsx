@@ -1,3 +1,4 @@
+import { Status } from '@components/Status';
 import type { FC, ReactNode } from 'react';
 import { LogoWithTextBelow } from '../Logo';
 import { SocialNetworks } from '../SocialNetworks';
@@ -133,16 +134,7 @@ export const Footer: FC<FooterProps> = ({ links, footerText }) => (
           {footerText}
         </span>
       )}
-      <div className="w-43">
-        <iframe
-          src="https://status.intlayer.org/badge?theme=dark"
-          height="30"
-          frameBorder="0"
-          scrolling="no"
-          style={{ colorScheme: 'normal' }}
-        />
-      </div>
-
+      <Status />
       <div className="flex flex-row gap-3">
         <SocialNetworks />
       </div>
