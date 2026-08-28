@@ -21,7 +21,6 @@ import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { BackgroundLayout } from '~/components/BackgroundLayout';
 import { Link } from '~/components/Link/Link';
-import { useTheme } from '~/providers/ThemeProvider';
 import packageJSON from '../../../../package_mock.json' with { type: 'json' };
 import { TechLogos } from './TechLogos';
 
@@ -41,32 +40,30 @@ export const HeroSection: FC = () => {
     copyButton,
   } = useIntlayer('hero-section');
 
-  const { resolvedTheme } = useTheme();
-  const isDarkMode = resolvedTheme === 'dark';
   const { isCopied, copy } = useCopyToClipboard('npx intlayer init');
 
   return (
-    <section className="relative flex min-h-[calc(100vh-60px)] flex-col">
-      <section className="relative flex w-full flex-1 flex-col border-b px-4 md:px-8 lg:px-12">
+    <section className="relative flex min-h-[calc(100dvh-60px)] flex-col">
+      <section className="relative flex w-full flex-1 flex-col border-b px-4 sm:px-6 md:px-8 lg:px-12">
         <BackgroundLayout />
-        <div className="flex flex-1 flex-col items-center justify-center py-16">
+        <div className="flex flex-1 flex-col items-center justify-center py-10 sm:py-16">
           {SHOW_WHATS_NEW && (
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="mb-8 flex items-center justify-center gap-2"
+              className="mb-6 flex items-center justify-center gap-2 sm:mb-8"
             >
               <Link to={Website_ReleasesV9_Path} label={whatsNewLabel.value}>
                 <Tag
                   size="md"
                   border="with"
-                  className="flex items-center gap-2 rounded-full border-foreground/20! bg-card/10 font-medium text-foreground text-sm backdrop-blur-xl"
+                  className="flex items-center gap-2 rounded-full border-foreground/20! bg-card/10 font-medium text-foreground text-xs backdrop-blur-xl sm:text-sm"
                 >
-                  <Megaphone className="size-4" />
-                  <span className="no-underline! flex items-center gap-1 font-medium text-sm sm:text-sm">
+                  <Megaphone className="size-3.5 shrink-0 sm:size-4" />
+                  <span className="no-underline! flex items-center gap-1 whitespace-nowrap font-medium text-xs sm:text-sm">
                     {version} v{packageJSON.version}{' '}
-                    <ArrowRight className="size-3" />
+                    <ArrowRight className="size-3 shrink-0" />
                   </span>
                 </Tag>
               </Link>
@@ -74,7 +71,7 @@ export const HeroSection: FC = () => {
           )}
 
           {/* Title */}
-          <h1 className="mb-3 text-center font-bold text-4xl leading-tight sm:text-4xl md:text-5xl lg:text-6xl">
+          <h1 className="mb-3 px-2 text-center font-bold text-3xl leading-tight sm:text-4xl md:text-5xl lg:text-6xl">
             {title}
           </h1>
           {/* Subtitle */}
@@ -82,7 +79,7 @@ export const HeroSection: FC = () => {
             initial={{ filter: 'blur(10px)', opacity: 0, y: 30 }}
             animate={{ filter: 'blur(0px)', opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }}
-            className="mb-6 text-center font-semibold text-xl sm:text-3xl md:text-3xl lg:mb-8 lg:text-4xl"
+            className="mb-6 px-2 text-center font-semibold text-lg leading-snug sm:text-2xl md:text-3xl lg:mb-8 lg:text-4xl"
           >
             {subheading}
           </motion.h2>
@@ -94,13 +91,12 @@ export const HeroSection: FC = () => {
             animate={{ opacity: 1, y: -30 }}
             transition={{ delay: 0.7, duration: 0.6 }}
             onClick={copy}
-            className="mt-8 flex w-full max-w-xl cursor-pointer flex-row items-center justify-center rounded-lg border bg-card p-1 py-2 pr-2 pl-4"
+            className="mt-8 flex w-full max-w-xl cursor-pointer flex-row items-center justify-between gap-1 overflow-hidden rounded-lg border bg-card p-1 py-2 pr-2 pl-3 sm:pl-4"
           >
-            <ChevronRight className="size-8 text-muted-foreground" />
+            <ChevronRight className="size-6 shrink-0 text-muted-foreground sm:size-8" />
             <CodeBlock
-              className="justify-center"
+              className="min-w-0 flex-1 justify-center overflow-x-auto whitespace-nowrap text-sm sm:text-base"
               lang="bash"
-              isDarkMode={isDarkMode}
             >
               npx intlayer init
             </CodeBlock>
@@ -112,13 +108,14 @@ export const HeroSection: FC = () => {
               onClick={copy}
               Icon={isCopied ? Check : Copy}
               label={copyButton.value}
+              className="shrink-0"
             />
           </motion.div>
           <motion.p
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.6 }}
-            className="mx-auto max-w-xl text-center text-muted-foreground text-sm leading-relaxed sm:text-lg lg:mb-12"
+            className="mx-auto mt-4 mb-8 max-w-xl px-2 text-center text-muted-foreground text-sm leading-relaxed sm:text-lg lg:mb-12"
           >
             {description}
           </motion.p>
@@ -128,7 +125,7 @@ export const HeroSection: FC = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8, duration: 0.6 }}
-            className="flex flex-col justify-center gap-3 sm:flex-row sm:gap-4"
+            className="flex w-full max-w-xs flex-col justify-center gap-3 sm:max-w-none sm:flex-row sm:gap-4"
           >
             <Link
               to={External_Github}
@@ -137,7 +134,8 @@ export const HeroSection: FC = () => {
               label={supportButton.value}
               isExternalLink={false}
               size="lg"
-              roundedSize="sm"
+              roundedSize="full"
+              className="w-full sm:w-auto"
             >
               <span className="block text-sm sm:text-lg">{supportButton}</span>
             </Link>
@@ -148,8 +146,8 @@ export const HeroSection: FC = () => {
               color="text"
               label={getStartedButton.value}
               size="xl"
-              roundedSize="sm"
-              className="flex flex-row items-center justify-center gap-2"
+              roundedSize="full"
+              className="flex w-full flex-row items-center justify-center gap-2 sm:w-auto"
             >
               <span className="block text-sm sm:text-lg">
                 {getStartedButton}
@@ -160,20 +158,17 @@ export const HeroSection: FC = () => {
           </motion.div>
         </div>
       </section>
-      <Link to={Website_Doc_Environment_ViteAndReact_Path} label={availableFor}>
-        <div className="flex items-center justify-between gap-4 border-b p-3">
-          <p className="font-mono text-foreground text-sm uppercase tracking-wider sm:text-base">
-            {availableFor}
-          </p>
-          <ExternalLink className="size-5 text-muted-foreground" />
-        </div>
-      </Link>
+      <div className="flex items-center justify-between gap-4 border-b px-4 py-3">
+        <p className="truncate font-mono text-foreground text-xs uppercase tracking-wider sm:text-sm md:text-base">
+          {availableFor}
+        </p>
+      </div>
 
       <motion.section
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.0, duration: 0.6 }}
-        className="relative w-full border-b"
+        className="relative w-full overflow-x-auto border-b"
       >
         <TechLogos />
       </motion.section>
