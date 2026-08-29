@@ -223,7 +223,7 @@ const ContentEditorToggle: FC<ContentEditorToggleProps> = ({
       onChange={(value) =>
         addEditedContent(dictionary.localId!, value, keyPath)
       }
-      color="text"
+      color="foreground"
       size="sm"
       {...props}
     />
@@ -883,7 +883,7 @@ const HtmlTextEditor: FC<TextEditorProps> = ({
         choices={toggleContent}
         value={mode}
         onChange={setMode}
-        color="text"
+        color="foreground"
         size="sm"
         className="ml-auto"
       />
@@ -970,7 +970,7 @@ const MarkdownTextEditor: FC<TextEditorProps> = ({
         choices={toggleContent}
         value={mode}
         onChange={setMode}
-        color="text"
+        color="foreground"
         size="sm"
         className="ml-auto"
       />

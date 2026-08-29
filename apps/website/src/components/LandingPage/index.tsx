@@ -87,7 +87,7 @@ export const LandingPage: FC = () => {
 
         <section aria-label={content.supportedLanguagesSection.value}>
           <Suspense fallback={<Loader />}>
-            <LanguageSection className="border-b" />
+            <LanguageSection className="border-neutral border-b" />
           </Suspense>
         </section>
 

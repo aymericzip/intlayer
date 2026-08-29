@@ -34,7 +34,7 @@ export const SwitchThemeSwitcher: FC = () => {
       choices={themeSwitcher}
       value={resolvedTheme as Modes}
       onChange={setTheme}
-      color="text"
+      color="foreground"
       size="xs"
     />
   );

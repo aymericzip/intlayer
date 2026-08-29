@@ -42,7 +42,7 @@ export const DemoSection: FC = () => {
   ] as SwitchSelectorChoices<DemoType>;
 
   return (
-    <section className="z-10 flex w-full flex-col items-center justify-center border-b p-16">
+    <section className="z-10 flex w-full flex-col items-center justify-center border-neutral border-b p-16">
       <div className="my-6 flex w-full max-w-250 flex-col items-center gap-5 px-10 md:px-20">
         <div className="flex w-full items-center justify-between gap-4">
           <h2 className="text-3xl">{title}</h2>

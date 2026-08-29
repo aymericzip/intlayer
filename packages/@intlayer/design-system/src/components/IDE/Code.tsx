@@ -258,9 +258,7 @@ export const Code: FC<CodeCompProps> = ({
              * supplied, otherwise fall back to the Suspense-based async Shiki
              * renderer.
              */
-
             <CodeBlock lang={language} highlightedHtml={highlightedHtml}>
-              HERE
               {rawCode}
             </CodeBlock>
           )}

@@ -157,7 +157,7 @@ export const LocaleSwitcherContent: FC<LocaleSwitcherContentProps> = ({
                 <SwitchSelector
                   defaultValue={seeAllLocales} // Ensure this uses the persisted state
                   onChange={handleSeeAllLocales}
-                  color="text"
+                  color="foreground"
                   size="sm"
                   className="!w-60"
                   choices={[

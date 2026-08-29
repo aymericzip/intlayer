@@ -388,7 +388,7 @@ export const I18nBenchmark = ({
                       size="sm"
                       value={value}
                       onChange={onChange}
-                      color="text"
+                      color="foreground"
                     />
                   </div>
                 ))}

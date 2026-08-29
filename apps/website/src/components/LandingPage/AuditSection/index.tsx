@@ -18,7 +18,7 @@ export const AuditSection: FC = () => {
   };
 
   return (
-    <section className="flex w-full flex-col gap-16 overflow-hidden border-b px-20 py-20">
+    <section className="flex w-full flex-col gap-16 overflow-hidden border-neutral border-b px-20 py-20">
       <h2 className="mx-auto max-w-3xl text-center font-bold text-3xl text-foreground leading-tight sm:text-5xl md:text-5xl lg:text-5xl">
         {title}
       </h2>

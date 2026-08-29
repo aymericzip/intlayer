@@ -218,7 +218,7 @@ export const FeaturesCarousel: FC<FeaturesCarouselProps> = ({
 
   return (
     <section
-      className="relative z-0 border-b"
+      className="relative z-0 border-neutral border-b"
       style={{
         // Make the entire container as tall as the number of sections * 150vh
         height: `${nbSections * 125}vh`,

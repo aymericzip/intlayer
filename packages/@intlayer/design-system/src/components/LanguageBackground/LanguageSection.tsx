@@ -14,7 +14,6 @@ import {
   useEffect,
   useState,
 } from 'react';
-import { Container } from '../Container';
 import { Flag } from '../Flags';
 
 const shuffleArray = (array: string[], limit?: number) => {

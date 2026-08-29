@@ -234,7 +234,7 @@ export const AvailableTechnoSection: FC = () => {
   return (
     <section
       ref={containerRef}
-      className="z-10 flex w-full flex-col items-center justify-center overflow-hidden border-b p-16"
+      className="z-10 flex w-full flex-col items-center justify-center overflow-hidden border-neutral border-b p-16"
     >
       <h2 className="mb-3 text-3xl">{availableOn}</h2>
       <div className="my-10 flex flex-col items-center gap-6">

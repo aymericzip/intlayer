@@ -3,26 +3,6 @@ import { type Dictionary, t } from 'intlayer';
 const heroSectionContent = {
   key: 'hero-section',
   content: {
-    whatsNew: t({
-      ar: 'ما الجديد',
-      de: 'Was gibt es Neues',
-      en: "What's new",
-      'en-GB': "What's new",
-      es: 'Novedades',
-      fr: 'Actualités ',
-      hi: 'नया क्या है',
-      it: 'Novità',
-      ja: '新着情報',
-      ko: '새로운 소식',
-      pt: 'Novidades',
-      ru: 'Что нового',
-      tr: 'Neler Yeni',
-      zh: '最新消息',
-      pl: 'Co nowego',
-      id: 'Apa yang baru',
-      vi: 'Có gì mới',
-      uk: 'Що нового',
-    }),
     whatsNewLabel: t({
       ar: 'اذهب إلى صفحة التحديثات',
       de: 'Zur Seite der Updates gehen',

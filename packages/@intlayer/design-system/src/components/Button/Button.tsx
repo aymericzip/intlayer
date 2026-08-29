@@ -59,10 +59,12 @@ export type ButtonColor =
   | 'primary'
   | 'secondary'
   | 'neutral'
-  | 'white'
-  | 'black'
+  | 'light'
+  | 'dark'
+  | 'text'
   | 'foreground'
-  | 'background'
+  | 'card'
+  | 'text-inverse'
   | 'current'
   | 'error'
   | 'success'
@@ -76,7 +78,6 @@ export type ButtonTextAlign = 'left' | 'center' | 'right';
 /**
  * Enhanced button variants with improved accessibility and focus states
  */
-
 export const buttonVariants = cva(
   'relative inline-flex cursor-pointer items-center justify-center font-medium ring-0 transition-all duration-300 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50',
   {
@@ -93,20 +94,24 @@ export const buttonVariants = cva(
         'icon-xl': 'p-3',
         custom: '',
       },
-      // color fixe la "currentColor" (reprise par bg-current dans variant.default)
-      // + la couleur de contraste des enfants (icônes, texte, loader)
       color: {
-        primary: 'text-primary ring-primary/20 *:text-primary-foreground',
+        primary:
+          'hover-primary-500/20 text-primary ring-primary-500/20 *:text-text-light',
         secondary:
-          'text-secondary ring-secondary/20 *:text-secondary-foreground',
-        neutral: 'text-neutral ring-neutral/20 *:text-white',
-        white: 'text-white ring-white/20 *:text-black',
-        black: 'text-black ring-black/20 *:text-white',
-        foreground: 'text-foreground ring-foreground/20 *:text-background',
-        background: 'text-background ring-background/20 *:text-foreground',
-        current: 'text-current ring-current/10 *:text-current',
-        error: 'text-error ring-error/20 *:text-white',
-        success: 'text-success ring-success/20 *:text-white',
+          'hover-secondary-500/20 text-secondary ring-secondary-500/20 *:text-text-light',
+        neutral: 'text-neutral ring-neutral-500/5 *:text-text-light',
+        card: 'hover-card-500/20 text-card ring-card-500/20 *:text-text-light',
+        light: 'hover-white-500/20 text-white ring-white/20 *:text-text-light',
+        dark: 'text-neutral-800 ring-text-light/50 *:text-text-light',
+        text: 'text-text ring-text/20 *:text-text-opposite',
+        foreground:
+          'text-foreground ring-foreground/20 *:text-foreground-opposite',
+        current:
+          'hover-current-500/10 text-current ring-current/10 *:text-text-light',
+        'text-inverse': 'text-text-opposite ring-text-opposite/20 *:text-text',
+        error: 'hover-error-500/20 text-error ring-error/20 *:text-text-light',
+        success:
+          'hover-success-500/20 text-success ring-success/20 *:text-text-light',
         custom: '',
       },
       roundedSize: {
@@ -155,25 +160,31 @@ export const buttonVariants = cva(
           'hover:ring-5 focus-visible:ring-5',
           'aria-selected:ring-5',
         ],
-
         input: [
-          'text-foreground',
+          // base styles
+          'text-text',
           'w-full select-text resize-none rounded-2xl text-base shadow-none outline-none supports-[corner-shape:squircle]:rounded-4xl',
           'transition-shadow duration-100 md:text-sm',
-          'ring-0',
+          'ring-0', // base ring
           'disabled:opacity-50',
 
-          'bg-muted',
-          'ring-border',
+          'text-text',
+          'bg-neutral-50 dark:bg-neutral-950',
+          'ring-neutral-100 dark:ring-neutral-700',
 
-          'hover:ring-3',
+          // Hover ring (similar spirit to your input)
+          'hover:ring-3', // width
           'aria-selected:ring-4',
-          'focus-visible:ring-3 focus-visible:ring-ring',
+          'focus-visible:ring-3',
           'disabled:ring-0',
 
+          // Focus ring + animation
           'focus-visible:outline-none',
+
+          // Remove any weird box-shadow
           '[box-shadow:none] focus:[box-shadow:none]',
 
+          // aria-invalid border color
           'aria-invalid:border-error',
         ],
       },
@@ -192,7 +203,7 @@ export const buttonVariants = cva(
     defaultVariants: {
       variant: 'default',
       size: 'md',
-      color: 'foreground',
+      color: 'text',
       roundedSize: 'md',
       textAlign: 'center',
       isFullWidth: false,

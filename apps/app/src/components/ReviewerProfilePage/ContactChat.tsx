@@ -69,7 +69,7 @@ export const ContactChat: FC<ContactChatProps> = ({ reviewer }) => {
       transparency="full"
       className="flex flex-1 flex-col overflow-hidden"
     >
-      <div className="border-neutral/20 border-b px-4 py-3">
+      <div className="border-neutral border-neutral/20 border-b px-4 py-3">
         <p className="font-semibold text-sm">
           {content.contact} {reviewer.name ?? 'reviewer'}
         </p>
