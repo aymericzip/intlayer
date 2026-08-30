@@ -18,6 +18,7 @@ export type TechLogoName =
   | 'tanstack'
   | 'vite'
   | 'vue'
+  | 'htmx'
   | 'lit'
   | 'vanilla'
   | 'anthropic'

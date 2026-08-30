@@ -2041,6 +2041,11 @@ const docDataContent: Dictionary = {
               default: getDocMetadata('./docs/en/intlayer_with_lynx+react.md'),
               frameworks: ['lynx', 'react'],
             },
+            htmx: {
+              title: 'htmx',
+              default: getDocMetadata('./docs/en/intlayer_with_htmx.md'),
+              frameworks: ['htmx'],
+            },
           },
         },
       },

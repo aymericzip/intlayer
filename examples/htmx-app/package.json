@@ -1,0 +1,26 @@
+{
+  "name": "htmx-app",
+  "version": "9.4.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "intlayer build",
+    "dev": "intlayer build && bun run --watch src/index.ts",
+    "i18n:fill": "intlayer fill",
+    "i18n:test": "intlayer test",
+    "start": "bun run src/index.ts"
+  },
+  "dependencies": {
+    "cookie-parser": "1.4.7",
+    "express": "5.2.1",
+    "express-intlayer": "workspace:*",
+    "intlayer": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/cookie-parser": "1.4.9",
+    "@types/express": "5.0.6",
+    "@types/node": "26.4.0",
+    "@utils/ts-config": "workspace:*",
+    "typescript": "6.0.3"
+  }
+}

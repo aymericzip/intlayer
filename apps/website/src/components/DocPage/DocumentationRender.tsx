@@ -1,7 +1,3 @@
-import {
-  Accordion as AccordionBase,
-  type AccordionProps,
-} from '@intlayer/design-system/accordion';
 import { Container } from '@intlayer/design-system/container';
 import { H4 } from '@intlayer/design-system/headers';
 import {
@@ -9,12 +5,14 @@ import {
   type ParsedMarkdown,
 } from '@intlayer/design-system/mark-down-render';
 import { Step, Steps } from '@intlayer/design-system/steps';
-import { type ComponentProps, type FC, type HTMLAttributes, lazy } from 'react';
+import { type ComponentProps, type FC, lazy } from 'react';
 import { useLocale } from 'react-intlayer';
 import type { FrameworkKey } from '~/components/I18nBenchmark';
 import { Link } from '~/components/Link/Link';
 import { TableOfContents } from '~/components/TableOfContents';
+import { Accordion, AccordionGroup } from './AccordionGroup';
 import { ClickToOpenIframe } from './ClickToOpenIframe';
+import { FAQ, Question } from './FAQ';
 import { SectionScroller } from './SectionScroller';
 
 export const preloadI18nBenchmark = () => import('~/components/I18nBenchmark');
@@ -23,35 +21,6 @@ const I18nBenchmark = lazy(() =>
   preloadI18nBenchmark().then((mod) => ({
     default: mod.I18nBenchmark,
   }))
-);
-
-const Accordion = ({ children, ...props }: AccordionProps) => (
-  <AccordionBase
-    {...props}
-    headerClassName="text-lg!"
-    contentClassName="divide-y divide-neutral"
-  >
-    <div className="mb-8 flex flex-col gap-6 px-4 pt-6 text-sm text-text/80">
-      {children}
-    </div>
-  </AccordionBase>
-);
-
-const AccordionGroup = ({
-  children,
-  ...props
-}: HTMLAttributes<HTMLDivElement>) => (
-  <Container
-    padding="sm"
-    roundedSize="2xl"
-    background="none"
-    border
-    borderColor="neutral"
-    className="flex flex-col gap-1 overflow-hidden"
-    {...props}
-  >
-    {children}
-  </Container>
 );
 
 type DocumentationRenderProps = {
@@ -120,6 +89,8 @@ export const DocumentationRender: FC<DocumentationRenderProps> = ({
           Steps,
           Accordion,
           AccordionGroup,
+          FAQ,
+          Question,
         }}
         wrapper={(props) => (
           <>

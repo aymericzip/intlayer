@@ -2,6 +2,7 @@ import {} from '@intlayer/design-system/api';
 import { useDevice, useScreenWidth } from '@intlayer/design-system/hooks';
 import {
   Website_Doc_Environment_Angular_Path,
+  Website_Doc_Environment_Htmx_Path,
   Website_Doc_Environment_NextJS_15_Path,
   Website_Doc_Environment_NuxtAndVue_Path,
   Website_Doc_Environment_ViteAndPreact_Path,
@@ -10,7 +11,7 @@ import {
   Website_Doc_Environment_ViteAndSvelte_Path,
   Website_Doc_Environment_ViteAndVue_Path,
 } from '@intlayer/design-system/routes';
-import { TechLogo } from '@intlayer/design-system/tech-logo';
+import { TechLogo, type TechLogoName } from '@intlayer/design-system/tech-logo';
 import { cn } from '@intlayer/design-system/utils';
 import {
   type MotionValue,
@@ -175,7 +176,7 @@ const logosRow3 = [
     route: Website_Doc_Environment_NextJS_15_Path,
     initialPost: {
       scale: 1.5,
-      x: -200,
+      x: -300,
       y: 20,
     },
     label: 'nextjs',
@@ -185,7 +186,7 @@ const logosRow3 = [
     route: Website_Doc_Environment_Angular_Path,
     initialPost: {
       scale: 1.2,
-      x: 0,
+      x: -100,
       y: 60,
     },
     label: 'angular',
@@ -195,10 +196,20 @@ const logosRow3 = [
     route: Website_Doc_Environment_ViteAndReact_Path,
     initialPost: {
       scale: 1.5,
-      x: 200,
+      x: 100,
       y: 20,
     },
     label: 'vite',
+  },
+  {
+    name: 'htmx',
+    route: Website_Doc_Environment_Htmx_Path,
+    initialPost: {
+      scale: 1.2,
+      x: 300,
+      y: 60,
+    },
+    label: 'htmx',
   },
 ] as const;
 

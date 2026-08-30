@@ -29,6 +29,7 @@ export type FrameworkLogoKey =
   | 'adonis'
   | 'lit'
   | 'vanilla'
+  | 'htmx'
   | 'node';
 
 export type FrameworkEntry = {
@@ -66,6 +67,7 @@ export const frameworks: FrameworkEntry[] = [
   { id: 'adonis', label: 'Adonis', logoKey: 'adonis' },
   { id: 'lit', label: 'Lit', logoKey: 'lit' },
   { id: 'vanilla', label: 'Vanilla', logoKey: 'vanilla' },
+  { id: 'htmx', label: 'htmx', logoKey: 'htmx' },
 ];
 
 const logoMap: Record<FrameworkLogoKey, TechLogoName> = {
@@ -88,6 +90,7 @@ const logoMap: Record<FrameworkLogoKey, TechLogoName> = {
   adonis: 'adonis',
   lit: 'lit',
   vanilla: 'vanilla',
+  htmx: 'htmx',
   node: 'node',
   elysia: 'elysia',
 };

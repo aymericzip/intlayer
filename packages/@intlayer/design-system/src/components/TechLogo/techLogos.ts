@@ -17,6 +17,7 @@ export { GoogleLogo as GOOGLE } from './logos/Google';
 export { GoogleAILogo as GOOGLE_AI } from './logos/GoogleAI';
 export { GrokLogo as GROK } from './logos/Grok';
 export { HonoLogo as HONO } from './logos/Hono';
+export { HTMXLogo as HTMX } from './logos/HTMX';
 export { LinkedInLogo as LINKEDIN } from './logos/LinkedIn';
 export { LitLogo as LIT } from './logos/Lit';
 export { LynxLogo as LYNX } from './logos/Lynx';

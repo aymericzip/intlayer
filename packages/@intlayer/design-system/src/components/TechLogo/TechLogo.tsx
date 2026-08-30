@@ -39,6 +39,7 @@ const logoRecord: Record<TechLogoName, ReturnType<typeof dynamicLogo>> = {
   vue: dynamicLogo(() => import('./logos/Vuejs'), 'VuejsLogo'),
   lit: dynamicLogo(() => import('./logos/Lit'), 'LitLogo'),
   vanilla: dynamicLogo(() => import('./logos/Vanilla'), 'JavaScriptLogo'),
+  htmx: dynamicLogo(() => import('./logos/HTMX'), 'HTMXLogo'),
   anthropic: dynamicLogo(() => import('./logos/Anthropic'), 'AnthropicLogo'),
   claude: dynamicLogo(() => import('./logos/Claude'), 'ClaudeLogo'),
   chatgpt: dynamicLogo(() => import('./logos/ChatGPT'), 'ChatGPTLogo'),
