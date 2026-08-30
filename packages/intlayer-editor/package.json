@@ -118,7 +118,7 @@
     "fuse.js": "7.5.0",
     "globals": "17.11.0",
     "intlayer": "workspace:*",
-    "lucide-react": "1.34.0",
+    "lucide-react": "1.37.0",
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "react-intlayer": "workspace:*",

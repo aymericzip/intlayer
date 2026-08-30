@@ -194,7 +194,7 @@
     "dotenv": "17.4.2",
     "esbuild": "0.28.2",
     "json5": "2.2.3",
-    "zod": "4.4.3"
+    "zod": "4.5.4"
   },
   "devDependencies": {
     "@types/node": "26.4.0",
