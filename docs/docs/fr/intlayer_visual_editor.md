@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-06-29
+updatedAt: 2026-08-29
 title: Éditeur Visual Intlayer | Modifiez votre contenu en utilisant un éditeur visuel
 description: Découvrez comment utiliser l'Éditeur Intlayer pour gérer votre site web multilingue. Suivez les étapes de cette documentation en ligne pour configurer votre projet en quelques minutes.
 keywords:
@@ -211,3 +211,89 @@ Si vous rencontrez des problèmes avec l'éditeur visuel, vérifiez les points s
     - L'URL de l'application doit correspondre à celle que vous avez définie dans la configuration de l'éditeur (`applicationURL`).
 
 - L'éditeur visuel utilise une iframe pour afficher votre site web. Assurez-vous que la politique de sécurité du contenu (CSP) de votre site web autorise l'URL du CMS en tant que `frame-ancestors` ('http://localhost:8000' par défaut). Vérifiez la console de l'éditeur pour toute erreur.
+
+## Questions fréquentes
+
+<FAQ>
+
+<Question title="Quelle est la différence entre l'éditeur visuel et le CMS ?">
+
+L'éditeur visuel modifie les dictionnaires locaux et réécrit le changement dans votre base de code, si bien qu'il passe par votre relecture et votre déploiement habituels. Le [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md) modifie les dictionnaires distants, qui changent sur le site en cours d'exécution sans déploiement. L'éditeur convient au contenu appartenant aux développeurs ; le CMS convient au contenu appartenant à une équipe marketing.
+
+</Question>
+
+<Question title="Quel poids l'i18n ajoute-t-elle à la taille de mon bundle ?">
+
+Bien moins qu'une configuration basée sur des espaces de noms, car une page ne télécharge jamais un catalogue qu'elle n'affiche pas. Le balisage rendu côté serveur résout son contenu sur le serveur, et le compilateur au moment du build remplace les appels `useIntlayer` par les entrées de dictionnaire exactes qu'un composant utilise, si bien que les clés inutilisées et les langues inutilisées sont éliminées. Les [dictionnaires dynamiques](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dynamic_dictionaries/index.md) répartissent le reste par locale. Mesuré face aux alternatives habituelles, Intlayer réduit la taille du bundle et des pages jusqu'à 50 %. Voir l'[optimisation du bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/bundle_optimization.md) et le [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/benchmark/index.md).
+
+</Question>
+
+<Question title="Puis-je migrer depuis `i18next`, `next-intl` ou `react-i18next` sans réécrire mes composants ?">
+
+Oui, et il existe deux voies. Vous pouvez migrer le contenu progressivement avec le [guide de migration i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/migration_from_i18next_to_intlayer.md) ou le [guide de migration next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/migration_from_next-intl_to_intlayer.md). Ou vous pouvez conserver entièrement votre API actuelle : les [adaptateurs de compatibilité](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compat/index.md) exposent exactement la même API que `i18next`, `react-i18next`, `next-intl`, `next-i18next`, `react-intl`, `use-intl`, `vue-i18n` et `Lingui`, mais servie par des dictionnaires Intlayer : seuls les imports changent, pas le code des composants.
+
+</Question>
+
+<Question title="Puis-je conserver mes fichiers de traduction JSON existants ?">
+
+Oui. Le [plugin de synchronisation JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/plugins/sync-json.md) conserve vos fichiers `/messages/{locale}/{namespace}.json` comme source de vérité et génère les dictionnaires Intlayer à partir d'eux, dans les deux sens. Un [plugin de synchronisation PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/plugins/sync-po.md) fait de même pour les catalogues gettext, et les [fichiers par locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/per_locale_file.md) permettent de séparer le contenu par langue au lieu de regrouper les locales dans un seul fichier.
+
+</Question>
+
+<Question title="Dois-je déplacer mon contenu clé par clé ?">
+
+Non. Lancez `npx intlayer extract` et Intlayer lit vos fichiers source, en extrait les chaînes destinées aux utilisateurs et écrit un fichier `.content` à côté de chacun, de sorte que vous relisez un diff plutôt que de copier des chaînes dans un catalogue une par une. Voir la [commande extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/cli/extract.md).
+
+Pour un pipeline entièrement automatisé, le [compilateur Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compiler.md) fait la même chose au moment du build sur du code source JSX, TSX, Vue et Svelte, en générant les dictionnaires à chaque changement, de sorte qu'il n'y a aucune clé à maintenir à la main. Il fonctionne par analyse statique : les chaînes qui n'existent qu'à l'exécution restent hors de portée, et il a besoin de quelques annotations pour distinguer le texte destiné aux utilisateurs de la logique applicative.
+
+</Question>
+
+<Question title="Quels outils d'éditeur et d'agent IA sont disponibles ?">
+
+Cinq éléments, tous optionnels :
+
+- **[Extension VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/vs_code_extension.md)** : passez d'une clé `useIntlayer` au fichier de contenu qui la déclare, extrayez du contenu depuis un composant, et lancez build, fill, test, push et pull depuis la palette de commandes ou un onglet Intlayer dédié.
+- **[Serveur LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/lsp.md)** : la même connaissance dans tout éditeur qui parle LSP, avec aller à la définition, rechercher toutes les références, aperçus au survol d'une valeur traduite, autocomplétion des clés et des champs, et un avertissement lorsqu'une clé n'est déclarée nulle part. Il résout aussi les appels `i18next`, `react-i18next`, `next-intl` et `use-intl`, ce qui aide pendant la migration.
+- **[Serveur MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/mcp_server.md)** : expose la documentation et la CLI d'Intlayer à Cursor, VS Code, Claude Desktop, Claude Code et ChatGPT, afin qu'un assistant réponde à partir de la documentation actuelle au lieu de deviner, et puisse exécuter lui-même des commandes telles que `intlayer fill`.
+- **[Compétences d'agent](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/agent_skills.md)** : des compétences ciblées telles que `intlayer-config`, `intlayer-cli` et `intlayer-content`, plus une par framework, qui apprennent à un agent votre configuration de routage et les types de nœuds de contenu.
+- **[Plugin ESLint](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/eslint.md)** : `no-raw-text` signale les chaînes codées en dur, avec d'autres règles pour les clés de dictionnaire statiques et le contenu inutilisé.
+
+</Question>
+
+<Question title="Où s'exécute l'éditeur visuel ?">
+
+Sur votre propre infrastructure. Il charge votre application dans une iframe et communique avec un serveur d'édition local, si bien que votre contenu ne quitte jamais votre environnement. C'est ce qui le rend utilisable pour des projets qui ne peuvent pas envoyer de texte à un service hébergé.
+
+</Question>
+
+<Question title="Les éditeurs doivent-ils savoir coder ?">
+
+Non. Ils ouvrent le site, cliquent sur un morceau de texte et le modifient sur place. L'éditeur résout quelle entrée de dictionnaire sous-tend ce texte et écrit le changement dans le bon fichier de contenu, si bien qu'un traducteur n'a pas besoin de trouver le fichier ni de connaître la clé.
+
+</Question>
+
+<Question title="Modifier via l'éditeur visuel change-t-il mes fichiers source ?">
+
+Oui, c'est l'intention. Le changement arrive dans le fichier de déclaration de contenu de votre base de code, il apparaît donc comme un diff normal que vous pouvez relire et valider, et l'application se reconstruit pour l'afficher.
+
+</Question>
+
+<Question title="L'éditeur affiche une page blanche ou refuse de charger mon site. Que dois-je vérifier ?">
+
+L'éditeur affiche votre application dans une iframe, votre Content Security Policy doit donc autoriser l'origine de l'éditeur comme `frame-ancestors`, c'est-à-dire `http://localhost:8000` par défaut. Vérifiez aussi que l'`applicationURL` de votre configuration d'éditeur correspond à l'URL depuis laquelle votre application est réellement servie. La console de l'éditeur signale les deux échecs.
+
+</Question>
+
+<Question title="Puis-je utiliser l'éditeur visuel en production ?">
+
+Il est conçu pour le développement et la préproduction, où une reconstruction après une modification est acceptable. Pour modifier du contenu sur un site en direct sans déploiement, utilisez plutôt le [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md) et ses dictionnaires distants.
+
+</Question>
+
+<Question title="L'éditeur visuel est-il gratuit ?">
+
+Oui. L'éditeur visuel fait partie du projet open source, sous licence Apache 2.0, usage commercial inclus. Seul le [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md) hébergé est un service payant, et il peut aussi être [auto-hébergé](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/self_hosting.md).
+
+</Question>
+
+</FAQ>

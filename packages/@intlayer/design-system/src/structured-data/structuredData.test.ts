@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
-import { buildOrganizationJsonLd } from './buildOrganizationJsonLd';
 import { buildCreativeWorkJsonLd } from './buildCreativeWorkJsonLd';
+import { buildItemListJsonLd } from './buildItemListJsonLd';
+import { buildOrganizationJsonLd } from './buildOrganizationJsonLd';
 import { buildSoftwareApplicationJsonLd } from './buildSoftwareApplicationJsonLd';
 import { buildWebsiteJsonLd } from './buildWebsiteJsonLd';
 import { normalizeJsonLdUrl } from './normalizeJsonLdUrl';
@@ -112,7 +113,6 @@ describe('buildSoftwareApplicationJsonLd', () => {
     expect(aggregateRating.reviewCount).toBe(8);
   });
 
-  
   // Call sites concatenate `Website_Home` (which ends with a slash) with a
   // leading-slash path, so the builder receives doubled slashes.
   it('collapses doubled slashes in every emitted URL', () => {
@@ -256,5 +256,29 @@ describe('buildCreativeWorkJsonLd', () => {
 
     expect(datePublished).toBeUndefined();
     expect(dateModified).toBeUndefined();
+  });
+});
+
+describe('buildItemListJsonLd', () => {
+  const items = [
+    { name: 'Bundle size', description: 'Load only the content a page uses.' },
+    { name: 'Maintainability', description: 'Scope the content per feature.' },
+  ];
+
+  it('numbers the entries in the order they are given', () => {
+    const { itemListElement, numberOfItems } = buildItemListJsonLd({ items });
+
+    expect(numberOfItems).toBe(items.length);
+    expect(itemListElement).toEqual([
+      { '@type': 'ListItem', position: 1, ...items[0] },
+      { '@type': 'ListItem', position: 2, ...items[1] },
+    ]);
+  });
+
+  it('omits the list name rather than declaring it empty', () => {
+    expect(buildItemListJsonLd({ items })).not.toHaveProperty('name');
+    expect(buildItemListJsonLd({ items, name: 'Why Intlayer' }).name).toBe(
+      'Why Intlayer'
+    );
   });
 });

@@ -16,6 +16,11 @@ export {
   type FAQItem,
 } from './buildFAQPageJsonLd';
 export {
+  type BuildItemListJsonLdParams,
+  buildItemListJsonLd,
+  type ItemListEntry,
+} from './buildItemListJsonLd';
+export {
   type BuildOrganizationJsonLdParams,
   buildOrganizationJsonLd,
 } from './buildOrganizationJsonLd';

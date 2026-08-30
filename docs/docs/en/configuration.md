@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-08-22
+updatedAt: 2026-08-29
 title: Configuration
 description: Learn how to configure Intlayer for your application. Understand the various settings and options available to customize Intlayer to your needs.
 keywords:
@@ -1128,3 +1128,101 @@ Settings that control the Intlayer compiler, which extracts dictionaries straigh
 | Field     | Description                           | Type               |
 | --------- | ------------------------------------- | ------------------ |
 | `plugins` | Liste des plugins Intlayer à activer. | `IntlayerPlugin[]` |
+
+## Frequently Asked Questions
+
+<FAQ>
+
+<Question title="Where should the intlayer.config.ts file live?">
+
+At the root of your project, next to `package.json`. Intlayer also accepts `intlayer.config.js`, `intlayer.config.mjs`, `intlayer.config.cjs` and JSON, so the file matches whichever module system your project uses.
+
+</Question>
+
+<Question title="How much does i18n add to my bundle size?">
+
+Much less than a namespace based setup, because a page never downloads a catalog it does not render. Server rendered markup resolves its content on the server, and the build time compiler replaces `useIntlayer` calls with the exact dictionary entries a component uses, so unused keys and unused languages are dropped. [Dynamic dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dynamic_dictionaries/index.md) split the rest per locale. Measured against the usual alternatives, Intlayer reduces bundle and page size by up to 50%. See [bundle optimization](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/bundle_optimization.md) and the [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/index.md).
+
+</Question>
+
+<Question title="Can I migrate from `i18next`, `next-intl` or `react-i18next` without rewriting my components?">
+
+Yes, and there are two paths. You can migrate the content progressively with the [i18next migration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/migration_from_i18next_to_intlayer.md) or the [next-intl migration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/migration_from_next-intl_to_intlayer.md). Or you can keep your current API entirely: the [compat adapters](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/index.md) expose the exact same API as `i18next`, `react-i18next`, `next-intl`, `next-i18next`, `react-intl`, `use-intl`, `vue-i18n` and `Lingui`, but served by Intlayer dictionaries, so imports change and component code does not.
+
+</Question>
+
+<Question title="Can I keep my existing JSON translation files?">
+
+Yes. The [sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/plugins/sync-json.md) keeps your `/messages/{locale}/{namespace}.json` files as the source of truth and generates Intlayer dictionaries from them, in both directions. A [sync PO plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/plugins/sync-po.md) does the same for gettext catalogs, and [per locale files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/per_locale_file.md) let you split content by language instead of grouping locales in one file.
+
+</Question>
+
+<Question title="Do I have to move my content key by key?">
+
+No. Run `npx intlayer extract` and Intlayer reads your source files, pulls the user facing strings out and writes a `.content` file next to each one, so you review a diff instead of copying strings into a catalog one at a time. See the [extract command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/extract.md).
+
+For a fully automated pipeline, the [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compiler.md) does the same at build time on JSX, TSX, Vue and Svelte source, generating the dictionaries on every change so there are no keys to maintain by hand. It works by static analysis, so strings that only exist at runtime stay out of reach, and it needs a few annotations to tell user facing text apart from application logic.
+
+</Question>
+
+<Question title="What editor and AI agent tooling is available?">
+
+Five pieces, all optional:
+
+- **[VS Code extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md)**: jump from a `useIntlayer` key to the content file that declares it, extract content from a component, and run build, fill, test, push and pull from the command palette or a dedicated Intlayer tab.
+- **[LSP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**: the same awareness in any editor that speaks LSP, with go to definition, find all references, hover previews of a translated value, autocompletion of keys and fields, and a warning when a key is not declared anywhere. It also resolves `i18next`, `react-i18next`, `next-intl` and `use-intl` calls, which helps while you migrate.
+- **[MCP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**: exposes the Intlayer documentation and CLI to Cursor, VS Code, Claude Desktop, Claude Code and ChatGPT, so an assistant answers from current docs instead of guessing, and can run commands such as `intlayer fill` itself.
+- **[Agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**: focused skills such as `intlayer-config`, `intlayer-cli` and `intlayer-content`, plus one per framework, that teach an agent your routing setup and the content node types.
+- **[ESLint plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/eslint.md)**: `no-raw-text` flags hardcoded strings, with further rules for static dictionary keys and unused content.
+
+</Question>
+
+<Question title="How do I add a new language to my app?">
+
+Add the locale to `internationalization.locales`, then run `npx intlayer fill` to translate the existing content into it. The generated types update at the same time, so any content file missing the new locale becomes a type error rather than a silent fallback.
+
+</Question>
+
+<Question title="How do I remove the locale prefix from my URLs?">
+
+Set `routing.mode`. The default `"prefix-no-default"` gives `/about` for the default locale and `/fr/about` for the others. `"prefix-all"` prefixes every locale. `"no-prefix"` keeps the locale out of the path entirely and resolves it from a cookie, a header or a domain. `"search-params"` puts it in the query string as `/about?locale=fr`.
+
+</Question>
+
+<Question title="Can I serve each language from its own domain?">
+
+Yes. `routing.domains` maps a locale to a hostname, for example `{ fr: 'example.fr', en: 'example.com' }`. The domain identifies the locale, so no prefix is added to the path, and `getLocalizedUrl` returns an absolute URL on the right domain.
+
+</Question>
+
+<Question title="How is the user's language detected?">
+
+Through `routing.storage`, which lists the sources to read in order, typically the URL, then a cookie, then the `Accept-Language` header. An explicit choice by the user is persisted so it wins on the next visit.
+
+</Question>
+
+<Question title="What does routing.enableProxy do?">
+
+It controls the locale routing proxy, the middleware that resolves prefixes and redirects. Left unset, the proxy runs but development and preview servers ignore the stored locale as a redirect source, which avoids being bounced to a language you are not testing; production behaves as if it were `true`. Set it to `false` to handle locale routing yourself.
+
+</Question>
+
+<Question title="What is the difference between importMode static, dynamic and fetch?">
+
+`"static"`, the default, imports dictionaries statically so they are bundled and read synchronously. `"dynamic"` imports them through Suspense, so a locale is downloaded only when a component renders it, which is what you want for large content sets. `"fetch"` retrieves them from the live sync API and falls back to `"dynamic"` on failure. See [bundle optimization](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/bundle_optimization.md) and [dynamic dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dynamic_dictionaries/index.md).
+
+</Question>
+
+<Question title="Where do I set the AI provider and API key for automatic translation?">
+
+Either in the configuration file or on the command line with `--provider`, `--model` and `--api-key`. The key stays yours: the translation calls go from your machine or your CI runner to the provider you chose, so nothing is routed through a third party. See the [fill command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/fill.md).
+
+</Question>
+
+<Question title="Do I need to restart the dev server after changing the configuration?">
+
+Usually not. The Intlayer watcher watches `intlayer.config.ts` itself: on save it reloads the configuration and prepares the dictionaries again, so adding a locale or changing a routing mode is picked up like a content change. However the config may by cached by the systems. Restarting your app may be a good solution.
+
+</Question>
+
+</FAQ>

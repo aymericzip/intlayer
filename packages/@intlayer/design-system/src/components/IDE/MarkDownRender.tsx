@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import { MarkdownRenderer as MarkdownRendererIntlayer } from 'react-intlayer';
+import { MarkdownRenderer as MarkdownRendererIntlayer } from 'react-intlayer/markdown';
 import { Code } from './Code';
 import type { CodeLanguage } from './shikiLanguages';
 

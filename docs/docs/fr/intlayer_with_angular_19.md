@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-05-31
+updatedAt: 2026-08-29
 title: "Angular 19 i18n - Guide complet pour traduire votre application"
 description: "Oubliez i18next. Le guide 2026 pour créer une application Angular 19 multilingue (i18n). Traduisez avec des agents IA et optimisez la taille du bundle, le SEO et les performances."
 keywords:
@@ -457,3 +457,111 @@ Pour plus de détails sur l'utilisation de l'extension, reportez-vous à la [doc
 Pour aller plus loin, vous pouvez implémenter l'[éditeur visuel](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) ou externaliser votre contenu en utilisant le [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md).
 
 ---
+
+## Questions fréquentes
+
+<FAQ>
+
+<Question title="Quelles sont les différentes solutions pour internationaliser une application Angular 19 ?">
+
+- **`@angular/localize`**, l'i18n intégrée : les messages sont extraits au format XLIFF et chaque locale est compilée dans son propre build, ce qui signifie un artefact de déploiement par langue et aucun changement de locale à l'exécution.
+- **`ngx-translate`** et **`Transloco`** : catalogues JSON d'exécution chargés via un service, avec changement de locale mais sans typage au moment du build.
+- **`Intlayer`** : contenu déclaré à côté de chaque composant et compilé au moment du build, entièrement typé, avec changement de locale à l'exécution, traduction par IA, un éditeur visuel et un CMS.
+
+Ce guide couvre Angular 19. Pour Angular 21 et versions ultérieures, suivez le [guide Angular](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_angular_21.md). Voir [pourquoi Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/interest_of_intlayer.md).
+
+</Question>
+
+<Question title="Quel poids l'i18n ajoute-t-elle à la taille de mon bundle Angular ?">
+
+Bien moins qu'une configuration basée sur des espaces de noms, car une page ne télécharge jamais un catalogue qu'elle n'affiche pas. Le compilateur au moment du build remplace les appels `useIntlayer` par les entrées de dictionnaire exactes qu'un composant utilise, si bien que les clés inutilisées et les langues inutilisées sont éliminées, et les [dictionnaires dynamiques](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dynamic_dictionaries/index.md) répartissent le reste par locale. Mesuré face aux alternatives habituelles, Intlayer réduit la taille du bundle et des pages jusqu'à 50 %. Voir l'[optimisation du bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/bundle_optimization.md) et le [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/benchmark/index.md).
+
+</Question>
+
+<Question title="Puis-je migrer depuis `ngx-translate`, `Transloco` ou `@angular/localize` sans réécrire mes templates ?">
+
+En grande partie. Suivez le [guide de migration ngx-translate](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compat/ngx-translate.md) ou le [guide de migration Transloco](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compat/transloco.md) pour transférer le contenu. Vous pouvez aussi migrer progressivement : le [plugin de synchronisation JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/plugins/sync-json.md) conserve vos catalogues JSON existants comme source de vérité et génère les dictionnaires Intlayer à partir d'eux, si bien que les deux couches restent synchronisées pendant que vous déplacez les templates un par un.
+
+</Question>
+
+<Question title="Puis-je conserver mes fichiers de traduction JSON existants ?">
+
+Oui. Le [plugin de synchronisation JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/plugins/sync-json.md) conserve vos fichiers `/messages/{locale}/{namespace}.json` comme source de vérité et génère les dictionnaires Intlayer à partir d'eux, dans les deux sens. Un [plugin de synchronisation PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/plugins/sync-po.md) fait de même pour les catalogues gettext, et les [fichiers par locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/per_locale_file.md) permettent de séparer le contenu par langue au lieu de regrouper les locales dans un seul fichier.
+
+</Question>
+
+<Question title="Dois-je déplacer mon contenu clé par clé ?">
+
+Non. Lancez `npx intlayer extract` et Intlayer lit vos fichiers source, en extrait les chaînes destinées aux utilisateurs et écrit un fichier `.content` à côté de chacun, de sorte que vous relisez un diff plutôt que de copier des chaînes dans un catalogue une par une. Voir la [commande extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/cli/extract.md).
+
+Pour un pipeline entièrement automatisé, le [compilateur Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compiler.md) fait la même chose au moment du build sur du code source JSX, TSX, Vue et Svelte, en générant les dictionnaires à chaque changement, de sorte qu'il n'y a aucune clé à maintenir à la main. Il fonctionne par analyse statique : les chaînes qui n'existent qu'à l'exécution restent hors de portée, et il a besoin de quelques annotations pour distinguer le texte destiné aux utilisateurs de la logique applicative.
+
+</Question>
+
+<Question title="Quels outils d'éditeur et d'agent IA sont disponibles ?">
+
+Cinq éléments, tous optionnels :
+
+- **[Extension VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/vs_code_extension.md)** : passez d'une clé `useIntlayer` au fichier de contenu qui la déclare, extrayez du contenu depuis un composant, et lancez build, fill, test, push et pull depuis la palette de commandes ou un onglet Intlayer dédié.
+- **[Serveur LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/lsp.md)** : la même connaissance dans tout éditeur qui parle LSP, avec aller à la définition, rechercher toutes les références, aperçus au survol d'une valeur traduite, autocomplétion des clés et des champs, et un avertissement lorsqu'une clé n'est déclarée nulle part. Il résout aussi les appels `i18next`, `react-i18next`, `next-intl` et `use-intl`, ce qui aide pendant la migration.
+- **[Serveur MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/mcp_server.md)** : expose la documentation et la CLI d'Intlayer à Cursor, VS Code, Claude Desktop, Claude Code et ChatGPT, afin qu'un assistant réponde à partir de la documentation actuelle au lieu de deviner, et puisse exécuter lui-même des commandes telles que `intlayer fill`.
+- **[Compétences d'agent](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/agent_skills.md)** : des compétences ciblées telles que `intlayer-config`, `intlayer-cli` et `intlayer-content`, plus une par framework, qui apprennent à un agent votre configuration de routage et les types de nœuds de contenu.
+- **[Plugin ESLint](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/eslint.md)** : `no-raw-text` signale les chaînes codées en dur, avec d'autres règles pour les clés de dictionnaire statiques et le contenu inutilisé.
+
+</Question>
+
+<Question title="Ai-je besoin d'un build par langue ?">
+
+Non. C'est le modèle de `@angular/localize`, où chaque locale est compilée dans son propre bundle et déployée séparément. Avec Intlayer, un seul build sert toutes les locales déclarées, et la langue active est résolue à l'exécution à partir de l'URL, d'un cookie ou de l'en-tête `Accept-Language`.
+
+</Question>
+
+<Question title="Intlayer prend-il en charge les signals Angular et les composants standalone ?">
+
+Oui. Le contenu est exposé via des signals, si bien qu'un template se réaffiche lorsque la locale change sans rechargement de page, et le provider est enregistré comme n'importe quel autre provider standalone.
+
+</Question>
+
+<Question title="Comment changer la langue à l'exécution ?">
+
+L'étape 6 le couvre. `useLocale` expose la locale active, les locales déclarées et un setter qui persiste le choix, et `getLocalizedUrl` réécrit le chemin actuel afin que l'utilisateur reste sur la même route après le changement.
+
+</Question>
+
+<Question title="Cela fonctionne-t-il avec le rendu côté serveur d'Angular Universal ?">
+
+Oui. La locale est résolue sur le serveur à partir de l'URL ou des en-têtes de la requête et transmise au provider, si bien que le HTML rendu côté serveur est déjà dans la bonne langue et que le client s'hydrate sans changer de langue.
+
+</Question>
+
+<Question title="Comment traduire l'application automatiquement avec l'IA ?">
+
+Lancez `npx intlayer fill`. Il remplit les traductions manquantes avec le LLM de votre choix, en utilisant votre propre fournisseur et votre clé d'API, et `--git-diff` limite l'exécution au contenu modifié sur la branche. Voir la [commande fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/cli/fill.md) et l'[intégration CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/CI_CD.md).
+
+</Question>
+
+<Question title="Intlayer prend-il en charge les pluriels, le genre et le texte enrichi ?">
+
+Oui : les [formes plurielles](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/plurial.md), le [contenu basé sur le genre](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/gender.md), les conditions, les [insertions](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/insertion.md), le [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/markdown.md) et les [formateurs](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/formatters.md) pour les nombres, les dates et les devises.
+
+</Question>
+
+<Question title="Comment détecter les traductions manquantes avant la mise en production ?">
+
+Lancez `npx intlayer test` en CI. Il fait échouer le build lorsqu'une locale déclarée manque de contenu. L'[extension VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/vs_code_extension.md) signale les mêmes erreurs pendant que vous tapez. Voir [tester votre contenu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/testing.md).
+
+</Question>
+
+<Question title="Comment les traducteurs peuvent-ils modifier le contenu sans toucher au code ?">
+
+Via l'[éditeur visuel](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md), qui tourne sur votre propre infrastructure et permet à quiconque de modifier le texte sur place sur l'application en cours d'exécution, ou le [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md), qui externalise le contenu afin qu'il puisse changer sans déploiement.
+
+</Question>
+
+<Question title="Intlayer est-il gratuit et open source ?">
+
+Oui, sous licence Apache 2.0, usage commercial inclus. Le CMS hébergé est un service payant optionnel qui peut aussi être [auto-hébergé](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/self_hosting.md).
+
+</Question>
+
+</FAQ>

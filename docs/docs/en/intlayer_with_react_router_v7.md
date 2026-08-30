@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-04
-updatedAt: 2026-05-31
+updatedAt: 2026-08-29
 title: "React Router v7 i18n - Complete guide to translate your app"
 description: "No more i18next. The 2026 guide to building a multilingual (i18n) React Router v7 app. Translate with AI agents and optimize bundle size, SEO and performances."
 keywords:
@@ -771,3 +771,115 @@ To go further, you can implement the [visual editor](https://github.com/aymericz
 - [Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md)
 
 This comprehensive guide provides everything you need to integrate Intlayer with React Router v7 for a fully internationalized application with locale-aware routing and TypeScript support.
+
+## Frequently Asked Questions
+
+<FAQ>
+
+<Question title="What are the different solutions available to internationalize a React Router v7 app?">
+
+React Router v7 ships no message layer, so you pair it with an i18n library:
+
+- **`react-i18next` / `i18next`**: JSON namespaces loaded at runtime, with a separate locale detector to wire into the router.
+- **`react-intl`** and **`Lingui`**: ICU messages with an extraction step.
+- **`Intlayer`**: the most advanced solution. Content declared anywhere in your codebase ([next to each component or centralized](https://intlayer.org/blog/per-component-vs-centralized-i18n)), compiled at build time, typed end to end, with locale aware routing helpers, AI translation, a visual editor and a CMS.
+
+See [why Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/interest_of_intlayer.md) and the [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/index.md).
+
+</Question>
+
+<Question title="How much does i18n add to my React Router bundle size?">
+
+Much less than a namespace based setup, because a page never downloads a catalog it does not render. Server rendered markup resolves its content on the server, and the build time compiler replaces `useIntlayer` calls with the exact dictionary entries a component uses, so unused keys and unused languages are dropped, and [dynamic dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dynamic_dictionaries/index.md) split the rest per locale. Measured against the usual alternatives, Intlayer reduces bundle and page size by up to 50%. See [bundle optimization](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/bundle_optimization.md) and the [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/index.md).
+
+</Question>
+
+<Question title="Can I migrate from `react-i18next` or `react-intl` without rewriting my components?">
+
+Yes, and there are two paths. You can migrate the content progressively with the [react-i18next migration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/migration_from_react-i18next_to_intlayer.md) or the [i18next migration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/migration_from_i18next_to_intlayer.md). Or you can keep your current API entirely: the [compat adapters](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/index.md) expose the exact same API as `react-i18next`, `react-intl` and `i18next`, but served by Intlayer dictionaries, so imports change and component code does not.
+
+</Question>
+
+<Question title="Can I keep my existing JSON translation files?">
+
+Yes. The [sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/plugins/sync-json.md) keeps your `/messages/{locale}/{namespace}.json` files as the source of truth and generates Intlayer dictionaries from them, in both directions. A [sync PO plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/plugins/sync-po.md) does the same for gettext catalogs, and [per locale files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/per_locale_file.md) let you split content by language instead of grouping locales in one file.
+
+</Question>
+
+<Question title="Do I have to move my content key by key?">
+
+No. Run `npx intlayer extract` and Intlayer reads your components, pulls the user facing strings out and writes a `.content` file next to each one, so you review a diff instead of copying strings into a catalog one at a time. Step 12 of this guide walks through it.
+
+For a fully automated pipeline, the [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compiler.md) does the same at build time: it scans your JSX, TSX, Vue and Svelte source on every change, generates the dictionaries and keeps them in sync through hot module replacement, so there are no keys to maintain by hand at all.
+
+Two limits are worth knowing before you turn the compiler on. It works by static analysis, so strings that only exist at runtime, such as API error codes or CMS fields, stay out of reach. And it has to tell user facing text apart from application logic like `className="active"` or a status code, which needs a few annotations in a large codebase. The [extract command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/extract.md) avoids both by keeping you in the loop.
+
+</Question>
+
+<Question title="What editor and AI agent tooling is available?">
+
+Five pieces, all optional:
+
+- **[VS Code extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md)**: jump from a `useIntlayer` key to the content file that declares it, extract content from a component, and run build, fill, test, push and pull from the command palette or a dedicated Intlayer tab.
+- **[LSP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**: the same awareness in any editor that speaks LSP, with go to definition, find all references, hover previews of a translated value, autocompletion of keys and fields, and a warning when a key is not declared anywhere. It also resolves `i18next`, `react-i18next`, `next-intl` and `use-intl` calls, which helps while you migrate.
+- **[MCP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**: exposes the Intlayer documentation and CLI to Cursor, VS Code, Claude Desktop, Claude Code and ChatGPT, so an assistant answers from current docs instead of guessing, and can run commands such as `intlayer fill` itself.
+- **[Agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**: focused skills such as `intlayer-config`, `intlayer-cli` and `intlayer-content`, plus one per framework, that teach an agent your routing setup and the content node types.
+- **[ESLint plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/eslint.md)**: `no-raw-text` flags hardcoded strings, with further rules for static dictionary keys and unused content.
+
+</Question>
+
+<Question title="How do I add a locale segment to my routes?">
+
+Declare a `:locale` segment on your route tree and let Intlayer resolve it. `validatePrefix` tells you whether the segment is a declared locale, so an unknown prefix returns a 404 instead of rendering a duplicate page, and `getLocalizedUrl` rewrites any path into the target language. If you use file system routes, follow the [file system routes variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_react_router_v7_fs_routes.md) of this guide.
+
+</Question>
+
+<Question title="Do I have to put the locale in the URL?">
+
+No. `routing.mode` accepts `"prefix-no-default"` (the default), `"prefix-all"`, `"no-prefix"` and `"search-params"`, and `routing.domains` maps a locale to its own domain. The locale is persisted in a cookie either way. See the [configuration reference](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md).
+
+</Question>
+
+<Question title="Does it work with React Router in framework mode, with SSR and loaders?">
+
+Yes. Content resolves during server rendering, and the active locale is available in loaders and actions, so server data can be localized in the same pass as the page. Client navigation keeps the locale without a full reload.
+
+</Question>
+
+<Question title="How do I add hreflang tags for SEO?">
+
+Build the alternates map with `getMultilingualUrls` and emit it from your route `meta` or `links` export, including an `x-default` entry. The same helper feeds a localized `sitemap.xml`.
+
+</Question>
+
+<Question title="How do I build a language switcher that stays on the current page?">
+
+Use `useLocale` for the active and available locales, and `getLocalizedUrl` to translate the current path into the target locale. The user stays on the same route instead of being sent back to the home page, which also avoids losing scroll position and query parameters.
+
+</Question>
+
+<Question title="How do I translate the app automatically with AI?">
+
+Run `npx intlayer fill`, which fills missing translations with the LLM of your choice using your own provider and API key. See the [fill command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/fill.md) and [CI/CD integration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/CI_CD.md).
+
+</Question>
+
+<Question title="Does Intlayer support plurals, gender and rich text?">
+
+Yes: [plural forms](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/plurial.md), [gender based content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/gender.md), conditions, [insertions](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/insertion.md), [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/markdown.md), and [formatters](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/formatters.md) for numbers, dates and currencies.
+
+</Question>
+
+<Question title="How can translators edit the content without touching the code?">
+
+Through the self hosted [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) or the [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md), which externalizes content so it can change without a deployment.
+
+</Question>
+
+<Question title="Is Intlayer free and open source?">
+
+Yes, under the Apache 2.0 license, commercial use included. The hosted CMS is an optional paid service that can also be [self hosted](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/self_hosting.md).
+
+</Question>
+
+</FAQ>
