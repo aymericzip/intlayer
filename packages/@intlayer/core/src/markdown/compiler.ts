@@ -142,31 +142,53 @@ const getClosingTagRegex = (tag: string): RegExp => {
   return regex;
 };
 
-const getTag = (tag: any, components: ComponentDefinition<any>): any => {
-  if (typeof tag !== 'string') return tag;
-  let override = get(components, tag);
+/**
+ * Builds a tag -> component resolver for one set of overrides.
+ *
+ * The case-insensitive fallback used to rescan every override key on each
+ * element created; the lowercase index is now built once per document instead.
+ */
+const createTagResolver = (components: ComponentDefinition<any>) => {
+  let lowercaseKeys: Map<string, string> | null = null;
 
-  if (!override && typeof tag === 'string') {
-    const lowercaseTag = tag.toLowerCase();
-    // Try case-insensitive lookup
-    const key = Object.keys(components).find(
-      (k) => k.toLowerCase() === lowercaseTag
-    );
-    if (key) {
-      override = get(components, key);
+  return (tag: any): any => {
+    if (typeof tag !== 'string') return tag;
+
+    const override = get(components, tag);
+
+    if (override) return override;
+
+    if (!lowercaseKeys) {
+      lowercaseKeys = new Map();
+
+      // Later keys win, matching `Array.prototype.find` on `Object.keys`
+      // only when they are unique — so the first key of a given lowercase
+      // form is kept, as before.
+      for (const key of Object.keys(components)) {
+        const lowercased = key.toLowerCase();
+
+        if (!lowercaseKeys.has(lowercased)) lowercaseKeys.set(lowercased, key);
+      }
     }
-  }
 
-  if (!override) return tag;
+    const key = lowercaseKeys.get(tag.toLowerCase());
 
-  return override;
+    return (key ? get(components, key) : undefined) || tag;
+  };
 };
+
+/** Resolves the slugifier for a context, falling back to the built-in one. */
+const createSlugger =
+  (ctx: MarkdownContext<any>) =>
+  (input: string): string =>
+    ctx.slugify ? ctx.slugify(input, defaultSlugify) : defaultSlugify(input);
 
 const createElementFactory = (
   ctx: MarkdownContext<any>,
   options: MarkdownOptions
 ): CreateElementFunction => {
   const { runtime, components = {} } = ctx;
+  const resolveTag = createTagResolver(components);
   const filteredTags = options.tagfilter
     ? [
         'title',
@@ -223,7 +245,7 @@ const createElementFactory = (
 
     if (runtime.normalizeProps && isStringTag)
       finalProps = runtime.normalizeProps(tag as string, mergedProps);
-    const component = getTag(tag, components);
+    const component = resolveTag(tag);
 
     return runtime.createElement(
       component,
@@ -243,19 +265,7 @@ const createRules = (
   containsBlockSyntax: (input: string) => boolean,
   nonParagraphBlockSyntaxes: RegExp[]
 ): Rules => {
-  const slug = (input: string) => {
-    if (process.env.NODE_ENV === 'test' && input === '中文') {
-      const def = defaultSlugify(input);
-      console.log('Slug check:', {
-        input,
-        ctxSlugify: !!ctx.slugify,
-        defaultSlugifyResult: def,
-      });
-    }
-    return ctx.slugify
-      ? ctx.slugify(input, defaultSlugify)
-      : defaultSlugify(input);
-  };
+  const slug = createSlugger(ctx);
   const sanitize = ctx.sanitizer ?? defaultSanitizer;
   const namedCodesToUnicode = ctx.namedCodesToUnicode
     ? { ...NAMED_CODES_TO_UNICODE, ...ctx.namedCodesToUnicode }
@@ -734,16 +744,6 @@ const createRules = (
       },
       _render(node, output, state = {}) {
         const sanitizedHref = sanitize(node.target, 'a', 'href');
-        if (
-          process.env.NODE_ENV === 'test' &&
-          node.target.includes('javascript:')
-        ) {
-          console.log('Compiler sanitize result:', {
-            target: node.target,
-            sanitizedHref,
-            finalHref: sanitizedHref ?? undefined,
-          });
-        }
         return createElement(
           'a',
           {
@@ -1061,15 +1061,26 @@ export type ParsedMarkdown = {
   inline: boolean;
 };
 
-export const parseMarkdown = (
-  markdown: string = '',
-  ctx: MarkdownContext<any>,
-  options: MarkdownOptions = {}
-): ParsedMarkdown => {
-  const dummyCreateElement = () => null;
-  const footnotes: FootnoteDef[] = [];
-  const refs: MarkdownReferences = {};
+/**
+ * `createElement` is only ever reached from a rule's `_render`, so a parse-only
+ * caller can hand over this stub instead of building an element factory.
+ */
+const noopCreateElement: CreateElementFunction = () => null;
 
+/**
+ * Builds the rule set backing one document.
+ *
+ * Rules close over the document's footnote and reference tables, so they cannot
+ * be shared across documents — but a single document's parse and render phases
+ * can share one set, which is what `compile` does.
+ */
+const createDocumentRules = (
+  createElement: CreateElementFunction,
+  ctx: MarkdownContext<any>,
+  options: MarkdownOptions,
+  footnotes: FootnoteDef[],
+  refs: MarkdownReferences
+): Rules => {
   const attrStringToMap = (
     tag: HTMLTag,
     str: string
@@ -1152,7 +1163,7 @@ export const parseMarkdown = (
   };
 
   const baseRules = createRules(
-    dummyCreateElement,
+    createElement,
     ctx,
     options,
     footnotes,
@@ -1162,7 +1173,7 @@ export const parseMarkdown = (
     nonParagraphBlockSyntaxes
   );
 
-  const rules = options.disableParsingRawHTML
+  return options.disableParsingRawHTML
     ? Object.keys(baseRules).reduce((acc, key) => {
         if (key !== RuleType.htmlBlock && key !== RuleType.htmlSelfClosing) {
           acc[key] = baseRules[key];
@@ -1171,25 +1182,32 @@ export const parseMarkdown = (
         return acc;
       }, {} as Rules)
     : baseRules;
+};
 
+/** Runs the parse phase against an already-built rule set. */
+const parseWithRules = (
+  markdown: string,
+  options: MarkdownOptions,
+  rules: Rules,
+  footnotes: FootnoteDef[],
+  refs: MarkdownReferences
+): ParsedMarkdown => {
   const parser = parserFor(rules);
 
   const result = options.preserveFrontmatter
     ? markdown
     : markdown.replace(FRONT_MATTER_R, '');
+  // Stripped once and reused: both the block/inline decision and the block
+  // input below need the source without its leading newlines.
+  const trimmedStart = result.replace(TRIM_STARTING_NEWLINES, '');
   const inline =
     options.forceInline ||
     (!options.forceBlock &&
-      SHOULD_RENDER_AS_BLOCK_R.test(
-        result.replace(TRIM_STARTING_NEWLINES, '')
-      ) === false);
+      SHOULD_RENDER_AS_BLOCK_R.test(trimmedStart) === false);
 
-  const ast = parser(
-    inline
-      ? result
-      : `${trimEnd(result).replace(TRIM_STARTING_NEWLINES, '')}\n\n`,
-    { inline }
-  );
+  const ast = parser(inline ? result : `${trimEnd(trimmedStart)}\n\n`, {
+    inline,
+  });
 
   if (footnotes.length > 0) {
     // Parse footnotes content as well
@@ -1201,53 +1219,17 @@ export const parseMarkdown = (
   return { ast, footnotes, references: refs, inline };
 };
 
-export const renderMarkdownAst = (
+/** Runs the render phase against an already-built rule set. */
+const renderWithRules = (
   parsed: ParsedMarkdown,
   ctx: MarkdownContext<any>,
-  options: MarkdownOptions = {}
+  options: MarkdownOptions,
+  rules: Rules,
+  createElement: CreateElementFunction
 ): unknown => {
   const components = ctx.components ?? {};
-  const slug = (input: string) => {
-    if (process.env.NODE_ENV === 'test' && input === '中文') {
-      const def = defaultSlugify(input);
-      console.log('Slug check:', {
-        input,
-        ctxSlugify: !!ctx.slugify,
-        defaultSlugifyResult: def,
-      });
-    }
-    return ctx.slugify
-      ? ctx.slugify(input, defaultSlugify)
-      : defaultSlugify(input);
-  };
-  const createElement = createElementFactory(ctx, options);
+  const slug = createSlugger(ctx);
   const footnotes = parsed.footnotes || [];
-  const refs: MarkdownReferences = parsed.references ?? {};
-
-  const attrStringToMap = () => null; // Not needed during render
-  const containsBlockSyntax = () => false; // Not needed during render
-  const nonParagraphBlockSyntaxes: any[] = [];
-
-  const baseRules = createRules(
-    createElement,
-    ctx,
-    options,
-    footnotes,
-    refs,
-    attrStringToMap,
-    containsBlockSyntax,
-    nonParagraphBlockSyntaxes
-  );
-
-  const rules = options.disableParsingRawHTML
-    ? Object.keys(baseRules).reduce((acc, key) => {
-        if (key !== RuleType.htmlBlock && key !== RuleType.htmlSelfClosing) {
-          acc[key] = baseRules[key];
-        }
-
-        return acc;
-      }, {} as Rules)
-    : baseRules;
 
   const emitter = renderFor(createRenderer(rules, options.renderRule));
 
@@ -1321,6 +1303,41 @@ export const renderMarkdownAst = (
   return result;
 };
 
+export const parseMarkdown = (
+  markdown: string = '',
+  ctx: MarkdownContext<any>,
+  options: MarkdownOptions = {}
+): ParsedMarkdown => {
+  const footnotes: FootnoteDef[] = [];
+  const refs: MarkdownReferences = {};
+  const rules = createDocumentRules(
+    noopCreateElement,
+    ctx,
+    options,
+    footnotes,
+    refs
+  );
+
+  return parseWithRules(markdown, options, rules, footnotes, refs);
+};
+
+export const renderMarkdownAst = (
+  parsed: ParsedMarkdown,
+  ctx: MarkdownContext<any>,
+  options: MarkdownOptions = {}
+): unknown => {
+  const createElement = createElementFactory(ctx, options);
+  const rules = createDocumentRules(
+    createElement,
+    ctx,
+    options,
+    parsed.footnotes ?? [],
+    parsed.references ?? {}
+  );
+
+  return renderWithRules(parsed, ctx, options, rules, createElement);
+};
+
 export const compile = (
   markdown: string = '',
   ctx: MarkdownContext<any>,
@@ -1336,8 +1353,22 @@ export const compile = (
     throw new Error('intlayer: the first argument must be a string');
   }
 
-  const parsed = parseMarkdown(markdown, ctx, options);
-  return renderMarkdownAst(parsed, ctx, options);
+  // Both phases share one rule set: building it twice was the dominant cost
+  // when compiling the many short strings a typical dictionary holds.
+  const footnotes: FootnoteDef[] = [];
+  const refs: MarkdownReferences = {};
+  const createElement = createElementFactory(ctx, options);
+  const rules = createDocumentRules(
+    createElement,
+    ctx,
+    options,
+    footnotes,
+    refs
+  );
+
+  const parsed = parseWithRules(markdown, options, rules, footnotes, refs);
+
+  return renderWithRules(parsed, ctx, options, rules, createElement);
 };
 
 export const createCompiler =

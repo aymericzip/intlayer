@@ -8,18 +8,53 @@ import type {
 import { normalizeWhitespace, qualifies } from './utils';
 
 /**
- * A rule flattened into a plain object, resolved once at `parserFor` time so
- * the hot loop never re-reads properties off the rules record.
+ * Cached rule precedence, grouped by rule count.
+ *
+ * A rule's `_order` never varies, so the precedence a rule set sorts into is a
+ * pure function of which rules it holds. Rules themselves are rebuilt per
+ * document, so the cache is keyed by rule names rather than by object identity,
+ * and grouped by count to keep the comparison short.
  */
-type CompiledRule = {
-  type: string;
-  qualify: Rule<any>['_qualify'];
-  match: Rule<any>['_match'];
-  parse: Rule<any>['_parse'];
+type RuleOrderEntry = { names: string[]; order: string[] };
+
+const ruleOrderCache = new Map<number, RuleOrderEntry[]>();
+
+const sameNames = (a: string[], b: string[]): boolean => {
+  for (let i = 0; i < a.length; i++) {
+    if (a[i] !== b[i]) return false;
+  }
+
+  return true;
 };
 
-/** Rule precedence, keyed by the set of rule names taking part in the parse. */
-const ruleOrderCache = new Map<string, string[]>();
+/**
+ * Resolves `Object.keys(rules)` into precedence order, sorting only the first
+ * time a given rule set is seen.
+ */
+const orderRules = (names: string[], rules: Rules): string[] => {
+  const candidates = ruleOrderCache.get(names.length);
+
+  if (candidates) {
+    for (let i = 0; i < candidates.length; i++) {
+      if (sameNames(names, candidates[i]!.names)) return candidates[i]!.order;
+    }
+  }
+
+  // Sorts rules in order of increasing order, then
+  // ascending rule name (numeric) in case of ties.
+  // RuleType keys are string numbers — use numeric comparison to preserve
+  // intended ordering (e.g. codeFenced '4' must precede headingSetext '10').
+  const order = names
+    .slice()
+    .sort((a, b) => rules[a]!._order - rules[b]!._order || +a - +b);
+
+  const entry: RuleOrderEntry = { names: names.slice(), order };
+
+  if (candidates) candidates.push(entry);
+  else ruleOrderCache.set(names.length, [entry]);
+
+  return order;
+};
 
 /**
  * Advance the incremental lookbehind carried on the parse state.
@@ -93,38 +128,26 @@ export const parserFor = (
     });
   }
 
-  // Rules are rebuilt for every parse (they close over per-document footnote
-  // and reference tables), but the precedence they sort into only depends on
-  // which rules are present — so the resulting order is cached and reused.
-  const cacheKey = ruleList.join(',');
-  const cachedOrder = ruleOrderCache.get(cacheKey);
+  const order = orderRules(ruleList, rules);
+  const ruleCount = order.length;
 
-  if (cachedOrder) {
-    ruleList.length = 0;
-    ruleList.push(...cachedOrder);
-  } else {
-    // Sorts rules in order of increasing order, then
-    // ascending rule name (numeric) in case of ties.
-    // RuleType keys are string numbers — use numeric comparison to preserve
-    // intended ordering (e.g. codeFenced '4' must precede headingSetext '10').
-    ruleList.sort((a, b) => {
-      return rules[a]!._order - rules[b]!._order || +a - +b;
-    });
+  // Rule objects have heterogeneous shapes (`_qualify` and `_render` are both
+  // optional), so their members are hoisted into parallel arrays: the hot loop
+  // then reads monomorphic slots instead of polymorphic properties, and the
+  // whole set costs three allocations rather than one wrapper per rule.
+  const qualifiers: (Rule<any>['_qualify'] | undefined)[] = new Array(
+    ruleCount
+  );
+  const matchers: Rule<any>['_match'][] = new Array(ruleCount);
+  const parsers: Rule<any>['_parse'][] = new Array(ruleCount);
 
-    ruleOrderCache.set(cacheKey, ruleList.slice());
+  for (let i = 0; i < ruleCount; i++) {
+    const rule = rules[order[i]!]!;
+
+    qualifiers[i] = rule._qualify;
+    matchers[i] = rule._match;
+    parsers[i] = rule._parse;
   }
-
-  const compiledRules: CompiledRule[] = ruleList.map((type) => {
-    const rule = rules[type]!;
-
-    return {
-      type,
-      qualify: rule._qualify,
-      match: rule._match,
-      parse: rule._parse,
-    };
-  });
-  const ruleCount = compiledRules.length;
 
   const nestedParse: NestedParser = (
     source: string,
@@ -140,23 +163,21 @@ export const parserFor = (
     if (source.trim()) {
       while (source) {
         for (let i = 0; i < ruleCount; i++) {
-          const rule = compiledRules[i];
+          const qualify = qualifiers[i];
 
-          if (rule?.qualify && !qualifies(source, state, rule.qualify)) {
-            continue;
-          }
+          if (qualify && !qualifies(source, state, qualify)) continue;
 
-          const capture = rule?.match(source, state);
+          const capture = matchers[i]!(source, state);
 
           if (capture?.[0]) {
             source = source.substring(capture[0].length);
 
-            const parsed: any = rule?.parse(capture, nestedParse, state);
+            const parsed: any = parsers[i]!(capture, nestedParse, state);
 
             advanceLookbehind(state, capture[0]);
 
             if (!parsed.type) {
-              parsed.type = rule?.type;
+              parsed.type = order[i];
             }
 
             result.push(parsed as ParserResult);

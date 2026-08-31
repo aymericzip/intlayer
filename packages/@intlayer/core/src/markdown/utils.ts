@@ -1,12 +1,10 @@
 import {
   ATTRIBUTES_TO_SANITIZE,
   CAPTURE_LETTER_AFTER_HYPHEN,
-  CR_NEWLINE_R,
   FENCE_DELIMITER_R,
-  FORMFEED_R,
   HTML_CUSTOM_ATTR_R,
   INTERPOLATION_R,
-  TAB_R,
+  NORMALIZE_WHITESPACE_R,
   TABLE_CENTER_ALIGN,
   TABLE_LEFT_ALIGN,
   TABLE_RIGHT_ALIGN,
@@ -25,7 +23,7 @@ import type { NestedParser, ParserResult, ParseState, Rule } from './types';
 export const trimEnd = (str: string): string => {
   let end = str.length;
 
-  while (end > 0 && str[end - 1] <= ' ') end--;
+  while (end > 0 && str[end - 1]! <= ' ') end--;
 
   return str.slice(0, end);
 };
@@ -73,7 +71,7 @@ export const get = (src: any, path: string, fb?: any): any => {
   const frags = path.split('.');
 
   while (frags.length) {
-    ptr = ptr[frags[0]];
+    ptr = ptr[frags[0]!];
 
     if (ptr === undefined) break;
     else frags.shift();
@@ -127,6 +125,11 @@ const SANITIZE_STRIP_R = /[^A-Za-z0-9/:]/g;
  * Returns null if the URL is unsafe.
  */
 export const sanitizer = (input: string): string | null => {
+  // `SANITIZE_R` only ever matches on a colon, and decoding can introduce one
+  // solely through a percent escape — so a value with neither is safe as-is,
+  // and skipping the decode avoids the bulk of the work on ordinary links.
+  if (input.indexOf(':') === -1 && input.indexOf('%') === -1) return input;
+
   try {
     const decoded = decodeURIComponent(input).replace(SANITIZE_STRIP_R, '');
 
@@ -158,14 +161,15 @@ export const sanitizer = (input: string): string | null => {
 /**
  * Normalize whitespace in source string.
  */
-export const normalizeWhitespace = (source: string): string => {
-  const result = source
-    .replace(CR_NEWLINE_R, '\n')
-    .replace(FORMFEED_R, '')
-    .replace(TAB_R, '    ');
+export const normalizeWhitespace = (source: string): string =>
+  // `\r`, `\f` and `\t` are disjoint, so one pass over the source replaces
+  // what used to take three full scans.
+  source.replace(NORMALIZE_WHITESPACE_R, (match) => {
+    if (match === '\t') return '    ';
+    if (match === '\f') return '';
 
-  return result;
-};
+    return '\n';
+  });
 
 /**
  * Safely remove a uniform leading indentation from lines, but do NOT touch
@@ -199,11 +203,11 @@ export const trimLeadingWhitespaceOutsideFences = (
 
       if (!openFence) {
         if (fenceMatch)
-          openFence = { indentation: fenceMatch[1], marker: fenceMatch[2] };
+          openFence = { indentation: fenceMatch[1]!, marker: fenceMatch[2]! };
         return removePrefix(line, whitespace);
       }
 
-      const isClosingFence = fenceMatch?.[2].startsWith(openFence.marker);
+      const isClosingFence = fenceMatch?.[2]?.startsWith(openFence.marker);
       const { indentation } = openFence;
 
       if (isClosingFence) openFence = null;
@@ -312,7 +316,7 @@ export const attributeValueToNodePropValue = (
     return parseStyleAttribute(value).reduce(
       (styles, [styleKey, styleValue]) => {
         const camelCasedKey = styleKey.replace(/(-[a-z])/g, (substr) =>
-          substr[1].toUpperCase()
+          substr[1]!.toUpperCase()
         );
 
         (styles as Record<string, any>)[camelCasedKey] = sanitizeUrlFn(
@@ -390,7 +394,7 @@ export const parseTableRow = (
   const flush = (): void => {
     if (!acc) return;
 
-    const cell = cells[cells.length - 1];
+    const cell = cells[cells.length - 1]!;
     cell.push.apply(cell, parse(acc, state));
     acc = '';
   };
@@ -453,7 +457,7 @@ export const qualifies = (
 ): boolean => {
   if (Array.isArray(qualify)) {
     for (let i = 0; i < qualify.length; i++) {
-      if (startsWith(source, qualify[i])) return true;
+      if (startsWith(source, qualify[i]!)) return true;
     }
 
     return false;
@@ -597,7 +601,7 @@ export const parseCaptureInline = (
   state: ParseState
 ): { children: ParserResult[] } => {
   return {
-    children: parseInline(parse, capture[2], state),
+    children: parseInline(parse, capture[2] ?? '', state),
   };
 };
 
@@ -616,7 +620,7 @@ export const renderNothing = (): null => null;
  */
 export const some = (regexes: RegExp[], input: string): boolean => {
   for (let i = 0; i < regexes.length; i++) {
-    if (regexes[i].test(input)) {
+    if (regexes[i]!.test(input)) {
       return true;
     }
   }
