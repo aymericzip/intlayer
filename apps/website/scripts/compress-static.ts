@@ -40,12 +40,60 @@ const PUBLIC_DIRECTORY = join(process.cwd(), '.output/public');
  */
 const MINIMUM_COMPRESSIBLE_BYTES = 1024;
 
+/** Reads a positive integer environment override, or falls back. */
+const readIntEnv = (name: string, fallback: number): number => {
+  const parsed = Number(process.env[name]);
+  return Number.isFinite(parsed) && parsed > 0 ? parsed : fallback;
+};
+
 /**
- * Brotli above this size drops to a cheaper quality level. Quality 11 costs
- * roughly 1 MB/s per core; the handful of multi-megabyte chunks in the output
- * would otherwise dominate the build with a few percent of extra savings.
+ * Brotli quality for the bulk of the output.
+ *
+ * The step from 10 to 11 is the single most expensive knob in this build.
+ * Measured on a 340 KiB prerendered page: quality 9 took 12 ms, quality 10
+ * 123 ms, quality 11 358 ms — a 30× CPU cost over quality 9 to shave a further
+ * ~12 % off the file. Across the few hundred prerendered pages that is the
+ * difference between seconds and minutes of pinned CPU, which is what gets the
+ * `postbuild` step killed on a constrained box (exit 137). Quality 10 keeps
+ * almost all of the ratio at a third of the cost; `BROTLI_QUALITY` overrides it
+ * where CPU is plentiful.
+ */
+const BROTLI_QUALITY = Math.min(11, readIntEnv('BROTLI_QUALITY', 10));
+
+/**
+ * Brotli above this size drops to {@link BROTLI_QUALITY_LARGE}. The handful of
+ * multi-megabyte chunks in the output would otherwise dominate the run for a
+ * few percent of extra savings.
  */
 const HIGH_QUALITY_BROTLI_LIMIT_BYTES = 2 * 1024 * 1024;
+
+/** Brotli quality for files past {@link HIGH_QUALITY_BROTLI_LIMIT_BYTES}. */
+const BROTLI_QUALITY_LARGE = Math.min(
+  BROTLI_QUALITY,
+  readIntEnv('BROTLI_QUALITY_LARGE', 8)
+);
+
+/**
+ * gzip level for the fallback sibling. Level 6 is zlib's own default and lands
+ * within ~1 % of level 9 on this content at roughly half the CPU; the brotli
+ * sibling is what modern clients actually receive.
+ */
+const GZIP_LEVEL = Math.min(9, readIntEnv('GZIP_LEVEL', 6));
+
+/**
+ * How many files are compressed at once.
+ *
+ * Every lane pins a core on Brotli and holds the source file plus its output
+ * buffers in memory, so matching this to the core count of the *host* — which
+ * is what `availableParallelism()` reports, not the cgroup CPU quota a CI
+ * container actually gets — oversubscribes a constrained box and can get the
+ * process killed (exit 137). The default stays conservative; set
+ * `COMPRESS_CONCURRENCY` to widen it where there is headroom.
+ */
+const COMPRESSION_CONCURRENCY = Math.max(
+  1,
+  readIntEnv('COMPRESS_CONCURRENCY', Math.min(4, availableParallelism()))
+);
 
 /** Extensions worth compressing — everything else is already compact. */
 const COMPRESSIBLE_EXTENSIONS = new Set([
@@ -139,7 +187,9 @@ const compressFile = async (
     const contents = await readFile(absolutePath);
 
     const brotliQuality =
-      contents.length > HIGH_QUALITY_BROTLI_LIMIT_BYTES ? 9 : 11;
+      contents.length > HIGH_QUALITY_BROTLI_LIMIT_BYTES
+        ? BROTLI_QUALITY_LARGE
+        : BROTLI_QUALITY;
 
     const [brotliContents, gzipContents] = await Promise.all([
       compressBrotli(contents, {
@@ -149,7 +199,7 @@ const compressFile = async (
           [constants.BROTLI_PARAM_SIZE_HINT]: contents.length,
         },
       }),
-      compressGzip(contents, { level: 9 }),
+      compressGzip(contents, { level: GZIP_LEVEL }),
     ]);
 
     await Promise.all([
@@ -229,7 +279,7 @@ export const compressDirectory = async (
 
   const outcomes = await mapWithConcurrency(
     compressibleFiles,
-    availableParallelism(),
+    COMPRESSION_CONCURRENCY,
     compressFile
   );
 

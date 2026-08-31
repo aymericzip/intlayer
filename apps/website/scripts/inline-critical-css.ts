@@ -30,6 +30,7 @@
  */
 
 import { readdir, readFile, writeFile } from 'node:fs/promises';
+import { availableParallelism } from 'node:os';
 import { join, relative } from 'node:path';
 import { INLINED_STYLESHEET_ATTRIBUTE } from '../src/utils/inlinedStylesheet.ts';
 
@@ -182,8 +183,25 @@ const mapWithConcurrency = async <TItem, TResult>(
   return results;
 };
 
-/** Number of pages rewritten at once. */
-const PAGE_CONCURRENCY = 32;
+/**
+ * Number of pages rewritten at once.
+ *
+ * Each lane transiently holds the source page, the ~190 KiB stylesheet folded
+ * into it, and the rewritten copy, so a wide fan-out is what pushes a
+ * memory-constrained CI box into the OOM killer (exit 137). It stays modest by
+ * default and honours `INLINE_CSS_CONCURRENCY` for hosts that can afford more.
+ */
+const PAGE_CONCURRENCY = Math.max(
+  1,
+  Number(process.env.INLINE_CSS_CONCURRENCY) ||
+    Math.min(8, availableParallelism())
+);
+
+/** Per-page result kept after writing — deliberately free of the page markup. */
+type PageOutcome = {
+  didInline: boolean;
+  unresolvedHrefs: string[];
+};
 
 /**
  * Inlines stylesheets across every prerendered page under `.output/public`.
@@ -218,7 +236,7 @@ const inlineCriticalCss = async (): Promise<void> => {
 
   const loadStylesheet = createStylesheetLoader(PUBLIC_DIRECTORY);
 
-  const outcomes = await mapWithConcurrency(
+  const outcomes = await mapWithConcurrency<string, PageOutcome>(
     pages,
     PAGE_CONCURRENCY,
     async (page) => {
@@ -227,8 +245,13 @@ const inlineCriticalCss = async (): Promise<void> => {
         loadStylesheet
       );
 
-      if (result.inlinedHrefs.length > 0) await writeFile(page, result.html);
-      return result;
+      const didInline = result.inlinedHrefs.length > 0;
+      if (didInline) await writeFile(page, result.html);
+
+      // Only the tallies survive this scope; `result.html` — the source page
+      // plus the inlined stylesheet — is released here rather than retained
+      // for every page at once.
+      return { didInline, unresolvedHrefs: result.unresolvedHrefs };
     }
   );
 
@@ -238,11 +261,11 @@ const inlineCriticalCss = async (): Promise<void> => {
     console.error(`   ! ${href} could not be read — its link was kept.`);
   }
 
-  const rewrittenPages = outcomes.filter(
-    (outcome) => outcome.inlinedHrefs.length > 0
-  );
+  const rewrittenPageCount = outcomes.filter(
+    (outcome) => outcome.didInline
+  ).length;
 
-  if (rewrittenPages.length === 0) {
+  if (rewrittenPageCount === 0) {
     console.error(
       `   ✗ None of the ${pages.length} pages carried an inlinable stylesheet link.`
     );
@@ -251,7 +274,7 @@ const inlineCriticalCss = async (): Promise<void> => {
   }
 
   console.log(
-    `   ✓ ${rewrittenPages.length}/${pages.length} pages in ${((Date.now() - startedAt) / 1000).toFixed(1)}s`
+    `   ✓ ${rewrittenPageCount}/${pages.length} pages in ${((Date.now() - startedAt) / 1000).toFixed(1)}s`
   );
 };
 
