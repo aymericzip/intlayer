@@ -1,7 +1,7 @@
 import type { Locale } from '@intlayer/types/allLocales';
 import type { CustomIntlayerConfig } from '@intlayer/types/config';
 import * as Locales from '@intlayer/types/locales';
-import { nextjsRewrite } from 'intlayer/routing';
+import { tanstackRouterRewrite } from 'intlayer/routing';
 
 export const locales: Locale[] = [
   Locales.ENGLISH,
@@ -34,26 +34,27 @@ const config: CustomIntlayerConfig = {
   },
 
   routing: {
+    enableProxy: undefined, // keep auto
     mode: 'prefix-no-default',
-    rewrite: nextjsRewrite({
-      '/[locale]/doc/releases/v8': {
-        'en-GB': '/[locale]/doc/releases/v8',
-        fr: '/[locale]/doc/sorties/v8',
-        es: '/[locale]/doc/lanzamientos/v8',
-        de: '/[locale]/doc/veroeffentlichungen/v8',
-        it: '/[locale]/doc/versioni/v8',
-        ru: '/[locale]/doc/релизы/v8',
-        ja: '/[locale]/doc/リリース/v8',
-        ko: '/[locale]/doc/릴리즈/v8',
-        zh: '/[locale]/doc/发布/v8',
-        pt: '/[locale]/doc/lancamentos/v8',
-        hi: '/[locale]/doc/रिलीज/v8',
-        tr: '/[locale]/doc/surumler/v8',
-        pl: '/[locale]/doc/wersje/v8',
-        id: '/[locale]/doc/rilis/v8',
-        vi: '/[locale]/doc/phat-hanh/v8',
-        uk: '/[locale]/doc/релізи/v8',
-        ar: '/[locale]/doc/إصدارات/v8',
+    rewrite: tanstackRouterRewrite({
+      '/{-$locale}/doc/releases/v8': {
+        'en-GB': '/{-$locale}/doc/releases/v8',
+        fr: '/{-$locale}/doc/sorties/v8',
+        es: '/{-$locale}/doc/lanzamientos/v8',
+        de: '/{-$locale}/doc/veroeffentlichungen/v8',
+        it: '/{-$locale}/doc/versioni/v8',
+        ru: '/{-$locale}/doc/релизы/v8',
+        ja: '/{-$locale}/doc/リリース/v8',
+        ko: '/{-$locale}/doc/릴리즈/v8',
+        zh: '/{-$locale}/doc/发布/v8',
+        pt: '/{-$locale}/doc/lancamentos/v8',
+        hi: '/{-$locale}/doc/रिलीज/v8',
+        tr: '/{-$locale}/doc/surumler/v8',
+        pl: '/{-$locale}/doc/wersje/v8',
+        id: '/{-$locale}/doc/rilis/v8',
+        vi: '/{-$locale}/doc/phat-hanh/v8',
+        uk: '/{-$locale}/doc/релізи/v8',
+        ar: '/{-$locale}/doc/إصدارات/v8',
       },
     }),
     // domains: {
