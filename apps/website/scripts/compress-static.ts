@@ -47,31 +47,60 @@ const readIntEnv = (name: string, fallback: number): number => {
 };
 
 /**
- * Brotli quality for the bulk of the output.
+ * Brotli quality for the bulk of the output — the prerendered HTML pages and
+ * the `__tsr/staticServerFnCache` JSON payloads, together tens of thousands of
+ * files and several gigabytes.
  *
- * The step from 10 to 11 is the single most expensive knob in this build.
- * Measured on a 340 KiB prerendered page: quality 9 took 12 ms, quality 10
- * 123 ms, quality 11 358 ms — a 30× CPU cost over quality 9 to shave a further
- * ~12 % off the file. Across the few hundred prerendered pages that is the
- * difference between seconds and minutes of pinned CPU, which is what gets the
- * `postbuild` step killed on a constrained box (exit 137). Quality 10 keeps
- * almost all of the ratio at a third of the cost; `BROTLI_QUALITY` overrides it
- * where CPU is plentiful.
+ * Brotli's step from 9 to 10 turns on a much more expensive context-modelling
+ * pass. Measured on a 440 KiB prerendered page: quality 9 took 12 ms, quality
+ * 10 took 155 ms, quality 11 431 ms — 13× the CPU at quality 10 to shave a
+ * further ~1 point off the ratio (11.7 % → 10.8 % of raw). Over this output
+ * that is the difference between a ~30 s `postbuild` and one measured in
+ * minutes. Quality 9 still beats gzip by ~35 %, and the HTML is re-rendered on
+ * every deploy, so a slower permanent copy is never worth it. `BROTLI_QUALITY`
+ * overrides it.
  */
-const BROTLI_QUALITY = Math.min(11, readIntEnv('BROTLI_QUALITY', 10));
+const BROTLI_QUALITY = Math.min(11, readIntEnv('BROTLI_QUALITY', 9));
 
 /**
- * Brotli above this size drops to {@link BROTLI_QUALITY_LARGE}. The handful of
- * multi-megabyte chunks in the output would otherwise dominate the run for a
- * few percent of extra savings.
+ * Brotli quality for the content-hashed, year-immutable assets (`assets/*.js`
+ * and `*.css`). There are only a few hundred, every visitor downloads them, and
+ * a hashed filename means one compression lasts until the file's contents
+ * change — so the top quality earns its one-time cost here, unlike the HTML.
+ * `BROTLI_QUALITY_ASSETS` overrides it.
+ */
+const BROTLI_QUALITY_ASSETS = Math.min(
+  11,
+  readIntEnv('BROTLI_QUALITY_ASSETS', 11)
+);
+
+/** Extensions billed at {@link BROTLI_QUALITY_ASSETS} rather than the default. */
+const IMMUTABLE_ASSET_EXTENSIONS = new Set(['.css', '.js', '.mjs']);
+
+/**
+ * Brotli above this size drops to {@link BROTLI_QUALITY_LARGE}. A few
+ * multi-megabyte chunks would otherwise dominate the run for a few percent of
+ * extra savings.
  */
 const HIGH_QUALITY_BROTLI_LIMIT_BYTES = 2 * 1024 * 1024;
 
 /** Brotli quality for files past {@link HIGH_QUALITY_BROTLI_LIMIT_BYTES}. */
-const BROTLI_QUALITY_LARGE = Math.min(
-  BROTLI_QUALITY,
-  readIntEnv('BROTLI_QUALITY_LARGE', 8)
-);
+const BROTLI_QUALITY_LARGE = readIntEnv('BROTLI_QUALITY_LARGE', 9);
+
+/**
+ * Picks the Brotli quality for one file: immutable assets get the top level,
+ * oversized files get the cheap level, everything else the default.
+ */
+const brotliQualityForFile = (
+  absolutePath: string,
+  sizeBytes: number
+): number => {
+  if (sizeBytes > HIGH_QUALITY_BROTLI_LIMIT_BYTES) return BROTLI_QUALITY_LARGE;
+
+  return IMMUTABLE_ASSET_EXTENSIONS.has(extname(absolutePath).toLowerCase())
+    ? BROTLI_QUALITY_ASSETS
+    : BROTLI_QUALITY;
+};
 
 /**
  * gzip level for the fallback sibling. Level 6 is zlib's own default and lands
@@ -83,12 +112,11 @@ const GZIP_LEVEL = Math.min(9, readIntEnv('GZIP_LEVEL', 6));
 /**
  * How many files are compressed at once.
  *
- * Every lane pins a core on Brotli and holds the source file plus its output
- * buffers in memory, so matching this to the core count of the *host* — which
- * is what `availableParallelism()` reports, not the cgroup CPU quota a CI
- * container actually gets — oversubscribes a constrained box and can get the
- * process killed (exit 137). The default stays conservative; set
- * `COMPRESS_CONCURRENCY` to widen it where there is headroom.
+ * Node/Bun run async Brotli off-thread, so four lanes already keep several
+ * cores busy; measured, four finished this output faster than eight, which only
+ * added scheduling contention. The cap also protects a CI container, whose real
+ * CPU quota is lower than the `availableParallelism()` host core count.
+ * `COMPRESS_CONCURRENCY` overrides it.
  */
 const COMPRESSION_CONCURRENCY = Math.max(
   1,
@@ -186,10 +214,7 @@ const compressFile = async (
 
     const contents = await readFile(absolutePath);
 
-    const brotliQuality =
-      contents.length > HIGH_QUALITY_BROTLI_LIMIT_BYTES
-        ? BROTLI_QUALITY_LARGE
-        : BROTLI_QUALITY;
+    const brotliQuality = brotliQualityForFile(absolutePath, contents.length);
 
     const [brotliContents, gzipContents] = await Promise.all([
       compressBrotli(contents, {
