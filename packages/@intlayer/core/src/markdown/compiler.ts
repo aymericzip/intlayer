@@ -11,6 +11,7 @@ import {
   CODE_BLOCK_R,
   CODE_INLINE_R,
   CONSECUTIVE_NEWLINE_R,
+  CUSTOM_COMPONENT_OPENING_TAG_R,
   CUSTOM_COMPONENT_R,
   DO_NOT_PROCESS_HTML_ELEMENTS,
   FOOTNOTE_R,
@@ -21,13 +22,14 @@ import {
   HEADING_R,
   HEADING_SETEXT_R,
   HTML_BLOCK_ELEMENT_R,
+  HTML_BLOCK_OPENING_TAG_R,
   HTML_CHAR_CODE_R,
   HTML_COMMENT_R,
   HTML_LEFT_TRIM_AMOUNT_R,
   HTML_SELF_CLOSING_ELEMENT_R,
+  HTML_SELF_CLOSING_OPENING_TAG_R,
   LINK_AUTOLINK_BARE_URL_R,
   LINK_AUTOLINK_R,
-  LIST_LOOKBEHIND_R,
   type ListType,
   NAMED_CODES_TO_UNICODE,
   NP_TABLE_R,
@@ -117,6 +119,28 @@ const LINK_HREF_AND_TITLE =
 const LINK_R = new RegExp(
   `^\\[(${LINK_INSIDE})\\]\\(${LINK_HREF_AND_TITLE}\\)`
 );
+
+/**
+ * Case-insensitive `</tag>` probes, cached per tag name.
+ *
+ * The `htmlBlock` rule is qualified at every candidate position, and it used to
+ * lowercase the whole remaining document to look its closing tag up — copying
+ * the rest of the file on each probe.
+ */
+const closingTagRegexCache = new Map<string, RegExp>();
+
+const getClosingTagRegex = (tag: string): RegExp => {
+  const cached = closingTagRegexCache.get(tag);
+
+  if (cached) return cached;
+
+  // Tag names are restricted to `[a-z][a-z0-9:-]*` by the opening-tag probe,
+  // so they need no regex escaping.
+  const regex = new RegExp(`</${tag}>`, 'i');
+  closingTagRegexCache.set(tag, regex);
+
+  return regex;
+};
 
 const getTag = (tag: any, components: ComponentDefinition<any>): any => {
   if (typeof tag !== 'string') return tag;
@@ -250,11 +274,12 @@ const createRules = (
     return {
       _qualify: (source) => LIST_ITEM_PREFIX_R.test(source),
       _match: allowInline((source, state) => {
-        const isStartOfLine = LIST_LOOKBEHIND_R.exec(state.prevCapture ?? '');
+        const lineIndent = state.prevCaptureIndent;
+        const isStartOfLine = lineIndent !== undefined;
         const isListAllowed = state.list ?? (!state.inline && !state.simple);
 
         if (isStartOfLine && isListAllowed) {
-          const matchSource = (isStartOfLine[1] || '') + source;
+          const matchSource = lineIndent ? lineIndent + source : source;
 
           return LIST_R.exec(matchSource);
         }
@@ -335,7 +360,7 @@ const createRules = (
       state.simple ||
       (state.inHTML &&
         source.indexOf('\n\n') === -1 &&
-        state.prevCapture?.indexOf('\n\n') === -1)
+        !state.prevCaptureHasBlankLine)
     )
       return null;
     let start = 0;
@@ -554,11 +579,10 @@ const createRules = (
       _qualify: (source) => {
         if (options.disableParsingRawHTML) return false;
 
-        const match = source.match(/^ *<([a-z][a-z0-9:-]*)\b/i);
+        const match = HTML_BLOCK_OPENING_TAG_R.exec(source);
         if (!match) return false;
-        const tag = match[1];
 
-        return source.toLowerCase().indexOf(`</${tag.toLowerCase()}>`) !== -1;
+        return getClosingTagRegex(match[1]).test(source);
       },
       _match: anyScopeRegex(HTML_BLOCK_ELEMENT_R),
       _order: Priority.HIGH,
@@ -614,7 +638,7 @@ const createRules = (
       _qualify: (source) => {
         if (options.disableParsingRawHTML) return false;
 
-        return /^ *<([a-zA-Z][a-zA-Z0-9:]*)[\s>/]/.test(source);
+        return HTML_SELF_CLOSING_OPENING_TAG_R.test(source);
       },
       _match: anyScopeRegex(HTML_SELF_CLOSING_ELEMENT_R),
       _order: Priority.HIGH,
@@ -631,7 +655,7 @@ const createRules = (
       },
     },
     [RuleType.customComponent]: {
-      _qualify: (source) => /^ *<([A-Z][a-zA-Z0-9]*)/.test(source),
+      _qualify: (source) => CUSTOM_COMPONENT_OPENING_TAG_R.test(source),
       _match: anyScopeRegex(CUSTOM_COMPONENT_R),
       _order: Priority.MAX,
       _parse(capture, parse, state) {
@@ -1103,13 +1127,10 @@ export const parseMarkdown = (
     CUSTOM_COMPONENT_R,
   ];
 
-  const containsBlockSyntax = (input: string): boolean => {
-    const cleaned = input.replace(TRIM_STARTING_NEWLINES, '');
-    const slice = cleaned.length > 2048 ? cleaned.slice(0, 2048) : cleaned;
-
-    if (slice.indexOf('\n\n') !== -1) return true;
-
-    const syntaxes = options.disableParsingRawHTML
+  // Built once: this list is fixed for the whole parse, and rebuilding it per
+  // call put a fresh array on every block-syntax probe.
+  const blockSyntaxes = (
+    options.disableParsingRawHTML
       ? nonParagraphBlockSyntaxes
       : [
           ...nonParagraphBlockSyntaxes,
@@ -1118,9 +1139,16 @@ export const parseMarkdown = (
           HTML_COMMENT_R,
           HTML_SELF_CLOSING_ELEMENT_R,
           CUSTOM_COMPONENT_R,
-        ];
+        ]
+  ) as RegExp[];
 
-    return some(syntaxes as RegExp[], slice);
+  const containsBlockSyntax = (input: string): boolean => {
+    const cleaned = input.replace(TRIM_STARTING_NEWLINES, '');
+    const slice = cleaned.length > 2048 ? cleaned.slice(0, 2048) : cleaned;
+
+    if (slice.indexOf('\n\n') !== -1) return true;
+
+    return some(blockSyntaxes, slice);
   };
 
   const baseRules = createRules(

@@ -80,13 +80,6 @@ export const Priority = {
 export type PriorityValue = (typeof Priority)[keyof typeof Priority];
 
 // ============================================================================
-// PERFORMANCE CONSTANTS
-// ============================================================================
-
-/** Threshold for performance logging (in milliseconds) */
-export const DURATION_DELAY_TRIGGER = 20;
-
-// ============================================================================
 // ATTRIBUTE MAPPING
 // ============================================================================
 
@@ -304,6 +297,16 @@ export const REFERENCE_IMAGE_OR_LINK =
 export const REFERENCE_IMAGE_R = /^!\[([^\]]*)\] ?\[([^\]]*)\]/;
 export const REFERENCE_LINK_R = /^\[([^\]]*)\] ?\[([^\]]*)\]/;
 
+/**
+ * Cheap prefix probes used to reject a rule before its full (and far more
+ * expensive) block regex runs. Kept as module constants so the parser's inner
+ * loop never allocates a `RegExp` per candidate position.
+ */
+export const HTML_BLOCK_OPENING_TAG_R = /^ *<([a-z][a-z0-9:-]*)\b/i;
+export const HTML_SELF_CLOSING_OPENING_TAG_R =
+  /^ *<([a-zA-Z][a-zA-Z0-9:]*)[\s>/]/;
+export const CUSTOM_COMPONENT_OPENING_TAG_R = /^ *<([A-Z][a-zA-Z0-9]*)/;
+
 /** Block detection */
 export const SHOULD_RENDER_AS_BLOCK_R = /(\n|^[-*]\s|^#|^ {2,}|^-{2,}|^>\s)/;
 
@@ -313,7 +316,6 @@ export const TRIM_STARTING_NEWLINES = /^\n+/;
 export const HTML_LEFT_TRIM_AMOUNT_R = /^\n*([ \t]*)/;
 
 /** List patterns */
-export const LIST_LOOKBEHIND_R = /(?:^|\n)( *)$/;
 export const ORDERED_LIST_BULLET = '(?:\\d+\\.)';
 export const UNORDERED_LIST_BULLET = '(?:[*+-])';
 

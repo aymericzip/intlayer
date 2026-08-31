@@ -2,7 +2,6 @@ import {
   ATTRIBUTES_TO_SANITIZE,
   CAPTURE_LETTER_AFTER_HYPHEN,
   CR_NEWLINE_R,
-  DURATION_DELAY_TRIGGER,
   FENCE_DELIMITER_R,
   FORMFEED_R,
   HTML_CUSTOM_ATTR_R,
@@ -91,26 +90,37 @@ export const get = (src: any, path: string, fb?: any): any => {
  * Convert a string to a URL-safe slug.
  * Based on https://stackoverflow.com/a/18123682/1141611
  */
-export const slugify = (str: string): string =>
-  str
-    .replace(/[ÀÁÂÃÄÅàáâãäåæÆ]/g, 'a')
-    .replace(/[çÇ]/g, 'c')
-    .replace(/[ðÐ]/g, 'd')
-    .replace(/[ÈÉÊËéèêë]/g, 'e')
-    .replace(/[ÏïÎîÍíÌì]/g, 'i')
-    .replace(/[Ññ]/g, 'n')
-    .replace(/[øØœŒÕõÔôÓóÒò]/g, 'o')
-    .replace(/[ÜüÛûÚúÙù]/g, 'u')
-    .replace(/[ŸÿÝý]/g, 'y')
-    .replace(/[^a-z0-9- ]/gi, '')
-    .replace(/ /gi, '-')
-    .toLowerCase();
+const SLUGIFY_REPLACEMENTS: [pattern: RegExp, replacement: string][] = [
+  [/[ÀÁÂÃÄÅàáâãäåæÆ]/g, 'a'],
+  [/[çÇ]/g, 'c'],
+  [/[ðÐ]/g, 'd'],
+  [/[ÈÉÊËéèêë]/g, 'e'],
+  [/[ÏïÎîÍíÌì]/g, 'i'],
+  [/[Ññ]/g, 'n'],
+  [/[øØœŒÕõÔôÓóÒò]/g, 'o'],
+  [/[ÜüÛûÚúÙù]/g, 'u'],
+  [/[ŸÿÝý]/g, 'y'],
+  [/[^a-z0-9- ]/gi, ''],
+  [/ /gi, '-'],
+];
+
+export const slugify = (str: string): string => {
+  let result = str;
+
+  for (let i = 0; i < SLUGIFY_REPLACEMENTS.length; i++) {
+    const [pattern, replacement] = SLUGIFY_REPLACEMENTS[i]!;
+    result = result.replace(pattern, replacement);
+  }
+
+  return result.toLowerCase();
+};
 
 // ============================================================================
 // SANITIZER
 // ============================================================================
 
 const SANITIZE_R = /(javascript|vbscript|data(?!:image)):/i;
+const SANITIZE_STRIP_R = /[^A-Za-z0-9/:]/g;
 
 /**
  * Sanitize URLs to prevent XSS attacks.
@@ -118,7 +128,7 @@ const SANITIZE_R = /(javascript|vbscript|data(?!:image)):/i;
  */
 export const sanitizer = (input: string): string | null => {
   try {
-    const decoded = decodeURIComponent(input).replace(/[^A-Za-z0-9/:]/g, '');
+    const decoded = decodeURIComponent(input).replace(SANITIZE_STRIP_R, '');
 
     if (SANITIZE_R.test(decoded)) {
       console.warn(
@@ -149,19 +159,10 @@ export const sanitizer = (input: string): string | null => {
  * Normalize whitespace in source string.
  */
 export const normalizeWhitespace = (source: string): string => {
-  const start = performance.now();
   const result = source
     .replace(CR_NEWLINE_R, '\n')
     .replace(FORMFEED_R, '')
     .replace(TAB_R, '    ');
-
-  const duration = performance.now() - start;
-
-  if (duration > DURATION_DELAY_TRIGGER) {
-    console.log(
-      `normalizeWhitespace: ${duration.toFixed(3)}ms, source length: ${source.length}`
-    );
-  }
 
   return result;
 };
@@ -180,7 +181,6 @@ export const trimLeadingWhitespaceOutsideFences = (
   text: string,
   whitespace: string
 ): string => {
-  const start = performance.now();
   if (!whitespace) return text;
 
   const lines = text.split('\n');
@@ -212,13 +212,6 @@ export const trimLeadingWhitespaceOutsideFences = (
     })
     .join('\n');
 
-  const duration = performance.now() - start;
-  if (duration > DURATION_DELAY_TRIGGER) {
-    console.log(
-      `trimLeadingWhitespaceOutsideFences: ${duration.toFixed(3)}ms, text length: ${text.length}, lines count: ${lines.length}`
-    );
-  }
-
   return result;
 };
 
@@ -243,7 +236,6 @@ type StyleTuple = [key: string, value: string];
  * Parse a CSS style string into an array of [key, value] tuples.
  */
 export const parseStyleAttribute = (styleString: string): StyleTuple[] => {
-  const start = performance.now();
   const styles: StyleTuple[] = [];
   let buffer = '';
   let inUrl = false;
@@ -298,14 +290,6 @@ export const parseStyleAttribute = (styleString: string): StyleTuple[] => {
       const value = declaration.slice(colonIndex + 1).trim();
       styles.push([key, value]);
     }
-  }
-
-  const duration = performance.now() - start;
-
-  if (duration > DURATION_DELAY_TRIGGER) {
-    console.log(
-      `parseStyleAttribute: ${duration.toFixed(3)}ms, styleString length: ${styleString.length}, styles count: ${styles.length}`
-    );
   }
 
   return styles;
@@ -396,7 +380,6 @@ export const parseTableRow = (
   state: ParseState,
   tableOutput: boolean
 ): ParserResult[][] => {
-  const start = performance.now();
   const prevInTable = state.inTable;
 
   state.inTable = true;
@@ -436,13 +419,6 @@ export const parseTableRow = (
 
   state.inTable = prevInTable;
 
-  const duration = performance.now() - start;
-  if (duration > DURATION_DELAY_TRIGGER) {
-    console.log(
-      `parseTableRow: ${duration.toFixed(3)}ms, source length: ${source.length}, cells count: ${cells.length}`
-    );
-  }
-
   return cells;
 };
 
@@ -454,19 +430,11 @@ export const parseTableCells = (
   parse: NestedParser,
   state: ParseState
 ): ParserResult[][][] => {
-  const start = performance.now();
   const rowsText = source.trim().split('\n');
 
   const result = rowsText.map((rowText) =>
     parseTableRow(rowText, parse, state, true)
   );
-
-  const duration = performance.now() - start;
-  if (duration > DURATION_DELAY_TRIGGER) {
-    console.log(
-      `parseTableCells: ${duration.toFixed(3)}ms, source length: ${source.length}, rows count: ${rowsText.length}`
-    );
-  }
 
   return result;
 };
@@ -565,7 +533,6 @@ export const parseInline = (
   children: string,
   state: ParseState
 ): ParserResult[] => {
-  const start = performance.now();
   const isCurrentlyInline = state.inline ?? false;
   const isCurrentlySimple = state.simple ?? false;
   state.inline = true;
@@ -573,13 +540,6 @@ export const parseInline = (
   const result = parse(children, state);
   state.inline = isCurrentlyInline;
   state.simple = isCurrentlySimple;
-
-  const duration = performance.now() - start;
-  if (duration > DURATION_DELAY_TRIGGER) {
-    console.log(
-      `parseInline: ${duration.toFixed(3)}ms, children length: ${children.length}, result count: ${result.length}`
-    );
-  }
 
   return result;
 };
@@ -592,7 +552,6 @@ export const parseSimpleInline = (
   children: string,
   state: ParseState
 ): ParserResult[] => {
-  const start = performance.now();
   const isCurrentlyInline = state.inline ?? false;
   const isCurrentlySimple = state.simple ?? false;
 
@@ -601,13 +560,6 @@ export const parseSimpleInline = (
   const result = parse(children, state);
   state.inline = isCurrentlyInline;
   state.simple = isCurrentlySimple;
-
-  const duration = performance.now() - start;
-  if (duration > DURATION_DELAY_TRIGGER) {
-    console.log(
-      `parseSimpleInline: ${duration.toFixed(3)}ms, children length: ${children.length}, result count: ${result.length}`
-    );
-  }
 
   return result;
 };
@@ -620,7 +572,6 @@ export const parseBlock = (
   children: string,
   state: ParseState = {}
 ): ParserResult[] => {
-  const start = performance.now();
   const isCurrentlyInline = state.inline || false;
   state.inline = false;
   const normalizedChildren = trimEnd(children);
@@ -633,13 +584,6 @@ export const parseBlock = (
 
   const result = parse(blockInput, state);
   state.inline = isCurrentlyInline;
-
-  const duration = performance.now() - start;
-  if (duration > DURATION_DELAY_TRIGGER) {
-    console.log(
-      `parseBlock: ${duration.toFixed(3)}ms, children length: ${children.length}, result count: ${result.length}`
-    );
-  }
 
   return result;
 };

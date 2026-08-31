@@ -92,8 +92,14 @@ export type ParseState = {
   key?: string | number;
   /** true if in a list */
   list?: boolean;
-  /** used for lookbacks */
-  prevCapture?: string;
+  /**
+   * Indentation of the line already consumed, when everything captured since
+   * the last newline is whitespace — `undefined` when the cursor sits mid-line.
+   * Incrementally derived lookbehind, so rules never rescan consumed source.
+   */
+  prevCaptureIndent?: string;
+  /** true when a blank line has been consumed, i.e. the lookbehind holds `\n\n` */
+  prevCaptureHasBlankLine?: boolean;
   /** true if parsing in inline context w/o links */
   simple?: boolean;
 };

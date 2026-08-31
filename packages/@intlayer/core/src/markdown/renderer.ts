@@ -1,4 +1,3 @@
-import { DURATION_DELAY_TRIGGER } from './constants';
 import type {
   ParserResult,
   ParseState,
@@ -14,71 +13,51 @@ import type {
  * @param render - The render function to call for each node
  * @returns A function that renders AST to output
  */
-export const renderFor =
-  (
-    render: (
-      ast: ParserResult,
-      render: RuleOutput,
-      state: ParseState
-    ) => unknown
-  ) =>
-  (ast: ParserResult | ParserResult[], state: ParseState = {}): any => {
-    const start = performance.now();
-
-    const patchedRender = (
-      ast: ParserResult | ParserResult[],
-      state: ParseState = {}
-    ): any => renderFor(render)(ast, state);
-
-    if (Array.isArray(ast)) {
-      const oldKey = state.key;
-      const result: any[] = [];
-
-      // map nestedOutput over the ast, except group any text
-      // nodes together into a single string output.
-      let lastWasString = false;
-      let renderedIndex = 0;
-
-      for (let i = 0; i < ast.length; i++) {
-        // We clone the state to avoid side effects on other nodes in the same level
-        // while ensuring each non-null rendered node gets a unique, sequential key.
-        const nodeOut = patchedRender(ast[i], { ...state, key: renderedIndex });
-        const isString = typeof nodeOut === 'string';
-
-        if (isString && lastWasString) {
-          result[result.length - 1] =
-            (result[result.length - 1] as string) + nodeOut;
-        } else if (nodeOut !== null) {
-          result.push(nodeOut);
-          renderedIndex++;
-        }
-
-        lastWasString = isString;
-      }
-
-      state.key = oldKey;
-
-      const duration = performance.now() - start;
-      if (duration > DURATION_DELAY_TRIGGER) {
-        console.log(
-          `renderFor (array): ${duration.toFixed(3)}ms, ast length: ${ast.length}`
-        );
-      }
-
-      return result;
+export const renderFor = (
+  render: (ast: ParserResult, render: RuleOutput, state: ParseState) => unknown
+) => {
+  // Bound once instead of per node: rebuilding the recursive renderer on every
+  // visit allocated a closure pair for each AST node.
+  const emit = (
+    ast: ParserResult | ParserResult[],
+    state: ParseState = {}
+  ): any => {
+    if (!Array.isArray(ast)) {
+      return render(ast, emit as RuleOutput, state);
     }
 
-    const result = render(ast, patchedRender as RuleOutput, state);
+    const oldKey = state.key;
+    const result: any[] = [];
 
-    const duration = performance.now() - start;
-    if (duration > DURATION_DELAY_TRIGGER) {
-      console.log(
-        `renderFor (single): ${duration.toFixed(3)}ms, ast type: ${(ast as ParserResult).type}`
-      );
+    // map nestedOutput over the ast, except group any text
+    // nodes together into a single string output.
+    let lastWasString = false;
+    let renderedIndex = 0;
+
+    for (let i = 0; i < ast.length; i++) {
+      // We clone the state to avoid side effects on other nodes in the same level
+      // while ensuring each non-null rendered node gets a unique, sequential key.
+      const nodeOut = emit(ast[i], { ...state, key: renderedIndex });
+      const isString = typeof nodeOut === 'string';
+
+      if (isString && lastWasString) {
+        result[result.length - 1] =
+          (result[result.length - 1] as string) + nodeOut;
+      } else if (nodeOut !== null) {
+        result.push(nodeOut);
+        renderedIndex++;
+      }
+
+      lastWasString = isString;
     }
+
+    state.key = oldKey;
 
     return result;
   };
+
+  return emit;
+};
 
 /**
  * Creates a renderer from rules with optional custom render hook.
@@ -90,19 +69,9 @@ export const renderFor =
 export const createRenderer =
   (rules: Rules, userRender?: RenderRuleHook) =>
   (ast: ParserResult, render: RuleOutput, state: ParseState): unknown => {
-    const start = performance.now();
     const renderer = rules[ast.type]?._render;
 
-    const result = userRender
+    return userRender
       ? userRender(() => renderer?.(ast, render, state), ast, render, state)
       : renderer?.(ast, render, state);
-
-    const duration = performance.now() - start;
-    if (duration > DURATION_DELAY_TRIGGER) {
-      console.log(
-        `createRenderer: ${duration.toFixed(3)}ms, ast type: ${ast.type}, hasUserRender: ${!!userRender}`
-      );
-    }
-
-    return result;
   };
