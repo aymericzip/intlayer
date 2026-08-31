@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-08-25
+updatedAt: 2026-08-30
 title: "TanStack Start i18n - 翻译你的应用的完整指南"
 description: "告别 i18next。2026 年构建多语言 (i18n) TanStack Start 应用的完整指南。使用 AI 代理翻译并优化包体积、SEO 和性能。"
 keywords:
@@ -1290,7 +1290,120 @@ export const Route = createFileRoute("/sitemap.xml")({
 
 - [Intlayer 文档](https://intlayer.org)
 - [Tanstack Start 文档](https://reactrouter.com/)
-- [useIntlayer hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/useIntlayer.md)
-- [useLocale hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/useLocale.md)
+- [useIntlayer Hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/useIntlayer.md)
+- [useLocale Hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/useLocale.md)
 - [内容声明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)
-- [配置](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)
+- [配置指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)
+
+## 常见问题
+
+<FAQ>
+
+<Question title="国际化 TanStack Start 应用有哪些不同的解决方案？">
+
+TanStack Start 本身没有自带的 i18n 层，因此需要选择第三方库：
+
+- **`i18next` / `react-i18next`** 与 **`react-intl`**：与框架解耦的消息目录，需要手动接入路由。
+- **`Lingui`**：带有编译步骤的 ICU 消息方案。
+- **`Paraglide`**：编译型消息方案，仅专注于消息层。
+- **`Intlayer`**：最先进的解决方案。内容可以在代码库中的任何位置声明（[靠近每个组件或集中管理](https://intlayer.org/zh/blog/per-component-vs-centralized-i18n)），在构建时编译，具备类型安全键、支持语言环境的路由、站点地图生成、AI 翻译、可视化编辑器和 CMS。
+
+在 TanStack Start 上，关键差异在于路由与服务端渲染支持。Intlayer 深度集成了基于文件的路由器、`head` 函数以及预渲染流程，免去了您手动组装 Provider、语言检测器和站点地图的繁琐工作。请参阅 [为什么选择 Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/interest_of_intlayer.md) 和 [TanStack Start i18n 性能基准](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md)。
+
+</Question>
+
+<Question title="i18n 会给我的 TanStack Start bundle 体积增加多少？">
+
+远少于基于命名空间的方案，因为页面永远不会下载它不渲染的语言目录。服务端渲染的标记在服务端直接解析内容，构建时编译器将 `useIntlayer` 调用替换为组件使用的确切字典条目，因此未使用的键和未使用的语言都会被自动丢弃，并且 [动态字典](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dynamic_dictionaries/index.md) 会按语言环境拆分剩余内容。与常规替代方案相比，Intlayer 可将 bundle 和页面体积减少高达 50%。请参阅 [Bundle 体积优化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md) 和 [性能基准](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md)。
+
+</Question>
+
+<Question title="我可以从 react-i18next 或 react-intl 迁移而无需重写组件吗？">
+
+可以，有两条迁移路径。您可以使用 [react-i18next 迁移指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_react-i18next_to_intlayer.md) 或 [i18next 迁移指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_i18next_to_intlayer.md) 逐步迁移内容。或者，您可以完全保留当前的 API：[兼容性适配器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/index.md) 公开与 `react-i18next`、`react-intl` 和 `i18next` 完全相同的 API，但底层由 Intlayer 字典驱动，因此只需更改导入语句，组件代码完全无需修改。
+
+</Question>
+
+<Question title="我可以保留现有的 JSON 翻译文件吗？">
+
+可以。[JSON 同步插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/plugins/sync-json.md) 将您的 `/messages/{locale}/{namespace}.json` 文件作为单一真实来源（source of truth），并双向生成 Intlayer 字典。[PO 同步插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/plugins/sync-po.md) 对 gettext 目录执行相同的操作，而 [按语言环境组织的文件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/per_locale_file.md) 允许您按语言拆分内容，而不是将所有语言打包到一个文件中。
+
+</Question>
+
+<Question title="我必须逐个键迁移我的内容吗？">
+
+不需要。运行 `npx intlayer extract`，Intlayer 会读取您的组件，提取面向用户的字符串，并在每个组件旁边生成 `.content` 文件，这样您只需审查 diff，而无需手动逐一复制字符串到语言目录中。本指南的第 15 步详细介绍了此过程。
+
+如需全自动流程，[Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md) 可在构建时执行相同操作：它在每次更改时扫描您的 JSX、TSX、Vue 和 Svelte 源代码，生成字典并通过热模块替换 (HMR) 保持同步，因此完全无需手动维护键名。
+
+开启编译器前有两个限制值得了解：它通过静态分析工作，因此仅在运行时存在的字符串（如 API 错误代码或 CMS 字段）无法被捕获；此外它需要区分用户文本和应用程序逻辑（如 `className="active"` 或状态代码），在大型代码库中需要少量注解。而 [extract 命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/extract.md) 则通过让您参与审查避免了这两个问题。
+
+</Question>
+
+<Question title="有哪些可用的编辑器和 AI 代理工具？">
+
+共有 5 个工具，均为可选：
+
+- **[VS Code 扩展](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/vs_code_extension.md)**：从 `useIntlayer` 键跳转到声明它的内容文件，从组件中提取内容，并从命令面板或专属的 Intlayer 选项卡运行 build、fill、test、push 和 pull。
+- **[LSP 服务器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)**：在任何支持 LSP 的编辑器中提供相同的感知能力，支持跳转到定义、查找所有引用、悬停预览翻译值、键和字段的自动补全，以及在键未声明时发出警告。它还可以解析 `i18next`、`react-i18next`、`next-intl` 和 `use-intl` 调用，助力平滑迁移。
+- **[MCP 服务器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)**：向 Cursor、VS Code、Claude Desktop、Claude Code 和 ChatGPT 公开 Intlayer 文档与 CLI，使 AI 助手能够基于最新文档进行准确回答，并能自行运行 `intlayer fill` 等命令。
+- **[Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)**：针对特定领域的技能（如 `intlayer-config`、`intlayer-cli` 和 `intlayer-content`，以及每个框架对应的专属技能），教导 AI 代理您的路由配置和内容节点类型。
+- **[ESLint 插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/eslint.md)**：`no-raw-text` 规则标记硬编码字符串，并提供针对静态字典键和未使用内容的额外规则。
+
+</Question>
+
+<Question title="Intlayer 是否支持 TanStack Start 中的服务端渲染 (SSR) 和预渲染？">
+
+是的。内容在 SSR 期间解析，本指南涵盖了为每个本地化路由输出单独静态文档的预渲染配置。第 16 步展示了如何在 `vite.config.ts` 中启用 `prerender`，并从同一路由表生成本地化站点地图。
+
+</Question>
+
+<Question title="如何添加 hreflang 标签和本地化站点地图？">
+
+在 `src/routes/sitemap[.]xml.ts` 路由中使用内置的 `generateSitemap` 函数。与普通的 URL 列表不同，它会输出 `xhtml:link` 命名空间，让页面的各个语言版本相互建立双向链接，确保搜索引擎为目标受众索引正确的语言版本。第 12 步介绍了本地化的 `head` 元数据。
+
+</Question>
+
+<Question title="我必须在 URL 中包含语言环境吗？">
+
+不需要。`routing.mode` 控制 URL 方案：`"prefix-no-default"`（默认，例如 `/about` 和 `/fr/about`）、`"prefix-all"`（`/en/about`）、`"no-prefix"`（通过 Cookie、Header 或域名解析）或 `"search-params"`（`/about?locale=fr`）。还可以使用 `routing.domains` 将语言环境映射到独立域名。请参阅 [配置参考](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
+
+</Question>
+
+<Question title="如何构建保留当前路由的语言切换器？">
+
+将 `useLocale` 与第 9 步中介绍的本地化链接组件结合使用。`useLocale` 公开当前活动语言环境、可用语言环境以及用于持久化选择的设置函数，而 `getLocalizedUrl` 会将当前路径重写为目标语言，使读者能够停留在相同的页面，而不会被重定向到主页。
+
+</Question>
+
+<Question title="如何处理本地化路由上的 404 页面？">
+
+第 14 步介绍了此内容。`validatePrefix` 告诉您 URL 的语言环境段是否属于已声明的语言环境，从而使 `/xx/about` 返回真实的 404，而不是将其误作为路径处理。若没有该机制，未知的前缀可能会静默解析，导致搜索引擎索引重复页面。
+
+</Question>
+
+<Question title="如何使用 AI 自动翻译 TanStack Start 应用？">
+
+运行 `npx intlayer fill`。CLI 会查找缺失的翻译，并使用您选择的 LLM、您自己的提供商和 API 密钥进行填充。添加 `--git-diff` 可仅翻译当前分支上修改的内容，保持低成本 CI 运行。请参阅 [fill 命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/fill.md) 和 [CI/CD 集成](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/CI_CD.md)。
+
+</Question>
+
+<Question title="Intlayer 是否支持复数、性别和富文本？">
+
+支持。内容声明支持 [复数形式](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/plurial.md)、[基于性别的内容](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/gender.md)、条件渲染、插值用的 [插入内容 (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/insertion.md)，以及长文本非常适用的 [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/markdown.md)，同时配备用于数字、日期和货币的 [格式化工具](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/formatters.md)。
+
+</Question>
+
+<Question title="翻译人员如何无需接触代码即可编辑内容？">
+
+可以通过在您自己的基础设施上运行的 [可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)（允许任何人直接在运行中的站点上就地修改文本），或通过 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md) 进行无需重新部署的内容外部化更新。
+
+</Question>
+
+<Question title="Intlayer 是免费且开源的吗？">
+
+是的，基于 Apache 2.0 许可证开源，包含商业用途。托管版 CMS 是可选的付费服务，同时完全支持 [自托管](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/self_hosting.md)。
+
+</Question>
+
+</FAQ>

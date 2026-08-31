@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-05-31
+updatedAt: 2026-08-30
 title: "Angular 22 i18n - あなたのアプリを翻訳する完全ガイド"
 description: "i18nextはもう不要。2026年に多言語（i18n）Angular 21アプリを構築するためのガイド。AIエージェントで翻訳し、バンドルサイズ、SEO、パフォーマンスを最適化します。"
 keywords:
@@ -481,3 +481,105 @@ Intlayerでの開発エクスペリエンスを向上させるために、公式
 さらに進むには、[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を実装したり、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)を使用してコンテンツを外部化したりできます。
 
 ---
+
+## よくある質問
+
+<FAQ>
+
+<Question title="Angularアプリを国際化するための利用可能なソリューションにはどのようなものがありますか？">
+
+- **`@angular/localize`**、組み込みのi18n: メッセージはXLIFFに抽出され、各ロケールは独自のビルドにコンパイルされます。これは、言語ごとに1つのデプロイメントアーティファクトが必要で、ランタイムでのロケール切り替えができないことを意味します。
+- **`ngx-translate`** および **`Transloco`**: サービスを介してロードされるランタイムJSONカタログで、ロケール切り替えは可能ですが、ビルド時の型付けはありません。
+- **`Intlayer`**: 最も先進的なソリューションです。コードベースのどこにでも宣言されたコンテンツ（[各コンポーネントの隣、または一元化された場所](https://intlayer.org/blog/per-component-vs-centralized-i18n)）がビルド時にコンパイルされ、完全に型付けされ、ランタイムでのロケール切り替え、AI翻訳、ビジュアルエディター、CMSが利用できます。
+
+`@angular/localize` を使用しない主な理由は、ロケールごとに1つのビルドが必要となるモデルです。Intlayerは単一のビルドを維持し、ランタイムで言語を切り替えます。[Intlayerの利点](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md)をご覧ください。
+
+</Question>
+
+<Question title="i18nはAngularのbundleサイズにどれくらい影響しますか？">
+
+名前空間ベースのセットアップよりもはるかに少ないです。なぜなら、ページはレンダリングしないカタログをダウンロードしないからです。ビルド時コンパイラは、`useIntlayer` の呼び出しをコンポーネントが使用する正確な辞書エントリに置き換えるため、未使用のキーや未使用の言語は削除され、[動的辞書](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dynamic_dictionaries/index.md)が残りをロケールごとに分割します。一般的な代替案と比較して、Intlayerはbundleとページサイズを最大50%削減します。[bundle最適化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)と[ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/index.md)をご覧ください。
+
+</Question>
+
+<Question title="`ngx-translate`、`Transloco`、または`@angular/localize`からテンプレートを書き換えずに移行できますか？">
+
+ほとんど可能です。[ngx-translate移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/ngx-translate.md)または[Transloco移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/transloco.md)に従ってコンテンツを移行してください。段階的に移行することも可能です。[sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-json.md)は、既存のJSONカタログを信頼できる情報源として保持し、そこからIntlayer辞書を生成するため、テンプレートを一つずつ移行する間も両方のレイヤーが同期を保ちます。
+
+</Question>
+
+<Question title="既存のJSON翻訳ファイルを保持できますか？">
+
+はい、可能です。[sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-json.md)は、`/messages/{locale}/{namespace}.json` ファイルを信頼できる情報源として保持し、そこから双方向にIntlayer辞書を生成します。[sync PO plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-po.md)はgettextカタログに対しても同様の機能を提供し、[ロケールごとのファイル](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/per_locale_file.md)を使用すると、ロケールを1つのファイルにまとめるのではなく、言語ごとにコンテンツを分割できます。
+
+</Question>
+
+<Question title="コンテンツをキーごとに移動する必要がありますか？">
+
+いいえ、必要ありません。`npx intlayer extract` を実行すると、Intlayerがソースファイルを読み込み、ユーザー向けの文字列を抽出し、それぞれのファイルの隣に`.content`ファイルを書き出します。これにより、文字列をカタログに一つずつコピーする代わりに、差分を確認するだけで済みます。[extractコマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/extract.md)をご覧ください。
+
+完全に自動化されたパイプラインの場合、[Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md)は、JSX、TSX、Vue、Svelteのソースに対してビルド時に同様の処理を行い、変更があるたびに辞書を生成するため、手動でキーを管理する必要がありません。これは静的解析によって機能するため、ランタイムにのみ存在する文字列は対象外となり、ユーザー向けのテキストとアプリケーションロジックを区別するためにいくつかの注釈が必要です。
+
+</Question>
+
+<Question title="利用可能なエディターおよびAIエージェントツールにはどのようなものがありますか？">
+
+5つのツールがあり、すべてオプションです。
+
+- **[VS Code拡張機能](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)**: `useIntlayer` キーからそれを宣言しているコンテンツファイルにジャンプしたり、コンポーネントからコンテンツを抽出したり、コマンドパレットまたは専用のIntlayerタブからビルド、フィル、テスト、プッシュ、プルを実行したりできます。
+- **[LSPサーバー](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)**: LSPに対応する任意のエディターで同様の認識機能を提供します。定義へのジャンプ、すべての参照の検索、翻訳された値のホバープレビュー、キーとフィールドのオートコンプリート、どこにも宣言されていないキーに対する警告などが含まれます。また、`i18next`、`react-i18next`、`next-intl`、`use-intl` の呼び出しも解決するため、移行中に役立ちます。
+- **[MCPサーバー](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)**: IntlayerのドキュメントとCLIをCursor、VS Code、Claude Desktop、Claude Code、ChatGPTに公開します。これにより、アシスタントは推測ではなく現在のドキュメントから回答し、`intlayer fill` などのコマンド自体を実行できます。
+- **[エージェントスキル](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)**: `intlayer-config`、`intlayer-cli`、`intlayer-content` などの特化したスキルに加え、フレームワークごとのスキルがあり、エージェントにルーティング設定とコンテンツノードタイプを教えます。
+- **[ESLintプラグイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/eslint.md)**: `no-raw-text` はハードコードされた文字列にフラグを立て、静的辞書キーや未使用のコンテンツに対する追加のルールも提供します。
+
+</Question>
+
+<Question title="IntlayerはAngular signalsとstandalone componentsをサポートしていますか？">
+
+はい、サポートしています。コンテンツはsignalsを介して公開されるため、ロケールが変更されてもページのリロードなしにテンプレートが再レンダリングされ、プロバイダーは他のstandalone providerと同様に登録されます。
+
+</Question>
+
+<Question title="言語ごとにビルドが必要ですか？">
+
+いいえ、必要ありません。それは`@angular/localize`のモデルです。Intlayerでは、単一のビルドが宣言されたすべてのロケールに対応し、アクティブな言語はURL、cookie、または`Accept-Language` headerからランタイムで解決され、レンダリングされるロケールのコンテンツのみがダウンロードされます。
+
+</Question>
+
+<Question title="ランタイムで言語を切り替えるにはどうすればよいですか？">
+
+ステップ6で説明されています。`useLocale` はアクティブなロケール、宣言されたロケール、および選択を永続化するセッターを公開し、`getLocalizedUrl` は現在のパスを書き換えるため、ユーザーは切り替え後も同じルートに留まります。
+
+</Question>
+
+<Question title="AIを使ってAngularアプリを自動的に翻訳するにはどうすればよいですか？">
+
+`npx intlayer fill` を実行すると、選択したLLMと独自のプロバイダーおよびAPIキーを使用して、不足している翻訳が補完されます。`--git-diff` を使用すると、ブランチで変更されたコンテンツに実行を限定できます。[fillコマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/fill.md)と[CI/CD連携](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/CI_CD.md)をご覧ください。
+
+</Question>
+
+<Question title="Intlayerは複数形、性別、リッチテキストをサポートしていますか？">
+
+はい、サポートしています。[複数形](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/plurial.md)、[性別に基づくコンテンツ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/gender.md)、条件、[挿入](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/insertion.md)、[Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/markdown.md)、および数値、日付、通貨の[フォーマッター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/formatters.md)に対応しています。
+
+</Question>
+
+<Question title="リリース前に不足している翻訳を検出するにはどうすればよいですか？">
+
+CIで `npx intlayer test` を実行してください。宣言されたロケールにコンテンツが不足している場合、ビルドが失敗します。[VS Code拡張機能](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)は、入力中に同じエラーを報告します。[コンテンツのテスト](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/testing.md)をご覧ください。
+
+</Question>
+
+<Question title="翻訳者はコードに触れずにコンテンツを編集できますか？">
+
+[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を使用できます。これは独自のインフラストラクチャで動作し、実行中のアプリ上で誰でもテキストを直接編集できます。または、コンテンツを外部化してデプロイなしで変更できるようにする[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)も利用できます。
+
+</Question>
+
+<Question title="Intlayerは無料でオープンソースですか？">
+
+はい、Apache 2.0ライセンスの下で、商用利用を含め無料でオープンソースです。ホスト型CMSはオプションの有料サービスですが、[セルフホスト](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/self_hosting.md)することも可能です。
+
+</Question>
+
+</FAQ>

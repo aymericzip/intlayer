@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-10
-updatedAt: 2026-06-23
+updatedAt: 2026-08-30
 title: "Next.js i18n - Guía completa para traducir tu aplicación"
 description: "Sin más i18next. La guía 2026 para crear una aplicación Next.js multilingüe (i18n). Traduce con agentes de IA y optimiza el tamaño del bundle, SEO y rendimiento."
 keywords:
@@ -726,3 +726,109 @@ Para obtener más detalles sobre cómo usar la extensión, consulte la [document
 ### Ir más allá
 
 Para ir más allá, puede implementar el [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md) o externalizar su contenido utilizando el [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md).
+
+## Preguntas frecuentes
+
+<FAQ>
+
+<Question title="¿Qué soluciones existen para internacionalizar una aplicación Next.js?">
+
+El campo `i18n` de `next.config.js` no se aplica al App Router, así que la capa de localización siempre es una elección de biblioteca:
+
+- **`next-intl`**, **`next-i18next` / `i18next`** y **`react-intl`**: catálogos JSON o ICU cargados por espacio de nombres, con claves escritas a mano en cada punto de uso.
+- **`Lingui`**: basada en extracción, con mensajes ICU compilados en tiempo de compilación.
+- **`Intlayer`**: contenido compilado a partir de tus componentes en tiempo de compilación, totalmente tipado, con traducción con IA, un editor visual y un CMS.
+
+Esta guía usa la configuración con el compilador, donde sigues escribiendo cadenas normales en tus componentes y los diccionarios se generan por ti. Consulta [por qué Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/interest_of_intlayer.md) y el [benchmark de i18n de Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/benchmark/nextjs.md).
+
+</Question>
+
+<Question title="¿Cuánto añade la i18n al tamaño del bundle de mi aplicación Next.js?">
+
+Mucho menos que una configuración basada en espacios de nombres, porque una página nunca descarga un catálogo que no renderiza. Los Server Components resuelven su contenido en el servidor, y el compilador de tiempo de compilación reemplaza las llamadas a `useIntlayer` por las entradas de diccionario exactas que usa un componente, de modo que se descartan las claves sin usar y los idiomas sin usar, y los [diccionarios dinámicos](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dynamic_dictionaries/index.md) reparten el resto por idioma. Frente a las alternativas habituales, Intlayer reduce el tamaño del bundle y de la página hasta en un 50%. Consulta la [optimización del bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/bundle_optimization.md) y el [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/benchmark/nextjs.md).
+
+</Question>
+
+<Question title="¿Puedo migrar desde `next-intl`, `next-i18next` o `i18next` sin reescribir mis componentes?">
+
+Sí, y hay dos caminos. Puedes migrar el contenido de forma progresiva con la [guía de migración de next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/migration_from_next-intl_to_intlayer.md) o la [guía de migración de i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/migration_from_i18next_to_intlayer.md). O puedes mantener tu API actual por completo: los [adaptadores de compatibilidad](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compat/index.md) exponen exactamente la misma API que `next-intl`, `react-i18next` y `react-intl`, pero servida por diccionarios de Intlayer, así que cambian los imports y el código de los componentes no.
+
+</Question>
+
+<Question title="¿Puedo conservar mis archivos de traducción JSON existentes?">
+
+Sí. El [plugin de sincronización JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/plugins/sync-json.md) mantiene tus archivos `/messages/{locale}/{namespace}.json` como fuente de verdad y genera diccionarios de Intlayer a partir de ellos, en ambas direcciones. Un [plugin de sincronización PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/plugins/sync-po.md) hace lo mismo para los catálogos gettext, y los [archivos por idioma](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/per_locale_file.md) te permiten dividir el contenido por idioma en lugar de agrupar los idiomas en un solo archivo.
+
+</Question>
+
+<Question title="¿Tengo que trasladar mi contenido clave por clave?">
+
+No, y eso es lo que configura esta guía. Escribes tus componentes con cadenas normales en tu idioma por defecto, y el [compilador de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compiler.md) escanea el código en cada build, extrae el texto visible para el usuario y genera los diccionarios, así que no hay ninguna clave que crear ni mantener a mano.
+
+Conviene conocer dos límites. El compilador funciona por análisis estático, así que las cadenas que solo existen en tiempo de ejecución, como los códigos de error de la API o los campos del CMS, quedan fuera de su alcance y siguen necesitando un diccionario declarado. Y tiene que distinguir el texto visible para el usuario de la lógica de la aplicación, como `className="active"` o un código de estado, lo que requiere unas pocas anotaciones en una base de código grande.
+
+Si prefieres mantener el control, `npx intlayer extract` hace la misma extracción una sola vez, sobre los archivos que elijas, y escribe un archivo `.content` junto a cada componente para que lo revises. Consulta el [comando extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/extract.md).
+
+</Question>
+
+<Question title="¿Qué herramientas para editores y agentes de IA están disponibles?">
+
+Cinco piezas, todas opcionales:
+
+- **[Extensión de VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/vs_code_extension.md)**: salta de una clave `useIntlayer` al archivo de contenido que la declara, extrae contenido de un componente y ejecuta build, fill, test, push y pull desde la paleta de comandos o desde una pestaña de Intlayer dedicada.
+- **[Servidor LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/lsp.md)**: el mismo conocimiento en cualquier editor que hable LSP, con ir a la definición, buscar todas las referencias, vistas previas al pasar el cursor de un valor traducido, autocompletado de claves y campos, y un aviso cuando una clave no está declarada en ninguna parte. También resuelve las llamadas a `i18next`, `react-i18next`, `next-intl` y `use-intl`, lo que ayuda durante la migración.
+- **[Servidor MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/mcp_server.md)**: expone la documentación y la CLI de Intlayer a Cursor, VS Code, Claude Desktop, Claude Code y ChatGPT, para que un asistente responda a partir de la documentación actual en lugar de adivinar, y pueda ejecutar comandos como `intlayer fill` por sí mismo.
+- **[Habilidades para agentes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/agent_skills.md)**: habilidades específicas como `intlayer-config`, `intlayer-cli` e `intlayer-content`, además de una por framework, que enseñan a un agente tu configuración de enrutamiento y los tipos de nodo de contenido.
+- **[Plugin de ESLint](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/eslint.md)**: `no-raw-text` marca las cadenas codificadas de forma fija, con reglas adicionales para claves de diccionario estáticas y contenido sin usar.
+
+</Question>
+
+<Question title="¿Debería usar el compilador o declarar mi contenido yo mismo?">
+
+Usa el compilador cuando quieras añadir i18n a una base de código existente con el menor trastorno: tus componentes se quedan como están y los diccionarios los siguen. Declara el contenido tú mismo, como muestra la [guía estándar de Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_nextjs_16.md), cuando quieras un control explícito sobre las claves, la estructura y la reutilización. Los dos pueden coexistir en la misma capa de diccionarios.
+
+</Question>
+
+<Question title="¿Por qué necesito configurar Babel?">
+
+Lo cubre el paso 4. El compilador lee tus componentes a través de una transformación de Babel, así que Next.js necesita un `babel.config.js` para que se ejecute la pasada de extracción. `npx intlayer init --interactive` lo genera por ti cuando eliges la configuración con el compilador.
+
+</Question>
+
+<Question title="¿Qué ocurre con las cadenas que el compilador no puede ver?">
+
+Se quedan sin traducir, porque el compilador funciona por análisis estático. Cualquier cosa montada en tiempo de ejecución, como un mensaje de error de la API, un campo del CMS o una cadena construida por concatenación, tiene que declararse en un archivo de contenido de la forma habitual. Ejecuta `npx intlayer test` para encontrar lo que falta.
+
+</Question>
+
+<Question title="¿Cómo relleno las traducciones que faltan?">
+
+Lo cubre el paso 7. `npx intlayer fill` envía el contenido extraído al LLM de tu elección, usando tu propio proveedor y tu clave de API, y `--git-diff` limita la ejecución a lo que cambió en la rama. Consulta el [comando fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/fill.md) y la [integración de CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/CI_CD.md).
+
+</Question>
+
+<Question title="¿Cómo se detecta el idioma?">
+
+El paso 5 lo lee en tus páginas y el paso 8 añade el proxy que lo resuelve a partir de la URL, una cookie o la cabecera `Accept-Language`. `routing.mode` decide si el idioma aparece siquiera en la ruta. Consulta la [referencia de configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md).
+
+</Question>
+
+<Question title="¿Intlayer admite plurales, género y texto enriquecido?">
+
+Sí: [formas plurales](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/plurial.md), [contenido según el género](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/gender.md), condiciones, [inserciones](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/insertion.md), [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/markdown.md) y [formateadores](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/formatters.md) para números, fechas y monedas.
+
+</Question>
+
+<Question title="¿Cómo pueden los traductores editar el contenido sin tocar el código?">
+
+A través del [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md), que se ejecuta en tu propia infraestructura y permite que cualquiera edite texto en su sitio en la aplicación en ejecución, o del [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md), que externaliza el contenido para que pueda cambiar sin un despliegue.
+
+</Question>
+
+<Question title="¿Es Intlayer gratuito y de código abierto?">
+
+Sí, bajo la licencia Apache 2.0, uso comercial incluido. El CMS alojado es un servicio de pago opcional que también puede [autoalojarse](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/self_hosting.md).
+
+</Question>
+
+</FAQ>

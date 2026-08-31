@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-06-29
+updatedAt: 2026-08-30
 title: Intlayerビジュアルエディター | ビジュアルエディターを使用してコンテンツを編集します
 description: Intlayerエディターを使用して多言語ウェブサイトを管理する方法を発見してください。このオンラインドキュメントの手順に従って、数分でプロジェクトを設定することができます。
 keywords:
@@ -211,3 +211,89 @@ pnpm intlayer-editor start -e development
     - アプリケーション URL はエディタ設定 (`applicationURL`) に設定したものと一致する必要があります。
 
 - ビジュアルエディターは iframe を使用してウェブサイトを表示します。ウェブサイトのコンテンツセキュリティポリシー（CSP）が CMS の URL を `frame-ancestors` として許可していることを確認してください（デフォルトは 'http://localhost:8000'）。エディターのコンソールでエラーがないか確認してください。
+
+## よくある質問
+
+<FAQ>
+
+<Question title="ビジュアルエディターとCMSの違いは何ですか？">
+
+ビジュアルエディターはローカル辞書を編集し、その変更をコードベースに書き戻すため、通常のレビューとデプロイメントのプロセスを経ます。[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md) はリモート辞書を編集し、デプロイメントなしで実行中のサイトに変更を反映させます。エディターは開発者が所有するコンテンツに適しており、CMSはマーケティングチームが所有するコンテンツに適しています。
+
+</Question>
+
+<Question title="i18nはバンドルサイズにどのくらい影響しますか？">
+
+名前空間ベースのセットアップよりもはるかに少なく、ページはレンダリングしないカタログをダウンロードすることはありません。サーバーでレンダリングされたマークアップはサーバー上でコンテンツを解決し、ビルド時コンパイラは `useIntlayer` の呼び出しをコンポーネントが使用する正確な辞書エントリに置き換えるため、未使用のキーや未使用の言語は削除されます。[動的辞書](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dynamic_dictionaries/index.md) は残りをロケールごとに分割します。一般的な代替手段と比較して、Intlayerはbundleサイズとページサイズを最大50%削減します。[バンドル最適化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md) および [ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/index.md) を参照してください。
+
+</Question>
+
+<Question title="`i18next`、`next-intl`、`react-i18next` からコンポーネントを書き換えずに移行できますか？">
+
+はい、2つの方法があります。[i18next移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_i18next_to_intlayer.md) または [next-intl移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_next-intl_to_intlayer.md) を使用して、コンテンツを段階的に移行できます。または、現在のAPIを完全に維持することもできます。[互換アダプター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/index.md) は、`i18next`、`react-i18next`、`next-intl`、`next-i18next`、`react-intl`、`use-intl`、`vue-i18n`、`Lingui` とまったく同じAPIを公開しますが、Intlayer辞書によって提供されるため、インポートは変更されますが、コンポーネントコードは変更されません。
+
+</Question>
+
+<Question title="既存のJSON翻訳ファイルを維持できますか？">
+
+はい。[sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-json.md) は、`/messages/{locale}/{namespace}.json` ファイルを信頼できる情報源として保持し、それらからIntlayer辞書を双方向に生成します。[sync PO plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-po.md) はgettextカタログに対しても同様の処理を行い、[ロケールごとのファイル](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/per_locale_file.md) を使用すると、1つのファイルにロケールをグループ化する代わりに、言語ごとにコンテンツを分割できます。
+
+</Question>
+
+<Question title="コンテンツをキーごとに移動する必要がありますか？">
+
+いいえ。`npx intlayer extract` を実行すると、Intlayerはソースファイルを読み込み、ユーザー向けの文字列を抽出し、それぞれのファイルの隣に `.content` ファイルを書き込みます。これにより、文字列をカタログに1つずつコピーする代わりに、差分をレビューできます。[extractコマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/extract.md) を参照してください。
+
+完全に自動化されたパイプラインの場合、[Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md) は、JSX、TSX、Vue、Svelteのソースに対してビルド時に同じ処理を行い、変更があるたびに辞書を生成するため、手動でキーを管理する必要はありません。これは静的解析によって機能するため、実行時にのみ存在する文字列は対象外となり、ユーザー向けのテキストとアプリケーションロジックを区別するためにいくつかの注釈が必要です。
+
+</Question>
+
+<Question title="利用可能なエディターとAIエージェントのツールは何ですか？">
+
+5つのツールがあり、すべてオプションです。
+
+- **[VS Code拡張機能](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)**: `useIntlayer` キーからそれを宣言するコンテンツファイルにジャンプしたり、コンポーネントからコンテンツを抽出したり、コマンドパレットまたは専用のIntlayerタブからビルド、フィル、テスト、プッシュ、プルを実行したりできます。
+- **[LSPサーバー](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)**: LSPをサポートする任意のエディターで同様の認識を提供し、定義へのジャンプ、すべての参照の検索、翻訳された値のホバープレビュー、キーとフィールドのオートコンプリート、およびキーがどこにも宣言されていない場合の警告機能があります。また、`i18next`、`react-i18next`、`next-intl`、`use-intl` の呼び出しも解決するため、移行中に役立ちます。
+- **[MCPサーバー](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)**: IntlayerのドキュメントとCLIをCursor、VS Code、Claude Desktop、Claude Code、ChatGPTに公開するため、アシスタントは推測ではなく現在のドキュメントから回答し、`intlayer fill` などのコマンドを自分で実行できます。
+- **[エージェントスキル](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)**: `intlayer-config`、`intlayer-cli`、`intlayer-content` などの特化されたスキルに加え、フレームワークごとのスキルがあり、エージェントにルーティング設定とコンテンツノードタイプを教えます。
+- **[ESLintプラグイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/eslint.md)**: `no-raw-text` はハードコードされた文字列を検出し、静的辞書キーと未使用のコンテンツに関する追加のルールを提供します。
+
+</Question>
+
+<Question title="ビジュアルエディターはどこで実行されますか？">
+
+お客様自身のインフラストラクチャ上で実行されます。アプリケーションをiframe内にロードし、ローカルのエディターサーバーと通信するため、コンテンツがお客様の環境を離れることはありません。これにより、ホスト型サービスにコピーを送信できないプロジェクトでも利用できます。
+
+</Question>
+
+<Question title="エディターはコードの知識が必要ですか？">
+
+いいえ。彼らはサイトを開き、テキストの一部をクリックしてその場で編集します。エディターは、そのテキストを裏付ける辞書エントリを解決し、適切なコンテンツファイルに変更を書き込むため、翻訳者はファイルを見つけたりキーを知る必要はありません。
+
+</Question>
+
+<Question title="ビジュアルエディターでの編集はソースファイルを変更しますか？">
+
+はい、それが意図するところです。変更はコードベース内のコンテンツ宣言ファイルに反映されるため、通常の差分としてレビューおよびコミットでき、アプリケーションはそれを表示するために再ビルドされます。
+
+</Question>
+
+<Question title="エディターが空白ページを表示したり、サイトの読み込みを拒否したりします。何を確認すべきですか？">
+
+エディターはアプリケーションをiframe内に表示するため、Content Security Policyでエディターのオリジンを `frame-ancestors` として許可する必要があります。デフォルトでは `http://localhost:8000` です。また、エディター設定の `applicationURL` が、実際にアプリが提供されているURLと一致していることを確認してください。エディターのコンソールは両方の失敗を報告します。
+
+</Question>
+
+<Question title="ビジュアルエディターを本番環境で使用できますか？">
+
+これは開発環境およびステージング環境向けに設計されており、編集後の再ビルドが許容される場合に適しています。デプロイメントなしでライブサイトのコンテンツを編集するには、代わりに[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md) とそのリモート辞書を使用してください。
+
+</Question>
+
+<Question title="ビジュアルエディターは無料ですか？">
+
+はい。ビジュアルエディターはオープンソースプロジェクトの一部であり、Apache 2.0ライセンスの下で提供され、商用利用も含まれます。ホスト型[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md) のみが有料サービスであり、[セルフホスト](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/self_hosting.md) することも可能です。
+
+</Question>
+
+</FAQ>

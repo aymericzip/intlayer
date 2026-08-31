@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-06-23
+updatedAt: 2026-08-30
 title: "Astro + Solid i18n - 앱을 번역하는 완전 가이드"
 description: "i18next는 이제 그만. 2026년 다국어 (i18n) Astro + Solid 앱 구축 가이드. AI 에이전트로 번역하고 번들 크기, SEO, 성능을 최적화하세요."
 keywords:
@@ -662,3 +662,112 @@ Intlayer 개발 환경을 개선하기 위해 **공식 Intlayer VS Code 확장 �
 ### 더 알아보기
 
 더 자세히 알고 싶다면 [비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)를 구현하거나 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)를 사용하여 콘텐츠를 외부화할 수 있습니다.
+
+## 자주 묻는 질문
+
+<FAQ>
+
+<Question title="Solid 아일랜드가 포함된 Astro 사이트를 국제화하는 데 사용할 수 있는 다양한 솔루션은 무엇인가요?">
+
+Astro의 내장 `i18n` 옵션은 로케일 접두사와 리디렉션만 처리할 뿐 콘텐츠 자체는 관리하지 않으므로 메시지 레이어가 필요하며, 아일랜드 구조로 인해 두 번째 문제가 발생합니다: 아일랜드는 Astro가 아닌 Solid로 실행된다는 점입니다.
+
+- **Astro `i18n`과 직접 작성한 사전**, 그리고 아일랜드 내부의 **`@solid-primitives/i18n`**: 동기화해야 할 두 개의 콘텐츠 소스가 생기고, 둘 사이에 공유된 타입 안전성이 없습니다.
+- **`Intlayer`**: 둘 모두를 위한 단일 콘텐츠 레이어입니다. `astro-intlayer`는 `.astro` 페이지를 다루고 `solid-intlayer`는 Solid 아일랜드를 다루며, 둘 다 동일한 선언을 읽습니다.
+
+라벨을 한 번만 선언하고 정적 페이지와 인터랙티브 아일랜드 양쪽에서 모두 사용할 수 있다는 점이 여기서 단일 콘텐츠 레이어를 선택하는 핵심 이유입니다. [왜 Intlayer인가](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/interest_of_intlayer.md)를 참조하세요.
+
+</Question>
+
+<Question title="i18n이 Astro 번들 크기에 얼마나 영향을 미치나요?">
+
+네임스페이스 기반 설정보다 훨씬 적습니다. 페이지는 렌더링하지 않는 언어의 카탈로그를 절대 다운로드하지 않기 때문입니다. Astro 페이지는 빌드 타임에 렌더링되므로 번역된 HTML만 전송하고 사전은 전혀 전송하지 않으며, 오직 아일랜드만 사전을 전달받습니다. 빌드 타임 컴파일러는 콘텐츠 호출을 컴포넌트가 사용하는 정확한 항목으로 확인하고, [동적 사전](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dynamic_dictionaries/index.md)을 통해 로케일별로 분할합니다. 일반적인 대안들과 비교했을 때 Intlayer는 번들 및 페이지 크기를 최대 50%까지 줄여줍니다. [번들 최적화](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/bundle_optimization.md)와 [벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/index.md)를 참조하세요.
+
+</Question>
+
+<Question title="컴포넌트를 다시 작성하지 않고 @solid-primitives/i18n 또는 i18next에서 마이그레이션할 수 있나요?">
+
+대부분 가능합니다. 콘텐츠를 이전하려면 [i18next 마이그레이션 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/migration_from_i18next_to_intlayer.md)를 따르세요. 점진적으로 마이그레이션할 수도 있습니다: [sync JSON 플러그인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/plugins/sync-json.md)은 기존 JSON 카탈로그를 단일 진실 공급원(source of truth)으로 유지하면서 Intlayer 사전을 생성하므로 컴포넌트를 하나씩 이전하는 동안 두 계층의 동기화가 유지됩니다.
+
+</Question>
+
+<Question title="기존 JSON 번역 파일을 유지할 수 있나요?">
+
+네. [sync JSON 플러그인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/plugins/sync-json.md)은 `/messages/{locale}/{namespace}.json` 파일을 단일 진실 공급원(source of truth)으로 유지하면서 양방향으로 Intlayer 사전을 생성합니다. [sync PO 플러그인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/plugins/sync-po.md)은 gettext 카탈로그에 대해 동일한 작업을 수행하며, [로케일별 파일](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/per_locale_file.md)을 통해 로케일을 한 파일에 모으는 대신 언어별로 콘텐츠를 분할할 수도 있습니다.
+
+</Question>
+
+<Question title="콘텐츠를 키 단위로 하나씩 옮겨야 하나요?">
+
+아닙니다. `npx intlayer extract`를 실행하면 Intlayer가 컴포넌트를 읽고 사용자 대면 문자열을 추출하여 각 컴포넌트 옆에 `.content` 파일을 생성하므로 카탈로그에 일일이 복사할 필요 없이 diff만 검토하면 됩니다. 이 가이드의 15단계를 확인하세요.
+
+완전 자동화된 파이프라인을 위해 [Intlayer 컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md)는 빌드 타임에 JSX, TSX, Vue 및 Svelte 소스에서 동일한 작업을 수행하여 변경될 때마다 사전을 생성하고 HMR을 통해 동기화하므로 수동으로 키를 관리할 필요가 없습니다. 정적 분석으로 작동하므로 런타임에만 존재하는 문자열은 제외되며, 사용자 텍스트와 애플리케이션 로직을 구분하기 위해 몇 가지 주석이 필요합니다. [extract 명령](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/extract.md)을 사용하면 직접 검토하면서 이 두 가지 문제를 모두 피할 수 있습니다.
+
+</Question>
+
+<Question title="사용 가능한 에디터 및 AI 에이전트 도구는 무엇이 있나요?">
+
+5가지 도구가 모두 선택 사항으로 제공됩니다:
+
+- **[VS Code 확장 프로그램](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/vs_code_extension.md)**: `useIntlayer` 키에서 이를 선언한 콘텐츠 파일로 바로 이동하고, 컴포넌트에서 콘텐츠를 추출하며, 명령 팔레트나 전용 Intlayer 탭에서 build, fill, test, push, pull을 실행할 수 있습니다.
+- **[LSP 서버](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/lsp.md)**: LSP를 지원하는 모든 에디터에서 정의로 이동, 모든 참조 찾기, 번역 값 마우스 오버 미리보기, 키 및 필드 자동 완성, 선언되지 않은 키에 대한 경고 등 동일한 기능을 제공합니다. 또한 `i18next`, `react-i18next`, `next-intl`, `use-intl` 호출도 해석하므로 마이그레이션 시 유용합니다.
+- **[MCP 서버](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/mcp_server.md)**: Cursor, VS Code, Claude Desktop, Claude Code, ChatGPT에 Intlayer 문서와 CLI를 노출하여 AI 어시스턴트가 최신 문서를 기반으로 정확히 답변하고 `intlayer fill` 등의 명령을 직접 실행할 수 있게 합니다.
+- **[Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/agent_skills.md)**: `intlayer-config`, `intlayer-cli`, `intlayer-content` 및 각 프레임워크 전용 스킬을 통해 AI 에이전트에게 라우팅 설정과 콘텐츠 노드 타입을 학습시킵니다.
+- **[ESLint 플러그인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/eslint.md)**: `no-raw-text` 규칙으로 하드코딩된 문자열을 표시하고, 정적 사전 키 및 사용되지 않는 콘텐츠에 대한 추가 규칙을 제공합니다.
+
+</Question>
+
+<Question title="Solid 아일랜드 내부에 별도의 i18n 라이브러리가 필요한가요?">
+
+아닙니다. `solid-intlayer`는 Astro 측과 동일한 사전을 읽으므로 `@solid-primitives/i18n`을 함께 설치할 필요가 없습니다. 6단계에서 아일랜드 컴포넌트가 로케일을 다시 확인하는 대신 페이지로부터 활성 로케일을 직접 전달받는 모습을 보여줍니다.
+
+</Question>
+
+<Question title="아일랜드는 페이지가 어떤 로케일을 렌더링하는지 어떻게 아나요?">
+
+Astro 페이지가 이를 prop으로 전달하고 아일랜드의 Intlayer 프로바이더가 이를 수신하므로, 아일랜드는 서버가 렌더링한 것과 동일한 언어로 하이드레이션(hydrate)됩니다. 이는 아일랜드가 브라우저에서 자체적으로 로케일을 감지할 때 발생하는 기본 언어 깜빡임 현상을 방지합니다.
+
+</Question>
+
+<Question title="번역된 콘텐츠가 정적 HTML로 제공되나요?">
+
+네, 빌드 타임에 렌더링되는 Astro 파트의 경우 지역화된 페이지가 일반 정적 HTML이므로 크롤러가 JavaScript를 실행하지 않고도 바로 읽을 수 있습니다. 오직 아일랜드만 사전을 전달받으며, 자신이 렌더링하는 로케일에 대한 사전에 한정됩니다.
+
+</Question>
+
+<Question title="지역화된 라우팅 및 로케일 전환기는 어떻게 설정하나요?">
+
+7단계에서 전환기를 다룹니다. `routing.mode`는 URL 체계를 결정합니다: `"prefix-no-default"`(기본값: `/about`, `/ko/about`), `"prefix-all"`, `"no-prefix"` 또는 `"search-params"`이며, `routing.domains`를 통해 로케일을 자체 도메인에 매핑할 수도 있습니다. `getLocalizedUrl`은 언어를 전환할 때 독자가 동일한 페이지에 머무를 수 있도록 현재 경로를 다시 작성합니다. [설정 참조](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 참조하세요.
+
+</Question>
+
+<Question title="지역화된 사이트맵과 hreflang 태그는 어떻게 생성하나요?">
+
+8단계에서 `sitemap.xml`과 `robots.txt`를 다룹니다. `getMultilingualUrls`는 검색 엔진이 올바른 언어 버전을 제공할 수 있도록 `x-default`를 포함한 모든 선언 로케일에 대한 대체를 구축합니다.
+
+</Question>
+
+<Question title="AI를 사용하여 사이트를 자동으로 번역하려면 어떻게 하나요?">
+
+`npx intlayer fill`을 실행하세요. 자체 제공업체 및 API 키를 사용하여 원하는 LLM으로 누락된 번역을 채워주며, `--git-diff`를 사용하면 브랜치에서 변경된 콘텐츠로 번역 범위를 제한할 수 있습니다. [fill 명령](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/fill.md) 및 [CI/CD 통합](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/CI_CD.md)을 참조하세요.
+
+</Question>
+
+<Question title="Intlayer는 복수형, 성별 및 서식 있는 텍스트(Rich Text)를 지원하나요?">
+
+네: [복수형(plural forms)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/plurial.md), [성별 기반 콘텐츠](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/gender.md), 조건문, [삽입(insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/insertion.md), 긴 텍스트를 위한 [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/markdown.md) 및 숫자, 날짜, 통화를 위한 [포맷터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/formatters.md)를 지원합니다.
+
+</Question>
+
+<Question title="번역가가 코드를 건드리지 않고 콘텐츠를 수정할 수 있나요?">
+
+자체 인프라에서 실행되어 실행 중인 앱에서 직접 텍스트를 수정할 수 있는 [비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md) 또는 배포 없이 변경할 수 있도록 콘텐츠를 외부화하는 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)를 통해 가능합니다.
+
+</Question>
+
+<Question title="Intlayer는 무료이며 오픈 소스인가요?">
+
+네, 상업적 사용을 포함하여 Apache 2.0 라이선스에 따라 제공됩니다. 호스팅형 CMS는 선택적 유료 서비스이며 [자체 호스팅](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/self_hosting.md)도 가능합니다.
+
+</Question>
+
+</FAQ>

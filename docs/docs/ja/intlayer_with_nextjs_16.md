@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-12-06
-updatedAt: 2026-06-23
+updatedAt: 2026-08-30
 title: "Next.js 16 i18n - あなたのアプリを翻訳する完全ガイド"
 description: "i18nextはもう不要。2026年に多言語（i18n）Next.js 16アプリを構築するためのガイド。AIエージェントで翻訳し、バンドルサイズ、SEO、パフォーマンスを最適化します。"
 keywords:
@@ -1178,3 +1178,122 @@ Intlayer での開発体験を向上させるために、公式の **Intlayer VS
 ### さらに進むには
 
 さらに進むには、[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を実装するか、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)を使用してコンテンツを外部化することができます。
+
+## よくある質問
+
+<FAQ>
+
+<Question title="Next.js アプリを国際化するために利用可能なソリューションにはどのようなものがありますか？">
+
+Next.js には `next.config.js` の `i18n` フィールドが App Router に適用されなくなったため、組み込みのメッセージレイヤーがないため、ローカライゼーションレイヤーは常にライブラリの選択肢です：
+
+- **`next-intl`**、**`i18next` / `next-i18next`** および **`react-intl`**：JSON または ICU メッセージカタログに基づいた従来のオプションで、名前空間ごとに読み込まれます。
+- **`Lingui`**：抽出駆動型で、ICU メッセージはビルド時にコンパイルされます。
+- **`Intlayer`**：最も高度なソリューション。コンテンツはコードベースのどこにでも宣言でき（[各コンポーネントの隣またはセントラライズ](https://intlayer.org/blog/per-component-vs-centralized-i18n)）、ビルド時にコンポーネントごとの辞書にコンパイルされ、完全に型付けされ、AI 翻訳、ビジュアルエディター、CMS が含まれています。
+
+実際の違いはブラウザに到達するものです。名前空間ベースのライブラリはページ全体の JSON カタログを配信しますが、Intlayer はレンダリングされたコンポーネントが使用するコンテンツのみを配信するため、bundle とページサイズを最大 50% 削減できます。[Intlayer を選ぶ理由](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md)と [Next.js i18n ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/nextjs.md)を参照してください。
+
+</Question>
+
+<Question title="i18n は Next.js の bundle サイズにどの程度追加されますか？">
+
+名前空間ベースのセットアップよりもはるかに少なくなります。ページはレンダリングしないカタログをダウンロードしないためです。Server Components はサーバー上でコンテンツを解決し、ビルド時コンパイラは `useIntlayer` 呼び出しをコンポーネントが使用する正確な辞書エントリに置き換えるため、未使用のキーと未使用の言語は削除され、[動的辞書](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dynamic_dictionaries/index.md)は残りをロケールごとに分割します。通常の代替案と比較して、Intlayer は bundle とページサイズを最大 50% 削減します。[bundle 最適化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)と[ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/nextjs.md)を参照してください。
+
+</Question>
+
+<Question title="`next-intl`、`next-i18next` または `i18next` からコンポーネントを書き直さずに移行できますか？">
+
+はい、2 つのパスがあります。[next-intl 移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_next-intl_to_intlayer.md)または [i18next 移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_i18next_to_intlayer.md)を使用してコンテンツを段階的に移行できます。または、現在の API を完全に保持できます：[互換性アダプター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/index.md)は `next-intl`、`react-i18next` および `react-intl` と同じ API を公開しますが、Intlayer 辞書によって提供されるため、import は変更されますがコンポーネントコードは変わりません。
+
+</Question>
+
+<Question title="既存の JSON 翻訳ファイルを保持できますか？">
+
+はい。[sync JSON プラグイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-json.md)は `/messages/{locale}/{namespace}.json` ファイルを真実のソースとして保持し、双方向で Intlayer 辞書を生成します。[sync PO プラグイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-po.md)は gettext カタログに対して同じことを行い、[ロケールごとのファイル](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/per_locale_file.md)では 1 つのファイルにロケールをグループ化する代わりに言語ごとにコンテンツを分割できます。
+
+</Question>
+
+<Question title="コンテンツをキーごとに移動する必要がありますか？">
+
+いいえ。`npx intlayer extract` を実行すると、Intlayer はコンポーネントを読み込み、ユーザーが見える文字列を抽出し、各コンポーネントの隣に `.content` ファイルを書き込むため、カタログに 1 つずつ文字列をコピーする代わりに diff を確認できます。このガイドのステップ 14 でそれを説明しています。
+
+完全に自動化されたパイプラインの場合、[Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md)はビルド時に同じことを行います：JSX、TSX、Vue および Svelte ソースをスキャンし、辞書を生成し、hot module replacement を通じて同期を保つため、手動で保守するキーはまったくありません。
+
+compiler をオンにする前に知っておく価値のある 2 つの制限があります。静的分析によって機能するため、API エラーコードや CMS フィールドなど、実行時にのみ存在する文字列は到達できません。また、`className="active"` やステータスコードなどのアプリケーションロジックからユーザーが見える文字列を区別する必要があり、大規模なコードベースではいくつかのアノテーションが必要です。[extract コマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/extract.md)はループに保つことで両方を回避します。
+
+</Question>
+
+<Question title="利用可能なエディターと AI エージェントツールは何ですか？">
+
+5 つのツール、すべてオプションです：
+
+- **[VS Code 拡張機能](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)**：`useIntlayer` キーからそれを宣言するコンテンツファイルにジャンプし、コンポーネントからコンテンツを抽出し、コマンドパレットまたは専用の Intlayer タブから build、fill、test、push および pull を実行します。
+- **[LSP サーバー](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)**：LSP を話す任意のエディターで同じ認識を持ち、定義へのジャンプ、すべての参照を検索、翻訳された値のホバープレビュー、キーとフィールドのオートコンプリート、キーがどこにも宣言されていない場合の警告があります。また、`i18next`、`react-i18next`、`next-intl` および `use-intl` 呼び出しを解決し、移行中に役立ちます。
+- **[MCP サーバー](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)**：Intlayer ドキュメントと CLI を Cursor、VS Code、Claude Desktop、Claude Code および ChatGPT に公開するため、アシスタントは推測する代わりに現在のドキュメントから回答でき、`intlayer fill` などのコマンドを自分で実行できます。
+- **[エージェントスキル](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)**：`intlayer-config`、`intlayer-cli` および `intlayer-content` などの焦点を絞ったスキル、およびフレームワークごとに 1 つ、エージェントにルーティング設定とコンテンツノードタイプを教えます。
+- **[ESLint プラグイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/eslint.md)**：`no-raw-text` はハードコードされた文字列にフラグを立て、静的辞書キーと未使用コンテンツのさらなるルールがあります。
+
+</Question>
+
+<Question title="Intlayer は Next.js App Router と React Server Components で機能しますか？">
+
+はい。`next-intlayer` は App Router 用に構築されています：コンテンツは Server Components 内のサーバー上で解決されるため、サーバーレンダリングされたテキストの辞書はクライアントに送信されません。Client Components は provider を通じて同じ `useIntlayer` hook を使用します。Intlayer は静的レンダリングをブロックせず、Turbopack と互換性があります。
+
+</Question>
+
+<Question title="Intlayer はどのバージョンの Next.js をサポートしていますか？">
+
+Intlayer は Next.js 12、13、14、15 および 16 をサポートしています。このガイドは Next.js 16 をカバーしています。古いセットアップの場合は、[Next.js 15 ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_15.md)、[Next.js 14 ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_14.md)または [Pages Router ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_page_router.md)に従ってください。
+
+</Question>
+
+<Question title="URL に /fr/about のようなロケールを入れる必要がありますか？">
+
+いいえ。URL スキームは制約ではなく、設定オプションです。`routing.mode` は以下を受け入れます：
+
+- `"prefix-no-default"`（デフォルト）：デフォルトロケールの場合は `/about`、その他の場合は `/fr/about`。
+- `"prefix-all"`：すべてのロケールがプレフィックス付き、`/en/about` および `/fr/about`。
+- `"no-prefix"`：パスにロケールなし、cookie、header またはドメインから解決。
+- `"search-params"`：`/about?locale=fr`。
+
+`routing.domains` を使用して各ロケールを独自のドメインにマップすることもできます。[設定リファレンス](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)と[ロケールパスなしのガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_no_locale_path.md)を参照してください。
+
+</Question>
+
+<Question title="SEO のために hreflang タグとローカライズされたメタデータを追加するにはどうすればよいですか？">
+
+Next.js `generateMetadata` 関数を Intlayer の `getMultilingualUrls` と一緒に使用します。これはすべての宣言されたロケール（`x-default` エントリを含む）の `alternates.languages` マップを構築するため、検索エンジンは正しい言語バージョンを提供します。同じヘルパーは `sitemap.ts` と `robots.ts` をローカライズします。このガイドのステップ 8 とステップ 9 に完全なコードが表示されます。
+
+</Question>
+
+<Question title="Next.js アプリを AI で自動的に翻訳するにはどうすればよいですか？">
+
+`npx intlayer fill` を実行します。CLI はコンテンツファイル全体で不足している翻訳を検出し、選択した LLM で埋め、独自のプロバイダーと API キーを使用するため、プロバイダーに直接支払い、サードパーティを通じて何も渡されません。[fill コマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/fill.md)と [CI/CD 統合](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/CI_CD.md)を参照してください。
+
+</Question>
+
+<Question title="Intlayer は複数形、性別、条件およびリッチテキストをサポートしていますか？">
+
+はい。コンテンツ宣言は[複数形](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/plurial.md)、[性別ベースのコンテンツ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/gender.md)、条件、挿入値のための[挿入](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/insertion.md)、そして法的なページやブログ本文などのリッチテキスト用の[Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/markdown.md)をサポートしています。数値、日付、通貨は[フォーマッター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/formatters.md)によって処理されます。
+
+</Question>
+
+<Question title="翻訳者や非開発者はどのようにコンテンツを編集できますか？">
+
+2つのオプションがあり、どちらも任意です。[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)は独自のインフラストラクチャ上で動作し、サイトのテキストをクリックしてその場で直接編集できます。[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)はコンテンツを外部化し、デプロイなしで更新できるようにし、[live sync](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/live.md)によってランタイムに変更を反映します。
+
+</Question>
+
+<Question title="リリース前に不足している翻訳をどのように検出しますか？">
+
+CI で `npx intlayer test` を実行します。宣言されたロケールにコンテンツが不足している場合、ビルドを失敗させるため、未翻訳の文字列が本番環境に到達することはありません。[VS Code 拡張機能](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)は入力中に同じエラーを表示し、[ESLint プラグイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/eslint.md)とその `no-raw-text` ルールはハードコードされた文字列をキャッチします。[コンテンツのテスト](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/testing.md)を参照してください。
+
+</Question>
+
+<Question title="Intlayer は無料でオープンソースですか？">
+
+はい。Intlayer は Apache 2.0 ライセンスの下でオープンソースであり、ライブラリ全体、CLI、ビジュアルエディター、コンパイラを商用利用を含めて無料で使用できます。ホスト型 CMS はオプションの有料サービスですが、[セルフホスト](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/self_hosting.md)することも可能です。
+
+</Question>
+
+</FAQ>

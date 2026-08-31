@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-08-22
+updatedAt: 2026-08-30
 title: 設定 (Configuration)
 description: アプリケーションにIntlayerを設定する方法について説明します。ニーズに合わせてIntlayerをカスタマイズするためのさまざまな設定とオプションを理解してください。
 keywords:
@@ -1117,3 +1117,101 @@ Intlayer がアプリケーションの国際化をどのように最適化お�
 | フィールド | 説明                                     | 型                 |
 | ---------- | ---------------------------------------- | ------------------ |
 | `plugins`  | 有効にする Intlayer プラグインのリスト。 | `IntlayerPlugin[]` |
+
+## よくある質問
+
+<FAQ>
+
+<Question title="intlayer.config.ts ファイルはどこに置くべきですか？">
+
+プロジェクトのルート、`package.json` の隣です。Intlayer は `intlayer.config.js`、`intlayer.config.mjs`、`intlayer.config.cjs`、および JSON も受け入れるため、ファイルはプロジェクトが使用するモジュールシステムに一致します。
+
+</Question>
+
+<Question title="i18n は bundle サイズにどのくらい影響しますか？">
+
+名前空間ベースのセットアップよりもはるかに少ないです。なぜなら、ページはレンダリングしないカタログをダウンロードすることがないからです。サーバーでレンダリングされたマークアップはサーバー上でコンテンツを解決し、ビルド時コンパイラは `useIntlayer` の呼び出しをコンポーネントが使用する正確な辞書エントリに置き換えるため、未使用のキーや未使用の言語は削除されます。[動的辞書](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dynamic_dictionaries/index.md)は残りをロケールごとに分割します。一般的な代替案と比較して、Intlayer は `bundle` およびページサイズを最大 50% 削減します。[bundle optimization](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md) および [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/index.md) を参照してください。
+
+</Question>
+
+<Question title="コンポーネントを書き直さずに `i18next`、`next-intl`、または `react-i18next` から移行できますか？">
+
+はい、2つの方法があります。[i18next 移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_i18next_to_intlayer.md)または [next-intl 移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_next-intl_to_intlayer.md)を使用して、コンテンツを段階的に移行できます。または、現在の API を完全に維持することも可能です。[compat adapters](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/index.md)は、`i18next`、`react-i18next`、`next-intl`、`next-i18next`、`react-intl`、`use-intl`、`vue-i18n`、および `Lingui` とまったく同じ API を公開しますが、Intlayer の辞書によって提供されるため、インポートは変更されますが、コンポーネントのコードは変更されません。
+
+</Question>
+
+<Question title="既存の JSON 翻訳ファイルを保持できますか？">
+
+はい。[sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-json.md)は、`/messages/{locale}/{namespace}.json` ファイルを信頼できる情報源として保持し、それらから Intlayer 辞書を双方向に生成します。[sync PO plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-po.md)は gettext カタログに対しても同様の処理を行い、[per locale files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/per_locale_file.md)を使用すると、ロケールを1つのファイルにまとめるのではなく、言語ごとにコンテンツを分割できます。
+
+</Question>
+
+<Question title="コンテンツをキーごとに移動する必要がありますか？">
+
+いいえ。`npx intlayer extract` を実行すると、Intlayer はソースファイルを読み取り、ユーザー向けの文字列を抽出し、それぞれの隣に `.content` ファイルを書き込みます。これにより、一度に1つずつ文字列をカタログにコピーする代わりに、差分を確認できます。[extract command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/extract.md) を参照してください。
+
+完全に自動化されたパイプラインの場合、[Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md) はビルド時に JSX、TSX、Vue、Svelte のソースに対して同様の処理を行い、変更があるたびに辞書を生成するため、手動でキーを管理する必要がありません。これは静的解析によって機能するため、実行時にのみ存在する文字列は対象外となり、ユーザー向けのテキストとアプリケーションロジックを区別するためにいくつかの注釈が必要です。
+
+</Question>
+
+<Question title="利用可能なエディタおよび AI エージェントツールは何ですか？">
+
+5つのオプションがあり、すべて任意です。
+
+- **[VS Code extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)**: `useIntlayer` キーからそれを宣言するコンテンツファイルにジャンプしたり、コンポーネントからコンテンツを抽出したり、コマンドパレットまたは専用の Intlayer タブからビルド、フィル、テスト、プッシュ、プルを実行したりできます。
+- **[LSP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)**: LSP をサポートする任意のエディタで同様の認識機能を提供します。定義へのジャンプ、すべての参照の検索、翻訳された値のホバープレビュー、キーとフィールドのオートコンプリート、キーがどこにも宣言されていない場合の警告などがあります。また、`i18next`、`react-i18next`、`next-intl`、`use-intl` の呼び出しも解決するため、移行中に役立ちます。
+- **[MCP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)**: Intlayer のドキュメントと CLI を Cursor、VS Code、Claude Desktop、Claude Code、ChatGPT に公開します。これにより、アシスタントは推測ではなく現在のドキュメントから回答し、`intlayer fill` などのコマンドを自身で実行できます。
+- **[Agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)**: `intlayer-config`、`intlayer-cli`、`intlayer-content` などの特定のスキルに加え、フレームワークごとのスキルがあり、エージェントにルーティング設定とコンテンツノードタイプを教えます。
+- **[ESLint plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/eslint.md)**: `no-raw-text` はハードコードされた文字列を検出し、静的辞書キーや未使用のコンテンツに対する追加のルールも提供します。
+
+</Question>
+
+<Question title="アプリに新しい言語を追加するにはどうすればよいですか？">
+
+`internationalization.locales` にロケールを追加し、`npx intlayer fill` を実行して既存のコンテンツをその言語に翻訳します。生成される型も同時に更新されるため、新しいロケールが欠落しているコンテンツファイルは、サイレントなフォールバックではなく型エラーになります。
+
+</Question>
+
+<Question title="URL からロケールプレフィックスを削除するにはどうすればよいですか？">
+
+`routing.mode` を設定します。デフォルトの `"prefix-no-default"` は、デフォルトのロケールには `/about` を、その他のロケールには `/fr/about` を与えます。`"prefix-all"` はすべてのロケールにプレフィックスを付けます。`"no-prefix"` はパスからロケールを完全に除外し、`cookie`、`header`、またはドメインから解決します。`"search-params"` はクエリ文字列に `/about?locale=fr` のように配置します。
+
+</Question>
+
+<Question title="各言語を独自のドメインから提供できますか？">
+
+はい。`routing.domains` はロケールをホスト名にマッピングします。例えば、`{ fr: 'example.fr', en: 'example.com' }` のようになります。ドメインがロケールを識別するため、パスにプレフィックスは追加されず、`getLocalizedUrl` は適切なドメイン上の絶対 URL を返します。
+
+</Question>
+
+<Question title="ユーザーの言語はどのように検出されますか？">
+
+`routing.storage` を通じて検出されます。これは、読み取るソースを順序付けてリストします。通常は URL、次に `cookie`、そして `Accept-Language` `header` です。ユーザーによる明示的な選択は永続化され、次回の訪問時に優先されます。
+
+</Question>
+
+<Question title="`routing.enableProxy` は何をしますか？">
+
+ロケールルーティング `proxy`、つまりプレフィックスを解決しリダイレクトを行う `middleware` を制御します。設定されていない場合、`proxy` は実行されますが、開発サーバーとプレビューサーバーは、テストしていない言語にリダイレクトされるのを避けるため、保存されたロケールをリダイレクト元として無視します。本番環境では `true` と同じように動作します。ロケールルーティングを自分で処理する場合は `false` に設定します。
+
+</Question>
+
+<Question title="`importMode` の `static`、`dynamic`、`fetch` の違いは何ですか？">
+
+デフォルトの `"static"` は、辞書を静的にインポートするため、`bundle` され同期的に読み込まれます。`"dynamic"` は `Suspense` を介してインポートするため、ロケールはコンポーネントがレンダリングするときにのみダウンロードされます。これは大規模なコンテンツセットに適しています。`"fetch"` はライブ同期 API から辞書を取得し、失敗した場合は `"dynamic"` にフォールバックします。[bundle optimization](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md) および [dynamic dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dynamic_dictionaries/index.md) を参照してください。
+
+</Question>
+
+<Question title="自動翻訳のための AI プロバイダーと API キーはどこで設定しますか？">
+
+設定ファイル、またはコマンドラインで `--provider`、`--model`、`--api-key` を使用して設定します。キーはあなたのものです。翻訳呼び出しは、あなたのマシンまたは CI ランナーから選択したプロバイダーに直接送信されるため、第三者を介してルーティングされることはありません。[fill command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/fill.md) を参照してください。
+
+</Question>
+
+<Question title="設定を変更した後、開発サーバーを再起動する必要がありますか？">
+
+通常は必要ありません。Intlayer のウォッチャーは `intlayer.config.ts` 自体を監視しています。保存時に設定をリロードし、辞書を再度準備するため、ロケールの追加やルーティングモードの変更はコンテンツの変更と同様に認識されます。ただし、設定はシステムによってキャッシュされる場合があります。アプリを再起動するのが良い解決策となる場合があります。
+
+</Question>
+
+</FAQ>

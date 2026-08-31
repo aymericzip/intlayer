@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-08-23
+updatedAt: 2026-08-30
 title: Introduction
 description: Discover how Intlayer works. See the steps used by Intlayer in your application. See what the different packages do.
 keywords:
@@ -204,3 +204,107 @@ Each integration guide includes best practices for using Intlayer’s features, 
 We value the power of open-source and community-driven development. If you’d like to propose improvements, add a new guide, or correct any issues in our docs, feel free to submit a Pull Request or open an issue on our [GitHub repository](https://github.com/aymericzip/intlayer/blob/main/docs/docs).
 
 **Ready to translate your application faster and more efficiently?** Dive into our docs to start using Intlayer today. Experience a robust, streamlined approach to internationalisation that keeps your content organised and your team more productive.
+
+## Frequently Asked Questions
+
+<FAQ>
+
+<Question title="What is Intlayer used for?">
+
+Intlayer is an internationalization (i18n) library for JavaScript and TypeScript applications. You declare the content of a component next to that component in a `.content.ts` file, Intlayer compiles those declarations into typed dictionaries at build time, and your components read them through a hook such as `useIntlayer`. It covers translation, plural rules, gender, Markdown, locale aware routing, SEO metadata, AI assisted translation and a visual editor for non developers.
+
+</Question>
+
+<Question title="How much does i18n add to my bundle size?">
+
+Much less than a namespace based setup, because a page never downloads a catalogue it does not render. Server rendered markup resolves its content on the server, and the build time compiler replaces `useIntlayer` calls with the exact dictionary entries a component uses, so unused keys and unused languages are dropped. [Dynamic dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dynamic_dictionaries/index.md) split the rest per locale. Measured against the usual alternatives, Intlayer reduces bundle and page size by up to 50%. See [bundle optimization](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/bundle_optimization.md) and the [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/benchmark/index.md).
+
+</Question>
+
+<Question title="Can I migrate from `i18next`, `next-intl` or `react-i18next` without rewriting my components?">
+
+Yes, and there are two paths. You can migrate the content progressively with the [i18next migration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/migration_from_i18next_to_intlayer.md) or the [next-intl migration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/migration_from_next-intl_to_intlayer.md). Or you can keep your current API entirely: the [compat adapters](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compat/index.md) expose the exact same API as `i18next`, `react-i18next`, `next-intl`, `next-i18next`, `react-intl`, `use-intl`, `vue-i18n` and `Lingui`, but served by Intlayer dictionaries, so imports change and component code does not.
+
+</Question>
+
+<Question title="Can I keep my existing JSON translation files?">
+
+Yes. The [sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/plugins/sync-json.md) keeps your `/messages/{locale}/{namespace}.json` files as the source of truth and generates Intlayer dictionaries from them, in both directions. A [sync PO plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/plugins/sync-po.md) does the same for gettext catalogues, and [per locale files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/per_locale_file.md) let you split content by language instead of grouping locales in one file.
+
+</Question>
+
+<Question title="Do I have to move my content key by key?">
+
+No. Run `npx intlayer extract` and Intlayer reads your source files, pulls the user facing strings out and writes a `.content` file next to each one, so you review a diff instead of copying strings into a catalogue one at a time. See the [extract command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/extract.md).
+
+For a fully automated pipeline, the [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compiler.md) does the same at build time on JSX, TSX, Vue and Svelte source, generating the dictionaries on every change so there are no keys to maintain by hand. It works by static analysis, so strings that only exist at runtime stay out of reach, and it needs a few annotations to tell user facing text apart from application logic.
+
+</Question>
+
+<Question title="What editor and AI agent tooling is available?">
+
+Five pieces, all optional:
+
+- **[VS Code extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/vs_code_extension.md)**: jump from a `useIntlayer` key to the content file that declares it, extract content from a component, and run build, fill, test, push and pull from the command palette or a dedicated Intlayer tab.
+- **[LSP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/lsp.md)**: the same awareness in any editor that speaks LSP, with go to definition, find all references, hover previews of a translated value, autocompletion of keys and fields, and a warning when a key is not declared anywhere. It also resolves `i18next`, `react-i18next`, `next-intl` and `use-intl` calls, which helps while you migrate.
+- **[MCP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/mcp_server.md)**: exposes the Intlayer documentation and CLI to Cursor, VS Code, Claude Desktop, Claude Code and ChatGPT, so an assistant answers from current docs instead of guessing, and can run commands such as `intlayer fill` itself.
+- **[Agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/agent_skills.md)**: focused skills such as `intlayer-config`, `intlayer-cli` and `intlayer-content`, plus one per framework, that teach an agent your routing setup and the content node types.
+- **[ESLint plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/eslint.md)**: `no-raw-text` flags hardcoded strings, with further rules for static dictionary keys and unused content.
+
+</Question>
+
+<Question title="What are the different solutions available to internationalize a JavaScript app?">
+
+The field falls into three generations:
+
+- **Runtime catalogue libraries**: `i18next`, `react-i18next`, `next-i18next`, `vue-i18n`, `ngx-translate`. Messages live in JSON namespaces loaded at runtime. Mature and framework agnostic, but untyped and shipped whole.
+- **Compile time message libraries**: `Lingui`, `Paraglide`, `react-intl` and `next-intl` with an extraction step. Better bundle behaviour and some typing, still centralized catalogues.
+- **Content layer libraries**: `Intlayer`. Content is declared per component and compiled per component, so typing, tree shaking, tooling and editing come from the same source.
+
+See [why Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/interest_of_intlayer.md) for the detailed comparison, and the [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/benchmark/index.md) for measured bundle and performance numbers.
+
+</Question>
+
+<Question title="Which frameworks does Intlayer support?">
+
+React, Next.js, Vite, TanStack Start, React Router, Vue, Nuxt, Svelte, SvelteKit, Angular, Solid, Preact, Lit, Astro with every island framework, React Native with Expo, Lynx, and on the server Express, Fastify, NestJS, Hono, Elysia and AdonisJS. Each has its own guide under [environments](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/introduction.md).
+
+</Question>
+
+<Question title="Why declare content next to the component instead of in a central JSON file?">
+
+Three reasons. A page ships only the entries its components render, instead of a whole namespace, which is what cuts bundle size. A feature folder can be copied or deleted in one piece, without hunting through a shared catalogue for orphaned keys. And an LLM or an agent editing a component sees its content in the same folder, which is why co-location makes AI assisted work reliable. See [how Intlayer works](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/how_works_intlayer.md).
+
+</Question>
+
+<Question title="How do I translate my app automatically with AI?">
+
+Run `npx intlayer fill`. The CLI detects missing translations and fills them with the LLM of your choice, using your own provider and API key, so you pay the AI provider directly. `--git-diff` restricts the run to the content changed on the branch, which keeps it cheap in CI. See the [fill command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/fill.md) and [CI/CD integration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/CI_CD.md).
+
+</Question>
+
+<Question title="How do I find missing translations?">
+
+Run `npx intlayer test`. It fails when a declared locale is missing content, so an untranslated string never reaches production. The [VS Code extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/vs_code_extension.md) shows the same errors inline, and the [ESLint plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/eslint.md) flags hardcoded strings with its `no-raw-text` rule. See [testing your content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/testing.md).
+
+</Question>
+
+<Question title="Do I need to put the locale in the URL?">
+
+No. `routing.mode` accepts `"prefix-no-default"` (the default, `/about` and `/fr/about`), `"prefix-all"`, `"no-prefix"` and `"search-params"`, and `routing.domains` maps each locale to its own domain. Whatever the scheme, `getMultilingualUrls` builds the `hreflang` alternates for your metadata and sitemap. See the [configuration reference](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md).
+
+</Question>
+
+<Question title="How can translators and content editors work without touching the code?">
+
+The [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_visual_editor.md) runs on your own infrastructure and lets anyone click on the text of your running app to edit it, writing the change back to the code base. The [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_CMS.md) externalizes content so it can change without a deployment, with [live sync](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/live.md) applying updates at runtime.
+
+</Question>
+
+<Question title="Is Intlayer free and open source?">
+
+Yes. Intlayer is open source under the Apache 2.0 licence, and the library, CLI, compiler and visual editor are free to use, commercial projects included. The hosted CMS is an optional paid service, and it can also be [self hosted](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/self_hosting.md).
+
+</Question>
+
+</FAQ>

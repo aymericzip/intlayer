@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-06-23
+updatedAt: 2026-08-30
 title: "Vite + Vue i18n - Guida completa per tradurre la tua applicazione"
 description: "Niente più i18next. La guida 2026 per creare un'applicazione Vite + Vue multilingue (i18n). Traduci con agenti AI e ottimizza la dimensione del bundle, SEO e prestazioni."
 keywords:
@@ -1137,3 +1137,100 @@ Per maggiori dettagli su come utilizzare l'estensione, consulta la [documentazio
 Per approfondire, puoi implementare l'[editor visuale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_visual_editor.md) o esternalizzare i tuoi contenuti utilizzando il [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_CMS.md).
 
 Once you share these, I'll audit the Italian translation against the English source and return the fully updated Italian content.---
+
+## Domande frequenti
+
+<FAQ>
+
+<Question title="Quali sono le diverse soluzioni disponibili per internazionalizzare un'app Vue?">
+
+- **`vue-i18n`**: la libreria di riferimento, con cataloghi di messaggi registrati globalmente e formattazione in stile ICU.
+- **`Intlayer`**: contenuto dichiarato accanto a ogni componente e compilato dal plugin Vite in fase di build, completamente tipizzato, con traduzione AI, un editor visivo e un CMS.
+
+La differenza pratica è l'ambito e la tipizzazione. `vue-i18n` risolve le chiavi come stringhe a runtime, quindi una chiave rinominata fallisce silenziosamente, mentre Intlayer genera i tipi dalle tue dichiarazioni ed elimina il contenuto che nessun componente usa. Vedi [perché Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/interest_of_intlayer.md) e il [benchmark i18n di Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/benchmark/vue.md).
+
+</Question>
+
+<Question title="Quanto aggiunge l'i18n alla dimensione del mio bundle Vue?">
+
+Molto meno di una configurazione basata su namespace, perché una pagina non scarica mai un catalogo che non renderizza. Il compilatore in fase di build sostituisce le chiamate `useIntlayer` con le esatte voci del dizionario che un componente utilizza, quindi le chiavi e le lingue non utilizzate vengono eliminate, e i [dizionari dinamici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dynamic_dictionaries/index.md) suddividono il resto per locale. Misurato rispetto alle alternative abituali, Intlayer riduce la dimensione del bundle e delle pagine fino al 50%. Vedi [ottimizzazione del bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/bundle_optimization.md) e il [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/benchmark/vue.md).
+
+</Question>
+
+<Question title="Posso migrare da `vue-i18n` senza riscrivere i miei componenti?">
+
+Sì, e ci sono due percorsi. Puoi migrare il contenuto progressivamente con la [guida alla migrazione da vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/migration_from_vue-i18n_to_intlayer.md). Oppure puoi mantenere interamente la tua API attuale: gli [adattatori di compatibilità](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/compat/index.md) espongono esattamente la stessa API di `vue-i18n`, ma servita dai dizionari Intlayer, quindi cambiano gli import e il codice dei componenti no.
+
+</Question>
+
+<Question title="Posso mantenere i miei file di traduzione JSON esistenti?">
+
+Sì. Il [plugin di sincronizzazione JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/plugins/sync-json.md) mantiene i tuoi file `/messages/{locale}/{namespace}.json` come fonte di verità e genera dizionari Intlayer da essi, in entrambe le direzioni. Un [plugin di sincronizzazione PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/plugins/sync-po.md) fa lo stesso per i cataloghi gettext, e i [file per locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/per_locale_file.md) ti permettono di dividere il contenuto per lingua invece di raggruppare i locale in un unico file.
+
+</Question>
+
+<Question title="Devo spostare il mio contenuto chiave per chiave?">
+
+No. Esegui `npx intlayer extract` e Intlayer legge i tuoi componenti, estrae le stringhe visibili all'utente e scrive un file `.content` accanto a ciascuno, così puoi rivedere un diff invece di copiare le stringhe in un catalogo una alla volta. Il passo 11 di questa guida lo illustra.
+
+Per una pipeline completamente automatizzata, il [Compilatore Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/compiler.md) fa lo stesso in fase di build: analizza il tuo codice sorgente JSX, TSX, Vue e Svelte ad ogni modifica, genera i dizionari e li mantiene sincronizzati attraverso l'hot module replacement, così non ci sono affatto chiavi da mantenere a mano.
+
+Due limiti vale la pena conoscere prima di attivare il compilatore. Funziona per analisi statica, quindi le stringhe che esistono solo a runtime, come i codici di errore delle API o i campi del CMS, restano fuori portata. E deve distinguere il testo visibile all'utente dalla logica applicativa come `className="active"` o un codice di stato, il che richiede alcune annotazioni in una codebase estesa. Il [comando extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/cli/extract.md) evita entrambi mantenendoti nel ciclo.
+
+</Question>
+
+<Question title="Quali strumenti di editor e agenti AI sono disponibili?">
+
+Cinque componenti, tutti opzionali:
+
+- **[Estensione VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/vs_code_extension.md)**: salta da una chiave `useIntlayer` al file di contenuto che la dichiara, estrai il contenuto da un componente ed esegui build, fill, test, push e pull dalla palette dei comandi o da una scheda Intlayer dedicata.
+- **[Server LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/lsp.md)**: la stessa consapevolezza in qualsiasi editor che parla LSP, con vai alla definizione, trova tutti i riferimenti, anteprime al passaggio del mouse di un valore tradotto, autocompletamento di chiavi e campi, e un avviso quando una chiave non è dichiarata da nessuna parte. Risolve anche le chiamate `i18next`, `react-i18next`, `next-intl` e `use-intl`, il che aiuta durante la migrazione.
+- **[Server MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/mcp_server.md)**: espone la documentazione di Intlayer e la CLI a Cursor, VS Code, Claude Desktop, Claude Code e ChatGPT, così un assistente risponde in base alla documentazione aggiornata invece di tirare a indovinare, e può eseguire da solo comandi come `intlayer fill`.
+- **[Agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/agent_skills.md)**: competenze mirate come `intlayer-config`, `intlayer-cli` e `intlayer-content`, più una per framework, che insegnano a un agente la tua configurazione di routing e i tipi di nodo dei contenuti.
+- **[Plugin ESLint](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/eslint.md)**: `no-raw-text` segnala le stringhe hardcoded, con ulteriori regole per le chiavi statiche dei dizionari e i contenuti non utilizzati.
+
+</Question>
+
+<Question title="Intlayer funziona con la Composition API di Vue e script setup?">
+
+Sì. `useIntlayer` è un composable usato all'interno di `<script setup>` come qualsiasi altro, e il contenuto restituito è reattivo, quindi cambiare la locale ri-renderizza i componenti che lo leggono senza un ricaricamento della pagina.
+
+</Question>
+
+<Question title="Come configuro il routing localizzato in una SPA Vue?">
+
+I passi 7 e 8 di questa guida coprono l'integrazione con Vue Router: un segmento di locale sull'albero delle rotte, e un watcher che riscrive l'URL quando la locale cambia. Se non vuoi la locale nel percorso, imposta `routing.mode` su `"no-prefix"` o `"search-params"` e verrà risolta invece da un cookie o un parametro di query. Vedi il [riferimento di configurazione](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/configuration.md).
+
+</Question>
+
+<Question title="Come imposto gli attributi html lang e dir per le lingue da destra a sinistra?">
+
+Lo copre il passo 9. `getHTMLTextDir` ritorna `rtl` per lingue come l'arabo, l'ebraico, il persiano e l'urdu, così puoi collegare `lang` e `dir` sull'elemento radice a partire dalla locale attiva e lasciare che le proprietà logiche del tuo CSS facciano il resto.
+
+</Question>
+
+<Question title="Come traduco un'app Vue automaticamente con l'AI?">
+
+Esegui `npx intlayer fill`, che riempie le traduzioni mancanti con l'LLM di tua scelta usando il tuo provider e la tua API key. `--git-diff` limita l'esecuzione ai contenuti modificati nel branch. Vedi il [comando fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/cli/fill.md) e l'[integrazione CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/CI_CD.md).
+
+</Question>
+
+<Question title="Intlayer supporta plurali, genere e rich text?">
+
+Sì: [forme plurali](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/plurial.md), [contenuto basato sul genere](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/gender.md), condizioni, [inserimenti](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/insertion.md), [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/markdown.md) e [formattatori](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/formatters.md) per numeri, date e valute.
+
+</Question>
+
+<Question title="Come possono i traduttori modificare il contenuto senza toccare il codice?">
+
+Attraverso l'[editor visivo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_visual_editor.md), che gira sulla tua infrastruttura e permette a chiunque di modificare il testo sul posto nell'app in esecuzione, o il [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_CMS.md), che esternalizza il contenuto così può cambiare senza un deployment.
+
+</Question>
+
+<Question title="Intlayer è gratuito e open source?">
+
+Sì, sotto licenza Apache 2.0, uso commerciale incluso. Il CMS ospitato è un servizio a pagamento opzionale che può anche essere [auto-ospitato](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/self_hosting.md).
+
+</Question>
+
+</FAQ>

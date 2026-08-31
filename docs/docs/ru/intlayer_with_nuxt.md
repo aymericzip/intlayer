@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-06-18
-updatedAt: 2026-05-31
+updatedAt: 2026-08-30
 title: "Nuxt i18n - Полное руководство по переводу вашего приложения"
 description: "Больше никакого i18next. Руководство 2026 по созданию многоязычного (i18n) приложения Nuxt. Переводите с помощью ИИ-агентов и оптимизируйте размер бандла, SEO и производительность."
 keywords:
@@ -684,3 +684,106 @@ import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
 ### Продвинуться дальше
 
 Чтобы продвинуться дальше, вы можете реализовать [визуальный редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md) или вынести ваш контент, используя [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md).
+
+## Часто задаваемые вопросы
+
+<FAQ>
+
+<Question title="Какие существуют решения для интернационализации приложения Nuxt?">
+
+Два реалистичных варианта:
+
+- **`@nuxtjs/i18n`**: устоявшийся модуль, построенный на `vue-i18n`, с файлами локалей, загружаемыми для каждой страницы, и большой поверхностью конфигурации.
+- **`Intlayer`**: контент, объявленный рядом с каждым компонентом и скомпилированный во время сборки, полностью типизированный, с маршрутизацией с учётом локали, ИИ-переводом, визуальным редактором и CMS.
+
+Разница — в том, где живёт контент. `@nuxtjs/i18n` централизует его в файлах `locales/*.json`, тогда как Intlayer со-размещает его с компонентом, который его отображает, поэтому страница поставляет только те записи, которые использует, а папку функции можно переместить или удалить целиком. См. [почему Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/interest_of_intlayer.md) и [бенчмарк i18n для Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/vue.md).
+
+</Question>
+
+<Question title="Насколько i18n увеличивает размер бандла моего Nuxt?">
+
+Гораздо меньше, чем при подходе на основе пространств имён, потому что страница никогда не загружает каталог, который не отображает. Разметка, отрендеренная на сервере, разрешает свой контент на сервере, и компилятор во время сборки заменяет вызовы `useIntlayer` точными записями словаря, которые использует компонент, поэтому неиспользуемые ключи и неиспользуемые языки отбрасываются, а [динамические словари](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dynamic_dictionaries/index.md) разделяют остальное по локалям. По сравнению с обычными альтернативами Intlayer сокращает размер бандла и страницы до 50%. См. [оптимизацию бандла](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/bundle_optimization.md) и [бенчмарк](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/vue.md).
+
+</Question>
+
+<Question title="Могу ли я мигрировать с `@nuxtjs/i18n` или `vue-i18n`, не переписывая свои компоненты?">
+
+Да, и есть два пути. Вы можете мигрировать контент постепенно с помощью [руководства по миграции с @nuxtjs/i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/migration_from_nuxtjs_i18n_to_intlayer.md). Или вы можете полностью сохранить свой текущий API: [адаптеры совместимости](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/index.md) предоставляют точно такой же API, как `vue-i18n`, но обслуживаемый словарями Intlayer, поэтому меняются импорты, а код компонентов — нет.
+
+</Question>
+
+<Question title="Могу ли я сохранить свои существующие файлы переводов JSON?">
+
+Да. [Плагин синхронизации JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/plugins/sync-json.md) сохраняет ваши файлы `/messages/{locale}/{namespace}.json` как источник истины и генерирует из них словари Intlayer, в обоих направлениях. [Плагин синхронизации PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/plugins/sync-po.md) делает то же самое для каталогов gettext, а [файлы по локали](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/per_locale_file.md) позволяют разделить контент по языкам вместо группировки локалей в одном файле.
+
+</Question>
+
+<Question title="Должен ли я переносить свой контент ключ за ключом?">
+
+Нет. Запустите `npx intlayer extract`, и Intlayer прочитает ваши исходные файлы, извлечёт строки, видимые пользователю, и запишет файл `.content` рядом с каждым из них, так что вы просматриваете diff вместо копирования строк в каталог по одной. См. [команду extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/extract.md).
+
+Для полностью автоматизированного конвейера [Компилятор Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compiler.md) делает то же самое во время сборки на исходном коде JSX, TSX, Vue и Svelte, генерируя словари при каждом изменении, поэтому нет ключей, которые нужно поддерживать вручную. Он работает через статический анализ, поэтому строки, существующие только во время выполнения, остаются недоступными, и ему нужно несколько аннотаций, чтобы отличать текст, видимый пользователю, от логики приложения.
+
+</Question>
+
+<Question title="Какие инструменты для редактора и ИИ-агентов доступны?">
+
+Пять компонентов, все опциональные:
+
+- **[Расширение для VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/vs_code_extension.md)**: переход от ключа `useIntlayer` к файлу контента, который его объявляет, извлечение контента из компонента и запуск build, fill, test, push и pull из палитры команд или отдельной вкладки Intlayer.
+- **[LSP-сервер](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/lsp.md)**: та же осведомлённость в любом редакторе, который говорит на LSP, с переходом к определению, поиском всех ссылок, предпросмотром переведённого значения при наведении, автодополнением ключей и полей и предупреждением, когда ключ нигде не объявлен. Он также разрешает вызовы `i18next`, `react-i18next`, `next-intl` и `use-intl`, что помогает при миграции.
+- **[MCP-сервер](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/mcp_server.md)**: предоставляет документацию и CLI Intlayer для Cursor, VS Code, Claude Desktop, Claude Code и ChatGPT, чтобы ассистент отвечал по актуальной документации, а не гадал, и мог сам запускать команды вроде `intlayer fill`.
+- **[Навыки агентов](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/agent_skills.md)**: сфокусированные навыки, такие как `intlayer-config`, `intlayer-cli` и `intlayer-content`, плюс по одному на фреймворк, которые обучают агента вашей настройке маршрутизации и типам узлов контента.
+- **[Плагин ESLint](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/eslint.md)**: `no-raw-text` помечает жёстко закодированные строки, с дополнительными правилами для статических ключей словаря и неиспользуемого контента.
+
+</Question>
+
+<Question title="Работает ли Intlayer с серверным рендерингом и статической генерацией Nuxt?">
+
+Да. Контент разрешается во время SSR и во время `nuxt generate`, поэтому предварительно отрендеренные страницы содержат переведённую разметку, а не загружают каталог на клиенте. Модуль `nuxt-intlayer` подключает провайдер и определение локали за вас.
+
+</Question>
+
+<Question title="Должен ли я помещать локаль в URL?">
+
+Нет. `routing.mode` принимает `"prefix-no-default"` (по умолчанию, `/about` и `/fr/about`), `"prefix-all"`, `"no-prefix"` и `"search-params"`, а `routing.domains` сопоставляет каждую локаль с её собственным доменом. См. [справочник по конфигурации](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md).
+
+</Question>
+
+<Question title="Как обрабатывать SEO-метаданные и теги hreflang в Nuxt?">
+
+Шаг 9 этого руководства охватывает это. Локализованные метаданные `useHead` берутся из ваших словарей, а `getMultilingualUrls` строит альтернативы `hreflang` для каждой объявленной локали, включая `x-default`, что также питает локализованную карту сайта.
+
+</Question>
+
+<Question title="Как создать переключатель локали, который сохраняет текущую страницу?">
+
+Используйте `useLocale` для активной и доступных локалей и локализованный компонент ссылки из шага 8, чтобы навигация оставалась на текущем языке. `getLocalizedUrl` переписывает текущий путь на целевую локаль, поэтому переключение языка оставляет читателя на том же маршруте.
+
+</Question>
+
+<Question title="Как автоматически перевести приложение Nuxt с помощью ИИ?">
+
+Запустите `npx intlayer fill`. Недостающие переводы заполняются с помощью выбранной вами LLM, используя ваш собственный провайдер и API-ключ, а `--git-diff` ограничивает запуск контентом, изменённым в ветке. См. [команду fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/fill.md) и [интеграцию CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/CI_CD.md).
+
+</Question>
+
+<Question title="Поддерживает ли Intlayer множественное число, род и форматированный текст в шаблонах Vue?">
+
+Да: [формы множественного числа](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/plurial.md), [контент на основе рода](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/gender.md), условия, [вставки](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/insertion.md), [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/markdown.md) и [форматтеры](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/formatters.md) для чисел, дат и валют.
+
+</Question>
+
+<Question title="Как переводчики могут редактировать контент, не касаясь кода?">
+
+Через [визуальный редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md), который работает на вашей собственной инфраструктуре и позволяет любому редактировать текст на месте в работающем приложении, или [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md), которая выносит контент вовне, чтобы он мог меняться без развёртывания.
+
+</Question>
+
+<Question title="Является ли Intlayer бесплатным и с открытым исходным кодом?">
+
+Да, по лицензии Apache 2.0, включая коммерческое использование. Размещённая CMS — это необязательный платный сервис, который также можно [разместить самостоятельно](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/self_hosting.md).
+
+</Question>
+
+</FAQ>

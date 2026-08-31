@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-06-23
+updatedAt: 2026-08-30
 title: "Astro + Vanilla JS i18n - あなたのアプリを翻訳する完全ガイド"
 description: "i18nextはもう不要。2026年に多言語（i18n）Astro + Vanilla JSアプリを構築するためのガイド。AIエージェントで翻訳し、バンドルサイズ、SEO、パフォーマンスを最適化します。"
 keywords:
@@ -628,3 +628,108 @@ Intlayerを使用した開発体験を向上させるために、**公式のIntl
 ### さらに詳しく
 
 さらに詳しく知りたい場合は、[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を実装したり、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)を使用してコンテンツを外部化したりすることもできます。
+
+## よくある質問
+
+<FAQ>
+
+<Question title="UIフレームワークなしでAstroサイトを国際化するための利用可能なソリューションにはどのようなものがありますか？">
+
+Astroの組み込み`i18n`オプションはロケールプレフィックスとリダイレクトを処理しますが、コンテンツの管理はユーザーに委ねられています。そこから、以下の選択肢があります。
+
+- **手書きの辞書**：各ページでインポートされるプレーンなJSONまたはTypeScriptオブジェクト。依存関係はありませんが、型付け、複数形ルール、翻訳漏れを見つけるためのツールはありません。
+- **`Intlayer`**：最も高度なソリューションです。コードベースのどこにでも宣言されたコンテンツ（[各コンポーネントの隣、または一元化された場所](https://intlayer.org/blog/per-component-vs-centralized-i18n)）、ビルド時にコンパイルされ型付けされます。AI翻訳、CIでの翻訳漏れチェック、ビジュアルエディター、CMSを備えています。
+
+UIフレームワークがない場合、i18nライブラリのランタイムコストは避けたいものです。Intlayerはビルド時にコンテンツを解決するため、静的なAstroページは翻訳されたHTMLを配信し、辞書は一切含まれません。[Intlayerの利点](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md)をご覧ください。
+
+</Question>
+
+<Question title="i18nはAstroのbundleサイズにどれくらい影響しますか？">
+
+名前空間ベースのセットアップよりもはるかに少ないです。なぜなら、ページはレンダリングしないカタログをダウンロードしないからです。Astroページはビルド時にレンダリングされるため、翻訳されたHTMLを配信し、辞書は一切含まれません。islandのみが辞書を受け取ります。ビルド時コンパイラは、コンポーネントが使用する正確なエントリにコンテンツ呼び出しを解決し、[動的辞書](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dynamic_dictionaries/index.md)は残りをロケールごとに分割します。通常の代替案と比較して、Intlayerはbundleとページサイズを最大50%削減します。[bundle最適化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)と[ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/index.md)をご覧ください。
+
+</Question>
+
+<Question title="コンポーネントを書き直さずに`i18next`や手書きの辞書から移行できますか？">
+
+ほとんどの場合可能です。[i18next移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_i18next_to_intlayer.md)に従ってコンテンツを移行してください。段階的に移行することもできます。[sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-json.md)は、既存のJSONカタログを信頼できる情報源として保持し、それらからIntlayer辞書を生成するため、コンポーネントを一つずつ移行する間も両方のレイヤーが同期を保ちます。
+
+</Question>
+
+<Question title="既存のJSON翻訳ファイルを保持できますか？">
+
+はい、できます。[sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-json.md)は、`/messages/{locale}/{namespace}.json`ファイルを信頼できる情報源として保持し、双方向でそれらからIntlayer辞書を生成します。[sync PO plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-po.md)はgettextカタログに対しても同様の機能を提供し、[per locale files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/per_locale_file.md)を使用すると、ロケールを1つのファイルにまとめるのではなく、言語ごとにコンテンツを分割できます。
+
+</Question>
+
+<Question title="コンテンツをキーごとに移動する必要がありますか？">
+
+いいえ。`npx intlayer extract`を実行すると、Intlayerはコンポーネントを読み取り、ユーザー向けの文字列を抽出し、それぞれの隣に`.content`ファイルを書き込みます。これにより、文字列をカタログに一つずつコピーする代わりに、差分を確認できます。このガイドのステップ15でその手順を説明しています。
+
+完全に自動化されたパイプラインの場合、[Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md)がビルド時に同じことを行います。変更があるたびにJSX、TSX、Vue、Svelteのソースをスキャンし、辞書を生成し、ホットモジュールリプレイスメントを通じて同期を保つため、手動でキーを管理する必要は一切ありません。
+
+コンパイラをオンにする前に知っておくべき2つの制限があります。静的解析によって機能するため、APIエラーコードやCMSフィールドなど、ランタイムにのみ存在する文字列は対象外となります。また、`className="active"`のようなアプリケーションロジックとユーザー向けのテキストを区別する必要があり、大規模なコードベースではいくつかの注釈が必要になります。[extract command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/extract.md)は、ユーザーが関与することでこれら両方を回避します。
+
+</Question>
+
+<Question title="利用可能なエディターとAIエージェントツールにはどのようなものがありますか？">
+
+5つのツールがあり、すべてオプションです。
+
+- **[VS Code extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)**: `useIntlayer`キーからそれを宣言するコンテンツファイルにジャンプしたり、コンポーネントからコンテンツを抽出したり、コマンドパレットまたは専用のIntlayerタブからビルド、フィル、テスト、プッシュ、プルを実行したりできます。
+- **[LSP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)**: LSPをサポートする任意のエディターで同様の認識機能を提供します。定義へのジャンプ、すべての参照の検索、翻訳された値のホバープレビュー、キーとフィールドのオートコンプリート、キーがどこにも宣言されていない場合の警告などがあります。また、`i18next`、`react-i18next`、`next-intl`、`use-intl`の呼び出しも解決するため、移行中に役立ちます。
+- **[MCP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)**: IntlayerのドキュメントとCLIをCursor、VS Code、Claude Desktop、Claude Code、ChatGPTに公開します。これにより、アシスタントは推測ではなく現在のドキュメントから回答し、`intlayer fill`などのコマンドを自分で実行できます。
+- **[Agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)**: `intlayer-config`、`intlayer-cli`、`intlayer-content`などの特化したスキルに加え、フレームワークごとのスキルがあり、エージェントにルーティング設定とコンテンツノードタイプを教えます。
+- **[ESLint plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/eslint.md)**: `no-raw-text`はハードコードされた文字列にフラグを立て、静的辞書キーと未使用コンテンツに関する追加ルールを提供します。
+
+</Question>
+
+<Question title="翻訳を機能させるためにページにJavaScriptが必要ですか？">
+
+いいえ、必要ありません。Astroはビルド時にページをレンダリングし、Intlayerはそのレンダリング中にコンテンツを解決するため、生成されたHTMLにはすでに翻訳されたテキストが含まれています。`vanilla-intlayer`は、ブラウザでインタラクティブにする部分にのみ必要です。
+
+</Question>
+
+<Question title="後からコンテンツを変更せずにインタラクティブなislandを追加できますか？">
+
+はい、可能です。それが単一コンテンツレイヤーの利点です。同じ宣言がページ上の`astro-intlayer`と、追加するどのislandのフレームワークバインディング（[React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_astro_react.md)、[Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_astro_vue.md)、[Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_astro_svelte.md)、[Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_astro_solid.md)、[Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_astro_preact.md)、[Lit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_astro_lit.md)のいずれであっても）によって読み取られます。
+
+</Question>
+
+<Question title="ローカライズされたルーティングとロケールスイッチャーはどのように設定しますか？">
+
+ステップ6でスイッチャーについて説明しています。`routing.mode`はURLスキームを決定します。`"prefix-no-default"`（デフォルト）、`"prefix-all"`、`"no-prefix"`、または`"search-params"`があり、`routing.domains`はロケールを独自のドメインにマッピングします。`getLocalizedUrl`は現在のパスを書き換え、言語を切り替えても読者が同じページに留まるようにします。[設定リファレンス](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)をご覧ください。
+
+</Question>
+
+<Question title="ローカライズされたsitemapとhreflangタグはどのように生成しますか？">
+
+ステップ7で`sitemap.xml`と`robots.txt`について説明しています。`getMultilingualUrls`は、宣言されたすべてのロケール（検索エンジンがページの適切な言語バージョンを提供するために使用する`x-default`を含む）の代替URLを構築します。
+
+</Question>
+
+<Question title="AIでサイトを自動翻訳するにはどうすればよいですか？">
+
+`npx intlayer fill`を実行します。これにより、選択したLLMを使用して、ご自身のプロバイダーとAPIキーで不足している翻訳を埋めます。`--git-diff`を使用すると、ブランチで変更されたコンテンツに実行を限定できます。[fill command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/fill.md)と[CI/CD integration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/CI_CD.md)をご覧ください。
+
+</Question>
+
+<Question title="Intlayerは複数形、性別、リッチテキストをサポートしていますか？">
+
+はい、サポートしています。[複数形](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/plurial.md)、[性別に基づくコンテンツ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/gender.md)、条件、[挿入](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/insertion.md)、長文テキスト用の[Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/markdown.md)、そして数値、日付、通貨用の[フォーマッター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/formatters.md)に対応しています。
+
+</Question>
+
+<Question title="翻訳者はコードに触れずにコンテンツを編集できますか？">
+
+[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を使用できます。これはご自身のインフラストラクチャで動作し、実行中のアプリ上で誰でもテキストを直接編集できます。または、コンテンツを外部化してデプロイなしで変更できる[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)も利用できます。
+
+</Question>
+
+<Question title="Intlayerは無料でオープンソースですか？">
+
+はい、Apache 2.0ライセンスの下で、商用利用を含め無料でオープンソースです。ホスト型CMSはオプションの有料サービスですが、[セルフホスト](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/self_hosting.md)することも可能です。
+
+</Question>
+
+</FAQ>

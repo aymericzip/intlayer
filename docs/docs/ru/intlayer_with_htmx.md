@@ -730,13 +730,13 @@ export default config;
 
 </Question>
 
-<Question title="Can I keep my existing JSON translation files?">
+<Question title="Могу ли я сохранить свои существующие файлы переводов JSON?">
 
 Да. [Плагин sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/plugins/sync-json.md) сохраняет ваши файлы `/messages/{locale}/{namespace}.json` как источник истины и генерирует словари Intlayer из них в обоих направлениях. [Плагин sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/plugins/sync-po.md) делает то же самое для каталогов gettext, а [файлы по локалям](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/per_locale_file.md) позволяют вам разделить контент по языкам вместо группировки локалей в один файл.
 
 </Question>
 
-<Question title="How do I translate the app automatically with AI?">
+<Question title="Как автоматически перевести приложение с помощью ИИ?">
 
 Выполните `npx intlayer fill`, который заполняет отсутствующие переводы с использованием выбранной вами LLM с помощью вашего собственного провайдера и API ключа. Добавьте `--git-diff` для перевода только контента, измененного в ветке. Смотрите [команду fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/fill.md) и [интеграцию CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/CI_CD.md).
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-07-08
+updatedAt: 2026-08-30
 title: Intlayer CMS | Externalisieren Sie Ihre Inhalte in das Intlayer CMS
 description: Externalisieren Sie Ihre Inhalte in das Intlayer CMS, um die Verwaltung Ihrer Inhalte an Ihr Team zu delegieren.
 keywords:
@@ -436,3 +436,95 @@ Wenn Sie Probleme mit dem CMS haben, überprüfen Sie Folgendes:
 - Stellen Sie sicher, dass die Projektkonfiguration in das Intlayer CMS übertragen wurde.
 
 - Der visuelle Editor verwendet ein iframe, um Ihre Website anzuzeigen. Stellen Sie sicher, dass die Content Security Policy (CSP) Ihrer Website die CMS-URL als `frame-ancestors` erlaubt (standardmäßig 'https://intlayer.org'). Überprüfen Sie die Editor-Konsole auf Fehler.
+
+## Häufig gestellte Fragen
+
+<FAQ>
+
+<Question title="Was ist der Unterschied zwischen dem Intlayer-CMS und dem visuellen Editor?">
+
+Der [visuellen Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md) bearbeitet lokale Wörterbücher und schreibt die Änderung zurück in Ihre Codebasis, sodass die App neu gebaut wird und die Änderung durch Ihren normalen Review- und Deployment-Prozess läuft. Das CMS bearbeitet entfernte Wörterbücher: Die Änderung berührt Ihre Codebasis nicht und die laufende Website übernimmt sie ohne Deployment. Teams verwenden oft beides, den Editor für Inhalte, die Entwicklern gehören, und das CMS für Inhalte, die das Marketing wöchentlich ändert.
+
+</Question>
+
+<Question title="Wie viel trägt i18n zu meiner Bundle-Größe bei?">
+
+Viel weniger als bei einem Namespace-basierten Setup, denn eine Seite lädt niemals einen Katalog herunter, den sie nicht rendert. Serverseitig gerendertes Markup löst seinen Inhalt auf dem Server auf, und der Build-Zeit-Compiler ersetzt `useIntlayer`-Aufrufe durch genau die Wörterbucheinträge, die eine Komponente verwendet, sodass ungenutzte Schlüssel und ungenutzte Sprachen entfernt werden. [Dynamische Wörterbücher](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dynamic_dictionaries/index.md) teilen den Rest pro Locale auf. Gemessen an den üblichen Alternativen reduziert Intlayer die Bundle- und Seitengröße um bis zu 50 %. Siehe [Bundle-Optimierung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/bundle_optimization.md) und den [Benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/index.md).
+
+</Question>
+
+<Question title="Kann ich von `i18next`, `next-intl` oder `react-i18next` migrieren, ohne meine Komponenten neu zu schreiben?">
+
+Ja, und es gibt zwei Wege. Sie können die Inhalte schrittweise migrieren mit dem [i18next-Migrationsleitfaden](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/migration_from_i18next_to_intlayer.md) oder dem [next-intl-Migrationsleitfaden](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/migration_from_next-intl_to_intlayer.md). Oder Sie behalten Ihre aktuelle API vollständig bei: Die [Kompatibilitätsadapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compat/index.md) stellen genau dieselbe API wie `i18next`, `react-i18next`, `next-intl`, `next-i18next`, `react-intl`, `use-intl`, `vue-i18n` und `Lingui` bereit, aber aus Intlayer-Wörterbüchern bedient, sodass sich Importe ändern und der Komponentencode nicht.
+
+</Question>
+
+<Question title="Kann ich meine vorhandenen JSON-Übersetzungsdateien behalten?">
+
+Ja. Das [sync-JSON-Plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/plugins/sync-json.md) behält Ihre `/messages/{locale}/{namespace}.json`-Dateien als Single Source of Truth und generiert daraus Intlayer-Wörterbücher, in beide Richtungen. Ein [sync-PO-Plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/plugins/sync-po.md) macht dasselbe für gettext-Kataloge, und [Dateien pro Locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/per_locale_file.md) lassen Sie Inhalte nach Sprache aufteilen, statt Locales in einer Datei zu gruppieren.
+
+</Question>
+
+<Question title="Muss ich meine Inhalte Schlüssel für Schlüssel umziehen?">
+
+Nein. Führen Sie `npx intlayer extract` aus; Intlayer liest Ihre Quelldateien, zieht die für den Nutzer sichtbaren Strings heraus und schreibt neben jede eine `.content`-Datei, sodass Sie ein Diff prüfen, statt Strings einzeln in einen Katalog zu kopieren. Siehe den [extract-Befehl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/extract.md).
+
+Für eine vollständig automatisierte Pipeline macht der [Intlayer-Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compiler.md) dasselbe zur Build-Zeit auf JSX-, TSX-, Vue- und Svelte-Quellcode und generiert die Wörterbücher bei jeder Änderung, sodass es keine von Hand zu pflegenden Schlüssel gibt. Er arbeitet mit statischer Analyse, sodass Strings, die nur zur Laufzeit existieren, unerreichbar bleiben, und er braucht einige Annotationen, um für den Nutzer sichtbaren Text von Anwendungslogik zu unterscheiden.
+
+</Question>
+
+<Question title="Welches Editor- und KI-Agenten-Tooling ist verfügbar?">
+
+Fünf Bausteine, alle optional:
+
+- **[VS-Code-Erweiterung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/vs_code_extension.md)**: von einem `useIntlayer`-Schlüssel zur Inhaltsdatei springen, die ihn deklariert, Inhalte aus einer Komponente extrahieren und build, fill, test, push und pull über die Befehlspalette oder einen eigenen Intlayer-Tab ausführen.
+- **[LSP-Server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/lsp.md)**: dieselbe Wahrnehmung in jedem Editor, der LSP spricht, mit „Gehe zu Definition“, „Alle Referenzen suchen“, Hover-Vorschauen eines übersetzten Werts, Autovervollständigung von Schlüsseln und Feldern sowie einer Warnung, wenn ein Schlüssel nirgends deklariert ist. Es löst außerdem `i18next`-, `react-i18next`-, `next-intl`- und `use-intl`-Aufrufe auf, was bei der Migration hilft.
+- **[MCP-Server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/mcp_server.md)**: stellt die Intlayer-Dokumentation und -CLI für Cursor, VS Code, Claude Desktop, Claude Code und ChatGPT bereit, sodass ein Assistent aus der aktuellen Doku antwortet statt zu raten und Befehle wie `intlayer fill` selbst ausführen kann.
+- **[Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/agent_skills.md)**: fokussierte Skills wie `intlayer-config`, `intlayer-cli` und `intlayer-content` sowie eines pro Framework, die einem Agenten Ihr Routing-Setup und die Inhaltsknoten-Typen beibringen.
+- **[ESLint-Plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/eslint.md)**: `no-raw-text` markiert fest kodierte Strings, mit weiteren Regeln für statische Wörterbuchschlüssel und ungenutzte Inhalte.
+
+</Question>
+
+<Question title="Welche Inhalte sollten in das CMS verschoben werden?">
+
+Inhalte, die sich oft ändern und nicht zu einem Release gehören: Landingpage-Texte, Preisformulierungen, Ankündigungen, alles, was einem Marketing-Team gehört. Inhalte, die Teil der Oberfläche sind, etwa Button-Beschriftungen und Formularfehler, bleiben besser lokale Wörterbücher, wo sie mit dem Code geprüft werden, der sie verwendet.
+
+</Question>
+
+<Question title="Was passiert, wenn das CMS nicht erreichbar ist?">
+
+Die Anwendung fällt auf die lokale Deklaration des Wörterbuchs zurück, sodass ein Netzwerkfehler oder ein Ausfall auf den mit Ihrem Build ausgelieferten Inhalt herabstuft statt auf eine leere Seite. Deshalb ist es wichtig, für jedes entfernte Wörterbuch eine lokale Deklaration zu behalten.
+
+</Question>
+
+<Question title="Kann ich das CMS selbst hosten?">
+
+Ja. Das CMS kann auf Ihrer eigenen Infrastruktur laufen, was die übliche Antwort ist, wenn Inhalte Ihr Netzwerk nicht verlassen dürfen. Siehe [Intlayer selbst hosten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/self_hosting.md).
+
+</Question>
+
+<Question title="Brauchen Inhaltsredakteure einen Entwickler, um eine Änderung zu veröffentlichen?">
+
+Nein. Genau das ist der Sinn entfernter Wörterbücher: Ein Redakteur ändert den Text im CMS und die Website spiegelt ihn wider, wobei der [Live-Sync](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/live.md) die Aktualisierung zur Laufzeit anwendet, statt auf einen Build zu warten.
+
+</Question>
+
+<Question title="Kann ich das CMS automatisieren, statt die Oberfläche zu verwenden?">
+
+Ja. Das `@intlayer/api`-SDK stellt dieselben Endpunkte wie die Oberfläche bereit, sodass Sie Projekte abrufen, Wörterbücher lesen und Aktualisierungen aus einem Skript oder einer Pipeline pushen können. Der Abschnitt oben zeigt den Authenticator und die Endpunkte.
+
+</Question>
+
+<Question title="Unterstützt das CMS A/B-Tests von Übersetzungen?">
+
+Ja. Entfernte Wörterbücher unterstützen [Inhaltsvarianten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dynamic_dictionaries/variants.md), und die [Analytik](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/analytics.md) berichtet, wie jede Variante ausgespielt wird, sodass eine Formulierungsänderung gemessen statt diskutiert werden kann.
+
+</Question>
+
+<Question title="Ist das CMS kostenlos?">
+
+Die Intlayer-Bibliothek, die CLI, der Compiler und der visuelle Editor sind kostenlos und Open Source unter der Apache-2.0-Lizenz. Das gehostete CMS ist ein optionaler kostenpflichtiger Dienst und kann stattdessen [selbst gehostet](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/self_hosting.md) werden.
+
+</Question>
+
+</FAQ>

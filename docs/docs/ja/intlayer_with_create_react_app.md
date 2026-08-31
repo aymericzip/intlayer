@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-05-31
+updatedAt: 2026-08-30
 title: "Create React App i18n - あなたのアプリを翻訳する完全ガイド"
 description: "i18nextはもう不要。2026年に多言語（i18n）Create React Appアプリを構築するためのガイド。AIエージェントで翻訳し、バンドルサイズ、SEO、パフォーマンスを最適化します。"
 keywords:
@@ -677,3 +677,107 @@ Intlayer を使った開発体験を向上させるために、公式の **Intla
 ### さらに進むには
 
 さらに進みたい場合は、[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を実装するか、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)を使ってコンテンツを外部化することができます。
+
+## よくある質問
+
+<FAQ>
+
+<Question title="Create React Appプロジェクトを国際化するために利用できる様々なソリューションは何ですか？">
+
+- **`react-i18next` / `i18next`**: 最も普及しており、実行時にJSONネームスペースがロードされます。
+- **`react-intl`** および **`Lingui`**: ICUメッセージ形式で、抽出ベースです。
+- **`Intlayer`**: 最も先進的なソリューションです。コンテンツはコードベースのどこにでも宣言でき（[各コンポーネントの隣または一元化](https://intlayer.org/blog/per-component-vs-centralized-i18n)）、`react-scripts-intlayer`を介してビルド時にコンパイルされ、完全に型付けされており、AI翻訳、ビジュアルエディター、CMSを備えています。
+
+Create React Appは独自のwebpack設定をラップしているため、統合は自分で登録するプラグインではなく、`react-scripts`のドロップイン代替である`react-scripts-intlayer`を介して行われます。[Intlayerの利点](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md)と[ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/index.md)をご覧ください。
+
+</Question>
+
+<Question title="i18nはReactのbundleサイズにどのくらい影響しますか？">
+
+ネームスペースベースのセットアップよりもはるかに少ないです。なぜなら、ページはレンダリングしないカタログをダウンロードしないからです。ビルド時コンパイラは`useIntlayer`の呼び出しをコンポーネントが使用する正確な辞書エントリに置き換えるため、未使用のキーや未使用の言語は削除され、[動的辞書](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dynamic_dictionaries/index.md)が残りをロケールごとに分割します。一般的な代替案と比較して、Intlayerはbundleサイズとページサイズを最大50%削減します。[bundle最適化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)と[ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/index.md)をご覧ください。
+
+</Question>
+
+<Question title="`react-i18next`または`react-intl`からコンポーネントを書き直さずに移行できますか？">
+
+はい、2つの方法があります。[react-i18next移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_react-i18next_to_intlayer.md)または[i18next移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_i18next_to_intlayer.md)に従って、コンテンツを段階的に移行できます。または、現在のAPIを完全に維持することも可能です。[互換性アダプター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/index.md)は、`react-i18next`、`react-intl`、`i18next`とまったく同じAPIを公開しますが、Intlayer辞書によって提供されるため、インポートは変更されますが、コンポーネントコードは変更されません。
+
+</Question>
+
+<Question title="既存のJSON翻訳ファイルを保持できますか？">
+
+はい。[sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-json.md)は、`/messages/{locale}/{namespace}.json`ファイルを信頼できる情報源として保持し、それらからIntlayer辞書を双方向に生成します。[sync PO plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-po.md)はgettextカタログに対しても同様の処理を行い、[ロケールごとのファイル](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/per_locale_file.md)を使用すると、1つのファイルにロケールをグループ化する代わりに、言語ごとにコンテンツを分割できます。
+
+</Question>
+
+<Question title="コンテンツをキーごとに移動する必要がありますか？">
+
+いいえ。`npx intlayer extract`を実行すると、Intlayerがコンポーネントを読み取り、ユーザー向けの文字列を抽出し、それぞれの隣に`.content`ファイルを書き込みます。これにより、一度に1つずつ文字列をカタログにコピーする代わりに、差分を確認できます。
+
+完全に自動化されたパイプラインの場合、[Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md)はビルド時に同じことを行います。変更があるたびにJSX、TSX、Vue、Svelteのソースをスキャンし、辞書を生成し、ホットモジュールリプレイスメントを通じて同期を保つため、手動でキーを管理する必要はまったくありません。
+
+コンパイラをオンにする前に知っておくべき2つの制限があります。静的解析によって機能するため、APIエラーコードやCMSフィールドなど、実行時にのみ存在する文字列は対象外です。また、`className="active"`やステータスコードのようなアプリケーションロジックと、ユーザー向けのテキストを区別する必要があり、大規模なコードベースではいくつかの注釈が必要です。[extractコマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/extract.md)は、ユーザーが関与することでこれら両方を回避します。
+
+</Question>
+
+<Question title="利用可能なエディターおよびAIエージェントツールは何ですか？">
+
+5つの要素があり、すべてオプションです。
+
+- **[VS Code extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)**: `useIntlayer`キーからそれを宣言するコンテンツファイルにジャンプしたり、コンポーネントからコンテンツを抽出したり、コマンドパレットまたは専用のIntlayerタブからビルド、フィル、テスト、プッシュ、プルを実行したりできます。
+- **[LSP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)**: LSPをサポートする任意のエディターで同様の認識機能を提供します。定義へのジャンプ、すべての参照の検索、翻訳された値のホバープレビュー、キーとフィールドのオートコンプリート、キーがどこにも宣言されていない場合の警告など。また、`i18next`、`react-i18next`、`next-intl`、`use-intl`の呼び出しも解決するため、移行中に役立ちます。
+- **[MCP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)**: IntlayerのドキュメントとCLIをCursor、VS Code、Claude Desktop、Claude Code、ChatGPTに公開します。これにより、アシスタントは推測ではなく現在のドキュメントから回答し、`intlayer fill`などのコマンド自体を実行できます。
+- **[Agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)**: `intlayer-config`、`intlayer-cli`、`intlayer-content`などの特化したスキルに加え、フレームワークごとのスキルがあり、エージェントにルーティング設定とコンテンツノードタイプを教えます。
+- **[ESLint plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/eslint.md)**: `no-raw-text`はハードコードされた文字列にフラグを立て、静的辞書キーや未使用のコンテンツに対する追加ルールも提供します。
+
+</Question>
+
+<Question title="Create React Appはもはやメンテナンスされていません。まずViteに移行すべきですか？">
+
+すでに移行を計画している場合は、まず移行を行い、代わりに[ViteとReactのガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_vite+react.md)に従ってください。Viteプラグインはよりサポートされているパスであり、より高速なリビルドを提供します。まだ準備ができていない場合でも、このガイドは引き続き機能し、コンテンツ宣言は両方のセットアップ間で変更されないため、後でビルドを移行してもi18nを書き直す必要はありません。
+
+</Question>
+
+<Question title="Create React Appプロジェクトでローカライズされたルーティングを設定するにはどうすればよいですか？">
+
+ステップ7と8では、ローカライズされたルートと、ロケールが変更されたときのURLの書き換えについて説明しています。パスにロケールを含めたくない場合は、`routing.mode`を`"no-prefix"`または`"search-params"`に設定すると、代わりにcookieまたはクエリパラメータから解決されます。[設定リファレンス](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)をご覧ください。
+
+</Question>
+
+<Question title="クライアントレンダリングされたReactアプリでSEOメタデータを処理するにはどうすればよいですか？">
+
+ステップ9に示すように、アクティブなロケールから`html`要素に`lang`と`dir`を設定し、`x-default`を含む宣言されたすべてのロケールに対して`getMultilingualUrls`で`hreflang`代替を出力します。Create React Appは単一のクライアントレンダリングシェルを出荷するため、確実にクロールされる必要があるページには、[TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_tanstack.md)や[React Router v7](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_react_router_v7.md)のようなプリレンダリングまたはサーバーレンダリングのセットアップを推奨します。
+
+</Question>
+
+<Question title="アラビア語やヘブライ語のような右から左に書く言語をサポートするにはどうすればよいですか？">
+
+ステップ9で説明されています。`getHTMLTextDir`はロケールに対して`ltr`、`rtl`、または`auto`を返すため、ルート要素にアクティブなロケールから`lang`と`dir`をバインドし、残りはCSSの論理プロパティに任せます。
+
+</Question>
+
+<Question title="AIを使ってアプリを自動的に翻訳するにはどうすればよいですか？">
+
+`npx intlayer fill`を実行します。これにより、選択したLLMを使用し、独自のプロバイダーとAPIキーを使用して、不足している翻訳が埋められます。`--git-diff`を使用すると、実行をブランチで変更されたコンテンツに限定できます。[fillコマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/fill.md)と[CI/CD統合](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/CI_CD.md)をご覧ください。
+
+</Question>
+
+<Question title="Intlayerは複数形、性別、リッチテキストをサポートしていますか？">
+
+はい、[複数形](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/plurial.md)、[性別に基づくコンテンツ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/gender.md)、条件、[挿入](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/insertion.md)、[Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/markdown.md)、および数値、日付、通貨の[フォーマッター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/formatters.md)をサポートしています。
+
+</Question>
+
+<Question title="翻訳者はコードに触れることなくコンテンツを編集できますか？">
+
+[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を介して可能です。これは独自のインフラストラクチャで動作し、実行中のアプリで誰でもテキストをその場で編集できます。または、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)を使用すると、コンテンツを外部化してデプロイなしで変更できます。
+
+</Question>
+
+<Question title="Intlayerは無料でオープンソースですか？">
+
+はい、Apache 2.0ライセンスの下で、商用利用も含まれます。ホスト型CMSはオプションの有料サービスですが、[セルフホスト](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/self_hosting.md)することも可能です。
+
+</Question>
+
+</FAQ>

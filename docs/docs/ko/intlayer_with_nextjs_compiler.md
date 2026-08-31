@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-10
-updatedAt: 2026-06-23
+updatedAt: 2026-08-30
 title: "Next.js i18n - 앱을 번역하는 완전 가이드"
 description: "i18next는 이제 그만. 2026년 다국어 (i18n) Next.js 앱 구축 가이드. AI 에이전트로 번역하고 번들 크기, SEO, 성능을 최적화하세요."
 keywords:
@@ -713,3 +713,109 @@ Intlayer를 사용한 개발 환경을 개선하기 위해 **공식 Intlayer VS 
 ### 더 알아보기
 
 더 나아가려면 [비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)를 구현하거나 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)를 사용하여 콘텐츠를 외부화할 수 있습니다.
+
+## 자주 묻는 질문
+
+<FAQ>
+
+<Question title="Next.js 앱을 국제화하는 데 사용할 수 있는 다양한 솔루션은 무엇인가요?">
+
+`next.config.js`의 `i18n` 필드는 App Router에 적용되지 않으므로 지역화 계층은 항상 라이브러리를 통해 선택해야 합니다:
+
+- **`next-intl`**, **`next-i18next` / `i18next`** 및 **`react-intl`**: 네임스페이스별로 로드되는 JSON 또는 ICU 카탈로그 기반이며, 모든 호출 위치에서 키를 수동으로 작성합니다.
+- **`Lingui`**: 빌드 타임에 컴파일되는 ICU 메시지를 사용하는 추출 기반 솔루션입니다.
+- **`Intlayer`**: 빌드 타임에 컴포넌트에서 직접 콘텐츠를 컴파일하여 추출하며, 완전한 타입 안전성을 제공하고 AI 번역, 비주얼 에디터 및 CMS를 지원합니다.
+
+본 가이드는 컴파일러 설정을 사용하므로 컴포넌트에 일반 문자열을 그대로 작성하면 사전이 자동으로 생성됩니다. [왜 Intlayer인가](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/interest_of_intlayer.md)와 [Next.js i18n 벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/nextjs.md)를 참조하세요.
+
+</Question>
+
+<Question title="i18n이 Next.js 번들 크기에 얼마나 영향을 미치나요?">
+
+네임스페이스 기반 설정보다 훨씬 적습니다. 페이지는 렌더링하지 않는 언어의 카탈로그를 절대 다운로드하지 않기 때문입니다. Server Components는 서버에서 직접 콘텐츠를 확인하며, 빌드 타임 컴파일러는 `useIntlayer` 호출을 컴포넌트가 사용하는 정확한 사전 항목으로 대체하므로 사용되지 않는 키와 언어는 제거되며, [동적 사전](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dynamic_dictionaries/index.md)을 통해 로케일별로 분할됩니다. 일반적인 대안들과 비교했을 때 Intlayer는 번들 및 페이지 크기를 최대 50%까지 줄여줍니다. [번들 최적화](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/bundle_optimization.md)와 [벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/nextjs.md)를 참조하세요.
+
+</Question>
+
+<Question title="컴포넌트를 다시 작성하지 않고 next-intl, next-i18next 또는 i18next에서 마이그레이션할 수 있나요?">
+
+네, 두 가지 방법이 있습니다. [next-intl 마이그레이션 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/migration_from_next-intl_to_intlayer.md) 또는 [i18next 마이그레이션 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/migration_from_i18next_to_intlayer.md)를 통해 콘텐츠를 점진적으로 마이그레이션할 수 있습니다. 또는 현재 API를 완전히 유지할 수도 있습니다. [호환 어댑터(compat adapters)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/index.md)는 `next-intl`, `react-i18next`, `react-intl`과 완전히 동일한 API를 노출하면서 Intlayer 사전에서 데이터를 제공하므로, import 구문만 변경하고 컴포넌트 코드는 그대로 유지할 수 있습니다.
+
+</Question>
+
+<Question title="기존 JSON 번역 파일을 유지할 수 있나요?">
+
+네. [sync JSON 플러그인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/plugins/sync-json.md)은 `/messages/{locale}/{namespace}.json` 파일을 단일 진실 공급원(source of truth)으로 유지하면서 양방향으로 Intlayer 사전을 생성합니다. [sync PO 플러그인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/plugins/sync-po.md)은 gettext 카탈로그에 대해 동일한 작업을 수행하며, [로케일별 파일](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/per_locale_file.md)을 통해 로케일을 한 파일에 모으는 대신 언어별로 콘텐츠를 분할할 수도 있습니다.
+
+</Question>
+
+<Question title="콘텐츠를 키 단위로 하나씩 옮겨야 하나요?">
+
+아닙니다. 이것이 바로 이 가이드에서 구성한 내용입니다. 기본 로케일의 일반 문자열로 컴포넌트를 작성하기만 하면 [Intlayer 컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md)가 빌드할 때마다 소스를 스캔하고 사용자 대면 텍스트를 추출하여 사전을 생성하므로 수동으로 키를 생성하거나 유지 관리할 필요가 없습니다.
+
+두 가지 제한 사항을 알아두면 좋습니다. 컴파일러는 정적 분석으로 작동하므로 API 오류 코드나 CMS 필드와 같이 런타임에만 존재하는 문자열은 감지할 수 없으므로 여전히 명시적인 사전 선언이 필요합니다. 또한 대규모 코드베이스에서는 `className="active"`나 상태 코드와 같은 애플리케이션 로직과 사용자 텍스트를 구분하기 위해 몇 가지 주석이 필요할 수 있습니다.
+
+수동으로 제어하기를 선호한다면 `npx intlayer extract`를 실행하여 원하는 파일에 대해 추출을 한 번 수행하고 각 컴포넌트 옆에 생성된 `.content` 파일의 diff를 검토할 수도 있습니다. [extract 명령](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/extract.md)을 참조하세요.
+
+</Question>
+
+<Question title="사용 가능한 에디터 및 AI 에이전트 도구는 무엇이 있나요?">
+
+5가지 도구가 모두 선택 사항으로 제공됩니다:
+
+- **[VS Code 확장 프로그램](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/vs_code_extension.md)**: `useIntlayer` 키에서 이를 선언한 콘텐츠 파일로 바로 이동하고, 컴포넌트에서 콘텐츠를 추출하며, 명령 팔레트나 전용 Intlayer 탭에서 build, fill, test, push, pull을 실행할 수 있습니다.
+- **[LSP 서버](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/lsp.md)**: LSP를 지원하는 모든 에디터에서 정의로 이동, 모든 참조 찾기, 번역 값 마우스 오버 미리보기, 키 및 필드 자동 완성, 선언되지 않은 키에 대한 경고 등 동일한 기능을 제공합니다. 또한 `i18next`, `react-i18next`, `next-intl`, `use-intl` 호출도 해석하므로 마이그레이션 시 유용합니다.
+- **[MCP 서버](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/mcp_server.md)**: Cursor, VS Code, Claude Desktop, Claude Code, ChatGPT에 Intlayer 문서와 CLI를 노출하여 AI 어시스턴트가 최신 문서를 기반으로 정확히 답변하고 `intlayer fill` 등의 명령을 직접 실행할 수 있게 합니다.
+- **[Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/agent_skills.md)**: `intlayer-config`, `intlayer-cli`, `intlayer-content` 및 각 프레임워크 전용 스킬을 통해 AI 에이전트에게 라우팅 설정과 콘텐츠 노드 타입을 학습시킵니다.
+- **[ESLint 플러그인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/eslint.md)**: `no-raw-text` 규칙으로 하드코딩된 문자열을 표시하고, 정적 사전 키 및 사용되지 않는 콘텐츠에 대한 추가 규칙을 제공합니다.
+
+</Question>
+
+<Question title="컴파일러를 사용해야 할까요, 아니면 콘텐츠를 직접 선언해야 할까요?">
+
+기존 코드베이스에 최소한의 코드 변경으로 i18n을 도입하고 싶을 때는 컴파일러를 사용하세요: 컴포넌트는 그대로 두고 사전이 자동으로 생성됩니다. 키, 구조 및 재사용을 명시적으로 제어하고 싶다면 [표준 Next.js 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_16.md)처럼 콘텐츠를 직접 선언하세요. 두 방식은 동일한 사전 계층 내에서 공존할 수 있습니다.
+
+</Question>
+
+<Question title="Babel을 구성해야 하는 이유는 무엇인가요?">
+
+4단계에서 다룹니다. 컴파일러는 Babel 변환을 통해 컴포넌트를 읽으므로 추출 패스를 실행하기 위해 Next.js에 `babel.config.js`가 필요합니다. 컴파일러 설정을 선택하면 `npx intlayer init --interactive`가 이를 자동으로 스캐폴딩해 줍니다.
+
+</Question>
+
+<Question title="컴파일러가 감지할 수 없는 문자열은 어떻게 되나요?">
+
+컴파일러는 정적 분석으로 작동하므로 이러한 문자열은 번역되지 않은 상태로 유지됩니다. API 오류 메시지, CMS 필드 또는 문자열 연결로 런타임에 조립되는 모든 것은 일반적인 방식으로 콘텐츠 파일에 명시적으로 선언해야 합니다. 누락된 항목을 찾으려면 `npx intlayer test`를 실행하세요.
+
+</Question>
+
+<Question title="누락된 번역은 어떻게 채우나요?">
+
+7단계에서 다룹니다. `npx intlayer fill`은 추출된 콘텐츠를 사용자가 지정한 제공업체와 API 키를 통해 원하는 LLM으로 전송하며, `--git-diff`는 브랜치에서 변경된 사항으로 범위를 제한합니다. [fill 명령](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/fill.md) 및 [CI/CD 통합](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/CI_CD.md)을 참조하세요.
+
+</Question>
+
+<Question title="로케일은 어떻게 감지되나요?">
+
+5단계에서 페이지에서 로케일을 읽고, 8단계에서 URL, 쿠키 또는 `Accept-Language` 헤더에서 로케일을 확인하는 프록시를 추가합니다. `routing.mode`는 로케일이 경로에 나타날지 여부를 결정합니다. [설정 참조](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 참조하세요.
+
+</Question>
+
+<Question title="Intlayer는 복수형, 성별 및 서식 있는 텍스트(Rich Text)를 지원하나요?">
+
+네: [복수형(plural forms)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/plurial.md), [성별 기반 콘텐츠](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/gender.md), 조건문, [삽입(insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/insertion.md), 긴 텍스트를 위한 [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/markdown.md), 그리고 숫자, 날짜, 통화를 위한 [포맷터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/formatters.md)를 지원합니다.
+
+</Question>
+
+<Question title="번역가가 코드를 건드리지 않고 콘텐츠를 수정할 수 있나요?">
+
+자체 호스팅되는 [비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)를 통해 누구나 실행 중인 앱에서 직접 텍스트를 수정할 수 있으며, 배포 없이 콘텐츠를 변경해야 하는 경우에는 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)를 활용할 수 있습니다.
+
+</Question>
+
+<Question title="Intlayer는 무료이며 오픈 소스인가요?">
+
+네, 상업적 사용을 포함하여 Apache 2.0 라이선스에 따라 제공됩니다. 호스팅형 CMS는 선택적 유료 서비스이며 [자체 호스팅](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/self_hosting.md)도 가능합니다.
+
+</Question>
+
+</FAQ>

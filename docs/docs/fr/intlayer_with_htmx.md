@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-29
-updatedAt: 2026-08-29
+updatedAt: 2026-08-30
 title: "htmx i18n - Guide complet pour traduire votre application"
 description: "Fini i18next. Le guide 2026 pour construire une application htmx multilingue (i18n). Traduisez avec des agents IA et optimisez la taille du bundle, le SEO et les performances."
 keywords:
@@ -667,73 +667,73 @@ Pour plus de détails sur la façon d'utiliser l'extension, consultez la [docume
 
 Pour aller plus loin, vous pouvez externaliser votre contenu en utilisant le [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md), afin que les traducteurs puissent modifier le contenu sans déploiement.
 
-## Questions fréquemment posées
+## Questions fréquentes
 
 <FAQ>
 
 <Question title="Pourquoi mon fragment échangé revient-il dans la mauvaise langue ?">
 
-Parce que la requête de fragment n'a pas transporté de locale. Les requêtes htmx sont indépendantes de la page qui les a émises, donc la locale doit voyager sur chacune d'entre elles, via le cookie `INTLAYER_LOCALE` ou un header `x-intlayer-locale` défini avec `hx-headers`. Vérifiez que le parser de cookie s'exécute avant le middleware Intlayer sur Express et Fastify, sinon le cookie n'est jamais lu et chaque requête revient à `Accept-Language`.
+Parce que la requête du fragment ne portait aucune locale. Les requêtes htmx sont indépendantes de la page qui les a émises, la locale doit donc voyager sur chacune, via le cookie `INTLAYER_LOCALE` ou un en-tête `x-intlayer-locale` défini avec `hx-headers`. Vérifiez que le parseur de cookies s'exécute avant le middleware Intlayer sur Express et Fastify, sinon le cookie n'est jamais lu et chaque requête se replie sur `Accept-Language`.
 
 </Question>
 
 <Question title="Dois-je passer la locale à `getIntlayer` ou m'appuyer sur le contexte de la requête ?">
 
-Passez-la. Les intégrations exposent la locale résolue (`res.locals.locale`, `req.intlayer.locale`, `c.get("locale")`, `intlayer!.locale`), et la passer à `getIntlayer` fait de chaque renderer une fonction pure d'une locale. C'est plus facile à tester, et cela garde vos renderers de fragments portables si vous changez de serveur.
+Passez-la. Les intégrations exposent la locale résolue (`res.locals.locale`, `req.intlayer.locale`, `c.get("locale")`, `intlayer!.locale`), et la transmettre à `getIntlayer` fait de chaque renderer une fonction pure d'une locale. C'est plus facile à tester, et cela garde vos renderers de fragments portables si vous changez de serveur.
 
 </Question>
 
-<Question title="Ai-je besoin d'une bibliothèque i18n côté client aux côtés de htmx ?">
+<Question title="Ai-je besoin d'une bibliothèque d'i18n côté client aux côtés de htmx ?">
 
-Non. Tout ce qu'un visiteur voit est produit par le serveur, donc il n'y a rien à traduire dans le navigateur. C'est aussi pourquoi le coût du poids de la page pour l'i18n dans une app htmx est proche de zéro : aucun catalogue n'est jamais expédié vers le client.
+Non. Tout ce qu'un visiteur voit est produit par le serveur, il n'y a donc rien à traduire dans le navigateur. C'est aussi pourquoi le coût en poids de page de l'i18n dans une application htmx est proche de zéro : aucun catalogue n'est jamais livré au client.
 
 </Question>
 
-<Question title="Comment localiser l'URL aussi, pour le SEO ?">
+<Question title="Comment localiser aussi l'URL, pour le SEO ?">
 
-Servez vos pages sous un préfixe de locale (`/fr/cart`) et lisez la locale à partir du chemin dans votre gestionnaire de route, plutôt que depuis le cookie, pour le rendu complet de la page. Les fragments peuvent continuer à utiliser le cookie ou l'en-tête. Voir [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md) pour les options de routage et [réécriture d'URL personnalisée](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/custom_url_rewrites.md).
+Servez vos pages sous un préfixe de locale (`/fr/cart`) et lisez la locale à partir du chemin dans votre gestionnaire de route, plutôt qu'à partir du cookie, pour le rendu de la page complète. Les fragments peuvent continuer d'utiliser le cookie ou l'en-tête. Voir la [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md) pour les options de routage et les [réécritures d'URL personnalisées](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/custom_url_rewrites.md).
 
 </Question>
 
 <Question title="Comment gérer les langues de droite à gauche ?">
 
-`getHTMLTextDir(locale)` retourne `ltr`, `rtl` ou `auto`. Définissez-le sur le document pour le rendu initial, et réappliquez-le après un échange comme le montre l'étape 8. Utilisez les propriétés CSS logiques (`margin-inline-start` plutôt que `margin-left`) afin que votre mise en page suive.
+`getHTMLTextDir(locale)` renvoie `ltr`, `rtl` ou `auto`. Définissez-le sur le document pour le rendu initial, et réappliquez-le après un échange comme le montre l'étape 8. Utilisez les propriétés logiques CSS (`margin-inline-start` plutôt que `margin-left`) afin que votre mise en page suive.
 
 </Question>
 
-<Question title="Dois-je échapper les valeurs traduites?">
+<Question title="Dois-je échapper les valeurs traduites ?">
 
-Oui, pour tout ce que vous interpolez dans une chaîne de template, exactement comme pour toute autre valeur dynamique. Le contenu provenant du CMS ou d'un traducteur n'est pas du markup que vous contrôlez. L'étape 5 montre un échappeur minimal.
+Oui, pour tout ce que vous interpolez dans une chaîne de template, exactement comme pour toute autre valeur dynamique. Le contenu provenant du CMS ou d'un traducteur n'est pas du balisage que vous contrôlez. L'étape 5 montre un échappeur minimal.
 
 </Question>
 
-<Question title="Le même contenu peut-il servir mes réponses API aussi?">
+<Question title="Le même contenu peut-il aussi servir mes réponses d'API ?">
 
-Oui. Les intégrations backend exposent `t()` et `getIntlayer()` à n'importe quel handler, donc un message d'erreur affiché dans une toast et un label rendu dans un fragment proviennent du même contenu déclaré. Consultez les guides [Express](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_express.md), [Fastify](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_fastify.md), [Hono](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_hono.md) et [Elysia](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_elysia.md).
+Oui. Les intégrations backend exposent `t()` et `getIntlayer()` à tout gestionnaire, si bien qu'un message d'erreur affiché dans un toast et un libellé rendu dans un fragment proviennent du même contenu déclaré. Voir les guides [Express](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_express.md), [Fastify](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_fastify.md), [Hono](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_hono.md) et [Elysia](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_elysia.md).
 
 </Question>
 
 <Question title="Dois-je déplacer mon contenu clé par clé ?">
 
-Non. Exécutez `npx intlayer extract` et Intlayer lit vos fichiers source, extrait les chaînes visibles par l'utilisateur et écrit un fichier `.content` à côté de chacun, afin que vous examiniez un diff au lieu de copier les chaînes dans un catalogue une par une. Consultez la [commande extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/cli/extract.md).
+Non. Lancez `npx intlayer extract` et Intlayer lit vos fichiers source, en extrait les chaînes destinées aux utilisateurs et écrit un fichier `.content` à côté de chacun, de sorte que vous relisez un diff plutôt que de copier des chaînes dans un catalogue une par une. Voir la [commande extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/cli/extract.md).
 
 </Question>
 
 <Question title="Puis-je conserver mes fichiers de traduction JSON existants ?">
 
-Oui. Le [plugin de synchronisation JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/plugins/sync-json.md) maintient vos fichiers `/messages/{locale}/{namespace}.json` comme source de vérité et génère des dictionnaires Intlayer à partir de ceux-ci, dans les deux sens. Un [plugin de synchronisation PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/plugins/sync-po.md) fait de même pour les catalogues gettext, et les [fichiers par locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/per_locale_file.md) vous permettent de diviser le contenu par langue au lieu de regrouper les locales dans un seul fichier.
+Oui. Le [plugin de synchronisation JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/plugins/sync-json.md) conserve vos fichiers `/messages/{locale}/{namespace}.json` comme source de vérité et génère les dictionnaires Intlayer à partir d'eux, dans les deux sens. Un [plugin de synchronisation PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/plugins/sync-po.md) fait de même pour les catalogues gettext, et les [fichiers par locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/per_locale_file.md) permettent de séparer le contenu par langue au lieu de regrouper les locales dans un seul fichier.
 
 </Question>
 
-<Question title="Comment traduire l'app automatiquement avec l'IA ?">
+<Question title="Comment traduire l'application automatiquement avec l'IA ?">
 
-Exécutez `npx intlayer fill`, qui remplit les traductions manquantes avec le LLM de votre choix en utilisant votre propre fournisseur et clé API. Ajoutez `--git-diff` pour traduire uniquement le contenu modifié sur la branche. Voir la [commande fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/cli/fill.md) et [intégration CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/CI_CD.md).
+Lancez `npx intlayer fill`, qui remplit les traductions manquantes avec le LLM de votre choix en utilisant votre propre fournisseur et votre clé d'API. Ajoutez `--git-diff` pour ne traduire que le contenu modifié sur la branche. Voir la [commande fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/cli/fill.md) et l'[intégration CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/CI_CD.md).
 
 </Question>
 
-<Question title="Intlayer supporte-t-il le genre, les conditions et les valeurs interpolées?">
+<Question title="Intlayer prend-il en charge le genre, les conditions et les valeurs interpolées ?">
 
-Oui : [contenu basé sur le genre](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/gender.md), conditions, [énumérations](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/enumeration.md), [insertions](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/insertion.md) pour les valeurs interpolées, et [formatters](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/formatters.md) pour les nombres, dates et devises.
+Oui : le [contenu basé sur le genre](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/gender.md), les conditions, les [énumérations](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/enumeration.md), les [insertions](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/insertion.md) pour les valeurs interpolées, et les [formateurs](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/formatters.md) pour les nombres, les dates et les devises.
 
 </Question>
 
@@ -741,17 +741,17 @@ Oui : [contenu basé sur le genre](https://github.com/aymericzip/intlayer/blob/m
 
 Cinq éléments, tous optionnels :
 
-- **[Extension VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/vs_code_extension.md)**: accédez à partir d'une clé au fichier de contenu qui la déclare, extrayez du contenu d'un fichier, et exécutez build, fill, test, push et pull depuis la palette de commandes.
-- **[Serveur LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/lsp.md)**: la même prise de conscience dans n'importe quel éditeur qui parle LSP, avec la définition de fonction, les aperçus au survol d'une valeur traduite, l'autocomplétion des clés, et un avertissement quand une clé n'est déclarée nulle part.
-- **[Serveur MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/mcp_server.md)**: expose la documentation et la CLI d'Intlayer à Cursor, VS Code, Claude Desktop, Claude Code et ChatGPT.
-- **[Agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/agent_skills.md)**: des compétences ciblées telles que `intlayer-config`, `intlayer-cli` et `intlayer-content`.
-- **[Plugin ESLint](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/eslint.md)**: `no-raw-text` signale les chaînes codées en dur.
+- **[Extension VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/vs_code_extension.md)** : passez d'une clé au fichier de contenu qui la déclare, extrayez du contenu depuis un fichier, et lancez build, fill, test, push et pull depuis la palette de commandes.
+- **[Serveur LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/lsp.md)** : la même connaissance dans tout éditeur qui parle LSP, avec aller à la définition, aperçus au survol d'une valeur traduite, autocomplétion des clés, et un avertissement lorsqu'une clé n'est déclarée nulle part.
+- **[Serveur MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/mcp_server.md)** : expose la documentation et la CLI d'Intlayer à Cursor, VS Code, Claude Desktop, Claude Code et ChatGPT.
+- **[Compétences d'agent](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/agent_skills.md)** : des compétences ciblées telles que `intlayer-config`, `intlayer-cli` et `intlayer-content`.
+- **[Plugin ESLint](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/eslint.md)** : `no-raw-text` signale les chaînes codées en dur.
 
 </Question>
 
 <Question title="Intlayer est-il gratuit et open source ?">
 
-Oui, sous la licence Apache 2.0, utilisation commerciale incluse. Le [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md) hébergé est un service payant optionnel qui peut également être [auto-hébergé](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/self_hosting.md).
+Oui, sous licence Apache 2.0, usage commercial inclus. Le [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md) hébergé est un service payant optionnel qui peut aussi être [auto-hébergé](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/self_hosting.md).
 
 </Question>
 

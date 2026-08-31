@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-05-31
+updatedAt: 2026-08-30
 title: "Angular 22 i18n - Guida completa per tradurre la tua applicazione"
 description: "Niente più i18next. La guida 2026 per creare un'applicazione Angular 22 multilingue (i18n). Traduci con agenti AI e ottimizza la dimensione del bundle, SEO e prestazioni."
 keywords:
@@ -481,3 +481,105 @@ Per ulteriori dettagli su come utilizzare l'estensione, consulta la [documentazi
 Per andare oltre, puoi implementare l'[editor visivo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_visual_editor.md) o esternalizzare i tuoi contenuti utilizzando il [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_CMS.md).
 
 ---
+
+## Domande frequenti
+
+<FAQ>
+
+<Question title="Quali sono le diverse soluzioni disponibili per internazionalizzare un'app Angular?">
+
+- **`@angular/localize`**, l'i18n integrato: i messaggi sono estratti in XLIFF e ogni locale è compilato nella propria build, il che significa un artefatto di deployment per lingua e nessun cambio di locale a runtime.
+- **`ngx-translate`** e **`Transloco`**: cataloghi JSON a runtime caricati attraverso un servizio, con cambio di locale ma senza tipizzazione in fase di build.
+- **`Intlayer`**: contenuto dichiarato accanto a ogni componente e compilato in fase di build, completamente tipizzato, con cambio di locale a runtime, traduzione AI, un editor visivo e un CMS.
+
+Il motivo abituale per lasciare `@angular/localize` è il modello di una build per locale. Intlayer mantiene una singola build e cambia lingua a runtime. Vedi [perché Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/interest_of_intlayer.md).
+
+</Question>
+
+<Question title="Quanto aggiunge l'i18n alla dimensione del mio bundle Angular?">
+
+Molto meno di una configurazione basata su namespace, perché una pagina non scarica mai un catalogo che non renderizza. Il compilatore in fase di build sostituisce le chiamate `useIntlayer` con le esatte voci del dizionario che un componente utilizza, quindi le chiavi e le lingue non utilizzate vengono eliminate, e i [dizionari dinamici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dynamic_dictionaries/index.md) suddividono il resto per locale. Misurato rispetto alle alternative abituali, Intlayer riduce la dimensione del bundle e delle pagine fino al 50%. Vedi [ottimizzazione del bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/bundle_optimization.md) e il [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/benchmark/index.md).
+
+</Question>
+
+<Question title="Posso migrare da `ngx-translate`, `Transloco` o `@angular/localize` senza riscrivere i miei template?">
+
+In gran parte. Segui la [guida alla migrazione da ngx-translate](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/compat/ngx-translate.md) o la [guida alla migrazione da Transloco](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/compat/transloco.md) per spostare il contenuto. Puoi anche migrare gradualmente: il [plugin di sincronizzazione JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/plugins/sync-json.md) mantiene i tuoi cataloghi JSON esistenti come fonte di verità e genera dizionari Intlayer da essi, così entrambi i livelli restano sincronizzati mentre sposti i template uno alla volta.
+
+</Question>
+
+<Question title="Posso mantenere i miei file di traduzione JSON esistenti?">
+
+Sì. Il [plugin di sincronizzazione JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/plugins/sync-json.md) mantiene i tuoi file `/messages/{locale}/{namespace}.json` come fonte di verità e genera dizionari Intlayer da essi, in entrambe le direzioni. Un [plugin di sincronizzazione PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/plugins/sync-po.md) fa lo stesso per i cataloghi gettext, e i [file per locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/per_locale_file.md) ti permettono di dividere il contenuto per lingua invece di raggruppare i locale in un unico file.
+
+</Question>
+
+<Question title="Devo spostare il mio contenuto chiave per chiave?">
+
+No. Esegui `npx intlayer extract` e Intlayer legge i tuoi file sorgente, estrae le stringhe visibili all'utente e scrive un file `.content` accanto a ciascuno, così puoi rivedere un diff invece di copiare le stringhe in un catalogo una alla volta. Vedi il [comando extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/cli/extract.md).
+
+Per una pipeline completamente automatizzata, il [Compilatore Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/compiler.md) fa lo stesso in fase di build sul codice sorgente JSX, TSX, Vue e Svelte, generando i dizionari ad ogni modifica così non ci sono chiavi da mantenere a mano. Funziona per analisi statica, quindi le stringhe che esistono solo a runtime restano fuori portata, e ha bisogno di alcune annotazioni per distinguere il testo visibile all'utente dalla logica applicativa.
+
+</Question>
+
+<Question title="Quali strumenti di editor e agenti AI sono disponibili?">
+
+Cinque componenti, tutti opzionali:
+
+- **[Estensione VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/vs_code_extension.md)**: salta da una chiave `useIntlayer` al file di contenuto che la dichiara, estrai il contenuto da un componente ed esegui build, fill, test, push e pull dalla palette dei comandi o da una scheda Intlayer dedicata.
+- **[Server LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/lsp.md)**: la stessa consapevolezza in qualsiasi editor che parla LSP, con vai alla definizione, trova tutti i riferimenti, anteprime al passaggio del mouse di un valore tradotto, autocompletamento di chiavi e campi, e un avviso quando una chiave non è dichiarata da nessuna parte. Risolve anche le chiamate `i18next`, `react-i18next`, `next-intl` e `use-intl`, il che aiuta durante la migrazione.
+- **[Server MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/mcp_server.md)**: espone la documentazione di Intlayer e la CLI a Cursor, VS Code, Claude Desktop, Claude Code e ChatGPT, così un assistente risponde in base alla documentazione aggiornata invece di tirare a indovinare, e può eseguire da solo comandi come `intlayer fill`.
+- **[Agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/agent_skills.md)**: competenze mirate come `intlayer-config`, `intlayer-cli` e `intlayer-content`, più una per framework, che insegnano a un agente la tua configurazione di routing e i tipi di nodo dei contenuti.
+- **[Plugin ESLint](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/eslint.md)**: `no-raw-text` segnala le stringhe hardcoded, con ulteriori regole per le chiavi statiche dei dizionari e i contenuti non utilizzati.
+
+</Question>
+
+<Question title="Intlayer supporta i signals di Angular e i componenti standalone?">
+
+Sì. Il contenuto è esposto attraverso i signals, così un template viene ri-renderizzato quando il locale cambia senza un ricaricamento della pagina, e il provider è registrato come qualsiasi altro provider standalone.
+
+</Question>
+
+<Question title="Ho bisogno di una build per lingua?">
+
+No. È il modello di `@angular/localize`. Con Intlayer una singola build serve ogni locale dichiarato, la lingua attiva è risolta a runtime dall'URL, un cookie o l'header `Accept-Language`, e viene scaricato solo il contenuto della locale renderizzata.
+
+</Question>
+
+<Question title="Come cambio lingua a runtime?">
+
+Lo copre il passo 6. `useLocale` espone la locale attiva, le locale dichiarate e un setter che persiste la scelta, e `getLocalizedUrl` riscrive il percorso corrente così l'utente resta sulla stessa rotta dopo il cambio.
+
+</Question>
+
+<Question title="Come traduco un'app Angular automaticamente con l'AI?">
+
+Esegui `npx intlayer fill`, che riempie le traduzioni mancanti con l'LLM di tua scelta usando il tuo provider e la tua API key. `--git-diff` limita l'esecuzione ai contenuti modificati nel branch. Vedi il [comando fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/cli/fill.md) e l'[integrazione CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/CI_CD.md).
+
+</Question>
+
+<Question title="Intlayer supporta plurali, genere e rich text?">
+
+Sì: [forme plurali](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/plurial.md), [contenuto basato sul genere](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/gender.md), condizioni, [inserimenti](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/insertion.md), [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/markdown.md) e [formattatori](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/formatters.md) per numeri, date e valute.
+
+</Question>
+
+<Question title="Come individuo le traduzioni mancanti prima del rilascio?">
+
+Esegui `npx intlayer test` in CI. Fa fallire la build quando a una locale dichiarata manca del contenuto. L'[estensione VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/vs_code_extension.md) segnala gli stessi errori mentre digiti. Vedi [testare i tuoi contenuti](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/testing.md).
+
+</Question>
+
+<Question title="Come possono i traduttori modificare il contenuto senza toccare il codice?">
+
+Attraverso l'[editor visivo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_visual_editor.md), che gira sulla tua infrastruttura e permette a chiunque di modificare il testo sul posto nell'app in esecuzione, o il [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_CMS.md), che esternalizza il contenuto così può cambiare senza un deployment.
+
+</Question>
+
+<Question title="Intlayer è gratuito e open source?">
+
+Sì, sotto licenza Apache 2.0, uso commerciale incluso. Il CMS ospitato è un servizio a pagamento opzionale che può anche essere [auto-ospitato](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/self_hosting.md).
+
+</Question>
+
+</FAQ>

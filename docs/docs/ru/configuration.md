@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-08-22
+updatedAt: 2026-08-30
 title: Конфигурация (Configuration)
 description: Узнайте, как настроить Intlayer для вашего приложения. Разберитесь в различных параметрах и опциях, доступных для настройки Intlayer в соответствии с вашими потребностями.
 keywords:
@@ -1121,3 +1121,101 @@ Intlayer поддерживает несколько ИИ-провайдеров
 | Поле      | Описание                                | Тип                |
 | --------- | --------------------------------------- | ------------------ |
 | `plugins` | Список плагинов Intlayer для включения. | `IntlayerPlugin[]` |
+
+## Часто задаваемые вопросы
+
+<FAQ>
+
+<Question title="Где должен находиться файл intlayer.config.ts?">
+
+В корне вашего проекта, рядом с `package.json`. Intlayer также принимает `intlayer.config.js`, `intlayer.config.mjs`, `intlayer.config.cjs` и JSON, поэтому файл соответствует той модульной системе, которую использует ваш проект.
+
+</Question>
+
+<Question title="Насколько i18n увеличивает размер моего бандла?">
+
+Гораздо меньше, чем при подходе на основе пространств имён, потому что страница никогда не загружает каталог, который не отображает. Разметка, отрендеренная на сервере, разрешает свой контент на сервере, и компилятор во время сборки заменяет вызовы `useIntlayer` точными записями словаря, которые использует компонент, поэтому неиспользуемые ключи и неиспользуемые языки отбрасываются. [Динамические словари](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dynamic_dictionaries/index.md) разделяют остальное по локалям. По сравнению с обычными альтернативами Intlayer сокращает размер бандла и страницы до 50%. См. [оптимизацию бандла](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/bundle_optimization.md) и [бенчмарк](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/index.md).
+
+</Question>
+
+<Question title="Могу ли я мигрировать с `i18next`, `next-intl` или `react-i18next`, не переписывая свои компоненты?">
+
+Да, и есть два пути. Вы можете мигрировать контент постепенно с помощью [руководства по миграции с i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/migration_from_i18next_to_intlayer.md) или [руководства по миграции с next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/migration_from_next-intl_to_intlayer.md). Или вы можете полностью сохранить свой текущий API: [адаптеры совместимости](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/index.md) предоставляют точно такой же API, как `i18next`, `react-i18next`, `next-intl`, `next-i18next`, `react-intl`, `use-intl`, `vue-i18n` и `Lingui`, но обслуживаемый словарями Intlayer, поэтому меняются импорты, а код компонентов — нет.
+
+</Question>
+
+<Question title="Могу ли я сохранить свои существующие файлы переводов JSON?">
+
+Да. [Плагин синхронизации JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/plugins/sync-json.md) сохраняет ваши файлы `/messages/{locale}/{namespace}.json` как источник истины и генерирует из них словари Intlayer, в обоих направлениях. [Плагин синхронизации PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/plugins/sync-po.md) делает то же самое для каталогов gettext, а [файлы по локали](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/per_locale_file.md) позволяют разделить контент по языкам вместо группировки локалей в одном файле.
+
+</Question>
+
+<Question title="Должен ли я переносить свой контент ключ за ключом?">
+
+Нет. Запустите `npx intlayer extract`, и Intlayer прочитает ваши исходные файлы, извлечёт строки, видимые пользователю, и запишет файл `.content` рядом с каждым из них, так что вы просматриваете diff вместо копирования строк в каталог по одной. См. [команду extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/extract.md).
+
+Для полностью автоматизированного конвейера [Компилятор Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compiler.md) делает то же самое во время сборки на исходном коде JSX, TSX, Vue и Svelte, генерируя словари при каждом изменении, поэтому нет ключей, которые нужно поддерживать вручную. Он работает через статический анализ, поэтому строки, существующие только во время выполнения, остаются недоступными, и ему нужно несколько аннотаций, чтобы отличать текст, видимый пользователю, от логики приложения.
+
+</Question>
+
+<Question title="Какие инструменты для редактора и ИИ-агентов доступны?">
+
+Пять компонентов, все опциональные:
+
+- **[Расширение для VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/vs_code_extension.md)**: переход от ключа `useIntlayer` к файлу контента, который его объявляет, извлечение контента из компонента и запуск build, fill, test, push и pull из палитры команд или отдельной вкладки Intlayer.
+- **[LSP-сервер](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/lsp.md)**: та же осведомлённость в любом редакторе, который говорит на LSP, с переходом к определению, поиском всех ссылок, предпросмотром переведённого значения при наведении, автодополнением ключей и полей и предупреждением, когда ключ нигде не объявлен. Он также разрешает вызовы `i18next`, `react-i18next`, `next-intl` и `use-intl`, что помогает при миграции.
+- **[MCP-сервер](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/mcp_server.md)**: предоставляет документацию и CLI Intlayer для Cursor, VS Code, Claude Desktop, Claude Code и ChatGPT, чтобы ассистент отвечал по актуальной документации, а не гадал, и мог сам запускать команды вроде `intlayer fill`.
+- **[Навыки агентов](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/agent_skills.md)**: сфокусированные навыки, такие как `intlayer-config`, `intlayer-cli` и `intlayer-content`, плюс по одному на фреймворк, которые обучают агента вашей настройке маршрутизации и типам узлов контента.
+- **[Плагин ESLint](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/eslint.md)**: `no-raw-text` помечает жёстко закодированные строки, с дополнительными правилами для статических ключей словаря и неиспользуемого контента.
+
+</Question>
+
+<Question title="Как добавить новый язык в моё приложение?">
+
+Добавьте локаль в `internationalization.locales`, затем запустите `npx intlayer fill`, чтобы перевести существующий контент на неё. Сгенерированные типы обновляются одновременно, поэтому любой файл контента без новой локали становится ошибкой типа, а не молчаливым откатом.
+
+</Question>
+
+<Question title="Как убрать префикс локали из моих URL?">
+
+Установите `routing.mode`. Значение по умолчанию `"prefix-no-default"` даёт `/about` для локали по умолчанию и `/fr/about` для остальных. `"prefix-all"` добавляет префикс каждой локали. `"no-prefix"` полностью держит локаль вне пути и разрешает её из cookie, заголовка или домена. `"search-params"` помещает её в строку запроса как `/about?locale=fr`.
+
+</Question>
+
+<Question title="Могу ли я обслуживать каждый язык с его собственного домена?">
+
+Да. `routing.domains` сопоставляет локаль с именем хоста, например `{ fr: 'example.fr', en: 'example.com' }`. Домен идентифицирует локаль, поэтому префикс к пути не добавляется, а `getLocalizedUrl` возвращает абсолютный URL на правильном домене.
+
+</Question>
+
+<Question title="Как определяется язык пользователя?">
+
+Через `routing.storage`, который перечисляет источники для чтения по порядку, обычно URL, затем cookie, затем заголовок `Accept-Language`. Явный выбор пользователя сохраняется, поэтому он побеждает при следующем визите.
+
+</Question>
+
+<Question title="Что делает routing.enableProxy?">
+
+Она управляет прокси маршрутизации локали — middleware, который разрешает префиксы и редиректы. Если не задано, прокси работает, но серверы разработки и предпросмотра игнорируют сохранённую локаль как источник редиректа, что избегает переброски на язык, который вы не тестируете; в продакшене поведение такое, как если бы значение было `true`. Установите `false`, чтобы обрабатывать маршрутизацию локали самостоятельно.
+
+</Question>
+
+<Question title="В чём разница между importMode static, dynamic и fetch?">
+
+`"static"`, значение по умолчанию, импортирует словари статически, поэтому они упакованы и читаются синхронно. `"dynamic"` импортирует их через Suspense, поэтому локаль загружается только когда компонент её отображает, что и нужно для больших наборов контента. `"fetch"` получает их из API живой синхронизации и откатывается к `"dynamic"` при сбое. См. [оптимизацию бандла](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/bundle_optimization.md) и [динамические словари](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dynamic_dictionaries/index.md).
+
+</Question>
+
+<Question title="Где указать ИИ-провайдера и API-ключ для автоматического перевода?">
+
+Либо в файле конфигурации, либо в командной строке с `--provider`, `--model` и `--api-key`. Ключ остаётся вашим: вызовы перевода идут с вашей машины или из вашего CI-раннера к выбранному вами провайдеру, поэтому ничего не проходит через третью сторону. См. [команду fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/fill.md).
+
+</Question>
+
+<Question title="Нужно ли перезапускать dev-сервер после изменения конфигурации?">
+
+Обычно нет. Watcher Intlayer следит за самим `intlayer.config.ts`: при сохранении он перезагружает конфигурацию и снова подготавливает словари, поэтому добавление локали или смена режима маршрутизации подхватывается как изменение контента. Однако конфигурация может кэшироваться системами. Перезапуск вашего приложения может быть хорошим решением.
+
+</Question>
+
+</FAQ>

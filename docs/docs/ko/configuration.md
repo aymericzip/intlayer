@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-08-22
+updatedAt: 2026-08-30
 title: 구성 (Configuration)
 description: 애플리케이션에 Intlayer를 구성하는 방법을 알아보세요. 필요에 따라 Intlayer를 맞춤설정하는 데 사용할 수 있는 다양한 설정과 옵션을 이해하세요.
 keywords:
@@ -1118,3 +1118,101 @@ Intlayer가 애플리케이션의 국제화를 최적화하고 컴파일하는 �
 | 필드      | 설명                                 | 타입               |
 | --------- | ------------------------------------ | ------------------ |
 | `plugins` | 포함할 Intlayer 플러그인 목록입니다. | `IntlayerPlugin[]` |
+
+## 자주 묻는 질문
+
+<FAQ>
+
+<Question title="intlayer.config.ts 파일은 어디에 위치해야 하나요?">
+
+프로젝트 루트의 `package.json` 바로 옆에 위치해야 합니다. Intlayer는 `intlayer.config.js`, `intlayer.config.mjs`, `intlayer.config.cjs` 및 JSON도 허용하므로 프로젝트에서 사용하는 모듈 시스템에 맞춰 자유롭게 선택할 수 있습니다.
+
+</Question>
+
+<Question title="i18n이 번들 크기에 얼마나 영향을 미치나요?">
+
+네임스페이스 기반 설정보다 훨씬 적습니다. 페이지는 렌더링하지 않는 언어의 카탈로그를 절대 다운로드하지 않기 때문입니다. 서버 렌더링 마크업은 서버에서 콘텐츠를 확인하고, 빌드 타임 컴파일러는 `useIntlayer` 호출을 컴포넌트가 사용하는 정확한 사전 항목으로 대체하므로 사용되지 않는 키와 언어는 제거됩니다. [동적 사전](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dynamic_dictionaries/index.md)을 통해 로케일별로 분할됩니다. 일반적인 대안들과 비교했을 때 Intlayer는 번들 및 페이지 크기를 최대 50%까지 줄여줍니다. [번들 최적화](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/bundle_optimization.md)와 [벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/index.md)를 참조하세요.
+
+</Question>
+
+<Question title="컴포넌트를 다시 작성하지 않고 i18next, next-intl 또는 react-i18next에서 마이그레이션할 수 있나요?">
+
+네, 두 가지 방법이 있습니다. [i18next 마이그레이션 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/migration_from_i18next_to_intlayer.md) 또는 [next-intl 마이그레이션 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/migration_from_next-intl_to_intlayer.md)를 따라 점진적으로 이전할 수 있습니다. 또는 현재 API를 완전히 유지할 수도 있습니다: [호환 어댑터(compat adapters)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/index.md)는 `i18next`, `react-i18next`, `next-intl`, `next-i18next`, `react-intl`, `use-intl`, `vue-i18n` 및 `Lingui`와 완전히 동일한 API를 노출하면서 Intlayer 사전에서 데이터를 제공하므로, import 구문만 변경하고 컴포넌트 코드는 그대로 유지할 수 있습니다.
+
+</Question>
+
+<Question title="기존 JSON 번역 파일을 유지할 수 있나요?">
+
+네. [sync JSON 플러그인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/plugins/sync-json.md)은 `/messages/{locale}/{namespace}.json` 파일을 단일 진실 공급원(source of truth)으로 유지하면서 양방향으로 Intlayer 사전을 생성합니다. [sync PO 플러그인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/plugins/sync-po.md)은 gettext 카탈로그에 대해 동일한 작업을 수행하며, [로케일별 파일](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/per_locale_file.md)을 통해 로케일을 한 파일에 모으는 대신 언어별로 콘텐츠를 분할할 수도 있습니다.
+
+</Question>
+
+<Question title="콘텐츠를 키 단위로 하나씩 옮겨야 하나요?">
+
+아닙니다. `npx intlayer extract`를 실행하면 Intlayer가 소스 파일을 읽고 사용자 대면 문자열을 추출하여 각 컴포넌트 옆에 `.content` 파일을 생성하므로 카탈로그에 일일이 복사할 필요 없이 diff만 검토하면 됩니다. [extract 명령](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/extract.md)을 참조하세요.
+
+완전 자동화된 파이프라인을 위해 [Intlayer 컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md)는 빌드 타임에 JSX, TSX, Vue 및 Svelte 소스에서 동일한 작업을 수행하여 변경될 때마다 사전을 생성하고 HMR을 통해 동기화하므로 수동으로 키를 관리할 필요가 없습니다. 정적 분석으로 작동하므로 런타임에만 존재하는 문자열은 제외되며, 사용자 텍스트와 애플리케이션 로직을 구분하기 위해 몇 가지 주석이 필요합니다.
+
+</Question>
+
+<Question title="사용 가능한 에디터 및 AI 에이전트 도구는 무엇이 있나요?">
+
+5가지 도구가 모두 선택 사항으로 제공됩니다:
+
+- **[VS Code 확장 프로그램](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/vs_code_extension.md)**: `useIntlayer` 키에서 이를 선언한 콘텐츠 파일로 바로 이동하고, 컴포넌트에서 콘텐츠를 추출하며, 명령 팔레트나 전용 Intlayer 탭에서 build, fill, test, push, pull을 실행할 수 있습니다.
+- **[LSP 서버](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/lsp.md)**: LSP를 지원하는 모든 에디터에서 정의로 이동, 모든 참조 찾기, 번역 값 마우스 오버 미리보기, 키 및 필드 자동 완성, 선언되지 않은 키에 대한 경고 등 동일한 기능을 제공합니다. 또한 `i18next`, `react-i18next`, `next-intl`, `use-intl` 호출도 해석하므로 마이그레이션 시 유용합니다.
+- **[MCP 서버](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/mcp_server.md)**: Cursor, VS Code, Claude Desktop, Claude Code, ChatGPT에 Intlayer 문서와 CLI를 노출하여 AI 어시스턴트가 최신 문서를 기반으로 정확히 답변하고 `intlayer fill` 등의 명령을 직접 실행할 수 있게 합니다.
+- **[Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/agent_skills.md)**: `intlayer-config`, `intlayer-cli`, `intlayer-content` 및 각 프레임워크 전용 스킬을 통해 AI 에이전트에게 라우팅 설정과 콘텐츠 노드 타입을 학습시킵니다.
+- **[ESLint 플러그인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/eslint.md)**: `no-raw-text` 규칙으로 하드코딩된 문자열을 표시하고, 정적 사전 키 및 사용되지 않는 콘텐츠에 대한 추가 규칙을 제공합니다.
+
+</Question>
+
+<Question title="앱에 새로운 언어를 어떻게 추가하나요?">
+
+`internationalization.locales`에 새 로케일을 추가한 다음 `npx intlayer fill`을 실행하여 기존 콘텐츠를 번역하세요. 생성된 타입이 동시에 업데이트되므로 새 로케일이 누락된 콘텐츠 파일은 조용한 폴백 대신 컴파일 타입 오류가 되어 즉시 감지할 수 있습니다.
+
+</Question>
+
+<Question title="URL에서 로케일 접두사를 어떻게 제거하나요?">
+
+`routing.mode`를 설정하세요. 기본값 `"prefix-no-default"`는 기본 로케일에 대해 `/about`을, 다른 로케일에 대해 `/ko/about`을 제공합니다. `"prefix-all"`은 모든 로케일에 접두사를 붙입니다. `"no-prefix"`는 경로에서 로케일을 완전히 제거하고 쿠키, 헤더 또는 도메인에서 로케일을 확인합니다. `"search-params"`는 쿼리 문자열에 `/about?locale=ko`와 같이 추가합니다.
+
+</Question>
+
+<Question title="각 언어를 자체 도메인에서 제공할 수 있나요?">
+
+네. `routing.domains`를 통해 로케일을 호스트 이름에 매핑할 수 있습니다(예: `{ ko: 'example.co.kr', en: 'example.com' }`). 도메인이 로케일을 식별하므로 경로에 접두사가 추가되지 않으며, `getLocalizedUrl`은 올바른 도메인의 절대 URL을 반환합니다.
+
+</Question>
+
+<Question title="사용자의 언어는 어떻게 감지되나요?">
+
+`routing.storage`를 통해 확인하며, 일반적으로 URL, 쿠키, `Accept-Language` 헤더 순으로 읽을 소스 목록을 지정합니다. 사용자가 명시적으로 선택한 언어는 저장되므로 다음 방문 시 우선 적용됩니다.
+
+</Question>
+
+<Question title="routing.enableProxy는 어떤 역할을 하나요?">
+
+접두사를 확인하고 리디렉션하는 미들웨어인 로케일 라우팅 프록시를 제어합니다. 설정하지 않은 경우 프록시가 실행되지만 개발 및 미리보기 서버는 리디렉션 소스로서 저장된 로케일을 무시하여 테스트하지 않는 언어로 튕겨 나가는 현상을 방지합니다. 프로덕션 환경은 `true`인 것처럼 작동합니다. 로케일 라우팅을 직접 처리하려면 `false`로 설정하세요.
+
+</Question>
+
+<Question title="importMode static, dynamic, fetch의 차이점은 무엇인가요?">
+
+기본값인 `"static"`은 사전을 정적으로 가져와 함께 번들링되고 동기식으로 읽힙니다. `"dynamic"`은 Suspense를 통해 가져오므로 컴포넌트가 렌더링할 때만 해당 로케일이 다운로드되어 대용량 콘텐츠에 이상적입니다. `"fetch"`는 실시간 동기화 API에서 사전을 검색하고 실패 시 `"dynamic"`으로 폴백합니다. [번들 최적화](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/bundle_optimization.md)와 [동적 사전](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dynamic_dictionaries/index.md)을 참조하세요.
+
+</Question>
+
+<Question title="자동 번역을 위한 AI 제공업체 및 API 키는 어디에 설정하나요?">
+
+구성 파일 내에서 설정하거나 커맨드라인에서 `--provider`, `--model`, `--api-key` 플래그로 지정할 수 있습니다. 키는 완전히 사용자 소유로 유지됩니다. 번역 호출은 로컬 머신 또는 CI 러너에서 선택한 제공업체로 직접 전송되므로 어떠한 제3자도 거치지 않습니다. [fill 명령](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/fill.md)을 참조하세요.
+
+</Question>
+
+<Question title="구성을 변경한 후 개발 서버를 다시 시작해야 하나요?">
+
+대부분의 경우 필요하지 않습니다. Intlayer 감시자(watcher)는 `intlayer.config.ts` 자체를 감시합니다: 저장 시 구성을 다시 로드하고 사전을 다시 준비하므로 로케일을 추가하거나 라우팅 모드를 변경하는 것도 콘텐츠 변경처럼 자동으로 반영됩니다. 단, 시스템 환경에 따라 캐시될 수 있으므로 변경 사항이 보이지 않을 경우 앱을 다시 시작하는 것이 좋습니다.
+
+</Question>
+
+</FAQ>

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-05-31
+updatedAt: 2026-08-30
 title: "Express i18n - あなたのアプリを翻訳する完全ガイド"
 description: "i18nextはもう不要。2026年に多言語（i18n）Expressアプリを構築するためのガイド。AIエージェントで翻訳し、バンドルサイズ、SEO、パフォーマンスを最適化します。"
 keywords:
@@ -281,3 +281,123 @@ Intlayer によって生成されたファイルは無視することを推奨�
 # Intlayer によって生成されたファイルを無視する
 .intlayer
 ```
+
+## よくある質問
+
+<FAQ>
+
+<Question title="Expressバックエンドを国際化するための異なるソリューションは何ですか？">
+
+従来の選択肢は、`i18next`と`i18next-http-middleware`を組み合わせる方法で、名前空間ごとにJSONカタログをロードし、リクエストにロケールを保存します。もう一つの選択肢は、`express-intlayer`を介した`Intlayer`です。これは、フロントエンドと共有される型付きファイルでコンテンツを宣言し、リクエストごとにロケールを解決し、AI翻訳とCMSを追加します。
+
+バックエンドを国際化する理由は、ユーザーが読むテキストの大部分がフロントエンドを通過しないためです。例えば、APIエラーメッセージ、トランザクションメール、プッシュ通知、SMS、PDFエクスポートなどです。これらはセッションごとではなく、リクエストごとに解決される受信者の言語を必要とします。
+
+[Intlayerを選ぶ理由](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md)をご覧ください。
+
+</Question>
+
+<Question title="i18nはExpressサーバーのbundleサイズにどれくらい影響しますか？">
+
+ごくわずかです。辞書は事前にコンパイルされ、宣言したロケールのみが含まれるため、起動時のカタログロードやリクエストパスでのファイル読み込みは発生しません。これは、bundleサイズがコールドスタート時間に影響するサーバーレスおよびエッジデプロイメントで特に重要です。
+[bundle最適化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)をご覧ください。
+
+</Question>
+
+<Question title="`i18next`からハンドラーを書き換えずに移行できますか？">
+
+はい、2つの方法があります。[i18next移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_i18next_to_intlayer.md)に従って、コンテンツを段階的に移行できます。または、既存のAPIを完全に維持することも可能です。[compat adapters](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/index.md)は`i18next`とまったく同じAPIを公開しますが、Intlayerの辞書によって提供されるため、インポートは変更されますが、ハンドラーコードは変更されません。
+
+</Question>
+
+<Question title="既存のJSON翻訳ファイルを保持できますか？">
+
+はい、可能です。[sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-json.md)は、`/messages/{locale}/{namespace}.json`ファイルを信頼できる情報源として保持し、そこからIntlayer辞書を双方向に生成します。
+[sync PO plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-po.md)はgettextカタログに対しても同様の機能を提供し、[per locale files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/per_locale_file.md)を使用すると、ロケールを1つのファイルにまとめるのではなく、言語ごとにコンテンツを分割できます。
+
+</Question>
+
+<Question title="コンテンツをキーごとに移動する必要がありますか？">
+
+いいえ、必要ありません。`npx intlayer extract`を実行すると、Intlayerがソースファイルを読み込み、ユーザー向けの文字列を抽出し、それぞれの隣に`.content`ファイルを書き込みます。これにより、文字列をカタログに1つずつコピーする代わりに、差分を確認するだけで済みます。
+[extractコマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/extract.md)をご覧ください。
+
+同じプロジェクトのフロントエンド側では、[Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md)がさらに進んで、ビルド時にJSX、TSX、Vue、またはSvelteのソースから辞書を生成します。これにより、アプリの両半分が手動でキーを管理することなく、1つのコンテンツレイヤーを共有できます。
+
+</Question>
+
+<Question title="利用可能なエディターおよびAIエージェントツールは何ですか？">
+
+以下の5つのツールがあり、すべてオプションです。
+
+- **[VS Code extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)**: `useIntlayer`キーからそれを宣言するコンテンツファイルにジャンプしたり、コンポーネントからコンテンツを抽出したり、コマンドパレットまたは専用のIntlayerタブからビルド、フィル、テスト、プッシュ、プルを実行したりできます。
+- **[LSP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)**: LSPをサポートする任意のエディターで、定義へのジャンプ、すべての参照の検索、翻訳された値のホバープレビュー、キーとフィールドのオートコンプリート、どこにも宣言されていないキーに対する警告など、同様の認識機能を提供します。また、`i18next`、`react-i18next`、`next-intl`、`use-intl`の呼び出しも解決するため、移行中に役立ちます。
+- **[MCP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)**: IntlayerのドキュメントとCLIをCursor、VS Code、Claude Desktop、Claude Code、ChatGPTに公開します。これにより、アシスタントは推測ではなく現在のドキュメントから回答し、`intlayer fill`などのコマンドを自分で実行できます。
+- **[Agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)**: `intlayer-config`、`intlayer-cli`、`intlayer-content`などの特化したスキルに加え、フレームワークごとのスキルがあり、エージェントにルーティング設定とコンテンツノードタイプを教えます。
+- **[ESLint plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/eslint.md)**: `no-raw-text`はハードコードされた文字列を検出し、静的辞書キーや未使用コンテンツに対する追加のルールも提供します。
+
+</Question>
+
+<Question title="Intlayerはどの言語で応答するかをどのように判断しますか？">
+
+デフォルトでは、`express-intlayer`は受信リクエストの`Accept-Language` headerを読み取り、最も近い宣言されたロケールを選択し、見つからない場合はデフォルトのロケールにフォールバックします。`routing.storage`を使用してソースを変更できます。例えば、フロントエンドによって設定されたカスタムheaderやcookieを使用することで、APIはブラウザが通知する言語ではなく、ユーザーが実際に選択した言語で応答できます。
+[設定リファレンス](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)をご覧ください。
+
+</Question>
+
+<Question title="ロケールはリクエストごとに分離されますか？">
+
+はい。middlewareはアクティブなロケールをリクエストにスコープするため、異なる言語の2つの同時リクエストが互いのロケールを読み取ることはありません。これにより、サービスから`t()`や`getIntlayer()`を呼び出す際に、すべての関数にロケール引数を渡す必要がなく、安全に呼び出すことができます。
+
+</Question>
+
+<Question title="受信者の言語でトランザクションメールを送信するにはどうすればよいですか？">
+
+他のコンテンツと同様に、メールコンテンツをコンテンツファイルで宣言し、リクエストロケールではなく、受信者の保存されたロケールに対して`getIntlayer`で解決します。これは、言語がユーザーレコードに属し、headerを読み取るための受信リクエストがないジョブやキューにとって重要です。
+
+</Question>
+
+<Question title="APIエラーメッセージをローカライズするにはどうすればよいですか？">
+
+エラーが構築される時点でメッセージを`t()`でラップします。アクティブなリクエストロケールがそれを解決するため、クライアントは直接表示できるメッセージを受け取り、フロントエンドはエラーコードの並行カタログを必要としません。
+
+</Question>
+
+<Question title="既存のExpressアプリや他のmiddlewareと連携しますか？">
+
+はい。`express-intlayer`は標準的なExpress middlewareであるため、既存のスタックと連携します。コンテンツを読み取るルートの前に登録することで、ハンドラーが`t()`または`getIntlayer()`を呼び出すまでにロケールが解決されます。
+
+</Question>
+
+<Question title="AIを使ってバックエンドコンテンツを自動的に翻訳するにはどうすればよいですか？">
+
+`npx intlayer fill`を実行すると、選択したLLMと独自のプロバイダーおよびAPIキーを使用して、不足している翻訳が自動的に補完されます。`--git-diff`を追加すると、ブランチで変更されたコンテンツのみを翻訳できます。
+[fillコマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/fill.md)および[CI/CD統合](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/CI_CD.md)をご覧ください。
+
+</Question>
+
+<Question title="Intlayerはサーバー上で複数形、性別、補間値をサポートしていますか？">
+
+はい、サポートしています。[複数形](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/plurial.md)、[性別に基づくコンテンツ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/gender.md)、条件、補間値のための[挿入](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/insertion.md)、メール本文のための[Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/markdown.md)、そして数値、日付、通貨のための[フォーマッター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/formatters.md)に対応しています。
+
+</Question>
+
+<Question title="サーバー上でTypeScriptのオートコンプリートは利用できますか？">
+
+はい。Intlayerは辞書の型を`./types/intlayer.d.ts`に生成するため、存在しないキーは実行時に空の文字列になるのではなく、コンパイルエラーになります。CIで`npx intlayer test`を実行すると、宣言されたロケールにコンテンツが不足している場合にビルドを失敗させることができます。
+
+</Question>
+
+<Question title="フロントエンドとバックエンドで同じコンテンツを共有できますか？">
+
+はい、可能です。それが一般的な設定です。`express-intlayer`は、`react-intlayer`、`next-intlayer`、`vite-intlayer`と連携して同じ宣言されたコンテンツで動作するため、APIレスポンスとページの両方で使用されるラベルは一度だけ宣言されます。
+[Intlayerの仕組み](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/how_works_intlayer.md)をご覧ください。
+
+</Question>
+
+<Question title="Intlayerは無料でオープンソースですか？">
+
+はい、Apache 2.0ライセンスの下で、商用利用も含まれます。ホストされている[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)はオプションの有料サービスですが、[セルフホスト](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/self_hosting.md)することも可能です。
+
+</Question>
+
+</FAQ>

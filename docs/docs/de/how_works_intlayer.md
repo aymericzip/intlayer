@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-12
-updatedAt: 2025-06-29
+updatedAt: 2026-08-30
 title: Wie Intlayer funktioniert
 description: Erfahren Sie, wie Intlayer intern funktioniert. Verstehen Sie die Architektur und die Komponenten, die Intlayer leistungsstark machen.
 keywords:
@@ -259,3 +259,95 @@ Das `@intlayer/backend` Paket exportiert Backend-Typen und wird in Zukunft das B
 ## Chat mit unserer intelligenten Dokumentation
 
 - [Stellen Sie Ihre Fragen an unsere intelligente Dokumentation](https://intlayer.org/de/doc/chat)
+
+## Häufig gestellte Fragen
+
+<FAQ>
+
+<Question title="Wann werden Wörterbücher erstellt, zur Build-Zeit oder zur Laufzeit?">
+
+Zur Build-Zeit. Das Bundler-Plugin oder `npx intlayer build` scannt Ihre `.content.ts`-Dateien, löst sie in Wörterbücher im Ordner `.intlayer` auf und generiert die passenden TypeScript-Typen. Zur Laufzeit lesen Ihre Komponenten nur das Ergebnis, sodass auf dem Anfragepfad kein Parsen oder Laden von Dateien stattfindet.
+
+</Question>
+
+<Question title="Wie viel trägt i18n zu meiner Bundle-Größe bei?">
+
+Viel weniger als bei einem Namespace-basierten Setup, denn eine Seite lädt niemals einen Katalog herunter, den sie nicht rendert. Serverseitig gerendertes Markup löst seinen Inhalt auf dem Server auf, und der Build-Zeit-Compiler ersetzt `useIntlayer`-Aufrufe durch genau die Wörterbucheinträge, die eine Komponente verwendet, sodass ungenutzte Schlüssel und ungenutzte Sprachen entfernt werden. [Dynamische Wörterbücher](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dynamic_dictionaries/index.md) teilen den Rest pro Locale auf. Gemessen an den üblichen Alternativen reduziert Intlayer die Bundle- und Seitengröße um bis zu 50 %. Siehe [Bundle-Optimierung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/bundle_optimization.md) und den [Benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/index.md).
+
+</Question>
+
+<Question title="Kann ich von `i18next`, `next-intl` oder `react-i18next` migrieren, ohne meine Komponenten neu zu schreiben?">
+
+Ja, und es gibt zwei Wege. Sie können die Inhalte schrittweise migrieren mit dem [i18next-Migrationsleitfaden](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/migration_from_i18next_to_intlayer.md) oder dem [next-intl-Migrationsleitfaden](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/migration_from_next-intl_to_intlayer.md). Oder Sie behalten Ihre aktuelle API vollständig bei: Die [Kompatibilitätsadapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compat/index.md) stellen genau dieselbe API wie `i18next`, `react-i18next`, `next-intl`, `next-i18next`, `react-intl`, `use-intl`, `vue-i18n` und `Lingui` bereit, aber aus Intlayer-Wörterbüchern bedient, sodass sich Importe ändern und der Komponentencode nicht.
+
+</Question>
+
+<Question title="Kann ich meine vorhandenen JSON-Übersetzungsdateien behalten?">
+
+Ja. Das [sync-JSON-Plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/plugins/sync-json.md) behält Ihre `/messages/{locale}/{namespace}.json`-Dateien als Single Source of Truth und generiert daraus Intlayer-Wörterbücher, in beide Richtungen. Ein [sync-PO-Plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/plugins/sync-po.md) macht dasselbe für gettext-Kataloge, und [Dateien pro Locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/per_locale_file.md) lassen Sie Inhalte nach Sprache aufteilen, statt Locales in einer Datei zu gruppieren.
+
+</Question>
+
+<Question title="Muss ich meine Inhalte Schlüssel für Schlüssel umziehen?">
+
+Nein. Führen Sie `npx intlayer extract` aus; Intlayer liest Ihre Quelldateien, zieht die für den Nutzer sichtbaren Strings heraus und schreibt neben jede eine `.content`-Datei, sodass Sie ein Diff prüfen, statt Strings einzeln in einen Katalog zu kopieren. Siehe den [extract-Befehl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/extract.md).
+
+Für eine vollständig automatisierte Pipeline macht der [Intlayer-Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compiler.md) dasselbe zur Build-Zeit auf JSX-, TSX-, Vue- und Svelte-Quellcode und generiert die Wörterbücher bei jeder Änderung, sodass es keine von Hand zu pflegenden Schlüssel gibt. Er arbeitet mit statischer Analyse, sodass Strings, die nur zur Laufzeit existieren, unerreichbar bleiben, und er braucht einige Annotationen, um für den Nutzer sichtbaren Text von Anwendungslogik zu unterscheiden.
+
+</Question>
+
+<Question title="Welches Editor- und KI-Agenten-Tooling ist verfügbar?">
+
+Fünf Bausteine, alle optional:
+
+- **[VS-Code-Erweiterung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/vs_code_extension.md)**: von einem `useIntlayer`-Schlüssel zur Inhaltsdatei springen, die ihn deklariert, Inhalte aus einer Komponente extrahieren und build, fill, test, push und pull über die Befehlspalette oder einen eigenen Intlayer-Tab ausführen.
+- **[LSP-Server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/lsp.md)**: dieselbe Wahrnehmung in jedem Editor, der LSP spricht, mit „Gehe zu Definition“, „Alle Referenzen suchen“, Hover-Vorschauen eines übersetzten Werts, Autovervollständigung von Schlüsseln und Feldern sowie einer Warnung, wenn ein Schlüssel nirgends deklariert ist. Es löst außerdem `i18next`-, `react-i18next`-, `next-intl`- und `use-intl`-Aufrufe auf, was bei der Migration hilft.
+- **[MCP-Server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/mcp_server.md)**: stellt die Intlayer-Dokumentation und -CLI für Cursor, VS Code, Claude Desktop, Claude Code und ChatGPT bereit, sodass ein Assistent aus der aktuellen Doku antwortet statt zu raten und Befehle wie `intlayer fill` selbst ausführen kann.
+- **[Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/agent_skills.md)**: fokussierte Skills wie `intlayer-config`, `intlayer-cli` und `intlayer-content` sowie eines pro Framework, die einem Agenten Ihr Routing-Setup und die Inhaltsknoten-Typen beibringen.
+- **[ESLint-Plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/eslint.md)**: `no-raw-text` markiert fest kodierte Strings, mit weiteren Regeln für statische Wörterbuchschlüssel und ungenutzte Inhalte.
+
+</Question>
+
+<Question title="Was ist der Ordner .intlayer und sollte ich ihn committen?">
+
+Es ist die generierte Ausgabe: die kompilierten Wörterbücher und die generierten Typen. Sie wird aus Ihren Inhaltsdateien abgeleitet, sollte also in `.gitignore` stehen und von Ihrem Build-Schritt neu erzeugt werden, genau wie ein `dist`-Ordner.
+
+</Question>
+
+<Question title="Wie wird die aktive Locale bestimmt?">
+
+Aus den in `routing.storage` aufgelisteten Quellen, der Reihe nach: das URL-Präfix, wenn `routing.mode` eines verwendet, dann ein Cookie, dann der `Accept-Language`-Header, dann Ihre Standard-Locale. Eine Locale, die der Nutzer ausdrücklich wählt, wird persistiert, sodass sie den nächsten Besuch übersteht. Siehe die [Konfigurationsreferenz](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/configuration.md).
+
+</Question>
+
+<Question title="Was ist der Unterschied zwischen lokalen und entfernten Wörterbüchern?">
+
+Ein lokales Wörterbuch wird in Ihrer Codebasis deklariert und mit Ihrer Anwendung kompiliert. Ein entferntes Wörterbuch wird im [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md) verwaltet und zur Laufzeit aufgelöst, sodass es sich ohne Deployment ändern kann. Beide werden über dieselben Hooks gelesen, und entfernter Inhalt fällt auf die lokale Deklaration zurück, wenn er nicht verfügbar ist.
+
+</Question>
+
+<Question title="Funktioniert Intlayer ohne TypeScript?">
+
+Ja. Inhaltsdateien können in TypeScript, JavaScript, ESM, CommonJS oder JSON geschrieben werden. TypeScript schaltet die generierten Typen und die Autovervollständigung frei, ist also das empfohlene Setup, aber nicht erforderlich.
+
+</Question>
+
+<Question title="Wie teilen sich Server-Rendering und Client-Rendering denselben Inhalt?">
+
+Der Server löst den Inhalt serverseitig gerenderter Komponenten direkt auf, sodass für dieses Markup kein Wörterbuch an den Client gesendet wird. Client-Komponenten lesen dieselben Wörterbücher über den Provider, der die auf dem Server aufgelöste Locale erhält, sodass das erste Client-Rendering zum Server-HTML passt und keine andere Sprache aufblitzt.
+
+</Question>
+
+<Question title="Wie vermeidet Intlayer eine Hydration-Diskrepanz bei der Locale?">
+
+Die Locale wird einmal auf dem Server aufgelöst und an den Provider übergeben, statt im Browser erneut erkannt zu werden. Weil der Client mit derselben Locale startet, die der Server gerendert hat, passt das Markup, was bei clientseitiger Locale-Erkennung üblicherweise bricht.
+
+</Question>
+
+<Question title="Muss ich neu bauen, wenn ich eine Übersetzung hinzufüge?">
+
+In der Entwicklung nein: Das Plugin überwacht Ihre Inhaltsdateien und baut die betroffenen Wörterbücher beim Speichern neu. In der Produktion sind die Wörterbücher Teil des Builds, es sei denn, der Inhalt ist entfernt, in welchem Fall das [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md) und der [Live-Sync](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/live.md) die Änderung ohne Deployment anwenden.
+
+</Question>
+
+</FAQ>

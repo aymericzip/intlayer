@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-10
-updatedAt: 2026-06-23
+updatedAt: 2026-08-30
 title: "Next.js i18n - 翻译你的应用的完整指南"
 description: "告别 i18next。2026 年构建多语言 (i18n) Next.js 应用的完整指南。使用 AI 代理翻译并优化包体积、SEO 和性能。"
 keywords:
@@ -729,3 +729,109 @@ Intlayer 使用模块扩展 (module augmentation) 来利用 TypeScript 的优势
 ### 进一步深入
 
 您可以实现 [可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md) 或使用 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md) 来实现内容的外部管理。
+
+## 常见问题
+
+<FAQ>
+
+<Question title="国际化 Next.js 应用有哪些不同的解决方案？">
+
+`next.config.js` 中的 `i18n` 字段不适用于 App Router，因此国际化层始终需要选择第三方库：
+
+- **`next-intl`**、**`next-i18next` / `i18next`** 和 **`react-intl`**：按命名空间加载 JSON 或 ICU 目录，在每个调用处手动编写键名。
+- **`Lingui`**：基于提取驱动，在构建时编译 ICU 消息。
+- **`Intlayer`**：在构建时直接从组件中提取编译内容，完全类型安全，并配有 AI 翻译、可视化编辑器和 CMS。
+
+本指南采用编译器方案，您可以继续在组件中编写普通的字符串，字典会自动为您生成。请参阅 [为什么选择 Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/interest_of_intlayer.md) 和 [Next.js i18n 性能基准](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md)。
+
+</Question>
+
+<Question title="i18n 会给我的 Next.js bundle 体积增加多少？">
+
+远少于基于命名空间的方案，因为页面永远不会下载它不渲染的语言目录。Server Components 在服务端直接解析其内容，构建时编译器将 `useIntlayer` 调用替换为组件使用的确切字典条目，因此未使用的键和未使用的语言都会被自动丢弃，并且 [动态字典](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dynamic_dictionaries/index.md) 会按语言环境拆分剩余内容。与常规替代方案相比，Intlayer 可将 bundle 和页面体积减少高达 50%。请参阅 [Bundle 体积优化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md) 和 [性能基准](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md)。
+
+</Question>
+
+<Question title="我可以从 next-intl、next-i18next 或 i18next 迁移而无需重写组件吗？">
+
+可以，有两条迁移路径。您可以使用 [next-intl 迁移指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_next-intl_to_intlayer.md) 或 [i18next 迁移指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_i18next_to_intlayer.md) 逐步迁移内容。或者，您可以完全保留当前的 API：[兼容性适配器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/index.md) 公开与 `next-intl`、`react-i18next` 和 `react-intl` 完全相同的 API，但底层由 Intlayer 字典驱动，因此只需更改导入语句，组件代码完全无需修改。
+
+</Question>
+
+<Question title="我可以保留现有的 JSON 翻译文件吗？">
+
+可以。[JSON 同步插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/plugins/sync-json.md) 将您的 `/messages/{locale}/{namespace}.json` 文件作为单一真实来源（source of truth），并双向生成 Intlayer 字典。[PO 同步插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/plugins/sync-po.md) 对 gettext 目录执行相同的操作，而 [按语言环境组织的文件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/per_locale_file.md) 允许您按语言拆分内容，而不是将所有语言打包到一个文件中。
+
+</Question>
+
+<Question title="我必须逐个键迁移我的内容吗？">
+
+不需要，这正是本指南所配置的内容。您只需在默认语言环境中使用普通文本编写组件，[Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md) 会在每次构建时扫描源码，提取面向用户的文本并生成字典，因此无需手动创建或维护任何键。
+
+有两个限制值得了解：编译器通过静态分析工作，因此仅在运行时存在的字符串（如 API 错误代码或 CMS 字段）无法被捕获，仍需显式声明字典；此外它需要区分用户文本和应用程序逻辑（如 `className="active"` 或状态代码），在大型代码库中需要少量注解。
+
+如果您希望保留完全掌控权，`npx intlayer extract` 可以对您选定的文件执行单次提取，并在每个组件旁边生成 `.content` 文件供您审查。请参阅 [extract 命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/extract.md)。
+
+</Question>
+
+<Question title="有哪些可用的编辑器和 AI 代理工具？">
+
+共有 5 个工具，均为可选：
+
+- **[VS Code 扩展](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/vs_code_extension.md)**：从 `useIntlayer` 键跳转到声明它的内容文件，从组件中提取内容，并从命令面板或专属的 Intlayer 选项卡运行 build、fill、test、push 和 pull。
+- **[LSP 服务器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)**：在任何支持 LSP 的编辑器中提供相同的感知能力，支持跳转到定义、查找所有引用、悬停预览翻译值、键和字段的自动补全，以及在键未声明时发出警告。它还可以解析 `i18next`、`react-i18next`、`next-intl` 和 `use-intl` 调用，助力平滑迁移。
+- **[MCP 服务器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)**：向 Cursor、VS Code、Claude Desktop、Claude Code 和 ChatGPT 公开 Intlayer 文档与 CLI，使 AI 助手能够基于最新文档进行准确回答，并能自行运行 `intlayer fill` 等命令。
+- **[Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)**：针对特定领域的技能（如 `intlayer-config`、`intlayer-cli` 和 `intlayer-content`，以及每个框架对应的专属技能），教导 AI 代理您的路由配置和内容节点类型。
+- **[ESLint 插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/eslint.md)**：`no-raw-text` 规则标记硬编码字符串，并提供针对静态字典键和未使用内容的额外规则。
+
+</Question>
+
+<Question title="我应该使用编译器还是自己声明内容？">
+
+当您希望以最低成本为现有代码库添加 i18n 时，请使用编译器：您的组件保持原样，字典自动生成。当您需要对键名、结构和跨组件复用拥有明确掌控时，请按照 [标准 Next.js 指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_16.md) 手动声明内容。两者可以在同一个字典层中共存。
+
+</Question>
+
+<Question title="为什么需要配置 Babel？">
+
+第 4 步介绍了此内容。编译器通过 Babel 转换读取您的组件，因此 Next.js 需要一个 `babel.config.js` 来运行提取流程。当您选择编译器配置时，`npx intlayer init --interactive` 会自动为您生成该文件。
+
+</Question>
+
+<Question title="编译器无法看到的字符串会怎样？">
+
+由于编译器依赖静态分析，这些字符串将保持未翻译状态。任何在运行时组装的内容（例如 API 错误信息、CMS 字段或通过字符串拼接生成的内容）都必须按照常规方式在内容文件中显式声明。运行 `npx intlayer test` 可检测缺失的内容。
+
+</Question>
+
+<Question title="如何填充缺失的翻译？">
+
+第 7 步介绍了此内容。`npx intlayer fill` 将提取的内容发送给您选择的 LLM（使用您自己的提供商和 API 密钥），`--git-diff` 可将范围限制在当前分支修改的内容。请参阅 [fill 命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/fill.md) 和 [CI/CD 集成](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/CI_CD.md)。
+
+</Question>
+
+<Question title="如何检测语言环境？">
+
+第 5 步在页面中读取它，第 8 步添加代理以从 URL、Cookie 或 `Accept-Language` 请求头中解析它。`routing.mode` 决定语言环境是否出现在路径中。请参阅 [配置参考](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
+
+</Question>
+
+<Question title="Intlayer 是否支持复数、性别和富文本？">
+
+支持：包括 [复数形式](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/plurial.md)、[基于性别的内容](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/gender.md)、条件渲染、插值用的 [插入内容 (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/insertion.md)、用于长文本的 [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/markdown.md)，以及用于数字、日期和货币的 [格式化工具](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/formatters.md)。
+
+</Question>
+
+<Question title="翻译人员如何无需接触代码即可编辑内容？">
+
+可以通过在您自己的基础设施上运行的 [可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)（任何人都可以直接在运行中的应用中就地修改文本），或通过 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md) 进行无需重新部署的内容外部化更新。
+
+</Question>
+
+<Question title="Intlayer 是免费且开源的吗？">
+
+是的，基于 Apache 2.0 许可证开源，包含商业用途。托管版 CMS 是可选的付费服务，同时完全支持 [自托管](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/self_hosting.md)。
+
+</Question>
+
+</FAQ>

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-12
-updatedAt: 2025-06-29
+updatedAt: 2026-08-30
 title: Intlayer 的工作原理
 description: 了解Intlayer的内部运作方式。理解使Intlayer强大的架构和组件。
 keywords:
@@ -259,3 +259,95 @@ Intlayer 由多个包组成，每个包在翻译过程中都有特定的角色�
 ## 与我们的智能文档聊天
 
 - [向我们的智能文档提问](https://intlayer.org/doc/chat)
+
+## 常见问题
+
+<FAQ>
+
+<Question title="字典是在构建时构建还是在运行时构建？">
+
+在构建时构建。打包器插件或 `npx intlayer build` 会扫描您的 `.content.ts` 文件，将它们解析为 `.intlayer` 文件夹中的字典，并生成匹配的 TypeScript 类型。在运行时，您的组件仅读取生成的结果，因此在请求处理路径上不会发生任何文件读取或解析操作。
+
+</Question>
+
+<Question title="i18n 会给我的 bundle 体积增加多少？">
+
+远少于基于命名空间的方案，因为页面永远不会下载它不渲染的语言目录。服务端渲染的标记在服务端直接解析内容，而构建时编译器将 `useIntlayer` 调用替换为组件使用的确切字典条目，因此未使用的键和未使用的语言都会被自动丢弃。[动态字典](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dynamic_dictionaries/index.md) 会按语言环境拆分剩余内容。与常规替代方案相比，Intlayer 可将 bundle 和页面体积减少高达 50%。请参阅 [Bundle 体积优化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md) 和 [性能基准](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/index.md)。
+
+</Question>
+
+<Question title="我可以从 i18next、next-intl 或 react-i18next 迁移而无需重写组件吗？">
+
+可以，有两条迁移路径。您可以使用 [i18next 迁移指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_i18next_to_intlayer.md) 或 [next-intl 迁移指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_next-intl_to_intlayer.md) 逐步迁移内容。或者，您可以完全保留当前的 API：[兼容性适配器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/index.md) 公开与 `i18next`、`react-i18next`、`next-intl`、`next-i18next`、`react-intl`、`use-intl`、`vue-i18n` 和 `Lingui` 完全相同的 API，但底层由 Intlayer 字典驱动，因此只需更改导入语句，组件代码无需修改。
+
+</Question>
+
+<Question title="我可以保留现有的 JSON 翻译文件吗？">
+
+可以。[JSON 同步插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/plugins/sync-json.md) 将您的 `/messages/{locale}/{namespace}.json` 文件作为单一真实来源（source of truth），并双向生成 Intlayer 字典。[PO 同步插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/plugins/sync-po.md) 对 gettext 目录执行相同的操作，而 [按语言环境组织的文件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/per_locale_file.md) 允许您按语言拆分内容，而不是将所有语言打包到一个文件中。
+
+</Question>
+
+<Question title="我必须逐个键迁移我的内容吗？">
+
+不需要。运行 `npx intlayer extract`，Intlayer 会读取您的源码文件，提取面向用户的字符串，并在每个组件旁边生成 `.content` 文件，这样您只需审查 diff，而无需手动逐一复制字符串到语言目录中。请参阅 [extract 命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/extract.md)。
+
+如需全自动流程，[Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md) 可以在构建时对 JSX、TSX、Vue 和 Svelte 源码执行相同操作，在每次更改时自动生成字典，完全无需手动维护键名。它通过静态分析工作，因此仅在运行时存在的字符串无法被捕获，并且需要少量注解以区分用户文本和应用程序逻辑。
+
+</Question>
+
+<Question title="有哪些可用的编辑器和 AI 代理工具？">
+
+共有 5 个工具，均为可选：
+
+- **[VS Code 扩展](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/vs_code_extension.md)**：从 `useIntlayer` 键跳转到声明它的内容文件，从组件中提取内容，并从命令面板或专属的 Intlayer 选项卡运行 build、fill、test、push 和 pull。
+- **[LSP 服务器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)**：在任何支持 LSP 的编辑器中提供相同的感知能力，支持跳转到定义、查找所有引用、悬停预览翻译值、键和字段的自动补全，以及在键未声明时发出警告。它还可以解析 `i18next`、`react-i18next`、`next-intl` 和 `use-intl` 调用，助力平滑迁移。
+- **[MCP 服务器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)**：向 Cursor、VS Code、Claude Desktop、Claude Code 和 ChatGPT 公开 Intlayer 文档与 CLI，使 AI 助手能够基于最新文档进行准确回答，并能自行运行 `intlayer fill` 等命令。
+- **[Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)**：针对特定领域的技能（如 `intlayer-config`、`intlayer-cli` 和 `intlayer-content`，以及每个框架对应的专属技能），教导 AI 代理您的路由配置和内容节点类型。
+- **[ESLint 插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/eslint.md)**：`no-raw-text` 规则标记硬编码字符串，并提供针对静态字典键和未使用内容的额外规则。
+
+</Question>
+
+<Question title="什么是 .intlayer 文件夹，我应该提交它吗？">
+
+它是构建生成的产物目录：包含编译后的字典和生成的类型。它是从您的内容文件中派生生成的，因此应将其列入 `.gitignore` 中，并像对待 `dist` 目录一样在构建步骤中重新生成，不建议提交到版本控制中。
+
+</Question>
+
+<Question title="活动语言环境是如何确定的？">
+
+通过 `routing.storage` 中列出的来源按顺序解析：当 `routing.mode` 启用前缀时首先读取 URL 前缀，其次是 Cookie，然后是 `Accept-Language` 请求头，最后回退到您的默认语言环境。用户明确选择的语言环境会被持久化，因此在下次访问时依然有效。请参阅 [配置参考](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
+
+</Question>
+
+<Question title="本地字典和远程字典有什么区别？">
+
+本地字典在您的代码库中声明，并随应用程序一起编译打包。远程字典在 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md) 中管理并在运行时进行解析，因此可以在无需重新部署的情况下随时修改。两者通过相同的 Hook 进行读取，并且当远程内容不可用时，会自动回退到本地声明的内容。
+
+</Question>
+
+<Question title="Intlayer 是否可以在不使用 TypeScript 的情况下运行？">
+
+可以。内容文件可以使用 TypeScript、JavaScript、ESM、CommonJS 或 JSON 编写。TypeScript 能够为您带来自动类型生成和完整的自动补全体验，因此是我们推荐的配置方式，但它并非强制要求。
+
+</Question>
+
+<Question title="服务端渲染和客户端渲染如何共享相同的内容？">
+
+服务端会直接解析服务端渲染组件的内容，因此无需为这部分 HTML 向客户端发送字典。客户端组件通过 Provider 读取相同的字典，Provider 接收在服务端解析出的语言环境，因此客户端的首次渲染与服务端 HTML 完全匹配，不会出现语言闪烁。
+
+</Question>
+
+<Question title="Intlayer 如何避免语言环境的水合不匹配 (hydration mismatch)？">
+
+语言环境在服务端仅解析一次并传递给 Provider，而不是在浏览器中重新检测。因为客户端以服务端渲染所用的相同语言环境作为初始状态，所以生成的标记完全匹配，从而避免了客户端单独检测语言时常出现的水合不匹配问题。
+
+</Question>
+
+<Question title="添加翻译后需要重新构建吗？">
+
+在开发环境下不需要：插件会监视您的内容文件并在保存时自动重新构建受影响的字典。在生产环境中，字典是构建产物的一部分；除非内容配置为远程管理，此时通过 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md) 和 [实时同步 (live sync)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/live.md) 即可无需重新部署直接应用最新更新。
+
+</Question>
+
+</FAQ>

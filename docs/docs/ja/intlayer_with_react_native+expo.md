@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-06-18
-updatedAt: 2026-06-25
+updatedAt: 2026-08-30
 title: "Expo + React Native i18n - あなたのアプリを翻訳する完全ガイド"
 description: "i18nextはもう不要。2026年に多言語（i18n）Expo + React Nativeアプリを構築するためのガイド。AIエージェントで翻訳し、バンドルサイズ、SEO、パフォーマンスを最適化します。"
 keywords:
@@ -529,3 +529,105 @@ import "@formatjs/intl-datetimeformat/polyfill";
 - モジュールの解決に失敗した場合は、Metro 設定（resolver aliases、asset plugins、`tsconfig` paths）を確認してください。
 
 ---
+
+## よくある質問
+
+<FAQ>
+
+<Question title="React Native または Expo アプリを国際化するために利用可能なソリューションにはどのようなものがありますか？">
+
+- **`i18n-js`** と `expo-localization` の組み合わせ: 従来からの組み合わせで、型付けのないメッセージの単純なオブジェクトです。
+- **`react-i18next`**: React エコシステムの標準で、実行時に読み込まれる JSON ネームスペースを使用します。
+- **`Intlayer`**: 最も高度なソリューションです。コードベースの任意の場所（[各コンポーネントの隣またはセントラライズ](https://intlayer.org/blog/per-component-vs-centralized-i18n)）でコンテンツを宣言し、ビルド時に Metro プラグインでコンパイルされ、完全に型付けされ、AI 翻訳、ビジュアルエディタ、CMS を備えています。
+
+モバイルではウェブよりもサイズの議論がより重要です。すべてがアプリにバンドルされ、ページごとに取得されないためです。コンポーネントごとにコンテンツをコンパイルすることで、未使用の言語と未使用のキーをバンドルから除外します。[Intlayer を選ぶ理由](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md)を参照してください。
+
+</Question>
+
+<Question title="i18n はアプリのバンドルサイズにどの程度追加されますか？">
+
+実行時カタログよりもはるかに少なくなります。これはウェブよりもモバイルの方が重要です。すべてがアプリにバンドルされ、ページごとに取得されないためです。Metro プラグインは `useIntlayer` の呼び出しをコンポーネントが使用する正確なエントリに解決するため、未使用のキーと未使用の言語はバイナリに到達しません。通常の代替案と比較すると、Intlayer はバンドルサイズを最大 50% 削減します。[バンドル最適化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)を参照してください。
+
+</Question>
+
+<Question title="`i18n-js` または `react-i18next` からコンポーネントを書き直さずに移行できますか？">
+
+はい、2 つのパスがあります。[i18n-js 移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/i18n-js.md)または [react-i18next 移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_react-i18next_to_intlayer.md)を使用してコンテンツを段階的に移行できます。または、現在の API を完全に保持できます。[互換性アダプタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/index.md)は `react-i18next` と `react-intl` と同じ API を公開しますが、Intlayer 辞書によって提供されるため、インポートは変わりますがコンポーネントコードは変わりません。
+
+</Question>
+
+<Question title="既存の JSON 翻訳ファイルを保持できますか？">
+
+はい。[sync JSON プラグイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-json.md)は `/messages/{locale}/{namespace}.json` ファイルを信頼できるソースとして保持し、双方向で Intlayer 辞書を生成します。[sync PO プラグイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-po.md)は gettext カタログに対して同じことを行い、[ロケールごとのファイル](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/per_locale_file.md)ではロケールを 1 つのファイルにグループ化する代わりに、言語ごとにコンテンツを分割できます。
+
+</Question>
+
+<Question title="コンテンツをキーごとに移動する必要がありますか？">
+
+いいえ。`npx intlayer extract` を実行すると、Intlayer はソースファイルを読み取り、ユーザーに表示される文字列を抽出し、各ファイルの隣に `.content` ファイルを書き込むため、文字列をカタログに 1 つずつコピーする代わりに diff をレビューします。[extract コマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/extract.md)を参照してください。
+
+完全に自動化されたパイプラインの場合、[Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md) はビルド時に JSX、TSX、Vue、Svelte ソースに対して同じことを行い、変更のたびに辞書を生成するため、手動で管理するキーはありません。静的分析によって動作するため、実行時にのみ存在する文字列は到達不可能であり、ユーザーに表示されるテキストをアプリケーションロジックから区別するために、いくつかのアノテーションが必要です。
+
+</Question>
+
+<Question title="利用可能なエディタと AI エージェントツールは何ですか？">
+
+5 つあり、すべてオプションです：
+
+- **[VS Code 拡張機能](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)**: `useIntlayer` キーからそれを宣言するコンテンツファイルにジャンプし、コンポーネントからコンテンツを抽出し、コマンドパレットまたは専用の Intlayer タブからビルド、fill、テスト、プッシュ、プルを実行します。
+- **[LSP サーバー](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)**: LSP を話す任意のエディタで同じ認識を提供し、定義へのジャンプ、すべての参照を検索、翻訳値のホバープレビュー、キーとフィールドのオートコンプリート、キーが宣言されていない場合の警告があります。また、`i18next`、`react-i18next`、`next-intl`、`use-intl` の呼び出しも解決し、移行中に役立ちます。
+- **[MCP サーバー](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)**: Intlayer ドキュメントと CLI を Cursor、VS Code、Claude Desktop、Claude Code、ChatGPT に公開し、アシスタントが推測する代わりに現在のドキュメントから回答でき、`intlayer fill` などのコマンドを自分で実行できます。
+- **[エージェントスキル](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)**: `intlayer-config`、`intlayer-cli`、`intlayer-content` などの焦点を絞ったスキル、およびフレームワークごとに 1 つのスキルがあり、エージェントにルーティング設定とコンテンツノードタイプを教えます。
+- **[ESLint プラグイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/eslint.md)**: `no-raw-text` はハードコードされた文字列にフラグを立て、静的辞書キーと未使用コンテンツのさらなるルールがあります。
+
+</Question>
+
+<Question title="Intlayer は Expo と Metro バンドラーで動作しますか？">
+
+はい。ステップ 3 は Metro プラグインを追加し、`.content.ts` ファイルをコンパイルし、保存時に型を再生成するため、Fast Refresh は他のソース変更と同様にコンテンツ編集を取得します。Expo Go と開発ビルドの両方で動作します。
+
+</Question>
+
+<Question title="デバイスの言語を検出するにはどうすればよいですか？">
+
+`expo-localization` から読み取り、初期ロケールとして Intlayer プロバイダーに渡し、ユーザーの明示的な選択を保持します。Intlayer は宣言されたロケールの中にデバイス言語がない場合、デフォルトロケールにフォールバックするため、アプリは空の文字列をレンダリングしません。
+
+</Question>
+
+<Question title="実行時にアプリの言語を変更するにはどうすればよいですか？">
+
+ステップ 7 でカバーされています。`useLocale` はアクティブなロケール、宣言されたロケール、セッターを公開し、コンテンツを読み取るコンポーネントは即座に再レンダリングされるため、言語はアプリを再起動せずに変更されます。
+
+</Question>
+
+<Question title="アラビア語やヘブライ語などの右から左への言語をサポートするにはどうすればよいですか？">
+
+`getHTMLTextDir` を使用してアクティブなロケールが右から左かどうかを知り、React Native の `I18nManager` を通じてそれを適用します。React Native は完全な RTL レイアウト反転のためにリロードが必要であることに注意してください。そのため、ほとんどのアプリはユーザーが RTL 言語を選択したときに 1 回プロンプトを表示します。
+
+</Question>
+
+<Question title="AI を使用してアプリを自動的に翻訳するにはどうすればよいですか？">
+
+`npx intlayer fill` を実行します。これは選択した LLM を使用して、独自のプロバイダーと API キーで不足している翻訳を入力し、`--git-diff` は実行をブランチで変更されたコンテンツに制限します。[fill コマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/fill.md)と [CI/CD 統合](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/CI_CD.md)を参照してください。
+
+</Question>
+
+<Question title="Intlayer は複数形、性別、リッチテキストをサポートしていますか？">
+
+はい: [複数形](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/plurial.md)、[性別ベースのコンテンツ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/gender.md)、条件、[挿入](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/insertion.md)、[Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/markdown.md)、および数値、日付、通貨の[フォーマッタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/formatters.md)。
+
+</Question>
+
+<Question title="翻訳者がコードに触れずにコンテンツを編集するにはどうすればよいですか？">
+
+[ビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を通じて、独自のインフラストラクチャで実行され、誰でも実行中のアプリでテキストをその場で編集できます。または [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md) を通じて、コンテンツを外部化して、デプロイメントなしに変更できます。
+
+</Question>
+
+<Question title="Intlayer は無料でオープンソースですか？">
+
+はい、Apache 2.0 ライセンスの下で、商用利用を含みます。ホストされた CMS はオプションの有料サービスで、[自己ホスト](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/self_hosting.md)することもできます。
+
+</Question>
+
+</FAQ>

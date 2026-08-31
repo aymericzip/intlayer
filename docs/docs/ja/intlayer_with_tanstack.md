@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-08-25
+updatedAt: 2026-08-30
 title: "TanStack Start i18n - あなたのアプリを翻訳する完全ガイド"
 description: "i18nextはもう不要。2026年に多言語（i18n）TanStack Startアプリを構築するためのガイド。AIエージェントで翻訳し、バンドルサイズ、SEO、パフォーマンスを最適化します。"
 keywords:
@@ -1306,3 +1306,116 @@ Intlayer での開発体験を向上させるために、公式の **Intlayer VS
 - [useLocale hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/useLocale.md)
 - [Content Declaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)
 - [Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)
+
+## よくある質問
+
+<FAQ>
+
+<Question title="TanStack Start アプリを国際化するために利用できるさまざまなソリューションは何ですか？">
+
+TanStack Start には独自の i18n レイヤーが付属していないため、ライブラリを選択する必要があります：
+
+- **`i18next` / `react-i18next`** および **`react-intl`**：フレームワークに依存しないメッセージカタログで、ルーターに手動で接続します。
+- **`Lingui`**：ICU メッセージとコンパイルステップ。
+- **`Paraglide`**：コンパイル済みメッセージで、メッセージレイヤーのみに焦点を当てています。
+- **`Intlayer`**：最も高度なソリューション。コンテンツはコードベースの任意の場所で宣言でき（[各コンポーネントの隣またはセントラライズ](https://intlayer.org/blog/per-component-vs-centralized-i18n)）、ビルド時にコンパイルされ、型付きキー、ロケール対応ルーティング、サイトマップ生成、AI 翻訳、ビジュアルエディター、CMS を備えています。
+
+TanStack Start で重要な違いはルーティングとサーバーレンダリングです。Intlayer はファイルベースのルーター、`head` 関数、プリレンダーパスと統合され、プロバイダー、ロケール検出器、サイトマップを手動で組み立てる必要がありません。[Intlayer を選ぶ理由](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md)と [TanStack Start i18n ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/tanstack.md)を参照してください。
+
+</Question>
+
+<Question title="i18n は TanStack Start のバンドルサイズにどの程度追加されますか？">
+
+ネームスペースベースのセットアップよりもはるかに少なくなります。ページはレンダリングしないカタログをダウンロードしないためです。サーバーレンダリングされたマークアップはサーバー上でコンテンツを解決し、ビルド時コンパイラは `useIntlayer` 呼び出しをコンポーネントが使用する正確な辞書エントリに置き換えるため、未使用のキーと未使用の言語は削除され、[動的辞書](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dynamic_dictionaries/index.md)は残りをロケールごとに分割します。通常の代替案と比較すると、Intlayer はバンドルとページサイズを最大 50% 削減します。[バンドル最適化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)と[ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/tanstack.md)を参照してください。
+
+</Question>
+
+<Question title="`react-i18next` または `react-intl` からコンポーネントを書き直さずに移行できますか？">
+
+はい、2 つのパスがあります。[react-i18next 移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_react-i18next_to_intlayer.md)または [i18next 移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_i18next_to_intlayer.md)を使用してコンテンツを段階的に移行できます。または、現在の API を完全に保持できます：[互換性アダプター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/index.md)は `react-i18next`、`react-intl`、`i18next` と同じ API を公開しますが、Intlayer 辞書によって提供されるため、インポートは変わりますがコンポーネントコードは変わりません。
+
+</Question>
+
+<Question title="既存の JSON 翻訳ファイルを保持できますか？">
+
+はい。[sync JSON プラグイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-json.md)は `/messages/{locale}/{namespace}.json` ファイルを真実のソースとして保持し、双方向で Intlayer 辞書を生成します。[sync PO プラグイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-po.md)は gettext カタログに対して同じことを行い、[ロケールごとのファイル](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/per_locale_file.md)ではロケールを 1 つのファイルにグループ化する代わりに言語ごとにコンテンツを分割できます。
+
+</Question>
+
+<Question title="コンテンツをキーごとに移動する必要がありますか？">
+
+いいえ。`npx intlayer extract` を実行すると、Intlayer はコンポーネントを読み込み、ユーザーに見える文字列を抽出し、各コンポーネントの隣に `.content` ファイルを書き込むため、文字列を 1 つずつカタログにコピーする代わりに diff を確認できます。このガイドのステップ 15 でそれを説明しています。
+
+完全に自動化されたパイプラインの場合、[Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md)はビルド時に同じことを行います：変更のたびに JSX、TSX、Vue、Svelte ソースをスキャンし、辞書を生成し、ホットモジュール置換を通じて同期を保つため、手動で保守するキーはまったくありません。
+
+コンパイラをオンにする前に知っておく価値のある 2 つの制限があります。静的分析によって機能するため、API エラーコードや CMS フィールドなど、実行時にのみ存在する文字列は到達不可能なままです。また、`className="active"` やステータスコードなどのアプリケーションロジックからユーザーに見える文字列を区別する必要があり、大規模なコードベースではいくつかのアノテーションが必要です。[extract コマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/extract.md)はループに保つことでその両方を回避します。
+
+</Question>
+
+<Question title="利用可能なエディターと AI エージェントツーリングは何ですか？">
+
+5 つのツール、すべてオプションです：
+
+- **[VS Code 拡張機能](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)**：`useIntlayer` キーからそれを宣言するコンテンツファイルにジャンプし、コンポーネントからコンテンツを抽出し、コマンドパレットまたは専用の Intlayer タブからビルド、フィル、テスト、プッシュ、プルを実行します。
+- **[LSP サーバー](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)**：LSP を話す任意のエディターで同じ認識を持ち、定義へのジャンプ、すべての参照を検索、翻訳値のホバープレビュー、キーとフィールドのオートコンプリート、キーがどこにも宣言されていない場合の警告があります。また、`i18next`、`react-i18next`、`next-intl`、`use-intl` 呼び出しを解決し、移行中に役立ちます。
+- **[MCP サーバー](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)**：Intlayer ドキュメントと CLI を Cursor、VS Code、Claude Desktop、Claude Code、ChatGPT に公開し、アシスタントが推測する代わりに現在のドキュメントから回答でき、`intlayer fill` などのコマンドを自分で実行できます。
+- **[エージェントスキル](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)**：`intlayer-config`、`intlayer-cli`、`intlayer-content` などの焦点を絞ったスキル、およびフレームワークごとに 1 つ、ルーティング設定とコンテンツノードタイプをエージェントに教えます。
+- **[ESLint プラグイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/eslint.md)**：`no-raw-text` はハードコードされた文字列にフラグを立て、静的辞書キーと未使用コンテンツのさらなるルールがあります。
+
+</Question>
+
+<Question title="Intlayer は TanStack Start でサーバーサイドレンダリングとプリレンダリングをサポートしていますか？">
+
+はい。コンテンツは SSR 中に解決され、ガイドはローカライズされたルートごとに 1 つの静的ドキュメントを出力するプリレンダー構成をカバーしています。ステップ 16 は `vite.config.ts` で `prerender` を有効にし、同じルートテーブルからローカライズされたサイトマップを生成する方法を示しています。
+
+</Question>
+
+<Question title="hreflang タグとローカライズされたサイトマップを追加するにはどうすればよいですか？">
+
+`src/routes/sitemap[.]xml.ts` ルートで組み込みの `generateSitemap` 関数を使用します。プレーンな URL リストとは異なり、`xhtml:link` ネームスペースを出力するため、ページのすべての言語バージョンは相互に双方向にリンクし、検索エンジンは各オーディエンスに対して正しいものをインデックスします。ローカライズされた `head` メタデータはステップ 12 で説明されています。
+
+</Question>
+
+<Question title="URL にロケールを入れる必要がありますか？">
+
+いいえ。`routing.mode` は URL スキームを制御します：`"prefix-no-default"`（デフォルト、`/about` と `/fr/about`）、`"prefix-all"`（`/en/about`）、`"no-prefix"`（cookie、header、またはドメインから解決）、または `"search-params"`（`/about?locale=fr`）。ロケールは `routing.domains` で別々のドメインにマップすることもできます。[構成リファレンス](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)を参照してください。
+
+</Question>
+
+<Question title="現在のルートを保持するロケール切り替え機能を構築するにはどうすればよいですか？">
+
+ステップ 9 で説明されているローカライズされたリンクコンポーネントと一緒に `useLocale` を使用します。`useLocale` はアクティブなロケール、利用可能なロケール、選択を永続化するセッターを公開し、`getLocalizedUrl` は現在のパスをターゲット言語に書き直すため、ユーザーはホームページに着地する代わりに同じページにとどまります。
+
+</Question>
+
+<Question title="ローカライズされたルートで 404 ページを処理するにはどうすればよいですか？">
+
+ステップ 14 でカバーされています。`validatePrefix` は URL のロケールセグメントが宣言されたロケールであるかどうかを判断するため、`/xx/about` は処理されたパスとして扱われるのではなく、実際の 404 を返します。それなしでは、未知のプレフィックスは静かに解決され、検索エンジンは重複ページをインデックスします。
+
+</Question>
+
+<Question title="TanStack Start アプリを AI で自動的に翻訳するにはどうすればよいですか？">
+
+`npx intlayer fill` を実行します。CLI は不足している翻訳を見つけ、選択した LLM を使用して、独自のプロバイダーと API キーで埋めます。`--git-diff` を追加して、現在のブランチで変更されたコンテンツのみを翻訳し、CI 実行を安価に保ちます。[fill コマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/fill.md)と [CI/CD 統合](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/CI_CD.md)を参照してください。
+
+</Question>
+
+<Question title="Intlayer は複数形、性別、リッチテキストをサポートしていますか？">
+
+はい。コンテンツ宣言は[複数形](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/plurial.md)、[性別ベースのコンテンツ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/gender.md)、条件、[挿入](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/insertion.md)、長文テキスト用の [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/markdown.md)、および数値、日付、通貨の[フォーマッター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/formatters.md)に対応しています。
+
+</Question>
+
+<Question title="翻訳者がコードに触れずにコンテンツを編集するにはどうすればよいですか？">
+
+独自のインフラストラクチャ上で動作し、実行中のアプリでテキストをその場で編集できる[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)、またはコンテンツを外部化してデプロイなしで変更できるようにする[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)を通じて可能です。
+
+</Question>
+
+<Question title="Intlayer は無料でオープンソースですか？">
+
+はい、Apache 2.0 ライセンスの下で、商用利用を含みます。ホスト型 CMS はオプションの有料サービスですが、[セルフホスト](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/self_hosting.md)することも可能です。
+
+</Question>
+
+</FAQ>

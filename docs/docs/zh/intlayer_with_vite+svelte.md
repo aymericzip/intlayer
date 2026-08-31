@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-06-23
+updatedAt: 2026-08-30
 title: "Vite + Svelte i18n - 翻译你的应用的完整指南"
 description: "告别 i18next。2026 年构建多语言 (i18n) Vite + Svelte 应用的完整指南。使用 AI 代理翻译并优化包体积、SEO 和性能。"
 keywords:
@@ -713,32 +713,146 @@ console.log("SEO files generated successfully.");
 
 若使用 pnpm 或 yarn，请相应调整命令；也可在 CI 或其他步骤中调用该脚本。
 
-### 深入了解
+### Git 配置
 
 建议忽略 Intlayer 生成的文件。这样可以避免将它们提交到您的 Git 仓库中。
 
-要进一步提升，您可以实现[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)或使用[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)将内容外部化。
+为此，您可以在 `.gitignore` 文件中添加以下指令：
 
 ```bash
 # 忽略 Intlayer 生成的文件
 .intlayer
 ```
 
-### Git 配置
-
-为了改进 Intlayer 的开发体验，你可以安装官方的 **Intlayer VS Code Extension**。
-
-有关如何使用该扩展的更多详细信息，请参阅 [Intlayer VS Code Extension 文档](https://intlayer.org/doc/vs-code-extension)。
-
-Could you please provide:
-
-1. **The English (en) source content** (BLOCK 5 of 5) - the reference text
-2. **The current Chinese (zh) translation** - the content that needs to be audited
-
-Once you provide these blocks, I'll perform a comprehensive audit and return the fully updated Chinese translation with:
-
-Please share the content blocks and I'll proceed with the audit.---
-
 ### VS Code 扩展
 
+为了提升使用 Intlayer 的开发体验，您可以安装官方的 **Intlayer VS Code 扩展**。
+
+[从 VS Code 市场安装](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+此扩展提供：
+
+- 翻译键的**自动补全**。
+- 缺失翻译的**实时错误检测**。
+- 翻译内容的**内联预览**。
+- 轻松创建和更新翻译的**快速操作**。
+
 有关如何使用该扩展的更多详细信息，请参阅 [Intlayer VS Code 扩展文档](https://intlayer.org/doc/vs-code-extension)。
+
+---
+
+### 深入了解
+
+要进一步提升，您可以实现[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)或使用[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)将内容外部化。
+
+## 常见问题
+
+<FAQ>
+
+<Question title="国际化 Vite + Svelte 应用有哪些不同的解决方案？">
+
+Vite 本身对 i18n 没有特定偏好，因此选择主要来自 Svelte 生态：
+
+- **`svelte-i18n`** 和 **`typesafe-i18n`**：基于 Store 的全局注册消息目录。
+- **`Paraglide`**：编译型消息方案，仅专注于消息层。
+- **`Intlayer`**：最先进的解决方案。内容可以在代码库中的任何位置声明（[靠近每个组件或集中管理](https://intlayer.org/zh/blog/per-component-vs-centralized-i18n)），并在构建时由 Vite 插件进行编译，完全类型安全，并配有 AI 翻译、可视化编辑器和 CMS。
+
+对 Vite 而言，最大优势在于翻译在编译时解析并执行 tree-shaking，而不是在运行时以 JSON 形式获取，因此页面仅输出其渲染所需的条目。请参阅 [为什么选择 Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/interest_of_intlayer.md) 和 [性能基准](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/index.md)。
+
+</Question>
+
+<Question title="i18n 会给我的 Svelte bundle 体积增加多少？">
+
+远少于基于命名空间的方案，因为页面永远不会下载它不渲染的语言目录。构建时编译器将 `useIntlayer` 调用替换为组件使用的确切字典条目，因此未使用的键和未使用的语言都会被自动丢弃，并且 [动态字典](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dynamic_dictionaries/index.md) 会按语言环境拆分剩余内容。与常规替代方案相比，Intlayer 可将 bundle 和页面体积减少高达 50%。请参阅 [Bundle 体积优化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md) 和 [性能基准](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/svelte.md)。
+
+</Question>
+
+<Question title="我可以从 svelte-i18n 或 typesafe-i18n 迁移而无需重写组件吗？">
+
+基本可以。请按照 [Svelte I18n 迁移指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/svelte-i18n.md) 迁移内容。您也可以逐步迁移：[JSON 同步插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/plugins/sync-json.md) 将现有的 JSON 目录作为单一真实来源（source of truth），并生成 Intlayer 字典，使两个层在逐个组件迁移时保持同步。
+
+</Question>
+
+<Question title="我可以保留现有的 JSON 翻译文件吗？">
+
+可以。[JSON 同步插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/plugins/sync-json.md) 将您的 `/messages/{locale}/{namespace}.json` 文件作为单一真实来源（source of truth），并双向生成 Intlayer 字典。[PO 同步插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/plugins/sync-po.md) 对 gettext 目录执行相同的操作，而 [按语言环境组织的文件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/per_locale_file.md) 允许您按语言拆分内容，而不是将所有语言打包到一个文件中。
+
+</Question>
+
+<Question title="我必须逐个键迁移我的内容吗？">
+
+不需要。运行 `npx intlayer extract`，Intlayer 会读取您的组件，提取面向用户的字符串，并在每个组件旁边生成 `.content` 文件，这样您只需审查 diff，而无需手动逐一复制字符串到语言目录中。本指南的第 10 步详细介绍了此过程。
+
+如需全自动流程，[Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md) 可在构建时执行相同操作：它在每次更改时扫描您的 JSX、TSX、Vue 和 Svelte 源代码，生成字典并通过热模块替换 (HMR) 保持同步，因此完全无需手动维护键名。
+
+开启编译器前有两个限制值得了解：它通过静态分析工作，因此仅在运行时存在的字符串（如 API 错误代码或 CMS 字段）无法被捕获；此外它需要区分用户文本和应用程序逻辑（如 `className="active"` 或状态代码），在大型代码库中需要少量注解。而 [extract 命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/extract.md) 则通过让您参与审查避免了这两个问题。
+
+</Question>
+
+<Question title="有哪些可用的编辑器和 AI 代理工具？">
+
+共有 5 个工具，均为可选：
+
+- **[VS Code 扩展](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/vs_code_extension.md)**：从 `useIntlayer` 键跳转到声明它的内容文件，从组件中提取内容，并从命令面板或专属的 Intlayer 选项卡运行 build、fill、test、push 和 pull。
+- **[LSP 服务器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)**：在任何支持 LSP 的编辑器中提供相同的感知能力，支持跳转到定义、查找所有引用、悬停预览翻译值、键和字段的自动补全，以及在键未声明时发出警告。它还可以解析 `i18next`、`react-i18next`、`next-intl` 和 `use-intl` 调用，助力平滑迁移。
+- **[MCP 服务器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)**：向 Cursor、VS Code、Claude Desktop、Claude Code 和 ChatGPT 公开 Intlayer 文档与 CLI，使 AI 助手能够基于最新文档进行准确回答，并能自行运行 `intlayer fill` 等命令。
+- **[Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)**：针对特定领域的技能（如 `intlayer-config`、`intlayer-cli` 和 `intlayer-content`，以及每个框架对应的专属技能），教导 AI 代理您的路由配置和内容节点类型。
+- **[ESLint 插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/eslint.md)**：`no-raw-text` 规则标记硬编码字符串，并提供针对静态字典键和未使用内容的额外规则。
+
+</Question>
+
+<Question title="如何在 Svelte 组件中使用翻译内容？">
+
+在组件中调用 `useIntlayer` 并读取返回的内容。该值是响应式的，因此更改语言环境会重新渲染使用它的组件，而无需重新加载页面。第 5 步展示了该组件，第 7 步介绍了渲染 Markdown 和 HTML 内容。
+
+</Question>
+
+<Question title="Intlayer 是否支持 Vite 开发服务器和热重载？">
+
+是的。`intlayer()` Vite 插件会监听您的 `.content.ts` 文件，并在保存时重新构建受影响的字典，因此修改会立即生效，无需重启开发服务器。类型定义也会同步重新生成，保持自动补全随时最新。
+
+</Question>
+
+<Question title="如何设置支持语言环境的路由？">
+
+第 7 步和第 8 步介绍了本地化路由以及在语言环境变更时重写 URL，第 9 步介绍了国际化链接。`routing.mode` 决定 URL 方案：`"prefix-no-default"`（默认，`/about` 与 `/fr/about`）、`"prefix-all"`、`"no-prefix"`（从 Cookie、Header 或域名解析）或 `"search-params"`（`/about?locale=fr`）。请参阅 [配置参考](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
+
+</Question>
+
+<Question title="如何支持阿拉伯语或希伯来语等从右到左 (RTL) 的语言？">
+
+第 9 步对此进行了介绍。`getHTMLTextDir` 会为特定语言环境返回 `ltr`、`rtl` 或 `auto`，因此您可以根据当前活动的语言环境在根元素上绑定 `lang` 和 `dir`，让 CSS 逻辑属性处理布局反转。
+
+</Question>
+
+<Question title="如何在客户端渲染的 Vite 应用中处理 SEO 元数据？">
+
+根据当前活动的语言环境在 `html` 元素上设置 `lang` 和 `dir` 属性，并使用 `getMultilingualUrls` 为每个声明的语言环境输出 `hreflang` 备用链接（包括 `x-default`）。对于需要可靠抓取的页面，建议采用预渲染或服务端渲染方案。
+
+</Question>
+
+<Question title="如何使用 AI 自动翻译应用？">
+
+运行 `npx intlayer fill`。它会使用您选择的 LLM、您自己的提供商和 API 密钥填充缺失的翻译，并且 `--git-diff` 参数可将处理范围限制在当前分支修改的内容。请参阅 [fill 命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/fill.md) 和 [CI/CD 集成](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/CI_CD.md)。
+
+</Question>
+
+<Question title="Intlayer 是否支持复数、性别和富文本？">
+
+支持：包括 [复数形式](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/plurial.md)、[基于性别的内容](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/gender.md)、条件渲染、插值用的 [插入内容 (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/insertion.md)、用于长文本的 [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/markdown.md)，以及用于数字、日期和货币的 [格式化工具](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/formatters.md)。
+
+</Question>
+
+<Question title="翻译人员如何无需接触代码即可编辑内容？">
+
+可以通过自托管的 [可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)（任何人都可以直接在运行中的应用上就地修改文案），或通过 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md) 进行无需重新部署的内容外部化更新。
+
+</Question>
+
+<Question title="Intlayer 是免费且开源的吗？">
+
+是的，基于 Apache 2.0 许可证开源，包含商业用途。托管版 CMS 是可选的付费服务，同时完全支持 [自托管](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/self_hosting.md)。
+
+</Question>
+
+</FAQ>

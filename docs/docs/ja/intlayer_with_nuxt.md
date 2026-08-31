@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-06-18
-updatedAt: 2026-05-31
+updatedAt: 2026-08-30
 title: "Nuxt i18n - あなたのアプリを翻訳する完全ガイド"
 description: "i18nextはもう不要。2026年に多言語（i18n）Nuxtアプリを構築するためのガイド。AIエージェントで翻訳し、バンドルサイズ、SEO、パフォーマンスを最適化します。"
 keywords:
@@ -687,3 +687,106 @@ Intlayerでの開発体験を向上させるために、公式の**Intlayer VS C
 ### さらに進む
 
 さらに進めるには、[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を実装するか、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)を使用してコンテンツを外部化することができます。
+
+## よくある質問
+
+<FAQ>
+
+<Question title="Nuxt アプリを国際化するために利用できるさまざまなソリューションは何ですか？">
+
+現実的な選択肢は 2 つあります：
+
+- **`@nuxtjs/i18n`**: 確立されたモジュールで、`vue-i18n` 上に構築されており、ロケールファイルはページごとに読み込まれ、設定面が広いです。`vue-i18n` にはメッセージをネームスペース化する方法がないため、すべてのページが他のすべてのページのメッセージをバンドルし、アプリがページを追加するにつれてそのバンドルは増え続けます。
+- **`Intlayer`**: 最も高度なソリューションです。コードベースのどこにでもコンテンツを宣言でき（[各コンポーネントの隣またはセントラライズ](https://intlayer.org/blog/per-component-vs-centralized-i18n)）、ビルド時にコンパイルされ、完全に型付けされ、ロケール対応ルーティング、AI 翻訳、ビジュアルエディタ、CMS を備えています。
+
+違いはコンテンツがどこに存在するかです。`@nuxtjs/i18n` は `locales/*.json` ファイルに集約しますが、Intlayer はそれをレンダリングするコンポーネントの隣に配置するため、ページはそれが使用するエントリのみを配信し、機能フォルダは 1 つの単位で移動または削除できます。[Intlayer を選ぶ理由](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md)と [Vue i18n ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/vue.md)を参照してください。
+
+</Question>
+
+<Question title="i18n は Nuxt バンドルサイズにどの程度追加されますか？">
+
+ネームスペースベースのセットアップよりもはるかに少なくなります。ページはレンダリングしないカタログをダウンロードしないためです。サーバーレンダリングされたマークアップはサーバー上でコンテンツを解決し、ビルド時コンパイラは `useIntlayer` 呼び出しをコンポーネントが使用する正確な辞書エントリに置き換えるため、未使用のキーと未使用の言語は削除され、[動的辞書](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dynamic_dictionaries/index.md)は残りをロケールごとに分割します。通常の代替案と比較すると、Intlayer はバンドルとページサイズを最大 50% 削減します。[バンドル最適化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)と[ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/vue.md)を参照してください。
+
+</Question>
+
+<Question title="`@nuxtjs/i18n` または `vue-i18n` からコンポーネントを書き直さずに移行できますか？">
+
+はい、2 つのパスがあります。[@nuxtjs/i18n 移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_nuxtjs_i18n_to_intlayer.md)でコンテンツを段階的に移行できます。または、現在の API を完全に保つことができます：[互換性アダプタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/index.md)は `vue-i18n` と同じ API を公開しますが、Intlayer 辞書によって提供されるため、インポートは変わりますがコンポーネントコードは変わりません。
+
+</Question>
+
+<Question title="既存の JSON 翻訳ファイルを保持できますか？">
+
+はい。[sync JSON プラグイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-json.md)は `/messages/{locale}/{namespace}.json` ファイルを信頼できるソースとして保持し、双方向で Intlayer 辞書を生成します。[sync PO プラグイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-po.md)は gettext カタログに対して同じことを行い、[ロケールごとのファイル](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/per_locale_file.md)では 1 つのファイルにロケールをグループ化する代わりに言語別にコンテンツを分割できます。
+
+</Question>
+
+<Question title="コンテンツをキーごとに移動する必要がありますか？">
+
+いいえ。`npx intlayer extract` を実行すると、Intlayer はソースファイルを読み取り、ユーザーに見える文字列を抽出し、各ファイルの隣に `.content` ファイルを書き込むため、カタログに 1 つずつ文字列をコピーする代わりに diff をレビューします。[extract コマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/extract.md)を参照してください。
+
+完全に自動化されたパイプラインの場合、[Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md) は JSX、TSX、Vue、Svelte ソース上でビルド時に同じことを行い、変更のたびに辞書を生成するため、手動で保守するキーはありません。静的分析によって機能するため、実行時にのみ存在する文字列は到達不可能なままで、ユーザーに見えるテキストをアプリケーションロジックから区別するために少数のアノテーションが必要です。
+
+</Question>
+
+<Question title="利用可能なエディタと AI エージェントツーリングは何ですか？">
+
+5 つのピース、すべてオプションです：
+
+- **[VS Code 拡張機能](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)**: `useIntlayer` キーからそれを宣言するコンテンツファイルにジャンプし、コンポーネントからコンテンツを抽出し、コマンドパレットまたは専用 Intlayer タブからビルド、fill、test、push、pull を実行します。
+- **[LSP サーバー](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)**: LSP を話す任意のエディタで同じ認識を持ち、定義へのジャンプ、すべての参照を検索、翻訳値のホバープレビュー、キーとフィールドのオートコンプリート、キーがどこにも宣言されていない場合の警告があります。また、`i18next`、`react-i18next`、`next-intl`、`use-intl` 呼び出しを解決し、移行中に役立ちます。
+- **[MCP サーバー](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)**: Intlayer ドキュメントと CLI を Cursor、VS Code、Claude Desktop、Claude Code、ChatGPT に公開するため、アシスタントは推測する代わりに現在のドキュメントから回答でき、`intlayer fill` などのコマンドを自分で実行できます。
+- **[エージェントスキル](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)**: `intlayer-config`、`intlayer-cli`、`intlayer-content` などの焦点を絞ったスキル、およびフレームワークごとに 1 つ、エージェントにルーティングセットアップとコンテンツノードタイプを教えます。
+- **[ESLint プラグイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/eslint.md)**: `no-raw-text` はハードコードされた文字列にフラグを立て、静的辞書キーと未使用コンテンツのさらなるルールがあります。
+
+</Question>
+
+<Question title="Intlayer は Nuxt サーバーサイドレンダリングと静的生成で機能しますか？">
+
+はい。コンテンツは SSR 中および `nuxt generate` 中に解決されるため、事前レンダリングされたページはクライアント上でカタログをフェッチするのではなく、翻訳されたマークアップを含みます。`nuxt-intlayer` モジュールはプロバイダーとロケール検出を配線します。
+
+</Question>
+
+<Question title="ロケールを URL に入れる必要がありますか？">
+
+いいえ。`routing.mode` は `"prefix-no-default"`（デフォルト、`/about` と `/fr/about`）、`"prefix-all"`、`"no-prefix"`、`"search-params"` を受け入れ、`routing.domains` は各ロケールを独自のドメインにマップします。[設定リファレンス](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)を参照してください。
+
+</Question>
+
+<Question title="Nuxt で SEO メタデータと hreflang タグを処理するにはどうすればよいですか？">
+
+このガイドのステップ 9 でカバーされています。ローカライズされた `useHead` メタデータは辞書から取得され、`getMultilingualUrls` はすべての宣言されたロケール（`x-default` を含む）の `hreflang` 代替を構築し、これはローカライズされたサイトマップにも供給されます。
+
+</Question>
+
+<Question title="現在のページを保持するロケール切り替え機能を構築するにはどうすればよいですか？">
+
+アクティブで利用可能なロケールに `useLocale` を使用し、ステップ 8 からのローカライズされたリンクコンポーネントを使用してナビゲーションが現在の言語に留まるようにします。`getLocalizedUrl` は現在のパスをターゲットロケールに書き直すため、言語を切り替えると読者は同じルートに留まります。
+
+</Question>
+
+<Question title="Nuxt アプリを AI で自動的に翻訳するにはどうすればよいですか？">
+
+`npx intlayer fill` を実行します。不足している翻訳は、選択した LLM を使用して独自のプロバイダーと API キーで入力され、`--git-diff` は実行をブランチで変更されたコンテンツに制限します。[fill コマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/fill.md)と [CI/CD 統合](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/CI_CD.md)を参照してください。
+
+</Question>
+
+<Question title="Intlayer は Vue テンプレートで複数形、性別、リッチテキストをサポートしていますか？">
+
+はい：[複数形](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/plurial.md)、[性別ベースのコンテンツ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/gender.md)、条件、[挿入](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/insertion.md)、[Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/markdown.md)、および数値、日付、通貨の[フォーマッタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/formatters.md)。
+
+</Question>
+
+<Question title="翻訳者がコードに触れずにコンテンツを編集するにはどうすればよいですか？">
+
+[ビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を通じて、独自のインフラストラクチャで実行され、誰でも実行中のアプリ上でテキストをその場で編集できます。または、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)を通じて、コンテンツを外部化してデプロイメントなしで変更できます。
+
+</Question>
+
+<Question title="Intlayer は無料でオープンソースですか？">
+
+はい、Apache 2.0 ライセンスの下で、商用利用を含みます。ホストされた CMS はオプションの有料サービスで、[自己ホスト](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/self_hosting.md)することもできます。
+
+</Question>
+
+</FAQ>

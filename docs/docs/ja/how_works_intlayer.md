@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-12
-updatedAt: 2025-06-29
+updatedAt: 2026-08-30
 title: Intlayerの仕組み
 description: Intlayerが内部でどのように機能するかを学びます。Intlayerを強力にするアーキテクチャとコンポーネントを理解しましょう。
 keywords:
@@ -260,3 +260,95 @@ Expressに基づいたサーバーは、ビジュアルエディターのリク�
 ## スマートドキュメントとチャットする
 
 - [スマートドキュメントに質問する](https://intlayer.org/doc/chat)
+
+## よくある質問
+
+<FAQ>
+
+<Question title="辞書はビルド時とランタイム時のどちらで構築されますか？">
+
+ビルド時です。bundler plugin、または `npx intlayer build` は、`.content.ts` ファイルをスキャンし、それらを `.intlayer` フォルダー内の辞書に解決し、対応するTypeScript型を生成します。ランタイム時には、コンポーネントは結果を読み取るだけなので、リクエストパス上でパースやファイルの読み込みは発生しません。
+
+</Question>
+
+<Question title="i18nはbundleサイズにどのくらい影響しますか？">
+
+名前空間ベースのセットアップよりもはるかに少ないです。なぜなら、ページはレンダリングしないカタログをダウンロードすることがないからです。サーバーレンダリングされたマークアップはサーバー上でそのコンテンツを解決し、ビルド時コンパイラは `useIntlayer` の呼び出しをコンポーネントが使用する正確な辞書エントリに置き換えるため、未使用のキーや未使用の言語は削除されます。[動的辞書](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dynamic_dictionaries/index.md)は、残りをロケールごとに分割します。一般的な代替手段と比較して、Intlayerはbundleとページサイズを最大50%削減します。[bundle最適化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)と[ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/index.md)を参照してください。
+
+</Question>
+
+<Question title="コンポーネントを書き直さずに、`i18next`、`next-intl`、`react-i18next` から移行できますか？">
+
+はい、2つの方法があります。[i18next移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_i18next_to_intlayer.md)または[next-intl移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_next-intl_to_intlayer.md)を使用して、コンテンツを段階的に移行できます。または、現在のAPIを完全に維持することもできます。[互換アダプター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/index.md)は、`i18next`、`react-i18next`、`next-intl`、`next-i18next`、`react-intl`、`use-intl`、`vue-i18n`、`Lingui` とまったく同じAPIを公開しますが、Intlayer辞書によって提供されるため、importは変更されますが、コンポーネントコードは変更されません。
+
+</Question>
+
+<Question title="既存のJSON翻訳ファイルを維持できますか？">
+
+はい。[sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-json.md)は、`/messages/{locale}/{namespace}.json` ファイルを信頼できる情報源として保持し、それらからIntlayer辞書を双方向に生成します。[sync PO plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-po.md)はgettextカタログに対しても同様の処理を行い、[ロケールごとのファイル](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/per_locale_file.md)を使用すると、1つのファイルにロケールをグループ化する代わりに、言語ごとにコンテンツを分割できます。
+
+</Question>
+
+<Question title="コンテンツをキーごとに移動する必要がありますか？">
+
+いいえ。`npx intlayer extract` を実行すると、Intlayerはソースファイルを読み取り、ユーザー向けの文字列を抽出し、それぞれの隣に `.content` ファイルを書き込みます。これにより、文字列をカタログに1つずつコピーする代わりに、差分を確認できます。[extractコマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/extract.md)を参照してください。
+
+完全に自動化されたパイプラインの場合、[Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md)は、JSX、TSX、Vue、Svelteのソースに対してビルド時に同じ処理を行い、変更があるたびに辞書を生成するため、手動でキーを管理する必要がありません。これは静的解析によって機能するため、ランタイム時にのみ存在する文字列は対象外となり、ユーザー向けのテキストとアプリケーションロジックを区別するためにいくつかのannotationが必要です。
+
+</Question>
+
+<Question title="利用可能なエディターおよびAIエージェントツールは何ですか？">
+
+5つのツールがあり、すべてオプションです。
+
+- **[VS Code extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)**: `useIntlayer` キーからそれを宣言するコンテンツファイルにジャンプしたり、コンポーネントからコンテンツを抽出したり、コマンドパレットまたは専用のIntlayerタブからbuild、fill、test、push、pullを実行したりできます。
+- **[LSP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)**: LSPをサポートする任意のエディターで同様の認識機能を提供します。定義へのジャンプ、すべての参照の検索、翻訳された値のホバープレビュー、キーとフィールドのオートコンプリート、およびキーがどこにも宣言されていない場合の警告が含まれます。また、`i18next`、`react-i18next`、`next-intl`、`use-intl` の呼び出しも解決するため、移行中に役立ちます。
+- **[MCP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)**: IntlayerのドキュメントとCLIをCursor、VS Code、Claude Desktop、Claude Code、ChatGPTに公開します。これにより、アシスタントは推測ではなく現在のドキュメントから回答し、`intlayer fill` などのコマンドを自身で実行できます。
+- **[Agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)**: `intlayer-config`、`intlayer-cli`、`intlayer-content` などの特化したスキルに加え、フレームワークごとのスキルがあり、エージェントにルーティング設定とコンテンツノードの型を教えます。
+- **[ESLint plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/eslint.md)**: `no-raw-text` はハードコードされた文字列にフラグを立て、静的辞書キーと未使用のコンテンツに対する追加のルールを提供します。
+
+</Question>
+
+<Question title=".intlayerフォルダーとは何ですか？コミットすべきですか？">
+
+これは生成された出力であり、コンパイルされた辞書と生成された型が含まれます。コンテンツファイルから派生するため、`.gitignore` にリストし、`dist` フォルダーとまったく同じようにビルドステップで再構築されるべきです。
+
+</Question>
+
+<Question title="アクティブなロケールはどのように決定されますか？">
+
+`routing.storage` にリストされているソースから、次の順序で決定されます: `routing.mode` がURL prefixを使用する場合のそれ、次にcookie、次に`Accept-Language` header、そしてデフォルトのロケールです。ユーザーが明示的に選択したロケールは永続化され、次回の訪問時にも維持されます。[設定リファレンス](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)を参照してください。
+
+</Question>
+
+<Question title="ローカル辞書とリモート辞書の違いは何ですか？">
+
+ローカル辞書はコードベースで宣言され、アプリケーションとともにコンパイルされます。リモート辞書は[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)で管理され、ランタイム時に解決されるため、デプロイなしで変更できます。どちらも同じhooksを通じて読み取られ、リモートコンテンツが利用できない場合はローカル宣言にフォールバックします。
+
+</Question>
+
+<Question title="IntlayerはTypeScriptなしで動作しますか？">
+
+はい。コンテンツファイルはTypeScript、JavaScript、ESM、CommonJS、またはJSONで記述できます。TypeScriptは生成された型とオートコンプリートを可能にするため、推奨されるセットアップですが、必須ではありません。
+
+</Question>
+
+<Question title="サーバーレンダリングとクライアントレンダリングはどのように同じコンテンツを共有しますか？">
+
+サーバーはサーバーレンダリングされたコンポーネントのコンテンツを直接解決するため、そのマークアップに対して辞書がクライアントに送信されることはありません。クライアントコンポーネントは、サーバーで解決されたロケールを受け取るproviderを通じて同じ辞書を読み取ります。これにより、最初のクライアントレンダリングはサーバーHTMLと一致し、異なる言語がちらつくことはありません。
+
+</Question>
+
+<Question title="Intlayerはロケールでのhydrationミスマッチをどのように回避しますか？">
+
+ロケールはサーバーで一度解決され、providerに渡されます。ブラウザで再度検出されることはありません。クライアントはサーバーがレンダリングしたのと同じロケールから開始するため、マークアップが一致します。これは通常、クライアント側のロケール検出で問題となる点です。
+
+</Question>
+
+<Question title="翻訳を追加するたびに再ビルドする必要がありますか？">
+
+開発環境では、いいえ。pluginはコンテンツファイルを監視し、保存時に影響を受ける辞書を再ビルドします。本番環境では、コンテンツがリモートでない限り、辞書はビルドの一部です。リモートコンテンツの場合は、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)と[live sync](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/live.md)がデプロイなしで変更を適用します。
+
+</Question>
+
+</FAQ>

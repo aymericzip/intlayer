@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-08-22
+updatedAt: 2026-08-30
 title: 配置
 description: 了解如何为您的应用程序配置 Intlayer。了解可用于根据您的需求自定义 Intlayer 的各种设置和选项。
 keywords:
@@ -1118,3 +1118,101 @@ Intlayer 支持多个 AI 提供商，以提供最大的灵活性。当前支持�
 | 字段      | 说明                         | 类型               |
 | --------- | ---------------------------- | ------------------ |
 | `plugins` | 要包含的 Intlayer 插件列表。 | `IntlayerPlugin[]` |
+
+## 常见问题
+
+<FAQ>
+
+<Question title="intlayer.config.ts 文件应该放在哪里？">
+
+放在项目的根目录下，与 `package.json` 同级。Intlayer 还支持 `intlayer.config.js`、`intlayer.config.mjs`、`intlayer.config.cjs` 以及 JSON 格式，因此您可以根据项目使用的模块系统自由选择。
+
+</Question>
+
+<Question title="i18n 会给我的 bundle 体积增加多少？">
+
+远少于基于命名空间的方案，因为页面永远不会下载它不渲染的语言目录。服务端渲染的标记在服务端直接解析内容，而构建时编译器将 `useIntlayer` 调用替换为组件使用的确切字典条目，因此未使用的键和未使用的语言都会被自动丢弃。[动态字典](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dynamic_dictionaries/index.md) 会按语言环境拆分剩余内容。与常规替代方案相比，Intlayer 可将 bundle 和页面体积减少高达 50%。请参阅 [Bundle 体积优化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md) 和 [性能基准](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/index.md)。
+
+</Question>
+
+<Question title="我可以从 i18next、next-intl 或 react-i18next 迁移而无需重写组件吗？">
+
+可以，有两条迁移路径。您可以使用 [i18next 迁移指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_i18next_to_intlayer.md) 或 [next-intl 迁移指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_next-intl_to_intlayer.md) 逐步迁移内容。或者，您可以完全保留当前的 API：[兼容性适配器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/index.md) 公开与 `i18next`、`react-i18next`、`next-intl`、`next-i18next`、`react-intl`、`use-intl`、`vue-i18n` 和 `Lingui` 完全相同的 API，但底层由 Intlayer 字典驱动，因此只需更改导入语句，组件代码无需修改。
+
+</Question>
+
+<Question title="我可以保留现有的 JSON 翻译文件吗？">
+
+可以。[JSON 同步插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/plugins/sync-json.md) 将您的 `/messages/{locale}/{namespace}.json` 文件作为单一真实来源（source of truth），并双向生成 Intlayer 字典。[PO 同步插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/plugins/sync-po.md) 对 gettext 目录执行相同的操作，而 [按语言环境组织的文件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/per_locale_file.md) 允许您按语言拆分内容，而不是将所有语言打包到一个文件中。
+
+</Question>
+
+<Question title="我必须逐个键迁移我的内容吗？">
+
+不需要。运行 `npx intlayer extract`，Intlayer 会读取您的源码文件，提取面向用户的字符串，并在每个组件旁边生成 `.content` 文件，这样您只需审查 diff，而无需手动逐一复制字符串到语言目录中。请参阅 [extract 命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/extract.md)。
+
+如需全自动流程，[Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md) 可以在构建时对 JSX、TSX、Vue 和 Svelte 源码执行相同操作，在每次更改时自动生成字典，完全无需手动维护键名。它通过静态分析工作，因此仅在运行时存在的字符串无法被捕获，并且需要少量注解以区分用户文本和应用程序逻辑。
+
+</Question>
+
+<Question title="有哪些可用的编辑器和 AI 代理工具？">
+
+共有 5 个工具，均为可选：
+
+- **[VS Code 扩展](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/vs_code_extension.md)**：从 `useIntlayer` 键跳转到声明它的内容文件，从组件中提取内容，并从命令面板或专属的 Intlayer 选项卡运行 build、fill、test、push 和 pull。
+- **[LSP 服务器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)**：在任何支持 LSP 的编辑器中提供相同的感知能力，支持跳转到定义、查找所有引用、悬停预览翻译值、键和字段的自动补全，以及在键未声明时发出警告。它还可以解析 `i18next`、`react-i18next`、`next-intl` 和 `use-intl` 调用，助力平滑迁移。
+- **[MCP 服务器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)**：向 Cursor、VS Code、Claude Desktop、Claude Code 和 ChatGPT 公开 Intlayer 文档与 CLI，使 AI 助手能够基于最新文档进行准确回答，并能自行运行 `intlayer fill` 等命令。
+- **[Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)**：针对特定领域的技能（如 `intlayer-config`、`intlayer-cli` 和 `intlayer-content`，以及每个框架对应的专属技能），教导 AI 代理您的路由配置和内容节点类型。
+- **[ESLint 插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/eslint.md)**：`no-raw-text` 规则标记硬编码字符串，并提供针对静态字典键和未使用内容的额外规则。
+
+</Question>
+
+<Question title="如何向我的应用添加新语言？">
+
+将新的语言环境添加到 `internationalization.locales` 中，然后运行 `npx intlayer fill` 将现有内容翻译为该语言。生成的类型定义会同步更新，因此任何缺少新语言环境的内容文件都会触发编译类型错误，而不是静默回退。
+
+</Question>
+
+<Question title="如何从 URL 中移除语言环境前缀？">
+
+设置 `routing.mode` 选项。默认值 `"prefix-no-default"` 会为默认语言生成 `/about`，为其他语言生成 `/zh/about`。`"prefix-all"` 会为所有语言添加前缀。`"no-prefix"` 则完全不在路径中添加语言环境，而是通过 Cookie、请求头或域名进行解析。`"search-params"` 则将其作为查询参数放入 URL 中，如 `/about?locale=zh`。
+
+</Question>
+
+<Question title="我可以为每种语言配置独立的域名吗？">
+
+可以。`routing.domains` 可以将语言环境映射到具体的主机名，例如 `{ zh: 'example.cn', en: 'example.com' }`。域名直接标识了语言环境，因此路径中无需添加任何前缀，并且 `getLocalizedUrl` 会返回对应正确域名的绝对 URL。
+
+</Question>
+
+<Question title="如何检测用户的语言？">
+
+通过 `routing.storage` 进行检测，它会按顺序依次尝试列出的来源，通常首先是 URL，其次是 Cookie，最后是 `Accept-Language` 请求头。用户明确选择的语言会被持久化保存，从而在下次访问时优先采用。
+
+</Question>
+
+<Question title="routing.enableProxy 有什么作用？">
+
+它控制语言路由代理，即处理路径前缀和重定向的中间件。若未显式设置，代理仍会运行，但开发和预览服务器会忽略持久化的存储语言作为重定向源，从而避免将您强制重定向到当前并未在测试的语言；在生产环境中其行为则等同于 `true`。若您希望自行处理多语言路由，可以将其显式设置为 `false`。
+
+</Question>
+
+<Question title="importMode 中的 static、dynamic 和 fetch 有什么区别？">
+
+默认的 `"static"` 会以静态方式导入字典，因此字典会被打包在一起并同步读取。`"dynamic"` 会通过 Suspense 异步导入字典，因此仅当组件渲染该语言时才会下载对应语言包，非常适合庞大的内容集合。`"fetch"` 则从实时同步 API 获取字典，并在获取失败时回退到 `"dynamic"`。请参阅 [Bundle 体积优化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md) 和 [动态字典](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dynamic_dictionaries/index.md)。
+
+</Question>
+
+<Question title="在哪里配置用于自动翻译的 AI 提供商和 API 密钥？">
+
+可以在配置文件中设置，或者直接在命令行中使用 `--provider`、`--model` 和 `--api-key` 进行指定。密钥始终由您掌控：翻译请求直接从您的本地机器或 CI 执行器发送给您指定的模型提供商，不经过任何第三方中转。请参阅 [fill 命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/fill.md)。
+
+</Question>
+
+<Question title="修改配置后需要重启开发服务器吗？">
+
+通常不需要。Intlayer 监听器会自动监视 `intlayer.config.ts` 本身：在保存时它会重新加载配置并重新准备字典，因此添加语言环境或更改路由模式会像修改内容一样被热更新捕获。不过，部分系统可能会对配置进行缓存，若遇到未生效的情况，重启应用是一个稳妥的解决办法。
+
+</Question>
+
+</FAQ>

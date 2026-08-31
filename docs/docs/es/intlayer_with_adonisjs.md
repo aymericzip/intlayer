@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-05-31
+updatedAt: 2026-08-30
 title: "AdonisJS i18n - Guía completa para traducir tu aplicación"
 description: "Sin más i18next. La guía 2026 para crear una aplicación AdonisJS multilingüe (i18n). Traduce con agentes de IA y optimiza el tamaño del bundle, SEO y rendimiento."
 keywords:
@@ -314,3 +314,123 @@ Para hacer esto, puedes agregar las siguientes instrucciones a tu archivo `.giti
 # Ignorar los archivos generados por Intlayer
 .intlayer
 ```
+
+## Preguntas frecuentes
+
+<FAQ>
+
+<Question title="¿Qué soluciones existen para internacionalizar un backend de AdonisJS?">
+
+AdonisJS incluye `@adonisjs/i18n`, que cubre mensajes ICU en archivos `resources/lang` con un servicio con alcance de solicitud. La alternativa es `Intlayer` mediante `adonis-intlayer`, que declara el contenido en archivos tipados compartidos con tu frontend, resuelve el idioma por solicitud y añade traducción con IA, comprobaciones de traducciones que faltan y un CMS.
+
+El motivo para internacionalizar el backend en primer lugar es que una gran parte del texto que lee un usuario nunca pasa por el frontend: mensajes de error de la API, correos transaccionales, notificaciones push, SMS y exportaciones a PDF. Estos necesitan el idioma del destinatario, resuelto por solicitud y no por sesión.
+
+Consulta [por qué Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/interest_of_intlayer.md).
+
+</Question>
+
+<Question title="¿Cuánto añade la i18n al tamaño del bundle de mi servidor AdonisJS?">
+
+Muy poco. Los diccionarios se compilan con antelación y solo se incluyen los idiomas que declaras, así que no hay carga de catálogos al arrancar ni lecturas de archivos en la ruta de la solicitud. Eso importa sobre todo en despliegues serverless y edge, donde el tamaño del bundle determina el tiempo de arranque en frío. Consulta la [optimización del bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/bundle_optimization.md).
+
+</Question>
+
+<Question title="¿Puedo migrar desde `i18next` sin reescribir mis manejadores?">
+
+Sí, y hay dos caminos. Puedes migrar el contenido de forma progresiva con la [guía de migración de i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/migration_from_i18next_to_intlayer.md). O puedes mantener tu API actual por completo: los [adaptadores de compatibilidad](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compat/index.md) exponen exactamente la misma API que `i18next`, pero servida por diccionarios de Intlayer, así que cambian los imports y el código de los manejadores no.
+
+</Question>
+
+<Question title="¿Puedo conservar mis archivos de traducción JSON existentes?">
+
+Sí. El [plugin de sincronización JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/plugins/sync-json.md) mantiene tus archivos `/messages/{locale}/{namespace}.json` como fuente de verdad y genera diccionarios de Intlayer a partir de ellos, en ambas direcciones. Un [plugin de sincronización PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/plugins/sync-po.md) hace lo mismo para los catálogos gettext, y los [archivos por idioma](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/per_locale_file.md) te permiten dividir el contenido por idioma en lugar de agrupar los idiomas en un solo archivo.
+
+</Question>
+
+<Question title="¿Tengo que trasladar mi contenido clave por clave?">
+
+No. Ejecuta `npx intlayer extract` e Intlayer lee tus archivos fuente, extrae las cadenas visibles para el usuario y escribe un archivo `.content` junto a cada uno, así que revisas un diff en lugar de copiar cadenas a un catálogo una por una. Consulta el [comando extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/extract.md).
+
+En el lado del frontend del mismo proyecto, el [compilador de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compiler.md) va más allá y genera los diccionarios en tiempo de compilación a partir de tu código JSX, TSX, Vue o Svelte, de modo que las dos mitades de la aplicación comparten una única capa de contenido sin claves mantenidas a mano.
+
+</Question>
+
+<Question title="¿Qué herramientas para editores y agentes de IA están disponibles?">
+
+Cinco piezas, todas opcionales:
+
+- **[Extensión de VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/vs_code_extension.md)**: salta de una clave `useIntlayer` al archivo de contenido que la declara, extrae contenido de un componente y ejecuta build, fill, test, push y pull desde la paleta de comandos o desde una pestaña de Intlayer dedicada.
+- **[Servidor LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/lsp.md)**: el mismo conocimiento en cualquier editor que hable LSP, con ir a la definición, buscar todas las referencias, vistas previas al pasar el cursor de un valor traducido, autocompletado de claves y campos, y un aviso cuando una clave no está declarada en ninguna parte. También resuelve las llamadas a `i18next`, `react-i18next`, `next-intl` y `use-intl`, lo que ayuda durante la migración.
+- **[Servidor MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/mcp_server.md)**: expone la documentación y la CLI de Intlayer a Cursor, VS Code, Claude Desktop, Claude Code y ChatGPT, para que un asistente responda a partir de la documentación actual en lugar de adivinar, y pueda ejecutar comandos como `intlayer fill` por sí mismo.
+- **[Habilidades para agentes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/agent_skills.md)**: habilidades específicas como `intlayer-config`, `intlayer-cli` e `intlayer-content`, además de una por framework, que enseñan a un agente tu configuración de enrutamiento y los tipos de nodo de contenido.
+- **[Plugin de ESLint](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/eslint.md)**: `no-raw-text` marca las cadenas codificadas de forma fija, con reglas adicionales para claves de diccionario estáticas y contenido sin usar.
+
+</Question>
+
+<Question title="¿Cómo sabe Intlayer en qué idioma responder?">
+
+Por defecto, `adonis-intlayer` lee la cabecera `Accept-Language` de la solicitud entrante y elige el idioma declarado más cercano, recurriendo a tu idioma por defecto. Puedes cambiar la fuente con `routing.storage`, por ejemplo una cabecera personalizada o una cookie establecida por tu frontend, de modo que la API responda en el idioma que el usuario seleccionó realmente en lugar del que anuncia su navegador. Consulta la [referencia de configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md).
+
+</Question>
+
+<Question title="¿El idioma está aislado por solicitud?">
+
+Sí. El middleware limita el idioma activo al alcance de la solicitud, así que dos solicitudes concurrentes en idiomas distintos nunca leen el idioma de la otra. Eso es lo que hace seguro llamar a `t()` y `getIntlayer()` desde un servicio sin propagar un argumento de idioma por cada función.
+
+</Question>
+
+<Question title="¿Cómo envío correos transaccionales en el idioma del destinatario?">
+
+Declara el contenido del correo en un archivo de contenido como cualquier otro contenido y luego resuélvelo con `getIntlayer` para el idioma almacenado del destinatario en lugar del idioma de la solicitud. Esto importa para los trabajos y las colas, donde el idioma pertenece al registro del usuario y no hay ninguna solicitud entrante de la que leer una cabecera.
+
+</Question>
+
+<Question title="¿Cómo localizo los mensajes de error de la API?">
+
+Envuelve el mensaje en `t()` en el punto donde se construye el error. El idioma activo de la solicitud lo resuelve, así que el cliente recibe un mensaje que puede mostrar directamente, y tu frontend no necesita un catálogo paralelo de códigos de error.
+
+</Question>
+
+<Question title="¿Cómo uso las traducciones dentro de un controlador o un servicio?">
+
+Llama a `getIntlayer` con la clave de tu diccionario, o envuelve un mensaje en `t()`. El idioma activo procede del contexto de la solicitud que instaló el middleware, así que no hay ningún servicio que inyectar ni ningún argumento de idioma que pasar hacia abajo.
+
+</Question>
+
+<Question title="¿Funciona con las plantillas Edge?">
+
+Sí. Resuelve el contenido en el controlador y pásalo a la vista, para que la plantilla renderice valores ya traducidos en lugar de resolver las claves ella misma.
+
+</Question>
+
+<Question title="¿Cómo traduzco el contenido del backend automáticamente con IA?">
+
+Ejecuta `npx intlayer fill`, que rellena las traducciones que faltan con el LLM de tu elección usando tu propio proveedor y tu clave de API. Añade `--git-diff` para traducir solo el contenido modificado en la rama. Consulta el [comando fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/fill.md) y la [integración de CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/CI_CD.md).
+
+</Question>
+
+<Question title="¿Intlayer admite plurales, género y valores interpolados en el servidor?">
+
+Sí: [formas plurales](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/plurial.md), [contenido según el género](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/gender.md), condiciones, [inserciones](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/insertion.md) para valores interpolados, [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/markdown.md) para cuerpos de correo, y [formateadores](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/formatters.md) para números, fechas y monedas.
+
+</Question>
+
+<Question title="¿Obtengo autocompletado de TypeScript en el servidor?">
+
+Sí. Intlayer genera los tipos de tus diccionarios en `./types/intlayer.d.ts`, así que una clave que no existe es un error de compilación en lugar de una cadena vacía en tiempo de ejecución. Ejecuta `npx intlayer test` en CI para hacer fallar la build cuando a un idioma declarado le falta contenido.
+
+</Question>
+
+<Question title="¿Pueden el frontend y el backend compartir el mismo contenido?">
+
+Sí, y es la configuración habitual. `adonis-intlayer` funciona junto a `react-intlayer`, `next-intlayer` y `vite-intlayer` sobre el mismo contenido declarado, así que una etiqueta usada tanto en una respuesta de la API como en una página se declara una sola vez. Consulta [cómo funciona Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/how_works_intlayer.md).
+
+</Question>
+
+<Question title="¿Es Intlayer gratuito y de código abierto?">
+
+Sí, bajo la licencia Apache 2.0, uso comercial incluido. El [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md) alojado es un servicio de pago opcional que también puede [autoalojarse](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/self_hosting.md).
+
+</Question>
+
+</FAQ>

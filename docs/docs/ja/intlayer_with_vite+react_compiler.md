@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-06-23
+updatedAt: 2026-08-30
 title: "Vite + React i18n - あなたのアプリを翻訳する完全ガイド"
 description: "i18nextはもう不要。2026年に多言語（i18n）Vite + Reactアプリを構築するためのガイド。AIエージェントで翻訳し、バンドルサイズ、SEO、パフォーマンスを最適化します。"
 keywords:
@@ -545,3 +545,107 @@ Intlayer での開発体験を向上させるために、公式の **Intlayer VS
 ### さらに進む
 
 さらに進むには、[ビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md) を実装するか、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md) を使用してコンテンツを外部化できます。
+
+## よくある質問
+
+<FAQ>
+
+<Question title="Vite と React アプリを国際化するために利用可能なソリューションにはどのようなものがありますか？">
+
+- **`react-i18next` / `i18next`**: ランタイムで読み込まれる JSON 名前空間。毎回の呼び出し時にキーを手動で記述します。
+- **`react-intl`** と **`Lingui`**: ICU メッセージ。抽出ステップを自分で実行する必要があります。
+- **`Intlayer`**: ビルド時にコンポーネントからコンテンツをコンパイル。完全に型付けされ、AI 翻訳、ビジュアルエディタ、CMS を備えています。
+
+このガイドではコンパイラセットアップを使用します。コンポーネントに通常の文字列を記述し、辞書は自動生成されます。[Intlayer を選ぶ理由](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md)と[ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/index.md)を参照してください。
+
+</Question>
+
+<Question title="i18n は Vite バンドルサイズにどの程度の影響を与えますか？">
+
+名前空間ベースのセットアップよりもはるかに少なくなります。ページは自身がレンダリングしないカタログをダウンロードしないためです。ビルド時コンパイラは `useIntlayer` 呼び出しをコンポーネントが使用する正確な辞書エントリに置き換えるため、未使用のキーと未使用の言語は削除され、[動的辞書](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dynamic_dictionaries/index.md)はロケールごとに残りを分割します。通常の代替案と比較すると、Intlayer はバンドルとページサイズを最大 50% 削減します。[バンドル最適化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)と[ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/index.md)を参照してください。
+
+</Question>
+
+<Question title="`react-i18next` または `react-intl` からコンポーネントを書き直さずに移行できますか？">
+
+はい、2 つの方法があります。[react-i18next 移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_react-i18next_to_intlayer.md)または[i18next 移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_i18next_to_intlayer.md)を使用してコンテンツを段階的に移行できます。または、現在の API をそのまま保持することもできます。[互換性アダプタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/index.md)は `react-i18next`、`react-intl`、`i18next` と同じ API を公開しますが、Intlayer 辞書によって提供されるため、インポートは変わりますがコンポーネントコードは変わりません。
+
+</Question>
+
+<Question title="既存の JSON 翻訳ファイルを保持できますか？">
+
+はい。[sync JSON プラグイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-json.md)は `/messages/{locale}/{namespace}.json` ファイルを信頼できるソースとして保持し、双方向で Intlayer 辞書を生成します。[sync PO プラグイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-po.md)は gettext カタログに対して同じことを行い、[ロケールごとのファイル](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/per_locale_file.md)では 1 つのファイルにロケールをグループ化する代わりに言語ごとにコンテンツを分割できます。
+
+</Question>
+
+<Question title="コンテンツをキーごとに移動する必要がありますか？">
+
+いいえ。このガイドはそのようにセットアップされています。デフォルトロケールでコンポーネントに通常の文字列を記述すると、[Intlayer コンパイラ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md)はビルドのたびにソースをスキャンし、ユーザー向けテキストを抽出して辞書を生成するため、キーを手動で作成または保守する必要はありません。
+
+知っておく価値のある 2 つの制限があります。コンパイラは静的解析によって動作するため、API エラーコードや CMS フィールドなどランタイムにのみ存在する文字列は到達不可能であり、宣言された辞書が必要です。また、`className="active"` やステータスコードなどのアプリケーションロジックからユーザー向けテキストを区別する必要があり、大規模なコードベースではいくつかのアノテーションが必要です。
+
+制御を保持したい場合は、`npx intlayer extract` は同じ抽出を 1 回実行し、選択したファイルに対して各コンポーネントの隣に `.content` ファイルを書き込みます。[extract コマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/extract.md)を参照してください。
+
+</Question>
+
+<Question title="利用可能なエディタと AI エージェントツールは何ですか？">
+
+5 つあり、すべてオプションです。
+
+- **[VS Code 拡張機能](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)**: `useIntlayer` キーからそれを宣言するコンテンツファイルにジャンプ。コンポーネントからコンテンツを抽出。コマンドパレットまたは専用 Intlayer タブからビルド、fill、test、push、pull を実行。
+- **[LSP サーバー](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)**: LSP に対応した任意のエディタで同じ認識を実現。定義へのジャンプ、すべての参照を検索、翻訳値のホバープレビュー、キーとフィールドのオートコンプリート、キーが宣言されていない場合の警告。また `i18next`、`react-i18next`、`next-intl`、`use-intl` 呼び出しも解決し、移行中に役立ちます。
+- **[MCP サーバー](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)**: Intlayer ドキュメントと CLI を Cursor、VS Code、Claude Desktop、Claude Code、ChatGPT に公開。アシスタントが推測する代わりに現在のドキュメントから回答でき、`intlayer fill` などのコマンドを自身で実行できます。
+- **[エージェントスキル](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)**: `intlayer-config`、`intlayer-cli`、`intlayer-content` などの焦点を絞ったスキル、およびフレームワークごとに 1 つ。エージェントにルーティングセットアップとコンテンツノードタイプを教えます。
+- **[ESLint プラグイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/eslint.md)**: `no-raw-text` はハードコードされた文字列にフラグを立てます。静的辞書キーと未使用コンテンツの追加ルールもあります。
+
+</Question>
+
+<Question title="コンパイラを使用するか、コンテンツを自分で宣言するかどちらを選ぶべきですか？">
+
+既存のコードベースに最小限の変更で i18n を追加したい場合はコンパイラを使用してください。コンポーネントはそのままで、辞書が後に続きます。[標準 Vite と React ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_vite+react.md)に示すようにコンテンツを自分で宣言する場合は、キー、構造、コンポーネント間の再利用を明示的に制御したいときです。2 つは共存できます。コンパイルされたコンテンツと宣言されたコンテンツは同じ辞書レイヤーに存在します。
+
+</Question>
+
+<Question title="コンパイラが見ることができない文字列はどうなりますか？">
+
+コンパイラは静的解析によって動作するため、翻訳されないままになります。API エラーメッセージ、CMS フィールド、連結によって構築された文字列など、ランタイムで組み立てられるものは、通常の方法でコンテンツファイルで宣言する必要があります。`npx intlayer test` を実行して、何が不足しているかを確認してください。
+
+</Question>
+
+<Question title="コンパイラはユーザー向けテキストをどのように判断しますか？">
+
+JSX に対するヒューリスティックによって判断されます。そのため両方向で間違う可能性があります。`className` 値またはステータスコードはコピーのように見える可能性があり、異常なパターンは見落とされる可能性があります。大規模なコードベースでは、アノテーションでエッジケースを修正します。このトレードオフが適さない場合は、`npx intlayer extract` が同じ抽出を 1 回実行し、結果をレビュー用の diff として残します。[extract コマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/extract.md)を参照してください。
+
+</Question>
+
+<Question title="不足している翻訳をどのように埋めますか？">
+
+ステップ 7 で説明されています。`npx intlayer fill` は抽出されたコンテンツを選択した LLM に送信し、独自のプロバイダと API キーを使用します。`--git-diff` はブランチで変更されたものに実行を制限します。[fill コマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/fill.md)と [CI/CD 統合](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/CI_CD.md)を参照してください。
+
+</Question>
+
+<Question title="ランタイムで言語を変更するにはどうすればよいですか？">
+
+ステップ 6 で説明されています。`useLocale` はアクティブなロケール、宣言されたロケール、選択を永続化するセッターを公開します。コンパイルされたコンテンツを読むコンポーネントはページをリロードせずに新しい言語で再レンダリングされます。
+
+</Question>
+
+<Question title="Intlayer は複数形、性別、リッチテキストをサポートしていますか？">
+
+はい。[複数形](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/plurial.md)、[性別ベースのコンテンツ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/gender.md)、条件、[挿入](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/insertion.md)、[Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/markdown.md)、および数値、日付、通貨の[フォーマッタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/formatters.md)をサポートしています。
+
+</Question>
+
+<Question title="翻訳者がコードに触れずにコンテンツを編集するにはどうすればよいですか？">
+
+[ビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を通じて。独自のインフラストラクチャで実行され、実行中のアプリ上でテキストをその場で編集できます。または[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)を使用。コンテンツを外部化し、デプロイメントなしで変更できます。
+
+</Question>
+
+<Question title="Intlayer は無料でオープンソースですか？">
+
+はい。Apache 2.0 ライセンスの下で、商用利用を含みます。ホストされた CMS はオプションの有料サービスで、[自己ホスト](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/self_hosting.md)することもできます。
+
+</Question>
+
+</FAQ>

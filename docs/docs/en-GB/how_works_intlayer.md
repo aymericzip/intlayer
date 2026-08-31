@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-12
-updatedAt: 2025-06-29
+updatedAt: 2026-08-30
 title: How Intlayer Works
 description: Learn how Intlayer operates internally. Understand the architecture and components that make Intlayer powerful.
 keywords:
@@ -259,3 +259,95 @@ The `@intlayer/backend` package exports backend types and will eventually offer 
 ## Chat with our smart documentation
 
 - [Ask your questions to our smart documentation](https://intlayer.org/doc/chat)
+
+## Frequently Asked Questions
+
+<FAQ>
+
+<Question title="When are dictionaries built, at build time or at runtime?">
+
+At build time. The bundler plugin, or `npx intlayer build`, scans your `.content.ts` files, resolves them into dictionaries in the `.intlayer` folder, and generates the matching TypeScript types. At runtime your components only read the result, so no parsing or file loading happens on the request path.
+
+</Question>
+
+<Question title="How much does i18n add to my bundle size?">
+
+Much less than a namespace based setup, because a page never downloads a catalogue it does not render. Server rendered markup resolves its content on the server, and the build time compiler replaces `useIntlayer` calls with the exact dictionary entries a component uses, so unused keys and unused languages are dropped. [Dynamic dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dynamic_dictionaries/index.md) split the rest per locale. Measured against the usual alternatives, Intlayer reduces bundle and page size by up to 50%. See [bundle optimization](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/bundle_optimization.md) and the [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/benchmark/index.md).
+
+</Question>
+
+<Question title="Can I migrate from `i18next`, `next-intl` or `react-i18next` without rewriting my components?">
+
+Yes, and there are two paths. You can migrate the content progressively with the [i18next migration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/migration_from_i18next_to_intlayer.md) or the [next-intl migration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/migration_from_next-intl_to_intlayer.md). Or you can keep your current API entirely: the [compat adapters](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compat/index.md) expose the exact same API as `i18next`, `react-i18next`, `next-intl`, `next-i18next`, `react-intl`, `use-intl`, `vue-i18n` and `Lingui`, but served by Intlayer dictionaries, so imports change and component code does not.
+
+</Question>
+
+<Question title="Can I keep my existing JSON translation files?">
+
+Yes. The [sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/plugins/sync-json.md) keeps your `/messages/{locale}/{namespace}.json` files as the source of truth and generates Intlayer dictionaries from them, in both directions. A [sync PO plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/plugins/sync-po.md) does the same for gettext catalogues, and [per locale files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/per_locale_file.md) let you split content by language instead of grouping locales in one file.
+
+</Question>
+
+<Question title="Do I have to move my content key by key?">
+
+No. Run `npx intlayer extract` and Intlayer reads your source files, pulls the user facing strings out and writes a `.content` file next to each one, so you review a diff instead of copying strings into a catalogue one at a time. See the [extract command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/extract.md).
+
+For a fully automated pipeline, the [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compiler.md) does the same at build time on JSX, TSX, Vue and Svelte source, generating the dictionaries on every change so there are no keys to maintain by hand. It works by static analysis, so strings that only exist at runtime stay out of reach, and it needs a few annotations to tell user facing text apart from application logic.
+
+</Question>
+
+<Question title="What editor and AI agent tooling is available?">
+
+Five pieces, all optional:
+
+- **[VS Code extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/vs_code_extension.md)**: jump from a `useIntlayer` key to the content file that declares it, extract content from a component, and run build, fill, test, push and pull from the command palette or a dedicated Intlayer tab.
+- **[LSP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/lsp.md)**: the same awareness in any editor that speaks LSP, with go to definition, find all references, hover previews of a translated value, autocompletion of keys and fields, and a warning when a key is not declared anywhere. It also resolves `i18next`, `react-i18next`, `next-intl` and `use-intl` calls, which helps while you migrate.
+- **[MCP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/mcp_server.md)**: exposes the Intlayer documentation and CLI to Cursor, VS Code, Claude Desktop, Claude Code and ChatGPT, so an assistant answers from current docs instead of guessing, and can run commands such as `intlayer fill` itself.
+- **[Agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/agent_skills.md)**: focused skills such as `intlayer-config`, `intlayer-cli` and `intlayer-content`, plus one per framework, that teach an agent your routing setup and the content node types.
+- **[ESLint plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/eslint.md)**: `no-raw-text` flags hardcoded strings, with further rules for static dictionary keys and unused content.
+
+</Question>
+
+<Question title="What is the .intlayer folder and should I commit it?">
+
+It is the generated output: the compiled dictionaries and the generated types. It is derived from your content files, so it should be listed in `.gitignore` and rebuilt by your build step, exactly like a `dist` folder.
+
+</Question>
+
+<Question title="How is the active locale determined?">
+
+From the sources listed in `routing.storage`, in order: the URL prefix when `routing.mode` uses one, then a cookie, then the `Accept-Language` header, then your default locale. A locale the user picks explicitly is persisted, so it survives the next visit. See the [configuration reference](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md).
+
+</Question>
+
+<Question title="What is the difference between local and remote dictionaries?">
+
+A local dictionary is declared in your code base and compiled with your application. A remote dictionary is managed in the [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_CMS.md) and resolved at runtime, so it can change without a deployment. Both are read through the same hooks, and remote content falls back to the local declaration when it is unavailable.
+
+</Question>
+
+<Question title="Does Intlayer work without TypeScript?">
+
+Yes. Content files can be written in TypeScript, JavaScript, ESM, CommonJS or JSON. TypeScript is what unlocks the generated types and the autocompletion, so it is the recommended setup, but it is not required.
+
+</Question>
+
+<Question title="How do server rendering and client rendering share the same content?">
+
+The server resolves the content of server rendered components directly, so no dictionary is sent to the client for that markup. Client components read the same dictionaries through the provider, which receives the locale resolved on the server, so the first client render matches the server HTML and does not flash a different language.
+
+</Question>
+
+<Question title="How does Intlayer avoid a hydration mismatch on locale?">
+
+The locale is resolved once on the server and passed to the provider, rather than being detected again in the browser. Because the client starts from the same locale the server rendered, the markup matches, which is what usually breaks with client side locale detection.
+
+</Question>
+
+<Question title="Do I need to rebuild when I add a translation?">
+
+In development, no: the plugin watches your content files and rebuilds the affected dictionaries on save. In production the dictionaries are part of the build, unless the content is remote, in which case the [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_CMS.md) and [live sync](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/live.md) apply the change without a deployment.
+
+</Question>
+
+</FAQ>

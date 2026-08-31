@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-10
-updatedAt: 2026-06-23
+updatedAt: 2026-08-30
 title: "Next.js 16 i18n - Guida completa per tradurre la tua applicazione"
 description: "Niente più i18next. La guida 2026 per creare un'applicazione Next.js 16 multilingue (i18n). Traduci con agenti AI e ottimizza la dimensione del bundle, SEO e prestazioni."
 keywords:
@@ -867,3 +867,115 @@ Per maggiori dettagli su come usare l'estensione, consulta la [documentazione de
 ### Approfondisci
 
 Per approfondire, puoi implementare il [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_visual_editor.md) o esternalizzare il tuo contenuto usando il [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_CMS.md).
+
+## Domande frequenti
+
+<FAQ>
+
+<Question title="Quali sono le diverse soluzioni disponibili per internazionalizzare un'app Next.js?">
+
+Il campo `i18n` di `next.config.js` non si applica all'App Router, quindi il livello di localizzazione è sempre una scelta di libreria:
+
+- **`next-intl`**, **`next-i18next` / `i18next`** e **`react-intl`**: cataloghi JSON o ICU caricati per namespace.
+- **`Lingui`**: guidata dall'estrazione, con messaggi ICU compilati in fase di build.
+- **`Intlayer`**: contenuto dichiarato accanto a ogni componente e compilato per componente, completamente tipizzato, con traduzione AI, un editor visivo e un CMS.
+
+Questa guida copre la configurazione senza una locale nel percorso. Vedi [perché Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/interest_of_intlayer.md) e il [benchmark i18n di Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/benchmark/nextjs.md).
+
+</Question>
+
+<Question title="Quanto aggiunge l'i18n alla dimensione del mio bundle Next.js?">
+
+Molto meno di una configurazione basata su namespace, perché una pagina non scarica mai un catalogo che non renderizza. I Server Component risolvono il loro contenuto sul server, e il compilatore in fase di build sostituisce le chiamate `useIntlayer` con le esatte voci del dizionario che un componente utilizza, quindi le chiavi e le lingue non utilizzate vengono eliminate, e i [dizionari dinamici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dynamic_dictionaries/index.md) suddividono il resto per locale. Misurato rispetto alle alternative abituali, Intlayer riduce la dimensione del bundle e delle pagine fino al 50%. Vedi [ottimizzazione del bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/bundle_optimization.md) e il [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/benchmark/nextjs.md).
+
+</Question>
+
+<Question title="Posso migrare da `next-intl`, `next-i18next` o `i18next` senza riscrivere i miei componenti?">
+
+Sì, e ci sono due percorsi. Puoi migrare il contenuto progressivamente con la [guida alla migrazione da next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/migration_from_next-intl_to_intlayer.md) o la [guida alla migrazione da i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/migration_from_i18next_to_intlayer.md). Oppure puoi mantenere interamente la tua API attuale: gli [adattatori di compatibilità](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/compat/index.md) espongono esattamente la stessa API di `next-intl`, `react-i18next` e `react-intl`, ma servita dai dizionari Intlayer, quindi cambiano gli import e il codice dei componenti no.
+
+</Question>
+
+<Question title="Posso mantenere i miei file di traduzione JSON esistenti?">
+
+Sì. Il [plugin di sincronizzazione JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/plugins/sync-json.md) mantiene i tuoi file `/messages/{locale}/{namespace}.json` come fonte di verità e genera dizionari Intlayer da essi, in entrambe le direzioni. Un [plugin di sincronizzazione PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/plugins/sync-po.md) fa lo stesso per i cataloghi gettext, e i [file per locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/per_locale_file.md) ti permettono di dividere il contenuto per lingua invece di raggruppare i locale in un unico file.
+
+</Question>
+
+<Question title="Devo spostare il mio contenuto chiave per chiave?">
+
+No. Esegui `npx intlayer extract` e Intlayer legge i tuoi componenti, estrae le stringhe visibili all'utente e scrive un file `.content` accanto a ciascuno, così puoi rivedere un diff invece di copiare le stringhe in un catalogo una alla volta.
+
+Per una pipeline completamente automatizzata, il [Compilatore Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/compiler.md) fa lo stesso in fase di build: analizza il tuo codice sorgente JSX, TSX, Vue e Svelte ad ogni modifica, genera i dizionari e li mantiene sincronizzati attraverso l'hot module replacement, così non ci sono affatto chiavi da mantenere a mano.
+
+Due limiti vale la pena conoscere prima di attivare il compilatore. Funziona per analisi statica, quindi le stringhe che esistono solo a runtime, come i codici di errore delle API o i campi del CMS, restano fuori portata. E deve distinguere il testo visibile all'utente dalla logica applicativa come `className="active"` o un codice di stato, il che richiede alcune annotazioni in una codebase estesa. Il [comando extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/cli/extract.md) evita entrambi mantenendoti nel ciclo.
+
+</Question>
+
+<Question title="Quali strumenti di editor e agenti AI sono disponibili?">
+
+Cinque componenti, tutti opzionali:
+
+- **[Estensione VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/vs_code_extension.md)**: salta da una chiave `useIntlayer` al file di contenuto che la dichiara, estrai il contenuto da un componente ed esegui build, fill, test, push e pull dalla palette dei comandi o da una scheda Intlayer dedicata.
+- **[Server LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/lsp.md)**: la stessa consapevolezza in qualsiasi editor che parla LSP, con vai alla definizione, trova tutti i riferimenti, anteprime al passaggio del mouse di un valore tradotto, autocompletamento di chiavi e campi, e un avviso quando una chiave non è dichiarata da nessuna parte. Risolve anche le chiamate `i18next`, `react-i18next`, `next-intl` e `use-intl`, il che aiuta durante la migrazione.
+- **[Server MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/mcp_server.md)**: espone la documentazione di Intlayer e la CLI a Cursor, VS Code, Claude Desktop, Claude Code e ChatGPT, così un assistente risponde in base alla documentazione aggiornata invece di tirare a indovinare, e può eseguire da solo comandi come `intlayer fill`.
+- **[Agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/agent_skills.md)**: competenze mirate come `intlayer-config`, `intlayer-cli` e `intlayer-content`, più una per framework, che insegnano a un agente la tua configurazione di routing e i tipi di nodo dei contenuti.
+- **[Plugin ESLint](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/eslint.md)**: `no-raw-text` segnala le stringhe hardcoded, con ulteriori regole per le chiavi statiche dei dizionari e i contenuti non utilizzati.
+
+</Question>
+
+<Question title="Perché dovrei servire la mia app senza una locale nell'URL?">
+
+Perché la locale non fa sempre parte dell'identità della pagina. Una dashboard autenticata, uno strumento interno o un'app dietro un login non hanno motivo di esporre `/fr/` in ogni URL: la lingua è una preferenza dell'utente, non un documento diverso. Eliminare il prefisso mantiene anche le tue rotte, i tuoi link e i tuoi analytics su un unico insieme di percorsi.
+
+</Question>
+
+<Question title="Quali sono le conseguenze SEO di non avere una locale nell'URL?">
+
+Sono reali, quindi scegli deliberatamente. Senza un URL distinto per lingua, i motori di ricerca non hanno una pagina separata da indicizzare per ogni locale, `hreflang` non ha nulla a cui puntare, e un crawler vede solo la lingua che il tuo rilevamento predefinito gli serve. Questo va bene per il contenuto dietro un login, che non è comunque indicizzato, ed è poco adatto a un sito di marketing pubblico o alla documentazione. Se il traffico organico per lingua conta, usa invece la configurazione con prefisso della [guida Next.js 16](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_nextjs_16.md).
+
+</Question>
+
+<Question title="Qual è la differenza tra le modalità `no-prefix` e `search-params`?">
+
+`"no-prefix"` tiene la locale completamente fuori dall'URL e la risolve da un cookie, un header o un dominio, così ogni lingua condivide un unico indirizzo. `"search-params"` la mette nella query string come `/dashboard?locale=fr`, il che dà comunque a ogni lingua un URL distinto, collegabile e salvabile nei preferiti senza cambiare il tuo albero delle rotte. Preferisci `"search-params"` quando vuoi link condivisibili per lingua.
+
+</Question>
+
+<Question title="Come viene rilevata la locale allora?">
+
+Dalle fonti elencate in `routing.storage`, per impostazione predefinita prima un cookie e poi l'header `Accept-Language`, ricadendo sulla tua locale predefinita. Il passo 7 aggiunge il proxy che la applica. Una lingua scelta esplicitamente dall'utente viene persistita, quindi sopravvive alla visita successiva. Vedi il [riferimento di configurazione](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/configuration.md).
+
+</Question>
+
+<Question title="Posso invece associare ogni lingua al proprio dominio?">
+
+Sì, ed è l'opzione da considerare quando hai eliminato il prefisso per ragioni estetiche ma vuoi comunque la SEO. `routing.domains` associa una locale a un hostname, così il dominio identifica la lingua, nessun prefisso viene aggiunto al percorso, e ogni lingua ottiene un URL indicizzabile a cui `hreflang` può puntare.
+
+</Question>
+
+<Question title="Come traduco l'app automaticamente con l'AI?">
+
+Esegui `npx intlayer fill`. Riempie le traduzioni mancanti con l'LLM di tua scelta, usando il tuo provider e la tua API key, e `--git-diff` limita l'esecuzione ai contenuti modificati nel branch. Vedi il [comando fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/cli/fill.md) e l'[integrazione CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/CI_CD.md).
+
+</Question>
+
+<Question title="Intlayer supporta plurali, genere e rich text?">
+
+Sì: [forme plurali](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/plurial.md), [contenuto basato sul genere](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/gender.md), condizioni, [inserimenti](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/insertion.md), [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/markdown.md) e [formattatori](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/formatters.md) per numeri, date e valute.
+
+</Question>
+
+<Question title="Come possono i traduttori modificare il contenuto senza toccare il codice?">
+
+Attraverso l'[editor visivo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_visual_editor.md), che gira sulla tua infrastruttura e permette a chiunque di modificare il testo sul posto nell'app in esecuzione, o il [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_CMS.md), che esternalizza il contenuto così può cambiare senza un deployment.
+
+</Question>
+
+<Question title="Intlayer è gratuito e open source?">
+
+Sì, sotto licenza Apache 2.0, uso commerciale incluso. Il CMS ospitato è un servizio a pagamento opzionale che può anche essere [auto-ospitato](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/self_hosting.md).
+
+</Question>
+
+</FAQ>
