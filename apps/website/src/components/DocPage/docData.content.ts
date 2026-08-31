@@ -1241,6 +1241,12 @@ const docDataContent: Dictionary = {
                 './docs/en/packages/intlayer-cli/exports.md'
               ),
             },
+            '@intlayer/babel': {
+              title: '@intlayer/babel',
+              default: getDocMetadata(
+                './docs/en/packages/@intlayer_babel/export.md'
+              ),
+            },
           },
         },
       },

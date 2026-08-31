@@ -190,6 +190,40 @@ export const getFileMetadataRecord = async <
   return (await record) as Record<keyof F, FileMetadata>;
 };
 
+/**
+ * Flattens front-matter slugs into the URL segments they produce.
+ *
+ * `relativeUrl` is built by joining the slugs with `/`, so a slug holding a
+ * slash — `"@intlayer/babel"` — yields more URL segments than the array holds
+ * entries. A requested path, split on `/`, could then never be matched against
+ * the raw array, and the page resolved to nothing.
+ *
+ * @param slugs - Front-matter slugs, or the segments of a requested path.
+ * @returns One entry per URL segment, empty segments dropped.
+ */
+const toUrlSegments = (slugs: string[]): string[] =>
+  slugs.flatMap((slug) => slug.split('/')).filter(Boolean);
+
+/**
+ * Tells whether a file answers a requested slug path.
+ *
+ * @param fileMetadata - Metadata of the candidate file.
+ * @param requestedSegments - URL segments asked for, already flattened.
+ * @param strict - Rejects files owning segments beyond the requested ones.
+ * @returns `true` when the file matches the request.
+ */
+const matchesRequestedSegments = (
+  fileMetadata: FileMetadata,
+  requestedSegments: string[],
+  strict: boolean
+): boolean => {
+  const fileSegments = toUrlSegments(fileMetadata.slugs ?? []);
+
+  if (strict && fileSegments.length !== requestedSegments.length) return false;
+
+  return requestedSegments.every((segment) => fileSegments.includes(segment));
+};
+
 export const getFileMetadataBySlug = async <
   F extends Record<string, Record<LocalesValues, Promise<string>>>,
 >(
@@ -198,22 +232,18 @@ export const getFileMetadataBySlug = async <
   locale: LocalesValues = defaultLocale as LocalesValues,
   strict = false
 ) => {
-  const slugsArray = Array.isArray(slugs) ? slugs : [slugs];
+  const requestedSegments = toUrlSegments(
+    Array.isArray(slugs) ? slugs : [slugs]
+  );
   const filesMetadata = await getFileMetadataRecord(
     files,
     defaultLocale as LocalesValues
   );
 
-  let fileMetadataArray: FileMetadata[] = Object.values(filesMetadata).filter(
+  const fileMetadataArray: FileMetadata[] = Object.values(filesMetadata).filter(
     (fileMetadata) =>
-      slugsArray.every((slug) => fileMetadata.slugs?.includes(slug))
+      matchesRequestedSegments(fileMetadata, requestedSegments, strict)
   );
-
-  if (strict) {
-    fileMetadataArray = fileMetadataArray.filter(
-      (fileMetadata) => fileMetadata.slugs.length === slugsArray.length
-    );
-  }
 
   if (locale !== defaultLocale) {
     const localizedFileMetadata = await Promise.all(
@@ -237,21 +267,18 @@ export const getFileBySlug = async <
   locale: LocalesValues = defaultLocale as LocalesValues,
   strict = false
 ) => {
-  const slugsArray = Array.isArray(slugs) ? slugs : [slugs];
+  const requestedSegments = toUrlSegments(
+    Array.isArray(slugs) ? slugs : [slugs]
+  );
   const filesMetadata = await getFileMetadataRecord(
     files,
     defaultLocale as LocalesValues
   );
 
-  let fileMetadataArray = Object.values(filesMetadata).filter((fileMetadata) =>
-    slugsArray.every((slug) => fileMetadata.slugs?.includes(slug))
+  const fileMetadataArray = Object.values(filesMetadata).filter(
+    (fileMetadata) =>
+      matchesRequestedSegments(fileMetadata, requestedSegments, strict)
   );
-
-  if (strict) {
-    fileMetadataArray = fileMetadataArray.filter(
-      (fileMetadata) => fileMetadata.slugs.length === slugsArray.length
-    );
-  }
 
   const fileList = await Promise.all(
     fileMetadataArray.map(async (fileMetadata) => {
