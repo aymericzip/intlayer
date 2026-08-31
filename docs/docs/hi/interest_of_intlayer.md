@@ -293,3 +293,101 @@ GitHub सितारे किसी प्रोजेक्ट की लो
 `intlayer` का उपयोग करके, आप अपनी पसंदीदा i18n लाइब्रेरी के प्रारूप में अपनी सामग्री घोषित कर सकते हैं, और intlayer आपकी पसंद के स्थान पर आपके नेमस्पेस उत्पन्न करेगा (उदाहरण: `/messages/{{locale}}/{{namespace}}.json)।
 
 यदि आप अपनी वर्तमान i18n लाइब्रेरी का API उपयोग करना जारी रखना चाहते हैं, तो `intlayer` **compat adapters** भी प्रदान करता है: ऐसे पैकेज जो `react-i18next`, `next-intl`, `react-intl`, `vue-i18n` और अन्य के बिल्कुल समान API उपलब्ध कराते हैं, लेकिन सामग्री Intlayer डिक्शनरी से आती है। इससे आप अपना कोड दोबारा लिखे बिना क्रमिक रूप से माइग्रेट कर सकते हैं। देखें [Compat Adapters दस्तावेज़ीकरण](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/index.md)।
+
+## अक्सर पूछे जाने वाले प्रश्न
+
+<FAQ>
+
+<Question title="JavaScript अनुप्रयोगों के अंतर्राष्ट्रीयकरण के लिए कौन से विभिन्न समाधान उपलब्ध हैं?">
+
+तीन पीढ़ियाँ सह-अस्तित्व में हैं:
+
+- **रनटाइम कैटलॉग लाइब्रेरी**: `i18next`, `react-i18next`, `next-i18next`, `vue-i18n`, `ngx-translate`।
+- **कंपाइल-टाइम संदेश लाइब्रेरी**: `Lingui`, `Paraglide`, `react-intl`, और `next-intl`।
+- **कंटेंट लेयर लाइब्रेरी (Content layer)**: `Intlayer`। घटक के बगल में घोषणा, ट्री-शेकिंग, TypeScript प्रकार, AI अनुवाद और विज़ुअल एडिटर।
+
+इस गाइड में पूरी तुलना देखें।
+
+</Question>
+
+<Question title="i18n मेरे बंडल आकार को कितना बढ़ाता है?">
+
+नेमस्पेस-आधारित सेटअपों की तुलना में बहुत कम, क्योंकि एक पृष्ठ कभी भी उस कैटलॉग को डाउनलोड नहीं करता है जिसे वह रेंडर नहीं करता है। सर्वर पर रेंडर किया गया मार्कअप सर्वर पर ही अपनी सामग्री को हल करता है, और बिल्ड-टाइम कंपाइलर `useIntlayer` कॉल को घटक द्वारा उपयोग की जाने वाली सटीक शब्दकोश प्रविष्टियों से बदल देता है, इसलिए अप्रयुक्त कुंजियों और भाषाओं को हटा दिया जाता है। [गतिशील शब्दकोश](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dynamic_dictionaries/index.md) शेष को प्रति लोकेल विभाजित करते हैं। पारंपरिक विकल्पों की तुलना में, Intlayer बंडल और पृष्ठ आकार को 50% तक कम करता है। [बंडल अनुकूलन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/bundle_optimization.md) और [बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/index.md) देखें।
+
+</Question>
+
+<Question title="क्या मैं अपने घटकों को फिर से लिखे बिना i18next, next-intl या react-i18next से माइग्रेट कर सकता हूँ?">
+
+हाँ, और इसके दो रास्ते हैं। आप [i18next माइग्रेशन गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_i18next_to_intlayer.md) या [next-intl माइग्रेशन गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_next-intl_to_intlayer.md) के साथ सामग्री को धीरे-धीरे स्थानांतरित कर सकते हैं। या आप अपने वर्तमान API को पूरी तरह से बनाए रख सकते हैं: [संगतता एडेप्टर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/index.md) `i18next`, `react-i18next`, `next-intl`, `next-i18next`, `react-intl`, `use-intl`, `vue-i18n` और `Lingui` के समान API प्रदान करते हैं, लेकिन Intlayer शब्दकोशों द्वारा संचालित होते हैं, जिससे केवल आयात बदलते हैं और घटक कोड समान रहता है।
+
+</Question>
+
+<Question title="क्या मैं अपनी मौजूदा JSON translation files को रख सकता हूं?">
+
+हाँ। [sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/plugins/sync-json.md) आपकी `/messages/{locale}/{namespace}.json` फ़ाइलों को सत्य का स्रोत बनाए रखता है और दोनों दिशाओं में उनसे Intlayer dictionaries बनाता है। [sync PO plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/plugins/sync-po.md) gettext catalogs के लिए भी ऐसा ही करता है, और [per locale files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/per_locale_file.md) आपको locales को एक फ़ाइल में समूहीकृत करने के बजाय भाषा के अनुसार content को विभाजित करने देते हैं।
+
+</Question>
+
+<Question title="क्या मुझे अपनी content को key by key move करना होगा?">
+
+नहीं। `npx intlayer extract` चलाएं और Intlayer आपकी source files को पढ़ता है, user facing strings को निकालता है और प्रत्येक के बगल में एक `.content` file लिखता है, इसलिए आप strings को एक catalog में एक-एक करके कॉपी करने के बजाय एक diff की समीक्षा करते हैं। [extract command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/extract.md) देखें।
+
+पूरी तरह से स्वचालित वर्कफ़्लो के लिए, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md) JSX, TSX, Vue और Svelte कोड पर निर्माण समय के दौरान भी यही करता है, प्रत्येक परिवर्तन पर शब्दकोश उत्पन्न करता है जिससे कुंजियों को मैन्युअल रूप से बनाए रखने की आवश्यकता समाप्त हो जाती है।
+
+</Question>
+
+<Question title="कौन से editor और AI agent tooling उपलब्ध हैं?">
+
+पाँच उपकरण, सभी वैकल्पिक:
+
+- **[VS Code extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/vs_code_extension.md)**: `useIntlayer` कुंजी से उसे घोषित करने वाली सामग्री फ़ाइल पर जाएं, घटकों से सामग्री निकालें, और कमांड पैलेट या Intlayer टैब से build, fill, test, push और pull चलाएं।
+- **[LSP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/lsp.md)**: LSP का समर्थन करने वाले किसी भी संपादक में समान सुविधा, परिभाषा पर जाएं, अनुवादित मान का पूर्वावलोकन देखें, और कुंजी पूर्णता प्राप्त करें। `i18next`, `react-i18next`, `next-intl` और `use-intl` कॉल का भी समर्थन करता है।
+- **[MCP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/mcp_server.md)**: Cursor, VS Code, Claude Desktop, Claude Code और ChatGPT के लिए Intlayer दस्तावेज़ और CLI प्रदान करता है।
+- **[Agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/agent_skills.md)**: केंद्रित कौशल जैसे `intlayer-config`, `intlayer-cli` और `intlayer-content`।
+- **[ESLint plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/eslint.md)**: `no-raw-text` नियम हार्डकोडेड स्ट्रिंग्स को चिह्नित करता है।
+
+</Question>
+
+<Question title="Intlayer next-intl से किस प्रकार भिन्न है?">
+
+`next-intl` प्रति भाषा JSON फ़ाइलों पर आधारित Next.js के लिए एक संदेश परत है। Intlayer सामग्री को सीधे घटक के बगल में घोषित करता है, बिल्ड समय पर अप्रयुक्त प्रविष्टियों को छोड़ देता है, प्रत्येक शब्दकोश के लिए सख्त TypeScript प्रकार उत्पन्न करता है, और अंतर्निहित AI अनुवाद और विज़ुअल एडिटर प्रदान करता है।
+
+</Question>
+
+<Question title="Intlayer i18next और react-i18next से किस प्रकार भिन्न है?">
+
+`i18next` रनटाइम पर स्ट्रिंग कुंजियों को हल करता है, जिसका अर्थ है कि कुंजी नाम में टाइपो चुपचाप विफल हो जाएगा और खाली टेक्स्ट प्रदर्शित करेगा। Intlayer संकलन के दौरान कुंजियों की स्थिर रूप से जांच करता है, बंडल से अप्रयुक्त भाषाओं को बाहर करता है, और अनुवाद वर्कफ़्लो को स्वचालित करता है।
+
+</Question>
+
+<Question title="क्या Intlayer विकल्पों की तुलना में तेज़ या हल्का है?">
+
+बंडल और पृष्ठ आकार के संदर्भ में, हाँ: पृष्ठ द्वारा रेंडर न किए गए कैटलॉग को लोड न करने से बंडल का आकार 50% तक कम हो जाता है। रनटाइम प्रदर्शन के संदर्भ में, पूर्व-संकलन रनटाइम पार्सिंग लागत को समाप्त करता है। [बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/index.md) देखें।
+
+</Question>
+
+<Question title="क्या किसी मौजूदा एप्लिकेशन को माइग्रेट करना उचित है?">
+
+यह आपके सामने आने वाली वर्तमान बाधाओं पर निर्भर करता है। यदि आपकी समस्या बड़ा बंडल आकार, बिना चेतावनी के छूटे हुए अनुवाद, या गैर-डेवलपर्स द्वारा टेक्स्ट संपादन में कठिनाई है, तो Intlayer इसे हल करता है; संगतता एडेप्टर कोड को फिर से लिखे बिना चरणबद्ध माइग्रेशन की अनुमति देते हैं।
+
+</Question>
+
+<Question title="Intlayer ऐसा क्या प्रदान करता है जो अन्य i18n लाइब्रेरी नहीं देती हैं?">
+
+[Markdown सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/markdown.md) का समर्थन, CMS से सामग्री प्राप्त करना, एकीकृत विज़ुअल एडिटर, `--git-diff` ध्वज के साथ AI-संचालित स्वचालित अनुवाद, और घटक विश्लेषण पर आधारित TypeScript ऑटोकम्प्लीशन।
+
+</Question>
+
+<Question title="क्या मैं केवल Intlayer को अनुवाद प्रबंधक के रूप में उपयोग कर सकता हूँ और अपनी वर्तमान लाइब्रेरी रख सकता हूँ?">
+
+हाँ। Intlayer आपकी वर्तमान लाइब्रेरी द्वारा अपेक्षित प्रारूप और स्थान में नेमस्पेस उत्पन्न कर सकता है (उदाहरण के लिए `/messages/{locale}/{namespace}.json`), जिससे आप अपने ऐप कोड को बदले बिना Intlayer के CLI और एडिटर का आनंद ले सकते हैं।
+
+</Question>
+
+<Question title="क्या Intlayer मुफ्त और ओपन सोर्स है?">
+
+हाँ, Apache 2.0 लाइसेंस के तहत, व्यावसायिक उपयोग सहित। क्लाउड CMS एक वैकल्पिक सशुल्क सेवा है जिसे [स्वयं होस्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/self_hosting.md) भी किया जा सकता है।
+
+</Question>
+
+</FAQ>

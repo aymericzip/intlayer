@@ -1119,3 +1119,101 @@ Trình kiểm soát trình biên dịch Intlayer, thu thập các bộ từ đi�
 | Trường    | Mô tả                                      | Kiểu dữ liệu       |
 | --------- | ------------------------------------------ | ------------------ |
 | `plugins` | Danh sách các plugin Intlayer cần bao gồm. | `IntlayerPlugin[]` |
+
+## Các Câu Hỏi Thường Gặp
+
+<FAQ>
+
+<Question title="Tệp intlayer.config.ts nên đặt ở đâu?">
+
+Ở thư mục gốc dự án của bạn, cạnh `package.json`. Intlayer quét thư mục làm việc và các thư mục cha để tìm `intlayer.config.ts`, `intlayer.config.js`, `intlayer.config.mjs`, hoặc `intlayer.config.cjs`. Bạn cũng có thể chỉ định đường dẫn tùy chỉnh qua flag `--config` trong các lệnh CLI.
+
+</Question>
+
+<Question title="i18n làm tăng kích thước bundle của tôi bao nhiêu?">
+
+Ít hơn nhiều so with các cấu hình dựa trên namespace, vì trang không bao giờ tải catalog mà nó không hiển thị. Mã hiển thị trên server phân giải nội dung ngay trên server, và compiler tại thời điểm build thay thế các lệnh gọi `useIntlayer` bằng chính xác các mục từ điển mà component sử dụng, do đó các khóa và ngôn ngữ không sử dụng sẽ bị loại bỏ. [Từ điển động](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dynamic_dictionaries/index.md) chia phần còn lại theo từng locale. So với các giải pháp thông thường, Intlayer giảm kích thước bundle và trang tới 50%. Xem [tối ưu hóa bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/bundle_optimization.md) và [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/index.md).
+
+</Question>
+
+<Question title="Tôi có thể di chuyển từ i18next, next-intl hoặc react-i18next mà không cần viết lại component không?">
+
+Có, theo hai cách. Bạn có thể di chuyển nội dung dần dần bằng [hướng dẫn di chuyển từ i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_i18next_to_intlayer.md) hoặc [hướng dẫn di chuyển từ next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_next-intl_to_intlayer.md). Hoặc bạn có thể giữ nguyên API hiện tại: [adapter tương thích](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/index.md) cung cấp chính xác các API tương tự như `i18next`, `react-i18next`, `next-intl`, `next-i18next`, `react-intl`, `use-intl`, `vue-i18n` và `Lingui`, nhưng chạy trên các từ điển Intlayer, nhờ đó chỉ có các lệnh import thay đổi còn mã component vẫn giữ nguyên.
+
+</Question>
+
+<Question title="Tôi có thể giữ các tệp dịch JSON hiện có của mình không?">
+
+Có. Plugin [sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/plugins/sync-json.md) giữ cho các tệp `/messages/{locale}/{namespace}.json` của bạn là nguồn sự thật duy nhất và tạo các từ điển Intlayer từ chúng theo cả hai hướng. Plugin [sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/plugins/sync-po.md) làm điều tương tự cho các catalog gettext, và [các tệp theo locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/per_locale_file.md) cho phép bạn chia nội dung theo ngôn ngữ thay vì nhóm các locale trong một tệp.
+
+</Question>
+
+<Question title="Tôi có phải di chuyển nội dung từng khóa một không?">
+
+Không. Chạy `npx intlayer extract` và Intlayer sẽ đọc các tệp nguồn của bạn, trích xuất các chuỗi dành cho người dùng và tạo tệp `.content` bên cạnh mỗi tệp, nhờ đó bạn xem lại diff thay vì sao chép chuỗi vào catalog thủ công. Xem [lệnh extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/extract.md).
+
+Đối với quy trình làm việc hoàn toàn tự động, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md) thực hiện việc tương tự trong quá trình build trên mã JSX, TSX, Vue và Svelte, tạo từ điển trên mỗi thay đổi mà không cần quản lý khóa thủ công.
+
+</Question>
+
+<Question title="Có những công cụ editor và AI agent nào có sẵn?">
+
+Năm công cụ, tất cả đều là tùy chọn:
+
+- **[VS Code extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/vs_code_extension.md)**: nhảy từ khóa `useIntlayer` đến tệp nội dung khai báo nó, trích xuất nội dung từ component, và chạy build, fill, test, push và pull từ command palette hoặc tab Intlayer.
+- **[LSP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/lsp.md)**: trải nghiệm tương tự trong bất kỳ trình soạn thảo nào hỗ trợ LSP, với go to definition, xem trước giá trị bản dịch khi hover, tự động hoàn thành khóa, và cảnh báo khi khóa chưa được khai báo ở bất kỳ đâu. Hỗ trợ cả các lệnh gọi `i18next`, `react-i18next`, `next-intl` và `use-intl`.
+- **[MCP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/mcp_server.md)**: cung cấp tài liệu và CLI Intlayer cho Cursor, VS Code, Claude Desktop, Claude Code và ChatGPT.
+- **[Agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/agent_skills.md)**: các kỹ năng chuyên biệt như `intlayer-config`, `intlayer-cli` và `intlayer-content`.
+- **[ESLint plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/eslint.md)**: quy tắc `no-raw-text` phát hiện các chuỗi chưa được bản địa hóa.
+
+</Question>
+
+<Question title="Làm cách nào để thêm ngôn ngữ mới vào ứng dụng của tôi?">
+
+Thêm mã locale vào mảng `internationalization.locales`, sau đó chạy `npx intlayer fill` để tự động dịch nội dung hiện có. Compiler sẽ bao gồm ngôn ngữ mới trong lần build tiếp theo.
+
+</Question>
+
+<Question title="Làm cách nào để xóa tiền tố locale khỏi URL?">
+
+Đặt `routing.mode`. Giá trị `"no-prefix"` xóa tiền tố cho tất cả ngôn ngữ, xác định locale qua cookie, tiêu đề hoặc tên miền. Giá trị `"prefix-no-default"` (mặc định) chỉ ẩn tiền tố cho ngôn ngữ chính.
+
+</Question>
+
+<Question title="Tôi có thể phục vụ mỗi ngôn ngữ từ tên miền riêng không?">
+
+Có. Tùy chọn `routing.domains` ánh xạ từng locale tới một hostname, ví dụ `{ vi: 'example.vn', en: 'example.com' }`. Việc phát hiện theo tên miền được ưu tiên hơn tiền tố đường dẫn, và `getMultilingualUrls` tạo URL đầy đủ cho `hreflang`.
+
+</Question>
+
+<Question title="Ngôn ngữ của người dùng được phát hiện như thế nào?">
+
+Thông qua `routing.storage`, liệt kê các nguồn theo thứ tự ưu tiên: thường là URL trước, sau đó là cookie, tiếp theo là tiêu đề `Accept-Language`, và trở về ngôn ngữ mặc định nếu không tìm thấy.
+
+</Question>
+
+<Question title="routing.enableProxy làm nhiệm vụ gì?">
+
+Kiểm soát proxy định tuyến locale, middleware xử lý tiền tố và chuyển hướng. Mặc định proxy hoạt động ở chế độ dev và production. Đặt thành `false` nếu bạn tự quản lý đường dẫn.
+
+</Question>
+
+<Question title="Sự khác biệt giữa importMode static, dynamic và fetch là gì?">
+
+`"static"` (mặc định) import từ điển tĩnh để chúng được đóng gói và đọc đồng bộ. `"dynamic"` tải từ điển bất đồng bộ theo từng ngôn ngữ để giảm kích thước bundle ban đầu. `"fetch"` lấy từ điển từ server hoặc CMS tại thời điểm runtime.
+
+</Question>
+
+<Question title="Tôi thiết lập AI provider và API key cho việc dịch tự động ở đâu?">
+
+Trong tệp cấu hình tại phần `ai` hoặc trên dòng lệnh bằng các flag `--provider`, `--model`, và `--api-key`. Khóa API nằm ở môi trường cục bộ của bạn và không bao giờ gửi ra ngoài. Xem [tài liệu cấu hình AI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md).
+
+</Question>
+
+<Question title="Tôi có cần khởi động lại dev server sau khi thay đổi cấu hình không?">
+
+Thường là không. Watcher của Intlayer giám sát tệp `intlayer.config.ts`: khi bạn lưu tệp, nó sẽ tự động tải lại cấu hình và cập nhật từ điển ở chế độ nền.
+
+</Question>
+
+</FAQ>

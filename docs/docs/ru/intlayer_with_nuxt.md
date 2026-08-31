@@ -696,7 +696,7 @@ import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
 - **`@nuxtjs/i18n`**: устоявшийся модуль, построенный на `vue-i18n`, с файлами локалей, загружаемыми для каждой страницы, и большой поверхностью конфигурации.
 - **`Intlayer`**: контент, объявленный рядом с каждым компонентом и скомпилированный во время сборки, полностью типизированный, с маршрутизацией с учётом локали, ИИ-переводом, визуальным редактором и CMS.
 
-Разница — в том, где живёт контент. `@nuxtjs/i18n` централизует его в файлах `locales/*.json`, тогда как Intlayer со-размещает его с компонентом, который его отображает, поэтому страница поставляет только те записи, которые использует, а папку функции можно переместить или удалить целиком. См. [почему Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/interest_of_intlayer.md) и [бенчмарк i18n для Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/vue.md).
+Разница - в том, где живёт контент. `@nuxtjs/i18n` централизует его в файлах `locales/*.json`, тогда как Intlayer со-размещает его с компонентом, который его отображает, поэтому страница поставляет только те записи, которые использует, а папку функции можно переместить или удалить целиком. См. [почему Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/interest_of_intlayer.md) и [бенчмарк i18n для Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/vue.md).
 
 </Question>
 
@@ -708,7 +708,7 @@ import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
 
 <Question title="Могу ли я мигрировать с `@nuxtjs/i18n` или `vue-i18n`, не переписывая свои компоненты?">
 
-Да, и есть два пути. Вы можете мигрировать контент постепенно с помощью [руководства по миграции с @nuxtjs/i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/migration_from_nuxtjs_i18n_to_intlayer.md). Или вы можете полностью сохранить свой текущий API: [адаптеры совместимости](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/index.md) предоставляют точно такой же API, как `vue-i18n`, но обслуживаемый словарями Intlayer, поэтому меняются импорты, а код компонентов — нет.
+Да, и есть два пути. Вы можете мигрировать контент постепенно с помощью [руководства по миграции с @nuxtjs/i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/migration_from_nuxtjs_i18n_to_intlayer.md). Или вы можете полностью сохранить свой текущий API: [адаптеры совместимости](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/index.md) предоставляют точно такой же API, как `vue-i18n`, но обслуживаемый словарями Intlayer, поэтому меняются импорты, а код компонентов - нет.
 
 </Question>
 
@@ -782,7 +782,7 @@ import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
 
 <Question title="Является ли Intlayer бесплатным и с открытым исходным кодом?">
 
-Да, по лицензии Apache 2.0, включая коммерческое использование. Размещённая CMS — это необязательный платный сервис, который также можно [разместить самостоятельно](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/self_hosting.md).
+Да, по лицензии Apache 2.0, включая коммерческое использование. Размещённая CMS - это необязательный платный сервис, который также можно [разместить самостоятельно](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/self_hosting.md).
 
 </Question>
 

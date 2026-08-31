@@ -492,7 +492,7 @@ Intlayer использует расширение модулей (Module Augmen
 - **`ngx-translate`** и **`Transloco`**: каталоги JSON во время выполнения, загружаемые через сервис, с переключением локали, но без типизации во время сборки.
 - **`Intlayer`**: контент, объявленный рядом с каждым компонентом и скомпилированный во время сборки, полностью типизированный, с переключением локали во время выполнения, ИИ-переводом, визуальным редактором и CMS.
 
-Обычная причина уйти с `@angular/localize` — модель одной сборки на локаль. Intlayer сохраняет единую сборку и переключает язык во время выполнения. См. [почему Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/interest_of_intlayer.md).
+Обычная причина уйти с `@angular/localize` - модель одной сборки на локаль. Intlayer сохраняет единую сборку и переключает язык во время выполнения. См. [почему Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/interest_of_intlayer.md).
 
 </Question>
 
@@ -578,7 +578,7 @@ Intlayer использует расширение модулей (Module Augmen
 
 <Question title="Является ли Intlayer бесплатным и с открытым исходным кодом?">
 
-Да, по лицензии Apache 2.0, включая коммерческое использование. Размещённая CMS — это необязательный платный сервис, который также можно [разместить самостоятельно](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/self_hosting.md).
+Да, по лицензии Apache 2.0, включая коммерческое использование. Размещённая CMS - это необязательный платный сервис, который также можно [разместить самостоятельно](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/self_hosting.md).
 
 </Question>
 

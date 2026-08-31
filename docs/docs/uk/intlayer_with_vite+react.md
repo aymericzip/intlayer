@@ -1001,3 +1001,99 @@ Intlayer використовує module augmentation, щоб отримати �
 ### Розширені можливості
 
 Щоб розширити можливості, ви можете реалізувати [візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md) або винести ваш контент, використовуючи [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md).
+
+## Часто задавані запитання
+
+<FAQ>
+
+<Question title="Які є різні рішення для інтернаціоналізації додатків Vite та React?">
+
+- **`react-i18next`**: завантаження JSON під час виконання.
+- **`react-intl`**: формат ICU.
+- **`Intlayer`**: оголошення вмісту поруч із компонентом, компіляція плагіном Vite, підтримка HMR, переклад AI та візуальний редактор.
+
+Див. [чому Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/interest_of_intlayer.md).
+
+</Question>
+
+<Question title="Скільки i18n додає до розміру бандла Vite?">
+
+Значно менше завдяки видаленню невикористаних ключів та динамічним словникам. Зменшення розміру досягає 50%. Див. [оптимізацію бандла](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/bundle_optimization.md).
+
+</Question>
+
+<Question title="Чи можу я мігрувати з react-i18next або react-intl без переписування моїх компонентів?">
+
+Так, за допомогою адаптерів сумісності або покрокових посібників з міграції.
+
+</Question>
+
+<Question title="Чи можу я зберігати мої існуючі JSON файли перекладів?">
+
+Так. [sync JSON плагін](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/plugins/sync-json.md) зберігає ваші файли `/messages/{locale}/{namespace}.json` як джерело істини та генерує словники Intlayer з них в обох напрямках. [sync PO плагін](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/plugins/sync-po.md) робить те ж саме для gettext каталогів, а [файли для окремих локалей](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/per_locale_file.md) дозволяють розділити контент за мовами замість групування всіх перекладів в один файл.
+
+</Question>
+
+<Question title="Чи потрібно переносити вміст ключ за ключем?">
+
+Ні. Запустіть `npx intlayer extract`, і Intlayer прочитає ваші вихідні файли, витягне призначені для користувача рядки і створить файл `.content` поруч із кожним компонентом, завдяки чому ви переглядаєте diff замість копіювання рядків у каталог вручну. Див. [команду extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/extract.md).
+
+Для повної автоматизації [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compiler.md) робить те саме під час збирання для коду JSX, TSX, Vue та Svelte, генеруючи словники під час кожної зміни без необхідності підтримувати ключі вручну. Оскільки він працює на основі статичного аналізу, динамічні рядки середовища виконання залишаються поза його межами.
+
+</Question>
+
+<Question title="Які інструменти для редактора та AI агентів доступні?">
+
+П'ять інструментів, усі опціональні:
+
+- **[Розширення VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/vs_code_extension.md)**: перехід від ключа `useIntlayer` до файлу контенту, вилучення рядків із компонента та запуск build, fill, test, push і pull із палітри команд або вкладки Intlayer.
+- **[LSP сервер](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/lsp.md)**: та сама функціональність у будь-якому редакторі з підтримкою LSP, включно з переходом до визначення, переглядом перекладеного значення під час наведення та автодоповненням ключів. Також підтримує виклики `i18next`, `react-i18next`, `next-intl` та `use-intl`.
+- **[MCP сервер](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/mcp_server.md)**: надає документацію та CLI Intlayer для Cursor, VS Code, Claude Desktop, Claude Code та ChatGPT.
+- **[Навички агента (Agent skills)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/agent_skills.md)**: спеціалізовані навички `intlayer-config`, `intlayer-cli` та `intlayer-content`.
+- **[Плагін ESLint](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/eslint.md)**: правило `no-raw-text` відстежує жорстко закодовані рядки.
+
+</Question>
+
+<Question title="Чи працює Intlayer із сервером розробки Vite та HMR?">
+
+Так. Плагін Vite відстежує файли `.content.ts` та оновлює словники й типи в реальному часі без перезавантаження сторінки.
+
+</Question>
+
+<Question title="Як налаштувати маршрутизацію з урахуванням локалі у Vite React SPA?">
+
+Для React Router див. [посібник із React Router v7](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_react_router_v7.md). Для SPA без маршрутизатора можна встановити `routing.mode` у `"no-prefix"` або `"search-params"`.
+
+</Question>
+
+<Question title="Як керувати SEO метаданими у додатку Vite на стороні клієнта?">
+
+Встановіть атрибути `lang` та `dir` на кореневому елементі `html` та додайте альтернативні теги `hreflang` за допомогою `getMultilingualUrls`.
+
+</Question>
+
+<Question title="Як автоматично перекласти додаток за допомогою AI?">
+
+Запустіть `npx intlayer fill`. Утиліта CLI знаходить відсутні переклади та заповнює їх за допомогою обраної LLM, використовуючи вашого власного провайдера та ключ API. Прапорець `--git-diff` обмежує операцію вмістом, зміненим у поточній гілці. Див. [команду fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/fill.md) та [інтеграцію CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/CI_CD.md).
+
+</Question>
+
+<Question title="Чи підтримує Intlayer форми множини, стать та форматований текст (rich text)?">
+
+Так: [форми множини](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/plurial.md), [контент з урахуванням статі](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/gender.md), умови, [вставки (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/insertion.md), [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/markdown.md) та [форматування](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/formatters.md) для чисел, дат і валют.
+
+</Question>
+
+<Question title="Як перекладачі можуть редагувати вміст без втручання в код?">
+
+Через [візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md), який дозволяє будь-кому редагувати тексти безпосередньо у працюючому додатку, або через [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md), яка відокремлює вміст і дозволяє оновлювати його без повторного розгортання коду.
+
+</Question>
+
+<Question title="Чи є Intlayer безкоштовним та відкритим кодом?">
+
+Так, під ліцензією Apache 2.0, включно з комерційним використанням. Хмарна CMS - це додаткова платна послуга, яку також можна [розгорнути самостійно (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/self_hosting.md).
+
+</Question>
+
+</FAQ>

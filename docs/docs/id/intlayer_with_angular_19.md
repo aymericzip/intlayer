@@ -463,3 +463,111 @@ Untuk detail lebih lanjut tentang cara menggunakan ekstensi, lihat [dokumentasi 
 Untuk melangkah lebih jauh, Anda dapat mengimplementasikan [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) atau mengeksternalisasi konten Anda menggunakan [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md).
 
 ---
+
+## Pertanyaan yang Sering Diajukan
+
+<FAQ>
+
+<Question title="Apa saja solusi berbeda yang tersedia untuk menginternasionalkan aplikasi Angular 19?">
+
+- **Bawaan `@angular/localize`**: solusi resmi Angular yang mengompilasi bundle aplikasi terpisah per bahasa.
+- **`ngx-translate`** dan **`Transloco`**: pemuatan JSON di runtime via pipe atau direktif.
+- **`Intlayer`**: integrasi langsung dengan Angular Signals, kompilasi build time, typing TypeScript lengkap, AI terjemahan, dan visual editor.
+
+Lihat [mengapa Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/interest_of_intlayer.md).
+
+</Question>
+
+<Question title="Berapa banyak i18n menambah ukuran bundle Angular saya?">
+
+Jauh lebih sedikit daripada solusi berbasis namespace, karena halaman tidak pernah mengunduh katalog yang tidak di-render. Kompilator build time mengganti panggilan `useIntlayer` dengan entri kamus persis yang digunakan komponen, dan [kamus dinamis](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dynamic_dictionaries/index.md) membagi sisanya per locale, mengurangi bundle hingga 50%. Lihat [optimasi bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/bundle_optimization.md) dan [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/index.md).
+
+</Question>
+
+<Question title="Bisakah saya bermigrasi dari ngx-translate, Transloco atau @angular/localize tanpa menulis ulang template saya?">
+
+Sebagian besar ya. Ikuti [ikhtisar adapter kompatibilitas](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/index.md). Anda juga dapat mempertahankan file JSON dengan [plugin sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/plugins/sync-json.md).
+
+</Question>
+
+<Question title="Bisakah saya menyimpan file terjemahan JSON yang sudah ada?">
+
+Ya. Plugin [sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/plugins/sync-json.md) menjaga file `/messages/{locale}/{namespace}.json` Anda sebagai sumber kebenaran dan menghasilkan kamus Intlayer darinya, di kedua arah. Plugin [sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/plugins/sync-po.md) melakukan hal yang sama untuk katalog gettext, dan [file per locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/per_locale_file.md) memungkinkan Anda membagi konten berdasarkan bahasa daripada mengelompokkan lokal dalam satu file.
+
+</Question>
+
+<Question title="Apakah saya harus memindahkan konten saya key by key?">
+
+Tidak. Jalankan `npx intlayer extract` dan Intlayer membaca file Anda, mengeluarkan string yang dihadapi pengguna, dan menulis file `.content` di sebelah masing-masing, sehingga Anda meninjau diff alih-alih menyalin string ke dalam katalog satu per satu. Lihat [perintah extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/extract.md).
+
+Untuk proses otomatis penuh, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md) melakukan hal yang sama saat build time dan menghasilkan kamus pada setiap perubahan.
+
+</Question>
+
+<Question title="Apa tooling editor dan agen AI yang tersedia?">
+
+Lima bagian, semuanya opsional:
+
+- **[Ekstensi VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/vs_code_extension.md)**: lompat dari kunci `useIntlayer` ke file konten yang mendeklarasikannya, ekstrak konten dari komponen, dan jalankan build, fill, test, push dan pull dari command palette atau tab Intlayer.
+- **[Server LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/lsp.md)**: pengalaman yang sama di editor mana pun yang mendukung LSP, dengan go to definition, hover preview dari nilai terjemahan, autocompletion kunci, dan peringatan ketika kunci tidak dideklarasikan. Ini juga menyelesaikan panggilan `i18next`, `react-i18next`, `next-intl` dan `use-intl`.
+- **[Server MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/mcp_server.md)**: mengekspos dokumentasi Intlayer dan CLI ke Cursor, VS Code, Claude Desktop, Claude Code dan ChatGPT.
+- **[Agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/agent_skills.md)**: keahlian terfokus seperti `intlayer-config`, `intlayer-cli` dan `intlayer-content`.
+- **[Plugin ESLint](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/eslint.md)**: aturan `no-raw-text` menandai string hardcoded.
+
+</Question>
+
+<Question title="Apakah Intlayer bekerja dengan sinyal Angular (Signals) dan Standalone Components?">
+
+Ya. Paket `angular-intlayer` menyediakan provider `provideIntlayer()` untuk `ApplicationConfig` dan signal `useIntlayer` yang memperbarui template secara instan saat bahasa berubah.
+
+</Question>
+
+<Question title="Apakah pergantian bahasa memerlukan reload halaman?">
+
+Tidak. Signal Intlayer reaktif, sehingga peralihan bahasa memperbarui UI secara langsung sambil mempertahankan input formulir dan posisi scroll.
+
+</Question>
+
+<Question title="Bagaimana cara mengatur routing dengan locale di Angular?">
+
+Tambahkan prefix `:locale` ke rute dan gunakan route guard untuk menyinkronkan bahasa. Pengaturan `routing.mode` mendefinisikan skema URL.
+
+</Question>
+
+<Question title="Bagaimana cara menangani bahasa dari kanan ke kiri di Angular?">
+
+Gunakan `getHTMLTextDir` untuk menentukan arah teks (`ltr` atau `rtl`) berdasarkan locale aktif, dan ikat ke atribut `dir` pada elemen root.
+
+</Question>
+
+<Question title="Bagaimana cara mengelola metadata SEO dan tag hreflang?">
+
+Gunakan service `Title` dan `Meta` Angular bersama dengan `getMultilingualUrls` untuk memetakan alternatif bahasa.
+
+</Question>
+
+<Question title="Bagaimana cara menerjemahkan aplikasi secara otomatis dengan AI?">
+
+Jalankan `npx intlayer fill`. Perintah ini mengisi terjemahan yang hilang menggunakan LLM pilihan Anda dengan provider dan API key Anda sendiri, dan `--git-diff` membatasi proses ke file yang diubah. Lihat [perintah fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/fill.md) dan [integrasi CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/CI_CD.md).
+
+</Question>
+
+<Question title="Apakah Intlayer mendukung bentuk jamak, gender dan rich text?">
+
+Ya: [bentuk jamak (plurals)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/plurial.md), [konten berbasis gender](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/gender.md), kondisi, [penyisipan (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/insertion.md), dan [formatter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/formatters.md) untuk angka, tanggal, dan mata uang.
+
+</Question>
+
+<Question title="Bagaimana penerjemah dapat mengedit konten tanpa menyentuh kode?">
+
+Melalui [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md), yang memungkinkan siapa saja mengedit teks langsung di aplikasi yang berjalan, atau melalui [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md), yang memisahkan konten sehingga dapat diubah tanpa perlu redeploy kode.
+
+</Question>
+
+<Question title="Apakah Intlayer gratis dan open source?">
+
+Ya, di bawah lisensi Apache 2.0, termasuk penggunaan komersial. CMS yang di-host adalah layanan berbayar opsional yang juga dapat [di-host sendiri (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/self_hosting.md).
+
+</Question>
+
+</FAQ>

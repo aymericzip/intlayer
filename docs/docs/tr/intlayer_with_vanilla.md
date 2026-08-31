@@ -481,3 +481,111 @@ Uzantının nasıl kullanılacağına ilişkin daha fazla ayrıntı için [Intla
 ### Daha İleri Gidin
 
 Daha ileri gitmek için [görsel düzenleyiciyi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) uygulayabilir veya [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) kullanarak içeriğinizi dışsallaştırabilirsiniz.
+
+## Sıkça Sorulan Sorular
+
+<FAQ>
+
+<Question title="Intlayer'ı bir paketleyici veya framework olmadan kullanabilir miyim?">
+
+Evet. Bu kılavuz bunu açıklar. `vanilla-intlayer` paketini HTML içine doğrudan ekler, başlatır ve içeriği `useIntlayer` veya `getIntlayer` ile okursunuz.
+
+</Question>
+
+<Question title="i18n sayfa ağırlığıma ne kadar ekler?">
+
+Çalışma zamanı kataloglarına kıyasla çok daha az, çünkü sayfa asla render etmediği bir dili indirmez. İçerik optimize formatlarda sunulur. Bkz. [paket optimizasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md).
+
+</Question>
+
+<Question title="i18next'ten komut dosyalarımı yeniden yazmadan geçiş yapabilir miyim?">
+
+Büyük ölçüde evet. [i18next geçiş kılavuzunu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_i18next_to_intlayer.md) izleyin.
+
+</Question>
+
+<Question title="Mevcut JSON çeviri dosyalarımı koruyabilir miyim?">
+
+Evet. [sync JSON eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-json.md), `/messages/{locale}/{namespace}.json` dosyalarınızı doğruluk kaynağı olarak tutar ve her iki yönde Intlayer sözlükleri üretir. [sync PO eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-po.md) gettext katalogları için aynısını yapar ve [yerel başına dosyalar](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/per_locale_file.md), yerelleri tek bir dosyada gruplamak yerine içeriği dile göre ayırmanıza olanak tanır.
+
+</Question>
+
+<Question title="İçeriğimi anahtar anahtar taşımak zorunda mıyım?">
+
+Hayır. `npx intlayer extract` komutunu çalıştırın; Intlayer kaynak dosyalarınızı okur, kullanıcıya dönük dizeleri çıkarır ve her birinin yanına bir `.content` dosyası yazar, böylece dizeleri tek tek kopyalamak yerine bir diff incelersiniz. Bkz. [extract komutu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/extract.md).
+
+Tam otomatik bir akış için [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md) derleme sırasında aynı işlemi yapar ve sözlükleri her değişiklikte otomatik üretir.
+
+</Question>
+
+<Question title="Hangi editör ve AI aracı araçları mevcuttur?">
+
+Beş araç, hepsi isteğe bağlı:
+
+- **[VS Code eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/vs_code_extension.md)**: bir `useIntlayer` anahtarından onu tanımlayan içerik dosyasına atlayın, bileşenden içerik çıkarın ve komut paletinden build, fill, test, push ve pull komutlarını çalıştırın.
+- **[LSP sunucusu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/lsp.md)**: LSP destekleyen tüm editörlerde tanıma gitme, tüm referansları bulma, çevrilmiş değerlerin fareyle üzerine gelindiğinde önizlemesi ve otomatik tamamlama. `i18next`, `react-i18next`, `next-intl` ve `use-intl` çağrılarını da çözer.
+- **[MCP sunucusu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/mcp_server.md)**: Intlayer dokümantasyonunu ve CLI'sini Cursor, VS Code, Claude Desktop, Claude Code ve ChatGPT'ye sunar.
+- **[Ajan becerileri (Agent skills)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/agent_skills.md)**: `intlayer-config`, `intlayer-cli` ve `intlayer-content` gibi odaklanmış beceriler.
+- **[ESLint eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/eslint.md)**: `no-raw-text` kuralı doğrudan kodlanmış metinleri işaretler.
+
+</Question>
+
+<Question title="Düz bir JavaScript sitesini uluslararasılaştırmak için hangi farklı çözümler mevcuttur?">
+
+- **Elle yazılmış sözlük nesnesi**: tip denetimi ve araç desteği yok.
+- **`i18next`**: çalışma zamanı sözlüklerine sahip genel amaçlı kütüphane.
+- **`Intlayer`**: içerik dosyalarında bildirim, derleme zamanı derlemesi, tipler, görsel düzenleyici ve CMS sunan modern çözüm.
+
+Bkz. [neden Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/interest_of_intlayer.md).
+
+</Question>
+
+<Question title="Çeviriyi nasıl okur ve DOM'a nasıl yerleştiririm?">
+
+`useIntlayer` fonksiyonunu sözlük anahtarınızla çağırın ve adım 6'nın gösterdiği gibi değeri DOM düğümüne kendiniz atayın.
+
+</Question>
+
+<Question title="Ziyaretçinin dili nasıl algılanır?">
+
+`routing.storage` içinde listelenen kaynaklardan: genellikle önce bir çerez, ardından `Accept-Language` başlığı ve son olarak varsayılan dil. Bkz. [yapılandırma referansı](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md).
+
+</Question>
+
+<Question title="Arapça veya İbranice gibi sağdan sola dilleri nasıl desteklerim?">
+
+Adım 8 bunu kapsar. `getHTMLTextDir` yerel için `ltr`, `rtl` veya `auto` döndürür; böylece `html` veya `body` öğesinde `lang` ve `dir` ayarlarsınız.
+
+</Question>
+
+<Question title="Ziyaretçiler her dili indirir mi?">
+
+İstemiyorsanız hayır. Adım 9 yerel başına sözlüklerin gecikmeli yüklenmesini (lazy loading) kapsar, böylece sayfa yalnızca aktif dili yükler.
+
+</Question>
+
+<Question title="Uygulamayı AI ile otomatik olarak nasıl çevirebilirim?">
+
+`npx intlayer fill` komutunu çalıştırın. Eksik çevirileri seçtiğiniz LLM ile kendi sağlayıcınız ve API anahtarınızı kullanarak tamamlar ve `--git-diff` işlemi daldaki değişikliklerle sınırlar. Bkz. [fill komutu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/fill.md) ve [CI/CD entegrasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/CI_CD.md).
+
+</Question>
+
+<Question title="Intlayer çoğulları, cinsiyeti ve zengin metni (rich text) destekliyor mu?">
+
+Evet: [çoğul biçimleri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/plurial.md), [cinsiyete dayalı içerik](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/gender.md), koşullar, [eklemeler (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/insertion.md) ve [biçimlendiriciler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/formatters.md).
+
+</Question>
+
+<Question title="Çevirmenler koda dokunmadan içeriği nasıl düzenleyebilir?">
+
+Kendi altyapınızda çalışan ve herkesin metinleri çalışan uygulamada yerinde düzenlemesine olanak tanıyan [görsel düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) veya içeriği kod dağıtımı olmadan güncellenebilecek şekilde dışsallaştıran [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) aracılığıyla.
+
+</Question>
+
+<Question title="Intlayer ücretsiz ve açık kaynaklı mı?">
+
+Evet, ticari kullanım dahil Apache 2.0 lisansı altındadır. Barındırılan CMS isteğe bağlı ücretli bir hizmettir ve ayrıca [kendi sunucunuzda barındırılabilir (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/self_hosting.md).
+
+</Question>
+
+</FAQ>

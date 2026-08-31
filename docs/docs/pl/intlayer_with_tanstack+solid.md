@@ -1176,3 +1176,120 @@ Aby pójść dalej, możesz zaimplementować [edytor wizualny](https://github.co
 - [Hook useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/solid-intlayer/useLocale.md)
 - [Deklaracja Treści](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/content_file.md)
 - [Konfiguracja](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md)
+
+## Często Zadawane Pytania
+
+<FAQ>
+
+<Question title="Jakie są różne rozwiązania dostępne do internacjonalizacji aplikacji TanStack Start i Solid?">
+
+TanStack Start nie dostarcza własnej warstwy i18n, a ekosystem Solid ma ograniczone opcje:
+
+- **`@solid-primitives/i18n`**: płaski słownik bez wsparcia dla SSR TanStack Start i bez typowania.
+- **`Intlayer`**: najbardziej zaawansowane rozwiązanie. Treści deklarowane w dowolnym miejscu bazy kodu ([obok każdego komponentu lub centralnie](https://intlayer.org/blog/per-component-vs-centralized-i18n)) i kompilowane w czasie budowy, w pełni typowane, z tłumaczeniem AI, edytorem wizualnym i systemem CMS.
+
+W TanStack Start i Solid Intlayer łączy SSR, prerenderowanie i sygnały Solid w spójną całość. Zobacz [dlaczego Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/interest_of_intlayer.md).
+
+</Question>
+
+<Question title="O ile i18n zwiększa rozmiar mojego bundle'a w TanStack Start?">
+
+Znacznie mniej niż rozwiązania oparte na przestrzeniach nazw, ponieważ strona nigdy nie pobiera katalogu, którego nie renderuje. Kompilator czasu budowy zastępuje wywołania `useIntlayer` dokładnymi wpisami ze słownika, których używa komponent, dzięki czemu nieużywane klucze i nieużywane języki są usuwane, a [słowniki dynamiczne](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dynamic_dictionaries/index.md) dzielą resztę na poszczególne języki. W porównaniu z typowymi alternatywami, Intlayer zmniejsza rozmiar bundle'a i strony nawet o 50%. Zobacz [optymalizację bundle'a](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/bundle_optimization.md) oraz [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/index.md).
+
+</Question>
+
+<Question title="Czy mogę zmigrować z @solid-primitives/i18n lub i18next bez przepisywania moich komponentów?">
+
+W znacznej mierze tak. Postępuj zgodnie z [przewodnikiem migracji z i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/migration_from_i18next_to_intlayer.md). Możesz także migrować stopniowo: [wtyczka synchronizacji JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/plugins/sync-json.md) utrzymuje Twoje istniejące pliki JSON jako źródło prawdy i generuje z nich słowniki Intlayer.
+
+</Question>
+
+<Question title="Czy mogę zachować moje istniejące pliki tłumaczeń JSON?">
+
+Tak. Wtyczka [sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/plugins/sync-json.md) utrzymuje Twoje pliki `/messages/{locale}/{namespace}.json` jako źródło prawdy i generuje z nich słowniki Intlayer w obu kierunkach. Wtyczka [sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/plugins/sync-po.md) robi to samo dla katalogów gettext, a [pliki per locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/per_locale_file.md) pozwalają rozdzielić zawartość według języka zamiast grupować lokalizacje w jednym pliku.
+
+</Question>
+
+<Question title="Czy muszę przenosić moją zawartość klucz po kluczu?">
+
+Nie. Uruchom `npx intlayer extract`, a Intlayer odczyta Twoje komponenty, wyodrębni ciągi widoczne dla użytkownika i utworzy plik `.content` obok każdego z nich, dzięki czemu przeglądasz diff zamiast ręcznie kopiować ciągi do katalogu pojedynczo.
+
+W przypadku w pełni zautomatyzowanego procesu [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compiler.md) robi to samo w czasie budowania: skanuje kod JSX, TSX, Vue i Svelte przy każdej zmianie, generuje słowniki i utrzymuje je w synchronizacji za pośrednictwem hot module replacement, dzięki czemu nie trzeba w ogóle ręcznie utrzymywać kluczy.
+
+Warto pamiętać o dwóch ograniczeniach przed włączeniem kompilatora. Działa on w oparciu o analizę statyczną, więc ciągi tekstowe istniejące tylko w czasie wykonywania, takie jak kody błędów API czy pola z CMS, pozostają poza jego zasięgiem. Musi on także odróżnić tekst dla użytkownika od logiki aplikacji, takiej jak `className="active"` czy kod stanu, co w dużej bazie kodu wymaga kilku adnotacji. Polecenie [extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/extract.md) unika obu tych problemów, pozostawiając Ci pełną kontrolę.
+
+</Question>
+
+<Question title="Jakie narzędzia dla edytora i agentów AI są dostępne?">
+
+Pięć narzędzi, wszystkie opcjonalne:
+
+- **[Rozszerzenie VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/vs_code_extension.md)**: przejście od klucza `useIntlayer` do pliku treści, który go deklaruje, wyodrębnianie treści z komponentu oraz uruchamianie build, fill, test, push i pull z palety poleceń lub dedykowanej karty Intlayer.
+- **[Serwer LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/lsp.md)**: taka sama świadomość w dowolnym edytorze obsługującym LSP, z funkcjami przejdź do definicji (go to definition), znajdź wszystkie referencje, podglądem przetłumaczonej wartości po najechaniu kursorem, autouzupełnianiem kluczy i pól oraz ostrzeżeniem, gdy klucz nie jest nigdzie zadeklarowany. Rozpoznaje również wywołania `i18next`, `react-i18next`, `next-intl` i `use-intl`, co ułatwia migrację.
+- **[Serwer MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/mcp_server.md)**: udostępnia dokumentację i CLI Intlayer dla Cursor, VS Code, Claude Desktop, Claude Code i ChatGPT, dzięki czemu asystent odpowiada na podstawie aktualnej dokumentacji zamiast zgadywać i może samodzielnie wykonywać polecenia, takie jak `intlayer fill`.
+- **[Umiejętności agenta (Agent skills)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/agent_skills.md)**: wyspecjalizowane umiejętności, takie jak `intlayer-config`, `intlayer-cli` i `intlayer-content`, oraz po jednej dla każdego frameworka, które uczą agenta konfiguracji routingu i typów węzłów treści.
+- **[Wtyczka ESLint](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/eslint.md)**: reguła `no-raw-text` oznacza zakodowane na stałe ciągi tekstowe, z dodatkowymi regułami dla statycznych kluczy słownika i nieużywanej zawartości.
+
+</Question>
+
+<Question title="Czy Intlayer obsługuje renderowanie po stronie serwera (SSR) i prerenderowanie?">
+
+Tak. Treść jest rozwiązywana podczas SSR, a krok 16 opisuje konfigurację prerenderowania, która generuje statyczny dokument na każdy język.
+
+</Question>
+
+<Question title="Czy zmiana lokalizacji powoduje ponowne wyrenderowanie całej aplikacji?">
+
+Nie. Treść jest obsługiwana przez sygnały Solid, więc przełączenie języka aktualizuje tylko węzły DOM, które czytają zmienione wartości, bez przebudowywania drzewa komponentów.
+
+</Question>
+
+<Question title="Jak dodać tagi hreflang i zlokalizowaną mapę witryny?">
+
+Użyj wbudowanej funkcji `generateSitemap` w trasie `src/routes/sitemap[.]xml.ts`. Emituje ona przestrzeń nazw `xhtml:link` dla każdego zadeklarowanego języka, co pozwala wyszukiwarkom poprawnie indeksować zlokalizowane strony.
+
+</Question>
+
+<Question title="Jak obsługiwać strony 404 na zlokalizowanych trasach?">
+
+Krok 14 to opisuje. Funkcja `validatePrefix` sprawdza, czy segment języka w adresie URL jest zadeklarowanym językiem, zapobiegając renderowaniu błędnych stron.
+
+</Question>
+
+<Question title="Czy muszę umieszczać lokalizację w adresie URL?">
+
+Nie. Opcja `routing.mode` przyjmuje `"prefix-no-default"` (domyślnie), `"prefix-all"`, `"no-prefix"` oraz `"search-params"`, a opcja `routing.domains` pozwala przypisać każdy język do własnej domeny. Zobacz [dokumentację konfiguracji](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md).
+
+</Question>
+
+<Question title="Jak zbudować przełącznik języka, który pozostaje na bieżącej trasie?">
+
+Krok 9 przedstawia komponent. Hook `useLocale` udostępnia aktywny język, dostępne języki oraz setter, który zapisuje zmianę i aktualizuje trasę za pomocą `getLocalizedUrl`.
+
+</Question>
+
+<Question title="Jak automatycznie przetłumaczyć aplikację za pomocą AI?">
+
+Uruchom `npx intlayer fill`. Narzędzie CLI wykrywa brakujące tłumaczenia i uzupełnia je za pomocą wybranego modelu LLM, korzystając z Twojego dostawcy i klucza API. Flaga `--git-diff` ogranicza operację do treści zmienionych na bieżącej gałęzi. Zobacz [polecenie fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/fill.md) oraz [integrację CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/CI_CD.md).
+
+</Question>
+
+<Question title="Czy Intlayer obsługuje formy mnogie, płeć i sformatowany tekst (rich text)?">
+
+Tak: [formy mnogie](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/plurial.md), [treści zależne od płci](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/gender.md), warunki, [wstawki (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/insertion.md), [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/markdown.md) oraz [formatowania](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/formatters.md) dla liczb, dat i walut.
+
+</Question>
+
+<Question title="Jak tłumacze mogą edytować treść bez dotykania kodu?">
+
+Za pośrednictwem [edytora wizualnego](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md), który działa na Twojej własnej infrastrukturze i pozwala każdemu edytować tekst bezpośrednio w działającej aplikacji, lub systemu [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md), który wyodrębnia treść, dzięki czemu może być zmieniana bez konieczności ponownego wdrażania.
+
+</Question>
+
+<Question title="Czy Intlayer jest darmowy i open source?">
+
+Tak, na licencji Apache 2.0, włączając zastosowania komercyjne. Hostowany CMS to opcjonalna płatna usługa, którą można również [hostować samodzielnie (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/self_hosting.md).
+
+</Question>
+
+</FAQ>

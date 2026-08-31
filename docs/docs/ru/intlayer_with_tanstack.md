@@ -1273,13 +1273,13 @@ export const Route = createFileRoute("/sitemap.xml")({
 
 <Question title="Какие существуют решения для интернационализации приложения TanStack Start?">
 
-TanStack Start не поставляется с собственным слоем i18n, поэтому выбор — это библиотека:
+TanStack Start не поставляется с собственным слоем i18n, поэтому выбор - это библиотека:
 
 - **`i18next` / `react-i18next`** и **`react-intl`**: независимые от фреймворка каталоги сообщений, вручную подключённые к маршрутизатору.
 - **`Lingui`**: сообщения ICU с этапом компиляции.
 - **`Intlayer`**: контент, объявленный рядом с каждым компонентом и скомпилированный во время сборки, с типизированными ключами, маршрутизацией с учётом локали, генерацией карты сайта, ИИ-переводом, визуальным редактором и CMS.
 
-Разница, которая важна в TanStack Start, — это маршрутизация и серверный рендеринг. Intlayer интегрируется с маршрутизатором на основе файлов, функцией `head` и этапом пре-рендеринга, вместо того чтобы оставлять вам сборку провайдера, детектора локали и карты сайта вручную. См. [почему Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/interest_of_intlayer.md) и [бенчмарк i18n для TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/tanstack.md).
+Разница, которая важна в TanStack Start, - это маршрутизация и серверный рендеринг. Intlayer интегрируется с маршрутизатором на основе файлов, функцией `head` и этапом пре-рендеринга, вместо того чтобы оставлять вам сборку провайдера, детектора локали и карты сайта вручную. См. [почему Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/interest_of_intlayer.md) и [бенчмарк i18n для TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/tanstack.md).
 
 </Question>
 
@@ -1291,7 +1291,7 @@ TanStack Start не поставляется с собственным слое�
 
 <Question title="Могу ли я мигрировать с `react-i18next` или `react-intl`, не переписывая свои компоненты?">
 
-Да, и есть два пути. Вы можете мигрировать контент постепенно с помощью [руководства по миграции с react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/migration_from_react-i18next_to_intlayer.md) или [руководства по миграции с i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/migration_from_i18next_to_intlayer.md). Или вы можете полностью сохранить свой текущий API: [адаптеры совместимости](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/index.md) предоставляют точно такой же API, как `react-i18next`, `react-intl` и `i18next`, но обслуживаемый словарями Intlayer, поэтому меняются импорты, а код компонентов — нет.
+Да, и есть два пути. Вы можете мигрировать контент постепенно с помощью [руководства по миграции с react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/migration_from_react-i18next_to_intlayer.md) или [руководства по миграции с i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/migration_from_i18next_to_intlayer.md). Или вы можете полностью сохранить свой текущий API: [адаптеры совместимости](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/index.md) предоставляют точно такой же API, как `react-i18next`, `react-intl` и `i18next`, но обслуживаемый словарями Intlayer, поэтому меняются импорты, а код компонентов - нет.
 
 </Question>
 
@@ -1373,7 +1373,7 @@ TanStack Start не поставляется с собственным слое�
 
 <Question title="Является ли Intlayer бесплатным и с открытым исходным кодом?">
 
-Да, по лицензии Apache 2.0, включая коммерческое использование. Размещённая CMS — это необязательный платный сервис, который также можно [разместить самостоятельно](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/self_hosting.md).
+Да, по лицензии Apache 2.0, включая коммерческое использование. Размещённая CMS - это необязательный платный сервис, который также можно [разместить самостоятельно](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/self_hosting.md).
 
 </Question>
 

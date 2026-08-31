@@ -275,3 +275,117 @@ Khuyến nghị bạn nên bỏ qua các tệp được tạo bởi Intlayer. Đ
 # Bỏ qua các tệp được tạo bởi Intlayer
 .intlayer
 ```
+
+## Các Câu Hỏi Thường Gặp
+
+<FAQ>
+
+<Question title="Những giải pháp khác nhau nào có sẵn để quốc tế hóa ứng dụng Express?">
+
+- **`i18next` / `i18next-http-middleware`**: giải pháp runtime phổ biến dùng các tệp JSON.
+- **Từ điển thủ công**: không có kiểu dữ liệu hay công cụ tự động hóa.
+- **`Intlayer`**: middleware `express-intlayer`, kiểu dữ liệu TypeScript đầy đủ, dịch thuật AI, CMS và từ điển dùng chung với frontend.
+
+Xem [lý do chọn Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/interest_of_intlayer.md).
+
+</Question>
+
+<Question title="i18n làm tăng kích thước bundle server Express của tôi bao nhiêu?">
+
+Ít hơn nhiều so với các catalog JSON thông thường. Compiler của Intlayer tối ưu hóa từ điển tại thời điểm build và không phân tích lại từ điển trên mỗi request, giúp duy trì mức sử dụng bộ nhớ và thời gian khởi động nguội (cold start) tối thiểu. Xem [tối ưu hóa bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/bundle_optimization.md).
+
+</Question>
+
+<Question title="Tôi có thể di chuyển từ i18next hoặc các thư viện backend khác mà không cần viết lại handler không?">
+
+Có. Bạn có thể di chuyển dần dần hoặc sử dụng adapter tương thích để giữ nguyên API hiện tại.
+
+</Question>
+
+<Question title="Tôi có thể giữ các tệp dịch JSON hiện có của mình không?">
+
+Có. Plugin [sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/plugins/sync-json.md) giữ cho các tệp `/messages/{locale}/{namespace}.json` của bạn là nguồn sự thật duy nhất và tạo các từ điển Intlayer từ chúng theo cả hai hướng. Plugin [sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/plugins/sync-po.md) làm điều tương tự cho các catalog gettext, và [các tệp theo locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/per_locale_file.md) cho phép bạn chia nội dung theo ngôn ngữ thay vì nhóm các locale trong một tệp.
+
+</Question>
+
+<Question title="Tôi có phải di chuyển nội dung từng khóa một không?">
+
+Không. Chạy `npx intlayer extract` và Intlayer sẽ đọc các tệp nguồn của bạn, trích xuất các chuỗi dành cho người dùng và tạo tệp `.content` bên cạnh mỗi tệp, nhờ đó bạn xem lại diff thay vì sao chép chuỗi vào catalog thủ công. Xem [lệnh extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/extract.md).
+
+Để tự động hóa hoàn toàn, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md) thực hiện việc tương tự trong quá trình build và tạo từ điển trên mỗi thay đổi.
+
+</Question>
+
+<Question title="Có những công cụ editor và AI agent nào có sẵn?">
+
+Năm công cụ, tất cả đều là tùy chọn:
+
+- **[VS Code extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/vs_code_extension.md)**: nhảy từ khóa đến tệp nội dung, trích xuất chuỗi và chạy build, fill, test, push và pull từ command palette.
+- **[LSP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/lsp.md)**: go to definition, xem trước giá trị bản dịch khi hover, và tự động hoàn thành khóa trong bất kỳ trình soạn thảo nào hỗ trợ LSP. Cũng xử lý các lệnh gọi `i18next`.
+- **[MCP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/mcp_server.md)**: cung cấp tài liệu và CLI Intlayer cho Cursor, VS Code, Claude Desktop, Claude Code và ChatGPT.
+- **[Agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/agent_skills.md)**: các kỹ năng chuyên biệt như `intlayer-config`, `intlayer-cli` và `intlayer-content`.
+- **[ESLint plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/eslint.md)**: quy tắc `no-raw-text` phát hiện các chuỗi chưa được bản địa hóa.
+
+</Question>
+
+<Question title="Ngôn ngữ của client được phát hiện như thế nào trong các request gửi đến?">
+
+Middleware `app.use(intlayer())` tuần tự kiểm tra tiền tố URL, cookie, tiêu đề `Accept-Language`, và trở về ngôn ngữ mặc định. Locale được phát hiện sẽ lưu trong `req.locale`.
+
+</Question>
+
+<Question title="Cùng một khai báo nội dung có thể phục vụ cả phản hồi API và frontend web của tôi không?">
+
+Có, trong monorepo hoặc gói dùng chung, đây là ưu điểm vượt trội. Từ điển được khai báo có thể được import ở backend (email, thông báo lỗi, phản hồi API) và frontend (React, Vue, Svelte, v.v.), duy trì một nguồn sự thật duy nhất cho toàn bộ văn bản.
+
+</Question>
+
+<Question title="Intlayer có làm chậm quá trình xử lý request không?">
+
+Không. Việc phát hiện ngôn ngữ được thực hiện trong middleware cực kỳ nhẹ (đọc cookie, query param hoặc header Accept-Language). Các từ điển đã được biên dịch sẵn tại thời điểm build và nằm trong bộ nhớ, do đó không có thao tác đọc đĩa hay phân tích chuỗi khi có request đến.
+
+</Question>
+
+<Question title="Làm cách nào để bản địa hóa thông báo lỗi, email và thông báo đẩy (push notifications)?">
+
+Bằng cách gọi hàm `getIntlayer` hoặc `t()` dựa trên locale của request. Nếu ngôn ngữ người dùng được lưu trong cơ sở dữ liệu, hàm có thể được gọi với locale đích rõ ràng cho các tác vụ nền ngoài request.
+
+</Question>
+
+<Question title="Tôi có thể sử dụng bộ phát hiện ngôn ngữ tùy chỉnh không?">
+
+Có. Bạn có thể viết middleware tùy chỉnh để trích xuất locale từ phiên đăng nhập hoặc hồ sơ cơ sở dữ liệu người dùng và gán cho `req.locale`.
+
+</Question>
+
+<Question title="Làm cách nào để sử dụng tiền tố URL được bản địa hóa trong các tuyến đường Express?">
+
+Thông qua tùy chọn định tuyến của Intlayer hoặc thêm phân đoạn `/:locale/` vào các tuyến của bạn. `validatePrefix` xác thực các ngôn ngữ hợp lệ.
+
+</Question>
+
+<Question title="Làm cách nào tôi có thể dịch ứng dụng tự động bằng AI?">
+
+Chạy `npx intlayer fill`. Lệnh này điền các bản dịch còn thiếu bằng LLM bạn chọn sử dụng provider và API key của riêng bạn, và `--git-diff` giới hạn thao tác ở các tệp đã thay đổi. Xem [lệnh fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/fill.md) và [tích hợp CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/CI_CD.md).
+
+</Question>
+
+<Question title="Intlayer có hỗ trợ dạng số nhiều, giới tính và rich text không?">
+
+Có: [dạng số nhiều (plurals)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/plurial.md), [nội dung dựa trên giới tính](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/gender.md), điều kiện, [chèn (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/insertion.md), và [định dạng](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/formatters.md).
+
+</Question>
+
+<Question title="Làm thế nào các thành viên không chuyên kỹ thuật có thể chỉnh sửa mẫu email và thông báo lỗi mà không cần chạm vào mã?">
+
+Có hai cách: [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md), giúp tách biệt nội dung khỏi codebase và cho phép chỉnh sửa văn bản qua giao diện web, hoặc [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md), giúp lưu thay đổi trực tiếp vào các tệp mã nguồn cục bộ.
+
+</Question>
+
+<Question title="Intlayer có phải là mã nguồn mở và miễn phí không?">
+
+Có, theo giấy phép Apache 2.0, bao gồm cả mục đích thương mại. CMS lưu trữ trên đám mây là một dịch vụ trả phí tùy chọn và cũng có thể [tự lưu trữ (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/self_hosting.md).
+
+</Question>
+
+</FAQ>

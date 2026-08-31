@@ -704,3 +704,112 @@ bun run build # Or bun run dev
 ### تعمق أكثر
 
 إذا كنت تريد معرفة المزيد، يمكنك أيضًا تنفيذ [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) أو استخدام [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md) لإخراج محتواك خارجيًا.
+
+## الأسئلة الشائعة
+
+<FAQ>
+
+<Question title="ما هي الحلول المختلفة المتاحة لتدويل موقع Astro مع جزر Lit؟">
+
+يتعامل خيار `i18n` المدمج في Astro مع البادئات وإعادة التوجيه ولكنه لا يدير المحتوى. يطرح إضافة الجزر تحديًا إضافيًا: الجزر لا تشغل Astro بل تشغل Lit.
+
+- **Astro `i18n` بالإضافة إلى قواميس مخصصة**، وفي الجزر استخدام **`@lit/localize`**: مصدران منفصلان للمحتوى دون أنواع مشتركة.
+- **`Intlayer`**: طبقة محتوى موحدة واحدة لكليهما. يخدم `astro-intlayer` صفحات `.astro`، ويقرأ `lit-intlayer` نفس الإعلان لجزر Lit.
+
+تعد القدرة على التصريح بالسلاسل مرة واحدة واستخدامها في كل من الصفحات الثابتة والجزر التفاعلية السبب الرئيسي لاختيار طبقة محتوى موحدة. انظر [لماذا Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/interest_of_intlayer.md).
+
+</Question>
+
+<Question title="كم يضيف i18n إلى حجم حزمة Astro لدي؟">
+
+أقل بكثير من الحلول المعتمدة على فضاءات الأسماء، لأن الصفحة لا تُحمل أبدًا كتالوجًا لا تعرضه. تُعرض صفحات Astro في وقت البناء، لذلك يتم إرسال كود HTML المترجم فقط دون أي قواميس إضافية؛ تتلقى مكونات الجزر التفاعلية فقط القواميس. تقسم [القواميس الديناميكية](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dynamic_dictionaries/index.md) المحتوى حسب اللغة، مما يقلل الحزمة بنسبة تصل إلى 50%. انظر [تحسين الحزم](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md) و [المقارنة المعيارية](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/index.md).
+
+</Question>
+
+<Question title="هل يمكنني الترحيل من `@lit/localize` دون إعادة كتابة المكونات؟">
+
+إلى حد كبير نعم. اتبع [دليل الترحيل](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/index.md). يمكنك أيضًا الترحيل تدريجيًا: تحافظ [مكونة مزامنة JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/plugins/sync-json.md) على كتالوجات JSON كمصدر للحقيقة وتنشئ قواميس Intlayer.
+
+</Question>
+
+<Question title="هل يمكنني الاحتفاظ بملفات الترجمة JSON الموجودة لدي؟">
+
+نعم. تحافظ [مكونة مزامنة JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/plugins/sync-json.md) على ملفات `/messages/{locale}/{namespace}.json` الخاصة بك كمصدر الحقيقة وتُنشئ قواميس Intlayer منها، في كلا الاتجاهين. وتقوم [مكونة مزامنة PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/plugins/sync-po.md) بنفس الشيء لكتالوجات gettext، وتسمح لك [الملفات المقسمة حسب اللغة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/per_locale_file.md) بتقسيم المحتوى حسب اللغة بدلاً من تجميع كل اللغات في ملف واحد.
+
+</Question>
+
+<Question title="هل يجب أن أنقل المحتوى الخاص بي مفتاحًا تلو الآخر؟">
+
+لا. قم بتشغيل `npx intlayer extract` وسيقرأ Intlayer ملفاتك، ويسحب السلاسل النصية الموجهة للمستخدم، ويكتب ملف `.content` بجانب كل منها، حتى تراجع diff بدلاً من نسخ السلاسل إلى كتالوج يدويًا. تشرح الخطوة 15 من هذا الدليل ذلك بالتفصيل.
+
+لأتمتة كاملة، يقوم [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md) بالشيء نفسه في وقت البناء: يمسح الكود عند كل تغيير، وينشئ القواميس ويزامنها مع HMR.
+
+</Question>
+
+<Question title="ما هي أدوات المحررات والوكلاء الذكيين المتاحة؟">
+
+خمس أدوات، كلها اختيارية:
+
+- **[امتداد VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/vs_code_extension.md)**: الانتقال من مفتاح `useIntlayer` إلى ملف المحتوى المصرح به، استخراج المحتوى من المكون، وتشغيل build و fill و test و push و pull من لوحة الأوامر أو علامة تبويب Intlayer.
+- **[خادم LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/lsp.md)**: نفس التجربة في أي محرر يدعم LSP، مع الانتقال إلى التعريف وعروض القيمة المترجمة عند التمرير والإكمال التلقائي للمفاتيح. يدعم أيضًا استدعاءات `i18next` و `react-i18next` و `next-intl` و `use-intl`.
+- **[خادم MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/mcp_server.md)**: يكشف وثائق Intlayer و CLI إلى Cursor و VS Code و Claude Desktop و Claude Code و ChatGPT.
+- **[Agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md)**: مهارات مخصصة مثل `intlayer-config` و `intlayer-cli` و `intlayer-content`.
+- **[ESLint plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/eslint.md)**: قاعدة `no-raw-text` ترصد النصوص المكتوبة مباشرة بدون تدويل.
+
+</Question>
+
+<Question title="هل أحتاج إلى مكتبة i18n منفصلة داخل جزر Lit الخاصة بي؟">
+
+لا. تقرأ الحزمة `lit-intlayer` نفس القواميس مثل Astro، لذلك لا تقوم بتثبيت `@lit/localize` بجانبها. توضح الخطوة 6 كيف تستقبل مكونات الجزيرة اللغة مباشرة من الصفحة.
+
+</Question>
+
+<Question title="كيف تعرف الجزيرة اللغة التي تعرضها الصفحة؟">
+
+تمرر صفحة Astro اللغة كخاصية (prop)، ويلتقطها موفر Intlayer داخل الجزيرة، مما يضمن ترطيب الجزيرة بنفس اللغة التي عرضها الخادم. هذا يتجنب وميض اللغة الافتراضية (flash of default language).
+
+</Question>
+
+<Question title="هل يتم تسليم المحتوى المترجم كـ HTML ثابت؟">
+
+نعم. يتم عرض صفحات Astro افتراضيًا في وقت البناء ويحل Intlayer المحتوى أثناء ذلك العرض، لذلك تكون الصفحات المترجمة عبارة عن كود HTML ثابت خالص. تتلقى فقط الجزر التي تبدل اللغات في وقت التشغيل القواميس الخاصة باللغة النشطة.
+
+</Question>
+
+<Question title="كيف أقوم بإعداد التوجيه المترجم ومبدل اللغة؟">
+
+تغطي الخطوتان 6 و 7 من هذا الدليل ذلك. يتحكم `routing.mode` فيما إذا كانت اللغة الافتراضية تحصل على بادئة (`"prefix-no-default"`)، أو تحصل جميع اللغات عليها (`"prefix-all"`)، أو تكون اللغة مستقلة عن المسار (`"no-prefix"`). يترجم `getLocalizedUrl` المسار الحالي إلى اللغة المستهدفة مع إبقاء الزائر في نفس الصفحة.
+
+</Question>
+
+<Question title="كيف أنشئ خريطة موقع مترجمة ووسوم hreflang؟">
+
+تغطي الخطوة 8 إعداد `sitemap.xml` و `robots.txt`. تُنشئ الدالة `getMultilingualUrls` بدائل لكل لغة معلنة، بما في ذلك `x-default`، لتتمكن محركات البحث من الفهرسة بشكل صحيح.
+
+</Question>
+
+<Question title="كيف أترجم موقع الويب تلقائياً باستخدام الذكاء الاصطناعي؟">
+
+قم بتشغيل `npx intlayer fill`. يملأ هذا الأمر الترجمات المفقودة باستخدام نموذج اللغة الذي تختاره مع مزودك ومفتاح API الخاص بك، ويحد `--git-diff` العملية على الملفات المعدلة. انظر [أمر fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/fill.md) و [تكامل CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/CI_CD.md).
+
+</Question>
+
+<Question title="هل يدعم Intlayer صيغ الجمع والجنس والنصوص المنسقة؟">
+
+نعم: [صيغ الجمع (plurals)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/plurial.md)، [المحتوى القائم على النوع الاجتماعي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/gender.md)، الشروط، [الإدراجات (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/insertion.md)، والمنسقات للأرقام والتواريخ والعملات.
+
+</Question>
+
+<Question title="كيف يمكن للمترجمين تحرير المحتوى دون لمس الكود؟">
+
+من خلال [المحرر المرئي (visual editor)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)، الذي يسمح لأي شخص بتحرير النصوص مباشرة على التطبيق قيد التشغيل، أو عبر [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)، الذي يفصل المحتوى ليتم تحديثه دون الحاجة لإعادة نشر الكود.
+
+</Question>
+
+<Question title="هل Intlayer مجاني ومفتوح المصدر؟">
+
+نعم، بموجب ترخيص Apache 2.0، بما في ذلك الاستخدام التجاري. الـ CMS السحابي المستضاف هو خدمة مدفوعة اختيارية يمكن أيضًا [استضافتها ذاتيًا (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/self_hosting.md).
+
+</Question>
+
+</FAQ>

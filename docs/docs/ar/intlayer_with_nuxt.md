@@ -686,3 +686,104 @@ import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
 ### التعمق أكثر
 
 للتقدم أكثر، يمكنك تنفيذ [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) أو تعريض محتواك باستخدام [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md).
+
+## الأسئلة الشائعة
+
+<FAQ>
+
+<Question title="ما هي الحلول المختلفة المتاحة لتدويل تطبيقات Nuxt؟">
+
+- **`@nuxtjs/i18n`**: الوحدة القياسية القائمة على `vue-i18n`.
+- **`Intlayer`**: تصفية تلقائية للأكواد غير المستخدمة (tree-shaking)، أنواع TypeScript كاملة، ترجمة بالذكاء الاصطناعي، محرر مرئي، ونظام CMS.
+
+انظر [لماذا Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/interest_of_intlayer.md).
+
+</Question>
+
+<Question title="كم يضيف i18n إلى حجم حزمة Nuxt لدي؟">
+
+أقل بكثير من الحلول القائمة على فضاءات الأسماء، لأن الصفحة لا تُحمل أبدًا كتالوجًا لا تعرضه. يستبدل مترجم وقت البناء استدعاءات `useIntlayer` بإدخالات القاموس الدقيقة التي يستخدمها المكون، وتفصل [القواميس الديناميكية](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dynamic_dictionaries/index.md) الباقي حسب اللغة، مما يقلل الحزمة بنسبة تصل إلى 50%. انظر [تحسين الحزم](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md) و [المقارنة المعيارية](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/index.md).
+
+</Question>
+
+<Question title="هل يمكنني الترحيل من @nuxtjs/i18n أو vue-i18n دون إعادة كتابة المكونات؟">
+
+نعم. اتبع [دليل ترحيل @nuxtjs/i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_vue-i18n_to_intlayer.md) أو استخدم محولات التوافق.
+
+</Question>
+
+<Question title="هل يمكنني الاحتفاظ بملفات الترجمة JSON الموجودة لدي؟">
+
+نعم. تحافظ [مكونة مزامنة JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/plugins/sync-json.md) على ملفات `/messages/{locale}/{namespace}.json` الخاصة بك كمصدر الحقيقة وتُنشئ قواميس Intlayer منها، في كلا الاتجاهين. وتقوم [مكونة مزامنة PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/plugins/sync-po.md) بنفس الشيء لكتالوجات gettext، وتسمح لك [الملفات المقسمة حسب اللغة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/per_locale_file.md) بتقسيم المحتوى حسب اللغة بدلاً من تجميع كل اللغات في ملف واحد.
+
+</Question>
+
+<Question title="هل يجب أن أنقل المحتوى الخاص بي مفتاحًا تلو الآخر؟">
+
+لا. قم بتشغيل `npx intlayer extract` وسيقرأ Intlayer ملفات المصدر الخاصة بك، ويسحب السلاسل النصية الموجهة للمستخدم ويكتب ملف `.content` بجانب كل منها، بحيث تراجع diff بدلاً من نسخ السلاسل إلى كتالوج يدويًا. راجع [أمر extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/extract.md).
+
+لأتمتة كاملة، يقوم [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md) بالشيء نفسه في وقت البناء وينشئ القواميس عند كل تغيير.
+
+</Question>
+
+<Question title="ما هي أدوات المحررات والوكلاء الذكيين المتاحة؟">
+
+خمس أدوات، كلها اختيارية:
+
+- **[امتداد VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/vs_code_extension.md)**: الانتقال من مفتاح `useIntlayer` إلى ملف المحتوى المصرح به، استخراج المحتوى من المكون، وتشغيل build و fill و test و push و pull من لوحة الأوامر أو علامة تبويب Intlayer.
+- **[خادم LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/lsp.md)**: نفس التجربة في أي محرر يدعم LSP، مع الانتقال إلى التعريف وعروض القيمة المترجمة عند التمرير والإكمال التلقائي للمفاتيح. يدعم أيضًا استدعاءات `i18next` و `react-i18next` و `next-intl` و `use-intl`.
+- **[خادم MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/mcp_server.md)**: يكشف وثائق Intlayer و CLI إلى Cursor و VS Code و Claude Desktop و Claude Code و ChatGPT.
+- **[Agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md)**: مهارات مخصصة مثل `intlayer-config` و `intlayer-cli` و `intlayer-content`.
+- **[ESLint plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/eslint.md)**: قاعدة `no-raw-text` ترصد النصوص المكتوبة مباشرة بدون تدويل.
+
+</Question>
+
+<Question title="هل يعمل Intlayer مع العرض من جانب الخادم والتوليد الثابت في Nuxt؟">
+
+نعم. يتم حل المحتوى أثناء SSR وفي عملية `nuxt generate`، لذا تتضمن الصفحات المنشأة كود HTML مترجم بالكامل.
+
+</Question>
+
+<Question title="هل يجب تضمين اللغة في عنوان URL؟">
+
+لا. يقبل `routing.mode` القيم `"prefix-no-default"`، و `"prefix-all"`، و `"no-prefix"`، و `"search-params"`.
+
+</Question>
+
+<Question title="كيف أدير البيانات الوصفية لـ SEO ووسوم hreflang في Nuxt؟">
+
+توضح الخطوة 9 ذلك. تُستخرج بيانات `useHead` من قواميس البيانات الوصفية وتنشئ `getMultilingualUrls` روابط `hreflang` لمحركات البحث.
+
+</Question>
+
+<Question title="كيف أنشئ مبدل لغة يحافظ على الصفحة الحالية؟">
+
+استخدم `useLocale` للغة النشطة ومكون الرابط المترجم من الخطوة 8.
+
+</Question>
+
+<Question title="كيف أترجم تطبيق Nuxt تلقائياً باستخدام الذكاء الاصطناعي؟">
+
+قم بتشغيل `npx intlayer fill`. تكتشف الأداة السلاسل المفقودة وتملؤها باستخدام نموذج اللغة الذي تختاره. انظر [أمر fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/fill.md).
+
+</Question>
+
+<Question title="هل يدعم Intlayer صيغ الجمع والجنس والنصوص المنسقة في قوالب Vue؟">
+
+نعم: [صيغ الجمع](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/plurial.md)، [المحتوى القائم على النوع الاجتماعي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/gender.md)، الشروط، [الإدراجات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/insertion.md)، و [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/markdown.md).
+
+</Question>
+
+<Question title="كيف يمكن للمترجمين تحرير المحتوى دون لمس الكود؟">
+
+من خلال [المحرر المرئي (visual editor)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)، الذي يسمح لأي شخص بتحرير النصوص مباشرة على التطبيق قيد التشغيل، أو عبر [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)، الذي يفصل المحتوى ليتم تحديثه دون الحاجة لإعادة نشر الكود.
+
+</Question>
+
+<Question title="هل Intlayer مجاني ومفتوح المصدر؟">
+
+نعم، بموجب ترخيص Apache 2.0، بما في ذلك الاستخدام التجاري. الـ CMS السحابي المستضاف هو خدمة مدفوعة اختيارية يمكن أيضًا [استضافتها ذاتيًا (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/self_hosting.md).
+
+</Question>
+
+</FAQ>

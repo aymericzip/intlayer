@@ -1148,7 +1148,7 @@ Please share the content blocks and I'll proceed with the audit.---
 - **`vue-i18n`**: эталонная библиотека, с каталогами сообщений, регистрируемыми глобально, и форматированием в стиле ICU.
 - **`Intlayer`**: контент, объявленный рядом с каждым компонентом и скомпилированный плагином Vite во время сборки, полностью типизированный, с ИИ-переводом, визуальным редактором и CMS.
 
-Практическая разница — в области охвата и типизации. `vue-i18n` разрешает ключи как строки во время выполнения, поэтому переименованный ключ ломается молча, тогда как Intlayer генерирует типы из ваших объявлений и отбрасывает контент, который не использует ни один компонент. См. [почему Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/interest_of_intlayer.md) и [бенчмарк i18n для Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/vue.md).
+Практическая разница - в области охвата и типизации. `vue-i18n` разрешает ключи как строки во время выполнения, поэтому переименованный ключ ломается молча, тогда как Intlayer генерирует типы из ваших объявлений и отбрасывает контент, который не использует ни один компонент. См. [почему Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/interest_of_intlayer.md) и [бенчмарк i18n для Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/vue.md).
 
 </Question>
 
@@ -1160,7 +1160,7 @@ Please share the content blocks and I'll proceed with the audit.---
 
 <Question title="Могу ли я мигрировать с `vue-i18n`, не переписывая свои компоненты?">
 
-Да, и есть два пути. Вы можете мигрировать контент постепенно с помощью [руководства по миграции с vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/migration_from_vue-i18n_to_intlayer.md). Или вы можете полностью сохранить свой текущий API: [адаптеры совместимости](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/index.md) предоставляют точно такой же API, как `vue-i18n`, но обслуживаемый словарями Intlayer, поэтому меняются импорты, а код компонентов — нет.
+Да, и есть два пути. Вы можете мигрировать контент постепенно с помощью [руководства по миграции с vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/migration_from_vue-i18n_to_intlayer.md). Или вы можете полностью сохранить свой текущий API: [адаптеры совместимости](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/index.md) предоставляют точно такой же API, как `vue-i18n`, но обслуживаемый словарями Intlayer, поэтому меняются импорты, а код компонентов - нет.
 
 </Question>
 
@@ -1194,7 +1194,7 @@ Please share the content blocks and I'll proceed with the audit.---
 
 <Question title="Работает ли Intlayer с Vue Composition API и script setup?">
 
-Да. `useIntlayer` — это composable, используемый внутри `<script setup>`, как любой другой, и возвращаемый контент реактивен, поэтому смена локали перерисовывает компоненты, которые его читают, без перезагрузки страницы.
+Да. `useIntlayer` - это composable, используемый внутри `<script setup>`, как любой другой, и возвращаемый контент реактивен, поэтому смена локали перерисовывает компоненты, которые его читают, без перезагрузки страницы.
 
 </Question>
 
@@ -1230,7 +1230,7 @@ Please share the content blocks and I'll proceed with the audit.---
 
 <Question title="Является ли Intlayer бесплатным и с открытым исходным кодом?">
 
-Да, по лицензии Apache 2.0, включая коммерческое использование. Размещённая CMS — это необязательный платный сервис, который также можно [разместить самостоятельно](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/self_hosting.md).
+Да, по лицензии Apache 2.0, включая коммерческое использование. Размещённая CMS - это необязательный платный сервис, который также можно [разместить самостоятельно](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/self_hosting.md).
 
 </Question>
 

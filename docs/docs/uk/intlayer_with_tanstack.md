@@ -1240,3 +1240,112 @@ export const Route = createFileRoute("/sitemap.xml")({
 - [useLocale hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/react-intlayer/useLocale.md)
 - [Content Declaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/content_file.md)
 - [Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md)
+
+## Часто задавані запитання
+
+<FAQ>
+
+<Question title="Які є різні рішення для інтернаціоналізації додатків TanStack Start?">
+
+TanStack Start не має власного шару i18n:
+
+- **`i18next` / `react-i18next`** та **`react-intl`**: бібліотеки з завантаженням JSON під час виконання.
+- **`Intlayer`**: підтримка SSR та SSG, оголошення поруч із компонентом, повна типізація TypeScript, переклад AI та візуальний редактор.
+
+Див. [чому Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/interest_of_intlayer.md).
+
+</Question>
+
+<Question title="Скільки i18n додає до розміру бандла TanStack Start?">
+
+Значно менше, ніж рішення на основі просторів імен, оскільки сторінка ніколи не завантажує каталог, який вона не рендерить. Компілятор часу збирання замінює виклики `useIntlayer` точними записами словника, а [динамічні словники](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dynamic_dictionaries/index.md) розділяють залишок за локалями, зменшуючи бандл до 50%. Див. [оптимізацію бандла](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/bundle_optimization.md) та [бенчмарк](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/index.md).
+
+</Question>
+
+<Question title="Чи можу я мігрувати з react-i18next або react-intl без переписування компонентів?">
+
+Так, за допомогою посібників з міграції або адаптерів сумісності.
+
+</Question>
+
+<Question title="Чи можу я зберігати мої існуючі JSON файли перекладів?">
+
+Так. [sync JSON плагін](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/plugins/sync-json.md) зберігає ваші файли `/messages/{locale}/{namespace}.json` як джерело істини та генерує словники Intlayer з них в обох напрямках. [sync PO плагін](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/plugins/sync-po.md) робить те ж саме для gettext каталогів, а [файли для окремих локалей](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/per_locale_file.md) дозволяють розділити контент за мовами замість групування локалей в один файл.
+
+</Question>
+
+<Question title="Чи потрібно переносити вміст ключ за ключем?">
+
+Ні. Запустіть `npx intlayer extract`, і Intlayer прочитає ваші файли, витягне призначені для користувача рядки і створить файл `.content` поруч із кожним компонентом, завдяки чому ви переглядаєте diff замість копіювання рядків у каталог вручну.
+
+Для повної автоматизації [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compiler.md) робить те саме під час збирання: сканує код під час кожної зміни, генерує словники та синхронізує їх із HMR.
+
+</Question>
+
+<Question title="Які інструменти для редактора та AI агентів доступні?">
+
+П'ять інструментів, усі опціональні:
+
+- **[Розширення VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/vs_code_extension.md)**: перехід від ключа `useIntlayer` до файлу контенту, вилучення рядків із компонента та запуск build, fill, test, push і pull із палітри команд або вкладки Intlayer.
+- **[LSP сервер](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/lsp.md)**: та сама функціональність у будь-якому редакторі з підтримкою LSP, включно з переходом до визначення, переглядом перекладеного значення під час наведення та автодоповненням ключів. Також підтримує виклики `i18next`, `react-i18next`, `next-intl` та `use-intl`.
+- **[MCP сервер](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/mcp_server.md)**: надає документацію та CLI Intlayer для Cursor, VS Code, Claude Desktop, Claude Code та ChatGPT.
+- **[Навички агента (Agent skills)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/agent_skills.md)**: спеціалізовані навички `intlayer-config`, `intlayer-cli` та `intlayer-content`.
+- **[Плагін ESLint](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/eslint.md)**: правило `no-raw-text` відстежує жорстко закодовані рядки.
+
+</Question>
+
+<Question title="Чи підтримує Intlayer серверний рендеринг та попередній рендеринг у TanStack Start?">
+
+Так. Контент вирішується під час SSR, і посібник охоплює конфігурацію попереднього рендерингу для кожної локалі.
+
+</Question>
+
+<Question title="Як додати теги hreflang та локалізовану карту сайту?">
+
+Використовуйте `generateSitemap` у маршруті `src/routes/sitemap[.]xml.ts` для генерації тегів `xhtml:link` та запису `x-default`.
+
+</Question>
+
+<Question title="Чи обов'язково додавати локаль до URL?">
+
+Ні. Налаштування `routing.mode` приймає `"prefix-no-default"` (за замовчуванням), `"prefix-all"`, `"no-prefix"` та `"search-params"`.
+
+</Question>
+
+<Question title="Як створити перемикач мов, який зберігає поточний маршрут?">
+
+Використовуйте `useLocale` у поєднанні з локалізованим компонентом посилання з кроку 9.
+
+</Question>
+
+<Question title="Як обробляти сторінки 404 у локалізованих маршрутах?">
+
+Крок 14 описує це. `validatePrefix` перевіряє валідність сегмента мови в URL.
+
+</Question>
+
+<Question title="Як автоматично перекласти додаток TanStack Start за допомогою AI?">
+
+Запустіть `npx intlayer fill`. Утиліта знаходить пропущені рядки та заповнює їх за допомогою обраної LLM. Див. [команду fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/fill.md).
+
+</Question>
+
+<Question title="Чи підтримує Intlayer форми множини, стать та форматований текст (rich text)?">
+
+Так: [форми множини](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/plurial.md), [контент з урахуванням статі](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/gender.md), умови, [вставки (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/insertion.md), [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/markdown.md) та [форматування](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/formatters.md) чисел, дат і валют.
+
+</Question>
+
+<Question title="Як перекладачі можуть редагувати вміст без втручання в код?">
+
+Через [візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md), який дозволяє будь-кому редагувати тексти безпосередньо у працюючому додатку, або через [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md), яка відокремлює вміст і дозволяє оновлювати його без повторного розгортання коду.
+
+</Question>
+
+<Question title="Чи є Intlayer безкоштовним та відкритим кодом?">
+
+Так, під ліцензією Apache 2.0, включно з комерційним використанням. Хмарна CMS - це додаткова платна послуга, яку також можна [розгорнути самостійно (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/self_hosting.md).
+
+</Question>
+
+</FAQ>

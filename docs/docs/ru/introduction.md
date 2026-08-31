@@ -211,7 +211,7 @@ Intlayer предлагает множество функций, адаптир�
 
 <Question title="Для чего используется Intlayer?">
 
-Intlayer — это библиотека интернационализации (i18n) для приложений на JavaScript и TypeScript. Вы объявляете контент компонента рядом с этим компонентом в файле `.content.ts`, Intlayer компилирует эти объявления в типизированные словари во время сборки, а ваши компоненты читают их через хук вроде `useIntlayer`. Она покрывает перевод, правила множественного числа, род, Markdown, маршрутизацию с учётом локали, SEO-метаданные, перевод с помощью ИИ и визуальный редактор для не-разработчиков.
+Intlayer - это библиотека интернационализации (i18n) для приложений на JavaScript и TypeScript. Вы объявляете контент компонента рядом с этим компонентом в файле `.content.ts`, Intlayer компилирует эти объявления в типизированные словари во время сборки, а ваши компоненты читают их через хук вроде `useIntlayer`. Она покрывает перевод, правила множественного числа, род, Markdown, маршрутизацию с учётом локали, SEO-метаданные, перевод с помощью ИИ и визуальный редактор для не-разработчиков.
 
 </Question>
 
@@ -223,7 +223,7 @@ Intlayer — это библиотека интернационализации 
 
 <Question title="Могу ли я мигрировать с `i18next`, `next-intl` или `react-i18next`, не переписывая свои компоненты?">
 
-Да, и есть два пути. Вы можете мигрировать контент постепенно с помощью [руководства по миграции с i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/migration_from_i18next_to_intlayer.md) или [руководства по миграции с next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/migration_from_next-intl_to_intlayer.md). Или вы можете полностью сохранить свой текущий API: [адаптеры совместимости](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/index.md) предоставляют точно такой же API, как `i18next`, `react-i18next`, `next-intl`, `next-i18next`, `react-intl`, `use-intl`, `vue-i18n` и `Lingui`, но обслуживаемый словарями Intlayer, поэтому меняются импорты, а код компонентов — нет.
+Да, и есть два пути. Вы можете мигрировать контент постепенно с помощью [руководства по миграции с i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/migration_from_i18next_to_intlayer.md) или [руководства по миграции с next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/migration_from_next-intl_to_intlayer.md). Или вы можете полностью сохранить свой текущий API: [адаптеры совместимости](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/index.md) предоставляют точно такой же API, как `i18next`, `react-i18next`, `next-intl`, `next-i18next`, `react-intl`, `use-intl`, `vue-i18n` и `Lingui`, но обслуживаемый словарями Intlayer, поэтому меняются импорты, а код компонентов - нет.
 
 </Question>
 
@@ -267,7 +267,7 @@ Intlayer — это библиотека интернационализации 
 
 <Question title="Какие фреймворки поддерживает Intlayer?">
 
-React, Next.js, Vite, TanStack Start, React Router, Vue, Nuxt, Svelte, SvelteKit, Angular, Solid, Preact, Lit, Astro с каждым островным фреймворком, React Native с Expo, Lynx, а на сервере — Express, Fastify, NestJS, Hono, Elysia и AdonisJS. У каждого есть собственное руководство в разделе [окружения](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/introduction.md).
+React, Next.js, Vite, TanStack Start, React Router, Vue, Nuxt, Svelte, SvelteKit, Angular, Solid, Preact, Lit, Astro с каждым островным фреймворком, React Native с Expo, Lynx, а на сервере - Express, Fastify, NestJS, Hono, Elysia и AdonisJS. У каждого есть собственное руководство в разделе [окружения](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/introduction.md).
 
 </Question>
 
@@ -303,7 +303,7 @@ React, Next.js, Vite, TanStack Start, React Router, Vue, Nuxt, Svelte, SvelteKit
 
 <Question title="Является ли Intlayer бесплатным и с открытым исходным кодом?">
 
-Да. Intlayer имеет открытый исходный код по лицензии Apache 2.0, и библиотека, CLI, компилятор и визуальный редактор бесплатны в использовании, включая коммерческие проекты. Размещённая CMS — это необязательный платный сервис, и его также можно [разместить самостоятельно](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/self_hosting.md).
+Да. Intlayer имеет открытый исходный код по лицензии Apache 2.0, и библиотека, CLI, компилятор и визуальный редактор бесплатны в использовании, включая коммерческие проекты. Размещённая CMS - это необязательный платный сервис, и его также можно [разместить самостоятельно](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/self_hosting.md).
 
 </Question>
 

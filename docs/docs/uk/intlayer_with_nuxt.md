@@ -701,3 +701,104 @@ import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
 ### Далі
 
 Щоб просунутися далі, ви можете реалізувати [візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md) або винести свій контент, використовуючи [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md).
+
+## Часто задавані запитання
+
+<FAQ>
+
+<Question title="Які є різні рішення для інтернаціоналізації додатків Nuxt?">
+
+- **`@nuxtjs/i18n`**: модуль на основі `vue-i18n`.
+- **`Intlayer`**: оптимізація tree-shaking, сувора типізація TypeScript, переклад AI, візуальний редактор та CMS.
+
+Див. [чому Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/interest_of_intlayer.md).
+
+</Question>
+
+<Question title="Скільки i18n додає до розміру бандла Nuxt?">
+
+Значно менше, ніж рішення на основі просторів імен, оскільки сторінка ніколи не завантажує каталог, який вона не рендерить. Компілятор часу збирання замінює виклики `useIntlayer` точними записами словника, а [динамічні словники](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dynamic_dictionaries/index.md) розділяють залишок за локалями, зменшуючи бандл до 50%. Див. [оптимізацію бандла](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/bundle_optimization.md) та [бенчмарк](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/index.md).
+
+</Question>
+
+<Question title="Чи можу я мігрувати з @nuxtjs/i18n або vue-i18n без переписування компонентів?">
+
+Так. Дотримуйтесь [посібника з міграції з @nuxtjs/i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/migration_from_vue-i18n_to_intlayer.md) або адаптерів сумісності.
+
+</Question>
+
+<Question title="Чи можу я зберігати мої існуючі JSON файли перекладів?">
+
+Так. [sync JSON плагін](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/plugins/sync-json.md) зберігає ваші файли `/messages/{locale}/{namespace}.json` як джерело істини та генерує словники Intlayer з них в обох напрямках. [sync PO плагін](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/plugins/sync-po.md) робить те ж саме для gettext каталогів, а [файли для окремих локалей](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/per_locale_file.md) дозволяють розділити контент за мовами замість групування локалей в один файл.
+
+</Question>
+
+<Question title="Чи потрібно переносити вміст ключ за ключем?">
+
+Ні. Запустіть `npx intlayer extract`, і Intlayer прочитає ваші файли, витягне призначені для користувача рядки і створить файл `.content` поруч із кожним компонентом, завдяки чому ви переглядаєте diff замість копіювання рядків у каталог вручну. Див. [команду extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/extract.md).
+
+Для повної автоматизації [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compiler.md) робить те саме під час збирання та генерує словники під час кожної зміни.
+
+</Question>
+
+<Question title="Які інструменти для редактора та AI агентів доступні?">
+
+П'ять інструментів, усі опціональні:
+
+- **[Розширення VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/vs_code_extension.md)**: перехід від ключа `useIntlayer` до файлу контенту, вилучення рядків із компонента та запуск build, fill, test, push і pull із палітри команд або вкладки Intlayer.
+- **[LSP сервер](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/lsp.md)**: та сама функціональність у будь-якому редакторі з підтримкою LSP, включно з переходом до визначення, переглядом перекладеного значення під час наведення та автодоповненням ключів. Також підтримує виклики `i18next`, `react-i18next`, `next-intl` та `use-intl`.
+- **[MCP сервер](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/mcp_server.md)**: надає документацію та CLI Intlayer для Cursor, VS Code, Claude Desktop, Claude Code та ChatGPT.
+- **[Навички агента (Agent skills)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/agent_skills.md)**: спеціалізовані навички `intlayer-config`, `intlayer-cli` та `intlayer-content`.
+- **[Плагін ESLint](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/eslint.md)**: правило `no-raw-text` відстежує жорстко закодовані рядки.
+
+</Question>
+
+<Question title="Чи працює Intlayer із серверним рендерингом та статичною генерацією в Nuxt?">
+
+Так. Контент вирішується під час SSR та під час `nuxt generate`, тому згенеровані сторінки містять готовий перекладений HTML.
+
+</Question>
+
+<Question title="Чи обов'язково додавати локаль до URL?">
+
+Ні. `routing.mode` приймає `"prefix-no-default"`, `"prefix-all"`, `"no-prefix"` та `"search-params"`.
+
+</Question>
+
+<Question title="Як керувати SEO метаданими та тегами hreflang у Nuxt?">
+
+Крок 9 описує це. Метадані `useHead` формуються зі словників, а `getMultilingualUrls` створює альтернативні посилання `hreflang`.
+
+</Question>
+
+<Question title="Як створити перемикач мов, який зберігає поточну сторінку?">
+
+Використовуючи `useLocale` для отримання активної мови та компонент локалізованого посилання з кроку 8.
+
+</Question>
+
+<Question title="Як автоматично перекласти додаток Nuxt за допомогою AI?">
+
+Запустіть `npx intlayer fill`. Утиліта заповнює відсутні рядки через обрану LLM. Див. [команду fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/fill.md).
+
+</Question>
+
+<Question title="Чи підтримує Intlayer форми множини, стать та форматований текст у шаблонах Vue?">
+
+Так: [форми множини](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/plurial.md), [контент з урахуванням статі](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/gender.md), умови, [вставки](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/insertion.md) та [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/markdown.md).
+
+</Question>
+
+<Question title="Як перекладачі можуть редагувати вміст без втручання в код?">
+
+Через [візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md), який дозволяє будь-кому редагувати тексти безпосередньо у працюючому додатку, або через [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md), яка відокремлює вміст і дозволяє оновлювати його без повторного розгортання коду.
+
+</Question>
+
+<Question title="Чи є Intlayer безкоштовним та відкритим кодом?">
+
+Так, під ліцензією Apache 2.0, включно з комерційним використанням. Хмарна CMS - це додаткова платна послуга, яку також можна [розгорнути самостійно (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/self_hosting.md).
+
+</Question>
+
+</FAQ>

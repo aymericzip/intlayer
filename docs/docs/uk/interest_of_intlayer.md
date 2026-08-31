@@ -294,3 +294,101 @@ export const ComponentExample = () => {
 За допомогою `intlayer` ви можете оголосити свій вміст у форматі вашої улюбленої бібліотеки i18n, і intlayer згенерує простори назв у вибраному вами місці (наприклад: `/messages/{{locale}}/{{namespace}}.json`).
 
 Якщо ви хочете й надалі використовувати API вашої поточної бібліотеки i18n, `intlayer` також надає **адаптери сумісності (compat adapters)**: пакети, що надають точно такий самий API, як `react-i18next`, `next-intl`, `react-intl`, `vue-i18n` та інші, але з вмістом зі словників Intlayer. Це дозволяє мігрувати поступово, не переписуючи код. Див. [документацію адаптерів сумісності](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/index.md).
+
+## Часто задавані запитання
+
+<FAQ>
+
+<Question title="Які є різні рішення для інтернаціоналізації додатків JavaScript?">
+
+Співіснують три покоління:
+
+- **Бібліотеки каталогів часу виконання (runtime)**: `i18next`, `react-i18next`, `next-i18next`, `vue-i18n`, `ngx-translate`.
+- **Бібліотеки повідомлень часу компіляції**: `Lingui`, `Paraglide`, `react-intl` та `next-intl`.
+- **Бібліотеки з шаром контенту (Content layer)**: `Intlayer`. Оголошення поруч із компонентом, tree-shaking, типи TypeScript, переклад за допомогою AI та візуальний редактор.
+
+Див. повне порівняння в цьому посібнику.
+
+</Question>
+
+<Question title="Скільки i18n додає до розміру бандла?">
+
+Значно менше, ніж рішення на основі просторів імен (namespaces), оскільки сторінка ніколи не завантажує каталог, який вона не рендерить. Розмітка, що рендериться на сервері, отримує свій контент безпосередньо на сервері, а компілятор під час збирання замінює виклики `useIntlayer` точними записами словника, які використовує компонент, тому невикористані ключі та мови видаляються. [Динамічні словники](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dynamic_dictionaries/index.md) розділяють залишок за окремими локалями. У порівнянні зі звичними альтернативами Intlayer зменшує розмір бандла та сторінки до 50%. Див. [оптимізацію бандла](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/bundle_optimization.md) та [бенчмарк](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/index.md).
+
+</Question>
+
+<Question title="Чи можу я мігрувати з i18next, next-intl або react-i18next без переписування моїх компонентів?">
+
+Так, і для цього є два шляхи. Ви можете переносити контент поступово, користуючись [посібником з міграції з i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/migration_from_i18next_to_intlayer.md) або [посібником з міграції з next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/migration_from_next-intl_to_intlayer.md). Або ви можете повністю зберегти свій поточний API: [адаптери сумісності](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/index.md) надають абсолютно той самий інтерфейс, що й `i18next`, `react-i18next`, `next-intl`, `next-i18next`, `react-intl`, `use-intl`, `vue-i18n` та `Lingui`, але дані беруться зі словників Intlayer, завдяки чому змінюються лише імпорти, а код компонентів залишається незмінним.
+
+</Question>
+
+<Question title="Чи можу я зберігати мої існуючі JSON файли перекладів?">
+
+Так. [sync JSON плагін](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/plugins/sync-json.md) зберігає ваші файли `/messages/{locale}/{namespace}.json` як джерело істини та генерує словники Intlayer з них в обох напрямках. [sync PO плагін](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/plugins/sync-po.md) робить те ж саме для gettext каталогів, а [файли для окремих локалей](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/per_locale_file.md) дозволяють розділити контент за мовами замість групування локалей в один файл.
+
+</Question>
+
+<Question title="Чи потрібно переносити вміст ключ за ключем?">
+
+Ні. Запустіть `npx intlayer extract`, і Intlayer прочитає ваші файли, витягне призначені для користувача рядки і створить файл `.content` поруч із кожним компонентом, завдяки чому ви переглядаєте diff замість копіювання рядків у каталог вручну. Див. [команду extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/extract.md).
+
+Для повністю автоматизованого робочого процесу [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compiler.md) робить те саме під час збирання у коді JSX, TSX, Vue та Svelte, генеруючи словники під час кожної зміни, тому вручну підтримувати ключі не потрібно. Оскільки він працює через статичний аналіз, динамічні рядки середовища виконання залишаються поза його досяжністю.
+
+</Question>
+
+<Question title="Які інструменти для редактора та AI агентів доступні?">
+
+П'ять інструментів, усі опціональні:
+
+- **[Розширення VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/vs_code_extension.md)**: перехід від ключа `useIntlayer` до файлу контенту, вилучення рядків із компонента та запуск build, fill, test, push і pull із палітри команд або вкладки Intlayer.
+- **[LSP сервер](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/lsp.md)**: та сама функціональність у будь-якому редакторі з підтримкою LSP, включно з переходом до визначення, переглядом перекладеного значення під час наведення та автодоповненням ключів. Також підтримує виклики `i18next`, `react-i18next`, `next-intl` та `use-intl`.
+- **[MCP сервер](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/mcp_server.md)**: надає документацію та CLI Intlayer для Cursor, VS Code, Claude Desktop, Claude Code та ChatGPT.
+- **[Навички агента (Agent skills)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/agent_skills.md)**: спеціалізовані навички `intlayer-config`, `intlayer-cli` та `intlayer-content`.
+- **[Плагін ESLint](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/eslint.md)**: правило `no-raw-text` відстежує жорстко закодовані рядки.
+
+</Question>
+
+<Question title="Чим Intlayer відрізняється від next-intl?">
+
+`next-intl` - це шар повідомлень для Next.js, заснований на JSON файлах під кожну мову. Intlayer оголошує вміст безпосередньо біля компонента, видаляє невикористані ключі під час збирання, створює суворі типи TypeScript для кожного словника і надає вбудований переклад AI та візуальний редактор.
+
+</Question>
+
+<Question title="Чим Intlayer відрізняється від i18next та react-i18next?">
+
+`i18next` вирішує рядкові ключі під час виконання, що у разі помилки в назві ключа призводить до порожнього тексту на екрані. Intlayer перевіряє ключі статично під час компіляції, виключає непотрібні мови з бандла та автоматизує процес перекладу.
+
+</Question>
+
+<Question title="Чи є Intlayer швидшим або легшим за альтернативи?">
+
+Щодо розміру бандла та сторінки - так: відмова від завантаження непотрібних сторінці каталогів скорочує обсяг бандла до 50%. Щодо швидкодії - попередня компіляція усуває витрати на парсинг у runtime. Див. [бенчмарк](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/index.md).
+
+</Question>
+
+<Question title="Чи варто мігрувати наявний додаток?">
+
+Це залежить від поточних проблем. Якщо вам заважає великий розмір бандла, пропущені переклади чи труднощі нетехнічних спеціалістів із редагуванням текстів, Intlayer вирішує ці задачі, а адаптери сумісності дозволяють мігрувати поступово без переписування коду.
+
+</Question>
+
+<Question title="Що пропонує Intlayer, чого немає в інших бібліотеках i18n?">
+
+Підтримку [Markdown вмісту](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/markdown.md), завантаження контенту з CMS, інтегрований візуальний редактор, автоматичний переклад через AI з прапорцем `--git-diff` та автодоповнення TypeScript на основі структури компонентів.
+
+</Question>
+
+<Question title="Чи можу я використовувати Intlayer лише як менеджер перекладів і зберегти поточну бібліотеку?">
+
+Так. Intlayer може генерувати простори імен у форматі та шляху, очікуваному вашою поточною бібліотекою (наприклад `/messages/{locale}/{namespace}.json`), що дозволяє використовувати CLI та редактор Intlayer без зміни коду додатку.
+
+</Question>
+
+<Question title="Чи є Intlayer безкоштовним та відкритим кодом?">
+
+Так, під ліцензією Apache 2.0, включно з комерційним використанням. Хмарна CMS - це додаткова послуга, яку також можна [розгорнути на власному сервері](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/self_hosting.md).
+
+</Question>
+
+</FAQ>

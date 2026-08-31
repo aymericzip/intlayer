@@ -481,3 +481,111 @@ Intlayer के साथ अपने विकास अनुभव को �
 ### आगे बढ़ें
 
 आगे बढ़ने के लिए, आप [विजुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md) को लागू कर सकते हैं या [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md) का उपयोग करके अपनी सामग्री को बाहरी बना सकते हैं।
+
+## अक्सर पूछे जाने वाले प्रश्न
+
+<FAQ>
+
+<Question title="क्या मैं बिना किसी बंडलर या फ्रेमवर्क के Intlayer का उपयोग कर सकता हूँ?">
+
+हाँ। यह गाइड विशेष रूप से उस मामले के लिए समर्पित है। आप `vanilla-intlayer` बंडल को सीधे HTML में शामिल करते हैं, इसे प्रारंभ करते हैं, और `useIntlayer` या `getIntlayer` के माध्यम से सामग्री पढ़ते हैं।
+
+</Question>
+
+<Question title="i18n मेरे पृष्ठ के भार को कितना बढ़ाता है?">
+
+पारंपरिक कैटलॉग की तुलना में बहुत कम, क्योंकि पृष्ठ कभी भी उस भाषा को डाउनलोड नहीं करता है जिसे वह रेंडर नहीं करता है। सामग्री अनुकूलित प्रारूपों में वितरित की जाती है। [बंडल अनुकूलन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/bundle_optimization.md) देखें।
+
+</Question>
+
+<Question title="क्या मैं अपनी स्क्रिप्ट को फिर से लिखे बिना i18next से माइग्रेट कर सकता हूँ?">
+
+काफी हद तक हाँ। [i18next माइग्रेशन गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_i18next_to_intlayer.md) का पालन करें।
+
+</Question>
+
+<Question title="क्या मैं अपनी मौजूदा JSON translation files को रख सकता हूं?">
+
+हाँ। [sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/plugins/sync-json.md) आपकी `/messages/{locale}/{namespace}.json` फ़ाइलों को सत्य का स्रोत बनाए रखता है और दोनों दिशाओं में उनसे Intlayer dictionaries बनाता है। [sync PO plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/plugins/sync-po.md) gettext catalogs के लिए भी ऐसा ही करता है, और [per locale files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/per_locale_file.md) आपको locales को एक फ़ाइल में समूहीकृत करने के बजाय भाषा के अनुसार content को विभाजित करने देते हैं।
+
+</Question>
+
+<Question title="क्या मुझे अपनी content को key by key move करना होगा?">
+
+नहीं। `npx intlayer extract` चलाएं और Intlayer आपकी source files को पढ़ता है, user facing strings को निकालता है और प्रत्येक के बगल में एक `.content` file लिखता है, इसलिए आप strings को एक catalog में एक-एक करके कॉपी करने के बजाय एक diff की समीक्षा करते हैं। [extract command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/extract.md) देखें।
+
+पूर्ण स्वचालन के लिए, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md) बिल्ड समय पर यही काम करता है और प्रत्येक परिवर्तन पर शब्दकोश उत्पन्न करता है।
+
+</Question>
+
+<Question title="कौन से editor और AI agent tooling उपलब्ध हैं?">
+
+पाँच उपकरण, सभी वैकल्पिक:
+
+- **[VS Code extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/vs_code_extension.md)**: `useIntlayer` कुंजी से उसे घोषित करने वाली सामग्री फ़ाइल पर जाएं, घटकों से सामग्री निकालें, और कमांड पैलेट या Intlayer टैब से build, fill, test, push और pull चलाएं।
+- **[LSP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/lsp.md)**: LSP का समर्थन करने वाले किसी भी संपादक में समान सुविधा, परिभाषा पर जाएं, अनुवादित मान का पूर्वावलोकन देखें, और कुंजी पूर्णता प्राप्त करें। `i18next`, `react-i18next`, `next-intl` और `use-intl` कॉल का भी समर्थन करता है।
+- **[MCP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/mcp_server.md)**: Cursor, VS Code, Claude Desktop, Claude Code और ChatGPT के लिए Intlayer दस्तावेज़ और CLI प्रदान करता है।
+- **[Agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/agent_skills.md)**: केंद्रित कौशल जैसे `intlayer-config`, `intlayer-cli` और `intlayer-content`।
+- **[ESLint plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/eslint.md)**: `no-raw-text` नियम हार्डकोडेड स्ट्रिंग्स को चिह्नित करता है।
+
+</Question>
+
+<Question title="सादे JavaScript वेबसाइट के अंतर्राष्ट्रीयकरण के लिए कौन से विभिन्न समाधान उपलब्ध हैं?">
+
+- **मैन्युअल शब्दकोश ऑब्जेक्ट**: बिना प्रकार या सत्यापन उपकरण के।
+- **`i18next`**: रनटाइम के लिए सामान्य लाइब्रेरी।
+- **`Intlayer`**: सामग्री फ़ाइल में घोषणा, वैकल्पिक बिल्ड समय संकलन, प्रकार, विज़ुअल एडिटर और CMS।
+
+[Intlayer क्यों चुनें](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/interest_of_intlayer.md) देखें।
+
+</Question>
+
+<Question title="अनुवाद कैसे पढ़ें और इसे DOM में कैसे डालें?">
+
+शब्दकोश कुंजी के साथ `useIntlayer` को कॉल करें और मान को मैन्युअल रूप से DOM नोड में असाइन करें, जैसा कि चरण 6 में दिखाया गया है।
+
+</Question>
+
+<Question title="विज़िटर की भाषा का पता कैसे लगाया जाता है?">
+
+`routing.storage` में स्रोतों से: आमतौर पर पहले कुकी, फिर `Accept-Language` हेडर, और डिफ़ॉल्ट भाषा पर वापस लौटता है। [कॉन्फ़िगरेशन संदर्भ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md) देखें।
+
+</Question>
+
+<Question title="दाएं से बाएं भाषाओं का समर्थन कैसे करें?">
+
+चरण 8 इसे समझाता है। `getHTMLTextDir` `ltr`, `rtl`, या `auto` लौटाता है, जिससे आप `html` या `body` तत्व पर `lang` और `dir` विशेषताएँ सेट कर सकते हैं।
+
+</Question>
+
+<Question title="क्या विज़िटर्स को प्रत्येक भाषा डाउनलोड करनी पड़ती है?">
+
+नहीं, यदि आप ऐसा नहीं चाहते हैं। चरण 9 प्रति लोकेल शब्दकोशों की लेज़ी लोडिंग को कवर करता है, जिससे पृष्ठ केवल सक्रिय भाषा लोड करता है।
+
+</Question>
+
+<Question title="मैं ऐप को AI के साथ स्वचालित रूप से कैसे अनुवाद करूँ?">
+
+`npx intlayer fill` चलाएं। यह कमांड आपके चुने हुए LLM का उपयोग करके आपके अपने प्रदाता और API कुंजी के साथ लापता अनुवादों को भरता है, और `--git-diff` बदली गई फ़ाइलों तक संचालन को सीमित करता है। [fill command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/fill.md) और [CI/CD integration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/CI_CD.md) देखें।
+
+</Question>
+
+<Question title="क्या Intlayer बहुवचन, लिंग और समृद्ध पाठ (rich text) का समर्थन करता है?">
+
+हाँ: [बहुवचन (plurals)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/plurial.md), [लिंग-आधारित सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/gender.md), शर्तें, [सम्मिलन (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/insertion.md), और संख्याओं, तिथियों और मुद्राओं के लिए [प्रारूपक (formatters)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/formatters.md)।
+
+</Question>
+
+<Question title="अनुवादक कोड को छुए बिना सामग्री को कैसे संपादित कर सकते हैं?">
+
+[विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md) के माध्यम से, जो किसी को भी सीधे चलते हुए ऐप में टेक्स्ट संपादित करने देता है, या [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md) के माध्यम से, जो सामग्री को अलग करता है ताकि कोड को फिर से तैनात किए बिना उसे अपडेट किया जा सके।
+
+</Question>
+
+<Question title="क्या Intlayer मुफ्त और ओपन सोर्स है?">
+
+हाँ, Apache 2.0 लाइसेंस के तहत, व्यावसायिक उपयोग सहित। होस्टेड CMS एक वैकल्पिक सशुल्क सेवा है जिसे [स्वयं होस्ट (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/self_hosting.md) भी किया जा सकता है।
+
+</Question>
+
+</FAQ>

@@ -995,3 +995,99 @@ console.log("SEO files generated successfully.");
 ### التقدم أكثر
 
 للتقدم أكثر، يمكنك تنفيذ [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) أو إخراج محتواك باستخدام [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md).
+
+## الأسئلة الشائعة
+
+<FAQ>
+
+<Question title="ما هي الحلول المختلفة المتاحة لتدويل تطبيقات Vite و React؟">
+
+- **`react-i18next`**: تحميل JSON في وقت التشغيل.
+- **`react-intl`**: تنسيق ICU.
+- **`Intlayer`**: إعلان بجانب المكون، ترجمة عبر مكون Vite الإضافي، دعم HMR، ترجمة بالذكاء الاصطناعي، ومحرر مرئي.
+
+انظر [لماذا Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/interest_of_intlayer.md).
+
+</Question>
+
+<Question title="كم يضيف i18n إلى حجم حزمة Vite لدي؟">
+
+أقل بكثير بفضل تصفية المفاتيح غير المستخدمة والقواميس الديناميكية، مما يقلل حجم الحزمة بنسبة تصل إلى 50%. انظر [تحسين الحزم](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md).
+
+</Question>
+
+<Question title="هل يمكنني الترحيل من react-i18next أو react-intl دون إعادة كتابة مكوناتي؟">
+
+نعم، من خلال محولات التوافق أو أدلة الترحيل خطوة بخطوة.
+
+</Question>
+
+<Question title="هل يمكنني الاحتفاظ بملفات الترجمة JSON الموجودة لدي؟">
+
+نعم. تحافظ [مكونة مزامنة JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/plugins/sync-json.md) على ملفات `/messages/{locale}/{namespace}.json` الخاصة بك كمصدر الحقيقة وتُنشئ قواميس Intlayer منها، في كلا الاتجاهين. وتقوم [مكونة مزامنة PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/plugins/sync-po.md) بنفس الشيء لكتالوجات gettext، وتسمح لك [الملفات المقسمة حسب اللغة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/per_locale_file.md) بتقسيم المحتوى حسب اللغة بدلاً من تجميع كل اللغات في ملف واحد.
+
+</Question>
+
+<Question title="هل يجب أن أنقل المحتوى الخاص بي مفتاحًا تلو الآخر؟">
+
+لا. قم بتشغيل `npx intlayer extract` وسيقرأ Intlayer ملفات المصدر الخاصة بك، ويسحب السلاسل النصية الموجهة للمستخدم ويكتب ملف `.content` بجانب كل منها، بحيث تراجع diff بدلاً من نسخ السلاسل إلى كتالوج يدويًا. راجع [أمر extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/extract.md).
+
+لأتمتة كاملة، يقوم [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md) بالشيء نفسه في وقت البناء على كود JSX و TSX و Vue و Svelte، منشئًا القواميس عند كل تغيير دون الحاجة إلى إدارة المفاتيح يدويًا.
+
+</Question>
+
+<Question title="ما هي أدوات المحررات والوكلاء الذكيين المتاحة؟">
+
+خمس أدوات، كلها اختيارية:
+
+- **[امتداد VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/vs_code_extension.md)**: الانتقال من مفتاح `useIntlayer` إلى ملف المحتوى المصرح به، استخراج المحتوى من المكون، وتشغيل build و fill و test و push و pull من لوحة الأوامر أو علامة تبويب Intlayer.
+- **[خادم LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/lsp.md)**: نفس التجربة في أي محرر يدعم LSP، مع الانتقال إلى التعريف وعروض القيمة المترجمة عند التمرير والإكمال التلقائي للمفاتيح. يدعم أيضًا استدعاءات `i18next` و `react-i18next` و `next-intl` و `use-intl`.
+- **[خادم MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/mcp_server.md)**: يكشف وثائق Intlayer و CLI إلى Cursor و VS Code و Claude Desktop و Claude Code و ChatGPT.
+- **[Agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md)**: مهارات مخصصة مثل `intlayer-config` و `intlayer-cli` و `intlayer-content`.
+- **[ESLint plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/eslint.md)**: قاعدة `no-raw-text` ترصد النصوص المكتوبة مباشرة بدون تدويل.
+
+</Question>
+
+<Question title="هل يعمل Intlayer مع خادم تطوير Vite و HMR؟">
+
+نعم. يراقب مكون Vite الإضافي ملفات `.content.ts` ويحدث القواميس وأنواع TypeScript فورًا عند الحفظ.
+
+</Question>
+
+<Question title="كيف أقوم بإعداد التوجيه مع اللغة في تطبيق Vite React SPA؟">
+
+بالنسبة إلى React Router، راجع [دليل React Router v7](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_react_router_v7.md). بالنسبة لتطبيقات SPA بدون موجه، يمكنك ضبط `routing.mode` على `"no-prefix"` أو `"search-params"`.
+
+</Question>
+
+<Question title="كيف أدير البيانات الوصفية لـ SEO في تطبيق Vite المعروض من جانب العميل؟">
+
+اضبط سمتي `lang` و `dir` على وسم `html` وأضف وسوم `hreflang` باستخدام `getMultilingualUrls`.
+
+</Question>
+
+<Question title="كيف أترجم التطبيق تلقائياً باستخدام الذكاء الاصطناعي؟">
+
+قم بتشغيل `npx intlayer fill`. تكتشف واجهة CLI الترجمات المفقودة وتملؤها باستخدام نموذج اللغة (LLM) الذي تختاره مع مزودك ومفتاح API الخاص بك. يحد الخيار `--git-diff` العملية على المحتوى المعدل في الفرع الحالي فقط. راجع [أمر fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/fill.md) و [تكامل CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/CI_CD.md).
+
+</Question>
+
+<Question title="هل يدعم Intlayer صيغ الجمع والجنس والنصوص المنسقة؟">
+
+نعم: [صيغ الجمع (plurals)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/plurial.md)، [المحتوى القائم على النوع الاجتماعي (gender)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/gender.md)، الشروط، [الإدراجات (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/insertion.md)، [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/markdown.md)، و [المنسقات (formatters)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/formatters.md) للأرقام والتواريخ والعملات.
+
+</Question>
+
+<Question title="كيف يمكن للمترجمين تحرير المحتوى دون لمس الكود؟">
+
+من خلال [المحرر المرئي (visual editor)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)، الذي يسمح لأي شخص بتحرير النصوص مباشرة على التطبيق قيد التشغيل، أو عبر [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)، الذي يفصل المحتوى ليتم تحديثه دون الحاجة لإعادة نشر الكود.
+
+</Question>
+
+<Question title="هل Intlayer مجاني ومفتوح المصدر؟">
+
+نعم، بموجب ترخيص Apache 2.0، بما في ذلك الاستخدام التجاري. الـ CMS السحابي المستضاف هو خدمة مدفوعة اختيارية يمكن أيضًا [استضافتها ذاتيًا (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/self_hosting.md).
+
+</Question>
+
+</FAQ>

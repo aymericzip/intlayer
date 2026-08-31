@@ -1019,13 +1019,13 @@ Intlayer использует расширение модулей (module augmen
 
 <Question title="Какие существуют решения для интернационализации приложения Next.js 14?">
 
-Поле `i18n` в `next.config.js` не применяется к App Router, поэтому слой локализации — это всегда выбор библиотеки:
+Поле `i18n` в `next.config.js` не применяется к App Router, поэтому слой локализации - это всегда выбор библиотеки:
 
 - **`next-intl`**, **`next-i18next` / `i18next`** и **`react-intl`**: исторические варианты, основанные на каталогах сообщений JSON или ICU, загружаемых для каждого пространства имён.
 - **`Lingui`**: на основе извлечения, с сообщениями ICU, скомпилированными во время сборки.
 - **`Intlayer`**: контент, объявленный рядом с каждым компонентом, скомпилированный во время сборки в словари для каждого компонента, полностью типизированный, с ИИ-переводом, визуальным редактором и CMS в комплекте.
 
-Практическая разница — в том, что доходит до браузера. Библиотеки на основе пространств имён поставляют на страницу целые каталоги JSON, тогда как Intlayer поставляет только тот контент, который используют отрендеренные компоненты, что сокращает размер бандла и страницы до 50%. См. [почему Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/interest_of_intlayer.md) и [бенчмарк i18n для Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/nextjs.md).
+Практическая разница - в том, что доходит до браузера. Библиотеки на основе пространств имён поставляют на страницу целые каталоги JSON, тогда как Intlayer поставляет только тот контент, который используют отрендеренные компоненты, что сокращает размер бандла и страницы до 50%. См. [почему Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/interest_of_intlayer.md) и [бенчмарк i18n для Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/nextjs.md).
 
 </Question>
 
@@ -1037,7 +1037,7 @@ Intlayer использует расширение модулей (module augmen
 
 <Question title="Могу ли я мигрировать с `next-intl`, `next-i18next` или `i18next`, не переписывая свои компоненты?">
 
-Да, и есть два пути. Вы можете мигрировать контент постепенно с помощью [руководства по миграции с next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/migration_from_next-intl_to_intlayer.md) или [руководства по миграции с i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/migration_from_i18next_to_intlayer.md). Или вы можете полностью сохранить свой текущий API: [адаптеры совместимости](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/index.md) предоставляют точно такой же API, как `next-intl`, `react-i18next` и `react-intl`, но обслуживаемый словарями Intlayer, поэтому меняются импорты, а код компонентов — нет.
+Да, и есть два пути. Вы можете мигрировать контент постепенно с помощью [руководства по миграции с next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/migration_from_next-intl_to_intlayer.md) или [руководства по миграции с i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/migration_from_i18next_to_intlayer.md). Или вы можете полностью сохранить свой текущий API: [адаптеры совместимости](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/index.md) предоставляют точно такой же API, как `next-intl`, `react-i18next` и `react-intl`, но обслуживаемый словарями Intlayer, поэтому меняются импорты, а код компонентов - нет.
 
 </Question>
 
@@ -1123,7 +1123,7 @@ Next.js 12, 13, 14, 15 и 16. Это руководство охватывает
 
 <Question title="Является ли Intlayer бесплатным и с открытым исходным кодом?">
 
-Да, по лицензии Apache 2.0, включая коммерческое использование. Размещённая CMS — это необязательный платный сервис, который также можно [разместить самостоятельно](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/self_hosting.md).
+Да, по лицензии Apache 2.0, включая коммерческое использование. Размещённая CMS - это необязательный платный сервис, который также можно [разместить самостоятельно](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/self_hosting.md).
 
 </Question>
 

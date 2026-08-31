@@ -1112,3 +1112,101 @@ dictionary: {
 | الحقل     | الوصف                           | النوع              |
 | --------- | ------------------------------- | ------------------ |
 | `plugins` | قائمة إضافات Intlayer لإدراجها. | `IntlayerPlugin[]` |
+
+## الأسئلة الشائعة
+
+<FAQ>
+
+<Question title="أين يجب وضع ملف intlayer.config.ts؟">
+
+في جذر مشروعك، بجانب `package.json`. يفحص Intlayer دليل العمل والأدلة الأصلية بحثًا عن `intlayer.config.ts` أو `intlayer.config.js` أو `intlayer.config.mjs` أو `intlayer.config.cjs`. يمكنك أيضًا تحديد مسار مخصص عبر خيار `--config` في أوامر CLI.
+
+</Question>
+
+<Question title="كم يضيف i18n إلى حجم حزمة (bundle) تطبيقي؟">
+
+أقل بكثير من الإعدادات القائمة على فضاءات الأسماء، لأن الصفحة لا تُحمّل أبدًا كتالوجًا لا تعرضه. يُحل المحتوى المعروض على الخادم مباشرة على الخادم، ويستبدل مترجم وقت البناء استدعاءات `useIntlayer` بإدخالات القاموس الدقيقة التي يستخدمها المكون، لذلك يتم التخلص من المفاتيح واللغات غير المستخدمة. تقسم [القواميس الديناميكية](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dynamic_dictionaries/index.md) الباقي حسب اللغة. مقارنة بالبدائل التقليدية، يقلل Intlayer حجم الحزمة والصفحة بنسبة تصل إلى 50%. انظر [تحسين الحزم](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md) و [المقارنة المعيارية](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/index.md).
+
+</Question>
+
+<Question title="هل يمكنني الترحيل من i18next أو next-intl أو react-i18next دون إعادة كتابة مكوناتي؟">
+
+نعم، وبطريقتين. يمكنك ترحيل المحتوى تدريجيًا باستخدام [دليل ترحيل i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_i18next_to_intlayer.md) أو [دليل ترحيل next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_next-intl_to_intlayer.md). أو يمكنك الاحتفاظ بواجهة برمجة التطبيقات الحالية بالكامل: تكشف [محولات التوافق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/index.md) نفس واجهات `i18next` و `react-i18next` و `next-intl` و `next-i18next` و `react-intl` و `use-intl` و `vue-i18n` و `Lingui`، ولكنها مدعومة بقواميس Intlayer، بحيث تتغير الاستيرادات فقط بينما يظل كود المكون كما هو.
+
+</Question>
+
+<Question title="هل يمكنني الاحتفاظ بملفات الترجمة JSON الموجودة لدي؟">
+
+نعم. تحافظ [مكونة مزامنة JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/plugins/sync-json.md) على ملفات `/messages/{locale}/{namespace}.json` الخاصة بك كمصدر الحقيقة وتُنشئ قواميس Intlayer منها، في كلا الاتجاهين. وتقوم [مكونة مزامنة PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/plugins/sync-po.md) بنفس الشيء لكتالوجات gettext، وتسمح لك [الملفات المقسمة حسب اللغة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/per_locale_file.md) بتقسيم المحتوى حسب اللغة بدلاً من تجميع كل اللغات في ملف واحد.
+
+</Question>
+
+<Question title="هل يجب أن أنقل المحتوى الخاص بي مفتاحًا تلو الآخر؟">
+
+لا. قم بتشغيل `npx intlayer extract` وسيقرأ Intlayer ملفات المصدر الخاصة بك، ويسحب السلاسل النصية الموجهة للمستخدم ويكتب ملف `.content` بجانب كل منها، بحيث تراجع diff بدلاً من نسخ السلاسل إلى كتالوج يدويًا. راجع [أمر extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/extract.md).
+
+لأتمتة كاملة، يقوم [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md) بالشيء نفسه في وقت البناء على كود JSX و TSX و Vue و Svelte، منشئًا القواميس عند كل تغيير دون الحاجة إلى إدارة المفاتيح يدويًا.
+
+</Question>
+
+<Question title="ما هي أدوات المحررات والوكلاء الذكيين المتاحة؟">
+
+خمس أدوات، كلها اختيارية:
+
+- **[امتداد VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/vs_code_extension.md)**: الانتقال من مفتاح `useIntlayer` إلى ملف المحتوى المصرح به، استخراج المحتوى من المكون، وتشغيل build و fill و test و push و pull من لوحة الأوامر أو علامة تبويب Intlayer.
+- **[خادم LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/lsp.md)**: نفس التجربة في أي محرر يدعم LSP، مع الانتقال إلى التعريف وعروض القيمة المترجمة عند التمرير والإكمال التلقائي للمفاتيح. يدعم أيضًا استدعاءات `i18next` و `react-i18next` و `next-intl` و `use-intl`.
+- **[خادم MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/mcp_server.md)**: يكشف وثائق Intlayer و CLI إلى Cursor و VS Code و Claude Desktop و Claude Code و ChatGPT.
+- **[Agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md)**: مهارات مخصصة مثل `intlayer-config` و `intlayer-cli` و `intlayer-content`.
+- **[ESLint plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/eslint.md)**: قاعدة `no-raw-text` ترصد النصوص المكتوبة مباشرة بدون تدويل.
+
+</Question>
+
+<Question title="كيف أضيف لغة جديدة إلى تطبيقي؟">
+
+أضف رمز اللغة إلى مصفوفة `internationalization.locales`، ثم قم بتشغيل `npx intlayer fill` لترجمة المحتوى الحالي تلقائيًا. سيشمل المترجم اللغة الجديدة في البناء التالي.
+
+</Question>
+
+<Question title="كيف أزيل بادئة اللغة من عنوان URL؟">
+
+اضبط `routing.mode`. تزيل القيمة `"no-prefix"` البادئة لجميع اللغات، وتحدد اللغة عبر ملفات تعريف الارتباط أو الترويسات أو النطاق. تخفي القيمة `"prefix-no-default"` (الافتراضية) البادئة للغة الأساسية فقط.
+
+</Question>
+
+<Question title="هل يمكنني خدمة كل لغة من نطاق مخصص؟">
+
+نعم. يربط خيار `routing.domains` كل لغة باسم مضيف، على سبيل المثال `{ ar: 'example.sa', en: 'example.com' }`. يأخذ الاكتشاف المستند إلى النطاق الأولوية على بادئات المسار، وينشئ `getMultilingualUrls` عناوين URL كاملة لـ `hreflang`.
+
+</Question>
+
+<Question title="كيف يتم اكتشاف لغة المستخدم؟">
+
+عبر `routing.storage`، الذي يسرد المصادر بترتيب الأولوية: عادةً عنوان URL أولاً، ثم ملف تعريف الارتباط، ثم ترويسة `Accept-Language`، والعودة إلى اللغة الافتراضية إذا لم يتم العثور عليها.
+
+</Question>
+
+<Question title="ماذا تفعل routing.enableProxy؟">
+
+تتحكم في وكيل توجيه اللغة، وهو الميدلوير الذي يتعامل مع البادئات وإعادة التوجيه. افتراضيًا، يعمل الوكيل في وضعي التطوير والإنتاج. اضبطه على `false` إذا كنت تدير المسارات يدويًا.
+
+</Question>
+
+<Question title="ما الفرق بين importMode static و dynamic و fetch؟">
+
+`"static"` (الافتراضي) يستورد القواميس بشكل ثابت بحيث يتم حزمها وقراءتها بشكل متزامن. `"dynamic"` يحمل القواميس بشكل غير متزامن لكل لغة لتقليل حجم الحزمة الأولية. `"fetch"` يجلب القواميس من خادم أو CMS في وقت التشغيل.
+
+</Question>
+
+<Question title="أين أقوم بإعداد مزود الذكاء الاصطناعي ومفتاح API للترجمة التلقائية؟">
+
+في ملف التكوين تحت قسم `ai` أو عبر سطر الأوامر باستخدام الخيارات `--provider` و `--model` و `--api-key`. يظل مفتاح API في بيئتك المحلية ولا يتم إرساله خارجيًا أبدًا. انظر [مرجع تكوين الذكاء الاصطناعي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
+
+</Question>
+
+<Question title="هل أحتاج إلى إعادة تشغيل خادم التطوير بعد تغيير التكوين؟">
+
+عادة لا. يراقب مراقب Intlayer ملف `intlayer.config.ts`: عند الحفظ، يعيد تحميل التكوين ويحدث القواميس في الخلفية.
+
+</Question>
+
+</FAQ>

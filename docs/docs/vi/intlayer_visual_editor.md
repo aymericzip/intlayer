@@ -220,3 +220,89 @@ Nếu bạn gặp bất kỳ vấn đề nào với trình chỉnh sửa trực 
     - URL ứng dụng nên khớp với URL bạn đã thiết lập trong cấu hình trình chỉnh sửa (`applicationURL`).
 
 - Trình chỉnh sửa trực quan sử dụng iframe để hiển thị trang web của bạn. Đảm bảo rằng Chính sách Bảo mật Nội dung (CSP) của trang web cho phép URL CMS trong `frame-ancestors` (mặc định là 'http://localhost:8000'). Kiểm tra bảng điều khiển của trình chỉnh sửa để xem có lỗi nào không.
+
+## Các Câu Hỏi Thường Gặp
+
+<FAQ>
+
+<Question title="Sự khác biệt giữa visual editor và CMS là gì?">
+
+Visual editor chỉnh sửa các từ điển cục bộ và lưu thay đổi trực tiếp vào các tệp mã nguồn của bạn, do đó trải qua quy trình review Git chuẩn. CMS lưu trữ nội dung trên server từ xa để xuất bản tức thì mà không cần build lại.
+
+</Question>
+
+<Question title="i18n làm tăng kích thước bundle của tôi bao nhiêu?">
+
+Ít hơn nhiều so with các cấu hình dựa trên namespace, vì trang không bao giờ tải catalog mà nó không hiển thị. Mã hiển thị trên server phân giải nội dung ngay trên server, và compiler tại thời điểm build thay thế các lệnh gọi `useIntlayer` bằng chính xác các mục từ điển mà component sử dụng, do đó các khóa và ngôn ngữ không sử dụng sẽ bị loại bỏ. [Từ điển động](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dynamic_dictionaries/index.md) chia phần còn lại theo từng locale. So với các giải pháp thông thường, Intlayer giảm kích thước bundle và trang tới 50%. Xem [tối ưu hóa bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/bundle_optimization.md) và [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/index.md).
+
+</Question>
+
+<Question title="Tôi có thể di chuyển từ i18next, next-intl hoặc react-i18next mà không cần viết lại component không?">
+
+Có, theo hai cách. Bạn có thể di chuyển nội dung dần dần bằng [hướng dẫn di chuyển từ i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_i18next_to_intlayer.md) hoặc [hướng dẫn di chuyển từ next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_next-intl_to_intlayer.md). Hoặc bạn có thể giữ nguyên API hiện tại: [adapter tương thích](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/index.md) cung cấp chính xác các API tương tự như `i18next`, `react-i18next`, `next-intl`, `next-i18next`, `react-intl`, `use-intl`, `vue-i18n` và `Lingui`, nhưng chạy trên các từ điển Intlayer, nhờ đó chỉ có các lệnh import thay đổi còn mã component vẫn giữ nguyên.
+
+</Question>
+
+<Question title="Tôi có thể giữ các tệp dịch JSON hiện có của mình không?">
+
+Có. Plugin [sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/plugins/sync-json.md) giữ cho các tệp `/messages/{locale}/{namespace}.json` của bạn là nguồn sự thật duy nhất và tạo các từ điển Intlayer từ chúng theo cả hai hướng. Plugin [sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/plugins/sync-po.md) làm điều tương tự cho các catalog gettext, và [các tệp theo locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/per_locale_file.md) cho phép bạn chia nội dung theo ngôn ngữ thay vì nhóm các locale trong một tệp.
+
+</Question>
+
+<Question title="Tôi có phải di chuyển nội dung từng khóa một không?">
+
+Không. Chạy `npx intlayer extract` và Intlayer sẽ đọc các tệp nguồn của bạn, trích xuất các chuỗi dành cho người dùng và tạo tệp `.content` bên cạnh mỗi tệp, nhờ đó bạn xem lại diff thay vì sao chép chuỗi vào catalog thủ công. Xem [lệnh extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/extract.md).
+
+Đối với quy trình làm việc hoàn toàn tự động, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md) thực hiện việc tương tự trong quá trình build trên mã JSX, TSX, Vue và Svelte, tạo từ điển trên mỗi thay đổi mà không cần quản lý khóa thủ công.
+
+</Question>
+
+<Question title="Có những công cụ editor và AI agent nào có sẵn?">
+
+Năm công cụ, tất cả đều là tùy chọn:
+
+- **[VS Code extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/vs_code_extension.md)**: nhảy từ khóa `useIntlayer` đến tệp nội dung khai báo nó, trích xuất nội dung từ component, và chạy build, fill, test, push và pull từ command palette hoặc tab Intlayer.
+- **[LSP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/lsp.md)**: trải nghiệm tương tự trong bất kỳ trình soạn thảo nào hỗ trợ LSP, với go to definition, xem trước giá trị bản dịch khi hover, tự động hoàn thành khóa, và cảnh báo khi khóa chưa được khai báo ở bất kỳ đâu. Hỗ trợ cả các lệnh gọi `i18next`, `react-i18next`, `next-intl` và `use-intl`.
+- **[MCP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/mcp_server.md)**: cung cấp tài liệu và CLI Intlayer cho Cursor, VS Code, Claude Desktop, Claude Code và ChatGPT.
+- **[Agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/agent_skills.md)**: các kỹ năng chuyên biệt như `intlayer-config`, `intlayer-cli` và `intlayer-content`.
+- **[ESLint plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/eslint.md)**: quy tắc `no-raw-text` phát hiện các chuỗi chưa được bản địa hóa.
+
+</Question>
+
+<Question title="Visual editor chạy ở đâu?">
+
+Trên cơ sở hạ tầng của chính bạn. Trình chỉnh sửa tải ứng dụng của bạn bên trong iframe và giao tiếp với server editor cục bộ, do đó nội dung không bao giờ gửi ra bên ngoài.
+
+</Question>
+
+<Question title="Biên tập viên có cần biết viết mã không?">
+
+Không. Họ mở trang web, nhấp trực tiếp vào phần tử văn bản và chỉnh sửa tại chỗ. Trình chỉnh sửa sẽ tự động định vị mục từ điển tương ứng.
+
+</Question>
+
+<Question title="Việc chỉnh sửa qua visual editor có thay đổi các tệp nguồn của tôi không?">
+
+Có, đó chính là thiết kế dự kiến. Thay đổi được ghi vào tệp khai báo nội dung trong codebase của bạn và xuất hiện dưới dạng thay đổi bình thường trong git diff.
+
+</Question>
+
+<Question title="Editor hiển thị trang trắng hoặc từ chối tải trang. Cần kiểm tra gì?">
+
+Editor hiển thị ứng dụng trong iframe, do đó Content Security Policy (CSP) của bạn phải cho phép origin của editor trong chỉ thị `frame-ancestors`. Đồng thời đảm bảo cả server ứng dụng và server editor đều đang chạy.
+
+</Question>
+
+<Question title="Tôi có thể sử dụng visual editor trong môi trường production không?">
+
+Editor được thiết kế cho môi trường development và staging, nơi việc build lại sau khi chỉnh sửa là chấp nhận được. Để chỉnh sửa nội dung trên trang web production trực tiếp, nên sử dụng [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md).
+
+</Question>
+
+<Question title="Visual editor có miễn phí không?">
+
+Có. Visual editor là một phần của dự án mã nguồn mở theo giấy phép Apache 2.0, bao gồm cả mục đích thương mại.
+
+</Question>
+
+</FAQ>

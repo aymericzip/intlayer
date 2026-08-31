@@ -686,3 +686,104 @@ Intlayer के साथ अपने विकास अनुभव को �
 ### आगे बढ़ें
 
 आगे बढ़ने के लिए, आप [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md) को लागू कर सकते हैं या अपने कंटेंट को [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md) का उपयोग करके बाहरी रूप से प्रबंधित कर सकते हैं।
+
+## अक्सर पूछे जाने वाले प्रश्न
+
+<FAQ>
+
+<Question title="Nuxt अनुप्रयोगों के अंतर्राष्ट्रीयकरण के लिए कौन से विभिन्न समाधान उपलब्ध हैं?">
+
+- **`@nuxtjs/i18n`**: `vue-i18n` पर आधारित मानक मॉड्यूल।
+- **`Intlayer`**: स्वचालित ट्री-शेकिंग, पूर्ण TypeScript प्रकार, AI अनुवाद, विज़ुअल एडिटर और CMS।
+
+[Intlayer क्यों चुनें](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/interest_of_intlayer.md) देखें।
+
+</Question>
+
+<Question title="i18n मेरे Nuxt बंडल आकार को कितना बढ़ाता है?">
+
+नेमस्पेस-आधारित समाधानों की तुलना में बहुत कम, क्योंकि एक पृष्ठ कभी भी उस कैटलॉग को डाउनलोड नहीं करता है जिसे वह रेंडर नहीं करता है। बिल्ड-टाइम कंपाइलर `useIntlayer` कॉल को घटक द्वारा उपयोग की जाने वाली सटीक प्रविष्टियों से बदल देता है, और [गतिशील शब्दकोश](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dynamic_dictionaries/index.md) शेष को प्रति लोकेल विभाजित करते हैं, जिससे बंडल 50% तक कम हो जाता है। [बंडल अनुकूलन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/bundle_optimization.md) और [बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/index.md) देखें।
+
+</Question>
+
+<Question title="क्या मैं अपने घटकों को फिर से लिखे बिना @nuxtjs/i18n या vue-i18n से माइग्रेट कर सकता हूँ?">
+
+हाँ। [@nuxtjs/i18n माइग्रेशन गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_vue-i18n_to_intlayer.md) का पालन करें या संगतता एडेप्टर का उपयोग करें।
+
+</Question>
+
+<Question title="क्या मैं अपनी मौजूदा JSON translation files को रख सकता हूं?">
+
+हाँ। [sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/plugins/sync-json.md) आपकी `/messages/{locale}/{namespace}.json` फ़ाइलों को सत्य का स्रोत बनाए रखता है और दोनों दिशाओं में उनसे Intlayer dictionaries बनाता है। [sync PO plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/plugins/sync-po.md) gettext catalogs के लिए भी ऐसा ही करता है, और [per locale files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/per_locale_file.md) आपको locales को एक फ़ाइल में समूहीकृत करने के बजाय भाषा के अनुसार content को विभाजित करने देते हैं।
+
+</Question>
+
+<Question title="क्या मुझे अपनी content को key by key move करना होगा?">
+
+नहीं। `npx intlayer extract` चलाएं और Intlayer आपकी source files को पढ़ता है, user facing strings को निकालता है और प्रत्येक के बगल में एक `.content` file लिखता है, इसलिए आप strings को एक catalog में एक-एक करके कॉपी करने के बजाय एक diff की समीक्षा करते हैं। [extract command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/extract.md) देखें।
+
+पूर्ण स्वचालन के लिए, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md) बिल्ड समय पर यही काम करता है और प्रत्येक परिवर्तन पर शब्दकोश उत्पन्न करता है।
+
+</Question>
+
+<Question title="कौन से editor और AI agent tooling उपलब्ध हैं?">
+
+पाँच उपकरण, सभी वैकल्पिक:
+
+- **[VS Code extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/vs_code_extension.md)**: `useIntlayer` कुंजी से उसे घोषित करने वाली सामग्री फ़ाइल पर जाएं, घटकों से सामग्री निकालें, और कमांड पैलेट या Intlayer टैब से build, fill, test, push और pull चलाएं।
+- **[LSP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/lsp.md)**: LSP का समर्थन करने वाले किसी भी संपादक में समान सुविधा, परिभाषा पर जाएं, अनुवादित मान का पूर्वावलोकन देखें, और कुंजी पूर्णता प्राप्त करें। `i18next`, `react-i18next`, `next-intl` और `use-intl` कॉल का भी समर्थन करता है।
+- **[MCP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/mcp_server.md)**: Cursor, VS Code, Claude Desktop, Claude Code और ChatGPT के लिए Intlayer दस्तावेज़ और CLI प्रदान करता है।
+- **[Agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/agent_skills.md)**: केंद्रित कौशल जैसे `intlayer-config`, `intlayer-cli` और `intlayer-content`।
+- **[ESLint plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/eslint.md)**: `no-raw-text` नियम हार्डकोडेड स्ट्रिंग्स को चिह्नित करता है।
+
+</Question>
+
+<Question title="क्या Intlayer Nuxt में सर्वर साइड रेंडरिंग और स्थिर पीढ़ी के साथ काम करता है?">
+
+हाँ। SSR के दौरान और `nuxt generate` प्रक्रिया में सामग्री का समाधान किया जाता है, इसलिए उत्पन्न पृष्ठों में पूर्ण अनुवादित HTML शामिल होता है।
+
+</Question>
+
+<Question title="क्या मुझे URL में लोकेल शामिल करना अनिवार्य है?">
+
+नहीं। `routing.mode` मान `"prefix-no-default"`, `"prefix-all"`, `"no-prefix"`, और `"search-params"` स्वीकार करता है।
+
+</Question>
+
+<Question title="Nuxt में SEO मेटाडेटा और hreflang टैग कैसे प्रबंधित करें?">
+
+चरण 9 इसे समझाता है। `useHead` मेटाडेटा शब्दकोशों से निकाला जाता है और `getMultilingualUrls` सर्च इंजनों के लिए `hreflang` लिंक बनाता है।
+
+</Question>
+
+<Question title="वर्तमान पृष्ठ को बनाए रखने वाला भाषा स्विचर कैसे बनाएं?">
+
+सक्रिय भाषा के लिए `useLocale` और चरण 8 से स्थानीयकृत लिंक घटक का उपयोग करें।
+
+</Question>
+
+<Question title="AI के साथ Nuxt ऐप का स्वचालित अनुवाद कैसे करें?">
+
+`npx intlayer fill` चलाएं। टूल छूटी हुई स्ट्रिंग्स का पता लगाता है और आपके चुने हुए LLM का उपयोग करके उन्हें भरता है। [fill command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/fill.md) देखें।
+
+</Question>
+
+<Question title="क्या Intlayer Vue टेम्पलेट्स में बहुवचन, लिंग और समृद्ध पाठ का समर्थन करता है?">
+
+हाँ: [बहुवचन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/plurial.md), [लिंग-आधारित सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/gender.md), शर्तें, [सम्मिलन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/insertion.md), और [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/markdown.md)।
+
+</Question>
+
+<Question title="अनुवादक कोड को छुए बिना सामग्री को कैसे संपादित कर सकते हैं?">
+
+[विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md) के माध्यम से, जो किसी को भी सीधे चलते हुए ऐप में टेक्स्ट संपादित करने देता है, या [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md) के माध्यम से, जो सामग्री को अलग करता है ताकि कोड को फिर से तैनात किए बिना उसे अपडेट किया जा सके।
+
+</Question>
+
+<Question title="क्या Intlayer मुफ्त और ओपन सोर्स है?">
+
+हाँ, Apache 2.0 लाइसेंस के तहत, व्यावसायिक उपयोग सहित। होस्टेड CMS एक वैकल्पिक सशुल्क सेवा है जिसे [स्वयं होस्ट (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/self_hosting.md) भी किया जा सकता है।
+
+</Question>
+
+</FAQ>

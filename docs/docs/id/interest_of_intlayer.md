@@ -293,3 +293,101 @@ Bintang GitHub adalah indikator kuat dari popularitas proyek, kepercayaan komuni
 Menggunakan `intlayer`, Anda dapat mendeklarasikan konten dalam format pustaka i18n favorit Anda, dan intlayer akan menghasilkan namespace Anda di lokasi pilihan Anda (contoh: `/messages/{{locale}}/{{namespace}}.json`).
 
 Jika Anda ingin tetap menggunakan API pustaka i18n Anda saat ini, `intlayer` juga menyediakan **compat adapter**: paket yang mengekspos API yang persis sama dengan `react-i18next`, `next-intl`, `react-intl`, `vue-i18n`, dan lainnya, tetapi dilayani oleh kamus Intlayer. Ini memungkinkan Anda bermigrasi secara bertahap tanpa menulis ulang kode Anda. Lihat [dokumentasi Compat Adapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/index.md).
+
+## Pertanyaan yang Sering Diajukan
+
+<FAQ>
+
+<Question title="Apa saja solusi berbeda yang tersedia untuk menginternasionalkan aplikasi JavaScript?">
+
+Tiga generasi saling berdampingan:
+
+- **Library katalog runtime**: `i18next`, `react-i18next`, `next-i18next`, `vue-i18n`, `ngx-translate`.
+- **Library pesan waktu kompilasi**: `Lingui`, `Paraglide`, `react-intl`, dan `next-intl`.
+- **Library lapisan konten (Content layer)**: `Intlayer`. Deklarasi di sebelah komponen, tree-shaking, tipe TypeScript, terjemahan AI, dan editor visual.
+
+Lihat perbandingan lengkap dalam panduan ini.
+
+</Question>
+
+<Question title="Berapa banyak i18n menambah ukuran bundle saya?">
+
+Jauh lebih sedikit daripada pengaturan berbasis namespace, karena halaman tidak pernah mengunduh katalog yang tidak di-render. Markup yang dirender di server menyelesaikan kontennya di server, dan kompilator build time mengganti panggilan `useIntlayer` dengan entri kamus persis yang digunakan komponen, sehingga kunci dan bahasa yang tidak digunakan dibuang. [Kamus dinamis](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dynamic_dictionaries/index.md) membagi sisanya per locale. Dibandingkan dengan alternatif konvensional, Intlayer mengurangi ukuran bundle dan halaman hingga 50%. Lihat [optimasi bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/bundle_optimization.md) dan [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/index.md).
+
+</Question>
+
+<Question title="Bisakah saya bermigrasi dari i18next, next-intl atau react-i18next tanpa menulis ulang komponen saya?">
+
+Ya, dan ada dua jalur. Anda dapat memigrasikan konten secara bertahap dengan [panduan migrasi i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_i18next_to_intlayer.md) atau [panduan migrasi next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_next-intl_to_intlayer.md). Atau Anda dapat mempertahankan API Anda saat ini sepenuhnya: [adapter kompatibilitas](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/index.md) mengekspos API yang sama persis dengan `i18next`, `react-i18next`, `next-intl`, `next-i18next`, `react-intl`, `use-intl`, `vue-i18n` dan `Lingui`, tetapi ditenagai oleh kamus Intlayer, sehingga hanya import yang berubah dan kode komponen tetap sama.
+
+</Question>
+
+<Question title="Bisakah saya menyimpan file terjemahan JSON yang sudah ada?">
+
+Ya. Plugin [sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/plugins/sync-json.md) menjaga file `/messages/{locale}/{namespace}.json` Anda sebagai sumber kebenaran dan menghasilkan kamus Intlayer darinya, di kedua arah. Plugin [sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/plugins/sync-po.md) melakukan hal yang sama untuk katalog gettext, dan [file per locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/per_locale_file.md) memungkinkan Anda membagi konten berdasarkan bahasa daripada mengelompokkan lokal dalam satu file.
+
+</Question>
+
+<Question title="Apakah saya harus memindahkan konten saya key by key?">
+
+Tidak. Jalankan `npx intlayer extract` dan Intlayer membaca file sumber Anda, mengeluarkan string yang dihadapi pengguna, dan menulis file `.content` di sebelah masing-masing, sehingga Anda meninjau diff alih-alih menyalin string ke dalam katalog satu per satu. Lihat [perintah extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/extract.md).
+
+Untuk alur kerja yang sepenuhnya otomatis, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md) melakukan hal yang sama saat build time pada kode JSX, TSX, Vue dan Svelte, menghasilkan kamus pada setiap perubahan sehingga tidak ada kunci yang perlu dikelola secara manual. Karena bekerja melalui analisis statis, string yang hanya ada di runtime berada di luar jangkauannya.
+
+</Question>
+
+<Question title="Apa tooling editor dan agen AI yang tersedia?">
+
+Lima bagian, semuanya opsional:
+
+- **[Ekstensi VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/vs_code_extension.md)**: lompat dari kunci `useIntlayer` ke file konten yang mendeklarasikannya, ekstrak konten dari komponen, dan jalankan build, fill, test, push dan pull dari command palette atau tab Intlayer.
+- **[Server LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/lsp.md)**: kesadaran yang sama di editor mana pun yang mendukung LSP, dengan go to definition, hover preview dari nilai terjemahan, autocompletion kunci, dan peringatan ketika kunci tidak dideklarasikan di mana pun. Ini juga menyelesaikan panggilan `i18next`, `react-i18next`, `next-intl` dan `use-intl`.
+- **[Server MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/mcp_server.md)**: mengekspos dokumentasi Intlayer dan CLI ke Cursor, VS Code, Claude Desktop, Claude Code dan ChatGPT.
+- **[Agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/agent_skills.md)**: keahlian terfokus seperti `intlayer-config`, `intlayer-cli` dan `intlayer-content`.
+- **[Plugin ESLint](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/eslint.md)**: aturan `no-raw-text` menandai string hardcoded.
+
+</Question>
+
+<Question title="Apa perbedaan Intlayer dengan next-intl?">
+
+`next-intl` adalah lapisan pesan untuk Next.js berbasis file JSON per bahasa. Intlayer mendeklarasikan konten langsung di sebelah komponen, membuang entri yang tidak terpakai saat build time, menghasilkan tipe TypeScript ketat untuk setiap kamus, dan menyediakan terjemahan AI serta visual editor bawaan.
+
+</Question>
+
+<Question title="Apa perbedaan Intlayer dengan i18next dan react-i18next?">
+
+`i18next` menyelesaikan kunci string saat runtime, yang berarti kesalahan ketik pada kunci akan gagal secara diam-diam dan menampilkan teks kosong. Intlayer memeriksa kunci secara statis saat kompilasi, membuang bahasa yang tidak digunakan dari bundle, dan mengotomatiskan penerjemahan.
+
+</Question>
+
+<Question title="Apakah Intlayer lebih cepat atau lebih ringan dari alternatifnya?">
+
+Terkait ukuran bundle dan halaman, ya: tidak memuat katalog yang tidak dirender halaman memotong ukuran bundle hingga 50%. Terkait performa runtime, pra-kompilasi menghilangkan biaya parsing di runtime. Lihat [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/index.md).
+
+</Question>
+
+<Question title="Apakah layak memigrasikan aplikasi yang sudah ada?">
+
+Tergantung pada kendala yang Anda hadapi saat ini. Jika masalah Anda adalah ukuran bundle yang besar, terjemahan yang hilang tanpa peringatan, atau kesulitan non-developer dalam mengedit teks, Intlayer menyelesaikannya; adapter kompatibilitas memungkinkan migrasi bertahap tanpa menulis ulang kode.
+
+</Question>
+
+<Question title="Apa yang ditawarkan Intlayer yang tidak dimiliki library i18n lainnya?">
+
+Dukungan [konten Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/markdown.md), pengambilan konten dari CMS, editor visual bawaan, terjemahan otomatis dengan AI menggunakan flag `--git-diff`, dan autocompletion TypeScript berdasarkan analisis komponen.
+
+</Question>
+
+<Question title="Bisakah saya menggunakan Intlayer hanya sebagai pengelola terjemahan dan mempertahankan library saya saat ini?">
+
+Ya. Intlayer dapat menghasilkan namespace dalam format dan lokasi yang diharapkan oleh library Anda saat ini (misalnya `/messages/{locale}/{namespace}.json`), memungkinkan Anda menikmati CLI dan editor Intlayer tanpa mengubah kode aplikasi Anda.
+
+</Question>
+
+<Question title="Apakah Intlayer gratis dan open source?">
+
+Ya, di bawah lisensi Apache 2.0, termasuk penggunaan komersial. CMS yang di-host adalah layanan opsional yang juga dapat [di-host sendiri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/self_hosting.md).
+
+</Question>
+
+</FAQ>

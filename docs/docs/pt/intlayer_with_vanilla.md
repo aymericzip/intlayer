@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-03-31
-updatedAt: 2026-05-31
+updatedAt: 2026-08-30
 title: "Vanilla JS i18n - Guia completo para traduzir seu aplicativo"
 description: "Sem mais i18next. O guia 2026 para criar uma aplicação Vanilla JS multilíngue (i18n). Traduza com agentes de IA e otimize o tamanho do bundle, SEO e desempenho."
 keywords:
@@ -481,3 +481,111 @@ Para mais detalhes sobre como utilizar a extensão, consulte a [documentação d
 ### Ir Mais Longe
 
 Para ir mais longe, pode implementar o [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md) ou externalizar o seu conteúdo utilizando o [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md).
+
+## Perguntas Frequentes
+
+<FAQ>
+
+<Question title="Posso usar o Intlayer sem um empacotador (bundler) ou framework?">
+
+Sim. É exatamente o que este guia cobre. Você importa o bundle `vanilla-intlayer` diretamente no seu HTML conforme demonstrado no passo 3, inicializa-o no seu ponto de entrada e lê o conteúdo com `useIntlayer`. Não é necessário Vite, webpack ou qualquer pipeline de compilação obrigatório.
+
+</Question>
+
+<Question title="Quanto a i18n adiciona ao peso da minha página?">
+
+Muito menos do que um catálogo de mensagens em runtime, pois a página nunca baixa um idioma que não renderiza. O conteúdo é resolvido a partir de dicionários pré-compilados, e o carregamento tardio (lazy loading) por locale mantém os outros idiomas fora do payload inicial até que o visitante alterne a língua. Comparado às opções usuais, o Intlayer reduz o tamanho do bundle e da página em até 50%. Consulte [otimização de bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/bundle_optimization.md), [dicionários dinâmicos](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dynamic_dictionaries/index.md) e o [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/benchmark/index.md).
+
+</Question>
+
+<Question title="Posso migrar do i18next sem reescrever meus scripts?">
+
+Em grande parte, sim. Siga o [guia de migração do i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/migration_from_i18next_to_intlayer.md) para transferir o conteúdo. Você também pode migrar gradualmente: o [plugin sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/plugins/sync-json.md) mantém seus catálogos JSON existentes como fonte de verdade e gera dicionários Intlayer a partir deles, mantendo ambas as camadas sincronizadas enquanto você migra scripts um a um.
+
+</Question>
+
+<Question title="Posso manter meus arquivos de tradução JSON existentes?">
+
+Sim. O [plugin sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/plugins/sync-json.md) mantém seus arquivos `/messages/{locale}/{namespace}.json` como fonte de verdade e gera dicionários Intlayer a partir deles, em ambas as direções. O [plugin sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/plugins/sync-po.md) faz o mesmo para catálogos gettext, e os [arquivos por locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/per_locale_file.md) permitem dividir o conteúdo por idioma em vez de agrupar todos os locales em um único arquivo.
+
+</Question>
+
+<Question title="Preciso mover meu conteúdo chave por chave?">
+
+Não. Execute `npx intlayer extract` e o Intlayer lê seus arquivos fonte, extrai as strings voltadas para o usuário e escreve um arquivo `.content` ao lado de cada um, para que você revise um diff em vez de copiar strings para um catálogo uma a uma. Consulte o [comando extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/extract.md).
+
+Para um fluxo de trabalho totalmente automatizado, o [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/compiler.md) faz o mesmo em tempo de build em código JSX, TSX, Vue e Svelte, gerando os dicionários a cada alteração para que não haja necessidade de manter chaves manualmente. Como opera por análise estática, strings criadas exclusivamente em tempo de execução ficam fora de alcance, necessitando de algumas anotações para diferenciar texto do usuário de lógica interna da aplicação.
+
+</Question>
+
+<Question title="Quais ferramentas de editor e agentes de IA estão disponíveis?">
+
+Cinco ferramentas, todas opcionais:
+
+- **[Extensão VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/vs_code_extension.md)**: navegue de uma chave `useIntlayer` diretamente para o arquivo de conteúdo que a declara, extraia conteúdo de um componente e execute build, fill, test, push e pull pela paleta de comandos ou pela aba dedicada do Intlayer.
+- **[Servidor LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/lsp.md)**: a mesma inteligência em qualquer editor compatível com LSP, com ir para definição, localizar referências, pré-visualizações de valores traduzidos ao passar o mouse, autocompletar e alertas para chaves não declaradas. Também resolve chamadas de `i18next`, `react-i18next`, `next-intl` e `use-intl`, facilitando a migração.
+- **[Servidor MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/mcp_server.md)**: expõe a documentação e a CLI do Intlayer para Cursor, VS Code, Claude Desktop, Claude Code e ChatGPT, permitindo que os assistentes respondam com base na documentação atualizada e executem comandos como `intlayer fill`.
+- **[Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/agent_skills.md)**: habilidades focadas como `intlayer-config`, `intlayer-cli` e `intlayer-content`, além de uma por framework, ensinando ao agente suas regras de roteamento e tipos de nós.
+- **[Plugin ESLint](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/eslint.md)**: a regra `no-raw-text` identifica strings hardcoded, com regras adicionais para chaves estáticas e conteúdo não utilizado.
+
+</Question>
+
+<Question title="Quais são as diferentes soluções disponíveis para internacionalizar um site em JavaScript puro?">
+
+- **Um objeto de dicionário manual**, geralmente um arquivo JSON por idioma carregado via `fetch`: sem dependências, porém sem verificação de tipos, sem suporte a regras de plurais e sem alertas para traduções faltantes.
+- **`i18next`** via CDN: maduro e agnóstico de framework, com ecossistema de plugins, mas adiciona sobrecarga de runtime e seu próprio carregamento de catálogos.
+- **`Intlayer`**: conteúdo declarado com regras de plural e gênero, detecção de locale, suporte para RTL e carregamento dinâmico por idioma, além de uma CLI para preencher traduções com IA e um editor visual para colaboradores não técnicos.
+
+Consulte [por que Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/interest_of_intlayer.md).
+
+</Question>
+
+<Question title="Como leio uma tradução e a insiro no DOM?">
+
+Chame `useIntlayer` passando a chave do seu dicionário e insira o valor diretamente no nó do DOM correspondente, como mostrado no passo 6. Como não há um framework com re-renderização automática, você atualiza os elementos quando o idioma for alterado, conforme detalhado no passo 7.
+
+</Question>
+
+<Question title="Como o idioma do visitante é detectado?">
+
+A partir das fontes configuradas em `routing.storage`, normalmente um cookie em primeiro lugar, seguido pelo cabeçalho `Accept-Language`, caindo no seu idioma padrão como fallback. O idioma escolhido manualmente pelo visitante é persistido para futuras visitas. Consulte a [referência de configuração](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/configuration.md).
+
+</Question>
+
+<Question title="Como dou suporte a idiomas da direita para a esquerda (RTL), como Árabe ou Hebraico?">
+
+O passo 8 cobre isso. A função `getHTMLTextDir` retorna `ltr`, `rtl` ou `auto` para um locale, permitindo definir os atributos `lang` e `dir` no elemento `html` a partir do idioma ativo e deixando que as propriedades lógicas do CSS cuidem do layout.
+
+</Question>
+
+<Question title="Os visitantes baixam todos os idiomas?">
+
+Não, se você não quiser. O passo 9 explica como habilitar carregamento dinâmico (lazy loading) dos dicionários por locale, fazendo com que a página carregue apenas o idioma inicial e busque outro sob demanda apenas quando o usuário alternar de idioma. Consulte [dicionários dinâmicos](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dynamic_dictionaries/index.md).
+
+</Question>
+
+<Question title="Como traduzo o app automaticamente com IA?">
+
+Execute `npx intlayer fill`. Ele preenche traduções pendentes com o LLM de sua escolha, usando seu provedor e chave de API próprios, e a opção `--git-diff` limita o processo ao conteúdo modificado na branch atual. Consulte o [comando fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/fill.md) e a [integração CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/CI_CD.md).
+
+</Question>
+
+<Question title="O Intlayer suporta plurais, gênero e rich text?">
+
+Sim: [formas plurais](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/plurial.md), [conteúdo baseado em gênero](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/gender.md), condições, [inserções](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/insertion.md), [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/markdown.md) e [formatadores](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/formatters.md) para números, datas e moedas.
+
+</Question>
+
+<Question title="Como tradutores podem editar o conteúdo sem tocar no código?">
+
+Por meio do [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md), que roda em sua própria infraestrutura e permite editar textos diretamente no app em execução, ou pelo [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md), que externaliza o conteúdo para que ele possa ser alterado sem novos deploys.
+
+</Question>
+
+<Question title="O Intlayer é gratuito e de código aberto?">
+
+Sim, sob a licença Apache 2.0, uso comercial incluído. O CMS hospedado é um serviço opcional pago que também pode ser [auto hospedado](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/self_hosting.md).
+
+</Question>
+
+</FAQ>

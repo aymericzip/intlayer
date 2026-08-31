@@ -546,3 +546,105 @@ Intlayer के साथ अपने विकास अनुभव को �
 ### आगे बढ़ें
 
 आगे बढ़ने के लिए, आप [विजुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) लागू कर सकते हैं या [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) का उपयोग करके अपनी सामग्री को बाहरी बना सकते हैं।
+
+## अक्सर पूछे जाने वाले प्रश्न
+
+<FAQ>
+
+<Question title="Vite और React अनुप्रयोगों के अंतर्राष्ट्रीयकरण के लिए कौन से विभिन्न समाधान उपलब्ध हैं?">
+
+- **`react-i18next`**: रनटाइम JSON लोडिंग।
+- **`react-intl`**: ICU प्रारूप।
+- **`Intlayer`**: बिल्ड समय पर स्वचालित टेक्स्ट निष्कर्षण, HMR समर्थन, पूर्ण TypeScript प्रकार और AI अनुवाद।
+
+[Intlayer क्यों चुनें](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/interest_of_intlayer.md) देखें।
+
+</Question>
+
+<Question title="i18n मेरे Vite बंडल आकार को कितना बढ़ाता है?">
+
+कंपाइलर केवल उन्हीं स्ट्रिंग्स को शामिल करता है जिनका घटक वास्तव में उपयोग करता है, जिससे कोड का आकार न्यूनतम रहता है। [बंडल अनुकूलन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/bundle_optimization.md) देखें।
+
+</Question>
+
+<Question title="क्या मैं अपने घटकों को फिर से लिखे बिना react-i18next या react-intl से माइग्रेट कर सकता हूँ?">
+
+हाँ, संगतता एडेप्टर के माध्यम से या सीधे मौजूदा कोड पर कंपाइलर को सक्षम करके।
+
+</Question>
+
+<Question title="क्या मैं अपनी मौजूदा JSON translation files को रख सकता हूं?">
+
+हाँ। [sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/plugins/sync-json.md) आपकी `/messages/{locale}/{namespace}.json` फ़ाइलों को सत्य का स्रोत बनाए रखता है और दोनों दिशाओं में उनसे Intlayer dictionaries बनाता है। [sync PO plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/plugins/sync-po.md) gettext catalogs के लिए भी ऐसा ही करता है, और [per locale files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/per_locale_file.md) आपको locales को एक फ़ाइल में समूहीकृत करने के बजाय भाषा के अनुसार content को विभाजित करने देते हैं।
+
+</Question>
+
+<Question title="क्या मुझे अपनी content को key by key move करना होगा?">
+
+नहीं। `npx intlayer extract` चलाएं और Intlayer आपकी source files को पढ़ता है, user facing strings को निकालता है और प्रत्येक के बगल में एक `.content` file लिखता है, इसलिए आप strings को एक catalog में एक-एक करके कॉपी करने के बजाय एक diff की समीक्षा करते हैं। [extract command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/extract.md) देखें।
+
+पूर्ण स्वचालन के लिए, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md) JSX, TSX, Vue और Svelte कोड पर निर्माण समय के दौरान भी यही करता है, प्रत्येक परिवर्तन पर शब्दकोश उत्पन्न करता है जिससे कुंजियों को मैन्युअल रूप से बनाए रखने की आवश्यकता समाप्त हो जाती है।
+
+</Question>
+
+<Question title="कौन से editor और AI agent tooling उपलब्ध हैं?">
+
+पाँच उपकरण, सभी वैकल्पिक:
+
+- **[VS Code extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/vs_code_extension.md)**: `useIntlayer` कुंजी से उसे घोषित करने वाली सामग्री फ़ाइल पर जाएं, घटकों से सामग्री निकालें, और कमांड पैलेट या Intlayer टैब से build, fill, test, push और pull चलाएं।
+- **[LSP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/lsp.md)**: LSP का समर्थन करने वाले किसी भी संपादक में समान सुविधा, परिभाषा पर जाएं, अनुवादित मान का पूर्वावलोकन देखें, और कुंजी पूर्णता प्राप्त करें। `i18next`, `react-i18next`, `next-intl` और `use-intl` कॉल का भी समर्थन करता है।
+- **[MCP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/mcp_server.md)**: Cursor, VS Code, Claude Desktop, Claude Code और ChatGPT के लिए Intlayer दस्तावेज़ और CLI प्रदान करता है।
+- **[Agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/agent_skills.md)**: केंद्रित कौशल जैसे `intlayer-config`, `intlayer-cli` और `intlayer-content`।
+- **[ESLint plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/eslint.md)**: `no-raw-text` नियम हार्डकोडेड स्ट्रिंग्स को चिह्नित करता है।
+
+</Question>
+
+<Question title="क्या मुझे कंपाइलर का उपयोग करना चाहिए या सामग्री को स्वयं घोषित करना चाहिए?">
+
+त्वरित विकास के लिए, कंपाइलर आदर्श है। जटिल बहुवचन नियमों या कस्टम लॉजिक के लिए, स्पष्ट सामग्री फ़ाइलें बेहतर नियंत्रण प्रदान करती हैं।
+
+</Question>
+
+<Question title="उन स्ट्रिंग्स का क्या होता है जिन्हें कंपाइलर नहीं देख सकता?">
+
+रनटाइम पर उत्पन्न गतिशील स्ट्रिंग्स को `t()` या मानक `.content` फ़ाइल का उपयोग करके नियंत्रित किया जा सकता है।
+
+</Question>
+
+<Question title="कंपाइलर कैसे तय करता है कि उपयोगकर्ता टेक्स्ट क्या है?">
+
+कंपाइलर JSX टेक्स्ट नोड्स और `aria-label` या `placeholder` जैसी सामान्य विशेषताओं को लक्षित करता है, CSS क्लास और सिस्टम पहचानकर्ताओं को फ़िल्टर करता है।
+
+</Question>
+
+<Question title="लापता अनुवादों को कैसे भरें?">
+
+चरण 7 इसे कवर करता है। `npx intlayer fill` कमांड निकाले गए टेक्स्ट को आपकी पसंद के LLM को भेजता है, और `--git-diff` वर्तमान शाखा तक परिवर्तनों को सीमित करता है।
+
+</Question>
+
+<Question title="रनटाइम पर भाषा कैसे बदलें?">
+
+चरण 6 इसे कवर करता है। `useLocale` हुक सक्रिय लोकेल, भाषाओं की सूची और सेटर प्रदान करता है; घटक पृष्ठ को पुनः लोड किए बिना नई भाषा में पुनः रेंडर होते हैं।
+
+</Question>
+
+<Question title="क्या Intlayer बहुवचन, लिंग और समृद्ध पाठ (rich text) का समर्थन करता है?">
+
+हाँ: [बहुवचन (plurals)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/plurial.md), [लिंग-आधारित सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/gender.md), शर्तें, [सम्मिलन (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/insertion.md), [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/markdown.md), और संख्याओं, तिथियों और मुद्राओं के लिए [प्रारूपक (formatters)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/formatters.md)।
+
+</Question>
+
+<Question title="अनुवादक कोड को छुए बिना सामग्री को कैसे संपादित कर सकते हैं?">
+
+[विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md) के माध्यम से, जो किसी को भी सीधे चलते हुए ऐप में टेक्स्ट संपादित करने देता है, या [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md) के माध्यम से, जो सामग्री को अलग करता है ताकि कोड को फिर से तैनात किए बिना उसे अपडेट किया जा सके।
+
+</Question>
+
+<Question title="क्या Intlayer मुफ्त और ओपन सोर्स है?">
+
+हाँ, Apache 2.0 लाइसेंस के तहत, व्यावसायिक उपयोग सहित। होस्टेड CMS एक वैकल्पिक सशुल्क सेवा है जिसे [स्वयं होस्ट (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/self_hosting.md) भी किया जा सकता है।
+
+</Question>
+
+</FAQ>

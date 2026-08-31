@@ -264,7 +264,7 @@ Intlayer состоит из нескольких пакетов, каждый �
 
 <FAQ>
 
-<Question title="Когда собираются словари — во время сборки или во время выполнения?">
+<Question title="Когда собираются словари - во время сборки или во время выполнения?">
 
 Во время сборки. Плагин сборщика или `npx intlayer build` сканирует ваши файлы `.content.ts`, разрешает их в словари в папке `.intlayer` и генерирует соответствующие типы TypeScript. Во время выполнения ваши компоненты только читают результат, поэтому на пути запроса не происходит ни разбора, ни загрузки файлов.
 
@@ -278,7 +278,7 @@ Intlayer состоит из нескольких пакетов, каждый �
 
 <Question title="Могу ли я мигрировать с `i18next`, `next-intl` или `react-i18next`, не переписывая свои компоненты?">
 
-Да, и есть два пути. Вы можете мигрировать контент постепенно с помощью [руководства по миграции с i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/migration_from_i18next_to_intlayer.md) или [руководства по миграции с next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/migration_from_next-intl_to_intlayer.md). Или вы можете полностью сохранить свой текущий API: [адаптеры совместимости](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/index.md) предоставляют точно такой же API, как `i18next`, `react-i18next`, `next-intl`, `next-i18next`, `react-intl`, `use-intl`, `vue-i18n` и `Lingui`, но обслуживаемый словарями Intlayer, поэтому меняются импорты, а код компонентов — нет.
+Да, и есть два пути. Вы можете мигрировать контент постепенно с помощью [руководства по миграции с i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/migration_from_i18next_to_intlayer.md) или [руководства по миграции с next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/migration_from_next-intl_to_intlayer.md). Или вы можете полностью сохранить свой текущий API: [адаптеры совместимости](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/index.md) предоставляют точно такой же API, как `i18next`, `react-i18next`, `next-intl`, `next-i18next`, `react-intl`, `use-intl`, `vue-i18n` и `Lingui`, но обслуживаемый словарями Intlayer, поэтому меняются импорты, а код компонентов - нет.
 
 </Question>
 
@@ -346,7 +346,7 @@ Intlayer состоит из нескольких пакетов, каждый �
 
 <Question title="Нужно ли пересобирать проект, когда я добавляю перевод?">
 
-В разработке — нет: плагин следит за вашими файлами контента и пересобирает затронутые словари при сохранении. В продакшене словари являются частью сборки, если только контент не удалённый — в этом случае [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md) и [живая синхронизация](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/live.md) применяют изменение без развёртывания.
+В разработке - нет: плагин следит за вашими файлами контента и пересобирает затронутые словари при сохранении. В продакшене словари являются частью сборки, если только контент не удалённый - в этом случае [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md) и [живая синхронизация](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/live.md) применяют изменение без развёртывания.
 
 </Question>
 

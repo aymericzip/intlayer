@@ -259,3 +259,95 @@ const MyComponent = () => {
 ## تحدث مع وثائقنا الذكية
 
 - [اطرح أسئلتك على وثائقنا الذكية](https://intlayer.org/doc/chat)
+
+## الأسئلة الشائعة
+
+<FAQ>
+
+<Question title="متى يتم بناء القواميس: في وقت البناء أم في وقت التشغيل؟">
+
+في وقت البناء. يفحص مكون Intlayer الإضافي ملفات `.content.ts`، ويترجمها إلى قواميس محسنة، ويكتبها في مجلد `.intlayer`. في بيئة التطوير، تحدث هذه العملية تلقائيًا في كل مرة تحفظ فيها ملفًا.
+
+</Question>
+
+<Question title="كم يضيف i18n إلى حجم حزمة (bundle) تطبيقي؟">
+
+أقل بكثير من الإعدادات القائمة على فضاءات الأسماء، لأن الصفحة لا تُحمّل أبدًا كتالوجًا لا تعرضه. يُحل المحتوى المعروض على الخادم مباشرة على الخادم، ويستبدل مترجم وقت البناء استدعاءات `useIntlayer` بإدخالات القاموس الدقيقة التي يستخدمها المكون، لذلك يتم التخلص من المفاتيح واللغات غير المستخدمة. تقسم [القواميس الديناميكية](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dynamic_dictionaries/index.md) الباقي حسب اللغة. مقارنة بالبدائل التقليدية، يقلل Intlayer حجم الحزمة والصفحة بنسبة تصل إلى 50%. انظر [تحسين الحزم](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md) و [المقارنة المعيارية](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/index.md).
+
+</Question>
+
+<Question title="هل يمكنني الترحيل من i18next أو next-intl أو react-i18next دون إعادة كتابة مكوناتي؟">
+
+نعم، وبطريقتين. يمكنك ترحيل المحتوى تدريجيًا باستخدام [دليل ترحيل i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_i18next_to_intlayer.md) أو [دليل ترحيل next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_next-intl_to_intlayer.md). أو يمكنك الاحتفاظ بواجهة برمجة التطبيقات الحالية بالكامل: تكشف [محولات التوافق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/index.md) نفس واجهات `i18next` و `react-i18next` و `next-intl` و `next-i18next` و `react-intl` و `use-intl` و `vue-i18n` و `Lingui`، ولكنها مدعومة بقواميس Intlayer، بحيث تتغير الاستيرادات فقط بينما يظل كود المكون كما هو.
+
+</Question>
+
+<Question title="هل يمكنني الاحتفاظ بملفات الترجمة JSON الموجودة لدي؟">
+
+نعم. تحافظ [مكونة مزامنة JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/plugins/sync-json.md) على ملفات `/messages/{locale}/{namespace}.json` الخاصة بك كمصدر الحقيقة وتُنشئ قواميس Intlayer منها، في كلا الاتجاهين. وتقوم [مكونة مزامنة PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/plugins/sync-po.md) بنفس الشيء لكتالوجات gettext، وتسمح لك [الملفات المقسمة حسب اللغة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/per_locale_file.md) بتقسيم المحتوى حسب اللغة بدلاً من تجميع كل اللغات في ملف واحد.
+
+</Question>
+
+<Question title="هل يجب أن أنقل المحتوى الخاص بي مفتاحًا تلو الآخر؟">
+
+لا. قم بتشغيل `npx intlayer extract` وسيقرأ Intlayer ملفات المصدر الخاصة بك، ويسحب السلاسل النصية الموجهة للمستخدم ويكتب ملف `.content` بجانب كل منها، بحيث تراجع diff بدلاً من نسخ السلاسل إلى كتالوج يدويًا. راجع [أمر extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/extract.md).
+
+لأتمتة كاملة، يقوم [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md) بالشيء نفسه في وقت البناء على كود JSX و TSX و Vue و Svelte، منشئًا القواميس عند كل تغيير دون الحاجة إلى إدارة المفاتيح يدويًا.
+
+</Question>
+
+<Question title="ما هي أدوات المحررات والوكلاء الذكيين المتاحة؟">
+
+خمس أدوات، كلها اختيارية:
+
+- **[امتداد VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/vs_code_extension.md)**: الانتقال من مفتاح `useIntlayer` إلى ملف المحتوى المصرح به، استخراج المحتوى من المكون، وتشغيل build و fill و test و push و pull من لوحة الأوامر أو علامة تبويب Intlayer.
+- **[خادم LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/lsp.md)**: نفس التجربة في أي محرر يدعم LSP، مع الانتقال إلى التعريف وعروض القيمة المترجمة عند التمرير والإكمال التلقائي للمفاتيح. يدعم أيضًا استدعاءات `i18next` و `react-i18next` و `next-intl` و `use-intl`.
+- **[خادم MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/mcp_server.md)**: يكشف وثائق Intlayer و CLI إلى Cursor و VS Code و Claude Desktop و Claude Code و ChatGPT.
+- **[Agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md)**: مهارات مخصصة مثل `intlayer-config` و `intlayer-cli` و `intlayer-content`.
+- **[ESLint plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/eslint.md)**: قاعدة `no-raw-text` ترصد النصوص المكتوبة مباشرة بدون تدويل.
+
+</Question>
+
+<Question title="ما هو مجلد .intlayer وهل يجب علي تضمينه في git؟">
+
+هذا المجلد هو المخرج المنشأ: القواميس المترجمة وأنواع TypeScript المنشأة. يتم إنشاؤه بالكامل من ملفات المحتوى الخاصة بك، لذلك يجب إضافته إلى `.gitignore` وإعادة بنائه في CI/CD عبر أمر `intlayer build`.
+
+</Question>
+
+<Question title="كيف يتم تحديد اللغة النشطة؟">
+
+من المصادر المدرجة في `routing.storage`، بالترتيب: بادئة URL، وملفات تعريف الارتباط، وترويسة `Accept-Language`، واللغة الافتراضية.
+
+</Question>
+
+<Question title="ما الفرق بين القواميس المحلية والقواميس البعيدة (remote)؟">
+
+يتم الإعلان عن القاموس المحلي في قاعدة التعليمات البرمجية الخاصة بك ويتم تجميعه مع التطبيق. تتم إدارة القاموس البعيد في نظام إدارة المحتوى (CMS) ويتم جلبه عبر واجهة برمجة التطبيقات (API)، مما يسمح بتحديث النصوص دون إعادة بناء كود التطبيق.
+
+</Question>
+
+<Question title="هل يعمل Intlayer بدون TypeScript؟">
+
+نعم. يمكن كتابة ملفات المحتوى بلغة TypeScript أو JavaScript أو ESM أو CommonJS أو JSON. ومع ذلك، يوفر TypeScript مزايا الفحص التلقائي للأنواع والإكمال التلقائي للمفاتيح في المحرر الخاص بك.
+
+</Question>
+
+<Question title="كيف يشترك العرض على الخادم والعرض على العميل في نفس المحتوى؟">
+
+يحل الخادم محتوى المكونات المعروضة على الخادم مباشرة، لذلك لا يتم إرسال أي قواميس إلى العميل لتلك المكونات. تتلقى مكونات العميل القواميس المطلوبة للتفاعل في المتصفح فقط.
+
+</Question>
+
+<Question title="كيف يتجنب Intlayer أخطاء عدم تطابق الترطيب (hydration mismatch) المتعلقة باللغة؟">
+
+يتم تحديد اللغة مرة واحدة على الخادم وتمريرها إلى موفر العميل بدلاً من إعادة اكتشافها في المتصفح، مما يضمن تطابق مخرجات HTML للخادم والعميل تمامًا.
+
+</Question>
+
+<Question title="هل أحتاج إلى إعادة البناء عند إضافة ترجمات؟">
+
+في بيئة التطوير لا: يراقب المكون الإضافي الملفات ويحدث القواميس على الفور. في الإنتاج نعم: يتم تجميع القواميس المحلية في حزمة التطبيق أثناء خطوة البناء.
+
+</Question>
+
+</FAQ>

@@ -1,8 +1,8 @@
 ---
-createdAt: 2025-09-04
-updatedAt: 2026-05-31
-title: "React Router v7 i18n - Kompletny przewodnik po tłumaczeniu swojej aplikacji"
-description: "Koniec z i18next. Przewodnik 2026 do budowania wielojęzycznej (i18n) aplikacji React Router v7. Tłumacz z agentami AI i optymalizuj rozmiar bundle, SEO i wydajność."
+title: Jak umiędzynarodowić (i18n) aplikację React Router v7 za pomocą Intlayer
+createdAt: 2025-02-07
+updatedAt: 2026-08-30
+description: Zintegruj Intlayer z React Router v7, aby stworzyć w pełni wielojęzyczną aplikację z optymalnym SEO i routingiem.
 keywords:
   - Internacjonalizacja
   - Dokumentacja
@@ -558,7 +558,7 @@ Możesz również użyć `intlayerProxy` do dodania routingu po stronie serwera 
 
 > Pamiętaj, że aby użyć `intlayerProxy` w produkcji, musisz przenieść pakiet `vite-intlayer` z `devDependencies` do `dependencies`.
 
-> Od wersji Intlayer v9, `intlayerProxy()` jest dołączony bezpośrednio do wtyczki `intlayer()` i domyślnie włączony przez opcję `routing.enableProxy` (`true` domyślnie). Rejestrowanie go oddzielnie, jak pokazano poniżej, jest teraz opcjonalne — jest zachowane dla kompatybilności wstecznej i dla konfiguracji, które muszą kontrolować kolejność wtyczek. Ustaw `routing.enableProxy: false`, aby zrezygnować. Patrz [notatki wydania v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/releases/v9.md).
+> Od wersji Intlayer v9, `intlayerProxy()` jest dołączony bezpośrednio do wtyczki `intlayer()` i domyślnie włączony przez opcję `routing.enableProxy` (`true` domyślnie). Rejestrowanie go oddzielnie, jak pokazano poniżej, jest teraz opcjonalne - jest zachowane dla kompatybilności wstecznej i dla konfiguracji, które muszą kontrolować kolejność wtyczek. Ustaw `routing.enableProxy: false`, aby zrezygnować. Patrz [notatki wydania v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/releases/v9.md).
 
 ```typescript {3,7} fileName="vite.config.ts"
 import { defineConfig } from "vite";
@@ -582,7 +582,7 @@ export default defineConfig({
 
 <Step number={12} title="Wyodrębnij zawartość swoich komponentów" isOptional={true}>
 
-Jeśli masz istniejącą bazę kodu, transformacja tysięcy plików może być czasochłonna.
+If you have an existing codebase, transforming thousands of files can be time-consuming.
 
 Aby ułatwić ten proces, Intlayer proponuje [kompilator](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compiler.md) / [ekstraktor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/extract.md), aby przetransformować komponenty i wyodrębnić zawartość.
 
@@ -732,19 +732,258 @@ For more details on how to use the extension, refer to the [Intlayer VS Code Ext
 
 ---
 
-## Go Further
+## Odnośniki do dokumentacji
 
-To go further, you can implement the [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) or externalize your content using the [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md).
+Aby uzyskać więcej informacji na temat funkcji i zaawansowanych konfiguracji:
+
+- [Dokumentacja Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/introduction.md)
+- [Konfiguracja Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md)
+- [Przewodnik po zawartości Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/content_extention.md)
+- [Dokumentacja React Router v7](https://reactrouter.com/)
 
 ---
 
-## Odnośniki do dokumentacji
+## Często Zadawane Pytania
 
-- [Dokumentacja Intlayer](https://intlayer.org)
-- [Dokumentacja React Router v7](https://reactrouter.com/)
-- [useIntlayer hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/react-intlayer/useIntlayer.md)
-- [useLocale hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/react-intlayer/useLocale.md)
-- [Deklaracja treści](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/content_file.md)
-- [Konfiguracja](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md)
+<FAQ>
 
-Ten kompleksowy przewodnik zawiera wszystko, co potrzebne do integracji Intlayer z React Router v7, aby uzyskać w pełni zinternacjonalizowaną aplikację z trasowaniem uwzględniającym lokalizację oraz wsparciem dla TypeScript.
+<Question title="Jakie są różne rozwiązania dostępne do internacjonalizacji aplikacji React Router v7?">
+
+Do internacjonalizacji aplikacji React Router v7 możesz wybierać spośród kilku podejść:
+
+1. **Intlayer**: Nowoczesne, kompleksowe rozwiązanie oferujące deklaracje zawartości na poziomie komponentu, ścisłe bezpieczeństwo typów TypeScript, automatyczne generowanie słowników oraz wbudowane narzędzia dla edytora/AI (np. integrację z Edytorem Wizualnym i CMS). Obsługuje zarówno tryb biblioteki (SPA), jak i tryb frameworka React Router v7 (SSR, akcje i loadery).
+2. **react-i18next**: Dojrzały i powszechnie używany ekosystem oparty na formacie JSON. Wymaga manualnego zarządzania przestrzeniami nazw, kluczami tłumaczeń i oddzielnymi plikami JSON, z ograniczonym automatycznym wnioskowaniem typów w porównaniu do podejścia Intlayer opartego na schematach.
+3. **react-intl / FormatJS**: Skupia się na standardzie formatowania wiadomości ICU. Znakomicie radzi sobie z formatowaniem liczb, dat i zaawansowanymi regułami liczby mnogiej, ale wymaga manualnej konfiguracji pipeline'u wyodrębniania wiadomości.
+4. **Własne podejście oparte na kontekście (Context API)**: Prosty React Context przechowujący bieżącą lokalizację i mapę ciągów znaków. Odpowiedni tylko dla bardzo małych projektów ze względu na brak optymalizacji bundle'a, bezpieczeństwa typów czy zaawansowanych funkcji formatowania.
+
+</Question>
+
+<Question title="O ile i18n zwiększa rozmiar mojego bundle'a w React Router?">
+
+Wpływ na bundle zależy od wybranego narzędzia i strategii ładowania:
+
+- **Dzięki Intlayer**: Do bundle'a klienta dołączany jest jedynie minimalny runtime. Twoje deklaracje zawartości są kompilowane i mogą być dzielone na poziomie stron lub komponentów - użytkownicy pobierają tylko tłumaczenia dla bieżącej lokalizacji i aktualnie odwiedzanych tras.
+- **Tradycyjne biblioteki oparte na JSON**: Często ładują duże pliki JSON z tłumaczeniami na starcie, chyba że manualnie skonfigurujesz dynamiczny import i podział przestrzeni nazw na poziomie tras.
+- **W trybie frameworka React Router v7**: Dane słowników mogą być przekazywane przez `loader`, co całkowicie eliminuje potrzebę dołączania nieużywanych tłumaczeń do początkowego ładunku JavaScriptu.
+
+</Question>
+
+<Question title="Czy mogę zmigrować z react-i18next lub react-intl bez przepisywania moich komponentów?">
+
+Tak. Możesz przeprowadzić stopniową migrację:
+
+1. Zainstaluj `intlayer` i `react-intlayer`.
+2. Skonfiguruj `intlayer.config.ts` ze swoimi lokalizacjami.
+3. Przekształcaj swoje komponenty trasa po trasie lub komponent po komponencie - Intlayer może współistnieć z `react-i18next` lub `react-intl` podczas okresu przejściowego.
+4. Przekształć ciągi znaków `t('key')` na deklaracje `content.ts` i wywołania hooka `useIntlayer()`.
+
+</Question>
+
+<Question title="Czy mogę zachować moje istniejące pliki tłumaczeń JSON?">
+
+Tak! Intlayer obsługuje deklaracje zawartości w plikach JSON (`.content.json`), a także w formatach TypeScript (`.content.ts`), JavaScript (`.content.mjs`) czy YAML. Jeśli masz już istniejące pliki JSON, możesz je zaadaptować do formatu słowników Intlayer, zachowując istniejącą strukturę kluczy i stopniowo dodając bezpieczeństwo typów.
+
+</Question>
+
+<Question title="Czy muszę przenosić moją zawartość klucz po kluczu?">
+
+Nie. Ponieważ deklaracje zawartości Intlayer są zwykłymi obiektami JavaScript/TypeScript lub JSON, możesz przenieść całe sekcje swoich starych plików tłumaczeń jednocześnie. Możesz również zorganizować zawartość bezpośrednio w pobliżu komponentów, które z niej korzystają (deklaracja na poziomie komponentu), zamiast utrzymywać jeden gigantyczny, scentralizowany plik tłumaczeń.
+
+</Question>
+
+<Question title="Jakie narzędzia dla edytora i agentów AI są dostępne?">
+
+Intlayer oferuje:
+
+- **Edytor Wizualny**: Rozszerzenie przeglądarki i wbudowana nakładka umożliwiająca edycję tekstów bezpośrednio w działającej aplikacji z podglądem na żywo.
+- **Zintegrowany CMS**: Umożliwia zespołom nietechnicznym zarządzanie treścią bez konieczności wypychania kodu czy ponownego wdrażania aplikacji.
+- **Wsparcie CLI i agentów AI**: Narzędzie CLI Intlayer może audytować brakujące tłumaczenia, automatycznie wypełniać brakujące teksty przy użyciu modeli językowych i sprawdzać zgodność typów w potokach CI/CD.
+
+</Question>
+
+<Question title="Jak dodać segment lokalizacji do moich tras?">
+
+W konfiguracji tras React Router v7 owiń swoje zlokalizowane trasy w parametr ścieżki `:locale`:
+
+```tsx
+// app/routes.ts
+import { type RouteConfig, route, index } from "@react-router/dev/routes";
+
+export default [
+  route(":locale?", "./routes/layout.tsx", [
+    index("./routes/home.tsx"),
+    route("about", "./routes/about.tsx"),
+  ]),
+] satisfies RouteConfig;
+```
+
+W komponencie layoutu lub middleware odczytaj parametr `:locale`, sprawdź jego poprawność względem skonfigurowanych lokalizacji i opakuj poddrzewo w `IntlayerProvider`:
+
+```tsx
+// app/routes/layout.tsx
+import { useParams, Outlet } from "react-router";
+import { IntlayerProvider } from "react-intlayer";
+import { configuration } from "intlayer";
+
+export default function AppLayout() {
+  const { locale } = useParams();
+  const validLocale = configuration.internationalization.locales.includes(
+    locale as any
+  )
+    ? locale
+    : configuration.internationalization.defaultLocale;
+
+  return (
+    <IntlayerProvider locale={validLocale}>
+      <Outlet />
+    </IntlayerProvider>
+  );
+}
+```
+
+</Question>
+
+<Question title="Czy muszę umieszczać lokalizację w adresie URL?">
+
+Nie. Choć umieszczanie lokalizacji w adresie URL (np. `/pl/about`) jest zalecane ze względów SEO, możesz również zarządzać lokalizacją za pośrednictwem:
+
+- **Ciasteczka (Cookie)**: Zapisuj preferencję językową w ciasteczku i odczytuj ją na serwerze lub kliencie.
+- **Nagłówka `Accept-Language`**: Wykrywaj preferowany język przeglądarki użytkownika w swoich loaderach.
+- **Pamięci lokalnej klienta (LocalStorage) lub stanu sesji**: Zarządzaj językiem w stanie po stronie klienta bez modyfikowania struktury URL (idealne dla chronionych paneli użytkownika lub intranetów).
+
+</Question>
+
+<Question title="Czy to działa z React Routerem w trybie frameworka, z SSR i loaderami?">
+
+Tak! W trybie frameworka React Router v7 możesz wywoływać funkcje Intlayer wewnątrz funkcji `loader` i `action`:
+
+```tsx
+// app/routes/home.tsx
+import type { Route } from "./+types/home";
+import { getIntlayer } from "intlayer";
+import homeContent from "./home.content";
+
+export async function loader({ params }: Route.LoaderArgs) {
+  const content = getIntlayer(homeContent, params.locale);
+  return { title: content.title };
+}
+```
+
+Wewnątrz komponentów React nadal możesz używać `useIntlayer()` do renderowania po stronie klienta i hydratacji.
+
+</Question>
+
+<Question title="Jak dodać tagi hreflang dla SEO?">
+
+W trybie frameworka React Router wyeksportuj funkcję `meta` ze swojej trasy, aby dynamicznie wstrzykiwać linki canonical i hreflang:
+
+```tsx
+// app/routes/home.tsx
+import type { Route } from "./+types/home";
+import { configuration } from "intlayer";
+
+export function meta({ params }: Route.MetaArgs) {
+  const currentPath = "home"; // dynamicznie określ na podstawie bieżącej trasy
+  const baseUrl = "https://twojadomena.pl";
+
+  const hreflangLinks = configuration.internationalization.locales.map(
+    (loc) => ({
+      tagName: "link" as const,
+      rel: "alternate",
+      hrefLang: loc,
+      href: `${baseUrl}/${loc}/${currentPath}`,
+    })
+  );
+
+  return [
+    ...hreflangLinks,
+    {
+      tagName: "link" as const,
+      rel: "alternate",
+      hrefLang: "x-default",
+      href: `${baseUrl}/${configuration.internationalization.defaultLocale}/${currentPath}`,
+    },
+  ];
+}
+```
+
+</Question>
+
+<Question title="Jak zbudować przełącznik języka, który pozostaje na bieżącej stronie?">
+
+Użyj hooka `useLocation` i `useNavigate` z React Router, aby podmienić segment lokalizacji w bieżącym adresie URL:
+
+```tsx
+import { useLocation, useNavigate, useParams } from "react-router";
+import { Locales, configuration } from "intlayer";
+
+export function LocaleSwitcher() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { locale: currentLocale } = useParams();
+
+  const handleLocaleChange = (newLocale: Locales) => {
+    // Podmień segment lokalizacji na początku ścieżki
+    const segments = location.pathname.split("/").filter(Boolean);
+    if (
+      configuration.internationalization.locales.includes(segments[0] as any)
+    ) {
+      segments[0] = newLocale;
+    } else {
+      segments.unshift(newLocale);
+    }
+    navigate(`/${segments.join("/")}${location.search}${location.hash}`);
+  };
+
+  return (
+    <select
+      value={currentLocale}
+      onChange={(e) => handleLocaleChange(e.target.value as Locales)}
+    >
+      {configuration.internationalization.locales.map((loc) => (
+        <option key={loc} value={loc}>
+          {loc}
+        </option>
+      ))}
+    </select>
+  );
+}
+```
+
+</Question>
+
+<Question title="Jak automatycznie przetłumaczyć aplikację za pomocą AI?">
+
+Narzędzie CLI Intlayer zawiera wbudowane komendy do tłumaczenia deklaracji zawartości za pomocą modeli sztucznej inteligencji:
+
+```bash
+npx intlayer trans
+```
+
+Ta komenda skanuje pliki `.content.ts`, identyfikuje brakujące tłumaczenia dla wszystkich skonfigurowanych lokalizacji i uzupełnia je automatycznie z zachowaniem kontekstu i formatowania.
+
+</Question>
+
+<Question title="Czy Intlayer obsługuje formy mnogie, płeć i sformatowany tekst (rich text)?">
+
+Tak:
+
+- **Liczba mnoga**: Użyj funkcji `t()`, aby zdefiniować warianty dla różnych wartości liczbowych lub precyzyjnych reguł gramatycznych.
+- **Płeć / Warunki**: Użyj instrukcji warunkowych lub dopasowania wzorców w swoich deklaracjach zawartości TypeScript.
+- **Sformatowany tekst (Rich Text / JSX)**: Wstawiaj komponenty JSX, elementy HTML lub węzły Markdown bezpośrednio do deklaracji zawartości bez konieczności stosowania skomplikowanych parserów.
+
+</Question>
+
+<Question title="Jak tłumacze mogą edytować treść bez dotykania kodu?">
+
+Intlayer udostępnia hostowany lub samodzielnie hostowany CMS oraz wbudowany Edytor Wizualny. Tłumacze i menedżerowie treści mogą edytować teksty w interfejsie graficznym. Zmiany mogą być zapisywane z powrotem w repozytorium kodu za pośrednictwem commitów Git lub synchronizowane przez API Intlayer CMS bez konieczności ponownego wdrażania.
+
+</Question>
+
+<Question title="Czy Intlayer jest darmowy i open source?">
+
+Tak! Rdzeń Intlayer, biblioteki integracyjne (`react-intlayer`, `next-intlayer` itp.), narzędzie CLI oraz powiązane narzędzia programistyczne są w 100% open-source pod licencją MIT.
+
+</Question>
+
+</FAQ>

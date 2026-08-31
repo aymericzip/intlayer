@@ -1140,7 +1140,7 @@ Intlayer поддерживает несколько ИИ-провайдеров
 
 <Question title="Могу ли я мигрировать с `i18next`, `next-intl` или `react-i18next`, не переписывая свои компоненты?">
 
-Да, и есть два пути. Вы можете мигрировать контент постепенно с помощью [руководства по миграции с i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/migration_from_i18next_to_intlayer.md) или [руководства по миграции с next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/migration_from_next-intl_to_intlayer.md). Или вы можете полностью сохранить свой текущий API: [адаптеры совместимости](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/index.md) предоставляют точно такой же API, как `i18next`, `react-i18next`, `next-intl`, `next-i18next`, `react-intl`, `use-intl`, `vue-i18n` и `Lingui`, но обслуживаемый словарями Intlayer, поэтому меняются импорты, а код компонентов — нет.
+Да, и есть два пути. Вы можете мигрировать контент постепенно с помощью [руководства по миграции с i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/migration_from_i18next_to_intlayer.md) или [руководства по миграции с next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/migration_from_next-intl_to_intlayer.md). Или вы можете полностью сохранить свой текущий API: [адаптеры совместимости](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/index.md) предоставляют точно такой же API, как `i18next`, `react-i18next`, `next-intl`, `next-i18next`, `react-intl`, `use-intl`, `vue-i18n` и `Lingui`, но обслуживаемый словарями Intlayer, поэтому меняются импорты, а код компонентов - нет.
 
 </Question>
 
@@ -1196,7 +1196,7 @@ Intlayer поддерживает несколько ИИ-провайдеров
 
 <Question title="Что делает routing.enableProxy?">
 
-Она управляет прокси маршрутизации локали — middleware, который разрешает префиксы и редиректы. Если не задано, прокси работает, но серверы разработки и предпросмотра игнорируют сохранённую локаль как источник редиректа, что избегает переброски на язык, который вы не тестируете; в продакшене поведение такое, как если бы значение было `true`. Установите `false`, чтобы обрабатывать маршрутизацию локали самостоятельно.
+Она управляет прокси маршрутизации локали - middleware, который разрешает префиксы и редиректы. Если не задано, прокси работает, но серверы разработки и предпросмотра игнорируют сохранённую локаль как источник редиректа, что избегает переброски на язык, который вы не тестируете; в продакшене поведение такое, как если бы значение было `true`. Установите `false`, чтобы обрабатывать маршрутизацию локали самостоятельно.
 
 </Question>
 

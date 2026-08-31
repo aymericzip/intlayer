@@ -211,3 +211,89 @@ pnpm intlayer-editor start -e development
     - एप्लिकेशन URL को एडिटर कॉन्फ़िगरेशन (`applicationURL`) में सेट किए गए URL से मेल खाना चाहिए।
 
 - विज़ुअल एडिटर आपके वेबसाइट को प्रदर्शित करने के लिए एक iframe का उपयोग करता है। सुनिश्चित करें कि आपकी वेबसाइट की कंटेंट सिक्योरिटी पॉलिसी (CSP) CMS URL को `frame-ancestors` के रूप में अनुमति देती है (डिफ़ॉल्ट रूप से 'http://localhost:8000')। किसी भी त्रुटि के लिए एडिटर कंसोल की जांच करें।
+
+## अक्सर पूछे जाने वाले प्रश्न
+
+<FAQ>
+
+<Question title="विज़ुअल एडिटर और CMS में क्या अंतर है?">
+
+विज़ुअल एडिटर स्थानीय शब्दकोशों को संपादित करता है और परिवर्तनों को सीधे आपकी स्रोत कोड फ़ाइलों में सहेजता है, इसलिए यह मानक Git समीक्षा प्रक्रिया से गुजरता है। CMS बिना रीबिल्ड के त्वरित प्रकाशन के लिए दूरस्थ सर्वर पर सामग्री संग्रहीत करता है।
+
+</Question>
+
+<Question title="i18n मेरे बंडल आकार को कितना बढ़ाता है?">
+
+नेमस्पेस-आधारित सेटअपों की तुलना में बहुत कम, क्योंकि एक पृष्ठ कभी भी उस कैटलॉग को डाउनलोड नहीं करता है जिसे वह रेंडर नहीं करता है। सर्वर पर रेंडर किया गया मार्कअप सर्वर पर ही अपनी सामग्री को हल करता है, और बिल्ड-टाइम कंपाइलर `useIntlayer` कॉल को घटक द्वारा उपयोग की जाने वाली सटीक शब्दकोश प्रविष्टियों से बदल देता है, इसलिए अप्रयुक्त कुंजियों और भाषाओं को हटा दिया जाता है। [गतिशील शब्दकोश](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dynamic_dictionaries/index.md) शेष को प्रति लोकेल विभाजित करते हैं। पारंपरिक विकल्पों की तुलना में, Intlayer बंडल और पृष्ठ आकार को 50% तक कम करता है। [बंडल अनुकूलन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/bundle_optimization.md) और [बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/index.md) देखें।
+
+</Question>
+
+<Question title="क्या मैं अपने घटकों को फिर से लिखे बिना i18next, next-intl या react-i18next से माइग्रेट कर सकता हूँ?">
+
+हाँ, और इसके दो रास्ते हैं। आप [i18next माइग्रेशन गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_i18next_to_intlayer.md) या [next-intl माइग्रेशन गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_next-intl_to_intlayer.md) के साथ सामग्री को धीरे-धीरे स्थानांतरित कर सकते हैं। या आप अपने वर्तमान API को पूरी तरह से बनाए रख सकते हैं: [संगतता एडेप्टर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/index.md) `i18next`, `react-i18next`, `next-intl`, `next-i18next`, `react-intl`, `use-intl`, `vue-i18n` और `Lingui` के समान API प्रदान करते हैं, लेकिन Intlayer शब्दकोशों द्वारा संचालित होते हैं, जिससे केवल आयात बदलते हैं और घटक कोड समान रहता है।
+
+</Question>
+
+<Question title="क्या मैं अपनी मौजूदा JSON translation files को रख सकता हूं?">
+
+हाँ। [sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/plugins/sync-json.md) आपकी `/messages/{locale}/{namespace}.json` फ़ाइलों को सत्य का स्रोत बनाए रखता है और दोनों दिशाओं में उनसे Intlayer dictionaries बनाता है। [sync PO plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/plugins/sync-po.md) gettext catalogs के लिए भी ऐसा ही करता है, और [per locale files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/per_locale_file.md) आपको locales को एक फ़ाइल में समूहीकृत करने के बजाय भाषा के अनुसार content को विभाजित करने देते हैं।
+
+</Question>
+
+<Question title="क्या मुझे अपनी content को key by key move करना होगा?">
+
+नहीं। `npx intlayer extract` चलाएं और Intlayer आपकी source files को पढ़ता है, user facing strings को निकालता है और प्रत्येक के बगल में एक `.content` file लिखता है, इसलिए आप strings को एक catalog में एक-एक करके कॉपी करने के बजाय एक diff की समीक्षा करते हैं। [extract command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/extract.md) देखें।
+
+पूरी तरह से स्वचालित वर्कफ़्लो के लिए, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md) JSX, TSX, Vue और Svelte कोड पर निर्माण समय के दौरान भी यही करता है, प्रत्येक परिवर्तन पर शब्दकोश उत्पन्न करता है जिससे कुंजियों को मैन्युअल रूप से बनाए रखने की आवश्यकता समाप्त हो जाती है।
+
+</Question>
+
+<Question title="कौन से editor और AI agent tooling उपलब्ध हैं?">
+
+पाँच उपकरण, सभी वैकल्पिक:
+
+- **[VS Code extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/vs_code_extension.md)**: `useIntlayer` कुंजी से उसे घोषित करने वाली सामग्री फ़ाइल पर जाएं, घटकों से सामग्री निकालें, और कमांड पैलेट या Intlayer टैब से build, fill, test, push और pull चलाएं।
+- **[LSP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/lsp.md)**: LSP का समर्थन करने वाले किसी भी संपादक में समान सुविधा, परिभाषा पर जाएं, अनुवादित मान का पूर्वावलोकन देखें, और कुंजी पूर्णता प्राप्त करें। `i18next`, `react-i18next`, `next-intl` और `use-intl` कॉल का भी समर्थन करता है।
+- **[MCP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/mcp_server.md)**: Cursor, VS Code, Claude Desktop, Claude Code और ChatGPT के लिए Intlayer दस्तावेज़ और CLI प्रदान करता है।
+- **[Agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/agent_skills.md)**: केंद्रित कौशल जैसे `intlayer-config`, `intlayer-cli` और `intlayer-content`।
+- **[ESLint plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/eslint.md)**: `no-raw-text` नियम हार्डकोडेड स्ट्रिंग्स को चिह्नित करता है।
+
+</Question>
+
+<Question title="विज़ुअल एडिटर कहाँ चलता है?">
+
+आपके अपने बुनियादी ढांचे पर। एडिटर आपके एप्लिकेशन को एक iframe के अंदर लोड करता है और स्थानीय एडिटर सर्वर से संचार करता है, इसलिए सामग्री कभी बाहर नहीं भेजी जाती है।
+
+</Question>
+
+<Question title="क्या संपादकों को कोड करना जानने की आवश्यकता है?">
+
+नहीं। वे वेबसाइट खोलते हैं, सीधे टेक्स्ट तत्व पर क्लिक करते हैं और उसे मौके पर ही संपादित करते हैं। संपादक स्वचालित रूप से संबंधित शब्दकोश प्रविष्टि का पता लगा लेता है।
+
+</Question>
+
+<Question title="क्या विज़ुअल एडिटर के माध्यम से संपादन मेरी स्रोत फ़ाइलों को बदलता है?">
+
+हाँ, इसे इसी तरह डिज़ाइन किया गया है। परिवर्तन आपके कोडबेस में सामग्री घोषणा फ़ाइल में लिखा जाता है और git diff में एक सामान्य संशोधन के रूप में दिखाई देता है।
+
+</Question>
+
+<Question title="एडिटर खाली पृष्ठ दिखाता है या साइट लोड करने से मना करता है। क्या जांचें?">
+
+एडिटर एप्लिकेशन को iframe में प्रदर्शित करता है, इसलिए आपकी Content Security Policy (CSP) को `frame-ancestors` निर्देश में एडिटर के मूल की अनुमति देनी चाहिए। यह भी सत्यापित करें कि ऐप सर्वर और एडिटर सर्वर दोनों चल रहे हैं।
+
+</Question>
+
+<Question title="क्या मैं उत्पादन में विज़ुअल एडिटर का उपयोग कर सकता हूँ?">
+
+यह विकास और स्टेजिंग परिवेशों के लिए डिज़ाइन किया गया है, जहाँ संपादन के बाद रीबिल्ड स्वीकार्य है। लाइव प्रोडक्शन साइट पर सामग्री संपादित करने के लिए, [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md) की सिफारिश की जाती है।
+
+</Question>
+
+<Question title="क्या विज़ुअल एडिटर मुफ़्त है?">
+
+हाँ। विज़ुअल एडिटर Apache 2.0 लाइसेंस के तहत ओपन सोर्स प्रोजेक्ट का हिस्सा है, जिसमें व्यावसायिक उपयोग भी शामिल है।
+
+</Question>
+
+</FAQ>

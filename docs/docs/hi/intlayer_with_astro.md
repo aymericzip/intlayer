@@ -637,3 +637,107 @@ Intlayer के साथ अपने विकास अनुभव को �
 ### अपने ज्ञान को और गहरा करें
 
 यदि आप और अधिक सीखना चाहते हैं, तो आप [विजुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md) को भी लागू कर सकते हैं या अपनी सामग्री को बाहरी बनाने के लिए [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md) का उपयोग कर सकते हैं।
+
+## अक्सर पूछे जाने वाले प्रश्न
+
+<FAQ>
+
+<Question title="Astro साइट के अंतर्राष्ट्रीयकरण के लिए कौन से विभिन्न समाधान उपलब्ध हैं?">
+
+Astro URL उपसर्गों के लिए `i18n` रूटिंग प्रदान करता है, लेकिन सामग्री प्रबंधन आप पर छोड़ देता है:
+
+- **Astro का अंतर्निहित `i18n`** प्लस मैन्युअल JSON/TS फ़ाइलें: कोई प्रकार सुरक्षा, बहुवचन नियम या लापता अनुवाद उपकरण नहीं।
+- **`i18next`** या अलग-अलग आइलैंड लाइब्रेरी (`vue-i18n`, `svelte-i18n`): प्रत्येक आइलैंड प्रकार के लिए अपने स्वयं के कैटलॉग के साथ एक पूर्ण लाइब्रेरी।
+- **`Intlayer`**: Astro पृष्ठों और प्रत्येक आइलैंड फ्रेमवर्क दोनों के लिए एक साझा सामग्री परत, बिल्ड समय पर संकलित, पूर्ण प्रकारों, AI अनुवाद, विज़ुअल एडिटर और CMS के साथ।
+
+प्रमुख लाभ यह है कि वही शब्दकोश `.astro` पृष्ठों और React, Vue, Svelte, Solid, Preact या Lit आइलैंड को सेवा प्रदान करता है। [Intlayer क्यों चुनें](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/interest_of_intlayer.md) देखें।
+
+</Question>
+
+<Question title="i18n मेरे Astro बंडल आकार को कितना बढ़ाता है?">
+
+नेमस्पेस-आधारित समाधानों की तुलना में बहुत कम, क्योंकि एक पृष्ठ कभी भी उस कैटलॉग को डाउनलोड नहीं करता है जिसे वह रेंडर नहीं करता है। Astro पृष्ठ बिल्ड समय पर रेंडर होते हैं, इसलिए केवल अनुवादित HTML भेजा जाता है बिना किसी अतिरिक्त शब्दकोश के; केवल इंटरैक्टिव आइलैंड घटक ही शब्दकोश प्राप्त करते हैं। [गतिशील शब्दकोश](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dynamic_dictionaries/index.md) सामग्री को प्रति लोकेल विभाजित करते हैं, जिससे बंडल 50% तक कम हो जाता है। [बंडल अनुकूलन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/bundle_optimization.md) और [बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/index.md) देखें।
+
+</Question>
+
+<Question title="क्या मैं अपने घटकों को फिर से लिखे बिना i18next या मैन्युअल शब्दकोशों से माइग्रेट कर सकता हूँ?">
+
+काफी हद तक हाँ। [i18next माइग्रेशन गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_i18next_to_intlayer.md) का पालन करें। आप [sync JSON प्लगइन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/plugins/sync-json.md) के माध्यम से भी धीरे-धीरे माइग्रेट कर सकते हैं।
+
+</Question>
+
+<Question title="क्या मैं अपनी मौजूदा JSON translation files को रख सकता हूं?">
+
+हाँ। [sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/plugins/sync-json.md) आपकी `/messages/{locale}/{namespace}.json` फ़ाइलों को सत्य का स्रोत बनाए रखता है और दोनों दिशाओं में उनसे Intlayer dictionaries बनाता है। [sync PO plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/plugins/sync-po.md) gettext catalogs के लिए भी ऐसा ही करता है, और [per locale files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/per_locale_file.md) आपको locales को एक फ़ाइल में समूहीकृत करने के बजाय भाषा के अनुसार content को विभाजित करने देते हैं।
+
+</Question>
+
+<Question title="क्या मुझे अपनी content को key by key move करना होगा?">
+
+नहीं। `npx intlayer extract` चलाएं और Intlayer आपकी फ़ाइलों को पढ़ता है, उपयोगकर्ता के अनुकूल स्ट्रिंग्स निकालता है, और प्रत्येक के बगल में एक `.content` फ़ाइल लिखता है, जिससे आप कैटलॉग में मैन्युअल रूप से कॉपी करने के बजाय एक diff की समीक्षा करते हैं। इस गाइड का चरण 15 इसे समझाता है।
+
+पूर्ण स्वचालन के लिए, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md) बिल्ड समय पर यही काम करता है: प्रत्येक परिवर्तन पर कोड स्कैन करता है, शब्दकोश उत्पन्न करता है और HMR के साथ सिंक करता है।
+
+</Question>
+
+<Question title="कौन से editor और AI agent tooling उपलब्ध हैं?">
+
+पाँच उपकरण, सभी वैकल्पिक:
+
+- **[VS Code extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/vs_code_extension.md)**: `useIntlayer` कुंजी से उसे घोषित करने वाली सामग्री फ़ाइल पर जाएं, घटकों से सामग्री निकालें, और कमांड पैलेट या Intlayer टैब से build, fill, test, push और pull चलाएं।
+- **[LSP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/lsp.md)**: LSP का समर्थन करने वाले किसी भी संपादक में समान सुविधा, परिभाषा पर जाएं, अनुवादित मान का पूर्वावलोकन देखें, और कुंजी पूर्णता प्राप्त करें। `i18next`, `react-i18next`, `next-intl` और `use-intl` कॉल का भी समर्थन करता है।
+- **[MCP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/mcp_server.md)**: Cursor, VS Code, Claude Desktop, Claude Code और ChatGPT के लिए Intlayer दस्तावेज़ और CLI प्रदान करता है।
+- **[Agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/agent_skills.md)**: केंद्रित कौशल जैसे `intlayer-config`, `intlayer-cli` और `intlayer-content`।
+- **[ESLint plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/eslint.md)**: `no-raw-text` नियम हार्डकोडेड स्ट्रिंग्स को चिह्नित करता है।
+
+</Question>
+
+<Question title="क्या Intlayer Astro के आइलैंड (islands) के अंदर काम करता है?">
+
+हाँ। `astro-intlayer` `.astro` पक्ष को कवर करता है, और प्रत्येक आइलैंड फ्रेमवर्क की अपनी बाइंडिंग होती है, इसलिए आइलैंड सीधे पृष्ठ से सक्रिय लोकेल प्राप्त करते हैं। समर्पित मार्गदर्शिकाएँ [Astro + React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_astro_react.md), [Astro + Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_astro_vue.md), और [Astro + Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_astro_svelte.md) के लिए उपलब्ध हैं।
+
+</Question>
+
+<Question title="क्या अनुवादित सामग्री स्थिर HTML के रूप में वितरित की जाती है?">
+
+हाँ। Astro पृष्ठ डिफ़ॉल्ट रूप से बिल्ड समय पर प्रस्तुत होते हैं और Intlayer उस रेंडर के दौरान सामग्री को हल करता है, इसलिए स्थानीयकृत पृष्ठ शुद्ध स्थिर HTML होते हैं। केवल वे आइलैंड जो रनटाइम पर भाषा बदलते हैं, सक्रिय भाषा के लिए शब्दकोश प्राप्त करते हैं।
+
+</Question>
+
+<Question title="स्थानीयकृत रूटिंग और भाषा स्विचर कैसे सेट करें?">
+
+इस गाइड के चरण 6 और 7 इसे समझाते हैं। `routing.mode` यह नियंत्रित करता है कि डिफ़ॉल्ट भाषा को उपसर्ग मिले (`"prefix-no-default"`), सभी भाषाओं को उपसर्ग मिले (`"prefix-all"`), या भाषा पथ से स्वतंत्र हो (`"no-prefix"`)। `getLocalizedUrl` आगंतुकों को उसी पृष्ठ पर रखते हुए वर्तमान पथ को लक्षित भाषा में अनुवादित करता है।
+
+</Question>
+
+<Question title="स्थानीयकृत साइटमैप और hreflang टैग कैसे बनाएं?">
+
+चरण 8 `sitemap.xml` और `robots.txt` कॉन्फ़िगरेशन को कवर करता है। फ़ंक्शन `getMultilingualUrls` प्रत्येक घोषित लोकेल के लिए विकल्प उत्पन्न करता है, जिसमें `x-default` शामिल है, ताकि सर्च इंजन ठीक से अनुक्रमित कर सकें।
+
+</Question>
+
+<Question title="AI के साथ Astro साइट का स्वचालित अनुवाद कैसे करें?">
+
+`npx intlayer fill` चलाएं। यह कमांड आपके चुने हुए LLM का उपयोग करके आपके अपने प्रदाता और API कुंजी के साथ लापता अनुवादों को भरता है, और `--git-diff` बदली गई फ़ाइलों तक संचालन को सीमित करता है। [fill command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/fill.md) और [CI/CD integration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/CI_CD.md) देखें।
+
+</Question>
+
+<Question title="क्या Intlayer बहुवचन, लिंग और Markdown सामग्री का समर्थन करता है?">
+
+हाँ: [बहुवचन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/plurial.md), [लिंग-आधारित सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/gender.md), शर्तें, [सम्मिलन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/insertion.md), और लंबे पाठ के लिए [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/markdown.md)।
+
+</Question>
+
+<Question title="अनुवादक कोड को छुए बिना सामग्री को कैसे संपादित कर सकते हैं?">
+
+[विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md) के माध्यम से, जो किसी को भी सीधे चलते हुए ऐप में टेक्स्ट संपादित करने देता है, या [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md) के माध्यम से, जो सामग्री को अलग करता है ताकि कोड को फिर से तैनात किए बिना उसे अपडेट किया जा सके।
+
+</Question>
+
+<Question title="क्या Intlayer मुफ्त और ओपन सोर्स है?">
+
+हाँ, Apache 2.0 लाइसेंस के तहत, व्यावसायिक उपयोग सहित। होस्टेड CMS एक वैकल्पिक सशुल्क सेवा है जिसे [स्वयं होस्ट (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/self_hosting.md) भी किया जा सकता है।
+
+</Question>
+
+</FAQ>

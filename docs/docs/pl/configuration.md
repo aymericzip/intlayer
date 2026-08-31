@@ -1121,3 +1121,101 @@ Kontroluje ustawienia kompilatora Intlayer, który kolekcjonuje słowniki bezpo�
 | Pole      | Opis                                              | Typ                |
 | --------- | ------------------------------------------------- | ------------------ |
 | `plugins` | Lista wtyczek Intlayer, które mają być dołączone. | `IntlayerPlugin[]` |
+
+## Często Zadawane Pytania
+
+<FAQ>
+
+<Question title="Gdzie powinien znajdować się plik intlayer.config.ts?">
+
+W katalogu głównym projektu, obok `package.json`. Intlayer przeszukuje katalog roboczy i jego katalogi nadrzędne w poszukiwaniu `intlayer.config.ts`, `intlayer.config.js`, `intlayer.config.mjs` lub `intlayer.config.cjs`. Możesz również wskazać niestandardową ścieżkę za pomocą flagi `--config` w poleceniach CLI.
+
+</Question>
+
+<Question title="O ile i18n zwiększa rozmiar mojego bundle'a?">
+
+Znacznie mniej niż rozwiązania oparte na przestrzeniach nazw, ponieważ strona nigdy nie pobiera katalogu, którego nie renderuje. Znaczniki renderowane po stronie serwera rozwiązują treść na serwerze, a kompilator czasu budowy zastępuje wywołania `useIntlayer` dokładnymi wpisami, których używa komponent, dzięki czemu nieużywane klucze i nieużywane języki są usuwane. [Słowniki dynamiczne](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dynamic_dictionaries/index.md) dzielą resztę na poszczególne języki. W porównaniu z typowymi alternatywami, Intlayer zmniejsza rozmiar bundle'a i strony nawet o 50%. Zobacz [optymalizację bundle'a](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/bundle_optimization.md) oraz [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/index.md).
+
+</Question>
+
+<Question title="Czy mogę zmigrować z i18next, next-intl lub react-i18next bez przepisywania moich komponentów?">
+
+Tak, i są dwie drogi. Możesz migrować treść stopniowo za pomocą [przewodnika migracji z i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/migration_from_i18next_to_intlayer.md) lub [przewodnika migracji z next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/migration_from_next-intl_to_intlayer.md). Możesz także zachować obecne API w całości: [adaptery kompatybilności](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compat/index.md) udostępniają dokładnie to samo API co `i18next`, `react-i18next`, `next-intl`, `next-i18next`, `react-intl`, `use-intl`, `vue-i18n` i `Lingui`, ale zasilane słownikami Intlayer, więc zmieniają się importy, a kod komponentów pozostaje nienaruszony.
+
+</Question>
+
+<Question title="Czy mogę zachować moje istniejące pliki tłumaczeń JSON?">
+
+Tak. Wtyczka [sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/plugins/sync-json.md) utrzymuje Twoje pliki `/messages/{locale}/{namespace}.json` jako źródło prawdy i generuje z nich słowniki Intlayer w obu kierunkach. Wtyczka [sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/plugins/sync-po.md) robi to samo dla katalogów gettext, a [pliki per locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/per_locale_file.md) pozwalają rozdzielić zawartość według języka zamiast grupować lokalizacje w jednym pliku.
+
+</Question>
+
+<Question title="Czy muszę przenosić moją zawartość klucz po kluczu?">
+
+Nie. Uruchom `npx intlayer extract`, a Intlayer odczyta Twoje pliki źródłowe, wyodrębni ciągi widoczne dla użytkownika i utworzy plik `.content` obok każdego z nich, dzięki czemu przeglądasz diff zamiast ręcznie kopiować ciągi do katalogu pojedynczo. Zobacz [polecenie extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/extract.md).
+
+W przypadku w pełni zautomatyzowanego procesu [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compiler.md) robi to samo w czasie budowania w kodzie JSX, TSX, Vue i Svelte, generując słowniki przy każdej zmianie, dzięki czemu nie ma potrzeby ręcznego zarządzania kluczami. Działa on w oparciu o analizę statyczną, więc ciągi istniejące tylko w czasie wykonywania pozostają poza jego zasięgiem i wymaga kilku adnotacji do odróżnienia tekstu dla użytkownika od logiki aplikacji.
+
+</Question>
+
+<Question title="Jakie narzędzia dla edytora i agentów AI są dostępne?">
+
+Pięć narzędzi, wszystkie opcjonalne:
+
+- **[Rozszerzenie VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/vs_code_extension.md)**: przejście od klucza `useIntlayer` do pliku treści, który go deklaruje, wyodrębnianie treści z komponentu oraz uruchamianie build, fill, test, push i pull z palety poleceń lub dedykowanej karty Intlayer.
+- **[Serwer LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/lsp.md)**: taka sama świadomość w dowolnym edytorze obsługującym LSP, z funkcjami przejdź do definicji (go to definition), znajdź wszystkie referencje, podglądem przetłumaczonej wartości po najechaniu kursorem, autouzupełnianiem kluczy i pól oraz ostrzeżeniem, gdy klucz nie jest nigdzie zadeklarowany. Rozpoznaje również wywołania `i18next`, `react-i18next`, `next-intl` i `use-intl`, co ułatwia migrację.
+- **[Serwer MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/mcp_server.md)**: udostępnia dokumentację i CLI Intlayer dla Cursor, VS Code, Claude Desktop, Claude Code i ChatGPT, dzięki czemu asystent odpowiada na podstawie aktualnej dokumentacji zamiast zgadywać i może samodzielnie wykonywać polecenia, takie jak `intlayer fill`.
+- **[Umiejętności agenta (Agent skills)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/agent_skills.md)**: wyspecjalizowane umiejętności, takie jak `intlayer-config`, `intlayer-cli` i `intlayer-content`, oraz po jednej dla każdego frameworka, które uczą agenta konfiguracji routingu i typów węzłów treści.
+- **[Wtyczka ESLint](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/eslint.md)**: reguła `no-raw-text` oznacza zakodowane na stałe ciągi tekstowe, z dodatkowymi regułami dla statycznych kluczy słownika i nieużywanej zawartości.
+
+</Question>
+
+<Question title="Jak dodać nowy język do mojej aplikacji?">
+
+Dodaj kod języka do tablicy `internationalization.locales`, a następnie uruchom `npx intlayer fill`, aby przetłumaczyć na niego istniejącą treść za pomocą AI. Kompilator automatycznie uwzględni nowy język przy następnym uruchomieniu.
+
+</Question>
+
+<Question title="Jak usunąć prefiks języka z moich adresów URL?">
+
+Ustaw `routing.mode`. Wartość `"no-prefix"` usuwa prefiks języka dla wszystkich lokalizacji, określając aktywny język na podstawie ciasteczka, nagłówka lub domeny. Wartość `"prefix-no-default"` (domyślna) usuwa prefiks tylko dla języka domyślnego, zachowując go dla pozostałych.
+
+</Question>
+
+<Question title="Czy mogę serwować każdy język z jego własnej domeny?">
+
+Tak. Opcja `routing.domains` mapuje każdą lokalizację na nazwę hosta, na przykład `{ pl: 'example.pl', en: 'example.com' }`. Identyfikacja domeny ma pierwszeństwo przed prefiksami ścieżek, a `getMultilingualUrls` generuje pełne adresy URL w metadanych `hreflang`.
+
+</Question>
+
+<Question title="W jaki sposób wykrywany jest język użytkownika?">
+
+Poprzez `routing.storage`, które określa źródła w kolejności ważności: zazwyczaj najpierw URL, potem ciasteczko, a następnie nagłówek `Accept-Language`, powracając do domyślnego języka.
+
+</Question>
+
+<Question title="Co robi opcja routing.enableProxy?">
+
+Kontroluje proxy routingu językowego: middleware, który obsługuje prefiksy i przekierowania. Pozostawiona pusta automatycznie uruchamia proxy w trybie deweloperskim i produkcyjnym. Ustawienie `false` wyłącza je całkowicie, jeśli samodzielnie zarządzasz trasowaniem.
+
+</Question>
+
+<Question title="Jaka jest różnica między importMode static, dynamic i fetch?">
+
+Wartość `"static"` (domyślna) importuje słowniki statycznie, więc są one pakowane do bundle'a i odczytywane synchronicznie. Wartość `"dynamic"` importuje słowniki asynchronicznie per język, redukując początkowy rozmiar bundle'a. Wartość `"fetch"` pobiera słowniki z serwera lub CMS w czasie działania.
+
+</Question>
+
+<Question title="Gdzie ustawić dostawcę AI i klucz API dla automatycznego tłumaczenia?">
+
+W pliku konfiguracyjnym w sekcji `ai` lub w wierszu poleceń za pomocą flag `--provider`, `--model` i `--api-key`. Klucz pozostaje po Twojej stronie i nigdy nie opuszcza Twojego środowiska. Zobacz [dokumentację konfiguracji AI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md).
+
+</Question>
+
+<Question title="Czy muszę restartować serwer deweloperski po zmianie konfiguracji?">
+
+Zazwyczaj nie. Watcher Intlayer obserwuje plik `intlayer.config.ts`: po zapisaniu przeładowuje konfigurację i przygotowuje słowniki w tle.
+
+</Question>
+
+</FAQ>

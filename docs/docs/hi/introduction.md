@@ -204,3 +204,107 @@ Intlayer आधुनिक वेब विकास की आवश्यक�
 हम ओपन-सोर्स और समुदाय-संचालित (community-driven) विकास की शक्ति को महत्व देते हैं। यदि आप सुधारों का प्रस्ताव देना चाहते हैं, एक नई गाइड जोड़ना चाहते हैं, या हमारे दस्तावेज़ों में किसी भी समस्या को ठीक करना चाहते हैं, तो बेझिझक पुल अनुरोध (Pull Request) सबमिट करें या हमारे [GitHub रिपॉजिटरी](https://github.com/aymericzip/intlayer/blob/main/docs/docs) पर एक समस्या (Issue) खोलें।
 
 **क्या आप अपने एप्लिकेशन का तेज़ी से और अधिक कुशलता से अनुवाद करने के लिए तैयार हैं?** आज ही Intlayer का उपयोग शुरू करने के लिए हमारे दस्तावेज़ों में गोता लगाएँ। अंतर्राष्ट्रीयकरण के लिए एक मजबूत, सुव्यवस्थित दृष्टिकोण का अनुभव करें जो आपके कंटेंट को व्यवस्थित रखता है और आपकी टीम को अधिक उत्पादक बनाता है।
+
+## अक्सर पूछे जाने वाले प्रश्न
+
+<FAQ>
+
+<Question title="Intlayer का उपयोग किस लिए किया जाता है?">
+
+Intlayer JavaScript और TypeScript अनुप्रयोगों के लिए एक अंतर्राष्ट्रीयकरण (i18n) लाइब्रेरी है। आप घटक की सामग्री को `.content.ts` फ़ाइल में ठीक घटक के बगल में घोषित करते हैं, Intlayer उन घोषणाओं को बिल्ड समय पर टाइप किए गए शब्दकोशों में संकलित करता है, और आपके घटक उन्हें `useIntlayer` जैसे हुक के माध्यम से पढ़ते हैं। इसमें अनुवाद, बहुवचन नियम, लिंग, Markdown, लोकेल-जागरूक रूटिंग, SEO मेटाडेटा, AI-सहायता प्राप्त अनुवाद और गैर-डेवलपर्स के लिए विज़ुअल एडिटर शामिल हैं।
+
+</Question>
+
+<Question title="i18n मेरे बंडल आकार को कितना बढ़ाता है?">
+
+नेमस्पेस-आधारित सेटअपों की तुलना में बहुत कम, क्योंकि एक पृष्ठ कभी भी उस कैटलॉग को डाउनलोड नहीं करता है जिसे वह रेंडर नहीं करता है। सर्वर पर रेंडर किया गया मार्कअप सर्वर पर ही अपनी सामग्री को हल करता है, और बिल्ड-टाइम कंपाइलर `useIntlayer` कॉल को घटक द्वारा उपयोग की जाने वाली सटीक शब्दकोश प्रविष्टियों से बदल देता है, इसलिए अप्रयुक्त कुंजियों और भाषाओं को हटा दिया जाता है। [गतिशील शब्दकोश](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dynamic_dictionaries/index.md) शेष को प्रति लोकेल विभाजित करते हैं। पारंपरिक विकल्पों की तुलना में, Intlayer बंडल और पृष्ठ आकार को 50% तक कम करता है। [बंडल अनुकूलन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/bundle_optimization.md) और [बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/index.md) देखें।
+
+</Question>
+
+<Question title="क्या मैं अपने घटकों को फिर से लिखे बिना i18next, next-intl या react-i18next से माइग्रेट कर सकता हूँ?">
+
+हाँ, और इसके दो रास्ते हैं। आप [i18next माइग्रेशन गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_i18next_to_intlayer.md) या [next-intl माइग्रेशन गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_next-intl_to_intlayer.md) के साथ सामग्री को धीरे-धीरे स्थानांतरित कर सकते हैं। या आप अपने वर्तमान API को पूरी तरह से बनाए रख सकते हैं: [संगतता एडेप्टर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/index.md) `i18next`, `react-i18next`, `next-intl`, `next-i18next`, `react-intl`, `use-intl`, `vue-i18n` और `Lingui` के समान API प्रदान करते हैं, लेकिन Intlayer शब्दकोशों द्वारा संचालित होते हैं, जिससे केवल आयात बदलते हैं और घटक कोड समान रहता है।
+
+</Question>
+
+<Question title="क्या मैं अपनी मौजूदा JSON translation files को रख सकता हूं?">
+
+हाँ। [sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/plugins/sync-json.md) आपकी `/messages/{locale}/{namespace}.json` फ़ाइलों को सत्य का स्रोत बनाए रखता है और दोनों दिशाओं में उनसे Intlayer dictionaries बनाता है। [sync PO plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/plugins/sync-po.md) gettext catalogs के लिए भी ऐसा ही करता है, और [per locale files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/per_locale_file.md) आपको locales को एक फ़ाइल में समूहीकृत करने के बजाय भाषा के अनुसार content को विभाजित करने देते हैं।
+
+</Question>
+
+<Question title="क्या मुझे अपनी content को key by key move करना होगा?">
+
+नहीं। `npx intlayer extract` चलाएं और Intlayer आपकी source files को पढ़ता है, user facing strings को निकालता है और प्रत्येक के बगल में एक `.content` file लिखता है, इसलिए आप strings को एक catalog में एक-एक करके कॉपी करने के बजाय एक diff की समीक्षा करते हैं। [extract command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/extract.md) देखें।
+
+पूरी तरह से स्वचालित वर्कफ़्लो के लिए, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md) JSX, TSX, Vue और Svelte कोड पर निर्माण समय के दौरान भी यही करता है, प्रत्येक परिवर्तन पर शब्दकोश उत्पन्न करता है जिससे कुंजियों को मैन्युअल रूप से बनाए रखने की आवश्यकता समाप्त हो जाती है।
+
+</Question>
+
+<Question title="कौन से editor और AI agent tooling उपलब्ध हैं?">
+
+पाँच उपकरण, सभी वैकल्पिक:
+
+- **[VS Code extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/vs_code_extension.md)**: `useIntlayer` कुंजी से उसे घोषित करने वाली सामग्री फ़ाइल पर जाएं, घटकों से सामग्री निकालें, और कमांड पैलेट या Intlayer टैब से build, fill, test, push और pull चलाएं।
+- **[LSP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/lsp.md)**: LSP का समर्थन करने वाले किसी भी संपादक में समान सुविधा, परिभाषा पर जाएं, अनुवादित मान का पूर्वावलोकन देखें, और कुंजी पूर्णता प्राप्त करें। `i18next`, `react-i18next`, `next-intl` और `use-intl` कॉल का भी समर्थन करता है।
+- **[MCP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/mcp_server.md)**: Cursor, VS Code, Claude Desktop, Claude Code और ChatGPT के लिए Intlayer दस्तावेज़ और CLI प्रदान करता है।
+- **[Agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/agent_skills.md)**: केंद्रित कौशल जैसे `intlayer-config`, `intlayer-cli` और `intlayer-content`।
+- **[ESLint plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/eslint.md)**: `no-raw-text` नियम हार्डकोडेड स्ट्रिंग्स को चिह्नित करता है।
+
+</Question>
+
+<Question title="JavaScript अनुप्रयोगों के अंतर्राष्ट्रीयकरण के लिए कौन से विभिन्न समाधान उपलब्ध हैं?">
+
+यह क्षेत्र तीन पीढ़ियों में विभाजित है:
+
+- **रनटाइम कैटलॉग लाइब्रेरी**: `i18next`, `react-i18next`, `next-i18next`, `vue-i18n`, `ngx-translate`। संदेश JSON नेमस्पेस में संग्रहीत होते हैं जो रनटाइम पर लोड होते हैं। परिपक्व और फ्रेमवर्क-अज्ञेयवादी, लेकिन स्थिर प्रकार की कमी होती है और क्लाइंट को संपूर्ण कैटलॉग भेजा जाता है।
+- **कंपाइल-टाइम संदेश लाइब्रेरी**: `Lingui`, `Paraglide`, `react-intl`, और निष्कर्षण चरण के साथ `next-intl`। बेहतर बंडल व्यवहार और आंशिक प्रकार, लेकिन अभी भी केंद्रीकृत कैटलॉग पर निर्भर।
+- **कंटेंट लेयर लाइब्रेरी (Content layer)**: `Intlayer`। सामग्री घटक-दर-घटक घोषित की जाती है और घटक-दर-घटक संकलित की जाती है; सत्य के एक ही स्रोत में टाइपिंग, ट्री-शेकिंग, डेवलपर टूलिंग और संपादन को जोड़ती है।
+
+[Intlayer क्यों चुनें](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/interest_of_intlayer.md) और [बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/index.md) देखें।
+
+</Question>
+
+<Question title="Intlayer किन फ्रेमवर्क का समर्थन करता है?">
+
+React, Next.js, Vite, TanStack Start, React Router, Vue, Nuxt, Svelte, SvelteKit, Angular, Solid, Preact, Lit, किसी भी आइलैंड घटक के साथ Astro, Expo के साथ React Native, Lynx, और बैकएंड पर Express, Fastify, NestJS, Hono, Elysia, और AdonisJS। वातावरण अनुभाग में प्रत्येक के लिए एक समर्पित गाइड है।
+
+</Question>
+
+<Question title="केंद्रीकृत JSON फ़ाइल के बजाय घटक के बगल में सामग्री क्यों घोषित करें?">
+
+इसके तीन कारण हैं: पहला, पृष्ठ संपूर्ण नेमस्पेस के बजाय केवल उन्हीं प्रविष्टियों को भेजता है जिन्हें उसके घटक वास्तव में प्रस्तुत करते हैं, जिससे बंडल का आकार कम हो जाता है। दूसरा, खोई हुई कुंजियों की खोज किए बिना फ़ीचर फ़ोल्डर को स्वतंत्र रूप से स्थानांतरित या हटाया जा सकता है। तीसरा, घटक का संपादन करने वाले LLM या AI एजेंट अपनी सामग्री को उसी फ़ोल्डर में देखते हैं, जिससे उच्च सटीकता मिलती है। [Intlayer कैसे काम करता है](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/how_works_intlayer.md) देखें।
+
+</Question>
+
+<Question title="मैं अपने ऐप को AI के साथ स्वचालित रूप से कैसे अनुवाद करूँ?">
+
+`npx intlayer fill` चलाएं। CLI लापता अनुवादों का पता लगाता है और आपके अपने प्रदाता और API कुंजी का उपयोग करके आपके चुने हुए LLM के साथ उन्हें भरता है। `--git-diff` ध्वज वर्तमान शाखा पर बदली गई सामग्री तक संचालन को सीमित करता है। [fill command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/fill.md) और [CI/CD integration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/CI_CD.md) देखें।
+
+</Question>
+
+<Question title="लापता अनुवाद कैसे खोजें?">
+
+`npx intlayer test` चलाएं। यदि किसी घोषित लोकेल में सामग्री गायब है तो यह आदेश विफल हो जाता है, जिससे यह सुनिश्चित होता है कि कोई भी अप्रकाशित स्ट्रिंग उत्पादन तक न पहुंचे। VS Code एक्सटेंशन सीधे संपादक में इन त्रुटियों को चिह्नित करता है, और ESLint प्लगइन बिना रैप किए गए स्ट्रिंग्स को फ़्लैग करता है। [सामग्री परीक्षण](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/testing.md) देखें।
+
+</Question>
+
+<Question title="क्या मुझे URL में लोकेल शामिल करना अनिवार्य है?">
+
+नहीं। `routing.mode` मान `"prefix-no-default"` (डिफ़ॉल्ट: `/about` और `/hi/about`), `"prefix-all"`, `"no-prefix"`, और `"search-params"` स्वीकार करता है, और `routing.domains` लोकेल को अपने डोमेन पर मैप करता है। चुनी गई योजना के बावजूद, `getMultilingualUrls` मेटाडेटा और साइटमैप के लिए वैकल्पिक `hreflang` लिंक उत्पन्न करता है। [कॉन्फ़िगरेशन संदर्भ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md) देखें।
+
+</Question>
+
+<Question title="अनुवादक और सामग्री संपादक कोड को छुए बिना कैसे काम कर सकते हैं?">
+
+विज़ुअल एडिटर आपके अपने बुनियादी ढांचे पर चलता है और किसी को भी इसे संपादित करने के लिए चल रही साइट पर टेक्स्ट पर क्लिक करने की अनुमति देता है, परिवर्तनों को वापस कोडबेस में सहेजता है। CMS सामग्री को अलग करता है ताकि इसे बिना रीडिप्लॉय के अपडेट किया जा सके। [विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md) और [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md) देखें।
+
+</Question>
+
+<Question title="क्या Intlayer मुफ्त और ओपन सोर्स है?">
+
+हाँ। Intlayer Apache 2.0 लाइसेंस के तहत ओपन सोर्स है; लाइब्रेरी, CLI, कंपाइलर और विज़ुअल एडिटर व्यावसायिक उपयोग के लिए पूरी तरह से मुफ़्त हैं। क्लाउड CMS एक वैकल्पिक सशुल्क सेवा है जिसे [स्वयं होस्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/self_hosting.md) भी किया जा सकता है।
+
+</Question>
+
+</FAQ>

@@ -762,7 +762,7 @@ export default config;
 
 <Question title="Является ли Intlayer бесплатным и открытым исходным кодом?">
 
-Да, под лицензией Apache 2.0, коммерческое использование включено. Размещенная [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md) — это дополнительный платный сервис, который также может быть [самостоятельно размещен](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/self_hosting.md).
+Да, под лицензией Apache 2.0, коммерческое использование включено. Размещенная [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md) - это дополнительный платный сервис, который также может быть [самостоятельно размещен](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/self_hosting.md).
 
 </Question>
 

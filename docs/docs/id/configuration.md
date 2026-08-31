@@ -1122,3 +1122,101 @@ Mengontrol pengaturan kompiler Intlayer yang mengumpulkan kamus langsung dari ko
 | Bidang    | Deskripsi                                    | Tipe               |
 | --------- | -------------------------------------------- | ------------------ |
 | `plugins` | Daftar plugin Intlayer yang akan disertakan. | `IntlayerPlugin[]` |
+
+## Pertanyaan yang Sering Diajukan
+
+<FAQ>
+
+<Question title="Di mana file intlayer.config.ts harus berada?">
+
+Di root project Anda, di sebelah `package.json`. Intlayer memindai direktori kerja dan direktori induk untuk mencari `intlayer.config.ts`, `intlayer.config.js`, `intlayer.config.mjs`, atau `intlayer.config.cjs`. Anda juga dapat menentukan path khusus melalui flag `--config` pada perintah CLI.
+
+</Question>
+
+<Question title="Berapa banyak i18n menambah ukuran bundle saya?">
+
+Jauh lebih sedikit daripada pengaturan berbasis namespace, karena halaman tidak pernah mengunduh katalog yang tidak di-render. Markup yang dirender di server menyelesaikan kontennya di server, dan kompilator build time mengganti panggilan `useIntlayer` dengan entri kamus persis yang digunakan komponen, sehingga kunci dan bahasa yang tidak digunakan dibuang. [Kamus dinamis](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dynamic_dictionaries/index.md) membagi sisanya per locale. Dibandingkan dengan alternatif konvensional, Intlayer mengurangi ukuran bundle dan halaman hingga 50%. Lihat [optimasi bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/bundle_optimization.md) dan [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/index.md).
+
+</Question>
+
+<Question title="Bisakah saya bermigrasi dari i18next, next-intl atau react-i18next tanpa menulis ulang komponen saya?">
+
+Ya, dan ada dua jalur. Anda dapat memigrasikan konten secara bertahap dengan [panduan migrasi i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_i18next_to_intlayer.md) atau [panduan migrasi next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_next-intl_to_intlayer.md). Atau Anda dapat mempertahankan API Anda saat ini sepenuhnya: [adapter kompatibilitas](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/index.md) mengekspos API yang sama persis dengan `i18next`, `react-i18next`, `next-intl`, `next-i18next`, `react-intl`, `use-intl`, `vue-i18n` dan `Lingui`, tetapi ditenagai oleh kamus Intlayer, sehingga hanya import yang berubah dan kode komponen tetap sama.
+
+</Question>
+
+<Question title="Bisakah saya menyimpan file terjemahan JSON yang sudah ada?">
+
+Ya. Plugin [sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/plugins/sync-json.md) menjaga file `/messages/{locale}/{namespace}.json` Anda sebagai sumber kebenaran dan menghasilkan kamus Intlayer darinya, di kedua arah. Plugin [sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/plugins/sync-po.md) melakukan hal yang sama untuk katalog gettext, dan [file per locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/per_locale_file.md) memungkinkan Anda membagi konten berdasarkan bahasa daripada mengelompokkan lokal dalam satu file.
+
+</Question>
+
+<Question title="Apakah saya harus memindahkan konten saya key by key?">
+
+Tidak. Jalankan `npx intlayer extract` dan Intlayer membaca file sumber Anda, mengeluarkan string yang dihadapi pengguna, dan menulis file `.content` di sebelah masing-masing, sehingga Anda meninjau diff alih-alih menyalin string ke dalam katalog satu per satu. Lihat [perintah extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/extract.md).
+
+Untuk alur kerja yang sepenuhnya otomatis, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md) melakukan hal yang sama saat build time pada kode JSX, TSX, Vue dan Svelte, menghasilkan kamus pada setiap perubahan sehingga tidak ada kunci yang perlu dikelola secara manual. Karena bekerja melalui analisis statis, string yang hanya ada di runtime berada di luar jangkauannya.
+
+</Question>
+
+<Question title="Apa tooling editor dan agen AI yang tersedia?">
+
+Lima bagian, semuanya opsional:
+
+- **[Ekstensi VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/vs_code_extension.md)**: lompat dari kunci `useIntlayer` ke file konten yang mendeklarasikannya, ekstrak konten dari komponen, dan jalankan build, fill, test, push dan pull dari command palette atau tab Intlayer.
+- **[Server LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/lsp.md)**: kesadaran yang sama di editor mana pun yang mendukung LSP, dengan go to definition, hover preview dari nilai terjemahan, autocompletion kunci, dan peringatan ketika kunci tidak dideklarasikan di mana pun. Ini juga menyelesaikan panggilan `i18next`, `react-i18next`, `next-intl` dan `use-intl`.
+- **[Server MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/mcp_server.md)**: mengekspos dokumentasi Intlayer dan CLI ke Cursor, VS Code, Claude Desktop, Claude Code dan ChatGPT.
+- **[Agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/agent_skills.md)**: keahlian terfokus seperti `intlayer-config`, `intlayer-cli` dan `intlayer-content`.
+- **[Plugin ESLint](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/eslint.md)**: aturan `no-raw-text` menandai string hardcoded.
+
+</Question>
+
+<Question title="Bagaimana cara menambahkan bahasa baru ke aplikasi saya?">
+
+Tambahkan kode locale ke array `internationalization.locales`, lalu jalankan `npx intlayer fill` untuk menerjemahkan konten yang ada secara otomatis. Compiler akan menyertakan bahasa baru pada build berikutnya.
+
+</Question>
+
+<Question title="Bagaimana cara menghapus prefix locale dari URL saya?">
+
+Atur `routing.mode`. Nilai `"no-prefix"` menghapus prefix untuk semua bahasa, menentukan locale melalui cookie, header, atau domain. Nilai `"prefix-no-default"` (default) menghapus prefix hanya untuk bahasa utama.
+
+</Question>
+
+<Question title="Bisakah saya menyajikan setiap bahasa dari domainnya sendiri?">
+
+Ya. Opsi `routing.domains` memetakan setiap locale ke hostname, misalnya `{ id: 'example.co.id', en: 'example.com' }`. Deteksi domain didahulukan daripada prefix path, dan `getMultilingualUrls` menghasilkan URL lengkap untuk `hreflang`.
+
+</Question>
+
+<Question title="Bagaimana bahasa pengguna dideteksi?">
+
+Melalui `routing.storage`, yang mencantumkan sumber sesuai urutan prioritas: biasanya URL terlebih dahulu, lalu cookie, kemudian header `Accept-Language`, dan beralih ke bahasa default jika tidak ditemukan.
+
+</Question>
+
+<Question title="Apa yang dilakukan routing.enableProxy?">
+
+Mengontrol proxy routing locale, middleware yang menyelesaikan prefix dan redirect. Secara default proxy aktif di mode dev dan produksi. Jika disetel ke `false`, proxy dinonaktifkan sepenuhnya.
+
+</Question>
+
+<Question title="Apa perbedaan antara importMode static, dynamic dan fetch?">
+
+`"static"` (default) mengimpor kamus secara statis sehingga dibundel dan dibaca secara sinkron. `"dynamic"` mengimpor kamus secara asinkron per bahasa untuk meringankan bundle awal. `"fetch"` mengambil kamus dari server atau CMS saat runtime.
+
+</Question>
+
+<Question title="Di mana saya mengatur AI provider dan API key untuk terjemahan otomatis?">
+
+Di file konfigurasi pada bagian `ai` atau di baris perintah menggunakan flag `--provider`, `--model`, dan `--api-key`. API key tetap berada di lokal dan tidak pernah meninggalkan lingkungan Anda. Lihat [referensi konfigurasi AI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md).
+
+</Question>
+
+<Question title="Apakah saya perlu me-restart server pengembangan setelah mengubah konfigurasi?">
+
+Biasanya tidak. Watcher Intlayer memantau file `intlayer.config.ts`: saat disimpan, ia memuat ulang konfigurasi dan memperbarui kamus di latar belakang.
+
+</Question>
+
+</FAQ>

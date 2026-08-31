@@ -431,3 +431,95 @@ curl -fsSL https://intlayer.org/install.sh | sh
 - Переконайтеся, що конфігурацію проєкту було pushed до Intlayer CMS.
 
 - Візуальний редактор використовує iframe для відображення вашого вебсайту. Переконайтеся, що Content Security Policy (CSP) вашого сайту дозволяє URL CMS у `frame-ancestors` ('https://app.intlayer.org' за замовчуванням). Перевірте консоль редактора на наявність помилок.
+
+## Часто задавані запитання
+
+<FAQ>
+
+<Question title="У чому різниця між Intlayer CMS та візуальним редактором?">
+
+[Візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md) редагує локальні файли словників у вашій кодовій базі. CMS керує контентом віддалено на сервері, дозволяючи публікувати зміни текстів без необхідності нового розгортання додатку.
+
+</Question>
+
+<Question title="Скільки i18n додає до розміру бандла?">
+
+Значно менше, ніж рішення на основі просторів імен (namespaces), оскільки сторінка ніколи не завантажує каталог, який вона не рендерить. Розмітка, що рендериться на сервері, отримує свій контент безпосередньо на сервері, а компілятор під час збирання замінює виклики `useIntlayer` точними записами словника, які використовує компонент, тому невикористані ключі та мови видаляються. [Динамічні словники](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dynamic_dictionaries/index.md) розділяють залишок за окремими локалями. У порівнянні зі звичними альтернативами Intlayer зменшує розмір бандла та сторінки до 50%. Див. [оптимізацію бандла](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/bundle_optimization.md) та [бенчмарк](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/index.md).
+
+</Question>
+
+<Question title="Чи можу я мігрувати з i18next, next-intl або react-i18next без переписування моїх компонентів?">
+
+Так, і для цього є два шляхи. Ви можете переносити контент поступово, користуючись [посібником з міграції з i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/migration_from_i18next_to_intlayer.md) або [посібником з міграції з next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/migration_from_next-intl_to_intlayer.md). Або ви можете повністю зберегти свій поточний API: [адаптери сумісності](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/index.md) надають абсолютно той самий інтерфейс, що й `i18next`, `react-i18next`, `next-intl`, `next-i18next`, `react-intl`, `use-intl`, `vue-i18n` та `Lingui`, але дані беруться зі словників Intlayer, завдяки чому змінюються лише імпорти, а код компонентів залишається незмінним.
+
+</Question>
+
+<Question title="Чи можу я зберігати мої існуючі JSON файли перекладів?">
+
+Так. [sync JSON плагін](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/plugins/sync-json.md) зберігає ваші файли `/messages/{locale}/{namespace}.json` як джерело істини та генерує словники Intlayer з них в обох напрямках. [sync PO плагін](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/plugins/sync-po.md) робить те ж саме для gettext каталогів, а [файли для окремих локалей](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/per_locale_file.md) дозволяють розділити контент за мовами замість групування локалей в один файл.
+
+</Question>
+
+<Question title="Чи потрібно переносити вміст ключ за ключем?">
+
+Ні. Запустіть `npx intlayer extract`, і Intlayer прочитає ваші файли, витягне призначені для користувача рядки і створить файл `.content` поруч із кожним компонентом, завдяки чому ви переглядаєте diff замість копіювання рядків у каталог вручну. Див. [команду extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/extract.md).
+
+Для повністю автоматизованого робочого процесу [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compiler.md) робить те саме під час збирання у коді JSX, TSX, Vue та Svelte, генеруючи словники під час кожної зміни, тому вручну підтримувати ключі не потрібно. Оскільки він працює через статичний аналіз, динамічні рядки середовища виконання залишаються поза його досяжністю.
+
+</Question>
+
+<Question title="Які інструменти для редактора та AI агентів доступні?">
+
+П'ять інструментів, усі опціональні:
+
+- **[Розширення VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/vs_code_extension.md)**: перехід від ключа `useIntlayer` до файлу контенту, вилучення рядків із компонента та запуск build, fill, test, push і pull із палітри команд або вкладки Intlayer.
+- **[LSP сервер](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/lsp.md)**: та сама функціональність у будь-якому редакторі з підтримкою LSP, включно з переходом до визначення, переглядом перекладеного значення під час наведення та автодоповненням ключів. Також підтримує виклики `i18next`, `react-i18next`, `next-intl` та `use-intl`.
+- **[MCP сервер](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/mcp_server.md)**: надає документацію та CLI Intlayer для Cursor, VS Code, Claude Desktop, Claude Code та ChatGPT.
+- **[Навички агента (Agent skills)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/agent_skills.md)**: спеціалізовані навички `intlayer-config`, `intlayer-cli` та `intlayer-content`.
+- **[Плагін ESLint](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/eslint.md)**: правило `no-raw-text` відстежує жорстко закодовані рядки.
+
+</Question>
+
+<Question title="Який контент варто переносити до CMS?">
+
+Контент, що часто змінюється і не прив'язаний до циклу релізів коду: тексти на лендінгах, ціни, оголошення, банери та статті блогу.
+
+</Question>
+
+<Question title="Що станеться, якщо CMS недоступна?">
+
+Додаток автоматично повертається до локального оголошення словника в кодовій базі, завдяки чому збій мережі ніколи не призведе до порожньої сторінки для користувача.
+
+</Question>
+
+<Question title="Чи можу я самостійно хостити CMS?">
+
+Так. CMS може працювати на вашій власній інфраструктурі, коли контент не повинен виходити за межі внутрішньої мережі. Див. [посібник із self-hosting](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/self_hosting.md).
+
+</Question>
+
+<Question title="Чи потрібен редакторам контенту розробник для публікації змін?">
+
+Ні. Це головна мета віддалених словників: редактор змінює текст у CMS, і завдяки функції живої синхронізації (live sync) сайт миттєво відображає оновлення.
+
+</Question>
+
+<Question title="Чи можна автоматизувати CMS замість використання інтерфейсу?">
+
+Так. SDK `@intlayer/api` надає ті самі ендпоінти, що й інтерфейс, дозволяючи керувати проектами та публікацією словників за допомогою власних скриптів.
+
+</Question>
+
+<Question title="Чи підтримує CMS A/B тестування перекладів?">
+
+Так. Віддалені словники підтримують [варіанти контенту](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dynamic_dictionaries/index.md), що дозволяє показувати різні версії текстів різним аудиторіям.
+
+</Question>
+
+<Question title="Чи є CMS безкоштовною?">
+
+Бібліотека Intlayer, CLI, компілятор та візуальний редактор безкоштовні під ліцензією Apache 2.0. Хмарна CMS є платною послугою, але її версію для самостійного розміщення можна запустити безкоштовно на власному сервері.
+
+</Question>
+
+</FAQ>

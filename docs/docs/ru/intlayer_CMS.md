@@ -453,7 +453,7 @@ curl -fsSL https://intlayer.org/install.sh | sh
 
 <Question title="Могу ли я мигрировать с `i18next`, `next-intl` или `react-i18next`, не переписывая свои компоненты?">
 
-Да, и есть два пути. Вы можете мигрировать контент постепенно с помощью [руководства по миграции с i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/migration_from_i18next_to_intlayer.md) или [руководства по миграции с next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/migration_from_next-intl_to_intlayer.md). Или вы можете полностью сохранить свой текущий API: [адаптеры совместимости](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/index.md) предоставляют точно такой же API, как `i18next`, `react-i18next`, `next-intl`, `next-i18next`, `react-intl`, `use-intl`, `vue-i18n` и `Lingui`, но обслуживаемый словарями Intlayer, поэтому меняются импорты, а код компонентов — нет.
+Да, и есть два пути. Вы можете мигрировать контент постепенно с помощью [руководства по миграции с i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/migration_from_i18next_to_intlayer.md) или [руководства по миграции с next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/migration_from_next-intl_to_intlayer.md). Или вы можете полностью сохранить свой текущий API: [адаптеры совместимости](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/index.md) предоставляют точно такой же API, как `i18next`, `react-i18next`, `next-intl`, `next-i18next`, `react-intl`, `use-intl`, `vue-i18n` и `Lingui`, но обслуживаемый словарями Intlayer, поэтому меняются импорты, а код компонентов - нет.
 
 </Question>
 
@@ -485,7 +485,7 @@ curl -fsSL https://intlayer.org/install.sh | sh
 
 <Question title="Какой контент следует перенести в CMS?">
 
-Контент, который часто меняется и не относится к релизу: текст лендинга, формулировки цен, объявления — всё, чем владеет маркетинговая команда. Контент, который является частью интерфейса, например надписи на кнопках и ошибки форм, лучше оставить в локальных словарях, где он проверяется вместе с кодом, который его использует.
+Контент, который часто меняется и не относится к релизу: текст лендинга, формулировки цен, объявления - всё, чем владеет маркетинговая команда. Контент, который является частью интерфейса, например надписи на кнопках и ошибки форм, лучше оставить в локальных словарях, где он проверяется вместе с кодом, который его использует.
 
 </Question>
 
@@ -521,7 +521,7 @@ curl -fsSL https://intlayer.org/install.sh | sh
 
 <Question title="Бесплатна ли CMS?">
 
-Библиотека Intlayer, CLI, компилятор и визуальный редактор бесплатны и с открытым исходным кодом по лицензии Apache 2.0. Размещённая CMS — это необязательный платный сервис, и его можно [разместить самостоятельно](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/self_hosting.md).
+Библиотека Intlayer, CLI, компилятор и визуальный редактор бесплатны и с открытым исходным кодом по лицензии Apache 2.0. Размещённая CMS - это необязательный платный сервис, и его можно [разместить самостоятельно](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/self_hosting.md).
 
 </Question>
 

@@ -211,3 +211,89 @@ pnpm intlayer-editor start -e development
     - يجب أن يتطابق عنوان URL للتطبيق مع الذي قمت بتعيينه في تكوين المحرر (`applicationURL`).
 
 - يستخدم المحرر المرئي iframe لعرض موقعك الإلكتروني. تأكد من أن سياسة أمان المحتوى (CSP) لموقعك تسمح بعنوان URL الخاص بنظام إدارة المحتوى (CMS) كـ `frame-ancestors` ('http://localhost:8000' بشكل افتراضي). تحقق من وحدة تحكم المحرر لأي أخطاء.
+
+## الأسئلة الشائعة
+
+<FAQ>
+
+<Question title="ما الفرق بين المحرر المرئي ونظام إدارة المحتوى (CMS)؟">
+
+يعدل المحرر المرئي القواميس المحلية ويحفظ التغييرات مباشرة في ملفات الكود المصدر الخاصة بك، وبالتالي يخضع لمراجعة Git القياسية. يخزن CMS المحتوى على خادم بعيد للنشر الفوري دون إعادة البناء.
+
+</Question>
+
+<Question title="كم يضيف i18n إلى حجم حزمة (bundle) تطبيقي؟">
+
+أقل بكثير من الإعدادات القائمة على فضاءات الأسماء، لأن الصفحة لا تُحمّل أبدًا كتالوجًا لا تعرضه. يُحل المحتوى المعروض على الخادم مباشرة على الخادم، ويستبدل مترجم وقت البناء استدعاءات `useIntlayer` بإدخالات القاموس الدقيقة التي يستخدمها المكون، لذلك يتم التخلص من المفاتيح واللغات غير المستخدمة. تقسم [القواميس الديناميكية](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dynamic_dictionaries/index.md) الباقي حسب اللغة. مقارنة بالبدائل التقليدية، يقلل Intlayer حجم الحزمة والصفحة بنسبة تصل إلى 50%. انظر [تحسين الحزم](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md) و [المقارنة المعيارية](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/index.md).
+
+</Question>
+
+<Question title="هل يمكنني الترحيل من i18next أو next-intl أو react-i18next دون إعادة كتابة مكوناتي؟">
+
+نعم، وبطريقتين. يمكنك ترحيل المحتوى تدريجيًا باستخدام [دليل ترحيل i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_i18next_to_intlayer.md) أو [دليل ترحيل next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_next-intl_to_intlayer.md). أو يمكنك الاحتفاظ بواجهة برمجة التطبيقات الحالية بالكامل: تكشف [محولات التوافق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/index.md) نفس واجهات `i18next` و `react-i18next` و `next-intl` و `next-i18next` و `react-intl` و `use-intl` و `vue-i18n` و `Lingui`، ولكنها مدعومة بقواميس Intlayer، بحيث تتغير الاستيرادات فقط بينما يظل كود المكون كما هو.
+
+</Question>
+
+<Question title="هل يمكنني الاحتفاظ بملفات الترجمة JSON الموجودة لدي؟">
+
+نعم. تحافظ [مكونة مزامنة JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/plugins/sync-json.md) على ملفات `/messages/{locale}/{namespace}.json` الخاصة بك كمصدر الحقيقة وتُنشئ قواميس Intlayer منها، في كلا الاتجاهين. وتقوم [مكونة مزامنة PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/plugins/sync-po.md) بنفس الشيء لكتالوجات gettext، وتسمح لك [الملفات المقسمة حسب اللغة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/per_locale_file.md) بتقسيم المحتوى حسب اللغة بدلاً من تجميع كل اللغات في ملف واحد.
+
+</Question>
+
+<Question title="هل يجب أن أنقل المحتوى الخاص بي مفتاحًا تلو الآخر؟">
+
+لا. قم بتشغيل `npx intlayer extract` وسيقرأ Intlayer ملفات المصدر الخاصة بك، ويسحب السلاسل النصية الموجهة للمستخدم ويكتب ملف `.content` بجانب كل منها، بحيث تراجع diff بدلاً من نسخ السلاسل إلى كتالوج يدويًا. راجع [أمر extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/extract.md).
+
+لأتمتة كاملة، يقوم [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md) بالشيء نفسه في وقت البناء على كود JSX و TSX و Vue و Svelte، منشئًا القواميس عند كل تغيير دون الحاجة إلى إدارة المفاتيح يدويًا.
+
+</Question>
+
+<Question title="ما هي أدوات المحررات والوكلاء الذكيين المتاحة؟">
+
+خمس أدوات، كلها اختيارية:
+
+- **[امتداد VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/vs_code_extension.md)**: الانتقال من مفتاح `useIntlayer` إلى ملف المحتوى المصرح به، استخراج المحتوى من المكون، وتشغيل build و fill و test و push و pull من لوحة الأوامر أو علامة تبويب Intlayer.
+- **[خادم LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/lsp.md)**: نفس التجربة في أي محرر يدعم LSP، مع الانتقال إلى التعريف وعروض القيمة المترجمة عند التمرير والإكمال التلقائي للمفاتيح. يدعم أيضًا استدعاءات `i18next` و `react-i18next` و `next-intl` و `use-intl`.
+- **[خادم MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/mcp_server.md)**: يكشف وثائق Intlayer و CLI إلى Cursor و VS Code و Claude Desktop و Claude Code و ChatGPT.
+- **[Agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md)**: مهارات مخصصة مثل `intlayer-config` و `intlayer-cli` و `intlayer-content`.
+- **[ESLint plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/eslint.md)**: قاعدة `no-raw-text` ترصد النصوص المكتوبة مباشرة بدون تدويل.
+
+</Question>
+
+<Question title="أين يعمل المحرر المرئي؟">
+
+على بنيتك التحتية الخاصة. يحمل المحرر تطبيقك داخل iframe ويتواصل مع خادم المحرر المحلي، لذلك لا يتم إرسال المحتوى خارجيًا أبدًا.
+
+</Question>
+
+<Question title="هل يحتاج المحررون إلى معرفة كيفية كتابة الكود؟">
+
+لا. يفتحون موقع الويب، وينقرون مباشرة على عنصر النص ويحررونه في مكانه. يحدد المحرر تلقائيًا إدخال القاموس المقابل.
+
+</Question>
+
+<Question title="هل التحرير عبر المحرر المرئي يغير ملفاتي المصدر؟">
+
+نعم، تم تصميمه هكذا تحديدًا. تتم كتابة التغيير في ملف إعلان المحتوى في قاعدة الكود الخاصة بك ويظهر كتعديل عادي في git diff.
+
+</Question>
+
+<Question title="يعرض المحرر صفحة بيضاء أو يرفض تحميل الموقع. ماذا أفحص؟">
+
+يعرض المحرر التطبيق في iframe، لذلك يجب أن تسمح سياسة أمان المحتوى (CSP) الخاصة بك بأصل المحرر في توجيه `frame-ancestors`. تحقق أيضًا من تشغيل كل من خادم التطبيق وخادم المحرر.
+
+</Question>
+
+<Question title="هل يمكنني استخدام المحرر المرئي في بيئة الإنتاج؟">
+
+تم تصميمه لبيئات التطوير والمرحلة الانتقالية (staging)، حيث تكون إعادة البناء بعد التحرير مقبولة. لتحرير المحتوى على موقع إنتاج مباشر، يوصى باستخدام [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md).
+
+</Question>
+
+<Question title="هل المحرر المرئي مجاني؟">
+
+نعم. المحرر المرئي جزء من المشروع مفتوح المصدر بموجب ترخيص Apache 2.0، بما في ذلك الاستخدام التجاري.
+
+</Question>
+
+</FAQ>

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-05-31
+updatedAt: 2026-08-30
 title: "Vite + React i18n - Kompletny przewodnik po tłumaczeniu swojej aplikacji"
 description: "Koniec z i18next. Przewodnik 2026 do budowania wielojęzycznej (i18n) aplikacji Vite + React. Tłumacz z agentami AI i optymalizuj rozmiar bundle, SEO i wydajność."
 keywords:
@@ -544,4 +544,108 @@ Więcej szczegółów na temat korzystania z rozszerzenia znajdziesz w [dokument
 
 ### Idź dalej
 
-Aby pójść dalej, możesz zaimplementować [edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) lub wyeksportować treść za pomocą [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md).
+Aby pójść dalej, możesz zaimplementować [edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md) lub wyeksportować treść za pomocą [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md).
+
+## Często Zadawane Pytania
+
+<FAQ>
+
+<Question title="Jakie są różne rozwiązania dostępne do internacjonalizacji aplikacji Vite i React?">
+
+- **`react-i18next` / `i18next`**: przestrzenie nazw JSON ładowane w czasie działania aplikacji (runtime), z kluczami pisanymi ręcznie w każdym miejscu wywołania.
+- **`react-intl`** oraz **`Lingui`**: komunikaty ICU z osobnym krokiem ekstrakcji, który przeprowadzasz samodzielnie.
+- **`Intlayer`**: treść kompilowana bezpośrednio z komponentów w czasie budowania, w pełni typowana, ze zintegrowanym tłumaczeniem AI, edytorem wizualnym i systemem CMS.
+
+Ten przewodnik korzysta z konfiguracji kompilatora, w której piszesz zwykłe ciągi tekstowe w swoich komponentach, a słowniki są generowane automatycznie. Zobacz [dlaczego Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/interest_of_intlayer.md) oraz [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/index.md).
+
+</Question>
+
+<Question title="O ile i18n zwiększa rozmiar mojego bundle'a w Vite?">
+
+Znacznie mniej niż konfiguracja oparta na przestrzeniach nazw, ponieważ strona nigdy nie pobiera katalogu, którego nie renderuje. Kompilator czasu budowania zastępuje wywołania `useIntlayer` dokładnymi wpisami słownika, z których korzysta komponent, dzięki czemu nieużywane klucze i nieużywane języki są usuwane, a [dynamiczne słowniki](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dynamic_dictionaries/index.md) dzielą resztę per lokalizacja. W porównaniu ze standardowymi alternatywami, Intlayer redukuje rozmiar bundle'a i strony nawet o 50%. Zobacz [optymalizacja bundle'a](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/bundle_optimization.md) oraz [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/index.md).
+
+</Question>
+
+<Question title="Czy mogę zmigrować z react-i18next lub react-intl bez przepisywania moich komponentów?">
+
+Tak, i istnieją dwie ścieżki. Możesz migrować treść stopniowo za pomocą [przewodnika migracji z react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/migration_from_react-i18next_to_intlayer.md) lub [przewodnika migracji z i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/migration_from_i18next_to_intlayer.md). Możesz także całkowicie zachować swoje obecne API: [adaptery kompatybilności](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compat/index.md) udostępniają dokładnie to samo API co `react-i18next`, `react-intl` i `i18next`, ale zasilane przez słowniki Intlayer, dzięki czemu zmieniają się tylko importy, a kod komponentów pozostaje nienaruszony.
+
+</Question>
+
+<Question title="Czy mogę zachować moje istniejące pliki tłumaczeń JSON?">
+
+Tak. Wtyczka [sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/plugins/sync-json.md) utrzymuje Twoje pliki `/messages/{locale}/{namespace}.json` jako źródło prawdy i generuje z nich słowniki Intlayer w obu kierunkach. Wtyczka [sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/plugins/sync-po.md) robi to samo dla katalogów gettext, a [pliki per locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/per_locale_file.md) pozwalają rozdzielić zawartość według języka zamiast grupować lokalizacje w jednym pliku.
+
+</Question>
+
+<Question title="Czy muszę przenosić moją zawartość klucz po kluczu?">
+
+Nie, i to jest właśnie to, co konfiguruje ten przewodnik. Piszesz komponenty ze zwykłymi ciągami znaków w domyślnej lokalizacji, a [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compiler.md) skanuje kod źródłowy przy każdym budowaniu, wyodrębnia tekst widoczny dla użytkownika i generuje słowniki, więc nie ma potrzeby ręcznego tworzenia ani utrzymywania kluczy.
+
+Warto pamiętać o dwóch ograniczeniach. Kompilator działa w oparciu o analizę statyczną, więc ciągi tekstowe istniejące tylko w czasie wykonywania, takie jak kody błędów API czy pola z CMS, pozostają poza jego zasięgiem i nadal wymagają zadeklarowanego słownika. Musi on również odróżnić tekst dla użytkownika od logiki aplikacji, takiej jak `className="active"` czy kod stanu, co w dużej bazie kodu wymaga kilku adnotacji.
+
+Jeśli wolisz zachować kontrolę, polecenie `npx intlayer extract` wykonuje taką samą ekstrakcję jednorazowo na wybranych plikach i tworzy plik `.content` obok każdego komponentu do wglądu. Zobacz [polecenie extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/extract.md).
+
+</Question>
+
+<Question title="Jakie narzędzia dla edytora i agentów AI są dostępne?">
+
+Pięć narzędzi, wszystkie opcjonalne:
+
+- **[Rozszerzenie VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/vs_code_extension.md)**: przejście od klucza `useIntlayer` do pliku treści, który go deklaruje, wyodrębnianie treści z komponentu oraz uruchamianie build, fill, test, push i pull z palety poleceń lub dedykowanej karty Intlayer.
+- **[Serwer LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/lsp.md)**: taka sama świadomość w dowolnym edytorze obsługującym LSP, z funkcjami przejdź do definicji (go to definition), znajdź wszystkie referencje, podglądem przetłumaczonej wartości po najechaniu kursorem, autouzupełnianiem kluczy i pól oraz ostrzeżeniem, gdy klucz nie jest nigdzie zadeklarowany. Rozpoznaje również wywołania `i18next`, `react-i18next`, `next-intl` i `use-intl`, co ułatwia migrację.
+- **[Serwer MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/mcp_server.md)**: udostępnia dokumentację i CLI Intlayer dla Cursor, VS Code, Claude Desktop, Claude Code i ChatGPT, dzięki czemu asystent odpowiada na podstawie aktualnej dokumentacji zamiast zgadywać i może samodzielnie wykonywać polecenia, takie jak `intlayer fill`.
+- **[Umiejętności agenta (Agent skills)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/agent_skills.md)**: wyspecjalizowane umiejętności, takie jak `intlayer-config`, `intlayer-cli` i `intlayer-content`, oraz po jednej dla każdego frameworka, które uczą agenta konfiguracji routingu i typów węzłów treści.
+- **[Wtyczka ESLint](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/eslint.md)**: reguła `no-raw-text` oznacza zakodowane na stałe ciągi tekstowe, z dodatkowymi regułami dla statycznych kluczy słownika i nieużywanej zawartości.
+
+</Question>
+
+<Question title="Czy powinienem używać kompilatora, czy deklarować zawartość samodzielnie?">
+
+Użyj kompilatora, jeśli chcesz dodać i18n do istniejącej bazy kodu przy minimalnym nakładzie pracy: Twoje komponenty pozostają bez zmian, a słowniki tworzą się same. Deklaruj treść samodzielnie, jak opisano w [standardowym przewodniku po Vite i React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_vite+react.md), gdy potrzebujesz bezpośredniej kontroli nad kluczami, strukturą i ponownym wykorzystaniem pomiędzy komponentami. Obie metody mogą współistnieć: skompilowana i zadeklarowana treść współdzielą tę samą warstwę słowników.
+
+</Question>
+
+<Question title="Co dzieje się z ciągami znaków, których kompilator nie widzi?">
+
+Pozostają nieprzetłumaczone, ponieważ kompilator działa w oparciu o analizę statyczną. Wszystko, co jest generowane w czasie wykonywania, na przykład komunikat o błędzie z API, pole CMS czy ciąg tworzony przez konkatenację, musi być zadeklarowane w pliku zawartości w standardowy sposób. Uruchom `npx intlayer test`, aby sprawdzić, czego brakuje.
+
+</Question>
+
+<Question title="Jak kompilator decyduje, co jest tekstem dla użytkownika?">
+
+Za pomocą reguł heurystycznych analizujących Twój kod JSX, dlatego może się pomylić w obie strony: wartość `className` lub kod stanu mogą wyglądać jak tekst, a nietypowy wzorzec może zostać pominięty. W dużej bazie kodu koryguje się te przypadki brzegowe za pomocą adnotacji. Jeśli ten kompromis Ci nie odpowiada, polecenie `npx intlayer extract` wykonuje taką samą ekstrakcję jednorazowo i pozostawia wynik jako diff do wglądu. Zobacz [polecenie extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/extract.md).
+
+</Question>
+
+<Question title="Jak uzupełnić brakujące tłumaczenia?">
+
+Obejmuje to krok 7. Polecenie `npx intlayer fill` wysyła wyodrębnioną treść do wybranego modelu LLM, korzystając z Twojego dostawcy i klucza API, a flaga `--git-diff` ogranicza operację do zmian na bieżącej gałęzi. Zobacz [polecenie fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/fill.md) oraz [integrację CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/CI_CD.md).
+
+</Question>
+
+<Question title="Jak zmienić język w czasie działania aplikacji?">
+
+Obejmuje to krok 6. Hook `useLocale` udostępnia aktywną lokalizację, zadeklarowane lokalizacje oraz funkcję ustawiającą, która zapisuje wybór użytkownika, a komponenty korzystające ze skompilowanej treści renderują się ponownie w nowym języku bez przeładowania strony.
+
+</Question>
+
+<Question title="Czy Intlayer obsługuje formy mnogie, płeć i sformatowany tekst (rich text)?">
+
+Tak: [formy mnogie](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/plurial.md), [treści zależne od płci](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/gender.md), warunki, [wstawki (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/insertion.md), [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/markdown.md) dla dłuższych tekstów oraz [formatowania](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/formatters.md) dla liczb, dat i walut.
+
+</Question>
+
+<Question title="Jak tłumacze mogą edytować treść bez dotykania kodu?">
+
+Za pośrednictwem [edytora wizualnego](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md), który działa na Twojej własnej infrastrukturze i pozwala każdemu edytować tekst bezpośrednio w działającej aplikacji, lub systemu [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md), który uzewnętrznia treść, dzięki czemu może być zmieniana bez konieczności ponownego wdrażania aplikacji.
+
+</Question>
+
+<Question title="Czy Intlayer jest darmowy i open source?">
+
+Tak, na licencji Apache 2.0, włączając zastosowania komercyjne. Hostowany CMS to opcjonalna płatna usługa, którą można również [hostować samodzielnie (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/self_hosting.md).
+
+</Question>
+
+</FAQ>

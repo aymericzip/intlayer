@@ -220,3 +220,89 @@ Jika Anda mengalami masalah dengan visual editor, periksa hal-hal berikut:
     - URL aplikasi harus sesuai dengan yang Anda atur dalam konfigurasi editor (`applicationURL`).
 
 - Visual editor menggunakan iframe untuk menampilkan situs web Anda. Pastikan Content Security Policy (CSP) situs web Anda mengizinkan URL CMS sebagai `frame-ancestors` ('http://localhost:8000' secara default). Periksa konsol editor untuk setiap kesalahan.
+
+## Pertanyaan yang Sering Diajukan
+
+<FAQ>
+
+<Question title="Apa perbedaan antara editor visual dan CMS?">
+
+Editor visual mengedit kamus lokal dan menyimpan perubahan langsung ke file kode sumber Anda, sehingga melalui proses review Git standar. CMS menyimpan konten di server remote untuk publikasi instan tanpa build ulang.
+
+</Question>
+
+<Question title="Berapa banyak i18n menambah ukuran bundle saya?">
+
+Jauh lebih sedikit daripada pengaturan berbasis namespace, karena halaman tidak pernah mengunduh katalog yang tidak di-render. Markup yang dirender di server menyelesaikan kontennya di server, dan kompilator build time mengganti panggilan `useIntlayer` dengan entri kamus persis yang digunakan komponen, sehingga kunci dan bahasa yang tidak digunakan dibuang. [Kamus dinamis](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dynamic_dictionaries/index.md) membagi sisanya per locale. Dibandingkan dengan alternatif konvensional, Intlayer mengurangi ukuran bundle dan halaman hingga 50%. Lihat [optimasi bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/bundle_optimization.md) dan [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/index.md).
+
+</Question>
+
+<Question title="Bisakah saya bermigrasi dari i18next, next-intl atau react-i18next tanpa menulis ulang komponen saya?">
+
+Ya, dan ada dua jalur. Anda dapat memigrasikan konten secara bertahap dengan [panduan migrasi i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_i18next_to_intlayer.md) atau [panduan migrasi next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_next-intl_to_intlayer.md). Atau Anda dapat mempertahankan API Anda saat ini sepenuhnya: [adapter kompatibilitas](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/index.md) mengekspos API yang sama persis dengan `i18next`, `react-i18next`, `next-intl`, `next-i18next`, `react-intl`, `use-intl`, `vue-i18n` dan `Lingui`, tetapi ditenagai oleh kamus Intlayer, sehingga hanya import yang berubah dan kode komponen tetap sama.
+
+</Question>
+
+<Question title="Bisakah saya menyimpan file terjemahan JSON yang sudah ada?">
+
+Ya. Plugin [sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/plugins/sync-json.md) menjaga file `/messages/{locale}/{namespace}.json` Anda sebagai sumber kebenaran dan menghasilkan kamus Intlayer darinya, di kedua arah. Plugin [sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/plugins/sync-po.md) melakukan hal yang sama untuk katalog gettext, dan [file per locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/per_locale_file.md) memungkinkan Anda membagi konten berdasarkan bahasa daripada mengelompokkan lokal dalam satu file.
+
+</Question>
+
+<Question title="Apakah saya harus memindahkan konten saya key by key?">
+
+Tidak. Jalankan `npx intlayer extract` dan Intlayer membaca file sumber Anda, mengeluarkan string yang dihadapi pengguna, dan menulis file `.content` di sebelah masing-masing, sehingga Anda meninjau diff alih-alih menyalin string ke dalam katalog satu per satu. Lihat [perintah extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/extract.md).
+
+Untuk alur kerja yang sepenuhnya otomatis, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md) melakukan hal yang sama saat build time pada kode JSX, TSX, Vue dan Svelte, menghasilkan kamus pada setiap perubahan sehingga tidak ada kunci yang perlu dikelola secara manual. Karena bekerja melalui analisis statis, string yang hanya ada di runtime berada di luar jangkauannya.
+
+</Question>
+
+<Question title="Apa tooling editor dan agen AI yang tersedia?">
+
+Lima bagian, semuanya opsional:
+
+- **[Ekstensi VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/vs_code_extension.md)**: lompat dari kunci `useIntlayer` ke file konten yang mendeklarasikannya, ekstrak konten dari komponen, dan jalankan build, fill, test, push dan pull dari command palette atau tab Intlayer.
+- **[Server LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/lsp.md)**: kesadaran yang sama di editor mana pun yang mendukung LSP, dengan go to definition, hover preview dari nilai terjemahan, autocompletion kunci, dan peringatan ketika kunci tidak dideklarasikan di mana pun. Ini juga menyelesaikan panggilan `i18next`, `react-i18next`, `next-intl` dan `use-intl`.
+- **[Server MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/mcp_server.md)**: mengekspos dokumentasi Intlayer dan CLI ke Cursor, VS Code, Claude Desktop, Claude Code dan ChatGPT.
+- **[Agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/agent_skills.md)**: keahlian terfokus seperti `intlayer-config`, `intlayer-cli` dan `intlayer-content`.
+- **[Plugin ESLint](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/eslint.md)**: aturan `no-raw-text` menandai string hardcoded.
+
+</Question>
+
+<Question title="Di mana editor visual dijalankan?">
+
+Di infrastruktur Anda sendiri. Editor memuat aplikasi Anda di dalam iframe dan berkomunikasi dengan server editor lokal, sehingga konten tidak pernah dikirim ke pihak luar.
+
+</Question>
+
+<Question title="Apakah editor perlu tahu cara membuat kode?">
+
+Tidak. Mereka membuka situs, mengklik elemen teks secara langsung, dan mengeditnya di tempat. Editor secara otomatis menemukan entri kamus yang sesuai.
+
+</Question>
+
+<Question title="Apakah pengeditan melalui editor visual mengubah file sumber saya?">
+
+Ya, itulah rancangannya. Perubahan ditulis ke file deklarasi konten di codebase Anda dan muncul sebagai modifikasi normal dalam diff git.
+
+</Question>
+
+<Question title="Editor menampilkan halaman kosong atau menolak memuat situs. Apa yang harus diperiksa?">
+
+Editor menampilkan aplikasi dalam iframe, sehingga Content Security Policy (CSP) Anda harus mengizinkan origin editor di direktif `frame-ancestors`. Pastikan juga server aplikasi dan server editor sedang berjalan.
+
+</Question>
+
+<Question title="Bisakah saya menggunakan editor visual di produksi?">
+
+Editor dirancang untuk lingkungan development dan staging, di mana rebuild setelah edit dapat diterima. Untuk mengedit konten di situs produksi langsung, disarankan menggunakan [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md).
+
+</Question>
+
+<Question title="Apakah editor visual gratis?">
+
+Ya. Editor visual adalah bagian dari proyek open source di bawah lisensi Apache 2.0, termasuk untuk penggunaan komersial.
+
+</Question>
+
+</FAQ>

@@ -634,3 +634,107 @@ Intlayer використовує розширення модулів (module au
 ### Поглиблюйте свої знання
 
 Якщо ви хочете дізнатися більше, ви також можете впровадити [Візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md) або використовувати [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md), щоб винести ваш вміст назовні.
+
+## Часто задавані запитання
+
+<FAQ>
+
+<Question title="Які є різні рішення для інтернаціоналізації сайту Astro?">
+
+Astro надає маршрутизацію `i18n` для префіксів URL, але залишає керування вмістом розробнику:
+
+- **Вбудований `i18n` в Astro** плюс власні файли JSON/TS: без типізації, правил множини та інструментів виявлення пропущених перекладів.
+- **`i18next`** або окремі бібліотеки для островів (`vue-i18n`, `svelte-i18n`): повноцінна бібліотека на кожен тип острова зі своїми каталогами.
+- **`Intlayer`**: єдиний шар вмісту для сторінок Astro та будь-яких островів, оптимізований під час збирання, з повною типізацією, AI перекладом, візуальним редактором та CMS.
+
+Головна перевага полягає в тому, що той самий словник обслуговує як сторінку `.astro`, так і острови React, Vue, Svelte, Solid, Preact або Lit. Див. [чому Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/interest_of_intlayer.md).
+
+</Question>
+
+<Question title="Скільки i18n додає до розміру бандла Astro?">
+
+Значно менше, ніж рішення на основі просторів імен, оскільки сторінка ніколи не завантажує каталог, який вона не рендерить. Сторінки Astro рендеряться під час збирання, тому клієнту надсилається лише готовий HTML без додаткових словників; словники отримують лише інтерактивні острови (islands). [Динамічні словники](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dynamic_dictionaries/index.md) розділяють контент за локалями, зменшуючи бандл до 50%. Див. [оптимізацію бандла](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/bundle_optimization.md) та [бенчмарк](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/index.md).
+
+</Question>
+
+<Question title="Чи можу я мігрувати з i18next або власного словника без переписування компонентів?">
+
+Більшою мірою так. Дотримуйтесь [посібника з міграції з i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/migration_from_i18next_to_intlayer.md). Можна також мігрувати поступово через [sync JSON плагін](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/plugins/sync-json.md).
+
+</Question>
+
+<Question title="Чи можу я зберігати мої існуючі JSON файли перекладів?">
+
+Так. [sync JSON плагін](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/plugins/sync-json.md) зберігає ваші файли `/messages/{locale}/{namespace}.json` як джерело істини та генерує словники Intlayer з них в обох напрямках. [sync PO плагін](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/plugins/sync-po.md) робить те ж саме для gettext каталогів, а [файли для окремих локалей](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/per_locale_file.md) дозволяють розділити вміст за мовами замість групування локалей в один файл.
+
+</Question>
+
+<Question title="Чи потрібно переносити вміст ключ за ключем?">
+
+Ні. Запустіть `npx intlayer extract`, і Intlayer прочитає ваші файли, витягне призначені для користувача рядки і створить файл `.content` поруч із кожним компонентом, завдяки чому ви переглядаєте diff замість копіювання рядків у каталог вручну. Крок 15 цього посібника пояснює це.
+
+Для повної автоматизації [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compiler.md) робить те саме під час збирання: сканує код під час кожної зміни, генерує словники та синхронізує їх із HMR.
+
+</Question>
+
+<Question title="Які інструменти для редактора та AI агентів доступні?">
+
+П'ять інструментів, усі опціональні:
+
+- **[Розширення VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/vs_code_extension.md)**: перехід від ключа `useIntlayer` до файлу контенту, вилучення рядків із компонента та запуск build, fill, test, push і pull із палітри команд або вкладки Intlayer.
+- **[LSP сервер](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/lsp.md)**: та сама функціональність у будь-якому редакторі з підтримкою LSP, включно з переходом до визначення, переглядом перекладеного значення під час наведення та автодоповненням ключів. Також підтримує виклики `i18next`, `react-i18next`, `next-intl` та `use-intl`.
+- **[MCP сервер](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/mcp_server.md)**: надає документацію та CLI Intlayer для Cursor, VS Code, Claude Desktop, Claude Code та ChatGPT.
+- **[Навички агента (Agent skills)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/agent_skills.md)**: спеціалізовані навички `intlayer-config`, `intlayer-cli` та `intlayer-content`.
+- **[Плагін ESLint](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/eslint.md)**: правило `no-raw-text` відстежує жорстко закодовані рядки.
+
+</Question>
+
+<Question title="Чи працює Intlayer всередині островів (islands) Astro?">
+
+Так. `astro-intlayer` обслуговує сторону `.astro`, а кожен острівний фреймворк має власний біндинг, завдяки чому острів отримує активну локаль безпосередньо зі сторінки. Доступні спеціалізовані посібники для [Astro + React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_astro_react.md), [Astro + Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_astro_vue.md) та [Astro + Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_astro_svelte.md).
+
+</Question>
+
+<Question title="Чи передається перекладений контент як статичний HTML?">
+
+Так. Сторінки Astro за замовчуванням рендеряться під час збирання, і Intlayer вирішує контент на цьому етапі, тому локалізовані сторінки є чистим статичним HTML. Лише острови, які змінюють мову під час виконання, отримують словники для активної мови.
+
+</Question>
+
+<Question title="Як налаштувати локалізовану маршрутизацію та перемикач мов?">
+
+Кроки 6 та 7 цього посібника описують це. `routing.mode` визначає, чи отримує основна мова префікс (`"prefix-no-default"`), чи всі мови (`"prefix-all"`), чи мова не залежить від шляху (`"no-prefix"`). `getLocalizedUrl` перетворює поточний шлях на цільову мову, зберігаючи відвідувача на тій самій сторінці.
+
+</Question>
+
+<Question title="Як створити локалізовану карту сайту та теги hreflang?">
+
+Крок 8 описує налаштування `sitemap.xml` та `robots.txt`. Функція `getMultilingualUrls` створює альтернативні адреси для кожної оголошеної мови, включно з `x-default`, для правильного індексування пошуковими системами.
+
+</Question>
+
+<Question title="Як автоматично перекласти сайт Astro за допомогою AI?">
+
+Запустіть `npx intlayer fill`. Утиліта заповнює відсутні переклади через обрану LLM з вашим провайдером та ключем API, а прапорець `--git-diff` обмежує обробку зміненими файлами. Див. [команду fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/fill.md) та [інтеграцію CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/CI_CD.md).
+
+</Question>
+
+<Question title="Чи підтримує Intlayer форми множини, стать та Markdown контент?">
+
+Так: [форми множини](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/plurial.md), [контент з урахуванням статі](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/gender.md), умови, [вставки (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/insertion.md) та [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/markdown.md) для об'ємних статей.
+
+</Question>
+
+<Question title="Як перекладачі можуть редагувати вміст без втручання в код?">
+
+Через [візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md), який дозволяє будь-кому редагувати тексти безпосередньо у працюючому додатку, або через [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md), яка відокремлює вміст і дозволяє оновлювати його без повторного розгортання коду.
+
+</Question>
+
+<Question title="Чи є Intlayer безкоштовним та відкритим кодом?">
+
+Так, під ліцензією Apache 2.0, включно з комерційним використанням. Хмарна CMS - це додаткова платна послуга, яку також можна [розгорнути самостійно (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/self_hosting.md).
+
+</Question>
+
+</FAQ>

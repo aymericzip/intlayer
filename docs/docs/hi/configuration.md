@@ -1115,3 +1115,101 @@ Intlayer कंपाइलर को नियंत्रित करने �
 | फ़ील्ड    | विवरण                                        | टाइप               |
 | --------- | -------------------------------------------- | ------------------ |
 | `plugins` | शामिल करने के लिए Intlayer प्लगइन्स की सूची। | `IntlayerPlugin[]` |
+
+## अक्सर पूछे जाने वाले प्रश्न
+
+<FAQ>
+
+<Question title="intlayer.config.ts फ़ाइल कहाँ स्थित होनी चाहिए?">
+
+आपके प्रोजेक्ट रूट में, `package.json` के बगल में। Intlayer `intlayer.config.ts`, `intlayer.config.js`, `intlayer.config.mjs`, या `intlayer.config.cjs` के लिए कार्यशील निर्देशिका और मूल निर्देशिकाओं को स्कैन करता है। आप CLI कमांड में `--config` ध्वज के माध्यम से एक कस्टम पथ भी निर्दिष्ट कर सकते हैं।
+
+</Question>
+
+<Question title="i18n मेरे बंडल आकार को कितना बढ़ाता है?">
+
+नेमस्पेस-आधारित सेटअपों की तुलना में बहुत कम, क्योंकि एक पृष्ठ कभी भी उस कैटलॉग को डाउनलोड नहीं करता है जिसे वह रेंडर नहीं करता है। सर्वर पर रेंडर किया गया मार्कअप सर्वर पर ही अपनी सामग्री को हल करता है, और बिल्ड-टाइम कंपाइलर `useIntlayer` कॉल को घटक द्वारा उपयोग की जाने वाली सटीक शब्दकोश प्रविष्टियों से बदल देता है, इसलिए अप्रयुक्त कुंजियों और भाषाओं को हटा दिया जाता है। [गतिशील शब्दकोश](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dynamic_dictionaries/index.md) शेष को प्रति लोकेल विभाजित करते हैं। पारंपरिक विकल्पों की तुलना में, Intlayer बंडल और पृष्ठ आकार को 50% तक कम करता है। [बंडल अनुकूलन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/bundle_optimization.md) और [बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/index.md) देखें।
+
+</Question>
+
+<Question title="क्या मैं अपने घटकों को फिर से लिखे बिना i18next, next-intl या react-i18next से माइग्रेट कर सकता हूँ?">
+
+हाँ, और इसके दो रास्ते हैं। आप [i18next माइग्रेशन गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_i18next_to_intlayer.md) या [next-intl माइग्रेशन गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_next-intl_to_intlayer.md) के साथ सामग्री को धीरे-धीरे स्थानांतरित कर सकते हैं। या आप अपने वर्तमान API को पूरी तरह से बनाए रख सकते हैं: [संगतता एडेप्टर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/index.md) `i18next`, `react-i18next`, `next-intl`, `next-i18next`, `react-intl`, `use-intl`, `vue-i18n` और `Lingui` के समान API प्रदान करते हैं, लेकिन Intlayer शब्दकोशों द्वारा संचालित होते हैं, जिससे केवल आयात बदलते हैं और घटक कोड समान रहता है।
+
+</Question>
+
+<Question title="क्या मैं अपनी मौजूदा JSON translation files को रख सकता हूं?">
+
+हाँ। [sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/plugins/sync-json.md) आपकी `/messages/{locale}/{namespace}.json` फ़ाइलों को सत्य का स्रोत बनाए रखता है और दोनों दिशाओं में उनसे Intlayer dictionaries बनाता है। [sync PO plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/plugins/sync-po.md) gettext catalogs के लिए भी ऐसा ही करता है, और [per locale files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/per_locale_file.md) आपको locales को एक फ़ाइल में समूहीकृत करने के बजाय भाषा के अनुसार content को विभाजित करने देते हैं।
+
+</Question>
+
+<Question title="क्या मुझे अपनी content को key by key move करना होगा?">
+
+नहीं। `npx intlayer extract` चलाएं और Intlayer आपकी source files को पढ़ता है, user facing strings को निकालता है और प्रत्येक के बगल में एक `.content` file लिखता है, इसलिए आप strings को एक catalog में एक-एक करके कॉपी करने के बजाय एक diff की समीक्षा करते हैं। [extract command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/extract.md) देखें।
+
+पूरी तरह से स्वचालित वर्कफ़्लो के लिए, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md) JSX, TSX, Vue और Svelte कोड पर निर्माण समय के दौरान भी यही करता है, प्रत्येक परिवर्तन पर शब्दकोश उत्पन्न करता है जिससे कुंजियों को मैन्युअल रूप से बनाए रखने की आवश्यकता समाप्त हो जाती है।
+
+</Question>
+
+<Question title="कौन से editor और AI agent tooling उपलब्ध हैं?">
+
+पाँच उपकरण, सभी वैकल्पिक:
+
+- **[VS Code extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/vs_code_extension.md)**: `useIntlayer` कुंजी से उसे घोषित करने वाली सामग्री फ़ाइल पर जाएं, घटकों से सामग्री निकालें, और कमांड पैलेट या Intlayer टैब से build, fill, test, push और pull चलाएं।
+- **[LSP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/lsp.md)**: LSP का समर्थन करने वाले किसी भी संपादक में समान सुविधा, परिभाषा पर जाएं, अनुवादित मान का पूर्वावलोकन देखें, और कुंजी पूर्णता प्राप्त करें। `i18next`, `react-i18next`, `next-intl` और `use-intl` कॉल का भी समर्थन करता है।
+- **[MCP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/mcp_server.md)**: Cursor, VS Code, Claude Desktop, Claude Code और ChatGPT के लिए Intlayer दस्तावेज़ और CLI प्रदान करता है।
+- **[Agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/agent_skills.md)**: केंद्रित कौशल जैसे `intlayer-config`, `intlayer-cli` और `intlayer-content`।
+- **[ESLint plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/eslint.md)**: `no-raw-text` नियम हार्डकोडेड स्ट्रिंग्स को चिह्नित करता है।
+
+</Question>
+
+<Question title="अपने ऐप में एक नई भाषा कैसे जोड़ें?">
+
+`internationalization.locales` सरणी में लोकेल कोड जोड़ें, फिर मौजूदा सामग्री का स्वचालित रूप से अनुवाद करने के लिए `npx intlayer fill` चलाएं। कंपाइलर अगले बिल्ड में नई भाषा को शामिल करेगा।
+
+</Question>
+
+<Question title="अपने URL से लोकेल उपसर्ग कैसे हटाएं?">
+
+`routing.mode` सेट करें। मान `"no-prefix"` सभी भाषाओं के लिए उपसर्ग हटाता है, कुकी, हेडर या डोमेन के माध्यम से लोकेल निर्धारित करता है। मान `"prefix-no-default"` (डिफ़ॉल्ट) केवल मुख्य भाषा के लिए उपसर्ग छुपाता है।
+
+</Question>
+
+<Question title="क्या मैं प्रत्येक भाषा को उसके अपने डोमेन से सेवा दे सकता हूँ?">
+
+हाँ। `routing.domains` विकल्प प्रत्येक लोकेल को एक होस्टनाम पर मैप करता है, उदाहरण के लिए `{ hi: 'example.in', en: 'example.com' }`। डोमेन-आधारित पहचान पाथ उपसर्गों से पहले होती है, और `getMultilingualUrls` `hreflang` के लिए पूर्ण URL उत्पन्न करता है।
+
+</Question>
+
+<Question title="उपयोगकर्ता की भाषा का पता कैसे लगाया जाता है?">
+
+`routing.storage` के माध्यम से, जो प्राथमिकता के क्रम में स्रोतों को सूचीबद्ध करता है: आमतौर पर पहले URL, फिर कुकी, फिर `Accept-Language` हेडर, और न मिलने पर डिफ़ॉल्ट भाषा पर लौटता है।
+
+</Question>
+
+<Question title="routing.enableProxy क्या करता है?">
+
+लोकेल रूटिंग प्रॉक्सी को नियंत्रित करता है, मिडलवेयर जो उपसर्गों और रीडायरेक्ट को संभालता है। डिफ़ॉल्ट रूप से प्रॉक्सी देव और उत्पादन मोड में सक्रिय रहता है। यदि आप मैन्युअल रूप से रूटिंग संभालते हैं तो इसे `false` पर सेट करें।
+
+</Question>
+
+<Question title="importMode static, dynamic और fetch में क्या अंतर है?">
+
+`"static"` (डिफ़ॉल्ट) शब्दकोशों को स्थिर रूप से आयात करता है ताकि वे बंडल किए जाएं और सिंक्रोनस रूप से पढ़े जाएं। `"dynamic"` प्रारंभिक बंडल को हल्का करने के लिए प्रति भाषा अतुल्यकालिक रूप से शब्दकोश लोड करता है। `"fetch"` रनटाइम पर सर्वर या CMS से शब्दकोश प्राप्त करता है।
+
+</Question>
+
+<Question title="स्वचालित अनुवाद के लिए AI प्रदाता और API कुंजी कहाँ सेट करें?">
+
+`ai` अनुभाग के तहत कॉन्फ़िगरेशन फ़ाइल में या `--provider`, `--model`, और `--api-key` फ़्लैग का उपयोग करके कमांड लाइन पर। API कुंजी आपके स्थानीय वातावरण में रहती है और कभी बाहर नहीं जाती है। [AI कॉन्फ़िगरेशन संदर्भ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md) देखें।
+
+</Question>
+
+<Question title="क्या कॉन्फ़िगरेशन बदलने के बाद मुझे देव सर्वर को पुनः आरंभ करने की आवश्यकता है?">
+
+आमतौर पर नहीं। Intlayer का वॉचर `intlayer.config.ts` फ़ाइल की निगरानी करता है: सहेजते ही, यह कॉन्फ़िगरेशन को पुनः लोड करता है और पृष्ठभूमि में शब्दकोशों को अपडेट करता है।
+
+</Question>
+
+</FAQ>

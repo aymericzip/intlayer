@@ -691,7 +691,7 @@ Intlayer использует расширение модулей (module augmen
 - **`react-intl`** и **`Lingui`**: формат сообщений ICU, на основе извлечения.
 - **`Intlayer`**: контент, объявленный рядом с каждым компонентом и скомпилированный во время сборки через `react-scripts-intlayer`, полностью типизированный, с ИИ-переводом, визуальным редактором и CMS.
 
-Create React App оборачивает собственную конфигурацию webpack, поэтому интеграция идёт через `react-scripts-intlayer` — замену `react-scripts`, а не через плагин, который вы регистрируете сами. См. [почему Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/interest_of_intlayer.md) и [бенчмарк](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/index.md).
+Create React App оборачивает собственную конфигурацию webpack, поэтому интеграция идёт через `react-scripts-intlayer` - замену `react-scripts`, а не через плагин, который вы регистрируете сами. См. [почему Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/interest_of_intlayer.md) и [бенчмарк](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/index.md).
 
 </Question>
 
@@ -703,7 +703,7 @@ Create React App оборачивает собственную конфигур�
 
 <Question title="Могу ли я мигрировать с `react-i18next` или `react-intl`, не переписывая свои компоненты?">
 
-Да, и есть два пути. Вы можете мигрировать контент постепенно с помощью [руководства по миграции с react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/migration_from_react-i18next_to_intlayer.md) или [руководства по миграции с i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/migration_from_i18next_to_intlayer.md). Или вы можете полностью сохранить свой текущий API: [адаптеры совместимости](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/index.md) предоставляют точно такой же API, как `react-i18next`, `react-intl` и `i18next`, но обслуживаемый словарями Intlayer, поэтому меняются импорты, а код компонентов — нет.
+Да, и есть два пути. Вы можете мигрировать контент постепенно с помощью [руководства по миграции с react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/migration_from_react-i18next_to_intlayer.md) или [руководства по миграции с i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/migration_from_i18next_to_intlayer.md). Или вы можете полностью сохранить свой текущий API: [адаптеры совместимости](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/index.md) предоставляют точно такой же API, как `react-i18next`, `react-intl` и `i18next`, но обслуживаемый словарями Intlayer, поэтому меняются импорты, а код компонентов - нет.
 
 </Question>
 
@@ -737,7 +737,7 @@ Create React App оборачивает собственную конфигур�
 
 <Question title="Create React App больше не поддерживается. Стоит ли мне сначала перейти на Vite?">
 
-Если вы уже планируете переход, сделайте его первым и следуйте [руководству по Vite и React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_vite+react.md): плагин Vite — это лучше поддерживаемый путь, и он даёт более быстрые пересборки. Если вы не готовы, это руководство продолжает работать, и объявления контента не меняются между двумя настройками, поэтому миграция сборки позже не означает переписывание вашей i18n.
+Если вы уже планируете переход, сделайте его первым и следуйте [руководству по Vite и React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_vite+react.md): плагин Vite - это лучше поддерживаемый путь, и он даёт более быстрые пересборки. Если вы не готовы, это руководство продолжает работать, и объявления контента не меняются между двумя настройками, поэтому миграция сборки позже не означает переписывание вашей i18n.
 
 </Question>
 
@@ -779,7 +779,7 @@ Create React App оборачивает собственную конфигур�
 
 <Question title="Является ли Intlayer бесплатным и с открытым исходным кодом?">
 
-Да, по лицензии Apache 2.0, включая коммерческое использование. Размещённая CMS — это необязательный платный сервис, который также можно [разместить самостоятельно](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/self_hosting.md).
+Да, по лицензии Apache 2.0, включая коммерческое использование. Размещённая CMS - это необязательный платный сервис, который также можно [разместить самостоятельно](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/self_hosting.md).
 
 </Question>
 
