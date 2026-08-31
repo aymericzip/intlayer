@@ -3,6 +3,7 @@ import { createFileRoute, redirect } from '@tanstack/react-router';
 import { defaultLocale, getPrefix } from 'intlayer';
 import { DocumentationRender } from '~/components/DocPage/DocumentationRender';
 import { loadFaqPage } from '~/serverFunctions/faq';
+import { getCanonicalSlugs } from '~/utils/canonicalSlugs';
 import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
 import {
   getCreativeWorkStructuredData,
@@ -14,7 +15,7 @@ export const Route = createFileRoute('/{-$locale}/_docs/frequent-questions/$')({
   loader: async ({ params }) => {
     const { locale = defaultLocale } = params;
     const slugsStr = (params as any)['*'] || '';
-    const slugs = slugsStr ? slugsStr.split('/') : [];
+    const slugs = getCanonicalSlugs('frequent-questions', slugsStr, locale);
 
     const [result, siteStructuredData, creativeWorkContent] = await Promise.all(
       [

@@ -1,6 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { defaultLocale } from 'intlayer';
 import { loadDocRaw } from '~/serverFunctions/docs';
+import { getCanonicalSlugs } from '~/utils/canonicalSlugs';
 import { prefersMarkdown } from '~/utils/markdownNegotiation';
 
 export const Route = createFileRoute('/{-$locale}/doc/raw/$')({
@@ -10,7 +11,7 @@ export const Route = createFileRoute('/{-$locale}/doc/raw/$')({
         try {
           const { locale = defaultLocale } = params;
           const slugsStr = (params as any)['*'] || '';
-          const slugs = slugsStr ? slugsStr.split('/') : [];
+          const slugs = getCanonicalSlugs('doc', slugsStr, locale);
 
           const result = await loadDocRaw({ data: { locale, slugs } });
 

@@ -18,6 +18,7 @@ import {
 } from '~/components/DocPage/DocPageNavigation/DocPageNavigation';
 import { DocumentationRender } from '~/components/DocPage/DocumentationRender';
 import { loadDocPage, loadNavData } from '~/serverFunctions/docs';
+import { getCanonicalSlugs } from '~/utils/canonicalSlugs';
 import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
 import {
   getCreativeWorkStructuredData,
@@ -30,7 +31,7 @@ export const Route = createFileRoute('/{-$locale}/_docs/doc/$')({
   loader: async ({ params }) => {
     const { locale = defaultLocale } = params;
     const slugsStr = params['*'] || '';
-    const slugs = slugsStr ? slugsStr.split('/') : [];
+    const slugs = getCanonicalSlugs('doc', slugsStr, locale);
 
     const [
       result,

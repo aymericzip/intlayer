@@ -67,6 +67,41 @@ const isPrerenderRequest = (req: IncomingMessage): boolean =>
   process.env[TANSTACK_PRERENDER_ENV_VAR] === 'true';
 
 /**
+ * Decodes a request pathname so it can be matched against the rewrite rules.
+ *
+ * A rule is written with the characters the locale actually uses
+ * (`/doc/релизы/v8`) while the browser sends them percent-encoded, so without
+ * this every non-ASCII localized URL misses its own rule and is treated as an
+ * unlocalized path. `decodeURI` leaves the reserved escapes (`%2F`, `%3F`,
+ * `%23`) encoded, which keeps the segmentation of the path intact, and a
+ * malformed escape is handed back untouched rather than throwing.
+ */
+const decodePathname = (pathname: string): string => {
+  try {
+    return decodeURI(pathname);
+  } catch {
+    return pathname;
+  }
+};
+
+/**
+ * Re-encodes a decoded path before it is written back to `req.url`, leaving the
+ * query string as it was received.
+ *
+ * The inverse of {@link decodePathname}: `encodeURI` escapes exactly what it
+ * decoded, so characters that are legal in a path — `+` in
+ * `/doc/intlayer_with_vite+react`, for instance — survive the round trip, and
+ * an already-encoded path is left as is.
+ */
+const encodePathname = (path: string): string => {
+  const queryIndex = path.indexOf('?');
+  const pathname = queryIndex === -1 ? path : path.slice(0, queryIndex);
+  const search = queryIndex === -1 ? '' : path.slice(queryIndex);
+
+  return `${encodeURI(pathname)}${search}`;
+};
+
+/**
  * A Node.js-compatible Connect middleware function.
  * Compatible with Vite dev/preview server, Node.js http, Express, and h3's
  * `fromNodeMiddleware` wrapper for Nitro/TanStack Start production use.
@@ -446,8 +481,10 @@ export const createProxyHandler = (
     newUrl: string,
     locale?: Locale
   ) => {
-    if (req.url !== newUrl) {
-      req.url = newUrl;
+    const encodedUrl = encodePathname(newUrl);
+
+    if (req.url !== encodedUrl) {
+      req.url = encodedUrl;
     }
     if (locale) {
       setLocaleInStorageServer(locale, {
@@ -935,7 +972,9 @@ export const createProxyHandler = (
   return (req, res, next) => {
     // Parse original URL for path and query
     const parsedUrl = parse(req.url ?? '/', true);
-    const originalPath = parsedUrl.pathname ?? '/';
+    // Decoded so the rewrite rules — written with the locale's own characters —
+    // match; `rewriteUrl` re-encodes whatever is written back to `req.url`.
+    const originalPath = decodePathname(parsedUrl.pathname ?? '/');
     const searchParams = parsedUrl.search ?? '';
 
     // Check if there's a locale prefix in the path FIRST
@@ -971,7 +1010,7 @@ export const createProxyHandler = (
       if (pathLocale) {
         const pathWithoutLocale =
           originalPath.slice(`/${pathLocale}`.length) || '/';
-        req.url = `${pathWithoutLocale}${searchParams}`;
+        req.url = encodePathname(`${pathWithoutLocale}${searchParams}`);
       }
       return next();
     }

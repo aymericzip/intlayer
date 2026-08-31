@@ -837,3 +837,119 @@ describe('createIntlayerProxyHandler (rewrite rules)', () => {
     expect(next).toHaveBeenCalled();
   });
 });
+
+describe('createIntlayerProxyHandler (percent-encoded rewrite rules)', () => {
+  // A rule is written with the characters the locale uses, while the browser
+  // sends them percent-encoded — the proxy has to decode before matching.
+  const rules = {
+    rules: [
+      {
+        canonical: '/releases/v8',
+        localized: { en: '/releases/v8', ru: '/релизы/v8' },
+      },
+    ],
+  };
+
+  const canonicalPath = (path: string, locale?: string): string => {
+    for (const rule of rules.rules) {
+      const locales = locale ? [locale] : Object.keys(rule.localized);
+      for (const candidate of locales) {
+        const localized =
+          rule.localized[candidate as keyof typeof rule.localized];
+        if (localized === path) return rule.canonical;
+      }
+    }
+    return path;
+  };
+
+  let handler: (
+    req: IncomingMessage,
+    res: ServerResponse<IncomingMessage>,
+    next: () => void
+  ) => void;
+
+  beforeEach(async () => {
+    vi.resetModules();
+    mockConfig.internationalization.locales = ['en', 'ru'];
+    mockConfig.internationalization.defaultLocale = 'en';
+    mockGetLocaleFromStorage.mockReturnValue(undefined);
+    mockGetRewriteRules.mockReturnValue(rules);
+    mockGetCanonicalPath.mockImplementation(canonicalPath as never);
+    mockResolveLocalizedPath.mockImplementation(((
+      path: string,
+      locale: string
+    ) => {
+      const rule = rules.rules.find((entry) => entry.canonical === path);
+      const localized = rule?.localized[locale as keyof typeof rule.localized];
+      return {
+        path: localized ?? path,
+        isRewritten: Boolean(localized) && localized !== path,
+      };
+    }) as never);
+    const mod = await import('./intlayerProxyPlugin');
+    handler = mod.createIntlayerProxyHandler();
+  });
+
+  afterEach(() => {
+    mockConfig.internationalization.locales = ['en', 'fr', 'es'];
+    mockGetRewriteRules.mockReturnValue(undefined);
+    mockGetCanonicalPath.mockImplementation((path: string) => path);
+    mockResolveLocalizedPath.mockImplementation((path: string) => ({
+      path,
+      isRewritten: false,
+    }));
+    mockLocaleDetector.mockImplementation((_h, _l, def: string) => def);
+  });
+
+  it('serves a percent-encoded pretty URL instead of redirecting it away', () => {
+    // Regression: /ru/doc/релизы/v8 arrived percent-encoded, matched no rule,
+    // and was served as an unknown route — the app then redirected to /ru.
+    const next = vi.fn();
+    const req = makeReq('/ru/%D1%80%D0%B5%D0%BB%D0%B8%D0%B7%D1%8B/v8');
+    const res = makeRes();
+    handler(req, res, next);
+
+    expect(res.writeHead).not.toHaveBeenCalled();
+    expect(req.url).toBe('/ru/%D1%80%D0%B5%D0%BB%D0%B8%D0%B7%D1%8B/v8');
+    expect(next).toHaveBeenCalled();
+  });
+
+  it('resolves the locale a percent-encoded pretty URL declares', () => {
+    // The path names its locale, so an unprefixed request must be redirected
+    // to that locale rather than to the negotiated one.
+    mockLocaleDetector.mockReturnValue('en');
+
+    const req = makeReq('/%D1%80%D0%B5%D0%BB%D0%B8%D0%B7%D1%8B/v8', {
+      'accept-language': 'en-US,en',
+    });
+    const res = makeRes();
+    handler(req, res, vi.fn());
+
+    expect(res.writeHead).toHaveBeenCalledWith(302, {
+      Location: '/ru/%D1%80%D0%B5%D0%BB%D0%B8%D0%B7%D1%8B/v8',
+    });
+  });
+
+  it('redirects the canonical URL to the encoded pretty URL', () => {
+    const req = makeReq('/ru/releases/v8');
+    const res = makeRes();
+    handler(req, res, vi.fn());
+
+    expect(res.writeHead).toHaveBeenCalledWith(302, {
+      Location: '/ru/%D1%80%D0%B5%D0%BB%D0%B8%D0%B7%D1%8B/v8',
+    });
+  });
+
+  it('leaves a path whose characters are legal in a URL untouched', () => {
+    // `+` is decoded by nothing and encoded by nothing in a pathname: the
+    // decode / re-encode round trip must not turn it into %2B.
+    const next = vi.fn();
+    const req = makeReq('/ru/doc/intlayer_with_vite+react');
+    const res = makeRes();
+    handler(req, res, next);
+
+    expect(res.writeHead).not.toHaveBeenCalled();
+    expect(req.url).toBe('/ru/doc/intlayer_with_vite+react');
+    expect(next).toHaveBeenCalled();
+  });
+});

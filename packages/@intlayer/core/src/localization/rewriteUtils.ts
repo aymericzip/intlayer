@@ -1,4 +1,4 @@
-import { internationalization } from '@intlayer/config/built';
+import { internationalization, routing } from '@intlayer/config/built';
 import type {
   RewriteObject,
   RewriteRules,
@@ -148,6 +148,11 @@ const extractParams = (url: string, pattern: string): string[] | null => {
 /**
  * Given a localized URL (e.g., "/produits/123"), finds the canonical internal path (e.g., "/products/123").
  * If locale is provided, only check for that locale. Otherwise, check for all locales.
+ *
+ * @param localizedPath - The path as seen in the browser, without locale prefix.
+ * @param locale - Restricts the lookup to that locale's rules. Defaults to every locale.
+ * @param rewriteRules - Raw `routing.rewrite` configuration or already-normalized
+ *   rules. Defaults to the project configuration's `routing.rewrite`.
  */
 export const getCanonicalPath = <
   const Path extends string,
@@ -155,16 +160,18 @@ export const getCanonicalPath = <
 >(
   localizedPath: Path,
   locale?: Locale,
-  rewriteRules?: RewriteRules
+  rewriteRules?: RoutingConfig['rewrite'] | RewriteRules
 ): string => {
+  const rules = getRewriteRules(rewriteRules ?? routing?.rewrite, 'url');
+
   if (
-    !rewriteRules ||
+    !rules ||
     (process.env.INTLAYER_ROUTING_REWRITE_RULES &&
       process.env.INTLAYER_ROUTING_REWRITE_RULES === 'false')
   )
     return localizedPath;
 
-  for (const rule of rewriteRules.rules) {
+  for (const rule of rules.rules) {
     const { canonical, localized } = rule;
     const localesToCheck = locale ? [locale] : Object.keys(localized);
 

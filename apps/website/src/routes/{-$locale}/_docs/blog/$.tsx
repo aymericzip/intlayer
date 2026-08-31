@@ -18,6 +18,7 @@ import {
 } from '~/components/DocPage/DocPageNavigation/DocPageNavigation';
 import { DocumentationRender } from '~/components/DocPage/DocumentationRender';
 import { loadBlogNavData, loadBlogPage } from '~/serverFunctions/blog';
+import { getCanonicalSlugs } from '~/utils/canonicalSlugs';
 import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
 import {
   getCreativeWorkStructuredData,
@@ -29,7 +30,7 @@ export const Route = createFileRoute('/{-$locale}/_docs/blog/$')({
   loader: async ({ params }) => {
     const { locale = defaultLocale } = params;
     const slugsStr = (params as any)['*'] || '';
-    const slugs = slugsStr ? slugsStr.split('/') : [];
+    const slugs = getCanonicalSlugs('blog', slugsStr, locale);
 
     const [result, navData, siteStructuredData, creativeWorkContent] =
       await Promise.all([

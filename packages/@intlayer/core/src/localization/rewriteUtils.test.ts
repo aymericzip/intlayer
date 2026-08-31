@@ -50,6 +50,14 @@ describe('rewriteUtils', () => {
         getCanonicalPath('/unknown', Locales.FRENCH, normalizedRules)
       ).toBe('/unknown');
     });
+
+    it('should accept the raw rewrite configuration', () => {
+      // The documented signature takes `routing.rewrite` itself, so a caller
+      // holding the configuration does not have to normalize it first.
+      expect(getCanonicalPath('/produits', Locales.FRENCH, rewriteRules)).toBe(
+        '/products'
+      );
+    });
   });
 
   describe('resolveLocalizedPath', () => {

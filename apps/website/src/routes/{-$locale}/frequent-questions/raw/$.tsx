@@ -1,6 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { defaultLocale } from 'intlayer';
 import { loadFaqRaw } from '~/serverFunctions/faq';
+import { getCanonicalSlugs } from '~/utils/canonicalSlugs';
 import { prefersMarkdown } from '~/utils/markdownNegotiation';
 
 export const Route = createFileRoute('/{-$locale}/frequent-questions/raw/$')({
@@ -10,7 +11,11 @@ export const Route = createFileRoute('/{-$locale}/frequent-questions/raw/$')({
         try {
           const { locale = defaultLocale } = params;
           const slugsStr = (params as any)['*'] || '';
-          const slugs = slugsStr ? slugsStr.split('/') : [];
+          const slugs = getCanonicalSlugs(
+            'frequent-questions',
+            slugsStr,
+            locale
+          );
 
           const result = await loadFaqRaw({ data: { locale, slugs } });
 

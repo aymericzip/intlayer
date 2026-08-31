@@ -27,7 +27,7 @@ const cleanPath = (pattern: string) =>
  * Standardizes pattern to :param syntax.
  * Supports:
  * - Next.js/SvelteKit/Nuxt: [slug], [...slug], [[slug]]
- * - TanStack Router: $slug
+ * - TanStack Router: $slug, {$slug}, {-$slug}
  * - Solid Router: *slug
  * - React/Vue Router: :slug, *
  */
@@ -51,6 +51,8 @@ const normalizePattern = (pattern: string, framework?: string) => {
   } else {
     // Default / Generic (React Router, Vue Router, Solid Router, TanStack Router)
     normalized = normalized
+      .replace(/\{-\$([^}/]+)\}/g, ':$1?') // TanStack {-$slug} -> :slug? (0-1)
+      .replace(/\{\$([^}/]+)\}/g, ':$1') // TanStack {$slug} -> :slug (1)
       .replace(/\$([^/]+)/g, ':$1') // TanStack $slug -> :slug
       .replace(/\*([^/]+)/g, ':$1*') // Solid *slug -> :slug*
       .replace(/:([^/]+)\?/g, ':$1?') // Vue Router/React Router :slug? -> :slug?
@@ -62,10 +64,15 @@ const normalizePattern = (pattern: string, framework?: string) => {
 
 /**
  * Removes locale markers from the pattern.
+ *
+ * Runs after {@link normalizePattern}, so the locale is usually already a
+ * `:locale` — optional (`:locale?`) when the route declares it as such, which
+ * every TanStack Start app using `{-$locale}` does. The raw framework spellings
+ * are kept as alternatives for callers passing an unnormalized pattern.
  */
 const stripLocale = (pattern: string) =>
   pattern
-    .replace(/\/?(:locale|\[locale\]|\$locale)\/?/g, '/')
+    .replace(/\/?(:locale\??|\[locale\]|\{-?\$locale\}|\$locale)\/?/g, '/')
     .replace(/\/+/g, '/')
     .replace(/\/$/, '') || '/';
 
