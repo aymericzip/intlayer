@@ -1,3 +1,4 @@
+import { createLocalAccountIssuer } from '@better-auth/core/db';
 import { logger } from '@logger';
 import { AccountModel } from '@schemas/account.schema';
 import { OrganizationModel } from '@schemas/organization.schema';
@@ -10,18 +11,22 @@ import { hashPassword } from 'better-auth/crypto';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import { Types } from 'mongoose';
 
-let _initialized = false;
-let _demoOrgId: string | null = null;
-let _demoProjectId: string | null = null;
+/** Issuer better-auth expects on an email/password account. */
+const CREDENTIAL_ISSUER = createLocalAccountIssuer('credential');
 
-const ensureDemoResources = async (): Promise<{
+type DemoResources = {
   demoOrgId: string;
   demoProjectId: string;
-}> => {
-  if (_initialized && _demoOrgId && _demoProjectId) {
-    return { demoOrgId: _demoOrgId, demoProjectId: _demoProjectId };
-  }
+};
 
+/**
+ * Deduplicates concurrent bootstraps. Deliberately *not* a persistent memo:
+ * caching the result across requests means a demo user deleted from the
+ * database is never recreated, and every later demo sign-in fails with a 401.
+ */
+let pendingBootstrap: Promise<DemoResources> | null = null;
+
+const bootstrapDemoResources = async (): Promise<DemoResources> => {
   const DEMO_ADMIN_EMAIL = process.env.DEMO_ADMIN_EMAIL;
   const DEMO_EMAIL = process.env.DEMO_USER_EMAIL;
   const DEMO_PASSWORD = process.env.DEMO_USER_PASSWORD;
@@ -54,6 +59,9 @@ const ensureDemoResources = async (): Promise<{
     });
   }
 
+  // better-auth resolves the credential account by `providerId` + `issuer` +
+  // `accountId`, so all three must be written here — an account missing
+  // `issuer` is invisible to `signInEmail` and yields INVALID_EMAIL_OR_PASSWORD.
   const hashedPassword = await hashPassword(DEMO_PASSWORD);
   await AccountModel.findOneAndUpdate(
     { userId: String(demoUser._id), providerId: 'credential' },
@@ -61,6 +69,7 @@ const ensureDemoResources = async (): Promise<{
       userId: String(demoUser._id),
       accountId: String(demoUser._id),
       providerId: 'credential',
+      issuer: CREDENTIAL_ISSUER,
       password: hashedPassword,
     },
     { upsert: true }
@@ -140,11 +149,24 @@ const ensureDemoResources = async (): Promise<{
     }
   );
 
-  _demoOrgId = String(demoOrg._id);
-  _demoProjectId = String(demoProject._id);
-  _initialized = true;
+  return {
+    demoOrgId: String(demoOrg._id),
+    demoProjectId: String(demoProject._id),
+  };
+};
 
-  return { demoOrgId: _demoOrgId, demoProjectId: _demoProjectId };
+/**
+ * Creates (or repairs) the shared demo user, organization and project.
+ *
+ * Idempotent, and re-run on every demo sign-in so a demo account removed from
+ * the database self-heals; concurrent calls share a single bootstrap.
+ */
+const ensureDemoResources = async (): Promise<DemoResources> => {
+  pendingBootstrap ??= bootstrapDemoResources().finally(() => {
+    pendingBootstrap = null;
+  });
+
+  return await pendingBootstrap;
 };
 
 export const getDemoSessionHandler = async (
@@ -174,6 +196,16 @@ export const getDemoSessionHandler = async (
       }),
       asResponse: true,
     });
+
+    if (!signInResponse.ok) {
+      // `asResponse: true` makes better-auth return its error response instead
+      // of throwing, so a failed sign-in would otherwise be reported as a
+      // successful demo session with no cookie attached.
+      const failureBody = await signInResponse.text();
+      throw new Error(
+        `[demo] sign-in failed with ${signInResponse.status}: ${failureBody}`
+      );
+    }
 
     if (typeof signInResponse.headers.getSetCookie === 'function') {
       const setCookies = signInResponse.headers.getSetCookie();
