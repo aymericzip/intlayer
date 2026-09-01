@@ -109,15 +109,15 @@ export const Terminal: FC<TerminalProps> = ({
 
   return (
     <Container
-      roundedSize="2xl"
+      roundedSize="lg"
       className={cn(
-        'flex min-w-0 max-w-full flex-col overflow-hidden font-mono',
+        'flex min-w-0 max-w-full flex-col overflow-hidden border font-mono',
         className
       )}
       {...containerProps}
     >
       {/* Tab bar */}
-      <div className="flex w-full flex-row items-center justify-start gap-1 bg-neutral-200 text-neutral text-xs dark:bg-neutral-950">
+      <div className="flex w-full flex-row items-center justify-start gap-1 bg-neutral-200 text-muted-foreground text-xs dark:bg-neutral-950">
         <div className="mx-2 flex items-center justify-start gap-2 p-1">
           <div className="size-3 rounded-full bg-error" />
           <div className="size-3 rounded-full bg-yellow-500" />
@@ -130,7 +130,7 @@ export const Terminal: FC<TerminalProps> = ({
               <button
                 type="button"
                 onClick={onClose}
-                className="text-neutral transition-colors hover:text-text"
+                className="text-neutral transition-colors hover:text-foreground"
                 aria-label={content.closeTab.value}
               >
                 ×

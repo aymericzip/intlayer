@@ -66,12 +66,12 @@ const NavTitlesChildren: FC<NavTitlesChildrenProps> = ({
               variant="hoverable"
               className={cn(
                 'flex flex-1 items-center justify-between text-wrap p-2 pr-4 text-base transition-colors',
-                depth === 1 && 'text-neutral/75 text-sm',
-                depth === 2 && 'text-neutral/60 text-sm',
-                depth === 3 && 'text-neutral/50 text-sm',
-                depth === 4 && 'text-neutral/40 text-xs',
-                depth === 5 && 'text-neutral/30 text-xs',
-                depth === 6 && 'text-neutral/20 text-xs'
+                depth === 1 && 'text-muted-foreground/75 text-sm',
+                depth === 2 && 'text-muted-foreground/60 text-sm',
+                depth === 3 && 'text-muted-foreground/50 text-sm',
+                depth === 4 && 'text-muted-foreground/40 text-xs',
+                depth === 5 && 'text-muted-foreground/30 text-xs',
+                depth === 6 && 'text-muted-foreground/20 text-xs'
               )}
             >
               {title}
@@ -128,7 +128,7 @@ export const TableOfContents: FC<TableOfContentsProps> = ({
                 color="text"
                 isPageSection
                 variant="hoverable"
-                className="flex w-full items-center justify-between text-wrap p-2 pr-4 text-base text-neutral transition-colors"
+                className="flex w-full items-center justify-between text-wrap p-2 pr-4 text-base text-muted-foreground transition-colors"
               >
                 {title}
               </Link>

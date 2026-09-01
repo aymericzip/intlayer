@@ -100,7 +100,7 @@ export const Route = createFileRoute('/{-$locale}/')({
 
 function LandingPage() {
   return (
-    <PageLayout>
+    <PageLayout mainClassName="max-w-[1300px] mx-auto border-neutral xl:border-x relative">
       <LandingPageContent />
     </PageLayout>
   );

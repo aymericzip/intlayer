@@ -365,15 +365,15 @@ Intlayer में एक शब्दकोश `Dictionary` प्रकार 
 
 **उदाहरण:**
 
-```json
+```jsonc
 // प्रति-स्थान शब्दकोश
 {
   "key": "about-page",
   "locale": "en",
   "content": {
     "title": "About Us", // यह 'en' के लिए एक अनुवाद नोड बन जाता है
-    "description": "Learn more about our company"
-  }
+    "description": "Learn more about our company",
+  },
 }
 ```
 
@@ -442,7 +442,7 @@ export default aboutPageMetaContent;
 
 **उदाहरण:**
 
-```json
+```jsonc
 // सभी स्थानों के लिए सक्षम करें
 {
   "autoFill": true

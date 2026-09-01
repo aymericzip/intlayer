@@ -72,10 +72,10 @@ export const ContentDeliverySection: FC = () => {
           variants={headerVariants}
           className="mb-16 text-center"
         >
-          <h2 className="mb-4 font-bold text-3xl text-text sm:text-4xl">
+          <h2 className="mb-4 font-bold text-3xl text-foreground sm:text-4xl">
             {deliveryTitle}
           </h2>
-          <p className="mx-auto max-w-2xl text-lg text-neutral">
+          <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
             {deliveryDescription}
           </p>
         </m.div>
@@ -108,15 +108,17 @@ export const ContentDeliverySection: FC = () => {
                 </Tag>
               )}
 
-              <div className="mb-5 flex size-12 items-center justify-center rounded-xl bg-neutral/10 text-text">
+              <div className="mb-5 flex size-12 items-center justify-center rounded-lg bg-neutral/10 text-foreground">
                 {iconMap[mode.icon.value] ?? <Zap className="size-6" />}
               </div>
 
-              <h3 className="mb-3 font-semibold text-text text-xl">
+              <h3 className="mb-3 font-semibold text-foreground text-xl">
                 {mode.title}
               </h3>
 
-              <p className="text-neutral leading-relaxed">{mode.description}</p>
+              <p className="text-muted-foreground leading-relaxed">
+                {mode.description}
+              </p>
             </MotionContainer>
           ))}
         </m.div>

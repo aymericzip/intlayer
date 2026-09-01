@@ -295,7 +295,7 @@ export const I18nBenchmark = ({
             {/* Framework selector */}
             {!initialFramework && (
               <div>
-                <p className="mb-10 font-bold text-base text-neutral">
+                <p className="mb-10 font-bold text-base text-muted-foreground">
                   {frameworkLabel}
                 </p>
                 <VerticalSwitchSelector
@@ -380,7 +380,7 @@ export const I18nBenchmark = ({
                   >
                     <div>
                       <p className="font-bold text-lg">{label}</p>
-                      <p className="text-neutral text-sm leading-snug">
+                      <p className="text-muted-foreground text-sm leading-snug">
                         {desc}
                       </p>
                     </div>
@@ -396,12 +396,13 @@ export const I18nBenchmark = ({
             )}
           </div>
           {!vertical && (
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-4">
               <Link
                 label={seeBenchmark.value}
                 variant="button-outlined"
                 color="text"
-                size="sm"
+                size="md"
+                roundedSize="sm"
                 to={External_Github_i18n_benchmark}
               >
                 {seeBenchmark}
@@ -410,7 +411,8 @@ export const I18nBenchmark = ({
                 label={readFullReport.value}
                 variant="button"
                 color="text"
-                size="sm"
+                size="md"
+                roundedSize="sm"
                 to={Website_Benchmark_Path}
               >
                 <span className="flex items-center gap-1">
@@ -475,7 +477,7 @@ export const I18nBenchmark = ({
                       {errorLoadingData}
                     </div>
                   ) : chartData.length === 0 ? (
-                    <div className="flex h-full items-center justify-center text-neutral text-sm">
+                    <div className="flex h-full items-center justify-center text-muted-foreground text-sm">
                       {noData}
                     </div>
                   ) : renderMode === 'graph' ? (
@@ -523,7 +525,7 @@ export const I18nBenchmark = ({
                                   ? `${data.min.toFixed(1)} - ${data.max.toFixed(1)}`
                                   : '-'}
                               </td>
-                              <td className="px-4 py-2 text-neutral text-xs">
+                              <td className="px-4 py-2 text-muted-foreground text-xs">
                                 {data.version ? `v${data.version}` : '-'}
                               </td>
                             </tr>
@@ -563,14 +565,14 @@ export const I18nBenchmark = ({
                   <div className="flex flex-col gap-6">
                     <div className="flex flex-col gap-2">
                       <p className="font-bold text-lg">{whatIsThisMetric}</p>
-                      <p className="text-neutral-500 text-xs leading-relaxed dark:text-neutral">
+                      <p className="text-neutral-500 text-xs leading-relaxed dark:text-muted-foreground">
                         {selectedMetric?.whatIsIt}
                       </p>
                     </div>
 
                     <div className="flex flex-col gap-2">
                       <p className="font-bold text-lg">{whyItsImportant}</p>
-                      <p className="text-neutral-500 text-xs leading-relaxed dark:text-neutral">
+                      <p className="text-neutral-500 text-xs leading-relaxed dark:text-muted-foreground">
                         {selectedMetric?.whyItsImportant}
                       </p>
                     </div>
@@ -600,13 +602,13 @@ export const I18nBenchmark = ({
       </div>
 
       {/* Library selector — grid layout */}
-      <div className="max-h-60 overflow-y-auto">
+      <div className="max-h-60 overflow-y-auto rounded-lg border">
         <div className="flex flex-wrap">
           {allLibs.map((lib, index) => (
             <div
               key={lib.id}
               className={cn(
-                'min-w-max border-border border-r border-b border-dotted p-2',
+                'min-w-max border-border border-r border-b border-dashed p-2',
                 index < 2 ? 'flex-[2_2_16rem]' : 'flex-[1_1_10rem]'
               )}
             >

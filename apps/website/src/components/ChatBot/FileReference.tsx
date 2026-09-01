@@ -35,7 +35,7 @@ export const FileReference: FC<{
 
   return (
     <div className="pl-4">
-      <span className="text-neutral text-sm">{relatedFilesLabel}</span>
+      <span className="text-muted-foreground text-sm">{relatedFilesLabel}</span>
       <div className="flex min-w-full flex-row gap-2 overflow-x-auto pb-1">
         {uniqFiles.map((fileKey) => {
           const fileData = [...docData, ...blogData]?.find(

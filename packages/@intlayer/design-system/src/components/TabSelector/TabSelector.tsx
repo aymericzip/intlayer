@@ -35,7 +35,7 @@ const tabSelectorVariant = cva(
         neutral: 'border-neutral text-neutral',
         light: 'border-white text-white',
         dark: 'border-neutral-800 text-neutral-800',
-        text: 'border-text text-text',
+        text: 'border-text text-foreground',
       },
     },
     defaultVariants: {
@@ -49,13 +49,13 @@ const indicatorVariant = cva(
   {
     variants: {
       color: {
-        primary: 'bg-primary/10 aria-selected:text-text',
-        secondary: 'bg-secondary/10 aria-selected:text-text',
-        error: 'bg-error/10 aria-selected:text-text',
+        primary: 'bg-primary/10 aria-selected:text-foreground',
+        secondary: 'bg-secondary/10 aria-selected:text-foreground',
+        error: 'bg-error/10 aria-selected:text-foreground',
         neutral: 'bg-neutral/10 aria-selected:text-white/10',
         light: 'bg-white/10 aria-selected:text-black',
         dark: 'bg-neutral-800/10 aria-selected:text-white',
-        text: 'bg-text/10 aria-selected:text-text-opposite',
+        text: 'bg-text/10 aria-selected:text-foreground-opposite',
       },
       orientation: {
         horizontal: 'top-0 h-full w-auto transition-[left,width]',

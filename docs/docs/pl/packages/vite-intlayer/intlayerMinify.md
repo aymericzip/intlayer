@@ -71,7 +71,7 @@ Wtyczka kieruje swoje działanie na dwie lokalizacje słowników (rozpoznane na 
 
 Gdy wtyczka `intlayerPrune` przeanalizuje bazę kodu i uzupełni `pruneContext.dictionaryKeyToFieldRenameMap`, wtyczka `intlayerMinify` również zmienia nazwy pól zawartości na krótkie aliasy. Na przykład:
 
-```json
+```jsonc
 // przed
 { "key": "myDict", "content": { "title": "Hello", "description": "World" } }
 

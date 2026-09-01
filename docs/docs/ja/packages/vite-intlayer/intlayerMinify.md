@@ -71,7 +71,7 @@ export default defineConfig({
 
 `intlayerPrune`がコードベースを分析し、`pruneContext.dictionaryKeyToFieldRenameMap`にデータを入力すると、`intlayerMinify`はコンテンツフィールド名を短いエイリアスに変更します。例えば：
 
-```json
+```jsonc
 // 変更前
 { "key": "myDict", "content": { "title": "Hello", "description": "World" } }
 

@@ -53,7 +53,7 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
   };
 
   return (
-    <div className="flex rounded-xl text-text transition-colors">
+    <div className="flex rounded-lg text-foreground transition-colors">
       <DropDown identifier={DROPDOWN_IDENTIFIER}>
         <DropDown.Trigger
           identifier={DROPDOWN_IDENTIFIER}
@@ -129,13 +129,13 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
                             {ownLocaleName}
                           </span>
                           <span
-                            className="text-neutral text-xs"
+                            className="text-muted-foreground text-xs"
                             suppressHydrationWarning
                           >
                             {currentLocaleName}
                           </span>
                         </div>
-                        <span className="text-nowrap text-neutral text-sm">
+                        <span className="text-nowrap text-muted-foreground text-sm">
                           {localeItem.toUpperCase()}
                         </span>
                       </div>

@@ -344,15 +344,15 @@ Transforms the dictionary into a per-locale dictionary where each field declared
 
 **Example:**
 
-```json
+```jsonc
 // Per-locale dictionary
 {
   "key": "about-page",
   "locale": "en",
   "content": {
     "title": "About Us", // This becomes a translation node for 'en'
-    "description": "Learn more about our company"
-  }
+    "description": "Learn more about our company",
+  },
 }
 ```
 
@@ -422,7 +422,7 @@ Instructions for automatically filling dictionary content from external sources.
 
 **Examples:**
 
-```json
+```jsonc
 // Disable filling
 {
   "fill": false

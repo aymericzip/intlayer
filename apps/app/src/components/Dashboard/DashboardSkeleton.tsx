@@ -3,7 +3,7 @@ import type { FC } from 'react';
 import { Skeleton } from '#components/Skeleton';
 
 export const DashboardSkeleton: FC = () => (
-  <div className="dashboard-theme flex h-screen max-h-screen flex-col bg-card">
+  <div className="flex h-screen max-h-screen flex-col bg-card">
     {/* Navbar Skeleton */}
     <Container
       className="sticky top-0 z-50 flex w-full flex-col gap-3 p-4"

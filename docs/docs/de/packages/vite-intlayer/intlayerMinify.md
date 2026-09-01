@@ -71,7 +71,7 @@ Das Plugin zielt auf zwei Wörterbuchverzeichnisse ab (wie in `intlayer.system` 
 
 Wenn `intlayerPrune` die Codebasis analysiert und `pruneContext.dictionaryKeyToFieldRenameMap` befüllt hat, benennt `intlayerMinify` auch Inhaltsfeldnamen in kurze Aliase um. Zum Beispiel:
 
-```json
+```jsonc
 // vorher
 { "key": "myDict", "content": { "title": "Hello", "description": "World" } }
 

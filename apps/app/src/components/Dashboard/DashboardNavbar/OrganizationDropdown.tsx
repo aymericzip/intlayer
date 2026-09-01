@@ -8,6 +8,7 @@ import {
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import { DropDown } from '@intlayer/design-system/drop-down';
+import { useIsMounted } from '@intlayer/design-system/hooks';
 import { Modal } from '@intlayer/design-system/modal';
 import { ChevronsUpDown } from 'lucide-react';
 import { type FC, useState } from 'react';
@@ -16,6 +17,7 @@ import { OrganizationCreationForm } from '../OrganizationForm/OrganizationCreati
 
 export const OrganizationDropdown: FC = () => {
   const { session } = useSession();
+  const isMounted = useIsMounted();
   const { data: organizations } = useGetOrganizations();
   const [isCreationModalOpen, setIsCreationModalOpen] = useState(false);
   const { mutate: selectOrganization, isPending: isSelectOrganizationLoading } =
@@ -43,12 +45,21 @@ export const OrganizationDropdown: FC = () => {
     selectOrganization(organizationId);
   };
 
-  const otherOrganizations = (organizations?.data ?? [])
-    .filter(
-      (organizationEl: any) =>
-        String(organizationEl.id) !== String(organization?.id)
-    )
-    .slice(0, 10);
+  // The organizations list is client-only: the API client authenticates with
+  // `credentials: 'include'`, which is a browser mechanism, so SSR always sees
+  // an empty list and renders the empty state. Holding the list back until
+  // after mount keeps the first client render identical to the server markup —
+  // otherwise the fetch resolving around hydration swaps the empty state for
+  // buttons mid-hydration and the tree is thrown away. The panel is closed at
+  // that point, so nothing is visibly deferred.
+  const otherOrganizations = isMounted
+    ? (organizations?.data ?? [])
+        .filter(
+          (organizationEl: any) =>
+            String(organizationEl.id) !== String(organization?.id)
+        )
+        .slice(0, 10)
+    : [];
 
   return organization ? (
     <>

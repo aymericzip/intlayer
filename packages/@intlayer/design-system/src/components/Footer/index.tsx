@@ -1,3 +1,4 @@
+import { Status } from '@components/Status';
 import type { FC, ReactNode } from 'react';
 import { LogoWithTextBelow } from '../Logo';
 import { SocialNetworks } from '../SocialNetworks';
@@ -122,15 +123,18 @@ type FooterProps = {
  * @returns A rendered footer with branding, social links, and optional navigation links
  */
 export const Footer: FC<FooterProps> = ({ links, footerText }) => (
-  <footer className="flex flex-auto flex-row flex-wrap items-center justify-around gap-10 p-6">
+  <footer className="flex flex-auto flex-row flex-wrap items-center justify-around gap-10 border-neutral border-t p-6">
     <aside className="flex flex-col items-center justify-between gap-3 md:w-1/4">
       <LogoWithTextBelow className="size-full max-w-30" />
-      <span className="text-center text-neutral text-xs">
+      <span className="text-center text-muted-foreground text-xs">
         © 2026 Intlayer, Inc.
       </span>
       {footerText && (
-        <span className="text-center text-neutral text-xs">{footerText}</span>
+        <span className="text-center text-muted-foreground text-xs">
+          {footerText}
+        </span>
       )}
+      <Status />
       <div className="flex flex-row gap-3">
         <SocialNetworks />
       </div>

@@ -36,7 +36,7 @@ export const Step: FC<StepProps> = ({
         <div className="ml-4 h-10 border-text/20 border-l border-dashed group-first-of-type:hidden" />
         <span
           className={cn(
-            'flex size-8 shrink-0 items-center justify-center rounded-full border-2 border-text/30 border-dotted bg-background font-black text-base text-text/70 max-md:hidden',
+            'flex size-8 shrink-0 items-center justify-center rounded-full border-2 border-text/30 border-dotted bg-background font-black text-base text-foreground/70 max-md:hidden',
             'group-first-of-type:mt-10'
           )}
         >
@@ -57,12 +57,12 @@ export const Step: FC<StepProps> = ({
               isClickable
               id={`step-${number}-${slugify(title)}`}
               aria-label={`${stepLabel} ${number}: ${title}`}
-              className="font-semibold text-lg text-text"
+              className="font-semibold text-foreground text-lg"
             >
               {title}
             </H3>
             {isOptional && (
-              <span className="mb-2 ml-4 rounded-full bg-neutral/15 px-3 py-1 text-text/90 text-xs">
+              <span className="mb-2 ml-4 rounded-full bg-neutral/15 px-3 py-1 text-foreground/90 text-xs">
                 {optionalLabel}
               </span>
             )}

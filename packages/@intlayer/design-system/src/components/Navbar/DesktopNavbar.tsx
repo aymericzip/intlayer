@@ -94,15 +94,15 @@ export const DesktopNavbar = <T extends TabSelectorItemProps>({
   rightItems,
   selectedChoice,
 }: DesktopNavbarProps<T>) => (
-  <nav className="sticky top-0 z-50 flex w-full items-center bg-card/95 px-4 py-3 shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] backdrop-blur">
+  <nav className="sticky top-0 z-50 flex w-full items-center border-neutral border-b px-4 py-3 shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] backdrop-blur-2xl">
     {logo}
 
     <TabSelector
       selectedChoice={selectedChoice}
-      className="ml-[2vw] h-auto gap-3 overflow-x-auto text-neutral tracking-wide lg:ml-[5vw] lg:gap-3 xl:ml-[10vw] xl:gap-6"
+      className="ml-[2vw] h-auto gap-3 overflow-x-auto text-muted-foreground tracking-wide lg:ml-[5vw] lg:gap-3 xl:ml-[10vw] xl:gap-6"
       tabs={sections}
       hoverable
-      color="text"
+      color="light"
     />
 
     <div className="mr-4 flex items-center justify-end gap-2 md:gap-4">

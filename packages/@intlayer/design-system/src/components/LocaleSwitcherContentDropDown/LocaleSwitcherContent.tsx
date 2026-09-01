@@ -117,7 +117,7 @@ export const LocaleSwitcherContent: FC<LocaleSwitcherContentProps> = ({
   };
 
   return (
-    <div className="rounded-xl border border-text text-text transition-colors">
+    <div className="rounded-xl border border-text text-foreground transition-colors">
       <DropDown identifier={DROPDOWN_IDENTIFIER}>
         <DropDown.Trigger
           identifier={DROPDOWN_IDENTIFIER}
@@ -127,7 +127,7 @@ export const LocaleSwitcherContent: FC<LocaleSwitcherContentProps> = ({
           color="text"
           variant="hoverable"
         >
-          <div className="flex w-full items-center justify-between text-text">
+          <div className="flex w-full items-center justify-between text-foreground">
             <div className="px-2 py-1">
               <Globe size={16} />
             </div>

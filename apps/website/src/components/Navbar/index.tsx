@@ -114,7 +114,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
             aria-haspopup="true"
             aria-controls="dropdown-panel-navbar-logo"
           >
-            <LogoWithText className="max-h-6 w-auto flex-auto text-text" />
+            <LogoWithText className="max-h-6 w-auto flex-auto text-foreground" />
           </Link>
 
           {!isMobile && (
@@ -144,7 +144,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
                     downloadFile('/logo.svg', 'intlayer-logo.svg');
                   }}
                 >
-                  <span className="ml-2 flex w-full text-text">
+                  <span className="ml-2 flex w-full text-foreground">
                     {logo.downloadSvg.label}
                   </span>
                 </Button>
@@ -163,7 +163,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
                     );
                   }}
                 >
-                  <span className="ml-2 flex w-full text-text">
+                  <span className="ml-2 flex w-full text-foreground">
                     {logo.downloadPng.label}
                   </span>
                 </Button>
@@ -179,7 +179,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
                     copySvg();
                   }}
                 >
-                  <span className="ml-2 flex w-full text-text">
+                  <span className="ml-2 flex w-full text-foreground">
                     {logo.copyAsSvg.label}
                   </span>
                 </Button>
@@ -195,7 +195,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
                     copyImage();
                   }}
                 >
-                  <span className="ml-2 flex w-full text-text">
+                  <span className="ml-2 flex w-full text-foreground">
                     {logo.copyAsImage.label}
                   </span>
                 </Button>

@@ -347,5 +347,7 @@ export const compressDirectory = async (
  * `compressDirectory`.
  */
 if (import.meta.main) {
-  await compressDirectory(PUBLIC_DIRECTORY, 'prerendered output');
+  if (process.env.DISABLE_OPTIMIZATION !== 'true') {
+    await compressDirectory(PUBLIC_DIRECTORY, 'prerendered output');
+  }
 }

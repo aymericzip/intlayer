@@ -372,15 +372,15 @@ Intlayer підтримує різні типи контенту через ти
 
 **Приклад:**
 
-```json
+```jsonc
 // Словник для конкретної локалі
 {
   "key": "about-page",
   "locale": "en",
   "content": {
     "title": "About Us", // Це стає вузлом перекладу для 'en'
-    "description": "Learn more about our company"
-  }
+    "description": "Learn more about our company",
+  },
 }
 ```
 
@@ -450,7 +450,7 @@ export default aboutPageMetaContent;
 
 **Приклади:**
 
-```json
+```jsonc
 // Вимкнути автозаповнення
 {
   "fill": false

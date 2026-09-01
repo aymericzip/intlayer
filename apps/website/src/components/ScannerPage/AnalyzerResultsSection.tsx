@@ -92,7 +92,9 @@ export const AnalyzerResultsSection: FC<AnalyzerResultsSectionProps> = ({
       />
       {showFullSiteButton && (
         <div className="mt-6 flex flex-col items-center gap-4 border-neutral border-t border-dotted pt-6">
-          <p className="text-neutral text-sm">{wantToAnalyzeFullSite}</p>
+          <p className="text-muted-foreground text-sm">
+            {wantToAnalyzeFullSite}
+          </p>
           {isLoggedIn ? (
             <Button
               onClick={onDiscoverUrls}
@@ -118,7 +120,7 @@ export const AnalyzerResultsSection: FC<AnalyzerResultsSectionProps> = ({
         </div>
       )}
       {isDiscovering && (
-        <div className="mt-6 border-neutral border-t border-dotted pt-6 text-center text-sm text-text/60">
+        <div className="mt-6 border-neutral border-t border-dotted pt-6 text-center text-foreground/60 text-sm">
           {discoveringUrls}
         </div>
       )}

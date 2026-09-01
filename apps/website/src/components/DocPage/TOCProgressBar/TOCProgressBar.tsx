@@ -65,8 +65,8 @@ export const TOCProgressBar: FC = () => {
             <span
               className={`h-0.5 w-4.5 rounded-full transition-all duration-300 ${
                 isActive
-                  ? 'bg-text'
-                  : 'bg-neutral/40 group-hover:bg-neutral/80 dark:bg-neutral-600 dark:group-hover:bg-neutral-300'
+                  ? 'bg-foreground'
+                  : 'bg-muted-foreground/40 group-hover:bg-muted-foreground/80'
               }`}
             />
           </button>

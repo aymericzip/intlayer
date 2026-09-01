@@ -163,7 +163,7 @@ const FrameworkFilterUI: FC<FrameworkFilterUIProps> = ({
                     {activeEntries.length > 2 ? (
                       <div className="flex items-end gap-1">
                         <Filter className="size-4" />
-                        <span className="text-text text-xs">
+                        <span className="text-foreground text-xs">
                           {activeEntries.length}
                         </span>
                       </div>

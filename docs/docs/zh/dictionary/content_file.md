@@ -364,15 +364,15 @@ Intlayer 中的字典由 `Dictionary` 类型定义，包含多个控制其行为
 
 **示例：**
 
-```json
+```jsonc
 // 按语言环境字典
 {
   "key": "about-page",
   "locale": "en",
   "content": {
     "title": "关于我们", // 这将成为 'en' 的翻译节点
-    "description": "了解更多关于我们公司的信息"
-  }
+    "description": "了解更多关于我们公司的信息",
+  },
 }
 ```
 
@@ -441,7 +441,7 @@ export default aboutPageMetaContent;
 
 **示例：**
 
-```json
+```jsonc
 // 为所有语言启用
 {
   "autoFill": true

@@ -26,7 +26,7 @@ export const TranslatedContentMessage: FC<TranslatedContentMessageProps> = ({
       </div>
       <Popover.Detail
         identifier="language"
-        className="flex min-w-64 flex-1 flex-col gap-2 p-3 text-neutral text-sm"
+        className="flex min-w-64 flex-1 flex-col gap-2 p-3 text-muted-foreground text-sm"
         xAlign="end"
       >
         <p>{message}</p>

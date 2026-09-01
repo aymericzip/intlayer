@@ -212,7 +212,7 @@ export const NodeView: FC<NodeWrapperProps> = ({
               />
             </div>
 
-            <span className="ml-3 text-neutral text-sm">
+            <span className="ml-3 text-muted-foreground text-sm">
               ( {camelCaseToSentence(sectionKey)} )
             </span>
           </div>

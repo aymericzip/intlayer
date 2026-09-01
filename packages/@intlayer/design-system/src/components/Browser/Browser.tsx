@@ -352,7 +352,7 @@ export const Browser = ({
       aria-label={ariaLabel ?? content.ariaLabel.value}
     >
       {/* Top bar */}
-      <div className="relative z-10 flex shrink-0 items-center gap-3 rounded-t-xl bg-text/15 px-4 py-2">
+      <div className="relative z-10 flex shrink-0 items-center gap-3 rounded-t-xl border-b bg-card px-4 py-2">
         {/* Navigation Controls */}
         <div className="flex items-center gap-1">
           <Button
@@ -382,7 +382,7 @@ export const Browser = ({
           className={cn(
             inputVariants(),
             'flex w-full gap-2 rounded-xl p-0.5! supports-[corner-shape:squircle]:rounded-2xl',
-            'bg-neutral/10 text-text/50 placeholder:text-neutral/80'
+            'bg-neutral/10 text-foreground/50 placeholder:text-neutral/80'
           )}
         >
           <label htmlFor="browser-url" className="sr-only">
@@ -470,12 +470,12 @@ export const Browser = ({
                   aria-label={content.sitemapButtonLabel.value}
                 >
                   {sitemapLoading ? (
-                    <li className="px-3 py-4 text-center text-neutral text-xs">
+                    <li className="px-3 py-4 text-center text-muted-foreground text-xs">
                       {content.sitemapLoading}
                     </li>
                   ) : sitemapError ||
                     (!sitemapLoading && filteredSitemapUrls.length === 0) ? (
-                    <li className="px-3 py-4 text-center text-neutral text-xs">
+                    <li className="px-3 py-4 text-center text-muted-foreground text-xs">
                       {sitemapError
                         ? content.sitemapError
                         : content.sitemapEmpty}

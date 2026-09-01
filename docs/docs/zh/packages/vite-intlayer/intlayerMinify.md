@@ -71,7 +71,7 @@ export default defineConfig({
 
 当 `intlayerPrune` 分析了代码库并填充了 `pruneContext.dictionaryKeyToFieldRenameMap` 时，`intlayerMinify` 也会将内容字段名称重命名为简短别名。例如：
 
-```json
+```jsonc
 // 混淆前
 { "key": "myDict", "content": { "title": "Hello", "description": "World" } }
 

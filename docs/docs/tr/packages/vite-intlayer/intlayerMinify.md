@@ -71,7 +71,7 @@ Eklenti, iki sözlük konumunu hedefler (`intlayer.system` üzerinden çözümle
 
 `intlayerPrune` kod tabanını analiz edip `pruneContext.dictionaryKeyToFieldRenameMap` eşlemesini doldurduğunda, `intlayerMinify` içerik alanı adlarını da kısa takma adlarla yeniden adlandırır. Örneğin:
 
-```json
+```jsonc
 // önce
 { "key": "myDict", "content": { "title": "Hello", "description": "World" } }
 

@@ -71,7 +71,7 @@ export default defineConfig({
 
 `intlayerPrune`이 코드베이스를 분석하고 `pruneContext.dictionaryKeyToFieldRenameMap`을 채우면, `intlayerMinify`도 콘텐츠 필드 이름을 짧은 별칭으로 바꿉니다. 예를 들어:
 
-```json
+```jsonc
 // 변경 전
 { "key": "myDict", "content": { "title": "Hello", "description": "World" } }
 

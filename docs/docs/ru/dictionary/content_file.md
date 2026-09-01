@@ -367,15 +367,15 @@ Intlayer поддерживает различные типы содержимо
 
 **Пример:**
 
-```json
+```jsonc
 // Словарь для одной локали
 {
   "key": "about-page",
   "locale": "en",
   "content": {
     "title": "About Us", // Это становится узлом перевода для 'en'
-    "description": "Learn more about our company"
-  }
+    "description": "Learn more about our company",
+  },
 }
 ```
 
@@ -444,7 +444,7 @@ export default aboutPageMetaContent;
 
 **Примеры:**
 
-```json
+```jsonc
 // Включить для всех локалей
 {
   "autoFill": true

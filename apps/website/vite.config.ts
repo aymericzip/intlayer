@@ -103,7 +103,11 @@ const MD_REWRITE_PATTERN =
  */
 let viteCommand: 'build' | 'serve' | undefined;
 
-const staticPagesPlugin = {
+type StaticPagesPluginOptions = {
+  disabled?: boolean;
+};
+
+const staticPagesPlugin = (options?: StaticPagesPluginOptions) => ({
   name: 'static-prerendered-pages',
   configResolved(config: { command: 'build' | 'serve' }) {
     viteCommand = config.command;
@@ -123,6 +127,7 @@ const staticPagesPlugin = {
     async handler(this: {
       environment?: { name?: string; config?: { build?: { outDir?: string } } };
     }) {
+      if (options?.disabled) return;
       if (viteCommand !== 'build') return;
 
       const environment = this.environment;
@@ -147,7 +152,7 @@ const staticPagesPlugin = {
     }) {
       // In dev there is no prerender output to serve, and Vite owns the
       // request pipeline anyway.
-      if (nitro.options.dev) return;
+      if (nitro.options.dev || options?.disabled) return;
 
       nitro.options.handlers.push({
         route: '/**',
@@ -156,7 +161,7 @@ const staticPagesPlugin = {
       });
     },
   },
-};
+});
 
 /**
  * Same rewrite, driven by content negotiation instead of a `.md` suffix, so a
@@ -251,20 +256,26 @@ const mdRawRewritePlugin = {
 };
 
 export default defineConfig(async ({ mode }) => {
-  const env = loadEnv(mode, process.cwd(), 'VITE_');
+  const env = loadEnv(mode, process.cwd(), '');
 
-  const dynamicPaths = await buildDynamicPrerenderPaths();
-  const allPrerenderPaths = [...staticPrerenderPaths, ...dynamicPaths];
-  // `getLocalizedUrl` rather than a bare prefix: where `routing.rewrite` gives a
-  // locale its own pretty URL, that URL is the one visitors and crawlers reach
-  // (the proxy redirects the canonical one to it) and the one `staticPages.ts`
-  // looks up on disk. Prerendering the canonical path would bake a redirect.
-  const localizedPages = localeFlatMap(({ locale }) =>
-    allPrerenderPaths.map((path) => ({
-      path: getLocalizedUrl(path, locale),
-      prerender: { enabled: true },
-    }))
-  );
+  const isPrerenderDisabled =
+    env.DISABLE_OPTIMIZATION === 'true' ||
+    process.env.DISABLE_OPTIMIZATION === 'true';
+
+  const dynamicPaths = isPrerenderDisabled
+    ? []
+    : await buildDynamicPrerenderPaths();
+  const allPrerenderPaths = isPrerenderDisabled
+    ? []
+    : [...staticPrerenderPaths, ...dynamicPaths];
+  const localizedPages = isPrerenderDisabled
+    ? []
+    : localeFlatMap(({ urlPrefix }) =>
+        allPrerenderPaths.map((path) => ({
+          path: `${urlPrefix}${path}`,
+          prerender: { enabled: true },
+        }))
+      );
 
   const domain = env.VITE_PUBLIC_DOMAIN;
   const backendUrl = env.VITE_BACKEND_URL;
@@ -460,7 +471,7 @@ export default defineConfig(async ({ mode }) => {
         },
       }),
       intlayer(),
-      staticPagesPlugin,
+      staticPagesPlugin({ disabled: isPrerenderDisabled }),
       tailwindcss(),
       tanstackStart({
         router: {
@@ -468,12 +479,12 @@ export default defineConfig(async ({ mode }) => {
             '.content.(ts|tsx|js|mjs|cjs|jsx|json|jsonc|json5|md|mdx|yaml|yml)$',
         },
         prerender: {
-          enabled: true,
+          enabled: !isPrerenderDisabled,
           crawlLinks: false,
           concurrency: 8,
           // filter: ({ path }) => !PACKAGE_DOC_PATH_PATTERN.test(path),
         },
-        pages: localizedPages,
+        pages: isPrerenderDisabled ? [] : localizedPages,
       }),
       react(),
       babel({ presets: [reactCompilerPreset()] }),

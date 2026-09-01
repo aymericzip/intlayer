@@ -68,6 +68,7 @@
     "@tanstack/react-table": "9.2.4",
     "@tanstack/react-virtual": "3.14.10",
     "@tanstack/router-plugin": "1.168.35",
+    "@tanstack/start-static-server-functions": "^1.167.32",
     "defu": "6.1.7",
     "framer-motion": "13.1.1",
     "fuse.js": "7.5.0",

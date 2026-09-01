@@ -17,7 +17,7 @@ import type { DomainData } from './types';
 //     </div>
 
 //     <div className="flex items-center gap-8">
-//       <div className="h-45 w-75 animate-pulse rounded-xl border-4 border-neutral bg-neutral/20" />
+//       <div className="h-45 w-75 animate-pulse rounded-lg border-4 border-neutral bg-neutral/20" />
 //       <div className="flex-1 space-y-3">
 //         <div className="h-7 w-3/4 animate-pulse rounded bg-neutral/20" />
 //         <div className="h-4 w-full animate-pulse rounded bg-neutral/20" />
@@ -43,7 +43,7 @@ const Skeleton: FC<SkeletonProps> = ({
   isLoading ? (
     <div
       className={cn(
-        'inline-block animate-pulse rounded-xl bg-neutral/20',
+        'inline-block animate-pulse rounded-lg bg-neutral/20',
         className
       )}
     >
@@ -73,13 +73,15 @@ export const AnalyzerSiteResults: FC<AnalyzerSiteResultsProps> = ({
   return (
     <div className="flex flex-col pb-6">
       <div className="mb-4 flex items-center justify-between">
-        <span className="font-semibold text-2xl text-text/70">
-          <span className="mr-2 text-neutral">{scoreTitle?.title}:</span>
+        <span className="font-semibold text-2xl text-foreground/70">
+          <span className="mr-2 text-muted-foreground">
+            {scoreTitle?.title}:
+          </span>
 
           <Skeleton isLoading={isLoading && !score}>
-            <span className="mr-1 text-text">{score ?? 0}</span>
+            <span className="mr-1 text-foreground">{score ?? 0}</span>
           </Skeleton>
-          <span className="text-neutral text-sm">/100</span>
+          <span className="text-muted-foreground text-sm">/100</span>
         </span>
 
         <Skeleton isLoading={isLoading && !score}>
@@ -91,7 +93,7 @@ export const AnalyzerSiteResults: FC<AnalyzerSiteResultsProps> = ({
 
       <div className="flex items-center gap-8">
         <Skeleton
-          className="h-45 w-75 max-w-[30vw] rounded-xl border-4"
+          className="h-45 w-75 max-w-[30vw] rounded-lg border-4"
           isLoading={isLoading && !domainData?.image}
           renderChildren={false}
         >
@@ -125,7 +127,7 @@ export const AnalyzerSiteResults: FC<AnalyzerSiteResultsProps> = ({
             className="mb-2 h-4 w-full"
             isLoading={isLoading && !domainData?.description}
           >
-            <p className="text-neutral text-sm">
+            <p className="text-muted-foreground text-sm">
               {domainData?.description ?? messages?.noDescription}
             </p>
           </Skeleton>

@@ -329,7 +329,7 @@ const EnumerationTextEditor: FC<TextEditorProps> = ({
                         variant="hoverable"
                         size="sm"
                         color="error"
-                        className="ml-auto text-neutral hover:text-error"
+                        className="ml-auto text-muted-foreground hover:text-error"
                         Icon={Trash}
                         onClick={() =>
                           addEditedContent(
@@ -451,7 +451,7 @@ const SelectTextEditor: FC<TextEditorProps> = ({
                         variant="hoverable"
                         size="sm"
                         color="error"
-                        className="ml-auto text-neutral hover:text-error"
+                        className="ml-auto text-muted-foreground hover:text-error"
                         Icon={Trash}
                         onClick={() =>
                           addEditedContent(
@@ -699,7 +699,7 @@ const ArrayTextEditor: FC<TextEditorProps> = ({
                         variant="hoverable"
                         size="sm"
                         color="error"
-                        className="ml-auto text-neutral hover:text-error"
+                        className="ml-auto text-muted-foreground hover:text-error"
                         onClick={() => {
                           const newKeyPath: KeyPath[] = [
                             ...keyPath,
@@ -1099,7 +1099,9 @@ export const TextEditor = memo<TextEditorProps>(function TextEditor({
     return (
       <div className="flex w-full flex-col gap-2">
         <span>(React Node)</span>
-        <span className="flex text-neutral text-xs">{tsxNotEditable}</span>
+        <span className="flex text-muted-foreground text-xs">
+          {tsxNotEditable}
+        </span>
       </div>
     );
   }

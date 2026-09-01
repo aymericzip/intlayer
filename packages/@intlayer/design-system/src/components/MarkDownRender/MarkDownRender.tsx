@@ -21,25 +21,25 @@ export type { ParsedMarkdown };
 
 // Extracted, stable component renderers
 const H1Renderer = (props: ComponentProps<'h1'>) => (
-  <H1 isClickable className="mb-16 mb-8 text-text" {...props} />
+  <H1 isClickable className="mb-16 mb-8 text-foreground" {...props} />
 );
 const H2Renderer = (props: ComponentProps<'h2'>) => (
-  <H2 isClickable className="mt-16 text-text" {...props} />
+  <H2 isClickable className="mt-16 text-foreground" {...props} />
 );
 const H3Renderer = (props: ComponentProps<'h3'>) => (
-  <H3 isClickable className="mt-5 text-text" {...props} />
+  <H3 isClickable className="mt-5 text-foreground" {...props} />
 );
 const H4Renderer = (props: ComponentProps<'h4'>) => (
-  <H4 isClickable className="mt-3 text-text" {...props} />
+  <H4 isClickable className="mt-3 text-foreground" {...props} />
 );
 const H5Renderer = (props: ComponentProps<'h5'>) => (
-  <H5 isClickable className="mt-3 text-text" {...props} />
+  <H5 isClickable className="mt-3 text-foreground" {...props} />
 );
 const H6Renderer = (props: ComponentProps<'h6'>) => (
-  <H6 isClickable className="mt-3 text-text" {...props} />
+  <H6 isClickable className="mt-3 text-foreground" {...props} />
 );
 const StrongRenderer = (props: ComponentProps<'strong'>) => (
-  <strong className="text-text" {...props} />
+  <strong className="text-foreground" {...props} />
 );
 
 const MemoizedCodeBlock = memo(
@@ -74,6 +74,7 @@ const MemoizedCodeBlock = memo(
         language={language}
         showHeader
         highlightedHtml={highlightedHtml}
+        className="border"
       >
         {content}
       </Code>
@@ -102,7 +103,7 @@ const BlockquoteRenderer = ({
 }: ComponentProps<'blockquote'>) => (
   <blockquote
     className={cn(
-      'mt-5 gap-3 border-card border-l-4 pl-5 text-neutral [&_strong]:text-neutral',
+      'mt-5 gap-3 border-card border-l-4 pl-5 text-muted-foreground [&_strong]:text-neutral',
       className
     )}
     {...props}

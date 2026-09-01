@@ -244,17 +244,15 @@ const inlineCriticalCss = async (): Promise<void> => {
   try {
     allFiles = await listFilesRecursively(PUBLIC_DIRECTORY);
   } catch {
-    console.error(
-      `   ✗ ${relative(process.cwd(), PUBLIC_DIRECTORY)} not found — nothing inlined.`
+    console.log(
+      `   ℹ ${relative(process.cwd(), PUBLIC_DIRECTORY)} not found — skipping inlining.`
     );
-    process.exitCode = 1;
     return;
   }
 
   const pages = allFiles.filter((file) => file.endsWith('.html'));
   if (pages.length === 0) {
-    console.error('   ✗ No prerendered pages found — nothing inlined.');
-    process.exitCode = 1;
+    console.log('   ℹ No prerendered pages found — skipping inlining.');
     return;
   }
 
@@ -318,4 +316,8 @@ const inlineCriticalCss = async (): Promise<void> => {
  * Importing this file (from the test) only pulls in `inlineStylesheetLinks`;
  * running it directly is the `postbuild` pass over the whole output.
  */
-if (import.meta.main) await inlineCriticalCss();
+if (import.meta.main) {
+  if (process.env.DISABLE_OPTIMIZATION !== 'true') {
+    await inlineCriticalCss();
+  }
+}

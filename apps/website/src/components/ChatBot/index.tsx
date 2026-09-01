@@ -263,13 +263,16 @@ export const ChatBot: FC<ChatBotProps> = ({
           additionalButtons={
             <>
               <PopoverStatic identifier="chat-info">
-                <InfoIcon size={18} className="z-50 mr-3 text-neutral" />
+                <InfoIcon
+                  size={18}
+                  className="z-50 mr-3 text-muted-foreground"
+                />
                 <PopoverStatic.Detail
                   identifier="chat-info"
                   xAlign={isLarge ? 'end' : 'center'}
                   yAlign="above"
                 >
-                  <p className="min-w-60 max-w-60 p-4 text-neutral text-xs">
+                  <p className="min-w-60 max-w-60 p-4 text-muted-foreground text-xs">
                     {disclaimerNote}
                   </p>
                 </PopoverStatic.Detail>

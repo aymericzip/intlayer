@@ -43,10 +43,10 @@ const SectionDescription: FC<PropsWithChildren<SectionItemProps>> = ({
   isActive,
 }) => (
   <motion.p
-    className="flex size-full items-center justify-center px-16 text-neutral text-sm md:pr-0 lg:pr-16"
+    className="flex size-full items-center justify-center px-16 text-muted-foreground text-sm md:pr-0 lg:pr-16"
     initial={{ x: '-100%', opacity: 0 }}
     animate={{ x: isActive ? '0%' : '-100%', opacity: isActive ? 1 : 0 }}
-    transition={{ duration: 0.5, ease: 'easeInOut', delay: isActive ? 0.5 : 0 }}
+    transition={{ duration: 0.5, ease: 'easeInOut' }}
   >
     {children}
   </motion.p>
@@ -117,7 +117,7 @@ const Titles: FC<TitlesProps> = ({ sections, activeIndex, isMobile }) => (
     {sections.map((section, index) => (
       <motion.h3
         key={section.id.value}
-        className="absolute top-1/4 left-3 inline font-bold text-neutral text-xl leading-snug drop-shadow-sm aria-selected:text-text"
+        className="absolute top-1/4 left-3 inline font-bold text-muted-foreground text-xl leading-snug drop-shadow-sm aria-selected:text-foreground"
         initial={getTitlePlacement(index, INITIAL_ACTIVE_INDEX, isMobile)}
         animate={getTitlePlacement(index, activeIndex, isMobile)}
         role="tab"
@@ -218,7 +218,7 @@ export const FeaturesCarousel: FC<FeaturesCarouselProps> = ({
 
   return (
     <section
-      className="relative z-0 w-screen"
+      className="relative z-0 border-neutral border-b"
       style={{
         // Make the entire container as tall as the number of sections * 150vh
         height: `${nbSections * 125}vh`,
@@ -229,7 +229,7 @@ export const FeaturesCarousel: FC<FeaturesCarouselProps> = ({
       <div className="sticky top-0 left-0 mb-[70vh] h-[30vh] w-full">
         {/* Progress Bar */}
         <div className="absolute top-20 left-10 flex h-3/5 w-0.5 md:top-[20vh]">
-          <div className="size-full rounded-full bg-neutral/20">
+          <div className="size-full rounded-full bg-border">
             <div
               className="w-full bg-text"
               style={{ height: `${progress * 100}%` }}
@@ -268,7 +268,7 @@ export const FeaturesCarousel: FC<FeaturesCarouselProps> = ({
         {sections.map((section, index) => (
           <div
             className={cn(
-              'absolute top-[37vh] left-0 z-0 h-[20vh] w-full overflow-hidden max-md:bg-background md:top-[50vh] md:h-[50vh] md:w-1/3',
+              'absolute top-[30vh] left-0 z-0 h-[20vh] w-full overflow-hidden max-md:bg-background md:top-[35vh] md:h-[50vh] md:w-1/3',
               index === activeIndex && 'z-10'
             )}
             key={section.id.value}

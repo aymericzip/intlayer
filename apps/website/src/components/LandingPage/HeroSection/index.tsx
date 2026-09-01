@@ -8,9 +8,10 @@ import {
   Website_ReleasesV9_Path,
 } from '@intlayer/design-system/routes';
 import { Tag } from '@intlayer/design-system/tag';
-import { ArrowRight, Check, Copy } from 'lucide-react';
+import { ArrowRight, Check, ChevronRight, Copy, Megaphone } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { BackgroundLayout } from '~/components/BackgroundLayout';
 import { Link } from '~/components/Link/Link';
 import packageJSON from '../../../../package_mock.json' with { type: 'json' };
 import { TechLogos } from './TechLogos';
@@ -19,7 +20,6 @@ const SHOW_WHATS_NEW = true;
 
 export const HeroSection: FC = () => {
   const {
-    whatsNew,
     whatsNewLabel,
     version,
     title,
@@ -34,71 +34,76 @@ export const HeroSection: FC = () => {
   const { isCopied, copy } = useCopyToClipboard('npx intlayer init');
 
   return (
-    <section className="relative flex min-h-[calc(100vh-64px)] w-full flex-col px-4 md:px-8 lg:px-12">
-      <div className="flex flex-1 flex-col items-center justify-center text-center">
-        {/* Centered Content */}
-        <div className="mx-auto mt-16 mb-8 w-full max-w-4xl lg:mb-0">
-          {/* What's New Tag */}
+    <section className="relative flex min-h-[calc(100dvh-60px)] flex-col">
+      <section className="relative flex w-full flex-1 flex-col border-neutral border-b px-4 sm:px-6 md:px-8 lg:px-12">
+        <BackgroundLayout />
+        <div className="flex flex-1 flex-col items-center justify-center py-10 sm:py-16">
           {SHOW_WHATS_NEW && (
-            <div className="hero-enter mb-8 flex items-center justify-center gap-2">
-              <Tag
-                size="sm"
-                border="with"
-                color="neutral"
-                className="rounded-full border font-medium text-sm text-text"
-              >
-                {whatsNew}
-              </Tag>
-              <Link
-                to={Website_ReleasesV9_Path}
-                color="neutral"
-                label={whatsNewLabel.value}
-              >
-                <span className="flex items-center gap-1 font-medium text-neutral-500 text-sm sm:text-sm dark:text-neutral-400">
-                  {version} v{packageJSON.version}{' '}
-                  <ArrowRight className="h-3 w-3" />
-                </span>
+            <div className="hero-enter mb-6 flex items-center justify-center gap-2 sm:mb-8">
+              <Link to={Website_ReleasesV9_Path} label={whatsNewLabel.value}>
+                <Tag
+                  size="md"
+                  border="with"
+                  className="flex items-center gap-2 rounded-full border-foreground/20! bg-card/10 font-medium text-foreground text-xs backdrop-blur-xl sm:text-sm"
+                >
+                  <Megaphone className="size-3.5 shrink-0 sm:size-4" />
+                  <span className="no-underline! flex items-center gap-1 whitespace-nowrap font-medium text-xs sm:text-sm">
+                    {version} v{packageJSON.version}{' '}
+                    <ArrowRight className="size-3 shrink-0" />
+                  </span>
+                </Tag>
               </Link>
             </div>
           )}
 
           {/* Title */}
-          <h1 className="mb-4 text-center font-bold text-4xl leading-tight sm:text-4xl md:text-5xl lg:mb-6 lg:text-6xl">
+          <h1 className="mb-3 px-2 text-center font-bold text-3xl leading-tight sm:text-4xl md:text-5xl lg:text-6xl">
             {title}
           </h1>
           {/* Subtitle */}
           <h2
-            className="hero-enter-sharpen mb-6 text-center font-semibold text-text text-xl sm:text-3xl md:text-3xl lg:mb-8 lg:text-4xl"
+            className="hero-enter-sharpen mb-6 px-2 text-center font-semibold text-lg leading-snug sm:text-2xl md:text-3xl lg:mb-8 lg:text-4xl"
             style={{ animationDelay: '0.5s' }}
           >
             {subheading}
           </h2>
           {/* Description */}
+
+          {/* Copyable code block */}
+          <Container
+            onClick={copy}
+            roundedSize="xl"
+            className="hero-enter-lift mt-8 flex w-full max-w-xl cursor-pointer flex-row items-center justify-between gap-1 overflow-hidden border bg-card p-1 py-2 pr-2 pl-3 sm:pl-4"
+            style={{ animationDelay: '0.7s' }}
+          >
+            <ChevronRight className="size-6 shrink-0 text-neutral" />
+            <CodeBlock
+              className="justify-left min-w-0 flex-1 overflow-x-auto whitespace-nowrap pl-6 text-sm sm:text-base"
+              lang="bash"
+            >
+              npx intlayer init
+            </CodeBlock>
+            <Button
+              variant="hoverable"
+              color="neutral"
+              size="icon-lg"
+              roundedSize="xl"
+              onClick={copy}
+              Icon={isCopied ? Check : Copy}
+              label={copyButton.value}
+              className="shrink-0"
+            />
+          </Container>
           <p
-            className="hero-enter mx-auto max-w-2xl text-center font-medium text-neutral text-sm leading-relaxed sm:text-lg lg:mb-12"
+            className="hero-enter mx-auto mt-4 mb-8 max-w-xl px-2 text-center text-muted-foreground text-sm leading-relaxed sm:text-lg lg:mb-12"
             style={{ animationDelay: '0.6s' }}
           >
             {description}
           </p>
-          {/* Copyable code block */}
-          <Container
-            roundedSize="2xl"
-            className="hero-enter-lift m-auto mt-24 max-w-2xl flex-row items-center p-1 pl-6"
-            style={{ animationDelay: '0.7s' }}
-          >
-            <CodeBlock lang="bash">npx intlayer init</CodeBlock>
-            <Button
-              variant="hoverable"
-              color="neutral"
-              size="icon-xl"
-              onClick={copy}
-              Icon={isCopied ? Check : Copy}
-              label={copyButton.value}
-            />
-          </Container>
+
           {/* Action Buttons */}
           <div
-            className="hero-enter mt-10 mb-6 flex flex-col justify-center gap-3 sm:flex-row sm:gap-4 lg:mb-10"
+            className="hero-enter flex w-full max-w-xs flex-col justify-center gap-3 sm:max-w-none sm:flex-row sm:gap-4"
             style={{ animationDelay: '0.8s' }}
           >
             <Link
@@ -109,6 +114,7 @@ export const HeroSection: FC = () => {
               isExternalLink={false}
               size="lg"
               roundedSize="full"
+              className="w-full sm:w-auto"
             >
               <span className="block text-sm sm:text-lg">{supportButton}</span>
             </Link>
@@ -120,7 +126,7 @@ export const HeroSection: FC = () => {
               label={getStartedButton.value}
               size="xl"
               roundedSize="full"
-              className="flex flex-row items-center justify-center gap-2"
+              className="flex w-full flex-row items-center justify-center gap-2 sm:w-auto"
             >
               <span className="block text-sm sm:text-lg">
                 {getStartedButton}
@@ -129,18 +135,20 @@ export const HeroSection: FC = () => {
               <ArrowRight width={20} height={20} />
             </Link>
           </div>
-          {/* Available For Section - Full Viewport Width */}
-          <div
-            className="hero-enter relative right-1/2 left-1/2 mt-8 mr-[-50vw] ml-[-50vw] w-screen text-center"
-            style={{ animationDelay: '1s' }}
-          >
-            <p className="font-medium text-sm text-text tracking-wider sm:text-base">
-              {availableFor}
-            </p>
-            <TechLogos />
-          </div>
         </div>
+      </section>
+      <div className="flex items-center justify-between gap-4 border-neutral border-y px-4 py-3">
+        <p className="truncate font-mono text-foreground text-xs uppercase tracking-wider sm:text-sm md:text-base">
+          {availableFor}
+        </p>
       </div>
+
+      <section
+        className="hero-enter relative w-full overflow-x-auto border-neutral border-b"
+        style={{ animationDelay: '1s' }}
+      >
+        <TechLogos />
+      </section>
     </section>
   );
 };

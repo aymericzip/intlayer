@@ -366,15 +366,15 @@ Mengubah kamus menjadi kamus per-locale di mana setiap field yang dideklarasikan
 
 **Contoh:**
 
-```json
+```jsonc
 // Kamus per-lokasi
 {
   "key": "about-page",
   "locale": "en",
   "content": {
     "title": "About Us", // Ini menjadi node terjemahan untuk 'en'
-    "description": "Learn more about our company"
-  }
+    "description": "Learn more about our company",
+  },
 }
 ```
 
@@ -444,7 +444,7 @@ Instruksi untuk mengisi konten kamus secara otomatis dari sumber eksternal. Ini 
 
 **Contoh:**
 
-```json
+```jsonc
 // Menonaktifkan pengisian
 {
   "fill": false

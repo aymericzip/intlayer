@@ -300,7 +300,7 @@ function DashboardLayout() {
   return (
     <AuthenticationBarrier accessRule="authenticated" locale={locale}>
       <div
-        className="dashboard-theme flex h-screen max-h-screen flex-col bg-card md:overflow-hidden"
+        className="flex h-screen max-h-screen flex-col bg-card md:overflow-hidden"
         style={{ fontSize: '75%' }}
       >
         <DashboardNavbar items={navigationItems} />

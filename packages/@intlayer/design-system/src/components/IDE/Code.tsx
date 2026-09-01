@@ -209,7 +209,7 @@ export const Code: FC<CodeCompProps> = ({
       >
         {showHeader && (
           <>
-            <div className="grid w-full grid-cols-[1fr_auto] items-center justify-between rounded-t-xl bg-card/50 py-1.5 pr-12 pl-4 text-neutral text-xs">
+            <div className="grid w-full grid-cols-[1fr_auto] items-center justify-between rounded-t-xl border-b bg-card/50 py-1.5 pr-12 pl-4 text-muted-foreground text-xs">
               <span className="truncate">{displayedFileName ?? language}</span>
               <div className="flex items-center gap-2">
                 {packageManager && <PackageManagerSelector />}

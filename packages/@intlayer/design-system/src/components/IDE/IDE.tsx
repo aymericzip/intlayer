@@ -58,20 +58,20 @@ export const IDE: FC<IDEProps> = ({
   return (
     <Container
       className={cn(
-        'flex size-full flex-col justify-start overflow-hidden shadow-lg',
+        'flex size-full flex-col justify-start overflow-hidden border',
         className
       )}
-      roundedSize="3xl"
+      roundedSize="lg"
       transparency="none"
       {...props}
     >
-      <div className="flex w-auto flex-row items-center justify-start gap-1 bg-neutral-200 text-neutral text-xs dark:bg-neutral-950">
+      <div className="flex w-auto flex-row items-center justify-start gap-1 border-b bg-card text-muted-foreground text-xs">
         <div className="mx-2 flex items-center justify-start gap-2 p-1">
           <div className="size-3 rounded-full bg-error" />
           <div className="size-3 rounded-full bg-yellow-500" />
           <div className="size-3 rounded-full bg-green-500" />
         </div>
-        <div className="flex size-full overflow-y-auto">
+        <div className="flex h-full divide-x overflow-y-auto border-x">
           {tabs.map(({ path }, index) => {
             const fullPath = path.split('/');
             const title = fullPath[fullPath.length - 1];
@@ -80,10 +80,10 @@ export const IDE: FC<IDEProps> = ({
             return (
               <button
                 className={cn(
-                  'flex h-8 min-w-20 max-w-30 items-center justify-start truncate text-nowrap px-3 py-1 transition',
+                  'flex h-8 min-w-20 max-w-100 items-center justify-start truncate text-nowrap px-3 py-1 transition',
                   isActive
-                    ? 'bg-card'
-                    : 'cursor-pointer bg-neutral-200 hover:bg-neutral-300 dark:bg-neutral-950'
+                    ? 'bg-background font-medium text-foreground'
+                    : 'cursor-pointer opacity-80 hover:text-foreground hover:opacity-100'
                 )}
                 key={title}
                 onClick={() => setActiveTab(index)}
@@ -107,8 +107,12 @@ export const IDE: FC<IDEProps> = ({
               </div>
             </WithResizer>
 
-            <div className="size-full flex-1 overflow-auto pt-2 text-xs">
-              <MarkdownRenderer>{content}</MarkdownRenderer>
+            <div className="size-full flex-1 overflow-auto bg-background text-xs">
+              {content && (
+                <MarkdownRenderer codeClassName="bg-background rounded-none">
+                  {content}
+                </MarkdownRenderer>
+              )}
             </div>
           </div>
         </div>

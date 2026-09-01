@@ -71,7 +71,7 @@ export default defineConfig({
 
 عندما يقوم `intlayerPrune` بتحليل قاعدة الكود وتعبئة الخريطة `pruneContext.dictionaryKeyToFieldRenameMap` ، يقوم `intlayerMinify` أيضًا بإعادة تسمية أسماء حقول المحتوى إلى أسماء مستعارة قصيرة. على سبيل المثال:
 
-```json
+```jsonc
 // قبل التشويه
 { "key": "myDict", "content": { "title": "Hello", "description": "World" } }
 

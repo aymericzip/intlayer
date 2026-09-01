@@ -1,10 +1,9 @@
-import {} from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
-import { usePersistedStore } from '@intlayer/design-system/hooks';
+import { useIsMounted, usePersistedStore } from '@intlayer/design-system/hooks';
 import { App_ReviewerMarketplace_Path } from '@intlayer/design-system/routes';
 import { X } from 'lucide-react';
-import { type FC, useEffect } from 'react';
+import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { Link } from '#components/Link/Link';
 
@@ -12,16 +11,17 @@ const STORAGE_KEY = 'isReviewerMarketplaceBannerClosed';
 
 export const ReviewerMarketplaceBanner: FC = () => {
   const { reviewerMarketplace } = useIntlayer('dashboard-sidebar');
-  const [isVisible, setIsVisible] = usePersistedStore(STORAGE_KEY, false);
+  // The key stores the dismissal, as its name says. It previously held
+  // `isVisible`, so closing the banner persisted `false`, which the mount
+  // effect then read as "not closed" and re-opened — the banner could never be
+  // dismissed for good.
+  const [isClosed, setIsClosed] = usePersistedStore(STORAGE_KEY, false);
+  const isMounted = useIsMounted();
 
-  useEffect(() => {
-    const isClosed = localStorage.getItem(STORAGE_KEY) === 'true';
-    if (!isClosed) {
-      setIsVisible(true);
-    }
-  }, []);
-
-  if (!isVisible) return <></>;
+  // Stays hidden until mount: the server cannot know about a dismissal, and
+  // rendering before `usePersistedStore` has read it back would flash a banner
+  // the user already closed.
+  if (!isMounted || isClosed) return <></>;
 
   return (
     <Container
@@ -39,7 +39,7 @@ export const ReviewerMarketplaceBanner: FC = () => {
           variant="hoverable"
           size="icon-sm"
           Icon={X}
-          onClick={() => setIsVisible(false)}
+          onClick={() => setIsClosed(true)}
         />
       </div>
       <span className="text-neutral text-sm">

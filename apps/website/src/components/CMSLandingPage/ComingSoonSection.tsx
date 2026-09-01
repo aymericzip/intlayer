@@ -17,7 +17,7 @@ export const ComingSoonSection: FC = () => {
   return (
     <section className="py-24">
       <div className="mx-auto max-w-7xl px-4 md:px-8 lg:px-12">
-        <h2 className="mb-16 text-center font-bold text-3xl text-text sm:text-4xl">
+        <h2 className="mb-16 text-center font-bold text-3xl text-foreground sm:text-4xl">
           {comingSoonTitle}
         </h2>
 
@@ -32,7 +32,7 @@ export const ComingSoonSection: FC = () => {
                   {iconMap[feature.icon.value]}
                 </span>
                 <div>
-                  <h3 className="mb-2 flex items-center justify-center gap-2 font-semibold text-lg text-text">
+                  <h3 className="mb-2 flex items-center justify-center gap-2 font-semibold text-foreground text-lg">
                     {feature.title}
                     {feature.badge && (
                       <span className="inline-flex items-center rounded-full bg-secondary/10 px-2 py-0.5 font-medium text-secondary text-xs">
@@ -40,7 +40,7 @@ export const ComingSoonSection: FC = () => {
                       </span>
                     )}
                   </h3>
-                  <p className="text-neutral text-sm leading-relaxed">
+                  <p className="text-muted-foreground text-sm leading-relaxed">
                     {feature.description}
                   </p>
                 </div>

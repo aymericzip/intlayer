@@ -62,6 +62,7 @@ export type ButtonColor =
   | 'light'
   | 'dark'
   | 'text'
+  | 'foreground'
   | 'card'
   | 'text-inverse'
   | 'current'
@@ -103,6 +104,8 @@ export const buttonVariants = cva(
         light: 'hover-white-500/20 text-white ring-white/20 *:text-text-light',
         dark: 'text-neutral-800 ring-text-light/50 *:text-text-light',
         text: 'text-text ring-text/20 *:text-text-opposite',
+        foreground:
+          'text-foreground ring-foreground/20 *:text-foreground-opposite',
         current:
           'hover-current-500/10 text-current ring-current/10 *:text-text-light',
         'text-inverse': 'text-text-opposite ring-text-opposite/20 *:text-text',

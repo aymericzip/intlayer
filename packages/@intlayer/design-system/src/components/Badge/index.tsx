@@ -43,14 +43,15 @@ export const badgeVariants = cva(
           'border-secondary bg-secondary text-secondary hover:bg-secondary-300',
         success: 'border-success bg-success text-success hover:bg-success-500',
         error: 'border-error bg-error text-error hover:bg-error-500',
-        neutral: 'border-neutral bg-neutral text-neutral hover:bg-neutral-600',
+        neutral:
+          'border-neutral bg-neutral text-muted-foreground hover:bg-neutral-600',
         light: 'border-white bg-white text-white hover:bg-neutral-500',
         dark: 'border-neutral-800 bg-neutral-800 text-neutral-800 hover:bg-neutral-900',
-        text: 'border-text bg-text text-text hover:opacity-80',
+        text: 'border-text bg-text text-foreground hover:opacity-80',
         custom: '',
       },
       variant: {
-        default: 'rounded-lg text-text-opposite',
+        default: 'rounded-lg text-foreground-opposite',
         none: 'border-none bg-opacity-0 text-inherit hover:bg-opacity-0',
         outline: 'rounded-lg border-[1.3px] bg-opacity-0 hover:bg-opacity-30',
         hoverable:

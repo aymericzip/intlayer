@@ -110,7 +110,7 @@ export const SummarizeAI: FC<SummarizeAIProps> = ({ url }) => {
           </Link>
         ))}
 
-        <p className="text-neutral">{description}</p>
+        <p className="text-muted-foreground">{description}</p>
       </Popover.Detail>
     </Popover>
   );

@@ -20,9 +20,10 @@ export type SwitchSelectorColor =
   | 'primary'
   | 'secondary'
   | 'neutral'
-  | 'light'
-  | 'dark'
-  | 'text';
+  | 'white'
+  | 'black'
+  | 'text'
+  | 'error';
 
 export type SwitchSelectorSize = 'xs' | 'sm' | 'md' | 'lg';
 
@@ -50,9 +51,10 @@ export const switchSelectorVariant = cva(
         primary: 'border-primary text-primary',
         secondary: 'border-secondary text-secondary',
         neutral: 'border-neutral text-neutral',
-        light: 'border-white text-white',
-        dark: 'border-neutral-800 text-neutral-800',
-        text: 'border-text text-text',
+        white: 'border-white text-white',
+        black: 'border-black text-black',
+        text: 'border-foreground text-foreground',
+        error: 'border-error text-error',
       },
       disabled: {
         true: 'cursor-not-allowed opacity-50',
@@ -60,14 +62,14 @@ export const switchSelectorVariant = cva(
       },
     },
     defaultVariants: {
-      color: `${'text'}`,
+      color: 'text',
       disabled: false,
     },
   }
 );
 
 export const choiceVariant = cva(
-  'z-1 flex-1 cursor-pointer font-medium text-sm transition-all duration-300 ease-in-out aria-selected:cursor-default data-[indicator=true]:text-text-opposite motion-reduce:transition-none',
+  'z-1 flex-1 cursor-pointer font-medium text-sm transition-all duration-300 ease-in-out aria-selected:cursor-default data-[indicator=true]:text-background motion-reduce:transition-none',
   {
     variants: {
       size: {
@@ -88,18 +90,18 @@ export const indicatorVariant = cva(
   {
     variants: {
       color: {
-        primary: 'bg-primary data-[indicator=true]:text-text',
-        secondary: 'bg-secondary data-[indicator=true]:text-text',
-        error: 'bg-error data-[indicator=true]:text-text',
+        primary: 'bg-primary data-[indicator=true]:text-primary-foreground',
+        secondary:
+          'bg-secondary data-[indicator=true]:text-secondary-foreground',
         neutral: 'bg-neutral data-[indicator=true]:text-white',
-        light: 'bg-white data-[indicator=true]:text-black',
-        dark: 'bg-neutral-800 data-[indicator=true]:text-white',
-        text: 'bg-text data-[indicator=true]:text-text-opposite',
+        white: 'bg-white data-[indicator=true]:text-black',
+        black: 'bg-black data-[indicator=true]:text-white',
+        text: 'bg-foreground data-[indicator=true]:text-background',
+        error: 'bg-error data-[indicator=true]:text-white',
       },
     },
   }
 );
-
 /**
  * Component that allows the user to select one of the provided choices.
  * This component is horizontal.

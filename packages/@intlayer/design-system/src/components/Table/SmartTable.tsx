@@ -185,7 +185,7 @@ export const SmartTable: FC<SmartTableProps> = ({
       if (row) {
         row.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
-        row.classList.add('bg-neutral/40', 'dark:bg-neutral-dark/40');
+        row.classList.add('bg-card');
         row.style.transition = 'background-color 0.3s ease-in-out';
       }
     }
@@ -216,7 +216,7 @@ export const SmartTable: FC<SmartTableProps> = ({
 
       <ExpandCollapse
         isRollable={isRollable}
-        className="max-w-full overflow-x-auto rounded-2xl bg-background text-left [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-3xl"
+        className="max-w-full overflow-x-auto bg-background text-left"
       >
         <Table
           ref={tableRef}

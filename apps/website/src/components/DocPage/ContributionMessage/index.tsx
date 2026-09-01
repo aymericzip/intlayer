@@ -26,7 +26,7 @@ export const ContributionMessage: FC<{ githubUrl: string }> = ({
         xAlign="end"
       >
         <strong>{contribution.title}</strong>
-        <p className="text-neutral">{contribution.text}</p>
+        <p className="text-muted-foreground">{contribution.text}</p>
         <Link
           to={githubUrl}
           label={contribution.buttonLabel.value}

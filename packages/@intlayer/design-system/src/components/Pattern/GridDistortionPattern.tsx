@@ -44,7 +44,7 @@ const LIGHT_THEME: GridTheme = {
 const DARK_THEME: GridTheme = {
   lineColor: '#4d4d4d',
   highlightColor: '#5c5c5c',
-  baseOpacity: 0.2,
+  baseOpacity: 0.3,
   highlightOpacityBoost: 0.2,
 };
 

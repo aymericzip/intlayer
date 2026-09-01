@@ -107,7 +107,7 @@ export const DocHeader: FC<DocHeaderProps> = ({
                   <Link
                     label={authorGithubLabel({ author: author.name })}
                     href={`https://github.com/${author.github}`}
-                    className="flex items-center gap-2 text-neutral"
+                    className="flex items-center gap-2 text-muted-foreground"
                   >
                     <Avatar
                       src={authorImageUrl}
@@ -118,7 +118,7 @@ export const DocHeader: FC<DocHeaderProps> = ({
                     {author.name}
                   </Link>
                 ) : (
-                  <span className="text-neutral">{author.name}</span>
+                  <span className="text-muted-foreground">{author.name}</span>
                 )}
                 <PopoverStatic.Detail
                   identifier="author-social-medias"
@@ -149,7 +149,7 @@ export const DocHeader: FC<DocHeaderProps> = ({
               <Link
                 label={authorGithubLabel({ author: author.name })}
                 href={`https://github.com/${author.github}`}
-                className="flex items-center gap-2 text-neutral"
+                className="flex items-center gap-2 text-muted-foreground"
               >
                 <Avatar
                   src={authorImageUrl}
@@ -160,7 +160,7 @@ export const DocHeader: FC<DocHeaderProps> = ({
                 {author.name}
               </Link>
             ) : (
-              <span className="text-neutral">{author.name}</span>
+              <span className="text-muted-foreground">{author.name}</span>
             )}
           </span>
         )}
@@ -168,18 +168,18 @@ export const DocHeader: FC<DocHeaderProps> = ({
           {createdAt && (
             <span className="block">
               {creationLabel}:
-              <span className="ml-2 text-neutral">{createdAt}</span>
+              <span className="ml-2 text-muted-foreground">{createdAt}</span>
             </span>
           )}
           {updatedAt && (
             <span className="block">
               {lastUpdateLabel}:
-              <span className="ml-2 text-neutral">{updatedAt}</span>
+              <span className="ml-2 text-muted-foreground">{updatedAt}</span>
             </span>
           )}
         </div>
       </header>
-      <Container className="sticky top-10 z-10 mx-auto mt-5 flex max-w-3xl flex-col gap-2 px-4 py-2 max-md:overflow-x-auto">
+      <Container className="sticky top-10 z-10 mx-auto mt-5 flex max-w-3xl flex-col gap-2 border px-4 py-2 max-md:overflow-x-auto">
         <div className="flex w-full flex-row justify-between gap-4">
           <div className="flex w-full shrink flex-row items-center justify-start gap-4">
             {!isMobile && applicationTemplate && (

@@ -13,49 +13,28 @@ export const usePersistedStore = <S>(
   key: string,
   initialState?: S | (() => S)
 ): [S, Dispatch<SetStateAction<S>>, () => void, () => void] => {
-  const [state, setState] = useState<S>(() => {
-    // If you have an initial value on the client, send a message out immediately
-    if (initialState !== undefined) {
-      const result: S =
-        typeof initialState === 'function'
-          ? (initialState as () => S)()
-          : initialState;
-
-      if (typeof window === 'undefined') return result;
-
-      const persistedState = localStorage?.getItem(key);
-
-      if (persistedState) {
-        try {
-          return JSON.parse(persistedState);
-        } catch (e) {
-          console.error(e);
-        }
-      }
-
-      return result;
-    }
-
-    return undefined as S;
-  });
+  // The persisted value is deliberately not read here. A lazy initializer runs
+  // during render, so the previous `typeof window === 'undefined'` branch gave
+  // the server the initial state and the first client render whatever was in
+  // `localStorage` — a guaranteed hydration mismatch for anyone who had used
+  // the app before. It is loaded in the effect below instead, one render later.
+  const [state, setState] = useState<S>(() =>
+    typeof initialState === 'function'
+      ? (initialState as () => S)()
+      : (initialState as S)
+  );
 
   useEffect(() => {
     const persistedState = localStorage?.getItem(key);
 
-    if (
-      persistedState &&
-      persistedState !== 'undefined' &&
-      state === undefined
-    ) {
-      try {
-        setState(JSON.parse(persistedState));
-      } catch (e) {
-        console.error(e);
-      }
-    } else if (initialState !== undefined && state === undefined) {
-      setState(initialState);
+    if (!persistedState || persistedState === 'undefined') return;
+
+    try {
+      setState(JSON.parse(persistedState));
+    } catch (error) {
+      console.error(error);
     }
-  }, [key, state]);
+  }, [key]);
 
   /**
    * Allows setting state either directly or via a functional update.
