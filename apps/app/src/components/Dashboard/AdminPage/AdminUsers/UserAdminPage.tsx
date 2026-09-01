@@ -335,7 +335,7 @@ export const UsersAdminPageContent: FC = () => {
         const user = row.original as UserAPI;
         return (
           <SwitchSelector
-            color="foreground"
+            color="text"
             size="sm"
             value={!!user.emailVerified}
             onChange={(checked: boolean) =>

@@ -181,7 +181,7 @@ export const IDESection: FC<IDESectionProps> = ({ scrollProgress }) => {
           value={mode}
           onChange={setMode}
           size="sm"
-          color="foreground"
+          color="text"
           itemClassName="text-nowrap"
         />
         <FrameworkSelector />

@@ -51,7 +51,7 @@ export const DemoSection: FC = () => {
             defaultValue={demoType}
             onChange={setDemoType}
             itemClassName="text-nowrap"
-            color="foreground"
+            color="text"
             size="sm"
           />
         </div>

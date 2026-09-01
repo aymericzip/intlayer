@@ -159,7 +159,7 @@ export const FormSection: FC<FormSectionProps> = ({
         <FormButton
           label={clearButton.label.value}
           type="button"
-          color="foreground"
+          color="text"
           variant="outline"
           size="icon-md"
           disabled={isSubmitting || isLoading || !hasClearButton}
@@ -171,7 +171,7 @@ export const FormSection: FC<FormSectionProps> = ({
         <FormButton
           label={sendQuestionButton.label.value}
           type="submit"
-          color="foreground"
+          color="text"
           isLoading={isSubmitting || isLoading}
           Icon={ArrowUp}
           size="icon-md"

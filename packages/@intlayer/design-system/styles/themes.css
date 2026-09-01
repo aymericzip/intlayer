@@ -1,0 +1,95 @@
+@custom-variant light (:where([data-theme="light"], [data-theme="light"] *) &);
+@custom-variant dark (:where([data-theme="dark"], [data-theme="dark"] *) &);
+
+:root,
+[data-theme='light'] {
+	.shiki span {
+		color: var(--shiki-light);
+	}
+
+	color-scheme: light;
+
+	--background: oklch(1 0 0);
+	--foreground: oklch(0.145 0 0);
+
+	--card: oklch(1 0 0);
+	--card-hover: oklch(0.97 0 0);
+
+	--muted: oklch(0.97 0 0);
+	--muted-foreground: oklch(0.556 0 0);
+
+	--popover: oklch(1 0 0);
+	--popover-foreground: oklch(0.145 0 0);
+
+	--primary: oklch(94.3% 0.3 326);
+	--primary-foreground: oklch(0% 0 0);
+
+	--secondary: oklch(0.97 0 0);
+	--secondary-foreground: oklch(0.205 0 0);
+
+	--accent: oklch(0.97 0 0);
+	--accent-foreground: oklch(0.205 0 0);
+
+	--border: oklch(0.922 0 0);
+	--input: oklch(0.922 0 0);
+	--ring: oklch(0.708 0 0);
+
+	--hypertext: oklch(0.205 0 0);
+	--hypertext-hover: oklch(0.65 0.15 330);
+	--hypertext-active: oklch(0.205 0 0);
+
+	--success: oklch(0.72 0.19 155);
+	--warning: oklch(0.75 0.15 75);
+	--error: oklch(0.55 0.2 25);
+
+	--white: oklch(1 0 0);
+	--black: oklch(0 0 0);
+
+	--radius: 0.625rem;
+}
+
+[data-theme='dark'] {
+	.shiki span {
+		color: var(--shiki-dark);
+	}
+
+	color-scheme: dark;
+
+	--background: oklch(0.145 0 0);
+	--foreground: oklch(0.985 0 0);
+
+	--card: oklch(0.205 0 0);
+	--card-hover: oklch(0.3 0 0);
+
+	--muted: oklch(0.205 0 0);
+	--muted-foreground: oklch(0.708 0 0);
+
+	--popover: oklch(0.205 0 0);
+	--popover-foreground: oklch(0.985 0 0);
+
+	--primary: oklch(94.3% 0.051 326);
+	--primary-foreground: oklch(0% 0 0);
+
+	--secondary: oklch(0.205 0 0);
+	--secondary-foreground: oklch(0.985 0 0);
+
+	--accent: oklch(0.27 0 0);
+	--accent-foreground: oklch(0.985 0 0);
+
+	--border: oklch(0.3 0 0);
+	--input: oklch(0.3 0 0);
+	--ring: oklch(0.556 0 0);
+
+	--hypertext: oklch(0.985 0 0);
+	--hypertext-hover: oklch(0.65 0.15 330);
+	--hypertext-active: oklch(0.985 0 0);
+
+	--success: oklch(0.72 0.19 155);
+	--warning: oklch(0.75 0.15 75);
+	--error: oklch(0.55 0.2 25);
+
+	--white: oklch(1 0 0);
+	--black: oklch(0 0 0);
+
+	--radius: 0.625rem;
+}

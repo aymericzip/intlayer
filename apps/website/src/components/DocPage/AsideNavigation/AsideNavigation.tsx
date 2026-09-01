@@ -45,7 +45,7 @@ export const AsideNavigation: FC = () => {
                 additionalButtons={
                   <Button
                     Icon={MoveDiagonal}
-                    color="foreground"
+                    color="text"
                     size="icon-md"
                     variant="outline"
                     label={button.label.value}

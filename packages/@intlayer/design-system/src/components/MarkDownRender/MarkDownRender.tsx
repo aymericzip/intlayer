@@ -74,6 +74,7 @@ const MemoizedCodeBlock = memo(
         language={language}
         showHeader
         highlightedHtml={highlightedHtml}
+        className="border"
       >
         {content}
       </Code>

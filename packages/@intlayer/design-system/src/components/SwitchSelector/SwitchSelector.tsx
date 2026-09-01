@@ -22,7 +22,7 @@ export type SwitchSelectorColor =
   | 'neutral'
   | 'white'
   | 'black'
-  | 'foreground'
+  | 'text'
   | 'error';
 
 export type SwitchSelectorSize = 'xs' | 'sm' | 'md' | 'lg';
@@ -53,7 +53,7 @@ export const switchSelectorVariant = cva(
         neutral: 'border-neutral text-neutral',
         white: 'border-white text-white',
         black: 'border-black text-black',
-        foreground: 'border-foreground text-foreground',
+        text: 'border-foreground text-foreground',
         error: 'border-error text-error',
       },
       disabled: {
@@ -62,7 +62,7 @@ export const switchSelectorVariant = cva(
       },
     },
     defaultVariants: {
-      color: 'foreground',
+      color: 'text',
       disabled: false,
     },
   }
@@ -96,7 +96,7 @@ export const indicatorVariant = cva(
         neutral: 'bg-neutral data-[indicator=true]:text-white',
         white: 'bg-white data-[indicator=true]:text-black',
         black: 'bg-black data-[indicator=true]:text-white',
-        foreground: 'bg-foreground data-[indicator=true]:text-background',
+        text: 'bg-foreground data-[indicator=true]:text-background',
         error: 'bg-error data-[indicator=true]:text-white',
       },
     },

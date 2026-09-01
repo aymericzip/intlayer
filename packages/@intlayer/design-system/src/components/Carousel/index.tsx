@@ -196,8 +196,8 @@ const CarouselIndicators: FC<CarouselIndicatorsProps> = ({
             }}
             aria-label={goToSlide({ index: index + 1 }).value}
             className={cn(
-              'h-2.5 w-2.5 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-neutral-400 focus:ring-offset-2',
-              isActive ? 'scale-110 bg-text' : 'bg-text/20 hover:bg-text/40'
+              'size-2.5 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-neutral-400 focus:ring-offset-2',
+              isActive ? 'size-3.5 bg-text' : 'bg-text/20 hover:bg-text/40'
             )}
           />
         );

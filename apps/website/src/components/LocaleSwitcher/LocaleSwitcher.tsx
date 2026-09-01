@@ -61,7 +61,7 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
           size="sm"
           className="p-0!"
           variant="outline"
-          color="foreground"
+          color="text"
           roundedSize="5xl"
           onClick={handleFocusInput}
         >

@@ -15,7 +15,7 @@ export const ModeSelector = () => {
       value={mode}
       onChange={setMode}
       size="sm"
-      color="foreground"
+      color="text"
       itemClassName="text-nowrap"
     />
   );

@@ -713,7 +713,7 @@ export const TranslationStatusAside: FC = () => {
                   ]}
                   value={selectSpecific}
                   onChange={setSelectSpecific}
-                  color="foreground"
+                  color="text"
                   size="sm"
                   className="w-full"
                 />

@@ -429,7 +429,7 @@ export const DashboardAudience: FC = () => {
             choices={rangeChoices}
             value={range}
             onChange={setRange}
-            color="foreground"
+            color="text"
             size="sm"
             className="w-max"
           />
@@ -513,7 +513,7 @@ export const DashboardAudience: FC = () => {
                 choices={breakdownChoices}
                 value={tab}
                 onChange={setTab}
-                color="foreground"
+                color="text"
                 size="sm"
                 className="w-full"
               />

@@ -29,7 +29,7 @@ export const PricingPage: FC<PricingPageProps> = ({ pricings }) => {
           { content: periodSwitchLabel.yearly.value, value: Period.Yearly },
           { content: periodSwitchLabel.monthly.value, value: Period.Monthly },
         ]}
-        color="foreground"
+        color="text"
         onChange={setFocusedPeriod}
         value={focusedPeriod}
       />
