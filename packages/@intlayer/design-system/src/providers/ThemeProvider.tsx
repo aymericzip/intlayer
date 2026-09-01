@@ -29,40 +29,36 @@ const isServer = typeof window === 'undefined';
 /**
  * Inline bootstrap applying the persisted theme before the first paint.
  *
- * Serialized through `Function.prototype.toString()` and injected as an inline
- * `<script>`, so it must stay self-contained: no import, no module-scope
- * binding, no reference the bundler could rewrite into a helper call. Every
- * value it needs is passed as an argument.
+ * Held as source text rather than serialized from a real function through
+ * `Function.prototype.toString()`: that echoes whatever formatting the bundler
+ * emitted, and the SSR and browser bundles do not agree on it (tabs versus
+ * spaces), so the two renders produced different script bodies and hydration
+ * failed. A string literal is copied verbatim by every bundler.
+ *
+ * It runs before hydration, so it must stay self-contained: no import, no
+ * module-scope binding. Every value it needs is passed as an argument.
  */
-const themeScript = (
-  storageKey: string,
-  themeAttribute: string,
-  darkMediaQuery: string
-): void => {
-  let storedTheme: string | null = null;
-
+const THEME_SCRIPT_SOURCE = `(function (storageKey, themeAttribute, darkMediaQuery) {
+  var storedTheme = null;
   try {
     storedTheme = localStorage.getItem(storageKey);
-  } catch {
-    // Storage can throw (private mode, blocked cookies) — fall back to the OS.
+  } catch (error) {
+    /* Storage can throw (private mode, blocked cookies) — fall back to the OS. */
   }
-
-  const theme =
+  var theme =
     storedTheme === 'light' || storedTheme === 'dark'
       ? storedTheme
       : window.matchMedia(darkMediaQuery).matches
         ? 'dark'
         : 'light';
-
-  const element = document.documentElement;
-
+  var element = document.documentElement;
   element.setAttribute(themeAttribute, theme);
   element.style.colorScheme = theme;
-};
+})`;
 
 /** Serializes the bootstrap and its arguments into inline script source. */
 const buildBootstrap = (storageKey: string): string =>
-  `(${themeScript})(${JSON.stringify(storageKey)},${JSON.stringify(THEME_ATTRIBUTE)},${JSON.stringify(DARK_MEDIA_QUERY)})`;
+  `${THEME_SCRIPT_SOURCE}(${JSON.stringify(storageKey)},${JSON.stringify(THEME_ATTRIBUTE)},${JSON.stringify(DARK_MEDIA_QUERY)})`;
 
 /** Reads the persisted preference, discarding unknown values. */
 const getStoredTheme = (storageKey: string): Theme => {
@@ -224,7 +220,9 @@ const Theme: FC<PropsWithChildren<ThemeProviderProps>> = ({
     <ThemeContext.Provider value={value}>
       <script
         // Browsers hide the nonce value from the DOM API, so echoing it while
-        // hydrating would mismatch the server markup.
+        // hydrating would mismatch the server markup — hence the suppression.
+        // The script has already run by then; React never patches it.
+        suppressHydrationWarning
         nonce={isServer ? nonce : ''}
         // biome-ignore lint/security/noDangerouslySetInnerHtml: the bootstrap has to run before hydration, and its content is built from literals
         dangerouslySetInnerHTML={{ __html: buildBootstrap(storageKey) }}

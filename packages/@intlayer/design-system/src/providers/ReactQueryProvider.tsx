@@ -210,13 +210,19 @@ export const ReactQueryProvider: FC<
   if (!wiredRef.current) {
     wiredRef.current = true;
     const cache = clientRef.current.getMutationCache();
+    // Chain rather than replace: an externally created client may already carry
+    // handlers, e.g. the router SSR-query integration wraps `onError` to turn a
+    // `redirect()` thrown inside a mutation into a navigation.
+    const previousOnSuccess = cache.config.onSuccess;
+    const previousOnError = cache.config.onError;
     cache.config.onSuccess = (
       data,
       variables,
       onMutateResult,
       mutation,
       context
-    ) =>
+    ) => {
+      previousOnSuccess?.(data, variables, onMutateResult, mutation, context);
       handlersRef.current.onSuccess?.(
         data,
         variables,
@@ -224,13 +230,15 @@ export const ReactQueryProvider: FC<
         mutation,
         context
       );
+    };
     cache.config.onError = (
       error,
       variables,
       onMutateResult,
       mutation,
       context
-    ) =>
+    ) => {
+      previousOnError?.(error, variables, onMutateResult, mutation, context);
       handlersRef.current.onError?.(
         error,
         variables,
@@ -238,6 +246,7 @@ export const ReactQueryProvider: FC<
         mutation,
         context
       );
+    };
     cache.config.onSettled = (
       _data,
       _error,

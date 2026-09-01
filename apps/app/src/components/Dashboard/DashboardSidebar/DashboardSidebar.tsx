@@ -628,11 +628,9 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
           />
         </nav>
 
-        {!isCollapsed &&
-          !IS_SELF_HOSTED &&
-          process.env.NODE_ENV === 'development' && (
-            <ReviewerMarketplaceBanner />
-          )}
+        {!isCollapsed && !IS_SELF_HOSTED && import.meta.env.DEV && (
+          <ReviewerMarketplaceBanner />
+        )}
 
         {/* Environment switcher — shown when project has >1 environments */}
         {environments.length > 1 &&

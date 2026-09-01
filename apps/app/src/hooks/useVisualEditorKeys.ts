@@ -1,5 +1,12 @@
 import { useSyncExternalStore } from 'react';
 
+/**
+ * Snapshot handed to the server render and to hydration. It has to be the same
+ * reference on every call, otherwise `useSyncExternalStore` sees a new value
+ * each render and loops.
+ */
+const SERVER_KEYS: string[] = [];
+
 class DisplayedKeysObservable {
   private listeners = new Set<() => void>();
   private state: string[] = [];
@@ -12,6 +19,8 @@ class DisplayedKeysObservable {
   };
 
   getSnapshot = (): string[] => this.state;
+
+  getServerSnapshot = (): string[] => SERVER_KEYS;
 
   setKeys = (keys: string[]) => {
     if (
@@ -32,5 +41,5 @@ export const useVisualEditorKeys = (): string[] =>
   useSyncExternalStore(
     visualEditorKeysManager.subscribe,
     visualEditorKeysManager.getSnapshot,
-    () => []
+    visualEditorKeysManager.getServerSnapshot
   );

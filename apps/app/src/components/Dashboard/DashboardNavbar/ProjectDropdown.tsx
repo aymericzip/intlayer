@@ -7,6 +7,7 @@ import {
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import { DropDown } from '@intlayer/design-system/drop-down';
+import { useIsMounted } from '@intlayer/design-system/hooks';
 import { Modal } from '@intlayer/design-system/modal';
 import { ChevronsUpDown } from 'lucide-react';
 import { type ComponentProps, type FC, useState } from 'react';
@@ -19,6 +20,7 @@ type ProjectDropdownProps = Partial<ComponentProps<typeof DropDown.Panel>> & {
 
 export const ProjectDropdown: FC<ProjectDropdownProps> = (props) => {
   const { session } = useSession();
+  const isMounted = useIsMounted();
 
   const { data: projects } = useGetProjects();
   const { mutate: selectProject, isPending: isSelectProjectLoading } =
@@ -43,9 +45,15 @@ export const ProjectDropdown: FC<ProjectDropdownProps> = (props) => {
     selectProject(projectId);
   };
 
-  const otherProjects = (projects?.data ?? [])
-    .filter((projectEl: any) => String(projectEl.id) !== String(project?.id))
-    .slice(0, 10);
+  // Client-only list held back until after mount — see `OrganizationDropdown`
+  // for why SSR can never populate it.
+  const otherProjects = isMounted
+    ? (projects?.data ?? [])
+        .filter(
+          (projectEl: any) => String(projectEl.id) !== String(project?.id)
+        )
+        .slice(0, 10)
+    : [];
 
   return project ? (
     <>
