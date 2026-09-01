@@ -438,7 +438,8 @@ bun x intlayer fill         # Заполнить недостающие пере
 ```
 
 > Для получения более подробной информации обратитесь к [документации CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/ci.md)
-> </Step>
+
+</Step>
 
 </Steps>
 

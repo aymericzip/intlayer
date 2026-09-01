@@ -91,8 +91,6 @@ bun x intlayer doc review
 
 - **`--log`**: Режим только логирования. Не переводить с помощью ИИ; вместо этого логировать блоки, требующие внимания (с номерами строк и содержимым) для базовой и целевой локалей, чтобы помочь другому агенту сгенерировать переводы.
 
-I'm ready to assist you with the translation audit. However, I notice that:
-
 > Пример: `npx intlayer doc review --mode report`
 
 > Пример: `npx intlayer doc review --log`

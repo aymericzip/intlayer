@@ -438,7 +438,8 @@ bun x intlayer fill         # Uzupełnij brakujące tłumaczenia
 ```
 
 > Więcej szczegółów znajdziesz w [dokumentacji CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/ci.md)
-> </Step>
+
+</Step>
 
 </Steps>
 

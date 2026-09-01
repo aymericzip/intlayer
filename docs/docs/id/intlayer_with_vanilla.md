@@ -443,7 +443,8 @@ const unsubscribe = useDictionaryDynamic(
 ```
 
 > Catatan: `useDictionaryDynamic` mengharuskan kamus tersedia sebagai file ESM terpisah. Pendekatan ini biasanya digunakan jika Anda memiliki server web yang melayani kamus.
-> </Step>
+
+</Step>
 
 </Steps>
 

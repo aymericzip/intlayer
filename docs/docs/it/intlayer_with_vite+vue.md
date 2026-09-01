@@ -1135,7 +1135,7 @@ Per maggiori dettagli su come utilizzare l'estensione, consulta la [documentazio
 
 Per approfondire, puoi implementare l'[editor visuale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_visual_editor.md) o esternalizzare i tuoi contenuti utilizzando il [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_CMS.md).
 
-Once you share these, I'll audit the Italian translation against the English source and return the fully updated Italian content.---
+---
 
 ## Domande frequenti
 

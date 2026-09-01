@@ -132,6 +132,7 @@ Không chỉ là giải pháp i18n, Intlayer còn cung cấp **[trình chỉnh s
 Xem [Mẫu Ứng Dụng](https://github.com/aymericzip/intlayer-next-14-template) trên GitHub.
 
 <Steps>
+
 <Step number={1} title="Cài Đặt Các Phụ Thuộc">
 
 Cài đặt các gói cần thiết bằng npm:
@@ -181,6 +182,7 @@ bun add intlayer next-intlayer
   Gói tích hợp Intlayer với Next.js. Nó cung cấp các context provider và hook cho việc quốc tế hóa trong Next.js. Ngoài ra, nó bao gồm plugin Next.js để tích hợp Intlayer với [Webpack](https://webpack.js.org/) hoặc [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack), cũng như middleware để phát hiện ngôn ngữ ưu tiên của người dùng, quản lý cookie, và xử lý chuyển hướng URL.
 
 </Step>
+
 <Step number={2} title="Cấu hình Dự án của Bạn">
 
 Here is the final structure that we will make:
@@ -234,6 +236,7 @@ export default config;
 > Thông qua tệp cấu hình này, bạn có thể thiết lập URL địa phương hóa, chuyển hướng middleware, tên cookie, vị trí và phần mở rộng của các khai báo nội dung của bạn, tắt các bản ghi Intlayer trong console, và nhiều hơn nữa. Để xem danh sách đầy đủ các tham số có sẵn, hãy tham khảo [tài liệu cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md).
 
 </Step>
+
 <Step number={3} title="Tích hợp Intlayer vào Cấu hình Next.js của Bạn">
 
 Cấu hình thiết lập Next.js của bạn để sử dụng Intlayer:
@@ -259,6 +262,7 @@ export default withIntlayer(nextConfig);
 > ```
 
 </Step>
+
 <Step number={4} title="Cấu hình Middleware để Phát hiện Ngôn ngữ">
 
 Thiết lập middleware để phát hiện ngôn ngữ ưu tiên của người dùng:
@@ -294,6 +298,7 @@ export const middleware = multipleMiddlewares([
 ```
 
 </Step>
+
 <Step number={5} title="Định nghĩa các tuyến đường ngôn ngữ động">
 
 Xóa tất cả nội dung trong `RootLayout` và thay thế bằng đoạn mã sau:
@@ -390,6 +395,7 @@ export default LocaleLayout;
 > `generateStaticParams` đảm bảo rằng ứng dụng của bạn sẽ tiền xây dựng các trang cần thiết cho tất cả các locale, giảm thiểu tính toán khi chạy và cải thiện trải nghiệm người dùng. Để biết thêm chi tiết, tham khảo [tài liệu Next.js về generateStaticParams](https://nextjs.org/docs/app/building-your-application/rendering/static-and-dynamic-rendering#generate-static-params).
 
 </Step>
+
 <Step number={6} title="Khai báo Nội dung của Bạn">
 
 Tạo và quản lý các khai báo nội dung để lưu trữ bản dịch:
@@ -444,6 +450,7 @@ export default pageContent;
 > Để biết thêm chi tiết, tham khảo [tài liệu khai báo nội dung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/content_file.md).
 
 </Step>
+
 <Step number={7} title="Sử dụng Nội dung trong Mã của Bạn">
 
 Truy cập các từ điển nội dung của bạn trong toàn bộ ứng dụng:
@@ -591,6 +598,7 @@ const ServerComponentExample: FC = () => {
 > Để tìm hiểu thêm về hook `useIntlayer`, hãy tham khảo [tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/next-intlayer/useIntlayer.md).
 
 </Step>
+
 <Step number={8} title="Quốc tế hóa metadata của bạn" isOptional={true}>
 
 Trong trường hợp bạn muốn quốc tế hóa metadata của mình, chẳng hạn như tiêu đề trang, bạn có thể sử dụng hàm `generateMetadata` do Next.js cung cấp. Bên trong, bạn có thể lấy nội dung từ hàm `getIntlayer` để dịch metadata của bạn.
@@ -693,6 +701,7 @@ export const generateMetadata = ({
 > Tìm hiểu thêm về tối ưu hóa metadata [trong tài liệu chính thức của Next.js](https://nextjs.org/docs/app/building-your-application/optimizing/metadata).
 
 </Step>
+
 <Step number={9} title="Quốc tế hóa sitemap.xml và robots.txt của bạn" isOptional={true}>
 
 Để quốc tế hóa `sitemap.xml` và `robots.txt` của bạn, bạn có thể sử dụng hàm `getMultilingualUrls` do Intlayer cung cấp. Hàm này cho phép bạn tạo các URL đa ngôn ngữ cho sitemap của mình.
@@ -759,6 +768,7 @@ export default robots;
 > Tìm hiểu thêm về tối ưu hóa sitemap [trong tài liệu chính thức của Next.js](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap). Tìm hiểu thêm về tối ưu hóa robots.txt [trong tài liệu chính thức của Next.js](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/robots).
 
 </Step>
+
 <Step number={10} title="Thay đổi ngôn ngữ nội dung của bạn" isOptional={true}>
 
 Để thay đổi ngôn ngữ của nội dung trong Next.js, cách được khuyến nghị là sử dụng component `Link` để chuyển hướng người dùng đến trang đã được địa phương hóa phù hợp. Component `Link` cho phép tải trước trang, giúp tránh việc tải lại toàn bộ trang.
@@ -850,6 +860,7 @@ return (
 > - [`thuộc tính aria-current`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
 </Step>
+
 <Step number={11} title="Tạo một Component Link Đa Ngôn Ngữ" isOptional={true}>
 
 Để đảm bảo rằng điều hướng trong ứng dụng của bạn tuân thủ ngôn ngữ hiện tại, bạn có thể tạo một component `Link` tùy chỉnh. Component này tự động thêm tiền tố ngôn ngữ hiện tại vào các URL nội bộ. Ví dụ, khi một người dùng nói tiếng Pháp nhấp vào liên kết đến trang "About", họ sẽ được chuyển hướng đến `/fr/about` thay vì `/about`.
@@ -921,6 +932,7 @@ Link.displayName = "Link";
 Bằng cách tích hợp component `Link` này trong toàn bộ ứng dụng của bạn, bạn duy trì trải nghiệm người dùng nhất quán và nhận biết ngôn ngữ đồng thời cải thiện SEO và khả năng sử dụng.
 
 </Step>
+
 <Step number={12} title="Lấy ngôn ngữ hiện tại trong Server Actions" isOptional={true}>
 
 Nếu bạn cần lấy locale đang hoạt động bên trong một Server Action (ví dụ: để địa phương hóa email hoặc chạy logic nhận biết locale), hãy gọi `getLocale` từ `next-intlayer/server`:
@@ -947,6 +959,7 @@ export const myServerAction = async () => {
 > Điều này đảm bảo locale phù hợp nhất được chọn dựa trên ngữ cảnh có sẵn.
 
 </Step>
+
 <Step number={13} title="Tối ưu kích thước bundle của bạn" isOptional={true}>
 
 Khi sử dụng `next-intlayer`, các từ điển được bao gồm trong bundle cho mỗi trang theo mặc định. Để tối ưu kích thước bundle, Intlayer cung cấp một plugin SWC tùy chọn thay thế thông minh các lệnh gọi `useIntlayer` bằng cách sử dụng macro. Điều này đảm bảo các từ điển chỉ được bao gồm trong các bundle của những trang thực sự sử dụng chúng.
@@ -976,6 +989,7 @@ bun add @intlayer/swc --dev
 > Lưu ý: Nếu bạn đặt tùy chọn là `importMode: 'dynamic'` hoặc `importMode: 'fetch'` (in the `dictionary` configuration), nó sẽ dựa vào Suspense, vì vậy bạn sẽ phải bao bọc các lệnh gọi `useIntlayer` của mình trong một vùng `Suspense`. Điều đó có nghĩa là bạn sẽ không thể sử dụng `useIntlayer` trực tiếp ở cấp trên cùng của thành phần Page / Layout của bạn.
 
 </Step>
+
 </Steps>
 
 ### Cấu hình TypeScript

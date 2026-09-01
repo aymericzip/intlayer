@@ -809,7 +809,8 @@ bun add @intlayer/swc --dev
 > Remarque : Cette optimisation est uniquement disponible pour Next.js 13 et versions supérieures.
 
 > Remarque : Ce package n'est pas installé par défaut car les plugins SWC sont encore expérimentaux sur Next.js. Cela pourrait changer à l'avenir.
-> </Step>
+
+</Step>
 
 </Steps>
 

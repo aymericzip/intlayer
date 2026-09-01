@@ -210,7 +210,7 @@ pnpm intlayer-editor start -e development
   - 필수 필드:
     - 애플리케이션 URL은 편집기 구성(`applicationURL`)에 설정한 URL과 일치해야 합니다.
 
-- 비주얼 에디터는 iframe을 사용하여 웹사이트를 표시합니다. 웹사이트의 콘텐츠 보안 정책(CSP)이 CMS URL을 `frame-ancestors`로 허용하는지 확인하세요(기본값은 'http://localhost:8000'입니다). 에디터 콘솔에서 오류가 있는지 확인하세요.
+- 비주얼 에디터는 iframe을 사용하여 웹사이트를 표시합니다. 웹사이트의 콘텐츠 보안 정책(CSP)이 CMS URL을 `frame-ancestors`로 허용하는지 확인하세요(기본값은 `http://localhost:8000`입니다). 에디터 콘솔에서 오류가 있는지 확인하세요.
 
 ## 자주 묻는 질문
 

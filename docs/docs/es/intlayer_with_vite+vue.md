@@ -1178,7 +1178,7 @@ Para más detalles sobre cómo usar la extensión, consulta la [documentación d
 
 Para ir más allá, puedes implementar el [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md) o externalizar tu contenido usando el [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md).
 
-Please share the content you'd like me to review.---
+---
 
 ## Preguntas frecuentes
 

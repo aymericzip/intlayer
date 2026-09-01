@@ -83,6 +83,7 @@ GitHub पर [एप्लिकेशन टेम्पलेट](https://git
 ## Next.js एप्लिकेशन में Intlayer सेट करने के लिए चरण-दर-चरण मार्गदर्शिका
 
 <Steps>
+
 <Step number={1} title="निर्भरताएं स्थापित करें">
 
 npm का उपयोग करके आवश्यक पैकेज स्थापित करें:
@@ -136,6 +137,7 @@ bun add @intlayer/babel --dev
   पैकेज जो Intlayer को Next.js के साथ एकीकृत करता है। यह Next.js अंतर्राष्ट्रीयकरण के लिए कॉन्टेक्स्ट प्रोवाइडर और हुक प्रदान करता है। इसके अतिरिक्त, इसमें Intlayer को [Webpack](https://webpack.js.org/) या [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack) के साथ एकीकृत करने के लिए Next.js प्लगइन शामिल है, साथ ही उपयोगकर्ता की पसंदीदा लोकेल का पता लगाने, कुकीज़ और URL पुनर्निर्देशन को संभालने के लिए मिडिलवेयर भी शामिल है।
 
 </Step>
+
 <Step number={2} title="अपना प्रोजेक्ट कॉन्फ़िगर करें">
 
 अपने एप्लिकेशन की भाषाओं को परिभाषित करने के लिए एक कॉन्फ़िगरेशन फ़ाइल बनाएं:
@@ -194,6 +196,7 @@ export default config;
 > इस कॉन्फ़िगरेशन फ़ाइल के माध्यम से, आप स्थानीयकृत URL, प्रॉक्सी रीडायरेक्ट, कुकी मैपिंग, सामग्री घोषणाओं का स्थान और एक्सटेंशन सेट कर सकते हैं, कंसोल में Intlayer लॉग अक्षम कर सकते हैं, और बहुत कुछ कर सकते हैं। उपलब्ध मापदंडों की पूरी सूची के लिए, [कॉन्फ़िगरेशन दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md) देखें।
 
 </Step>
+
 <Step number={3} title="अपने Next.js कॉन्फ़िगरेशन में Intlayer को एकीकृत करें">
 
 Intlayer का उपयोग करने के लिए अपने Next.js सेटअप को कॉन्फ़िगर करें:
@@ -212,6 +215,7 @@ export default withIntlayer(nextConfig);
 > `withIntlayer()` Next.js प्लगइन का उपयोग Intlayer को Next.js के साथ एकीकृत करने के लिए किया जाता है। यह शब्दकोश फ़ाइलों का निर्माण सुनिश्चित करता है और देव मोड में उन्हें वॉच करता है। यह [Webpack](https://webpack.js.org/) या [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack) वातावरण के भीतर Intlayer पर्यावरण चर परिभाषित करता है। इसके अलावा, यह प्रदर्शन को अनुकूलित करने के लिए उपनाम प्रदान करता है और सर्वर कंपोनेंट्स के साथ पूरी तरह काम करता है।
 
 </Step>
+
 <Step number={4} title="Babel कॉन्फ़िगर करें">
 
 Intlayer कंपाइलर को आपकी सामग्री निकालने और अनुकूलित करने के लिए Babel की आवश्यकता होती है। Intlayer प्लगइन्स शामिल करने के लिए अपना `babel.config.js` (या `babel.config.json`) अपडेट करें:
@@ -234,6 +238,7 @@ module.exports = {
 ```
 
 </Step>
+
 <Step number={5} title="अपने पेजों में लोकेल डिटेक्शन">
 
 अपने `RootLayout` की सामग्री साफ़ करें और उसे नीचे दिए गए उदाहरण से बदलें:
@@ -278,6 +283,7 @@ export default RootLayout;
 ```
 
 </Step>
+
 <Step number={6} title="अपने कंपोनेंट्स कंपाइल करें">
 
 कंपाइलर सक्षम होने के साथ, आपको अब सामग्री शब्दकोशों (जैसे `.content.ts` फ़ाइलें) को मैन्युअल रूप से घोषित करने की **आवश्यकता नहीं** है।
@@ -341,6 +347,7 @@ export default async function Page() {
 
 </Tab>
 </Tabs>
+
 <Tabs>
 <Tab label='Intlayer >=9.4' value='>=9.4'>
 
@@ -410,8 +417,11 @@ export default async function Page() {
   > Layout and page cannot share a common server context because the server context system is based on a per-request data store (via [React's cache](https://react.dev/reference/react/cache) mechanism), causing each "context" to be re-created for different segments of the application. Placing the provider in a shared layout would break this isolation, preventing the correct propagation of the server context values to your server components.
 
 </Tab>
+
 </Tabs>
+
 </Step>
+
 <Step number={7} title="छूटे हुए अनुवाद भरें" isOptional={true}>
 
 Intlayer छूटे हुए अनुवादों को भरने में आपकी मदद करने के लिए एक CLI टूल प्रदान करता है। आप अपने कोड से छूटे हुए अनुवादों का परीक्षण करने और उन्हें भरने के लिए `intlayer` कमांड का उपयोग कर सकते हैं।
@@ -451,6 +461,7 @@ bun x intlayer fill         # छूटे हुए अनुवाद भर�
 > अधिक विवरण के लिए, [CLI दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/ci.md) देखें।
 
 </Step>
+
 <Step number={8} title="लोकेल रूटिंग प्रॉक्सी मिडिलवेयर" isOptional={true}>
 
 यदि आप उपयोगकर्ता को उनकी पसंदीदा लोकेल पर स्वचालित रूप से रीडायरेक्ट करना चाहते हैं, तो एक प्रॉक्सी मिडिलवेयर स्थापित करें:
@@ -469,6 +480,7 @@ export const config = {
 > Intlayer v9 के बाद से, यह middleware `routing.enableProxy` विकल्प का सम्मान करता है (`true` डिफ़ॉल्ट रूप से)। इसे pass-through में बदलने के लिए अपने कॉन्फ़िगरेशन में `routing.enableProxy: false` सेट करें बिना इस फ़ाइल को हटाए। [v9 release notes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/releases/v9.md) देखें।
 
 </Step>
+
 <Step number={9} title="अपनी सामग्री की भाषा बदलें" isOptional={true}>
 
 Next.js के भीतर सामग्री की भाषा बदलने का सबसे अनुशंसित तरीका उपयोगकर्ता को उपयुक्त भाषा के लिए एक रूट पर निर्देशित करने के लिए `Link` घटक का उपयोग करना है। यह Next.js पूर्व-प्राप्त क्षमताओं का लाभ उठाएगा और पूर्ण पृष्ठ के पुनः लोड को रोकेगा।
@@ -520,6 +532,7 @@ export const LocaleSwitcher: FC = () => {
 > एक विकल्प `useLocale` हुक द्वारा प्रदान किए गए `setLocale` फ़ंक्शन का उपयोग करना है। यह फ़ंक्शन पेज प्रीफेचिंग की अनुमति नहीं देगा। अधिक जानकारी के लिए [`useLocale` हुक दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/next-intlayer/useLocale.md) देखें।
 
 </Step>
+
 <Step number={10} title="अपने बंडल आकार को अनुकूलित करें" isOptional={true}>
 
 `next-intlayer` का उपयोग करते समय, डिक्शनरी डिफ़ॉल्ट रूप से प्रत्येक पेज के बंडल में शामिल की जाएंगी। बंडल आकार को अनुकूलित करने के लिए, Intlayer एक वैकल्पिक SWC प्लगइन प्रदान करता है जो मैक्रो का उपयोग करके `useIntlayer` कॉल्स को बुद्धिमानी से बदल देता है। यह सुनिश्चित करता है कि डिक्शनरी केवल उन पेजों के बंडल में शामिल हैं जो वास्तव में उनका उपयोग करते हैं।
@@ -551,6 +564,7 @@ bun add @intlayer/swc --dev
 > नोट: यदि आप `importMode: 'dynamic'` या `importMode: 'fetch'` (डिक्शनरी कॉन्फ़िगरेशन में) विकल्प सेट करते हैं, तो यह Suspense पर निर्भर करेगा, इसलिए आपको `useIntlayer` कॉल्स को `Suspense` सीमा में लपेटना होगा। इसका मतलब है कि आप अपने पेज / लेआउट घटक के शीर्ष स्तर पर सीधे `useIntlayer` का उपयोग नहीं कर पाएंगे।
 
 </Step>
+
 <Step number={11} title="अपने घटकों की सामग्री निकालें" isOptional={true}>
 
 यदि आपके पास मौजूदा कोडबेस है, तो हजारों फ़ाइलों को बदलना समय लेने वाला हो सकता है।
@@ -666,6 +680,7 @@ bun run build # Or bun run dev
 </Tab>
 </Tabs>
 </Step>
+
 </Steps>
 
 ### TypeScript कॉन्फ़िगरेशन

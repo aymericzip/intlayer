@@ -145,22 +145,16 @@ bunx intlayer@canary init --interactive
 npm install intlayer astro-intlayer
 ```
 
-```bash packageManager="npm"
-npm install intlayer astro-intlayer
-# опціонально: якщо ви хочете додати підтримку React islands
-npm install react react-dom react-intlayer @astrojs/react
-```
-
 ```bash packageManager="pnpm"
 pnpm add intlayer astro-intlayer
-# опціонально: якщо ви хочете додати підтримку React islands
-pnpm add react react-dom react-intlayer @astrojs/react
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer astro-intlayer
-# опціонально: якщо ви хочете додати підтримку React islands
-yarn add react react-dom react-intlayer @astrojs/react
+```
+
+```bash packageManager="bun"
+bun add intlayer astro-intlayer
 ```
 
 - **intlayer**

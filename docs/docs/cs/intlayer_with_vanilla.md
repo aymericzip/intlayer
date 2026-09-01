@@ -412,7 +412,8 @@ const unsubscribe = useDictionaryDynamic(
 ```
 
 > Poznámka: `useDictionaryDynamic` vyžaduje, aby slovníky byly dostupné jako samostatné soubory ESM. Tento přístup se obvykle používá, pokud máte webový server obsluhující slovníky.
-> </Step>
+
+</Step>
 
 </Steps>
 

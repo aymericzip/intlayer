@@ -210,7 +210,7 @@ Se você encontrar problemas com o editor visual, verifique o seguinte:
   - Campos obrigatórios:
     - A URL da aplicação deve corresponder à que você configurou no editor (`applicationURL`).
 
-- O editor visual usa um iframe para exibir seu site. Certifique-se de que a Política de Segurança de Conteúdo (CSP) do seu site permita a URL do CMS como `frame-ancestors` ('http://localhost:8000' por padrão). Verifique o console do editor para quaisquer erros.
+- O editor visual usa um iframe para exibir seu site. Certifique-se de que a Política de Segurança de Conteúdo (CSP) do seu site permita a URL do CMS como `frame-ancestors` (`http://localhost:8000` por padrão). Verifique o console do editor para quaisquer erros.
 
 ## Perguntas Frequentes
 

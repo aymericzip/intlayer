@@ -444,7 +444,8 @@ bun x intlayer fill         # Eksik çevirileri doldurun
 ```
 
 > Daha fazla ayrıntı için [CLI belgelerine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/ci.md) bakın.
-> </Step>
+
+</Step>
 
 </Steps>
 

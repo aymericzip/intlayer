@@ -438,7 +438,8 @@ bun x intlayer fill         # Điền các bản dịch còn thiếu
 ```
 
 > Để biết thêm chi tiết, vui lòng tham khảo [tài liệu CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/ci.md)
-> </Step>
+
+</Step>
 
 </Steps>
 

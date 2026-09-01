@@ -83,6 +83,7 @@ author: aymericzip
 ## دليل خطوة بخطوة لإعداد Intlayer في تطبيق Next.js
 
 <Steps>
+
 <Step number={1} title="تثبيت التبعيات">
 
 قم بتثبيت الحزم اللازمة باستخدام npm:
@@ -136,6 +137,7 @@ bun add @intlayer/babel --dev
   الحزمة التي تدمج Intlayer مع Next.js. وتوفر موفري السياق (context providers) والخطافات للتدويل في Next.js. بالإضافة إلى ذلك، تتضمن الملحق لـ Next.js لدمج Intlayer مع [Webpack](https://webpack.js.org/) أو [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack)، بالإضافة إلى وسيط (middleware) لاكتشاف اللغة المفضلة للمستخدم، وإدارة ملفات تعريف الارتباط، ومعالجة إعادة توجيه عناوين URL.
 
 </Step>
+
 <Step number={2} title="تهيئة مشروعك">
 
 قم بإنشاء ملف تهيئة لتحديد لغات تطبيقك:
@@ -194,6 +196,7 @@ export default config;
 > من خلال ملف التهيئة هذا، يمكنك إعداد عناوين URL المحلية، وعمليات إعادة توجيه الوكيل، وأسماء ملفات تعريف الارتباط، وموقع وامتداد إعلانات المحتوى الخاصة بك، وتعطيل سجلات Intlayer في وحدة التحكم، والمزيد. للحصول على قائمة كاملة بالمعلمات المتاحة، راجع [توثيق التهيئة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
 
 </Step>
+
 <Step number={3} title="دمج Intlayer في تهيئة Next.js الخاصة بك">
 
 قم بتهيئة إعداد Next.js الخاص بك لاستخدام Intlayer:
@@ -210,6 +213,7 @@ export default withIntlayer(nextConfig);
 > يُستخدم ملحق Next.js `withIntlayer()` لدمج Intlayer مع Next.js. وهو يضمن بناء ملفات إعلام المحتوى ومراقبتها في وضع التطوير. يحدد متغيرات بيئة Intlayer داخل بيئات [Webpack](https://webpack.js.org/) أو [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack). بالإضافة إلى ذلك، يوفر أسماء مستعارة لتحسين الأداء ويضمن التوافق التام مع مكونات الخادم.
 
 </Step>
+
 <Step number={4} title="تكوين Babel">
 
 يتطلب مترجم Intlayer استخدام Babel لاستخراج المحتوى الخاص بك وتحسينه. قم بتحديث `babel.config.js` (أو `babel.config.json`) لتضمين إضافات Intlayer:
@@ -232,6 +236,7 @@ module.exports = {
 ```
 
 </Step>
+
 <Step number={5} title="اكتشاف اللغة في صفحاتك">
 
 قم بإخلاء محتوى `RootLayout` الخاص بك واستبدله بالمثال التالي:
@@ -276,6 +281,7 @@ export default RootLayout;
 ```
 
 </Step>
+
 <Step number={6} title="ترجمة مكوناتك برمجياً">
 
 مع تمكين المترجم، **لم تعد بحاجة** للإعلان عن قواميس المحتوى يدويًا (مثل ملفات `.content.ts`).
@@ -339,6 +345,7 @@ export default async function Page() {
 
 </Tab>
 </Tabs>
+
 <Tabs>
 <Tab label='Intlayer >=9.4' value='>=9.4'>
 
@@ -408,8 +415,11 @@ export default async function Page() {
   > Layout and page cannot share a common server context because the server context system is based on a per-request data store (via [React's cache](https://react.dev/reference/react/cache) mechanism), causing each "context" to be re-created for different segments of the application. Placing the provider in a shared layout would break this isolation, preventing the correct propagation of the server context values to your server components.
 
 </Tab>
+
 </Tabs>
+
 </Step>
+
 <Step number={7} title="ملء الترجمات المفقودة" isOptional={true}>
 
 يوفر Intlayer أداة CLI لمساعدتك في ملء الترجمات المفقودة. يمكنك استخدام الأمر `intlayer` لاختبار وملء الترجمات المفقودة من التعليمات البرمجية الخاصة بك.
@@ -449,6 +459,7 @@ bun x intlayer fill         # ملء الترجمات المفقودة
 > لمزيد من التفاصيل، راجع [وثائق CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/ci.md)
 
 </Step>
+
 <Step number={8} title="تهيئة وكيل التوجيه لاكتشاف اللغة" isOptional={true}>
 
 قم بتهيئة وسيط (middleware) للوكيل لاكتشاف لغة المستخدم المفضلة تلقائياً:
@@ -467,6 +478,7 @@ export const config = {
 > منذ Intlayer v9، يحترم هذا الـ middleware خيار `routing.enableProxy` (`true` بشكل افتراضي). اضبط `routing.enableProxy: false` في إعدادك لتحويله إلى pass-through دون إزالة هذا الملف. راجع [ملاحظات إصدار v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/releases/v9.md).
 
 </Step>
+
 <Step number={9} title="تغيير لغة المحتوى الخاص بك" isOptional={true}>
 
 لتغيير لغة المحتوى في Next.js، الطريقة الموصى بها هي استخدام مكون `Link` لإعادة توجيه المستخدمين إلى الصفحة المحلية المقابلة. يسمح مكون `Link` بالتحميل المسبق (prefetching) للصفحة، مما يساعد على تجنب تحديث الصفحة بالكامل.
@@ -518,6 +530,7 @@ export const LocaleSwitcher: FC = () => {
 > الطريقة البديلة هي استخدام وظيفة `setLocale` التي يوفرها خطاف `useLocale`. لن تسمح هذه الوظيفة بالتحميل المسبق للصفحة. راجع [وثائق خطاف `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/next-intlayer/useLocale.md) لمزيد من التفاصيل.
 
 </Step>
+
 <Step number={10} title="تحسين حجم البندل الخاصة بك" isOptional={true}>
 
 عند استخدام `next-intlayer` ، يتم تضمين القواميس في الحزمة لكل صفحة بشكل افتراضي. لتحسين حجم البندل ، يوفر Intlayer ملحق SWC اختيارياً يستبدل بذكاء استدعاءات `useIntlayer` باستخدام الماكرو. يضمن ذلك تضمين القواميس فقط في حزم الصفحات التي تستخدمها بالفعل.
@@ -549,6 +562,7 @@ bun add @intlayer/swc --dev
 > ملاحظة: إذا قمت بتعيين الخيار كـ `importMode: 'dynamic'` أو `importMode: 'fetch'` (في تهيئة `dictionary`) ، فسوف يعتمد على Suspense ، لذا سيتعين عليك لف استدعاءات `useIntlayer` بحدود `Suspense`. هذا يعني أنك لن تكون قادرًا على استخدام `useIntlayer` مباشرة في المستوى العلوي لمكون الصفحة / التخطيط الخاص بك.
 
 </Step>
+
 <Step number={11} title="استخراج محتوى مكوناتك" isOptional={true}>
 
 إذا كان لديك قاعدة بيانات كود موجودة، فقد يكون تحويل آلاف الملفات مستهلكًا للوقت.
@@ -664,6 +678,7 @@ bun run build # Or bun run dev
 </Tab>
 </Tabs>
 </Step>
+
 </Steps>
 
 ### إعداد TypeScript

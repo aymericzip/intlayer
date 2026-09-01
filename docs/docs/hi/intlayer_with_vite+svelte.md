@@ -370,7 +370,8 @@ Intlayer सीधे आपके Svelte एप्लिकेशन में 
 > आप `$content.markdownContent.metadata.xxx` property का उपयोग करके अपने markdown front-matter डेटा को भी access कर सकते हैं।
 
 > `intlayer` पैकेज का उपयोग क�
-> </Step>
+
+</Step>
 
 <Step number={8} title="intlayer संपादक / CMS सेट करें" isOptional={true}>
 

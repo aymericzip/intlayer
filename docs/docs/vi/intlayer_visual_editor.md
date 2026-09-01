@@ -219,7 +219,7 @@ Nếu bạn gặp bất kỳ vấn đề nào với trình chỉnh sửa trực 
   - Các trường bắt buộc:
     - URL ứng dụng nên khớp với URL bạn đã thiết lập trong cấu hình trình chỉnh sửa (`applicationURL`).
 
-- Trình chỉnh sửa trực quan sử dụng iframe để hiển thị trang web của bạn. Đảm bảo rằng Chính sách Bảo mật Nội dung (CSP) của trang web cho phép URL CMS trong `frame-ancestors` (mặc định là 'http://localhost:8000'). Kiểm tra bảng điều khiển của trình chỉnh sửa để xem có lỗi nào không.
+- Trình chỉnh sửa trực quan sử dụng iframe để hiển thị trang web của bạn. Đảm bảo rằng Chính sách Bảo mật Nội dung (CSP) của trang web cho phép URL CMS trong `frame-ancestors` (mặc định là `http://localhost:8000`). Kiểm tra bảng điều khiển của trình chỉnh sửa để xem có lỗi nào không.
 
 ## Các Câu Hỏi Thường Gặp
 

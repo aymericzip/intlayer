@@ -443,7 +443,8 @@ const unsubscribe = useDictionaryDynamic(
 ```
 
 > Nota: `useDictionaryDynamic` richiede che i dizionari siano disponibili come file ESM separati. Questo approccio viene in genere utilizzato se si dispone di un server web che serve i dizionari.
-> </Step>
+
+</Step>
 
 </Steps>
 

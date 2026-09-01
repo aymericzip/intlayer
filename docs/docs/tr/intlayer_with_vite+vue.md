@@ -510,9 +510,8 @@ const content = useIntlayer("app"); // İlgili intlayer bildirim dosyası oluşt
 <Step number={7} title="Uygulamanıza Yerelleştirilmiş Yönlendirme Ekleyin" isOptional={true}>
 
 Vue uygulamasında yerelleştirilmiş yönlendirme eklemek genellikle yerel ayar önekleriyle Vue Router kullanmayı içerir. Bu, her dil için benzersiz rotalar oluşturur, SEO ve SEO dostu URL'ler için kullanışlıdır.
-Örnek:
 
-Please provide:
+Örnek:
 
 ```plaintext
 - https://example.com/about
@@ -1129,7 +1128,7 @@ Uzantının nasıl kullanılacağı hakkında daha fazla ayrıntı için [Intlay
 
 Daha ileri gitmek için [görsel düzenleyiciyi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) uygulayabilir veya içeriğinizi [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) kullanarak dışa aktarabilirsiniz.
 
-Once you provide these blocks with their content, I'll perform the audit and return the fully updated Turkish translation following all the instructions you've outlined.---
+---
 
 ## Sıkça Sorulan Sorular
 

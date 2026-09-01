@@ -438,7 +438,8 @@ bun x intlayer fill         # 欠落した翻訳を埋める
 ```
 
 > 詳細については、[CLIドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/ci.md)を参照してください。
-> </Step>
+
+</Step>
 
 </Steps>
 

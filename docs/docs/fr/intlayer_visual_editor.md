@@ -210,7 +210,7 @@ Si vous rencontrez des problèmes avec l'éditeur visuel, vérifiez les points s
   - Champs obligatoires :
     - L'URL de l'application doit correspondre à celle que vous avez définie dans la configuration de l'éditeur (`applicationURL`).
 
-- L'éditeur visuel utilise une iframe pour afficher votre site web. Assurez-vous que la politique de sécurité du contenu (CSP) de votre site web autorise l'URL du CMS en tant que `frame-ancestors` ('http://localhost:8000' par défaut). Vérifiez la console de l'éditeur pour toute erreur.
+- L'éditeur visuel utilise une iframe pour afficher votre site web. Assurez-vous que la politique de sécurité du contenu (CSP) de votre site web autorise l'URL du CMS en tant que `frame-ancestors` (`http://localhost:8000` par défaut). Vérifiez la console de l'éditeur pour toute erreur.
 
 ## Questions fréquentes
 

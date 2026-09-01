@@ -443,7 +443,8 @@ const unsubscribe = useDictionaryDynamic(
 ```
 
 > Not: `useDictionaryDynamic`, sözlüklerin ayrı ESM dosyaları olarak mevcut olmasını gerektirir. Bu yaklaşım genellikle sözlükleri sunan bir web sunucunuz varsa kullanılır.
-> </Step>
+
+</Step>
 
 </Steps>
 

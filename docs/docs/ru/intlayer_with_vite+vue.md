@@ -1136,7 +1136,7 @@ Intlayer использует расширение модулей (module augmen
 
 Для расширения возможностей вы можете реализовать [визуальный редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md) или вынести ваш контент во внешний [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md).
 
-Please share the content blocks and I'll proceed with the audit.---
+---
 
 ## Часто задаваемые вопросы
 

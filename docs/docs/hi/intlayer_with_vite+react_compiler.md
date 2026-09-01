@@ -439,7 +439,8 @@ bun x intlayer fill         # लापता अनुवाद भरें
 ```
 
 > अधिक विवरण के लिए, [CLI दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/ci.md) देखें।
-> </Step>
+
+</Step>
 
 </Steps>
 

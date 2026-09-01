@@ -814,7 +814,8 @@ bun add @intlayer/swc --dev
 > Uwaga: Ta optymalizacja jest dostępna tylko dla Next.js 13 i nowszych wersji.
 
 > Uwaga: Ten pakiet nie jest instalowany domyślnie, ponieważ wtyczki SWC są nadal eksperymentalne w Next.js. Może się to zmienić w przyszłości.
-> </Step>
+
+</Step>
 
 </Steps>
 

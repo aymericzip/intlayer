@@ -508,8 +508,6 @@ const changeLocale = (event: Event) => {
 </div>
 ```
 
-Once you provide these, I'll audit the translation and return the fully updated Russian version following all the guidelines you've specified.
-
 </Step>
 
 <Step number={9} title="Интернационализированные ссылки" isOptional={true}>

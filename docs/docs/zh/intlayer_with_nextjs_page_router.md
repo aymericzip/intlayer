@@ -822,7 +822,8 @@ bun add @intlayer/swc --dev
 > 注意：此优化仅适用于 Next.js 13 及以上版本。
 
 > 注意：该包默认未安装，因为 SWC 插件在 Next.js 中仍处于实验阶段，未来可能会有所变化。
-> </Step>
+
+</Step>
 
 </Steps>
 

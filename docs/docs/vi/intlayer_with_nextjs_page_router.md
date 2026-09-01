@@ -817,7 +817,8 @@ bun add @intlayer/swc --dev
 > Lưu ý: Tối ưu hóa này chỉ có sẵn cho Next.js 13 trở lên.
 
 > Lưu ý: Gói này không được cài đặt mặc định vì các plugin SWC vẫn đang trong giai đoạn thử nghiệm trên Next.js. Điều này có thể thay đổi trong tương lai.
-> </Step>
+
+</Step>
 
 </Steps>
 

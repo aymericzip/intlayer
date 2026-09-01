@@ -219,7 +219,7 @@ Jeśli napotkasz jakiekolwiek problemy z edytorem wizualnym, sprawdź następuj�
   - Wymagane pola:
 - URL aplikacji powinien odpowiadać temu, który ustawiłeś w konfiguracji edytora (`applicationURL`).
 
-- Edytor wizualny używa iframe do wyświetlania Twojej strony internetowej. Upewnij się, że Polityka Bezpieczeństwa Treści (CSP) Twojej strony pozwala na adres URL CMS jako `frame-ancestors` (domyślnie 'http://localhost:8000'). Sprawdź konsolę edytora pod kątem błędów.
+- Edytor wizualny używa iframe do wyświetlania Twojej strony internetowej. Upewnij się, że Polityka Bezpieczeństwa Treści (CSP) Twojej strony pozwala na adres URL CMS jako `frame-ancestors` (domyślnie `http://localhost:8000`). Sprawdź konsolę edytora pod kątem błędów.
 
 ## Często Zadawane Pytania
 

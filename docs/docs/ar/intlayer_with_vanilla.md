@@ -443,7 +443,8 @@ const unsubscribe = useDictionaryDynamic(
 ```
 
 > ملاحظة: يتطلب `useDictionaryDynamic` توفر القواميس كملفات ESM منفصلة. يتم استخدام هذا النهج عادةً إذا كان لديك خادم ويب يقدم القواميس.
-> </Step>
+
+</Step>
 
 </Steps>
 

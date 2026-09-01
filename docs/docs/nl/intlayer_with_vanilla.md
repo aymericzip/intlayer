@@ -412,7 +412,8 @@ const unsubscribe = useDictionaryDynamic(
 ```
 
 > Opmerking: `useDictionaryDynamic` vereist dat de woordenboeken beschikbaar zijn als afzonderlijke ESM-bestanden. Deze aanpak wordt doorgaans gebruikt als je een webserver hebt die de woordenboeken serveert.
-> </Step>
+
+</Step>
 
 </Steps>
 

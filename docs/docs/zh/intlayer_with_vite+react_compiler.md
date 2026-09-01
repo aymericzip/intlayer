@@ -441,7 +441,8 @@ bun x intlayer fill         # 填充缺失的翻译
 ```
 
 > 有关更多详细信息，请参阅 [CLI 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/ci.md)
-> </Step>
+
+</Step>
 
 </Steps>
 

@@ -412,7 +412,8 @@ const unsubscribe = useDictionaryDynamic(
 ```
 
 > نوٹ: `useDictionaryDynamic` کے لیے لغات کا علیحدہ ESM فائلوں کے طور پر دستیاب ہونا ضروری ہے۔ یہ طریقہ عام طور پر تب استعمال ہوتا ہے جب آپ کے پاس لغات پیش کرنے والا ویب سرور ہوتا ہے۔
-> </Step>
+
+</Step>
 
 </Steps>
 

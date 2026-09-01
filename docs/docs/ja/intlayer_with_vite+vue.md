@@ -1149,7 +1149,7 @@ Intlayer での開発体験を向上させるために、公式の **Intlayer VS
 
 さらに進むには、[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を実装するか、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)を使用してコンテンツを外部化することができます。
 
-Please paste the content and I'll proceed with the audit.---
+---
 
 ## よくある質問
 

@@ -443,7 +443,8 @@ const unsubscribe = useDictionaryDynamic(
 ```
 
 > Lưu ý: `useDictionaryDynamic` yêu cầu các từ điển phải có sẵn dưới dạng các tệp ESM riêng biệt. Cách tiếp cận này thường được sử dụng nếu bạn có một máy chủ web phục vụ các từ điển.
-> </Step>
+
+</Step>
 
 </Steps>
 

@@ -449,7 +449,8 @@ const unsubscribe = useDictionaryDynamic(
 ```
 
 > 注意：`useDictionaryDynamic` 要求字典作为单独的 ESM 文件可用。如果您有一个 Web 服务器提供字典，通常会使用此方法。
-> </Step>
+
+</Step>
 
 </Steps>
 

@@ -210,7 +210,7 @@ Görsel düzenleyici ile herhangi bir sorunla karşılaşırsanız, aşağıdaki
   - Gerekli alanlar:
     - Uygulama URL'si düzenleyici yapılandırmasında ayarladığınızla eşleşmelidir (`applicationURL`).
 
-- Görsel düzenleyici web sitenizi görüntülemek için bir iframe kullanır. Web sitenizin İçerik Güvenlik Politikası'nın (CSP) CMS URL'sini `frame-ancestors` olarak izin verdiğinden emin olun (varsayılan olarak 'http://localhost:8000'). Herhangi bir hata için düzenleyici konsolunu kontrol edin.
+- Görsel düzenleyici web sitenizi görüntülemek için bir iframe kullanır. Web sitenizin İçerik Güvenlik Politikası'nın (CSP) CMS URL'sini `frame-ancestors` olarak izin verdiğinden emin olun (varsayılan olarak `http://localhost:8000`). Herhangi bir hata için düzenleyici konsolunu kontrol edin.
 
 ## Sıkça Sorulan Sorular
 

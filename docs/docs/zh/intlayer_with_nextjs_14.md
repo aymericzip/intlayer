@@ -966,7 +966,8 @@ bun add @intlayer/swc --dev
 > 注意：此包默认不安装，因为 SWC 插件在 Next.js 上仍处于实验阶段。未来可能会改变。
 
 > 注意：该包默认不安装，因为 SWC 插件在 Next.js 中仍处于实验阶段，未来可能会有所变化。
-> </Step>
+
+</Step>
 
 </Steps>
 

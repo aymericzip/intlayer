@@ -219,7 +219,7 @@ Jika Anda mengalami masalah dengan visual editor, periksa hal-hal berikut:
   - Field yang diperlukan:
     - URL aplikasi harus sesuai dengan yang Anda atur dalam konfigurasi editor (`applicationURL`).
 
-- Visual editor menggunakan iframe untuk menampilkan situs web Anda. Pastikan Content Security Policy (CSP) situs web Anda mengizinkan URL CMS sebagai `frame-ancestors` ('http://localhost:8000' secara default). Periksa konsol editor untuk setiap kesalahan.
+- Visual editor menggunakan iframe untuk menampilkan situs web Anda. Pastikan Content Security Policy (CSP) situs web Anda mengizinkan URL CMS sebagai `frame-ancestors` (`http://localhost:8000` secara default). Periksa konsol editor untuk setiap kesalahan.
 
 ## Pertanyaan yang Sering Diajukan
 

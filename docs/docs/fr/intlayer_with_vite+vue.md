@@ -1129,7 +1129,7 @@ Pour plus de détails sur l'utilisation de l'extension, consultez la [documentat
 
 Pour aller plus loin, vous pouvez implémenter l’[éditeur visuel](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md) ou externaliser votre contenu en utilisant le [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md).
 
-Please share the content blocks.---
+---
 
 ## Questions fréquentes
 

@@ -438,7 +438,8 @@ bun x intlayer fill         # Isi terjemahan yang hilang
 ```
 
 > Untuk detail lebih lanjut, silakan merujuk ke [dokumentasi CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/ci.md)
-> </Step>
+
+</Step>
 
 </Steps>
 

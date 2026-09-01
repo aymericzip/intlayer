@@ -210,7 +210,7 @@ Wenn Sie Probleme mit dem visuellen Editor haben, überprüfen Sie Folgendes:
   - Erforderliche Felder:
     - Die Anwendungs-URL sollte mit der übereinstimmen, die Sie in der Editor-Konfiguration (`applicationURL`) festgelegt haben.
 
-- Der visuelle Editor verwendet ein iframe, um Ihre Website anzuzeigen. Stellen Sie sicher, dass die Content Security Policy (CSP) Ihrer Website die CMS-URL als `frame-ancestors` erlaubt (standardmäßig 'http://localhost:8000'). Überprüfen Sie die Konsole des Editors auf Fehler.
+- Der visuelle Editor verwendet ein iframe, um Ihre Website anzuzeigen. Stellen Sie sicher, dass die Content Security Policy (CSP) Ihrer Website die CMS-URL als `frame-ancestors` erlaubt (standardmäßig `http://localhost:8000`). Überprüfen Sie die Konsole des Editors auf Fehler.
 
 ## Häufig gestellte Fragen
 

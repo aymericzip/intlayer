@@ -260,7 +260,6 @@ export default preview;
 > `locale` の値は `intlayer.config.ts` で宣言されたロケールと一致する必要があります。
 
 </Step>
-
 </Steps>
 </Tab>
 <Tab value="Webpack Setup">

@@ -145,22 +145,16 @@ bunx intlayer@canary init --interactive
 npm install intlayer astro-intlayer
 ```
 
-```bash packageManager="npm"
-npm install intlayer astro-intlayer
-# 선택 사항: React 아일랜드 지원 추가 시
-npm install react react-dom react-intlayer @astrojs/react
-```
-
 ```bash packageManager="pnpm"
 pnpm add intlayer astro-intlayer
-# 선택 사항: React 아일랜드 지원 추가 시
-pnpm add react react-dom react-intlayer @astrojs/react
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer astro-intlayer
-# 선택 사항: React 아일랜드 지원 추가 시
-yarn add react react-dom react-intlayer @astrojs/react
+```
+
+```bash packageManager="bun"
+bun add intlayer astro-intlayer
 ```
 
 - **intlayer**
@@ -471,13 +465,14 @@ export const GET: APIRoute = ({ site }) => {
 
 선호하는 프레임워크를 사용하여 애플리케이션을 계속 빌드하세요.
 
-- Intlayer + React: [Intlayer with React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_vite+react.md)
-- Intlayer + Vue: [Intlayer with Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_vite+vue.md)
-- Intlayer + Svelte: [Intlayer with Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_vite+svelte.md)
-- Intlayer + Solid: [Intlayer with Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_vite+solid.md)
-- Intlayer + Preact: [Intlayer with Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_vite+preact.md)
-
-</Step>
+- Intlayer + React: [Intlayer with React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_astro_react.md)
+- Intlayer + Vue: [Intlayer with Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_astro_vue.md)
+- Intlayer + Svelte: [Intlayer with Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_astro_svelte.md)
+- Intlayer + Solid: [Intlayer with Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_astro_solid.md)
+- Intlayer + Preact: [Intlayer with Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_astro_preact.md)
+- Intlayer + Lit: [Intlayer with Lit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_astro_lit.md)
+- Intlayer + Vanilla JS: [Intlayer with Vanilla JS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_astro_vanilla.md)
+  </Step>
 
 <Step number={15} title="컴포넌트에서 콘텐츠 추출" isOptional={true}>
 
@@ -522,6 +517,9 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
+<Tabs>
+ <Tab value='Extract command'>
+
 extractor를 실행하여 컴포넌트를 변환하고 콘텐츠를 추출합니다
 
 ```bash packageManager="npm"
@@ -539,6 +537,9 @@ yarn intlayer extract
 ```bash packageManager="bun"
 bun x intlayer extract
 ```
+
+ </Tab>
+ <Tab value='Babel compiler'>
 
 > v9 이후로, `intlayerCompiler`는 `intlayer` 플러그인에 포함되어 있습니다. 따라서 수동으로 추가할 필요가 없습니다.
 
@@ -571,6 +572,9 @@ yarn build # 또는 yarn dev
 ```bash packageManager="bun"
 bun run build # 또는 bun run dev
 ```
+
+ </Tab>
+</Tabs>
 
 </Step>
 

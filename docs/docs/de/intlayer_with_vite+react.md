@@ -765,9 +765,8 @@ Link.displayName = "Link";
   Die Komponente gibt ein `<a>`-Element mit der lokalisierten URL zurück, wodurch sichergestellt wird, dass die Navigation konsistent mit der Spracheinstellung erfolgt.
 
 Indem Sie diese `Link`-Komponente in Ihrer gesamten Anwendung integrieren, gewährleisten Sie eine kohärente und sprachbewusste Benutzererfahrung und profitieren gleichzeitig von verbesserter SEO und Benutzerfreundlichkeit.
-</Step>
 
-Once you share the actual content, I'll perform a complete audit and provide the updated German translation following all the instructions you've outlined.
+</Step>
 
 <Step number={11} title="Inhalt Ihrer Komponenten extrahieren" isOptional={true}>
 

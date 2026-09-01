@@ -799,7 +799,8 @@ bun add @intlayer/swc --dev
 > Catatan: Paket ini tidak terpasang secara default karena plugin SWC masih eksperimental pada Next.js. Hal ini dapat berubah di masa depan.
 
 > Catatan: Jika Anda mengatur opsi sebagai `importMode: 'dynamic'` atau `importMode: 'fetch'`, itu akan bergantung pada Suspense, jadi Anda harus membungkus pemanggilan `useIntlayer` Anda dalam boundary `Suspense`. Artinya, Anda tidak akan dapat menggunakan `useIntlayer` langsung di tingkat atas komponen Page / Layout Anda.
-> </Step>
+
+</Step>
 
 </Steps>
 

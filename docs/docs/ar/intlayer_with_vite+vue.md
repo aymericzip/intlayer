@@ -1137,7 +1137,7 @@ console.log("SEO files generated successfully.");
 
 للتقدم أكثر، يمكنك تنفيذ [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) أو إخراج محتواك باستخدام [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md).
 
-Once you share these, I'll perform the complete audit and return the fully updated Arabic content with proper formatting.---
+---
 
 ## الأسئلة الشائعة
 

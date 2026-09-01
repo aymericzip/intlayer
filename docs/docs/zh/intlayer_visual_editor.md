@@ -210,7 +210,7 @@ pnpm intlayer-editor start -e development
   - 必需字段：
     - 应用程序 URL 应与您在编辑器配置中设置的 URL (`applicationURL`) 匹配。
 
-- 可视化编辑器使用 iframe 来显示您的网站。请确保您网站的内容安全策略（CSP）允许将 CMS URL 作为 `frame-ancestors`（默认值为 'http://localhost:8000'）。如有错误，请检查编辑器控制台。
+- 可视化编辑器使用 iframe 来显示您的网站。请确保您网站的内容安全策略（CSP）允许将 CMS URL 作为 `frame-ancestors`（默认值为 `http://localhost:8000`）。如有错误，请检查编辑器控制台。
 
 ## 常见问题
 

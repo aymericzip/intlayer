@@ -1053,7 +1053,8 @@ bun add @intlayer/swc --dev
 > Not: Bu paket varsayı alan olarak kurulmaz çünkü SWC eklentileri Next.js'te hala deneyseldir. Gelecekte değişebilir.
 
 > Not: Eğer seçeneği `importMode: 'dynamic'` veya `importMode: 'fetch'` olarak ayarlarsanız (sözlük yapılandırmasında), Suspense'e dayanacaktır, bu nedenle `useIntlayer` çağrılarınızı bir `Suspense` sınırıyla sarmalamanız gerekecektir. Bu, `useIntlayer`'ı doğrudan Sayfa / Düzen bileşeninizin en üst düzeyinde kullanamayacağınız anlamına gelir.
-> </Step>
+
+</Step>
 
 </Steps>
 
