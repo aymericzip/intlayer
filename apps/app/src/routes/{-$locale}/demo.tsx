@@ -91,6 +91,8 @@ function DemoPage() {
             padding="xl"
             roundedSize="3xl"
             transparency="xs"
+            border
+            borderColor="neutral"
           >
             <div className="flex flex-col gap-3 text-center">
               <h1 className="font-extrabold text-2xl">{content.title}</h1>
@@ -112,7 +114,7 @@ function DemoPage() {
               </Button>
               <Button
                 className="flex-1"
-                color="primary"
+                color="text"
                 isLoading={isLoadingDemoSession}
                 label={content.loadDemoSession.value}
                 onClick={loadDemoSession}
