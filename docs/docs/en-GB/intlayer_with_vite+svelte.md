@@ -68,7 +68,6 @@ author: aymericzip
 Compared to main solutions like `svelte-i18n` or `i18next`, Intlayer is a solution that comes with integrated optimizations such as:
 
 <AccordionGroup>
-
 <Accordion header="Full Svelte coverage">
 
 Intlayer is optimized to work perfectly with Svelte by offering **component-level content scoping**, **reactive translations**, and all the features needed for scaling internationalization (i18n).
@@ -350,7 +349,6 @@ Intlayer supports rendering Markdown content directly in your Svelte application
 ```
 
 > You can also access your markdown front-matter data using the `content.markdownContent.metadata.xxx` property.
-> </Step>
 
 </Step>
 
@@ -582,9 +580,6 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-<Tabs>
- <Tab value='Extract command'>
-
 Run the extractor to transform your components and extract the content
 
 ```bash packageManager="npm"
@@ -602,9 +597,6 @@ yarn intlayer extract
 ```bash packageManager="bun"
 bun x intlayer extract
 ```
-
-</Tab>
- <Tab value='Babel compiler'>
 
 > Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
 
@@ -638,8 +630,6 @@ yarn build # Or yarn dev
 bun run build # Or bun run dev
 ```
 
-</Tab>
-</Tabs>
 </Step>
 
 </Steps>

@@ -275,6 +275,8 @@ Bunu yapmak için `.gitignore` dosyanıza aşağıdaki talimatları ekleyebilirs
 - **`nestjs-i18n`**: popüler NestJS modülü, JSON ve YAML dosyaları kullanır.
 - **`Intlayer`**: bağımlılık enjeksiyonu (DI) ve interceptor mimarisine tam uyumlu, derleme zamanında tiplenen, AI çevirili ve ön yüzle ortak sözlük paylaşan modern çözüm.
 
+Arka ucu uluslararasılaştırmanın temel nedeni, bir kullanıcının okuduğu metinlerin büyük bir kısmının hiçbir zaman ön yüzden geçmemesidir: API hata mesajları, işlemsel e-postalar, anlık bildirimler, SMS ve PDF dışa aktarımları. Bunlar, oturum başına değil istek başına çözümlenen alıcının diline ihtiyaç duyar.
+
 Bkz. [neden Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/interest_of_intlayer.md).
 
 </Question>

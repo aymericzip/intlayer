@@ -143,8 +143,6 @@ Jika perubahan dilakukan menggunakan CLI untuk menerjemahkan JSON, atau mengguna
 
 Untuk melihat lebih detail tentang plugin `syncJSON`, silakan merujuk ke [dokumentasi plugin syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/plugins/sync-json.md).
 
----
-
 </Step>
 
 <Step number={3} title="Implementasikan terjemahan JSON per-komponen">
@@ -188,8 +186,6 @@ export default config;
 ```
 
 Ini akan memuat semua file JSON di direktori `src` yang cocok dengan pola `{key}.i18n.json` dan memuatnya sebagai kamus Intlayer.
-
----
 
 </Step>
 

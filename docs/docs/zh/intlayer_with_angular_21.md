@@ -42,24 +42,23 @@ author: aymericzip
 与“ngx-translate”或“angular-l10n”等主要解决方案相比，Intlayer 是一个具有集成优化的解决方案，例如：
 
 <AccordionGroup>
-
-**完整的角度覆盖**
+<Accordion header="完整的角度覆盖">
 
 Intlayer 经过优化，可与 Angular 完美配合，提供**组件级内容范围**、**延迟加载翻译**以及​​扩展国际化 (i18n) 所需的所有功能。
 
 </Accordion>
 
-**捆绑尺寸**
+<Accordion header="捆绑尺寸">
 
 不要将大量 JSON 文件加载到页面中，而只需加载必要的内容。 Intlayer 有助于**将捆绑包和页面大小减少多达 50%**。
 
 </Accordion>
 
-**可维护性**
+<Accordion header="可维护性">
 
 确定应用程序内容的范围**有利于大型应用程序的维护**。您可以复制或删除单个功能文件夹，而无需承担检查整个内容代码库的精神负担。此外，Intlayer 具有**完全类型化 (fully typed)**，以确保您的内容的准确性。
 
-**人工智能代理**
+</Accordion>
 
 <Accordion header="AI Agent">
 
@@ -67,17 +66,17 @@ Intlayer 经过优化，可与 Angular 完美配合，提供**组件级内容范
 
 </Accordion>
 
-**自动化**
+<Accordion header="自动化">
 
 使用您选择的法学硕士，通过自动化在 CI/CD 管道中进行翻译，而费用由您的 AI 提供商承担。 Intlayer 还提供了一个**编译器**来自动提取内容，以及一个[网络平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)来帮助**在后台翻译**。
 
 </Accordion>
 
-**表现**
+<Accordion header="表现">
 
 将大量 JSON 文件连接到组件可能会导致性能和反应性问题。 Intlayer 可在构建时 (build time)优化您的内容加载。
 
-**无需开发即可扩展**
+</Accordion>
 
 <Accordion header="使用 none-dev 进行扩展">
 

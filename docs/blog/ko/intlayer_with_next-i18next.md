@@ -141,8 +141,6 @@ CLI를 사용하여 JSON을 번역하거나 CMS를 사용하여 변경 사항이
 
 `syncJSON` 플러그인에 대한 자세한 내용은 [syncJSON 플러그인 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/plugins/sync-json.md)를 참조하세요.
 
----
-
 </Step>
 
 <Step number={3} title="컴포넌트별 JSON 번역 구현" isOptional={true}>
@@ -185,8 +183,6 @@ export default config;
 ```
 
 이 설정은 `src` 디렉토리 내에서 `{key}.i18n.json` 패턴과 일치하는 모든 JSON 파일을 로드하여 Intlayer 사전으로 불러옵니다.
-
----
 
 </Step>
 

@@ -50,22 +50,21 @@ author: aymericzip
 「react-i18next」や「i18next」などの主要なソリューションと比較して、Intlayer は次のような統合された最適化を備えたソリューションです。
 
 <AccordionGroup>
-
-**React Router を完全にカバー**
+<Accordion header="React Router を完全にカバー">
 
 Intlayer は、**ロケール対応ルーティング**、**ロケール検出用のミドルウェア**、およびスケーリング国際化 (i18n) に必要なすべての機能を提供することにより、React Router と完全に連携するように最適化されています。
 
-**バンドルサイズ**
+</Accordion>
 
 <Accordion header="Bundle size">
 
 大量の JSON ファイルをページにロードするのではなく、必要なコンテンツのみをロードします。 Intlayer は、**バンドルとページのサイズを最大 50% 削減**するのに役立ちます。
 
-**保守性**
+</Accordion>
+
+<Accordion header="保守性">
 
 アプリケーションのコンテンツのスコープを設定すると、大規模なアプリケーションの **メンテナンスが容易になります**。コンテンツ コードベース全体を確認するという精神的な負担を負うことなく、単一の機能フォルダーを複製または削除できます。さらに、Intlayer は**完全に型指定**されており、コンテンツの正確性を保証します。
-
-**AI エージェント**
 
 </Accordion>
 
@@ -73,19 +72,19 @@ Intlayer は、**ロケール対応ルーティング**、**ロケール検出�
 
 コンテンツを同じ場所に配置すると、大規模言語モデル (LLM) によって **必要なコンテキストが削減**されます。 Intlayer には、翻訳の欠落をテストする **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** などのツール スイートも付属しています。および **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)** により、AI エージェントの開発者エクスペリエンス (DX) がさらにスムーズになります。
 
-**オートメーション**
+</Accordion>
 
 <Accordion header="オートメーション">
 
 AI プロバイダーの費用で、選択した LLM を使用して CI/CD パイプラインで自動化を変換します。 Intlayer は、コンテンツ抽出を自動化する **コンパイラー** と、**バックグラウンドでの翻訳**を支援する [Web プラットフォーム](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) も提供します。
 
-**パフォーマンス**
+</Accordion>
 
 <Accordion header="パフォーマンス">
 
 大量の JSON ファイルをコンポーネントに接続すると、パフォーマンスと反応性の問題が発生する可能性があります。 Intlayer は、ビルド時のコンテンツの読み込みを最適化します。
 
-**非開発によるスケーリング**
+</Accordion>
 
 <Accordion header="非開発環境でのスケーリング">
 
@@ -598,7 +597,7 @@ export const LocaleSwitcher: FC = () => {
 
 </Step>
 
-<Step number={10} title="HTML属性の管理を追加（オプション）">
+<Step number={9} title="HTML属性の管理を追加（オプション）">
 
 HTMLのlang属性とdir属性を管理するフックを作成します：
 
@@ -620,6 +619,8 @@ export const useI18nHTMLAttributes = () => {
 このhookは、ステップ5で示されたlayoutコンポーネント (`($locale)._layout.tsx`) で既に使用されています。
 
 </Step>
+
+<Step number={10} title="Add middleware">
 
 このフックは、ステップ5で示したレイアウトコンポーネント（`root.tsx`）で既に使用されています。
 
@@ -649,7 +650,7 @@ export default defineConfig({
 
 </Step>
 
-<Step number={1} title="コンポーネントのコンテンツを抽出する" isOptional={true}>
+<Step number={11} title="コンポーネントのコンテンツを抽出する" isOptional={true}>
 
 既存のコードベースがある場合、数千のファイルを変換するのは時間がかかることがあります。
 
@@ -688,9 +689,6 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-<Tabs>
- <Tab value='抽出コマンド'>
-
 コンポーネントを変換してコンテンツを抽出するためにエクストラクタを実行します
 
 ```bash packageManager="npm"
@@ -708,9 +706,6 @@ yarn intlayer extract
 ```bash packageManager="bun"
 bun x intlayer extract
 ```
-
- </Tab>
- <Tab value='Babelコンパイラ'>
 
 > Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
 
@@ -743,11 +738,6 @@ yarn build # または yarn dev
 ```bash packageManager="bun"
 bun run build # Or bun run dev
 ```
-
- </Tab>
-</Tabs>
-
----
 
 </Step>
 

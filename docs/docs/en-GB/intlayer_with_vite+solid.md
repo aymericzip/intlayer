@@ -69,7 +69,6 @@ author: aymericzip
 Compared to main solutions like `@solid-primitives/i18n` or `i18next`, Intlayer is a solution that comes with integrated optimizations such as:
 
 <AccordionGroup>
-
 <Accordion header="Full Solid coverage">
 
 Intlayer is optimized to work perfectly with Solid by offering **component-level content scoping**, **reactive translations**, and all the features needed for scaling internationalization (i18n).
@@ -570,6 +569,9 @@ bun x intlayer extract
 
 Then you can use it in your components:
 
+ </Tab>
+ <Tab value='Babel compiler'>
+
 > Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
 
 Update your `vite.config.ts` to include the `intlayerCompiler` plugin:
@@ -604,6 +606,9 @@ yarn build # Or yarn dev
 ```bash packageManager="bun"
 bun run build # Or bun run dev
 ```
+
+ </Tab>
+</Tabs>
 
 </Step>
 

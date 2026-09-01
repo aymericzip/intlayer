@@ -70,7 +70,6 @@ author: aymericzip
 Dibandingkan dengan solusi utama seperti `next-intl` atau `i18next`, Intlayer adalah solusi yang hadir dengan pengoptimalan terintegrasi seperti:
 
 <AccordionGroup>
-
 <Accordion header="Cakupan lengkap Next.js">
 
 Intlayer dioptimalkan untuk bekerja dengan **Komponen Server** untuk rendering yang efisien dan sepenuhnya kompatibel dengan [**Turbopack**](https://nextjs.org/docs/architecture/turbopack). Itu tidak memblokir rendering statis dan menawarkan middleware serta semua fitur yang diperlukan untuk penskalaan internasionalisasi (i18n).
@@ -231,6 +230,8 @@ export default withIntlayer(nextConfig);
 <Step number={4} title="Konfigurasikan Middleware untuk Deteksi Locale">
 
 Siapkan middleware untuk secara otomatis mendeteksi dan menangani locale yang dipilih pengguna:
+
+> Sejak Intlayer v9, middleware ini menghormati opsi `routing.enableProxy` (`true` secara default). Atur `routing.enableProxy: false` dalam konfigurasi Anda untuk mengubahnya menjadi pass-through tanpa menghapus file ini. Lihat [catatan rilis v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/releases/v9.md).
 
 ```typescript fileName="src/middleware.ts" codeFormat={["typescript", "esm", "commonjs"]}
 export { intlayerProxy as middleware } from "next-intlayer/middleware";
@@ -885,6 +886,8 @@ Untuk melangkah lebih jauh, Anda dapat mengimplementasikan [editor visual](https
 
 <Question title="Apa saja solusi berbeda yang tersedia untuk menginternasionalkan aplikasi Next.js Pages Router?">
 
+Pages Router masih mendukung field `i18n` bawaan dari `next.config.js`, tetapi ini hanya menangani routing dan deteksi locale, bukan terjemahan itu sendiri, jadi Anda tetap memilih lapisan konten:
+
 - **`next-intl`**: library pesan populer untuk App Router, memuat file JSON di runtime.
 - **`next-i18next`**: solusi standar untuk Pages Router.
 - **`Intlayer`**: solusi paling canggih. Konten dideklarasikan di sebelah komponen, dikompilasi saat build time, memiliki typing TypeScript ketat, terjemahan AI, visual editor, dan CMS.
@@ -913,9 +916,11 @@ Ya. Plugin [sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/doc
 
 <Question title="Apakah saya harus memindahkan konten saya key by key?">
 
-Tidak. Jalankan `npx intlayer extract` dan Intlayer membaca file sumber Anda, mengeluarkan string yang dihadapi pengguna, dan menulis file `.content` di sebelah masing-masing, sehingga Anda meninjau diff alih-alih menyalin string ke dalam katalog satu per satu. Lihat [perintah extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/extract.md).
+Tidak. Jalankan `npx intlayer extract` dan Intlayer membaca komponen Anda, mengeluarkan string yang dilihat pengguna, dan menulis file `.content` di sebelah masing-masing, sehingga Anda meninjau diff alih-alih menyalin string ke dalam katalog satu per satu.
 
-Untuk proses otomatis penuh, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md) melakukan hal yang sama saat build time pada kode JSX, TSX, Vue dan Svelte, menghasilkan kamus pada setiap perubahan tanpa perlu memelihara kunci secara manual. Karena bekerja melalui analisis statis, string yang hanya ada di runtime tetap berada di luar jangkauannya.
+Untuk proses otomatis penuh, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md) melakukan hal yang sama saat build time: memindai kode JSX, TSX, Vue dan Svelte pada setiap perubahan, menghasilkan kamus, dan menyinkronkannya dengan HMR, sehingga tidak ada kunci yang perlu dikelola secara manual.
+
+Dua batasan perlu diketahui sebelum Anda mengaktifkan compiler. Ini bekerja dengan analisis statis, jadi string yang hanya ada saat runtime, seperti kode kesalahan API atau field CMS, tetap berada di luar jangkauan. Dan ini harus membedakan teks yang dilihat pengguna dari logika aplikasi seperti `className="active"` atau kode status, yang memerlukan beberapa anotasi di basis kode yang besar. [Perintah extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/extract.md) menghindari keduanya dengan menjaga Anda tetap memegang kendali.
 
 </Question>
 

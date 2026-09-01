@@ -50,7 +50,6 @@ Para roteamento do lado do cliente, consulte o guia [Intlayer com React Router v
 Comparado com soluções principais como `react-i18next` ou `i18next`, Intlayer é uma solução que vem com otimizações integradas como:
 
 <AccordionGroup>
-
 <Accordion header="Cobertura completa do roteador React">
 
 O Intlayer é otimizado para funcionar perfeitamente com o React Router, oferecendo **roteamento com reconhecimento de localidade**, **middleware para detecção de localidade** e todos os recursos necessários para dimensionar a internacionalização (i18n).
@@ -738,8 +737,6 @@ bun run build # Or bun run dev
 
  </Tab>
 </Tabs>
-
----
 
 </Step>
 

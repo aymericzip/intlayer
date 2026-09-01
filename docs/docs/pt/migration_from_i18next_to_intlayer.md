@@ -27,7 +27,6 @@ author: aymericzip
 ## Por que migrar de i18next para Intlayer?
 
 <AccordionGroup>
-
 <Accordion header="Tamanho do pacote (Bundle size)">
 
 Em vez de carregar enormes arquivos JSON em suas páginas, carregue apenas o conteúdo necessário. Intlayer ajuda você a **reduzir o tamanho do pacote e da página em até 50%**.
@@ -65,7 +64,6 @@ Conectar enormes arquivos JSON aos componentes pode levar a problemas de desempe
 Muito mais que apenas uma solução i18n, o Intlayer fornece um **[editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md)** auto-hospedável e um **[CMS completo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md)** para ajudá-lo a gerenciar seu conteúdo multilíngue em **tempo real**, tornando perfeita a colaboração com tradutores, redatores e outros membros da equipe. O conteúdo pode ser armazenado local e/ou remotamente.
 
 </Accordion>
-
 </AccordionGroup>
 
 ---

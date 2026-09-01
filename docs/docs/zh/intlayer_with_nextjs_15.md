@@ -536,7 +536,7 @@ export const ClientComponentExample: FC = () => {
 
 > `next-intlayer` 是同构导入路径：`react-server` 导出条件为服务器组件提供环境区域设置实现，而客户端组件获得上下文支持的实现。相同的调用在两侧都有效。
 
- </Tab>
+<Tabs>
  <Tab label='Intlayer <9.4' value='<9.4'>
 
 ```tsx {2} fileName="src/components/ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}

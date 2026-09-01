@@ -29,7 +29,6 @@ author: aymericzip
 ## 为什么从 @nuxtjs/i18n 迁移到 Intlayer？
 
 <AccordionGroup>
-
 <Accordion header="Bundle 大小">
 
 不再需要将庞大的 JSON 文件加载到页面中，只加载必要的内容。Intlayer 帮助您**将 bundle 和页面大小减少高达 50%**。
@@ -67,7 +66,6 @@ Intlayer 也是 i18n 生态系统中**开发最活跃的**解决方案 — 问�
 Intlayer 不仅仅是一个 i18n 解决方案，它还提供**自托管的[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)**和**[完整 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)**，帮助您**实时**管理多语言内容，使与翻译人员、文案人员和其他团队成员的协作无缝衔接。内容可以存储在本地和/或远程。
 
 </Accordion>
-
 </AccordionGroup>
 
 ---

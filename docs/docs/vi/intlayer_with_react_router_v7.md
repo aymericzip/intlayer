@@ -54,7 +54,6 @@ Hướng dẫn này tập trung vào frontend routing. Đối với fs-routes ro
 So với các giải pháp chính như `react-i18next` hay `i18next`, Intlayer là giải pháp đi kèm với các tính năng tối ưu hóa tích hợp như:
 
 <AccordionGroup>
-
 <Accordion header="Phạm vi phủ sóng đầy đủ của Bộ định tuyến React">
 
 Intlayer được tối ưu hóa để hoạt động hoàn hảo với React Router bằng cách cung cấp **định tuyến nhận biết ngôn ngữ**, **phần mềm trung gian để phát hiện ngôn ngữ** và tất cả các tính năng cần thiết để mở rộng quy mô quốc tế hóa (i18n).
@@ -698,8 +697,6 @@ bun run build # Or bun run dev
  </Tab>
 </Tabs>
 
----
-
 </Step>
 
 </Steps>
@@ -775,6 +772,8 @@ Hướng dẫn toàn diện này cung cấp tất cả những gì bạn cần �
 
 <Question title="Những giải pháp khác nhau nào có sẵn để quốc tế hóa ứng dụng React Router v7?">
 
+React Router v7 không cung cấp lớp thông báo nào, vì vậy bạn kết hợp nó với một thư viện i18n:
+
 - **`react-i18next`**: thư viện phổ biến tải namespace JSON ở runtime.
 - **`react-intl`**: giải pháp dựa trên định dạng ICU.
 - **`Intlayer`**: khai báo nội dung cạnh component, biên dịch thời điểm build, hỗ trợ SSR và loaders, kiểm tra kiểu TypeScript đầy đủ, dịch thuật AI và visual editor.
@@ -803,9 +802,11 @@ Có. Plugin [sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/do
 
 <Question title="Tôi có phải di chuyển nội dung từng khóa một không?">
 
-Không. Chạy `npx intlayer extract` và Intlayer sẽ đọc các tệp nguồn của bạn, trích xuất các chuỗi dành cho người dùng và tạo tệp `.content` bên cạnh mỗi tệp, nhờ đó bạn chỉ cần xem lại diff thay vì sao chép chuỗi vào catalog thủ công. Xem [lệnh extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/extract.md).
+Không. Chạy `npx intlayer extract` và Intlayer sẽ đọc các component của bạn, trích xuất các chuỗi dành cho người dùng và tạo tệp `.content` bên cạnh mỗi component, nhờ đó bạn xem lại diff thay vì sao chép chuỗi vào catalog thủ công. Bước 12 của hướng dẫn này mô tả chi tiết.
 
-Để tự động hóa hoàn toàn, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md) thực hiện việc tương tự trong quá trình build trên mã JSX, TSX, Vue và Svelte, tạo từ điển trên mỗi thay đổi mà không cần quản lý khóa thủ công.
+Để tự động hóa hoàn toàn, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md) thực hiện việc tương tự trong quá trình build: quét mã nguồn JSX, TSX, Vue và Svelte trên mỗi thay đổi, tạo từ điển và đồng bộ hóa với HMR, do đó hoàn toàn không có khóa nào cần duy trì thủ công.
+
+Hai giới hạn đáng lưu ý trước khi bạn bật compiler. Nó hoạt động bằng phân tích tĩnh, do đó các chuỗi chỉ tồn tại khi runtime, chẳng hạn như mã lỗi API hoặc các trường CMS, nằm ngoài phạm vi tiếp cận. Và nó phải phân biệt văn bản hiển thị cho người dùng với logic ứng dụng như `className="active"` hoặc mã trạng thái, điều này cần một vài chú thích trong một codebase lớn. [Lệnh extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/extract.md) tránh cả hai điều này bằng cách giữ bạn luôn kiểm soát.
 
 </Question>
 

@@ -143,8 +143,6 @@ Se alterações forem feitas usando o CLI para traduzir o JSON, ou usando o CMS,
 
 Para ver mais detalhes sobre o plugin `syncJSON`, por favor consulte a [documentação do plugin syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/plugins/sync-json.md).
 
----
-
 </Step>
 
 <Step number={3} title="Implementar traduções JSON por componente" isOptional={true}>
@@ -188,8 +186,6 @@ export default config;
 ```
 
 Isso carregará todos os arquivos JSON no diretório `src` que correspondem ao padrão `{key}.i18n.json` e os carregará como dicionários do Intlayer.
-
----
 
 </Step>
 

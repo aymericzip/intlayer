@@ -63,7 +63,6 @@ author: aymericzip
 So với các giải pháp chính như `i18next` hay `i18n.js`, Intlayer là giải pháp đi kèm với các tính năng tối ưu hóa tích hợp như:
 
 <AccordionGroup>
-
 <Accordion header="Phạm vi bảo hiểm đầy đủ của Vanilla JS">
 
 Intlayer được tối ưu hóa để hoạt động hoàn hảo với Vanilla JavaScript bằng cách cung cấp **quản lý nội dung không phụ thuộc vào khung**, **hỗ trợ TypeScript** và tất cả các tính năng cần thiết để mở rộng quy mô quốc tế hóa (i18n).

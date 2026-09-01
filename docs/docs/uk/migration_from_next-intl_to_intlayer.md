@@ -28,7 +28,6 @@ author: aymericzip
 ## Чому мігрувати з next-intl на Intlayer?
 
 <AccordionGroup>
-
 <Accordion header="Розмір bundle">
 
 Замість завантаження масивних JSON файлів на ваші сторінки, завантажуйте лише необхідний вміст. Intlayer допомагає **зменшити розміри bundle та сторінок на 50%**.
@@ -66,7 +65,6 @@ Intlayer також є рішенням з **найбільш активною �
 Більше ніж просто i18n рішення, Intlayer надає **самостійно розміщений [редактор видимості](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md)** та **[повну CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)** для допомоги в управлінні вашим багатомовним вмістом в **реальному часі**, що робить співпрацю з перекладачами, копірайтерами та іншими членами команди безпроблемною. Вміст може зберігатися локально та/або віддалено.
 
 </Accordion>
-
 </AccordionGroup>
 
 ---

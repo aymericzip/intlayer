@@ -30,7 +30,6 @@ author: aymericzip
 ## Чому мігрувати з next-i18next на Intlayer?
 
 <AccordionGroup>
-
 <Accordion header="Розмір bundle">
 
 Замість завантаження великих JSON-файлів на ваші сторінки, завантажуйте лише необхідний контент. Intlayer допомагає **зменшити розмір вашого bundle та сторінок на до 50%**.
@@ -68,7 +67,6 @@ Intlayer також є рішенням з **найбільш активною �
 Більше, ніж просто рішення i18n, Intlayer забезпечує **самостійно розміщений [редактор інтерфейсу](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md)** та **[повноцінну CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)** для допомоги вам у керуванні вашим багатомовним контентом у **реальному часі**, що робить співпрацю з перекладачами, копірайтерами та іншими членами команди безперешкодною. Контент можна зберігати локально та/або віддалено.
 
 </Accordion>
-
 </AccordionGroup>
 
 ---

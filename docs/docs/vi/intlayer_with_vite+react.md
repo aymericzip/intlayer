@@ -42,7 +42,6 @@ author: aymericzip
 So với các giải pháp chính như `react-i18next` hay `i18next`, Intlayer là giải pháp đi kèm với các tính năng tối ưu hóa tích hợp như:
 
 <AccordionGroup>
-
 <Accordion header="Bảo hiểm đầy đủ Vite và React">
 
 Intlayer được tối ưu hóa để hoạt động hoàn hảo với Vite và React bằng cách cung cấp **phạm vi nội dung cấp thành phần**, **bản dịch được tải từng phần** và tất cả các tính năng cần thiết để mở rộng quy mô quốc tế hóa (i18n).
@@ -613,8 +612,6 @@ const LocaleSwitcher: FC = () => {
 
 Dưới đây là **Bước 9** đã được cập nhật với các giải thích bổ sung và ví dụ mã được tinh chỉnh:
 
----
-
 </Step>
 
 <Step number={9} title="Chuyển đổi Thuộc tính Ngôn ngữ và Hướng của HTML" isOptional={true}>
@@ -763,11 +760,10 @@ Link.displayName = "Link";
   Thành phần trả về một phần tử `<a>` với URL đã được địa phương hóa, đảm bảo rằng việc điều hướng nhất quán với ngôn ngữ hiện tại.
 
 Bằng cách tích hợp thành phần `Link` này trong toàn bộ ứng dụng của bạn, bạn duy trì trải nghiệm người dùng nhất quán và nhận biết ngôn ngữ đồng thời tận dụng được lợi ích từ SEO và khả năng sử dụng được cải thiện.
-</Step>
 
 </Step>
 
-<Step number={1} title="Trích xuất nội dung các thành phần của bạn" isOptional={true}>
+<Step number={11} title="Trích xuất nội dung các thành phần của bạn" isOptional={true}>
 
 Nếu bạn có một cơ sở mã hiện có, việc chuyển đổi hàng nghìn tệp có thể tốn nhiều thời gian.
 
@@ -806,9 +802,6 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-<Tabs>
- <Tab value='Lệnh trích xuất'>
-
 Chạy trình trích xuất để chuyển đổi các thành phần và trích xuất nội dung
 
 ```bash packageManager="npm"
@@ -826,9 +819,6 @@ yarn intlayer extract
 ```bash packageManager="bun"
 bun x intlayer extract
 ```
-
- </Tab>
- <Tab value='Trình biên dịch Babel'>
 
 > Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
 
@@ -862,8 +852,6 @@ yarn build # Or yarn dev
 bun run build # Or bun run dev
 ```
 
- </Tab>
-</Tabs>
 </Step>
 
 </Steps>
@@ -1000,6 +988,8 @@ Tiện ích mở rộng này cung cấp:
 
 <Question title="Những giải pháp khác nhau nào có sẵn để quốc tế hóa ứng dụng Vite và React?">
 
+Vite không có định kiến nào về i18n, vì vậy các tùy chọn thuộc hệ sinh thái React:
+
 - **`react-i18next`**: tải JSON ở runtime.
 - **`react-intl`**: định dạng ICU.
 - **`Intlayer`**: khai báo cạnh component, biên dịch qua plugin Vite, hỗ trợ HMR, dịch thuật AI và visual editor.
@@ -1028,9 +1018,11 @@ Có. Plugin [sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/do
 
 <Question title="Tôi có phải di chuyển nội dung từng khóa một không?">
 
-Không. Chạy `npx intlayer extract` và Intlayer sẽ đọc các tệp nguồn của bạn, trích xuất các chuỗi dành cho người dùng và tạo tệp `.content` bên cạnh mỗi tệp, nhờ đó bạn chỉ cần xem lại diff thay vì sao chép chuỗi vào catalog thủ công. Xem [lệnh extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/extract.md).
+Không. Chạy `npx intlayer extract` và Intlayer sẽ đọc các component của bạn, trích xuất các chuỗi dành cho người dùng và tạo tệp `.content` bên cạnh mỗi component, nhờ đó bạn xem lại diff thay vì sao chép chuỗi vào catalog thủ công. Bước 11 của hướng dẫn này mô tả chi tiết.
 
-Để tự động hóa hoàn toàn, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md) thực hiện việc tương tự trong quá trình build trên mã JSX, TSX, Vue và Svelte, tạo từ điển trên mỗi thay đổi mà không cần quản lý khóa thủ công.
+Để tự động hóa hoàn toàn, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md) thực hiện việc tương tự trong quá trình build: quét mã nguồn JSX, TSX, Vue và Svelte trên mỗi thay đổi, tạo từ điển và đồng bộ hóa với HMR, do đó hoàn toàn không có khóa nào cần duy trì thủ công.
+
+Hai giới hạn đáng lưu ý trước khi bạn bật compiler. Nó hoạt động bằng phân tích tĩnh, do đó các chuỗi chỉ tồn tại khi runtime, chẳng hạn như mã lỗi API hoặc các trường CMS, nằm ngoài phạm vi tiếp cận. Và nó phải phân biệt văn bản hiển thị cho người dùng với logic ứng dụng như `className="active"` hoặc mã trạng thái, điều này cần một vài chú thích trong một codebase lớn. [Lệnh extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/extract.md) tránh cả hai điều này bằng cách giữ bạn luôn kiểm soát.
 
 </Question>
 

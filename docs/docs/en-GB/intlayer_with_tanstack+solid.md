@@ -46,7 +46,6 @@ This guide demonstrates how to integrate **Intlayer** for seamless international
 Compared to main solutions like `react-i18next` or `i18next`, Intlayer is a solution that comes with integrated optimizations such as:
 
 <AccordionGroup>
-
 <Accordion header="Full TanStack Start coverage">
 
 Intlayer is optimized to work perfectly with TanStack Start and Solid by offering **multilingual routing**, **sitemap**, and all the features needed for scaling internationalization (i18n).
@@ -567,8 +566,6 @@ const RootComponent: ParentComponent = (props) => {
 };
 ```
 
----
-
 </Step>
 
 <Step number={12} title="Add Middleware">
@@ -604,8 +601,6 @@ export default defineConfig({
   ],
 });
 ```
-
----
 
 </Step>
 
@@ -800,8 +795,6 @@ You keep the per-locale chunk without paying its cost on the head critical path.
 | Client navigations   | nothing to resolve    | re-entered on every match  | served from the router cache           |
 | Developer experience | simplest              | one `await`                | content threaded through `loaderData`  |
 
----
-
 </Step>
 
 <Step number={14} title="Retrieve the locale in your server actions">
@@ -838,8 +831,6 @@ export const getLocaleServer = createServerFn().handler(async () => {
   return { locale, content };
 });
 ```
-
----
 
 </Step>
 
@@ -1032,8 +1023,6 @@ bun run build # Or bun run dev
  </Tab>
 </Tabs>
 
----
-
 </Step>
 
 <Step number={16} title="Generate Sitemap">
@@ -1107,8 +1096,6 @@ export const Route = createFileRoute("/sitemap.xml")({
 });
 ```
 
----
-
 </Step>
 
 <Step number={17} title="Configure TypeScript">
@@ -1126,8 +1113,6 @@ Ensure your TypeScript configuration includes the auto-generated types:
   ],
 }
 ```
-
----
 
 </Step>
 

@@ -67,7 +67,6 @@ author: aymericzip
 `नेक्स्ट-इंटल` या `आई18नेक्स्ट` जैसे मुख्य समाधानों की तुलना में, इंटलेयर एक ऐसा समाधान है जो एकीकृत अनुकूलन के साथ आता है जैसे:
 
 <AccordionGroup>
-
 <Accordion header="पूर्ण Next.js कवरेज">
 
 कुशल रेंडरिंग के लिए इंटलेयर को **सर्वर कंपोनेंट्स** के साथ काम करने के लिए अनुकूलित किया गया है और यह [**टर्बोपैक**](https://nextjs.org/docs/architecture/turbopack) के साथ पूरी तरह से संगत है। यह स्थैतिक रेंडरिंग को अवरुद्ध नहीं करता है और मिडलवेयर के साथ-साथ अंतर्राष्ट्रीयकरण (i18n) को स्केल करने के लिए आवश्यक सभी सुविधाएँ प्रदान करता है।
@@ -113,7 +112,6 @@ author: aymericzip
 सिर्फ एक i18n समाधान से अधिक, Intlayer एक **स्व-होस्टेड [विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** और एक **[पूर्ण] प्रदान करता है सीएमएस](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** आपकी बहुभाषी सामग्री को **वास्तविक समय** में प्रबंधित करने में मदद करता है, जिससे अनुवादकों, कॉपीराइटरों और टीम के अन्य सदस्यों के साथ सहयोग सहज हो जाता है। सामग्री को स्थानीय और/या दूरस्थ रूप से संग्रहीत किया जा सकता है।
 
 </Accordion>
-
 </AccordionGroup>
 ---
 
@@ -214,11 +212,22 @@ export default withIntlayer(nextConfig);
 
 > `withIntlayer()` Next.js प्लगइन का उपयोग Intlayer को Next.js के साथ एकीकृत करने के लिए किया जाता है। यह सामग्री घोषणा फ़ाइलों के निर्माण को सुनिश्चित करता है और विकास मोड में उनकी निगरानी करता है। यह [Webpack](https://webpack.js.org/) या [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack) वातावरण के भीतर Intlayer पर्यावरण चर को परिभाषित करता है। इसके अतिरिक्त, यह प्रदर्शन को अनुकूलित करने के लिए उपनाम प्रदान करता है और सर्वर घटकों के साथ संगतता सुनिश्चित करता है।
 
+> `withIntlayer()` फ़ंक्शन एक promise फ़ंक्शन है। यदि आप इसे अन्य प्लगइन्स के साथ उपयोग करना चाहते हैं, तो आप इसे `await` कर सकते हैं। उदाहरण:
+>
+> ```tsx
+> const nextConfig = await withIntlayer(nextConfig);
+> const nextConfigWithOtherPlugins = withOtherPlugins(nextConfig);
+>
+> export default nextConfigWithOtherPlugins;
+> ```
+
 </Step>
 
 <Step number={4} title="स्थानीयकरण पहचान के लिए मिडलवेयर कॉन्फ़िगर करें">
 
 मिडलवेयर सेट करें ताकि उपयोगकर्ता की पसंदीदा स्थानीय भाषा को स्वचालित रूप से पहचानकर संभाला जा सके:
+
+> Intlayer v9 के बाद से, यह मिडलवेयर `routing.enableProxy` विकल्प का सम्मान करता है (डिफ़ॉल्ट रूप से `true`)। इस फ़ाइल को हटाए बिना इसे पास-थ्रू में बदलने के लिए अपने कॉन्फ़िगरेशन में `routing.enableProxy: false` सेट करें। देखें [v9 रिलीज़ नोट्स](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/releases/v9.md)।
 
 ```typescript fileName="src/middleware.ts" codeFormat={["typescript", "esm", "commonjs"]}
 export { intlayerProxy as middleware } from "next-intlayer/middleware";
@@ -466,7 +475,9 @@ export const ComponentExample: FC = () => {
 };
 ```
 
-> जब आप `string` गुणों (जैसे, `alt`, `title`, `href`, `aria-label`) में अनुवाद का उपयोग करते हैं, तो फ़ंक्शन के मान को इस प्रकार कॉल करें:
+> जब आप `string` विशेषताओं (जैसे, `alt`, `title`, `href`, `aria-label`) में अनुवाद का उपयोग करते हैं, तो
+
+> फ़ंक्शन के मान को इस प्रकार कॉल करें:
 
 > ```html
 > <img src="{content.image.src.value}" alt="{content.image.value}" />
@@ -867,6 +878,8 @@ Intlayer के साथ अपने विकास अनुभव को �
 
 <Question title="Next.js Pages Router अनुप्रयोगों के अंतर्राष्ट्रीयकरण के लिए कौन से विभिन्न समाधान उपलब्ध हैं?">
 
+Pages Router अभी भी `next.config.js` के इन-बिल्ट `i18n` फ़ील्ड का समर्थन करता है, लेकिन यह केवल लोकेल रूटिंग और पहचान को संभालता है, अनुवादों को कभी नहीं, इसलिए आप अभी भी एक सामग्री परत चुनते हैं:
+
 - **`next-intl`**: App Router के लिए लोकप्रिय संदेश लाइब्रेरी, रनटाइम पर JSON फ़ाइलें लोड करती है।
 - **`next-i18next`**: Pages Router के लिए मानक समाधान।
 - **`Intlayer`**: सबसे उन्नत समाधान। सामग्री घटक के बगल में घोषित की जाती है, बिल्ड समय पर संकलित होती है, सख्त TypeScript प्रकार, AI अनुवाद, विज़ुअल एडिटर और CMS प्रदान करती है।
@@ -895,9 +908,11 @@ Intlayer के साथ अपने विकास अनुभव को �
 
 <Question title="क्या मुझे अपनी content को key by key move करना होगा?">
 
-नहीं। `npx intlayer extract` चलाएं और Intlayer आपकी source files को पढ़ता है, user facing strings को निकालता है और प्रत्येक के बगल में एक `.content` file लिखता है, इसलिए आप strings को एक catalog में एक-एक करके कॉपी करने के बजाय एक diff की समीक्षा करते हैं। [extract command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/extract.md) देखें।
+नहीं। `npx intlayer extract` चलाएं और Intlayer आपके घटकों को पढ़ता है, उपयोगकर्ता के अनुकूल स्ट्रिंग्स निकालता है, और प्रत्येक के बगल में एक `.content` फ़ाइल लिखता है, जिससे आप कैटलॉग में मैन्युअल रूप से कॉपी करने के बजाय एक diff की समीक्षा करते हैं।
 
-पूर्ण स्वचालन के लिए, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md) JSX, TSX, Vue और Svelte कोड पर निर्माण समय के दौरान भी यही करता है, प्रत्येक परिवर्तन पर शब्दकोश उत्पन्न करता है जिससे कुंजियों को मैन्युअल रूप से बनाए रखने की आवश्यकता समाप्त हो जाती है।
+पूर्ण स्वचालन के लिए, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md) बिल्ड समय पर यही काम करता है: यह प्रत्येक परिवर्तन पर आपके JSX, TSX, Vue और Svelte स्रोत को स्कैन करता है, शब्दकोश उत्पन्न करता है और हॉट मॉड्यूल प्रतिस्थापन (HMR) के माध्यम से उन्हें सिंक में रखता है, ताकि हाथ से बनाए रखने के लिए कोई कुंजी न हो।
+
+कंपाइलर को चालू करने से पहले दो सीमाएं जानने योग्य हैं। यह स्थिर विश्लेषण द्वारा काम करता है, इसलिए जो स्ट्रिंग्स केवल रनटाइम पर मौजूद होती हैं, जैसे कि API त्रुटि कोड या CMS फ़ील्ड, वे पहुंच से बाहर रहती हैं। और इसे `className="active"` या स्थिति कोड जैसे एप्लिकेशन लॉजिक से उपयोगकर्ता के सामने आने वाले टेक्स्ट को अलग करना होगा, जिसके लिए एक बड़े कोडबेस में कुछ एनोटेशन की आवश्यकता होती है। [extract command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/extract.md) आपको लूप में रखकर दोनों से बचाता है।
 
 </Question>
 

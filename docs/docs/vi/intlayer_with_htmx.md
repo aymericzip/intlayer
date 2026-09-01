@@ -35,7 +35,6 @@ Intlayer giải quyết điều này thông qua các backend integrations của 
 ## Ba quy tắc của i18n trong một ứng dụng htmx
 
 <AccordionGroup>
-
 <Accordion header="Locale phải được giải quyết trên mỗi yêu cầu, không chỉ yêu cầu đầu tiên">
 
 Một trang có thể kích hoạt hàng chục swaps. Mỗi cái là một yêu cầu mới không có bộ nhớ về trang đã phát hành nó. Nếu locale nằm trong một biến được đặt trong quá trình render ban đầu, mọi fragment sau đó sẽ quay lại ngôn ngữ mặc định.
@@ -55,7 +54,6 @@ Hai trình vận chuyển hoạt động với htmx. Một cookie (`INTLAYER_LOC
 Một giá trị được dịch nội suy vào một fragment là markup. Escape nó, giống như bạn sẽ làm với bất kỳ giá trị động nào khác, vì vậy một bản dịch chứa `<` không thể phá vỡ tài liệu mà nó được hoán đổi vào.
 
 </Accordion>
-
 </AccordionGroup>
 
 ---

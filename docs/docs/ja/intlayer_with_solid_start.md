@@ -69,7 +69,6 @@ author: aymericzip
 `@solid-primitives/i18n` や `i18next` などの主要なソリューションと比較して、Intlayer は次のような統合された最適化を備えたソリューションです。
 
 <AccordionGroup>
-
 <Accordion header="Solid の完全なサポート">
 
 Intlayer は、**コンポーネントレベルのコンテンツスコープ**、**リアクティブな翻訳**、および国際化 (i18n) の拡張に必要なすべての機能を提供することで、Solid と完全に連携するように最適化されています。

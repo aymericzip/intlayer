@@ -34,36 +34,6 @@ author: aymericzip
 
 # Перекладіть свій вебсайт на Vite і Preact за допомогою Intlayer | Інтернаціоналізація (i18n)
 
-<Tabs defaultTab="video">
-  <Tab label="Video" value="video">
-
-<iframe title="The best i18n solution for Vite and Preact? Discover Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?si=VaKmrYMmXjo3xpk2"/>
-
-  </Tab>
-  <Tab label="Code" value="code">
-
-<iframe
-  src="https://ide.intlayer.org/aymericzip/intlayer-vite-preact-template?file=intlayer.config.ts"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
-  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-  loading="lazy"
-/>
-
-  </Tab>
-  <Tab label="Демо" value="demo">
-
-<iframe
-  src="https://intlayer-vite-preact-template.vercel.app"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Демо - intlayer-vite-preact-template"
-  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-  loading="lazy"
-/>
-
-  </Tab>
-</Tabs>
-
 ## Зміст
 
 <TOC/>
@@ -73,7 +43,6 @@ author: aymericzip
 Порівняно з основними рішеннями, такими як `preact-i18n` або `i18next`, Intlayer — це рішення, яке має такі інтегровані оптимізації, як:
 
 <AccordionGroup>
-
 <Accordion header="Повна підтримка Preact">
 
 Intlayer оптимізовано для ідеальної роботи з Preact, пропонуючи **визначення вмісту на рівні компонентів**, **ліниво завантажені переклади** та всі функції, необхідні для масштабування інтернаціоналізації (i18n).
@@ -120,6 +89,36 @@ Intlayer оптимізовано для ідеальної роботи з Prea
 ---
 
 ## Покроковий посібник із налаштування Intlayer у застосунку на Vite і Preact
+
+<Tabs defaultTab="video">
+  <Tab label="Video" value="video">
+
+<iframe title="The best i18n solution for Vite and Preact? Discover Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?si=VaKmrYMmXjo3xpk2"/>
+
+  </Tab>
+  <Tab label="Code" value="code">
+
+<iframe
+  src="https://ide.intlayer.org/aymericzip/intlayer-vite-preact-template?file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+  <Tab label="Демо" value="demo">
+
+<iframe
+  src="https://intlayer-vite-preact-template.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Демо - intlayer-vite-preact-template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+</Tabs>
 
 Перегляньте [шаблон застосунку](https://github.com/aymericzip/intlayer-vite-preact-template) на GitHub.
 
@@ -515,6 +514,30 @@ const App: FunctionalComponent = () => (
 export default App;
 ```
 
+Паралельно ви також можете використовувати `intlayerProxy` для додавання серверної маршрутизації до вашого додатка. Цей плагін автоматично визначатиме поточну локаль на основі URL та встановлюватиме відповідний файл cookie локалі. Якщо локаль не вказано, плагін визначить найбільш відповідну локаль на основі мовних уподобань браузера користувача. Якщо локаль не виявлено, відбудеться перенаправлення на локаль за замовчуванням.
+
+> Зверніть увагу, що для використання `intlayerProxy` у production вам потрібно перемістити пакет `vite-intlayer` із `devDependencies` до `dependencies`.
+
+> Починаючи з Intlayer v9, `intlayerProxy()` вбудовано безпосередньо в плагін `intlayer()` і ввімкнено за замовчуванням за допомогою опції `routing.enableProxy` (`true` за замовчуванням). Його окрема реєстрація, як показано нижче, тепер необов'язкова - вона збережена для зворотної сумісності та конфігурацій, яким потрібно контролювати порядок плагінів. Встановіть `routing.enableProxy: false`, щоб відмовитися. Див. [примітки до випуску v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/releases/v9.md).
+
+```typescript {3,7} fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import { intlayer } from "vite-intlayer";
+import preact from "@preact/preset-vite";
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [
+    preact(),
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
+  ],
+});
+```
+
 </Step>
 
 <Step number={8} title="Змінюйте URL при зміні локалі" isOptional={true}>
@@ -590,6 +613,8 @@ export default LocaleSwitcher;
 > Посилання на документацію:
 >
 > > - [Хук `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/react-intlayer/useLocale.md) (API схоже для `preact-intlayer`)> - [Хук `getLocaleName`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/intlayer/getLocaleName.md)> - [Хук `getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/intlayer/getLocalizedUrl.md)> - [Хук `getHTMLTextDir`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/intlayer/getHTMLTextDir.md)> - [Атрибут `hreflang`](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=uk)> - [Атрибут `lang`](https://developer.mozilla.org/uk/docs/Web/HTML/Global_attributes/lang)> - [Атрибут `dir`](https://developer.mozilla.org/uk/docs/Web/HTML/Global_attributes/dir)> - [Атрибут `aria-current`](https://developer.mozilla.org/uk/docs/Web/Accessibility/ARIA/Attributes/aria-current)> - [Popover API](https://developer.mozilla.org/uk/docs/Web/API/Popover_API)
+
+Нижче наведено оновлений **Крок 9** із доданими поясненнями та покращеними прикладами коду:
 
 </Step>
 
@@ -1014,6 +1039,8 @@ Intlayer використовує module augmentation для отримання 
 
 <Question title="Які є різні рішення для інтернаціоналізації додатків Vite та Preact?">
 
+Vite не має власної думки щодо i18n, тому вибір походить з екосистеми Preact:
+
 - **`preact-i18n`** або **`react-i18next`**: поширені бібліотеки з завантаженням JSON під час виконання.
 - **`Intlayer`**: нативна зв'язка `preact-intlayer` без потреби в `preact/compat`, компіляція під час збирання, повна типізація та AI переклад.
 
@@ -1044,6 +1071,8 @@ Intlayer використовує module augmentation для отримання 
 Ні. Запустіть `npx intlayer extract`, і Intlayer прочитає ваші файли, витягне призначені для користувача рядки і створить файл `.content` поруч із кожним компонентом, завдяки чому ви переглядаєте diff замість копіювання рядків у каталог вручну.
 
 Для повної автоматизації [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compiler.md) робить те саме під час збирання: сканує код під час кожної зміни, генерує словники та синхронізує їх із HMR.
+
+Варто знати два обмеження перед увімкненням компілятора. Він працює за допомогою статичного аналізу, тому рядки, які існують лише під час виконання, такі як коди помилок API або поля CMS, залишаються недосяжними. І він повинен відрізняти текст для користувача від логіки додатка, як-от `className="active"` або код статусу, що вимагає кількох анотацій у великій кодовій базі. [Команда extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/extract.md) уникає обох проблем, тримаючи вас у курсі.
 
 </Question>
 

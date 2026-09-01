@@ -82,7 +82,6 @@ author: aymericzip
 Порівняно з основними рішеннями, такими як `next-intl` або `i18next`, Intlayer — це рішення, яке має такі інтегровані оптимізації, як:
 
 <AccordionGroup>
-
 <Accordion header="Повна підтримка Next.js">
 
 Intlayer оптимізовано для роботи з **компонентами сервера** для ефективного відтворення та повністю сумісно з [**Turbopack**](https://nextjs.org/docs/architecture/turbopack). Він не блокує статичний рендеринг і пропонує проміжне програмне забезпечення, а також усі функції, необхідні для інтернаціоналізації масштабування (i18n).
@@ -167,7 +166,6 @@ Intlayer оптимізовано для роботи з **компонента�
 Дивіться [Application Template](https://github.com/aymericzip/intlayer-next-15-template) на GitHub.
 
 <Steps>
-
 <Step number={1} title="Встановлення залежностей">
 
 Встановіть необхідні пакети за допомогою npm:
@@ -217,7 +215,6 @@ bun add intlayer next-intlayer
   Пакет, який інтегрує Intlayer з Next.js. Він надає провайдери контексту та хуки для інтернаціоналізації в Next.js. Крім того, включає плагін Next.js для інтеграції Intlayer з [Webpack](https://webpack.js.org/) або [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack), а також middleware для виявлення переважної локалі користувача, керування cookie та обробки перенаправлень URL.
 
 </Step>
-
 <Step number={2} title="Налаштуйте свій проєкт">
 
 Here is the final structure that we will make:
@@ -271,7 +268,6 @@ export default config;
 > Через цей файл конфігурації ви можете налаштувати локалізовані URL-адреси, перенаправлення через middleware, назви cookie, розташування та розширення ваших декларацій контенту, відключити логи Intlayer у консолі та інше. Для повного переліку доступних параметрів зверніться до [документації з конфігурації](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md).
 
 </Step>
-
 <Step number={3} title="Інтеграція Intlayer у конфігурацію Next.js">
 
 Налаштуйте конфігурацію Next.js для використання Intlayer:
@@ -308,7 +304,6 @@ export default withIntlayer(nextConfig);
 > ```
 
 </Step>
-
 <Step number={4} title="Визначення динамічних маршрутів локалі">
 
 Видаліть усе з `RootLayout` і замініть на наступний код:
@@ -330,7 +325,7 @@ export default RootLayout;
 Щоб реалізувати динамічну маршрутизацію, вкажіть шлях для локалі, додавши новий layout у ваш каталог `[locale]`:
 
 <Tabs>
- <Tab label='Intlayer >=9.4' value='>=9.4'>
+<Tab label='Intlayer >=9.4' value='>=9.4'>
 
 ```tsx fileName="src/app/[locale]/layout.tsx" codeFormat={["typescript", "esm"]}
 import { type NextLayoutIntlayer } from "next-intlayer";
@@ -356,8 +351,8 @@ export default LocaleLayout;
 
 > Один `IntlayerProvider` охоплює обидві половини дерева: він забезпечує контекст сервера, обмежений запитом, який читають серверні хуки, і монтує клієнтський провайдер, щоб клієнтські компоненти отримували ту ж саму локаль.
 
- </Tab>
- <Tab label='Intlayer <9.4' value='<9.4'>
+</Tab>
+<Tab label='Intlayer <9.4' value='<9.4'>
 
 ```tsx fileName="src/app/[locale]/layout.tsx" codeFormat={["typescript", "esm", "commonjs"]}
 import { type NextLayoutIntlayer, IntlayerClientProvider } from "next-intlayer";
@@ -382,7 +377,7 @@ const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
 export default LocaleLayout;
 ```
 
- </Tab>
+</Tab>
 </Tabs>
 
 > Сегмент шляху `[locale]` використовується для визначення локалі. Приклад: `/en-US/about` відповідатиме `en-US`, а `/fr/about`, `fr`.
@@ -406,7 +401,6 @@ export default LocaleLayout;
 > Intlayer працює з `export const dynamic = 'force-static';`, щоб забезпечити попередню збірку сторінок для всіх локалей.
 
 </Step>
-
 <Step number={5} title="Оголосіть контент">
 
 Створіть і керуйте оголошеннями контенту для збереження перекладів:
@@ -456,13 +450,12 @@ export default pageContent;
 > Для детальнішої інформації зверніться до [документації щодо декларації контенту](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/content_file.md).
 
 </Step>
-
 <Step number={6} title="Використання контенту у коді">
 
 Отримуйте доступ до словників контенту у всьому застосунку:
 
 <Tabs>
- <Tab label='Intlayer >=9.4' value='>=9.4'>
+<Tab label='Intlayer >=9.4' value='>=9.4'>
 
 ```tsx fileName="src/app/[locale]/page.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
@@ -496,8 +489,8 @@ export default Page;
 - **`IntlayerProvider`** монтується один раз у макеті локалі. Він надає локаль як серверним, так і клієнтським компонентам, тому сторінки більше не обертаються самі в себе.
 - Серверні хуки розв'язують локаль у такому порядку: локаль, передана на місці виклику, потім контекст сервера, заповнений провайдером, потім локаль, яка міститься в запиті (заголовок `x-intlayer-locale`, встановлений прокси-сервером Intlayer, потім cookie локалі). Цей останній крок гарантує, що контент залишається коректним під час навігації на клієнтській стороні, яка перерендерює тільки сегмент сторінки, де макет — і разом з ним провайдер — не перезапускається.
 
- </Tab>
- <Tab label='Intlayer <9.4' value='<9.4'>
+</Tab>
+<Tab label='Intlayer <9.4' value='<9.4'>
 
 ```tsx fileName="src/app/[locale]/page.tsx" codeFormat={["typescript", "esm", "commonjs"]}
 import type { FC } from "react";
@@ -540,6 +533,9 @@ export default Page;
 
   > Layout і page не можуть мати спільного server context, оскільки система server context базується на сховищі даних на запит (через механізм [React's cache](https://react.dev/reference/react/cache)), внаслідок чого кожен «context» створюється заново для різних сегментів застосунку. Розміщення провайдера в спільному layout порушило б цю ізоляцію й не дозволило б коректно пропагувати значення server context до ваших server components.
 
+</Tab>
+</Tabs>
+
 ```tsx {4,7} fileName="src/components/ClientComponentExample.tsx" codeFormat={["typescript", "esm", "commonjs"]}
 "use client";
 
@@ -559,7 +555,7 @@ export const ClientComponentExample: FC = () => {
 ```
 
 <Tabs>
- <Tab label='Intlayer >=9.4' value='>=9.4'>
+<Tab label='Intlayer >=9.4' value='>=9.4'>
 
 ```tsx {2} fileName="src/components/ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
@@ -579,8 +575,8 @@ export const ServerComponentExample: FC = () => {
 
 > `next-intlayer` — це ізоморфний шлях імпорту: умова експорту `react-server` надає серверним компонентам реалізацію ambient-locale, тоді як клієнтські компоненти отримують context-backed. Один і той же виклик працює з обох сторін.
 
- </Tab>
- <Tab label='Intlayer <9.4' value='<9.4'>
+</Tab>
+<Tab label='Intlayer <9.4' value='<9.4'>
 
 ```tsx {2} fileName="src/components/ServerComponentExample.tsx" codeFormat={["typescript", "esm", "commonjs"]}
 import type { FC } from "react";
@@ -598,7 +594,7 @@ export const ServerComponentExample: FC = () => {
 };
 ```
 
- </Tab>
+</Tab>
 </Tabs>
 
 > Якщо ви хочете використовувати свій вміст в атрибуті типу `string`, наприклад `alt`, `title`, `href`, `aria-label` тощо, ви повинні викликати значення функції, наприклад:
@@ -612,7 +608,6 @@ export const ServerComponentExample: FC = () => {
 > Щоб дізнатися більше про хук `useIntlayer`, див. [документацію](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/next-intlayer/useIntlayer.md).
 
 </Step>
-
 <Step number={7} title="Налаштування middleware для визначення локалі" isOptional={true}>
 
 Налаштуйте middleware для визначення переважної локалі користувача:
@@ -646,7 +641,6 @@ export const middleware = multipleMiddlewares([
 ```
 
 </Step>
-
 <Step number={8} title="Інтернаціоналізація ваших метаданих" isOptional={true}>
 
 Якщо ви хочете інтернаціоналізувати свої метадані, такі як заголовок вашої сторінки, ви можете використати функцію `generateMetadata`, яку надає Next.js. Всередині неї ви можете отримати вміст через функцію `getIntlayer`, щоб перекласти свої метадані.
@@ -753,7 +747,6 @@ export const generateMetadata = async ({
 > Дізнайтеся більше про оптимізацію метаданих [в офіційній документації Next.js](https://nextjs.org/docs/app/building-your-application/optimizing/metadata).
 
 </Step>
-
 <Step number={9} title="Інтернаціоналізація вашого sitemap.xml та robots.txt" isOptional={true}>
 
 Щоб інтернаціоналізувати `sitemap.xml` та `robots.txt`, ви можете використати функцію `getMultilingualUrls`, надану Intlayer. Ця функція дозволяє генерувати багатомовні URL-адреси для вашого sitemap.
@@ -818,7 +811,6 @@ export default robots;
 > Дізнайтеся більше про оптимізацію sitemap у [офіційній документації Next.js](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap). Дізнайтеся більше про оптимізацію robots.txt у [офіційній документації Next.js](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/robots).
 
 </Step>
-
 <Step number={10} title="Зміна мови вашого контенту" isOptional={true}>
 
 Щоб змінити мову вашого контенту в Next.js, рекомендується використовувати компонент `Link` для перенаправлення користувачів на відповідну локалізовану сторінку. Компонент `Link` дозволяє виконувати prefetch сторінки, що допомагає уникнути повного перезавантаження сторінки.
@@ -951,7 +943,6 @@ return (
 > - [атрибут `aria-current`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
 </Step>
-
 <Step number={11} title="Створення локалізованого компонента `Link`" isOptional={true}>
 
 Щоб гарантувати, що навігація вашого додатку враховує поточну локаль, ви можете створити кастомний компонент `Link`. Цей компонент автоматично додає префікс внутрішнім URL відповідно до поточної мови. Наприклад, коли франкофонний користувач клікає на посилання на сторінку "About", він буде перенаправлений на `/fr/about` замість `/about`.
@@ -1020,7 +1011,6 @@ export const Link: FC<PropsWithChildren<NextLinkProps>> = ({
 Інтегруючи цей компонент `Link` у вашому застосунку, ви підтримуєте узгоджений і орієнтований на мову досвід користувача, а також отримуєте переваги покращеного SEO та зручності використання.
 
 </Step>
-
 <Step number={12} title="Отримати поточну локаль у Server Actions" isOptional={true}>
 
 Якщо вам потрібна активна локаль всередині Server Action (наприклад, щоб локалізувати електронні листи або виконувати логіку, залежну від локалі), викличте `getLocale` з `next-intlayer/server`:
@@ -1047,7 +1037,6 @@ export const myServerAction = async () => {
 > Це забезпечує вибір найвідповіднішої локалі на основі наявного контексту.
 
 </Step>
-
 <Step number={13} title="Оптимізуйте розмір bundle" isOptional={true}>
 
 Під час використання `next-intlayer` словники за замовчуванням включаються в bundle для кожної сторінки. Щоб оптимізувати розмір bundle, Intlayer пропонує необов'язковий плагін для SWC, який за допомогою макросів інтелектуально замінює виклики `useIntlayer`. Це гарантує, що словники будуть включені в bundle лише для сторінок, які їх справді використовують.
@@ -1075,8 +1064,8 @@ bun add @intlayer/swc --dev
 > Примітка: Цей пакет не встановлюється за замовчуванням, оскільки SWC-плагіни в Next.js все ще є експериментальними. Це може змінитися в майбутньому.
 
 > Примітка: Якщо ви встановите опцію як `importMode: 'dynamic'` або `importMode: 'fetch'` (in the `dictionary` configuration), це буде покладатися на Suspense, тож вам доведеться обгорнути виклики `useIntlayer` у межу `Suspense`. Це означає, що ви не зможете використовувати `useIntlayer` безпосередньо на верхньому рівні вашого компоненту Page / Layout.
-> </Step>
 
+</Step>
 </Steps>
 
 ### Слідкування за змінами словників у Turbopack
@@ -1150,6 +1139,8 @@ Intlayer використовує module augmentation, щоб скористат
 <FAQ>
 
 <Question title="Які є різні рішення для інтернаціоналізації додатків Next.js 15?">
+
+Поле `i18n` у `next.config.js` не застосовується до App Router, тому рівень локалізації завжди є вибором бібліотеки:
 
 - **`next-intl`**: популярна бібліотека для App Router, завантажує JSON файли під час виконання.
 - **`next-i18next`**: класичне рішення для Pages Router.

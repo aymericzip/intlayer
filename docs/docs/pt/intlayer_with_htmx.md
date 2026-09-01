@@ -35,7 +35,6 @@ Intlayer cobre isso através de suas integrações de backend, que detectam a lo
 ## As três regras de i18n em um aplicativo htmx
 
 <AccordionGroup>
-
 <Accordion header="A locale deve ser resolvida em cada solicitação, não apenas na primeira">
 
 Uma única página pode acionar dezenas de swaps. Cada um é uma requisição nova sem memória da página que o emitiu. Se a locale vive em uma variável definida durante a renderização inicial, cada fragment após ela volta ao idioma padrão.
@@ -55,7 +54,6 @@ Dois carriers funcionam com htmx. Um cookie (`INTLAYER_LOCALE`) é enviado pelo 
 Um valor traduzido interpolado em um fragmento é markup. Escape-o, exatamente como você faria com qualquer outro valor dinâmico, para que uma tradução contendo `<` não possa quebrar o documento no qual ele é trocado.
 
 </Accordion>
-
 </AccordionGroup>
 
 ---

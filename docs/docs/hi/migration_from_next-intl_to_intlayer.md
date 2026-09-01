@@ -28,7 +28,6 @@ author: aymericzip
 ## next-intl से Intlayer में माइग्रेट करने के लिए?
 
 <AccordionGroup>
-
 <Accordion header="बंडल का आकार">
 
 बड़ी JSON फाइलों को अपने पेजों में लोड करने के बजाय, केवल आवश्यक सामग्री लोड करें। Intlayer आपके बंडल और पेज आकारों को **50% तक कम करने में मदद करता है**।
@@ -66,7 +65,6 @@ Intlayer भी i18n पारिस्थितिकी तंत्र मे
 केवल एक i18n समाधान से अधिक, Intlayer एक **self-hosted [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md)** और एक **[full CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md)** आपकी बहुभाषी सामग्री को प्रबंधित करने में मदद करने के लिए **वास्तविक समय में**, अनुवादक, कॉपीराइटर और अन्य टीम सदस्यों के साथ सहयोग को निर्बाध बनाता है। सामग्री स्थानीय रूप से और/या दूरस्थ रूप से संग्रहीत की जा सकती है।
 
 </Accordion>
-
 </AccordionGroup>
 
 ---

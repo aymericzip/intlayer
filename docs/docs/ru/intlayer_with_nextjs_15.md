@@ -42,7 +42,6 @@ author: aymericzip
 По сравнению с основными решениями, такими как next-intl или i18next, Intlayer представляет собой решение со встроенными оптимизациями, такими как:
 
 <AccordionGroup>
-
 <Accordion header="Полное покрытие Next.js">
 
 Intlayer оптимизирован для работы с **Серверными компонентами** для эффективного рендеринга и полностью совместим с [**Turbopack**](https://nextjs.org/docs/architecture/turbopack). Он не блокирует статический рендеринг и предлагает промежуточное программное обеспечение, а также все функции, необходимые для масштабирования интернационализации (i18n).
@@ -515,6 +514,9 @@ export const ClientComponentExample: FC = () => {
 };
 ```
 
+ </Tab>
+</Tabs>
+
 <Tabs>
  <Tab label='Intlayer >=9.4' value='>=9.4'>
 
@@ -569,21 +571,6 @@ export const ServerComponentExample: FC = () => {
 > Чтобы узнать больше о хуке `useIntlayer`, обратитесь к [документации](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/next-intlayer/useIntlayer.md).
 
 </Step>
-
-<Step number={7} title="Настройка Middleware для определения локали" isOptional={true}>
-
-Настройте middleware для определения предпочитаемой пользователем локали:
-
-```typescript fileName="src/middleware.ts" codeFormat={["typescript", "esm"]}
-export { intlayerMiddleware as middleware } from "next-intlayer/middleware";
-
-export const config = {
-  matcher:
-    "/((?!api|static|assets|robots|sitemap|sw|service-worker|manifest|.*\\..*|_next).*)",
-};
-```
-
-> Для получения дополнительной информации о хуке `useIntlayer` обратитесь к [документации](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/next-intlayer/useIntlayer.md).
 
 <Step number={7} title="Настройка Middleware для определения локали" isOptional={true}>
 
@@ -983,7 +970,6 @@ bun add @intlayer/swc --dev
 > Примечание: Эта оптимизация доступна только для Next.js версии 13 и выше.
 
 > Примечание: Этот пакет не устанавливается по умолчанию, так как плагины SWC в Next.js всё ещё находятся в экспериментальной стадии. В будущем это может измениться.
-> </Step>
 
 > Примечание: Если вы установите параметр как `importMode: 'dynamic'` или `importMode: 'fetch'` (в конфигурации `dictionary`), это будет полагаться на Suspense, поэтому вам придется обернуть ваши вызовы `useIntlayer` в границу `Suspense`. Это означает, что вы не сможете использовать `useIntlayer` напрямую на верхнем уровне вашего компонента Page / Layout.
 > </Step>

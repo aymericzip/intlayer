@@ -51,6 +51,7 @@ Intlayer 支持使用 Markdown 语法定义的富文本内容。这使您可以�
 
 <Tabs>
   <Tab label=".content.md" value=".content.md">
+
     从 `8.10.0` 版本开始，您可以在 `.content.md` 文件中直接声明 Markdown 内容。Intlayer 会自动检测并解析 Markdown 内容。
 
     ```md fileName="markdown-file.en.content.md"
@@ -96,6 +97,7 @@ Intlayer 支持使用 Markdown 语法定义的富文本内容。这使您可以�
     ```
 
   </Tab>
+
   <Tab label="外部文件" value="external-files">
     使用 `file` 函数直接导入 `.md` 文件。
 
@@ -129,6 +131,7 @@ Intlayer 支持使用 Markdown 语法定义的富文本内容。这使您可以�
     ```
 
   </Tab>
+
 </Tabs>
 
 ## 渲染 Markdown
@@ -957,7 +960,21 @@ Markdown 渲染支持 **MDX** — 在您的 Markdown 中直接按名称使用任
   </Tab>
   <Tab label="Angular" value="angular">
 
-> 支持 MDX — 任何在 Markdown 中使用的组件名称（例如 `<MyCustomJSXComponent />`）都会根据 `components` map 进行解析。
+    ```typescript fileName="app.config.ts"
+    import { createIntlayerMarkdownProvider } from "angular-intlayer/markdown";
+
+    export const appConfig: ApplicationConfig = {
+      providers: [
+        createIntlayerMarkdownProvider({
+          components: {
+            h1: { class: "text-2xl font-bold" },
+          },
+        }),
+      ],
+    };
+    ```
+
+    > 支持 MDX — 任何在 Markdown 中使用的组件名称（例如 `<MyCustomJSXComponent />`）都会根据 `components` map 进行解析。
 
 你也可以使用自己的 markdown 渲染器：
 

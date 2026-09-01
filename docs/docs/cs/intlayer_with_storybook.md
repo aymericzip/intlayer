@@ -90,8 +90,6 @@ bun add vite-intlayer --dev
 | `react-intlayer` | Vazby pro React - `IntlayerProvider`, hook `useIntlayer`   |
 | `vite-intlayer`  | Vite plugin - sleduje a kompiluje soubory deklarace obsahu |
 
----
-
 </Step>
 
 <Step number={2} title="Vytvoření konfigurace Intlayer">
@@ -120,8 +118,6 @@ export default config;
 ```
 
 > Úplný seznam možností naleznete v [referenci konfigurace](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/configuration.md).
-
----
 
 </Step>
 
@@ -169,8 +165,6 @@ export default config;
 ```
 
 Plugin `intlayer()` sleduje vaše soubory `*.content.ts` a automaticky znovu sestavuje slovníky, kdykoliv se během vývoje ve Storybooku změní.
-
----
 
 </Step>
 
@@ -256,8 +250,6 @@ bun add intlayer react-intlayer
 bun add @intlayer/webpack --dev
 ```
 
----
-
 </Step>
 
 <Step number={2} title="Vytvoření konfigurace Intlayer">
@@ -279,8 +271,6 @@ const config: IntlayerConfig = {
 
 export default config;
 ```
-
----
 
 </Step>
 
@@ -308,8 +298,6 @@ const config: StorybookConfig = {
 
 export default config;
 ```
-
----
 
 </Step>
 

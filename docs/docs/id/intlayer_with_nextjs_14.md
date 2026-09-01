@@ -53,7 +53,6 @@ author: aymericzip
 Dibandingkan dengan solusi utama seperti `next-intl` atau `i18next`, Intlayer adalah solusi yang hadir dengan pengoptimalan terintegrasi seperti:
 
 <AccordionGroup>
-
 <Accordion header="Cakupan lengkap Next.js">
 
 Intlayer dioptimalkan untuk bekerja dengan **Komponen Server** untuk rendering yang efisien dan sepenuhnya kompatibel dengan [**Turbopack**](https://nextjs.org/docs/architecture/turbopack). Itu tidak memblokir rendering statis dan menawarkan middleware serta semua fitur yang diperlukan untuk penskalaan internasionalisasi (i18n).
@@ -133,7 +132,6 @@ Lebih dari sekedar solusi i18n, Intlayer menyediakan **[editor visual](https://g
 Lihat [Template Aplikasi](https://github.com/aymericzip/intlayer-next-14-template) di GitHub.
 
 <Steps>
-
 <Step number={1} title="Instalasi Dependensi">
 
 Pasang paket yang diperlukan menggunakan npm:
@@ -183,7 +181,6 @@ bun add intlayer next-intlayer
   Paket yang mengintegrasikan Intlayer dengan Next.js. Paket ini menyediakan context providers dan hooks untuk internasionalisasi Next.js. Selain itu, paket ini juga menyertakan plugin Next.js untuk mengintegrasikan Intlayer dengan [Webpack](https://webpack.js.org/) atau [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack), serta middleware untuk mendeteksi locale yang dipilih pengguna, mengelola cookie, dan menangani pengalihan URL.
 
 </Step>
-
 <Step number={2} title="Konfigurasikan Proyek Anda">
 
 Here is the final structure that we will make:
@@ -237,7 +234,6 @@ export default config;
 > Melalui file konfigurasi ini, Anda dapat mengatur URL yang dilokalkan, pengalihan middleware, nama cookie, lokasi dan ekstensi deklarasi konten Anda, menonaktifkan log Intlayer di konsol, dan lainnya. Untuk daftar lengkap parameter yang tersedia, lihat [dokumentasi konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md).
 
 </Step>
-
 <Step number={3} title="Integrasikan Intlayer dalam Konfigurasi Next.js Anda">
 
 Konfigurasikan setup Next.js Anda untuk menggunakan Intlayer:
@@ -263,7 +259,6 @@ export default withIntlayer(nextConfig);
 > ```
 
 </Step>
-
 <Step number={4} title="Konfigurasikan Middleware untuk Deteksi Locale">
 
 Siapkan middleware untuk mendeteksi locale yang diinginkan pengguna:
@@ -299,7 +294,6 @@ export const middleware = multipleMiddlewares([
 ```
 
 </Step>
-
 <Step number={5} title="Definisikan Rute Locale Dinamis">
 
 Hapus semua isi dari `RootLayout` dan ganti dengan kode berikut:
@@ -321,7 +315,7 @@ export default RootLayout;
 Untuk mengimplementasikan routing dinamis, sediakan path untuk locale dengan menambahkan layout baru di direktori `[locale]` Anda:
 
 <Tabs>
- <Tab label='Intlayer >=9.4' value='>=9.4'>
+<Tab label='Intlayer >=9.4' value='>=9.4'>
 
 ```tsx fileName="src/app/[locale]/layout.tsx" codeFormat={["typescript", "esm"]}
 import { type Next14LayoutIntlayer } from "next-intlayer";
@@ -347,8 +341,8 @@ export default LocaleLayout;
 
 > Satu `IntlayerProvider` mencakup kedua bagian dari tree: ia menyemai konteks server yang scoped-request yang dibaca oleh server hooks, dan memasang client provider sehingga client components menerima locale yang sama.
 
- </Tab>
- <Tab label='Intlayer <9.4' value='<9.4'>
+</Tab>
+<Tab label='Intlayer <9.4' value='<9.4'>
 
 ```tsx fileName="src/app/[locale]/layout.tsx" codeFormat={["typescript", "esm"]}
 import { type Next14LayoutIntlayer, IntlayerProvider } from "next-intlayer";
@@ -371,7 +365,7 @@ const LocaleLayout: Next14LayoutIntlayer = ({
 export default LocaleLayout;
 ```
 
- </Tab>
+</Tab>
 </Tabs>
 
 > Segmen path `[locale]` digunakan untuk menentukan locale. Contoh: `/en-US/about` akan merujuk ke `en-US` dan `/fr/about` ke `fr`.
@@ -396,7 +390,6 @@ export default LocaleLayout;
 > `generateStaticParams` memastikan bahwa aplikasi Anda membangun terlebih dahulu halaman-halaman yang diperlukan untuk semua locale, mengurangi komputasi saat runtime dan meningkatkan pengalaman pengguna. Untuk detail lebih lanjut, lihat [dokumentasi Next.js tentang generateStaticParams](https://nextjs.org/docs/app/building-your-application/rendering/static-and-dynamic-rendering#generate-static-params).
 
 </Step>
-
 <Step number={6} title="Deklarasikan Konten Anda">
 
 Buat dan kelola deklarasi konten Anda untuk menyimpan terjemahan:
@@ -451,13 +444,12 @@ export default pageContent;
 > Untuk detail lebih lanjut, lihat [dokumentasi deklarasi konten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md).
 
 </Step>
-
 <Step number={7} title="Gunakan Konten dalam Kode Anda">
 
 Akses kamus konten Anda di seluruh aplikasi Anda:
 
 <Tabs>
- <Tab label='Intlayer >=9.4' value='>=9.4'>
+<Tab label='Intlayer >=9.4' value='>=9.4'>
 
 ```tsx fileName="src/app/[locale]/page.tsx" codeFormat={["typescript", "esm"]}
 import { ClientComponentExample } from "@components/ClientComponentExample";
@@ -487,8 +479,8 @@ export default Page;
 - **`IntlayerProvider`** dipasang sekali, dalam tata letak lokal. Ini menyediakan lokal ke komponen server dan klien, sehingga halaman tidak lagi membungkus diri mereka sendiri.
 - Hook server menyelesaikan lokal dalam urutan ini: lokal yang diteruskan di situs panggilan, kemudian konteks server yang disemai oleh penyedia, kemudian lokal yang dibawa oleh permintaan (header `x-intlayer-locale` yang ditetapkan oleh proxy Intlayer, kemudian cookie lokal). Langkah terakhir ini adalah yang membuat konten tetap benar pada navigasi sisi klien yang hanya me-render ulang segmen halaman, di mana tata letak — dan dengan itu penyedia — tidak menjalankan kembali.
 
- </Tab>
- <Tab label='Intlayer <9.4' value='<9.4'>
+</Tab>
+<Tab label='Intlayer <9.4' value='<9.4'>
 
 ```tsx fileName="src/app/[locale]/page.tsx" codeFormat={["typescript", "esm"]}
 import { ClientComponentExample } from "@components/ClientComponentExample";
@@ -524,6 +516,9 @@ export default Page;
 
   > Layout dan halaman tidak dapat berbagi konteks server yang sama karena sistem konteks server didasarkan pada penyimpanan data per permintaan (melalui mekanisme [cache React](https://react.dev/reference/react/cache)), yang menyebabkan setiap “konteks” dibuat ulang untuk segmen aplikasi yang berbeda. Menempatkan provider di layout bersama akan memecah isolasi ini, sehingga mencegah propagasi nilai konteks server yang benar ke komponen server Anda.
 
+</Tab>
+</Tabs>
+
 ```tsx {4,7} fileName="src/components/ClientComponentExample.tsx" codeFormat={["typescript", "esm"]}
 "use client";
 
@@ -543,7 +538,7 @@ const ClientComponentExample: FC = () => {
 ```
 
 <Tabs>
- <Tab label='Intlayer >=9.4' value='>=9.4'>
+<Tab label='Intlayer >=9.4' value='>=9.4'>
 
 ```tsx {2} fileName="src/components/ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
@@ -563,8 +558,8 @@ const ServerComponentExample: FC = () => {
 
 > `next-intlayer` adalah isomorphic import path: kondisi export `react-server` memberikan server components implementasi ambient-locale, sementara client components mendapatkan yang context-backed. Panggilan yang sama bekerja di kedua sisi.
 
- </Tab>
- <Tab label='Intlayer <9.4' value='<9.4'>
+</Tab>
+<Tab label='Intlayer <9.4' value='<9.4'>
 
 ```tsx {2} fileName="src/components/ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
@@ -582,7 +577,7 @@ const ServerComponentExample: FC = () => {
 };
 ```
 
- </Tab>
+</Tab>
 </Tabs>
 
 > Jika Anda ingin menggunakan konten Anda dalam atribut `string`, seperti `alt`, `title`, `href`, `aria-label`, dll., Anda harus memanggil nilai dari fungsi tersebut, seperti:
@@ -596,7 +591,6 @@ const ServerComponentExample: FC = () => {
 > Untuk mempelajari lebih lanjut tentang hook `useIntlayer`, lihat [dokumentasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/next-intlayer/useIntlayer.md).
 
 </Step>
-
 <Step number={8} title="Internasionalisasi metadata Anda" isOptional={true}>
 
 Jika Anda ingin menginternasionalisasi metadata Anda, seperti judul halaman Anda, Anda dapat menggunakan fungsi `generateMetadata` yang disediakan oleh Next.js. Di dalamnya, Anda dapat mengambil konten dari fungsi `getIntlayer` untuk menerjemahkan metadata Anda.
@@ -699,7 +693,6 @@ export const generateMetadata = ({
 > Pelajari lebih lanjut tentang optimasi metadata [di dokumentasi resmi Next.js](https://nextjs.org/docs/app/building-your-application/optimizing/metadata).
 
 </Step>
-
 <Step number={9} title="Internasionalisasi sitemap.xml dan robots.txt Anda" isOptional={true}>
 
 Untuk menginternasionalkan `sitemap.xml` dan `robots.txt` Anda, Anda dapat menggunakan fungsi `getMultilingualUrls` yang disediakan oleh Intlayer. Fungsi ini memungkinkan Anda untuk menghasilkan URL multibahasa untuk sitemap Anda.
@@ -767,7 +760,6 @@ export default robots;
 > Pelajari lebih lanjut tentang optimasi sitemap [di dokumentasi resmi Next.js](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap). Pelajari lebih lanjut tentang optimasi robots.txt [di dokumentasi resmi Next.js](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/robots).
 
 </Step>
-
 <Step number={10} title="Ubah bahasa konten Anda" isOptional={true}>
 
 Untuk mengubah bahasa konten Anda di Next.js, cara yang direkomendasikan adalah menggunakan komponen `Link` untuk mengarahkan pengguna ke halaman yang sesuai dengan lokal yang diinginkan. Komponen `Link` memungkinkan prefetching halaman, yang membantu menghindari pemuatan ulang halaman secara penuh.
@@ -859,7 +851,6 @@ return (
 > - [`atribut aria-current`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
 </Step>
-
 <Step number={11} title="Membuat Komponen Link yang Dilokalisasi" isOptional={true}>
 
 Untuk memastikan navigasi aplikasi Anda menghormati locale saat ini, Anda dapat membuat komponen `Link` kustom. Komponen ini secara otomatis menambahkan prefix bahasa saat ini pada URL internal, sehingga misalnya, ketika pengguna berbahasa Prancis mengklik tautan ke halaman "About", mereka diarahkan ke `/fr/about` bukan `/about`.
@@ -931,7 +922,6 @@ Link.displayName = "Link";
 Dengan mengintegrasikan komponen `Link` ini di seluruh aplikasi Anda, Anda mempertahankan pengalaman pengguna yang koheren dan sadar bahasa sekaligus mendapatkan manfaat dari peningkatan SEO dan kegunaan.
 
 </Step>
-
 <Step number={12} title="Mendapatkan locale saat ini dalam Server Actions" isOptional={true}>
 
 Jika Anda membutuhkan locale aktif di dalam Server Action (misalnya, untuk melokalkan email atau menjalankan logika yang sadar locale), panggil `getLocale` dari `next-intlayer/server`:
@@ -958,7 +948,6 @@ export const myServerAction = async () => {
 > Ini memastikan locale yang paling sesuai dipilih berdasarkan konteks yang tersedia.
 
 </Step>
-
 <Step number={13} title="Optimalkan ukuran bundle Anda" isOptional={true}>
 
 Saat menggunakan `next-intlayer`, kamus disertakan dalam bundle untuk setiap halaman secara default. Untuk mengoptimalkan ukuran bundle, Intlayer menyediakan plugin SWC opsional yang secara cerdas menggantikan panggilan `useIntlayer` menggunakan makro. Ini memastikan kamus hanya disertakan dalam bundle untuk halaman yang benar-benar menggunakannya.
@@ -986,8 +975,8 @@ bun add @intlayer/swc --dev
 > Catatan: Paket ini tidak diinstal secara default karena plugin SWC masih bersifat eksperimental di Next.js. Hal ini mungkin berubah di masa depan.
 
 > Catatan: Jika Anda mengatur opsi sebagai `importMode: 'dynamic'` atau `importMode: 'fetch'`, maka akan bergantung pada Suspense, sehingga Anda harus membungkus pemanggilan `useIntlayer` Anda dalam batas `Suspense`. Itu berarti, Anda tidak dapat menggunakan `useIntlayer` secara langsung di tingkat atas komponen Halaman / Layout Anda.
-> </Step>
 
+</Step>
 </Steps>
 
 ### Konfigurasi TypeScript
@@ -1045,6 +1034,8 @@ Untuk melangkah lebih jauh, Anda dapat mengimplementasikan [editor visual](https
 <FAQ>
 
 <Question title="Apa saja solusi berbeda yang tersedia untuk menginternasionalkan aplikasi Next.js 14?">
+
+Field `i18n` dari `next.config.js` tidak berlaku untuk App Router, jadi lapisan lokalisasi selalu menjadi pilihan library:
 
 - **`next-intl`**: library pesan populer untuk App Router, memuat file JSON di runtime.
 - **`next-i18next`**: solusi standar untuk Pages Router.

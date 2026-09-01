@@ -191,8 +191,6 @@ export default config;
 
 이 설정은 `src` 디렉토리 내에서 `{key}.i18n.json` 패턴과 일치하는 모든 JSON 파일을 불러와 Intlayer 사전으로 로드합니다.
 
----
-
 </Step>
 
 </Steps>

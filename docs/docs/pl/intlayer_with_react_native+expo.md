@@ -71,7 +71,6 @@ author: aymericzip
 W porównaniu do głównych rozwiązań, takich jak `react-native-localize` czy `i18next`, Intlayer jest rozwiązaniem wyposażonym w zintegrowane optymalizacje, takie jak:
 
 <AccordionGroup>
-
 <Accordion header="Pełne pokrycie React Native">
 
 Intlayer jest zoptymalizowany do doskonałej współpracy z React Native i Expo, oferując **zakres treści na poziomie komponentów**, **obsługę TypeScript** i wszystkie funkcje potrzebne do skalowania internacjonalizacji (i18n) w aplikacjach mobilnych.
@@ -166,8 +165,6 @@ bun add intlayer react-native-intlayer
 
 - **react-native-intlayer**  
   Integracja z React Native, która dostarcza dostawców kontekstu oraz hooki React do pobierania i przełączania lokalizacji, polyfille dla React Native oraz wtyczkę Metro do integracji Intlayer z bundlerem React Native. Reeksportuje wszystko z `react-intlayer`, więc w aplikacji React Native potrzebny jest tylko ten jeden pakiet.
-
----
 
 </Step>
 
@@ -328,8 +325,6 @@ export default homeScreenContent;
 
 > Szczegóły dotyczące deklaracji zawartości znajdziesz w [dokumentacji Intlayer dotyczącej zawartości](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/content_file.md).
 
----
-
 </Step>
 
 <Step number={6} title="Użyj Intlayer w swoich komponentach">
@@ -382,8 +377,6 @@ export default HomeScreen;
 > Kiedy używasz `content.someKey` w właściwościach opartych na łańcuchach znaków (np. `title` przycisku lub `children` komponentu `Text`), **wywołaj `content.someKey.value`**, aby uzyskać właściwy łańcuch znaków.
 
 > Jeśli Twoja aplikacja już istnieje, możesz użyć [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compiler.md) w połączeniu z [poleceniem extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/extract.md), aby przekonwertować tysiące komponentów w jedną sekundę.
-
----
 
 </Step>
 
@@ -569,9 +562,7 @@ Tak. Wtyczka [sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/d
 
 Nie. Uruchom `npx intlayer extract`, a Intlayer odczyta Twoje pliki źródłowe, wyodrębni ciągi widoczne dla użytkownika i utworzy plik `.content` obok każdego z nich, dzięki czemu przeglądasz diff zamiast ręcznie kopiować ciągi do katalogu pojedynczo.
 
-W przypadku w pełni zautomatyzowanego procesu [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compiler.md) robi to samo w czasie budowania: generuje słowniki przy każdej zmianie, eliminując konieczność ręcznego utrzymywania kluczy.
-
-Warto pamiętać o dwóch ograniczeniach przed włączeniem kompilatora. Działa on w oparciu o analizę statyczną, więc ciągi istniejące tylko w czasie wykonywania (np. kody błędów API czy pola z CMS) pozostają poza jego zasięgiem. Ponadto musi odróżnić tekst dla użytkownika od logiki aplikacji (np. `className="active"`), co wymaga kilku adnotacji w dużych projektach. Polecenie [extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/extract.md) unika obu tych problemów.
+W przypadku w pełni zautomatyzowanego procesu [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compiler.md) robi to samo w czasie kompilacji kodu źródłowego JSX, TSX, Vue i Svelte, generując słowniki przy każdej zmianie, dzięki czemu nie trzeba ręcznie zarządzać kluczami. Działa w oparciu o analizę statyczną, więc ciągi znaków istniejące tylko w czasie wykonywania pozostają poza zasięgiem, a rozróżnienie tekstu dla użytkownika od logiki aplikacji wymaga kilku adnotacji.
 
 </Question>
 

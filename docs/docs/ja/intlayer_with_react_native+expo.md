@@ -68,7 +68,6 @@ author: aymericzip
 `react-native-localize` や `i18next` などの主要なソリューションと比較して、Intlayer は次のような統合された最適化を備えたソリューションです。
 
 <AccordionGroup>
-
 <Accordion header="React Native を完全にカバー">
 
 Intlayer は、**コンポーネントレベルのコンテンツスコープ**、**TypeScript サポート**、およびモバイルアプリの国際化 (i18n) のスケーリングに必要なすべての機能を提供することにより、React Native および Expo と完全に連携するように最適化されています。
@@ -163,8 +162,6 @@ bun add intlayer react-native-intlayer
 
 - **react-native-intlayer**  
   ロケールの取得や切り替えに使用するコンテキストプロバイダーと React フック、React Native ポリフィル、および Intlayer を React Native バンドラーと統合するための Metro プラグインを提供する React Native 統合。`react-intlayer` からすべてを再エクスポートするため、React Native アプリではこの単一パッケージのみが必要です。
-
----
 
 </Step>
 
@@ -325,8 +322,6 @@ export default homeScreenContent;
 
 > コンテンツ宣言の詳細については、[Intlayer のコンテンツドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md) を参照してください。
 
----
-
 </Step>
 
 <Step number={6} title="コンポーネントで Intlayer を使用する">
@@ -379,8 +374,6 @@ export default HomeScreen;
 > `content.someKey` を文字列ベースのプロパティ（例：ボタンの `title` や `Text` コンポーネントの `children`）で使用する場合は、実際の文字列を取得するために **`content.someKey.value` を呼び出してください**。
 
 > アプリケーションが既に存在する場合は、[Intlayer コンパイラ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md) と [抽出コマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/extract.md) を組み合わせて、1 秒で何千ものコンポーネントを変換できます。
-
----
 
 </Step>
 

@@ -34,36 +34,6 @@ author: aymericzip
 
 # Terjemahkan situs web Vite dan Preact Anda menggunakan Intlayer | Internasionalisasi (i18n)
 
-<Tabs defaultTab="video">
-  <Tab label="Video" value="video">
-
-<iframe title="The best i18n solution for Vite and Preact? Discover Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?si=VaKmrYMmXjo3xpk2"/>
-
-  </Tab>
-  <Tab label="Code" value="code">
-
-<iframe
-  src="https://ide.intlayer.org/aymericzip/intlayer-vite-preact-template?file=intlayer.config.ts"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
-  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-  loading="lazy"
-/>
-
-  </Tab>
-  <Tab label="Demo" value="demo">
-
-<iframe
-  src="https://intlayer-vite-preact-template.vercel.app"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo - intlayer-vite-preact-template"
-  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-  loading="lazy"
-/>
-
-  </Tab>
-</Tabs>
-
 ## Daftar Isi
 
 <TOC/>
@@ -73,7 +43,6 @@ author: aymericzip
 Dibandingkan dengan solusi utama seperti `preact-i18n` atau `i18next`, Intlayer adalah solusi yang hadir dengan pengoptimalan terintegrasi seperti:
 
 <AccordionGroup>
-
 <Accordion header="Cakupan Prekta Penuh">
 
 Intlayer dioptimalkan untuk bekerja sempurna dengan Preact dengan menawarkan **pelingkupan konten tingkat komponen**, **terjemahan yang lambat dimuat**, dan semua fitur yang diperlukan untuk meningkatkan internasionalisasi (i18n).
@@ -120,6 +89,36 @@ Lebih dari sekedar solusi i18n, Intlayer menyediakan **[editor visual](https://g
 ---
 
 ## Panduan Langkah demi Langkah untuk Mengatur Intlayer dalam Aplikasi Vite dan Preact
+
+<Tabs defaultTab="video">
+  <Tab label="Video" value="video">
+
+<iframe title="The best i18n solution for Vite and Preact? Discover Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?si=VaKmrYMmXjo3xpk2"/>
+
+  </Tab>
+  <Tab label="Code" value="code">
+
+<iframe
+  src="https://ide.intlayer.org/aymericzip/intlayer-vite-preact-template?file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+  <Tab label="Demo" value="demo">
+
+<iframe
+  src="https://intlayer-vite-preact-template.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo - intlayer-vite-preact-template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+</Tabs>
 
 Lihat [Template Aplikasi](https://github.com/aymericzip/intlayer-vite-preact-template) di GitHub.
 
@@ -617,8 +616,6 @@ export default LocaleSwitcher;
 
 Berikut adalah **Langkah 9** yang diperbarui dengan penjelasan tambahan dan contoh kode yang disempurnakan:
 
----
-
 </Step>
 
 <Step number={9} title="Ganti atribut bahasa dan arah HTML" isOptional={true}>
@@ -1042,6 +1039,8 @@ Untuk detail lebih lanjut tentang cara menggunakan extension, lihat [dokumentasi
 
 <Question title="Apa saja solusi berbeda yang tersedia untuk menginternasionalkan aplikasi Vite dan Preact?">
 
+Vite tidak memiliki preferensi mengenai i18n, jadi pilihan berasal dari ekosistem Preact:
+
 - **`preact-i18n`** atau **`react-i18next`**: library umum dengan pemuatan JSON di runtime.
 - **`Intlayer`**: binding asli `preact-intlayer` tanpa memerlukan `preact/compat`, kompilasi build time, typing penuh, dan AI terjemahan.
 
@@ -1072,6 +1071,8 @@ Ya. Plugin [sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/doc
 Tidak. Jalankan `npx intlayer extract` dan Intlayer membaca file Anda, mengeluarkan string yang dihadapi pengguna, dan menulis file `.content` di sebelah masing-masing, sehingga Anda meninjau diff alih-alih menyalin string ke dalam katalog satu per satu.
 
 Untuk proses otomatis penuh, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md) melakukan hal yang sama saat build time: memindai kode pada setiap perubahan, menghasilkan kamus, dan menyinkronkannya dengan HMR.
+
+Dua batasan perlu diketahui sebelum Anda mengaktifkan compiler. Ini bekerja dengan analisis statis, jadi string yang hanya ada saat runtime, seperti kode kesalahan API atau field CMS, tetap berada di luar jangkauan. Dan ini harus membedakan teks yang dilihat pengguna dari logika aplikasi seperti `className="active"` atau kode status, yang memerlukan beberapa anotasi di basis kode yang besar. [Perintah extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/extract.md) menghindari keduanya dengan menjaga Anda tetap memegang kendali.
 
 </Question>
 

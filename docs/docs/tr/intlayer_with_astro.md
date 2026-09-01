@@ -66,7 +66,6 @@ author: aymericzip
 'astro-i18n' veya 'i18next' gibi ana çözümlerle karşılaştırıldığında Intlayer, aşağıdaki gibi entegre optimizasyonlarla gelen bir çözümdür:
 
 <AccordionGroup>
-
 <Accordion header="Tam Astro kapsamı">
 
 Intlayer, **çok dilli yönlendirme**, **site haritası** ve uluslararasılaştırmayı (i18n) ölçeklendirmek için gereken tüm özellikleri sunarak Astro ile mükemmel çalışacak şekilde optimize edilmiştir.
@@ -566,29 +565,20 @@ export default defineConfig({
 npm run build # Veya npm run dev
 ```
 
-```bash packageManager="npm"
-npm install intlayer astro-intlayer
-# opsiyonel: React islands desteği eklemek isterseniz
-npm install react react-dom react-intlayer @astrojs/react
-```
-
 ```bash packageManager="pnpm"
-pnpm add intlayer astro-intlayer
-# opsiyonel: React islands desteği eklemek isterseniz
-pnpm add react react-dom react-intlayer @astrojs/react
+pnpm run build # Veya pnpm run dev
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer astro-intlayer
-# opsiyonel: React islands desteği eklemek isterseniz
-yarn add react react-dom react-intlayer @astrojs/react
+yarn build # Veya yarn dev
 ```
 
-- **intlayer**
-  Konfigürasyon yönetimi, çeviriler, [içerik deklarasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md), transpilasyon ve [CLI komutları](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/index.md) için i18n araçları sağlayan temel paket.
+```bash packageManager="bun"
+bun run build # Veya bun run dev
+```
 
-- **astro-intlayer**
-  Intlayer'ı [Vite paketleyici](https://vite.dev/guide/why.html#why-bundle-for-production) ile bağlamak için Astro entegrasyon eklentisi; ayrıca kullanıcının tercih ettiği dili algılamak, çerezleri yönetmek ve URL yönlendirmelerini işlemek için ara yazılım (middleware) içerir.
+ </Tab>
+</Tabs>
 
 </Step>
 
@@ -685,6 +675,8 @@ Evet. [sync JSON eklentisi](https://github.com/aymericzip/intlayer/blob/main/doc
 Hayır. `npx intlayer extract` komutunu çalıştırın; Intlayer bileşenlerinizi okur, kullanıcıya dönük dizeleri çıkarır ve her birinin yanına bir `.content` dosyası yazar, böylece dizeleri tek tek kopyalamak yerine bir diff incelersiniz. Bu kılavuzun 15. adımı bunu açıklar.
 
 Tam otomatik bir süreç için [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md) derleme sırasında aynı işlemi yapar: her değişiklikte JSX, TSX, Vue ve Svelte kodunu tarar, sözlükleri üretir ve HMR ile senkronize tutar.
+
+Derleyiciyi açmadan önce bilmeye değer iki sınır vardır. Statik analiz ile çalışır, bu nedenle API hata kodları veya CMS alanları gibi yalnızca çalışma zamanında var olan dizeler ulaşılamaz kalır. Ayrıca, `className="active"` veya durum kodu gibi uygulama mantığından kullanıcıya yönelik metinleri ayırt etmesi gerekir; bu da büyük bir kod tabanında birkaç ek açıklama gerektirir. [Extract komutu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/extract.md) sizi döngüde tutarak her ikisinden de kaçınır.
 
 </Question>
 

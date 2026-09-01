@@ -66,7 +66,6 @@ author: aymericzip
 与“astro-i18n”或“i18next”等主要解决方案相比，Intlayer是一个具有集成优化的解决方案，例如：
 
 <AccordionGroup>
-
 <Accordion header="Astro 完整支持">
 
 Intlayer 经过优化，可与 Astro 完美配合，提供**多语言路由**、**站点地图**以及扩展国际化 (i18n) 所需的所有功能。
@@ -107,6 +106,7 @@ Intlayer 经过优化，可与 Astro 完美配合，提供**多语言路由**、
 
 Intlayer 不仅仅是一个 i18n 解决方案，还提供了一个**自托管的[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)**和一个**[完整的 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** 来帮助您管理多语言内容**实时**，与译员、文案人员和其他团队成员无缝协作。内容可以本地和/或远程存储。
 
+</Accordion>
 </AccordionGroup>
 
 ---
@@ -571,8 +571,6 @@ bun run build # 或 bun run dev
 
  </Tab>
 </Tabs>
-
----
 
 </Step>
 

@@ -62,7 +62,6 @@ author: aymericzip
 Comparado com soluções principais como `ngx-translate` ou `angular-l10n`, Intlayer é uma solução que vem com otimizações integradas como:
 
 <AccordionGroup>
-
 <Accordion header="Cobertura analógica completa">
 
 O Intlayer é otimizado para funcionar perfeitamente com o Analog, oferecendo **roteamento multilíngue**, **suporte SSR** e todos os recursos necessários para dimensionar a internacionalização (i18n).

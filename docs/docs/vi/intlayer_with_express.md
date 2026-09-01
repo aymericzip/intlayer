@@ -282,9 +282,9 @@ Khuyến nghị bạn nên bỏ qua các tệp được tạo bởi Intlayer. Đ
 
 <Question title="Những giải pháp khác nhau nào có sẵn để quốc tế hóa ứng dụng Express?">
 
-- **`i18next` / `i18next-http-middleware`**: giải pháp runtime phổ biến dùng các tệp JSON.
-- **Từ điển thủ công**: không có kiểu dữ liệu hay công cụ tự động hóa.
-- **`Intlayer`**: middleware `express-intlayer`, kiểu dữ liệu TypeScript đầy đủ, dịch thuật AI, CMS và từ điển dùng chung với frontend.
+Tùy chọn truyền thống là `i18next` với `i18next-http-middleware`, tải các catalog JSON theo namespace và lưu trữ locale trên request. Giải pháp thay thế là `Intlayer` thông qua `express-intlayer`, khai báo nội dung trong các tệp có kiểu dữ liệu dùng chung với frontend của bạn, giải quyết locale theo từng request, đồng thời bổ sung bản dịch bằng AI và CMS.
+
+Lý do để quốc tế hóa backend là phần lớn văn bản mà người dùng đọc không bao giờ đi qua frontend: thông báo lỗi API, email giao dịch, thông báo push, SMS và xuất PDF. Những nội dung này cần ngôn ngữ của người nhận, được giải quyết theo từng yêu cầu thay vì theo từng phiên.
 
 Xem [lý do chọn Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/interest_of_intlayer.md).
 

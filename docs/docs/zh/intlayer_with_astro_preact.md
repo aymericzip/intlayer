@@ -63,21 +63,19 @@ author: aymericzip
 
 与“astro-i18n”或“i18next”等主要解决方案相比，Intlayer是一个具有集成优化的解决方案，例如：
 
-**完整的 Astro 报道**
-
+<AccordionGroup>
 <Accordion header="完整的 Astro 支持">
 
 Intlayer 经过优化，可与 Astro 完美配合，提供**多语言路由**、**站点地图**以及扩展国际化 (i18n) 所需的所有功能。
 
 </Accordion>
 
-**捆绑尺寸**
+<Accordion header="捆绑尺寸">
 
 不要将大量 JSON 文件加载到页面中，而只需加载必要的内容。 Intlayer 有助于**将捆绑包和页面大小减少多达 50%**。
 
 </Accordion>
 
-<AccordionGroup>
 <Accordion header="可维护性">
 
 确定应用程序内容的范围**有利于大型应用程序的维护**。您可以复制或删除单个功能文件夹，而无需承担检查整个内容代码库的精神负担。此外，Intlayer 具有**完全类型化 (fully typed)**，以确保您的内容的准确性。
@@ -593,8 +591,6 @@ bun run build # 或 bun run dev
 
  </Tab>
 </Tabs>
-
----
 
 </Step>
 

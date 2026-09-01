@@ -41,7 +41,6 @@ author: aymericzip
 '@nuxtjs/i18n' veya 'i18next' gibi ana çözümlerle karşılaştırıldığında Intlayer, aşağıdaki gibi entegre optimizasyonlarla gelen bir çözümdür:
 
 <AccordionGroup>
-
 <Accordion header="Tam Nuxt kapsamı">
 
 Intlayer, **çok dilli yönlendirme**, **yerel algılama için ara yazılım**, **site haritası** ve uluslararasılaştırmayı ölçeklendirmek için gereken tüm özellikleri (i18n) sunarak Nuxt ile mükemmel çalışacak şekilde optimize edilmiştir.
@@ -691,6 +690,8 @@ Daha ileri gitmek için, [görsel editörü](https://github.com/aymericzip/intla
 <FAQ>
 
 <Question title="Nuxt uygulamasını uluslararasılaştırmak için hangi farklı çözümler mevcuttur?">
+
+İki gerçekçi seçenek:
 
 - **`@nuxtjs/i18n`**: `vue-i18n` tabanlı standart Nuxt modülü.
 - **`Intlayer`**: tree-shaking, tam TypeScript tipleri, AI çeviri, görsel düzenleyici ve CMS sunan en gelişmiş çözüm.

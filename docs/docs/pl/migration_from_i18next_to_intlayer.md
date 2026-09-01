@@ -27,7 +27,6 @@ author: aymericzip
 ## Dlaczego migrować z i18next do Intlayer?
 
 <AccordionGroup>
-
 <Accordion header="Rozmiar bundle">
 
 Zamiast ładować ogromne pliki JSON do stron, ładuj tylko niezbędną zawartość. Intlayer pomaga **zmniejszyć bundle i rozmiary stron nawet o 50%**.
@@ -65,7 +64,6 @@ Użyj automatyzacji do tłumaczenia w pipeline CI/CD korzystając z wybranego LL
 Więcej niż tylko rozwiązanie i18n, Intlayer zapewnia samodzielnie hostowany **edytor wizualny** i **pełny CMS** aby pomóc ci zarządzać multilingual zawartością w **rzeczywistym czasie**, czyniąc współpracę z tłumaczami, copywriterami i innymi członkami zespołu bezproblemową. Zawartość może być przechowywana lokalnie i/lub zdalnie.
 
 </Accordion>
-
 </AccordionGroup>
 
 ---

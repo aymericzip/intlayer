@@ -41,8 +41,7 @@ author: aymericzip
 
 「next-intl」や「i18next」などの主要なソリューションと比較して、Intlayer は次のような統合された最適化を備えたソリューションです。
 
-**Next.js を完全にカバー**
-
+<AccordionGroup>
 <Accordion header="完全な Next.js サポート">
 
 Intlayer は、効率的なレンダリングのために **サーバー コンポーネント** と連携するように最適化されており、[**Turbopack**](https://nextjs.org/docs/architecture/turbopack) と完全に互換性があります。静的レンダリングをブロックせず、ミドルウェアとスケーリング国際化 (i18n) に必要なすべての機能を提供します。
@@ -51,17 +50,17 @@ Intlayer は、効率的なレンダリングのために **サーバー コン�
 > ロケール ルーティングは、SEO、バンドル サイズ、パフォーマンスに役立ちます。必要ない場合は、この[ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_no_locale_path.md)を参照してください。
 > App Router を使用した Next.js 12、13、14、および 15 については、この [ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_14.md) を参照してください。
 
-**バンドルサイズ**
+</Accordion>
 
 <Accordion header="Bundle size">
 
 大量の JSON ファイルをページにロードするのではなく、必要なコンテンツのみをロードします。 Intlayer は、**バンドルとページのサイズを最大 50% 削減**するのに役立ちます。
 
-**保守性**
+</Accordion>
+
+<Accordion header="保守性">
 
 アプリケーションのコンテンツのスコープを設定すると、大規模なアプリケーションの **メンテナンスが容易になります**。コンテンツ コードベース全体を確認するという精神的な負担を負うことなく、単一の機能フォルダーを複製または削除できます。さらに、Intlayer は**完全に型指定**されており、コンテンツの正確性を保証します。
-
-**AI エージェント**
 
 </Accordion>
 
@@ -69,13 +68,13 @@ Intlayer は、効率的なレンダリングのために **サーバー コン�
 
 コンテンツを同じ場所に配置すると、大規模言語モデル (LLM) によって **必要なコンテキストが削減**されます。 Intlayer には、翻訳の欠落をテストする **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** などのツール スイートも付属しています。および **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)** により、AI エージェントの開発者エクスペリエンス (DX) がさらにスムーズになります。
 
-**オートメーション**
+</Accordion>
 
 <Accordion header="自動化">
 
 AI プロバイダーの費用で、選択した LLM を使用して CI/CD パイプラインで自動化を変換します。 Intlayer は、コンテンツ抽出を自動化する **コンパイラー** と、**バックグラウンドでの翻訳**を支援する [Web プラットフォーム](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) も提供します。
 
-**パフォーマンス**
+</Accordion>
 
 <Accordion header="パフォーマンス">
 
@@ -83,7 +82,9 @@ AI プロバイダーの費用で、選択した LLM を使用して CI/CD パ�
 
 大量の JSON ファイルをコンポーネントに接続すると、パフォーマンスと反応性の問題が発生する可能性があります。 Intlayer は、ビルド時のコンテンツの読み込みを最適化します。
 
-**非開発によるスケーリング**
+</Accordion>
+
+<Accordion header="非開発によるスケーリング">
 
 Intlayer は単なる i18n ソリューションではなく、**自己ホスト型 [ビジュアル エディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** と **[完全な CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** を提供します。 **リアルタイム**で多言語コンテンツを管理できるようになり、翻訳者、コピーライター、その他のチーム メンバーとのコラボレーションがシームレスになります。コンテンツはローカルおよび/またはリモートに保存できます。
 
@@ -570,7 +571,7 @@ export const ServerComponentExample: FC = () => {
 
 </Step>
 
-<Step number={7} title="ロケール検出のためのミドルウェア設定">
+<Step number={7} title="ロケール検出のためのミドルウェア設定" isOptional={true}>
 
 ユーザーの優先ロケールを検出するミドルウェアを設定します：
 
@@ -604,7 +605,7 @@ export const middleware = multipleMiddlewares([
 
 </Step>
 
-<Step number={8} title="メタデータの国際化">
+<Step number={8} title="メタデータの国際化" isOptional={true}>
 
 ページのタイトルなどのメタデータを国際化したい場合は、Next.jsが提供する`generateMetadata`関数を使用できます。その中で、`getIntlayer`関数からコンテンツを取得してメタデータを翻訳できます。
 
@@ -709,7 +710,7 @@ export const generateMetadata = async ({
 
 </Step>
 
-<Step number={9} title="sitemap.xml と robots.txt の国際化">
+<Step number={9} title="sitemap.xml と robots.txt の国際化" isOptional={true}>
 
 `sitemap.xml` と `robots.txt` を国際化するには、Intlayer が提供する `getMultilingualUrls` 関数を使用できます。この関数を使うことで、サイトマップ用の多言語 URL を生成できます。
 
@@ -776,7 +777,7 @@ export default robots;
 
 </Step>
 
-<Step number={10} title="コンテンツの言語を変更する">
+<Step number={10} title="コンテンツの言語を変更する" isOptional={true}>
 
 Next.js でコンテンツの言語を変更するには、推奨される方法として `Link` コンポーネントを使用して、ユーザーを適切なローカライズされたページにリダイレクトする方法があります。`Link` コンポーネントはページのプリフェッチを可能にし、完全なページリロードを回避するのに役立ちます。
 
@@ -865,7 +866,7 @@ return (
 
 </Step>
 
-<Step number={11} title="ローカライズされたリンクコンポーネントの作成">
+<Step number={11} title="ローカライズされたリンクコンポーネントの作成" isOptional={true}>
 
 アプリケーションのナビゲーションが現在のロケールを尊重するようにするために、カスタムの `Link` コンポーネントを作成できます。このコンポーネントは内部のURLに自動的に現在の言語をプレフィックスとして付加します。例えば、フランス語を話すユーザーが「About」ページへのリンクをクリックすると、`/about` ではなく `/fr/about` にリダイレクトされます。
 
@@ -936,7 +937,7 @@ export const Link: FC<PropsWithChildren<NextLinkProps>> = ({
 
 </Step>
 
-<Step number={12} title="バンドルサイズの最適化">
+<Step number={12} title="バンドルサイズの最適化" isOptional={true}>
 
 `next-intlayer` を使用すると、辞書がデフォルトで全ページのバンドルに含まれます。バンドルサイズを最適化するために、Intlayer はマクロを使用して `useIntlayer` の呼び出しを賢く置き換えるオプションの SWC プラグインを提供しています。これにより、辞書は実際に使用されているページのバンドルにのみ含まれるようになります。
 
@@ -988,10 +989,10 @@ bun add @intlayer/swc --dev
 > 注意: この最適化は Next.js 13 以降でのみ利用可能です。
 
 > 注意: SWC プラグインは Next.js ではまだ実験的な機能のため、このパッケージはデフォルトでインストールされていません。将来的に変更される可能性があります。
-> </Step>
 
 > 注意: `importMode: 'dynamic'` または `importMode: 'fetch'` オプションを設定した場合（`dictionary` 設定内）、Suspense に依存するため、`useIntlayer` 呼び出しを `Suspense` boundary でラップする必要があります。つまり、`useIntlayer` を Page / Layout コンポーネントのトップレベルで直接使用することはできません。
-> </Step>
+
+</Step>
 
 </Steps>
 

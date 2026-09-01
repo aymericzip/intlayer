@@ -351,6 +351,8 @@ Untuk melakukan ini, Anda dapat menambahkan instruksi berikut ke file `.gitignor
 - **Kamus dasar**: tanpa typing atau tooling.
 - **`Intlayer`**: dioptimalkan khusus untuk Bun dan Elysia, kompilasi build time, tipe TypeScript ketat, dan performa tinggi.
 
+Alasan utama untuk menginternasionalkan backend adalah karena sebagian besar teks yang dibaca pengguna tidak pernah melewati frontend: pesan kesalahan API, email transaksional, push notification, SMS, dan ekspor PDF. Hal-hal tersebut memerlukan bahasa penerima, yang diselesaikan per permintaan dan bukan per sesi.
+
 Lihat [mengapa Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/interest_of_intlayer.md).
 
 </Question>

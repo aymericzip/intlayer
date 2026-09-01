@@ -76,7 +76,6 @@ Siehe [Application Template](https://github.com/aymericzip/intlayer-next-16-temp
 Im Vergleich zu Hauptlösungen wie „next-intl“ oder „i18next“ ist Intlayer eine Lösung, die über integrierte Optimierungen verfügt wie:
 
 <AccordionGroup>
-
 <Accordion header="Vollständige Next.js-Abdeckung">
 
 Intlayer ist für die Zusammenarbeit mit **Serverkomponenten** für effizientes Rendern optimiert und vollständig kompatibel mit [**Turbopack**](https://nextjs.org/docs/architecture/turbopack). Es blockiert kein statisches Rendering und bietet Middleware sowie alle für die Skalierung der Internationalisierung erforderlichen Funktionen (i18n).
@@ -318,8 +317,9 @@ Um dynamisches Routing zu implementieren, geben Sie den Pfad für die Locale an,
 <Tabs>
  <Tab label='Intlayer >=9.4' value='>=9.4'>
 
-````tsx fileName="src/app/[locale]/layout.tsx" codeFormat={["typescript", "esm"]}
-import type { NextLayoutIntlayer } from "next-intlayer";
+```tsx fileName="src/app/[locale]/layout.tsx" codeFormat={["typescript", "esm"]}
+import { type NextLayoutIntlayer } from "next-intlayer";
+import { IntlayerProvider } from "next-intlayer/server";
 import { Inter } from "next/font/google";
 import { getHTMLTextDir } from "intlayer";
 
@@ -328,9 +328,21 @@ const inter = Inter({ subsets: ["latin"] });
 const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
   const { locale } = await params;
   return (
-> Die `RootLayout`-Komponente leer zu halten, ermöglicht es, die Attribute [`lang`](https://developer.mozilla.org/fr/docs/Web/HTML/Global_attributes/lang) und [`dir`](https://developer.mozilla.org/fr/docs/Web/HTML/Global_attributes/dir) im `<html>`-Tag zu setzen.
+    <html lang={locale} dir={getHTMLTextDir(locale)}>
+      <body className={inter.className}>
+        <IntlayerProvider locale={locale}>{children}</IntlayerProvider>
+      </body>
+    </html>
+  );
+};
 
-Um dynamisches Routing zu implementieren, geben Sie den Pfad für die Locale an, indem Sie ein neues Layout in Ihrem `[locale]`-Verzeichnis hinzufügen:
+export default LocaleLayout;
+```
+
+> Ein einziger `IntlayerProvider` deckt beide Hälften des Baums ab: Er initialisiert den anfrage-bezogenen Server-Kontext, der von den Server-Hooks gelesen wird, und mountet den Client-Provider, sodass Client-Komponenten dieselbe Locale erhalten.
+
+ </Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
 
 ```tsx fileName="src/app/[locale]/layout.tsx" codeFormat="typescript"
 import { type NextLayoutIntlayer, IntlayerClientProvider } from "next-intlayer";
@@ -352,10 +364,12 @@ const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
   );
 };
 
-</Tab>
+export default LocaleLayout;
+```
+
+ </Tab>
 </Tabs>
 
-export default LocaleLayout;
 > Das Pfadsegment `[locale]` wird verwendet, um die Spracheinstellung (Locale) zu definieren. Beispiel: `/en-US/about` bezieht sich auf `en-US` und `/fr/about` auf `fr`.
 
 > In diesem Stadium werden Sie auf den Fehler stoßen: `Error: Missing <html> and <body> tags in the root layout.`. Dies ist zu erwarten, da die Datei `/app/page.tsx` nicht mehr verwendet wird und entfernt werden kann. Stattdessen aktiviert das Pfadsegment `[locale]` die Seite `/app/[locale]/page.tsx`. Folglich sind die Seiten über Pfade wie `/en`, `/fr`, `/es` in Ihrem Browser zugänglich. Um die Standardsprache als Root-Seite festzulegen, siehe die `proxy`-Konfiguration in Schritt 7.
@@ -370,7 +384,7 @@ const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
 };
 
 export default LocaleLayout;
-````
+```
 
 ```jsx {1,7} fileName="src/app/[locale]/layout.csx" codeFormat="commonjs"
 const { generateStaticParams } = require("next-intlayer"); // Zeile zum Einfügen
@@ -537,6 +551,9 @@ export const ClientComponentExample: FC = () => {
   );
 };
 ```
+
+ </Tab>
+</Tabs>
 
 <Tabs>
  <Tab label='Intlayer >=9.4' value='>=9.4'>
@@ -1011,7 +1028,6 @@ bun add @intlayer/swc --dev
 > Hinweis: Dieses Paket ist nicht standardmäßig installiert, da SWC-Plugins in Next.js noch experimentell sind. Dies kann sich in Zukunft ändern.
 >
 > Hinweis: Wenn Sie die Option `importMode: 'dynamic'` oder `importMode: 'fetch'` (in der Dictionary-Konfiguration) setzen, basiert dies auf Suspense. Daher müssen Sie Ihre `useIntlayer`-Aufrufe in eine `Suspense`-Begrenzung umschließen. Das bedeutet, dass Sie `useIntlayer` nicht direkt auf der obersten Ebene Ihrer Page-/Layout-Komponente verwenden können.
-> </Step>
 
 </Step>
 
@@ -1129,6 +1145,8 @@ bun run build # Or bun run dev
 
  </Tab>
 </Tabs>
+
+</Step>
 
 </Steps>
 

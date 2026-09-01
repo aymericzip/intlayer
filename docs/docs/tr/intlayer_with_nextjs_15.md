@@ -45,7 +45,6 @@ author: aymericzip
 'Next-intl' veya 'i18next' gibi ana çözümlerle karşılaştırıldığında Intlayer, aşağıdaki gibi entegre optimizasyonlarla gelen bir çözümdür:
 
 <AccordionGroup>
-
 <Accordion header="Tam Next.js kapsamı">
 
 Intlayer, verimli işleme için **Sunucu Bileşenleri** ile çalışacak şekilde optimize edilmiştir ve [**Turbopack**](https://nextjs.org/docs/architecture/turbopack) ile tamamen uyumludur. Statik oluşturmayı engellemez ve ara yazılımların yanı sıra uluslararasılaştırmayı (i18n) ölçeklendirmek için gereken tüm özellikleri sunar.
@@ -985,10 +984,10 @@ bun add @intlayer/swc --dev
 > Not: Bu optimizasyon sadece Next.js 13 ve üzeri için kullanılabilir.
 
 > Not: Bu paket varsayılan olarak kurulmaz çünkü SWC eklentileri Next.js'te hala deneyseldir. Gelecekte değişebilir.
-> </Step>
 
 > Not: Eğer seçeneği `importMode: 'dynamic'` veya `importMode: 'fetch'` olarak ayarlarsanız (dictionary yapılandırmasında), Suspense'e bağlı olacaktır, bu nedenle `useIntlayer` çağrılarınızı bir `Suspense` sınırı içinde sarmanız gerekecektir. Bu, `useIntlayer`'ı doğrudan sayfa / düzen bileşeninizin üst düzeyinde kullanamayacağınız anlamına gelir.
-> </Step>
+
+</Step>
 
 </Steps>
 
@@ -1063,6 +1062,8 @@ Daha fazla ilerlemek için, [görsel düzenleyici](https://github.com/aymericzip
 <FAQ>
 
 <Question title="Next.js 15 uygulamasını uluslararasılaştırmak için hangi farklı çözümler mevcuttur?">
+
+`next.config.js` dosyasındaki `i18n` alanı App Router için geçerli değildir, bu nedenle yerelleştirme katmanı her zaman bir kütüphane seçimidir:
 
 - **`next-intl`**: App Router için popüler mesaj tabanlı kütüphane, çalışma zamanında JSON dosyaları yükler.
 - **`next-i18next`**: Pages Router için standart çözüm.

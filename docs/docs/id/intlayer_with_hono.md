@@ -303,8 +303,9 @@ Untuk melakukan ini, Anda dapat menambahkan instruksi berikut ke file `.gitignor
 
 <Question title="Apa saja solusi berbeda yang tersedia untuk menginternasionalkan aplikasi Hono?">
 
-- **Objek pemetaan dasar**: tanpa keamanan tipe dan fleksibilitas.
-- **`Intlayer`**: berjalan sempurna di Cloudflare Workers, Fastly, Deno, Bun, dan Node.js, kompilasi build time, latensi nol.
+Hono tidak memiliki lapisan i18n bawaan, jadi pilihannya adalah pustaka umum seperti `i18next` yang dihubungkan secara manual ke middleware, atau `Intlayer` melalui `hono-intlayer`, yang mendaftarkan middleware untuk Anda, menyelesaikan locale per request, dan berbagi konten deklarasi yang sama dengan frontend Anda.
+
+Alasan menginternasionalkan backend adalah karena sebagian besar teks yang dibaca pengguna tidak pernah melewati frontend: pesan kesalahan API, email transaksional, notifikasi push, SMS, dan ekspor PDF. Semua ini memerlukan bahasa penerima, yang diselesaikan per permintaan daripada per sesi.
 
 Lihat [mengapa Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/interest_of_intlayer.md).
 

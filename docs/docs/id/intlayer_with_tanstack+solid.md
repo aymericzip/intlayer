@@ -46,7 +46,6 @@ Panduan ini mendemonstrasikan cara mengintegrasikan **Intlayer** untuk internasi
 Dibandingkan dengan solusi utama seperti `react-i18next` atau `i18next`, Intlayer adalah solusi yang hadir dengan pengoptimalan terintegrasi seperti:
 
 <AccordionGroup>
-
 <Accordion header="Cakupan TanStack Start penuh">
 
 Intlayer dioptimalkan untuk bekerja sempurna dengan TanStack Start dan Solid dengan menawarkan **perutean multibahasa**, **peta situs**, dan semua fitur yang diperlukan untuk penskalaan internasionalisasi (i18n).
@@ -566,8 +565,6 @@ const RootComponent: ParentComponent = (props) => {
 };
 ```
 
----
-
 </Step>
 
 <Step number={12} title="Tambahkan Middleware">
@@ -603,8 +600,6 @@ export default defineConfig({
   ],
 });
 ```
-
----
 
 </Step>
 
@@ -799,8 +794,6 @@ Anda tetap mendapat chunk per-locale tanpa membayar biayanya di jalur kritis `he
 | Navigasi klien       | tidak ada yang perlu diselesaikan | dijalankan ulang setiap kali cocok | disajikan dari cache router            |
 | Developer experience | paling sederhana                  | satu `await`                       | konten diteruskan lewat `loaderData`   |
 
----
-
 </Step>
 
 <Step number={14} title="Ambil lokal di server action Anda">
@@ -837,8 +830,6 @@ export const getLocaleServer = createServerFn().handler(async () => {
   return { locale, content };
 });
 ```
-
----
 
 </Step>
 
@@ -1031,8 +1022,6 @@ bun run build # Atau bun run dev
  </Tab>
 </Tabs>
 
----
-
 </Step>
 
 <Step number={16} title="Pre-render & Buat Sitemap">
@@ -1106,8 +1095,6 @@ export const Route = createFileRoute("/sitemap.xml")({
 });
 ```
 
----
-
 </Step>
 
 <Step number={17} title="Konfigurasi TypeScript">
@@ -1125,8 +1112,6 @@ Pastikan konfigurasi TypeScript Anda menyertakan tipe yang dihasilkan secara oto
   ],
 }
 ```
-
----
 
 </Step>
 
@@ -1215,6 +1200,8 @@ Ya. Plugin [sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/doc
 Tidak. Jalankan `npx intlayer extract` dan Intlayer membaca file Anda, mengeluarkan string yang dihadapi pengguna, dan menulis file `.content` di sebelah masing-masing, sehingga Anda meninjau diff alih-alih menyalin string ke dalam katalog satu per satu.
 
 Untuk proses otomatis penuh, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md) melakukan hal yang sama saat build time: memindai kode pada setiap perubahan, menghasilkan kamus, dan menyinkronkannya dengan HMR.
+
+Dua batasan perlu diketahui sebelum Anda mengaktifkan compiler. Ini bekerja dengan analisis statis, jadi string yang hanya ada saat runtime, seperti kode kesalahan API atau field CMS, tetap berada di luar jangkauan. Dan ini harus membedakan teks yang dilihat pengguna dari logika aplikasi seperti `className="active"` atau kode status, yang memerlukan beberapa anotasi di basis kode yang besar. [Perintah extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/extract.md) menghindari keduanya dengan menjaga Anda tetap memegang kendali.
 
 </Question>
 

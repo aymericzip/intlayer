@@ -62,8 +62,6 @@ Intlayer 经过优化，可与 React Router 完美配合，提供**区域设置�
 
 不要将大量 JSON 文件加载到页面中，而只需加载必要的内容。 Intlayer 有助于**将捆绑包和页面大小减少多达 50%**。
 
-</Accordion>
-
 **可维护性**
 
 确定应用程序内容的范围**有利于大型应用程序的维护**。您可以复制或删除单个功能文件夹，而无需承担检查整个内容代码库的精神负担。此外，Intlayer 具有**完全类型化 (fully typed)**，以确保您的内容的准确性。
@@ -79,8 +77,6 @@ Intlayer 经过优化，可与 React Router 完美配合，提供**区域设置�
 **自动化**
 
 使用您选择的法学硕士，通过自动化在 CI/CD 管道中进行翻译，而费用由您的 AI 提供商承担。 Intlayer 还提供了一个**编译器**来自动提取内容，以及一个[网络平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)来帮助**在后台翻译**。
-
-</Accordion>
 
 **表现**
 
@@ -240,6 +236,10 @@ export default routes;
 
 在你的 `app/routes/` 目录中创建以下文件：
 
+</Step>
+</Steps>
+</Step>
+</Steps>
 #### 文件结构
 
 ```bash
@@ -344,8 +344,6 @@ export default function AboutPage() {
   );
 }
 ```
-
-</Step>
 
 <Step number={6} title="声明您的内容">
 
@@ -698,11 +696,7 @@ bun run build # 或 bun run dev
  </Tab>
 </Tabs>
 
----
-
 </Step>
-
-</Steps>
 
 ## Configure TypeScript
 

@@ -51,6 +51,7 @@ Intlayer підтримує вміст форматованого тексту, 
 
 <Tabs>
   <Tab label=".content.md" value=".content.md">
+
     Починаючи з версії `8.10.0`, ви можете оголошувати вміст Markdown безпосередньо у файлах `.content.md`. Intlayer автоматично виявлятиме та аналізуватиме вміст Markdown.
 
     ```md fileName="markdown-file.en.content.md"
@@ -96,6 +97,7 @@ Intlayer підтримує вміст форматованого тексту, 
     ```
 
   </Tab>
+
   <Tab label="Зовнішні файли" value="external-files">
     Імпортуйте файли `.md` безпосередньо за допомогою функції `file`.
 
@@ -129,6 +131,7 @@ Intlayer підтримує вміст форматованого тексту, 
     ```
 
   </Tab>
+
 </Tabs>
 
 ## Рендеринг Markdown

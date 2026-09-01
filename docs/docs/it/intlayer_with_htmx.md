@@ -35,7 +35,6 @@ Intlayer copre questo attraverso le sue integrazioni backend, che rilevono la lo
 ## Le tre regole dell'i18n in un'app htmx
 
 <AccordionGroup>
-
 <Accordion header="La locale deve essere risolta su ogni richiesta, non solo sulla prima">
 
 Una singola pagina può attivare dozzine di swap. Ognuno è una richiesta nuova senza memoria della pagina che l'ha generata. Se la locale vive in una variabile impostata durante il rendering iniziale, ogni frammento successivo ricade al linguaggio predefinito.
@@ -55,7 +54,6 @@ Due vettori funzionano con htmx. Un cookie (`INTLAYER_LOCALE`) viene inviato aut
 Une valeur traduite interpolée dans un fragment est du markup. Échappez-la, exactement comme vous le feriez pour toute autre valeur dynamique, afin qu'une traduction contenant `<` ne puisse pas casser le document dans lequel elle est échangée.
 
 </Accordion>
-
 </AccordionGroup>
 
 ---

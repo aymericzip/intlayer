@@ -37,24 +37,23 @@ author: aymericzip
 W porównaniu do głównych rozwiązań, takich jak „storybook-react-i18next” lub „i18next”, Intlayer jest rozwiązaniem wyposażonym w zintegrowane optymalizacje, takie jak:
 
 <AccordionGroup>
-
-**Pełne pokrycie Storybook**
+<Accordion header="Pełne pokrycie Storybook">
 
 Intlayer jest zoptymalizowany do doskonałej współpracy z Storybook, oferując **wielojęzyczne dekoratory historii**, **przełączanie ustawień regionalnych** i wszystkie funkcje potrzebne do skalowania internacjonalizacji (i18n) w całym systemie projektowym.
 
 </Accordion>
 
-**Rozmiar bundle'a**
+<Accordion header="Rozmiar bundle'a">
 
 Zamiast ładować ogromne pliki JSON na swoje strony, ładuj tylko niezbędną treść. Intlayer pomaga **zmniejszyć rozmiary bundle'a i stron nawet o 50%**.
 
 </Accordion>
 
-**Łatwość konserwacji**
+<Accordion header="Łatwość konserwacji">
 
 Określanie zakresu zawartości aplikacji **ułatwia konserwację** aplikacji na dużą skalę. Możesz powielić lub usunąć pojedynczy folder funkcji bez obciążania psychicznego koniecznością przeglądania całej bazy kodu zawartości. Dodatkowo Inlayer jest **w pełni napisany**, aby zapewnić dokładność treści.
 
-**Agent AI**
+</Accordion>
 
 <Accordion header="AI Agent">
 
@@ -62,11 +61,11 @@ Wspólna lokalizacja treści **zmniejsza potrzebny kontekst** dzięki modelom du
 
 </Accordion>
 
-**Automatyzacja**
+<Accordion header="Automatyzacja">
 
 Korzystaj z automatyzacji, aby tłumaczyć w swoim potoku CI/CD przy użyciu wybranego LLM na koszt dostawcy sztucznej inteligencji. Intlayer oferuje także **kompilator** do automatyzacji ekstrakcji treści, a także [platformę internetową] (https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md), która pomaga **tłumaczyć w tle**.
 
-**Wydajność**
+</Accordion>
 
 <Accordion header="Wydajność">
 
@@ -74,7 +73,7 @@ Korzystaj z automatyzacji, aby tłumaczyć w swoim potoku CI/CD przy użyciu wyb
 
 </Accordion>
 
-**Skalowanie bez użycia dewelopera**
+<Accordion header="Skalowanie bez użycia dewelopera">
 
 Więcej niż tylko rozwiązanie i18n, Intlayer zapewnia **samodzielny [edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** i **[pełny CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)**, który pomoże Ci zarządzać wielojęzyczną treścią w **w czasie rzeczywistym**, dzięki czemu współpraca z tłumaczami, copywriterami i innymi członkami zespołu będzie płynna. Treść może być przechowywana lokalnie i/lub zdalnie.
 
@@ -128,8 +127,6 @@ bun add vite-intlayer --dev
 | `react-intlayer` | Powiązania React - `IntlayerProvider`, hook `useIntlayer`     |
 | `vite-intlayer`  | Wtyczka Vite - monitoruje i kompiluje pliki deklaracji treści |
 
----
-
 </Step>
 
 <Step number={2} title="Tworzenie konfiguracji Intlayer">
@@ -158,8 +155,6 @@ export default config;
 ```
 
 > Pełną listę opcji znajdziesz w [dokumentacji konfiguracji](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md).
-
----
 
 </Step>
 
@@ -207,8 +202,6 @@ export default config;
 ```
 
 Wtyczka `intlayer()` monitoruje pliki `*.content.ts` i automatycznie przebudowuje słowniki przy każdej zmianie podczas pracy w Storybook.
-
----
 
 </Step>
 
@@ -267,6 +260,7 @@ export default preview;
 > Wartości `locale` muszą odpowiadać językom zadeklarowanym w `intlayer.config.ts`.
 
 </Step>
+
 </Steps>
 </Tab>
 <Tab value="Webpack Setup">
@@ -294,8 +288,6 @@ bun add intlayer react-intlayer
 bun add @intlayer/webpack --dev
 ```
 
----
-
 </Step>
 
 <Step number={2} title="Tworzenie konfiguracji Intlayer">
@@ -317,8 +309,6 @@ const config: IntlayerConfig = {
 
 export default config;
 ```
-
----
 
 </Step>
 
@@ -346,8 +336,6 @@ const config: StorybookConfig = {
 
 export default config;
 ```
-
----
 
 </Step>
 

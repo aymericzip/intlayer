@@ -103,6 +103,21 @@ export default config;
 
 Nếu bạn tự lưu trữ (self-host) Intlayer, analytics sẽ tự động trỏ đến phiên bản của riêng bạn vì nó dùng chung `editor.backendURL`.
 
+### Gọi API từ trình duyệt
+
+Cùng một token hỗ trợ một client nhỏ không cần thông tin xác thực, nhờ đó một trang tĩnh hoặc SPA có thể đọc nội dung CMS của nó tại thời điểm chạy mà không cần server, không cần server action và không có bất kỳ secret nào trong bundle:
+
+```ts fileName="content.ts"
+import { createPublicClient } from "@intlayer/api/public";
+
+const client = createPublicClient();
+
+const keys = await client.getDictionaryKeys();
+const [navbar] = await client.getDictionaries(["navbar"]);
+```
+
+Nó tự xác thực dựa trên `editor.clientId`: việc trao đổi, lưu vào bộ nhớ đệm và làm mới token được xử lý nội bộ. Các scope giới hạn phạm vi nó có thể truy cập: nội dung từ điển đã xuất bản và việc thu nhận dữ liệu analytics. Bất kỳ thao tác nào khác (đẩy từ điển, đọc một dự án, tiêu tốn tín dụng AI) đều cần một thông tin xác thực thật, tức là cần một server hoặc một người dùng đã đăng nhập.
+
 ### Cách tắt (opt-out)
 
 Khối `analytics` tùy chọn cho phép tinh chỉnh — hoặc tắt hẳn — việc thu thập:
@@ -123,17 +138,6 @@ export default config;
 
 Gỡ cài đặt `@intlayer/analytics` có tác dụng tương tự `enabled: false`. Xem [tài liệu tham chiếu cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md) để biết danh sách đầy đủ các trường.
 
-## Hỗ trợ Framework
-
-Analytics được liên kết với `IntlayerProvider` dùng chung từ `react-intlayer`, vì vậy nó có sẵn ở bất kỳ đâu provider đó được sử dụng:
-
-| Framework                                                | Trạng thái                                                                                            |
-| -------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| React                                                    | ✅ Có sẵn                                                                                             |
-| Next.js (`next-intlayer`)                                | ✅ Có sẵn (thông qua `react-intlayer`)                                                                |
-| React Native / Expo (`react-native-intlayer`)            | ✅ Có sẵn (thông qua `react-intlayer`)                                                                |
-| Vue, Svelte, Angular, Solid, Preact, Lit, Astro, Vanilla | 🚧 Đã lên kế hoạch — cùng một client, các ràng buộc cấp provider tuân theo mô hình `@intlayer/editor` |
-
 ## Cách sử dụng
 
 ### Tự động theo dõi ở cấp độ provider
@@ -145,6 +149,126 @@ Không cần thay đổi mã nguồn. Khi `@intlayer/analytics` đã được c�
 - ghi lại một `page_view` mỗi khi thay đổi ngôn ngữ,
 - bắt đầu vòng lặp flush ~20 giây và flush mọi sự kiện còn lại khi unmount / đóng tab (thông qua `navigator.sendBeacon`, với fallback là `fetch(..., { keepalive: true })`).
 
+Điểm khởi đầu khác nhau tùy theo framework, nhưng trong mọi trường hợp đều là nơi bạn đã dùng để thiết lập Intlayer, nên không cần thêm gì cả:
+
+<Tabs group="framework">
+  <Tab label="React" value="react">
+
+    `IntlayerProvider` gắn (mount) provider phân tích ở bên trong.
+
+    ```tsx fileName="App.tsx"
+    import { IntlayerProvider } from "react-intlayer";
+
+    const App = () => (
+      <IntlayerProvider>
+        <Router />
+      </IntlayerProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+
+    `next-intlayer` xuất lại `IntlayerProvider` của React, nên analytics cũng được kết nối theo cách tương tự.
+
+    ```tsx fileName="app/[locale]/layout.tsx"
+    import { IntlayerProvider } from "next-intlayer";
+
+    const LocaleLayout = ({ children }) => (
+      <IntlayerProvider>{children}</IntlayerProvider>
+    );
+
+    export default LocaleLayout;
+    ```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+    Plugin `intlayer` đăng ký các hook analytics vào vòng đời của component gốc.
+
+    ```javascript fileName="main.js"
+    import { createApp } from "vue";
+    import { intlayer } from "vue-intlayer";
+    import App from "./App.vue";
+
+    const app = createApp(App);
+
+    app.use(intlayer);
+
+    app.mount("#app");
+    ```
+
+    > Với Nuxt, `nuxt-intlayer` sẽ cài đặt plugin này giúp bạn: không cần làm gì thêm.
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+    `setupIntlayer()` khởi động analytics từ component thiết lập Intlayer.
+
+    ```svelte fileName="src/routes/[[locale=locale]]/+layout.svelte"
+    <script lang="ts">
+      import { setupIntlayer } from "svelte-intlayer";
+      import type { Snippet } from "svelte";
+
+      let { children, data }: { children: Snippet, data: LayoutData } = $props();
+
+      $effect(() => {
+        setupIntlayer(data.locale);
+      });
+    </script>
+
+    {@render children()}
+    ```
+
+  </Tab>
+  <Tab label="Preact" value="preact">
+
+    `IntlayerProvider` gắn (mount) provider phân tích ở bên trong.
+
+    ```tsx fileName="app.tsx"
+    import { IntlayerProvider } from "preact-intlayer";
+
+    const App = () => (
+      <IntlayerProvider>
+        <Router />
+      </IntlayerProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+    `IntlayerProvider` gắn provider phân tích theo kiểu lazy, nhờ đó chunk này không nằm trên critical path.
+
+    ```tsx fileName="App.tsx"
+    import { IntlayerProvider } from "solid-intlayer";
+
+    const App = () => (
+      <IntlayerProvider>
+        <Router />
+      </IntlayerProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+
+    `provideIntlayer()` đã bao gồm sẵn `provideIntlayerAnalytics()`.
+
+    ```ts fileName="app.config.ts"
+    import { provideIntlayer } from "angular-intlayer";
+    import type { ApplicationConfig } from "@angular/core";
+
+    export const appConfig: ApplicationConfig = {
+      providers: [provideIntlayer()],
+    };
+    ```
+
+    > Chỉ dùng riêng `provideIntlayerAnalytics()` nếu bạn quản lý các provider một cách độc lập.
+
+  </Tab>
+</Tabs>
+
 ### Tự động theo dõi ở cấp độ node
 
 Mỗi khi `useIntlayer` phân giải một phần nội dung để hiển thị, trình thông dịch sẽ báo cáo một sự kiện `content_exposure` cho chính xác `dictionaryKey` + đường dẫn khóa + ngôn ngữ đó — một lần nữa, không cần thay đổi mã. Các lần hiển thị lặp lại của cùng một node trong cùng một cửa sổ flush sẽ được gộp lại thành một sự kiện duy nhất với thuộc tính `count`, vì vậy một danh sách hiển thị lại (re-render) 50 lần sẽ không gửi 50 sự kiện.
@@ -153,29 +277,368 @@ Mỗi khi `useIntlayer` phân giải một phần nội dung để hiển thị,
 
 Sử dụng `useConversion()` để quy một mục tiêu cho biến thể mà một phiên đã thấy:
 
-```tsx fileName="CTAButton.tsx" codeFormat="tsx"
-import { useConversion } from "react-intlayer";
+<Tabs group="framework">
+  <Tab label="React" value="react">
 
-const CTAButton = () => {
-  const trackConversion = useConversion();
+    ```tsx fileName="CTAButton.tsx"
+    import { useConversion } from "react-intlayer";
 
-  return (
+    const CTAButton = () => {
+      const trackConversion = useConversion();
+
+      return (
+        <button
+          onClick={() =>
+            trackConversion({
+              experimentKey: "homepage-hero",
+              variant: "black_friday",
+              goal: "cta_click",
+            })
+          }
+        >
+          Bắt đầu
+        </button>
+      );
+    };
+    ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+
+    ```tsx fileName="CTAButton.tsx"
+    "use client";
+
+    import { useConversion } from "next-intlayer";
+
+    const CTAButton = () => {
+      const trackConversion = useConversion();
+
+      return (
+        <button
+          onClick={() =>
+            trackConversion({
+              experimentKey: "homepage-hero",
+              variant: "black_friday",
+              goal: "cta_click",
+            })
+          }
+        >
+          Bắt đầu
+        </button>
+      );
+    };
+    ```
+
+    > `useConversion` là một client hook: hãy đánh dấu component bằng `"use client"`.
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+    ```vue fileName="CTAButton.vue"
+    <script setup lang="ts">
+    import { useConversion } from "vue-intlayer";
+
+    const trackConversion = useConversion();
+    </script>
+
+    <template>
+      <button
+        @click="
+          trackConversion({
+            experimentKey: 'homepage-hero',
+            variant: 'black_friday',
+            goal: 'cta_click',
+          })
+        "
+      >
+        Bắt đầu
+      </button>
+    </template>
+    ```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+    ```svelte fileName="CTAButton.svelte"
+    <script lang="ts">
+      import { useConversion } from "svelte-intlayer";
+
+      const trackConversion = useConversion();
+    </script>
+
     <button
-      onClick={() =>
+      onclick={() =>
         trackConversion({
           experimentKey: "homepage-hero",
           variant: "black_friday",
           goal: "cta_click",
-        })
-      }
+        })}
     >
       Bắt đầu
     </button>
+    ```
+
+  </Tab>
+  <Tab label="Preact" value="preact">
+
+    ```tsx fileName="CTAButton.tsx"
+    import { useConversion } from "preact-intlayer";
+
+    const CTAButton = () => {
+      const trackConversion = useConversion();
+
+      return (
+        <button
+          onClick={() =>
+            trackConversion({
+              experimentKey: "homepage-hero",
+              variant: "black_friday",
+              goal: "cta_click",
+            })
+          }
+        >
+          Bắt đầu
+        </button>
+      );
+    };
+    ```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+    ```tsx fileName="CTAButton.tsx"
+    import { useConversion } from "solid-intlayer";
+
+    const CTAButton = () => {
+      const trackConversion = useConversion();
+
+      return (
+        <button
+          onClick={() =>
+            trackConversion({
+              experimentKey: "homepage-hero",
+              variant: "black_friday",
+              goal: "cta_click",
+            })
+          }
+        >
+          Bắt đầu
+        </button>
+      );
+    };
+    ```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+
+    ```typescript fileName="cta-button.component.ts"
+    import { Component } from "@angular/core";
+    import { useConversion } from "angular-intlayer";
+
+    @Component({
+      selector: "app-cta-button",
+      template: `<button (click)="onClick()">Bắt đầu</button>`,
+    })
+    export class CtaButtonComponent {
+      private trackConversion = useConversion();
+
+      onClick() {
+        this.trackConversion({
+          experimentKey: "homepage-hero",
+          variant: "black_friday",
+          goal: "cta_click",
+        });
+      }
+    }
+    ```
+
+  </Tab>
+</Tabs>
+
+### Phân giải biến thể phía client (client-side)
+
+`useExperiment()` gán phiên cho một biến thể và ghi lại lượt hiển thị (exposure) trở thành mẫu số của tỷ lệ chuyển đổi. Chỉ hiển thị cây con phụ thuộc vào biến thể khi `isAssigned` là true, để không khách truy cập nào thấy biến thể control thoáng qua trước khi việc gán được xác định:
+
+<Tabs group="framework">
+  <Tab label="React" value="react">
+
+    `variant` là một chuỗi thông thường.
+
+    ```tsx fileName="Hero.tsx"
+    import { useExperiment } from "react-intlayer";
+    import { HeroBanner } from "./HeroBanner";
+
+    export const Hero = () => {
+      const { variant, isAssigned } = useExperiment("homepage-hero", [
+        "default",
+        "black_friday",
+      ]);
+
+      if (!isAssigned) return null;
+
+      return <HeroBanner variant={variant} />;
+    };
+    ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+
+    `variant` là một chuỗi thông thường. Việc gán diễn ra trong trình duyệt, nên component phải là một client component.
+
+    ```tsx fileName="Hero.tsx"
+    "use client";
+
+    import { useExperiment } from "next-intlayer";
+    import { HeroBanner } from "./HeroBanner";
+
+    export const Hero = () => {
+      const { variant, isAssigned } = useExperiment("homepage-hero", [
+        "default",
+        "black_friday",
+      ]);
+
+      if (!isAssigned) return null;
+
+      return <HeroBanner variant={variant} />;
+    };
+    ```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+    `variant` và `isAssigned` là các `Ref`.
+
+    ```vue fileName="Hero.vue"
+    <script setup lang="ts">
+    import { useExperiment } from "vue-intlayer";
+    import HeroBanner from "./HeroBanner.vue";
+
+    const { variant, isAssigned } = useExperiment("homepage-hero", [
+      "default",
+      "black_friday",
+    ]);
+    </script>
+
+    <template>
+      <HeroBanner v-if="isAssigned" :variant="variant" />
+    </template>
+    ```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+    `variant` và `isAssigned` là các store: hãy đọc chúng với tiền tố `$`.
+
+    ```svelte fileName="Hero.svelte"
+    <script lang="ts">
+      import { useExperiment } from "svelte-intlayer";
+      import HeroBanner from "./HeroBanner.svelte";
+
+      const { variant, isAssigned } = useExperiment("homepage-hero", [
+        "default",
+        "black_friday",
+      ]);
+    </script>
+
+    {#if $isAssigned}
+      <HeroBanner variant={$variant} />
+    {/if}
+    ```
+
+  </Tab>
+  <Tab label="Preact" value="preact">
+
+    `variant` là một chuỗi thông thường.
+
+    ```tsx fileName="Hero.tsx"
+    import { useExperiment } from "preact-intlayer";
+    import { HeroBanner } from "./HeroBanner";
+
+    export const Hero = () => {
+      const { variant, isAssigned } = useExperiment("homepage-hero", [
+        "default",
+        "black_friday",
+      ]);
+
+      if (!isAssigned) return null;
+
+      return <HeroBanner variant={variant} />;
+    };
+    ```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+    `variant` và `isAssigned` là các `Accessor`: hãy gọi chúng để đọc giá trị.
+
+    ```tsx fileName="Hero.tsx"
+    import { useExperiment } from "solid-intlayer";
+    import { Show } from "solid-js";
+    import { HeroBanner } from "./HeroBanner";
+
+    export const Hero = () => {
+      const { variant, isAssigned } = useExperiment("homepage-hero", [
+        "default",
+        "black_friday",
+      ]);
+
+      return (
+        <Show when={isAssigned()}>
+          <HeroBanner variant={variant()} />
+        </Show>
+      );
+    };
+    ```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+
+    `variant` và `isAssigned` là các `Signal`: hãy gọi chúng để đọc giá trị.
+
+    ```typescript fileName="hero.component.ts"
+    import { Component } from "@angular/core";
+    import { useExperiment } from "angular-intlayer";
+    import { HeroBannerComponent } from "./hero-banner.component";
+
+    @Component({
+      selector: "app-hero",
+      imports: [HeroBannerComponent],
+      template: `@if (experiment.isAssigned()) {
+        <app-hero-banner [variant]="experiment.variant()" />
+      }`,
+    })
+    export class HeroComponent {
+      experiment = useExperiment("homepage-hero", ["default", "black_friday"]);
+    }
+    ```
+
+  </Tab>
+</Tabs>
+
+Weights (trọng số) là tùy chọn — truyền một giá trị cho mỗi biến thể để làm nghiêng tỷ lệ phân chia, ví dụ: `useExperiment("homepage-hero", ["default", "black_friday"], [9, 1])`.
+
+Component con sau đó đọc [Variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dynamic_dictionaries/variants.md) của từ điển tương ứng:
+
+```tsx fileName="HeroBanner.tsx"
+import { useIntlayer } from "react-intlayer";
+
+export const HeroBanner = ({ variant }: { variant: string }) => {
+  const { headline, cta } = useIntlayer("hero-banner", { variant });
+
+  return (
+    <section>
+      <h1>{headline}</h1>
+      <a>{cta}</a>
+    </section>
   );
 };
 ```
 
-### Phân giải biến thể phía client (client-side)
+> Việc đọc biến thể trong một **component con** là điều giúp cách này hoạt động được bên ngoài React: trong Vue, Svelte, Solid và Angular, bộ chọn (selector) được truyền vào `useIntlayer` được ghi nhận ngay khi component được thiết lập, nên việc đọc cần diễn ra trong một component chỉ được mount sau khi biến thể đã được xác định.
+
+Nếu thử nghiệm bao trùm cả một trang thay vì chỉ một từ điển, hãy đưa biến thể lên provider thay vì vậy — xem [Ambient variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dynamic_dictionaries/variants.md#ambient-variant). Mọi `useIntlayer` bên dưới khi đó sẽ tự phân giải theo biến thể này mà không cần thay đổi nơi gọi.
+
+Nếu bạn cần giá trị gán thô bên ngoài một component, hãy truy cập trực tiếp vào client:
 
 ```tsx fileName="useHeroVariant.ts" codeFormat="tsx"
 import { getGlobalAnalyticsClient } from "@intlayer/analytics/client";
@@ -186,6 +649,8 @@ const variant = client?.getVariant("homepage-hero", [
   "black_friday",
 ]);
 ```
+
+> `getVariant` chỉ gán biến thể — nó không ghi lại lượt hiển thị (exposure). Hãy ưu tiên dùng `useExperiment()`, nếu không tỷ lệ chuyển đổi sẽ không có mẫu số.
 
 ## Quyền riêng tư & Hiệu suất
 
@@ -235,6 +700,8 @@ const cms = createIntlayerCMS();
 
 const { data: audience } = await analyticsEndpoint(cms).getAudience(30);
 ```
+
+> **Chỉ dùng ở phía server.** `createIntlayerCMS()` xác thực bằng `clientId` + `clientSecret`, và secret không bao giờ khả dụng trong trình duyệt: đoạn mã này sẽ gửi các yêu cầu không được xác thực nếu chạy ở đó. Hãy giữ nó trong một route handler, server action, hoặc một script.
 
 ## Các liên kết hữu ích
 

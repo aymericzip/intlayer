@@ -28,7 +28,6 @@ author: aymericzip
 ## لماذا الترحيل من vue-i18n إلى Intlayer؟
 
 <AccordionGroup>
-
 <Accordion header="حجم الحزمة">
 
 بدلاً من تحميل ملفات JSON ضخمة في صفحاتك، قم بتحميل فقط المحتوى الضروري. يساعد Intlayer على **تقليل حجم الحزمة والصفحات بما يصل إلى 50%**.
@@ -66,7 +65,6 @@ Intlayer أيضاً هو الحل ذو **التطوير الأكثر نشاطا�
 أكثر من مجرد حل i18n، يوفر Intlayer **[محرر مرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)** ذاتي الاستضافة و**[CMS كامل](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)** لمساعدتك على إدارة محتواك متعدد اللغات في **الوقت الفعلي**، مما يجعل التعاون مع المترجمين والكتاب والأعضاء الآخرين في الفريق بسيطاً. يمكن تخزين المحتوى محلياً و/أو بعداً.
 
 </Accordion>
-
 </AccordionGroup>
 
 ---

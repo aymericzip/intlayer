@@ -346,7 +346,24 @@ Você pode configurar a renderização de HTML globalmente para toda a sua aplic
     </HTMLProvider>
     ```
 
-> Importar seu renderer HTML dinamicamente é uma boa forma de reduzir o tamanho do bundle da sua aplicação.
+    Você também pode usar o seu próprio renderizador de HTML:
+
+    ```svelte fileName="App.svelte"
+    <script lang="ts">
+      import { HTMLProvider } from "svelte-intlayer/html";
+    </script>
+
+    <HTMLProvider
+      renderHTML={async (html) => {
+        const { renderHTML } = await import('svelte-intlayer/html');
+        return renderHTML(html);
+      }}
+    >
+      <slot />
+    </HTMLProvider>
+    ```
+
+    > Importar dinamicamente o seu renderizador de HTML é uma boa maneira de reduzir o tamanho do bundle da sua aplicação.
 
   </Tab>
   <Tab label="Preact" value="preact">

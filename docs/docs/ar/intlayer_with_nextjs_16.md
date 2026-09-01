@@ -76,8 +76,7 @@ author: aymericzip
 بالمقارنة مع الحلول الرئيسية مثل `next-intl` أو `i18next`، يعد Intlayer حلاً يأتي مزودًا بتحسينات متكاملة مثل:
 
 <AccordionGroup>
-
-**تغطية Next.js الكاملة**
+<Accordion header="تغطية Next.js الكاملة">
 
 تم تحسين Intlayer للعمل مع **مكونات الخادم** من أجل العرض الفعال وهو متوافق تمامًا مع [**Turbopack**](https://nextjs.org/docs/architecture/turbopack). إنه لا يمنع العرض الثابت ويوفر برامج وسيطة بالإضافة إلى جميع الميزات اللازمة لتوسيع نطاق التدويل (i18n).
 
@@ -85,13 +84,13 @@ author: aymericzip
 > يعد التوجيه المحلي مفيدًا لتحسين محركات البحث وحجم البندل والأداء. إذا لم تكن بحاجة إليه، يمكنك الرجوع إلى هذا [الدليل](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_no_locale_path.md).
 > بالنسبة إلى Next.js 12 و13 و14 و15 مع جهاز توجيه التطبيقات، راجع هذا [الدليل](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_14.md).
 
-**حجم البندل**
+</Accordion>
 
 <Accordion header="حجم الحزمة">
 
 بدلاً من تحميل ملفات JSON ضخمة إلى صفحاتك، قم بتحميل المحتوى الضروري فقط. يساعد Intlayer **في تقليل أحجام البندل وصفحاتك بنسبة تصل إلى 50%**.
 
-** الصيانة **
+</Accordion>
 
 <Accordion header="الصيانة">
 
@@ -99,11 +98,11 @@ author: aymericzip
 
 </Accordion>
 
-** وكيل الذكاء الاصطناعي **
+<Accordion header="وكيل الذكاء الاصطناعي">
 
 يؤدي تحديد موقع المحتوى المشترك ** إلى تقليل السياق المطلوب ** بواسطة نماذج اللغات الكبيرة (LLMs). يأتي Intlayer أيضًا مزودًا بمجموعة من الأدوات، مثل **CLI** لاختبار الترجمات المفقودة،**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**، **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** و**[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md)**، لجعل تجربة المطور (DX) أكثر سلاسة للذكاء الاصطناعي وكلاء.
 
-**الأتمتة**
+</Accordion>
 
 <Accordion header="الأتمتة">
 
@@ -111,13 +110,13 @@ author: aymericzip
 
 </Accordion>
 
-**أداء**
+<Accordion header="أداء">
 
 يمكن أن يؤدي ربط ملفات JSON الضخمة بالمكونات إلى حدوث مشكلات في الأداء والتفاعل. يعمل Intlayer على تحسين تحميل المحتوى الخاص بك في وقت الإنشاء.
 
 </Accordion>
 
-**التحجيم مع عدم وجود مطور**
+<Accordion header="التحجيم مع عدم وجود مطور">
 
 أكثر من مجرد حل i18n، يوفر Intlayer **[محررًا مرئيًا] مستضافًا ذاتيًا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** و**[كامل CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** لمساعدتك في إدارة المحتوى متعدد اللغات في **الوقت الفعلي**، مما يجعل التعاون مع المترجمين ومؤلفي النصوص وأعضاء الفريق الآخرين سلسًا. يمكن تخزين المحتوى محليًا و/أو عن بعد.
 
@@ -1192,6 +1191,8 @@ bun run build # أو bun run dev
 
 <Question title="ما هي الحلول المختلفة المتاحة لتدويل تطبيقات Next.js 16؟">
 
+لا يحتوي Next.js على طبقة رسائل مدمجة منذ أن توقف حقل `i18n` في `next.config.js` عن التطبيق على App Router، لذا فإن طبقة التوطين هي دائمًا اختيار للمكتبة:
+
 - **`next-intl`**: مكتبة رسائل شائعة لـ App Router، تُحمل ملفات JSON في وقت التشغيل.
 - **`next-i18next`**: الحل التقليدي لـ Pages Router.
 - **`Intlayer`**: الحل الأكثر تقدمًا. يُعلن عن المحتوى بجانب المكون، ويُترجم وقت البناء، مع فحص صارم لأنواع TypeScript، وترجمة بالذكاء الاصطناعي، ومحرر مرئي، ونظام CMS.
@@ -1220,9 +1221,11 @@ bun run build # أو bun run dev
 
 <Question title="هل يجب أن أنقل المحتوى الخاص بي مفتاحًا تلو الآخر؟">
 
-لا. قم بتشغيل `npx intlayer extract` وسيقرأ Intlayer ملفات المصدر الخاصة بك، ويسحب السلاسل النصية الموجهة للمستخدم ويكتب ملف `.content` بجانب كل منها، بحيث تراجع diff بدلاً من نسخ السلاسل إلى كتالوج يدويًا. راجع [أمر extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/extract.md).
+لا. قم بتشغيل `npx intlayer extract` وسيقرأ Intlayer مكوناتك، ويسحب السلاسل النصية الموجهة للمستخدم، ويكتب ملف `.content` بجانب كل منها، حتى تراجع diff بدلاً من نسخ السلاسل إلى كتالوج يدويًا. تشرح الخطوة 14 من هذا الدليل ذلك بالتفصيل.
 
-لأتمتة كاملة، يقوم [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md) بالشيء نفسه في وقت البناء على كود JSX و TSX و Vue و Svelte، منشئًا القواميس عند كل تغيير دون الحاجة إلى إدارة المفاتيح يدويًا.
+لأتمتة كاملة، يقوم [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md) بالشيء نفسه في وقت البناء: يمسح كود JSX و TSX و Vue و Svelte عند كل تغيير، وينشئ القواميس ويزامنها عبر استبدال الوحدات الساخن (HMR)، بحيث لا توجد مفاتيح للحفاظ عليها يدويًا على الإطلاق.
+
+هناك حدان يجدر معرفتهما قبل تشغيل المترجم. إنه يعمل عن طريق التحليل الثابت، وبالتالي فإن السلاسل التي تظهر فقط في وقت التشغيل، مثل رموز أخطاء API أو حقول نظام إدارة المحتوى، تظل بعيدة عن متناوله. كما يتعين عليه التمييز بين النصوص الموجهة للمستخدم ومنطق التطبيق مثل `className="active"` أو رمز الحالة، الأمر الذي يتطلب بعض الملاحظات التوضيحية في قاعدة التعليمات البرمجية الكبيرة. يتجنب [أمر الاستخراج](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/extract.md) كلا الأمرين من خلال إبقائك متحكمًا في العملية.
 
 </Question>
 
@@ -1252,7 +1255,14 @@ Next.js 12 و 13 و 14 و 15 و 16. يتم دعم كل من App Router و Pages 
 
 <Question title="هل يجب تضمين اللغة في مسار URL مثل /ar/about؟">
 
-لا. يقبل `routing.mode` القيمة `"prefix-no-default"` (الافتراضية: `/about` للغة الافتراضية و `/ar/about` للغات الأخرى)، و `"prefix-all"`، و `"no-prefix"`، و `"search-params"`. يعين خيار `routing.domains` كل لغة لنطاقها الخاص. انظر [مرجع الإعدادات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
+لا. إن مخطط URL هو خيار تكوين وليس قيدًا. يقبل `routing.mode`:
+
+- `"prefix-no-default"` (افتراضي): `/about` للغة الافتراضية، و `/fr/about` للغات الأخرى.
+- `"prefix-all"`: تتم إضافة بادئة لكل لغة، مثل `/en/about` و `/fr/about`.
+- `"no-prefix"`: لا توجد لغة في المسار، ويتم تحديدها من ملفات تعريف الارتباط أو الترويسة أو النطاق.
+- `"search-params"`: `/about?locale=fr`.
+
+يمكنك أيضًا تعيين كل لغة لنطاق خاص بها باستخدام `routing.domains`. راجع [مرجع التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md) و [دليل بدون مسار لغة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_no_locale_path.md).
 
 </Question>
 

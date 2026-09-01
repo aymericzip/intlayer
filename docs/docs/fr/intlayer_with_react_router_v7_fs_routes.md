@@ -50,7 +50,6 @@ Pour le routage côté client, consultez le guide [Intlayer avec React Router v7
 Par rapport aux solutions principales telles que `react-i18next` ou `i18next`, Intlayer est une solution dotée d'optimisations intégrées telles que :
 
 <AccordionGroup>
-
 <Accordion header="Couverture complète du routeur React">
 
 Intlayer est optimisé pour fonctionner parfaitement avec React Router en offrant un **routage compatible avec les paramètres régionaux**, un **middleware pour la détection des paramètres régionaux** et toutes les fonctionnalités nécessaires à la mise à l'échelle de l'internationalisation (i18n).
@@ -745,8 +744,6 @@ bun run build # Ou bun run dev
 
  </Tab>
 </Tabs>
-
----
 
 </Step>
 

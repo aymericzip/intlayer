@@ -68,7 +68,6 @@ author: aymericzip
 Compared to main solutions like `react-native-localize` or `i18next`, Intlayer is a solution that comes with integrated optimisations such as:
 
 <AccordionGroup>
-
 <Accordion header="Full React Native coverage">
 
 Intlayer is optimised to work perfectly with React Native and Expo by offering **component-level content scoping**, **TypeScript support**, and all the features needed for scaling internationalisation (i18n) in mobile apps.
@@ -163,8 +162,6 @@ bun add intlayer react-native-intlayer
 
 - **react-native-intlayer**  
   React Native integration that provides the context providers and React hooks you'll use to obtain and switch locales, the React Native polyfills, and the Metro plugin for integrating Intlayer with the React Native bundler. It re-exports everything from `react-intlayer`, so you only need this single package in a React Native app.
-
----
 
 </Step>
 
@@ -326,8 +323,6 @@ export default homeScreenContent;
 
 > For details on content declarations, see [Intlayer's content docs](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/content_file.md).
 
----
-
 </Step>
 
 <Step number={6} title="Use Intlayer in Your Components">
@@ -380,8 +375,6 @@ export default HomeScreen;
 > When using `content.someKey` in string-based props (e.g., a button's `title` or a `Text` component's `children`), **call `content.someKey.value`** to obtain the actual string.
 
 > If your app already exists, you can use the [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compiler.md), as well as the [extract command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/extract.md), to transform thousands of components in a second.
-
----
 
 </Step>
 

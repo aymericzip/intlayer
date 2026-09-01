@@ -63,36 +63,35 @@ Ten przewodnik pokazuje, jak zintegrować **Intlayer** dla płynnej internacjona
 W porównaniu do głównych rozwiązań, takich jak „react-i18next”, „use-intl” lub „paraglide”, Intlayer jest rozwiązaniem wyposażonym w zintegrowane optymalizacje, takie jak:
 
 <AccordionGroup>
-
-**Pełne pokrycie TanStack Start**
+<Accordion header="Pełne pokrycie TanStack Start">
 
 Intlayer jest w pełni zoptymalizowany pod kątem TanStack Start, zapewniając **wielojęzyczny routing**, **zarządzanie plikami cookie**, **generowanie mapy witryny**, **dynamiczne ładowanie treści** i wszystkie funkcje potrzebne do skalowania wysiłków związanych z internacjonalizacją (i18n).
 
 </Accordion>
 
-**Rozmiar bundle'a**
+<Accordion header="Rozmiar bundle'a">
 
 Zamiast ładować ogromne pliki JSON na swoje strony, ładuj tylko niezbędną treść. Intlayer pomaga **zmniejszyć rozmiary bundle'a i stron nawet o 50%**.
 
 </Accordion>
 
-**Łatwość konserwacji**
+<Accordion header="Łatwość konserwacji">
 
-Określanie zakresu zawartości aplikacji **ułatwia konserwację** aplikacji na dużą skalę. Możesz powielić lub usunąć pojedynczy folder funkcji bez obciążania psychicznego koniecznością przeglądania całej bazy kodu zawartości. Dodatkowo Inlayer jest **w pełni napisany**, aby zapewnić dokładność treści.
-
-**Agent AI**
-
-<Accordion header="Agent AI">
-
-Wspólna lokalizacja treści **zmniejsza potrzebny kontekst** dzięki modelom dużego języka (LLM). Intlayer zawiera także zestaw narzędzi, taki jak **CLI** do sprawdzania brakujących tłumaczeń**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** i **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/agent_skills.md)**, aby praca programisty (DX) była jeszcze płynniejsza dla agentów AI.
+Określanie zakresu zawartości aplikacji **ułatwia konserwację** aplikacji na dużą skalę. Możesz powielić lub usunąć pojedynczy folder funkcji bez obciążania psychicznego koniecznością przeglądania całej bazy kodu zawartości. Dodatkowo Inlayer jest **w pełni otypowany**, aby zapewnić dokładność treści.
 
 </Accordion>
 
-**Automatyzacja**
+<Accordion header="Agent AI">
 
-Korzystaj z automatyzacji, aby tłumaczyć w swoim potoku CI/CD przy użyciu wybranego LLM na koszt dostawcy sztucznej inteligencji. Intlayer oferuje także **kompilator** do automatyzacji ekstrakcji treści, a także [platformę internetową] (https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md), która pomaga **tłumaczyć w tle**.
+Wspólna lokalizacja treści **zmniejsza potrzebny kontekst** dzięki modelom dużego języka (LLM). Intlayer zawiera także zestaw narzędzi, taki jak **CLI** do sprawdzania brakujących tłumaczeń, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/mcp_server.md)** i **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/agent_skills.md)**, aby praca programisty (DX) była jeszcze płynniejsza dla agentów AI.
 
-**Wydajność**
+</Accordion>
+
+<Accordion header="Automatyzacja">
+
+Korzystaj z automatyzacji, aby tłumaczyć w swoim potoku CI/CD przy użyciu wybranego LLM na koszt dostawcy sztucznej inteligencji. Intlayer oferuje także **kompilator** do automatyzacji ekstrakcji treści, a także [platformę internetową](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md), która pomaga **tłumaczyć w tle**.
+
+</Accordion>
 
 <Accordion header="Wydajność">
 
@@ -100,9 +99,9 @@ Korzystaj z automatyzacji, aby tłumaczyć w swoim potoku CI/CD przy użyciu wyb
 
 </Accordion>
 
-**Skalowanie bez użycia dewelopera**
+<Accordion header="Skalowanie bez programistów">
 
-Więcej niż tylko rozwiązanie i18n, Intlayer zapewnia **samodzielny [edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** i **[pełny CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)**, który pomoże Ci zarządzać wielojęzyczną treścią w **w czasie rzeczywistym**, dzięki czemu współpraca z tłumaczami, copywriterami i innymi członkami zespołu będzie płynna. Treść może być przechowywana lokalnie i/lub zdalnie.
+Więcej niż tylko rozwiązanie i18n, Intlayer zapewnia **samodzielny [edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md)** i **[pełny CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md)**, który pomoże Ci zarządzać wielojęzyczną treścią w **w czasie rzeczywistym**, dzięki czemu współpraca z tłumaczami, copywriterami i innymi członkami zespołu będzie płynna. Treść może być przechowywana lokalnie i/lub zdalnie.
 
 </Accordion>
 </AccordionGroup>
@@ -650,8 +649,6 @@ function RootDocument({ children }: { children: ReactNode }) {
 }
 ```
 
----
-
 </Step>
 
 <Step number={11} title="Dodaj middleware">
@@ -687,8 +684,6 @@ export default defineConfig({
   ],
 });
 ```
-
----
 
 </Step>
 
@@ -883,8 +878,6 @@ Zachowujesz fragment dla konkretnego locale'a bez płacenia jego kosztu na kryty
 | Nawigacja na kliencie    | nic do rozwiązania         | ponownie wznawiane przy każdym dopasowaniu | obsługiwane z cache'u routera          |
 | Doświadczenie dewelopera | najprostsze                | jedno `await`                              | zawartość przesłana przez `loaderData` |
 
----
-
 </Step>
 
 <Step number={13} title="Pobierz locale w swoich server actions">
@@ -922,137 +915,9 @@ export const getLocaleServer = createServerFn().handler(async () => {
 });
 ```
 
----
-
 </Step>
 
-<Step number={14} title="Zarządzaj stronami not found">
-
-Gdy użytkownik odwiedzi nieistniejącą stronę, możesz wyświetlić niestandardową stronę not found, a prefiks locale'a może wpłynąć na sposób, w jaki strona not found jest wyzwalana.
-
-#### Lokalizowana strona główna
-
-> Jeśli chcesz użyć swojej zawartości w atrybucie `string`, takim jak `alt`, `title`, `href`, `aria-label`, itp., możesz użyć wartości funkcji, na przykład:
->
-> ```html
-> <img src="{content.image.src.value}" alt="{content.image.value}" />
-> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
-> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
-> ```
-
-> Aby dowiedzieć się więcej o hooku `useIntlayer`, zapoznaj się z [dokumentacją](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/react-intlayer/useIntlayer.md).
-
-</Step>
-
-```tsx fileName="src/components/locale-switcher.tsx"
-import { useLocation } from "@tanstack/react-router";
-import {
-  getHTMLTextDir,
-  getLocaleName,
-  getPathWithoutLocale,
-  getPrefix,
-  Locales,
-} from "intlayer";
-import type { FC } from "react";
-import { useLocale } from "react-intlayer";
-
-import { LocalizedLink, type To } from "./localized-link";
-
-export const LocaleSwitcher: FC = () => {
-  const { pathname } = useLocation();
-
-  const { availableLocales, locale, setLocale } = useLocale();
-
-  const pathWithoutLocale = getPathWithoutLocale(pathname);
-
-  return (
-    <ol>
-      {availableLocales.map((localeEl) => (
-        <li key={localeEl}>
-          <LocalizedLink
-            aria-current={localeEl === locale ? "page" : undefined}
-            onClick={() => setLocale(localeEl)}
-            params={{ locale: getPrefix(localeEl).localePrefix }}
-            to={pathWithoutLocale as To}
-          >
-            <span>
-              {/* Lokalizacja - np. FR */}
-              {localeEl}
-            </span>
-            <span>
-              {/* Język w swojej własnej lokalizacji - np. Français */}
-              {getLocaleName(localeEl, locale)}
-            </span>
-            <span dir={getHTMLTextDir(localeEl)} lang={localeEl}>
-              {/* Język w bieżącej lokalizacji - np. Francés przy ustawionej lokalizacji Locales.SPANISH */}
-              {getLocaleName(localeEl)}
-            </span>
-            <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* Język po angielsku - np. French */}
-              {getLocaleName(localeEl, Locales.ENGLISH)}
-            </span>
-          </LocalizedLink>
-        </li>
-      ))}
-    </ol>
-  );
-};
-```
-
-> Aby dowiedzieć się więcej o hooku `useLocale`, zapoznaj się z [dokumentacją](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/react-intlayer/useLocale.md).
-
-</Step>
-
-<Step number={11} title="Zarządzanie atrybutami HTML">
-
-return (
-<html dir={getHTMLTextDir(locale)} lang={locale}>
-{/* ... _/}
-</html>
-);
-} {/_ ... */}
-</html>
-);
-}
-
-export const Route = createFileRoute("/{-$locale}/")({
-component: RouteComponent,
-head: async ({ params }) => {
-const { locale = defaultLocale } = params;
-const path = "/"; // The path for this route
-
-    const metaContent = await getIntlayerAsync("app", locale);
-
-````
-
-> Jeśli `head` czyta kilka słowników, rozwiąż je przez `Promise.all`; oczekiwanie na każde `getIntlayerAsync` w osobnej linii łańcuchuje żądania zamiast wykonywać je równolegle.
-
-Kompromis: dynamiczny import jest rozwiązywany w trakcie działania `head`, na ścieżce krytycznej renderowania dokumentu. Na „zimnej” trasie opóźnia to `head` o kilka milisekund i może nieznacznie pogorszyć **LCP**.
-
-</Tab>
-
-<Tab label="Buforowane rozwiązywanie dynamiczne" value="cached">
-
-Rozwiąż słownik w `loaderze` trasy i odczytaj go z `loaderData` w `head`. Loadery dopasowanych tras działają równolegle, a `staleTime: Infinity` informuje TanStack Router, że wynik nigdy się nie dezaktualizuje, fragment per-lokalizacja jest więc rozwiązywany raz, a potem serwowany z cache routera, pozostawiając `head` synchronicznym.
-
-```tsx fileName="src/routes/{-$locale}/index.tsx"
-      return getCookie(name, cookieString);
-    },
-    // Pobierz nagłówek z żądania (domyślnie: 'x-intlayer-locale')
-    // Rezerwowe rozwiązanie przy użyciu negocjacji Accept-Language
-    getHeader: (name) => getRequestHeader(name),
-  });
-
-  // Pobierz treść za pomocą getIntlayer()
-  const content = getIntlayer("app", locale);
-
-````
-
----
-
-</Step>
-
-<Step number={15} title="Zarządzanie stronami &quot;nie znaleziono&quot;">
+<Step number={14} title="Zarządzanie stronami &quot;nie znaleziono&quot;">
 
 Gdy użytkownik odwiedza nieistniejącą stronę, możesz wyświetlić niestandardową stronę "nie znaleziono", a prefiks lokalizacji może wpływać na sposób wyzwalania strony "nie znaleziono".
 
@@ -1065,20 +930,70 @@ W TanStack Router obsługa stron 404 z zlokalizowanymi trasami wymaga podejścia
 3. **Trasa catch-all**: Przechwytuje wszystkie niedopasowane ścieżki w segmencie lokalizacji
 
 ```tsx fileName="src/routes/{-$locale}/404.tsx"
+import { createFileRoute } from "@tanstack/react-router";
 
+// To tworzy dedykowaną trasę /[locale]/404
+// Jest używana zarówno jako bezpośrednia trasa, jak i importowana jako komponent w innych plikach
+export const Route = createFileRoute("/{-$locale}/404")({
+  component: NotFoundComponent,
+});
+
+// Eksportowane osobno, aby można było ponownie użyć w notFoundComponent i trasach catch-all
+export function NotFoundComponent() {
+  return (
+    <div>
+      <h1>404</h1>
+    </div>
+  );
+}
 ```
 
 ```tsx fileName="src/routes/{-$locale}/route.tsx"
+import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
+import { validatePrefix } from "intlayer";
+import { NotFoundComponent } from "./404";
 
+export const Route = createFileRoute("/{-$locale}")({
+  // beforeLoad uruchamia się przed renderowaniem trasy (zarówno na serwerze, jak i kliencie)
+  // To idealne miejsce do walidacji prefiksu lokalizacji
+  beforeLoad: ({ params }) => {
+    const localeParam = params.locale;
+
+    // validatePrefix sprawdza, czy lokalizacja jest prawidłowa zgodnie z konfiguracją intlayer
+    const { isValid, localePrefix } = validatePrefix(localeParam);
+
+    if (!isValid) {
+      // Nieprawidłowy prefiks lokalizacji - przekieruj do strony 404 z prawidłowym prefiksem lokalizacji
+      throw redirect({
+        to: "/{-$locale}/404",
+        params: { locale: localePrefix },
+      });
+    }
+  },
+  component: Outlet,
+  // notFoundComponent jest wywoływane, gdy trasa potomna nie istnieje
+  // np. /en/nieistniejaca-strona wyzwala to w układzie /en
+  notFoundComponent: NotFoundComponent,
+});
 ```
 
 ```tsx fileName="src/routes/{-$locale}/$.tsx"
+import { createFileRoute } from "@tanstack/react-router";
 
+import { NotFoundComponent } from "./404";
+
+// Trasa $ (splat/catch-all) pasuje do każdej ścieżki, która nie pasuje do innych tras
+// np. /en/jakas/gleboko/zagniezdzona/niewazna/sciezka
+// To zapewnia, że WSZYSTKIE niedopasowane ścieżki w lokalizacji wyświetlają stronę 404
+// Bez tego niedopasowane głębokie ścieżki mogą wyświetlać pustą stronę lub błąd
+export const Route = createFileRoute("/{-$locale}/$")({
+  component: NotFoundComponent,
+});
 ```
 
 </Step>
 
-<Step number={17} title="Wyodrębnij zawartość swoich komponentów" isOptional={true}>
+<Step number={15} title="Wyodrębnij zawartość swoich komponentów" isOptional={true}> isOptional={true}>
 
 Jeśli masz istniejącą bazę kodu, transformacja tysięcy plików może być czasochłonna.
 
@@ -1089,10 +1004,23 @@ Aby go skonfigurować, możesz dodać sekcję `compiler` w pliku `intlayer.confi
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig } from "intlayer";
 
+const config: IntlayerConfig = {
+  // ... Reszta Twojej konfiguracji
+  compiler: {
+    /**
+     * Wskazuje, czy kompilator powinien być włączony.
+     */
+    enabled: true,
+
     /**
      * Definiuje ścieżkę plików wyjściowych
      */
     output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * Wskazuje, czy komponenty powinny zostać zapisane po transformacji. W ten sposób kompilator można uruchomić tylko raz, aby przetransformować aplikację, a następnie go usunąć.
+     */
+    saveComponents: false,
 
     /**
      * Prefiks klucza słownika
@@ -1105,28 +1033,34 @@ export default config;
 ```
 
 <Tabs>
- <Tab value='Polecenie wyodrębniania'>
+ <Tab value="Polecenie wyodrębniania">
 
 Uruchom ekstraktor, aby przetransformować komponenty i wyodrębnić zawartość
 
 ```bash packageManager="npm"
-
+npx intlayer extract
 ```
 
 ```bash packageManager="pnpm"
-
+pnpm intlayer extract
 ```
 
 ```bash packageManager="yarn"
-
+yarn intlayer extract
 ```
 
 ```bash packageManager="bun"
+bun x intlayer extract
+```
 
  </Tab>
-</Tabs>
+ <Tab value="Kompilator Babel">
 
-bun x intlayer extract
+> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
+
+Zaktualizuj `vite.config.ts`, aby dołączyć wtyczkę `intlayerCompiler`:
+
+```ts fileName="vite.config.ts"
 import { defineConfig } from "vite";
 import { intlayer, intlayerCompiler } from "vite-intlayer";
 
@@ -1151,10 +1085,23 @@ yarn build # Or yarn dev
 ```
 
 ```bash packageManager="bun"
-
----
-
 bun run build # Or bun run dev
+```
+
+ </Tab>
+</Tabs>
+
+</Step>
+
+<Step number={16} title="Pre-render & Generate Sitemap">
+
+Intlayer wyposażony jest w wbudowany generator mapy witryny, który pomaga łatwo utworzyć mapę witryny dla aplikacji. Obsługuje zlokalizowane trasy i dodaje niezbędne metadane dla wyszukiwarek.
+
+> Generowana przez Intlayer mapa witryny obsługuje przestrzeń nazw `xhtml:link` (Hreflang XML Extensions). W przeciwieństwie do domyślnych generatorów map witryny, które wyświetlają tylko surowe adresy URL, Intlayer automatycznie tworzy wymagane dwukierunkowe linki między wszystkimi wersjami językowymi strony (np. `/about`, `/about?lang=fr` i `/about?lang=es`). Zapewnia to, że wyszukiwarki prawidłowo indeksują i dostarczają odpowiednią wersję językową właściwej publiczności.
+
+Aby go używać, najpierw musisz skonfigurować swój plik `vite.config.ts`, aby włączyć pre-rendering dla zlokalizowanych tras i wyłączyć domyślne generowanie mapy witryny TanStack Start.
+
+```typescript fileName="vite.config.ts"
 import { localeFlatMap } from "intlayer";
 // ... inne importy
 
@@ -1190,9 +1137,13 @@ export default defineConfig({
 
 Następnie utwórz trasę `src/routes/sitemap[.]xml.ts`, która wykorzystuje funkcję `generateSitemap`:
 
-````typescript fileName="src/routes/sitemap[.]xml.ts"
+```typescript fileName="src/routes/sitemap[.]xml.ts"
+import { createFileRoute } from "@tanstack/react-router";
+import { generateSitemap } from "intlayer";
 
----
+const SITE_URL = (
+  import.meta.env.VITE_SITE_URL ?? "http://localhost:3000"
+).replace(/\/$/, "");
 
 export const Route = createFileRoute("/sitemap.xml")({
   server: {
@@ -1213,6 +1164,17 @@ export const Route = createFileRoute("/sitemap.xml")({
     },
   },
 });
+```
+
+</Step>
+
+<Step number={17} title="Konfiguruj TypeScript">
+
+Intlayer wykorzystuje module augmentation, aby uzyskać korzyści z TypeScript i uczynić Twoją codebase mocniejszą.
+
+Upewnij się, że Twoja konfiguracja TypeScript zawiera autogenerowane typy:
+
+```json5 fileName="tsconfig.json"
 {
   // ... twoje istniejące konfiguracje
   include: [
@@ -1220,17 +1182,22 @@ export const Route = createFileRoute("/sitemap.xml")({
     ".intlayer/**/*.ts", // Dołącz auto-generowane typy
   ],
 }
+```
+
+</Step>
+
+</Steps>
 
 ### Konfiguracja Git
 
-Zaleca się ignorować pliki generowane przez Intlayer. Pozwala to uniknąć zatwierdzania ich w repozytorium Git.
+Zaleca się ignorowanie plików generowanych przez Intlayer. Pozwala to uniknąć ich zatwierdzania do repozytorium Git.
 
 Aby to zrobić, możesz dodać następujące instrukcje do pliku `.gitignore`:
 
 ```plaintext fileName=".gitignore"
 # Ignoruj pliki generowane przez Intlayer
 .intlayer
-````
+```
 
 ---
 

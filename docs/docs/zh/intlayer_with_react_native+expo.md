@@ -68,7 +68,6 @@ author: aymericzip
 与 `react-native-localize` 或 `i18next` 等主流方案相比，Intlayer 是一个集成了以下优化功能的解决方案：
 
 <AccordionGroup>
-
 <Accordion header="完整的 React Native 覆盖">
 
 Intlayer 经过优化，可与 React Native 和 Expo 完美配合，提供**组件级内容作用域**、**TypeScript 支持**以及在移动应用中扩展国际化 (i18n) 所需的所有功能。
@@ -163,8 +162,6 @@ bun add intlayer react-native-intlayer
 
 - **react-native-intlayer**  
   React Native 集成，提供您将用于获取和切换语言环境的上下文 provider 和 React hook、React Native polyfill，以及将 Intlayer 与 React Native 打包器集成的 Metro 插件。它重新导出 `react-intlayer` 的所有内容，因此在 React Native 应用中只需要这一个包。
-
----
 
 </Step>
 
@@ -325,8 +322,6 @@ export default homeScreenContent;
 
 > 有关内容声明的详细信息，请参阅 [Intlayer 内容文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md)。
 
----
-
 </Step>
 
 <Step number={6} title="在组件中使用 Intlayer">
@@ -379,8 +374,6 @@ export default HomeScreen;
 > 当在基于字符串的属性中使用 `content.someKey`（例如按钮的 `title` 或 `Text` 组件的 `children`）时，**请调用 `content.someKey.value`** 来获取实际的字符串。
 
 > 如果您的应用程序已经存在，您可以结合使用 [Intlayer 编译器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md) 和 [提取命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/extract.md) 在一秒钟内转换数千个组件。
-
----
 
 </Step>
 

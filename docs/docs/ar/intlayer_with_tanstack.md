@@ -63,18 +63,17 @@ author: aymericzip
 بالمقارنة مع الحلول الرئيسية مثل `react-i18next` أو `use-intl` أو `paraglide`، فإن Intlayer هو الحل الذي يأتي مع تحسينات متكاملة مثل:
 
 <AccordionGroup>
-
-** تغطية كاملة لـ TanStack Start **
+<Accordion header="تغطية كاملة لـ TanStack Start">
 
 تم تحسين Intlayer بالكامل لـ TanStack Start، مما يوفر **توجيه متعدد اللغات**، **إدارة ملفات تعريف الارتباط**، **إنشاء خريطة الموقع**، **تحميل المحتوى الديناميكي**، وجميع الميزات اللازمة لتوسيع نطاق جهود التدويل (i18n).
 
-**حجم البندل**
+</Accordion>
 
 <Accordion header="حجم الحزمة">
 
 بدلاً من تحميل ملفات JSON ضخمة إلى صفحاتك، قم بتحميل المحتوى الضروري فقط. يساعد Intlayer **في تقليل أحجام البندل وصفحاتك بنسبة تصل إلى 50%**.
 
-** الصيانة **
+</Accordion>
 
 <Accordion header="الصيانة">
 
@@ -82,27 +81,27 @@ author: aymericzip
 
 </Accordion>
 
-** وكيل الذكاء الاصطناعي **
+<Accordion header="وكيل الذكاء الاصطناعي">
 
-يؤدي تحديد موقع المحتوى المشترك ** إلى تقليل السياق المطلوب ** بواسطة نماذج اللغات الكبيرة (LLMs). يأتي Intlayer أيضًا مزودًا بمجموعة من الأدوات، مثل **CLI** لاختبار الترجمات المفقودة،**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**، **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** و**[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md)**، لجعل تجربة المطور (DX) أكثر سلاسة للذكاء الاصطناعي وكلاء.
-
-**الأتمتة**
-
-<Accordion header="الأتمتة">
-
-استخدم الأتمتة للترجمة في مسار CI/CD الخاص بك باستخدام LLM من اختيارك على حساب مزود الذكاء الاصطناعي الخاص بك. يقدم Intlayer أيضًا **مترجمًا** لأتمتة استخراج المحتوى، بالإضافة إلى [منصة ويب](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) للمساعدة في **الترجمة في الخلفية**.
+يؤدي تحديد موقع المحتوى المشترك ** إلى تقليل السياق المطلوب ** بواسطة نماذج اللغات الكبيرة (LLMs). يأتي Intlayer أيضًا مزودًا بمجموعة من الأدوات، مثل **CLI** لاختبار الترجمات المفقودة،**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/lsp.md)**، **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/mcp_server.md)** و**[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md)**، لجعل تجربة المطور (DX) أكثر سلاسة للذكاء الاصطناعي وكلاء.
 
 </Accordion>
 
-**أداء**
+<Accordion header="الأتمتة">
+
+استخدم الأتمتة للترجمة في مسار CI/CD الخاص بك باستخدام LLM من اختيارك على حساب مزود الذكاء الاصطناعي الخاص بك. يقدم Intlayer أيضًا **مترجمًا** لأتمتة استخراج المحتوى، بالإضافة إلى [منصة ويب](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md) للمساعدة في **الترجمة في الخلفية**.
+
+</Accordion>
+
+<Accordion header="الأداء">
 
 يمكن أن يؤدي ربط ملفات JSON الضخمة بالمكونات إلى حدوث مشكلات في الأداء والتفاعل. يعمل Intlayer على تحسين تحميل المحتوى الخاص بك في وقت الإنشاء.
 
 </Accordion>
 
-**التحجيم مع عدم وجود مطور**
+<Accordion header="التحجيم مع غير المطورين">
 
-أكثر من مجرد حل i18n، يوفر Intlayer **[محررًا مرئيًا] مستضافًا ذاتيًا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** و**[كامل CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** لمساعدتك في إدارة المحتوى متعدد اللغات في **الوقت الفعلي**، مما يجعل التعاون مع المترجمين ومؤلفي النصوص وأعضاء الفريق الآخرين سلسًا. يمكن تخزين المحتوى محليًا و/أو عن بعد.
+أكثر من مجرد حل i18n، يوفر Intlayer **[محررًا مرئيًا] مستضافًا ذاتيًا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)** و**[كامل CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)** لمساعدتك في إدارة المحتوى متعدد اللغات في **الوقت الفعلي**، مما يجعل التعاون مع المترجمين ومؤلفي النصوص وأعضاء الفريق الآخرين سلسًا. يمكن تخزين المحتوى محليًا و/أو عن بعد.
 
 </Accordion>
 </AccordionGroup>
@@ -648,8 +647,6 @@ function RootDocument({ children }: { children: ReactNode }) {
 }
 ```
 
----
-
 </Step>
 
 <Step number={12} title="إضافة وسيط">
@@ -686,11 +683,9 @@ export default defineConfig({
 });
 ```
 
----
-
 </Step>
 
-<Step number={13} title="تدويل البيانات الوصفية الخاصة بك">
+<Step number={12} title="تدويل البيانات الوصفية الخاصة بك">
 
 <Tabs>
 
@@ -881,11 +876,9 @@ export const Route = createFileRoute("/{-$locale}/")({
 | التنقلات في العميل | لا شيء ليُحلّ     | يُعاد تنفيذه عند كل مطابقة | يُقدَّم من ذاكرة التوجيه المؤقتة        |
 | تجربة المطوّر      | الأبسط            | `await` واحد               | المحتوى يُمرَّر عبر `loaderData`        |
 
----
-
 </Step>
 
-<Step number={14} title="جلب اللغة في إجراءات الخادم الخاصة بك">
+<Step number={13} title="جلب اللغة في إجراءات الخادم الخاصة بك">
 
 قد ترغب في الوصول إلى اللغة الحالية من داخل إجراءات الخادم أو نقاط نهاية API الخاصة بك.
 يمكنك القيام بذلك باستخدام مساعد `getLocale` من `intlayer`.
@@ -920,11 +913,9 @@ export const getLocaleServer = createServerFn().handler(async () => {
 });
 ```
 
----
-
 </Step>
 
-<Step number={15} title="إدارة الصفحات غير الموجودة">
+<Step number={14} title="إدارة الصفحات غير الموجودة">
 
 عندما يزور المستخدم صفحة غير موجودة، يمكنك عرض صفحة مخصصة "غير موجودة" وقد تؤثر بادئة اللغة على الطريقة التي يتم بها تشغيل صفحة "غير موجودة".
 
@@ -1000,7 +991,7 @@ export const Route = createFileRoute("/{-$locale}/$")({
 
 </Step>
 
-<Step number={1} title="استخراج محتوى مكوناتك" isOptional={true}>
+<Step number={15} title="استخراج محتوى مكوناتك" isOptional={true}>
 
 إذا كان لديك قاعدة بيانات كود موجودة، فقد يكون تحويل آلاف الملفات مستهلكًا للوقت.
 
@@ -1065,23 +1056,18 @@ bun x intlayer extract
 
 > Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
 
-```bash packageManager="bun"
-bun add @intlayer/babel --dev
-```
+قم بتحديث `vite.config.ts` لتضمين مكون `intlayerCompiler` الإضافي:
 
-```js fileName="babel.config.js"
-const {
-  intlayerExtractBabelPlugin,
-  getExtractPluginOptions,
-} = require("@intlayer/babel");
+```ts fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import { intlayer, intlayerCompiler } from "vite-intlayer";
 
-module.exports = {
-  presets: ["next/babel"],
+export default defineConfig({
   plugins: [
-    // استخراج المحتوى من المكونات إلى القواميس
-    [intlayerExtractBabelPlugin, getExtractPluginOptions()],
+    intlayer(),
+    intlayerCompiler(), // يضيف البرنامج المساعد للمترجم
   ],
-};
+});
 ```
 
 ```bash packageManager="npm"
@@ -1102,8 +1088,6 @@ bun run build # Or bun run dev
 
  </Tab>
 </Tabs>
-
----
 
 </Step>
 
@@ -1180,8 +1164,6 @@ export const Route = createFileRoute("/sitemap.xml")({
 });
 ```
 
----
-
 </Step>
 
 <Step number={17} title="تكوين TypeScript">
@@ -1200,15 +1182,13 @@ export const Route = createFileRoute("/sitemap.xml")({
 }
 ```
 
----
-
 </Step>
 
 </Steps>
 
 ### تكوين Git
 
-يوصى بتجاهل الملفات الناتجة عن Intlayer. يتيح لك هذا تجنب الالتزام بها في مستودع Git الخاص بك.
+يوصى بتجاهل الملفات التي تم إنشاؤها بواسطة Intlayer. يتيح لك ذلك تجنب إرسالها إلى مستودع Git الخاص بك.
 
 للقيام بذلك، يمكنك إضافة التعليمات التالية إلى ملف `.gitignore` الخاص بك:
 
@@ -1289,6 +1269,8 @@ export const Route = createFileRoute("/sitemap.xml")({
 لا. قم بتشغيل `npx intlayer extract` وسيقرأ Intlayer ملفاتك، ويسحب السلاسل النصية الموجهة للمستخدم، ويكتب ملف `.content` بجانب كل منها، حتى تراجع diff بدلاً من نسخ السلاسل إلى كتالوج يدويًا.
 
 لأتمتة كاملة، يقوم [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md) بالشيء نفسه في وقت البناء: يمسح الكود عند كل تغيير، وينشئ القواميس ويزامنها مع HMR.
+
+هناك حدان يجدر معرفتهما قبل تشغيل المترجم. إنه يعمل عن طريق التحليل الثابت، وبالتالي فإن السلاسل التي تظهر فقط في وقت التشغيل، مثل رموز أخطاء API أو حقول نظام إدارة المحتوى، تظل بعيدة عن متناوله. كما يتعين عليه التمييز بين النصوص الموجهة للمستخدم ومنطق التطبيق مثل `className="active"` أو رمز الحالة، الأمر الذي يتطلب بعض الملاحظات التوضيحية في قاعدة التعليمات البرمجية الكبيرة. يتجنب [أمر الاستخراج](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/extract.md) كلا الأمرين من خلال إبقائك متحكمًا في العملية.
 
 </Question>
 

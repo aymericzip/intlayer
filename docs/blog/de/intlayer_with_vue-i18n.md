@@ -143,8 +143,6 @@ Wenn Änderungen über die CLI zur Übersetzung des JSON vorgenommen werden oder
 
 Um weitere Details zum `syncJSON`-Plugin zu sehen, lesen Sie bitte die [syncJSON Plugin-Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/plugins/sync-json.md).
 
----
-
 </Step>
 
 <Step number={3} title="Implementierung von komponentenbezogenen JSON-Übersetzungen" isOptional={true}>
@@ -188,8 +186,6 @@ export default config;
 ```
 
 Dies lädt alle JSON-Dateien im `src`-Verzeichnis, die dem Muster `{key}.i18n.json` entsprechen, und lädt sie als Intlayer-Wörterbücher.
-
----
 
 </Step>
 

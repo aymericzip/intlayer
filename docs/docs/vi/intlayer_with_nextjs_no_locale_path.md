@@ -59,7 +59,6 @@ Xem [Mẫu ứng dụng](https://github.com/aymericzip/intlayer-next-no-lolale-p
 So với các giải pháp chính như `next-intl` hay `i18next`, Intlayer là giải pháp đi kèm với các tính năng tối ưu hóa tích hợp như:
 
 <AccordionGroup>
-
 <Accordion header="Phạm vi bảo hiểm đầy đủ của Next.js">
 
 Intlayer được tối ưu hóa để hoạt động với **Thành phần máy chủ** nhằm hiển thị hiệu quả và hoàn toàn tương thích với [**Turbopack**](https://nextjs.org/docs/architecture/turbopack). Nó không chặn hiển thị tĩnh và cung cấp phần mềm trung gian cũng như tất cả các tính năng cần thiết để mở rộng quy mô quốc tế hóa (i18n).
@@ -876,9 +875,15 @@ Tiện ích mở rộng này cung cấp:
 
 <FAQ>
 
-<Question title="Tại sao tôi muốn chạy ứng dụng mà không có locale trong URL?">
+<Question title="Các giải pháp khác nhau có sẵn để quốc tế hóa ứng dụng Next.js là gì?">
 
-Để giữ URL gọn gàng hơn, duy trì cấu trúc liên kết hiện có, hoặc phân phối nội dung đa ngôn ngữ dựa trên cookie hoặc tùy chọn trình duyệt của người dùng.
+Trường `i18n` của `next.config.js` không áp dụng cho App Router, vì vậy lớp bản địa hóa luôn là một lựa chọn thư viện:
+
+- **`next-intl`**, **`next-i18next` / `i18next`** và **`react-intl`**: Các catalog JSON hoặc ICU được tải theo namespace.
+- **`Lingui`**: Được điều khiển bởi trích xuất, với các thông báo ICU được biên dịch tại thời điểm build.
+- **`Intlayer`**: Giải pháp tiên tiến nhất. Nội dung được khai báo ở bất kỳ đâu trong cơ sở mã của bạn ([bên cạnh mỗi component hoặc tập trung](https://intlayer.org/blog/per-component-vs-centralized-i18n)) và được biên dịch theo từng component, có kiểu dữ liệu đầy đủ, với tính năng dịch bằng AI, trình soạn thảo trực quan và CMS.
+
+Hướng dẫn này bao gồm thiết lập không có locale trong đường dẫn. Xem [lý do chọn Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/interest_of_intlayer.md) và [bảng so sánh i18n Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md).
 
 </Question>
 
@@ -902,9 +907,11 @@ Có. Plugin [sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/do
 
 <Question title="Tôi có phải di chuyển nội dung từng khóa một không?">
 
-Không. Chạy `npx intlayer extract` và Intlayer sẽ đọc các tệp nguồn của bạn, trích xuất các chuỗi dành cho người dùng và tạo tệp `.content` bên cạnh mỗi tệp, nhờ đó bạn chỉ cần xem lại diff thay vì sao chép chuỗi vào catalog thủ công. Xem [lệnh extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/extract.md).
+Không. Chạy `npx intlayer extract` và Intlayer sẽ đọc các component của bạn, trích xuất các chuỗi hiển thị cho người dùng và viết một tệp `.content` bên cạnh mỗi component, nhờ đó bạn xem lại diff thay vì sao chép từng chuỗi vào một catalog.
 
-Để tự động hóa hoàn toàn, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md) thực hiện việc tương tự trong quá trình build trên mã JSX, TSX, Vue và Svelte, tạo từ điển trên mỗi thay đổi mà không cần quản lý khóa thủ công.
+Đối với quy trình hoàn toàn tự động, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md) thực hiện điều tương tự tại thời điểm build: quét mã nguồn JSX, TSX, Vue và Svelte của bạn trên mỗi thay đổi, tạo từ điển và giữ chúng đồng bộ thông qua hot module replacement, do đó hoàn toàn không có khóa nào phải duy trì thủ công.
+
+Hai giới hạn đáng lưu ý trước khi bạn bật compiler. Nó hoạt động bằng phân tích tĩnh, do đó các chuỗi chỉ tồn tại khi runtime, chẳng hạn như mã lỗi API hoặc các trường CMS, nằm ngoài phạm vi tiếp cận. Và nó phải phân biệt văn bản hiển thị cho người dùng với logic ứng dụng như `className="active"` hoặc mã trạng thái, điều này cần một vài chú thích trong một codebase lớn. [Lệnh extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/extract.md) tránh cả hai điều này bằng cách giữ bạn luôn kiểm soát.
 
 </Question>
 
@@ -920,33 +927,33 @@ Năm công cụ, tất cả đều là tùy chọn:
 
 </Question>
 
-<Question title="Locale được phát hiện như thế nào trong trường hợp này?">
+<Question title="Tại sao tôi muốn phân phối ứng dụng của mình mà không có locale trong URL?">
 
-Trước tiên từ cookie, sau đó là tiêu đề `Accept-Language`, và trở về ngôn ngữ mặc định nếu không có. Lựa chọn được lưu vào cookie.
-
-</Question>
-
-<Question title="Tác động đến SEO là gì nếu không có locale trong URL?">
-
-Các công cụ tìm kiếm khó lập chỉ mục nội dung đa ngôn ngữ hơn nếu chúng ở trên cùng một URL. Đối với yêu cầu SEO mạnh mẽ, nên dùng tiền tố URL hoặc tên miền phụ riêng biệt.
+Bởi vì locale không phải lúc nào cũng là một phần danh tính của trang. Bảng điều khiển đã xác thực, công cụ nội bộ hoặc ứng dụng phía sau đăng nhập không có lý do gì để hiển thị `/fr/` trong mỗi URL: ngôn ngữ là tùy chọn của người dùng, không phải một tài liệu khác biệt. Bỏ tiền tố cũng giữ cho các route, liên kết và số liệu phân tích của bạn nằm trên một tập hợp đường dẫn duy nhất.
 
 </Question>
 
-<Question title="Sự khác biệt giữa chế độ no-prefix và search-params là gì?">
+<Question title="Hậu quả về SEO của việc không có locale trong URL là gì?">
 
-Chế độ `no-prefix` giữ URL sạch và dựa vào cookie; chế độ `search-params` lưu trữ locale trong tham số truy vấn như `?locale=vi`.
-
-</Question>
-
-<Question title="Tôi có thể gán mỗi ngôn ngữ cho tên miền riêng không?">
-
-Có. Tùy chọn `routing.domains` cho phép bạn ánh xạ từng locale tới tên miền riêng, ví dụ `example.vn` hoặc `example.com`.
+Chúng là có thật, vì vậy hãy lựa chọn một cách cân nhắc. Nếu không có URL riêng biệt cho từng ngôn ngữ, các công cụ tìm kiếm không có trang riêng để lập chỉ mục cho từng locale, `hreflang` không có gì để trỏ tới, và trình thu thập dữ liệu chỉ nhìn thấy ngôn ngữ mà tính năng phát hiện mặc định của bạn phân phối. Điều đó phù hợp với nội dung phía sau đăng nhập vốn không được lập chỉ mục, nhưng không phù hợp với trang web tiếp thị công khai hoặc tài liệu. Nếu lưu lượng truy cập tự nhiên theo từng ngôn ngữ là quan trọng, hãy sử dụng thiết lập có tiền tố trong [hướng dẫn Next.js 16](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_16.md).
 
 </Question>
 
-<Question title="Intlayer có hoạt động với React Server Components không?">
+<Question title="Sự khác biệt giữa chế độ `no-prefix` và `search-params` là gì?">
 
-Có. Nội dung trong Server Components được giải quyết trực tiếp trên server, do đó không có từ điển nào được gửi tới client cho phần văn bản được render phía server. Client Components đọc từ điển qua provider.
+`"no-prefix"` giữ locale hoàn toàn nằm ngoài URL và phân giải nó từ cookie, tiêu đề hoặc tên miền, vì vậy mọi ngôn ngữ dùng chung một địa chỉ. `"search-params"` đặt nó vào chuỗi truy vấn dưới dạng `/dashboard?locale=fr`, vẫn cung cấp cho mỗi ngôn ngữ một URL riêng biệt, có thể liên kết và đánh dấu trang mà không làm thay đổi cây route của bạn. Ưu tiên `"search-params"` khi bạn muốn các liên kết có thể chia sẻ theo từng ngôn ngữ.
+
+</Question>
+
+<Question title="Vậy locale được phát hiện như thế nào?">
+
+Từ các nguồn được liệt kê trong `routing.storage`, theo mặc định là cookie trước rồi đến tiêu đề `Accept-Language`, và dự phòng về locale mặc định của bạn. Bước 7 thêm proxy áp dụng điều này. Ngôn ngữ mà người dùng chọn rõ ràng sẽ được duy trì, do đó nó tiếp tục tồn tại ở lần truy cập tiếp theo. Xem [tài liệu cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md).
+
+</Question>
+
+<Question title="Tôi có thể ánh xạ từng ngôn ngữ vào tên miền riêng của nó không?">
+
+Có, và đây là tùy chọn cần cân nhắc khi bạn bỏ tiền tố vì lý do thẩm mỹ nhưng vẫn muốn có SEO. `routing.domains` ánh xạ một locale tới một hostname, do đó tên miền xác định ngôn ngữ, không có tiền tố nào được thêm vào đường dẫn, và mọi ngôn ngữ đều có một URL có thể lập chỉ mục mà `hreflang` có thể trỏ tới.
 
 </Question>
 

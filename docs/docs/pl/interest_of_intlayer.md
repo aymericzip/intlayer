@@ -39,7 +39,6 @@ author: aymericzip
 W porównaniu do głównych rozwiązań, takich jak `next-intl` czy `i18next`, Intlayer jest rozwiązaniem, które oferuje wbudowane optymalizacje, takie jak:
 
 <AccordionGroup>
-
 <Accordion header="Rozmiar paczki (Bundle size)">
 
 Zamiast ładować ogromne pliki JSON na swoje strony, ładuj tylko niezbędną treść. Intlayer pomaga **zmniejszyć rozmiar paczki i stron nawet o 50%**.
@@ -304,8 +303,6 @@ Współistnieją trzy generacje:
 - **Biblioteki katalogów w czasie działania (runtime)**: `i18next`, `react-i18next`, `next-i18next`, `vue-i18n`, `ngx-translate`. Wiadomości znajdują się w przestrzeniach nazw JSON ładowanych w runtime.
 - **Biblioteki wiadomości w czasie kompilacji**: `Lingui`, `Paraglide`, `react-intl` oraz `next-intl` z etapem ekstrakcji.
 - **Biblioteki z warstwą treści (Content layer)**: `Intlayer`. Treść deklarowana obok komponentu, tree-shaking, typowanie TypeScript, tłumaczenie AI i edytor wizualny.
-
-Zobacz pełne porównanie w tym przewodniku.
 
 </Question>
 

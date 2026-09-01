@@ -46,36 +46,35 @@ author: aymericzip
 `रिएक्ट-आई18नेक्स्ट` या `आई18नेक्स्ट` जैसे मुख्य समाधानों की तुलना में, इंटलेयर एक ऐसा समाधान है जो एकीकृत अनुकूलन के साथ आता है जैसे:
 
 <AccordionGroup>
-
-**पूर्ण टैनस्टैक प्रारंभ कवरेज**
+<Accordion header="पूर्ण टैनस्टैक प्रारंभ कवरेज">
 
 इंटलेयर को **बहुभाषी रूटिंग**, **साइटमैप**, और स्केलिंग अंतर्राष्ट्रीयकरण (i18n) के लिए आवश्यक सभी सुविधाओं की पेशकश करके टैनस्टैक स्टार्ट और सॉलिड के साथ पूरी तरह से काम करने के लिए अनुकूलित किया गया है।
 
-**बंडल का आकार**
+</Accordion>
 
 <Accordion header="Bundle size">
 
 अपने पृष्ठों में विशाल JSON फ़ाइलें लोड करने के बजाय, केवल आवश्यक सामग्री लोड करें। इंटलेयर आपके बंडल और पृष्ठ आकार को 50% तक कम करने में मदद करता है।
 
-**रखरखाव**
+</Accordion>
 
 <Accordion header="रखरखाव">
 
 आपके एप्लिकेशन की सामग्री का दायरा बड़े पैमाने के अनुप्रयोगों के लिए **रखरखाव की सुविधा प्रदान करता है**। आप अपने संपूर्ण सामग्री कोडबेस की समीक्षा करने के मानसिक बोझ के बिना किसी एक फीचर फ़ोल्डर की नकल कर सकते हैं या उसे हटा सकते हैं। इसके अतिरिक्त, आपकी सामग्री की सटीकता सुनिश्चित करने के लिए Intlayer **पूरी तरह से टाइप किया गया** है।
 
-**एआई एजेंट**
+</Accordion>
 
 <Accordion header="AI Agent">
 
 सामग्री का सह-स्थानीकरण **बड़े भाषा मॉडल (एलएलएम) द्वारा आवश्यक संदर्भ को कम करता है**। इंटलेयर टूल के एक सूट के साथ भी आता है, जैसे **CLI** ताकि लापता अनुवादों का परीक्षण किया जा सके,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**, और **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/agent_skills.md)**, AI एजेंटों के लिए डेवलपर अनुभव (DX) को और भी आसान बनाने के लिए।
 
-**स्वचालन**
+</Accordion>
 
 <Accordion header="ऑटोमेशन">
 
 अपने एआई प्रदाता की कीमत पर अपनी पसंद के एलएलएम का उपयोग करके अपने सीआई/सीडी पाइपलाइन में अनुवाद करने के लिए स्वचालन का उपयोग करें। इंटलेयर सामग्री निष्कर्षण को स्वचालित करने के लिए एक **कंपाइलर** के साथ-साथ **पृष्ठभूमि में अनुवाद** में मदद करने के लिए एक [वेब प्लेटफ़ॉर्म](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) भी प्रदान करता है।
 
-**प्रदर्शन**
+</Accordion>
 
 <Accordion header="प्रदर्शन">
 
@@ -83,7 +82,7 @@ author: aymericzip
 
 </Accordion>
 
-**किसी भी देव के साथ स्केलिंग**
+<Accordion header="किसी भी देव के साथ स्केलिंग">
 
 सिर्फ एक i18n समाधान से अधिक, Intlayer एक **स्व-होस्टेड [विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** और एक **[पूर्ण] प्रदान करता है सीएमएस](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** आपकी बहुभाषी सामग्री को **वास्तविक समय** में प्रबंधित करने में मदद करता है, जिससे अनुवादकों, कॉपीराइटरों और टीम के अन्य सदस्यों के साथ सहयोग सहज हो जाता है। सामग्री को स्थानीय और/या दूरस्थ रूप से संग्रहीत किया जा सकता है।
 
@@ -566,8 +565,6 @@ const RootComponent: ParentComponent = (props) => {
 };
 ```
 
----
-
 </Step>
 
 <Step number={12} title="मिडलवेयर जोड़ें">
@@ -603,8 +600,6 @@ export default defineConfig({
   ],
 });
 ```
-
----
 
 </Step>
 
@@ -799,8 +794,6 @@ export const Route = createFileRoute("/{-$locale}/")({
 | क्लाइंट नेविगेशन | हल करने को कुछ नहीं | हर मैच पर दोबारा चलता है   | राउटर कैश से मिलता है                   |
 | डेवलपर अनुभव     | सबसे सरल            | एक `await`                 | कंटेंट `loaderData` से पास होता है      |
 
----
-
 </Step>
 
 <Step number={14} title="अपने सर्वर कार्यों में लोकेल प्राप्त करें">
@@ -837,8 +830,6 @@ export const getLocaleServer = createServerFn().handler(async () => {
   return { locale, content };
 });
 ```
-
----
 
 </Step>
 
@@ -1031,8 +1022,6 @@ bun run build # या bun run dev
  </Tab>
 </Tabs>
 
----
-
 </Step>
 
 <Step number={16} title="Pre-render & Generate Sitemap">
@@ -1109,8 +1098,6 @@ export const Route = createFileRoute("/sitemap.xml")({
 });
 ```
 
----
-
 </Step>
 
 <Step number={17} title="TypeScript कॉन्फ़िगर करें">
@@ -1128,8 +1115,6 @@ Intlayer TypeScript के लाभों को प्राप्त कर�
   ],
 }
 ```
-
----
 
 </Step>
 
@@ -1218,6 +1203,8 @@ TanStack Start की अपनी कोई i18n परत नहीं है:
 नहीं। `npx intlayer extract` चलाएं और Intlayer आपकी फ़ाइलों को पढ़ता है, उपयोगकर्ता के अनुकूल स्ट्रिंग्स निकालता है, और प्रत्येक के बगल में एक `.content` फ़ाइल लिखता है, जिससे आप कैटलॉग में मैन्युअल रूप से कॉपी करने के बजाय एक diff की समीक्षा करते हैं।
 
 पूर्ण स्वचालन के लिए, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md) बिल्ड समय पर यही काम करता है: प्रत्येक परिवर्तन पर कोड स्कैन करता है, शब्दकोश उत्पन्न करता है और HMR के साथ सिंक करता है।
+
+कंपाइलर को चालू करने से पहले दो सीमाएं जानने योग्य हैं। यह स्थिर विश्लेषण द्वारा काम करता है, इसलिए जो स्ट्रिंग्स केवल रनटाइम पर मौजूद होती हैं, जैसे कि API त्रुटि कोड या CMS फ़ील्ड, वे पहुंच से बाहर रहती हैं। और इसे `className="active"` या स्थिति कोड जैसे एप्लिकेशन लॉजिक से उपयोगकर्ता के सामने आने वाले टेक्स्ट को अलग करना होगा, जिसके लिए एक बड़े कोडबेस में कुछ एनोटेशन की आवश्यकता होती है। [extract command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/extract.md) आपको लूप में रखकर दोनों से बचाता है।
 
 </Question>
 

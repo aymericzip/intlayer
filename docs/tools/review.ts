@@ -11,9 +11,10 @@ import type { Locale } from '@intlayer/types/allLocales';
 import * as Locales from '@intlayer/types/locales';
 import { defaultLocale, locales } from '../intlayer.config';
 
+const args = process.argv.slice(2);
 // Fill the list of files to audit if you want to audit only a subset of the files
 // If empty list is provided, the audit will run on all markdown files present in the /en folder
-const DOC_PATTERN: string[] = ['./docs/en/**/*.md'];
+const DOC_PATTERN: string[] = args.length > 0 ? args : ['./docs/en/**/*.md'];
 const EXCLUDED_GLOB_PATTEN: string[] = [
   '**/_*',
   '**/node_modules/**',
@@ -24,16 +25,21 @@ const EXCLUDED_GLOB_PATTEN: string[] = [
 // 'report'    → log every block that needs attention, then the final synthesis
 // 'synthesis' → log only the final synthesis (documents up to date / to edit)
 // 'apply'     → generate the translations with AI // NEVER TOUCH IT
-const MODE: ReviewDocMode = 'report';
+const MODE: ReviewDocMode = (process.env.MODE as ReviewDocMode) || 'report';
 
 // Number of files to process simultaneously
-const NB_SIMULTANEOUS_FILE_PROCESSED: number = 8;
+const NB_SIMULTANEOUS_FILE_PROCESSED: number = process.env.CONCURRENCY
+  ? Number(process.env.CONCURRENCY)
+  : 8;
 
-const LOCALE_LIST_TO_TRANSLATE: Locale[] = locales.filter(
-  // Include all locales except English
-  // Change it to include your specific locales if you want to translate only a subset of the locale(s)
-  (locale) => locale !== Locales.ENGLISH
-);
+const targetLocale = process.env.LOCALE;
+const LOCALE_LIST_TO_TRANSLATE: Locale[] = targetLocale
+  ? [targetLocale as Locale]
+  : locales.filter(
+      // Include all locales except English
+      // Change it to include your specific locales if you want to translate only a subset of the locale(s)
+      (locale) => locale !== Locales.ENGLISH
+    );
 
 const SKIP_IF_MODIFIED_BEFORE: number | undefined = undefined; //1000 * 60 * 60 * 24; // 1 day ago
 const SKIP_IF_MODIFIED_AFTER: number | undefined = undefined;

@@ -28,7 +28,6 @@ author: aymericzip
 ## なぜnext-intlからIntlayerに移行するのか？
 
 <AccordionGroup>
-
 <Accordion header="バンドルサイズ">
 
 巨大なJSONファイルをページに読み込む代わりに、必要なコンテンツのみをロードします。Intlayerは、**バンドルとページのサイズを最大50%削減**するのに役立ちます。
@@ -66,7 +65,6 @@ AIプロバイダーのコストで、お好みのLLMを使用してCI/CDパイ�
 単なるi18nソリューションにとどまらず、Intlayerはセルフホストの**[ビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)**と**[フルCMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)**を提供し、多言語コンテンツを**リアルタイム**で管理できるようにします。これにより、翻訳者やコピーライター、その他のチームメンバーとのシームレスなコラボレーションが可能になります。コンテンツはローカルおよび/またはリモートに保存できます。
 
 </Accordion>
-
 </AccordionGroup>
 
 ---

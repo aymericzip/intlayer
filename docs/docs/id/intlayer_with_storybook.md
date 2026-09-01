@@ -37,7 +37,6 @@ author: aymericzip
 Dibandingkan dengan solusi utama seperti `storybook-react-i18next` atau `i18next`, Intlayer adalah solusi yang hadir dengan pengoptimalan terintegrasi seperti:
 
 <AccordionGroup>
-
 <Accordion header="Liputan Buku Cerita Lengkap">
 
 Intlayer dioptimalkan agar berfungsi sempurna dengan Storybook dengan menawarkan **dekorator cerita multibahasa**, **pengalihan lokal**, dan semua fitur yang diperlukan untuk meningkatkan internasionalisasi (i18n) di seluruh sistem desain Anda.
@@ -128,8 +127,6 @@ bun add vite-intlayer --dev
 | `react-intlayer` | Pengikatan React - `IntlayerProvider`, hook `useIntlayer`     |
 | `vite-intlayer`  | Plugin Vite - memantau dan mengompilasi file deklarasi konten |
 
----
-
 </Step>
 
 <Step number={2} title="Buat Konfigurasi Intlayer">
@@ -158,8 +155,6 @@ export default config;
 ```
 
 > Untuk daftar lengkap opsi, lihat [referensi konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md).
-
----
 
 </Step>
 
@@ -207,8 +202,6 @@ export default config;
 ```
 
 Plugin `intlayer()` memantau file `*.content.ts` Anda dan membangun kembali kamus secara otomatis setiap kali ada perubahan selama pengembangan Storybook.
-
----
 
 </Step>
 
@@ -294,8 +287,6 @@ bun add intlayer react-intlayer
 bun add @intlayer/webpack --dev
 ```
 
----
-
 </Step>
 
 <Step number={2} title="Buat Konfigurasi Intlayer">
@@ -317,8 +308,6 @@ const config: IntlayerConfig = {
 
 export default config;
 ```
-
----
 
 </Step>
 
@@ -346,8 +335,6 @@ const config: StorybookConfig = {
 
 export default config;
 ```
-
----
 
 </Step>
 

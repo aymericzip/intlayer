@@ -51,6 +51,7 @@ Intlayer는 Markdown 구문을 사용하여 정의된 서식 있는 텍스트 �
 
 <Tabs>
   <Tab label=".content.md" value=".content.md">
+
     버전 `8.10.0`부터 `.content.md` 파일에서 직접 Markdown 콘텐츠를 선언할 수 있습니다. Intlayer가 Markdown 콘텐츠를 자동으로 감지하고 구문 분석합니다.
 
     ```md fileName="markdown-file.en.content.md"
@@ -96,6 +97,7 @@ Intlayer는 Markdown 구문을 사용하여 정의된 서식 있는 텍스트 �
     ```
 
   </Tab>
+
   <Tab label="외부 파일" value="external-files">
     `file` 함수를 사용하여 `.md` 파일을 직접 가져옵니다.
 
@@ -129,6 +131,7 @@ Intlayer는 Markdown 구문을 사용하여 정의된 서식 있는 텍스트 �
     ```
 
   </Tab>
+
 </Tabs>
 
 ## Markdown 렌더링
@@ -957,7 +960,21 @@ Markdown 렌더링은 **MDX**를 지원합니다 — Markdown 내에서 이름�
   </Tab>
   <Tab label="Angular" value="angular">
 
-> MDX가 지원됨 — Markdown 내에서 사용되는 모든 component 이름(예: `<MyCustomJSXComponent />`)은 `components` 맵에 대해 해석됩니다.
+    ```typescript fileName="app.config.ts"
+    import { createIntlayerMarkdownProvider } from "angular-intlayer/markdown";
+
+    export const appConfig: ApplicationConfig = {
+      providers: [
+        createIntlayerMarkdownProvider({
+          components: {
+            h1: { class: "text-2xl font-bold" },
+          },
+        }),
+      ],
+    };
+    ```
+
+    > MDX가 지원됨 — Markdown 내에서 사용되는 모든 component 이름(예: `<MyCustomJSXComponent />`)은 `components` 맵에 대해 해석됩니다.
 
 자신의 markdown renderer를 사용할 수도 있습니다:
 

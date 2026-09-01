@@ -51,6 +51,7 @@ author: aymericzip
 
 <Tabs>
   <Tab label=".content.md" value=".content.md">
+
     بدءًا من الإصدار `8.10.0` ، يمكنك الإعلان عن محتوى Markdown مباشرةً في ملفات `.content.md`. سيكتشف Intlayer محتوى Markdown ويحلله تلقائيًا.
 
     ```md fileName="markdown-file.en.content.md"
@@ -96,6 +97,7 @@ author: aymericzip
     ```
 
   </Tab>
+
   <Tab label="الملفات الخارجية" value="external-files">
     قم باستيراد ملفات `.md` مباشرة باستخدام وظيفة `file`.
 
@@ -129,6 +131,7 @@ author: aymericzip
     ```
 
   </Tab>
+
 </Tabs>
 
 ## عرض Markdown
@@ -957,7 +960,21 @@ author: aymericzip
   </Tab>
   <Tab label="Angular" value="angular">
 
-> MDX مدعوم — أي اسم مكون يُستخدم داخل Markdown (مثل `<MyCustomJSXComponent />`) يتم حله مقابل خريطة `components`.
+    ```typescript fileName="app.config.ts"
+    import { createIntlayerMarkdownProvider } from "angular-intlayer/markdown";
+
+    export const appConfig: ApplicationConfig = {
+      providers: [
+        createIntlayerMarkdownProvider({
+          components: {
+            h1: { class: "text-2xl font-bold" },
+          },
+        }),
+      ],
+    };
+    ```
+
+    > MDX مدعوم — أي اسم مكون يُستخدم داخل Markdown (مثل `<MyCustomJSXComponent />`) يتم حله مقابل خريطة `components`.
 
 يمكنك أيضًا استخدام markdown renderer الخاص بك:
 

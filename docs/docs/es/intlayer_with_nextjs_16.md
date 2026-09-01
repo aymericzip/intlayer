@@ -76,7 +76,6 @@ Consulta la [Plantilla de Aplicación](https://github.com/aymericzip/intlayer-ne
 En comparación con soluciones principales como `next-intl` o `i18next`, Intlayer es una solución que viene con optimizaciones integradas como:
 
 <AccordionGroup>
-
 <Accordion header="Soporte completo de Next.js">
 
 Intlayer está optimizado para funcionar con **Componentes del servidor** para una representación eficiente y es totalmente compatible con [**Turbopack**](https://nextjs.org/docs/architecture/turbopack). No bloquea la representación estática y ofrece middleware, así como todas las funciones necesarias para escalar la internacionalización (i18n).
@@ -129,7 +128,6 @@ Más que una simple solución i18n, Intlayer proporciona un **[editor visual] au
 ## Guía paso a paso para configurar Intlayer en una aplicación Next.js
 
 <Steps>
-
 <Step number={1} title="Instalar dependencias">
 
 Instala los paquetes necesarios usando npm:
@@ -179,7 +177,6 @@ bun add intlayer next-intlayer
   El paquete que integra Intlayer con Next.js. Proporciona proveedores de contexto y hooks para la internacionalización en Next.js. Además, incluye el plugin de Next.js para integrar Intlayer con [Webpack](https://webpack.js.org/) o [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack), así como un proxy para detectar la configuración regional preferida del usuario, gestionar cookies y manejar la redirección de URL.
 
 </Step>
-
 <Step number={2} title="Configura tu proyecto">
 
 Here is the final structure that we will make:
@@ -233,7 +230,6 @@ export default config;
 > A través de este archivo de configuración, puedes configurar URLs localizadas, redirección de proxy, nombres de cookies, la ubicación y extensión de tus declaraciones de contenido, desactivar los registros de Intlayer en la consola, y más. Para una lista completa de los parámetros disponibles, consulta la [documentación de configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md).
 
 </Step>
-
 <Step number={3} title="Integra Intlayer en tu configuración de Next.js">
 
 Configura tu entorno Next.js para usar Intlayer:
@@ -294,7 +290,6 @@ export default withIntlayer(nextConfig);
 > ```
 
 </Step>
-
 <Step number={4} title="Definir Rutas Dinámicas de Localización">
 
 Elimina todo lo que hay en `RootLayout` y reemplázalo con el siguiente código:
@@ -316,7 +311,7 @@ export default RootLayout;
 Para implementar el enrutamiento dinámico, proporciona la ruta para la localización añadiendo un nuevo layout en tu directorio `[locale]`:
 
 <Tabs>
- <Tab label='Intlayer >=9.4' value='>=9.4'>
+<Tab label='Intlayer >=9.4' value='>=9.4'>
 
 ```tsx fileName="src/app/[locale]/layout.tsx" codeFormat={["typescript", "esm"]}
 import { type NextLayoutIntlayer } from "next-intlayer";
@@ -342,8 +337,8 @@ export default LocaleLayout;
 
 > Un único `IntlayerProvider` cubre ambas mitades del árbol: alimenta el contexto del servidor con alcance de solicitud leído por los hooks del servidor, y monta el proveedor del cliente para que los componentes del cliente reciban la misma configuración regional.
 
- </Tab>
- <Tab label='Intlayer <9.4' value='<9.4'>
+</Tab>
+<Tab label='Intlayer <9.4' value='<9.4'>
 
 ```tsx fileName="src/app/[locale]/layout.tsx" codeFormat={["typescript", "esm"]}
 import { type NextLayoutIntlayer, IntlayerClientProvider } from "next-intlayer";
@@ -368,7 +363,7 @@ const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
 export default LocaleLayout;
 ```
 
- </Tab>
+</Tab>
 </Tabs>
 
 > El segmento de ruta `[locale]` se utiliza para definir la configuración regional. Ejemplo: `/en-US/about` se referirá a `en-US` y `/fr/about` a `fr`.
@@ -394,7 +389,6 @@ export default LocaleLayout;
 > Intlayer funciona con `export const dynamic = 'force-static';` para garantizar que las páginas se pre-construyan para todas las locales.
 
 </Step>
-
 <Step number={5} title="Declara Tu Contenido">
 
 Crea y gestiona tus declaraciones de contenido para almacenar traducciones:
@@ -442,13 +436,12 @@ export default pageContent;
 > Para más detalles, consulta la [documentación de declaración de contenido](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/content_file.md).
 
 </Step>
-
 <Step number={6} title="Utiliza el contenido en tu código">
 
 Accede a tus diccionarios de contenido en toda tu aplicación:
 
 <Tabs>
- <Tab label='Intlayer >=9.4' value='>=9.4'>
+<Tab label='Intlayer >=9.4' value='>=9.4'>
 
 ```tsx fileName="src/app/[locale]/page.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
@@ -482,8 +475,8 @@ export default Page;
 - **`IntlayerProvider`** se monta una sola vez, en el layout de locale. Proporciona el locale tanto a componentes del servidor como del cliente, por lo que las páginas ya no se envuelven a sí mismas.
 - Los hooks del servidor resuelven el locale en este orden: el locale pasado en el sitio de llamada, luego el contexto del servidor inicializado por el proveedor, luego el locale llevado por la solicitud (el encabezado `x-intlayer-locale` establecido por el proxy de Intlayer, luego la cookie de locale). Este último paso es lo que mantiene el contenido correcto en una navegación del lado del cliente que re-renderiza solo el segmento de página, donde el layout — y con él el proveedor — no se vuelve a ejecutar.
 
- </Tab>
- <Tab label='Intlayer <9.4' value='<9.4'>
+</Tab>
+<Tab label='Intlayer <9.4' value='<9.4'>
 
 ```tsx fileName="src/app/[locale]/page.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
@@ -526,6 +519,9 @@ export default Page;
 
   > El layout y la página no pueden compartir un contexto de servidor común porque el sistema de contexto de servidor se basa en un almacén de datos por solicitud (a través del mecanismo de [caché de React](https://react.dev/reference/react/cache)), lo que provoca que cada "contexto" se vuelva a crear para diferentes segmentos de la aplicación. Colocar el proveedor en un layout compartido rompería este aislamiento, impidiendo la correcta propagación de los valores del contexto del servidor a tus componentes del servidor.
 
+</Tab>
+</Tabs>
+
 ```tsx {4,7} fileName="src/components/ClientComponentExample.tsx" codeFormat={["typescript", "esm"]}
 "use client";
 
@@ -545,7 +541,7 @@ export const ClientComponentExample: FC = () => {
 ```
 
 <Tabs>
- <Tab label='Intlayer >=9.4' value='>=9.4'>
+<Tab label='Intlayer >=9.4' value='>=9.4'>
 
 ```tsx {2} fileName="src/components/ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
@@ -565,8 +561,8 @@ export const ServerComponentExample: FC = () => {
 
 > `next-intlayer` es la ruta de importación isomórfica: la condición de exportación `react-server` proporciona a los componentes del servidor la implementación de locale ambiental, mientras que los componentes del cliente obtienen la respaldada por contexto. La misma llamada funciona en ambos lados.
 
- </Tab>
- <Tab label='Intlayer <9.4' value='<9.4'>
+</Tab>
+<Tab label='Intlayer <9.4' value='<9.4'>
 
 ```tsx {2} fileName="src/components/ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
@@ -584,7 +580,7 @@ export const ServerComponentExample: FC = () => {
 };
 ```
 
- </Tab>
+</Tab>
 </Tabs>
 
 > Si quieres usar tu contenido en un atributo de tipo `string`, como `alt`, `title`, `href`, `aria-label`, etc., debes llamar al valor de la función, así:
@@ -600,7 +596,6 @@ export const ServerComponentExample: FC = () => {
 > Si su aplicación ya existe, puede utilizar el [Compilador Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compiler.md), así como el [comando de extracción](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/extract.md), para transformar miles de componentes en un segundo.
 
 </Step>
-
 <Step number={7} title="Configurar Proxy para la Detección de Idioma" isOptional={true}>
 
 Configura un proxy para detectar el idioma preferido del usuario:
@@ -628,7 +623,6 @@ export const proxy = multipleProxies([intlayerProxy, customProxy]);
 ```
 
 </Step>
-
 <Step number={8} title="Internacionalización de tus metadatos" isOptional={true}>
 
 En caso de que desees internacionalizar tus metadatos, como el título de tu página, puedes usar la función `generateMetadata` proporcionada por Next.js. Dentro, puedes obtener el contenido de la función `getIntlayer` para traducir tus metadatos.
@@ -728,6 +722,50 @@ export const generateMetadata = async ({
 
 > Tenga en cuenta que la función `getIntlayer` importada desde `next-intlayer` devuelve su contenido envuelto en un `IntlayerNode`, lo que permite la integración con el editor visual. En cambio, la función `getIntlayer` importada desde `intlayer` devuelve su contenido directamente sin propiedades adicionales.
 
+> Obtenga más información sobre la optimización de metadatos [en la documentación oficial de Next.js](https://nextjs.org/docs/app/building-your-application/optimizing/metadata).
+
+</Step>
+<Step number={9} title="Internacionalización de su sitemap.xml y robots.txt" isOptional={true}>
+
+Para internacionalizar su `sitemap.xml` y `robots.txt`, puede utilizar la función `getMultilingualUrls` proporcionada por Intlayer. Esta función le permite generar URLs multilingües para su mapa del sitio.
+
+```tsx fileName="src/app/sitemap.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { getMultilingualUrls } from "intlayer";
+import type { MetadataRoute } from "next";
+
+const sitemap = (): MetadataRoute.Sitemap => [
+  {
+    url: "https://example.com",
+    alternates: {
+      languages: {
+        ...getMultilingualUrls("https://example.com"),
+        "x-default": "https://example.com",
+      },
+    },
+  },
+  {
+    url: "https://example.com/login",
+    alternates: {
+      languages: {
+        ...getMultilingualUrls("https://example.com/login"),
+        "x-default": "https://example.com/login",
+      },
+    },
+  },
+  {
+    url: "https://example.com/register",
+    alternates: {
+      languages: {
+        ...getMultilingualUrls("https://example.com/register"),
+        "x-default": "https://example.com/register",
+      },
+    },
+  },
+];
+
+export default sitemap;
+```
+
 ```tsx fileName="src/app/robots.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import type { MetadataRoute } from "next";
 import { getMultilingualUrls } from "intlayer";
@@ -752,7 +790,6 @@ export default robots;
 > Aprende más sobre la optimización del sitemap [en la documentación oficial de Next.js](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap). Aprende más sobre la optimización del archivo robots.txt [en la documentación oficial de Next.js](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/robots).
 
 </Step>
-
 <Step number={10} title="Cambia el idioma de tu contenido" isOptional={true}>
 
 Para cambiar el idioma de tu contenido en Next.js, la forma recomendada es usar el componente `Link` para redirigir a los usuarios a la página localizada correspondiente. El componente `Link` permite la precarga de la página, lo que ayuda a evitar una recarga completa de la página.
@@ -841,7 +878,6 @@ return (
 > - [`aria-current` attribute`](https://developer.mozilla.org/es/docs/Web/Accessibility/ARIA/Atributos/aria-current)
 
 </Step>
-
 <Step number={11} title="Creación de un Componente de Enlace Localizado" isOptional={true}>
 
 Para asegurar que la navegación de tu aplicación respete la configuración regional actual, puedes crear un componente personalizado `Link`. Este componente antepone automáticamente a las URLs internas el idioma actual. Por ejemplo, cuando un usuario francófono hace clic en un enlace a la página "Acerca de", es redirigido a `/fr/about` en lugar de `/about`.
@@ -911,7 +947,6 @@ export const Link: FC<PropsWithChildren<NextLinkProps>> = ({
 Al integrar este componente `Link` en toda su aplicación, mantiene una experiencia de usuario coherente y consciente del idioma, al mismo tiempo que se beneficia de una mejor SEO y usabilidad.
 
 </Step>
-
 <Step number={12} title="Obtener la configuración regional actual en las Acciones del Servidor" isOptional={true}>
 
 Si necesita la configuración regional activa dentro de una Acción del Servidor (por ejemplo, para localizar correos electrónicos o ejecutar lógica dependiente del idioma), llame a `getLocale` desde `next-intlayer/server`:
@@ -938,7 +973,6 @@ export const myServerAction = async () => {
 > Esto asegura que se seleccione la configuración regional más apropiada según el contexto disponible.
 
 </Step>
-
 <Step number={13} title="Optimiza el tamaño de tu paquete" isOptional={true}>
 
 Al usar `next-intlayer`, los diccionarios se incluyen en el paquete para cada página por defecto. Para optimizar el tamaño del bundle, Intlayer proporciona un plugin SWC opcional que reemplaza inteligentemente las llamadas a `useIntlayer` usando macros. Esto asegura que los diccionarios solo se incluyan en los paquetes de las páginas que realmente los usan.
@@ -968,10 +1002,8 @@ bun add @intlayer/swc --dev
 > Nota: Este paquete no se instala por defecto porque los plugins SWC aún son experimentales en Next.js. Esto podría cambiar en el futuro.
 >
 > Nota: Si establece la opción como `importMode: 'dynamic'` o `importMode: 'fetch'` (en la configuración del diccionario), dependerá de Suspense, por lo que tendrá que envolver sus llamadas a `useIntlayer` en un límite de `Suspense`. Eso significa que no podrá usar `useIntlayer` directamente en el nivel superior de su componente Página / Layout.
-> </Step>
 
 </Step>
-
 <Step number={14} title="Extraer el contenido de tus componentes" isOptional={true}>
 
 Si tienes una base de código existente, transformar miles de archivos puede llevar mucho tiempo.
@@ -1012,7 +1044,7 @@ export default config;
 ```
 
 <Tabs>
- <Tab value='Comando de extracción'>
+<Tab value='Extract command'>
 
 Ejecuta el extractor para transformar tus componentes y extraer el contenido
 
@@ -1032,8 +1064,8 @@ yarn intlayer extract
 bun x intlayer extract
 ```
 
- </Tab>
- <Tab value='Compilador Babel'>
+</Tab>
+<Tab value='Babel compiler'>
 
 > Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
 
@@ -1084,10 +1116,9 @@ yarn build # O yarn dev
 bun run build # Or bun run dev
 ```
 
- </Tab>
+</Tab>
 </Tabs>
 </Step>
-
 </Steps>
 
 ### Supervisar cambios en los diccionarios con Turbopack
@@ -1157,10 +1188,6 @@ Para más detalles sobre cómo usar la extensión, consulta la [documentación d
 ### Ir más allá
 
 Para ir más allá, puedes implementar el [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md) o externalizar tu contenido usando el [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md).
-
-```
-
-```
 
 ## Preguntas frecuentes
 

@@ -83,7 +83,6 @@ Pour atténuer cet impact pendant le développement, vous pouvez configurer le c
 ## Guide étape par étape pour configurer Intlayer dans une application Next.js
 
 <Steps>
-
 <Step number={1} title="Installer les dépendances">
 
 Installez les packages nécessaires via npm :
@@ -137,7 +136,6 @@ bun add @intlayer/babel --dev
   Le package qui intègre Intlayer à Next.js. Il fournit les context providers et les hooks pour l'internationalisation de Next.js. De plus, il inclut le plugin Next.js pour intégrer Intlayer avec [Webpack](https://webpack.js.org/) ou [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack), ainsi qu'un proxy pour détecter la locale préférée de l'utilisateur, gérer les cookies et rediriger les URL.
 
 </Step>
-
 <Step number={2} title="Configurer votre projet">
 
 Créez un fichier de configuration pour définir les langues de votre application :
@@ -196,7 +194,6 @@ export default config;
 > Grâce à ce fichier de configuration, vous pouvez paramétrer des URL localisées, une redirection proxy, les noms des cookies, l'emplacement et l'extension de vos déclarations de contenu, désactiver les logs d'Intlayer dans la console, et plus encore. Pour une liste complète des paramètres disponibles, consultez la [documentation sur la configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md).
 
 </Step>
-
 <Step number={3} title="Intégrer Intlayer dans votre configuration Next.js">
 
 Configurez votre projet Next.js pour utiliser Intlayer :
@@ -213,7 +210,6 @@ export default withIntlayer(nextConfig);
 > Le plugin Next.js `withIntlayer()` est utilisé pour intégrer Intlayer avec Next.js. Il s'occupe de la construction des fichiers de déclaration de contenu et les surveille en mode de développement. Il définit les variables d'environnement d'Intlayer au sein des environnements [Webpack](https://webpack.js.org/) ou [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack). De plus, il fournit des alias pour optimiser les performances et garantir la compatibilité avec les composants serveur.
 
 </Step>
-
 <Step number={4} title="Configurer Babel">
 
 Le compilateur Intlayer nécessite Babel pour extraire et optimiser votre contenu. Mettez à jour votre `babel.config.js` (ou `babel.config.json`) pour inclure les plugins Intlayer :
@@ -236,7 +232,6 @@ module.exports = {
 ```
 
 </Step>
-
 <Step number={5} title="Détecter la locale dans vos pages">
 
 Supprimez tout de `RootLayout` et remplacez-le par le code suivant :
@@ -281,7 +276,6 @@ export default RootLayout;
 ```
 
 </Step>
-
 <Step number={6} title="Compiler vos composants">
 
 Avec le compilateur activé, vous **n'avez plus besoin** de déclarer manuellement les dictionnaires de contenu (comme les fichiers `.content.ts`).
@@ -293,7 +287,7 @@ Rédigez simplement vos composants avec des chaînes de caractères codées en d
 Exemple de ce à quoi pourrait ressembler votre page :
 
 <Tabs>
-  <Tab value="Code">
+<Tab value="Code">
 
 ```tsx fileName="src/app/page.tsx"
 import type { FC } from "react";
@@ -320,8 +314,8 @@ export default async function Page() {
 }
 ```
 
-  </Tab>
-  <Tab value="Output">
+</Tab>
+<Tab value="Output">
 
 ```ts fileName="i18n/page-content.content.tsx"
 {
@@ -343,8 +337,10 @@ export default async function Page() {
 }
 ```
 
+</Tab>
+</Tabs>
 <Tabs>
-  <Tab label='Intlayer >=9.4' value='>=9.4'>
+<Tab label='Intlayer >=9.4' value='>=9.4'>
 
 ```tsx fileName="src/app/page.tsx"
 import { type FC } from "react";
@@ -376,7 +372,8 @@ export default async function Page() {
 - **`IntlayerProvider`** est monté une seule fois, dans la layout racine. Il fournit la locale aux composants serveur et client, de sorte que les pages ne s'enveloppent plus elles-mêmes.
 - Sans un segment de chemin `[locale]`, la locale provient toujours de la requête — l'en-tête `x-intlayer-locale` défini par le proxy Intlayer, puis le cookie de locale — que les hooks serveur lisent d'eux-mêmes quand le provider n'a pas encore été exécuté.
 
-</Tabs>
+</Tab>
+<Tab label='Intlayer <9.4' value='<9.4'>
 
 ```tsx fileName="src/app/page.tsx"
 import { type FC } from "react";
@@ -410,12 +407,9 @@ export default async function Page() {
 
   > Le layout et la page ne peuvent pas partager un contexte serveur commun car le système de contexte serveur est basé sur un magasin de données par requête (via le mécanisme de [cache de React](https://react.dev/reference/react/cache)), ce qui entraîne la recréation de chaque « contexte » pour différents segments de l'application. Placer le fournisseur dans un layout partagé briserait cette isolation, empêchant la propagation correcte des valeurs du contexte serveur vers vos composants serveur.
 
-  </Tab>
-
+</Tab>
 </Tabs>
-
 </Step>
-
 <Step number={7} title="Remplir les traductions manquantes" isOptional={true}>
 
 Intlayer fournit un outil CLI pour vous aider à remplir les traductions manquantes. Vous pouvez utiliser la commande `intlayer` pour tester et remplir les traductions manquantes de votre code.
@@ -455,7 +449,6 @@ bun x intlayer fill         # Remplir les traductions manquantes
 > Pour plus de détails, consultez la [documentation CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/cli/ci.md)
 
 </Step>
-
 <Step number={8} title="Configurer le Proxy pour la Détection de Locale" isOptional={true}>
 
 Mettez en place le proxy pour détecter la locale préférée de l'utilisateur :
@@ -474,8 +467,7 @@ export const config = {
 > Depuis Intlayer v9, ce middleware respecte l'option `routing.enableProxy` (`true` par défaut). Définissez `routing.enableProxy: false` dans votre configuration pour le transformer en pass-through sans supprimer ce fichier. Voir les [notes de version v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/releases/v9.md).
 
 </Step>
-
-<Step number={8} title="Changer la langue de votre contenu" isOptional={true}>
+<Step number={9} title="Changer la langue de votre contenu" isOptional={true}>
 
 Pour changer la langue de votre contenu dans Next.js, la méthode recommandée est d'utiliser le composant `Link` pour rediriger les utilisateurs vers la page localisée appropriée. Le composant `Link` permet le prefetch de la page, ce qui aide à éviter un rechargement complet de la page.
 
@@ -526,7 +518,6 @@ export const LocaleSwitcher: FC = () => {
 > Une façon alternative d'utiliser la fonction `setLocale` fournie par le hook `useLocale`. Cette fonction ne permet pas de pré-fetcher la page. Consultez la [documentation du hook `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/next-intlayer/useLocale.md) pour plus de détails.
 
 </Step>
-
 <Step number={10} title="Optimisez la taille de votre bundle" isOptional={true}>
 
 Lors de l'utilisation de `next-intlayer`, les dictionnaires sont par défaut inclus dans le bundle pour chaque page. Pour optimiser la taille du bundle, Intlayer fournit un plugin SWC optionnel qui remplace intelligemment les appels à `useIntlayer` via des macros. Cela garantit que les dictionnaires ne sont inclus que dans les bundles des pages qui les utilisent réellement.
@@ -558,7 +549,6 @@ bun add @intlayer/swc --dev
 > Note : Si vous définissez l'option comme `importMode: 'dynamic'` ou `importMode: 'fetch'` (dans la configuration de `dictionary`), elle s'appuiera sur Suspense, de sorte que vous devrez envelopper vos appels à `useIntlayer` dans une frontière `Suspense`. Cela signifie que vous ne pourrez pas utiliser `useIntlayer` directement au niveau le plus haut de votre composant Page / Layout.
 
 </Step>
-
 <Step number={11} title="Extraire le contenu de vos composants" isOptional={true}>
 
 Si vous avez une base de code existante, transformer des milliers de fichiers peut prendre beaucoup de temps.
@@ -600,7 +590,7 @@ export default config;
 ```
 
 <Tabs>
- <Tab value='Commande d'extraction'>
+<Tab value='Extract command'>
 
 Exécutez l'extracteur pour transformer vos composants et extraire le contenu
 
@@ -620,8 +610,8 @@ yarn intlayer extract
 bun x intlayer extract
 ```
 
- </Tab>
- <Tab value='Compilateur Babel'>
+</Tab>
+<Tab value='Babel compiler'>
 
 > Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
 
@@ -672,10 +662,9 @@ yarn build # Ou yarn dev
 bun run build # Ou bun run dev
 ```
 
- </Tab>
+</Tab>
 </Tabs>
 </Step>
-
 </Steps>
 
 ### Configurer TypeScript

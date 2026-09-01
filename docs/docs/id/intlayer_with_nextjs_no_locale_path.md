@@ -59,7 +59,6 @@ Lihat [Templat Aplikasi](https://github.com/aymericzip/intlayer-next-no-lolale-p
 Dibandingkan dengan solusi utama seperti `next-intl` atau `i18next`, Intlayer adalah solusi yang hadir dengan pengoptimalan terintegrasi seperti:
 
 <AccordionGroup>
-
 <Accordion header="Cakupan lengkap Next.js">
 
 Intlayer dioptimalkan untuk bekerja dengan **Komponen Server** untuk rendering yang efisien dan sepenuhnya kompatibel dengan [**Turbopack**](https://nextjs.org/docs/architecture/turbopack). Itu tidak memblokir rendering statis dan menawarkan middleware serta semua fitur yang diperlukan untuk penskalaan internasionalisasi (i18n).
@@ -876,9 +875,15 @@ Untuk langkah lebih lanjut, Anda dapat mengimplementasikan [editor visual](https
 
 <FAQ>
 
-<Question title="Mengapa saya ingin menjalankan aplikasi tanpa locale di URL?">
+<Question title="Apa saja solusi berbeda yang tersedia untuk menginternasionalkan aplikasi Next.js?">
 
-Untuk URL yang lebih bersih, mempertahankan struktur tautan yang sudah ada, atau menyajikan konten multi-bahasa berdasarkan cookie atau preferensi browser pengguna.
+Bidang `i18n` dari `next.config.js` tidak berlaku untuk App Router, sehingga lapisan pelokalan selalu merupakan pilihan pustaka:
+
+- **`next-intl`**, **`next-i18next` / `i18next`** dan **`react-intl`**: Katalog JSON atau ICU yang dimuat per namespace.
+- **`Lingui`**: Didorong oleh ekstraksi, dengan pesan ICU yang dikompilasi pada saat build.
+- **`Intlayer`**: Solusi paling canggih. Konten dideklarasikan di mana saja di basis kode Anda ([di sebelah setiap komponen atau terpusat](https://intlayer.org/blog/per-component-vs-centralized-i18n)) dan dikompilasi per komponen, bertipe penuh, dengan terjemahan AI, editor visual, dan CMS.
+
+Panduan ini mencakup penyiapan tanpa locale di path. Lihat [mengapa Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/interest_of_intlayer.md) dan [tolok ukur i18n Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/nextjs.md).
 
 </Question>
 
@@ -902,9 +907,11 @@ Ya. Plugin [sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/doc
 
 <Question title="Apakah saya harus memindahkan konten saya key by key?">
 
-Tidak. Jalankan `npx intlayer extract` dan Intlayer membaca file sumber Anda, mengeluarkan string yang dihadapi pengguna, dan menulis file `.content` di sebelah masing-masing, sehingga Anda meninjau diff alih-alih menyalin string ke dalam katalog satu per satu. Lihat [perintah extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/extract.md).
+Tidak. Jalankan `npx intlayer extract` dan Intlayer membaca komponen Anda, menarik string yang ditampilkan ke pengguna, dan menulis file `.content` di sebelah masing-masing, sehingga Anda meninjau diff alih-alih menyalin string ke dalam katalog satu per satu.
 
-Untuk proses otomatis penuh, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md) melakukan hal yang sama saat build time pada kode JSX, TSX, Vue dan Svelte, menghasilkan kamus pada setiap perubahan tanpa perlu memelihara kunci secara manual. Karena bekerja melalui analisis statis, string yang hanya ada di runtime tetap berada di luar jangkauannya.
+Untuk pipeline otomatis penuh, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md) melakukan hal yang sama saat build time: memindai sumber JSX, TSX, Vue, dan Svelte Anda pada setiap perubahan, menghasilkan kamus dan menjaganya tetap sinkron melalui hot module replacement, sehingga tidak ada kunci yang perlu dikelola secara manual.
+
+Dua batasan perlu diketahui sebelum mengaktifkan compiler. Ini bekerja melalui analisis statis, sehingga string yang hanya ada saat runtime, seperti kode kesalahan API atau field CMS, tetap berada di luar jangkauan. Dan ini harus membedakan teks yang ditampilkan ke pengguna dari logika aplikasi seperti `className="active"` atau kode status, yang memerlukan beberapa anotasi di basis kode besar. [Perintah extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/extract.md) menghindari keduanya dengan menjaga Anda tetap memegang kendali.
 
 </Question>
 
@@ -920,33 +927,33 @@ Lima bagian, semuanya opsional:
 
 </Question>
 
-<Question title="Bagaimana locale dideteksi dalam kasus ini?">
+<Question title="Mengapa saya ingin menyajikan aplikasi saya tanpa locale di URL?">
 
-Pertama dari cookie, kemudian header `Accept-Language`, dan beralih ke bahasa default jika tidak ada. Pilihan disimpan dalam cookie.
-
-</Question>
-
-<Question title="Apa implikasi SEO jika tidak ada locale di URL?">
-
-Mesin pencari lebih sulit mengindeks konten multi-bahasa jika berada di URL yang sama. Untuk kebutuhan SEO yang kuat, disarankan menggunakan prefix URL atau subdomain terpisah.
+Karena locale tidak selalu menjadi bagian dari identitas halaman. Dasbor terotentikasi, alat internal, atau aplikasi di balik login tidak memiliki alasan untuk mengekspos `/fr/` di setiap URL: bahasa adalah preferensi pengguna, bukan dokumen yang berbeda. Menghapus awalan juga menjaga rute, tautan, dan analitik Anda pada satu set jalur.
 
 </Question>
 
-<Question title="Apa perbedaan antara mode no-prefix dan search-params?">
+<Question title="Apa konsekuensi SEO dari tidak adanya locale di URL?">
 
-Mode `no-prefix` menjaga URL tetap bersih dan mengandalkan cookie; mode `search-params` menyimpan locale dalam parameter query seperti `?locale=id`.
-
-</Question>
-
-<Question title="Bisakah saya menetapkan setiap bahasa ke domainnya sendiri?">
-
-Ya. Pengaturan `routing.domains` memungkinkan pemetaan setiap locale ke domain tersendiri, misalnya `example.id` atau `example.com`.
+Konsekuensinya nyata, jadi pilihlah dengan sengaja. Tanpa URL yang berbeda per bahasa, mesin pencari tidak memiliki halaman terpisah untuk diindeks untuk setiap locale, `hreflang` tidak memiliki apa pun untuk dituju, dan perayap hanya melihat bahasa yang disajikan oleh deteksi default Anda. Itu tidak masalah untuk konten di balik login, yang toh tidak diindeks, dan kurang cocok untuk situs pemasaran publik atau dokumentasi. Jika lalu lintas organik per bahasa penting, gunakan penyiapan berawalan di [panduan Next.js 16](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_16.md) sebagai gantinya.
 
 </Question>
 
-<Question title="Apakah Intlayer bekerja dengan React Server Components?">
+<Question title="Apa perbedaan antara mode `no-prefix` dan `search-params`?">
 
-Ya. Konten di Server Components diselesaikan langsung di server, sehingga tidak ada kamus yang dikirim ke klien untuk teks yang dirender server. Client Components membaca kamus melalui provider.
+`"no-prefix"` menjaga locale sepenuhnya di luar URL dan menyelesaikannya dari cookie, header, atau domain, sehingga setiap bahasa berbagi satu alamat. `"search-params"` menempatkannya di string kueri sebagai `/dashboard?locale=fr`, yang tetap memberi setiap bahasa URL berbeda yang dapat ditautkan dan di-bookmark tanpa mengubah pohon rute Anda. Pilih `"search-params"` saat Anda menginginkan tautan yang dapat dibagikan per bahasa.
+
+</Question>
+
+<Question title="Lalu bagaimana locale dideteksi?">
+
+Dari sumber yang tercantum dalam `routing.storage`, secara default cookie terlebih dahulu lalu header `Accept-Language`, dan kembali ke locale default Anda. Langkah 7 menambahkan proxy yang menerapkannya. Bahasa yang dipilih pengguna secara eksplisit akan dipertahankan, sehingga tetap ada pada kunjungan berikutnya. Lihat [referensi konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md).
+
+</Question>
+
+<Question title="Bisakah saya memetakan setiap bahasa ke domainnya sendiri?">
+
+Ya, dan ini adalah opsi yang perlu dipertimbangkan saat Anda menghapus awalan untuk alasan estetika tetapi tetap menginginkan SEO. `routing.domains` memetakan locale ke nama host, sehingga domain mengidentifikasi bahasa, tidak ada awalan yang ditambahkan ke path, dan setiap bahasa mendapatkan URL yang dapat diindeks yang dapat dituju oleh `hreflang`.
 
 </Question>
 

@@ -143,8 +143,6 @@ Nếu có thay đổi được thực hiện bằng CLI để dịch JSON, hoặ
 
 Để xem thêm chi tiết về plugin `syncJSON`, vui lòng tham khảo [tài liệu plugin syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/plugins/sync-json.md).
 
----
-
 </Step>
 
 <Step number={3} title="Triển khai dịch JSON theo từng thành phần" isOptional={true}>
@@ -188,8 +186,6 @@ export default config;
 ```
 
 Điều này sẽ tải tất cả các tệp JSON trong thư mục `src` khớp với mẫu `{key}.i18n.json` và tải chúng như các từ điển Intlayer.
-
----
 
 </Step>
 

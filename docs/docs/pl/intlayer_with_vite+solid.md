@@ -74,13 +74,9 @@ W porównaniu do głównych rozwiązań, takich jak `@solid-primitives/i18n` lub
 
 Intlayer jest zoptymalizowany do doskonałej współpracy z Solidem, oferując **zakres zawartości na poziomie komponentu**, **tłumaczenia reaktywne** i wszystkie funkcje potrzebne do skalowania internacjonalizacji (i18n).
 
-</Accordion>
-
 **Rozmiar bundle'a**
 
 Zamiast ładować ogromne pliki JSON na swoje strony, ładuj tylko niezbędną treść. Intlayer pomaga **zmniejszyć rozmiary bundle'a i stron nawet o 50%**.
-
-</Accordion>
 
 **Łatwość konserwacji**
 
@@ -110,7 +106,6 @@ Korzystaj z automatyzacji, aby tłumaczyć w swoim potoku CI/CD przy użyciu wyb
 
 Więcej niż tylko rozwiązanie i18n, Intlayer zapewnia **samodzielny [edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** i **[pełny CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)**, który pomoże Ci zarządzać wielojęzyczną treścią w **w czasie rzeczywistym**, dzięki czemu współpraca z tłumaczami, copywriterami i innymi członkami zespołu będzie płynna. Treść może być przechowywana lokalnie i/lub zdalnie.
 
-</Accordion>
 </AccordionGroup>
 
 ---
@@ -496,6 +491,7 @@ export const Link: ParentComponent<AnchorProps> = (props) => {
 };
 ```
 
+</Step>
 <Step number={11} title="Renderuj Markdown" isOptional={true}>
 
 Intlayer obsługuje renderowanie treści Markdown bezpośrednio w aplikacji Solid przy użyciu własnego wewnętrznego parsera. Domyślnie Markdown jest traktowany jako zwykły tekst. Aby renderować go jako bogaty HTML, owiń swoją aplikację w `MarkdownProvider`.
@@ -735,6 +731,8 @@ Aby pójść dalej, możesz zaimplementować [edytor wizualny](https://github.co
 <FAQ>
 
 <Question title="Jakie są różne rozwiązania dostępne do internacjonalizacji aplikacji Vite i Solid?">
+
+Vite nie narzuca rozwiązań w kwestii i18n, więc wybór zależy od ekosystemu Solid:
 
 - **`@solid-primitives/i18n`**: podstawowe prymitywy i18n dla Solid oparte na słownikach runtime.
 - **`Intlayer`**: najbardziej zaawansowane rozwiązanie. Treści deklarowane w dowolnym miejscu bazy kodu ([obok każdego komponentu lub centralnie](https://intlayer.org/blog/per-component-vs-centralized-i18n)) i kompilowane w czasie budowy, w pełni zintegrowane z reaktywnością Solid, z tłumaczeniem AI, edytorem wizualnym i systemem CMS.

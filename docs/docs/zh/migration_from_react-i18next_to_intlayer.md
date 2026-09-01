@@ -29,7 +29,6 @@ author: aymericzip
 ## 为什么从 react-i18next / i18next 迁移到 Intlayer？
 
 <AccordionGroup>
-
 <Accordion header="Bundle 大小">
 
 与其将大量 JSON 文件加载到你的页面中，不如只加载必要的内容。Intlayer 帮助你**将 bundle 和页面大小减少多达 50%**。
@@ -67,7 +66,6 @@ Intlayer 也是 i18n 生态中**最活跃开发**的方案——问题修复速�
 Intlayer 不仅是一个 i18n 方案，它还提供**自托管的[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)**和**[完整的 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)**，帮助你**实时**管理多语言内容，使与翻译人员、文案编写者和其他团队成员的协作无缝衔接。内容可以存储在本地和/或远程。
 
 </Accordion>
-
 </AccordionGroup>
 
 ---

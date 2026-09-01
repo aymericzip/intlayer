@@ -63,7 +63,6 @@ Hướng dẫn này trình bày cách tích hợp **Intlayer** để thực hi�
 So với các giải pháp chính như `react-i18next` hay `use-intl`, hay `paraglide`, Intlayer là giải pháp đi kèm với các tính năng tối ưu hóa tích hợp như:
 
 <AccordionGroup>
-
 <Accordion header="Phạm vi bảo hiểm đầy đủ của TanStack Start">
 
 Intlayer được tối ưu hóa hoàn toàn cho TanStack Start, cung cấp **định tuyến đa ngôn ngữ**, **quản lý cookie**, **tạo sơ đồ trang web**, **tải nội dung động** và tất cả các tính năng cần thiết để mở rộng nỗ lực quốc tế hóa (i18n) của bạn.
@@ -650,8 +649,6 @@ function RootDocument({ children }: { children: ReactNode }) {
 }
 ```
 
----
-
 </Step>
 
 <Step number={11} title="Thêm middleware">
@@ -687,8 +684,6 @@ export default defineConfig({
   ],
 });
 ```
-
----
 
 </Step>
 
@@ -883,8 +878,6 @@ Bạn giữ phần theo ngôn ngữ mà không phải trả giá của nó trên
 | Client navigations   | nothing to resolve    | re-entered on every match  | served from the router cache           |
 | Developer experience | simplest              | one `await`                | content threaded through `loaderData`  |
 
----
-
 </Step>
 
 <Step number={13} title="Truy xuất locale trong các server actions của bạn">
@@ -922,137 +915,9 @@ export const getLocaleServer = createServerFn().handler(async () => {
 });
 ```
 
----
-
 </Step>
 
-<Step number={14} title="Quản lý các trang không tìm thấy">
-
-Khi một người dùng truy cập một trang không tồn tại, bạn có thể hiển thị một trang không tìm thấy tùy chỉnh và tiền tố locale có thể ảnh hưởng đến cách trang không tìm thấy được kích hoạt.
-
-#### Trang Chủ Đã Được Địa Phương Hóa
-
-> Nếu bạn muốn sử dụng nội dung của bạn trong một thuộc tính `string`, chẳng hạn như `alt`, `title`, `href`, `aria-label`, v.v., bạn có thể sử dụng giá trị của hàm, như:
->
-> ```html
-> <img src="{content.image.src.value}" alt="{content.image.value}" />
-> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
-> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
-> ```
-
-> Để tìm hiểu thêm về hook `useIntlayer`, hãy tham khảo [tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/react-intlayer/useIntlayer.md).
-
-</Step>
-
-```tsx fileName="src/components/locale-switcher.tsx"
-import { useLocation } from "@tanstack/react-router";
-import {
-  getHTMLTextDir,
-  getLocaleName,
-  getPathWithoutLocale,
-  getPrefix,
-  Locales,
-} from "intlayer";
-import type { FC } from "react";
-import { useLocale } from "react-intlayer";
-
-import { LocalizedLink, type To } from "./localized-link";
-
-export const LocaleSwitcher: FC = () => {
-  const { pathname } = useLocation();
-
-  const { availableLocales, locale, setLocale } = useLocale();
-
-  const pathWithoutLocale = getPathWithoutLocale(pathname);
-
-  return (
-    <ol>
-      {availableLocales.map((localeEl) => (
-        <li key={localeEl}>
-          <LocalizedLink
-            aria-current={localeEl === locale ? "page" : undefined}
-            onClick={() => setLocale(localeEl)}
-            params={{ locale: getPrefix(localeEl).localePrefix }}
-            to={pathWithoutLocale as To}
-          >
-            <span>
-              {/* Mã ngôn ngữ - ví dụ: FR */}
-              {localeEl}
-            </span>
-            <span>
-              {/* Ngôn ngữ theo mã ngôn ngữ của chính nó - ví dụ: Français */}
-              {getLocaleName(localeEl, locale)}
-            </span>
-            <span dir={getHTMLTextDir(localeEl)} lang={localeEl}>
-              {/* Ngôn ngữ theo mã ngôn ngữ hiện tại - ví dụ: Francés khi mã ngôn ngữ hiện tại là Locales.SPANISH */}
-              {getLocaleName(localeEl)}
-            </span>
-            <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* Ngôn ngữ bằng tiếng Anh - ví dụ: French */}
-              {getLocaleName(localeEl, Locales.ENGLISH)}
-            </span>
-          </LocalizedLink>
-        </li>
-      ))}
-    </ol>
-  );
-};
-```
-
-> Để tìm hiểu thêm về hook `useLocale`, tham khảo [tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/react-intlayer/useLocale.md).
-
-</Step>
-
-<Step number={11} title="Quản lý Thuộc tính HTML">
-
-return (
-<html dir={getHTMLTextDir(locale)} lang={locale}>
-{/* ... _/}
-</html>
-);
-} {/_ ... */}
-</html>
-);
-}
-
-export const Route = createFileRoute("/{-$locale}/")({
-component: RouteComponent,
-head: async ({ params }) => {
-const { locale = defaultLocale } = params;
-const path = "/"; // The path for this route
-
-    const metaContent = await getIntlayerAsync("app", locale);
-
-````
-
-> Nếu một `head` đọc nhiều từ điển, hãy phân giải chúng bằng `Promise.all`; await từng `getIntlayerAsync` trên một dòng riêng sẽ khiến các yêu cầu nối đuôi nhau thay vì chạy song song.
-
-Đánh đổi: import động được phân giải trong lúc `head` chạy, nằm trên đường găng của quá trình render tài liệu. Trên một route "nguội", điều này làm `head` trễ vài mili giây và có thể làm **LCP** kém đi đôi chút.
-
-</Tab>
-
-<Tab label="Phân giải động có cache" value="cached">
-
-Hãy phân giải từ điển trong `loader` của route rồi đọc lại từ `loaderData` trong `head`. Loader của các route khớp chạy song song, và `staleTime: Infinity` cho TanStack Router biết kết quả không bao giờ cũ, nhờ đó chunk theo locale chỉ được phân giải một lần rồi phục vụ từ cache của router, giữ cho `head` đồng bộ.
-
-```tsx fileName="src/routes/{-$locale}/index.tsx"
-      return getCookie(name, cookieString);
-    },
-    // Lấy header từ request (mặc định: 'x-intlayer-locale')
-    // Fallback sử dụng Accept-Language negotiation
-    getHeader: (name) => getRequestHeader(name),
-  });
-
-  // Lấy một số nội dung bằng getIntlayer()
-  const content = getIntlayer("app", locale);
-
-````
-
----
-
-</Step>
-
-<Step number={15} title="Quản lý trang không tìm thấy">
+<Step number={14} title="Quản lý trang không tìm thấy">
 
 Khi người dùng truy cập một trang không tồn tại, bạn có thể hiển thị một trang không tìm thấy tùy chỉnh và tiền tố locale có thể ảnh hưởng đến cách trang không tìm thấy được kích hoạt.
 
@@ -1065,20 +930,70 @@ Trong TanStack Router, xử lý các trang 404 với các route đã được b�
 3. **Route catch-all**: Bắt tất cả các đường dẫn không khớp trong phân đoạn locale
 
 ```tsx fileName="src/routes/{-$locale}/404.tsx"
+import { createFileRoute } from "@tanstack/react-router";
 
+// Điều này tạo một tuyến đường /[locale]/404 chuyên dụng
+// Nó được sử dụng cả như một tuyến đường trực tiếp và được nhập như một thành phần trong các tệp khác
+export const Route = createFileRoute("/{-$locale}/404")({
+  component: NotFoundComponent,
+});
+
+// Xuất riêng để có thể tái sử dụng trong notFoundComponent và các tuyến catch-all
+export function NotFoundComponent() {
+  return (
+    <div>
+      <h1>404</h1>
+    </div>
+  );
+}
 ```
 
 ```tsx fileName="src/routes/{-$locale}/route.tsx"
+import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
+import { validatePrefix } from "intlayer";
+import { NotFoundComponent } from "./404";
 
+export const Route = createFileRoute("/{-$locale}")({
+  // beforeLoad chạy trước khi route được render (trên cả server và client)
+  // Đây là nơi lý tưởng để xác thực tiền tố locale
+  beforeLoad: ({ params }) => {
+    const localeParam = params.locale;
+
+    // validatePrefix kiểm tra xem locale có hợp lệ theo cấu hình intlayer của bạn không
+    const { isValid, localePrefix } = validatePrefix(localeParam);
+
+    if (!isValid) {
+      // Tiền tố locale không hợp lệ - chuyển hướng đến trang 404 với tiền tố locale hợp lệ
+      throw redirect({
+        to: "/{-$locale}/404",
+        params: { locale: localePrefix },
+      });
+    }
+  },
+  component: Outlet,
+  // notFoundComponent được gọi khi một route con không tồn tại
+  // ví dụ: /en/trang-khong-ton-tai kích hoạt điều này trong layout /en
+  notFoundComponent: NotFoundComponent,
+});
 ```
 
 ```tsx fileName="src/routes/{-$locale}/$.tsx"
+import { createFileRoute } from "@tanstack/react-router";
 
+import { NotFoundComponent } from "./404";
+
+// Tuyến đường $ (splat/catch-all) khớp với bất kỳ đường dẫn nào không khớp với các tuyến đường khác
+// ví dụ: /en/mot/duong/dan/sau/long/khong-hop-le
+// Điều này đảm bảo TẤT CẢ các đường dẫn không khớp trong một locale hiển thị trang 404
+// Nếu không có điều này, các đường dẫn sâu không khớp có thể hiển thị trang trống hoặc lỗi
+export const Route = createFileRoute("/{-$locale}/$")({
+  component: NotFoundComponent,
+});
 ```
 
 </Step>
 
-<Step number={1} title="Trích xuất nội dung các thành phần của bạn" isOptional={true}>
+<Step number={15} title="Trích xuất nội dung các thành phần của bạn" isOptional={true}> isOptional={true}>
 
 Nếu bạn có một cơ sở mã hiện có, việc chuyển đổi hàng nghìn tệp có thể tốn nhiều thời gian.
 
@@ -1089,10 +1004,23 @@ Nếu bạn có một cơ sở mã hiện có, việc chuyển đổi hàng ngh�
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig } from "intlayer";
 
+const config: IntlayerConfig = {
+  // ... Phần còn lại của cấu hình
+  compiler: {
+    /**
+     * Cho biết trình biên dịch có nên được bật hay không.
+     */
+    enabled: true,
+
     /**
      * Xác định đường dẫn các tệp đầu ra
      */
     output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * Cho biết các thành phần có nên được lưu sau khi chuyển đổi hay không. Bằng cách đó, trình biên dịch có thể được chạy chỉ một lần để chuyển đổi ứng dụng, sau đó có thể được gỡ bỏ.
+     */
+    saveComponents: false,
 
     /**
      * Tiền tố khóa từ điển
@@ -1105,41 +1033,75 @@ export default config;
 ```
 
 <Tabs>
- <Tab value='Lệnh trích xuất'>
+ <Tab value="Lệnh trích xuất">
 
 Chạy trình trích xuất để chuyển đổi các thành phần và trích xuất nội dung
 
 ```bash packageManager="npm"
-
+npx intlayer extract
 ```
 
 ```bash packageManager="pnpm"
-
+pnpm intlayer extract
 ```
 
 ```bash packageManager="yarn"
-
+yarn intlayer extract
 ```
 
 ```bash packageManager="bun"
+bun x intlayer extract
+```
+
+ </Tab>
+ <Tab value="Trình biên dịch Babel">
+
+> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
+
+Cập nhật `vite.config.ts` của bạn để bao gồm plugin `intlayerCompiler`:
+
+```ts fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import { intlayer, intlayerCompiler } from "vite-intlayer";
+
+export default defineConfig({
+  plugins: [
+    intlayer(),
+    intlayerCompiler(), // Adds the compiler plugin
+  ],
+});
+```
+
+```bash packageManager="npm"
+npm run build # Hoặc npm run dev
+```
+
+```bash packageManager="pnpm"
+pnpm run build # Or pnpm run dev
+```
+
+```bash packageManager="yarn"
+yarn build # Or yarn dev
+```
+
+```bash packageManager="bun"
+bun run build # Or bun run dev
+```
 
  </Tab>
 </Tabs>
 
----
+</Step>
 
-I'm ready to audit and translate the Vietnamese content. Please provide **BLOCK 3 of 4** in English (en) as the reference, followed by **BLOCK 3 of 4** in Vietnamese (vi) that needs to be reviewed and updated.
+<Step number={16} title="Pre-render & Generate Sitemap">
 
-I will then:
-1. Compare the Vietnamese version against the English source
-2. Insert any missing content
-3. Fix spelling, grammar, and Markdown errors
-4. Keep code blocks in their original language with translated comments
-5. Return the complete, updated Vietnamese file content between `` and `` markers
+Intlayer đi kèm với một trình tạo sitemap tích hợp sẵn để giúp bạn tạo sitemap cho ứng dụng của mình một cách dễ dàng. Nó xử lý các tuyến đường đã được bản địa hóa và thêm các siêu dữ liệu cần thiết cho các công cụ tìm kiếm.
 
-Waiting for your content blocks.---
+> Sitemap được tạo bởi Intlayer hỗ trợ namespace `xhtml:link` (Hreflang XML Extensions). Không giống như các trình tạo sitemap mặc định chỉ liệt kê các URL thô, Intlayer tự động tạo các liên kết hai chiều cần thiết giữa tất cả các phiên bản ngôn ngữ của một trang (ví dụ: `/about`, `/about?lang=fr` và `/about?lang=es`). Điều này đảm bảo các công cụ tìm kiếm lập chỉ mục chính xác và phục vụ phiên bản ngôn ngữ phù hợp cho đúng đối tượng.
 
-bun run build # Or bun run dev
+Để sử dụng nó, trước tiên bạn cần cấu hình `vite.config.ts` của mình để kích hoạt pre-rendering cho các route đã địa phương hóa của bạn và vô hiệu hóa việc tạo sitemap mặc định của TanStack Start.
+
+```typescript fileName="vite.config.ts"
 import { localeFlatMap } from "intlayer";
 // ... các import khác
 
@@ -1175,22 +1137,13 @@ export default defineConfig({
 
 Sau đó, tạo một route `src/routes/sitemap[.]xml.ts` sử dụng hàm `generateSitemap`:
 
-````typescript fileName="src/routes/sitemap[.]xml.ts"
+```typescript fileName="src/routes/sitemap[.]xml.ts"
+import { createFileRoute } from "@tanstack/react-router";
+import { generateSitemap } from "intlayer";
 
----
-
-</Step>
-
-<Step number={17} title="Cấu hình TypeScript">
-
-Tôi sẵn sàng để kiểm tra và cập nhật bản dịch tiếng Việt. Tuy nhiên, tôi chưa nhận được nội dung cần kiểm tra.
-
-Vui lòng cung cấp:
-
-1. **BLOCK 4 of 4** - Nội dung hiện tại bằng tiếng Việt (vi) cần được kiểm tra
-2. Nếu cần thiết, vui lòng cung cấp lại **BLOCK 4 of 4** - Nội dung tham chiếu bằng tiếng Anh (en)
-
-Vui lòng gửi nội dung để tôi tiếp tục.---
+const SITE_URL = (
+  import.meta.env.VITE_SITE_URL ?? "http://localhost:3000"
+).replace(/\/$/, "");
 
 export const Route = createFileRoute("/sitemap.xml")({
   server: {
@@ -1211,6 +1164,17 @@ export const Route = createFileRoute("/sitemap.xml")({
     },
   },
 });
+```
+
+</Step>
+
+<Step number={17} title="Cấu hình TypeScript">
+
+Intlayer sử dụng module augmentation để tận dụng lợi ích của TypeScript và làm cho codebase của bạn mạnh mẽ hơn.
+
+Đảm bảo cấu hình TypeScript của bạn bao gồm các kiểu được tự động tạo:
+
+```json5 fileName="tsconfig.json"
 {
   // ... những cấu hình hiện tại của bạn
   include: [
@@ -1218,17 +1182,22 @@ export const Route = createFileRoute("/sitemap.xml")({
     ".intlayer/**/*.ts", // Bao gồm các kiểu được tự động tạo
   ],
 }
+```
+
+</Step>
+
+</Steps>
 
 ### Cấu hình Git
 
-Bạn nên bỏ qua các tệp được tạo bởi Intlayer. Điều này cho phép bạn tránh commit chúng vào kho lưu trữ Git của mình.
+Khuyến nghị bạn nên bỏ qua các file được tạo bởi Intlayer. Điều này giúp bạn tránh việc commit chúng vào kho Git của mình.
 
-Để làm điều này, bạn có thể thêm các hướng dẫn sau vào tệp `.gitignore` của bạn:
+Để làm điều này, bạn có thể thêm các hướng dẫn sau vào file `.gitignore` của bạn:
 
 ```plaintext fileName=".gitignore"
-# Bỏ qua các tệp được tạo bởi Intlayer
+# Bỏ qua các file được tạo bởi Intlayer
 .intlayer
-````
+```
 
 ---
 
@@ -1302,6 +1271,8 @@ Có. Plugin [sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/do
 Không. Chạy `npx intlayer extract` và Intlayer sẽ đọc các tệp nguồn của bạn, trích xuất các chuỗi dành cho người dùng và tạo tệp `.content` bên cạnh mỗi tệp, nhờ đó bạn xem lại diff thay vì sao chép chuỗi vào catalog thủ công.
 
 Để tự động hóa hoàn toàn, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md) thực hiện việc tương tự trong quá trình build: quét mã nguồn trên mỗi thay đổi, tạo từ điển và đồng bộ hóa với HMR.
+
+Hai giới hạn đáng lưu ý trước khi bạn bật compiler. Nó hoạt động bằng phân tích tĩnh, do đó các chuỗi chỉ tồn tại khi runtime, chẳng hạn như mã lỗi API hoặc các trường CMS, nằm ngoài phạm vi tiếp cận. Và nó phải phân biệt văn bản hiển thị cho người dùng với logic ứng dụng như `className="active"` hoặc mã trạng thái, điều này cần một vài chú thích trong một codebase lớn. [Lệnh extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/extract.md) tránh cả hai điều này bằng cách giữ bạn luôn kiểm soát.
 
 </Question>
 

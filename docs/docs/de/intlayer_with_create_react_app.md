@@ -40,7 +40,6 @@ Siehe [i18n-react-create-app](https://github.com/aymericzip/intlayer-react-cra-t
 Im Vergleich zu Hauptlösungen wie `react-i18next` oder `i18next` ist Intlayer eine Lösung, die mit integrierten Optimierungen wie den folgenden ausgestattet ist:
 
 <AccordionGroup>
-
 <Accordion header="Vollständige React-Abdeckung">
 
 **Intlayer** ist eine innovative, Open-Source-Internationalisierungsbibliothek (i18n), die entwickelt wurde, um die Unterstützung mehrerer Sprachen in modernen Webanwendungen zu vereinfachen.
@@ -70,6 +69,8 @@ Das Co-locating von Inhalten **reduziert den Kontext, der von Large Language Mod
 Nutzen Sie Automation, um in Ihrer CI/CD-Pipeline mit dem LLM Ihrer Wahl zu übersetzen, zu Kosten Ihres KI-Anbieters. Intlayer bietet auch einen **Compiler** zur Automatisierung der Content-Extraktion sowie eine [Web-Plattform](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md) zur Unterstützung der **Übersetzung im Hintergrund**.
 
 </Accordion>
+
+<Accordion header="Performance">
 
 Mit Intlayer können Sie:
 

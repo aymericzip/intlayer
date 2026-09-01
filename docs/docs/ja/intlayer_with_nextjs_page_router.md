@@ -66,37 +66,53 @@ author: aymericzip
 
 「next-intl」や「i18next」などの主要なソリューションと比較して、Intlayer は次のような統合された最適化を備えたソリューションです。
 
-**Next.js を完全にカバー**
+<AccordionGroup>
+<Accordion header="Next.js を完全にカバー">
 
 Intlayer は、効率的なレンダリングのために **サーバー コンポーネント** と連携するように最適化されており、[**Turbopack**](https://nextjs.org/docs/architecture/turbopack) と完全に互換性があります。静的レンダリングをブロックせず、ミドルウェアとスケーリング国際化 (i18n) に必要なすべての機能を提供します。
 
-> Intlayer は Next.js 12、13、14、15、および 16 と互換性があります。 Next.js Pages Router を使用している場合は、この [ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_page_router.md) を参照してください。
-> ロケール ルーティングは、SEO、バンドル サイズ、パフォーマンスに役立ちます。必要ない場合は、この[ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_no_locale_path.md)を参照してください。
-> App Router を使用した Next.js 12、13、14、および 15 については、この [ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_14.md) を参照してください。
+> Intlayer は Next.js 12、13、14、15、および 16 と互換性があります。 Next.js Pages Router を使用している場合は、この [ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_page_router.md) を参照してください。
+> ロケール ルーティングは、SEO、バンドル サイズ、パフォーマンスに役立ちます。必要ない場合は、この[ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_no_locale_path.md)を参照してください。
+> App Router を使用した Next.js 12、13、14、および 15 については、この [ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_14.md) を参照してください。
 
-**バンドルサイズ**
+</Accordion>
+
+<Accordion header="バンドルサイズ">
 
 大量の JSON ファイルをページにロードするのではなく、必要なコンテンツのみをロードします。 Intlayer は、**バンドルとページのサイズを最大 50% 削減**するのに役立ちます。
 
-**保守性**
+</Accordion>
+
+<Accordion header="保守性">
 
 アプリケーションのコンテンツのスコープを設定すると、大規模なアプリケーションの **メンテナンスが容易になります**。コンテンツ コードベース全体を確認するという精神的な負担を負うことなく、単一の機能フォルダーを複製または削除できます。さらに、Intlayer は**完全に型指定**されており、コンテンツの正確性を保証します。
 
-**AI エージェント**
+</Accordion>
 
-コンテンツを同じ場所に配置すると、大規模言語モデル (LLM) によって **必要なコンテキストが削減**されます。 Intlayer には、翻訳の欠落をテストする **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** などのツール スイートも付属しています。および **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)** により、AI エージェントの開発者エクスペリエンス (DX) がさらにスムーズになります。
+<Accordion header="AI エージェント">
 
-**オートメーション**
+コンテンツを同じ場所に配置すると、大規模言語モデル (LLM) によって **必要なコンテキストが削減**されます。 Intlayer には、翻訳の欠落をテストする **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)** などのツール スイートも付属しています。および **[エージェントスキル](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)** により、AI エージェントの開発者エクスペリエンス (DX) がさらにスムーズになります。
 
-AI プロバイダーの費用で、選択した LLM を使用して CI/CD パイプラインで自動化を変換します。 Intlayer は、コンテンツ抽出を自動化する **コンパイラー** と、**バックグラウンドでの翻訳**を支援する [Web プラットフォーム](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) も提供します。
+</Accordion>
 
-**パフォーマンス**
+<Accordion header="オートメーション">
+
+AI プロバイダーの費用で、選択した LLM を使用して CI/CD パイプラインで自動化を変換します。 Intlayer は、コンテンツ抽出を自動化する **コンパイラー** と、**バックグラウンドでの翻訳**を支援する [Web プラットフォーム](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md) も提供します。
+
+</Accordion>
+
+<Accordion header="パフォーマンス">
 
 大量の JSON ファイルをコンポーネントに接続すると、パフォーマンスと反応性の問題が発生する可能性があります。 Intlayer は、ビルド時のコンテンツの読み込みを最適化します。
 
-**非開発によるスケーリング**
+</Accordion>
 
-Intlayer は単なる i18n ソリューションではなく、**自己ホスト型 [ビジュアル エディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** と **[完全な CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** を提供します。 **リアルタイム**で多言語コンテンツを管理できるようになり、翻訳者、コピーライター、その他のチーム メンバーとのコラボレーションがシームレスになります。コンテンツはローカルおよび/またはリモートに保存できます。
+<Accordion header="非開発によるスケーリング">
+
+Intlayer は単なる i18n ソリューションではなく、**自己ホスト型 [ビジュアル エディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)** と **[完全な CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)** を提供します。 **リアルタイム**で多言語コンテンツを管理できるようになり、翻訳者、コピーライター、その他のチーム メンバーとのコラボレーションがシームレスになります。コンテンツはローカルおよび/またはリモートに保存できます。
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
@@ -197,11 +213,22 @@ export default withIntlayer(nextConfig);
 
 > `withIntlayer()` は Next.js と Intlayer を統合するためのプラグインです。コンテンツ宣言ファイルのビルドを保証し、開発モードでそれらを監視します。また、[Webpack](https://webpack.js.org/) や [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack) 環境内で Intlayer の環境変数を定義します。さらに、パフォーマンス最適化のためのエイリアスを提供し、サーバーコンポーネントとの互換性を確保します。
 
+> `withIntlayer()` 関数は Promise 関数です。他のプラグインと組み合わせて使用する場合は、`await` できます。例:
+>
+> ```tsx
+> const nextConfig = await withIntlayer(nextConfig);
+> const nextConfigWithOtherPlugins = withOtherPlugins(nextConfig);
+>
+> export default nextConfigWithOtherPlugins;
+> ```
+
 </Step>
 
 <Step number={4} title="ロケール検出のためのミドルウェア設定">
 
 ユーザーの優先ロケールを自動的に検出し処理するミドルウェアを設定します：
+
+> Intlayer v9 以降、このミドルウェアは `routing.enableProxy` オプション（デフォルトは `true`）を尊重します。このファイルを削除せずにパススルーにするには、設定で `routing.enableProxy: false` に設定します。[v9 リリースノート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/releases/v9.md) を参照してください。
 
 ```typescript fileName="src/middleware.ts" codeFormat={["typescript", "esm", "commonjs"]}
 export { intlayerProxy as middleware } from "next-intlayer/middleware";
@@ -254,7 +281,7 @@ export const config = {
 
 `[locale]/index.tsx` ファイル内で、異なるロケールを処理するためのパスとプロパティを定義します。
 
-```tsx fileName="src/pages/[locale]/index.tsx" codeFormat={["typescript", "esm"]}
+```tsx fileName="src/pages/[locale]/index.tsx" codeFormat="typescript"
 import type { FC } from "react";
 import type { GetStaticPaths, GetStaticProps } from "next";
 import { type Locales, getConfiguration } from "intlayer";
@@ -284,6 +311,68 @@ export const getStaticProps: GetStaticProps = ({ params }) => {
 
 export default HomePage;
 ```
+
+    ```jsx fileName="src/pages/[locale]/index.mjx" codeFormat="esm"
+    import { getConfiguration } from "intlayer";
+    import { ComponentExample } from "@components/ComponentExample";
+
+    const HomePage = () => <div>{/* ここにコンテンツを記述 */}</div>;
+
+    export const getStaticPaths = () => {
+      const { internationalization } = getConfiguration();
+      const { locales } = internationalization;
+
+      const paths = locales.map((locale) => ({
+        params: { locale },
+      }));
+
+      return { paths, fallback: false };
+    };
+
+    export const getStaticProps = ({ params }) => {
+      const locale = params?.locale;
+
+      return {
+        props: {
+          locale,
+        },
+      };
+    };
+    ```
+
+    ```jsx fileName="src/pages/[locale]/index.csx" codeFormat="commonjs"
+    const { getConfiguration } = require("intlayer");
+    const { ComponentExample } = require("@components/ComponentExample");
+
+    const HomePage = () => <div>{/* ここにコンテンツを記述 */}</div>;
+
+    const getStaticPaths = async () => {
+      const { internationalization } = getConfiguration();
+      const { locales } = internationalization;
+
+      const paths = locales.map((locale) => ({
+        params: { locale },
+      }));
+
+      return { paths, fallback: false };
+    };
+
+    const getStaticProps = async ({ params }) => {
+      const locale = params?.locale;
+
+      return {
+        props: {
+          locale,
+        },
+      };
+    };
+
+    module.exports = {
+      getStaticProps,
+      getStaticPaths,
+      default: HomePage,
+    };
+    ```
 
 > `getStaticPaths` と `getStaticProps` は、Next.js のページルーターにおいて、すべてのロケールに対して必要なページを事前にビルドすることを保証します。このアプローチにより、実行時の計算が削減され、ユーザー体験が向上します。詳細については、Next.js のドキュメントの [`getStaticPaths`](https://nextjs.org/docs/pages/building-your-application/data-fetching/get-static-paths) および [`getStaticProps`](https://nextjs.org/docs/pages/building-your-application/data-fetching/get-static-props) を参照してください。
 
@@ -351,7 +440,7 @@ export default homeContent;
 
 アプリケーション全体でコンテンツ辞書にアクセスし、翻訳されたコンテンツを表示します。
 
-```tsx {2,6} fileName="src/pages/[locale]/index.tsx" codeFormat={["typescript", "esm"]}
+```tsx {2,6} fileName="src/pages/[locale]/index.tsx" codeFormat="typescript"
 import type { FC } from "react";
 import { useIntlayer } from "next-intlayer";
 import { ComponentExample } from "@components/ComponentExample";
@@ -457,7 +546,7 @@ export default metadataContent;
 }
 ```
 
-````tsx fileName="src/pages/[locale]/index.tsx" codeFormat={["typescript", "esm"]}
+````tsx fileName="src/pages/[locale]/index.tsx" codeFormat="typescript"
 import { GetStaticPaths, GetStaticProps } from "next";
 import { getIntlayer, getMultilingualUrls } from "intlayer";
 import { useIntlayer } from "next-intlayer";

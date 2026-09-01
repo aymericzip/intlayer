@@ -41,7 +41,6 @@ author: aymericzip
 与“vue-i18n”或“i18next”等主要解决方案相比，Intlayer是一个具有集成优化的解决方案，例如：
 
 <AccordionGroup>
-
 <Accordion header="完整的 Vue 覆盖">
 
 Intlayer 经过优化，可与 Vue 完美配合，提供**组件级内容范围**、**反应式翻译**以及​​扩展国际化 (i18n) 所需的所有功能。
@@ -1140,6 +1139,8 @@ Intlayer 使用模块扩展 (module augmentation) 来利用 TypeScript 的优势
 ### 深入了解
 
 要进一步使用，您可以实现[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)或使用[内容管理系统（CMS）](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)将内容外部化。
+
+---
 
 ## 常见问题
 

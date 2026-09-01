@@ -303,8 +303,9 @@ Bunu yapmak için `.gitignore` dosyanıza aşağıdaki talimatları ekleyebilirs
 
 <Question title="Hono uygulamasını uluslararasılaştırmak için hangi farklı çözümler mevcuttur?">
 
-- **Temel nesne eşlemeleri**: tip güvenliği ve esneklik sunmaz.
-- **`Intlayer`**: Cloudflare Workers, Fastly, Deno, Bun ve Node.js üzerinde Hono ile kusursuz çalışan, derleme zamanı optimizasyonlu, sıfır maliyetli modern çözüm.
+Hono'nun kendine ait bir i18n katmanı yoktur, bu nedenle seçenekler bir ara yazılıma (middleware) manuel olarak bağlanan `i18next` gibi genel bir kütüphane veya ara yazılımı sizin için kaydeden, istek başına yerel ayarı çözen ve ön ucunuzla aynı bildirilen içeriği paylaşan `hono-intlayer` aracılığıyla `Intlayer`dır.
+
+Arka ucu uluslararasılaştırmanın temel nedeni, kullanıcının okuduğu metnin büyük bir kısmının ön uçtan asla geçmemesidir: API hata mesajları, işlemsel e-postalar, anlık bildirimler, SMS ve PDF dışa aktarmaları. Bunlar, oturum başına yerine istek başına çözülen alıcının diline ihtiyaç duyar.
 
 Bkz. [neden Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/interest_of_intlayer.md).
 

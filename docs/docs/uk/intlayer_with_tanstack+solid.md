@@ -46,7 +46,6 @@ author: aymericzip
 Порівняно з основними рішеннями, такими як `react-i18next` або `i18next`, Intlayer пропонує рішення, яке має такі інтегровані оптимізації, як:
 
 <AccordionGroup>
-
 <Accordion header="Повна підтримка TanStack Start">
 
 Intlayer оптимізовано для ідеальної роботи з TanStack Start і Solid, пропонуючи **багатомовну маршрутизацію**, **карту сайту** та всі функції, необхідні для масштабування інтернаціоналізації (i18n).
@@ -566,8 +565,6 @@ const RootComponent: ParentComponent = (props) => {
 };
 ```
 
----
-
 </Step>
 
 <Step number={12} title="Додавання Middleware">
@@ -603,8 +600,6 @@ export default defineConfig({
   ],
 });
 ```
-
----
 
 </Step>
 
@@ -799,8 +794,6 @@ export const Route = createFileRoute("/{-$locale}/")({
 | Клієнтські переходи | нічого розвʼязувати  | виконується знову за кожного збігу | віддається з кешу роутера              |
 | DX                  | найпростіший         | один `await`                       | контент передається через `loaderData` |
 
----
-
 </Step>
 
 <Step number={14} title="Отримання локалі у ваших діях на сервері">
@@ -837,8 +830,6 @@ export const getLocaleServer = createServerFn().handler(async () => {
   return { locale, content };
 });
 ```
-
----
 
 </Step>
 
@@ -1031,8 +1022,6 @@ bun run build # Або bun run dev
  </Tab>
 </Tabs>
 
----
-
 </Step>
 
 <Step number={16} title="Попередній рендеринг і генерація Sitemap">
@@ -1106,8 +1095,6 @@ export const Route = createFileRoute("/sitemap.xml")({
 });
 ```
 
----
-
 </Step>
 
 <Step number={17} title="Конфігурація TypeScript">
@@ -1125,8 +1112,6 @@ Intlayer використовує розширення модулів (module au
   ],
 }
 ```
-
----
 
 </Step>
 
@@ -1215,6 +1200,8 @@ TanStack Start не має власного шару i18n:
 Ні. Запустіть `npx intlayer extract`, і Intlayer прочитає ваші файли, витягне призначені для користувача рядки і створить файл `.content` поруч із кожним компонентом, завдяки чому ви переглядаєте diff замість копіювання рядків у каталог вручну.
 
 Для повної автоматизації [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compiler.md) робить те саме під час збирання: сканує код під час кожної зміни, генерує словники та синхронізує їх із HMR.
+
+Варто знати два обмеження перед увімкненням компілятора. Він працює за допомогою статичного аналізу, тому рядки, які існують лише під час виконання, такі як коди помилок API або поля CMS, залишаються недосяжними. І він повинен відрізняти текст для користувача від логіки додатка, як-от `className="active"` або код статусу, що вимагає кількох анотацій у великій кодовій базі. [Команда extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/extract.md) уникає обох проблем, тримаючи вас у курсі.
 
 </Question>
 

@@ -39,7 +39,6 @@ author: aymericzip
 Vergeleken met belangrijke oplossingen zoals `next-intl` of `i18next`, is Intlayer een oplossing die wordt geleverd met geïntegreerde optimalisaties zoals:
 
 <AccordionGroup>
-
 <Accordion header="Pakketgrootte (Bundle size)">
 
 In plaats van enorme JSON-bestanden in uw pagina's te laden, laadt u alleen de strikt noodzakelijke inhoud. Intlayer helpt **uw pakket- en paginagrootte tot wel 50% te verminderen**.

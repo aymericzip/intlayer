@@ -29,7 +29,6 @@ author: aymericzip
 ## Pourquoi migrer de react-i18next / i18next à Intlayer ?
 
 <AccordionGroup>
-
 <Accordion header="Taille du bundle">
 
 Au lieu de charger des fichiers JSON massifs dans vos pages, ne chargez que le contenu nécessaire. Intlayer aide à **réduire la taille de votre bundle et de vos pages jusqu'à 50 %**.
@@ -67,7 +66,6 @@ Connecter des fichiers JSON massifs aux composants peut entraîner des problème
 Plus qu'une simple solution i18n, Intlayer fournit un **[éditeur visuel](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md)** auto-hébergé et un **[CMS complet](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md)** pour vous aider à gérer votre contenu multilingue en **temps réel**, rendant la collaboration avec les traducteurs, les rédacteurs et les autres membres de l'équipe transparente. Le contenu peut être stocké localement et/ou à distance.
 
 </Accordion>
-
 </AccordionGroup>
 
 ---

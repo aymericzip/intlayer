@@ -65,7 +65,6 @@ author: aymericzip
 Im Vergleich zu Hauptlösungen wie „svelte-i18n“ oder „i18next“ ist Intlayer eine Lösung, die über integrierte Optimierungen verfügt wie:
 
 <AccordionGroup>
-
 <Accordion header="Vollständige SvelteKit-Abdeckung">
 
 Intlayer ist für die perfekte Zusammenarbeit mit SvelteKit optimiert, indem es **mehrsprachiges Routing**, **SSR-Unterstützung** und alle für die Skalierung der Internationalisierung (i18n) erforderlichen Funktionen bietet.

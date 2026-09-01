@@ -30,7 +30,6 @@ author: aymericzip
 ## Neden @nuxtjs/i18n'den Intlayer'a geçmelisiniz?
 
 <AccordionGroup>
-
 <Accordion header="Paket Boyutu (Bundle Size)">
 
 Sayfalarınıza devasa JSON dosyalarını yüklemek yerine yalnızca gerekli içeriği yükleyin. Intlayer, **paket ve sayfa boyutunuzu %50'ye kadar azaltmanıza** yardımcı olur.
@@ -68,7 +67,6 @@ Büyük JSON dosyalarını bileşenlere bağlamak, performans ve reaktivite soru
 Basit bir i18n çözümünden çok daha fazlası olan Intlayer, çok dilli içeriğinizi **gerçek zamanlı** olarak yönetmenize yardımcı olan kendi barındırdığınız (self-hosted) bir **[görsel editör](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md)** ve **[tam donanımlı bir CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)** sağlar. Bu, çevirmenler, metin yazarları ve ekibin diğer üyeleriyle sorunsuz bir işbirliği sağlar. İçerik yerel ve/veya uzak bir sunucuda barındırılabilir.
 
 </Accordion>
-
 </AccordionGroup>
 
 ---

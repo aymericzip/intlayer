@@ -33,6 +33,15 @@ Dans Intlayer, le contenu au pluriel est réalisé via la fonction `plural`, qui
 
 Contrairement à [`enu`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/enumeration.md), qui sélectionne le contenu en fonction de plages numériques que vous définissez vous-même, `plural` délègue la sélection aux règles CLDR. C'est ce qui le rend évolutif pour les langues ayant des règles de pluralisation complexes, telles que le russe, le polonais, l'arabe ou le gallois, sans avoir à écrire manuellement de logique de modulo.
 
+## Quand utiliser `plural` vs `enu`
+
+| Cas d'usage                                                               | Helper   |
+| ------------------------------------------------------------------------- | -------- |
+| Formes plurielles grammaticales selon la locale (une pomme / deux pommes) | `plural` |
+| Plages numériques personnalisées (`<5`, `>=10`) ou catégories hors CLDR   | `enu`    |
+
+Si vous ne ciblez que l'anglais (qui n'a que `one` / `other`), les deux conviennent. Pour toute langue ayant des distinctions `few` / `many` / `two`, préférez `plural`.
+
 ## Configuration du contenu au pluriel
 
 Pour configurer du contenu au pluriel dans votre projet Intlayer, créez un module de contenu qui utilise l'assistant `plural`. La catégorie `other` est obligatoire et sert de repli lorsqu'une locale ne définit pas de catégorie plus spécifique.

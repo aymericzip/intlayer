@@ -65,24 +65,23 @@ author: aymericzip
 W porównaniu do głównych rozwiązań, takich jak `svelte-i18n` czy `i18next`, Intlayer jest rozwiązaniem wyposażonym w zintegrowane optymalizacje, takie jak:
 
 <AccordionGroup>
-
-**Pełne pokrycie SvelteKit**
+<Accordion header="Pełne pokrycie SvelteKit">
 
 Intlayer jest zoptymalizowany do doskonałej współpracy z SvelteKit, oferując **routing wielojęzyczny**, **obsługę SSR** i wszystkie funkcje potrzebne do skalowania internacjonalizacji (i18n).
 
 </Accordion>
 
-**Rozmiar bundle'a**
+<Accordion header="Rozmiar bundle'a">
 
 Zamiast ładować ogromne pliki JSON na swoje strony, ładuj tylko niezbędną treść. Intlayer pomaga **zmniejszyć rozmiary bundle'a i stron nawet o 50%**.
 
 </Accordion>
 
-**Łatwość konserwacji**
+<Accordion header="Łatwość konserwacji">
 
 Określanie zakresu zawartości aplikacji **ułatwia konserwację** aplikacji na dużą skalę. Możesz powielić lub usunąć pojedynczy folder funkcji bez obciążania psychicznego koniecznością przeglądania całej bazy kodu zawartości. Dodatkowo Inlayer jest **w pełni napisany**, aby zapewnić dokładność treści.
 
-**Agent AI**
+</Accordion>
 
 <Accordion header="Agent AI">
 
@@ -90,11 +89,11 @@ Wspólna lokalizacja treści **zmniejsza potrzebny kontekst** dzięki modelom du
 
 </Accordion>
 
-**Automatyzacja**
+<Accordion header="Automatyzacja">
 
 Korzystaj z automatyzacji, aby tłumaczyć w swoim potoku CI/CD przy użyciu wybranego LLM na koszt dostawcy sztucznej inteligencji. Intlayer oferuje także **kompilator** do automatyzacji ekstrakcji treści, a także [platformę internetową] (https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md), która pomaga **tłumaczyć w tle**.
 
-**Wydajność**
+</Accordion>
 
 <Accordion header="Wydajność">
 
@@ -102,7 +101,7 @@ Korzystaj z automatyzacji, aby tłumaczyć w swoim potoku CI/CD przy użyciu wyb
 
 </Accordion>
 
-**Skalowanie bez użycia dewelopera**
+<Accordion header="Skalowanie bez użycia dewelopera">
 
 Więcej niż tylko rozwiązanie i18n, Intlayer zapewnia **samodzielny [edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** i **[pełny CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)**, który pomoże Ci zarządzać wielojęzyczną treścią w **w czasie rzeczywistym**, dzięki czemu współpraca z tłumaczami, copywriterami i innymi członkami zespołu będzie płynna. Treść może być przechowywana lokalnie i/lub zdalnie.
 

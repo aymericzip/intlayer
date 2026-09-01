@@ -71,7 +71,6 @@ author: aymericzip
 Dibandingkan dengan solusi utama seperti `react-native-localize` atau `i18next`, Intlayer adalah solusi yang hadir dengan pengoptimalan terintegrasi seperti:
 
 <AccordionGroup>
-
 <Accordion header="Cakupan React Native Penuh">
 
 Intlayer dioptimalkan agar berfungsi sempurna dengan React Native dan Expo dengan menawarkan **pelingkupan konten tingkat komponen**, **dukungan TypeScript**, dan semua fitur yang diperlukan untuk penskalaan internasionalisasi (i18n) di aplikasi seluler.
@@ -166,8 +165,6 @@ bun add intlayer react-native-intlayer
 
 - **react-native-intlayer**  
   Integrasi React Native yang menyediakan context providers dan React hooks yang akan Anda gunakan untuk mendapatkan dan mengganti locale, polyfill React Native, serta plugin Metro untuk mengintegrasikan Intlayer dengan bundler React Native. Paket ini mengekspor ulang semua hal dari `react-intlayer`, sehingga Anda hanya memerlukan satu paket ini dalam aplikasi React Native.
-
----
 
 </Step>
 
@@ -328,8 +325,6 @@ export default homeScreenContent;
 
 > Untuk detail tentang deklarasi konten, lihat [dokumentasi konten Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md).
 
----
-
 </Step>
 
 <Step number={6} title="Gunakan Intlayer di Komponen Anda">
@@ -382,8 +377,6 @@ export default HomeScreen;
 > Saat menggunakan `content.someKey` dalam properti berbasis string (misalnya, `title` pada tombol atau `children` pada komponen `Text`), **panggil `content.someKey.value`** untuk mendapatkan string yang sebenarnya.
 
 > Jika aplikasi Anda sudah ada, Anda dapat menggunakan [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md) secara kombinasi dengan [perintah extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/extract.md) untuk mengonversi ribuan komponen dalam satu detik.
-
----
 
 </Step>
 

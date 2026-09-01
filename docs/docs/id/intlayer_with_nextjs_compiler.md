@@ -83,7 +83,6 @@ Untuk membatasi dampak ini selama pengembangan aktif (dev mode), Anda dapat meng
 ## Panduan selangkah demi selangkah untuk mengatur Intlayer dalam aplikasi Next.js
 
 <Steps>
-
 <Step number={1} title="Instal dependensi">
 
 Instal paket-paket yang diperlukan menggunakan pengelola paket favorit Anda:
@@ -137,7 +136,6 @@ bun add @intlayer/babel --dev
   Paket yang mengintegrasikan Intlayer dengan Next.js. Ia menyediakan penyedia konteks dan hook untuk internasionalisasi Next.js. Selain itu, paket ini mencakup plugin Next.js untuk mengintegrasikan Intlayer dengan [Webpack](https://webpack.js.org/) atau [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack), serta middleware untuk mendeteksi preferensi bahasa pengguna, mengelola cookie, dan menangani pengalihan URL.
 
 </Step>
-
 <Step number={2} title="Konfigurasi proyek Anda">
 
 Buat file konfigurasi untuk mendefinisikan bahasa aplikasi Anda:
@@ -196,7 +194,6 @@ export default config;
 > Melalui file konfigurasi ini, Anda dapat menyiapkan URL yang dilokalkan, pengalihan proxy, pemetaan cookie, lokasi dan ekstensi deklarasi konten Anda, menonaktifkan log Intlayer di konsol, dan banyak lagi. Untuk daftar lengkap parameter yang tersedia, periksa dokumentasi [konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md).
 
 </Step>
-
 <Step number={3} title="Integrasikan Intlayer ke dalam konfigurasi Next.js Anda">
 
 Konfigurasikan pengaturan Next.js Anda untuk menggunakan Intlayer:
@@ -213,10 +210,8 @@ export default withIntlayer(nextConfig);
 ```
 
 > Plugin Next.js `withIntlayer()` digunakan untuk mengintegrasikan Intlayer dengan Next.js. Ini memastikan pembuatan file kamus dan memantaunya dalam mode dev. Ini mendefinisikan variabel lingkungan Intlayer di dalam lingkungan [Webpack](https://webpack.js.org/) atau [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack). Terlebih lagi, ini menyediakan alias untuk mengoptimalkan kinerja dan bekerja secara menyeluruh dengan Komponen Server.
-> </Step>
 
 </Step>
-
 <Step number={4} title="Deteksi Bahasa di Halaman Anda">
 
 Compiler Intlayer memerlukan Babel untuk mengekstrak dan mengoptimalkan konten Anda. Perbarui `babel.config.js` (atau `babel.config.json`) Anda untuk menyertakan plugin Intlayer:
@@ -239,7 +234,6 @@ module.exports = {
 ```
 
 </Step>
-
 <Step number={5} title="Mendeteksi Locale di halaman Anda">
 
 Kosongkan konten `RootLayout` Anda dan ganti dengan contoh di bawah ini:
@@ -284,8 +278,7 @@ export default RootLayout;
 ```
 
 </Step>
-
-<Step number={5} title="Deklarasikan Konten Anda">
+<Step number={6} title="Deklarasikan Konten Anda">
 
 Dengan Kompiler diaktifkan, Anda **tidak lagi perlu** mendeklarasikan kamus konten (misalnya file `.content.ts`) secara manual.
 
@@ -296,7 +289,7 @@ Cukup tulis komponen Anda dengan string hardcoded dalam bahasa default Anda dan 
 Contoh tampilan `page.tsx` Anda:
 
 <Tabs>
-  <Tab value="Code">
+<Tab value="Code">
 
 ```tsx fileName="src/app/page.tsx"
 import type { FC } from "react";
@@ -323,8 +316,8 @@ export default async function Page() {
 }
 ```
 
-  </Tab>
-  <Tab value="Output">
+</Tab>
+<Tab value="Output">
 
 ```ts fileName="i18n/page-content.content.tsx"
 {
@@ -346,8 +339,10 @@ export default async function Page() {
 }
 ```
 
+</Tab>
+</Tabs>
 <Tabs>
-  <Tab label='Intlayer >=9.4' value='>=9.4'>
+<Tab label='Intlayer >=9.4' value='>=9.4'>
 
 ```tsx fileName="src/app/page.tsx"
 import { type FC } from "react";
@@ -379,7 +374,8 @@ export default async function Page() {
 - **`IntlayerProvider`** dipasang sekali, dalam root layout. Ini menyediakan locale ke komponen server dan client, sehingga halaman tidak lagi membungkus diri mereka sendiri.
 - Tanpa segmen path `[locale]`, locale selalu berasal dari request — header `x-intlayer-locale` yang diatur oleh proxy Intlayer, kemudian cookie locale — yang dibaca oleh server hooks mereka sendiri ketika provider belum dijalankan.
 
-</Tabs>
+</Tab>
+<Tab label='Intlayer <9.4' value='<9.4'>
 
 ```tsx fileName="src/app/page.tsx"
 import { type FC } from "react";
@@ -413,12 +409,9 @@ export default async function Page() {
 
   > Layout and page cannot share a common server context because the server context system is based on a per-request data store (via [React's cache](https://react.dev/reference/react/cache) mechanism), causing each "context" to be re-created for different segments of the application. Placing the provider in a shared layout would break this isolation, preventing the correct propagation of the server context values to your server components.
 
-  </Tab>
-
+</Tab>
 </Tabs>
-
 </Step>
-
 <Step number={7} title="Isi terjemahan yang hilang" isOptional={true}>
 
 Intlayer menyediakan alat CLI untuk membantu Anda mengisi terjemahan yang hilang. Anda dapat menggunakan perintah `intlayer` untuk menguji dan mengisi terjemahan yang hilang dari kode Anda.
@@ -458,7 +451,6 @@ bun x intlayer fill         # Isi terjemahan yang hilang
 > Untuk detail lebih lanjut, silakan merujuk ke [dokumentasi CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/ci.md)
 
 </Step>
-
 <Step number={8} title="Middleware Proxy Rute Lokal" isOptional={true}>
 
 Jika Anda ingin secara otomatis mengalihkan pengguna ke bahasa pilihan mereka, buat middleware proxy:
@@ -477,7 +469,6 @@ export const config = {
 > Sejak Intlayer v9, middleware ini menghormati opsi `routing.enableProxy` (`true` secara default). Atur `routing.enableProxy: false` dalam konfigurasi Anda untuk mengubahnya menjadi pass-through tanpa menghapus file ini. Lihat [catatan rilis v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/releases/v9.md).
 
 </Step>
-
 <Step number={9} title="Ubah Bahasa Konten" isOptional={true}>
 
 Cara paling direkomendasikan untuk mengubah bahasa konten Anda di Next.js adalah dengan menggunakan komponen `Link` untuk mengalihkan pengguna ke rute dengan bahasa yang sesuai. Ini memanfaatkan fitur prefetch Next.js dan menghindari penyegaran halaman secara paksa.
@@ -529,7 +520,6 @@ export const LocaleSwitcher: FC = () => {
 > Secara alternatif, Anda dapat menggunakan fungsi `setLocale` yang disediakan oleh hook `useLocale`. Fungsi ini tidak mengizinkan prefetch halaman. Periksa [dokumentasi hook `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/next-intlayer/useLocale.md) untuk detail lebih lanjut.
 
 </Step>
-
 <Step number={10} title="Optimalkan Ukuran Bundle" isOptional={true}>
 
 Saat menggunakan `next-intlayer`, kamus disertakan dalam bundle untuk setiap halaman secara default. Untuk mengoptimalkan ukuran bundle, Intlayer menyediakan plugin SWC opsional yang secara cerdas mengganti panggilan `useIntlayer` menggunakan makro. Ini memastikan bahwa kamus hanya disertakan dalam bundle halaman yang benar-benar menggunakannya.
@@ -559,11 +549,9 @@ bun add @intlayer/swc --dev
 > Catatan: Paket ini tidak diinstal secara default karena plugin SWC masih eksperimental di Next.js. Ini mungkin berubah di masa depan.
 
 > Catatan: Jika Anda menyetel opsi sebagai `importMode: 'dynamic'` atau `importMode: 'fetch'` (dalam konfigurasi kamus), ini akan bergantung pada Suspense, jadi Anda perlu membungkus panggilan `useIntlayer` Anda dalam batas `Suspense`. Ini berarti Anda tidak dapat menggunakan `useIntlayer` secara langsung di tingkat atas komponen Halaman / Layout Anda.
-> </Step>
 
 </Step>
-
-<Step number={1} title="Ekstrak konten komponen Anda" isOptional={true}>
+<Step number={11} title="Ekstrak konten komponen Anda" isOptional={true}>
 
 Jika Anda memiliki basis kode yang ada, mengubah ribuan file bisa memakan waktu lama.
 
@@ -603,7 +591,7 @@ export default config;
 ```
 
 <Tabs>
- <Tab value='Perintah ekstrak'>
+<Tab value='Extract command'>
 
 Jalankan extractor untuk mengubah komponen Anda dan mengekstrak kontennya
 
@@ -623,8 +611,8 @@ yarn intlayer extract
 bun x intlayer extract
 ```
 
- </Tab>
- <Tab value='Compiler Babel'>
+</Tab>
+<Tab value='Babel compiler'>
 
 > Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
 
@@ -675,10 +663,9 @@ yarn build # Or yarn dev
 bun run build # Or bun run dev
 ```
 
- </Tab>
+</Tab>
 </Tabs>
 </Step>
-
 </Steps>
 
 ### Konfigurasi TypeScript
@@ -735,9 +722,15 @@ Untuk melangkah lebih jauh, Anda dapat mengimplementasikan [editor visual](https
 
 <FAQ>
 
-<Question title="Apa yang dilakukan compiler Intlayer?">
+<Question title="Apa saja solusi berbeda yang tersedia untuk menginternasionalkan aplikasi Next.js?">
 
-Compiler menganalisis kode JSX dan TSX Anda saat build time, secara otomatis mengekstrak teks yang dihadapi pengguna dan mengubahnya menjadi kamus tanpa perlu menulis file konten terpisah secara manual.
+Field `i18n` dari `next.config.js` tidak berlaku untuk App Router, jadi lapisan lokalisasi selalu menjadi pilihan library:
+
+- **`next-intl`**, **`next-i18next` / `i18next`** dan **`react-intl`**: katalog JSON atau ICU yang dimuat per namespace, dengan kunci yang ditulis manual di setiap titik panggilan.
+- **`Lingui`**: didorong oleh ekstraksi, dengan pesan ICU yang dikompilasi saat build time.
+- **`Intlayer`**: konten yang dikompilasi dari komponen Anda saat build time, bertipe penuh, dengan terjemahan AI, editor visual, dan CMS.
+
+Panduan ini menggunakan penyiapan compiler, di mana Anda tetap menulis string biasa di komponen Anda dan kamus dibuatkan untuk Anda. Lihat [mengapa Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/interest_of_intlayer.md) dan [tolok ukur i18n Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/nextjs.md).
 
 </Question>
 
@@ -762,6 +755,8 @@ Ya. Plugin [sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/doc
 <Question title="Apakah saya harus memindahkan konten saya key by key?">
 
 Tidak. Jalankan `npx intlayer extract` dan Intlayer membaca file sumber Anda, mengeluarkan string yang dihadapi pengguna, dan menulis file `.content` di sebelah masing-masing, sehingga Anda meninjau diff alih-alih menyalin string ke dalam katalog satu per satu. Lihat [perintah extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/extract.md).
+
+Dua batasan perlu diketahui. Compiler bekerja dengan analisis statis, jadi string yang hanya ada saat runtime, seperti kode kesalahan API atau field CMS, tetap berada di luar jangkauan dan masih memerlukan kamus yang dideklarasikan. Dan ini harus membedakan teks yang dilihat pengguna dari logika aplikasi seperti `className="active"` atau kode status, yang memerlukan beberapa anotasi di basis kode yang besar.
 
 Untuk proses otomatis penuh, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md) melakukan hal yang sama saat build time pada kode JSX, TSX, Vue dan Svelte, menghasilkan kamus pada setiap perubahan tanpa perlu memelihara kunci secara manual. Karena bekerja melalui analisis statis, string yang hanya ada di runtime tetap berada di luar jangkauannya.
 

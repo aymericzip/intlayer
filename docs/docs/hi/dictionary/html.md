@@ -262,6 +262,25 @@ HTML नोड पर `.use()` विधि का उपयोग करते 
     );
     ```
 
+    आप अपना स्वयं का HTML renderer भी उपयोग कर सकते हैं:
+
+    ```tsx fileName="AppProvider.tsx"
+    import { HTMLProvider } from "react-intlayer/html";
+
+    export const AppProvider = ({ children }) => (
+      <HTMLProvider
+        renderHTML={async (html) => {
+          const { renderHTML } = await import('react-intlayer/html');
+          return renderHTML(html);
+        }}
+      >
+        {children}
+      </HTMLProvider>
+    );
+    ```
+
+    > अपने HTML renderer को dynamically import करना आपके application के bundle size को कम करने का एक अच्छा तरीका है।
+
   </Tab>
   <Tab label="Vue" value="vue">
 
@@ -284,6 +303,29 @@ HTML नोड पर `.use()` विधि का उपयोग करते 
     app.mount("#app");
     ```
 
+    आप अपना स्वयं का HTML renderer भी उपयोग कर सकते हैं:
+
+    ```typescript fileName="main.ts"
+    import { createApp, h } from "vue";
+    import { intlayer } from "vue-intlayer";
+    import { intlayerHTML } from "vue-intlayer/html";
+    import App from "./App.vue";
+
+    const app = createApp(App);
+
+    app.use(intlayer);
+    app.use(intlayerHTML, {
+      renderHTML: async (html) => {
+        const { renderHTML } = await import('vue-intlayer/html');
+        return renderHTML(html);
+      },
+    });
+
+    app.mount("#app");
+    ```
+
+    > अपने HTML renderer को dynamically import करना आपके application के bundle size को कम करने का एक अच्छा तरीका है।
+
   </Tab>
   <Tab label="Svelte" value="svelte">
 
@@ -302,6 +344,25 @@ HTML नोड पर `.use()` विधि का उपयोग करते 
     </HTMLProvider>
     ```
 
+    आप अपना स्वयं का HTML renderer भी उपयोग कर सकते हैं:
+
+    ```svelte fileName="App.svelte"
+    <script lang="ts">
+      import { HTMLProvider } from "svelte-intlayer/html";
+    </script>
+
+    <HTMLProvider
+      renderHTML={async (html) => {
+        const { renderHTML } = await import('svelte-intlayer/html');
+        return renderHTML(html);
+      }}
+    >
+      <slot />
+    </HTMLProvider>
+    ```
+
+    > अपने HTML renderer को dynamically import करना आपके application के bundle size को कम करने का एक अच्छा तरीका है।
+
   </Tab>
   <Tab label="Preact" value="preact">
 
@@ -318,6 +379,25 @@ HTML नोड पर `.use()` विधि का उपयोग करते 
       </HTMLProvider>
     );
     ```
+
+    आप अपना स्वयं का HTML renderer भी उपयोग कर सकते हैं:
+
+    ```tsx fileName="AppProvider.tsx"
+    import { HTMLProvider } from "preact-intlayer/html";
+
+    export const AppProvider = ({ children }) => (
+      <HTMLProvider
+        renderHTML={async (html) => {
+          const { renderHTML } = await import('preact-intlayer/html');
+          return renderHTML(html);
+        }}
+      >
+        {children}
+      </HTMLProvider>
+    );
+    ```
+
+    > अपने HTML renderer को dynamically import करना आपके application के bundle size को कम करने का एक अच्छा तरीका है।
 
   </Tab>
   <Tab label="Solid" value="solid">
@@ -336,7 +416,24 @@ HTML नोड पर `.use()` विधि का उपयोग करते 
     );
     ```
 
-> अपने HTML renderer को dynamically import करना आपके application के bundle size को कम करने का एक अच्छा तरीका है।
+    आप अपना स्वयं का HTML renderer भी उपयोग कर सकते हैं:
+
+    ```tsx fileName="AppProvider.tsx"
+    import { HTMLProvider } from "solid-intlayer/html";
+
+    export const AppProvider = (props) => (
+      <HTMLProvider
+        renderHTML={async (html) => {
+          const { renderHTML } = await import('solid-intlayer/html');
+          return renderHTML(html);
+        }}
+      >
+        {props.children}
+      </HTMLProvider>
+    );
+    ```
+
+    > अपने HTML renderer को dynamically import करना आपके application के bundle size को कम करने का एक अच्छा तरीका है।
 
   </Tab>
   <Tab label="Angular" value="angular">
@@ -356,7 +453,7 @@ HTML नोड पर `.use()` विधि का उपयोग करते 
     };
     ```
 
-आप अपना स्वयं का HTML renderer भी उपयोग कर सकते हैं:
+    आप अपना स्वयं का HTML renderer भी उपयोग कर सकते हैं:
 
     ```typescript fileName="app.config.ts"
     import { createIntlayerHTMLProvider } from "angular-intlayer/html";
@@ -373,7 +470,7 @@ HTML नोड पर `.use()` विधि का उपयोग करते 
     };
     ```
 
-> अपने HTML renderer को dynamically import करना आपके application के bundle size को कम करने का एक अच्छा तरीका है।
+    > अपने HTML renderer को dynamically import करना आपके application के bundle size को कम करने का एक अच्छा तरीका है।
 
   </Tab>
 </Tabs>

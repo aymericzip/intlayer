@@ -39,7 +39,6 @@ author: aymericzip
 So với các giải pháp chính như `next-intl` hay `i18next`, Intlayer là giải pháp đi kèm với các tính năng tối ưu hóa tích hợp như:
 
 <AccordionGroup>
-
 <Accordion header="Kích thước bundle">
 
 Thay vì tải các tệp JSON lớn vào trang của bạn, hãy chỉ tải nội dung cần thiết. Intlayer giúp **giảm tới 50% kích thước bundle và kích thước trang**.
@@ -305,8 +304,6 @@ Ba thế hệ cùng tồn tại:
 - **Thư viện catalog runtime**: `i18next`, `react-i18next`, `next-i18next`, `vue-i18n`, `ngx-translate`.
 - **Thư viện tin nhắn thời điểm biên dịch**: `Lingui`, `Paraglide`, `react-intl`, và `next-intl`.
 - **Thư viện lớp nội dung (Content layer)**: `Intlayer`. Khai báo cạnh component, tree-shaking, kiểu TypeScript, dịch thuật AI và visual editor.
-
-Xem so sánh đầy đủ trong hướng dẫn này.
 
 </Question>
 

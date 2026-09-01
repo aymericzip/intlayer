@@ -103,6 +103,21 @@ export default config;
 
 如果您自托管 Intlayer，分析会自动指向您自己的实例，因为它共享 `editor.backendURL`。
 
+### 从浏览器调用 API
+
+同一个令牌支撑着一个无需凭证的小型客户端，因此静态站点或 SPA 可以在运行时读取其 CMS 内容，无需服务器、无需 Server Action，也不会在打包产物中泄露任何密钥：
+
+```ts fileName="content.ts"
+import { createPublicClient } from "@intlayer/api/public";
+
+const client = createPublicClient();
+
+const keys = await client.getDictionaryKeys();
+const [navbar] = await client.getDictionaries(["navbar"]);
+```
+
+它根据 `editor.clientId` 自行完成身份验证，令牌的交换、缓存与续期均在内部处理。其作用域限定了它能访问的范围：已发布的字典内容与分析数据摄取。其他任何操作（推送字典、读取项目、消耗 AI 额度）都需要真正的凭证，因此需要服务器或已登录的用户。
+
 ### 如何关闭
 
 可选的 `analytics` 配置块用于调整——或关闭——数据收集：
@@ -134,6 +149,126 @@ export default config;
 - 在每次更改区域设置时记录一个 `page_view`，
 - 启动约 20 秒的刷新循环，并在卸载/关闭选项卡时刷新任何剩余事件（通过 `navigator.sendBeacon`，回退至 `fetch(..., { keepalive: true })`）。
 
+每个框架的接入点不同，但都是你搭建 Intlayer 时已经使用过的那个位置，因此无需额外添加任何代码：
+
+<Tabs group="framework">
+  <Tab label="React" value="react">
+
+    `IntlayerProvider` 会在内部挂载分析 provider。
+
+    ```tsx fileName="App.tsx"
+    import { IntlayerProvider } from "react-intlayer";
+
+    const App = () => (
+      <IntlayerProvider>
+        <Router />
+      </IntlayerProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+
+    `next-intlayer` 重新导出了 React 的 `IntlayerProvider`，所以分析功能以同样的方式接入。
+
+    ```tsx fileName="app/[locale]/layout.tsx"
+    import { IntlayerProvider } from "next-intlayer";
+
+    const LocaleLayout = ({ children }) => (
+      <IntlayerProvider>{children}</IntlayerProvider>
+    );
+
+    export default LocaleLayout;
+    ```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+    `intlayer` 插件会在根组件的生命周期中注册分析钩子。
+
+    ```javascript fileName="main.js"
+    import { createApp } from "vue";
+    import { intlayer } from "vue-intlayer";
+    import App from "./App.vue";
+
+    const app = createApp(App);
+
+    app.use(intlayer);
+
+    app.mount("#app");
+    ```
+
+    > 使用 Nuxt 时，`nuxt-intlayer` 会替你安装该插件，无需任何操作。
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+    `setupIntlayer()` 会从设置 Intlayer 的组件中启动分析功能。
+
+    ```svelte fileName="src/routes/[[locale=locale]]/+layout.svelte"
+    <script lang="ts">
+      import { setupIntlayer } from "svelte-intlayer";
+      import type { Snippet } from "svelte";
+
+      let { children, data }: { children: Snippet, data: LayoutData } = $props();
+
+      $effect(() => {
+        setupIntlayer(data.locale);
+      });
+    </script>
+
+    {@render children()}
+    ```
+
+  </Tab>
+  <Tab label="Preact" value="preact">
+
+    `IntlayerProvider` 会在内部挂载分析 provider。
+
+    ```tsx fileName="app.tsx"
+    import { IntlayerProvider } from "preact-intlayer";
+
+    const App = () => (
+      <IntlayerProvider>
+        <Router />
+      </IntlayerProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+    `IntlayerProvider` 会以懒加载（lazy）方式挂载分析 provider，因此该代码块不会阻塞关键渲染路径。
+
+    ```tsx fileName="App.tsx"
+    import { IntlayerProvider } from "solid-intlayer";
+
+    const App = () => (
+      <IntlayerProvider>
+        <Router />
+      </IntlayerProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+
+    `provideIntlayer()` 已经包含了 `provideIntlayerAnalytics()`。
+
+    ```ts fileName="app.config.ts"
+    import { provideIntlayer } from "angular-intlayer";
+    import type { ApplicationConfig } from "@angular/core";
+
+    export const appConfig: ApplicationConfig = {
+      providers: [provideIntlayer()],
+    };
+    ```
+
+    > 仅当你需要单独管理各个 provider 时，才单独使用 `provideIntlayerAnalytics()`。
+
+  </Tab>
+</Tabs>
+
 ### 自动 Node 级别跟踪
 
 每次 `useIntlayer` 解析用于显示的内容片段时，解释器都会为该确切的 `dictionaryKey` + 键路径 + 区域设置报告一个 `content_exposure` 事件 —— 同样，无需更改代码。在刷新窗口内同一节点的重复曝光会合并为一个带有 `count`（计数）的事件，因此重新渲染 50 次的列表不会发送 50 个事件。
@@ -142,29 +277,340 @@ export default config;
 
 使用 `useConversion()` 将目标归因于会话看到的变体：
 
-```tsx fileName="CTAButton.tsx" codeFormat="tsx"
-import { useConversion } from "react-intlayer";
+<Tabs group="framework">
+  <Tab label="React" value="react">
 
-const CTAButton = () => {
-  const trackConversion = useConversion();
+    ```tsx fileName="CTAButton.tsx"
+    import { useConversion } from "react-intlayer";
 
-  return (
+    const CTAButton = () => {
+      const trackConversion = useConversion();
+
+      return (
+        <button
+          onClick={() =>
+            trackConversion({
+              experimentKey: "homepage-hero",
+              variant: "black_friday",
+              goal: "cta_click",
+            })
+          }
+        >
+          开始使用
+        </button>
+      );
+    };
+    ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+
+    ```tsx fileName="CTAButton.tsx"
+    "use client";
+
+    import { useConversion } from "next-intlayer";
+
+    const CTAButton = () => {
+      const trackConversion = useConversion();
+
+      return (
+        <button
+          onClick={() =>
+            trackConversion({
+              experimentKey: "homepage-hero",
+              variant: "black_friday",
+              goal: "cta_click",
+            })
+          }
+        >
+          开始使用
+        </button>
+      );
+    };
+    ```
+
+    > `useConversion` 是一个客户端 Hook：请将组件标记为 `"use client"`。
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+    ```vue fileName="CTAButton.vue"
+    <script setup lang="ts">
+    import { useConversion } from "vue-intlayer";
+
+    const trackConversion = useConversion();
+    </script>
+
+    <template>
+      <button
+        @click="
+          trackConversion({
+            experimentKey: 'homepage-hero',
+            variant: 'black_friday',
+            goal: 'cta_click',
+          })
+        "
+      >
+        开始使用
+      </button>
+    </template>
+    ```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+    ```svelte fileName="CTAButton.svelte"
+    <script lang="ts">
+      import { useConversion } from "svelte-intlayer";
+
+      const trackConversion = useConversion();
+    </script>
+
     <button
-      onClick={() =>
+      onclick={() =>
         trackConversion({
           experimentKey: "homepage-hero",
           variant: "black_friday",
           goal: "cta_click",
-        })
-      }
+        })}
     >
       开始使用
     </button>
-  );
-};
-```
+    ```
+
+  </Tab>
+  <Tab label="Preact" value="preact">
+
+    ```tsx fileName="CTAButton.tsx"
+    import { useConversion } from "preact-intlayer";
+
+    const CTAButton = () => {
+      const trackConversion = useConversion();
+
+      return (
+        <button
+          onClick={() =>
+            trackConversion({
+              experimentKey: "homepage-hero",
+              variant: "black_friday",
+              goal: "cta_click",
+            })
+          }
+        >
+          开始使用
+        </button>
+      );
+    };
+    ```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+    ```tsx fileName="CTAButton.tsx"
+    import { useConversion } from "solid-intlayer";
+
+    const CTAButton = () => {
+      const trackConversion = useConversion();
+
+      return (
+        <button
+          onClick={() =>
+            trackConversion({
+              experimentKey: "homepage-hero",
+              variant: "black_friday",
+              goal: "cta_click",
+            })
+          }
+        >
+          开始使用
+        </button>
+      );
+    };
+    ```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+
+    ```typescript fileName="cta-button.component.ts"
+    import { Component } from "@angular/core";
+    import { useConversion } from "angular-intlayer";
+
+    @Component({
+      selector: "app-cta-button",
+      template: `<button (click)="onClick()">开始使用</button>`,
+    })
+    export class CtaButtonComponent {
+      private trackConversion = useConversion();
+
+      onClick() {
+        this.trackConversion({
+          experimentKey: "homepage-hero",
+          variant: "black_friday",
+          goal: "cta_click",
+        });
+      }
+    }
+    ```
+
+  </Tab>
+</Tabs>
 
 ### 在客户端解析变体
+
+`useExperiment()` 会将会话分配到一个变体，并记录用作转化率分母的曝光。请用 `isAssigned` 来控制依赖变体的子树的渲染，避免访问者在分配结果确定之前看到对照组内容一闪而过：
+
+<Tabs group="framework">
+  <Tab label="React" value="react">
+
+    `variant` 是一个普通字符串。
+
+    ```tsx fileName="Hero.tsx"
+    import { useExperiment } from "react-intlayer";
+    import { HeroBanner } from "./HeroBanner";
+
+    export const Hero = () => {
+      const { variant, isAssigned } = useExperiment("homepage-hero", [
+        "default",
+        "black_friday",
+      ]);
+
+      if (!isAssigned) return null;
+
+      return <HeroBanner variant={variant} />;
+    };
+    ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+
+    `variant` 是一个普通字符串。分配发生在浏览器中，因此该组件必须是客户端组件。
+
+    ```tsx fileName="Hero.tsx"
+    "use client";
+
+    import { useExperiment } from "next-intlayer";
+    import { HeroBanner } from "./HeroBanner";
+
+    export const Hero = () => {
+      const { variant, isAssigned } = useExperiment("homepage-hero", [
+        "default",
+        "black_friday",
+      ]);
+
+      if (!isAssigned) return null;
+
+      return <HeroBanner variant={variant} />;
+    };
+    ```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+    `variant` 和 `isAssigned` 是 `Ref`。
+
+    ```vue fileName="Hero.vue"
+    <script setup lang="ts">
+    import { useExperiment } from "vue-intlayer";
+    import HeroBanner from "./HeroBanner.vue";
+
+    const { variant, isAssigned } = useExperiment("homepage-hero", [
+      "default",
+      "black_friday",
+    ]);
+    </script>
+
+    <template>
+      <HeroBanner v-if="isAssigned" :variant="variant" />
+    </template>
+    ```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+    `variant` 和 `isAssigned` 是 store：请使用 `$` 前缀读取它们。
+
+    ```svelte fileName="Hero.svelte"
+    <script lang="ts">
+      import { useExperiment } from "svelte-intlayer";
+      import HeroBanner from "./HeroBanner.svelte";
+
+      const { variant, isAssigned } = useExperiment("homepage-hero", [
+        "default",
+        "black_friday",
+      ]);
+    </script>
+
+    {#if $isAssigned}
+      <HeroBanner variant={$variant} />
+    {/if}
+    ```
+
+  </Tab>
+  <Tab label="Preact" value="preact">
+
+    `variant` 是一个普通字符串。
+
+    ```tsx fileName="Hero.tsx"
+    import { useExperiment } from "preact-intlayer";
+    import { HeroBanner } from "./HeroBanner";
+
+    export const Hero = () => {
+      const { variant, isAssigned } = useExperiment("homepage-hero", [
+        "default",
+        "black_friday",
+      ]);
+
+      if (!isAssigned) return null;
+
+      return <HeroBanner variant={variant} />;
+    };
+    ```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+    `variant` 和 `isAssigned` 是 `Accessor`：调用它们即可读取值。
+
+    ```tsx fileName="Hero.tsx"
+    import { useExperiment } from "solid-intlayer";
+    import { Show } from "solid-js";
+    import { HeroBanner } from "./HeroBanner";
+
+    export const Hero = () => {
+      const { variant, isAssigned } = useExperiment("homepage-hero", [
+        "default",
+        "black_friday",
+      ]);
+
+      return (
+        <Show when={isAssigned()}>
+          <HeroBanner variant={variant()} />
+        </Show>
+      );
+    };
+    ```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+
+    `variant` 和 `isAssigned` 是 `Signal`：调用它们即可读取值。
+
+    ```typescript fileName="hero.component.ts"
+    import { Component } from "@angular/core";
+    import { useExperiment } from "angular-intlayer";
+    import { HeroBannerComponent } from "./hero-banner.component";
+
+    @Component({
+      selector: "app-hero",
+      imports: [HeroBannerComponent],
+      template: `@if (experiment.isAssigned()) {
+        <app-hero-banner [variant]="experiment.variant()" />
+      }`,
+    })
+    export class HeroComponent {
+      experiment = useExperiment("homepage-hero", ["default", "black_friday"]);
+    }
+    ```
 
   </Tab>
 </Tabs>
@@ -255,7 +701,7 @@ const cms = createIntlayerCMS();
 const { data: audience } = await analyticsEndpoint(cms).getAudience(30);
 ```
 
-> **仅限服务器端。** `createIntlayerCMS()` 使用 `clientId` + `clientSecret` 进行身份验证，secret 永远不会在浏览器中可用 — 如果此代码片段在浏览器中运行，它将发出未经身份验证的请求。请将其保留在路由处理程序、服务器操作或脚本中。
+> **仅限服务器端。** `createIntlayerCMS()` 使用 `clientId` + `clientSecret` 进行身份验证，secret 永远不会在浏览器中可用，如果此代码片段在浏览器中运行，它将发出未经身份验证的请求。请将其保留在路由处理程序、服务器操作或脚本中。
 
 ## 有用的链接
 

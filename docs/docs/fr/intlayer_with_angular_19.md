@@ -40,7 +40,6 @@ author: aymericzip
 Par rapport aux solutions principales telles que `ngx-translate` ou `angular-l10n`, Intlayer est une solution dotée d'optimisations intégrées telles que :
 
 <AccordionGroup>
-
 <Accordion header="Support complet d'Angular">
 
 Intlayer est optimisé pour fonctionner parfaitement avec Angular en offrant une **portée du contenu au niveau des composants**, des **traductions chargées à la demande (lazy-loading)** et toutes les fonctionnalités nécessaires pour mettre à l'échelle votre internationalisation (i18n).

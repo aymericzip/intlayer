@@ -42,7 +42,6 @@ author: aymericzip
 Rispetto alle soluzioni principali come `react-i18next` o `i18next`, Intlayer è una soluzione dotata di ottimizzazioni integrate come:
 
 <AccordionGroup>
-
 <Accordion header="Copertura completa su Vite e React">
 
 Intlayer è ottimizzato per funzionare perfettamente con Vite e React offrendo **ambito dei contenuti a livello di componente**, **traduzioni caricate lazy** e tutte le funzionalità necessarie per scalare l'internazionalizzazione (i18n).
@@ -608,8 +607,6 @@ const LocaleSwitcher: FC = () => {
 
 Di seguito il **Passo 9** aggiornato con spiegazioni aggiuntive ed esempi di codice migliorati:
 
----
-
 </Step>
 
 <Step number={9} title="Cambiare gli attributi di lingua e direzione dell’HTML" isOptional={true}>
@@ -758,11 +755,10 @@ Link.displayName = "Link";
   Il componente restituisce un elemento `<a>` con l'URL localizzato, garantendo che la navigazione sia coerente con la locale.
 
 Integrando questo componente `Link` in tutta la tua applicazione, mantieni un'esperienza utente coerente e consapevole della lingua, beneficiando inoltre di un miglior SEO e usabilità.
-</Step>
 
 </Step>
 
-<Step number={1} title="Estrarre il contenuto dei tuoi componenti" isOptional={true}>
+<Step number={11} title="Estrarre il contenuto dei tuoi componenti" isOptional={true}>
 
 Se hai una base di codice esistente, trasformare migliaia di file può richiedere molto tempo.
 
@@ -801,9 +797,6 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-<Tabs>
- <Tab value='Comando di estrazione'>
-
 Esegui l'estrattore per trasformare i tuoi componenti ed estrarre il contenuto
 
 ```bash packageManager="npm"
@@ -821,9 +814,6 @@ yarn intlayer extract
 ```bash packageManager="bun"
 bun x intlayer extract
 ```
-
- </Tab>
- <Tab value='Compilatore Babel'>
 
 > Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
 
@@ -857,8 +847,6 @@ yarn build # O yarn dev
 bun run build # Or bun run dev
 ```
 
- </Tab>
-</Tabs>
 </Step>
 
 </Steps>

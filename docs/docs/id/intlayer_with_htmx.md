@@ -35,7 +35,6 @@ Intlayer mencakup ini melalui integrasi backend-nya, yang mendeteksi locale per 
 ## Tiga aturan i18n dalam aplikasi htmx
 
 <AccordionGroup>
-
 <Accordion header="Locale harus diselesaikan pada setiap permintaan, bukan hanya yang pertama">
 
 Satu halaman dapat memicu puluhan swap. Setiap satu adalah permintaan baru tanpa memori dari halaman yang mengeluarkannya. Jika locale berada dalam variabel yang diatur selama render awal, setiap fragment setelahnya kembali ke bahasa default.
@@ -55,7 +54,6 @@ Dua pembawa bekerja dengan htmx. Cookie (`INTLAYER_LOCALE`) dikirimkan oleh brow
 Nilai yang diterjemahkan dan diinterpolasi ke dalam fragmen adalah markup. Escape-nya, persis seperti yang Anda lakukan untuk nilai dinamis lainnya, jadi terjemahan yang mengandung `<` tidak dapat merusak dokumen tempat fragmen tersebut ditukar.
 
 </Accordion>
-
 </AccordionGroup>
 
 ---

@@ -46,7 +46,6 @@ GitHub'da [Uygulama Şablonu](https://github.com/aymericzip/intlayer-lynx-templa
 'React-native-localize' veya 'i18next' gibi ana çözümlerle karşılaştırıldığında Intlayer, aşağıdaki gibi entegre optimizasyonlarla gelen bir çözümdür:
 
 <AccordionGroup>
-
 <Accordion header="Tam Lynx kapsamı">
 
 Intlayer, **bileşen düzeyinde içerik kapsamı**, **TypeScript desteği** ve uluslararasılaştırmayı (i18n) ölçeklendirmek için gereken tüm özellikleri sunarak Lynx ve React ile mükemmel çalışacak şekilde optimize edilmiştir.
@@ -144,8 +143,6 @@ bun add intlayer react-intlayer lynx-intlayer
 
 - **lynx-intlayer**  
   Intlayer'ı Lynx paketleyici ile entegre etmek için eklentiyi sağlayan Lynx entegrasyonu.
-
----
 
 </Step>
 
@@ -331,8 +328,6 @@ export default appContent;
 
 > İçerik bildirimleri hakkında detaylar için [Intlayer'ın içerik dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md) bakın.
 
----
-
 </Step>
 
 <Step number={6} title="Bileşenlerinizde Intlayer'ı Kullanın">
@@ -391,8 +386,6 @@ export const App = () => {
 ```
 
 > `content.someKey`'i dize tabanlı prop'larda kullanırken (örneğin, bir düğmenin `title`ı veya `Text` bileşeninin `children`ı), gerçek dizeyi almak için **çağrı `content.someKey.value`** yapın.
-
----
 
 </Step>
 

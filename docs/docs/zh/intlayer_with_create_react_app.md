@@ -46,7 +46,6 @@ author: aymericzip
 与 `react-i18next` 或 `i18next` 等主要解决方案相比，Intlayer 是一个集成了以下优化的解决方案：
 
 <AccordionGroup>
-
 <Accordion header="完整的 React 支持">
 
 Intlayer 针对 React 进行了优化，提供 **组件级内容作用域**、**延迟加载的翻译** 以及国际化 (i18n) 扩展所需的所有功能。
@@ -620,6 +619,8 @@ export default App;
 - 根据语言环境调整 **文本方向** (`dir`)，提升不同阅读顺序语言的可读性和可用性。
 - 提供更 **无障碍** 的体验，因为辅助技术依赖这些属性以实现最佳功能。
 
+</Step>
+
 </Steps>
 
 ### 配置 TypeScript
@@ -667,8 +668,6 @@ Intlayer 使用模块增强来利用 TypeScript 的优势，使您的代码库�
 - **快速操作**，轻松创建和更新翻译。
 
 有关如何使用此扩展的更多详细信息，请参阅[Intlayer VS Code 扩展文档](https://intlayer.org/doc/vs-code-extension)。
-
----
 
 ### 深入了解
 

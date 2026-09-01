@@ -93,7 +93,6 @@ export const MyComponent: FC = () => {
 `next-intl`や`i18next`のような主流のソリューションと比較して、Intlayerは以下のような統合された最適化機能を提供するソリューションです：
 
 <AccordionGroup>
-
 <Accordion header="バンドルサイズ">
 
 巨大なJSONファイルをページに読み込む代わりに、必要なコンテンツのみを読み込みます。Intlayerは**バンドルとページのサイズを最大50%削減**するのに役立ちます。

@@ -35,7 +35,6 @@ Intlayer covers this through its backend integrations, which detect the locale p
 ## The three rules of i18n in an htmx app
 
 <AccordionGroup>
-
 <Accordion header="The locale must be resolved on every request, not just the first">
 
 A single page can trigger dozens of swaps. Each one is a fresh request with no memory of the page that issued it. If the locale lives in a variable set during the initial render, every fragment after it falls back to the default language.
@@ -55,7 +54,6 @@ Two carriers work with htmx. A cookie (`INTLAYER_LOCALE`) is sent by the browser
 A translated value interpolated into a fragment is markup. Escape it, exactly as you would any other dynamic value, so a translation containing `<` cannot break the document it is swapped into.
 
 </Accordion>
-
 </AccordionGroup>
 
 ---

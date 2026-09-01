@@ -51,6 +51,7 @@ Możesz zadeklarować treść Markdown używając funkcji `md` lub po prostu jak
 
 <Tabs>
   <Tab label=".content.md" value=".content.md">
+
     Począwszy od wersji `8.10.0`, możesz deklarować treść Markdown bezpośrednio w plikach `.content.md`. Intlayer automatycznie wykryje i przetworzy treść Markdown.
 
     ```md fileName="markdown-file.en.content.md"
@@ -96,6 +97,7 @@ Możesz zadeklarować treść Markdown używając funkcji `md` lub po prostu jak
     ```
 
   </Tab>
+
   <Tab label="Pliki zewnętrzne" value="external-files">
     Importuj pliki `.md` bezpośrednio za pomocą funkcji `file`.
 
@@ -129,6 +131,7 @@ Możesz zadeklarować treść Markdown używając funkcji `md` lub po prostu jak
     ```
 
   </Tab>
+
 </Tabs>
 
 ## Renderowanie Markdown

@@ -29,7 +29,6 @@ author: aymericzip
 ## Чому варто перейти з react-i18next / i18next на Intlayer?
 
 <AccordionGroup>
-
 <Accordion header="Розмір bundle">
 
 Замість завантаження великих JSON файлів на ваші сторінки, завантажуйте лише необхідний вміст. Intlayer допомагає **зменшити розмір bundle та сторінок на 50%**.
@@ -67,7 +66,6 @@ Intlayer також є рішенням з **найактивнішим розв
 Більше ніж просто рішення i18n, Intlayer пропонує **самостійно розміщений [редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md)** та **[повноцінну CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)** для допомоги вам керувати вашим багатомовним вмістом у **реальному часі**, що робить співпрацю з перекладачами, копірайтерами та іншими членами команди безперебійною. Вміст можна зберігати локально та/або віддалено.
 
 </Accordion>
-
 </AccordionGroup>
 
 ---

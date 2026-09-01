@@ -191,8 +191,6 @@ export default config;
 
 Isso carregará todos os arquivos JSON no diretório `src` que correspondem ao padrão `{key}.i18n.json` e os carregará como dicionários do Intlayer.
 
----
-
 </Step>
 
 </Steps>

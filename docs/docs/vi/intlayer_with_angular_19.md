@@ -40,7 +40,6 @@ author: aymericzip
 So với các giải pháp chính như `ngx-translate` hay `angular-l10n`, Intlayer là giải pháp đi kèm với các tính năng tối ưu hóa tích hợp như:
 
 <AccordionGroup>
-
 <Accordion header="Bảo hiểm góc đầy đủ">
 
 Intlayer được tối ưu hóa để hoạt động hoàn hảo với Angular bằng cách cung cấp **phạm vi nội dung cấp thành phần**, **bản dịch được tải từng phần** và tất cả các tính năng cần thiết để mở rộng quy mô quốc tế hóa (i18n).

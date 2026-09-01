@@ -68,7 +68,6 @@ author: aymericzip
 `react-native-localize` veya `i18next` gibi ana çözümlerle karşılaştırıldığında Intlayer, aşağıdaki gibi entegre optimizasyonlarla gelen bir çözümdür:
 
 <AccordionGroup>
-
 <Accordion header="Tam React Native kapsamı">
 
 Intlayer, **bileşen düzeyinde içerik kapsamı**, **TypeScript desteği** ve mobil uygulamalarda uluslararasılaştırmayı (i18n) ölçeklendirmek için gereken tüm özellikleri sunarak React Native ve Expo ile mükemmel çalışacak şekilde optimize edilmiştir.
@@ -163,8 +162,6 @@ bun add intlayer react-native-intlayer
 
 - **react-native-intlayer**  
   React Native entegrasyonu, yerel ayarları elde etmek ve değiştirmek için kullanacağınız bağlam sağlayıcıları ve React kancalarını, React Native polyfill'lerini ve Intlayer'ı React Native paketleyici ile entegre etmek için Metro eklentisini sağlar. `react-intlayer`'dan her şeyi yeniden dışa aktarır, bu nedenle bir React Native uygulamasında yalnızca bu tek pakete ihtiyaç duyarsınız.
-
----
 
 </Step>
 
@@ -325,8 +322,6 @@ export default homeScreenContent;
 
 > İçerik bildirimleri hakkında detaylar için [Intlayer'ın içerik dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md) bakın.
 
----
-
 </Step>
 
 <Step number={6} title="Bileşenlerinizde Intlayer'ı Kullanın">
@@ -379,8 +374,6 @@ export default HomeScreen;
 > `content.someKey`'i dize tabanlı özelliklerde kullandığınızda (örneğin, bir düğmenin `title`ı veya bir `Text` bileşeninin `children`ı), gerçek dizeyi almak için **`content.someKey.value`** çağırın.
 
 > Eğer uygulamanız zaten mevcutsa, binlerce bileşeni bir saniye içinde dönüştürmek için [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md)'ı [extract komutu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/extract.md) ile birlikte kullanabilirsiniz.
-
----
 
 </Step>
 

@@ -29,7 +29,6 @@ author: aymericzip
 ## Tại sao nên chuyển đổi từ @nuxtjs/i18n sang Intlayer?
 
 <AccordionGroup>
-
 <Accordion header="Kích thước bundle">
 
 Thay vì tải các file JSON khổng lồ vào các trang của bạn, hãy tải chỉ nội dung cần thiết. Intlayer giúp bạn **giảm kích thước bundle và trang lên đến 50%**.
@@ -67,7 +66,6 @@ Kết nối các file JSON khổng lồ với các thành phần có thể dẫn
 Không chỉ là một giải pháp i18n, Intlayer cung cấp một **[trình soạn thảo hình ảnh](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md) được tự lưu trữ** và một **[CMS đầy đủ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md)** để giúp bạn quản lý nội dung đa ngôn ngữ của mình **theo thời gian thực**, giúp cộng tác với các dịch giả, biên tập viên và những thành viên nhóm khác trở nên liền mạch. Nội dung có thể được lưu trữ cục bộ và/hoặc từ xa.
 
 </Accordion>
-
 </AccordionGroup>
 
 ---

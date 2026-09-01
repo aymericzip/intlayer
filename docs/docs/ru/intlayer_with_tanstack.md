@@ -64,7 +64,6 @@ author: aymericzip
 По сравнению с основными решениями, такими как «react-i18next», «use-intl» или «paraglide», Intlayer предлагает решение со встроенными оптимизациями, такими как:
 
 <AccordionGroup>
-
 <Accordion header="Полное покрытие TanStack Start">
 
 Intlayer полностью оптимизирован для TanStack Start и обеспечивает **многоязычную маршрутизацию**, **управление файлами cookie**, **генерацию карты сайта**, **динамическую загрузку контента** и все функции, необходимые для масштабирования ваших усилий по интернационализации (i18n).
@@ -651,8 +650,6 @@ function RootDocument({ children }: { children: ReactNode }) {
 }
 ```
 
----
-
 </Step>
 
 <Step number={11} title="Добавить middleware">
@@ -688,8 +685,6 @@ export default defineConfig({
   ],
 });
 ```
-
----
 
 </Step>
 
@@ -884,8 +879,6 @@ export const Route = createFileRoute("/{-$locale}/")({
 | Client navigations   | nothing to resolve     | re-entered on every match  | served from the router cache           |
 | Developer experience | simplest               | one `await`                | content threaded through `loaderData`  |
 
----
-
 </Step>
 
 <Step number={13} title="Получите языковой стандарт в ваших серверных действиях">
@@ -923,134 +916,6 @@ export const getLocaleServer = createServerFn().handler(async () => {
 });
 ```
 
----
-
-</Step>
-
-<Step number={14} title="Управление страницами «не найдено»">
-
-Когда пользователь посещает несуществующую страницу, вы можете отобразить пользовательскую страницу «не найдено», и префикс языкового стандарта может повлиять на способ срабатывания страницы «не найдено».
-
-#### Локализованная главная страница
-
-> Если вы хотите использовать ваше содержимое в атрибуте `string`, таком как `alt`, `title`, `href`, `aria-label` и т. д., вы можете использовать значение функции, например:
->
-> ```html
-> <img src="{content.image.src.value}" alt="{content.image.value}" />
-> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
-> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
-> ```
-
-> Чтобы узнать больше о хуке `useIntlayer`, обратитесь к [документации](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/react-intlayer/useIntlayer.md).
-
-</Step>
-
-```tsx fileName="src/components/locale-switcher.tsx"
-import { useLocation } from "@tanstack/react-router";
-import {
-  getHTMLTextDir,
-  getLocaleName,
-  getPathWithoutLocale,
-  getPrefix,
-  Locales,
-} from "intlayer";
-import type { FC } from "react";
-import { useLocale } from "react-intlayer";
-
-import { LocalizedLink, type To } from "./localized-link";
-
-export const LocaleSwitcher: FC = () => {
-  const { pathname } = useLocation();
-
-  const { availableLocales, locale, setLocale } = useLocale();
-
-  const pathWithoutLocale = getPathWithoutLocale(pathname);
-
-  return (
-    <ol>
-      {availableLocales.map((localeEl) => (
-        <li key={localeEl}>
-          <LocalizedLink
-            aria-current={localeEl === locale ? "page" : undefined}
-            onClick={() => setLocale(localeEl)}
-            params={{ locale: getPrefix(localeEl).localePrefix }}
-            to={pathWithoutLocale as To}
-          >
-            <span>
-              {/* Локаль - например, FR */}
-              {localeEl}
-            </span>
-            <span>
-              {/* Язык на его собственной локали - например, Français */}
-              {getLocaleName(localeEl, locale)}
-            </span>
-            <span dir={getHTMLTextDir(localeEl)} lang={localeEl}>
-              {/* Язык на текущей локали - например, Francés при установленной локали Locales.SPANISH */}
-              {getLocaleName(localeEl)}
-            </span>
-            <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* Язык на английском - например, French */}
-              {getLocaleName(localeEl, Locales.ENGLISH)}
-            </span>
-          </LocalizedLink>
-        </li>
-      ))}
-    </ol>
-  );
-};
-```
-
-> Чтобы узнать больше о хуке `useLocale`, обратитесь к [документации](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/react-intlayer/useLocale.md).
-
-</Step>
-
-<Step number={11} title="Управление атрибутами HTML">
-
-return (
-<html dir={getHTMLTextDir(locale)} lang={locale}>
-{/* ... _/}
-</html>
-);
-} {/_ ... */}
-</html>
-);
-}
-
-export const Route = createFileRoute("/{-$locale}/")({
-component: RouteComponent,
-head: async ({ params }) => {
-const { locale = defaultLocale } = params;
-const path = "/"; // The path for this route
-
-    const metaContent = await getIntlayerAsync("app", locale);
-
-````
-
-> Если `head` читает несколько словарей, разрешайте их через `Promise.all`: ожидание каждого `getIntlayerAsync` отдельной строкой выстраивает запросы в цепочку вместо параллельного выполнения.
-
-Компромисс: динамический импорт разрешается во время выполнения `head`, на критическом пути рендеринга документа. На «холодном» маршруте это задерживает `head` на несколько миллисекунд и может немного ухудшить **LCP**.
-
-</Tab>
-
-<Tab label="Кэшированное динамическое разрешение" value="cached">
-
-Разрешите словарь в `loader` маршрута и прочитайте его обратно из `loaderData` в `head`. Загрузчики совпавших маршрутов выполняются параллельно, а `staleTime: Infinity` сообщает TanStack Router, что результат никогда не устаревает, поэтому пер-локальный чанк разрешается один раз, а затем отдаётся из кэша роутера, оставляя `head` синхронным.
-
-```tsx fileName="src/routes/{-$locale}/index.tsx"
-      return getCookie(name, cookieString);
-    },
-    // Получить заголовок из запроса (по умолчанию: 'x-intlayer-locale')
-    // Резервный вариант с использованием согласования Accept-Language
-    getHeader: (name) => getRequestHeader(name),
-  });
-
-  // Получить контент с помощью getIntlayer()
-  const content = getIntlayer("app", locale);
-
-````
-
----
-
 </Step>
 
 <Step number={14} title="Управление страницами &quot;не найдено&quot;">
@@ -1066,20 +931,70 @@ const path = "/"; // The path for this route
 3. **Маршрут catch-all**: Перехватывает все несовпадающие пути в сегменте локали
 
 ```tsx fileName="src/routes/{-$locale}/404.tsx"
+import { createFileRoute } from "@tanstack/react-router";
 
+// Это создает выделенный маршрут /[locale]/404
+// Он используется как прямой маршрут и импортируется как компонент в других файлах
+export const Route = createFileRoute("/{-$locale}/404")({
+  component: NotFoundComponent,
+});
+
+// Экспортируется отдельно, чтобы можно было повторно использовать в notFoundComponent и catch-all маршрутах
+export function NotFoundComponent() {
+  return (
+    <div>
+      <h1>404</h1>
+    </div>
+  );
+}
 ```
 
 ```tsx fileName="src/routes/{-$locale}/route.tsx"
+import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
+import { validatePrefix } from "intlayer";
+import { NotFoundComponent } from "./404";
 
+export const Route = createFileRoute("/{-$locale}")({
+  // beforeLoad выполняется до рендеринга маршрута (как на сервере, так и на клиенте)
+  // Это идеальное место для проверки префикса локали
+  beforeLoad: ({ params }) => {
+    const localeParam = params.locale;
+
+    // validatePrefix проверяет, является ли локаль действительной согласно вашей конфигурации intlayer
+    const { isValid, localePrefix } = validatePrefix(localeParam);
+
+    if (!isValid) {
+      // Недействительный префикс локали - перенаправить на страницу 404 с действительным префиксом локали
+      throw redirect({
+        to: "/{-$locale}/404",
+        params: { locale: localePrefix },
+      });
+    }
+  },
+  component: Outlet,
+  // notFoundComponent вызывается, когда дочерний маршрут не существует
+  // например, /en/несуществующая-страница запускает это в макете /en
+  notFoundComponent: NotFoundComponent,
+});
 ```
 
 ```tsx fileName="src/routes/{-$locale}/$.tsx"
+import { createFileRoute } from "@tanstack/react-router";
 
+import { NotFoundComponent } from "./404";
+
+// Маршрут $ (splat/catch-all) соответствует любому пути, который не соответствует другим маршрутам
+// например, /en/какой-то/глубоко/вложенный/недействительный/путь
+// Это гарантирует, что ВСЕ несоответствующие пути в локали показывают страницу 404
+// Без этого несоответствующие глубокие пути могут показать пустую страницу или ошибку
+export const Route = createFileRoute("/{-$locale}/$")({
+  component: NotFoundComponent,
+});
 ```
 
 </Step>
 
-<Step number={15} title="Извлечение содержимого ваших компонентов" isOptional={true}>
+<Step number={15} title="Извлечение содержимого ваших компонентов" isOptional={true}> isOptional={true}>
 
 Если у вас есть существующая кодовая база, преобразование тысяч файлов может занять много времени.
 
@@ -1090,10 +1005,23 @@ const path = "/"; // The path for this route
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig } from "intlayer";
 
+const config: IntlayerConfig = {
+  // ... Остальная часть вашей конфигурации
+  compiler: {
+    /**
+     * Указывает, должен ли быть включен компилятор.
+     */
+    enabled: true,
+
     /**
      * Определяет путь к выходным файлам
      */
     output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * Указывает, должны ли компоненты сохраняться после преобразования. Таким образом, компилятор можно запустить только один раз для преобразования приложения, а затем удалить.
+     */
+    saveComponents: false,
 
     /**
      * Префикс ключа словаря
@@ -1106,28 +1034,34 @@ export default config;
 ```
 
 <Tabs>
- <Tab value='Команда извлечения'>
+ <Tab value="Команда извлечения">
 
 Запустите экстрактор для преобразования компонентов и извлечения содержимого
 
 ```bash packageManager="npm"
-
+npx intlayer extract
 ```
 
 ```bash packageManager="pnpm"
-
+pnpm intlayer extract
 ```
 
 ```bash packageManager="yarn"
-
+yarn intlayer extract
 ```
 
 ```bash packageManager="bun"
+bun x intlayer extract
+```
 
  </Tab>
-</Tabs>
+ <Tab value="Компилятор Babel">
 
-bun x intlayer extract
+> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
+
+Обновите ваш `vite.config.ts`, чтобы включить плагин `intlayerCompiler`:
+
+```ts fileName="vite.config.ts"
 import { defineConfig } from "vite";
 import { intlayer, intlayerCompiler } from "vite-intlayer";
 
@@ -1152,10 +1086,23 @@ yarn build # Or yarn dev
 ```
 
 ```bash packageManager="bun"
-
-----
-
 bun run build # Or bun run dev
+```
+
+ </Tab>
+</Tabs>
+
+</Step>
+
+<Step number={16} title="Генерация карты сайта (Sitemap)" isOptional={true}>
+
+Intlayer поставляется со встроенным генератором карты сайта, который поможет вам легко создать карту сайта для вашего приложения. Он учитывает локализованные маршруты и добавляет необходимые метаданные для поисковых систем.
+
+> Создаваемая Intlayer карта сайта поддерживает пространство имен `xhtml:link` (Hreflang XML Extensions). В отличие от стандартных генераторов карт сайта, которые просто перечисляют прямые URL-адреса, Intlayer автоматически создает необходимые двусторонние связи между всеми языковыми версиями страницы (например, `/about`, `/about?lang=fr` и `/about?lang=es`). Это гарантирует, что поисковые системы будут правильно индексировать и показывать нужную языковую версию соответствующей аудитории.
+
+Чтобы использовать его, вам сначала нужно настроить ваш файл `vite.config.ts`, чтобы включить предварительный рендеринг (pre-rendering) для ваших локализованных маршрутов и отключить генерацию карты сайта по умолчанию в TanStack Start.
+
+```typescript fileName="vite.config.ts"
 import { localeFlatMap } from "intlayer";
 // ... другие импорты
 
@@ -1191,9 +1138,13 @@ export default defineConfig({
 
 Затем создайте маршрут `src/routes/sitemap[.]xml.ts`, который использует функцию `generateSitemap`:
 
-````typescript fileName="src/routes/sitemap[.]xml.ts"
+```typescript fileName="src/routes/sitemap[.]xml.ts"
+import { createFileRoute } from "@tanstack/react-router";
+import { generateSitemap } from "intlayer";
 
----
+const SITE_URL = (
+  import.meta.env.VITE_SITE_URL ?? "http://localhost:3000"
+).replace(/\/$/, "");
 
 export const Route = createFileRoute("/sitemap.xml")({
   server: {
@@ -1214,6 +1165,17 @@ export const Route = createFileRoute("/sitemap.xml")({
     },
   },
 });
+```
+
+</Step>
+
+<Step number={17} title="Настройка TypeScript">
+
+Intlayer использует расширение модулей (module augmentation), чтобы использовать преимущества TypeScript и сделать вашу кодовую базу более надежной.
+
+Убедитесь, что ваша конфигурация TypeScript включает автоматически сгенерированные типы:
+
+```json5 fileName="tsconfig.json"
 {
   // ... ваши существующие настройки
   include: [
@@ -1221,17 +1183,22 @@ export const Route = createFileRoute("/sitemap.xml")({
     ".intlayer/**/*.ts", // Включить автоматически сгенерированные типы
   ],
 }
+```
+
+</Step>
+
+</Steps>
 
 ### Конфигурация Git
 
-Рекомендуется игнорировать файлы, созданные Intlayer. Это позволяет избежать их фиксации в репозитории Git.
+Рекомендуется игнорировать файлы, сгенерированные Intlayer. Это позволит избежать их коммита в ваш Git-репозиторий.
 
-Для этого вы можете добавить следующие инструкции в файл `.gitignore`:
+Чтобы сделать это, вы можете добавить следующие инструкции в ваш файл `.gitignore`:
 
 ```plaintext fileName=".gitignore"
-# Ignore the files generated by Intlayer
+# Игнорировать файлы, сгенерированные Intlayer
 .intlayer
-````
+```
 
 ---
 

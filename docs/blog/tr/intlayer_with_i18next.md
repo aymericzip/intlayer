@@ -191,8 +191,6 @@ export default config;
 
 Bu, `src` dizininde `{key}.i18n.json` desenine uyan tüm JSON dosyalarını yükleyecek ve bunları Intlayer sözlükleri olarak kullanacaktır.
 
----
-
 </Step>
 
 </Steps>

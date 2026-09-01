@@ -34,6 +34,62 @@ author: aymericzip
 
 # Przetłumacz swoją stronę Vite i Preact za pomocą Intlayer | Internacjonalizacja (i18n)
 
+## Spis treści
+
+<TOC/>
+
+## Dlaczego Interlayer zamiast alternatyw?
+
+W porównaniu do głównych rozwiązań, takich jak „preact-i18n” czy „i18next”, Intlayer jest rozwiązaniem wyposażonym w zintegrowane optymalizacje, takie jak:
+
+<AccordionGroup>
+<Accordion header="Pełne pokrycie Preact">
+
+Intlayer jest zoptymalizowany do doskonałej współpracy z Preact, oferując **zakres treści na poziomie komponentu**, **tłumaczenia z opóźnieniem** i wszystkie funkcje potrzebne do skalowania internacjonalizacji (i18n).
+
+</Accordion>
+
+<Accordion header="Rozmiar bundle'a">
+
+Zamiast ładować ogromne pliki JSON na swoje strony, ładuj tylko niezbędną treść. Intlayer pomaga **zmniejszyć rozmiary bundle'a i stron nawet o 50%**.
+
+</Accordion>
+
+<Accordion header="Łatwość konserwacji">
+
+Określanie zakresu zawartości aplikacji **ułatwia konserwację** aplikacji na dużą skalę. Możesz powielić lub usunąć pojedynczy folder funkcji bez obciążania psychicznego koniecznością przeglądania całej bazy kodu zawartości. Dodatkowo Inlayer jest **w pełni napisany**, aby zapewnić dokładność treści.
+
+</Accordion>
+
+<Accordion header="AI Agent">
+
+Wspólna lokalizacja treści **zmniejsza potrzebny kontekst** dzięki modelom dużego języka (LLM). Intlayer zawiera także zestaw narzędzi, taki jak **CLI** do sprawdzania brakujących tłumaczeń**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** i **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/agent_skills.md)**, aby praca programisty (DX) była jeszcze płynniejsza dla agentów AI.
+
+</Accordion>
+
+<Accordion header="Automatyzacja">
+
+Korzystaj z automatyzacji, aby tłumaczyć w swoim potoku CI/CD przy użyciu wybranego LLM na koszt dostawcy sztucznej inteligencji. Intlayer oferuje także **kompilator** do automatyzacji ekstrakcji treści, a także [platformę internetową] (https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md), która pomaga **tłumaczyć w tle**.
+
+</Accordion>
+
+<Accordion header="Wydajność">
+
+Łączenie ogromnych plików JSON z komponentami może prowadzić do problemów z wydajnością i reaktywnością. Inlayer optymalizuje ładowanie treści w czasie kompilacji.
+
+</Accordion>
+
+<Accordion header="Skalowanie bez użycia dewelopera">
+
+Więcej niż tylko rozwiązanie i18n, Intlayer zapewnia **samodzielny [edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** i **[pełny CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)**, który pomoże Ci zarządzać wielojęzyczną treścią w **w czasie rzeczywistym**, dzięki czemu współpraca z tłumaczami, copywriterami i innymi członkami zespołu będzie płynna. Treść może być przechowywana lokalnie i/lub zdalnie.
+
+</Accordion>
+</AccordionGroup>
+
+---
+
+## Przewodnik krok po kroku, jak skonfigurować Intlayer w aplikacji Vite i Preact
+
 <Tabs defaultTab="video">
   <Tab label="Video" value="video">
 
@@ -63,63 +119,6 @@ author: aymericzip
 
   </Tab>
 </Tabs>
-
-## Spis treści
-
-<TOC/>
-
-## Dlaczego Interlayer zamiast alternatyw?
-
-W porównaniu do głównych rozwiązań, takich jak „preact-i18n” czy „i18next”, Intlayer jest rozwiązaniem wyposażonym w zintegrowane optymalizacje, takie jak:
-
-<AccordionGroup>
-
-**Pełne pokrycie Preact**
-
-Intlayer jest zoptymalizowany do doskonałej współpracy z Preact, oferując **zakres treści na poziomie komponentu**, **tłumaczenia z opóźnieniem** i wszystkie funkcje potrzebne do skalowania internacjonalizacji (i18n).
-
-</Accordion>
-
-**Rozmiar bundle'a**
-
-Zamiast ładować ogromne pliki JSON na swoje strony, ładuj tylko niezbędną treść. Intlayer pomaga **zmniejszyć rozmiary bundle'a i stron nawet o 50%**.
-
-</Accordion>
-
-**Łatwość konserwacji**
-
-Określanie zakresu zawartości aplikacji **ułatwia konserwację** aplikacji na dużą skalę. Możesz powielić lub usunąć pojedynczy folder funkcji bez obciążania psychicznego koniecznością przeglądania całej bazy kodu zawartości. Dodatkowo Inlayer jest **w pełni napisany**, aby zapewnić dokładność treści.
-
-**Agent AI**
-
-<Accordion header="AI Agent">
-
-Wspólna lokalizacja treści **zmniejsza potrzebny kontekst** dzięki modelom dużego języka (LLM). Intlayer zawiera także zestaw narzędzi, taki jak **CLI** do sprawdzania brakujących tłumaczeń**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** i **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/agent_skills.md)**, aby praca programisty (DX) była jeszcze płynniejsza dla agentów AI.
-
-</Accordion>
-
-**Automatyzacja**
-
-Korzystaj z automatyzacji, aby tłumaczyć w swoim potoku CI/CD przy użyciu wybranego LLM na koszt dostawcy sztucznej inteligencji. Intlayer oferuje także **kompilator** do automatyzacji ekstrakcji treści, a także [platformę internetową] (https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md), która pomaga **tłumaczyć w tle**.
-
-**Wydajność**
-
-<Accordion header="Wydajność">
-
-Łączenie ogromnych plików JSON z komponentami może prowadzić do problemów z wydajnością i reaktywnością. Inlayer optymalizuje ładowanie treści w czasie kompilacji.
-
-</Accordion>
-
-**Skalowanie bez użycia dewelopera**
-
-Więcej niż tylko rozwiązanie i18n, Intlayer zapewnia **samodzielny [edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** i **[pełny CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)**, który pomoże Ci zarządzać wielojęzyczną treścią w **w czasie rzeczywistym**, dzięki czemu współpraca z tłumaczami, copywriterami i innymi członkami zespołu będzie płynna. Treść może być przechowywana lokalnie i/lub zdalnie.
-
-</Accordion>
-</AccordionGroup>
-
----
-
-## Przewodnik krok po kroku, jak skonfigurować Intlayer w aplikacji Vite i Preact
 
 Zobacz [Szablon aplikacji](https://github.com/aymericzip/intlayer-vite-preact-template) na GitHub.
 
@@ -619,8 +618,6 @@ export default LocaleSwitcher;
 
 Poniżej znajduje się zaktualizowany **Krok 9** ze wzbogaconymi wyjaśnieniami i ulepszonymi przykładami kodu:
 
----
-
 </Step>
 
 <Step number={9} title="Przełącz atrybuty języka i kierunku HTML" isOptional={true}>
@@ -1043,6 +1040,8 @@ Aby pójść dalej, możesz zaimplementować [edytor wizualny](https://github.co
 <FAQ>
 
 <Question title="Jakie są różne rozwiązania dostępne do internacjonalizacji aplikacji Vite i Preact?">
+
+Vite nie narzuca podejścia do i18n, więc wybór zależy od ekosystemu Preact:
 
 - **`preact-i18n`** lub **`react-i18next`**: popularne biblioteki oparte na przestrzeniach nazw ładowanych w czasie wykonywania.
 - **`Intlayer`**: najbardziej zaawansowane rozwiązanie. Treści deklarowane w dowolnym miejscu bazy kodu ([obok każdego komponentu lub centralnie](https://intlayer.org/blog/per-component-vs-centralized-i18n)) i kompilowane przez wtyczkę Vite w czasie budowy, w pełni typowane, z tłumaczeniem AI, edytorem wizualnym i systemem CMS.

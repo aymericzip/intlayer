@@ -68,7 +68,6 @@ author: aymericzip
 "svelte-i18n" veya "i18next" gibi ana çözümlerle karşılaştırıldığında Intlayer, aşağıdaki gibi entegre optimizasyonlarla gelen bir çözümdür:
 
 <AccordionGroup>
-
 <Accordion header="Tam Svelte kapsamı">
 
 Intlayer, **bileşen düzeyinde içerik kapsamı**, **reaktif çeviriler** ve uluslararasılaştırmayı (i18n) ölçeklendirmek için gereken tüm özellikleri sunarak Svelte ile mükemmel çalışacak şekilde optimize edilmiştir.
@@ -745,6 +744,8 @@ Daha ileri gitmek için, [görsel editörü](https://github.com/aymericzip/intla
 
 <Question title="Vite ve Svelte uygulamasını uluslararasılaştırmak için hangi farklı çözümler mevcuttur?">
 
+Vite'ın i18n konusunda özel bir tercihi yoktur, bu nedenle seçenekler Svelte ekosistemindekilerdir:
+
 - **`svelte-i18n`** veya **`typesafe-i18n`**: Svelte store'larına dayalı çözümler.
 - **`Intlayer`**: bileşen yanında bildirim, derleme zamanı derlemesi, Svelte reaktivitesi ile tam entegrasyon ve AI çeviri sunan modern çözüm.
 
@@ -775,6 +776,8 @@ Evet. [sync JSON eklentisi](https://github.com/aymericzip/intlayer/blob/main/doc
 Hayır. `npx intlayer extract` komutunu çalıştırın; Intlayer bileşenlerinizi okur, kullanıcıya dönük dizeleri çıkarır ve her birinin yanına bir `.content` dosyası yazar, böylece dizeleri tek tek kopyalamak yerine bir diff incelersiniz.
 
 Tam otomatik bir süreç için [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md) derleme sırasında aynı işlemi yapar: her değişiklikte kaynak kodunu tarar, sözlükleri üretir ve HMR ile senkronize tutar.
+
+Derleyiciyi açmadan önce bilmeye değer iki sınır vardır. Statik analiz ile çalışır, bu nedenle API hata kodları veya CMS alanları gibi yalnızca çalışma zamanında var olan dizeler ulaşılamaz kalır. Ayrıca, `className="active"` veya durum kodu gibi uygulama mantığından kullanıcıya yönelik metinleri ayırt etmesi gerekir; bu da büyük bir kod tabanında birkaç ek açıklama gerektirir. [Extract komutu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/extract.md) sizi döngüde tutarak her ikisinden de kaçınır.
 
 </Question>
 

@@ -42,7 +42,6 @@ author: aymericzip
 Rispetto alle soluzioni principali come `next-intl` o `i18next`, Intlayer è una soluzione dotata di ottimizzazioni integrate come:
 
 <AccordionGroup>
-
 <Accordion header="Copertura completa di Next.js">
 
 Intlayer è ottimizzato per funzionare con **Componenti server** per un rendering efficiente ed è completamente compatibile con [**Turbopack**](https://nextjs.org/docs/architecture/turbopack). Non blocca il rendering statico e offre middleware e tutte le funzionalità necessarie per scalare l'internazionalizzazione (i18n).
@@ -451,7 +450,8 @@ export default Page;
 - **`IntlayerProvider`** è montato una sola volta, nel layout locale. Fornisce la locale sia ai componenti server che ai componenti client, quindi le pagine non si avvolgono più su se stesse.
 - Gli hook server risolvono la locale in questo ordine: la locale passata al sito di chiamata, quindi il contesto server seeded dal provider, quindi la locale trasportata dalla richiesta (l'header `x-intlayer-locale` impostato dal proxy Intlayer, quindi il cookie locale). Questo ultimo passaggio è quello che mantiene il contenuto corretto su una navigazione lato client che ri-renderizza solo il segmento di pagina, dove il layout — e con esso il provider — non viene rieseguito.
 
-Accedi ai tuoi dizionari di contenuto in tutta l'applicazione:
+ </Tab>
+ <Tab label='Intlayer <9.4' value='<9.4'>
 
 ```tsx fileName="src/app/[locale]/page.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
@@ -492,7 +492,8 @@ export default Page;
 
   > Layout e pagina non possono condividere un contesto server comune perché il sistema di contesto server si basa su un archivio dati per richiesta (tramite il meccanismo [React's cache](https://react.dev/reference/react/cache)), causando la ricreazione di ogni "contesto" per segmenti diversi dell'applicazione. Posizionare il provider in un layout condiviso romperebbe questa isolamento, impedendo la corretta propagazione dei valori del contesto server ai componenti server.
 
-  > Layout e pagina non possono condividere un contesto server comune perché il sistema di contesto server si basa su un archivio dati per richiesta (tramite il meccanismo [React's cache](https://react.dev/reference/react/cache)), causando la ricreazione di ogni "contesto" per diversi segmenti dell'applicazione. Posizionare il provider in un layout condiviso romperebbe questa isolazione, impedendo la corretta propagazione dei valori del contesto server ai tuoi componenti server.
+ </Tab>
+</Tabs>
 
 ```tsx {4,7} fileName="src/components/ClientComponentExample.tsx" codeFormat={["typescript", "esm"]}
 "use client";
@@ -982,7 +983,6 @@ bun add @intlayer/swc --dev
 > Nota: Questa ottimizzazione è disponibile solo per Next.js 13 e versioni successive.
 
 > Nota: Questo pacchetto non è installato di default perché i plugin SWC sono ancora sperimentali su Next.js. Potrebbe cambiare in futuro.
-> </Step>
 
 > Nota: Se imposti l'opzione come `importMode: 'dynamic'` o `importMode: 'fetch'` (nella configurazione `dictionary`), si affiderà a Suspense, quindi dovrai avvolgere le tue chiamate `useIntlayer` in un boundary `Suspense`. Ciò significa che non potrai usare `useIntlayer` direttamente al livello superiore del tuo componente Page / Layout.
 > </Step>

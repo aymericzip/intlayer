@@ -67,7 +67,6 @@ author: aymericzip
 Im Vergleich zu Hauptlösungen wie „next-intl“ oder „i18next“ ist Intlayer eine Lösung, die über integrierte Optimierungen verfügt wie:
 
 <AccordionGroup>
-
 <Accordion header="Vollständige Next.js-Abdeckung">
 
 Intlayer ist für die Zusammenarbeit mit **Serverkomponenten** für effizientes Rendern optimiert und vollständig kompatibel mit [**Turbopack**](https://nextjs.org/docs/architecture/turbopack). Es blockiert kein statisches Rendering und bietet Middleware sowie alle für die Skalierung der Internationalisierung erforderlichen Funktionen (i18n).
@@ -214,11 +213,22 @@ export default withIntlayer(nextConfig);
 
 > Das `withIntlayer()` Next.js-Plugin wird verwendet, um Intlayer mit Next.js zu integrieren. Es sorgt für den Aufbau der Inhaltsdeklarationsdateien und überwacht diese im Entwicklungsmodus. Es definiert Intlayer-Umgebungsvariablen innerhalb der [Webpack](https://webpack.js.org/) oder [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack)-Umgebungen. Zusätzlich stellt es Aliase bereit, um die Leistung zu optimieren, und gewährleistet die Kompatibilität mit Server-Komponenten.
 
+> Die Funktion `withIntlayer()` ist eine Promise-Funktion. Wenn Sie sie mit anderen Plugins verwenden möchten, können Sie diese mit `await` abwarten. Beispiel:
+>
+> ```tsx
+> const nextConfig = await withIntlayer(nextConfig);
+> const nextConfigWithOtherPlugins = withOtherPlugins(nextConfig);
+>
+> export default nextConfigWithOtherPlugins;
+> ```
+
 </Step>
 
 <Step number={4} title="Middleware für die Lokalerkennung konfigurieren">
 
 Richten Sie Middleware ein, um die bevorzugte Sprache des Benutzers automatisch zu erkennen und zu verarbeiten:
+
+> Seit Intlayer v9 respektiert diese Middleware die Option `routing.enableProxy` (standardmäßig `true`). Setzen Sie `routing.enableProxy: false` in Ihrer Konfiguration, um sie in einen Pass-Through zu verwandeln, ohne diese Datei zu entfernen. Siehe die [v9-Versionshinweise](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/releases/v9.md).
 
 ```typescript fileName="src/middleware.ts" codeFormat={["typescript", "esm", "commonjs"]}
 export { intlayerProxy as middleware } from "next-intlayer/middleware";

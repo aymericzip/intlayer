@@ -69,7 +69,6 @@ Ten przewodnik dotyczy aplikacji SolidStart **renderowanej po stronie serwera (S
 W porównaniu z głównymi rozwiązaniami, takimi jak `@solid-primitives/i18n` czy `i18next`, Intlayer jest rozwiązaniem wyposażonym w zintegrowane optymalizacje, takie jak:
 
 <AccordionGroup>
-
 <Accordion header="Pełne wsparcie dla Solid">
 
 Intlayer jest zoptymalizowany do idealnej współpracy z Solid, oferując **zakresowanie treści na poziomie komponentów**, **reaktywne tłumaczenia** i wszystkie funkcje potrzebne do skalowania internacjonalizacji (i18n).

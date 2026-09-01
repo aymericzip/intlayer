@@ -103,6 +103,21 @@ export default config;
 
 Если вы самостоятельно размещаете (self-host) Intlayer, аналитика автоматически указывает на ваш собственный экземпляр, поскольку она использует общий `editor.backendURL`.
 
+### Вызов API из браузера
+
+Тот же токен обеспечивает работу небольшого клиента без учетных данных, поэтому статический сайт или SPA может читать контент своей CMS во время выполнения без сервера, без серверного действия и без какого-либо секрета в бандле:
+
+```ts fileName="content.ts"
+import { createPublicClient } from "@intlayer/api/public";
+
+const client = createPublicClient();
+
+const keys = await client.getDictionaryKeys();
+const [navbar] = await client.getDictionaries(["navbar"]);
+```
+
+Он аутентифицируется на основе `editor.clientId`: обмен, кеширование и обновление токена обрабатываются внутренне. Область действия (scopes) ограничивает то, к чему у него есть доступ: опубликованный контент словарей и прием событий аналитики. Все остальное (публикация словарей, чтение проекта, расходование AI-кредитов) требует настоящих учетных данных, а значит, сервера или авторизованного пользователя.
+
 ### Как отключить
 
 Необязательный блок `analytics` настраивает — или полностью отключает — сбор данных:
@@ -134,6 +149,126 @@ export default config;
 - записывает `page_view` при каждой смене локали,
 - запускает цикл очистки (flush) с интервалом около 20 с и отправляет оставшиеся события при размонтировании / закрытии вкладки (через `navigator.sendBeacon`, с откатом на `fetch(..., { keepalive: true })`).
 
+Точка входа отличается для каждого фреймворка, но в любом случае это то же самое место, где вы уже настраиваете Intlayer, поэтому добавлять ничего не нужно:
+
+<Tabs group="framework">
+  <Tab label="React" value="react">
+
+    `IntlayerProvider` монтирует провайдер аналитики внутренне.
+
+    ```tsx fileName="App.tsx"
+    import { IntlayerProvider } from "react-intlayer";
+
+    const App = () => (
+      <IntlayerProvider>
+        <Router />
+      </IntlayerProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+
+    `next-intlayer` реэкспортирует `IntlayerProvider` из React, поэтому аналитика подключается так же.
+
+    ```tsx fileName="app/[locale]/layout.tsx"
+    import { IntlayerProvider } from "next-intlayer";
+
+    const LocaleLayout = ({ children }) => (
+      <IntlayerProvider>{children}</IntlayerProvider>
+    );
+
+    export default LocaleLayout;
+    ```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+    Плагин `intlayer` регистрирует хуки аналитики в жизненном цикле корневого компонента.
+
+    ```javascript fileName="main.js"
+    import { createApp } from "vue";
+    import { intlayer } from "vue-intlayer";
+    import App from "./App.vue";
+
+    const app = createApp(App);
+
+    app.use(intlayer);
+
+    app.mount("#app");
+    ```
+
+    > В случае с Nuxt пакет `nuxt-intlayer` устанавливает плагин за вас: делать ничего не нужно.
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+    `setupIntlayer()` запускает аналитику из компонента, который настраивает Intlayer.
+
+    ```svelte fileName="src/routes/[[locale=locale]]/+layout.svelte"
+    <script lang="ts">
+      import { setupIntlayer } from "svelte-intlayer";
+      import type { Snippet } from "svelte";
+
+      let { children, data }: { children: Snippet, data: LayoutData } = $props();
+
+      $effect(() => {
+        setupIntlayer(data.locale);
+      });
+    </script>
+
+    {@render children()}
+    ```
+
+  </Tab>
+  <Tab label="Preact" value="preact">
+
+    `IntlayerProvider` монтирует провайдер аналитики внутренне.
+
+    ```tsx fileName="app.tsx"
+    import { IntlayerProvider } from "preact-intlayer";
+
+    const App = () => (
+      <IntlayerProvider>
+        <Router />
+      </IntlayerProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+    `IntlayerProvider` монтирует провайдер аналитики отложенно (lazy), поэтому этот чанк не попадает в критический путь загрузки.
+
+    ```tsx fileName="App.tsx"
+    import { IntlayerProvider } from "solid-intlayer";
+
+    const App = () => (
+      <IntlayerProvider>
+        <Router />
+      </IntlayerProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+
+    `provideIntlayer()` уже включает в себя `provideIntlayerAnalytics()`.
+
+    ```ts fileName="app.config.ts"
+    import { provideIntlayer } from "angular-intlayer";
+    import type { ApplicationConfig } from "@angular/core";
+
+    export const appConfig: ApplicationConfig = {
+      providers: [provideIntlayer()],
+    };
+    ```
+
+    > Используйте `provideIntlayerAnalytics()` отдельно только если вы управляете провайдерами по отдельности.
+
+  </Tab>
+</Tabs>
+
 ### Автоматическое отслеживание на уровне узла
 
 Каждый раз, когда `useIntlayer` разрешает фрагмент контента для отображения, интерпретатор сообщает о событии `content_exposure` для этого точного `dictionaryKey` + пути к ключу + локали — опять же, никаких изменений в коде не требуется. Повторяющиеся показы одного и того же узла в пределах окна очистки объединяются в одно событие со счетчиком (`count`), поэтому список, перерисовывающийся 50 раз, не отправляет 50 событий.
@@ -142,29 +277,340 @@ export default config;
 
 Используйте `useConversion()`, чтобы связать цель с вариантом, который видела сессия:
 
-```tsx fileName="CTAButton.tsx" codeFormat="tsx"
-import { useConversion } from "react-intlayer";
+<Tabs group="framework">
+  <Tab label="React" value="react">
 
-const CTAButton = () => {
-  const trackConversion = useConversion();
+    ```tsx fileName="CTAButton.tsx"
+    import { useConversion } from "react-intlayer";
 
-  return (
+    const CTAButton = () => {
+      const trackConversion = useConversion();
+
+      return (
+        <button
+          onClick={() =>
+            trackConversion({
+              experimentKey: "homepage-hero",
+              variant: "black_friday",
+              goal: "cta_click",
+            })
+          }
+        >
+          Начать
+        </button>
+      );
+    };
+    ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+
+    ```tsx fileName="CTAButton.tsx"
+    "use client";
+
+    import { useConversion } from "next-intlayer";
+
+    const CTAButton = () => {
+      const trackConversion = useConversion();
+
+      return (
+        <button
+          onClick={() =>
+            trackConversion({
+              experimentKey: "homepage-hero",
+              variant: "black_friday",
+              goal: "cta_click",
+            })
+          }
+        >
+          Начать
+        </button>
+      );
+    };
+    ```
+
+    > `useConversion` — это клиентский хук: пометьте компонент как `"use client"`.
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+    ```vue fileName="CTAButton.vue"
+    <script setup lang="ts">
+    import { useConversion } from "vue-intlayer";
+
+    const trackConversion = useConversion();
+    </script>
+
+    <template>
+      <button
+        @click="
+          trackConversion({
+            experimentKey: 'homepage-hero',
+            variant: 'black_friday',
+            goal: 'cta_click',
+          })
+        "
+      >
+        Начать
+      </button>
+    </template>
+    ```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+    ```svelte fileName="CTAButton.svelte"
+    <script lang="ts">
+      import { useConversion } from "svelte-intlayer";
+
+      const trackConversion = useConversion();
+    </script>
+
     <button
-      onClick={() =>
+      onclick={() =>
         trackConversion({
           experimentKey: "homepage-hero",
           variant: "black_friday",
           goal: "cta_click",
-        })
-      }
+        })}
     >
       Начать
     </button>
-  );
-};
-```
+    ```
+
+  </Tab>
+  <Tab label="Preact" value="preact">
+
+    ```tsx fileName="CTAButton.tsx"
+    import { useConversion } from "preact-intlayer";
+
+    const CTAButton = () => {
+      const trackConversion = useConversion();
+
+      return (
+        <button
+          onClick={() =>
+            trackConversion({
+              experimentKey: "homepage-hero",
+              variant: "black_friday",
+              goal: "cta_click",
+            })
+          }
+        >
+          Начать
+        </button>
+      );
+    };
+    ```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+    ```tsx fileName="CTAButton.tsx"
+    import { useConversion } from "solid-intlayer";
+
+    const CTAButton = () => {
+      const trackConversion = useConversion();
+
+      return (
+        <button
+          onClick={() =>
+            trackConversion({
+              experimentKey: "homepage-hero",
+              variant: "black_friday",
+              goal: "cta_click",
+            })
+          }
+        >
+          Начать
+        </button>
+      );
+    };
+    ```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+
+    ```typescript fileName="cta-button.component.ts"
+    import { Component } from "@angular/core";
+    import { useConversion } from "angular-intlayer";
+
+    @Component({
+      selector: "app-cta-button",
+      template: `<button (click)="onClick()">Начать</button>`,
+    })
+    export class CtaButtonComponent {
+      private trackConversion = useConversion();
+
+      onClick() {
+        this.trackConversion({
+          experimentKey: "homepage-hero",
+          variant: "black_friday",
+          goal: "cta_click",
+        });
+      }
+    }
+    ```
+
+  </Tab>
+</Tabs>
 
 ### Разрешение варианта на стороне клиента
+
+`useExperiment()` назначает сессии вариант и записывает показ, который становится знаменателем коэффициента конверсии. Отображайте поддерево, зависящее от варианта, только при `isAssigned`, чтобы ни один посетитель не увидел мелькание контрольного варианта до того, как назначение будет разрешено:
+
+<Tabs group="framework">
+  <Tab label="React" value="react">
+
+    `variant` — это обычная строка.
+
+    ```tsx fileName="Hero.tsx"
+    import { useExperiment } from "react-intlayer";
+    import { HeroBanner } from "./HeroBanner";
+
+    export const Hero = () => {
+      const { variant, isAssigned } = useExperiment("homepage-hero", [
+        "default",
+        "black_friday",
+      ]);
+
+      if (!isAssigned) return null;
+
+      return <HeroBanner variant={variant} />;
+    };
+    ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+
+    `variant` — это обычная строка. Назначение происходит в браузере, поэтому компонент должен быть клиентским.
+
+    ```tsx fileName="Hero.tsx"
+    "use client";
+
+    import { useExperiment } from "next-intlayer";
+    import { HeroBanner } from "./HeroBanner";
+
+    export const Hero = () => {
+      const { variant, isAssigned } = useExperiment("homepage-hero", [
+        "default",
+        "black_friday",
+      ]);
+
+      if (!isAssigned) return null;
+
+      return <HeroBanner variant={variant} />;
+    };
+    ```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+    `variant` и `isAssigned` — это `Ref`.
+
+    ```vue fileName="Hero.vue"
+    <script setup lang="ts">
+    import { useExperiment } from "vue-intlayer";
+    import HeroBanner from "./HeroBanner.vue";
+
+    const { variant, isAssigned } = useExperiment("homepage-hero", [
+      "default",
+      "black_friday",
+    ]);
+    </script>
+
+    <template>
+      <HeroBanner v-if="isAssigned" :variant="variant" />
+    </template>
+    ```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+    `variant` и `isAssigned` — это сторы (stores): читайте их с префиксом `$`.
+
+    ```svelte fileName="Hero.svelte"
+    <script lang="ts">
+      import { useExperiment } from "svelte-intlayer";
+      import HeroBanner from "./HeroBanner.svelte";
+
+      const { variant, isAssigned } = useExperiment("homepage-hero", [
+        "default",
+        "black_friday",
+      ]);
+    </script>
+
+    {#if $isAssigned}
+      <HeroBanner variant={$variant} />
+    {/if}
+    ```
+
+  </Tab>
+  <Tab label="Preact" value="preact">
+
+    `variant` — это обычная строка.
+
+    ```tsx fileName="Hero.tsx"
+    import { useExperiment } from "preact-intlayer";
+    import { HeroBanner } from "./HeroBanner";
+
+    export const Hero = () => {
+      const { variant, isAssigned } = useExperiment("homepage-hero", [
+        "default",
+        "black_friday",
+      ]);
+
+      if (!isAssigned) return null;
+
+      return <HeroBanner variant={variant} />;
+    };
+    ```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+    `variant` и `isAssigned` — это `Accessor`: вызывайте их, чтобы прочитать значение.
+
+    ```tsx fileName="Hero.tsx"
+    import { useExperiment } from "solid-intlayer";
+    import { Show } from "solid-js";
+    import { HeroBanner } from "./HeroBanner";
+
+    export const Hero = () => {
+      const { variant, isAssigned } = useExperiment("homepage-hero", [
+        "default",
+        "black_friday",
+      ]);
+
+      return (
+        <Show when={isAssigned()}>
+          <HeroBanner variant={variant()} />
+        </Show>
+      );
+    };
+    ```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+
+    `variant` и `isAssigned` — это `Signal`: вызывайте их, чтобы прочитать значение.
+
+    ```typescript fileName="hero.component.ts"
+    import { Component } from "@angular/core";
+    import { useExperiment } from "angular-intlayer";
+    import { HeroBannerComponent } from "./hero-banner.component";
+
+    @Component({
+      selector: "app-hero",
+      imports: [HeroBannerComponent],
+      template: `@if (experiment.isAssigned()) {
+        <app-hero-banner [variant]="experiment.variant()" />
+      }`,
+    })
+    export class HeroComponent {
+      experiment = useExperiment("homepage-hero", ["default", "black_friday"]);
+    }
+    ```
 
   </Tab>
 </Tabs>
@@ -255,7 +701,7 @@ const cms = createIntlayerCMS();
 const { data: audience } = await analyticsEndpoint(cms).getAudience(30);
 ```
 
-> **Только на стороне сервера.** `createIntlayerCMS()` аутентифицируется с помощью `clientId` + `clientSecret`, и секрет никогда не доступен в браузере — этот фрагмент кода выполнял бы неаутентифицированные запросы, если бы он там работал. Держите его в обработчике маршрута, серверном действии или скрипте.
+> **Только на стороне сервера.** `createIntlayerCMS()` аутентифицируется с помощью `clientId` + `clientSecret`, и секрет никогда не доступен в браузере: этот фрагмент кода выполнял бы неаутентифицированные запросы, если бы он там работал. Держите его в обработчике маршрута, серверном действии или скрипте.
 
 ## Полезные ссылки
 

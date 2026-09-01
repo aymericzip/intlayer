@@ -46,7 +46,6 @@ Lihat [Application Template](https://github.com/aymericzip/intlayer-lynx-templat
 Dibandingkan dengan solusi utama seperti `react-native-localize` atau `i18next`, Intlayer adalah solusi yang hadir dengan pengoptimalan terintegrasi seperti:
 
 <AccordionGroup>
-
 <Accordion header="Cakupan Lynx penuh">
 
 Intlayer dioptimalkan untuk bekerja sempurna dengan Lynx dan React dengan menawarkan **pelingkupan konten tingkat komponen**, **dukungan TypeScript**, dan semua fitur yang diperlukan untuk penskalaan internasionalisasi (i18n).
@@ -145,8 +144,6 @@ bun add intlayer react-intlayer lynx-intlayer
 
 - **lynx-intlayer**  
   Integrasi Lynx yang menyediakan plugin untuk mengintegrasikan Intlayer dengan bundler Lynx.
-
----
 
 </Step>
 
@@ -332,8 +329,6 @@ export default appContent;
 
 > Untuk detail tentang deklarasi konten, lihat [dokumentasi konten Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md).
 
----
-
 </Step>
 
 <Step number={6} title="Gunakan Intlayer di Komponen Anda">
@@ -392,8 +387,6 @@ export const App = () => {
 ```
 
 > Saat menggunakan `content.someKey` dalam props berbasis string (misalnya, `title` pada tombol atau `children` pada komponen `Text`), **panggil `content.someKey.value`** untuk mendapatkan string yang sebenarnya.
-
----
 
 </Step>
 

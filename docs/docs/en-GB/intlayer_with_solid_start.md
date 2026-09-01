@@ -69,7 +69,6 @@ This guide covers a **server-rendered** SolidStart application: locale detection
 Compared to main solutions like `@solid-primitives/i18n` or `i18next`, Intlayer is a solution that comes with integrated optimisations such as:
 
 <AccordionGroup>
-
 <Accordion header="Full Solid coverage">
 
 Intlayer is optimised to work perfectly with Solid by offering **component-level content scoping**, **reactive translations**, and all the features needed for scaling internationalisation (i18n).

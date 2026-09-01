@@ -191,8 +191,6 @@ export default config;
 
 Ini akan memuat semua file JSON di direktori `src` yang cocok dengan pola `{key}.i18n.json` dan memuatnya sebagai kamus Intlayer.
 
----
-
 </Step>
 
 </Steps>

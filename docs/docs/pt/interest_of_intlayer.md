@@ -39,7 +39,6 @@ author: aymericzip
 Comparado às soluções principais como `next-intl` ou `i18next`, o Intlayer é uma solução que vem com otimizações integradas, tais como:
 
 <AccordionGroup>
-
 <Accordion header="Tamanho do bundle">
 
 Em vez de carregar arquivos JSON massivos em suas páginas, carregue apenas o conteúdo estritamente necessário. O Intlayer ajuda a **reduzir o tamanho do seu bundle e de suas páginas em até 50%**.

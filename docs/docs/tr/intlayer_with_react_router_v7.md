@@ -54,7 +54,6 @@ Bu kılavuz ön uç yönlendirmesine odaklanmaktadır. Fs-routes yönlendirmesi 
 'React-i18next' veya 'i18next' gibi ana çözümlerle karşılaştırıldığında Intlayer, aşağıdaki gibi entegre optimizasyonlarla gelen bir çözümdür:
 
 <AccordionGroup>
-
 <Accordion header="Tam React Router kapsamı">
 
 Intlayer, **yerel duyarlı yönlendirme**, **yerel algılama için ara yazılım** ve ölçeklendirme uluslararasılaştırması (i18n) için gereken tüm özellikleri sunarak React Router ile mükemmel çalışacak şekilde optimize edilmiştir.
@@ -700,8 +699,6 @@ bun run build # Or bun run dev
  </Tab>
 </Tabs>
 
----
-
 </Step>
 
 </Steps>
@@ -777,6 +774,8 @@ Bu kapsamlı rehber, Intlayer'ı React Router v7 ile tam uluslararasılaştırı
 
 <Question title="React Router v7 uygulamasını uluslararasılaştırmak için hangi farklı çözümler mevcuttur?">
 
+React Router v7 herhangi bir mesaj katmanı sağlamaz, bu nedenle onu bir i18n kütüphanesiyle eşleştirirsiniz:
+
 - **`react-i18next`**: çalışma zamanında JSON ad alanları yükleyen yaygın kütüphane.
 - **`react-intl`**: ICU formatı ve ayıklama adımı gerektiren çözüm.
 - **`Intlayer`**: en gelişmiş çözüm. Bileşen yanında içerik bildirimi, derleme zamanı derlemesi, SSR ve loader desteği, tam TypeScript tipleri, AI çeviri ve görsel düzenleyici.
@@ -805,9 +804,11 @@ Evet. [sync JSON eklentisi](https://github.com/aymericzip/intlayer/blob/main/doc
 
 <Question title="İçeriğimi anahtar anahtar taşımak zorunda mıyım?">
 
-Hayır. `npx intlayer extract` komutunu çalıştırın; Intlayer kaynak dosyalarınızı okur, kullanıcıya dönük metinleri çıkarır ve her birinin yanına bir `.content` dosyası yazar, böylece dizeleri tek tek kopyalamak yerine bir diff incelersiniz. Bkz. [extract komutu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/extract.md).
+Hayır. `npx intlayer extract` komutunu çalıştırın; Intlayer bileşenlerinizi okur, kullanıcıya dönük dizeleri çıkarır ve her birinin yanına bir `.content` dosyası yazar, böylece dizeleri tek tek kopyalamak yerine bir diff incelersiniz. Bu kılavuzun 12. adımı bunu açıklar.
 
-Tam otomatik bir akış için [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md) derleme sırasında JSX, TSX, Vue ve Svelte kodunda aynı işlemi yapar ve sözlükleri her değişiklikte otomatik üretir, böylece elle anahtar yönetimi gerekmez. Statik analizle çalıştığından, yalnızca çalışma zamanında var olan dizeler kapsam dışı kalır.
+Tam otomatik bir süreç için [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md) derleme sırasında aynı işlemi yapar: her değişiklikte JSX, TSX, Vue ve Svelte kodunu tarar, sözlükleri üretir ve HMR ile senkronize tutar, böylece elle yönetilecek hiçbir anahtar kalmaz.
+
+Derleyiciyi açmadan önce bilmeye değer iki sınır vardır. Statik analiz ile çalışır, bu nedenle API hata kodları veya CMS alanları gibi yalnızca çalışma zamanında var olan dizeler ulaşılamaz kalır. Ayrıca, `className="active"` veya durum kodu gibi uygulama mantığından kullanıcıya yönelik metinleri ayırt etmesi gerekir; bu da büyük bir kod tabanında birkaç ek açıklama gerektirir. [Extract komutu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/extract.md) sizi döngüde tutarak her ikisinden de kaçınır.
 
 </Question>
 

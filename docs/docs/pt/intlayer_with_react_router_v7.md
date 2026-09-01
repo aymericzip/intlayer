@@ -52,7 +52,6 @@ Este guia se concentra no roteamento de frontend. Para roteamento fs-routes, con
 Comparado com soluções principais como `react-i18next` ou `i18next`, Intlayer é uma solução que vem com otimizações integradas como:
 
 <AccordionGroup>
-
 <Accordion header="Cobertura completa do roteador React">
 
 O Intlayer é otimizado para funcionar perfeitamente com o React Router, oferecendo **roteamento com reconhecimento de localidade**, **middleware para detecção de localidade** e todos os recursos necessários para dimensionar a internacionalização (i18n).
@@ -265,6 +264,8 @@ export default defineConfig({
 
 Configure seu layout raiz e layouts específicos para cada localidade:
 
+</Step>
+</Steps>
 #### Layout Raiz
 
 ```tsx fileName="app/root.tsx"
@@ -314,8 +315,6 @@ export function Layout({
   );
 }
 ```
-
-</Step>
 
 <Step number={6} title="Declare Seu Conteúdo">
 
@@ -432,6 +431,7 @@ export const useLocalizedNavigate = () => {
 
 Acesse seus dicionários de conteúdo em toda a sua aplicação:
 
+</Step>
 #### Página Inicial Localizada
 
 ```tsx fileName="app/routes/page.tsx"
@@ -481,8 +481,6 @@ export default function Page() {
 > Para saber mais sobre o hook `useIntlayer`, consulte a [documentação](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/react-intlayer/useIntlayer.md).
 
 > Se a sua aplicação já existe, você pode usar o [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/compiler.md) em conjunto com o [comando extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/extract.md) para converter milhares de componentes em um segundo.
-
-</Step>
 
 <Step number={9} title="Crie um Componente de Seletor de Idioma">
 
@@ -575,6 +573,7 @@ export default function RootLayout() {
 
 <Step number={11} title="Compile e Execute Sua Aplicação">
 
+</Step>
 <Step number={12} title="Configurar TypeScript">
 
 O Intlayer utiliza a ampliação de módulos para aproveitar os benefícios do TypeScript e tornar sua base de código mais robusta.
@@ -693,11 +692,7 @@ bun run build # Or bun run dev
  </Tab>
 </Tabs>
 
----
-
 </Step>
-
-</Steps>
 
 ## Configure TypeScript
 

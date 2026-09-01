@@ -41,7 +41,6 @@ author: aymericzip
 `@nuxtjs/i18n` 또는 `i18next`와 같은 주요 솔루션과 비교할 때 Intlayer는 다음과 같은 통합 최적화가 제공되는 솔루션입니다.
 
 <AccordionGroup>
-
 <Accordion header="전체 Nuxt 적용 범위">
 
 Intlayer는 **다국어 라우팅**, **로케일 감지를 위한 미들웨어**, **사이트맵** 및 국제화 확장(i18n)에 필요한 모든 기능을 제공하여 Nuxt와 완벽하게 작동하도록 최적화되었습니다.

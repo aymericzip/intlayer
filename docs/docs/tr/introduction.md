@@ -93,7 +93,6 @@ export const MyComponent: FC = () => {
 `next-intl` veya `i18next` gibi ana çözümlerle karşılaştırıldığında, Intlayer aşağıdaki gibi entegre optimizasyonlarla birlikte gelen bir çözümdür:
 
 <AccordionGroup>
-
 <Accordion header="Paket boyutu (Bundle size)">
 
 Sayfalarınıza devasa JSON dosyaları yüklemek yerine sadece gerekli içeriği yükleyin. Intlayer, **paket ve sayfa boyutlarınızı %50'ye kadar azaltmanıza** yardımcı olur.

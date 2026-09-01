@@ -28,7 +28,6 @@ author: aymericzip
 ## 为什么从 next-intl 迁移到 Intlayer？
 
 <AccordionGroup>
-
 <Accordion header="Bundle 大小">
 
 与其将大量 JSON 文件加载到页面中，不如只加载必要的内容。Intlayer 帮助**将 bundle 和页面大小减少高达 50%**。
@@ -66,7 +65,6 @@ Intlayer 也是 i18n 生态中**开发最活跃的**解决方案 — 问题修�
 Intlayer 不仅仅是一个 i18n 解决方案，它提供了一个**自托管的[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)**和一个**[完整的 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)** 来帮助您**实时**管理多语言内容，使与翻译人员、文案和其他团队成员的协作无缝进行。内容可以本地和/或远程存储。
 
 </Accordion>
-
 </AccordionGroup>
 
 ---

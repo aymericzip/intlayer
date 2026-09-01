@@ -51,6 +51,7 @@ Intlayer Markdown सिंटैक्स का उपयोग करके �
 
 <Tabs>
   <Tab label=".content.md" value=".content.md">
+
     संस्करण `8.10.0` से, आप सीधे `.content.md` फ़ाइलों में Markdown सामग्री घोषित कर सकते हैं। Intlayer स्वचालित रूप से Markdown सामग्री का पता लगाएगा और उसे पार्स करेगा।
 
     ```md fileName="markdown-file.en.content.md"
@@ -96,6 +97,7 @@ Intlayer Markdown सिंटैक्स का उपयोग करके �
     ```
 
   </Tab>
+
   <Tab label="बाहरी फ़ाइलें" value="external-files">
     `file` फ़ंक्शन का उपयोग करके सीधे `.md` फ़ाइलें आयात करें।
 
@@ -129,6 +131,7 @@ Intlayer Markdown सिंटैक्स का उपयोग करके �
     ```
 
   </Tab>
+
 </Tabs>
 
 ## Markdown रेंडरिंग

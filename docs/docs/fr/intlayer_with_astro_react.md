@@ -67,7 +67,6 @@ author: aymericzip
 Par rapport aux solutions principales telles que `astro-i18n` ou `i18next`, Intlayer est une solution dotée d'optimisations intégrées telles que :
 
 <AccordionGroup>
-
 <Accordion header="Support complet d'Astro">
 
 Intlayer est optimisé pour s'intégrer parfaitement avec Astro en proposant le **routage multilingue**, la génération de **sitemap** et toutes les fonctionnalités nécessaires pour mettre à l'échelle votre internationalisation (i18n).
@@ -587,8 +586,6 @@ bun run build # Or bun run dev
 
  </Tab>
 </Tabs>
-
----
 
 </Step>
 

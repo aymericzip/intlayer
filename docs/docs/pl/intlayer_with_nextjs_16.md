@@ -76,8 +76,7 @@ Zobacz [Szablon aplikacji](https://github.com/aymericzip/intlayer-next-16-templa
 W porównaniu do głównych rozwiązań, takich jak `next-intl` czy `i18next`, Intlayer jest rozwiązaniem wyposażonym w zintegrowane optymalizacje, takie jak:
 
 <AccordionGroup>
-
-**Pełne pokrycie Next.js**
+<Accordion header="Pełne pokrycie Next.js">
 
 Intlayer jest zoptymalizowany do współpracy z **Server Components** w celu wydajnego renderowania i jest w pełni kompatybilny z [**Turbopack**](https://nextjs.org/docs/architecture/turbopack). Nie blokuje renderowania statycznego i oferuje oprogramowanie pośredniczące oraz wszystkie funkcje potrzebne do skalowania internacjonalizacji (i18n).
 
@@ -87,17 +86,17 @@ Intlayer jest zoptymalizowany do współpracy z **Server Components** w celu wyd
 
 </Accordion>
 
-**Rozmiar bundle'a**
+<Accordion header="Rozmiar bundle'a">
 
 Zamiast ładować ogromne pliki JSON na swoje strony, ładuj tylko niezbędną treść. Intlayer pomaga **zmniejszyć rozmiary bundle'a i stron nawet o 50%**.
 
 </Accordion>
 
-**Łatwość konserwacji**
+<Accordion header="Łatwość konserwacji">
 
 Określanie zakresu zawartości aplikacji **ułatwia konserwację** aplikacji na dużą skalę. Możesz powielić lub usunąć pojedynczy folder funkcji bez obciążania psychicznego koniecznością przeglądania całej bazy kodu zawartości. Dodatkowo Inlayer jest **w pełni napisany**, aby zapewnić dokładność treści.
 
-**Agent AI**
+</Accordion>
 
 <Accordion header="AI Agent">
 
@@ -105,11 +104,11 @@ Wspólna lokalizacja treści **zmniejsza potrzebny kontekst** dzięki modelom du
 
 </Accordion>
 
-**Automatyzacja**
+<Accordion header="Automatyzacja">
 
 Korzystaj z automatyzacji, aby tłumaczyć w swoim potoku CI/CD przy użyciu wybranego LLM na koszt dostawcy sztucznej inteligencji. Intlayer oferuje także **kompilator** do automatyzacji ekstrakcji treści, a także [platformę internetową] (https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md), która pomaga **tłumaczyć w tle**.
 
-**Wydajność**
+</Accordion>
 
 <Accordion header="Wydajność">
 
@@ -117,7 +116,7 @@ Korzystaj z automatyzacji, aby tłumaczyć w swoim potoku CI/CD przy użyciu wyb
 
 </Accordion>
 
-**Skalowanie bez użycia dewelopera**
+<Accordion header="Skalowanie bez użycia dewelopera">
 
 Więcej niż tylko rozwiązanie i18n, Intlayer zapewnia **samodzielny [edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** i **[pełny CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)**, który pomoże Ci zarządzać wielojęzyczną treścią w **w czasie rzeczywistym**, dzięki czemu współpraca z tłumaczami, copywriterami i innymi członkami zespołu będzie płynna. Treść może być przechowywana lokalnie i/lub zdalnie.
 
@@ -991,7 +990,6 @@ bun add @intlayer/swc --dev
 > Uwaga: Ten pakiet nie jest instalowany domyślnie, ponieważ wtyczki SWC są nadal eksperymentalne w Next.js. Może się to zmienić w przyszłości.
 
 > Uwaga: Jeśli ustawisz opcję `importMode: 'dynamic'` lub `importMode: 'fetch'` (w konfiguracji `dictionary`), będzie ona polegać na Suspense, więc będziesz musiał opakować wywołania `useIntlayer` w granicę `Suspense`. Oznacza to, że nie będziesz mógł używać `useIntlayer` bezpośrednio na najwyższym poziomie komponentu Page / Layout.
-> </Step>
 
 </Step>
 
@@ -1109,6 +1107,7 @@ bun run build # Or bun run dev
 
  </Tab>
 </Tabs>
+
 </Step>
 
 </Steps>

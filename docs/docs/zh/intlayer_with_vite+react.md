@@ -53,8 +53,6 @@ Intlayer 经过优化，可与 Vite 和 React 完美配合，提供**组件级�
 
 不要将大量 JSON 文件加载到页面中，而只需加载必要的内容。 Intlayer 有助于**将捆绑包和页面大小减少多达 50%**。
 
-</Accordion>
-
 **可维护性**
 
 确定应用程序内容的范围**有利于大型应用程序的维护**。您可以复制或删除单个功能文件夹，而无需承担检查整个内容代码库的精神负担。此外，Intlayer 具有**完全类型化 (fully typed)**，以确保您的内容的准确性。
@@ -70,8 +68,6 @@ Intlayer 经过优化，可与 Vite 和 React 完美配合，提供**组件级�
 **自动化**
 
 使用您选择的法学硕士，通过自动化在 CI/CD 管道中进行翻译，而费用由您的 AI 提供商承担。 Intlayer 还提供了一个**编译器**来自动提取内容，以及一个[网络平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)来帮助**在后台翻译**。
-
-</Accordion>
 
 **表现**
 
@@ -620,8 +616,6 @@ const LocaleSwitcher: FC = () => {
 
 以下是更新的 **步骤 9**，包含添加的解释和精炼的代码示例：
 
----
-
 </Step>
 
 <Step number={9} title="切换 HTML 语言和方向属性" isOptional={true}>
@@ -634,6 +628,8 @@ const LocaleSwitcher: FC = () => {
 
 通过在语言区域改变时动态更新这些属性，你可以为所有支持的语言的用户保证一致和可访问的体验。
 
+</Step>
+</Steps>
 #### 实现该 Hook
 
 创建一个自定义 Hook 来管理 HTML 属性。该 Hook 监听语言环境的变化并相应地更新属性：
@@ -695,8 +691,6 @@ export default App;
 - 根据语言环境调整 **文本方向** (`dir`)，提升不同阅读顺序语言的可读性和可用性。
 - 提供更好的 **无障碍** 体验，因为辅助技术依赖这些属性来实现最佳功能。
 
-</Step>
-
 <Step number={10} title="创建本地化链接组件">
 
 为了确保您的应用程序的导航尊重当前的语言环境，您可以创建一个自定义的 `Link` 组件。该组件会自动为内部 URL 添加当前语言的前缀。例如，当讲法语的用户点击“关于”页面的链接时，他们会被重定向到 `/fr/about`，而不是 `/about`。
@@ -755,6 +749,7 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
 Link.displayName = "Link";
 ```
 
+</Step>
 #### 工作原理
 
 - **检测外部链接**：  
@@ -772,7 +767,6 @@ Link.displayName = "Link";
 通过在整个应用程序中集成这个 `Link` 组件，你可以维持一致且具有语言意识的用户体验，同时获得改进的 SEO 和可用性。
 
 通过在整个应用中集成此 `Link` 组件，您可以维护一致且具语言感知的用户体验，同时提升 SEO 和可用性。
-</Step>
 
 <Step number={11} title="提取组件内容" isOptional={true}>
 
@@ -872,8 +866,6 @@ bun run build # Or bun run dev
  </Tab>
 </Tabs>
 </Step>
-
-</Steps>
 
 ### （可选）站点地图与 robots.txt（构建时生成）
 

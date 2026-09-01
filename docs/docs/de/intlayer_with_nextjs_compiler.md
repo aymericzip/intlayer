@@ -341,6 +341,9 @@ export default function Page() {
 }
 ```
 
+  </Tab>
+</Tabs>
+
 <Tabs>
   <Tab label='Intlayer >=9.4' value='>=9.4'>
 
@@ -467,7 +470,7 @@ export const config = {
 
 </Step>
 
-<Step number={8} title="Ändern Sie die Sprache Ihres Inhalts" isOptional={true}>
+<Step number={9} title="Ändern Sie die Sprache Ihres Inhalts" isOptional={true}>
 
 Um die Sprache deines Inhalts in Next.js zu ändern, ist die empfohlene Methode, die `Link`-Komponente zu verwenden, um Benutzer auf die entsprechende lokalisierte Seite umzuleiten. Die `Link`-Komponente ermöglicht das Prefetching der Seite, was einen vollständigen Neuladen der Seite vermeidet.
 
@@ -551,7 +554,7 @@ bun add @intlayer/swc --dev
 
 </Step>
 
-<Step number={1} title="Inhalt Ihrer Komponenten extrahieren" isOptional={true}>
+<Step number={11} title="Inhalt Ihrer Komponenten extrahieren" isOptional={true}>
 
 Wenn Sie eine bestehende Codebasis haben, kann die Transformation von Tausenden von Dateien zeitaufwendig sein.
 
@@ -665,6 +668,8 @@ bun run build # Or bun run dev
 
  </Tab>
 </Tabs>
+
+</Step>
 
 </Steps>
 

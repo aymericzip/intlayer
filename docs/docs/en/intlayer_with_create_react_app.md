@@ -46,7 +46,6 @@ See [Application Template](https://github.com/aymericzip/intlayer-react-cra-temp
 Compared to main solutions like `react-i18next` or `i18next`, Intlayer is a solution that comes with integrated optimizations such as:
 
 <AccordionGroup>
-
 <Accordion header="Full React coverage">
 
 Intlayer is optimized to work perfectly with React by offering **component-level content scoping**, **lazy-loaded translations**, and all the features needed for scaling internationalization (i18n).

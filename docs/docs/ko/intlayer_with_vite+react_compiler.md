@@ -236,9 +236,6 @@ export default defineConfig({
 
 페이지의 예시는 다음과 같습니다:
 
-<Tabs>
- <Tab value="코드">
-
 ```tsx fileName="src/App.tsx"
 import { useState, type FC } from "react";
 import reactLogo from "./assets/react.svg";
@@ -283,9 +280,6 @@ const App: FC = () => (
 
 export default App;
 ```
-
- </Tab>
- <Tab value="출력">
 
 ```ts fileName="i18n/app-content.content.json"
 {
@@ -364,9 +358,6 @@ const App: FC = () => (
 export default App;
 ```
 
- </Tab>
-</Tabs>
-
 - **`IntlayerProvider`**는 중첩된 컴포넌트에 로케일을 제공하는 데 사용됩니다.
 
 </Step>
@@ -432,6 +423,8 @@ bun x intlayer fill         # 누락된 번역 채우기
 ```
 
 > 자세한 내용은 [CLI 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/ci.md)를 참조하세요.
+
+</Step>
 
 </Steps>
 

@@ -36,23 +36,22 @@ author: aymericzip
 
 「storybook-react-i18next」や「i18next」などの主要なソリューションと比較して、Intlayer は次のような統合された最適化を備えたソリューションです。
 
-**ストーリーブックの全内容を網羅**
-
+<AccordionGroup>
 <Accordion header="Storybook 完全カバレッジ">
 
 Intlayer は、**多言語ストーリー デコレーター**、**ロケール切り替え**、およびデザイン システム全体で国際化 (i18n) を拡張するために必要なすべての機能を提供することにより、Storybook と完全に連携するように最適化されています。
 
-**バンドルサイズ**
+</Accordion>
 
 <Accordion header="バンドルサイズ">
 
 大量の JSON ファイルをページにロードするのではなく、必要なコンテンツのみをロードします。 Intlayer は、**バンドルとページのサイズを最大 50% 削減**するのに役立ちます。
 
-**保守性**
+</Accordion>
+
+<Accordion header="保守性">
 
 アプリケーションのコンテンツのスコープを設定すると、大規模なアプリケーションの **メンテナンスが容易になります**。コンテンツ コードベース全体を確認するという精神的な負担を負うことなく、単一の機能フォルダーを複製または削除できます。さらに、Intlayer は**完全に型指定**されており、コンテンツの正確性を保証します。
-
-**AI エージェント**
 
 </Accordion>
 
@@ -60,19 +59,19 @@ Intlayer は、**多言語ストーリー デコレーター**、**ロケール�
 
 コンテンツを同じ場所に配置すると、大規模言語モデル (LLM) によって **必要なコンテキストが削減**されます。 Intlayer には、翻訳の欠落をテストする **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** などのツール スイートも付属しています。および **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)** により、AI エージェントの開発者エクスペリエンス (DX) がさらにスムーズになります。
 
-**オートメーション**
+</Accordion>
 
 <Accordion header="自動化">
 
 AI プロバイダーの費用で、選択した LLM を使用して CI/CD パイプラインで自動化を変換します。 Intlayer は、コンテンツ抽出を自動化する **コンパイラー** と、**バックグラウンドでの翻訳**を支援する [Web プラットフォーム](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) も提供します。
 
-**パフォーマンス**
+</Accordion>
 
 <Accordion header="パフォーマンス">
 
 大量の JSON ファイルをコンポーネントに接続すると、パフォーマンスと反応性の問題が発生する可能性があります。 Intlayer は、ビルド時のコンテンツの読み込みを最適化します。
 
-**非開発によるスケーリング**
+</Accordion>
 
 <Accordion header="none-dev でのスケーリング">
 
@@ -128,8 +127,6 @@ bun add vite-intlayer --dev
 | `react-intlayer` | Reactバインディング - `IntlayerProvider`, `useIntlayer` フック |
 | `vite-intlayer`  | Viteプラグイン - コンテンツ宣言ファイルの監視とコンパイル      |
 
----
-
 </Step>
 
 <Step number={2} title="Intlayer設定の作成">
@@ -158,8 +155,6 @@ export default config;
 ```
 
 > オプションの全リストについては、[設定リファレンス](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)を参照してください。
-
----
 
 </Step>
 
@@ -207,8 +202,6 @@ export default config;
 ```
 
 `intlayer()` プラグインは `*.content.ts` ファイルを監視し、Storybookの開発中に変更があれば自動的に辞書を再構築します。
-
----
 
 </Step>
 
@@ -267,6 +260,7 @@ export default preview;
 > `locale` の値は `intlayer.config.ts` で宣言されたロケールと一致する必要があります。
 
 </Step>
+
 </Steps>
 </Tab>
 <Tab value="Webpack Setup">
@@ -294,8 +288,6 @@ bun add intlayer react-intlayer
 bun add @intlayer/webpack --dev
 ```
 
----
-
 </Step>
 
 <Step number={2} title="Intlayer設定の作成">
@@ -317,8 +309,6 @@ const config: IntlayerConfig = {
 
 export default config;
 ```
-
----
 
 </Step>
 
@@ -346,8 +336,6 @@ const config: StorybookConfig = {
 
 export default config;
 ```
-
----
 
 </Step>
 

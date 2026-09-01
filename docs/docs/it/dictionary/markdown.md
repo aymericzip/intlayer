@@ -51,6 +51,7 @@ Puoi dichiarare i contenuti Markdown usando la funzione `md` o semplicemente com
 
 <Tabs>
   <Tab label=".content.md" value=".content.md">
+
     Dalla versione `8.10.0`, puoi dichiarare i contenuti Markdown direttamente nei file `.content.md`. Intlayer rileverà e analizzerà automaticamente il contenuto Markdown.
 
     ```md fileName="markdown-file.en.content.md"
@@ -96,6 +97,7 @@ Puoi dichiarare i contenuti Markdown usando la funzione `md` o semplicemente com
     ```
 
   </Tab>
+
   <Tab label="File Esterni" value="external-files">
     Importa direttamente i file `.md` usando la funzione `file`.
 
@@ -129,6 +131,7 @@ Puoi dichiarare i contenuti Markdown usando la funzione `md` o semplicemente com
     ```
 
   </Tab>
+
 </Tabs>
 
 ## Rendering del Markdown
@@ -957,7 +960,21 @@ Il `MarkdownProvider` (o il suo equivalente nel framework) configura la pipeline
   </Tab>
   <Tab label="Angular" value="angular">
 
-> MDX è supportato — qualsiasi nome di componente utilizzato all'interno del tuo Markdown (ad es. `<MyCustomJSXComponent />`) viene risolto rispetto alla mappa `components`.
+    ```typescript fileName="app.config.ts"
+    import { createIntlayerMarkdownProvider } from "angular-intlayer/markdown";
+
+    export const appConfig: ApplicationConfig = {
+      providers: [
+        createIntlayerMarkdownProvider({
+          components: {
+            h1: { class: "text-2xl font-bold" },
+          },
+        }),
+      ],
+    };
+    ```
+
+    > MDX è supportato — qualsiasi nome di componente utilizzato all'interno del tuo Markdown (ad es. `<MyCustomJSXComponent />`) viene risolto rispetto alla mappa `components`.
 
 Puoi anche usare il tuo markdown renderer personalizzato:
 

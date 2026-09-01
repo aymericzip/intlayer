@@ -71,7 +71,6 @@ author: aymericzip
 `react-native-localize`나 `i18next`와 같은 주요 솔루션과 비교했을 때, Intlayer는 다음과 같은 통합 최적화 기능을 갖춘 솔루션입니다:
 
 <AccordionGroup>
-
 <Accordion header="완전한 React Native 지원">
 
 Intlayer는 React Native와 Expo에서 완벽하게 작동하도록 최적화되어 있으며, **컴포넌트 수준의 콘텐츠 범위 지정**, **TypeScript 지원**, 그리고 모바일 앱에서 국제화(i18n)를 확장하는 데 필요한 모든 기능을 제공합니다.
@@ -166,8 +165,6 @@ bun add intlayer react-native-intlayer
 
 - **react-native-intlayer**  
   로케일을 얻고 전환하기 위해 사용할 컨텍스트 프로바이더와 React 훅, React Native 폴리필, 그리고 Intlayer를 React Native 번들러와 통합하기 위한 Metro 플러그인을 제공하는 React Native 통합입니다. `react-intlayer`의 모든 것을 재내보내므로 React Native 앱에서는 이 단일 패키지만 필요합니다.
-
----
 
 </Step>
 
@@ -328,8 +325,6 @@ export default homeScreenContent;
 
 > 콘텐츠 선언에 대한 자세한 내용은 [Intlayer 콘텐츠 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md)를 참조하세요.
 
----
-
 </Step>
 
 <Step number={6} title="컴포넌트에서 Intlayer 사용하기">
@@ -382,8 +377,6 @@ export default HomeScreen;
 > 문자열 기반 prop(예: 버튼의 `title` 또는 `Text` 컴포넌트의 `children`)에서 `content.someKey`를 사용할 때는 실제 문자열을 얻기 위해 **`content.someKey.value`를 호출**하세요.
 
 > 앱이 이미 존재한다면 [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md)와 [extract 명령어](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/extract.md)를 사용하여 수천 개의 컴포넌트를 한 번에 변환할 수 있습니다.
-
----
 
 </Step>
 

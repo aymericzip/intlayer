@@ -143,8 +143,6 @@ CLI kullanılarak JSON'un çevrilmesi için değişiklik yapılırsa veya CMS ku
 
 `syncJSON` eklentisi hakkında daha fazla detay görmek için lütfen [syncJSON eklenti dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-json.md) bakınız.
 
----
-
 </Step>
 
 <Step number={3} title="Bileşen başına JSON çevirilerini uygulama">
@@ -188,8 +186,6 @@ export default config;
 ```
 
 Bu, `src` dizinindeki `{key}.i18n.json` desenine uyan tüm JSON dosyalarını yükler ve bunları Intlayer sözlükleri olarak kullanır.
-
----
 
 </Step>
 

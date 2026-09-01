@@ -95,7 +95,6 @@ export const MyComponent: FC = () => {
 與 `next-intl` 或 `i18next` 等主流解決方案相比，Intlayer 是一個自帶多項整合最佳化方案的工具，例如：
 
 <AccordionGroup>
-
 <Accordion header="打包體積 (Bundle Size)">
 
 您無需在頁面中載入龐大的 JSON 檔案，而是只載入所需的內容。Intlayer 可以幫助 **將您的打包檔和頁面大小減小高達 50%**。

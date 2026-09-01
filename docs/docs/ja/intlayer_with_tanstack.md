@@ -67,46 +67,45 @@ author: aymericzip
 「react-i18next」、「use-intl」、または「paraglide」などの主要なソリューションと比較して、Intlayer は次のような統合された最適化を備えたソリューションです。
 
 <AccordionGroup>
-
-**TanStack Start を完全にカバー**
+<Accordion header="TanStack Start を完全にカバー">
 
 Intlayer は TanStack Start 用に完全に最適化されており、**多言語ルーティング**、**Cookie 管理**、**サイトマップ生成**、**動的コンテンツ読み込み**、および国際化 (i18n) の取り組みを拡張するために必要なすべての機能を提供します。
 
-**バンドルサイズ**
+</Accordion>
 
 <Accordion header="バンドルサイズ">
 
 大量の JSON ファイルをページにロードするのではなく、必要なコンテンツのみをロードします。 Intlayer は、**バンドルとページのサイズを最大 50% 削減**するのに役立ちます。
 
-**保守性**
+</Accordion>
+
+<Accordion header="保守性">
 
 アプリケーションのコンテンツのスコープを設定すると、大規模なアプリケーションの **メンテナンスが容易になります**。コンテンツ コードベース全体を確認するという精神的な負担を負うことなく、単一の機能フォルダーを複製または削除できます。さらに、Intlayer は**完全に型指定**されており、コンテンツの正確性を保証します。
 
-**AI エージェント**
+</Accordion>
+
+<Accordion header="AI エージェント">
+
+コンテンツを同じ場所に配置すると、大規模言語モデル (LLM) によって **必要なコンテキストが削減**されます。 Intlayer には、翻訳の欠落をテストする **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)** などのツール スイートも付属しています。および **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)** により、AI エージェントの開発者エクスペリエンス (DX) がさらにスムーズになります。
 
 </Accordion>
 
-<Accordion header="AI Agent">
-
-コンテンツを同じ場所に配置すると、大規模言語モデル (LLM) によって **必要なコンテキストが削減**されます。 Intlayer には、翻訳の欠落をテストする **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** などのツール スイートも付属しています。および **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)** により、AI エージェントの開発者エクスペリエンス (DX) がさらにスムーズになります。
-
-**オートメーション**
-
 <Accordion header="自動化">
 
-AI プロバイダーの費用で、選択した LLM を使用して CI/CD パイプラインで自動化を変換します。 Intlayer は、コンテンツ抽出を自動化する **コンパイラー** と、**バックグラウンドでの翻訳**を支援する [Web プラットフォーム](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) も提供します。
+AI プロバイダーの費用で、選択した LLM を使用して CI/CD パイプラインで自動化を変換します。 Intlayer は、コンテンツ抽出を自動化する **コンパイラー** と、**バックグラウンドでの翻訳**を支援する [Web プラットフォーム](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md) も提供します。
 
-**パフォーマンス**
+</Accordion>
 
 <Accordion header="パフォーマンス">
 
 大量の JSON ファイルをコンポーネントに接続すると、パフォーマンスと反応性の問題が発生する可能性があります。 Intlayer は、ビルド時のコンテンツの読み込みを最適化します。
 
-**非開発によるスケーリング**
+</Accordion>
 
-<Accordion header="none-dev でのスケーリング">
+<Accordion header="非開発者とのスケーリング">
 
-Intlayer は単なる i18n ソリューションではなく、**自己ホスト型 [ビジュアル エディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** と **[完全な CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** を提供します。 **リアルタイム**で多言語コンテンツを管理できるようになり、翻訳者、コピーライター、その他のチーム メンバーとのコラボレーションがシームレスになります。コンテンツはローカルおよび/またはリモートに保存できます。
+Intlayer は単なる i18n ソリューションではなく、**自己ホスト型 [ビジュアル エディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)** と **[完全な CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)** を提供します。 **リアルタイム**で多言語コンテンツを管理できるようになり、翻訳者、コピーライター、その他のチーム メンバーとのコラボレーションがシームレスになります。コンテンツはローカルおよび/またはリモートに保存できます。
 
 </Accordion>
 </AccordionGroup>
@@ -658,8 +657,6 @@ function RootDocument({ children }: { children: ReactNode }) {
 }
 ```
 
----
-
 </Step>
 
 <Step number={11} title="ミドルウェアを追加する">
@@ -695,8 +692,6 @@ export default defineConfig({
   ],
 });
 ```
-
----
 
 </Step>
 
@@ -891,8 +886,6 @@ head の重大パスでその コストを支払うことなく、ロケール�
 | Client navigations   | nothing to resolve    | re-entered on every match  | served from the router cache           |
 | Developer experience | simplest              | one `await`                | content threaded through `loaderData`  |
 
----
-
 </Step>
 
 <Step number={13} title="サーバーアクションでロケールを取得する">
@@ -930,177 +923,80 @@ export const getLocaleServer = createServerFn().handler(async () => {
 });
 ```
 
----
-
 </Step>
 
 <Step number={14} title="見つからないページを管理する">
 
-ユーザーが存在しないページにアクセスした場合、カスタム見つからないページを表示できます。ロケールプレフィックスは見つからないページがトリガーされる方法に影響を与える可能性があります。
+ユーザーが存在しないページにアクセスした場合、カスタムの 404 ページを表示できます。ロケールプレフィックスは、見つからないページがトリガーされる方法に影響を与える可能性があります。
 
-#### ローカライズされたホームページ
+#### ロケール接頭辞を使用した TanStack Router の 404 処理の理解
 
-> `string` 属性（`alt`、`title`、`href`、`aria-label` など）でコンテンツを使用したい場合は、関数の値を次のように使用できます：
->
-> ```html
-> <img src="{content.image.src.value}" alt="{content.image.value}" />
-> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
-> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
-> ```
+TanStack Router では、ローカライズされたルートでの 404 ページの処理には多層的なアプローチが必要です：
 
-> `useIntlayer`フックの詳細については、[ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/useIntlayer.md)を参照してください。
-
-</Step>
-
-```tsx fileName="src/components/locale-switcher.tsx"
-import { useLocation } from "@tanstack/react-router";
-import {
-  getHTMLTextDir,
-  getLocaleName,
-  getPathWithoutLocale,
-  getPrefix,
-  Locales,
-} from "intlayer";
-import type { FC } from "react";
-import { useLocale } from "react-intlayer";
-
-import { LocalizedLink, type To } from "./localized-link";
-
-export const LocaleSwitcher: FC = () => {
-  const { pathname } = useLocation();
-
-  const { availableLocales, locale, setLocale } = useLocale();
-
-  const pathWithoutLocale = getPathWithoutLocale(pathname);
-
-  return (
-    <ol>
-      {availableLocales.map((localeEl) => (
-        <li key={localeEl}>
-          <LocalizedLink
-            aria-current={localeEl === locale ? "page" : undefined}
-            onClick={() => setLocale(localeEl)}
-            params={{ locale: getPrefix(localeEl).localePrefix }}
-            to={pathWithoutLocale as To}
-          >
-            <span>
-              {/* ロケール - 例: FR */}
-              {localeEl}
-            </span>
-            <span>
-              {/* そのロケール自体での言語名 - 例: Français */}
-              {getLocaleName(localeEl, locale)}
-            </span>
-            <span dir={getHTMLTextDir(localeEl)} lang={localeEl}>
-              {/* 現在のロケールでの言語名 - 例: Locales.SPANISH の場合 Francés */}
-              {getLocaleName(localeEl)}
-            </span>
-            <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* 英語での言語名 - 例: French */}
-              {getLocaleName(localeEl, Locales.ENGLISH)}
-            </span>
-          </LocalizedLink>
-        </li>
-      ))}
-    </ol>
-  );
-};
-```
-
-> `useLocale`フックの詳細については、[ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/useLocale.md)を参照してください。
-
-</Step>
-
-<Step number={11} title="HTML属性の管理">
-
-return (
-<html dir={getHTMLTextDir(locale)} lang={locale}>
-{/* ... _/}
-</html>
-);
-} {/_ ... */}
-</html>
-);
-}
-
-export const Route = createFileRoute("/{-$locale}/")({
-component: RouteComponent,
-head: async ({ params }) => {
-const { locale = defaultLocale } = params;
-const path = "/"; // The path for this route
-
-    const metaContent = await getIntlayerAsync("app", locale);
-
-````
-
-> `head` はローダーの解決前に呼ばれることがあるため、`loaderData` は `undefined` の可能性がある型になります。オプショナルチェーンを残すか、フォールバックのタイトルを返してください。
-
-ロケール別チャンクの利点を保ちつつ、そのコストを `head` のクリティカルパスで支払わずに済みます。代償は DX です。コンテンツをローダーから `head` へ `loaderData` 経由で明示的に受け渡す必要があります。
-
-</Tab>
-
-</Tabs>
-
-### どの解決方法を選ぶべきか
-
-|                     | 静的解決                   | 動的解決                    | キャッシュ付き動的解決                    |
-| ------------------- | -------------------------- | --------------------------- | ----------------------------------------- |
-| API                 | `getIntlayer`              | `getIntlayerAsync`（v9.4+） | `loader` 内の `getIntlayerAsync`（v9.4+） |
-| `head` のシグネチャ | 同期                       | `async`                     | 同期、`loaderData` を読む                 |
-| 配信されるロケール  | 宣言されたすべてのロケール | 要求されたロケールのみ      | 要求されたロケールのみ                    |
-| クライアント遷移    | 解決するものなし           | マッチのたびに再実行        | ルーターのキャッシュから提供              |
-| DX                  | 最もシンプル               | `await` が 1 つ             | コンテンツを `loaderData` 経由で受け渡し  |
-
----
-
-</Step>
-
-<Step number={13} title="サーバーアクションでのロケールの取得">
-
-サーバーアクションやAPIエンドポイント内から現在のロケールにアクセスしたい場合があります。
-Intlayerの `getLocale` ヘルパーを使用してこれを行うことができます。
-
-以下は、TanStack Startのサーバー関数を使用した例です：
-
-```tsx fileName="src/routes/{-$locale}/index.tsx"
-      return getCookie(name, cookieString);
-    },
-    // リクエストからヘッダーを取得する（デフォルト：'x-intlayer-locale'）
-    // Accept-Languageネゴシエーションを使用したフォールバック
-    getHeader: (name) => getRequestHeader(name),
-  });
-
-  // getIntlayer()を使用してコンテンツを取得する
-  const content = getIntlayer("app", locale);
-
-````
-
----
-
-</Step>
-
-<Step number={14} title="「見つかりませんでした」ページの管理">
-
-ユーザーが存在しないページにアクセスしたときにカスタムの404ページを表示できます。ロケール接頭辞は、404ページがトリガーされる方法に影響を与える可能性があります。
-
-#### ロケール接頭辞を使用したTanStack Routerの404処理の理解
-
-TanStack Routerでは、ローカライズされたルートでの404ページの処理には多層的なアプローチが必要です：
-
-1. **専用の404ルート**: 404 UIを表示するための特定のルート
-2. **ルートレベルの検証**: ロケール接頭辞を検証し、無効なものを404にリダイレクトします
+1. **専用の 404 ルート**: 404 UI を表示するための特定のルート
+2. **ルートレベルの検証**: ロケール接頭辞を検証し、無効なものを 404 にリダイレクトします
 3. **キャッチオールルート**: ロケールセグメント内の一致しないパスをすべてキャプチャします
 
 ```tsx fileName="src/routes/{-$locale}/404.tsx"
+import { createFileRoute } from "@tanstack/react-router";
 
+// これにより、専用の /[locale]/404 ルートが作成されます
+// 直接ルートとして使用されるだけでなく、他のファイルでコンポーネントとしてもインポートされます
+export const Route = createFileRoute("/{-$locale}/404")({
+  component: NotFoundComponent,
+});
+
+// notFoundComponent およびキャッチオールルートで再利用できるように個別にエクスポートされます
+export function NotFoundComponent() {
+  return (
+    <div>
+      <h1>404</h1>
+    </div>
+  );
+}
 ```
 
 ```tsx fileName="src/routes/{-$locale}/route.tsx"
+import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
+import { validatePrefix } from "intlayer";
+import { NotFoundComponent } from "./404";
 
+export const Route = createFileRoute("/{-$locale}")({
+  // beforeLoad は、ルートがレンダリングされる前（サーバーとクライアントの両方）に実行されます
+  // ロケール接頭辞を検証するのに最適な場所です
+  beforeLoad: ({ params }) => {
+    const localeParam = params.locale;
+
+    // validatePrefix は、intlayer 構成に従ってロケールが有効かどうかを確認します
+    const { isValid, localePrefix } = validatePrefix(localeParam);
+
+    if (!isValid) {
+      // 無効なロケール接頭辞 - 有効なロケール接頭辞を持つ 404 ページにリダイレクトします
+      throw redirect({
+        to: "/{-$locale}/404",
+        params: { locale: localePrefix },
+      });
+    }
+  },
+  component: Outlet,
+  // notFoundComponent は、子ルートが存在しないときに呼び出されます
+  // 例：/ja/non-existent-page は /ja レイアウト内でこれをトリガーします
+  notFoundComponent: NotFoundComponent,
+});
 ```
 
 ```tsx fileName="src/routes/{-$locale}/$.tsx"
+import { createFileRoute } from "@tanstack/react-router";
 
+import { NotFoundComponent } from "./404";
+
+// $（スプラット/キャッチオール）ルートは、他のルートと一致しないパスに一致します
+// 例：/ja/some/deeply/nested/invalid/path
+// これにより、ロケール内の一致しないパスがすべて 404 ページを表示するようになります
+// これがないと、一致しない深いパスが空白ページまたはエラーを表示する可能性があります
+export const Route = createFileRoute("/{-$locale}/$")({
+  component: NotFoundComponent,
+});
 ```
 
 </Step>
@@ -1109,11 +1005,11 @@ TanStack Routerでは、ローカライズされたルートでの404ページ�
 
 既存のコードベースがある場合、数千のファイルを変換するのは時間がかかることがあります。
 
-このプロセスを容易にするために、Intlayerは、コンポーネントを変換しコンテンツを抽出するための [コンパイラ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md) / [エクストラクタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/extract.md) を提案しています。
+このプロセスを容易にするために、Intlayer は、コンポーネントを変換しコンテンツを抽出するための [コンパイラ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md) / [エクストラクタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/extract.md) を提供しています。
 
-セットアップするには、`intlayer.config.ts` ファイルに `compiler` セクションを追加します。
+セットアップするには、`intlayer.config.ts` ファイルに `compiler` セクションを追加します：
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -1138,49 +1034,52 @@ const config: IntlayerConfig = {
      */
     saveComponents: false,
 
+    /**
+     * 辞書キーの接頭辞
+     */
+    dictionaryKeyPrefix: "",
+  },
+};
+
+export default config;
 ```
 
 <Tabs>
- <Tab value='抽出コマンド'>
+ <Tab value="抽出コマンド">
 
 コンポーネントを変換してコンテンツを抽出するためにエクストラクタを実行します
 
 ```bash packageManager="npm"
-
+npx intlayer extract
 ```
 
 ```bash packageManager="pnpm"
-
+pnpm intlayer extract
 ```
 
 ```bash packageManager="yarn"
-
+yarn intlayer extract
 ```
 
 ```bash packageManager="bun"
-
-</Tab>
-</Tabs>
-
 bun x intlayer extract
-import { intlayer, intlayerCompiler } from "vite-intlayer";
+```
+
+ </Tab>
+ <Tab value="Babelコンパイラ">
+
+> v9 以降、`intlayerCompiler` は `intlayer` プラグインに含まれています。そのため、手動で追加する必要はありません。
+
+`vite.config.ts` を更新して `intlayerCompiler` プラグインを含めます：
+
+```ts fileName="vite.config.ts"
 import { defineConfig } from "vite";
-import { devtools } from "@tanstack/devtools-vite";
-import { tanstackStart } from "@tanstack/react-start/plugin/vite";
-import viteReact from "@vitejs/plugin-react";
+import { intlayer, intlayerCompiler } from "vite-intlayer";
 
 export default defineConfig({
   plugins: [
-    devtools(),
-    tanstackStart({
-      router: {
-        routeFileIgnorePattern:
-          ".content.(ts|tsx|js|mjs|cjs|jsx|json|jsonc|json5|md|mdx|yaml|yml)$",
-      },
-    }),
-    viteReact(),
     intlayer(),
-    intlayerCompiler(), // Adds the compiler plugin
+    intlayerCompiler(), // コンパイラプラグインを追加
   ],
 });
 ```
@@ -1194,21 +1093,40 @@ pnpm run build # または pnpm run dev
 ```
 
 ```bash packageManager="yarn"
-yarn build # Or yarn dev
+yarn build # または yarn dev
 ```
 
 ```bash packageManager="bun"
+bun run build # または bun run dev
+```
 
----
+ </Tab>
+</Tabs>
 
-1. **BLOCK 2 of 3** - 英語（en）のソース
-2. **BLOCK 2 of 3** - 日本語（ja）の現在の翻訳
+</Step>
 
-その後、監査を実施し、完全に更新された日本語ファイルを返します。---
+<Step number={16} title="プリレンダリングとサイトマップ生成">
 
-bun run build # またはbun run dev
+Intlayer には、アプリケーションのサイトマップを簡単に作成できるサイトマップ ジェネレーターが組み込まれています。ローカライズされたルートを処理し、検索エンジンに必要なメタデータを追加します。
+
+> Intlayer によって生成されたサイトマップは、`xhtml:link` 名前空間 (Hreflang XML Extensions) をサポートしています。生の URL のみを表示するデフォルトのサイトマップ ジェネレーターとは異なり、Intlayer はページのすべての言語バージョン (例: `/about`、`/about?lang=fr`、`/about?lang=es`) 間に必要な双方向リンクを自動的に作成します。これにより、検索エンジンが正しい言語バージョンを正しい対象者に正しくインデックス付けして提供できるようになります。
+
+これを使用するには、まず `vite.config.ts` を構成して、ローカライズされたルートのプリレンダリングを有効にし、デフォルトの TanStack Start サイトマップ生成を無効にする必要があります。
+
+```typescript fileName="vite.config.ts"
 import { localeFlatMap } from "intlayer";
 // ... その他のインポート
+
+export const pathList = ["", "/about", "/404"];
+
+const localizedPages = localeFlatMap(({ urlPrefix }) =>
+  pathList.map((path) => ({
+    path: `${urlPrefix}${path}`,
+    prerender: {
+      enabled: true,
+    },
+  }))
+);
 
 export default defineConfig({
   plugins: [
@@ -1231,9 +1149,13 @@ export default defineConfig({
 
 次に、`generateSitemap` 関数を使用する `src/routes/sitemap[.]xml.ts` ルートを作成します。
 
-````typescript fileName="src/routes/sitemap[.]xml.ts"
+```typescript fileName="src/routes/sitemap[.]xml.ts"
+import { createFileRoute } from "@tanstack/react-router";
+import { generateSitemap } from "intlayer";
 
----
+const SITE_URL = (
+  import.meta.env.VITE_SITE_URL ?? "http://localhost:3000"
+).replace(/\/$/, "");
 
 export const Route = createFileRoute("/sitemap.xml")({
   server: {
@@ -1254,6 +1176,17 @@ export const Route = createFileRoute("/sitemap.xml")({
     },
   },
 });
+```
+
+</Step>
+
+<Step number={17} title="TypeScriptの構成">
+
+Intlayer はモジュール拡張機能を利用して、TypeScript の利点を活用し、コードベースを強化します。
+
+TypeScript の構成に自動生成された型が含まれていることを確認してください：
+
+```json5 fileName="tsconfig.json"
 {
   // ... 既存の構成
   include: [
@@ -1261,6 +1194,11 @@ export const Route = createFileRoute("/sitemap.xml")({
     ".intlayer/**/*.ts", // 自動生成された型を含める
   ],
 }
+```
+
+</Step>
+
+</Steps>
 
 ### Git Configuration
 
@@ -1271,7 +1209,7 @@ Intlayerによって生成されたファイルを無視することをお勧め
 ```plaintext fileName=".gitignore"
 # Intlayerによって生成されたファイルを無視
 .intlayer
-````
+```
 
 ---
 

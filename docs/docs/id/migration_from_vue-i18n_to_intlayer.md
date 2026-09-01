@@ -28,7 +28,6 @@ author: aymericzip
 ## Mengapa bermigrasi dari vue-i18n ke Intlayer?
 
 <AccordionGroup>
-
 <Accordion header="Ukuran bundle">
 
 Alih-alih memuat file JSON besar ke halaman Anda, muat hanya konten yang diperlukan. Intlayer membantu **mengurangi ukuran bundle dan halaman Anda hingga 50%**.
@@ -66,7 +65,6 @@ Menghubungkan file JSON besar ke komponen dapat menyebabkan masalah performa dan
 Lebih dari sekadar solusi i18n, Intlayer menyediakan **[visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) yang self-hosted** dan **[full CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)** untuk membantu Anda mengelola konten multibahasa Anda secara **real-time**, membuat kolaborasi dengan penerjemah, copywriter, dan anggota tim lainnya menjadi seamless. Konten dapat disimpan secara lokal dan/atau remote.
 
 </Accordion>
-
 </AccordionGroup>
 
 ---

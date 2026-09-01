@@ -75,8 +75,7 @@ GitHubの[アプリケーションテンプレート](https://github.com/aymeric
 
 「next-intl」や「i18next」などの主要なソリューションと比較して、Intlayer は次のような統合された最適化を備えたソリューションです。
 
-**Next.js を完全にカバー**
-
+<AccordionGroup>
 <Accordion header="Full Next.js coverage">
 
 Intlayer は、効率的なレンダリングのために **サーバー コンポーネント** と連携するように最適化されており、[**Turbopack**](https://nextjs.org/docs/architecture/turbopack) と完全に互換性があります。静的レンダリングをブロックせず、ミドルウェアとスケーリング国際化 (i18n) に必要なすべての機能を提供します。
@@ -85,17 +84,17 @@ Intlayer は、効率的なレンダリングのために **サーバー コン�
 > ロケール ルーティングは、SEO、バンドル サイズ、パフォーマンスに役立ちます。必要ない場合は、この[ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_no_locale_path.md)を参照してください。
 > App Router を使用した Next.js 12、13、14、および 15 については、この [ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_14.md) を参照してください。
 
-**バンドルサイズ**
+</Accordion>
 
 <Accordion header="Bundle size">
 
 大量の JSON ファイルをページにロードするのではなく、必要なコンテンツのみをロードします。 Intlayer は、**バンドルとページのサイズを最大 50% 削減**するのに役立ちます。
 
-**保守性**
+</Accordion>
+
+<Accordion header="保守性">
 
 アプリケーションのコンテンツのスコープを設定すると、大規模なアプリケーションの **メンテナンスが容易になります**。コンテンツ コードベース全体を確認するという精神的な負担を負うことなく、単一の機能フォルダーを複製または削除できます。さらに、Intlayer は**完全に型指定**されており、コンテンツの正確性を保証します。
-
-**AI エージェント**
 
 </Accordion>
 
@@ -103,19 +102,19 @@ Intlayer は、効率的なレンダリングのために **サーバー コン�
 
 コンテンツを同じ場所に配置すると、大規模言語モデル (LLM) によって **必要なコンテキストが削減**されます。 Intlayer には、翻訳の欠落をテストする **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** などのツール スイートも付属しています。および **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)** により、AI エージェントの開発者エクスペリエンス (DX) がさらにスムーズになります。
 
-**オートメーション**
+</Accordion>
 
 <Accordion header="自動化">
 
 AI プロバイダーの費用で、選択した LLM を使用して CI/CD パイプラインで自動化を変換します。 Intlayer は、コンテンツ抽出を自動化する **コンパイラー** と、**バックグラウンドでの翻訳**を支援する [Web プラットフォーム](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) も提供します。
 
-**パフォーマンス**
+</Accordion>
 
 <Accordion header="パフォーマンス">
 
 大量の JSON ファイルをコンポーネントに接続すると、パフォーマンスと反応性の問題が発生する可能性があります。 Intlayer は、ビルド時のコンテンツの読み込みを最適化します。
 
-**非開発によるスケーリング**
+</Accordion>
 
 <Accordion header="none-devでのスケーリング">
 
@@ -988,7 +987,6 @@ bun add @intlayer/swc --dev
 > 注意: この最適化は Next.js 13 以降でのみ利用可能です。
 
 > 注意: SWC プラグインは Next.js ではまだ実験的な機能のため、このパッケージはデフォルトでインストールされていません。将来的に変更される可能性があります。
-> </Step>
 
 > 注意: `importMode: 'dynamic'` または `importMode: 'fetch'` をオプションとして設定した場合（`dictionary` 設定内）、Suspense に依存することになります。つまり、`useIntlayer` の呼び出しを `Suspense` boundary でラップする必要があります。これは、Page / Layout コンポーネントのトップレベルで `useIntlayer` を直接使用できないことを意味します。
 
@@ -1108,6 +1106,8 @@ bun run build # Or bun run dev
 
  </Tab>
 </Tabs>
+
+</Step>
 
 </Steps>
 

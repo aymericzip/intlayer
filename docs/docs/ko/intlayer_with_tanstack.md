@@ -64,7 +64,6 @@ author: aymericzip
 'react-i18next', 'use-intl' 또는 'paraglide'와 같은 주요 솔루션과 비교할 때 Intlayer는 다음과 같은 통합 최적화가 제공되는 솔루션입니다.
 
 <AccordionGroup>
-
 <Accordion header="전체 TanStack 시작 범위">
 
 Intlayer는 TanStack Start에 완전히 최적화되어 **다국어 라우팅**, **쿠키 관리**, **사이트맵 생성**, **동적 콘텐츠 로딩** 및 국제화(i18n) 노력을 확장하는 데 필요한 모든 기능을 제공합니다.
@@ -651,8 +650,6 @@ function RootDocument({ children }: { children: ReactNode }) {
 }
 ```
 
----
-
 </Step>
 
 <Step number={11} title="미들웨어 추가">
@@ -688,8 +685,6 @@ export default defineConfig({
   ],
 });
 ```
-
----
 
 </Step>
 
@@ -884,8 +879,6 @@ export const Route = createFileRoute("/{-$locale}/")({
 | Client navigations   | nothing to resolve    | re-entered on every match  | served from the router cache           |
 | Developer experience | simplest              | one `await`                | content threaded through `loaderData`  |
 
----
-
 </Step>
 
 <Step number={13} title="서버 액션에서 로케일 검색">
@@ -923,153 +916,6 @@ export const getLocaleServer = createServerFn().handler(async () => {
 });
 ```
 
----
-
-</Step>
-
-<Step number={14} title="찾을 수 없음 페이지 관리">
-
-사용자가 존재하지 않는 페이지를 방문할 때, 사용자 정의 찾을 수 없음 페이지를 표시할 수 있으며 로케일 접두사는 찾을 수 없음 페이지가 트리거되는 방식에 영향을 줄 수 있습니다.
-
-#### 현지화된 홈 페이지
-
-> `alt`, `title`, `href`, `aria-label` 등과 같은 `string` 속성에서 콘텐츠를 사용하려면 함수의 값을 다음과 같이 사용할 수 있습니다:
->
-> ```html
-> <img src="{content.image.src.value}" alt="{content.image.value}" />
-> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
-> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
-> ```
-
-> `useIntlayer` 훅에 대해 자세히 알아보려면 [문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/react-intlayer/useIntlayer.md)를 참조하세요.
-
-</Step>
-
-```tsx fileName="src/components/locale-switcher.tsx"
-import { useLocation } from "@tanstack/react-router";
-import {
-  getHTMLTextDir,
-  getLocaleName,
-  getPathWithoutLocale,
-  getPrefix,
-  Locales,
-} from "intlayer";
-import type { FC } from "react";
-import { useLocale } from "react-intlayer";
-
-import { LocalizedLink, type To } from "./localized-link";
-
-export const LocaleSwitcher: FC = () => {
-  const { pathname } = useLocation();
-
-  const { availableLocales, locale, setLocale } = useLocale();
-
-  const pathWithoutLocale = getPathWithoutLocale(pathname);
-
-  return (
-    <ol>
-      {availableLocales.map((localeEl) => (
-        <li key={localeEl}>
-          <LocalizedLink
-            aria-current={localeEl === locale ? "page" : undefined}
-            onClick={() => setLocale(localeEl)}
-            params={{ locale: getPrefix(localeEl).localePrefix }}
-            to={pathWithoutLocale as To}
-          >
-            <span>
-              {/* 로케일 - 예: FR */}
-              {localeEl}
-            </span>
-            <span>
-              {/* 자체 로케일에서의 언어 - 예: Français */}
-              {getLocaleName(localeEl, locale)}
-            </span>
-            <span dir={getHTMLTextDir(localeEl)} lang={localeEl}>
-              {/* 현재 로케일에서의 언어 - 예: 현재 로케일이 Locales.SPANISH일 때 Francés */}
-              {getLocaleName(localeEl)}
-            </span>
-            <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* 영어로 된 언어 - 예: French */}
-              {getLocaleName(localeEl, Locales.ENGLISH)}
-            </span>
-          </LocalizedLink>
-        </li>
-      ))}
-    </ol>
-  );
-};
-```
-
-> `useLocale` 훅에 대해 자세히 알아보려면 [문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/react-intlayer/useLocale.md)를 참조하세요.
-
-</Step>
-
-<Step number={11} title="HTML 속성 관리">
-
-return (
-<html dir={getHTMLTextDir(locale)} lang={locale}>
-{/* ... _/}
-</html>
-);
-} {/_ ... */}
-</html>
-);
-}
-
-export const Route = createFileRoute("/{-$locale}/")({
-component: RouteComponent,
-head: async ({ params }) => {
-const { locale = defaultLocale } = params;
-const path = "/"; // The path for this route
-
-    const metaContent = await getIntlayerAsync("app", locale);
-
-````
-
-> `head` 는 로더가 완료되기 전에 호출될 수 있어 `loaderData` 는 `undefined` 가능 타입입니다. 옵셔널 체이닝을 유지하거나 대체 제목을 반환하세요.
-
-로케일별 청크의 이점을 유지하면서 그 비용을 `head` 임계 경로에서 지불하지 않습니다. 대가는 DX 입니다. 콘텐츠를 로더에서 `head` 로 `loaderData` 를 통해 명시적으로 전달해야 합니다.
-
-</Tab>
-
-</Tabs>
-
-### 어떤 해석 방식을 선택해야 할까요?
-
-|                       | 정적 해석          | 동적 해석                  | 캐시된 동적 해석                         |
-| --------------------- | ------------------ | -------------------------- | ---------------------------------------- |
-| API                   | `getIntlayer`      | `getIntlayerAsync` (v9.4+) | `loader` 안의 `getIntlayerAsync` (v9.4+) |
-| `head` 시그니처       | 동기               | `async`                    | 동기, `loaderData` 를 읽음               |
-| 전송되는 로케일       | 선언된 모든 로케일 | 요청된 로케일만            | 요청된 로케일만                          |
-| 클라이언트 내비게이션 | 해석할 것 없음     | 매칭될 때마다 다시 실행    | 라우터 캐시에서 제공                     |
-| DX                    | 가장 단순함        | `await` 하나               | 콘텐츠를 `loaderData` 로 전달            |
-
----
-
-</Step>
-
-<Step number={13} title="서버 액션에서 로케일 가져오기(선택 사항)" isOptional={true}>
-
-서버 액션 또는 API 엔드포인트 내부에서 현재 로케일에 액세스하고 싶을 수 있습니다.
-이는 `intlayer`의 `getLocale` 도우미를 사용하여 수행할 수 있습니다.
-
-다음은 TanStack Start의 서버 함수를 사용한 예입니다:
-
-```tsx fileName="src/routes/{-$locale}/index.tsx"
-      return getCookie(name, cookieString);
-    },
-    // 요청에서 헤더 가져오기(기본값: 'x-intlayer-locale')
-    // Accept-Language 협상을 사용한 폴백
-    getHeader: (name) => getRequestHeader(name),
-  });
-
-  // getIntlayer()를 사용하여 일부 콘텐츠 가져오기
-  const content = getIntlayer("app", locale);
-
-````
-
----
-
 </Step>
 
 <Step number={14} title="찾을 수 없는 페이지 관리(선택 사항)" isOptional={true}>
@@ -1085,20 +931,70 @@ TanStack Router에서 현지화된 경로로 404 페이지를 처리하려면 �
 3. **Catch-all 경로**: 로케일 세그먼트 내에서 일치하지 않는 모든 경로를 캡처
 
 ```tsx fileName="src/routes/{-$locale}/404.tsx"
+import { createFileRoute } from "@tanstack/react-router";
 
+// 이것은 전용 /[locale]/404 경로를 생성합니다.
+// 직접 경로로 사용되거나 다른 파일에서 컴포넌트로 임포트되어 사용됩니다.
+export const Route = createFileRoute("/{-$locale}/404")({
+  component: NotFoundComponent,
+});
+
+// notFoundComponent 및 catch-all 경로에서 재사용할 수 있도록 별도로 내보냅니다.
+export function NotFoundComponent() {
+  return (
+    <div>
+      <h1>404</h1>
+    </div>
+  );
+}
 ```
 
 ```tsx fileName="src/routes/{-$locale}/route.tsx"
+import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
+import { validatePrefix } from "intlayer";
+import { NotFoundComponent } from "./404";
 
+export const Route = createFileRoute("/{-$locale}")({
+  // beforeLoad는 경로가 렌더링되기 전에 실행됩니다(서버 및 클라이언트 모두에서).
+  // 로케일 접두사의 유효성을 검사하기에 이상적인 장소입니다.
+  beforeLoad: ({ params }) => {
+    const localeParam = params.locale;
+
+    // validatePrefix는 intlayer 구성에 따라 로케일이 유효한지 확인합니다.
+    const { isValid, localePrefix } = validatePrefix(localeParam);
+
+    if (!isValid) {
+      // 유효하지 않은 로케일 접두사 - 유효한 로케일 접두사가 포함된 404 페이지로 리디렉션
+      throw redirect({
+        to: "/{-$locale}/404",
+        params: { locale: localePrefix },
+      });
+    }
+  },
+  component: Outlet,
+  // 자식 경로가 존재하지 않을 때 notFoundComponent가 호출됩니다.
+  // 예: /en/존재하지-않는-페이지는 /en 레이아웃 내에서 이를 트리거합니다.
+  notFoundComponent: NotFoundComponent,
+});
 ```
 
 ```tsx fileName="src/routes/{-$locale}/$.tsx"
+import { createFileRoute } from "@tanstack/react-router";
 
+import { NotFoundComponent } from "./404";
+
+// $ (splat/catch-all) 경로는 다른 경로와 일치하지 않는 모든 경로와 일치합니다.
+// 예: /en/어떤/깊게/중첩된/유효하지-않은/경로
+// 이를 통해 로케일 내의 모든 일치하지 않는 경로가 404 페이지를 표시하도록 보장합니다.
+// 이것이 없으면 일치하지 않는 깊은 경로는 빈 페이지나 오류를 표시할 수 있습니다.
+export const Route = createFileRoute("/{-$locale}/$")({
+  component: NotFoundComponent,
+});
 ```
 
 </Step>
 
-<Step number={15} title="컴포넌트에서 콘텐츠 추출(선택 사항)" isOptional={true}>
+<Step number={15} title="컴포넌트에서 콘텐츠 추출(선택 사항)" isOptional={true}> isOptional={true}>
 
 기존 코드베이스가 있는 경우 수천 개의 파일을 변환하는 데 시간이 많이 걸릴 수 있습니다.
 
@@ -1108,6 +1004,19 @@ TanStack Router에서 현지화된 경로로 404 페이지를 처리하려면 �
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  // ... 나머지 구성
+  compiler: {
+    /**
+     * 컴파일러 활성화 여부를 나타냅니다.
+     */
+    enabled: true,
+
+    /**
+     * 출력 파일 경로를 정의합니다.
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
 
     /**
      * 변환 후 컴포넌트를 저장할지 여부를 나타냅니다. 그렇게 하면 컴파일러를 한 번만 실행하여 앱을 변환한 다음 제거할 수 있습니다.
@@ -1125,37 +1034,77 @@ export default config;
 ```
 
 <Tabs>
- <Tab value='추출 명령'>
+ <Tab value="추출 명령">
 
 컴포넌트를 변환하고 콘텐츠를 추출하기 위해 추출기를 실행합니다
 
 ```bash packageManager="npm"
-
+npx intlayer extract
 ```
 
 ```bash packageManager="pnpm"
-
+pnpm intlayer extract
 ```
 
 ```bash packageManager="yarn"
-
+yarn intlayer extract
 ```
 
 ```bash packageManager="bun"
+bun x intlayer extract
+```
 
-</Tab>
+ </Tab>
+ <Tab value="Babel 컴파일러">
+
+> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
+
+`vite.config.ts`를 업데이트하여 `intlayerCompiler` 플러그인을 포함합니다.
+
+```ts fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import { intlayer, intlayerCompiler } from "vite-intlayer";
+
+export default defineConfig({
+  plugins: [
+    intlayer(),
+    intlayerCompiler(), // Adds the compiler plugin
+  ],
+});
+```
+
+```bash packageManager="npm"
+npm run build # 또는 npm run dev
+```
+
+```bash packageManager="pnpm"
+pnpm run build # 또는 pnpm run dev
+```
+
+```bash packageManager="yarn"
+yarn build # 또는 yarn dev
+```
+
+```bash packageManager="bun"
+bun run build # 또는 bun run dev
+```
+
+ </Tab>
 </Tabs>
 
----
+</Step>
 
-I'm ready to audit the translation. However, I notice that both the reference English block (BLOCK 2 of 3) and the current Korean block (BLOCK 2 of 3) appear to be empty based on what you've provided.
+<Step number={16} title="사이트맵 생성(선택 사항)" isOptional={true}>
 
-Could you please provide:
+Intlayer는 애플리케이션의 사이트맵을 쉽게 만들 수 있는 내장 사이트맵 생성기를 제공합니다. 로컬라이즈된 경로를 처리하고 검색 엔진에 필요한 메타데이터를 추가합니다.
 
-1. **The English (en) source content** - the reference material I should audit against
-2. **The current Korean (ko) translation** - the content that needs to be reviewed and updated
+> Intlayer에서 생성한 사이트맵은 `xhtml:link` 네임스페이스(Hreflang XML 확장)를 지원합니다. 원시 URL만 나열하는 기본 사이트맵 생성기와 달리, Intlayer는 페이지의 모든 언어 버전(예: `/about`, `/about?lang=fr`, `/about?lang=es`) 간에 필요한 양항향 링크를 자동으로 생성합니다. 이를 통해 검색 엔진이 올바른 언어 버전을 올바른 사용자에게 색인화하고 제공할 수 있도록 보장합니다.
 
-Once you provide these blocks with the `` and `` delimiters, I'll proceed with the audit and return the fully updated Korean translation.---
+이를 사용하려면 먼저 로컬라이즈된 경로의 프리렌더링을 활성화하고 기본 TanStack Start 사이트맵 생성을 비활성화하도록 `vite.config.ts`를 구성해야 합니다.
+
+```typescript fileName="vite.config.ts"
+import { localeFlatMap } from "intlayer";
+// ... 기타 임포트
 
 export const pathList = ["", "/about", "/404"];
 
@@ -1189,22 +1138,13 @@ export default defineConfig({
 
 그런 다음, `generateSitemap` 함수를 사용하는 `src/routes/sitemap[.]xml.ts` 경로를 생성합니다.
 
-````typescript fileName="src/routes/sitemap[.]xml.ts"
+```typescript fileName="src/routes/sitemap[.]xml.ts"
+import { createFileRoute } from "@tanstack/react-router";
+import { generateSitemap } from "intlayer";
 
----
-
-Once you provide the full content for both blocks, I'll be able to audit the Korean translation against the English source and make it fully up-to-date according to all the instructions you've specified.
-
-<Step number={17} title="TypeScript 구성">
-
-I'm ready to assist you with the translation audit. However, I notice that the blocks appear to be empty in your message.
-
-Could you please provide:
-
-1. **BLOCK 3 of 3** (en - English source) - the reference content to audit against
-2. **Current translation** (ko - Korean) - the content that needs to be reviewed and updated
-
-Once you provide these blocks with the content between `` and ``, I'll perform a thorough audit and return the fully updated Korean translation.---
+const SITE_URL = (
+  import.meta.env.VITE_SITE_URL ?? "http://localhost:3000"
+).replace(/\/$/, "");
 
 export const Route = createFileRoute("/sitemap.xml")({
   server: {
@@ -1225,6 +1165,17 @@ export const Route = createFileRoute("/sitemap.xml")({
     },
   },
 });
+```
+
+</Step>
+
+<Step number={17} title="TypeScript 구성(선택 사항)" isOptional={true}>
+
+Intlayer는 모듈 확장을 사용하여 TypeScript의 이점을 얻고 코드베이스를 더욱 견고하게 만듭니다.
+
+TypeScript 구성에 자동 생성된 유형이 포함되어 있는지 확인하세요:
+
+```json5 fileName="tsconfig.json"
 {
   // ... 기존 구성
   include: [
@@ -1232,17 +1183,22 @@ export const Route = createFileRoute("/sitemap.xml")({
     ".intlayer/**/*.ts", // 자동 생성된 유형 포함
   ],
 }
+```
+
+</Step>
+
+</Steps>
 
 ### Git 구성
 
-Intlayer에서 생성한 파일을 무시하는 것이 좋습니다. 이렇게 하면 Git 저장소에 커밋하는 것을 피할 수 있습니다.
+Intlayer에서 생성된 파일은 무시하는 것이 좋습니다. 이를 통해 Git 저장소에 커밋되는 것을 방지할 수 있습니다.
 
-이렇게 하려면 `.gitignore` 파일에 다음 지침을 추가할 수 있습니다:
+이를 위해 `.gitignore` 파일에 다음 지침을 추가할 수 있습니다:
 
 ```plaintext fileName=".gitignore"
-# Intlayer에서 생성한 파일 무시
+# Intlayer에서 생성된 파일 무시
 .intlayer
-````
+```
 
 ---
 
@@ -1317,7 +1273,9 @@ TanStack Start에서 중요한 차이점은 라우팅과 서버 렌더링입니�
 
 아닙니다. `npx intlayer extract`를 실행하면 Intlayer가 컴포넌트를 읽고 사용자 대면 문자열을 추출하여 각 컴포넌트 옆에 `.content` 파일을 생성하므로 카탈로그에 일일이 복사할 필요 없이 diff만 검토하면 됩니다. 이 가이드의 15단계를 확인하세요.
 
-완전 자동화된 파이프라인을 위해 [Intlayer 컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md)는 빌드 타임에 JSX, TSX, Vue 및 Svelte 소스에서 동일한 작업을 수행하여 변경될 때마다 사전을 생성하고 HMR을 통해 동기화하므로 수동으로 키를 관리할 필요가 없습니다. 정적 분석으로 작동하므로 런타임에만 존재하는 문자열은 제외되며, 사용자 텍스트와 애플리케이션 로직을 구분하기 위해 몇 가지 주석이 필요합니다. [extract 명령](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/extract.md)을 사용하면 직접 검토하면서 이 두 가지 문제를 모두 피할 수 있습니다.
+완전 자동화된 파이프라인을 위해 [Intlayer 컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md)는 빌드 타임에 JSX, TSX, Vue 및 Svelte 소스에서 동일한 작업을 수행하여 변경될 때마다 사전을 생성하고 HMR을 통해 동기화하므로 수동으로 키를 관리할 필요가 없습니다.
+
+컴파일러를 켜기 전에 알아두어야 할 두 가지 제한 사항이 있습니다. 정적 분석으로 작동하므로 API 오류 코드나 CMS 필드와 같이 런타임에만 존재하는 문자열은 처리할 수 없습니다. 또한 큰 코드베이스에서 몇 가지 어노테이션이 필요한 `className="active"` 또는 상태 코드와 같은 애플리케이션 로직과 사용자 대면 텍스트를 구분해야 합니다. [extract 명령](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/extract.md)은 사용자가 직접 제어할 수 있도록 하여 두 가지 문제를 모두 방지합니다.
 
 </Question>
 

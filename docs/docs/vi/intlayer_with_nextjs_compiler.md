@@ -83,7 +83,6 @@ Do trình biên dịch thực hiện phân tích và chuyển đổi mã (chèn 
 ## Hướng dẫn từng bước thiết lập Intlayer vào trong ứng dụng Next.js
 
 <Steps>
-
 <Step number={1} title="Cài đặt các thư viện phụ thuộc">
 
 Cài đặt các gói cần thiết bằng trình quản lý gói ưa thích của bạn:
@@ -137,7 +136,6 @@ bun add @intlayer/babel --dev
   Gói tích hợp Intlayer với Next.js. Nó cung cấp các context provider và hook cho quốc tế hóa Next.js. Ngoài ra, nó bao gồm Next.js plugin để tích hợp Intlayer với [Webpack](https://webpack.js.org/) hoặc [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack), cũng như middleware để phát hiện locale ưu tiên của người dùng, quản lý cookie và xử lý chuyển hướng URL.
 
 </Step>
-
 <Step number={2} title="Cấu hình cho dự án của bạn">
 
 Tạo một tệp cấu hình để xác định các ngôn ngữ của ứng dụng:
@@ -196,7 +194,6 @@ export default config;
 > Qua tệp cấu hình này, bạn có thể thiết lập URL đã được bản địa hóa, chuyển hướng proxy, mapping cookie, vị trí và phần mở rộng của các khai báo nội dung, tắt log Intlayer trong console, và nhiều hơn nữa. Để biết danh sách đầy đủ các tham số có sẵn, hãy kiểm tra [tài liệu cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md).
 
 </Step>
-
 <Step number={3} title="Tích hợp Intlayer vào cấu hình Next.js của bạn">
 
 Cấu hình thiết lập Next.js của bạn để sử dụng Intlayer:
@@ -213,10 +210,8 @@ export default withIntlayer(nextConfig);
 ```
 
 > Plugin Next.js `withIntlayer()` được sử dụng để tích hợp Intlayer với Next.js. Nó đảm bảo việc xây dựng các tệp từ điển và theo dõi chúng trong chế độ dev. Nó xác định các biến môi trường Intlayer bên trong môi trường [Webpack](https://webpack.js.org/) hoặc [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack). Ngoài ra, nó cung cấp các alias để tối ưu hóa hiệu suất và hoạt động mượt mà với Server Components.
-> </Step>
 
 </Step>
-
 <Step number={4} title="Phát hiện ngôn ngữ trên trang của bạn">
 
 Trình biên dịch Intlayer yêu cầu Babel để trích xuất và tối ưu hóa nội dung của bạn. Cập nhật `babel.config.js` (hoặc `babel.config.json`) của bạn để bao gồm các plugin Intlayer:
@@ -239,7 +234,6 @@ module.exports = {
 ```
 
 </Step>
-
 <Step number={5} title="Phát hiện Locale trong các trang của bạn">
 
 Dọn dẹp nội dung `RootLayout` của bạn và thay thế bằng ví dụ bên dưới:
@@ -284,8 +278,7 @@ export default RootLayout;
 ```
 
 </Step>
-
-<Step number={5} title="Khai báo nội dung của bạn">
+<Step number={6} title="Khai báo nội dung của bạn">
 
 Khi trình biên dịch được bật, bạn **không còn cần** khai báo các từ điển nội dung (ví dụ: tệp `.content.ts`) một cách thủ công.
 
@@ -296,7 +289,7 @@ Chỉ cần viết các thành phần của bạn với các chuỗi hardcoded t
 Ví dụ về cách `page.tsx` của bạn sẽ trông như thế nào:
 
 <Tabs>
-  <Tab value="Code">
+<Tab value="Code">
 
 ```tsx fileName="src/app/page.tsx"
 import type { FC } from "react";
@@ -323,8 +316,8 @@ export default async function Page() {
 }
 ```
 
-  </Tab>
-  <Tab value="Output">
+</Tab>
+<Tab value="Output">
 
 ```ts fileName="i18n/page-content.content.tsx"
 {
@@ -346,8 +339,10 @@ export default async function Page() {
 }
 ```
 
+</Tab>
+</Tabs>
 <Tabs>
-  <Tab label='Intlayer >=9.4' value='>=9.4'>
+<Tab label='Intlayer >=9.4' value='>=9.4'>
 
 ```tsx fileName="src/app/page.tsx"
 import { type FC } from "react";
@@ -379,7 +374,8 @@ export default async function Page() {
 - **`IntlayerProvider`** được gắn một lần trong root layout. Nó cung cấp locale cho cả server và client components, vì vậy các trang không còn phải tự bọc chúng nữa.
 - Mà không có đoạn đường dẫn `[locale]`, locale luôn đến từ request — header `x-intlayer-locale` được thiết lập bởi Intlayer proxy, sau đó là locale cookie — mà các server hooks đọc trên chính chúng khi provider chưa chạy.
 
-</Tabs>
+</Tab>
+<Tab label='Intlayer <9.4' value='<9.4'>
 
 ```tsx fileName="src/app/page.tsx"
 import { type FC } from "react";
@@ -413,12 +409,9 @@ export default async function Page() {
 
   > Layout and page cannot share a common server context because the server context system is based on a per-request data store (via [React's cache](https://react.dev/reference/react/cache) mechanism), causing each "context" to be re-created for different segments of the application. Placing the provider in a shared layout would break this isolation, preventing the correct propagation of the server context values to your server components.
 
-  </Tab>
-
+</Tab>
 </Tabs>
-
 </Step>
-
 <Step number={7} title="Điền các bản dịch còn thiếu" isOptional={true}>
 
 Intlayer cung cấp một công cụ CLI để giúp bạn điền các bản dịch còn thiếu. Bạn có thể sử dụng lệnh `intlayer` để kiểm tra và điền các bản dịch còn thiếu từ mã của mình.
@@ -458,7 +451,6 @@ bun x intlayer fill         # Điền các bản dịch còn thiếu
 > Để biết thêm chi tiết, vui lòng tham khảo [tài liệu CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/ci.md)
 
 </Step>
-
 <Step number={8} title="Middleware Proxy cho Router Localized" isOptional={true}>
 
 Nếu bạn muốn tự động chuyển hướng người dùng đến ngôn ngữ ưu thích của họ, hãy thiết lập một middleware proxy:
@@ -477,7 +469,6 @@ export const config = {
 > Kể từ Intlayer v9, middleware này tuân thủ tùy chọn `routing.enableProxy` (`true` theo mặc định). Đặt `routing.enableProxy: false` trong cấu hình của bạn để biến nó thành pass-through mà không cần xóa tệp này. Xem [ghi chú phát hành v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/releases/v9.md).
 
 </Step>
-
 <Step number={9} title="Thay đổi ngôn ngữ nội dung" isOptional={true}>
 
 Cách khuyên dùng nhất để thay đổi ngôn ngữ nội dung trong Next.js là sử dụng thành phần `Link` để hướng người dùng đến route với ngôn ngữ tương ứng. Điều này tận dụng tính năng prefetch của Next.js và tránh việc tải lại trang một cách cưỡng ép.
@@ -529,7 +520,6 @@ export const LocaleSwitcher: FC = () => {
 > Ngoài ra, bạn có thể sử dụng hàm `setLocale` được cung cấp bởi hook `useLocale`. Hàm này không cho phép prefetch trang. Kiểm tra [tài liệu hook `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/next-intlayer/useLocale.md) để biết thêm chi tiết.
 
 </Step>
-
 <Step number={10} title="Tối ưu hóa kích thước Bundle" isOptional={true}>
 
 Khi sử dụng `next-intlayer`, các từ điển mặc định được bao gồm trong bundle cho từng trang. Để tối ưu hóa kích thước bundle, Intlayer cung cấp một plugin SWC tùy chọn giúp thay thế một cách thông minh các lệnh gọi `useIntlayer` bằng macro. Điều này đảm bảo rằng các từ điển chỉ được bao gồm trong bundle của những trang thực sự sử dụng chúng.
@@ -559,11 +549,9 @@ bun add @intlayer/swc --dev
 > Lưu ý: Gói này không được cài đặt mặc định vì các plugin SWC vẫn đang ở giai đoạn thử nghiệm trong Next.js. Điều này có thể thay đổi trong tương lai.
 
 > Lưu ý: Nếu bạn thiết lập tùy chọn (trong cấu hình từ điển) `importMode: 'dynamic'` hoặc `importMode: 'fetch'`, nó sẽ phụ thuộc vào Suspense, vì vậy bạn sẽ cần bọc các lệnh gọi `useIntlayer` trong một ranh giới `Suspense`. Điều này có nghĩa là bạn không thể sử dụng `useIntlayer` trực tiếp ở cấp cao nhất của thành phần Page / Layout.
-> </Step>
 
 </Step>
-
-<Step number={1} title="Trích xuất nội dung các thành phần của bạn" isOptional={true}>
+<Step number={11} title="Trích xuất nội dung các thành phần của bạn" isOptional={true}>
 
 Nếu bạn có một cơ sở mã hiện có, việc chuyển đổi hàng nghìn tệp có thể tốn nhiều thời gian.
 
@@ -603,7 +591,7 @@ export default config;
 ```
 
 <Tabs>
- <Tab value='Lệnh trích xuất'>
+<Tab value='Extract command'>
 
 Chạy trình trích xuất để chuyển đổi các thành phần và trích xuất nội dung
 
@@ -623,8 +611,8 @@ yarn intlayer extract
 bun x intlayer extract
 ```
 
- </Tab>
- <Tab value='Trình biên dịch Babel'>
+</Tab>
+<Tab value='Babel compiler'>
 
 > Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
 
@@ -675,10 +663,9 @@ yarn build # Or yarn dev
 bun run build # Or bun run dev
 ```
 
- </Tab>
+</Tab>
 </Tabs>
 </Step>
-
 </Steps>
 
 ### Cấu hình TypeScript
@@ -735,9 +722,15 @@ Tiện ích mở rộng này cung cấp:
 
 <FAQ>
 
-<Question title="Intlayer Compiler làm những gì?">
+<Question title="Những giải pháp khác nhau nào có sẵn để quốc tế hóa ứng dụng Next.js?">
 
-Compiler phân tích mã JSX và TSX của bạn trong quá trình build, tự động trích xuất các văn bản hiển thị cho người dùng thành các từ điển mà không cần tạo tệp nội dung riêng biệt thủ công.
+Trường `i18n` của `next.config.js` không áp dụng cho App Router, do đó lớp bản địa hóa luôn là một lựa chọn thư viện:
+
+- **`next-intl`**, **`next-i18next` / `i18next`** và **`react-intl`**: catalog JSON hoặc ICU được tải theo từng namespace, với các khóa được viết thủ công tại mỗi vị trí gọi.
+- **`Lingui`**: theo hướng trích xuất, với các thông báo ICU được biên dịch tại thời điểm build.
+- **`Intlayer`**: nội dung được biên dịch từ các component của bạn tại thời điểm build, được định kiểu đầy đủ, có dịch bằng AI, trình chỉnh sửa trực quan và CMS.
+
+Hướng dẫn này sử dụng thiết lập compiler, nơi bạn tiếp tục viết các chuỗi thông thường trong các component của mình và các từ điển được tạo cho bạn. Xem [tại sao nên chọn Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/interest_of_intlayer.md) và [benchmark i18n Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md).
 
 </Question>
 
@@ -762,6 +755,8 @@ Có. Plugin [sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/do
 <Question title="Tôi có phải di chuyển nội dung từng khóa một không?">
 
 Không. Chạy `npx intlayer extract` và Intlayer sẽ đọc các tệp nguồn của bạn, trích xuất các chuỗi dành cho người dùng và tạo tệp `.content` bên cạnh mỗi tệp, nhờ đó bạn chỉ cần xem lại diff thay vì sao chép chuỗi vào catalog thủ công. Xem [lệnh extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/extract.md).
+
+Hai giới hạn đáng lưu ý. Compiler hoạt động bằng phân tích tĩnh, do đó các chuỗi chỉ tồn tại khi runtime, chẳng hạn như mã lỗi API hoặc các trường CMS, nằm ngoài phạm vi tiếp cận và vẫn cần một từ điển được khai báo. Và nó phải phân biệt văn bản hiển thị cho người dùng với logic ứng dụng như `className="active"` hoặc mã trạng thái, điều này cần một vài chú thích trong một codebase lớn.
 
 Để tự động hóa hoàn toàn, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md) thực hiện việc tương tự trong quá trình build trên mã JSX, TSX, Vue và Svelte, tạo từ điển trên mỗi thay đổi mà không cần quản lý khóa thủ công.
 

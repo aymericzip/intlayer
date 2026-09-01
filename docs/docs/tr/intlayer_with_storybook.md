@@ -37,7 +37,6 @@ author: aymericzip
 'storybook-react-i18next' veya 'i18next' gibi ana çözümlerle karşılaştırıldığında Intlayer, aşağıdaki gibi entegre optimizasyonlarla gelen bir çözümdür:
 
 <AccordionGroup>
-
 <Accordion header="Tam Hikaye Kitabı kapsamı">
 
 Intlayer, **çok dilli hikaye dekoratörleri**, **yerel değiştirme** ve tasarım sisteminizde uluslararasılaştırmayı (i18n) ölçeklendirmek için gereken tüm özellikleri sunarak Storybook ile mükemmel çalışacak şekilde optimize edilmiştir.
@@ -128,8 +127,6 @@ bun add vite-intlayer --dev
 | `react-intlayer` | React bağlamaları - `IntlayerProvider`, `useIntlayer` hook   |
 | `vite-intlayer`  | Vite eklentisi - içerik bildirim dosyalarını izler ve derler |
 
----
-
 </Step>
 
 <Step number={2} title="Bir Intlayer Yapılandırması Oluşturun">
@@ -158,8 +155,6 @@ export default config;
 ```
 
 > Seçeneklerin tam listesi için [yapılandırma referansına](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) bakın.
-
----
 
 </Step>
 
@@ -207,8 +202,6 @@ export default config;
 ```
 
 `intlayer()` eklentisi `*.content.ts` dosyalarınızı izler ve Storybook geliştirme sırasında herhangi bir değişiklik olduğunda sözlükleri otomatik olarak yeniden oluşturur.
-
----
 
 </Step>
 
@@ -294,8 +287,6 @@ bun add intlayer react-intlayer
 bun add @intlayer/webpack --dev
 ```
 
----
-
 </Step>
 
 <Step number={2} title="Bir Intlayer Yapılandırması Oluşturun">
@@ -317,8 +308,6 @@ const config: IntlayerConfig = {
 
 export default config;
 ```
-
----
 
 </Step>
 
@@ -346,8 +335,6 @@ const config: StorybookConfig = {
 
 export default config;
 ```
-
----
 
 </Step>
 

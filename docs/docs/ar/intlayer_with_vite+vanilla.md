@@ -64,18 +64,17 @@ author: aymericzip
 بالمقارنة مع الحلول الرئيسية مثل `i18next` أو `i18n.js`، يعد Intlayer حلاً يأتي مزودًا بتحسينات متكاملة مثل:
 
 <AccordionGroup>
-
-** تغطية كاملة للفيت **
+<Accordion header="تغطية كاملة للفيت">
 
 تم تحسين Intlayer للعمل بشكل مثالي مع Vite من خلال تقديم **إدارة المحتوى المحايدة لإطار العمل**، و**دعم TypeScript**، وجميع الميزات اللازمة لتوسيع نطاق التدويل (i18n).
 
-**حجم البندل**
+</Accordion>
 
 <Accordion header="حجم الحزمة">
 
 بدلاً من تحميل ملفات JSON ضخمة إلى صفحاتك، قم بتحميل المحتوى الضروري فقط. يساعد Intlayer **في تقليل أحجام البندل وصفحاتك بنسبة تصل إلى 50%**.
 
-** الصيانة **
+</Accordion>
 
 <Accordion header="قابلية الصيانة">
 
@@ -83,11 +82,11 @@ author: aymericzip
 
 </Accordion>
 
-** وكيل الذكاء الاصطناعي **
+<Accordion header="وكيل الذكاء الاصطناعي">
 
 يؤدي تحديد موقع المحتوى المشترك ** إلى تقليل السياق المطلوب ** بواسطة نماذج اللغات الكبيرة (LLMs). يأتي Intlayer أيضًا مزودًا بمجموعة من الأدوات، مثل **CLI** لاختبار الترجمات المفقودة،**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**، **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** و**[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md)**، لجعل تجربة المطور (DX) أكثر سلاسة للذكاء الاصطناعي وكلاء.
 
-**الأتمتة**
+</Accordion>
 
 <Accordion header="التشغيل الآلي">
 
@@ -95,13 +94,13 @@ author: aymericzip
 
 </Accordion>
 
-**أداء**
+<Accordion header="أداء">
 
 يمكن أن يؤدي ربط ملفات JSON الضخمة بالمكونات إلى حدوث مشكلات في الأداء والتفاعل. يعمل Intlayer على تحسين تحميل المحتوى الخاص بك في وقت الإنشاء.
 
 </Accordion>
 
-**التحجيم مع عدم وجود مطور**
+<Accordion header="التحجيم مع عدم وجود مطور">
 
 أكثر من مجرد حل i18n، يوفر Intlayer **[محررًا مرئيًا] مستضافًا ذاتيًا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** و**[كامل CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** لمساعدتك في إدارة المحتوى متعدد اللغات في **الوقت الفعلي**، مما يجعل التعاون مع المترجمين ومؤلفي النصوص وأعضاء الفريق الآخرين سلسًا. يمكن تخزين المحتوى محليًا و/أو عن بعد.
 
@@ -777,6 +776,8 @@ console.log("SEO files generated successfully.");
 
 <Question title="ما هي الحلول المختلفة المتاحة لتدويل تطبيقات Vite و Vanilla JS؟">
 
+لا يبدي Vite أي رأي حول التدويل (i18n)، لذا فإن الاختيار ينبع من منظومة Vanilla JS:
+
 - **كائنات القاموس اليدوية**: استيراد JSON/TS دون أنواع أو أدوات اختبار.
 - **`i18next`**: مكتبة عامة مع تحميل وقت التشغيل.
 - **`Intlayer`**: ترجمة وقت البناء، أنواع كاملة، ترجمة بالذكاء الاصطناعي، ومحرر مرئي.
@@ -808,6 +809,8 @@ console.log("SEO files generated successfully.");
 لا. قم بتشغيل `npx intlayer extract` وسيقرأ Intlayer ملفاتك، ويسحب السلاسل النصية الموجهة للمستخدم، ويكتب ملف `.content` بجانب كل منها، حتى تراجع diff بدلاً من نسخ السلاسل إلى كتالوج يدويًا.
 
 لأتمتة كاملة، يقوم [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md) بالشيء نفسه في وقت البناء: يمسح الكود عند كل تغيير، وينشئ القواميس ويزامنها مع HMR.
+
+من المفيد معرفة قيدين قبل تشغيل المترجم. إنه يعمل عن طريق التحليل الثابت، وبالتالي فإن السلاسل النصية التي تظهر فقط أثناء التشغيل، مثل رموز أخطاء API أو حقول CMS، تظل بعيدة عن متناوله. ويجب عليه تمييز النص الموجه للمستخدم عن منطق التطبيق مثل `className="active"` أو رموز الحالة، الأمر الذي يتطلب بعض التدوينات في قواعد الأكواد الكبيرة. أمر [extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/extract.md) يتجنب كلاهما من خلال إبقائك في مسار التحكم.
 
 </Question>
 

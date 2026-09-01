@@ -41,7 +41,6 @@ author: aymericzip
 So với các giải pháp chính như `@nuxtjs/i18n` hay `i18next`, Intlayer là giải pháp đi kèm với các tính năng tối ưu hóa tích hợp như:
 
 <AccordionGroup>
-
 <Accordion header="Bảo hiểm đầy đủ của Nuxt">
 
 Intlayer được tối ưu hóa để hoạt động hoàn hảo với Nuxt bằng cách cung cấp **định tuyến đa ngôn ngữ**, **phần mềm trung gian để phát hiện ngôn ngữ**, **sơ đồ trang web** và tất cả các tính năng cần thiết để mở rộng quy mô quốc tế hóa (i18n).
@@ -689,6 +688,8 @@ Tiện ích mở rộng này cung cấp:
 <FAQ>
 
 <Question title="Những giải pháp khác nhau nào có sẵn để quốc tế hóa ứng dụng Nuxt?">
+
+Hai lựa chọn thực tế:
 
 - **`@nuxtjs/i18n`**: module tiêu chuẩn dựa trên `vue-i18n`.
 - **`Intlayer`**: tree-shaking tự động, kiểu dữ liệu TypeScript đầy đủ, AI dịch thuật, visual editor và CMS.

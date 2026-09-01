@@ -42,7 +42,6 @@ author: aymericzip
 Dibandingkan dengan solusi utama seperti `ngx-translate` atau `angular-l10n`, Intlayer adalah solusi yang hadir dengan pengoptimalan terintegrasi seperti:
 
 <AccordionGroup>
-
 <Accordion header="Cakupan Sudut Penuh">
 
 Intlayer dioptimalkan agar berfungsi sempurna dengan Angular dengan menawarkan **pelingkupan konten tingkat komponen**, **terjemahan yang lambat dimuat**, dan semua fitur yang diperlukan untuk penskalaan internasionalisasi (i18n).

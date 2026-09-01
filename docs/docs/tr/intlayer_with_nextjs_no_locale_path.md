@@ -59,7 +59,6 @@ GitHub'da [Uygulama Şablonu](https://github.com/aymericzip/intlayer-next-no-lol
 'Next-intl' veya 'i18next' gibi ana çözümlerle karşılaştırıldığında Intlayer, aşağıdaki gibi entegre optimizasyonlarla gelen bir çözümdür:
 
 <AccordionGroup>
-
 <Accordion header="Tam Next.js kapsamı">
 
 Intlayer, verimli işleme için **Sunucu Bileşenleri** ile çalışacak şekilde optimize edilmiştir ve [**Turbopack**](https://nextjs.org/docs/architecture/turbopack) ile tamamen uyumludur. Statik oluşturmayı engellemez ve ara yazılımların yanı sıra uluslararasılaştırmayı (i18n) ölçeklendirmek için gereken tüm özellikleri sunar.
@@ -849,9 +848,15 @@ Daha ileri gitmek için [görsel editörü](https://github.com/aymericzip/intlay
 
 <FAQ>
 
-<Question title="Uygulamayı URL'de yerel olmadan neden sunmak isteyebilirim?">
+<Question title="Next.js uygulamasını uluslararasılaştırmak için hangi farklı çözümler mevcuttur?">
 
-Daha temiz URL'ler elde etmek, tek dilli görünen ancak kullanıcı tercihine veya çerezlere göre yerelleşen portallar oluşturmak veya mevcut URL yapısını bozmadan çoklu dil desteği eklemek için tercih edilir.
+`next.config.js` dosyasının `i18n` alanı App Router için geçerli değildir, bu nedenle yerelleştirme katmanı her zaman bir kütüphane seçimidir:
+
+- **`next-intl`**, **`next-i18next` / `i18next`** ve **`react-intl`**: Ad alanı (namespace) başına yüklenen JSON veya ICU katalogları.
+- **`Lingui`**: Derleme zamanında derlenen ICU mesajları ile çıkarma odaklı.
+- **`Intlayer`**: En gelişmiş çözüm. Kod tabanınızın herhangi bir yerinde ([her bileşenin yanında veya merkezi olarak](https://intlayer.org/blog/per-component-vs-centralized-i18n)) bildirilen ve bileşen başına derlenen içerik, tam tip güvenliği, AI çevirisi, görsel düzenleyici ve CMS.
+
+Bu kılavuz, yolda yerel olmadan yapılan kurulumu kapsar. Bkz. [neden Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/interest_of_intlayer.md) ve [Next.js i18n kıyaslaması](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/nextjs.md).
 
 </Question>
 
@@ -875,9 +880,11 @@ Evet. [sync JSON eklentisi](https://github.com/aymericzip/intlayer/blob/main/doc
 
 <Question title="İçeriğimi anahtar anahtar taşımak zorunda mıyım?">
 
-Hayır. `npx intlayer extract` komutunu çalıştırın; Intlayer kaynak dosyalarınızı okur, kullanıcıya dönük metinleri çıkarır ve her birinin yanına bir `.content` dosyası yazar, böylece dizeleri tek tek kopyalamak yerine bir diff incelersiniz. Bkz. [extract komutu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/extract.md).
+Hayır. `npx intlayer extract` komutunu çalıştırın; Intlayer kaynak dosyalarınızı okur, kullanıcıya dönük metinleri çıkarır ve her birinin yanına bir `.content` dosyası yazar, böylece dizeleri tek tek bir kataloğa kopyalamak yerine bir diff incelersiniz.
 
-Tam otomatik bir akış için [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md) derleme sırasında JSX, TSX, Vue ve Svelte kodunda aynı işlemi yapar ve sözlükleri her değişiklikte otomatik üretir, böylece elle anahtar yönetimi gerekmez. Statik analizle çalıştığından, yalnızca çalışma zamanında var olan dizeler kapsam dışı kalır.
+Tam otomatik bir akış için [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md) derleme sırasında aynı işlemi yapar: her değişiklikte JSX, TSX, Vue ve Svelte kaynaklarınızı tarar, sözlükleri üretir ve çalışırken modül değiştirme (HMR) yoluyla senkronize tutar, böylece elle anahtar yönetimi gerekmez.
+
+Derleyiciyi etkinleştirmeden önce iki sınırlamayı bilmekte fayda vardır. Statik analizle çalıştığından, API hata kodları veya CMS alanları gibi yalnızca çalışma zamanında var olan dizeler kapsam dışı kalır. Ayrıca büyük bir kod tabanında birkaç ek açıklama gerektiren `className="active"` veya durum kodu gibi uygulama mantığı ile kullanıcıya dönük metni ayırt etmesi gerekir. [extract komutu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/extract.md) sizi döngüde tutarak her ikisini de önler.
 
 </Question>
 
@@ -893,33 +900,33 @@ Beş araç, hepsi isteğe bağlı:
 
 </Question>
 
+<Question title="Uygulamayı URL'de yerel olmadan neden sunmak isteyebilirim?">
+
+Yerel ayar her zaman sayfa kimliğinin bir parçası olmadığı için. Kimliği doğrulanmış bir gösterge paneli, dahili bir araç veya oturum açma arkasındaki bir uygulamanın her URL'de `/tr/` göstermesi için bir neden yoktur: dil, farklı bir belge değil, bir kullanıcı tercihidir. Ön eki kaldırmak ayrıca yollarınızı, bağlantılarınızı ve analizlerinizi tek bir yol kümesinde tutar.
+
+</Question>
+
+<Question title="URL'de yerel olmamasının SEO sonuçları nelerdir?">
+
+Gerçektir, bu nedenle bilinçli olarak seçin. Dil başına ayrı bir URL olmadan, arama motorlarının her yerel ayar için dizine ekleyeceği ayrı bir sayfası yoktur, `hreflang` işaret edecek hiçbir şeye sahip değildir ve tarayıcı yalnızca varsayılan algılamanızın sunduğu dili görür. Bu, zaten dizine eklenmeyen bir oturum açma arkasındaki içerik için uygundur, ancak halka açık bir pazarlama sitesi veya dokümantasyon için uygun değildir. Dil başına organik trafik önemliyse, bunun yerine [Next.js 16 kılavuzundaki](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_16.md) ön ekli kurulumu kullanın.
+
+</Question>
+
+<Question title="`no-prefix` ve `search-params` modları arasındaki fark nedir?">
+
+`"no-prefix"` yerel ayarı URL'den tamamen uzak tutar ve çerez, başlık veya etki alanından çözer, böylece her dil tek bir adresi paylaşır. `"search-params"` bunu `/dashboard?locale=tr` gibi sorgu dizesine yerleştirir; bu da rota ağacınızı değiştirmeden her dile ayrı, bağlanabilir ve yer imlerine eklenebilir bir URL sağlar. Dil başına paylaşılabilir bağlantılar istediğinizde `"search-params"` tercih edin.
+
+</Question>
+
 <Question title="Yerel bu durumda nasıl algılanır?">
 
-Öncelikle tanımlama bilgisi (cookie), ardından `Accept-Language` başlığı okunur ve son çare olarak varsayılan dile dönülür. Tercih çerezde saklanır.
+`routing.storage` içinde listelenen kaynaklardan; varsayılan olarak önce bir çerez, ardından `Accept-Language` başlığı ve son çare olarak varsayılan yerel ayarınıza dönülür. Adım 7 bunu uygulayan proxy'yi ekler. Kullanıcının açıkça seçtiği bir dil kalıcı hale getirilir, böylece bir sonraki ziyarette de korunur. [Yapılandırma referansına](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) bakın.
 
 </Question>
 
-<Question title="URL'de yerel olmamasının SEO etkileri nelerdir?">
+<Question title="Bunun yerine her dili kendi alan adına eşleyebilir miyim?">
 
-Arama motorları aynı URL'de farklı diller sunulduğunda dizine ekleme zorluğu yaşayabilir. Güçlü SEO gereksinimleri için her dilin ayrı bir URL'ye veya alt alan adına sahip olması önerilir.
-
-</Question>
-
-<Question title="no-prefix ve search-params modları arasındaki fark nedir?">
-
-`no-prefix` modu URL'yi tamamen temiz tutar ve yereli çerezden okur; `search-params` modu ise yereli `?locale=tr` şeklinde sorgu parametresinde saklar.
-
-</Question>
-
-<Question title="Bunun yerine her dili kendi alan adına atayabilir miyim?">
-
-Evet. `routing.domains` seçeneği her yereli `example.tr` veya `example.com` gibi kendi alan adına eşlemenize olanak tanır.
-
-</Question>
-
-<Question title="Intlayer React Server Components ile çalışır mı?">
-
-Evet. İçerik sunucuda Server Components içinde çözümlenir, böylece sunucuda render edilen metinler için istemciye hiçbir sözlük gönderilmez. Client Components ise sağlayıcı üzerinden aynı sözlükleri okur.
+Evet, ön eki kozmetik nedenlerle kaldırdığınız ancak yine de SEO istediğiniz durumlarda dikkate alınması gereken seçenek budur. `routing.domains` bir yerel ayarı bir ana bilgisayar adına eşler, böylece etki alanı dili tanımlar, yola hiçbir ön ek eklenmez ve her dil `hreflang`'in işaret edebileceği dizine eklenebilir bir URL alır.
 
 </Question>
 

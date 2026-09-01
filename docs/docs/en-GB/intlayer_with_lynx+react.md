@@ -46,7 +46,6 @@ See [Application Template](https://github.com/aymericzip/intlayer-lynx-template)
 Compared to main solutions like `react-native-localize` or `i18next`, Intlayer is a solution that comes with integrated optimizations such as:
 
 <AccordionGroup>
-
 <Accordion header="Full Lynx coverage">
 
 Intlayer is optimized to work perfectly with Lynx and React by offering **component-level content scoping**, **TypeScript support**, and all the features needed for scaling internationalization (i18n).
@@ -144,8 +143,6 @@ bun add intlayer react-intlayer lynx-intlayer
 
 - **lynx-intlayer**  
   Lynx integration that provides the plugin for integrating Intlayer with the Lynx bundler.
-
----
 
 </Step>
 
@@ -340,8 +337,6 @@ export default appContent;
 
 > For details on content declarations, see [Intlayer’s content docs](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/content_file.md).
 
----
-
 </Step>
 
 <Step number={7} title="Use Intlayer in Your Components">
@@ -399,8 +394,6 @@ export const App = () => {
 ```
 
 > When using `content.someKey` in string-based props (e.g., a button’s `title` or a `Text` component’s `children`), **call `content.someKey.value`** to get the actual string.
-
----
 
 </Step>
 

@@ -63,7 +63,6 @@ author: aymericzip
 Im Vergleich zu Hauptlösungen wie „lit-localize“ oder „i18next“ ist Intlayer eine Lösung, die über integrierte Optimierungen verfügt wie:
 
 <AccordionGroup>
-
 <Accordion header="Volle Lit-Abdeckung">
 
 Intlayer ist für die perfekte Zusammenarbeit mit Lit optimiert, indem es **Content-Scoping auf Webkomponentenebene**, **TypeScript-Unterstützung** und alle für die Skalierung der Internationalisierung (i18n) erforderlichen Funktionen bietet.

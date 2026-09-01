@@ -70,7 +70,6 @@ author: aymericzip
 W porównaniu do głównych rozwiązań, takich jak `next-intl` czy `i18next`, Intlayer jest rozwiązaniem wyposażonym w zintegrowane optymalizacje, takie jak:
 
 <AccordionGroup>
-
 <Accordion header="Pełne pokrycie Next.js">
 
 Intlayer jest zoptymalizowany do współpracy z **Server Components** w celu wydajnego renderowania i jest w pełni kompatybilny z [**Turbopack**](https://nextjs.org/docs/architecture/turbopack). Nie blokuje renderowania statycznego i oferuje oprogramowanie pośredniczące oraz wszystkie funkcje potrzebne do skalowania internacjonalizacji (i18n).
@@ -116,7 +115,6 @@ Korzystaj z automatyzacji, aby tłumaczyć w swoim potoku CI/CD przy użyciu wyb
 Więcej niż tylko rozwiązanie i18n, Intlayer zapewnia **samodzielny [edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** i **[pełny CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)**, który pomoże Ci zarządzać wielojęzyczną treścią w **w czasie rzeczywistym**, dzięki czemu współpraca z tłumaczami, copywriterami i innymi członkami zespołu będzie płynna. Treść może być przechowywana lokalnie i/lub zdalnie.
 
 </Accordion>
-
 </AccordionGroup>
 ---
 
@@ -231,6 +229,8 @@ export default withIntlayer(nextConfig);
 <Step number={4} title="Skonfiguruj Middleware do wykrywania lokalizacji">
 
 Skonfiguruj middleware, aby automatycznie wykrywać i obsługiwać preferowaną lokalizację użytkownika:
+
+> Od wersji Intlayer v9 to oprogramowanie pośredniczące (middleware) respektuje opcję `routing.enableProxy` (`true` domyślnie). Ustaw `routing.enableProxy: false` w swojej konfiguracji, aby przekształcić je w pass-through bez usuwania tego pliku. Zobacz [informacje o wydaniu v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/releases/v9.md).
 
 ```typescript fileName="src/middleware.ts" codeFormat={["typescript", "esm", "commonjs"]}
 export { intlayerProxy as middleware } from "next-intlayer/middleware";
@@ -776,7 +776,9 @@ Link.displayName = "Link";
 - **Wykrywanie linków zewnętrznych**:  
   Funkcja pomocnicza `checkIsExternalLink` określa, czy URL jest zewnętrzny. Linki zewnętrzne pozostają niezmienione, ponieważ nie wymagają lokalizacji.
 
-- **Pobieranie aktualnej lokalizacji**:
+- **Pobieranie aktualnej lokalizacji**:  
+  Hook `useLocale` udostępnia bieżącą lokalizację (np. `fr` dla francuskiego).
+
 - **Lokalizacja URL**:  
   Dla linków wewnętrznych (czyli niezewnętrznych) używana jest funkcja `getLocalizedUrl`, która automatycznie dodaje prefiks z aktualnym locale do URL. Oznacza to, że jeśli użytkownik korzysta z wersji francuskiej, przekazanie `/about` jako `href` zostanie przekształcone na `/fr/about`.
 

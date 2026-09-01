@@ -67,7 +67,6 @@ author: aymericzip
 Comparado com soluções principais como `next-intl` ou `i18next`, Intlayer é uma solução que vem com otimizações integradas como:
 
 <AccordionGroup>
-
 <Accordion header="Cobertura completa do Next.js">
 
 O Intlayer é otimizado para funcionar com **Componentes de servidor** para renderização eficiente e é totalmente compatível com [**Turbopack**](https://nextjs.org/docs/architecture/turbopack). Ele não bloqueia a renderização estática e oferece middleware, bem como todos os recursos necessários para dimensionar a internacionalização (i18n).
@@ -214,11 +213,22 @@ export default withIntlayer(nextConfig);
 
 > O plugin `withIntlayer()` do Next.js é usado para integrar o Intlayer com o Next.js. Ele garante a construção dos arquivos de declaração de conteúdo e os monitora no modo de desenvolvimento. Define as variáveis de ambiente do Intlayer dentro dos ambientes [Webpack](https://webpack.js.org/) ou [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack). Além disso, fornece aliases para otimizar o desempenho e assegura a compatibilidade com componentes do servidor.
 
+> A função `withIntlayer()` é uma função promise. Se você quiser usá-la com outros plugins, pode usar `await`. Exemplo:
+>
+> ```tsx
+> const nextConfig = await withIntlayer(nextConfig);
+> const nextConfigWithOtherPlugins = withOtherPlugins(nextConfig);
+>
+> export default nextConfigWithOtherPlugins;
+> ```
+
 </Step>
 
 <Step number={4} title="Configurar Middleware para Detecção de Localidade">
 
 Configure o middleware para detectar e tratar automaticamente a localidade preferida do usuário:
+
+> A partir do Intlayer v9, este middleware respeita a opção `routing.enableProxy` (`true` por padrão). Defina `routing.enableProxy: false` na sua configuração para transformá-lo em um pass-through sem remover este arquivo. Veja as [notas de lançamento do v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/releases/v9.md).
 
 ```typescript fileName="src/middleware.ts" codeFormat={["typescript", "esm", "commonjs"]}
 export { intlayerProxy as middleware } from "next-intlayer/middleware";

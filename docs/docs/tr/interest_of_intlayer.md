@@ -39,7 +39,6 @@ author: aymericzip
 `next-intl` veya `i18next` gibi ana çözümlerle karşılaştırıldığında, Intlayer entegre optimizasyonlarla gelen bir çözümdür:
 
 <AccordionGroup>
-
 <Accordion header="Paket Boyutu (Bundle size)">
 
 Sayfalarınıza devasa JSON dosyaları yüklemek yerine, yalnızca kesinlikle gerekli olan içeriği yükleyin. Intlayer, **paket ve sayfa boyutlarınızı %50'ye kadar azaltmaya** yardımcı olur.
@@ -304,8 +303,6 @@ Mevcut i18n kütüphanenizin API'sini kullanmaya devam etmek isterseniz, `intlay
 - **Çalışma zamanı katalog kütüphaneleri**: `i18next`, `react-i18next`, `next-i18next`, `vue-i18n`, `ngx-translate`.
 - **Derleme zamanı mesaj kütüphaneleri**: `Lingui`, `Paraglide`, `react-intl` ve `next-intl`.
 - **İçerik katmanı kütüphaneleri**: `Intlayer`. Bileşen yanında bildirim, tree-shaking, tam TypeScript tipleri, AI çeviri ve görsel düzenleyici.
-
-Ayrıntılı karşılaştırma için bu kılavuzu inceleyin.
 
 </Question>
 

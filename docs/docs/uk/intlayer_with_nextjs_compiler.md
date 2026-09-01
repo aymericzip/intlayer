@@ -83,7 +83,6 @@ author: aymericzip
 ## Покрокова інструкція з налаштування Intlayer в додатку Next.js
 
 <Steps>
-
 <Step number={1} title="Встановлення залежностей">
 
 Встановіть необхідні пакети за допомогою бажаного менеджера пакетів:
@@ -137,7 +136,6 @@ bun add @intlayer/babel --dev
   Пакет, що інтегрує Intlayer з Next.js. Він надає контекст-провайдери та хуки для інтернаціоналізації Next.js. Крім того, він включає плагін Next.js для інтеграції Intlayer з [Webpack](https://webpack.js.org/) або [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack), а також прошарок (middleware) для виявлення бажаної мови користувача, управління файлами cookie та обробки перенаправлення URL.
 
 </Step>
-
 <Step number={2} title="Налаштування вашого проєкту">
 
 Створіть конфігураційний файл, щоб визначити мови вашого додатку:
@@ -196,7 +194,6 @@ export default config;
 > За допомогою цього конфігураційного файлу ви можете налаштувати локалізовані URL-адреси, проксі-перенаправлення, мапінг файлів cookie, розташування та розширення ваших декларацій контенту, вимкнути логи Intlayer в консолі та багато іншого. Для ознайомлення з повним списком доступних параметрів, перегляньте [документацію до конфігурацій](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md).
 
 </Step>
-
 <Step number={3} title="Інтегруйте Intlayer до вашої конфігурації Next.js">
 
 Налаштуйте ваш Next.js для використання Intlayer:
@@ -213,10 +210,8 @@ export default withIntlayer(nextConfig);
 ```
 
 > Плагін Next.js `withIntlayer()` використовується для інтеграції Intlayer із Next.js. Він забезпечує побудову файлів словників і слідкує за ними у режимі dev. Він визначає змінні середовища Intlayer у середовищах [Webpack](https://webpack.js.org/) або [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack). Більше того, він надає псевдоніми для оптимізації продуктивності та повноцінно працює із Серверними Компонентами.
-> </Step>
 
 </Step>
-
 <Step number={4} title="Виявлення мови на ваших сторінках">
 
 Компілятор Intlayer потребує Babel для видобування та оптимізації вашого вмісту. Оновіть ваш `babel.config.js` (або `babel.config.json`), щоб включити плагіни Intlayer:
@@ -239,7 +234,6 @@ module.exports = {
 ```
 
 </Step>
-
 <Step number={5} title="Detect Locale in your pages">
 
 Очистіть контент `RootLayout` та замініть його прикладом нижче:
@@ -284,8 +278,7 @@ export default RootLayout;
 ```
 
 </Step>
-
-<Step number={5} title="Декларування вашого контенту">
+<Step number={6} title="Декларування вашого контенту">
 
 З увімкненим компілятором вам **більше не потрібно** декларувати словники контенту вручну (наприклад, файли `.content.ts`).
 
@@ -296,7 +289,7 @@ export default RootLayout;
 Приклад того, як виглядатиме ваша `page.tsx`:
 
 <Tabs>
-  <Tab value="Code">
+<Tab value="Code">
 
 ```tsx fileName="src/app/page.tsx"
 import type { FC } from "react";
@@ -323,8 +316,8 @@ export default async function Page() {
 }
 ```
 
-  </Tab>
-  <Tab value="Output">
+</Tab>
+<Tab value="Output">
 
 ```ts fileName="i18n/page-content.content.tsx"
 {
@@ -346,8 +339,10 @@ export default async function Page() {
 }
 ```
 
+</Tab>
+</Tabs>
 <Tabs>
-  <Tab label='Intlayer >=9.4' value='>=9.4'>
+<Tab label='Intlayer >=9.4' value='>=9.4'>
 
 ```tsx fileName="src/app/page.tsx"
 import { type FC } from "react";
@@ -379,7 +374,8 @@ export default async function Page() {
 - **`IntlayerProvider`** монтується один раз у кореневому макеті. Він надає локаль як серверним, так і клієнтським компонентам, тому сторінки більше не обгортаються самі в себе.
 - Без сегмента шляху `[locale]` локаль завжди надходить із запиту — заголовку `x-intlayer-locale`, встановленого проксі Intlayer, потім куки локалі — які серверні хуки читають самостійно, коли провайдер не запущений.
 
-</Tabs>
+</Tab>
+<Tab label='Intlayer <9.4' value='<9.4'>
 
 ```tsx fileName="src/app/page.tsx"
 import { type FC } from "react";
@@ -413,12 +409,9 @@ export default async function Page() {
 
   > Layout and page cannot share a common server context because the server context system is based on a per-request data store (via [React's cache](https://react.dev/reference/react/cache) mechanism), causing each "context" to be re-created for different segments of the application. Placing the provider in a shared layout would break this isolation, preventing the correct propagation of the server context values to your server components.
 
- </Tab>
-
+</Tab>
 </Tabs>
-
 </Step>
-
 <Step number={7} title="Заповнення відсутніх перекладів" isOptional={true}>
 
 Intlayer надає CLI-інструмент, щоб допомогти вам заповнити відсутні переклади. Ви можете використовувати команду `intlayer` для перевірки та заповнення відсутніх перекладів із вашого коду.
@@ -458,7 +451,6 @@ bun x intlayer fill         # Заповнити відсутні перекла
 > Для отримання більш детальної інформації зверніться до [документації CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/ci.md)
 
 </Step>
-
 <Step number={8} title="Middleware для проксі-маршрутизації мов" isOptional={true}>
 
 Якщо ви хочете автоматично перенаправляти користувачів на їхню улюблену мову, налаштуйте проксі middleware:
@@ -477,7 +469,6 @@ export const config = {
 > Починаючи з Intlayer v9, це middleware дотримується опції `routing.enableProxy` (`true` за замовчуванням). Установіть `routing.enableProxy: false` у вашій конфігурації, щоб перетворити її на pass-through без видалення цього файлу. Див. [примітки до випуску v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/releases/v9.md).
 
 </Step>
-
 <Step number={9} title="Зміна мови контенту" isOptional={true}>
 
 Найбільш рекомендований спосіб зміни мови контенту в Next.js, використання компонента `Link` для направлення користувача на маршрут з відповідною мовою. Це використовує функцію prefetch фреймворку Next.js і дозволяє уникнути жорсткого перезавантаження сторінки.
@@ -529,7 +520,6 @@ export const LocaleSwitcher: FC = () => {
 > Альтернативним варіантом є використання функції `setLocale`, яка надається хуком `useLocale`. Ця функція не підтримує prefetch сторінок. Більше деталей дивіться у [документації до хука `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/next-intlayer/useLocale.md).
 
 </Step>
-
 <Step number={10} title="Оптимізація розміру Bundle" isOptional={true}>
 
 При використанні `next-intlayer`, словники за замовчуванням включаються в bundle для кожної сторінки. Для оптимізації розміру bundle Intlayer надає опціональний SWC-плагін, який інтелектуально замінює виклики `useIntlayer` за допомогою макросів. Це гарантує, що словники включаються лише в bundle тих сторінок, які їх дійсно використовують.
@@ -559,11 +549,9 @@ bun add @intlayer/swc --dev
 > Примітка: Цей пакет не встановлюється за замовчуванням, оскільки SWC-плагіни все ще експериментальні в Next.js. Це може змінитися в майбутньому.
 
 > Примітка: Якщо ви встановили опцію (у конфігурації словника) `importMode: 'dynamic'` або `importMode: 'fetch'`, вона залежатиме від Suspense, тому вам потрібно буде обгорнути виклики `useIntlayer` у межу `Suspense`. Це означає, що ви не зможете використовувати `useIntlayer` безпосередньо на верхньому рівні ваших компонентів Сторінки / Layout.
-> </Step>
 
 </Step>
-
-<Step number={1} title="Витягніть вміст ваших компонентів" isOptional={true}>
+<Step number={11} title="Витягніть вміст ваших компонентів" isOptional={true}>
 
 Якщо у вас є існуюча кодова база, перетворення тисяч файлів може зайняти багато часу.
 
@@ -603,7 +591,7 @@ export default config;
 ```
 
 <Tabs>
- <Tab value='Команда витягування'>
+<Tab value='Extract command'>
 
 Запустіть екстрактор для перетворення компонентів і витягування вмісту
 
@@ -623,8 +611,8 @@ yarn intlayer extract
 bun x intlayer extract
 ```
 
- </Tab>
- <Tab value='Компілятор Babel'>
+</Tab>
+<Tab value='Babel compiler'>
 
 > Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
 
@@ -675,10 +663,9 @@ yarn build # Or yarn dev
 bun run build # Or bun run dev
 ```
 
- </Tab>
+</Tab>
 </Tabs>
 </Step>
-
 </Steps>
 
 ### Конфігурація TypeScript
@@ -735,9 +722,15 @@ Intlayer використовує розширення модулів (module au
 
 <FAQ>
 
-<Question title="Що робить компілятор Intlayer?">
+<Question title="Які існують різні рішення для інтернаціоналізації додатків Next.js?">
 
-Компілятор аналізує ваш код JSX та TSX під час збирання, автоматично витягує тексти інтерфейсу та перетворює їх на словники без необхідності вручну створювати окремі файли вмісту.
+Поле `i18n` у `next.config.js` не застосовується до App Router, тому рівень локалізації завжди є вибором бібліотеки:
+
+- **`next-intl`**, **`next-i18next` / `i18next`** та **`react-intl`**: каталоги JSON або ICU, завантажені за простором імен, з ключами, написаними вручну в кожному місці виклику.
+- **`Lingui`**: керований вилученням, з повідомленнями ICU, скомпільованими під час збирання.
+- **`Intlayer`**: вміст, скомпільований з ваших компонентів під час збирання, повністю типізований, з ШІ-перекладом, візуальним редактором та CMS.
+
+Цей посібник використовує налаштування компілятора, де ви продовжуєте писати звичайні рядки у своїх компонентах, а словники генеруються для вас. Див. [чому Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/interest_of_intlayer.md) та [бенчмарк i18n Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/nextjs.md).
 
 </Question>
 
@@ -762,6 +755,8 @@ Intlayer використовує розширення модулів (module au
 <Question title="Чи потрібно переносити вміст ключ за ключем?">
 
 Ні. Запустіть `npx intlayer extract`, і Intlayer прочитає ваші вихідні файли, витягне призначені для користувача рядки і створить файл `.content` поруч із кожним компонентом, завдяки чому ви переглядаєте diff замість копіювання рядків у каталог вручну. Див. [команду extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/extract.md).
+
+Варто знати два обмеження. Компілятор працює за допомогою статичного аналізу, тому рядки, які існують лише під час виконання, такі як коди помилок API або поля CMS, залишаються недосяжними і все ще потребують оголошеного словника. І він повинен відрізняти текст для користувача від логіки додатка, як-от `className="active"` або код статусу, що вимагає кількох анотацій у великій кодовій базі.
 
 Для повної автоматизації [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compiler.md) робить те саме під час збирання для коду JSX, TSX, Vue та Svelte, генеруючи словники під час кожної зміни без необхідності підтримувати ключі вручну. Оскільки він працює на основі статичного аналізу, динамічні рядки середовища виконання залишаються поза його межами.
 

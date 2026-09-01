@@ -39,7 +39,6 @@ author: aymericzip
 Dibandingkan dengan solusi utama seperti `next-intl` atau `i18next`, Intlayer adalah solusi yang hadir dengan pengoptimalan terintegrasi seperti:
 
 <AccordionGroup>
-
 <Accordion header="Ukuran bundle">
 
 Daripada memuat file JSON berukuran besar ke halaman Anda, muat saja konten yang diperlukan. Intlayer membantu **mengurangi ukuran bundle dan halaman Anda hingga 50%**.
@@ -305,8 +304,6 @@ Tiga generasi saling berdampingan:
 - **Library katalog runtime**: `i18next`, `react-i18next`, `next-i18next`, `vue-i18n`, `ngx-translate`.
 - **Library pesan waktu kompilasi**: `Lingui`, `Paraglide`, `react-intl`, dan `next-intl`.
 - **Library lapisan konten (Content layer)**: `Intlayer`. Deklarasi di sebelah komponen, tree-shaking, tipe TypeScript, terjemahan AI, dan editor visual.
-
-Lihat perbandingan lengkap dalam panduan ini.
 
 </Question>
 

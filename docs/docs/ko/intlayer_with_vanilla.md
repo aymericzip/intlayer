@@ -63,7 +63,6 @@ author: aymericzip
 'i18next' 또는 'i18n.js'와 같은 주요 솔루션과 비교할 때 Intlayer는 다음과 같은 통합 최적화가 제공되는 솔루션입니다.
 
 <AccordionGroup>
-
 <Accordion header="전체 바닐라 JS 적용 범위">
 
 Intlayer는 **프레임워크에 구애받지 않는 콘텐츠 관리**, **TypeScript 지원** 및 국제화 확장(i18n)에 필요한 모든 기능을 제공하여 Vanilla JavaScript와 완벽하게 작동하도록 최적화되었습니다.
@@ -444,6 +443,7 @@ const unsubscribe = useDictionaryDynamic(
 ```
 
 > 참고: `useDictionaryDynamic`을 사용하려면 딕셔너리가 별도의 ESM 파일로 제공되어야 합니다. 이 방식은 일반적으로 딕셔너리를 제공하는 웹 서버가 있는 경우 사용됩니다.
+> </Step>
 
 </Steps>
 

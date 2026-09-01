@@ -33,6 +33,15 @@ Intlayer'da çoğul içerik, CLDR çoğul kategorilerini (`zero`, `one`, `two`, 
 
 Kendi tanımladığınız sayısal aralıklara göre içerik seçen [`enu`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/enumeration.md) işlevinden farklı olarak, `plural` seçimi CLDR kurallarına devreder. Rusça, Lehçe, Arapça veya Galce gibi karmaşık çoğullaştırma kurallarına sahip diller için, elle modülo mantığı yazmak zorunda kalmadan ölçeklenebilir olmasını sağlayan şey budur.
 
+## `plural` ve `enu` Ne Zaman Kullanılır
+
+| Kullanım senaryosu                                               | Yardımcı |
+| ---------------------------------------------------------------- | -------- |
+| Dile duyarlı dilbilgisel çoğul formları (bir elma / iki elma)    | `plural` |
+| Özel sayısal aralıklar (`<5`, `>=10`) veya CLDR dışı kategoriler | `enu`    |
+
+Yalnızca İngilizceyi hedefliyorsanız (yalnızca `one` / `other` bulunur), her ikisi de çalışır. `few` / `many` / `two` ayrımlarına sahip diller için `plural` tercih edin.
+
 ## Çoğul İçeriği Ayarlama
 
 Intlayer projenizde çoğul içeriği ayarlamak için `plural` yardımcısını kullanan bir içerik modülü oluşturun. `other` kategorisi zorunludur ve bir yerel daha spesifik bir kategori tanımlamadığında yedek olarak kullanılır.

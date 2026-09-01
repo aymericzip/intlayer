@@ -69,7 +69,6 @@ Este guia cobre uma aplicação SolidStart **renderizada no servidor**: a detec�
 Comparado a soluções principais como `@solid-primitives/i18n` ou `i18next`, o Intlayer é uma solução que vem com otimizações integradas, tais como:
 
 <AccordionGroup>
-
 <Accordion header="Cobertura completa do Solid">
 
 O Intlayer é otimizado para funcionar perfeitamente com o Solid, oferecendo **escopo de conteúdo no nível do componente**, **traduções reativas** e todos os recursos necessários para dimensionar a internacionalização (i18n).

@@ -63,7 +63,6 @@ author: aymericzip
 Dibandingkan dengan solusi utama seperti `next-intl` atau `i18next`, Intlayer adalah solusi yang hadir dengan pengoptimalan terintegrasi seperti:
 
 <AccordionGroup>
-
 <Accordion header="Cakupan lengkap Next.js">
 
 Intlayer dioptimalkan untuk bekerja dengan **Komponen Server** untuk rendering yang efisien dan sepenuhnya kompatibel dengan [**Turbopack**](https://nextjs.org/docs/architecture/turbopack). Itu tidak memblokir rendering statis dan menawarkan middleware serta semua fitur yang diperlukan untuk penskalaan internasionalisasi (i18n).
@@ -1116,6 +1115,8 @@ Untuk melangkah lebih jauh, Anda dapat mengimplementasikan [editor visual](https
 <FAQ>
 
 <Question title="Apa saja solusi berbeda yang tersedia untuk menginternasionalkan aplikasi Next.js 15?">
+
+Field `i18n` dari `next.config.js` tidak berlaku untuk App Router, jadi lapisan lokalisasi selalu menjadi pilihan library:
 
 - **`next-intl`**: library pesan populer untuk App Router, memuat file JSON di runtime.
 - **`next-i18next`**: solusi standar untuk Pages Router.

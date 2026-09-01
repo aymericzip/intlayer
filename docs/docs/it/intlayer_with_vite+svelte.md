@@ -68,7 +68,6 @@ author: aymericzip
 Rispetto alle soluzioni principali come `svelte-i18n` o `i18next`, Intlayer è una soluzione dotata di ottimizzazioni integrate come:
 
 <AccordionGroup>
-
 <Accordion header="Copertura completa e snella">
 
 Intlayer è ottimizzato per funzionare perfettamente con Svelte offrendo **ambito del contenuto a livello di componente**, **traduzioni reattive** e tutte le funzionalità necessarie per scalare l'internazionalizzazione (i18n).

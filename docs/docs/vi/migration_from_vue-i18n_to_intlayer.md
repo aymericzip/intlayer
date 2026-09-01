@@ -28,7 +28,6 @@ author: aymericzip
 ## Tại sao nên chuyển từ vue-i18n sang Intlayer?
 
 <AccordionGroup>
-
 <Accordion header="Kích thước bundle">
 
 Thay vì tải những tệp JSON khổng lồ vào các trang của bạn, chỉ tải nội dung cần thiết. Intlayer giúp **giảm kích thước bundle và trang của bạn lên tới 50%**.
@@ -66,7 +65,6 @@ Kết nối các tệp JSON khổng lồ với các thành phần có thể dẫ
 Hơn chỉ là một giải pháp i18n, Intlayer cung cấp **[visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md) tự lưu trữ** và một **[CMS đầy đủ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md)** để giúp bạn quản lý nội dung đa ngôn ngữ của bạn **theo thời gian thực**, làm cho cộng tác với các nhà dịch, biên tập viên sao chép và các thành viên nhóm khác trở nên liền mạch. Nội dung có thể được lưu trữ cục bộ và/hoặc từ xa.
 
 </Accordion>
-
 </AccordionGroup>
 
 ---

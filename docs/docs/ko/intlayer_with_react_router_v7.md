@@ -54,7 +54,6 @@ author: aymericzip
 'react-i18next' 또는 'i18next'와 같은 주요 솔루션과 비교할 때 Intlayer는 다음과 같은 통합 최적화가 제공되는 솔루션입니다.
 
 <AccordionGroup>
-
 <Accordion header="전체 React Router 적용 범위">
 
 Intlayer는 **로케일 인식 라우팅**, **로케일 감지를 위한 미들웨어** 및 국제화 확장(i18n)에 필요한 모든 기능을 제공하여 React Router와 완벽하게 작동하도록 최적화되었습니다.
@@ -236,6 +235,7 @@ export default defineConfig({
 
 > `intlayer()` Vite 플러그인은 Intlayer를 Vite와 통합하는 데 사용됩니다. 이 플러그인은 콘텐츠 선언 파일의 빌드를 보장하고 개발 모드에서 이를 모니터링합니다. 또한 Vite 애플리케이션 내에서 Intlayer 환경 변수를 정의하며, 성능 최적화를 위한 별칭(alias)도 제공합니다.
 
+</Step>
 </Steps>
 
 <Step number={4} title="React Router v7 라우트 구성">
@@ -257,6 +257,7 @@ export default [
 
 루트 레이아웃과 로케일별 레이아웃을 설정하세요:
 
+</Step>
 #### 루트 레이아웃
 
 ```tsx fileName="app/root.tsx"
@@ -306,8 +307,6 @@ export function Layout({
   );
 }
 ```
-
-</Step>
 
 <Step number={6} title="콘텐츠 선언하기">
 
@@ -419,6 +418,7 @@ export const useLocalizedNavigate = () => {
 
 애플리케이션 전반에서 콘텐츠 사전을 액세스하세요:
 
+</Step>
 #### 현지화된 홈 페이지
 
 ```tsx fileName="app/routes/page.tsx"
@@ -468,8 +468,6 @@ export default function Page() {
 > `useIntlayer` 훅에 대해 더 알아보려면 [문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/react-intlayer/useIntlayer.md)를 참조하세요.
 
 > 기존 앱이 있다면, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md)와 [extract 명령어](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/extract.md)를 사용하여 수천 개의 컴포넌트를 몇 초 안에 변환할 수 있습니다.
-
-</Step>
 
 <Step number={9} title="로케일 스위처 컴포넌트 만들기">
 
@@ -704,11 +702,7 @@ bun run build # 또는 bun run dev
  </Tab>
 </Tabs>
 
----
-
 </Step>
-
-</Steps>
 
 ## Configure TypeScript
 
@@ -813,7 +807,9 @@ React Router v7은 자체 메시지 레이어를 제공하지 않으므로 i18n 
 
 아닙니다. `npx intlayer extract`를 실행하면 Intlayer가 컴포넌트를 읽고 사용자 대면 문자열을 추출하여 각 컴포넌트 옆에 `.content` 파일을 생성하므로 카탈로그에 일일이 복사할 필요 없이 diff만 검토하면 됩니다. 이 가이드의 12단계를 확인하세요.
 
-완전 자동화된 파이프라인을 위해 [Intlayer 컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md)는 빌드 타임에 JSX, TSX, Vue 및 Svelte 소스에서 동일한 작업을 수행하여 변경될 때마다 사전을 생성하고 HMR을 통해 동기화하므로 수동으로 키를 관리할 필요가 없습니다. 정적 분석으로 작동하므로 런타임에만 존재하는 문자열은 제외되며, 사용자 텍스트와 애플리케이션 로직을 구분하기 위해 몇 가지 주석이 필요합니다. [extract 명령](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/extract.md)을 사용하면 직접 검토하면서 이 두 가지 문제를 모두 피할 수 있습니다.
+완전 자동화된 파이프라인을 위해 [Intlayer 컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md)는 빌드 타임에 JSX, TSX, Vue 및 Svelte 소스에서 동일한 작업을 수행하여 변경될 때마다 사전을 생성하고 HMR을 통해 동기화하므로 수동으로 키를 관리할 필요가 없습니다.
+
+컴파일러를 켜기 전에 알아두어야 할 두 가지 제한 사항이 있습니다. 정적 분석으로 작동하므로 API 오류 코드나 CMS 필드와 같이 런타임에만 존재하는 문자열은 처리할 수 없습니다. 또한 큰 코드베이스에서 몇 가지 어노테이션이 필요한 `className="active"` 또는 상태 코드와 같은 애플리케이션 로직과 사용자 대면 텍스트를 구분해야 합니다. [extract 명령](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/extract.md)은 사용자가 직접 제어할 수 있도록 하여 두 가지 문제를 모두 방지합니다.
 
 </Question>
 

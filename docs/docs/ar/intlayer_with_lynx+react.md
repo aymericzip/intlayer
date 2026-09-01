@@ -46,18 +46,17 @@ author: aymericzip
 بالمقارنة مع الحلول الرئيسية مثل `react-native-localize` أو `i18next`، يعد Intlayer حلاً يأتي مزودًا بتحسينات متكاملة مثل:
 
 <AccordionGroup>
-
-** تغطية الوشق الكاملة **
+<Accordion header="تغطية الوشق الكاملة">
 
 تم تحسين Intlayer للعمل بشكل مثالي مع Lynx وReact من خلال تقديم **نطاق المحتوى على مستوى المكونات**، و**دعم TypeScript**، وجميع الميزات اللازمة لتوسيع نطاق التدويل (i18n).
 
-**حجم البندل**
+</Accordion>
 
 <Accordion header="حجم الحزمة">
 
 بدلاً من تحميل ملفات JSON ضخمة إلى صفحاتك، قم بتحميل المحتوى الضروري فقط. يساعد Intlayer **في تقليل أحجام البندل وصفحاتك بنسبة تصل إلى 50%**.
 
-** الصيانة **
+</Accordion>
 
 <Accordion header="قابلية الصيانة">
 
@@ -65,11 +64,11 @@ author: aymericzip
 
 </Accordion>
 
-** وكيل الذكاء الاصطناعي **
+<Accordion header="وكيل الذكاء الاصطناعي">
 
 يؤدي تحديد موقع المحتوى المشترك ** إلى تقليل السياق المطلوب ** بواسطة نماذج اللغات الكبيرة (LLMs). يأتي Intlayer أيضًا مزودًا بمجموعة من الأدوات، مثل **CLI** لاختبار الترجمات المفقودة،**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**، **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** و**[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md)**، لجعل تجربة المطور (DX) أكثر سلاسة للذكاء الاصطناعي وكلاء.
 
-**الأتمتة**
+</Accordion>
 
 <Accordion header="تشغيل آلي">
 
@@ -77,13 +76,13 @@ author: aymericzip
 
 </Accordion>
 
-**أداء**
+<Accordion header="أداء">
 
 يمكن أن يؤدي ربط ملفات JSON الضخمة بالمكونات إلى حدوث مشكلات في الأداء والتفاعل. يعمل Intlayer على تحسين تحميل المحتوى الخاص بك في وقت الإنشاء.
 
 </Accordion>
 
-**التحجيم مع عدم وجود مطور**
+<Accordion header="التحجيم مع عدم وجود مطور">
 
 أكثر من مجرد حل i18n، يوفر Intlayer **[محررًا مرئيًا] مستضافًا ذاتيًا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** و**[كامل CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** لمساعدتك في إدارة المحتوى متعدد اللغات في **الوقت الفعلي**، مما يجعل التعاون مع المترجمين ومؤلفي النصوص وأعضاء الفريق الآخرين سلسًا. يمكن تخزين المحتوى محليًا و/أو عن بعد.
 
@@ -144,8 +143,6 @@ bun add intlayer react-intlayer lynx-intlayer
 
 - **lynx-intlayer**  
   تكامل Lynx الذي يوفر المكون الإضافي لدمج Intlayer مع Lynx bundler.
-
----
 
 </Step>
 
@@ -338,8 +335,6 @@ export default appContent;
 
 > لمزيد من التفاصيل حول إعلانات المحتوى، راجع [وثائق محتوى Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md).
 
----
-
 </Step>
 
 <Step number={6} title="استخدام Intlayer في مكوناتك">
@@ -397,8 +392,6 @@ export const App = () => {
 ```
 
 > عند استخدام `content.someKey` في الخصائص النصية (مثل خاصية `title` للزر أو خاصية `children` لمكون `Text`)، **قم باستدعاء `content.someKey.value`** للحصول على النص الفعلي.
-
----
 
 </Step>
 

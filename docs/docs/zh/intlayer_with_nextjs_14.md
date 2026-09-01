@@ -584,9 +584,6 @@ const ServerComponentExample: FC = () => {
 };
 ```
 
- </Tab>
-</Tabs>
-
 > 如果您想在字符串属性中使用内容，例如 `alt`、`title`、`href`、`aria-label` 等，必须调用函数的值，如：
 
 > ```html

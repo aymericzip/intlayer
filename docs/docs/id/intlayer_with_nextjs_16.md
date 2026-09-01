@@ -76,7 +76,6 @@ Lihat [Template Aplikasi](https://github.com/aymericzip/intlayer-next-16-templat
 Dibandingkan dengan solusi utama seperti `next-intl` atau `i18next`, Intlayer adalah solusi yang hadir dengan pengoptimalan terintegrasi seperti:
 
 <AccordionGroup>
-
 <Accordion header="Cakupan lengkap Next.js">
 
 Intlayer dioptimalkan untuk bekerja dengan **Komponen Server** untuk rendering yang efisien dan sepenuhnya kompatibel dengan [**Turbopack**](https://nextjs.org/docs/architecture/turbopack). Itu tidak memblokir rendering statis dan menawarkan middleware serta semua fitur yang diperlukan untuk penskalaan internasionalisasi (i18n).
@@ -1126,6 +1125,8 @@ bun run build # Or bun run dev
  </Tab>
 </Tabs>
 
+</Step>
+
 </Steps>
 
 ### Memantau perubahan kamus pada Turbopack
@@ -1202,6 +1203,8 @@ Untuk melangkah lebih jauh, Anda dapat mengimplementasikan [editor visual](https
 
 <Question title="Apa saja solusi berbeda yang tersedia untuk menginternasionalkan aplikasi Next.js 16?">
 
+Next.js tidak memiliki lapisan pesan bawaan sejak field `i18n` di `next.config.js` berhenti berlaku untuk App Router, jadi lapisan lokalisasi selalu menjadi pilihan library:
+
 - **`next-intl`**: library pesan populer untuk App Router, memuat file JSON di runtime.
 - **`next-i18next`**: solusi standar untuk Pages Router.
 - **`Intlayer`**: solusi paling canggih. Konten dideklarasikan di sebelah komponen, dikompilasi saat build time, memiliki typing TypeScript ketat, terjemahan AI, visual editor, dan CMS.
@@ -1230,9 +1233,11 @@ Ya. Plugin [sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/doc
 
 <Question title="Apakah saya harus memindahkan konten saya key by key?">
 
-Tidak. Jalankan `npx intlayer extract` dan Intlayer membaca file sumber Anda, mengeluarkan string yang dihadapi pengguna, dan menulis file `.content` di sebelah masing-masing, sehingga Anda meninjau diff alih-alih menyalin string ke dalam katalog satu per satu. Lihat [perintah extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/extract.md).
+Tidak. Jalankan `npx intlayer extract` dan Intlayer membaca komponen Anda, mengeluarkan string yang dilihat pengguna, dan menulis file `.content` di sebelah masing-masing, sehingga Anda meninjau diff alih-alih menyalin string ke dalam katalog satu per satu. Langkah 14 dari panduan ini menjelaskannya.
 
-Untuk proses otomatis penuh, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md) melakukan hal yang sama saat build time pada kode JSX, TSX, Vue dan Svelte, menghasilkan kamus pada setiap perubahan tanpa perlu memelihara kunci secara manual. Karena bekerja melalui analisis statis, string yang hanya ada di runtime tetap berada di luar jangkauannya.
+Untuk proses otomatis penuh, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md) melakukan hal yang sama saat build time: memindai kode JSX, TSX, Vue dan Svelte pada setiap perubahan, menghasilkan kamus, dan menyinkronkannya dengan HMR, sehingga tidak ada kunci yang perlu dikelola secara manual.
+
+Dua batasan perlu diketahui sebelum Anda mengaktifkan compiler. Ini bekerja dengan analisis statis, jadi string yang hanya ada saat runtime, seperti kode kesalahan API atau field CMS, tetap berada di luar jangkauan. Dan ini harus membedakan teks yang dilihat pengguna dari logika aplikasi seperti `className="active"` atau kode status, yang memerlukan beberapa anotasi di basis kode yang besar. [Perintah extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/extract.md) menghindari keduanya dengan menjaga Anda tetap memegang kendali.
 
 </Question>
 
@@ -1262,7 +1267,14 @@ Ya. Konten di Server Components diselesaikan langsung di server, sehingga tidak 
 
 <Question title="Apakah saya harus mencantumkan locale di URL, seperti /id/about?">
 
-Tidak. `routing.mode` menerima `"prefix-no-default"` (default: `/about` untuk bahasa utama dan `/id/about` untuk yang lain), `"prefix-all"`, `"no-prefix"`, dan `"search-params"`. Opsi `routing.domains` memetakan setiap bahasa ke domainnya sendiri. Lihat [referensi konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md).
+Tidak. Skema URL adalah opsi konfigurasi, bukan batasan. `routing.mode` menerima:
+
+- `"prefix-no-default"` (default): `/about` untuk locale default, `/fr/about` untuk yang lain.
+- `"prefix-all"`: setiap locale diberi awalan, `/en/about` dan `/fr/about`.
+- `"no-prefix"`: tidak ada locale di path, diselesaikan dari cookie, header, atau domain.
+- `"search-params"`: `/about?locale=fr`.
+
+Anda juga dapat memetakan setiap locale ke domainnya sendiri dengan `routing.domains`. Lihat [referensi konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md) dan [panduan tanpa jalur locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_no_locale_path.md).
 
 </Question>
 

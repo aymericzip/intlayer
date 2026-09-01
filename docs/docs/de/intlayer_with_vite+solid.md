@@ -69,7 +69,6 @@ author: aymericzip
 Im Vergleich zu Hauptlösungen wie „@solid-primitives/i18n“ oder „i18next“ ist Intlayer eine Lösung, die über integrierte Optimierungen verfügt wie:
 
 <AccordionGroup>
-
 <Accordion header="Vollständige Solid-Abdeckung">
 
 Intlayer ist für die perfekte Zusammenarbeit mit Solid optimiert, indem es **Content-Scoping auf Komponentenebene**, **reaktive Übersetzungen** und alle Funktionen bietet, die für die Skalierung der Internationalisierung (i18n) erforderlich sind.

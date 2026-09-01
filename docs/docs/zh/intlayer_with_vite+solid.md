@@ -69,7 +69,6 @@ author: aymericzip
 与 `@solid-primitives/i18n` 或 `i18next` 等主要解决方案相比，Intlayer 是一个集成了优化功能的解决方案，例如：
 
 <AccordionGroup>
-
 <Accordion header="完整的 Solid 支持">
 
 Intlayer 针对 Solid 进行了优化，提供 **组件级内容作用域**、**响应式翻译** 以及国际化 (i18n) 扩展所需的所有功能。

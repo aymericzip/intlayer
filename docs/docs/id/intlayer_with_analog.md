@@ -62,7 +62,6 @@ author: aymericzip
 Dibandingkan dengan solusi utama seperti `ngx-translate` atau `angular-l10n`, Intlayer adalah solusi yang hadir dengan pengoptimalan terintegrasi seperti:
 
 <AccordionGroup>
-
 <Accordion header="Cakupan Analog Penuh">
 
 Intlayer dioptimalkan untuk bekerja sempurna dengan Analog dengan menawarkan **perutean multibahasa**, **dukungan SSR**, dan semua fitur yang diperlukan untuk penskalaan internasionalisasi (i18n).
@@ -416,6 +415,8 @@ Untuk melangkah lebih jauh, Anda dapat mengimplementasikan [editor visual](https
 <FAQ>
 
 <Question title="Apa saja solusi berbeda yang tersedia untuk menginternasionalkan aplikasi Analog?">
+
+Analog adalah meta-framework Angular yang dibangun di atas Vite, sehingga mewarisi opsi Angular dan menambahkan opsi Vite:
 
 - **`ngx-translate`** / **`Transloco`**: library client yang membutuhkan konfigurasi manual untuk Analog SSR.
 - **`Intlayer`**: terintegrasi penuh dengan Vite, SSR, dan routing berbasis file, optimasi build time, terjemahan AI.

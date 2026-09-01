@@ -63,7 +63,6 @@ author: aymericzip
 Rispetto alle soluzioni principali come `i18next` o `i18n.js`, Intlayer è una soluzione dotata di ottimizzazioni integrate come:
 
 <AccordionGroup>
-
 <Accordion header="Copertura completa Vanilla JS">
 
 Intlayer è ottimizzato per funzionare perfettamente con Vanilla JavaScript offrendo **gestione dei contenuti indipendente dal framework**, **supporto TypeScript** e tutte le funzionalità necessarie per scalare l'internazionalizzazione (i18n).

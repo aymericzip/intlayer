@@ -37,7 +37,6 @@ author: aymericzip
 'storybook-react-i18next' 또는 'i18next'와 같은 주요 솔루션과 비교할 때 Intlayer는 다음과 같은 통합 최적화가 제공되는 솔루션입니다.
 
 <AccordionGroup>
-
 <Accordion header="스토리북 전체 내용">
 
 Intlayer는 **다국어 스토리 데코레이터**, **로케일 전환** 및 디자인 시스템 전반에 걸쳐 국제화(i18n)를 확장하는 데 필요한 모든 기능을 제공하여 Storybook과 완벽하게 작동하도록 최적화되었습니다.
@@ -128,8 +127,6 @@ bun add vite-intlayer --dev
 | `react-intlayer` | React 바인딩 - `IntlayerProvider`, `useIntlayer` 훅 |
 | `vite-intlayer`  | Vite 플러그인 - 콘텐츠 선언 파일을 감시하고 컴파일  |
 
----
-
 </Step>
 
 <Step number={2} title="Intlayer 구성 생성">
@@ -158,8 +155,6 @@ export default config;
 ```
 
 > 전체 옵션 목록은 [구성 참조](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 확인하세요.
-
----
 
 </Step>
 
@@ -207,8 +202,6 @@ export default config;
 ```
 
 `intlayer()` 플러그인은 `*.content.ts` 파일을 감시하고 Storybook 개발 중에 변경 사항이 생길 때마다 자동으로 사전을 다시 빌드합니다.
-
----
 
 </Step>
 
@@ -293,8 +286,6 @@ bun add intlayer react-intlayer
 bun add @intlayer/webpack --dev
 ```
 
----
-
 </Step>
 
 <Step number={2} title="Intlayer 구성 생성">
@@ -316,8 +307,6 @@ const config: IntlayerConfig = {
 
 export default config;
 ```
-
----
 
 </Step>
 
@@ -345,8 +334,6 @@ const config: StorybookConfig = {
 
 export default config;
 ```
-
----
 
 </Step>
 
@@ -392,7 +379,6 @@ export default preview;
 ```
 
 </Step>
-</Steps>
 </Tab>
 </Tabs>
 

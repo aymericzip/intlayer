@@ -351,6 +351,8 @@ Bunu yapmak için, `.gitignore` dosyanıza aşağıdaki yönergeleri ekleyebilir
 - **Temel sözlük nesneleri**: statik analiz ve araç desteğinden yoksundur.
 - **`Intlayer`**: Bun ve Elysia için özel olarak optimize edilmiş, derleme zamanı derlemesi, katı TypeScript tipleri ve sıfır gecikme sunan modern çözüm.
 
+Arka ucu uluslararasılaştırmanın temel nedeni, bir kullanıcının okuduğu metinlerin büyük bir kısmının hiçbir zaman ön yüzden geçmemesidir: API hata mesajları, işlemsel e-postalar, anlık bildirimler, SMS ve PDF dışa aktarımları. Bunlar, oturum başına değil istek başına çözümlenen alıcının diline ihtiyaç duyar.
+
 Bkz. [neden Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/interest_of_intlayer.md).
 
 </Question>

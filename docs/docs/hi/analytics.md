@@ -103,6 +103,21 @@ export default config;
 
 यदि आप Intlayer को सेल्फ-होस्ट करते हैं, तो एनालिटिक्स स्वचालित रूप से आपके स्वयं के इंस्टेंस को इंगित करता है क्योंकि यह `editor.backendURL` साझा करता है।
 
+### ब्राउज़र से API कॉल करना
+
+वही टोकन बिना किसी क्रेडेंशियल के एक छोटे क्लाइंट को सहारा देता है, ताकि एक स्टैटिक साइट या SPA बिना किसी सर्वर, बिना सर्वर एक्शन, और बंडल में बिना किसी सीक्रेट के, रनटाइम पर अपने CMS कंटेंट को पढ़ सके:
+
+```ts fileName="content.ts"
+import { createPublicClient } from "@intlayer/api/public";
+
+const client = createPublicClient();
+
+const keys = await client.getDictionaryKeys();
+const [navbar] = await client.getDictionaries(["navbar"]);
+```
+
+यह `editor.clientId` के आधार पर स्वयं को प्रमाणित करता है: एक्सचेंज, कैशिंग और नवीनीकरण आंतरिक रूप से संभाला जाता है। स्कोप यह सीमित करते हैं कि यह किस तक पहुँच सकता है: प्रकाशित डिक्शनरी कंटेंट और एनालिटिक्स इनजेशन। इसके अलावा कुछ भी (डिक्शनरी पुश करना, प्रोजेक्ट पढ़ना, AI क्रेडिट खर्च करना) एक वास्तविक क्रेडेंशियल की आवश्यकता है, और इसलिए एक सर्वर या साइन-इन किए गए उपयोगकर्ता की।
+
 ### ऑप्ट-आउट कैसे करें
 
 वैकल्पिक `analytics` ब्लॉक संग्रहण को समायोजित करता है — या बंद कर देता है:
@@ -123,17 +138,6 @@ export default config;
 
 `@intlayer/analytics` को अनइंस्टॉल करने का प्रभाव `enabled: false` के समान ही है। पूरी फ़ील्ड सूची के लिए [कॉन्फ़िगरेशन संदर्भ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md) देखें।
 
-## फ्रेमवर्क सपोर्ट (Framework support)
-
-एनालिटिक्स `react-intlayer` के साझा `IntlayerProvider` में वायर्ड है, इसलिए यह आज हर उस जगह उपलब्ध है जहाँ उस प्रदाता (provider) का उपयोग किया जाता है:
-
-| फ्रेमवर्क                                                | स्थिति (Status)                                                                                                                    |
-| -------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| React                                                    | ✅ उपलब्ध                                                                                                                          |
-| Next.js (`next-intlayer`)                                | ✅ उपलब्ध (`react-intlayer` के माध्यम से)                                                                                          |
-| React Native / Expo (`react-native-intlayer`)            | ✅ उपलब्ध (`react-intlayer` के माध्यम से)                                                                                          |
-| Vue, Svelte, Angular, Solid, Preact, Lit, Astro, Vanilla | 🚧 योजनाबद्ध (Planned) — समान क्लाइंट, प्रदाता-स्तर (provider-level) बाइंडिंग `@intlayer/editor` के रिलीज़ पैटर्न का पालन करते हुए |
-
 ## उपयोग (Usage)
 
 ### स्वचालित प्रोवाइडर-स्तर ट्रैकिंग (Automatic provider-level tracking)
@@ -145,6 +149,126 @@ export default config;
 - हर लोकेल परिवर्तन पर एक `page_view` रिकॉर्ड करता है,
 - ~20 सेकंड का फ्लश लूप शुरू करता है और अनमाउंट/टैब बंद होने पर किसी भी शेष घटनाओं को फ्लश करता है (`navigator.sendBeacon` के माध्यम से, `fetch(..., { keepalive: true })` पर फ़ॉलबैक करते हुए)।
 
+एंट्री पॉइंट हर फ्रेमवर्क में अलग होता है, लेकिन हर मामले में यह वही जगह है जिसे आप पहले से ही Intlayer सेट करने के लिए उपयोग कर रहे हैं, इसलिए जोड़ने के लिए कुछ भी अतिरिक्त नहीं है:
+
+<Tabs group="framework">
+  <Tab label="React" value="react">
+
+    `IntlayerProvider` आंतरिक रूप से एनालिटिक्स प्रोवाइडर को माउंट करता है।
+
+    ```tsx fileName="App.tsx"
+    import { IntlayerProvider } from "react-intlayer";
+
+    const App = () => (
+      <IntlayerProvider>
+        <Router />
+      </IntlayerProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+
+    `next-intlayer`, React के `IntlayerProvider` को फिर से एक्सपोर्ट करता है, इसलिए एनालिटिक्स भी उसी तरह जुड़ता है।
+
+    ```tsx fileName="app/[locale]/layout.tsx"
+    import { IntlayerProvider } from "next-intlayer";
+
+    const LocaleLayout = ({ children }) => (
+      <IntlayerProvider>{children}</IntlayerProvider>
+    );
+
+    export default LocaleLayout;
+    ```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+    `intlayer` प्लगइन रूट कंपोनेंट के लाइफसाइकल में एनालिटिक्स हुक्स को रजिस्टर करता है।
+
+    ```javascript fileName="main.js"
+    import { createApp } from "vue";
+    import { intlayer } from "vue-intlayer";
+    import App from "./App.vue";
+
+    const app = createApp(App);
+
+    app.use(intlayer);
+
+    app.mount("#app");
+    ```
+
+    > Nuxt के साथ, `nuxt-intlayer` आपके लिए प्लगइन इंस्टॉल कर देता है — कुछ भी करने की आवश्यकता नहीं है।
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+    `setupIntlayer()` उस कंपोनेंट से एनालिटिक्स शुरू करता है जो Intlayer को सेट करता है।
+
+    ```svelte fileName="src/routes/[[locale=locale]]/+layout.svelte"
+    <script lang="ts">
+      import { setupIntlayer } from "svelte-intlayer";
+      import type { Snippet } from "svelte";
+
+      let { children, data }: { children: Snippet, data: LayoutData } = $props();
+
+      $effect(() => {
+        setupIntlayer(data.locale);
+      });
+    </script>
+
+    {@render children()}
+    ```
+
+  </Tab>
+  <Tab label="Preact" value="preact">
+
+    `IntlayerProvider` आंतरिक रूप से एनालिटिक्स प्रोवाइडर को माउंट करता है।
+
+    ```tsx fileName="app.tsx"
+    import { IntlayerProvider } from "preact-intlayer";
+
+    const App = () => (
+      <IntlayerProvider>
+        <Router />
+      </IntlayerProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+    `IntlayerProvider` एनालिटिक्स प्रोवाइडर को लेज़ी (lazy) तरीके से माउंट करता है, ताकि यह चंक क्रिटिकल पाथ से बाहर रहे।
+
+    ```tsx fileName="App.tsx"
+    import { IntlayerProvider } from "solid-intlayer";
+
+    const App = () => (
+      <IntlayerProvider>
+        <Router />
+      </IntlayerProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+
+    `provideIntlayer()` में पहले से ही `provideIntlayerAnalytics()` शामिल है।
+
+    ```ts fileName="app.config.ts"
+    import { provideIntlayer } from "angular-intlayer";
+    import type { ApplicationConfig } from "@angular/core";
+
+    export const appConfig: ApplicationConfig = {
+      providers: [provideIntlayer()],
+    };
+    ```
+
+    > `provideIntlayerAnalytics()` का अकेले उपयोग केवल तभी करें जब आप प्रोवाइडर्स को अलग-अलग प्रबंधित करते हों।
+
+  </Tab>
+</Tabs>
+
 ### स्वचालित नोड-स्तर ट्रैकिंग (Automatic node-level tracking)
 
 हर बार जब `useIntlayer` प्रदर्शन के लिए सामग्री के एक टुकड़े को हल करता है, तो इंटरप्रेटर उस सटीक `dictionaryKey` + कुंजी पथ + लोकेल के लिए एक `content_exposure` घटना की रिपोर्ट करता है — फिर से, कोई कोड परिवर्तन आवश्यक नहीं है। फ्लश विंडो (लगभग 20 सेकंड) के भीतर एक ही नोड के दोहराए गए एक्सपोज़र को `count` के साथ एक ही घटना में मिला दिया जाता है (coalesced), इसलिए 50 बार फिर से रेंडर होने वाली सूची 50 घटनाएँ नहीं भेजती है।
@@ -153,29 +277,368 @@ export default config;
 
 उस वेरिएंट को लक्ष्य (goal) सौंपने के लिए `useConversion()` का उपयोग करें जिसे एक सत्र (session) ने देखा था:
 
-```tsx fileName="CTAButton.tsx" codeFormat="tsx"
-import { useConversion } from "react-intlayer";
+<Tabs group="framework">
+  <Tab label="React" value="react">
 
-const CTAButton = () => {
-  const trackConversion = useConversion();
+    ```tsx fileName="CTAButton.tsx"
+    import { useConversion } from "react-intlayer";
 
-  return (
+    const CTAButton = () => {
+      const trackConversion = useConversion();
+
+      return (
+        <button
+          onClick={() =>
+            trackConversion({
+              experimentKey: "homepage-hero",
+              variant: "black_friday",
+              goal: "cta_click",
+            })
+          }
+        >
+          शुरू करें (Get started)
+        </button>
+      );
+    };
+    ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+
+    ```tsx fileName="CTAButton.tsx"
+    "use client";
+
+    import { useConversion } from "next-intlayer";
+
+    const CTAButton = () => {
+      const trackConversion = useConversion();
+
+      return (
+        <button
+          onClick={() =>
+            trackConversion({
+              experimentKey: "homepage-hero",
+              variant: "black_friday",
+              goal: "cta_click",
+            })
+          }
+        >
+          शुरू करें (Get started)
+        </button>
+      );
+    };
+    ```
+
+    > `useConversion` एक क्लाइंट हुक है: कंपोनेंट को `"use client"` से चिह्नित करें।
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+    ```vue fileName="CTAButton.vue"
+    <script setup lang="ts">
+    import { useConversion } from "vue-intlayer";
+
+    const trackConversion = useConversion();
+    </script>
+
+    <template>
+      <button
+        @click="
+          trackConversion({
+            experimentKey: 'homepage-hero',
+            variant: 'black_friday',
+            goal: 'cta_click',
+          })
+        "
+      >
+        शुरू करें (Get started)
+      </button>
+    </template>
+    ```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+    ```svelte fileName="CTAButton.svelte"
+    <script lang="ts">
+      import { useConversion } from "svelte-intlayer";
+
+      const trackConversion = useConversion();
+    </script>
+
     <button
-      onClick={() =>
+      onclick={() =>
         trackConversion({
           experimentKey: "homepage-hero",
           variant: "black_friday",
           goal: "cta_click",
-        })
-      }
+        })}
     >
       शुरू करें (Get started)
     </button>
+    ```
+
+  </Tab>
+  <Tab label="Preact" value="preact">
+
+    ```tsx fileName="CTAButton.tsx"
+    import { useConversion } from "preact-intlayer";
+
+    const CTAButton = () => {
+      const trackConversion = useConversion();
+
+      return (
+        <button
+          onClick={() =>
+            trackConversion({
+              experimentKey: "homepage-hero",
+              variant: "black_friday",
+              goal: "cta_click",
+            })
+          }
+        >
+          शुरू करें (Get started)
+        </button>
+      );
+    };
+    ```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+    ```tsx fileName="CTAButton.tsx"
+    import { useConversion } from "solid-intlayer";
+
+    const CTAButton = () => {
+      const trackConversion = useConversion();
+
+      return (
+        <button
+          onClick={() =>
+            trackConversion({
+              experimentKey: "homepage-hero",
+              variant: "black_friday",
+              goal: "cta_click",
+            })
+          }
+        >
+          शुरू करें (Get started)
+        </button>
+      );
+    };
+    ```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+
+    ```typescript fileName="cta-button.component.ts"
+    import { Component } from "@angular/core";
+    import { useConversion } from "angular-intlayer";
+
+    @Component({
+      selector: "app-cta-button",
+      template: `<button (click)="onClick()">शुरू करें (Get started)</button>`,
+    })
+    export class CtaButtonComponent {
+      private trackConversion = useConversion();
+
+      onClick() {
+        this.trackConversion({
+          experimentKey: "homepage-hero",
+          variant: "black_friday",
+          goal: "cta_click",
+        });
+      }
+    }
+    ```
+
+  </Tab>
+</Tabs>
+
+### क्लाइंट-साइड वेरिएंट को हल करना (Resolving a variant client-side)
+
+`useExperiment()` सत्र को एक वेरिएंट सौंपता है और उस एक्सपोज़र को रिकॉर्ड करता है जो रूपांतरण दर का हर (denominator) बनता है। वेरिएंट पर निर्भर सबट्री को केवल तभी दिखाएँ जब `isAssigned` सत्य हो, ताकि असाइनमेंट तय होने से पहले किसी आगंतुक को कंट्रोल का पल भर के लिए दिखना न हो:
+
+<Tabs group="framework">
+  <Tab label="React" value="react">
+
+    `variant` एक सामान्य स्ट्रिंग है।
+
+    ```tsx fileName="Hero.tsx"
+    import { useExperiment } from "react-intlayer";
+    import { HeroBanner } from "./HeroBanner";
+
+    export const Hero = () => {
+      const { variant, isAssigned } = useExperiment("homepage-hero", [
+        "default",
+        "black_friday",
+      ]);
+
+      if (!isAssigned) return null;
+
+      return <HeroBanner variant={variant} />;
+    };
+    ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+
+    `variant` एक सामान्य स्ट्रिंग है। असाइनमेंट ब्राउज़र में होता है, इसलिए कंपोनेंट को एक क्लाइंट कंपोनेंट होना चाहिए।
+
+    ```tsx fileName="Hero.tsx"
+    "use client";
+
+    import { useExperiment } from "next-intlayer";
+    import { HeroBanner } from "./HeroBanner";
+
+    export const Hero = () => {
+      const { variant, isAssigned } = useExperiment("homepage-hero", [
+        "default",
+        "black_friday",
+      ]);
+
+      if (!isAssigned) return null;
+
+      return <HeroBanner variant={variant} />;
+    };
+    ```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+    `variant` और `isAssigned`, `Ref` हैं।
+
+    ```vue fileName="Hero.vue"
+    <script setup lang="ts">
+    import { useExperiment } from "vue-intlayer";
+    import HeroBanner from "./HeroBanner.vue";
+
+    const { variant, isAssigned } = useExperiment("homepage-hero", [
+      "default",
+      "black_friday",
+    ]);
+    </script>
+
+    <template>
+      <HeroBanner v-if="isAssigned" :variant="variant" />
+    </template>
+    ```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+    `variant` और `isAssigned`, स्टोर (store) हैं: इन्हें `$` प्रीफ़िक्स के साथ पढ़ें।
+
+    ```svelte fileName="Hero.svelte"
+    <script lang="ts">
+      import { useExperiment } from "svelte-intlayer";
+      import HeroBanner from "./HeroBanner.svelte";
+
+      const { variant, isAssigned } = useExperiment("homepage-hero", [
+        "default",
+        "black_friday",
+      ]);
+    </script>
+
+    {#if $isAssigned}
+      <HeroBanner variant={$variant} />
+    {/if}
+    ```
+
+  </Tab>
+  <Tab label="Preact" value="preact">
+
+    `variant` एक सामान्य स्ट्रिंग है।
+
+    ```tsx fileName="Hero.tsx"
+    import { useExperiment } from "preact-intlayer";
+    import { HeroBanner } from "./HeroBanner";
+
+    export const Hero = () => {
+      const { variant, isAssigned } = useExperiment("homepage-hero", [
+        "default",
+        "black_friday",
+      ]);
+
+      if (!isAssigned) return null;
+
+      return <HeroBanner variant={variant} />;
+    };
+    ```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+    `variant` और `isAssigned`, `Accessor` हैं: मान पढ़ने के लिए इन्हें कॉल करें।
+
+    ```tsx fileName="Hero.tsx"
+    import { useExperiment } from "solid-intlayer";
+    import { Show } from "solid-js";
+    import { HeroBanner } from "./HeroBanner";
+
+    export const Hero = () => {
+      const { variant, isAssigned } = useExperiment("homepage-hero", [
+        "default",
+        "black_friday",
+      ]);
+
+      return (
+        <Show when={isAssigned()}>
+          <HeroBanner variant={variant()} />
+        </Show>
+      );
+    };
+    ```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+
+    `variant` और `isAssigned`, `Signal` हैं: मान पढ़ने के लिए इन्हें कॉल करें।
+
+    ```typescript fileName="hero.component.ts"
+    import { Component } from "@angular/core";
+    import { useExperiment } from "angular-intlayer";
+    import { HeroBannerComponent } from "./hero-banner.component";
+
+    @Component({
+      selector: "app-hero",
+      imports: [HeroBannerComponent],
+      template: `@if (experiment.isAssigned()) {
+        <app-hero-banner [variant]="experiment.variant()" />
+      }`,
+    })
+    export class HeroComponent {
+      experiment = useExperiment("homepage-hero", ["default", "black_friday"]);
+    }
+    ```
+
+  </Tab>
+</Tabs>
+
+Weights वैकल्पिक हैं — विभाजन को तिरछा करने के लिए प्रति वेरिएंट एक पास करें, उदाहरण के लिए `useExperiment("homepage-hero", ["default", "black_friday"], [9, 1])`।
+
+फिर चाइल्ड मिलान करने वाली डिक्शनरी के [Variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dynamic_dictionaries/variants.md) को पढ़ता है:
+
+```tsx fileName="HeroBanner.tsx"
+import { useIntlayer } from "react-intlayer";
+
+export const HeroBanner = ({ variant }: { variant: string }) => {
+  const { headline, cta } = useIntlayer("hero-banner", { variant });
+
+  return (
+    <section>
+      <h1>{headline}</h1>
+      <a>{cta}</a>
+    </section>
   );
 };
 ```
 
-### क्लाइंट-साइड वेरिएंट को हल करना (Resolving a variant client-side)
+> **चाइल्ड** कंपोनेंट में वेरिएंट को पढ़ना ही इसे React के बाहर काम करने योग्य बनाता है: Vue, Svelte, Solid और Angular में, `useIntlayer` को दिया गया सेलेक्टर कंपोनेंट सेटअप के समय कैप्चर होता है, इसलिए पढ़ना ऐसे कंपोनेंट में होना चाहिए जो वेरिएंट ज्ञात होने के बाद ही माउंट होता है।
+
+यदि प्रयोग एक ही डिक्शनरी के बजाय पूरे पेज को कवर करता है, तो इसके बजाय वेरिएंट को प्रोवाइडर पर होइस्ट करें — देखें [Ambient variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dynamic_dictionaries/variants.md#ambient-variant)। नीचे दिया गया प्रत्येक `useIntlayer` फिर बिना किसी कॉल-साइट परिवर्तन के इसके विरुद्ध हल होता है।
+
+यदि आपको किसी कंपोनेंट के बाहर रॉ असाइनमेंट की आवश्यकता है, तो सीधे क्लाइंट का उपयोग करें:
 
 ```tsx fileName="useHeroVariant.ts" codeFormat="tsx"
 import { getGlobalAnalyticsClient } from "@intlayer/analytics/client";
@@ -186,6 +649,8 @@ const variant = client?.getVariant("homepage-hero", [
   "black_friday",
 ]);
 ```
+
+> `getVariant` केवल असाइन करता है — यह एक्सपोज़र को रिकॉर्ड नहीं करता है। इसके बजाय `useExperiment()` का उपयोग करें, अन्यथा रूपांतरण दर का कोई हर नहीं होगा।
 
 ## गोपनीयता और प्रदर्शन (Privacy & performance)
 
@@ -235,6 +700,8 @@ const cms = createIntlayerCMS();
 
 const { data: audience } = await analyticsEndpoint(cms).getAudience(30);
 ```
+
+> **केवल सर्वर-साइड।** `createIntlayerCMS()`, `clientId` + `clientSecret` के साथ प्रमाणित होता है, और सीक्रेट कभी भी ब्राउज़र में उपलब्ध नहीं होता है: यह स्निपेट वहाँ चलने पर अप्रमाणित अनुरोध जारी करेगा। इसे रूट हैंडलर, सर्वर एक्शन, या स्क्रिप्ट में ही रखें।
 
 ## उपयोगी कड़ियाँ (Useful links)
 

@@ -41,7 +41,6 @@ author: aymericzip
 En comparación con soluciones principales como `vue-i18n` o `i18next`, Intlayer es una solución que viene con optimizaciones integradas como:
 
 <AccordionGroup>
-
 <Accordion header="Soporte completo de Vue">
 
 Intlayer está optimizado para funcionar perfectamente con Vue al ofrecer **alcance del contenido a nivel de componente**, **traducciones reactivas** y todas las funciones necesarias para escalar la internacionalización (i18n).

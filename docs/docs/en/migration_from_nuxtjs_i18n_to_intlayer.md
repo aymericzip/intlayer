@@ -29,7 +29,6 @@ author: aymericzip
 ## Why migrate from @nuxtjs/i18n to Intlayer?
 
 <AccordionGroup>
-
 <Accordion header="Bundle size">
 
 Instead of loading massive JSON files into your pages, load only the necessary content. Intlayer helps **reduce your bundle and page sizes by up to 50%**.
@@ -67,7 +66,6 @@ Connecting massive JSON files to components can lead to performance and reactivi
 More than just an i18n solution, Intlayer provides a **self-hosted [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** and a **[full CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** to help you manage your multilingual content in **real-time**, making collaboration with translators, copywriters, and other team members seamless. Content can be stored locally and/or remotely.
 
 </Accordion>
-
 </AccordionGroup>
 
 ---

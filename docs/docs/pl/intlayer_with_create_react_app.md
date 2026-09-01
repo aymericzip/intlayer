@@ -46,7 +46,6 @@ Zobacz [Szablon aplikacji](https://github.com/aymericzip/intlayer-react-cra-temp
 W porównaniu z głównymi rozwiązaniami, takimi jak `react-i18next` lub `i18next`, Intlayer to rozwiązanie wyposażone w zintegrowane optymalizacje, takie jak:
 
 <AccordionGroup>
-
 <Accordion header="Pełne wsparcie React">
 
 **Intlayer** to innowacyjna, open-source’owa biblioteka do internacjonalizacji (i18n), zaprojektowana, aby uprościć wsparcie wielojęzyczne w nowoczesnych aplikacjach webowych.
@@ -70,6 +69,8 @@ Zakres zawartości aplikacji **ułatwia utrzymanie** aplikacji na dużą skalę.
 Co-locating content **zmniejsza kontekst wymagany** przez Large Language Models (LLMs). Intlayer zawiera również pakiet narzędzi, takich jak **CLI** do testowania brakujących tłumaczeń, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/mcp_server.md)** i **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/agent_skills.md)**, aby jeszcze bardziej usprawnić doświadczenie programisty (DX) dla agentów AI.
 
 </Accordion>
+
+<Accordion header="Automation">
 
 Dzięki Intlayer możesz:
 

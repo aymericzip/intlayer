@@ -51,6 +51,7 @@ Bạn có thể khai báo nội dung Markdown bằng cách sử dụng hàm `md`
 
 <Tabs>
   <Tab label=".content.md" value=".content.md">
+
     Bắt đầu từ phiên bản `8.10.0`, bạn có thể khai báo nội dung Markdown trực tiếp trong các tệp `.content.md`. Intlayer sẽ tự động phát hiện và phân tích nội dung Markdown.
 
     ```md fileName="markdown-file.en.content.md"
@@ -96,6 +97,7 @@ Bạn có thể khai báo nội dung Markdown bằng cách sử dụng hàm `md`
     ```
 
   </Tab>
+
   <Tab label="Tệp Bên ngoài" value="external-files">
     Nhập trực tiếp các tệp `.md` bằng cách sử dụng hàm `file`.
 
@@ -129,6 +131,7 @@ Bạn có thể khai báo nội dung Markdown bằng cách sử dụng hàm `md`
     ```
 
   </Tab>
+
 </Tabs>
 
 ## Render Markdown

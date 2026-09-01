@@ -31,36 +31,6 @@ author: aymericzip
 
 # Getting Started Internationalising (i18n) with Intlayer and Vite and Preact
 
-<Tabs defaultTab="video">
-  <Tab label="Video" value="video">
-
-<iframe title="The best i18n solution for Vite and Preact? Discover Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?si=VaKmrYMmXjo3xpk2"/>
-
-  </Tab>
-  <Tab label="Code" value="code">
-
-<iframe
-  src="https://ide.intlayer.org/aymericzip/intlayer-vite-preact-template?file=intlayer.config.ts"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
-  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-  loading="lazy"
-/>
-
-  </Tab>
-  <Tab label="Demo" value="demo">
-
-<iframe
-  src="https://intlayer-vite-preact-template.vercel.app"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo - intlayer-vite-preact-template"
-  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-  loading="lazy"
-/>
-
-  </Tab>
-</Tabs>
-
 ## Table of Contents
 
 <TOC/>
@@ -70,7 +40,6 @@ author: aymericzip
 Compared to main solutions like `preact-i18n` or `i18next`, Intlayer is a solution that comes with integrated optimizations such as:
 
 <AccordionGroup>
-
 <Accordion header="Full Preact coverage">
 
 Intlayer is optimized to work perfectly with Preact by offering **component-level content scoping**, **lazy-loaded translations**, and all the features needed for scaling internationalization (i18n).
@@ -117,6 +86,38 @@ More than just an i18n solution, Intlayer provides an **self-hosted [visual edit
 ---
 
 ## Step-by-Step Guide to Set Up Intlayer in a Vite and Preact Application
+
+<Tabs defaultTab="video">
+  <Tab label="Video" value="video">
+
+<iframe title="The best i18n solution for Vite and Preact? Discover Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?si=VaKmrYMmXjo3xpk2"/>
+
+  </Tab>
+  <Tab label="Code" value="code">
+
+<iframe
+  src="https://ide.intlayer.org/aymericzip/intlayer-vite-preact-template?file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+  <Tab label="Demo" value="demo">
+
+<iframe
+  src="https://intlayer-vite-preact-template.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo - intlayer-vite-preact-template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+</Tabs>
+
+See [Application Template](https://github.com/aymericzip/intlayer-vite-preact-template) on GitHub.
 
 <Steps>
 
@@ -419,6 +420,8 @@ export default App;
 
 > To learn more about the `useIntlayer` hook, refer to the [documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/react-intlayer/useIntlayer.md) (The API is similar for `preact-intlayer`).
 
+> If your app already exists, you can use the [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compiler.md), as well as the [extract command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/extract.md), to transform thousands of components in a second.
+
 </Step>
 
 <Step number={6} title="Change the language of your content" isOptional={true}>
@@ -510,6 +513,30 @@ const App: FunctionalComponent = () => (
 export default App;
 ```
 
+In parallel, you can also use the `intlayerProxy` to add server-side routing to your application. This plugin will automatically detect the current locale based on the URL and set the appropriate locale cookie. If no locale is specified, the plugin will determine the most appropriate locale based on the user's browser language preferences. If no locale is detected, it will redirect to the default locale.
+
+> Note that to use the `intlayerProxy` in production, you need to switch the `vite-intlayer` package from `devDependencies` to `dependencies`.
+
+> Since Intlayer v9, `intlayerProxy()` is bundled directly into the `intlayer()` plugin and enabled by default through the `routing.enableProxy` option (`true` by default). Registering it separately as shown below is now optional - it is kept for backward compatibility and for setups that need to control plugin order. Set `routing.enableProxy: false` to opt out. See the [v9 release notes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/releases/v9.md).
+
+```typescript {3,7} fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import { intlayer } from "vite-intlayer";
+import preact from "@preact/preset-vite";
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [
+    preact(),
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
+  ],
+});
+```
+
 </Step>
 
 <Step number={8} title="Change the URL when the locale changes" isOptional={true}>
@@ -586,6 +613,8 @@ export default LocaleSwitcher;
 >
 > > - [`useLocale` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/react-intlayer/useLocale.md) (API is similar for `preact-intlayer`)> - [`getLocaleName` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/intlayer/getLocaleName.md)> - [`getLocalizedUrl` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/intlayer/getLocalizedUrl.md)> - [`getHTMLTextDir` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/intlayer/getHTMLTextDir.md)> - [`hreflang` attribute](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=fr)> - [`lang` attribute](https://developer.mozilla.org/en-GB/docs/Web/HTML/Global_attributes/lang)> - [`dir` attribute](https://developer.mozilla.org/en-GB/docs/Web/HTML/Global_attributes/dir)> - [`aria-current` attribute](https://developer.mozilla.org/en-GB/docs/Web/Accessibility/ARIA/Attributes/aria-current)> - [Popover API](https://developer.mozilla.org/en-GB/docs/Web/API/Popover_API)
 
+Below is the updated **Step 9** with added explanations and refined code examples:
+
 </Step>
 
 <Step number={9} title="Switch the HTML Language and Direction Attributes" isOptional={true}>
@@ -654,6 +683,12 @@ const App: FunctionalComponent = () => (
 
 export default App;
 ```
+
+By applying these changes, your application will:
+
+- Ensure the **language** (`lang`) attribute correctly reflects the current locale, which is important for SEO and browser behaviour.
+- Adjust the **text direction** (`dir`) according to the locale, enhancing readability and usability for languages with different reading orders.
+- Provide a more **accessible** experience, as assistive technologies depend on these attributes to function optimally.
 
 </Step>
 

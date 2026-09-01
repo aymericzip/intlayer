@@ -31,36 +31,6 @@ author: aymericzip
 
 # Intlayer kullanarak Vite ve Preact web sitenizi çevirin | Uluslararasılaştırma (i18n)
 
-<Tabs defaultTab="video">
-  <Tab label="Video" value="video">
-
-<iframe title="The best i18n solution for Vite and Preact? Discover Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?si=VaKmrYMmXjo3xpk2"/>
-
-  </Tab>
-  <Tab label="Code" value="code">
-
-<iframe
-  src="https://ide.intlayer.org/aymericzip/intlayer-vite-preact-template?file=intlayer.config.ts"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
-  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-  loading="lazy"
-/>
-
-  </Tab>
-  <Tab label="Demo" value="demo">
-
-<iframe
-  src="https://intlayer-vite-preact-template.vercel.app"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo - intlayer-vite-preact-template"
-  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-  loading="lazy"
-/>
-
-  </Tab>
-</Tabs>
-
 ## İçindekiler
 
 <TOC/>
@@ -70,7 +40,6 @@ author: aymericzip
 'preact-i18n' veya 'i18next' gibi ana çözümlerle karşılaştırıldığında Intlayer, aşağıdaki gibi entegre optimizasyonlarla gelen bir çözümdür:
 
 <AccordionGroup>
-
 <Accordion header="Tam Preact kapsamı">
 
 Intlayer, **bileşen düzeyinde içerik kapsamı**, **tembel yüklü çeviriler** ve uluslararasılaştırmayı (i18n) ölçeklendirmek için gereken tüm özellikleri sunarak Preact ile mükemmel çalışacak şekilde optimize edilmiştir.
@@ -117,6 +86,36 @@ Bir i18n çözümünden çok daha fazlası olan Intlayer, **kendi kendine barın
 ---
 
 ## Vite ve Preact Uygulamasında Intlayer'ı Ayarlamak İçin Adım Adım Kılavuz
+
+<Tabs defaultTab="video">
+  <Tab label="Video" value="video">
+
+<iframe title="The best i18n solution for Vite and Preact? Discover Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?si=VaKmrYMmXjo3xpk2"/>
+
+  </Tab>
+  <Tab label="Code" value="code">
+
+<iframe
+  src="https://ide.intlayer.org/aymericzip/intlayer-vite-preact-template?file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+  <Tab label="Demo" value="demo">
+
+<iframe
+  src="https://intlayer-vite-preact-template.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo - intlayer-vite-preact-template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+</Tabs>
 
 GitHub'daki [Uygulama Şablonu](https://github.com/aymericzip/intlayer-vite-preact-template)'na bakın.
 
@@ -614,8 +613,6 @@ export default LocaleSwitcher;
 
 Aşağıda güncellenmiş **Adım 9** ek açıklamalar ve geliştirilmiş kod örnekleri ile verilmiştir:
 
----
-
 </Step>
 
 <Step number={9} title="HTML Dil ve Yön Niteliklerini Değiştirin" isOptional={true}>
@@ -1039,6 +1036,8 @@ Daha fazla ilerlemek için [görsel düzenleyiciyi](https://github.com/aymericzi
 
 <Question title="Vite ve Preact uygulamasını uluslararasılaştırmak için hangi farklı çözümler mevcuttur?">
 
+Vite'ın i18n hakkında bir tercihi yoktur, bu nedenle seçim Preact ekosisteminden gelir:
+
 - **`preact-i18n`** veya **`react-i18next`**: çalışma zamanında JSON yükleyen yaygın kütüphaneler.
 - **`Intlayer`**: yerel `preact-intlayer` bağlayıcısı ile `preact/compat` gerektirmeyen, derleme zamanı derlemesi, tam tip desteği ve AI çeviri sunan en gelişmiş çözüm.
 
@@ -1069,6 +1068,8 @@ Evet. [sync JSON eklentisi](https://github.com/aymericzip/intlayer/blob/main/doc
 Hayır. `npx intlayer extract` komutunu çalıştırın; Intlayer bileşenlerinizi okur, kullanıcıya dönük dizeleri çıkarır ve her birinin yanına bir `.content` dosyası yazar, böylece dizeleri tek tek kopyalamak yerine bir diff incelersiniz.
 
 Tam otomatik bir süreç için [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md) derleme sırasında aynı işlemi yapar: her değişiklikte kaynak kodunu tarar, sözlükleri üretir ve HMR ile senkronize tutar.
+
+Derleyiciyi açmadan önce bilmeye değer iki sınır vardır. Statik analiz ile çalışır, bu nedenle API hata kodları veya CMS alanları gibi yalnızca çalışma zamanında var olan dizeler ulaşılamaz kalır. Ayrıca, `className="active"` veya durum kodu gibi uygulama mantığından kullanıcıya yönelik metinleri ayırt etmesi gerekir; bu da büyük bir kod tabanında birkaç ek açıklama gerektirir. [Extract komutu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/extract.md) sizi döngüde tutarak her ikisinden de kaçınır.
 
 </Question>
 

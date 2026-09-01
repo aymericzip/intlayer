@@ -76,8 +76,7 @@ GitHub पर [एप्लिकेशन टेम्प्लेट](https://
 `नेक्स्ट-इंटल` या `आई18नेक्स्ट` जैसे मुख्य समाधानों की तुलना में, इंटलेयर एक ऐसा समाधान है जो एकीकृत अनुकूलन के साथ आता है जैसे:
 
 <AccordionGroup>
-
-**पूर्ण Next.js कवरेज**
+<Accordion header="पूर्ण Next.js कवरेज">
 
 कुशल रेंडरिंग के लिए इंटलेयर को **सर्वर कंपोनेंट्स** के साथ काम करने के लिए अनुकूलित किया गया है और यह [**टर्बोपैक**](https://nextjs.org/docs/architecture/turbopack) के साथ पूरी तरह से संगत है। यह स्थैतिक रेंडरिंग को अवरुद्ध नहीं करता है और मिडलवेयर के साथ-साथ अंतर्राष्ट्रीयकरण (i18n) को स्केल करने के लिए आवश्यक सभी सुविधाएँ प्रदान करता है।
 
@@ -85,31 +84,31 @@ GitHub पर [एप्लिकेशन टेम्प्लेट](https://
 > लोकेल रूटिंग एसईओ, बंडल आकार और प्रदर्शन के लिए उपयोगी है। यदि आपको इसकी आवश्यकता नहीं है, तो आप इस [गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_no_locale_path.md) का संदर्भ ले सकते हैं।
 > ऐप राउटर के साथ Next.js 12, 13, 14, और 15 के लिए, इस [गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_14.md) को देखें।
 
-**बंडल का आकार**
+</Accordion>
 
 <Accordion header="Bundle साइज़">
 
 अपने पृष्ठों में विशाल JSON फ़ाइलें लोड करने के बजाय, केवल आवश्यक सामग्री लोड करें। इंटलेयर आपके बंडल और पृष्ठ आकार को 50% तक कम करने में मदद करता है।
 
-**रखरखाव**
+</Accordion>
 
 <Accordion header="रखरखाव">
 
 आपके एप्लिकेशन की सामग्री का दायरा बड़े पैमाने के अनुप्रयोगों के लिए **रखरखाव की सुविधा प्रदान करता है**। आप अपने संपूर्ण सामग्री कोडबेस की समीक्षा करने के मानसिक बोझ के बिना किसी एक फीचर फ़ोल्डर की नकल कर सकते हैं या उसे हटा सकते हैं। इसके अतिरिक्त, आपकी सामग्री की सटीकता सुनिश्चित करने के लिए Intlayer **पूरी तरह से टाइप किया गया** है।
 
-**एआई एजेंट**
+</Accordion>
 
 <Accordion header="AI Agent">
 
 सामग्री का सह-स्थानीकरण **बड़े भाषा मॉडल (एलएलएम) द्वारा आवश्यक संदर्भ को कम करता है**। इंटलेयर टूल के एक सूट के साथ भी आता है, जैसे **CLI** ताकि लापता अनुवादों का परीक्षण किया जा सके,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**, और **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/agent_skills.md)**, AI एजेंटों के लिए डेवलपर अनुभव (DX) को और भी आसान बनाने के लिए।
 
-**स्वचालन**
+</Accordion>
 
 <Accordion header="स्वचालन">
 
 अपने एआई प्रदाता की कीमत पर अपनी पसंद के एलएलएम का उपयोग करके अपने सीआई/सीडी पाइपलाइन में अनुवाद करने के लिए स्वचालन का उपयोग करें। इंटलेयर सामग्री निष्कर्षण को स्वचालित करने के लिए एक **कंपाइलर** के साथ-साथ **पृष्ठभूमि में अनुवाद** में मदद करने के लिए एक [वेब प्लेटफ़ॉर्म](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) भी प्रदान करता है।
 
-**प्रदर्शन**
+</Accordion>
 
 <Accordion header="Performance">
 
@@ -117,7 +116,7 @@ GitHub पर [एप्लिकेशन टेम्प्लेट](https://
 
 </Accordion>
 
-**किसी भी देव के साथ स्केलिंग**
+<Accordion header="किसी भी देव के साथ स्केलिंग">
 
 सिर्फ एक i18n समाधान से अधिक, Intlayer एक **स्व-होस्टेड [विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** और एक **[पूर्ण] प्रदान करता है सीएमएस](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** आपकी बहुभाषी सामग्री को **वास्तविक समय** में प्रबंधित करने में मदद करता है, जिससे अनुवादकों, कॉपीराइटरों और टीम के अन्य सदस्यों के साथ सहयोग सहज हो जाता है। सामग्री को स्थानीय और/या दूरस्थ रूप से संग्रहीत किया जा सकता है।
 
@@ -989,7 +988,6 @@ bun add @intlayer/swc --dev
 > नोट: यह अनुकूलन केवल Next.js 13 और उससे ऊपर के लिए उपलब्ध है।
 
 > नोट: यह पैकेज डिफ़ॉल्ट रूप से इंस्टॉल नहीं होता क्योंकि SWC प्लगइन्स अभी Next.js में प्रयोगात्मक हैं। भविष्य में इसमें बदलाव हो सकता है।
-> </Step>
 
 > नोट: यदि आप विकल्प को `importMode: 'dynamic'` या `importMode: 'fetch'` के रूप में सेट करते हैं (अपने `dictionary` कॉन्फ़िगरेशन में), तो यह Suspense पर निर्भर करेगा, इसलिए आपको अपनी `useIntlayer` कॉल को एक `Suspense` boundary में wrap करना होगा। इसका मतलब है कि आप अपने Page / Layout component के top level पर `useIntlayer` का सीधे use नहीं कर सकेंगे।
 
@@ -1110,6 +1108,8 @@ bun run build # Or bun run dev
  </Tab>
 </Tabs>
 
+</Step>
+
 </Steps>
 
 ### TypeScript कॉन्फ़िगर करें
@@ -1186,6 +1186,8 @@ extension के उपयोग के बारे में अधिक व�
 
 <Question title="Next.js 16 अनुप्रयोगों के अंतर्राष्ट्रीयकरण के लिए कौन से विभिन्न समाधान उपलब्ध हैं?">
 
+Next.js में कोई इन-बिल्ट संदेश परत नहीं है क्योंकि `next.config.js` का `i18n` फ़ील्ड App Router पर लागू होना बंद हो गया है, इसलिए स्थानीयकरण परत हमेशा एक लाइब्रेरी का विकल्प होती है:
+
 - **`next-intl`**: App Router के लिए लोकप्रिय संदेश लाइब्रेरी, रनटाइम पर JSON फ़ाइलें लोड करती है।
 - **`next-i18next`**: Pages Router के लिए मानक समाधान।
 - **`Intlayer`**: सबसे उन्नत समाधान। सामग्री घटक के बगल में घोषित की जाती है, बिल्ड समय पर संकलित होती है, सख्त TypeScript प्रकार, AI अनुवाद, विज़ुअल एडिटर और CMS प्रदान करती है।
@@ -1214,9 +1216,11 @@ extension के उपयोग के बारे में अधिक व�
 
 <Question title="क्या मुझे अपनी content को key by key move करना होगा?">
 
-नहीं। `npx intlayer extract` चलाएं और Intlayer आपकी source files को पढ़ता है, user facing strings को निकालता है और प्रत्येक के बगल में एक `.content` file लिखता है, इसलिए आप strings को एक catalog में एक-एक करके कॉपी करने के बजाय एक diff की समीक्षा करते हैं। [extract command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/extract.md) देखें।
+नहीं। `npx intlayer extract` चलाएं और Intlayer आपके घटकों को पढ़ता है, उपयोगकर्ता के अनुकूल स्ट्रिंग्स निकालता है, और प्रत्येक के बगल में एक `.content` फ़ाइल लिखता है, जिससे आप कैटलॉग में मैन्युअल रूप से कॉपी करने के बजाय एक diff की समीक्षा करते हैं। इस गाइड का चरण 14 इसे समझाता है।
 
-पूर्ण स्वचालन के लिए, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md) JSX, TSX, Vue और Svelte कोड पर निर्माण समय के दौरान भी यही करता है, प्रत्येक परिवर्तन पर शब्दकोश उत्पन्न करता है जिससे कुंजियों को मैन्युअल रूप से बनाए रखने की आवश्यकता समाप्त हो जाती है।
+पूर्ण स्वचालन के लिए, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md) बिल्ड समय पर यही काम करता है: यह प्रत्येक परिवर्तन पर आपके JSX, TSX, Vue और Svelte स्रोत को स्कैन करता है, शब्दकोश उत्पन्न करता है और हॉट मॉड्यूल प्रतिस्थापन (HMR) के माध्यम से उन्हें सिंक में रखता है, ताकि हाथ से बनाए रखने के लिए कोई कुंजी न हो।
+
+कंपाइलर को चालू करने से पहले दो सीमाएं जानने योग्य हैं। यह स्थिर विश्लेषण द्वारा काम करता है, इसलिए जो स्ट्रिंग्स केवल रनटाइम पर मौजूद होती हैं, जैसे कि API त्रुटि कोड या CMS फ़ील्ड, वे पहुंच से बाहर रहती हैं। और इसे `className="active"` या स्थिति कोड जैसे एप्लिकेशन लॉजिक से उपयोगकर्ता के सामने आने वाले टेक्स्ट को अलग करना होगा, जिसके लिए एक बड़े कोडबेस में कुछ एनोटेशन की आवश्यकता होती है। [extract command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/extract.md) आपको लूप में रखकर दोनों से बचाता है।
 
 </Question>
 
@@ -1246,7 +1250,14 @@ Next.js 12, 13, 14, 15, और 16। App Router और Pages Router दोनो
 
 <Question title="क्या मुझे URL में लोकेल शामिल करना अनिवार्य है, जैसे /hi/about?">
 
-नहीं। `routing.mode` मान `"prefix-no-default"` (डिफ़ॉल्ट: मुख्य भाषा के लिए `/about` और अन्य के लिए `/hi/about`), `"prefix-all"`, `"no-prefix"`, और `"search-params"` स्वीकार करता है। `routing.domains` विकल्प प्रत्येक भाषा को उसके अपने डोमेन से मैप करता है। [कॉन्फ़िगरेशन संदर्भ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md) देखें।
+नहीं। URL योजना एक कॉन्फ़िगरेशन विकल्प है, कोई बाध्यता नहीं। `routing.mode` स्वीकार करता है:
+
+- `"prefix-no-default"` (डिफ़ॉल्ट): डिफ़ॉल्ट लोकेल के लिए `/about`, दूसरों के लिए `/fr/about`।
+- `"prefix-all"`: प्रत्येक लोकेल में उपसर्ग लगाया जाता है, `/en/about` और `/fr/about`।
+- `"no-prefix"`: पथ में कोई लोकेल नहीं है, कुकी, हेडर या डोमेन से निर्धारित होता है।
+- `"search-params"`: `/about?locale=fr`।
+
+आप `routing.domains` के साथ प्रत्येक लोकेल को उसके अपने डोमेन से भी मैप कर सकते हैं। देखें [कॉन्फ़िगरेशन संदर्भ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md) और [लोकेल पथ के बिना गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_nextjs_no_locale_path.md)।
 
 </Question>
 

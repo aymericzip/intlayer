@@ -191,8 +191,6 @@ export default config;
 
 Điều này sẽ tải tất cả các tệp JSON trong thư mục `src` khớp với mẫu `{key}.i18n.json` và tải chúng như các từ điển Intlayer.
 
----
-
 </Step>
 
 </Steps>

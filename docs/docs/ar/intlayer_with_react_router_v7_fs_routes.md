@@ -51,18 +51,17 @@ author: aymericzip
 بالمقارنة مع الحلول الرئيسية مثل `react-i18next` أو `i18next`، يعد Intlayer حلاً يأتي مزودًا بتحسينات متكاملة مثل:
 
 <AccordionGroup>
-
-** تغطية كاملة لجهاز التوجيه React **
+<Accordion header="تغطية كاملة لجهاز التوجيه React">
 
 تم تحسين Intlayer للعمل بشكل مثالي مع React Router من خلال تقديم **توجيه مدرك للإعدادات المحلية**، **برامج وسيطة للكشف عن الإعدادات المحلية**، وجميع الميزات اللازمة لتوسيع نطاق التدويل (i18n).
 
-**حجم البندل**
+</Accordion>
 
 <Accordion header="حجم الحزمة">
 
 بدلاً من تحميل ملفات JSON ضخمة إلى صفحاتك، قم بتحميل المحتوى الضروري فقط. يساعد Intlayer **في تقليل أحجام البندل وصفحاتك بنسبة تصل إلى 50%**.
 
-** الصيانة **
+</Accordion>
 
 <Accordion header="قابلية الصيانة">
 
@@ -70,11 +69,11 @@ author: aymericzip
 
 </Accordion>
 
-** وكيل الذكاء الاصطناعي **
+<Accordion header="وكيل الذكاء الاصطناعي">
 
 يؤدي تحديد موقع المحتوى المشترك ** إلى تقليل السياق المطلوب ** بواسطة نماذج اللغات الكبيرة (LLMs). يأتي Intlayer أيضًا مزودًا بمجموعة من الأدوات، مثل **CLI** لاختبار الترجمات المفقودة،**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**، **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** و**[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md)**، لجعل تجربة المطور (DX) أكثر سلاسة للذكاء الاصطناعي وكلاء.
 
-**الأتمتة**
+</Accordion>
 
 <Accordion header="أتمتة">
 
@@ -82,13 +81,13 @@ author: aymericzip
 
 </Accordion>
 
-**أداء**
+<Accordion header="أداء">
 
 يمكن أن يؤدي ربط ملفات JSON الضخمة بالمكونات إلى حدوث مشكلات في الأداء والتفاعل. يعمل Intlayer على تحسين تحميل المحتوى الخاص بك في وقت الإنشاء.
 
 </Accordion>
 
-**التحجيم مع عدم وجود مطور**
+<Accordion header="التحجيم مع عدم وجود مطور">
 
 أكثر من مجرد حل i18n، يوفر Intlayer **[محررًا مرئيًا] مستضافًا ذاتيًا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** و**[كامل CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** لمساعدتك في إدارة المحتوى متعدد اللغات في **الوقت الفعلي**، مما يجعل التعاون مع المترجمين ومؤلفي النصوص وأعضاء الفريق الآخرين سلسًا. يمكن تخزين المحتوى محليًا و/أو عن بعد.
 
@@ -503,7 +502,7 @@ export const useLocalizedNavigate = () => {
 
 </Step>
 
-<Step number={9} title="إنشاء مكون لتبديل اللغة">
+<Step number={8} title="إنشاء مكون لتبديل اللغة">
 
 قم بإنشاء مكون يسمح للمستخدمين بتغيير اللغات:
 
@@ -566,7 +565,7 @@ export const LocaleSwitcher: FC = () => {
 
 </Step>
 
-<Step number={10} title="إضافة إدارة سمات HTML">
+<Step number={9} title="إضافة إدارة سمات HTML">
 
 أنشئ خطافًا لإدارة سمات lang و dir في HTML:
 
@@ -588,6 +587,8 @@ export const useI18nHTMLAttributes = () => {
 هذا الـ hook يتم استخدامه بالفعل في مكون التخطيط (`($locale)._layout.tsx`) الموضح في الخطوة 5.
 
 </Step>
+
+<Step number={10} title="Add middleware">
 
 ثم استخدمه في مكون الجذر الخاص بك:
 
@@ -616,7 +617,7 @@ export default function RootLayout() {
 
 </Step>
 
-<Step number={1} title="استخراج محتوى مكوناتك" isOptional={true}>
+<Step number={11} title="استخراج محتوى مكوناتك" isOptional={true}>
 
 إذا كان لديك قاعدة بيانات كود موجودة، فقد يكون تحويل آلاف الملفات مستهلكًا للوقت.
 
@@ -655,9 +656,6 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-<Tabs>
- <Tab value='أمر الاستخراج'>
-
 قم بتشغيل المستخرج لتحويل مكوناتك واستخراج المحتوى
 
 ```bash packageManager="npm"
@@ -675,9 +673,6 @@ yarn intlayer extract
 ```bash packageManager="bun"
 bun x intlayer extract
 ```
-
- </Tab>
- <Tab value='مترجم Babel'>
 
 > Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
 
@@ -710,11 +705,6 @@ yarn build # Or yarn dev
 ```bash packageManager="bun"
 bun run build # Or bun run dev
 ```
-
- </Tab>
-</Tabs>
-
----
 
 </Step>
 
@@ -819,9 +809,11 @@ To go further, you can implement the [visual editor](https://github.com/aymericz
 
 <Question title="هل يجب أن أنقل المحتوى الخاص بي مفتاحًا تلو الآخر؟">
 
-لا. قم بتشغيل `npx intlayer extract` وسيقرأ Intlayer ملفات المصدر الخاصة بك، ويسحب السلاسل النصية الموجهة للمستخدم ويكتب ملف `.content` بجانب كل منها، بحيث تراجع diff بدلاً من نسخ السلاسل إلى كتالوج يدويًا. راجع [أمر extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/extract.md).
+لا. قم بتشغيل `npx intlayer extract` وسيقرأ Intlayer مكوناتك، ويسحب السلاسل النصية الموجهة للمستخدم، ويكتب ملف `.content` بجانب كل منها، بحيث تراجع diff بدلاً من نسخ السلاسل إلى كتالوج يدويًا. يوضح الخطوة 11 من هذا الدليل ذلك.
 
-لأتمتة كاملة، يقوم [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md) بالشيء نفسه في وقت البناء على كود JSX و TSX و Vue و Svelte، منشئًا القواميس عند كل تغيير دون الحاجة إلى إدارة المفاتيح يدويًا.
+لأتمتة كاملة، يقوم [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md) بالشيء نفسه في وقت البناء: يمسح كود JSX و TSX و Vue و Svelte عند كل تغيير، وينشئ القواميس ويزامنها من خلال الاستبدال السريع للوحدات (HMR)، بحيث لا توجد مفاتيح تتم صيانتها يدويًا على الإطلاق.
+
+هناك حدان يجدر معرفتهما قبل تشغيل المترجم. إنه يعمل عن طريق التحليل الثابت، وبالتالي فإن السلاسل التي تظهر فقط في وقت التشغيل، مثل رموز أخطاء API أو حقول نظام إدارة المحتوى، تظل بعيدة عن متناوله. كما يتعين عليه التمييز بين النصوص الموجهة للمستخدم ومنطق التطبيق مثل `className="active"` أو رمز الحالة، الأمر الذي يتطلب بعض الملاحظات التوضيحية في قاعدة التعليمات البرمجية الكبيرة. يتجنب [أمر الاستخراج](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/extract.md) كلا الأمرين من خلال إبقائك متحكمًا في العملية.
 
 </Question>
 

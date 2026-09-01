@@ -64,7 +64,6 @@ author: aymericzip
 Im Vergleich zu Hauptlösungen wie „i18next“ oder „i18n.js“ ist Intlayer eine Lösung, die über integrierte Optimierungen verfügt wie:
 
 <AccordionGroup>
-
 <Accordion header="Vollständige Vite-Abdeckung">
 
 Intlayer ist für die perfekte Zusammenarbeit mit Vite optimiert, indem es **Framework-unabhängiges Content-Management**, **TypeScript-Unterstützung** und alle für die Skalierung der Internationalisierung (i18n) erforderlichen Funktionen bietet.

@@ -29,7 +29,6 @@ author: aymericzip
 ## Tại sao nên chuyển từ react-i18next / i18next sang Intlayer?
 
 <AccordionGroup>
-
 <Accordion header="Kích thước bundle">
 
 Thay vì tải các tệp JSON khổng lồ vào trang của bạn, chỉ tải nội dung cần thiết. Intlayer giúp **giảm kích thước bundle và trang của bạn tới 50%**.
@@ -67,7 +66,6 @@ Kết nối các tệp JSON khổng lồ với các thành phần có thể dẫ
 Hơn chỉ là một giải pháp i18n, Intlayer cung cấp một **[visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md) tự lưu trữ** và một **[full CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md)** để giúp bạn quản lý nội dung đa ngôn ngữ của mình **theo thời gian thực**, làm cho cộng tác với các dịch giả, biên tập viên và các thành viên nhóm khác trở nên liền mạch. Nội dung có thể được lưu trữ cục bộ và/hoặc từ xa.
 
 </Accordion>
-
 </AccordionGroup>
 
 ---

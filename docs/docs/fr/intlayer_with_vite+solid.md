@@ -69,7 +69,6 @@ author: aymericzip
 Par rapport aux solutions principales telles que `@solid-primitives/i18n` ou `i18next`, Intlayer est une solution dotée d'optimisations intégrées telles que :
 
 <AccordionGroup>
-
 <Accordion header="Couverture complète solide">
 
 Intlayer est optimisé pour fonctionner parfaitement avec Solid en offrant une **portée du contenu au niveau des composants**, des **traductions réactives** et toutes les fonctionnalités nécessaires à la mise à l'échelle de l'internationalisation (i18n).
@@ -496,6 +495,7 @@ export const Link: ParentComponent<AnchorProps> = (props) => {
 };
 ```
 
+</Step>
 <Step number={11} title="Rendre le Markdown" isOptional={true}>
 
 Intlayer prend en charge le rendu du contenu Markdown directement dans votre application Solid en utilisant son propre analyseur interne. Par défaut, Markdown est traité comme du texte brut. Pour le rendre en HTML riche, enveloppez votre application avec le `MarkdownProvider`.

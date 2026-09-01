@@ -141,8 +141,6 @@ export default config;
 
 `syncJSON` प्लगइन के बारे में अधिक विवरण देखने के लिए, कृपया [syncJSON प्लगइन दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/plugins/sync-json.md) देखें।
 
----
-
 </Step>
 
 <Step number={3} title="प्रति-कंपोनेंट JSON अनुवाद लागू करें">
@@ -185,8 +183,6 @@ export default config;
 ```
 
 यह `src` निर्देशिका में सभी JSON फ़ाइलों को लोड करेगा जो पैटर्न `{key}.i18n.json` से मेल खाती हैं और उन्हें Intlayer शब्दकोशों के रूप में लोड करेगा।
-
----
 
 </Step>
 

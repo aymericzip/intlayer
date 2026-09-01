@@ -43,7 +43,6 @@ author: aymericzip
 'Next-intl' veya 'i18next' gibi ana çözümlerle karşılaştırıldığında Intlayer, aşağıdaki gibi entegre optimizasyonlarla gelen bir çözümdür:
 
 <AccordionGroup>
-
 <Accordion header="Tam Next.js kapsamı">
 
 Intlayer, verimli işleme için **Sunucu Bileşenleri** ile çalışacak şekilde optimize edilmiştir ve [**Turbopack**](https://nextjs.org/docs/architecture/turbopack) ile tamamen uyumludur. Statik oluşturmayı engellemez ve ara yazılımların yanı sıra uluslararasılaştırmayı (i18n) ölçeklendirmek için gereken tüm özellikleri sunar.
@@ -96,6 +95,9 @@ Bir i18n çözümünden çok daha fazlası olan Intlayer, **kendi kendine barın
 ## Ön Koşullar
 
 Bu kılavuzu takip etmek için aşağıdaki araçlara ihtiyacınız olacak:
+
+<Tabs defaultTab="code">
+  <Tab label="Code" value="code">
 
 <iframe
   src="https://ide.intlayer.org/aymericzip/intlayer-next-14-template?file=intlayer.config.ts"
@@ -403,9 +405,6 @@ const LocaleLayout: Next14LayoutIntlayer = ({
 export default LocaleLayout;
 ```
 
-</Tab>
-</Tabs>
-
 > `[locale]` yol segmenti, dili tanımlamak için kullanılır. Örneğin: `/en-US/about` `en-US` dilini ve `/fr/about` ise `fr` dilini ifade eder.
 
 > Bu aşamada şu hatayı alacaksınız: `Error: Missing <html> and <body> tags in the root layout.`. Bu beklenen bir durumdur çünkü `/app/page.tsx` dosyası artık kullanılmamaktadır ve kaldırılabilir. Bunun yerine, `[locale]` path segment `/app/[locale]/page.tsx` sayfasını etkinleştirecektir. Sonuç olarak, sayfalar tarayıcınızda `/en`, `/fr`, `/es` gibi yollar aracılığıyla erişilebilir olacaktır. Varsayılan locale'i kök sayfa olarak ayarlamak için, 4. adımdaki `middleware` kurulumuna başvurun.
@@ -586,6 +585,9 @@ export default Page;
 
 > Layout ve page ortak bir server context paylaşamaz çünkü server context sistemi, per-request data store'a dayalıdır ([React's cache](https://react.dev/reference/react/cache) mekanizması aracılığıyla), bu da her "context"in uygulamanın farklı segmentleri için yeniden oluşturulmasına neden olur. Provider'ı shared layout'a yerleştirmek bu izolasyonu bozar, server context değerlerinin server component'lerinize doğru şekilde yayılmasını engeller.
 
+ </Tab>
+</Tabs>
+
 </Step>
 
 ```tsx {4,7} fileName="src/components/ClientComponentExample.tsx" codeFormat={["typescript", "esm"]}
@@ -666,9 +668,6 @@ export default function HomePage() {
   );
 }
 ```
-
- </Tab>
-</Tabs>
 
 > İçeriğinizi `alt`, `title`, `href`, `aria-label` gibi bir `string` özniteliğinde kullanmak istiyorsanız, fonksiyonun değerini şu şekilde kullanabilirsiniz:
 
@@ -1113,6 +1112,8 @@ Daha fazla ilerlemek için, [görsel düzenleyici](https://github.com/aymericzip
 <FAQ>
 
 <Question title="Next.js 14 uygulamasını uluslararasılaştırmak için hangi farklı çözümler mevcuttur?">
+
+`next.config.js` dosyasındaki `i18n` alanı App Router için geçerli değildir, bu nedenle yerelleştirme katmanı her zaman bir kütüphane seçimidir:
 
 - **`next-intl`**: App Router için popüler mesaj tabanlı kütüphane, çalışma zamanında JSON dosyaları yükler.
 - **`next-i18next`**: Pages Router için standart çözüm.

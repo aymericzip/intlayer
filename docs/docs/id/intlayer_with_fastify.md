@@ -289,6 +289,8 @@ Untuk melakukannya, Anda dapat menambahkan instruksi berikut ke file `.gitignore
 - **Plugin Fastify untuk `i18next`**: library runtime berbasis namespace JSON.
 - **`Intlayer`**: plugin `fastify-intlayer` yang dioptimalkan untuk siklus hidup Fastify, typing TypeScript lengkap, terjemahan AI, dan kamus terpadu dengan frontend.
 
+Alasan utama untuk menginternasionalkan backend adalah karena sebagian besar teks yang dibaca pengguna tidak pernah melewati frontend: pesan kesalahan API, email transaksional, push notification, SMS, dan ekspor PDF. Hal-hal tersebut memerlukan bahasa penerima, yang diselesaikan per permintaan dan bukan per sesi.
+
 Lihat [mengapa Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/interest_of_intlayer.md).
 
 </Question>

@@ -51,7 +51,6 @@ Untuk routing sisi klien, lihat panduan [Intlayer dengan React Router v7](https:
 Dibandingkan dengan solusi utama seperti `react-i18next` atau `i18next`, Intlayer adalah solusi yang hadir dengan pengoptimalan terintegrasi seperti:
 
 <AccordionGroup>
-
 <Accordion header="Cakupan React Router Penuh">
 
 Intlayer dioptimalkan untuk bekerja sempurna dengan React Router dengan menawarkan **perutean sadar lokal**, **middleware untuk deteksi lokal**, dan semua fitur yang diperlukan untuk penskalaan internasionalisasi (i18n).
@@ -191,7 +190,7 @@ export default config;
 
 > Melalui file konfigurasi ini, Anda dapat mengatur URL yang dilokalkan, pengalihan middleware, nama cookie, lokasi dan ekstensi deklarasi konten Anda, menonaktifkan log Intlayer di konsol, dan lainnya. Untuk daftar lengkap parameter yang tersedia, lihat [dokumentasi konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md).
 
-<Steps>
+</Step>
 
 <Step number={3} title="Integrasikan Intlayer dalam Konfigurasi Vite Anda">
 
@@ -500,7 +499,7 @@ export const useLocalizedNavigate = () => {
 
 </Step>
 
-<Step number={9} title="Buat Komponen Locale Switcher">
+<Step number={8} title="Buat Komponen Locale Switcher">
 
 Buat komponen untuk memungkinkan pengguna mengganti bahasa:
 
@@ -563,7 +562,7 @@ export const LocaleSwitcher: FC = () => {
 
 </Step>
 
-<Step number={10} title="Tambahkan Manajemen Atribut HTML">
+<Step number={9} title="Tambahkan Manajemen Atribut HTML">
 
 Buat hook untuk mengelola atribut lang dan dir HTML:
 
@@ -585,6 +584,8 @@ export const useI18nHTMLAttributes = () => {
 Hook ini sudah digunakan dalam komponen layout (`($locale)._layout.tsx`) yang ditampilkan di Step 5.
 
 </Step>
+
+<Step number={10} title="Add middleware">
 
 Kemudian gunakan di komponen root Anda:
 
@@ -613,7 +614,7 @@ export default function RootLayout() {
 
 </Step>
 
-<Step number={1} title="Ekstrak konten komponen Anda" isOptional={true}>
+<Step number={11} title="Ekstrak konten komponen Anda" isOptional={true}>
 
 Jika Anda memiliki basis kode yang ada, mengubah ribuan file bisa memakan waktu lama.
 
@@ -652,9 +653,6 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-<Tabs>
- <Tab value='Perintah ekstrak'>
-
 Jalankan extractor untuk mengubah komponen Anda dan mengekstrak kontennya
 
 ```bash packageManager="npm"
@@ -672,9 +670,6 @@ yarn intlayer extract
 ```bash packageManager="bun"
 bun x intlayer extract
 ```
-
- </Tab>
- <Tab value='Compiler Babel'>
 
 > Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
 
@@ -707,11 +702,6 @@ yarn build # Or yarn dev
 ```bash packageManager="bun"
 bun run build # Or bun run dev
 ```
-
- </Tab>
-</Tabs>
-
----
 
 </Step>
 
@@ -816,9 +806,11 @@ Ya. Plugin [sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/doc
 
 <Question title="Apakah saya harus memindahkan konten saya key by key?">
 
-Tidak. Jalankan `npx intlayer extract` dan Intlayer membaca file sumber Anda, mengeluarkan string yang dihadapi pengguna, dan menulis file `.content` di sebelah masing-masing, sehingga Anda meninjau diff alih-alih menyalin string ke dalam katalog satu per satu. Lihat [perintah extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/extract.md).
+Tidak. Jalankan `npx intlayer extract` dan Intlayer membaca komponen Anda, mengeluarkan string yang dihadapi pengguna, dan menulis file `.content` di sebelah masing-masing, sehingga Anda meninjau diff alih-alih menyalin string ke dalam katalog satu per satu. Langkah 11 dari panduan ini menjelaskannya.
 
-Untuk proses otomatis penuh, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md) melakukan hal yang sama saat build time pada kode JSX, TSX, Vue dan Svelte, menghasilkan kamus pada setiap perubahan tanpa perlu memelihara kunci secara manual. Karena bekerja melalui analisis statis, string yang hanya ada di runtime tetap berada di luar jangkauannya.
+Untuk proses otomatis penuh, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md) melakukan hal yang sama saat build time: memindai kode sumber JSX, TSX, Vue, dan Svelte Anda pada setiap perubahan, menghasilkan kamus dan menjaganya tetap sinkron melalui hot module replacement, sehingga tidak ada kunci yang perlu dikelola secara manual.
+
+Dua batasan perlu diketahui sebelum Anda mengaktifkan compiler. Ini bekerja dengan analisis statis, jadi string yang hanya ada saat runtime, seperti kode kesalahan API atau field CMS, tetap berada di luar jangkauan. Dan ini harus membedakan teks yang dilihat pengguna dari logika aplikasi seperti `className="active"` atau kode status, yang memerlukan beberapa anotasi di basis kode yang besar. [Perintah extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/extract.md) menghindari keduanya dengan menjaga Anda tetap memegang kendali.
 
 </Question>
 

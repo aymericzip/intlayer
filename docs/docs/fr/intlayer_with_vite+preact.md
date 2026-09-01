@@ -31,36 +31,6 @@ author: aymericzip
 
 # Traduire votre Vite et Preact avec Intlayer | Internationalisation (i18n)
 
-<Tabs defaultTab="video">
-  <Tab label="Vidéo" value="video">
-
-<iframe title="The best i18n solution for Vite et Preact? Discover Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?si=VaKmrYMmXjo3xpk2"/>
-
-  </Tab>
-  <Tab label="Code" value="code">
-
-<iframe
-  src="https://ide.intlayer.org/aymericzip/intlayer-vite-preact-template?file=intlayer.config.ts"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Démo CodeSandbox - Comment internationaliser votre application avec Intlayer"
-  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-  loading="lazy"
-/>
-
-  </Tab>
-  <Tab label="Démo" value="demo">
-
-<iframe
-  src="https://intlayer-vite-preact-template.vercel.app"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Démo - intlayer-vite-preact-template"
-  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-  loading="lazy"
-/>
-
-  </Tab>
-</Tabs>
-
 ## Table des matières
 
 <TOC/>
@@ -70,7 +40,6 @@ author: aymericzip
 Par rapport aux solutions principales telles que `preact-i18n` ou `i18next`, Intlayer est une solution dotée d'optimisations intégrées telles que :
 
 <AccordionGroup>
-
 <Accordion header="Support complet de Preact">
 
 Intlayer est optimisé pour fonctionner parfaitement avec Preact en offrant une **portée du contenu au niveau des composants**, des **traductions à chargement dynamique (lazy-loading)** et toutes les fonctionnalités nécessaires à la mise à l'échelle de l'internationalisation (i18n).
@@ -117,6 +86,36 @@ Bien plus qu'une simple solution i18n, Intlayer propose un **[éditeur visuel](h
 ---
 
 ## Guide étape par étape pour configurer Intlayer dans une application Vite et Preact
+
+<Tabs defaultTab="video">
+  <Tab label="Vidéo" value="video">
+
+<iframe title="The best i18n solution for Vite et Preact? Discover Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?si=VaKmrYMmXjo3xpk2"/>
+
+  </Tab>
+  <Tab label="Code" value="code">
+
+<iframe
+  src="https://ide.intlayer.org/aymericzip/intlayer-vite-preact-template?file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Démo CodeSandbox - Comment internationaliser votre application avec Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+  <Tab label="Démo" value="demo">
+
+<iframe
+  src="https://intlayer-vite-preact-template.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Démo - intlayer-vite-preact-template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+</Tabs>
 
 Voir [Application Template](https://github.com/aymericzip/intlayer-vite-preact-template) sur GitHub.
 
@@ -615,8 +614,6 @@ export default LocaleSwitcher;
 > > - [Hook `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/react-intlayer/useLocale.md) (l'API est similaire pour `preact-intlayer`)> - [Hook `getLocaleName`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/intlayer/getLocaleName.md)> - [Hook `getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/intlayer/getLocalizedUrl.md)> - [Hook `getHTMLTextDir`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/intlayer/getHTMLTextDir.md)> - [Attribut `hreflang`](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=fr)> - [Attribut `lang`](https://developer.mozilla.org/fr/docs/Web/HTML/Global_attributes/lang)> - [Attribut `dir`](https://developer.mozilla.org/fr/docs/Web/HTML/Global_attributes/dir)> - [Attribut `aria-current`](https://developer.mozilla.org/fr/docs/Web/Accessibility/ARIA/Attributes/aria-current)> - [API Popover](https://developer.mozilla.org/fr/docs/Web/API/Popover_API)
 
 Voici l'**Étape 9** mise à jour avec des explications ajoutées et des exemples de code affinés :
-
----
 
 </Step>
 

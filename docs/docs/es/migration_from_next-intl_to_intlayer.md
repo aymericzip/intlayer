@@ -28,7 +28,6 @@ author: aymericzip
 ## ¿Por qué migrar de next-intl a Intlayer?
 
 <AccordionGroup>
-
 <Accordion header="Tamaño del bundle">
 
 En lugar de cargar archivos JSON masivos en tus páginas, carga solo el contenido necesario. Intlayer ayuda a **reducir el tamaño de tu bundle y tus páginas hasta en un 50 %**.
@@ -66,7 +65,6 @@ Conectar archivos JSON masivos a los componentes puede llevar a problemas de ren
 Más que una simple solución de i18n, Intlayer proporciona un **[editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md)** autohospedado y un **[CMS completo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md)** para ayudarte a gestionar tu contenido multilingüe en **tiempo real**, haciendo la colaboración con traductores, redactores y otros miembros del equipo fluida. El contenido se puede almacenar local y/o remotamente.
 
 </Accordion>
-
 </AccordionGroup>
 
 ---

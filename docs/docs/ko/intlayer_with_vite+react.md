@@ -42,7 +42,6 @@ author: aymericzip
 react-i18next나 i18next와 같은 주요 솔루션과 비교했을 때, Intlayer는 다음과 같은 통합된 최적화 기능을 제공하는 솔루션입니다:
 
 <AccordionGroup>
-
 <Accordion header="완벽한 Vite 및 React 지원">
 
 Intlayer는 **컴포넌트 수준의 콘텐츠 스코핑**, **지연 로드(lazy-loaded) 번역**, 그리고 국제화(i18n) 확장에 필요한 모든 기능을 제공하여 Vite 및 React와 완벽하게 작동하도록 최적화되어 있습니다.
@@ -123,7 +122,6 @@ AI 제공업체의 비용으로 원하는 LLM을 사용하여 CI/CD 파이프라
 'react-i18next' 또는 'i18next'와 같은 주요 솔루션과 비교할 때 Intlayer는 다음과 같은 통합 최적화가 제공되는 솔루션입니다.
 
 <AccordionGroup>
-
 <Accordion header="전체 Vite 및 React 적용 범위">
 
 npm을 사용하여 필요한 패키지를 설치하세요:
@@ -619,8 +617,6 @@ const LocaleSwitcher: FC = () => {
 > - [`aria-current` 속성](https://developer.mozilla.org/ko/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
 아래는 추가 설명과 개선된 코드 예제가 포함된 업데이트된 **9단계**입니다:
-
----
 
 </Step>
 

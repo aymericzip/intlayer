@@ -351,6 +351,8 @@ Khuyến nghị bỏ qua các tệp được tạo bởi Intlayer. Điều này 
 - **Từ điển cơ bản**: không có kiểm tra kiểu hay công cụ hỗ trợ.
 - **`Intlayer`**: được tối ưu hóa đặc biệt cho Bun và Elysia, biên dịch build time, kiểu dữ liệu TypeScript nghiêm ngặt và hiệu năng cao.
 
+Lý do chính để quốc tế hóa backend là vì một phần lớn văn bản mà người dùng đọc không bao giờ đi qua frontend: thông báo lỗi API, email giao dịch, thông báo đẩy, SMS và xuất file PDF. Những nội dung này cần ngôn ngữ của người nhận, được phân giải theo từng yêu cầu thay vì theo phiên.
+
 Xem [lý do chọn Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/interest_of_intlayer.md).
 
 </Question>

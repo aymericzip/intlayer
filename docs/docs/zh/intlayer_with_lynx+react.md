@@ -47,23 +47,24 @@ author: aymericzip
 
 与“react-native-localize”或“i18next”等主要解决方案相比，Intlayer 是一个具有集成优化的解决方案，例如：
 
-**完整的山猫覆盖**
+<AccordionGroup>
+<Accordion header="完整的山猫覆盖">
 
 Intlayer 经过优化，可与 Lynx 和 React 完美配合，提供**组件级内容范围**、**TypeScript 支持**以及扩展国际化 (i18n) 所需的所有功能。
 
 </Accordion>
 
-**捆绑尺寸**
+<Accordion header="捆绑尺寸">
 
 不要将大量 JSON 文件加载到页面中，而只需加载必要的内容。 Intlayer 有助于**将捆绑包和页面大小减少多达 50%**。
 
 </Accordion>
 
-**可维护性**
+<Accordion header="可维护性">
 
 确定应用程序内容的范围**有利于大型应用程序的维护**。您可以复制或删除单个功能文件夹，而无需承担检查整个内容代码库的精神负担。此外，Intlayer 具有**完全类型化 (fully typed)**，以确保您的内容的准确性。
 
-**人工智能代理**
+</Accordion>
 
 <Accordion header="AI Agent">
 
@@ -71,17 +72,17 @@ Intlayer 经过优化，可与 Lynx 和 React 完美配合，提供**组件级�
 
 </Accordion>
 
-**自动化**
+<Accordion header="自动化">
 
 使用您选择的法学硕士，通过自动化在 CI/CD 管道中进行翻译，而费用由您的 AI 提供商承担。 Intlayer 还提供了一个**编译器**来自动提取内容，以及一个[网络平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)来帮助**在后台翻译**。
 
 </Accordion>
 
-**表现**
+<Accordion header="表现">
 
 将大量 JSON 文件连接到组件可能会导致性能和反应性问题。 Intlayer 可在构建时 (build time)优化您的内容加载。
 
-**无需开发即可扩展**
+</Accordion>
 
 <Accordion header="使用非开发环境进行扩展">
 
@@ -144,8 +145,6 @@ bun add intlayer react-intlayer lynx-intlayer
 
 - **lynx-intlayer**  
   Lynx 集成，提供用于将 Intlayer 与 Lynx bundler 集成的插件。
-
----
 
 </Step>
 
@@ -339,8 +338,6 @@ export default appContent;
 
 > 有关内容声明的详细信息，请参阅 [Intlayer 的内容文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)。
 
----
-
 </Step>
 
 <Step number={6} title="在您的组件中使用 Intlayer">
@@ -399,8 +396,6 @@ export const App = () => {
 ```
 
 > 在基于字符串的 props 中使用 `content.someKey` 时（例如，按钮的 `title` 或 `Text` 组件的 `children`），**调用 `content.someKey.value`** 来获取实际字符串。
-
----
 
 </Step>
 

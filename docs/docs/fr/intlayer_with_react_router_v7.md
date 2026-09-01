@@ -54,7 +54,6 @@ Ce guide se concentre sur le routage frontend. Pour le routage fs-routes, consul
 Par rapport aux solutions principales telles que `react-i18next` ou `i18next`, Intlayer est une solution dotée d'optimisations intégrées telles que :
 
 <AccordionGroup>
-
 <Accordion header="Couverture complète du routeur React">
 
 Intlayer est optimisé pour fonctionner parfaitement avec React Router en offrant un **routage compatible avec les paramètres régionaux**, un **middleware pour la détection des paramètres régionaux** et toutes les fonctionnalités nécessaires à la mise à l'échelle de l'internationalisation (i18n).
@@ -256,6 +255,8 @@ export default [
 
 Configurez votre mise en page racine et les mises en page spécifiques à la locale :
 
+</Step>
+</Steps>
 #### Mise en page racine
 
 ```tsx fileName="app/root.tsx"
@@ -305,8 +306,6 @@ export function Layout({
   );
 }
 ```
-
-</Step>
 
 <Step number={6} title="Déclarez votre contenu">
 
@@ -419,6 +418,7 @@ export const useLocalizedNavigate = () => {
 
 Accédez à vos dictionnaires de contenu dans toute votre application :
 
+</Step>
 #### Page d'accueil localisée
 
 ```tsx fileName="app/routes/page.tsx"
@@ -468,8 +468,6 @@ export default function Page() {
 > Pour en savoir plus sur le hook `useIntlayer`, consultez la [documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/react-intlayer/useIntlayer.md).
 
 > Si votre application existe déjà, vous pouvez utiliser le [Compilateur Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compiler.md), ainsi que la [commande d'extraction](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/cli/extract.md), pour transformer des milliers de composants en une seconde.
-
-</Step>
 
 <Step number={9} title="Créer un composant de changement de langue">
 
@@ -575,6 +573,7 @@ export default function RootLayout() {
 - **BLOCK 2 of 7** (English reference): `</Step>` (seems incomplete)
 - **BLOCK 2 of 7** (French to review): Empty
 
+</Step>
 <Step number={11} title="Ajouter un middleware">
 
 Vous pouvez également utiliser `intlayerProxy` pour ajouter un routage côté serveur à votre application. Ce plugin détectera automatiquement la locale actuelle en fonction de l'URL et définira le cookie de locale approprié. Si aucune locale n'est spécifiée, le plugin déterminera la locale la plus appropriée en fonction des préférences linguistiques du navigateur de l'utilisateur. Si aucune locale n'est détectée, il redirigera vers la locale par défaut.
@@ -702,11 +701,7 @@ bun run build # Or bun run dev
  </Tab>
 </Tabs>
 
----
-
 </Step>
-
-</Steps>
 
 ## Configure TypeScript
 

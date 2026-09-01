@@ -35,7 +35,6 @@ Intlayer इसे अपने backend integrations के माध्यम �
 ## htmx ऐप में i18n के तीन नियम
 
 <AccordionGroup>
-
 <Accordion header="locale को हर request पर resolve करना होता है, सिर्फ पहले request पर नहीं">
 
 एक भी पृष्ठ दर्जनों swaps को ट्रिगर कर सकता है। प्रत्येक एक ताज़ी request है जिसे उस पृष्ठ की कोई स्मृति नहीं है जो इसे जारी करता है। यदि locale प्रारंभिक render के दौरान सेट किए गए variable में रहता है, तो इसके बाद का प्रत्येक fragment डिफ़ॉल्ट भाषा में वापस आता है।
@@ -55,7 +54,6 @@ htmx के साथ दो carriers काम करते हैं। एक
 एक अनुवादित मान जो एक fragment में प्रक्षेपित किया गया है, markup है। इसे escape करें, बिल्कुल वैसे ही जैसे आप किसी अन्य dynamic value करेंगे, ताकि एक अनुवाद जिसमें `<` है, वह document को तोड़ न सके जिसमें इसे स्वैप किया जा रहा है।
 
 </Accordion>
-
 </AccordionGroup>
 
 ---

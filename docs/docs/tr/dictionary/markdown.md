@@ -51,6 +51,7 @@ Markdown içeriğini `md` işlevini kullanarak veya basitçe bir dize olarak (Ma
 
 <Tabs>
   <Tab label=".content.md" value=".content.md">
+
     Sürüm `8.10.0`'dan itibaren Markdown içeriğini doğrudan `.content.md` dosyalarında bildirebilirsiniz. Intlayer, Markdown içeriğini otomatik olarak algılar ve ayrıştırır.
 
     ```md fileName="markdown-file.en.content.md"
@@ -96,6 +97,7 @@ Markdown içeriğini `md` işlevini kullanarak veya basitçe bir dize olarak (Ma
     ```
 
   </Tab>
+
   <Tab label="Harici Dosyalar" value="external-files">
     `.md` dosyalarını doğrudan `file` işlevini kullanarak içe aktarın.
 
@@ -129,6 +131,7 @@ Markdown içeriğini `md` işlevini kullanarak veya basitçe bir dize olarak (Ma
     ```
 
   </Tab>
+
 </Tabs>
 
 ## Markdown'u İşleme (Rendering)

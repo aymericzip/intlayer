@@ -47,7 +47,6 @@ author: aymericzip
 'react-i18next' 또는 'i18next'와 같은 주요 솔루션과 비교할 때 Intlayer는 다음과 같은 통합 최적화가 제공되는 솔루션입니다.
 
 <AccordionGroup>
-
 <Accordion header="전체 TanStack 시작 범위">
 
 Intlayer는 **다국어 라우팅**, **사이트맵** 및 국제화 확장(i18n)에 필요한 모든 기능을 제공하여 TanStack Start 및 Solid와 완벽하게 작동하도록 최적화되었습니다.
@@ -567,8 +566,6 @@ const RootComponent: ParentComponent = (props) => {
 };
 ```
 
----
-
 </Step>
 
 <Step number={12} title="미들웨어 추가 (선택 사항)" isOptional={true}>
@@ -604,8 +601,6 @@ export default defineConfig({
   ],
 });
 ```
-
----
 
 </Step>
 
@@ -800,8 +795,6 @@ export const Route = createFileRoute("/{-$locale}/")({
 | 클라이언트 내비게이션 | 해석할 것 없음     | 매칭될 때마다 다시 실행    | 라우터 캐시에서 제공                     |
 | DX                    | 가장 단순함        | `await` 하나               | 콘텐츠를 `loaderData` 로 전달            |
 
----
-
 </Step>
 
 <Step number={13} title="서버 액션에서 로케일 검색 (선택 사항)" isOptional={true}>
@@ -838,8 +831,6 @@ export const getLocaleServer = createServerFn().handler(async () => {
   return { locale, content };
 });
 ```
-
----
 
 </Step>
 
@@ -1032,8 +1023,6 @@ bun run build # 또는 bun run dev
  </Tab>
 </Tabs>
 
----
-
 </Step>
 
 <Step number={16} title="사이트맵 생성 (선택 사항)" isOptional={true}>
@@ -1107,8 +1096,6 @@ export const Route = createFileRoute("/sitemap.xml")({
 });
 ```
 
----
-
 </Step>
 
 <Step number={17} title="TypeScript 구성 (선택 사항)" isOptional={true}>
@@ -1126,8 +1113,6 @@ TypeScript 설정에 자동 생성된 타입이 포함되어 있는지 확인하
   ],
 }
 ```
-
----
 
 </Step>
 
@@ -1217,7 +1202,9 @@ TanStack Start는 자체 i18n 레이어를 제공하지 않으며, Solid 생태�
 
 아닙니다. `npx intlayer extract`를 실행하면 Intlayer가 컴포넌트를 읽고 사용자 대면 문자열을 추출하여 각 컴포넌트 옆에 `.content` 파일을 생성하므로 카탈로그에 일일이 복사할 필요 없이 diff만 검토하면 됩니다. 이 가이드의 15단계를 확인하세요.
 
-완전 자동화된 파이프라인을 위해 [Intlayer 컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md)는 빌드 타임에 JSX, TSX, Vue 및 Svelte 소스에서 동일한 작업을 수행하여 변경될 때마다 사전을 생성하고 HMR을 통해 동기화하므로 수동으로 키를 관리할 필요가 없습니다. 정적 분석으로 작동하므로 런타임에만 존재하는 문자열은 제외되며, 사용자 텍스트와 애플리케이션 로직을 구분하기 위해 몇 가지 주석이 필요합니다. [extract 명령](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/extract.md)을 사용하면 직접 검토하면서 이 두 가지 문제를 모두 피할 수 있습니다.
+완전 자동화된 파이프라인을 위해 [Intlayer 컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md)는 빌드 타임에 JSX, TSX, Vue 및 Svelte 소스에서 동일한 작업을 수행하여 변경될 때마다 사전을 생성하고 HMR을 통해 동기화하므로 수동으로 키를 관리할 필요가 없습니다.
+
+컴파일러를 활성화하기 전에 두 가지 제한 사항을 알아두면 좋습니다. 정적 분석으로 작동하므로 API 오류 코드나 CMS 필드와 같이 런타임에만 존재하는 문자열은 캡처할 수 없습니다. 또한 `className="active"`나 상태 코드와 같은 애플리케이션 로직과 사용자 대면 텍스트를 구분해야 하므로 대규모 코드베이스에서는 몇 가지 주석이 필요할 수 있습니다. [extract 명령](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/extract.md)을 사용하면 직접 검토하면서 이 두 가지 문제를 모두 피할 수 있습니다.
 
 </Question>
 

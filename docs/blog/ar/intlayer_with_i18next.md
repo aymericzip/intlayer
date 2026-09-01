@@ -191,8 +191,6 @@ export default config;
 
 سيقوم هذا بتحميل جميع ملفات JSON في مجلد `src` التي تطابق النمط `{key}.i18n.json` وتحميلها كقواميس Intlayer.
 
----
-
 </Step>
 
 </Steps>

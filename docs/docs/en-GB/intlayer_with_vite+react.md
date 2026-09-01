@@ -42,7 +42,6 @@ author: aymericzip
 Compared to main solutions like `react-i18next` or `i18next`, Intlayer is a solution that comes with integrated optimizations such as:
 
 <AccordionGroup>
-
 <Accordion header="Full Vite and React coverage">
 
 Intlayer is optimized to work perfectly with Vite and React by offering **component-level content scoping**, **lazy-loaded translations**, and all the features needed for scaling internationalization (i18n).
@@ -706,8 +705,6 @@ const LocaleSwitcher: FC = () => {
 
 Below is the updated **Step 9** with added explanations and refined code examples:
 
----
-
 </Step>
 
 <Step number={9} title="Switch the HTML Language and Direction Attributes" isOptional={true}>
@@ -856,7 +853,6 @@ Link.displayName = "Link";
   The component returns an `<a>` element with the localised URL, ensuring that navigation is consistent with the locale.
 
 By integrating this `Link` component across your application, you maintain a coherent and language-aware user experience while also benefiting from improved SEO and usability.
-</Step>
 
 </Step>
 
@@ -903,9 +899,6 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-<Tabs>
- <Tab value='Extract command'>
-
 Run the extractor to transform your components and extract the content
 
 ```bash packageManager="npm"
@@ -923,9 +916,6 @@ yarn intlayer extract
 ```bash packageManager="bun"
 bun x intlayer extract
 ```
-
- </Tab>
- <Tab value='Babel compiler'>
 
 > Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
 
@@ -959,8 +949,6 @@ yarn build # Or yarn dev
 bun run build # Or bun run dev
 ```
 
- </Tab>
-</Tabs>
 </Step>
 
 </Steps>

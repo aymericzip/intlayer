@@ -35,7 +35,6 @@ Intlayer bunu backend entegrasyonları aracılığıyla kapsar ve bu entegrasyon
 ## htmx uygulamasında i18n'nin üç kuralı
 
 <AccordionGroup>
-
 <Accordion header="Locale her istekte çözülmeli, sadece ilkinde değil">
 
 Tek bir sayfa düzinelerce swap tetikleyebilir. Her biri, onu başlatan sayfanın belleğine sahip olmayan yeni bir istek. Eğer yerel ayar, ilk render sırasında ayarlanan bir değişkende bulunuyorsa, sonraki her fragment varsayılan dile geri döner.
@@ -55,7 +54,6 @@ htmx ile iki taşıyıcı çalışır. Bir cookie (`INTLAYER_LOCALE`), tarayıc�
 Bir parçaya interpole edilen çevrilmiş bir değer markup'tır. Bunu diğer dinamik değerler gibi tam olarak escape edin, böylece `<` içeren bir çeviri, değiştirildiği belgeyi bozamaz.
 
 </Accordion>
-
 </AccordionGroup>
 
 ---

@@ -47,7 +47,6 @@ author: aymericzip
 Compared to main solutions like `@nuxtjs/i18n` or `i18next`, Intlayer is a solution that comes with integrated optimizations such as:
 
 <AccordionGroup>
-
 <Accordion header="Full Nuxt coverage">
 
 Intlayer is optimized to work perfectly with Nuxt by offering **multilingual routing**, **middleware for locale detection**, **sitemap**, and all the features needed for scaling internationalization (i18n).

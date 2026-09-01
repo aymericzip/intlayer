@@ -42,8 +42,7 @@ author: aymericzip
 بالمقارنة مع الحلول الرئيسية مثل `next-intl` أو `i18next`، يعد Intlayer حلاً يأتي مزودًا بتحسينات متكاملة مثل:
 
 <AccordionGroup>
-
-**تغطية Next.js الكاملة**
+<Accordion header="تغطية Next.js الكاملة">
 
 تم تحسين Intlayer للعمل مع **مكونات الخادم** من أجل العرض الفعال وهو متوافق تمامًا مع [**Turbopack**](https://nextjs.org/docs/architecture/turbopack). إنه لا يمنع العرض الثابت ويوفر برامج وسيطة بالإضافة إلى جميع الميزات اللازمة لتوسيع نطاق التدويل (i18n).
 
@@ -51,13 +50,13 @@ author: aymericzip
 > يعد التوجيه المحلي مفيدًا لتحسين محركات البحث وحجم البندل والأداء. إذا لم تكن بحاجة إليه، يمكنك الرجوع إلى هذا [الدليل](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_no_locale_path.md).
 > بالنسبة إلى Next.js 12 و13 و14 و15 مع جهاز توجيه التطبيقات، راجع هذا [الدليل](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_14.md).
 
-**حجم البندل**
+</Accordion>
 
 <Accordion header="حجم الحزمة">
 
 بدلاً من تحميل ملفات JSON ضخمة إلى صفحاتك، قم بتحميل المحتوى الضروري فقط. يساعد Intlayer **في تقليل أحجام البندل وصفحاتك بنسبة تصل إلى 50%**.
 
-** الصيانة **
+</Accordion>
 
 <Accordion header="الصيانة">
 
@@ -65,11 +64,11 @@ author: aymericzip
 
 </Accordion>
 
-** وكيل الذكاء الاصطناعي **
+<Accordion header="وكيل الذكاء الاصطناعي">
 
 يؤدي تحديد موقع المحتوى المشترك ** إلى تقليل السياق المطلوب ** بواسطة نماذج اللغات الكبيرة (LLMs). يأتي Intlayer أيضًا مزودًا بمجموعة من الأدوات، مثل **CLI** لاختبار الترجمات المفقودة،**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**، **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** و**[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md)**، لجعل تجربة المطور (DX) أكثر سلاسة للذكاء الاصطناعي وكلاء.
 
-**الأتمتة**
+</Accordion>
 
 <Accordion header="أتمتة">
 
@@ -77,13 +76,13 @@ author: aymericzip
 
 </Accordion>
 
-**أداء**
+<Accordion header="أداء">
 
 يمكن أن يؤدي ربط ملفات JSON الضخمة بالمكونات إلى حدوث مشكلات في الأداء والتفاعل. يعمل Intlayer على تحسين تحميل المحتوى الخاص بك في وقت الإنشاء.
 
 </Accordion>
 
-**التحجيم مع عدم وجود مطور**
+<Accordion header="التحجيم مع عدم وجود مطور">
 
 أكثر من مجرد حل i18n، يوفر Intlayer **[محررًا مرئيًا] مستضافًا ذاتيًا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** و**[كامل CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** لمساعدتك في إدارة المحتوى متعدد اللغات في **الوقت الفعلي**، مما يجعل التعاون مع المترجمين ومؤلفي النصوص وأعضاء الفريق الآخرين سلسًا. يمكن تخزين المحتوى محليًا و/أو عن بعد.
 
@@ -988,10 +987,10 @@ bun add @intlayer/swc --dev
 > ملاحظة: هذا التحسين متاح فقط لـ Next.js 13 وما فوق.
 
 > ملاحظة: هذه الحزمة غير مثبتة بشكل افتراضي لأن إضافات SWC لا تزال تجريبية في Next.js. قد يتغير ذلك في المستقبل.
-> </Step>
 
 > ملاحظة: إذا قمت بتعيين الخيار كـ `importMode: 'dynamic'` أو `importMode: 'fetch'` (في تكوين `dictionary`)، فسيعتمد على Suspense، لذا سيتعين عليك أن تحيط استدعاءات `useIntlayer` في حدود `Suspense`. هذا يعني أنك لن تتمكن من استخدام `useIntlayer` مباشرة في المستوى الأعلى من مكون Page / Layout الخاص بك.
-> </Step>
+
+</Step>
 
 </Steps>
 
@@ -1066,6 +1065,8 @@ bun add @intlayer/swc --dev
 <FAQ>
 
 <Question title="ما هي الحلول المختلفة المتاحة لتدويل تطبيقات Next.js 15؟">
+
+لا ينطبق حقل `i18n` في `next.config.js` على App Router، لذا فإن طبقة التوطين هي دائمًا اختيار للمكتبة:
 
 - **`next-intl`**: مكتبة رسائل شائعة لـ App Router، تُحمل ملفات JSON في وقت التشغيل.
 - **`next-i18next`**: الحل التقليدي لـ Pages Router.

@@ -51,6 +51,7 @@ Anda dapat mendeklarasikan konten Markdown menggunakan fungsi `md` atau cukup se
 
 <Tabs>
   <Tab label=".content.md" value=".content.md">
+
     Mulai dari versi `8.10.0`, Anda dapat mendeklarasikan konten Markdown langsung di dalam file `.content.md`. Intlayer akan secara otomatis mendeteksi dan mem-parsing konten Markdown.
 
     ```md fileName="markdown-file.en.content.md"
@@ -96,6 +97,7 @@ Anda dapat mendeklarasikan konten Markdown menggunakan fungsi `md` atau cukup se
     ```
 
   </Tab>
+
   <Tab label="File Eksternal" value="external-files">
     Impor file `.md` secara langsung menggunakan fungsi `file`.
 
@@ -129,6 +131,7 @@ Anda dapat mendeklarasikan konten Markdown menggunakan fungsi `md` atau cukup se
     ```
 
   </Tab>
+
 </Tabs>
 
 ## Merender Markdown

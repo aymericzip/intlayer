@@ -46,7 +46,6 @@ author: aymericzip
 `react-i18next` 또는 `i18next`와 같은 주요 솔루션과 비교하여 Intlayer는 다음과 같은 통합 최적화를 제공하는 솔루션입니다:
 
 <AccordionGroup>
-
 <Accordion header="전체 React 커버리지">
 
 **Intlayer**는 현대 웹 애플리케이션에서 다국어 지원을 간소화하기 위해 설계된 혁신적이고 오픈 소스인 국제화(i18n) 라이브러리입니다.
@@ -59,6 +58,7 @@ author: aymericzip
 
 Intlayer를 사용하면:
 
+</Accordion>
 <Accordion header="유지보수성">
 
 - **컴포넌트 수준에서 선언적 사전을 사용하여 번역을 쉽게 관리**할 수 있습니다.
@@ -560,6 +560,7 @@ const LocaleSwitcher: FC = () => {
 
 로케일이 변경될 때 이러한 속성을 동적으로 업데이트하면 지원되는 모든 언어에서 사용자에게 일관되고 접근 가능한 경험을 보장할 수 있습니다.
 
+</Step>
 #### Hook 구현
 
 HTML 속성을 관리하기 위한 커스텀 훅을 생성합니다. 이 훅은 로케일 변경을 감지하고 속성을 적절히 업데이트합니다:
@@ -620,9 +621,6 @@ export default App;
 - **언어**(`lang`) 속성이 현재 로케일을 정확히 반영하여 SEO 및 브라우저 동작에 중요합니다.
 - 로케일에 따라 **텍스트 방향**(`dir`)을 조정하여 다른 읽기 순서를 가진 언어의 가독성과 사용성을 향상시킵니다.
 - **접근성**을 개선하여 보조 기술이 이러한 속성에 의존해 최적의 기능을 수행할 수 있도록 합니다.
-  </Step>
-
-</Steps>
 
 ### TypeScript 구성
 
@@ -711,7 +709,9 @@ Create React App은 자체 webpack 구성을 래핑하므로, 직접 플러그�
 
 아닙니다. `npx intlayer extract`를 실행하면 Intlayer가 컴포넌트를 읽고 사용자 대면 문자열을 추출하여 각 컴포넌트 옆에 `.content` 파일을 생성하므로 카탈로그에 일일이 복사할 필요 없이 diff만 검토하면 됩니다.
 
-완전 자동화된 파이프라인을 위해 [Intlayer 컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md)는 빌드 타임에 JSX, TSX, Vue 및 Svelte 소스에서 동일한 작업을 수행하여 변경될 때마다 사전을 생성하고 HMR을 통해 동기화하므로 수동으로 키를 관리할 필요가 없습니다. 정적 분석으로 작동하므로 런타임에만 존재하는 문자열은 제외되며, 사용자 텍스트와 애플리케이션 로직을 구분하기 위해 몇 가지 주석이 필요합니다. [extract 명령](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/extract.md)을 사용하면 직접 검토하면서 이 두 가지 문제를 모두 피할 수 있습니다.
+완전 자동화된 파이프라인을 위해 [Intlayer 컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md)는 빌드 타임에 JSX, TSX, Vue 및 Svelte 소스에서 동일한 작업을 수행하여 변경될 때마다 사전을 생성하고 HMR을 통해 동기화하므로 수동으로 키를 관리할 필요가 없습니다.
+
+컴파일러를 켜기 전에 알아두어야 할 두 가지 제한 사항이 있습니다. 정적 분석으로 작동하므로 API 오류 코드나 CMS 필드와 같이 런타임에만 존재하는 문자열은 처리할 수 없습니다. 또한 큰 코드베이스에서 몇 가지 어노테이션이 필요한 `className="active"` 또는 상태 코드와 같은 애플리케이션 로직과 사용자 대면 텍스트를 구분해야 합니다. [extract 명령](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/extract.md)은 사용자가 직접 제어할 수 있도록 하여 두 가지 문제를 모두 방지합니다.
 
 </Question>
 

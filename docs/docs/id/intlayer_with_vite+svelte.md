@@ -68,7 +68,6 @@ author: aymericzip
 Dibandingkan dengan solusi utama seperti `svelte-i18n` atau `i18next`, Intlayer adalah solusi yang hadir dengan pengoptimalan terintegrasi seperti:
 
 <AccordionGroup>
-
 <Accordion header="Cakupan Ramping Penuh">
 
 Intlayer dioptimalkan untuk bekerja sempurna dengan Svelte dengan menawarkan **pelingkupan konten tingkat komponen**, **terjemahan reaktif**, dan semua fitur yang diperlukan untuk meningkatkan internasionalisasi (i18n).
@@ -750,6 +749,8 @@ Untuk melangkah lebih jauh, Anda dapat mengimplementasikan [editor visual](https
 
 <Question title="Apa saja solusi berbeda yang tersedia untuk menginternasionalkan aplikasi Vite dan Svelte?">
 
+Vite tidak memiliki preferensi khusus tentang i18n, jadi pilihannya adalah yang ada di ekosistem Svelte:
+
 - **`svelte-i18n`** atau **`typesafe-i18n`**: solusi berbasis store Svelte.
 - **`Intlayer`**: deklarasi di sebelah komponen, kompilasi build time, reaktivitas Svelte penuh, dan terjemahan AI.
 
@@ -780,6 +781,8 @@ Ya. Plugin [sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/doc
 Tidak. Jalankan `npx intlayer extract` dan Intlayer membaca file Anda, mengeluarkan string yang dihadapi pengguna, dan menulis file `.content` di sebelah masing-masing, sehingga Anda meninjau diff alih-alih menyalin string ke dalam katalog satu per satu.
 
 Untuk proses otomatis penuh, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md) melakukan hal yang sama saat build time: memindai kode pada setiap perubahan, menghasilkan kamus, dan menyinkronkannya dengan HMR.
+
+Dua batasan perlu diketahui sebelum Anda mengaktifkan compiler. Ini bekerja dengan analisis statis, jadi string yang hanya ada saat runtime, seperti kode kesalahan API atau field CMS, tetap berada di luar jangkauan. Dan ini harus membedakan teks yang dilihat pengguna dari logika aplikasi seperti `className="active"` atau kode status, yang memerlukan beberapa anotasi di basis kode yang besar. [Perintah extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/extract.md) menghindari keduanya dengan menjaga Anda tetap memegang kendali.
 
 </Question>
 

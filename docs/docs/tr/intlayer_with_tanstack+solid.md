@@ -46,7 +46,6 @@ Bu kılavuz, Solid.js içeren Tanstack Start projelerinde sorunsuz uluslararası
 'React-i18next' veya 'i18next' gibi ana çözümlerle karşılaştırıldığında Intlayer, aşağıdaki gibi entegre optimizasyonlarla gelen bir çözümdür:
 
 <AccordionGroup>
-
 <Accordion header="Tam TanStack Start kapsamı">
 
 Intlayer, **çok dilli yönlendirme**, **site haritası** ve uluslararasılaştırmayı (i18n) ölçeklendirmek için gereken tüm özellikleri sunarak TanStack Start ve Solid ile mükemmel çalışacak şekilde optimize edilmiştir.
@@ -567,8 +566,6 @@ const RootComponent: ParentComponent = (props) => {
 };
 ```
 
----
-
 </Step>
 
 <Step number={12} title="Ara Yazılım Ekleme">
@@ -604,8 +601,6 @@ export default defineConfig({
   ],
 });
 ```
-
----
 
 </Step>
 
@@ -800,8 +795,6 @@ Yerel ayar başına parçayı, bedelini `head` kritik yolunda ödemeden korursun
 | İstemci gezinmeleri      | çözümlenecek bir şey yok     | her eşleşmede yeniden çalışır | router önbelleğinden sunulur               |
 | Geliştirici deneyimi     | en basiti                    | tek bir `await`               | içerik `loaderData` üzerinden taşınır      |
 
----
-
 </Step>
 
 <Step number={14} title="Sunucu aksiyonlarınızda yerel ayarı alın">
@@ -838,8 +831,6 @@ export const getLocaleServer = createServerFn().handler(async () => {
   return { locale, content };
 });
 ```
-
----
 
 </Step>
 
@@ -1032,8 +1023,6 @@ bun run build # veya bun run dev
  </Tab>
 </Tabs>
 
----
-
 </Step>
 
 <Step number={16} title="Pre-render & Generate Sitemap">
@@ -1107,8 +1096,6 @@ export const Route = createFileRoute("/sitemap.xml")({
 });
 ```
 
----
-
 </Step>
 
 <Step number={17} title="TypeScript'i Yapılandırın">
@@ -1126,8 +1113,6 @@ TypeScript yapılandırmanızın otomatik olarak oluşturulan türleri içerdiğ
   ],
 }
 ```
-
----
 
 </Step>
 
@@ -1216,6 +1201,8 @@ Evet. [sync JSON eklentisi](https://github.com/aymericzip/intlayer/blob/main/doc
 Hayır. `npx intlayer extract` komutunu çalıştırın; Intlayer bileşenlerinizi okur, kullanıcıya dönük dizeleri çıkarır ve her birinin yanına bir `.content` dosyası yazar, böylece dizeleri tek tek kopyalamak yerine bir diff incelersiniz.
 
 Tam otomatik bir süreç için [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md) derleme sırasında aynı işlemi yapar: her değişiklikte kaynak kodunu tarar, sözlükleri üretir ve HMR ile senkronize tutar.
+
+Derleyiciyi açmadan önce bilmeye değer iki sınır vardır. Statik analiz ile çalışır, bu nedenle API hata kodları veya CMS alanları gibi yalnızca çalışma zamanında var olan dizeler ulaşılamaz kalır. Ayrıca, `className="active"` veya durum kodu gibi uygulama mantığından kullanıcıya yönelik metinleri ayırt etmesi gerekir; bu da büyük bir kod tabanında birkaç ek açıklama gerektirir. [Extract komutu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/extract.md) sizi döngüde tutarak her ikisinden de kaçınır.
 
 </Question>
 

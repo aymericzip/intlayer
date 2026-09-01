@@ -46,7 +46,6 @@ Xem [Application Template](https://github.com/aymericzip/intlayer-lynx-template)
 So với các giải pháp chính như `react-native-localize` hay `i18next`, Intlayer là giải pháp đi kèm với các tính năng tối ưu hóa tích hợp như:
 
 <AccordionGroup>
-
 <Accordion header="Bảo hiểm Lynx đầy đủ">
 
 Intlayer được tối ưu hóa để hoạt động hoàn hảo với Lynx và React bằng cách cung cấp **phạm vi nội dung cấp thành phần**, **hỗ trợ TypeScript** và tất cả các tính năng cần thiết để mở rộng quy mô quốc tế hóa (i18n).
@@ -145,8 +144,6 @@ bun add intlayer react-intlayer lynx-intlayer
 
 - **lynx-intlayer**  
   Tích hợp Lynx cung cấp plugin để tích hợp Intlayer với trình đóng gói Lynx.
-
----
 
 </Step>
 
@@ -332,8 +329,6 @@ export default appContent;
 
 > Để biết chi tiết về khai báo nội dung, xem [tài liệu nội dung của Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/content_file.md).
 
----
-
 </Step>
 
 <Step number={6} title="Sử dụng Intlayer trong các Component của bạn">
@@ -392,8 +387,6 @@ export const App = () => {
 ```
 
 > Khi sử dụng `content.someKey` trong các props dạng chuỗi (ví dụ, `title` của một nút hoặc `children` của một component `Text`), **hãy gọi `content.someKey.value`** để lấy chuỗi thực tế.
-
----
 
 </Step>
 

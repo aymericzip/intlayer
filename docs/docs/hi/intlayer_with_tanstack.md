@@ -63,36 +63,35 @@ author: aymericzip
 `react-i18next` या `use-intl`, या `paraglide` जैसे मुख्य समाधानों की तुलना में, Intlayer एक समाधान है जो एकीकृत अनुकूलन के साथ आता है जैसे:
 
 <AccordionGroup>
-
-**पूर्ण टैनस्टैक प्रारंभ कवरेज**
+<Accordion header="पूर्ण TanStack Start कवरेज">
 
 इंटलेयर टैनस्टैक स्टार्ट के लिए पूरी तरह से अनुकूलित है, जो **बहुभाषी रूटिंग**, **कुकी प्रबंधन**, **साइटमैप जेनरेशन**, **डायनामिक कंटेंट लोडिंग** और आपके अंतर्राष्ट्रीयकरण (i18n) प्रयासों को बढ़ाने के लिए आवश्यक सभी सुविधाएँ प्रदान करता है।
 
-**बंडल का आकार**
+</Accordion>
 
-<Accordion header="Bundle size">
+<Accordion header="बंडल का आकार">
 
 अपने पृष्ठों में विशाल JSON फ़ाइलें लोड करने के बजाय, केवल आवश्यक सामग्री लोड करें। इंटलेयर आपके बंडल और पृष्ठ आकार को 50% तक कम करने में मदद करता है।
 
-**रखरखाव**
+</Accordion>
 
 <Accordion header="रखरखाव">
 
 आपके एप्लिकेशन की सामग्री का दायरा बड़े पैमाने के अनुप्रयोगों के लिए **रखरखाव की सुविधा प्रदान करता है**। आप अपने संपूर्ण सामग्री कोडबेस की समीक्षा करने के मानसिक बोझ के बिना किसी एक फीचर फ़ोल्डर की नकल कर सकते हैं या उसे हटा सकते हैं। इसके अतिरिक्त, आपकी सामग्री की सटीकता सुनिश्चित करने के लिए Intlayer **पूरी तरह से टाइप किया गया** है।
 
-**एआई एजेंट**
+</Accordion>
 
-<Accordion header="AI Agent">
+<Accordion header="एआई एजेंट">
 
-सामग्री का सह-स्थानीकरण **बड़े भाषा मॉडल (एलएलएम) द्वारा आवश्यक संदर्भ को कम करता है**। इंटलेयर टूल के एक सूट के साथ भी आता है, जैसे **CLI** ताकि लापता अनुवादों का परीक्षण किया जा सके,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**, और **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/agent_skills.md)**, AI एजेंटों के लिए डेवलपर अनुभव (DX) को और भी आसान बनाने के लिए।
+सामग्री का सह-स्थानीकरण **बड़े भाषा मॉडल (एलएलएम) द्वारा आवश्यक संदर्भ को कम करता है**। इंटलेयर टूल के एक सूट के साथ भी आता है, जैसे **CLI** ताकि लापता अनुवादों का परीक्षण किया जा सके,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/mcp_server.md)**, और **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/agent_skills.md)**, AI एजेंटों के लिए डेवलपर अनुभव (DX) को और भी आसान बनाने के लिए।
 
-**स्वचालन**
+</Accordion>
 
-<Accordion header="Automation">
+<Accordion header="स्वचालन">
 
-अपने एआई प्रदाता की कीमत पर अपनी पसंद के एलएलएम का उपयोग करके अपने सीआई/सीडी पाइपलाइन में अनुवाद करने के लिए स्वचालन का उपयोग करें। इंटलेयर सामग्री निष्कर्षण को स्वचालित करने के लिए एक **कंपाइलर** के साथ-साथ **पृष्ठभूमि में अनुवाद** में मदद करने के लिए एक [वेब प्लेटफ़ॉर्म](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) भी प्रदान करता है।
+अपने एआई प्रदाता की कीमत पर अपनी पसंद के एलएलएम का उपयोग करके अपने सीआई/सीडी पाइपलाइन में अनुवाद करने के लिए स्वचालन का उपयोग करें। इंटलेयर सामग्री निष्कर्षण को स्वचालित करने के लिए एक **कंपाइलर** के साथ-साथ **पृष्ठभूमि में अनुवाद** में मदद करने के लिए एक [वेब प्लेटफ़ॉर्म](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md) भी प्रदान करता है।
 
-**प्रदर्शन**
+</Accordion>
 
 <Accordion header="प्रदर्शन">
 
@@ -100,9 +99,9 @@ author: aymericzip
 
 </Accordion>
 
-**किसी भी देव के साथ स्केलिंग**
+<Accordion header="गैर-डेवलपर्स के साथ विस्तार">
 
-सिर्फ एक i18n समाधान से अधिक, Intlayer एक **स्व-होस्टेड [विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** और एक **[पूर्ण] प्रदान करता है सीएमएस](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** आपकी बहुभाषी सामग्री को **वास्तविक समय** में प्रबंधित करने में मदद करता है, जिससे अनुवादकों, कॉपीराइटरों और टीम के अन्य सदस्यों के साथ सहयोग सहज हो जाता है। सामग्री को स्थानीय और/या दूरस्थ रूप से संग्रहीत किया जा सकता है।
+सिर्फ एक i18n समाधान से अधिक, Intlayer एक **स्व-होस्टेड [विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md)** और एक **[पूर्ण सीएमएस](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md)** आपकी बहुभाषी सामग्री को **वास्तविक समय** में प्रबंधित करने में मदद करता है, जिससे अनुवादकों, कॉपीराइटरों और टीम के अन्य सदस्यों के साथ सहयोग सहज हो जाता है। सामग्री को स्थानीय और/या दूरस्थ रूप से संग्रहीत किया जा सकता है।
 
 </Accordion>
 </AccordionGroup>
@@ -650,8 +649,6 @@ function RootDocument({ children }: { children: ReactNode }) {
 }
 ```
 
----
-
 </Step>
 
 <Step number={11} title="मिडलवेयर जोड़ें">
@@ -687,8 +684,6 @@ export default defineConfig({
   ],
 });
 ```
-
----
 
 </Step>
 
@@ -883,8 +878,6 @@ export const Route = createFileRoute("/{-$locale}/")({
 | Client navigations   | nothing to resolve    | re-entered on every match  | served from the router cache           |
 | Developer experience | simplest              | one `await`                | content threaded through `loaderData`  |
 
----
-
 </Step>
 
 <Step number={13} title="अपने server actions में locale को प्राप्त करें">
@@ -922,141 +915,85 @@ export const getLocaleServer = createServerFn().handler(async () => {
 });
 ```
 
----
-
 </Step>
 
-<Step number={14} title="Not found pages को manage करें">
+<Step number={14} title="नहीं मिले पृष्ठों का प्रबंधन करें">
 
-जब कोई user एक non-existing page पर जाता है, तो आप एक custom not found page display कर सकते हैं और locale prefix इस बात को प्रभावित कर सकता है कि not found page कैसे triggered होता है।
+जब कोई उपयोगकर्ता गैर-मौजूद पृष्ठ पर जाता है, तो आप एक कस्टम नहीं मिला पृष्ठ प्रदर्शित कर सकते हैं और लोकेल उपसर्ग नहीं मिला पृष्ठ के ट्रिगर होने के तरीके को प्रभावित कर सकता है।
 
-#### स्थानीयकृत होम पेज
+#### लोकेल उपसर्गों के साथ TanStack Router के 404 हैंडलिंग को समझना
 
-> अगर आप अपनी content को `string` attribute में use करना चाहते हैं, जैसे `alt`, `title`, `href`, `aria-label`, आदि, तो आप function के value को इस तरह use कर सकते हैं:
->
-> ```html
-> <img src="{content.image.src.value}" alt="{content.image.value}" />
-> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
-> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
-> ```
+TanStack Router में, स्थानीयकृत रूट्स के साथ 404 पृष्ठों को संभालने के लिए एक बहु-स्तरीय दृष्टिकोण की आवश्यकता होती है:
 
-> `useIntlayer` हुक के बारे में अधिक जानने के लिए, [दस्तावेज़ीकरण](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/react-intlayer/useIntlayer.md) देखें।
+1. **समर्पित 404 रूट**: 404 UI प्रदर्शित करने के लिए एक विशिष्ट रूट
+2. **रूट-स्तरीय सत्यापन**: लोकेल उपसर्गों को मान्य करता है और अमान्य को 404 पर पुनर्निर्देशित करता है
+3. **कैच-ऑल रूट**: लोकेल खंड के भीतर किसी भी बेमेल पथ को कैप्चर करता है
 
-</Step>
-
-```tsx fileName="src/components/locale-switcher.tsx"
-import { useLocation } from "@tanstack/react-router";
-import {
-  getHTMLTextDir,
-  getLocaleName,
-  getPathWithoutLocale,
-  getPrefix,
-  Locales,
-} from "intlayer";
-import type { FC } from "react";
-import { useLocale } from "react-intlayer";
-
-import { LocalizedLink, type To } from "./localized-link";
-
-export const LocaleSwitcher: FC = () => {
-  const { pathname } = useLocation();
-
-  const { availableLocales, locale, setLocale } = useLocale();
-
-  const pathWithoutLocale = getPathWithoutLocale(pathname);
-
-  return (
-    <ol>
-      {availableLocales.map((localeEl) => (
-        <li key={localeEl}>
-          <LocalizedLink
-            aria-current={localeEl === locale ? "page" : undefined}
-            onClick={() => setLocale(localeEl)}
-            params={{ locale: getPrefix(localeEl).localePrefix }}
-            to={pathWithoutLocale as To}
-          >
-            <span>
-              {/* लोकेल - उदा. FR */}
-              {localeEl}
-            </span>
-            <span>
-              {/* अपनी लोकेल में भाषा - उदा. Français */}
-              {getLocaleName(localeEl, locale)}
-            </span>
-            <span dir={getHTMLTextDir(localeEl)} lang={localeEl}>
-              {/* वर्तमान लोकेल में भाषा - उदा. Francés जब वर्तमान लोकेल Locales.SPANISH पर सेट हो */}
-              {getLocaleName(localeEl)}
-            </span>
-            <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* अंग्रेज़ी में भाषा - उदा. French */}
-              {getLocaleName(localeEl, Locales.ENGLISH)}
-            </span>
-          </LocalizedLink>
-        </li>
-      ))}
-    </ol>
-  );
-};
-```
-
-> `useLocale` हुक के बारे में अधिक जानने के लिए, [दस्तावेज़ीकरण](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/react-intlayer/useLocale.md) देखें।
-
-</Step>
-
-<Step number={11} title="HTML विशेषताओं का प्रबंधन">
-
-return (
-<html dir={getHTMLTextDir(locale)} lang={locale}>
-{/* ... _/}
-</html>
-);
-} {/_ ... */}
-</html>
-);
-}
-
-export const Route = createFileRoute("/{-$locale}/")({
-component: RouteComponent,
-head: async ({ params }) => {
-const { locale = defaultLocale } = params;
-const path = "/"; // The path for this route
-
-    const metaContent = await getIntlayerAsync("app", locale);
-
-````
-
-> यदि कोई `head` कई डिक्शनरी पढ़ता है, तो उन्हें `Promise.all` से हल करें, क्योंकि हर `getIntlayerAsync` को अलग पंक्ति में await करने से अनुरोध समानांतर चलने के बजाय एक-दूसरे से जुड़कर क्रमबद्ध हो जाते हैं।
-
-समझौता यह है: डायनामिक import तब हल होता है जब `head` चल रहा होता है, यानी डॉक्यूमेंट रेंडर के क्रिटिकल पाथ पर। कोल्ड रूट पर इससे `head` कुछ मिलीसेकंड देर से तैयार होता है और **LCP** थोड़ा बिगड़ सकता है।
-
-</Tab>
-
-<Tab label="कैश्ड डायनामिक रिज़ॉल्यूशन" value="cached">
-
-डिक्शनरी को रूट के `loader` में हल करें और `head` में `loaderData` से वापस पढ़ें। मैच हुए रूट के लोडर समानांतर चलते हैं, और `staleTime: Infinity` TanStack Router को बताता है कि परिणाम कभी बासी नहीं होता, इसलिए प्रति-लोकेल चंक एक ही बार हल होता है और उसके बाद राउटर कैश से मिलता है, जिससे `head` सिंक्रोनस बना रहता है।
-
-```tsx fileName="src/routes/{-$locale}/index.tsx"
-
-<Tabs>
- <Tab value='Extract command'>
-
-  return { locale, content };
-});
+```tsx fileName="src/routes/{-$locale}/404.tsx"
 import { createFileRoute } from "@tanstack/react-router";
 
-````
+// यह एक समर्पित /[locale]/404 रूट बनाता है
+// इसका उपयोग प्रत्यक्ष रूट के रूप में और अन्य फ़ाइलों में घटक के रूप में आयात दोनों के लिए किया जाता है
+export const Route = createFileRoute("/{-$locale}/404")({
+  component: NotFoundComponent,
+});
+
+// अलग से निर्यात किया गया ताकि इसे notFoundComponent और कैच-ऑल रूट्स में पुन: उपयोग किया जा सके
+export function NotFoundComponent() {
+  return (
+    <div>
+      <h1>404</h1>
+    </div>
+  );
+}
+```
 
 ```tsx fileName="src/routes/{-$locale}/route.tsx"
+import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
+import { validatePrefix } from "intlayer";
+import { NotFoundComponent } from "./404";
 
+export const Route = createFileRoute("/{-$locale}")({
+  // beforeLoad रूट रेंडर होने से पहले चलता है (सर्वर और क्लाइंट दोनों पर)
+  // लोकेल उपसर्ग को मान्य करने के लिए यह आदर्श स्थान है
+  beforeLoad: ({ params }) => {
+    const localeParam = params.locale;
+
+    // validatePrefix जाँचता है कि क्या लोकेल आपके intlayer कॉन्फ़िग के अनुसार मान्य है
+    const { isValid, localePrefix } = validatePrefix(localeParam);
+
+    if (!isValid) {
+      // अमान्य लोकेल उपसर्ग - मान्य लोकेल उपसर्ग के साथ 404 पृष्ठ पर पुनर्निर्देशित करें
+      throw redirect({
+        to: "/{-$locale}/404",
+        params: { locale: localePrefix },
+      });
+    }
+  },
+  component: Outlet,
+  // notFoundComponent तब कहा जाता है जब कोई चाइल्ड रूट मौजूद नहीं होता
+  // उदा., /en/non-existent-page /en लेआउट के भीतर इसे ट्रिगर करता है
+  notFoundComponent: NotFoundComponent,
+});
 ```
 
 ```tsx fileName="src/routes/{-$locale}/$.tsx"
+import { createFileRoute } from "@tanstack/react-router";
+
 import { NotFoundComponent } from "./404";
+
+// $ (स्प्लैट/कैच-ऑल) रूट किसी भी पथ से मेल खाता है जो अन्य रूट्स से मेल नहीं खाता
+// उदा., /en/some/deeply/nested/invalid/path
+// यह सुनिश्चित करता है कि लोकेल के भीतर सभी बेमेल पथ 404 पृष्ठ दिखाते हैं
+// इसके बिना, बेमेल गहरे पथ एक खाली पृष्ठ या त्रुटि दिखा सकते हैं
+export const Route = createFileRoute("/{-$locale}/$")({
+  component: NotFoundComponent,
+});
 ```
 
 </Step>
 
-<Step number={1} title="अपने घटकों की सामग्री निकालें" isOptional={true}>
+<Step number={15} title="अपने घटकों की सामग्री निकालें" isOptional={true}> isOptional={true}>
 
 यदि आपके पास मौजूदा कोडबेस है, तो हजारों फ़ाइलों को बदलना समय लेने वाला हो सकता है।
 
@@ -1067,10 +1004,23 @@ import { NotFoundComponent } from "./404";
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig } from "intlayer";
 
+const config: IntlayerConfig = {
+  // ... आपका शेष कॉन्फ़िगरेशन
+  compiler: {
+    /**
+     * इंगित करता है कि क्या कंपाइलर सक्षम होना चाहिए।
+     */
+    enabled: true,
+
     /**
      * आउटपुट फ़ाइलों का पथ परिभाषित करता है
      */
     output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * इंगित करता है कि क्या घटकों को बदलने के बाद सहेजा जाना चाहिए। उस तरह से, कंपाइलर को ऐप बदलने के लिए केवल एक बार चलाया जा सकता है, और फिर इसे हटाया जा सकता है।
+     */
+    saveComponents: false,
 
     /**
      * शब्दकोश कुंजी उपसर्ग
@@ -1083,28 +1033,34 @@ export default config;
 ```
 
 <Tabs>
- <Tab value='निकालें कमांड'>
+ <Tab value="निकालें कमांड">
 
 अपने घटकों को बदलने और सामग्री निकालने के लिए एक्सट्रैक्टर चलाएँ
 
 ```bash packageManager="npm"
-
+npx intlayer extract
 ```
 
 ```bash packageManager="pnpm"
-
+pnpm intlayer extract
 ```
 
 ```bash packageManager="yarn"
-
+yarn intlayer extract
 ```
 
 ```bash packageManager="bun"
+bun x intlayer extract
+```
 
  </Tab>
-</Tabs>
+ <Tab value="बैबेल कंपाइलर">
 
-bun x intlayer extract
+> v9 के बाद से, `intlayerCompiler` को `intlayer` plugin में शामिल किया गया है। इसलिए आपको इसे मैन्युअल रूप से जोड़ने की आवश्यकता नहीं है।
+
+intlayerCompiler प्लगइन शामिल करने के लिए अपनी `vite.config.ts` अपडेट करें:
+
+```ts fileName="vite.config.ts"
 import { defineConfig } from "vite";
 import { intlayer } from "vite-intlayer";
 
@@ -1132,34 +1088,65 @@ yarn build # Or yarn dev
 ```
 
 ```bash packageManager="bun"
-
----
-
-Please provide:
-1. **The English source content** (base block to reference)
-2. **The current Hindi translation** (to be audited)
-
-Once you share these blocks, I will:
-- Compare them thoroughly
-- Insert any missing content
-- Correct spelling, grammar, and Markdown syntax errors
-- Ensure code blocks are properly formatted with translated comments
-- Update documentation links to the Hindi locale (`/hi/` instead of `/en/`)
-- Return the fully updated Hindi content
-
-Please paste the content between the `` and `` markers for both blocks.---
-
 bun run build # Or bun run dev
+```
+
+ </Tab>
+</Tabs>
+
+</Step>
+
+<Step number={16} title="पूर्व-प्रस्तुत करें और साइटमैप जनरेट करें">
+
+Intlayer में एक built-in sitemap generator है जो आपको अपने एप्लिकेशन के लिए आसानी से sitemap बनाने में मदद करता है। यह localized routes को handle करता है और search engines के लिए आवश्यक metadata जोड़ता है।
+
+> Intlayer द्वारा generated sitemap `xhtml:link` namespace (Hreflang XML Extensions) को support करता है। Default sitemap generators के विपरीत जो केवल raw URLs list करते हैं, Intlayer automatically एक page के सभी language versions के बीच required bidirectional links create करता है (उदाहरण के लिए, `/about`, `/about?lang=fr`, और `/about?lang=es`)। यह सुनिश्चित करता है कि search engines सही language version को सही audience को correctly index और serve करें।
+
+इसे उपयोग करने के लिए, आपको पहले अपनी `vite.config.ts` को कॉन्फ़िगर करना होगा ताकि आपके स्थानीयकृत routes के लिए प्री-रेंडरिंग सक्षम हो सके और डिफ़ॉल्ट TanStack Start sitemap जनरेशन को अक्षम किया जा सके।
+
+```typescript fileName="vite.config.ts"
 import { localeFlatMap } from "intlayer";
 // ... अन्य imports
 
+export const pathList = ["", "/about", "/404"];
+
+const localizedPages = localeFlatMap(({ urlPrefix }) =>
+  pathList.map((path) => ({
+    path: `${urlPrefix}${path}`,
+    prerender: {
+      enabled: true,
+    },
+  }))
+);
+
+export default defineConfig({
+  plugins: [
+    // ... अन्य plugins
+    tanstackStart({
+      // ... अन्य config
+      sitemap: {
+        enabled: false,
+      },
+      prerender: {
+        enabled: true,
+        crawlLinks: false,
+        concurrency: 10,
+      },
+      pages: localizedPages,
+    }),
+  ],
+});
 ```
 
 फिर, एक `src/routes/sitemap[.]xml.ts` route बनाएं जो `generateSitemap` function का उपयोग करता है:
 
-````typescript fileName="src/routes/sitemap[.]xml.ts"
+```typescript fileName="src/routes/sitemap[.]xml.ts"
+import { createFileRoute } from "@tanstack/react-router";
+import { generateSitemap } from "intlayer";
 
----
+const SITE_URL = (
+  import.meta.env.VITE_SITE_URL ?? "http://localhost:3000"
+).replace(/\/$/, "");
 
 export const Route = createFileRoute("/sitemap.xml")({
   server: {
@@ -1180,6 +1167,17 @@ export const Route = createFileRoute("/sitemap.xml")({
     },
   },
 });
+```
+
+</Step>
+
+<Step number={17} title="TypeScript कॉन्फ़िगर करें">
+
+Intlayer module augmentation का उपयोग करके TypeScript के लाभ प्राप्त करता है और आपके codebase को मजबूत बनाता है।
+
+सुनिश्चित करें कि आपकी TypeScript कॉन्फ़िगरेशन autogenerated प्रकार शामिल करती है:
+
+```json5 fileName="tsconfig.json"
 {
   // ... आपकी मौजूदा कॉन्फ़िगरेशन
   include: [
@@ -1187,17 +1185,22 @@ export const Route = createFileRoute("/sitemap.xml")({
     ".intlayer/**/*.ts", // ऑटो-जेनरेट किए गए types को शामिल करें
   ],
 }
+```
+
+</Step>
+
+</Steps>
 
 ### Git कॉन्फ़िगरेशन
 
-Intlayer द्वारा उत्पन्न फाइलों को अनदेखा करने की अनुशंसा की जाती है। यह आपको उन्हें अपनी Git रिपॉजिटरी में कमिट करने से बचने देता है।
+Intlayer द्वारा उत्पन्न फ़ाइलों को अनदेखा करने की सिफारिश की जाती है। यह आपको उन्हें अपने Git रिपॉजिटरी में कमिट करने से बचने की अनुमति देता है।
 
-ऐसा करने के लिए, आप अपनी `.gitignore` फाइल में निम्नलिखित निर्देश जोड़ सकते हैं:
+ऐसा करने के लिए, आप अपनी `.gitignore` फ़ाइल में निम्नलिखित निर्देश जोड़ सकते हैं:
 
 ```plaintext fileName=".gitignore"
-# Intlayer द्वारा उत्पन्न फाइलों को अनदेखा करें
+# Intlayer द्वारा उत्पन्न फ़ाइलों को अनदेखा करें
 .intlayer
-````
+```
 
 ---
 
@@ -1271,6 +1274,8 @@ TanStack Start की अपनी कोई i18n परत नहीं है:
 नहीं। `npx intlayer extract` चलाएं और Intlayer आपकी फ़ाइलों को पढ़ता है, उपयोगकर्ता के अनुकूल स्ट्रिंग्स निकालता है, और प्रत्येक के बगल में एक `.content` फ़ाइल लिखता है, जिससे आप कैटलॉग में मैन्युअल रूप से कॉपी करने के बजाय एक diff की समीक्षा करते हैं।
 
 पूर्ण स्वचालन के लिए, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md) बिल्ड समय पर यही काम करता है: प्रत्येक परिवर्तन पर कोड स्कैन करता है, शब्दकोश उत्पन्न करता है और HMR के साथ सिंक करता है।
+
+कंपाइलर को चालू करने से पहले दो सीमाएं जानने योग्य हैं। यह स्थिर विश्लेषण द्वारा काम करता है, इसलिए जो स्ट्रिंग्स केवल रनटाइम पर मौजूद होती हैं, जैसे कि API त्रुटि कोड या CMS फ़ील्ड, वे पहुंच से बाहर रहती हैं। और इसे `className="active"` या स्थिति कोड जैसे एप्लिकेशन लॉजिक से उपयोगकर्ता के सामने आने वाले टेक्स्ट को अलग करना होगा, जिसके लिए एक बड़े कोडबेस में कुछ एनोटेशन की आवश्यकता होती है। [extract command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/extract.md) आपको लूप में रखकर दोनों से बचाता है।
 
 </Question>
 

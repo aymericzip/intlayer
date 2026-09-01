@@ -289,6 +289,8 @@ Bunu yapmak için `.gitignore` dosyanıza aşağıdaki talimatları ekleyebilirs
 - **`i18next` Fastify eklentileri**: JSON ad alanlarına dayalı çalışma zamanı kütüphaneleri.
 - **`Intlayer`**: Fastify yaşam döngüsü ile optimize edilmiş `fastify-intlayer` eklentisi, tam TypeScript tipleri, AI çeviri ve ön yüzle tek sözlük paylaşımı.
 
+Arka ucu uluslararasılaştırmanın temel nedeni, bir kullanıcının okuduğu metinlerin büyük bir kısmının hiçbir zaman ön yüzden geçmemesidir: API hata mesajları, işlemsel e-postalar, anlık bildirimler, SMS ve PDF dışa aktarımları. Bunlar, oturum başına değil istek başına çözümlenen alıcının diline ihtiyaç duyar.
+
 Bkz. [neden Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/interest_of_intlayer.md).
 
 </Question>

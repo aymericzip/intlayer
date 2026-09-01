@@ -41,7 +41,6 @@ author: aymericzip
 Compared to main solutions like `vue-i18n` or `i18next`, Intlayer is a solution that comes with integrated optimizations such as:
 
 <AccordionGroup>
-
 <Accordion header="Full Vue coverage">
 
 Intlayer is optimized to work perfectly with Vue by offering **component-level content scoping**, **reactive translations**, and all the features needed for scaling internationalization (i18n).
@@ -426,6 +425,8 @@ const countRef = ref(0);
 
 > If your app already exists, you can use the [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compiler.md), as well as the [extract command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/extract.md), to transform thousands of components in a second.
 
+</Step>
+</Steps>
 #### Accessing Content in Intlayer
 
 Intlayer offers different APIs to access your content:
@@ -443,8 +444,6 @@ Intlayer offers different APIs to access your content:
   The `useIntlayer` composable returns a Proxy with the content. This proxy can be destructured to access the content while maintaining reactivity.
   - Use `const content = useIntlayer("myContent");` and `{{ content.myContent }}` / `<content.myContent />`.
   - Or use `const { myContent } = useIntlayer("myContent");` and `{{ myContent }}` / `<myContent />` to destructure the content.
-
-</Step>
 
 <Step number={6} title="Change the language of your content" isOptional={true}>
 
@@ -631,6 +630,7 @@ import LocaleSwitcher from "@components/LocaleSwitcher.vue";
 
 In parallel, you can also use the `intlayerProxy` to add server-side routing to your application. This plugin will automatically detect the current locale based on the URL and set the appropriate locale cookie. If no locale is specified, the plugin will determine the most appropriate locale based on the user's browser language preferences. If no locale is detected, it will redirect to the default locale.
 
+</Step>
 <Step number={8} title="Change the URL when the locale changes" isOptional={true}>
 
 To automatically update the URL when the user changes the language, you can modify the `LocaleSwitcher` component to use Vue Router:
@@ -946,7 +946,6 @@ yarn intlayer extract
 
 ```
 
-</Step>
 
 <Step number={10} title="Creating a Localised Link Component" isOptional={true}>
 
@@ -959,7 +958,6 @@ yarn intlayer extract
 
 ```
 
- </Tab>
  <Tab value='Babel compiler'>
 
 > Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
@@ -995,9 +993,8 @@ yarn build # Or yarn dev
 bun run build # Or bun run dev
 ```
 
+ </Tab>
 </Step>
-
-</Steps>
 
 ### (Optional) Sitemap and robots.txt (build-time)
 

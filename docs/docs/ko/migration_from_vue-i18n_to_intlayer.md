@@ -28,7 +28,6 @@ author: aymericzip
 ## 왜 vue-i18n에서 Intlayer로 마이그레이션해야 하나요?
 
 <AccordionGroup>
-
 <Accordion header="번들 크기">
 
 거대한 JSON 파일을 페이지에 불러오는 대신, 필요한 콘텐츠만 불러옵니다. Intlayer는 **번들 및 페이지 크기를 최대 50%까지 줄이도록** 도와줍니다.
@@ -66,7 +65,6 @@ AI 제공 업체의 비용만으로 원하는 LLM을 사용하여 CI/CD 파이�
 Intlayer는 단순한 i18n 솔루션을 넘어, 자체 호스팅이 가능한 **[시각적 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)**와 다국어 콘텐츠를 **실시간**으로 관리할 수 있는 **[풀 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)**를 제공합니다. 이를 통해 번역가, 카피라이터 및 기타 팀 구성원과 원활하게 협업할 수 있습니다. 콘텐츠는 로컬 및/또는 원격으로 저장될 수 있습니다.
 
 </Accordion>
-
 </AccordionGroup>
 
 ---

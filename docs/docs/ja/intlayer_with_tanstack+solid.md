@@ -47,22 +47,21 @@ author: aymericzip
 「react-i18next」や「i18next」などの主要なソリューションと比較して、Intlayer は次のような統合された最適化を備えたソリューションです。
 
 <AccordionGroup>
-
-**TanStack Start を完全にカバー**
+<Accordion header="TanStack Start を完全にカバー">
 
 Intlayer は、**多言語ルーティング**、**サイトマップ**、および国際化の拡張 (i18n) に必要なすべての機能を提供することにより、TanStack Start および Solid と完全に連携するように最適化されています。
 
-**バンドルサイズ**
+</Accordion>
 
 <Accordion header="バンドルサイズ">
 
 大量の JSON ファイルをページにロードするのではなく、必要なコンテンツのみをロードします。 Intlayer は、**バンドルとページのサイズを最大 50% 削減**するのに役立ちます。
 
-**保守性**
+</Accordion>
+
+<Accordion header="保守性">
 
 アプリケーションのコンテンツのスコープを設定すると、大規模なアプリケーションの **メンテナンスが容易になります**。コンテンツ コードベース全体を確認するという精神的な負担を負うことなく、単一の機能フォルダーを複製または削除できます。さらに、Intlayer は**完全に型指定**されており、コンテンツの正確性を保証します。
-
-**AI エージェント**
 
 </Accordion>
 
@@ -70,19 +69,19 @@ Intlayer は、**多言語ルーティング**、**サイトマップ**、およ
 
 コンテンツを同じ場所に配置すると、大規模言語モデル (LLM) によって **必要なコンテキストが削減**されます。 Intlayer には、翻訳の欠落をテストする **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** などのツール スイートも付属しています。および **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)** により、AI エージェントの開発者エクスペリエンス (DX) がさらにスムーズになります。
 
-**オートメーション**
+</Accordion>
 
 <Accordion header="自動化">
 
 AI プロバイダーの費用で、選択した LLM を使用して CI/CD パイプラインで自動化を変換します。 Intlayer は、コンテンツ抽出を自動化する **コンパイラー** と、**バックグラウンドでの翻訳**を支援する [Web プラットフォーム](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) も提供します。
 
-**パフォーマンス**
+</Accordion>
 
 <Accordion header="パフォーマンス">
 
 大量の JSON ファイルをコンポーネントに接続すると、パフォーマンスと反応性の問題が発生する可能性があります。 Intlayer は、ビルド時のコンテンツの読み込みを最適化します。
 
-**非開発によるスケーリング**
+</Accordion>
 
 <Accordion header="none-dev でのスケーリング">
 
@@ -567,8 +566,6 @@ const RootComponent: ParentComponent = (props) => {
 };
 ```
 
----
-
 </Step>
 
 <Step number={12} title="ミドルウェアの追加">
@@ -604,8 +601,6 @@ export default defineConfig({
   ],
 });
 ```
-
----
 
 </Step>
 
@@ -800,8 +795,6 @@ export const Route = createFileRoute("/{-$locale}/")({
 | クライアント遷移    | 解決するものなし           | マッチのたびに再実行        | ルーターのキャッシュから提供              |
 | DX                  | 最もシンプル               | `await` が 1 つ             | コンテンツを `loaderData` 経由で受け渡し  |
 
----
-
 </Step>
 
 <Step number={13} title="サーバーアクションでロケールを取得する">
@@ -838,8 +831,6 @@ export const getLocaleServer = createServerFn().handler(async () => {
   return { locale, content };
 });
 ```
-
----
 
 </Step>
 
@@ -1032,8 +1023,6 @@ bun run build # または bun run dev
  </Tab>
 </Tabs>
 
----
-
 </Step>
 
 <Step number={16} title="サイトマップの生成">
@@ -1107,8 +1096,6 @@ export const Route = createFileRoute("/sitemap.xml")({
 });
 ```
 
----
-
 </Step>
 
 <Step number={17} title="TypeScriptの構成">
@@ -1126,8 +1113,6 @@ TypeScript構成に自動生成された型が含まれていることを確認�
   ],
 }
 ```
-
----
 
 </Step>
 

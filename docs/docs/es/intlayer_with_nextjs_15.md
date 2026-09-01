@@ -42,7 +42,6 @@ author: aymericzip
 En comparación con soluciones principales como `next-intl` o `i18next`, Intlayer es una solución que viene con optimizaciones integradas como:
 
 <AccordionGroup>
-
 <Accordion header="Soporte completo de Next.js">
 
 Intlayer está optimizado para funcionar con **Componentes del servidor** para una representación eficiente y es totalmente compatible con [**Turbopack**](https://nextjs.org/docs/architecture/turbopack). No bloquea la representación estática y ofrece middleware, así como todas las funciones necesarias para escalar la internacionalización (i18n).
@@ -510,6 +509,9 @@ export const ClientComponentExample: FC = () => {
   );
 };
 ```
+
+ </Tab>
+</Tabs>
 
 <Tabs>
  <Tab label='Intlayer >=9.4' value='>=9.4'>
@@ -981,7 +983,6 @@ bun add @intlayer/swc --dev
 > Nota: Esta optimización solo está disponible para Next.js 13 y versiones superiores.
 
 > Nota: Este paquete no se instala por defecto porque los plugins SWC aún son experimentales en Next.js. Esto podría cambiar en el futuro.
-> </Step>
 
 > Nota: Si establece la opción como `importMode: 'dynamic'` o `importMode: 'fetch'` (en la configuración `dictionary`), dependerá de Suspense, por lo que tendrá que envolver sus llamadas `useIntlayer` en un límite `Suspense`. Esto significa que no podrá usar `useIntlayer` directamente en el nivel superior de su componente Page / Layout.
 > </Step>

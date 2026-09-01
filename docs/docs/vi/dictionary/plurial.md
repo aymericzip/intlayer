@@ -33,6 +33,15 @@ Trong Intlayer, nội dung số nhiều được thực hiện thông qua hàm `
 
 Không giống như [`enu`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/enumeration.md), chọn nội dung dựa trên các phạm vi số do bạn tự xác định, `plural` ủy quyền việc lựa chọn cho các quy tắc CLDR. Đây là điều làm cho nó có thể mở rộng cho các ngôn ngữ có quy tắc số nhiều phức tạp, như tiếng Nga, tiếng Ba Lan, tiếng Ả Rập hoặc tiếng Wales, mà không cần phải tự viết logic modulo.
 
+## Khi nào nên sử dụng `plural` so với `enu`
+
+| Trường hợp sử dụng                                                      | Trợ giúp |
+| ----------------------------------------------------------------------- | -------- |
+| Dạng số nhiều ngữ pháp phù hợp với ngôn ngữ (một quả táo / hai quả táo) | `plural` |
+| Phạm vi số tùy chỉnh (`<5`, `>=10`) hoặc các danh mục ngoài CLDR        | `enu`    |
+
+Nếu bạn chỉ nhắm mục tiêu tiếng Anh (chỉ có `one` / `other`), cả hai đều hoạt động. Đối với bất kỳ ngôn ngữ nào có sự phân biệt `few` / `many` / `two`, hãy ưu tiên `plural`.
+
 ## Thiết lập nội dung số nhiều
 
 Để thiết lập nội dung số nhiều trong dự án Intlayer của bạn, hãy tạo một mô-đun nội dung sử dụng trợ giúp `plural`. Danh mục `other` là bắt buộc và được sử dụng làm phương án dự phòng khi một ngôn ngữ không xác định danh mục cụ thể hơn.

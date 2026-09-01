@@ -64,7 +64,6 @@ author: aymericzip
 'i18next' 또는 'i18n.js'와 같은 주요 솔루션과 비교할 때 Intlayer는 다음과 같은 통합 최적화가 제공되는 솔루션입니다.
 
 <AccordionGroup>
-
 <Accordion header="전체 Vite 적용 범위">
 
 Intlayer는 **프레임워크에 구애받지 않는 콘텐츠 관리**, **TypeScript 지원** 및 국제화 확장(i18n)에 필요한 모든 기능을 제공하여 Vite와 완벽하게 작동하도록 최적화되었습니다.
@@ -590,9 +589,6 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-<Tabs>
- <Tab value='Extract 명령'>
-
 추출기를 실행하여 컴포넌트를 변환하고 콘텐츠를 추출합니다.
 
 ```bash packageManager="npm"
@@ -610,9 +606,6 @@ yarn intlayer extract
 ```bash packageManager="bun"
 bun x intlayer extract
 ```
-
- </Tab>
- <Tab value='Babel 컴파일러'>
 
 > Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
 
@@ -646,8 +639,7 @@ yarn build # 또는 yarn dev
 bun run build # 또는 bun run dev
 ```
 
- </Tab>
-</Tabs>
+</Step>
 
 </Steps>
 
@@ -808,7 +800,9 @@ Vite 특화된 장점은 번역이 런타임에 JSON으로 가져오는 대신 �
 
 아닙니다. `npx intlayer extract`를 실행하면 Intlayer가 컴포넌트를 읽고 사용자 대면 문자열을 추출하여 각 컴포넌트 옆에 `.content` 파일을 생성하므로 카탈로그에 일일이 복사할 필요 없이 diff만 검토하면 됩니다. 이 가이드의 13단계를 확인하세요.
 
-완전 자동화된 파이프라인을 위해 [Intlayer 컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md)는 빌드 타임에 JSX, TSX, Vue 및 Svelte 소스에서 동일한 작업을 수행하여 변경될 때마다 사전을 생성하고 HMR을 통해 동기화하므로 수동으로 키를 관리할 필요가 없습니다. 정적 분석으로 작동하므로 런타임에만 존재하는 문자열은 제외되며, 사용자 텍스트와 애플리케이션 로직을 구분하기 위해 몇 가지 주석이 필요합니다. [extract 명령](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/extract.md)을 사용하면 직접 검토하면서 이 두 가지 문제를 모두 피할 수 있습니다.
+완전 자동화된 파이프라인을 위해 [Intlayer 컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md)는 빌드 타임에 JSX, TSX, Vue 및 Svelte 소스에서 동일한 작업을 수행하여 변경될 때마다 사전을 생성하고 HMR을 통해 동기화하므로 수동으로 키를 관리할 필요가 없습니다.
+
+컴파일러를 활성화하기 전에 두 가지 제한 사항을 알아두면 좋습니다. 정적 분석으로 작동하므로 API 오류 코드나 CMS 필드와 같이 런타임에만 존재하는 문자열은 캡처할 수 없습니다. 또한 `className="active"`나 상태 코드와 같은 애플리케이션 로직과 사용자 대면 텍스트를 구분해야 하므로 대규모 코드베이스에서는 몇 가지 주석이 필요할 수 있습니다. [extract 명령](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/extract.md)을 사용하면 직접 검토하면서 이 두 가지 문제를 모두 피할 수 있습니다.
 
 </Question>
 

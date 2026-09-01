@@ -103,6 +103,21 @@ export default config;
 
 직접 Intlayer를 호스팅(self-host)하는 경우, `editor.backendURL`을 공유하므로 분석은 자동으로 사용자 자체 인스턴스를 가리킵니다.
 
+### 브라우저에서 API 호출하기
+
+동일한 토큰이 자격 증명이 필요 없는 작은 클라이언트를 지원하므로, 정적 사이트나 SPA는 서버, 서버 액션, 번들 내 시크릿 없이도 런타임에 CMS 콘텐츠를 읽을 수 있습니다:
+
+```ts fileName="content.ts"
+import { createPublicClient } from "@intlayer/api/public";
+
+const client = createPublicClient();
+
+const keys = await client.getDictionaryKeys();
+const [navbar] = await client.getDictionaries(["navbar"]);
+```
+
+이 클라이언트는 `editor.clientId`를 기반으로 자체 인증하며, 토큰 교환·캐싱·갱신은 내부적으로 처리됩니다. 스코프는 접근할 수 있는 범위를 제한합니다: 게시된 사전 콘텐츠와 애널리틱스 수집입니다. 그 외의 작업(사전 푸시, 프로젝트 읽기, AI 크레딧 사용)에는 실제 자격 증명, 즉 서버 또는 로그인한 사용자가 필요합니다.
+
 ### 옵트아웃하기
 
 선택적 `analytics` 블록으로 수집을 조정하거나 완전히 끌 수 있습니다:
@@ -134,6 +149,126 @@ export default config;
 - 로케일 변경 시마다 `page_view`를 기록,
 - 약 20초의 플러시 루프(flush loop)를 시작하고, 언마운트 / 탭 닫기 시 남은 이벤트를 플러시합니다 (`navigator.sendBeacon`을 사용하며, `fetch(..., { keepalive: true })`로 폴백).
 
+진입점은 프레임워크마다 다르지만, 어떤 경우든 이미 Intlayer를 설정할 때 사용한 것과 동일한 지점이므로 추가로 할 일은 없습니다:
+
+<Tabs group="framework">
+  <Tab label="React" value="react">
+
+    `IntlayerProvider`는 내부적으로 애널리틱스 프로바이더를 마운트합니다.
+
+    ```tsx fileName="App.tsx"
+    import { IntlayerProvider } from "react-intlayer";
+
+    const App = () => (
+      <IntlayerProvider>
+        <Router />
+      </IntlayerProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+
+    `next-intlayer`는 React의 `IntlayerProvider`를 재내보내므로, 애널리틱스도 동일한 방식으로 연결됩니다.
+
+    ```tsx fileName="app/[locale]/layout.tsx"
+    import { IntlayerProvider } from "next-intlayer";
+
+    const LocaleLayout = ({ children }) => (
+      <IntlayerProvider>{children}</IntlayerProvider>
+    );
+
+    export default LocaleLayout;
+    ```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+    `intlayer` 플러그인은 루트 컴포넌트의 라이프사이클에 애널리틱스 훅을 등록합니다.
+
+    ```javascript fileName="main.js"
+    import { createApp } from "vue";
+    import { intlayer } from "vue-intlayer";
+    import App from "./App.vue";
+
+    const app = createApp(App);
+
+    app.use(intlayer);
+
+    app.mount("#app");
+    ```
+
+    > Nuxt에서는 `nuxt-intlayer`가 대신 플러그인을 설치해 주므로 별도로 할 일이 없습니다.
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+    `setupIntlayer()`는 Intlayer를 설정하는 컴포넌트에서 애널리틱스를 시작합니다.
+
+    ```svelte fileName="src/routes/[[locale=locale]]/+layout.svelte"
+    <script lang="ts">
+      import { setupIntlayer } from "svelte-intlayer";
+      import type { Snippet } from "svelte";
+
+      let { children, data }: { children: Snippet, data: LayoutData } = $props();
+
+      $effect(() => {
+        setupIntlayer(data.locale);
+      });
+    </script>
+
+    {@render children()}
+    ```
+
+  </Tab>
+  <Tab label="Preact" value="preact">
+
+    `IntlayerProvider`는 내부적으로 애널리틱스 프로바이더를 마운트합니다.
+
+    ```tsx fileName="app.tsx"
+    import { IntlayerProvider } from "preact-intlayer";
+
+    const App = () => (
+      <IntlayerProvider>
+        <Router />
+      </IntlayerProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+    `IntlayerProvider`는 애널리틱스 프로바이더를 지연(lazy) 마운트하므로, 해당 청크는 크리티컬 패스에서 벗어나 있습니다.
+
+    ```tsx fileName="App.tsx"
+    import { IntlayerProvider } from "solid-intlayer";
+
+    const App = () => (
+      <IntlayerProvider>
+        <Router />
+      </IntlayerProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+
+    `provideIntlayer()`에는 이미 `provideIntlayerAnalytics()`가 포함되어 있습니다.
+
+    ```ts fileName="app.config.ts"
+    import { provideIntlayer } from "angular-intlayer";
+    import type { ApplicationConfig } from "@angular/core";
+
+    export const appConfig: ApplicationConfig = {
+      providers: [provideIntlayer()],
+    };
+    ```
+
+    > 프로바이더를 개별적으로 관리하는 경우에만 `provideIntlayerAnalytics()`를 단독으로 사용하세요.
+
+  </Tab>
+</Tabs>
+
 ### 자동 노드 레벨 추적
 
 `useIntlayer`가 표시할 콘텐츠 조각을 해석할 때마다, 해석기(interpreter)는 해당 정확한 `dictionaryKey` + 키 경로 + 로케일에 대해 `content_exposure` 이벤트를 보고합니다 — 이 역시 코드를 변경할 필요가 없습니다. 플러시 창(flush window) 내에 같은 노드가 반복해서 노출되면 이벤트는 `count` 속성을 포함한 단일 이벤트로 병합(coalesced)되므로, 리스트가 50번 리렌더링된다고 해서 50개의 이벤트가 전송되지 않습니다.
@@ -142,29 +277,340 @@ export default config;
 
 `useConversion()`을 사용하여 세션이 본 변형에 목표를 연결(attribute)하세요:
 
-```tsx fileName="CTAButton.tsx" codeFormat="tsx"
-import { useConversion } from "react-intlayer";
+<Tabs group="framework">
+  <Tab label="React" value="react">
 
-const CTAButton = () => {
-  const trackConversion = useConversion();
+    ```tsx fileName="CTAButton.tsx"
+    import { useConversion } from "react-intlayer";
 
-  return (
+    const CTAButton = () => {
+      const trackConversion = useConversion();
+
+      return (
+        <button
+          onClick={() =>
+            trackConversion({
+              experimentKey: "homepage-hero",
+              variant: "black_friday",
+              goal: "cta_click",
+            })
+          }
+        >
+          시작하기
+        </button>
+      );
+    };
+    ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+
+    ```tsx fileName="CTAButton.tsx"
+    "use client";
+
+    import { useConversion } from "next-intlayer";
+
+    const CTAButton = () => {
+      const trackConversion = useConversion();
+
+      return (
+        <button
+          onClick={() =>
+            trackConversion({
+              experimentKey: "homepage-hero",
+              variant: "black_friday",
+              goal: "cta_click",
+            })
+          }
+        >
+          시작하기
+        </button>
+      );
+    };
+    ```
+
+    > `useConversion`은 클라이언트 훅입니다: 컴포넌트에 `"use client"`를 지정하세요.
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+    ```vue fileName="CTAButton.vue"
+    <script setup lang="ts">
+    import { useConversion } from "vue-intlayer";
+
+    const trackConversion = useConversion();
+    </script>
+
+    <template>
+      <button
+        @click="
+          trackConversion({
+            experimentKey: 'homepage-hero',
+            variant: 'black_friday',
+            goal: 'cta_click',
+          })
+        "
+      >
+        시작하기
+      </button>
+    </template>
+    ```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+    ```svelte fileName="CTAButton.svelte"
+    <script lang="ts">
+      import { useConversion } from "svelte-intlayer";
+
+      const trackConversion = useConversion();
+    </script>
+
     <button
-      onClick={() =>
+      onclick={() =>
         trackConversion({
           experimentKey: "homepage-hero",
           variant: "black_friday",
           goal: "cta_click",
-        })
-      }
+        })}
     >
       시작하기
     </button>
-  );
-};
-```
+    ```
+
+  </Tab>
+  <Tab label="Preact" value="preact">
+
+    ```tsx fileName="CTAButton.tsx"
+    import { useConversion } from "preact-intlayer";
+
+    const CTAButton = () => {
+      const trackConversion = useConversion();
+
+      return (
+        <button
+          onClick={() =>
+            trackConversion({
+              experimentKey: "homepage-hero",
+              variant: "black_friday",
+              goal: "cta_click",
+            })
+          }
+        >
+          시작하기
+        </button>
+      );
+    };
+    ```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+    ```tsx fileName="CTAButton.tsx"
+    import { useConversion } from "solid-intlayer";
+
+    const CTAButton = () => {
+      const trackConversion = useConversion();
+
+      return (
+        <button
+          onClick={() =>
+            trackConversion({
+              experimentKey: "homepage-hero",
+              variant: "black_friday",
+              goal: "cta_click",
+            })
+          }
+        >
+          시작하기
+        </button>
+      );
+    };
+    ```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+
+    ```typescript fileName="cta-button.component.ts"
+    import { Component } from "@angular/core";
+    import { useConversion } from "angular-intlayer";
+
+    @Component({
+      selector: "app-cta-button",
+      template: `<button (click)="onClick()">시작하기</button>`,
+    })
+    export class CtaButtonComponent {
+      private trackConversion = useConversion();
+
+      onClick() {
+        this.trackConversion({
+          experimentKey: "homepage-hero",
+          variant: "black_friday",
+          goal: "cta_click",
+        });
+      }
+    }
+    ```
+
+  </Tab>
+</Tabs>
 
 ### 클라이언트 측에서 변형 해결(Resolving a variant)
+
+`useExperiment()`는 세션을 변형에 할당하고, 전환율의 분모가 되는 노출(exposure)을 기록합니다. 할당이 확정되기 전에 방문자가 컨트롤이 잠깐 보이는 현상을 겪지 않도록, 변형에 의존하는 서브트리는 `isAssigned`로 게이팅하세요:
+
+<Tabs group="framework">
+  <Tab label="React" value="react">
+
+    `variant`는 일반 문자열입니다.
+
+    ```tsx fileName="Hero.tsx"
+    import { useExperiment } from "react-intlayer";
+    import { HeroBanner } from "./HeroBanner";
+
+    export const Hero = () => {
+      const { variant, isAssigned } = useExperiment("homepage-hero", [
+        "default",
+        "black_friday",
+      ]);
+
+      if (!isAssigned) return null;
+
+      return <HeroBanner variant={variant} />;
+    };
+    ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+
+    `variant`는 일반 문자열입니다. 할당은 브라우저에서 이루어지므로 컴포넌트는 클라이언트 컴포넌트여야 합니다.
+
+    ```tsx fileName="Hero.tsx"
+    "use client";
+
+    import { useExperiment } from "next-intlayer";
+    import { HeroBanner } from "./HeroBanner";
+
+    export const Hero = () => {
+      const { variant, isAssigned } = useExperiment("homepage-hero", [
+        "default",
+        "black_friday",
+      ]);
+
+      if (!isAssigned) return null;
+
+      return <HeroBanner variant={variant} />;
+    };
+    ```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+    `variant`와 `isAssigned`는 `Ref`입니다.
+
+    ```vue fileName="Hero.vue"
+    <script setup lang="ts">
+    import { useExperiment } from "vue-intlayer";
+    import HeroBanner from "./HeroBanner.vue";
+
+    const { variant, isAssigned } = useExperiment("homepage-hero", [
+      "default",
+      "black_friday",
+    ]);
+    </script>
+
+    <template>
+      <HeroBanner v-if="isAssigned" :variant="variant" />
+    </template>
+    ```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+    `variant`와 `isAssigned`는 스토어(store)입니다. `$` 접두사로 읽으세요.
+
+    ```svelte fileName="Hero.svelte"
+    <script lang="ts">
+      import { useExperiment } from "svelte-intlayer";
+      import HeroBanner from "./HeroBanner.svelte";
+
+      const { variant, isAssigned } = useExperiment("homepage-hero", [
+        "default",
+        "black_friday",
+      ]);
+    </script>
+
+    {#if $isAssigned}
+      <HeroBanner variant={$variant} />
+    {/if}
+    ```
+
+  </Tab>
+  <Tab label="Preact" value="preact">
+
+    `variant`는 일반 문자열입니다.
+
+    ```tsx fileName="Hero.tsx"
+    import { useExperiment } from "preact-intlayer";
+    import { HeroBanner } from "./HeroBanner";
+
+    export const Hero = () => {
+      const { variant, isAssigned } = useExperiment("homepage-hero", [
+        "default",
+        "black_friday",
+      ]);
+
+      if (!isAssigned) return null;
+
+      return <HeroBanner variant={variant} />;
+    };
+    ```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+    `variant`와 `isAssigned`는 `Accessor`입니다. 값을 읽으려면 호출하세요.
+
+    ```tsx fileName="Hero.tsx"
+    import { useExperiment } from "solid-intlayer";
+    import { Show } from "solid-js";
+    import { HeroBanner } from "./HeroBanner";
+
+    export const Hero = () => {
+      const { variant, isAssigned } = useExperiment("homepage-hero", [
+        "default",
+        "black_friday",
+      ]);
+
+      return (
+        <Show when={isAssigned()}>
+          <HeroBanner variant={variant()} />
+        </Show>
+      );
+    };
+    ```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+
+    `variant`와 `isAssigned`는 `Signal`입니다. 값을 읽으려면 호출하세요.
+
+    ```typescript fileName="hero.component.ts"
+    import { Component } from "@angular/core";
+    import { useExperiment } from "angular-intlayer";
+    import { HeroBannerComponent } from "./hero-banner.component";
+
+    @Component({
+      selector: "app-hero",
+      imports: [HeroBannerComponent],
+      template: `@if (experiment.isAssigned()) {
+        <app-hero-banner [variant]="experiment.variant()" />
+      }`,
+    })
+    export class HeroComponent {
+      experiment = useExperiment("homepage-hero", ["default", "black_friday"]);
+    }
+    ```
 
   </Tab>
 </Tabs>

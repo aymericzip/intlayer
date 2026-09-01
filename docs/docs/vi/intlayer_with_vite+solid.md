@@ -69,7 +69,6 @@ author: aymericzip
 So với các giải pháp chính như `@solid-primitives/i18n` hoặc `i18next`, Intlayer là giải pháp đi kèm với các tính năng tối ưu hóa tích hợp như:
 
 <AccordionGroup>
-
 <Accordion header="Độ che phủ toàn diện">
 
 Intlayer được tối ưu hóa để hoạt động hoàn hảo với Solid bằng cách cung cấp **phạm vi nội dung cấp thành phần**, **bản dịch phản ứng** và tất cả các tính năng cần thiết để mở rộng quy mô quốc tế hóa (i18n).
@@ -496,6 +495,7 @@ export const Link: ParentComponent<AnchorProps> = (props) => {
 };
 ```
 
+</Step>
 <Step number={11} title="Render Markdown" isOptional={true}>
 
 Intlayer hỗ trợ render nội dung Markdown trực tiếp trong ứng dụng Solid của bạn bằng cách sử dụng trình phân tích cú pháp nội bộ riêng. Theo mặc định, Markdown được xử lý như văn bản thuần túy. Để render nó dưới dạng HTML phong phú, hãy bọc ứng dụng của bạn bằng `MarkdownProvider`.
@@ -736,6 +736,8 @@ Nên bỏ qua các tệp được tạo bởi Intlayer. Điều này cho phép b
 
 <Question title="Những giải pháp khác nhau nào có sẵn để quốc tế hóa ứng dụng Vite và Solid?">
 
+Vite không có định kiến nào về i18n, vì vậy các tùy chọn thuộc hệ sinh thái Solid:
+
 - **`@solid-primitives/i18n`**: các primitive cơ bản cho Solid.
 - **`Intlayer`**: tích hợp đầy đủ với tính phản ứng của Solid, biên dịch lúc build, dịch thuật AI, visual editor và CMS.
 
@@ -766,6 +768,8 @@ Có. Plugin [sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/do
 Không. Chạy `npx intlayer extract` và Intlayer sẽ đọc các tệp nguồn của bạn, trích xuất các chuỗi dành cho người dùng và tạo tệp `.content` bên cạnh mỗi tệp, nhờ đó bạn xem lại diff thay vì sao chép chuỗi vào catalog thủ công.
 
 Để tự động hóa hoàn toàn, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md) thực hiện việc tương tự trong quá trình build: quét mã nguồn trên mỗi thay đổi, tạo từ điển và đồng bộ hóa với HMR.
+
+Hai giới hạn đáng lưu ý trước khi bạn bật compiler. Nó hoạt động bằng phân tích tĩnh, do đó các chuỗi chỉ tồn tại khi runtime, chẳng hạn như mã lỗi API hoặc các trường CMS, nằm ngoài phạm vi tiếp cận. Và nó phải phân biệt văn bản hiển thị cho người dùng với logic ứng dụng như `className="active"` hoặc mã trạng thái, điều này cần một vài chú thích trong một codebase lớn. [Lệnh extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/extract.md) tránh cả hai điều này bằng cách giữ bạn luôn kiểm soát.
 
 </Question>
 

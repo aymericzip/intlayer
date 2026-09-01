@@ -51,6 +51,7 @@ You can declare Markdown content using the `md` function or simply as a string (
 
 <Tabs>
   <Tab label=".content.md" value=".content.md">
+
     Starting from version `8.10.0`, you can declare Markdown content directly in `.content.md` files. Intlayer will automatically detect and parse the Markdown content.
 
     ```md fileName="markdown-file.en-GB.content.md"
@@ -99,6 +100,7 @@ You can declare Markdown content using the `md` function or simply as a string (
     ```
 
   </Tab>
+
   <Tab label="External Files" value="external-files">
     Import `.md` files directly using the `file` function.
 
@@ -132,6 +134,7 @@ You can declare Markdown content using the `md` function or simply as a string (
     ```
 
   </Tab>
+
 </Tabs>
 
 ## Rendering Markdown
@@ -960,7 +963,21 @@ The `MarkdownProvider` (or its framework equivalent) configures the Markdown ren
   </Tab>
   <Tab label="Angular" value="angular">
 
-> MDX is supported — any component name used inside your Markdown (e.g. `<MyCustomJSXComponent />`) is resolved against the `components` map.
+    ```typescript fileName="app.config.ts"
+    import { createIntlayerMarkdownProvider } from "angular-intlayer/markdown";
+
+    export const appConfig: ApplicationConfig = {
+      providers: [
+        createIntlayerMarkdownProvider({
+          components: {
+            h1: { class: "text-2xl font-bold" },
+          },
+        }),
+      ],
+    };
+    ```
+
+    > MDX is supported — any component name used inside your Markdown (e.g. `<MyCustomJSXComponent />`) is resolved against the `components` map.
 
 You can also use your own markdown renderer:
 

@@ -29,7 +29,6 @@ author: aymericzip
 
 With `react-intlayer`, you can use translations in React components. Here's an example:
 
-  </Tab>
   <Tab label="Next.js" value="nextjs">
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
@@ -68,6 +67,7 @@ const MyComponent: Component = () => {
 export default MyComponent;
 ```
 
+  </Tab>
 ## Configuration for Locales
 
 To ensure proper translation handling, you can configure the accepted locales in `intlayer.config.ts`. This configuration allows you to define the languages that your application supports:

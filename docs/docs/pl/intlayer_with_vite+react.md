@@ -42,24 +42,23 @@ author: aymericzip
 W porównaniu do głównych rozwiązań, takich jak „react-i18next” lub „i18next”, Intlayer jest rozwiązaniem wyposażonym w zintegrowane optymalizacje, takie jak:
 
 <AccordionGroup>
-
-**Pełne pokrycie Vite i React**
+<Accordion header="Pełne pokrycie Vite i React">
 
 Intlayer jest zoptymalizowany do doskonałej współpracy z Vite i React, oferując **zakres treści na poziomie komponentu**, **tłumaczenia z opóźnieniem** i wszystkie funkcje potrzebne do skalowania internacjonalizacji (i18n).
 
 </Accordion>
 
-**Rozmiar bundle'a**
+<Accordion header="Rozmiar bundle'a">
 
 Zamiast ładować ogromne pliki JSON na swoje strony, ładuj tylko niezbędną treść. Intlayer pomaga **zmniejszyć rozmiary bundle'a i stron nawet o 50%**.
 
 </Accordion>
 
-**Łatwość konserwacji**
+<Accordion header="Łatwość konserwacji">
 
 Określanie zakresu zawartości aplikacji **ułatwia konserwację** aplikacji na dużą skalę. Możesz powielić lub usunąć pojedynczy folder funkcji bez obciążania psychicznego koniecznością przeglądania całej bazy kodu zawartości. Dodatkowo Inlayer jest **w pełni napisany**, aby zapewnić dokładność treści.
 
-**Agent AI**
+</Accordion>
 
 <Accordion header="AI Agent">
 
@@ -67,11 +66,11 @@ Wspólna lokalizacja treści **zmniejsza potrzebny kontekst** dzięki modelom du
 
 </Accordion>
 
-**Automatyzacja**
+<Accordion header="Automatyzacja">
 
 Korzystaj z automatyzacji, aby tłumaczyć w swoim potoku CI/CD przy użyciu wybranego LLM na koszt dostawcy sztucznej inteligencji. Intlayer oferuje także **kompilator** do automatyzacji ekstrakcji treści, a także [platformę internetową] (https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md), która pomaga **tłumaczyć w tle**.
 
-**Wydajność**
+</Accordion>
 
 <Accordion header="Wydajność">
 
@@ -79,7 +78,7 @@ Korzystaj z automatyzacji, aby tłumaczyć w swoim potoku CI/CD przy użyciu wyb
 
 </Accordion>
 
-**Skalowanie bez użycia dewelopera**
+<Accordion header="Skalowanie bez użycia dewelopera">
 
 Więcej niż tylko rozwiązanie i18n, Intlayer zapewnia **samodzielny [edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** i **[pełny CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)**, który pomoże Ci zarządzać wielojęzyczną treścią w **w czasie rzeczywistym**, dzięki czemu współpraca z tłumaczami, copywriterami i innymi członkami zespołu będzie płynna. Treść może być przechowywana lokalnie i/lub zdalnie.
 
@@ -616,8 +615,6 @@ const LocaleSwitcher: FC = () => {
 
 Poniżej znajduje się zaktualizowany **Krok 9** z dodatkowymi wyjaśnieniami i dopracowanymi przykładami kodu:
 
----
-
 </Step>
 
 <Step number={9} title="Zmiana atrybutów języka i kierunku w elemencie HTML" isOptional={true}>
@@ -766,7 +763,6 @@ Link.displayName = "Link";
   Komponent zwraca element `<a>` z zlokalizowanym URL, zapewniając, że nawigacja jest spójna z wybraną lokalizacją.
 
 Integrując ten komponent `Link` w całej aplikacji, utrzymujesz spójne i świadome językowo doświadczenie użytkownika, jednocześnie korzystając z poprawy SEO i użyteczności.
-</Step>
 
 </Step>
 
@@ -809,9 +805,6 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-<Tabs>
- <Tab value='Polecenie wyodrębniania'>
-
 Uruchom ekstraktor, aby przetransformować komponenty i wyodrębnić zawartość
 
 ```bash packageManager="npm"
@@ -829,9 +822,6 @@ yarn intlayer extract
 ```bash packageManager="bun"
 bun x intlayer extract
 ```
-
- </Tab>
- <Tab value='Kompilator Babel'>
 
 > Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
 
@@ -865,8 +855,6 @@ yarn build # Or yarn dev
 bun run build # Or bun run dev
 ```
 
- </Tab>
-</Tabs>
 </Step>
 
 </Steps>

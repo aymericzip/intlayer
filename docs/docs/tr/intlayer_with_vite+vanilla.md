@@ -64,7 +64,6 @@ author: aymericzip
 'i18next' veya 'i18n.js' gibi ana çözümlerle karşılaştırıldığında Intlayer, aşağıdaki gibi entegre optimizasyonlarla gelen bir çözümdür:
 
 <AccordionGroup>
-
 <Accordion header="Tam Vite kapsamı">
 
 Intlayer, **çerçeveden bağımsız içerik yönetimi**, **TypeScript desteği** ve uluslararasılaştırmayı (i18n) ölçeklendirmek için gereken tüm özellikleri sunarak Vite ile mükemmel çalışacak şekilde optimize edilmiştir.
@@ -777,6 +776,8 @@ Daha ileri gitmek için [görsel düzenleyiciyi](https://github.com/aymericzip/i
 
 <Question title="Vite ve Vanilla JS uygulamasını uluslararasılaştırmak için hangi farklı çözümler mevcuttur?">
 
+Vite'ın i18n hakkında bir tercihi yoktur, bu nedenle seçim Vanilla JS ekosisteminden gelir:
+
 - **Elle yazılmış sözlük nesneleri**: sayfa başına içe aktarılan JSON/TS: tip denetimi ve araç yok.
 - **`i18next`**: runtime yüklemeli genel kütüphane.
 - **`Intlayer`**: derleme zamanında derlenen, tam tipli, AI çevirili ve görsel düzenleyicili en gelişmiş çözüm.
@@ -808,6 +809,8 @@ Evet. [sync JSON eklentisi](https://github.com/aymericzip/intlayer/blob/main/doc
 Hayır. `npx intlayer extract` komutunu çalıştırın; Intlayer bileşenlerinizi okur, kullanıcıya dönük dizeleri çıkarır ve her birinin yanına bir `.content` dosyası yazar, böylece dizeleri tek tek kopyalamak yerine bir diff incelersiniz.
 
 Tam otomatik bir süreç için [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md) derleme sırasında aynı işlemi yapar: her değişiklikte kaynak kodunu tarar, sözlükleri üretir ve HMR ile senkronize tutar.
+
+Derleyiciyi açmadan önce bilmeye değer iki sınır vardır. Statik analiz ile çalışır, bu nedenle API hata kodları veya CMS alanları gibi yalnızca çalışma zamanında var olan dizeler ulaşılamaz kalır. Ayrıca, `className="active"` veya durum kodu gibi uygulama mantığından kullanıcıya yönelik metinleri ayırt etmesi gerekir; bu da büyük bir kod tabanında birkaç ek açıklama gerektirir. [Extract komutu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/extract.md) sizi döngüde tutarak her ikisinden de kaçınır.
 
 </Question>
 

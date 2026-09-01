@@ -143,8 +143,6 @@ export default config;
 
 للاطلاع على مزيد من التفاصيل حول مكون `syncJSON` الإضافي، يرجى الرجوع إلى [توثيق مكون syncJSON الإضافي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/plugins/sync-json.md).
 
----
-
 </Step>
 
 <Step number={3} title="تنفيذ ترجمات JSON لكل مكون على حدة">
@@ -188,8 +186,6 @@ export default config;
 ```
 
 سيقوم هذا بتحميل جميع ملفات JSON في مجلد `src` التي تطابق النمط `{key}.i18n.json` وتحميلها كقاموسات Intlayer.
-
----
 
 </Step>
 

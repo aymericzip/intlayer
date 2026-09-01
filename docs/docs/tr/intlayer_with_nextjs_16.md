@@ -76,7 +76,6 @@ GitHub'daki [Uygulama Şablonuna](https://github.com/aymericzip/intlayer-next-16
 'Next-intl' veya 'i18next' gibi ana çözümlerle karşılaştırıldığında Intlayer, aşağıdaki gibi entegre optimizasyonlarla gelen bir çözümdür:
 
 <AccordionGroup>
-
 <Accordion header="Tam Next.js kapsamı">
 
 Intlayer, verimli işleme için **Sunucu Bileşenleri** ile çalışacak şekilde optimize edilmiştir ve [**Turbopack**](https://nextjs.org/docs/architecture/turbopack) ile tamamen uyumludur. Statik oluşturmayı engellemez ve ara yazılımların yanı sıra uluslararasılaştırmayı (i18n) ölçeklendirmek için gereken tüm özellikleri sunar.
@@ -991,7 +990,6 @@ bun add @intlayer/swc --dev
 > Not: Bu paket varsayılan olarak yüklü değildir çünkü SWC eklentileri Next.js'te hala deneysel aşamadadır. Gelecekte değişebilir.
 
 > Not: `dictionary` yapılandırmasında seçeneği `importMode: 'dynamic'` veya `importMode: 'fetch'` olarak ayarlarsanız, Suspense'e dayalı olacaktır, bu nedenle `useIntlayer` çağrılarınızı bir `Suspense` sınırı (boundary) içine sarmalamanız gerekecektir. Bu, `useIntlayer`'ı doğrudan Sayfa / Düzen bileşeninizin en üst düzeyinde kullanamayacağınız anlamına gelir.
-> </Step>
 
 </Step>
 
@@ -1109,6 +1107,7 @@ bun run build # Or bun run dev
 
  </Tab>
 </Tabs>
+
 </Step>
 
 </Steps>
@@ -1187,6 +1186,8 @@ Daha ileri gitmek için [görsel editörü](https://github.com/aymericzip/intlay
 
 <Question title="Next.js 16 uygulamasını uluslararasılaştırmak için hangi farklı çözümler mevcuttur?">
 
+Next.js, `next.config.js` dosyasındaki `i18n` alanının App Router için geçerli olmasından vazgeçildiğinden beri yerleşik bir mesaj katmanına sahip değildir; bu nedenle yerelleştirme katmanı her zaman bir kütüphane seçimidir:
+
 - **`next-intl`**: App Router için popüler mesaj tabanlı kütüphane, çalışma zamanında JSON dosyaları yükler.
 - **`next-i18next`**: Pages Router için standart çözüm.
 - **`Intlayer`**: en gelişmiş çözüm. İçerik bileşenin yanında bildirilir, derleme zamanında derlenir, tam TypeScript tip desteğine sahiptir, AI çeviri, görsel düzenleyici ve CMS sunar.
@@ -1215,9 +1216,11 @@ Evet. [sync JSON eklentisi](https://github.com/aymericzip/intlayer/blob/main/doc
 
 <Question title="İçeriğimi anahtar anahtar taşımak zorunda mıyım?">
 
-Hayır. `npx intlayer extract` komutunu çalıştırın; Intlayer kaynak dosyalarınızı okur, kullanıcıya dönük metinleri çıkarır ve her birinin yanına bir `.content` dosyası yazar, böylece dizeleri tek tek kopyalamak yerine bir diff incelersiniz. Bkz. [extract komutu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/extract.md).
+Hayır. `npx intlayer extract` komutunu çalıştırın; Intlayer bileşenlerinizi okur, kullanıcıya dönük dizeleri çıkarır ve her birinin yanına bir `.content` dosyası yazar, böylece dizeleri tek tek kopyalamak yerine bir diff incelersiniz. Bu kılavuzun 14. adımı bunu açıklar.
 
-Tam otomatik bir akış için [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md) derleme sırasında JSX, TSX, Vue ve Svelte kodunda aynı işlemi yapar ve sözlükleri her değişiklikte otomatik üretir, böylece elle anahtar yönetimi gerekmez. Statik analizle çalıştığından, yalnızca çalışma zamanında var olan dizeler kapsam dışı kalır.
+Tam otomatik bir süreç için [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md) derleme sırasında aynı işlemi yapar: her değişiklikte JSX, TSX, Vue ve Svelte kodunu tarar, sözlükleri üretir ve HMR ile senkronize tutar, böylece elle yönetilecek hiçbir anahtar kalmaz.
+
+Derleyiciyi açmadan önce bilmeye değer iki sınır vardır. Statik analiz ile çalışır, bu nedenle API hata kodları veya CMS alanları gibi yalnızca çalışma zamanında var olan dizeler ulaşılamaz kalır. Ayrıca, `className="active"` veya durum kodu gibi uygulama mantığından kullanıcıya yönelik metinleri ayırt etmesi gerekir; bu da büyük bir kod tabanında birkaç ek açıklama gerektirir. [Extract komutu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/extract.md) sizi döngüde tutarak her ikisinden de kaçınır.
 
 </Question>
 
@@ -1247,7 +1250,14 @@ Evet. İçerik sunucuda Server Components içinde çözümlenir, böylece sunucu
 
 <Question title="URL'ye /tr/about gibi yerel koymak zorunda mıyım?">
 
-Hayır. `routing.mode` ayarı `"prefix-no-default"` (varsayılan: varsayılan dilde `/about`, diğerlerinde `/tr/about`), `"prefix-all"`, `"no-prefix"` ve `"search-params"` değerlerini kabul eder. `routing.domains` ise her dili kendi alan adına eşler. Bkz. [yapılandırma belgeleri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) ve [yerel yolu olmayan kılavuz](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_no_locale_path.md).
+Hayır. URL şeması bir yapılandırma seçeneğidir, bir kısıtlama değildir. `routing.mode` şunları kabul eder:
+
+- `"prefix-no-default"` (varsayılan): varsayılan yerel ayar için `/about`, diğerleri için `/fr/about`.
+- `"prefix-all"`: her yerel ayar için önek eklenir, `/en/about` ve `/fr/about`.
+- `"no-prefix"`: yolda yerel ayar yoktur, çerezden, başlıktan veya etki alanından çözümlenir.
+- `"search-params"`: `/about?locale=fr`.
+
+Ayrıca `routing.domains` ile her yerel ayarı kendi etki alanına eşleyebilirsiniz. Bkz. [yapılandırma referansı](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) ve [yerel ayar yolu olmayan kılavuz](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_no_locale_path.md).
 
 </Question>
 

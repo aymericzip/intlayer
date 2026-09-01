@@ -37,7 +37,6 @@ author: aymericzip
 Par rapport aux solutions principales telles que `storybook-react-i18next` ou `i18next`, Intlayer est une solution dotée d'optimisations intégrées telles que :
 
 <AccordionGroup>
-
 <Accordion header="Couverture complète du livre d'histoires">
 
 Intlayer est optimisé pour fonctionner parfaitement avec Storybook en proposant des **décorateurs d'histoires multilingues**, un **changement de paramètres régionaux** et toutes les fonctionnalités nécessaires à la mise à l'échelle de l'internationalisation (i18n) dans votre système de conception.
@@ -128,8 +127,6 @@ bun add vite-intlayer --dev
 | `react-intlayer` | Liaisons React - `IntlayerProvider`, hook `useIntlayer`    |
 | `vite-intlayer`  | Plugin Vite - surveille et compile les fichiers de contenu |
 
----
-
 </Step>
 
 <Step number={2} title="Créer une configuration Intlayer">
@@ -158,8 +155,6 @@ export default config;
 ```
 
 > Pour la liste complète des options, voir la [référence de configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md).
-
----
 
 </Step>
 
@@ -207,8 +202,6 @@ export default config;
 ```
 
 Le plugin `intlayer()` surveille vos fichiers `*.content.ts` et reconstruit automatiquement les dictionnaires lors des changements pendant le développement Storybook.
-
----
 
 </Step>
 
@@ -294,8 +287,6 @@ bun add intlayer react-intlayer
 bun add @intlayer/webpack --dev
 ```
 
----
-
 </Step>
 
 <Step number={2} title="Créer une configuration Intlayer">
@@ -317,8 +308,6 @@ const config: IntlayerConfig = {
 
 export default config;
 ```
-
----
 
 </Step>
 
@@ -346,8 +335,6 @@ const config: StorybookConfig = {
 
 export default config;
 ```
-
----
 
 </Step>
 

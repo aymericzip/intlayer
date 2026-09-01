@@ -42,7 +42,6 @@ author: aymericzip
 'ngx-translate' 또는 'angular-l10n'과 같은 주요 솔루션과 비교할 때 Intlayer는 다음과 같은 통합 최적화가 제공되는 솔루션입니다.
 
 <AccordionGroup>
-
 <Accordion header="완전한 각도 범위">
 
 Intlayer는 **구성 요소 수준 콘텐츠 범위 지정**, **지연 로드 번역** 및 국제화 확장(i18n)에 필요한 모든 기능을 제공하여 Angular와 완벽하게 작동하도록 최적화되었습니다.

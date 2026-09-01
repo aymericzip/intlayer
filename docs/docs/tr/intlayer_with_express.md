@@ -284,9 +284,9 @@ Bunu yapmak için `.gitignore` dosyanıza aşağıdaki talimatları ekleyebilirs
 
 <Question title="Express uygulamasını uluslararasılaştırmak için hangi farklı çözümler mevcuttur?">
 
-- **`i18next` / `i18next-http-middleware`**: yaygın çalışma zamanı çözümü, JSON dosyaları gerektirir.
-- **Elle yazılmış sözlükler**: tip denetimi ve otomatik araç desteği bulunmaz.
-- **`Intlayer`**: `express-intlayer` middleware'i ile tam entegrasyon, TypeScript tip desteği, AI destekli çeviri, editoryal CMS ve ön yüzle paylaşımlı sözlük mimarisi.
+Tarihsel seçenek, ad alanı başına JSON kataloglarını yükleyen ve yerel ayarı istek üzerinde saklayan `i18next-http-middleware` ile `i18next`tir. Alternatif ise içeriği ön ucunuzla paylaşılan tipli dosyalarda bildiren, istek başına yerel ayarı çözen, yapay zeka çevirisi ve bir CMS ekleyen `express-intlayer` aracılığıyla `Intlayer`dır.
+
+Arka ucu uluslararasılaştırmanın temel nedeni, kullanıcının okuduğu metnin büyük bir kısmının ön uçtan asla geçmemesidir: API hata mesajları, işlemsel e-postalar, anlık bildirimler, SMS ve PDF dışa aktarmaları. Bunlar, oturum başına yerine istek başına çözülen alıcının diline ihtiyaç duyar.
 
 Bkz. [neden Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/interest_of_intlayer.md).
 

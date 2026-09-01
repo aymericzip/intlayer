@@ -262,6 +262,25 @@ const myContent = html(
     );
     ```
 
+    يمكنك أيضًا استخدام محرك تصيير HTML الخاص بك:
+
+    ```tsx fileName="AppProvider.tsx"
+    import { HTMLProvider } from "react-intlayer/html";
+
+    export const AppProvider = ({ children }) => (
+      <HTMLProvider
+        renderHTML={async (html) => {
+          const { renderHTML } = await import('react-intlayer/html');
+          return renderHTML(html);
+        }}
+      >
+        {children}
+      </HTMLProvider>
+    );
+    ```
+
+    > استيراد محرك HTML الخاص بك ديناميكيًا هو طريقة جيدة لتقليل حجم حزمة تطبيقك.
+
   </Tab>
   <Tab label="Vue" value="vue">
 
@@ -284,6 +303,29 @@ const myContent = html(
     app.mount("#app");
     ```
 
+    يمكنك أيضًا استخدام محرك تصيير HTML الخاص بك:
+
+    ```typescript fileName="main.ts"
+    import { createApp, h } from "vue";
+    import { intlayer } from "vue-intlayer";
+    import { intlayerHTML } from "vue-intlayer/html";
+    import App from "./App.vue";
+
+    const app = createApp(App);
+
+    app.use(intlayer);
+    app.use(intlayerHTML, {
+      renderHTML: async (html) => {
+        const { renderHTML } = await import('vue-intlayer/html');
+        return renderHTML(html);
+      },
+    });
+
+    app.mount("#app");
+    ```
+
+    > استيراد محرك HTML الخاص بك ديناميكيًا هو طريقة جيدة لتقليل حجم حزمة تطبيقك.
+
   </Tab>
   <Tab label="Svelte" value="svelte">
 
@@ -302,6 +344,25 @@ const myContent = html(
     </HTMLProvider>
     ```
 
+    يمكنك أيضًا استخدام محرك تصيير HTML الخاص بك:
+
+    ```svelte fileName="App.svelte"
+    <script lang="ts">
+      import { HTMLProvider } from "svelte-intlayer/html";
+    </script>
+
+    <HTMLProvider
+      renderHTML={async (html) => {
+        const { renderHTML } = await import('svelte-intlayer/html');
+        return renderHTML(html);
+      }}
+    >
+      <slot />
+    </HTMLProvider>
+    ```
+
+    > استيراد محرك HTML الخاص بك ديناميكيًا هو طريقة جيدة لتقليل حجم حزمة تطبيقك.
+
   </Tab>
   <Tab label="Preact" value="preact">
 
@@ -319,6 +380,25 @@ const myContent = html(
     );
     ```
 
+    يمكنك أيضًا استخدام محرك تصيير HTML الخاص بك:
+
+    ```tsx fileName="AppProvider.tsx"
+    import { HTMLProvider } from "preact-intlayer/html";
+
+    export const AppProvider = ({ children }) => (
+      <HTMLProvider
+        renderHTML={async (html) => {
+          const { renderHTML } = await import('preact-intlayer/html');
+          return renderHTML(html);
+        }}
+      >
+        {children}
+      </HTMLProvider>
+    );
+    ```
+
+    > استيراد محرك HTML الخاص بك ديناميكيًا هو طريقة جيدة لتقليل حجم حزمة تطبيقك.
+
   </Tab>
   <Tab label="Solid" value="solid">
 
@@ -335,6 +415,25 @@ const myContent = html(
       </HTMLProvider>
     );
     ```
+
+    يمكنك أيضًا استخدام محرك تصيير HTML الخاص بك:
+
+    ```tsx fileName="AppProvider.tsx"
+    import { HTMLProvider } from "solid-intlayer/html";
+
+    export const AppProvider = (props) => (
+      <HTMLProvider
+        renderHTML={async (html) => {
+          const { renderHTML } = await import('solid-intlayer/html');
+          return renderHTML(html);
+        }}
+      >
+        {props.children}
+      </HTMLProvider>
+    );
+    ```
+
+    > استيراد محرك HTML الخاص بك ديناميكيًا هو طريقة جيدة لتقليل حجم حزمة تطبيقك.
 
   </Tab>
   <Tab label="Angular" value="angular">
@@ -354,7 +453,24 @@ const myContent = html(
     };
     ```
 
-> استيراد محرك HTML الخاص بك بشكل ديناميكي هو طريقة جيدة لتقليل حجم حزمة تطبيقك.
+    يمكنك أيضًا استخدام محرك تصيير HTML الخاص بك:
+
+    ```typescript fileName="app.config.ts"
+    import { createIntlayerHTMLProvider } from "angular-intlayer/html";
+
+    export const appConfig: ApplicationConfig = {
+      providers: [
+        createIntlayerHTMLProvider({
+          renderHTML: async (html) => {
+            const { renderHTML } = await import('angular-intlayer/html');
+            return renderHTML(html);
+          },
+        }),
+      ],
+    };
+    ```
+
+    > استيراد محرك HTML الخاص بك ديناميكيًا هو طريقة جيدة لتقليل حجم حزمة تطبيقك.
 
   </Tab>
 </Tabs>

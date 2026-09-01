@@ -191,8 +191,6 @@ export default config;
 
 Questo caricherà tutti i file JSON nella directory `src` che corrispondono al modello `{key}.i18n.json` e li caricherà come dizionari Intlayer.
 
----
-
 </Step>
 
 </Steps>

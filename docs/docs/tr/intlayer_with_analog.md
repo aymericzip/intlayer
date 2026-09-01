@@ -62,7 +62,6 @@ author: aymericzip
 'ngx-translate' veya 'angular-l10n' gibi ana çözümlerle karşılaştırıldığında Intlayer, aşağıdaki gibi entegre optimizasyonlarla gelen bir çözümdür:
 
 <AccordionGroup>
-
 <Accordion header="Tam Analog kapsamı">
 
 Intlayer, **çok dilli yönlendirme**, **SSR desteği** ve ölçeklendirme uluslararasılaştırması (i18n) için gereken tüm özellikleri sunarak Analog ile mükemmel çalışacak şekilde optimize edilmiştir.
@@ -416,6 +415,8 @@ Daha ileri gitmek için, [visual editor](https://github.com/aymericzip/intlayer/
 <FAQ>
 
 <Question title="Analog uygulamasını uluslararasılaştırmak için hangi farklı çözümler mevcuttur?">
+
+Analog, Vite üzerine kurulu bir Angular meta çerçevesidir, bu nedenle Angular seçeneklerini devralır ve Vite seçeneklerini ekler:
 
 - **`ngx-translate`** / **`Transloco`**: Analog SSR için ek yapılandırma gerektiren kütüphaneler.
 - **`Intlayer`**: Vite, SSR ve dosya tabanlı yönlendirme ile tam entegre, derleme zamanı optimizasyonlu, AI çevirili modern çözüm.

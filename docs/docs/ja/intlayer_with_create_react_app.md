@@ -46,7 +46,6 @@ author: aymericzip
 `react-i18next` や `i18next` のような主流なソリューションと比較して、Intlayer は以下のような統合された最適化を備えたソリューションです：
 
 <AccordionGroup>
-
 <Accordion header="Full React カバレッジ">
 
 Intlayerは、**コンポーネントレベルのコンテンツスコーピング**、**遅延読み込み翻訳**、および国際化（i18n）をスケーリングするために必要なすべての機能を提供することで、Reactで完璧に機能するように最適化されています。
@@ -70,6 +69,8 @@ Intlayerは、**コンポーネントレベルのコンテンツスコーピン�
 **Intlayer**は、モダンなWebアプリケーションにおける多言語対応を簡素化するために設計された革新的なオープンソースの国際化（i18n）ライブラリです。
 
 </Accordion>
+
+<Accordion header="Automation">
 
 Intlayerを使用すると、以下が可能です：
 

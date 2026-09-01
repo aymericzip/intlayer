@@ -71,7 +71,6 @@ author: aymericzip
 So với các giải pháp chính như `react-native-localize` hay `i18next`, Intlayer là giải pháp đi kèm với các tính năng tối ưu hóa tích hợp như:
 
 <AccordionGroup>
-
 <Accordion header="Phạm vi bảo hiểm đầy đủ của React Native">
 
 Intlayer được tối ưu hóa để hoạt động hoàn hảo với React Native và Expo bằng cách cung cấp **phạm vi nội dung cấp thành phần**, **hỗ trợ TypeScript** và tất cả các tính năng cần thiết để mở rộng quy mô quốc tế hóa (i18n) trong ứng dụng di động.
@@ -166,8 +165,6 @@ bun add intlayer react-native-intlayer
 
 - **react-native-intlayer**  
   Tích hợp React Native cung cấp các context provider và React hook mà bạn sẽ dùng để lấy và chuyển đổi ngôn ngữ, các polyfill cho React Native, và plugin Metro để tích hợp Intlayer với bundler của React Native. Nó tái xuất tất cả mọi thứ từ `react-intlayer`, vì vậy bạn chỉ cần gói duy nhất này trong một ứng dụng React Native.
-
----
 
 </Step>
 
@@ -328,8 +325,6 @@ export default homeScreenContent;
 
 > Để biết chi tiết về khai báo nội dung, xem [tài liệu nội dung của Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/content_file.md).
 
----
-
 </Step>
 
 <Step number={6} title="Sử dụng Intlayer trong các Component của bạn">
@@ -382,8 +377,6 @@ export default HomeScreen;
 > Khi sử dụng `content.someKey` trong các props dạng chuỗi (ví dụ, `title` của một nút hoặc `children` của một component `Text`), **hãy gọi `content.someKey.value`** để lấy chuỗi thực tế.
 
 > Nếu ứng dụng của bạn đã tồn tại, bạn có thể sử dụng [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md) kết hợp với [lệnh extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/extract.md) để chuyển đổi hàng nghìn component chỉ trong một giây.
-
----
 
 </Step>
 

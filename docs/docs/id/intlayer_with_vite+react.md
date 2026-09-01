@@ -42,7 +42,6 @@ author: aymericzip
 Dibandingkan dengan solusi utama seperti `react-i18next` atau `i18next`, Intlayer adalah solusi yang hadir dengan pengoptimalan terintegrasi seperti:
 
 <AccordionGroup>
-
 <Accordion header="Cakupan Vite dan React penuh">
 
 Intlayer dioptimalkan untuk bekerja sempurna dengan Vite dan React dengan menawarkan **pelingkupan konten tingkat komponen**, **terjemahan yang lambat dimuat**, dan semua fitur yang diperlukan untuk meningkatkan internasionalisasi (i18n).
@@ -612,8 +611,6 @@ const LocaleSwitcher: FC = () => {
 
 Berikut adalah **Langkah 9** yang diperbarui dengan penjelasan tambahan dan contoh kode yang disempurnakan:
 
----
-
 </Step>
 
 <Step number={9} title="Mengganti Atribut Bahasa dan Arah pada HTML" isOptional={true}>
@@ -762,11 +759,10 @@ Link.displayName = "Link";
   Komponen mengembalikan elemen `<a>` dengan URL yang sudah dilokalisasi, memastikan navigasi konsisten dengan locale.
 
 Dengan mengintegrasikan komponen `Link` ini di seluruh aplikasi Anda, Anda mempertahankan pengalaman pengguna yang koheren dan sadar bahasa sekaligus mendapatkan manfaat dari peningkatan SEO dan kegunaan.
-</Step>
 
 </Step>
 
-<Step number={1} title="Ekstrak konten komponen Anda" isOptional={true}>
+<Step number={11} title="Ekstrak konten komponen Anda" isOptional={true}>
 
 Jika Anda memiliki basis kode yang ada, mengubah ribuan file bisa memakan waktu lama.
 
@@ -805,9 +801,6 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-<Tabs>
- <Tab value='Perintah ekstrak'>
-
 Jalankan extractor untuk mengubah komponen Anda dan mengekstrak kontennya
 
 ```bash packageManager="npm"
@@ -825,9 +818,6 @@ yarn intlayer extract
 ```bash packageManager="bun"
 bun x intlayer extract
 ```
-
- </Tab>
- <Tab value='Compiler Babel'>
 
 > Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
 
@@ -861,8 +851,6 @@ yarn build # Or yarn dev
 bun run build # Or bun run dev
 ```
 
- </Tab>
-</Tabs>
 </Step>
 
 </Steps>
@@ -999,6 +987,8 @@ Untuk melangkah lebih jauh, Anda dapat mengimplementasikan [editor visual](https
 
 <Question title="Apa saja solusi berbeda yang tersedia untuk menginternasionalkan aplikasi Vite dan React?">
 
+Vite tidak memiliki preferensi khusus tentang i18n, jadi pilihannya adalah yang ada di ekosistem React:
+
 - **`react-i18next`**: pemuatan JSON di runtime.
 - **`react-intl`**: format ICU.
 - **`Intlayer`**: deklarasi di sebelah komponen, kompilasi via plugin Vite, dukungan HMR, terjemahan AI, dan visual editor.
@@ -1027,9 +1017,11 @@ Ya. Plugin [sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/doc
 
 <Question title="Apakah saya harus memindahkan konten saya key by key?">
 
-Tidak. Jalankan `npx intlayer extract` dan Intlayer membaca file sumber Anda, mengeluarkan string yang dihadapi pengguna, dan menulis file `.content` di sebelah masing-masing, sehingga Anda meninjau diff alih-alih menyalin string ke dalam katalog satu per satu. Lihat [perintah extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/extract.md).
+Tidak. Jalankan `npx intlayer extract` dan Intlayer membaca komponen Anda, mengeluarkan string yang dilihat pengguna, dan menulis file `.content` di sebelah masing-masing, sehingga Anda meninjau diff alih-alih menyalin string ke dalam katalog satu per satu. Langkah 11 dari panduan ini menjelaskannya.
 
-Untuk proses otomatis penuh, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md) melakukan hal yang sama saat build time pada kode JSX, TSX, Vue dan Svelte, menghasilkan kamus pada setiap perubahan tanpa perlu memelihara kunci secara manual. Karena bekerja melalui analisis statis, string yang hanya ada di runtime tetap berada di luar jangkauannya.
+Untuk proses otomatis penuh, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md) melakukan hal yang sama saat build time: memindai kode JSX, TSX, Vue dan Svelte pada setiap perubahan, menghasilkan kamus, dan menyinkronkannya dengan HMR, sehingga tidak ada kunci yang perlu dikelola secara manual.
+
+Dua batasan perlu diketahui sebelum Anda mengaktifkan compiler. Ini bekerja dengan analisis statis, jadi string yang hanya ada saat runtime, seperti kode kesalahan API atau field CMS, tetap berada di luar jangkauan. Dan ini harus membedakan teks yang dilihat pengguna dari logika aplikasi seperti `className="active"` atau kode status, yang memerlukan beberapa anotasi di basis kode yang besar. [Perintah extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/extract.md) menghindari keduanya dengan menjaga Anda tetap memegang kendali.
 
 </Question>
 

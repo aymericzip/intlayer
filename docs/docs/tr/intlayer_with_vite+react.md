@@ -42,7 +42,6 @@ author: aymericzip
 'React-i18next' veya 'i18next' gibi ana çözümlerle karşılaştırıldığında Intlayer, aşağıdaki gibi entegre optimizasyonlarla gelen bir çözümdür:
 
 <AccordionGroup>
-
 <Accordion header="Tam Vite ve React kapsamı">
 
 Intlayer, **bileşen düzeyinde içerik kapsamı**, **tembel yüklü çeviriler** ve uluslararasılaştırmayı (i18n) ölçeklendirmek için gereken tüm özellikleri sunarak Vite ve React ile mükemmel çalışacak şekilde optimize edilmiştir.
@@ -605,8 +604,6 @@ const LocaleSwitcher: FC = () => {
 
 Aşağıda **güncellenmiş Adım 9** açıklamalar ve iyileştirilmiş kod örnekleriyle eklenmiştir:
 
----
-
 </Step>
 
 <Step number={9} title="HTML Dil ve Yön Niteliklerini Değiştirin" isOptional={true}>
@@ -992,6 +989,8 @@ Daha ileri gitmek için [görsel düzenleyiciyi](https://github.com/aymericzip/i
 
 <Question title="Vite ve React uygulamasını uluslararasılaştırmak için hangi farklı çözümler mevcuttur?">
 
+Vite'ın i18n konusunda özel bir tercihi yoktur, bu nedenle seçenekler React ekosistemindekilerdir:
+
 - **`react-i18next`**: JSON ad alanları ile runtime yüklemesi.
 - **`react-intl`**: ICU formatı tabanlı çözüm.
 - **`Intlayer`**: bileşen yanında bildirim, Vite eklentisi ile derleme zamanı derlemesi, HMR desteği, AI çeviri ve görsel düzenleyici sunan modern çözüm.
@@ -1020,9 +1019,11 @@ Evet. [sync JSON eklentisi](https://github.com/aymericzip/intlayer/blob/main/doc
 
 <Question title="İçeriğimi anahtar anahtar taşımak zorunda mıyım?">
 
-Hayır. `npx intlayer extract` komutunu çalıştırın; Intlayer kaynak dosyalarınızı okur, kullanıcıya dönük metinleri çıkarır ve her birinin yanına bir `.content` dosyası yazar, böylece dizeleri tek tek kopyalamak yerine bir diff incelersiniz. Bkz. [extract komutu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/extract.md).
+Hayır. `npx intlayer extract` komutunu çalıştırın; Intlayer bileşenlerinizi okur, kullanıcıya dönük dizeleri çıkarır ve her birinin yanına bir `.content` dosyası yazar, böylece dizeleri tek tek kopyalamak yerine bir diff incelersiniz. Bu kılavuzun 11. adımı bunu açıklar.
 
-Tam otomatik bir akış için [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md) derleme sırasında JSX, TSX, Vue ve Svelte kodunda aynı işlemi yapar ve sözlükleri her değişiklikte otomatik üretir, böylece elle anahtar yönetimi gerekmez. Statik analizle çalıştığından, yalnızca çalışma zamanında var olan dizeler kapsam dışı kalır.
+Tam otomatik bir süreç için [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md) derleme sırasında aynı işlemi yapar: her değişiklikte JSX, TSX, Vue ve Svelte kodunu tarar, sözlükleri üretir ve HMR ile senkronize tutar, böylece elle yönetilecek hiçbir anahtar kalmaz.
+
+Derleyiciyi açmadan önce bilmeye değer iki sınır vardır. Statik analiz ile çalışır, bu nedenle API hata kodları veya CMS alanları gibi yalnızca çalışma zamanında var olan dizeler ulaşılamaz kalır. Ayrıca, `className="active"` veya durum kodu gibi uygulama mantığından kullanıcıya yönelik metinleri ayırt etmesi gerekir; bu da büyük bir kod tabanında birkaç ek açıklama gerektirir. [Extract komutu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/extract.md) sizi döngüde tutarak her ikisinden de kaçınır.
 
 </Question>
 

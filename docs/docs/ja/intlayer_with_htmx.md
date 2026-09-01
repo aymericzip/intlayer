@@ -35,7 +35,6 @@ Intlayerはバックエンド統合を通じてこれをカバーし、リクエ
 ## htmxアプリでのi18nの3つのルール
 
 <AccordionGroup>
-
 <Accordion header="ロケールは最初のリクエストだけではなく、すべてのリクエストで解決される必要があります">
 
 A single page can trigger dozens of swaps. Each one is a fresh request with no memory of the page that issued it. If the locale lives in a variable set during the initial render, every fragment after it falls back to the default language.
@@ -55,7 +54,6 @@ Two carriers work with htmx. A cookie (`INTLAYER_LOCALE`) is sent by the browser
 フラグメントに挿入された翻訳値はマークアップです。他の動的な値と同じように、それをエスケープしてください。そうすれば、`<` を含む翻訳が、それが交換されるドキュメントを破壊することはありません。
 
 </Accordion>
-
 </AccordionGroup>
 
 ---

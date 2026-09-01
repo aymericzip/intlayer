@@ -214,8 +214,6 @@ npx intlayer fill
 > Перегляньте всіх доступних AI-провайдерів у [документації з конфігурації Intlayer AI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md#ai-configuration).
 > Перегляньте всі доступні команди в [документації Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/index.md).
 
----
-
 </Step>
 
 </Steps>

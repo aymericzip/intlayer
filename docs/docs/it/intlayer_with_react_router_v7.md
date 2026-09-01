@@ -54,7 +54,6 @@ Questa guida si concentra sul routing frontend. Per il routing con fs-routes, co
 Rispetto alle soluzioni principali come `react-i18next` o `i18next`, Intlayer è una soluzione dotata di ottimizzazioni integrate come:
 
 <AccordionGroup>
-
 <Accordion header="Copertura completa del router React">
 
 Intlayer è ottimizzato per funzionare perfettamente con React Router offrendo **routing per locale**, **middleware per il rilevamento locale** e tutte le funzionalità necessarie per scalare l'internazionalizzazione (i18n).
@@ -699,8 +698,6 @@ bun run build # Or bun run dev
 
  </Tab>
 </Tabs>
-
----
 
 </Step>
 

@@ -31,6 +31,62 @@ author: aymericzip
 
 # ترجم موقعك الإلكتروني المبني بـ Vite و Preact باستخدام Intlayer | التدويل (i18n)
 
+## جدول المحتويات
+
+<TOC/>
+
+## لماذا Intlayer على البدائل؟
+
+بالمقارنة مع الحلول الرئيسية مثل `preact-i18n` أو `i18next`، يعد Intlayer حلاً يأتي مزودًا بتحسينات متكاملة مثل:
+
+<AccordionGroup>
+<Accordion header="تغطية كاملة للبريكت">
+
+تم تحسين Intlayer للعمل بشكل مثالي مع Preact من خلال تقديم **نطاق المحتوى على مستوى المكونات** و**الترجمات المحملة البطيئة** وجميع الميزات اللازمة لتوسيع نطاق التدويل (i18n).
+
+</Accordion>
+
+<Accordion header="حجم الحزمة">
+
+بدلاً من تحميل ملفات JSON ضخمة إلى صفحاتك، قم بتحميل المحتوى الضروري فقط. يساعد Intlayer **في تقليل أحجام البندل وصفحاتك بنسبة تصل إلى 50%**.
+
+</Accordion>
+
+<Accordion header="الصيانة">
+
+يؤدي تحديد نطاق محتوى تطبيقك ** إلى تسهيل الصيانة ** للتطبيقات واسعة النطاق. يمكنك تكرار أو حذف مجلد ميزات واحد دون العبء العقلي لمراجعة قاعدة بيانات المحتوى بالكامل. بالإضافة إلى ذلك، تتم كتابة Intlayer **بالكامل** لضمان دقة المحتوى الخاص بك.
+
+</Accordion>
+
+<Accordion header="وكيل الذكاء الاصطناعي">
+
+يؤدي تحديد موقع المحتوى المشترك ** إلى تقليل السياق المطلوب ** بواسطة نماذج اللغات الكبيرة (LLMs). يأتي Intlayer أيضًا مزودًا بمجموعة من الأدوات، مثل **CLI** لاختبار الترجمات المفقودة،**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**، **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** و**[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md)**، لجعل تجربة المطور (DX) أكثر سلاسة للذكاء الاصطناعي وكلاء.
+
+</Accordion>
+
+<Accordion header="الأتمتة">
+
+استخدم الأتمتة للترجمة في مسار CI/CD الخاص بك باستخدام LLM من اختيارك على حساب مزود الذكاء الاصطناعي الخاص بك. يقدم Intlayer أيضًا **مترجمًا** لأتمتة استخراج المحتوى، بالإضافة إلى [منصة ويب](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) للمساعدة في **الترجمة في الخلفية**.
+
+</Accordion>
+
+<Accordion header="أداء">
+
+يمكن أن يؤدي ربط ملفات JSON الضخمة بالمكونات إلى حدوث مشكلات في الأداء والتفاعل. يعمل Intlayer على تحسين تحميل المحتوى الخاص بك في وقت الإنشاء.
+
+</Accordion>
+
+<Accordion header="التحجيم مع عدم وجود مطور">
+
+أكثر من مجرد حل i18n، يوفر Intlayer **[محررًا مرئيًا] مستضافًا ذاتيًا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** و**[كامل CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** لمساعدتك في إدارة المحتوى متعدد اللغات في **الوقت الفعلي**، مما يجعل التعاون مع المترجمين ومؤلفي النصوص وأعضاء الفريق الآخرين سلسًا. يمكن تخزين المحتوى محليًا و/أو عن بعد.
+
+</Accordion>
+</AccordionGroup>
+
+---
+
+## دليل خطوة بخطوة لإعداد Intlayer في تطبيق Vite و Preact
+
 <Tabs defaultTab="video">
   <Tab label="Video" value="video">
 
@@ -60,63 +116,6 @@ author: aymericzip
 
   </Tab>
 </Tabs>
-
-## جدول المحتويات
-
-<TOC/>
-
-## لماذا Intlayer على البدائل؟
-
-بالمقارنة مع الحلول الرئيسية مثل `preact-i18n` أو `i18next`، يعد Intlayer حلاً يأتي مزودًا بتحسينات متكاملة مثل:
-
-<AccordionGroup>
-
-**تغطية كاملة للبريكت**
-
-تم تحسين Intlayer للعمل بشكل مثالي مع Preact من خلال تقديم **نطاق المحتوى على مستوى المكونات** و**الترجمات المحملة البطيئة** وجميع الميزات اللازمة لتوسيع نطاق التدويل (i18n).
-
-**حجم البندل**
-
-<Accordion header="حجم الحزمة">
-
-بدلاً من تحميل ملفات JSON ضخمة إلى صفحاتك، قم بتحميل المحتوى الضروري فقط. يساعد Intlayer **في تقليل أحجام البندل وصفحاتك بنسبة تصل إلى 50%**.
-
-** الصيانة **
-
-<Accordion header="الصيانة">
-
-يؤدي تحديد نطاق محتوى تطبيقك ** إلى تسهيل الصيانة ** للتطبيقات واسعة النطاق. يمكنك تكرار أو حذف مجلد ميزات واحد دون العبء العقلي لمراجعة قاعدة بيانات المحتوى بالكامل. بالإضافة إلى ذلك، تتم كتابة Intlayer **بالكامل** لضمان دقة المحتوى الخاص بك.
-
-</Accordion>
-
-** وكيل الذكاء الاصطناعي **
-
-يؤدي تحديد موقع المحتوى المشترك ** إلى تقليل السياق المطلوب ** بواسطة نماذج اللغات الكبيرة (LLMs). يأتي Intlayer أيضًا مزودًا بمجموعة من الأدوات، مثل **CLI** لاختبار الترجمات المفقودة،**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**، **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** و**[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md)**، لجعل تجربة المطور (DX) أكثر سلاسة للذكاء الاصطناعي وكلاء.
-
-**الأتمتة**
-
-<Accordion header="الأتمتة">
-
-استخدم الأتمتة للترجمة في مسار CI/CD الخاص بك باستخدام LLM من اختيارك على حساب مزود الذكاء الاصطناعي الخاص بك. يقدم Intlayer أيضًا **مترجمًا** لأتمتة استخراج المحتوى، بالإضافة إلى [منصة ويب](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) للمساعدة في **الترجمة في الخلفية**.
-
-</Accordion>
-
-**أداء**
-
-يمكن أن يؤدي ربط ملفات JSON الضخمة بالمكونات إلى حدوث مشكلات في الأداء والتفاعل. يعمل Intlayer على تحسين تحميل المحتوى الخاص بك في وقت الإنشاء.
-
-</Accordion>
-
-**التحجيم مع عدم وجود مطور**
-
-أكثر من مجرد حل i18n، يوفر Intlayer **[محررًا مرئيًا] مستضافًا ذاتيًا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** و**[كامل CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** لمساعدتك في إدارة المحتوى متعدد اللغات في **الوقت الفعلي**، مما يجعل التعاون مع المترجمين ومؤلفي النصوص وأعضاء الفريق الآخرين سلسًا. يمكن تخزين المحتوى محليًا و/أو عن بعد.
-
-</Accordion>
-</AccordionGroup>
-
----
-
-## دليل خطوة بخطوة لإعداد Intlayer في تطبيق Vite و Preact
 
 راجع [قالب التطبيق](https://github.com/aymericzip/intlayer-vite-preact-template) على GitHub.
 
@@ -614,8 +613,6 @@ export default LocaleSwitcher;
 
 فيما يلي **الخطوة 9** المحدثة مع شروحات إضافية وأمثلة كود محسّنة:
 
----
-
 </Step>
 
 <Step number={9} title="تبديل سمات اللغة والاتجاه لـ HTML" isOptional={true}>
@@ -1044,6 +1041,8 @@ console.log("SEO files generated successfully.");
 
 <Question title="ما هي الحلول المختلفة المتاحة لتدويل تطبيقات Vite و Preact؟">
 
+لا يفرض Vite أي رأي بخصوص تدويل (i18n)، لذا يأتي الاختيار من منظومة Preact:
+
 - **`preact-i18n`** أو **`react-i18next`**: مكتبات شائعة تعتمد على تحميل JSON في وقت التشغيل.
 - **`Intlayer`**: ربط `preact-intlayer` الأصلي دون الحاجة إلى `preact/compat`، ترجمة وقت البناء، أنواع كاملة، وترجمة بالذكاء الاصطناعي.
 
@@ -1074,6 +1073,8 @@ console.log("SEO files generated successfully.");
 لا. قم بتشغيل `npx intlayer extract` وسيقرأ Intlayer ملفاتك، ويسحب السلاسل النصية الموجهة للمستخدم، ويكتب ملف `.content` بجانب كل منها، حتى تراجع diff بدلاً من نسخ السلاسل إلى كتالوج يدويًا.
 
 لأتمتة كاملة، يقوم [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md) بالشيء نفسه في وقت البناء: يمسح الكود عند كل تغيير، وينشئ القواميس ويزامنها مع HMR.
+
+هناك حدان يجدر معرفتهما قبل تشغيل المترجم. إنه يعمل عن طريق التحليل الثابت، وبالتالي فإن السلاسل التي تظهر فقط في وقت التشغيل، مثل رموز أخطاء API أو حقول نظام إدارة المحتوى، تظل بعيدة عن متناوله. كما يتعين عليه التمييز بين النصوص الموجهة للمستخدم ومنطق التطبيق مثل `className="active"` أو رمز الحالة، الأمر الذي يتطلب بعض الملاحظات التوضيحية في قاعدة التعليمات البرمجية الكبيرة. يتجنب [أمر الاستخراج](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/extract.md) كلا الأمرين من خلال إبقائك متحكمًا في العملية.
 
 </Question>
 

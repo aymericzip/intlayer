@@ -70,7 +70,6 @@ author: aymericzip
 So với các giải pháp chính như `next-intl` hay `i18next`, Intlayer là giải pháp đi kèm với các tính năng tối ưu hóa tích hợp như:
 
 <AccordionGroup>
-
 <Accordion header="Phạm vi bảo hiểm đầy đủ của Next.js">
 
 Intlayer được tối ưu hóa để hoạt động với **Thành phần máy chủ** nhằm hiển thị hiệu quả và hoàn toàn tương thích với [**Turbopack**](https://nextjs.org/docs/architecture/turbopack). Nó không chặn hiển thị tĩnh và cung cấp phần mềm trung gian cũng như tất cả các tính năng cần thiết để mở rộng quy mô quốc tế hóa (i18n).
@@ -231,6 +230,8 @@ export default withIntlayer(nextConfig);
 <Step number={4} title="Cấu hình Middleware để Phát hiện Ngôn ngữ">
 
 Thiết lập middleware để tự động phát hiện và xử lý ngôn ngữ ưu tiên của người dùng:
+
+> Kể từ Intlayer v9, middleware này tuân thủ tùy chọn `routing.enableProxy` (mặc định là `true`). Đặt `routing.enableProxy: false` trong cấu hình của bạn để biến nó thành chuyển tiếp mà không cần xóa tệp này. Xem [ghi chú phát hành v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/releases/v9.md).
 
 ```typescript fileName="src/middleware.ts" codeFormat={["typescript", "esm", "commonjs"]}
 export { intlayerProxy as middleware } from "next-intlayer/middleware";
@@ -625,8 +626,6 @@ export default HomePage;
 // ... Phần còn lại của code bao gồm getStaticPaths
 ````
 
-// ... Phần còn lại của code bao gồm getStaticPaths
-
 > Lưu ý rằng hàm `getIntlayer` được nhập từ `next-intlayer` trả về nội dung của bạn được bao bọc trong một `IntlayerNode`, cho phép tích hợp với trình soạn thảo trực quan. Ngược lại, hàm `getIntlayer` được nhập từ `intlayer` trả về nội dung của bạn trực tiếp mà không có thuộc tính bổ sung.
 
 > Tìm hiểu thêm về tối ưu hóa metadata [trong tài liệu chính thức của Next.js](https://nextjs.org/docs/pages/building-your-application/optimizing/metadata).
@@ -886,6 +885,8 @@ Bằng cách làm theo hướng dẫn này, bạn có thể tích hợp hiệu q
 
 <Question title="Những giải pháp khác nhau nào có sẵn để quốc tế hóa ứng dụng Next.js Pages Router?">
 
+Pages Router vẫn hỗ trợ trường `i18n` tích hợp của `next.config.js`, nhưng nó chỉ xử lý định tuyến và phát hiện ngôn ngữ, không bao giờ xử lý chính bản dịch, vì vậy bạn vẫn chọn một lớp nội dung:
+
 - **`next-intl`**: thư viện tin nhắn phổ biến cho App Router, tải tệp JSON ở runtime.
 - **`next-i18next`**: giải pháp truyền thống cho Pages Router.
 - **`Intlayer`**: giải pháp tiên tiến nhất. Khai báo nội dung ngay cạnh component, biên dịch tại thời điểm build, kiểu dữ liệu TypeScript nghiêm ngặt, dịch thuật AI, visual editor, và CMS.
@@ -914,9 +915,11 @@ Có. Plugin [sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/do
 
 <Question title="Tôi có phải di chuyển nội dung từng khóa một không?">
 
-Không. Chạy `npx intlayer extract` và Intlayer sẽ đọc các tệp nguồn của bạn, trích xuất các chuỗi dành cho người dùng và tạo tệp `.content` bên cạnh mỗi tệp, nhờ đó bạn chỉ cần xem lại diff thay vì sao chép chuỗi vào catalog thủ công. Xem [lệnh extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/extract.md).
+Không. Chạy `npx intlayer extract` và Intlayer sẽ đọc các component của bạn, trích xuất các chuỗi dành cho người dùng và tạo tệp `.content` bên cạnh mỗi component, nhờ đó bạn xem lại diff thay vì sao chép chuỗi vào catalog thủ công.
 
-Để tự động hóa hoàn toàn, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md) thực hiện việc tương tự trong quá trình build trên mã JSX, TSX, Vue và Svelte, tạo từ điển trên mỗi thay đổi mà không cần quản lý khóa thủ công.
+Để tự động hóa hoàn toàn, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md) thực hiện việc tương tự trong quá trình build: quét mã nguồn JSX, TSX, Vue và Svelte trên mỗi thay đổi, tạo từ điển và đồng bộ hóa với HMR, do đó hoàn toàn không có khóa nào cần duy trì thủ công.
+
+Hai giới hạn đáng lưu ý trước khi bạn bật compiler. Nó hoạt động bằng phân tích tĩnh, do đó các chuỗi chỉ tồn tại khi runtime, chẳng hạn như mã lỗi API hoặc các trường CMS, nằm ngoài phạm vi tiếp cận. Và nó phải phân biệt văn bản hiển thị cho người dùng với logic ứng dụng như `className="active"` hoặc mã trạng thái, điều này cần một vài chú thích trong một codebase lớn. [Lệnh extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/extract.md) tránh cả hai điều này bằng cách giữ bạn luôn kiểm soát.
 
 </Question>
 

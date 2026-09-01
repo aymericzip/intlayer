@@ -103,6 +103,21 @@ export default config;
 
 Intlayer'ı kendi başınıza barındırıyorsanız (self-host), analiz otomatik olarak `editor.backendURL`'yi paylaştığı için kendi örneğinize (instance) işaret eder.
 
+### API'yi tarayıcıdan çağırma
+
+Aynı token, kimlik bilgisi gerektirmeyen küçük bir istemciyi destekler; böylece statik bir site veya SPA, hiçbir sunucu, sunucu eylemi (server action) veya pakette hiçbir gizli bilgi (secret) olmadan çalışma zamanında CMS içeriğini okuyabilir:
+
+```ts fileName="content.ts"
+import { createPublicClient } from "@intlayer/api/public";
+
+const client = createPublicClient();
+
+const keys = await client.getDictionaryKeys();
+const [navbar] = await client.getDictionaries(["navbar"]);
+```
+
+Kendisini `editor.clientId` üzerinden doğrular; değişim, önbelleğe alma ve yenileme dahili olarak yönetilir. Kapsamlar (scopes) erişebileceği şeyleri sınırlar: yayımlanmış sözlük içeriği ve analitik verisi alma. Bunun dışındaki her şey (sözlükleri yayınlamak, bir projeyi okumak, AI kredisi harcamak) gerçek bir kimlik bilgisi, dolayısıyla bir sunucu veya oturum açmış bir kullanıcı gerektirir.
+
 ### Devre dışı bırakma
 
 İsteğe bağlı `analytics` bloğu veri toplamayı ayarlar — ya da tamamen kapatır:
@@ -123,17 +138,6 @@ export default config;
 
 `@intlayer/analytics` paketini kaldırmak `enabled: false` ile aynı etkiye sahiptir. Alanların tam listesi için [yapılandırma referansına](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) bakın.
 
-## Çerçeve (Framework) Desteği
-
-Analytics, `react-intlayer`'dan paylaşılan `IntlayerProvider`'a bağlanmıştır, bu nedenle bugün bu sağlayıcının kullanıldığı her yerde mevcuttur:
-
-| Çerçeve (Framework)                                      | Durum                                                                                                             |
-| -------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| React                                                    | ✅ Mevcut                                                                                                         |
-| Next.js (`next-intlayer`)                                | ✅ Mevcut (`react-intlayer` aracılığıyla)                                                                         |
-| React Native / Expo (`react-native-intlayer`)            | ✅ Mevcut (`react-intlayer` aracılığıyla)                                                                         |
-| Vue, Svelte, Angular, Solid, Preact, Lit, Astro, Vanilla | 🚧 Planlandı — `@intlayer/editor` yayım desenini izleyen, aynı istemci, sağlayıcı düzeyinde bağlamalar (bindings) |
-
 ## Kullanım
 
 ### Otomatik sağlayıcı (provider) düzeyinde izleme
@@ -145,6 +149,126 @@ Kod değişikliği gerekmez. `@intlayer/analytics` kurulduktan ve `editor.client
 - her yerel ayar değişikliğinde bir `page_view` kaydeder,
 - ~20s boşaltma (flush) döngüsünü başlatır ve unmount / sekme kapatıldığında (tab close) kalan tüm olayları boşaltır (`navigator.sendBeacon` aracılığıyla, `fetch(..., { keepalive: true })` işlevine geri dönerek (fallback)).
 
+Giriş noktası her framework'te farklıdır, ancak her durumda Intlayer'ı zaten kurmak için kullandığınız aynı noktadır, bu yüzden eklenecek ekstra bir şey yoktur:
+
+<Tabs group="framework">
+  <Tab label="React" value="react">
+
+    `IntlayerProvider`, analiz sağlayıcısını dahili olarak bağlar (mount eder).
+
+    ```tsx fileName="App.tsx"
+    import { IntlayerProvider } from "react-intlayer";
+
+    const App = () => (
+      <IntlayerProvider>
+        <Router />
+      </IntlayerProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+
+    `next-intlayer`, React'in `IntlayerProvider`'ını yeniden dışa aktarır, bu nedenle analitik de aynı şekilde bağlanır.
+
+    ```tsx fileName="app/[locale]/layout.tsx"
+    import { IntlayerProvider } from "next-intlayer";
+
+    const LocaleLayout = ({ children }) => (
+      <IntlayerProvider>{children}</IntlayerProvider>
+    );
+
+    export default LocaleLayout;
+    ```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+    `intlayer` eklentisi, analiz kancalarını (hooks) kök bileşenin yaşam döngüsüne kaydeder.
+
+    ```javascript fileName="main.js"
+    import { createApp } from "vue";
+    import { intlayer } from "vue-intlayer";
+    import App from "./App.vue";
+
+    const app = createApp(App);
+
+    app.use(intlayer);
+
+    app.mount("#app");
+    ```
+
+    > Nuxt ile, `nuxt-intlayer` eklentiyi sizin için kurar: yapılacak bir şey yoktur.
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+    `setupIntlayer()`, Intlayer'ı kuran bileşenden analitiği başlatır.
+
+    ```svelte fileName="src/routes/[[locale=locale]]/+layout.svelte"
+    <script lang="ts">
+      import { setupIntlayer } from "svelte-intlayer";
+      import type { Snippet } from "svelte";
+
+      let { children, data }: { children: Snippet, data: LayoutData } = $props();
+
+      $effect(() => {
+        setupIntlayer(data.locale);
+      });
+    </script>
+
+    {@render children()}
+    ```
+
+  </Tab>
+  <Tab label="Preact" value="preact">
+
+    `IntlayerProvider`, analiz sağlayıcısını dahili olarak bağlar (mount eder).
+
+    ```tsx fileName="app.tsx"
+    import { IntlayerProvider } from "preact-intlayer";
+
+    const App = () => (
+      <IntlayerProvider>
+        <Router />
+      </IntlayerProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+    `IntlayerProvider`, analiz sağlayıcısını tembel (lazy) şekilde bağlar, böylece bu parça (chunk) kritik yolun dışında kalır.
+
+    ```tsx fileName="App.tsx"
+    import { IntlayerProvider } from "solid-intlayer";
+
+    const App = () => (
+      <IntlayerProvider>
+        <Router />
+      </IntlayerProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+
+    `provideIntlayer()`, `provideIntlayerAnalytics()`'i zaten içerir.
+
+    ```ts fileName="app.config.ts"
+    import { provideIntlayer } from "angular-intlayer";
+    import type { ApplicationConfig } from "@angular/core";
+
+    export const appConfig: ApplicationConfig = {
+      providers: [provideIntlayer()],
+    };
+    ```
+
+    > `provideIntlayerAnalytics()`'i tek başına yalnızca sağlayıcıları ayrı ayrı yönetiyorsanız kullanın.
+
+  </Tab>
+</Tabs>
+
 ### Otomatik düğüm (node) düzeyinde izleme
 
 `useIntlayer` görüntüleme için bir içerik parçasını her çözümlediğinde, yorumlayıcı (interpreter) o tam `dictionaryKey` + anahtar yolu (key path) + yerel ayar (locale) için bir `content_exposure` olayı bildirir — yine, hiçbir kod değişikliği gerekmez. Aynı düğümün bir boşaltma penceresi (flush window) içindeki tekrarlanan gösterimleri bir `count` (sayım) ile tek bir olayda birleştirilir (coalesced), bu nedenle 50 kez yeniden oluşturulan (re-render) bir liste 50 olay göndermez.
@@ -153,29 +277,368 @@ Kod değişikliği gerekmez. `@intlayer/analytics` kurulduktan ve `editor.client
 
 Bir oturumun (session) gördüğü varyanta bir hedef atfetmek için `useConversion()` kullanın:
 
-```tsx fileName="CTAButton.tsx" codeFormat="tsx"
-import { useConversion } from "react-intlayer";
+<Tabs group="framework">
+  <Tab label="React" value="react">
 
-const CTAButton = () => {
-  const trackConversion = useConversion();
+    ```tsx fileName="CTAButton.tsx"
+    import { useConversion } from "react-intlayer";
 
-  return (
+    const CTAButton = () => {
+      const trackConversion = useConversion();
+
+      return (
+        <button
+          onClick={() =>
+            trackConversion({
+              experimentKey: "homepage-hero",
+              variant: "black_friday",
+              goal: "cta_click",
+            })
+          }
+        >
+          Başlayın
+        </button>
+      );
+    };
+    ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+
+    ```tsx fileName="CTAButton.tsx"
+    "use client";
+
+    import { useConversion } from "next-intlayer";
+
+    const CTAButton = () => {
+      const trackConversion = useConversion();
+
+      return (
+        <button
+          onClick={() =>
+            trackConversion({
+              experimentKey: "homepage-hero",
+              variant: "black_friday",
+              goal: "cta_click",
+            })
+          }
+        >
+          Başlayın
+        </button>
+      );
+    };
+    ```
+
+    > `useConversion` bir istemci kancasıdır (client hook): bileşeni `"use client"` ile işaretleyin.
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+    ```vue fileName="CTAButton.vue"
+    <script setup lang="ts">
+    import { useConversion } from "vue-intlayer";
+
+    const trackConversion = useConversion();
+    </script>
+
+    <template>
+      <button
+        @click="
+          trackConversion({
+            experimentKey: 'homepage-hero',
+            variant: 'black_friday',
+            goal: 'cta_click',
+          })
+        "
+      >
+        Başlayın
+      </button>
+    </template>
+    ```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+    ```svelte fileName="CTAButton.svelte"
+    <script lang="ts">
+      import { useConversion } from "svelte-intlayer";
+
+      const trackConversion = useConversion();
+    </script>
+
     <button
-      onClick={() =>
+      onclick={() =>
         trackConversion({
           experimentKey: "homepage-hero",
           variant: "black_friday",
           goal: "cta_click",
-        })
-      }
+        })}
     >
       Başlayın
     </button>
+    ```
+
+  </Tab>
+  <Tab label="Preact" value="preact">
+
+    ```tsx fileName="CTAButton.tsx"
+    import { useConversion } from "preact-intlayer";
+
+    const CTAButton = () => {
+      const trackConversion = useConversion();
+
+      return (
+        <button
+          onClick={() =>
+            trackConversion({
+              experimentKey: "homepage-hero",
+              variant: "black_friday",
+              goal: "cta_click",
+            })
+          }
+        >
+          Başlayın
+        </button>
+      );
+    };
+    ```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+    ```tsx fileName="CTAButton.tsx"
+    import { useConversion } from "solid-intlayer";
+
+    const CTAButton = () => {
+      const trackConversion = useConversion();
+
+      return (
+        <button
+          onClick={() =>
+            trackConversion({
+              experimentKey: "homepage-hero",
+              variant: "black_friday",
+              goal: "cta_click",
+            })
+          }
+        >
+          Başlayın
+        </button>
+      );
+    };
+    ```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+
+    ```typescript fileName="cta-button.component.ts"
+    import { Component } from "@angular/core";
+    import { useConversion } from "angular-intlayer";
+
+    @Component({
+      selector: "app-cta-button",
+      template: `<button (click)="onClick()">Başlayın</button>`,
+    })
+    export class CtaButtonComponent {
+      private trackConversion = useConversion();
+
+      onClick() {
+        this.trackConversion({
+          experimentKey: "homepage-hero",
+          variant: "black_friday",
+          goal: "cta_click",
+        });
+      }
+    }
+    ```
+
+  </Tab>
+</Tabs>
+
+### Bir varyantı istemci tarafında çözümleme (Resolving a variant client-side)
+
+`useExperiment()`, oturumu bir varyanta atar ve dönüşüm oranının paydası olan gösterimi (exposure) kaydeder. Atama çözümlenmeden önce hiçbir ziyaretçinin kontrol varyantının kısa süreliğine görünmesini önlemek için varyanta bağlı alt ağacı yalnızca `isAssigned` doğruyken gösterin:
+
+<Tabs group="framework">
+  <Tab label="React" value="react">
+
+    `variant` basit bir dizedir (string).
+
+    ```tsx fileName="Hero.tsx"
+    import { useExperiment } from "react-intlayer";
+    import { HeroBanner } from "./HeroBanner";
+
+    export const Hero = () => {
+      const { variant, isAssigned } = useExperiment("homepage-hero", [
+        "default",
+        "black_friday",
+      ]);
+
+      if (!isAssigned) return null;
+
+      return <HeroBanner variant={variant} />;
+    };
+    ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+
+    `variant` basit bir dizedir (string). Atama tarayıcıda gerçekleşir, bu nedenle bileşen bir istemci bileşeni olmalıdır.
+
+    ```tsx fileName="Hero.tsx"
+    "use client";
+
+    import { useExperiment } from "next-intlayer";
+    import { HeroBanner } from "./HeroBanner";
+
+    export const Hero = () => {
+      const { variant, isAssigned } = useExperiment("homepage-hero", [
+        "default",
+        "black_friday",
+      ]);
+
+      if (!isAssigned) return null;
+
+      return <HeroBanner variant={variant} />;
+    };
+    ```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+    `variant` ve `isAssigned`, `Ref`'lerdir.
+
+    ```vue fileName="Hero.vue"
+    <script setup lang="ts">
+    import { useExperiment } from "vue-intlayer";
+    import HeroBanner from "./HeroBanner.vue";
+
+    const { variant, isAssigned } = useExperiment("homepage-hero", [
+      "default",
+      "black_friday",
+    ]);
+    </script>
+
+    <template>
+      <HeroBanner v-if="isAssigned" :variant="variant" />
+    </template>
+    ```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+    `variant` ve `isAssigned`, store'lardır: bunları `$` öneki ile okuyun.
+
+    ```svelte fileName="Hero.svelte"
+    <script lang="ts">
+      import { useExperiment } from "svelte-intlayer";
+      import HeroBanner from "./HeroBanner.svelte";
+
+      const { variant, isAssigned } = useExperiment("homepage-hero", [
+        "default",
+        "black_friday",
+      ]);
+    </script>
+
+    {#if $isAssigned}
+      <HeroBanner variant={$variant} />
+    {/if}
+    ```
+
+  </Tab>
+  <Tab label="Preact" value="preact">
+
+    `variant` basit bir dizedir (string).
+
+    ```tsx fileName="Hero.tsx"
+    import { useExperiment } from "preact-intlayer";
+    import { HeroBanner } from "./HeroBanner";
+
+    export const Hero = () => {
+      const { variant, isAssigned } = useExperiment("homepage-hero", [
+        "default",
+        "black_friday",
+      ]);
+
+      if (!isAssigned) return null;
+
+      return <HeroBanner variant={variant} />;
+    };
+    ```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+    `variant` ve `isAssigned`, `Accessor`'lardır: değeri okumak için bunları çağırın.
+
+    ```tsx fileName="Hero.tsx"
+    import { useExperiment } from "solid-intlayer";
+    import { Show } from "solid-js";
+    import { HeroBanner } from "./HeroBanner";
+
+    export const Hero = () => {
+      const { variant, isAssigned } = useExperiment("homepage-hero", [
+        "default",
+        "black_friday",
+      ]);
+
+      return (
+        <Show when={isAssigned()}>
+          <HeroBanner variant={variant()} />
+        </Show>
+      );
+    };
+    ```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+
+    `variant` ve `isAssigned`, `Signal`'lardır: değeri okumak için bunları çağırın.
+
+    ```typescript fileName="hero.component.ts"
+    import { Component } from "@angular/core";
+    import { useExperiment } from "angular-intlayer";
+    import { HeroBannerComponent } from "./hero-banner.component";
+
+    @Component({
+      selector: "app-hero",
+      imports: [HeroBannerComponent],
+      template: `@if (experiment.isAssigned()) {
+        <app-hero-banner [variant]="experiment.variant()" />
+      }`,
+    })
+    export class HeroComponent {
+      experiment = useExperiment("homepage-hero", ["default", "black_friday"]);
+    }
+    ```
+
+  </Tab>
+</Tabs>
+
+Ağırlıklar isteğe bağlıdır — bölünmeyi eğmek için varyant başına bir tane geçirin, örneğin `useExperiment("homepage-hero", ["default", "black_friday"], [9, 1])`.
+
+Alt bileşen daha sonra eşleşen sözlüğün [Variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dynamic_dictionaries/variants.md)'ını okur:
+
+```tsx fileName="HeroBanner.tsx"
+import { useIntlayer } from "react-intlayer";
+
+export const HeroBanner = ({ variant }: { variant: string }) => {
+  const { headline, cta } = useIntlayer("hero-banner", { variant });
+
+  return (
+    <section>
+      <h1>{headline}</h1>
+      <a>{cta}</a>
+    </section>
   );
 };
 ```
 
-### Bir varyantı istemci tarafında çözümleme (Resolving a variant client-side)
+> Varyantı bir **alt bileşende** okumak, bunun React dışında da çalışmasını sağlayan şeydir: Vue, Svelte, Solid ve Angular'da, `useIntlayer`'a geçirilen seçici (selector), bileşen kurulduğunda yakalanır, bu nedenle okuma işlemi yalnızca varyant bilindikten sonra bağlanan bir bileşende gerçekleşmelidir.
+
+Deney tek bir sözlük yerine tüm bir sayfayı kapsıyorsa, varyantı bunun yerine sağlayıcıya taşıyın — bkz. [Ambient variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dynamic_dictionaries/variants.md#ambient-variant). Aşağıdaki her `useIntlayer`, çağrı noktasında herhangi bir değişiklik yapılmadan buna göre çözümlenir.
+
+Bir bileşenin dışında ham atamaya ihtiyacınız varsa, doğrudan istemciye başvurun:
 
 ```tsx fileName="useHeroVariant.ts" codeFormat="tsx"
 import { getGlobalAnalyticsClient } from "@intlayer/analytics/client";
@@ -186,6 +649,8 @@ const variant = client?.getVariant("homepage-hero", [
   "black_friday",
 ]);
 ```
+
+> `getVariant` yalnızca atama yapar: gösterimi (exposure) kaydetmez. Bunun yerine `useExperiment()` kullanmayı tercih edin, aksi takdirde dönüşüm oranının bir paydası olmaz.
 
 ## Gizlilik ve Performans
 
@@ -235,6 +700,8 @@ const cms = createIntlayerCMS();
 
 const { data: audience } = await analyticsEndpoint(cms).getAudience(30);
 ```
+
+> **Yalnızca sunucu tarafında.** `createIntlayerCMS()`, `clientId` + `clientSecret` ile kimlik doğrular ve gizli bilgi (secret) hiçbir zaman tarayıcıda kullanılamaz: bu kod parçacığı orada çalışırsa, kimliği doğrulanmamış istekler gönderirdi. Bunu bir route handler, server action veya betikte (script) tutun.
 
 ## Faydalı bağlantılar (Useful links)
 

@@ -103,6 +103,21 @@ export default config;
 
 Dalam situasi ketika melakukan hosting (self-host) mandiri akan halnya fungsi Intlayer ini, analitik bakal terpusat tanpa penyesuaian baru (otomatis) terhadap instalasi server Anda disebabkan rujukan pengaturannya adalah identik terhadap rujukan `editor.backendURL`.
 
+### Memanggil API dari browser
+
+Token yang sama mendukung sebuah klien kecil tanpa kredensial, sehingga situs statis atau SPA dapat membaca konten CMS-nya saat runtime tanpa server, tanpa server action, dan tanpa secret apa pun di dalam bundle:
+
+```ts fileName="content.ts"
+import { createPublicClient } from "@intlayer/api/public";
+
+const client = createPublicClient();
+
+const keys = await client.getDictionaryKeys();
+const [navbar] = await client.getDictionaries(["navbar"]);
+```
+
+Klien ini melakukan autentikasi sendiri berdasarkan `editor.clientId`: pertukaran, penyimpanan cache, dan pembaruan token ditangani secara internal. Scope membatasi apa yang dapat diaksesnya: konten kamus yang dipublikasikan dan pengumpulan data analytics. Selain itu (mengirim kamus, membaca proyek, menggunakan kredit AI) memerlukan kredensial asli, sehingga membutuhkan server atau pengguna yang sudah masuk (signed-in).
+
 ### Menonaktifkan (opt-out)
 
 Blok `analytics` opsional menyetel — atau mematikan — pengumpulan data:
@@ -123,17 +138,6 @@ export default config;
 
 Menghapus `@intlayer/analytics` memberi efek yang sama dengan `enabled: false`. Lihat [referensi konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md) untuk daftar bidang lengkapnya.
 
-## Dukungan Framework (Framework support)
-
-Analytics sendiri disalurkan beriringan di saat mendayagunakan `IntlayerProvider` rujukan `react-intlayer`, dan pastinya ini membuatnya selalu sedia dipakai di belahan titik mana pun bilamana ia di-inisiasikan:
-
-| Framework                                                | Status                                                                                            |
-| -------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
-| React                                                    | ✅ Tersedia                                                                                       |
-| Next.js (`next-intlayer`)                                | ✅ Tersedia (melalui `react-intlayer`)                                                            |
-| React Native / Expo (`react-native-intlayer`)            | ✅ Tersedia (melalui `react-intlayer`)                                                            |
-| Vue, Svelte, Angular, Solid, Preact, Lit, Astro, Vanilla | 🚧 Direncanakan (Planned) — klien yang serupa, dalam tingkatan binding berlandaskan rilis standar |
-
 ## Penggunaan (Usage)
 
 ### Pelacakan tingkat provider (Automatic provider-level tracking)
@@ -145,6 +149,126 @@ Tidak perlu ada perubahan kode atau modifikasi koding apa pun. Setelah instalan 
 - Menginisiasi kembali pelacakan `page_view` ini sewaktu perpindahan wilayah pilihan penggunaan (locale change),
 - Memunculkan mekanisme pusaran siklus (~20s flush loop) agar menyaring tuntas rincian atau pun serpihan yang melekat tanpa menunggu (unmount / tutupan pada tab halaman pengguna; yaitu memfungsikan `navigator.sendBeacon` yang bakal melakukan hal serupa disusul balikan perujukannya memakai `fetch(..., { keepalive: true })`).
 
+Titik masuknya berbeda untuk setiap framework, tetapi dalam semua kasus tetap tempat yang sama yang sudah Anda pakai untuk menyiapkan Intlayer, jadi tidak ada tambahan lain yang perlu dilakukan:
+
+<Tabs group="framework">
+  <Tab label="React" value="react">
+
+    `IntlayerProvider` memasang (mount) provider analytics secara internal.
+
+    ```tsx fileName="App.tsx"
+    import { IntlayerProvider } from "react-intlayer";
+
+    const App = () => (
+      <IntlayerProvider>
+        <Router />
+      </IntlayerProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+
+    `next-intlayer` meng-ekspor ulang `IntlayerProvider` milik React, sehingga analytics tersambung dengan cara yang sama.
+
+    ```tsx fileName="app/[locale]/layout.tsx"
+    import { IntlayerProvider } from "next-intlayer";
+
+    const LocaleLayout = ({ children }) => (
+      <IntlayerProvider>{children}</IntlayerProvider>
+    );
+
+    export default LocaleLayout;
+    ```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+    Plugin `intlayer` mendaftarkan hook analytics pada siklus hidup komponen root.
+
+    ```javascript fileName="main.js"
+    import { createApp } from "vue";
+    import { intlayer } from "vue-intlayer";
+    import App from "./App.vue";
+
+    const app = createApp(App);
+
+    app.use(intlayer);
+
+    app.mount("#app");
+    ```
+
+    > Dengan Nuxt, `nuxt-intlayer` memasang plugin ini untuk Anda: tidak ada yang perlu dilakukan.
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+    `setupIntlayer()` memulai analytics dari komponen yang menyiapkan Intlayer.
+
+    ```svelte fileName="src/routes/[[locale=locale]]/+layout.svelte"
+    <script lang="ts">
+      import { setupIntlayer } from "svelte-intlayer";
+      import type { Snippet } from "svelte";
+
+      let { children, data }: { children: Snippet, data: LayoutData } = $props();
+
+      $effect(() => {
+        setupIntlayer(data.locale);
+      });
+    </script>
+
+    {@render children()}
+    ```
+
+  </Tab>
+  <Tab label="Preact" value="preact">
+
+    `IntlayerProvider` memasang (mount) provider analytics secara internal.
+
+    ```tsx fileName="app.tsx"
+    import { IntlayerProvider } from "preact-intlayer";
+
+    const App = () => (
+      <IntlayerProvider>
+        <Router />
+      </IntlayerProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+    `IntlayerProvider` memasang provider analytics secara lazy, sehingga chunk ini tetap berada di luar jalur kritis (critical path).
+
+    ```tsx fileName="App.tsx"
+    import { IntlayerProvider } from "solid-intlayer";
+
+    const App = () => (
+      <IntlayerProvider>
+        <Router />
+      </IntlayerProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+
+    `provideIntlayer()` sudah menyertakan `provideIntlayerAnalytics()`.
+
+    ```ts fileName="app.config.ts"
+    import { provideIntlayer } from "angular-intlayer";
+    import type { ApplicationConfig } from "@angular/core";
+
+    export const appConfig: ApplicationConfig = {
+      providers: [provideIntlayer()],
+    };
+    ```
+
+    > Gunakan `provideIntlayerAnalytics()` sendiri hanya jika Anda mengelola provider secara terpisah.
+
+  </Tab>
+</Tabs>
+
 ### Pelacakan otomatis tingkat Node (Automatic node-level tracking)
 
 Dalam segenap ragam resolusi muatan koding saat menampilkan serpihan / wujud konten pada panggilannya melewati rujukan pemakaian dari `useIntlayer`, interpreter di sistem melaporkan dan merekam serpihan data bertitelkan rujukan nama peristiwanya (event): `content_exposure` untuk paduan akurasi di hal penggunaan ini: `dictionaryKey` + arah pencariannya pada perincian jalan/aksesnya (key path) + daerah acuan pilihan pemakai (locale) — sekali lagi tak satu jengkal pun perubahan bentuk kode dilibatkan. Adanya wujud rentetan dari kemunculan satu buah referensi simpul penamaan (node) selama jangka tahapan pusar (flush window) maka keseluruhannya cuma dikumpulkan di dalam satu rangkuman catatan rujukan dan dibumbuhi tambahan catatan bilangan rekam-an `count`, ini menegaskan bahwasanya dari hal yang sama terulang dan memunculkan rupa ulang tampilan atau rendering tak-kurang-bahkan 50 kali sekalipun bukan berarti mengirimkan rincian berurutan dan mengada-adakan proses berulang (50 pengantaran yang diestimasikan terhitung secara manual).
@@ -153,29 +277,368 @@ Dalam segenap ragam resolusi muatan koding saat menampilkan serpihan / wujud kon
 
 Anda mesti menerapkan rincian `useConversion()` guna memandu sebuah tujuan akhir ke wujud sebuah variabel eksperimen dengan hasil pengamatan pengguna akhir (session):
 
-```tsx fileName="CTAButton.tsx" codeFormat="tsx"
-import { useConversion } from "react-intlayer";
+<Tabs group="framework">
+  <Tab label="React" value="react">
 
-const CTAButton = () => {
-  const trackConversion = useConversion();
+    ```tsx fileName="CTAButton.tsx"
+    import { useConversion } from "react-intlayer";
 
-  return (
+    const CTAButton = () => {
+      const trackConversion = useConversion();
+
+      return (
+        <button
+          onClick={() =>
+            trackConversion({
+              experimentKey: "homepage-hero",
+              variant: "black_friday",
+              goal: "cta_click",
+            })
+          }
+        >
+          Mari kita memulainya (Get started)
+        </button>
+      );
+    };
+    ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+
+    ```tsx fileName="CTAButton.tsx"
+    "use client";
+
+    import { useConversion } from "next-intlayer";
+
+    const CTAButton = () => {
+      const trackConversion = useConversion();
+
+      return (
+        <button
+          onClick={() =>
+            trackConversion({
+              experimentKey: "homepage-hero",
+              variant: "black_friday",
+              goal: "cta_click",
+            })
+          }
+        >
+          Mari kita memulainya (Get started)
+        </button>
+      );
+    };
+    ```
+
+    > `useConversion` adalah hook client: tandai komponen dengan `"use client"`.
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+    ```vue fileName="CTAButton.vue"
+    <script setup lang="ts">
+    import { useConversion } from "vue-intlayer";
+
+    const trackConversion = useConversion();
+    </script>
+
+    <template>
+      <button
+        @click="
+          trackConversion({
+            experimentKey: 'homepage-hero',
+            variant: 'black_friday',
+            goal: 'cta_click',
+          })
+        "
+      >
+        Mari kita memulainya (Get started)
+      </button>
+    </template>
+    ```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+    ```svelte fileName="CTAButton.svelte"
+    <script lang="ts">
+      import { useConversion } from "svelte-intlayer";
+
+      const trackConversion = useConversion();
+    </script>
+
     <button
-      onClick={() =>
+      onclick={() =>
         trackConversion({
           experimentKey: "homepage-hero",
           variant: "black_friday",
           goal: "cta_click",
-        })
-      }
+        })}
     >
       Mari kita memulainya (Get started)
     </button>
+    ```
+
+  </Tab>
+  <Tab label="Preact" value="preact">
+
+    ```tsx fileName="CTAButton.tsx"
+    import { useConversion } from "preact-intlayer";
+
+    const CTAButton = () => {
+      const trackConversion = useConversion();
+
+      return (
+        <button
+          onClick={() =>
+            trackConversion({
+              experimentKey: "homepage-hero",
+              variant: "black_friday",
+              goal: "cta_click",
+            })
+          }
+        >
+          Mari kita memulainya (Get started)
+        </button>
+      );
+    };
+    ```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+    ```tsx fileName="CTAButton.tsx"
+    import { useConversion } from "solid-intlayer";
+
+    const CTAButton = () => {
+      const trackConversion = useConversion();
+
+      return (
+        <button
+          onClick={() =>
+            trackConversion({
+              experimentKey: "homepage-hero",
+              variant: "black_friday",
+              goal: "cta_click",
+            })
+          }
+        >
+          Mari kita memulainya (Get started)
+        </button>
+      );
+    };
+    ```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+
+    ```typescript fileName="cta-button.component.ts"
+    import { Component } from "@angular/core";
+    import { useConversion } from "angular-intlayer";
+
+    @Component({
+      selector: "app-cta-button",
+      template: `<button (click)="onClick()">Mari kita memulainya</button>`,
+    })
+    export class CtaButtonComponent {
+      private trackConversion = useConversion();
+
+      onClick() {
+        this.trackConversion({
+          experimentKey: "homepage-hero",
+          variant: "black_friday",
+          goal: "cta_click",
+        });
+      }
+    }
+    ```
+
+  </Tab>
+</Tabs>
+
+### Penyelesaian varian eksperimen klien secara internal (Resolving a variant client-side)
+
+`useExperiment()` menetapkan sesi ke sebuah varian dan mencatat paparan (exposure) yang menjadi penyebut (denominator) dari tingkat konversi. Tampilkan subtree yang bergantung pada varian hanya setelah `isAssigned` bernilai true, agar tidak ada pengunjung yang sempat melihat kedipan varian kontrol sebelum penetapannya selesai:
+
+<Tabs group="framework">
+  <Tab label="React" value="react">
+
+    `variant` adalah string biasa.
+
+    ```tsx fileName="Hero.tsx"
+    import { useExperiment } from "react-intlayer";
+    import { HeroBanner } from "./HeroBanner";
+
+    export const Hero = () => {
+      const { variant, isAssigned } = useExperiment("homepage-hero", [
+        "default",
+        "black_friday",
+      ]);
+
+      if (!isAssigned) return null;
+
+      return <HeroBanner variant={variant} />;
+    };
+    ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+
+    `variant` adalah string biasa. Penetapan terjadi di browser, sehingga komponennya harus berupa komponen client.
+
+    ```tsx fileName="Hero.tsx"
+    "use client";
+
+    import { useExperiment } from "next-intlayer";
+    import { HeroBanner } from "./HeroBanner";
+
+    export const Hero = () => {
+      const { variant, isAssigned } = useExperiment("homepage-hero", [
+        "default",
+        "black_friday",
+      ]);
+
+      if (!isAssigned) return null;
+
+      return <HeroBanner variant={variant} />;
+    };
+    ```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+    `variant` dan `isAssigned` adalah `Ref`.
+
+    ```vue fileName="Hero.vue"
+    <script setup lang="ts">
+    import { useExperiment } from "vue-intlayer";
+    import HeroBanner from "./HeroBanner.vue";
+
+    const { variant, isAssigned } = useExperiment("homepage-hero", [
+      "default",
+      "black_friday",
+    ]);
+    </script>
+
+    <template>
+      <HeroBanner v-if="isAssigned" :variant="variant" />
+    </template>
+    ```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+    `variant` dan `isAssigned` adalah store: baca dengan prefiks `$`.
+
+    ```svelte fileName="Hero.svelte"
+    <script lang="ts">
+      import { useExperiment } from "svelte-intlayer";
+      import HeroBanner from "./HeroBanner.svelte";
+
+      const { variant, isAssigned } = useExperiment("homepage-hero", [
+        "default",
+        "black_friday",
+      ]);
+    </script>
+
+    {#if $isAssigned}
+      <HeroBanner variant={$variant} />
+    {/if}
+    ```
+
+  </Tab>
+  <Tab label="Preact" value="preact">
+
+    `variant` adalah string biasa.
+
+    ```tsx fileName="Hero.tsx"
+    import { useExperiment } from "preact-intlayer";
+    import { HeroBanner } from "./HeroBanner";
+
+    export const Hero = () => {
+      const { variant, isAssigned } = useExperiment("homepage-hero", [
+        "default",
+        "black_friday",
+      ]);
+
+      if (!isAssigned) return null;
+
+      return <HeroBanner variant={variant} />;
+    };
+    ```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+    `variant` dan `isAssigned` adalah `Accessor`: panggil untuk membaca nilainya.
+
+    ```tsx fileName="Hero.tsx"
+    import { useExperiment } from "solid-intlayer";
+    import { Show } from "solid-js";
+    import { HeroBanner } from "./HeroBanner";
+
+    export const Hero = () => {
+      const { variant, isAssigned } = useExperiment("homepage-hero", [
+        "default",
+        "black_friday",
+      ]);
+
+      return (
+        <Show when={isAssigned()}>
+          <HeroBanner variant={variant()} />
+        </Show>
+      );
+    };
+    ```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+
+    `variant` dan `isAssigned` adalah `Signal`: panggil untuk membaca nilainya.
+
+    ```typescript fileName="hero.component.ts"
+    import { Component } from "@angular/core";
+    import { useExperiment } from "angular-intlayer";
+    import { HeroBannerComponent } from "./hero-banner.component";
+
+    @Component({
+      selector: "app-hero",
+      imports: [HeroBannerComponent],
+      template: `@if (experiment.isAssigned()) {
+        <app-hero-banner [variant]="experiment.variant()" />
+      }`,
+    })
+    export class HeroComponent {
+      experiment = useExperiment("homepage-hero", ["default", "black_friday"]);
+    }
+    ```
+
+  </Tab>
+</Tabs>
+
+Weights bersifat opsional — kirim satu nilai per varian untuk mengubah pembagiannya, misalnya `useExperiment("homepage-hero", ["default", "black_friday"], [9, 1])`.
+
+Komponen anak kemudian membaca [Variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dynamic_dictionaries/variants.md) dari kamus yang sesuai:
+
+```tsx fileName="HeroBanner.tsx"
+import { useIntlayer } from "react-intlayer";
+
+export const HeroBanner = ({ variant }: { variant: string }) => {
+  const { headline, cta } = useIntlayer("hero-banner", { variant });
+
+  return (
+    <section>
+      <h1>{headline}</h1>
+      <a>{cta}</a>
+    </section>
   );
 };
 ```
 
-### Penyelesaian varian eksperimen klien secara internal (Resolving a variant client-side)
+> Membaca varian di dalam komponen **anak** adalah yang membuat ini bekerja di luar React: di Vue, Svelte, Solid, dan Angular, selector yang diberikan ke `useIntlayer` ditangkap saat komponen disiapkan, sehingga pembacaannya harus terjadi di komponen yang baru dipasang setelah variannya diketahui.
+
+Jika eksperimen mencakup seluruh halaman, bukan hanya satu kamus, angkat variannya ke provider — lihat [Ambient variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dynamic_dictionaries/variants.md#ambient-variant). Setiap `useIntlayer` di bawahnya kemudian akan diselesaikan berdasarkan itu tanpa perubahan pada titik pemanggilan.
+
+Jika Anda memerlukan hasil penetapan mentah di luar sebuah komponen, akses client-nya secara langsung:
 
 ```tsx fileName="useHeroVariant.ts" codeFormat="tsx"
 import { getGlobalAnalyticsClient } from "@intlayer/analytics/client";
@@ -186,6 +649,8 @@ const variant = client?.getVariant("homepage-hero", [
   "black_friday",
 ]);
 ```
+
+> `getVariant` hanya menetapkan varian — tidak mencatat paparan (exposure). Sebaiknya gunakan `useExperiment()`, jika tidak tingkat konversi tidak akan memiliki penyebut.
 
 ## Privasi dan Peforma (Privacy & performance)
 
@@ -236,6 +701,8 @@ const cms = createIntlayerCMS();
 
 const { data: audience } = await analyticsEndpoint(cms).getAudience(30);
 ```
+
+> **Hanya di sisi server.** `createIntlayerCMS()` melakukan autentikasi dengan `clientId` + `clientSecret`, dan secret tidak pernah tersedia di browser: cuplikan kode ini akan mengirim permintaan yang tidak terautentikasi jika dijalankan di sana. Simpan kode ini di route handler, server action, atau skrip.
 
 ## Tautan Berguna (Useful links)
 

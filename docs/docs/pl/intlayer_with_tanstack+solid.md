@@ -46,24 +46,23 @@ Ten przewodnik pokazuje, jak zintegrować **Intlayer** w celu zapewnienia bezpro
 W porównaniu do głównych rozwiązań, takich jak „react-i18next” lub „i18next”, Intlayer jest rozwiązaniem wyposażonym w zintegrowane optymalizacje, takie jak:
 
 <AccordionGroup>
-
-**Pełne pokrycie TanStack Start**
+<Accordion header="Pełne pokrycie TanStack Start">
 
 Intlayer jest zoptymalizowany do doskonałej współpracy z TanStack Start i Solid, oferując **routing wielojęzyczny**, **mapę witryny** i wszystkie funkcje potrzebne do skalowania internacjonalizacji (i18n).
 
 </Accordion>
 
-**Rozmiar bundle'a**
+<Accordion header="Rozmiar bundle'a">
 
 Zamiast ładować ogromne pliki JSON na swoje strony, ładuj tylko niezbędną treść. Intlayer pomaga **zmniejszyć rozmiary bundle'a i stron nawet o 50%**.
 
 </Accordion>
 
-**Łatwość konserwacji**
+<Accordion header="Łatwość konserwacji">
 
 Określanie zakresu zawartości aplikacji **ułatwia konserwację** aplikacji na dużą skalę. Możesz powielić lub usunąć pojedynczy folder funkcji bez obciążania psychicznego koniecznością przeglądania całej bazy kodu zawartości. Dodatkowo Inlayer jest **w pełni napisany**, aby zapewnić dokładność treści.
 
-**Agent AI**
+</Accordion>
 
 <Accordion header="Agent AI">
 
@@ -71,11 +70,11 @@ Wspólna lokalizacja treści **zmniejsza potrzebny kontekst** dzięki modelom du
 
 </Accordion>
 
-**Automatyzacja**
+<Accordion header="Automatyzacja">
 
 Korzystaj z automatyzacji, aby tłumaczyć w swoim potoku CI/CD przy użyciu wybranego LLM na koszt dostawcy sztucznej inteligencji. Intlayer oferuje także **kompilator** do automatyzacji ekstrakcji treści, a także [platformę internetową] (https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md), która pomaga **tłumaczyć w tle**.
 
-**Wydajność**
+</Accordion>
 
 <Accordion header="Wydajność">
 
@@ -83,7 +82,7 @@ Korzystaj z automatyzacji, aby tłumaczyć w swoim potoku CI/CD przy użyciu wyb
 
 </Accordion>
 
-**Skalowanie bez użycia dewelopera**
+<Accordion header="Skalowanie bez użycia dewelopera">
 
 Więcej niż tylko rozwiązanie i18n, Intlayer zapewnia **samodzielny [edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** i **[pełny CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)**, który pomoże Ci zarządzać wielojęzyczną treścią w **w czasie rzeczywistym**, dzięki czemu współpraca z tłumaczami, copywriterami i innymi członkami zespołu będzie płynna. Treść może być przechowywana lokalnie i/lub zdalnie.
 
@@ -566,8 +565,6 @@ const RootComponent: ParentComponent = (props) => {
 };
 ```
 
----
-
 </Step>
 
 <Step number={12} title="Dodaj Middleware">
@@ -603,8 +600,6 @@ export default defineConfig({
   ],
 });
 ```
-
----
 
 </Step>
 
@@ -799,8 +794,6 @@ Zachowujesz fragment per-lokalizacja, nie płacąc jego kosztu na ścieżce kryt
 | Nawigacje po stronie klienta | nic do rozwiązania      | wykonywane ponownie przy każdym dopasowaniu | serwowane z cache routera               |
 | DX                           | najprostsze             | jeden `await`                               | treść przekazywana przez `loaderData`   |
 
----
-
 </Step>
 
 <Step number={14} title="Pobieranie języka w akcjach serwera">
@@ -837,8 +830,6 @@ export const getLocaleServer = createServerFn().handler(async () => {
   return { locale, content };
 });
 ```
-
----
 
 </Step>
 
@@ -1031,8 +1022,6 @@ bun run build # Lub bun run dev
  </Tab>
 </Tabs>
 
----
-
 </Step>
 
 <Step number={16} title="Wstępne renderowanie i generowanie mapy witryny">
@@ -1106,8 +1095,6 @@ export const Route = createFileRoute("/sitemap.xml")({
 });
 ```
 
----
-
 </Step>
 
 <Step number={17} title="Skonfiguruj TypeScript">
@@ -1125,8 +1112,6 @@ Upewnij się, że Twoja konfiguracja TypeScript zawiera automatycznie generowane
   ],
 }
 ```
-
----
 
 </Step>
 

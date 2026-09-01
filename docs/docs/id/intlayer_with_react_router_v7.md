@@ -54,7 +54,6 @@ Panduan ini fokus pada frontend routing. Untuk routing fs-routes, lihat panduan 
 Dibandingkan dengan solusi utama seperti `react-i18next` atau `i18next`, Intlayer adalah solusi yang hadir dengan pengoptimalan terintegrasi seperti:
 
 <AccordionGroup>
-
 <Accordion header="Cakupan React Router Penuh">
 
 Intlayer dioptimalkan untuk bekerja sempurna dengan React Router dengan menawarkan **perutean sadar lokal**, **middleware untuk deteksi lokal**, dan semua fitur yang diperlukan untuk penskalaan internasionalisasi (i18n).
@@ -698,8 +697,6 @@ bun run build # Or bun run dev
  </Tab>
 </Tabs>
 
----
-
 </Step>
 
 </Steps>
@@ -775,6 +772,8 @@ Panduan komprehensif ini menyediakan semua yang Anda butuhkan untuk mengintegras
 
 <Question title="Apa saja solusi berbeda yang tersedia untuk menginternasionalkan aplikasi React Router v7?">
 
+React Router v7 tidak menyertakan lapisan pesan, jadi Anda memasangkannya dengan library i18n:
+
 - **`react-i18next`**: library umum yang memuat namespace JSON di runtime.
 - **`react-intl`**: solusi berbasis format ICU.
 - **`Intlayer`**: deklarasi konten di sebelah komponen, kompilasi build time, dukungan SSR dan loaders, typing TypeScript lengkap, terjemahan AI, dan visual editor.
@@ -803,9 +802,11 @@ Ya. Plugin [sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/doc
 
 <Question title="Apakah saya harus memindahkan konten saya key by key?">
 
-Tidak. Jalankan `npx intlayer extract` dan Intlayer membaca file sumber Anda, mengeluarkan string yang dihadapi pengguna, dan menulis file `.content` di sebelah masing-masing, sehingga Anda meninjau diff alih-alih menyalin string ke dalam katalog satu per satu. Lihat [perintah extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/extract.md).
+Tidak. Jalankan `npx intlayer extract` dan Intlayer membaca komponen Anda, mengeluarkan string yang dilihat pengguna, dan menulis file `.content` di sebelah masing-masing, sehingga Anda meninjau diff alih-alih menyalin string ke dalam katalog satu per satu. Langkah 12 dari panduan ini menjelaskannya.
 
-Untuk proses otomatis penuh, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md) melakukan hal yang sama saat build time pada kode JSX, TSX, Vue dan Svelte, menghasilkan kamus pada setiap perubahan tanpa perlu memelihara kunci secara manual. Karena bekerja melalui analisis statis, string yang hanya ada di runtime tetap berada di luar jangkauannya.
+Untuk proses otomatis penuh, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md) melakukan hal yang sama saat build time: memindai kode JSX, TSX, Vue dan Svelte pada setiap perubahan, menghasilkan kamus, dan menyinkronkannya dengan HMR, sehingga tidak ada kunci yang perlu dikelola secara manual.
+
+Dua batasan perlu diketahui sebelum Anda mengaktifkan compiler. Ini bekerja dengan analisis statis, jadi string yang hanya ada saat runtime, seperti kode kesalahan API atau field CMS, tetap berada di luar jangkauan. Dan ini harus membedakan teks yang dilihat pengguna dari logika aplikasi seperti `className="active"` atau kode status, yang memerlukan beberapa anotasi di basis kode yang besar. [Perintah extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/extract.md) menghindari keduanya dengan menjaga Anda tetap memegang kendali.
 
 </Question>
 

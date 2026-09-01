@@ -71,7 +71,6 @@ author: aymericzip
 `react-native-localize` या `i18next` जैसे मुख्य समाधानों की तुलना में, Intlayer एक ऐसा समाधान है जो एकीकृत अनुकूलन के साथ आता है जैसे:
 
 <AccordionGroup>
-
 <Accordion header="पूर्ण React Native कवरेज">
 
 Intlayer को **घटक-स्तरीय सामग्री स्कोपिंग**, **TypeScript समर्थन**, और मोबाइल ऐप्स में अंतर्राष्ट्रीयकरण (i18n) को बढ़ाने के लिए आवश्यक सभी सुविधाओं की पेशकश करके React Native और Expo के साथ पूरी तरह से काम करने के लिए अनुकूलित किया गया है।
@@ -166,8 +165,6 @@ bun add intlayer react-native-intlayer
 
 - **react-native-intlayer**  
   React Native एकीकरण जो कॉन्टेक्स्ट प्रदाताओं और React हुक्स प्रदान करता है जिनका उपयोग आप locale प्राप्त करने और स्विच करने के लिए करेंगे, React Native polyfills, और React Native bundler के साथ Intlayer को एकीकृत करने के लिए Metro प्लगइन। यह `react-intlayer` से सब कुछ re-export करता है, इसलिए React Native ऐप में आपको केवल इसी एकल पैकेज की आवश्यकता है।
-
----
 
 </Step>
 
@@ -328,8 +325,6 @@ export default homeScreenContent;
 
 > सामग्री घोषणाओं के विवरण के लिए, देखें [Intlayer की सामग्री दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md)।
 
----
-
 </Step>
 
 <Step number={6} title="अपने घटकों में Intlayer का उपयोग करें">
@@ -382,8 +377,6 @@ export default HomeScreen;
 > जब आप `content.someKey` का उपयोग स्ट्रिंग-आधारित प्रॉप्स में करते हैं (जैसे, किसी बटन के `title` या `Text` कंपोनेंट के `children` में), तो वास्तविक स्ट्रिंग प्राप्त करने के लिए **`content.someKey.value` कॉल करें**।
 
 > यदि आपका ऐप पहले से मौजूद है, तो आप हजारों घटकों को एक सेकंड में बदलने के लिए [Intlayer कंपाइलर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compiler.md) को [एक्सट्रैक्ट कमांड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/extract.md) के साथ उपयोग कर सकते हैं।
-
----
 
 </Step>
 

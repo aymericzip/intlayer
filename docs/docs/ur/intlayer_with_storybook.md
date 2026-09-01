@@ -90,8 +90,6 @@ bun add vite-intlayer --dev
 | `react-intlayer` | ری ایکٹ بائنڈنگز - `IntlayerProvider`, `useIntlayer` ہک           |
 | `vite-intlayer`  | Vite پلگ ان - مواد کے اعلان کی فائلوں کی نگرانی اور ترتیب کرتا ہے |
 
----
-
 </Step>
 
 <Step number={2} title="Intlayer کنفیگریشن فائل بنائیں">
@@ -120,8 +118,6 @@ export default config;
 ```
 
 > اختیارات کی مکمل فہرست کے لیے [کنفیگریشن حوالہ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/configuration.md) دیکھیں۔
-
----
 
 </Step>
 
@@ -169,8 +165,6 @@ export default config;
 ```
 
 `intlayer()` پلگ ان آپ کی `*.content.ts` فائلوں کی نگرانی کرتا ہے اور Storybook کی تیاری کے دوران جب بھی وہ تبدیل ہوتی ہیں تو خود بخود ڈکشنریوں کو دوبارہ تیار کرتا ہے۔
-
----
 
 </Step>
 
@@ -256,8 +250,6 @@ bun add intlayer react-intlayer
 bun add @intlayer/webpack --dev
 ```
 
----
-
 </Step>
 
 <Step number={2} title="Intlayer کنفیگریشن فائل بنائیں">
@@ -279,8 +271,6 @@ const config: IntlayerConfig = {
 
 export default config;
 ```
-
----
 
 </Step>
 
@@ -308,8 +298,6 @@ const config: StorybookConfig = {
 
 export default config;
 ```
-
----
 
 </Step>
 

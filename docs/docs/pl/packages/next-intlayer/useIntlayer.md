@@ -178,6 +178,9 @@ const ServerComponentExample: FC = () => {
 };
 ```
 
+ </Tab>
+</Tabs>
+
 ## Obsługa lokalizacji atrybutów
 
 Aby lokalizować atrybuty takie jak `alt`, `title`, `href`, `aria-label` itp., upewnij się, że poprawnie odwołujesz się do zawartości:

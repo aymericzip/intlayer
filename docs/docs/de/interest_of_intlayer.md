@@ -39,7 +39,6 @@ author: aymericzip
 Im Vergleich zu führenden Lösungen wie `next-intl` oder `i18next` bietet Intlayer integrierte Optimierungen wie:
 
 <AccordionGroup>
-
 <Accordion header="Bundle-Größe">
 
 Anstatt massive JSON-Dateien in Ihre Seiten zu laden, laden Sie nur die tatsächlich benötigten Inhalte. Intlayer hilft Ihnen dabei, **Ihre Bundle- und Seitengrößen um bis zu 50 % zu reduzieren**.

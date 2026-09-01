@@ -33,6 +33,15 @@ To use plural content in Next.js Client Components, retrieve it via the `useIntl
 
 To use plural content in Angular components, retrieve it via the `useIntlayer` hook and call it with a count. Here's an example:
 
+## When to Use `plural` vs `enu`
+
+| Use case                                                                 | Helper   |
+| ------------------------------------------------------------------------ | -------- |
+| Locale-aware grammatical plural forms (one apple / two apples / 5 яблок) | `plural` |
+| Custom numeric ranges (`<5`, `>=10`) or non-CLDR buckets                 | `enu`    |
+
+If you only target English (which has just `one` / `other`), either works. For any language with `few` / `many` / `two` distinctions, prefer `plural`.
+
 ## Setting Up Plural Content
 
 To set up plural content in your Intlayer project, create a content module that uses the `plural` helper. The `other` category is required and is used as the fallback when a locale doesn't define a more specific category.

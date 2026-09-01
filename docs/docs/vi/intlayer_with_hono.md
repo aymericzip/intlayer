@@ -303,8 +303,9 @@ Khuyên bạn nên bỏ qua các tệp do Intlayer tạo ra. Điều này cho ph
 
 <Question title="Những giải pháp khác nhau nào có sẵn để quốc tế hóa ứng dụng Hono?">
 
-- **Các đối tượng ánh xạ cơ bản**: không có an toàn kiểu dữ liệu và độ linh hoạt.
-- **`Intlayer`**: hoạt động hoàn hảo trên Cloudflare Workers, Fastly, Deno, Bun và Node.js, biên dịch lúc build, độ trễ bằng không.
+Hono không có lớp i18n riêng, vì vậy các tùy chọn là một thư viện chung như `i18next` được nối thủ công vào một middleware, hoặc `Intlayer` thông qua `hono-intlayer`, giúp đăng ký middleware cho bạn, phân giải locale theo từng yêu cầu và chia sẻ cùng nội dung đã khai báo như frontend của bạn.
+
+Lý do để quốc tế hóa backend là phần lớn văn bản mà người dùng đọc không bao giờ đi qua frontend: thông báo lỗi API, email giao dịch, thông báo push, SMS và xuất PDF. Những nội dung này cần ngôn ngữ của người nhận, được giải quyết theo từng yêu cầu thay vì theo từng phiên.
 
 Xem [lý do chọn Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/interest_of_intlayer.md).
 

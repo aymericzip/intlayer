@@ -53,7 +53,6 @@ author: aymericzip
 So với các giải pháp chính như `next-intl` hay `i18next`, Intlayer là giải pháp đi kèm với các tính năng tối ưu hóa tích hợp như:
 
 <AccordionGroup>
-
 <Accordion header="Phạm vi bảo hiểm đầy đủ của Next.js">
 
 Intlayer được tối ưu hóa để hoạt động với **Thành phần máy chủ** nhằm hiển thị hiệu quả và hoàn toàn tương thích với [**Turbopack**](https://nextjs.org/docs/architecture/turbopack). Nó không chặn hiển thị tĩnh và cung cấp phần mềm trung gian cũng như tất cả các tính năng cần thiết để mở rộng quy mô quốc tế hóa (i18n).
@@ -133,7 +132,6 @@ Không chỉ là giải pháp i18n, Intlayer còn cung cấp **[trình chỉnh s
 Xem [Mẫu Ứng Dụng](https://github.com/aymericzip/intlayer-next-14-template) trên GitHub.
 
 <Steps>
-
 <Step number={1} title="Cài Đặt Các Phụ Thuộc">
 
 Cài đặt các gói cần thiết bằng npm:
@@ -183,7 +181,6 @@ bun add intlayer next-intlayer
   Gói tích hợp Intlayer với Next.js. Nó cung cấp các context provider và hook cho việc quốc tế hóa trong Next.js. Ngoài ra, nó bao gồm plugin Next.js để tích hợp Intlayer với [Webpack](https://webpack.js.org/) hoặc [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack), cũng như middleware để phát hiện ngôn ngữ ưu tiên của người dùng, quản lý cookie, và xử lý chuyển hướng URL.
 
 </Step>
-
 <Step number={2} title="Cấu hình Dự án của Bạn">
 
 Here is the final structure that we will make:
@@ -237,7 +234,6 @@ export default config;
 > Thông qua tệp cấu hình này, bạn có thể thiết lập URL địa phương hóa, chuyển hướng middleware, tên cookie, vị trí và phần mở rộng của các khai báo nội dung của bạn, tắt các bản ghi Intlayer trong console, và nhiều hơn nữa. Để xem danh sách đầy đủ các tham số có sẵn, hãy tham khảo [tài liệu cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md).
 
 </Step>
-
 <Step number={3} title="Tích hợp Intlayer vào Cấu hình Next.js của Bạn">
 
 Cấu hình thiết lập Next.js của bạn để sử dụng Intlayer:
@@ -263,7 +259,6 @@ export default withIntlayer(nextConfig);
 > ```
 
 </Step>
-
 <Step number={4} title="Cấu hình Middleware để Phát hiện Ngôn ngữ">
 
 Thiết lập middleware để phát hiện ngôn ngữ ưu tiên của người dùng:
@@ -299,7 +294,6 @@ export const middleware = multipleMiddlewares([
 ```
 
 </Step>
-
 <Step number={5} title="Định nghĩa các tuyến đường ngôn ngữ động">
 
 Xóa tất cả nội dung trong `RootLayout` và thay thế bằng đoạn mã sau:
@@ -321,7 +315,7 @@ export default RootLayout;
 Để triển khai dynamic routing, cung cấp đường dẫn cho locale bằng cách thêm một layout mới trong thư mục `[locale]` của bạn:
 
 <Tabs>
- <Tab label='Intlayer >=9.4' value='>=9.4'>
+<Tab label='Intlayer >=9.4' value='>=9.4'>
 
 ```tsx fileName="src/app/[locale]/layout.tsx" codeFormat={["typescript", "esm"]}
 import { type Next14LayoutIntlayer } from "next-intlayer";
@@ -347,8 +341,8 @@ export default LocaleLayout;
 
 > Một `IntlayerProvider` duy nhất bao phủ cả hai nửa của cây: nó seeds the request-scoped server context được đọc bởi các server hooks, và mounts the client provider để các client components nhận cùng một locale.
 
- </Tab>
- <Tab label='Intlayer <9.4' value='<9.4'>
+</Tab>
+<Tab label='Intlayer <9.4' value='<9.4'>
 
 ```tsx fileName="src/app/[locale]/layout.tsx" codeFormat={["typescript", "esm"]}
 import { type Next14LayoutIntlayer, IntlayerProvider } from "next-intlayer";
@@ -371,7 +365,7 @@ const LocaleLayout: Next14LayoutIntlayer = ({
 export default LocaleLayout;
 ```
 
- </Tab>
+</Tab>
 </Tabs>
 
 > Đoạn đường dẫn `[locale]` được sử dụng để xác định locale. Ví dụ: `/en-US/about` sẽ tham chiếu đến `en-US` và `/fr/about` sẽ tham chiếu đến `fr`.
@@ -396,7 +390,6 @@ export default LocaleLayout;
 > `generateStaticParams` đảm bảo rằng ứng dụng của bạn sẽ tiền xây dựng các trang cần thiết cho tất cả các locale, giảm thiểu tính toán khi chạy và cải thiện trải nghiệm người dùng. Để biết thêm chi tiết, tham khảo [tài liệu Next.js về generateStaticParams](https://nextjs.org/docs/app/building-your-application/rendering/static-and-dynamic-rendering#generate-static-params).
 
 </Step>
-
 <Step number={6} title="Khai báo Nội dung của Bạn">
 
 Tạo và quản lý các khai báo nội dung để lưu trữ bản dịch:
@@ -451,13 +444,12 @@ export default pageContent;
 > Để biết thêm chi tiết, tham khảo [tài liệu khai báo nội dung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/content_file.md).
 
 </Step>
-
 <Step number={7} title="Sử dụng Nội dung trong Mã của Bạn">
 
 Truy cập các từ điển nội dung của bạn trong toàn bộ ứng dụng:
 
 <Tabs>
- <Tab label='Intlayer >=9.4' value='>=9.4'>
+<Tab label='Intlayer >=9.4' value='>=9.4'>
 
 ```tsx fileName="src/app/[locale]/page.tsx" codeFormat={["typescript", "esm"]}
 import { ClientComponentExample } from "@components/ClientComponentExample";
@@ -487,8 +479,8 @@ export default Page;
 - **`IntlayerProvider`** được gắn kết một lần, trong locale layout. Nó cung cấp locale cho cả server và client components, vì vậy các trang không còn phải tự gói bọc nữa.
 - Server hooks giải quyết locale theo thứ tự này: locale được truyền tại call site, sau đó là server context được seed bởi provider, sau đó là locale được mang theo request (header `x-intlayer-locale` được set bởi Intlayer proxy, sau đó là locale cookie). Bước cuối cùng này là những gì giữ cho nội dung chính xác trên client-side navigation mà chỉ re-render page segment, nơi layout — và cùng với nó provider — không chạy lại.
 
- </Tab>
- <Tab label='Intlayer <9.4' value='<9.4'>
+</Tab>
+<Tab label='Intlayer <9.4' value='<9.4'>
 
 ```tsx fileName="src/app/[locale]/page.tsx" codeFormat={["typescript", "esm"]}
 import { ClientComponentExample } from "@components/ClientComponentExample";
@@ -524,6 +516,9 @@ export default Page;
 
   > Layout và trang không thể chia sẻ một ngữ cảnh server chung vì hệ thống ngữ cảnh server dựa trên kho dữ liệu theo từng yêu cầu (qua cơ chế [React’s cache](https://react.dev/reference/react/cache)), khiến mỗi “ngữ cảnh” được tạo lại cho các phân đoạn khác nhau của ứng dụng. Việc đặt provider trong một layout dùng chung sẽ phá vỡ sự cô lập này, ngăn cản việc truyền đúng các giá trị ngữ cảnh server đến các component server của bạn.
 
+</Tab>
+</Tabs>
+
 ```tsx {4,7} fileName="src/components/ClientComponentExample.tsx" codeFormat={["typescript", "esm"]}
 "use client";
 
@@ -543,7 +538,7 @@ const ClientComponentExample: FC = () => {
 ```
 
 <Tabs>
- <Tab label='Intlayer >=9.4' value='>=9.4'>
+<Tab label='Intlayer >=9.4' value='>=9.4'>
 
 ```tsx {2} fileName="src/components/ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
@@ -563,8 +558,8 @@ const ServerComponentExample: FC = () => {
 
 > `next-intlayer` là đường dẫn import đẳng cấu: điều kiện xuất `react-server` cung cấp cho các server components triển khai ambient-locale, trong khi các client components nhận được triển khai dựa trên context. Lệnh gọi tương tự hoạt động trên cả hai phía.
 
- </Tab>
- <Tab label='Intlayer <9.4' value='<9.4'>
+</Tab>
+<Tab label='Intlayer <9.4' value='<9.4'>
 
 ```tsx {2} fileName="src/components/ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
@@ -582,7 +577,7 @@ const ServerComponentExample: FC = () => {
 };
 ```
 
- </Tab>
+</Tab>
 </Tabs>
 
 > Nếu bạn muốn sử dụng nội dung của mình trong một thuộc tính `string`, chẳng hạn như `alt`, `title`, `href`, `aria-label`, v.v., bạn phải gọi giá trị của hàm, như sau:
@@ -596,7 +591,6 @@ const ServerComponentExample: FC = () => {
 > Để tìm hiểu thêm về hook `useIntlayer`, hãy tham khảo [tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/next-intlayer/useIntlayer.md).
 
 </Step>
-
 <Step number={8} title="Quốc tế hóa metadata của bạn" isOptional={true}>
 
 Trong trường hợp bạn muốn quốc tế hóa metadata của mình, chẳng hạn như tiêu đề trang, bạn có thể sử dụng hàm `generateMetadata` do Next.js cung cấp. Bên trong, bạn có thể lấy nội dung từ hàm `getIntlayer` để dịch metadata của bạn.
@@ -699,7 +693,6 @@ export const generateMetadata = ({
 > Tìm hiểu thêm về tối ưu hóa metadata [trong tài liệu chính thức của Next.js](https://nextjs.org/docs/app/building-your-application/optimizing/metadata).
 
 </Step>
-
 <Step number={9} title="Quốc tế hóa sitemap.xml và robots.txt của bạn" isOptional={true}>
 
 Để quốc tế hóa `sitemap.xml` và `robots.txt` của bạn, bạn có thể sử dụng hàm `getMultilingualUrls` do Intlayer cung cấp. Hàm này cho phép bạn tạo các URL đa ngôn ngữ cho sitemap của mình.
@@ -766,7 +759,6 @@ export default robots;
 > Tìm hiểu thêm về tối ưu hóa sitemap [trong tài liệu chính thức của Next.js](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap). Tìm hiểu thêm về tối ưu hóa robots.txt [trong tài liệu chính thức của Next.js](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/robots).
 
 </Step>
-
 <Step number={10} title="Thay đổi ngôn ngữ nội dung của bạn" isOptional={true}>
 
 Để thay đổi ngôn ngữ của nội dung trong Next.js, cách được khuyến nghị là sử dụng component `Link` để chuyển hướng người dùng đến trang đã được địa phương hóa phù hợp. Component `Link` cho phép tải trước trang, giúp tránh việc tải lại toàn bộ trang.
@@ -858,7 +850,6 @@ return (
 > - [`thuộc tính aria-current`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
 </Step>
-
 <Step number={11} title="Tạo một Component Link Đa Ngôn Ngữ" isOptional={true}>
 
 Để đảm bảo rằng điều hướng trong ứng dụng của bạn tuân thủ ngôn ngữ hiện tại, bạn có thể tạo một component `Link` tùy chỉnh. Component này tự động thêm tiền tố ngôn ngữ hiện tại vào các URL nội bộ. Ví dụ, khi một người dùng nói tiếng Pháp nhấp vào liên kết đến trang "About", họ sẽ được chuyển hướng đến `/fr/about` thay vì `/about`.
@@ -930,7 +921,6 @@ Link.displayName = "Link";
 Bằng cách tích hợp component `Link` này trong toàn bộ ứng dụng của bạn, bạn duy trì trải nghiệm người dùng nhất quán và nhận biết ngôn ngữ đồng thời cải thiện SEO và khả năng sử dụng.
 
 </Step>
-
 <Step number={12} title="Lấy ngôn ngữ hiện tại trong Server Actions" isOptional={true}>
 
 Nếu bạn cần lấy locale đang hoạt động bên trong một Server Action (ví dụ: để địa phương hóa email hoặc chạy logic nhận biết locale), hãy gọi `getLocale` từ `next-intlayer/server`:
@@ -957,7 +947,6 @@ export const myServerAction = async () => {
 > Điều này đảm bảo locale phù hợp nhất được chọn dựa trên ngữ cảnh có sẵn.
 
 </Step>
-
 <Step number={13} title="Tối ưu kích thước bundle của bạn" isOptional={true}>
 
 Khi sử dụng `next-intlayer`, các từ điển được bao gồm trong bundle cho mỗi trang theo mặc định. Để tối ưu kích thước bundle, Intlayer cung cấp một plugin SWC tùy chọn thay thế thông minh các lệnh gọi `useIntlayer` bằng cách sử dụng macro. Điều này đảm bảo các từ điển chỉ được bao gồm trong các bundle của những trang thực sự sử dụng chúng.
@@ -985,8 +974,8 @@ bun add @intlayer/swc --dev
 > Lưu ý: Gói này không được cài đặt mặc định vì các plugin SWC vẫn đang trong giai đoạn thử nghiệm trên Next.js. Điều này có thể thay đổi trong tương lai.
 
 > Lưu ý: Nếu bạn đặt tùy chọn là `importMode: 'dynamic'` hoặc `importMode: 'fetch'` (in the `dictionary` configuration), nó sẽ dựa vào Suspense, vì vậy bạn sẽ phải bao bọc các lệnh gọi `useIntlayer` của mình trong một vùng `Suspense`. Điều đó có nghĩa là bạn sẽ không thể sử dụng `useIntlayer` trực tiếp ở cấp trên cùng của thành phần Page / Layout của bạn.
-> </Step>
 
+</Step>
 </Steps>
 
 ### Cấu hình TypeScript
@@ -1044,6 +1033,8 @@ Tiện ích mở rộng này cung cấp:
 <FAQ>
 
 <Question title="Những giải pháp khác nhau nào có sẵn để quốc tế hóa ứng dụng Next.js 14?">
+
+Trường `i18n` của `next.config.js` không áp dụng cho App Router, do đó lớp bản địa hóa luôn là một lựa chọn thư viện:
 
 - **`next-intl`**: thư viện tin nhắn phổ biến cho App Router, tải tệp JSON ở runtime.
 - **`next-i18next`**: giải pháp truyền thống cho Pages Router.

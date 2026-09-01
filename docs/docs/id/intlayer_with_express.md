@@ -284,9 +284,9 @@ Untuk melakukannya, Anda dapat menambahkan instruksi berikut ke file `.gitignore
 
 <Question title="Apa saja solusi berbeda yang tersedia untuk menginternasionalkan aplikasi Express?">
 
-- **`i18next` / `i18next-http-middleware`**: solusi runtime umum dengan file JSON.
-- **Kamus manual**: tanpa typing atau alat otomatis.
-- **`Intlayer`**: middleware `express-intlayer`, typing TypeScript lengkap, terjemahan AI, CMS, dan kamus bersama dengan frontend.
+Opsi historisnya adalah `i18next` dengan `i18next-http-middleware`, yang memuat katalog JSON per namespace dan menyimpan locale pada permintaan. Alternatifnya adalah `Intlayer` melalui `express-intlayer`, yang mendeklarasikan konten dalam file bertipe yang dibagikan dengan frontend Anda, menyelesaikan locale per permintaan, dan menambahkan terjemahan AI serta CMS.
+
+Alasan menginternasionalkan backend adalah karena sebagian besar teks yang dibaca pengguna tidak pernah melewati frontend: pesan kesalahan API, email transaksional, notifikasi push, SMS, dan ekspor PDF. Semua ini memerlukan bahasa penerima, yang diselesaikan per permintaan daripada per sesi.
 
 Lihat [mengapa Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/interest_of_intlayer.md).
 

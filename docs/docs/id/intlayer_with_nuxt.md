@@ -41,7 +41,6 @@ author: aymericzip
 Dibandingkan dengan solusi utama seperti `@nuxtjs/i18n` atau `i18next`, Intlayer adalah solusi yang hadir dengan pengoptimalan terintegrasi seperti:
 
 <AccordionGroup>
-
 <Accordion header="Cakupan Nuxt penuh">
 
 Intlayer dioptimalkan untuk bekerja sempurna dengan Nuxt dengan menawarkan **perutean multibahasa**, **middleware untuk deteksi lokal**, **peta situs**, dan semua fitur yang diperlukan untuk penskalaan internasionalisasi (i18n).
@@ -691,6 +690,8 @@ Untuk melangkah lebih jauh, Anda dapat mengimplementasikan [editor visual](https
 <FAQ>
 
 <Question title="Apa saja solusi berbeda yang tersedia untuk menginternasionalkan aplikasi Nuxt?">
+
+Dua opsi realistis:
 
 - **`@nuxtjs/i18n`**: modul standar berbasis `vue-i18n`.
 - **`Intlayer`**: tree-shaking otomatis, typing TypeScript lengkap, AI terjemahan, visual editor, dan CMS.

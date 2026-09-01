@@ -47,7 +47,6 @@ author: aymericzip
 По сравнению с основными решениями, такими как «react-i18next» или «i18next», Intlayer предлагает решение, которое включает в себя встроенные оптимизации, такие как:
 
 <AccordionGroup>
-
 <Accordion header="Полное покрытие TanStack Start">
 
 Intlayer оптимизирован для идеальной работы с TanStack Start и Solid, предлагая **многоязычную маршрутизацию**, **карту сайта** и все функции, необходимые для масштабирования интернационализации (i18n).
@@ -567,8 +566,6 @@ const RootComponent: ParentComponent = (props) => {
 };
 ```
 
----
-
 </Step>
 
 <Step number={12} title="Добавление промежуточного ПО">
@@ -604,8 +601,6 @@ export default defineConfig({
   ],
 });
 ```
-
----
 
 </Step>
 
@@ -800,8 +795,6 @@ export const Route = createFileRoute("/{-$locale}/")({
 | Клиентские переходы | разрешать нечего       | выполняется заново при каждом совпадении | отдаётся из кэша роутера                 |
 | DX                  | самый простой          | один `await`                             | контент прокидывается через `loaderData` |
 
----
-
 </Step>
 
 <Step number={13} title="Получение локали в ваших серверных действиях">
@@ -838,8 +831,6 @@ export const getLocaleServer = createServerFn().handler(async () => {
   return { locale, content };
 });
 ```
-
----
 
 </Step>
 
@@ -1032,8 +1023,6 @@ bun run build # Или bun run dev
  </Tab>
 </Tabs>
 
----
-
 </Step>
 
 <Step number={16} title="Генерация карты сайта (Sitemap)" isOptional={true}>
@@ -1107,8 +1096,6 @@ export const Route = createFileRoute("/sitemap.xml")({
 });
 ```
 
----
-
 </Step>
 
 <Step number={17} title="Настройка TypeScript">
@@ -1126,8 +1113,6 @@ Intlayer использует расширение модулей (module augmen
   ],
 }
 ```
-
----
 
 </Step>
 

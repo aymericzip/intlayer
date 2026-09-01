@@ -35,7 +35,6 @@ Intlayer는 백엔드 통합을 통해 이를 커버합니다. 백엔드 통합�
 ## htmx 앱에서 i18n의 세 가지 규칙
 
 <AccordionGroup>
-
 <Accordion header="Locale은 첫 번째 요청뿐만 아니라 모든 요청에서 결정되어야 합니다">
 
 단일 페이지는 수십 개의 swap을 트리거할 수 있습니다. 각각은 그것을 발행한 페이지의 메모리가 없는 새로운 요청입니다. locale이 초기 렌더링 중에 설정된 변수에 존재한다면, 그 이후의 모든 fragment는 기본 언어로 폴백됩니다.
@@ -55,7 +54,6 @@ htmx와 함께 작동하는 두 가지 carrier가 있습니다. cookie (`INTLAYE
 fragment로 보간된 번역 값은 마크업입니다. 다른 동적 값처럼 정확히 이스케이프하세요. 그래야 `<`를 포함하는 번역이 교환되는 문서를 손상시킬 수 없습니다.
 
 </Accordion>
-
 </AccordionGroup>
 
 ---

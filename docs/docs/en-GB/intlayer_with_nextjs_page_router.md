@@ -67,7 +67,6 @@ author: aymericzip
 Compared to main solutions like `next-intl` or `i18next`, Intlayer is a solution that comes with integrated optimizations such as:
 
 <AccordionGroup>
-
 <Accordion header="Full Next.js coverage">
 
 Intlayer is optimized to work with **Server Components** for efficient rendering and is fully compatible with [**Turbopack**](https://nextjs.org/docs/architecture/turbopack). It does not block static rendering and offers middleware as well as all the features needed for scaling internationalization (i18n).
@@ -214,11 +213,22 @@ export default withIntlayer(nextConfig);
 
 > The `withIntlayer()` Next.js plugin is used to integrate Intlayer with Next.js. It ensures the building of content declaration files and monitors them in development mode. It defines Intlayer environment variables within the [Webpack](https://webpack.js.org/) or [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack) environments. Additionally, it provides aliases to optimise performance and ensures compatibility with server components.
 
+> The `withIntlayer()` function is a promise function. If you want to use it with other plugins, you can await it. Example:
+>
+> ```tsx
+> const nextConfig = await withIntlayer(nextConfig);
+> const nextConfigWithOtherPlugins = withOtherPlugins(nextConfig);
+>
+> export default nextConfigWithOtherPlugins;
+> ```
+
 </Step>
 
 <Step number={4} title="Configure Middleware for Locale Detection">
 
 Set up middleware to automatically detect and handle the user's preferred locale:
+
+> Since Intlayer v9, this middleware respects the `routing.enableProxy` option (`true` by default). Set `routing.enableProxy: false` in your configuration to turn it into a pass-through without removing this file. See the [v9 release notes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/releases/v9.md).
 
 ```typescript fileName="src/middleware.ts" codeFormat={["typescript", "esm", "commonjs"]}
 export { intlayerProxy as middleware } from "next-intlayer/middleware";
@@ -266,32 +276,6 @@ Implement dynamic routing to serve localised content based on the user's locale.
 
         export default MyApp;
         ```
-
-        ```jsx fileName="src/pages/_app.mjx" codeFormat="esm"
-        import { IntlayerClientProvider } from "next-intlayer";
-
-        const App = ({ Component, pageProps }) => (
-          <IntlayerClientProvider locale={locale}>
-            <Component {...pageProps} />
-          </IntlayerClientProvider>
-        );
-
-        export default App;
-        ```
-
-        ```jsx fileName="src/pages/_app.csx" codeFormat="commonjs"
-
-    const { IntlayerClientProvider } = require("next-intlayer");
-
-const App = ({ Component, pageProps }) => (
-<IntlayerClientProvider locale={locale}>
-<Component {...pageProps} />
-</IntlayerClientProvider>
-);
-
-module.exports = App;
-
-````
 
 3.  **Set Up `getStaticPaths` and `getStaticProps`:**
 
@@ -420,7 +404,7 @@ const homeContent = {
 } satisfies Dictionary;
 
 export default homeContent;
-````
+```
 
 ```json fileName="src/pages/[locale]/home.content.json" contentDeclarationFormat="json"
 {
@@ -481,21 +465,6 @@ export default HomePage;
 
 ```jsx fileName="src/components/ComponentExample.mjx" codeFormat="esm"
 import { useIntlayer } from "next-intlayer";
-
-const ComponentExample = () => {
-  const content = useIntlayer("component-example"); // Ensure you have a corresponding content declaration
-
-  return (
-    <div>
-      <h2>{content.title}</h2>
-      <p>{content.content}</p>
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/ComponentExample.csx" codeFormat="commonjs"
-const { useIntlayer } = require("next-intlayer");
 
 const ComponentExample = () => {
   const content = useIntlayer("component-example"); // Ensure you have a corresponding content declaration

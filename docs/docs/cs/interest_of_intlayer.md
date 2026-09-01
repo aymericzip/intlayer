@@ -39,7 +39,6 @@ author: aymericzip
 Ve srovnání s hlavními řešeními jako `next-intl` nebo `i18next` je Intlayer řešením, které přichází s integrovanými optimalizacemi, jako jsou:
 
 <AccordionGroup>
-
 <Accordion header="Velikost balíčku (Bundle size)">
 
 Místo načítání obrovských souborů JSON do vašich stránek načtěte pouze nezbytný obsah. Intlayer pomáhá **snížit velikost vašeho balíčku a stránek až o 50 %**.

@@ -42,7 +42,6 @@ author: aymericzip
 En comparación con soluciones principales como `react-i18next` o `i18next`, Intlayer es una solución que viene con optimizaciones integradas como:
 
 <AccordionGroup>
-
 <Accordion header="Soporte completo de Vite y React">
 
 Intlayer está optimizado para funcionar perfectamente con Vite y React al ofrecer **alcance del contenido a nivel de componente**, **traducciones cargadas de forma diferida** y todas las funciones necesarias para escalar la internacionalización (i18n).
@@ -604,8 +603,6 @@ const LocaleSwitcher: FC = () => {
 > - [`aria-current` attribute](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
 A continuación se muestra el **Paso 9** actualizado con explicaciones añadidas y ejemplos de código refinados:
-
----
 
 </Step>
 

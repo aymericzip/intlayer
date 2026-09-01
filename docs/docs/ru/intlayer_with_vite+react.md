@@ -42,7 +42,6 @@ author: aymericzip
 По сравнению с основными решениями, такими как «react-i18next» или «i18next», Intlayer — это решение, которое включает в себя встроенные оптимизации, такие как:
 
 <AccordionGroup>
-
 <Accordion header="Полное покрытие Vite и React">
 
 Intlayer оптимизирован для идеальной работы с Vite и React, предлагая **охват контента на уровне компонентов**, **отложенные переводы** и все функции, необходимые для масштабирования интернационализации (i18n).
@@ -608,8 +607,6 @@ const LocaleSwitcher: FC = () => {
 
 Ниже приведён обновлённый **Шаг 9** с дополнительными объяснениями и уточнёнными примерами кода:
 
----
-
 </Step>
 
 <Step number={9} title="Переключение атрибутов языка и направления в теге HTML" isOptional={true}>
@@ -758,11 +755,10 @@ Link.displayName = "Link";
   Компонент возвращает элемент `<a>` с локализованным URL, обеспечивая согласованную навигацию в соответствии с выбранной локалью.
 
 Интегрируя этот компонент `Link` по всему вашему приложению, вы поддерживаете последовательный и ориентированный на язык пользовательский опыт, а также получаете преимущества улучшенного SEO и удобства использования.
-</Step>
 
 </Step>
 
-<Step number={1} title="Извлечение содержимого ваших компонентов" isOptional={true}>
+<Step number={11} title="Извлечение содержимого ваших компонентов" isOptional={true}>
 
 Если у вас есть существующая кодовая база, преобразование тысяч файлов может занять много времени.
 
@@ -801,9 +797,6 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-<Tabs>
- <Tab value='Команда извлечения'>
-
 Запустите экстрактор для преобразования компонентов и извлечения содержимого
 
 ```bash packageManager="npm"
@@ -821,9 +814,6 @@ yarn intlayer extract
 ```bash packageManager="bun"
 bun x intlayer extract
 ```
-
- </Tab>
- <Tab value='Компилятор Babel'>
 
 > Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
 
@@ -857,8 +847,6 @@ yarn build # Or yarn dev
 bun run build # Or bun run dev
 ```
 
- </Tab>
-</Tabs>
 </Step>
 
 </Steps>

@@ -90,8 +90,6 @@ bun add vite-intlayer --dev
 | `react-intlayer` | React-bindingen - `IntlayerProvider`, `useIntlayer` hook       |
 | `vite-intlayer`  | Vite-plugin - bewaakt en compileert inhoudsdeclaratiebestanden |
 
----
-
 </Step>
 
 <Step number={2} title="Een Intlayer-configuratie aanmaken">
@@ -120,8 +118,6 @@ export default config;
 ```
 
 > Zie voor de volledige lijst met opties de [configuratiereferentie](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/configuration.md).
-
----
 
 </Step>
 
@@ -169,8 +165,6 @@ export default config;
 ```
 
 De `intlayer()` plugin bewaakt uw `*.content.ts` bestanden and bouwt automatisch woordenboeken opnieuw op wanneer ze veranderen tijdens de Storybook-ontwikkeling.
-
----
 
 </Step>
 
@@ -256,8 +250,6 @@ bun add intlayer react-intlayer
 bun add @intlayer/webpack --dev
 ```
 
----
-
 </Step>
 
 <Step number={2} title="Een Intlayer-configuratie aanmaken">
@@ -279,8 +271,6 @@ const config: IntlayerConfig = {
 
 export default config;
 ```
-
----
 
 </Step>
 
@@ -308,8 +298,6 @@ const config: StorybookConfig = {
 
 export default config;
 ```
-
----
 
 </Step>
 

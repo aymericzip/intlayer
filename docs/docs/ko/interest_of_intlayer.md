@@ -39,7 +39,6 @@ author: aymericzip
 `next-intl`이나 `i18next`와 같은 주요 솔루션과 비교할 때, Intlayer는 다음과 같은 통합된 최적화를 제공합니다:
 
 <AccordionGroup>
-
 <Accordion header="번들 크기">
 
 페이지에 대용량 JSON 파일을 로드하는 대신, 꼭 필요한 콘텐츠만 로드합니다. Intlayer는 **번들 및 페이지 크기를 최대 50%까지 줄이는 데** 기여합니다.

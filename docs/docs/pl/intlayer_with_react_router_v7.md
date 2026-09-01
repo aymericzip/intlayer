@@ -54,24 +54,23 @@ Ten przewodnik skupia się na routowaniu frontend. W przypadku routowania fs-rou
 W porównaniu do głównych rozwiązań, takich jak „react-i18next” lub „i18next”, Intlayer jest rozwiązaniem wyposażonym w zintegrowane optymalizacje, takie jak:
 
 <AccordionGroup>
-
-**Pełny zasięg routera React**
+<Accordion header="Pełny zasięg routera React">
 
 Intlayer jest zoptymalizowany do doskonałej współpracy z React Router, oferując **routing uwzględniający ustawienia lokalne**, **oprogramowanie pośredniczące do wykrywania ustawień regionalnych** i wszystkie funkcje potrzebne do skalowania internacjonalizacji (i18n).
 
 </Accordion>
 
-**Rozmiar bundle'a**
+<Accordion header="Rozmiar bundle'a">
 
 Zamiast ładować ogromne pliki JSON na swoje strony, ładuj tylko niezbędną treść. Intlayer pomaga **zmniejszyć rozmiary bundle'a i stron nawet o 50%**.
 
 </Accordion>
 
-**Łatwość konserwacji**
+<Accordion header="Łatwość konserwacji">
 
 Określanie zakresu zawartości aplikacji **ułatwia konserwację** aplikacji na dużą skalę. Możesz powielić lub usunąć pojedynczy folder funkcji bez obciążania psychicznego koniecznością przeglądania całej bazy kodu zawartości. Dodatkowo Inlayer jest **w pełni napisany**, aby zapewnić dokładność treści.
 
-**Agent AI**
+</Accordion>
 
 <Accordion header="AI Agent">
 
@@ -79,11 +78,11 @@ Wspólna lokalizacja treści **zmniejsza potrzebny kontekst** dzięki modelom du
 
 </Accordion>
 
-**Automatyzacja**
+<Accordion header="Automatyzacja">
 
 Korzystaj z automatyzacji, aby tłumaczyć w swoim potoku CI/CD przy użyciu wybranego LLM na koszt dostawcy sztucznej inteligencji. Intlayer oferuje także **kompilator** do automatyzacji ekstrakcji treści, a także [platformę internetową] (https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md), która pomaga **tłumaczyć w tle**.
 
-**Wydajność**
+</Accordion>
 
 <Accordion header="Wydajność">
 
@@ -91,11 +90,12 @@ Korzystaj z automatyzacji, aby tłumaczyć w swoim potoku CI/CD przy użyciu wyb
 
 </Accordion>
 
-**Skalowanie bez użycia dewelopera**
+<Accordion header="Skalowanie bez użycia dewelopera">
 
 Więcej niż tylko rozwiązanie i18n, Intlayer zapewnia **samodzielny [edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** i **[pełny CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)**, który pomoże Ci zarządzać wielojęzyczną treścią w **w czasie rzeczywistym**, dzięki czemu współpraca z tłumaczami, copywriterami i innymi członkami zespołu będzie płynna. Treść może być przechowywana lokalnie i/lub zdalnie.
 
 </Accordion>
+
 </AccordionGroup>
 
 ---
@@ -678,8 +678,6 @@ bun run build # Or bun run dev
  </Tab>
 </Tabs>
 
----
-
 </Step>
 
 </Steps>
@@ -732,257 +730,130 @@ For more details on how to use the extension, refer to the [Intlayer VS Code Ext
 
 ---
 
-## Odnośniki do dokumentacji
+## Idź dalej
 
-Aby uzyskać więcej informacji na temat funkcji i zaawansowanych konfiguracji:
-
-- [Dokumentacja Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/introduction.md)
-- [Konfiguracja Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md)
-- [Przewodnik po zawartości Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/content_extention.md)
-- [Dokumentacja React Router v7](https://reactrouter.com/)
+Aby pójść dalej, możesz wdrożyć [edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md) lub wyeksternalizować swoje treści za pomocą [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md).
 
 ---
+
+## Odnośniki do dokumentacji
+
+- [Dokumentacja Intlayer](https://intlayer.org)
+- [Dokumentacja React Router v7](https://reactrouter.com/)
+- [Hook useIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/react-intlayer/useIntlayer.md)
+- [Hook useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/react-intlayer/useLocale.md)
+- [Deklaracja zawartości](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/content_file.md)
+- [Konfiguracja](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md)
+
+Ten kompleksowy przewodnik zawiera wszystko, czego potrzebujesz, aby zintegrować Intlayer z React Router v7 w celu uzyskania w pełni umiędzynarodowionej aplikacji z routingiem uwzględniającym lokalizację i obsługą TypeScript.
 
 ## Często Zadawane Pytania
 
 <FAQ>
 
-<Question title="Jakie są różne rozwiązania dostępne do internacjonalizacji aplikacji React Router v7?">
+<Question title="Czym różnią się rozwiązania i18n dla React Router v7?">
 
-Do internacjonalizacji aplikacji React Router v7 możesz wybierać spośród kilku podejść:
+React Router v7 nie dostarcza warstwy komunikatów, więc łączy się go z biblioteką i18n:
 
-1. **Intlayer**: Nowoczesne, kompleksowe rozwiązanie oferujące deklaracje zawartości na poziomie komponentu, ścisłe bezpieczeństwo typów TypeScript, automatyczne generowanie słowników oraz wbudowane narzędzia dla edytora/AI (np. integrację z Edytorem Wizualnym i CMS). Obsługuje zarówno tryb biblioteki (SPA), jak i tryb frameworka React Router v7 (SSR, akcje i loadery).
-2. **react-i18next**: Dojrzały i powszechnie używany ekosystem oparty na formacie JSON. Wymaga manualnego zarządzania przestrzeniami nazw, kluczami tłumaczeń i oddzielnymi plikami JSON, z ograniczonym automatycznym wnioskowaniem typów w porównaniu do podejścia Intlayer opartego na schematach.
-3. **react-intl / FormatJS**: Skupia się na standardzie formatowania wiadomości ICU. Znakomicie radzi sobie z formatowaniem liczb, dat i zaawansowanymi regułami liczby mnogiej, ale wymaga manualnej konfiguracji pipeline'u wyodrębniania wiadomości.
-4. **Własne podejście oparte na kontekście (Context API)**: Prosty React Context przechowujący bieżącą lokalizację i mapę ciągów znaków. Odpowiedni tylko dla bardzo małych projektów ze względu na brak optymalizacji bundle'a, bezpieczeństwa typów czy zaawansowanych funkcji formatowania.
+- **`react-i18next` / `i18next`**: przestrzenie nazw JSON ładowane w czasie wykonywania, z osobnym detektorem lokalizacji podłączanym do routera.
+- **`react-intl`** i **`Lingui`**: komunikaty ICU z krokiem ekstrakcji.
+- **`Intlayer`**: zawartość deklarowana w dowolnym miejscu w bazie kodu ([obok każdego komponentu lub centralnie](https://intlayer.org/blog/per-component-vs-centralized-i18n)), kompilowana w czasie budowania, w pełni typowana, z pomocnikami routingu uwzględniającymi lokalizację, tłumaczeniem AI, edytorem wizualnym i CMS.
 
-</Question>
-
-<Question title="O ile i18n zwiększa rozmiar mojego bundle'a w React Router?">
-
-Wpływ na bundle zależy od wybranego narzędzia i strategii ładowania:
-
-- **Dzięki Intlayer**: Do bundle'a klienta dołączany jest jedynie minimalny runtime. Twoje deklaracje zawartości są kompilowane i mogą być dzielone na poziomie stron lub komponentów - użytkownicy pobierają tylko tłumaczenia dla bieżącej lokalizacji i aktualnie odwiedzanych tras.
-- **Tradycyjne biblioteki oparte na JSON**: Często ładują duże pliki JSON z tłumaczeniami na starcie, chyba że manualnie skonfigurujesz dynamiczny import i podział przestrzeni nazw na poziomie tras.
-- **W trybie frameworka React Router v7**: Dane słowników mogą być przekazywane przez `loader`, co całkowicie eliminuje potrzebę dołączania nieużywanych tłumaczeń do początkowego ładunku JavaScriptu.
+Zobacz [dlaczego Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/interest_of_intlayer.md) oraz [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/index.md).
 
 </Question>
 
-<Question title="Czy mogę zmigrować z react-i18next lub react-intl bez przepisywania moich komponentów?">
+<Question title="Ile i18n dodaje do rozmiaru bundle React Router?">
 
-Tak. Możesz przeprowadzić stopniową migrację:
-
-1. Zainstaluj `intlayer` i `react-intlayer`.
-2. Skonfiguruj `intlayer.config.ts` ze swoimi lokalizacjami.
-3. Przekształcaj swoje komponenty trasa po trasie lub komponent po komponencie - Intlayer może współistnieć z `react-i18next` lub `react-intl` podczas okresu przejściowego.
-4. Przekształć ciągi znaków `t('key')` na deklaracje `content.ts` i wywołania hooka `useIntlayer()`.
+Znacznie mniej niż konfiguracja oparta na przestrzeniach nazw, ponieważ strona nigdy nie pobiera katalogu, którego nie renderuje. Narzut renderowany po stronie serwera rozwiązuje zawartość na serwerze, a kompilator w czasie budowania zastępuje wywołania `useIntlayer` dokładnymi wpisami słownika, których używa komponent, dzięki czemu nieużywane klucze i nieużywane języki są usuwane, a [dynamiczne słowniki](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dynamic_dictionaries/index.md) dzielą resztę według lokalizacji. W porównaniu ze zwykłymi alternatywami Intlayer zmniejsza rozmiar bundle i stron nawet o 50%. Zobacz [optymalizację bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/bundle_optimization.md) oraz [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/index.md).
 
 </Question>
 
-<Question title="Czy mogę zachować moje istniejące pliki tłumaczeń JSON?">
+<Question title="Czy mogę migrować z `react-i18next` lub `react-intl` bez przepisywania komponentów?">
 
-Tak! Intlayer obsługuje deklaracje zawartości w plikach JSON (`.content.json`), a także w formatach TypeScript (`.content.ts`), JavaScript (`.content.mjs`) czy YAML. Jeśli masz już istniejące pliki JSON, możesz je zaadaptować do formatu słowników Intlayer, zachowując istniejącą strukturę kluczy i stopniowo dodając bezpieczeństwo typów.
+Tak, istnieją dwie ścieżki. Możesz migrować zawartość stopniowo za pomocą [przewodnika migracji z react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/migration_from_react-i18next_to_intlayer.md) lub [przewodnika migracji z i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/migration_from_i18next_to_intlayer.md). Albo możesz w pełni zachować obecne API: [adaptery kompatybilności](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compat/index.md) udostępniają dokładnie to samo API co `react-i18next`, `react-intl` i `i18next`, ale obsługiwane przez słowniki Intlayer, więc zmieniają się tylko importy, a kod komponentów pozostaje bez zmian.
 
 </Question>
 
-<Question title="Czy muszę przenosić moją zawartość klucz po kluczu?">
+<Question title="Czy mogę zachować istniejące pliki tłumaczeń JSON?">
 
-Nie. Ponieważ deklaracje zawartości Intlayer są zwykłymi obiektami JavaScript/TypeScript lub JSON, możesz przenieść całe sekcje swoich starych plików tłumaczeń jednocześnie. Możesz również zorganizować zawartość bezpośrednio w pobliżu komponentów, które z niej korzystają (deklaracja na poziomie komponentu), zamiast utrzymywać jeden gigantyczny, scentralizowany plik tłumaczeń.
+Tak. [Wtyczka sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/plugins/sync-json.md) utrzymuje pliki `/messages/{locale}/{namespace}.json` jako źródło prawdy i generuje z nich słowniki Intlayer w obu kierunkach. [Wtyczka sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/plugins/sync-po.md) robi to samo dla katalogów gettext, a [pliki dla poszczególnych lokalizacji](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/per_locale_file.md) pozwalają dzielić zawartość według języków zamiast grupować wszystkie lokalizacje w jednym pliku.
+
+</Question>
+
+<Question title="Czy muszę przenosić zawartość klucz po kluczu?">
+
+Nie. Uruchom `npx intlayer extract`, a Intlayer odczyta Twoje komponenty, wyciągnie ciągi widoczne dla użytkownika i zapisze plik `.content` obok każdego z nich, dzięki czemu przeglądasz diff zamiast kopiować ciągi do katalogu pojedynczo. Krok 12 tego przewodnika opisuje to szczegółowo.
+
+W przypadku w pełni zautomatyzowanego potoku [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compiler.md) robi to samo w czasie budowania: skanuje źródła JSX, TSX, Vue i Svelte przy każdej zmianie, generuje słowniki i utrzymuje je w synchronizacji za pośrednictwem HMR, więc nie ma żadnych kluczy do ręcznego utrzymywania.
+
+Warto znać dwa ograniczenia przed włączeniem kompilatora. Działa on na zasadzie analizy statycznej, więc ciągi istniejące tylko w czasie wykonywania, takie jak kody błędów API czy pola CMS, pozostają poza zasięgiem. Ponadto musi odróżniać tekst widoczny dla użytkownika od logiki aplikacji, takiej jak `className="active"` czy kod statusu, co wymaga kilku adnotacji w dużej bazie kodu. [Polecenie extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/extract.md) unika obu tych problemów.
 
 </Question>
 
 <Question title="Jakie narzędzia dla edytora i agentów AI są dostępne?">
 
-Intlayer oferuje:
+Pięć narzędzi, wszystkie opcjonalne:
 
-- **Edytor Wizualny**: Rozszerzenie przeglądarki i wbudowana nakładka umożliwiająca edycję tekstów bezpośrednio w działającej aplikacji z podglądem na żywo.
-- **Zintegrowany CMS**: Umożliwia zespołom nietechnicznym zarządzanie treścią bez konieczności wypychania kodu czy ponownego wdrażania aplikacji.
-- **Wsparcie CLI i agentów AI**: Narzędzie CLI Intlayer może audytować brakujące tłumaczenia, automatycznie wypełniać brakujące teksty przy użyciu modeli językowych i sprawdzać zgodność typów w potokach CI/CD.
+- **[Rozszerzenie VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/vs_code_extension.md)**: przejdź od klucza `useIntlayer` do pliku zawartości, który go deklaruje, wyodrębnij zawartość z komponentu i uruchamiaj build, fill, test, push i pull z palety poleceń lub dedykowanej karty Intlayer.
+- **[Serwer LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/lsp.md)**: te same możliwości w dowolnym edytorze obsługującym LSP: przejście do definicji, znajdowanie referencji, podgląd po najechaniu kursorem, autouzupełnianie kluczy i pól oraz ostrzeżenia, gdy klucz nie jest zadeklarowany. Rozpoznaje również wywołania `i18next`, `react-i18next`, `next-intl` i `use-intl`.
+- **[Serwer MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/mcp_server.md)**: udostępnia dokumentację i CLI Intlayer dla Cursor, VS Code, Claude Desktop, Claude Code i ChatGPT.
+- **[Umiejętności agentów](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/agent_skills.md)**: ukierunkowane umiejętności, takie jak `intlayer-config`, `intlayer-cli` i `intlayer-content`, plus jedna na framework.
+- **[Wtyczka ESLint](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/eslint.md)**: `no-raw-text` oznacza zakodowane na stałe ciągi znaków.
 
 </Question>
 
 <Question title="Jak dodać segment lokalizacji do moich tras?">
 
-W konfiguracji tras React Router v7 owiń swoje zlokalizowane trasy w parametr ścieżki `:locale`:
-
-```tsx
-// app/routes.ts
-import { type RouteConfig, route, index } from "@react-router/dev/routes";
-
-export default [
-  route(":locale?", "./routes/layout.tsx", [
-    index("./routes/home.tsx"),
-    route("about", "./routes/about.tsx"),
-  ]),
-] satisfies RouteConfig;
-```
-
-W komponencie layoutu lub middleware odczytaj parametr `:locale`, sprawdź jego poprawność względem skonfigurowanych lokalizacji i opakuj poddrzewo w `IntlayerProvider`:
-
-```tsx
-// app/routes/layout.tsx
-import { useParams, Outlet } from "react-router";
-import { IntlayerProvider } from "react-intlayer";
-import { configuration } from "intlayer";
-
-export default function AppLayout() {
-  const { locale } = useParams();
-  const validLocale = configuration.internationalization.locales.includes(
-    locale as any
-  )
-    ? locale
-    : configuration.internationalization.defaultLocale;
-
-  return (
-    <IntlayerProvider locale={validLocale}>
-      <Outlet />
-    </IntlayerProvider>
-  );
-}
-```
+Zadeklaruj segment `:locale` w drzewie tras i pozwól Intlayer go rozpoznać. `validatePrefix` informuje, czy segment jest zadeklarowaną lokalizacją, dzięki czemu nieznany prefiks zwraca 404 zamiast renderować zduplikowaną stronę, a `getLocalizedUrl` przepisuje dowolną ścieżkę na język docelowy. Jeśli używasz tras opartych na systemie plików, postępuj zgodnie z [wariantem tras z systemem plików](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_react_router_v7_fs_routes.md) tego przewodnika.
 
 </Question>
 
 <Question title="Czy muszę umieszczać lokalizację w adresie URL?">
 
-Nie. Choć umieszczanie lokalizacji w adresie URL (np. `/pl/about`) jest zalecane ze względów SEO, możesz również zarządzać lokalizacją za pośrednictwem:
-
-- **Ciasteczka (Cookie)**: Zapisuj preferencję językową w ciasteczku i odczytuj ją na serwerze lub kliencie.
-- **Nagłówka `Accept-Language`**: Wykrywaj preferowany język przeglądarki użytkownika w swoich loaderach.
-- **Pamięci lokalnej klienta (LocalStorage) lub stanu sesji**: Zarządzaj językiem w stanie po stronie klienta bez modyfikowania struktury URL (idealne dla chronionych paneli użytkownika lub intranetów).
+Nie. `routing.mode` akceptuje `"prefix-no-default"` (domyślnie), `"prefix-all"`, `"no-prefix"` oraz `"search-params"`, a `routing.domains` mapuje lokalizację na jej własną domenę. Lokalizacja jest zachowywana w pliku cookie w każdym przypadku. Zobacz [referencję konfiguracji](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md).
 
 </Question>
 
-<Question title="Czy to działa z React Routerem w trybie frameworka, z SSR i loaderami?">
+<Question title="Czy działa z React Router w trybie frameworka, z SSR i loaderami?">
 
-Tak! W trybie frameworka React Router v7 możesz wywoływać funkcje Intlayer wewnątrz funkcji `loader` i `action`:
-
-```tsx
-// app/routes/home.tsx
-import type { Route } from "./+types/home";
-import { getIntlayer } from "intlayer";
-import homeContent from "./home.content";
-
-export async function loader({ params }: Route.LoaderArgs) {
-  const content = getIntlayer(homeContent, params.locale);
-  return { title: content.title };
-}
-```
-
-Wewnątrz komponentów React nadal możesz używać `useIntlayer()` do renderowania po stronie klienta i hydratacji.
+Tak. Zawartość jest rozwiązywana podczas renderowania po stronie serwera, a aktywna lokalizacja jest dostępna w loaderach i akcjach, dzięki czemu dane serwera mogą być lokalizowane w tym samym przebiegu co strona. Nawigacja po stronie klienta zachowuje lokalizację bez pełnego przeładowania.
 
 </Question>
 
 <Question title="Jak dodać tagi hreflang dla SEO?">
 
-W trybie frameworka React Router wyeksportuj funkcję `meta` ze swojej trasy, aby dynamicznie wstrzykiwać linki canonical i hreflang:
-
-```tsx
-// app/routes/home.tsx
-import type { Route } from "./+types/home";
-import { configuration } from "intlayer";
-
-export function meta({ params }: Route.MetaArgs) {
-  const currentPath = "home"; // dynamicznie określ na podstawie bieżącej trasy
-  const baseUrl = "https://twojadomena.pl";
-
-  const hreflangLinks = configuration.internationalization.locales.map(
-    (loc) => ({
-      tagName: "link" as const,
-      rel: "alternate",
-      hrefLang: loc,
-      href: `${baseUrl}/${loc}/${currentPath}`,
-    })
-  );
-
-  return [
-    ...hreflangLinks,
-    {
-      tagName: "link" as const,
-      rel: "alternate",
-      hrefLang: "x-default",
-      href: `${baseUrl}/${configuration.internationalization.defaultLocale}/${currentPath}`,
-    },
-  ];
-}
-```
+Zbuduj mapę alternatyw za pomocą `getMultilingualUrls` i wyeksportuj ją z `meta` lub `links` swojej trasy, w tym wpis `x-default`. Ten sam pomocnik zasila zlokalizowany `sitemap.xml`.
 
 </Question>
 
-<Question title="Jak zbudować przełącznik języka, który pozostaje na bieżącej stronie?">
+<Question title="Jak zbudować przełącznik języków, który pozostaje na bieżącej stronie?">
 
-Użyj hooka `useLocation` i `useNavigate` z React Router, aby podmienić segment lokalizacji w bieżącym adresie URL:
-
-```tsx
-import { useLocation, useNavigate, useParams } from "react-router";
-import { Locales, configuration } from "intlayer";
-
-export function LocaleSwitcher() {
-  const location = useLocation();
-  const navigate = useNavigate();
-  const { locale: currentLocale } = useParams();
-
-  const handleLocaleChange = (newLocale: Locales) => {
-    // Podmień segment lokalizacji na początku ścieżki
-    const segments = location.pathname.split("/").filter(Boolean);
-    if (
-      configuration.internationalization.locales.includes(segments[0] as any)
-    ) {
-      segments[0] = newLocale;
-    } else {
-      segments.unshift(newLocale);
-    }
-    navigate(`/${segments.join("/")}${location.search}${location.hash}`);
-  };
-
-  return (
-    <select
-      value={currentLocale}
-      onChange={(e) => handleLocaleChange(e.target.value as Locales)}
-    >
-      {configuration.internationalization.locales.map((loc) => (
-        <option key={loc} value={loc}>
-          {loc}
-        </option>
-      ))}
-    </select>
-  );
-}
-```
+Użyj `useLocale` dla aktywnej i dostępnych lokalizacji oraz `getLocalizedUrl`, aby przetłumaczyć bieżącą ścieżkę na lokalizację docelową. Użytkownik pozostaje na tej samej trasie zamiast powracać do strony głównej, co zapobiega również utracie pozycji przewijania i parametrów zapytania.
 
 </Question>
 
 <Question title="Jak automatycznie przetłumaczyć aplikację za pomocą AI?">
 
-Narzędzie CLI Intlayer zawiera wbudowane komendy do tłumaczenia deklaracji zawartości za pomocą modeli sztucznej inteligencji:
-
-```bash
-npx intlayer trans
-```
-
-Ta komenda skanuje pliki `.content.ts`, identyfikuje brakujące tłumaczenia dla wszystkich skonfigurowanych lokalizacji i uzupełnia je automatycznie z zachowaniem kontekstu i formatowania.
+Uruchom `npx intlayer fill`, który uzupełnia brakujące tłumaczenia za pomocą wybranego LLM przy użyciu własnego dostawcy i klucza API. Zobacz [polecenie fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/fill.md) oraz [integrację CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/CI_CD.md).
 
 </Question>
 
-<Question title="Czy Intlayer obsługuje formy mnogie, płeć i sformatowany tekst (rich text)?">
+<Question title="Czy Intlayer obsługuje liczby mnogie, płeć i sformatowany tekst?">
 
-Tak:
-
-- **Liczba mnoga**: Użyj funkcji `t()`, aby zdefiniować warianty dla różnych wartości liczbowych lub precyzyjnych reguł gramatycznych.
-- **Płeć / Warunki**: Użyj instrukcji warunkowych lub dopasowania wzorców w swoich deklaracjach zawartości TypeScript.
-- **Sformatowany tekst (Rich Text / JSX)**: Wstawiaj komponenty JSX, elementy HTML lub węzły Markdown bezpośrednio do deklaracji zawartości bez konieczności stosowania skomplikowanych parserów.
+Tak: [formy liczby mnogiej](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/plurial.md), [treści oparte na płci](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/gender.md), warunki, [wstawki](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/insertion.md), [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/markdown.md) oraz [formatery](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/formatters.md) dla liczb, dat i walut.
 
 </Question>
 
 <Question title="Jak tłumacze mogą edytować treść bez dotykania kodu?">
 
-Intlayer udostępnia hostowany lub samodzielnie hostowany CMS oraz wbudowany Edytor Wizualny. Tłumacze i menedżerowie treści mogą edytować teksty w interfejsie graficznym. Zmiany mogą być zapisywane z powrotem w repozytorium kodu za pośrednictwem commitów Git lub synchronizowane przez API Intlayer CMS bez konieczności ponownego wdrażania.
+Za pośrednictwem hostowanego we własnym zakresie [edytora wizualnego](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md) lub [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md), który eksternalizuje treść, dzięki czemu może się zmieniać bez wdrożenia.
 
 </Question>
 
 <Question title="Czy Intlayer jest darmowy i open source?">
 
-Tak! Rdzeń Intlayer, biblioteki integracyjne (`react-intlayer`, `next-intlayer` itp.), narzędzie CLI oraz powiązane narzędzia programistyczne są w 100% open-source pod licencją MIT.
+Tak, na licencji Apache 2.0, w tym do użytku komercyjnego. Hostowany CMS to opcjonalna płatna usługa, którą można również [hostować samodzielnie](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/self_hosting.md).
 
 </Question>
 

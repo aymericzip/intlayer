@@ -46,7 +46,6 @@ Voir [Application Template](https://github.com/aymericzip/intlayer-react-cra-tem
 Par rapport aux principales solutions comme `react-i18next` ou `i18next`, Intlayer est une solution qui intègre des optimisations telles que :
 
 <AccordionGroup>
-
 <Accordion header="Couverture complète de React">
 
 **Intlayer** est une bibliothèque open-source innovante d'internationalisation (i18n) conçue pour simplifier la prise en charge multilingue dans les applications web modernes.
@@ -58,6 +57,8 @@ Par rapport aux principales solutions comme `react-i18next` ou `i18next`, Intlay
 Au lieu de charger des fichiers JSON massifs dans vos pages, chargez uniquement le contenu nécessaire. Intlayer vous aide à **réduire la taille de votre bundle et de vos pages jusqu'à 50%**.
 
 </Accordion>
+
+<Accordion header="Maintainability">
 
 Avec Intlayer, vous pouvez :
 

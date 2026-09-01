@@ -37,7 +37,6 @@ author: aymericzip
 So với các giải pháp chính như `storybook-react-i18next` hay `i18next`, Intlayer là giải pháp đi kèm với các tính năng tối ưu hóa tích hợp như:
 
 <AccordionGroup>
-
 <Accordion header="Giới thiệu đầy đủ về Truyện">
 
 Intlayer được tối ưu hóa để hoạt động hoàn hảo với Storybook bằng cách cung cấp **trình trang trí câu chuyện đa ngôn ngữ**, **chuyển đổi ngôn ngữ** và tất cả các tính năng cần thiết để mở rộng quy mô quốc tế hóa (i18n) trên hệ thống thiết kế của bạn.
@@ -128,8 +127,6 @@ bun add vite-intlayer --dev
 | `react-intlayer` | Liên kết React - `IntlayerProvider`, hook `useIntlayer`       |
 | `vite-intlayer`  | Plugin Vite - theo dõi và biên dịch các tệp khai báo nội dung |
 
----
-
 </Step>
 
 <Step number={2} title="Tạo cấu hình Intlayer">
@@ -158,8 +155,6 @@ export default config;
 ```
 
 > Để xem danh sách đầy đủ các tùy chọn, hãy tham khảo [tài liệu cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md).
-
----
 
 </Step>
 
@@ -207,8 +202,6 @@ export default config;
 ```
 
 Plugin `intlayer()` theo dõi các tệp `*.content.ts` của bạn và tự động xây dựng lại các từ điển bất cứ khi nào chúng thay đổi trong quá trình phát triển trên Storybook.
-
----
 
 </Step>
 
@@ -294,8 +287,6 @@ bun add intlayer react-intlayer
 bun add @intlayer/webpack --dev
 ```
 
----
-
 </Step>
 
 <Step number={2} title="Tạo cấu hình Intlayer">
@@ -317,8 +308,6 @@ const config: IntlayerConfig = {
 
 export default config;
 ```
-
----
 
 </Step>
 
@@ -346,8 +335,6 @@ const config: StorybookConfig = {
 
 export default config;
 ```
-
----
 
 </Step>
 

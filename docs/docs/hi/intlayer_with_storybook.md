@@ -37,36 +37,35 @@ author: aymericzip
 `स्टोरीबुक-रिएक्ट-आई18नेक्स्ट` या `आई18नेक्स्ट` जैसे मुख्य समाधानों की तुलना में, इंटलेयर एक ऐसा समाधान है जो एकीकृत अनुकूलन के साथ आता है जैसे:
 
 <AccordionGroup>
-
-**पूर्ण स्टोरीबुक कवरेज**
+<Accordion header="पूर्ण स्टोरीबुक कवरेज">
 
 इंटरलेयर को **बहुभाषी स्टोरी डेकोरेटर**, **लोकेल स्विचिंग**, और आपके डिज़ाइन सिस्टम में अंतर्राष्ट्रीयकरण (i18n) को बढ़ाने के लिए आवश्यक सभी सुविधाओं की पेशकश करके स्टोरीबुक के साथ पूरी तरह से काम करने के लिए अनुकूलित किया गया है।
 
-**बंडल का आकार**
+</Accordion>
 
 <Accordion header="Bundle size">
 
 अपने पृष्ठों में विशाल JSON फ़ाइलें लोड करने के बजाय, केवल आवश्यक सामग्री लोड करें। इंटलेयर आपके बंडल और पृष्ठ आकार को 50% तक कम करने में मदद करता है।
 
-**रखरखाव**
+</Accordion>
 
 <Accordion header="रखरखाव">
 
 आपके एप्लिकेशन की सामग्री का दायरा बड़े पैमाने के अनुप्रयोगों के लिए **रखरखाव की सुविधा प्रदान करता है**। आप अपने संपूर्ण सामग्री कोडबेस की समीक्षा करने के मानसिक बोझ के बिना किसी एक फीचर फ़ोल्डर की नकल कर सकते हैं या उसे हटा सकते हैं। इसके अतिरिक्त, आपकी सामग्री की सटीकता सुनिश्चित करने के लिए Intlayer **पूरी तरह से टाइप किया गया** है।
 
-**एआई एजेंट**
+</Accordion>
 
 <Accordion header="AI Agent">
 
 सामग्री का सह-स्थानीकरण **बड़े भाषा मॉडल (एलएलएम) द्वारा आवश्यक संदर्भ को कम करता है**। इंटलेयर टूल के एक सूट के साथ भी आता है, जैसे **CLI** ताकि लापता अनुवादों का परीक्षण किया जा सके,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**, और **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/agent_skills.md)**, AI एजेंटों के लिए डेवलपर अनुभव (DX) को और भी आसान बनाने के लिए।
 
-**स्वचालन**
+</Accordion>
 
 <Accordion header="स्वचालन">
 
 अपने एआई प्रदाता की कीमत पर अपनी पसंद के एलएलएम का उपयोग करके अपने सीआई/सीडी पाइपलाइन में अनुवाद करने के लिए स्वचालन का उपयोग करें। इंटलेयर सामग्री निष्कर्षण को स्वचालित करने के लिए एक **कंपाइलर** के साथ-साथ **पृष्ठभूमि में अनुवाद** में मदद करने के लिए एक [वेब प्लेटफ़ॉर्म](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) भी प्रदान करता है।
 
-**प्रदर्शन**
+</Accordion>
 
 <Accordion header="Performance">
 
@@ -74,7 +73,7 @@ author: aymericzip
 
 </Accordion>
 
-**किसी भी देव के साथ स्केलिंग**
+<Accordion header="किसी भी देव के साथ स्केलिंग">
 
 सिर्फ एक i18n समाधान से अधिक, Intlayer एक **स्व-होस्टेड [विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** और एक **[पूर्ण] प्रदान करता है सीएमएस](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** आपकी बहुभाषी सामग्री को **वास्तविक समय** में प्रबंधित करने में मदद करता है, जिससे अनुवादकों, कॉपीराइटरों और टीम के अन्य सदस्यों के साथ सहयोग सहज हो जाता है। सामग्री को स्थानीय और/या दूरस्थ रूप से संग्रहीत किया जा सकता है।
 
@@ -128,8 +127,6 @@ bun add vite-intlayer --dev
 | `react-intlayer` | React बाइंडिंग्स - `IntlayerProvider`, `useIntlayer` हुक       |
 | `vite-intlayer`  | Vite प्लगइन - सामग्री घोषणा फ़ाइलों को देखता और संकलित करता है |
 
----
-
 </Step>
 
 <Step number={2} title="Intlayer कॉन्फ़िगरेशन बनाएँ">
@@ -158,8 +155,6 @@ export default config;
 ```
 
 > विकल्पों की पूरी सूची के लिए [कॉन्फ़िगरेशन संदर्भ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md) देखें।
-
----
 
 </Step>
 
@@ -207,8 +202,6 @@ export default config;
 ```
 
 `intlayer()` प्लगइन आपकी `*.content.ts` फ़ाइलों को देखता है और Storybook विकास के दौरान जब भी वे बदलते हैं, शब्दकोशों को स्वचालित रूप से फिर से बनाता है।
-
----
 
 </Step>
 
@@ -267,6 +260,7 @@ export default preview;
 > `locale` मान आपके `intlayer.config.ts` में घोषित स्थानीय भाषाओं के साथ मेल खाने चाहिए।
 
 </Step>
+
 </Steps>
 </Tab>
 <Tab value="Webpack Setup">
@@ -294,8 +288,6 @@ bun add intlayer react-intlayer
 bun add @intlayer/webpack --dev
 ```
 
----
-
 </Step>
 
 <Step number={2} title="Intlayer कॉन्फ़िगरेशन बनाएँ">
@@ -317,8 +309,6 @@ const config: IntlayerConfig = {
 
 export default config;
 ```
-
----
 
 </Step>
 
@@ -346,8 +336,6 @@ const config: StorybookConfig = {
 
 export default config;
 ```
-
----
 
 </Step>
 

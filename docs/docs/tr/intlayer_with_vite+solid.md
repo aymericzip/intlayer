@@ -69,7 +69,6 @@ author: aymericzip
 '@solid-primitives/i18n' veya 'i18next' gibi ana çözümlerle karşılaştırıldığında Intlayer, aşağıdaki gibi entegre optimizasyonlarla gelen bir çözümdür:
 
 <AccordionGroup>
-
 <Accordion header="Tam Düz kapsama alanı">
 
 Intlayer, **bileşen düzeyinde içerik kapsamı**, **reaktif çeviriler** ve uluslararasılaştırmayı (i18n) ölçeklendirmek için gereken tüm özellikleri sunarak Solid ile mükemmel çalışacak şekilde optimize edilmiştir.
@@ -496,6 +495,7 @@ export const Link: ParentComponent<AnchorProps> = (props) => {
 };
 ```
 
+</Step>
 <Step number={11} title="Markdown Render Etme" isOptional={true}>
 
 Intlayer, kendi dahili ayrıştırıcısını kullanarak Markdown içeriğini doğrudan Solid uygulamanızda render etmeyi destekler. Varsayılan olarak, Markdown düz metin olarak işlenir. Zengin HTML olarak render etmek için uygulamanızı `MarkdownProvider` ile sarın.
@@ -736,6 +736,8 @@ Daha fazla ilerlemek için [görsel düzenleyici](https://github.com/aymericzip/
 
 <Question title="Vite ve Solid uygulamasını uluslararasılaştırmak için hangi farklı çözümler mevcuttur?">
 
+Vite'ın i18n konusunda özel bir tercihi yoktur, bu nedenle seçenekler Solid ekosistemindekilerdir:
+
 - **`@solid-primitives/i18n`**: Solid için temel i18n primitifleri.
 - **`Intlayer`**: Solid'in ince taneli (fine-grained) reaktivitesine tam entegre, derleme zamanında derlenen, AI çeviri, görsel düzenleyici ve CMS sunan modern çözüm.
 
@@ -766,6 +768,8 @@ Evet. [sync JSON eklentisi](https://github.com/aymericzip/intlayer/blob/main/doc
 Hayır. `npx intlayer extract` komutunu çalıştırın; Intlayer bileşenlerinizi okur, kullanıcıya dönük dizeleri çıkarır ve her birinin yanına bir `.content` dosyası yazar, böylece dizeleri tek tek kopyalamak yerine bir diff incelersiniz.
 
 Tam otomatik bir süreç için [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md) derleme sırasında aynı işlemi yapar: her değişiklikte kaynak kodunu tarar, sözlükleri üretir ve HMR ile senkronize tutar.
+
+Derleyiciyi açmadan önce bilmeye değer iki sınır vardır. Statik analiz ile çalışır, bu nedenle API hata kodları veya CMS alanları gibi yalnızca çalışma zamanında var olan dizeler ulaşılamaz kalır. Ayrıca, `className="active"` veya durum kodu gibi uygulama mantığından kullanıcıya yönelik metinleri ayırt etmesi gerekir; bu da büyük bir kod tabanında birkaç ek açıklama gerektirir. [Extract komutu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/extract.md) sizi döngüde tutarak her ikisinden de kaçınır.
 
 </Question>
 

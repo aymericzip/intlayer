@@ -332,6 +332,9 @@ export default function Page() {
 }
 ```
 
+  </Tab>
+</Tabs>
+
 <Tabs>
   <Tab label='Intlayer >=9.4' value='>=9.4'>
 

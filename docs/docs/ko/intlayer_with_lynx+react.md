@@ -46,7 +46,6 @@ author: aymericzip
 'react-native-localize' 또는 'i18next'와 같은 주요 솔루션과 비교할 때 Intlayer는 다음과 같은 통합 최적화가 제공되는 솔루션입니다.
 
 <AccordionGroup>
-
 <Accordion header="전체 Lynx 적용 범위">
 
 Intlayer는 **구성 요소 수준 콘텐츠 범위 지정**, **TypeScript 지원** 및 국제화 확장(i18n)에 필요한 모든 기능을 제공하여 Lynx 및 React와 완벽하게 작동하도록 최적화되었습니다.
@@ -144,8 +143,6 @@ bun add intlayer react-intlayer lynx-intlayer
 
 - **lynx-intlayer**  
   Intlayer를 Lynx bundler와 통합하기 위한 플러그인을 제공하는 Lynx 통합입니다.
-
----
 
 </Step>
 
@@ -339,8 +336,6 @@ export default appContent;
 
 > 콘텐츠 선언에 대한 자세한 내용은 [Intlayer 콘텐츠 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md)를 참조하세요.
 
----
-
 </Step>
 
 <Step number={6} title="컴포넌트에서 Intlayer 사용">
@@ -399,8 +394,6 @@ export const App = () => {
 ```
 
 > 문자열 기반 props(예: 버튼의 `title` 또는 `Text` 컴포넌트의 `children`)에서 `content.someKey`를 사용할 때는 **실제 문자열을 얻기 위해 `content.someKey.value`를 호출합니다**.
-
----
 
 </Step>
 

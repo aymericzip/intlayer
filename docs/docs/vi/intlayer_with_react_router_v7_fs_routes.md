@@ -51,7 +51,6 @@ Hướng dẫn này trình bày cách tích hợp **Intlayer** để thực hi�
 So với các giải pháp chính như `react-i18next` hay `i18next`, Intlayer là giải pháp đi kèm với các tính năng tối ưu hóa tích hợp như:
 
 <AccordionGroup>
-
 <Accordion header="Phạm vi phủ sóng đầy đủ của Bộ định tuyến React">
 
 Intlayer được tối ưu hóa để hoạt động hoàn hảo với React Router bằng cách cung cấp **định tuyến nhận biết ngôn ngữ**, **phần mềm trung gian để phát hiện ngôn ngữ** và tất cả các tính năng cần thiết để mở rộng quy mô quốc tế hóa (i18n).
@@ -191,7 +190,7 @@ export default config;
 
 > Thông qua tệp cấu hình này, bạn có thể thiết lập URL theo ngôn ngữ, chuyển hướng middleware, tên cookie, vị trí và phần mở rộng của các khai báo nội dung, tắt các log của Intlayer trên console, và nhiều hơn nữa. Để xem danh sách đầy đủ các tham số có sẵn, hãy tham khảo [tài liệu cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md).
 
-<Steps>
+</Step>
 
 <Step number={3} title="Tích hợp Intlayer vào cấu hình Vite của bạn">
 
@@ -500,7 +499,7 @@ export const useLocalizedNavigate = () => {
 
 </Step>
 
-<Step number={9} title="Tạo Thành Phần Chuyển Đổi Ngôn Ngữ">
+<Step number={8} title="Tạo Thành Phần Chuyển Đổi Ngôn Ngữ">
 
 Tạo một thành phần cho phép người dùng thay đổi ngôn ngữ:
 
@@ -563,7 +562,7 @@ export const LocaleSwitcher: FC = () => {
 
 </Step>
 
-<Step number={10} title="Thêm quản lý thuộc tính HTML">
+<Step number={9} title="Thêm quản lý thuộc tính HTML">
 
 Tạo một hook để quản lý các thuộc tính lang và dir của HTML:
 
@@ -585,6 +584,8 @@ export const useI18nHTMLAttributes = () => {
 Hook này đã được sử dụng trong layout component (`($locale)._layout.tsx`) được hiển thị ở Bước 5.
 
 </Step>
+
+<Step number={10} title="Add middleware">
 
 Sau đó sử dụng nó trong component gốc của bạn:
 
@@ -613,7 +614,7 @@ export default function RootLayout() {
 
 </Step>
 
-<Step number={1} title="Trích xuất nội dung các thành phần của bạn" isOptional={true}>
+<Step number={11} title="Trích xuất nội dung các thành phần của bạn" isOptional={true}>
 
 Nếu bạn có một cơ sở mã hiện có, việc chuyển đổi hàng nghìn tệp có thể tốn nhiều thời gian.
 
@@ -652,9 +653,6 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-<Tabs>
- <Tab value='Lệnh trích xuất'>
-
 Chạy trình trích xuất để chuyển đổi các thành phần và trích xuất nội dung
 
 ```bash packageManager="npm"
@@ -672,9 +670,6 @@ yarn intlayer extract
 ```bash packageManager="bun"
 bun x intlayer extract
 ```
-
- </Tab>
- <Tab value='Trình biên dịch Babel'>
 
 > Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
 
@@ -707,11 +702,6 @@ yarn build # Or yarn dev
 ```bash packageManager="bun"
 bun run build # Or bun run dev
 ```
-
- </Tab>
-</Tabs>
-
----
 
 </Step>
 
@@ -816,9 +806,11 @@ Có. Plugin [sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/do
 
 <Question title="Tôi có phải di chuyển nội dung từng khóa một không?">
 
-Không. Chạy `npx intlayer extract` và Intlayer sẽ đọc các tệp nguồn của bạn, trích xuất các chuỗi dành cho người dùng và tạo tệp `.content` bên cạnh mỗi tệp, nhờ đó bạn chỉ cần xem lại diff thay vì sao chép chuỗi vào catalog thủ công. Xem [lệnh extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/extract.md).
+Không. Chạy `npx intlayer extract` và Intlayer sẽ đọc các component của bạn, trích xuất các chuỗi dành cho người dùng và tạo tệp `.content` bên cạnh mỗi tệp, nhờ đó bạn xem lại diff thay vì sao chép chuỗi vào catalog thủ công. Bước 11 của hướng dẫn này sẽ giải thích chi tiết.
 
-Để tự động hóa hoàn toàn, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md) thực hiện việc tương tự trong quá trình build trên mã JSX, TSX, Vue và Svelte, tạo từ điển trên mỗi thay đổi mà không cần quản lý khóa thủ công.
+Để tự động hóa hoàn toàn, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md) thực hiện việc tương tự trong quá trình build: quét mã nguồn JSX, TSX, Vue và Svelte của bạn trên mỗi thay đổi, tạo từ điển và đồng bộ hóa chúng qua hot module replacement, nhờ đó không cần duy trì khóa thủ công.
+
+Hai giới hạn đáng lưu ý trước khi bạn bật compiler. Nó hoạt động bằng phân tích tĩnh, do đó các chuỗi chỉ tồn tại khi runtime, chẳng hạn như mã lỗi API hoặc các trường CMS, nằm ngoài phạm vi tiếp cận. Và nó phải phân biệt văn bản hiển thị cho người dùng với logic ứng dụng như `className="active"` hoặc mã trạng thái, điều này cần một vài chú thích trong một codebase lớn. [Lệnh extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/extract.md) tránh cả hai điều này bằng cách giữ bạn luôn kiểm soát.
 
 </Question>
 

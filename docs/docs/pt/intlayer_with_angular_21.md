@@ -42,7 +42,6 @@ author: aymericzip
 Comparado com soluções principais como `ngx-translate` ou `angular-l10n`, Intlayer é uma solução que vem com otimizações integradas como:
 
 <AccordionGroup>
-
 <Accordion header="Cobertura angular completa">
 
 O Intlayer é otimizado para funcionar perfeitamente com Angular, oferecendo **escopo de conteúdo em nível de componente**, **traduções de carregamento lento** e todos os recursos necessários para dimensionar a internacionalização (i18n).
@@ -480,6 +479,8 @@ Para obter mais detalhes sobre como usar a extensão, consulte a [documentação
 
 Para ir mais longe, você pode implementar o [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md) ou externalizar o seu conteúdo usando o [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md).
 
+---
+
 ## Perguntas Frequentes
 
 <FAQ>
@@ -581,5 +582,3 @@ Sim, sob a licença Apache 2.0, uso comercial incluído. O CMS hospedado é um s
 </Question>
 
 </FAQ>
-
----

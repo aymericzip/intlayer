@@ -42,7 +42,6 @@ author: aymericzip
 Par rapport aux solutions principales telles que `next-intl` ou `i18next`, Intlayer est une solution dotée d'optimisations intégrées telles que :
 
 <AccordionGroup>
-
 <Accordion header="Support complet de Next.js">
 
 Intlayer est optimisé pour fonctionner avec les **composants serveur** pour un rendu efficace et est entièrement compatible avec [**Turbopack**](https://nextjs.org/docs/architecture/turbopack). Il ne bloque pas le rendu statique et propose un middleware ainsi que toutes les fonctionnalités nécessaires à l'internationalisation à l'échelle (i18n).
@@ -511,6 +510,9 @@ export const ClientComponentExample: FC = () => {
 };
 ```
 
+ </Tab>
+</Tabs>
+
 <Tabs>
  <Tab label='Intlayer >=9.4' value='>=9.4'>
 
@@ -929,7 +931,7 @@ En intégrant ce composant `Link` dans toute votre application, vous maintenez u
 
 </Step>
 
-<Step number={12} title="Optimisez la taille de votre bundle" isOptional={true}>
+<Step number={12} title="Obtenir la locale actuelle dans les Server Actions" isOptional={true}>
 
 Si vous avez besoin de la locale active à l'intérieur d'une Server Action (par exemple, pour localiser des e-mails ou exécuter une logique tenant compte de la locale), appelez `getLocale` depuis `next-intlayer/server` :
 
@@ -981,7 +983,6 @@ bun add @intlayer/swc --dev
 > Remarque : Cette optimisation est uniquement disponible pour Next.js 13 et versions supérieures.
 
 > Remarque : Ce paquet n'est pas installé par défaut car les plugins SWC sont encore expérimentaux sur Next.js. Cela pourrait changer à l'avenir.
-> </Step>
 
 > Note : Si vous définissez l'option comme `importMode: 'dynamic'` ou `importMode: 'fetch'` (dans la configuration `dictionary`), cela dépendra de Suspense, donc vous devrez envelopper vos appels `useIntlayer` dans une limite `Suspense`. Cela signifie que vous ne pourrez pas utiliser `useIntlayer` directement au niveau supérieur de votre composant Page / Layout.
 > </Step>

@@ -46,6 +46,8 @@ author: aymericzip
 
 <iframe title="Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
+  </Tab>
+</Tabs>
 ## 目次
 
 <TOC/>
@@ -80,18 +82,21 @@ Intlayer は、**ロケール対応ルーティング**、**ロケール検出�
 
 **オートメーション**
 
+</Accordion>
 <Accordion header="自動化">
 
 AI プロバイダーの費用で、選択した LLM を使用して CI/CD パイプラインで自動化を変換します。 Intlayer は、コンテンツ抽出を自動化する **コンパイラー** と、**バックグラウンドでの翻訳**を支援する [Web プラットフォーム](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) も提供します。
 
 **パフォーマンス**
 
+</Accordion>
 <Accordion header="パフォーマンス">
 
 大量の JSON ファイルをコンポーネントに接続すると、パフォーマンスと反応性の問題が発生する可能性があります。 Intlayer は、ビルド時のコンテンツの読み込みを最適化します。
 
 **非開発によるスケーリング**
 
+</Accordion>
 <Accordion header="開発者以外でのスケーリング">
 
 Intlayer は単なる i18n ソリューションではなく、**自己ホスト型 [ビジュアル エディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** と **[完全な CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** を提供します。 **リアルタイム**で多言語コンテンツを管理できるようになり、翻訳者、コピーライター、その他のチーム メンバーとのコラボレーションがシームレスになります。コンテンツはローカルおよび/またはリモートに保存できます。
@@ -159,8 +164,6 @@ bun add vite-intlayer --dev
 - **Quick actions** to easily create and update translations.
 
 For more details on how to use the extension, refer to the [Intlayer VS Code Extension documentation](https://intlayer.org/doc/vs-code-extension).
-
-</Step>
 
 <Step number={2} title="プロジェクトの設定">
 
@@ -263,6 +266,8 @@ export default [
 
 ルートレイアウトとロケール固有のレイアウトを設定します:
 
+</Step>
+</Steps>
 #### Root Layout
 
 ```tsx fileName="app/root.tsx"
@@ -312,8 +317,6 @@ export function Layout({
   );
 }
 ```
-
-</Step>
 
 <Step number={6} title="コンテンツ宣言">
 
@@ -428,6 +431,7 @@ export const useLocalizedNavigate = () => {
 
 アプリケーション全体でコンテンツ辞書にアクセスします：
 
+</Step>
 #### ローカライズされたホームページ
 
 ```tsx fileName="app/routes/page.tsx"
@@ -477,8 +481,6 @@ export default function Page() {
 > `useIntlayer` フックについて詳しく知るには、[ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/useIntlayer.md)を参照してください。
 
 > 既存のアプリケーションがある場合、[Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md) と [extract コマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/extract.md)を使用して、わずか数秒で数千のコンポーネントを変換できます。
-
-</Step>
 
 <Step number={9} title="ロケール切り替えコンポーネントの作成">
 
@@ -712,11 +714,7 @@ bun run build # または bun run dev
  </Tab>
 </Tabs>
 
----
-
 </Step>
-
-</Steps>
 
 ## TypeScriptの設定
 

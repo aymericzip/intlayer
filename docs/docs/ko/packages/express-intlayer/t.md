@@ -67,7 +67,7 @@ t(translations: Record<string, string>): string;
 
 애플리케이션 내 모든 라우트가 국제화의 혜택을 받을 수 있도록 `app.use(intlayer())` 미들웨어를 **모든 라우트보다 먼저** 배치하세요:
 
-````typescript {7} fileName="src/index.ts" codeFormat={["typescript", "esm", "commonjs"]}
+```typescript {7} fileName="src/index.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import express, { type Express } from "express";
 import { intlayer } from "express-intlayer";
 
@@ -79,11 +79,15 @@ app.use(intlayer());
 // 미들웨어 로드 후 라우트 정의
 app.get("/", (_req, res) => {
   res.send(
-`express-intlayer`에서 제공하는 국제화 기능이 올바르게 작동하려면, Express 애플리케이션의 시작 부분에서 반드시 국제화 미들웨어를 로드해야 합니다. 이렇게 하면 `t` 함수가 활성화되고, 로케일 감지 및 번역 처리가 제대로 이루어집니다.
+    t({
+      en: "Hello, World!",
+      fr: "Bonjour le monde!",
+      es: "¡Hola, Mundo!",
+    })
+  );
+});
+```
 
-애플리케이션의 모든 라우트가 국제화 기능을 활용할 수 있도록 `app.use(intlayer())` 미들웨어를 **모든 라우트보다 먼저** 배치하세요:
-
-```typescript {7} fileName="src/index.ts" codeFormat="typescript"
 ### 왜 이것이 필요한가
 
 - **로케일 감지**: `intlayer` 미들웨어는 헤더, 쿠키 또는 기타 구성된 방법을 기반으로 사용자의 선호 로케일을 감지하기 위해 들어오는 요청을 처리합니다.
@@ -277,4 +281,3 @@ app.get("/morning", (_req, res) => {
 ## 결론
 
 `t` 함수는 백엔드 국제화를 위한 강력한 도구입니다. 이를 효과적으로 사용하면 전 세계 사용자를 위한 보다 포용적이고 사용자 친화적인 애플리케이션을 만들 수 있습니다. 고급 사용법과 상세한 구성 옵션은 [문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 참조하세요.
-````

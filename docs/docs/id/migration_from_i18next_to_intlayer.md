@@ -27,7 +27,6 @@ author: aymericzip
 ## Mengapa bermigrasi dari i18next ke Intlayer?
 
 <AccordionGroup>
-
 <Accordion header="Ukuran bundle">
 
 Alih-alih memuat file JSON besar ke halaman Anda, muat hanya konten yang diperlukan. Intlayer membantu **mengurangi ukuran bundle dan halaman Anda hingga 50%**.
@@ -65,7 +64,6 @@ Menghubungkan file JSON besar ke komponen dapat menyebabkan masalah performance 
 Lebih dari sekadar solusi i18n, Intlayer menyediakan **self-hosted [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md)** dan **[full CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)** untuk membantu Anda mengelola konten multibahasa Anda dalam **real-time**, membuat kolaborasi dengan translator, copywriter, dan anggota tim lainnya seamless. Konten dapat disimpan secara lokal dan/atau remote.
 
 </Accordion>
-
 </AccordionGroup>
 
 ---

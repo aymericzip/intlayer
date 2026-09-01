@@ -76,7 +76,6 @@ Xem [Mẫu Ứng dụng](https://github.com/aymericzip/intlayer-next-16-template
 So với các giải pháp chính như `next-intl` hay `i18next`, Intlayer là giải pháp đi kèm với các tính năng tối ưu hóa tích hợp như:
 
 <AccordionGroup>
-
 <Accordion header="Phạm vi bảo hiểm đầy đủ của Next.js">
 
 Intlayer được tối ưu hóa để hoạt động với **Thành phần máy chủ** nhằm hiển thị hiệu quả và hoàn toàn tương thích với [**Turbopack**](https://nextjs.org/docs/architecture/turbopack). Nó không chặn hiển thị tĩnh và cung cấp phần mềm trung gian cũng như tất cả các tính năng cần thiết để mở rộng quy mô quốc tế hóa (i18n).
@@ -993,11 +992,10 @@ bun add @intlayer/swc --dev
 > Lưu ý: Gói này không được cài đặt theo mặc định vì các plugin SWC vẫn đang trong quá trình thử nghiệm trên Next.js. Nó có thể thay đổi trong tương lai.
 
 > Lưu ý: Nếu bạn đặt tùy chọn thành `importMode: 'dynamic'` hoặc `importMode: 'fetch'` (trong cấu hình `dictionary`), nó sẽ dựa trên Suspense, vì vậy bạn sẽ phải bao bọc các cuộc gọi `useIntlayer` của mình trong một ranh giới `Suspense`. Điều đó có nghĩa là, bạn sẽ không thể sử dụng `useIntlayer` trực tiếp ở cấp cao nhất của thành phần Trang / Bố cục của mình.
-> </Step>
 
 </Step>
 
-<Step number={1} title="Trích xuất nội dung các thành phần của bạn" isOptional={true}>
+<Step number={14} title="Trích xuất nội dung các thành phần của bạn" isOptional={true}>
 
 Nếu bạn có một cơ sở mã hiện có, việc chuyển đổi hàng nghìn tệp có thể tốn nhiều thời gian.
 
@@ -1111,6 +1109,7 @@ bun run build # Or bun run dev
 
  </Tab>
 </Tabs>
+
 </Step>
 
 </Steps>
@@ -1189,6 +1188,8 @@ Tiện ích mở rộng này cung cấp:
 
 <Question title="Những giải pháp khác nhau nào có sẵn để quốc tế hóa ứng dụng Next.js 16?">
 
+Next.js không có lớp thông báo tích hợp kể từ khi trường `i18n` của `next.config.js` ngừng áp dụng cho App Router, do đó lớp bản địa hóa luôn là một lựa chọn thư viện:
+
 - **`next-intl`**: thư viện tin nhắn phổ biến cho App Router, tải tệp JSON ở runtime.
 - **`next-i18next`**: giải pháp truyền thống cho Pages Router.
 - **`Intlayer`**: giải pháp tiên tiến nhất. Khai báo nội dung ngay cạnh component, biên dịch tại thời điểm build, kiểu dữ liệu TypeScript nghiêm ngặt, dịch thuật AI, visual editor, và CMS.
@@ -1217,9 +1218,11 @@ Có. Plugin [sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/do
 
 <Question title="Tôi có phải di chuyển nội dung từng khóa một không?">
 
-Không. Chạy `npx intlayer extract` và Intlayer sẽ đọc các tệp nguồn của bạn, trích xuất các chuỗi dành cho người dùng và tạo tệp `.content` bên cạnh mỗi tệp, nhờ đó bạn chỉ cần xem lại diff thay vì sao chép chuỗi vào catalog thủ công. Xem [lệnh extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/extract.md).
+Không. Chạy `npx intlayer extract` và Intlayer sẽ đọc các component của bạn, trích xuất các chuỗi dành cho người dùng và tạo tệp `.content` bên cạnh mỗi component, nhờ đó bạn xem lại diff thay vì sao chép chuỗi vào catalog thủ công. Bước 14 của hướng dẫn này mô tả chi tiết.
 
-Để tự động hóa hoàn toàn, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md) thực hiện việc tương tự trong quá trình build trên mã JSX, TSX, Vue và Svelte, tạo từ điển trên mỗi thay đổi mà không cần quản lý khóa thủ công.
+Để tự động hóa hoàn toàn, [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md) thực hiện việc tương tự trong quá trình build: quét mã nguồn JSX, TSX, Vue và Svelte trên mỗi thay đổi, tạo từ điển và đồng bộ hóa với HMR, do đó hoàn toàn không có khóa nào cần duy trì thủ công.
+
+Hai giới hạn đáng lưu ý trước khi bạn bật compiler. Nó hoạt động bằng phân tích tĩnh, do đó các chuỗi chỉ tồn tại khi runtime, chẳng hạn như mã lỗi API hoặc các trường CMS, nằm ngoài phạm vi tiếp cận. Và nó phải phân biệt văn bản hiển thị cho người dùng với logic ứng dụng như `className="active"` hoặc mã trạng thái, điều này cần một vài chú thích trong một codebase lớn. [Lệnh extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/extract.md) tránh cả hai điều này bằng cách giữ bạn luôn kiểm soát.
 
 </Question>
 
@@ -1249,7 +1252,14 @@ Có. Nội dung trong Server Components được giải quyết trực tiếp tr
 
 <Question title="Tôi có bắt buộc phải đưa locale vào URL như /vi/about không?">
 
-Không. `routing.mode` chấp nhận `"prefix-no-default"` (mặc định: `/about` cho ngôn ngữ chính và `/vi/about` cho ngôn ngữ khác), `"prefix-all"`, `"no-prefix"`, và `"search-params"`. Tùy chọn `routing.domains` ánh xạ từng ngôn ngữ tới tên miền riêng. Xem [tài liệu cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md).
+Không. Sơ đồ URL là một tùy chọn cấu hình, không phải là một ràng buộc. `routing.mode` chấp nhận:
+
+- `"prefix-no-default"` (mặc định): `/about` cho ngôn ngữ mặc định, `/fr/about` cho các ngôn ngữ khác.
+- `"prefix-all"`: mọi ngôn ngữ đều có tiền tố, `/en/about` và `/fr/about`.
+- `"no-prefix"`: không có ngôn ngữ trong đường dẫn, được phân giải từ cookie, header hoặc miền.
+- `"search-params"`: `/about?locale=fr`.
+
+Bạn cũng có thể ánh xạ từng ngôn ngữ với miền riêng của nó bằng `routing.domains`. Xem [tài liệu tham khảo cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md) và [hướng dẫn không có đường dẫn ngôn ngữ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_no_locale_path.md).
 
 </Question>
 

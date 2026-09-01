@@ -103,6 +103,21 @@ export default config;
 
 إذا قمت بالاستضافة الذاتية لـ Intlayer (self-host)، فإن التحليلات تشير تلقائيًا إلى النسخة الخاصة بك لأنها تتشارك `editor.backendURL`.
 
+### استدعاء الواجهة البرمجية (API) من المتصفح
+
+يدعم الرمز المميز (token) نفسه عميلًا صغيرًا لا يحتاج إلى بيانات اعتماد، بحيث يمكن لموقع ثابت أو تطبيق SPA قراءة محتوى نظام إدارة المحتوى (CMS) الخاص به وقت التشغيل دون خادم، ودون إجراء خادم (server action)، ودون أي سر (secret) داخل الحزمة (bundle):
+
+```ts fileName="content.ts"
+import { createPublicClient } from "@intlayer/api/public";
+
+const client = createPublicClient();
+
+const keys = await client.getDictionaryKeys();
+const [navbar] = await client.getDictionaries(["navbar"]);
+```
+
+يوثّق العميل نفسه اعتمادًا على `editor.clientId`، ويتم التعامل مع عملية التبادل والتخزين المؤقت (caching) والتجديد داخليًا. تحدد النطاقات (scopes) ما يمكنه الوصول إليه: محتوى القاموس المنشور واستيعاب بيانات التحليلات. أي شيء آخر (رفع القواميس، قراءة مشروع، إنفاق أرصدة الذكاء الاصطناعي) يحتاج إلى بيانات اعتماد حقيقية، وبالتالي إلى خادم أو مستخدم مسجّل الدخول.
+
 ### إلغاء الاشتراك (Opt-out)
 
 تتيح كتلة `analytics` الاختيارية ضبط عملية الجمع — أو إيقافها تمامًا:
@@ -134,6 +149,126 @@ export default config;
 - تسجيل `page_view` عند كل تغيير في اللغة (locale)،
 - بدء حلقة الإرسال كل ~20 ثانية وإرسال أي أحداث متبقية عند إزالة التحميل / إغلاق التبويب (عبر `navigator.sendBeacon`، مع العودة إلى `fetch(..., { keepalive: true })`).
 
+نقطة الدخول تختلف حسب إطار العمل، لكنها في كل الحالات نفس النقطة التي تستخدمها بالفعل لإعداد Intlayer، لذا لا يوجد شيء إضافي لإضافته:
+
+<Tabs group="framework">
+  <Tab label="React" value="react">
+
+    يقوم `IntlayerProvider` بتحميل (mount) موفر التحليلات داخليًا.
+
+    ```tsx fileName="App.tsx"
+    import { IntlayerProvider } from "react-intlayer";
+
+    const App = () => (
+      <IntlayerProvider>
+        <Router />
+      </IntlayerProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+
+    تُعيد `next-intlayer` تصدير `IntlayerProvider` الخاص بـ React، لذا يتم ربط التحليلات بنفس الطريقة.
+
+    ```tsx fileName="app/[locale]/layout.tsx"
+    import { IntlayerProvider } from "next-intlayer";
+
+    const LocaleLayout = ({ children }) => (
+      <IntlayerProvider>{children}</IntlayerProvider>
+    );
+
+    export default LocaleLayout;
+    ```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+    يقوم إضافة (plugin) `intlayer` بتسجيل خطافات (hooks) التحليلات ضمن دورة حياة المكون الجذري.
+
+    ```javascript fileName="main.js"
+    import { createApp } from "vue";
+    import { intlayer } from "vue-intlayer";
+    import App from "./App.vue";
+
+    const app = createApp(App);
+
+    app.use(intlayer);
+
+    app.mount("#app");
+    ```
+
+    > مع Nuxt، تقوم `nuxt-intlayer` بتثبيت الإضافة نيابة عنك، فلا حاجة لأي إجراء.
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+    تبدأ `setupIntlayer()` التحليلات من المكون الذي يُعد Intlayer.
+
+    ```svelte fileName="src/routes/[[locale=locale]]/+layout.svelte"
+    <script lang="ts">
+      import { setupIntlayer } from "svelte-intlayer";
+      import type { Snippet } from "svelte";
+
+      let { children, data }: { children: Snippet, data: LayoutData } = $props();
+
+      $effect(() => {
+        setupIntlayer(data.locale);
+      });
+    </script>
+
+    {@render children()}
+    ```
+
+  </Tab>
+  <Tab label="Preact" value="preact">
+
+    يقوم `IntlayerProvider` بتحميل (mount) موفر التحليلات داخليًا.
+
+    ```tsx fileName="app.tsx"
+    import { IntlayerProvider } from "preact-intlayer";
+
+    const App = () => (
+      <IntlayerProvider>
+        <Router />
+      </IntlayerProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+    يقوم `IntlayerProvider` بتحميل موفر التحليلات بشكل كسول (lazy)، بحيث يبقى هذا الجزء (chunk) خارج المسار الحرج.
+
+    ```tsx fileName="App.tsx"
+    import { IntlayerProvider } from "solid-intlayer";
+
+    const App = () => (
+      <IntlayerProvider>
+        <Router />
+      </IntlayerProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+
+    تتضمن `provideIntlayer()` بالفعل `provideIntlayerAnalytics()`.
+
+    ```ts fileName="app.config.ts"
+    import { provideIntlayer } from "angular-intlayer";
+    import type { ApplicationConfig } from "@angular/core";
+
+    export const appConfig: ApplicationConfig = {
+      providers: [provideIntlayer()],
+    };
+    ```
+
+    > استخدم `provideIntlayerAnalytics()` بمفردها فقط إذا كنت تدير الموفرين (providers) بشكل فردي.
+
+  </Tab>
+</Tabs>
+
 ### التتبع التلقائي على مستوى العقدة (Node)
 
 في كل مرة يقوم فيها `useIntlayer` بحل جزء من المحتوى لعرضه، يقوم المفسر بالإبلاغ عن حدث `content_exposure` لذلك الـ `dictionaryKey` المحدد + مسار المفتاح + اللغة — مرة أخرى، لا توجد تغييرات برمجية مطلوبة. يتم تجميع مرات العرض المتكررة لنفس العقدة داخل نافذة الإرسال في حدث واحد مع `count` (عدد)، لذلك فإن القائمة التي تتم إعادة تصييرها 50 مرة لا ترسل 50 حدثًا.
@@ -142,29 +277,340 @@ export default config;
 
 استخدم `useConversion()` لنسبة هدف إلى المتغير الذي شاهدته الجلسة:
 
-```tsx fileName="CTAButton.tsx" codeFormat="tsx"
-import { useConversion } from "react-intlayer";
+<Tabs group="framework">
+  <Tab label="React" value="react">
 
-const CTAButton = () => {
-  const trackConversion = useConversion();
+    ```tsx fileName="CTAButton.tsx"
+    import { useConversion } from "react-intlayer";
 
-  return (
+    const CTAButton = () => {
+      const trackConversion = useConversion();
+
+      return (
+        <button
+          onClick={() =>
+            trackConversion({
+              experimentKey: "homepage-hero",
+              variant: "black_friday",
+              goal: "cta_click",
+            })
+          }
+        >
+          ابدأ الآن
+        </button>
+      );
+    };
+    ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+
+    ```tsx fileName="CTAButton.tsx"
+    "use client";
+
+    import { useConversion } from "next-intlayer";
+
+    const CTAButton = () => {
+      const trackConversion = useConversion();
+
+      return (
+        <button
+          onClick={() =>
+            trackConversion({
+              experimentKey: "homepage-hero",
+              variant: "black_friday",
+              goal: "cta_click",
+            })
+          }
+        >
+          ابدأ الآن
+        </button>
+      );
+    };
+    ```
+
+    > `useConversion` هو خطاف (hook) خاص بالعميل: ضع علامة `"use client"` على المكون.
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+    ```vue fileName="CTAButton.vue"
+    <script setup lang="ts">
+    import { useConversion } from "vue-intlayer";
+
+    const trackConversion = useConversion();
+    </script>
+
+    <template>
+      <button
+        @click="
+          trackConversion({
+            experimentKey: 'homepage-hero',
+            variant: 'black_friday',
+            goal: 'cta_click',
+          })
+        "
+      >
+        ابدأ الآن
+      </button>
+    </template>
+    ```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+    ```svelte fileName="CTAButton.svelte"
+    <script lang="ts">
+      import { useConversion } from "svelte-intlayer";
+
+      const trackConversion = useConversion();
+    </script>
+
     <button
-      onClick={() =>
+      onclick={() =>
         trackConversion({
           experimentKey: "homepage-hero",
           variant: "black_friday",
           goal: "cta_click",
-        })
-      }
+        })}
     >
       ابدأ الآن
     </button>
-  );
-};
-```
+    ```
+
+  </Tab>
+  <Tab label="Preact" value="preact">
+
+    ```tsx fileName="CTAButton.tsx"
+    import { useConversion } from "preact-intlayer";
+
+    const CTAButton = () => {
+      const trackConversion = useConversion();
+
+      return (
+        <button
+          onClick={() =>
+            trackConversion({
+              experimentKey: "homepage-hero",
+              variant: "black_friday",
+              goal: "cta_click",
+            })
+          }
+        >
+          ابدأ الآن
+        </button>
+      );
+    };
+    ```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+    ```tsx fileName="CTAButton.tsx"
+    import { useConversion } from "solid-intlayer";
+
+    const CTAButton = () => {
+      const trackConversion = useConversion();
+
+      return (
+        <button
+          onClick={() =>
+            trackConversion({
+              experimentKey: "homepage-hero",
+              variant: "black_friday",
+              goal: "cta_click",
+            })
+          }
+        >
+          ابدأ الآن
+        </button>
+      );
+    };
+    ```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+
+    ```typescript fileName="cta-button.component.ts"
+    import { Component } from "@angular/core";
+    import { useConversion } from "angular-intlayer";
+
+    @Component({
+      selector: "app-cta-button",
+      template: `<button (click)="onClick()">ابدأ الآن</button>`,
+    })
+    export class CtaButtonComponent {
+      private trackConversion = useConversion();
+
+      onClick() {
+        this.trackConversion({
+          experimentKey: "homepage-hero",
+          variant: "black_friday",
+          goal: "cta_click",
+        });
+      }
+    }
+    ```
+
+  </Tab>
+</Tabs>
 
 ### حل متغير على جانب العميل
+
+تقوم `useExperiment()` بتخصيص الجلسة لمتغير وتسجيل التعرض (exposure) الذي يصبح مقام معدل التحويل. اربط عرض الشجرة الفرعية المعتمدة على المتغير بـ `isAssigned` حتى لا يرى أي زائر ومضة المتغير الافتراضي (control) قبل أن يتم تحديد التخصيص:
+
+<Tabs group="framework">
+  <Tab label="React" value="react">
+
+    `variant` هي سلسلة نصية بسيطة.
+
+    ```tsx fileName="Hero.tsx"
+    import { useExperiment } from "react-intlayer";
+    import { HeroBanner } from "./HeroBanner";
+
+    export const Hero = () => {
+      const { variant, isAssigned } = useExperiment("homepage-hero", [
+        "default",
+        "black_friday",
+      ]);
+
+      if (!isAssigned) return null;
+
+      return <HeroBanner variant={variant} />;
+    };
+    ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+
+    `variant` هي سلسلة نصية بسيطة. يحدث التخصيص في المتصفح، لذا يجب أن يكون المكون مكون عميل (client component).
+
+    ```tsx fileName="Hero.tsx"
+    "use client";
+
+    import { useExperiment } from "next-intlayer";
+    import { HeroBanner } from "./HeroBanner";
+
+    export const Hero = () => {
+      const { variant, isAssigned } = useExperiment("homepage-hero", [
+        "default",
+        "black_friday",
+      ]);
+
+      if (!isAssigned) return null;
+
+      return <HeroBanner variant={variant} />;
+    };
+    ```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+    `variant` و `isAssigned` عبارة عن `Ref`.
+
+    ```vue fileName="Hero.vue"
+    <script setup lang="ts">
+    import { useExperiment } from "vue-intlayer";
+    import HeroBanner from "./HeroBanner.vue";
+
+    const { variant, isAssigned } = useExperiment("homepage-hero", [
+      "default",
+      "black_friday",
+    ]);
+    </script>
+
+    <template>
+      <HeroBanner v-if="isAssigned" :variant="variant" />
+    </template>
+    ```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+    `variant` و `isAssigned` عبارة عن مخازن (stores): اقرأهما باستخدام البادئة `$`.
+
+    ```svelte fileName="Hero.svelte"
+    <script lang="ts">
+      import { useExperiment } from "svelte-intlayer";
+      import HeroBanner from "./HeroBanner.svelte";
+
+      const { variant, isAssigned } = useExperiment("homepage-hero", [
+        "default",
+        "black_friday",
+      ]);
+    </script>
+
+    {#if $isAssigned}
+      <HeroBanner variant={$variant} />
+    {/if}
+    ```
+
+  </Tab>
+  <Tab label="Preact" value="preact">
+
+    `variant` هي سلسلة نصية بسيطة.
+
+    ```tsx fileName="Hero.tsx"
+    import { useExperiment } from "preact-intlayer";
+    import { HeroBanner } from "./HeroBanner";
+
+    export const Hero = () => {
+      const { variant, isAssigned } = useExperiment("homepage-hero", [
+        "default",
+        "black_friday",
+      ]);
+
+      if (!isAssigned) return null;
+
+      return <HeroBanner variant={variant} />;
+    };
+    ```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+    `variant` و `isAssigned` عبارة عن `Accessor`: استدعهما لقراءة القيمة.
+
+    ```tsx fileName="Hero.tsx"
+    import { useExperiment } from "solid-intlayer";
+    import { Show } from "solid-js";
+    import { HeroBanner } from "./HeroBanner";
+
+    export const Hero = () => {
+      const { variant, isAssigned } = useExperiment("homepage-hero", [
+        "default",
+        "black_friday",
+      ]);
+
+      return (
+        <Show when={isAssigned()}>
+          <HeroBanner variant={variant()} />
+        </Show>
+      );
+    };
+    ```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+
+    `variant` و `isAssigned` عبارة عن `Signal`: استدعهما لقراءة القيمة.
+
+    ```typescript fileName="hero.component.ts"
+    import { Component } from "@angular/core";
+    import { useExperiment } from "angular-intlayer";
+    import { HeroBannerComponent } from "./hero-banner.component";
+
+    @Component({
+      selector: "app-hero",
+      imports: [HeroBannerComponent],
+      template: `@if (experiment.isAssigned()) {
+        <app-hero-banner [variant]="experiment.variant()" />
+      }`,
+    })
+    export class HeroComponent {
+      experiment = useExperiment("homepage-hero", ["default", "black_friday"]);
+    }
+    ```
 
   </Tab>
 </Tabs>
@@ -255,7 +701,7 @@ const cms = createIntlayerCMS();
 const { data: audience } = await analyticsEndpoint(cms).getAudience(30);
 ```
 
-> **خادم فقط.** `createIntlayerCMS()` يتحقق من الهوية باستخدام `clientId` + `clientSecret`، والسر لا يكون متاحًا أبدًا في المتصفح — هذا الجزء من التعليمات البرمجية سيصدر طلبات غير معاد الحصول على إذن لها إذا تم تشغيله هناك. احتفظ به في معالج مسار أو إجراء خادم أو نص برمجي.
+> **خادم فقط.** `createIntlayerCMS()` يتحقق من الهوية باستخدام `clientId` + `clientSecret`، والسر لا يكون متاحًا أبدًا في المتصفح — هذا الجزء من التعليمات البرمجية سيصدر طلبات غير مصادق عليها إذا تم تشغيله هناك. احتفظ به في معالج مسار أو إجراء خادم أو نص برمجي.
 
 ## روابط مفيدة
 

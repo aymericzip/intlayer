@@ -51,6 +51,7 @@ Você pode declarar conteúdo Markdown usando a função `md` ou simplesmente co
 
 <Tabs>
   <Tab label=".content.md" value=".content.md">
+
     A partir da versão `8.10.0`, você pode declarar conteúdo Markdown diretamente em arquivos `.content.md`. O Intlayer detectará e processará automaticamente o conteúdo Markdown.
 
     ```md fileName="markdown-file.en.content.md"
@@ -96,6 +97,7 @@ Você pode declarar conteúdo Markdown usando a função `md` ou simplesmente co
     ```
 
   </Tab>
+
   <Tab label="Arquivos Externos" value="external-files">
     Importe arquivos `.md` diretamente usando a função `file`.
 
@@ -129,6 +131,7 @@ Você pode declarar conteúdo Markdown usando a função `md` ou simplesmente co
     ```
 
   </Tab>
+
 </Tabs>
 
 ## Renderizando Markdown

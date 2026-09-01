@@ -58,8 +58,6 @@ Intlayer 经过优化，可与 TanStack Start 和 Solid 完美配合，提供**�
 
 不要将大量 JSON 文件加载到页面中，而只需加载必要的内容。 Intlayer 有助于**将捆绑包和页面大小减少多达 50%**。
 
-</Accordion>
-
 **可维护性**
 
 确定应用程序内容的范围**有利于大型应用程序的维护**。您可以复制或删除单个功能文件夹，而无需承担检查整个内容代码库的精神负担。此外，Intlayer 具有**完全类型化 (fully typed)**，以确保您的内容的准确性。
@@ -72,6 +70,7 @@ Intlayer 经过优化，可与 TanStack Start 和 Solid 完美配合，提供**�
 
 **自动化**
 
+</Accordion>
 <Accordion header="自动化">
 
 使用您选择的法学硕士，通过自动化在 CI/CD 管道中进行翻译，而费用由您的 AI 提供商承担。 Intlayer 还提供了一个**编译器**来自动提取内容，以及一个[网络平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)来帮助**在后台翻译**。
@@ -469,6 +468,8 @@ export const useLocalizedNavigate = () => {
 
 在整个应用程序中访问您的内容字典：
 
+</Step>
+</Steps>
 #### 本地化主页
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
@@ -507,8 +508,6 @@ function RouteComponent() {
 > ```
 
 > 要了解更多关于 `useIntlayer` hook 的信息，请参考[文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/solid-intlayer/useIntlayer.md)。
-
-</Step>
 
 <Step number={9} title="创建语言切换器组件">
 
@@ -573,8 +572,6 @@ const RootComponent: ParentComponent = (props) => {
 };
 ```
 
----
-
 </Step>
 
 <Step number={11} title="添加中间件">
@@ -610,8 +607,6 @@ export default defineConfig({
   ],
 });
 ```
-
----
 
 </Step>
 
@@ -796,6 +791,7 @@ export const Route = createFileRoute("/{-$locale}/")({
 
 </Tabs>
 
+</Step>
 ### 该选择哪种解析方式？
 
 |                | 静态解析             | 动态解析                    | 带缓存的动态解析                          |
@@ -805,10 +801,6 @@ export const Route = createFileRoute("/{-$locale}/")({
 | 发送的语言环境 | 所有已声明的语言环境 | 仅请求的语言环境            | 仅请求的语言环境                          |
 | 客户端导航     | 无需解析             | 每次匹配都重新执行          | 由路由缓存提供                            |
 | 开发体验       | 最简单               | 一个 `await`                | 内容经由 `loaderData` 传递                |
-
----
-
-</Step>
 
 <Step number={13} title="在服务器操作中检索语言环境">
 
@@ -845,14 +837,13 @@ export const getLocaleServer = createServerFn().handler(async () => {
 });
 ```
 
----
-
 </Step>
 
 <Step number={14} title="管理未找到页面">
 
 当用户访问不存在的页面时，您可以显示自定义的未找到页面，语言环境前缀可能会影响未找到页面的触发方式。
 
+</Step>
 #### 理解 TanStack Router 的 404 处理与区域设置前缀
 
 在 TanStack Router 中，处理带有本地化路由的 404 页面需要多层次的方法：
@@ -922,8 +913,6 @@ export const Route = createFileRoute("/{-$locale}/$")({
   component: NotFoundComponent,
 });
 ```
-
-</Step>
 
 <Step number={15} title="提取你的组件内容" isOptional={true}>
 
@@ -1038,8 +1027,6 @@ bun run build # 或 bun run dev
  </Tab>
 </Tabs>
 
----
-
 </Step>
 
 <Step number={16} title="预渲染和生成 Sitemap">
@@ -1113,8 +1100,6 @@ export const Route = createFileRoute("/sitemap.xml")({
 });
 ```
 
----
-
 </Step>
 
 <Step number={17} title="配置 TypeScript">
@@ -1133,11 +1118,7 @@ Intlayer 使用模块扩展来获得 TypeScript 的好处并使你的代码库�
 }
 ```
 
----
-
 </Step>
-
-</Steps>
 
 ### Git 配置
 

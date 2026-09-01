@@ -59,8 +59,7 @@ author: aymericzip
 بالمقارنة مع الحلول الرئيسية مثل `next-intl` أو `i18next`، يعد Intlayer حلاً يأتي مزودًا بتحسينات متكاملة مثل:
 
 <AccordionGroup>
-
-**تغطية Next.js الكاملة**
+<Accordion header="تغطية Next.js الكاملة">
 
 تم تحسين Intlayer للعمل مع **مكونات الخادم** من أجل العرض الفعال وهو متوافق تمامًا مع [**Turbopack**](https://nextjs.org/docs/architecture/turbopack). إنه لا يمنع العرض الثابت ويوفر برامج وسيطة بالإضافة إلى جميع الميزات اللازمة لتوسيع نطاق التدويل (i18n).
 
@@ -68,13 +67,13 @@ author: aymericzip
 > يعد التوجيه المحلي مفيدًا لتحسين محركات البحث وحجم البندل والأداء. إذا لم تكن بحاجة إليه، يمكنك الرجوع إلى هذا [الدليل](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_no_locale_path.md).
 > بالنسبة إلى Next.js 12 و13 و14 و15 مع جهاز توجيه التطبيقات، راجع هذا [الدليل](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_14.md).
 
-**حجم البندل**
+</Accordion>
 
 <Accordion header="حجم الحزمة">
 
 بدلاً من تحميل ملفات JSON ضخمة إلى صفحاتك، قم بتحميل المحتوى الضروري فقط. يساعد Intlayer **في تقليل أحجام البندل وصفحاتك بنسبة تصل إلى 50%**.
 
-** الصيانة **
+</Accordion>
 
 <Accordion header="قابلية الصيانة">
 
@@ -82,11 +81,11 @@ author: aymericzip
 
 </Accordion>
 
-** وكيل الذكاء الاصطناعي **
+<Accordion header="وكيل الذكاء الاصطناعي">
 
 يؤدي تحديد موقع المحتوى المشترك ** إلى تقليل السياق المطلوب ** بواسطة نماذج اللغات الكبيرة (LLMs). يأتي Intlayer أيضًا مزودًا بمجموعة من الأدوات، مثل **CLI** لاختبار الترجمات المفقودة،**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**، **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** و**[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md)**، لجعل تجربة المطور (DX) أكثر سلاسة للذكاء الاصطناعي وكلاء.
 
-**الأتمتة**
+</Accordion>
 
 <Accordion header="الأتمتة">
 
@@ -94,13 +93,13 @@ author: aymericzip
 
 </Accordion>
 
-**أداء**
+<Accordion header="أداء">
 
 يمكن أن يؤدي ربط ملفات JSON الضخمة بالمكونات إلى حدوث مشكلات في الأداء والتفاعل. يعمل Intlayer على تحسين تحميل المحتوى الخاص بك في وقت الإنشاء.
 
 </Accordion>
 
-**التحجيم مع عدم وجود مطور**
+<Accordion header="التحجيم مع عدم وجود مطور">
 
 أكثر من مجرد حل i18n، يوفر Intlayer **[محررًا مرئيًا] مستضافًا ذاتيًا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** و**[كامل CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** لمساعدتك في إدارة المحتوى متعدد اللغات في **الوقت الفعلي**، مما يجعل التعاون مع المترجمين ومؤلفي النصوص وأعضاء الفريق الآخرين سلسًا. يمكن تخزين المحتوى محليًا و/أو عن بعد.
 
@@ -872,9 +871,15 @@ bun add @intlayer/swc --dev
 
 <FAQ>
 
-<Question title="لماذا أرغب في تشغيل تطبيق بدون لغة في عنوان URL؟">
+<Question title="ما هي الحلول المختلفة المتاحة لتدويل تطبيق Next.js؟">
 
-للحصول على عناوين URL أكثر أناقة، أو للحفاظ على بنية الروابط الحالية، أو لتقديم محتوى متعدد اللغات بناءً على ملفات تعريف الارتباط أو تفضيلات متصفح المستخدم.
+لا ينطبق حقل `i18n` في `next.config.js` على App Router، وبالتالي فإن طبقة التوطين هي دائمًا خيار مكتبة:
+
+- **`next-intl`** و **`next-i18next` / `i18next`** و **`react-intl`**: كتالوجات JSON أو ICU يتم تحميلها لكل مساحة اسم.
+- **`Lingui`**: مدفوع بالاستخراج، مع رسائل ICU يتم تجميعها في وقت البناء.
+- **`Intlayer`**: الحل الأكثر تقدمًا. يتم التصريح عن المحتوى في أي مكان في قاعدة التعليمات البرمجية ([بجانب كل مكون أو مركزيًا](https://intlayer.org/blog/per-component-vs-centralized-i18n)) ويتم تجميعه لكل مكون، مع أنواع كاملة وترجمة بالذكاء الاصطناعي ومحرر مرئي و CMS.
+
+يغطي هذا الدليل الإعداد بدون بادئة لغة في المسار. انظر [لماذا Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/interest_of_intlayer.md) و [مقارنة أداء تدويل Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/nextjs.md).
 
 </Question>
 
@@ -898,9 +903,11 @@ bun add @intlayer/swc --dev
 
 <Question title="هل يجب أن أنقل المحتوى الخاص بي مفتاحًا تلو الآخر؟">
 
-لا. قم بتشغيل `npx intlayer extract` وسيقرأ Intlayer ملفات المصدر الخاصة بك، ويسحب السلاسل النصية الموجهة للمستخدم ويكتب ملف `.content` بجانب كل منها، بحيث تراجع diff بدلاً من نسخ السلاسل إلى كتالوج يدويًا. راجع [أمر extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/extract.md).
+لا. قم بتشغيل `npx intlayer extract` وسيقرأ Intlayer مكوناتك، ويسحب السلاسل النصية الموجهة للمستخدم ويكتب ملف `.content` بجانب كل منها، بحيث تراجع diff بدلاً من نسخ السلاسل إلى كتالوج واحدًا تلو الآخر.
 
-لأتمتة كاملة، يقوم [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md) بالشيء نفسه في وقت البناء على كود JSX و TSX و Vue و Svelte، منشئًا القواميس عند كل تغيير دون الحاجة إلى إدارة المفاتيح يدويًا.
+للحصول على تدفق مؤتمت بالكامل، يقوم [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md) بالشيء نفسه في وقت البناء: يقوم بفحص كود JSX و TSX و Vue و Svelte عند كل تغيير، وينشئ القواميس ويبقيها متزامنة عبر الاستبدال السريع للوحدات (HMR)، بحيث لا توجد مفاتيح تتم صيانتها يدويًا على الإطلاق.
+
+من المفيد معرفة حدين قبل تشغيل المترجم. يعمل عن طريق التحليل الثابت، لذلك تظل السلاسل الموجودة في وقت التشغيل فقط، مثل رموز أخطاء API أو حقول CMS، بعيدة عن متناوله. ويجب عليه تمييز النص الموجه للمستخدم عن منطق التطبيق مثل `className="active"` أو رمز الحالة، وهو ما يتطلب بعض التعليقات التوضيحية في قاعدة تعليمات برمجية كبيرة. يتجنب [أمر extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/extract.md) كلا الأمرين من خلال إبقائك في الحلقة.
 
 </Question>
 
@@ -916,33 +923,33 @@ bun add @intlayer/swc --dev
 
 </Question>
 
-<Question title="كيف يتم اكتشاف اللغة في هذه الحالة؟">
+<Question title="لماذا أرغب في تشغيل تطبيقي بدون لغة في عنوان URL؟">
 
-أولاً من ملف تعريف الارتباط، ثم ترويسة `Accept-Language`، والعودة إلى اللغة الافتراضية إذا لم تكن متوفرة. يتم حفظ الاختيار في ملف تعريف ارتباط.
+لأن اللغة ليست دائمًا جزءًا من هوية الصفحة. لوحة تحكم مصادق عليها أو أداة داخلية أو تطبيق خلف تسجيل الدخول ليس لديه سبب لكشف `/fr/` في كل عنوان URL: اللغة هي تفضيل للمستخدم، وليست مستندًا مختلفًا. يؤدي إسقاط البادئة أيضًا إلى إبقاء مساراتك وروابطك وتحليلاتك في مجموعة واحدة من المسارات.
 
 </Question>
 
 <Question title="ما هي الآثار المترتبة على تحسين محركات البحث إذا لم تكن هناك لغة في عنوان URL؟">
 
-يصعب على محركات البحث فهرسة المحتوى متعدد اللغات إذا كان على نفس عنوان URL. لمتطلبات SEO القوية، يوصى باستخدام بادئات URL أو نطاقات فرعية مخصصة.
+إنها حقيقية، لذا اختر بعناية. بدون عنوان URL مميز لكل لغة، لا تمتلك محركات البحث صفحة منفصلة لفهرستها لكل لغة، ولا يملك `hreflang` أي شيء للإشارة إليه، ولا يرى زاحف الويب سوى اللغة التي يقدمها الاكتشاف الافتراضي لديك. هذا جيد للمحتوى خلف تسجيل الدخول، والذي لا تتم فهرسته على أي حال، وغير مناسب لموقع تسويقي عام أو وثائق. إذا كانت الزيارات المجانية لكل لغة مهمة، فاستخدم الإعداد المسبوق في [دليل Next.js 16](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_16.md) بدلاً من ذلك.
 
 </Question>
 
-<Question title="ما الفرق بين وضعي no-prefix و search-params؟">
+<Question title="ما الفرق بين وضعي `no-prefix` و `search-params`؟">
 
-يحافظ وضع `no-prefix` على نظافة عنوان URL ويعتمد على ملفات تعريف الارتباط؛ بينما يخزن وضع `search-params` اللغة في معلمات الاستعلام مثل `?locale=ar`.
-
-</Question>
-
-<Question title="هل يمكنني تخصيص نطاق مستقل لكل لغة؟">
-
-نعم. يتيح لك إعداد `routing.domains` تعيين كل لغة لنطاق مخصص، مثل `example.sa` أو `example.com`.
+يبقي `"no-prefix"` اللغة خارج عنوان URL تمامًا ويحلها من ملف تعريف الارتباط أو الترويسة أو النطاق، بحيث تشترك كل اللغات في عنوان واحد. يضعها `"search-params"` في سلسلة الاستعلام مثل `/dashboard?locale=ar`، والتي لا تزال تمنح كل لغة عنوان URL مميزًا وقابلاً للربط ومضافًا إلى الإشارات المرجعية دون تغيير شجرة المسارات. فضل `"search-params"` عندما تريد روابط قابلة للمشاركة لكل لغة.
 
 </Question>
 
-<Question title="هل يعمل Intlayer مع مكونات خادم React (RSC)؟">
+<Question title="كيف يتم اكتشاف اللغة إذن؟">
 
-نعم. يتم حل المحتوى في Server Components مباشرة على الخادم، لذلك لا يتم إرسال أي قواميس إلى العميل للنصوص المعروضة على الخادم. تقرأ مكونات العميل القواميس عبر الموفر (provider).
+من المصادر المدرجة في `routing.storage`، بشكل افتراضي ملف تعريف الارتباط أولاً ثم ترويسة `Accept-Language`، مع الرجوع إلى لغتك الافتراضية. تضيف الخطوة 7 الوكيل الذي يطبق ذلك. يتم الاحتفاظ باللغة التي يختارها المستخدم بشكل صريح، بحيث تستمر في الزيارة التالية. راجع [مرجع التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
+
+</Question>
+
+<Question title="هل يمكنني تعيين كل لغة لنطاقها الخاص بدلاً من ذلك؟">
+
+نعم، وهو الخيار الذي يجب مراعاته عندما تقوم بإسقاط البادئة لأسباب تجميلية ولكنك لا تزال تريد تحسين محركات البحث. يقوم `routing.domains` بتعيين لغة لاسم مضيف، بحيث يحدد النطاق اللغة، ولا تتم إضافة أي بادئة إلى المسار، وتحصل كل لغة على عنوان URL قابل للفهرسة يمكن لـ `hreflang` الإشارة إليه.
 
 </Question>
 

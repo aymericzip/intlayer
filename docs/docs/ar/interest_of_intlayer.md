@@ -38,13 +38,12 @@ author: aymericzip
 
 بالمقارنة مع الحلول الرئيسية مثل `next-intl` أو `i18next`، يعد Intlayer حلاً يأتي مزودًا بتحسينات متكاملة مثل:
 
-**حجم البندل**
-
+<AccordionGroup>
 <Accordion header="حجم الحزمة">
 
 بدلاً من تحميل ملفات JSON ضخمة إلى صفحاتك، قم بتحميل المحتوى الضروري فقط. يساعد Intlayer **في تقليل أحجام البندل وصفحاتك بنسبة تصل إلى 50%**.
 
-** الصيانة **
+</Accordion>
 
 <Accordion header="قابلية الصيانة">
 
@@ -52,17 +51,17 @@ author: aymericzip
 
 </Accordion>
 
-** وكيل الذكاء الاصطناعي **
+<Accordion header="وكيل الذكاء الاصطناعي">
 
 يؤدي تحديد موقع المحتوى المشترك ** إلى تقليل السياق المطلوب ** بواسطة نماذج اللغات الكبيرة (LLMs). يأتي Intlayer أيضًا مزودًا بمجموعة من الأدوات، مثل **CLI** لاختبار الترجمات المفقودة،**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**، **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** و**[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md)**، لجعل تجربة المطور (DX) أكثر سلاسة للذكاء الاصطناعي وكلاء.
 
 </Accordion>
 
-**ميزة**
+<Accordion header="ميزة">
 
 يقدم Intlayer مجموعة من الميزات الإضافية التي لا تتوفر في حلول i18n الأخرى، مثل [دعم Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/markdown.md)، [جلب خارجي المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/function_fetching.md)، [تحميل محتوى الملف](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/file.md)، [المحتوى المباشر تحديث](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/live.md)، [محرر مرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) والمزيد.
 
-**الأتمتة**
+</Accordion>
 
 <Accordion header="الأتمتة">
 
@@ -70,22 +69,24 @@ author: aymericzip
 
 </Accordion>
 
-**أداء**
+<Accordion header="أداء">
 
 يمكن أن يؤدي ربط ملفات JSON الضخمة بالمكونات إلى حدوث مشكلات في الأداء والتفاعل. يعمل Intlayer على تحسين تحميل المحتوى الخاص بك في وقت الإنشاء.
 
 </Accordion>
 
-**التحجيم مع عدم وجود مطور**
+<Accordion header="التحجيم مع عدم وجود مطور">
 
 أكثر من مجرد حل i18n، يوفر Intlayer **[محررًا مرئيًا] مستضافًا ذاتيًا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** و**[كامل CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** لمساعدتك في إدارة المحتوى متعدد اللغات في **الوقت الفعلي**، مما يجعل التعاون مع المترجمين ومؤلفي النصوص وأعضاء الفريق الآخرين سلسًا. يمكن تخزين المحتوى محليًا و/أو عن بعد.
 
 </Accordion>
 
-** تصميم الإطار المتقاطع **
+<Accordion header="تصميم الإطار المتقاطع">
 
 إذا كنت تستخدم أطر عمل مختلفة لأجزاء مختلفة من تطبيقك (على سبيل المثال، React وReact-native وVue وAngular وSvelte وما إلى ذلك)، فإن Intlayer يوفر طريقة **لاستخدام بناء جملة مشترك وتنفيذه عبر جميع أطر عمل الواجهة الأمامية الرئيسية**. ستتمكن أيضًا من مشاركة إعلان المحتوى الخاص بك عبر نظام التصميم والتطبيقات والواجهة الخلفية وما إلى ذلك.
 
+</Accordion>
+</AccordionGroup>
 ---
 
 ## لماذا تم إنشاء Intlayer؟
@@ -304,8 +305,6 @@ export const ComponentExample = () => {
 - **مكتبات كتالوجات وقت التشغيل**: `i18next`، `react-i18next`، `next-i18next`، `vue-i18n`، `ngx-translate`.
 - **مكتبات رسائل وقت البناء**: `Lingui`، `Paraglide`، `react-intl`، و `next-intl`.
 - **مكتبات طبقة المحتوى (Content layer)**: `Intlayer`. إعلان بجانب المكون، تصفية تلقائية، أنواع TypeScript، ترجمة بالذكاء الاصطناعي، ومحرر مرئي.
-
-انظر المقارنة الكاملة في هذا الدليل.
 
 </Question>
 

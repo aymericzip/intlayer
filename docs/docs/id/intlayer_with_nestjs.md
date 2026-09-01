@@ -276,6 +276,8 @@ Untuk melakukan ini, Anda dapat menambahkan instruksi berikut ke file `.gitignor
 - **`nestjs-i18n`**: modul populer untuk NestJS menggunakan JSON dan YAML.
 - **`Intlayer`**: kompatibilitas penuh dengan Dependency Injection dan interceptor, typing build time, terjemahan AI, dan kamus bersama dengan frontend.
 
+Alasan utama untuk menginternasionalkan backend adalah karena sebagian besar teks yang dibaca pengguna tidak pernah melewati frontend: pesan kesalahan API, email transaksional, push notification, SMS, dan ekspor PDF. Hal-hal tersebut memerlukan bahasa penerima, yang diselesaikan per permintaan dan bukan per sesi.
+
 Lihat [mengapa Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/interest_of_intlayer.md).
 
 </Question>

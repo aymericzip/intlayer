@@ -28,7 +28,6 @@ author: aymericzip
 ## Почему стоит перейти с vue-i18n на Intlayer?
 
 <AccordionGroup>
-
 <Accordion header="Размер бандла">
 
 Вместо того чтобы загружать огромные JSON-файлы на ваших страницах, загружайте только необходимый контент. Intlayer помогает **сократить размер бандла и страниц до 50%**.
@@ -66,7 +65,6 @@ Intlayer также является **наиболее активно разв�
 Будучи больше, чем просто решением i18n, Intlayer предоставляет **[визуальный редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md)** (self-hosted) и **[полноценную CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md)**, чтобы помочь вам управлять мультиязычным контентом в **реальном времени**, делая сотрудничество с переводчиками, копирайтерами и другими членами команды бесшовным. Контент может храниться как локально, так и/или удаленно.
 
 </Accordion>
-
 </AccordionGroup>
 
 ---
