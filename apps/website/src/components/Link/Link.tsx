@@ -140,7 +140,11 @@ export const Link: FC<LinkProps> = (props) => {
    */
   const ariaCurrent = ariaCurrentProp ?? (isActive ? 'page' : undefined);
 
-  if (isAsset) {
+  // External links (and malformed absolute URLs, e.g. a bare URL autolinked
+  // from doc markdown) must never reach `<TanStackLink>`: the router resolves
+  // `to` through `new URL(to, origin)`, which throws and aborts SSR when the
+  // value is not a valid URL. A plain anchor also avoids pointless router work.
+  if (isAsset || isExternalLink) {
     return (
       <a
         {...(otherProps as any)}

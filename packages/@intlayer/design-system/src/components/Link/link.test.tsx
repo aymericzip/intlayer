@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { describe, expect, test, vi } from 'vitest';
-import { Link } from './Link';
+import { checkIsExternalLink, Link } from './Link';
 
 // Mock the getLocalizedUrl function from @intlayer/core
 vi.mock('@intlayer/core/localization', () => ({
@@ -87,6 +87,19 @@ describe('Link', () => {
 
       expect(link.getAttribute('rel')).toBeNull();
       expect(link.getAttribute('target')).toBe('_self');
+    });
+
+    test('treats a malformed absolute URL as external without throwing', () => {
+      // A bare URL autolinked from doc markdown can carry trailing text
+      // (e.g. CJK punctuation), producing a value `new URL()` rejects.
+      const malformedHref = "http://localhost:8000'입니다";
+
+      expect(() =>
+        checkIsExternalLink({ href: malformedHref }, 'https://intlayer.org')
+      ).not.toThrow();
+      expect(
+        checkIsExternalLink({ href: malformedHref }, 'https://intlayer.org')
+      ).toBe(true);
     });
 
     test('preserves a caller rel and target on internal links', () => {
