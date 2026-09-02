@@ -48,9 +48,9 @@ export const Question: FC<QuestionProps> = ({
     <Accordion
       label={title}
       header={
-        <h3 id={slugify(title)} className="text-left text-sm">
+        <span id={slugify(title)} className="text-left text-sm">
           {title}
-        </h3>
+        </span>
       }
     >
       <div className="flex flex-col gap-3 px-4 py-6 text-sm text-text/80 [&_p]:mt-0">
