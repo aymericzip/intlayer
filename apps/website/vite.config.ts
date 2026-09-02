@@ -1,4 +1,5 @@
 import crypto from 'node:crypto';
+import { createRequire } from 'node:module';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
@@ -16,6 +17,7 @@ import { tanstackStart } from '@tanstack/react-start/plugin/vite';
 import react, { reactCompilerPreset } from '@vitejs/plugin-react';
 import { localeFlatMap } from 'intlayer';
 import { nitro } from 'nitro/vite';
+import { visualizer } from 'rollup-plugin-visualizer';
 import { defineConfig, loadEnv } from 'vite';
 import { intlayer } from 'vite-intlayer';
 import wasm from 'vite-plugin-wasm';
@@ -26,6 +28,20 @@ import {
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+
+const require = createRequire(import.meta.url);
+
+/**
+ * `shiki`'s root entry statically references every one of its ~220 grammars and
+ * ~70 themes, which Nitro then groups into two multi-MB server chunks. The
+ * design system's fine-grained bundle exposes the same surface
+ * (`createHighlighter`, `bundledLanguages`, `bundledThemes`, the `codeTo*`
+ * shorthands) over the languages and the two themes actually used, so aliasing
+ * the bare specifier keeps third-party importers — `tiptap-extension-code-block-shiki`,
+ * which hard-codes it — off the full bundle. Resolved to an absolute path
+ * because Rolldown's alias plugin duplicates modules otherwise.
+ */
+const shikiBundlePath = require.resolve('@intlayer/design-system/shiki-bundle');
 
 /**
  * Web-linking (RFC 8288) entry points advertised on every page response, so an
@@ -418,9 +434,12 @@ export default defineConfig(async ({ mode }) => {
       'import.meta.env.VITE_CSP_NONCE': JSON.stringify(cspNonce),
     },
     resolve: {
-      alias: {
-        '~': resolve(__dirname, 'src'),
-      },
+      alias: [
+        { find: '~', replacement: resolve(__dirname, 'src') },
+        // Anchored so that `shiki/core`, `shiki/wasm`, `shiki/langs/*` and
+        // `shiki/themes/*` still resolve to the package itself.
+        { find: /^shiki$/, replacement: shikiBundlePath },
+      ],
       dedupe: [
         'react',
         'react-dom',
@@ -489,6 +508,7 @@ export default defineConfig(async ({ mode }) => {
       react(),
       babel({ presets: [reactCompilerPreset()] }),
       wasm(),
+      visualizer(),
     ],
     build: {
       minify: true,

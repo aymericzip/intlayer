@@ -13,3 +13,6 @@ export const SHIKI_THEMES = {
 } as const;
 
 export type ShikiThemes = typeof SHIKI_THEMES;
+
+/** Every theme id the fine-grained Shiki bundle can resolve. */
+export type ShikiThemeId = ShikiThemes[keyof ShikiThemes];

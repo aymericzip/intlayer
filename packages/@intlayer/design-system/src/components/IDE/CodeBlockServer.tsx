@@ -8,12 +8,7 @@ import {
 } from '@shikijs/transformers';
 import { cn } from '@utils/cn';
 import { type FC, type HTMLAttributes, Suspense } from 'react';
-import {
-  type BundledLanguage,
-  type BundledTheme,
-  type CodeToHastOptions,
-  codeToHtml,
-} from 'shiki/bundle/web';
+import { type BundledLanguage, codeToHtml } from './shikiBundle';
 import { SHIKI_THEMES } from './shikiThemes';
 
 export const CodeBlockShiki = (async ({
@@ -22,7 +17,7 @@ export const CodeBlockShiki = (async ({
   onChange,
   ...props
 }: CodeBlockProps) => {
-  const shikiOptions: CodeToHastOptions<BundledLanguage, BundledTheme> = {
+  const shikiOptions: Parameters<typeof codeToHtml>[1] = {
     lang,
     themes: SHIKI_THEMES,
     // Both palettes ship as CSS variables, so one markup serves both themes.

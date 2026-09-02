@@ -63,7 +63,7 @@ export const CodeBlockHighlight = ({
           ).id;
         }
 
-        const { codeToHtml } = await import('shiki/bundle/web');
+        const { codeToHtml } = await import('./shikiBundle');
         if (cancelled) return;
 
         const out = await codeToHtml(String(code), {

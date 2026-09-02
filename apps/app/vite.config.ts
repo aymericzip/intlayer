@@ -1,3 +1,4 @@
+import { createRequire } from 'node:module';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
@@ -94,6 +95,20 @@ const localizedPages = localeFlatMap(({ urlPrefix }) =>
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+
+const require = createRequire(import.meta.url);
+
+/**
+ * `shiki`'s root entry statically references every one of its ~220 grammars and
+ * ~70 themes. The design system's fine-grained bundle exposes the same surface
+ * (`createHighlighter`, `bundledLanguages`, `bundledThemes`, the `codeTo*`
+ * shorthands) over the languages and the two themes actually used, so aliasing
+ * the bare specifier keeps third-party importers — `tiptap-extension-code-block-shiki`,
+ * which the markdown editor pulls in and which hard-codes it — off the full
+ * bundle. Resolved to an absolute path because Rolldown's alias plugin
+ * duplicates modules otherwise.
+ */
+const shikiBundlePath = require.resolve('@intlayer/design-system/shiki-bundle');
 
 /**
  * Port the Vite preview server binds while TanStack Start's prerender crawls
@@ -326,6 +341,13 @@ export default defineConfig(({ mode }) => {
   return {
     server: {
       headers: mode === 'development' ? {} : headers,
+    },
+    resolve: {
+      alias: [
+        // Anchored so that `shiki/core`, `shiki/wasm`, `shiki/langs/*` and
+        // `shiki/themes/*` still resolve to the package itself.
+        { find: /^shiki$/, replacement: shikiBundlePath },
+      ],
     },
     // Note: If you test using `vite preview`, it applies these globally.
     // It will not use Nitro's routeRules dynamically in simple preview mode.

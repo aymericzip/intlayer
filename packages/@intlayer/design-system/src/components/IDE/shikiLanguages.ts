@@ -16,7 +16,7 @@ export type GrammarLoader = () => Promise<{ default: LanguageGrammar }>;
  * bundlers can statically analyse them and emit one lazily fetched chunk per
  * grammar instead of bundling every language up front.
  */
-const grammarLoaders = {
+export const grammarLoaders = {
   'angular-html': () => import('shiki/langs/angular-html.mjs'),
   'angular-ts': () => import('shiki/langs/angular-ts.mjs'),
   astro: () => import('shiki/langs/astro.mjs'),
@@ -73,7 +73,7 @@ export const shikiLanguageIds = Object.keys(
  * Code fence names that are rendered by another grammar, mapped to the
  * canonical id that actually owns the grammar.
  */
-const grammarAliases = {
+export const grammarAliases = {
   'c#': 'csharp',
   'c++': 'cpp',
   cjs: 'javascript',
