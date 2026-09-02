@@ -162,7 +162,7 @@ export const IDESection: FC = () => {
       <IDE
         pages={tabs}
         activeTab={0}
-        className="m-0! mx-auto flex-1 p-0! text-xs [&>pre:bg-black]:bg-background"
+        className="m-0! mx-auto flex-1 p-0! text-xs"
         key={`${mode}-${framework}`}
       />
     </div>
