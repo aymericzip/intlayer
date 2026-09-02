@@ -14,7 +14,7 @@ import babel from '@rolldown/plugin-babel';
 import tailwindcss from '@tailwindcss/vite';
 import { tanstackStart } from '@tanstack/react-start/plugin/vite';
 import react, { reactCompilerPreset } from '@vitejs/plugin-react';
-import { getLocalizedUrl, localeFlatMap } from 'intlayer';
+import { localeFlatMap } from 'intlayer';
 import { nitro } from 'nitro/vite';
 import { defineConfig, loadEnv } from 'vite';
 import { intlayer } from 'vite-intlayer';
