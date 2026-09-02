@@ -20,8 +20,6 @@ author: aymericzip
 
 # 国際化（i18n）とは？ 定義と課題
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
-
 ## 国際化（i18n）の理解
 
 **国際化**（Internationalization）、略して**i18n**は、アプリケーションを設計し、コードベースに大きな変更を加えることなく、複数の言語、文化、地域的慣習をサポートするためのプロセスです。i18nという名前は、「internationalization」という言葉の中で**i**と**n**の間に18文字があることに由来しています。

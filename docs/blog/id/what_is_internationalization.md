@@ -20,8 +20,6 @@ author: aymericzip
 
 # Apa itu Internasionalisasi (i18n)? Definisi dan tantangan
 
-![ilustrasi i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
-
 ## Memahami Internasionalisasi (i18n)
 
 **Internasionalisasi**, yang sering disingkat sebagai **i18n**, adalah proses merancang dan mempersiapkan sebuah aplikasi untuk mendukung berbagai bahasa, budaya, dan konvensi regional **tanpa** perubahan besar pada basis kode. Nama i18n berasal dari fakta bahwa terdapat 18 huruf antara **i** dan **n** dalam kata “internationalization.”

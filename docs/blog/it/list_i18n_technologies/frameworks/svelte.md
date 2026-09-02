@@ -23,8 +23,6 @@ author: aymericzip
 
 Man mano che il web continua a connettere persone in tutto il mondo, fornire contenuti in più lingue diventa sempre più importante. Per gli sviluppatori che lavorano con **Svelte**, implementare l’i18n è essenziale per gestire efficacemente le traduzioni, mantenere un codice pulito e rispettare buone pratiche SEO. In questo articolo, esploreremo diverse soluzioni i18n e flussi di lavoro per Svelte, aiutandoti a scegliere quello che meglio si adatta alle esigenze del tuo progetto.
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
-
 ## Cos'è l'internazionalizzazione (i18n)?
 
 L'internazionalizzazione, comunemente abbreviata come i18n, è il processo di progettazione e costruzione della tua applicazione in modo che possa facilmente adattarsi a varie lingue, regioni e convenzioni culturali. In Svelte, questo significa tipicamente impostare stringhe di traduzione, localizzare date, ore e numeri, e garantire che l'interfaccia utente possa passare dinamicamente tra diverse lingue senza grandi riscritture di codice.

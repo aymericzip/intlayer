@@ -25,8 +25,6 @@ author: aymericzip
 
 ---
 
-![i18n 说明](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
-
 ## 什么是国际化（i18n）？
 
 国际化或 i18n 涉及对应用程序的结构设计，以便它可以轻松适应不同的语言、区域格式和文化规范。在 React Native 中，i18n 包括处理按钮和标签的字符串，以及根据用户的区域格式来格式化日期、时间、货币等。适当准备的 React Native 应用程序使您能够无缝集成其他语言和特定于区域的行为，而无需进行大量重构。

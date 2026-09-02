@@ -19,8 +19,6 @@ author: aymericzip
 
 # i18n 的含义：什么是国际化，为什么它很重要？
 
-![i18n 插图](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
-
 ## 理解 \"i18n 的含义\"
 
 如果你从事软件开发、网页设计或数字营销，你可能遇到过 **i18n** 这个术语。**i18n 的真正含义**其实是 **国际化** (internationalization) 的一个数字略写。

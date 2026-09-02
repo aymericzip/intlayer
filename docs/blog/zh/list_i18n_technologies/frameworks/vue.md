@@ -25,8 +25,6 @@ author: aymericzip
 
 ---
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
-
 ## 什么是国际化 (i18n)？
 
 国际化 (i18n) 是为多个语言和文化习俗准备软件应用程序（或网站）的做法。在 Vue.js 生态系统中，这包括确定如何将文本、日期、数字、货币和其他可本地化元素适配到各种区域。通过从一开始就设置 i18n，您可以确保一个有序、可扩展的结构，以便添加新语言和处理未来的本地化需求。

@@ -25,8 +25,6 @@ Au fur et à mesure que le web continue de connecter les gens à travers le mond
 
 ---
 
-![illustration i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
-
 ## Qu'est-ce que l'internationalisation (i18n)?
 
 L'internationalisation, couramment abrégée en i18n, est le processus de conception et de construction de votre application de manière à ce qu'elle puisse facilement s'adapter à diverses langues, régions et conventions culturelles. Dans Svelte, cela signifie généralement la mise en place de chaînes de traduction, la localisation des dates, heures et nombres, et garantir que l'interface utilisateur peut passer dynamiquement d'une locale à l'autre sans réécritures majeures du code.

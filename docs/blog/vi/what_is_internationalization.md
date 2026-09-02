@@ -20,8 +20,6 @@ author: aymericzip
 
 # Internationalization (i18n) là gì? Định nghĩa và những thách thức
 
-![minh họa i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
-
 ## Hiểu về Internationalization (i18n)
 
 **Quốc tế hóa**, thường được viết tắt là **i18n**, là quá trình thiết kế và chuẩn bị một ứng dụng để hỗ trợ nhiều ngôn ngữ, văn hóa và các quy ước vùng miền **mà không** cần thay đổi lớn trong cơ sở mã nguồn. Tên gọi i18n xuất phát từ việc có 18 chữ cái nằm giữa chữ **i** và chữ **n** trong từ “internationalization” (quốc tế hóa).

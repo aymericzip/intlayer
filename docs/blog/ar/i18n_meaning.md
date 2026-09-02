@@ -19,8 +19,6 @@ author: aymericzip
 
 # معنى i18n: ما هي التدويل ولماذا هي مهمة؟
 
-![توضيح i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
-
 ## فهم معنى "i18n"
 
 إذا كنت تعمل في مجال تطوير البرمجيات، أو تصميم الويب، أو التسويق الرقمي، فمن المحتمل أنك واجهت مصطلح **i18n**. المعنى الحقيقي لـ **i18n** هو ببساطة اختصار رقمي لكلمة **internationalization** (التدويل).

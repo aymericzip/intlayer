@@ -25,8 +25,6 @@ Trong bối cảnh kỹ thuật số ngày nay, việc mở rộng phạm vi ti�
 
 ---
 
-![minh họa i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
-
 ## Quốc tế hóa (i18n) là gì?
 
 Quốc tế hóa, viết tắt là i18n, là quá trình thiết kế và chuẩn bị trang web của bạn để hỗ trợ nhiều ngôn ngữ và bối cảnh văn hóa khác nhau. Trong React, điều này có nghĩa là thiết lập ứng dụng của bạn sao cho các chuỗi ký tự, định dạng ngày tháng, định dạng số, và thậm chí cả bố cục có thể dễ dàng điều chỉnh cho người dùng từ các vùng miền khác nhau. Việc chuẩn bị ứng dụng React của bạn cho i18n tạo nền tảng để tích hợp mượt mà các bản dịch và các tính năng địa phương hóa khác.

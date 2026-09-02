@@ -19,8 +19,6 @@ author: aymericzip
 
 # Significado de i18n: ¿Qué es la internacionalización y por qué es importante?
 
-![ilustración i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
-
 ## Entendiendo el "Significado de i18n"
 
 Si estás involucrado en el desarrollo de software, el diseño web o el marketing digital, es probable que te hayas encontrado con el término **i18n**. El verdadero **significado de i18n** es simplemente un numerónimo para **internacionalización**.

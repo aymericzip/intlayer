@@ -25,8 +25,6 @@ Trong bối cảnh kỹ thuật số ngày càng toàn cầu hóa, việc mở r
 
 ---
 
-![minh họa i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
-
 ## Quốc tế hóa (i18n) là gì?
 
 Quốc tế hóa (i18n) là thực hành chuẩn bị một ứng dụng phần mềm (hoặc trang web) cho nhiều ngôn ngữ và các quy ước văn hóa khác nhau. Trong hệ sinh thái Vue.js, điều này bao gồm việc thiết lập cách thức văn bản, ngày tháng, số liệu, tiền tệ và các yếu tố có thể địa phương hóa khác có thể được điều chỉnh cho các vùng địa lý khác nhau. Bằng cách thiết lập i18n ngay từ đầu, bạn đảm bảo một cấu trúc có tổ chức, có thể mở rộng để thêm ngôn ngữ mới và xử lý các nhu cầu địa phương hóa trong tương lai.

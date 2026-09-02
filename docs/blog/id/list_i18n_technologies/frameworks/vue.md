@@ -25,8 +25,6 @@ Dalam lanskap digital yang semakin mengglobal, memperluas jangkauan situs web Vu
 
 ---
 
-![ilustrasi i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
-
 ## Apa itu Internasionalisasi (i18n)?
 
 Internasionalisasi (i18n) adalah praktik mempersiapkan aplikasi perangkat lunak (atau situs web) untuk berbagai bahasa dan konvensi budaya. Dalam ekosistem Vue.js, ini mencakup penetapan bagaimana teks, tanggal, angka, mata uang, dan elemen lain yang dapat dilokalisasi dapat disesuaikan dengan berbagai lokal. Dengan mengatur i18n sejak awal, Anda memastikan struktur yang terorganisir dan skalabel untuk menambahkan bahasa baru serta menangani kebutuhan lokalisasi di masa depan.

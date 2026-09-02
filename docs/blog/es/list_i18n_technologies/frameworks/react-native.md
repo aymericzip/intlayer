@@ -25,8 +25,6 @@ En un mercado global cada vez más competitivo, ofrecer tu aplicación de React 
 
 ---
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
-
 ## ¿Qué es la Internacionalización (i18n)?
 
 La internacionalización, o i18n, implica estructurar una aplicación para que pueda adaptarse fácilmente a diferentes idiomas, formatos regionales y normas culturales. En React Native, i18n incluye el manejo de cadenas para botones y etiquetas, así como el formato de fechas, horas, monedas y más de acuerdo con la configuración regional del usuario. Las aplicaciones de React Native bien preparadas te permiten integrar sin problemas idiomas adicionales y comportamientos específicos de la localidad más adelante, sin grandes refactorizaciones.

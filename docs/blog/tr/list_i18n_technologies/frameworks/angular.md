@@ -25,8 +25,6 @@ Günümüz birbirine bağlı dünyasında, web sitenizi birden fazla dilde sunma
 
 ---
 
-![i18n illüstrasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
-
 ## Uluslararasılaştırma (i18n) Nedir?
 
 Uluslararasılaştırma, genellikle i18n olarak anılır, uygulamanızı birden fazla dil ve kültürel bağlamı destekleyecek şekilde tasarlamak ve hazırlamak sürecidir. Angular'da bu, metin, tarih, sayı ve hatta UI düzenlerinin farklı yerel ayarlara sorunsuz bir şekilde uyarlanabilmesi için uygulamanızı yapılandırmayı içerir. Bu temeli düzgün bir şekilde atmak, gelecekteki çevirilerin entegrasyonunun düzenli ve verimli kalmasını sağlar.

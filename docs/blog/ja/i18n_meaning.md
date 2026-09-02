@@ -19,8 +19,6 @@ author: aymericzip
 
 # i18nの意味：国際化とは何か、なぜ重要なのか？
 
-![i18nのイラスト](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
-
 ## 「i18nの意味」を理解する
 
 ソフトウェア開発、ウェブデザイン、またはデジタルマーケティングに携わっているなら、**i18n**という用語を目にしたことがあるでしょう。真の**i18nの意味**は、単純に**国際化**（internationalization）の数略語です。

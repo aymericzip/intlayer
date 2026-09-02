@@ -20,8 +20,6 @@ author: aymericzip
 
 # 국제화(i18n)란? 정의 및 도전 과제
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/assets/i18n.webp)
-
 ## 국제화(i18n) 이해하기
 
 **국제화**(Internationalization), 줄여서 **i18n**은 코드베이스에 큰 변경 없이 여러 언어, 문화 및 지역 관습을 지원하도록 애플리케이션을 설계하고 준비하는 과정입니다. i18n이라는 이름은 “internationalization”이라는 단어에서 **i**와 **n** 사이에 18개의 문자가 있다는 사실에서 유래되었습니다.

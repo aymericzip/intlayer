@@ -25,8 +25,6 @@ author: aymericzip
 
 ---
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
-
 ## ما هي الـ Internationalization (i18n)؟
 
 تتضمن Internationalization، أو i18n، هيكلة التطبيق بحيث يمكنه التكيف بسهولة مع لغات مختلفة، وتنسيقات إقليمية، وأعراف ثقافية. في React Native، تشمل i18n التعامل مع السلاسل للنوافذ والأزرار، بالإضافة إلى تنسيق التواريخ، والأوقات، والعملات، والمزيد وفقًا لإعدادات المستخدم. تتيح لك تطبيقات React Native المعدة بشكل صحيح دمج اللغات الإضافية وسلوكيات محددة محليًا لاحقًا, دون عمليات إعادة هيكلة ضخمة.

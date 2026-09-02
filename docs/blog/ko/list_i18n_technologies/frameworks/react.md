@@ -25,8 +25,6 @@ author: aymericzip
 
 ---
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
-
 ## 국제화(i18n)란 무엇인가요?
 
 국제화란 i18n의 약어로, 웹사이트가 여러 언어와 문화적 맥락을 지원할 수 있도록 디자인하고 준비하는 과정입니다. React에서 이는 문자열, 날짜 형식, 숫자 형식 및 레이아웃이 서로 다른 지역의 사용자에 맞게 쉽게 조정될 수 있도록 앱을 설정하는 것을 의미합니다. React 앱을 i18n에 대비시키는 것은 번역 및 기타 지역화 기능을 깔끔하게 통합할 수 있는 기초를 마련합니다.

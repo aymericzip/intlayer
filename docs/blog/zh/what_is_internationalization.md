@@ -20,8 +20,6 @@ author: aymericzip
 
 # 什么是国际化 (i18n)? 定义与挑战
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
-
 ## 理解国际化 (i18n)
 
 **国际化**，通常缩写为 **i18n**，是设计和准备一个应用程序以支持多种语言、文化和地区惯例的过程**而不**对代码库进行重大更改。i18n这个名称源于“国际化”这个词中**i**和**n**之间有18个字母这一事实。

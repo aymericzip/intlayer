@@ -1,16 +1,17 @@
 ---
 createdAt: 2025-01-16
-updatedAt: 2026-05-31
-title: Best Angular i18n Libraries 2026 — Compared by DX & Bundle
-description: Best solution for bundle size, SEO, performances & maintainability. Make your Angular app multilingual in 2026, LLM translation, Agent Skills & MCP.
+updatedAt: 2026-09-02
+title: Angular i18n - why the official one is build-time
+description: How @angular/localize compiles one bundle per locale, why that blocks in-app language switching, and when ngx-translate, Transloco or Intlayer fit better.
 keywords:
-  - Angular
-  - i18n
-  - multilingual
-  - SEO
-  - Internationalization
-  - Blog
-  - JavaScript
+  - angular i18n
+  - "@angular/localize"
+  - ngx-translate
+  - Transloco
+  - Angular internationalization
+  - XLIFF
+  - Angular signals
+  - Intlayer
 slugs:
   - blog
   - i18n-technologies
@@ -19,130 +20,205 @@ slugs:
 author: aymericzip
 ---
 
-# Exploring i18n Solutions to Translate Your Angular Website
+# Angular i18n: build-time by default, and what that costs you
 
-In today's interconnected world, offering your website in multiple languages can significantly expand your reach and improve user experience. For developers working with Angular, implementing internationalization (i18n) is crucial for efficiently managing translations while preserving application structure, SEO, and performance. In this article, we'll explore various i18n approaches from Angular's built-in solutions to popular third-party libraries to help you determine the best fit for your project.
+Angular is the only major front-end framework whose official i18n is build-time. `@angular/localize` extracts messages from your templates, merges a translation file per language, and emits one compiled application per locale. That single design choice decides your deployment shape, your SEO story, and whether an in-app language switcher is even possible.
 
----
+## Table of Contents
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
+<TOC/>
 
-## What is Internationalization (i18n)?
+## The fact that drives every other decision
 
-Internationalization, often referred to as i18n, is the process of designing and preparing your application to support multiple languages and cultural contexts. In Angular, it entails configuring your app so that text, dates, numbers, and even UI layouts can adapt seamlessly to different locales. Laying this groundwork properly ensures that integrating future translations remains organized and efficient.
+In React or Vue, "i18n" means a runtime lookup: a string goes in, a translated string comes out, and switching locale is a state change. In Angular's official path, the lookup happens at compile time. By the time the browser has the code, the text is already French.
 
-Learn more about i18n basics by reading our article: [What is Internationalization (i18n)? Definition and Challenges](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/what_is_internationalization.md).
+That is why `LOCALE_ID` is not something you set at runtime in a localized build, and why the Angular docs talk about deploying `/fr/` and `/es/` as separate directories rather than about a language dropdown. If the concept itself is new, start with [what internationalization actually covers](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/what_is_internationalization.md).
 
----
+## How `@angular/localize` works
 
-## The Translation Challenge for Angular Applications
+You mark text in templates with the `i18n` attribute, and text in TypeScript with the `$localize` tagged template.
 
-Translating an Angular application introduces several challenges:
+```html fileName="src/app/welcome.component.html"
+<h1 i18n="site header|Banner shown on the home page@@welcomeTitle">Welcome</h1>
 
-- **Component-Based Structure**: Angular's modular approach (with components, modules, and services) means translation strings can be scattered across your codebase, making it crucial to centralize and manage them effectively.
-- **Dynamic Content**: Handling real-time content (e.g., data from REST APIs, user-generated content) requires careful consideration to ensure new strings are also translated.
-- **SEO Considerations**: If you're using Angular Universal for server-side rendering, you'll need to set up localized URLs, meta tags, and sitemaps to make your multilingual pages search-engine-friendly.
-- **Routing and State**: Ensuring the correct language is maintained while navigating between routes involves state management and possibly custom route guards or interceptors.
-- **Scalability & Maintenance**: Translation files can grow quickly, and keeping them organized, versioned, and in sync with your application's evolution can be an ongoing task.
+<p i18n>
+  Updated {minutes, plural, =0 {just now} =1 {one minute ago} other {{{minutes}}
+  minutes ago}}
+</p>
+```
 
----
+```ts fileName="src/app/welcome.component.ts"
+const greeting = $localize`Hello ${userName}:name:`;
+```
 
-## Leading i18n Solutions for Angular
+Then you extract, translate, and build:
 
-Angular offers a built-in i18n framework, and there are several third-party libraries designed to simplify your multilingual setup. Below are some of the most popular solutions.
+```bash
+ng add @angular/localize
+ng extract-i18n --format=xlf2 --output-path=src/locale
+# hand src/locale/messages.xlf to translators, get messages.fr.xlf back
+ng build --localize
+```
 
-### 1. Intlayer
+The locales are declared in `angular.json`, next to the file that holds their translations:
 
-> Website: [https://intlayer.org/](https://intlayer.org/)
+```json fileName="angular.json"
+{
+  "projects": {
+    "my-app": {
+      "i18n": {
+        "sourceLocale": "en-US",
+        "locales": {
+          "fr": {
+            "translation": "src/locale/messages.fr.xlf",
+            "baseHref": "/fr/"
+          },
+          "es": {
+            "translation": "src/locale/messages.es.xlf",
+            "baseHref": "/es/"
+          }
+        }
+      },
+      "architect": {
+        "build": { "options": { "localize": true } }
+      }
+    }
+  }
+}
+```
 
-**Overview**  
-**Intlayer** is an innovative, open-source internationalization (i18n) library designed to simplify multilingual support in modern Angular (and other) web applications. It offers a declarative approach, letting you define translation dictionaries directly within your components.
+Two mechanics matter more than the syntax:
 
-**Key Features**
+- **It is one compilation, then N translation passes.** Since Ivy, `ng build --localize` compiles once and rewrites the emitted bundles per locale. Build time does not multiply by your locale count, but the output does: you get one full copy of the app per language.
+- **Message IDs are derived from the source text.** Change "Welcome" to "Welcome back" and the generated ID changes, so every existing translation for that message is orphaned. `@@welcomeTitle` pins the ID and avoids it, which is why you see custom IDs in every mature Angular codebase.
 
-- **Translation Declaration**: Allows the declaration of all translations in a single file, placed at the component level, making it easier to maintain and scale.
-- **TypeScript & Autocompletion**: Offers autogenerated type definitions for translation keys, providing robust autocompletion and error detection.
-- **Server Components & SSR**: Built with both server-side rendering (SSR) and Angular Universal in mind, ensuring that localized content is rendered efficiently on both the client and the server.
-- **Localized Metadata & URLs for SEO**: Easily handle dynamic locale-based routes, sitemaps, and robots.txt entries to improve discoverability and SEO.
-- **Seamless Integration**: Compatible with Angular CLI and Angular Universal, making setup straightforward.
-- **Asynchronous Loading**: Dynamically load translation dictionaries, reducing initial bundle size and improving performance.
+## The deployment shape
 
-**Considerations**
+This is the part people underestimate. `--localize` gives you a folder per locale under `dist/`, and it is now your server's job to route to them.
 
-- **Community & Ecosystem**: Though growing, the ecosystem is newer, so community-driven plugins and tooling may be more limited compared to more established solutions.
+| Concern         | What you have to do                                                      |
+| :-------------- | :----------------------------------------------------------------------- |
+| Path routing    | Serve `dist/.../fr/` at `/fr/`, matching the `baseHref` you declared     |
+| Root URL        | Redirect `/` based on `Accept-Language`, or pick a default               |
+| Language switch | A full navigation to another origin path, not a client-side state change |
+| Dev server      | `ng serve --configuration=fr` serves one locale at a time                |
+| CDN / cache     | One cache entry set per locale, one deploy artifact per locale           |
 
----
+The SEO story that falls out of this is genuinely good. Each locale is a real URL serving fully translated HTML with no hydration flash, which is exactly what crawlers want. You still have to emit the `hreflang` tags yourself; see the [hreflang guide for multilingual SEO](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/hreflang_guide_multilingual_seo.md).
 
-### 2. Angular's Built-In i18n
+## Where build-time i18n stops working
 
-**Overview**  
-Angular ships with a **built-in i18n** system that includes tooling for extracting translation strings, handling pluralization and interpolation, and integrating translations at compile time. This official solution is powerful for smaller projects or those that can align closely with Angular's recommended structure.
+- **No in-app language switcher.** Switching locale means loading a different build at a different URL. For a marketing site that is fine. For an authenticated dashboard where a user flips language in their settings, it means a full reload and losing app state.
+- **Extraction only sees static text.** Strings that come from an API, get assembled at runtime, or live in a config object are invisible to `ng extract-i18n`. You end up with a second, manual mechanism for those, which defeats the point.
+- **The XLIFF round trip is slow.** Extract, send, wait, merge, rebuild. Nothing is wrong with it, but it does not fit a team that ships several times a day.
+- **`$localize` in TypeScript is awkward.** It works, but interpolation uses the `${value}:name:` placeholder syntax, and there is no type checking of anything.
 
-**Key Features**
+If none of those bite you, `@angular/localize` is a reasonable default and you should stop reading here.
 
-- **Native Integration**: No extra library is required; it works out of the box with Angular projects.
-- **Compile-Time Translations**: The Angular CLI extracts text for translations, and you build separate bundles per language. This approach can lead to faster runtime performance because translations are compiled in.
-- **Easy Plural & Gender Handling**: Built-in features for complex pluralization and message interpolation.
-- **AOT & Production Builds**: Fully compatible with Angular's Ahead-of-Time (AOT) compilation, ensuring optimized production bundles.
+## The runtime alternatives
 
-**Considerations**
+**ngx-translate** is the long-standing answer. You load JSON catalogs over HTTP through `TranslateHttpLoader`, and read them through the `translate` pipe, the `[translate]` directive, or `TranslateService.instant()` / `.get()` / `.stream()`. It is simple, everyone knows it, and locale switching is one service call. Its downside is age: development has been intermittent and maintenance has changed hands, and the API predates signals and standalone components.
 
-- **Multiple Builds**: Each language requires its own build, which can lead to more complex deployment scenarios.
-- **Dynamic Content**: Handling real-time or user-driven content may require custom logic since Angular's built-in solution focuses heavily on compile-time translations.
-- **Limited Runtime Flexibility**: Switching languages on the fly (without reloading the app) can be challenging because translations are baked in at build time.
+**Transloco** (`@jsverse/transloco`) is the modern runtime option. Same idea, better ergonomics: the `*transloco="let t"` structural directive avoids one subscription per string, scopes let you split catalogs per feature and lazy-load them with the route, and the plugin ecosystem covers SSR and message extraction.
 
----
+Both share the same structural cost: your keys are strings with no link back to the component that renders them. Delete a component and the keys stay in every locale file forever. That trade is the same one every catalog-based library makes, and it is covered in [per-component vs centralized i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/per-component_vs_centralized_i18n.md).
 
-### 3. ngx-translate
+|                        | `@angular/localize` | ngx-translate             | Transloco                     | Intlayer                             |
+| :--------------------- | :------------------ | :------------------------ | :---------------------------- | :----------------------------------- |
+| Messages resolved      | Build time          | Runtime                   | Runtime                       | Build time, locale picked at runtime |
+| Builds to deploy       | One per locale      | One                       | One                           | One                                  |
+| Switch locale in place | No                  | Yes                       | Yes                           | Yes                                  |
+| Message format         | ICU in templates    | `{{param}}` interpolation | Interpolation, ICU via plugin | Own node types, ICU still partial    |
+| Typed keys             | No                  | No                        | Not out of the box            | Generated, on by default             |
+| Extra build tooling    | `@angular/localize` | None                      | None                          | Custom Angular builder               |
 
-Website: [https://github.com/ngx-translate/core](https://github.com/ngx-translate/core)
+## Signals, zoneless, and standalone
 
-**Overview**  
-**ngx-translate** is one of the most established third-party i18n libraries in the Angular ecosystem. It enables translation at runtime, letting you load language files on demand and switch locales dynamically without rebuilding your entire app.
+Modern Angular is standalone by default and moving to signals, and this changes what a good i18n integration looks like. Observable-based services still work, but you end up bridging with `toSignal()` or sprinkling `async` pipes to keep templates reactive under zoneless change detection.
 
-**Key Features**
+A signal-based content API avoids that layer. In Intlayer's Angular adapter, `useIntlayer` returns a `Signal`, so the template re-renders on a locale change with no subscription and no pipe:
 
-- **Runtime Translations**: Ideal for dynamic language switching and scenarios where you don't want multiple production builds.
-- **JSON Translation Files**: Store translations in simple JSON files, making them easy to structure and maintain.
-- **Async Loading**: Lazy-load translations to keep initial bundle sizes smaller.
-- **Multiple Language Support**: Switch locales instantly and listen for language changes across your components.
+```ts fileName="src/app/cart-summary.content.ts"
+import { t, type Dictionary } from "intlayer";
 
-**Considerations**
+const cartSummaryContent = {
+  key: "cart-summary",
+  content: {
+    total: t({ en: "Total", fr: "Total", es: "Total" }),
+    vatNotice: t({
+      en: "VAT included",
+      fr: "TVA incluse",
+      es: "IVA incluido",
+    }),
+  },
+} satisfies Dictionary;
 
-- **State & Complexity**: Managing many translation files can become complex in larger applications.
-- **SEO & SSR**: If you need server-side rendering with Angular Universal, ngx-translate requires extra setup to ensure correct translations are served to crawlers and browsers on the first load.
-- **Performance**: While flexible at runtime, handling many translations on large pages can have performance implications, so caching strategies are recommended.
+export default cartSummaryContent;
+```
 
----
+```ts fileName="src/app/cart-summary.component.ts"
+import { Component } from "@angular/core";
+import { useIntlayer } from "angular-intlayer";
 
-### 4. Transloco
+@Component({
+  selector: "app-cart-summary",
+  standalone: true,
+  template: `
+    <h2>{{ content().total }}</h2>
+    <small>{{ content().vatNotice }}</small>
+  `,
+})
+export class CartSummaryComponent {
+  content = useIntlayer("cart-summary");
+}
+```
 
-Website: [https://ngneat.github.io/transloco/](https://ngneat.github.io/transloco/)
+The content file sits next to the component that renders it, and a build plugin compiles those declarations into per-component dictionaries. Locale switching goes through `useLocale()`, which exposes `locale`, `availableLocales` and `setLocale`. One build serves every locale, and the compiler ships only the entries a route actually renders, which is the mechanism described in [bundle optimization](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/bundle_optimization.md).
 
-**Overview**  
-**Transloco** is a modern, community-driven Angular i18n library that places emphasis on scalable architecture and a smooth developer experience. It provides a plugin-based approach to integrate seamlessly with your existing Angular setup.
+<Tabs defaultTab="code">
+  <Tab label="Code" value="code">
 
-**Key Features**
+<iframe
+  src="https://ide.intlayer.org/aymericzip/intlayer-angular-22-template?file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
 
-- **State Management Integration**: Out-of-the-box compatibility with state management libraries like NgRx and Akita.
-- **Lazy Loading**: Split translations into separate chunks and load them only when needed.
-- **Rich Plugin Ecosystem**: Handle everything from SSR integration to automatic message extraction.
-- **Runtime or Build-Time**: Offers flexibility for different translation workflows, whether you prefer runtime switching or pre-built localization.
+  </Tab>
+  <Tab label="Demo" value="demo">
 
-**Considerations**
+<iframe
+  src="https://intlayer-angular-22-template.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo - intlayer-angular-22-template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
 
-- **Learning Curve**: While well-documented, the plugin-based approach may require extra steps for advanced use cases (e.g., SSR, multi-language routes).
-- **Community Size**: Transloco has an active community but is still growing compared to Angular's built-in solution or ngx-translate.
-- **Folder Structure**: Keeping translations organized can be challenging for very large apps. Good folder structure and naming conventions are crucial.
+  </Tab>
+</Tabs>
 
-### Final Thoughts
+**What it costs you on Angular specifically.** The setup is heavier than on Vite-based frameworks: you swap the default Angular builder for `@angular-builders/custom-esbuild` (or `custom-webpack` on older projects) and register a plugin file. That is a real intrusion into `angular.json`, and it is the first thing to weigh. The project is also younger and much smaller than ngx-translate's ecosystem, and ICU message format support is still partial, which matters if your translation vendor delivers ICU strings. Finally, Angular is not yet part of the [benchmark suite](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/index.md), which currently covers Next.js, TanStack Start, Vue, Solid and Svelte, so there are no published Angular bundle figures to point at.
 
-When choosing an i18n approach for your Angular application:
+If you already have an Angular codebase, both runtime libraries have compat adapters: [migrating from ngx-translate](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/ngx-translate.md) keeps `TranslateService`, the `translate` pipe and the `[translate]` directive working, and [migrating from Transloco](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/transloco.md) maps Transloco scopes onto dictionary keys so `*transloco` and `| transloco` keep resolving.
 
-- **Assess Project Requirements**: Consider factors like dynamic language switching, development velocity, and third-party integration needs.
-- **Check SSR & SEO**: If using Angular Universal for server-side rendering, verify that your chosen solution integrates smoothly with localized metadata and route handling.
-- **Performance & Build Strategy**: Evaluate whether you need multiple build outputs (per language) or prefer a single bundle with runtime translations.
-- **Maintainability & Scaling**: For large apps, ensure your library supports a clean file structure, typed keys (if desired), and a straightforward update process.
-- **Developer Experience**: TypeScript autocompletion, plugin ecosystems, and CLI tooling can greatly reduce friction when updating or adding new translations.
+## Trade-offs and common mistakes
 
-All the libraries discussed can power a robust, multilingual Angular application each with its own strengths. The best choice comes down to your unique needs for **performance**, **workflow**, **developer experience**, and **business goals**.
+- **Not pinning message IDs.** Without `@@customId`, every copy edit silently orphans translations. Add custom IDs from day one, not after the first regression.
+- **Choosing `@angular/localize` for a product with a user language setting.** It is the wrong shape. Decide this before writing 400 `i18n` attributes.
+- **Forgetting `baseHref`.** Localized builds assume they are served from their own prefix. Lazy chunks 404 in production if the server does not match.
+- **Switching locale with a button instead of a link.** Crawlers do not click. Render locale switchers as anchors pointing at the localized URL, whichever library you use.
+- **Assuming per-component content is free.** You gain scoping and generated types, you lose the ability to hand a translator one big JSON file without tooling.
+- **Skipping a CI check.** Missing translations are silent in every one of these libraries until someone loads the page. Add a check that fails the build, such as [`intlayer test`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/testing.md) or Transloco's keys manager.
+
+## Going further
+
+- [Set up i18n in an Angular 22 app with Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_angular_21.md), and the [Webpack-based Angular 19 guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_angular_19.md) for older projects
+- [Migrate from ngx-translate](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/ngx-translate.md) or [from Transloco](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/transloco.md)
+- [Keep your existing JSON catalogs with the sync JSON plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/plugins/sync-json.md)
+- [i18n library benchmarks: bundle size and locale-switch cost](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/index.md)
+- [Vue i18n: how it works and where it starts to hurt](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/frameworks/vue.md), the same analysis for the other big framework
+- [Per-component vs centralized i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/per-component_vs_centralized_i18n.md)
+- [ICU message format, and when you actually need it](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md)

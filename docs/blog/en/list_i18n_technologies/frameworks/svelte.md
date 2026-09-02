@@ -1,16 +1,17 @@
 ---
 createdAt: 2025-01-16
-updatedAt: 2026-05-31
-title: Best Svelte i18n Libraries 2026 — Compared by DX & Bundle
-description: Best solution for bundle size, SEO, performances & maintainability. Make your Svelte app multilingual in 2026, LLM translation, Agent Skills & MCP.
+updatedAt: 2026-09-02
+title: "Svelte i18n: stores, runes, and what Svelte 5 changed"
+description: Most Svelte i18n tutorials are written for Svelte 4 stores. How the store model works, what runes change, message compilation costs, and typed keys.
 keywords:
-  - Svelte
-  - i18n
-  - multilingual
-  - SEO
-  - Internationalization
-  - Blog
-  - JavaScript
+  - svelte i18n
+  - Svelte internationalization
+  - svelte-i18n
+  - Svelte 5 runes
+  - Paraglide
+  - typesafe-i18n
+  - Vite
+  - Intlayer
 slugs:
   - blog
   - i18n-technologies
@@ -19,128 +20,195 @@ slugs:
 author: aymericzip
 ---
 
-# Exploring i18n Solutions to Translate Your Svelte Website
+# Svelte i18n: stores, runes, and what actually changed in Svelte 5
 
-As the web continues to connect people across the globe, providing content in multiple languages is increasingly important. For developers working with **Svelte**, implementing i18n is essential to efficiently manage translations, maintain clean code, and uphold good SEO practices. In this article, we dive into various i18n solutions and workflows for Svelte helping you choose the one that best suits your project’s needs.
+Almost every Svelte i18n tutorial you will find was written for Svelte 4, where a writable store was the only way to hold reactive locale state. Svelte 5 runes did not break those libraries, but they did change what idiomatic code looks like, and they made one long-standing pattern visibly wrong. This post covers the store model, what runes change, message compilation and bundle cost, typed keys, and how the current libraries compare.
 
----
+## Table of Contents
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
+<TOC/>
 
-## What is Internationalization (i18n)?
+## What "Svelte i18n" means here
 
-Internationalization, commonly abbreviated as i18n, is the process of designing and building your application so it can easily adapt to various languages, regions, and cultural conventions. In Svelte, this typically means setting up translation strings, localizing dates, times, and numbers, and ensuring the user interface can dynamically switch among different locales without major code rewrites.
+This post is about Svelte the component framework, running on Vite, with no server. If you are on SvelteKit, locale routing and SSR request scoping are a separate set of problems, covered in [SvelteKit i18n: routing, SSR, and shared state](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/frameworks/sveltekit.md).
 
-To learn more about i18n fundamentals, read our article: [What is Internationalization (i18n)? Definition and Challenges](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/what_is_internationalization.md).
+Svelte ships nothing for i18n. No `$t`, no locale primitive, no message format. Every option below is a third-party choice, and the choice is mostly about where messages live and when they get compiled. If the vocabulary is new, start with [what internationalization actually covers](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/what_is_internationalization.md).
 
----
+## The store model, and why every tutorial uses it
 
-## The Translation Challenge for Svelte Applications
+`svelte-i18n` is the ecosystem default. You register locale loaders, initialise, then read from the `_` store:
 
-Translating a Svelte application can present several hurdles:
+```ts fileName="src/i18n.ts"
+import { register, init, getLocaleFromNavigator } from "svelte-i18n";
 
-- **Single-File Components**: Svelte’s single-file component approach (where HTML, CSS, and JavaScript exist together) makes it easy for text to become scattered, requiring a strategy to centralize translations.
-- **Dynamic Content**: Data retrieved from APIs or user inputs adds complexity when ensuring content is translated on the fly.
-- **SEO Considerations**: If you’re using **SvelteKit** for server-side rendering (SSR), configuring localized URLs, meta tags, and sitemaps for effective SEO requires extra care.
-- **State & Routing**: Retaining the correct language across multiple routes and dynamic pages often involves orchestrating global state, route guards, or custom hooks in SvelteKit.
-- **Maintainability**: As your codebase and translation files grow, keeping everything well-organized and synchronized becomes a continuous effort.
+register("en", () => import("./locales/en.json"));
+register("fr", () => import("./locales/fr.json"));
 
----
+init({
+  fallbackLocale: "en",
+  initialLocale: getLocaleFromNavigator(),
+});
+```
 
-## Leading i18n Solutions for Svelte
+```svelte fileName="src/lib/CartSummary.svelte"
+<script>
+  import { _, locale } from "svelte-i18n";
+</script>
 
-Svelte doesn’t provide a native, built-in i18n solution (as Angular does), but the community has created a variety of robust libraries and patterns. Below are several popular approaches.
+<h2>{$_("cart.total")}</h2>
+<p>{$_("cart.items", { values: { count: 3 } })}</p>
+<button on:click={() => locale.set("fr")}>Français</button>
+```
 
-### 1. Intlayer
+Three things are worth understanding rather than copying:
 
-> Website: [https://intlayer.org/](https://intlayer.org/)
+- **`$_` is a derived store, not a function.** The `$` prefix subscribes the component to it. When `locale` changes, every component that reads `$_` re-renders. That is the whole reactivity mechanism, and it works because stores are framework-level, not component-level.
+- **Loading is async, rendering is not.** `register` returns a loader; until it resolves, `$_('cart.total')` returns the key. That is the source of the classic flash of raw keys on first paint. `isLoading` and `waitLocale()` exist to gate rendering on it, and most tutorials forget them.
+- **The catalog is a plain object.** Nothing splits it per route. Loading `fr` loads every page's French copy.
 
-**Overview**  
-**Intlayer** is an open-source i18n solution that aims to simplify multi-language support across multiple frameworks, including **Svelte**. It emphasizes a declarative approach, strong typing, and SSR support in other ecosystems, although SSR is not typical in standard Svelte.
+## What runes actually change
 
-**Key Features**
+Runes did not deprecate stores. `$state` and `$derived` are for state you own inside a component or a `.svelte.ts` module; stores are still fine for shared, cross-component state, and `$store` auto-subscription still works in Svelte 5. So `svelte-i18n` keeps working, unmodified, in a Svelte 5 app.
 
-- **Declarative Translation**: Define translation dictionaries either at the widget level or in a centralized file for a cleaner architecture.
-- **TypeScript & Autocompletion (Web)**: While this feature primarily benefits web frameworks, the typed translation approach can still guide structured code in Svelte.
-- **Asynchronous Loading**: Load translation assets dynamically, potentially reducing the initial bundle size for multi-language apps.
-- **Integration with Svelte**: A basic integration can be set up to leverage the Intlayer approach for structured translations.
+What changed is that you now have a second, better option for locale state:
 
----
+```ts fileName="src/lib/locale.svelte.ts"
+// Runes work outside components, but only in a .svelte.ts / .svelte.js file
+let current = $state<"en" | "fr">("en");
 
-### 2. svelte-i18n
+export const getLocale = () => current;
+export const setLocale = (next: "en" | "fr") => {
+  current = next;
+};
+```
 
-Repository: [https://github.com/kaisermann/svelte-i18n](https://github.com/kaisermann/svelte-i18n)
+Two gotchas people hit here. Runes outside a component only work in a `.svelte.ts` or `.svelte.js` file, so a plain `locale.ts` silently gives you a non-reactive variable. And you cannot export a `$state` binding directly, which is why the module above exports a getter instead of the value.
 
-**Overview**  
-**svelte-i18n** is one of the most widely adopted libraries for adding internationalization to Svelte applications. It allows you to dynamically load and switch between locales at runtime and includes helpers for plurals, interpolation, and more.
+The honest summary: for a client-only app, the store version and the runes version behave identically. The runes version reads better and types better. Neither is a reason to rewrite a working app.
 
-**Key Features**
+## The module-level store trap
 
-- **Runtime Translations**: Load translation files on demand, enabling you to switch languages without rebuilding your app.
-- **Pluralization & Interpolation**: Offers a straightforward syntax for handling plural forms and inserting variables within translations.
-- **Lazy Loading**: Only fetch the translation files you need, optimizing performance for larger apps or multiple languages.
-- **SvelteKit Support**: Well-documented examples show how to integrate with SSR in SvelteKit for better SEO.
+Both patterns above put locale in a module-level singleton. In a Vite SPA that is correct: one browser tab, one user, one locale. The module is instantiated once per page load and belongs to that visitor.
 
-**Considerations**
+The moment SSR appears, that singleton is shared across every concurrent request on the server process. Request A sets the locale to `fr`, request B renders while A is still in flight, and B gets French. It is intermittent, it never reproduces locally with one browser tab open, and it looks like a caching bug.
 
-- **Project Organization**: You’ll need to structure your translation files logically as the project grows.
-- **SSR Setup**: Configuring SSR for SEO might require additional steps to ensure correct locale detection on the server side.
-- **Performance**: While flexible at runtime, a large number of translations loaded at once can impact initial load times consider lazy loading or caching strategies.
+The fix is Svelte context, which is per-render-tree rather than per-module: set the locale with `setContext` at the root and read it with `getContext` in components. This is not a Svelte-only problem, but Svelte's `.svelte.ts` modules make the wrong version unusually easy to write. If you are on a plain Vite setup today and might move to SvelteKit later, using context from the start costs you nothing.
 
----
+## Message compilation and bundle cost
 
-### 3. svelte-intl-precompile
+The second axis is when your messages become code. There are two families:
 
-Repository: [https://github.com/cibernox/svelte-intl-precompile](https://github.com/cibernox/svelte-intl-precompile)
+- **Runtime interpolation.** `svelte-i18n` ships a message parser to the browser and resolves `cart.items` against a catalog object at render time. Flexible, and you pay for the parser plus the whole catalog.
+- **Compile-time.** Paraglide (inlang) generates one exported function per message and one file per locale, so `m.cart_total()` is an ordinary import. Your bundler tree-shakes anything you did not call. On Vite plus Svelte this works as advertised, and it is the strongest argument for Paraglide.
 
-**Overview**  
-**svelte-intl-precompile** uses a precompilation approach to reduce runtime overhead and improve performance. This library integrates the concept of message formatting (similar to FormatJS) while generating precompiled messages at build time.
+The [Svelte i18n benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/svelte.md) runs a 10-page, 10-locale app and measures the library cost separately from the content cost. `svelte-i18n` lands around **15.9 kB** after bundling and minification, roughly **7×** `svelte-intlayer`. Paraglide's library number is close to zero by construction, because the runtime is generated into your source tree rather than imported from a package.
 
-**Key Features**
+Paraglide's costs are real too. The generated files live in your repository, so you regenerate before pushing and you get merge conflicts on them in parallel pull requests. And it does not keep the current locale in a Svelte store: each message call reads the locale back from cookie or storage, which adds work per node instead of one subscription per component.
 
-- **Precompiled Messages**: By compiling translation strings during the build step, runtime performance is improved, and the bundle size can be smaller.
-- **Integration with SvelteKit**: Compatible with SSR, allowing you to serve fully localized pages for better SEO and user experience.
-- **Message Extraction**: Automatically extract strings from your code, reducing the overhead of manual updates.
-- **Advanced Formatting**: Supports pluralization, gender-specific translations, and variable interpolation.
+## Typed keys
 
-**Considerations**
+`$_("cart.totl")` is a string typo that fails at runtime, in the locale nobody tests, in production. Three ways out:
 
-- **Build Complexity**: Setting up precompilation might introduce additional complexity in your build pipeline.
-- **Dynamic Content**: If you need on-the-fly translations for user-generated content, this approach may require extra steps for updates at runtime.
-- **Learning Curve**: The combination of message extraction and precompilation can be slightly more complex for newcomers.
+| Approach        | How you get types                                                           | Cost                                           |
+| :-------------- | :-------------------------------------------------------------------------- | :--------------------------------------------- |
+| `svelte-i18n`   | None built in; you hand-write a union of keys                               | Drifts from the JSON immediately               |
+| `typesafe-i18n` | Generator watches your files and emits typed accessors (`$LL.cart.total()`) | A watcher process, generated files in the repo |
+| Paraglide       | Each message is an exported function, so it is typed by existence           | Same generated-files trade-off                 |
+| Intlayer        | Types generated from the content declarations at build time                 | Build plugin required                          |
 
----
+`typesafe-i18n` deserves a note: mechanically it is sound, and typed accessors plus generated formatters are a good model. The repository has not moved much recently, so check its activity before committing a codebase to it.
 
-### 4. i18next with Svelte / SvelteKit
+## Comparison
 
-Website: [https://www.i18next.com/](https://www.i18next.com/)
+| Library         | Messages live in                      | Locale state                      | Per-route splitting   | Types on keys |
+| :-------------- | :------------------------------------ | :-------------------------------- | :-------------------- | :------------ |
+| `svelte-i18n`   | JSON catalogs per locale              | Svelte store                      | No                    | Manual        |
+| Paraglide       | inlang project, compiled to functions | Read per call from cookie/storage | Yes, via tree-shaking | Yes           |
+| `typesafe-i18n` | Generated TS modules                  | Store adapter                     | Partial               | Yes           |
+| Intlayer        | `.content.ts` next to the component   | Context plus store                | Yes, per component    | Yes           |
 
-**Overview**  
-Although **i18next** is more commonly associated with React or Vue, it’s also possible to integrate it with Svelte or **SvelteKit**. Leveraging i18next’s broad ecosystem can be helpful if you need consistent i18n across different JavaScript frameworks in your organization.
+## Intlayer: content declared beside the component
 
-**Key Features**
+Intlayer's one structural difference is that content is not centralized. Each component gets a `.content.ts` file next to it, and a Vite plugin compiles those declarations into per-component dictionaries.
 
-- **Mature Ecosystem**: Benefit from an extensive range of plugins, language detection modules, and community support.
-- **Runtime or Build-Time**: Choose between dynamic loading or bundling your translations for slightly faster startup.
-- **SSR-Friendly**: SvelteKit SSR can serve localized content by using i18next on the server side, which is great for SEO.
-- **Rich Features**: Supports interpolation, plurals, nested translations, and more complex i18n scenarios.
+```ts fileName="src/lib/cartSummary.content.ts"
+import { t, type Dictionary } from "intlayer";
 
-**Considerations**
+const cartSummaryContent = {
+  key: "cart-summary",
+  content: {
+    total: t({ en: "Total", fr: "Total", es: "Total" }),
+    vatNotice: t({
+      en: "VAT included",
+      fr: "TVA incluse",
+      es: "IVA incluido",
+    }),
+  },
+} satisfies Dictionary;
 
-- **Manual Setup**: i18next doesn’t have a dedicated Svelte integration out of the box, so you’ll need to configure it yourself.
-- **Overhead**: i18next is robust, but for smaller Svelte projects, some of its features might be overkill.
-- **Routing & State**: Handling language routing will likely involve custom SvelteKit hooks or middlewares.
+export default cartSummaryContent;
+```
 
----
+```svelte fileName="src/lib/CartSummary.svelte"
+<script lang="ts">
+  import { useIntlayer } from "svelte-intlayer";
 
-### Final Thoughts
+  const content = useIntlayer("cart-summary");
+</script>
 
-When selecting an i18n strategy for your Svelte app:
+<h2>{$content.total}</h2>
+<small>{$content.vatNotice}</small>
+```
 
-1. **Assess Project Scale**: For smaller projects or quick prototypes, simpler libraries like **svelte-i18n** or a minimal i18n approach might suffice. Larger, more complex apps may benefit from a typed, precompiled, or more robust ecosystem-based solution.
-2. **SSO & SSR Considerations**: If SEO is critical or you need server-side rendering with **SvelteKit**, choose a library that supports SSR effectively and can handle localized routes, metadata, and sitemaps.
-3. **Runtime vs. Build-Time**: Decide whether you need dynamic language switching at runtime or prefer precompiled translations for better performance. Each approach involves different trade-offs.
-4. **TypeScript Integration**: If you rely heavily on TypeScript, solutions like **Intlayer** or libraries with typed keys can significantly reduce runtime errors and improve the developer experience.
-5. **Maintainability & Scalability**: Plan how you’ll organize, update, and version your translation files. Automated extraction, naming conventions, and a consistent folder structure will save time in the long run.
+`useIntlayer` returns a readable store derived from the current locale, so `$content` is the same auto-subscription you already know. Locale switching goes through `useLocale()`, which gives you `locale`, `availableLocales` and `setLocale`.
 
-Ultimately, each library offers unique strengths. Your choice depends on **performance**, **developer experience**, **SEO needs**, and **long-term maintainability**. By selecting a solution that aligns with your project’s goals, you can create a truly global application in Svelte one that delights users around the world.
+On the runes question, `svelte-intlayer` sits in the middle. `setupIntlayer(locale)` at the root of your app holds the locale in `$state` and publishes it through Svelte context, which is the SSR-safe shape described above; reads still come back as stores so `$content` works everywhere. There is a module-level store underneath as a fallback for apps that never call `setupIntlayer`, which is fine on Vite and is exactly the thing you should not rely on once a server is involved.
+
+<Tabs defaultTab="code">
+  <Tab label="Code" value="code">
+
+<iframe
+  src="https://ide.intlayer.org/aymericzip/intlayer-vite-svelte-template?file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+  <Tab label="Demo" value="demo">
+
+<iframe
+  src="https://intlayer-vite-svelte-template.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo - intlayer-vite-svelte-template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+</Tabs>
+
+Setup is `npx intlayer init`, then `intlayer()` alongside `svelte()` in `vite.config.ts`.
+
+**What it costs you.** The build plugin is mandatory: no Vite plugin, no dictionaries, so a plain `svelte` REPL-style setup is out. The ecosystem is much smaller than i18next's or `svelte-i18n`'s, which means fewer Stack Overflow answers when something goes sideways. And the project is younger than the alternatives here, so you are betting on it continuing.
+
+If you already run `svelte-i18n`, the [`@intlayer/svelte-i18n` compat adapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/svelte-i18n.md) aliases the package at the bundler level, so `$_`, `$date`, `$number` and your existing flat keys keep working while Intlayer serves the content. It is a way to test the change without touching components on day one.
+
+## Common mistakes
+
+- **Rendering before messages resolve.** With any async-loading library, gate the first paint on `isLoading` or `waitLocale()`, or accept a flash of raw keys.
+- **Putting runes in a `.ts` file.** `$state` in `locale.ts` compiles to a plain variable and nothing updates. It has to be `locale.svelte.ts`.
+- **Assuming a store singleton is safe because it works locally.** One tab never reproduces cross-request leakage. It shows up in production, under concurrency.
+- **Switching locale with a button.** Crawlers do not click. If the app has localized URLs, the switcher should be an `<a>` to the localized path.
+- **Loading every locale up front.** Ten locales in the initial bundle is nine locales nobody reads. Use dynamic imports per locale at minimum, and per route if the library supports it.
+
+## Going further
+
+- [Svelte i18n benchmark: bundle size, leakage and locale-switch timings](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/svelte.md)
+- [Set up i18n in a Vite + Svelte app, step by step](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+svelte.md)
+- [SvelteKit i18n: routing, SSR, and shared state](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/frameworks/sveltekit.md)
+- [Drop-in `svelte-i18n` compat adapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/svelte-i18n.md)
+- [Per-component vs centralized i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/per-component_vs_centralized_i18n.md)
+- [Compiler-based vs declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/compiler_vs_declarative_i18n.md)
+- [How bundle optimization works at build time](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/bundle_optimization.md)

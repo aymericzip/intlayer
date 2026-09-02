@@ -23,8 +23,6 @@ author: aymericzip
 
 Da das Web weiterhin Menschen auf der ganzen Welt verbindet, wird es zunehmend wichtig, Inhalte in mehreren Sprachen anzubieten. Für Entwickler, die mit **Svelte** arbeiten, ist die Implementierung von i18n entscheidend, um Übersetzungen effizient zu verwalten, sauberen Code zu erhalten und gute SEO-Praktiken aufrechtzuerhalten. In diesem Artikel tauchen wir in verschiedene i18n-Lösungen und Arbeitsabläufe für Svelte ein – und helfen Ihnen, diejenige auszuwählen, die am besten zu den Anforderungen Ihres Projekts passt.
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
-
 ## Was ist Internationalisierung (i18n)?
 
 Internationalisierung, allgemein als i18n abgekürzt, ist der Prozess der Gestaltung und des Aufbaus Ihrer Anwendung, damit sie sich leicht an verschiedene Sprachen, Regionen und kulturelle Konventionen anpassen kann. In Svelte bedeutet dies in der Regel, Übersetzungsstrings einzurichten, Daten, Zeiten und Zahlen zu lokalisieren und sicherzustellen, dass die Benutzeroberfläche dynamisch zwischen verschiedenen Lokalen ohne größere Codeänderungen wechseln kann.

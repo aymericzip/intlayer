@@ -25,8 +25,6 @@ Dalam pasar yang semakin global, menghadirkan aplikasi React Native Anda dalam b
 
 ---
 
-![ilustrasi i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
-
 ## Apa itu Internasionalisasi (i18n)?
 
 Internasionalisasi, atau i18n, melibatkan penyusunan aplikasi agar dapat dengan mudah beradaptasi dengan berbagai bahasa, format regional, dan norma budaya. Dalam React Native, i18n mencakup penanganan string untuk tombol dan label, serta pemformatan tanggal, waktu, mata uang, dan lainnya sesuai dengan lokal pengguna. Aplikasi React Native yang disiapkan dengan baik memungkinkan Anda mengintegrasikan bahasa tambahan dan perilaku spesifik lokal secara mulus di kemudian hari tanpa perlu refaktor besar-besaran.

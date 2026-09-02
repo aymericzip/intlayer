@@ -25,8 +25,6 @@ Trong một thị trường ngày càng toàn cầu hóa, việc cung cấp ứn
 
 ---
 
-![minh họa i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
-
 ## Quốc tế hóa (i18n) là gì?
 
 Quốc tế hóa, hay i18n, liên quan đến việc cấu trúc một ứng dụng sao cho có thể dễ dàng thích ứng với các ngôn ngữ khác nhau, định dạng vùng miền và chuẩn mực văn hóa. Trong React Native, i18n bao gồm việc xử lý các chuỗi cho nút bấm và nhãn, cũng như định dạng ngày tháng, thời gian, tiền tệ và nhiều hơn nữa theo vùng miền của người dùng. Các ứng dụng React Native được chuẩn bị đúng cách cho phép bạn tích hợp liền mạch các ngôn ngữ bổ sung và hành vi đặc thù theo vùng miền sau này mà không cần phải tái cấu trúc lớn.

@@ -25,8 +25,6 @@ Giderek küreselleşen dijital ortamda, Vue.js web sitenizin birden fazla dildek
 
 ---
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
-
 ## Uluslararasılaştırma (i18n) Nedir?
 
 Uluslararasılaştırma (i18n), bir yazılım uygulamasını (veya web sitesini) birden fazla dil ve kültürel kural için hazırlama uygulamasıdır. Vue.js ekosistemi içinde bu, metin, tarihler, sayılar, para birimi ve diğer yerelleştirilebilir unsurların çeşitli yerel ayarlara nasıl uyarlanabileceğini belirlemeyi içerir. Başlangıçtan itibaren i18n'yi ayarlayarak, yeni diller eklemek ve gelecekteki yerelleştirme ihtiyaçlarını yönetmek için organize, ölçeklenebilir bir yapı sağlarsınız.

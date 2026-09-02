@@ -25,8 +25,6 @@ En el panorama digital actual, es esencial expandir el alcance de su sitio web p
 
 ---
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
-
 ## ¿Qué es la Internacionalización (i18n)?
 
 La internacionalización, abreviada como i18n, es el proceso de diseñar y preparar su sitio web para soportar múltiples idiomas y contextos culturales. En React, esto significa configurar su aplicación para que las cadenas, formatos de fecha, formatos de número e incluso el diseño puedan adaptarse fácilmente para usuarios de diferentes regiones. Preparar su aplicación de React para la i18n establece las bases para integrar limpamente traducciones y otras características de localización.

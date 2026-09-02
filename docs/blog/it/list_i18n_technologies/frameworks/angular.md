@@ -25,8 +25,6 @@ Nell'attuale mondo interconnesso, offrire il tuo sito web in più lingue può es
 
 ---
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
-
 ## Cos'è l'internazionalizzazione (i18n)?
 
 L'internazionalizzazione, spesso riferita come i18n, è il processo di progettazione e preparazione della tua applicazione per supportare più lingue e contesti culturali. In Angular, comporta la configurazione della tua app in modo che testo, date, numeri e persino layout UI possano adattarsi senza soluzione di continuità a diverse località. Creare correttamente questa base assicura che l'integrazione di future traduzioni rimanga organizzata ed efficiente.

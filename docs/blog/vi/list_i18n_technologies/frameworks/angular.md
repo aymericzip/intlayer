@@ -25,8 +25,6 @@ Trong thế giới kết nối ngày nay, việc cung cấp trang web của bạ
 
 ---
 
-![minh họa i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
-
 ## Quốc tế hóa (i18n) là gì?
 
 Quốc tế hóa, thường được gọi là i18n, là quá trình thiết kế và chuẩn bị ứng dụng của bạn để hỗ trợ nhiều ngôn ngữ và bối cảnh văn hóa khác nhau. Trong Angular, điều này bao gồm việc cấu hình ứng dụng sao cho văn bản, ngày tháng, số và thậm chí cả bố cục giao diện người dùng có thể thích nghi một cách liền mạch với các vùng địa lý khác nhau. Việc đặt nền tảng này một cách đúng đắn đảm bảo rằng việc tích hợp các bản dịch trong tương lai sẽ được tổ chức và hiệu quả.

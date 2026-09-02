@@ -25,8 +25,6 @@ Di dunia yang saling terhubung saat ini, menawarkan situs web Anda dalam berbaga
 
 ---
 
-![ilustrasi i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
-
 ## Apa itu Internasionalisasi (i18n)?
 
 Internasionalisasi, yang sering disebut sebagai i18n, adalah proses merancang dan mempersiapkan aplikasi Anda untuk mendukung berbagai bahasa dan konteks budaya. Dalam Angular, ini melibatkan konfigurasi aplikasi Anda sehingga teks, tanggal, angka, dan bahkan tata letak UI dapat beradaptasi dengan mulus ke berbagai lokal. Menyiapkan dasar ini dengan benar memastikan bahwa integrasi terjemahan di masa depan tetap terorganisir dan efisien.

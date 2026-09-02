@@ -19,8 +19,6 @@ author: aymericzip
 
 # Ý nghĩa i18n: Quốc tế hóa là gì và tại sao nó lại quan trọng?
 
-![minh họa i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
-
 ## Hiểu về "Ý nghĩa i18n"
 
 Nếu bạn tham gia vào lĩnh vực phát triển phần mềm, thiết kế web hoặc tiếp thị kỹ thuật số, có thể bạn đã bắt gặp thuật ngữ **i18n**. **Ý nghĩa i18n** thực sự chỉ đơn giản là một từ viết tắt bằng số cho **internationalization** (quốc tế hóa).

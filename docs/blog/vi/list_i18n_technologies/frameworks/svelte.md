@@ -25,8 +25,6 @@ Khi mạng web tiếp tục kết nối mọi người trên toàn cầu, việc
 
 ---
 
-![minh họa i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
-
 ## Quốc tế hóa (i18n) là gì?
 
 Quốc tế hóa, thường được viết tắt là i18n, là quá trình thiết kế và xây dựng ứng dụng của bạn sao cho có thể dễ dàng thích ứng với nhiều ngôn ngữ, vùng miền và các quy ước văn hóa khác nhau. Trong Svelte, điều này thường có nghĩa là thiết lập các chuỗi bản dịch, địa phương hóa ngày tháng, thời gian và số liệu, đồng thời đảm bảo giao diện người dùng có thể chuyển đổi động giữa các locale khác nhau mà không cần viết lại mã lớn.

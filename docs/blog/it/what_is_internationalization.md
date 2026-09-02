@@ -20,8 +20,6 @@ author: aymericzip
 
 # Cos'è l'internazionalizzazione (i18n)? Definizione e sfide
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
-
 ## Comprensione dell'internazionalizzazione (i18n)
 
 **L'internazionalizzazione**, spesso abbreviata come **i18n**, è il processo di progettazione e preparazione di un'applicazione per supportare più lingue, culture e convenzioni regionali **senza** cambiamenti significativi nel codice sorgente. Il nome i18n deriva dal fatto che ci sono 18 lettere tra la **i** e la **n** nella parola "internazionalizzazione".

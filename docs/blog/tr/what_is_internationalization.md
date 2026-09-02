@@ -20,8 +20,6 @@ author: aymericzip
 
 # Uluslararasılaştırma (i18n) Nedir? Tanım ve zorluklar
 
-![i18n illüstrasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
-
 ## Uluslararasılaştırmayı Anlamak (i18n)
 
 **Uluslararasılaştırma**, genellikle **i18n** olarak kısaltılır, bir uygulamanın birden fazla dil, kültür ve bölgesel kuralları destekleyecek şekilde tasarlanması ve hazırlanması sürecidir **kod tabanında büyük değişiklikler olmadan**. i18n adı, "internationalization" kelimesindeki **i** ve **n** arasında 18 harf olduğu gerçeğinden türetilmiştir.

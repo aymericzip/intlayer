@@ -19,8 +19,6 @@ author: aymericzip
 
 # Arti i18n: Apa itu Internasionalisasi dan Mengapa Itu Penting?
 
-![ilustrasi i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
-
 ## Memahami "Arti i18n"
 
 Jika Anda terlibat dalam pengembangan perangkat lunak, desain web, atau pemasaran digital, Anda kemungkinan besar pernah menjumpai istilah **i18n**. **Arti i18n** yang sebenarnya hanyalah sebuah numeronim untuk **internationalization** (internasionalisasi).

@@ -25,8 +25,6 @@ Giderek küresel bir pazarda, React Native uygulamanızı birden fazla dilde sun
 
 ---
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
-
 ## Uluslararasılaştırma (i18n) Nedir?
 
 Uluslararasılaştırma veya i18n, bir uygulamanın farklı dillere, bölgesel formatlara ve kültürel normlara kolayca uyum sağlayacak şekilde yapılandırılmasını içerir. React Native'da i18n, düğmeler ve etiketler için dizeleri yönetmeyi, ayrıca tarihleri, saatleri, para birimlerini ve daha fazlasını kullanıcının yerel ayarına göre biçimlendirmeyi içerir. Düzgün hazırlanmış React Native uygulamaları, büyük yeniden düzenlemeler olmadan ek dilleri ve yerel ayar spesifik davranışları sorunsuz bir şekilde entegre etmenizi sağlar.

@@ -25,8 +25,6 @@ In einer zunehmend globalisierten digitalen Landschaft ist es nicht länger ein 
 
 ---
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
-
 ## Was ist Internationalisierung (i18n)?
 
 Internationalisierung (i18n) ist die Praxis, eine Softwareanwendung (oder Website) für mehrere Sprachen und kulturelle Konventionen vorzubereiten. Innerhalb des Vue.js-Ökosystems umfasst dies die Festlegung, wie Texte, Daten, Zahlen, Währungen und andere lokalisierbare Elemente an verschiedene Lokalisierungen angepasst werden können. Indem Sie i18n von Anfang an einrichten, stellen Sie eine organisierte, skalierbare Struktur für die Hinzufügung neuer Sprachen und die Handhabung zukünftiger Lokalisierungsbedürfnisse sicher.

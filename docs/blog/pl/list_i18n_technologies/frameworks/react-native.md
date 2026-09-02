@@ -25,8 +25,6 @@ Na coraz bardziej globalnym rynku, dostarczanie aplikacji React Native w wielu j
 
 ---
 
-![ilustracja i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
-
 ## Czym jest internacjonalizacja (i18n)?
 
 Internacjonalizacja, czyli i18n, polega na takiej strukturze aplikacji, która umożliwia jej łatwe dostosowanie do różnych języków, formatów regionalnych i norm kulturowych. W React Native i18n obejmuje obsługę tekstów przycisków i etykiet, a także formatowanie dat, godzin, walut i innych elementów zgodnie z lokalizacją użytkownika. Odpowiednio przygotowane aplikacje React Native pozwalają na bezproblemową integrację dodatkowych języków i zachowań specyficznych dla danej lokalizacji bez konieczności przeprowadzania dużych refaktoryzacji.

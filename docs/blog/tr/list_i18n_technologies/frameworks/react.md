@@ -25,8 +25,6 @@ Günümüz dijital ortamında, web sitenizin küresel bir kitleye ulaşmasını 
 
 ---
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
-
 ## Uluslararasılaştırma (i18n) Nedir?
 
 Uluslararasılaştırma, i18n olarak kısaltılır, web sitenizi birden fazla dil ve kültürel bağlamı destekleyecek şekilde tasarlamak ve hazırlamak sürecidir. React'ta bu, dizelerin, tarih formatlarının, sayı formatlarının ve hatta düzenin farklı bölgelerden kullanıcılar için kolayca uyarlanabilmesi için uygulamanızı ayarlamak anlamına gelir. React uygulamanızı i18n için hazırlamak, çevirileri ve diğer yerelleştirme özelliklerini temiz bir şekilde entegre etmek için temel oluşturur.

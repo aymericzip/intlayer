@@ -25,8 +25,6 @@ author: aymericzip
 
 ---
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
-
 ## 什么是国际化 (i18n)？
 
 国际化，通常缩写为 i18n，是设计和构建应用程序的过程，以便它可以轻松适应各种语言、地区和文化习俗。在 Svelte 中，这通常意味着设置翻译字符串、本地化日期、时间和数字，并确保用户界面可以在不同语言环境之间动态切换，而无需进行重大代码重写。

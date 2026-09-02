@@ -19,8 +19,6 @@ author: aymericzip
 
 # i18n Anlamı: Uluslararasılaştırma Nedir ve Neden Önemlidir?
 
-![i18n illüstrasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
-
 ## "i18n Anlamı"nı Anlamak
 
 Yazılım geliştirme, web tasarımı veya dijital pazarlama ile ilgileniyorsanız, muhtemelen **i18n** terimiyle karşılaşmışsınızdır. Gerçek **i18n anlamı**, basitçe **internationalization** (uluslararasılaştırma) kelimesi için bir numeronimdir (sayı-ad).

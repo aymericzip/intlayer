@@ -1,16 +1,16 @@
 ---
 createdAt: 2025-01-16
-updatedAt: 2026-05-31
-title: Best Vue i18n Libraries 2026 — Compared by DX & Bundle
-description: Best solution for bundle size, SEO, performances & maintainability. Make your Vue app multilingual in 2026, LLM translation, Agent Skills & MCP.
+updatedAt: 2026-09-02
+title: Vue i18n - how it works and where it breaks at scale
+description: How vue-i18n works in Vue 3, the three places it hurts once your app grows (key sprawl, untyped keys, bundle size), and the alternatives worth a look.
 keywords:
-  - Vue
-  - i18n
-  - multilingual
-  - SEO
-  - Internationalization
-  - Blog
-  - JavaScript
+  - vue i18n
+  - vue-i18n
+  - Vue 3 internationalization
+  - useI18n
+  - Nuxt i18n
+  - Composition API
+  - Intlayer
 slugs:
   - blog
   - i18n-technologies
@@ -19,127 +19,199 @@ slugs:
 author: aymericzip
 ---
 
-# Exploring i18n Solutions to Translate Your Vue.js Website
+# Vue i18n: how it works, and where it starts to hurt
 
-In an increasingly globalized digital landscape, extending your Vue.js website’s reach to users in multiple languages is no longer a “nice-to-have” it’s a competitive necessity. Internationalization (i18n) enables developers to manage translations and adapt their applications for various locales while preserving SEO value, user experience, and maintainable code structures. In this article, we’ll explore different approaches ranging from dedicated libraries to custom-coded solutions that help you integrate i18n into your Vue.js project smoothly.
+If you searched "vue i18n" you have already found `vue-i18n`, and it is the right default for most Vue apps. What is less documented is how it behaves once you pass ten pages and five locales. This post covers the mechanics, the three friction points that show up at scale, and what the alternatives actually change.
 
----
+<iframe title="The best i18n solution for Vite and Vue? Discover Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/IE3XWkZ6a5U?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
+## Table of Contents
 
-## What is Internationalization (i18n)?
+<TOC/>
 
-Internationalization (i18n) is the practice of preparing a software application (or website) for multiple languages and cultural conventions. Within the Vue.js ecosystem, this includes establishing how text, dates, numbers, currency, and other localizable elements can be adapted to various locales. By setting up i18n from the start, you ensure an organized, scalable structure for adding new languages and handling future localization needs.
+## The two things "Vue i18n" means
 
-To learn more about i18n basics, check out our reference: [What is Internationalization (i18n)? Definition and Challenges](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/what_is_internationalization.md).
+One is the practice: shipping a Vue app in several languages, with localized routes, formatted dates and numbers, and correct `hreflang`. The other is `vue-i18n`, the Intlify library that most Vue apps use to do it.
 
----
+They are not the same decision. Picking the library is ten minutes; the practice is what you live with for the next two years. If the concept itself is new, start with [what internationalization actually covers](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/what_is_internationalization.md) and the [difference between i18n, l10n and t9n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/i18n_meaning.md).
 
-## The Translation Challenge for Vue Applications
+## How vue-i18n works
 
-Translating a Vue.js application brings its own set of challenges:
+You build one message catalog per locale and register it as a plugin.
 
-- **Component-Based Architecture:** Similar to React, Vue’s single-file components (SFCs) may each contain text and locale-specific settings. You’ll need a strategy to centralize translation strings.
-- **Dynamic Content:** Data fetched from APIs or manipulated in real time requires a flexible approach to load and apply translations on the fly.
-- **SEO Considerations:** With server-side rendering via Nuxt or other SSR setups, it’s critical to manage localized URLs, meta tags, and sitemaps to maintain strong SEO.
-- **State and Reactive Context:** Ensuring that the current locale is maintained across routes and components reactively updating texts and formats requires a thoughtful approach, especially when dealing with Vuex or Pinia for state management.
-- **Development Overhead:** Keeping translation files organized, consistent, and up to date can quickly become a major task if not managed carefully.
+```ts fileName="src/i18n.ts"
+import { createI18n } from "vue-i18n";
 
----
+export const i18n = createI18n({
+  legacy: false, // Composition API mode
+  locale: "en",
+  fallbackLocale: "en",
+  messages: {
+    en: {
+      cart: { total: "Total", items: "no item | one item | {count} items" },
+    },
+    fr: {
+      cart: {
+        total: "Total",
+        items: "aucun article | un article | {count} articles",
+      },
+    },
+  },
+});
+```
 
-## Leading i18n Solutions for Vue.js
+Inside a single-file component you read from it with `useI18n()`:
 
-Below are several popular libraries and approaches you can use to incorporate internationalization into your Vue applications. Each aims to streamline translation, SEO, and performance considerations in different ways.
+```vue fileName="src/components/CartSummary.vue"
+<script setup lang="ts">
+import { useI18n } from "vue-i18n";
 
----
+const { t, n, locale } = useI18n();
+</script>
 
-### 1. Intlayer
+<template>
+  <h2>{{ t("cart.total") }}</h2>
+  <p>{{ t("cart.items", { count: 3 }, 3) }}</p>
+  <p>{{ n(42.5, "currency") }}</p>
+</template>
+```
 
-> Website: [https://intlayer.org/](https://intlayer.org/)
+Three mechanics matter more than the API surface:
 
-**Overview**  
-**Intlayer** is an open-source i18n solution that aims to simplify multi-language support across multiple frameworks, including **Vue**. It emphasizes a declarative approach, strong typing, and SSR support in other ecosystems, although SSR is not typical in standard Vue.
+- **Legacy vs Composition mode.** `legacy: true` keeps the Vue 2 behaviour and exposes `$t` / `$tc` globally on every component instance. `legacy: false` gives you `useI18n()` and proper types. New apps should use `false`; mixing the two in one codebase is where most "why is `$t` undefined here" bugs come from.
+- **Messages are compiled, not interpolated at read time.** Each message string is turned into a render function. With the default build that compilation happens in the browser, at runtime. Adding `@intlify/unplugin-vue-i18n` moves it to build time and lets you ship the runtime-only build, which is both smaller and CSP-friendly, since the runtime compiler relies on `new Function`.
+- **Plurals are pipe-separated, not ICU.** `"no item | one item | {count} items"` is vue-i18n's own format. It is compact, but it is not portable to any other tool, and translators need to be told about it.
 
-**Key Features**
+## Where it starts to hurt
 
-- **Declarative Translation**: Define translation dictionaries either at the widget level or in a centralized file for a cleaner architecture.
-- **TypeScript & Autocompletion (Web)**: While this feature primarily benefits web frameworks, the typed translation approach can still guide structured code in Vue.
-- **Asynchronous Loading**: Load translation assets dynamically, potentially reducing the initial bundle size for multi-language apps.
-- **Integration with Vue**: A basic integration can be set up to leverage the Intlayer approach for structured translations.
+### 1. Keys are strings with no link back to the component
 
-### 2. Vue I18n
+`t("cart.items")` is a string. Nothing connects it to `CartSummary.vue`. Delete the component and the key stays in every locale file forever; rename a nesting level and you find out at runtime, in the locale nobody tests.
 
-> Website: [https://vue-i18n.intlify.dev/](https://vue-i18n.intlify.dev/)
+At ten components this is fine. At three hundred, across a `locales/en.json` that several teams edit, key sprawl is the actual maintenance cost, not the translation itself.
 
-**Overview**  
-**Vue I18n** is the most widely used localization library in the Vue ecosystem, providing a straightforward and feature-rich way to handle translations in Vue 2, Vue 3, and Nuxt-based projects.
+### 2. Key type safety is opt-in and awkward
 
-**Key Features**
+vue-i18n can be typed by passing a message schema generic to `createI18n`, which gives autocompletion on `t()`. It works, but you have to wire it yourself, and it fights with lazily loaded catalogs: the schema describes messages that may not be loaded yet, so the types stop reflecting runtime reality.
 
-- **Simple Setup**  
-  Quickly configure localized messages and switch locales using a well-documented API.
-- **Reactivity**  
-  Locale changes instantly update text across components thanks to Vue’s reactivity system.
-- **Pluralization & Date/Number Formatting**  
-  Built-in methods handle common use cases, including plural forms, date/time formatting, number/currency formatting, and more.
-- **Nuxt.js Support**  
-  Nuxt I18n module extends Vue I18n for automatic route generation, SEO-friendly URLs, and sitemaps for each locale.
-- **TypeScript Support**  
-  Can be integrated with TypeScript-based Vue apps, though autocompletion for translation keys may require additional configuration.
-- **SSR & Code Splitting**  
-  Works seamlessly with Nuxt for server-side rendering, and supports code splitting for translation files to boost performance.
+Out of the box, a typo in a key produces a warning in the console and the raw key on screen.
 
-**Considerations**
+### 3. Lazy loading exists, scoping does not
 
-- **Configuration Overhead**  
-  Large or multi-team projects may require a clear folder structure and naming conventions to manage translation files efficiently.
-- **Plugin Ecosystem**  
-  While robust, you may need to carefully select from multiple plugins or modules (Nuxt I18n, Vue I18n, etc.) to build a perfect setup.
+vue-i18n supports async messages, so you can avoid shipping all locales at once:
 
----
+```ts
+const messages = await import(`./locales/${locale}.json`);
+i18n.global.setLocaleMessage(locale, messages.default);
+```
 
-### 3. LinguiJS (Vue Integration)
+What it does not give you is a per-page split. A locale catalog is one object; loading it loads every page's copy. In a plain SPA nobody notices. In a Nuxt app with `@nuxt/i18n` and more than ten pages, every route ends up carrying the messages of every other route.
 
-> Website: [https://lingui.js.org/](https://lingui.js.org/)
+The [Vue i18n benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/vue.md) measures the library cost separately from the content cost, on a 10-page / 10-locale app: `vue-i18n@11.4.0` weighs about **24.3 kB** after bundling and minification, roughly **9× `vue-intlayer`**. `fluent-vue` comes in around **92.7 kB**, about 34×, and its Vite plugin loads all content in all languages into every page.
 
-**Overview**  
-Originally known for its React integration, **LinguiJS** also offers a Vue plugin that focuses on minimal runtime overhead and an automated message extraction workflow.
+## Vite and Nuxt are not the same setup
 
-**Key Features**
+| Concern                        | Plain Vite + Vue Router | Nuxt                                         |
+| :----------------------------- | :---------------------- | :------------------------------------------- |
+| Locale-prefixed routes         | You write them          | `@nuxt/i18n` generates them                  |
+| `hreflang`, sitemap, redirects | Manual                  | Module handles most of it                    |
+| SSR / prerender                | Not by default          | Yes, and messages must resolve on the server |
+| Catalog splitting              | Your problem            | Still your problem                           |
 
-- **Automatic Message Extraction**  
-  Use the Lingui CLI to scan your Vue code for translations, reducing manual entry of message IDs.
-- **Compact & Performant**  
-  Compiled translations lead to a smaller runtime footprint, essential for high-performing Vue applications.
-- **TypeScript & Autocompletion**  
-  While slightly more manual to configure, typed IDs and catalogs can improve the developer experience in TypeScript-based Vue projects.
-- **Nuxt & SSR Compatibility**  
-  Can integrate with SSR setups to serve fully localized pages, improving SEO and performance for each supported locale.
-- **Pluralization & Formatting**  
-  Built-in support for plurals, number formatting, dates, and more aligning with ICU message format standards.
+Most "vue i18n is slow" reports come from Nuxt apps, because SSR makes the catalog cost visible in the HTML payload as well as the JS bundle.
 
-**Considerations**
+## The alternatives
 
-- **Less Vue-Specific Documentation**  
-  While LinguiJS has official support for Vue, its documentation primarily focuses on React; you may need to rely on community examples.
-- **Smaller Community**  
-  Compared to Vue I18n, there’s a relatively smaller ecosystem. Officially maintained plugins and third-party add-ons can be more limited.
+| Library      | Content model                                             | Type safety on keys         | Note                                                              |
+| :----------- | :-------------------------------------------------------- | :-------------------------- | :---------------------------------------------------------------- |
+| `vue-i18n`   | Central catalogs per locale, optional SFC `<i18n>` blocks | Opt-in via a schema generic | The ecosystem default, largest community, ICU-adjacent formatting |
+| `fluent-vue` | `.ftl` files (Mozilla Fluent)                             | None                        | Nice message syntax, very heavy in the benchmark                  |
+| Intlayer     | One `.content.ts` per component, colocated                | Generated, on by default    | Requires a build plugin, smaller ecosystem                        |
 
----
+## Intlayer: content declared next to the component
 
-## Final Thoughts
+Intlayer's difference is one design choice: the content lives in a file beside the component that renders it, and a build plugin compiles those declarations into per-component dictionaries.
 
-When deciding on an i18n solution for your Vue.js application:
+```ts fileName="src/components/cartSummary.content.ts"
+import { t, type Dictionary } from "intlayer";
 
-1. **Assess Your Requirements**  
-   Project size, developer skill set, and the complexity of localization all factor into your choice.
-2. **Evaluate SSR Compatibility**  
-   If you’re building a Nuxt app or otherwise depending on SSR, confirm that your chosen approach supports server rendering smoothly.
-3. **TypeScript & Autocompletion**  
-   If you value a strong developer experience with minimal translation key typos, ensure your solution offers typed definitions or can be integrated with them.
-4. **Manageability & Scalability**  
-   As you add more locales or expand your application, an organized translation file structure is crucial.
-5. **SEO & Metadata**  
-   For multilingual sites to rank well, your solution should simplify localized meta tags, URLs, sitemaps, and `robots.txt` for each locale.
+const cartSummaryContent = {
+  key: "cart-summary",
+  content: {
+    total: t({ en: "Total", fr: "Total", es: "Total" }),
+    vatNotice: t({
+      en: "VAT included",
+      fr: "TVA incluse",
+      es: "IVA incluido",
+    }),
+  },
+} satisfies Dictionary;
 
-No matter which path you choose Intlayer, Vue I18n, LinguiJS, or a custom-coded approach you’ll be well on your way to delivering a global-friendly Vue.js application. Each solution offers different trade-offs regarding performance, developer experience, and scalability. By carefully assessing your project’s needs, you can confidently pick the i18n setup that sets you and your multilingual audience up for success.
+export default cartSummaryContent;
+```
+
+```vue fileName="src/components/CartSummary.vue"
+<script setup lang="ts">
+import { useIntlayer } from "vue-intlayer";
+
+const { total, vatNotice } = useIntlayer("cart-summary");
+</script>
+
+<template>
+  <h2><total /></h2>
+  <small>{{ vatNotice }}</small>
+</template>
+```
+
+Both forms work: `<total />` renders a node that stays editable in the visual editor, `{{ vatNotice }}` gives you the plain string. Locale switching goes through `useLocale()`, which returns `locale`, `availableLocales` and `setLocale`.
+
+Because the key is declared in one file and consumed in one component, deleting the component deletes its content, and the compiler ships only the entries a route renders.
+
+<Tabs defaultTab="code">
+  <Tab label="Code" value="code">
+
+<iframe
+  src="https://ide.intlayer.org/aymericzip/intlayer-vite-vue-template?file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+  <Tab label="Demo" value="demo">
+
+<iframe
+  src="https://intlayer-vite-vue-template.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo - intlayer-vite-vue-template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+</Tabs>
+
+Setup is `npx intlayer init`, then the `intlayer()` plugin in `vite.config.ts` or `"nuxt-intlayer"` in `nuxt.config.ts`.
+
+**What it costs you.** A build step is mandatory: no bundler plugin, no dictionaries. The ecosystem is much smaller than vue-i18n's, so there are fewer Stack Overflow answers and fewer third-party integrations. ICU message format is still a work in progress, so if your translation vendor delivers ICU strings today, that is a real blocker.
+
+If you already have a vue-i18n codebase, the [`@intlayer/vue-i18n` compat adapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/vue-i18n.md) aliases `vue-i18n` imports at the bundler level, so `useI18n()`, `$t`, pipe plurals and the `v-t` directive keep working while the content is served by Intlayer. The [step-by-step migration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/migration_from_vue-i18n_to_intlayer.md) covers moving off the adapter afterwards, component by component.
+
+## Trade-offs and common mistakes
+
+- **Shipping the full vue-i18n build.** If you are not using `@intlify/unplugin-vue-i18n`, you are shipping the message compiler to the browser and paying for it on every page.
+- **Leaving `legacy: true` in a Vue 3 app.** It works, but you lose `useI18n()` typing and you carry the Vue 2 compatibility layer.
+- **Treating locale files as append-only.** Nothing warns you about dead keys. Budget a periodic sweep, or pick a model where content is scoped to a component.
+- **Switching locale with a button instead of a link.** Crawlers do not click. Render locale switchers as `<a>` / `NuxtLink` pointing at the localized URL.
+- **Assuming a per-component model is free.** It is not: you gain scoping and types, you lose the ability to hand a translator one big JSON file without tooling.
+
+## Going further
+
+- [Vue i18n benchmark: bundle size, leakage and locale-switch timings](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/vue.md)
+- [Set up i18n in a Vite + Vue app](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+vue.md)
+- [Set up i18n in a Nuxt app](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nuxt.md)
+- [Drop-in `vue-i18n` compat adapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/vue-i18n.md) and the [full migration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/migration_from_vue-i18n_to_intlayer.md)
+- [vue-i18n vs Intlayer, feature by feature](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/vue-i18n_vs_intlayer.md)
+- [Per-component vs centralized i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/per-component_vs_centralized_i18n.md)
+- [How bundle optimization works at build time](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/bundle_optimization.md)

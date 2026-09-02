@@ -25,8 +25,6 @@ W miarę jak sieć nadal łączy ludzi na całym świecie, dostarczanie treści 
 
 ---
 
-![ilustracja i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
-
 ## Czym jest internacjonalizacja (i18n)?
 
 Internacjonalizacja, powszechnie skracana do i18n, to proces projektowania i budowania aplikacji w taki sposób, aby mogła ona łatwo dostosowywać się do różnych języków, regionów i konwencji kulturowych. W Svelte zazwyczaj oznacza to konfigurację łańcuchów tłumaczeń, lokalizację dat, godzin i liczb oraz zapewnienie, że interfejs użytkownika może dynamicznie przełączać się między różnymi lokalizacjami bez konieczności dużych zmian w kodzie.

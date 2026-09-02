@@ -25,8 +25,6 @@ Seiring web terus menghubungkan orang-orang di seluruh dunia, menyediakan konten
 
 ---
 
-![ilustrasi i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
-
 ## Apa itu Internasionalisasi (i18n)?
 
 Internasionalisasi, yang biasa disingkat i18n, adalah proses merancang dan membangun aplikasi Anda agar dapat dengan mudah beradaptasi dengan berbagai bahasa, wilayah, dan konvensi budaya. Dalam Svelte, ini biasanya berarti menyiapkan string terjemahan, melokalisasi tanggal, waktu, dan angka, serta memastikan antarmuka pengguna dapat beralih secara dinamis di antara berbagai locale tanpa perlu penulisan ulang kode yang besar.

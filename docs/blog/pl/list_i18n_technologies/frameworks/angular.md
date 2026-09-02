@@ -25,8 +25,6 @@ W dzisiejszym, wzajemnie połączonym świecie, oferowanie swojej strony interne
 
 ---
 
-![ilustracja i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
-
 ## Czym jest internacjonalizacja (i18n)?
 
 Internacjonalizacja, często określana jako i18n, to proces projektowania i przygotowywania aplikacji do obsługi wielu języków i kontekstów kulturowych. W Angularze oznacza to skonfigurowanie aplikacji tak, aby teksty, daty, liczby, a nawet układy interfejsu użytkownika mogły płynnie dostosowywać się do różnych lokalizacji. Prawidłowe przygotowanie tych podstaw zapewnia, że integracja przyszłych tłumaczeń pozostanie uporządkowana i efektywna.

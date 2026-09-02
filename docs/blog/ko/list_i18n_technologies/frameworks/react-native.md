@@ -25,8 +25,6 @@ author: aymericzip
 
 ---
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
-
 ## 국제화(i18n)란 무엇인가요?
 
 국제화(i18n)는 애플리케이션을 다양한 언어, 지역 형식 및 문화적 관습에 쉽게 적응할 수 있도록 구조화하는 것을 포함합니다. React Native에서 i18n은 버튼과 라벨의 문자열을 처리하는 것뿐만 아니라 사용자의 로케일에 따라 날짜, 시간, 통화 등을 형식화하는 것을 포함합니다. 적절하게 준비된 React Native 앱을 사용하면 대대적인 리팩토링 없이도 나중에 추가 언어와 로케일별 동작을 원활하게 통합할 수 있습니다.
