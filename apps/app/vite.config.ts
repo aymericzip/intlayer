@@ -362,7 +362,6 @@ export default defineConfig(({ mode }) => {
           '/assets/**': { headers: immutableAssetHeaders },
 
           '/Geist-VariableFont_wght.woff2': { headers: immutableAssetHeaders },
-          '/Geist-VariableFont_wght.ttf': { headers: immutableAssetHeaders },
           '/logo.svg': { headers: immutableAssetHeaders },
           '/cover.png': { headers: immutableAssetHeaders },
           '/github-social-preview.png': { headers: immutableAssetHeaders },

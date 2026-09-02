@@ -135,13 +135,26 @@ const EmbeddedFrame: FC<EmbeddedFrameProps> = ({
          * video it is the largest element painted — deferring it would defer
          * the page's LCP. It is the one image here worth fetching eagerly.
          */}
-        <img
-          src={`https://i.ytimg.com/vi/${youtubeVideoId}/hqdefault.jpg`}
-          alt=""
-          fetchPriority="high"
-          decoding="async"
-          className="size-full object-cover"
-        />
+        <picture>
+          {/*
+           * YouTube serves the same poster as WebP under `vi_webp`, at roughly
+           * a third of the JPEG's weight. The `img` below stays as the
+           * fallback for the browsers that cannot decode it.
+           */}
+          <source
+            srcSet={`https://i.ytimg.com/vi_webp/${youtubeVideoId}/hqdefault.webp`}
+            type="image/webp"
+          />
+          <img
+            src={`https://i.ytimg.com/vi/${youtubeVideoId}/hqdefault.jpg`}
+            alt=""
+            width={480}
+            height={360}
+            fetchPriority="high"
+            decoding="async"
+            className="size-full object-cover"
+          />
+        </picture>
         <span className="absolute inset-0 flex items-center justify-center">
           <span className="flex size-14 items-center justify-center rounded-full bg-text/70 text-text-opposite transition-transform group-hover:scale-110">
             <Play className="size-6 translate-x-0.5 fill-current" />
