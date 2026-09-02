@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 import { getLocalizedPath } from './getLocalizedPath';
 import { getLocalizedUrl } from './getLocalizedUrl';
 import type { RoutingOptions } from './getPrefix';
-import { getRewriteRules } from './rewriteUtils';
+import { getRewriteRules } from './rewriteMatch';
 
 describe('getLocalizedPath', () => {
   const rewrite = {

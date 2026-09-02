@@ -36,6 +36,10 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
 
   const { locale, availableLocales, setLocale } = useLocale();
   const { pathname } = useLocation();
+
+  // The current path in whatever locale's rewrite alias it is viewed under
+  // (`/doc/リリース/v8`). Each `Link` re-localizes it for its target locale —
+  // `getLocalizedUrl` resolves the alias to its canonical path first.
   const pathWithoutLocale = getPathWithoutLocale(pathname, availableLocales);
   const { searchResults, handleSearch } = useLocaleSearch(
     availableLocales,

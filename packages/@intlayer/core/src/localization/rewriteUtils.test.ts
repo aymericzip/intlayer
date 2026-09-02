@@ -1,14 +1,10 @@
 import * as Locales from '@intlayer/types/locales';
 import { describe, expect, it } from 'vitest';
-import {
-  getCanonicalPath,
-  getInternalPath,
-  getRewriteRules,
-  resolveLocalizedPath,
-} from './rewriteUtils';
+import { getRewriteRules } from './rewriteMatch';
+import { getInternalPath, resolveLocalizedPath } from './rewriteUtils';
 
 describe('rewriteUtils', () => {
-  const rewriteRules = {
+  const normalizedRules = getRewriteRules({
     '/products': {
       [Locales.ENGLISH]: '/products',
       [Locales.FRENCH]: '/produits',
@@ -17,47 +13,6 @@ describe('rewriteUtils', () => {
       [Locales.ENGLISH]: '/products/[id]',
       [Locales.FRENCH]: '/produits/[id]',
     },
-  } as const;
-
-  const normalizedRules = getRewriteRules(rewriteRules);
-
-  describe('getRewriteRules', () => {
-    it('should normalize legacy rewrite format', () => {
-      const rules = getRewriteRules(rewriteRules);
-      expect(rules?.rules[0]).toEqual({
-        canonical: '/products',
-        localized: {
-          en: '/products',
-          fr: '/produits',
-        },
-      });
-      expect(rules?.rules[1].canonical).toBe('/products/:id');
-    });
-  });
-
-  describe('getCanonicalPath', () => {
-    it('should find canonical path from localized path', () => {
-      expect(
-        getCanonicalPath('/produits', Locales.FRENCH, normalizedRules)
-      ).toBe('/products');
-      expect(
-        getCanonicalPath('/produits/123', Locales.FRENCH, normalizedRules)
-      ).toBe('/products/123');
-    });
-
-    it('should return original path if no rule matches', () => {
-      expect(
-        getCanonicalPath('/unknown', Locales.FRENCH, normalizedRules)
-      ).toBe('/unknown');
-    });
-
-    it('should accept the raw rewrite configuration', () => {
-      // The documented signature takes `routing.rewrite` itself, so a caller
-      // holding the configuration does not have to normalize it first.
-      expect(getCanonicalPath('/produits', Locales.FRENCH, rewriteRules)).toBe(
-        '/products'
-      );
-    });
   });
 
   describe('resolveLocalizedPath', () => {
@@ -99,83 +54,6 @@ describe('rewriteUtils', () => {
 
     it('should handle root path', () => {
       expect(getInternalPath('/', Locales.FRENCH)).toBe('/fr');
-    });
-  });
-
-  describe('getCanonicalPath with complex patterns', () => {
-    const complexRules = {
-      rules: [
-        {
-          canonical: '/blog/:slug*',
-          localized: {
-            en: '/blog/:slug*',
-            fr: '/blog/:slug*',
-          },
-        },
-        {
-          canonical: '/docs/:path+',
-          localized: {
-            en: '/docs/:path+',
-            fr: '/documentation/:path+',
-          },
-        },
-      ],
-    };
-
-    it('should match optional catch-all (:slug*)', () => {
-      expect(getCanonicalPath('/blog', Locales.FRENCH, complexRules)).toBe(
-        '/blog'
-      );
-      expect(
-        getCanonicalPath('/blog/my-post', Locales.FRENCH, complexRules)
-      ).toBe('/blog/my-post');
-      expect(
-        getCanonicalPath('/blog/my-post/sub-path', Locales.FRENCH, complexRules)
-      ).toBe('/blog/my-post/sub-path');
-    });
-
-    it('should match mandatory catch-all (:path+)', () => {
-      expect(
-        getCanonicalPath('/documentation/install', Locales.FRENCH, complexRules)
-      ).toBe('/docs/install');
-      expect(
-        getCanonicalPath(
-          '/documentation/install/step-1',
-          Locales.FRENCH,
-          complexRules
-        )
-      ).toBe('/docs/install/step-1');
-      // Should NOT match /documentation (since it's 1+)
-      expect(
-        getCanonicalPath('/documentation', Locales.FRENCH, complexRules)
-      ).toBe('/documentation');
-    });
-
-    it('should match optional segment (:param?)', () => {
-      const optionalRules = {
-        rules: [
-          {
-            canonical: '/profile/:section?',
-            localized: {
-              en: '/profile/:section?',
-              fr: '/profil/:section?',
-            },
-          },
-        ],
-      };
-      expect(getCanonicalPath('/profil', Locales.FRENCH, optionalRules)).toBe(
-        '/profile'
-      );
-      expect(
-        getCanonicalPath('/profil/settings', Locales.FRENCH, optionalRules)
-      ).toBe('/profile/settings');
-      expect(
-        getCanonicalPath(
-          '/profil/settings/extra',
-          Locales.FRENCH,
-          optionalRules
-        )
-      ).toBe('/profil/settings/extra'); // Too many segments
     });
   });
 

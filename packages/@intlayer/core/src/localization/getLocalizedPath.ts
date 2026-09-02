@@ -5,17 +5,15 @@ import type {
   LocalizedPathname,
   ResolvedDefaultLocale,
 } from '@intlayer/types/module_augmentation';
+import { getCanonicalPath } from './getCanonicalPath';
 import { getPathWithoutLocale } from './getPathWithoutLocale';
 import {
   getPrefix,
   type RoutingOptions,
   resolveRoutingConfig,
 } from './getPrefix';
-import {
-  getCanonicalPath,
-  getRewriteRules,
-  resolveLocalizedPath,
-} from './rewriteUtils';
+import { getRewriteRules } from './rewriteMatch';
+import { resolveLocalizedPath } from './rewriteUtils';
 
 /**
  * Localizes an application path for a locale: resolves the `routing.rewrite`

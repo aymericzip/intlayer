@@ -1,9 +1,5 @@
 import { describe, expectTypeOf, it } from 'vitest';
-import {
-  getCanonicalPath,
-  getInternalPath,
-  resolveLocalizedPath,
-} from './rewriteUtils';
+import { getInternalPath, resolveLocalizedPath } from './rewriteUtils';
 
 /**
  * `getInternalPath` is pure string surgery — no rewrite rules involved — so its
@@ -56,11 +52,5 @@ describe('resolveLocalizedPath', () => {
       | { path: '/about'; isRewritten: false }
       | { path: string; isRewritten: true }
     >();
-  });
-});
-
-describe('getCanonicalPath', () => {
-  it('should accept an omitted locale (checks every locale)', () => {
-    expectTypeOf(getCanonicalPath('/a-propos')).toEqualTypeOf<string>();
   });
 });

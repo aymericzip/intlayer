@@ -12,6 +12,7 @@ export type {
 } from './generateSitemap';
 export { generateSitemap, generateSitemapUrl } from './generateSitemap';
 export { getBrowserLocale } from './getBrowserLocale';
+export { getCanonicalPath } from './getCanonicalPath';
 export { getHTMLTextDir } from './getHTMLTextDir';
 export { getLocale } from './getLocale';
 export { getLocaleFromPath } from './getLocaleFromPath';
@@ -36,12 +37,11 @@ export {
   getPreloadLocale,
   resolveBrowserLocale,
 } from './resolveBrowserLocale';
+export { getRewriteRules } from './rewriteMatch';
 export type { LocalizedPathResult } from './rewriteUtils';
 export {
-  getCanonicalPath,
   getInternalPath,
   getRewritePath,
-  getRewriteRules,
   resolveLocalizedPath,
 } from './rewriteUtils';
 export { validatePrefix } from './validatePrefix';
