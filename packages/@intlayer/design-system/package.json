@@ -482,6 +482,7 @@
     "better-auth": "1.7.2",
     "class-variance-authority": "0.7.1",
     "cmdk": "1.1.1",
+    "cnfast": "0.1.0",
     "defu": "6.1.7",
     "dompurify": "3.4.14",
     "isomorphic-dompurify": "4.1.0",
