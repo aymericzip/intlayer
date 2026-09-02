@@ -802,10 +802,7 @@ const logFieldRenameDisabledByEditor = (logger: PurgeLogger): void =>
     colorize('editor.enabled', ANSIColors.BLUE),
     'is',
     colorize('true', ANSIColors.GREY_DARK),
-    colorize(
-      '— the editor resolves edits by keyPath against the unmerged dictionaries',
-      ANSIColors.GREY
-    ),
+    colorize('— the editor needs complete keys', ANSIColors.GREY),
   ]);
 
 /**

@@ -216,7 +216,7 @@ describe('runIntlayerPurgePipeline', () => {
     );
 
     expect(lines).toContain(
-      'Dictionary field renaming is disabled because editor.enabled is true — the editor resolves edits by keyPath against the unmerged dictionaries'
+      'Dictionary field renaming is disabled because editor.enabled is true — the editor needs complete keys'
     );
 
     // The unused field still goes — it is read by no component, so the editor
