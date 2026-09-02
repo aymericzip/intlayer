@@ -1,7 +1,7 @@
 import { type Dictionary, t } from 'intlayer';
 
-const routeContent = {
-  key: 'route',
+const demoRouteContent = {
+  key: 'demo-route',
   fill: true,
   importMode: 'dynamic',
 
@@ -196,6 +196,91 @@ const routeContent = {
       vi: 'Quay về trang chủ',
       uk: 'Повернутися на головну сторінку',
     }),
+
+    welcomeToIntlayer: t({
+      en: 'Welcome to Intlayer',
+      ru: 'Добро пожаловать в Intlayer',
+      ja: 'Intlayerへようこそ',
+      fr: 'Bienvenue sur Intlayer',
+      ko: 'Intlayer에 오신 것을 환영합니다',
+      zh: '欢迎来到 Intlayer',
+      es: 'Bienvenido a Intlayer',
+      de: 'Willkommen bei Intlayer',
+      ar: 'مرحبًا بك في Intlayer',
+      it: 'Benvenuto su Intlayer',
+      'en-GB': 'Welcome to Intlayer',
+      pt: 'Bem-vindo ao Intlayer',
+      hi: 'Intlayer में आपका स्वागत है',
+      tr: "Intlayer'a Hoş Geldiniz",
+      pl: 'Witamy w Intlayer',
+      id: 'Selamat datang di Intlayer',
+      vi: 'Chào mừng đến với Intlayer',
+      uk: 'Ласкаво просимо до Intlayer',
+    }),
+
+    notSignedInPrompt: t({
+      en: 'You are not signed in. Would you like to explore the demo or sign in to your account?',
+      ru: 'Вы не вошли в систему. Хотите изучить демо-версию или войти в свой аккаунт?',
+      ja: 'サインインしていません。デモを体験しますか、それともアカウントにサインインしますか？',
+      fr: "Vous n'êtes pas connecté. Souhaitez-vous explorer la démo ou vous connecter à votre compte ?",
+      ko: '로그인되어 있지 않습니다. 데모를 둘러보시겠습니까, 아니면 계정에 로그인하시겠습니까?',
+      zh: '您尚未登录。您想浏览演示还是登录您的帐户？',
+      es: 'No has iniciado sesión. ¿Te gustaría explorar la demostración o iniciar sesión en tu cuenta?',
+      de: 'Sie sind nicht angemeldet. Möchten Sie die Demo erkunden oder sich in Ihrem Konto anmelden?',
+      ar: 'أنت لست مسجل الدخول. هل ترغب في استكشاف النسخة التجريبية أم تسجيل الدخول إلى حسابك؟',
+      it: "Non hai effettuato l'accesso. Vuoi esplorare la demo o accedere al tuo account?",
+      'en-GB':
+        'You are not signed in. Would you like to explore the demo or sign in to your account?',
+      pt: 'Você não está conectado. Deseja explorar a demonstração ou fazer login na sua conta?',
+      hi: 'आपने साइन इन नहीं किया है। क्या आप डेमो एक्सप्लोर करना चाहेंगे या अपने खाते में साइन इन करना चाहेंगे?',
+      tr: 'Oturum açmadınız. Demoyu incelemek mi yoksa hesabınıza giriş yapmak mı istersiniz?',
+      pl: 'Nie jesteś zalogowany. Czy chcesz zapoznać się z wersją demonstracyjną, czy zalogować się na swoje konto?',
+      id: 'Anda belum masuk. Apakah Anda ingin menjelajahi demo atau masuk ke akun Anda?',
+      vi: 'Bạn chưa đăng nhập. Bạn muốn khám phá bản demo hay đăng nhập vào tài khoản của mình?',
+      uk: 'Ви не увійшли в систему. Бажаєте переглянути демо-версію чи увійти у свій обліковий запис?',
+    }),
+
+    exploreDemo: t({
+      en: 'Explore the Demo',
+      ru: 'Изучить демо-версию',
+      ja: 'デモを体験する',
+      fr: 'Explorer la démo',
+      ko: '데모 둘러보기',
+      zh: '浏览演示',
+      es: 'Explorar la demostración',
+      de: 'Demo erkunden',
+      ar: 'استكشاف النسخة التجريبية',
+      it: 'Esplora la demo',
+      'en-GB': 'Explore the Demo',
+      pt: 'Explorar a demonstração',
+      hi: 'डेमो एक्सप्लोर करें',
+      tr: 'Demoyu İncele',
+      pl: 'Poznaj wersję demo',
+      id: 'Jelajahi Demo',
+      vi: 'Khám phá bản demo',
+      uk: 'Переглянути демо',
+    }),
+
+    signInOrSignUp: t({
+      en: 'Sign In / Sign Up',
+      ru: 'Войти / Зарегистрироваться',
+      ja: 'サインイン / サインアップ',
+      fr: "Se connecter / S'inscrire",
+      ko: '로그인 / 가입하기',
+      zh: '登录 / 注册',
+      es: 'Iniciar Sesión / Registrarse',
+      de: 'Anmelden / Registrieren',
+      ar: 'تسجيل الدخول / إنشاء حساب',
+      it: 'Accedi / Registrati',
+      'en-GB': 'Sign In / Sign Up',
+      pt: 'Entrar / Cadastrar-se',
+      hi: 'साइन इन / साइन अप',
+      tr: 'Giriş Yap / Kayıt Ol',
+      pl: 'Zaloguj się / Zarejestruj się',
+      id: 'Masuk / Daftar',
+      vi: 'Đăng nhập / Đăng ký',
+      uk: 'Увійти / Зареєструватися',
+    }),
   },
 
   title: 'Demo route content',
@@ -204,4 +289,4 @@ const routeContent = {
   tags: ['route', 'demo', 'localization', 'messages'],
 } satisfies Dictionary;
 
-export default routeContent;
+export default demoRouteContent;
