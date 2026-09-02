@@ -13,6 +13,7 @@ export type TechLogoName =
   | 'nuxt'
   | 'preact'
   | 'react'
+  | 'remix'
   | 'solid'
   | 'svelte'
   | 'tanstack'

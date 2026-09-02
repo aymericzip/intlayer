@@ -5,6 +5,7 @@ import {
   Website_Doc_Environment_Express,
   Website_Doc_Environment_Fastify,
   Website_Doc_Environment_Hono,
+  Website_Doc_Environment_Htmx,
   Website_Doc_Environment_Lit,
   Website_Doc_Environment_NestJS,
   Website_Doc_Environment_NextJS,
@@ -12,6 +13,7 @@ import {
   Website_Doc_Environment_Tanstack,
   Website_Doc_Environment_ViteAndPreact,
   Website_Doc_Environment_ViteAndReact,
+  Website_Doc_Environment_ViteAndReact_ReactRouterV7,
   Website_Doc_Environment_ViteAndSolid,
   Website_Doc_Environment_ViteAndSvelte,
   Website_Doc_Environment_ViteAndVue,
@@ -102,6 +104,16 @@ const logos = [
     name: 'angular',
     key: 'angular',
     route: Website_Doc_Environment_Angular,
+  },
+  {
+    name: 'htmx',
+    key: 'htmx',
+    route: Website_Doc_Environment_Htmx,
+  },
+  {
+    name: 'remix',
+    key: 'remix',
+    route: Website_Doc_Environment_ViteAndReact_ReactRouterV7,
   },
 ] as const;
 

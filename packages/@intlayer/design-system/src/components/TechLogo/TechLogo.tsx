@@ -32,6 +32,7 @@ const logoRecord: Record<TechLogoName, ReturnType<typeof dynamicLogo>> = {
   nuxt: dynamicLogo(() => import('./logos/Nuxt'), 'NuxtLogo'),
   preact: dynamicLogo(() => import('./logos/Preact'), 'PreactLogo'),
   react: dynamicLogo(() => import('./logos/Reactjs'), 'ReactLogo'),
+  remix: dynamicLogo(() => import('./logos/Remix'), 'RemixLogo'),
   solid: dynamicLogo(() => import('./logos/Solid'), 'SolidLogo'),
   svelte: dynamicLogo(() => import('./logos/Svelte'), 'SvelteLogo'),
   tanstack: dynamicLogo(() => import('./logos/Tanstack'), 'TanstackLogo'),

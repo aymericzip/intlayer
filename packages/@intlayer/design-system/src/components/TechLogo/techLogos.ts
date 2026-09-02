@@ -32,6 +32,7 @@ export { OpenAILogo as OPENAI } from './logos/OpenAI';
 export { PerplexityLogo as PERPLEXITY } from './logos/Perplexity';
 export { PreactLogo as PREACT } from './logos/Preact';
 export { ReactLogo as REACT } from './logos/Reactjs';
+export { RemixLogo as REMIX } from './logos/Remix';
 export { SolidLogo as SOLID } from './logos/Solid';
 export { SvelteLogo as SVELTE } from './logos/Svelte';
 export { TanstackLogo as TANSTACK } from './logos/Tanstack';
