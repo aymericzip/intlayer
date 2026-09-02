@@ -115,14 +115,6 @@ Intlayer оптимізовано для ідеальної роботи зі Sv
 
 ## Покрокове керівництво зі встановлення Intlayer у Vite та Svelte додаток
 
-<iframe
-  src="https://ide.intlayer.org/aymericzip/intlayer-vite-react-template?file=intlayer.config.ts"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
-  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-  loading="lazy"
-/>
-
 Перегляньте [Application Template](https://github.com/aymericzip/intlayer-vite-svelte-template) на GitHub.
 
 <Steps>
@@ -403,7 +395,7 @@ const routes = Object.fromEntries(
     [
         urlPrefix || '/',
         wrap({
-            component: App as any,
+            component: App,
             props: {
                 locale,
             },

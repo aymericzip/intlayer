@@ -315,7 +315,7 @@ const routes = Object.fromEntries(
     [
         urlPrefix || '/',
         wrap({
-            component: App as any,
+            component: App,
             props: {
                 locale,
             },

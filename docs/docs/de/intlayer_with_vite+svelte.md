@@ -115,14 +115,6 @@ Intlayer ist mehr als nur eine i18n-Lösung. Es bietet einen **selbstgehosteten 
 
 ## Schritt-für-Schritt-Anleitung zur Einrichtung von Intlayer in einer Vite- und Svelte-Anwendung
 
-<iframe
-  src="https://ide.intlayer.org/aymericzip/intlayer-vite-react-template?file=intlayer.config.ts"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox - Wie Sie Ihre Anwendung mit Intlayer internationalisieren"
-  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-  loading="lazy"
-/>
-
 Siehe [Application Template](https://github.com/aymericzip/intlayer-vite-svelte-template) auf GitHub.
 
 <Steps>
@@ -404,7 +396,7 @@ const routes = Object.fromEntries(
     [
         urlPrefix || '/',
         wrap({
-            component: App as any,
+            component: App,
             props: {
                 locale,
             },

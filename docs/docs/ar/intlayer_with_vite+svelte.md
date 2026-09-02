@@ -115,14 +115,6 @@ author: aymericzip
 
 ## دليل خطوة بخطوة لإعداد Intlayer في تطبيق Vite و Svelte
 
-<iframe
-  src="https://ide.intlayer.org/aymericzip/intlayer-vite-react-template?file=intlayer.config.ts"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox - كيفية تدويل تطبيقك باستخدام Intlayer"
-  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-  loading="lazy"
-/>
-
 راجع [قالب التطبيق](https://github.com/aymericzip/intlayer-vite-svelte-template) على GitHub.
 
 <Steps>
@@ -399,7 +391,7 @@ const routes = Object.fromEntries(
     [
         urlPrefix || '/',
         wrap({
-            component: App as any,
+            component: App,
             props: {
                 locale,
             },

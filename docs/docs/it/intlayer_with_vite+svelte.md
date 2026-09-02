@@ -115,14 +115,6 @@ Più di una semplice soluzione i18n, Intlayer fornisce un **[editor visivo](http
 
 ## Guida passo-passo per configurare Intlayer in un'applicazione Vite e Svelte
 
-<iframe
-  src="https://ide.intlayer.org/aymericzip/intlayer-vite-react-template?file=intlayer.config.ts"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox - Come internazionalizzare la tua applicazione usando Intlayer"
-  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-  loading="lazy"
-/>
-
 Consulta il [Template dell'Applicazione](https://github.com/aymericzip/intlayer-vite-svelte-template) su GitHub.
 
 <Steps>
@@ -399,7 +391,7 @@ const routes = Object.fromEntries(
     [
         urlPrefix || '/',
         wrap({
-            component: App as any,
+            component: App,
             props: {
                 locale,
             },

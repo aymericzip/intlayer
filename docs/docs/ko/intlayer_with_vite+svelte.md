@@ -115,14 +115,6 @@ Intlayer는 단순한 i18n 솔루션 그 이상으로 관리에 도움이 되는
 
 ## Vite와 Svelte 애플리케이션에서 Intlayer 설정 단계별 가이드
 
-<iframe
-  src="https://ide.intlayer.org/aymericzip/intlayer-vite-react-template?file=intlayer.config.ts"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox - Intlayer를 사용하여 애플리케이션을 국제화하는 방법"
-  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-  loading="lazy"
-/>
-
 GitHub에서 [애플리케이션 템플릿](https://github.com/aymericzip/intlayer-vite-svelte-template)을 확인하세요.
 
 <Steps>
@@ -399,7 +391,7 @@ const routes = Object.fromEntries(
     [
         urlPrefix || '/',
         wrap({
-            component: App as any,
+            component: App,
             props: {
                 locale,
             },

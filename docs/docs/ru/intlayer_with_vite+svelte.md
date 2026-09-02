@@ -115,14 +115,6 @@ Intlayer — это больше, чем просто решение i18n. Он 
 
 ## Пошаговое руководство по настройке Intlayer в приложении на Vite и Svelte
 
-<iframe
-  src="https://ide.intlayer.org/aymericzip/intlayer-vite-react-template?file=intlayer.config.ts"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Демонстрация CodeSandbox - Как интернационализировать ваше приложение с помощью Intlayer"
-  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-  loading="lazy"
-/>
-
 Смотрите [Шаблон приложения](https://github.com/aymericzip/intlayer-vite-svelte-template) на GitHub.
 
 <Steps>
@@ -402,7 +394,7 @@ const routes = Object.fromEntries(
     [
         urlPrefix || '/',
         wrap({
-            component: App as any,
+            component: App,
             props: {
                 locale,
             },
