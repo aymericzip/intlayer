@@ -43,139 +43,6 @@ Por exemplo, um aplicativo com 10 páginas traduzido a título de abranger 10 l�
 
 <TOC />
 
-## Faça uma varredura sobre seu bundle
-
-Aprofundar nos bastidores das métricas que moldam o próprio bundle fará com que consiga achar focos cruciais em JSON's não compactos e traçar melhor um planejamento adequado voltado ao code-splitting apropriado do escopo. Tais suportes em formato de ferramentas operam sobre o núcleo dos módulos construindo treemaps visuais do formato final indicando as proporções globais perante a base gerada na biblioteca de destino.
-
-<Tabs>
- <Tab value="vite">
-
-### Vite / Rollup
-
-O Vite usa o construtor subjacente pautado ao Rollup. Ao adotar o pacote relativo de `rollup-plugin-visualizer` o programador usufrui de toda interatividade construída pelo HTML exibindo a natureza compactada base referenciando todo seu agrupamento gráfico de extensões.
-
-```bash
-npm install -D rollup-plugin-visualizer
-```
-
-```typescript fileName="vite.config.ts"
-import { defineConfig } from "vite";
-import { visualizer } from "rollup-plugin-visualizer";
-
-export default defineConfig({
-  plugins: [
-    visualizer({
-      open: true, // Responsável por inicializar e expandir de modo dinâmico no navegador
-      filename: "stats.html",
-      gzipSize: true,
-      brotliSize: true,
-    }),
-  ],
-});
-```
-
- </Tab>
- <Tab value="nextjs (turbopack)">
-
-### Next.js (Turbopack)
-
-Voltado a uso no ecossistema App Router e também ao Turbopack, esse formato interno e focado em ecossistema experimental nativo fornece apoio irrestrito perante dependências de base sem envolver extensões extraoficiais.
-
-```bash packageManager='npm'
-npx next experimental-analyze
-```
-
-```bash packageManager='yarn'
-yarn next experimental-analyze
-```
-
-```bash packageManager='pnpm'
-pnpm next experimental-analyze
-```
-
-```bash packageManager='bun'
-bun next experimental-analyze
-```
-
- </Tab>
- <Tab value="nextjs (Webpack)">
-
-### Next.js (Webpack)
-
-Caso implemente o construtor padronizado padrão em arquitetura de Next.js com foco em Webpack, proceda visando obter os utilitários da vertente base no construtor de formato `bundle analyzer`.
-
-```bash packageManager='npm'
-npm install -D @next/bundle-analyzer
-```
-
-```bash packageManager='yarn'
-yarn add -D @next/bundle-analyzer
-```
-
-```bash packageManager='pnpm'
-pnpm add -D @next/bundle-analyzer
-```
-
-```bash packageManager='bun'
-bun add -d @next/bundle-analyzer
-```
-
-```javascript fileName="next.config.js"
-const withBundleAnalyzer = require("@next/bundle-analyzer")({
-  enabled: process.env.ANALYZE === "true",
-});
-
-module.exports = withBundleAnalyzer({
-  // Implementação livre associada ao Next.js em prol de estender métricas construtivas...
-});
-```
-
-**Parâmetro de uso construtivo:**
-
-```bash
-ANALYZE=true npm run build
-```
-
- </Tab>
- <Tab value="Webpack (CRA / Angular / etc)">
-
-### Configurações de Padrão do Webpack
-
-Tratativas associadas ao React na adoção pura baseada no uso preterido do "Create React App" (com modo 'eject' previamente inicializado) sem falar do Angular e outras diretrizes preestabelecidas sobre as margens baseadas pelo escopo padrão do `webpack-bundle-analyzer`.
-
-```bash packageManager='npm'
-npm install -D webpack-bundle-analyzer
-```
-
-```bash packageManager='yarn'
-yarn add -D webpack-bundle-analyzer
-```
-
-```bash packageManager='pnpm'
-pnpm add -D webpack-bundle-analyzer
-```
-
-```bash packageManager='bun'
-bun add -d webpack-bundle-analyzer
-```
-
-```typescript fileName="webpack.config.ts"
-import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
-
-export default {
-  plugins: [
-    new BundleAnalyzerPlugin({
-      analyzerMode: "static",
-      reportFilename: "bundle-analyzer.html",
-      openAnalyzer: false,
-    }),
-  ],
-};
-```
-
- </Tab>
-</Tabs>
-
 ## Como a Base Opera
 
 As vertentes baseadas perante os módulos dinâmicos referenciados com apoio do uso contínuo preterido pautam perante implementações focadas nos propósitos componentes e pontuais. Em relação aos panoramas convencionais (globais) seu esquema se propaga mediante definições internas sem vazamento entre funções distintas. Toda compilação associada sob as etapas interage num procedimento naturalizado em construtos:
@@ -188,59 +55,6 @@ Sob este alinhamento as propostas adquirem a certeza de:
 
 - Retirar por definitivo e excluir os conteúdos irrelevantes do núcleo que acabam integrando os "dead codes" das rotas componentes.
 - Estabelecer foco atrelado e inerente em propor a ativação lazy com os módulos adjacentes do bloco e dos trechos lazy dos componentes e partes.
-
-## O Que Referencia Em Respeito A Plugins
-
-As vertentes pautadas do ecossistema otimizado base pelo Intlayer consistem num emaranhado formatado e distinto fragmentados entre pequenos ecossistemas. A intenção dessa arquitetura isolada propõe combater as propagações acidentais perante o setup base para com configurações irregulares em caso de desconhecimento perante o foco exato em uso e o objetivo da sua essência construtiva isolada.
-
-### Plugins Integrados Para Com Babel (`@intlayer/babel`)
-
-Este ramo abrange puramente escopos direcionados e voltados ao processo em setups no núcleo interno de implementações em formato Webpack operando com arquivos predefinidos nas bases (como é o caso natural do Babel associado de base, Webpack modular customizado em sua integridade nativa do CRA entre outros propósitos da extensão `babel.config.js` ).
-
-A tabela abaixo os lista na ordem de pipeline exigida (a mesma ordem em que devem aparecer no `babel.config.js`):
-
-| Funções do Plugin Base        | Fatores Práticos Do Recurso E Suas Integrações Com Componentes                                                                                                                 |
-| :---------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `intlayerExtractBabelPlugin`  | Percorre todo núcleo do escopo com premissa modular ligando fatores associativos entre funções `.content.ts` com as propostas associadas à destinação em pastas `.intlayer/`   |
-| `intlayerPurgeBabelPlugin`    | Mapeia e integra lógicas puramente atreladas a varreduras com intento final na premissa base de descartar os **campos sem uso das diretivas** com base final dos dicionários   |
-| `intlayerMinifyBabelPlugin`   | Transcreve sua **chave matriz base na nomeclatura compacta sob a extensão de referências nativas alfabéticas limitadas em seus núcleos** (`title` → `a`) sob suas origens JSON |
-| `intlayerOptimizeBabelPlugin` | Adota premissas nativas mudando o sentido focado de `useIntlayer('key')` para abranger a otimizada base `useDictionary(hash)` gerindo implementações no escopo do `import`     |
-
-> **Cuidado Atrelado Com A Ordem Da Execução Preestabelecida Do Arquivo Principal:** O esquema atrelado com os focos das bases de expurgo (purge) e premissas curtas em definições (minify) tendem inevitavelmente estarem e persistirem em um nível que antecede de antemão e antes que se executem e apliquem o método referencial em otimização (`optimize`) na base primária do arquivo nativo `babel.config.js`. Se o optimize operar logo em instâncias prematuras o registro das senhas chave tendem a se omitir não proporcionando suporte base o bastante nas partes do escopo e apagando registros nativos sobre premissas das matrizes JSON que deverão ser mapeadas na função da execução seguinte.
-
-Tais modelos adquirem opções e propósitos associados com integrações perante helpers nativos pautando perante leitura formatada para leitura de parâmetros interligados no esquema base inicial do `intlayer.config.ts`:
-
-| Helpers de Opcionais         | Integração Destinada Relacionada Ao Base |
-| :--------------------------- | :--------------------------------------- |
-| `getExtractPluginOptions()`  | `intlayerExtractBabelPlugin`             |
-| `getPurgePluginOptions()`    | `intlayerPurgeBabelPlugin`               |
-| `getMinifyPluginOptions()`   | `intlayerMinifyBabelPlugin`              |
-| `getOptimizePluginOptions()` | `intlayerOptimizeBabelPlugin`            |
-
-### O Setup Por Trás De Vite (`vite-intlayer`)
-
-O usuário da base focada na plataforma gerada do esquema no Vite não fará manipulações com tais recursos predefinindo os passos com métodos e formatações exaustivas e diretas visto não ser preciso em seu formato automatizado que interage mediante execuções da diretiva e formato focado `withIntlayer()` dentro de sua predefinição ligada ao módulo e base em `vite.config.ts`. Extensões relativas aos recursos `build.purge` ou da implementação em esquema e base em `build.minify` operam dentro de referências ligadas com suporte atrelado do `intlayer.config.ts`.
-
-| Modelo Integrado Ao Núcleo Do Vite | Relações E Bases De Semelhanças Nativas                                                                                                                                                                                                                                    |
-| :--------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Usage analyzer                     | Corresponde como fator e esquema nativo analítico e idêntico atrelado a varredura associada ao `intlayerPurgeBabelPlugin`                                                                                                                                                  |
-| Dictionary prune                   | Reflete referências voltadas no suporte preterido perante processos paralelos construtivos do formato em `intlayerPurgeBabelPlugin`                                                                                                                                        |
-| Dictionary minify                  | Base análoga e integrada de premissas com ligações nos escritos pautando referências no molde JSON nativo voltada do `intlayerMinifyBabelPlugin`                                                                                                                           |
-| Babel transform                    | Associa parâmetros no suporte transformativo que atua nas esferas associativas dos diretórios voltados do renome natural em conjunto focado ao `intlayerMinifyBabelPlugin` e também ao respectivo processo preestabelecido da função modular `intlayerOptimizeBabelPlugin` |
-
-### Plugin SWC (`@intlayer/swc`)
-
-Os usuários do Next.js também **nunca configuram isto diretamente**. Desde a **v9.2.1**, o `withIntlayer()` no `next.config.ts` executa todo o pipeline — purge, minificação e reescrita de imports — apenas a partir das flags `build.purge` e `build.minify`.
-
-O trabalho é dividido em dois, porque um plugin Wasm do SWC transforma um arquivo por vez e não tem acesso ao sistema de arquivos:
-
-| Passagem                                           | Onde é executada                 | O que faz                                                                                              |
-| :------------------------------------------------- | :------------------------------- | :----------------------------------------------------------------------------------------------------- |
-| Análise de uso + purge/minificação do JSON         | Node, dentro de `withIntlayer()` | Lê cada arquivo-fonte de componente, reescreve `.intlayer/**/*.json` e produz as tabelas de renomeação |
-| Reescrita do código-fonte (`content.title` → `.a`) | `@intlayer/swc` (Wasm)           | Aplica as tabelas de renomeação aos acessos de propriedade correspondentes no seu código               |
-| Reescrita de imports (`useIntlayer` → dict)        | `@intlayer/swc` (Wasm)           | Igual ao `intlayerOptimizeBabelPlugin`                                                                 |
-
-Decidir _quais_ campos não são usados e _qual_ alias cada um recebe exige estado entre arquivos e E/S de arquivos, então essa metade roda no Node; o plugin SWC recebe apenas as tabelas resultantes.
 
 ## Etapas Em Modos Variados (Plataformas)
 
@@ -403,6 +217,59 @@ module.exports = {
 
  </Tab>
 </Tabs>
+
+## O Que Referencia Em Respeito A Plugins
+
+As vertentes pautadas do ecossistema otimizado base pelo Intlayer consistem num emaranhado formatado e distinto fragmentados entre pequenos ecossistemas. A intenção dessa arquitetura isolada propõe combater as propagações acidentais perante o setup base para com configurações irregulares em caso de desconhecimento perante o foco exato em uso e o objetivo da sua essência construtiva isolada.
+
+### Plugins Integrados Para Com Babel (`@intlayer/babel`)
+
+Este ramo abrange puramente escopos direcionados e voltados ao processo em setups no núcleo interno de implementações em formato Webpack operando com arquivos predefinidos nas bases (como é o caso natural do Babel associado de base, Webpack modular customizado em sua integridade nativa do CRA entre outros propósitos da extensão `babel.config.js` ).
+
+A tabela abaixo os lista na ordem de pipeline exigida (a mesma ordem em que devem aparecer no `babel.config.js`):
+
+| Funções do Plugin Base        | Fatores Práticos Do Recurso E Suas Integrações Com Componentes                                                                                                                 |
+| :---------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `intlayerExtractBabelPlugin`  | Percorre todo núcleo do escopo com premissa modular ligando fatores associativos entre funções `.content.ts` com as propostas associadas à destinação em pastas `.intlayer/`   |
+| `intlayerPurgeBabelPlugin`    | Mapeia e integra lógicas puramente atreladas a varreduras com intento final na premissa base de descartar os **campos sem uso das diretivas** com base final dos dicionários   |
+| `intlayerMinifyBabelPlugin`   | Transcreve sua **chave matriz base na nomeclatura compacta sob a extensão de referências nativas alfabéticas limitadas em seus núcleos** (`title` → `a`) sob suas origens JSON |
+| `intlayerOptimizeBabelPlugin` | Adota premissas nativas mudando o sentido focado de `useIntlayer('key')` para abranger a otimizada base `useDictionary(hash)` gerindo implementações no escopo do `import`     |
+
+> **Cuidado Atrelado Com A Ordem Da Execução Preestabelecida Do Arquivo Principal:** O esquema atrelado com os focos das bases de expurgo (purge) e premissas curtas em definições (minify) tendem inevitavelmente estarem e persistirem em um nível que antecede de antemão e antes que se executem e apliquem o método referencial em otimização (`optimize`) na base primária do arquivo nativo `babel.config.js`. Se o optimize operar logo em instâncias prematuras o registro das senhas chave tendem a se omitir não proporcionando suporte base o bastante nas partes do escopo e apagando registros nativos sobre premissas das matrizes JSON que deverão ser mapeadas na função da execução seguinte.
+
+Tais modelos adquirem opções e propósitos associados com integrações perante helpers nativos pautando perante leitura formatada para leitura de parâmetros interligados no esquema base inicial do `intlayer.config.ts`:
+
+| Helpers de Opcionais         | Integração Destinada Relacionada Ao Base |
+| :--------------------------- | :--------------------------------------- |
+| `getExtractPluginOptions()`  | `intlayerExtractBabelPlugin`             |
+| `getPurgePluginOptions()`    | `intlayerPurgeBabelPlugin`               |
+| `getMinifyPluginOptions()`   | `intlayerMinifyBabelPlugin`              |
+| `getOptimizePluginOptions()` | `intlayerOptimizeBabelPlugin`            |
+
+### O Setup Por Trás De Vite (`vite-intlayer`)
+
+O usuário da base focada na plataforma gerada do esquema no Vite não fará manipulações com tais recursos predefinindo os passos com métodos e formatações exaustivas e diretas visto não ser preciso em seu formato automatizado que interage mediante execuções da diretiva e formato focado `withIntlayer()` dentro de sua predefinição ligada ao módulo e base em `vite.config.ts`. Extensões relativas aos recursos `build.purge` ou da implementação em esquema e base em `build.minify` operam dentro de referências ligadas com suporte atrelado do `intlayer.config.ts`.
+
+| Modelo Integrado Ao Núcleo Do Vite | Relações E Bases De Semelhanças Nativas                                                                                                                                                                                                                                    |
+| :--------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Usage analyzer                     | Corresponde como fator e esquema nativo analítico e idêntico atrelado a varredura associada ao `intlayerPurgeBabelPlugin`                                                                                                                                                  |
+| Dictionary prune                   | Reflete referências voltadas no suporte preterido perante processos paralelos construtivos do formato em `intlayerPurgeBabelPlugin`                                                                                                                                        |
+| Dictionary minify                  | Base análoga e integrada de premissas com ligações nos escritos pautando referências no molde JSON nativo voltada do `intlayerMinifyBabelPlugin`                                                                                                                           |
+| Babel transform                    | Associa parâmetros no suporte transformativo que atua nas esferas associativas dos diretórios voltados do renome natural em conjunto focado ao `intlayerMinifyBabelPlugin` e também ao respectivo processo preestabelecido da função modular `intlayerOptimizeBabelPlugin` |
+
+### Plugin SWC (`@intlayer/swc`)
+
+Os usuários do Next.js também **nunca configuram isto diretamente**. Desde a **v9.2.1**, o `withIntlayer()` no `next.config.ts` executa todo o pipeline — purge, minificação e reescrita de imports — apenas a partir das flags `build.purge` e `build.minify`.
+
+O trabalho é dividido em dois, porque um plugin Wasm do SWC transforma um arquivo por vez e não tem acesso ao sistema de arquivos:
+
+| Passagem                                           | Onde é executada                 | O que faz                                                                                              |
+| :------------------------------------------------- | :------------------------------- | :----------------------------------------------------------------------------------------------------- |
+| Análise de uso + purge/minificação do JSON         | Node, dentro de `withIntlayer()` | Lê cada arquivo-fonte de componente, reescreve `.intlayer/**/*.json` e produz as tabelas de renomeação |
+| Reescrita do código-fonte (`content.title` → `.a`) | `@intlayer/swc` (Wasm)           | Aplica as tabelas de renomeação aos acessos de propriedade correspondentes no seu código               |
+| Reescrita de imports (`useIntlayer` → dict)        | `@intlayer/swc` (Wasm)           | Igual ao `intlayerOptimizeBabelPlugin`                                                                 |
+
+Decidir _quais_ campos não são usados e _qual_ alias cada um recebe exige estado entre arquivos e E/S de arquivos, então essa metade roda no Node; o plugin SWC recebe apenas as tabelas resultantes.
 
 ## Sobre as Bases (Configuration)
 
@@ -644,3 +511,136 @@ const content = useDictionaryAsync({
 | **Fator na rede**                        | Zero rede base atrelando chamados nativos                                              | Formatação no chamado constante                                                 |
 | **Tree Shaking Base**                    | Formatação no formato nas diretivas de limitações nativas da via constante de arquivos | Limitação voltando da extensão com limites nativos                              |
 | **Panorama Nas Acessibilidades Focadas** | UIs de limites preestabelecidas limitadas                                              | Textos preestabelecidos em modos focados em vias dinâmicas e constantes globais |
+
+## Faça uma varredura sobre seu bundle
+
+Aprofundar nos bastidores das métricas que moldam o próprio bundle fará com que consiga achar focos cruciais em JSON's não compactos e traçar melhor um planejamento adequado voltado ao code-splitting apropriado do escopo. Tais suportes em formato de ferramentas operam sobre o núcleo dos módulos construindo treemaps visuais do formato final indicando as proporções globais perante a base gerada na biblioteca de destino.
+
+<Tabs>
+ <Tab value="vite">
+
+### Vite / Rollup
+
+O Vite usa o construtor subjacente pautado ao Rollup. Ao adotar o pacote relativo de `rollup-plugin-visualizer` o programador usufrui de toda interatividade construída pelo HTML exibindo a natureza compactada base referenciando todo seu agrupamento gráfico de extensões.
+
+```bash
+npm install -D rollup-plugin-visualizer
+```
+
+```typescript fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import { visualizer } from "rollup-plugin-visualizer";
+
+export default defineConfig({
+  plugins: [
+    visualizer({
+      open: true, // Responsável por inicializar e expandir de modo dinâmico no navegador
+      filename: "stats.html",
+      gzipSize: true,
+      brotliSize: true,
+    }),
+  ],
+});
+```
+
+ </Tab>
+ <Tab value="nextjs (turbopack)">
+
+### Next.js (Turbopack)
+
+Voltado a uso no ecossistema App Router e também ao Turbopack, esse formato interno e focado em ecossistema experimental nativo fornece apoio irrestrito perante dependências de base sem envolver extensões extraoficiais.
+
+```bash packageManager='npm'
+npx next experimental-analyze
+```
+
+```bash packageManager='yarn'
+yarn next experimental-analyze
+```
+
+```bash packageManager='pnpm'
+pnpm next experimental-analyze
+```
+
+```bash packageManager='bun'
+bun next experimental-analyze
+```
+
+ </Tab>
+ <Tab value="nextjs (Webpack)">
+
+### Next.js (Webpack)
+
+Caso implemente o construtor padronizado padrão em arquitetura de Next.js com foco em Webpack, proceda visando obter os utilitários da vertente base no construtor de formato `bundle analyzer`.
+
+```bash packageManager='npm'
+npm install -D @next/bundle-analyzer
+```
+
+```bash packageManager='yarn'
+yarn add -D @next/bundle-analyzer
+```
+
+```bash packageManager='pnpm'
+pnpm add -D @next/bundle-analyzer
+```
+
+```bash packageManager='bun'
+bun add -d @next/bundle-analyzer
+```
+
+```javascript fileName="next.config.js"
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+  enabled: process.env.ANALYZE === "true",
+});
+
+module.exports = withBundleAnalyzer({
+  // Implementação livre associada ao Next.js em prol de estender métricas construtivas...
+});
+```
+
+**Parâmetro de uso construtivo:**
+
+```bash
+ANALYZE=true npm run build
+```
+
+ </Tab>
+ <Tab value="Webpack (CRA / Angular / etc)">
+
+### Configurações de Padrão do Webpack
+
+Tratativas associadas ao React na adoção pura baseada no uso preterido do "Create React App" (com modo 'eject' previamente inicializado) sem falar do Angular e outras diretrizes preestabelecidas sobre as margens baseadas pelo escopo padrão do `webpack-bundle-analyzer`.
+
+```bash packageManager='npm'
+npm install -D webpack-bundle-analyzer
+```
+
+```bash packageManager='yarn'
+yarn add -D webpack-bundle-analyzer
+```
+
+```bash packageManager='pnpm'
+pnpm add -D webpack-bundle-analyzer
+```
+
+```bash packageManager='bun'
+bun add -d webpack-bundle-analyzer
+```
+
+```typescript fileName="webpack.config.ts"
+import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
+
+export default {
+  plugins: [
+    new BundleAnalyzerPlugin({
+      analyzerMode: "static",
+      reportFilename: "bundle-analyzer.html",
+      openAnalyzer: false,
+    }),
+  ],
+};
+```
+
+ </Tab>
+</Tabs>

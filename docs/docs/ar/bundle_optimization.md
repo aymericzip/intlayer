@@ -43,139 +43,6 @@ author: aymericzip
 
 <TOC />
 
-## قم بتحليل حزمتك
-
-يُعد تحليل حزمتك هو الخطوة الأولى لتحديد ملفات JSON "الثقيلة" وفرص تقسيم الكود (code-splitting). تُنشئ هذه الأدوات مخططًا شجريًا (treemap) مرئيًا للكود المترجم لتطبيقك، مما يسمح لك بمعرفة أي المكتبات تستهلك المساحة الأكبر بالضبط.
-
-<Tabs>
- <Tab value="vite">
-
-### Vite / Rollup
-
-يستخدم Vite الـ Rollup تحت الغطاء. تُنشئ الإضافة `rollup-plugin-visualizer` ملف HTML تفاعليًا يوضح حجم كل وحدة في الرسم البياني الخاص بك.
-
-```bash
-npm install -D rollup-plugin-visualizer
-```
-
-```typescript fileName="vite.config.ts"
-import { defineConfig } from "vite";
-import { visualizer } from "rollup-plugin-visualizer";
-
-export default defineConfig({
-  plugins: [
-    visualizer({
-      open: true, // افتح التقرير تلقائيًا في متصفحك
-      filename: "stats.html",
-      gzipSize: true,
-      brotliSize: true,
-    }),
-  ],
-});
-```
-
- </Tab>
- <Tab value="nextjs (turbopack)">
-
-### Next.js (Turbopack)
-
-للمشاريع التي تستخدم الـ App Router والـ Turbopack، يوفر Next.js محللًا تجريبيًا مدمجًا لا يتطلب أي تبعيات إضافية.
-
-```bash packageManager='npm'
-npx next experimental-analyze
-```
-
-```bash packageManager='yarn'
-yarn next experimental-analyze
-```
-
-```bash packageManager='pnpm'
-pnpm next experimental-analyze
-```
-
-```bash packageManager='bun'
-bun next experimental-analyze
-```
-
- </Tab>
- <Tab value="nextjs (Webpack)">
-
-### Next.js (Webpack)
-
-إذا كنت تستخدم مُحزم Webpack الافتراضي في Next.js، فاستخدم المحلل الرسمي للحزم (bundle analyzer). قم بتشغيله عن طريق تعيين متغير بيئة أثناء البناء.
-
-```bash packageManager='npm'
-npm install -D @next/bundle-analyzer
-```
-
-```bash packageManager='yarn'
-yarn add -D @next/bundle-analyzer
-```
-
-```bash packageManager='pnpm'
-pnpm add -D @next/bundle-analyzer
-```
-
-```bash packageManager='bun'
-bun add -d @next/bundle-analyzer
-```
-
-```javascript fileName="next.config.js"
-const withBundleAnalyzer = require("@next/bundle-analyzer")({
-  enabled: process.env.ANALYZE === "true",
-});
-
-module.exports = withBundleAnalyzer({
-  // إعدادات Next.js الخاصة بك
-});
-```
-
-**الاستخدام:**
-
-```bash
-ANALYZE=true npm run build
-```
-
- </Tab>
- <Tab value="Webpack (CRA / Angular / etc)">
-
-### Standard Webpack
-
-لـ Create React App (ejected)، أو Angular، أو إعدادات Webpack المخصصة، استخدم المعيار الصناعي `webpack-bundle-analyzer`.
-
-```bash packageManager='npm'
-npm install -D webpack-bundle-analyzer
-```
-
-```bash packageManager='yarn'
-yarn add -D webpack-bundle-analyzer
-```
-
-```bash packageManager='pnpm'
-pnpm add -D webpack-bundle-analyzer
-```
-
-```bash packageManager='bun'
-bun add -d webpack-bundle-analyzer
-```
-
-```typescript fileName="webpack.config.ts"
-import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
-
-export default {
-  plugins: [
-    new BundleAnalyzerPlugin({
-      analyzerMode: "static",
-      reportFilename: "bundle-analyzer.html",
-      openAnalyzer: false,
-    }),
-  ],
-};
-```
-
- </Tab>
-</Tabs>
-
 ## كيف يعمل
 
 يستخدم Intlayer **نهجًا لكل مكون**. بخلاف ملفات JSON العامة، يتم تعريف المحتوى الخاص بك بجانب مكوناتك أو بداخلها. أثناء عملية البناء، يقوم Intlayer بـ:
@@ -188,59 +55,6 @@ export default {
 
 - إذا لم يتم استيراد مكون، فلن يتم تضمين محتواه في الحزمة (Dead Code Elimination).
 - إذا كان المكون محملًا بكسل (lazy-loaded)، فسيتم تحميل محتواه بكسل أيضًا.
-
-## مرجع الإضافات
-
-يتم تقسيم تحسين البناء في Intlayer إلى عدة إضافات منفصلة، لكل منها مسؤولية واحدة. ففهم ما تفعله كل إضافة يمنع الارتباك عند إعدادها.
-
-### إضافات Babel (`@intlayer/babel`)
-
-تُستخدم هذه مباشرة في `babel.config.js` للإعدادات المستندة إلى Webpack (مثل Next.js مع Babel، CRA، Webpack المخصص، إلخ).
-
-يسرد الجدول أدناه هذه الإضافات بالترتيب المطلوب لخط المعالجة (وهو الترتيب نفسه الذي يجب أن تظهر به في `babel.config.js`):
-
-| الإضافة                       | ما تفعله                                                                                                             |
-| :---------------------------- | :------------------------------------------------------------------------------------------------------------------- |
-| `intlayerExtractBabelPlugin`  | تمسح ملفات `.content.ts` وتكتب القواميس المجمعة إلى `.intlayer/`                                                     |
-| `intlayerPurgeBabelPlugin`    | تمسح جميع ملفات المصدر، تزيل **حقول المحتوى غير المستخدمة** من ملفات القاموس المجمعة `.intlayer/**/*.json`           |
-| `intlayerMinifyBabelPlugin`   | **تعيد تسمية مفاتيح حقول المحتوى** إلى أسماء مستعارة أبجدية قصيرة (`title` → `a`) في كل من ملفات JSON والكود المصدري |
-| `intlayerOptimizeBabelPlugin` | تعيد كتابة `useIntlayer('key')` → `useDictionary(hash)` وتحقن الـ `import` المطابق للقاموس                           |
-
-> **ترتيب الإضافات مهم.** في `babel.config.js` يجب أن تظهر إضافات التطهير (purge) والتصغير (minify) **قبل** إضافة التحسين (optimize). تقوم خطوة التحسين باستبدال `useIntlayer('key')` باستدعاء مبهم لـ `useDictionary(hash)`، مما يمحو معلومات مفتاح القاموس التي تحتاجها خطوات التطهير والتصغير لتحديد الحقول المستخدمة.
-
-يحتوي كل مُكوّن إضافي في Babel على مساعد خيارات مطابق يقرأ `intlayer.config.ts` الخاص بك مرة واحدة في وقت تحميل الإعدادات ويُرجع قيمًا محلولة مسبقًا:
-
-| مساعد الخيارات (Options helper) | يُستخدم مع                    |
-| :------------------------------ | :---------------------------- |
-| `getExtractPluginOptions()`     | `intlayerExtractBabelPlugin`  |
-| `getPurgePluginOptions()`       | `intlayerPurgeBabelPlugin`    |
-| `getMinifyPluginOptions()`      | `intlayerMinifyBabelPlugin`   |
-| `getOptimizePluginOptions()`    | `intlayerOptimizeBabelPlugin` |
-
-### إضافات Vite (`vite-intlayer`)
-
-لا يحتاج مستخدمو Vite **مطلقًا لإعداد هذه بشكل مباشر**. يتم ربطها تلقائيًا عند استدعاء `withIntlayer()` في `vite.config.ts`. تقوم الأعلام `build.purge` و `build.minify` في `intlayer.config.ts` بتبديل السلوك المقابل دون أي تسجيل إضافي للإضافات.
-
-| إضافة Vite الداخلية | السلوك المكافئ                                                                                 |
-| :------------------ | :--------------------------------------------------------------------------------------------- |
-| Usage analyzer      | نفس مسار التحليل في `intlayerPurgeBabelPlugin`                                                 |
-| Dictionary prune    | نفس مسار كتابة JSON في `intlayerPurgeBabelPlugin`                                              |
-| Dictionary minify   | نفس مسار كتابة JSON في `intlayerMinifyBabelPlugin`                                             |
-| Babel transform     | نفس مسار إعادة تسمية كود المصدر لـ `intlayerMinifyBabelPlugin` + `intlayerOptimizeBabelPlugin` |
-
-### إضافة SWC (`@intlayer/swc`)
-
-مستخدمو Next.js أيضًا **لا يهيئون هذه الإضافات مباشرةً أبدًا**. منذ الإصدار **v9.2.1**، تشغّل `withIntlayer()` في `next.config.ts` خط المعالجة الكامل — التنقية والتصغير وإعادة كتابة عمليات الاستيراد — اعتمادًا على العَلَمين `build.purge` و`build.minify` فقط.
-
-العمل مقسوم إلى نصفين، لأن إضافة SWC بصيغة Wasm تحوّل ملفًا واحدًا في كل مرة ولا تملك وصولًا إلى نظام الملفات:
-
-| المرحلة                                      | أين تُنفَّذ                 | ماذا تفعل                                                                                |
-| :------------------------------------------- | :-------------------------- | :--------------------------------------------------------------------------------------- |
-| تحليل الاستخدام + تنقية/تصغير JSON           | Node، داخل `withIntlayer()` | تقرأ كل ملف مصدر للمكوّنات، وتعيد كتابة `.intlayer/**/*.json`، وتنتج جداول إعادة التسمية |
-| إعادة كتابة المصدر (`content.title` ← `.a`)  | `@intlayer/swc` (Wasm)      | تطبّق جداول إعادة التسمية على عمليات الوصول إلى الخصائص المقابلة في شيفرتك               |
-| إعادة كتابة الاستيراد (`useIntlayer` ← dict) | `@intlayer/swc` (Wasm)      | مثل `intlayerOptimizeBabelPlugin`                                                        |
-
-إن تحديد _أي_ الحقول غير مستخدمة و_أي_ اسم مستعار يحصل عليه كل حقل يتطلب حالة عابرة للملفات وعمليات إدخال/إخراج على الملفات، لذلك يعمل ذلك النصف داخل Node؛ ولا تتلقى إضافة SWC سوى الجداول الناتجة.
 
 ## الإعداد حسب المنصة
 
@@ -404,6 +218,59 @@ module.exports = {
 
  </Tab>
 </Tabs>
+
+## مرجع الإضافات
+
+يتم تقسيم تحسين البناء في Intlayer إلى عدة إضافات منفصلة، لكل منها مسؤولية واحدة. ففهم ما تفعله كل إضافة يمنع الارتباك عند إعدادها.
+
+### إضافات Babel (`@intlayer/babel`)
+
+تُستخدم هذه مباشرة في `babel.config.js` للإعدادات المستندة إلى Webpack (مثل Next.js مع Babel، CRA، Webpack المخصص، إلخ).
+
+يسرد الجدول أدناه هذه الإضافات بالترتيب المطلوب لخط المعالجة (وهو الترتيب نفسه الذي يجب أن تظهر به في `babel.config.js`):
+
+| الإضافة                       | ما تفعله                                                                                                             |
+| :---------------------------- | :------------------------------------------------------------------------------------------------------------------- |
+| `intlayerExtractBabelPlugin`  | تمسح ملفات `.content.ts` وتكتب القواميس المجمعة إلى `.intlayer/`                                                     |
+| `intlayerPurgeBabelPlugin`    | تمسح جميع ملفات المصدر، تزيل **حقول المحتوى غير المستخدمة** من ملفات القاموس المجمعة `.intlayer/**/*.json`           |
+| `intlayerMinifyBabelPlugin`   | **تعيد تسمية مفاتيح حقول المحتوى** إلى أسماء مستعارة أبجدية قصيرة (`title` → `a`) في كل من ملفات JSON والكود المصدري |
+| `intlayerOptimizeBabelPlugin` | تعيد كتابة `useIntlayer('key')` → `useDictionary(hash)` وتحقن الـ `import` المطابق للقاموس                           |
+
+> **ترتيب الإضافات مهم.** في `babel.config.js` يجب أن تظهر إضافات التطهير (purge) والتصغير (minify) **قبل** إضافة التحسين (optimize). تقوم خطوة التحسين باستبدال `useIntlayer('key')` باستدعاء مبهم لـ `useDictionary(hash)`، مما يمحو معلومات مفتاح القاموس التي تحتاجها خطوات التطهير والتصغير لتحديد الحقول المستخدمة.
+
+يحتوي كل مُكوّن إضافي في Babel على مساعد خيارات مطابق يقرأ `intlayer.config.ts` الخاص بك مرة واحدة في وقت تحميل الإعدادات ويُرجع قيمًا محلولة مسبقًا:
+
+| مساعد الخيارات (Options helper) | يُستخدم مع                    |
+| :------------------------------ | :---------------------------- |
+| `getExtractPluginOptions()`     | `intlayerExtractBabelPlugin`  |
+| `getPurgePluginOptions()`       | `intlayerPurgeBabelPlugin`    |
+| `getMinifyPluginOptions()`      | `intlayerMinifyBabelPlugin`   |
+| `getOptimizePluginOptions()`    | `intlayerOptimizeBabelPlugin` |
+
+### إضافات Vite (`vite-intlayer`)
+
+لا يحتاج مستخدمو Vite **مطلقًا لإعداد هذه بشكل مباشر**. يتم ربطها تلقائيًا عند استدعاء `withIntlayer()` في `vite.config.ts`. تقوم الأعلام `build.purge` و `build.minify` في `intlayer.config.ts` بتبديل السلوك المقابل دون أي تسجيل إضافي للإضافات.
+
+| إضافة Vite الداخلية | السلوك المكافئ                                                                                 |
+| :------------------ | :--------------------------------------------------------------------------------------------- |
+| Usage analyzer      | نفس مسار التحليل في `intlayerPurgeBabelPlugin`                                                 |
+| Dictionary prune    | نفس مسار كتابة JSON في `intlayerPurgeBabelPlugin`                                              |
+| Dictionary minify   | نفس مسار كتابة JSON في `intlayerMinifyBabelPlugin`                                             |
+| Babel transform     | نفس مسار إعادة تسمية كود المصدر لـ `intlayerMinifyBabelPlugin` + `intlayerOptimizeBabelPlugin` |
+
+### إضافة SWC (`@intlayer/swc`)
+
+مستخدمو Next.js أيضًا **لا يهيئون هذه الإضافات مباشرةً أبدًا**. منذ الإصدار **v9.2.1**، تشغّل `withIntlayer()` في `next.config.ts` خط المعالجة الكامل — التنقية والتصغير وإعادة كتابة عمليات الاستيراد — اعتمادًا على العَلَمين `build.purge` و`build.minify` فقط.
+
+العمل مقسوم إلى نصفين، لأن إضافة SWC بصيغة Wasm تحوّل ملفًا واحدًا في كل مرة ولا تملك وصولًا إلى نظام الملفات:
+
+| المرحلة                                      | أين تُنفَّذ                 | ماذا تفعل                                                                                |
+| :------------------------------------------- | :-------------------------- | :--------------------------------------------------------------------------------------- |
+| تحليل الاستخدام + تنقية/تصغير JSON           | Node، داخل `withIntlayer()` | تقرأ كل ملف مصدر للمكوّنات، وتعيد كتابة `.intlayer/**/*.json`، وتنتج جداول إعادة التسمية |
+| إعادة كتابة المصدر (`content.title` ← `.a`)  | `@intlayer/swc` (Wasm)      | تطبّق جداول إعادة التسمية على عمليات الوصول إلى الخصائص المقابلة في شيفرتك               |
+| إعادة كتابة الاستيراد (`useIntlayer` ← dict) | `@intlayer/swc` (Wasm)      | مثل `intlayerOptimizeBabelPlugin`                                                        |
+
+إن تحديد _أي_ الحقول غير مستخدمة و_أي_ اسم مستعار يحصل عليه كل حقل يتطلب حالة عابرة للملفات وعمليات إدخال/إخراج على الملفات، لذلك يعمل ذلك النصف داخل Node؛ ولا تتلقى إضافة SWC سوى الجداول الناتجة.
 
 ## التكوين (Configuration)
 
@@ -650,3 +517,136 @@ const content = useDictionaryAsync({
 | **طلبات الشبكة**             | 0 طلبات إضافية                                | طلب واحد لكل مفتاح قاموس                     |
 | **هز الشجرة (Tree Shaking)** | على مستوى المكون                              | على مستوى المكون + مستوى اللغة               |
 | **أفضل حالة استخدام**        | مكونات واجهة المستخدم (UI)، التطبيقات الصغيرة | الصفحات ذات النصوص الكثيرة، العديد من اللغات |
+
+## قم بتحليل حزمتك
+
+يُعد تحليل حزمتك هو الطريقة الأكثر مباشرة لتحديد ملفات JSON "الثقيلة" وفرص تقسيم الكود (code-splitting). تُنشئ هذه الأدوات مخططًا شجريًا (treemap) مرئيًا للكود المترجم لتطبيقك، مما يسمح لك بمعرفة أي المكتبات تستهلك المساحة الأكبر بالضبط.
+
+<Tabs>
+ <Tab value="vite">
+
+### Vite / Rollup
+
+يستخدم Vite الـ Rollup تحت الغطاء. تُنشئ الإضافة `rollup-plugin-visualizer` ملف HTML تفاعليًا يوضح حجم كل وحدة في الرسم البياني الخاص بك.
+
+```bash
+npm install -D rollup-plugin-visualizer
+```
+
+```typescript fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import { visualizer } from "rollup-plugin-visualizer";
+
+export default defineConfig({
+  plugins: [
+    visualizer({
+      open: true, // افتح التقرير تلقائيًا في متصفحك
+      filename: "stats.html",
+      gzipSize: true,
+      brotliSize: true,
+    }),
+  ],
+});
+```
+
+ </Tab>
+ <Tab value="nextjs (turbopack)">
+
+### Next.js (Turbopack)
+
+للمشاريع التي تستخدم الـ App Router والـ Turbopack، يوفر Next.js محللًا تجريبيًا مدمجًا لا يتطلب أي تبعيات إضافية.
+
+```bash packageManager='npm'
+npx next experimental-analyze
+```
+
+```bash packageManager='yarn'
+yarn next experimental-analyze
+```
+
+```bash packageManager='pnpm'
+pnpm next experimental-analyze
+```
+
+```bash packageManager='bun'
+bun next experimental-analyze
+```
+
+ </Tab>
+ <Tab value="nextjs (Webpack)">
+
+### Next.js (Webpack)
+
+إذا كنت تستخدم مُحزم Webpack الافتراضي في Next.js، فاستخدم المحلل الرسمي للحزم (bundle analyzer). قم بتشغيله عن طريق تعيين متغير بيئة أثناء البناء.
+
+```bash packageManager='npm'
+npm install -D @next/bundle-analyzer
+```
+
+```bash packageManager='yarn'
+yarn add -D @next/bundle-analyzer
+```
+
+```bash packageManager='pnpm'
+pnpm add -D @next/bundle-analyzer
+```
+
+```bash packageManager='bun'
+bun add -d @next/bundle-analyzer
+```
+
+```javascript fileName="next.config.js"
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+  enabled: process.env.ANALYZE === "true",
+});
+
+module.exports = withBundleAnalyzer({
+  // إعدادات Next.js الخاصة بك
+});
+```
+
+**الاستخدام:**
+
+```bash
+ANALYZE=true npm run build
+```
+
+ </Tab>
+ <Tab value="Webpack (CRA / Angular / etc)">
+
+### Standard Webpack
+
+لـ Create React App (ejected)، أو Angular، أو إعدادات Webpack المخصصة، استخدم المعيار الصناعي `webpack-bundle-analyzer`.
+
+```bash packageManager='npm'
+npm install -D webpack-bundle-analyzer
+```
+
+```bash packageManager='yarn'
+yarn add -D webpack-bundle-analyzer
+```
+
+```bash packageManager='pnpm'
+pnpm add -D webpack-bundle-analyzer
+```
+
+```bash packageManager='bun'
+bun add -d webpack-bundle-analyzer
+```
+
+```typescript fileName="webpack.config.ts"
+import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
+
+export default {
+  plugins: [
+    new BundleAnalyzerPlugin({
+      analyzerMode: "static",
+      reportFilename: "bundle-analyzer.html",
+      openAnalyzer: false,
+    }),
+  ],
+};
+```
+
+ </Tab>
+</Tabs>

@@ -43,139 +43,6 @@ author: aymericzip
 
 <TOC />
 
-## 分析您的打包大小
-
-分析您的打包結果是找出「臃腫」的 JSON 檔案和考慮進行程式碼分割（code-splitting）的首要步驟。這些工具可以產生您應用程式編譯程式碼的樹狀可視檢視（treemap），讓您能夠清楚地看到究竟是哪些函式庫佔據了最多的空間。
-
-<Tabs>
- <Tab value="vite">
-
-### Vite / Rollup
-
-Vite 在底層使用了 Rollup。外掛程式 `rollup-plugin-visualizer` 能夠產生一個互動式 HTML 檔案，展示相依性圖（graph）中每個模組的體積。
-
-```bash
-npm install -D rollup-plugin-visualizer
-```
-
-```typescript fileName="vite.config.ts"
-import { defineConfig } from "vite";
-import { visualizer } from "rollup-plugin-visualizer";
-
-export default defineConfig({
-  plugins: [
-    visualizer({
-      open: true, // 自動在瀏覽器中打開報告
-      filename: "stats.html",
-      gzipSize: true,
-      brotliSize: true,
-    }),
-  ],
-});
-```
-
- </Tab>
- <Tab value="nextjs (turbopack)">
-
-### Next.js (Turbopack)
-
-對於使用了 App Router 和 Turbopack 的專案，Next.js 提供了一個內建的實驗性分析器，它不需要額外的相依套件。
-
-```bash packageManager='npm'
-npx next experimental-analyze
-```
-
-```bash packageManager='yarn'
-yarn next experimental-analyze
-```
-
-```bash packageManager='pnpm'
-pnpm next experimental-analyze
-```
-
-```bash packageManager='bun'
-bun next experimental-analyze
-```
-
- </Tab>
- <Tab value="nextjs (Webpack)">
-
-### Next.js (Webpack)
-
-如果您在 Next.js 中使用的是預設的 Webpack 打包器，請使用官方的 bundle analyzer。您可以透過在建置期間設定一個環境變數來觸發它。
-
-```bash packageManager='npm'
-npm install -D @next/bundle-analyzer
-```
-
-```bash packageManager='yarn'
-yarn add -D @next/bundle-analyzer
-```
-
-```bash packageManager='pnpm'
-pnpm add -D @next/bundle-analyzer
-```
-
-```bash packageManager='bun'
-bun add -d @next/bundle-analyzer
-```
-
-```javascript fileName="next.config.js"
-const withBundleAnalyzer = require("@next/bundle-analyzer")({
-  enabled: process.env.ANALYZE === "true",
-});
-
-module.exports = withBundleAnalyzer({
-  // 您的 Next.js 設定
-});
-```
-
-**用法:**
-
-```bash
-ANALYZE=true npm run build
-```
-
- </Tab>
- <Tab value="Webpack (CRA / Angular / etc)">
-
-### 純 Webpack
-
-針對 Create React App (ejected)、Angular 或是自訂 Webpack 的設定，使用業界標準的 `webpack-bundle-analyzer`。
-
-```bash packageManager='npm'
-npm install -D webpack-bundle-analyzer
-```
-
-```bash packageManager='yarn'
-yarn add -D webpack-bundle-analyzer
-```
-
-```bash packageManager='pnpm'
-pnpm add -D webpack-bundle-analyzer
-```
-
-```bash packageManager='bun'
-bun add -d webpack-bundle-analyzer
-```
-
-```typescript fileName="webpack.config.ts"
-import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
-
-export default {
-  plugins: [
-    new BundleAnalyzerPlugin({
-      analyzerMode: "static",
-      reportFilename: "bundle-analyzer.html",
-      openAnalyzer: false,
-    }),
-  ],
-};
-```
-
- </Tab>
-</Tabs>
-
 ## 它是如何運作的
 
 Intlayer 使用一種**基於元件的方法（per-component approach）**。與全域 JSON 檔案不同，您的內容會在元件旁邊或是元件內部進行定義。在建置流程中，Intlayer 將會：
@@ -188,59 +55,6 @@ Intlayer 使用一種**基於元件的方法（per-component approach）**。與
 
 - 如果一個元件未被匯入，它的內容將不會包含在打包產物中（Dead Code Elimination / 死程式碼消除）。
 - 如果一個元件被延遲載入，其內容同樣會被延遲載入。
-
-## 外掛程式參考
-
-Intlayer 的建置最佳化被劃分為若干個職責單一的外掛程式。了解它們各自的用途可以防止在設定它們時產生困惑。
-
-### Babel 外掛程式 (`@intlayer/babel`)
-
-這些被直接運用在基於 Webpack 設定的 `babel.config.js` 當中（比如使用了 Babel 的 Next.js、CRA，或是自訂的 Webpack 等）。
-
-下表依所需的流水線順序列出它們（與它們必須在 `babel.config.js` 中出現的順序相同）：
-
-| 外掛程式                      | 功能說明                                                                                               |
-| :---------------------------- | :----------------------------------------------------------------------------------------------------- |
-| `intlayerExtractBabelPlugin`  | 掃描 `.content.ts` 檔案並把編譯好的字典寫入 `.intlayer/`                                               |
-| `intlayerPurgeBabelPlugin`    | 掃描所有原始碼檔案，從已編譯的 `.intlayer/**/*.json` 字典檔案中刪除**未被使用的內容欄位**              |
-| `intlayerMinifyBabelPlugin`   | **重新命名內容欄位的鍵（keys）** 為簡短的字母別名（例如 `title` 變成 `a`），作用範圍包括 JSON 與原始碼 |
-| `intlayerOptimizeBabelPlugin` | 將 `useIntlayer('key')` 重寫為 `useDictionary(hash)` 並注入匹配對應字典的 `import` 語句                |
-
-> **外掛程式的執行順序很重要。** 在您的 `babel.config.js` 裡，purge 和 minify 的外掛程式必須放置在 optimize 外掛程式**之前**。最佳化步驟（optimize）會把 `useIntlayer('key')` 替換為模糊的 `useDictionary(hash)`，此舉抹除了能夠讓 purge 和 minify 識別哪些欄位被使用過的字典 key 資訊。
-
-每一個 Babel 外掛程式都有對應的選項助手（options helper），該助手會在設定載入時讀取一遍 `intlayer.config.ts`，並返回預解析的值：
-
-| 選項助手                     | 配套外掛程式                  |
-| :--------------------------- | :---------------------------- |
-| `getExtractPluginOptions()`  | `intlayerExtractBabelPlugin`  |
-| `getPurgePluginOptions()`    | `intlayerPurgeBabelPlugin`    |
-| `getMinifyPluginOptions()`   | `intlayerMinifyBabelPlugin`   |
-| `getOptimizePluginOptions()` | `intlayerOptimizeBabelPlugin` |
-
-### Vite 外掛程式 (`vite-intlayer`)
-
-Vite 使用者**不需要直接對它們進行設定**。當您在 `vite.config.ts` 裡呼叫 `withIntlayer()` 時，它們會自動生效。只需要在 `intlayer.config.ts` 中設定 `build.purge` 和 `build.minify`，即可開啟相應的功能，且不需要額外的外掛程式註冊過程。
-
-| 內部 Vite 外掛程式 | 等效行為                                                                                |
-| :----------------- | :-------------------------------------------------------------------------------------- |
-| Usage analyzer     | 等同於 `intlayerPurgeBabelPlugin` 的分析步驟                                            |
-| Dictionary prune   | 等同於 `intlayerPurgeBabelPlugin` 的 JSON 寫入步驟                                      |
-| Dictionary minify  | 等同於 `intlayerMinifyBabelPlugin` 的 JSON 寫入步驟                                     |
-| Babel transform    | 等同於 `intlayerMinifyBabelPlugin` 的程式碼重新命名步驟 + `intlayerOptimizeBabelPlugin` |
-
-### SWC 外掛（`@intlayer/swc`）
-
-Next.js 使用者同樣**從不直接設定這些**。自 **v9.2.1** 起，`next.config.ts` 中的 `withIntlayer()` 僅憑 `build.purge` 與 `build.minify` 兩個旗標就會執行完整流水線 —— 清除、壓縮與匯入重寫。
-
-工作被分成兩部分，因為 SWC Wasm 外掛一次只轉換一個檔案，且無法存取檔案系統：
-
-| 階段                                 | 執行位置                       | 作用                                                           |
-| :----------------------------------- | :----------------------------- | :------------------------------------------------------------- |
-| 使用分析 + JSON 清除/壓縮            | Node，位於 `withIntlayer()` 內 | 讀取每個元件原始檔，重寫 `.intlayer/**/*.json`，產生重新命名表 |
-| 原始碼重寫（`content.title` → `.a`） | `@intlayer/swc`（Wasm）        | 將重新命名表套用到你程式碼中對應的屬性存取                     |
-| 匯入重寫（`useIntlayer` → dict）     | `@intlayer/swc`（Wasm）        | 與 `intlayerOptimizeBabelPlugin` 相同                          |
-
-判斷_哪些_欄位未被使用以及每個欄位取得_什麼_別名，需要跨檔案狀態與檔案 I/O，因此這一半在 Node 中執行；SWC 外掛只接收產生的表。
 
 ## 各平台設定指南
 
@@ -404,6 +218,59 @@ module.exports = {
 
  </Tab>
 </Tabs>
+
+## 外掛程式參考
+
+Intlayer 的建置最佳化被劃分為若干個職責單一的外掛程式。了解它們各自的用途可以防止在設定它們時產生困惑。
+
+### Babel 外掛程式 (`@intlayer/babel`)
+
+這些被直接運用在基於 Webpack 設定的 `babel.config.js` 當中（比如使用了 Babel 的 Next.js、CRA，或是自訂的 Webpack 等）。
+
+下表依所需的流水線順序列出它們（與它們必須在 `babel.config.js` 中出現的順序相同）：
+
+| 外掛程式                      | 功能說明                                                                                               |
+| :---------------------------- | :----------------------------------------------------------------------------------------------------- |
+| `intlayerExtractBabelPlugin`  | 掃描 `.content.ts` 檔案並把編譯好的字典寫入 `.intlayer/`                                               |
+| `intlayerPurgeBabelPlugin`    | 掃描所有原始碼檔案，從已編譯的 `.intlayer/**/*.json` 字典檔案中刪除**未被使用的內容欄位**              |
+| `intlayerMinifyBabelPlugin`   | **重新命名內容欄位的鍵（keys）** 為簡短的字母別名（例如 `title` 變成 `a`），作用範圍包括 JSON 與原始碼 |
+| `intlayerOptimizeBabelPlugin` | 將 `useIntlayer('key')` 重寫為 `useDictionary(hash)` 並注入匹配對應字典的 `import` 語句                |
+
+> **外掛程式的執行順序很重要。** 在您的 `babel.config.js` 裡，purge 和 minify 的外掛程式必須放置在 optimize 外掛程式**之前**。最佳化步驟（optimize）會把 `useIntlayer('key')` 替換為模糊的 `useDictionary(hash)`，此舉抹除了能夠讓 purge 和 minify 識別哪些欄位被使用過的字典 key 資訊。
+
+每一個 Babel 外掛程式都有對應的選項助手（options helper），該助手會在設定載入時讀取一遍 `intlayer.config.ts`，並返回預解析的值：
+
+| 選項助手                     | 配套外掛程式                  |
+| :--------------------------- | :---------------------------- |
+| `getExtractPluginOptions()`  | `intlayerExtractBabelPlugin`  |
+| `getPurgePluginOptions()`    | `intlayerPurgeBabelPlugin`    |
+| `getMinifyPluginOptions()`   | `intlayerMinifyBabelPlugin`   |
+| `getOptimizePluginOptions()` | `intlayerOptimizeBabelPlugin` |
+
+### Vite 外掛程式 (`vite-intlayer`)
+
+Vite 使用者**不需要直接對它們進行設定**。當您在 `vite.config.ts` 裡呼叫 `withIntlayer()` 時，它們會自動生效。只需要在 `intlayer.config.ts` 中設定 `build.purge` 和 `build.minify`，即可開啟相應的功能，且不需要額外的外掛程式註冊過程。
+
+| 內部 Vite 外掛程式 | 等效行為                                                                                |
+| :----------------- | :-------------------------------------------------------------------------------------- |
+| Usage analyzer     | 等同於 `intlayerPurgeBabelPlugin` 的分析步驟                                            |
+| Dictionary prune   | 等同於 `intlayerPurgeBabelPlugin` 的 JSON 寫入步驟                                      |
+| Dictionary minify  | 等同於 `intlayerMinifyBabelPlugin` 的 JSON 寫入步驟                                     |
+| Babel transform    | 等同於 `intlayerMinifyBabelPlugin` 的程式碼重新命名步驟 + `intlayerOptimizeBabelPlugin` |
+
+### SWC 外掛（`@intlayer/swc`）
+
+Next.js 使用者同樣**從不直接設定這些**。自 **v9.2.1** 起，`next.config.ts` 中的 `withIntlayer()` 僅憑 `build.purge` 與 `build.minify` 兩個旗標就會執行完整流水線 —— 清除、壓縮與匯入重寫。
+
+工作被分成兩部分，因為 SWC Wasm 外掛一次只轉換一個檔案，且無法存取檔案系統：
+
+| 階段                                 | 執行位置                       | 作用                                                           |
+| :----------------------------------- | :----------------------------- | :------------------------------------------------------------- |
+| 使用分析 + JSON 清除/壓縮            | Node，位於 `withIntlayer()` 內 | 讀取每個元件原始檔，重寫 `.intlayer/**/*.json`，產生重新命名表 |
+| 原始碼重寫（`content.title` → `.a`） | `@intlayer/swc`（Wasm）        | 將重新命名表套用到你程式碼中對應的屬性存取                     |
+| 匯入重寫（`useIntlayer` → dict）     | `@intlayer/swc`（Wasm）        | 與 `intlayerOptimizeBabelPlugin` 相同                          |
+
+判斷_哪些_欄位未被使用以及每個欄位取得_什麼_別名，需要跨檔案狀態與檔案 I/O，因此這一半在 Node 中執行；SWC 外掛只接收產生的表。
 
 ## 設定選項
 
@@ -650,3 +517,136 @@ const content = useDictionaryAsync({
 | **附帶發生的網路請求**     | 無，無需任何等待直接 0 次                                    | 取決字典請求次數（一次 Key 取出就是一回） |
 | **樹抖動（Tree Shaking）** | 按單一元件的級別而做分割                                     | 依元件級別外加依據地區與語種去實施拆分    |
 | **最佳應用與方案環境**     | 普通互動式元件內容或單一介面的輕型程式等                     | 極其充滿內容的純文區塊或極其繁多的語系    |
+
+## 分析您的打包大小
+
+分析您的打包結果是找出「臃腫」的 JSON 檔案和考慮進行程式碼分割（code-splitting）的最直接方式。這些工具可以產生您應用程式編譯程式碼的樹狀可視檢視（treemap），讓您能夠清楚地看到究竟是哪些函式庫佔據了最多的空間。
+
+<Tabs>
+ <Tab value="vite">
+
+### Vite / Rollup
+
+Vite 在底層使用了 Rollup。外掛程式 `rollup-plugin-visualizer` 能夠產生一個互動式 HTML 檔案，展示相依性圖（graph）中每個模組的體積。
+
+```bash
+npm install -D rollup-plugin-visualizer
+```
+
+```typescript fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import { visualizer } from "rollup-plugin-visualizer";
+
+export default defineConfig({
+  plugins: [
+    visualizer({
+      open: true, // 自動在瀏覽器中打開報告
+      filename: "stats.html",
+      gzipSize: true,
+      brotliSize: true,
+    }),
+  ],
+});
+```
+
+ </Tab>
+ <Tab value="nextjs (turbopack)">
+
+### Next.js (Turbopack)
+
+對於使用了 App Router 和 Turbopack 的專案，Next.js 提供了一個內建的實驗性分析器，它不需要額外的相依套件。
+
+```bash packageManager='npm'
+npx next experimental-analyze
+```
+
+```bash packageManager='yarn'
+yarn next experimental-analyze
+```
+
+```bash packageManager='pnpm'
+pnpm next experimental-analyze
+```
+
+```bash packageManager='bun'
+bun next experimental-analyze
+```
+
+ </Tab>
+ <Tab value="nextjs (Webpack)">
+
+### Next.js (Webpack)
+
+如果您在 Next.js 中使用的是預設的 Webpack 打包器，請使用官方的 bundle analyzer。您可以透過在建置期間設定一個環境變數來觸發它。
+
+```bash packageManager='npm'
+npm install -D @next/bundle-analyzer
+```
+
+```bash packageManager='yarn'
+yarn add -D @next/bundle-analyzer
+```
+
+```bash packageManager='pnpm'
+pnpm add -D @next/bundle-analyzer
+```
+
+```bash packageManager='bun'
+bun add -d @next/bundle-analyzer
+```
+
+```javascript fileName="next.config.js"
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+  enabled: process.env.ANALYZE === "true",
+});
+
+module.exports = withBundleAnalyzer({
+  // 您的 Next.js 設定
+});
+```
+
+**用法:**
+
+```bash
+ANALYZE=true npm run build
+```
+
+ </Tab>
+ <Tab value="Webpack (CRA / Angular / etc)">
+
+### 純 Webpack
+
+針對 Create React App (ejected)、Angular 或是自訂 Webpack 的設定，使用業界標準的 `webpack-bundle-analyzer`。
+
+```bash packageManager='npm'
+npm install -D webpack-bundle-analyzer
+```
+
+```bash packageManager='yarn'
+yarn add -D webpack-bundle-analyzer
+```
+
+```bash packageManager='pnpm'
+pnpm add -D webpack-bundle-analyzer
+```
+
+```bash packageManager='bun'
+bun add -d webpack-bundle-analyzer
+```
+
+```typescript fileName="webpack.config.ts"
+import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
+
+export default {
+  plugins: [
+    new BundleAnalyzerPlugin({
+      analyzerMode: "static",
+      reportFilename: "bundle-analyzer.html",
+      openAnalyzer: false,
+    }),
+  ],
+};
+```
+
+ </Tab>
+</Tabs>

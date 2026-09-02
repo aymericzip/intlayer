@@ -43,139 +43,6 @@ Sebagai contoh, sebuah aplikasi dengan 10 halaman yang diterjemahkan ke dalam 10
 
 <TOC />
 
-## Analisis bundle Anda
-
-Menganalisis bundle Anda adalah langkah pertama untuk mengidentifikasi file JSON yang "berat" dan mencari peluang code-splitting. Alat-alat ini menghasilkan treemap visual dari kode aplikasi Anda yang sudah dikompilasi, memungkinkan Anda melihat persis pustaka mana yang menghabiskan ruang paling banyak.
-
-<Tabs>
- <Tab value="vite">
-
-### Vite / Rollup
-
-Vite menggunakan Rollup di balik layar. Plugin `rollup-plugin-visualizer` menghasilkan file HTML interaktif yang menunjukkan ukuran setiap modul dalam graf Anda.
-
-```bash
-npm install -D rollup-plugin-visualizer
-```
-
-```typescript fileName="vite.config.ts"
-import { defineConfig } from "vite";
-import { visualizer } from "rollup-plugin-visualizer";
-
-export default defineConfig({
-  plugins: [
-    visualizer({
-      open: true, // Buka laporan secara otomatis di browser Anda
-      filename: "stats.html",
-      gzipSize: true,
-      brotliSize: true,
-    }),
-  ],
-});
-```
-
- </Tab>
- <Tab value="nextjs (turbopack)">
-
-### Next.js (Turbopack)
-
-Untuk proyek yang menggunakan App Router dan Turbopack, Next.js menyediakan analyzer eksperimental bawaan yang tidak memerlukan dependensi ekstra.
-
-```bash packageManager='npm'
-npx next experimental-analyze
-```
-
-```bash packageManager='yarn'
-yarn next experimental-analyze
-```
-
-```bash packageManager='pnpm'
-pnpm next experimental-analyze
-```
-
-```bash packageManager='bun'
-bun next experimental-analyze
-```
-
- </Tab>
- <Tab value="nextjs (Webpack)">
-
-### Next.js (Webpack)
-
-Jika Anda menggunakan bundler Webpack default di Next.js, gunakan bundle analyzer resminya. Pemicu jalannya alat ini bisa diatur menggunakan environment variable selama proses build.
-
-```bash packageManager='npm'
-npm install -D @next/bundle-analyzer
-```
-
-```bash packageManager='yarn'
-yarn add -D @next/bundle-analyzer
-```
-
-```bash packageManager='pnpm'
-pnpm add -D @next/bundle-analyzer
-```
-
-```bash packageManager='bun'
-bun add -d @next/bundle-analyzer
-```
-
-```javascript fileName="next.config.js"
-const withBundleAnalyzer = require("@next/bundle-analyzer")({
-  enabled: process.env.ANALYZE === "true",
-});
-
-module.exports = withBundleAnalyzer({
-  // Konfigurasi Next.js Anda
-});
-```
-
-**Penggunaan:**
-
-```bash
-ANALYZE=true npm run build
-```
-
- </Tab>
- <Tab value="Webpack (CRA / Angular / etc)">
-
-### Standard Webpack
-
-Untuk Create React App (ejected), Angular, atau setup kustom Webpack, gunakan standar industri `webpack-bundle-analyzer`.
-
-```bash packageManager='npm'
-npm install -D webpack-bundle-analyzer
-```
-
-```bash packageManager='yarn'
-yarn add -D webpack-bundle-analyzer
-```
-
-```bash packageManager='pnpm'
-pnpm add -D webpack-bundle-analyzer
-```
-
-```bash packageManager='bun'
-bun add -d webpack-bundle-analyzer
-```
-
-```typescript fileName="webpack.config.ts"
-import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
-
-export default {
-  plugins: [
-    new BundleAnalyzerPlugin({
-      analyzerMode: "static",
-      reportFilename: "bundle-analyzer.html",
-      openAnalyzer: false,
-    }),
-  ],
-};
-```
-
- </Tab>
-</Tabs>
-
 ## Bagaimana cara kerjanya
 
 Intlayer menggunakan pendekatan **per komponen (per-component)**. Berbeda dengan file JSON global, konten Anda didefinisikan bersamaan dengan atau di dalam komponen Anda. Selama proses build, Intlayer akan:
@@ -188,59 +55,6 @@ Hal ini memastikan bahwa:
 
 - Jika komponen tidak diimpor, kontennya tidak disertakan dalam bundle (Dead Code Elimination).
 - Jika komponen dimuat secara lazy (lazy-loaded), kontennya juga dimuat secara lazy.
-
-## Referensi Plugin
-
-Optimasi build dari Intlayer terbagi menjadi beberapa plugin terpisah yang masing-masing memiliki satu tanggung jawab saja. Memahami apa yang dilakukan oleh setiap plugin akan mencegah kebingungan saat mengonfigurasikannya.
-
-### Plugin Babel (`@intlayer/babel`)
-
-Plugin-plugin ini digunakan secara langsung di dalam `babel.config.js` untuk setup berbasis Webpack (Next.js dengan Babel, CRA, kustom Webpack, dll).
-
-Tabel di bawah ini mencantumkannya dalam urutan pipeline yang diperlukan (urutan yang sama seperti yang harus muncul di `babel.config.js`):
-
-| Plugin                        | Apa yang dilakukannya                                                                                                  |
-| :---------------------------- | :--------------------------------------------------------------------------------------------------------------------- |
-| `intlayerExtractBabelPlugin`  | Memindai file `.content.ts` dan menulis kamus yang telah dikompilasi ke direktori `.intlayer/`                         |
-| `intlayerPurgeBabelPlugin`    | Memindai semua file source, menghapus **field konten yang tidak terpakai** dari file kamus `.intlayer/**/*.json`       |
-| `intlayerMinifyBabelPlugin`   | **Mengganti nama kunci (keys) konten** menjadi alias alfabet yang pendek (`title` → `a`) di file JSON maupun source    |
-| `intlayerOptimizeBabelPlugin` | Menulis ulang `useIntlayer('key')` menjadi `useDictionary(hash)` dan menyuntikkan (injects) `import` kamus yang sesuai |
-
-> **Urutan plugin sangat penting.** Di dalam `babel.config.js`, plugin purge dan minify harus ditempatkan **sebelum** plugin optimize. Langkah optimize menggantikan `useIntlayer('key')` dengan pemanggilan `useDictionary(hash)` yang menyembunyikan informasi 'key' dari kamus. Informasi 'key' ini sangat diperlukan oleh tahap purge dan minify untuk mengidentifikasi field mana yang dipakai.
-
-Setiap plugin Babel memiliki "options helper" yang berhubungan untuk membaca `intlayer.config.ts` Anda hanya sekali pada saat memuat konfigurasi, lalu mengembalikan nilai-nilai (values) yang sudah diselesaikan (resolved):
-
-| Options helper               | Digunakan dengan              |
-| :--------------------------- | :---------------------------- |
-| `getExtractPluginOptions()`  | `intlayerExtractBabelPlugin`  |
-| `getPurgePluginOptions()`    | `intlayerPurgeBabelPlugin`    |
-| `getMinifyPluginOptions()`   | `intlayerMinifyBabelPlugin`   |
-| `getOptimizePluginOptions()` | `intlayerOptimizeBabelPlugin` |
-
-### Plugin Vite (`vite-intlayer`)
-
-Pengguna Vite **tidak pernah mengonfigurasi ini secara langsung**. Plugin ini terpasang secara otomatis ketika Anda memanggil `withIntlayer()` di dalam `vite.config.ts`. Flag (penanda) `build.purge` dan `build.minify` di `intlayer.config.ts` dapat menghidupkan/mematikan perilakunya tanpa perlu me-register plugin tambahan apa pun.
-
-| Plugin Vite Internal | Perilaku ekuivalen                                                                                  |
-| :------------------- | :-------------------------------------------------------------------------------------------------- |
-| Usage analyzer       | Sama seperti pass analisis (analyse) dari `intlayerPurgeBabelPlugin`                                |
-| Dictionary prune     | Sama seperti pass penulisan JSON dari `intlayerPurgeBabelPlugin`                                    |
-| Dictionary minify    | Sama seperti pass penulisan JSON dari `intlayerMinifyBabelPlugin`                                   |
-| Babel transform      | Sama seperti penggantian nama kode dari `intlayerMinifyBabelPlugin` + `intlayerOptimizeBabelPlugin` |
-
-### Plugin SWC (`@intlayer/swc`)
-
-Pengguna Next.js juga **tidak pernah mengonfigurasi ini secara langsung**. Sejak **v9.2.1**, `withIntlayer()` di `next.config.ts` menjalankan seluruh pipeline — purge, minify, dan penulisan ulang import — hanya berdasarkan flag `build.purge` dan `build.minify`.
-
-Pekerjaan dibagi menjadi dua, karena plugin Wasm SWC mentransformasi satu berkas dalam satu waktu dan tidak memiliki akses ke sistem berkas:
-
-| Tahap                                           | Di mana dijalankan              | Apa yang dilakukan                                                                                              |
-| :---------------------------------------------- | :------------------------------ | :-------------------------------------------------------------------------------------------------------------- |
-| Analisis penggunaan + purge/minify JSON         | Node, di dalam `withIntlayer()` | Membaca setiap berkas sumber komponen, menulis ulang `.intlayer/**/*.json`, menghasilkan tabel penggantian nama |
-| Penulisan ulang sumber (`content.title` → `.a`) | `@intlayer/swc` (Wasm)          | Menerapkan tabel penggantian nama pada akses properti yang sesuai di kode Anda                                  |
-| Penulisan ulang import (`useIntlayer` → dict)   | `@intlayer/swc` (Wasm)          | Sama seperti `intlayerOptimizeBabelPlugin`                                                                      |
-
-Menentukan _bidang mana_ yang tidak terpakai dan _alias apa_ yang diterima masing-masing memerlukan status lintas berkas dan I/O berkas, sehingga separuh itu berjalan di Node; plugin SWC hanya menerima tabel hasilnya.
 
 ## Setup berdasarkan Platform
 
@@ -404,6 +218,59 @@ module.exports = {
 
  </Tab>
 </Tabs>
+
+## Referensi Plugin
+
+Optimasi build dari Intlayer terbagi menjadi beberapa plugin terpisah yang masing-masing memiliki satu tanggung jawab saja. Memahami apa yang dilakukan oleh setiap plugin akan mencegah kebingungan saat mengonfigurasikannya.
+
+### Plugin Babel (`@intlayer/babel`)
+
+Plugin-plugin ini digunakan secara langsung di dalam `babel.config.js` untuk setup berbasis Webpack (Next.js dengan Babel, CRA, kustom Webpack, dll).
+
+Tabel di bawah ini mencantumkannya dalam urutan pipeline yang diperlukan (urutan yang sama seperti yang harus muncul di `babel.config.js`):
+
+| Plugin                        | Apa yang dilakukannya                                                                                                  |
+| :---------------------------- | :--------------------------------------------------------------------------------------------------------------------- |
+| `intlayerExtractBabelPlugin`  | Memindai file `.content.ts` dan menulis kamus yang telah dikompilasi ke direktori `.intlayer/`                         |
+| `intlayerPurgeBabelPlugin`    | Memindai semua file source, menghapus **field konten yang tidak terpakai** dari file kamus `.intlayer/**/*.json`       |
+| `intlayerMinifyBabelPlugin`   | **Mengganti nama kunci (keys) konten** menjadi alias alfabet yang pendek (`title` → `a`) di file JSON maupun source    |
+| `intlayerOptimizeBabelPlugin` | Menulis ulang `useIntlayer('key')` menjadi `useDictionary(hash)` dan menyuntikkan (injects) `import` kamus yang sesuai |
+
+> **Urutan plugin sangat penting.** Di dalam `babel.config.js`, plugin purge dan minify harus ditempatkan **sebelum** plugin optimize. Langkah optimize menggantikan `useIntlayer('key')` dengan pemanggilan `useDictionary(hash)` yang menyembunyikan informasi 'key' dari kamus. Informasi 'key' ini sangat diperlukan oleh tahap purge dan minify untuk mengidentifikasi field mana yang dipakai.
+
+Setiap plugin Babel memiliki "options helper" yang berhubungan untuk membaca `intlayer.config.ts` Anda hanya sekali pada saat memuat konfigurasi, lalu mengembalikan nilai-nilai (values) yang sudah diselesaikan (resolved):
+
+| Options helper               | Digunakan dengan              |
+| :--------------------------- | :---------------------------- |
+| `getExtractPluginOptions()`  | `intlayerExtractBabelPlugin`  |
+| `getPurgePluginOptions()`    | `intlayerPurgeBabelPlugin`    |
+| `getMinifyPluginOptions()`   | `intlayerMinifyBabelPlugin`   |
+| `getOptimizePluginOptions()` | `intlayerOptimizeBabelPlugin` |
+
+### Plugin Vite (`vite-intlayer`)
+
+Pengguna Vite **tidak pernah mengonfigurasi ini secara langsung**. Plugin ini terpasang secara otomatis ketika Anda memanggil `withIntlayer()` di dalam `vite.config.ts`. Flag (penanda) `build.purge` dan `build.minify` di `intlayer.config.ts` dapat menghidupkan/mematikan perilakunya tanpa perlu me-register plugin tambahan apa pun.
+
+| Plugin Vite Internal | Perilaku ekuivalen                                                                                  |
+| :------------------- | :-------------------------------------------------------------------------------------------------- |
+| Usage analyzer       | Sama seperti pass analisis (analyse) dari `intlayerPurgeBabelPlugin`                                |
+| Dictionary prune     | Sama seperti pass penulisan JSON dari `intlayerPurgeBabelPlugin`                                    |
+| Dictionary minify    | Sama seperti pass penulisan JSON dari `intlayerMinifyBabelPlugin`                                   |
+| Babel transform      | Sama seperti penggantian nama kode dari `intlayerMinifyBabelPlugin` + `intlayerOptimizeBabelPlugin` |
+
+### Plugin SWC (`@intlayer/swc`)
+
+Pengguna Next.js juga **tidak pernah mengonfigurasi ini secara langsung**. Sejak **v9.2.1**, `withIntlayer()` di `next.config.ts` menjalankan seluruh pipeline — purge, minify, dan penulisan ulang import — hanya berdasarkan flag `build.purge` dan `build.minify`.
+
+Pekerjaan dibagi menjadi dua, karena plugin Wasm SWC mentransformasi satu berkas dalam satu waktu dan tidak memiliki akses ke sistem berkas:
+
+| Tahap                                           | Di mana dijalankan              | Apa yang dilakukan                                                                                              |
+| :---------------------------------------------- | :------------------------------ | :-------------------------------------------------------------------------------------------------------------- |
+| Analisis penggunaan + purge/minify JSON         | Node, di dalam `withIntlayer()` | Membaca setiap berkas sumber komponen, menulis ulang `.intlayer/**/*.json`, menghasilkan tabel penggantian nama |
+| Penulisan ulang sumber (`content.title` → `.a`) | `@intlayer/swc` (Wasm)          | Menerapkan tabel penggantian nama pada akses properti yang sesuai di kode Anda                                  |
+| Penulisan ulang import (`useIntlayer` → dict)   | `@intlayer/swc` (Wasm)          | Sama seperti `intlayerOptimizeBabelPlugin`                                                                      |
+
+Menentukan _bidang mana_ yang tidak terpakai dan _alias apa_ yang diterima masing-masing memerlukan status lintas berkas dan I/O berkas, sehingga separuh itu berjalan di Node; plugin SWC hanya menerima tabel hasilnya.
 
 ## Konfigurasi
 
@@ -650,3 +517,136 @@ const content = useDictionaryAsync({
 | **Ketergantungan Network**         | 0 penarikan tambahan (bebas jaringan)              | 1 penarikan per satuan key dictionary    |
 | **Pemotongan file (Tree Shaking)** | Hanya di ranah komponen                            | Menyortir per komponen + wilayah lokal   |
 | **Skema Target Terbaik**           | Tombol navigasi (UI), Situs SPA Kecil              | Artikel berat/banyak, Beragam terjemahan |
+
+## Analisis bundle Anda
+
+Menganalisis bundle Anda adalah cara paling langsung untuk mengidentifikasi file JSON yang "berat" dan mencari peluang code-splitting. Alat-alat ini menghasilkan treemap visual dari kode aplikasi Anda yang sudah dikompilasi, memungkinkan Anda melihat persis pustaka mana yang menghabiskan ruang paling banyak.
+
+<Tabs>
+ <Tab value="vite">
+
+### Vite / Rollup
+
+Vite menggunakan Rollup di balik layar. Plugin `rollup-plugin-visualizer` menghasilkan file HTML interaktif yang menunjukkan ukuran setiap modul dalam graf Anda.
+
+```bash
+npm install -D rollup-plugin-visualizer
+```
+
+```typescript fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import { visualizer } from "rollup-plugin-visualizer";
+
+export default defineConfig({
+  plugins: [
+    visualizer({
+      open: true, // Buka laporan secara otomatis di browser Anda
+      filename: "stats.html",
+      gzipSize: true,
+      brotliSize: true,
+    }),
+  ],
+});
+```
+
+ </Tab>
+ <Tab value="nextjs (turbopack)">
+
+### Next.js (Turbopack)
+
+Untuk proyek yang menggunakan App Router dan Turbopack, Next.js menyediakan analyzer eksperimental bawaan yang tidak memerlukan dependensi ekstra.
+
+```bash packageManager='npm'
+npx next experimental-analyze
+```
+
+```bash packageManager='yarn'
+yarn next experimental-analyze
+```
+
+```bash packageManager='pnpm'
+pnpm next experimental-analyze
+```
+
+```bash packageManager='bun'
+bun next experimental-analyze
+```
+
+ </Tab>
+ <Tab value="nextjs (Webpack)">
+
+### Next.js (Webpack)
+
+Jika Anda menggunakan bundler Webpack default di Next.js, gunakan bundle analyzer resminya. Pemicu jalannya alat ini bisa diatur menggunakan environment variable selama proses build.
+
+```bash packageManager='npm'
+npm install -D @next/bundle-analyzer
+```
+
+```bash packageManager='yarn'
+yarn add -D @next/bundle-analyzer
+```
+
+```bash packageManager='pnpm'
+pnpm add -D @next/bundle-analyzer
+```
+
+```bash packageManager='bun'
+bun add -d @next/bundle-analyzer
+```
+
+```javascript fileName="next.config.js"
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+  enabled: process.env.ANALYZE === "true",
+});
+
+module.exports = withBundleAnalyzer({
+  // Konfigurasi Next.js Anda
+});
+```
+
+**Penggunaan:**
+
+```bash
+ANALYZE=true npm run build
+```
+
+ </Tab>
+ <Tab value="Webpack (CRA / Angular / etc)">
+
+### Standard Webpack
+
+Untuk Create React App (ejected), Angular, atau setup kustom Webpack, gunakan standar industri `webpack-bundle-analyzer`.
+
+```bash packageManager='npm'
+npm install -D webpack-bundle-analyzer
+```
+
+```bash packageManager='yarn'
+yarn add -D webpack-bundle-analyzer
+```
+
+```bash packageManager='pnpm'
+pnpm add -D webpack-bundle-analyzer
+```
+
+```bash packageManager='bun'
+bun add -d webpack-bundle-analyzer
+```
+
+```typescript fileName="webpack.config.ts"
+import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
+
+export default {
+  plugins: [
+    new BundleAnalyzerPlugin({
+      analyzerMode: "static",
+      reportFilename: "bundle-analyzer.html",
+      openAnalyzer: false,
+    }),
+  ],
+};
+```
+
+ </Tab>
+</Tabs>

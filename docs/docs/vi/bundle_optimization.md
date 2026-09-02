@@ -43,139 +43,6 @@ Ví dụ, một ứng dụng có 10 trang được dịch ra 10 ngôn ngữ có 
 
 <TOC />
 
-## Phân tích bundle của bạn
-
-Việc phân tích bundle là bước đầu tiên để xác định các file JSON "nặng" và phát hiện các cơ hội để code-splitting (chia nhỏ code). Những công cụ phân tích sẽ tạo ra một sơ đồ treemap trực quan từ mã đã compile của ứng dụng, cho phép bạn thấy được chính xác thư viện nào đang chiếm nhiều không gian nhất.
-
-<Tabs>
- <Tab value="vite">
-
-### Vite / Rollup
-
-Vite sử dụng Rollup phía bên dưới. Plugin `rollup-plugin-visualizer` sẽ tạo ra một file HTML tương tác, hiển thị trực quan dung lượng của mỗi module trong biểu đồ phụ thuộc của bạn.
-
-```bash
-npm install -D rollup-plugin-visualizer
-```
-
-```typescript fileName="vite.config.ts"
-import { defineConfig } from "vite";
-import { visualizer } from "rollup-plugin-visualizer";
-
-export default defineConfig({
-  plugins: [
-    visualizer({
-      open: true, // Tự động mở báo cáo trong trình duyệt
-      filename: "stats.html",
-      gzipSize: true,
-      brotliSize: true,
-    }),
-  ],
-});
-```
-
- </Tab>
- <Tab value="nextjs (turbopack)">
-
-### Next.js (Turbopack)
-
-Với các dự án dùng App Router và Turbopack, Next.js cung cấp một bộ phân tích thực nghiệm được tích hợp sẵn mà không cần bạn phải thêm package mở rộng.
-
-```bash packageManager='npm'
-npx next experimental-analyze
-```
-
-```bash packageManager='yarn'
-yarn next experimental-analyze
-```
-
-```bash packageManager='pnpm'
-pnpm next experimental-analyze
-```
-
-```bash packageManager='bun'
-bun next experimental-analyze
-```
-
- </Tab>
- <Tab value="nextjs (Webpack)">
-
-### Next.js (Webpack)
-
-Nếu bạn đang sử dụng trình bundle Webpack mặc định trong Next.js, hãy dùng bundle analyzer chính thức. Bạn có thể kích hoạt bằng cách đặt một biến môi trường trong quá trình build.
-
-```bash packageManager='npm'
-npm install -D @next/bundle-analyzer
-```
-
-```bash packageManager='yarn'
-yarn add -D @next/bundle-analyzer
-```
-
-```bash packageManager='pnpm'
-pnpm add -D @next/bundle-analyzer
-```
-
-```bash packageManager='bun'
-bun add -d @next/bundle-analyzer
-```
-
-```javascript fileName="next.config.js"
-const withBundleAnalyzer = require("@next/bundle-analyzer")({
-  enabled: process.env.ANALYZE === "true",
-});
-
-module.exports = withBundleAnalyzer({
-  // Cấu hình Next.js của bạn
-});
-```
-
-**Cách dùng:**
-
-```bash
-ANALYZE=true npm run build
-```
-
- </Tab>
- <Tab value="Webpack (CRA / Angular / etc)">
-
-### Webpack Tiêu Chuẩn
-
-Đối với Create React App (ejected), Angular, hoặc thiết lập Webpack tùy biến, hãy dùng công cụ quen thuộc trong ngành là `webpack-bundle-analyzer`.
-
-```bash packageManager='npm'
-npm install -D webpack-bundle-analyzer
-```
-
-```bash packageManager='yarn'
-yarn add -D webpack-bundle-analyzer
-```
-
-```bash packageManager='pnpm'
-pnpm add -D webpack-bundle-analyzer
-```
-
-```bash packageManager='bun'
-bun add -d webpack-bundle-analyzer
-```
-
-```typescript fileName="webpack.config.ts"
-import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
-
-export default {
-  plugins: [
-    new BundleAnalyzerPlugin({
-      analyzerMode: "static",
-      reportFilename: "bundle-analyzer.html",
-      openAnalyzer: false,
-    }),
-  ],
-};
-```
-
- </Tab>
-</Tabs>
-
 ## Nó hoạt động như thế nào
 
 Intlayer tiếp cận theo hướng **mỗi component riêng biệt (per-component)**. Khác với các file JSON toàn cục (global), nội dung được xác định song song bên cạnh hoặc bên trong chính các component. Trong quá trình build, Intlayer sẽ:
@@ -188,59 +55,6 @@ Cách tiếp cận này đảm bảo rằng:
 
 - Nếu một component không được import, nội dung của nó cũng không được đưa vào bundle (Kỹ thuật Dead Code Elimination).
 - Nếu một component được tải lazy-load, nội dung của nó cũng sẽ được tự động lazy-load theo.
-
-## Thông tin chi tiết về các Plugin
-
-Trình tối ưu hóa build của Intlayer được chia làm nhiều plugin riêng biệt, mỗi cái đảm nhận duy nhất một công việc cụ thể. Việc hiểu những gì từng plugin thực hiện sẽ giúp bạn tránh nhầm lẫn khi tùy chỉnh cấu hình.
-
-### Các plugin của Babel (`@intlayer/babel`)
-
-Những plugin này được khai báo trực tiếp vào `babel.config.js` ở các dự án phụ thuộc cấu hình Webpack (như Next.js dùng Babel, CRA, hoặc Webpack tùy chỉnh v.v.).
-
-Bảng dưới đây liệt kê chúng theo đúng thứ tự pipeline (cùng thứ tự mà chúng phải xuất hiện trong `babel.config.js`):
-
-| Plugin                        | Công dụng                                                                                                                                     |
-| :---------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------- |
-| `intlayerExtractBabelPlugin`  | Quét các file `.content.ts` và ghi nội dung từ điển đã biên dịch thành định dạng chuẩn vào thư mục `.intlayer/`                               |
-| `intlayerPurgeBabelPlugin`    | Quét toàn bộ mã nguồn, thực hiện loại bỏ (remove) **các trường nội dung không được sử dụng** ở file từ điển JSON tại `.intlayer/**/*.json`    |
-| `intlayerMinifyBabelPlugin`   | **Rút ngắn tên (rename) khóa (keys) của nội dung** thành ký tự ngắn rút gọn (vd: `title` đổi thành `a`) ở JSON cũng như bên trong Source Code |
-| `intlayerOptimizeBabelPlugin` | Viết lại `useIntlayer('key')` thành `useDictionary(hash)` và tự động inject thư viện `import` để nạp từ điển khớp tương ứng                   |
-
-> **Thứ tự sắp xếp của plugin là rất quan trọng.** Trong `babel.config.js` của bạn, các plugin purge và minify phải được đặt **trước** plugin optimize. Bước optimize thay thế `useIntlayer('key')` bằng một hàm gọi không minh bạch `useDictionary(hash)`, điều này có khả năng làm mất thông tin dictionary-key gốc - vốn là thông tin cần thiết để purge và minify có thể định danh các trường thuộc tính đang được ứng dụng.
-
-Mỗi plugin Babel sẽ đi kèm một helper option để đọc trực tiếp config của `intlayer.config.ts` một lần lúc load hệ thống, sau đó trả về giá trị đã được chuyển đổi:
-
-| Options helper               | Dùng cùng với                 |
-| :--------------------------- | :---------------------------- |
-| `getExtractPluginOptions()`  | `intlayerExtractBabelPlugin`  |
-| `getPurgePluginOptions()`    | `intlayerPurgeBabelPlugin`    |
-| `getMinifyPluginOptions()`   | `intlayerMinifyBabelPlugin`   |
-| `getOptimizePluginOptions()` | `intlayerOptimizeBabelPlugin` |
-
-### Các plugin của Vite (`vite-intlayer`)
-
-Những người dùng Vite **không bao giờ phải cấu hình cái này một cách thủ công**. Chúng tự động được thiết lập thông qua lệnh gọi `withIntlayer()` ở trong `vite.config.ts`. Những cấu hình dạng boolean (đúng/sai) như `build.purge` và `build.minify` ở `intlayer.config.ts` sẽ chuyển đổi các đặc tính tương ứng thông qua config này mà không phải cài đặt gì riêng biệt.
-
-| Plugin Vite ngầm định | Tương đương chức năng                                                                                                                              |
-| :-------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Usage analyzer        | Tương tự quy trình quét và tìm kiếm của `intlayerPurgeBabelPlugin`                                                                                 |
-| Dictionary prune      | Tương tự quy trình rút gọn và tối ưu bản ghi lưu của `intlayerPurgeBabelPlugin` qua JSON                                                           |
-| Dictionary minify     | Tương tự quy trình cắt giảm và rút ngắn độ dài JSON của `intlayerMinifyBabelPlugin` qua JSON                                                       |
-| Babel transform       | Tương tự quá trình viết lại tên khóa (key rename) bên nguồn code của `intlayerMinifyBabelPlugin` + thay phiên mã của `intlayerOptimizeBabelPlugin` |
-
-### Plugin SWC (`@intlayer/swc`)
-
-Người dùng Next.js cũng **không bao giờ cấu hình những thứ này trực tiếp**. Từ **v9.2.1**, `withIntlayer()` trong `next.config.ts` chạy toàn bộ pipeline — purge, minify và viết lại import — chỉ dựa trên hai cờ `build.purge` và `build.minify`.
-
-Công việc được chia làm hai, vì một plugin Wasm của SWC chỉ biến đổi một tệp tại một thời điểm và không có quyền truy cập hệ thống tệp:
-
-| Lượt xử lý                                 | Chạy ở đâu                       | Làm gì                                                                                   |
-| :----------------------------------------- | :------------------------------- | :--------------------------------------------------------------------------------------- |
-| Phân tích sử dụng + purge/minify JSON      | Node, bên trong `withIntlayer()` | Đọc mọi tệp nguồn của component, viết lại `.intlayer/**/*.json`, tạo ra các bảng đổi tên |
-| Viết lại mã nguồn (`content.title` → `.a`) | `@intlayer/swc` (Wasm)           | Áp dụng các bảng đổi tên cho những truy cập thuộc tính tương ứng trong mã của bạn        |
-| Viết lại import (`useIntlayer` → dict)     | `@intlayer/swc` (Wasm)           | Giống `intlayerOptimizeBabelPlugin`                                                      |
-
-Việc xác định _những_ trường nào không được dùng và mỗi trường nhận _bí danh_ nào đòi hỏi trạng thái xuyên tệp và I/O tệp, nên nửa đó chạy trong Node; plugin SWC chỉ nhận các bảng kết quả.
 
 ## Tùy chỉnh thiết lập dựa vào Platform (nền tảng)
 
@@ -404,6 +218,59 @@ module.exports = {
 
  </Tab>
 </Tabs>
+
+## Thông tin chi tiết về các Plugin
+
+Trình tối ưu hóa build của Intlayer được chia làm nhiều plugin riêng biệt, mỗi cái đảm nhận duy nhất một công việc cụ thể. Việc hiểu những gì từng plugin thực hiện sẽ giúp bạn tránh nhầm lẫn khi tùy chỉnh cấu hình.
+
+### Các plugin của Babel (`@intlayer/babel`)
+
+Những plugin này được khai báo trực tiếp vào `babel.config.js` ở các dự án phụ thuộc cấu hình Webpack (như Next.js dùng Babel, CRA, hoặc Webpack tùy chỉnh v.v.).
+
+Bảng dưới đây liệt kê chúng theo đúng thứ tự pipeline (cùng thứ tự mà chúng phải xuất hiện trong `babel.config.js`):
+
+| Plugin                        | Công dụng                                                                                                                                     |
+| :---------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------- |
+| `intlayerExtractBabelPlugin`  | Quét các file `.content.ts` và ghi nội dung từ điển đã biên dịch thành định dạng chuẩn vào thư mục `.intlayer/`                               |
+| `intlayerPurgeBabelPlugin`    | Quét toàn bộ mã nguồn, thực hiện loại bỏ (remove) **các trường nội dung không được sử dụng** ở file từ điển JSON tại `.intlayer/**/*.json`    |
+| `intlayerMinifyBabelPlugin`   | **Rút ngắn tên (rename) khóa (keys) của nội dung** thành ký tự ngắn rút gọn (vd: `title` đổi thành `a`) ở JSON cũng như bên trong Source Code |
+| `intlayerOptimizeBabelPlugin` | Viết lại `useIntlayer('key')` thành `useDictionary(hash)` và tự động inject thư viện `import` để nạp từ điển khớp tương ứng                   |
+
+> **Thứ tự sắp xếp của plugin là rất quan trọng.** Trong `babel.config.js` của bạn, các plugin purge và minify phải được đặt **trước** plugin optimize. Bước optimize thay thế `useIntlayer('key')` bằng một hàm gọi không minh bạch `useDictionary(hash)`, điều này có khả năng làm mất thông tin dictionary-key gốc - vốn là thông tin cần thiết để purge và minify có thể định danh các trường thuộc tính đang được ứng dụng.
+
+Mỗi plugin Babel sẽ đi kèm một helper option để đọc trực tiếp config của `intlayer.config.ts` một lần lúc load hệ thống, sau đó trả về giá trị đã được chuyển đổi:
+
+| Options helper               | Dùng cùng với                 |
+| :--------------------------- | :---------------------------- |
+| `getExtractPluginOptions()`  | `intlayerExtractBabelPlugin`  |
+| `getPurgePluginOptions()`    | `intlayerPurgeBabelPlugin`    |
+| `getMinifyPluginOptions()`   | `intlayerMinifyBabelPlugin`   |
+| `getOptimizePluginOptions()` | `intlayerOptimizeBabelPlugin` |
+
+### Các plugin của Vite (`vite-intlayer`)
+
+Những người dùng Vite **không bao giờ phải cấu hình cái này một cách thủ công**. Chúng tự động được thiết lập thông qua lệnh gọi `withIntlayer()` ở trong `vite.config.ts`. Những cấu hình dạng boolean (đúng/sai) như `build.purge` và `build.minify` ở `intlayer.config.ts` sẽ chuyển đổi các đặc tính tương ứng thông qua config này mà không phải cài đặt gì riêng biệt.
+
+| Plugin Vite ngầm định | Tương đương chức năng                                                                                                                              |
+| :-------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Usage analyzer        | Tương tự quy trình quét và tìm kiếm của `intlayerPurgeBabelPlugin`                                                                                 |
+| Dictionary prune      | Tương tự quy trình rút gọn và tối ưu bản ghi lưu của `intlayerPurgeBabelPlugin` qua JSON                                                           |
+| Dictionary minify     | Tương tự quy trình cắt giảm và rút ngắn độ dài JSON của `intlayerMinifyBabelPlugin` qua JSON                                                       |
+| Babel transform       | Tương tự quá trình viết lại tên khóa (key rename) bên nguồn code của `intlayerMinifyBabelPlugin` + thay phiên mã của `intlayerOptimizeBabelPlugin` |
+
+### Plugin SWC (`@intlayer/swc`)
+
+Người dùng Next.js cũng **không bao giờ cấu hình những thứ này trực tiếp**. Từ **v9.2.1**, `withIntlayer()` trong `next.config.ts` chạy toàn bộ pipeline — purge, minify và viết lại import — chỉ dựa trên hai cờ `build.purge` và `build.minify`.
+
+Công việc được chia làm hai, vì một plugin Wasm của SWC chỉ biến đổi một tệp tại một thời điểm và không có quyền truy cập hệ thống tệp:
+
+| Lượt xử lý                                 | Chạy ở đâu                       | Làm gì                                                                                   |
+| :----------------------------------------- | :------------------------------- | :--------------------------------------------------------------------------------------- |
+| Phân tích sử dụng + purge/minify JSON      | Node, bên trong `withIntlayer()` | Đọc mọi tệp nguồn của component, viết lại `.intlayer/**/*.json`, tạo ra các bảng đổi tên |
+| Viết lại mã nguồn (`content.title` → `.a`) | `@intlayer/swc` (Wasm)           | Áp dụng các bảng đổi tên cho những truy cập thuộc tính tương ứng trong mã của bạn        |
+| Viết lại import (`useIntlayer` → dict)     | `@intlayer/swc` (Wasm)           | Giống `intlayerOptimizeBabelPlugin`                                                      |
+
+Việc xác định _những_ trường nào không được dùng và mỗi trường nhận _bí danh_ nào đòi hỏi trạng thái xuyên tệp và I/O tệp, nên nửa đó chạy trong Node; plugin SWC chỉ nhận các bảng kết quả.
 
 ## Tùy chỉnh cấu hình (Configuration)
 
@@ -650,3 +517,136 @@ const content = useDictionaryAsync({
 | **Vấn Đề Đòi Request Băng Thông Trên Đường Mạng**                                | Bằng 0 Hoàn Toàn                                                                   | Phát Hành Chuẩn Cú 1 Request Cho Duy Nhất 1 Bảng Key Component Dictionary                   |
 | **Bảo Vệ Tính An Toàn Loại Rác Thừa Qua Việc Tree Shaking**                      | Theo Khu Vực Thuộc Về Component                                                    | Tính Linh Động Nhờ Chạy Khép Component + Khép Riêng Mức Locale Do Yêu Cầu Tùy Loại Ngôn Ngữ |
 | **Xài Chuẩn Không Chỉnh Ở Tính Chất Cho Đạt Case Xịn Khỏi Chê**                  | Thể Loại Cấu Trúc Thành Phần Giao Diện Nhanh Lẹ Cho Phép Chạy Web Trọng Lượng Thấp | Ở Lãnh Thổ Website Sỡ Hữu Mớ Tài Liệu Quá Dài Có Nhiều Nút Đa Dịch Có Số Lượng Kếch Xù      |
+
+## Phân tích bundle của bạn
+
+Việc phân tích bundle là cách trực tiếp nhất để xác định các file JSON "nặng" và phát hiện các cơ hội để code-splitting (chia nhỏ code). Những công cụ phân tích sẽ tạo ra một sơ đồ treemap trực quan từ mã đã compile của ứng dụng, cho phép bạn thấy được chính xác thư viện nào đang chiếm nhiều không gian nhất.
+
+<Tabs>
+ <Tab value="vite">
+
+### Vite / Rollup
+
+Vite sử dụng Rollup phía bên dưới. Plugin `rollup-plugin-visualizer` sẽ tạo ra một file HTML tương tác, hiển thị trực quan dung lượng của mỗi module trong biểu đồ phụ thuộc của bạn.
+
+```bash
+npm install -D rollup-plugin-visualizer
+```
+
+```typescript fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import { visualizer } from "rollup-plugin-visualizer";
+
+export default defineConfig({
+  plugins: [
+    visualizer({
+      open: true, // Tự động mở báo cáo trong trình duyệt
+      filename: "stats.html",
+      gzipSize: true,
+      brotliSize: true,
+    }),
+  ],
+});
+```
+
+ </Tab>
+ <Tab value="nextjs (turbopack)">
+
+### Next.js (Turbopack)
+
+Với các dự án dùng App Router và Turbopack, Next.js cung cấp một bộ phân tích thực nghiệm được tích hợp sẵn mà không cần bạn phải thêm package mở rộng.
+
+```bash packageManager='npm'
+npx next experimental-analyze
+```
+
+```bash packageManager='yarn'
+yarn next experimental-analyze
+```
+
+```bash packageManager='pnpm'
+pnpm next experimental-analyze
+```
+
+```bash packageManager='bun'
+bun next experimental-analyze
+```
+
+ </Tab>
+ <Tab value="nextjs (Webpack)">
+
+### Next.js (Webpack)
+
+Nếu bạn đang sử dụng trình bundle Webpack mặc định trong Next.js, hãy dùng bundle analyzer chính thức. Bạn có thể kích hoạt bằng cách đặt một biến môi trường trong quá trình build.
+
+```bash packageManager='npm'
+npm install -D @next/bundle-analyzer
+```
+
+```bash packageManager='yarn'
+yarn add -D @next/bundle-analyzer
+```
+
+```bash packageManager='pnpm'
+pnpm add -D @next/bundle-analyzer
+```
+
+```bash packageManager='bun'
+bun add -d @next/bundle-analyzer
+```
+
+```javascript fileName="next.config.js"
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+  enabled: process.env.ANALYZE === "true",
+});
+
+module.exports = withBundleAnalyzer({
+  // Cấu hình Next.js của bạn
+});
+```
+
+**Cách dùng:**
+
+```bash
+ANALYZE=true npm run build
+```
+
+ </Tab>
+ <Tab value="Webpack (CRA / Angular / etc)">
+
+### Webpack Tiêu Chuẩn
+
+Đối với Create React App (ejected), Angular, hoặc thiết lập Webpack tùy biến, hãy dùng công cụ quen thuộc trong ngành là `webpack-bundle-analyzer`.
+
+```bash packageManager='npm'
+npm install -D webpack-bundle-analyzer
+```
+
+```bash packageManager='yarn'
+yarn add -D webpack-bundle-analyzer
+```
+
+```bash packageManager='pnpm'
+pnpm add -D webpack-bundle-analyzer
+```
+
+```bash packageManager='bun'
+bun add -d webpack-bundle-analyzer
+```
+
+```typescript fileName="webpack.config.ts"
+import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
+
+export default {
+  plugins: [
+    new BundleAnalyzerPlugin({
+      analyzerMode: "static",
+      reportFilename: "bundle-analyzer.html",
+      openAnalyzer: false,
+    }),
+  ],
+};
+```
+
+ </Tab>
+</Tabs>

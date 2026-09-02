@@ -43,139 +43,6 @@ Beispielsweise könnte eine Anwendung mit 10 Seiten, die in 10 Sprachen überset
 
 <TOC />
 
-## Analysieren Sie Ihr Bundle
-
-Die Analyse Ihres Bundles ist der erste Schritt zur Identifizierung "schwerer" JSON-Dateien und Möglichkeiten zum Code-Splitting. Diese Tools generieren eine visuelle Treemap des kompilierten Codes Ihrer Anwendung, sodass Sie genau sehen können, welche Bibliotheken den meisten Platz beanspruchen.
-
-<Tabs>
- <Tab value="vite">
-
-### Vite / Rollup
-
-Vite verwendet Rollup im Hintergrund. Das Plugin `rollup-plugin-visualizer` generiert eine interaktive HTML-Datei, die die Größe jedes Moduls in Ihrem Diagramm anzeigt.
-
-```bash
-npm install -D rollup-plugin-visualizer
-```
-
-```typescript fileName="vite.config.ts"
-import { defineConfig } from "vite";
-import { visualizer } from "rollup-plugin-visualizer";
-
-export default defineConfig({
-  plugins: [
-    visualizer({
-      open: true, // Öffnet den Bericht automatisch in Ihrem Browser
-      filename: "stats.html",
-      gzipSize: true,
-      brotliSize: true,
-    }),
-  ],
-});
-```
-
- </Tab>
- <Tab value="nextjs (turbopack)">
-
-### Next.js (Turbopack)
-
-Für Projekte, die den App Router und Turbopack verwenden, bietet Next.js einen integrierten experimentellen Analyzer, der keine zusätzlichen Abhängigkeiten erfordert.
-
-```bash packageManager='npm'
-npx next experimental-analyze
-```
-
-```bash packageManager='yarn'
-yarn next experimental-analyze
-```
-
-```bash packageManager='pnpm'
-pnpm next experimental-analyze
-```
-
-```bash packageManager='bun'
-bun next experimental-analyze
-```
-
- </Tab>
- <Tab value="nextjs (Webpack)">
-
-### Next.js (Webpack)
-
-Wenn Sie den Standard-Webpack-Bundler in Next.js verwenden, verwenden Sie den offiziellen Bundle-Analyzer. Lösen Sie ihn aus, indem Sie während Ihres Builds eine Umgebungsvariable festlegen.
-
-```bash packageManager='npm'
-npm install -D @next/bundle-analyzer
-```
-
-```bash packageManager='yarn'
-yarn add -D @next/bundle-analyzer
-```
-
-```bash packageManager='pnpm'
-pnpm add -D @next/bundle-analyzer
-```
-
-```bash packageManager='bun'
-bun add -d @next/bundle-analyzer
-```
-
-```javascript fileName="next.config.js"
-const withBundleAnalyzer = require("@next/bundle-analyzer")({
-  enabled: process.env.ANALYZE === "true",
-});
-
-module.exports = withBundleAnalyzer({
-  // Ihre Next.js Konfiguration
-});
-```
-
-**Verwendung:**
-
-```bash
-ANALYZE=true npm run build
-```
-
- </Tab>
- <Tab value="Webpack (CRA / Angular / etc)">
-
-### Standard Webpack
-
-Verwenden Sie für Create React App (ejected), Angular oder benutzerdefinierte Webpack-Setups den branchenüblichen `webpack-bundle-analyzer`.
-
-```bash packageManager='npm'
-npm install -D webpack-bundle-analyzer
-```
-
-```bash packageManager='yarn'
-yarn add -D webpack-bundle-analyzer
-```
-
-```bash packageManager='pnpm'
-pnpm add -D webpack-bundle-analyzer
-```
-
-```bash packageManager='bun'
-bun add -d webpack-bundle-analyzer
-```
-
-```typescript fileName="webpack.config.ts"
-import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
-
-export default {
-  plugins: [
-    new BundleAnalyzerPlugin({
-      analyzerMode: "static",
-      reportFilename: "bundle-analyzer.html",
-      openAnalyzer: false,
-    }),
-  ],
-};
-```
-
- </Tab>
-</Tabs>
-
 ## Wie es funktioniert
 
 Intlayer verwendet einen **pro-Komponente-Ansatz**. Im Gegensatz zu globalen JSON-Dateien wird Ihr Inhalt neben oder in Ihren Komponenten definiert. Während des Build-Prozesses führt Intlayer Folgendes aus:
@@ -188,59 +55,6 @@ Dies stellt sicher, dass:
 
 - Wenn eine Komponente nicht importiert wird, deren Inhalt nicht im Bundle enthalten ist (Dead Code Elimination).
 - Wenn eine Komponente verzögert geladen wird (lazy loaded), ihr Inhalt ebenfalls verzögert geladen wird.
-
-## Plugin-Referenz
-
-Die Build-Optimierung von Intlayer ist auf mehrere diskrete Plugins aufgeteilt, von denen jedes eine einzige Aufgabe hat. Zu verstehen, was jedes Plugin tut, verhindert Verwirrung beim Einrichten.
-
-### Babel Plugins (`@intlayer/babel`)
-
-Diese werden direkt in der `babel.config.js` für Webpack-basierte Setups verwendet (Next.js mit Babel, CRA, benutzerdefiniertes Webpack usw.).
-
-Die folgende Tabelle listet sie in der erforderlichen Pipeline-Reihenfolge auf (dieselbe Reihenfolge, in der sie in `babel.config.js` erscheinen müssen):
-
-| Plugin                        | Was es tut                                                                                                                  |
-| :---------------------------- | :-------------------------------------------------------------------------------------------------------------------------- |
-| `intlayerExtractBabelPlugin`  | Scannt `.content.ts`-Dateien und schreibt kompilierte Wörterbücher nach `.intlayer/`                                        |
-| `intlayerPurgeBabelPlugin`    | Scannt alle Quelldateien und entfernt **nicht verwendete Inhaltsfelder** aus den kompilierten `.intlayer/**/*.json`-Dateien |
-| `intlayerMinifyBabelPlugin`   | **Benennt Inhaltsfeld-Schlüssel um** in kurze alphabetische Aliase (`title` → `a`) in JSON-Dateien und im Quellcode         |
-| `intlayerOptimizeBabelPlugin` | Schreibt `useIntlayer('key')` → `useDictionary(hash)` um und fügt den passenden `import` des Wörterbuchs ein                |
-
-> **Die Reihenfolge der Plugins ist wichtig.** In Ihrer `babel.config.js` müssen das Purge- und Minify-Plugin **vor** dem Optimize-Plugin aufgeführt sein. Der Optimize-Pass ersetzt `useIntlayer('key')` durch einen undurchsichtigen `useDictionary(hash)`-Aufruf, wodurch die Information über den Wörterbuchschlüssel gelöscht wird, die der Purge- und Minify-Pass benötigen, um zu identifizieren, welche Felder verwendet werden.
-
-Jedes Babel-Plugin verfügt über einen entsprechenden Options-Helfer, der Ihre `intlayer.config.ts` einmal zur Konfigurationsladezeit liest und vorab aufgelöste Werte zurückgibt:
-
-| Options-Helfer               | Verwendet mit                 |
-| :--------------------------- | :---------------------------- |
-| `getExtractPluginOptions()`  | `intlayerExtractBabelPlugin`  |
-| `getPurgePluginOptions()`    | `intlayerPurgeBabelPlugin`    |
-| `getMinifyPluginOptions()`   | `intlayerMinifyBabelPlugin`   |
-| `getOptimizePluginOptions()` | `intlayerOptimizeBabelPlugin` |
-
-### Vite Plugins (`vite-intlayer`)
-
-Vite-Benutzer **konfigurieren diese nie direkt**. Sie werden automatisch eingerichtet, wenn Sie `withIntlayer()` in der `vite.config.ts` aufrufen. Die Flags `build.purge` und `build.minify` in der `intlayer.config.ts` schalten das entsprechende Verhalten ohne zusätzliche Plugin-Registrierung um.
-
-| Internes Vite Plugin | Äquivalentes Verhalten                                                                               |
-| :------------------- | :--------------------------------------------------------------------------------------------------- |
-| Usage analyzer       | Gleich wie die Analysephase des `intlayerPurgeBabelPlugin`                                           |
-| Dictionary prune     | Gleich wie die JSON-Schreibphase des `intlayerPurgeBabelPlugin`                                      |
-| Dictionary minify    | Gleich wie die JSON-Schreibphase des `intlayerMinifyBabelPlugin`                                     |
-| Babel transform      | Gleich wie die Quellcode-Umbenennung des `intlayerMinifyBabelPlugin` + `intlayerOptimizeBabelPlugin` |
-
-### SWC-Plugin (`@intlayer/swc`)
-
-Auch Next.js-Nutzer **konfigurieren diese nie direkt**. Seit **v9.2.1** führt `withIntlayer()` in `next.config.ts` die vollständige Pipeline aus — Purge, Minify und Import-Umschreibung — allein anhand der Flags `build.purge` und `build.minify`.
-
-Die Arbeit ist zweigeteilt, denn ein SWC-Wasm-Plugin transformiert jeweils nur eine Datei und hat keinen Dateisystemzugriff:
-
-| Durchlauf                                       | Wo er läuft                          | Was er tut                                                                                              |
-| :---------------------------------------------- | :----------------------------------- | :------------------------------------------------------------------------------------------------------ |
-| Nutzungsanalyse + JSON-Purge/Minify             | Node, innerhalb von `withIntlayer()` | Liest jede Komponenten-Quelldatei, schreibt `.intlayer/**/*.json` neu, erzeugt die Umbenennungstabellen |
-| Quellcode-Umschreibung (`content.title` → `.a`) | `@intlayer/swc` (Wasm)               | Wendet die Umbenennungstabellen auf die passenden Eigenschaftszugriffe in Ihrem Code an                 |
-| Import-Umschreibung (`useIntlayer` → dict)      | `@intlayer/swc` (Wasm)               | Wie `intlayerOptimizeBabelPlugin`                                                                       |
-
-Zu entscheiden, _welche_ Felder ungenutzt sind und _welchen_ Alias jedes erhält, erfordert dateiübergreifenden Zustand und Datei-I/O; diese Hälfte läuft daher in Node, und das SWC-Plugin erhält nur die resultierenden Tabellen.
 
 ## Setup nach Plattform
 
@@ -404,6 +218,59 @@ module.exports = {
 
  </Tab>
 </Tabs>
+
+## Plugin-Referenz
+
+Die Build-Optimierung von Intlayer ist auf mehrere diskrete Plugins aufgeteilt, von denen jedes eine einzige Aufgabe hat. Zu verstehen, was jedes Plugin tut, verhindert Verwirrung beim Einrichten.
+
+### Babel Plugins (`@intlayer/babel`)
+
+Diese werden direkt in der `babel.config.js` für Webpack-basierte Setups verwendet (Next.js mit Babel, CRA, benutzerdefiniertes Webpack usw.).
+
+Die folgende Tabelle listet sie in der erforderlichen Pipeline-Reihenfolge auf (dieselbe Reihenfolge, in der sie in `babel.config.js` erscheinen müssen):
+
+| Plugin                        | Was es tut                                                                                                                  |
+| :---------------------------- | :-------------------------------------------------------------------------------------------------------------------------- |
+| `intlayerExtractBabelPlugin`  | Scannt `.content.ts`-Dateien und schreibt kompilierte Wörterbücher nach `.intlayer/`                                        |
+| `intlayerPurgeBabelPlugin`    | Scannt alle Quelldateien und entfernt **nicht verwendete Inhaltsfelder** aus den kompilierten `.intlayer/**/*.json`-Dateien |
+| `intlayerMinifyBabelPlugin`   | **Benennt Inhaltsfeld-Schlüssel um** in kurze alphabetische Aliase (`title` → `a`) in JSON-Dateien und im Quellcode         |
+| `intlayerOptimizeBabelPlugin` | Schreibt `useIntlayer('key')` → `useDictionary(hash)` um und fügt den passenden `import` des Wörterbuchs ein                |
+
+> **Die Reihenfolge der Plugins ist wichtig.** In Ihrer `babel.config.js` müssen das Purge- und Minify-Plugin **vor** dem Optimize-Plugin aufgeführt sein. Der Optimize-Pass ersetzt `useIntlayer('key')` durch einen undurchsichtigen `useDictionary(hash)`-Aufruf, wodurch die Information über den Wörterbuchschlüssel gelöscht wird, die der Purge- und Minify-Pass benötigen, um zu identifizieren, welche Felder verwendet werden.
+
+Jedes Babel-Plugin verfügt über einen entsprechenden Options-Helfer, der Ihre `intlayer.config.ts` einmal zur Konfigurationsladezeit liest und vorab aufgelöste Werte zurückgibt:
+
+| Options-Helfer               | Verwendet mit                 |
+| :--------------------------- | :---------------------------- |
+| `getExtractPluginOptions()`  | `intlayerExtractBabelPlugin`  |
+| `getPurgePluginOptions()`    | `intlayerPurgeBabelPlugin`    |
+| `getMinifyPluginOptions()`   | `intlayerMinifyBabelPlugin`   |
+| `getOptimizePluginOptions()` | `intlayerOptimizeBabelPlugin` |
+
+### Vite Plugins (`vite-intlayer`)
+
+Vite-Benutzer **konfigurieren diese nie direkt**. Sie werden automatisch eingerichtet, wenn Sie `withIntlayer()` in der `vite.config.ts` aufrufen. Die Flags `build.purge` und `build.minify` in der `intlayer.config.ts` schalten das entsprechende Verhalten ohne zusätzliche Plugin-Registrierung um.
+
+| Internes Vite Plugin | Äquivalentes Verhalten                                                                               |
+| :------------------- | :--------------------------------------------------------------------------------------------------- |
+| Usage analyzer       | Gleich wie die Analysephase des `intlayerPurgeBabelPlugin`                                           |
+| Dictionary prune     | Gleich wie die JSON-Schreibphase des `intlayerPurgeBabelPlugin`                                      |
+| Dictionary minify    | Gleich wie die JSON-Schreibphase des `intlayerMinifyBabelPlugin`                                     |
+| Babel transform      | Gleich wie die Quellcode-Umbenennung des `intlayerMinifyBabelPlugin` + `intlayerOptimizeBabelPlugin` |
+
+### SWC-Plugin (`@intlayer/swc`)
+
+Auch Next.js-Nutzer **konfigurieren diese nie direkt**. Seit **v9.2.1** führt `withIntlayer()` in `next.config.ts` die vollständige Pipeline aus — Purge, Minify und Import-Umschreibung — allein anhand der Flags `build.purge` und `build.minify`.
+
+Die Arbeit ist zweigeteilt, denn ein SWC-Wasm-Plugin transformiert jeweils nur eine Datei und hat keinen Dateisystemzugriff:
+
+| Durchlauf                                       | Wo er läuft                          | Was er tut                                                                                              |
+| :---------------------------------------------- | :----------------------------------- | :------------------------------------------------------------------------------------------------------ |
+| Nutzungsanalyse + JSON-Purge/Minify             | Node, innerhalb von `withIntlayer()` | Liest jede Komponenten-Quelldatei, schreibt `.intlayer/**/*.json` neu, erzeugt die Umbenennungstabellen |
+| Quellcode-Umschreibung (`content.title` → `.a`) | `@intlayer/swc` (Wasm)               | Wendet die Umbenennungstabellen auf die passenden Eigenschaftszugriffe in Ihrem Code an                 |
+| Import-Umschreibung (`useIntlayer` → dict)      | `@intlayer/swc` (Wasm)               | Wie `intlayerOptimizeBabelPlugin`                                                                       |
+
+Zu entscheiden, _welche_ Felder ungenutzt sind und _welchen_ Alias jedes erhält, erfordert dateiübergreifenden Zustand und Datei-I/O; diese Hälfte läuft daher in Node, und das SWC-Plugin erhält nur die resultierenden Tabellen.
 
 ## Konfiguration
 
@@ -650,3 +517,136 @@ const content = useDictionaryAsync({
 | **Netzwerkanfragen**      | 0 zusätzliche Anfragen                            | 1 Anfrage pro Wörterbuch-Schlüssel     |
 | **Tree Shaking**          | Auf Komponentenebene                              | Auf Komponenten- + Länderebene         |
 | **Bester Anwendungsfall** | UI-Komponenten, Kleine Apps                       | Textreiche Seiten, Viele Sprachen      |
+
+## Analysieren Sie Ihr Bundle
+
+Die Analyse Ihres Bundles ist der direkteste Weg, um "schwere" JSON-Dateien und Möglichkeiten zum Code-Splitting zu identifizieren. Diese Tools generieren eine visuelle Treemap des kompilierten Codes Ihrer Anwendung, sodass Sie genau sehen können, welche Bibliotheken den meisten Platz beanspruchen.
+
+<Tabs>
+ <Tab value="vite">
+
+### Vite / Rollup
+
+Vite verwendet Rollup im Hintergrund. Das Plugin `rollup-plugin-visualizer` generiert eine interaktive HTML-Datei, die die Größe jedes Moduls in Ihrem Diagramm anzeigt.
+
+```bash
+npm install -D rollup-plugin-visualizer
+```
+
+```typescript fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import { visualizer } from "rollup-plugin-visualizer";
+
+export default defineConfig({
+  plugins: [
+    visualizer({
+      open: true, // Öffnet den Bericht automatisch in Ihrem Browser
+      filename: "stats.html",
+      gzipSize: true,
+      brotliSize: true,
+    }),
+  ],
+});
+```
+
+ </Tab>
+ <Tab value="nextjs (turbopack)">
+
+### Next.js (Turbopack)
+
+Für Projekte, die den App Router und Turbopack verwenden, bietet Next.js einen integrierten experimentellen Analyzer, der keine zusätzlichen Abhängigkeiten erfordert.
+
+```bash packageManager='npm'
+npx next experimental-analyze
+```
+
+```bash packageManager='yarn'
+yarn next experimental-analyze
+```
+
+```bash packageManager='pnpm'
+pnpm next experimental-analyze
+```
+
+```bash packageManager='bun'
+bun next experimental-analyze
+```
+
+ </Tab>
+ <Tab value="nextjs (Webpack)">
+
+### Next.js (Webpack)
+
+Wenn Sie den Standard-Webpack-Bundler in Next.js verwenden, verwenden Sie den offiziellen Bundle-Analyzer. Lösen Sie ihn aus, indem Sie während Ihres Builds eine Umgebungsvariable festlegen.
+
+```bash packageManager='npm'
+npm install -D @next/bundle-analyzer
+```
+
+```bash packageManager='yarn'
+yarn add -D @next/bundle-analyzer
+```
+
+```bash packageManager='pnpm'
+pnpm add -D @next/bundle-analyzer
+```
+
+```bash packageManager='bun'
+bun add -d @next/bundle-analyzer
+```
+
+```javascript fileName="next.config.js"
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+  enabled: process.env.ANALYZE === "true",
+});
+
+module.exports = withBundleAnalyzer({
+  // Ihre Next.js Konfiguration
+});
+```
+
+**Verwendung:**
+
+```bash
+ANALYZE=true npm run build
+```
+
+ </Tab>
+ <Tab value="Webpack (CRA / Angular / etc)">
+
+### Standard Webpack
+
+Verwenden Sie für Create React App (ejected), Angular oder benutzerdefinierte Webpack-Setups den branchenüblichen `webpack-bundle-analyzer`.
+
+```bash packageManager='npm'
+npm install -D webpack-bundle-analyzer
+```
+
+```bash packageManager='yarn'
+yarn add -D webpack-bundle-analyzer
+```
+
+```bash packageManager='pnpm'
+pnpm add -D webpack-bundle-analyzer
+```
+
+```bash packageManager='bun'
+bun add -d webpack-bundle-analyzer
+```
+
+```typescript fileName="webpack.config.ts"
+import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
+
+export default {
+  plugins: [
+    new BundleAnalyzerPlugin({
+      analyzerMode: "static",
+      reportFilename: "bundle-analyzer.html",
+      openAnalyzer: false,
+    }),
+  ],
+};
+```
+
+ </Tab>
+</Tabs>

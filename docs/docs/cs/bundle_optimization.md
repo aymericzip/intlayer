@@ -43,139 +43,6 @@ Například aplikace s 10 stránkami přeloženými do 10 jazyků může vést k
 
 <TOC />
 
-## Analyzujte svůj bundle
-
-Analýza bundlu je prvním krokem k odhalení „těžkých“ JSON souborů a příležitostí k rozdělení kódu (code-splitting). Tyto nástroje generují vizuální stromovou mapu kompilovaného kódu vaší aplikace, což vám umožňuje přesně vidět, které knihovny zabírají nejvíce místa.
-
-<Tabs>
- <Tab value="vite">
-
-### Vite / Rollup
-
-Vite využívá Rollup na pozadí. Plugin `rollup-plugin-visualizer` vygeneruje interaktivní HTML soubor zobrazující velikost každého modulu ve vašem grafu.
-
-```bash
-npm install -D rollup-plugin-visualizer
-```
-
-```typescript fileName="vite.config.ts"
-import { defineConfig } from "vite";
-import { visualizer } from "rollup-plugin-visualizer";
-
-export default defineConfig({
-  plugins: [
-    visualizer({
-      open: true, // Automaticky otevře report ve vašem prohlížeči
-      filename: "stats.html",
-      gzipSize: true,
-      brotliSize: true,
-    }),
-  ],
-});
-```
-
- </Tab>
- <Tab value="nextjs (turbopack)">
-
-### Next.js (Turbopack)
-
-Pro projekty využívající App Router a Turbopack poskytuje Next.js vestavěný experimentální analyzátor, který nevyžaduje žádné další závislosti.
-
-```bash packageManager='npm'
-npx next experimental-analyze
-```
-
-```bash packageManager='yarn'
-yarn next experimental-analyze
-```
-
-```bash packageManager='pnpm'
-pnpm next experimental-analyze
-```
-
-```bash packageManager='bun'
-bun next experimental-analyze
-```
-
- </Tab>
- <Tab value="nextjs (Webpack)">
-
-### Next.js (Webpack)
-
-Pokud používáte výchozí Webpack bundler v Next.js, použijte oficiální bundle analyzer. Spustíte jej nastavením proměnné prostředí během sestavování.
-
-```bash packageManager='npm'
-npm install -D @next/bundle-analyzer
-```
-
-```bash packageManager='yarn'
-yarn add -D @next/bundle-analyzer
-```
-
-```bash packageManager='pnpm'
-pnpm add -D @next/bundle-analyzer
-```
-
-```bash packageManager='bun'
-bun add -d @next/bundle-analyzer
-```
-
-```javascript fileName="next.config.js"
-const withBundleAnalyzer = require("@next/bundle-analyzer")({
-  enabled: process.env.ANALYZE === "true",
-});
-
-module.exports = withBundleAnalyzer({
-  // Vaše konfigurace Next.js
-});
-```
-
-**Použití:**
-
-```bash
-ANALYZE=true npm run build
-```
-
- </Tab>
- <Tab value="Webpack (CRA / Angular / etc)">
-
-### Standardní Webpack
-
-Pro Create React App (ejected), Angular nebo vlastní konfigurace Webpack použijte průmyslový standard `webpack-bundle-analyzer`.
-
-```bash packageManager='npm'
-npm install -D webpack-bundle-analyzer
-```
-
-```bash packageManager='yarn'
-yarn add -D webpack-bundle-analyzer
-```
-
-```bash packageManager='pnpm'
-pnpm add -D webpack-bundle-analyzer
-```
-
-```bash packageManager='bun'
-bun add -d webpack-bundle-analyzer
-```
-
-```typescript fileName="webpack.config.ts"
-import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
-
-export default {
-  plugins: [
-    new BundleAnalyzerPlugin({
-      analyzerMode: "static",
-      reportFilename: "bundle-analyzer.html",
-      openAnalyzer: false,
-    }),
-  ],
-};
-```
-
- </Tab>
-</Tabs>
-
 ## Jak to funguje
 
 Intlayer používá **přístup na úrovni komponent (per-component)**. Na rozdíl od globálních JSON souborů se váš obsah definuje společně s komponentami nebo přímo v nich. Během procesu sestavování (build) Intlayer provede následující:
@@ -188,59 +55,6 @@ Tím zajistí, že:
 
 - Pokud komponenta není importována, její obsah se do bundlu nezahrne (Odstranění mrtvého kódu / Dead Code Elimination).
 - Pokud je komponenta načítána líně (lazy-loaded), její obsah je také načítán líně.
-
-## Referenční příručka k pluginům
-
-Optimalizace sestavení pomocí Intlayer je rozdělena do několika samostatných pluginů, z nichž každý má jedinou zodpovědnost. Pochopení jejich funkcí zabrání zmatkům při jejich nastavování.
-
-### Babel pluginy (`@intlayer/babel`)
-
-Tyto pluginy se používají přímo v `babel.config.js` pro sestavení založená na Webpacku (Next.js s Babelem, CRA, vlastní Webpack atd.).
-
-Následující tabulka je uvádí v požadovaném pořadí pipeline (ve stejném pořadí, v jakém musí být uvedeny v `babel.config.js`):
-
-| Plugin                        | K čemu slouží                                                                                                                |
-| :---------------------------- | :--------------------------------------------------------------------------------------------------------------------------- |
-| `intlayerExtractBabelPlugin`  | Prohledá soubory `.content.ts` a zapíše zkompilované slovníky do složky `.intlayer/`                                         |
-| `intlayerPurgeBabelPlugin`    | Prohledá všechny zdrojové soubory a odstraní **nepoužívaná pole obsahu** z kompilovaných slovníků `.intlayer/**/*.json`      |
-| `intlayerMinifyBabelPlugin`   | **Přejmenuje klíče polí obsahu** na krátké abecední aliasy (např. `title` → `a`) jak v JSON souborech, tak ve zdrojovém kódu |
-| `intlayerOptimizeBabelPlugin` | Přepíše `useIntlayer('key')` na `useDictionary(hash)` a vloží odpovídající `import` slovníku                                 |
-
-> **Záleží na pořadí pluginů.** Ve vašem `babel.config.js` musí pluginy pro purge a minify následovat **před** optimalizačním (optimize) pluginem. Krok optimalizace totiž nahrazuje volání `useIntlayer('key')` neprůhledným `useDictionary(hash)`, což odstraní informaci o klíči slovníku. Tuto informaci potřebují pluginy purge a minify k identifikaci použitých polí.
-
-Každý Babel plugin má odpovídajícího pomocníka (options helper), který při načítání konfigurace jednou přečte váš soubor `intlayer.config.ts` a vrátí předem vyřešené hodnoty:
-
-| Pomocník pro volby           | Používá se s                  |
-| :--------------------------- | :---------------------------- |
-| `getExtractPluginOptions()`  | `intlayerExtractBabelPlugin`  |
-| `getPurgePluginOptions()`    | `intlayerPurgeBabelPlugin`    |
-| `getMinifyPluginOptions()`   | `intlayerMinifyBabelPlugin`   |
-| `getOptimizePluginOptions()` | `intlayerOptimizeBabelPlugin` |
-
-### Vite pluginy (`vite-intlayer`)
-
-Uživatelé Vite **tyto pluginy nikdy nenastavují přímo**. Propojí se automaticky po volání `withIntlayer()` ve `vite.config.ts`. Příznaky (flags) `build.purge` a `build.minify` v konfiguraci `intlayer.config.ts` zajišťují odpovídající chování bez potřeby dodatečné registrace pluginů.
-
-| Interní Vite plugin | Ekvivalentní chování                                                                                   |
-| :------------------ | :----------------------------------------------------------------------------------------------------- |
-| Usage analyzer      | Stejné jako analytický průchod (analyse pass) `intlayerPurgeBabelPlugin`                               |
-| Dictionary prune    | Stejné jako zápis JSON pro `intlayerPurgeBabelPlugin`                                                  |
-| Dictionary minify   | Stejné jako zápis JSON pro `intlayerMinifyBabelPlugin`                                                 |
-| Babel transform     | Stejné jako přejmenování zdrojového kódu v `intlayerMinifyBabelPlugin` + `intlayerOptimizeBabelPlugin` |
-
-### SWC plugin (`@intlayer/swc`)
-
-Ani uživatelé Next.js **tyto nikdy nekonfigurují přímo**. Od verze **9.2.1** spouští `withIntlayer()` v `next.config.ts` celou pipeline — purge, minifikaci i přepis importů — pouze na základě příznaků `build.purge` a `build.minify`.
-
-Práce je rozdělena na dvě části, protože SWC Wasm plugin transformuje vždy jen jeden soubor a nemá přístup k souborovému systému:
-
-| Průchod                                         | Kde běží                      | Co dělá                                                                                               |
-| :---------------------------------------------- | :---------------------------- | :---------------------------------------------------------------------------------------------------- |
-| Analýza použití + purge/minifikace JSON         | Node, uvnitř `withIntlayer()` | Přečte každý zdrojový soubor komponenty, přepíše `.intlayer/**/*.json` a vytvoří přejmenovací tabulky |
-| Přepis zdrojového kódu (`content.title` → `.a`) | `@intlayer/swc` (Wasm)        | Aplikuje přejmenovací tabulky na odpovídající přístupy k vlastnostem ve vašem kódu                    |
-| Přepis importů (`useIntlayer` → dict)           | `@intlayer/swc` (Wasm)        | Stejné jako `intlayerOptimizeBabelPlugin`                                                             |
-
-Rozhodnout, _která_ pole jsou nepoužitá a _jaký_ alias každé z nich dostane, vyžaduje stav napříč soubory a souborové I/O, takže tato polovina běží v Node; SWC plugin dostává pouze výsledné tabulky.
 
 ## Nastavení podle platforem
 
@@ -404,6 +218,59 @@ module.exports = {
 
  </Tab>
 </Tabs>
+
+## Referenční příručka k pluginům
+
+Optimalizace sestavení pomocí Intlayer je rozdělena do několika samostatných pluginů, z nichž každý má jedinou zodpovědnost. Pochopení jejich funkcí zabrání zmatkům při jejich nastavování.
+
+### Babel pluginy (`@intlayer/babel`)
+
+Tyto pluginy se používají přímo v `babel.config.js` pro sestavení založená na Webpacku (Next.js s Babelem, CRA, vlastní Webpack atd.).
+
+Následující tabulka je uvádí v požadovaném pořadí pipeline (ve stejném pořadí, v jakém musí být uvedeny v `babel.config.js`):
+
+| Plugin                        | K čemu slouží                                                                                                                |
+| :---------------------------- | :--------------------------------------------------------------------------------------------------------------------------- |
+| `intlayerExtractBabelPlugin`  | Prohledá soubory `.content.ts` a zapíše zkompilované slovníky do složky `.intlayer/`                                         |
+| `intlayerPurgeBabelPlugin`    | Prohledá všechny zdrojové soubory a odstraní **nepoužívaná pole obsahu** z kompilovaných slovníků `.intlayer/**/*.json`      |
+| `intlayerMinifyBabelPlugin`   | **Přejmenuje klíče polí obsahu** na krátké abecední aliasy (např. `title` → `a`) jak v JSON souborech, tak ve zdrojovém kódu |
+| `intlayerOptimizeBabelPlugin` | Přepíše `useIntlayer('key')` na `useDictionary(hash)` a vloží odpovídající `import` slovníku                                 |
+
+> **Záleží na pořadí pluginů.** Ve vašem `babel.config.js` musí pluginy pro purge a minify následovat **před** optimalizačním (optimize) pluginem. Krok optimalizace totiž nahrazuje volání `useIntlayer('key')` neprůhledným `useDictionary(hash)`, což odstraní informaci o klíči slovníku. Tuto informaci potřebují pluginy purge a minify k identifikaci použitých polí.
+
+Každý Babel plugin má odpovídajícího pomocníka (options helper), který při načítání konfigurace jednou přečte váš soubor `intlayer.config.ts` a vrátí předem vyřešené hodnoty:
+
+| Pomocník pro volby           | Používá se s                  |
+| :--------------------------- | :---------------------------- |
+| `getExtractPluginOptions()`  | `intlayerExtractBabelPlugin`  |
+| `getPurgePluginOptions()`    | `intlayerPurgeBabelPlugin`    |
+| `getMinifyPluginOptions()`   | `intlayerMinifyBabelPlugin`   |
+| `getOptimizePluginOptions()` | `intlayerOptimizeBabelPlugin` |
+
+### Vite pluginy (`vite-intlayer`)
+
+Uživatelé Vite **tyto pluginy nikdy nenastavují přímo**. Propojí se automaticky po volání `withIntlayer()` ve `vite.config.ts`. Příznaky (flags) `build.purge` a `build.minify` v konfiguraci `intlayer.config.ts` zajišťují odpovídající chování bez potřeby dodatečné registrace pluginů.
+
+| Interní Vite plugin | Ekvivalentní chování                                                                                   |
+| :------------------ | :----------------------------------------------------------------------------------------------------- |
+| Usage analyzer      | Stejné jako analytický průchod (analyse pass) `intlayerPurgeBabelPlugin`                               |
+| Dictionary prune    | Stejné jako zápis JSON pro `intlayerPurgeBabelPlugin`                                                  |
+| Dictionary minify   | Stejné jako zápis JSON pro `intlayerMinifyBabelPlugin`                                                 |
+| Babel transform     | Stejné jako přejmenování zdrojového kódu v `intlayerMinifyBabelPlugin` + `intlayerOptimizeBabelPlugin` |
+
+### SWC plugin (`@intlayer/swc`)
+
+Ani uživatelé Next.js **tyto nikdy nekonfigurují přímo**. Od verze **9.2.1** spouští `withIntlayer()` v `next.config.ts` celou pipeline — purge, minifikaci i přepis importů — pouze na základě příznaků `build.purge` a `build.minify`.
+
+Práce je rozdělena na dvě části, protože SWC Wasm plugin transformuje vždy jen jeden soubor a nemá přístup k souborovému systému:
+
+| Průchod                                         | Kde běží                      | Co dělá                                                                                               |
+| :---------------------------------------------- | :---------------------------- | :---------------------------------------------------------------------------------------------------- |
+| Analýza použití + purge/minifikace JSON         | Node, uvnitř `withIntlayer()` | Přečte každý zdrojový soubor komponenty, přepíše `.intlayer/**/*.json` a vytvoří přejmenovací tabulky |
+| Přepis zdrojového kódu (`content.title` → `.a`) | `@intlayer/swc` (Wasm)        | Aplikuje přejmenovací tabulky na odpovídající přístupy k vlastnostem ve vašem kódu                    |
+| Přepis importů (`useIntlayer` → dict)           | `@intlayer/swc` (Wasm)        | Stejné jako `intlayerOptimizeBabelPlugin`                                                             |
+
+Rozhodnout, _která_ pole jsou nepoužitá a _jaký_ alias každé z nich dostane, vyžaduje stav napříč soubory a souborové I/O, takže tato polovina běží v Node; SWC plugin dostává pouze výsledné tabulky.
 
 ## Konfigurace
 
@@ -650,3 +517,136 @@ const content = useDictionaryAsync({
 | **Síťové požadavky**   | 0 požadavků navíc                              | 1 požadavek pro každý klíč slovníku         |
 | **Tree Shaking**       | Pouze na úrovni jednotlivých komponent         | Na úrovni komponent i na úrovni jazyka      |
 | **Nejlepší scénář**    | Uživatelské prvky UI, jednodušší malé aplikace | Rozsáhlé textové strany a vícejazyčné celky |
+
+## Analyzujte svůj bundle
+
+Analýza bundlu je nejpřímější cestou k odhalení „těžkých“ JSON souborů a příležitostí k rozdělení kódu (code-splitting). Tyto nástroje generují vizuální stromovou mapu kompilovaného kódu vaší aplikace, což vám umožňuje přesně vidět, které knihovny zabírají nejvíce místa.
+
+<Tabs>
+ <Tab value="vite">
+
+### Vite / Rollup
+
+Vite využívá Rollup na pozadí. Plugin `rollup-plugin-visualizer` vygeneruje interaktivní HTML soubor zobrazující velikost každého modulu ve vašem grafu.
+
+```bash
+npm install -D rollup-plugin-visualizer
+```
+
+```typescript fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import { visualizer } from "rollup-plugin-visualizer";
+
+export default defineConfig({
+  plugins: [
+    visualizer({
+      open: true, // Automaticky otevře report ve vašem prohlížeči
+      filename: "stats.html",
+      gzipSize: true,
+      brotliSize: true,
+    }),
+  ],
+});
+```
+
+ </Tab>
+ <Tab value="nextjs (turbopack)">
+
+### Next.js (Turbopack)
+
+Pro projekty využívající App Router a Turbopack poskytuje Next.js vestavěný experimentální analyzátor, který nevyžaduje žádné další závislosti.
+
+```bash packageManager='npm'
+npx next experimental-analyze
+```
+
+```bash packageManager='yarn'
+yarn next experimental-analyze
+```
+
+```bash packageManager='pnpm'
+pnpm next experimental-analyze
+```
+
+```bash packageManager='bun'
+bun next experimental-analyze
+```
+
+ </Tab>
+ <Tab value="nextjs (Webpack)">
+
+### Next.js (Webpack)
+
+Pokud používáte výchozí Webpack bundler v Next.js, použijte oficiální bundle analyzer. Spustíte jej nastavením proměnné prostředí během sestavování.
+
+```bash packageManager='npm'
+npm install -D @next/bundle-analyzer
+```
+
+```bash packageManager='yarn'
+yarn add -D @next/bundle-analyzer
+```
+
+```bash packageManager='pnpm'
+pnpm add -D @next/bundle-analyzer
+```
+
+```bash packageManager='bun'
+bun add -d @next/bundle-analyzer
+```
+
+```javascript fileName="next.config.js"
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+  enabled: process.env.ANALYZE === "true",
+});
+
+module.exports = withBundleAnalyzer({
+  // Vaše konfigurace Next.js
+});
+```
+
+**Použití:**
+
+```bash
+ANALYZE=true npm run build
+```
+
+ </Tab>
+ <Tab value="Webpack (CRA / Angular / etc)">
+
+### Standardní Webpack
+
+Pro Create React App (ejected), Angular nebo vlastní konfigurace Webpack použijte průmyslový standard `webpack-bundle-analyzer`.
+
+```bash packageManager='npm'
+npm install -D webpack-bundle-analyzer
+```
+
+```bash packageManager='yarn'
+yarn add -D webpack-bundle-analyzer
+```
+
+```bash packageManager='pnpm'
+pnpm add -D webpack-bundle-analyzer
+```
+
+```bash packageManager='bun'
+bun add -d webpack-bundle-analyzer
+```
+
+```typescript fileName="webpack.config.ts"
+import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
+
+export default {
+  plugins: [
+    new BundleAnalyzerPlugin({
+      analyzerMode: "static",
+      reportFilename: "bundle-analyzer.html",
+      openAnalyzer: false,
+    }),
+  ],
+};
+```
+
+ </Tab>
+</Tabs>
