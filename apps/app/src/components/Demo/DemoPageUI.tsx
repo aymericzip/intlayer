@@ -56,6 +56,8 @@ export const DemoPageUI = ({ autoBootstrap }: DemoPageUIProps) => {
         padding="xl"
         roundedSize="3xl"
         transparency="xs"
+        border
+        borderColor="neutral"
       >
         {isAuthenticated ? (
           <>
