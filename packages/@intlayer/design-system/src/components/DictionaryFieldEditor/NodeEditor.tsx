@@ -26,7 +26,7 @@ import { getIsEditableSection } from './getIsEditableSection';
 import { KeyPathBreadcrumb } from './KeyPathBreadcrumb';
 import { NavigationViewNode } from './NavigationView/NavigationViewNode';
 
-type NodeEditorProps = {
+export type NodeEditorProps = {
   dictionary: Dictionary;
 };
 
@@ -38,7 +38,7 @@ const formatVariant = (
     ? JSON.stringify(variant)
     : (variant ?? '');
 
-export const ContentEditor: FC<NodeEditorProps> = ({ dictionary }) => {
+export const NodeEditor: FC<NodeEditorProps> = ({ dictionary }) => {
   const { itemPagination, variantSwitcher } = useIntlayer('content-editor');
   const { editedContent } = useEditedContent();
   const {

@@ -14,9 +14,9 @@ import { useIntlayer } from 'react-intlayer';
 import { Button } from '../Button';
 import { LocaleSwitcherContentProvider } from '../LocaleSwitcherContentDropDown';
 import { TabSelector } from '../TabSelector';
-import { ContentEditor } from './ContentEditor';
 import { DictionaryDetailsForm } from './DictionaryDetails/DictionaryDetailsForm';
 import { JSONEditor } from './JSONEditor';
+import { NodeEditor } from './NodeEditor';
 import { SaveForm } from './SaveForm/SaveForm';
 import { StructureEditor } from './StructureEditor';
 
@@ -138,7 +138,7 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
                 <StructureEditor dictionary={dictionary} />
               )}
               {activeTab === 'content' && (
-                <ContentEditor dictionary={dictionary} />
+                <NodeEditor dictionary={dictionary} />
               )}
               {activeTab === 'json' && (
                 <JSONEditor dictionary={dictionary} isDarkMode={isDarkMode} />
