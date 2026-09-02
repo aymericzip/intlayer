@@ -52,4 +52,29 @@ describe('MarkdownEditor extensions', () => {
     expect(container.querySelector('h2')?.textContent).toBe('Hello');
     expect(container.querySelector('strong')?.textContent).toBe('bold');
   });
+
+  it('parses and serializes code blocks with shiki extension', () => {
+    const codeFixture = [
+      '```typescript',
+      'const greeting: string = "hello world";',
+      '```',
+    ].join('\n');
+
+    const editor = new Editor({
+      content: codeFixture,
+      extensions: defaultExtensions,
+    });
+
+    const html = editor.getHTML();
+    expect(html).toContain('<pre');
+    expect(html).toContain('<code');
+
+    const serializedMarkdown = editor.storage.markdown.getMarkdown() as string;
+    expect(serializedMarkdown).toContain('```typescript');
+    expect(serializedMarkdown).toContain(
+      'const greeting: string = "hello world";'
+    );
+
+    editor.destroy();
+  });
 });

@@ -60,6 +60,7 @@ const Horizontal = HorizontalRule.extend({
 });
 
 export * from './ai-highlight';
+export * from './code-block-shiki';
 export * from './slash-command';
 export {
   CharacterCount,

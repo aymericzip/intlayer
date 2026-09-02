@@ -1,8 +1,8 @@
 import { cx } from 'class-variance-authority';
-import { CodeBlockShiki } from 'tiptap-extension-code-block-shiki';
 import {
   AIHighlight,
   CharacterCount,
+  CodeBlockShiki,
   Color,
   CustomKeymap,
   GlobalDragHandle,

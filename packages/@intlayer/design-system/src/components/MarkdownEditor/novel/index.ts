@@ -19,6 +19,8 @@ export {
   AIHighlight,
   addAIHighlight,
   CharacterCount,
+  CodeBlockShiki,
+  type CodeBlockShikiOptions,
   Color,
   Command,
   CustomKeymap,
