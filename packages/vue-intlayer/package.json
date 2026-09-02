@@ -109,7 +109,7 @@
     "@intlayer/types": "workspace:*"
   },
   "devDependencies": {
-    "@types/node": "26.4.0",
+    "@types/node": "26.4.1",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
@@ -120,7 +120,7 @@
     "tsdown": "0.22.14",
     "typescript": "7.0.2",
     "vite": "8.2.2",
-    "vite-plugin-dts": "5.0.3",
+    "vite-plugin-dts": "5.1.0",
     "vitest": "4.1.11",
     "vue-tsc": "3.3.9"
   },

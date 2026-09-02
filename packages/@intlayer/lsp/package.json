@@ -90,12 +90,12 @@
     "@intlayer/engine": "workspace:*",
     "@intlayer/types": "workspace:*",
     "@intlayer/unmerged-dictionaries-entry": "workspace:*",
-    "oxc-parser": "0.147.0",
-    "vscode-languageserver": "10.1.0",
+    "oxc-parser": "0.148.0",
+    "vscode-languageserver": "10.1.1",
     "vscode-languageserver-textdocument": "1.0.14"
   },
   "devDependencies": {
-    "@types/node": "26.4.0",
+    "@types/node": "26.4.1",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",

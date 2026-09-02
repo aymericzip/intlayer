@@ -83,7 +83,7 @@
   "devDependencies": {
     "@angular-eslint/template-parser": "22.1.0",
     "@types/estree": "1.0.9",
-    "@types/node": "26.4.0",
+    "@types/node": "26.4.1",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",

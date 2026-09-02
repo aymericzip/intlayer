@@ -19,7 +19,7 @@
   "devDependencies": {
     "@types/cookie-parser": "1.4.9",
     "@types/express": "5.0.6",
-    "@types/node": "26.4.0",
+    "@types/node": "26.4.1",
     "@utils/ts-config": "workspace:*",
     "typescript": "6.0.3"
   }

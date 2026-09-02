@@ -72,19 +72,19 @@
     "typecheck": "tsc --noEmit --project tsconfig.types.json"
   },
   "dependencies": {
-    "@ai-sdk/anthropic": "4.0.45",
-    "@ai-sdk/openai": "4.0.51",
+    "@ai-sdk/anthropic": "4.0.47",
+    "@ai-sdk/openai": "4.0.55",
     "@intlayer/api": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/types": "workspace:*",
     "@toon-format/toon": "4.1.1",
-    "ai": "7.0.84",
+    "ai": "7.0.89",
     "zod": "4.5.4"
   },
   "devDependencies": {
     "@openrouter/ai-sdk-provider": "3.0.0",
-    "@types/node": "26.4.0",
+    "@types/node": "26.4.1",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",

@@ -122,8 +122,8 @@
   "devDependencies": {
     "@solidjs/testing-library": "0.8.10",
     "@testing-library/jest-dom": "7.0.1",
-    "@testing-library/user-event": "14.6.4",
-    "@types/node": "26.4.0",
+    "@testing-library/user-event": "14.6.6",
+    "@types/node": "26.4.1",
     "@typescript/typescript6": "^6.0.2",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
@@ -133,7 +133,7 @@
     "tsdown": "0.22.14",
     "typescript": "7.0.2",
     "vite": "8.2.2",
-    "vite-plugin-dts": "5.0.3",
+    "vite-plugin-dts": "5.1.0",
     "vite-plugin-solid": "2.11.14",
     "vitest": "4.1.11"
   },

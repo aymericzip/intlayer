@@ -80,7 +80,7 @@
     "@babel/core": "8.0.1",
     "@intlayer/types": "workspace:*",
     "fast-glob": "3.3.3",
-    "magic-string": "1.1.0"
+    "magic-string": "1.2.3"
   },
   "devDependencies": {
     "@intlayer/config": "workspace:*",
@@ -88,7 +88,7 @@
     "@types/babel__core": "7.20.5",
     "@types/babel__generator": "7.27.0",
     "@types/babel__traverse": "7.28.0",
-    "@types/node": "26.4.0",
+    "@types/node": "26.4.1",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",

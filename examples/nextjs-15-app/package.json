@@ -24,7 +24,7 @@
   "devDependencies": {
     "@next/bundle-analyzer": "15.5.18",
     "@tailwindcss/postcss": "4.3.3",
-    "@types/node": "26.4.0",
+    "@types/node": "26.4.1",
     "@types/react": "19.2.18",
     "@types/react-dom": "19.2.5",
     "intlayer-editor": "workspace:*",
