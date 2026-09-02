@@ -8,7 +8,6 @@
  */
 
 import type { IncomingMessage, ServerResponse } from 'node:http';
-import { parse } from 'node:url';
 import { ROUTING_MODE } from '@intlayer/config/defaultValues';
 import {
   getCanonicalPath,
@@ -99,6 +98,29 @@ const encodePathname = (path: string): string => {
   const search = queryIndex === -1 ? '' : path.slice(queryIndex);
 
   return `${encodeURI(pathname)}${search}`;
+};
+
+/**
+ * Splits a raw request target (`req.url`) into its pathname and search string.
+ *
+ * Replaces the deprecated `url.parse`, and unlike `new URL(requestUrl, base)`
+ * it never reinterprets the leading `//` of a request target as an authority,
+ * so `//example.com/page` stays the pathname it was sent as. The fragment is
+ * dropped first — a browser never sends one, but a hand-written request may.
+ */
+const splitRequestTarget = (
+  requestUrl: string
+): { pathname: string; search: string } => {
+  const hashIndex = requestUrl.indexOf('#');
+  const target = hashIndex === -1 ? requestUrl : requestUrl.slice(0, hashIndex);
+  const queryIndex = target.indexOf('?');
+
+  return queryIndex === -1
+    ? { pathname: target, search: '' }
+    : {
+        pathname: target.slice(0, queryIndex),
+        search: target.slice(queryIndex),
+      };
 };
 
 /**
@@ -971,11 +993,11 @@ export const createProxyHandler = (
 
   return (req, res, next) => {
     // Parse original URL for path and query
-    const parsedUrl = parse(req.url ?? '/', true);
+    const { pathname, search } = splitRequestTarget(req.url ?? '/');
     // Decoded so the rewrite rules — written with the locale's own characters —
     // match; `rewriteUrl` re-encodes whatever is written back to `req.url`.
-    const originalPath = decodePathname(parsedUrl.pathname ?? '/');
-    const searchParams = parsedUrl.search ?? '';
+    const originalPath = decodePathname(pathname || '/');
+    const searchParams = search;
 
     // Check if there's a locale prefix in the path FIRST
     const pathLocale = getPathLocale(originalPath);
