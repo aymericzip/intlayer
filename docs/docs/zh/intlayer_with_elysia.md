@@ -29,7 +29,7 @@ author: aymericzip
 
 `elysia-intlayer` 是一个强大的国际化 (i18n) 插件，为 Elysia 应用程序设计，旨在通过根据客户端偏好提供本地化响应，使您的后端服务全球可访问。
 
-> 在 GitHub 上查看包实现：https://github.com/aymericzip/intlayer/tree/main/packages/elysia-intlayer
+> 在 GitHub 上[查看包实现](https://github.com/aymericzip/intlayer/tree/main/packages/elysia-intlayer)。
 
 ### 实际应用场景
 

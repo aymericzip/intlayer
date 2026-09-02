@@ -29,7 +29,7 @@ author: aymericzip
 
 `elysia-intlayer` هو plugin قوي للتدويل (i18n) لتطبيقات Elysia، مصمم لجعل خدماتك الخلفية في متناول العالم من خلال توفير استجابات محلية بناءً على تفضيلات العميل.
 
-> اطلع على تنفيذ الحزمة على GitHub: https://github.com/aymericzip/intlayer/tree/main/packages/elysia-intlayer
+> اطلع على [تنفيذ الحزمة على GitHub](https://github.com/aymericzip/intlayer/tree/main/packages/elysia-intlayer).
 
 ### حالات الاستخدام العملية
 

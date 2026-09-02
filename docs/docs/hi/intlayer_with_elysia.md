@@ -29,7 +29,7 @@ author: aymericzip
 
 `elysia-intlayer` Elysia अनुप्रयोगों के लिए एक शक्तिशाली अंतर्राष्ट्रीयकरण (i18n) प्लगइन है, जो आपकी backend services को विश्व स्तर पर सुलभ बनाने के लिए डिज़ाइन किया गया है, जो क्लाइंट की प्राथमिकताओं के आधार पर स्थानीयकृत responses प्रदान करके।
 
-> GitHub पर package कार्यान्वयन देखें: https://github.com/aymericzip/intlayer/tree/main/packages/elysia-intlayer
+> GitHub पर [package कार्यान्वयन देखें](https://github.com/aymericzip/intlayer/tree/main/packages/elysia-intlayer)।
 
 ### व्यावहारिक उपयोग के मामले
 

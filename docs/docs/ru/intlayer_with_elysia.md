@@ -29,7 +29,7 @@ author: aymericzip
 
 `elysia-intlayer` — это мощный плагин интернационализации (i18n) для приложений Elysia, разработанный для того, чтобы сделать ваши backend-сервисы доступными во всём мире, предоставляя локализованные ответы на основе предпочтений клиента.
 
-> Смотрите реализацию пакета на GitHub: https://github.com/aymericzip/intlayer/tree/main/packages/elysia-intlayer
+> Смотрите [реализацию пакета на GitHub](https://github.com/aymericzip/intlayer/tree/main/packages/elysia-intlayer).
 
 ### Практические примеры использования
 

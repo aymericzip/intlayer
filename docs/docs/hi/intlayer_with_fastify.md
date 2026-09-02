@@ -32,7 +32,7 @@ author: aymericzip
 
 `fastify-intlayer` Fastify अनुप्रयोगों के लिए एक शक्तिशाली अंतर्राष्ट्रीयकरण (i18n) प्लगइन है, जिसे क्लाइंट की प्राथमिकताओं के आधार पर स्थानीयकृत प्रतिक्रियाएं प्रदान करके आपकी बैकएंड सेवाओं को विश्व स्तर पर सुलभ बनाने के लिए डिज़ाइन किया गया है।
 
-> GitHub पर पैकेज कार्यान्वयन देखें: https://github.com/aymericzip/intlayer/tree/main/packages/fastify-intlayer
+> GitHub पर [पैकेज कार्यान्वयन देखें](https://github.com/aymericzip/intlayer/tree/main/packages/fastify-intlayer)।
 
 ### व्यावहारिक उपयोग के मामले
 

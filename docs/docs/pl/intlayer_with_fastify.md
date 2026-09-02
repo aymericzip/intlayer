@@ -32,7 +32,7 @@ author: aymericzip
 
 `fastify-intlayer` to potężna wtyczka do umiędzynarodowienia (i18n) dla aplikacji Fastify, zaprojektowana, aby uczynić Twoje usługi backendowe dostępnymi globalnie poprzez dostarczanie zlokalizowanych odpowiedzi na podstawie preferencji klienta.
 
-> Zobacz implementację pakietu na GitHub: https://github.com/aymericzip/intlayer/tree/main/packages/fastify-intlayer
+> Zobacz [implementację pakietu na GitHub](https://github.com/aymericzip/intlayer/tree/main/packages/fastify-intlayer).
 
 ### Praktyczne przypadki użycia
 

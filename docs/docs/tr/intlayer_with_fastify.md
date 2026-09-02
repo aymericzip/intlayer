@@ -32,7 +32,7 @@ author: aymericzip
 
 `fastify-intlayer`, Fastify uygulamaları için güçlü bir uluslararasılaştırma (i18n) eklentisidir ve istemcinin tercihlerine göre yerelleştirilmiş yanıtlar sağlayarak backend hizmetlerinizi küresel olarak erişilebilir kılmak için tasarlanmıştır.
 
-> GitHub'daki paket uygulamasını inceleyin: https://github.com/aymericzip/intlayer/tree/main/packages/fastify-intlayer
+> GitHub'daki [paket uygulamasını inceleyin](https://github.com/aymericzip/intlayer/tree/main/packages/fastify-intlayer).
 
 ### Pratik Kullanım Durumları
 

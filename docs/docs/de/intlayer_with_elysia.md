@@ -29,7 +29,7 @@ author: aymericzip
 
 `elysia-intlayer` ist ein leistungsstarkes Internationalisierungs-(i18n-)Plugin für Elysia-Anwendungen, das Ihre Backend-Dienste global zugänglich macht, indem es lokalisierte Antworten basierend auf den Voreinstellungen des Clients bereitstellt.
 
-> Siehe Package-Implementierung auf GitHub: https://github.com/aymericzip/intlayer/tree/main/packages/elysia-intlayer
+> Siehe [Package-Implementierung auf GitHub](https://github.com/aymericzip/intlayer/tree/main/packages/elysia-intlayer).
 
 ### Praktische Anwendungsfälle
 

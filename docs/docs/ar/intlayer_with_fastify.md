@@ -32,7 +32,7 @@ author: aymericzip
 
 `fastify-intlayer` هو ملحق (plugin) قوي للتدويل (i18n) لتطبيقات Fastify، مصمم لجعل خدمات الـ backend الخاصة بك متاحة عالميًا من خلال تقديم استجابات محلية حسب تفضيلات العميل.
 
-> شاهد تنفيذ الحزمة على GitHub: https://github.com/aymericzip/intlayer/tree/main/packages/fastify-intlayer
+> شاهد [تنفيذ الحزمة على GitHub](https://github.com/aymericzip/intlayer/tree/main/packages/fastify-intlayer).
 
 ### حالات استخدام عملية
 

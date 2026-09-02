@@ -32,7 +32,7 @@ author: aymericzip
 
 `fastify-intlayer`는 Fastify 애플리케이션을 위한 강력한 국제화(i18n) 플러그인으로, 클라이언트의 기본 설정에 따라 현지화된 응답을 제공하여 백엔드 서비스를 전 세계에서 액세스할 수 있도록 설계되었습니다.
 
-> GitHub에서 패키지 구현 확인하기: https://github.com/aymericzip/intlayer/tree/main/packages/fastify-intlayer
+> GitHub에서 [패키지 구현 확인하기](https://github.com/aymericzip/intlayer/tree/main/packages/fastify-intlayer).
 
 ### 실제 사용 사례
 

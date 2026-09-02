@@ -32,7 +32,7 @@ author: aymericzip
 
 `fastify-intlayer` 是一个强大的 Fastify 应用程序国际化 (i18n) 插件，旨在通过根据客户端的偏好提供本地化响应，使您的后端服务在全球范围内可访问。
 
-> 在 GitHub 上查看软件包实现：https://github.com/aymericzip/intlayer/tree/main/packages/fastify-intlayer
+> 在 GitHub 上[查看软件包实现](https://github.com/aymericzip/intlayer/tree/main/packages/fastify-intlayer)。
 
 ### 实际应用场景
 

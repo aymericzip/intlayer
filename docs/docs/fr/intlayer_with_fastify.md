@@ -32,7 +32,7 @@ author: aymericzip
 
 `fastify-intlayer` est un puissant plugin d'internationalisation (i18n) pour les applications Fastify, conçu pour rendre vos services backend accessibles à l'international en fournissant des réponses localisées selon les préférences du client.
 
-> Voir l'implémentation du paquet sur GitHub : https://github.com/aymericzip/intlayer/tree/main/packages/fastify-intlayer
+> Voir [l'implémentation du paquet sur GitHub](https://github.com/aymericzip/intlayer/tree/main/packages/fastify-intlayer).
 
 ### Cas d'utilisation pratiques
 

@@ -29,7 +29,7 @@ author: aymericzip
 
 `elysia-intlayer` Elysia uygulamaları için güçlü bir uluslararasılaştırma (i18n) eklentisidir ve istemcinin tercihlerine dayalı olarak yerelleştirilmiş yanıtlar sağlayarak backend hizmetlerinizi küresel olarak erişilebilir hale getirmeye yönelik tasarlanmıştır.
 
-> GitHub'da paket uygulamasını görüntüleyin: https://github.com/aymericzip/intlayer/tree/main/packages/elysia-intlayer
+> GitHub'da [paket uygulamasını görüntüleyin](https://github.com/aymericzip/intlayer/tree/main/packages/elysia-intlayer).
 
 ### Pratik Kullanım Senaryoları
 
