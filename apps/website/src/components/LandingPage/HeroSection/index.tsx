@@ -35,7 +35,7 @@ export const HeroSection: FC = () => {
 
   return (
     <section className="relative flex min-h-[calc(100dvh-60px)] flex-col">
-      <section className="relative flex w-full flex-1 flex-col border-neutral border-b px-4 sm:px-6 md:px-8 lg:px-12">
+      <section className="relative flex w-full flex-1 flex-col px-4 sm:px-6 md:px-8 lg:px-12">
         <BackgroundLayout />
         <div className="flex flex-1 flex-col items-center justify-center py-10 sm:py-16">
           {SHOW_WHATS_NEW && (
