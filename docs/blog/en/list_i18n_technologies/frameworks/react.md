@@ -141,7 +141,7 @@ Library sizes below are from the TanStack Start benchmark, measured after bundli
 
 **`react-intl`** is the one to pick if ICU compliance matters and your translators live in a platform that speaks it. The DX is verbose: `const intl = useIntl()` then `intl.formatMessage({ id })` for every string.
 
-**Lingui** trades runtime for a compiler. `lingui extract` / `lingui compile` is an extra build step and the macro syntax has several forms (`t()`, `t\`\``, `i18n.t()`, `<Trans>`) that are easy to mix up, but the bundle result is good.
+**Lingui** trades runtime for a compiler. `lingui extract` / `lingui compile` is an extra build step and the macro syntax has several forms (`t()`, tagged templates, `i18n.t()`, `<Trans>`) that are easy to mix up, but the bundle result is good.
 
 For a feature-by-feature table, there is a dedicated [react-i18next vs react-intl vs Intlayer comparison](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/react-i18next_vs_react-intl_vs_intlayer.md).
 
@@ -234,6 +234,3 @@ On an existing `react-i18next` codebase, the [`@intlayer/react-i18next` compat a
 - [Per-component vs centralized i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/per-component_vs_centralized_i18n.md)
 - [Compiler-based vs declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/compiler_vs_declarative_i18n.md)
 - [How bundle optimization works at build time](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/bundle_optimization.md)
-</content>
-
-</invoke>
