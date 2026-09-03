@@ -272,33 +272,59 @@ Use the [Intlayer CMS](https://intlayer.org/doc/concept/cms) to let non-develope
 
 The entire toolkit is Apache 2.0.
 
-## When Does vue-i18n Still Make Sense?
+## When vue-i18n is Still the Right Choice
 
-**Established Nuxt 2/3 codebases:**
+<AccordionGroup>
+<Accordion header="Large legacy Nuxt 2/3 applications">
 
-If your routing logic is deeply integrated with `@nuxtjs/i18n`, refactoring may not be justified.
+If your routing architecture is deeply coupled to `@nuxtjs/i18n` and running stably, a rewrite may not provide an immediate return on investment.
 
-**Complex ICU formatting:**
+</Accordion>
+<Accordion header="Complex ICU formatting">
 
 If you rely extensively on linked messages, complex datetime formatters, or intricate custom plural rules.
 
-**Small hobby projects:**
+</Accordion>
+<Accordion header="Small hobby projects">
 
 If bundle size is not a constraint for your use case.
 
-## Migrating Your Vue or Nuxt App
+</Accordion>
+</AccordionGroup>
 
-**Drop-in Compatibility:**
+## How to Improve My Existing vue-i18n Setup?
 
-Keep existing templates using the [`vue-i18n` compatibility layer](https://intlayer.org/doc/compatibility/vue-i18n) or [`@nuxtjs/i18n` compatibility layer](https://intlayer.org/doc/compatibility/nuxtjs-i18n).
+Intlayer offers drop-in compatibility packages that preserve the exact function signatures of `vue-i18n` and `@nuxtjs/i18n` (`useI18n`, `$t`, `<i18n-t>`). You do not need to rewrite your templates or composables to start benefiting from a lightweight, compiler-driven architecture.
 
-**Automated Migration Guides:**
+Setup takes a single command:
 
-Convert legacy JSON files into structured dictionaries with our guides: [from vue-i18n](https://intlayer.org/doc/migration/vue-i18n) or [from @nuxtjs/i18n](https://intlayer.org/doc/migration/nuxtjs-i18n).
+```bash packageManager="npm"
+npx intlayer init --interactive
+```
 
-**Hybrid Setup:**
+```bash packageManager="pnpm"
+pnpm dlx intlayer init --interactive
+```
 
-Keep `vue-i18n` at runtime while [using Intlayer with vue-i18n](https://intlayer.org/blog/intlayer-with-vue-i18n) for local type safety and AI translation.
+```bash packageManager="yarn"
+yarn dlx intlayer init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer init --interactive
+```
+
+This interactive CLI:
+
+1. Installs the `@intlayer/vue-i18n` or `@intlayer/nuxt-i18n` compatibility package.
+2. Configures Vite or Nuxt bundler aliases so your existing imports and template usages route seamlessly to Intlayer, allowing you to remove `vue-i18n` from `package.json`.
+3. Instantly enables language server (LSP) diagnostics, eliminates the 24 KB runtime AST parser from your client bundle, and unlocks local AI translation workflows without a major refactor.
+
+For step-by-step instructions, explore our dedicated guides:
+
+- **Drop-in Compatibility:** Keep existing templates using the [`vue-i18n` compatibility layer](https://intlayer.org/doc/compatibility/vue-i18n) or [`@nuxtjs/i18n` compatibility layer](https://intlayer.org/doc/compatibility/nuxtjs-i18n).
+- **Automated Migration Guides:** Convert legacy JSON files into structured dictionaries with our guides: [from vue-i18n](https://intlayer.org/doc/migration/vue-i18n) or [from @nuxtjs/i18n](https://intlayer.org/doc/migration/nuxtjs-i18n).
+- **Hybrid Setup:** Keep `vue-i18n` at runtime while [using Intlayer alongside vue-i18n](https://intlayer.org/blog/intlayer-with-vue-i18n) for local type safety and AI translation.
 
 Scan your live website for payload and leakage with the free [i18n SEO Scanner](https://intlayer.org/i18n-seo-scanner):
 

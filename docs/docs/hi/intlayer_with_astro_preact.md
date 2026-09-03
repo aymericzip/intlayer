@@ -126,15 +126,15 @@ npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
-pnpm dlx intlayer@canary init --interactive
+pnpm dlx intlayer init --interactive
 ```
 
 ```bash packageManager="yarn"
-yarn dlx intlayer@canary init --interactive
+yarn dlx intlayer init --interactive
 ```
 
 ```bash packageManager="bun"
-bunx intlayer@canary init --interactive
+bunx intlayer init --interactive
 ```
 
 > यदि आप अपनी सामग्री का उपयोग `स्ट्रिंग` एट्रिब्यूट में करना चाहते हैं, जैसे कि `alt`, `title`, `href`, `aria-label`, आदि, तो आप फ़ंक्शन के मान का उपयोग कर सकते हैं, जैसे:

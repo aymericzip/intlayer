@@ -109,15 +109,15 @@ npx intlayer init --interactive
 ```
 
 ```bash packageManager="pnpm"
-pnpm dlx intlayer@canary init --interactive
+pnpm dlx intlayer init --interactive
 ```
 
 ```bash packageManager="yarn"
-yarn dlx intlayer@canary init --interactive
+yarn dlx intlayer init --interactive
 ```
 
 ```bash packageManager="bun"
-bunx intlayer@canary init --interactive
+bunx intlayer init --interactive
 ```
 
 > `--interactive` 플래그는 선택 사항입니다. AI 에이전트인 경우 `intlayer-cli init`를 사용하세요.

@@ -102,15 +102,15 @@ npx intlayer init --interactive
 ```
 
 ```bash packageManager="pnpm"
-pnpm dlx intlayer@canary init --interactive
+pnpm dlx intlayer init --interactive
 ```
 
 ```bash packageManager="yarn"
-yarn dlx intlayer@canary init --interactive
+yarn dlx intlayer init --interactive
 ```
 
 ```bash packageManager="bun"
-bunx intlayer@canary init --interactive
+bunx intlayer init --interactive
 ```
 
 > `--interactive` flag 是可选的。如果您是 AI agent，请使用 `intlayer-cli init`。

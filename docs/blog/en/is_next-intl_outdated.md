@@ -299,31 +299,57 @@ The entire stack is Apache 2.0.
 
 ## Where next-intl Still Fits
 
-**Complex ICU MessageFormat requirements:**
+<AccordionGroup>
+<Accordion header="Complex ICU MessageFormat requirements">
 
 If your project relies heavily on intricate plurals, select ordinals, and complex nested formatters, `next-intl`'s ICU implementation is mature and reliable.
 
-**Established Crowdin workflows:**
+</Accordion>
+<Accordion header="Established Crowdin workflows">
 
 If your team already uses Crowdin pipelines, `next-intl` slots into that workflow seamlessly.
 
-**Existing stable apps:**
+</Accordion>
+<Accordion header="Existing stable apps">
 
 If your codebase is running cleanly and client bundle sizes meet performance targets, a migration may not be necessary.
 
-## Migration and Compatibility
+</Accordion>
+</AccordionGroup>
 
-**Drop-in Compatibility:**
+## How to Improve My Existing next-intl Setup?
 
-Keep your existing `useTranslations` hooks using the [`next-intl` compatibility layer](https://intlayer.org/doc/compatibility/next-intl).
+Intlayer provides a drop-in compatibility package that preserves the exact function signatures and hooks of `next-intl` (such as `useTranslations`, `getTranslations`, and routing helpers). You do not need to rewrite your pages or components to start taking advantage of compiler-level optimizations.
 
-**Automated Migration:**
+Setup takes a single command:
 
-Convert legacy JSON files into structured dictionaries with our [next-intl migration guide](https://intlayer.org/doc/migration/next-intl).
+```bash packageManager="npm"
+npx intlayer init --interactive
+```
 
-**Hybrid Setup:**
+```bash packageManager="pnpm"
+pnpm dlx intlayer init --interactive
+```
 
-Keep `next-intl` for runtime rendering while [using Intlayer with next-intl](https://intlayer.org/blog/intlayer-with-next-intl) for local AI translation.
+```bash packageManager="yarn"
+yarn dlx intlayer init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer init --interactive
+```
+
+This interactive CLI:
+
+1. Installs the `@intlayer/next-intl` compatibility package.
+2. Configures bundler aliases so your existing imports (`next-intl`, `next-intl/server`) route directly to Intlayer, allowing you to remove the old library from `package.json`.
+3. Sets up out-of-the-box IDE language server (LSP) diagnostics, build-time tree-shaking (eliminating cross-route translation leakage), and local AI translation workflows without a large refactor.
+
+For step-by-step instructions, explore our dedicated guides:
+
+- **Drop-in Compatibility:** Keep your existing code using the [`next-intl` compatibility layer](https://intlayer.org/doc/compatibility/next-intl).
+- **Automated Migration:** Convert legacy JSON files into structured dictionaries with our [next-intl migration guide](https://intlayer.org/doc/migration/next-intl).
+- **Hybrid Setup:** Keep `next-intl` for runtime rendering while [using Intlayer alongside next-intl](https://intlayer.org/blog/intlayer-with-next-intl) for local AI translation.
 
 Check your live Next.js application's payload and leakage with the free [i18n SEO Scanner](https://intlayer.org/i18n-seo-scanner):
 
