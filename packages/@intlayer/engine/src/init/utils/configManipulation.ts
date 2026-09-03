@@ -219,6 +219,66 @@ export const enableIntlayerEditorConfig = (content: string): string => {
   return recast.print(ast).code;
 };
 
+/**
+ * True when `statement` is one of the module's own import statements —
+ * `import … from '…'` in ESM, `const … = require('…')` in CJS.
+ */
+const isImportStatement = (statement: any, isCJS: boolean): boolean => {
+  if (!isCJS) return n.ImportDeclaration.check(statement);
+
+  return (
+    n.VariableDeclaration.check(statement) &&
+    statement.declarations.some(
+      (declarator: any) =>
+        n.VariableDeclarator.check(declarator) &&
+        n.CallExpression.check(declarator.init) &&
+        n.Identifier.check(declarator.init.callee) &&
+        declarator.init.callee.name === 'require'
+    )
+  );
+};
+
+/**
+ * Adds `declaration` to the top of the module, after the leading import block
+ * so the injected import is grouped with the existing ones.
+ *
+ * Unshifting blindly would push the file's leading comments down one
+ * statement, which silently disables directives that only apply on the first
+ * line — `// @ts-check`, present in the config Astro and Vite scaffold.
+ */
+const insertImportDeclaration = (
+  ast: any,
+  isCJS: boolean,
+  declaration: any
+): void => {
+  const body = ast.program.body;
+
+  let insertionIndex = 0;
+  while (
+    insertionIndex < body.length &&
+    isImportStatement(body[insertionIndex], isCJS)
+  ) {
+    insertionIndex++;
+  }
+
+  // No import to group with: keep the file's leading comments on the first
+  // line by moving them onto the injected statement.
+  if (insertionIndex === 0 && body.length > 0) {
+    const leadingComments = (body[0].comments ?? []).filter(
+      (comment: any) => comment.leading
+    );
+
+    if (leadingComments.length > 0) {
+      body[0].comments = (body[0].comments ?? []).filter(
+        (comment: any) => !comment.leading
+      );
+      declaration.comments = leadingComments;
+    }
+  }
+
+  body.splice(insertionIndex, 0, declaration);
+};
+
 const injectImport = (
   ast: any,
   isCJS: boolean,
@@ -272,7 +332,7 @@ const injectImport = (
         b.stringLiteral(source)
       );
 
-  ast.program.body.unshift(declaration);
+  insertImportDeclaration(ast, isCJS, declaration);
 };
 
 const updatePluginArray = (

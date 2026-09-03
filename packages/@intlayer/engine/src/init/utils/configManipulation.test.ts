@@ -6,6 +6,7 @@ import {
   replaceViteConfigPluginImportSource,
   setIntlayerConfigCompilerOutput,
   setIntlayerConfigRoutingMode,
+  updateAstroConfig,
   updateIntlayerConfigWithSyncPlugin,
   updateMetroConfig,
   updateNextConfig,
@@ -161,6 +162,76 @@ module.exports = {
       expect(updated).not.toContain(
         'const { intlayer } = require("vite-intlayer");\nconst { intlayer }'
       );
+    });
+  });
+
+  describe('updateAstroConfig', () => {
+    it('adds the named integration import and call', () => {
+      const content = `import { defineConfig } from 'astro/config';
+import react from '@astrojs/react';
+
+export default defineConfig({
+  integrations: [react()],
+});
+`;
+      const updated = updateAstroConfig(content, 'mjs');
+
+      expect(updated).toContain('import { intlayer } from "astro-intlayer";');
+      expect(updated).toContain('integrations: [react(), intlayer()]');
+    });
+
+    it('creates the integrations array when the config has none', () => {
+      const content = `import { defineConfig } from 'astro/config';
+
+export default defineConfig({});
+`;
+      const updated = updateAstroConfig(content, 'mjs');
+
+      expect(updated).toContain('integrations: [intlayer()]');
+    });
+
+    it('keeps the // @ts-check directive on the first line', () => {
+      const content = `// @ts-check
+import { defineConfig } from 'astro/config';
+import react from '@astrojs/react';
+
+export default defineConfig({
+  integrations: [react()],
+});
+`;
+      const updated = updateAstroConfig(content, 'mjs');
+
+      // The directive only applies when it is the first line of the file, so
+      // the injected import must never be placed above it.
+      expect(updated.split('\n')[0]).toBe('// @ts-check');
+      expect(updated).toContain('import { intlayer } from "astro-intlayer";');
+    });
+
+    it('keeps the // @ts-check directive when the config has no import', () => {
+      const content = `// @ts-check
+export default {
+  integrations: [],
+};
+`;
+      const updated = updateAstroConfig(content, 'mjs');
+
+      expect(updated.split('\n')[0]).toBe('// @ts-check');
+      expect(updated).toContain('import { intlayer } from "astro-intlayer";');
+      expect(updated).toContain('integrations: [intlayer()]');
+    });
+
+    it('does not add a second import when one is already present', () => {
+      const content = `import { defineConfig } from 'astro/config';
+import { intlayer } from 'astro-intlayer';
+
+export default defineConfig({
+  integrations: [intlayer()],
+});
+`;
+      const updated = updateAstroConfig(content, 'mjs');
+
+      expect(updated.match(/astro-intlayer/g)?.length).toBe(1);
+      expect(updated.match(/intlayer\(\)/g)?.length).toBe(1);
     });
   });
 
