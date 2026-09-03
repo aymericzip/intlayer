@@ -266,7 +266,7 @@ export const BlogNavList: FC<BlogNavListProps> = ({
               <div className="relative h-full w-80 overflow-hidden">
                 <Container
                   transparency="xs"
-                  className="z-10 m-auto pt-4"
+                  className="z-10 m-auto pt-1 lg:pt-4"
                   roundedSize="none"
                 >
                   <div className="relative m-auto flex w-full flex-row items-center justify-center gap-2 px-2">
