@@ -266,6 +266,29 @@ const blogDataContent: Dictionary = {
           }),
           default: getBlogMetadata('./blog/en/intlayer_with_vue-i18n.md'),
         },
+        'intlayer-with-i18next': {
+          title: t({
+            en: 'Automate i18next',
+            'en-GB': 'Automate i18next',
+            fr: 'Automatiser i18next',
+            es: 'Automatizar i18next',
+            de: 'Automatisieren i18next',
+            ja: 'i18nextを自動化',
+            ko: 'i18next 자동화',
+            zh: '自动化 i18next',
+            it: 'Automatizza i18next',
+            pt: 'Automatizar i18next',
+            hi: 'i18next को स्वचालित करें',
+            ar: 'أتمتة i18next',
+            uk: 'Автоматизація i18next',
+            ru: 'Автоматизировать i18next',
+            tr: 'i18next otomatikleştir',
+            pl: 'Automatyzacja i18next',
+            id: 'Automatisasi i18next',
+            vi: 'Tự động hóa i18next',
+          }),
+          default: getBlogMetadata('./blog/en/intlayer_with_i18next.md'),
+        },
       },
     },
     comparisons: {
@@ -371,118 +394,509 @@ const blogDataContent: Dictionary = {
           }),
           default: getBlogMetadata('./blog/en/is_vue-i18n_outdated.md'),
         },
+        'vue-i18n-vs-intlayer': {
+          title: 'vue-i18n vs Intlayer',
+          default: getBlogMetadata('./blog/en/vue-i18n_vs_intlayer.md'),
+        },
       },
-      // 'vue-i18n-vs-intlayer': {
-      //   title: 'vue-i18n vs Intlayer',
-      //   default: getBlogMetadata('./blog/en/vue-i18n_vs_intlayer.md'),
-      // },
     },
 
-    // 'i18n-technologies': {
-    //   title: t({
-    //     en: 'i18n Technologies',
-    //     'en-GB': 'i18n Technologies',
-    //     fr: "Technologies d'i18n",
-    //     es: 'Tecnologías de i18n',
-    //     de: 'i18n-Technologien',
-    //     ja: 'i18n テクノロジー',
-    //     ko: 'i18n 기술',
-    //     zh: 'i18n 技术',
-    //     pt: 'Tecnologias de i18n',
-    //     ru: 'Технологии i18n',
-    //     hi: 'i18n तकनीकी',
-    //     ar: 'تقنيات i18n',
-    //     it: 'Tecnologie di i18n',
-    //     tr: 'i18n Teknolojileri',
-    //     pl: 'Technologies i18n',
-    //     id: 'Technologies i18n',
-    //     vi: 'Technologies i18n',
-    //   }),
-    //   subSections: {
-    //     frameworks: {
-    //       title: t({
-    //         en: 'Frameworks',
-    //         'en-GB': 'Frameworks',
-    //         fr: 'Frameworks',
-    //         es: 'Frameworks',
-    //         de: 'Frameworks',
-    //         ja: 'フレームワーク',
-    //         ko: '프레임워크',
-    //         zh: '框架',
-    //         it: 'Frameworks',
-    //         pt: 'Frameworks',
-    //         hi: 'फ्रेमवर्क',
-    //         ar: 'الإطارات',
-    //         ru: 'Фреймворки',
-    //         tr: 'Frameworks',
-    //         pl: 'Frameworks',
-    //         id: 'Frameworks',
-    //         vi: 'Frameworks',
-    //       }),
-    //       subSections: {
-    //         angular: {
-    //           title: 'Angular',
-    //           default: getBlogMetadata(
-    //             './blog/en/list_i18n_technologies/frameworks/angular.md'
-    //           ),
-    //         },
-    //         react: {
-    //           title: 'React',
-    //           default: getBlogMetadata(
-    //             './blog/en/list_i18n_technologies/frameworks/react.md'
-    //           ),
-    //         },
-    //         vue: {
-    //           title: 'Vue',
-    //           default: getBlogMetadata(
-    //             './blog/en/list_i18n_technologies/frameworks/vue.md'
-    //           ),
-    //         },
-    //         svelte: {
-    //           title: 'Svelte',
-    //           default: getBlogMetadata(
-    //             './blog/en/list_i18n_technologies/frameworks/svelte.md'
-    //           ),
-    //         },
-    //         flutter: {
-    //           title: 'Flutter',
-    //           default: getBlogMetadata(
-    //             './blog/en/list_i18n_technologies/frameworks/flutter.md'
-    //           ),
-    //         },
-    //         'react-native': {
-    //           title: 'React Native',
-    //           default: getBlogMetadata(
-    //             './blog/en/list_i18n_technologies/frameworks/react-native.md'
-    //           ),
-    //         },
-    //       },
-    //     },
-    //     CMS: {
-    //       title: 'CMS',
-    //       subSections: {
-    //         wordpress: {
-    //           title: 'Wordpress',
-    //           default: getBlogMetadata(
-    //             './blog/en/list_i18n_technologies/CMS/wordpress.md'
-    //           ),
-    //         },
-    //         drupal: {
-    //           title: 'Drupal',
-    //           default: getBlogMetadata(
-    //             './blog/en/list_i18n_technologies/CMS/drupal.md'
-    //           ),
-    //         },
-    //         wix: {
-    //           title: 'Wix',
-    //           default: getBlogMetadata(
-    //             './blog/en/list_i18n_technologies/CMS/wix.md'
-    //           ),
-    //         },
-    //       },
-    //     },
-    //   },
-    // },
+    'i18n-technologies': {
+      title: t({
+        en: 'i18n Technologies',
+        'en-GB': 'i18n Technologies',
+        fr: 'Technologies i18n',
+        es: 'Tecnologías i18n',
+        de: 'i18n-Technologien',
+        ja: 'i18n テクノロジー',
+        ko: 'i18n 기술',
+        zh: 'i18n 技术',
+        it: 'Tecnologie i18n',
+        pt: 'Tecnologias i18n',
+        hi: 'i18n तकनीकें',
+        ar: 'تقنيات i18n',
+        ru: 'Технологии i18n',
+        tr: 'i18n Teknolojileri',
+        pl: 'Technologie i18n',
+        id: 'Teknologi i18n',
+        vi: 'Công nghệ i18n',
+        uk: 'Технології i18n',
+      }),
+      subSections: {
+        frameworks: {
+          title: t({
+            en: 'Frameworks',
+            'en-GB': 'Frameworks',
+            fr: 'Frameworks',
+            es: 'Frameworks',
+            de: 'Frameworks',
+            ja: 'フレームワーク',
+            ko: '프레임워크',
+            zh: '框架',
+            it: 'Framework',
+            pt: 'Frameworks',
+            hi: 'फ्रेमवर्क',
+            ar: 'أطر العمل',
+            ru: 'Фреймворки',
+            tr: 'Frameworkler',
+            pl: 'Frameworki',
+            id: 'Framework',
+            vi: 'Framework',
+            uk: 'Фреймворки',
+          }),
+          subSections: {
+            nextjs: {
+              title: 'Next.js',
+              default: getBlogMetadata(
+                './blog/en/list_i18n_technologies/frameworks/nextjs.md'
+              ),
+            },
+            react: {
+              title: 'React',
+              default: getBlogMetadata(
+                './blog/en/list_i18n_technologies/frameworks/react.md'
+              ),
+            },
+            'react-router': {
+              title: 'React Router',
+              default: getBlogMetadata(
+                './blog/en/list_i18n_technologies/frameworks/react-router.md'
+              ),
+            },
+            'tanstack-start': {
+              title: 'TanStack Start',
+              default: getBlogMetadata(
+                './blog/en/list_i18n_technologies/frameworks/tanstack-start.md'
+              ),
+            },
+            'react-native': {
+              title: 'React Native',
+              default: getBlogMetadata(
+                './blog/en/list_i18n_technologies/frameworks/react-native.md'
+              ),
+            },
+            vue: {
+              title: 'Vue',
+              default: getBlogMetadata(
+                './blog/en/list_i18n_technologies/frameworks/vue.md'
+              ),
+            },
+            nuxt: {
+              title: 'Nuxt',
+              default: getBlogMetadata(
+                './blog/en/list_i18n_technologies/frameworks/nuxt.md'
+              ),
+            },
+            svelte: {
+              title: 'Svelte',
+              default: getBlogMetadata(
+                './blog/en/list_i18n_technologies/frameworks/svelte.md'
+              ),
+            },
+            sveltekit: {
+              title: 'SvelteKit',
+              default: getBlogMetadata(
+                './blog/en/list_i18n_technologies/frameworks/sveltekit.md'
+              ),
+            },
+            angular: {
+              title: 'Angular',
+              default: getBlogMetadata(
+                './blog/en/list_i18n_technologies/frameworks/angular.md'
+              ),
+            },
+            solid: {
+              title: 'Solid',
+              default: getBlogMetadata(
+                './blog/en/list_i18n_technologies/frameworks/solid.md'
+              ),
+            },
+            astro: {
+              title: 'Astro',
+              default: getBlogMetadata(
+                './blog/en/list_i18n_technologies/frameworks/astro.md'
+              ),
+            },
+          },
+        },
+        'build-tools': {
+          title: t({
+            en: 'Build tools',
+            'en-GB': 'Build tools',
+            fr: 'Outils de build',
+            es: 'Herramientas de build',
+            de: 'Build-Tools',
+            ja: 'ビルドツール',
+            ko: '빌드 도구',
+            zh: '构建工具',
+            it: 'Strumenti di build',
+            pt: 'Ferramentas de build',
+            hi: 'बिल्ड टूल्स',
+            ar: 'أدوات البناء',
+            ru: 'Инструменты сборки',
+            tr: 'Build araçları',
+            pl: 'Narzędzia build',
+            id: 'Build tools',
+            vi: 'Công cụ build',
+            uk: 'Інструменти збірки',
+          }),
+          subSections: {
+            vite: {
+              title: 'Vite',
+              default: getBlogMetadata(
+                './blog/en/list_i18n_technologies/build-tools/vite.md'
+              ),
+            },
+          },
+        },
+      },
+    },
+
+    concepts: {
+      title: t({
+        en: 'Concepts',
+        'en-GB': 'Concepts',
+        fr: 'Concepts',
+        es: 'Conceptos',
+        de: 'Konzepte',
+        ja: 'コンセプト',
+        ko: '개념',
+        zh: '概念',
+        it: 'Concetti',
+        pt: 'Conceitos',
+        hi: 'अवधारणाएं',
+        ar: 'المفاهيم',
+        ru: 'Концепции',
+        tr: 'Kavramlar',
+        pl: 'Koncepcje',
+        id: 'Konsep',
+        vi: 'Khái niệm',
+        uk: 'Концепції',
+      }),
+      subSections: {
+        'i18n-meaning': {
+          title: t({
+            en: 'What does i18n mean?',
+            'en-GB': 'What does i18n mean?',
+            fr: 'Que signifie i18n ?',
+            es: '¿Qué significa i18n?',
+            de: 'Was bedeutet i18n?',
+            ja: 'i18n とは何か？',
+            ko: 'i18n은 무엇을 의미하나요?',
+            zh: 'i18n 是什么意思？',
+            it: 'Cosa significa i18n?',
+            pt: 'O que significa i18n?',
+            hi: 'i18n का क्या अर्थ है?',
+            ar: 'ماذا يعني i18n؟',
+            ru: 'Что означает i18n?',
+            tr: 'i18n ne anlama gelir?',
+            pl: 'Co oznacza i18n?',
+            id: 'Apa arti i18n?',
+            vi: 'i18n nghĩa là gì?',
+            uk: 'Що означає i18n?',
+          }),
+          default: getBlogMetadata('./blog/en/i18n_meaning.md'),
+        },
+        'icu-message-format': {
+          title: 'ICU Message Format',
+          default: getBlogMetadata('./blog/en/icu_message_format.md'),
+        },
+        'date-time-number-formatting-locales': {
+          title: t({
+            en: 'Formatting dates and numbers',
+            'en-GB': 'Formatting dates and numbers',
+            fr: 'Formater dates et nombres',
+            es: 'Formatear fechas y números',
+            de: 'Datums- und Zahlenformatierung',
+            ja: '日付と数値のフォーマット',
+            ko: '날짜와 숫자 포맷팅',
+            zh: '日期与数字格式化',
+            it: 'Formattare date e numeri',
+            pt: 'Formatar datas e números',
+            hi: 'दिनांक और संख्या स्वरूपण',
+            ar: 'تنسيق التواريخ والأرقام',
+            ru: 'Форматирование дат и чисел',
+            tr: 'Tarih ve sayı biçimlendirme',
+            pl: 'Formatowanie dat i liczb',
+            id: 'Memformat tanggal dan angka',
+            vi: 'Định dạng ngày và số',
+            uk: 'Форматування дат і чисел',
+          }),
+          default: getBlogMetadata(
+            './blog/en/date_time_number_formatting_locales.md'
+          ),
+        },
+        'per-component-vs-centralized-i18n': {
+          title: t({
+            en: 'Per-component vs centralized i18n',
+            'en-GB': 'Per-component vs centralised i18n',
+            fr: 'i18n par composant vs centralisée',
+            es: 'i18n por componente vs centralizada',
+            de: 'i18n pro Komponente vs. zentralisiert',
+            ja: 'コンポーネント単位 vs 集中管理の i18n',
+            ko: '컴포넌트별 vs 중앙집중식 i18n',
+            zh: '按组件 vs 集中式 i18n',
+            it: 'i18n per componente vs centralizzata',
+            pt: 'i18n por componente vs centralizada',
+            hi: 'प्रति-कंपोनेंट बनाम केंद्रीकृत i18n',
+            ar: 'i18n لكل مكوّن مقابل المركزية',
+            ru: 'i18n по компонентам против централизованной',
+            tr: 'Bileşen bazlı vs merkezi i18n',
+            pl: 'i18n per komponent vs scentralizowana',
+            id: 'i18n per komponen vs terpusat',
+            vi: 'i18n theo component vs tập trung',
+            uk: 'i18n покомпонентно проти централізованої',
+          }),
+          default: getBlogMetadata(
+            './blog/en/per-component_vs_centralized_i18n.md'
+          ),
+        },
+        'compiler-vs-declarative-i18n': {
+          title: t({
+            en: 'Compiler vs declarative i18n',
+            'en-GB': 'Compiler vs declarative i18n',
+            fr: 'i18n par compilateur vs déclarative',
+            es: 'i18n con compilador vs declarativa',
+            de: 'Compiler- vs. deklarative i18n',
+            ja: 'コンパイラ型 vs 宣言型 i18n',
+            ko: '컴파일러 vs 선언형 i18n',
+            zh: '编译器式 vs 声明式 i18n',
+            it: 'i18n con compilatore vs dichiarativa',
+            pt: 'i18n com compilador vs declarativa',
+            hi: 'कंपाइलर बनाम घोषणात्मक i18n',
+            ar: 'i18n بالمترجم مقابل التصريحية',
+            ru: 'Компиляторная против декларативной i18n',
+            tr: 'Derleyici vs bildirimsel i18n',
+            pl: 'i18n kompilatorowa vs deklaratywna',
+            id: 'i18n compiler vs deklaratif',
+            vi: 'i18n dùng compiler vs khai báo',
+            uk: 'Компіляторна проти декларативної i18n',
+          }),
+          default: getBlogMetadata('./blog/en/compiler_vs_declarative_i18n.md'),
+        },
+      },
+    },
+
+    quality: {
+      title: t({
+        en: 'Quality and automation',
+        'en-GB': 'Quality and automation',
+        fr: 'Qualité et automatisation',
+        es: 'Calidad y automatización',
+        de: 'Qualität und Automatisierung',
+        ja: '品質と自動化',
+        ko: '품질과 자동화',
+        zh: '质量与自动化',
+        it: 'Qualità e automazione',
+        pt: 'Qualidade e automação',
+        hi: 'गुणवत्ता और स्वचालन',
+        ar: 'الجودة والأتمتة',
+        ru: 'Качество и автоматизация',
+        tr: 'Kalite ve otomasyon',
+        pl: 'Jakość i automatyzacja',
+        id: 'Kualitas dan otomatisasi',
+        vi: 'Chất lượng và tự động hóa',
+        uk: 'Якість та автоматизація',
+      }),
+      subSections: {
+        'detecting-missing-translations': {
+          title: t({
+            en: 'Finding missing translations',
+            'en-GB': 'Finding missing translations',
+            fr: 'Trouver les traductions manquantes',
+            es: 'Encontrar traducciones faltantes',
+            de: 'Fehlende Übersetzungen finden',
+            ja: '未翻訳の検出',
+            ko: '누락된 번역 찾기',
+            zh: '查找缺失的翻译',
+            it: 'Trovare le traduzioni mancanti',
+            pt: 'Encontrar traduções ausentes',
+            hi: 'अनुपलब्ध अनुवाद खोजना',
+            ar: 'العثور على الترجمات الناقصة',
+            ru: 'Поиск недостающих переводов',
+            tr: 'Eksik çevirileri bulma',
+            pl: 'Znajdowanie brakujących tłumaczeń',
+            id: 'Menemukan terjemahan yang hilang',
+            vi: 'Tìm bản dịch còn thiếu',
+            uk: 'Пошук відсутніх перекладів',
+          }),
+          default: getBlogMetadata(
+            './blog/en/detecting_missing_translations.md'
+          ),
+        },
+        'i18n-testing-strategies': {
+          title: t({
+            en: 'Testing translations',
+            'en-GB': 'Testing translations',
+            fr: 'Tester les traductions',
+            es: 'Probar las traducciones',
+            de: 'Übersetzungen testen',
+            ja: '翻訳のテスト',
+            ko: '번역 테스트',
+            zh: '测试翻译',
+            it: 'Testare le traduzioni',
+            pt: 'Testar traduções',
+            hi: 'अनुवाद का परीक्षण',
+            ar: 'اختبار الترجمات',
+            ru: 'Тестирование переводов',
+            tr: 'Çevirileri test etme',
+            pl: 'Testowanie tłumaczeń',
+            id: 'Menguji terjemahan',
+            vi: 'Kiểm thử bản dịch',
+            uk: 'Тестування перекладів',
+          }),
+          default: getBlogMetadata('./blog/en/i18n_testing_strategies.md'),
+        },
+        'i18n-in-ci-cd-pipelines': {
+          title: t({
+            en: 'i18n in CI/CD pipelines',
+            'en-GB': 'i18n in CI/CD pipelines',
+            fr: 'i18n dans les pipelines CI/CD',
+            es: 'i18n en pipelines CI/CD',
+            de: 'i18n in CI/CD-Pipelines',
+            ja: 'CI/CD パイプラインでの i18n',
+            ko: 'CI/CD 파이프라인의 i18n',
+            zh: 'CI/CD 流水线中的 i18n',
+            it: 'i18n nelle pipeline CI/CD',
+            pt: 'i18n em pipelines CI/CD',
+            hi: 'CI/CD पाइपलाइन में i18n',
+            ar: 'i18n في خطوط CI/CD',
+            ru: 'i18n в CI/CD-пайплайнах',
+            tr: 'CI/CD süreçlerinde i18n',
+            pl: 'i18n w pipeline CI/CD',
+            id: 'i18n dalam pipeline CI/CD',
+            vi: 'i18n trong pipeline CI/CD',
+            uk: 'i18n у CI/CD-пайплайнах',
+          }),
+          default: getBlogMetadata('./blog/en/i18n_in_ci_cd_pipelines.md'),
+        },
+      },
+    },
+
+    seo: {
+      title: 'SEO',
+      subSections: {
+        'hreflang-guide-multilingual-seo': {
+          title: t({
+            en: 'hreflang guide for multilingual SEO',
+            'en-GB': 'hreflang guide for multilingual SEO',
+            fr: 'Guide hreflang pour le SEO multilingue',
+            es: 'Guía de hreflang para SEO multilingüe',
+            de: 'hreflang-Leitfaden für mehrsprachiges SEO',
+            ja: '多言語 SEO のための hreflang ガイド',
+            ko: '다국어 SEO를 위한 hreflang 가이드',
+            zh: '多语言 SEO 的 hreflang 指南',
+            it: 'Guida hreflang per la SEO multilingue',
+            pt: 'Guia hreflang para SEO multilíngue',
+            hi: 'बहुभाषी SEO के लिए hreflang गाइड',
+            ar: 'دليل hreflang لتحسين محركات البحث متعدد اللغات',
+            ru: 'Руководство по hreflang для многоязычного SEO',
+            tr: 'Çok dilli SEO için hreflang rehberi',
+            pl: 'Przewodnik hreflang dla wielojęzycznego SEO',
+            id: 'Panduan hreflang untuk SEO multibahasa',
+            vi: 'Hướng dẫn hreflang cho SEO đa ngôn ngữ',
+            uk: 'Посібник із hreflang для багатомовного SEO',
+          }),
+          default: getBlogMetadata(
+            './blog/en/hreflang_guide_multilingual_seo.md'
+          ),
+        },
+        'blog-seo-i18n-nextjs': {
+          title: t({
+            en: 'Multilingual SEO in Next.js',
+            'en-GB': 'Multilingual SEO in Next.js',
+            fr: 'SEO multilingue avec Next.js',
+            es: 'SEO multilingüe en Next.js',
+            de: 'Mehrsprachiges SEO in Next.js',
+            ja: 'Next.js の多言語 SEO',
+            ko: 'Next.js의 다국어 SEO',
+            zh: 'Next.js 多语言 SEO',
+            it: 'SEO multilingue in Next.js',
+            pt: 'SEO multilíngue no Next.js',
+            hi: 'Next.js में बहुभाषी SEO',
+            ar: 'تحسين محركات البحث متعدد اللغات في Next.js',
+            ru: 'Многоязычное SEO в Next.js',
+            tr: 'Next.js ile çok dilli SEO',
+            pl: 'Wielojęzyczne SEO w Next.js',
+            id: 'SEO multibahasa di Next.js',
+            vi: 'SEO đa ngôn ngữ trong Next.js',
+            uk: 'Багатомовне SEO у Next.js',
+          }),
+          default: getBlogMetadata(
+            './blog/en/nextjs-multilingual-seo-comparison.md'
+          ),
+        },
+      },
+    },
+
+    'l10n-platform-alternative': {
+      title: t({
+        en: 'Localization platform alternatives',
+        'en-GB': 'Localisation platform alternatives',
+        fr: 'Alternatives aux plateformes de localisation',
+        es: 'Alternativas a plataformas de localización',
+        de: 'Alternativen zu Lokalisierungsplattformen',
+        ja: 'ローカリゼーションプラットフォームの代替',
+        ko: '현지화 플랫폼 대안',
+        zh: '本地化平台替代方案',
+        it: 'Alternative alle piattaforme di localizzazione',
+        pt: 'Alternativas a plataformas de localização',
+        hi: 'लोकलाइज़ेशन प्लेटफ़ॉर्म विकल्प',
+        ar: 'بدائل منصات التوطين',
+        ru: 'Альтернативы платформам локализации',
+        tr: 'Yerelleştirme platformu alternatifleri',
+        pl: 'Alternatywy dla platform lokalizacyjnych',
+        id: 'Alternatif platform lokalisasi',
+        vi: 'Giải pháp thay thế nền tảng bản địa hóa',
+        uk: 'Альтернативи платформам локалізації',
+      }),
+      subSections: {
+        crowdin: {
+          title: 'Crowdin',
+          default: getBlogMetadata(
+            './blog/en/l10n_platform_alternative/crowdin.md'
+          ),
+        },
+        lokalise: {
+          title: 'Lokalise',
+          default: getBlogMetadata(
+            './blog/en/l10n_platform_alternative/Lokalise.md'
+          ),
+        },
+        phrase: {
+          title: 'Phrase',
+          default: getBlogMetadata(
+            './blog/en/l10n_platform_alternative/phrase.md'
+          ),
+        },
+      },
+    },
+
+    'rag-powered-documentation-assistant': {
+      title: t({
+        en: 'RAG-powered documentation assistant',
+        'en-GB': 'RAG-powered documentation assistant',
+        fr: 'Assistant de documentation basé sur le RAG',
+        es: 'Asistente de documentación basado en RAG',
+        de: 'RAG-gestützter Dokumentationsassistent',
+        ja: 'RAG を活用したドキュメントアシスタント',
+        ko: 'RAG 기반 문서 어시스턴트',
+        zh: '基于 RAG 的文档助手',
+        it: 'Assistente alla documentazione basato su RAG',
+        pt: 'Assistente de documentação com RAG',
+        hi: 'RAG-आधारित दस्तावेज़ सहायक',
+        ar: 'مساعد توثيق يعتمد على RAG',
+        ru: 'Ассистент документации на базе RAG',
+        tr: 'RAG tabanlı dokümantasyon asistanı',
+        pl: 'Asystent dokumentacji oparty na RAG',
+        id: 'Asisten dokumentasi berbasis RAG',
+        vi: 'Trợ lý tài liệu dùng RAG',
+        uk: 'Асистент документації на основі RAG',
+      }),
+      default: getBlogMetadata(
+        './blog/en/rag_powered_documentation_assistant.md'
+      ),
+    },
   },
 } satisfies Dictionary;
 
