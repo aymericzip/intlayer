@@ -376,6 +376,7 @@ export default defineConfig(async ({ mode }) => {
       "'self'",
       'intlayer.org',
       'app.intlayer.org',
+      'intlayer.cn',
       'localhost:*',
     ],
     'manifest-src': ["'self'"],
@@ -487,7 +488,7 @@ export default defineConfig(async ({ mode }) => {
       react(),
       babel({ presets: [reactCompilerPreset()] }),
       wasm(),
-      visualizer(),
+      // visualizer(),
     ],
     build: {
       minify: true,
