@@ -286,17 +286,16 @@ export const detectMissingIntlayerPackages = (
   // Core package — always required
   addIfMissing('intlayer');
 
+  const isReactNativeProject =
+    isInstalled('react-native') || isInstalled('expo');
+
   // Framework-specific runtime integrations
   if (isInstalled('next')) {
     addIfMissing('next-intlayer');
+  } else if (isReactNativeProject) {
+    addIfMissing('react-native-intlayer');
   } else if (isInstalled('react')) {
     addIfMissing('react-intlayer');
-  }
-
-  // React Native / Expo — the Metro plugin lives in react-native-intlayer,
-  // installed as a dev dependency (it is only used by the bundler).
-  if (isInstalled('react-native') || isInstalled('expo')) {
-    addDevIfMissing('react-native-intlayer');
   }
 
   if (isInstalled('svelte')) {

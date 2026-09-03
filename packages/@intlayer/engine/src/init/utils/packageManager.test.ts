@@ -293,16 +293,30 @@ describe('detectMissingIntlayerPackages', () => {
   });
 
   describe('react native / expo', () => {
-    it('installs react-native-intlayer as a dev dependency for Expo', () => {
+    it('installs react-native-intlayer as the only React runtime package', () => {
       const result = detectMissingIntlayerPackages({
         react: '^19.0.0',
         'react-native': '^0.76.0',
         expo: '^52.0.0',
       });
 
-      // react runtime integration + RN bundler plugin
-      expect(result.packagesToInstall).toContain('react-intlayer');
-      expect(result.devPackagesToInstall).toContain('react-native-intlayer');
+      // react-native-intlayer re-exports react-intlayer, so installing both
+      // would duplicate the runtime the docs tell native apps to import from.
+      expect(result.packagesToInstall).toContain('react-native-intlayer');
+      expect(result.packagesToInstall).not.toContain('react-intlayer');
+      expect(result.devPackagesToInstall).not.toContain(
+        'react-native-intlayer'
+      );
+    });
+
+    it('installs react-native-intlayer for a bare react-native project', () => {
+      const result = detectMissingIntlayerPackages({
+        react: '^19.0.0',
+        'react-native': '^0.76.0',
+      });
+
+      expect(result.packagesToInstall).toContain('react-native-intlayer');
+      expect(result.packagesToInstall).not.toContain('react-intlayer');
     });
 
     it('does not re-list an already installed react-native-intlayer', () => {
@@ -312,6 +326,7 @@ describe('detectMissingIntlayerPackages', () => {
         'react-native-intlayer': '^9.0.0',
       });
 
+      expect(result.packagesToInstall).not.toContain('react-native-intlayer');
       expect(result.devPackagesToInstall).not.toContain(
         'react-native-intlayer'
       );
