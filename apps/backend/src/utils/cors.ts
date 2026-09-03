@@ -1,18 +1,7 @@
 import type { FastifyCorsOptions } from '@fastify/cors';
 import { logger } from '@logger';
+import { isTrustedOrigin } from '@utils/trustedOrigins';
 import type { FastifyRequest } from 'fastify';
-
-/**
- * Origins that are allowed to send/receive session cookies.
- * All other origins (e.g. intlayer-editor embedded in a third-party site)
- * must authenticate via Authorization: Bearer <token> instead.
- */
-export const credentialWhitelist = (): string[] =>
-  [
-    process.env.WEBSITE_URL,
-    process.env.APP_URL,
-    process.env.SHOWCASE_URL,
-  ].filter(Boolean) as string[];
 
 /**
  * CORS configuration with a per-request delegator.
@@ -21,8 +10,12 @@ export const credentialWhitelist = (): string[] =>
  * avvio plugin loader calling our function as a factory at startup with the
  * Fastify instance instead of a request object.
  *
- * Whitelisted first-party origins → credentials: true (cookie auth works).
- * All other origins              → credentials: false (Bearer token required).
+ * Trusted first-party origins → credentials: true (cookie auth works).
+ * All other origins            → credentials: false (Bearer token required).
+ *
+ * The trust decision lives in `utils/trustedOrigins.ts`, shared with the CSRF
+ * hook so an origin can never be allowed to send cookies here yet be refused
+ * there — or the reverse.
  */
 export const corsOptions: FastifyCorsOptions = {
   delegator: (
@@ -30,12 +23,7 @@ export const corsOptions: FastifyCorsOptions = {
     cb: (err: Error | null, options: FastifyCorsOptions) => void
   ): void => {
     const origin = req.headers.origin as string | undefined;
-    const whitelist = credentialWhitelist();
-    const isWhitelisted = Boolean(
-      origin &&
-        (whitelist.includes(origin) ||
-          /^https?:\/\/(?:.*\.)?intlayer\.(?:org|cn)$/.test(origin))
-    );
+    const isWhitelisted = isTrustedOrigin(origin);
 
     if (origin && !isWhitelisted) {
       logger.info(

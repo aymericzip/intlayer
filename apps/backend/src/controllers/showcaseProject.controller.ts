@@ -18,6 +18,7 @@ import {
   type PaginatedResponse,
   type ResponseData,
 } from '@utils/responseData';
+import { beginServerSentEventStream } from '@utils/serverSentEvents';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import { t } from 'fastify-intlayer';
 import { z } from 'zod';
@@ -590,17 +591,12 @@ export const scanShowcaseProject = async (
     return;
   }
 
-  // Hijack the reply and write SSE manually
-  reply.hijack();
+  // Open the SSE stream through the shared helper, which forwards the CORS
+  // headers staged by `@fastify/cors`. Writing them by hand here reflected any
+  // origin with `Access-Control-Allow-Credentials: true`, bypassing the
+  // first-party check in `utils/cors.ts`.
+  beginServerSentEventStream(reply);
   const raw = reply.raw;
-  const origin = request.headers.origin ?? '*';
-  raw.writeHead(200, {
-    'Content-Type': 'text/event-stream',
-    'Cache-Control': 'no-cache',
-    Connection: 'keep-alive',
-    'Access-Control-Allow-Origin': origin,
-    'Access-Control-Allow-Credentials': 'true',
-  });
 
   const send = (data: Record<string, unknown>) => {
     raw.write(`data: ${JSON.stringify(data)}\n\n`);

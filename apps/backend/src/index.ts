@@ -13,6 +13,7 @@ import fastifyCors from '@fastify/cors';
 import fastifyFormbody from '@fastify/formbody';
 import fastifyHelmet from '@fastify/helmet';
 import fastifyRateLimit from '@fastify/rate-limit';
+import { csrfMiddleware } from '@middlewares/csrf.middleware';
 // Middlewares
 import {
   attachOAuthInstance,
@@ -111,6 +112,12 @@ const startServer = async () => {
 
   // Cookie Parser
   await app.register(fastifyCookie);
+
+  // CSRF: reject cookie-authenticated writes from untrusted origins.
+  // Registered before every route (including the Stripe webhook plugin and all
+  // routers below) so a forged request never reaches a handler. Bearer-token
+  // clients — CLI, intlayer-editor, OAuth2 access keys — are unaffected.
+  app.addHook('onRequest', csrfMiddleware);
 
   // Parse application/x-www-form-urlencoded
   await app.register(fastifyFormbody);
