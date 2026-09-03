@@ -92,3 +92,13 @@ export const intlayer = (): AstroIntegration =>
       },
     },
   }) satisfies AstroIntegration;
+
+/**
+ * Alias of {@link intlayer}, kept so `astro add astro-intlayer` works.
+ *
+ * Astro's CLI codemod always writes a default import
+ * (`import intlayer from 'astro-intlayer'`) without checking what the package
+ * exports, so the integration has to be reachable that way too. The named
+ * export stays the documented one.
+ */
+export default intlayer;
