@@ -59,6 +59,23 @@ const dedupeEntriesByPath = (entries: SitemapUrlEntry[]): SitemapUrlEntry[] => {
 };
 
 /**
+ * Rebuilds the locale-neutral path of a content file.
+ *
+ * `relativeUrl` is localized as it is built — `getLocalizedUrl(path, 'en')` —
+ * so it carries an `/en` prefix on every build whose default locale is not
+ * English, which is the case of the Chinese deployment. The prerender list then
+ * prefixes it a second time, baking `/en/doc/...` and `/en/en/doc/...` while no
+ * page of the default locale is prerendered at all. Deriving the path from the
+ * slugs keeps it canonical whatever the default locale of the build, which is
+ * what both consumers below expect.
+ *
+ * @param fileMetadata - Metadata of a routable documentation file.
+ * @returns The path below the site root, e.g. `/doc/environment/nextjs`.
+ */
+const toCanonicalPath = ({ slugs }: { slugs: string[] }): string =>
+  `/${slugs.join('/')}`;
+
+/**
  * Static sitemap entries shared between the sitemap route and prerender config.
  * `lastmod` is omitted here and added dynamically at call time.
  *
@@ -119,25 +136,25 @@ export async function buildSitemapEntries(): Promise<SitemapUrlEntry[]> {
   return dedupeEntriesByPath([
     ...staticSitemapEntries.map((e) => ({ ...e, lastmod: now })),
     ...legal.map((legalEl) => ({
-      path: legalEl.relativeUrl,
+      path: toCanonicalPath(legalEl),
       lastmod: toISO(legalEl.updatedAt),
       changefreq: 'monthly',
       priority: 0.1,
     })),
     ...docs.map((doc) => ({
-      path: doc.relativeUrl,
+      path: toCanonicalPath(doc),
       lastmod: toISO(doc.updatedAt),
       changefreq: 'monthly',
       priority: 1,
     })),
     ...blogs.map((blog) => ({
-      path: blog.relativeUrl,
+      path: toCanonicalPath(blog),
       lastmod: toISO(blog.updatedAt),
       changefreq: 'monthly',
       priority: 0.8,
     })),
     ...frequentQuestions.map((faq) => ({
-      path: faq.relativeUrl,
+      path: toCanonicalPath(faq),
       lastmod: toISO(faq.updatedAt),
       changefreq: 'monthly',
       priority: 0.4,
@@ -147,7 +164,8 @@ export async function buildSitemapEntries(): Promise<SitemapUrlEntry[]> {
 
 /**
  * Returns all dynamic route paths (docs, blogs, FAQ, legal) for use in vite.config.ts prerendering.
- * Paths use the default locale (no prefix) — localeFlatMap adds locale prefixes.
+ * Paths are canonical — no locale prefix — as `localeFlatMap` in
+ * `vite.config.ts` prefixes each of them once per locale.
  */
 export async function buildDynamicPrerenderPaths(): Promise<string[]> {
   const [docs, blogs, legal, frequentQuestions] = await Promise.all([
@@ -158,9 +176,9 @@ export async function buildDynamicPrerenderPaths(): Promise<string[]> {
   ]);
 
   return [
-    ...docs.map((d) => d.relativeUrl),
-    ...blogs.map((b) => b.relativeUrl),
-    ...legal.map((l) => l.relativeUrl),
-    ...frequentQuestions.map((f) => f.relativeUrl),
+    ...docs.map(toCanonicalPath),
+    ...blogs.map(toCanonicalPath),
+    ...legal.map(toCanonicalPath),
+    ...frequentQuestions.map(toCanonicalPath),
   ];
 }

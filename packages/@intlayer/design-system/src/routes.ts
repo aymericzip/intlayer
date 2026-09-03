@@ -1,10 +1,13 @@
 // ============================================================
 // Domains
 // ============================================================
-export const App_Domain = 'app.intlayer.org' as const;
-export const Website_Domain = 'intlayer.org' as const;
+export const App_Domain = ((import.meta as any).env.VITE_CMS_URL ??
+  'app.intlayer.org') as 'app.intlayer.org';
+export const Website_Domain = ((import.meta as any).env.VITE_WEBSITE_URL ??
+  'intlayer.cn') as 'intlayer.org';
 export const Showcase_Domain = 'showcase.intlayer.org' as const;
-export const Backend_Domain = 'back.intlayer.org' as const;
+export const Backend_Domain = ((import.meta as any).env.VITE_BACKEND_URL ??
+  'back.intlayer.org') as 'back.intlayer.org';
 export const Mcp_Domain = 'mcp.intlayer.org' as const;
 
 // ============================================================
