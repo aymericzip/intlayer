@@ -36,21 +36,47 @@ const fetchGithubStars = async (): Promise<number | null> => {
 };
 
 /**
- * The navbar renders on every page and every locale, while GitHub caps
- * unauthenticated callers at 60 requests an hour — one shared request per build
- * keeps the quota out of the picture. A failed attempt is deliberately not
- * memoized, so a rate-limited or timed-out call is retried by the next page
- * instead of freezing a starless navbar into the whole build.
+ * How long a fetched star count stays fresh. The number moves slowly enough
+ * that a day-old value is indistinguishable from a live one, and refreshing it
+ * more often would spend the GitHub quota on a decoration.
  */
-let pendingGithubStars: Promise<number | null> | null = null;
+const GITHUB_STARS_REVALIDATION_INTERVAL_MS = 24 * 60 * 60 * 1000;
 
-const fetchGithubStarsOnce = async (): Promise<number | null> => {
-  pendingGithubStars ??= fetchGithubStars();
+type MemoizedGithubStars = {
+  readonly stars: Promise<number | null>;
+  readonly fetchedAt: number;
+};
 
-  const stars = await pendingGithubStars;
+/**
+ * The single count the whole site reads: every page, every locale and every
+ * visitor is answered from this memo, and GitHub is called again only once it
+ * has aged past a day. GitHub caps unauthenticated callers at 60 requests an
+ * hour, so revalidating globally here — rather than per browser — keeps the
+ * quota out of the picture whatever the traffic.
+ *
+ * A failed attempt is deliberately not memoized, so a rate-limited or timed-out
+ * call is retried by the next caller instead of freezing a starless navbar into
+ * the whole build.
+ */
+let memoizedGithubStars: MemoizedGithubStars | null = null;
 
-  if (stars === null) {
-    pendingGithubStars = null;
+const fetchGithubStarsCached = async (): Promise<number | null> => {
+  const now = Date.now();
+
+  if (
+    memoizedGithubStars === null ||
+    now - memoizedGithubStars.fetchedAt >= GITHUB_STARS_REVALIDATION_INTERVAL_MS
+  ) {
+    memoizedGithubStars = { stars: fetchGithubStars(), fetchedAt: now };
+  }
+
+  const memoized = memoizedGithubStars;
+  const stars = await memoized.stars;
+
+  // Only drop the entry this call installed: a concurrent call may already have
+  // replaced it with a newer one while this request was in flight.
+  if (stars === null && memoizedGithubStars === memoized) {
+    memoizedGithubStars = null;
   }
 
   return stars;
@@ -61,7 +87,23 @@ const fetchGithubStarsOnce = async (): Promise<number | null> => {
  * `/__tsr/staticServerFnCache` while the pages are prerendered, and in
  * production the browser reads that static JSON rather than calling GitHub
  * itself.
+ *
+ * That payload is also baked into the prerendered HTML, so on its own it only
+ * changes with a deployment — {@link revalidateGithubStars} is what keeps the
+ * count current between two builds.
  */
 export const loadGithubStars = createServerFn()
   .middleware([staticFunctionMiddleware])
-  .handler(fetchGithubStarsOnce);
+  .handler(fetchGithubStarsCached);
+
+/**
+ * Runtime counterpart of {@link loadGithubStars}, deliberately without the
+ * static middleware so the call reaches the server rather than the build-time
+ * payload. The navbar calls it once per page load, and the server answers every
+ * caller from the memo above — the count a visitor sees is therefore the same
+ * one everybody else sees, refreshed once a day for the whole site rather than
+ * once per browser.
+ */
+export const revalidateGithubStars = createServerFn({
+  method: 'GET',
+}).handler(fetchGithubStarsCached);
