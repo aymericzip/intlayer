@@ -3,8 +3,22 @@ import { Container } from '@intlayer/design-system/container';
 import {
   External_Github,
   Website_Doc_Path,
+  Website_I18nextFormatter_Path,
+  Website_ICUFormatter_Path,
+  Website_MessageConverter_Path,
+  Website_POFormatter_Path,
+  Website_VueI18nFormatter_Path,
 } from '@intlayer/design-system/routes';
-import { ArrowRight, ExternalLink, Sparkles } from 'lucide-react';
+import {
+  ArrowLeftRight,
+  ArrowRight,
+  Braces,
+  Code2,
+  Columns2,
+  ExternalLink,
+  FileCode,
+  Sparkles,
+} from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { BackgroundLayout } from '~/components/BackgroundLayout';
@@ -38,6 +52,55 @@ export const MessageConverterPage: FC = () => {
           <p className="max-w-2xl text-muted-foreground text-sm leading-relaxed sm:text-base md:text-lg">
             {content.description}
           </p>
+
+          {/* Dedicated Format Editors Links */}
+          <div className="mt-2 flex flex-wrap items-center justify-center gap-2 rounded-2xl border border-border/70 bg-card/40 p-1.5 shadow-xs backdrop-blur-md">
+            <Link
+              to={Website_MessageConverter_Path}
+              label="All Formats Converter"
+              color="text"
+              className="flex items-center gap-2 rounded-xl bg-foreground px-3 py-1.5 font-semibold text-background text-xs shadow-sm"
+            >
+              <ArrowLeftRight className="size-3.5" />
+              <span>Multi-Format Converter</span>
+            </Link>
+            <Link
+              to={Website_ICUFormatter_Path}
+              label="ICU MessageFormat"
+              color="text"
+              className="flex items-center gap-2 rounded-xl px-3 py-1.5 font-semibold text-muted-foreground text-xs transition-all hover:bg-muted/60 hover:text-foreground"
+            >
+              <Braces className="size-3.5" />
+              <span>ICU Formatter</span>
+            </Link>
+            <Link
+              to={Website_I18nextFormatter_Path}
+              label="i18next Formatter"
+              color="text"
+              className="flex items-center gap-2 rounded-xl px-3 py-1.5 font-semibold text-muted-foreground text-xs transition-all hover:bg-muted/60 hover:text-foreground"
+            >
+              <Code2 className="size-3.5" />
+              <span>i18next Formatter</span>
+            </Link>
+            <Link
+              to={Website_VueI18nFormatter_Path}
+              label="Vue I18n Formatter"
+              color="text"
+              className="flex items-center gap-2 rounded-xl px-3 py-1.5 font-semibold text-muted-foreground text-xs transition-all hover:bg-muted/60 hover:text-foreground"
+            >
+              <Columns2 className="size-3.5" />
+              <span>Vue I18n Formatter</span>
+            </Link>
+            <Link
+              to={Website_POFormatter_Path}
+              label="Gettext PO Formatter"
+              color="text"
+              className="flex items-center gap-2 rounded-xl px-3 py-1.5 font-semibold text-muted-foreground text-xs transition-all hover:bg-muted/60 hover:text-foreground"
+            >
+              <FileCode className="size-3.5" />
+              <span>Gettext PO Formatter</span>
+            </Link>
+          </div>
         </section>
 
         {/* CONVERTER INTERACTIVE TOOL */}

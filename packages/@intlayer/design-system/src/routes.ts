@@ -187,6 +187,12 @@ export const Website_NotFound_Path = '/404' as const;
 export const Website_Changelog_Path = '/changelog' as const;
 export const Website_Scanner_Path = '/i18n-seo-scanner' as const;
 export const Website_MessageConverter_Path = '/i18n-message-converter' as const;
+export const Website_ICUFormatter_Path = '/icu-message-formatter' as const;
+export const Website_I18nextFormatter_Path =
+  '/i18next-message-formatter' as const;
+export const Website_VueI18nFormatter_Path =
+  '/vue-i18n-message-formatter' as const;
+export const Website_POFormatter_Path = '/po-file-message-formatter' as const;
 
 export const Website_Doc_Root_Path = '/doc' as const;
 export const Website_Doc_Path = '/doc/get-started' as const;
@@ -308,6 +314,14 @@ export const Website_Scanner =
   `https://${Website_Domain}${Website_Scanner_Path}` as const;
 export const Website_MessageConverter =
   `https://${Website_Domain}${Website_MessageConverter_Path}` as const;
+export const Website_ICUFormatter =
+  `https://${Website_Domain}${Website_ICUFormatter_Path}` as const;
+export const Website_I18nextFormatter =
+  `https://${Website_Domain}${Website_I18nextFormatter_Path}` as const;
+export const Website_VueI18nFormatter =
+  `https://${Website_Domain}${Website_VueI18nFormatter_Path}` as const;
+export const Website_POFormatter =
+  `https://${Website_Domain}${Website_POFormatter_Path}` as const;
 export const Website_Benchmark =
   `https://${Website_Domain}${Website_Benchmark_Path}` as const;
 export const Website_Benchmark_NextJS =

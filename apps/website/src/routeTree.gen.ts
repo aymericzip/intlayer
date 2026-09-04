@@ -29,9 +29,13 @@ import { Route as Char123LocaleChar125ContributorsRouteImport } from './routes/{
 import { Route as Char123LocaleChar125DemoRouteImport } from './routes/{-$locale}/demo'
 import { Route as Char123LocaleChar125I18nMessageConverterRouteImport } from './routes/{-$locale}/i18n-message-converter'
 import { Route as Char123LocaleChar125I18nSeoScannerRouteImport } from './routes/{-$locale}/i18n-seo-scanner'
+import { Route as Char123LocaleChar125I18nextMessageFormatterRouteImport } from './routes/{-$locale}/i18next-message-formatter'
+import { Route as Char123LocaleChar125IcuMessageFormatterRouteImport } from './routes/{-$locale}/icu-message-formatter'
 import { Route as Char123LocaleChar125MarkdownRouteImport } from './routes/{-$locale}/markdown'
+import { Route as Char123LocaleChar125PoFileMessageFormatterRouteImport } from './routes/{-$locale}/po-file-message-formatter'
 import { Route as Char123LocaleChar125TmsRouteImport } from './routes/{-$locale}/tms'
 import { Route as Char123LocaleChar125TranslateRouteImport } from './routes/{-$locale}/translate'
+import { Route as Char123LocaleChar125VueI18nMessageFormatterRouteImport } from './routes/{-$locale}/vue-i18n-message-formatter'
 import { Route as DotwellKnownAgentSkillsIndexDotjsonRouteImport } from './routes/[.]well-known/agent-skills/index[.]json'
 import { Route as DotwellKnownMcpServerCardDotjsonRouteImport } from './routes/[.]well-known/mcp/server-card[.]json'
 import { Route as ApiProxyAhrefsAnalyticsRouteImport } from './routes/api/proxy/ahrefs-analytics'
@@ -162,10 +166,28 @@ const Char123LocaleChar125I18nSeoScannerRoute =
     path: '/i18n-seo-scanner',
     getParentRoute: () => Char123LocaleChar125RouteRoute,
   } as any)
+const Char123LocaleChar125I18nextMessageFormatterRoute =
+  Char123LocaleChar125I18nextMessageFormatterRouteImport.update({
+    id: '/i18next-message-formatter',
+    path: '/i18next-message-formatter',
+    getParentRoute: () => Char123LocaleChar125RouteRoute,
+  } as any)
+const Char123LocaleChar125IcuMessageFormatterRoute =
+  Char123LocaleChar125IcuMessageFormatterRouteImport.update({
+    id: '/icu-message-formatter',
+    path: '/icu-message-formatter',
+    getParentRoute: () => Char123LocaleChar125RouteRoute,
+  } as any)
 const Char123LocaleChar125MarkdownRoute =
   Char123LocaleChar125MarkdownRouteImport.update({
     id: '/markdown',
     path: '/markdown',
+    getParentRoute: () => Char123LocaleChar125RouteRoute,
+  } as any)
+const Char123LocaleChar125PoFileMessageFormatterRoute =
+  Char123LocaleChar125PoFileMessageFormatterRouteImport.update({
+    id: '/po-file-message-formatter',
+    path: '/po-file-message-formatter',
     getParentRoute: () => Char123LocaleChar125RouteRoute,
   } as any)
 const Char123LocaleChar125TmsRoute = Char123LocaleChar125TmsRouteImport.update({
@@ -177,6 +199,12 @@ const Char123LocaleChar125TranslateRoute =
   Char123LocaleChar125TranslateRouteImport.update({
     id: '/translate',
     path: '/translate',
+    getParentRoute: () => Char123LocaleChar125RouteRoute,
+  } as any)
+const Char123LocaleChar125VueI18nMessageFormatterRoute =
+  Char123LocaleChar125VueI18nMessageFormatterRouteImport.update({
+    id: '/vue-i18n-message-formatter',
+    path: '/vue-i18n-message-formatter',
     getParentRoute: () => Char123LocaleChar125RouteRoute,
   } as any)
 const DotwellKnownAgentSkillsIndexDotjsonRoute =
@@ -317,9 +345,13 @@ export interface FileRoutesByFullPath {
   '/{-$locale}/demo': typeof Char123LocaleChar125DemoRoute
   '/{-$locale}/i18n-message-converter': typeof Char123LocaleChar125I18nMessageConverterRoute
   '/{-$locale}/i18n-seo-scanner': typeof Char123LocaleChar125I18nSeoScannerRoute
+  '/{-$locale}/i18next-message-formatter': typeof Char123LocaleChar125I18nextMessageFormatterRoute
+  '/{-$locale}/icu-message-formatter': typeof Char123LocaleChar125IcuMessageFormatterRoute
   '/{-$locale}/markdown': typeof Char123LocaleChar125MarkdownRoute
+  '/{-$locale}/po-file-message-formatter': typeof Char123LocaleChar125PoFileMessageFormatterRoute
   '/{-$locale}/tms': typeof Char123LocaleChar125TmsRoute
   '/{-$locale}/translate': typeof Char123LocaleChar125TranslateRoute
+  '/{-$locale}/vue-i18n-message-formatter': typeof Char123LocaleChar125VueI18nMessageFormatterRoute
   '/{-$locale}/': typeof Char123LocaleChar125IndexRoute
   '/.well-known/agent-skills/index.json': typeof DotwellKnownAgentSkillsIndexDotjsonRoute
   '/.well-known/mcp/server-card.json': typeof DotwellKnownMcpServerCardDotjsonRoute
@@ -360,9 +392,13 @@ export interface FileRoutesByTo {
   '/{-$locale}/demo': typeof Char123LocaleChar125DemoRoute
   '/{-$locale}/i18n-message-converter': typeof Char123LocaleChar125I18nMessageConverterRoute
   '/{-$locale}/i18n-seo-scanner': typeof Char123LocaleChar125I18nSeoScannerRoute
+  '/{-$locale}/i18next-message-formatter': typeof Char123LocaleChar125I18nextMessageFormatterRoute
+  '/{-$locale}/icu-message-formatter': typeof Char123LocaleChar125IcuMessageFormatterRoute
   '/{-$locale}/markdown': typeof Char123LocaleChar125MarkdownRoute
+  '/{-$locale}/po-file-message-formatter': typeof Char123LocaleChar125PoFileMessageFormatterRoute
   '/{-$locale}/tms': typeof Char123LocaleChar125TmsRoute
   '/{-$locale}/translate': typeof Char123LocaleChar125TranslateRoute
+  '/{-$locale}/vue-i18n-message-formatter': typeof Char123LocaleChar125VueI18nMessageFormatterRoute
   '/.well-known/agent-skills/index.json': typeof DotwellKnownAgentSkillsIndexDotjsonRoute
   '/.well-known/mcp/server-card.json': typeof DotwellKnownMcpServerCardDotjsonRoute
   '/api/proxy/ahrefs-analytics': typeof ApiProxyAhrefsAnalyticsRoute
@@ -405,9 +441,13 @@ export interface FileRoutesById {
   '/{-$locale}/demo': typeof Char123LocaleChar125DemoRoute
   '/{-$locale}/i18n-message-converter': typeof Char123LocaleChar125I18nMessageConverterRoute
   '/{-$locale}/i18n-seo-scanner': typeof Char123LocaleChar125I18nSeoScannerRoute
+  '/{-$locale}/i18next-message-formatter': typeof Char123LocaleChar125I18nextMessageFormatterRoute
+  '/{-$locale}/icu-message-formatter': typeof Char123LocaleChar125IcuMessageFormatterRoute
   '/{-$locale}/markdown': typeof Char123LocaleChar125MarkdownRoute
+  '/{-$locale}/po-file-message-formatter': typeof Char123LocaleChar125PoFileMessageFormatterRoute
   '/{-$locale}/tms': typeof Char123LocaleChar125TmsRoute
   '/{-$locale}/translate': typeof Char123LocaleChar125TranslateRoute
+  '/{-$locale}/vue-i18n-message-formatter': typeof Char123LocaleChar125VueI18nMessageFormatterRoute
   '/{-$locale}/': typeof Char123LocaleChar125IndexRoute
   '/.well-known/agent-skills/index.json': typeof DotwellKnownAgentSkillsIndexDotjsonRoute
   '/.well-known/mcp/server-card.json': typeof DotwellKnownMcpServerCardDotjsonRoute
@@ -450,9 +490,13 @@ export interface FileRouteTypes {
     | '/{-$locale}/demo'
     | '/{-$locale}/i18n-message-converter'
     | '/{-$locale}/i18n-seo-scanner'
+    | '/{-$locale}/i18next-message-formatter'
+    | '/{-$locale}/icu-message-formatter'
     | '/{-$locale}/markdown'
+    | '/{-$locale}/po-file-message-formatter'
     | '/{-$locale}/tms'
     | '/{-$locale}/translate'
+    | '/{-$locale}/vue-i18n-message-formatter'
     | '/{-$locale}/'
     | '/.well-known/agent-skills/index.json'
     | '/.well-known/mcp/server-card.json'
@@ -493,9 +537,13 @@ export interface FileRouteTypes {
     | '/{-$locale}/demo'
     | '/{-$locale}/i18n-message-converter'
     | '/{-$locale}/i18n-seo-scanner'
+    | '/{-$locale}/i18next-message-formatter'
+    | '/{-$locale}/icu-message-formatter'
     | '/{-$locale}/markdown'
+    | '/{-$locale}/po-file-message-formatter'
     | '/{-$locale}/tms'
     | '/{-$locale}/translate'
+    | '/{-$locale}/vue-i18n-message-formatter'
     | '/.well-known/agent-skills/index.json'
     | '/.well-known/mcp/server-card.json'
     | '/api/proxy/ahrefs-analytics'
@@ -537,9 +585,13 @@ export interface FileRouteTypes {
     | '/{-$locale}/demo'
     | '/{-$locale}/i18n-message-converter'
     | '/{-$locale}/i18n-seo-scanner'
+    | '/{-$locale}/i18next-message-formatter'
+    | '/{-$locale}/icu-message-formatter'
     | '/{-$locale}/markdown'
+    | '/{-$locale}/po-file-message-formatter'
     | '/{-$locale}/tms'
     | '/{-$locale}/translate'
+    | '/{-$locale}/vue-i18n-message-formatter'
     | '/{-$locale}/'
     | '/.well-known/agent-skills/index.json'
     | '/.well-known/mcp/server-card.json'
@@ -723,11 +775,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char123LocaleChar125I18nSeoScannerRouteImport
       parentRoute: typeof Char123LocaleChar125RouteRoute
     }
+    '/{-$locale}/i18next-message-formatter': {
+      id: '/{-$locale}/i18next-message-formatter'
+      path: '/i18next-message-formatter'
+      fullPath: '/{-$locale}/i18next-message-formatter'
+      preLoaderRoute: typeof Char123LocaleChar125I18nextMessageFormatterRouteImport
+      parentRoute: typeof Char123LocaleChar125RouteRoute
+    }
+    '/{-$locale}/icu-message-formatter': {
+      id: '/{-$locale}/icu-message-formatter'
+      path: '/icu-message-formatter'
+      fullPath: '/{-$locale}/icu-message-formatter'
+      preLoaderRoute: typeof Char123LocaleChar125IcuMessageFormatterRouteImport
+      parentRoute: typeof Char123LocaleChar125RouteRoute
+    }
     '/{-$locale}/markdown': {
       id: '/{-$locale}/markdown'
       path: '/markdown'
       fullPath: '/{-$locale}/markdown'
       preLoaderRoute: typeof Char123LocaleChar125MarkdownRouteImport
+      parentRoute: typeof Char123LocaleChar125RouteRoute
+    }
+    '/{-$locale}/po-file-message-formatter': {
+      id: '/{-$locale}/po-file-message-formatter'
+      path: '/po-file-message-formatter'
+      fullPath: '/{-$locale}/po-file-message-formatter'
+      preLoaderRoute: typeof Char123LocaleChar125PoFileMessageFormatterRouteImport
       parentRoute: typeof Char123LocaleChar125RouteRoute
     }
     '/{-$locale}/tms': {
@@ -742,6 +815,13 @@ declare module '@tanstack/react-router' {
       path: '/translate'
       fullPath: '/{-$locale}/translate'
       preLoaderRoute: typeof Char123LocaleChar125TranslateRouteImport
+      parentRoute: typeof Char123LocaleChar125RouteRoute
+    }
+    '/{-$locale}/vue-i18n-message-formatter': {
+      id: '/{-$locale}/vue-i18n-message-formatter'
+      path: '/vue-i18n-message-formatter'
+      fullPath: '/{-$locale}/vue-i18n-message-formatter'
+      preLoaderRoute: typeof Char123LocaleChar125VueI18nMessageFormatterRouteImport
       parentRoute: typeof Char123LocaleChar125RouteRoute
     }
     '/.well-known/agent-skills/index.json': {
@@ -958,9 +1038,13 @@ interface Char123LocaleChar125RouteRouteChildren {
   Char123LocaleChar125DemoRoute: typeof Char123LocaleChar125DemoRoute
   Char123LocaleChar125I18nMessageConverterRoute: typeof Char123LocaleChar125I18nMessageConverterRoute
   Char123LocaleChar125I18nSeoScannerRoute: typeof Char123LocaleChar125I18nSeoScannerRoute
+  Char123LocaleChar125I18nextMessageFormatterRoute: typeof Char123LocaleChar125I18nextMessageFormatterRoute
+  Char123LocaleChar125IcuMessageFormatterRoute: typeof Char123LocaleChar125IcuMessageFormatterRoute
   Char123LocaleChar125MarkdownRoute: typeof Char123LocaleChar125MarkdownRoute
+  Char123LocaleChar125PoFileMessageFormatterRoute: typeof Char123LocaleChar125PoFileMessageFormatterRoute
   Char123LocaleChar125TmsRoute: typeof Char123LocaleChar125TmsRoute
   Char123LocaleChar125TranslateRoute: typeof Char123LocaleChar125TranslateRoute
+  Char123LocaleChar125VueI18nMessageFormatterRoute: typeof Char123LocaleChar125VueI18nMessageFormatterRoute
   Char123LocaleChar125IndexRoute: typeof Char123LocaleChar125IndexRoute
   Char123LocaleChar125BlogRawSplatRoute: typeof Char123LocaleChar125BlogRawSplatRoute
   Char123LocaleChar125DocRawSplatRoute: typeof Char123LocaleChar125DocRawSplatRoute
@@ -982,9 +1066,17 @@ const Char123LocaleChar125RouteRouteChildren: Char123LocaleChar125RouteRouteChil
       Char123LocaleChar125I18nMessageConverterRoute,
     Char123LocaleChar125I18nSeoScannerRoute:
       Char123LocaleChar125I18nSeoScannerRoute,
+    Char123LocaleChar125I18nextMessageFormatterRoute:
+      Char123LocaleChar125I18nextMessageFormatterRoute,
+    Char123LocaleChar125IcuMessageFormatterRoute:
+      Char123LocaleChar125IcuMessageFormatterRoute,
     Char123LocaleChar125MarkdownRoute: Char123LocaleChar125MarkdownRoute,
+    Char123LocaleChar125PoFileMessageFormatterRoute:
+      Char123LocaleChar125PoFileMessageFormatterRoute,
     Char123LocaleChar125TmsRoute: Char123LocaleChar125TmsRoute,
     Char123LocaleChar125TranslateRoute: Char123LocaleChar125TranslateRoute,
+    Char123LocaleChar125VueI18nMessageFormatterRoute:
+      Char123LocaleChar125VueI18nMessageFormatterRoute,
     Char123LocaleChar125IndexRoute: Char123LocaleChar125IndexRoute,
     Char123LocaleChar125BlogRawSplatRoute:
       Char123LocaleChar125BlogRawSplatRoute,
