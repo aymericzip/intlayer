@@ -1,0 +1,267 @@
+---
+import { getLocaleFromPath, getLocalizedUrl, type LocalesValues } from "intlayer";
+import LocaleSwitcher from "../components/LocaleSwitcher/LocaleSwitcher.astro";
+import { getHTMLTextDir } from "intlayer";
+
+interface Props {
+  title?: string;
+  description?: string;
+  keywords?: string[];
+}
+
+const { title, description, keywords } = Astro.props;
+const locale = getLocaleFromPath(Astro.url.pathname);
+const homeUrl = getLocalizedUrl("/", locale);
+---
+
+<!doctype html>
+<html lang={locale} dir={getHTMLTextDir(locale)}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="generator" content={Astro.generator} />
+    {description && <meta name="description" content={description} />}
+    {keywords && <meta name="keywords" content={keywords.join(", ")} />}
+    <title>{title}</title>
+  </head>
+  <body>
+    <header>
+      <a href={homeUrl} class="logo-link">
+        <img src="/favicon.svg" width="26" height="26" alt="Intlayer" />
+        <span>Astro + Intlayer</span>
+      </a>
+      <LocaleSwitcher />
+    </header>
+    <main>
+      <slot />
+    </main>
+  </body>
+</html>
+
+<style is:global>
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+    background: #070b14;
+    color: #c8d3e8;
+    font-family: Inter, Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  :root .locale-btn {
+    background: rgba(255, 255, 255, 0.03) !important;
+    color: #94a3b8 !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 12px !important;
+    padding: 0.75rem 1rem !important;
+    cursor: pointer !important;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    text-decoration: none !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    text-align: left !important;
+    backdrop-filter: blur(4px) !important;
+    font-family: inherit !important;
+    width: 100% !important;
+    outline: none !important;
+    margin: 0 !important;
+  }
+
+  :root .locale-btn:hover {
+    border-color: rgba(99, 102, 241, 0.4) !important;
+    color: #e2e8f0 !important;
+    background: rgba(99, 102, 241, 0.08) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+  }
+
+  :root .locale-btn.active {
+    background: rgba(99, 102, 241, 0.12) !important;
+    border-color: #6366f1 !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.2) !important;
+  }
+
+  :root .ls-item-left {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 2px !important;
+    pointer-events: none !important;
+  }
+
+  :root .ls-own-name {
+    font-size: 0.875rem !important;
+    font-weight: 600 !important;
+    color: #ffffff !important;
+    line-height: 1.2 !important;
+  }
+
+  :root .ls-current-name {
+    font-size: 0.75rem !important;
+    font-weight: 400 !important;
+    color: #64748b !important;
+  }
+
+  :root .locale-btn.active .ls-current-name {
+    color: #94a3b8 !important;
+  }
+
+  :root .ls-code {
+    font-size: 0.75rem !important;
+    font-weight: 700 !important;
+    color: #475569 !important;
+    background: rgba(0, 0, 0, 0.2) !important;
+    padding: 0.125rem 0.375rem !important;
+    border-radius: 4px !important;
+    letter-spacing: 0.05em !important;
+    pointer-events: none !important;
+  }
+
+  :root .locale-btn.active .ls-code {
+    color: #818cf8 !important;
+    background: rgba(99, 102, 241, 0.1) !important;
+  }
+
+  /* Other global styles... */
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1.5rem;
+    height: 52px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    background: rgba(7, 11, 20, 0.85);
+    backdrop-filter: blur(16px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .logo-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    color: #e2e8f0;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    letter-spacing: -0.01em;
+  }
+
+  main {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 4rem;
+  }
+
+  /* ── Island shared styles ─────────────────────────── */
+
+  .demo-container {
+    background: linear-gradient(160deg, #0e1525 0%, #0b1020 100%);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    box-shadow: 0 4px 32px rgba(0,0,0,0.4);
+  }
+
+  .greeting {
+    font-size: 1.625rem;
+    font-weight: 700;
+    margin: 0;
+    color: #a5b4fc;
+    letter-spacing: -0.02em;
+  }
+
+  .description {
+    color: #64748b;
+    margin: 0;
+    line-height: 1.65;
+    font-size: 0.9375rem;
+  }
+
+  .counter-section {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .counter-text {
+    margin: 0;
+    font-size: 0.9375rem;
+    color: #94a3b8;
+    font-variant-numeric: tabular-nums;
+    min-width: 6rem;
+  }
+
+  .btn-primary {
+    background: transparent;
+    color: #818cf8;
+    border: 1px solid rgba(99,102,241,0.35);
+    border-radius: 8px;
+    padding: 0.4375rem 1.125rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s, color 0.15s, transform 0.1s, box-shadow 0.15s;
+    letter-spacing: 0.01em;
+  }
+
+  .btn-primary:hover {
+    background: rgba(99,102,241,0.12);
+    border-color: #6366f1;
+    color: #a5b4fc;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(99,102,241,0.2);
+  }
+
+  .btn-primary:active {
+    transform: translateY(0);
+    box-shadow: none;
+  }
+
+  .locale-switcher {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .switcher-label {
+    color: #94a3b8;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .locale-buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 0.75rem;
+  }
+
+  a {
+    color: #818cf8;
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: #a5b4fc;
+    text-decoration: underline;
+  }
+</style>

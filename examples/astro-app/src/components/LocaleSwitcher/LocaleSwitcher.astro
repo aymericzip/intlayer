@@ -1,0 +1,234 @@
+---
+import {
+  getIntlayer,
+  getHTMLTextDir,
+  getLocaleName,
+  getLocalizedUrl,
+  getLocaleFromPath,
+  getPathWithoutLocale,
+  locales,
+  type LocalesValues,
+} from 'intlayer';
+
+const locale = getLocaleFromPath(Astro.url.pathname) as LocalesValues;
+const pathWithoutLocale = getPathWithoutLocale(Astro.url.pathname);
+const { localeSwitcherLabel } = getIntlayer('locale-switcher', locale);
+
+const localesDetails = locales.map((localeItem) => ({
+  locale: localeItem,
+  ownLocaleName: getLocaleName(localeItem),
+  currentLocaleName: getLocaleName(localeItem, locale),
+  url: getLocalizedUrl(pathWithoutLocale, localeItem),
+  isCurrent: localeItem === locale,
+}));
+---
+
+<div class="ls-root" aria-label={localeSwitcherLabel.value}>
+  <details class="ls-details">
+    <summary class="ls-trigger">
+      <span>{getLocaleName(locale)}</span>
+      <svg class="ls-chevron" width="11" height="11" viewBox="0 0 12 12" fill="none">
+        <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </summary>
+
+    <div class="ls-dropdown">
+      <ul class="ls-list">
+        {
+          localesDetails.map(
+            ({
+              locale: localeItem,
+              ownLocaleName,
+              currentLocaleName,
+              url,
+              isCurrent,
+            }) => (
+              <li>
+                <a
+                  href={url}
+                  data-locale={localeItem}
+                  class:list={[
+                    "ls-item",
+                    { "ls-item--active": isCurrent },
+                  ]}
+                >
+                  <div class="ls-item-left">
+                    <span
+                      class="ls-own-name"
+                      dir={getHTMLTextDir(localeItem)}
+                      lang={localeItem}
+                    >
+                      {ownLocaleName}
+                    </span>
+                    <span class="ls-current-name">{currentLocaleName}</span>
+                  </div>
+                  <span class="ls-code">{localeItem.toUpperCase()}</span>
+                </a>
+              </li>
+            )
+          )
+        }
+      </ul>
+    </div>
+  </details>
+</div>
+
+<style>
+  .ls-root { position: relative; }
+  .ls-details { position: relative; }
+
+  summary.ls-trigger {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.875rem;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
+    color: #f8fafc;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    user-select: none;
+    backdrop-filter: blur(8px);
+  }
+  summary.ls-trigger::-webkit-details-marker { display: none; }
+  
+  .ls-details[open] summary.ls-trigger,
+  summary.ls-trigger:hover {
+    border-color: rgba(99, 102, 241, 0.5);
+    background: rgba(99, 102, 241, 0.15);
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.2);
+  }
+
+  .ls-chevron {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    flex-shrink: 0;
+    opacity: 0.8;
+  }
+  .ls-details[open] .ls-chevron { transform: rotate(180deg); }
+
+  .ls-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    min-width: 220px;
+    background: rgba(15, 23, 42, 0.9);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05);
+    overflow: hidden;
+    z-index: 200;
+    padding: 6px;
+    animation: slideDown 0.2s ease-out;
+  }
+
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .ls-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .ls-list li {
+    list-style: none;
+  }
+
+  .ls-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.625rem 0.875rem;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: all 0.15s ease;
+    border: 1px solid transparent;
+  }
+  
+  .ls-item:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.05);
+    text-decoration: none;
+  }
+  
+  .ls-item--active {
+    background: rgba(99, 102, 241, 0.15);
+    border-color: rgba(99, 102, 241, 0.2);
+  }
+
+  .ls-item-left {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .ls-own-name {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: #ffffff; /* White title */
+    line-height: 1.2;
+  }
+
+  .ls-current-name {
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: #94a3b8; /* Smaller and muted below */
+  }
+
+  .ls-code {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #64748b;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 0.125rem 0.375rem;
+    border-radius: 4px;
+    letter-spacing: 0.05em;
+    flex-shrink: 0;
+  }
+
+  .ls-item--active .ls-code {
+    color: #818cf8;
+    background: rgba(99, 102, 241, 0.1);
+  }
+</style>
+
+<script>
+  import { useLocale } from "vanilla-intlayer";
+  import { getLocalizedUrl, type LocalesValues } from "intlayer";
+
+  // Update the locale cookie when a language is selected
+  // This helps the middleware to remember the preference and prevents redirect loops
+  const { setLocale } = useLocale({
+    onLocaleChange: (newLocale) => {
+      window.location.href = getLocalizedUrl(
+        window.location.pathname,
+        newLocale
+      );
+    },
+  });
+
+  const localeLinks = document.querySelectorAll("[data-locale]");
+
+  localeLinks.forEach((link) => {
+    link.addEventListener("click", (e) => {
+      const locale = link.getAttribute("data-locale") as LocalesValues;
+
+      if (locale) {
+        e.preventDefault();
+        setLocale(locale);
+      }
+    });
+  });
+</script>

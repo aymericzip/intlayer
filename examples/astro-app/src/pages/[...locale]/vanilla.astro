@@ -1,0 +1,95 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getIntlayer, getLocaleFromPath, getPrefix, localeMap, getLocalizedUrl, getLocaleName, getPathWithoutLocale, locales, Locales, type LocalesValues } from "intlayer";
+
+export const getStaticPaths = () => localeMap(({locale} )=> ( { params: { locale: getPrefix(locale).localePrefix } }))
+
+const locale = getLocaleFromPath(Astro.url.pathname) as LocalesValues;
+const pathWithoutLocale = getPathWithoutLocale(Astro.url.pathname);
+const { backHome, metadata } = getIntlayer("framework-page", locale);
+const { greeting, description, increment, switchLocale } = getIntlayer("vanilla-demo", locale);
+---
+
+<Layout
+  title={metadata.title({ framework: "Vanilla JS" })}
+  description={metadata.description({ framework: "Vanilla JS" })}
+  keywords={["Vanilla JS", ...metadata.keywords]}
+>
+  <div class="page-header">
+    <a href={getLocalizedUrl("/", locale)} class="back-link">{backHome}</a>
+    <div class="page-title">
+      <img src="/frameworks/Vanilla.svg" alt="Vanilla JS" width="40" height="40" />
+      <h1>Vanilla JS + Intlayer</h1>
+    </div>
+  </div>
+
+  <div class="demo-container">
+    <h2 class="greeting" id="vanilla-greeting">{greeting}</h2>
+    <p class="description" id="vanilla-description">{description}</p>
+    <div class="counter-section">
+      <p class="counter-text" id="vanilla-counter">Count: 0</p>
+      <button class="btn-primary" id="vanilla-increment">{increment}</button>
+    </div>
+    <div class="locale-switcher">
+      <span class="switcher-label">{switchLocale}</span>
+      <div class="locale-buttons">
+        {
+          locales.map((localeItem) => (
+            <a
+              href={getLocalizedUrl(pathWithoutLocale, localeItem)}
+              class={`locale-btn ${localeItem === locale ? "active" : ""}`}
+              data-locale={localeItem}
+            >
+              {getLocaleName(localeItem)}
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  import { installIntlayer, useLocale } from "vanilla-intlayer";
+  import { getLocaleFromPath, getLocalizedUrl, type LocalesValues } from "intlayer";
+
+  // Bootstrap Intlayer on the client based on the current path
+  const locale = getLocaleFromPath(window.location.pathname);
+  installIntlayer({ locale: locale as any });
+
+  const { setLocale } = useLocale({
+    onLocaleChange: (newLocale: LocalesValues) => {
+      window.location.href = getLocalizedUrl(window.location.pathname, newLocale);
+    },
+  });
+
+  const localeLinks = document.querySelectorAll("[data-locale]");
+  localeLinks.forEach((link) => {
+    link.addEventListener("click", (e) => {
+      const localeValue = link.getAttribute("data-locale") as LocalesValues;
+      if (localeValue) {
+        e.preventDefault();
+        setLocale(localeValue);
+      }
+    });
+  });
+
+  let count = 0;
+  const btn = document.getElementById("vanilla-increment");
+  const counter = document.getElementById("vanilla-counter");
+  if (btn && counter) {
+    btn.addEventListener("click", () => {
+      count++;
+      counter.textContent = `Count: ${count}`;
+    });
+  }
+</script>
+
+<style>
+  .page-header { margin-bottom: 2.5rem; }
+  .back-link { display: inline-flex; align-items: center; gap: 0.375rem; font-size: 0.8125rem; color: #334155; margin-bottom: 1.5rem; font-weight: 500; transition: color 0.15s; }
+  .back-link:hover { color: #64748b; text-decoration: none; }
+  .page-title { display: flex; align-items: center; gap: 0.875rem; }
+  h1 { font-size: 1.75rem; font-weight: 700; margin: 0; color: #e2e8f0; letter-spacing: -0.02em; }
+  .locale-btn { text-decoration: none; display: inline-block; }
+</style>

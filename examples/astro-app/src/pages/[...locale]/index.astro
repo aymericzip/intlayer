@@ -1,0 +1,72 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getIntlayer, getLocaleFromPath, getPrefix, localeMap, getLocalizedUrl, Locales } from "intlayer";
+
+export const getStaticPaths = () => localeMap(({locale} )=> ( { params: { locale: getPrefix(locale).localePrefix } }))
+
+const locale = getLocaleFromPath(Astro.url.pathname);
+const { title, subtitle, description, exploreFrameworks, metadata } = getIntlayer("home", locale);
+
+const frameworks = [
+  { slug: "react",   name: "React",      pkg: "react-intlayer",   logo: "/frameworks/Reactjs.svg", color: "#61dafb" },
+  { slug: "vue",     name: "Vue",         pkg: "vue-intlayer",      logo: "/frameworks/Vuejs.svg",   color: "#42b883" },
+  { slug: "svelte",  name: "Svelte",      pkg: "svelte-intlayer",   logo: "/frameworks/Svelte.svg",  color: "#ff3e00" },
+  { slug: "solid",   name: "Solid",       pkg: "solid-intlayer",    logo: "/frameworks/Solid.svg",   color: "#446b9e" },
+  { slug: "preact",  name: "Preact",      pkg: "preact-intlayer",   logo: "/frameworks/Preact.svg",  color: "#673ab8" },
+  { slug: "lit",     name: "Lit",         pkg: "lit-intlayer",      logo: "/frameworks/Lit.svg",     color: "#324fff" },
+  { slug: "vanilla", name: "Vanilla JS",  pkg: "vanilla-intlayer",  logo: "/frameworks/Vanilla.svg", color: "#f7df1e" },
+];
+---
+
+<Layout
+  title={metadata.title}
+  description={metadata.description}
+  keywords={metadata.keywords}
+>
+  <div class="hero">
+    <div class="hero-badge">i18n boilerplate</div>
+    <h1>{title}</h1>
+    <p class="subtitle">{subtitle}</p>
+    <p class="description">{description}</p>
+  </div>
+
+  <section>
+    <p class="section-label">{exploreFrameworks}</p>
+    <div class="grid">
+      {
+        frameworks.map((fw) => (
+          <a
+            href={getLocalizedUrl(`/${fw.slug}`, locale)}
+            class="card"
+            style={`--accent: ${fw.color}`}
+          >
+            <img src={fw.logo} alt={fw.name} width="44" height="44" class="fw-logo" />
+            <div class="fw-info">
+              <span class="fw-name">{fw.name}</span>
+              <span class="fw-pkg">{fw.pkg}</span>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .hero { text-align: center; padding: 3.5rem 0 3rem; display: flex; flex-direction: column; align-items: center; gap: 1rem; }
+  .hero-badge { display: inline-flex; align-items: center; padding: 0.25rem 0.875rem; background: rgba(99,102,241,0.12); border: 1px solid rgba(99,102,241,0.3); border-radius: 999px; color: #818cf8; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; }
+  h1 { font-size: 2.625rem; font-weight: 800; margin: 0; letter-spacing: -0.03em; color: #e2e8f0; line-height: 1.15; }
+  .subtitle { font-size: 1.0625rem; color: #64748b; margin: 0; font-weight: 500; }
+  .description { max-width: 520px; color: #475569; line-height: 1.7; margin: 0; font-size: 0.9375rem; }
+  .section-label { font-size: 0.75rem; font-weight: 600; color: #334155; text-transform: uppercase; letter-spacing: 0.1em; margin: 0 0 1rem; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 0.875rem; }
+  .card { display: flex; flex-direction: column; align-items: center; gap: 0.875rem; padding: 1.5rem 1rem 1.25rem; background: #0e1525; border: 1px solid rgba(255,255,255,0.06); border-radius: 14px; text-decoration: none; color: #c8d3e8; transition: border-color 0.2s, transform 0.15s, box-shadow 0.2s; position: relative; overflow: hidden; }
+  .card::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at top, color-mix(in srgb, var(--accent) 8%, transparent), transparent 70%); opacity: 0; transition: opacity 0.3s; }
+  .card:hover { border-color: color-mix(in srgb, var(--accent) 50%, transparent); transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.5); text-decoration: none; color: #e2e8f0; }
+  .card:hover::before { opacity: 1; }
+  .fw-logo { width: 44px; height: 44px; object-fit: contain; position: relative; z-index: 1; }
+  .fw-info { display: flex; flex-direction: column; align-items: center; gap: 0.2rem; position: relative; z-index: 1; }
+  .fw-name { font-size: 0.9375rem; font-weight: 700; letter-spacing: -0.01em; }
+  .fw-pkg { font-size: 0.6875rem; color: #334155; font-family: ui-monospace, "Cascadia Code", monospace; }
+  .card:hover .fw-pkg { color: color-mix(in srgb, var(--accent) 60%, #64748b); }
+</style>

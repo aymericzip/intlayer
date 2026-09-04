@@ -1,0 +1,7 @@
+{
+  "recommendations": [
+    "astro-build.astro-vscode",
+    "intlayer.intlayer-vs-code-extension"
+  ],
+  "unwantedRecommendations": []
+}

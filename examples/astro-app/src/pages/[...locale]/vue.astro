@@ -1,0 +1,43 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import VueIsland from "../../components/vue/VueIsland.vue";
+import { getIntlayer, getLocaleFromPath, getPrefix, localeMap, getLocalizedUrl, Locales } from "intlayer";
+import type { LocalesValues } from "intlayer";
+
+export const getStaticPaths = () => localeMap(({locale} )=> ( { params: { locale: getPrefix(locale).localePrefix } }))
+
+const locale = getLocaleFromPath(Astro.url.pathname) as LocalesValues;
+const { backHome, metadata } = getIntlayer("framework-page", locale);
+---
+
+<Layout
+  title={metadata.title({ framework: "Vue" })}
+  description={metadata.description({ framework: "Vue" })}
+  keywords={["Vue", ...metadata.keywords]}
+>
+  <div class="page-header">
+    <a href={getLocalizedUrl("/", locale)} class="back-link">{backHome}</a>
+    <div class="page-title">
+      <img src="/frameworks/Vuejs.svg" alt="Vue" width="40" height="40" />
+      <h1>Vue + Intlayer</h1>
+    </div>
+  </div>
+  <VueIsland locale={locale} client:only="vue" />
+</Layout>
+
+<style>
+  .page-header { margin-bottom: 2.5rem; }
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-size: 0.8125rem;
+    color: #334155;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+    transition: color 0.15s;
+  }
+  .back-link:hover { color: #64748b; text-decoration: none; }
+  .page-title { display: flex; align-items: center; gap: 0.875rem; }
+  h1 { font-size: 1.75rem; font-weight: 700; margin: 0; color: #e2e8f0; letter-spacing: -0.02em; }
+</style>
