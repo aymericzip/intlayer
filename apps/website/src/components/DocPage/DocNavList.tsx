@@ -424,15 +424,10 @@ export const DocNavListContent: FC<DocNavListContentProps> = ({
 
 export const DocNavList: FC<DocNavListProps> = ({ docData, activeSlugs }) => {
   const { isMobile } = useDevice();
-  const [isHidden, setIsHidden] = useState(isMobile);
+
+  const [isHidden, setIsHidden] = useState<boolean | undefined>(undefined);
   const { collapseButton } = useIntlayer('doc-nav-list');
   const [selectedFramework, setSelectedFramework] = useFrameworkFilter();
-
-  useEffect(() => {
-    if (isMobile !== undefined) {
-      setIsHidden(isMobile);
-    }
-  }, [isMobile]);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -446,8 +441,15 @@ export const DocNavList: FC<DocNavListProps> = ({ docData, activeSlugs }) => {
 
   return (
     <>
-      {isHidden && (
-        <div className="fixed top-20 left-2 z-30 flex flex-col gap-1 md:left-4">
+      {isHidden !== false && (
+        <div
+          className={cn(
+            'fixed top-20 left-2 z-30 flex flex-col gap-1 md:left-4',
+            // Undecided: the panel is open on desktop, so this belongs to
+            // mobile only.
+            isHidden === undefined && 'md:hidden'
+          )}
+        >
           <SearchTrigger isMini />
           <PopoverStatic identifier="doc-nav-expand">
             <Button
@@ -465,6 +467,7 @@ export const DocNavList: FC<DocNavListProps> = ({ docData, activeSlugs }) => {
               <KeyboardShortcut
                 shortcut="Alt + ArrowLeft"
                 onTriggered={() => setIsHidden(false)}
+                disabled={isHidden === undefined}
                 size="sm"
               />
             </PopoverStatic.Detail>
@@ -475,9 +478,9 @@ export const DocNavList: FC<DocNavListProps> = ({ docData, activeSlugs }) => {
         className={cn(
           'relative top-0 left-0 z-40 flex h-full justify-end max-md:fixed',
           'max-md:transition-transform max-md:duration-300 max-md:ease-in-out',
-          isHidden
-            ? 'max-md:pointer-events-none max-md:-translate-x-full'
-            : 'max-md:translate-x-0'
+          isHidden === false
+            ? 'max-md:translate-x-0'
+            : 'max-md:pointer-events-none max-md:-translate-x-full'
         )}
         onClickOutSide={() => {
           if (isMobile) {
@@ -487,7 +490,11 @@ export const DocNavList: FC<DocNavListProps> = ({ docData, activeSlugs }) => {
       >
         <Container
           className={cn(
-            isHidden ? 'top-25' : 'h-full',
+            isHidden === undefined
+              ? 'max-md:top-25 md:h-full'
+              : isHidden
+                ? 'top-25'
+                : 'h-full',
             'sticky top-15 rounded-br-2xl'
           )}
           roundedSize="none"
@@ -500,10 +507,14 @@ export const DocNavList: FC<DocNavListProps> = ({ docData, activeSlugs }) => {
               id="doc-nav-content"
               className={cn(
                 'h-full overflow-hidden transition-[width] duration-500 ease-in-out',
-                isHidden ? 'w-0' : 'w-80'
+                isHidden === undefined
+                  ? 'max-md:invisible max-md:w-0 md:visible md:w-80'
+                  : isHidden
+                    ? 'w-0'
+                    : 'w-80'
               )}
-              aria-hidden={Boolean(isHidden)}
-              inert={isHidden ? true : undefined}
+              aria-hidden={isHidden === true}
+              inert={isHidden === true ? true : undefined}
             >
               <div className="relative h-full w-80 overflow-hidden">
                 <Container

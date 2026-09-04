@@ -1,7 +1,6 @@
 import { useSession } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
-import { useDevice } from '@intlayer/design-system/hooks';
 import { Logo } from '@intlayer/design-system/logo';
 import { MaxHeightSmoother } from '@intlayer/design-system/max-height-smoother';
 import { Burger } from '@intlayer/design-system/navbar';
@@ -55,7 +54,6 @@ export const DashboardNavbar: FC<DashboardNavbarProps> = ({ items = [] }) => {
   const { organization, project, roles } = session ?? {};
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isBreadcrumbOpen, setIsBreadcrumbOpen] = useState(false);
-  const { isMobile } = useDevice();
   const { pathname } = useLocation();
 
   const isSuperAdmin =
@@ -100,69 +98,66 @@ export const DashboardNavbar: FC<DashboardNavbarProps> = ({ items = [] }) => {
             <Logo className="size-6" />
           </Link>
 
-          {isMobile ? (
-            (organization || project) && (
-              <div className="relative">
-                {isBreadcrumbOpen && (
-                  <button
-                    type="button"
-                    className="fixed inset-0 z-40 cursor-default appearance-none border-none bg-transparent"
-                    tabIndex={0}
-                    onClick={() => setIsBreadcrumbOpen(false)}
-                    onKeyDown={(e) => {
-                      if (e.key === content.enter.value || e.key === ' ') {
-                        setIsBreadcrumbOpen(false);
-                      }
-                    }}
-                    aria-label="Close breadcrumb"
-                  />
-                )}
-                <Button
-                  Icon={MoreHorizontal}
-                  variant="hoverable"
-                  color="text"
-                  size="icon-sm"
-                  label={content.organizationAndProject.value}
-                  onClick={() => setIsBreadcrumbOpen((prev) => !prev)}
-                  className="ml-6"
+          {(organization || project) && (
+            <div className="relative md:hidden">
+              {isBreadcrumbOpen && (
+                <button
+                  type="button"
+                  className="fixed inset-0 z-40 cursor-default appearance-none border-none bg-transparent"
+                  tabIndex={0}
+                  onClick={() => setIsBreadcrumbOpen(false)}
+                  onKeyDown={(e) => {
+                    if (e.key === content.enter.value || e.key === ' ') {
+                      setIsBreadcrumbOpen(false);
+                    }
+                  }}
+                  aria-label="Close breadcrumb"
                 />
-                {isBreadcrumbOpen && (
-                  <div className="absolute top-[calc(100%+0.5rem)] left-0 z-50 min-w-max">
-                    <Container
-                      className="flex min-h-20 min-w-20 flex-col gap-2 p-2"
-                      roundedSize="lg"
-                      transparency="sm"
-                    >
-                      {organization && <OrganizationDropdown />}
-                      {project && <ProjectDropdown />}
-                      {project && <EnvironmentDropdown />}
-                    </Container>
-                  </div>
-                )}
-              </div>
-            )
-          ) : (
-            <div className="flex w-auto items-center gap-4">
-              {organization && (
-                <>
-                  <span>/</span>
-                  <OrganizationDropdown />
-                </>
               )}
-              {project && (
-                <>
-                  <span>/</span>
-                  <ProjectDropdown />
-                </>
-              )}
-              {project && (project.environments?.length ?? 0) > 1 && (
-                <>
-                  <span className="text-text/70">/</span>
-                  <EnvironmentDropdown />
-                </>
+              <Button
+                Icon={MoreHorizontal}
+                variant="hoverable"
+                color="text"
+                size="icon-sm"
+                label={content.organizationAndProject.value}
+                onClick={() => setIsBreadcrumbOpen((prev) => !prev)}
+                className="ml-6"
+              />
+              {isBreadcrumbOpen && (
+                <div className="absolute top-[calc(100%+0.5rem)] left-0 z-50 min-w-max">
+                  <Container
+                    className="flex min-h-20 min-w-20 flex-col gap-2 p-2"
+                    roundedSize="lg"
+                    transparency="sm"
+                  >
+                    {organization && <OrganizationDropdown />}
+                    {project && <ProjectDropdown />}
+                    {project && <EnvironmentDropdown />}
+                  </Container>
+                </div>
               )}
             </div>
           )}
+          <div className="hidden w-auto items-center gap-4 md:flex">
+            {organization && (
+              <>
+                <span>/</span>
+                <OrganizationDropdown />
+              </>
+            )}
+            {project && (
+              <>
+                <span>/</span>
+                <ProjectDropdown />
+              </>
+            )}
+            {project && (project.environments?.length ?? 0) > 1 && (
+              <>
+                <span className="text-text/70">/</span>
+                <EnvironmentDropdown />
+              </>
+            )}
+          </div>
         </div>
         <div className="flex items-center gap-4">
           <div className="mr-1 flex items-center gap-2">
@@ -181,67 +176,63 @@ export const DashboardNavbar: FC<DashboardNavbarProps> = ({ items = [] }) => {
             </Suspense>
           </div>
 
-          {isMobile && (
-            <Burger
-              isActive={isMenuOpen}
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="mr-0"
-            />
-          )}
+          <Burger
+            isActive={isMenuOpen}
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="mr-0 md:hidden"
+          />
         </div>
       </div>
 
-      {isMobile && (
-        <nav
-          aria-label={content.mobileNavAriaLabel.value}
-          className="fixed top-12 left-0 mt-4 flex w-full flex-col gap-2"
-        >
-          <MaxHeightSmoother isHidden={!isMenuOpen}>
-            <Container
-              className="h-screen w-full px-10 pt-10"
-              roundedSize="none"
-              transparency="xs"
-              onClick={() => setIsMenuOpen(false)}
-              onKeyDown={(e) => {
-                if (e.key === content.enter.value || e.key === ' ') {
-                  setIsMenuOpen(false);
-                }
-              }}
-              role="button"
-              tabIndex={0}
-            >
-              {flatNavItems.map((item) => {
-                const IconComponent = item.icon
-                  ? (iconMap[item.icon] ?? null)
-                  : null;
-                const isChild = item.level > 0;
+      <nav
+        aria-label={content.mobileNavAriaLabel.value}
+        className="fixed top-12 left-0 mt-4 flex w-full flex-col gap-2 md:hidden"
+      >
+        <MaxHeightSmoother isHidden={!isMenuOpen}>
+          <Container
+            className="h-screen w-full px-10 pt-10"
+            roundedSize="none"
+            transparency="xs"
+            onClick={() => setIsMenuOpen(false)}
+            onKeyDown={(e) => {
+              if (e.key === content.enter.value || e.key === ' ') {
+                setIsMenuOpen(false);
+              }
+            }}
+            role="button"
+            tabIndex={0}
+          >
+            {flatNavItems.map((item) => {
+              const IconComponent = item.icon
+                ? (iconMap[item.icon] ?? null)
+                : null;
+              const isChild = item.level > 0;
 
-                return (
-                  <Link
-                    key={item.key}
-                    to={item.href ?? '#'}
-                    label={item.label}
-                    color="text"
-                    variant="invisible-link"
-                    preload="viewport"
-                    className={cn(
-                      'flex items-center gap-3 rounded-lg px-4 py-3 hover:bg-text/5',
-                      activeKey === item.key && 'bg-text/10 font-bold',
-                      isChild && 'pl-10'
-                    )}
-                    aria-current={activeKey === item.key ? 'page' : undefined}
-                  >
-                    {IconComponent && (
-                      <IconComponent className="size-5 shrink-0" />
-                    )}
-                    <span>{item.title}</span>
-                  </Link>
-                );
-              })}
-            </Container>
-          </MaxHeightSmoother>
-        </nav>
-      )}
+              return (
+                <Link
+                  key={item.key}
+                  to={item.href ?? '#'}
+                  label={item.label}
+                  color="text"
+                  variant="invisible-link"
+                  preload="viewport"
+                  className={cn(
+                    'flex items-center gap-3 rounded-lg px-4 py-3 hover:bg-text/5',
+                    activeKey === item.key && 'bg-text/10 font-bold',
+                    isChild && 'pl-10'
+                  )}
+                  aria-current={activeKey === item.key ? 'page' : undefined}
+                >
+                  {IconComponent && (
+                    <IconComponent className="size-5 shrink-0" />
+                  )}
+                  <span>{item.title}</span>
+                </Link>
+              );
+            })}
+          </Container>
+        </MaxHeightSmoother>
+      </nav>
     </Container>
   );
 };

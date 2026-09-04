@@ -34,6 +34,13 @@ type MobileNavbarProps<T extends TabSelectorItemProps> = {
   rightItems?: ReactNode;
   /** Whether the navbar should be rollable (default: true) */
   rollable?: boolean;
+  /**
+   * Whether this navbar is the one on screen. The responsive switch is done in
+   * CSS, so the desktop layout keeps this component mounted but hidden; a
+   * hidden navbar must not lock the page scroll or answer scroll events.
+   * Defaults to `true`, for the standalone use of this component.
+   */
+  isActive?: boolean;
 };
 
 /**
@@ -142,6 +149,7 @@ export const MobileNavbar = <T extends TabSelectorItemProps>({
   bottomSections = [],
   rightItems,
   rollable = true,
+  isActive = true,
 }: MobileNavbarProps<T>) => {
   const [isHidden, setIsHidden] = useState<boolean>(false);
   const [isUnrolled, setIsUnrolled] = useState<boolean>(false);
@@ -150,15 +158,28 @@ export const MobileNavbar = <T extends TabSelectorItemProps>({
   const navRef = useRef<HTMLDivElement>(null);
 
   useScrollBlockage({
-    disableScroll: rollable,
+    disableScroll: isActive && rollable,
     key: 'mobile_nav',
   });
 
   useScrollDetection({
     onScrollUp: () => setIsHidden(false),
     onScrollDown: () => setIsHidden(true),
-    isEnabled: !isUnrolled && rollable,
+    isEnabled: isActive && !isUnrolled && rollable,
   });
+
+  /**
+   * Clears the transient state when the desktop layout takes over. Without it,
+   * a viewport that grows past the breakpoint while the header is scrolled away
+   * — or while the menu is open — restores that state on the way back, and the
+   * user returns to a navbar that is translated off screen.
+   */
+  useEffect(() => {
+    if (isActive) return;
+
+    setIsHidden(false);
+    setIsUnrolled(false);
+  }, [isActive]);
 
   /**
    * Measures the collapsed header so the rolled-down panel can size itself to

@@ -83,7 +83,8 @@ type NavbarProps<T extends TabSelectorItemProps> = {
  * Responsive Behavior:
  * - Desktop (≥1024px): Shows DesktopNavbar with horizontal layout
  * - Mobile (<1024px): Shows MobileNavbar with collapsible vertical layout
- * - Automatic detection with no flash of unstyled content
+ * - Both are mounted and CSS picks one, so server-rendered and prerendered
+ *   markup paints the right layout with no swap once the bundle hydrates
  *
  * @template T - Tab properties type extending TabProps for type safety
  * @param props - Navbar component props
@@ -105,24 +106,36 @@ export const Navbar = <T extends TabSelectorItemProps>({
   selectedChoice,
   mobileRollable = true,
 }: NavbarProps<T>) => {
+  // Only decides which navbar *behaves*, never which one is shown: the media
+  // query cannot resolve before hydration, and picking the layout in JS baked
+  // the desktop navbar into the prerendered HTML — mobile visitors watched it
+  // swap once the bundle arrived. CSS makes the first paint already correct.
   const { isMobile } = useDevice('lg');
 
-  return isMobile ? (
-    <MobileNavbar
-      topChildren={mobileTopChildren}
-      topSections={mobileTopSections}
-      bottomChildren={mobileBottomChildren}
-      bottomSections={mobileBottomSections}
-      logo={logo}
-      rightItems={rightItemsMobile}
-      rollable={mobileRollable}
-    />
-  ) : (
-    <DesktopNavbar
-      sections={desktopSections}
-      rightItems={rightItemsDesktop}
-      logo={logo}
-      selectedChoice={selectedChoice}
-    />
+  return (
+    <>
+      {/* `contents` keeps the wrapper out of the layout, so each navbar still
+          sticks and stretches exactly as it did when rendered on its own. */}
+      <div className="contents lg:hidden">
+        <MobileNavbar
+          topChildren={mobileTopChildren}
+          topSections={mobileTopSections}
+          bottomChildren={mobileBottomChildren}
+          bottomSections={mobileBottomSections}
+          logo={logo}
+          rightItems={rightItemsMobile}
+          rollable={mobileRollable}
+          isActive={isMobile === true}
+        />
+      </div>
+      <div className="hidden lg:contents">
+        <DesktopNavbar
+          sections={desktopSections}
+          rightItems={rightItemsDesktop}
+          logo={logo}
+          selectedChoice={selectedChoice}
+        />
+      </div>
+    </>
   );
 };
