@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/svelte-i18n",
-  "version": "9.4.3",
+  "version": "9.4.4",
   "private": false,
   "description": "svelte-i18n API adapter for intlayer — drop-in compatibility layer",
   "keywords": [

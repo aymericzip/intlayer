@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/react-intl",
-  "version": "9.4.3",
+  "version": "9.4.4",
   "private": false,
   "description": "react-intl API adapter for intlayer — drop-in compatibility layer",
   "keywords": [

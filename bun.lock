@@ -34,7 +34,7 @@
     },
     "apps/app": {
       "name": "app",
-      "version": "9.4.3",
+      "version": "9.4.4",
       "dependencies": {
         "@better-auth/sso": "1.7.2",
         "@electron-toolkit/utils": "4.0.0",
@@ -111,7 +111,7 @@
     },
     "apps/backend": {
       "name": "@intlayer/backend",
-      "version": "9.4.3",
+      "version": "9.4.4",
       "dependencies": {
         "@aws-sdk/client-s3": "3.1126.0",
         "@better-auth/core": "1.7.2",
@@ -229,7 +229,7 @@
     },
     "apps/website": {
       "name": "website-tanstack",
-      "version": "9.4.3",
+      "version": "9.4.4",
       "dependencies": {
         "@intlayer/analytics": "workspace:*",
         "@intlayer/api": "workspace:*",
@@ -300,7 +300,7 @@
     },
     "compat/i18next": {
       "name": "@intlayer/i18next",
-      "version": "9.4.3",
+      "version": "9.4.4",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -333,7 +333,7 @@
     },
     "compat/lingui": {
       "name": "@intlayer/lingui",
-      "version": "9.4.3",
+      "version": "9.4.4",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -369,7 +369,7 @@
     },
     "compat/next-i18next": {
       "name": "@intlayer/next-i18next",
-      "version": "9.4.3",
+      "version": "9.4.4",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -405,7 +405,7 @@
     },
     "compat/next-intl": {
       "name": "@intlayer/next-intl",
-      "version": "9.4.3",
+      "version": "9.4.4",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -437,7 +437,7 @@
     },
     "compat/react-i18next": {
       "name": "@intlayer/react-i18next",
-      "version": "9.4.3",
+      "version": "9.4.4",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -474,7 +474,7 @@
     },
     "compat/react-intl": {
       "name": "@intlayer/react-intl",
-      "version": "9.4.3",
+      "version": "9.4.4",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -510,7 +510,7 @@
     },
     "compat/use-intl": {
       "name": "@intlayer/use-intl",
-      "version": "9.4.3",
+      "version": "9.4.4",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -545,7 +545,7 @@
     },
     "compat/vue-i18n": {
       "name": "@intlayer/vue-i18n",
-      "version": "9.4.3",
+      "version": "9.4.4",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -579,7 +579,7 @@
     },
     "docs": {
       "name": "@intlayer/docs",
-      "version": "9.4.3",
+      "version": "9.4.4",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -871,7 +871,7 @@
     },
     "examples/hono-app": {
       "name": "hono-app",
-      "version": "9.4.3",
+      "version": "9.4.4",
       "dependencies": {
         "@hono/node-server": "2.0.6",
         "hono": "4.12.27",
@@ -885,7 +885,7 @@
     },
     "examples/htmx-app": {
       "name": "htmx-app",
-      "version": "9.4.3",
+      "version": "9.4.4",
       "dependencies": {
         "cookie-parser": "1.4.7",
         "express": "5.2.1",
@@ -1357,7 +1357,7 @@
     },
     "packages/@intlayer/ai": {
       "name": "@intlayer/ai",
-      "version": "9.4.3",
+      "version": "9.4.4",
       "dependencies": {
         "@ai-sdk/anthropic": "4.0.49",
         "@ai-sdk/openai": "4.0.58",
@@ -1413,7 +1413,7 @@
     },
     "packages/@intlayer/analytics": {
       "name": "@intlayer/analytics",
-      "version": "9.4.3",
+      "version": "9.4.4",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -1432,7 +1432,7 @@
     },
     "packages/@intlayer/api": {
       "name": "@intlayer/api",
-      "version": "9.4.3",
+      "version": "9.4.4",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/types": "workspace:*",
@@ -1451,7 +1451,7 @@
     },
     "packages/@intlayer/babel": {
       "name": "@intlayer/babel",
-      "version": "9.4.3",
+      "version": "9.4.4",
       "dependencies": {
         "@babel/core": "8.0.1",
         "@babel/generator": "8.0.0",
@@ -1492,7 +1492,7 @@
     },
     "packages/@intlayer/chrome-extension": {
       "name": "@intlayer/chrome-extension",
-      "version": "9.4.3",
+      "version": "9.4.4",
       "dependencies": {
         "react": "19.2.8",
         "react-dom": "19.2.8",
@@ -1510,7 +1510,7 @@
     },
     "packages/@intlayer/cli": {
       "name": "@intlayer/cli",
-      "version": "9.4.3",
+      "version": "9.4.4",
       "dependencies": {
         "@clack/prompts": "1.7.0",
         "@intlayer/api": "workspace:*",
@@ -1547,7 +1547,7 @@
     },
     "packages/@intlayer/config": {
       "name": "@intlayer/config",
-      "version": "9.4.3",
+      "version": "9.4.4",
       "dependencies": {
         "@intlayer/types": "workspace:*",
         "defu": "6.1.7",
@@ -1575,7 +1575,7 @@
     },
     "packages/@intlayer/core": {
       "name": "@intlayer/core",
-      "version": "9.4.3",
+      "version": "9.4.4",
       "dependencies": {
         "@intlayer/api": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -1597,7 +1597,7 @@
     },
     "packages/@intlayer/design-system": {
       "name": "@intlayer/design-system",
-      "version": "9.4.3",
+      "version": "9.4.4",
       "dependencies": {
         "@better-auth/passkey": "1.7.2",
         "@better-auth/sso": "1.7.2",
@@ -1714,7 +1714,7 @@
     },
     "packages/@intlayer/dictionaries-entry": {
       "name": "@intlayer/dictionaries-entry",
-      "version": "9.4.3",
+      "version": "9.4.4",
       "dependencies": {
         "@intlayer/config": "workspace:*",
       },
@@ -1732,7 +1732,7 @@
     },
     "packages/@intlayer/dynamic-dictionaries-entry": {
       "name": "@intlayer/dynamic-dictionaries-entry",
-      "version": "9.4.3",
+      "version": "9.4.4",
       "dependencies": {
         "@intlayer/config": "workspace:*",
       },
@@ -1750,7 +1750,7 @@
     },
     "packages/@intlayer/editor": {
       "name": "@intlayer/editor",
-      "version": "9.4.3",
+      "version": "9.4.4",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -1770,7 +1770,7 @@
     },
     "packages/@intlayer/editor-react": {
       "name": "@intlayer/editor-react",
-      "version": "9.4.3",
+      "version": "9.4.4",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -1799,7 +1799,7 @@
     },
     "packages/@intlayer/engine": {
       "name": "@intlayer/engine",
-      "version": "9.4.3",
+      "version": "9.4.4",
       "dependencies": {
         "@intlayer/api": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -1835,7 +1835,7 @@
     },
     "packages/@intlayer/fetch-dictionaries-entry": {
       "name": "@intlayer/fetch-dictionaries-entry",
-      "version": "9.4.3",
+      "version": "9.4.4",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -1854,7 +1854,7 @@
     },
     "packages/@intlayer/lsp": {
       "name": "@intlayer/lsp",
-      "version": "9.4.3",
+      "version": "9.4.4",
       "bin": {
         "intlayer-lsp": "./dist/esm/index.mjs",
       },
@@ -1880,7 +1880,7 @@
     },
     "packages/@intlayer/mcp": {
       "name": "@intlayer/mcp",
-      "version": "9.4.3",
+      "version": "9.4.4",
       "bin": "dist/esm/server/stdio.mjs",
       "dependencies": {
         "@ai-sdk/mcp": "2.0.44",
@@ -1910,7 +1910,7 @@
     },
     "packages/@intlayer/remote-dictionaries-entry": {
       "name": "@intlayer/remote-dictionaries-entry",
-      "version": "9.4.3",
+      "version": "9.4.4",
       "dependencies": {
         "@intlayer/config": "workspace:*",
       },
@@ -1928,7 +1928,7 @@
     },
     "packages/@intlayer/svelte-compiler": {
       "name": "@intlayer/svelte-compiler",
-      "version": "9.4.3",
+      "version": "9.4.4",
       "dependencies": {
         "@babel/core": "8.0.1",
         "@intlayer/types": "workspace:*",
@@ -1962,11 +1962,11 @@
     },
     "packages/@intlayer/swc": {
       "name": "@intlayer/swc",
-      "version": "9.4.3",
+      "version": "9.4.4",
     },
     "packages/@intlayer/types": {
       "name": "@intlayer/types",
-      "version": "9.4.3",
+      "version": "9.4.4",
       "devDependencies": {
         "@types/node": "26.4.1",
         "@utils/ts-config": "workspace:*",
@@ -1981,7 +1981,7 @@
     },
     "packages/@intlayer/unmerged-dictionaries-entry": {
       "name": "@intlayer/unmerged-dictionaries-entry",
-      "version": "9.4.3",
+      "version": "9.4.4",
       "dependencies": {
         "@intlayer/config": "workspace:*",
       },
@@ -1999,7 +1999,7 @@
     },
     "packages/@intlayer/vue-compiler": {
       "name": "@intlayer/vue-compiler",
-      "version": "9.4.3",
+      "version": "9.4.4",
       "dependencies": {
         "@babel/core": "8.0.1",
         "@intlayer/config": "workspace:*",
@@ -2033,7 +2033,7 @@
     },
     "packages/@intlayer/webpack": {
       "name": "@intlayer/webpack",
-      "version": "9.4.3",
+      "version": "9.4.4",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/dictionaries-entry": "workspace:*",
@@ -2064,7 +2064,7 @@
     },
     "packages/adonis-intlayer": {
       "name": "adonis-intlayer",
-      "version": "9.4.3",
+      "version": "9.4.4",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -2092,7 +2092,7 @@
     },
     "packages/angular-intlayer": {
       "name": "angular-intlayer",
-      "version": "9.4.3",
+      "version": "9.4.4",
       "dependencies": {
         "@babel/core": "^8.0.1",
         "@babel/plugin-syntax-import-attributes": "7.29.7",
@@ -2136,7 +2136,7 @@
     },
     "packages/astro-intlayer": {
       "name": "astro-intlayer",
-      "version": "9.4.3",
+      "version": "9.4.4",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -2162,7 +2162,7 @@
     },
     "packages/elysia-intlayer": {
       "name": "elysia-intlayer",
-      "version": "9.4.3",
+      "version": "9.4.4",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -2186,7 +2186,7 @@
     },
     "packages/eslint-plugin-intlayer": {
       "name": "eslint-plugin-intlayer",
-      "version": "9.4.3",
+      "version": "9.4.4",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/lsp": "workspace:*",
@@ -2216,7 +2216,7 @@
     },
     "packages/express-intlayer": {
       "name": "express-intlayer",
-      "version": "9.4.3",
+      "version": "9.4.4",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -2240,7 +2240,7 @@
     },
     "packages/fastify-intlayer": {
       "name": "fastify-intlayer",
-      "version": "9.4.3",
+      "version": "9.4.4",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -2264,7 +2264,7 @@
     },
     "packages/hono-intlayer": {
       "name": "hono-intlayer",
-      "version": "9.4.3",
+      "version": "9.4.4",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -2287,7 +2287,7 @@
     },
     "packages/intlayer": {
       "name": "intlayer",
-      "version": "9.4.3",
+      "version": "9.4.4",
       "bin": {
         "intlayer": "./dist/cjs/cli/script.cjs",
       },
@@ -2310,7 +2310,7 @@
     },
     "packages/intlayer-cli": {
       "name": "intlayer-cli",
-      "version": "9.4.3",
+      "version": "9.4.4",
       "bin": {
         "intlayer": "./dist/cjs/index.cjs",
       },
@@ -2330,7 +2330,7 @@
     },
     "packages/intlayer-editor": {
       "name": "intlayer-editor",
-      "version": "9.4.3",
+      "version": "9.4.4",
       "bin": {
         "intlayer-editor": "./bin/intlayer-editor.mjs",
       },
@@ -2381,7 +2381,7 @@
     },
     "packages/lit-intlayer": {
       "name": "lit-intlayer",
-      "version": "9.4.3",
+      "version": "9.4.4",
       "dependencies": {
         "@intlayer/api": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -2413,7 +2413,7 @@
     },
     "packages/lynx-intlayer": {
       "name": "lynx-intlayer",
-      "version": "9.4.3",
+      "version": "9.4.4",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -2439,7 +2439,7 @@
     },
     "packages/next-intlayer": {
       "name": "next-intlayer",
-      "version": "9.4.3",
+      "version": "9.4.4",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -2475,7 +2475,7 @@
     },
     "packages/nuxt-intlayer": {
       "name": "nuxt-intlayer",
-      "version": "9.4.3",
+      "version": "9.4.4",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -2501,7 +2501,7 @@
     },
     "packages/preact-intlayer": {
       "name": "preact-intlayer",
-      "version": "9.4.3",
+      "version": "9.4.4",
       "dependencies": {
         "@intlayer/api": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -2530,7 +2530,7 @@
     },
     "packages/react-intlayer": {
       "name": "react-intlayer",
-      "version": "9.4.3",
+      "version": "9.4.4",
       "dependencies": {
         "@intlayer/api": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -2563,7 +2563,7 @@
     },
     "packages/react-native-intlayer": {
       "name": "react-native-intlayer",
-      "version": "9.4.3",
+      "version": "9.4.4",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -2592,7 +2592,7 @@
     },
     "packages/react-scripts-intlayer": {
       "name": "react-scripts-intlayer",
-      "version": "9.4.3",
+      "version": "9.4.4",
       "bin": {
         "react-scripts-intlayer": "./dist/cjs/cli/react-scripts-intlayer.cjs",
       },
@@ -2628,7 +2628,7 @@
     },
     "packages/solid-intlayer": {
       "name": "solid-intlayer",
-      "version": "9.4.3",
+      "version": "9.4.4",
       "dependencies": {
         "@intlayer/api": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -2663,7 +2663,7 @@
     },
     "packages/svelte-intlayer": {
       "name": "svelte-intlayer",
-      "version": "9.4.3",
+      "version": "9.4.4",
       "dependencies": {
         "@intlayer/api": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -2696,7 +2696,7 @@
     },
     "packages/vanilla-intlayer": {
       "name": "vanilla-intlayer",
-      "version": "9.4.3",
+      "version": "9.4.4",
       "dependencies": {
         "@intlayer/api": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -2723,7 +2723,7 @@
     },
     "packages/vite-intlayer": {
       "name": "vite-intlayer",
-      "version": "9.4.3",
+      "version": "9.4.4",
       "dependencies": {
         "@intlayer/babel": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -2758,7 +2758,7 @@
     },
     "packages/vue-intlayer": {
       "name": "vue-intlayer",
-      "version": "9.4.3",
+      "version": "9.4.4",
       "dependencies": {
         "@intlayer/api": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -2795,7 +2795,7 @@
     },
     "plugins/sync-json-plugin": {
       "name": "@intlayer/sync-json-plugin",
-      "version": "9.4.3",
+      "version": "9.4.4",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -2816,7 +2816,7 @@
     },
     "plugins/sync-po-plugin": {
       "name": "@intlayer/sync-po-plugin",
-      "version": "9.4.3",
+      "version": "9.4.4",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
