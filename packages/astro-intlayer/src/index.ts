@@ -6,10 +6,25 @@ import { watch } from '@intlayer/engine/watcher';
 import type { AstroIntegration } from 'astro';
 import type { PluginOption } from 'vite';
 import {
+  INTLAYER_NO_EXTERNAL_PATTERN,
   intlayer as viteIntlayerPlugin,
-  intlayerProxy as viteIntlayerProxyPlugin,
 } from 'vite-intlayer';
 import { emitRewrittenPages } from './emitRewrittenPages';
+
+/**
+ * Keeps the intlayer packages out of Node's native module loader in *every*
+ * Vite environment Astro renders from.
+ *
+ * A static dev server renders from `ssr`, but other setups render from Astro's
+ * `astro` or `prerender` environments, and a top-level `ssr.noExternal` only
+ * seeds the `ssr` one. Declaring it per environment covers the rest.
+ */
+const intlayerNoExternalEnvironments = (): PluginOption => ({
+  name: 'astro-intlayer-no-external',
+  configEnvironment: () => ({
+    resolve: { noExternal: [INTLAYER_NO_EXTERNAL_PATTERN] },
+  }),
+});
 
 /**
  * Astro integration for Intlayer.
@@ -47,11 +62,8 @@ export const intlayer = (): AstroIntegration =>
         updateConfig({
           vite: {
             plugins: [
-              // Aliases + watcher + buildStart prep
-              // (also handles optimize/prune/minify internally)
               viteIntlayerPlugin(),
-              // Dev-time middleware for locale routing
-              viteIntlayerProxyPlugin(),
+              intlayerNoExternalEnvironments(),
             ] as PluginOption[],
             resolve: {
               alias: {
@@ -60,6 +72,19 @@ export const intlayer = (): AstroIntegration =>
                   formatter: (value) => resolve(value),
                 }),
               },
+            },
+            // `astro-intlayer` is tagged with the `astro` keyword, so Astro
+            // treats it as an Astro package and crawls its dependency tree
+            // (`vitefu`), force-externalizing every dependency it finds —
+            // `@intlayer/core`, `@intlayer/config`, … — into
+            // `resolve.external`. Vite checks `external` before `noExternal`,
+            // so the `ssr.noExternal` that `vite-intlayer` returns from its
+            // Vite `config` hook loses that race and the packages are loaded
+            // natively by Node, stranding dictionary edits behind Node's
+            // require cache. Declaring it here instead runs before the crawl,
+            // which drops explicitly no-externalized packages from its result.
+            ssr: {
+              noExternal: [INTLAYER_NO_EXTERNAL_PATTERN],
             },
           },
         });

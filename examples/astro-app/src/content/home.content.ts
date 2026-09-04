@@ -3,11 +3,7 @@ import { type Dictionary, t } from 'intlayer';
 const homeContent = {
   key: 'home',
   content: {
-    title: t({
-      en: 'Astro + Intlayer',
-      fr: 'Astro + Intlayer',
-      es: 'Astro + Intlayer',
-    }),
+    title: 'Astro + Intlayer',
     subtitle: t({
       en: 'Framework compatibility showcase',
       fr: 'Vitrine de compatibilité des frameworks',
@@ -34,11 +30,7 @@ const homeContent = {
         fr: "Découvrez la puissance d'Astro combinée à Intlayer pour une internationalisation sans effort.",
         es: 'Experimenta el poder de Astro combinado con Intlayer para una internacionalización sin esfuerzo.',
       }),
-      keywords: t({
-        en: ['Astro', 'Intlayer', 'i18n', 'React', 'Vue', 'Svelte'],
-        fr: ['Astro', 'Intlayer', 'i18n', 'React', 'Vue', 'Svelte'],
-        es: ['Astro', 'Intlayer', 'i18n', 'React', 'Vue', 'Svelte'],
-      }),
+      keywords: ['Astro', 'Intlayer', 'i18n', 'React', 'Vue', 'Svelte'],
     },
   },
 } satisfies Dictionary;

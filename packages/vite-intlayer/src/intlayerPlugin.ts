@@ -33,6 +33,18 @@ import {
 import { intlayerPrune } from './intlayerPrunePlugin';
 
 /**
+ * Packages that must go through Vite's transform pipeline instead of being
+ * loaded natively by Node.
+ *
+ * `intlayer` and every `@intlayer/*` package resolve `@intlayer/dictionaries-entry`
+ * through a Vite alias pointing at the generated `.intlayer` entry. A package
+ * loaded natively by Node never sees that alias: it resolves the published stub
+ * instead, whose CJS `require` of the generated dictionaries is cached for the
+ * lifetime of the process — so content edits stop reaching the running server.
+ */
+export const INTLAYER_NO_EXTERNAL_PATTERN = /(^@intlayer\/|intlayer$)/;
+
+/**
  * Extended options accepted by the intlayer Vite plugin.
  *
  * Extends {@link GetConfigurationOptions} with compat-adapter caller
@@ -239,7 +251,7 @@ export const intlayerPlugin = (
           },
           ssr: {
             // Ensure intlayer packages are bundled so aliases are applied
-            noExternal: [/(^@intlayer\/|intlayer$)/],
+            noExternal: [INTLAYER_NO_EXTERNAL_PATTERN],
           },
         };
       },
