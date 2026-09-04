@@ -90,13 +90,13 @@
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
-    "i18next": "26.3.6",
+    "i18next": "26.4.2",
     "react-i18next": "17.0.10",
     "rimraf": "6.1.3",
-    "tsdown": "0.22.14",
+    "tsdown": "0.23.0",
     "typescript": "7.0.2",
     "vite": "8.2.2",
-    "vitest": "4.1.11"
+    "vitest": "5.0.0"
   },
   "peerDependencies": {
     "i18next": ">=20.0.0",

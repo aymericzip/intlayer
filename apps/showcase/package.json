@@ -44,12 +44,12 @@
     "@tanstack/react-start": "1.168.49",
     "@tanstack/react-table": "9.2.4",
     "@tanstack/router-plugin": "1.168.35",
-    "framer-motion": "13.1.1",
+    "framer-motion": "13.2.0",
     "fuse.js": "7.5.0",
     "intlayer": "workspace:*",
-    "lucide-react": "1.39.0",
+    "lucide-react": "1.40.0",
     "nitro": "latest",
-    "posthog-js": "1.424.1",
+    "posthog-js": "1.426.2",
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "react-hook-form": "7.87.0",
@@ -64,7 +64,7 @@
     "@testing-library/react": "16.3.3",
     "@types/node": "26.4.1",
     "@types/react": "19.2.18",
-    "@types/react-dom": "19.2.5",
+    "@types/react-dom": "19.2.7",
     "@vitejs/plugin-react": "6.1.1",
     "babel-plugin-react-compiler": "1.0.0",
     "jsdom": "30.0.1",
@@ -73,6 +73,6 @@
     "vite": "8.2.2",
     "vite-intlayer": "workspace:*",
     "vite-plugin-wasm": "3.6.0",
-    "vitest": "4.1.11"
+    "vitest": "5.0.0"
   }
 }

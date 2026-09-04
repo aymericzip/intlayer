@@ -26,7 +26,7 @@
     "@types/node": "26.4.1",
     "@types/react": "19",
     "@types/react-dom": "19",
-    "i18next": "26.3.6",
+    "i18next": "26.4.2",
     "react-i18next": "17.0.11",
     "tailwindcss": "4",
     "typescript": "6.0.3"
