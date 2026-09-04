@@ -1,6 +1,6 @@
+import { useSpring } from '@react-spring/web';
 import createGlobe from 'cobe';
 import { type FC, memo, type RefObject, useEffect, useRef } from 'react';
-import { useSpring } from 'react-spring';
 import { useTheme } from '~/providers/ThemeProvider';
 
 export const Globe: FC = memo(() => {
@@ -25,8 +25,10 @@ export const Globe: FC = memo(() => {
 
     let phi = 0;
     let width = 0;
-    const onResize = () =>
-      canvasRef.current && (width = canvasRef.current.offsetWidth);
+    const onResize = () => {
+      if (!canvasRef.current) return;
+      width = canvasRef.current.offsetWidth;
+    };
     window.addEventListener('resize', onResize, { passive: true });
     onResize();
     const globe = createGlobe(canvasRef.current, {

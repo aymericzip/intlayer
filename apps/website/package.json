@@ -115,8 +115,8 @@
     }
   },
   "optionalDependencies": {
+    "@react-spring/web": "10.1.2",
     "cobe": "2.0.1",
-    "intlayer-editor": "workspace:*",
-    "react-spring": "10.0.4"
+    "intlayer-editor": "workspace:*"
   }
 }
