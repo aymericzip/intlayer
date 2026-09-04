@@ -1,10 +1,9 @@
 import { Button } from '@intlayer/design-system/button';
 import { KeyboardShortcut } from '@intlayer/design-system/keyboard-shortcut';
-import { Loader } from '@intlayer/design-system/loader';
 import { Modal } from '@intlayer/design-system/modal';
 import { PopoverStatic } from '@intlayer/design-system/popover';
 import { Search } from 'lucide-react';
-import { type FC, Suspense, useState } from 'react';
+import { type FC, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { SearchView } from './SearchView';
 
@@ -53,7 +52,7 @@ export const SearchTrigger: FC<SearchTriggerProps> = ({
           color="custom"
           onClick={() => setIsModalOpen(true)}
           isFullWidth={false}
-          className="mb-1 pr-1.5"
+          className="mb-1 bg-text-opposite pr-1.5"
         >
           <span className="flex w-full items-center gap-2">
             {searchButton.text}

@@ -16,7 +16,6 @@
 	--color-text: var(--foreground);
 	--color-text-opposite: var(--background);
 	--color-foreground-opposite: var(--background);
-	--color-neutral: var(--color-foreground);
 
 	--color-card: var(--card);
 	--color-card-hover: var(--card-hover);

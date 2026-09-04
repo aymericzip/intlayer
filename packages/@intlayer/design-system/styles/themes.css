@@ -12,7 +12,7 @@
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
 
-  --card: oklch(98% 0 271);
+  --card: oklch(98% 0 280);
   --card-hover: oklch(0.97 0 0);
 
   --muted: oklch(0.97 0 0);
@@ -37,6 +37,11 @@
   --hypertext: oklch(0.205 0 0);
   --hypertext-hover: oklch(0.65 0.15 330);
   --hypertext-active: oklch(0.205 0 0);
+
+  /* Theme-aware grey used by `text-neutral`, `border-neutral`, `bg-neutral/10`…
+     Readable as secondary text over `--background`, and subtle enough to tint
+     surfaces and borders through an opacity modifier. */
+  --neutral: oklch(0.556 0 0);
 
   --success: oklch(0.72 0.19 155);
   --warning: oklch(0.75 0.15 75);
@@ -83,6 +88,9 @@
   --hypertext: oklch(0.985 0 0);
   --hypertext-hover: oklch(0.65 0.15 330);
   --hypertext-active: oklch(0.985 0 0);
+
+  /* See the light theme for the role this colour plays. */
+  --neutral: oklch(0.708 0 0);
 
   --success: oklch(0.72 0.19 155);
   --warning: oklch(0.75 0.15 75);
