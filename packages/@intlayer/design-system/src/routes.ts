@@ -186,6 +186,7 @@ export const Website_Playground_Path = '/playground' as const;
 export const Website_NotFound_Path = '/404' as const;
 export const Website_Changelog_Path = '/changelog' as const;
 export const Website_Scanner_Path = '/i18n-seo-scanner' as const;
+export const Website_MessageConverter_Path = '/i18n-message-converter' as const;
 
 export const Website_Doc_Root_Path = '/doc' as const;
 export const Website_Doc_Path = '/doc/get-started' as const;
@@ -305,6 +306,8 @@ export const Website_Changelog =
   `https://${Website_Domain}${Website_Changelog_Path}` as const;
 export const Website_Scanner =
   `https://${Website_Domain}${Website_Scanner_Path}` as const;
+export const Website_MessageConverter =
+  `https://${Website_Domain}${Website_MessageConverter_Path}` as const;
 export const Website_Benchmark =
   `https://${Website_Domain}${Website_Benchmark_Path}` as const;
 export const Website_Benchmark_NextJS =

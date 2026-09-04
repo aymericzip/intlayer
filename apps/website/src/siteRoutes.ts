@@ -7,6 +7,7 @@ import {
   Website_FrequentQuestions_Path,
   Website_Home_Path,
   Website_Markdown_Path,
+  Website_MessageConverter_Path,
   Website_Playground_Path,
   Website_Scanner_Path,
   Website_TMS_Path,
@@ -98,6 +99,7 @@ export const staticSitemapEntries: Omit<SitemapUrlEntry, 'lastmod'>[] = [
   { path: Website_Demo_Path, changefreq: 'monthly', priority: 0.8 },
   { path: Website_Playground_Path, changefreq: 'monthly', priority: 0.8 },
   { path: Website_Scanner_Path, changefreq: 'monthly', priority: 0.8 },
+  { path: Website_MessageConverter_Path, changefreq: 'monthly', priority: 0.8 },
   {
     path: Website_FrequentQuestions_Path,
     changefreq: 'monthly',
@@ -118,6 +120,7 @@ export const staticPrerenderPaths: string[] = [
   Website_Demo_Path,
   Website_Playground_Path,
   Website_Scanner_Path,
+  Website_MessageConverter_Path,
   Website_Doc_Path,
   Website_FrequentQuestions_Path,
   Website_Contributors_Path,

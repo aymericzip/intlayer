@@ -22,7 +22,7 @@ export const writeFill = async (
 
   const { filePath } = contentDeclarationFile;
 
-  if (!filePath) {
+  if (!filePath || !fullDictionary) {
     appLogger('No file path found for dictionary', {
       level: 'error',
     });
@@ -108,7 +108,7 @@ export const writeFill = async (
 
     if (output.isPerLocale) {
       appLogger(
-        `Auto filled per-locale content declaration for '${colorizeKey(fullDictionary.key)}' written to ${formatPath(output.filePath)} for locale ${formatLocale(output.localeList[0])}`,
+        `Auto filled per-locale content declaration for '${colorizeKey(fullDictionary.key)}' written to ${formatPath(output.filePath)} for locale ${formatLocale(output.localeList[0]!)}`,
         { level: 'info' }
       );
     } else {
