@@ -1,6 +1,62 @@
 import type { FormatterDialect, QuickSnippet } from './types';
 
 export const SNIPPETS_BY_DIALECT: Record<FormatterDialect, QuickSnippet[]> = {
+  intlayer: [
+    {
+      id: 'var',
+      label: 'Variable',
+      description: 'Double curly brace variable placeholder',
+      code: '{{name}}',
+    },
+    {
+      id: 'translation',
+      label: 't() Translation',
+      description: 'Multilingual locale mapping',
+      code: 't({\n  en: "Hello",\n  fr: "Bonjour"\n})',
+    },
+    {
+      id: 'plural',
+      label: 'plural() Plural',
+      description: 'Cardinal count pluralization',
+      code: 'plural({\n  "=0": "No items",\n  one: "1 item",\n  other: "{{count}} items"\n})',
+    },
+    {
+      id: 'enu',
+      label: 'enu() Enumeration',
+      description: 'Exact numeric matching with fallback',
+      code: 'enu({\n  0: "None",\n  1: "One",\n  fallback: "{{count}} items"\n})',
+    },
+    {
+      id: 'cond',
+      label: 'cond() Condition',
+      description: 'Boolean condition branching',
+      code: 'cond({\n  true: "Active",\n  false: "Inactive"\n})',
+    },
+    {
+      id: 'select',
+      label: 'select() Choice',
+      description: 'Variable discriminant selection',
+      code: 'select({\n  admin: "Admin",\n  user: "User",\n  fallback: "Guest"\n}, "role")',
+    },
+    {
+      id: 'gender',
+      label: 'gender() Agreement',
+      description: 'Gender-based message form',
+      code: 'gender({\n  male: "He",\n  female: "She",\n  fallback: "They"\n})',
+    },
+    {
+      id: 'md',
+      label: 'md() Markdown',
+      description: 'Structured Markdown content',
+      code: 'md("# Title\\n\\n**Bold text** with {{variable}}")',
+    },
+    {
+      id: 'html',
+      label: 'html() Markup',
+      description: 'Embedded HTML content',
+      code: 'html("<span>Highlighted <strong>text</strong></span>")',
+    },
+  ],
   icu: [
     {
       id: 'var',

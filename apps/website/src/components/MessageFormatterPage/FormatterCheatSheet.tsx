@@ -16,6 +16,74 @@ const CHEAT_SHEETS: Record<
   FormatterDialect,
   { title: string; rows: CheatSheetRow[] }
 > = {
+  intlayer: {
+    title: 'Intlayer Message Format Syntax Cheat Sheet',
+    rows: [
+      {
+        feature: 'Variable Interpolation',
+        syntax: '{{variableName}}',
+        example: 'Hello {{name}}!',
+        notes: 'Double curly braces for dynamic parameter insertion',
+        intlayerEquivalent: 'useIntlayer(key).name or resolveMessage()',
+      },
+      {
+        feature: 'Multilingual Translation',
+        syntax: 't({ en: "...", fr: "..." })',
+        example: 't({ en: "Hello", fr: "Bonjour" })',
+        notes: 'Locale-keyed translations with type safety and fallback',
+        intlayerEquivalent: 't({ [locale]: string })',
+      },
+      {
+        feature: 'Pluralization (plural)',
+        syntax: 'plural({ one: "...", other: "..." })',
+        example: 'plural({ one: "1 item", other: "{{count}} items" })',
+        notes: 'CLDR cardinal plural rules with automatic count lookup',
+        intlayerEquivalent: 'plural({ [category]: string })',
+      },
+      {
+        feature: 'Exact Enumeration (enu)',
+        syntax: 'enu({ 0: "...", 1: "...", fallback: "..." })',
+        example: 'enu({ 0: "Zero", 1: "One", fallback: "{{count}}" })',
+        notes: 'Exact numeric matching with fallback for remaining counts',
+        intlayerEquivalent: 'enu({ [number]: string, fallback })',
+      },
+      {
+        feature: 'Dynamic Selection (select)',
+        syntax: 'select({ key: "...", fallback: "..." }, "variable")',
+        example: 'select({ admin: "Admin", fallback: "User" }, "role")',
+        notes: 'Branch on any custom string variable discriminator',
+        intlayerEquivalent: 'select({ [key]: string }, variableKey)',
+      },
+      {
+        feature: 'Gender Agreement (gender)',
+        syntax: 'gender({ male: "...", female: "...", fallback: "..." })',
+        example: 'gender({ male: "He", female: "She", fallback: "They" })',
+        notes: 'Grammatical gender concordance with automatic lookup',
+        intlayerEquivalent: 'gender({ male, female, fallback })',
+      },
+      {
+        feature: 'Boolean Condition (cond)',
+        syntax: 'cond({ true: "...", false: "..." })',
+        example: 'cond({ true: "Logged In", false: "Guest" })',
+        notes: 'Evaluates boolean state conditions',
+        intlayerEquivalent: 'cond({ true: string, false: string })',
+      },
+      {
+        feature: 'Markdown Content (md)',
+        syntax: 'md("# ...\\n**bold**")',
+        example: 'md("# Title\\n\\n**Bold** {{variable}}")',
+        notes: 'Rich markdown rendered to React / HTML nodes',
+        intlayerEquivalent: 'md(markdownString)',
+      },
+      {
+        feature: 'Embedded HTML (html)',
+        syntax: 'html("<tag>...</tag>")',
+        example: 'html("<p>Visit <a href=\\"/\\">home</a></p>")',
+        notes: 'Embedded safe HTML markup for links and formatting',
+        intlayerEquivalent: 'html(htmlString)',
+      },
+    ],
+  },
   icu: {
     title: 'ICU MessageFormat Syntax Cheat Sheet',
     rows: [

@@ -232,6 +232,109 @@ export const validatePOMessage = (text: string): SyntaxValidationResult => {
 };
 
 /**
+ * Validates Intlayer message format and content declaration syntax.
+ */
+export const validateIntlayerMessage = (
+  text: string
+): SyntaxValidationResult => {
+  const trimmed = text.trim();
+  if (!trimmed) {
+    return { isValid: true };
+  }
+
+  // 1. If valid JSON object or array
+  if (
+    (trimmed.startsWith('{') && trimmed.endsWith('}')) ||
+    (trimmed.startsWith('[') && trimmed.endsWith(']'))
+  ) {
+    try {
+      JSON.parse(trimmed);
+      return { isValid: true };
+    } catch (e: unknown) {
+      // If it looks purely like JSON (e.g. keys with quotes and colons), report JSON error
+      if (trimmed.startsWith('{"') || trimmed.startsWith('{\n  "')) {
+        return {
+          isValid: false,
+          errorMessage: `Invalid JSON syntax: ${e instanceof Error ? e.message : String(e)}`,
+        };
+      }
+      // Otherwise it might be a TypeScript/JavaScript object literal like { en: "..." }
+    }
+  }
+
+  // 2. Check balanced double curly braces {{ ... }}
+  const openDoubleBraces = (text.match(/\{\{/g) || []).length;
+  const closeDoubleBraces = (text.match(/\}\}/g) || []).length;
+
+  if (openDoubleBraces !== closeDoubleBraces) {
+    return {
+      isValid: false,
+      errorMessage: `Mismatched double braces: found ${openDoubleBraces} opening "{{", but ${closeDoubleBraces} closing "}}".`,
+    };
+  }
+
+  // 3. Check balanced parentheses ()
+  const openParens = (text.match(/\(/g) || []).length;
+  const closeParens = (text.match(/\)/g) || []).length;
+
+  if (openParens !== closeParens) {
+    return {
+      isValid: false,
+      errorMessage: `Mismatched parentheses: found ${openParens} opening "(", but ${closeParens} closing ")".`,
+    };
+  }
+
+  // 4. Check balanced curly braces outside quotes (accounting for {{...}})
+  let braceDepth = 0;
+  let inSingle = false;
+  let inDouble = false;
+  let inBacktick = false;
+
+  for (let i = 0; i < text.length; i++) {
+    const char = text[i];
+    const prev = i > 0 ? text[i - 1] : '';
+
+    if (char === "'" && !inDouble && !inBacktick && prev !== '\\') {
+      inSingle = !inSingle;
+    } else if (char === '"' && !inSingle && !inBacktick && prev !== '\\') {
+      inDouble = !inDouble;
+    } else if (char === '`' && !inSingle && !inDouble && prev !== '\\') {
+      inBacktick = !inBacktick;
+    } else if (!inSingle && !inDouble && !inBacktick) {
+      if (char === '{') {
+        braceDepth++;
+      } else if (char === '}') {
+        braceDepth--;
+        if (braceDepth < 0) {
+          return {
+            isValid: false,
+            errorMessage:
+              'Unexpected closing brace "}" without matching opening brace.',
+          };
+        }
+      }
+    }
+  }
+
+  if (inSingle || inDouble || inBacktick) {
+    return {
+      isValid: false,
+      errorMessage:
+        'Unterminated string literal detected (unclosed quote or backtick).',
+    };
+  }
+
+  if (braceDepth > 0) {
+    return {
+      isValid: false,
+      errorMessage: `Unclosed curly brace detected (${braceDepth} unclosed brace${braceDepth > 1 ? 's' : ''}).`,
+    };
+  }
+
+  return { isValid: true };
+};
+
+/**
  * Dispatches validation to dialect validator.
  */
 export const validateMessageSyntax = (
@@ -239,6 +342,8 @@ export const validateMessageSyntax = (
   dialect: FormatterDialect
 ): SyntaxValidationResult => {
   switch (dialect) {
+    case 'intlayer':
+      return validateIntlayerMessage(text);
     case 'icu':
       return validateICUMessage(text);
     case 'i18next':

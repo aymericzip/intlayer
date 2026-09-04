@@ -5,6 +5,7 @@ import {
   Website_Doc_Path,
   Website_I18nextFormatter_Path,
   Website_ICUFormatter_Path,
+  Website_IntlayerFormatter_Path,
   Website_MessageConverter_Path,
   Website_POFormatter_Path,
   Website_VueI18nFormatter_Path,
@@ -63,6 +64,15 @@ export const MessageConverterPage: FC = () => {
             >
               <ArrowLeftRight className="size-3.5" />
               <span>Multi-Format Converter</span>
+            </Link>
+            <Link
+              to={Website_IntlayerFormatter_Path}
+              label="Intlayer"
+              color="text"
+              className="flex items-center gap-2 rounded-xl px-3 py-1.5 font-semibold text-muted-foreground text-xs transition-all hover:bg-muted/60 hover:text-foreground"
+            >
+              <Sparkles className="size-3.5" />
+              <span>Intlayer Formatter</span>
             </Link>
             <Link
               to={Website_ICUFormatter_Path}

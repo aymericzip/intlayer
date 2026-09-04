@@ -1,7 +1,12 @@
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 
 /** Supported message format dialects for dedicated formatters */
-export type FormatterDialect = 'icu' | 'i18next' | 'vue-i18n' | 'po';
+export type FormatterDialect =
+  | 'intlayer'
+  | 'icu'
+  | 'i18next'
+  | 'vue-i18n'
+  | 'po';
 
 /** All supported template categories */
 export type TemplateCategory =

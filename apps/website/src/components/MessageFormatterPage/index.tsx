@@ -5,6 +5,7 @@ import {
   Website_Doc_Path,
   Website_I18nextFormatter_Path,
   Website_ICUFormatter_Path,
+  Website_IntlayerFormatter_Path,
   Website_MessageConverter_Path,
   Website_POFormatter_Path,
   Website_VueI18nFormatter_Path,
@@ -34,6 +35,12 @@ export const MessageFormatterPage: FC<{ dialect: FormatterDialect }> = ({
   const content = useIntlayer('message-formatter-page');
 
   const metaByDialect = {
+    intlayer: {
+      title: content.intlayer.title,
+      description: content.intlayer.description,
+      icon: Sparkles,
+      path: Website_IntlayerFormatter_Path,
+    },
     icu: {
       title: content.icu.title,
       description: content.icu.description,
@@ -61,6 +68,12 @@ export const MessageFormatterPage: FC<{ dialect: FormatterDialect }> = ({
   }[dialect];
 
   const switcherLinks = [
+    {
+      id: 'intlayer',
+      label: 'Intlayer',
+      path: Website_IntlayerFormatter_Path,
+      icon: Sparkles,
+    },
     {
       id: 'icu',
       label: 'ICU MessageFormat',

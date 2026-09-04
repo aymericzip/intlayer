@@ -31,6 +31,7 @@ import { Route as Char123LocaleChar125I18nMessageConverterRouteImport } from './
 import { Route as Char123LocaleChar125I18nSeoScannerRouteImport } from './routes/{-$locale}/i18n-seo-scanner'
 import { Route as Char123LocaleChar125I18nextMessageFormatterRouteImport } from './routes/{-$locale}/i18next-message-formatter'
 import { Route as Char123LocaleChar125IcuMessageFormatterRouteImport } from './routes/{-$locale}/icu-message-formatter'
+import { Route as Char123LocaleChar125IntlayerMessageFormatterRouteImport } from './routes/{-$locale}/intlayer-message-formatter'
 import { Route as Char123LocaleChar125MarkdownRouteImport } from './routes/{-$locale}/markdown'
 import { Route as Char123LocaleChar125PoFileMessageFormatterRouteImport } from './routes/{-$locale}/po-file-message-formatter'
 import { Route as Char123LocaleChar125TmsRouteImport } from './routes/{-$locale}/tms'
@@ -176,6 +177,12 @@ const Char123LocaleChar125IcuMessageFormatterRoute =
   Char123LocaleChar125IcuMessageFormatterRouteImport.update({
     id: '/icu-message-formatter',
     path: '/icu-message-formatter',
+    getParentRoute: () => Char123LocaleChar125RouteRoute,
+  } as any)
+const Char123LocaleChar125IntlayerMessageFormatterRoute =
+  Char123LocaleChar125IntlayerMessageFormatterRouteImport.update({
+    id: '/intlayer-message-formatter',
+    path: '/intlayer-message-formatter',
     getParentRoute: () => Char123LocaleChar125RouteRoute,
   } as any)
 const Char123LocaleChar125MarkdownRoute =
@@ -347,6 +354,7 @@ export interface FileRoutesByFullPath {
   '/{-$locale}/i18n-seo-scanner': typeof Char123LocaleChar125I18nSeoScannerRoute
   '/{-$locale}/i18next-message-formatter': typeof Char123LocaleChar125I18nextMessageFormatterRoute
   '/{-$locale}/icu-message-formatter': typeof Char123LocaleChar125IcuMessageFormatterRoute
+  '/{-$locale}/intlayer-message-formatter': typeof Char123LocaleChar125IntlayerMessageFormatterRoute
   '/{-$locale}/markdown': typeof Char123LocaleChar125MarkdownRoute
   '/{-$locale}/po-file-message-formatter': typeof Char123LocaleChar125PoFileMessageFormatterRoute
   '/{-$locale}/tms': typeof Char123LocaleChar125TmsRoute
@@ -394,6 +402,7 @@ export interface FileRoutesByTo {
   '/{-$locale}/i18n-seo-scanner': typeof Char123LocaleChar125I18nSeoScannerRoute
   '/{-$locale}/i18next-message-formatter': typeof Char123LocaleChar125I18nextMessageFormatterRoute
   '/{-$locale}/icu-message-formatter': typeof Char123LocaleChar125IcuMessageFormatterRoute
+  '/{-$locale}/intlayer-message-formatter': typeof Char123LocaleChar125IntlayerMessageFormatterRoute
   '/{-$locale}/markdown': typeof Char123LocaleChar125MarkdownRoute
   '/{-$locale}/po-file-message-formatter': typeof Char123LocaleChar125PoFileMessageFormatterRoute
   '/{-$locale}/tms': typeof Char123LocaleChar125TmsRoute
@@ -443,6 +452,7 @@ export interface FileRoutesById {
   '/{-$locale}/i18n-seo-scanner': typeof Char123LocaleChar125I18nSeoScannerRoute
   '/{-$locale}/i18next-message-formatter': typeof Char123LocaleChar125I18nextMessageFormatterRoute
   '/{-$locale}/icu-message-formatter': typeof Char123LocaleChar125IcuMessageFormatterRoute
+  '/{-$locale}/intlayer-message-formatter': typeof Char123LocaleChar125IntlayerMessageFormatterRoute
   '/{-$locale}/markdown': typeof Char123LocaleChar125MarkdownRoute
   '/{-$locale}/po-file-message-formatter': typeof Char123LocaleChar125PoFileMessageFormatterRoute
   '/{-$locale}/tms': typeof Char123LocaleChar125TmsRoute
@@ -492,6 +502,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/i18n-seo-scanner'
     | '/{-$locale}/i18next-message-formatter'
     | '/{-$locale}/icu-message-formatter'
+    | '/{-$locale}/intlayer-message-formatter'
     | '/{-$locale}/markdown'
     | '/{-$locale}/po-file-message-formatter'
     | '/{-$locale}/tms'
@@ -539,6 +550,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/i18n-seo-scanner'
     | '/{-$locale}/i18next-message-formatter'
     | '/{-$locale}/icu-message-formatter'
+    | '/{-$locale}/intlayer-message-formatter'
     | '/{-$locale}/markdown'
     | '/{-$locale}/po-file-message-formatter'
     | '/{-$locale}/tms'
@@ -587,6 +599,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/i18n-seo-scanner'
     | '/{-$locale}/i18next-message-formatter'
     | '/{-$locale}/icu-message-formatter'
+    | '/{-$locale}/intlayer-message-formatter'
     | '/{-$locale}/markdown'
     | '/{-$locale}/po-file-message-formatter'
     | '/{-$locale}/tms'
@@ -787,6 +800,13 @@ declare module '@tanstack/react-router' {
       path: '/icu-message-formatter'
       fullPath: '/{-$locale}/icu-message-formatter'
       preLoaderRoute: typeof Char123LocaleChar125IcuMessageFormatterRouteImport
+      parentRoute: typeof Char123LocaleChar125RouteRoute
+    }
+    '/{-$locale}/intlayer-message-formatter': {
+      id: '/{-$locale}/intlayer-message-formatter'
+      path: '/intlayer-message-formatter'
+      fullPath: '/{-$locale}/intlayer-message-formatter'
+      preLoaderRoute: typeof Char123LocaleChar125IntlayerMessageFormatterRouteImport
       parentRoute: typeof Char123LocaleChar125RouteRoute
     }
     '/{-$locale}/markdown': {
@@ -1040,6 +1060,7 @@ interface Char123LocaleChar125RouteRouteChildren {
   Char123LocaleChar125I18nSeoScannerRoute: typeof Char123LocaleChar125I18nSeoScannerRoute
   Char123LocaleChar125I18nextMessageFormatterRoute: typeof Char123LocaleChar125I18nextMessageFormatterRoute
   Char123LocaleChar125IcuMessageFormatterRoute: typeof Char123LocaleChar125IcuMessageFormatterRoute
+  Char123LocaleChar125IntlayerMessageFormatterRoute: typeof Char123LocaleChar125IntlayerMessageFormatterRoute
   Char123LocaleChar125MarkdownRoute: typeof Char123LocaleChar125MarkdownRoute
   Char123LocaleChar125PoFileMessageFormatterRoute: typeof Char123LocaleChar125PoFileMessageFormatterRoute
   Char123LocaleChar125TmsRoute: typeof Char123LocaleChar125TmsRoute
@@ -1070,6 +1091,8 @@ const Char123LocaleChar125RouteRouteChildren: Char123LocaleChar125RouteRouteChil
       Char123LocaleChar125I18nextMessageFormatterRoute,
     Char123LocaleChar125IcuMessageFormatterRoute:
       Char123LocaleChar125IcuMessageFormatterRoute,
+    Char123LocaleChar125IntlayerMessageFormatterRoute:
+      Char123LocaleChar125IntlayerMessageFormatterRoute,
     Char123LocaleChar125MarkdownRoute: Char123LocaleChar125MarkdownRoute,
     Char123LocaleChar125PoFileMessageFormatterRoute:
       Char123LocaleChar125PoFileMessageFormatterRoute,

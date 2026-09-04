@@ -8,6 +8,7 @@ import {
   type MessageFormatDialect,
   portableObjectToIntlayerFormatter,
   resolveMessage,
+  resolveMessageNode,
   vueI18nToIntlayerFormatter,
 } from '@intlayer/core/messageFormat';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
@@ -33,6 +34,38 @@ export const parseInputContent = (rawInput: string): unknown => {
 };
 
 /**
+ * Safely evaluates Intlayer helper function syntax into Intlayer AST nodes.
+ */
+export const parseIntlayerHelperCode = (code: string): unknown => {
+  const trimmed = code.trim();
+  if (!trimmed) return code;
+
+  const context = {
+    t: (translation: unknown) => ({ nodeType: 'translation', translation }),
+    plural: (plural: unknown) => ({ nodeType: 'plural', plural }),
+    enu: (enumeration: unknown) => ({ nodeType: 'enumeration', enumeration }),
+    cond: (condition: unknown) => ({ nodeType: 'condition', condition }),
+    gender: (gender: unknown) => ({ nodeType: 'gender', gender }),
+    select: (select: unknown, variable?: string) => ({
+      nodeType: 'select',
+      select,
+      ...(variable ? { variable } : {}),
+    }),
+    md: (markdown: unknown) => ({ nodeType: 'markdown', markdown }),
+    html: (html: unknown) => ({ nodeType: 'html', html }),
+  };
+
+  try {
+    const keys = Object.keys(context);
+    const values = Object.values(context);
+    const evaluator = new Function(...keys, `return (${trimmed});`);
+    return evaluator(...values);
+  } catch {
+    return parseInputContent(code);
+  }
+};
+
+/**
  * Transforms an input from its source dialect into Intlayer's internal AST representation.
  */
 export const convertSourceToIntlayer = (
@@ -41,7 +74,9 @@ export const convertSourceToIntlayer = (
 ): unknown => {
   switch (sourceDialect) {
     case 'intlayer':
-      return parsedInput;
+      return typeof parsedInput === 'string'
+        ? parseIntlayerHelperCode(parsedInput)
+        : parsedInput;
     case 'icu':
       return icuToIntlayerFormatter(parsedInput as any);
     case 'i18next':
@@ -410,7 +445,120 @@ export const extractVariableNames = (text: string): string[] => {
     match = poRegex.exec(text);
   }
 
+  // 4. Intlayer select: select({...}, 'variableName')
+  const selectRegex =
+    /select\s*\(\s*\{[\s\S]*?\}\s*,\s*['"]([a-zA-Z0-9_]+)['"]\s*\)/g;
+  match = selectRegex.exec(text);
+  while (match !== null) {
+    variables.add(match[1]);
+    match = selectRegex.exec(text);
+  }
+
+  // 5. Intlayer helpers auto-vars
+  if (/\bplural\s*\(/.test(text) || /\benu\s*\(/.test(text)) {
+    variables.add('count');
+  }
+  if (/\bgender\s*\(/.test(text)) {
+    variables.add('gender');
+  }
+  if (/\bcond\s*\(/.test(text)) {
+    variables.add('condition');
+  }
+
   return Array.from(variables);
+};
+
+/**
+ * Resolves an Intlayer AST node or string using provided variables and locale.
+ */
+export const resolveIntlayerMessage = (
+  node: unknown,
+  values: Record<string, unknown>,
+  locale: LocalesValues = 'en' as LocalesValues
+): string => {
+  if (node === null || node === undefined) return '';
+
+  if (typeof node === 'string') {
+    const resolved = resolveMessageNode(node, values, locale);
+    return typeof resolved === 'string' ? resolved : String(resolved ?? '');
+  }
+
+  if (typeof node === 'number' || typeof node === 'boolean') {
+    return String(node);
+  }
+
+  if (typeof node === 'object') {
+    const raw = node as Record<string, unknown>;
+
+    // 1. Translation node
+    if (
+      raw.nodeType === 'translation' &&
+      raw.translation &&
+      typeof raw.translation === 'object'
+    ) {
+      const trans = raw.translation as Record<string, unknown>;
+      const selected =
+        trans[locale] ??
+        trans[locale.split('-')[0]] ??
+        trans.en ??
+        Object.values(trans)[0];
+      return resolveIntlayerMessage(selected, values, locale);
+    }
+
+    // 2. Condition node
+    if (
+      raw.nodeType === 'condition' &&
+      raw.condition &&
+      typeof raw.condition === 'object'
+    ) {
+      const condState = raw.condition as Record<string, unknown>;
+      const boolVal =
+        values.condition === true ||
+        values.condition === 'true' ||
+        values.condition === 1 ||
+        values.condition === '1' ||
+        values.value === true ||
+        values.value === 'true';
+      const selected = boolVal
+        ? (condState.true ?? condState.fallback)
+        : (condState.false ?? condState.fallback);
+      return resolveIntlayerMessage(selected, values, locale);
+    }
+
+    // 3. Markdown node
+    if (raw.nodeType === 'markdown' && typeof raw.markdown === 'string') {
+      return resolveIntlayerMessage(raw.markdown, values, locale);
+    }
+
+    // 4. HTML node
+    if (raw.nodeType === 'html' && typeof raw.html === 'string') {
+      return resolveIntlayerMessage(raw.html, values, locale);
+    }
+
+    // 5. Plural with exact numeric match check (=0, 0, etc.)
+    if (
+      raw.nodeType === 'plural' &&
+      raw.plural &&
+      typeof raw.plural === 'object'
+    ) {
+      const pluralState = raw.plural as Record<string, unknown>;
+      const count = Number(values.count ?? values.n ?? 1);
+      const exactMatch = pluralState[`=${count}`] ?? pluralState[String(count)];
+      if (exactMatch !== undefined) {
+        return resolveIntlayerMessage(exactMatch, values, locale);
+      }
+    }
+
+    // 6. Plural / Enumeration / Select / Gender
+    try {
+      const resolved = resolveMessageNode(node, values, locale);
+      return typeof resolved === 'string' ? resolved : String(resolved ?? '');
+    } catch {
+      return JSON.stringify(node, null, 2);
+    }
+  }
+
+  return String(node);
 };
 
 /**
@@ -427,6 +575,14 @@ export const evaluateMessagePreview = (
       // Gettext PO evaluation via Intlayer AST
       const intlayerAst = portableObjectToIntlayerFormatter(message as any);
       return resolveMessage(intlayerAst, values, locale, 'icu');
+    }
+
+    if (sourceDialect === 'intlayer') {
+      const parsed =
+        typeof message === 'string'
+          ? parseIntlayerHelperCode(message)
+          : message;
+      return resolveIntlayerMessage(parsed, values, locale);
     }
 
     const dialectMap: Record<string, MessageFormatDialect> = {

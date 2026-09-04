@@ -6,11 +6,13 @@ import type {
 } from '../types';
 import { I18NEXT_TEMPLATES } from './i18nextTemplates';
 import { ICU_TEMPLATES } from './icuTemplates';
+import { INTLAYER_TEMPLATES } from './intlayerTemplates';
 import { PO_TEMPLATES } from './poTemplates';
 import { VUE_I18N_TEMPLATES } from './vueI18nTemplates';
 
 export const TEMPLATES_BY_DIALECT: Record<FormatterDialect, MessageTemplate[]> =
   {
+    intlayer: INTLAYER_TEMPLATES,
     icu: ICU_TEMPLATES,
     i18next: I18NEXT_TEMPLATES,
     'vue-i18n': VUE_I18N_TEMPLATES,
