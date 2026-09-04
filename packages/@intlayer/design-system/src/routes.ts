@@ -180,7 +180,7 @@ export const Website_Home_Path = '/' as const;
 export const Website_CMS_Path = '/cms' as const;
 export const Website_TMS_Path = '/tms' as const;
 export const Website_Translate_Path = '/translate' as const;
-export const Website_Markdown_Preview_Path = '/markdown' as const;
+export const Website_Markdown_Path = '/markdown' as const;
 export const Website_Demo_Path = '/demo' as const;
 export const Website_Playground_Path = '/playground' as const;
 export const Website_NotFound_Path = '/404' as const;
@@ -196,6 +196,9 @@ export const Website_Doc_IntlayerVisualEditor_Path =
   '/doc/concept/editor' as const;
 export const Website_Doc_IntlayerCMS_Path = '/doc/concept/cms' as const;
 export const Website_Doc_SelfHosting_Path = '/doc/self-hosting' as const;
+export const Website_Doc_Markdown_Path =
+  '/doc/concept/content/markdown' as const;
+export const Website_Doc_HTML_Path = '/doc/concept/content/html' as const;
 
 export const Website_ReleasesV6_Path = '/doc/releases/v6' as const;
 export const Website_ReleasesV7_Path = '/doc/releases/v7' as const;
@@ -290,8 +293,8 @@ export const Website_TMS =
   `https://${Website_Domain}${Website_TMS_Path}` as const;
 export const Website_Translate =
   `https://${Website_Domain}${Website_Translate_Path}` as const;
-export const Website_Markdown_Preview =
-  `https://${Website_Domain}${Website_Markdown_Preview_Path}` as const;
+export const Website_Markdown =
+  `https://${Website_Domain}${Website_Markdown_Path}` as const;
 export const Website_Demo =
   `https://${Website_Domain}${Website_Demo_Path}` as const;
 export const Website_Playground =
@@ -325,6 +328,10 @@ export const Website_Doc_IntlayerCMS =
   `https://${Website_Domain}${Website_Doc_IntlayerCMS_Path}` as const;
 export const Website_Doc_SelfHosting =
   `https://${Website_Domain}${Website_Doc_SelfHosting_Path}` as const;
+export const Website_Doc_Markdown =
+  `https://${Website_Domain}${Website_Doc_Markdown_Path}` as const;
+export const Website_Doc_HTML =
+  `https://${Website_Domain}${Website_Doc_HTML_Path}` as const;
 
 export const Website_ReleasesV6 =
   `https://${Website_Domain}${Website_ReleasesV6_Path}` as const;

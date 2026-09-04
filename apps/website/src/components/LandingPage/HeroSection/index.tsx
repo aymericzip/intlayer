@@ -14,6 +14,7 @@ import { useIntlayer } from 'react-intlayer';
 import { BackgroundLayout } from '~/components/BackgroundLayout';
 import { Link } from '~/components/Link/Link';
 import packageJSON from '../../../../package_mock.json' with { type: 'json' };
+import { LandingList } from './LandingList';
 import { TechLogos } from './TechLogos';
 
 const SHOW_WHATS_NEW = true;
@@ -136,6 +137,10 @@ export const HeroSection: FC = () => {
             </Link>
           </div>
         </div>
+      </section>
+
+      <section className="relative w-full overflow-x-auto border-neutral border-t">
+        <LandingList />
       </section>
       <div className="flex items-center justify-between gap-4 border-neutral border-y px-4 py-3">
         <p className="truncate font-mono text-foreground text-xs uppercase tracking-wider sm:text-sm md:text-base">

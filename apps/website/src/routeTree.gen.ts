@@ -28,6 +28,7 @@ import { Route as Char123LocaleChar125CmsRouteImport } from './routes/{-$locale}
 import { Route as Char123LocaleChar125ContributorsRouteImport } from './routes/{-$locale}/contributors'
 import { Route as Char123LocaleChar125DemoRouteImport } from './routes/{-$locale}/demo'
 import { Route as Char123LocaleChar125I18nSeoScannerRouteImport } from './routes/{-$locale}/i18n-seo-scanner'
+import { Route as Char123LocaleChar125MarkdownRouteImport } from './routes/{-$locale}/markdown'
 import { Route as Char123LocaleChar125TmsRouteImport } from './routes/{-$locale}/tms'
 import { Route as Char123LocaleChar125TranslateRouteImport } from './routes/{-$locale}/translate'
 import { Route as DotwellKnownAgentSkillsIndexDotjsonRouteImport } from './routes/[.]well-known/agent-skills/index[.]json'
@@ -152,6 +153,12 @@ const Char123LocaleChar125I18nSeoScannerRoute =
   Char123LocaleChar125I18nSeoScannerRouteImport.update({
     id: '/i18n-seo-scanner',
     path: '/i18n-seo-scanner',
+    getParentRoute: () => Char123LocaleChar125RouteRoute,
+  } as any)
+const Char123LocaleChar125MarkdownRoute =
+  Char123LocaleChar125MarkdownRouteImport.update({
+    id: '/markdown',
+    path: '/markdown',
     getParentRoute: () => Char123LocaleChar125RouteRoute,
   } as any)
 const Char123LocaleChar125TmsRoute = Char123LocaleChar125TmsRouteImport.update({
@@ -302,6 +309,7 @@ export interface FileRoutesByFullPath {
   '/{-$locale}/contributors': typeof Char123LocaleChar125ContributorsRoute
   '/{-$locale}/demo': typeof Char123LocaleChar125DemoRoute
   '/{-$locale}/i18n-seo-scanner': typeof Char123LocaleChar125I18nSeoScannerRoute
+  '/{-$locale}/markdown': typeof Char123LocaleChar125MarkdownRoute
   '/{-$locale}/tms': typeof Char123LocaleChar125TmsRoute
   '/{-$locale}/translate': typeof Char123LocaleChar125TranslateRoute
   '/{-$locale}/': typeof Char123LocaleChar125IndexRoute
@@ -343,6 +351,7 @@ export interface FileRoutesByTo {
   '/{-$locale}/contributors': typeof Char123LocaleChar125ContributorsRoute
   '/{-$locale}/demo': typeof Char123LocaleChar125DemoRoute
   '/{-$locale}/i18n-seo-scanner': typeof Char123LocaleChar125I18nSeoScannerRoute
+  '/{-$locale}/markdown': typeof Char123LocaleChar125MarkdownRoute
   '/{-$locale}/tms': typeof Char123LocaleChar125TmsRoute
   '/{-$locale}/translate': typeof Char123LocaleChar125TranslateRoute
   '/.well-known/agent-skills/index.json': typeof DotwellKnownAgentSkillsIndexDotjsonRoute
@@ -386,6 +395,7 @@ export interface FileRoutesById {
   '/{-$locale}/contributors': typeof Char123LocaleChar125ContributorsRoute
   '/{-$locale}/demo': typeof Char123LocaleChar125DemoRoute
   '/{-$locale}/i18n-seo-scanner': typeof Char123LocaleChar125I18nSeoScannerRoute
+  '/{-$locale}/markdown': typeof Char123LocaleChar125MarkdownRoute
   '/{-$locale}/tms': typeof Char123LocaleChar125TmsRoute
   '/{-$locale}/translate': typeof Char123LocaleChar125TranslateRoute
   '/{-$locale}/': typeof Char123LocaleChar125IndexRoute
@@ -429,6 +439,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/contributors'
     | '/{-$locale}/demo'
     | '/{-$locale}/i18n-seo-scanner'
+    | '/{-$locale}/markdown'
     | '/{-$locale}/tms'
     | '/{-$locale}/translate'
     | '/{-$locale}/'
@@ -470,6 +481,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/contributors'
     | '/{-$locale}/demo'
     | '/{-$locale}/i18n-seo-scanner'
+    | '/{-$locale}/markdown'
     | '/{-$locale}/tms'
     | '/{-$locale}/translate'
     | '/.well-known/agent-skills/index.json'
@@ -512,6 +524,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/contributors'
     | '/{-$locale}/demo'
     | '/{-$locale}/i18n-seo-scanner'
+    | '/{-$locale}/markdown'
     | '/{-$locale}/tms'
     | '/{-$locale}/translate'
     | '/{-$locale}/'
@@ -688,6 +701,13 @@ declare module '@tanstack/react-router' {
       path: '/i18n-seo-scanner'
       fullPath: '/{-$locale}/i18n-seo-scanner'
       preLoaderRoute: typeof Char123LocaleChar125I18nSeoScannerRouteImport
+      parentRoute: typeof Char123LocaleChar125RouteRoute
+    }
+    '/{-$locale}/markdown': {
+      id: '/{-$locale}/markdown'
+      path: '/markdown'
+      fullPath: '/{-$locale}/markdown'
+      preLoaderRoute: typeof Char123LocaleChar125MarkdownRouteImport
       parentRoute: typeof Char123LocaleChar125RouteRoute
     }
     '/{-$locale}/tms': {
@@ -917,6 +937,7 @@ interface Char123LocaleChar125RouteRouteChildren {
   Char123LocaleChar125ContributorsRoute: typeof Char123LocaleChar125ContributorsRoute
   Char123LocaleChar125DemoRoute: typeof Char123LocaleChar125DemoRoute
   Char123LocaleChar125I18nSeoScannerRoute: typeof Char123LocaleChar125I18nSeoScannerRoute
+  Char123LocaleChar125MarkdownRoute: typeof Char123LocaleChar125MarkdownRoute
   Char123LocaleChar125TmsRoute: typeof Char123LocaleChar125TmsRoute
   Char123LocaleChar125TranslateRoute: typeof Char123LocaleChar125TranslateRoute
   Char123LocaleChar125IndexRoute: typeof Char123LocaleChar125IndexRoute
@@ -938,6 +959,7 @@ const Char123LocaleChar125RouteRouteChildren: Char123LocaleChar125RouteRouteChil
     Char123LocaleChar125DemoRoute: Char123LocaleChar125DemoRoute,
     Char123LocaleChar125I18nSeoScannerRoute:
       Char123LocaleChar125I18nSeoScannerRoute,
+    Char123LocaleChar125MarkdownRoute: Char123LocaleChar125MarkdownRoute,
     Char123LocaleChar125TmsRoute: Char123LocaleChar125TmsRoute,
     Char123LocaleChar125TranslateRoute: Char123LocaleChar125TranslateRoute,
     Char123LocaleChar125IndexRoute: Char123LocaleChar125IndexRoute,
