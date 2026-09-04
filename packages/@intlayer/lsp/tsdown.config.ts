@@ -4,7 +4,7 @@ import { defineConfig, type UserConfig } from 'tsdown';
 const [esm, , types] = getOptions({
   types: {
     dts: {
-      oxc: true,
+      generator: 'oxc',
       emitDtsOnly: true,
     },
   },

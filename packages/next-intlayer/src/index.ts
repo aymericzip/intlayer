@@ -37,8 +37,11 @@ export type {
   NextPageIntlayer,
 } from './types/index';
 
+import type { FC } from 'react';
 import type {
+  MarkdownContextValue as _MarkdownContextValue,
   MarkdownProviderOptions as _MarkdownProviderOptions,
+  MarkdownProviderProps as _MarkdownProviderProps,
   MarkdownRendererProps as _MarkdownRendererProps,
   RenderMarkdownProps as _RenderMarkdownProps,
 } from './markdown';
@@ -53,11 +56,12 @@ import {
 /**
  * @deprecated import from next-intlayer/markdown instead
  */
-export const MarkdownProvider = _MarkdownProvider;
+export const MarkdownProvider: FC<_MarkdownProviderProps> = _MarkdownProvider;
 /**
  * @deprecated import from next-intlayer/markdown instead
  */
-export const useMarkdownContext = _useMarkdownContext;
+export const useMarkdownContext: () => _MarkdownContextValue =
+  _useMarkdownContext;
 /**
  * @deprecated import from next-intlayer/markdown instead
  */

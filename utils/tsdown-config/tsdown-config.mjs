@@ -84,7 +84,7 @@ export const typesOptions = {
   ...commonOptions,
   outDir: 'dist/types',
   dts: {
-    // oxc: true,
+    // generator: 'oxc',
     emitDtsOnly: true,
     // Avoid inlining external type references which causes TS2742 in monorepos
     respectExternal: true,

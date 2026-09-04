@@ -3,7 +3,7 @@ import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { getCachedIntl } from '../utils/intl';
 
 /** Locally defined subset of Intl.ListFormatOptions so consumers don't need ES2021.Intl in their lib. */
-type ListFormatOptions = {
+export type ListFormatOptions = {
   localeMatcher?: 'lookup' | 'best fit';
   type?: 'conjunction' | 'disjunction' | 'unit';
   style?: 'long' | 'short' | 'narrow';

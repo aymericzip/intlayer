@@ -26,7 +26,7 @@ export type MarkdownProviderOptions = {
   tagfilter?: boolean;
 };
 
-type MarkdownContextValue = {
+export type MarkdownContextValue = {
   components?: HTMLComponents<'permissive', {}>;
   renderMarkdown: (
     markdown: string | ParsedMarkdown,
@@ -36,7 +36,7 @@ type MarkdownContextValue = {
   ) => ReactNode | Promise<ReactNode>;
 };
 
-type MarkdownProviderProps = PropsWithChildren<
+export type MarkdownProviderProps = PropsWithChildren<
   MarkdownProviderOptions & {
     components?: HTMLComponents<'permissive', {}>;
     wrapper?: FC<HTMLAttributes<HTMLElement>>;

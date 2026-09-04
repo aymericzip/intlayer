@@ -54,7 +54,7 @@ const options: UserConfig[] = getOptions({
   types: {
     // Provide TS compiler options to stabilize type resolution during d.ts emit
     dts: {
-      // oxc: true,
+      // generator: 'oxc',
       emitDtsOnly: true,
       // Provide TS compiler options to stabilize type resolution during d.ts emit
       compilerOptions: {

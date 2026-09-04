@@ -61,7 +61,7 @@ const options: UserConfig[] = getOptions({
   },
   types: {
     dts: {
-      oxc: true,
+      generator: 'oxc',
       emitDtsOnly: true,
     },
   },
