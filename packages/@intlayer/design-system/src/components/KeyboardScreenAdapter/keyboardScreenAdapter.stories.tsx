@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { expect, within } from '@storybook/test';
+import { expect, within } from 'storybook/test';
 import { KeyboardScreenAdapter } from '.';
 
 const meta: Meta<typeof KeyboardScreenAdapter> = {

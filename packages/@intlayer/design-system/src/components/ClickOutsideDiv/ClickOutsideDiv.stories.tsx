@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { expect, within } from '@storybook/test';
 import { useState } from 'react';
+import { expect, within } from 'storybook/test';
 import { ClickOutsideDiv } from './index';
 
 const meta: Meta<typeof ClickOutsideDiv> = {

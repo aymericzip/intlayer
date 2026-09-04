@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { expect, userEvent, within } from '@storybook/test';
 import {
   Calculator,
   Calendar,
@@ -15,6 +14,7 @@ import {
   User,
 } from 'lucide-react';
 import { useState } from 'react';
+import { expect, userEvent, within } from 'storybook/test';
 import { Command, CommandRoot } from './index';
 
 /**

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { userEvent, within } from '@storybook/test';
 import { RefreshCw, Trash2, Upload, X } from 'lucide-react';
 import { useState } from 'react';
+import { userEvent, within } from 'storybook/test';
 
 import { Button } from '../Button';
 

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { expect, userEvent, within } from '@storybook/test';
 import { ChevronDown, Menu, Settings, User } from 'lucide-react';
 import { useState } from 'react';
+import { expect, userEvent, within } from 'storybook/test';
 import { DropDown } from './';
 
 /**

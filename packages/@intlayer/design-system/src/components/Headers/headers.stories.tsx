@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { expect, within } from '@storybook/test';
+import { expect, within } from 'storybook/test';
 import { H1, H2, H3, H4, H5 } from './';
 
 /**

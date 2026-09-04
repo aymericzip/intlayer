@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { expect, userEvent } from '@storybook/test';
 import React from 'react';
+import { expect, userEvent } from 'storybook/test';
 import { MaxHeightSmoother } from '.';
 
 const meta: Meta<typeof MaxHeightSmoother> = {

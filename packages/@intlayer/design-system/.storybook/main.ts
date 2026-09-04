@@ -3,13 +3,15 @@ import type { StorybookConfig } from '@storybook/react-vite';
 import { defineConfig, mergeConfig } from 'vite';
 import { intlayer } from 'vite-intlayer';
 
+// Storybook 10 loads this config as native ESM, where `__dirname` is undefined.
+const configDirectory = import.meta.dirname;
+
 const config: StorybookConfig = {
   stories: ['../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
   addons: [
     '@storybook/addon-onboarding',
     '@storybook/addon-links',
-    '@storybook/addon-essentials',
-    '@storybook/addon-interactions',
+    '@storybook/addon-docs',
     '@storybook/addon-a11y',
     '@storybook/addon-themes',
   ],
@@ -36,12 +38,13 @@ const config: StorybookConfig = {
       plugins: [intlayer(), tailwindcss()],
       resolve: {
         alias: {
-          '@components': resolve(__dirname, '../src/components'),
-          '@utils': resolve(__dirname, '../src/utils'),
-          '@libs': resolve(__dirname, '../src/libs'),
-          '@hooks': resolve(__dirname, '../src/hooks'),
-          '@providers': resolve(__dirname, '../src/providers'),
-          '@': resolve(__dirname, '../src'),
+          '@components': resolve(configDirectory, '../src/components'),
+          '@utils': resolve(configDirectory, '../src/utils'),
+          '@libs': resolve(configDirectory, '../src/libs'),
+          '@hooks': resolve(configDirectory, '../src/hooks'),
+          '@api': resolve(configDirectory, '../src/api'),
+          '@providers': resolve(configDirectory, '../src/providers'),
+          '@': resolve(configDirectory, '../src'),
         },
       },
       build: {

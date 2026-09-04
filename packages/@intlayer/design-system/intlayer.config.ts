@@ -30,6 +30,9 @@ const config: CustomIntlayerConfig = {
     defaultLocale,
     strictMode: 'strict',
   },
+  routing: {
+    enableProxy: false,
+  },
   content: {
     contentDir: ['./src'],
   },
