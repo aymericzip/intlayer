@@ -2,7 +2,6 @@ import { resolve } from 'node:path';
 import { getConfiguration } from '@intlayer/config/node';
 import { getAlias } from '@intlayer/config/utils';
 import { prepareIntlayer } from '@intlayer/engine/build';
-import { watch } from '@intlayer/engine/watcher';
 import type { AstroIntegration } from 'astro';
 import type { PluginOption } from 'vite';
 import {
@@ -33,8 +32,12 @@ const intlayerNoExternalEnvironments = (): PluginOption => ({
  * 1. Preparing Intlayer resources (dictionaries) at config setup.
  * 2. Injecting Vite plugins for aliases, locale-based routing (middleware), and build optimizations (prune).
  * 3. Configuring Vite aliases for dictionary access.
- * 4. Starting a file watcher for dictionary changes during development.
- * 5. Emitting the prerendered pages at their rewritten (localized) URLs.
+ * 4. Emitting the prerendered pages at their rewritten (localized) URLs.
+ *
+ * The dev-time content watcher is not started here: the bundled
+ * `vite-intlayer` plugin already starts one from `configureServer`, and
+ * `watch()` subscribes anew on every call, so doing both would rebuild each
+ * content edit twice.
  *
  * @returns An Astro integration object.
  *
@@ -88,14 +91,6 @@ export const intlayer = (): AstroIntegration =>
             },
           },
         });
-      },
-
-      'astro:server:setup': async () => {
-        const configuration = getConfiguration();
-
-        if (configuration.content.watch) {
-          await watch({ configuration });
-        }
       },
 
       // Astro renders each page from its canonical file-system route, so a
