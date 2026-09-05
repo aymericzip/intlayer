@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-08-23
+updatedAt: 2026-09-05
 title: مقدمة
 description: اكتشف كيف يعمل Intlayer. تعرف على الخطوات التي يستخدمها Intlayer في تطبيقك. اكتشف ما تفعله الحزم المختلفة.
 keywords:
@@ -180,21 +180,48 @@ export const MyComponent: FC = () => {
 - **[Intlayer مع Next.js 15](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_15.md)**
 - **[Intlayer مع Next.js 14 (App Router)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_14.md)**
 - **[Intlayer مع Next.js Page Router](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_page_router.md)**
-- **[Intlayer مع React CRA](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_create_react_app.md)**
-- **[Intlayer مع Vite + React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vite+react.md)**
-- **[Intlayer مع React Router v7](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_react_router_v7.md)**
+- **[Intlayer مع Next.js بدون locale في الرابط](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_no_locale_path.md)**
+- **[Intlayer مع Next.js (Intlayer Compiler)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_compiler.md)**
 - **[Intlayer مع Tanstack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_tanstack.md)**
+- **[Intlayer مع Tanstack Start + Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_tanstack+solid.md)**
+- **[Intlayer مع Vite + React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vite+react.md)**
+- **[Intlayer مع Vite + React (Intlayer Compiler)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vite+react_compiler.md)**
+- **[Intlayer مع React Router v7](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_react_router_v7.md)**
+- **[Intlayer مع React Router v7 (fs-routes)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_react_router_v7_fs_routes.md)**
+- **[Intlayer مع React CRA](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_create_react_app.md)**
 - **[Intlayer مع React Native و Expo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_react_native+expo.md)**
 - **[Intlayer مع Lynx و React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_lynx+react.md)**
-- **[Intlayer مع Vite + Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vite+preact.md)**
+- **[Intlayer مع Astro](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_astro.md)**
+- **[Intlayer مع Astro + React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_astro_react.md)**
+- **[Intlayer مع Astro + Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_astro_vue.md)**
+- **[Intlayer مع Astro + Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_astro_svelte.md)**
+- **[Intlayer مع Astro + Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_astro_solid.md)**
+- **[Intlayer مع Astro + Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_astro_preact.md)**
+- **[Intlayer مع Astro + Lit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_astro_lit.md)**
+- **[Intlayer مع Astro + Vanilla JS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_astro_vanilla.md)**
 - **[Intlayer مع Vite + Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vite+vue.md)**
 - **[Intlayer مع Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nuxt.md)**
 - **[Intlayer مع Vite + Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vite+svelte.md)**
 - **[Intlayer مع SvelteKit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_svelte_kit.md)**
+- **[Intlayer مع Vite + Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vite+solid.md)**
+- **[Intlayer مع SolidStart](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_solid_start.md)**
+- **[Intlayer مع Vite + Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vite+preact.md)**
+- **[Intlayer مع Angular 22](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_angular_21.md)**
+- **[Intlayer مع Angular 19](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_angular_19.md)**
+- **[Intlayer مع Analog](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_analog.md)**
+- **[Intlayer مع Vite + Lit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vite+lit.md)**
+- **[Intlayer مع Vite + Vanilla JS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vite+vanilla.md)**
+- **[Intlayer مع Vanilla JS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vanilla.md)**
+- **[Intlayer مع htmx](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_htmx.md)**
 - **[Intlayer مع Express](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_express.md)**
 - **[Intlayer مع NestJS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nestjs.md)**
+- **[Intlayer مع Fastify](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_fastify.md)**
 - **[Intlayer مع Hono](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_hono.md)**
-- **[Intlayer مع Angular](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_angular_21.md)**
+- **[Intlayer مع AdonisJS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_adonisjs.md)**
+- **[Intlayer مع Elysia](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_elysia.md)**
+- **[Intlayer مع Storybook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_storybook.md)**
+- **[Intlayer مع next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_next-intl.md)**
+- **[Intlayer مع next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_next-i18next.md)**
 
 يتضمن كل دليل للتكامل أفضل الممارسات لاستخدام ميزات Intlayer، مثل **الرندرة من جانب الخادم (SSR)**، أو **التوجيه الديناميكي (Dynamic Routing)**، أو **الرندرة من جانب العميل (Client-Side Rendering)**، لتتمكن من الحفاظ على تطبيق سريع وصديق لمحركات البحث (SEO) وقابل للتوسع بدرجة كبيرة.
 

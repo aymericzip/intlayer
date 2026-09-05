@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-08-30
+updatedAt: 2026-09-05
 title: 소개
 description: Intlayer의 작동 방식을 알아보세요. Intlayer가 애플리케이션에서 사용하는 단계를 확인하세요. 다양한 패키지가 어떤 역할을 하는지 알아보세요.
 keywords:
@@ -180,21 +180,48 @@ Intlayer는 현대 웹 개발의 요구를 충족하도록 설계된 다양한 �
 - **[Intlayer와 Next.js 15](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_15.md)**
 - **[Intlayer와 Next.js 14 (App Router)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_14.md)**
 - **[Intlayer와 Next.js Page Router](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_page_router.md)**
-- **[Intlayer와 React CRA](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_create_react_app.md)**
-- **[Intlayer와 Vite + React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_vite+react.md)**
-- **[Intlayer와 React Router v7](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_react_router_v7.md)**
+- **[Intlayer와 Next.js (URL에 로케일 없음)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_no_locale_path.md)**
+- **[Intlayer와 Next.js (Intlayer Compiler)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_compiler.md)**
 - **[Intlayer와 Tanstack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_tanstack.md)**
+- **[Intlayer와 Tanstack Start + Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_tanstack+solid.md)**
+- **[Intlayer와 Vite + React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_vite+react.md)**
+- **[Intlayer와 Vite + React (Intlayer Compiler)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_vite+react_compiler.md)**
+- **[Intlayer와 React Router v7](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_react_router_v7.md)**
+- **[Intlayer와 React Router v7 (fs-routes)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_react_router_v7_fs_routes.md)**
+- **[Intlayer와 React CRA](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_create_react_app.md)**
 - **[Intlayer와 React Native 및 Expo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_react_native+expo.md)**
 - **[Intlayer와 Lynx 및 React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_lynx+react.md)**
-- **[Intlayer와 Vite + Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_vite+preact.md)**
+- **[Intlayer와 Astro](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_astro.md)**
+- **[Intlayer와 Astro + React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_astro_react.md)**
+- **[Intlayer와 Astro + Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_astro_vue.md)**
+- **[Intlayer와 Astro + Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_astro_svelte.md)**
+- **[Intlayer와 Astro + Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_astro_solid.md)**
+- **[Intlayer와 Astro + Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_astro_preact.md)**
+- **[Intlayer와 Astro + Lit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_astro_lit.md)**
+- **[Intlayer와 Astro + Vanilla JS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_astro_vanilla.md)**
 - **[Intlayer와 Vite + Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_vite+vue.md)**
 - **[Intlayer와 Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nuxt.md)**
 - **[Intlayer와 Vite + Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_vite+svelte.md)**
 - **[Intlayer와 SvelteKit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_svelte_kit.md)**
+- **[Intlayer와 Vite + Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_vite+solid.md)**
+- **[Intlayer와 SolidStart](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_solid_start.md)**
+- **[Intlayer와 Vite + Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_vite+preact.md)**
+- **[Intlayer와 Angular 22](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_angular_21.md)**
+- **[Intlayer와 Angular 19](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_angular_19.md)**
+- **[Intlayer와 Analog](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_analog.md)**
+- **[Intlayer와 Vite + Lit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_vite+lit.md)**
+- **[Intlayer와 Vite + Vanilla JS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_vite+vanilla.md)**
+- **[Intlayer와 Vanilla JS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_vanilla.md)**
+- **[Intlayer와 htmx](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_htmx.md)**
 - **[Intlayer와 Express](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_express.md)**
 - **[Intlayer와 NestJS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nestjs.md)**
+- **[Intlayer와 Fastify](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_fastify.md)**
 - **[Intlayer와 Hono](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_hono.md)**
-- **[Intlayer와 Angular](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_angular_21.md)**
+- **[Intlayer와 AdonisJS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_adonisjs.md)**
+- **[Intlayer와 Elysia](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_elysia.md)**
+- **[Intlayer와 Storybook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_storybook.md)**
+- **[Intlayer와 next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_next-intl.md)**
+- **[Intlayer와 next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_next-i18next.md)**
 
 각 통합 가이드에는 **서버 사이드 렌더링(SSR)**, **동적 라우팅**, **클라이언트 사이드 렌더링**과 같은 Intlayer의 기능을 사용하기 위한 모범 사례가 포함되어 있어 빠르고 SEO 친화적이며 확장성이 높은 애플리케이션을 유지할 수 있습니다.
 

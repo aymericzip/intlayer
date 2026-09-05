@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-08-30
+updatedAt: 2026-09-05
 title: Introducción
 description: Descubre cómo funciona Intlayer. Conoce los pasos que utiliza Intlayer en tu aplicación. Descubre qué hacen los diferentes paquetes.
 keywords:
@@ -178,21 +178,48 @@ Hemos creado Intlayer pensando en la flexibilidad, ofreciendo una integración p
 - **[Intlayer con Next.js 15](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_nextjs_15.md)**
 - **[Intlayer con Next.js 14 (App Router)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_nextjs_14.md)**
 - **[Intlayer con Next.js Page Router](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_nextjs_page_router.md)**
-- **[Intlayer con React CRA](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_create_react_app.md)**
-- **[Intlayer con Vite + React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_vite+react.md)**
-- **[Intlayer con React Router v7](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_react_router_v7.md)**
+- **[Intlayer con Next.js sin locale en la URL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_nextjs_no_locale_path.md)**
+- **[Intlayer con Next.js (Intlayer Compiler)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_nextjs_compiler.md)**
 - **[Intlayer con Tanstack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_tanstack.md)**
+- **[Intlayer con Tanstack Start + Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_tanstack+solid.md)**
+- **[Intlayer con Vite + React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_vite+react.md)**
+- **[Intlayer con Vite + React (Intlayer Compiler)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_vite+react_compiler.md)**
+- **[Intlayer con React Router v7](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_react_router_v7.md)**
+- **[Intlayer con React Router v7 (fs-routes)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_react_router_v7_fs_routes.md)**
+- **[Intlayer con React CRA](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_create_react_app.md)**
 - **[Intlayer con React Native y Expo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_react_native+expo.md)**
 - **[Intlayer con Lynx y React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_lynx+react.md)**
-- **[Intlayer con Vite + Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_vite+preact.md)**
+- **[Intlayer con Astro](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_astro.md)**
+- **[Intlayer con Astro + React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_astro_react.md)**
+- **[Intlayer con Astro + Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_astro_vue.md)**
+- **[Intlayer con Astro + Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_astro_svelte.md)**
+- **[Intlayer con Astro + Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_astro_solid.md)**
+- **[Intlayer con Astro + Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_astro_preact.md)**
+- **[Intlayer con Astro + Lit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_astro_lit.md)**
+- **[Intlayer con Astro + Vanilla JS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_astro_vanilla.md)**
 - **[Intlayer con Vite + Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_vite+vue.md)**
 - **[Intlayer con Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_nuxt.md)**
 - **[Intlayer con Vite + Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_vite+svelte.md)**
 - **[Intlayer con SvelteKit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_svelte_kit.md)**
+- **[Intlayer con Vite + Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_vite+solid.md)**
+- **[Intlayer con SolidStart](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_solid_start.md)**
+- **[Intlayer con Vite + Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_vite+preact.md)**
+- **[Intlayer con Angular 22](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_angular_21.md)**
+- **[Intlayer con Angular 19](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_angular_19.md)**
+- **[Intlayer con Analog](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_analog.md)**
+- **[Intlayer con Vite + Lit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_vite+lit.md)**
+- **[Intlayer con Vite + Vanilla JS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_vite+vanilla.md)**
+- **[Intlayer con Vanilla JS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_vanilla.md)**
+- **[Intlayer con htmx](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_htmx.md)**
 - **[Intlayer con Express](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_express.md)**
 - **[Intlayer con NestJS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_nestjs.md)**
+- **[Intlayer con Fastify](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_fastify.md)**
 - **[Intlayer con Hono](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_hono.md)**
-- **[Intlayer con Angular](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_angular_21.md)**
+- **[Intlayer con AdonisJS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_adonisjs.md)**
+- **[Intlayer con Elysia](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_elysia.md)**
+- **[Intlayer con Storybook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_storybook.md)**
+- **[Intlayer con next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_next-intl.md)**
+- **[Intlayer con next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_next-i18next.md)**
 
 Cada guía de integración incluye las mejores prácticas para utilizar las características de Intlayer, como el **renderizado del lado del servidor**, el **enrutamiento dinámico** o el **renderizado del lado del cliente**, de modo que puedas mantener una aplicación rápida, optimizada para SEO y altamente escalable.
 

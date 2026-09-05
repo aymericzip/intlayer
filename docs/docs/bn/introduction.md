@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-08-23
+updatedAt: 2026-09-05
 title: ভূমিকা
 description: Intlayer কীভাবে কাজ করে তা আবিষ্কার করুন। আপনার অ্যাপ্লিকেশনে Intlayer যে পদক্ষেপগুলি ব্যবহার করে তা দেখুন। বিভিন্ন প্যাকেজগুলি কী করে তা জানুন।
 keywords:
@@ -180,21 +180,48 @@ Intlayer আধুনিক ওয়েব ডেভেলপমেন্টে
 - **[Next.js 15 এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_nextjs_15.md)**
 - **[Next.js 14 (App Router) এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_nextjs_14.md)**
 - **[Next.js Page Router এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_nextjs_page_router.md)**
-- **[React CRA এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_create_react_app.md)**
-- **[Vite + React এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_vite+react.md)**
-- **[React Router v7 এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_react_router_v7.md)**
+- **[Next.js (URL-এ locale ছাড়া) এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_nextjs_no_locale_path.md)**
+- **[Next.js (Intlayer Compiler) এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_nextjs_compiler.md)**
 - **[Tanstack Start এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_tanstack.md)**
+- **[Tanstack Start + Solid এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_tanstack+solid.md)**
+- **[Vite + React এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_vite+react.md)**
+- **[Vite + React (Intlayer Compiler) এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_vite+react_compiler.md)**
+- **[React Router v7 এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_react_router_v7.md)**
+- **[React Router v7 (fs-routes) এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_react_router_v7_fs_routes.md)**
+- **[React CRA এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_create_react_app.md)**
 - **[React Native এবং Expo এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_react_native+expo.md)**
 - **[Lynx এবং React এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_lynx+react.md)**
-- **[Vite + Preact এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_vite+preact.md)**
+- **[Astro এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_astro.md)**
+- **[Astro + React এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_astro_react.md)**
+- **[Astro + Vue এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_astro_vue.md)**
+- **[Astro + Svelte এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_astro_svelte.md)**
+- **[Astro + Solid এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_astro_solid.md)**
+- **[Astro + Preact এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_astro_preact.md)**
+- **[Astro + Lit এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_astro_lit.md)**
+- **[Astro + Vanilla JS এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_astro_vanilla.md)**
 - **[Vite + Vue এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_vite+vue.md)**
 - **[Nuxt এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_nuxt.md)**
 - **[Vite + Svelte এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_vite+svelte.md)**
 - **[SvelteKit এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_svelte_kit.md)**
+- **[Vite + Solid এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_vite+solid.md)**
+- **[SolidStart এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_solid_start.md)**
+- **[Vite + Preact এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_vite+preact.md)**
+- **[Angular 22 এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_angular_21.md)**
+- **[Angular 19 এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_angular_19.md)**
+- **[Analog এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_analog.md)**
+- **[Vite + Lit এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_vite+lit.md)**
+- **[Vite + Vanilla JS এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_vite+vanilla.md)**
+- **[Vanilla JS এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_vanilla.md)**
+- **[htmx এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_htmx.md)**
 - **[Express এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_express.md)**
 - **[NestJS এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_nestjs.md)**
+- **[Fastify এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_fastify.md)**
 - **[Hono এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_hono.md)**
-- **[Angular এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_angular_21.md)**
+- **[AdonisJS এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_adonisjs.md)**
+- **[Elysia এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_elysia.md)**
+- **[Storybook এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_storybook.md)**
+- **[next-intl এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_next-intl.md)**
+- **[next-i18next এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_next-i18next.md)**
 
 প্রতিটি ইন্টিগ্রেশন গাইডে Intlayer-এর বৈশিষ্ট্যগুলি ব্যবহার করার জন্য সর্বোত্তম অনুশীলন (best practices) অন্তর্ভুক্ত রয়েছে, যেমন **সার্ভার-সাইড রেন্ডারিং (SSR)**, **ডায়নামিক রাউটিং**, বা **ক্লায়েন্ট-সাইড রেন্ডারিং**, যাতে আপনি একটি দ্রুত, SEO-বান্ধব এবং অত্যন্ত স্কেলেবল অ্যাপ্লিকেশন বজায় রাখতে পারেন।
 
