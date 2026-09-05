@@ -36,14 +36,17 @@ import {
   REFERENCE_IMAGE_OR_LINK,
   REFERENCE_IMAGE_R,
   REFERENCE_LINK_R,
+  type RuleScopeValue,
   RuleType,
+  SCOPE_BLOCK,
+  SCOPE_BOTH,
+  SCOPE_INLINE,
   SHORTCODE_R,
   SHOULD_RENDER_AS_BLOCK_R,
   TEXT_BOLD_R,
   TEXT_EMPHASIZED_R,
   TEXT_ESCAPED_R,
   TEXT_MARKED_R,
-  TEXT_PLAIN_R,
   TEXT_STRIKETHROUGHED_R,
   TRIM_STARTING_NEWLINES,
   UNORDERED,
@@ -214,13 +217,11 @@ const createElementFactory = (
    * object per element — the single largest allocation in the render phase.
    */
   const needsPropsRewrite = (props: Record<string, any>): boolean => {
+    if ('class' in props) return true;
     for (const key in props) {
-      if (key === 'className' || key === 'class') return true;
-
       const value = props[key];
       if (value === undefined || value === null) return true;
     }
-
     return false;
   };
 
@@ -231,7 +232,11 @@ const createElementFactory = (
   ): unknown => {
     const isStringTag = typeof tag === 'string';
 
-    if (filteredTags && isStringTag && filteredTags.has(tag.toLowerCase())) {
+    if (
+      filteredTags &&
+      isStringTag &&
+      (filteredTags.has(tag) || filteredTags.has(tag.toLowerCase()))
+    ) {
       return null;
     }
 
@@ -273,12 +278,6 @@ const createElementFactory = (
       finalProps = runtime.normalizeProps(tag as string, finalProps);
 
     const component = resolveTag(tag);
-
-    // Spreading a one-element array allocated a second array per element.
-    if (children.length === 1) {
-      return runtime.createElement(component, finalProps, children[0]);
-    }
-
     return runtime.createElement(component, finalProps, ...children);
   };
 };
@@ -360,7 +359,7 @@ const builtFromSame = (
  * Returns the rule set for these options, building it only when no cached set
  * was made from the same inputs.
  */
-const getRuleSet = (
+export const getRuleSet = (
   ctx: MarkdownContext<any>,
   options: MarkdownOptions,
   parseOnly: boolean
@@ -442,17 +441,19 @@ const createRules = (
   const pairedElementRule = (
     match: (source: string) => RegExpMatchArray | null,
     order: number,
-    rawHtml: boolean
+    rawHtml: boolean,
+    scope: RuleScopeValue = SCOPE_BOTH
   ): Rule<any> => ({
+    _scope: scope,
     _qualify: ['<'],
     _match: anyScopeRegex(match),
     _order: order,
     _parse(capture, parse, state) {
-      const content = capture[3];
+      const content = capture[3] ?? '';
       const whitespace = content.match(HTML_LEFT_TRIM_AMOUNT_R)?.[1] ?? '';
       const trimmed = trimLeadingWhitespaceOutsideFences(content, whitespace);
       const parseFunc = containsBlockSyntax(trimmed) ? parseBlock : parseInline;
-      const tagName = capture[1].trim();
+      const tagName = (capture[1] ?? '').trim();
       const lowercased = tagName.toLowerCase();
       const noInnerParse =
         rawHtml && DO_NOT_PROCESS_HTML_ELEMENTS.indexOf(lowercased) !== -1;
@@ -497,8 +498,17 @@ const createRules = (
       ? ORDERED_LIST_ITEM_PREFIX_R
       : UNORDERED_LIST_ITEM_PREFIX_R;
 
+    const firstChars = ordered
+      ? [32, 9, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57]
+      : [32, 9, 42, 43, 45];
+
     return {
-      _qualify: (source) => LIST_ITEM_PREFIX_R.test(source),
+      _scope: SCOPE_BOTH,
+      _firstChars: firstChars,
+      _qualify: (source, state) =>
+        state.prevCaptureIndent !== undefined &&
+        Boolean(state.list ?? (!state.inline && !state.simple)) &&
+        LIST_ITEM_PREFIX_R.test(source),
       _match: allowInline((source, state) => {
         const lineIndent = state.prevCaptureIndent;
         const isStartOfLine = lineIndent !== undefined;
@@ -507,16 +517,27 @@ const createRules = (
         if (isStartOfLine && isListAllowed) {
           const matchSource = lineIndent ? lineIndent + source : source;
 
-          return LIST_R.exec(matchSource);
+          const match = LIST_R.exec(matchSource);
+          if (!match) return null;
+
+          if (lineIndent && match[0].startsWith(lineIndent)) {
+            const adjusted = [...match] as RegExpMatchArray;
+            adjusted[0] = match[0].slice(lineIndent.length);
+            (adjusted as any).fullMatch = match[0];
+            return adjusted;
+          }
+
+          return match;
         }
 
         return null;
       }),
       _order: Priority.HIGH,
       _parse(capture, parse, state) {
-        const bullet = capture[2];
+        const bullet = capture[2] ?? '';
         const startValue = ordered ? +bullet.slice(0, -1) : undefined;
-        const items = capture[0]
+        const fullSource = (capture as any).fullMatch ?? capture[0] ?? '';
+        const items = fullSource
           .replace(BLOCK_END_R, '\n')
           .match(LIST_ITEM_R) as string[];
 
@@ -527,7 +548,10 @@ const createRules = (
         const result = items.map((item, i) => {
           const prefixCapture = LIST_ITEM_PREFIX_R.exec(item);
           const space = prefixCapture ? prefixCapture[0].length : 0;
-          const spaceRegex = new RegExp(`^ {1,${space}}`, 'gm');
+          const spaceRegex =
+            space <= 8
+              ? STRIP_INDENT_REGEXES[space]!
+              : new RegExp(`^ {1,${space}}`, 'gm');
           const content = item
             .replace(spaceRegex, '')
             .replace(LIST_ITEM_PREFIX_R, '');
@@ -535,6 +559,7 @@ const createRules = (
           const containsBlocks = content.indexOf('\n\n') !== -1;
           const thisItemIsAParagraph =
             containsBlocks || (isLastItem && lastItemWasAParagraph);
+
           lastItemWasAParagraph = thisItemIsAParagraph;
 
           const oldStateInline = state.inline;
@@ -558,17 +583,12 @@ const createRules = (
           return parsed;
         });
 
-        return { items: result, ordered, start: startValue } as any;
+        return { items: result, ordered, start: startValue };
       },
       _render(node, output, state = {}) {
-        const Tag = node.ordered ? 'ol' : 'ul';
-        const props: Record<string, any> = { key: state.key };
-
-        if (node.ordered && node.start != null) props.start = node.start;
-
         return createElement(
-          Tag,
-          props,
+          ordered ? 'ol' : 'ul',
+          { key: state.key, start: (node as OrderedListNode).start },
           ...node.items.map((item, i) =>
             createElement('li', { key: i }, output(item, state))
           )
@@ -590,16 +610,54 @@ const createRules = (
     )
       return null;
     let start = 0;
-    while (true) {
+    const srcLen = source.length;
+    while (start < srcLen) {
       const newlineIndex = source.indexOf('\n', start);
-      const line = source.slice(
-        start,
-        newlineIndex === -1 ? undefined : newlineIndex + 1
-      );
+      const lineEnd = newlineIndex === -1 ? srcLen : newlineIndex;
 
-      if (some(nonParagraphBlockSyntaxes, line)) break;
+      let p = start;
+      while (
+        p < lineEnd &&
+        (source.charCodeAt(p) === 32 || source.charCodeAt(p) === 9)
+      ) {
+        p++;
+      }
 
-      if (newlineIndex === -1 || !line.trim()) break;
+      if (p >= lineEnd) {
+        break;
+      }
+
+      if (p - start >= 4 || source.charCodeAt(start) === 9) {
+        break;
+      }
+
+      const ch = source.charCodeAt(p);
+      const isDelim =
+        ch === 62 || // >
+        ch === 96 || // `
+        ch === 126 || // ~
+        ch === 35 || // #
+        ch === 124 || // |
+        ch === 42 || // *
+        ch === 43 || // +
+        ch === 45 || // -
+        ch === 61 || // =
+        ch === 60 || // <
+        (ch >= 48 && ch <= 57); // 0-9
+
+      if (isDelim) {
+        const line = source.slice(
+          start,
+          newlineIndex === -1 ? undefined : newlineIndex + 1
+        );
+
+        if (some(nonParagraphBlockSyntaxes, line)) break;
+      }
+
+      if (newlineIndex === -1) {
+        start = srcLen;
+        break;
+      }
       start = newlineIndex + 1;
     }
     const match = source.slice(0, start);
@@ -615,11 +673,12 @@ const createRules = (
 
   const rules: Rules = {
     [RuleType.blockQuote]: {
+      _scope: SCOPE_BLOCK,
       _qualify: ['>'],
       _match: blockRegex(BLOCKQUOTE_R),
       _order: Priority.HIGH,
       _parse(capture, parse, state) {
-        const matchAlert = capture[0]
+        const matchAlert = (capture[0] ?? '')
           .replace(BLOCKQUOTE_TRIM_LEFT_MULTILINE_R, '')
           .match(BLOCKQUOTE_ALERT_R);
         const alert = matchAlert?.[1];
@@ -649,6 +708,7 @@ const createRules = (
       },
     },
     [RuleType.breakLine]: {
+      _scope: SCOPE_BOTH,
       _qualify: ['  '],
       _match: anyScopeRegex(BREAK_LINE_R),
       _order: Priority.HIGH,
@@ -658,6 +718,7 @@ const createRules = (
       },
     },
     [RuleType.breakThematic]: {
+      _scope: SCOPE_BLOCK,
       _qualify: ['--', '__', '**', '- ', '* ', '_ '],
       _match: blockRegex(BREAK_THEMATIC_R),
       _order: Priority.HIGH,
@@ -667,6 +728,7 @@ const createRules = (
       },
     },
     [RuleType.codeBlock]: {
+      _scope: SCOPE_BLOCK,
       _qualify: ['    '],
       _match: blockRegex(CODE_BLOCK_R),
       _order: Priority.MAX,
@@ -674,7 +736,9 @@ const createRules = (
         return {
           type: RuleType.codeBlock,
           lang: undefined,
-          text: unescapeString(trimEnd(capture[0].replace(/^ {4}/gm, ''))),
+          text: unescapeString(
+            trimEnd((capture[0] ?? '').replace(/^ {4}/gm, ''))
+          ),
         };
       },
       _render(node, _, state = {}) {
@@ -692,6 +756,7 @@ const createRules = (
       },
     },
     [RuleType.codeFenced]: {
+      _scope: SCOPE_BLOCK,
       _qualify: ['```', '~~~'],
       _match: blockRegex(CODE_BLOCK_FENCED_R),
       _order: Priority.MAX,
@@ -699,30 +764,34 @@ const createRules = (
         return {
           attrs: attrStringToMap('code', capture[3] ?? ''),
           lang: capture[2] || undefined,
-          text: capture[4],
+          text: capture[4] ?? '',
           type: RuleType.codeBlock,
         };
       },
     },
     [RuleType.codeInline]: {
-      _qualify: ['`'],
+      _scope: SCOPE_INLINE,
+      _firstChars: [96 /* ` */],
+      _qualify: (source) =>
+        source.charCodeAt(0) === 96 && source.indexOf('`', 1) !== -1,
       _match: simpleInlineRegex(CODE_INLINE_R),
       _order: Priority.LOW,
       _parse(capture) {
-        return { text: unescapeString(capture[2]) };
+        return { text: unescapeString(capture[2] ?? '') };
       },
       _render(node, _, state = {}) {
         return createElement('code', { key: state.key }, node.text);
       },
     },
     [RuleType.footnote]: {
+      _scope: SCOPE_INLINE,
       _qualify: ['[^'],
       _match: blockRegex(FOOTNOTE_R),
       _order: Priority.MAX,
       _parse(capture) {
         scope.current.footnotes.push({
-          footnote: capture[2],
-          identifier: capture[1],
+          footnote: capture[2] ?? '',
+          identifier: capture[1] ?? '',
         });
 
         return {};
@@ -730,11 +799,13 @@ const createRules = (
       _render: renderNothing,
     },
     [RuleType.footnoteReference]: {
+      _scope: SCOPE_INLINE,
       _qualify: ['[^'],
       _match: inlineRegex(FOOTNOTE_REFERENCE_R),
       _order: Priority.HIGH,
       _parse(capture) {
-        return { target: `#${slug(capture[1])}`, text: capture[1] };
+        const text = capture[1] ?? '';
+        return { target: `#${slug(text)}`, text };
       },
       _render(node, _, state = {}) {
         return createElement(
@@ -748,11 +819,12 @@ const createRules = (
       },
     },
     [RuleType.gfmTask]: {
+      _scope: SCOPE_INLINE,
       _qualify: ['[ ]', '[x]'],
       _match: inlineRegex(GFM_TASK_R),
       _order: Priority.HIGH,
       _parse(capture) {
-        return { completed: capture[1].toLowerCase() === 'x' };
+        return { completed: (capture[1] ?? '').toLowerCase() === 'x' };
       },
       _render(node, _, state = {}) {
         return createElement('input', {
@@ -764,16 +836,18 @@ const createRules = (
       },
     },
     [RuleType.heading]: {
+      _scope: SCOPE_BLOCK,
       _qualify: ['#'],
       _match: blockRegex(
         options.enforceAtxHeadings ? HEADING_ATX_COMPLIANT_R : HEADING_R
       ),
       _order: Priority.HIGH,
       _parse(capture, parse, state) {
+        const text = capture[2] ?? '';
         return {
-          children: parseInline(parse, capture[2], state),
-          id: slug(capture[2]),
-          level: capture[1].length as HeadingNode['level'],
+          children: parseInline(parse, text, state),
+          id: slug(text),
+          level: (capture[1]?.length ?? 1) as HeadingNode['level'],
         };
       },
       _render(node, output, state = {}) {
@@ -785,7 +859,14 @@ const createRules = (
       },
     },
     [RuleType.headingSetext]: {
-      _qualify: (source) => {
+      _scope: SCOPE_BLOCK,
+      _qualify: (source, state) => {
+        if (
+          state.prevCaptureIndent === undefined ||
+          state.inline ||
+          state.simple
+        )
+          return false;
         const nlIndex = source.indexOf('\n');
 
         return (
@@ -798,7 +879,7 @@ const createRules = (
       _order: Priority.MAX,
       _parse(capture, parse, state) {
         return {
-          children: parseInline(parse, capture[1], state),
+          children: parseInline(parse, capture[1] ?? '', state),
           level: capture[2] === '=' ? 1 : 2,
           type: RuleType.heading,
         };
@@ -806,14 +887,13 @@ const createRules = (
     },
     [RuleType.htmlBlock]: pairedElementRule(
       // The rule is dropped outright when raw HTML is disabled, and the scanner
-      // rejects anything that is not a complete element, so `<` is the whole
-      // qualification — and a prefix lets the parser bucket the rule by first
-      // character instead of trying it everywhere.
       matchHtmlBlockElement,
       Priority.HIGH,
-      true
+      true,
+      SCOPE_BOTH
     ),
     [RuleType.htmlComment]: {
+      _scope: SCOPE_BOTH,
       _qualify: ['<!'],
       _match: anyScopeRegex(HTML_COMMENT_R),
       _order: Priority.HIGH,
@@ -821,11 +901,12 @@ const createRules = (
       _render: renderNothing,
     },
     [RuleType.htmlSelfClosing]: {
+      _scope: SCOPE_BOTH,
       _qualify: ['<'],
       _match: anyScopeRegex(matchSelfClosingElement),
       _order: Priority.HIGH,
       _parse(capture) {
-        const tag = capture[1].trim() as HTMLTag;
+        const tag = (capture[1] ?? '').trim() as HTMLTag;
 
         return { attrs: attrStringToMap(tag, capture[2] || ''), tag };
       },
@@ -839,9 +920,12 @@ const createRules = (
     [RuleType.customComponent]: pairedElementRule(
       matchCustomComponent,
       Priority.MAX,
-      false
+      false,
+      SCOPE_BOTH
     ),
     [RuleType.paragraph]: {
+      _scope: SCOPE_BLOCK,
+      _qualify: (_source, state) => !state.inline && !state.simple,
       _match: matchParagraph,
       _order: Priority.LOW,
       _parse: parseCaptureInline,
@@ -854,14 +938,17 @@ const createRules = (
       },
     },
     [RuleType.image]: {
-      _qualify: ['!['],
+      _scope: SCOPE_INLINE,
+      _firstChars: [33 /* ! */],
+      _qualify: (source) =>
+        source.startsWith('![') && source.indexOf('](') !== -1,
       _match: simpleInlineRegex(IMAGE_R),
       _order: Priority.HIGH,
       _parse(capture) {
         return {
-          alt: unescapeString(capture[1]),
-          target: unescapeString(capture[2]),
-          title: unescapeString(capture[3]),
+          alt: unescapeString(capture[1] ?? ''),
+          target: unescapeString(capture[2] ?? ''),
+          title: capture[3] ? unescapeString(capture[3]) : undefined,
         };
       },
       _render(node, _, state = {}) {
@@ -874,14 +961,17 @@ const createRules = (
       },
     },
     [RuleType.link]: {
-      _qualify: ['['],
+      _scope: SCOPE_INLINE,
+      _firstChars: [91 /* [ */],
+      _qualify: (source) =>
+        source.charCodeAt(0) === 91 && source.indexOf('](') !== -1,
       _match: inlineRegex(LINK_R),
       _order: Priority.LOW,
       _parse(capture, parse, state) {
         return {
-          children: parseSimpleInline(parse, capture[1], state),
-          target: unescapeString(capture[2]),
-          title: unescapeString(capture[3]),
+          children: parseSimpleInline(parse, capture[1] ?? '', state),
+          target: unescapeString(capture[2] ?? ''),
+          title: capture[3] ? unescapeString(capture[3]) : undefined,
         };
       },
       _render(node, output, state = {}) {
@@ -898,11 +988,12 @@ const createRules = (
       },
     },
     [RuleType.linkAngleBraceStyleDetector]: {
+      _scope: SCOPE_INLINE,
       _qualify: ['<'],
       _match: inlineRegex(LINK_AUTOLINK_R),
       _order: Priority.MAX,
       _parse(capture) {
-        let target = capture[1];
+        let target = capture[1] ?? '';
         let isEmail = false;
 
         if (target.indexOf('@') !== -1 && target.indexOf('//') === -1) {
@@ -918,24 +1009,29 @@ const createRules = (
       },
     },
     [RuleType.linkBareUrlDetector]: {
+      _scope: SCOPE_INLINE,
+      _firstChars: [104 /* h */],
       _qualify: (source, state) =>
-        !!(
+        Boolean(
           state.inline &&
-          !state.inAnchor &&
-          !options.disableAutoLink &&
-          (startsWith(source, 'http://') || startsWith(source, 'https://'))
+            !state.inAnchor &&
+            !options.disableAutoLink &&
+            (startsWith(source, 'http://') || startsWith(source, 'https://'))
         ),
       _match: inlineRegex(LINK_AUTOLINK_BARE_URL_R),
       _order: Priority.MAX,
       _parse(capture) {
+        const url = capture[1] ?? '';
         return {
-          children: [{ text: capture[1], type: RuleType.text }],
-          target: capture[1],
+          children: [{ text: url, type: RuleType.text }],
+          target: url,
           type: RuleType.link,
         };
       },
     },
     [RuleType.newlineCoalescer]: {
+      _scope: SCOPE_BOTH,
+      _qualify: ['\n'],
       _match: blockRegex(CONSECUTIVE_NEWLINE_R),
       _order: Priority.LOW,
       _parse: captureNothing,
@@ -946,6 +1042,7 @@ const createRules = (
     [RuleType.orderedList]: generateListRule(ORDERED),
     [RuleType.unorderedList]: generateListRule(UNORDERED),
     [RuleType.ref]: {
+      _scope: SCOPE_BOTH,
       _qualify: ['['],
       _match: anyScopeRegex(REFERENCE_IMAGE_OR_LINK),
       _order: Priority.MAX,
@@ -954,7 +1051,7 @@ const createRules = (
 
         if (identifier !== undefined) {
           scope.current.references[identifier] = {
-            target: capture[2],
+            target: capture[2] ?? '',
             title: capture[4],
           };
         }
@@ -964,13 +1061,16 @@ const createRules = (
       _render: renderNothing,
     },
     [RuleType.refImage]: {
-      _qualify: ['!['],
+      _scope: SCOPE_INLINE,
+      _firstChars: [33 /* ! */],
+      _qualify: (source) =>
+        source.startsWith('![') && source.indexOf('](') === -1,
       _match: simpleInlineRegex(REFERENCE_IMAGE_R),
       _order: Priority.MAX,
       _parse(capture) {
         return {
           alt: capture[1] ? unescapeString(capture[1]) : undefined,
-          ref: capture[2],
+          ref: capture[2] ?? '',
         };
       },
       _render(node, _, state = {}) {
@@ -987,14 +1087,16 @@ const createRules = (
       },
     },
     [RuleType.refLink]: {
-      _qualify: (source) => source[0] === '[' && source.indexOf('](') === -1,
+      _scope: SCOPE_INLINE,
+      _firstChars: [91 /* [ */],
+      _qualify: (source) => source.indexOf('](') === -1,
       _match: inlineRegex(REFERENCE_LINK_R),
       _order: Priority.MAX,
       _parse(capture, parse, state) {
         return {
-          children: parseSimpleInline(parse, capture[1], state),
-          fallbackChildren: capture[0],
-          ref: capture[2],
+          children: parseSimpleInline(parse, capture[1] ?? '', state),
+          fallbackChildren: capture[0] ?? '',
+          ref: capture[2] ?? '',
         };
       },
       _render(node, output, state = {}) {
@@ -1019,6 +1121,7 @@ const createRules = (
       },
     },
     [RuleType.table]: {
+      _scope: SCOPE_BLOCK,
       _qualify: ['|'],
       _match: blockRegex(NP_TABLE_R),
       _order: Priority.HIGH,
@@ -1028,7 +1131,12 @@ const createRules = (
         const cells = capture[3]
           ? parseTableCells(capture[3], parse, state)
           : [];
-        const header = parseTableRow(capture[1], parse, state, !!cells.length);
+        const header = parseTableRow(
+          capture[1] ?? '',
+          parse,
+          state,
+          !!cells.length
+        );
         state.inline = false;
 
         return cells.length
@@ -1047,7 +1155,7 @@ const createRules = (
           { key: state.key },
           createElement(
             'thead',
-            null,
+            { key: 'thead' },
             createElement(
               'tr',
               null,
@@ -1062,7 +1170,7 @@ const createRules = (
           ),
           createElement(
             'tbody',
-            null,
+            { key: 'tbody' },
             ...table.cells.map((row, i) =>
               createElement(
                 'tr',
@@ -1081,8 +1189,9 @@ const createRules = (
       },
     },
     [RuleType.tableSeparator]: {
-      _match: (source, state) =>
-        state.inTable && source[0] === '|' ? /^\|/.exec(source) : null,
+      _scope: SCOPE_INLINE,
+      _qualify: ['|'],
+      _match: (source, state) => (state.inTable ? /^\|/.exec(source) : null),
       _order: Priority.HIGH,
       _parse() {
         return { type: RuleType.tableSeparator };
@@ -1092,16 +1201,63 @@ const createRules = (
       },
     },
     [RuleType.text]: {
+      _scope: SCOPE_INLINE,
       _match: allowInline((source, _state) => {
-        const shortMatch = SHORTCODE_R.exec(source);
+        const len = source.length;
+        if (source.charCodeAt(0) === 10 /* \n */) {
+          let j = 1;
+          while (j < len && source.charCodeAt(j) === 32 /* space */) {
+            j++;
+          }
+          if (
+            j < len &&
+            (source.charCodeAt(j) === 42 || // *
+              source.charCodeAt(j) === 43 || // +
+              source.charCodeAt(j) === 45 || // -
+              (source.charCodeAt(j) >= 48 && source.charCodeAt(j) <= 57)) // 0-9
+          ) {
+            return [source.slice(0, j)] as unknown as RegExpMatchArray;
+          }
+          return ['\n'] as unknown as RegExpMatchArray;
+        }
 
-        if (shortMatch) return shortMatch;
-
-        return TEXT_PLAIN_R.exec(source) || /^[\s\S]/.exec(source);
+        if (source.charCodeAt(0) === 58 /* : */) {
+          const shortMatch = SHORTCODE_R.exec(source);
+          if (shortMatch) return shortMatch;
+        }
+        let i = 1;
+        while (i < len) {
+          const c = source.charCodeAt(i);
+          if (c < 128) {
+            const stop = CHAR_TEXT_STOP[c];
+            if (stop === 1) break;
+            if (stop === 2) {
+              if (
+                c === 32 &&
+                i + 2 < len &&
+                source.charCodeAt(i + 1) === 32 &&
+                source.charCodeAt(i + 2) === 10
+              ) {
+                break;
+              }
+              if (
+                c === 104 &&
+                i + 3 < len &&
+                source.charCodeAt(i + 1) === 116 &&
+                source.charCodeAt(i + 2) === 116 &&
+                source.charCodeAt(i + 3) === 112
+              ) {
+                break;
+              }
+            }
+          }
+          i++;
+        }
+        return [source.slice(0, i)] as unknown as RegExpMatchArray;
       }),
       _order: Priority.MIN,
       _parse(capture) {
-        const text = capture[0];
+        const text = capture[0] ?? '';
 
         return {
           text:
@@ -1121,11 +1277,26 @@ const createRules = (
       },
     },
     [RuleType.textBolded]: {
-      _qualify: ['**', '__'],
+      _scope: SCOPE_INLINE,
+      _firstChars: [42 /* * */, 95 /* _ */],
+      _qualify: (source) => {
+        const c = source.charCodeAt(0);
+        if (c === 42) {
+          const next = source.charCodeAt(2);
+          if (next === 32 || next === 10 || next === 9) return false;
+          return source.charCodeAt(1) === 42 && source.indexOf('**', 2) !== -1;
+        }
+        if (c === 95) {
+          const next = source.charCodeAt(2);
+          if (next === 32 || next === 10 || next === 9) return false;
+          return source.charCodeAt(1) === 95 && source.indexOf('__', 2) !== -1;
+        }
+        return false;
+      },
       _match: simpleInlineRegex(TEXT_BOLD_R),
       _order: Priority.MED,
       _parse(capture, parse, state) {
-        return { children: parse(capture[2], state) };
+        return { children: parse(capture[2] ?? '', state) };
       },
       _render(node, output, state = {}) {
         return createElement(
@@ -1136,11 +1307,21 @@ const createRules = (
       },
     },
     [RuleType.textEmphasized]: {
-      _qualify: ['*', '_'],
+      _scope: SCOPE_INLINE,
+      _firstChars: [42 /* * */, 95 /* _ */],
+      _qualify: (source) => {
+        const c = source.charCodeAt(0);
+        const next = source.charCodeAt(1);
+        if (next === 32 || next === 10 || next === 9) return false;
+        return (
+          (c === 42 && source.indexOf('*', 1) !== -1) ||
+          (c === 95 && source.indexOf('_', 1) !== -1)
+        );
+      },
       _match: simpleInlineRegex(TEXT_EMPHASIZED_R),
       _order: Priority.LOW,
       _parse(capture, parse, state) {
-        return { children: parse(capture[2], state) };
+        return { children: parse(capture[2] ?? '', state) };
       },
       _render(node, output, state = {}) {
         return createElement(
@@ -1151,18 +1332,27 @@ const createRules = (
       },
     },
     [RuleType.textEscaped]: {
+      _scope: SCOPE_INLINE,
       _qualify: ['\\'],
       _match: simpleInlineRegex(TEXT_ESCAPED_R),
       _order: Priority.HIGH,
       _parse(capture) {
-        return { text: capture[1], type: RuleType.text };
+        return { text: capture[1] ?? '', type: RuleType.text };
       },
     },
     [RuleType.textMarked]: {
-      _qualify: ['=='],
+      _scope: SCOPE_INLINE,
+      _firstChars: [61 /* = */],
+      _qualify: (source) => {
+        const next = source.charCodeAt(2);
+        if (next === 32 || next === 10 || next === 9) return false;
+        return source.charCodeAt(1) === 61 && source.indexOf('==', 2) !== -1;
+      },
       _match: simpleInlineRegex(TEXT_MARKED_R),
       _order: Priority.LOW,
-      _parse: parseCaptureInline,
+      _parse(capture, parse, state) {
+        return { children: parseCaptureInline(capture, parse, state).children };
+      },
       _render(node, output, state = {}) {
         return createElement(
           'mark',
@@ -1172,10 +1362,18 @@ const createRules = (
       },
     },
     [RuleType.textStrikethroughed]: {
-      _qualify: ['~~'],
+      _scope: SCOPE_INLINE,
+      _firstChars: [126 /* ~ */],
+      _qualify: (source) => {
+        const next = source.charCodeAt(2);
+        if (next === 32 || next === 10 || next === 9) return false;
+        return source.charCodeAt(1) === 126 && source.indexOf('~~', 2) !== -1;
+      },
       _match: simpleInlineRegex(TEXT_STRIKETHROUGHED_R),
       _order: Priority.LOW,
-      _parse: parseCaptureInline,
+      _parse(capture, parse, state) {
+        return { children: parseCaptureInline(capture, parse, state).children };
+      },
       _render(node, output, state = {}) {
         return createElement(
           'del',
@@ -1210,11 +1408,42 @@ export type ParsedMarkdown = {
   inline: boolean;
 };
 
-/**
- * `createElement` is only ever reached from a rule's `_render`, so a parse-only
- * caller can hand over this stub instead of building an element factory.
- */
-const noopCreateElement: CreateElementFunction = () => null;
+const STRIP_INDENT_REGEXES = [
+  null,
+  /^ {1,1}/gm,
+  /^ {1,2}/gm,
+  /^ {1,3}/gm,
+  /^ {1,4}/gm,
+  /^ {1,5}/gm,
+  /^ {1,6}/gm,
+  /^ {1,7}/gm,
+  /^ {1,8}/gm,
+];
+
+const CHAR_TEXT_STOP = new Uint8Array(128);
+CHAR_TEXT_STOP[10] = 1; // \n
+CHAR_TEXT_STOP[33] = 1; // !
+CHAR_TEXT_STOP[42] = 1; // *
+CHAR_TEXT_STOP[58] = 1; // :
+CHAR_TEXT_STOP[60] = 1; // <
+CHAR_TEXT_STOP[61] = 1; // =
+CHAR_TEXT_STOP[91] = 1; // [
+CHAR_TEXT_STOP[92] = 1; // \
+CHAR_TEXT_STOP[95] = 1; // _
+CHAR_TEXT_STOP[96] = 1; // `
+CHAR_TEXT_STOP[126] = 1; // ~
+CHAR_TEXT_STOP[32] = 2; // space (check for '  \n')
+CHAR_TEXT_STOP[104] = 2; // h (check for http)
+
+const noopCreateElement: CreateElementFunction = (
+  type,
+  props,
+  ...children
+) => ({
+  children,
+  props,
+  type,
+});
 
 /**
  * Builds the rule set backing one document.
@@ -1279,7 +1508,6 @@ const createDocumentRules = (
     CODE_BLOCK_FENCED_R,
     CODE_BLOCK_R,
     options.enforceAtxHeadings ? HEADING_ATX_COMPLIANT_R : HEADING_R,
-    HEADING_SETEXT_R,
     NP_TABLE_R,
     ORDERED_LIST_R,
     UNORDERED_LIST_R,
@@ -1323,7 +1551,7 @@ const createDocumentRules = (
   return options.disableParsingRawHTML
     ? Object.keys(baseRules).reduce((acc, key) => {
         if (key !== RuleType.htmlBlock && key !== RuleType.htmlSelfClosing) {
-          acc[key] = baseRules[key];
+          acc[key] = baseRules[key]!;
         }
 
         return acc;
@@ -1339,12 +1567,16 @@ const parseWithRules = (
   footnotes: FootnoteDef[],
   refs: MarkdownReferences
 ): ParsedMarkdown => {
-  const result = options.preserveFrontmatter
-    ? markdown
-    : markdown.replace(FRONT_MATTER_R, '');
+  const result =
+    !options.preserveFrontmatter && markdown.charCodeAt(0) === 45 /* - */
+      ? markdown.replace(FRONT_MATTER_R, '')
+      : markdown;
   // Stripped once and reused: both the block/inline decision and the block
   // input below need the source without its leading newlines.
-  const trimmedStart = result.replace(TRIM_STARTING_NEWLINES, '');
+  const trimmedStart =
+    result.charCodeAt(0) === 10 /* \n */
+      ? result.replace(TRIM_STARTING_NEWLINES, '')
+      : result;
   const inline =
     options.forceInline ||
     (!options.forceBlock &&
@@ -1391,6 +1623,10 @@ const renderWithRules = (
 
     if (arr.length === 1) {
       const node = arr[0];
+
+      if (Array.isArray(node)) {
+        return createElement(wrapper, { key: 'outer' }, node);
+      }
 
       if (typeof node === 'string') {
         const spanProps: Record<string, any> = { key: 'outer' };

@@ -10,18 +10,12 @@ import {
   renderMarkdownAst as coreRenderMarkdownAst,
   type MarkdownContext,
   type MarkdownOptions,
-  type MarkdownRuntime,
   type ParsedMarkdown,
   type RenderRuleHook,
 } from '@intlayer/core/markdown';
-import {
-  cloneElement,
-  createElement,
-  Fragment,
-  type JSX,
-  type ReactNode,
-} from 'react';
+import type { createElement, JSX, ReactNode } from 'react';
 import type { HTMLComponents } from '../html/HTMLComponentTypes';
+import { reactRuntime } from './runtime';
 
 type HTMLTags = keyof JSX.IntrinsicElements;
 
@@ -116,12 +110,6 @@ export type MarkdownRendererOptions = Partial<{
 /**
  * Default React runtime for markdown rendering.
  */
-const DEFAULT_RUNTIME: MarkdownRuntime = {
-  createElement: createElement as any,
-  cloneElement,
-  Fragment,
-  normalizeProps: (_tag, props) => props,
-};
 
 /**
  * Intermediate AST produced by `parseMarkdown`.
@@ -169,7 +157,7 @@ export const parseMarkdown = (
   } = options;
 
   const ctx: MarkdownContext<HTMLComponents> = {
-    runtime: DEFAULT_RUNTIME,
+    runtime: reactRuntime,
     components,
     namedCodesToUnicode,
     sanitizer: sanitizer as any,
@@ -229,8 +217,8 @@ export const compileMarkdown = (
   } = options;
 
   const runtime = customCreateElement
-    ? { ...DEFAULT_RUNTIME, createElement: customCreateElement as any }
-    : DEFAULT_RUNTIME;
+    ? { ...reactRuntime, createElement: customCreateElement as any }
+    : reactRuntime;
 
   const ctx: MarkdownContext<HTMLComponents> = {
     runtime,

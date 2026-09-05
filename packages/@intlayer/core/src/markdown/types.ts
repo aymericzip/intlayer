@@ -1,3 +1,5 @@
+import type { RuleScopeValue } from './constants';
+
 // ============================================================================
 // RUNTIME TYPES - Framework adapters provide these
 // ============================================================================
@@ -380,6 +382,20 @@ export type Rule<ParserOutput = ParserResult> = {
    * should even be attempted.
    */
   _qualify?: string[] | ((source: string, state: ParseState) => boolean);
+
+  /**
+   * Optional ASCII charCodes that can trigger this rule.
+   * If provided, the rule is only evaluated when source starts with one of these characters.
+   */
+  _firstChars?: number[];
+
+  /**
+   * Optional parsing scope for this rule.
+   * SCOPE_BLOCK (1) / 'block': evaluated only when !state.inline && !state.simple
+   * SCOPE_INLINE (2) / 'inline': evaluated only when state.inline || state.simple
+   * SCOPE_BOTH (3) / 'both': evaluated in both scopes (default)
+   */
+  _scope?: RuleScopeValue;
 
   /**
    * Render function - converts AST node to output.

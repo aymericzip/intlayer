@@ -80,6 +80,33 @@ export const Priority = {
 export type PriorityValue = (typeof Priority)[keyof typeof Priority];
 
 // ============================================================================
+// RULE SCOPE CONSTANTS
+// ============================================================================
+
+/**
+ * Parsing scope for markdown rules.
+ * Bitmask representation for fast bitwise checking and bundle minification.
+ * - BLOCK (1): evaluated only when !state.inline && !state.simple
+ * - INLINE (2): evaluated only when state.inline || state.simple
+ * - BOTH (3): evaluated in both scopes (default)
+ */
+export const RuleScope = {
+  BLOCK: 1,
+  INLINE: 2,
+  BOTH: 3,
+} as const;
+
+export const SCOPE_BLOCK = RuleScope.BLOCK;
+export const SCOPE_INLINE = RuleScope.INLINE;
+export const SCOPE_BOTH = RuleScope.BOTH;
+
+export type RuleScopeValue =
+  | (typeof RuleScope)[keyof typeof RuleScope]
+  | 'block'
+  | 'inline'
+  | 'both';
+
+// ============================================================================
 // ATTRIBUTE MAPPING
 // ============================================================================
 

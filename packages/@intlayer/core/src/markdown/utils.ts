@@ -23,9 +23,9 @@ import type { NestedParser, ParserResult, ParseState, Rule } from './types';
 export const trimEnd = (str: string): string => {
   let end = str.length;
 
-  while (end > 0 && str[end - 1]! <= ' ') end--;
+  while (end > 0 && str.charCodeAt(end - 1) <= 32) end--;
 
-  return str.slice(0, end);
+  return end === str.length ? str : str.slice(0, end);
 };
 
 /**
@@ -55,23 +55,13 @@ export const unquote = (str: string): string => {
 /**
  * Unescape backslash-escaped characters.
  */
-export const unescapeString = (rawString: string): string =>
-  rawString ? rawString.replace(UNESCAPE_R, '$1') : rawString;
+export const unescapeString = <T extends string | undefined>(rawString: T): T =>
+  (rawString ? rawString.replace(UNESCAPE_R, '$1') : rawString) as T;
 
 /**
  * Join class names, filtering out falsy values.
  */
-export const cx = (...args: any[]): string => {
-  // Called once per rendered element, almost always with nothing to join, so
-  // the empty and single-value cases skip both intermediate arrays.
-  if (args.length === 2) {
-    const [first, second] = args;
-    if (!first) return second ? String(second) : '';
-    if (!second) return String(first);
-  }
-
-  return args.filter(Boolean).join(' ');
-};
+export const cx = (...args: any[]): string => args.filter(Boolean).join(' ');
 
 /**
  * Get a nested property from an object using dot notation.
@@ -175,15 +165,24 @@ export const sanitizer = (input: string): string | null => {
 /**
  * Normalize whitespace in source string.
  */
-export const normalizeWhitespace = (source: string): string =>
+export const normalizeWhitespace = (source: string): string => {
+  if (
+    source.indexOf('\r') === -1 &&
+    source.indexOf('\t') === -1 &&
+    source.indexOf('\f') === -1
+  ) {
+    return source;
+  }
+
   // `\r`, `\f` and `\t` are disjoint, so one pass over the source replaces
   // what used to take three full scans.
-  source.replace(NORMALIZE_WHITESPACE_R, (match) => {
+  return source.replace(NORMALIZE_WHITESPACE_R, (match) => {
     if (match === '\t') return '    ';
     if (match === '\f') return '';
 
     return '\n';
   });
+};
 
 /**
  * Safely remove a uniform leading indentation from lines, but do NOT touch
@@ -399,44 +398,87 @@ export const parseTableRow = (
   tableOutput: boolean
 ): ParserResult[][] => {
   const prevInTable = state.inTable;
-
   state.inTable = true;
 
-  const cells: ParserResult[][] = [[]];
-  let acc = '';
+  let rStart = 0;
+  let rEnd = source.length;
 
-  const flush = (): void => {
-    if (!acc) return;
+  while (rStart < rEnd) {
+    const c = source.charCodeAt(rStart);
+    if (c === 32 || c === 9) rStart++;
+    else break;
+  }
+  while (rEnd > rStart) {
+    const c = source.charCodeAt(rEnd - 1);
+    if (c === 32 || c === 9) rEnd--;
+    else break;
+  }
 
-    const cell = cells[cells.length - 1]!;
-    cell.push.apply(cell, parse(acc, state));
-    acc = '';
-  };
+  // Trim leading pipe if present
+  if (rStart < rEnd && source.charCodeAt(rStart) === 124 /* | */) {
+    rStart++;
+  }
+  // Trim trailing pipe if present (and not escaped)
+  if (
+    rEnd > rStart &&
+    source.charCodeAt(rEnd - 1) === 124 /* | */ &&
+    (rEnd - 2 < rStart || source.charCodeAt(rEnd - 2) !== 92) /* \ */
+  ) {
+    rEnd--;
+  }
 
-  source
-    .trim()
-    .split(/(`[^`]*`|\\\||\|)/)
-    .filter(Boolean)
-    .forEach((fragment, i, arr) => {
-      if (fragment.trim() === '|') {
-        flush();
+  if (!tableOutput) {
+    const cell = parse(source.slice(rStart, rEnd), state);
+    state.inTable = prevInTable;
+    return [cell];
+  }
 
-        if (tableOutput) {
-          if (i !== 0 && i !== arr.length - 1) {
-            cells.push([]);
-          }
+  const cells: ParserResult[][] = [];
+  let cellStart = rStart;
+  let i = rStart;
 
-          return;
+  while (i < rEnd) {
+    const ch = source.charCodeAt(i);
+    // Handle escape: \|
+    if (ch === 92 /* \ */ && i + 1 < rEnd) {
+      i += 2;
+      continue;
+    }
+    // Handle code span: `...`
+    if (ch === 96 /* ` */) {
+      let backticks = 0;
+      while (i < rEnd && source.charCodeAt(i) === 96) {
+        backticks++;
+        i++;
+      }
+      let found = false;
+      while (i < rEnd && !found) {
+        let closeBackticks = 0;
+        while (i < rEnd && source.charCodeAt(i) === 96) {
+          closeBackticks++;
+          i++;
+        }
+        if (closeBackticks === backticks) {
+          found = true;
+        } else if (closeBackticks === 0) {
+          i++;
         }
       }
+      continue;
+    }
+    // Handle cell delimiter: |
+    if (ch === 124 /* | */) {
+      cells.push(parse(source.slice(cellStart, i), state));
+      i++;
+      cellStart = i;
+      continue;
+    }
+    i++;
+  }
 
-      acc += fragment;
-    });
-
-  flush();
+  cells.push(parse(source.slice(cellStart, rEnd), state));
 
   state.inTable = prevInTable;
-
   return cells;
 };
 
@@ -448,11 +490,31 @@ export const parseTableCells = (
   parse: NestedParser,
   state: ParseState
 ): ParserResult[][][] => {
-  const rowsText = source.trim().split('\n');
+  if (!source) return [];
 
-  const result = rowsText.map((rowText) =>
-    parseTableRow(rowText, parse, state, true)
-  );
+  const result: ParserResult[][][] = [];
+  let start = 0;
+  const len = source.length;
+
+  while (start < len) {
+    let nextNewline = source.indexOf('\n', start);
+    if (nextNewline === -1) nextNewline = len;
+    const rowText = source.slice(start, nextNewline);
+    start = nextNewline + 1;
+
+    // Check if row has non-whitespace content
+    let hasContent = false;
+    for (let j = 0; j < rowText.length; j++) {
+      const c = rowText.charCodeAt(j);
+      if (c !== 32 && c !== 9 && c !== 13) {
+        hasContent = true;
+        break;
+      }
+    }
+    if (!hasContent) continue;
+
+    result.push(parseTableRow(rowText, parse, state, true));
+  }
 
   return result;
 };

@@ -11,6 +11,24 @@ import {
  * React-specific runtime for the markdown processor.
  * Implements the MarkdownRuntime interface using React's primitives.
  */
+let REACT_ELEMENT_TYPE: symbol;
+try {
+  const sample = createElement('div');
+  REACT_ELEMENT_TYPE =
+    sample &&
+    typeof sample === 'object' &&
+    '$$typeof' in sample &&
+    typeof sample.$$typeof === 'symbol'
+      ? (sample.$$typeof as symbol)
+      : Symbol.for('react.transitional.element');
+} catch {
+  REACT_ELEMENT_TYPE = Symbol.for('react.transitional.element');
+}
+
+/**
+ * React-specific runtime for the markdown processor.
+ * Implements the MarkdownRuntime interface using React's primitives.
+ */
 export const reactRuntime: MarkdownRuntime = {
   /**
    * Creates a React element.
@@ -21,15 +39,32 @@ export const reactRuntime: MarkdownRuntime = {
     props: Record<string, any> | null,
     ...children: any[]
   ): ReactNode => {
-    // React accepts children as rest args or as a single array
-    // If there's only one child, pass it directly to avoid unnecessary array
-    if (children.length === 0) {
-      return createElement(type, props);
+    let key: string | null = null;
+    const finalProps: any = props || {};
+
+    if (props && props.key != null) {
+      key = String(props.key);
+      finalProps.key = undefined;
     }
-    if (children.length === 1) {
-      return createElement(type, props, children[0]);
+
+    const childCount = children.length;
+    if (childCount === 1) {
+      finalProps.children = children[0];
+    } else if (childCount > 1) {
+      finalProps.children = children;
     }
-    return createElement(type, props, ...children);
+
+    return {
+      $$typeof: REACT_ELEMENT_TYPE,
+      type,
+      key,
+      ref: null,
+      props: finalProps,
+      _owner: null,
+      _store: {},
+      _debugStack: null,
+      _debugTask: null,
+    } as unknown as ReactNode;
   },
 
   /**
