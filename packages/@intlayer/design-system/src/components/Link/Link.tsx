@@ -22,16 +22,13 @@ export type LinkVariant =
  * Color theme variants for Link component
  */
 export type LinkColor =
-  | 'primary'
   | 'secondary'
   | 'neutral'
-  | 'light'
-  | 'dark'
   | 'text'
-  | 'text-inverse'
   | 'error'
   | 'success'
-  | 'custom';
+  | 'custom'
+  | 'text-inverse';
 
 export type LinkRoundedSize =
   | 'none'
@@ -53,7 +50,7 @@ export const linkVariants = cva(
     variants: {
       variant: {
         default:
-          'h-auto justify-start border-inherit bg-current/0 px-1 font-medium decoration-[1.5] underline-offset-5 hover:bg-current/0 hover:text-current/80 hover:underline hover:underline-offset-6',
+          'h-auto justify-start border-inherit bg-current/0 px-1 font-medium decoration-[1.5] underline-offset-5 hover:bg-current/0 hover:underline hover:underline-offset-6 hover:opacity-80',
         'invisible-link':
           'h-auto justify-start border-inherit bg-current/0 px-1',
 
@@ -61,7 +58,7 @@ export const linkVariants = cva(
           'relative inline-flex min-h-8 cursor-pointer flex-row items-center justify-center gap-2 rounded-full bg-current px-6 text-center font-medium text-sm text-text ring-0 *:text-text-opposite hover:bg-current/90 hover:ring-5 aria-selected:ring-5 aria-[current]:ring-5 max-md:py-2',
 
         'button-outlined':
-          'relative inline-flex min-h-8 cursor-pointer flex-row items-center justify-center gap-2 rounded-full border-[1.3px] border-current px-6 text-center font-medium text-sm text-text ring-0 *:text-text hover:bg-current/20 hover:ring-5 aria-selected:ring-5 aria-[current]:ring-5 max-md:py-2',
+          'relative inline-flex min-h-8 cursor-pointer flex-row items-center justify-center gap-2 rounded-full border-[1.3px] border-current px-6 text-center font-medium text-sm text-text ring-0 *:text-text hover:border-none hover:bg-current/30! hover:ring-5 aria-selected:ring-5 aria-[current]:ring-5 max-md:py-2',
 
         hoverable:
           'rounded-lg border-none bg-current/0 transition *:text-current! hover:bg-current/10 aria-[current]:bg-current/5',
@@ -79,15 +76,12 @@ export const linkVariants = cva(
         full: 'rounded-full',
       },
       color: {
-        primary: 'text-primary',
         secondary: 'text-secondary',
         neutral: 'text-neutral',
-        light: 'text-white',
-        dark: 'text-neutral-800',
         text: 'text-text',
-        'text-inverse': 'text-text-opposite',
         error: 'text-error',
         success: 'text-success',
+        'text-inverse': 'text-text-opposite',
         custom: '',
       },
       size: {
@@ -124,7 +118,6 @@ export const linkVariants = cva(
         color: 'text-inverse',
         class: 'text-text-opposite *:text-text-opposite',
       },
-
       // Min height and padding for button variants
       {
         variant: ['button', 'button-outlined'],
@@ -147,11 +140,7 @@ export const linkVariants = cva(
         class: 'min-h-11 px-10 text-xl max-md:py-4',
       },
       // Ring color variants
-      {
-        variant: ['button', 'button-outlined'],
-        color: 'primary',
-        class: 'ring-primary/20',
-      },
+
       {
         variant: ['button', 'button-outlined'],
         color: 'secondary',
@@ -161,16 +150,6 @@ export const linkVariants = cva(
         variant: ['button', 'button-outlined'],
         color: 'neutral',
         class: 'ring-neutral/20',
-      },
-      {
-        variant: ['button', 'button-outlined'],
-        color: 'light',
-        class: 'ring-white/20',
-      },
-      {
-        variant: ['button', 'button-outlined'],
-        color: 'dark',
-        class: 'ring-neutral-800/20',
       },
       {
         variant: ['button', 'button-outlined'],

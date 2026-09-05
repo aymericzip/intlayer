@@ -15,7 +15,10 @@
 
 	--color-text: var(--foreground);
 	--color-text-opposite: var(--background);
+	--color-opposite: var(--background);
+	--color-inverse: var(--foreground);
 	--color-foreground-opposite: var(--background);
+	--color-text-light: var(--foreground);
 
 	--color-card: var(--card);
 	--color-card-hover: var(--card-hover);
@@ -26,8 +29,14 @@
 	--color-popover: var(--popover);
 	--color-popover-foreground: var(--popover-foreground);
 
-	--color-primary: var(--primary);
-	--color-primary-foreground: var(--primary-foreground);
+	/*
+		As there's not really a primary color for intlayer branding yet theses colors will point to default background / foreground colors
+		--color-primary: var(--primary);
+		--color-primary-foreground: var(--primary-foreground);
+	*/
+	--color-primary: var(--foreground);
+	--color-primary-foreground: var(--background);
+
 
 	--color-secondary: var(--secondary);
 	--color-secondary-foreground: var(--secondary-foreground);

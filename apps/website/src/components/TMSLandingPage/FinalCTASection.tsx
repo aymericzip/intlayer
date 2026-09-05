@@ -39,7 +39,7 @@ export const FinalCTASection: FC = () => {
             <Link
               to={App_Dashboard_Projects}
               variant="button"
-              color="text-inverse"
+              color="text"
               label={finalCtaButton.value}
               size="xl"
               roundedSize="full"

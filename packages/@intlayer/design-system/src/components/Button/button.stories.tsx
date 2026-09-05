@@ -124,18 +124,13 @@ A versatile button component that handles user interactions with full accessibil
       description: 'Color theme that determines text and focus ring colors',
       control: 'select',
       options: [
-        'primary',
+        'text-inverse',
         'secondary',
         'neutral',
-        'light',
-        'dark',
         'text',
         'card',
-        'text-inverse',
-        'current',
         'error',
         'success',
-        'custom',
       ],
     },
     textAlign: {
@@ -254,22 +249,22 @@ export const Default: Story = {
 export const AllVariants: Story = {
   render: () => (
     <div className="flex flex-wrap items-center gap-4">
-      <Button variant="default" label="Default button" color="primary">
+      <Button variant="default" label="Default button" color="text">
         Default
       </Button>
-      <Button variant="outline" label="Outline button" color="primary">
+      <Button variant="outline" label="Outline button" color="text">
         Outline
       </Button>
-      <Button variant="link" label="Link button" color="primary">
+      <Button variant="link" label="Link button" color="text">
         Link
       </Button>
-      <Button variant="hoverable" label="Hoverable button" color="primary">
+      <Button variant="hoverable" label="Hoverable button" color="text">
         Hoverable
       </Button>
       <Button
         variant="invisible-link"
         label="Invisible link button"
-        color="primary"
+        color="text"
       >
         Invisible Link
       </Button>
@@ -322,19 +317,19 @@ export const AllVariants: Story = {
 export const SizeVariations: Story = {
   render: () => (
     <div className="flex flex-wrap items-center gap-4">
-      <Button size="icon-lg" label="Extra small button" color="primary">
+      <Button size="icon-lg" label="Extra small button" color="text">
         LG
       </Button>
-      <Button size="sm" label="Small button" color="primary">
+      <Button size="sm" label="Small button" color="text">
         Small
       </Button>
-      <Button size="md" label="Medium button" color="primary">
+      <Button size="md" label="Medium button" color="text">
         Medium
       </Button>
-      <Button size="lg" label="Large button" color="primary">
+      <Button size="lg" label="Large button" color="text">
         Large
       </Button>
-      <Button size="xl" label="Extra large button" color="primary">
+      <Button size="xl" label="Extra large button" color="text">
         XL
       </Button>
     </div>
@@ -364,18 +359,13 @@ export const ColorThemes: Story = {
   render: () => (
     <div className="grid max-w-2xl grid-cols-2 gap-4">
       {[
-        'primary',
+        'text-inverse',
         'secondary',
         'neutral',
-        'light',
-        'dark',
         'text',
         'card',
-        'text-inverse',
-        'current',
         'error',
         'success',
-        'custom',
       ].map((color) => (
         <div key={color} className="space-y-2">
           <h4 className="font-medium text-sm capitalize">
@@ -410,18 +400,13 @@ export const ColorThemes: Story = {
     // Should have 2 buttons per color (default + outline)
     const expectedCount =
       [
-        'primary',
+        'text-inverse',
         'secondary',
         'neutral',
-        'light',
-        'dark',
         'text',
         'card',
-        'text-inverse',
-        'current',
         'error',
         'success',
-        'custom',
       ].length * 2;
     await expect(buttons).toHaveLength(expectedCount);
 
@@ -541,7 +526,7 @@ export const ActiveState: Story = {
 export const WithLeftIcons: Story = {
   render: () => (
     <div className="flex flex-wrap gap-4">
-      <Button Icon={PlayIcon} label="Play video" color="primary">
+      <Button Icon={PlayIcon} label="Play video" color="text">
         Play
       </Button>
       <Button Icon={SaveIcon} label="Save document" color="success">
@@ -551,11 +536,11 @@ export const WithLeftIcons: Story = {
         Icon={DownloadIcon}
         label="Download file"
         variant="outline"
-        color="primary"
+        color="text"
       >
         Download
       </Button>
-      <Button Icon={PlusIcon} label="Add new item" color="primary">
+      <Button Icon={PlusIcon} label="Add new item" color="text">
         Add New
       </Button>
     </div>
@@ -588,7 +573,7 @@ export const WithRightIcons: Story = {
       <Button
         IconRight={ArrowRightIcon}
         label="Continue to next step"
-        color="primary"
+        color="text"
       >
         Continue
       </Button>
@@ -596,7 +581,7 @@ export const WithRightIcons: Story = {
         IconRight={DownloadIcon}
         label="Export data"
         variant="outline"
-        color="primary"
+        color="text"
       >
         Export
       </Button>
@@ -656,7 +641,7 @@ export const IconOnlyButtons: Story = {
         aria-label="Download file"
         variant="outline"
         size="icon-sm"
-        color="primary"
+        color="text"
       />
       <Button
         Icon={TrashIcon}
@@ -769,7 +754,7 @@ export const TextAlignment: Story = {
         isFullWidth
         textAlign="left"
         label="Left aligned button"
-        color="primary"
+        color="text"
       >
         Left Aligned
       </Button>
@@ -777,7 +762,7 @@ export const TextAlignment: Story = {
         isFullWidth
         textAlign="center"
         label="Center aligned button"
-        color="primary"
+        color="text"
       >
         Center Aligned
       </Button>
@@ -785,7 +770,7 @@ export const TextAlignment: Story = {
         isFullWidth
         textAlign="right"
         label="Right aligned button"
-        color="primary"
+        color="text"
       >
         Right Aligned
       </Button>
@@ -823,17 +808,17 @@ export const KeyboardNavigation: Story = {
         Use Tab to navigate between buttons, Enter or Space to activate them.
       </div>
       <div className="flex flex-wrap gap-4">
-        <Button label="First button in sequence" color="primary">
+        <Button label="First button in sequence" color="text">
           First
         </Button>
         <Button
           label="Second button in sequence"
           variant="outline"
-          color="primary"
+          color="text"
         >
           Second
         </Button>
-        <Button label="Fourth button (disabled)" disabled color="primary">
+        <Button label="Fourth button (disabled)" disabled color="text">
           Disabled
         </Button>
         <Button label="Last button in sequence" color="success">
@@ -884,7 +869,7 @@ export const ARIAAttributes: Story = {
         <h3 className="mb-2 font-medium text-sm">Dropdown Button</h3>
         <Button
           label="Open menu options"
-          color="primary"
+          color="text"
           aria-haspopup="menu"
           aria-expanded={false}
           IconRight={ArrowRightIcon}

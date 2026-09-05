@@ -105,7 +105,7 @@ export const PositioningVariants: Story = {
       {/* Below Start */}
       <div className="flex justify-center">
         <Popover identifier="below-start">
-          <Button size="sm" label="Below Start" color="light">
+          <Button size="sm" label="Below Start" color="text">
             Below Start
           </Button>
           <Popover.Detail
@@ -177,7 +177,7 @@ export const RichContent: Story = {
   render: () => (
     <Container className="flex items-center justify-center p-16">
       <Popover identifier="rich-popover">
-        <Button color="primary" label="User Profile">
+        <Button color="text" label="User Profile">
           User Profile
         </Button>
 

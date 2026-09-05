@@ -270,7 +270,7 @@ export const WithBackButton: Story = {
             </div>
 
             <div className="flex gap-3 pt-4">
-              <Button variant="hoverable" color="primary" label="Edit Product">
+              <Button variant="hoverable" color="text" label="Edit Product">
                 Edit Product
               </Button>
               <Button variant="hoverable" color="text" label="View History">
