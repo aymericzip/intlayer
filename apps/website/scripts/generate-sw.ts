@@ -15,6 +15,7 @@ async function buildSW() {
     globPatterns: [
       'manifest.json',
       'favicon.ico',
+      'favicon.svg',
       'logo.svg',
       'android-chrome-192x192.png',
       'android-chrome-512x512.png',
