@@ -181,7 +181,7 @@ export type ProviderVariantMap<Key extends string = DictionaryKey> = Partial<
   Record<Key | 'default', DictionaryVariantChain>
 >;
 
-export type ProviderVariant<Key extends string = DictionaryKey> =
+export type ProviderVariantBase<Key extends string = DictionaryKey> =
   | string
   | readonly DictionaryVariantValue[]
   | ProviderVariantMap<Key>;

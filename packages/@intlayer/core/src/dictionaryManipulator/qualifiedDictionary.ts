@@ -4,7 +4,7 @@ import type {
   DictionarySelector,
   DictionaryVariantChain,
   DictionaryVariantValue,
-  ProviderVariant,
+  ProviderVariantBase,
   ProviderVariantMap,
   QualifiedDictionaryGroup,
 } from '@intlayer/types/dictionary';
@@ -317,7 +317,7 @@ export const parseDictionarySelector = <L extends LocalesValues>(
  * @param dictionaryKey - The key being read.
  */
 export const resolveProviderVariant = (
-  providerVariant: ProviderVariant | undefined,
+  providerVariant: ProviderVariantBase | undefined,
   dictionaryKey: string
 ): DictionaryVariantChain | undefined => {
   if (providerVariant === undefined) return undefined;
@@ -348,7 +348,7 @@ export const resolveProviderVariant = (
 export const resolveDictionaryArgument = (params: {
   localeOrSelector?: LocalesValues | DictionarySelector;
   contextLocale?: LocalesValues;
-  contextVariant?: ProviderVariant;
+  contextVariant?: ProviderVariantBase;
   dictionaryKey: string;
 }): LocalesValues | DictionarySelector | undefined => {
   const { localeOrSelector, contextLocale, contextVariant, dictionaryKey } =

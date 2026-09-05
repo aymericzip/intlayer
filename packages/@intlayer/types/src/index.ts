@@ -8,7 +8,6 @@ export * from './allLocales';
 export * from './config';
 export * from './dictionary';
 export * from './filePathPattern';
-export * from './filePathPattern';
 export * from './keyPath';
 export * as Locales from './locales';
 export * from './module_augmentation';

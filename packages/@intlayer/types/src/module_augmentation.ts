@@ -14,7 +14,7 @@ import type {
   DictionarySelector,
   DictionarySelectorForGroup,
   DictionaryVariantIdsOf,
-  ProviderVariant as ProviderVariantBase,
+  ProviderVariantBase,
   ResolveQualifiedDictionaryContent,
 } from './dictionary';
 
