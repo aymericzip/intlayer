@@ -221,56 +221,10 @@ export const HEADING_SETEXT_R = /^([^\n]+)\n *(=|-)\2{2,} *\n/;
 
 /** HTML patterns */
 
-/**
- * Run of characters carrying no meaning inside an opening tag: neither a quote
- * opening a value nor an angle bracket delimiting a tag.
- */
-const TAG_PLAIN_RUN = `[^>"'<]*`;
-
-/**
- * Quoted attribute value. It may hold an angle bracket —
- * `<Tab label='Intlayer >=9.4'>` — but not a line break, which keeps a tag that
- * turns out not to match from trying every later quote of the document as its
- * closing one.
- */
-const TAG_QUOTED_VALUE = `"[^"\\n]*"|'[^'\\n]*'`;
-
-/**
- * Attribute list of an opening tag, written as a plain run followed by
- * quote-or-bracket-led segments so that each character has a single way to be
- * read. A lone quote is allowed last so a tag holding an unbalanced one still
- * parses, as it did before quoted values were recognised.
- */
-const TAG_ATTRIBUTES = `${TAG_PLAIN_RUN}(?:(?:${TAG_QUOTED_VALUE}|<.*?>|["'])${TAG_PLAIN_RUN})*`;
-
-/** Rejects the opening tag of a self-closing element, `<div class="a"/>`. */
-const NOT_SELF_CLOSING = `(?![^>]*/>)`;
-
-/**
- * Opening tag of a nested element bearing the same name as the outer one. This
- * one stays a plain scan up to the first `>`: it is tried at every character of
- * the element's content, and a richer pattern here costs an order of magnitude
- * on documents whose tag never closes.
- */
-const NESTED_SAME_TAG_OPENING = `<\\1[^>]*?>`;
-
-export const HTML_BLOCK_ELEMENT_R = new RegExp(
-  `^ *(?!<[a-zA-Z][^ >/]* ?/>)<([a-zA-Z][^ >/]*) ?(${NOT_SELF_CLOSING}${TAG_ATTRIBUTES})>\\n?(\\s*(?:${NESTED_SAME_TAG_OPENING}[\\s\\S]*?</\\1>|(?!<\\1\\b)[\\s\\S])*?)</\\1>(?!</\\1>)\\n*`,
-  'i'
-);
 export const HTML_CHAR_CODE_R =
   /&([a-z0-9]+|#[0-9]{1,6}|#x[0-9a-fA-F]{1,6});/gi;
 export const HTML_COMMENT_R = /^<!--[\s\S]*?(?:-->)/;
 export const HTML_CUSTOM_ATTR_R = /^(data|aria|x)-[a-z_][a-z\d_.-]*$/;
-export const HTML_SELF_CLOSING_ELEMENT_R = new RegExp(
-  `^ *<([a-zA-Z][a-zA-Z0-9:]*)(?:\\s+(${TAG_ATTRIBUTES}))?/?>(?!</\\1>)(\\s*\\n)?`,
-  'i'
-);
-
-/** Custom component pattern */
-export const CUSTOM_COMPONENT_R = new RegExp(
-  `^ *<([A-Z][a-zA-Z0-9]*)(?:\\s+(${TAG_ATTRIBUTES}))?>\\n?(\\s*(?:${NESTED_SAME_TAG_OPENING}[\\s\\S]*?</\\1>|(?!<\\1\\b)[\\s\\S])*?)</\\1>(?!</\\1>)\\n*`
-);
 
 /** Interpolation */
 export const INTERPOLATION_R = /^\{.*\}$/;
@@ -296,16 +250,6 @@ export const REFERENCE_IMAGE_OR_LINK =
   /^\[([^\]]*)\]:\s+<?([^\s>]+)>?\s*("([^"]*)")?/;
 export const REFERENCE_IMAGE_R = /^!\[([^\]]*)\] ?\[([^\]]*)\]/;
 export const REFERENCE_LINK_R = /^\[([^\]]*)\] ?\[([^\]]*)\]/;
-
-/**
- * Cheap prefix probes used to reject a rule before its full (and far more
- * expensive) block regex runs. Kept as module constants so the parser's inner
- * loop never allocates a `RegExp` per candidate position.
- */
-export const HTML_BLOCK_OPENING_TAG_R = /^ *<([a-z][a-z0-9:-]*)\b/i;
-export const HTML_SELF_CLOSING_OPENING_TAG_R =
-  /^ *<([a-zA-Z][a-zA-Z0-9:]*)[\s>/]/;
-export const CUSTOM_COMPONENT_OPENING_TAG_R = /^ *<([A-Z][a-zA-Z0-9]*)/;
 
 /** Block detection */
 export const SHOULD_RENDER_AS_BLOCK_R = /(\n|^[-*]\s|^#|^ {2,}|^-{2,}|^>\s)/;

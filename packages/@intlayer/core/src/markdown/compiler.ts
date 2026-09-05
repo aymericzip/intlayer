@@ -11,8 +11,6 @@ import {
   CODE_BLOCK_R,
   CODE_INLINE_R,
   CONSECUTIVE_NEWLINE_R,
-  CUSTOM_COMPONENT_OPENING_TAG_R,
-  CUSTOM_COMPONENT_R,
   DO_NOT_PROCESS_HTML_ELEMENTS,
   FOOTNOTE_R,
   FOOTNOTE_REFERENCE_R,
@@ -21,13 +19,9 @@ import {
   HEADING_ATX_COMPLIANT_R,
   HEADING_R,
   HEADING_SETEXT_R,
-  HTML_BLOCK_ELEMENT_R,
-  HTML_BLOCK_OPENING_TAG_R,
   HTML_CHAR_CODE_R,
   HTML_COMMENT_R,
   HTML_LEFT_TRIM_AMOUNT_R,
-  HTML_SELF_CLOSING_ELEMENT_R,
-  HTML_SELF_CLOSING_OPENING_TAG_R,
   LINK_AUTOLINK_BARE_URL_R,
   LINK_AUTOLINK_R,
   type ListType,
@@ -57,6 +51,15 @@ import {
   UNORDERED_LIST_ITEM_R,
   UNORDERED_LIST_R,
 } from './constants';
+import {
+  matchCustomComponent,
+  matchHtmlBlockElement,
+  matchSelfClosingElement,
+  startsWithCustomComponent,
+  startsWithElement,
+  startsWithHtmlBlockElement,
+  startsWithSelfClosingElement,
+} from './elementScanner';
 import { parserFor } from './parser';
 import { createRenderer, renderFor } from './renderer';
 import type {
@@ -78,6 +81,7 @@ import {
   allowInline,
   anyScopeRegex,
   attributeValueToNodePropValue,
+  type BlockSyntaxProbe,
   blockRegex,
   captureNothing,
   cx,
@@ -127,21 +131,6 @@ const LINK_R = new RegExp(
  * lowercase the whole remaining document to look its closing tag up — copying
  * the rest of the file on each probe.
  */
-const closingTagRegexCache = new Map<string, RegExp>();
-
-const getClosingTagRegex = (tag: string): RegExp => {
-  const cached = closingTagRegexCache.get(tag);
-
-  if (cached) return cached;
-
-  // Tag names are restricted to `[a-z][a-z0-9:-]*` by the opening-tag probe,
-  // so they need no regex escaping.
-  const regex = new RegExp(`</${tag}>`, 'i');
-  closingTagRegexCache.set(tag, regex);
-
-  return regex;
-};
-
 /**
  * Builds a tag -> component resolver for one set of overrides.
  *
@@ -151,12 +140,24 @@ const getClosingTagRegex = (tag: string): RegExp => {
 const createTagResolver = (components: ComponentDefinition<any>) => {
   let lowercaseKeys: Map<string, string> | null = null;
 
+  // With no overrides declared — the common case — every tag resolves to
+  // itself, so the whole lookup is skipped.
+  if (Object.keys(components).length === 0) return (tag: any): any => tag;
+
+  const resolved = new Map<string, any>();
+
   return (tag: any): any => {
     if (typeof tag !== 'string') return tag;
 
+    const memoized = resolved.get(tag);
+    if (memoized !== undefined) return memoized;
+
     const override = get(components, tag);
 
-    if (override) return override;
+    if (override) {
+      resolved.set(tag, override);
+      return override;
+    }
 
     if (!lowercaseKeys) {
       lowercaseKeys = new Map();
@@ -172,8 +173,11 @@ const createTagResolver = (components: ComponentDefinition<any>) => {
     }
 
     const key = lowercaseKeys.get(tag.toLowerCase());
+    const result = (key ? get(components, key) : undefined) || tag;
 
-    return (key ? get(components, key) : undefined) || tag;
+    resolved.set(tag, result);
+
+    return result;
   };
 };
 
@@ -190,7 +194,7 @@ const createElementFactory = (
   const { runtime, components = {} } = ctx;
   const resolveTag = createTagResolver(components);
   const filteredTags = options.tagfilter
-    ? [
+    ? new Set([
         'title',
         'textarea',
         'style',
@@ -200,27 +204,49 @@ const createElementFactory = (
         'noframes',
         'script',
         'plaintext',
-      ]
-    : [];
+      ])
+    : null;
+
+  /**
+   * True when `props` can be handed to the runtime untouched: no `class`
+   * alias to fold into `className`, and no empty value to drop. Rules build a
+   * fresh literal for every element, so reusing it is safe, and it saves an
+   * object per element — the single largest allocation in the render phase.
+   */
+  const needsPropsRewrite = (props: Record<string, any>): boolean => {
+    for (const key in props) {
+      if (key === 'className' || key === 'class') return true;
+
+      const value = props[key];
+      if (value === undefined || value === null) return true;
+    }
+
+    return false;
+  };
 
   return (
     tag: any,
     props: Record<string, any> | null,
     ...children: any[]
   ): unknown => {
-    if (typeof tag === 'string' && filteredTags.includes(tag.toLowerCase())) {
+    const isStringTag = typeof tag === 'string';
+
+    if (filteredTags && isStringTag && filteredTags.has(tag.toLowerCase())) {
       return null;
     }
 
-    const isStringTag = typeof tag === 'string';
+    let finalProps: Record<string, any>;
 
-    const className = cx(props?.className, props?.class);
+    if (!props) {
+      finalProps = {};
+    } else if (!needsPropsRewrite(props)) {
+      finalProps = props;
+    } else {
+      const className = cx(props.className, props.class);
+      const mergedProps: Record<string, any> = {};
+      let classNameHandled = false;
 
-    const mergedProps: Record<string, any> = {};
-    let classNameHandled = false;
-
-    // Preserve attribute order while merging className
-    if (props) {
+      // Preserve attribute order while merging className
       for (const key in props) {
         const value = props[key];
 
@@ -235,41 +261,231 @@ const createElementFactory = (
           mergedProps[key] = value;
         }
       }
-    }
 
-    if (!classNameHandled && className) {
-      mergedProps.className = className;
-    }
+      if (!classNameHandled && className) {
+        mergedProps.className = className;
+      }
 
-    let finalProps = mergedProps;
+      finalProps = mergedProps;
+    }
 
     if (runtime.normalizeProps && isStringTag)
-      finalProps = runtime.normalizeProps(tag as string, mergedProps);
+      finalProps = runtime.normalizeProps(tag as string, finalProps);
+
     const component = resolveTag(tag);
 
-    return runtime.createElement(
-      component,
-      finalProps,
-      ...(children.length === 1 ? [children[0]] : children)
-    );
+    // Spreading a one-element array allocated a second array per element.
+    if (children.length === 1) {
+      return runtime.createElement(component, finalProps, children[0]);
+    }
+
+    return runtime.createElement(component, finalProps, ...children);
   };
+};
+
+/**
+ * Footnote and reference tables belonging to the document currently being
+ * parsed or rendered. Rules reach them through a ref so a rule set can outlive
+ * a single document and be reused.
+ */
+type DocumentScope = {
+  footnotes: FootnoteDef[];
+  references: MarkdownReferences;
+};
+
+type DocumentScopeRef = { current: DocumentScope };
+
+const createDocumentScope = (): DocumentScope => ({
+  footnotes: [],
+  references: {},
+});
+
+/**
+ * A cached rule set, together with the values it was built from. The signature
+ * holds every input that changes the shape of the rules; anything else (the
+ * markdown itself, the document scope) is free to vary between uses.
+ */
+type DocumentParser = ReturnType<typeof parserFor>;
+type DocumentEmitter = ReturnType<typeof renderFor>;
+
+type RuleSetCacheEntry = {
+  /** The inputs this set was built from, compared field by field on lookup. */
+  ctx: MarkdownContext<any>;
+  options: MarkdownOptions;
+  parseOnly: boolean;
+  createElement: CreateElementFunction;
+  scope: DocumentScopeRef;
+  /**
+   * Built with the rules, not per call. `parserFor` resolves precedence and
+   * fills the first-character dispatch tables, and `renderFor` walks the rule
+   * set — repeating either for every string was most of what compiling a
+   * dictionary of short strings cost.
+   */
+  parse: DocumentParser;
+  emit: DocumentEmitter;
+};
+
+/**
+ * Small enough to scan linearly, large enough that an app mixing a few option
+ * sets — say prose and a dictionary rendered with different components — keeps
+ * hitting it.
+ */
+const RULE_SET_CACHE_LIMIT = 8;
+
+const ruleSetCache: RuleSetCacheEntry[] = [];
+
+/**
+ * Every input that changes how rules are built. Compared directly rather than
+ * through a signature array, which would allocate on every compile.
+ */
+const builtFromSame = (
+  entry: RuleSetCacheEntry,
+  ctx: MarkdownContext<any>,
+  options: MarkdownOptions,
+  parseOnly: boolean
+): boolean =>
+  entry.parseOnly === parseOnly &&
+  entry.ctx.runtime === ctx.runtime &&
+  entry.ctx.components === ctx.components &&
+  entry.ctx.namedCodesToUnicode === ctx.namedCodesToUnicode &&
+  entry.ctx.sanitizer === ctx.sanitizer &&
+  entry.ctx.slugify === ctx.slugify &&
+  entry.options.disableAutoLink === options.disableAutoLink &&
+  entry.options.disableParsingRawHTML === options.disableParsingRawHTML &&
+  entry.options.enforceAtxHeadings === options.enforceAtxHeadings &&
+  entry.options.tagfilter === options.tagfilter &&
+  entry.options.renderRule === options.renderRule;
+
+/**
+ * Returns the rule set for these options, building it only when no cached set
+ * was made from the same inputs.
+ */
+const getRuleSet = (
+  ctx: MarkdownContext<any>,
+  options: MarkdownOptions,
+  parseOnly: boolean
+): RuleSetCacheEntry => {
+  for (let index = 0; index < ruleSetCache.length; index++) {
+    const entry = ruleSetCache[index]!;
+    if (!builtFromSame(entry, ctx, options, parseOnly)) continue;
+
+    // Most-recently-used first, so the hot option set stays at the front.
+    if (index > 0) {
+      ruleSetCache.splice(index, 1);
+      ruleSetCache.unshift(entry);
+    }
+    return entry;
+  }
+
+  const scope: DocumentScopeRef = { current: createDocumentScope() };
+  const createElement = parseOnly
+    ? noopCreateElement
+    : createElementFactory(ctx, options);
+  const rules = createDocumentRules(createElement, ctx, options, scope);
+  const entry: RuleSetCacheEntry = {
+    ctx,
+    options,
+    parseOnly,
+    createElement,
+    scope,
+    parse: parserFor(rules),
+    emit: renderFor(createRenderer(rules, options.renderRule)),
+  };
+
+  ruleSetCache.unshift(entry);
+  if (ruleSetCache.length > RULE_SET_CACHE_LIMIT) ruleSetCache.pop();
+
+  return entry;
+};
+
+/**
+ * Runs `operation` with `scope` installed as the current document, restoring
+ * whatever was there before. The save/restore keeps a nested compile — a custom
+ * component that renders markdown of its own — from clobbering its caller.
+ */
+const withDocumentScope = <TResult>(
+  ref: DocumentScopeRef,
+  scope: DocumentScope,
+  operation: () => TResult
+): TResult => {
+  const previous = ref.current;
+  ref.current = scope;
+  try {
+    return operation();
+  } finally {
+    ref.current = previous;
+  }
 };
 
 const createRules = (
   createElement: CreateElementFunction,
   ctx: MarkdownContext<any>,
   options: MarkdownOptions,
-  footnotes: FootnoteDef[],
-  refs: Record<string, { target: string; title?: string }>,
+  scope: DocumentScopeRef,
   attrStringToMap: (tag: HTMLTag, str: string) => Record<string, any> | null,
   containsBlockSyntax: (input: string) => boolean,
-  nonParagraphBlockSyntaxes: RegExp[]
+  nonParagraphBlockSyntaxes: BlockSyntaxProbe[]
 ): Rules => {
   const slug = createSlugger(ctx);
   const sanitize = ctx.sanitizer ?? defaultSanitizer;
   const namedCodesToUnicode = ctx.namedCodesToUnicode
     ? { ...NAMED_CODES_TO_UNICODE, ...ctx.namedCodesToUnicode }
     : NAMED_CODES_TO_UNICODE;
+
+  /**
+   * Raw HTML blocks and custom components differ only in how their tag is
+   * spelled: both trim the captured content, decide block or inline parsing
+   * from it, and render the tag with its attributes. `rawHtml` adds the two
+   * things only real HTML needs — the never-parse element list, and tracking
+   * whether we are inside an anchor.
+   */
+  const pairedElementRule = (
+    match: (source: string) => RegExpMatchArray | null,
+    order: number,
+    rawHtml: boolean
+  ): Rule<any> => ({
+    _qualify: ['<'],
+    _match: anyScopeRegex(match),
+    _order: order,
+    _parse(capture, parse, state) {
+      const content = capture[3];
+      const whitespace = content.match(HTML_LEFT_TRIM_AMOUNT_R)?.[1] ?? '';
+      const trimmed = trimLeadingWhitespaceOutsideFences(content, whitespace);
+      const parseFunc = containsBlockSyntax(trimmed) ? parseBlock : parseInline;
+      const tagName = capture[1].trim();
+      const lowercased = tagName.toLowerCase();
+      const noInnerParse =
+        rawHtml && DO_NOT_PROCESS_HTML_ELEMENTS.indexOf(lowercased) !== -1;
+      const tag = (noInnerParse ? lowercased : tagName) as HTMLTag;
+      const ast: any = {
+        attrs: attrStringToMap(tag, capture[2] ?? ''),
+        noInnerParse,
+        tag,
+      };
+
+      if (rawHtml) state.inAnchor = state.inAnchor || lowercased === 'a';
+
+      if (noInnerParse) {
+        ast.text = content;
+      } else {
+        const prevInHTML = state.inHTML;
+        state.inHTML = true;
+        ast.children = parseFunc(parse, trimmed, state);
+        state.inHTML = prevInHTML;
+      }
+
+      if (rawHtml) state.inAnchor = false;
+
+      return ast;
+    },
+    _render(node, output, state = {}) {
+      return createElement(
+        node.tag,
+        { key: state.key, ...(node.attrs ?? {}) },
+        node.text ?? (node.children ? output(node.children, state) : '')
+      );
+    },
+  });
 
   const generateListRule = (
     type: ListType
@@ -504,7 +720,10 @@ const createRules = (
       _match: blockRegex(FOOTNOTE_R),
       _order: Priority.MAX,
       _parse(capture) {
-        footnotes.push({ footnote: capture[2], identifier: capture[1] });
+        scope.current.footnotes.push({
+          footnote: capture[2],
+          identifier: capture[1],
+        });
 
         return {};
       },
@@ -585,58 +804,15 @@ const createRules = (
         };
       },
     },
-    [RuleType.htmlBlock]: {
-      _qualify: (source) => {
-        if (options.disableParsingRawHTML) return false;
-
-        const match = HTML_BLOCK_OPENING_TAG_R.exec(source);
-        if (!match) return false;
-
-        return getClosingTagRegex(match[1]).test(source);
-      },
-      _match: anyScopeRegex(HTML_BLOCK_ELEMENT_R),
-      _order: Priority.HIGH,
-      _parse(capture, parse, state) {
-        const m = capture[3].match(HTML_LEFT_TRIM_AMOUNT_R);
-        const whitespace = m?.[1] ?? '';
-        const trimmed = trimLeadingWhitespaceOutsideFences(
-          capture[3],
-          whitespace
-        );
-        const parseFunc = containsBlockSyntax(trimmed)
-          ? parseBlock
-          : parseInline;
-        const tagName = capture[1].trim();
-        const noInnerParse =
-          DO_NOT_PROCESS_HTML_ELEMENTS.indexOf(tagName.toLowerCase()) !== -1;
-        const tag = (noInnerParse ? tagName.toLowerCase() : tagName) as HTMLTag;
-        const ast: any = {
-          attrs: attrStringToMap(tag, capture[2] ?? ''),
-          noInnerParse,
-          tag,
-        };
-        state.inAnchor = state.inAnchor || tagName.toLowerCase() === 'a';
-
-        if (noInnerParse) {
-          ast.text = capture[3];
-        } else {
-          const prevInHTML = state.inHTML;
-          state.inHTML = true;
-          ast.children = parseFunc(parse, trimmed, state);
-          state.inHTML = prevInHTML;
-        }
-        state.inAnchor = false;
-
-        return ast;
-      },
-      _render(node, output, state = {}) {
-        return createElement(
-          node.tag,
-          { key: state.key, ...(node.attrs ?? {}) },
-          node.text ?? (node.children ? output(node.children, state) : '')
-        );
-      },
-    },
+    [RuleType.htmlBlock]: pairedElementRule(
+      // The rule is dropped outright when raw HTML is disabled, and the scanner
+      // rejects anything that is not a complete element, so `<` is the whole
+      // qualification — and a prefix lets the parser bucket the rule by first
+      // character instead of trying it everywhere.
+      matchHtmlBlockElement,
+      Priority.HIGH,
+      true
+    ),
     [RuleType.htmlComment]: {
       _qualify: ['<!'],
       _match: anyScopeRegex(HTML_COMMENT_R),
@@ -645,12 +821,8 @@ const createRules = (
       _render: renderNothing,
     },
     [RuleType.htmlSelfClosing]: {
-      _qualify: (source) => {
-        if (options.disableParsingRawHTML) return false;
-
-        return HTML_SELF_CLOSING_OPENING_TAG_R.test(source);
-      },
-      _match: anyScopeRegex(HTML_SELF_CLOSING_ELEMENT_R),
+      _qualify: ['<'],
+      _match: anyScopeRegex(matchSelfClosingElement),
       _order: Priority.HIGH,
       _parse(capture) {
         const tag = capture[1].trim() as HTMLTag;
@@ -664,41 +836,11 @@ const createRules = (
         });
       },
     },
-    [RuleType.customComponent]: {
-      _qualify: (source) => CUSTOM_COMPONENT_OPENING_TAG_R.test(source),
-      _match: anyScopeRegex(CUSTOM_COMPONENT_R),
-      _order: Priority.MAX,
-      _parse(capture, parse, state) {
-        const m = capture[3].match(HTML_LEFT_TRIM_AMOUNT_R);
-        const whitespace = m?.[1] ?? '';
-        const trimmed = trimLeadingWhitespaceOutsideFences(
-          capture[3],
-          whitespace
-        );
-        const parseFunc = containsBlockSyntax(trimmed)
-          ? parseBlock
-          : parseInline;
-        const tag = capture[1].trim();
-        const ast: any = {
-          attrs: attrStringToMap(tag as HTMLTag, capture[2] ?? ''),
-          noInnerParse: false,
-          tag,
-        };
-        const prevInHTML = state.inHTML;
-        state.inHTML = true;
-        ast.children = parseFunc(parse, trimmed, state);
-        state.inHTML = prevInHTML;
-
-        return ast;
-      },
-      _render(node, output, state = {}) {
-        return createElement(
-          node.tag as HTMLTag,
-          { key: state.key, ...(node.attrs ?? {}) },
-          node.text ?? (node.children ? output(node.children, state) : '')
-        );
-      },
-    },
+    [RuleType.customComponent]: pairedElementRule(
+      matchCustomComponent,
+      Priority.MAX,
+      false
+    ),
     [RuleType.paragraph]: {
       _match: matchParagraph,
       _order: Priority.LOW,
@@ -808,7 +950,14 @@ const createRules = (
       _match: anyScopeRegex(REFERENCE_IMAGE_OR_LINK),
       _order: Priority.MAX,
       _parse(capture) {
-        refs[capture[1]] = { target: capture[2], title: capture[4] };
+        const identifier = capture[1];
+
+        if (identifier !== undefined) {
+          scope.current.references[identifier] = {
+            target: capture[2],
+            title: capture[4],
+          };
+        }
 
         return {};
       },
@@ -825,7 +974,7 @@ const createRules = (
         };
       },
       _render(node, _, state = {}) {
-        const ref = refs[node.ref];
+        const ref = scope.current.references[node.ref];
 
         if (!ref) return null;
 
@@ -849,7 +998,7 @@ const createRules = (
         };
       },
       _render(node, output, state = {}) {
-        const ref = refs[node.ref];
+        const ref = scope.current.references[node.ref];
 
         if (!ref)
           return createElement(
@@ -1070,16 +1219,16 @@ const noopCreateElement: CreateElementFunction = () => null;
 /**
  * Builds the rule set backing one document.
  *
- * Rules close over the document's footnote and reference tables, so they cannot
- * be shared across documents — but a single document's parse and render phases
- * can share one set, which is what `compile` does.
+ * Rules read the document's footnote and reference tables through `scope`
+ * rather than closing over them, so one set serves every document sharing the
+ * same options. Building this graph dominated the cost of compiling the many
+ * short strings a dictionary holds; `getRuleSet` caches it.
  */
 const createDocumentRules = (
   createElement: CreateElementFunction,
   ctx: MarkdownContext<any>,
   options: MarkdownOptions,
-  footnotes: FootnoteDef[],
-  refs: MarkdownReferences
+  scope: DocumentScopeRef
 ): Rules => {
   const attrStringToMap = (
     tag: HTMLTag,
@@ -1109,8 +1258,7 @@ const createDocumentRules = (
 
         if (
           typeof map[mappedKey] === 'string' &&
-          (HTML_BLOCK_ELEMENT_R.test(map[mappedKey]) ||
-            HTML_SELF_CLOSING_ELEMENT_R.test(map[mappedKey]))
+          startsWithElement(map[mappedKey])
         ) {
           map[mappedKey] = parseMarkdown(
             map[mappedKey].trim(),
@@ -1135,7 +1283,7 @@ const createDocumentRules = (
     NP_TABLE_R,
     ORDERED_LIST_R,
     UNORDERED_LIST_R,
-    CUSTOM_COMPONENT_R,
+    startsWithCustomComponent,
   ];
 
   // Built once: this list is fixed for the whole parse, and rebuilding it per
@@ -1146,12 +1294,12 @@ const createDocumentRules = (
       : [
           ...nonParagraphBlockSyntaxes,
           PARAGRAPH_R,
-          HTML_BLOCK_ELEMENT_R,
+          startsWithHtmlBlockElement,
           HTML_COMMENT_R,
-          HTML_SELF_CLOSING_ELEMENT_R,
-          CUSTOM_COMPONENT_R,
+          startsWithSelfClosingElement,
+          startsWithCustomComponent,
         ]
-  ) as RegExp[];
+  ) as BlockSyntaxProbe[];
 
   const containsBlockSyntax = (input: string): boolean => {
     const cleaned = input.replace(TRIM_STARTING_NEWLINES, '');
@@ -1166,8 +1314,7 @@ const createDocumentRules = (
     createElement,
     ctx,
     options,
-    footnotes,
-    refs,
+    scope,
     attrStringToMap,
     containsBlockSyntax,
     nonParagraphBlockSyntaxes
@@ -1188,12 +1335,10 @@ const createDocumentRules = (
 const parseWithRules = (
   markdown: string,
   options: MarkdownOptions,
-  rules: Rules,
+  parser: DocumentParser,
   footnotes: FootnoteDef[],
   refs: MarkdownReferences
 ): ParsedMarkdown => {
-  const parser = parserFor(rules);
-
   const result = options.preserveFrontmatter
     ? markdown
     : markdown.replace(FRONT_MATTER_R, '');
@@ -1224,14 +1369,12 @@ const renderWithRules = (
   parsed: ParsedMarkdown,
   ctx: MarkdownContext<any>,
   options: MarkdownOptions,
-  rules: Rules,
+  emitter: DocumentEmitter,
   createElement: CreateElementFunction
 ): unknown => {
   const components = ctx.components ?? {};
   const slug = createSlugger(ctx);
   const footnotes = parsed.footnotes || [];
-
-  const emitter = renderFor(createRenderer(rules, options.renderRule));
 
   const inline = parsed.inline;
   const arr = emitter(parsed.ast, { inline }) as unknown as any[];
@@ -1308,17 +1451,20 @@ export const parseMarkdown = (
   ctx: MarkdownContext<any>,
   options: MarkdownOptions = {}
 ): ParsedMarkdown => {
-  const footnotes: FootnoteDef[] = [];
-  const refs: MarkdownReferences = {};
-  const rules = createDocumentRules(
-    noopCreateElement,
-    ctx,
-    options,
-    footnotes,
-    refs
-  );
+  // Parsing never emits elements, so it gets its own cache entry built around
+  // the no-op factory rather than the render one.
+  const { parse, scope } = getRuleSet(ctx, options, true);
+  const documentScope = createDocumentScope();
 
-  return parseWithRules(markdown, options, rules, footnotes, refs);
+  return withDocumentScope(scope, documentScope, () =>
+    parseWithRules(
+      markdown,
+      options,
+      parse,
+      documentScope.footnotes,
+      documentScope.references
+    )
+  );
 };
 
 export const renderMarkdownAst = (
@@ -1326,16 +1472,15 @@ export const renderMarkdownAst = (
   ctx: MarkdownContext<any>,
   options: MarkdownOptions = {}
 ): unknown => {
-  const createElement = createElementFactory(ctx, options);
-  const rules = createDocumentRules(
-    createElement,
-    ctx,
-    options,
-    parsed.footnotes ?? [],
-    parsed.references ?? {}
-  );
+  const { emit, createElement, scope } = getRuleSet(ctx, options, false);
+  const documentScope: DocumentScope = {
+    footnotes: parsed.footnotes ?? [],
+    references: parsed.references ?? {},
+  };
 
-  return renderWithRules(parsed, ctx, options, rules, createElement);
+  return withDocumentScope(scope, documentScope, () =>
+    renderWithRules(parsed, ctx, options, emit, createElement)
+  );
 };
 
 export const compile = (
@@ -1355,20 +1500,20 @@ export const compile = (
 
   // Both phases share one rule set: building it twice was the dominant cost
   // when compiling the many short strings a typical dictionary holds.
-  const footnotes: FootnoteDef[] = [];
-  const refs: MarkdownReferences = {};
-  const createElement = createElementFactory(ctx, options);
-  const rules = createDocumentRules(
-    createElement,
-    ctx,
-    options,
-    footnotes,
-    refs
-  );
+  const { parse, emit, createElement, scope } = getRuleSet(ctx, options, false);
+  const documentScope = createDocumentScope();
 
-  const parsed = parseWithRules(markdown, options, rules, footnotes, refs);
+  return withDocumentScope(scope, documentScope, () => {
+    const parsed = parseWithRules(
+      markdown,
+      options,
+      parse,
+      documentScope.footnotes,
+      documentScope.references
+    );
 
-  return renderWithRules(parsed, ctx, options, rules, createElement);
+    return renderWithRules(parsed, ctx, options, emit, createElement);
+  });
 };
 
 export const createCompiler =

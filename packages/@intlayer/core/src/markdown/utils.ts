@@ -61,12 +61,26 @@ export const unescapeString = (rawString: string): string =>
 /**
  * Join class names, filtering out falsy values.
  */
-export const cx = (...args: any[]): string => args.filter(Boolean).join(' ');
+export const cx = (...args: any[]): string => {
+  // Called once per rendered element, almost always with nothing to join, so
+  // the empty and single-value cases skip both intermediate arrays.
+  if (args.length === 2) {
+    const [first, second] = args;
+    if (!first) return second ? String(second) : '';
+    if (!second) return String(first);
+  }
+
+  return args.filter(Boolean).join(' ');
+};
 
 /**
  * Get a nested property from an object using dot notation.
  */
 export const get = (src: any, path: string, fb?: any): any => {
+  // The overwhelming majority of paths are a single segment (a tag name), and
+  // splitting those allocated two arrays per lookup.
+  if (path.indexOf('.') === -1) return src?.[path] ?? fb;
+
   let ptr = src;
   const frags = path.split('.');
 
@@ -618,9 +632,16 @@ export const renderNothing = (): null => null;
 /**
  * Check if any regex in a list matches the input.
  */
-export const some = (regexes: RegExp[], input: string): boolean => {
-  for (let i = 0; i < regexes.length; i++) {
-    if (regexes[i]!.test(input)) {
+/**
+ * A block-syntax probe: either a regex to test, or a predicate for the rules
+ * whose regex was replaced by a linear scanner.
+ */
+export type BlockSyntaxProbe = RegExp | ((input: string) => boolean);
+
+export const some = (probes: BlockSyntaxProbe[], input: string): boolean => {
+  for (let i = 0; i < probes.length; i++) {
+    const probe = probes[i]!;
+    if (typeof probe === 'function' ? probe(input) : probe.test(input)) {
       return true;
     }
   }

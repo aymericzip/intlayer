@@ -2,6 +2,7 @@ import type {
   ParserResult,
   ParseState,
   RenderRuleHook,
+  Rule,
   RuleOutput,
   Rules,
 } from './types';
@@ -13,6 +14,26 @@ import type {
  * @param render - The render function to call for each node
  * @returns A function that renders AST to output
  */
+/**
+ * Copies a parse state, overriding the key.
+ *
+ * Written out field by field rather than spread: the renderer clones once per
+ * AST node, and a fixed-shape literal keeps every clone monomorphic instead of
+ * sending V8 down its generic copy path. `ParseState` is closed, so this stays
+ * exhaustive.
+ */
+const cloneStateWithKey = (state: ParseState, key: number): ParseState => ({
+  inAnchor: state.inAnchor,
+  inHTML: state.inHTML,
+  inline: state.inline,
+  inTable: state.inTable,
+  key,
+  list: state.list,
+  prevCaptureIndent: state.prevCaptureIndent,
+  prevCaptureHasBlankLine: state.prevCaptureHasBlankLine,
+  simple: state.simple,
+});
+
 export const renderFor = (
   render: (ast: ParserResult, render: RuleOutput, state: ParseState) => unknown
 ) => {
@@ -37,7 +58,7 @@ export const renderFor = (
     for (let i = 0; i < ast.length; i++) {
       // We clone the state to avoid side effects on other nodes in the same level
       // while ensuring each non-null rendered node gets a unique, sequential key.
-      const nodeOut = emit(ast[i], { ...state, key: renderedIndex });
+      const nodeOut = emit(ast[i], cloneStateWithKey(state, renderedIndex));
       const isString = typeof nodeOut === 'string';
 
       if (isString && lastWasString) {
@@ -66,12 +87,27 @@ export const renderFor = (
  * @param userRender - Optional custom render hook for full control
  * @returns A render function for AST nodes
  */
-export const createRenderer =
-  (rules: Rules, userRender?: RenderRuleHook) =>
-  (ast: ParserResult, render: RuleOutput, state: ParseState): unknown => {
-    const renderer = rules[ast.type]?._render;
+export const createRenderer = (rules: Rules, userRender?: RenderRuleHook) => {
+  // Resolved once: the dictionary lookup and optional chain ran for every node
+  // of every render, and the rule set never changes under a renderer.
+  const renderers = new Map<string, Rule<any>['_render']>();
+  for (const type in rules) renderers.set(type, rules[type]?._render);
 
-    return userRender
-      ? userRender(() => renderer?.(ast, render, state), ast, render, state)
-      : renderer?.(ast, render, state);
+  if (!userRender) {
+    return (
+      ast: ParserResult,
+      render: RuleOutput,
+      state: ParseState
+    ): unknown => renderers.get(ast.type)?.(ast, render, state);
+  }
+
+  return (
+    ast: ParserResult,
+    render: RuleOutput,
+    state: ParseState
+  ): unknown => {
+    const renderer = renderers.get(ast.type);
+
+    return userRender(() => renderer?.(ast, render, state), ast, render, state);
   };
+};
