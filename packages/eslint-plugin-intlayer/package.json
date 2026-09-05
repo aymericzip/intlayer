@@ -88,7 +88,7 @@
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
     "astro-eslint-parser": "3.0.0",
-    "eslint": "10.8.1",
+    "eslint": "10.10.0",
     "rimraf": "6.1.3",
     "svelte": "5.56.9",
     "svelte-eslint-parser": "1.8.0",

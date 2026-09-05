@@ -73,13 +73,13 @@
   },
   "dependencies": {
     "@ai-sdk/anthropic": "4.0.49",
-    "@ai-sdk/openai": "4.0.58",
+    "@ai-sdk/openai": "4.0.59",
     "@intlayer/api": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/types": "workspace:*",
     "@toon-format/toon": "4.1.1",
-    "ai": "7.0.92",
+    "ai": "7.0.93",
     "zod": "4.5.4"
   },
   "devDependencies": {

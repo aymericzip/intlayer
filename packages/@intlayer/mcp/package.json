@@ -111,7 +111,7 @@
     "typecheck": "tsc --noEmit --project tsconfig.types.json"
   },
   "dependencies": {
-    "@ai-sdk/mcp": "2.0.44",
+    "@ai-sdk/mcp": "2.0.45",
     "@fastify/cors": "11.3.0",
     "@fastify/helmet": "13.1.1",
     "@intlayer/api": "workspace:*",
@@ -121,7 +121,7 @@
     "@intlayer/engine": "workspace:*",
     "@intlayer/types": "workspace:*",
     "dotenv": "17.4.2",
-    "fastify": "5.12.1",
+    "fastify": "5.12.3",
     "zod": "4.5.4"
   },
   "devDependencies": {

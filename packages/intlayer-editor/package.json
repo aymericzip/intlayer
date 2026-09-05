@@ -96,7 +96,7 @@
     "@intlayer/config": "workspace:*",
     "@intlayer/engine": "workspace:*",
     "@intlayer/unmerged-dictionaries-entry": "workspace:*",
-    "fastify": "5.12.1",
+    "fastify": "5.12.3",
     "fastify-intlayer": "workspace:*",
     "mime": "4.1.0"
   },
@@ -118,7 +118,7 @@
     "fuse.js": "7.5.0",
     "globals": "17.12.0",
     "intlayer": "workspace:*",
-    "lucide-react": "1.40.0",
+    "lucide-react": "1.41.0",
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "react-intlayer": "workspace:*",

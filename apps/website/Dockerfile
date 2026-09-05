@@ -7,7 +7,7 @@
 # https://github.com/oven-sh/bun/issues/4795
 FROM node:26-alpine AS builder
 
-RUN npm install -g bun@1.4.0
+RUN npm install -g bun@1.4.1
 
 ARG INTLAYER_CLIENT_ID
 ARG INTLAYER_CLIENT_SECRET
@@ -92,7 +92,7 @@ RUN bun run build && bun scripts/baidu-push.ts
 # ---------------------------------------------------------
 FROM node:26-alpine AS runner
 
-RUN npm install -g bun@1.4.0
+RUN npm install -g bun@1.4.1
 
 WORKDIR /app
 
