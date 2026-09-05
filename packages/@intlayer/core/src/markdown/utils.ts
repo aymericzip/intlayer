@@ -5,6 +5,7 @@ import {
   HTML_CUSTOM_ATTR_R,
   INTERPOLATION_R,
   NORMALIZE_WHITESPACE_R,
+  TABLE_CELL_RUN_R,
   TABLE_CENTER_ALIGN,
   TABLE_LEFT_ALIGN,
   TABLE_RIGHT_ALIGN,
@@ -56,7 +57,9 @@ export const unquote = (str: string): string => {
  * Unescape backslash-escaped characters.
  */
 export const unescapeString = <T extends string | undefined>(rawString: T): T =>
-  (rawString ? rawString.replace(UNESCAPE_R, '$1') : rawString) as T;
+  (rawString && rawString.indexOf('\\') !== -1
+    ? rawString.replace(UNESCAPE_R, '$1')
+    : rawString) as T;
 
 /**
  * Join class names, filtering out falsy values.
@@ -102,17 +105,24 @@ const SLUGIFY_REPLACEMENTS: [pattern: RegExp, replacement: string][] = [
   [/[øØœŒÕõÔôÓóÒò]/g, 'o'],
   [/[ÜüÛûÚúÙù]/g, 'u'],
   [/[ŸÿÝý]/g, 'y'],
-  [/[^a-z0-9- ]/gi, ''],
-  [/ /gi, '-'],
 ];
+const NON_ASCII_R = /[\u0080-\uffff]/;
+const SLUGIFY_STRIP_R = /[^a-z0-9- ]/gi;
+const SLUGIFY_SPACE_R = / /g;
 
 export const slugify = (str: string): string => {
   let result = str;
 
-  for (let i = 0; i < SLUGIFY_REPLACEMENTS.length; i++) {
-    const [pattern, replacement] = SLUGIFY_REPLACEMENTS[i]!;
-    result = result.replace(pattern, replacement);
+  // Every transliteration matches non-ASCII only, so an ASCII heading — the
+  // overwhelmingly common case — skips nine full passes over the string.
+  if (NON_ASCII_R.test(result)) {
+    for (let i = 0; i < SLUGIFY_REPLACEMENTS.length; i++) {
+      const [pattern, replacement] = SLUGIFY_REPLACEMENTS[i]!;
+      result = result.replace(pattern, replacement);
+    }
   }
+
+  result = result.replace(SLUGIFY_STRIP_R, '').replace(SLUGIFY_SPACE_R, '-');
 
   return result.toLowerCase();
 };
@@ -166,6 +176,8 @@ export const sanitizer = (input: string): string | null => {
  * Normalize whitespace in source string.
  */
 export const normalizeWhitespace = (source: string): string => {
+  // Three `indexOf` probes beat one character-class regex here by a wide margin:
+  // each is a native memchr over the source, and none of them normally match.
   if (
     source.indexOf('\r') === -1 &&
     source.indexOf('\t') === -1 &&
@@ -367,6 +379,10 @@ export const attributeValueToNodePropValue = (
 export const parseTableAlignCapture = (
   alignCapture: string
 ): 'left' | 'right' | 'center' => {
+  // All three patterns need a colon, and the right-align one backtracks across
+  // the whole cell before failing — so reject colon-free cells up front.
+  if (alignCapture.indexOf(':') === -1) return 'left';
+
   if (TABLE_RIGHT_ALIGN.test(alignCapture)) {
     return 'right';
   } else if (TABLE_CENTER_ALIGN.test(alignCapture)) {
@@ -438,6 +454,14 @@ export const parseTableRow = (
   let i = rStart;
 
   while (i < rEnd) {
+    // Skip straight to the next character that can matter, so the long stretches
+    // of ordinary cell text are walked by the regex engine and not by this loop.
+    TABLE_CELL_RUN_R.lastIndex = i;
+    TABLE_CELL_RUN_R.test(source);
+
+    i = TABLE_CELL_RUN_R.lastIndex;
+    if (i >= rEnd) break;
+
     const ch = source.charCodeAt(i);
     // Handle escape: \|
     if (ch === 92 /* \ */ && i + 1 < rEnd) {

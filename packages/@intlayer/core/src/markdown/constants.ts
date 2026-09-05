@@ -265,6 +265,7 @@ export const CAPTURE_LETTER_AFTER_HYPHEN = /-([a-z])?/gi;
 export const NP_TABLE_R =
   /^(\|.*)\n(?: *(\|? *[-:]+ *\|[-| :]*)\n((?:.*\|.*\n)*))?\n?/;
 export const TABLE_TRIM_PIPES = /(^ *\||\| *$)/g;
+export const TABLE_CELL_RUN_R = /[^\\`|]*/y;
 export const TABLE_CENTER_ALIGN = /^ *:-+: *$/;
 export const TABLE_LEFT_ALIGN = /^ *:-+ *$/;
 export const TABLE_RIGHT_ALIGN = /^ *-+: *$/;
@@ -281,8 +282,6 @@ export const REFERENCE_LINK_R = /^\[([^\]]*)\] ?\[([^\]]*)\]/;
 /** Block detection */
 export const SHOULD_RENDER_AS_BLOCK_R = /(\n|^[-*]\s|^#|^ {2,}|^-{2,}|^>\s)/;
 
-/** Tab and whitespace */
-export const TAB_R = /\t/g;
 /** Every character `normalizeWhitespace` rewrites, so it needs a single pass. */
 export const NORMALIZE_WHITESPACE_R = /\r\n?|\f|\t/g;
 export const TRIM_STARTING_NEWLINES = /^\n+/;
@@ -295,8 +294,6 @@ export const UNORDERED_LIST_BULLET = '(?:[*+-])';
 /** Text formatting patterns */
 export const TEXT_ESCAPED_R = /^\\([^0-9A-Za-z\s])/;
 export const UNESCAPE_R = /\\([^0-9A-Za-z\s])/g;
-export const TEXT_PLAIN_R =
-  /^[\s\S](?:(?! {2}\n|[0-9]\.|http)[^=*_~\-\n:<`\\[!])*/;
 
 /** Shortcode pattern */
 export const SHORTCODE_R = /^(:[a-zA-Z0-9-_]+:)/;

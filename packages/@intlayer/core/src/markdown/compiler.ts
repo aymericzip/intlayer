@@ -1225,35 +1225,13 @@ const createRules = (
           const shortMatch = SHORTCODE_R.exec(source);
           if (shortMatch) return shortMatch;
         }
-        let i = 1;
-        while (i < len) {
-          const c = source.charCodeAt(i);
-          if (c < 128) {
-            const stop = CHAR_TEXT_STOP[c];
-            if (stop === 1) break;
-            if (stop === 2) {
-              if (
-                c === 32 &&
-                i + 2 < len &&
-                source.charCodeAt(i + 1) === 32 &&
-                source.charCodeAt(i + 2) === 10
-              ) {
-                break;
-              }
-              if (
-                c === 104 &&
-                i + 3 < len &&
-                source.charCodeAt(i + 1) === 116 &&
-                source.charCodeAt(i + 2) === 116 &&
-                source.charCodeAt(i + 3) === 112
-              ) {
-                break;
-              }
-            }
-          }
-          i++;
-        }
-        return [source.slice(0, i)] as unknown as RegExpMatchArray;
+        // The first character always belongs to the run, whatever it is.
+        TEXT_RUN_R.lastIndex = 1;
+        TEXT_RUN_R.test(source);
+
+        return [
+          source.slice(0, TEXT_RUN_R.lastIndex),
+        ] as unknown as RegExpMatchArray;
       }),
       _order: Priority.MIN,
       _parse(capture) {
@@ -1420,20 +1398,13 @@ const STRIP_INDENT_REGEXES = [
   /^ {1,8}/gm,
 ];
 
-const CHAR_TEXT_STOP = new Uint8Array(128);
-CHAR_TEXT_STOP[10] = 1; // \n
-CHAR_TEXT_STOP[33] = 1; // !
-CHAR_TEXT_STOP[42] = 1; // *
-CHAR_TEXT_STOP[58] = 1; // :
-CHAR_TEXT_STOP[60] = 1; // <
-CHAR_TEXT_STOP[61] = 1; // =
-CHAR_TEXT_STOP[91] = 1; // [
-CHAR_TEXT_STOP[92] = 1; // \
-CHAR_TEXT_STOP[95] = 1; // _
-CHAR_TEXT_STOP[96] = 1; // `
-CHAR_TEXT_STOP[126] = 1; // ~
-CHAR_TEXT_STOP[32] = 2; // space (check for '  \n')
-CHAR_TEXT_STOP[104] = 2; // h (check for http)
+/**
+ * Consumes a run of plain text, stopping before the next character that could
+ * open another inline rule, a hard line break (`\u0020\u0020\n`) or a bare URL.
+ * Anchored so `test` leaves the stop offset in `lastIndex` without allocating a
+ * match array, and so the scan itself runs in the regex engine.
+ */
+const TEXT_RUN_R = /(?:(?! {2}\n|http)[^\n!*:<=[\\_`~])*/y;
 
 const noopCreateElement: CreateElementFunction = (
   type,
