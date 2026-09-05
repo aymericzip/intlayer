@@ -14,11 +14,18 @@ const getAllUrls = (urls: string[]) =>
  *
  * The documentation is Apache-2.0 licensed and deliberately published for
  * machine consumption (llms.txt, the MCP server and the agent skills index), so
- * every signal is granted. Flip a value to `no` here to withdraw a permission.
+ * every signal is granted.
  *
  * - `search`   — indexing for traditional search results.
  * - `ai-input` — retrieval to ground an AI answer (RAG, AI Overviews, chat).
  * - `ai-train` — retention in a generative model's training corpus.
+ *
+ * Emitted as a comment: `Content-Signal` is an unregistered directive, so
+ * validators (Ahrefs, Lighthouse) report it as an invalid line and risk the
+ * whole file being mistrusted — the same trade-off made for `Agentmap` below.
+ * Granting every signal is already the no-directive default, so nothing is lost.
+ * Withdrawing a permission (flipping a value to `no`) only takes effect as a
+ * real directive, so drop the `# ` prefix in that case.
  *
  * @see https://contentsignals.org/
  */
@@ -29,12 +36,12 @@ const CONTENT_SIGNALS = {
 } as const;
 
 /**
- * Serializes the Content Signals into a single robots.txt directive.
+ * Serializes the Content Signals into a single robots.txt line.
  *
- * @returns e.g. `Content-Signal: search=yes, ai-input=yes, ai-train=yes`
+ * @returns e.g. `# Content-Signal: search=yes, ai-input=yes, ai-train=yes`
  */
 const getContentSignalDirective = (): string =>
-  `Content-Signal: ${Object.entries(CONTENT_SIGNALS)
+  `# Content-Signal: ${Object.entries(CONTENT_SIGNALS)
     .map(([signal, value]) => `${signal}=${value}`)
     .join(', ')}`;
 
