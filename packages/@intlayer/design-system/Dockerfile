@@ -8,42 +8,42 @@ RUN npm install -g bun@1.4.1
 # Put the repo in /workspace
 WORKDIR /workspace
 
-# Now copy the rest of the monorepo, excluding heavy/irrelevant folders
 COPY \
-  --exclude=packages/@intlayer/vue-compiler \
-  --exclude=packages/@intlayer/svelte-compiler \
-  --exclude=packages/@intlayer/swc \
-  --exclude=packages/@intlayer/mcp \
-  --exclude=packages/@intlayer/lsp \
   --exclude=packages/@intlayer/chrome-extension \
-  --exclude=packages/intlayer-cli \
-  --exclude=packages/react-scripts-intlayer \
-  --exclude=packages/vue-intlayer \
-  --exclude=packages/solid-intlayer \
-  --exclude=packages/svelte-intlayer \
-  --exclude=packages/next-intlayer \
+  --exclude=packages/@intlayer/lsp \
+  --exclude=packages/@intlayer/swc \
+  --exclude=packages/@intlayer/webpack \
+  --exclude=packages/adonis-intlayer \
   --exclude=packages/angular-intlayer \
-  --exclude=packages/preact-intlayer \
-  --exclude=packages/nuxt-intlayer \
-  --exclude=packages/react-native-intlayer \
-  --exclude=packages/lynx-intlayer \
-  --exclude=packages/lit-intlayer \
-  --exclude=packages/vanilla-intlayer \
-  --exclude=packages/intlayer-editor \
+  --exclude=packages/astro-intlayer \
+  --exclude=packages/elysia-intlayer \
+  --exclude=packages/eslint-plugin-intlayer \
   --exclude=packages/express-intlayer \
   --exclude=packages/hono-intlayer \
+  --exclude=packages/intlayer-cli \
+  --exclude=packages/intlayer-editor \
+  --exclude=packages/lit-intlayer \
+  --exclude=packages/lynx-intlayer \
+  --exclude=packages/next-intlayer \
+  --exclude=packages/nuxt-intlayer \
+  --exclude=packages/preact-intlayer \
+  --exclude=packages/react-native-intlayer \
+  --exclude=packages/react-scripts-intlayer \
+  --exclude=packages/solid-intlayer \
+  --exclude=packages/svelte-intlayer \
+  --exclude=packages/vanilla-intlayer \
+  --exclude=packages/vue-intlayer \
+  --exclude=compat \
   --exclude=plugins \
+  --exclude=examples \
+  --exclude=apps/app \
+  --exclude=apps/showcase \
+  --exclude=apps/website \
   --exclude=docs/assets \
   --exclude=docs/docs \
   --exclude=docs/blog \
   --exclude=docs/frequent_questions \
   --exclude=docs/legal \
-  --exclude=apps/website \
-  --exclude=apps/app \
-  --exclude=apps/doc \
-  --exclude=apps/showcase \
-  --exclude=plugins \
-  --exclude=examples \
   . .
 
 # Install only what's needed for the design-system package
