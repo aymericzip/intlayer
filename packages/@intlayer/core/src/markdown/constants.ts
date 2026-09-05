@@ -212,7 +212,7 @@ export const BLOCKQUOTE_TRIM_LEFT_MULTILINE_R = /^ *> ?/gm;
 export const BLOCKQUOTE_ALERT_R = /^(?:\[!([^\]]*)\]\n)?([\s\S]*)/;
 
 /** Line break patterns */
-export const BREAK_LINE_R = /^ {2,}\n/;
+export const BREAK_LINE_R = /^(?=( {2,}))\1\n/;
 export const BREAK_THEMATIC_R = /^(?:([-*_])( *\1){2,}) *(?:\n *)+\n/;
 
 /** Code block patterns */
@@ -261,11 +261,17 @@ export const LINK_AUTOLINK_BARE_URL_R = /^(https?:\/\/[^\s<]+[^<.,:;"')\]\s])/;
 export const LINK_AUTOLINK_R = /^<([^ >]+[:@/][^ >]+)>/;
 export const CAPTURE_LETTER_AFTER_HYPHEN = /-([a-z])?/gi;
 
-/** Table patterns */
+/**
+ * Table patterns.
+ *
+ * The row scans spell "any character but a newline" as `[^\n]` rather than `.`:
+ * `.` is a four-range exclusion, and matching it over rows this wide costs a
+ * third more than the single-range class. It is also the more faithful reading
+ * — only `\n` ends a line here, and `\r` is normalized away before parsing.
+ */
 export const NP_TABLE_R =
-  /^(\|.*)\n(?: *(\|? *[-:]+ *\|[-| :]*)\n((?:.*\|.*\n)*))?\n?/;
+  /^(\|[^\n]*)\n(?: *(\|? *[-:]+ *\|[-| :]*)\n((?:[^\n]*\|[^\n]*\n)*))?\n?/;
 export const TABLE_TRIM_PIPES = /(^ *\||\| *$)/g;
-export const TABLE_CELL_RUN_R = /[^\\`|]*/y;
 export const TABLE_CENTER_ALIGN = /^ *:-+: *$/;
 export const TABLE_LEFT_ALIGN = /^ *:-+ *$/;
 export const TABLE_RIGHT_ALIGN = /^ *-+: *$/;
@@ -400,7 +406,10 @@ export const generateListRegex = (type: ListType): RegExp => {
       ' (?!' +
       bullet +
       ' ))\\n*' +
-      '|\\s*\\n*$)'
+      // `\s` already covers `\n`, so the trailing `\n*` the pattern used to
+      // carry could only ever match empty — and paying for it at every step of
+      // the lazy scan cost a third of the whole match.
+      '|\\s*$)'
   );
 };
 

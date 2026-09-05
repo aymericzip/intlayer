@@ -18,15 +18,25 @@ import { normalizeWhitespace, qualifies } from './utils';
  * rescanning — the whole document, which made parsing quadratic.
  */
 const advanceLookbehind = (state: ParseState, capture: string): void => {
-  const newlineIndex = capture.lastIndexOf('\n');
+  const lastCode = capture.charCodeAt(capture.length - 1);
 
   if (state.prevCaptureHasBlankLine !== true) {
     state.prevCaptureHasBlankLine =
-      (newlineIndex !== -1 && capture.indexOf('\n\n') !== -1) ||
+      capture.indexOf('\n\n') !== -1 ||
       (state.prevCaptureHasBlankLine !== undefined &&
         capture.charCodeAt(0) === 10 &&
         state.prevCaptureIndent === '');
   }
+
+  // A capture whose last character is neither a space nor a newline cannot
+  // leave an all-space tail behind it, whatever it contains — so the common
+  // case never pays for the backwards `lastIndexOf` scan.
+  if (lastCode !== 32 /* space */ && lastCode !== 10 /* \n */) {
+    state.prevCaptureIndent = undefined;
+    return;
+  }
+
+  const newlineIndex = capture.lastIndexOf('\n');
 
   const tail =
     newlineIndex === -1

@@ -62,6 +62,12 @@ const makeMatch = (
   return result;
 };
 
+/** ASCII letter or digit — the characters a tag name is built from. */
+const isNameChar = (code: number): boolean =>
+  (code >= 97 && code <= 122) ||
+  (code >= 65 && code <= 90) ||
+  (code >= 48 && code <= 57);
+
 const skipLeadingSpaces = (source: string): number => {
   let i = 0;
   while (source.charCodeAt(i) === 32) i++;
@@ -81,7 +87,7 @@ export const matchElement = (
 
   if (customComponent) {
     if (first < 65 || first > 90) return null; // [A-Z]
-    while (nameEnd < source.length && /[a-zA-Z0-9]/.test(source[nameEnd]!))
+    while (nameEnd < source.length && isNameChar(source.charCodeAt(nameEnd)))
       nameEnd++;
   } else {
     if (!((first >= 65 && first <= 90) || (first >= 97 && first <= 122)))
@@ -206,7 +212,11 @@ export const matchSelfClosingElement = (
     return null;
 
   let nameEnd = nameStart + 1;
-  while (nameEnd < source.length && /[a-zA-Z0-9:]/.test(source[nameEnd]!))
+  while (
+    nameEnd < source.length &&
+    (isNameChar(source.charCodeAt(nameEnd)) ||
+      source.charCodeAt(nameEnd) === 58) /* : */
+  )
     nameEnd++;
 
   const c = source.charCodeAt(nameEnd);

@@ -5,7 +5,6 @@ import {
   HTML_CUSTOM_ATTR_R,
   INTERPOLATION_R,
   NORMALIZE_WHITESPACE_R,
-  TABLE_CELL_RUN_R,
   TABLE_CENTER_ALIGN,
   TABLE_LEFT_ALIGN,
   TABLE_RIGHT_ALIGN,
@@ -450,26 +449,42 @@ export const parseTableRow = (
   }
 
   const cells: ParserResult[][] = [];
+  const len = source.length;
   let cellStart = rStart;
   let i = rStart;
 
-  while (i < rEnd) {
-    // Skip straight to the next character that can matter, so the long stretches
-    // of ordinary cell text are walked by the regex engine and not by this loop.
-    TABLE_CELL_RUN_R.lastIndex = i;
-    TABLE_CELL_RUN_R.test(source);
+  // Cursors on the only three characters that can end a run of ordinary cell
+  // text. Each moves forward only, so the row is swept three times in total by
+  // `indexOf` — cheaper than re-entering the regex engine once per character
+  // found, which is what an anchored run scanner costs on a wide row.
+  let pipeAt = -1;
+  let escapeAt = -1;
+  let backtickAt = -1;
 
-    i = TABLE_CELL_RUN_R.lastIndex;
+  while (i < rEnd) {
+    if (pipeAt < i) {
+      const at = source.indexOf('|', i);
+      pipeAt = at === -1 ? len : at;
+    }
+    if (escapeAt < i) {
+      const at = source.indexOf('\\', i);
+      escapeAt = at === -1 ? len : at;
+    }
+    if (backtickAt < i) {
+      const at = source.indexOf('`', i);
+      backtickAt = at === -1 ? len : at;
+    }
+
+    i = Math.min(pipeAt, escapeAt, backtickAt);
     if (i >= rEnd) break;
 
-    const ch = source.charCodeAt(i);
-    // Handle escape: \|
-    if (ch === 92 /* \ */ && i + 1 < rEnd) {
-      i += 2;
+    // Escape: \|
+    if (i === escapeAt) {
+      i += i + 1 < rEnd ? 2 : 1;
       continue;
     }
-    // Handle code span: `...`
-    if (ch === 96 /* ` */) {
+    // Code span: `...`
+    if (i === backtickAt) {
       let backticks = 0;
       while (i < rEnd && source.charCodeAt(i) === 96) {
         backticks++;
@@ -490,14 +505,10 @@ export const parseTableRow = (
       }
       continue;
     }
-    // Handle cell delimiter: |
-    if (ch === 124 /* | */) {
-      cells.push(parse(source.slice(cellStart, i), state));
-      i++;
-      cellStart = i;
-      continue;
-    }
+    // Cell delimiter: |
+    cells.push(parse(source.slice(cellStart, i), state));
     i++;
+    cellStart = i;
   }
 
   cells.push(parse(source.slice(cellStart, rEnd), state));

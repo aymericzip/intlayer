@@ -1229,17 +1229,28 @@ const createRules = (
         TEXT_RUN_R.lastIndex = 1;
         TEXT_RUN_R.test(source);
 
-        return [
-          source.slice(0, TEXT_RUN_R.lastIndex),
-        ] as unknown as RegExpMatchArray;
+        // Text is the most frequent capture by a wide margin, and its `_parse`
+        // never re-enters the parser, so one scratch array serves every run
+        // instead of allocating one per token.
+        TEXT_CAPTURE[0] = source.slice(
+          0,
+          trimHardBreak(source, TEXT_RUN_R.lastIndex)
+        );
+
+        return TEXT_CAPTURE;
       }),
       _order: Priority.MIN,
       _parse(capture) {
         const text = capture[0] ?? '';
 
+        // Declaring `type` here — rather than letting the parser add it —
+        // keeps every text node on one hidden class. `&` stops a run, so an
+        // entity can only ever open one: testing the first character replaces
+        // a scan of every character of every text node in the document.
         return {
+          type: RuleType.text,
           text:
-            text.indexOf('&') === -1
+            text.charCodeAt(0) !== 38 /* & */
               ? text
               : text.replace(HTML_CHAR_CODE_R, (f, i) => {
                   if (i.startsWith('#x'))
@@ -1398,13 +1409,37 @@ const STRIP_INDENT_REGEXES = [
   /^ {1,8}/gm,
 ];
 
+/** Scratch capture reused by the text rule; see its `_match`. */
+const TEXT_CAPTURE = [''] as unknown as RegExpMatchArray;
+
 /**
  * Consumes a run of plain text, stopping before the next character that could
- * open another inline rule, a hard line break (`\u0020\u0020\n`) or a bare URL.
- * Anchored so `test` leaves the stop offset in `lastIndex` without allocating a
- * match array, and so the scan itself runs in the regex engine.
+ * open another inline rule or a bare URL. Anchored so `test` leaves the stop
+ * offset in `lastIndex` without allocating a match array, and so the scan
+ * itself runs in the regex engine.
+ *
+ * The bare-URL guard is an alternation branch rather than a per-character
+ * lookahead, because a lookahead is re-evaluated at every offset while this
+ * branch is only reached on an `h`. `&` stops a run purely so that an HTML
+ * entity can only ever sit at offset 0 of a text node; adjacent text nodes are
+ * merged by the parser, so the tree is unchanged.
  */
-const TEXT_RUN_R = /(?:(?! {2}\n|http)[^\n!*:<=[\\_`~])*/y;
+const TEXT_RUN_R = /(?:[^\n&h!*:<=[\\_`~]+|h(?!ttp))*/y;
+
+/**
+ * Pull a run's stop offset back before a hard line break it just swallowed.
+ *
+ * A run never contains a newline, so `  \n` can only sit immediately before the
+ * stop offset — which makes this O(1) check equivalent to the per-character
+ * `(?! {2}\n)` lookahead the run scanner used to carry.
+ */
+const trimHardBreak = (source: string, end: number): number =>
+  end >= 3 &&
+  source.charCodeAt(end) === 10 /* \n */ &&
+  source.charCodeAt(end - 1) === 32 /* space */ &&
+  source.charCodeAt(end - 2) === 32
+    ? end - 2
+    : end;
 
 const noopCreateElement: CreateElementFunction = (
   type,
