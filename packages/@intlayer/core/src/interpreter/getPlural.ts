@@ -1,5 +1,5 @@
 import type { DeclaredLocales } from '@intlayer/types';
-import type { LocalesValues } from 'intlayer';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { getCachedIntl } from '../formatters';
 import type {
   PluralCategory,
