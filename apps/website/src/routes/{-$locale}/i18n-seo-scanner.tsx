@@ -56,8 +56,8 @@ export const Route = createFileRoute('/{-$locale}/i18n-seo-scanner')({
     const { title, description, keywords } = metadata;
 
     return {
-      title,
       meta: [
+        { title },
         { name: 'description', content: description },
         {
           name: 'keywords',

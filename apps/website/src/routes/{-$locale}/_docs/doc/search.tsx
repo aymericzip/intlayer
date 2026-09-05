@@ -1,11 +1,13 @@
 import { Container } from '@intlayer/design-system/container';
 import { H1 } from '@intlayer/design-system/headers';
+import { Website_Doc_Search_Path } from '@intlayer/design-system/routes';
 import { createFileRoute, defer } from '@tanstack/react-router';
-import { defaultLocale } from 'intlayer';
+import { defaultLocale, getIntlayerAsync } from 'intlayer';
 import { useIntlayer } from 'react-intlayer';
 import { DocPageLayout } from '~/components/DocPage/DocPageLayout';
 import { SearchView } from '~/components/DocPage/Search/SearchView';
 import { loadNavData } from '~/serverFunctions/docs';
+import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
 import {
   getSiteStructuredData,
   getSiteStructuredDataScripts,
@@ -14,22 +16,41 @@ import {
 export const Route = createFileRoute('/{-$locale}/_docs/doc/search')({
   loader: async ({ params }) => {
     const { locale = defaultLocale } = params;
-    // The search view is independent of the navigation tree, so stream the
-    // sidebar in via `defer` instead of blocking the route transition on it.
+    const [siteStructuredData, metadata] = await Promise.all([
+      getSiteStructuredData({ data: locale }),
+      getIntlayerAsync('doc-search-page-metadata', locale),
+    ]);
+
     return {
       locale,
+      // The search view is independent of the navigation tree, so stream the
+      // sidebar in via `defer` instead of blocking the route transition on it.
       navData: defer(loadNavData({ data: { locale } })),
-      siteStructuredData: await getSiteStructuredData({ data: locale }),
+      siteStructuredData,
+      metadata,
     };
   },
   staleTime: Infinity,
-  head: ({ loaderData }) => {
+  head: ({ params, loaderData }) => {
     if (!loaderData) return {};
 
-    const { siteStructuredData } = loaderData;
+    const { locale = defaultLocale } = params;
+    const path = Website_Doc_Search_Path;
+    const { siteStructuredData, metadata } = loaderData;
+    const { title, description } = metadata;
 
     return {
-      title: 'Search Documentation | Intlayer',
+      meta: [
+        { title },
+        { name: 'description', content: description },
+        { property: 'og:url', content: getAbsoluteUrl(path, locale) },
+        { property: 'og:title', content: title },
+        { property: 'og:description', content: description },
+      ],
+      links: [
+        { rel: 'canonical', href: getAbsoluteUrl(path, locale) },
+        ...getHreflangLinks(path),
+      ],
       scripts: [...getSiteStructuredDataScripts(siteStructuredData)],
     };
   },

@@ -68,8 +68,8 @@ export const Route = createFileRoute('/{-$locale}/translate')({
     const offers = formatStructuredDataOffers(loaderData.pricings ?? null);
 
     return {
-      title,
       meta: [
+        { title },
         { name: 'description', content: description },
         {
           name: 'keywords',

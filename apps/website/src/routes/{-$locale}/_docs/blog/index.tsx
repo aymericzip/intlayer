@@ -1,6 +1,7 @@
 import { Container } from '@intlayer/design-system/container';
 import { H1 } from '@intlayer/design-system/headers';
 import {
+  Website_Blog_Root_Path,
   Website_Doc_Search,
   Website_Home,
 } from '@intlayer/design-system/routes';
@@ -14,24 +15,45 @@ import { getBlogSection } from '~/components/BlogPage/blogData';
 import { RelatedPosts } from '~/components/BlogPage/RelatedPosts';
 import { SearchView } from '~/components/DocPage/Search/SearchView';
 import { loadBlogNavData } from '~/serverFunctions/blog';
+import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
 
 export const Route = createFileRoute('/{-$locale}/_docs/blog/')({
   loader: async ({ params }) => {
     const { locale = defaultLocale } = params;
-    const [navData, websiteContent] = await Promise.all([
+    const [navData, websiteContent, metadata] = await Promise.all([
       loadBlogNavData({ data: { locale } }),
       getIntlayerAsync('website-structured-data', locale),
+      getIntlayerAsync('blog-index-metadata', locale),
     ]);
-    return { locale, navData, websiteContent };
+    return { locale, navData, websiteContent, metadata };
   },
   staleTime: Infinity,
-  head: ({ loaderData }) => {
+  head: ({ params, loaderData }) => {
     if (!loaderData) return {};
 
-    const { websiteContent } = loaderData;
+    const { locale = defaultLocale } = params;
+    const path = Website_Blog_Root_Path;
+    const { websiteContent, metadata } = loaderData;
+    const { title, description, keywords } = metadata;
 
     return {
-      title: 'Blog | Intlayer',
+      meta: [
+        { title },
+        { name: 'description', content: description },
+        {
+          name: 'keywords',
+          content: Array.isArray(keywords)
+            ? keywords.join(', ')
+            : String(keywords || ''),
+        },
+        { property: 'og:url', content: getAbsoluteUrl(path, locale) },
+        { property: 'og:title', content: title },
+        { property: 'og:description', content: description },
+      ],
+      links: [
+        { rel: 'canonical', href: getAbsoluteUrl(path, locale) },
+        ...getHreflangLinks(path),
+      ],
       scripts: [
         {
           type: 'application/ld+json',

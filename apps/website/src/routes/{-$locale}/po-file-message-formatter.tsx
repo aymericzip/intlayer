@@ -43,8 +43,8 @@ export const Route = createFileRoute('/{-$locale}/po-file-message-formatter')({
     const { title, description, keywords } = metadata;
 
     return {
-      title,
       meta: [
+        { title },
         { name: 'description', content: description },
         {
           name: 'keywords',

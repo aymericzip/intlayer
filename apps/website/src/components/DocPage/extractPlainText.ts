@@ -1,4 +1,4 @@
-import { type FC, isValidElement, type ReactNode } from 'react';
+import { isValidElement, type ReactNode } from 'react';
 
 /**
  * Tags that end a line in extracted text, so the content of two consecutive
@@ -70,28 +70,3 @@ export const extractPlainText = (node: ReactNode): string =>
     .replace(/\s*\n\s*/g, '\n')
     .replace(/\n+/g, '\n')
     .trim();
-
-type JsonLdProps = {
-  /** The schema.org node, serialised as-is into the script. */
-  jsonLd: unknown;
-};
-
-/**
- * Emits a schema.org node as an inline `<script type="application/ld+json">`.
- *
- * JSON-LD is the format Google recommends over microdata, and it lets a block
- * describe itself wherever it is rendered — the documentation blocks come from
- * markdown, so their content is unknown to the route that builds the `head`.
- *
- * `<` is escaped so a `</script>` sequence inside the content cannot close the
- * script tag early; the escape stays valid JSON.
- */
-export const JsonLd: FC<JsonLdProps> = ({ jsonLd }) => (
-  <script
-    type="application/ld+json"
-    // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON serialised here, with `<` escaped
-    dangerouslySetInnerHTML={{
-      __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
-    }}
-  />
-);

@@ -16,7 +16,8 @@ import {
   useState,
 } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { extractPlainText, JsonLd } from './jsonLd';
+import { JsonLd } from '~/components/JsonLd';
+import { extractPlainText } from './extractPlainText';
 
 /** Number of questions shown before the "show more" toggle is needed. */
 export const INITIAL_VISIBLE_QUESTIONS_COUNT = 6;

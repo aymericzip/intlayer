@@ -14,7 +14,7 @@ const metadataContent = {
       it: 'Contributori | Intlayer',
       ja: 'コントリビューター | Intlayer',
       ko: '기여자 | Intlayer',
-      pt: 'Colaboradores | Intlayer',
+      pt: 'Contribuidores | Intlayer',
       ru: 'Участники | Intlayer',
       tr: 'Katkıda Bulunanlar | Intlayer',
       zh: '贡献者 | Intlayer',

@@ -55,8 +55,8 @@ export const Route = createFileRoute('/{-$locale}/markdown')({
     const { title, description, keywords } = metadata;
 
     return {
-      title,
       meta: [
+        { title },
         { name: 'description', content: description },
         {
           name: 'keywords',

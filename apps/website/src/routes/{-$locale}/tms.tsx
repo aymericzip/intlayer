@@ -51,8 +51,8 @@ export const Route = createFileRoute('/{-$locale}/tms')({
     const offers = formatStructuredDataOffers(loaderData.pricings ?? null);
 
     return {
-      title,
       meta: [
+        { title },
         { name: 'description', content: description },
         {
           name: 'keywords',

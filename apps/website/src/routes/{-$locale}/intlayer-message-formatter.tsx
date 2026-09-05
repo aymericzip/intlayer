@@ -43,8 +43,8 @@ export const Route = createFileRoute('/{-$locale}/intlayer-message-formatter')({
     const { title, description, keywords } = metadata;
 
     return {
-      title,
       meta: [
+        { title },
         { name: 'description', content: description },
         {
           name: 'keywords',
