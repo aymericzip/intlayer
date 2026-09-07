@@ -411,7 +411,7 @@ export const InputWithAdditionalButtons: Story = {
         <Button
           label="Convert to uppercase"
           variant="outline"
-          color="primary"
+          color="text"
           size="sm"
           onClick={handleUppercase}
         >

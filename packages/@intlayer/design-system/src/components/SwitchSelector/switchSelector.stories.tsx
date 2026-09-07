@@ -222,7 +222,7 @@ export const SizeComparison: Story = {
           ]}
           defaultValue="grid"
           size="sm"
-          color="primary"
+          color="text"
         />
       </div>
 
@@ -379,7 +379,7 @@ export const StatusManagement: Story = {
             ]}
             value={status}
             onChange={handleStatusChange}
-            color="primary"
+            color="text"
             size="sm"
           />
         </div>

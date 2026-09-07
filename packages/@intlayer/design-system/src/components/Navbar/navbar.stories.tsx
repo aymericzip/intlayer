@@ -83,7 +83,7 @@ const MockRightItems = () => (
     <Button size="sm" variant="outline" label="Sign In">
       Sign In
     </Button>
-    <Button size="sm" color="primary" label="Sign Up">
+    <Button size="sm" color="text" label="Sign Up">
       Sign Up
     </Button>
   </>

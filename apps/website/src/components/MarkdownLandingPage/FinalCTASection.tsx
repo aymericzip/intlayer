@@ -34,7 +34,7 @@ export const FinalCTASection: FC = () => {
             <Link
               to={Website_Doc_Markdown_Path}
               variant="button"
-              color="text-inverse"
+              color="text"
               label={finalCtaButton.value}
               size="xl"
               roundedSize="full"

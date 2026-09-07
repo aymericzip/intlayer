@@ -276,7 +276,7 @@ export const ButtonVariants: Story = {
             <CopyButton
               content="Default on dark"
               variant="default"
-              color="primary"
+              color="text"
               label="Copy (Primary)"
             />
             <CopyButton
@@ -728,8 +728,8 @@ export const CodeDocumentation: Story = {
 
 function MyComponent() {
   return (
-    <CopyButton 
-      content="Hello World!" 
+    <CopyButton
+      content="Hello World!"
       label="Copy greeting"
     />
   );
@@ -740,8 +740,8 @@ function MyComponent() {
 
 function MyComponent() {
   return (
-    <CopyButton 
-      content="Hello World!" 
+    <CopyButton
+      content="Hello World!"
       label="Copy greeting"
     />
   );

@@ -262,7 +262,7 @@ export const SizeVariations: Story = {
     <div className="flex items-center gap-4">
       {['sm', 'md', 'lg'].map((size) => (
         <div key={size} className="flex flex-col items-center gap-2">
-          <Badge size={size} color="primary">
+          <Badge size={size} color="text">
             {size.charAt(0).toUpperCase() + size.slice(1)}
           </Badge>
           <span className="text-gray-600 text-xs capitalize">{size}</span>
@@ -519,7 +519,7 @@ export const UsageExamples: Story = {
           <Badge color="neutral" size="small">
             Medium
           </Badge>
-          <Badge color="light" size="small">
+          <Badge color="light" size="sm">
             Low
           </Badge>
         </div>

@@ -112,11 +112,8 @@ When used with Intlayer, the component automatically:
       description: 'Color theme for the link',
       control: 'select',
       options: [
-        'primary',
         'secondary',
         'neutral',
-        'light',
-        'dark',
         'text',
         'text-inverse',
         'error',
@@ -172,7 +169,7 @@ export const Default: Story = {
     href: '/example',
     label: 'Navigate to example page',
     variant: 'default',
-    color: 'primary',
+    color: 'text',
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -205,7 +202,7 @@ export const External: Story = {
     href: 'https://intlayer.org',
     label: 'Visit Intlayer official website',
     variant: 'default',
-    color: 'primary',
+    color: 'text',
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -236,7 +233,7 @@ export const AllVariants: Story = {
         <Link
           href="/default"
           variant="default"
-          color="primary"
+          color="text"
           label="Default variant link"
         >
           Default
@@ -244,7 +241,7 @@ export const AllVariants: Story = {
         <Link
           href="/invisible"
           variant="invisible-link"
-          color="primary"
+          color="text"
           label="Invisible variant link"
         >
           Invisible
@@ -252,7 +249,7 @@ export const AllVariants: Story = {
         <Link
           href="/button"
           variant="button"
-          color="primary"
+          color="text"
           label="Button variant link"
         >
           Button
@@ -260,7 +257,7 @@ export const AllVariants: Story = {
         <Link
           href="/outlined"
           variant="button-outlined"
-          color="primary"
+          color="text"
           label="Outlined button variant link"
         >
           Outlined
@@ -268,7 +265,7 @@ export const AllVariants: Story = {
         <Link
           href="/hoverable"
           variant="hoverable"
-          color="primary"
+          color="text"
           label="Hoverable variant link"
         >
           Hoverable
@@ -301,11 +298,8 @@ export const ColorThemes: Story = {
   render: () => (
     <div className="grid max-w-2xl grid-cols-2 gap-4">
       {[
-        'primary',
         'secondary',
         'neutral',
-        'light',
-        'dark',
         'text',
         'text-inverse',
         'error',
@@ -335,6 +329,14 @@ export const ColorThemes: Story = {
               >
                 Button
               </Link>
+              <Link
+                href={`/${color}-button`}
+                color={color}
+                variant="button-outlined"
+                label={`${color} button link`}
+              >
+                Button outlined
+              </Link>
             </div>
           </div>
         ))}
@@ -346,13 +348,10 @@ export const ColorThemes: Story = {
 
     // Should have 2 links per color (excluding CUSTOM)
     const colorCount = [
-      'primary',
+      'text-inverse',
       'secondary',
       'neutral',
-      'light',
-      'dark',
       'text',
-      'text-inverse',
       'error',
       'success',
       'custom',
@@ -385,7 +384,7 @@ export const ActiveState: Story = {
     label: 'Current page link',
     isActive: true,
     variant: 'hoverable',
-    color: 'primary',
+    color: 'text',
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -551,7 +550,7 @@ export const CallToAction: Story = {
           <Link
             href="/signup"
             variant="button"
-            color="primary"
+            color="text"
             label="Sign up for free account"
             className="w-full"
           >
@@ -561,7 +560,7 @@ export const CallToAction: Story = {
           <Link
             href="/demo"
             variant="button-outlined"
-            color="primary"
+            color="text"
             label="Watch product demo"
             className="w-full"
           >
@@ -616,7 +615,7 @@ export const FooterLinks: Story = {
             <Link
               href="/about"
               variant="invisible-link"
-              color="light"
+              color="text"
               label="Learn about our company"
               className="block text-sm"
             >
@@ -625,7 +624,7 @@ export const FooterLinks: Story = {
             <Link
               href="/careers"
               variant="invisible-link"
-              color="light"
+              color="text"
               label="View career opportunities"
               className="block text-sm"
             >
@@ -634,7 +633,7 @@ export const FooterLinks: Story = {
             <Link
               href="/contact"
               variant="invisible-link"
-              color="light"
+              color="text"
               label="Contact our team"
               className="block text-sm"
             >
@@ -649,7 +648,7 @@ export const FooterLinks: Story = {
             <Link
               href="/docs"
               variant="invisible-link"
-              color="light"
+              color="text"
               label="View documentation"
               className="block text-sm"
             >
@@ -658,7 +657,7 @@ export const FooterLinks: Story = {
             <Link
               href="https://github.com/intlayer/intlayer"
               variant="invisible-link"
-              color="light"
+              color="text"
               label="View source code on GitHub"
               className="block text-sm"
             >
@@ -667,7 +666,7 @@ export const FooterLinks: Story = {
             <Link
               href="/api"
               variant="invisible-link"
-              color="light"
+              color="text"
               label="API reference"
               className="block text-sm"
             >
@@ -682,7 +681,7 @@ export const FooterLinks: Story = {
             <Link
               href="/privacy"
               variant="invisible-link"
-              color="light"
+              color="text"
               label="Privacy policy"
               className="block text-sm"
             >
@@ -691,7 +690,7 @@ export const FooterLinks: Story = {
             <Link
               href="/terms"
               variant="invisible-link"
-              color="light"
+              color="text"
               label="Terms of service"
               className="block text-sm"
             >
@@ -740,7 +739,7 @@ export const KeyboardNavigation: Story = {
         Use Tab to navigate between links, Enter to activate them.
       </div>
       <div className="space-y-3">
-        <Link href="/first" label="First link in sequence" color="primary">
+        <Link href="/first" label="First link in sequence" color="text">
           First Link
         </Link>
         <Link
@@ -754,7 +753,7 @@ export const KeyboardNavigation: Story = {
         <Link
           href="https://example.com"
           variant="button-outlined"
-          color="primary"
+          color="text"
           label="Third link - external"
         >
           External Link
@@ -763,7 +762,7 @@ export const KeyboardNavigation: Story = {
           href="/fourth"
           variant="hoverable"
           isActive={true}
-          color="primary"
+          color="text"
           label="Fourth link - current page"
         >
           Current Page

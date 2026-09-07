@@ -73,11 +73,7 @@ const ModalStory = (args: any) => {
   return (
     <>
       <Container className="p-4">
-        <Button
-          onClick={() => setIsOpen(true)}
-          label="Open Modal"
-          color="primary"
-        >
+        <Button onClick={() => setIsOpen(true)} label="Open Modal" color="text">
           Open Modal
         </Button>
         <p className="mt-2 text-neutral-600 text-sm">
@@ -202,7 +198,7 @@ export const LargeSize: Story = {
             <Button variant="outline" label="Cancel">
               Cancel
             </Button>
-            <Button color="primary" label="Save Changes">
+            <Button color="text" label="Save Changes">
               Save Changes
             </Button>
           </div>
@@ -303,7 +299,7 @@ export const ScrollableContent: Story = {
             <Button variant="outline" label="Decline">
               Decline
             </Button>
-            <Button color="primary" label="Accept">
+            <Button color="text" label="Accept">
               Accept
             </Button>
           </div>

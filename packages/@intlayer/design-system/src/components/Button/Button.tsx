@@ -56,19 +56,21 @@ export type ButtonVariant =
  * Button color themes that work with the design system
  */
 export type ButtonColor =
-  | 'primary'
   | 'secondary'
   | 'neutral'
-  | 'light'
-  | 'dark'
   | 'text'
   | 'foreground'
   | 'card'
-  | 'text-inverse'
-  | 'current'
   | 'error'
   | 'success'
-  | 'custom';
+  | 'custom'
+  | 'text-inverse';
+
+/*
+| 'primary'
+| 'current'
+| 'custom';
+*/
 
 /**
  * Text alignment options for button content
@@ -95,19 +97,13 @@ export const buttonVariants = cva(
         custom: '',
       },
       color: {
-        primary:
-          'hover-primary-500/20 text-primary ring-primary-500/20 *:text-text-light',
         secondary:
           'hover-secondary-500/20 text-secondary ring-secondary-500/20 *:text-text-light',
         neutral: 'text-neutral ring-neutral-500/5 *:text-text-light',
         card: 'hover-card-500/20 text-card ring-card-500/20 *:text-text-light',
-        light: 'hover-white-500/20 text-white ring-white/20 *:text-text-light',
-        dark: 'text-neutral-800 ring-text-light/50 *:text-text-light',
         text: 'text-text ring-text/20 *:text-text-opposite',
         foreground:
           'text-foreground ring-foreground/20 *:text-foreground-opposite',
-        current:
-          'hover-current-500/10 text-current ring-current/10 *:text-text-light',
         'text-inverse': 'text-text-opposite ring-text-opposite/20 *:text-text',
         error: 'hover-error-500/20 text-error ring-error/20 *:text-text-light',
         success:
@@ -139,8 +135,8 @@ export const buttonVariants = cva(
         ],
 
         outline: [
-          'rounded-2xl border-[1.3px] border-current bg-current/0 *:text-current!',
-          'hover:bg-current/20 focus-visible:bg-current/20',
+          'rounded-2xl border-[1.3px] border-current! bg-current/0 *:text-current!',
+          'hover:border-none hover:bg-current/30! focus-visible:bg-current/20',
           'hover:ring-5 focus-visible:ring-5',
           'aria-selected:ring-5',
         ],
