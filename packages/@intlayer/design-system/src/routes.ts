@@ -1,14 +1,21 @@
 // ============================================================
+// Origins
+// ============================================================
+// `VITE_CMS_URL` and `VITE_BACKEND_URL` are full URLs (`https://…`), so they
+// are the origins themselves — never a host to prefix a scheme onto.
+
+export const App_Origin = ((import.meta as any).env.VITE_CMS_URL ||
+  'https://app.intlayer.org') as 'https://app.intlayer.org';
+export const Backend_Origin = ((import.meta as any).env.VITE_BACKEND_URL ||
+  'https://back.intlayer.org') as 'https://back.intlayer.org';
+export const Showcase_Origin = 'https://showcase.intlayer.org' as const;
+export const Mcp_Origin = 'https://mcp.intlayer.org' as const;
+
+// ============================================================
 // Domains
 // ============================================================
-export const App_Domain = ((import.meta as any).env.VITE_CMS_URL ||
-  'app.intlayer.org') as 'app.intlayer.org';
-export const Website_Domain = ((import.meta as any).env.VITE_WEBSITE_URL ||
-  'intlayer.org') as 'intlayer.org';
-export const Showcase_Domain = 'showcase.intlayer.org' as const;
-export const Backend_Domain = ((import.meta as any).env.VITE_BACKEND_URL ||
-  'back.intlayer.org') as 'back.intlayer.org';
-export const Mcp_Domain = 'mcp.intlayer.org' as const;
+export const Website_Domain = 'intlayer.org' as const;
+export const Website_Origin = `https://${Website_Domain}` as const;
 
 // ============================================================
 // App paths — relative (app.intlayer.org)
@@ -90,88 +97,83 @@ export const getAppOnboardingFlowRoute = (step: string) =>
 // ============================================================
 // App absolute URLs — https://app.intlayer.org
 // ============================================================
-export const App_Dashboard = `https://${App_Domain}` as const;
+export const App_Dashboard = App_Origin;
 export const App_Dashboard_Editor =
-  `https://${App_Domain}${App_Dashboard_Editor_Path}` as const;
+  `${App_Origin}${App_Dashboard_Editor_Path}` as const;
 export const App_Dashboard_Translate =
-  `https://${App_Domain}${App_Dashboard_Translate_Path}` as const;
+  `${App_Origin}${App_Dashboard_Translate_Path}` as const;
 export const App_Dashboard_Dictionaries =
-  `https://${App_Domain}${App_Dashboard_Dictionaries_Path}` as const;
+  `${App_Origin}${App_Dashboard_Dictionaries_Path}` as const;
 export const App_Dashboard_Projects =
-  `https://${App_Domain}${App_Dashboard_Projects_Path}` as const;
+  `${App_Origin}${App_Dashboard_Projects_Path}` as const;
 export const App_Dashboard_Tags =
-  `https://${App_Domain}${App_Dashboard_Tags_Path}` as const;
+  `${App_Origin}${App_Dashboard_Tags_Path}` as const;
 export const App_Dashboard_Organization =
-  `https://${App_Domain}${App_Dashboard_Organization_Path}` as const;
+  `${App_Origin}${App_Dashboard_Organization_Path}` as const;
 export const App_Dashboard_Profile =
-  `https://${App_Domain}${App_Dashboard_Profile_Path}` as const;
+  `${App_Origin}${App_Dashboard_Profile_Path}` as const;
 export const App_Dashboard_IDE =
-  `https://${App_Domain}${App_Dashboard_IDE_Path}` as const;
+  `${App_Origin}${App_Dashboard_IDE_Path}` as const;
 export const App_Dashboard_Scanner =
-  `https://${App_Domain}${App_Dashboard_Scanner_Path}` as const;
+  `${App_Origin}${App_Dashboard_Scanner_Path}` as const;
 export const App_Dashboard_Analytics =
-  `https://${App_Domain}${App_Dashboard_Analytics_Path}` as const;
+  `${App_Origin}${App_Dashboard_Analytics_Path}` as const;
 
-export const App_Pricing = `https://${App_Domain}${App_Pricing_Path}` as const;
-export const App_Affiliation =
-  `https://${App_Domain}${App_Affiliation_Path}` as const;
-export const App_Demo = `https://${App_Domain}${App_Demo_Path}` as const;
+export const App_Pricing = `${App_Origin}${App_Pricing_Path}` as const;
+export const App_Affiliation = `${App_Origin}${App_Affiliation_Path}` as const;
+export const App_Demo = `${App_Origin}${App_Demo_Path}` as const;
 
 export const App_ReviewerMarketplace =
-  `https://${App_Domain}${App_ReviewerMarketplace_Path}` as const;
+  `${App_Origin}${App_ReviewerMarketplace_Path}` as const;
 export const App_ReviewerMarketplace_Dashboard =
-  `https://${App_Domain}${App_ReviewerMarketplace_Dashboard_Path}` as const;
+  `${App_Origin}${App_ReviewerMarketplace_Dashboard_Path}` as const;
 
-export const App_Auth_SignIn =
-  `https://${App_Domain}${App_Auth_SignIn_Path}` as const;
-export const App_Auth_SignUp =
-  `https://${App_Domain}${App_Auth_SignUp_Path}` as const;
+export const App_Auth_SignIn = `${App_Origin}${App_Auth_SignIn_Path}` as const;
+export const App_Auth_SignUp = `${App_Origin}${App_Auth_SignUp_Path}` as const;
 export const App_Auth_TwoFactor =
-  `https://${App_Domain}${App_Auth_TwoFactor_Path}` as const;
+  `${App_Origin}${App_Auth_TwoFactor_Path}` as const;
 export const App_Auth_AskResetPassword =
-  `https://${App_Domain}${App_Auth_AskResetPassword_Path}` as const;
+  `${App_Origin}${App_Auth_AskResetPassword_Path}` as const;
 export const App_Auth_ResetPassword =
-  `https://${App_Domain}${App_Auth_ResetPassword_Path}` as const;
+  `${App_Origin}${App_Auth_ResetPassword_Path}` as const;
 export const App_Auth_ChangePassword =
-  `https://${App_Domain}${App_Auth_ChangePassword_Path}` as const;
+  `${App_Origin}${App_Auth_ChangePassword_Path}` as const;
 
-export const App_Admin = `https://${App_Domain}${App_Admin_Path}` as const;
-export const App_Admin_Users =
-  `https://${App_Domain}${App_Admin_Users_Path}` as const;
+export const App_Admin = `${App_Origin}${App_Admin_Path}` as const;
+export const App_Admin_Users = `${App_Origin}${App_Admin_Users_Path}` as const;
 export const App_Admin_Organizations =
-  `https://${App_Domain}${App_Admin_Organizations_Path}` as const;
+  `${App_Origin}${App_Admin_Organizations_Path}` as const;
 export const App_Admin_Projects =
-  `https://${App_Domain}${App_Admin_Projects_Path}` as const;
+  `${App_Origin}${App_Admin_Projects_Path}` as const;
 export const App_Admin_Dashboard =
-  `https://${App_Domain}${App_Admin_Dashboard_Path}` as const;
+  `${App_Origin}${App_Admin_Dashboard_Path}` as const;
 export const App_Admin_Management =
-  `https://${App_Domain}${App_Admin_Management_Path}` as const;
+  `${App_Origin}${App_Admin_Management_Path}` as const;
 export const App_Admin_Discussions =
-  `https://${App_Domain}${App_Admin_Discussions_Path}` as const;
+  `${App_Origin}${App_Admin_Discussions_Path}` as const;
 export const App_Admin_Affiliate =
-  `https://${App_Domain}${App_Admin_Affiliate_Path}` as const;
+  `${App_Origin}${App_Admin_Affiliate_Path}` as const;
 export const App_Admin_PromoCodes =
-  `https://${App_Domain}${App_Admin_PromoCodes_Path}` as const;
+  `${App_Origin}${App_Admin_PromoCodes_Path}` as const;
 export const App_Admin_Reviewers =
-  `https://${App_Domain}${App_Admin_Reviewers_Path}` as const;
+  `${App_Origin}${App_Admin_Reviewers_Path}` as const;
 
-export const App_Onboarding =
-  `https://${App_Domain}${App_Onboarding_Path}` as const;
+export const App_Onboarding = `${App_Origin}${App_Onboarding_Path}` as const;
 
 export const getAppAdminUserAbsoluteRoute = (id: string) =>
-  `https://${App_Domain}${App_Admin_Users_Path}/${id}` as const;
+  `${App_Origin}${App_Admin_Users_Path}/${id}` as const;
 export const getAppAdminOrganizationAbsoluteRoute = (id: string) =>
-  `https://${App_Domain}${App_Admin_Organizations_Path}/${id}` as const;
+  `${App_Origin}${App_Admin_Organizations_Path}/${id}` as const;
 export const getAppAdminProjectAbsoluteRoute = (id: string) =>
-  `https://${App_Domain}${App_Admin_Projects_Path}/${id}` as const;
+  `${App_Origin}${App_Admin_Projects_Path}/${id}` as const;
 export const getAppOnboardingFlowAbsoluteRoute = (
   step: string,
   plan: string,
   period?: string
 ) =>
   period
-    ? `https://${App_Domain}${App_Onboarding_Path}/${step}/${plan}/${period}`
-    : (`https://${App_Domain}${App_Onboarding_Path}/${step}/${plan}` as const);
+    ? `${App_Origin}${App_Onboarding_Path}/${step}/${plan}/${period}`
+    : (`${App_Origin}${App_Onboarding_Path}/${step}/${plan}` as const);
 
 // ============================================================
 // Website paths — relative (intlayer.org)
@@ -294,154 +296,148 @@ export const Website_Contributors_Path = '/contributors' as const;
 // ============================================================
 // Website absolute URLs — https://intlayer.org
 // ============================================================
-export const Website_Home =
-  `https://${Website_Domain}${Website_Home_Path}` as const;
-export const Website_CMS =
-  `https://${Website_Domain}${Website_CMS_Path}` as const;
-export const Website_TMS =
-  `https://${Website_Domain}${Website_TMS_Path}` as const;
+export const Website_Home = `${Website_Origin}${Website_Home_Path}` as const;
+export const Website_CMS = `${Website_Origin}${Website_CMS_Path}` as const;
+export const Website_TMS = `${Website_Origin}${Website_TMS_Path}` as const;
 export const Website_Translate =
-  `https://${Website_Domain}${Website_Translate_Path}` as const;
+  `${Website_Origin}${Website_Translate_Path}` as const;
 export const Website_Markdown =
-  `https://${Website_Domain}${Website_Markdown_Path}` as const;
-export const Website_Demo =
-  `https://${Website_Domain}${Website_Demo_Path}` as const;
+  `${Website_Origin}${Website_Markdown_Path}` as const;
+export const Website_Demo = `${Website_Origin}${Website_Demo_Path}` as const;
 export const Website_Playground =
-  `https://${Website_Domain}${Website_Playground_Path}` as const;
+  `${Website_Origin}${Website_Playground_Path}` as const;
 export const Website_NotFound =
-  `https://${Website_Domain}${Website_NotFound_Path}` as const;
+  `${Website_Origin}${Website_NotFound_Path}` as const;
 export const Website_Changelog =
-  `https://${Website_Domain}${Website_Changelog_Path}` as const;
+  `${Website_Origin}${Website_Changelog_Path}` as const;
 export const Website_Scanner =
-  `https://${Website_Domain}${Website_Scanner_Path}` as const;
+  `${Website_Origin}${Website_Scanner_Path}` as const;
 export const Website_MessageConverter =
-  `https://${Website_Domain}${Website_MessageConverter_Path}` as const;
+  `${Website_Origin}${Website_MessageConverter_Path}` as const;
 export const Website_IntlayerFormatter =
-  `https://${Website_Domain}${Website_IntlayerFormatter_Path}` as const;
+  `${Website_Origin}${Website_IntlayerFormatter_Path}` as const;
 export const Website_ICUFormatter =
-  `https://${Website_Domain}${Website_ICUFormatter_Path}` as const;
+  `${Website_Origin}${Website_ICUFormatter_Path}` as const;
 export const Website_I18nextFormatter =
-  `https://${Website_Domain}${Website_I18nextFormatter_Path}` as const;
+  `${Website_Origin}${Website_I18nextFormatter_Path}` as const;
 export const Website_VueI18nFormatter =
-  `https://${Website_Domain}${Website_VueI18nFormatter_Path}` as const;
+  `${Website_Origin}${Website_VueI18nFormatter_Path}` as const;
 export const Website_POFormatter =
-  `https://${Website_Domain}${Website_POFormatter_Path}` as const;
+  `${Website_Origin}${Website_POFormatter_Path}` as const;
 export const Website_Benchmark =
-  `https://${Website_Domain}${Website_Benchmark_Path}` as const;
+  `${Website_Origin}${Website_Benchmark_Path}` as const;
 export const Website_Benchmark_NextJS =
-  `https://${Website_Domain}${Website_Benchmark_NextJS_Path}` as const;
+  `${Website_Origin}${Website_Benchmark_NextJS_Path}` as const;
 export const Website_Benchmark_Tanstack =
-  `https://${Website_Domain}${Website_Benchmark_Tanstack_Path}` as const;
+  `${Website_Origin}${Website_Benchmark_Tanstack_Path}` as const;
 
 export const Website_Doc_Root =
-  `https://${Website_Domain}${Website_Doc_Root_Path}` as const;
-export const Website_Doc =
-  `https://${Website_Domain}${Website_Doc_Path}` as const;
+  `${Website_Origin}${Website_Doc_Root_Path}` as const;
+export const Website_Doc = `${Website_Origin}${Website_Doc_Path}` as const;
 export const Website_Doc_Why =
-  `https://${Website_Domain}${Website_Doc_Why_Path}` as const;
+  `${Website_Origin}${Website_Doc_Why_Path}` as const;
 export const Website_Doc_Search =
-  `https://${Website_Domain}${Website_Doc_Search_Path}` as const;
+  `${Website_Origin}${Website_Doc_Search_Path}` as const;
 export const Website_Doc_Chat =
-  `https://${Website_Domain}${Website_Doc_Chat_Path}` as const;
+  `${Website_Origin}${Website_Doc_Chat_Path}` as const;
 export const Website_Doc_IntlayerVisualEditor =
-  `https://${Website_Domain}${Website_Doc_IntlayerVisualEditor_Path}` as const;
+  `${Website_Origin}${Website_Doc_IntlayerVisualEditor_Path}` as const;
 export const Website_Doc_IntlayerCMS =
-  `https://${Website_Domain}${Website_Doc_IntlayerCMS_Path}` as const;
+  `${Website_Origin}${Website_Doc_IntlayerCMS_Path}` as const;
 export const Website_Doc_SelfHosting =
-  `https://${Website_Domain}${Website_Doc_SelfHosting_Path}` as const;
+  `${Website_Origin}${Website_Doc_SelfHosting_Path}` as const;
 export const Website_Doc_Markdown =
-  `https://${Website_Domain}${Website_Doc_Markdown_Path}` as const;
+  `${Website_Origin}${Website_Doc_Markdown_Path}` as const;
 export const Website_Doc_HTML =
-  `https://${Website_Domain}${Website_Doc_HTML_Path}` as const;
+  `${Website_Origin}${Website_Doc_HTML_Path}` as const;
 
 export const Website_ReleasesV6 =
-  `https://${Website_Domain}${Website_ReleasesV6_Path}` as const;
+  `${Website_Origin}${Website_ReleasesV6_Path}` as const;
 export const Website_ReleasesV7 =
-  `https://${Website_Domain}${Website_ReleasesV7_Path}` as const;
+  `${Website_Origin}${Website_ReleasesV7_Path}` as const;
 export const Website_ReleasesV8 =
-  `https://${Website_Domain}${Website_ReleasesV8_Path}` as const;
+  `${Website_Origin}${Website_ReleasesV8_Path}` as const;
 export const Website_Doc_Environment_NextJS =
-  `https://${Website_Domain}${Website_Doc_Environment_NextJS_Path}` as const;
+  `${Website_Origin}${Website_Doc_Environment_NextJS_Path}` as const;
 export const Website_Doc_Environment_NextJS_16 =
-  `https://${Website_Domain}${Website_Doc_Environment_NextJS_16_Path}` as const;
+  `${Website_Origin}${Website_Doc_Environment_NextJS_16_Path}` as const;
 export const Website_Doc_Environment_NextJS_15 =
-  `https://${Website_Domain}${Website_Doc_Environment_NextJS_15_Path}` as const;
+  `${Website_Origin}${Website_Doc_Environment_NextJS_15_Path}` as const;
 export const Website_Doc_Environment_NextJS_14 =
-  `https://${Website_Domain}${Website_Doc_Environment_NextJS_14_Path}` as const;
+  `${Website_Origin}${Website_Doc_Environment_NextJS_14_Path}` as const;
 export const Website_Doc_Environment_CRA =
-  `https://${Website_Domain}${Website_Doc_Environment_CRA_Path}` as const;
+  `${Website_Origin}${Website_Doc_Environment_CRA_Path}` as const;
 export const Website_Doc_Environment_Astro =
-  `https://${Website_Domain}${Website_Doc_Environment_Astro_Path}` as const;
+  `${Website_Origin}${Website_Doc_Environment_Astro_Path}` as const;
 export const Website_Doc_Environment_ViteAndReact =
-  `https://${Website_Domain}${Website_Doc_Environment_ViteAndReact_Path}` as const;
+  `${Website_Origin}${Website_Doc_Environment_ViteAndReact_Path}` as const;
 export const Website_Doc_Environment_ViteAndReact_ReactRouterV7 =
-  `https://${Website_Domain}${Website_Doc_Environment_ViteAndReact_ReactRouterV7_Path}` as const;
+  `${Website_Origin}${Website_Doc_Environment_ViteAndReact_ReactRouterV7_Path}` as const;
 export const Website_Doc_Environment_ViteAndReact_ReactRouterV7_FSRoutes =
-  `https://${Website_Domain}${Website_Doc_Environment_ViteAndReact_ReactRouterV7_FSRoutes_Path}` as const;
+  `${Website_Origin}${Website_Doc_Environment_ViteAndReact_ReactRouterV7_FSRoutes_Path}` as const;
 export const Website_Doc_Environment_Tanstack =
-  `https://${Website_Domain}${Website_Doc_Environment_Tanstack_Path}` as const;
+  `${Website_Origin}${Website_Doc_Environment_Tanstack_Path}` as const;
 export const Website_Doc_Environment_Lit =
-  `https://${Website_Domain}${Website_Doc_Environment_Lit_Path}` as const;
+  `${Website_Origin}${Website_Doc_Environment_Lit_Path}` as const;
 export const Website_Doc_Environment_Nodejs =
-  `https://${Website_Domain}${Website_Doc_Environment_Nodejs_Path}` as const;
+  `${Website_Origin}${Website_Doc_Environment_Nodejs_Path}` as const;
 export const Website_Doc_Environment_Adonis =
-  `https://${Website_Domain}${Website_Doc_Environment_Adonis_Path}` as const;
+  `${Website_Origin}${Website_Doc_Environment_Adonis_Path}` as const;
 export const Website_Doc_Environment_ViteAndVue =
-  `https://${Website_Domain}${Website_Doc_Environment_ViteAndVue_Path}` as const;
+  `${Website_Origin}${Website_Doc_Environment_ViteAndVue_Path}` as const;
 export const Website_Doc_Environment_ViteAndSolid =
-  `https://${Website_Domain}${Website_Doc_Environment_ViteAndSolid_Path}` as const;
+  `${Website_Origin}${Website_Doc_Environment_ViteAndSolid_Path}` as const;
 export const Website_Doc_Environment_ViteAndSvelte =
-  `https://${Website_Domain}${Website_Doc_Environment_ViteAndSvelte_Path}` as const;
+  `${Website_Origin}${Website_Doc_Environment_ViteAndSvelte_Path}` as const;
 export const Website_Doc_Environment_ViteAndPreact =
-  `https://${Website_Domain}${Website_Doc_Environment_ViteAndPreact_Path}` as const;
+  `${Website_Origin}${Website_Doc_Environment_ViteAndPreact_Path}` as const;
 export const Website_Doc_Environment_NuxtAndVue =
-  `https://${Website_Domain}${Website_Doc_Environment_NuxtAndVue_Path}` as const;
+  `${Website_Origin}${Website_Doc_Environment_NuxtAndVue_Path}` as const;
 export const Website_Doc_Intlayer_with_Lynx_and_React =
-  `https://${Website_Domain}${Website_Doc_Intlayer_with_Lynx_and_React_Path}` as const;
+  `${Website_Origin}${Website_Doc_Intlayer_with_Lynx_and_React_Path}` as const;
 export const Website_Doc_Environment_Angular =
-  `https://${Website_Domain}${Website_Doc_Environment_Angular_Path}` as const;
+  `${Website_Origin}${Website_Doc_Environment_Angular_Path}` as const;
 export const Website_Doc_Environment_ReactNativeAndExpo =
-  `https://${Website_Domain}${Website_Doc_Environment_ReactNativeAndExpo_Path}` as const;
+  `${Website_Origin}${Website_Doc_Environment_ReactNativeAndExpo_Path}` as const;
 export const Website_Doc_Environment_Lynx =
-  `https://${Website_Domain}${Website_Doc_Environment_Lynx_Path}` as const;
+  `${Website_Origin}${Website_Doc_Environment_Lynx_Path}` as const;
 export const Website_Doc_Environment_Express =
-  `https://${Website_Domain}${Website_Doc_Environment_Express_Path}` as const;
+  `${Website_Origin}${Website_Doc_Environment_Express_Path}` as const;
 export const Website_Doc_Environment_NestJS =
-  `https://${Website_Domain}${Website_Doc_Environment_NestJS_Path}` as const;
+  `${Website_Origin}${Website_Doc_Environment_NestJS_Path}` as const;
 export const Website_Doc_Environment_Fastify =
-  `https://${Website_Domain}${Website_Doc_Environment_Fastify_Path}` as const;
+  `${Website_Origin}${Website_Doc_Environment_Fastify_Path}` as const;
 export const Website_Doc_Environment_Hono =
-  `https://${Website_Domain}${Website_Doc_Environment_Hono_Path}` as const;
+  `${Website_Origin}${Website_Doc_Environment_Hono_Path}` as const;
 export const Website_Doc_Environment_Htmx =
-  `https://${Website_Domain}${Website_Doc_Environment_Htmx_Path}` as const;
+  `${Website_Origin}${Website_Doc_Environment_Htmx_Path}` as const;
 
 export const Website_Doc_CLI_Fill =
-  `https://${Website_Domain}${Website_Doc_CLI_Fill_Path}` as const;
+  `${Website_Origin}${Website_Doc_CLI_Fill_Path}` as const;
 export const Website_Doc_CLI_Translate =
-  `https://${Website_Domain}${Website_Doc_CLI_Translate_Path}` as const;
+  `${Website_Origin}${Website_Doc_CLI_Translate_Path}` as const;
 export const Website_Doc_CLI_Review =
-  `https://${Website_Domain}${Website_Doc_CLI_Review_Path}` as const;
+  `${Website_Origin}${Website_Doc_CLI_Review_Path}` as const;
 
 export const Website_Doc_MCP =
-  `https://${Website_Domain}${Website_Doc_MCP_Path}` as const;
+  `${Website_Origin}${Website_Doc_MCP_Path}` as const;
 
 export const Website_Blog_Root =
-  `https://${Website_Domain}${Website_Blog_Root_Path}` as const;
-export const Website_Blog =
-  `https://${Website_Domain}${Website_Blog_Path}` as const;
+  `${Website_Origin}${Website_Blog_Root_Path}` as const;
+export const Website_Blog = `${Website_Origin}${Website_Blog_Path}` as const;
 export const Website_Blog_Search =
-  `https://${Website_Domain}${Website_Blog_Search_Path}` as const;
+  `${Website_Origin}${Website_Blog_Search_Path}` as const;
 export const Website_Blog_What_is_i18n =
-  `https://${Website_Domain}${Website_Blog_What_is_i18n_Path}` as const;
+  `${Website_Origin}${Website_Blog_What_is_i18n_Path}` as const;
 
 export const Website_FrequentQuestions =
-  `https://${Website_Domain}${Website_FrequentQuestions_Path}` as const;
+  `${Website_Origin}${Website_FrequentQuestions_Path}` as const;
 export const Website_PrivacyPolicy =
-  `https://${Website_Domain}${Website_PrivacyPolicy_Path}` as const;
+  `${Website_Origin}${Website_PrivacyPolicy_Path}` as const;
 export const Website_TermsOfService =
-  `https://${Website_Domain}${Website_TermsOfService_Path}` as const;
+  `${Website_Origin}${Website_TermsOfService_Path}` as const;
 export const Website_Contributors =
-  `https://${Website_Domain}${Website_Contributors_Path}` as const;
+  `${Website_Origin}${Website_Contributors_Path}` as const;
 
 // ============================================================
 // Doc app paths — relative (served under intlayer.org/doc/*)
@@ -524,23 +520,22 @@ export const Showcase_Submit_Path = '/submit' as const;
 // ============================================================
 // Showcase absolute URLs — https://showcase.intlayer.org
 // ============================================================
-export const Showcase_Root = `https://${Showcase_Domain}` as const;
+export const Showcase_Root = Showcase_Origin;
 export const Showcase_Submit =
-  `https://${Showcase_Domain}${Showcase_Submit_Path}` as const;
+  `${Showcase_Origin}${Showcase_Submit_Path}` as const;
 
 // ============================================================
 // Backend absolute URLs — https://back.intlayer.org
 // ============================================================
-export const Backend_Root = `https://${Backend_Domain}` as const;
-export const Backend_Health = `https://${Backend_Domain}/health` as const;
-export const Backend_OAuth2_Token =
-  `https://${Backend_Domain}/oauth2/token` as const;
+export const Backend_Root = Backend_Origin;
+export const Backend_Health = `${Backend_Origin}/health` as const;
+export const Backend_OAuth2_Token = `${Backend_Origin}/oauth2/token` as const;
 
 // ============================================================
 // MCP absolute URLs — https://mcp.intlayer.org
 // ============================================================
-export const Mcp_Root = `https://${Mcp_Domain}` as const;
-export const Mcp_Sse = `https://${Mcp_Domain}/sse` as const;
+export const Mcp_Root = Mcp_Origin;
+export const Mcp_Sse = `${Mcp_Origin}/sse` as const;
 
 // ============================================================
 // Agent discovery paths — relative
@@ -578,7 +573,7 @@ export const External_Discord = 'https://discord.gg/7uxamYVeCk' as const;
 export const External_LinkedIn =
   'https://www.linkedin.com/company/intlayerorg/' as const;
 export const External_AI_Landing_Page = 'https://ai.intlayer.org' as const;
-export const External_ShowcaseApp = `https://${Showcase_Domain}` as const;
+export const External_ShowcaseApp = Showcase_Origin;
 export const External_Examples =
   'https://github.com/aymericzip/intlayer/tree/main/examples' as const;
 export const External_ExampleIntlayerWithNextjs =
