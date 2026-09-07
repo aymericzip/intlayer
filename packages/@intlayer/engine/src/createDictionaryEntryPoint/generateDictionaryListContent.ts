@@ -48,8 +48,12 @@ export const generateDictionaryListContent = (
 
   if (format === 'cjs') {
     content += `\n`;
-    content += `module.exports.${functionName} = ${functionName};\n`;
-    content += `module.exports = dictionaries;\n`;
+    // Assigning the accessor before `module.exports = dictionaries` silently
+    // dropped it, leaving the entry with no named export. Spread instead of
+    // mutating `dictionaries`: that object is what `${functionName}()` returns,
+    // so attaching the accessor to it would leak the function into every
+    // `Object.values()` walk over the dictionary map.
+    content += `module.exports = { ...dictionaries, ${functionName} };\n`;
   }
 
   return content;

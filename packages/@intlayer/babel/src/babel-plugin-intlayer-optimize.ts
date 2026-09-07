@@ -440,20 +440,27 @@ export const intlayerOptimizeBabelPlugin = (babel: {
             ? normalizePath(state.opts.unmergedDictionariesEntryPath)
             : undefined;
 
+          // Each generated entry exposes its own accessor. Emitting
+          // `getDictionaries` for every entry left the unmerged one without the
+          // `getUnmergedDictionaries` export its consumers import, so the
+          // bundler failed the build with a missing export.
+          const entryAccessorName = filename
+            ? filename === dictionariesEntryPath
+              ? 'getDictionaries'
+              : filename === unmergedDictionariesEntryPath
+                ? 'getUnmergedDictionaries'
+                : undefined
+            : undefined;
+
           // Check if this is the correct file to transform
-          if (
-            state.opts.replaceDictionaryEntry &&
-            (filename === dictionariesEntryPath ||
-              (unmergedDictionariesEntryPath &&
-                filename === unmergedDictionariesEntryPath))
-          ) {
+          if (state.opts.replaceDictionaryEntry && entryAccessorName) {
             state._isDictEntry = true;
             programPath.node.body = [
               t.exportDefaultDeclaration(t.objectExpression([])),
               t.exportNamedDeclaration(
                 t.variableDeclaration('const', [
                   t.variableDeclarator(
-                    t.identifier('getDictionaries'),
+                    t.identifier(entryAccessorName),
                     t.arrowFunctionExpression([], t.objectExpression([]))
                   ),
                 ])
