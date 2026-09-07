@@ -198,6 +198,42 @@ bun add vite-intlayer --dev
 </Step>
 <Step number={3} title="Configuración de tu proyecto">
 
+### Arquitectura
+
+En esta arquitectura, todas las rutas localizadas están anidadas bajo el segmento de ruta `{-$locale}`. Este enfoque garantiza que cada idioma tenga una URL dedicada, al tiempo que permite el prefijo automático de locale, la validación y la optimización para SEO.
+
+```bash
+.
+├── src
+│   ├── components
+│   │   ├── Header.tsx
+│   │   ├── locale-switcher.content.ts
+│   │   ├── locale-switcher.tsx
+│   │   └── localized-link.tsx
+│   ├── hooks
+│   │   ├── useI18nHTMLAttributes.tsx
+│   │   └── useLocalizedNavigate.ts
+│   ├── routes
+│   │   ├── {-$locale}
+│   │   │   ├── 404.content.ts
+│   │   │   ├── 404.tsx
+│   │   │   ├── about.content.ts
+│   │   │   ├── about.tsx
+│   │   │   ├── index.content.tsx
+│   │   │   ├── index.tsx
+│   │   │   └── route.tsx             # Locale layout & prefix validation
+│   │   ├── __root.tsx                # Root route with IntlayerProvider
+│   │   └── sitemap[.]xml.ts
+│   ├── router.tsx
+│   └── styles.css
+├── intlayer.config.ts
+├── package.json
+├── tsconfig.json
+└── vite.config.ts
+```
+
+### Configuración
+
 Crea un archivo de configuración para configurar los idiomas de tu aplicación:
 
 ```typescript fileName="intlayer.config.ts"

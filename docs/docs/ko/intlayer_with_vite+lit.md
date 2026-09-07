@@ -162,6 +162,27 @@ bun add vite-intlayer --dev
 </Step>
 <Step number={2} title="프로젝트 구성">
 
+### 아키텍처
+
+이 아키텍처에서는 `lit-intlayer`가 커스텀 엘리먼트 통합 및 반응형 컨트롤러를 제공하여 Web Components 내에서 번역을 관리합니다. 콘텐츠 선언은 엘리먼트와 함께 `src/`에 배치됩니다.
+
+```bash
+.
+├── src
+│   ├── app.content.ts
+│   ├── index.css
+│   ├── locale-switcher.ts
+│   ├── main.ts
+│   └── my-element.ts                 # Main Lit element
+├── index.html
+├── intlayer.config.ts
+├── package.json
+├── tsconfig.json
+└── vite.config.ts
+```
+
+### 설정
+
 애플리케이션의 언어를 구성하기 위한 설정 파일을 만듭니다:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}

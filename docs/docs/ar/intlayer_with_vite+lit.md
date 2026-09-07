@@ -162,6 +162,27 @@ bun add vite-intlayer --dev
 </Step>
 <Step number={2} title="تكوين مشروعك">
 
+### البنية
+
+في هذه البنية، يوفر `lit-intlayer` تكاملات العناصر المخصصة ووحدات التحكم التفاعلية لإدارة الترجمات داخل Web Components. توجد إعلانات المحتوى في `src/` بجانب العناصر.
+
+```bash
+.
+├── src
+│   ├── app.content.ts
+│   ├── index.css
+│   ├── locale-switcher.ts
+│   ├── main.ts
+│   └── my-element.ts                 # Main Lit element
+├── index.html
+├── intlayer.config.ts
+├── package.json
+├── tsconfig.json
+└── vite.config.ts
+```
+
+### التكوين
+
 أنشئ ملف تكوين لتكوين لغات تطبيقك:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}

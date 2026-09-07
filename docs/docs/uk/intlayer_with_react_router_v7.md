@@ -194,7 +194,44 @@ bun add vite-intlayer --dev
 </Step>
 <Step number={2} title="Конфігурація вашого проєкту">
 
-Створіть конфігураційний файл для налаштування мов вашого застосунку:
+<Tabs group="routing-type">
+<Tab label="Config-based routing" value="config-based">
+
+### Архітектура
+
+У цій архітектурі маршрути визначаються програмно в `app/routes.ts` з необов'язковими динамічними сегментами `/:locale?`. Локалізовані сторінки, макети та оголошення контенту організовані в каталозі `app/`:
+
+```bash
+.
+├── app
+│   ├── components
+│   │   ├── locale-switcher.content.ts
+│   │   ├── locale-switcher.tsx
+│   │   ├── localized-link.tsx
+│   │   ├── navbar.content.ts
+│   │   └── navbar.tsx
+│   ├── hooks
+│   │   ├── useI18nHTMLAttributes.tsx
+│   │   └── useLocalizedNavigate.tsx
+│   ├── routes
+│   │   ├── about
+│   │   │   ├── page.content.ts
+│   │   │   └── page.tsx
+│   │   ├── layout.tsx
+│   │   ├── page.content.ts
+│   │   └── page.tsx
+│   ├── root.tsx                      # Root layout for IntlayerProvider
+│   └── routes.ts                     # Route definition file
+├── intlayer.config.ts
+├── package.json
+├── react-router.config.ts
+├── tsconfig.json
+└── vite.config.ts
+```
+
+### Конфігурація
+
+Створіть файл конфігурації `intlayer.config.ts`, щоб оголосити мови, які підтримує ваш застосунок:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig, Locales } from "intlayer";
@@ -208,6 +245,59 @@ const config: IntlayerConfig = {
 
 export default config;
 ```
+
+</Tab>
+<Tab label="File-system routes" value="fs-routes">
+
+### Архітектура
+
+У цій архітектурі маршрути відповідають конвенціям файлової системи React Router v7 з використанням `flatRoutes`, де крапки (`.`) представляють сегменти URL, а `($locale)` позначає необов'язковий локалізований сегмент:
+
+```bash
+.
+├── app
+│   ├── components
+│   │   ├── locale-switcher.content.ts
+│   │   ├── locale-switcher.tsx
+│   │   ├── localized-link.tsx
+│   │   ├── navbar.content.ts
+│   │   └── navbar.tsx
+│   ├── hooks
+│   │   ├── useI18nHTMLAttributes.tsx
+│   │   └── useLocalizedNavigate.tsx
+│   ├── routes
+│   │   ├── ($locale)._index.content.ts
+│   │   ├── ($locale)._index.tsx
+│   │   ├── ($locale).about.content.ts
+│   │   └── ($locale).about.tsx
+│   ├── root.tsx                      # Root layout for IntlayerProvider
+│   └── routes.ts                     # Route definition file using flatRoutes
+├── intlayer.config.ts
+├── package.json
+├── react-router.config.ts
+├── tsconfig.json
+└── vite.config.ts
+```
+
+### Конфігурація
+
+Створіть файл конфігурації `intlayer.config.ts`, щоб оголосити мови, які підтримує ваш застосунок:
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { type IntlayerConfig, Locales } from "intlayer";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    defaultLocale: Locales.ENGLISH,
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+  },
+};
+
+export default config;
+```
+
+</Tab>
+</Tabs>
 
 > Через цей файл конфігурації ви можете налаштувати локалізовані URL-адреси, перенаправлення через middleware, назви cookie, розташування та розширення ваших декларацій контенту, вимкнути логи Intlayer в консолі та інше. Для повного переліку доступних параметрів див. [документацію з конфігурації](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md).
 

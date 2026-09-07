@@ -159,6 +159,31 @@ bun add intlayer react-native-intlayer
 </Step>
 <Step number={2} title="创建 Intlayer 配置">
 
+### 架构
+
+在此架构中，`react-native-intlayer` 提供根 `IntlayerProvider` 和 React Native hooks，用于跨屏幕和组件管理翻译。内容声明文件与对应组件存放在一起。
+
+```bash
+.
+├── app
+│   ├── (tabs)
+│   │   ├── _layout.tsx
+│   │   ├── explore.tsx
+│   │   └── index.tsx
+│   ├── +not-found.tsx
+│   └── _layout.tsx                   # Root layout with IntlayerProvider
+├── components
+│   ├── LocaleSwitcher.content.ts
+│   └── LocaleSwitcher.tsx
+├── app.json
+├── intlayer.config.ts
+├── metro.config.js
+├── package.json
+└── tsconfig.json
+```
+
+### 配置
+
 在您的项目根目录（或任何方便的位置）创建一个 **Intlayer 配置**文件。它可能如下所示：
 
 ```ts fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}

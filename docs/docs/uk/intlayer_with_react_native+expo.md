@@ -162,6 +162,31 @@ bun add intlayer react-native-intlayer
 </Step>
 <Step number={2} title="Створіть конфігурацію Intlayer">
 
+### Архітектура
+
+У цій архітектурі `react-native-intlayer` надає кореневий `IntlayerProvider` та хуки React Native для керування перекладами на екранах і в компонентах. Оголошення контенту розміщуються поруч із відповідними компонентами.
+
+```bash
+.
+├── app
+│   ├── (tabs)
+│   │   ├── _layout.tsx
+│   │   ├── explore.tsx
+│   │   └── index.tsx
+│   ├── +not-found.tsx
+│   └── _layout.tsx                   # Root layout with IntlayerProvider
+├── components
+│   ├── LocaleSwitcher.content.ts
+│   └── LocaleSwitcher.tsx
+├── app.json
+├── intlayer.config.ts
+├── metro.config.js
+├── package.json
+└── tsconfig.json
+```
+
+### Конфігурація
+
 У корені вашого проєкту (або в будь-якому зручному місці) створіть файл **Intlayer config**. Він може виглядати так:
 
 ```ts fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}

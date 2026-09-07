@@ -167,6 +167,30 @@ bun add vite-intlayer --dev
 </Step>
 <Step number={2} title="Projenizi Yapılandırın">
 
+### Mimari
+
+Bu mimaride, `preact-intlayer`, Preact ağacını sarmak için `main.tsx` içine monte edilmiş `IntlayerProvider` sağlar. İçerik bildirimleri bileşenlerin yanında `src/` altında bulunur.
+
+```bash
+.
+├── src
+│   ├── app.content.tsx
+│   ├── app.css
+│   ├── app.tsx                       # Main Preact application component
+│   ├── components
+│   │   ├── LocaleSwitcher.content.ts
+│   │   └── LocaleSwitcher.tsx
+│   ├── main.tsx                      # Entry point with IntlayerProvider
+│   └── vite-env.d.ts
+├── index.html
+├── intlayer.config.ts
+├── package.json
+├── tsconfig.json
+└── vite.config.ts
+```
+
+### Yapılandırma
+
 Uygulamanızın dillerini yapılandırmak için bir yapılandırma dosyası oluşturun:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}

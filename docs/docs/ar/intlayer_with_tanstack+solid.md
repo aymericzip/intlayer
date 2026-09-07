@@ -180,6 +180,40 @@ bun add vite-intlayer --dev
 </Step>
 <Step number={3} title="إعداد مشروعك">
 
+### البنية
+
+في هذه البنية، يتم وضع جميع المسارات المترجمة ضمن مقطع المسار `{-$locale}` في Solid. يضمن هذا النهج حصول كل لغة على عنوان URL مخصص مع تمكين البادئة التلقائية للغة، والتحقق، وتحسين محركات البحث (SEO).
+
+```bash
+.
+├── src
+│   ├── components
+│   │   ├── Header.content.ts
+│   │   ├── Header.tsx
+│   │   ├── LocaleSwitcher.content.ts
+│   │   ├── LocaleSwitcher.tsx
+│   │   └── LocalizedLink.tsx
+│   ├── routes
+│   │   ├── {-$locale}
+│   │   │   ├── 404.content.ts
+│   │   │   ├── 404.tsx
+│   │   │   ├── about.content.ts
+│   │   │   ├── about.tsx
+│   │   │   ├── index.content.tsx
+│   │   │   ├── index.tsx
+│   │   │   └── route.tsx             # Locale layout & prefix validation
+│   │   ├── __root.tsx                # Root route with IntlayerProvider
+│   │   └── sitemap[.]xml.ts
+│   ├── router.tsx
+│   └── styles.css
+├── intlayer.config.ts
+├── package.json
+├── tsconfig.json
+└── vite.config.ts
+```
+
+### التكوين
+
 قم بإنشاء ملف إعدادات لتكوين اللغات في تطبيقك:
 
 ```typescript fileName="intlayer.config.ts"

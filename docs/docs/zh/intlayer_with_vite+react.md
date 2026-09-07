@@ -170,6 +170,31 @@ bun add vite-intlayer --dev
 </Step>
 <Step number={2} title="配置你的项目">
 
+### 架构
+
+在此架构中，`react-intlayer` 提供挂载在 `main.tsx` 中的 `IntlayerProvider` 来包裹 React 树。内容声明文件与组件一起放置在 `src/` 中，Vite 通过 `vite-intlayer` 处理内容重构和 HMR。
+
+```bash
+.
+├── src
+│   ├── app.content.tsx               # App content declaration
+│   ├── App.css
+│   ├── App.tsx                       # Main application component
+│   ├── components
+│   │   ├── LocaleSwitcher.content.ts
+│   │   └── LocaleSwitcher.tsx
+│   ├── index.css
+│   ├── main.tsx                      # Entry point with IntlayerProvider
+│   └── vite-env.d.ts
+├── index.html
+├── intlayer.config.ts
+├── package.json
+├── tsconfig.json
+└── vite.config.ts
+```
+
+### 配置
+
 创建配置文件以配置应用的语言：
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}

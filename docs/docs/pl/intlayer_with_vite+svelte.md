@@ -167,6 +167,31 @@ bun add vite-intlayer --save-dev
 </Step>
 <Step number={2} title="Konfiguracja projektu">
 
+### Architektura
+
+W tej architekturze `svelte-intlayer` zapewnia reaktywne magazyny i narzędzia do zarządzania tłumaczeniami w komponentach Svelte. Deklaracje zawartości znajdują się w `src/` obok komponentów.
+
+```bash
+.
+├── src
+│   ├── app.content.ts
+│   ├── app.css
+│   ├── App.svelte                    # Root component
+│   ├── lib
+│   │   ├── Counter.svelte
+│   │   └── LocaleSwitcher.svelte
+│   ├── main.ts                       # Entry point
+│   └── vite-env.d.ts
+├── index.html
+├── intlayer.config.ts
+├── package.json
+├── svelte.config.js
+├── tsconfig.json
+└── vite.config.ts
+```
+
+### Konfiguracja
+
 Utwórz plik konfiguracyjny, aby skonfigurować języki swojej aplikacji:
 
 ```typescript fileName="intlayer.config.ts"

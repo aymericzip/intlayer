@@ -162,6 +162,27 @@ bun add vite-intlayer --dev
 </Step>
 <Step number={2} title="Projenizin Yapılandırılması">
 
+### Mimari
+
+Bu mimaride, `lit-intlayer`, Web Components içinde çevirileri yönetmek için özel öğe entegrasyonları ve reaktif denetleyiciler sağlar. İçerik bildirimleri öğelerin yanında `src/` altında bulunur.
+
+```bash
+.
+├── src
+│   ├── app.content.ts
+│   ├── index.css
+│   ├── locale-switcher.ts
+│   ├── main.ts
+│   └── my-element.ts                 # Main Lit element
+├── index.html
+├── intlayer.config.ts
+├── package.json
+├── tsconfig.json
+└── vite.config.ts
+```
+
+### Yapılandırma
+
 Uygulamanızın dillerini yapılandırmak için bir yapılandırma dosyası oluşturun:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}

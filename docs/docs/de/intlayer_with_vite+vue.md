@@ -170,6 +170,31 @@ bun add vite-intlayer --dev
 </Step>
 <Step number={2} title="Konfiguration Ihres Projekts">
 
+### Architektur
+
+In dieser Architektur stellt `vue-intlayer` das in `main.ts` installierte Plugin bereit. Vue-Komponenten deklarieren und verwenden Übersetzungen lokal über Composables, während Vite-Hot-Reloading über `vite-intlayer` abgewickelt wird.
+
+```bash
+.
+├── src
+│   ├── app.content.ts
+│   ├── App.vue                       # Root component
+│   ├── components
+│   │   ├── helloWorld
+│   │   │   ├── helloWorld.content.ts
+│   │   │   └── HelloWorld.vue
+│   │   └── LocaleSwitcher.vue
+│   ├── main.ts                       # Entry point installing vue-intlayer plugin
+│   └── style.css
+├── index.html
+├── intlayer.config.ts
+├── package.json
+├── tsconfig.json
+└── vite.config.ts
+```
+
+### Konfiguration
+
 Erstellen Sie eine Konfigurationsdatei, um die Sprachen Ihrer Anwendung zu konfigurieren:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}

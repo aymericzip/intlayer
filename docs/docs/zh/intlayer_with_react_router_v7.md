@@ -194,20 +194,110 @@ bun add vite-intlayer --dev
 </Step>
 <Step number={2} title="配置您的项目">
 
-创建一个配置文件来配置您的应用程序语言：
+<Tabs group="routing-type">
+<Tab label="Config-based routing" value="config-based">
+
+### 架构
+
+在此架构中，路由在 `app/routes.ts` 中以编程方式定义，并带有可选的 `/:locale?` 动态段。本地化页面、布局和内容声明都组织在 `app/` 目录下：
+
+```bash
+.
+├── app
+│   ├── components
+│   │   ├── locale-switcher.content.ts
+│   │   ├── locale-switcher.tsx
+│   │   ├── localized-link.tsx
+│   │   ├── navbar.content.ts
+│   │   └── navbar.tsx
+│   ├── hooks
+│   │   ├── useI18nHTMLAttributes.tsx
+│   │   └── useLocalizedNavigate.tsx
+│   ├── routes
+│   │   ├── about
+│   │   │   ├── page.content.ts
+│   │   │   └── page.tsx
+│   │   ├── layout.tsx
+│   │   ├── page.content.ts
+│   │   └── page.tsx
+│   ├── root.tsx                      # Root layout for IntlayerProvider
+│   └── routes.ts                     # Route definition file
+├── intlayer.config.ts
+├── package.json
+├── react-router.config.ts
+├── tsconfig.json
+└── vite.config.ts
+```
+
+### 配置
+
+创建 `intlayer.config.ts` 配置文件以声明应用程序支持的语言：
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig, Locales } from "intlayer";
 
 const config: IntlayerConfig = {
   internationalization: {
-    defaultLocale: Locales.ENGLISH, // 默认语言
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH], // 支持的语言列表
+    defaultLocale: Locales.ENGLISH,
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
   },
 };
 
 export default config;
 ```
+
+</Tab>
+<Tab label="File-system routes" value="fs-routes">
+
+### 架构
+
+在此架构中，路由遵循使用 `flatRoutes` 的 React Router v7 文件系统路由规范，其中点（`.`）代表 URL 段，`($locale)` 表示可选的本地化段：
+
+```bash
+.
+├── app
+│   ├── components
+│   │   ├── locale-switcher.content.ts
+│   │   ├── locale-switcher.tsx
+│   │   ├── localized-link.tsx
+│   │   ├── navbar.content.ts
+│   │   └── navbar.tsx
+│   ├── hooks
+│   │   ├── useI18nHTMLAttributes.tsx
+│   │   └── useLocalizedNavigate.tsx
+│   ├── routes
+│   │   ├── ($locale)._index.content.ts
+│   │   ├── ($locale)._index.tsx
+│   │   ├── ($locale).about.content.ts
+│   │   └── ($locale).about.tsx
+│   ├── root.tsx                      # Root layout for IntlayerProvider
+│   └── routes.ts                     # Route definition file using flatRoutes
+├── intlayer.config.ts
+├── package.json
+├── react-router.config.ts
+├── tsconfig.json
+└── vite.config.ts
+```
+
+### 配置
+
+创建 `intlayer.config.ts` 配置文件以声明应用程序支持的语言：
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { type IntlayerConfig, Locales } from "intlayer";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    defaultLocale: Locales.ENGLISH,
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+  },
+};
+
+export default config;
+```
+
+</Tab>
+</Tabs>
 
 > 通过此配置文件，您可以设置本地化的 URL、中间件重定向、cookie 名称、内容声明的位置和扩展名，禁用控制台中的 Intlayer 日志等。有关可用参数的完整列表，请参阅[配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
 

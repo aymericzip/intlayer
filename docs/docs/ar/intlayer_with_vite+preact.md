@@ -167,6 +167,30 @@ bun add vite-intlayer --dev
 </Step>
 <Step number={2} title="تكوين مشروعك">
 
+### البنية
+
+في هذه البنية، يوفر `preact-intlayer` موفر `IntlayerProvider` المثبت في `main.tsx` لتغليف شجرة Preact. توجد إعلانات المحتوى في `src/` بجانب المكونات.
+
+```bash
+.
+├── src
+│   ├── app.content.tsx
+│   ├── app.css
+│   ├── app.tsx                       # Main Preact application component
+│   ├── components
+│   │   ├── LocaleSwitcher.content.ts
+│   │   └── LocaleSwitcher.tsx
+│   ├── main.tsx                      # Entry point with IntlayerProvider
+│   └── vite-env.d.ts
+├── index.html
+├── intlayer.config.ts
+├── package.json
+├── tsconfig.json
+└── vite.config.ts
+```
+
+### التكوين
+
 أنشئ ملف تكوين لتحديد لغات تطبيقك:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}

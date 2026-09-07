@@ -168,6 +168,31 @@ Viteバンドラー（[Vite bundler](https://vite.dev/guide/why.html#why-bundle-
 </Step>
 <Step number={2} title="プロジェクトの設定">
 
+### アーキテクチャ
+
+このアーキテクチャでは、`vue-intlayer` が `main.ts` にインストールされたプラグインを提供します。Vue コンポーネントはコンポーザブルを使用してローカルで翻訳を宣言および利用し、Vite のホットリロードは `vite-intlayer` によって処理されます。
+
+```bash
+.
+├── src
+│   ├── app.content.ts
+│   ├── App.vue                       # Root component
+│   ├── components
+│   │   ├── helloWorld
+│   │   │   ├── helloWorld.content.ts
+│   │   │   └── HelloWorld.vue
+│   │   └── LocaleSwitcher.vue
+│   ├── main.ts                       # Entry point installing vue-intlayer plugin
+│   └── style.css
+├── index.html
+├── intlayer.config.ts
+├── package.json
+├── tsconfig.json
+└── vite.config.ts
+```
+
+### 設定
+
 アプリケーションの言語を設定するための設定ファイルを作成します：
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}

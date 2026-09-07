@@ -192,15 +192,52 @@ bun add vite-intlayer --dev
   Includes the Vite plugin for integrating Intlayer with the [Vite bundler](https://vite.dev/guide/why.html#why-bundle-for-production), as well as middleware for detecting the user's preferred locale, managing cookies, and handling URL redirection.
 
 </Step>
-<Step number={2} title="Configuration of your project">
+<Step number={2} title="Configure Your Project">
 
-Create a config file to configure the languages of your application:
+<Tabs group="routing-type">
+<Tab label="Config-based routing" value="config-based">
+
+### Architecture
+
+In this architecture, routes are defined programmatically in `app/routes.ts` with optional `/:locale?` dynamic segments. Localised pages, layouts, and content declarations are organised within the `app/` directory:
+
+```bash
+.
+├── app
+│   ├── components
+│   │   ├── locale-switcher.content.ts
+│   │   ├── locale-switcher.tsx
+│   │   ├── localized-link.tsx
+│   │   ├── navbar.content.ts
+│   │   └── navbar.tsx
+│   ├── hooks
+│   │   ├── useI18nHTMLAttributes.tsx
+│   │   └── useLocalizedNavigate.tsx
+│   ├── routes
+│   │   ├── about
+│   │   │   ├── page.content.ts
+│   │   │   └── page.tsx
+│   │   ├── layout.tsx
+│   │   ├── page.content.ts
+│   │   └── page.tsx
+│   ├── root.tsx                      # Root layout for IntlayerProvider
+│   └── routes.ts                     # Route definition file
+├── intlayer.config.ts
+├── package.json
+├── react-router.config.ts
+├── tsconfig.json
+└── vite.config.ts
+```
+
+### Configuration
+
+Create an `intlayer.config.ts` configuration file to declare the supported languages of your application:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig, Locales } from "intlayer";
 
 const config: IntlayerConfig = {
-  internationalisation: {
+  internationalization: {
     defaultLocale: Locales.ENGLISH,
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
   },
@@ -208,6 +245,59 @@ const config: IntlayerConfig = {
 
 export default config;
 ```
+
+</Tab>
+<Tab label="File-system routes" value="fs-routes">
+
+### Architecture
+
+In this architecture, routes follow React Router v7 file-system conventions using `flatRoutes`, where dots (`.`) represent URL segments and `($locale)` denotes the optional localised segment:
+
+```bash
+.
+├── app
+│   ├── components
+│   │   ├── locale-switcher.content.ts
+│   │   ├── locale-switcher.tsx
+│   │   ├── localized-link.tsx
+│   │   ├── navbar.content.ts
+│   │   └── navbar.tsx
+│   ├── hooks
+│   │   ├── useI18nHTMLAttributes.tsx
+│   │   └── useLocalizedNavigate.tsx
+│   ├── routes
+│   │   ├── ($locale)._index.content.ts
+│   │   ├── ($locale)._index.tsx
+│   │   ├── ($locale).about.content.ts
+│   │   └── ($locale).about.tsx
+│   ├── root.tsx                      # Root layout for IntlayerProvider
+│   └── routes.ts                     # Route definition file using flatRoutes
+├── intlayer.config.ts
+├── package.json
+├── react-router.config.ts
+├── tsconfig.json
+└── vite.config.ts
+```
+
+### Configuration
+
+Create an `intlayer.config.ts` configuration file to declare the supported languages of your application:
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { type IntlayerConfig, Locales } from "intlayer";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    defaultLocale: Locales.ENGLISH,
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+  },
+};
+
+export default config;
+```
+
+</Tab>
+</Tabs>
 
 > Through this configuration file, you can set up localised URLs, middleware redirection, cookie names, the location and extension of your content declarations, disable Intlayer logs in the console, and more. For a complete list of available parameters, refer to the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md).
 

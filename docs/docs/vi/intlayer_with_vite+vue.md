@@ -170,6 +170,31 @@ bun add vite-intlayer --dev
 </Step>
 <Step number={2} title="Cấu hình dự án của bạn">
 
+### Kiến trúc
+
+Trong kiến trúc này, `vue-intlayer` cung cấp plugin được cài đặt trong `main.ts`. Các thành phần Vue khai báo và sử dụng các bản dịch cục bộ bằng cách sử dụng các composable, với tính năng tải lại nóng của Vite được xử lý bởi `vite-intlayer`.
+
+```bash
+.
+├── src
+│   ├── app.content.ts
+│   ├── App.vue                       # Root component
+│   ├── components
+│   │   ├── helloWorld
+│   │   │   ├── helloWorld.content.ts
+│   │   │   └── HelloWorld.vue
+│   │   └── LocaleSwitcher.vue
+│   ├── main.ts                       # Entry point installing vue-intlayer plugin
+│   └── style.css
+├── index.html
+├── intlayer.config.ts
+├── package.json
+├── tsconfig.json
+└── vite.config.ts
+```
+
+### Cấu hình
+
 Tạo một file cấu hình để cấu hình các ngôn ngữ của ứng dụng của bạn:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}

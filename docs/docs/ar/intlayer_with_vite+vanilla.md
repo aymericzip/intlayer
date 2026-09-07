@@ -160,6 +160,27 @@ bun add vite-intlayer --dev
 </Step>
 <Step number={2} title="تكوين مشروعك">
 
+### البنية
+
+في هذه البنية، يوفر `vanilla-intlayer` أو نواة `intlayer` واجهات برمجة تطبيقات JavaScript لإدارة الترجمات وتحديث محتوى DOM ديناميكياً. توجد إعلانات المحتوى في `src/`.
+
+```bash
+.
+├── src
+│   ├── app.content.ts
+│   ├── counter.ts
+│   ├── locale-switcher.ts
+│   ├── main.ts                       # Main script using vanilla-intlayer
+│   └── style.css
+├── index.html
+├── intlayer.config.ts
+├── package.json
+├── tsconfig.json
+└── vite.config.ts
+```
+
+### التكوين
+
 قم بإنشاء ملف تكوين لتهيئة لغات تطبيقك:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}

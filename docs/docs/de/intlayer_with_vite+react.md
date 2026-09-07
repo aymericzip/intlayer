@@ -169,6 +169,31 @@ Das Kernpaket, das Internationalisierungswerkzeuge für Konfigurationsmanagement
 </Step>
 <Step number={2} title="Konfiguration Ihres Projekts">
 
+### Architektur
+
+In dieser Architektur stellt `react-intlayer` den in `main.tsx` eingebundenen `IntlayerProvider` bereit, um den React-Baum zu umschließen. Inhaltsdeklarationen werden neben Komponenten in `src/` abgelegt, und Vite übernimmt den Neuaufbau und HMR über `vite-intlayer`.
+
+```bash
+.
+├── src
+│   ├── app.content.tsx               # App content declaration
+│   ├── App.css
+│   ├── App.tsx                       # Main application component
+│   ├── components
+│   │   ├── LocaleSwitcher.content.ts
+│   │   └── LocaleSwitcher.tsx
+│   ├── index.css
+│   ├── main.tsx                      # Entry point with IntlayerProvider
+│   └── vite-env.d.ts
+├── index.html
+├── intlayer.config.ts
+├── package.json
+├── tsconfig.json
+└── vite.config.ts
+```
+
+### Konfiguration
+
 Erstellen Sie eine Konfigurationsdatei, um die Sprachen Ihrer Anwendung zu konfigurieren:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}

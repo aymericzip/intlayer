@@ -166,6 +166,22 @@ bun x intlayer build
 </Step>
 <Step number={2} title="Configurazione del progetto">
 
+### Architettura
+
+In questa architettura, il core `intlayer` fornisce API JavaScript per dichiarare e consumare dizionari in ambienti JavaScript o TypeScript standard senza un framework frontend.
+
+```bash
+.
+├── src
+│   ├── app.content.mjs
+│   └── main.js
+├── index.html
+├── intlayer.config.mjs
+└── package.json
+```
+
+### Configurazione
+
 Crea un file di configurazione per configurare le lingue della tua applicazione:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}

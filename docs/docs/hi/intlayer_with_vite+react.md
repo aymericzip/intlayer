@@ -170,6 +170,31 @@ bun add vite-intlayer --dev
 </Step>
 <Step number={2} title="अपने प्रोजेक्ट का कॉन्फ़िगरेशन">
 
+### आर्किटेक्चर
+
+इस आर्किटेक्चर में, `react-intlayer` React ट्री को रैप करने के लिए `main.tsx` में माउंटेड `IntlayerProvider` प्रदान करता है। सामग्री घोषणाएं `src/` में घटकों के साथ रखी जाती हैं, और Vite `vite-intlayer` के माध्यम से सामग्री पुनर्निर्माण और HMR को संभालता है।
+
+```bash
+.
+├── src
+│   ├── app.content.tsx               # App content declaration
+│   ├── App.css
+│   ├── App.tsx                       # Main application component
+│   ├── components
+│   │   ├── LocaleSwitcher.content.ts
+│   │   └── LocaleSwitcher.tsx
+│   ├── index.css
+│   ├── main.tsx                      # Entry point with IntlayerProvider
+│   └── vite-env.d.ts
+├── index.html
+├── intlayer.config.ts
+├── package.json
+├── tsconfig.json
+└── vite.config.ts
+```
+
+### कॉन्फ़िगरेशन
+
 अपने एप्लिकेशन की भाषाओं को कॉन्फ़िगर करने के लिए एक कॉन्फ़िग फाइल बनाएं:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}

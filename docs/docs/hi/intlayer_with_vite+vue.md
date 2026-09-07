@@ -170,6 +170,31 @@ bun add vite-intlayer --dev
 </Step>
 <Step number={2} title="अपने प्रोजेक्ट का कॉन्फ़िगरेशन">
 
+### आर्किटेक्चर
+
+इस आर्किटेक्चर में, `vue-intlayer` `main.ts` में स्थापित प्लगइन प्रदान करता है। Vue घटक कंपोज़ेबल का उपयोग करके स्थानीय रूप से अनुवाद घोषित और उपभोग करते हैं, Vite हॉट रीलोडिंग `vite-intlayer` द्वारा संभाली जाती है।
+
+```bash
+.
+├── src
+│   ├── app.content.ts
+│   ├── App.vue                       # Root component
+│   ├── components
+│   │   ├── helloWorld
+│   │   │   ├── helloWorld.content.ts
+│   │   │   └── HelloWorld.vue
+│   │   └── LocaleSwitcher.vue
+│   ├── main.ts                       # Entry point installing vue-intlayer plugin
+│   └── style.css
+├── index.html
+├── intlayer.config.ts
+├── package.json
+├── tsconfig.json
+└── vite.config.ts
+```
+
+### कॉन्फ़िगरेशन
+
 अपने एप्लिकेशन की भाषाओं को कॉन्फ़िगर करने के लिए एक कॉन्फ़िग फ़ाइल बनाएं:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}

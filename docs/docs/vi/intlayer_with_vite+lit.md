@@ -162,6 +162,27 @@ bun add vite-intlayer --dev
 </Step>
 <Step number={2} title="Cấu hình dự án của bạn">
 
+### Kiến trúc
+
+Trong kiến trúc này, `lit-intlayer` cung cấp các tích hợp phần tử tùy chỉnh và bộ điều khiển phản ứng để quản lý bản dịch bên trong Web Components. Các khai báo nội dung nằm trong `src/` cùng với các phần tử.
+
+```bash
+.
+├── src
+│   ├── app.content.ts
+│   ├── index.css
+│   ├── locale-switcher.ts
+│   ├── main.ts
+│   └── my-element.ts                 # Main Lit element
+├── index.html
+├── intlayer.config.ts
+├── package.json
+├── tsconfig.json
+└── vite.config.ts
+```
+
+### Cấu hình
+
 Tạo một tệp cấu hình để thiết lập các ngôn ngữ cho ứng dụng của bạn:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}

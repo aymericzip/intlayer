@@ -160,6 +160,27 @@ bun add vite-intlayer --dev
 </Step>
 <Step number={2} title="프로젝트 구성">
 
+### 아키텍처
+
+이 아키텍처에서는 `vanilla-intlayer` 또는 코어 `intlayer`가 JavaScript API를 제공하여 번역을 관리하고 DOM 콘텐츠를 동적으로 업데이트합니다. 콘텐츠 선언은 `src/`에 배치됩니다.
+
+```bash
+.
+├── src
+│   ├── app.content.ts
+│   ├── counter.ts
+│   ├── locale-switcher.ts
+│   ├── main.ts                       # Main script using vanilla-intlayer
+│   └── style.css
+├── index.html
+├── intlayer.config.ts
+├── package.json
+├── tsconfig.json
+└── vite.config.ts
+```
+
+### 설정
+
 애플리케이션의 언어를 구성하기 위해 설정 파일을 생성합니다:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}

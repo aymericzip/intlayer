@@ -194,20 +194,110 @@ bun add vite-intlayer --dev
 </Step>
 <Step number={2} title="تكوين مشروعك">
 
-قم بإنشاء ملف تكوين لتكوين لغات تطبيقك:
+<Tabs group="routing-type">
+<Tab label="Config-based routing" value="config-based">
+
+### البنية
+
+في هذه البنية، يتم تحديد المسارات برمجياً في `app/routes.ts` مع مقاطع ديناميكية اختيارية `/:locale?`. يتم تنظيم الصفحات المترجمة والتخطيطات وإعلانات المحتوى داخل دليل `app/`:
+
+```bash
+.
+├── app
+│   ├── components
+│   │   ├── locale-switcher.content.ts
+│   │   ├── locale-switcher.tsx
+│   │   ├── localized-link.tsx
+│   │   ├── navbar.content.ts
+│   │   └── navbar.tsx
+│   ├── hooks
+│   │   ├── useI18nHTMLAttributes.tsx
+│   │   └── useLocalizedNavigate.tsx
+│   ├── routes
+│   │   ├── about
+│   │   │   ├── page.content.ts
+│   │   │   └── page.tsx
+│   │   ├── layout.tsx
+│   │   ├── page.content.ts
+│   │   └── page.tsx
+│   ├── root.tsx                      # Root layout for IntlayerProvider
+│   └── routes.ts                     # Route definition file
+├── intlayer.config.ts
+├── package.json
+├── react-router.config.ts
+├── tsconfig.json
+└── vite.config.ts
+```
+
+### التكوين
+
+قم بإنشاء ملف تكوين `intlayer.config.ts` للإعلان عن اللغات المدعومة في تطبيقك:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig, Locales } from "intlayer";
 
 const config: IntlayerConfig = {
   internationalization: {
-    defaultLocale: Locales.ENGLISH, // اللغة الافتراضية
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH], // اللغات المدعومة
+    defaultLocale: Locales.ENGLISH,
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
   },
 };
 
 export default config;
 ```
+
+</Tab>
+<Tab label="File-system routes" value="fs-routes">
+
+### البنية
+
+في هذه البنية، تتبع المسارات اصطلاحات نظام الملفات في React Router v7 باستخدام `flatRoutes`، حيث تمثل النقاط (`.`) مقاطع عنوان URL وتشير `($locale)` إلى مقطع اللغة الاختياري:
+
+```bash
+.
+├── app
+│   ├── components
+│   │   ├── locale-switcher.content.ts
+│   │   ├── locale-switcher.tsx
+│   │   ├── localized-link.tsx
+│   │   ├── navbar.content.ts
+│   │   └── navbar.tsx
+│   ├── hooks
+│   │   ├── useI18nHTMLAttributes.tsx
+│   │   └── useLocalizedNavigate.tsx
+│   ├── routes
+│   │   ├── ($locale)._index.content.ts
+│   │   ├── ($locale)._index.tsx
+│   │   ├── ($locale).about.content.ts
+│   │   └── ($locale).about.tsx
+│   ├── root.tsx                      # Root layout for IntlayerProvider
+│   └── routes.ts                     # Route definition file using flatRoutes
+├── intlayer.config.ts
+├── package.json
+├── react-router.config.ts
+├── tsconfig.json
+└── vite.config.ts
+```
+
+### التكوين
+
+قم بإنشاء ملف تكوين `intlayer.config.ts` للإعلان عن اللغات المدعومة في تطبيقك:
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { type IntlayerConfig, Locales } from "intlayer";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    defaultLocale: Locales.ENGLISH,
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+  },
+};
+
+export default config;
+```
+
+</Tab>
+</Tabs>
 
 > من خلال ملف التكوين هذا، يمكنك إعداد عناوين URL محلية، إعادة توجيه الوسيط، أسماء ملفات تعريف الارتباط، موقع وامتداد إعلانات المحتوى الخاصة بك، تعطيل سجلات Intlayer في وحدة التحكم، والمزيد. للحصول على قائمة كاملة بالمعلمات المتاحة، راجع [توثيق التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
 

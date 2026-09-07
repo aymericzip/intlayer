@@ -170,6 +170,28 @@ bun add vite-intlayer --dev
 </Step>
 <Step number={2} title="अपने प्रोजेक्ट का कॉन्फ़िगरेशन">
 
+### आर्किटेक्चर
+
+इस आर्किटेक्चर में, `solid-intlayer` Solid ट्री को रैप करने के लिए `index.tsx` में माउंटेड `IntlayerProvider` प्रदान करता है। सामग्री घोषणाएं `src/` में घटकों के साथ रहती हैं।
+
+```bash
+.
+├── src
+│   ├── app.content.ts
+│   ├── App.css
+│   ├── App.tsx                       # Main Solid component
+│   ├── index.css
+│   ├── index.tsx                     # Entry point with IntlayerProvider
+│   └── vite-env.d.ts
+├── index.html
+├── intlayer.config.ts
+├── package.json
+├── tsconfig.json
+└── vite.config.ts
+```
+
+### कॉन्फ़िगरेशन
+
 अपने एप्लिकेशन की भाषाओं को कॉन्फ़िगर करने के लिए एक कॉन्फ़िग फाइल बनाएं:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}

@@ -166,6 +166,22 @@ bun x intlayer build
 </Step>
 <Step number={2} title="تكوين مشروعك">
 
+### البنية
+
+في هذه البنية، توفر نواة `intlayer` واجهات برمجة تطبيقات JavaScript للإعلان عن القواميس واستهلاكها في بيئات JavaScript أو TypeScript القياسية دون إطار عمل للواجهة الأمامية.
+
+```bash
+.
+├── src
+│   ├── app.content.mjs
+│   └── main.js
+├── index.html
+├── intlayer.config.mjs
+└── package.json
+```
+
+### التكوين
+
 قم بإنشاء ملف تكوين لتكوين لغات تطبيقك:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}

@@ -170,6 +170,34 @@ bun add --dev nuxt-intlayer
 </Step>
 <Step number={2} title="프로젝트 구성">
 
+### 아키텍처
+
+이 아키텍처에서는 `pages/`의 페이지 라우트가 `nuxt-intlayer` 모듈에 의해 자동으로 지역화됩니다. 페이지, 레이아웃 및 컴포넌트는 `content/` 디렉터리에 정의된 지역화된 콘텐츠 선언을 사용합니다.
+
+```bash
+.
+├── app.vue                           # Root component
+├── components
+│   ├── Links.vue
+│   └── LocaleSwitcher.vue
+├── composables
+│   └── useI18nHTMLAttributes.ts
+├── content
+│   ├── about-page.content.ts
+│   └── home-page.content.ts
+├── layouts
+│   └── default.vue
+├── pages
+│   ├── about.vue
+│   └── index.vue
+├── intlayer.config.ts
+├── nuxt.config.ts
+├── package.json
+└── tsconfig.json
+```
+
+### 설정
+
 애플리케이션의 언어를 구성하기 위한 설정 파일을 만드세요:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}

@@ -162,6 +162,31 @@ bun add intlayer react-native-intlayer
 </Step>
 <Step number={2} title="Intlayer 구성 생성">
 
+### 아키텍처
+
+이 아키텍처에서는 `react-native-intlayer`가 루트 `IntlayerProvider`와 React Native 훅을 제공하여 화면과 컴포넌트 전반에서 번역을 관리합니다. 콘텐츠 선언은 해당 컴포넌트와 함께 배치됩니다.
+
+```bash
+.
+├── app
+│   ├── (tabs)
+│   │   ├── _layout.tsx
+│   │   ├── explore.tsx
+│   │   └── index.tsx
+│   ├── +not-found.tsx
+│   └── _layout.tsx                   # Root layout with IntlayerProvider
+├── components
+│   ├── LocaleSwitcher.content.ts
+│   └── LocaleSwitcher.tsx
+├── app.json
+├── intlayer.config.ts
+├── metro.config.js
+├── package.json
+└── tsconfig.json
+```
+
+### 설정
+
 프로젝트 루트(또는 적절한 곳)에 **Intlayer 구성** 파일을 생성하세요. 예시:
 
 ```ts fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}

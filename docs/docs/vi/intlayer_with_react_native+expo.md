@@ -162,6 +162,31 @@ bun add intlayer react-native-intlayer
 </Step>
 <Step number={2} title="Tạo cấu hình Intlayer">
 
+### Kiến trúc
+
+Trong kiến trúc này, `react-native-intlayer` cung cấp `IntlayerProvider` gốc và các hook React Native để quản lý bản dịch trên các màn hình và thành phần. Các khai báo nội dung nằm cùng với các thành phần của chúng.
+
+```bash
+.
+├── app
+│   ├── (tabs)
+│   │   ├── _layout.tsx
+│   │   ├── explore.tsx
+│   │   └── index.tsx
+│   ├── +not-found.tsx
+│   └── _layout.tsx                   # Root layout with IntlayerProvider
+├── components
+│   ├── LocaleSwitcher.content.ts
+│   └── LocaleSwitcher.tsx
+├── app.json
+├── intlayer.config.ts
+├── metro.config.js
+├── package.json
+└── tsconfig.json
+```
+
+### Cấu hình
+
 Trong thư mục gốc dự án của bạn (hoặc bất cứ nơi nào thuận tiện), tạo một file **cấu hình Intlayer**. Nó có thể trông như sau:
 
 ```ts fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}

@@ -170,6 +170,28 @@ bun add vite-intlayer --dev
 </Step>
 <Step number={2} title="Konfiguration Ihres Projekts">
 
+### Architektur
+
+In dieser Architektur stellt `solid-intlayer` den in `index.tsx` eingebundenen `IntlayerProvider` bereit, um den Solid-Baum zu umschließen. Inhaltsdeklarationen befinden sich in `src/` neben den Komponenten.
+
+```bash
+.
+├── src
+│   ├── app.content.ts
+│   ├── App.css
+│   ├── App.tsx                       # Main Solid component
+│   ├── index.css
+│   ├── index.tsx                     # Entry point with IntlayerProvider
+│   └── vite-env.d.ts
+├── index.html
+├── intlayer.config.ts
+├── package.json
+├── tsconfig.json
+└── vite.config.ts
+```
+
+### Konfiguration
+
 Erstellen Sie eine Konfigurationsdatei, um die Sprachen Ihrer Anwendung zu konfigurieren:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}

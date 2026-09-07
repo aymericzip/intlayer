@@ -170,6 +170,34 @@ bun add --dev nuxt-intlayer
 </Step>
 <Step number={2} title="Configuración de tu proyecto">
 
+### Arquitectura
+
+En esta arquitectura, las rutas de página en `pages/` son localizadas automáticamente por el módulo `nuxt-intlayer`. Las páginas, layouts y componentes consumen las declaraciones de contenido localizadas definidas en el directorio `content/`.
+
+```bash
+.
+├── app.vue                           # Root component
+├── components
+│   ├── Links.vue
+│   └── LocaleSwitcher.vue
+├── composables
+│   └── useI18nHTMLAttributes.ts
+├── content
+│   ├── about-page.content.ts
+│   └── home-page.content.ts
+├── layouts
+│   └── default.vue
+├── pages
+│   ├── about.vue
+│   └── index.vue
+├── intlayer.config.ts
+├── nuxt.config.ts
+├── package.json
+└── tsconfig.json
+```
+
+### Configuración
+
 Crea un archivo de configuración para configurar los idiomas de tu aplicación:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}

@@ -170,6 +170,30 @@ bun add vite-intlayer --dev
 </Step>
 <Step number={2} title="Cấu hình dự án của bạn">
 
+### Kiến trúc
+
+Trong kiến trúc này, `preact-intlayer` cung cấp `IntlayerProvider` được gắn trong `main.tsx` để bao bọc cây Preact. Các khai báo nội dung nằm trong `src/` cùng với các thành phần.
+
+```bash
+.
+├── src
+│   ├── app.content.tsx
+│   ├── app.css
+│   ├── app.tsx                       # Main Preact application component
+│   ├── components
+│   │   ├── LocaleSwitcher.content.ts
+│   │   └── LocaleSwitcher.tsx
+│   ├── main.tsx                      # Entry point with IntlayerProvider
+│   └── vite-env.d.ts
+├── index.html
+├── intlayer.config.ts
+├── package.json
+├── tsconfig.json
+└── vite.config.ts
+```
+
+### Cấu hình
+
 Tạo một file cấu hình để cấu hình các ngôn ngữ của ứng dụng của bạn:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}

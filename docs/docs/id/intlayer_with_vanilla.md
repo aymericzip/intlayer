@@ -166,6 +166,22 @@ bun x intlayer build
 </Step>
 <Step number={2} title="Konfigurasi Proyek Anda">
 
+### Arsitektur
+
+Dalam arsitektur ini, inti `intlayer` menyediakan API JavaScript untuk mendeklarasikan dan menggunakan kamus di lingkungan JavaScript atau TypeScript standar tanpa framework frontend.
+
+```bash
+.
+├── src
+│   ├── app.content.mjs
+│   └── main.js
+├── index.html
+├── intlayer.config.mjs
+└── package.json
+```
+
+### Konfigurasi
+
 Buat file konfigurasi untuk mengatur bahasa aplikasi Anda:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}

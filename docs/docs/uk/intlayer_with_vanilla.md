@@ -166,6 +166,22 @@ bun x intlayer build
 </Step>
 <Step number={2} title="Конфігурація вашого проєкту">
 
+### Архітектура
+
+У цій архітектурі ядро `intlayer` надає API JavaScript для оголошення та використання словників у стандартних середовищах JavaScript або TypeScript без інтерфейсного фреймворку.
+
+```bash
+.
+├── src
+│   ├── app.content.mjs
+│   └── main.js
+├── index.html
+├── intlayer.config.mjs
+└── package.json
+```
+
+### Конфігурація
+
 Створіть файл конфігурації для налаштування мов вашого застосунку:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}

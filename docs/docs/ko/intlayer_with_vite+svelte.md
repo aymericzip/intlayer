@@ -167,6 +167,31 @@ bun add vite-intlayer --save-dev
 </Step>
 <Step number={2} title="프로젝트 구성">
 
+### 아키텍처
+
+이 아키텍처에서는 `svelte-intlayer`가 반응형 스토어와 유틸리티를 제공하여 Svelte 컴포넌트 내에서 번역을 관리합니다. 콘텐츠 선언은 컴포넌트와 함께 `src/`에 배치됩니다.
+
+```bash
+.
+├── src
+│   ├── app.content.ts
+│   ├── app.css
+│   ├── App.svelte                    # Root component
+│   ├── lib
+│   │   ├── Counter.svelte
+│   │   └── LocaleSwitcher.svelte
+│   ├── main.ts                       # Entry point
+│   └── vite-env.d.ts
+├── index.html
+├── intlayer.config.ts
+├── package.json
+├── svelte.config.js
+├── tsconfig.json
+└── vite.config.ts
+```
+
+### 설정
+
 애플리케이션의 언어를 구성하기 위한 설정 파일을 생성합니다:
 
 ```typescript fileName="intlayer.config.ts"

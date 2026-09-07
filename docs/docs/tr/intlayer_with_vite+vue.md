@@ -170,6 +170,31 @@ bun add vite-intlayer --dev
 </Step>
 <Step number={2} title="Projenizi Yapılandırma">
 
+### Mimari
+
+Bu mimaride, `vue-intlayer` `main.ts` içine yüklenen eklentiyi sağlar. Vue bileşenleri, composables kullanarak yerel olarak çevirileri bildirir ve tüketir; Vite hot reload işlemi `vite-intlayer` tarafından yönetilir.
+
+```bash
+.
+├── src
+│   ├── app.content.ts
+│   ├── App.vue                       # Root component
+│   ├── components
+│   │   ├── helloWorld
+│   │   │   ├── helloWorld.content.ts
+│   │   │   └── HelloWorld.vue
+│   │   └── LocaleSwitcher.vue
+│   ├── main.ts                       # Entry point installing vue-intlayer plugin
+│   └── style.css
+├── index.html
+├── intlayer.config.ts
+├── package.json
+├── tsconfig.json
+└── vite.config.ts
+```
+
+### Yapılandırma
+
 Uygulamanızın dillerini yapılandırmak için bir yapılandırma dosyası oluşturun:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}

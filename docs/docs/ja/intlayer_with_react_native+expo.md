@@ -159,6 +159,31 @@ bun add intlayer react-native-intlayer
 </Step>
 <Step number={2} title="Intlayer設定ファイルの作成">
 
+### アーキテクチャ
+
+このアーキテクチャでは、`react-native-intlayer` がルートの `IntlayerProvider` と React Native フックを提供し、画面やコンポーネント全体で翻訳を管理します。コンテンツ宣言はコンポーネントと同じ場所に配置されます。
+
+```bash
+.
+├── app
+│   ├── (tabs)
+│   │   ├── _layout.tsx
+│   │   ├── explore.tsx
+│   │   └── index.tsx
+│   ├── +not-found.tsx
+│   └── _layout.tsx                   # Root layout with IntlayerProvider
+├── components
+│   ├── LocaleSwitcher.content.ts
+│   └── LocaleSwitcher.tsx
+├── app.json
+├── intlayer.config.ts
+├── metro.config.js
+├── package.json
+└── tsconfig.json
+```
+
+### 設定
+
 プロジェクトのルート（または任意の便利な場所）に **Intlayer 設定ファイル**を作成します。以下のような内容になるかもしれません：
 
 ```ts fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}

@@ -194,7 +194,44 @@ bun add vite-intlayer --dev
 </Step>
 <Step number={2} title="Cấu hình dự án của bạn">
 
-Tạo một file cấu hình để cấu hình các ngôn ngữ của ứng dụng của bạn:
+<Tabs group="routing-type">
+<Tab label="Config-based routing" value="config-based">
+
+### Kiến trúc
+
+Trong kiến trúc này, các tuyến đường được định nghĩa theo chương trình trong `app/routes.ts` với các đoạn động `/:locale?` tùy chọn. Các trang đã bản địa hóa, bố cục và khai báo nội dung được tổ chức trong thư mục `app/`:
+
+```bash
+.
+├── app
+│   ├── components
+│   │   ├── locale-switcher.content.ts
+│   │   ├── locale-switcher.tsx
+│   │   ├── localized-link.tsx
+│   │   ├── navbar.content.ts
+│   │   └── navbar.tsx
+│   ├── hooks
+│   │   ├── useI18nHTMLAttributes.tsx
+│   │   └── useLocalizedNavigate.tsx
+│   ├── routes
+│   │   ├── about
+│   │   │   ├── page.content.ts
+│   │   │   └── page.tsx
+│   │   ├── layout.tsx
+│   │   ├── page.content.ts
+│   │   └── page.tsx
+│   ├── root.tsx                      # Root layout for IntlayerProvider
+│   └── routes.ts                     # Route definition file
+├── intlayer.config.ts
+├── package.json
+├── react-router.config.ts
+├── tsconfig.json
+└── vite.config.ts
+```
+
+### Cấu hình
+
+Tạo file cấu hình `intlayer.config.ts` để khai báo các ngôn ngữ được hỗ trợ trong ứng dụng của bạn:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig, Locales } from "intlayer";
@@ -208,6 +245,59 @@ const config: IntlayerConfig = {
 
 export default config;
 ```
+
+</Tab>
+<Tab label="File-system routes" value="fs-routes">
+
+### Kiến trúc
+
+Trong kiến trúc này, các tuyến đường tuân theo quy ước hệ thống tệp của React Router v7 sử dụng `flatRoutes`, trong đó dấu chấm (`.`) biểu thị các phân đoạn URL và `($locale)` biểu thị phân đoạn bản địa hóa tùy chọn:
+
+```bash
+.
+├── app
+│   ├── components
+│   │   ├── locale-switcher.content.ts
+│   │   ├── locale-switcher.tsx
+│   │   ├── localized-link.tsx
+│   │   ├── navbar.content.ts
+│   │   └── navbar.tsx
+│   ├── hooks
+│   │   ├── useI18nHTMLAttributes.tsx
+│   │   └── useLocalizedNavigate.tsx
+│   ├── routes
+│   │   ├── ($locale)._index.content.ts
+│   │   ├── ($locale)._index.tsx
+│   │   ├── ($locale).about.content.ts
+│   │   └── ($locale).about.tsx
+│   ├── root.tsx                      # Root layout for IntlayerProvider
+│   └── routes.ts                     # Route definition file using flatRoutes
+├── intlayer.config.ts
+├── package.json
+├── react-router.config.ts
+├── tsconfig.json
+└── vite.config.ts
+```
+
+### Cấu hình
+
+Tạo file cấu hình `intlayer.config.ts` để khai báo các ngôn ngữ được hỗ trợ trong ứng dụng của bạn:
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { type IntlayerConfig, Locales } from "intlayer";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    defaultLocale: Locales.ENGLISH,
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+  },
+};
+
+export default config;
+```
+
+</Tab>
+</Tabs>
 
 > Thông qua tệp cấu hình này, bạn có thể thiết lập URL theo ngôn ngữ, chuyển hướng middleware, tên cookie, vị trí và phần mở rộng của các khai báo nội dung, tắt các log của Intlayer trên console, và nhiều hơn nữa. Để xem danh sách đầy đủ các tham số có sẵn, hãy tham khảo [tài liệu cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md).
 

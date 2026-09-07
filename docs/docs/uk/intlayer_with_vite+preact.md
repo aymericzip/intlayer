@@ -170,6 +170,30 @@ bun add vite-intlayer --dev
 </Step>
 <Step number={2} title="Налаштування вашого проєкту">
 
+### Архітектура
+
+У цій архітектурі `preact-intlayer` надає `IntlayerProvider`, змонтований у `main.tsx` для обгортання дерева Preact. Оголошення контенту розміщуються в `src/` поруч із компонентами.
+
+```bash
+.
+├── src
+│   ├── app.content.tsx
+│   ├── app.css
+│   ├── app.tsx                       # Main Preact application component
+│   ├── components
+│   │   ├── LocaleSwitcher.content.ts
+│   │   └── LocaleSwitcher.tsx
+│   ├── main.tsx                      # Entry point with IntlayerProvider
+│   └── vite-env.d.ts
+├── index.html
+├── intlayer.config.ts
+├── package.json
+├── tsconfig.json
+└── vite.config.ts
+```
+
+### Конфігурація
+
 Створіть файл конфігурації для налаштування мов вашого застосунку:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}

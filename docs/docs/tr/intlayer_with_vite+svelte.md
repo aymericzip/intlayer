@@ -167,6 +167,31 @@ bun add vite-intlayer --save-dev
 </Step>
 <Step number={2} title="Projenizin Konfigürasyonu">
 
+### Mimari
+
+Bu mimaride, `svelte-intlayer`, Svelte bileşenleri içinde çevirileri yönetmek için reaktif depolar ve yardımcı programlar sağlar. İçerik bildirimleri bileşenlerin yanında `src/` altında bulunur.
+
+```bash
+.
+├── src
+│   ├── app.content.ts
+│   ├── app.css
+│   ├── App.svelte                    # Root component
+│   ├── lib
+│   │   ├── Counter.svelte
+│   │   └── LocaleSwitcher.svelte
+│   ├── main.ts                       # Entry point
+│   └── vite-env.d.ts
+├── index.html
+├── intlayer.config.ts
+├── package.json
+├── svelte.config.js
+├── tsconfig.json
+└── vite.config.ts
+```
+
+### Yapılandırma
+
 Uygulamanızın dillerini yapılandırmak için bir konfigürasyon dosyası oluşturun:
 
 ```typescript fileName="intlayer.config.ts"

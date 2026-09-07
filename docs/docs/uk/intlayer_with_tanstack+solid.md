@@ -180,6 +180,40 @@ bun add vite-intlayer --dev
 </Step>
 <Step number={3} title="Конфігурація вашого проекту">
 
+### Архітектура
+
+У цій архітектурі всі локалізовані маршрути вкладені в сегмент маршруту `{-$locale}` у Solid. Цей підхід гарантує, що кожна мова має власну URL-адресу, забезпечуючи автоматичне додавання префікса локалі, валідацію та SEO-оптимізацію.
+
+```bash
+.
+├── src
+│   ├── components
+│   │   ├── Header.content.ts
+│   │   ├── Header.tsx
+│   │   ├── LocaleSwitcher.content.ts
+│   │   ├── LocaleSwitcher.tsx
+│   │   └── LocalizedLink.tsx
+│   ├── routes
+│   │   ├── {-$locale}
+│   │   │   ├── 404.content.ts
+│   │   │   ├── 404.tsx
+│   │   │   ├── about.content.ts
+│   │   │   ├── about.tsx
+│   │   │   ├── index.content.tsx
+│   │   │   ├── index.tsx
+│   │   │   └── route.tsx             # Locale layout & prefix validation
+│   │   ├── __root.tsx                # Root route with IntlayerProvider
+│   │   └── sitemap[.]xml.ts
+│   ├── router.tsx
+│   └── styles.css
+├── intlayer.config.ts
+├── package.json
+├── tsconfig.json
+└── vite.config.ts
+```
+
+### Конфігурація
+
 Створіть файл конфігурації, щоб налаштувати мови вашого додатка:
 
 ```typescript fileName="intlayer.config.ts"

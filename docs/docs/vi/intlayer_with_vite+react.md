@@ -169,6 +169,31 @@ Gói cốt lõi cung cấp các công cụ quốc tế hóa cho quản lý cấu
 </Step>
 <Step number={2} title="Cấu hình dự án của bạn">
 
+### Kiến trúc
+
+Trong kiến trúc này, `react-intlayer` cung cấp `IntlayerProvider` được gắn trong `main.tsx` để bao bọc cây React. Các khai báo nội dung được đặt cùng với các thành phần trong `src/`, và Vite xử lý việc xây dựng lại nội dung và HMR thông qua `vite-intlayer`.
+
+```bash
+.
+├── src
+│   ├── app.content.tsx               # App content declaration
+│   ├── App.css
+│   ├── App.tsx                       # Main application component
+│   ├── components
+│   │   ├── LocaleSwitcher.content.ts
+│   │   └── LocaleSwitcher.tsx
+│   ├── index.css
+│   ├── main.tsx                      # Entry point with IntlayerProvider
+│   └── vite-env.d.ts
+├── index.html
+├── intlayer.config.ts
+├── package.json
+├── tsconfig.json
+└── vite.config.ts
+```
+
+### Cấu hình
+
 Tạo một file cấu hình để cấu hình các ngôn ngữ cho ứng dụng của bạn:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}

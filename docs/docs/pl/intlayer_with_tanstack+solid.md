@@ -180,6 +180,40 @@ bun add vite-intlayer --dev
 </Step>
 <Step number={3} title="Konfiguracja Twojego projektu">
 
+### Architektura
+
+W tej architekturze wszystkie zlokalizowane trasy są zagnieżdżone w segmencie trasy `{-$locale}` w Solid. Takie podejście gwarantuje, że każdy język ma dedykowany adres URL, umożliwiając jednocześnie automatyczne dodawanie prefiksu ustawień regionalnych, walidację i optymalizację SEO.
+
+```bash
+.
+├── src
+│   ├── components
+│   │   ├── Header.content.ts
+│   │   ├── Header.tsx
+│   │   ├── LocaleSwitcher.content.ts
+│   │   ├── LocaleSwitcher.tsx
+│   │   └── LocalizedLink.tsx
+│   ├── routes
+│   │   ├── {-$locale}
+│   │   │   ├── 404.content.ts
+│   │   │   ├── 404.tsx
+│   │   │   ├── about.content.ts
+│   │   │   ├── about.tsx
+│   │   │   ├── index.content.tsx
+│   │   │   ├── index.tsx
+│   │   │   └── route.tsx             # Locale layout & prefix validation
+│   │   ├── __root.tsx                # Root route with IntlayerProvider
+│   │   └── sitemap[.]xml.ts
+│   ├── router.tsx
+│   └── styles.css
+├── intlayer.config.ts
+├── package.json
+├── tsconfig.json
+└── vite.config.ts
+```
+
+### Konfiguracja
+
 Utwórz plik konfiguracyjny, aby ustawić języki Twojej aplikacji:
 
 ```typescript fileName="intlayer.config.ts"

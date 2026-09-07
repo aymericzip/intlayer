@@ -170,6 +170,28 @@ bun add vite-intlayer --dev
 </Step>
 <Step number={2} title="Konfigurasi proyek Anda">
 
+### Arsitektur
+
+Dalam arsitektur ini, `solid-intlayer` menyediakan `IntlayerProvider` yang dipasang di `index.tsx` untuk membungkus hierarki Solid. Deklarasi konten berada di `src/` di samping komponen.
+
+```bash
+.
+├── src
+│   ├── app.content.ts
+│   ├── App.css
+│   ├── App.tsx                       # Main Solid component
+│   ├── index.css
+│   ├── index.tsx                     # Entry point with IntlayerProvider
+│   └── vite-env.d.ts
+├── index.html
+├── intlayer.config.ts
+├── package.json
+├── tsconfig.json
+└── vite.config.ts
+```
+
+### Konfigurasi
+
 Buat file konfigurasi untuk mengatur bahasa aplikasi Anda:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}

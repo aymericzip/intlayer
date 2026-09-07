@@ -170,6 +170,28 @@ Gói cốt lõi cung cấp các công cụ quốc tế hóa cho quản lý cấu
 </Step>
 <Step number={2} title="Cấu hình dự án của bạn">
 
+### Kiến trúc
+
+Trong kiến trúc này, `solid-intlayer` cung cấp `IntlayerProvider` được gắn trong `index.tsx` để bao bọc cây Solid. Các khai báo nội dung nằm trong `src/` cùng với các thành phần.
+
+```bash
+.
+├── src
+│   ├── app.content.ts
+│   ├── App.css
+│   ├── App.tsx                       # Main Solid component
+│   ├── index.css
+│   ├── index.tsx                     # Entry point with IntlayerProvider
+│   └── vite-env.d.ts
+├── index.html
+├── intlayer.config.ts
+├── package.json
+├── tsconfig.json
+└── vite.config.ts
+```
+
+### Cấu hình
+
 Tạo một file cấu hình để cấu hình các ngôn ngữ cho ứng dụng của bạn:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}

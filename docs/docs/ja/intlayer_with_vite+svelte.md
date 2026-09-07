@@ -167,6 +167,31 @@ bun add vite-intlayer --save-dev
 </Step>
 <Step number={2} title="プロジェクトの設定">
 
+### アーキテクチャ
+
+このアーキテクチャでは、`svelte-intlayer` がリアクティブなストアとユーティリティを提供し、Svelte コンポーネント内の翻訳を管理します。コンテンツ宣言はコンポーネントと一緒に `src/` に配置されます。
+
+```bash
+.
+├── src
+│   ├── app.content.ts
+│   ├── app.css
+│   ├── App.svelte                    # Root component
+│   ├── lib
+│   │   ├── Counter.svelte
+│   │   └── LocaleSwitcher.svelte
+│   ├── main.ts                       # Entry point
+│   └── vite-env.d.ts
+├── index.html
+├── intlayer.config.ts
+├── package.json
+├── svelte.config.js
+├── tsconfig.json
+└── vite.config.ts
+```
+
+### 設定
+
 アプリケーションの言語を設定するための設定ファイルを作成します：
 
 ```typescript fileName="intlayer.config.ts"

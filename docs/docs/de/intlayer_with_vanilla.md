@@ -166,6 +166,22 @@ bun x intlayer build
 </Step>
 <Step number={2} title="Konfiguration Ihres Projekts">
 
+### Architektur
+
+In dieser Architektur stellt der `intlayer`-Kern JavaScript-APIs bereit, um Wörterbücher in Standard-JavaScript- oder TypeScript-Umgebungen ohne Frontend-Framework zu deklarieren und zu nutzen.
+
+```bash
+.
+├── src
+│   ├── app.content.mjs
+│   └── main.js
+├── index.html
+├── intlayer.config.mjs
+└── package.json
+```
+
+### Konfiguration
+
 Erstellen Sie eine Konfigurationsdatei, um die Sprachen Ihrer Anwendung zu konfigurieren:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}

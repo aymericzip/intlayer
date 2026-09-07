@@ -167,6 +167,30 @@ bun add vite-intlayer --dev
 </Step>
 <Step number={2} title="프로젝트 구성">
 
+### 아키텍처
+
+이 아키텍처에서는 `preact-intlayer`가 `main.tsx`에 마운트된 `IntlayerProvider`를 제공하여 Preact 트리를 감쌉니다. 콘텐츠 선언은 컴포넌트와 함께 `src/`에 배치됩니다.
+
+```bash
+.
+├── src
+│   ├── app.content.tsx
+│   ├── app.css
+│   ├── app.tsx                       # Main Preact application component
+│   ├── components
+│   │   ├── LocaleSwitcher.content.ts
+│   │   └── LocaleSwitcher.tsx
+│   ├── main.tsx                      # Entry point with IntlayerProvider
+│   └── vite-env.d.ts
+├── index.html
+├── intlayer.config.ts
+├── package.json
+├── tsconfig.json
+└── vite.config.ts
+```
+
+### 설정
+
 애플리케이션의 언어를 구성하기 위해 설정 파일을 만드세요:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}

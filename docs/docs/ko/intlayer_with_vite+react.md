@@ -170,6 +170,31 @@ bun add vite-intlayer --dev
 </Step>
 <Step number={2} title="프로젝트 구성">
 
+### 아키텍처
+
+이 아키텍처에서는 `react-intlayer`가 `main.tsx`에 마운트된 `IntlayerProvider`를 제공하여 React 트리를 감쌉니다. 콘텐츠 선언은 `src/`의 컴포넌트와 함께 배치되며, Vite는 `vite-intlayer`를 통해 콘텐츠 재빌드 및 HMR을 처리합니다.
+
+```bash
+.
+├── src
+│   ├── app.content.tsx               # App content declaration
+│   ├── App.css
+│   ├── App.tsx                       # Main application component
+│   ├── components
+│   │   ├── LocaleSwitcher.content.ts
+│   │   └── LocaleSwitcher.tsx
+│   ├── index.css
+│   ├── main.tsx                      # Entry point with IntlayerProvider
+│   └── vite-env.d.ts
+├── index.html
+├── intlayer.config.ts
+├── package.json
+├── tsconfig.json
+└── vite.config.ts
+```
+
+### 설정
+
 애플리케이션의 언어를 구성하기 위한 config 파일을 생성합니다:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}

@@ -170,6 +170,31 @@ bun add vite-intlayer --dev
 </Step>
 <Step number={2} title="Configuration de votre projet">
 
+### Architecture
+
+Dans cette architecture, `react-intlayer` fournit le `IntlayerProvider` monté dans `main.tsx` pour envelopper l'arborescence React. Les déclarations de contenu sont placées aux côtés des composants dans `src/`, et Vite gère la reconstruction et le HMR via `vite-intlayer`.
+
+```bash
+.
+├── src
+│   ├── app.content.tsx               # App content declaration
+│   ├── App.css
+│   ├── App.tsx                       # Main application component
+│   ├── components
+│   │   ├── LocaleSwitcher.content.ts
+│   │   └── LocaleSwitcher.tsx
+│   ├── index.css
+│   ├── main.tsx                      # Entry point with IntlayerProvider
+│   └── vite-env.d.ts
+├── index.html
+├── intlayer.config.ts
+├── package.json
+├── tsconfig.json
+└── vite.config.ts
+```
+
+### Configuration
+
 Créez un fichier de configuration pour configurer les langues de votre application :
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}

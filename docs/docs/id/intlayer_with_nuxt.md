@@ -170,6 +170,34 @@ bun add --dev nuxt-intlayer
 </Step>
 <Step number={2} title="Konfigurasi proyek Anda">
 
+### Arsitektur
+
+Dalam arsitektur ini, rute halaman di `pages/` secara otomatis dilokalkan oleh modul `nuxt-intlayer`. Halaman, tata letak, dan komponen menggunakan deklarasi konten terlokalisasi yang ditentukan dalam direktori `content/`.
+
+```bash
+.
+├── app.vue                           # Root component
+├── components
+│   ├── Links.vue
+│   └── LocaleSwitcher.vue
+├── composables
+│   └── useI18nHTMLAttributes.ts
+├── content
+│   ├── about-page.content.ts
+│   └── home-page.content.ts
+├── layouts
+│   └── default.vue
+├── pages
+│   ├── about.vue
+│   └── index.vue
+├── intlayer.config.ts
+├── nuxt.config.ts
+├── package.json
+└── tsconfig.json
+```
+
+### Konfigurasi
+
 Buat file konfigurasi untuk mengatur bahasa aplikasi Anda:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}

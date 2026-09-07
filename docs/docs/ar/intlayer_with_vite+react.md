@@ -170,6 +170,31 @@ bun add vite-intlayer --dev
 </Step>
 <Step number={2} title="تكوين مشروعك">
 
+### البنية
+
+في هذه البنية، يوفر `react-intlayer` موفر `IntlayerProvider` المثبت في `main.tsx` لتغليف شجرة React. يتم وضع إعلانات المحتوى بجانب المكونات في `src/`، ويتعامل Vite مع إعادة بناء المحتوى و HMR عبر `vite-intlayer`.
+
+```bash
+.
+├── src
+│   ├── app.content.tsx               # App content declaration
+│   ├── App.css
+│   ├── App.tsx                       # Main application component
+│   ├── components
+│   │   ├── LocaleSwitcher.content.ts
+│   │   └── LocaleSwitcher.tsx
+│   ├── index.css
+│   ├── main.tsx                      # Entry point with IntlayerProvider
+│   └── vite-env.d.ts
+├── index.html
+├── intlayer.config.ts
+├── package.json
+├── tsconfig.json
+└── vite.config.ts
+```
+
+### التكوين
+
 قم بإنشاء ملف تكوين لتحديد لغات تطبيقك:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}

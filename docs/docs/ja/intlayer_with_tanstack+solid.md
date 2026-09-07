@@ -181,6 +181,40 @@ bun add vite-intlayer --dev
 </Step>
 <Step number={3} title="プロジェクトの構成">
 
+### アーキテクチャ
+
+このアーキテクチャでは、ローカライズされたすべてのルートが Solid の `{-$locale}` ルートセグメントの下に配置されます。このアプローチにより、各言語が専用のURLを持つことが保証され、自動ロケールプレフィックス、バリデーション、およびSEOの最適化が可能になります。
+
+```bash
+.
+├── src
+│   ├── components
+│   │   ├── Header.content.ts
+│   │   ├── Header.tsx
+│   │   ├── LocaleSwitcher.content.ts
+│   │   ├── LocaleSwitcher.tsx
+│   │   └── LocalizedLink.tsx
+│   ├── routes
+│   │   ├── {-$locale}
+│   │   │   ├── 404.content.ts
+│   │   │   ├── 404.tsx
+│   │   │   ├── about.content.ts
+│   │   │   ├── about.tsx
+│   │   │   ├── index.content.tsx
+│   │   │   ├── index.tsx
+│   │   │   └── route.tsx             # Locale layout & prefix validation
+│   │   ├── __root.tsx                # Root route with IntlayerProvider
+│   │   └── sitemap[.]xml.ts
+│   ├── router.tsx
+│   └── styles.css
+├── intlayer.config.ts
+├── package.json
+├── tsconfig.json
+└── vite.config.ts
+```
+
+### 設定
+
 アプリケーションの言語を構成するための構成ファイルを作成します：
 
 ```typescript fileName="intlayer.config.ts"

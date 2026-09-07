@@ -170,6 +170,34 @@ bun add --dev nuxt-intlayer
 </Step>
 <Step number={2} title="Cấu hình dự án của bạn">
 
+### Kiến trúc
+
+Trong kiến trúc này, các tuyến đường trang trong `pages/` được mô-đun `nuxt-intlayer` tự động bản địa hóa. Các trang, bố cục và thành phần sử dụng các khai báo nội dung được bản địa hóa được định nghĩa trong thư mục `content/`.
+
+```bash
+.
+├── app.vue                           # Root component
+├── components
+│   ├── Links.vue
+│   └── LocaleSwitcher.vue
+├── composables
+│   └── useI18nHTMLAttributes.ts
+├── content
+│   ├── about-page.content.ts
+│   └── home-page.content.ts
+├── layouts
+│   └── default.vue
+├── pages
+│   ├── about.vue
+│   └── index.vue
+├── intlayer.config.ts
+├── nuxt.config.ts
+├── package.json
+└── tsconfig.json
+```
+
+### Cấu hình
+
 Tạo một file cấu hình để cấu hình các ngôn ngữ của ứng dụng của bạn:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}

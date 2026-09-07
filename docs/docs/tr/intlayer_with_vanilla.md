@@ -166,6 +166,22 @@ bun x intlayer build
 </Step>
 <Step number={2} title="Projenizin Yapılandırılması">
 
+### Mimari
+
+Bu mimaride, çekirdek `intlayer`, bir ön uç çerçevesi olmadan standart JavaScript veya TypeScript ortamlarında sözlükleri bildirmek ve tüketmek için JavaScript API'leri sağlar.
+
+```bash
+.
+├── src
+│   ├── app.content.mjs
+│   └── main.js
+├── index.html
+├── intlayer.config.mjs
+└── package.json
+```
+
+### Yapılandırma
+
 Uygulamanızın dillerini yapılandırmak için bir yapılandırma dosyası oluşturun:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}

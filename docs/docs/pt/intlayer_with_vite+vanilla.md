@@ -160,6 +160,27 @@ bun add vite-intlayer --dev
 </Step>
 <Step number={2} title="Configuração do seu projeto">
 
+### Arquitetura
+
+Nesta arquitetura, o `vanilla-intlayer` ou o núcleo `intlayer` fornece APIs JavaScript para gerenciar traduções e atualizar dinamicamente o conteúdo do DOM. As declarações de conteúdo ficam em `src/`.
+
+```bash
+.
+├── src
+│   ├── app.content.ts
+│   ├── counter.ts
+│   ├── locale-switcher.ts
+│   ├── main.ts                       # Main script using vanilla-intlayer
+│   └── style.css
+├── index.html
+├── intlayer.config.ts
+├── package.json
+├── tsconfig.json
+└── vite.config.ts
+```
+
+### Configuração
+
 Crie um arquivo de configuração para configurar os idiomas da sua aplicação:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}

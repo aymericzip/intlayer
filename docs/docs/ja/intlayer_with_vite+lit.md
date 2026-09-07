@@ -162,6 +162,27 @@ bun add vite-intlayer --dev
 </Step>
 <Step number={2} title="プロジェクトの設定">
 
+### アーキテクチャ
+
+このアーキテクチャでは、`lit-intlayer` がカスタム要素の統合とリアクティブなコントローラーを提供し、Web Components 内の翻訳を管理します。コンテンツ宣言は要素と一緒に `src/` に配置されます。
+
+```bash
+.
+├── src
+│   ├── app.content.ts
+│   ├── index.css
+│   ├── locale-switcher.ts
+│   ├── main.ts
+│   └── my-element.ts                 # Main Lit element
+├── index.html
+├── intlayer.config.ts
+├── package.json
+├── tsconfig.json
+└── vite.config.ts
+```
+
+### 設定
+
 アプリケーションの言語を設定するための設定ファイルを作成します：
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}

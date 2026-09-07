@@ -167,6 +167,31 @@ bun add vite-intlayer --save-dev
 </Step>
 <Step number={2} title="Cấu hình dự án của bạn">
 
+### Kiến trúc
+
+Trong kiến trúc này, `svelte-intlayer` cung cấp các store phản ứng và các tiện ích để quản lý bản dịch trong các thành phần Svelte. Các khai báo nội dung nằm trong `src/` cùng với các thành phần.
+
+```bash
+.
+├── src
+│   ├── app.content.ts
+│   ├── app.css
+│   ├── App.svelte                    # Root component
+│   ├── lib
+│   │   ├── Counter.svelte
+│   │   └── LocaleSwitcher.svelte
+│   ├── main.ts                       # Entry point
+│   └── vite-env.d.ts
+├── index.html
+├── intlayer.config.ts
+├── package.json
+├── svelte.config.js
+├── tsconfig.json
+└── vite.config.ts
+```
+
+### Cấu hình
+
 Tạo một file cấu hình để thiết lập các ngôn ngữ cho ứng dụng của bạn:
 
 ```typescript fileName="intlayer.config.ts"

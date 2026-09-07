@@ -181,6 +181,40 @@ bun add vite-intlayer --dev
 </Step>
 <Step number={3} title="配置您的项目">
 
+### 架构
+
+在此架构中，所有本地化路由都嵌套在 Solid 的 `{-$locale}` 路由段下。这种方法确保每种语言都拥有专用的 URL，同时支持自动区域前缀、验证和 SEO 优化。
+
+```bash
+.
+├── src
+│   ├── components
+│   │   ├── Header.content.ts
+│   │   ├── Header.tsx
+│   │   ├── LocaleSwitcher.content.ts
+│   │   ├── LocaleSwitcher.tsx
+│   │   └── LocalizedLink.tsx
+│   ├── routes
+│   │   ├── {-$locale}
+│   │   │   ├── 404.content.ts
+│   │   │   ├── 404.tsx
+│   │   │   ├── about.content.ts
+│   │   │   ├── about.tsx
+│   │   │   ├── index.content.tsx
+│   │   │   ├── index.tsx
+│   │   │   └── route.tsx             # Locale layout & prefix validation
+│   │   ├── __root.tsx                # Root route with IntlayerProvider
+│   │   └── sitemap[.]xml.ts
+│   ├── router.tsx
+│   └── styles.css
+├── intlayer.config.ts
+├── package.json
+├── tsconfig.json
+└── vite.config.ts
+```
+
+### 配置
+
 创建一个配置文件来配置应用程序的语言：
 
 ```typescript fileName="intlayer.config.ts"

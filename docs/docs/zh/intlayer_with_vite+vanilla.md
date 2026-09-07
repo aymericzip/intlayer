@@ -160,6 +160,27 @@ bun add vite-intlayer --dev
 </Step>
 <Step number={2} title="项目配置">
 
+### 架构
+
+在此架构中，`vanilla-intlayer` 或核心 `intlayer` 提供 JavaScript API 来管理翻译并动态更新 DOM 内容。内容声明文件存放在 `src/` 中。
+
+```bash
+.
+├── src
+│   ├── app.content.ts
+│   ├── counter.ts
+│   ├── locale-switcher.ts
+│   ├── main.ts                       # Main script using vanilla-intlayer
+│   └── style.css
+├── index.html
+├── intlayer.config.ts
+├── package.json
+├── tsconfig.json
+└── vite.config.ts
+```
+
+### 配置
+
 创建一个配置文件以配置应用的语言：
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}

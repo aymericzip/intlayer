@@ -195,7 +195,44 @@ bun add vite-intlayer --dev
 </Step>
 <Step number={2} title="अपने प्रोजेक्ट का कॉन्फ़िगरेशन">
 
-अपने एप्लिकेशन की भाषाओं को कॉन्फ़िगर करने के लिए एक कॉन्फ़िग फ़ाइल बनाएं:
+<Tabs group="routing-type">
+<Tab label="Config-based routing" value="config-based">
+
+### आर्किटेक्चर
+
+इस आर्किटेक्चर में, रूट्स को प्रोग्रामेटिक रूप से `app/routes.ts` में वैकल्पिक `/:locale?` डायनामिक सेगमेंट के साथ परिभाषित किया गया है। स्थानीयकृत पृष्ठ, लेआउट और सामग्री घोषणाएं `app/` निर्देशिका के भीतर व्यवस्थित हैं:
+
+```bash
+.
+├── app
+│   ├── components
+│   │   ├── locale-switcher.content.ts
+│   │   ├── locale-switcher.tsx
+│   │   ├── localized-link.tsx
+│   │   ├── navbar.content.ts
+│   │   └── navbar.tsx
+│   ├── hooks
+│   │   ├── useI18nHTMLAttributes.tsx
+│   │   └── useLocalizedNavigate.tsx
+│   ├── routes
+│   │   ├── about
+│   │   │   ├── page.content.ts
+│   │   │   └── page.tsx
+│   │   ├── layout.tsx
+│   │   ├── page.content.ts
+│   │   └── page.tsx
+│   ├── root.tsx                      # Root layout for IntlayerProvider
+│   └── routes.ts                     # Route definition file
+├── intlayer.config.ts
+├── package.json
+├── react-router.config.ts
+├── tsconfig.json
+└── vite.config.ts
+```
+
+### कॉन्फ़िगरेशन
+
+अपने एप्लिकेशन की समर्थित भाषाओं को घोषित करने के लिए एक `intlayer.config.ts` कॉन्फ़िगरेशन फ़ाइल बनाएं:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig, Locales } from "intlayer";
@@ -209,6 +246,59 @@ const config: IntlayerConfig = {
 
 export default config;
 ```
+
+</Tab>
+<Tab label="File-system routes" value="fs-routes">
+
+### आर्किटेक्चर
+
+इस आर्किटेक्चर में, रूट्स `flatRoutes` का उपयोग करके React Router v7 फ़ाइल-सिस्टम सम्मेलनों का पालन करते हैं, जहां बिंदु (`.`) URL सेगमेंट का प्रतिनिधित्व करते हैं और `($locale)` वैकल्पिक स्थानीयकृत सेगमेंट को दर्शाता है:
+
+```bash
+.
+├── app
+│   ├── components
+│   │   ├── locale-switcher.content.ts
+│   │   ├── locale-switcher.tsx
+│   │   ├── localized-link.tsx
+│   │   ├── navbar.content.ts
+│   │   └── navbar.tsx
+│   ├── hooks
+│   │   ├── useI18nHTMLAttributes.tsx
+│   │   └── useLocalizedNavigate.tsx
+│   ├── routes
+│   │   ├── ($locale)._index.content.ts
+│   │   ├── ($locale)._index.tsx
+│   │   ├── ($locale).about.content.ts
+│   │   └── ($locale).about.tsx
+│   ├── root.tsx                      # Root layout for IntlayerProvider
+│   └── routes.ts                     # Route definition file using flatRoutes
+├── intlayer.config.ts
+├── package.json
+├── react-router.config.ts
+├── tsconfig.json
+└── vite.config.ts
+```
+
+### कॉन्फ़िगरेशन
+
+अपने एप्लिकेशन की समर्थित भाषाओं को घोषित करने के लिए एक `intlayer.config.ts` कॉन्फ़िगरेशन फ़ाइल बनाएं:
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { type IntlayerConfig, Locales } from "intlayer";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    defaultLocale: Locales.ENGLISH,
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+  },
+};
+
+export default config;
+```
+
+</Tab>
+</Tabs>
 
 > इस कॉन्फ़िगरेशन फ़ाइल के माध्यम से, आप स्थानीयकृत URL, मिडलवेयर पुनर्निर्देशन, कुकी नाम, आपकी सामग्री घोषणाओं का स्थान और एक्सटेंशन, कंसोल में Intlayer लॉग को अक्षम करना, और भी बहुत कुछ सेट कर सकते हैं। उपलब्ध सभी पैरामीटर की पूरी सूची के लिए, [कॉन्फ़िगरेशन दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md) देखें।
 

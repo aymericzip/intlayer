@@ -167,6 +167,30 @@ bun add vite-intlayer --dev
 </Step>
 <Step number={2} title="अपने प्रोजेक्ट का कॉन्फ़िगरेशन">
 
+### आर्किटेक्चर
+
+इस आर्किटेक्चर में, `preact-intlayer` Preact ट्री को रैप करने के लिए `main.tsx` में माउंटेड `IntlayerProvider` प्रदान करता है। सामग्री घोषणाएं `src/` में घटकों के साथ रहती हैं।
+
+```bash
+.
+├── src
+│   ├── app.content.tsx
+│   ├── app.css
+│   ├── app.tsx                       # Main Preact application component
+│   ├── components
+│   │   ├── LocaleSwitcher.content.ts
+│   │   └── LocaleSwitcher.tsx
+│   ├── main.tsx                      # Entry point with IntlayerProvider
+│   └── vite-env.d.ts
+├── index.html
+├── intlayer.config.ts
+├── package.json
+├── tsconfig.json
+└── vite.config.ts
+```
+
+### कॉन्फ़िगरेशन
+
 अपने एप्लिकेशन की भाषाओं को कॉन्फ़िगर करने के लिए एक कॉन्फ़िग फाइल बनाएं:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}

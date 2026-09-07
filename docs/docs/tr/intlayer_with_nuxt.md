@@ -170,6 +170,34 @@ bun add --dev nuxt-intlayer
 </Step>
 <Step number={2} title="Projenizin yapılandırması">
 
+### Mimari
+
+Bu mimaride, `pages/` altındaki sayfa rotaları `nuxt-intlayer` modülü tarafından otomatik olarak yerelleştirilir. Sayfalar, düzenler ve bileşenler, `content/` dizininde tanımlanan yerelleştirilmiş içerik bildirimlerini tüketir.
+
+```bash
+.
+├── app.vue                           # Root component
+├── components
+│   ├── Links.vue
+│   └── LocaleSwitcher.vue
+├── composables
+│   └── useI18nHTMLAttributes.ts
+├── content
+│   ├── about-page.content.ts
+│   └── home-page.content.ts
+├── layouts
+│   └── default.vue
+├── pages
+│   ├── about.vue
+│   └── index.vue
+├── intlayer.config.ts
+├── nuxt.config.ts
+├── package.json
+└── tsconfig.json
+```
+
+### Yapılandırma
+
 Uygulamanızın dillerini yapılandırmak için bir konfigürasyon dosyası oluşturun:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}

@@ -162,6 +162,27 @@ bun add vite-intlayer --dev
 </Step>
 <Step number={2} title="Конфігурація вашого проекту">
 
+### Архітектура
+
+У цій архітектурі `lit-intlayer` надає інтеграції користувацьких елементів та реактивні контролери для керування перекладами всередині Web Components. Оголошення контенту розміщуються в `src/` поруч із елементами.
+
+```bash
+.
+├── src
+│   ├── app.content.ts
+│   ├── index.css
+│   ├── locale-switcher.ts
+│   ├── main.ts
+│   └── my-element.ts                 # Main Lit element
+├── index.html
+├── intlayer.config.ts
+├── package.json
+├── tsconfig.json
+└── vite.config.ts
+```
+
+### Конфігурація
+
 Створіть конфігураційний файл для налаштування мов вашого додатка:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}

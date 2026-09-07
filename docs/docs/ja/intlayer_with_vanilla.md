@@ -166,6 +166,22 @@ bun x intlayer build
 </Step>
 <Step number={2} title="プロジェクトの設定">
 
+### アーキテクチャ
+
+このアーキテクチャでは、コア `intlayer` が JavaScript API を提供し、フロントエンドフレームワークのない標準的な JavaScript または TypeScript 環境で辞書を宣言および利用できるようにします。
+
+```bash
+.
+├── src
+│   ├── app.content.mjs
+│   └── main.js
+├── index.html
+├── intlayer.config.mjs
+└── package.json
+```
+
+### 設定
+
 アプリケーションの言語を設定するための設定ファイルを作成します：
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}

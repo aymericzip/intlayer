@@ -162,6 +162,31 @@ bun add intlayer react-native-intlayer
 </Step>
 <Step number={2} title="Buat Konfigurasi Intlayer">
 
+### Arsitektur
+
+Dalam arsitektur ini, `react-native-intlayer` menyediakan `IntlayerProvider` akar dan hook React Native untuk mengelola terjemahan di seluruh layar dan komponen. Deklarasi konten berada di samping komponennya.
+
+```bash
+.
+├── app
+│   ├── (tabs)
+│   │   ├── _layout.tsx
+│   │   ├── explore.tsx
+│   │   └── index.tsx
+│   ├── +not-found.tsx
+│   └── _layout.tsx                   # Root layout with IntlayerProvider
+├── components
+│   ├── LocaleSwitcher.content.ts
+│   └── LocaleSwitcher.tsx
+├── app.json
+├── intlayer.config.ts
+├── metro.config.js
+├── package.json
+└── tsconfig.json
+```
+
+### Konfigurasi
+
 Di root proyek Anda (atau di mana saja yang nyaman), buat file **konfigurasi Intlayer**. File tersebut mungkin terlihat seperti ini:
 
 ```ts fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}

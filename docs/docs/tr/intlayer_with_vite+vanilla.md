@@ -160,6 +160,27 @@ bun add vite-intlayer --dev
 </Step>
 <Step number={2} title="Projenizin Yapılandırılması">
 
+### Mimari
+
+Bu mimaride, `vanilla-intlayer` veya çekirdek `intlayer`, çevirileri yönetmek ve DOM içeriğini dinamik olarak güncellemek için JavaScript API'leri sağlar. İçerik bildirimleri `src/` altında bulunur.
+
+```bash
+.
+├── src
+│   ├── app.content.ts
+│   ├── counter.ts
+│   ├── locale-switcher.ts
+│   ├── main.ts                       # Main script using vanilla-intlayer
+│   └── style.css
+├── index.html
+├── intlayer.config.ts
+├── package.json
+├── tsconfig.json
+└── vite.config.ts
+```
+
+### Yapılandırma
+
 Ugulamanızın dillerini yapılandırmak için bir yapılandırma dosyası oluşturun:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}

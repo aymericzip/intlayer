@@ -170,6 +170,28 @@ bun add vite-intlayer --dev
 </Step>
 <Step number={2} title="Projenizi Yapılandırma">
 
+### Mimari
+
+Bu mimaride, `solid-intlayer`, Solid ağacını sarmak için `index.tsx` içine monte edilmiş `IntlayerProvider` sağlar. İçerik bildirimleri bileşenlerin yanında `src/` altında bulunur.
+
+```bash
+.
+├── src
+│   ├── app.content.ts
+│   ├── App.css
+│   ├── App.tsx                       # Main Solid component
+│   ├── index.css
+│   ├── index.tsx                     # Entry point with IntlayerProvider
+│   └── vite-env.d.ts
+├── index.html
+├── intlayer.config.ts
+├── package.json
+├── tsconfig.json
+└── vite.config.ts
+```
+
+### Yapılandırma
+
 Uygulamanızın dillerini yapılandırmak için bir yapılandırma dosyası oluşturun:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}

@@ -170,6 +170,31 @@ bun add vite-intlayer --dev
 </Step>
 <Step number={2} title="Projenizi Yapılandırma">
 
+### Mimari
+
+Bu mimaride, `react-intlayer`, React ağacını sarmak için `main.tsx` içine monte edilmiş `IntlayerProvider` sağlar. İçerik bildirimleri `src/` altındaki bileşenlerin yanına yerleştirilir ve Vite, `vite-intlayer` aracılığıyla içerik yeniden oluşturmayı ve HMR'yi yönetir.
+
+```bash
+.
+├── src
+│   ├── app.content.tsx               # App content declaration
+│   ├── App.css
+│   ├── App.tsx                       # Main application component
+│   ├── components
+│   │   ├── LocaleSwitcher.content.ts
+│   │   └── LocaleSwitcher.tsx
+│   ├── index.css
+│   ├── main.tsx                      # Entry point with IntlayerProvider
+│   └── vite-env.d.ts
+├── index.html
+├── intlayer.config.ts
+├── package.json
+├── tsconfig.json
+└── vite.config.ts
+```
+
+### Yapılandırma
+
 Uygulamanızın dillerini yapılandırmak için bir yapılandırma dosyası oluşturun:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}

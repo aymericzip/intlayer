@@ -166,6 +166,22 @@ bun x intlayer build
 </Step>
 <Step number={2} title="配置您的项目">
 
+### 架构
+
+在此架构中，核心 `intlayer` 提供 JavaScript API，以便在无需前端框架的常规 JavaScript 或 TypeScript 环境中声明和使用字典。
+
+```bash
+.
+├── src
+│   ├── app.content.mjs
+│   └── main.js
+├── index.html
+├── intlayer.config.mjs
+└── package.json
+```
+
+### 配置
+
 创建一个配置文件来配置应用的语言：
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}

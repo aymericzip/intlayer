@@ -159,6 +159,31 @@ bun add intlayer react-native-intlayer
 </Step>
 <Step number={2} title="إنشاء تكوين Intlayer">
 
+### البنية
+
+في هذه البنية، يوفر `react-native-intlayer` موفر `IntlayerProvider` الجذري وخطافات React Native لإدارة الترجمات عبر الشاشات والمكونات. توجد إعلانات المحتوى جنباً إلى جنب مع مكوناتها.
+
+```bash
+.
+├── app
+│   ├── (tabs)
+│   │   ├── _layout.tsx
+│   │   ├── explore.tsx
+│   │   └── index.tsx
+│   ├── +not-found.tsx
+│   └── _layout.tsx                   # Root layout with IntlayerProvider
+├── components
+│   ├── LocaleSwitcher.content.ts
+│   └── LocaleSwitcher.tsx
+├── app.json
+├── intlayer.config.ts
+├── metro.config.js
+├── package.json
+└── tsconfig.json
+```
+
+### التكوين
+
 في جذر مشروعك (أو في أي مكان مناسب)، أنشئ ملف **تكوين Intlayer**. قد يبدو كالتالي:
 
 ```ts fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}

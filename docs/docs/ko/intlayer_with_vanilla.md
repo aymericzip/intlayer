@@ -166,6 +166,22 @@ bun x intlayer build
 </Step>
 <Step number={2} title="프로젝트 구성">
 
+### 아키텍처
+
+이 아키텍처에서는 코어 `intlayer`가 프론트엔드 프레임워크 없는 표준 JavaScript 또는 TypeScript 환경에서 사전을 선언하고 사용할 수 있는 JavaScript API를 제공합니다.
+
+```bash
+.
+├── src
+│   ├── app.content.mjs
+│   └── main.js
+├── index.html
+├── intlayer.config.mjs
+└── package.json
+```
+
+### 설정
+
 애플리케이션의 언어를 구성하기 위한 설정 파일을 생성합니다:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}

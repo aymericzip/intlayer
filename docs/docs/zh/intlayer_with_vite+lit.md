@@ -162,6 +162,27 @@ bun add vite-intlayer --dev
 </Step>
 <Step number={2} title="配置你的项目">
 
+### 架构
+
+在此架构中，`lit-intlayer` 提供自定义元素集成和响应式控制器，以管理 Web Components 内的翻译。内容声明文件与元素一起存放在 `src/` 中。
+
+```bash
+.
+├── src
+│   ├── app.content.ts
+│   ├── index.css
+│   ├── locale-switcher.ts
+│   ├── main.ts
+│   └── my-element.ts                 # Main Lit element
+├── index.html
+├── intlayer.config.ts
+├── package.json
+├── tsconfig.json
+└── vite.config.ts
+```
+
+### 配置
+
 创建一个配置文件来配置应用的语言：
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}

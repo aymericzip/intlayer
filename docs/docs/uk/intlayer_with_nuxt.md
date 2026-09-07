@@ -176,6 +176,34 @@ bun add --dev nuxt-intlayer
 </Step>
 <Step number={2} title="Конфігурація вашого проєкту">
 
+### Архітектура
+
+У цій архітектурі маршрути сторінок у `pages/` автоматично локалізуються модулем `nuxt-intlayer`. Сторінки, макети та компоненти використовують локалізовані оголошення контенту, визначені в каталозі `content/`.
+
+```bash
+.
+├── app.vue                           # Root component
+├── components
+│   ├── Links.vue
+│   └── LocaleSwitcher.vue
+├── composables
+│   └── useI18nHTMLAttributes.ts
+├── content
+│   ├── about-page.content.ts
+│   └── home-page.content.ts
+├── layouts
+│   └── default.vue
+├── pages
+│   ├── about.vue
+│   └── index.vue
+├── intlayer.config.ts
+├── nuxt.config.ts
+├── package.json
+└── tsconfig.json
+```
+
+### Конфігурація
+
 Створіть файл конфігурації, щоб налаштувати мови вашого застосунку:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}

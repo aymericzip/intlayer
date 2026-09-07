@@ -167,6 +167,31 @@ bun add vite-intlayer --save-dev
 </Step>
 <Step number={2} title="تكوين مشروعك">
 
+### البنية
+
+في هذه البنية، يوفر `svelte-intlayer` مخازن تفاعلية وأدوات مساعدة لإدارة الترجمات داخل مكونات Svelte. توجد إعلانات المحتوى في `src/` بجانب المكونات.
+
+```bash
+.
+├── src
+│   ├── app.content.ts
+│   ├── app.css
+│   ├── App.svelte                    # Root component
+│   ├── lib
+│   │   ├── Counter.svelte
+│   │   └── LocaleSwitcher.svelte
+│   ├── main.ts                       # Entry point
+│   └── vite-env.d.ts
+├── index.html
+├── intlayer.config.ts
+├── package.json
+├── svelte.config.js
+├── tsconfig.json
+└── vite.config.ts
+```
+
+### التكوين
+
 أنشئ ملف تكوين لتحديد لغات تطبيقك:
 
 ```typescript fileName="intlayer.config.ts"

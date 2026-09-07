@@ -167,6 +167,31 @@ bun add vite-intlayer --save-dev
 </Step>
 <Step number={2} title="配置您的项目">
 
+### 架构
+
+在此架构中，`svelte-intlayer` 提供响应式 store 和实用工具来管理 Svelte 组件中的翻译。内容声明文件与组件一起存放在 `src/` 中。
+
+```bash
+.
+├── src
+│   ├── app.content.ts
+│   ├── app.css
+│   ├── App.svelte                    # Root component
+│   ├── lib
+│   │   ├── Counter.svelte
+│   │   └── LocaleSwitcher.svelte
+│   ├── main.ts                       # Entry point
+│   └── vite-env.d.ts
+├── index.html
+├── intlayer.config.ts
+├── package.json
+├── svelte.config.js
+├── tsconfig.json
+└── vite.config.ts
+```
+
+### 配置
+
 创建一个配置文件来配置您的应用程序语言：
 
 ```typescript fileName="intlayer.config.ts"

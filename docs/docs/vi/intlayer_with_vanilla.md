@@ -166,6 +166,22 @@ bun x intlayer build
 </Step>
 <Step number={2} title="Cấu hình dự án của bạn">
 
+### Kiến trúc
+
+Trong kiến trúc này, `intlayer` cốt lõi cung cấp các API JavaScript để khai báo và sử dụng từ điển trong môi trường JavaScript hoặc TypeScript tiêu chuẩn mà không cần framework frontend.
+
+```bash
+.
+├── src
+│   ├── app.content.mjs
+│   └── main.js
+├── index.html
+├── intlayer.config.mjs
+└── package.json
+```
+
+### Cấu hình
+
 Tạo một tệp cấu hình để định cấu hình các ngôn ngữ của ứng dụng:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}

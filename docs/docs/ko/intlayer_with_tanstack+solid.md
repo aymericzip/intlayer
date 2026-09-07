@@ -181,6 +181,40 @@ bun add vite-intlayer --dev
 </Step>
 <Step number={3} title="프로젝트 구성">
 
+### 아키텍처
+
+이 아키텍처에서는 모든 지역화된 라우트가 Solid의 `{-$locale}` 라우트 세그먼트 아래에 중첩됩니다. 이 접근 방식은 각 언어에 고유한 전용 URL을 보장하며 자동 로케일 접두사 지정, 유효성 검사 및 SEO 최적화를 가능하게 합니다.
+
+```bash
+.
+├── src
+│   ├── components
+│   │   ├── Header.content.ts
+│   │   ├── Header.tsx
+│   │   ├── LocaleSwitcher.content.ts
+│   │   ├── LocaleSwitcher.tsx
+│   │   └── LocalizedLink.tsx
+│   ├── routes
+│   │   ├── {-$locale}
+│   │   │   ├── 404.content.ts
+│   │   │   ├── 404.tsx
+│   │   │   ├── about.content.ts
+│   │   │   ├── about.tsx
+│   │   │   ├── index.content.tsx
+│   │   │   ├── index.tsx
+│   │   │   └── route.tsx             # Locale layout & prefix validation
+│   │   ├── __root.tsx                # Root route with IntlayerProvider
+│   │   └── sitemap[.]xml.ts
+│   ├── router.tsx
+│   └── styles.css
+├── intlayer.config.ts
+├── package.json
+├── tsconfig.json
+└── vite.config.ts
+```
+
+### 설정
+
 애플리케이션의 언어를 구성하기 위한 구성 파일을 만듭니다.
 
 ```typescript fileName="intlayer.config.ts"

@@ -180,6 +180,40 @@ bun add vite-intlayer --dev
 </Step>
 <Step number={3} title="अपने प्रोजेक्ट का कॉन्फ़िगरेशन">
 
+### आर्किटेक्चर
+
+इस आर्किटेक्चर में, सभी स्थानीयकृत रूट्स Solid में `{-$locale}` रूट सेगमेंट के तहत नेस्ट किए गए हैं। यह दृष्टिकोण सुनिश्चित करता है कि प्रत्येक भाषा का एक समर्पित URL हो, साथ ही स्वचालित लोकेल प्रीफ़िक्स, सत्यापन और SEO अनुकूलन सक्षम करता है।
+
+```bash
+.
+├── src
+│   ├── components
+│   │   ├── Header.content.ts
+│   │   ├── Header.tsx
+│   │   ├── LocaleSwitcher.content.ts
+│   │   ├── LocaleSwitcher.tsx
+│   │   └── LocalizedLink.tsx
+│   ├── routes
+│   │   ├── {-$locale}
+│   │   │   ├── 404.content.ts
+│   │   │   ├── 404.tsx
+│   │   │   ├── about.content.ts
+│   │   │   ├── about.tsx
+│   │   │   ├── index.content.tsx
+│   │   │   ├── index.tsx
+│   │   │   └── route.tsx             # Locale layout & prefix validation
+│   │   ├── __root.tsx                # Root route with IntlayerProvider
+│   │   └── sitemap[.]xml.ts
+│   ├── router.tsx
+│   └── styles.css
+├── intlayer.config.ts
+├── package.json
+├── tsconfig.json
+└── vite.config.ts
+```
+
+### कॉन्फ़िगरेशन
+
 अपने एप्लिकेशन की भाषाओं को सेटअप करने के लिए एक कॉन्फ़िगरेशन फ़ाइल बनाएं:
 
 ```typescript fileName="intlayer.config.ts"
