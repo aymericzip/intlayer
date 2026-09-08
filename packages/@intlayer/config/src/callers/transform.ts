@@ -31,13 +31,6 @@ export type SwcExtraCallerConfig = {
   staticReplacement: string;
   /** Replacement function name for dynamic/fetch mode, e.g. `"useDictionaryDynamic"`. */
   dynamicReplacement: string;
-  /**
-   * When `true`, a namespace-less call (`useTranslations()`) is still
-   * rewritable: the plugin derives the dictionary from the first segment of
-   * each message id passed to the returned translate function
-   * (`t("footer.github")` → dictionary `footer`, key `github`).
-   */
-  allowRootScope?: boolean;
 };
 
 /**
@@ -75,9 +68,9 @@ const findSource = <F extends CallerValueSource['from']>(
  * Serialises the rewritable callers of a registry slice into the
  * `@intlayer/swc` plugin wire format (`extraCallers` option).
  *
- * Callers whose namespace can only be derived per-message id are forwarded with
- * `allowRootScope`, letting the plugin bind the dictionary from the message ids
- * at the call site instead of skipping the rewrite.
+ * A caller with no statically readable namespace source is dropped: the plugin
+ * binds a dictionary from an argument, an option property or a fixed value
+ * only, so forwarding it would emit a descriptor no call site can match.
  *
  * @param descriptors - Registry slice, e.g. `REACT_I18NEXT_CALLERS`.
  * @returns Configs ready to pass as the plugin's `extraCallers` option.
@@ -90,13 +83,7 @@ export const toSwcExtraCallers = (
     const optionSource = findSource(descriptor.namespaceSources, 'option');
     const fixedSource = findSource(descriptor.namespaceSources, 'fixed');
 
-    if (
-      !argumentSource &&
-      !optionSource &&
-      !fixedSource &&
-      !descriptor.allowRootScope
-    )
-      return [];
+    if (!argumentSource && !optionSource && !fixedSource) return [];
 
     return [
       {
@@ -114,7 +101,6 @@ export const toSwcExtraCallers = (
           : {}),
         staticReplacement: descriptor.staticReplacement!,
         dynamicReplacement: descriptor.dynamicReplacement!,
-        ...(descriptor.allowRootScope ? { allowRootScope: true } : {}),
       },
     ];
   });

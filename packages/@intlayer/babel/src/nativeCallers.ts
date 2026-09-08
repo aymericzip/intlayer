@@ -16,6 +16,14 @@ export const INTLAYER_CALLER_NAMES = [
 export type IntlayerCallerName = (typeof INTLAYER_CALLER_NAMES)[number];
 
 /**
+ * {@link INTLAYER_CALLER_NAMES} as a set — the import scan tests every
+ * specifier of every file against it, so membership must not be a linear scan.
+ */
+export const NATIVE_CALLER_NAME_SET: ReadonlySet<string> = new Set(
+  INTLAYER_CALLER_NAMES
+);
+
+/**
  * Methods the runtime attaches to a resolved content object rather than fields
  * declared in a `.content` file.
  *

@@ -1,5 +1,5 @@
 import { dirname, join, relative } from 'node:path';
-import type { NodePath, PluginObject, PluginPass } from '@babel/core';
+import type { PluginObject, PluginPass } from '@babel/core';
 import type * as BabelTypes from '@babel/types';
 import type { CallerDescriptor } from '@intlayer/config/callers';
 import { normalizePath } from '@intlayer/config/utils';
@@ -33,6 +33,10 @@ const PACKAGE_LIST = [
 
 const CALLER_LIST = ['useIntlayer', 'getIntlayer', 'getIntlayerAsync'] as const;
 
+/** Membership sets for the tables above — hit once per import and per call. */
+const NATIVE_PACKAGE_SET: ReadonlySet<string> = new Set(PACKAGE_LIST);
+const CALLER_NAME_SET: ReadonlySet<string> = new Set(CALLER_LIST);
+
 /**
  * Packages that support dynamic import
  */
@@ -51,6 +55,8 @@ const PACKAGE_LIST_DYNAMIC = [
   'lit-intlayer',
   'vanilla-intlayer',
 ] as const;
+
+const DYNAMIC_PACKAGE_SET: ReadonlySet<string> = new Set(PACKAGE_LIST_DYNAMIC);
 
 const STATIC_IMPORT_FUNCTION = {
   getIntlayer: 'getDictionary',
@@ -177,19 +183,18 @@ export type OptimizePluginOptions = {
   compatCallers?: CallerDescriptor[];
 };
 
+/**
+ * Per-file plugin state.
+ *
+ * Only the two flags that have to survive from `pre` / `Program.enter` into
+ * `Program.exit` live here — the caller maps and the import registry are built
+ * and consumed inside `exit`, so they stay local to it.
+ */
 type State = PluginPass & {
   opts: OptimizePluginOptions;
-  /** Dictionary imports collected while rewriting, injected at the end. */
-  _imports?: DictionaryImportRegistry;
-  /** whether the current file imported *any* intlayer package */
-  _hasValidImport?: boolean;
-  /** map from local identifier name to the imported intlayer func name ('useIntlayer' | 'getIntlayer') */
-  _callerMap?: Map<string, CallerName>;
-  /** map from local identifier name to the intlayer package it was imported from */
-  _callerPackageMap?: Map<string, string>;
-  /** whether the current file *is* the dictionaries entry file */
+  /** Whether the current file *is* a generated dictionaries entry file. */
   _isDictEntry?: boolean;
-  /** whether the current file is included in the filesList */
+  /** Whether the current file is covered by the `filesList` allowlist. */
   _isIncluded?: boolean;
 };
 
@@ -244,14 +249,43 @@ const computeImport = (
 };
 
 const isCallerName = (name: string): name is CallerName =>
-  CALLER_LIST.includes(name as CallerName);
+  CALLER_NAME_SET.has(name);
 
-const isDynamicPackage = (
-  packageName: string
-): packageName is (typeof PACKAGE_LIST_DYNAMIC)[number] =>
-  PACKAGE_LIST_DYNAMIC.includes(
-    packageName as (typeof PACKAGE_LIST_DYNAMIC)[number]
-  );
+const isDynamicPackage = (packageName: string): boolean =>
+  DYNAMIC_PACKAGE_SET.has(packageName);
+
+/** The name an import specifier brings in, whether written as an identifier or a string. */
+const importedSpecifierName = (
+  babelTypes: typeof BabelTypes,
+  specifier: BabelTypes.ImportSpecifier
+): string =>
+  babelTypes.isIdentifier(specifier.imported)
+    ? specifier.imported.name
+    : specifier.imported.value;
+
+const EMPTY_KEY_SET: ReadonlySet<string> = new Set<string>();
+
+/**
+ * `nestingDictionaryKeys` as a set, cached by array reference: Babel reuses one
+ * options object for the whole build, so the set is built once instead of once
+ * per transformed file.
+ */
+const nestingKeysCache = new WeakMap<readonly string[], ReadonlySet<string>>();
+
+const getNestingDictionaryKeySet = (
+  nestingDictionaryKeys: readonly string[] | undefined
+): ReadonlySet<string> => {
+  if (!nestingDictionaryKeys) return EMPTY_KEY_SET;
+
+  let keySet = nestingKeysCache.get(nestingDictionaryKeys);
+
+  if (!keySet) {
+    keySet = new Set(nestingDictionaryKeys);
+    nestingKeysCache.set(nestingDictionaryKeys, keySet);
+  }
+
+  return keySet;
+};
 
 /**
  * Helper family every `useIntlayer`/`getIntlayer` call from one package import
@@ -287,6 +321,86 @@ const resolveHelperPlan = (
   }
 
   return 'static';
+};
+
+/**
+ * Builds the dictionary import declarations the rewrite accumulated for one
+ * file — the compiled JSON (or its `nest()` companion) for static reads, and
+ * the generated per-locale loader for dynamic and fetch ones.
+ */
+const buildDictionaryImportDeclarations = (
+  babelTypes: typeof BabelTypes,
+  state: State,
+  imports: DictionaryImportRegistry
+): BabelTypes.ImportDeclaration[] => {
+  const {
+    dictionariesDir,
+    dynamicDictionariesDir,
+    fetchDictionariesDir,
+    nestingDictionaryKeys,
+  } = state.opts;
+  const fromFile = state.file.opts.filename!;
+  const nestingKeys = getNestingDictionaryKeySet(nestingDictionaryKeys);
+
+  const importDeclarations: BabelTypes.ImportDeclaration[] = [];
+
+  // Static JSON imports — `getIntlayer` always reads a JSON dictionary.
+  for (const [key, ident] of imports.staticImports) {
+    // A dictionary holding `nest()` references is imported through its
+    // companion module, which re-exports it with the nest targets attached.
+    const hasNestedDictionaries = nestingKeys.has(key);
+
+    const specifier = computeImport(
+      fromFile,
+      dictionariesDir,
+      dynamicDictionariesDir,
+      fetchDictionariesDir,
+      key,
+      'static',
+      hasNestedDictionaries
+    );
+
+    const importDeclaration = babelTypes.importDeclaration(
+      [babelTypes.importDefaultSpecifier(babelTypes.identifier(ident.name))],
+      babelTypes.stringLiteral(specifier)
+    );
+
+    if (!hasNestedDictionaries) {
+      importDeclaration.attributes = [
+        babelTypes.importAttribute(
+          babelTypes.identifier('type'),
+          babelTypes.stringLiteral('json')
+        ),
+      ];
+    }
+
+    importDeclarations.push(importDeclaration);
+  }
+
+  // Per-locale loaders — `useIntlayer` under a dynamic or fetch helper.
+  for (const [key, ident] of imports.dynamicImports) {
+    const mode: ImportMode = ident.name.endsWith('_fetch')
+      ? 'fetch'
+      : 'dynamic';
+
+    importDeclarations.push(
+      babelTypes.importDeclaration(
+        [babelTypes.importDefaultSpecifier(babelTypes.identifier(ident.name))],
+        babelTypes.stringLiteral(
+          computeImport(
+            fromFile,
+            dictionariesDir,
+            dynamicDictionariesDir,
+            fetchDictionariesDir,
+            key,
+            mode
+          )
+        )
+      )
+    );
+  }
+
+  return importDeclarations;
 };
 
 /**
@@ -394,11 +508,7 @@ export const intlayerOptimizeBabelPlugin = (babel: {
     name: 'babel-plugin-intlayer-transform',
 
     pre() {
-      this._imports = createDictionaryImportRegistry(t);
-      this._callerMap = new Map();
-      this._callerPackageMap = new Map();
       this._isIncluded = true;
-      this._hasValidImport = false;
       this._isDictEntry = false;
 
       // If optimize is false, skip processing entirely
@@ -482,7 +592,7 @@ export const intlayerOptimizeBabelPlugin = (babel: {
 
           if (!state._isIncluded) return; // early-out if file is not included
 
-          const imports = state._imports!;
+          const imports = createDictionaryImportRegistry(t);
 
           // Compat adapters plug in here and nowhere else: with no descriptor
           // injected the pass is `null`, every `compat?.` below is a no-op and
@@ -497,321 +607,310 @@ export const intlayerOptimizeBabelPlugin = (babel: {
             }
           );
 
-          // Pass 1 — resolve which local name refers to which caller. Import
-          // declarations may appear after the calls they govern, so this must
-          // complete before any call site is inspected.
-          programPath.traverse({
-            ImportDeclaration(path) {
-              const src = path.node.source.value;
+          // ── Step 1 — imports.
+          //
+          // An import declaration is only ever a direct child of Program, so
+          // the body is scanned instead of walking the whole AST, and the
+          // result is complete before any call site is inspected (a file may
+          // import below the calls it governs).
+          const programBody = programPath.node.body;
+          const nativeImportNodes: BabelTypes.ImportDeclaration[] = [];
+          const compatImportNodes: BabelTypes.ImportDeclaration[] = [];
+          /** Local alias → the native caller it was imported as. */
+          const callerMap = new Map<string, CallerName>();
+          /** Local alias → the intlayer package it was imported from. */
+          const callerPackageMap = new Map<string, string>();
+          /** Whether the file imported any native or compat caller at all. */
+          let hasValidImport = false;
 
-              const isNativePackage = PACKAGE_LIST.includes(src);
-              const isCompatPackage = compat?.ownsImportSource(src) ?? false;
+          for (const statement of programBody) {
+            if (!t.isImportDeclaration(statement)) continue;
 
-              if (!isNativePackage && !isCompatPackage) return;
+            const src = statement.source.value;
+            const isNativePackage = NATIVE_PACKAGE_SET.has(src);
+            const isCompatPackage = compat?.ownsImportSource(src) ?? false;
 
-              state._hasValidImport = true;
+            if (!isNativePackage && !isCompatPackage) continue;
 
-              for (const spec of path.node.specifiers) {
-                if (!t.isImportSpecifier(spec)) continue;
+            hasValidImport = true;
+            if (isNativePackage) nativeImportNodes.push(statement);
+            if (isCompatPackage) compatImportNodes.push(statement);
 
-                const importedName = t.isIdentifier(spec.imported)
-                  ? spec.imported.name
-                  : (spec.imported as BabelTypes.StringLiteral).value;
+            for (const spec of statement.specifiers) {
+              if (!t.isImportSpecifier(spec)) continue;
 
-                if (isNativePackage && isCallerName(importedName)) {
-                  state._callerMap?.set(spec.local.name, importedName);
-                  state._callerPackageMap?.set(spec.local.name, src);
-                }
+              const importedName = importedSpecifierName(t, spec);
 
+              if (isNativePackage && isCallerName(importedName)) {
+                callerMap.set(spec.local.name, importedName);
+                callerPackageMap.set(spec.local.name, src);
+              }
+
+              if (isCompatPackage) {
                 compat?.noteImport(src, importedName, spec.local.name);
               }
-            },
-          });
+            }
+          }
 
-          // Pass 2 — decide, per native package, which helper family the file
-          // resolves to. A per-dictionary override reached from this file can
-          // promote the whole package import to a dynamic loader.
+          // ── Step 2 — the file's only AST walk, collecting the call sites
+          //    that either half of the rewrite can act on. Everything after
+          //    this point works on the collected arrays.
+          const nativeCallNodes: BabelTypes.CallExpression[] = [];
+          const compatCallNodes: BabelTypes.CallExpression[] = [];
+
+          if (callerMap.size > 0 || compat?.hasCallers()) {
+            programPath.traverse({
+              CallExpression(path) {
+                const callee = path.node.callee;
+                if (!t.isIdentifier(callee)) return;
+
+                if (callerMap.has(callee.name)) {
+                  nativeCallNodes.push(path.node);
+                } else if (compat?.ownsLocalName(callee.name)) {
+                  compatCallNodes.push(path.node);
+                }
+              },
+            });
+          }
+
+          // ── Step 3 — analysis.
+          //
+          // A per-dictionary override reached from this file can promote a
+          // whole package import to a dynamic loader, so the helper family is
+          // decided per package before anything is rewritten.
           const packagesWithDynamicCall = new Set<string>();
           const packagesWithFetchCall = new Set<string>();
 
-          programPath.traverse({
-            CallExpression(path) {
-              const callee = path.node.callee;
-              if (!t.isIdentifier(callee)) return;
+          for (const callNode of nativeCallNodes) {
+            const callee = callNode.callee as BabelTypes.Identifier;
+            if (callerMap.get(callee.name) !== 'useIntlayer') continue;
 
-              if (state._callerMap?.get(callee.name) !== 'useIntlayer') return;
+            const callerPackage = callerPackageMap.get(callee.name);
+            if (!callerPackage) continue;
 
-              const callerPackage = state._callerPackageMap?.get(callee.name);
-              if (!callerPackage) return;
+            const key = readStaticString(t, callNode.arguments[0]);
+            if (!key) continue;
 
-              const key = readStaticString(t, path.node.arguments[0]);
-              if (!key) return;
+            const overrideMode = state.opts.dictionaryModeMap?.[key];
 
-              const overrideMode = state.opts.dictionaryModeMap?.[key];
+            if (overrideMode === 'dynamic') {
+              packagesWithDynamicCall.add(callerPackage);
+            } else if (overrideMode === 'fetch') {
+              packagesWithFetchCall.add(callerPackage);
+            }
+          }
 
-              if (overrideMode === 'dynamic') {
-                packagesWithDynamicCall.add(callerPackage);
-              } else if (overrideMode === 'fetch') {
-                packagesWithFetchCall.add(callerPackage);
-              }
-            },
-          });
+          // The compat half decides its own file-level helper family and drops
+          // the callers whose call sites it cannot resolve.
+          compat?.analyzeCalls(compatCallNodes);
 
-          // Pass 3 — the compat pass runs its own analysis, then binds the
-          // namespace-less root scopes it resolved. The call nodes it rewrote
-          // are skipped by the rewrite visitor below.
-          compat?.analyze(programPath);
-          const handledCalls = compat?.applyRootScopeRewrites() ?? new Set();
+          const helperPlanCache = new Map<string, PackageHelperPlan>();
 
-          const getHelperPlan = (packageName: string): PackageHelperPlan =>
-            resolveHelperPlan(
-              packageName,
-              state.opts.importMode,
-              state.opts.isServer,
-              packagesWithDynamicCall.has(packageName),
-              packagesWithFetchCall.has(packageName)
-            );
+          const getHelperPlan = (packageName: string): PackageHelperPlan => {
+            let plan = helperPlanCache.get(packageName);
 
-          // Pass 4 — rewrite the imports and the call sites.
-          programPath.traverse({
-            ImportDeclaration(path) {
-              const src = path.node.source.value;
-
-              // Compat caller import rename: point the specifier at the
-              // dictionary-accepting helper exported by the compat package
-              // (`useTranslation` → `useDictionary`), keeping the local alias
-              // so call sites read unchanged.
-              compat?.rewriteImportSpecifiers(path);
-
-              if (!PACKAGE_LIST.includes(src)) return;
-
-              // Per-import swap, mirrored across bundles — Solid hydration
-              // ids rely on the SSR and client helpers consuming one
-              // resource slot per call alike (see solid-intlayer/server).
-              const helperPlan = getHelperPlan(src);
-              const serverSource =
-                helperPlan === 'ssrStatic'
-                  ? SSR_STATIC_IMPORT_SOURCE[src]
-                  : undefined;
-
-              const helperMap: Record<string, string> =
-                helperPlan === 'dynamic'
-                  ? DYNAMIC_HELPER_MAP
-                  : STATIC_IMPORT_FUNCTION;
-
-              const serverSpecifiers: BabelTypes.ImportSpecifier[] = [];
-
-              for (const spec of path.node.specifiers) {
-                if (!t.isImportSpecifier(spec)) continue;
-
-                const importedName = t.isIdentifier(spec.imported)
-                  ? spec.imported.name
-                  : (spec.imported as BabelTypes.StringLiteral).value;
-
-                if (!isCallerName(importedName)) continue;
-
-                if (serverSource && importedName === 'useIntlayer') {
-                  spec.imported = t.identifier('useDictionary');
-                  serverSpecifiers.push(spec);
-                  continue;
-                }
-
-                const newIdentifier = helperMap[importedName];
-
-                if (newIdentifier) {
-                  // Keep the local alias intact (so calls remain `useIntlayer` /
-                  // `getIntlayer`), but rewrite the imported identifier so it
-                  // points to our helper implementation.
-                  spec.imported = t.identifier(newIdentifier);
-                }
-              }
-
-              if (serverSpecifiers.length > 0 && serverSource) {
-                // Move the helper to the /server entry, keeping any other
-                // specifiers (useLocale, …) on the original import.
-                path.insertAfter(
-                  t.importDeclaration(
-                    serverSpecifiers,
-                    t.stringLiteral(serverSource)
-                  )
-                );
-                path.node.specifiers = path.node.specifiers.filter(
-                  (spec) =>
-                    !serverSpecifiers.includes(
-                      spec as BabelTypes.ImportSpecifier
-                    )
-                );
-                if (path.node.specifiers.length === 0) {
-                  path.remove();
-                }
-              }
-            },
-
-            /* Replace calls: useIntlayer("foo") → useDictionary(_hash) or useDictionaryDynamic(_hash, "foo") */
-            CallExpression(path) {
-              if (handledCalls.has(path.node)) return;
-
-              const callee = path.node.callee;
-
-              if (!t.isIdentifier(callee)) return;
-
-              if (compat?.rewriteCall(path)) return;
-
-              const originalImportedName = state._callerMap?.get(callee.name);
-              if (!originalImportedName) return;
-
-              // Ensure we ultimately emit helper imports for files that *invoke*
-              // the hooks, even if they didn't import them directly (edge cases with
-              // re-exports).
-              state._hasValidImport = true;
-
-              const key = readStaticString(t, path.node.arguments[0]);
-              if (!key) return;
-
-              const callerPackage = state._callerPackageMap?.get(callee.name);
-              const importMode = state.opts.importMode;
-              const isUseIntlayer = originalImportedName === 'useIntlayer';
-              const isGetIntlayerAsync =
-                originalImportedName === 'getIntlayerAsync';
-              const dictionaryOverrideMode =
-                state.opts.dictionaryModeMap?.[key];
-              const helperPlan =
-                callerPackage === undefined
-                  ? 'static'
-                  : getHelperPlan(callerPackage);
-
-              // Decide per-call mode: 'static' | 'dynamic' | 'fetch'.
-              let perCallMode: ImportMode = 'static';
-
-              if (isGetIntlayerAsync) {
-                // Loading a single locale is the whole point of the async
-                // getter, so it reads a per-locale loader whatever the file's
-                // import mode is — the fetch loader when the dictionary is
-                // remote, the dynamic one otherwise.
-                perCallMode =
-                  dictionaryOverrideMode === 'fetch' ? 'fetch' : 'dynamic';
-              } else if (isUseIntlayer && helperPlan === 'dynamic') {
-                if (dictionaryOverrideMode) {
-                  perCallMode = dictionaryOverrideMode;
-                } else if (importMode === 'dynamic' || importMode === 'fetch') {
-                  perCallMode = importMode;
-                }
-              } else if (isUseIntlayer && helperPlan === 'static') {
-                // The global mode is static, but a per-dictionary override can
-                // still force dynamic/fetch for this specific call.
-                if (
-                  dictionaryOverrideMode === 'dynamic' ||
-                  dictionaryOverrideMode === 'fetch'
-                ) {
-                  perCallMode = dictionaryOverrideMode;
-                }
-              }
-
-              const ident = imports.identFor(key, perCallMode);
-
-              if (perCallMode === 'static') {
-                // Static helper (useDictionary / getDictionary): replace the
-                // key argument with the imported dictionary object.
-                path.node.arguments[0] = t.identifier(ident.name);
-              } else {
-                // Dynamic / fetch helper: first argument is the loader, the
-                // key stays as the second one.
-                path.node.arguments = [
-                  t.identifier(ident.name),
-                  ...path.node.arguments,
-                ];
-              }
-            },
-          });
-
-          // Early-out if we touched nothing
-
-          if (!state._hasValidImport) return;
-
-          const file = state.file.opts.filename!;
-          const dictionariesDir = state.opts.dictionariesDir;
-          const dynamicDictionariesDir = state.opts.dynamicDictionariesDir;
-          const fetchDictionariesDir = state.opts.fetchDictionariesDir;
-          const importDeclarations: BabelTypes.ImportDeclaration[] = [];
-
-          const nestingDictionaryKeys = new Set(
-            state.opts.nestingDictionaryKeys ?? []
-          );
-
-          // Generate static JSON imports (getIntlayer always uses JSON dictionaries)
-          for (const [key, ident] of imports.staticImports) {
-            // Dictionaries holding `nest()` references are imported through
-            // their companion module, which re-exports them with the nest
-            // targets attached.
-            const hasNestedDictionaries = nestingDictionaryKeys.has(key);
-
-            const rel = computeImport(
-              file,
-              dictionariesDir,
-              dynamicDictionariesDir,
-              fetchDictionariesDir,
-              key,
-              'static',
-              hasNestedDictionaries
-            );
-
-            const importDeclarationNode = t.importDeclaration(
-              [t.importDefaultSpecifier(t.identifier(ident.name))],
-              t.stringLiteral(rel)
-            );
-
-            // Add 'type: json' attribute for JSON files
-            if (!hasNestedDictionaries) {
-              importDeclarationNode.attributes = [
-                t.importAttribute(
-                  t.identifier('type'),
-                  t.stringLiteral('json')
-                ),
-              ];
+            if (plan === undefined) {
+              plan = resolveHelperPlan(
+                packageName,
+                state.opts.importMode,
+                state.opts.isServer,
+                packagesWithDynamicCall.has(packageName),
+                packagesWithFetchCall.has(packageName)
+              );
+              helperPlanCache.set(packageName, plan);
             }
 
-            importDeclarations.push(importDeclarationNode);
+            return plan;
+          };
+
+          // ── Step 4 — rewrite the imports.
+          //
+          // Moving a helper to a package's `/server` entry is the only edit
+          // that changes the program body; the new declarations are recorded
+          // here and applied with the dictionary imports in step 6, so no
+          // stored node is invalidated mid-rewrite.
+          const serverImportsByAnchor = new Map<
+            BabelTypes.ImportDeclaration,
+            BabelTypes.ImportDeclaration
+          >();
+          const emptiedImportNodes = new Set<BabelTypes.ImportDeclaration>();
+
+          for (const importNode of compatImportNodes) {
+            // Compat caller import rename: point the specifier at the
+            // dictionary-accepting helper exported by the compat package
+            // (`useTranslation` → `useDictionary`), keeping the local alias so
+            // call sites read unchanged.
+            compat?.rewriteImportSpecifiers(importNode);
           }
 
-          // Generate dynamic/fetch imports (for useIntlayer when using dynamic/fetch helpers)
-          for (const [key, ident] of imports.dynamicImports) {
-            const modeForThisIdent: 'dynamic' | 'fetch' = ident.name.endsWith(
-              '_fetch'
-            )
-              ? 'fetch'
-              : 'dynamic';
+          for (const importNode of nativeImportNodes) {
+            // Per-import swap, mirrored across bundles — Solid hydration ids
+            // rely on the SSR and client helpers consuming one resource slot
+            // per call alike (see solid-intlayer/server).
+            const helperPlan = getHelperPlan(importNode.source.value);
+            const serverSource =
+              helperPlan === 'ssrStatic'
+                ? SSR_STATIC_IMPORT_SOURCE[importNode.source.value]
+                : undefined;
 
-            const rel = computeImport(
-              file,
-              dictionariesDir,
-              dynamicDictionariesDir,
-              fetchDictionariesDir,
-              key,
-              modeForThisIdent
-            );
-            importDeclarations.push(
-              t.importDeclaration(
-                [t.importDefaultSpecifier(t.identifier(ident.name))],
-                t.stringLiteral(rel)
-              )
-            );
+            const helperMap: Record<string, string> =
+              helperPlan === 'dynamic'
+                ? DYNAMIC_HELPER_MAP
+                : STATIC_IMPORT_FUNCTION;
+
+            const serverSpecifiers: BabelTypes.ImportSpecifier[] = [];
+
+            for (const spec of importNode.specifiers) {
+              if (!t.isImportSpecifier(spec)) continue;
+
+              const importedName = importedSpecifierName(t, spec);
+              if (!isCallerName(importedName)) continue;
+
+              if (serverSource && importedName === 'useIntlayer') {
+                spec.imported = t.identifier('useDictionary');
+                serverSpecifiers.push(spec);
+                continue;
+              }
+
+              const newIdentifier = helperMap[importedName];
+
+              if (newIdentifier) {
+                // Keep the local alias intact (so calls remain `useIntlayer` /
+                // `getIntlayer`), but rewrite the imported identifier so it
+                // points to our helper implementation.
+                spec.imported = t.identifier(newIdentifier);
+              }
+            }
+
+            if (serverSpecifiers.length > 0 && serverSource) {
+              // Move the helper to the /server entry, keeping any other
+              // specifiers (useLocale, …) on the original import.
+              serverImportsByAnchor.set(
+                importNode,
+                t.importDeclaration(
+                  serverSpecifiers,
+                  t.stringLiteral(serverSource)
+                )
+              );
+
+              const serverSpecifierSet = new Set<BabelTypes.Node>(
+                serverSpecifiers
+              );
+              importNode.specifiers = importNode.specifiers.filter(
+                (spec) => !serverSpecifierSet.has(spec)
+              );
+
+              if (importNode.specifiers.length === 0) {
+                emptiedImportNodes.add(importNode);
+              }
+            }
           }
 
-          if (!importDeclarations.length) return;
+          // ── Step 5 — rewrite the call sites.
+          for (const callNode of compatCallNodes) {
+            compat?.rewriteCall(callNode);
+          }
+
+          for (const callNode of nativeCallNodes) {
+            const callee = callNode.callee as BabelTypes.Identifier;
+            const originalImportedName = callerMap.get(callee.name)!;
+
+            const key = readStaticString(t, callNode.arguments[0]);
+            if (!key) continue;
+
+            const callerPackage = callerPackageMap.get(callee.name);
+            const importMode = state.opts.importMode;
+            const isUseIntlayer = originalImportedName === 'useIntlayer';
+            const isGetIntlayerAsync =
+              originalImportedName === 'getIntlayerAsync';
+            const dictionaryOverrideMode = state.opts.dictionaryModeMap?.[key];
+            const helperPlan =
+              callerPackage === undefined
+                ? 'static'
+                : getHelperPlan(callerPackage);
+
+            // Decide per-call mode: 'static' | 'dynamic' | 'fetch'.
+            let perCallMode: ImportMode = 'static';
+
+            if (isGetIntlayerAsync) {
+              // Loading a single locale is the whole point of the async
+              // getter, so it reads a per-locale loader whatever the file's
+              // import mode is — the fetch loader when the dictionary is
+              // remote, the dynamic one otherwise.
+              perCallMode =
+                dictionaryOverrideMode === 'fetch' ? 'fetch' : 'dynamic';
+            } else if (isUseIntlayer && helperPlan === 'dynamic') {
+              if (dictionaryOverrideMode) {
+                perCallMode = dictionaryOverrideMode;
+              } else if (importMode === 'dynamic' || importMode === 'fetch') {
+                perCallMode = importMode;
+              }
+            } else if (isUseIntlayer && helperPlan === 'static') {
+              // The global mode is static, but a per-dictionary override can
+              // still force dynamic/fetch for this specific call.
+              if (
+                dictionaryOverrideMode === 'dynamic' ||
+                dictionaryOverrideMode === 'fetch'
+              ) {
+                perCallMode = dictionaryOverrideMode;
+              }
+            }
+
+            const ident = imports.identFor(key, perCallMode);
+
+            if (perCallMode === 'static') {
+              // Static helper (useDictionary / getDictionary): replace the key
+              // argument with the imported dictionary object.
+              callNode.arguments[0] = t.identifier(ident.name);
+            } else {
+              // Dynamic / fetch helper: first argument is the loader, the key
+              // stays as the second one.
+              callNode.arguments = [
+                t.identifier(ident.name),
+                ...callNode.arguments,
+              ];
+            }
+          }
+
+          // ── Step 6 — apply every body edit in one pass.
+          const dictionaryImports = hasValidImport
+            ? buildDictionaryImportDeclarations(t, state, imports)
+            : [];
+
+          const hasImportMoves =
+            serverImportsByAnchor.size > 0 || emptiedImportNodes.size > 0;
+
+          if (dictionaryImports.length === 0 && !hasImportMoves) return;
+
+          const nextBody: BabelTypes.Statement[] = [];
+
+          for (const statement of programBody) {
+            if (
+              t.isImportDeclaration(statement) &&
+              emptiedImportNodes.has(statement)
+            ) {
+              // Every specifier moved to the /server entry; drop the husk.
+              const serverImport = serverImportsByAnchor.get(statement);
+              if (serverImport) nextBody.push(serverImport);
+              continue;
+            }
+
+            nextBody.push(statement);
+
+            if (t.isImportDeclaration(statement)) {
+              const serverImport = serverImportsByAnchor.get(statement);
+              if (serverImport) nextBody.push(serverImport);
+            }
+          }
 
           /* Keep "use client" / "use server" directives at the very top. */
-          const bodyPaths = programPath.get(
-            'body'
-          ) as NodePath<BabelTypes.Statement>[];
           let insertPos = 0;
-          for (const stmtPath of bodyPaths) {
-            const stmt = stmtPath.node;
-
+          for (const statement of nextBody) {
             if (
-              t.isExpressionStatement(stmt) &&
-              t.isStringLiteral(stmt.expression) &&
-              !stmt.expression.value.startsWith('import') &&
-              !stmt.expression.value.startsWith('require')
+              t.isExpressionStatement(statement) &&
+              t.isStringLiteral(statement.expression) &&
+              !statement.expression.value.startsWith('import') &&
+              !statement.expression.value.startsWith('require')
             ) {
               insertPos += 1;
             } else {
@@ -819,7 +918,8 @@ export const intlayerOptimizeBabelPlugin = (babel: {
             }
           }
 
-          programPath.node.body.splice(insertPos, 0, ...importDeclarations);
+          nextBody.splice(insertPos, 0, ...dictionaryImports);
+          programPath.node.body = nextBody;
         },
       },
     },

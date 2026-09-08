@@ -79,13 +79,6 @@ pub struct ExtraCallerConfig {
     /// e.g. `"useTranslationDictionaryDynamic"`.
     #[serde(rename = "dynamicReplacement")]
     pub dynamic_replacement: String,
-
-    /// When `true`, a call with no namespace argument (`useTranslations()`) is
-    /// still rewritable: the dictionary is derived from the first segment of
-    /// each message id passed to the returned translate function
-    /// (`t("footer.github")` -> dictionary `footer`, key `github`).
-    #[serde(rename = "allowRootScope", default)]
-    pub allow_root_scope: bool,
 }
 
 // ─────────────────────────────────────────────────────────────────────────────

@@ -220,91 +220,13 @@ describe('babel-plugin-intlayer-optimize — compat callers', () => {
     });
   });
 
-  describe('lingui (root scope by message id)', () => {
-    it('binds the dictionary named by the message id prefix', () => {
-      const code = `
-        import { useLingui } from "@lingui/react";
-        const Footer = () => {
-          const { i18n } = useLingui();
-          return i18n._("footer.github") + i18n._("footer.contact");
-        };
-      `;
-      const output = transform(code, {
-        compatCallers: LINGUI_CALLERS,
-        dictionaryModeMap: { footer: 'static' },
-      });
+  describe('callers with no readable namespace', () => {
+    // These callers used to bind a dictionary from the first dot-segment of
+    // each message id. That inference is gone: the optimize pass reads a
+    // namespace from an argument, an option property or a fixed value only, so
+    // anything else keeps resolving through the runtime registry.
 
-      expect(output).toContain(
-        'import _dicHash_footer from "../.intlayer/dictionaries/footer.json" with { type: "json" };'
-      );
-      expect(output).toContain(
-        'import { useDictionary as useLingui } from "@lingui/react";'
-      );
-      expect(output).toContain('useLingui(_dicHash_footer);');
-      expect(output).toContain('i18n._("github")');
-      expect(output).toContain('i18n._("contact")');
-    });
-
-    it('splits a component reading two prefixes into sibling bindings', () => {
-      const code = `
-        import { useLingui } from "@lingui/react";
-        const Hero = () => {
-          const { i18n } = useLingui();
-          return i18n._("hero.title") + i18n._("header.methodology");
-        };
-      `;
-      const output = transform(code, {
-        compatCallers: LINGUI_CALLERS,
-        dictionaryModeMap: { hero: 'static', header: 'static' },
-      });
-
-      expect(output).toContain('useLingui(_dicHash_hero)');
-      expect(output).toContain('useLingui(_dicHash_header)');
-      expect(output).toContain('i18n._("title")');
-      expect(output).toContain('_header._("methodology")');
-    });
-
-    it('binds the prefix carried by a template literal id', () => {
-      const code = `
-        import { useLingui } from "@lingui/react";
-        const Footer = () => {
-          const { i18n } = useLingui();
-          const t = (id) => i18n._(\`footer.\${id}\`);
-          return t("github");
-        };
-      `;
-      const output = transform(code, {
-        compatCallers: LINGUI_CALLERS,
-        dictionaryModeMap: { footer: 'static' },
-      });
-
-      expect(output).toContain('useLingui(_dicHash_footer);');
-      expect(output).toContain('i18n._(`${id}`)');
-    });
-
-    it('binds a dot-less id to its own dictionary', () => {
-      const code = `
-        import { useLingui } from "@lingui/react";
-        const Banner = () => {
-          const { i18n } = useLingui();
-          return i18n._("mockBanner");
-        };
-      `;
-      const output = transform(code, {
-        compatCallers: LINGUI_CALLERS,
-        dictionaryModeMap: { mockBanner: 'static' },
-      });
-
-      expect(output).toContain('useLingui(_dicHash_mockBanner);');
-      expect(output).toContain('i18n._("")');
-    });
-
-    it('falls back to the `messages` catalog when it was not split', () => {
-      // A lingui app whose catalog is still one whole-file `messages`
-      // dictionary: no `footer` dictionary exists to bind, so the rewrite must
-      // re-point at `messages` and keep the id intact rather than decline —
-      // declining would leave the call resolving through a registry that
-      // `replaceDictionaryEntry` has emptied.
+    it('leaves useLingui() untouched — lingui declares no namespace source', () => {
       const code = `
         import { useLingui } from "@lingui/react";
         const Footer = () => {
@@ -314,14 +236,70 @@ describe('babel-plugin-intlayer-optimize — compat callers', () => {
       `;
       const output = transform(code, {
         compatCallers: LINGUI_CALLERS,
-        dictionaryModeMap: { messages: 'static' },
+        dictionaryModeMap: { footer: 'static' },
       });
 
-      expect(output).toContain(
-        'import _dicHash_messages from "../.intlayer/dictionaries/messages.json" with { type: "json" };'
-      );
-      expect(output).toContain('useLingui(_dicHash_messages);');
+      expect(output).toContain('import { useLingui } from "@lingui/react";');
+      expect(output).toContain('useLingui();');
       expect(output).toContain('i18n._("footer.github")');
+      expect(output).not.toContain('useDictionary');
+    });
+
+    it('leaves useIntl() untouched — react-intl declares no namespace source', () => {
+      const code = `
+        import { useIntl } from "react-intl";
+        const Title = () => {
+          const { formatMessage } = useIntl();
+          return formatMessage({ id: "home.title" });
+        };
+      `;
+      const output = transform(code, {
+        compatCallers: REACT_INTL_CALLERS,
+        dictionaryModeMap: { home: 'static' },
+      });
+
+      expect(output).toContain('import { useIntl } from "react-intl";');
+      expect(output).toContain('useIntl();');
+      expect(output).toContain('id: "home.title"');
+      expect(output).not.toContain('useDictionary');
+    });
+
+    it('leaves a namespace-less useTranslations() untouched', () => {
+      const code = `
+        import { useTranslations } from "next-intl";
+        const Footer = () => {
+          const t = useTranslations();
+          return t("footer.github");
+        };
+      `;
+      const output = transform(code, {
+        compatCallers: NEXT_INTL_CALLERS,
+        dictionaryModeMap: { footer: 'static' },
+      });
+
+      expect(output).toContain('import { useTranslations } from "next-intl";');
+      expect(output).toContain('useTranslations();');
+      expect(output).toContain('t("footer.github")');
+    });
+
+    it('holds back a scoped sibling sharing the same import', () => {
+      // One import specifier serves every call in the file, so a single
+      // unresolvable call site has to keep the scoped ones unrewritten too —
+      // otherwise the re-pointed helper would receive the raw "about" string.
+      const code = `
+        import { useTranslations } from "next-intl";
+        const bare = useTranslations();
+        const scoped = useTranslations("about");
+      `;
+      const output = transform(code, {
+        compatCallers: NEXT_INTL_CALLERS,
+        dictionaryModeMap: { about: 'static' },
+      });
+
+      expect(output).toContain('import { useTranslations } from "next-intl";');
+      expect(output).toContain('useTranslations();');
+      expect(output).toContain('useTranslations("about");');
+      expect(output).not.toContain('useDictionary');
     });
   });
 
@@ -373,220 +351,6 @@ describe('babel-plugin-intlayer-optimize — compat callers', () => {
       );
       expect(output).toContain('useIntlayer(_dicHash_home);');
       expect(output).toContain('useTranslation(_dicHash_about);');
-    });
-  });
-
-  describe('root-scope callers', () => {
-    it('binds single namespace for namespace-less useTranslations()', () => {
-      const code = `
-        import { useTranslations } from "next-intl";
-        const Footer = () => {
-          const t = useTranslations();
-          return t("footer.github") + t("footer.contact");
-        };
-      `;
-      const output = transform(code, {
-        compatCallers: NEXT_INTL_CALLERS,
-      });
-
-      expect(output).toContain(
-        'import _dicHash_footer from "../.intlayer/dictionaries/footer.json" with { type: "json" };'
-      );
-      expect(output).toContain(
-        'import { useDictionary as useTranslations } from "next-intl";'
-      );
-      expect(output).toContain('const t = useTranslations(_dicHash_footer);');
-      expect(output).toContain('return t("github") + t("contact");');
-    });
-
-    it('splits multiple namespaces into sibling bindings for useTranslations()', () => {
-      const code = `
-        import { useTranslations } from "next-intl";
-        const Header = () => {
-          const t = useTranslations();
-          return t("header.home") + t("footer.contact");
-        };
-      `;
-      const output = transform(code, {
-        compatCallers: NEXT_INTL_CALLERS,
-      });
-
-      expect(output).toContain(
-        'import _dicHash_header from "../.intlayer/dictionaries/header.json" with { type: "json" };'
-      );
-      expect(output).toContain(
-        'import _dicHash_footer from "../.intlayer/dictionaries/footer.json" with { type: "json" };'
-      );
-      expect(output).toContain('useTranslations(_dicHash_header)');
-      expect(output).toContain('_footer = useTranslations(_dicHash_footer)');
-      expect(output).toContain('return t("home") + _footer("contact");');
-    });
-
-    it('binds dot-less id to dictionary root for useTranslations()', () => {
-      const code = `
-        import { useTranslations } from "next-intl";
-        const Banner = () => {
-          const t = useTranslations();
-          return t("mockBanner");
-        };
-      `;
-      const output = transform(code, {
-        compatCallers: NEXT_INTL_CALLERS,
-      });
-
-      expect(output).toContain(
-        'import _dicHash_mockBanner from "../.intlayer/dictionaries/mockBanner.json" with { type: "json" };'
-      );
-      expect(output).toContain('useTranslations(_dicHash_mockBanner);');
-      expect(output).toContain('return t("");');
-    });
-
-    it('binds the whole-file dictionary when the id segment is not one', () => {
-      // `syncJSON({ splitKeys: false })` keeps one whole-file dictionary, so
-      // `about` in `t("about.grid.title")` is a group *inside* `index`, not a
-      // dictionary. The binding falls back to `index` with the id intact,
-      // mirroring the runtime resolver.
-      const code = `
-        import { useTranslations } from "next-intl";
-        const About = () => {
-          const t = useTranslations();
-          return t("about.grid.title");
-        };
-      `;
-      const output = transform(code, {
-        compatCallers: NEXT_INTL_CALLERS,
-        dictionaryModeMap: { index: 'static' },
-      });
-
-      expect(output).not.toContain('dictionaries/about.json');
-      expect(output).toContain(
-        'import _dicHash_index from "../.intlayer/dictionaries/index.json" with { type: "json" };'
-      );
-      expect(output).toContain('useTranslations(_dicHash_index);');
-      // The id keeps its leading segment — it is a path inside `index`.
-      expect(output).toContain('return t("about.grid.title");');
-    });
-
-    it('leaves the call site alone when there is no whole-file dictionary', () => {
-      const code = `
-        import { useTranslations } from "next-intl";
-        const About = () => {
-          const t = useTranslations();
-          return t("about.grid.title");
-        };
-      `;
-      const output = transform(code, {
-        compatCallers: NEXT_INTL_CALLERS,
-        dictionaryModeMap: { footer: 'static' },
-      });
-
-      expect(output).not.toContain('useDictionary');
-      expect(output).toContain('const t = useTranslations();');
-      expect(output).toContain('return t("about.grid.title");');
-    });
-
-    it('still binds when the id segment is a known dictionary', () => {
-      const code = `
-        import { useTranslations } from "next-intl";
-        const Footer = () => {
-          const t = useTranslations();
-          return t("footer.github");
-        };
-      `;
-      const output = transform(code, {
-        compatCallers: NEXT_INTL_CALLERS,
-        dictionaryModeMap: { footer: 'static', index: 'static' },
-      });
-
-      expect(output).toContain('useTranslations(_dicHash_footer);');
-      expect(output).toContain('return t("github");');
-    });
-
-    it('binds destructured useTranslation() from react-i18next', () => {
-      const code = `
-        import { useTranslation } from "react-i18next";
-        const Header = () => {
-          const { t } = useTranslation();
-          return t("home.title");
-        };
-      `;
-      const output = transform(code, {
-        compatCallers: REACT_I18NEXT_CALLERS,
-      });
-
-      expect(output).toContain(
-        'import _dicHash_home from "../.intlayer/dictionaries/home.json" with { type: "json" };'
-      );
-      expect(output).toContain(
-        'import { useDictionary as useTranslation } from "react-i18next";'
-      );
-      expect(output).toContain(
-        'const {\n    t\n  } = useTranslation(_dicHash_home);'
-      );
-      expect(output).toContain('return t("title");');
-    });
-
-    it('leaves useTranslation() untouched when a key is dynamic', () => {
-      const code = `
-        import { useTranslation } from "react-i18next";
-        const C = ({ k }) => {
-          const { t } = useTranslation();
-          return t(k);
-        };
-      `;
-      const output = transform(code, {
-        compatCallers: REACT_I18NEXT_CALLERS,
-      });
-
-      expect(output).toContain(
-        'import { useTranslation } from "react-i18next";'
-      );
-      expect(output).toContain('const {\n    t\n  } = useTranslation();');
-      expect(output).toContain('return t(k);');
-    });
-
-    it('binds useIntl() identifier call formatMessage from react-intl', () => {
-      const code = `
-        import { useIntl } from "react-intl";
-        const Header = () => {
-          const intl = useIntl();
-          return intl.formatMessage({ id: "home.title" });
-        };
-      `;
-      const output = transform(code, {
-        compatCallers: REACT_INTL_CALLERS,
-      });
-
-      expect(output).toContain(
-        'import _dicHash_home from "../.intlayer/dictionaries/home.json" with { type: "json" };'
-      );
-      expect(output).toContain(
-        'import { useDictionary as useIntl } from "react-intl";'
-      );
-      expect(output).toContain('const intl = useIntl(_dicHash_home);');
-      expect(output).toContain('id: "title"');
-    });
-
-    it('binds destructured formatMessage from useIntl()', () => {
-      const code = `
-        import { useIntl } from "react-intl";
-        const Header = () => {
-          const { formatMessage } = useIntl();
-          return formatMessage({ id: "home.title" });
-        };
-      `;
-      const output = transform(code, {
-        compatCallers: REACT_INTL_CALLERS,
-      });
-
-      expect(output).toContain(
-        'import _dicHash_home from "../.intlayer/dictionaries/home.json" with { type: "json" };'
-      );
-      expect(output).toContain(
-        'import { useDictionary as useIntl } from "react-intl";'
-      );
-      expect(output).toContain('formatMessage\n  } = useIntl(_dicHash_home);');
-      expect(output).toContain('id: "title"');
     });
   });
 });

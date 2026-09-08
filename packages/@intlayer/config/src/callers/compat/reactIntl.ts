@@ -17,8 +17,6 @@ export const REACT_INTL_CALLERS: CallerDescriptor[] = [
     namespaceSources: [],
     allowRootScope: true,
     translationFunction: 'destructured-t',
-    staticReplacement: 'useDictionary',
-    dynamicReplacement: 'useDictionaryDynamic',
   },
   {
     callerName: 'formatMessage',

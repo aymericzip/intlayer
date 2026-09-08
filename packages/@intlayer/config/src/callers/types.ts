@@ -124,20 +124,14 @@ export type CallerDescriptor = {
    * When `true`, the caller may be invoked without any namespace
    * (`useTranslations()` root scope) — the dictionary key is then the first
    * dot-segment of each message id passed to the returned `t()`.
+   *
+   * Analysis-only: the LSP resolves such bindings for go-to-definition, and
+   * the ESLint rule stops reporting the missing argument as a dynamic key.
+   * The optimize passes do **not** honour it — a call with no readable
+   * namespace is left to the runtime registry, so declaring it never changes
+   * the emitted bundle.
    */
   allowRootScope?: boolean;
-  /**
-   * Dictionary bound by a root-scope call whose first id segment is not itself
-   * a dictionary — the project keeps one whole-file catalog instead of one
-   * dictionary per namespace. The full id is then left intact, mirroring the
-   * runtime resolver's own fallback.
-   *
-   * Defaults to `'index'` (the key `syncJSON({ splitKeys: false })` produces).
-   * lingui's single catalog is named `messages`, so its descriptors override
-   * it — without which a lingui app that has *not* split its catalog would see
-   * every root-scope rewrite declined.
-   */
-  rootDictionaryKey?: string;
   /** How translated content is obtained from the caller's result. */
   translationFunction: CallerResultShape;
   /**

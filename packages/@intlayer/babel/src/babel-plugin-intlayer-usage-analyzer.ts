@@ -3,10 +3,7 @@ import type * as BabelTypes from '@babel/types';
 import type { CallerDescriptor } from '@intlayer/config/callers';
 import { analyzeCallExpressionUsage } from './analyzeContentUsage';
 import { createCompatUsageAnalyzer } from './compat/usageAnalysis';
-import {
-  INTLAYER_CALLER_NAMES,
-  type IntlayerCallerName,
-} from './nativeCallers';
+import { NATIVE_CALLER_NAME_SET } from './nativeCallers';
 import type { PruneContext } from './pruneContext';
 import { readStaticString } from './staticAstReaders';
 
@@ -19,6 +16,7 @@ export {
   CHAINABLE_RUNTIME_METHOD_NAMES,
   INTLAYER_CALLER_NAMES,
   type IntlayerCallerName,
+  NATIVE_CALLER_NAME_SET,
 } from './nativeCallers';
 // Re-exported so `@intlayer/babel`'s public surface stays unchanged after the
 // split into `pruneContext` / `analyzeContentUsage` / `compat/*` modules.
@@ -94,41 +92,38 @@ export const makeUsageAnalyzerBabelPlugin =
 
             // Phase 1: collect the local aliases of the native intlayer
             // callers, handing every import to the compat analyser too.
+            //
+            // An import declaration is only ever a direct child of Program, so
+            // the body is scanned directly rather than walking the whole AST.
             const nativeCallerLocalNames = new Set<string>();
 
-            programPath.traverse({
-              ImportDeclaration: (importDeclarationPath) => {
-                const importSource = importDeclarationPath.node.source.value;
+            for (const statement of programPath.node.body) {
+              if (!babelTypes.isImportDeclaration(statement)) continue;
 
-                for (const importSpecifier of importDeclarationPath.node
-                  .specifiers) {
-                  if (!babelTypes.isImportSpecifier(importSpecifier)) continue;
+              const importSource = statement.source.value;
 
-                  const importedName = babelTypes.isIdentifier(
-                    importSpecifier.imported
-                  )
-                    ? importSpecifier.imported.name
-                    : (importSpecifier.imported as BabelTypes.StringLiteral)
-                        .value;
-                  const localName = importSpecifier.local.name;
+              for (const importSpecifier of statement.specifiers) {
+                if (!babelTypes.isImportSpecifier(importSpecifier)) continue;
 
-                  if (
-                    INTLAYER_CALLER_NAMES.includes(
-                      importedName as IntlayerCallerName
-                    )
-                  ) {
-                    nativeCallerLocalNames.add(localName);
-                    continue;
-                  }
+                const importedName = babelTypes.isIdentifier(
+                  importSpecifier.imported
+                )
+                  ? importSpecifier.imported.name
+                  : importSpecifier.imported.value;
+                const localName = importSpecifier.local.name;
 
-                  compatAnalyzer?.noteImport(
-                    importSource,
-                    importedName,
-                    localName
-                  );
+                if (NATIVE_CALLER_NAME_SET.has(importedName)) {
+                  nativeCallerLocalNames.add(localName);
+                  continue;
                 }
-              },
-            });
+
+                compatAnalyzer?.noteImport(
+                  importSource,
+                  importedName,
+                  localName
+                );
+              }
+            }
 
             const hasCompatCallers =
               compatAnalyzer?.hasMatchableCallers() ?? false;

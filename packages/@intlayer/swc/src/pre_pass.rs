@@ -7,8 +7,8 @@
 //! an import declaration may appear after the calls it governs.
 //!
 //! Adapter-specific reasoning is delegated: namespace resolution lives in
-//! [`crate::extra_caller`] and root-scope bindings in [`crate::root_scope`], so
-//! a build with no `extraCallers` runs the native half of this pass alone.
+//! [`crate::extra_caller`], so a build with no `extraCallers` runs the native
+//! half of this pass alone.
 
 use crate::{
     ast::{callee_ident_name, imported_specifier_name, read_static_string, split_namespace},
@@ -16,7 +16,6 @@ use crate::{
     dictionary_imports::ImportKind,
     extra_caller::resolve_extra_namespace,
     packages::{NATIVE_CALLER_NAMES, PACKAGE_LIST},
-    root_scope::{RootScopeCollector, RootScopeMap},
 };
 use std::collections::{BTreeMap, HashSet};
 use swc_core::ecma::{
@@ -56,8 +55,6 @@ pub struct PrePassResult {
     pub packages_with_fetch_call: HashSet<String>,
     /// An extra (compat) caller resolves to a dynamic/fetch dictionary.
     pub extra_has_dynamic_call: bool,
-    /// Resolvable bare (root-scope) bindings, keyed by translate-function name.
-    pub root_scope: RootScopeMap,
 }
 
 struct PrePassVisitor<'a> {
@@ -71,7 +68,6 @@ struct PrePassVisitor<'a> {
     /// hand a raw namespace string to the dictionary-accepting helper.
     unresolvable_extra_locals: HashSet<String>,
     caller_map: CallerMap,
-    root_scope: RootScopeCollector,
 }
 
 impl PrePassVisitor<'_> {
@@ -101,12 +97,6 @@ impl PrePassVisitor<'_> {
                 if self.is_dynamic_dictionary(dictionary_key) {
                     self.extra_has_dynamic_call = true;
                 }
-            }
-            None if extra_caller.allow_root_scope && call.args.is_empty() => {
-                // Possibly a root scope. The binding is recorded once the
-                // enclosing declarator is visited (children come first), so
-                // the verdict is deferred to the end of the pass.
-                self.root_scope.note_bare_call(callee_name);
             }
             None => {
                 self.unresolvable_extra_locals
@@ -163,14 +153,25 @@ fn collect_caller_map(program: &Program, extra_callers: &[ExtraCallerConfig]) ->
         let package_specifier = import.src.value.as_str().unwrap_or_default();
 
         let is_native_package = PACKAGE_LIST.contains(&package_specifier);
-        let has_extra_caller_for_package = extra_callers.iter().any(|extra_caller| {
-            extra_caller
-                .import_sources
-                .iter()
-                .any(|source| source == package_specifier)
-        });
 
-        if !is_native_package && !has_extra_caller_for_package {
+        // The extra callers this package exports, matched once for the whole
+        // declaration instead of re-scanning every descriptor's
+        // `import_sources` for each of its specifiers.
+        let extra_callers_for_package: Vec<(usize, &str)> = extra_callers
+            .iter()
+            .enumerate()
+            .filter(|(_, extra_caller)| {
+                extra_caller
+                    .import_sources
+                    .iter()
+                    .any(|source| source == package_specifier)
+            })
+            .map(|(extra_index, extra_caller)| {
+                (extra_index, extra_caller.caller_name.as_str())
+            })
+            .collect();
+
+        if !is_native_package && extra_callers_for_package.is_empty() {
             continue;
         }
 
@@ -180,33 +181,29 @@ fn collect_caller_map(program: &Program, extra_callers: &[ExtraCallerConfig]) ->
             };
             let imported_name = imported_specifier_name(named);
 
-            if is_native_package && NATIVE_CALLER_NAMES.contains(&imported_name.as_str()) {
-                caller_map.insert(
-                    named.local.sym.to_string(),
-                    CallerMeta {
+            // An extra caller wins over a native name: a compat package
+            // re-exporting an intlayer getter is still driven by its descriptor.
+            let meta = extra_callers_for_package
+                .iter()
+                .find(|(_, caller_name)| *caller_name == imported_name)
+                .map(|(extra_index, _)| CallerMeta {
+                    original_name: imported_name.clone(),
+                    extra_index: Some(*extra_index),
+                    package: None,
+                })
+                .or_else(|| {
+                    let is_native_caller = is_native_package
+                        && NATIVE_CALLER_NAMES.contains(&imported_name.as_str());
+
+                    is_native_caller.then(|| CallerMeta {
                         original_name: imported_name.clone(),
                         extra_index: None,
                         package: Some(package_specifier.to_string()),
-                    },
-                );
-            }
+                    })
+                });
 
-            // Register extra callers from matching import sources
-            if let Some(extra_index) = extra_callers.iter().position(|extra_caller| {
-                extra_caller
-                    .import_sources
-                    .iter()
-                    .any(|source| source == package_specifier)
-                    && extra_caller.caller_name == imported_name
-            }) {
-                caller_map.insert(
-                    named.local.sym.to_string(),
-                    CallerMeta {
-                        original_name: imported_name.clone(),
-                        extra_index: Some(extra_index),
-                        package: None,
-                    },
-                );
+            if let Some(meta) = meta {
+                caller_map.insert(named.local.sym.to_string(), meta);
             }
         }
     }
@@ -215,20 +212,12 @@ fn collect_caller_map(program: &Program, extra_callers: &[ExtraCallerConfig]) ->
 }
 
 impl Visit for PrePassVisitor<'_> {
-    fn visit_var_declarator(&mut self, declarator: &VarDeclarator) {
-        declarator.visit_children_with(self);
-        self.root_scope
-            .note_declarator(declarator, &self.caller_map, self.extra_callers);
-    }
-
     fn visit_call_expr(&mut self, call: &CallExpr) {
         call.visit_children_with(self);
 
         let Some(callee_name) = callee_ident_name(&call.callee) else {
             return;
         };
-
-        self.root_scope.note_usage(callee_name, call);
 
         let Some(meta) = self.caller_map.get(callee_name).cloned() else {
             return;
@@ -260,14 +249,10 @@ pub fn run_pre_pass(
         extra_has_dynamic_call: false,
         unresolvable_extra_locals: HashSet::new(),
         caller_map: collect_caller_map(program, extra_callers),
-        root_scope: RootScopeCollector::default(),
     };
     program.visit_with(&mut visitor);
 
-    let mut unresolvable_extra_locals = visitor.unresolvable_extra_locals;
-    let (root_scope, root_scope_dynamic) = visitor
-        .root_scope
-        .finish(&mut unresolvable_extra_locals, dictionary_mode_map);
+    let unresolvable_extra_locals = visitor.unresolvable_extra_locals;
 
     // Extra callers with an unresolvable call site keep their original
     // implementation: rewriting the shared import while leaving those calls
@@ -281,7 +266,6 @@ pub fn run_pre_pass(
         caller_map,
         packages_with_dynamic_call: visitor.packages_with_dynamic_call,
         packages_with_fetch_call: visitor.packages_with_fetch_call,
-        extra_has_dynamic_call: visitor.extra_has_dynamic_call || root_scope_dynamic,
-        root_scope,
+        extra_has_dynamic_call: visitor.extra_has_dynamic_call,
     }
 }

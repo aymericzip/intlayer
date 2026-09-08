@@ -50,8 +50,6 @@
 //!
 //! - [`extra_caller`] – matching a compat caller, resolving its namespace, and
 //!   rewriting its call sites and import specifiers.
-//! - [`root_scope`] – the namespace-less `const t = useTranslations()` form,
-//!   whose dictionaries are named by the message ids passed to `t`.
 //!
 //! With no `extraCallers` configured, [`optimize`] holds no
 //! [`extra_caller::ExtraCallerContext`] at all, so none of that code runs and
@@ -125,7 +123,6 @@ pub mod optimize;
 pub mod packages;
 pub mod paths;
 pub mod pre_pass;
-pub mod root_scope;
 
 #[cfg(test)]
 mod tests;
@@ -176,18 +173,17 @@ fn resolve_working_filename(
             "processing {} (no filesList allowlist configured)",
             filename_raw
         ));
-        return Some(normalized_filename);
+        return Some(normalized_filename.into_owned());
     }
 
-    let Some(matched) =
-        files_list
-            .iter()
-            .map(|target| normalize_path(target))
-            .find(|normalized_target| {
-                normalized_filename.ends_with(normalized_target)
-                    || normalized_target.ends_with(&normalized_filename)
-            })
-    else {
+    let Some(matched) = files_list.iter().find_map(|target| {
+        let normalized_target = normalize_path(target);
+
+        let is_match = normalized_filename.ends_with(normalized_target.as_ref())
+            || normalized_target.ends_with(normalized_filename.as_ref());
+
+        is_match.then_some(normalized_target)
+    }) else {
         logger.debug(format!("skipping {} (not in filesList)", filename_raw));
         return None;
     };
@@ -196,7 +192,7 @@ fn resolve_working_filename(
         "processing {} (matched allowlist entry {})",
         filename_raw, matched
     ));
-    Some(matched)
+    Some(matched.into_owned())
 }
 
 /// Applies the Intlayer SWC transform to `program`.
@@ -227,10 +223,10 @@ pub fn process_transform(
         LogLevel::from_option(cfg.log_level.as_deref())
     });
 
-    cfg.dictionaries_dir = normalize_path(&cfg.dictionaries_dir);
-    cfg.dynamic_dictionaries_dir = normalize_path(&cfg.dynamic_dictionaries_dir);
-    cfg.fetch_dictionaries_dir = normalize_path(&cfg.fetch_dictionaries_dir);
-    cfg.dictionaries_entry_path = normalize_path(&cfg.dictionaries_entry_path);
+    cfg.dictionaries_dir = normalize_path(&cfg.dictionaries_dir).into_owned();
+    cfg.dynamic_dictionaries_dir = normalize_path(&cfg.dynamic_dictionaries_dir).into_owned();
+    cfg.fetch_dictionaries_dir = normalize_path(&cfg.fetch_dictionaries_dir).into_owned();
+    cfg.dictionaries_entry_path = normalize_path(&cfg.dictionaries_entry_path).into_owned();
 
     let Some(working_filename) = resolve_working_filename(&cfg.files_list, &filename_raw, &logger)
     else {
@@ -242,7 +238,7 @@ pub fn process_transform(
     // every dictionary into the bundle.
     if cfg.replace_dictionary_entry.unwrap_or(false) {
         let is_main_entry = working_filename == cfg.dictionaries_entry_path
-            || normalize_path(&filename_raw) == cfg.dictionaries_entry_path;
+            || normalize_path(&filename_raw) == cfg.dictionaries_entry_path.as_str();
 
         if is_main_entry {
             logger.info(format!("{}: emptied dictionaries entry", filename_raw));
@@ -282,7 +278,6 @@ pub fn process_transform(
         &pre_pass.packages_with_dynamic_call,
         &pre_pass.packages_with_fetch_call,
         extra_caller_context,
-        &pre_pass.root_scope,
     );
     program.visit_mut_with(&mut visitor);
 

@@ -16,7 +16,6 @@ use crate::{
     extra_caller::ExtraCallerContext,
     packages::{GET_INTLAYER_ASYNC, PACKAGE_LIST, PACKAGE_LIST_DYNAMIC},
     pre_pass::CallerMap,
-    root_scope::{rewrite_root_scope_declarators, rewrite_root_scope_message_call, RootScopeMap},
 };
 use std::collections::{BTreeMap, HashSet};
 use swc_core::ecma::{
@@ -36,8 +35,6 @@ pub struct TransformVisitor<'a> {
     packages_with_fetch_call: &'a HashSet<String>,
     /// Compat adapters, when any were configured for this build.
     extra: Option<ExtraCallerContext<'a>>,
-    /// Resolvable `const t = useTranslations()` bindings from the pre-pass.
-    root_scope: &'a RootScopeMap,
     /// Imports collected during the traversal, injected afterwards.
     pub injected_imports: InjectedImports,
 }
@@ -50,7 +47,6 @@ impl<'a> TransformVisitor<'a> {
         packages_with_dynamic_call: &'a HashSet<String>,
         packages_with_fetch_call: &'a HashSet<String>,
         extra: Option<ExtraCallerContext<'a>>,
-        root_scope: &'a RootScopeMap,
     ) -> Self {
         Self {
             import_mode,
@@ -59,7 +55,6 @@ impl<'a> TransformVisitor<'a> {
             packages_with_dynamic_call,
             packages_with_fetch_call,
             extra,
-            root_scope,
             injected_imports: InjectedImports::default(),
         }
     }
@@ -178,20 +173,6 @@ impl<'a> TransformVisitor<'a> {
 }
 
 impl VisitMut for TransformVisitor<'_> {
-    fn visit_mut_var_decl(&mut self, var_decl: &mut VarDecl) {
-        var_decl.visit_mut_children_with(self);
-
-        // Root scopes only exist for compat adapters declaring `allowRootScope`.
-        if let Some(extra) = self.extra.as_ref() {
-            rewrite_root_scope_declarators(
-                var_decl,
-                self.root_scope,
-                extra,
-                &mut self.injected_imports,
-            );
-        }
-    }
-
     fn visit_mut_expr(&mut self, expr: &mut Expr) {
         expr.visit_mut_children_with(self);
 
@@ -204,12 +185,6 @@ impl VisitMut for TransformVisitor<'_> {
         let Some(callee_name) = callee_ident_name(&call.callee).map(str::to_string) else {
             return;
         };
-
-        // `t("footer.github")` -> `t("github")`, re-pointed at the sibling
-        // binding when the dictionary is not the declarator's first one.
-        if rewrite_root_scope_message_call(call, &callee_name, self.root_scope) {
-            return;
-        }
 
         let Some(meta) = self.caller_map.get(&callee_name) else {
             return;

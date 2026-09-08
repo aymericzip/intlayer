@@ -2,8 +2,7 @@ import type { NodePath, PluginObject } from '@babel/core';
 import type * as BabelTypes from '@babel/types';
 import {
   CHAINABLE_RUNTIME_METHOD_NAMES,
-  INTLAYER_CALLER_NAMES,
-  type IntlayerCallerName,
+  NATIVE_CALLER_NAME_SET,
   type NestedRenameEntry,
   type NestedRenameMap,
   type PruneContext,
@@ -605,7 +604,7 @@ const collectIntlayerCallerLocalNames = (
         ? importSpecifier.imported.name
         : importSpecifier.imported.value;
 
-      if (INTLAYER_CALLER_NAMES.includes(importedName as IntlayerCallerName)) {
+      if (NATIVE_CALLER_NAME_SET.has(importedName)) {
         intlayerCallerLocalNameMap.set(
           importSpecifier.local.name,
           importedName

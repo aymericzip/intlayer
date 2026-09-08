@@ -1,4 +1,3 @@
-import type { NodePath } from '@babel/core';
 import type * as BabelTypes from '@babel/types';
 import {
   type CallerDescriptor,
@@ -8,26 +7,23 @@ import type {
   DictionaryImportRegistry,
   ImportMode,
 } from '../dictionaryImports';
-import {
-  findObjectProperty,
-  readStaticFirstSegment,
-  readStaticString,
-  splitNamespace,
-} from '../staticAstReaders';
+import { splitNamespace } from '../staticAstReaders';
 import { resolveNamespaceForRewrite } from './namespaceResolution';
 
 /**
  * Compat half of the optimize pass.
  *
  * Every adapter-specific behaviour of the build-time rewrite lives here:
- * matching a compat caller's import, resolving its namespace, binding a
- * namespace-less root scope to the dictionaries its message ids name, and
- * re-pointing the import specifier at the dictionary-accepting helper.
+ * matching a compat caller's import, resolving its namespace, and re-pointing
+ * the import specifier at the dictionary-accepting helper.
  *
- * The pass is created only when compat descriptors were injected by a compat
- * package's bundler plugin, so a plain intlayer build never allocates it and
- * never runs any of its traversals — {@link createCompatOptimizePass} returns
- * `null` for an empty registry.
+ * The pass works on plain AST nodes rather than `NodePath`s: the optimize
+ * plugin collects the call sites in its single traversal and hands them over,
+ * so nothing here walks the tree.
+ *
+ * It is created only when compat descriptors were injected by a compat
+ * package's bundler plugin, so a plain intlayer build never allocates it —
+ * {@link createCompatOptimizePass} returns `null` for an empty registry.
  */
 export type CompatOptimizePass = {
   /**
@@ -42,81 +38,84 @@ export type CompatOptimizePass = {
     importedName: string,
     localName: string
   ) => void;
+  /** Whether `localName` was bound to a compat caller by an import. */
+  ownsLocalName: (localName: string) => boolean;
+  /** Whether the file imported any compat caller at all. */
+  hasCallers: () => boolean;
   /**
-   * Resolves root-scope bindings and decides the file-level helper family.
-   * Must run after every import was noted and before any rewrite.
+   * Resolves the namespace of every collected call, dropping the callers that
+   * cannot be rewritten and deciding the file-level helper family. Must run
+   * after every import was noted and before any rewrite.
    */
-  analyze: (programPath: NodePath<BabelTypes.Program>) => void;
-  /**
-   * Applies the root-scope rewrites and returns the call nodes it consumed, so
-   * the plugin's call visitor skips them.
-   */
-  applyRootScopeRewrites: () => Set<BabelTypes.Node>;
-  /**
-   * Rewrites one compat call site. Returns `true` when the call belonged to a
-   * compat caller, whether or not it could be rewritten.
-   */
-  rewriteCall: (callPath: NodePath<BabelTypes.CallExpression>) => boolean;
+  analyzeCalls: (callNodes: readonly BabelTypes.CallExpression[]) => void;
+  /** Rewrites one compat call site, if its caller survived {@link analyzeCalls}. */
+  rewriteCall: (callNode: BabelTypes.CallExpression) => void;
   /** Re-points the compat specifiers of one import declaration. */
-  rewriteImportSpecifiers: (
-    importPath: NodePath<BabelTypes.ImportDeclaration>
-  ) => void;
+  rewriteImportSpecifiers: (importNode: BabelTypes.ImportDeclaration) => void;
 };
 
 /**
- * Method names on a root-scope binding that address a message rather than the
- * i18n instance itself — `i18n._('home.title')`, `intl.formatMessage(…)`.
+ * Rewritable slice of a descriptor registry, cached by array reference.
+ *
+ * Babel reuses one plugin-options object for every file of a build, so the
+ * filter runs once per build instead of once per transformed file.
  */
-const MESSAGE_METHOD_NAMES = new Set(['formatMessage', '_', 't']);
+const rewritableCallersCache = new WeakMap<
+  readonly CallerDescriptor[],
+  readonly CallerDescriptor[]
+>();
 
-/** One `t('namespace.key')` call reached through a root-scope binding. */
-/**
- * Canonical key of the single dictionary produced when a JSON source pattern has
- * no `{{key}}` segment — one file holds every key (i18next's default
- * `translation` namespace, `syncJSON({ splitKeys: false })`). The runtime
- * resolver falls back to it for any namespace that is not a registered
- * dictionary, so the rewrite binds it the same way.
- */
-const ROOT_DICTIONARY_KEY = 'index';
+const getCachedRewritableCallers = (
+  compatCallers: readonly CallerDescriptor[]
+): readonly CallerDescriptor[] => {
+  let rewritable = rewritableCallersCache.get(compatCallers);
 
-/**
- * The whole-file dictionary a candidate falls back to. Compat libraries name
- * their single catalog differently — i18next's is `index`, lingui's is
- * `messages` — so the descriptor may override the default.
- */
-const rootDictionaryKeyFor = (descriptor: CallerDescriptor): string =>
-  descriptor.rootDictionaryKey ?? ROOT_DICTIONARY_KEY;
+  if (!rewritable) {
+    rewritable = getRewritableCallers([...compatCallers]);
+    rewritableCallersCache.set(compatCallers, rewritable);
+  }
 
-type RootScopeCallSite = {
-  callPath: NodePath<BabelTypes.CallExpression>;
-  dictionaryKey: string;
-  /** The message id with its leading `dictionaryKey.` segment removed. */
-  remainderKey: string;
-  isMethodCall: boolean;
-  /** The `id` property, for the `formatMessage({ id })` descriptor form. */
-  objectProperty?: BabelTypes.ObjectProperty;
-  argNode: BabelTypes.Node;
+  return rewritable;
 };
 
 /**
- * A `const t = useTranslations()` declarator whose dictionaries are named by
- * the message ids passed to `t`, not by a namespace argument.
+ * `importSource` → the callers it exports, indexed by their imported name.
+ *
+ * Built once per descriptor registry so matching an import specifier is two
+ * map lookups instead of a scan over every descriptor's `importSources`.
  */
-type RootScopeCandidate = {
-  declPath: NodePath<BabelTypes.VariableDeclarator>;
-  callerLocal: string;
-  descriptor: CallerDescriptor;
-  /** Set when the binding is a plain identifier: `const t = …`. */
-  identName?: string;
-  /** Set when the binding destructures: `const { t } = …` (property → local). */
-  destructuredProps?: Map<string, string>;
-  /** Local names bound by this declarator, and how each is invoked. */
-  translateLocalNames: Map<string, { propName?: string; isMethod: boolean }>;
-  /** Dictionary keys reached through the binding, in first-use order. */
-  namespaces: string[];
-  callSites: RootScopeCallSite[];
-  /** A message id was dynamic or dot-less, so the binding cannot be bound. */
-  isPoisoned: boolean;
+type CallerIndex = Map<string, Map<string, CallerDescriptor>>;
+
+const callerIndexCache = new WeakMap<
+  readonly CallerDescriptor[],
+  CallerIndex
+>();
+
+const getCallerIndex = (
+  rewritableCallers: readonly CallerDescriptor[]
+): CallerIndex => {
+  let index = callerIndexCache.get(rewritableCallers);
+
+  if (!index) {
+    index = new Map();
+
+    for (const descriptor of rewritableCallers) {
+      for (const importSource of descriptor.importSources) {
+        let byName = index.get(importSource);
+
+        if (!byName) {
+          byName = new Map();
+          index.set(importSource, byName);
+        }
+
+        byName.set(descriptor.callerName, descriptor);
+      }
+    }
+
+    callerIndexCache.set(rewritableCallers, index);
+  }
+
+  return index;
 };
 
 /**
@@ -137,26 +136,14 @@ export const createCompatOptimizePass = (
     dictionaryModeMap?: Record<string, ImportMode | undefined>;
   }
 ): CompatOptimizePass | null => {
-  const rewritableCallers = getRewritableCallers([...compatCallers]);
+  const rewritableCallers = getCachedRewritableCallers(compatCallers);
   if (rewritableCallers.length === 0) return null;
 
+  const callerIndex = getCallerIndex(rewritableCallers);
   const { importMode, dictionaryModeMap } = buildModes;
 
   /** Local alias → the descriptor it was imported as. */
   const callersByLocalName = new Map<string, CallerDescriptor>();
-  /**
-   * Locals with at least one unresolvable call site: re-pointing the shared
-   * import while leaving those calls untouched would hand a raw namespace
-   * string to the dictionary-accepting helper.
-   */
-  const unresolvableLocalNames = new Set<string>();
-
-  const candidatesByDecl = new Map<
-    BabelTypes.VariableDeclarator,
-    RootScopeCandidate
-  >();
-  const bareCallsPerCaller = new Map<string, number>();
-  let activeCandidates: RootScopeCandidate[] = [];
 
   /**
    * File-level decision: one import specifier serves every call in the file, so
@@ -165,376 +152,70 @@ export const createCompatOptimizePass = (
    */
   let useDynamicHelpers = false;
 
-  const isDynamicMode = (mode: ImportMode | undefined): boolean =>
-    mode === 'dynamic' || mode === 'fetch';
+  /** Narrows to the two modes that resolve through a per-locale loader. */
+  const isDynamicMode = (
+    mode: ImportMode | undefined
+  ): mode is 'dynamic' | 'fetch' => mode === 'dynamic' || mode === 'fetch';
 
   /** Import mode a compat call site resolves to for `dictionaryKey`. */
   const importModeFor = (dictionaryKey: string): ImportMode => {
     if (!useDynamicHelpers) return 'static';
 
     const override = dictionaryModeMap?.[dictionaryKey];
-    if (isDynamicMode(override)) return override!;
+    if (isDynamicMode(override)) return override;
 
-    return isDynamicMode(importMode) ? importMode! : 'dynamic';
-  };
-
-  /**
-   * Reads the dictionary key and remaining path of a message id, handling both
-   * the string form `t('home.title')` and the descriptor form
-   * `formatMessage({ id: 'home.title' })`.
-   */
-  const readMessageId = (
-    argNode: BabelTypes.Node | undefined
-  ): {
-    dictionaryKey?: string;
-    remainderKey: string;
-    objectProperty?: BabelTypes.ObjectProperty;
-  } => {
-    if (!argNode) return { remainderKey: '' };
-
-    const idNode = babelTypes.isObjectExpression(argNode)
-      ? findObjectProperty(babelTypes, argNode, 'id')
-      : undefined;
-
-    if (babelTypes.isObjectExpression(argNode) && !idNode) {
-      return { remainderKey: '' };
-    }
-
-    const valueNode = idNode ? idNode.value : argNode;
-    const dictionaryKey = readStaticFirstSegment(babelTypes, valueNode);
-    const staticId = readStaticString(babelTypes, valueNode);
-
-    return {
-      dictionaryKey,
-      remainderKey: staticId ? splitNamespace(staticId).keyPrefix : '',
-      objectProperty: idNode,
-    };
-  };
-
-  /**
-   * Records `const t = useTranslations()` / `const { t } = useTranslation()` as
-   * a root-scope candidate. A call whose namespace the normal resolver can read
-   * is handled by the scoped path instead.
-   */
-  const noteRootScopeCandidate = (
-    declPath: NodePath<BabelTypes.VariableDeclarator>
-  ): void => {
-    const init = declPath.node.init;
-    if (!babelTypes.isCallExpression(init)) return;
-    if (!babelTypes.isIdentifier(init.callee)) return;
-
-    const callerLocal = init.callee.name;
-    const descriptor = callersByLocalName.get(callerLocal);
-    if (!descriptor?.allowRootScope) return;
-
-    if (resolveNamespaceForRewrite(babelTypes, init.arguments, descriptor)) {
-      return;
-    }
-    if (init.arguments.length !== 0) return;
-
-    const id = declPath.node.id;
-    const translateLocalNames = new Map<
-      string,
-      { propName?: string; isMethod: boolean }
-    >();
-    let identName: string | undefined;
-    let destructuredProps: Map<string, string> | undefined;
-
-    if (babelTypes.isIdentifier(id)) {
-      identName = id.name;
-      translateLocalNames.set(id.name, { isMethod: false });
-    } else if (babelTypes.isObjectPattern(id)) {
-      destructuredProps = new Map<string, string>();
-      for (const prop of id.properties) {
-        if (!babelTypes.isObjectProperty(prop)) continue;
-
-        const propName = babelTypes.isIdentifier(prop.key)
-          ? prop.key.name
-          : babelTypes.isStringLiteral(prop.key)
-            ? prop.key.value
-            : undefined;
-        if (!propName || !babelTypes.isIdentifier(prop.value)) continue;
-
-        destructuredProps.set(propName, prop.value.name);
-        translateLocalNames.set(prop.value.name, {
-          propName,
-          // `i18n` is the instance, reached as `i18n._(…)` / `i18n.t(…)`.
-          isMethod: propName === 'i18n',
-        });
-      }
-    }
-
-    if (translateLocalNames.size === 0) return;
-
-    candidatesByDecl.set(declPath.node, {
-      declPath,
-      callerLocal,
-      descriptor,
-      identName,
-      destructuredProps,
-      translateLocalNames,
-      namespaces: [],
-      callSites: [],
-      isPoisoned: false,
-    });
-  };
-
-  /**
-   * Attributes a `t(…)` call to its root-scope candidate. Returns `true` when
-   * the call was consumed by a candidate.
-   */
-  const noteRootScopeUsage = (
-    callPath: NodePath<BabelTypes.CallExpression>,
-    translateLocalName: string,
-    isMethodCall: boolean,
-    methodName: string | undefined
-  ): boolean => {
-    const binding = callPath.scope.getBinding(translateLocalName);
-    if (!binding || !babelTypes.isVariableDeclarator(binding.path.node)) {
-      return false;
-    }
-
-    const candidate = candidatesByDecl.get(binding.path.node);
-    if (!candidate) return false;
-
-    const localInfo = candidate.translateLocalNames.get(translateLocalName);
-    if (!localInfo) return false;
-
-    const addressesMessage = isMethodCall
-      ? MESSAGE_METHOD_NAMES.has(methodName ?? '')
-      : !localInfo.isMethod;
-    if (!addressesMessage) return false;
-
-    const argNode = callPath.node.arguments[0];
-    const { dictionaryKey, remainderKey, objectProperty } =
-      readMessageId(argNode);
-
-    if (!dictionaryKey) {
-      candidate.isPoisoned = true;
-      return true;
-    }
-
-    if (!candidate.namespaces.includes(dictionaryKey)) {
-      candidate.namespaces.push(dictionaryKey);
-    }
-    candidate.callSites.push({
-      callPath,
-      dictionaryKey,
-      remainderKey,
-      isMethodCall,
-      objectProperty,
-      argNode: argNode as BabelTypes.Node,
-    });
-    return true;
-  };
-
-  /** Rewrites a message id in place, dropping its `dictionaryKey.` prefix. */
-  const stripDictionaryPrefix = (site: RootScopeCallSite): void => {
-    if (site.objectProperty) {
-      site.objectProperty.value = babelTypes.stringLiteral(site.remainderKey);
-      return;
-    }
-
-    if (babelTypes.isStringLiteral(site.argNode)) {
-      site.argNode.value = site.remainderKey;
-      return;
-    }
-
-    if (
-      babelTypes.isTemplateLiteral(site.argNode) &&
-      site.argNode.quasis.length > 0
-    ) {
-      const firstQuasi = site.argNode.quasis[0];
-      if (!firstQuasi) return;
-
-      const dot = firstQuasi.value.raw.indexOf('.');
-      if (dot === -1) return;
-
-      firstQuasi.value.raw = firstQuasi.value.raw.slice(dot + 1);
-      if (firstQuasi.value.cooked) {
-        firstQuasi.value.cooked = firstQuasi.value.cooked.slice(dot + 1);
-      }
-    }
-  };
-
-  /** Argument list binding a root-scope call to `dictionaryKey`. */
-  const rootScopeCallArgs = (
-    dictionaryKey: string
-  ): BabelTypes.Expression[] => {
-    const mode = importModeFor(dictionaryKey);
-    const ident = imports.identFor(dictionaryKey, mode);
-
-    return mode === 'static'
-      ? [babelTypes.identifier(ident.name)]
-      : [
-          babelTypes.identifier(ident.name),
-          babelTypes.stringLiteral(dictionaryKey),
-        ];
+    return isDynamicMode(importMode) ? importMode : 'dynamic';
   };
 
   return {
-    ownsImportSource: (importSource) =>
-      rewritableCallers.some((descriptor) =>
-        descriptor.importSources.includes(importSource)
-      ),
+    ownsImportSource: (importSource) => callerIndex.has(importSource),
 
     noteImport: (importSource, importedName, localName) => {
-      const descriptor = rewritableCallers.find(
-        (caller) =>
-          caller.callerName === importedName &&
-          caller.importSources.includes(importSource)
-      );
+      const descriptor = callerIndex.get(importSource)?.get(importedName);
       if (descriptor) callersByLocalName.set(localName, descriptor);
     },
 
-    analyze: (programPath) => {
+    ownsLocalName: (localName) => callersByLocalName.has(localName),
+
+    hasCallers: () => callersByLocalName.size > 0,
+
+    analyzeCalls: (callNodes) => {
       if (callersByLocalName.size === 0) return;
 
-      // Pass 1 — collect the namespace-less declarators that may bind a root
-      // scope. Their dictionaries are only known once their call sites are in.
-      programPath.traverse({
-        VariableDeclarator: noteRootScopeCandidate,
-      });
-
-      // Pass 2 — attribute every call site, and note whether any resolved
-      // dictionary is overridden to a per-locale loader.
+      /**
+       * Locals with at least one call site whose namespace could not be read:
+       * one import specifier serves every call in the file, so re-pointing it
+       * while leaving those calls untouched would hand a raw namespace string
+       * — or nothing at all — to the dictionary-accepting helper.
+       */
+      const unresolvableLocalNames = new Set<string>();
       let hasDynamicCall = false;
 
-      programPath.traverse({
-        CallExpression: (callPath) => {
-          const callee = callPath.node.callee;
+      for (const callNode of callNodes) {
+        const callee = callNode.callee;
+        if (!babelTypes.isIdentifier(callee)) continue;
 
-          if (babelTypes.isIdentifier(callee)) {
-            const descriptor = callersByLocalName.get(callee.name);
+        const descriptor = callersByLocalName.get(callee.name);
+        if (!descriptor) continue;
 
-            if (descriptor) {
-              const namespaceMatch = resolveNamespaceForRewrite(
-                babelTypes,
-                callPath.node.arguments,
-                descriptor
-              );
+        const namespaceMatch = resolveNamespaceForRewrite(
+          babelTypes,
+          callNode.arguments,
+          descriptor
+        );
 
-              if (namespaceMatch) {
-                const { dictionaryKey } = splitNamespace(
-                  namespaceMatch.fullNamespace
-                );
-                if (isDynamicMode(dictionaryModeMap?.[dictionaryKey])) {
-                  hasDynamicCall = true;
-                }
-                return;
-              }
-
-              if (
-                descriptor.allowRootScope &&
-                callPath.node.arguments.length === 0
-              ) {
-                bareCallsPerCaller.set(
-                  callee.name,
-                  (bareCallsPerCaller.get(callee.name) ?? 0) + 1
-                );
-                return;
-              }
-
-              unresolvableLocalNames.add(callee.name);
-              return;
-            }
-          }
-
-          if (babelTypes.isIdentifier(callee)) {
-            noteRootScopeUsage(callPath, callee.name, false, undefined);
-            return;
-          }
-
-          if (
-            babelTypes.isMemberExpression(callee) &&
-            babelTypes.isIdentifier(callee.object) &&
-            babelTypes.isIdentifier(callee.property)
-          ) {
-            noteRootScopeUsage(
-              callPath,
-              callee.object.name,
-              true,
-              callee.property.name
-            );
-          }
-        },
-      });
-
-      // `dictionaryModeMap` carries one entry per dictionary in the project, so
-      // its keys are the set of dictionaries a binding can actually import.
-      const knownDictionaryKeys = dictionaryModeMap
-        ? new Set(Object.keys(dictionaryModeMap))
-        : undefined;
-
-      // The first id segment only *looks* like a dictionary key. When the
-      // project keeps a single whole-file dictionary (i18next's default
-      // `translation` namespace, `syncJSON({ splitKeys: false })`), a call such
-      // as `t("about.grid.title")` addresses the `about` group *inside*
-      // `index`, and no `about` dictionary exists to import.
-      //
-      // The runtime resolver already falls back to `index` for any namespace
-      // that is not a registered dictionary, keeping the id intact; the rewrite
-      // mirrors that. Without such a dictionary there is nothing to bind, so
-      // the candidate is dropped — which marks its caller unresolvable below
-      // and leaves the call site as written.
-      if (knownDictionaryKeys && knownDictionaryKeys.size > 0) {
-        for (const candidate of candidatesByDecl.values()) {
-          const hasUnknown = candidate.namespaces.some(
-            (namespace) => !knownDictionaryKeys.has(namespace)
-          );
-          if (!hasUnknown) continue;
-
-          const rootKey = rootDictionaryKeyFor(candidate.descriptor);
-
-          if (!knownDictionaryKeys.has(rootKey)) {
-            candidate.isPoisoned = true;
-            continue;
-          }
-
-          for (const site of candidate.callSites) {
-            if (knownDictionaryKeys.has(site.dictionaryKey)) continue;
-
-            // Re-point at the whole-file dictionary, restoring the full id.
-            site.remainderKey = site.remainderKey
-              ? `${site.dictionaryKey}.${site.remainderKey}`
-              : site.dictionaryKey;
-            site.dictionaryKey = rootKey;
-          }
-
-          candidate.namespaces = candidate.namespaces.filter((namespace) =>
-            knownDictionaryKeys.has(namespace)
-          );
-          if (!candidate.namespaces.includes(rootKey)) {
-            candidate.namespaces.push(rootKey);
-          }
+        // No readable namespace — a computed key, or a call that passes none
+        // at all (`useTranslations()`). Either way the dictionary is unknown at
+        // build time, so the call keeps resolving through the runtime registry
+        // and holds back the siblings sharing its import.
+        if (!namespaceMatch) {
+          unresolvableLocalNames.add(callee.name);
+          continue;
         }
-      }
 
-      const resolvedCandidates = [...candidatesByDecl.values()].filter(
-        (candidate) => !candidate.isPoisoned && candidate.namespaces.length > 0
-      );
-
-      // A caller local is only safe to rewrite when *every* one of its
-      // namespace-less call sites became a resolvable binding — otherwise the
-      // shared import would be re-pointed while some call still passes nothing.
-      for (const [callerLocal, bareCount] of bareCallsPerCaller) {
-        const resolvedCount = resolvedCandidates.filter(
-          (candidate) => candidate.callerLocal === callerLocal
-        ).length;
-        if (resolvedCount !== bareCount) {
-          unresolvableLocalNames.add(callerLocal);
-        }
-      }
-
-      activeCandidates = resolvedCandidates.filter(
-        (candidate) => !unresolvableLocalNames.has(candidate.callerLocal)
-      );
-
-      for (const candidate of activeCandidates) {
-        for (const namespace of candidate.namespaces) {
-          if (isDynamicMode(dictionaryModeMap?.[namespace])) {
-            hasDynamicCall = true;
-          }
+        const { dictionaryKey } = splitNamespace(namespaceMatch.fullNamespace);
+        if (isDynamicMode(dictionaryModeMap?.[dictionaryKey])) {
+          hasDynamicCall = true;
         }
       }
 
@@ -545,101 +226,21 @@ export const createCompatOptimizePass = (
       useDynamicHelpers = isDynamicMode(importMode) || hasDynamicCall;
     },
 
-    applyRootScopeRewrites: () => {
-      const handledCalls = new Set<BabelTypes.Node>();
-
-      for (const candidate of activeCandidates) {
-        const [firstNamespace, ...restNamespaces] = candidate.namespaces;
-        if (!firstNamespace) continue;
-
-        const initCall = candidate.declPath.node
-          .init as BabelTypes.CallExpression;
-        initCall.arguments = rootScopeCallArgs(firstNamespace);
-        handledCalls.add(initCall);
-
-        // Every dictionary beyond the first gets a sibling declarator holding
-        // its own binding, so `t('a.x')` and `t('b.y')` each read their own.
-        const siblingAliases = new Map<string, BabelTypes.Identifier>();
-
-        if (restNamespaces.length > 0) {
-          const siblingDecls: BabelTypes.VariableDeclarator[] = [];
-
-          for (const namespace of restNamespaces) {
-            const aliasIdent = candidate.declPath.scope.generateUidIdentifier(
-              `_${namespace}`
-            );
-            siblingAliases.set(namespace, aliasIdent);
-
-            const siblingId: BabelTypes.LVal = candidate.destructuredProps
-              ? babelTypes.objectPattern(
-                  [...candidate.destructuredProps.keys()].map((propName) =>
-                    babelTypes.objectProperty(
-                      babelTypes.identifier(propName),
-                      aliasIdent
-                    )
-                  )
-                )
-              : aliasIdent;
-
-            const siblingInit = babelTypes.callExpression(
-              babelTypes.identifier(candidate.callerLocal),
-              rootScopeCallArgs(namespace)
-            );
-            handledCalls.add(siblingInit);
-            siblingDecls.push(
-              babelTypes.variableDeclarator(siblingId, siblingInit)
-            );
-          }
-
-          if (candidate.declPath.parentPath.isVariableDeclaration()) {
-            const parent = candidate.declPath.parentPath.node;
-            const index = parent.declarations.indexOf(candidate.declPath.node);
-            if (index === -1) {
-              parent.declarations.push(...siblingDecls);
-            } else {
-              parent.declarations.splice(index + 1, 0, ...siblingDecls);
-            }
-          }
-        }
-
-        for (const site of candidate.callSites) {
-          handledCalls.add(site.callPath.node);
-
-          if (site.dictionaryKey !== firstNamespace) {
-            const aliasIdent = siblingAliases.get(site.dictionaryKey);
-            if (aliasIdent) {
-              if (site.isMethodCall) {
-                (
-                  site.callPath.node.callee as BabelTypes.MemberExpression
-                ).object = aliasIdent;
-              } else {
-                site.callPath.node.callee = aliasIdent;
-              }
-            }
-          }
-
-          stripDictionaryPrefix(site);
-        }
-      }
-
-      return handledCalls;
-    },
-
-    rewriteCall: (callPath) => {
-      const callee = callPath.node.callee;
-      if (!babelTypes.isIdentifier(callee)) return false;
+    rewriteCall: (callNode) => {
+      const callee = callNode.callee;
+      if (!babelTypes.isIdentifier(callee)) return;
 
       const descriptor = callersByLocalName.get(callee.name);
-      if (!descriptor) return false;
+      if (!descriptor) return;
 
-      const callArguments = callPath.node.arguments;
+      const callArguments = callNode.arguments;
       const namespaceMatch = resolveNamespaceForRewrite(
         babelTypes,
         callArguments,
         descriptor
       );
-      // Filtered out by `analyze` — the import keeps its original specifier.
-      if (!namespaceMatch) return true;
+      // Filtered out by `analyzeCalls` — the import keeps its original specifier.
+      if (!namespaceMatch) return;
 
       const { dictionaryKey, keyPrefix } = splitNamespace(
         namespaceMatch.fullNamespace
@@ -697,19 +298,19 @@ export const createCompatOptimizePass = (
             );
         }
       }
-
-      return true;
     },
 
-    rewriteImportSpecifiers: (importPath) => {
-      const importSource = importPath.node.source.value;
+    rewriteImportSpecifiers: (importNode) => {
+      const byName = callerIndex.get(importNode.source.value);
+      if (!byName) return;
 
-      for (const specifier of importPath.node.specifiers) {
+      for (const specifier of importNode.specifiers) {
         if (!babelTypes.isImportSpecifier(specifier)) continue;
 
+        // Only a specifier still held by `callersByLocalName` is rewritable —
+        // `analyzeCalls` removed the ones with an unresolvable call site.
         const descriptor = callersByLocalName.get(specifier.local.name);
-        if (!descriptor) continue;
-        if (!descriptor.importSources.includes(importSource)) continue;
+        if (!descriptor || !byName.has(descriptor.callerName)) continue;
 
         // Keep the local alias so call sites read unchanged; only the imported
         // name moves to the dictionary-accepting helper.

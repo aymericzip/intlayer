@@ -169,23 +169,6 @@ impl<'a> ExtraCallerContext<'a> {
         })
     }
 
-    /// Binds `call` to `dictionary_key`, prepending the dictionary (and its key
-    /// for the dynamic helper) the way the scoped rewrite does.
-    pub fn bind_call_to_dictionary(
-        &self,
-        call: &mut CallExpr,
-        dictionary_key: &str,
-        imports: &mut InjectedImports,
-    ) {
-        let import_kind = self.import_kind(dictionary_key);
-        let ident = imports.ident_for(dictionary_key, import_kind);
-
-        if import_kind.is_dynamic_helper() {
-            call.args.insert(0, make_string_arg(dictionary_key));
-        }
-        call.args.insert(0, make_ident_arg(ident));
-    }
-
     /// Rewrites an extra-caller call site: the namespace is replaced by (or
     /// prefixed with) a pre-imported dictionary, plus the dictionary key and
     /// nested key prefix the helper needs.

@@ -51,7 +51,6 @@ pub fn use_translation_caller() -> ExtraCallerConfig {
         namespace_option: None,
         static_replacement: "useDictionary".to_string(),
         dynamic_replacement: "useDictionaryDynamic".to_string(),
-        allow_root_scope: false,
     }
 }
 
@@ -68,7 +67,6 @@ pub fn use_i18n_caller() -> ExtraCallerConfig {
         }),
         static_replacement: "useDictionary".to_string(),
         dynamic_replacement: "useDictionaryDynamic".to_string(),
-        allow_root_scope: false,
     }
 }
 
@@ -82,7 +80,6 @@ pub fn use_lingui_caller() -> ExtraCallerConfig {
         namespace_option: None,
         static_replacement: "useDictionary".to_string(),
         dynamic_replacement: "useDictionaryDynamic".to_string(),
-        allow_root_scope: false,
     }
 }
 
@@ -172,9 +169,8 @@ impl Pass for FieldRenameFolder {
     }
 }
 
-/// next-intl-style extra caller: namespace at index 0, but a bare
-/// `useTranslations()` is also rewritable via the message ids.
-pub fn use_translations_root_scope_caller() -> ExtraCallerConfig {
+/// next-intl-style extra caller: namespace at positional index 0.
+pub fn use_translations_caller() -> ExtraCallerConfig {
     ExtraCallerConfig {
         caller_name: "useTranslations".to_string(),
         import_sources: vec!["next-intl".to_string(), "@intlayer/next-intl".to_string()],
@@ -183,23 +179,5 @@ pub fn use_translations_root_scope_caller() -> ExtraCallerConfig {
         namespace_option: None,
         static_replacement: "useDictionary".to_string(),
         dynamic_replacement: "useDictionaryDynamic".to_string(),
-        allow_root_scope: true,
-    }
-}
-
-/// react-i18next-style extra caller: destructured `const { t } = useTranslation()`.
-pub fn use_translation_root_scope_caller() -> ExtraCallerConfig {
-    ExtraCallerConfig {
-        caller_name: "useTranslation".to_string(),
-        import_sources: vec![
-            "react-i18next".to_string(),
-            "@intlayer/react-i18next".to_string(),
-        ],
-        namespace_arg_index: Some(0),
-        fixed_namespace: None,
-        namespace_option: None,
-        static_replacement: "useDictionary".to_string(),
-        dynamic_replacement: "useDictionaryDynamic".to_string(),
-        allow_root_scope: true,
     }
 }

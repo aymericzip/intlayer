@@ -2,7 +2,7 @@
 //! dictionary imports.
 
 use pathdiff::diff_paths;
-use std::path::Path;
+use std::{borrow::Cow, path::Path};
 
 /// Computes the module specifier for an injected dictionary import: the path
 /// of `dict_file_abs` relative to `from_dir_abs`, using forward slashes and a
@@ -21,23 +21,40 @@ pub fn relative_import_path(dict_file_abs: &Path, from_dir_abs: &Path) -> String
     }
 }
 
+/// Whether `path` is already normalised: forward slashes throughout and, if it
+/// carries a drive letter, a lower-case one.
+fn is_normalized(path: &str) -> bool {
+    if path.as_bytes().contains(&b'\\') {
+        return false;
+    }
+
+    !has_upper_case_drive_letter(path)
+}
+
+/// Whether `path` starts with an upper-case Windows drive letter (`C:`).
+fn has_upper_case_drive_letter(path: &str) -> bool {
+    let bytes = path.as_bytes();
+
+    bytes.len() >= 2 && bytes[1] == b':' && bytes[0].is_ascii_uppercase()
+}
+
 /// Normalises a path string to use forward slashes and consistent drive-letter
 /// casing so that [`pathdiff::diff_paths`] works correctly in Wasm / cross-platform
 /// contexts where Windows-style paths may arrive from the JS host.
-pub fn normalize_path(path: &str) -> String {
+///
+/// Borrows when the path is already normalised — the case for every POSIX path,
+/// and the allowlist is re-scanned for each compiled file, so allocating there
+/// would cost one `String` per entry per file.
+pub fn normalize_path(path: &str) -> Cow<'_, str> {
+    if is_normalized(path) {
+        return Cow::Borrowed(path);
+    }
+
     let mut normalized = path.replace('\\', "/");
 
-    if normalized.len() >= 2 {
-        let bytes = normalized.as_bytes();
-        if bytes[1] == b':' {
-            let first_char = normalized.chars().next().unwrap();
-            if first_char.is_ascii_alphabetic() {
-                let lower_drive = first_char.to_ascii_lowercase();
-                if first_char != lower_drive {
-                    normalized.replace_range(0..1, &lower_drive.to_string());
-                }
-            }
-        }
+    if has_upper_case_drive_letter(&normalized) {
+        normalized[0..1].make_ascii_lowercase();
     }
-    normalized
+
+    Cow::Owned(normalized)
 }

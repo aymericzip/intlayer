@@ -773,6 +773,34 @@ describe('babel-plugin-intlayer-optimize', () => {
       expect(output).toContain('const t = useIntlayer(_dicHash);');
     });
 
+    it('should keep non-caller specifiers on the original Solid import', () => {
+      // Only `useIntlayer` moves to the /server entry; everything else the file
+      // imported from the package has to stay where it was.
+      const code = `
+        "use client";
+        import { useIntlayer, useLocale } from "solid-intlayer";
+        const t = useIntlayer("locale-switcher");
+        const { locale } = useLocale();
+      `;
+      const output = transform(
+        code,
+        {
+          importMode: 'dynamic',
+          isServer: true,
+        },
+        '/app/src/page.tsx'
+      );
+
+      expect(output).toContain('import { useLocale } from "solid-intlayer";');
+      expect(output).toContain(
+        'import { useDictionary as useIntlayer } from "solid-intlayer/server";'
+      );
+      expect(output).toContain('const t = useIntlayer(_dicHash);');
+      expect(output).toContain('useLocale()');
+      // The directive prologue must still lead the file.
+      expect(output?.trimStart().startsWith('"use client";')).toBe(true);
+    });
+
     it('should use a static dictionary during SSR for dictionary-level dynamic overrides', () => {
       const code = `
         import { useIntlayer } from "solid-intlayer";
