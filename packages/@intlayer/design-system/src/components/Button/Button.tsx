@@ -136,7 +136,7 @@ export const buttonVariants = cva(
 
         outline: [
           'rounded-2xl border-[1.3px] border-current! bg-current/0 *:text-current!',
-          'hover:border-none hover:bg-current/30! focus-visible:bg-current/20',
+          'hover:border-transparent hover:bg-current/30! focus-visible:bg-current/20',
           'hover:ring-5 focus-visible:ring-5',
           'aria-selected:ring-5',
         ],
