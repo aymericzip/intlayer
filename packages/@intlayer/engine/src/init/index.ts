@@ -8,6 +8,7 @@ import { setCompilerOutputInConfig, setRoutingModeInConfig } from './cms';
 import { setupFramework } from './frameworkSetup';
 import type { CompatSyncConfig, RoutingMode } from './utils';
 import {
+  BACKEND_INTLAYER_PACKAGES,
   detectJsonLocalePattern,
   detectLinguiCatalogPattern,
   detectMissingIntlayerPackages,
@@ -22,10 +23,10 @@ import {
   hasIntlayerVitePlugin,
   hasLintTooling,
   installPackages,
-  isVersionAtLeast,
   parseJSONWithComments,
   readFileFromRoot,
   replaceViteConfigPluginImportSource,
+  resolveDevScript,
   resolveGithubWorkflowsContext,
   setupNextCompilerBabelConfig,
   updateAstroConfig,
@@ -71,6 +72,9 @@ const DocumentationRouter = {
   Express: 'https://intlayer.org/doc/environment/express.md',
   NestJS: 'https://intlayer.org/doc/environment/nest.md',
   Fastify: 'https://intlayer.org/doc/environment/fastify.md',
+  Hono: 'https://intlayer.org/doc/environment/hono.md',
+  AdonisJS: 'https://intlayer.org/doc/environment/adonisjs.md',
+  Elysia: 'https://intlayer.org/doc/environment/elysia.md',
   Default: 'https://intlayer.org/doc/get-started',
 
   // Intlayer Language Server (Go-to-Definition from getter keys to .content files)
@@ -191,7 +195,12 @@ const getDocumentationUrl = (packageJson: any): string => {
   if (deps['@angular/core']) return DocumentationRouter.Angular;
 
   // Backend
+  // NestJS first: it runs on top of Express (or Fastify), so both dependencies
+  // are present and the more specific one has to win.
   if (deps['@nestjs/core']) return DocumentationRouter.NestJS;
+  if (deps['@adonisjs/core']) return DocumentationRouter.AdonisJS;
+  if (deps.elysia) return DocumentationRouter.Elysia;
+  if (deps.hono) return DocumentationRouter.Hono;
   if (deps.express) return DocumentationRouter.Express;
   if (deps.fastify) return DocumentationRouter.Fastify;
 
@@ -1143,27 +1152,14 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
   }
 
   // UPDATE PACKAGE.JSON DEV SCRIPT
-  // Next.js >= 16 uses a bun-specific wrapper; backend frameworks wrap whatever
-  // the existing dev script is. Both use `intlayer watch --with`.
-  const backendIntlayerPackages = [
-    'express-intlayer',
-    'fastify-intlayer',
-    'adonis-intlayer',
-    'hono-intlayer',
-  ];
-
-  const devScript = packageJson.scripts?.dev;
-
-  let newDevScript: string | undefined;
-
-  if (
-    devScript &&
-    ((isNextJsProject && allDeps.next && isVersionAtLeast(allDeps.next, 16)) ||
-      backendIntlayerPackages.some((pkg) => allDeps[pkg])) &&
-    !devScript.includes('intlayer watch')
-  ) {
-    newDevScript = `intlayer watch --with '${devScript}'`;
-  }
+  // Only frameworks with no bundler plugin to host the content watcher get
+  // their dev server wrapped; a Next.js app is always left alone. See
+  // `resolveDevScript`.
+  const newDevScript = resolveDevScript({
+    devScript: packageJson.scripts?.dev,
+    allDeps,
+    isNextJsProject,
+  });
 
   if (newDevScript) {
     packageJson.scripts.dev = newDevScript;
@@ -1199,12 +1195,15 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
     }
   }
 
+  // The server frameworks themselves, alongside their Intlayer packages: a
+  // project may be mid-setup and carry only one of the two.
   const backendConfigPackages = [
     'express',
     'fastify',
     '@adonisjs/core',
     'hono',
-    ...backendIntlayerPackages,
+    'elysia',
+    ...BACKEND_INTLAYER_PACKAGES,
   ];
 
   if (backendConfigPackages.some((pkg) => allDeps[pkg])) {

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-10-25
-updatedAt: 2026-06-23
+updatedAt: 2026-09-08
 title: "Next.js 15 i18n - Hướng dẫn đầy đủ để dịch ứng dụng của bạn"
 description: "Không còn i18next nữa. Hướng dẫn 2026 để xây dựng ứng dụng Next.js 15 đa ngôn ngữ (i18n). Dịch với các AI agent và tối ưu hóa kích thước bundle, SEO và hiệu suất."
 keywords:
@@ -999,6 +999,14 @@ bun add @intlayer/swc --dev
 
 ### Theo dõi các thay đổi từ điển trên Turbopack
 
+<Tabs>
+ <Tab label='Intlayer >=9.5' value='intlayer>=9.5'>
+
+Kể từ Intlayer v9.5, `withIntlayer` tự khởi động content watcher, không cần thiết lập thêm.
+
+ </Tab>
+ <Tab label='Intlayer <9.5' value='intlayer<9.5'>
+
 Khi sử dụng Turbopack làm máy chủ phát triển của bạn với lệnh `next dev --turbopack`項目, các thay đổi từ điển sẽ không được tự động phát hiện theo mặc định.
 
 Hạn chế này xảy ra vì Turbopack không thể chạy các plugin webpack song song để theo dõi các thay đổi trong tệp nội dung của bạn. Để giải quyết vấn đề này, bạn sẽ cần sử dụng lệnh `intlayer watch` để chạy đồng thời cả máy chủ phát triển và trình theo dõi xây dựng Intlayer.
@@ -1013,6 +1021,8 @@ Hạn chế này xảy ra vì Turbopack không thể chạy các plugin webpack 
 }
 ```
 
+ </Tab>
+</Tabs>
 ### Cấu hình TypeScript
 
 Intlayer sử dụng tăng cường mô-đun (module augmentation) để nhận được các lợi ích của TypeScript và làm cho cơ sở mã của bạn mạnh mẽ hơn.

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-06-23
+updatedAt: 2026-09-08
 title: Intlayer コンパイラー | i18n のための自動コンテンツ抽出
 description: Intlayer コンパイラーで国際化プロセスを自動化しましょう。コンポーネントから直接コンテンツを抽出し、Vite、Next.js などでより高速かつ効率的な i18n を実現します。
 keywords:
@@ -68,7 +68,7 @@ author: aymericzip
 
 ## 使い方
 
-> The quickest way to wire the compiler in is the interactive setup: run `npx intlayer init --interactive` and select **Compiler**. On Vite there is nothing to configure — the compiler is plugged in directly through the `intlayerCompiler()` plugin. On Next.js the command scaffolds the `babel.config.js` shown below. The non-interactive `intlayer init` leaves the compiler setup untouched.
+> コンパイラを導入する最も手軽な方法は対話型セットアップです: `npx intlayer init --interactive` を実行し、**Compiler** を選択します。Next.js と Vite では、`compiler.enabled` が設定され、`compiler.output` のパスが構成されると自動的に有効化されます。
 
 <Tabs>
  <Tab value='vite'>
@@ -92,13 +92,7 @@ import { defineConfig } from "vite";
 import { intlayer } from "vite-intlayer";
 
 export default defineConfig({
-  plugins: [
-    intlayer({
-      proxy: {
-        ignore: (req) => req.url?.startsWith("/api"),
-      },
-    }),
-  ],
+  plugins: [intlayer()],
 });
 ```
 
@@ -131,7 +125,33 @@ npm install @intlayer/svelte-compiler
  </Tab>
  <Tab value='nextjs'>
 
-### Next.js (Babel)
+### Next.js
+
+Next.js では、コンパイラはバンドラーローダー `next-intlayer/extractor-loader` として動作します。`withIntlayer` が Turbopack と webpack の**両方**に登録するため、`babel.config.js` を記述する必要はありません。
+
+#### インストール
+
+```bash
+npm install @intlayer/babel
+```
+
+#### 設定
+
+設定は不要です。`next.config.ts` が `withIntlayer` を経由している限り、`@intlayer/babel` をインストールするだけでローダーが自動的に登録されます:
+
+```ts fileName="next.config.ts"
+import { withIntlayer } from "next-intlayer/server";
+
+export default withIntlayer({});
+```
+
+ローダーは `next-swc-loader` の前に `.tsx` および `.jsx` ファイルに対して実行されるため、オリジナルの JSX を読み取ります。コンポーネント内で宣言されたコンテンツは `.content` ファイルに抽出され、ファイルがコンパイルされる際に `.intlayer` にビルドされます。
+
+</Tab>
+
+ <Tab value="Babel">
+
+### Babel
 
 Next.jsやその他の Webpack ベースの Babel を使用するアプリケーションでは、`@intlayer/babel`プラグインを使ってコンパイラーを設定できます。
 

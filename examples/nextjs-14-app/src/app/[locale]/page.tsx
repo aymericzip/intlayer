@@ -1,4 +1,6 @@
+import { ClientComponentExample } from '@components/ClientComponentExample';
 import { LocaleSwitcher } from '@components/LangSwitcherDropDown';
+import { ServerComponentExample } from '@components/ServerComponentExample';
 import Image from 'next/image';
 import type { Next14PageIntlayer } from 'next-intlayer';
 import { useIntlayer } from 'next-intlayer/server';
@@ -123,6 +125,8 @@ const Page: Next14PageIntlayer = () => {
       <div className="absolute right-5 bottom-5 z-50">
         <LocaleSwitcher />
       </div>
+      <ClientComponentExample />
+      <ServerComponentExample />
     </>
   );
 };

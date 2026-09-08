@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-12-06
-updatedAt: 2026-06-23
+updatedAt: 2026-09-08
 title: "تدويل Next.js 15 - الدليل الكامل لترجمة تطبيقك"
 description: "لا مزيد من i18next. دليل 2026 لبناء تطبيق Next.js 15 متعدد اللغات (i18n). ترجم باستخدام وكلاء الذكاء الاصطناعي وحسّن حجم الحزمة وتحسين محركات البحث والأداء."
 keywords:
@@ -975,6 +975,14 @@ bun add @intlayer/swc --dev
 
 ### مراقبة تغييرات القواميس في Turbopack
 
+<Tabs>
+ <Tab label='Intlayer >=9.5' value='intlayer>=9.5'>
+
+منذ إصدار Intlayer v9.5، يبدأ `withIntlayer` مراقب المحتوى (content watcher) تلقائياً، ولا حاجة لأي إعداد إضافي.
+
+ </Tab>
+ <Tab label='Intlayer <9.5' value='intlayer<9.5'>
+
 عند استخدام Turbopack كخادم تطوير مع الأمر `next dev --turbopack` ، لن يتم اكتشاف تغييرات القاموس تلقائيًا بشكل افتراضي.
 
 يحدث هذا القيد لأن Turbopack لا يمكنه تشغيل إضافات webpack بالتوازي لمراقبة التغييرات في ملفات المحتوى الخاصة بك. للتغلب على ذلك ، ستحتاج إلى استخدام الأمر `intlayer watch` لتشغيل كل من خادم التطوير ومراقب بناء Intlayer في وقت واحد.
@@ -989,6 +997,8 @@ bun add @intlayer/swc --dev
 }
 ```
 
+ </Tab>
+</Tabs>
 ### تكوين TypeScript
 
 يستخدم Intlayer تعزيز الوحدة (module augmentation) للاستفادة من TypeScript وجعل قاعدة الشيفرة الخاصة بك أقوى.

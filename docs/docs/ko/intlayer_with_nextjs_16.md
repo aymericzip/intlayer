@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-12-06
-updatedAt: 2026-09-06
+updatedAt: 2026-09-08
 title: "Next.js 16 i18n - 앱을 번역하는 완전 가이드"
 description: "i18next는 이제 그만. 2026년 다국어 (i18n) Next.js 16 앱 구축 가이드. AI 에이전트로 번역하고 번들 크기, SEO, 성능을 최적화하세요."
 keywords:
@@ -1267,6 +1267,14 @@ bun run build # Or bun run dev
 
 ### Turbopack에서 사전 변경 사항 감시
 
+<Tabs>
+ <Tab label='Intlayer >=9.5' value='intlayer>=9.5'>
+
+Intlayer v9.5부터 `withIntlayer`가 content watcher를 자체적으로 시작하므로 추가 설정이 필요하지 않습니다.
+
+ </Tab>
+ <Tab label='Intlayer <9.5' value='intlayer<9.5'>
+
 `next dev --turbopack` 명령을 사용하여 개발 서버로 Turbopack을 사용할 때, 기본적으로 사전 변경 사항이 자동으로 감지되지 않습니다.
 
 이 제한은 Turbopack이 콘텐츠 파일의 변경 사항을 모니터링하기 위해 webpack 플러그인을 병렬로 실행할 수 없기 때문에 발생합니다. 이 문제를 해결하려면 `intlayer watch` 명령을 사용하여 개발 서버와 Intlayer 빌드 감시자를 동시에 실행해야 합니다.
@@ -1283,6 +1291,8 @@ bun run build # Or bun run dev
 
 > next-intlayer@<=6.x.x를 사용하는 경우, Next.js 16 애플리케이션이 Turbopack에서 올바르게 작동하도록 `--turbopack` 플래그를 유지해야 합니다. 이 제한을 피하기 위해 next-intlayer@>=7.x.x를 사용하는 것을 권장합니다.
 
+ </Tab>
+</Tabs>
 ### TypeScript 구성
 
 Intlayer는 모듈 증강(module augmentation)을 사용하여 TypeScript의 이점을 활용하고 코드베이스를 더욱 견고하게 만듭니다.

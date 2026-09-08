@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-06-23
+updatedAt: 2026-09-08
 title: Intlayer Compiler | i18n için Otomatik İçerik Çıkarımı
 description: Uluslararasılaştırma sürecinizi Intlayer Compiler ile otomatikleştirin. İçeriği bileşenlerinizden doğrudan çıkararak Vite, Next.js ve daha fazlasında daha hızlı ve verimli i18n sağlayın.
 keywords:
@@ -68,7 +68,7 @@ Alternatif olarak, içeriğiniz üzerinde tam kontrolü korurken i18n süreciniz
 
 ## Kullanım
 
-> The quickest way to wire the compiler in is the interactive setup: run `npx intlayer init --interactive` and select **Compiler**. On Vite there is nothing to configure — the compiler is plugged in directly through the `intlayerCompiler()` plugin. On Next.js the command scaffolds the `babel.config.js` shown below. The non-interactive `intlayer init` leaves the compiler setup untouched.
+> Derleyiciyi bağlamanın en hızlı yolu etkileşimli kurulumdur: `npx intlayer init --interactive` komutunu çalıştırın ve **Compiler** seçeneğini seçin. Next.js ve Vite üzerinde, `compiler.enabled` ayarlandığında ve bir `compiler.output` yolu yapılandırıldığında otomatik olarak etkinleşir.
 
 <Tabs>
  <Tab value='vite'>
@@ -92,13 +92,7 @@ import { defineConfig } from "vite";
 import { intlayer } from "vite-intlayer";
 
 export default defineConfig({
-  plugins: [
-    intlayer({
-      proxy: {
-        ignore: (req) => req.url?.startsWith("/api"),
-      },
-    }),
-  ],
+  plugins: [intlayer()],
 });
 ```
 
@@ -131,7 +125,33 @@ npm install @intlayer/svelte-compiler
  </Tab>
  <Tab value='nextjs'>
 
-### Next.js (Babel)
+### Next.js
+
+Next.js'te derleyici bir paketleyici yükleyici (bundler loader) olan `next-intlayer/extractor-loader` olarak çalışır. `withIntlayer` bunu hem Turbopack hem de webpack üzerinde sizin için kaydeder, yazılacak bir `babel.config.js` yoktur.
+
+#### Kurulum
+
+```bash
+npm install @intlayer/babel
+```
+
+#### Konfigürasyon
+
+Yapılandırılacak bir şey yok. `next.config.ts` dosyanız `withIntlayer` kullandığı sürece, `@intlayer/babel` yüklemek loader'ın kaydedilmesi için yeterlidir:
+
+```ts fileName="next.config.ts"
+import { withIntlayer } from "next-intlayer/server";
+
+export default withIntlayer({});
+```
+
+Loader, `next-swc-loader` öncesinde `.tsx` ve `.jsx` dosyalarında çalışır, bu nedenle orijinal JSX'inizi okur. Bileşenlerinizde bildirilen içerik `.content` dosyalarına çıkarılır ve dosya derlenirken `.intlayer` içine dahil edilir.
+
+</Tab>
+
+ <Tab value="Babel">
+
+### Babel
 
 Next.js veya Babel kullanan diğer Webpack tabanlı uygulamalar için, derleyiciyi `@intlayer/babel` eklentisi ile yapılandırabilirsiniz.
 

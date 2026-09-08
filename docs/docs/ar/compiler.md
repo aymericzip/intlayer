@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-06-23
+updatedAt: 2026-09-08
 title: مترجم Intlayer | استخراج المحتوى الآلي للتدويل
 description: قم بأتمتة عملية التدويل الخاصة بك باستخدام مترجم Intlayer. استخرج المحتوى مباشرة من مكوناتك لتحقيق تدويل أسرع وأكثر كفاءة في Vite و Next.js والمزيد.
 keywords:
@@ -68,7 +68,7 @@ author: aymericzip
 
 ## الاستخدام
 
-> The quickest way to wire the compiler in is the interactive setup: run `npx intlayer init --interactive` and select **Compiler**. On Vite there is nothing to configure — the compiler is plugged in directly through the `intlayerCompiler()` plugin. On Next.js the command scaffolds the `babel.config.js` shown below. The non-interactive `intlayer init` leaves the compiler setup untouched.
+> أسرع طريقة لدمج المترجم (compiler) هي الإعداد التفاعلي: شغّل `npx intlayer init --interactive` واختر **Compiler**. في Next.js و Vite، يتم تفعيله تلقائياً بمجرد تعيين `compiler.enabled` وتكوين مسار `compiler.output`.
 
 <Tabs>
  <Tab value='vite'>
@@ -92,13 +92,7 @@ import { defineConfig } from "vite";
 import { intlayer } from "vite-intlayer";
 
 export default defineConfig({
-  plugins: [
-    intlayer({
-      proxy: {
-        ignore: (req) => req.url?.startsWith("/api"),
-      },
-    }),
-  ],
+  plugins: [intlayer()],
 });
 ```
 
@@ -131,7 +125,33 @@ npm install @intlayer/svelte-compiler
  </Tab>
  <Tab value='nextjs'>
 
-### Next.js (Babel)
+### Next.js
+
+في Next.js، يعمل المترجم كـ bundler loader، وهو `next-intlayer/extractor-loader`. يقوم `withIntlayer` بتسجيله لك على **كل من** Turbopack و webpack، ولا حاجة لكتابة أي ملف `babel.config.js`.
+
+#### التثبيت
+
+```bash
+npm install @intlayer/babel
+```
+
+#### التهيئة
+
+لا شيء لتكوينه. طالما أن `next.config.ts` الخاص بك يمر عبر `withIntlayer`، فإن تثبيت `@intlayer/babel` كافٍ لتسجيل الـ loader:
+
+```ts fileName="next.config.ts"
+import { withIntlayer } from "next-intlayer/server";
+
+export default withIntlayer({});
+```
+
+يعمل الـ loader على ملفات `.tsx` و `.jsx` قبل `next-swc-loader`، لذا فهو يقرأ الـ JSX الأصلي الخاص بك. يتم استخراج المحتوى المعلن في مكوناتك إلى ملفات `.content` وبناؤه في `.intlayer` أثناء تجميع الملف.
+
+</Tab>
+
+ <Tab value="Babel">
+
+### Babel
 
 بالنسبة لتطبيقات Next.js أو التطبيقات الأخرى المبنية على Webpack والتي تستخدم Babel، يمكنك تكوين المترجم باستخدام إضافة `@intlayer/babel`.
 

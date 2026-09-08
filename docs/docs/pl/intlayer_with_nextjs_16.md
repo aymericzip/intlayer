@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-12-06
-updatedAt: 2026-09-06
+updatedAt: 2026-09-08
 title: "Next.js 16 i18n - Kompletny przewodnik po tłumaczeniu swojej aplikacji"
 description: "Koniec z i18next. Przewodnik 2026 do budowania wielojęzycznej (i18n) aplikacji Next.js 16. Tłumacz z agentami AI i optymalizuj rozmiar bundle, SEO i wydajność."
 keywords:
@@ -1268,6 +1268,14 @@ bun run build # Or bun run dev
 
 ### Obserwuj zmiany słowników w Turbopack
 
+<Tabs>
+ <Tab label='Intlayer >=9.5' value='intlayer>=9.5'>
+
+Od wersji Intlayer v9.5 `withIntlayer` uruchamia content watcher automatycznie, nie jest wymagana dodatkowa konfiguracja.
+
+ </Tab>
+ <Tab label='Intlayer <9.5' value='intlayer<9.5'>
+
 Podczas korzystania z Turbopack jako serwera deweloperskiego za pomocą polecenia `next dev`, zmiany w słownikach nie będą automatycznie wykrywane domyślnie.
 
 To ograniczenie występuje, ponieważ Turbopack nie może uruchamiać wtyczek webpack równolegle, aby monitorować zmiany w plikach zawartości. Aby to obejść, będziesz musiał użyć polecenia `intlayer watch`, aby uruchomić jednocześnie serwer deweloperski i obserwatora budowania Intlayer.
@@ -1284,6 +1292,8 @@ To ograniczenie występuje, ponieważ Turbopack nie może uruchamiać wtyczek we
 
 > Jeśli używasz next-intlayer@<=6.x.x, musisz zachować flagę `--turbopack`, aby aplikacja Next.js 16 działała poprawnie z Turbopack. Zalecamy używanie next-intlayer@>=7.x.x, aby uniknąć tego ograniczenia.
 
+ </Tab>
+</Tabs>
 ### Skonfiguruj TypeScript
 
 Intlayer wykorzystuje augmentację modułów, aby czerpać korzyści z TypeScript i wzmacniać Twoją bazę kodu.

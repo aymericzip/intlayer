@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-12-06
-updatedAt: 2026-09-06
+updatedAt: 2026-09-08
 title: "Next.js 16 i18n - Guide complet pour traduire votre application"
 description: "Oubliez i18next. Le guide 2026 pour créer une application Next.js 16 multilingue (i18n). Traduisez avec des agents IA et optimisez la taille du bundle, le SEO et les performances."
 keywords:
@@ -1308,6 +1308,14 @@ bun run build # Or bun run dev
 
 ### Surveiller les modifications des dictionnaires avec Turbopack
 
+<Tabs>
+ <Tab label='Intlayer >=9.5' value='intlayer>=9.5'>
+
+Depuis Intlayer v9.5, `withIntlayer` démarre le content watcher lui-même, aucune configuration supplémentaire n'est nécessaire.
+
+ </Tab>
+ <Tab label='Intlayer <9.5' value='intlayer<9.5'>
+
 Lorsque vous utilisez Turbopack comme serveur de développement avec la commande `next dev`, les modifications des dictionnaires ne sont pas détectées automatiquement par défaut.
 
 Cette limitation survient parce que Turbopack ne peut pas exécuter les plugins webpack en parallèle pour surveiller les modifications dans vos fichiers de contenu. Pour contourner ce problème, vous devez utiliser la commande `intlayer watch` afin d’exécuter simultanément le serveur de développement et le surveillant de build Intlayer.
@@ -1323,6 +1331,9 @@ Cette limitation survient parce que Turbopack ne peut pas exécuter les plugins 
 ```
 
 > Si vous utilisez next-intlayer@<=6.x.x, vous devez conserver le flag `--turbopack` pour que l'application Next.js 16 fonctionne correctement avec Turbopack. Nous recommandons d'utiliser next-intlayer@>=7.x.x pour éviter cette limitation.
+
+ </Tab>
+</Tabs>
 
 ### Configurer TypeScript
 

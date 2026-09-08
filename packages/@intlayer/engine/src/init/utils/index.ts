@@ -1,5 +1,6 @@
 export * from './astImports';
 export * from './configManipulation';
+export * from './devScript';
 export * from './fileSystem';
 export * from './githubActions';
 export * from './jsonParser';

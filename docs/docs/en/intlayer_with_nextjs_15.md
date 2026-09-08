@@ -994,6 +994,14 @@ bun add @intlayer/swc --dev
 
 ### Watch dictionaries changes on Turbopack
 
+<Tabs>
+ <Tab label='Intlayer >=9.5' value='intlayer>=9.5'>
+
+Since Intlayer v9.5, `withIntlayer` starts the content watcher itself, no need extra set up.
+
+ </Tab>
+ <Tab label='Intlayer <9.5' value='intlayer<9.5'>
+
 When using Turbopack as your development server with the `next dev --turbopack` command, dictionary changes will not be automatically detected by default.
 
 This limitation occurs because Turbopack cannot run webpack plugins in parallel to monitor changes in your content files. To work around this, you'll need to use the `intlayer watch` command to run both the development server and the Intlayer build watcher simultaneously.
@@ -1007,6 +1015,9 @@ This limitation occurs because Turbopack cannot run webpack plugins in parallel 
   },
 }
 ```
+
+ </Tab>
+</Tabs>
 
 ### Configure TypeScript
 

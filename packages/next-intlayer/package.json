@@ -81,6 +81,11 @@
       "require": "./dist/cjs/server/format/index.cjs",
       "import": "./dist/esm/server/format/index.mjs"
     },
+    "./extractor-loader": {
+      "types": "./dist/types/extractorLoader.d.ts",
+      "require": "./dist/cjs/extractorLoader.cjs",
+      "import": "./dist/esm/extractorLoader.mjs"
+    },
     "./plugin": {
       "types": "./dist/types/plugin/index.d.ts",
       "require": "./dist/cjs/plugin/index.cjs",
@@ -110,6 +115,9 @@
       ],
       "server/format": [
         "./dist/types/server/format/index.d.ts"
+      ],
+      "extractor-loader": [
+        "./dist/types/extractorLoader.d.ts"
       ],
       "package.json": [
         "./package.json"

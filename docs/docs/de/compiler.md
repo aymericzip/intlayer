@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-06-23
+updatedAt: 2026-09-08
 title: Intlayer Compiler | Automatisierte Inhaltsextraktion für i18n
 description: Automatisieren Sie Ihren Internationalisierungsprozess mit dem Intlayer Compiler. Extrahieren Sie Inhalte direkt aus Ihren Komponenten für schnellere und effizientere i18n in Vite, Next.js und mehr.
 keywords:
@@ -68,7 +68,7 @@ Als Alternative, um Ihren i18n-Prozess zu automatisieren und gleichzeitig die vo
 
 ## Verwendung
 
-> The quickest way to wire the compiler in is the interactive setup: run `npx intlayer init --interactive` and select **Compiler**. On Vite there is nothing to configure — the compiler is plugged in directly through the `intlayerCompiler()` plugin. On Next.js the command scaffolds the `babel.config.js` shown below. The non-interactive `intlayer init` leaves the compiler setup untouched.
+> Der schnellste Weg, den Compiler einzubinden, ist das interaktive Setup: Führen Sie `npx intlayer init --interactive` aus und wählen Sie **Compiler**. Bei Next.js und Vite wird er automatisch aktiviert, sobald `compiler.enabled` gesetzt und ein `compiler.output`-Pfad konfiguriert ist.
 
 <Tabs>
  <Tab value='vite'>
@@ -92,13 +92,7 @@ import { defineConfig } from "vite";
 import { intlayer } from "vite-intlayer";
 
 export default defineConfig({
-  plugins: [
-    intlayer({
-      proxy: {
-        ignore: (req) => req.url?.startsWith("/api"),
-      },
-    }),
-  ],
+  plugins: [intlayer()],
 });
 ```
 
@@ -131,7 +125,33 @@ npm install @intlayer/svelte-compiler
  </Tab>
  <Tab value='nextjs'>
 
-### Next.js (Babel)
+### Next.js
+
+Unter Next.js läuft der Compiler als Bundler-Loader, `next-intlayer/extractor-loader`. `withIntlayer` registriert ihn für Sie auf **sowohl** Turbopack als auch webpack, es muss keine `babel.config.js` geschrieben werden.
+
+#### Installation
+
+```bash
+npm install @intlayer/babel
+```
+
+#### Konfiguration
+
+Nichts zu konfigurieren. Solange Ihre `next.config.ts` über `withIntlayer` läuft, reicht die Installation von `@intlayer/babel` aus, damit der Loader registriert wird:
+
+```ts fileName="next.config.ts"
+import { withIntlayer } from "next-intlayer/server";
+
+export default withIntlayer({});
+```
+
+Der Loader läuft auf `.tsx`- und `.jsx`-Dateien vor `next-swc-loader`, liest also Ihr originales JSX. In Ihren Komponenten deklarierter Inhalt wird in `.content`-Dateien extrahiert und beim Kompilieren der Datei in `.intlayer` eingebunden.
+
+</Tab>
+
+ <Tab value="Babel">
+
+### Babel
 
 Für Next.js oder andere Webpack-basierte Anwendungen, die Babel verwenden, können Sie den Compiler mit dem `@intlayer/babel` Plugin konfigurieren.
 

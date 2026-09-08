@@ -1,4 +1,4 @@
-import { existsSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { detectPackageManager, installPackages } from '@intlayer/engine/cli';
 import { findProjectRoot } from './init';
@@ -6,33 +6,6 @@ import { loadPrompts } from './loadPrompts';
 
 /** Framework the Intlayer compiler can be wired into during init. */
 type CompilerFramework = 'vite' | 'nextjs' | 'unknown';
-
-/**
- * babel.config.js that runs the Intlayer compiler passes for Next.js.
- *
- * Mirrors the Next.js (Babel) tab of `docs/docs/en/compiler.md`: the extract
- * plugin pulls inline content into dictionaries and the optimize plugin
- * rewrites `useIntlayer` into direct dictionary imports. On Vite the same work
- * is handled by the `intlayer()` plugin (which bundles the compiler in v9), so
- * no Babel config is needed.
- */
-const BABEL_COMPILER_CONFIG_CONTENT = `const {
-  intlayerExtractBabelPlugin,
-  intlayerOptimizeBabelPlugin,
-  getExtractPluginOptions,
-  getOptimizePluginOptions,
-} = require("@intlayer/babel");
-
-module.exports = {
-  presets: ["next/babel"],
-  plugins: [
-    // Extract content from components into dictionaries
-    [intlayerExtractBabelPlugin, getExtractPluginOptions()],
-    // Optimize imports by replacing useIntlayer with direct dictionary imports
-    [intlayerOptimizeBabelPlugin, getOptimizePluginOptions()],
-  ],
-};
-`;
 
 /**
  * Reads the project dependencies and detects which framework the compiler
@@ -65,8 +38,11 @@ const detectCompilerFramework = (root: string): CompilerFramework => {
  * - **Vite** — nothing to do: since v9 the compiler is built into the
  *   `intlayer()` plugin in `vite.config.ts`, so this only confirms the setup
  *   to the user.
- * - **Next.js** — installs `@intlayer/babel` and writes a `babel.config.js`
- *   that runs the extract + optimize compiler passes.
+ * - **Next.js** — installs `@intlayer/babel`, which is all that is needed:
+ *   `withIntlayer` registers `next-intlayer/extractor-loader` on both webpack
+ *   and Turbopack as soon as the package resolves. No `babel.config.js` is
+ *   written — Turbopack never reads one, and on webpack its mere presence
+ *   switches Next.js off SWC, taking the `@intlayer/swc` optimize pass with it.
  *
  * In non-interactive init this function is never called, so the compiler setup
  * is left untouched.
@@ -113,44 +89,12 @@ export const initCompiler = async (projectRoot?: string): Promise<void> => {
     );
   }
 
-  const babelConfigCandidates = [
-    'babel.config.js',
-    'babel.config.cjs',
-    'babel.config.mjs',
-    'babel.config.ts',
-    '.babelrc',
-    '.babelrc.js',
-  ];
-
-  const existingBabelConfig = babelConfigCandidates.find((file) =>
-    existsSync(join(root, file))
+  p.log.success(
+    'The compiler runs through `withIntlayer` in your next.config — nothing else to wire up.'
   );
-
-  if (existingBabelConfig) {
-    p.log.warn(
-      `${existingBabelConfig} already exists — add the Intlayer compiler plugins manually.`
-    );
-    p.note(
-      BABEL_COMPILER_CONFIG_CONTENT,
-      'Plugins to add to your babel config'
-    );
-  } else {
-    try {
-      writeFileSync(
-        join(root, 'babel.config.js'),
-        BABEL_COMPILER_CONFIG_CONTENT,
-        { encoding: 'utf-8' }
-      );
-      p.log.success(
-        'Created babel.config.js with the Intlayer compiler extract and optimize plugins'
-      );
-    } catch {
-      p.log.warn(
-        'Could not create babel.config.js — please create it manually.'
-      );
-      p.note(BABEL_COMPILER_CONFIG_CONTENT, 'babel.config.js');
-    }
-  }
+  p.log.info(
+    'Set `compiler.enabled` in intlayer.config.ts to turn the extraction on.'
+  );
 
   p.outro('Compiler configuration complete');
 };

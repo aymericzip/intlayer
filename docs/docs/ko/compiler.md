@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-06-23
+updatedAt: 2026-09-08
 title: Intlayer 컴파일러 | i18n을 위한 자동화된 콘텐츠 추출
 description: Intlayer 컴파일러로 국제화 프로세스를 자동화하세요. Vite, Next.js 등에서 더 빠르고 효율적인 i18n을 위해 컴포넌트에서 직접 콘텐츠를 추출합니다.
 keywords:
@@ -68,7 +68,7 @@ author: aymericzip
 
 ## 사용법
 
-> The quickest way to wire the compiler in is the interactive setup: run `npx intlayer init --interactive` and select **Compiler**. On Vite there is nothing to configure — the compiler is plugged in directly through the `intlayerCompiler()` plugin. On Next.js the command scaffolds the `babel.config.js` shown below. The non-interactive `intlayer init` leaves the compiler setup untouched.
+> 컴파일러를 연결하는 가장 빠른 방법은 대화형 설정입니다. `npx intlayer init --interactive`를 실행하고 **Compiler**를 선택하세요. Next.js와 Vite에서는 `compiler.enabled`가 설정되고 `compiler.output` 경로가 구성되면 자동으로 활성화됩니다.
 
 <Tabs>
  <Tab value='vite'>
@@ -92,13 +92,7 @@ import { defineConfig } from "vite";
 import { intlayer } from "vite-intlayer";
 
 export default defineConfig({
-  plugins: [
-    intlayer({
-      proxy: {
-        ignore: (req) => req.url?.startsWith("/api"),
-      },
-    }),
-  ],
+  plugins: [intlayer()],
 });
 ```
 
@@ -131,7 +125,33 @@ npm install @intlayer/svelte-compiler
  </Tab>
  <Tab value='nextjs'>
 
-### Next.js (Babel)
+### Next.js
+
+Next.js에서 컴파일러는 번들러 로더인 `next-intlayer/extractor-loader`로 실행됩니다. `withIntlayer`가 Turbopack과 webpack **모두**에 등록하므로 `babel.config.js`를 작성할 필요가 없습니다.
+
+#### 설치
+
+```bash
+npm install @intlayer/babel
+```
+
+#### 구성
+
+설정할 것이 없습니다. `next.config.ts`가 `withIntlayer`를 거치는 한, `@intlayer/babel`을 설치하는 것만으로 로더가 등록됩니다:
+
+```ts fileName="next.config.ts"
+import { withIntlayer } from "next-intlayer/server";
+
+export default withIntlayer({});
+```
+
+로더는 `next-swc-loader`보다 먼저 `.tsx` 및 `.jsx` 파일에서 실행되므로 원래의 JSX를 읽습니다. 컴포넌트에 선언된 콘텐츠는 `.content` 파일로 추출되며 파일이 컴파일될 때 `.intlayer`로 빌드됩니다.
+
+</Tab>
+
+ <Tab value="Babel">
+
+### Babel
 
 Next.js 또는 Babel을 사용하는 다른 Webpack 기반 애플리케이션의 경우, `@intlayer/babel` 플러그인을 사용하여 컴파일러를 구성할 수 있습니다.
 

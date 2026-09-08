@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-06-23
+updatedAt: 2026-09-08
 title: Intlayer 编译器 | 用于 i18n 的自动内容提取
 description: 使用 Intlayer 编译器自动化您的国际化流程。直接从组件中提取内容，实现 Vite、Next.js 等框架中更快速、更高效的 i18n。
 keywords:
@@ -68,7 +68,7 @@ author: aymericzip
 
 ## 使用方法
 
-> The quickest way to wire the compiler in is the interactive setup: run `npx intlayer init --interactive` and select **Compiler**. On Vite there is nothing to configure — the compiler is plugged in directly through the `intlayerCompiler()` plugin. On Next.js the command scaffolds the `babel.config.js` shown below. The non-interactive `intlayer init` leaves the compiler setup untouched.
+> 接入编译器最快捷的方式是交互式设置：运行 `npx intlayer init --interactive` 并选择 **Compiler**。在 Next.js 和 Vite 中，一旦设置了 `compiler.enabled` 并配置了 `compiler.output` 路径，它就会自动激活。
 
 <Tabs>
  <Tab value='vite'>
@@ -92,13 +92,7 @@ import { defineConfig } from "vite";
 import { intlayer } from "vite-intlayer";
 
 export default defineConfig({
-  plugins: [
-    intlayer({
-      proxy: {
-        ignore: (req) => req.url?.startsWith("/api"),
-      },
-    }),
-  ],
+  plugins: [intlayer()],
 });
 ```
 
@@ -131,7 +125,33 @@ npm install @intlayer/svelte-compiler
  </Tab>
  <Tab value='nextjs'>
 
-### Next.js（Babel）
+### Next.js
+
+在 Next.js 中，编译器作为打包器加载器 `next-intlayer/extractor-loader` 运行。`withIntlayer` 会在 Turbopack 和 webpack **两者**中自动为您注册，无需编写 `babel.config.js`。
+
+#### 安装
+
+```bash
+npm install @intlayer/babel
+```
+
+#### 配置
+
+无需任何配置。只要您的 `next.config.ts` 经过 `withIntlayer`，安装 `@intlayer/babel` 就足以注册该加载器：
+
+```ts fileName="next.config.ts"
+import { withIntlayer } from "next-intlayer/server";
+
+export default withIntlayer({});
+```
+
+加载器在 `next-swc-loader` 之前运行于 `.tsx` 和 `.jsx` 文件上，因此它读取的是您原始的 JSX。组件中声明的内容会被提取到 `.content` 文件中，并在文件编译时构建到 `.intlayer` 中。
+
+</Tab>
+
+ <Tab value="Babel">
+
+### Babel
 
 对于使用 Babel 的 Next.js 或其他基于 Webpack 的应用，可以通过 `@intlayer/babel` 插件配置编译器。
 

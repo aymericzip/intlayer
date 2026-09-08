@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-12-06
-updatedAt: 2026-09-06
+updatedAt: 2026-09-08
 title: "Next.js 16 i18n - 翻译你的应用的完整指南"
 description: "告别 i18next。2026 年构建多语言 (i18n) Next.js 16 应用的完整指南。使用 AI 代理翻译并优化包体积、SEO 和性能。"
 keywords:
@@ -1265,6 +1265,14 @@ bun run build # Or bun run dev
 
 ### 在 Turbopack 上监视字典更改
 
+<Tabs>
+ <Tab label='Intlayer >=9.5' value='intlayer>=9.5'>
+
+从 Intlayer v9.5 开始，`withIntlayer` 会自行启动 content watcher，无需额外设置。
+
+ </Tab>
+ <Tab label='Intlayer <9.5' value='intlayer<9.5'>
+
 当使用 Turbopack 作为您的开发服务器并运行 `next dev` 命令时，默认情况下不会自动检测字典更改。
 
 出现这种限制是因为 Turbopack 无法并行运行 webpack 插件以监视内容文件中的更改。要解决此问题，您需要使用 `intlayer watch` 命令同时运行开发服务器和 Intlayer 构建监视器。
@@ -1281,6 +1289,8 @@ bun run build # Or bun run dev
 
 > 如果您使用的是 next-intlayer@<=6.x.x，则需要保留 `--turbopack` 标志以使 Next.js 16 应用程序在 Turbopack 下正常工作。我们建议使用 next-intlayer@>=7.x.x 以避免此限制。
 
+ </Tab>
+</Tabs>
 ### 配置 TypeScript
 
 Intlayer 使用模块扩充来利用 TypeScript 的优势，并使您的代码库更强大。

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-12-06
-updatedAt: 2026-09-06
+updatedAt: 2026-09-08
 title: "Next.js 16 i18n - अपने ऐप को अनुवाद करने का पूर्ण गाइड"
 description: "अब i18next की जरूरत नहीं। 2026 में Next.js 16 ऐप को बहुभाषी (i18n) बनाने का गाइड। AI एजेंट्स से अनुवाद करें और बंडल साइज़, SEO और परफॉर्मेंस ऑप्टिमाइज़ करें।"
 keywords:
@@ -1266,7 +1266,40 @@ bun run build # Or bun run dev
 
 </Steps>
 
+### Turbopack पर शब्दकोश परिवर्तनों की निगरानी करें
+
+<Tabs>
+ <Tab label='Intlayer >=9.5' value='intlayer>=9.5'>
+
+Intlayer v9.5 से, `withIntlayer` सामग्री वॉचर (content watcher) को अपने आप शुरू करता है, किसी अतिरिक्त सेटअप की आवश्यकता नहीं है।
+
+ </Tab>
+ <Tab label='Intlayer <9.5' value='intlayer<9.5'>
+
+जब `next dev` कमांड के साथ विकास सर्वर के रूप में Turbopack का उपयोग किया जाता है, तो शब्दकोश परिवर्तन डिफ़ॉल्ट रूप से स्वचालित रूप से पता नहीं चलते हैं।
+
+यह सीमा इसलिए होती है क्योंकि Turbopack आपकी सामग्री फ़ाइलों में परिवर्तनों की निगरानी के लिए समानांतर में webpack प्लगइन्स नहीं चला सकता है। इसके समाधान के लिए, आपको विकास सर्वर और Intlayer बिल्ड वॉचर दोनों को एक साथ चलाने के लिए `intlayer watch` कमांड का उपयोग करना होगा।
+
+```json5 fileName="package.json"
+{
+  // ... आपकी मौजूदा package.json कॉन्फ़िगरेशन
+  "scripts": {
+    // ... आपकी मौजूदा स्क्रिप्ट कॉन्फ़िगरेशन
+    "dev": "intlayer watch --with 'next dev'",
+  },
+}
+```
+
+> यदि आप next-intlayer@<=6.x.x का उपयोग कर रहे हैं, तो आपको Next.js 16 एप्लिकेशन को Turbopack के साथ सही ढंग से काम करने के लिए `--turbopack` फ़्लैग रखना होगा। हम इस सीमा से बचने के लिए next-intlayer@>=7.x.x का उपयोग करने की अनुशंसा करते हैं।
+
+ </Tab>
+</Tabs>
+
 ### TypeScript कॉन्फ़िगर करें
+
+Intlayer module augmentation का उपयोग करता है ताकि TypeScript के लाभों को प्राप्त किया जा सके और आपके codebase को मजबूत किया जा सके।
+
+![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
 ![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
 
@@ -1282,13 +1315,7 @@ bun run build # Or bun run dev
 }
 ```
 
-> यदि आप next-intlayer@<=6.x.x का उपयोग कर रहे हैं, तो आपको Next.js 16 एप्लिकेशन को Turbopack के साथ सही ढंग से काम करने के लिए `--turbopack` फ़्लैग रखना होगा। हम इस सीमा से बचने के लिए next-intlayer@>=7.x.x का उपयोग करने की अनुशंसा करते हैं।
-
 ### Git कॉन्फ़िगरेशन
-
-Intlayer module augmentation का उपयोग करता है ताकि TypeScript के लाभों को प्राप्त किया जा सके और आपके codebase को मजबूत किया जा सके।
-
-![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
 यह अनुशंसा की जाती है कि Intlayer द्वारा उत्पन्न फ़ाइलों को अनदेखा किया जाए। इससे आप उन्हें अपनी Git रिपॉजिटरी में कमिट करने से बच सकते हैं।
 
@@ -1301,7 +1328,11 @@ Intlayer module augmentation का उपयोग करता है ता�
 
 ### VS कोड एक्सटेंशन
 
+अपने Intlayer के साथ विकास अनुभव में सुधार करने के लिए, आप आधिकारिक **Intlayer VS Code Extension** को install कर सकते हैं।
+
 [VS Code मार्केटप्लेस से इंस्टॉल करें](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+यह एक्सटेंशन प्रदान करता है:
 
 - अनुवाद कुंजियों के लिए **ऑटोकम्प्लीशन**।
 - **अनुवादों के लिए रियल-टाइम त्रुटि पहचान।**
@@ -1309,26 +1340,6 @@ Intlayer module augmentation का उपयोग करता है ता�
 - **तेजी से क्रियाएं** जो अनुवादों को आसानी से बनाने और अपडेट करने में मदद करती हैं।
 
 विस्तृत जानकारी के लिए, एक्सटेंशन का उपयोग कैसे करें, देखें [Intlayer VS Code एक्सटेंशन दस्तावेज़](https://intlayer.org/doc/vs-code-extension)।
-
-### Turbopack पर शब्दकोश परिवर्तनों की निगरानी करें
-
-अपने Intlayer के साथ विकास अनुभव में सुधार करने के लिए, आप आधिकारिक **Intlayer VS Code Extension** को install कर सकते हैं।
-
-जब `next dev --turbopack` कमांड के साथ विकास सर्वर के रूप में Turbopack का उपयोग किया जाता है, तो शब्दकोश परिवर्तन डिफ़ॉल्ट रूप से स्वचालित रूप से पता नहीं चलते हैं।
-
-यह सीमा इसलिए होती है क्योंकि Turbopack आपकी सामग्री फ़ाइलों में परिवर्तनों की निगरानी के लिए समानांतर में webpack प्लगइन्स नहीं चला सकता है। इसके समाधान के लिए, आपको विकास सर्वर और Intlayer बिल्ड वॉचर दोनों को एक साथ चलाने के लिए `intlayer watch` कमांड का उपयोग करना होगा।
-
-```json5 fileName="package.json"
-{
-  // ... आपकी मौजूदा package.json कॉन्फ़िगरेशन
-  "scripts": {
-    // ... आपकी मौजूदा स्क्रिप्ट कॉन्फ़िगरेशन
-    "dev": "intlayer watch --with 'next dev'",
-  },
-}
-```
-
-extension के उपयोग के बारे में अधिक विवरण के लिए, [Intlayer VS Code Extension documentation](https://intlayer.org/doc/vs-code-extension) देखें।
 
 ### आगे बढ़ें
 

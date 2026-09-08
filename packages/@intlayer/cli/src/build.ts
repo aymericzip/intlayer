@@ -3,7 +3,12 @@ import {
   getConfiguration,
 } from '@intlayer/config/node';
 import { logConfigDetails } from '@intlayer/engine/cli';
-import { type ParallelHandle, runParallel } from '@intlayer/engine/utils';
+import {
+  claimCliContentWatcher,
+  type ParallelHandle,
+  reportRedundantContentWatcher,
+  runParallel,
+} from '@intlayer/engine/utils';
 import { buildAndWatchIntlayer } from '@intlayer/engine/watcher';
 
 type BuildOptions = {
@@ -22,6 +27,24 @@ export const build = async (options?: BuildOptions) => {
   logConfigDetails(options?.configOptions);
 
   let parallelProcess: ParallelHandle | null = null;
+
+  // Only watch mode keeps a watcher alive; a one-off build has nothing to
+  // deduplicate. Claimed before the child is spawned so the bundler plugin
+  // inside it stands down instead of racing this command.
+  if (options?.watch) {
+    const bundlerAlreadyWatching = await claimCliContentWatcher(
+      config,
+      'intlayer build --watch'
+    );
+
+    if (bundlerAlreadyWatching) {
+      reportRedundantContentWatcher(config, {
+        cliLabel: 'intlayer build --watch',
+        bundlerLabel: bundlerAlreadyWatching.label,
+        since: bundlerAlreadyWatching.since,
+      });
+    }
+  }
 
   if (options?.with) {
     parallelProcess = runParallel(options.with);

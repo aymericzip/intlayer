@@ -4,7 +4,7 @@ import {
   toSwcExtraCallers,
 } from '@intlayer/config/callers';
 import * as ANSIColors from '@intlayer/config/colors';
-import { IMPORT_MODE } from '@intlayer/config/defaultValues';
+import { COMPILER_ENABLED, IMPORT_MODE } from '@intlayer/config/defaultValues';
 import {
   formatDictionarySelectorEnvVar,
   formatNodeTypeToEnvVar,
@@ -42,6 +42,7 @@ import {
   prepareSwcOptimization,
   resolveSwcLogLevel,
 } from './prepareSwcOptimization';
+import { startContentWatcher } from './startContentWatcher';
 import {
   getIsSwcPluginSupported,
   MINIMUM_SWC_PLUGIN_NEXT_VERSION,
@@ -121,6 +122,89 @@ const resolvePluginPath = (
 
   // Absolute path for webpack
   return pluginPathResolved;
+};
+
+/**
+ * Extensions the extraction loader is registered for.
+ *
+ * The compiler reads its content out of JSX — element text and the
+ * translatable attributes — so a file with no JSX in it has nothing to give,
+ * and `*.ts` is left out. `*.js` is in because a plain-JavaScript Next.js app
+ * writes its components there.
+ */
+const EXTRACTOR_LOADER_EXTENSIONS = ['tsx', 'jsx', 'js'] as const;
+
+/**
+ * The subset safe to register as a Turbopack rule on any Next.js version.
+ *
+ * Turbopack rules match every module it processes, dependencies included, and
+ * only Next.js 16 can express "skip `node_modules`" (see
+ * {@link TURBOPACK_PROJECT_FILES_CONDITION}). Below that, `*.js` would hand
+ * every dependency file to a Node loader worker, so it is left out rather than
+ * made to cost a cold dev start.
+ */
+const TURBOPACK_ALWAYS_SAFE_EXTENSIONS = ['tsx', 'jsx'] as const;
+
+/**
+ * Restricts a Turbopack rule to the project's own files. `foreign` is
+ * Turbopack's builtin condition for a module inside `node_modules`.
+ *
+ * Only understood from Next.js 16 on — earlier releases carry no `condition`
+ * field on a rule at all.
+ */
+const TURBOPACK_PROJECT_FILES_CONDITION = { not: 'foreign' } as const;
+
+/** Mode reported to the extraction loader, which cannot read the command. */
+type ExtractorLoaderMode = 'dev' | 'build';
+
+/**
+ * Whether the Intlayer compiler should extract content for this command.
+ *
+ * Mirrors `getExtractPluginOptions`, which the loader re-evaluates on its side:
+ * this is only about not registering a loader that would do nothing.
+ */
+const getIsCompilerEnabled = (
+  intlayerConfig: IntlayerConfig,
+  isDevCommand: boolean
+): boolean => {
+  const enabled = intlayerConfig.compiler?.enabled ?? COMPILER_ENABLED;
+
+  if (enabled === 'build-only') return !isDevCommand;
+
+  return enabled !== false;
+};
+
+/**
+ * Describes the extraction loader for both bundlers, or `null` when the
+ * compiler is off or `@intlayer/babel` is not installed.
+ *
+ * The loader replaces the `babel.config.js` the compiler used to need on
+ * Next.js: Turbopack never reads a Babel config, and on webpack the mere
+ * presence of one opts the whole project out of SWC — including the
+ * `@intlayer/swc` optimize pass.
+ */
+const getExtractorLoader = (
+  intlayerConfig: IntlayerConfig,
+  isTurbopackEnabled: boolean,
+  isDevCommand: boolean
+): { loaderPath: string; mode: ExtractorLoaderMode } | null => {
+  if (!getIsCompilerEnabled(intlayerConfig, isDevCommand)) return null;
+  if (!getIsBabelExtractPluginAvailable(intlayerConfig)) return null;
+
+  try {
+    return {
+      loaderPath: resolvePluginPath(
+        'next-intlayer/extractor-loader',
+        intlayerConfig,
+        isTurbopackEnabled
+      ),
+      mode: isDevCommand ? 'dev' : 'build',
+    };
+  } catch {
+    // An installed `next-intlayer` that cannot resolve its own subpath means a
+    // version predating the loader — the Babel setup still applies there.
+    return null;
+  }
 };
 
 type GetPruneConfigParams = {
@@ -497,6 +581,19 @@ export const withIntlayerSync = <T extends Partial<NextConfig>>(
 
   const { isBuildCommand, isDevCommand } = getCommandsEvent();
 
+  const extractorLoader = getExtractorLoader(
+    intlayerConfig,
+    isTurbopackEnabled ?? false,
+    isDevCommand
+  );
+
+  // Turbopack cannot run `IntlayerPlugin`, which is what starts the content
+  // watcher on webpack. Without this the dev server had to be wrapped in
+  // `intlayer watch --with next dev` for a `.content` edit to reach `.intlayer`.
+  if (isTurbopackEnabled && isDevCommand) {
+    startContentWatcher(intlayerConfig);
+  }
+
   // Only provide turbo-specific config if user explicitly sets it
   const turboConfig = {
     resolveAlias: getAlias({
@@ -509,6 +606,35 @@ export const withIntlayerSync = <T extends Partial<NextConfig>>(
         as: '*.node',
         loaders: ['node-loader'],
       },
+
+      // Turbopack serialises loader options to JSON, so the loader reads the
+      // Intlayer configuration itself and only the command mode is passed here.
+      //
+      // No `as`: it renames the module, and naming the extension the rule
+      // already matches turns `Component.tsx` into `Component.tsx.tsx`, which
+      // then fails to resolve. Left out, Turbopack keeps handling the loader
+      // output as the TSX/JSX it still is.
+      ...(extractorLoader
+        ? Object.fromEntries(
+            (isGteNext16
+              ? EXTRACTOR_LOADER_EXTENSIONS
+              : TURBOPACK_ALWAYS_SAFE_EXTENSIONS
+            ).map((extension) => [
+              `*.${extension}`,
+              {
+                loaders: [
+                  {
+                    loader: extractorLoader.loaderPath,
+                    options: { mode: extractorLoader.mode },
+                  },
+                ],
+                ...(isGteNext16
+                  ? { condition: TURBOPACK_PROJECT_FILES_CONDITION }
+                  : {}),
+              },
+            ])
+          )
+        : {}),
     },
   };
 
@@ -663,6 +789,27 @@ export const withIntlayerSync = <T extends Partial<NextConfig>>(
             test: /\.node$/,
             loader: 'node-loader',
           });
+
+          // `enforce: 'pre'` puts the extraction ahead of `next-swc-loader`,
+          // so the loader reads the original JSX rather than its compiled
+          // output. Declaring it here (instead of in a `babel.config.js`)
+          // keeps Next.js on SWC, and with it the `@intlayer/swc` optimize
+          // pass a Babel config would silently disable.
+          if (extractorLoader) {
+            config.module.rules.push({
+              test: new RegExp(
+                `\\.(${EXTRACTOR_LOADER_EXTENSIONS.join('|')})$`
+              ),
+              exclude: /node_modules/,
+              enforce: 'pre',
+              use: [
+                {
+                  loader: extractorLoader.loaderPath,
+                  options: { mode: extractorLoader.mode },
+                },
+              ],
+            });
+          }
 
           // Always alias on the server (node/edge) for stability.
           // On the client, alias only when not using live sync.

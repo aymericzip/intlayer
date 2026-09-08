@@ -4,7 +4,11 @@ import {
   getConfiguration,
 } from '@intlayer/config/node';
 import { logConfigDetails } from '@intlayer/engine/cli';
-import { runParallel } from '@intlayer/engine/utils';
+import {
+  claimCliContentWatcher,
+  reportRedundantContentWatcher,
+  runParallel,
+} from '@intlayer/engine/utils';
 import { watch } from '@intlayer/engine/watcher';
 
 type WatchOptions = {
@@ -29,6 +33,24 @@ export const watchContentDeclaration = async (options?: WatchOptions) => {
   logConfigDetails(options?.configOptions);
 
   const appLogger = getAppLogger(config);
+
+  // Claimed *before* the child is spawned so the bundler plugin inside it never
+  // races this command for the watcher, and inherits the marker telling it a
+  // CLI watcher is already covering the project.
+  const bundlerAlreadyWatching = await claimCliContentWatcher(
+    config,
+    'intlayer watch'
+  );
+
+  // A bundler integration started from another terminal already covers this
+  // project, so this command has become the redundant half.
+  if (bundlerAlreadyWatching) {
+    reportRedundantContentWatcher(config, {
+      cliLabel: 'intlayer watch',
+      bundlerLabel: bundlerAlreadyWatching.label,
+      since: bundlerAlreadyWatching.since,
+    });
+  }
 
   // Store references to the child process
   let parallelProcess: ReturnType<typeof runParallel> | undefined;

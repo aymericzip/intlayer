@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-07
-updatedAt: 2026-06-23
+updatedAt: 2026-09-08
 title: "Next.js 15 i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
 description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) Next.js 15 uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
 keywords:
@@ -972,6 +972,14 @@ bun add @intlayer/swc --dev
 
 ### Turbopack'te Sözlük Değişikliklerini İzleyin
 
+<Tabs>
+ <Tab label='Intlayer >=9.5' value='intlayer>=9.5'>
+
+Intlayer v9.5 sürümünden itibaren, `withIntlayer` content watcher'ı kendisi başlatır, ek bir kuruluma gerek yoktur.
+
+ </Tab>
+ <Tab label='Intlayer <9.5' value='intlayer<9.5'>
+
 `next dev --turbopack` komutuyla Turbopack'i geliştirme sunucunuz olarak kullanırken, sözlük değişiklikleri varsayılan olarak otomatik olarak algılanmaz.
 
 Bu sınırlama, Turbopack'in içerik dosyalarınızdaki değişiklikleri izlemek için webpack eklentilerini paralel olarak çalıştıramamasından kaynaklanır. Bu sorunu aşmak için, hem geliştirme sunucusunu hem de Intlayer derleme izleyicisini aynı anda çalıştırmak için `intlayer watch` komutunu kullanmanız gerekir.
@@ -986,6 +994,8 @@ Bu sınırlama, Turbopack'in içerik dosyalarınızdaki değişiklikleri izlemek
 }
 ```
 
+ </Tab>
+</Tabs>
 ### TypeScript Yapılandırma
 
 Intlayer, TypeScript'ten faydalanmak ve kod tabanınızı daha güçlü hale getirmek için modül genişletmesi kullanır.

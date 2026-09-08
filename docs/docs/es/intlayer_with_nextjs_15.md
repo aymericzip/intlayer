@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-12-06
-updatedAt: 2026-08-30
+updatedAt: 2026-09-08
 title: "Next.js 15 i18n - Guía completa para traducir tu aplicación"
 description: "Sin más i18next. La guía 2026 para crear una aplicación Next.js 15 multilingüe (i18n). Traduce con agentes de IA y optimiza el tamaño del bundle, SEO y rendimiento."
 keywords:
@@ -969,6 +969,14 @@ bun add @intlayer/swc --dev
 
 ### Monitorear cambios de diccionarios en Turbopack
 
+<Tabs>
+ <Tab label='Intlayer >=9.5' value='intlayer>=9.5'>
+
+Desde Intlayer v9.5, `withIntlayer` inicia el content watcher por sí mismo, no se necesita configuración adicional.
+
+ </Tab>
+ <Tab label='Intlayer <9.5' value='intlayer<9.5'>
+
 Al usar Turbopack como su servidor de desarrollo con el comando `next dev --turbopack`, los cambios en los diccionarios no se detectarán automáticamente por defecto.
 
 Esta limitación ocurre porque Turbopack no puede ejecutar complementos de webpack en paralelo para monitorear los cambios en sus archivos de contenido. Para solucionar esto, deberá usar el comando `intlayer watch` para ejecutar tanto el servidor de desarrollo como el vigilante de compilación de Intlayer simultáneamente.
@@ -983,6 +991,8 @@ Esta limitación ocurre porque Turbopack no puede ejecutar complementos de webpa
 }
 ```
 
+ </Tab>
+</Tabs>
 ### Configurar TypeScript
 
 Intlayer utiliza la ampliación de módulos para aprovechar las ventajas de TypeScript y fortalecer tu base de código.

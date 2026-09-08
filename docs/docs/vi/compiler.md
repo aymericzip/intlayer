@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-06-23
+updatedAt: 2026-09-08
 title: Trình Biên Dịch Intlayer | Trích Xuất Nội Dung Tự Động cho i18n
 description: Tự động hóa quy trình quốc tế hóa của bạn với Trình Biên Dịch Intlayer. Trích xuất nội dung trực tiếp từ các component để i18n nhanh hơn và hiệu quả hơn trong Vite, Next.js và nhiều hơn nữa.
 keywords:
@@ -68,7 +68,7 @@ Như một giải pháp thay thế, để tự động hóa quy trình i18n củ
 
 ## Cách sử dụng
 
-> The quickest way to wire the compiler in is the interactive setup: run `npx intlayer init --interactive` and select **Compiler**. On Vite there is nothing to configure — the compiler is plugged in directly through the `intlayerCompiler()` plugin. On Next.js the command scaffolds the `babel.config.js` shown below. The non-interactive `intlayer init` leaves the compiler setup untouched.
+> Cách nhanh nhất để tích hợp compiler là thiết lập tương tác: chạy `npx intlayer init --interactive` và chọn **Compiler**. Trên Next.js và Vite, nó sẽ tự động kích hoạt khi `compiler.enabled` được bật và đường dẫn `compiler.output` được định cấu hình.
 
 <Tabs>
  <Tab value='vite'>
@@ -92,13 +92,7 @@ import { defineConfig } from "vite";
 import { intlayer } from "vite-intlayer";
 
 export default defineConfig({
-  plugins: [
-    intlayer({
-      proxy: {
-        ignore: (req) => req.url?.startsWith("/api"),
-      },
-    }),
-  ],
+  plugins: [intlayer()],
 });
 ```
 
@@ -131,7 +125,33 @@ npm install @intlayer/svelte-compiler
  </Tab>
  <Tab value='nextjs'>
 
-### Next.js (Babel)
+### Next.js
+
+Trên Next.js, compiler chạy như một bundler loader, `next-intlayer/extractor-loader`. `withIntlayer` đăng ký nó cho bạn trên **cả** Turbopack và webpack, không cần phải viết `babel.config.js`.
+
+#### Cài đặt
+
+```bash
+npm install @intlayer/babel
+```
+
+#### Cấu hình
+
+Không có gì để cấu hình. Miễn là `next.config.ts` của bạn đi qua `withIntlayer`, việc cài đặt `@intlayer/babel` là đủ để loader được đăng ký:
+
+```ts fileName="next.config.ts"
+import { withIntlayer } from "next-intlayer/server";
+
+export default withIntlayer({});
+```
+
+Loader chạy trên các tệp `.tsx` và `.jsx`, trước `next-swc-loader`, do đó nó đọc JSX gốc của bạn. Nội dung được khai báo trong các component của bạn được trích xuất vào các tệp `.content` và được xây dựng vào `.intlayer` khi tệp được biên dịch.
+
+</Tab>
+
+ <Tab value="Babel">
+
+### Babel
 
 Đối với Next.js hoặc các ứng dụng dựa trên Webpack sử dụng Babel, bạn có thể cấu hình trình biên dịch bằng cách sử dụng plugin `@intlayer/babel`.
 

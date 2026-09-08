@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-12-06
-updatedAt: 2026-09-06
+updatedAt: 2026-09-08
 title: "Next.js 16 i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
 description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) Next.js 16 uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
 keywords:
@@ -1268,6 +1268,14 @@ bun run build # Or bun run dev
 
 ### Turbopack'te Sözlük Değişikliklerini İzleyin
 
+<Tabs>
+ <Tab label='Intlayer >=9.5' value='intlayer>=9.5'>
+
+Intlayer v9.5 sürümünden itibaren, `withIntlayer` content watcher'ı kendisi başlatır, ek bir kuruluma gerek yoktur.
+
+ </Tab>
+ <Tab label='Intlayer <9.5' value='intlayer<9.5'>
+
 Next.js 16 uygulamanızı geliştirme sunucusu olarak Turbopack (`next dev` komutuyla) kullanırken, sözlük değişiklikleri varsayılan olarak otomatik olarak algılanmayacaktır.
 
 Bu sınırlama, Turbopack'in içerik dosyalarınızdaki değişiklikleri izlemek için webpack eklentilerini paralel olarak çalıştıramamasından kaynaklanmaktadır. Bunu aşmak için hem geliştirme sunucusunu hem de Intlayer build izleyicisini eşzamanlı olarak çalıştırmak üzere `intlayer watch` komutunu kullanmanız gerekecektir.
@@ -1284,6 +1292,8 @@ Bu sınırlama, Turbopack'in içerik dosyalarınızdaki değişiklikleri izlemek
 
 > next-intlayer@<=6.x.x kullanıyorsanız, Next.js 16 uygulamasının Turbopack ile doğru çalışması için `--turbopack` bayrağını korumanız gerekir. Bu sınırlamadan kaçınmak için next-intlayer@>=7.x.x kullanmanızı öneririz.
 
+ </Tab>
+</Tabs>
 ### TypeScript Yapılandırması
 
 Intlayer, TypeScript'in avantajlarından yararlanmak ve kod tabanınızı daha güçlü hale getirmek için modül genişletme (module augmentation) kullanır.

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-10-25
-updatedAt: 2026-06-23
+updatedAt: 2026-09-08
 title: "Next.js 15 i18n - Panduan lengkap menerjemahkan aplikasi Anda"
 description: "Tidak ada lagi i18next. Panduan 2026 untuk membangun aplikasi Next.js 15 multibahasa (i18n). Terjemahkan dengan agen AI dan optimalkan ukuran bundle, SEO, dan performa."
 keywords:
@@ -1026,6 +1026,14 @@ bun add @intlayer/swc --dev
 
 ### Memantau perubahan kamus pada Turbopack
 
+<Tabs>
+ <Tab label='Intlayer >=9.5' value='intlayer>=9.5'>
+
+Sejak Intlayer v9.5, `withIntlayer` memulai content watcher dengan sendirinya, tidak memerlukan penyiapan tambahan.
+
+ </Tab>
+ <Tab label='Intlayer <9.5' value='intlayer<9.5'>
+
 Saat menggunakan Turbopack sebagai server pengembangan Anda dengan perintah `next dev --turbopack`, perubahan kamus tidak akan terdeteksi secara otomatis secara default.
 
 Batasan ini terjadi karena Turbopack tidak dapat menjalankan plugin webpack secara paralel untuk memantau perubahan pada file konten Anda. Untuk mengatasinya, Anda perlu menggunakan perintah `intlayer watch` untuk menjalankan server pengembangan dan pengawas build Intlayer secara bersamaan.
@@ -1040,6 +1048,8 @@ Batasan ini terjadi karena Turbopack tidak dapat menjalankan plugin webpack seca
 }
 ```
 
+ </Tab>
+</Tabs>
 ### Konfigurasi TypeScript
 
 Intlayer menggunakan module augmentation untuk mendapatkan manfaat dari TypeScript dan membuat codebase Anda lebih kuat.
