@@ -57,11 +57,8 @@ export const linkVariants = cva(
           'relative inline-flex min-h-8 cursor-pointer flex-row items-center justify-center gap-2 rounded-full bg-current px-6 text-center font-medium text-sm text-text ring-0 *:text-text-opposite hover:bg-current/90 hover:ring-5 aria-selected:ring-5 aria-[current]:ring-5 max-md:py-2',
 
         'button-outlined':
-          'relative inline-flex min-h-8 cursor-pointer flex-row items-center justify-center gap-2 rounded-full border-[1.3px] border-current px-6 text-center font-medium text-sm text-text ring-0 *:text-text hover:border-transparent hover:bg-current/30! hover:ring-5 aria-selected:ring-5 aria-[current]:ring-5 max-md:py-2',
+          'relative inline-flex min-h-8 cursor-pointer flex-row items-center justify-center gap-2 rounded-full border-[1.3px] border-current! px-6 text-center font-medium text-sm text-text ring-0 *:text-text hover:bg-current/30! hover:ring-5 aria-selected:ring-5 aria-[current]:ring-5 max-md:py-2',
 
-        // `block` is load-bearing: an inline anchor wrapping block content is
-        // split into empty inline fragments, so the hover background paints on
-        // nothing and the effect disappears.
         hoverable:
           'block rounded-lg border-none bg-current/0 transition *:text-current! hover:bg-current/10 aria-[current]:bg-current/5',
       },
