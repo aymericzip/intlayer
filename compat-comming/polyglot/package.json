@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/polyglot",
-  "version": "9.4.4",
+  "version": "9.5.0",
   "private": false,
   "description": "polyglot API adapter for intlayer — drop-in compatibility layer",
   "keywords": [

@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/lsp",
-  "version": "9.4.4",
+  "version": "9.5.0",
   "private": false,
   "description": "Intlayer Language Server. Handle LSP to help IDE and AI agent to use Intlayer",
   "keywords": [
