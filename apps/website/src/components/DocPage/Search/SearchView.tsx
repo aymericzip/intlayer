@@ -250,7 +250,7 @@ const SearchViewContent: FC<{
           aria-label={searchInput.label.value}
           onChange={(e) => setSearch(e.target.value)}
           defaultValue={searchQueryParam ?? ''}
-          className="m-3"
+          className="m-3 bg-text-opposite"
           ref={inputRef}
         />
       </div>
