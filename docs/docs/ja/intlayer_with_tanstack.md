@@ -584,10 +584,10 @@ function RouteComponent() {
 
 > `alt`、`title`、`href`、`aria-label` などの `string` 属性でコンテンツを使用する場合、関数の値を次のように使用できます:
 >
-> ```html
-> <img src="{content.image.src.value}" alt="{content.image.value}" />
-> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
-> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
+> ```tsx
+> <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
 
 > `useIntlayer` hook の詳細については、[ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/useIntlayer.md)を参照してください。

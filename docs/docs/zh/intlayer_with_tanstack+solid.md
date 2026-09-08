@@ -516,10 +516,10 @@ function RouteComponent() {
 >
 > 如果您想在 `string` 属性中使用您的内容，例如 `alt`、`title`、`href`、`aria-label` 等，可以使用函数的值，如下所示：
 >
-> ```html
-> <img src="{content.image.src.value}" alt="{content.image.value}" />
-> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
-> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
+> ```tsx
+> <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
 
 > 要了解更多关于 `useIntlayer` hook 的信息，请参考[文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/solid-intlayer/useIntlayer.md)。

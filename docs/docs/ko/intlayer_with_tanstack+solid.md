@@ -508,10 +508,10 @@ function RouteComponent() {
 }
 ```
 
-> ```html
-> <img src="{content.image.src.value}" alt="{content.image.value}" />
-> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
-> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
+> ```tsx
+> <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
 
 > Solid에서 `useIntlayer`는 반응형 콘텐츠(예: `content`)를 반환합니다. 그 속성에 직접 액세스할 수 있습니다.

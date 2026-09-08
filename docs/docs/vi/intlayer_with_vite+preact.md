@@ -422,10 +422,10 @@ export default App;
 
 > Nếu bạn muốn sử dụng nội dung của mình trong một thuộc tính `string`, chẳng hạn như `alt`, `title`, `href`, `aria-label`, v.v., bạn phải gọi giá trị của hàm, ví dụ:
 
-> ```html
-> <img src="{content.image.src.value}" alt="{content.image.value}" />
-> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
-> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
+> ```tsx
+> <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
 
 > Lưu ý: Trong Preact, `className` thường được viết là `class`.

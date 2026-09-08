@@ -320,10 +320,10 @@ const { greeting } = getIntlayer("lit-demo", locale);
 
 如果你想在 `string` 属性中使用你的内容，例如 `alt`、`title`、`href`、`aria-label` 等，你可以使用函数的值，如下：
 
-> ```html
-> <img src="{content.image.src.value}" alt="{content.image.value}" />
-> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
-> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
+> ```tsx
+> <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
 
 > **关于路由设置的说明：**

@@ -130,10 +130,10 @@ bunx intlayer init --interactive
 
 > Если вы хотите использовать свой контент в атрибуте `строки`, таком как `alt`, `title`, `href`, `aria-label` и т. д., вы можете использовать значение функции, например:
 
-> ```html
-> <img src="{content.image.src.value}" alt="{content.image.value}" />
-> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
-> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
+> ```tsx
+> <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
 
 ```bash packageManager="npm"
@@ -347,10 +347,10 @@ const { greeting, description, switchLocale } = getIntlayer("app", locale);
 
 > Если вы хотите использовать ваш контент в атрибуте `string`, например `alt`, `title`, `href`, `aria-label` и т. д., вы можете использовать значение функции следующим образом:
 
-> ```html
-> <img src="{content.image.src.value}" alt="{content.image.value}" />
-> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
-> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
+> ```tsx
+> <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
 
 > **Примечание по конфигурации маршрутизации:**

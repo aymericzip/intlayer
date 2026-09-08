@@ -131,10 +131,10 @@ bunx intlayer init --interactive
 
 > `alt`, `title`, `href`, `aria-label` 등과 같은 `문자열` 속성에서 콘텐츠를 사용하려면 다음과 같이 함수의 값을 사용할 수 있습니다.
 
-> ```html
-> <img src="{content.image.src.value}" alt="{content.image.value}" />
-> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
-> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
+> ```tsx
+> <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
 
 ```bash packageManager="npm"
@@ -332,10 +332,10 @@ const { greeting } = getIntlayer("lit-demo", locale);
 
 > `string` 속성(예: `alt`, `title`, `href`, `aria-label` 등)에서 콘텐츠를 사용하려면 함수의 값을 다음과 같이 사용할 수 있습니다:
 
-> ```html
-> <img src="{content.image.src.value}" alt="{content.image.value}" />
-> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
-> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
+> ```tsx
+> <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
 
 > **라우팅 설정에 관한 참고 사항:**

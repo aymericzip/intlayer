@@ -419,10 +419,10 @@ export default App;
 
 > إذا كنت تريد استخدام المحتوى الخاص بك في خاصية `string` ، مثل `alt` ، `title` ، `href` ، `aria-label` ، وما إلى ذلك ، فيجب عليك استدعاء قيمة الدالة ، مثل:
 
-> ```html
-> <img src="{content.image.src.value}" alt="{content.image.value}" />
-> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
-> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
+> ```tsx
+> <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
 
 > ملاحظة: في Preact، عادةً ما يتم كتابة `className` كـ `class`.

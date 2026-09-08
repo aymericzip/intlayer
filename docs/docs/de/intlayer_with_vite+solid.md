@@ -313,10 +313,10 @@ export default App;
 
 > Wenn Sie Ihren Inhalt in einem `string`-Attribut verwenden möchten, wie `alt`, `title`, `href`, `aria-label` usw., müssen Sie den Wert der Funktion aufrufen, wie:
 >
-> ```html
-> <img src="{content.image.src.value}" alt="{content.image.value}" />
-> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
-> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
+> ```tsx
+> <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
 
 </Step>

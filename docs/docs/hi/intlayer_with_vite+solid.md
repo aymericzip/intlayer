@@ -313,10 +313,10 @@ export default App;
 
 > यदि आप `alt`, `title`, `href`, `aria-label` आदि जैसे `string` विशेषता में अपनी सामग्री का उपयोग करना चाहते हैं, तो आपको फ़ंक्शन के मान को इस तरह कॉल करना होगा:
 >
-> ```html
-> <img src="{content.image.src.value}" alt="{content.image.value}" />
-> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
-> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
+> ```tsx
+> <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
 
 </Step>

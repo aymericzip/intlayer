@@ -336,10 +336,10 @@ const { greeting, description, switchLocale } = getIntlayer("app", locale);
 
 > Se desideri utilizzare il tuo contenuto in un attributo `stringa`, come `alt`, `title`, `href`, `aria-label`, ecc., puoi utilizzare il valore della funzione, come:
 
-> ```html
-> <img src="{content.image.src.value}" alt="{content.image.value}" />
-> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
-> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
+> ```tsx
+> <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
 
 > **Nota sulla configurazione del routing:**

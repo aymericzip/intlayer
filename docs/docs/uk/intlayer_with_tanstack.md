@@ -576,10 +576,10 @@ function RouteComponent() {
 
 > Якщо ви хочете використовувати вміст у атрибуті `string`, такому як `alt`, `title`, `href`, `aria-label` тощо, ви можете використовувати значення функції, наприклад:
 >
-> ```html
-> <img src="{content.image.src.value}" alt="{content.image.value}" />
-> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
-> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
+> ```tsx
+> <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
 
 > Щоб дізнатися більше про hook `useIntlayer`, звернітеся до [документації](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/react-intlayer/useIntlayer.md).

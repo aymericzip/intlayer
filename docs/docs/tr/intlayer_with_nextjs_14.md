@@ -627,10 +627,10 @@ const ServerComponentExample: FC = () => {
 
 > İçeriğinizi `alt`, `title`, `href`, `aria-label` gibi bir `string` özniteliğinde kullanmak istiyorsanız, fonksiyonun değerini şu şekilde kullanabilirsiniz:
 
-> ```html
-> <img src="{content.image.src.value}" alt="{content.image.value}" />
-> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
-> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
+> ```tsx
+> <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
 
 > `useIntlayer` hook hakkında daha fazla bilgi için [belgelere](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/next-intlayer/useIntlayer.md) bakınız.

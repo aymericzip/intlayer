@@ -576,10 +576,10 @@ function RouteComponent() {
 
 > Jeśli chcesz użyć zawartości w atrybucie `string`, takim jak `alt`, `title`, `href`, `aria-label` itd., możesz użyć wartości funkcji, na przykład:
 >
-> ```html
-> <img src="{content.image.src.value}" alt="{content.image.value}" />
-> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
-> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
+> ```tsx
+> <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
 
 > Aby dowiedzieć się więcej o hook'u `useIntlayer`, zapoznaj się z [dokumentacją](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/react-intlayer/useIntlayer.md).

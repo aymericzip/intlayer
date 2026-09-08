@@ -313,10 +313,10 @@ export default App;
 
 > Якщо ви хочете використовувати ваш контент у атрибуті `string`, такому як `alt`, `title`, `href`, `aria-label` тощо, ви повинні викликати значення функції, як:
 >
-> ```html
-> <img src="{content.image.src.value}" alt="{content.image.value}" />
-> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
-> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
+> ```tsx
+> <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
 
 </Step>

@@ -419,10 +419,10 @@ export default App;
 
 > İçeriğinizi `alt`, `title`, `href`, `aria-label` vb. gibi bir `string` niteliğinde kullanmak istiyorsanız, işlevin değerini çağırmalısınız:
 
-> ```html
-> <img src="{content.image.src.value}" alt="{content.image.value}" />
-> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
-> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
+> ```tsx
+> <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
 
 > Not: Preact'te `className` genellikle `class` olarak yazılır.

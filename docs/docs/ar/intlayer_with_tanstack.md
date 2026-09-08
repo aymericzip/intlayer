@@ -576,10 +576,10 @@ function RouteComponent() {
 
 > إذا كنت تريد استخدام محتواك في خاصية `string`، مثل `alt` أو `title` أو `href` أو `aria-label`، إلخ، يمكنك استخدام قيمة الدالة، مثل:
 >
-> ```html
-> <img src="{content.image.src.value}" alt="{content.image.value}" />
-> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
-> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
+> ```tsx
+> <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
 
 > لمعرفة المزيد حول خطاف `useIntlayer` ، راجع [التوثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/useIntlayer.md).

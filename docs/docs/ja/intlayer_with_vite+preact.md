@@ -436,10 +436,10 @@ export default App;
 
 > `alt`、`title`、`href`、`aria-label` などの `string` 属性でコンテンツを使用したい場合、次のように関数の値を使用できます:
 
-> ```html
-> <img src="{content.image.src.value}" alt="{content.image.value}" />
-> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
-> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
+> ```tsx
+> <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
 
 > 注: Preact では、`className` は通常 `class` として書かれます。

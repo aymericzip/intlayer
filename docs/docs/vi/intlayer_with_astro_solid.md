@@ -312,10 +312,10 @@ const { title } = getIntlayer("app", locale);
 
 > Nếu bạn muốn sử dụng nội dung của mình trong một thuộc tính `chuỗi`, chẳng hạn như `alt`, `title`, `href`, `aria-label`, v. b., bạn có thể sử dụng giá trị của hàm, như:
 
-> ```html
-> <img src="{content.image.src.value}" alt="{content.image.value}" />
-> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
-> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
+> ```tsx
+> <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
 
 > **Lưu ý về thiết lập định tuyến:**

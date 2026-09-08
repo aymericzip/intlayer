@@ -466,10 +466,10 @@ export default function Home() {
 
 > إذا كنت تريد استخدام محتواك في خاصية من نوع `string`، مثل `alt`، `title`، `href`، `aria-label`، إلخ، يمكنك استخدام قيمة الدالة، مثل:
 >
-> ```html
-> <img src="{content.image.src.value}" alt="{content.image.value}" />
-> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
-> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
+> ```tsx
+> <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
 
 > لمعرفة المزيد حول خطاف `useIntlayer`، يُرجى الرجوع إلى [التوثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/solid-intlayer/useIntlayer.md).
