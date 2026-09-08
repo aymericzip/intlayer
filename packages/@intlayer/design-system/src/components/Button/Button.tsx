@@ -56,7 +56,6 @@ export type ButtonVariant =
  * Button color themes that work with the design system
  */
 export type ButtonColor =
-  | 'secondary'
   | 'neutral'
   | 'text'
   | 'foreground'
@@ -65,12 +64,6 @@ export type ButtonColor =
   | 'success'
   | 'custom'
   | 'text-inverse';
-
-/*
-| 'primary'
-| 'current'
-| 'custom';
-*/
 
 /**
  * Text alignment options for button content
@@ -97,8 +90,6 @@ export const buttonVariants = cva(
         custom: '',
       },
       color: {
-        secondary:
-          'hover-secondary-500/20 text-secondary ring-secondary-500/20 *:text-text-light',
         neutral: 'text-neutral ring-neutral-500/5 *:text-text-light',
         card: 'hover-card-500/20 text-card ring-card-500/20 *:text-text-light',
         text: 'text-text ring-text/20 *:text-text-opposite',

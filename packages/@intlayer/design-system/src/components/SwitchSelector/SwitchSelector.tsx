@@ -17,8 +17,6 @@ export const defaultChoices: SwitchSelectorChoices<boolean> = [
 ];
 
 export type SwitchSelectorColor =
-  | 'primary'
-  | 'secondary'
   | 'neutral'
   | 'white'
   | 'black'
@@ -48,8 +46,6 @@ export const switchSelectorVariant = cva(
   {
     variants: {
       color: {
-        primary: 'border-primary text-primary',
-        secondary: 'border-secondary text-secondary',
         neutral: 'border-neutral text-neutral',
         white: 'border-white text-white',
         black: 'border-black text-black',
@@ -90,9 +86,6 @@ export const indicatorVariant = cva(
   {
     variants: {
       color: {
-        primary: 'bg-primary data-[indicator=true]:text-primary-foreground',
-        secondary:
-          'bg-secondary data-[indicator=true]:text-secondary-foreground',
         neutral: 'bg-neutral data-[indicator=true]:text-white',
         white: 'bg-white data-[indicator=true]:text-black',
         black: 'bg-black data-[indicator=true]:text-white',
@@ -109,7 +102,7 @@ export const indicatorVariant = cva(
 export const SwitchSelector = <T,>(props: SwitchSelectorProps<T>) => {
   const {
     choices = defaultChoices as SwitchSelectorChoices<T>,
-    color = 'primary',
+    color = 'text',
     size = 'md',
     className,
     itemClassName,

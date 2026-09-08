@@ -116,8 +116,6 @@ A specialized button component for copying text content to the clipboard with en
       description: 'Color theme of the button',
       control: 'select',
       options: [
-        'primary',
-        'secondary',
         'neutral',
         'light',
         'dark',

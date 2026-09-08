@@ -77,8 +77,6 @@ A navigation component that provides hierarchical context and allows users to na
       description: 'Color scheme for breadcrumb links',
       control: 'select',
       options: [
-        'primary',
-        'secondary',
         'neutral',
         'light',
         'dark',
@@ -284,7 +282,7 @@ export const Mixed: Story = {
       { text: 'Electronics', href: '/electronics' },
       'Smartphones',
     ],
-    color: 'primary',
+    color: 'text',
     ariaLabel: 'E-commerce navigation',
   },
   parameters: {

@@ -51,7 +51,6 @@ export const FrameworkSelector = ({ frameworks }: FrameworkSelectorProps) => {
       value={framework}
       onChange={setFramework}
       size="sm"
-      color="secondary"
     />
   );
 };

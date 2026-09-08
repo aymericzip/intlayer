@@ -15,22 +15,13 @@ import {
   useRef,
 } from 'react';
 
-export type TabSelectorColor =
-  | 'primary'
-  | 'secondary'
-  | 'error'
-  | 'neutral'
-  | 'light'
-  | 'dark'
-  | 'text';
+export type TabSelectorColor = 'error' | 'neutral' | 'light' | 'dark' | 'text';
 
 const tabSelectorVariant = cva(
   'relative z-0 flex size-full flex-row items-center gap-2',
   {
     variants: {
       color: {
-        primary: 'border-primary text-primary',
-        secondary: 'border-secondary text-secondary',
         error: 'border-error bg-error text-error',
         neutral: 'border-neutral text-neutral',
         light: 'border-white text-white',
@@ -39,7 +30,7 @@ const tabSelectorVariant = cva(
       },
     },
     defaultVariants: {
-      color: 'primary',
+      color: 'text',
     },
   }
 );
@@ -49,8 +40,6 @@ const indicatorVariant = cva(
   {
     variants: {
       color: {
-        primary: 'bg-primary/10 aria-selected:text-foreground',
-        secondary: 'bg-secondary/10 aria-selected:text-foreground',
         error: 'bg-error/10 aria-selected:text-foreground',
         neutral: 'bg-neutral/10 aria-selected:text-white/10',
         light: 'bg-white/10 aria-selected:text-black',
@@ -104,7 +93,7 @@ export const TabSelector = <T extends TabSelectorItemProps>({
   tabs,
   selectedChoice,
   onTabClick,
-  color = 'primary',
+  color = 'text',
   hoverable = false,
   orientation = 'horizontal',
   className,

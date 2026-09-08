@@ -137,7 +137,7 @@ export const PositioningVariants: Story = {
       {/* Above Start */}
       <div className="flex justify-center">
         <Popover identifier="above-start">
-          <Button size="sm" label="Above Start" color="secondary">
+          <Button size="sm" label="Above Start" color="text">
             Above Start
           </Button>
           <Popover.Detail

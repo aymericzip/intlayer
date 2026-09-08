@@ -25,8 +25,6 @@ export const paginationVariants = cva(
       },
       color: {
         text: 'background-text',
-        primary: 'background-primary',
-        secondary: 'background-secondary',
         neutral: 'background-neutral',
       },
       variant: {

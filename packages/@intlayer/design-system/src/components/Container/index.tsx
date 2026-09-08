@@ -57,8 +57,6 @@ export const containerVariants = cva(
         with: 'border-[1.3px]',
       },
       borderColor: {
-        primary: 'border-primary',
-        secondary: 'border-secondary',
         neutral: '',
         card: 'border-card',
         text: 'border-text',
@@ -113,8 +111,6 @@ export type ContainerSeparator = 'without' | 'x' | 'y' | 'both';
 
 /** Border color options for the container */
 export type ContainerBorderColor =
-  | 'primary'
-  | 'secondary'
   | 'neutral'
   | 'card'
   | 'text'

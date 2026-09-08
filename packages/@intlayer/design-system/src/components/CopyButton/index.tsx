@@ -75,7 +75,7 @@ type CopyButtonProps = {
  *   content="https://example.com/api/endpoint"
  *   label="Copy API endpoint"
  *   variant="outline"
- *   color="primary"
+ *   color="text"
  *   size="icon-md"
  * />
  * ```

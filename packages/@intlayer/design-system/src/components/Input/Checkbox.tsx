@@ -42,10 +42,6 @@ export const checkboxVariants = cva(
         lg: 'size-6 rounded-xl',
       },
       color: {
-        primary:
-          'border-primary/30 text-primary ring-primary/20 checked:border-primary checked:bg-primary',
-        secondary:
-          'border-secondary/30 text-secondary ring-secondary/20 checked:border-secondary checked:bg-secondary',
         neutral:
           'border-neutral/30 text-muted-foreground ring-neutral/20 checked:border-neutral checked:bg-neutral',
         light:
@@ -78,8 +74,6 @@ export const checkboxVariants = cva(
 export type CheckboxSize = 'xs' | 'sm' | 'md' | 'lg';
 
 export type CheckboxColor =
-  | 'primary'
-  | 'secondary'
   | 'neutral'
   | 'light'
   | 'text'

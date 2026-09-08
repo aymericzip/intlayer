@@ -41,10 +41,6 @@ export const radioVariants = cva(
         lg: 'size-6',
       },
       color: {
-        primary:
-          'border-primary/30 ring-primary/20 checked:border-primary checked:bg-primary',
-        secondary:
-          'border-secondary/30 ring-secondary/20 checked:border-secondary checked:bg-secondary',
         neutral:
           'border-neutral/30 ring-neutral/20 checked:border-neutral checked:bg-neutral',
         light:
@@ -77,8 +73,6 @@ export const radioVariants = cva(
 export type RadioSize = 'xs' | 'sm' | 'md' | 'lg';
 
 export type RadioColor =
-  | 'primary'
-  | 'secondary'
   | 'neutral'
   | 'light'
   | 'text'

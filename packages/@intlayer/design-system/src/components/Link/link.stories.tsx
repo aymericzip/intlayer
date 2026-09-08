@@ -112,7 +112,6 @@ When used with Intlayer, the component automatically:
       description: 'Color theme for the link',
       control: 'select',
       options: [
-        'secondary',
         'neutral',
         'text',
         'text-inverse',
@@ -297,15 +296,7 @@ export const AllVariants: Story = {
 export const ColorThemes: Story = {
   render: () => (
     <div className="grid max-w-2xl grid-cols-2 gap-4">
-      {[
-        'secondary',
-        'neutral',
-        'text',
-        'text-inverse',
-        'error',
-        'success',
-        'custom',
-      ]
+      {['neutral', 'text', 'text-inverse', 'error', 'success', 'custom']
         .filter((color) => color !== 'custom')
         .map((color) => (
           <div key={color} className="space-y-2">
@@ -349,7 +340,6 @@ export const ColorThemes: Story = {
     // Should have 2 links per color (excluding CUSTOM)
     const colorCount = [
       'text-inverse',
-      'secondary',
       'neutral',
       'text',
       'error',
@@ -745,7 +735,7 @@ export const KeyboardNavigation: Story = {
         <Link
           href="/second"
           variant="button"
-          color="secondary"
+          color="text"
           label="Second link in sequence"
         >
           Second Link (Button)

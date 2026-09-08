@@ -121,4 +121,21 @@ describe('Link', () => {
       expect(link.getAttribute('target')).toBe('_parent');
     });
   });
+
+  describe('hoverable variant', () => {
+    test('stays a block so its hover background covers block children', () => {
+      render(
+        <Link
+          label="hoverable"
+          data-testid="link"
+          href="/about"
+          variant="hoverable"
+        >
+          <div>Row content</div>
+        </Link>
+      );
+
+      expect(screen.getByTestId('link').className).toContain('block');
+    });
+  });
 });

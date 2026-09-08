@@ -92,7 +92,7 @@ A versatile toggle component for elegant multi-option selection interfaces.
     color: {
       description: 'Color theme variant',
       control: { type: 'select' },
-      options: ['primary', 'secondary', 'neutral', 'light', 'dark', 'text'],
+      options: ['neutral', 'white', 'black', 'text', 'error'],
     },
     size: {
       description: 'Size variant (affects padding and text size)',
@@ -166,7 +166,7 @@ export const ThemeSelector: Story = {
             ]}
             value={theme}
             onChange={setTheme}
-            color="secondary"
+            color="text"
             size="md"
           />
         </div>
@@ -236,7 +236,7 @@ export const SizeComparison: Story = {
           ]}
           defaultValue="grid"
           size="md"
-          color="secondary"
+          color="text"
         />
       </div>
 
@@ -272,23 +272,21 @@ export const SizeComparison: Story = {
 export const ColorThemes: Story = {
   render: () => (
     <div className="space-y-4">
-      {['primary', 'secondary', 'neutral', 'light', 'dark', 'text'].map(
-        (color) => (
-          <div key={color} className="flex items-center gap-4">
-            <div className="w-20 font-medium text-sm capitalize">{color}</div>
-            <SwitchSelector
-              choices={[
-                { content: 'Draft', value: 'draft' },
-                { content: 'Review', value: 'review' },
-                { content: 'Published', value: 'published' },
-              ]}
-              defaultValue="review"
-              color={color}
-              size="sm"
-            />
-          </div>
-        )
-      )}
+      {['neutral', 'white', 'black', 'text', 'error'].map((color) => (
+        <div key={color} className="flex items-center gap-4">
+          <div className="w-20 font-medium text-sm capitalize">{color}</div>
+          <SwitchSelector
+            choices={[
+              { content: 'Draft', value: 'draft' },
+              { content: 'Review', value: 'review' },
+              { content: 'Published', value: 'published' },
+            ]}
+            defaultValue="review"
+            color={color}
+            size="sm"
+          />
+        </div>
+      ))}
     </div>
   ),
   play: async ({ canvasElement }) => {
@@ -297,7 +295,7 @@ export const ColorThemes: Story = {
 
     // Verify all color variants are present
     await expect(switches).toHaveLength(
-      ['primary', 'secondary', 'neutral', 'light', 'dark', 'text'].length
+      ['neutral', 'white', 'black', 'text', 'error'].length
     );
   },
 };

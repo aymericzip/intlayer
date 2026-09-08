@@ -4,9 +4,11 @@
 // `VITE_CMS_URL` and `VITE_BACKEND_URL` are full URLs (`https://…`), so they
 // are the origins themselves — never a host to prefix a scheme onto.
 
-export const App_Origin = ((import.meta as any).env.VITE_CMS_URL ||
+// `import.meta.env` is optional-chained: this module is also loaded by plain
+// Node (a `vite.config.ts` importing it, the CLI), where `env` is undefined.
+export const App_Origin = ((import.meta as any).env?.VITE_CMS_URL ||
   'https://app.intlayer.org') as 'https://app.intlayer.org';
-export const Backend_Origin = ((import.meta as any).env.VITE_BACKEND_URL ||
+export const Backend_Origin = ((import.meta as any).env?.VITE_BACKEND_URL ||
   'https://back.intlayer.org') as 'https://back.intlayer.org';
 export const Showcase_Origin = 'https://showcase.intlayer.org' as const;
 export const Mcp_Origin = 'https://mcp.intlayer.org' as const;

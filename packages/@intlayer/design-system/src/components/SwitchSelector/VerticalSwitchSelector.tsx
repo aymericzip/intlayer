@@ -14,8 +14,6 @@ const verticalSwitchSelectorVariant = cva(
   {
     variants: {
       color: {
-        primary: 'border-primary text-primary',
-        secondary: 'border-secondary text-secondary',
         [`${'error'}`]: 'border-error bg-error text-error',
         neutral: 'border-neutral text-neutral',
         light: 'border-white text-white',
@@ -28,7 +26,7 @@ const verticalSwitchSelectorVariant = cva(
       },
     },
     defaultVariants: {
-      color: `${'primary'}`,
+      color: `${'text'}`,
       disabled: false,
     },
   }
@@ -55,8 +53,6 @@ const verticalIndicatorVariant = cva(
   {
     variants: {
       color: {
-        primary: 'bg-primary data-[indicator=true]:text-foreground',
-        secondary: 'bg-secondary data-[indicator=true]:text-foreground',
         [`${'error'}`]: 'bg-error data-[indicator=true]:text-foreground',
         neutral: 'bg-neutral data-[indicator=true]:text-white',
         light: 'bg-white data-[indicator=true]:text-black',
@@ -81,7 +77,7 @@ export const VerticalSwitchSelector = <T,>(
 ) => {
   const {
     choices = defaultChoices as SwitchSelectorChoices<T>,
-    color = 'primary',
+    color = 'text',
     size = 'md',
     className,
     itemClassName,

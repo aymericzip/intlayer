@@ -36,8 +36,6 @@ const meta: Meta<typeof Checkbox> = {
       description: 'Accent color',
       control: { type: 'select' },
       options: [
-        'primary',
-        'secondary',
         'neutral',
         'light',
         'text',
@@ -47,7 +45,7 @@ const meta: Meta<typeof Checkbox> = {
         'success',
         'custom',
       ],
-      defaultValue: 'primary',
+      defaultValue: 'text',
     },
     validationStyleEnabled: {
       description: 'Enable valid/invalid styles',
@@ -72,7 +70,7 @@ export const Default: Story = {
     checked: false,
     disabled: false,
     size: 'md',
-    color: 'primary',
+    color: 'text',
     validationStyleEnabled: false,
     onChange: () => {},
   },

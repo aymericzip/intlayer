@@ -8,7 +8,7 @@ import { Badge } from '.';
  *
  * ## Features
  * - **Multiple variants**: Default, outline, hoverable, and none
- * - **Color themes**: Primary, secondary, ERROR, neutral, light, dark, text, and custom
+ * - **Color themes**: Success, error, neutral, light, dark, text, and custom
  * - **Size options**: Small, medium, and large
  * - **Interactive features**: Clickable and dismissible badges
  * - **Accessibility**: Proper ARIA labels, keyboard navigation, and focus management
@@ -54,8 +54,6 @@ It follows accessibility best practices and provides comprehensive customization
     color: {
       control: { type: 'select' },
       options: [
-        'primary',
-        'secondary',
         'success',
         'error',
         'neutral',
@@ -67,7 +65,7 @@ It follows accessibility best practices and provides comprehensive customization
       description: 'Color theme of the badge',
       table: {
         type: { summary: 'BadgeColor' },
-        defaultValue: { summary: 'primary' },
+        defaultValue: { summary: 'text' },
       },
     },
     variant: {
@@ -144,7 +142,7 @@ It follows accessibility best practices and provides comprehensive customization
   },
   args: {
     children: 'Badge',
-    color: 'primary',
+    color: 'text',
     variant: 'default',
     size: 'medium',
     clickable: false,
@@ -156,7 +154,7 @@ export default meta;
 type Story = StoryObj<typeof Badge>;
 
 /**
- * Default badge with primary color and medium size
+ * Default badge with text color and medium size
  */
 export const Default: Story = {
   args: {
@@ -178,17 +176,7 @@ export const Default: Story = {
 export const ColorVariations: Story = {
   render: () => (
     <div className="flex flex-wrap gap-2">
-      {[
-        'primary',
-        'secondary',
-        'success',
-        'error',
-        'neutral',
-        'light',
-        'dark',
-        'text',
-        'custom',
-      ]
+      {['success', 'error', 'neutral', 'light', 'dark', 'text', 'custom']
         .filter((color) => color !== 'custom')
         .map((color) => (
           <Badge key={color} color={color}>
@@ -218,17 +206,7 @@ export const VariantShowcase: Story = {
           <span className="w-20 font-medium text-sm capitalize">
             {variant}:
           </span>
-          {[
-            'primary',
-            'secondary',
-            'success',
-            'error',
-            'neutral',
-            'light',
-            'dark',
-            'text',
-            'custom',
-          ]
+          {['success', 'error', 'neutral', 'light', 'dark', 'text', 'custom']
             .filter((color) => color !== 'custom')
             .slice(0, 4)
             .map((color) => (
@@ -287,7 +265,7 @@ export const ClickableBadge: Story = {
   args: {
     children: 'Click me',
     clickable: true,
-    color: 'secondary',
+    color: 'text',
     onClick: () => console.log('Badge clicked!'),
   },
   parameters: {
@@ -392,7 +370,7 @@ export const AccessibilityExample: Story = {
       <div>
         <h4 className="mb-2 font-medium">Status Badges</h4>
         <div className="flex gap-2">
-          <Badge color="primary" aria-label="Online status">
+          <Badge color="text" aria-label="Online status">
             Online
           </Badge>
           <Badge color="error" aria-label="Error status">
@@ -409,7 +387,7 @@ export const AccessibilityExample: Story = {
         <div className="flex gap-2">
           <Badge
             clickable
-            color="secondary"
+            color="text"
             aria-label="Filter by category"
             onClick={() => console.log('Category filter clicked')}
           >
@@ -486,7 +464,7 @@ export const UsageExamples: Story = {
       <div>
         <h4 className="mb-2 font-medium">Status Indicators</h4>
         <div className="flex gap-2">
-          <Badge color="primary">Active</Badge>
+          <Badge color="text">Active</Badge>
           <Badge color="neutral">Inactive</Badge>
           <Badge color="error">Suspended</Badge>
         </div>
@@ -499,7 +477,7 @@ export const UsageExamples: Story = {
             <Badge
               key={tag}
               variant="outline"
-              color="secondary"
+              color="text"
               size="small"
               dismissible
               onDismiss={() => console.log(`Removed ${tag}`)}
@@ -543,7 +521,7 @@ export const TestScenario: Story = {
   args: {
     children: 'Test Badge',
     clickable: true,
-    color: 'primary',
+    color: 'text',
     onClick: () => console.log('Test badge clicked'),
   },
   parameters: {

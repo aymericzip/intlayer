@@ -54,11 +54,7 @@ const getColorClass = (color?: LinkColor | `${LinkColor}`): string => {
   if (!color) return '';
 
   const colorMap: Record<LinkColor, string> = {
-    primary: 'text-primary',
-    secondary: 'text-secondary',
     neutral: 'text-neutral',
-    light: 'text-white',
-    dark: 'text-neutral-800',
     text: 'text-muted-foreground',
     'text-inverse': 'text-foreground-opposite',
     error: 'text-error',

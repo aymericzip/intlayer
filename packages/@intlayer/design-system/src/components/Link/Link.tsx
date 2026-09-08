@@ -22,7 +22,6 @@ export type LinkVariant =
  * Color theme variants for Link component
  */
 export type LinkColor =
-  | 'secondary'
   | 'neutral'
   | 'text'
   | 'error'
@@ -60,8 +59,11 @@ export const linkVariants = cva(
         'button-outlined':
           'relative inline-flex min-h-8 cursor-pointer flex-row items-center justify-center gap-2 rounded-full border-[1.3px] border-current px-6 text-center font-medium text-sm text-text ring-0 *:text-text hover:border-transparent hover:bg-current/30! hover:ring-5 aria-selected:ring-5 aria-[current]:ring-5 max-md:py-2',
 
+        // `block` is load-bearing: an inline anchor wrapping block content is
+        // split into empty inline fragments, so the hover background paints on
+        // nothing and the effect disappears.
         hoverable:
-          'rounded-lg border-none bg-current/0 transition *:text-current! hover:bg-current/10 aria-[current]:bg-current/5',
+          'block rounded-lg border-none bg-current/0 transition *:text-current! hover:bg-current/10 aria-[current]:bg-current/5',
       },
       roundedSize: {
         none: 'rounded-none',
@@ -76,7 +78,6 @@ export const linkVariants = cva(
         full: 'rounded-full',
       },
       color: {
-        secondary: 'text-secondary',
         neutral: 'text-neutral',
         text: 'text-text',
         error: 'text-error',
@@ -141,11 +142,6 @@ export const linkVariants = cva(
       },
       // Ring color variants
 
-      {
-        variant: ['button', 'button-outlined'],
-        color: 'secondary',
-        class: 'ring-secondary/20',
-      },
       {
         variant: ['button', 'button-outlined'],
         color: 'neutral',

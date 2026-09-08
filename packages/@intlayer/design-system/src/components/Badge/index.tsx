@@ -7,8 +7,6 @@ import type { HTMLAttributes } from 'react';
  * @description Defines the available color themes for the badge component
  */
 export type BadgeColor =
-  | 'primary'
-  | 'secondary'
   | 'success'
   | 'error'
   | 'neutral'
@@ -38,9 +36,6 @@ export const badgeVariants = cva(
   {
     variants: {
       color: {
-        primary: 'border-primary bg-primary text-primary hover:bg-primary-500',
-        secondary:
-          'border-secondary bg-secondary text-secondary hover:bg-secondary-300',
         success: 'border-success bg-success text-success hover:bg-success-500',
         error: 'border-error bg-error text-error hover:bg-error-500',
         neutral:
@@ -65,7 +60,7 @@ export const badgeVariants = cva(
     },
     defaultVariants: {
       variant: 'default',
-      color: 'primary',
+      color: 'text',
       size: 'md',
     },
   }
@@ -133,7 +128,7 @@ export type BadgeVariantProps = VariantProps<typeof badgeVariants>;
 export const Badge: React.FC<BadgeProps> = ({
   className,
   variant = 'default',
-  color = 'primary',
+  color = 'text',
   size = 'md',
   children,
   clickable = false,

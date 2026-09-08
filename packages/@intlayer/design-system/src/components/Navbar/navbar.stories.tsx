@@ -388,7 +388,7 @@ export const CustomStyling: Story = {
         <div className="rounded-full bg-yellow-100 p-2">
           <div className="h-4 w-4 rounded-full bg-yellow-500"></div>
         </div>
-        <Button size="sm" color="secondary" label="Get Started">
+        <Button size="sm" color="text" label="Get Started">
           Get Started
         </Button>
       </div>

@@ -98,7 +98,6 @@ export type TagRoundedSize =
  * ```
  */
 export type TagColor =
-  | 'primary'
   | 'success'
   | 'error'
   | 'warning'
@@ -188,7 +187,6 @@ const containerVariants = cva('w-fit backdrop-blur', {
       full: 'rounded-full',
     },
     color: {
-      primary: 'border-primary bg-primary/10 text-primary',
       success: 'border-success bg-success/10 text-success',
       error: 'border-error bg-error/10 text-error',
       warning: 'border-warning bg-warning/10 text-warning',

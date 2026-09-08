@@ -123,15 +123,7 @@ A versatile button component that handles user interactions with full accessibil
     color: {
       description: 'Color theme that determines text and focus ring colors',
       control: 'select',
-      options: [
-        'text-inverse',
-        'secondary',
-        'neutral',
-        'text',
-        'card',
-        'error',
-        'success',
-      ],
+      options: ['text-inverse', 'neutral', 'text', 'card', 'error', 'success'],
     },
     textAlign: {
       description: 'Text alignment within the button',
@@ -220,7 +212,7 @@ export const Default: Story = {
     label: 'Click me',
     variant: 'default',
     size: 'md',
-    color: 'primary',
+    color: 'text',
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -358,39 +350,33 @@ export const SizeVariations: Story = {
 export const ColorThemes: Story = {
   render: () => (
     <div className="grid max-w-2xl grid-cols-2 gap-4">
-      {[
-        'text-inverse',
-        'secondary',
-        'neutral',
-        'text',
-        'card',
-        'error',
-        'success',
-      ].map((color) => (
-        <div key={color} className="space-y-2">
-          <h4 className="font-medium text-sm capitalize">
-            {color.replace('_', ' ')}
-          </h4>
-          <div className="flex gap-2">
-            <Button
-              color={color}
-              variant="default"
-              label={`${color} default button`}
-              size="sm"
-            >
-              Default
-            </Button>
-            <Button
-              color={color}
-              variant="outline"
-              label={`${color} outline button`}
-              size="sm"
-            >
-              Outline
-            </Button>
+      {['text-inverse', 'neutral', 'text', 'card', 'error', 'success'].map(
+        (color) => (
+          <div key={color} className="space-y-2">
+            <h4 className="font-medium text-sm capitalize">
+              {color.replace('_', ' ')}
+            </h4>
+            <div className="flex gap-2">
+              <Button
+                color={color}
+                variant="default"
+                label={`${color} default button`}
+                size="sm"
+              >
+                Default
+              </Button>
+              <Button
+                color={color}
+                variant="outline"
+                label={`${color} outline button`}
+                size="sm"
+              >
+                Outline
+              </Button>
+            </div>
           </div>
-        </div>
-      ))}
+        )
+      )}
     </div>
   ),
   play: async ({ canvasElement }) => {
@@ -399,15 +385,8 @@ export const ColorThemes: Story = {
 
     // Should have 2 buttons per color (default + outline)
     const expectedCount =
-      [
-        'text-inverse',
-        'secondary',
-        'neutral',
-        'text',
-        'card',
-        'error',
-        'success',
-      ].length * 2;
+      ['text-inverse', 'neutral', 'text', 'card', 'error', 'success'].length *
+      2;
     await expect(buttons).toHaveLength(expectedCount);
 
     // Test color accessibility
@@ -436,7 +415,7 @@ export const LoadingState: Story = {
     label: 'Save changes',
     isLoading: true,
     variant: 'default',
-    color: 'primary',
+    color: 'text',
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -469,7 +448,7 @@ export const DisabledState: Story = {
     label: 'Disabled button',
     disabled: true,
     variant: 'default',
-    color: 'primary',
+    color: 'text',
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -494,7 +473,7 @@ export const ActiveState: Story = {
     label: 'Active button',
     isActive: true,
     variant: 'default',
-    color: 'primary',
+    color: 'text',
     'aria-current': 'true',
     'aria-label': 'Active button',
   },

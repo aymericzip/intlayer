@@ -43,7 +43,7 @@ A flexible container component for organizing content with extensive customizati
 - **Transparency**: Background opacity levels from solid to fully transparent
 - **Rounded Corners**: Border radius from none to full circular
 - **Background States**: Static, hoverable, or inherited backgrounds
-- **Border Colors**: Semantic colors (primary, error, warning, etc.)
+- **Border Colors**: Semantic colors (text, error, warning, etc.)
 
 ### Use Cases:
 - Card components and content sections
@@ -103,16 +103,7 @@ A flexible container component for organizing content with extensive customizati
     borderColor: {
       description: 'Color theme for the border',
       control: 'select',
-      options: [
-        'primary',
-        'secondary',
-        'neutral',
-        'card',
-        'text',
-        'error',
-        'warning',
-        'success',
-      ],
+      options: ['neutral', 'card', 'text', 'error', 'warning', 'success'],
     },
     background: {
       description: 'Background interaction behavior',
@@ -202,7 +193,7 @@ export const AllRoundedSizes: Story = {
           padding="md"
           transparency="sm"
           border
-          borderColor="primary"
+          borderColor="text"
           className="text-center"
         >
           <div className="font-medium text-sm">{size}</div>
@@ -412,31 +403,24 @@ export const SeparatorOptions: Story = {
 export const BorderColors: Story = {
   render: () => (
     <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-      {[
-        'primary',
-        'secondary',
-        'neutral',
-        'card',
-        'text',
-        'error',
-        'warning',
-        'success',
-      ].map((color) => (
-        <Container
-          key={color}
-          border
-          borderColor={color}
-          padding="md"
-          transparency="sm"
-          roundedSize="md"
-          className="text-center"
-        >
-          <div className="font-medium text-sm capitalize">
-            {color.replace('_', ' ')}
-          </div>
-          <div className="text-xs opacity-70">border-{color}</div>
-        </Container>
-      ))}
+      {['neutral', 'card', 'text', 'error', 'warning', 'success'].map(
+        (color) => (
+          <Container
+            key={color}
+            border
+            borderColor={color}
+            padding="md"
+            transparency="sm"
+            roundedSize="md"
+            className="text-center"
+          >
+            <div className="font-medium text-sm capitalize">
+              {color.replace('_', ' ')}
+            </div>
+            <div className="text-xs opacity-70">border-{color}</div>
+          </Container>
+        )
+      )}
     </div>
   ),
   play: async ({ canvasElement }) => {
@@ -444,16 +428,7 @@ export const BorderColors: Story = {
     const containers = canvas.getAllByText(/border-/);
 
     await expect(containers).toHaveLength(
-      [
-        'primary',
-        'secondary',
-        'neutral',
-        'card',
-        'text',
-        'error',
-        'warning',
-        'success',
-      ].length
+      ['neutral', 'card', 'text', 'error', 'warning', 'success'].length
     );
 
     // Test border accessibility
@@ -535,7 +510,7 @@ export const ARIAAttributes: Story = {
           transparency="sm"
           roundedSize="md"
           border
-          borderColor="primary"
+          borderColor="text"
         >
           <div>This container has an accessible label for screen readers</div>
         </Container>

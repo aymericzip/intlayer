@@ -55,7 +55,6 @@ const meta: Meta<typeof Tag> = {
       description: 'Color theme variant of the tag',
       control: { type: 'select' },
       options: [
-        'primary',
         'success',
         'error',
         'warning',
