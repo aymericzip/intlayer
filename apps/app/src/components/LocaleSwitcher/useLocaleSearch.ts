@@ -1,3 +1,4 @@
+import { useListKeyboardNavigation } from '@intlayer/design-system/hooks';
 import Fuse, { type IFuseOptions } from 'fuse.js';
 import { getLocaleName, Locales, type LocalesValues, locales } from 'intlayer';
 import { useCallback, useMemo, useState } from 'react';
@@ -33,6 +34,13 @@ export const useLocaleSearch = (
     MultilingualAvailableLocales[]
   >(multilingualAvailableLocales);
 
+  // Arrow keys move the highlight while the search input keeps the focus, so
+  // the user can keep typing, and Enter follows the highlighted locale link.
+  const { highlightedIndex, resetHighlight, setItemElement, handleKeyDown } =
+    useListKeyboardNavigation<HTMLLIElement>({
+      itemCount: searchResults.length,
+    });
+
   // Create a new Fuse instance with the options and documentation data
   const fuse = useMemo(() => {
     const fuseOptions: IFuseOptions<MultilingualAvailableLocales> = {
@@ -50,6 +58,10 @@ export const useLocaleSearch = (
 
   const handleSearch = useCallback(
     (searchQuery: string) => {
+      // The previous highlight points at a row the new results may not hold,
+      // so typing always starts the keyboard selection over.
+      resetHighlight();
+
       if (searchQuery) {
         // Perform search on every input change
         const searchResults = fuse
@@ -60,8 +72,15 @@ export const useLocaleSearch = (
         setSearchResults(multilingualAvailableLocales);
       }
     },
-    [fuse, multilingualAvailableLocales]
+    [fuse, multilingualAvailableLocales, resetHighlight]
   );
 
-  return { searchResults, handleSearch };
+  return {
+    searchResults,
+    handleSearch,
+    highlightedIndex,
+    highlightedLocale: searchResults[highlightedIndex]?.locale,
+    setItemElement,
+    handleKeyDown,
+  };
 };

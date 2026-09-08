@@ -99,11 +99,7 @@ const PendingInvitationsSection: FC = () => {
                 </span>
               </td>
               <td className="whitespace-nowrap px-4 py-3">
-                <Badge
-                  variant="outline"
-                  className="opacity-80"
-                  color="secondary"
-                >
+                <Badge variant="outline" className="opacity-80" color="neutral">
                   {content.invitationSent}
                 </Badge>
               </td>

@@ -20,6 +20,9 @@ export type LocaleSwitcherProps = {
 
 const DROPDOWN_IDENTIFIER = 'locale-switcher';
 
+/** Ties `aria-activedescendant` on the search input to the highlighted row. */
+const getLocaleOptionId = (locale: string) => `locale-switcher-${locale}`;
+
 export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
   fullLocaleName = false,
   panelProps,
@@ -41,10 +44,14 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
   // (`/doc/リリース/v8`). Each `Link` re-localizes it for its target locale —
   // `getLocalizedUrl` resolves the alias to its canonical path first.
   const pathWithoutLocale = getPathWithoutLocale(pathname, availableLocales);
-  const { searchResults, handleSearch } = useLocaleSearch(
-    availableLocales,
-    locale
-  );
+  const {
+    searchResults,
+    handleSearch,
+    highlightedIndex,
+    highlightedLocale,
+    setItemElement,
+    handleKeyDown,
+  } = useLocaleSearch(availableLocales, locale);
 
   if (locale) {
     localeName = fullLocaleName ? getLocaleName(locale) : locale.toUpperCase();
@@ -99,6 +106,12 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
                 aria-label={searchInput.ariaLabel.value}
                 placeholder={searchInput.placeholder.value}
                 onChange={(e) => handleSearch(e.target.value)}
+                onKeyDown={handleKeyDown}
+                aria-activedescendant={
+                  highlightedLocale
+                    ? getLocaleOptionId(highlightedLocale)
+                    : undefined
+                }
                 ref={inputRef}
               />
             </div>
@@ -107,9 +120,17 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
               aria-label={languageListLabel.value}
             >
               {searchResults.map(
-                ({ locale: localeItem, currentLocaleName, ownLocaleName }) => (
-                  <li className="py-1 pr-3" key={localeItem}>
+                (
+                  { locale: localeItem, currentLocaleName, ownLocaleName },
+                  index
+                ) => (
+                  <li
+                    className="py-1 pr-3"
+                    key={localeItem}
+                    ref={(element) => setItemElement(index, element)}
+                  >
                     <Link
+                      id={getLocaleOptionId(localeItem)}
                       label={
                         switchTo({ locale: getLocaleName(localeItem, locale) })
                           .value
@@ -119,6 +140,13 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
                       isActive={locale === localeItem} // Add aria-current="page" for accessibility
                       variant="hoverable"
                       color="text"
+                      // Mirrors the `hoverable` hover background so keyboard
+                      // and pointer selection look the same
+                      className={
+                        index === highlightedIndex
+                          ? 'bg-current/10!'
+                          : undefined
+                      }
                       preload="viewport"
                       replace // Will ensure that the "go back" browser button will redirect to the previous page
                       onClick={() => setLocale(localeItem)}

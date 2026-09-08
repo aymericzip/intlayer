@@ -1,6 +1,7 @@
 import { Container } from '@intlayer/design-system/container';
 import { DropDown, type PanelProps } from '@intlayer/design-system/drop-down';
 import { Input } from '@intlayer/design-system/input';
+import { cn } from '@intlayer/design-system/utils';
 import { Link, useLocation } from '@tanstack/react-router';
 import { getHTMLTextDir, getLocaleName, getLocalizedUrl } from 'intlayer';
 import { MoveVertical } from 'lucide-react';
@@ -14,6 +15,9 @@ export type LocaleSwitcherProps = {
 
 const DROPDOWN_IDENTIFIER = 'locale-switcher';
 
+/** Ties `aria-activedescendant` on the search input to the highlighted row. */
+const getLocaleOptionId = (locale: string) => `locale-switcher-${locale}`;
+
 export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({ panelProps }) => {
   const { switchTo, searchInput, localeSwitcherLabel, languageListLabel } =
     useIntlayer('locale-switcher');
@@ -22,10 +26,14 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({ panelProps }) => {
   const { locale, availableLocales, setLocale } = useLocale();
   const location = useLocation();
 
-  const { searchResults, handleSearch } = useLocaleSearch(
-    availableLocales,
-    locale
-  );
+  const {
+    searchResults,
+    handleSearch,
+    highlightedIndex,
+    highlightedLocale,
+    setItemElement,
+    handleKeyDown,
+  } = useLocaleSearch(availableLocales, locale);
 
   const handleFocusInput = () => {
     if (inputRef.current) {
@@ -76,6 +84,12 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({ panelProps }) => {
                 aria-label={searchInput.ariaLabel.value}
                 placeholder={searchInput.placeholder.value}
                 onChange={(e) => handleSearch(e.target.value)}
+                onKeyDown={handleKeyDown}
+                aria-activedescendant={
+                  highlightedLocale
+                    ? getLocaleOptionId(highlightedLocale)
+                    : undefined
+                }
                 ref={inputRef}
               />
             </div>
@@ -84,9 +98,17 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({ panelProps }) => {
               aria-label={languageListLabel.value}
             >
               {searchResults.map(
-                ({ locale: localeItem, currentLocaleName, ownLocaleName }) => (
-                  <li className="py-1" key={localeItem}>
+                (
+                  { locale: localeItem, currentLocaleName, ownLocaleName },
+                  index
+                ) => (
+                  <li
+                    className="py-1"
+                    key={localeItem}
+                    ref={(element) => setItemElement(index, element)}
+                  >
                     <Link
+                      id={getLocaleOptionId(localeItem)}
                       aria-label={
                         switchTo({ locale: getLocaleName(localeItem, locale) })
                           .value
@@ -97,7 +119,14 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({ panelProps }) => {
                       replace // Will ensure that the "go back" browser button will redirect to the previous page
                       onClick={() => setLocale(localeItem)}
                     >
-                      <div className="rounded-xl pr-3 hover:bg-text/5!">
+                      <div
+                        className={cn(
+                          'rounded-xl pr-3 hover:bg-text/5!',
+                          // Mirrors the hover background so keyboard and
+                          // pointer selection look the same
+                          index === highlightedIndex && 'bg-text/5'
+                        )}
+                      >
                         <div className="flex flex-row items-center justify-between gap-3 px-2 py-1">
                           <div className="flex flex-col text-nowrap">
                             <span
