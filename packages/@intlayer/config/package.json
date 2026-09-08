@@ -197,7 +197,7 @@
     "zod": "4.5.4"
   },
   "devDependencies": {
-    "@types/node": "26.4.1",
+    "@types/node": "26.5.0",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
