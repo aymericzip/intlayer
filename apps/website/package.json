@@ -66,7 +66,6 @@
     "@tanstack/react-router": "1.170.33",
     "@tanstack/react-start": "1.168.50",
     "@tanstack/start-static-server-functions": "1.167.33",
-    "babel-plugin-react-compiler": "1.0.0",
     "chart.js": "4.5.1",
     "defu": "6.1.7",
     "framer-motion": "13.2.0",
@@ -74,6 +73,7 @@
     "intlayer": "workspace:*",
     "lucide-react": "1.41.0",
     "nitro": "latest",
+    "oxc-transform-react": "^0.149.0",
     "posthog-js": "1.427.2",
     "react": "19.2.8",
     "react-dom": "19.2.8",
@@ -83,7 +83,6 @@
     "zod": "4.5.4"
   },
   "devDependencies": {
-    "@rolldown/plugin-babel": "0.2.3",
     "@tailwindcss/postcss": "4.3.3",
     "@tailwindcss/vite": "4.3.3",
     "@tanstack/router-plugin": "1.168.36",

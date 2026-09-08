@@ -10,10 +10,9 @@ import {
   WellKnown_McpServerCard_Path,
   WellKnown_OAuthProtectedResource_Path,
 } from '@intlayer/design-system/routes';
-import babel from '@rolldown/plugin-babel';
 import tailwindcss from '@tailwindcss/vite';
 import { tanstackStart } from '@tanstack/react-start/plugin/vite';
-import react, { reactCompilerPreset } from '@vitejs/plugin-react';
+import react from '@vitejs/plugin-react';
 import { localeFlatMap } from 'intlayer';
 import { nitro } from 'nitro/vite';
 import { visualizer } from 'rollup-plugin-visualizer';
@@ -485,8 +484,7 @@ export default defineConfig(async ({ mode }) => {
         },
         pages: isPrerenderDisabled ? [] : localizedPages,
       }),
-      react(),
-      babel({ presets: [reactCompilerPreset()] }),
+      react({ compiler: true }),
       wasm(),
       // visualizer(),
     ],
