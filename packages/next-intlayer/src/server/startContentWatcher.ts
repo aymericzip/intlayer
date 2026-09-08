@@ -20,6 +20,28 @@ const SELF_WATCHING_RELEASE = '9.5.0';
  */
 const TAKEOVER_POLL_INTERVAL_MS = 5000;
 
+/**
+ * Next.js helper processes that evaluate `next.config.*` without being the dev
+ * server, matched on their entry script.
+ *
+ * `detached-flush` is the telemetry flusher Next spawns **detached**: it loads
+ * the config, outlives the dev server, and — left unchecked — wins the watcher
+ * lock and keeps watching after Ctrl-C, while the next `next dev` finds the
+ * lock taken and runs with no watcher at all.
+ */
+const NEXT_HELPER_ENTRY_SCRIPTS = ['detached-flush'];
+
+/**
+ * Whether this process is a Next.js helper rather than the dev server itself.
+ *
+ * Ownership of the watcher has to follow the process the user actually stops,
+ * so a helper must never take it.
+ */
+const getIsNextHelperProcess = (): boolean =>
+  process.argv.some((argument) =>
+    NEXT_HELPER_ENTRY_SCRIPTS.some((script) => argument.includes(script))
+  );
+
 /** Set once the watcher is running in this process. */
 let isWatching = false;
 
@@ -111,6 +133,7 @@ const claimAndWatch = async (configuration: IntlayerConfig): Promise<void> => {
 export const startContentWatcher = (configuration: IntlayerConfig): void => {
   if (isWatching || isClaimInFlight) return;
   if (!configuration.content.watch) return;
+  if (getIsNextHelperProcess()) return;
 
   // Spawned by `intlayer watch --with`: the CLI watcher covers the project, and
   // this is known from the environment alone — no need to touch the lock.
