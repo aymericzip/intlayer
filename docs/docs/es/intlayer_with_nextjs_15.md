@@ -972,7 +972,7 @@ bun add @intlayer/swc --dev
 <Tabs>
  <Tab label='Intlayer >=9.5' value='intlayer>=9.5'>
 
-Desde Intlayer v9.5, `withIntlayer` inicia el content watcher por sí mismo, no se necesita configuración adicional.
+Desde next-intlayer v9.5, `withIntlayer` inicia el content watcher por sí mismo, no se necesita configuración adicional.
 
  </Tab>
  <Tab label='Intlayer <9.5' value='intlayer<9.5'>

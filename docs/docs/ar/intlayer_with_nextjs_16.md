@@ -1277,7 +1277,7 @@ bun run build # أو bun run dev
 <Tabs>
  <Tab label='Intlayer >=9.5' value='intlayer>=9.5'>
 
-منذ إصدار Intlayer v9.5، يبدأ `withIntlayer` مراقب المحتوى (content watcher) تلقائياً، ولا حاجة لأي إعداد إضافي.
+منذ إصدار next-intlayer v9.5، يبدأ `withIntlayer` مراقب المحتوى (content watcher) تلقائياً، ولا حاجة لأي إعداد إضافي.
 
  </Tab>
  <Tab label='Intlayer <9.5' value='intlayer<9.5'>

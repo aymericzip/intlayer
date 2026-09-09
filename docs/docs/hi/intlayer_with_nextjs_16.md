@@ -1271,7 +1271,7 @@ bun run build # Or bun run dev
 <Tabs>
  <Tab label='Intlayer >=9.5' value='intlayer>=9.5'>
 
-Intlayer v9.5 से, `withIntlayer` सामग्री वॉचर (content watcher) को अपने आप शुरू करता है, किसी अतिरिक्त सेटअप की आवश्यकता नहीं है।
+next-intlayer v9.5 से, `withIntlayer` सामग्री वॉचर (content watcher) को अपने आप शुरू करता है, किसी अतिरिक्त सेटअप की आवश्यकता नहीं है।
 
  </Tab>
  <Tab label='Intlayer <9.5' value='intlayer<9.5'>
