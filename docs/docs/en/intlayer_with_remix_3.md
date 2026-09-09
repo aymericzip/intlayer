@@ -415,54 +415,7 @@ export const renderLayout = ({
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>${title} | ${common.appName}</title>
-        <style>
-          body {
-            font-family:
-              system-ui,
-              -apple-system,
-              sans-serif;
-            background: #0f172a;
-            color: #f8fafc;
-            margin: 0;
-            padding: 0;
-          }
-          header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 2rem;
-            background: #1e293b;
-            border-bottom: 1px solid #334155;
-          }
-          nav a {
-            color: #94a3b8;
-            margin-right: 1.5rem;
-            text-decoration: none;
-            font-weight: 500;
-          }
-          nav a.active,
-          nav a:hover {
-            color: #38bdf8;
-          }
-          .lang-switcher a {
-            padding: 0.3rem 0.6rem;
-            margin-left: 0.3rem;
-            border-radius: 4px;
-            text-decoration: none;
-            color: #94a3b8;
-            background: #334155;
-            font-size: 0.85rem;
-          }
-          .lang-switcher a.active {
-            background: #0284c7;
-            color: #fff;
-          }
-          main {
-            max-width: 900px;
-            margin: 3rem auto;
-            padding: 0 1.5rem;
-          }
-        </style>
+        <style></style>
       </head>
       <body>
         <header>
