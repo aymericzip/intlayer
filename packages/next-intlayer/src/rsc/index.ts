@@ -14,7 +14,7 @@
  *
  * Every import here points at a leaf module rather than a barrel. Barrels put
  * their whole graph in front of the application bundler: `../server/index`
- * would drag `withIntlayer` — and with it `@intlayer/webpack` and
+ * would drag `withIntlayer` — and with it `@intlayer/engine` and
  * `node-loader` — into the module graph of every route that imports this
  * package from a server component.
  *

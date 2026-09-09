@@ -52,7 +52,6 @@ describe('contentWatcherLock', () => {
       await acquireContentWatcherLock(configuration, {
         source: 'bundler',
         label: 'next-intlayer',
-        since: '9.5.0',
       })
     ).toBe(true);
 
@@ -60,7 +59,6 @@ describe('contentWatcherLock', () => {
       pid: process.pid,
       source: 'bundler',
       label: 'next-intlayer',
-      since: '9.5.0',
     });
   });
 
@@ -116,7 +114,6 @@ describe('contentWatcherLock', () => {
         pid: process.pid,
         source: 'bundler',
         label: 'next-intlayer',
-        since: '9.5.0',
       });
 
       expect(
@@ -125,7 +122,6 @@ describe('contentWatcherLock', () => {
         pid: process.pid,
         source: 'bundler',
         label: 'next-intlayer',
-        since: '9.5.0',
       });
     });
 

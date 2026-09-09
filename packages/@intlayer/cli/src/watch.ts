@@ -48,7 +48,6 @@ export const watchContentDeclaration = async (options?: WatchOptions) => {
     reportRedundantContentWatcher(config, {
       cliLabel: 'intlayer watch',
       bundlerLabel: bundlerAlreadyWatching.label,
-      since: bundlerAlreadyWatching.since,
     });
   }
 

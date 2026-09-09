@@ -26,9 +26,8 @@ export type ResolveDevScriptParams = {
  * project's script must be left alone.
  *
  * A Next.js app is always left alone: `withIntlayer` starts the content watcher
- * itself — through `IntlayerPlugin` on webpack and `startContentWatcher` on
- * Turbopack — so wrapping the dev server in `intlayer watch --with` would only
- * add a second watcher rebuilding the same dictionaries. This is checked on the
+ * itself on both bundlers, so wrapping the dev server in `intlayer watch --with`
+ * would only add a second watcher rebuilding the same dictionaries. This is checked on the
  * `next` dependency as well as on the config file, since `next.config.*` is
  * optional, and it takes precedence over the backend list, which a Next.js app
  * with a custom server (or a monorepo root) can match too.

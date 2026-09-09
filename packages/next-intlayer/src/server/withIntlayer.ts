@@ -31,7 +31,6 @@ import { logConfigDetails } from '@intlayer/engine/cli';
 import { buildComponentFilesList, runOnce } from '@intlayer/engine/utils';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Dictionary } from '@intlayer/types/dictionary';
-import { IntlayerPlugin } from '@intlayer/webpack';
 import { defu } from 'defu';
 import type { NextConfig } from 'next';
 import type { NextJsWebpackConfig } from 'next/dist/server/config-shared';
@@ -587,10 +586,10 @@ export const withIntlayerSync = <T extends Partial<NextConfig>>(
     isDevCommand
   );
 
-  // Turbopack cannot run `IntlayerPlugin`, which is what starts the content
-  // watcher on webpack. Without this the dev server had to be wrapped in
-  // `intlayer watch --with next dev` for a `.content` edit to reach `.intlayer`.
-  if (isTurbopackEnabled && isDevCommand) {
+  // Watches on both bundlers: Turbopack cannot run a webpack plugin, and on
+  // webpack this replaces `IntlayerPlugin`, whose watcher took no ownership
+  // lock and so kept rebuilding alongside a parallel `intlayer watch`.
+  if (isDevCommand) {
     startContentWatcher(intlayerConfig);
   }
 
@@ -741,9 +740,6 @@ export const withIntlayerSync = <T extends Partial<NextConfig>>(
       config = {
         ...config,
         webpack: (config: WebpackParams['0'], options: WebpackParams[1]) => {
-          // Only add Intlayer plugin on server side (node runtime)
-          const { isServer, nextRuntime } = options;
-
           // If the user has defined their own webpack config, call it
           if (typeof nextConfig.webpack === 'function') {
             config = nextConfig.webpack(config, options);
@@ -820,12 +816,6 @@ export const withIntlayerSync = <T extends Partial<NextConfig>>(
               formatter: (value: string) => resolve(value), // get absolute path
             }),
           };
-
-          // Activate watch mode webpack plugin
-          if (isDevCommand && isServer && nextRuntime === 'nodejs') {
-            // Optional as rspack not support plugin yet
-            config.plugins.push(new IntlayerPlugin(intlayerConfig));
-          }
 
           return config;
         },

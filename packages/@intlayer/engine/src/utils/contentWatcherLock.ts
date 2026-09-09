@@ -22,12 +22,6 @@ export type ContentWatcherOwner = {
    * `next-intlayer`.
    */
   label: string;
-  /**
-   * Release from which a `bundler` owner watches the content declarations on
-   * its own, so a CLI watcher finding it can name the version that made the
-   * parallel command redundant without keeping a table of its own.
-   */
-  since?: string;
 };
 
 /**
@@ -118,7 +112,6 @@ export const getContentWatcherOwner = async (
       pid: owner.pid,
       source: owner.source ?? 'bundler',
       label: owner.label ?? 'Intlayer',
-      since: owner.since,
     };
   }
 
@@ -224,11 +217,6 @@ type RedundantWatcherReport = {
   cliLabel: string;
   /** Name of the bundler integration watching, e.g. `next-intlayer`. */
   bundlerLabel: string;
-  /**
-   * Release from which the bundler integration watches on its own. Omitted when
-   * the integration did not report one.
-   */
-  since?: string;
 };
 
 /**
@@ -239,11 +227,11 @@ type RedundantWatcherReport = {
  * per command, and callers may re-enter this on a retry loop.
  *
  * @param configuration - The resolved Intlayer configuration.
- * @param report - Who is watching, and from which release it became redundant.
+ * @param report - Who is watching in parallel with whom.
  */
 export const reportRedundantContentWatcher = (
   configuration: IntlayerConfig,
-  { cliLabel, bundlerLabel, since }: RedundantWatcherReport
+  { cliLabel, bundlerLabel }: RedundantWatcherReport
 ): void => {
   if (hasReportedRedundantWatcher) return;
   hasReportedRedundantWatcher = true;
@@ -253,9 +241,7 @@ export const reportRedundantContentWatcher = (
       colorize(cliLabel, ANSIColors.BLUE, ANSIColors.BEIGE),
       'is watching your content declarations in parallel with',
       `${colorize(bundlerLabel, ANSIColors.BLUE, ANSIColors.BEIGE)},`,
-      since
-        ? `which watches them on its own since ${colorize(`${bundlerLabel}@${since}`, ANSIColors.GREY_LIGHT, ANSIColors.BEIGE)}.`
-        : 'which watches them on its own.',
+      'which watches them on its own.',
       'The parallel watch command is no longer needed — running your dev server on its own is enough.',
     ],
     { level: 'warn' }

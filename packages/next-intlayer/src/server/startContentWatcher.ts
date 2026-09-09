@@ -8,12 +8,6 @@ import {
 import type { IntlayerConfig } from '@intlayer/types/config';
 
 /**
- * Release from which `withIntlayer` watches the content declarations on
- * Turbopack, making `intlayer watch --with` redundant on Next.js.
- */
-const SELF_WATCHING_RELEASE = '9.5.0';
-
-/**
  * How often a process that lost the ownership race checks whether the owner is
  * gone. Next.js's short-lived config processes release the lock when they exit,
  * so the long-lived dev server has to be able to pick it up afterwards.
@@ -62,16 +56,11 @@ const reportRedundantCliWatcher = (
   reportRedundantContentWatcher(configuration, {
     cliLabel: cliWatcherLabel,
     bundlerLabel: 'next-intlayer',
-    since: SELF_WATCHING_RELEASE,
   });
 
 /**
- * Starts the content declaration watcher for a Turbopack dev server.
- *
- * On webpack this is done by `IntlayerPlugin`, which Turbopack cannot run — so
- * before {@link SELF_WATCHING_RELEASE} a Turbopack app had to be started
- * through `intlayer watch --with next dev` for `.content` edits to rebuild
- * `.intlayer`.
+ * Starts the content declaration watcher for a Next.js dev server, on webpack
+ * as well as on Turbopack.
  *
  * Stands down — with an explanation — when that CLI watcher is running anyway,
  * since two watchers would rebuild the same dictionaries at the same time.
@@ -87,7 +76,6 @@ const claimAndWatch = async (configuration: IntlayerConfig): Promise<void> => {
   const hasAcquiredLock = await acquireContentWatcherLock(configuration, {
     source: 'bundler',
     label: 'next-intlayer',
-    since: SELF_WATCHING_RELEASE,
   });
 
   if (!hasAcquiredLock) {

@@ -151,7 +151,6 @@
     "@intlayer/dictionaries-entry": "workspace:*",
     "@intlayer/engine": "workspace:*",
     "@intlayer/types": "workspace:*",
-    "@intlayer/webpack": "workspace:*",
     "defu": "6.1.7",
     "node-loader": "2.1.0",
     "react-intlayer": "workspace:*"

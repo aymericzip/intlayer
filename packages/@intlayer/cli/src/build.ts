@@ -41,7 +41,6 @@ export const build = async (options?: BuildOptions) => {
       reportRedundantContentWatcher(config, {
         cliLabel: 'intlayer build --watch',
         bundlerLabel: bundlerAlreadyWatching.label,
-        since: bundlerAlreadyWatching.since,
       });
     }
   }
