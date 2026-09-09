@@ -9,7 +9,9 @@ import type { BuiltConfigKey } from './utils/builtConfigKeys';
 
 const configuration: IntlayerConfig = getConfiguration();
 
-const parsedJSONConfig = JSON.parse(JSON.stringify(configuration));
+const parsedJSONConfig: IntlayerConfig = JSON.parse(
+  JSON.stringify(configuration)
+);
 
 export const internationalization = parsedJSONConfig.internationalization;
 export const dictionary = parsedJSONConfig.dictionary;

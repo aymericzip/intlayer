@@ -5,7 +5,11 @@ import type {
   IntlayerConfig,
 } from '@intlayer/types/config';
 import type { Dictionary as DictionaryCore } from '@intlayer/types/dictionary';
-import type { SchemaKeys } from '@intlayer/types/module_augmentation';
+import type {
+  DeclaredLocales,
+  RequiredLocales,
+  SchemaKeys,
+} from '@intlayer/types/module_augmentation';
 
 /**
  * The dictionary type used to define the structure of a dictionary.
@@ -61,19 +65,28 @@ import {
 } from '@intlayer/config/built';
 
 /**
+ * `RequiredLocales` resolves to `never` when the project declares no required
+ * locale, which would make the array unusable. Fall back to the declared locales.
+ */
+type ConfiguredRequiredLocales = [RequiredLocales] extends [never]
+  ? DeclaredLocales
+  : RequiredLocales;
+
+/**
  * The locales defined in the configuration.
  */
-const locales = internationalization.locales;
+const locales = internationalization.locales as DeclaredLocales[];
 
 /**
  * The required locales defined in the configuration.
  */
-const requiredLocales = internationalization.requiredLocales;
+const requiredLocales =
+  internationalization.requiredLocales as ConfiguredRequiredLocales[];
 
 /**
  * The default locale defined in the configuration.
  */
-const defaultLocale = internationalization.defaultLocale;
+const defaultLocale = internationalization.defaultLocale as DeclaredLocales;
 
 /**
  * @deprecated Use `defaultLocale`, `locales`, `requiredLocales` or `editor` instead.
@@ -83,7 +96,7 @@ const defaultLocale = internationalization.defaultLocale;
  */
 const configuration: Pick<
   IntlayerConfig,
-  'editor' | 'internationalization' | 'log' | 'routing'
+  'editor' | 'internationalization' | 'log' | 'routing' | 'content'
 > = {
   editor,
   internationalization,

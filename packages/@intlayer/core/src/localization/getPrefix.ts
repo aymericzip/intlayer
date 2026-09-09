@@ -50,12 +50,16 @@ export const resolveRoutingConfig = (
   mode: RoutingConfig['mode'];
   locales: DeclaredLocales[];
 } => ({
-  defaultLocale: internationalization?.defaultLocale ?? DEFAULT_LOCALE,
-  mode: routing?.mode ?? ROUTING_MODE,
-  locales: internationalization?.locales ?? LOCALES,
-  rewrite: routing?.rewrite,
-  domains: routing?.domains,
   ...options,
+  defaultLocale: (options.defaultLocale ??
+    internationalization?.defaultLocale ??
+    DEFAULT_LOCALE) as DeclaredLocales,
+  mode: options.mode ?? routing?.mode ?? ROUTING_MODE,
+  locales: (options.locales ??
+    internationalization?.locales ??
+    LOCALES) as DeclaredLocales[],
+  rewrite: options.rewrite ?? routing?.rewrite,
+  domains: options.domains ?? routing?.domains,
 });
 
 /**
