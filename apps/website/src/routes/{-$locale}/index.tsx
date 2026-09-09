@@ -4,7 +4,12 @@ import { createFileRoute } from '@tanstack/react-router';
 import { defaultLocale, getIntlayerAsync } from 'intlayer';
 import { LandingPage as LandingPageContent } from '~/components/LandingPage';
 import { PageLayout } from '~/layouts/PageLayout';
-import { getAbsoluteUrl, getHreflangLinks, getOgImageUrl } from '~/utils/seo';
+import {
+  getAbsoluteUrl,
+  getHreflangLinks,
+  getOgImageUrl,
+  toAbsoluteUrl,
+} from '~/utils/seo';
 import { formatStructuredDataOffers, getPricing } from '~/utils/stripe';
 import {
   getSiteStructuredData,
@@ -31,8 +36,8 @@ export const Route = createFileRoute('/{-$locale}/')({
     ]);
 
     return {
-      pricings,
       metadata,
+      pricings,
       siteStructuredData,
       softwareStructuredData,
       productContent,
@@ -52,6 +57,7 @@ export const Route = createFileRoute('/{-$locale}/')({
       productContent,
     } = loaderData;
     const { title, description, keywords } = metadata;
+    const ogImage = getOgImageUrl(title);
 
     const offers = formatStructuredDataOffers(loaderData.pricings ?? null);
 
@@ -65,11 +71,21 @@ export const Route = createFileRoute('/{-$locale}/')({
             ? keywords.join(', ')
             : keywords || '',
         },
+        { property: 'og:type', content: 'website' },
         { property: 'og:url', content: getAbsoluteUrl(path, locale) },
         { property: 'og:title', content: title },
         { property: 'og:description', content: description },
-        { property: 'og:image', content: getOgImageUrl(title) },
-        { name: 'twitter:image', content: getOgImageUrl(title) },
+        { property: 'og:logo', content: toAbsoluteUrl('/logo.png') },
+        { property: 'og:image', content: ogImage },
+        { property: 'og:image:secure_url', content: ogImage },
+        { property: 'og:image:type', content: 'image/png' },
+        { property: 'og:image:width', content: '1200' },
+        { property: 'og:image:height', content: '630' },
+        { property: 'og:image:alt', content: title },
+        { name: 'twitter:card', content: 'summary_large_image' },
+        { name: 'twitter:title', content: title },
+        { name: 'twitter:description', content: description },
+        { name: 'twitter:image', content: ogImage },
       ],
       links: [
         { rel: 'canonical', href: getAbsoluteUrl(path, locale) },

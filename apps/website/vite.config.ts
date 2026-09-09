@@ -449,6 +449,7 @@ export default defineConfig(async ({ mode }) => {
 
           '/Geist-VariableFont_wght.woff2': { headers: immutableAssetHeaders },
           '/logo.svg': { headers: immutableAssetHeaders },
+          '/logo.png': { headers: immutableAssetHeaders },
           '/cover.png': { headers: immutableAssetHeaders },
           '/github-social-preview.png': { headers: immutableAssetHeaders },
           '/thumbnail.jpeg': { headers: immutableAssetHeaders },

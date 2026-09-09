@@ -1,10 +1,9 @@
-import { existsSync, readFileSync } from 'node:fs';
-import { dirname, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
 import { ImageResponse } from '@vercel/og';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+import {
+  FONT_GEIST_BOLD_BASE64,
+  FONT_GEIST_REGULAR_BASE64,
+  THUMBNAIL_JPEG_BASE64,
+} from './ogAssets';
 
 export const DEFAULT_OG_TITLE =
   'Per-component i18n for React, Next.js, Vue, Svelte | Intlayer';
@@ -20,55 +19,23 @@ let cachedFonts:
 
 let cachedBackgroundSrc: string | null = null;
 
-const getFontPaths = () => {
-  const possibleRoots = [
-    resolve(__dirname, '../../node_modules/@fontsource/geist-sans'),
-    resolve(__dirname, '../../../../node_modules/@fontsource/geist-sans'),
-    resolve(process.cwd(), 'node_modules/@fontsource/geist-sans'),
-    resolve(process.cwd(), '../../node_modules/@fontsource/geist-sans'),
-  ];
-
-  for (const root of possibleRoots) {
-    if (existsSync(resolve(root, 'files/geist-sans-latin-400-normal.woff'))) {
-      return {
-        regular: resolve(root, 'files/geist-sans-latin-400-normal.woff'),
-        bold: resolve(root, 'files/geist-sans-latin-800-normal.woff'),
-      };
-    }
-  }
-
-  throw new Error('Could not locate @fontsource/geist-sans font files');
-};
-
-const getBackgroundPath = () => {
-  const possiblePaths = [
-    resolve(__dirname, '../../public/thumbnail.jpeg'),
-    resolve(process.cwd(), 'public/thumbnail.jpeg'),
-    resolve(process.cwd(), 'apps/website/public/thumbnail.jpeg'),
-  ];
-
-  for (const path of possiblePaths) {
-    if (existsSync(path)) {
-      return path;
-    }
-  }
-
-  throw new Error('Could not locate public/thumbnail.jpeg background asset');
+const toArrayBuffer = (base64: string): ArrayBuffer => {
+  const buf = Buffer.from(base64, 'base64');
+  return buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.byteLength);
 };
 
 const getFonts = () => {
   if (!cachedFonts) {
-    const { regular, bold } = getFontPaths();
     cachedFonts = [
       {
         name: 'Geist',
-        data: readFileSync(regular).buffer,
+        data: toArrayBuffer(FONT_GEIST_REGULAR_BASE64),
         weight: 400,
         style: 'normal',
       },
       {
         name: 'Geist',
-        data: readFileSync(bold).buffer,
+        data: toArrayBuffer(FONT_GEIST_BOLD_BASE64),
         weight: 800,
         style: 'normal',
       },
@@ -79,9 +46,7 @@ const getFonts = () => {
 
 const getBackgroundSrc = () => {
   if (!cachedBackgroundSrc) {
-    const bgPath = getBackgroundPath();
-    const bgBase64 = readFileSync(bgPath).toString('base64');
-    cachedBackgroundSrc = `data:image/jpeg;base64,${bgBase64}`;
+    cachedBackgroundSrc = `data:image/jpeg;base64,${THUMBNAIL_JPEG_BASE64}`;
   }
   return cachedBackgroundSrc;
 };

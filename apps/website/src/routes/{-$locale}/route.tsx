@@ -1,6 +1,6 @@
 import { createFileRoute, Outlet, redirect } from '@tanstack/react-router';
 import { defaultLocale, getIntlayerAsync, getLocalizedUrl } from 'intlayer';
-import { getOgImageUrl, getOgLocale } from '~/utils/seo';
+import { getOgImageUrl, getOgLocale, toAbsoluteUrl } from '~/utils/seo';
 
 function getRedirectUrl(_pathname: string): string | null {
   return null;
@@ -53,13 +53,21 @@ export const Route = createFileRoute('/{-$locale}')({
           property: 'og:locale',
           content: getOgLocale(params.locale || defaultLocale),
         },
+        { property: 'og:type', content: 'website' },
         { property: 'og:title', content: openGraph.title },
         { property: 'og:description', content: description },
         {
           property: 'og:url',
           content: getLocalizedUrl(import.meta.env.VITE_URL, params.locale),
         },
+        { property: 'og:logo', content: toAbsoluteUrl('/logo.png') },
         { property: 'og:image', content: ogImage },
+        { property: 'og:image:secure_url', content: ogImage },
+        { property: 'og:image:type', content: 'image/png' },
+        { property: 'og:image:width', content: '1200' },
+        { property: 'og:image:height', content: '630' },
+        { property: 'og:image:alt', content: openGraph?.title || title },
+        { name: 'twitter:card', content: 'summary_large_image' },
         { name: 'twitter:title', content: title },
         { name: 'twitter:description', content: description },
         { name: 'twitter:image', content: ogImage },

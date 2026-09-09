@@ -1,5 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { generateOgImage } from '~/utils/generateOgImage';
+import { THUMBNAIL_JPEG_BASE64 } from '~/utils/ogAssets';
 
 /**
  * Upper bounds for the user-controlled query parameters. `/api/og` is public,
@@ -18,6 +19,18 @@ const MAX_CACHE_ENTRIES = 50;
  * paying for one.
  */
 const ogImageCache = new Map<string, Promise<ArrayBuffer>>();
+
+let fallbackBuffer: ArrayBuffer | null = null;
+const getFallbackBuffer = (): ArrayBuffer => {
+  if (!fallbackBuffer) {
+    const buf = Buffer.from(THUMBNAIL_JPEG_BASE64, 'base64');
+    fallbackBuffer = buf.buffer.slice(
+      buf.byteOffset,
+      buf.byteOffset + buf.byteLength
+    );
+  }
+  return fallbackBuffer;
+};
 
 /** Reads a query parameter, trimmed and clamped to `maxLength`. */
 const readParam = (
@@ -77,34 +90,66 @@ export const Route = createFileRoute('/api/og')({
           },
         }),
       HEAD: async ({ request }) => {
-        const url = new URL(request.url);
-        const title = readParam(url, 'title', MAX_TITLE_LENGTH);
-        const description = readParam(
-          url,
-          'description',
-          MAX_DESCRIPTION_LENGTH
-        );
-        const buffer = await getOgBuffer(title, description);
+        try {
+          const url = new URL(request.url);
+          const title = readParam(url, 'title', MAX_TITLE_LENGTH);
+          const description = readParam(
+            url,
+            'description',
+            MAX_DESCRIPTION_LENGTH
+          );
+          const buffer = await getOgBuffer(title, description);
 
-        return new Response(null, {
-          status: 200,
-          headers: getResponseHeaders(buffer),
-        });
+          return new Response(null, {
+            status: 200,
+            headers: getResponseHeaders(buffer),
+          });
+        } catch (error) {
+          console.error(
+            '[API /api/og] Error generating OG image in HEAD, using fallback:',
+            error
+          );
+          const buffer = getFallbackBuffer();
+          return new Response(null, {
+            status: 200,
+            headers: {
+              ...getResponseHeaders(buffer),
+              'Content-Type': 'image/jpeg',
+              'Cache-Control': 'public, max-age=3600',
+            },
+          });
+        }
       },
       GET: async ({ request }) => {
-        const url = new URL(request.url);
-        const title = readParam(url, 'title', MAX_TITLE_LENGTH);
-        const description = readParam(
-          url,
-          'description',
-          MAX_DESCRIPTION_LENGTH
-        );
-        const buffer = await getOgBuffer(title, description);
+        try {
+          const url = new URL(request.url);
+          const title = readParam(url, 'title', MAX_TITLE_LENGTH);
+          const description = readParam(
+            url,
+            'description',
+            MAX_DESCRIPTION_LENGTH
+          );
+          const buffer = await getOgBuffer(title, description);
 
-        return new Response(buffer, {
-          status: 200,
-          headers: getResponseHeaders(buffer),
-        });
+          return new Response(buffer, {
+            status: 200,
+            headers: getResponseHeaders(buffer),
+          });
+        } catch (error) {
+          console.error(
+            '[API /api/og] Error generating dynamic OG image, using fallback:',
+            error
+          );
+          const buffer = getFallbackBuffer();
+          return new Response(buffer, {
+            status: 200,
+            headers: {
+              ...getResponseHeaders(buffer),
+              'Content-Type': 'image/jpeg',
+              'Cache-Control': 'public, max-age=3600',
+            },
+          });
+        }
       },
     },
   },

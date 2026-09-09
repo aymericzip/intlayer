@@ -19,7 +19,12 @@ import {
 import { DocumentationRender } from '~/components/DocPage/DocumentationRender';
 import { loadDocPage, loadNavData } from '~/serverFunctions/docs';
 import { getCanonicalSlugs } from '~/utils/canonicalSlugs';
-import { getAbsoluteUrl, getHreflangLinks, getOgImageUrl } from '~/utils/seo';
+import {
+  getAbsoluteUrl,
+  getHreflangLinks,
+  getOgImageUrl,
+  toAbsoluteUrl,
+} from '~/utils/seo';
 import {
   getCreativeWorkStructuredData,
   getSiteStructuredData,
@@ -120,10 +125,20 @@ export const Route = createFileRoute('/{-$locale}/_docs/doc/$')({
             ? docData.keywords.join(', ')
             : docData.keywords || '',
         },
+        { property: 'og:type', content: 'website' },
         { property: 'og:url', content: getAbsoluteUrl(absoluteUrl, locale) },
         { property: 'og:title', content: pageTitle },
         { property: 'og:description', content: docData.description },
+        { property: 'og:logo', content: toAbsoluteUrl('/logo.png') },
         { property: 'og:image', content: ogImage },
+        { property: 'og:image:secure_url', content: ogImage },
+        { property: 'og:image:type', content: 'image/png' },
+        { property: 'og:image:width', content: '1200' },
+        { property: 'og:image:height', content: '630' },
+        { property: 'og:image:alt', content: pageTitle },
+        { name: 'twitter:card', content: 'summary_large_image' },
+        { name: 'twitter:title', content: pageTitle },
+        { name: 'twitter:description', content: docData.description },
         { name: 'twitter:image', content: ogImage },
       ],
       links: [
