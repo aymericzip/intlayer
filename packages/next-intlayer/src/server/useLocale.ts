@@ -8,6 +8,8 @@ export type UseLocaleResult = {
   availableLocales: DeclaredLocales[];
 };
 
+const { defaultLocale, locales: availableLocales } = internationalization ?? {};
+
 /**
  * On the server side, hook returning the current locale along with the default
  * and available ones.
@@ -18,9 +20,6 @@ export type UseLocaleResult = {
  * render the provider did not reach.
  */
 export const useLocale = (): UseLocaleResult => {
-  const { defaultLocale, locales: availableLocales } =
-    internationalization ?? {};
-
   const locale = (resolveAmbientLocale() ?? defaultLocale) as DeclaredLocales;
 
   return { locale, defaultLocale, availableLocales };

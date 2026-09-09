@@ -19,6 +19,8 @@ export type UseLocaleResult = {
   setLocale: (locale: LocalesValues) => void;
 };
 
+const { defaultLocale, locales: availableLocales } = internationalization ?? {};
+
 /**
  * Solid hook to manage the current locale and related functions.
  *
@@ -46,9 +48,6 @@ export const useLocale = ({
   isCookieEnabled,
   onLocaleChange,
 }: UseLocaleProps = {}): UseLocaleResult => {
-  const { defaultLocale, locales: availableLocales } =
-    internationalization ?? {};
-
   const context = useContext(IntlayerClientContext) ?? {};
 
   const setLocale = (locale: LocalesValues) => {

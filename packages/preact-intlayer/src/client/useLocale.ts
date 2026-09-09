@@ -19,6 +19,8 @@ type UseLocaleResult = {
   setLocale: (locale: LocalesValues) => void;
 };
 
+const { defaultLocale, locales: availableLocales } = internationalization ?? {};
+
 /**
  * Preact hook to get the current locale and related locale management functions.
  *
@@ -46,9 +48,6 @@ export const useLocale = ({
   isCookieEnabled,
   onLocaleChange,
 }: UseLocaleProps = {}): UseLocaleResult => {
-  const { defaultLocale, locales: availableLocales } =
-    internationalization ?? {};
-
   const {
     locale,
     setLocale: setLocaleState,

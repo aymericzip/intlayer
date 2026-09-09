@@ -19,6 +19,8 @@ export type UseLocaleResult = {
   subscribe: (callback: (locale: LocalesValues) => void) => () => void;
 };
 
+const { defaultLocale, locales: availableLocales } = internationalization ?? {};
+
 /**
  * Get the current locale state and locale management utilities.
  *
@@ -48,8 +50,6 @@ export type UseLocaleResult = {
  */
 export const useLocale = (props: UseLocaleProps = {}): UseLocaleResult => {
   const client = getIntlayerClient();
-  const { defaultLocale, locales: availableLocales } =
-    internationalization ?? {};
 
   const setLocale = (newLocale: LocalesValues): void => {
     if (!(availableLocales ?? []).map(String).includes(newLocale)) {

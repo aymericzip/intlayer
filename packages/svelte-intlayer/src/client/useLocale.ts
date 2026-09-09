@@ -20,6 +20,8 @@ export type UseLocaleResult = {
   setLocale: (locale: LocalesValues) => void;
 };
 
+const { defaultLocale, locales: availableLocales } = internationalization ?? {};
+
 /**
  * Svelte hook to manage the current locale and related functions.
  *
@@ -45,8 +47,6 @@ export const useLocale = ({
   onLocaleChange,
 }: UseLocaleProps = {}): UseLocaleResult => {
   const context = getIntlayerContext();
-  const { defaultLocale, locales: availableLocales } =
-    internationalization ?? {};
 
   if (context) {
     // Use context if available

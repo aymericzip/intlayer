@@ -9,15 +9,14 @@ export type UseLocaleResult = {
   availableLocales: DeclaredLocales[];
 };
 
+const { defaultLocale, locales: availableLocales } = internationalization ?? {};
+
 /**
  * On the server side, Hook that picking one dictionary by its key and return the content
  *
  * If the locale is not provided, it will use the locale from the server context
  */
 export const useLocale = (): UseLocaleResult => {
-  const { defaultLocale, locales: availableLocales } =
-    internationalization ?? {};
-
   const locale = (getServerContext(IntlayerServerContext) ??
     defaultLocale) as DeclaredLocales;
 

@@ -19,6 +19,8 @@ export type UseLocaleResult = {
   setLocale: (locale: LocalesValues) => void;
 };
 
+const { defaultLocale, locales: availableLocales } = internationalization ?? {};
+
 /**
  * Angular hook to manage the current locale and related functions.
  *
@@ -50,8 +52,6 @@ export const useLocale = ({
   isCookieEnabled,
   onLocaleChange,
 }: UseLocaleProps = {}): UseLocaleResult => {
-  const { defaultLocale, locales: availableLocales } =
-    internationalization ?? {};
   const intlayer = inject<IntlayerProvider>(INTLAYER_TOKEN);
 
   // Create a reactive reference for the locale

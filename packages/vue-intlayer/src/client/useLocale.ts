@@ -19,6 +19,8 @@ export type UseLocaleResult = {
   setLocale: (locale: LocalesValues) => void;
 };
 
+const { defaultLocale, locales: availableLocales } = internationalization ?? {};
+
 /**
  * Vue composable to get the current locale and related locale management functions.
  *
@@ -46,8 +48,6 @@ export const useLocale = ({
   isCookieEnabled,
   onLocaleChange,
 }: UseLocaleProps = {}): UseLocaleResult => {
-  const { defaultLocale, locales: availableLocales } =
-    internationalization ?? {};
   const intlayer = inject<IntlayerProvider>(INTLAYER_SYMBOL);
 
   // Create a reactive reference for the locale
