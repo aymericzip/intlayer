@@ -26,17 +26,21 @@ export const intlayer = (): Middleware => {
     // Path detection (/fr/about -> "fr", /about -> undefined)
     const pathLocale = getLocaleFromPath(context.url.pathname);
 
+    if (pathLocale) {
+      // Attach resolved locale to Remix 3 request context
+      context.set(localeKey, pathLocale);
+
+      return next();
+    }
+
     const storedLocale = await getLocale({
       getHeader: (name) => context.headers.get(name),
       getCookie: (name) =>
         getCookie(name, context.headers.get('cookie') ?? undefined),
     });
 
-    // Resolve locale: path prefix takes precedence, otherwise stored locale, otherwise default locale
-    const resolvedLocale = pathLocale ?? storedLocale ?? defaultLocale;
-
     // Attach resolved locale to Remix 3 request context
-    context.set(localeKey, resolvedLocale);
+    context.set(localeKey, storedLocale ?? defaultLocale);
 
     return next();
   };

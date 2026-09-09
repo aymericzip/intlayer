@@ -17,6 +17,7 @@ slugs:
   - environment
   - remix-3
 applicationTemplate: https://github.com/aymericzip/intlayer-remix-3-template
+applicationShowcase: https://intlayer-remix-3-template.vercel.app
 history:
   - version: 9.5.0
     date: 2026-09-09
@@ -85,6 +86,31 @@ Beyond code-first workflows, Intlayer provides a self-hosted [Visual Editor](htt
 ---
 
 ## Step-by-Step Guide
+
+<Tabs defaultTab="code">
+  <Tab label="Code" value="code">
+
+<iframe
+  src="https://ide.intlayer.org/aymericzip/intlayer-remix-3-template?file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+  <Tab label="Demo" value="demo">
+
+<iframe
+  src="https://intlayer-remix-3-template.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo Intlayer Remix 3 Template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+</Tabs>
 
 See the [Application Template](https://github.com/aymericzip/intlayer-remix-3-template) on GitHub.
 
@@ -163,89 +189,24 @@ module.exports = config;
 </Step>
 <Step number={3} title="Declare Your Multilingual Content">
 
-Declare your localized content in `.content.ts` files. Intlayer allows you to co-locate your dictionaries alongside your routes and views:
+Declare your localized content in a `.content.ts` file:
 
-#### Home Page Content
-
-```typescript fileName="src/content/home.content.ts" contentDeclarationFormat={["typescript", "esm"]}
+```typescript fileName="src/home.content.ts" contentDeclarationFormat={["typescript", "esm"]}
 import { t, type Dictionary } from "intlayer";
 
 const homeContent = {
   key: "home",
   content: {
     title: t({
-      en: "Welcome to Remix 3 with Intlayer",
-      fr: "Bienvenue sur Remix 3 avec Intlayer",
-      es: "Bienvenido a Remix 3 con Intlayer",
+      en: "Welcome to Remix 3",
+      fr: "Bienvenue sur Remix 3",
+      es: "Bienvenido a Remix 3",
     }),
-    subtitle: t({
-      en: "A composable, web-standard-first application with native i18n.",
+    description: t({
+      en: "A composable, web-standard application with native i18n.",
       fr: "Une application composable basée sur les standards web avec i18n native.",
       es: "Una aplicación componible basada en estándares web con i18n nativa.",
     }),
-    badge: t({
-      en: "Web Standards Framework",
-      fr: "Framework axé Standards Web",
-      es: "Framework de Estándares Web",
-    }),
-    viewAbout: t({
-      en: "Learn more about us",
-      fr: "En savoir plus sur nous",
-      es: "Conozca más sobre nosotros",
-    }),
-  },
-} satisfies Dictionary;
-
-export default homeContent;
-```
-
-#### About Page Content
-
-```typescript fileName="src/content/about.content.ts" contentDeclarationFormat={["typescript", "esm"]}
-import { t, type Dictionary } from "intlayer";
-
-const aboutContent = {
-  key: "about",
-  content: {
-    title: t({
-      en: "About Remix 3",
-      fr: "À propos de Remix 3",
-      es: "Acerca de Remix 3",
-    }),
-    description: t({
-      en: "Remix 3 is designed around single-purpose packages that work anywhere JavaScript runs.",
-      fr: "Remix 3 est conçu autour de packages à responsabilité unique utilisables partout où JavaScript fonctionne.",
-      es: "Remix 3 está diseñado en torno a paquetes especializados que funcionan dondequiera que se ejecute JavaScript.",
-    }),
-    backHome: t({
-      en: "Back to Home",
-      fr: "Retour à l'accueil",
-      es: "Volver al Inicio",
-    }),
-  },
-} satisfies Dictionary;
-
-export default aboutContent;
-```
-
-#### Common Navigation Content
-
-```typescript fileName="src/content/common.content.ts" contentDeclarationFormat={["typescript", "esm"]}
-import { t, type Dictionary } from "intlayer";
-
-const commonContent = {
-  key: "common",
-  content: {
-    appName: t({
-      en: "Remix 3 App",
-      fr: "App Remix 3",
-      es: "App Remix 3",
-    }),
-    nav: {
-      home: t({ en: "Home", fr: "Accueil", es: "Inicio" }),
-      about: t({ en: "About", fr: "À propos", es: "Acerca de" }),
-      api: t({ en: "API", fr: "API", es: "API" }),
-    },
     switchLanguage: t({
       en: "Switch language:",
       fr: "Changer de langue :",
@@ -254,7 +215,7 @@ const commonContent = {
   },
 } satisfies Dictionary;
 
-export default commonContent;
+export default homeContent;
 ```
 
 > Intlayer also supports JSON, YAML, and CommonJS declaration formats. See the [Content Declaration Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md).
@@ -289,11 +250,10 @@ Remix 3 provides a composable middleware pipeline via `createRouter({ middleware
 
 Create an Intlayer middleware that resolves the locale of each incoming request using:
 
-1. The URL path prefix via Intlayer's `getLocaleFromPath` (e.g. `/fr` or `/fr/about`).
+1. The URL path prefix via Intlayer's `getLocaleFromPath` (e.g. `/fr` or `/es`).
 2. Intlayer's `getLocale` helper, which automatically negotiates across storage cookies (`INTLAYER_LOCALE`), custom headers (`x-intlayer-locale`), standard `Accept-Language` headers, and your configured `defaultLocale`.
 
 ```typescript fileName="src/middleware/intlayer.ts" codeFormat={["typescript", "esm"]}
-import { createContextKey, type Middleware } from "remix/router";
 import {
   defaultLocale,
   getCookie,
@@ -301,10 +261,10 @@ import {
   getLocaleFromPath,
   type Locale,
 } from "intlayer";
+import { createContextKey, type Middleware } from "remix/router";
 
 /**
- * Type-safe context key to store and retrieve the resolved locale
- * from Remix 3's RequestContext.
+ * Type-safe context key to retrieve the resolved locale from Remix 3 RequestContext.
  */
 export const localeKey = createContextKey<Locale>(defaultLocale);
 
@@ -313,28 +273,30 @@ export const localeKey = createContextKey<Locale>(defaultLocale);
  *
  * Resolves the request locale following priority:
  * 1. URL path prefix (e.g. `/fr/...`) via `getLocaleFromPath`
- * 2. Storage & headers negotiation via Intlayer `getLocale`
+ * 2. Storage & headers negotiation via Intlayer `getLocale` (cookie, custom header, Accept-Language negotiation, fallback defaultLocale)
  *
  * Attaches the resolved locale to the Remix 3 RequestContext.
  */
 export const intlayer = (): Middleware => {
   return async (context, next) => {
-    // 1. Path detection (/fr/about -> "fr", /about -> undefined)
-    const pathLocale = getLocaleFromPath(context.url.pathname, {
-      mode: "prefix-all",
+    // Path detection (/fr/about -> "fr", /about -> undefined)
+    const pathLocale = getLocaleFromPath(context.url.pathname);
+
+    if (pathLocale) {
+      // Attach resolved locale to Remix 3 request context
+      context.set(localeKey, pathLocale);
+
+      return next();
+    }
+
+    const storedLocale = await getLocale({
+      getHeader: (name) => context.headers.get(name),
+      getCookie: (name) =>
+        getCookie(name, context.headers.get("cookie") ?? undefined),
     });
 
-    // 2. Resolve locale: path prefix takes precedence, otherwise negotiate via getLocale
-    const resolvedLocale =
-      pathLocale ??
-      ((await getLocale({
-        getHeader: (name) => context.headers.get(name),
-        getCookie: (name) =>
-          getCookie(name, context.headers.get("cookie") ?? undefined),
-      })) as Locale);
-
     // Attach resolved locale to Remix 3 request context
-    context.set(localeKey, resolvedLocale);
+    context.set(localeKey, storedLocale ?? defaultLocale);
 
     return next();
   };
@@ -344,44 +306,37 @@ export const intlayer = (): Middleware => {
 </Step>
 <Step number={6} title="Define Type-Safe Routes">
 
-Define your application routes using `route()` from `remix/routes` (or `remix/fetch-router/routes`):
+Define your application routes using `route()` from `remix/routes`:
 
 ```typescript fileName="src/routes.ts" codeFormat={["typescript", "esm"]}
 import { route } from "remix/routes";
 
 export const routes = route({
-  // Default locale routes
+  // Default locale route
   home: "/",
-  about: "/about",
-  apiGreeting: "/api/greeting",
 
-  // Localized routes with dynamic :locale segment
+  // Localized route with dynamic :locale segment
   localizedHome: "/:locale",
-  localizedAbout: "/:locale/about",
-  localizedApiGreeting: "/:locale/api/greeting",
 });
 ```
 
-Using `route()` gives you type-safe URL generation across your templates:
+Using `route()` gives you type-safe URL generation across your application:
 
 ```typescript
 routes.home.href(); // "/"
 routes.localizedHome.href({ locale: "fr" }); // "/fr"
-routes.localizedAbout.href({ locale: "es" }); // "/es/about"
 ```
 
 </Step>
 <Step number={7} title="Render Localized HTML Templates">
 
-Remix 3 uses `remix/html-template` for safe, auto-escaped HTML generation. Build a reusable base layout that sets `<html lang="${locale}">` and incorporates a language switcher:
+Remix 3 uses `remix/html-template` for safe, auto-escaped HTML generation. Create a view function that extracts the localized dictionary using `getIntlayer`, sets the `<html lang="..." dir="...">` attributes, and displays a language switcher:
 
-#### Base Layout Template
-
-```typescript fileName="src/views/layout.ts" codeFormat={["typescript", "esm"]}
+```typescript fileName="src/views/home.ts" codeFormat={["typescript", "esm"]}
 import { html, type SafeHtml } from "remix/html-template";
 import {
-  getHTMLTextDir,
   getIntlayer,
+  getHTMLTextDir,
   getLocaleName,
   getLocalizedPath,
   type Locale,
@@ -389,24 +344,8 @@ import {
 } from "intlayer";
 import { routes } from "../routes";
 
-interface LayoutOptions {
-  title: string;
-  locale: Locale;
-  content: SafeHtml;
-  currentPath?: "home" | "about";
-}
-
-export const renderLayout = ({
-  title,
-  locale,
-  content,
-  currentPath = "home",
-}: LayoutOptions): SafeHtml => {
-  const common = getIntlayer("common", locale);
-
-  const homeHref = getLocalizedPath(routes.home.href(), locale);
-  const aboutHref = getLocalizedPath(routes.about.href(), locale);
-  const apiHref = getLocalizedPath(routes.apiGreeting.href(), locale);
+export const renderHomePage = (locale: Locale): SafeHtml => {
+  const home = getIntlayer("home", locale);
 
   return html`
     <!doctype html>
@@ -414,132 +353,34 @@ export const renderLayout = ({
       <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>${title} | ${common.appName}</title>
-        <style></style>
+        <title>${home.title}</title>
       </head>
       <body>
         <header>
-          <div style="font-weight: bold; font-size: 1.2rem;">
-            ${common.appName}
-          </div>
-          <nav>
-            <a
-              href="${homeHref}"
-              class="${currentPath === "home" ? "active" : ""}"
-            >
-              ${common.nav.home}
-            </a>
-            <a
-              href="${aboutHref}"
-              class="${currentPath === "about" ? "active" : ""}"
-            >
-              ${common.nav.about}
-            </a>
-            <a href="${apiHref}" target="_blank"> ${common.nav.api} </a>
-          </nav>
-          <div class="lang-switcher">
+          <nav aria-label="Languages">
+            <span>${home.switchLanguage}</span>
             ${locales.map((loc) => {
-              const targetPath =
-                currentPath === "about"
-                  ? routes.about.href()
-                  : routes.home.href();
-              const href = getLocalizedPath(targetPath, loc);
+              const href = getLocalizedPath(routes.home.href(), loc);
               const isActive = loc === locale;
               return html`
                 <a
                   href="${href}"
                   class="${isActive ? "active" : ""}"
-                  title="${common.switchLanguage} ${getLocaleName(loc, locale)}"
+                  aria-current="${isActive ? "true" : "false"}"
                 >
-                  ${loc.toUpperCase()}
+                  ${getLocaleName(loc, locale)}
                 </a>
               `;
             })}
-          </div>
+          </nav>
         </header>
-        <main>${content}</main>
+        <main>
+          <h1>${home.title}</h1>
+          <p>${home.description}</p>
+        </main>
       </body>
     </html>
   `;
-};
-```
-
-#### Page Views
-
-```typescript fileName="src/views/home.ts" codeFormat={["typescript", "esm"]}
-import { html, type SafeHtml } from "remix/html-template";
-import { getIntlayer, getLocalizedPath, type Locale } from "intlayer";
-import { renderLayout } from "./layout";
-import { routes } from "../routes";
-
-export const renderHomePage = (locale: Locale): SafeHtml => {
-  const home = getIntlayer("home", locale);
-  const aboutHref = getLocalizedPath(routes.about.href(), locale);
-
-  const content = html`
-    <section style="text-align: center; margin-top: 2rem;">
-      <span
-        style="background: #0369a1; padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.8rem;"
-      >
-        ${home.badge}
-      </span>
-      <h1 style="font-size: 2.8rem; margin: 1.5rem 0 0.5rem;">${home.title}</h1>
-      <p
-        style="font-size: 1.2rem; color: #94a3b8; max-width: 650px; margin: 0 auto 2rem;"
-      >
-        ${home.subtitle}
-      </p>
-      <a
-        href="${aboutHref}"
-        style="display: inline-block; background: #0284c7; color: white; padding: 0.8rem 1.6rem; border-radius: 8px; text-decoration: none; font-weight: 600;"
-      >
-        ${home.viewAbout} →
-      </a>
-    </section>
-  `;
-
-  return renderLayout({
-    title: String(home.title),
-    locale,
-    content,
-    currentPath: "home",
-  });
-};
-```
-
-```typescript fileName="src/views/about.ts" codeFormat={["typescript", "esm"]}
-import { html, type SafeHtml } from "remix/html-template";
-import { getIntlayer, getLocalizedPath, type Locale } from "intlayer";
-import { renderLayout } from "./layout";
-import { routes } from "../routes";
-
-export const renderAboutPage = (locale: Locale): SafeHtml => {
-  const about = getIntlayer("about", locale);
-  const homeHref = getLocalizedPath(routes.home.href(), locale);
-
-  const content = html`
-    <section>
-      <h1 style="font-size: 2.5rem; margin-bottom: 1rem;">${about.title}</h1>
-      <p
-        style="font-size: 1.2rem; color: #94a3b8; line-height: 1.7; margin-bottom: 2rem;"
-      >
-        ${about.description}
-      </p>
-      <a
-        href="${homeHref}"
-        style="color: #38bdf8; text-decoration: none; font-weight: 500;"
-      >
-        ← ${about.backHome}
-      </a>
-    </section>
-  `;
-
-  return renderLayout({
-    title: String(about.title),
-    locale,
-    content,
-    currentPath: "about",
-  });
 };
 ```
 
@@ -553,10 +394,9 @@ import * as http from "node:http";
 import { createRouter } from "remix/router";
 import { createRequestListener } from "remix/node-fetch-server";
 import { createHtmlResponse } from "remix/response/html";
-import { getIntlayer, isDeclaredLocale } from "intlayer";
+import { isDeclaredLocale } from "intlayer";
 import { intlayer, localeKey } from "./middleware/intlayer";
 import { routes } from "./routes";
-import { renderAboutPage } from "./views/about";
 import { renderHomePage } from "./views/home";
 
 // 1. Initialize router with Intlayer middleware
@@ -567,17 +407,13 @@ export const router = createRouter({
 // 2. Map route handlers
 router.map(routes, {
   actions: {
-    // Default locale routes
+    // Default locale route
     home(context) {
       const locale = context.get(localeKey);
       return createHtmlResponse(renderHomePage(locale));
     },
-    about(context) {
-      const locale = context.get(localeKey);
-      return createHtmlResponse(renderAboutPage(locale));
-    },
 
-    // Localized routes
+    // Localized route
     localizedHome(context) {
       if (!isDeclaredLocale(context.params.locale)) {
         return new Response("Not Found", { status: 404 });
@@ -585,58 +421,18 @@ router.map(routes, {
       const locale = context.get(localeKey);
       return createHtmlResponse(renderHomePage(locale));
     },
-    localizedAbout(context) {
-      if (!isDeclaredLocale(context.params.locale)) {
-        return new Response("Not Found", { status: 404 });
-      }
-      const locale = context.get(localeKey);
-      return createHtmlResponse(renderAboutPage(locale));
-    },
-
-    // Localized JSON API endpoints
-    apiGreeting(context) {
-      const locale = context.get(localeKey);
-      const home = getIntlayer("home", locale);
-      return Response.json({
-        success: true,
-        locale,
-        message: home.title,
-        timestamp: new Date().toISOString(),
-      });
-    },
-    localizedApiGreeting(context) {
-      if (!isDeclaredLocale(context.params.locale)) {
-        return Response.json(
-          { success: false, error: "Not Found" },
-          { status: 404 }
-        );
-      }
-      const locale = context.get(localeKey);
-      const home = getIntlayer("home", locale);
-      return Response.json({
-        success: true,
-        locale,
-        message: home.title,
-        timestamp: new Date().toISOString(),
-      });
-    },
   },
 });
 
 // 3. Start server
 const PORT = Number(process.env.PORT || 3000);
+const server = http.createServer(
+  createRequestListener((request) => router.fetch(request))
+);
 
-if (
-  typeof (process.versions as any)?.bun === "undefined" &&
-  process.env.NODE_ENV !== "test"
-) {
-  const server = http.createServer(
-    createRequestListener((request) => router.fetch(request))
-  );
-  server.listen(PORT, () => {
-    console.log(`🚀 Remix 3 server running at http://localhost:${PORT}`);
-  });
-}
+server.listen(PORT, () => {
+  console.log(`Server running at http://localhost:${PORT}`);
+});
 
 export default {
   port: PORT,
@@ -647,69 +443,7 @@ export default {
 ```
 
 </Step>
-<Step number={9} title="Run on Any JavaScript Runtime">
-
-Remix 3 is runtime-agnostic. The `router.fetch` interface conforms to the Web Fetch standard, meaning you can deploy to any environment without rewriting your code:
-
-<Tabs group="runtimes" defaultTab="bun">
-  <Tab label="Bun" value="bun">
-
-```typescript fileName="src/bun.ts" codeFormat={["typescript", "esm"]}
-import { router } from "./server";
-
-Bun.serve({
-  fetch: router.fetch,
-  port: 3000,
-});
-
-console.log("Running with Bun at http://localhost:3000");
-```
-
-Run directly:
-
-```bash
-bun run src/server.ts
-```
-
-  </Tab>
-  <Tab label="Node.js" value="node">
-
-```typescript fileName="src/node.ts" codeFormat={["typescript", "esm"]}
-import * as http from "node:http";
-import { createRequestListener } from "remix/node-fetch-server";
-import { router } from "./server";
-
-const server = http.createServer(createRequestListener(router.fetch));
-server.listen(3000, () => {
-  console.log("Running with Node.js at http://localhost:3000");
-});
-```
-
-  </Tab>
-  <Tab label="Deno" value="deno">
-
-```typescript fileName="src/deno.ts" codeFormat={["typescript", "esm"]}
-import { router } from "./server.ts";
-
-Deno.serve({ port: 3000 }, router.fetch);
-```
-
-  </Tab>
-  <Tab label="Cloudflare Workers" value="cloudflare">
-
-```typescript fileName="src/worker.ts" codeFormat={["typescript", "esm"]}
-import { router } from "./server";
-
-export default {
-  fetch: router.fetch,
-};
-```
-
-  </Tab>
-</Tabs>
-
-</Step>
-<Step number={10} title="Audit and Auto-Fill Translations">
+<Step number={9} title="Audit and Auto-Fill Translations">
 
 Intlayer provides a CLI to audit for missing translations and automatically fill them using AI:
 
