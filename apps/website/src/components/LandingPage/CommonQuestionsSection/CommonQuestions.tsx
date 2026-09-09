@@ -1,4 +1,5 @@
 import { Accordion } from '@intlayer/design-system/accordion';
+import { Container } from '@intlayer/design-system/container';
 import { Website_FrequentQuestions_Path } from '@intlayer/design-system/routes';
 import { buildFAQPageJsonLd } from '@intlayer/design-system/structured-data';
 import { ArrowRight } from 'lucide-react';
@@ -69,13 +70,18 @@ export const CommonQuestionsSection: FC = () => {
 
       <h2 className="text-3xl">{title}</h2>
 
-      <div className="my-3 flex w-full max-w-2xl flex-col items-start justify-center gap-x-6 overflow-hidden rounded-xl border bg-background p-4">
+      <Container
+        background="none"
+        border
+        roundedSize="4xl"
+        className="my-3 w-full max-w-2xl flex-col gap-y-2 overflow-hidden bg-background px-4 py-3"
+      >
         {faqs.length > 0 && <JsonLd jsonLd={buildFAQPageJsonLd({ faqs })} />}
 
         {content.map((data) => (
           <FAQItem key={data.question} {...data} />
         ))}
-      </div>
+      </Container>
 
       <Link
         to={Website_FrequentQuestions_Path}
