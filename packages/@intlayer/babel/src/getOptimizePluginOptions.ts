@@ -89,7 +89,6 @@ export const getOptimizePluginOptions = (
   const filesList = [
     ...filesListPattern,
     dictionariesEntryPath, // should add dictionariesEntryPath to replace it by an empty object if import made dynamic
-    unmergedDictionariesEntryPath, // should add dictionariesEntryPath to replace it by an empty object if import made dynamic
   ];
 
   // Load dictionaries if not provided

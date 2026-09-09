@@ -381,7 +381,6 @@ const getPruneConfig = ({
   const filesList = [
     ...filesListPattern,
     dictionariesEntryPath, // should add dictionariesEntryPath to replace it by a empty object if import made dynamic
-    unmergedDictionariesEntryPath, // should add dictionariesEntryPath to replace it by a empty object if import made dynamic
   ];
 
   const dictionaries = getDictionaries(intlayerConfig);

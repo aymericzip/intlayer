@@ -383,7 +383,7 @@ describe('babel-plugin-intlayer-optimize', () => {
       expect(output).toContain('export const getDictionaries = () => ({});');
     });
 
-    it('keeps the unmerged entry accessor name when replacing it', () => {
+    it('leaves the unmerged entry untouched even when replaceDictionaryEntry is true', () => {
       const output = transform(
         `
       const dictionaries = { home: {} };
@@ -395,12 +395,13 @@ describe('babel-plugin-intlayer-optimize', () => {
         '/app/.intlayer/unmerged_dictionaries.mjs'
       );
 
-      // Emitting `getDictionaries` here would strip the export that consumers
-      // of the unmerged entry import, failing the bundle with a missing export.
-      expect(output).toContain(
+      // The unmerged entry is used by the visual editor and CMS.
+      // It must not be emptied by replaceDictionaryEntry.
+      expect(output).toContain('const dictionaries = {');
+      expect(output).toContain('export { getUnmergedDictionaries };');
+      expect(output).not.toContain(
         'export const getUnmergedDictionaries = () => ({});'
       );
-      expect(output).not.toContain('getDictionaries =');
     });
 
     it('leaves the entry untouched when replacement is disabled', () => {

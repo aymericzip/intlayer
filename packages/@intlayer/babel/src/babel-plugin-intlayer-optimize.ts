@@ -545,32 +545,22 @@ export const intlayerOptimizeBabelPlugin = (babel: {
           const dictionariesEntryPath = state.opts.dictionariesEntryPath
             ? normalizePath(state.opts.dictionariesEntryPath)
             : undefined;
-          const unmergedDictionariesEntryPath = state.opts
-            .unmergedDictionariesEntryPath
-            ? normalizePath(state.opts.unmergedDictionariesEntryPath)
-            : undefined;
 
-          // Each generated entry exposes its own accessor. Emitting
-          // `getDictionaries` for every entry left the unmerged one without the
-          // `getUnmergedDictionaries` export its consumers import, so the
-          // bundler failed the build with a missing export.
-          const entryAccessorName = filename
-            ? filename === dictionariesEntryPath
-              ? 'getDictionaries'
-              : filename === unmergedDictionariesEntryPath
-                ? 'getUnmergedDictionaries'
-                : undefined
-            : undefined;
-
-          // Check if this is the correct file to transform
-          if (state.opts.replaceDictionaryEntry && entryAccessorName) {
+          // If this file *is* the dictionaries entry, short-circuit: export {}
+          // Note: unmerged_dictionaries.mjs is used by the visual editor and CMS
+          // and must not be replaced with an empty dictionary map.
+          if (
+            state.opts.replaceDictionaryEntry &&
+            filename &&
+            filename === dictionariesEntryPath
+          ) {
             state._isDictEntry = true;
             programPath.node.body = [
               t.exportDefaultDeclaration(t.objectExpression([])),
               t.exportNamedDeclaration(
                 t.variableDeclaration('const', [
                   t.variableDeclarator(
-                    t.identifier(entryAccessorName),
+                    t.identifier('getDictionaries'),
                     t.arrowFunctionExpression([], t.objectExpression([]))
                   ),
                 ])

@@ -100,7 +100,6 @@ export const intlayerOptimize = async (
     const transformableFilesList = [
       ...componentFilesList,
       dictionariesEntryPath,
-      unmergedDictionariesEntryPath,
     ];
 
     const dictionaries = getDictionaries(intlayerConfig);
@@ -652,10 +651,8 @@ export const intlayerOptimize = async (
           if (!SOURCE_FILE_REGEX.test(sourceFilePath)) return null;
           if (!transformableFilesList.includes(sourceFilePath)) return null;
 
-          const isDictionaryEntryFile = [
-            dictionariesEntryPath,
-            unmergedDictionariesEntryPath,
-          ].includes(sourceFilePath);
+          const isDictionaryEntryFile =
+            sourceFilePath === dictionariesEntryPath;
 
           // Match native intlayer calls plus any configured compat callers
           // (`useTranslation`, `useTranslations`, …) so compat-only files are
