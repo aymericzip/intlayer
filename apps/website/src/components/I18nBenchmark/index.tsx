@@ -27,6 +27,7 @@ import {
   type ChartItem,
   type FrameworkKey,
   getLibColors,
+  isIntlayerLib,
   type LibInfo,
   type MetricData,
   type MetricDef,
@@ -37,14 +38,22 @@ import { useBenchmarkMetrics } from './useBenchmarkMetrics';
 
 export const getDisplayName = (id: string, baseAppLabel?: string): string => {
   if (id === 'base') return baseAppLabel ?? 'Base App';
-  if (id === 'intlayer') return 'Intlayer';
-  if (id === 'next-intlayer') return 'next-intlayer';
-  return id
+
+  const cleanedId = id
     .replace(/-app-nextjs$/, '')
     .replace(/-app-tanstack$/, '')
     .replace(/-app-vite-vue$/, '')
     .replace(/-app-vite-solid$/, '')
     .replace(/-app-vite-svelte$/, '');
+
+  if (cleanedId === 'intlayer') return 'Intlayer';
+  if (cleanedId === 'next-intlayer') return 'next-intlayer';
+
+  if (cleanedId.startsWith('intlayer-compat-')) {
+    return cleanedId.replace(/^intlayer-compat-/, '@intlayer/');
+  }
+
+  return cleanedId;
 };
 
 const POPULARITY_SCORES: Record<string, number> = {
@@ -66,6 +75,12 @@ const POPULARITY_SCORES: Record<string, number> = {
   'gt-next': 20,
   'gt-react': 20,
   wuchale: 10,
+};
+
+const getPopularityScore = (id: string): number => {
+  if (POPULARITY_SCORES[id] !== undefined) return POPULARITY_SCORES[id];
+  if (isIntlayerLib(id)) return 890;
+  return 50;
 };
 
 const CATEGORY_FALLBACKS: Record<string, string[]> = {
@@ -230,8 +245,8 @@ export const I18nBenchmark = ({
         version: currentFrameworkData.libs[id].global?.version ?? null,
       }))
       .sort((a, b) => {
-        const scoreA = POPULARITY_SCORES[a.id] ?? 50;
-        const scoreB = POPULARITY_SCORES[b.id] ?? 50;
+        const scoreA = getPopularityScore(a.id);
+        const scoreB = getPopularityScore(b.id);
         return scoreB - scoreA;
       });
   }, [currentFrameworkData, baseApp.value, framework]);
@@ -485,6 +500,7 @@ export const I18nBenchmark = ({
                       data={chartData}
                       unit={selectedMetric?.unit}
                       logoImages={logoImagesReady}
+                      isDarkMode={isDarkMode}
                     />
                   ) : renderMode === 'table' ? (
                     <div className="size-full overflow-auto text-sm">

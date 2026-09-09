@@ -11,7 +11,7 @@ import {
 } from 'chart.js';
 import { type FC, useEffect, useRef } from 'react';
 import type { ChartItem, StaticImport } from './constants';
-import { LIB_LOGOS } from './constants';
+import { isIntlayerLib, LIB_LOGOS } from './constants';
 
 Chart.register(
   BarController,
@@ -57,7 +57,8 @@ export const ChartComponent: FC<{
   data: ChartItem[];
   unit: string;
   logoImages: Record<string, HTMLImageElement>;
-}> = ({ data, unit, logoImages }) => {
+  isDarkMode?: boolean;
+}> = ({ data, unit, logoImages, isDarkMode }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const chartRef = useRef<Chart | null>(null);
 
@@ -89,7 +90,9 @@ export const ChartComponent: FC<{
             : (tick.label as string);
           const item = data.find((d) => d.label === label);
           if (!item) return;
-          const img = logoImages[item.libId];
+          const img =
+            logoImages[item.libId] ||
+            (isIntlayerLib(item.libId) ? logoImages['intlayer'] : undefined);
           if (!img?.complete || !img.naturalWidth) return;
 
           const y = yAxis.getPixelForTick(i);
@@ -98,6 +101,9 @@ export const ChartComponent: FC<{
           ctx.beginPath();
           ctx.arc(x + size / 2, y, size / 2, 0, Math.PI * 2);
           ctx.clip();
+          if (isDarkMode && isIntlayerLib(item.libId)) {
+            ctx.filter = 'brightness(0) invert(1)';
+          }
           ctx.drawImage(img, x, y - size / 2, size, size);
           ctx.restore();
         });
@@ -207,7 +213,7 @@ export const ChartComponent: FC<{
       chartRef.current?.destroy();
       chartRef.current = null;
     };
-  }, [data, unit, logoImages]);
+  }, [data, unit, logoImages, isDarkMode]);
 
   return <canvas ref={canvasRef} className="size-full" />;
 };

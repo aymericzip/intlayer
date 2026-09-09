@@ -1,13 +1,18 @@
 import { Logo } from '@intlayer/design-system/logo';
+import { cn } from '@intlayer/design-system/utils';
 import type { FC } from 'react';
-import { LIB_LOGOS, type StaticImport } from './constants';
+import { isIntlayerLib, LIB_LOGOS, type StaticImport } from './constants';
 
 export const LibLogo: FC<{ id: string; className?: string }> = ({
   id,
   className,
 }) => {
-  if (id === 'intlayer' || id === 'react-intlayer') {
-    return <Logo className={className} />;
+  if (isIntlayerLib(id)) {
+    return (
+      <Logo
+        className={cn('text-neutral-900 dark:text-neutral-100', className)}
+      />
+    );
   }
 
   const logo = LIB_LOGOS[id];
