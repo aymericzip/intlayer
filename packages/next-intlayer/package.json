@@ -156,7 +156,7 @@
     "react-intlayer": "workspace:*"
   },
   "devDependencies": {
-    "@types/node": "26.5.0",
+    "@types/node": "^22",
     "@types/react": ">=16.0.0",
     "@types/react-dom": ">=16.0.0",
     "@utils/ts-config": "workspace:*",

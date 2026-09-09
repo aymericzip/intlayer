@@ -15,7 +15,7 @@
     "remix": "^3.0.0-rc.2"
   },
   "devDependencies": {
-    "@types/node": "26.5.0",
+    "@types/node": "^22",
     "@utils/ts-config": "workspace:*",
     "typescript": "6.0.3"
   }

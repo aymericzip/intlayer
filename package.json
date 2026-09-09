@@ -79,8 +79,8 @@
   "resolutions": {
     "bson": "7.2.0",
     "preact": "10.29.8",
-    "react": "19.2.8",
-    "react-dom": "19.2.8"
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
   },
   "devDependencies": {
     "@biomejs/biome": "2.5.12",

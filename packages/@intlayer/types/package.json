@@ -141,7 +141,7 @@
     "typecheck": "tsc --noEmit --project tsconfig.types.json"
   },
   "devDependencies": {
-    "@types/node": "26.5.0",
+    "@types/node": "^22",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
@@ -149,7 +149,7 @@
     "tsdown": "0.23.0",
     "typescript": "7.0.2",
     "vitest": "5.0.0",
-    "zod": "4.5.4"
+    "zod": "4.6.0"
   },
   "engines": {
     "node": ">=14.18"

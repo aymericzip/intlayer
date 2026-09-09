@@ -194,10 +194,10 @@
     "dotenv": "17.4.2",
     "esbuild": "0.28.2",
     "json5": "2.2.3",
-    "zod": "4.5.4"
+    "zod": "4.6.0"
   },
   "devDependencies": {
-    "@types/node": "26.5.0",
+    "@types/node": "^22",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
