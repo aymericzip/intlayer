@@ -95,6 +95,9 @@ const extractAiOptions = (options: AIOptions): AIOptions | undefined => {
 
   const { ai } = configuration;
 
+  // `AIOptions` is discriminated on `provider`, which is only known at runtime
+  // here (CLI flag or configuration file), so the merged object cannot be
+  // narrowed to a single member of the union.
   return removeUndefined({
     ...ai,
     apiKey: apiKey ?? configuration.ai?.apiKey,
@@ -105,7 +108,7 @@ const extractAiOptions = (options: AIOptions): AIOptions | undefined => {
       applicationContext ?? configuration.ai?.applicationContext,
     customPrompt: customPrompt ?? (configuration.ai as any)?.customPrompt,
     dataSerialization: dataSerialization ?? configuration.ai?.dataSerialization,
-  });
+  }) as AIOptions;
 };
 
 type GitOptions = {

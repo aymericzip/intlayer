@@ -47,6 +47,6 @@ export const pushConfig = async (options?: PushOptions) => {
   appLogger('Project configuration pushed successfully');
 
   appLogger(colorize('--------------------------------', GREY_DARK));
-  appLogger(colorizeObject(getDictionariesKeysResult.data.configuration));
+  appLogger(colorizeObject(getDictionariesKeysResult.data));
   appLogger(colorize('--------------------------------', GREY_DARK));
 };

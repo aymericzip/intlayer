@@ -1,6 +1,7 @@
 import { getIntlayerAPI } from '@intlayer/api';
 import { editor } from '@intlayer/config/built';
 import { getEditorClientSecret } from '@intlayer/config/secrets';
+import type { ContentNode } from '@intlayer/types/dictionary';
 import z from 'zod';
 import type { McpServer } from './docs';
 
@@ -129,6 +130,11 @@ export const loadAPITools: LoadAPITools = (server) => {
       description: 'Create a new dictionary in the selected project.',
       inputSchema: {
         ...authSchema,
+        projectId: z
+          .string()
+          .describe(
+            'ID of the CMS project owning the dictionary. Must be the currently selected project.'
+          ),
         key: z.string().describe('Unique key for the dictionary'),
         title: z.string().optional().describe('Human-readable title'),
         description: z
@@ -142,14 +148,25 @@ export const loadAPITools: LoadAPITools = (server) => {
       },
       annotations: { destructiveHint: false },
     },
-    async ({ clientId, clientSecret, key, title, description, content }) => {
+    async ({
+      clientId,
+      clientSecret,
+      projectId,
+      key,
+      title,
+      description,
+      content,
+    }) => {
       try {
         const api = await getAPI(clientId, clientSecret);
         const result = await api.dictionary.addDictionary({
-          key,
-          title,
-          description,
-          content,
+          dictionary: {
+            key,
+            title,
+            description,
+            content: content as ContentNode | undefined,
+            projectIds: [projectId],
+          },
         });
         return ok(result);
       } catch (error) {
@@ -260,7 +277,6 @@ export const loadAPITools: LoadAPITools = (server) => {
         key: z.string().describe('Unique tag key'),
         name: z.string().optional().describe('Display name for the tag'),
         description: z.string().optional().describe('Description of the tag'),
-        color: z.string().optional().describe('Tag color (hex code)'),
         instructions: z
           .string()
           .optional()
@@ -274,7 +290,6 @@ export const loadAPITools: LoadAPITools = (server) => {
       key,
       name,
       description,
-      color,
       instructions,
     }) => {
       try {
@@ -283,7 +298,6 @@ export const loadAPITools: LoadAPITools = (server) => {
           key,
           name,
           description,
-          color,
           instructions,
         });
         return ok(result);
@@ -304,7 +318,6 @@ export const loadAPITools: LoadAPITools = (server) => {
         key: z.string().optional().describe('New key'),
         name: z.string().optional().describe('New display name'),
         description: z.string().optional().describe('New description'),
-        color: z.string().optional().describe('New color (hex code)'),
         instructions: z.string().optional().describe('New AI instructions'),
       },
       annotations: { destructiveHint: true },
@@ -316,7 +329,6 @@ export const loadAPITools: LoadAPITools = (server) => {
       key,
       name,
       description,
-      color,
       instructions,
     }) => {
       try {
@@ -325,7 +337,6 @@ export const loadAPITools: LoadAPITools = (server) => {
           key,
           name,
           description,
-          color,
           instructions,
         });
         return ok(result);
@@ -417,19 +428,14 @@ export const loadAPITools: LoadAPITools = (server) => {
       inputSchema: {
         ...authSchema,
         name: z.string().optional().describe('New organization name'),
-        customInstructions: z
-          .string()
-          .optional()
-          .describe('Custom AI instructions for this organization'),
       },
       annotations: { destructiveHint: true },
     },
-    async ({ clientId, clientSecret, name, customInstructions }) => {
+    async ({ clientId, clientSecret, name }) => {
       try {
         const api = await getAPI(clientId, clientSecret);
         const result = await api.organization.updateOrganization({
           name,
-          customInstructions,
         });
         return ok(result);
       } catch (error) {
