@@ -29,7 +29,7 @@ author: aymericzip
 Просто запустіть команду ініціалізації у вашому проекті:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Це створить необхідний конфігураційний файл `intlayer.config.ts`. Далі ви замінюєте свої імпорти Transloco на модулі `@intlayer/transloco` або покладаєтесь на build aliases.

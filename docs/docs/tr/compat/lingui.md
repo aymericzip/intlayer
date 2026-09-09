@@ -28,7 +28,7 @@ Projeniz şu anda Lingui'nin macro tabanlı derlemesine dayanıyorsa, Intlayer'a
 Başlamak için projede Intlayer'ı başlatın:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Bu `intlayer.config.ts` oluşturur. `@lingui/babel-plugin-lingui-macro` / `@lingui/swc-plugin`'yi build adımınızda Intlayer compiler'ından _önce_ çalıştırmak için tutun. Ardından bundler plugin takma adını `@lingui/core` ve `@lingui/react`'i `@intlayer/lingui`'ye yönlendirmek için kullanın.

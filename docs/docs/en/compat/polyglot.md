@@ -29,7 +29,7 @@ If you are using Airbnb's Polyglot.js, migrating to Intlayer is extremely straig
 Simply run the initialization command in your project:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 This generates `intlayer.config.ts`. You can then utilize the bundler plugin alias to transparently redirect Polyglot imports to `@intlayer/polyglot`.

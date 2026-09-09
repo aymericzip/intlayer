@@ -29,7 +29,7 @@ Si tu aplicación React usa `react-intl` (FormatJS), hacer la transición a Intl
 Comienza ejecutando el comando de inicialización en tu proyecto:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Luego, configura el plugin de Vite o Next.js de Intlayer en tu configuración. Este plugin inyecta aliases en tiempo de compilación para redireccionara importaciones de `react-intl` a `@intlayer/react-intl`.

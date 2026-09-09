@@ -31,7 +31,7 @@ Intlayer xử lý tất cả các triển khai Next.js Pages Router và App Rout
 Để bắt đầu, hãy chạy:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Lệnh này tạo file thiết lập Intlayer cần thiết. Để chuyển sang Intlayer ở hậu trường, hãy cập nhật `next.config.ts` của bạn:

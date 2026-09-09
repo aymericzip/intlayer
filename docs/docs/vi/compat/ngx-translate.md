@@ -29,7 +29,7 @@ Việc di chuyển ứng dụng Angular của bạn từ `ngx-translate` sang In
 Bắt đầu bằng cách chạy:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Lệnh này thiết lập `intlayer.config.ts`. Thay thế các thiết lập `TranslateModule.forRoot()` và bí danh import một cách phù hợp để trỏ đến `@intlayer/ngx-translate`.

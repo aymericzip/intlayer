@@ -29,7 +29,7 @@ author: aymericzip
 Просто запустите команду инициализации в вашем проекте:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Это генерирует `intlayer.config.ts`. Вы можете затем использовать псевдоним плагина bundler для прозрачного перенаправления импортов Polyglot на `@intlayer/polyglot`.

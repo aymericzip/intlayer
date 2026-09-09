@@ -31,7 +31,7 @@ Intlayerは、Next.js Pages RouterとApp Routerのすべての実装を透過的
 開始するには、以下を実行してください:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 これにより、必要な Intlayer セットアップファイルが作成されます。バックグラウンドで Intlayer を使用するように切り替えるには、`next.config.ts` を更新してください:

@@ -29,7 +29,7 @@ Nếu bạn đang sử dụng Polyglot.js của Airbnb, việc di chuyển sang 
 Chỉ cần chạy lệnh khởi tạo trong dự án của bạn:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Lệnh này tạo `intlayer.config.ts`. Sau đó bạn có thể sử dụng bí danh plugin bundler để chuyển hướng trong suốt các import Polyglot sang `@intlayer/polyglot`.

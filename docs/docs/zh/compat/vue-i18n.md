@@ -29,7 +29,7 @@ author: aymericzip
 要开始使用，只需在您的项目中运行初始化命令：
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 在初始化期间，Intlayer 将设置您的配置文件（`intlayer.config.ts`）并为迁移做好项目准备。您只需将 Intlayer 插件添加到您的 Vite 配置中，即可自动将 `vue-i18n` 导入别名化。

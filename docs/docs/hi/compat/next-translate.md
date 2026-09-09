@@ -29,7 +29,7 @@ author: aymericzip
 अपने प्रोजेक्ट में Intlayer को initialize करें:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 CLI आपके configuration को scaffold करेगा। फिर आप अपने `next.config.ts` में Intlayer plugin को apply कर सकते हैं, जो build-time subpath aliases को `next-translate/useTranslation` से `@intlayer/next-translate` में map करता है।

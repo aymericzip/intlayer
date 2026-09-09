@@ -29,7 +29,7 @@ author: aymericzip
 अपने प्रोजेक्ट में बस निम्नलिखित initialization कमांड चलाएं:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 यह `intlayer.config.ts` generate करता है। सुनिश्चित करें कि आपके SvelteKit / Vite plugins को Intlayer के alias plugin से wrap किया गया है ताकि `svelte-i18n` को `@intlayer/svelte-i18n` में seamlessly map किया जा सके।

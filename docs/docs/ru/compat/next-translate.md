@@ -29,7 +29,7 @@ author: aymericzip
 Инициализируйте Intlayer в вашем проекте:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 CLI будет строить вашу конфигурацию. Вы можете применить плагин Intlayer в вашем `next.config.ts`, который впрыскивает псевдонимы подпути времени сборки, сопоставляющие `next-translate/useTranslation` с `@intlayer/next-translate`.

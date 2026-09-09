@@ -29,7 +29,7 @@ Migrating your Angular application from `ngx-translate` to Intlayer is easy with
 Begin by running:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 This sets up the `intlayer.config.ts`. Replace your `TranslateModule.forRoot()` setups and import aliases appropriately to point to `@intlayer/ngx-translate`.

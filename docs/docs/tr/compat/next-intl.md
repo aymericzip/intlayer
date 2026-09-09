@@ -31,7 +31,7 @@ Kapsamlı ve ayrıntılı adım adım eğitim için lütfen tam [next-intl Göç
 Deponuzda aşağıdaki komutu yürütün:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Bu, bir `intlayer.config.ts` oluşturacaktır. `next.config.ts` dosyasında, plugin wrapper'ını kullanarak `next-intl` takma adlarını `@intlayer/next-intl`'ye sorunsuzca enjekte edin.

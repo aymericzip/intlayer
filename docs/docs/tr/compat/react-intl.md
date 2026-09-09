@@ -29,7 +29,7 @@ React uygulamanız `react-intl` (FormatJS) kullanıyorsa, Intlayer'a geçiş kol
 Projede başlatma komutunu çalıştırarak başlayın:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Ardından konfigürasyonunuzda Intlayer Vite veya Next.js plugin'ini ayarlayın. Bu plugin, `react-intl` importlarını `@intlayer/react-intl`'ye yönlendirmek için build zamanı takma adlarını enjekte eder.

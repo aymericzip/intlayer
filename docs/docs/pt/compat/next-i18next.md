@@ -31,7 +31,7 @@ O Intlayer manipula todas as implementações do Next.js Pages Router e App Rout
 Para começar, execute:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Isso cria o arquivo de configuração necessário do Intlayer. Para integrar o Intlayer nos bastidores, atualize seu `next.config.ts`:

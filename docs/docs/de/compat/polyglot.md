@@ -29,7 +29,7 @@ Wenn Sie Airbnbs Polyglot.js verwenden, ist die Migration zu Intlayer mithilfe d
 Führen Sie einfach den Initialisierungsbefehl in Ihrem Projekt aus:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Dadurch wird `intlayer.config.ts` generiert. Sie können dann den Bundler-Plugin-Alias verwenden, um Polyglot-Imports transparent zu `@intlayer/polyglot` weiterzuleiten.

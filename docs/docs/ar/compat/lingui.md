@@ -28,7 +28,7 @@ author: aymericzip
 للبدء، قم بتهيئة Intlayer في مشروعك:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 يُنشئ هذا الملف `intlayer.config.ts`. تأكد من الاحتفاظ بـ `@lingui/babel-plugin-lingui-macro` / `@lingui/swc-plugin` في خطوة البناء الخاصة بك للتشغيل _قبل_ مترجم Intlayer. بعد ذلك، استخدم اسم مستعار مكوّن bundler لتوجيه `@lingui/core` و `@lingui/react` إلى `@intlayer/lingui`.

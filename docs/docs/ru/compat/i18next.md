@@ -33,7 +33,7 @@ Intlayer идеально воспроизводит основные харак
 Чтобы начать, инициализируйте Intlayer в вашем проекте:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Если вы используете Vite, включите плагин Intlayer, чтобы маршрутизировать импорты на `@intlayer/i18next`:

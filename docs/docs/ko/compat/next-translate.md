@@ -29,7 +29,7 @@ author: aymericzip
 프로젝트에서 Intlayer를 초기화하세요:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 CLI는 설정을 scaffold합니다. 그런 다음 Intlayer plugin을 `next.config.ts`에 적용할 수 있으며, 이는 `next-translate/useTranslation`을 `@intlayer/next-translate`로 매핑하는 build-time subpath aliases를 주입합니다.

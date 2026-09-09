@@ -29,7 +29,7 @@ Migrare da `next-translate` a Intlayer è una sostituzione quasi totale che mant
 Inizializza Intlayer nel tuo progetto:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 La CLI scaffolderà la tua configurazione. Puoi quindi applicare il plugin Intlayer nel tuo `next.config.ts`, che inietta alias di sottopercorsi in fase di build mappando `next-translate/useTranslation` a `@intlayer/next-translate`.

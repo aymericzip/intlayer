@@ -31,7 +31,7 @@ Intlayer의 compat adapter를 사용하면 소스 코드 import에 변경 없이
 프로젝트를 초기화하려면 다음을 실행하세요:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 초기화 중에 Intlayer는 `@intlayer/react-i18next`를 설치하고 `intlayer.config.ts`를 생성합니다. bundler(예: Vite)에서 Intlayer plugin을 적용하세요:

@@ -31,7 +31,7 @@ Intlayer прозрачно обрабатывает все реализации
 Чтобы начать, запустите:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Это создает требуемый файл настройки Intlayer. Чтобы переключиться на Intlayer за кулисами, обновите ваш `next.config.ts`:

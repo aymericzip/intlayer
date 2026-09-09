@@ -29,7 +29,7 @@ Se la tua applicazione React utilizza `react-intl` (FormatJS), la transizione a 
 Inizia eseguendo il comando di inizializzazione nel tuo progetto:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Quindi, configura il plugin Intlayer Vite o Next.js nella tua configurazione. Questo plugin inietta alias in fase di build per reindirizzare gli import di `react-intl` a `@intlayer/react-intl`.

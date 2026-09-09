@@ -29,7 +29,7 @@ Airbnb의 Polyglot.js를 사용 중이라면 compat layer를 사용하여 Intlay
 프로젝트에서 initialization 명령을 실행하세요:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 `intlayer.config.ts`가 생성됩니다. 그런 다음 bundler plugin alias를 사용하여 Polyglot imports를 `@intlayer/polyglot`으로 투명하게 리다이렉트할 수 있습니다.

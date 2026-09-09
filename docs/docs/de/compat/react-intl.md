@@ -29,7 +29,7 @@ Wenn Ihre React-Anwendung `react-intl` (FormatJS) verwendet, ist der Übergang z
 Beginnen Sie mit der Ausführung des Initialisierungsbefehls in Ihrem Projekt:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Richten Sie dann das Intlayer Vite- oder Next.js-Plugin in Ihrer Konfiguration ein. Dieses Plugin injiziert Build-Zeit-Aliase, um `react-intl`-Imports zu `@intlayer/react-intl` weiterzuleiten.

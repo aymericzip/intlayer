@@ -29,7 +29,7 @@ Migrasi dari `next-translate` ke Intlayer adalah penggantian drop-in yang hampir
 Inisialisasi Intlayer di proyek Anda:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 CLI akan membuat scaffolding konfigurasi Anda. Anda kemudian dapat menerapkan plugin Intlayer di `next.config.ts` Anda, yang menyuntikkan alias subpath waktu build yang memetakan `next-translate/useTranslation` ke `@intlayer/next-translate`.

@@ -29,7 +29,7 @@ Vue uygulamanız şu anda `vue-i18n` kullanıyorsa, bileşenlerinizi yeniden yaz
 Başlamak için projede başlatma komutunu çalıştırın:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Başlatma sırasında Intlayer konfigürasyon dosyasını (`intlayer.config.ts`) kuracak ve projenizi göç için hazırlayacaktır. Sadece Intlayer plugin'ini Vite konfigürasyonunuza eklemeniz gerekecektir, böylece `vue-i18n` importlarını otomatik olarak takma ad olarak atayabilir.

@@ -29,7 +29,7 @@ Angular uygulamanız şu anda `@jsverse/transloco` kullanıyorsa, uyumluluk adap
 Projede başlatma komutunu çalıştırın:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Bu, gerekli `intlayer.config.ts` konfigürasyonunu oluşturacaktır. Ardından Transloco importlarını `@intlayer/transloco` modülleriyle değiştirin veya build takma adlarına güvenin.

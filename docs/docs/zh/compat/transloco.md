@@ -29,7 +29,7 @@ author: aymericzip
 只需在您的项目中运行初始化命令：
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 这将生成必要的 `intlayer.config.ts` 配置。然后，您将用 `@intlayer/transloco` 模块替换您的 Transloco 导入，或依赖构建别名。

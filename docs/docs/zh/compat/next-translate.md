@@ -29,7 +29,7 @@ author: aymericzip
 在您的项目中初始化 Intlayer：
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 CLI 将生成您的配置文件。然后，您可以在 `next.config.ts` 中应用 Intlayer 插件，该插件注入构建时子路径别名，将 `next-translate/useTranslation` 映射到 `@intlayer/next-translate`。

@@ -28,7 +28,7 @@ author: aymericzip
 リポジトリで次のセットアップコマンドを実行してください：
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 `intlayer.config.ts`を準備したら、バンドラー設定にIntlayerのエイリアスを追加して、`i18n-js`のインポートが互換性パッケージ`@intlayer/i18n-js`を対象とするようにすることができます。

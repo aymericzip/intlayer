@@ -28,7 +28,7 @@ author: aymericzip
 Для початку ініціалізуйте Intlayer у своєму проекті:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Це створює ваш `intlayer.config.ts`. Переконайтеся, що ви зберегли `@lingui/babel-plugin-lingui-macro` / `@lingui/swc-plugin` у вашому кроці збірки для запуску _перед_ компілятором Intlayer. Потім використовуйте alias плагіна bundler для маршрутизації `@lingui/core` та `@lingui/react` до `@intlayer/lingui`.

@@ -29,7 +29,7 @@ Si votre application Vue utilise actuellement `vue-i18n`, vous pouvez migrer ver
 Pour commencer, exécutez simplement la commande d'initialisation dans votre projet :
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Lors de l'initialisation, Intlayer configurera votre fichier de configuration (`intlayer.config.ts`) et préparera votre projet pour la migration. Vous devrez simplement ajouter le plugin Intlayer à votre configuration Vite pour créer automatiquement un alias pour les imports `vue-i18n`.

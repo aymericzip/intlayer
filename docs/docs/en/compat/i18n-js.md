@@ -28,7 +28,7 @@ Transitioning from the `i18n-js` library to Intlayer is a highly optimized migra
 Execute the following setup command in your repository:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 With `intlayer.config.ts` prepared, you can add Intlayer's alias to your bundler configuration so that any imports of `i18n-js` target the compat package `@intlayer/i18n-js`.

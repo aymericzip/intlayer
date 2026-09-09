@@ -29,7 +29,7 @@ author: aymericzip
 ما عليك سوى تشغيل أمر التهيئة في مشروعك:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 هذا ينشئ `intlayer.config.ts`. يمكنك بعد ذلك استخدام اسم مستعار مكوّن bundler لإعادة توجيه واردات Polyglot بشكل شفاف إلى `@intlayer/polyglot`.

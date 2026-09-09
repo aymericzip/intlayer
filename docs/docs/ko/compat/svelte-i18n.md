@@ -29,7 +29,7 @@ compat adapter를 사용하여 Svelte 애플리케이션을 `svelte-i18n`에서 
 프로젝트에서 initialization 명령을 실행하세요:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 이렇게 하면 `intlayer.config.ts`가 생성됩니다. SvelteKit / Vite plugins을 Intlayer의 alias plugin으로 래핑하여 `svelte-i18n`을 `@intlayer/svelte-i18n`으로 매끄럽게 매핑하는지 확인하세요.

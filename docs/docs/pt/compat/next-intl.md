@@ -31,7 +31,7 @@ Migrar de `next-intl` para Intlayer permite que você mantenha seu roteamento de
 Execute o seguinte comando no seu repositório:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Isso criará um `intlayer.config.ts`. No seu `next.config.ts`, use o wrapper do plugin para injetar perfeitamente os aliases `next-intl` em direção a `@intlayer/next-intl`.

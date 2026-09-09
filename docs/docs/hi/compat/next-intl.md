@@ -31,7 +31,7 @@ author: aymericzip
 अपने रिपोजिटरी में निम्नलिखित कमांड निष्पादित करें:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 यह एक `intlayer.config.ts` बनाएगा। अपने `next.config.ts` में, प्लगइन रैपर का उपयोग करें ताकि `next-intl` aliases को `@intlayer/next-intl` की ओर निर्बाध रूप से इंजेक्ट किया जा सके।

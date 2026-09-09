@@ -29,7 +29,7 @@ author: aymericzip
 قم بتهيئة Intlayer في مشروعك:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 سيقوم CLI بتنسيق التكوين الخاص بك. يمكنك بعد ذلك تطبيق مكوّن Intlayer في `next.config.ts`، الذي يحقن أسماء مستعارة subpath في وقت البناء يعيّن `next-translate/useTranslation` إلى `@intlayer/next-translate`.

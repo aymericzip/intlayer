@@ -29,7 +29,7 @@ author: aymericzip
 Intlayer'ı projede başlatın:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 CLI konfigürasyonunuzu oluşturacaktır. Daha sonra Intlayer plugin'ini `next.config.ts` dosyasına uygulayabilirsiniz, bu da `next-translate/useTranslation`'ı `@intlayer/next-translate`'ye eşleyen build zamanı alt yolu takma adlarını enjekte eder.

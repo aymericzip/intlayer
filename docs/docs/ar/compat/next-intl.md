@@ -31,7 +31,7 @@ author: aymericzip
 قم بتنفيذ الأمر التالي في المستودع الخاص بك:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 سيؤدي هذا إلى إنشاء ملف `intlayer.config.ts`. في `next.config.ts`، استخدم wrapper المكوّن للحقن السلس لأسماء مستعارة `next-intl` نحو `@intlayer/next-intl`.

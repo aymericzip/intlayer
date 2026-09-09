@@ -31,7 +31,7 @@ author: aymericzip
 在您的仓库中执行以下命令：
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 这将创建一个 `intlayer.config.ts`。在您的 `next.config.ts` 中，使用插件包装器无缝地将 `next-intl` 别名注入到 `@intlayer/next-intl`。

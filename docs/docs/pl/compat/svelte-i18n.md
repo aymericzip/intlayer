@@ -29,7 +29,7 @@ Przeniesienie aplikacji Svelte z `svelte-i18n` do Intlayer trwa zaledwie chwilę
 Po prostu uruchom polecenie inicjalizacji w swoim projekcie:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 To generuje `intlayer.config.ts`. Upewnij się, że twoje wtyczki SvelteKit / Vite są opakowane wtyczką aliasu Intlayer aby bezproblemowo mapować `svelte-i18n` do `@intlayer/svelte-i18n`.

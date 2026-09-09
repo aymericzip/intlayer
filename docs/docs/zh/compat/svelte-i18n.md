@@ -29,7 +29,7 @@ author: aymericzip
 只需在您的项目中运行初始化命令：
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 这将生成 `intlayer.config.ts`。确保您的 SvelteKit / Vite 插件与 Intlayer 的别名插件封装在一起，以无缝地将 `svelte-i18n` 映射到 `@intlayer/svelte-i18n`。

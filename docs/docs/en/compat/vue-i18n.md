@@ -29,7 +29,7 @@ If your Vue application currently uses `vue-i18n`, you can migrate to Intlayer w
 To get started, simply run the initialization command in your project:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 During the initialization, Intlayer will set up your configuration file (`intlayer.config.ts`) and prepare your project for migration. You will just need to add the Intlayer plugin to your Vite configuration to automatically alias the `vue-i18n` imports.

@@ -29,7 +29,7 @@ author: aymericzip
 ما عليك سوى تشغيل أمر التهيئة في مشروعك:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 هذا ينشئ `intlayer.config.ts`. تأكد من أن مكوّنات SvelteKit / Vite الخاصة بك ملفوفة بمكوّن اسم Intlayer للعثور على الاسم المستعار لخريطة `svelte-i18n` إلى `@intlayer/svelte-i18n` بسلاسة.

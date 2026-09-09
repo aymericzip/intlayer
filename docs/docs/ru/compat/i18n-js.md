@@ -28,7 +28,7 @@ author: aymericzip
 Выполните следующую команду установки в вашем репозитории:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Когда `intlayer.config.ts` будет подготовлен, вы можете добавить псевдоним Intlayer в конфигурацию bundler, чтобы любые импорты `i18n-js` указывали на пакет совместимости `@intlayer/i18n-js`.

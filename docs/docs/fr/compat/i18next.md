@@ -33,7 +33,7 @@ Intlayer réplique parfaitement les caractéristiques d'exécution fondamentales
 Pour commencer, initialisez Intlayer dans votre projet :
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Si vous utilisez Vite, incluez le plugin Intlayer pour router les imports vers `@intlayer/i18next` :

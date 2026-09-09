@@ -29,7 +29,7 @@ author: aymericzip
 Просто запустіть команду ініціалізації в вашому проекті:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Це генерує `intlayer.config.ts`. Переконайтеся, що ваші плагіни SvelteKit / Vite обгорнуті плагіном alias від Intlayer, щоб безперебійно відобразити `svelte-i18n` на `@intlayer/svelte-i18n`.

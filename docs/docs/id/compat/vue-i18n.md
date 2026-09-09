@@ -29,7 +29,7 @@ Jika aplikasi Vue Anda saat ini menggunakan `vue-i18n`, Anda dapat migrasi ke In
 Untuk memulai, cukup jalankan perintah inisialisasi di proyek Anda:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Selama inisialisasi, Intlayer akan menyiapkan file konfigurasi Anda (`intlayer.config.ts`) dan mempersiapkan proyek Anda untuk migrasi. Anda hanya perlu menambahkan plugin Intlayer ke konfigurasi Vite Anda untuk secara otomatis mengaliaskan impor `vue-i18n`.

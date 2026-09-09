@@ -29,7 +29,7 @@ Airbnb'nin Polyglot.js'sini kullanıyorsanız, uyumluluk katmanını kullanarak 
 Projede başlatma komutunu çalıştırın:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Bu `intlayer.config.ts` oluşturur. Daha sonra bundler plugin takma adını Polyglot importlarını `@intlayer/polyglot`'ye saydam şekilde yönlendirmek için kullanabilirsiniz.

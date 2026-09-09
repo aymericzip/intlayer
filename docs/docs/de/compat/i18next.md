@@ -33,7 +33,7 @@ Intlayer repliziert die wichtigsten Laufzeiteigenschaften von `i18next` perfekt.
 Um zu beginnen, initialisieren Sie Intlayer in Ihrem Projekt:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Wenn Sie Vite verwenden, fügen Sie das Intlayer-Plugin hinzu, um Imports zu `@intlayer/i18next` weiterzuleiten:

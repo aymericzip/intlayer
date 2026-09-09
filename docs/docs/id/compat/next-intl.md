@@ -31,7 +31,7 @@ Migrasi dari `next-intl` ke Intlayer memungkinkan Anda mempertahankan routing ap
 Jalankan perintah berikut di repositori Anda:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Ini akan membuat `intlayer.config.ts`. Di `next.config.ts` Anda, gunakan wrapper plugin untuk menyuntikkan alias `next-intl` ke `@intlayer/next-intl` secara mulus.

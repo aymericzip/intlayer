@@ -33,7 +33,7 @@ Intlayer는 `i18next`의 핵심 런타임 특성을 완벽하게 복제합니다
 먼저 프로젝트에서 Intlayer를 초기화하세요:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Vite를 사용 중인 경우 Intlayer plugin을 포함하여 import를 `@intlayer/i18next`로 라우팅하세요:

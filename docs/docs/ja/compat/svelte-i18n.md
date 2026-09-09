@@ -29,7 +29,7 @@ author: aymericzip
 プロジェクトで初期化コマンドを実行するだけです:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 これにより `intlayer.config.ts` が生成されます。SvelteKit / Vite プラグインが Intlayer のエイリアスプラグインでラップされていることを確認して、`svelte-i18n` を `@intlayer/svelte-i18n` にシームレスにマップします。

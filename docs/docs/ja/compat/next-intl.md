@@ -31,7 +31,7 @@ author: aymericzip
 リポジトリで次のコマンドを実行します:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 これにより `intlayer.config.ts` が作成されます。`next.config.ts` で、プラグインラッパーを使用して `next-intl` のエイリアスを `@intlayer/next-intl` にシームレスに注入します。

@@ -31,7 +31,7 @@ author: aymericzip
 Виконайте наступну команду у вашому репозиторії:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Це створить файл `intlayer.config.ts`. У вашому `next.config.ts` використовуйте обгортку плагіна, щоб безперешкодно вприскити `next-intl` aliases до `@intlayer/next-intl`.

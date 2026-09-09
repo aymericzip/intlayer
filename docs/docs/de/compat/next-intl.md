@@ -31,7 +31,7 @@ Die Migration von `next-intl` zu Intlayer ermöglicht es Ihnen, Ihr Anwendungsro
 Führen Sie den folgenden Befehl in Ihrem Repository aus:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Dadurch wird eine `intlayer.config.ts` erstellt. Verwenden Sie in Ihrer `next.config.ts` den Plugin-Wrapper, um die `next-intl`-Aliase nahtlos zu `@intlayer/next-intl` weiterzuleiten.

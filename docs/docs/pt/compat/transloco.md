@@ -29,7 +29,7 @@ Se sua aplicação Angular atualmente usa `@jsverse/transloco`, você pode migra
 Execute simplesmente o comando de inicialização no seu projeto:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Isso vai gerar a configuração necessária `intlayer.config.ts`. Você então vai substituir seus imports Transloco com módulos `@intlayer/transloco` ou depender dos aliases de build.

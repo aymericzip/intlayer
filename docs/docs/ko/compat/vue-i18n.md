@@ -29,7 +29,7 @@ Vue 애플리케이션이 현재 `vue-i18n`을 사용하고 있다면 컴포넌�
 시작하려면 프로젝트에서 initialization 명령을 실행하세요:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Initialization 중에 Intlayer는 설정 파일 (`intlayer.config.ts`)을 설정하고 마이그레이션을 위해 프로젝트를 준비합니다. `vue-i18n` imports를 자동으로 alias하기 위해 Vite 설정에 Intlayer plugin을 추가하기만 하면 됩니다.

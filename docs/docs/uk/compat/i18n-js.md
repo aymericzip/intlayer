@@ -28,7 +28,7 @@ author: aymericzip
 Виконайте наступну команду налаштування у вашому репозиторії:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 З підготовленим `intlayer.config.ts`, ви можете додати alias Intlayer до конфігурації вашого bundler, щоб будь-які імпорти `i18n-js` спрямовувалися на пакет сумісності `@intlayer/i18n-js`.

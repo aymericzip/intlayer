@@ -29,7 +29,7 @@ Jeśli aplikacja React używa `react-intl` (FormatJS), przejście do Intlayer je
 Zacznij uruchamiając polecenie inicjalizacji w swoim projekcie:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Następnie, ustaw wtyczkę Vite lub Next.js Intlayer w konfiguracji. Ta wtyczka wstrzykuje aliasy czasu budowania aby przekierować importy `react-intl` do `@intlayer/react-intl`.

@@ -30,7 +30,7 @@ Nuxt 애플리케이션을 `@nuxtjs/i18n`에서 Intlayer로 마이그레이션�
 프로젝트를 초기화하려면 다음을 실행하세요:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 이렇게 하면 `intlayer.config.ts`가 설정됩니다. 그런 다음 `nuxt.config.ts` modules 배열에 Intlayer Nuxt module (예: `@intlayer/nuxt-i18n`)을 추가하세요. 이것은 애플리케이션에 compat 설정을 자동으로 적용합니다.

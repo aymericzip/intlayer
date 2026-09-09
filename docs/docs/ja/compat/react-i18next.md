@@ -31,7 +31,7 @@ Intlayer の compat adapter を使用することで、ソースコードのイ�
 プロジェクトを初期化するには、次を実行します：
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 初期化中に、Intlayer は `@intlayer/react-i18next` をインストールし、`intlayer.config.ts` を作成します。バンドラー（Vite など）で、Intlayer プラグインを適用します：

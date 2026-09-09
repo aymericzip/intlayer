@@ -29,7 +29,7 @@ author: aymericzip
 首先在您的项目中运行初始化命令：
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 然后，在您的配置中设置 Intlayer Vite 或 Next.js 插件。该插件注入构建时别名，将 `react-intl` 导入重定向到 `@intlayer/react-intl`。

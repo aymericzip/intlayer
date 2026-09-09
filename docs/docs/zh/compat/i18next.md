@@ -33,7 +33,7 @@ Intlayer 完美复制了 `i18next` 的核心运行时特性。通过使用兼容
 首先，在您的项目中初始化 Intlayer：
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 如果您使用 Vite，请添加 Intlayer 插件以将导入路由到 `@intlayer/i18next`：

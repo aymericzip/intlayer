@@ -33,7 +33,7 @@ Intlayer doskonale replikuje podstawowe charakterystyki czasu wykonywania `i18ne
 Aby rozpocząć, zainicjuj Intlayer w swoim projekcie:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Jeśli używasz Vite, dołącz plugin Intlayer aby przekierować importy do `@intlayer/i18next`:

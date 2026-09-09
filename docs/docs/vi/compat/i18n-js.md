@@ -28,7 +28,7 @@ Việc chuyển đổi từ thư viện `i18n-js` sang Intlayer là một quá t
 Thực thi lệnh thiết lập sau trong repository của bạn:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Sau khi `intlayer.config.ts` được chuẩn bị, bạn có thể thêm bí danh của Intlayer vào cấu hình bundler của mình để bất kỳ import nào của `i18n-js` đều trỏ đến gói tương thích `@intlayer/i18n-js`.

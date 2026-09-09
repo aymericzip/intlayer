@@ -33,7 +33,7 @@ Intlayer tái tạo hoàn hảo các đặc tính runtime cốt lõi của `i18n
 Để bắt đầu, hãy khởi tạo Intlayer trong dự án của bạn:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Nếu bạn đang sử dụng Vite, hãy bao gồm plugin Intlayer để định tuyến các import sang `@intlayer/i18next`:

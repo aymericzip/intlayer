@@ -28,7 +28,7 @@ author: aymericzip
 在您的仓库中执行以下设置命令：
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 准备好 `intlayer.config.ts` 后，您可以在 bundler 配置中添加 Intlayer 的别名，使 `i18n-js` 的任何导入都指向兼容 package `@intlayer/i18n-js`。

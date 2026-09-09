@@ -31,7 +31,7 @@ author: aymericzip
 리포지토리에서 다음 명령을 실행하세요:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 이렇게 하면 `intlayer.config.ts`가 생성됩니다. `next.config.ts`에서 plugin wrapper를 사용하여 `next-intl` aliases를 `@intlayer/next-intl`로 완벽하게 주입합니다.

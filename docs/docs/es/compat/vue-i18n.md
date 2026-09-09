@@ -29,7 +29,7 @@ Si tu aplicación Vue actualmente usa `vue-i18n`, puedes migrar a Intlayer sin r
 Para comenzar, simplemente ejecuta el comando de inicialización en tu proyecto:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Durante la inicialización, Intlayer configurará tu archivo de configuración (`intlayer.config.ts`) y preparará tu proyecto para la migración. Solo necesitarás agregar el plugin de Intlayer a tu configuración de Vite para asignar automáticamente las importaciones de `vue-i18n`.

@@ -33,7 +33,7 @@ Intlayer replica perfeitamente as características de runtime do núcleo do `i18
 Para começar, inicialize o Intlayer no seu projeto:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Se você está usando Vite, inclua o plugin do Intlayer para rotear importações para `@intlayer/i18next`:

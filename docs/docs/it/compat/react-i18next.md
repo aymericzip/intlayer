@@ -31,7 +31,7 @@ Utilizzando l'adapter di compatibilità di Intlayer puoi migrare da `react-i18ne
 Per inizializzare il progetto, esegui:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Durante l'inizializzazione, Intlayer installerà `@intlayer/react-i18next` e creerà `intlayer.config.ts`. Nel tuo bundler (come Vite), applica il plugin Intlayer:

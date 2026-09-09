@@ -31,7 +31,7 @@ Intlayer прозоро обробляє всі реалізації Next.js Pag
 Для початку виконайте:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Це створює необхідний файл конфігурації Intlayer. Щоб інтегрувати Intlayer в фоновому режимі, оновіть ваш `next.config.ts`:

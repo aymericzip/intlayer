@@ -28,7 +28,7 @@ Fazer a transição da biblioteca `i18n-js` para Intlayer é uma migração alta
 Execute o seguinte comando de configuração em seu repositório:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Com `intlayer.config.ts` preparado, você pode adicionar o alias do Intlayer à configuração do seu bundler para que qualquer importação de `i18n-js` aponte para o pacote de compatibilidade `@intlayer/i18n-js`.

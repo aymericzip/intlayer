@@ -29,7 +29,7 @@ author: aymericzip
 プロジェクトで Intlayer を初期化します:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 CLI があなたの設定をスキャフォルドします。その後、`next.config.ts` で Intlayer プラグインを適用でき、ビルド時に `next-translate/useTranslation` を `@intlayer/next-translate` にマッピングするサブパスエイリアスを注入します。

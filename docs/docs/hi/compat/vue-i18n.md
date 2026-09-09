@@ -29,7 +29,7 @@ author: aymericzip
 शुरुआत करने के लिए, बस अपने प्रोजेक्ट में initialization command चलाएं:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Initialization के दौरान, Intlayer आपकी configuration file (`intlayer.config.ts`) को सेट अप करेगा और आपके प्रोजेक्ट को migration के लिए तैयार करेगा। आपको बस Intlayer plugin को अपनी Vite configuration में जोड़ना होगा ताकि `vue-i18n` imports को स्वचालित रूप से alias किया जा सके।

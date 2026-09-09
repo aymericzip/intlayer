@@ -29,7 +29,7 @@ author: aymericzip
 ما عليك سوى تشغيل أمر التهيئة في مشروعك:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 سيؤدي هذا إلى إنشاء التكوين الضروري `intlayer.config.ts`. ستحتاج بعد ذلك إلى استبدال واردات Transloco الخاصة بك بوحدات `@intlayer/transloco` أو الاعتماد على أسماء المستعار للبناء.

@@ -28,7 +28,7 @@ author: aymericzip
 قم بتنفيذ أمر الإعداد التالي في المستودع الخاص بك:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 بعد تحضير `intlayer.config.ts`، يمكنك إضافة اسم مستعار لـ Intlayer إلى تكوين bundler الخاص بك بحيث يستهدف أي استيراد لـ `i18n-js` حزمة التوافق `@intlayer/i18n-js`.

@@ -29,7 +29,7 @@ Jika aplikasi React Anda menggunakan `react-intl` (FormatJS), transisi ke Intlay
 Mulai dengan menjalankan perintah inisialisasi di proyek Anda:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Kemudian, siapkan plugin Vite atau Next.js Intlayer di konfigurasi Anda. Plugin ini menyuntikkan alias waktu build untuk mengalihkan impor `react-intl` ke `@intlayer/react-intl`.

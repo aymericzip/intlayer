@@ -33,7 +33,7 @@ Intlayer perfectly replicates the core runtime characteristics of `i18next`. com
 शुरुआत करने के लिए, अपनी project में Intlayer को initialize करें:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 यदि आप Vite का उपयोग कर रहे हैं, तो `@intlayer/i18next` के लिए imports को route करने के लिए Intlayer plugin को शामिल करें:

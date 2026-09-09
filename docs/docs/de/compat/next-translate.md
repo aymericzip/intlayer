@@ -29,7 +29,7 @@ Die Migration von `next-translate` zu Intlayer ist ein nahezu direkter Ersatz, d
 Initialisieren Sie Intlayer in Ihrem Projekt:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Die CLI richtet Ihre Konfiguration ein. Anschließend können Sie das Intlayer-Plugin in Ihrer `next.config.ts` anwenden, das Build-Zeit-Subpfad-Aliase injiziert und `next-translate/useTranslation` auf `@intlayer/next-translate` abbildet.

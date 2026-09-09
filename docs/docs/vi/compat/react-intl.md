@@ -29,7 +29,7 @@ Nếu ứng dụng React của bạn sử dụng `react-intl` (FormatJS), việc
 Bắt đầu bằng cách chạy lệnh khởi tạo trong dự án của bạn:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Sau đó, thiết lập plugin Vite hoặc Next.js của Intlayer trong cấu hình của bạn. Plugin này chèn các bí danh tại thời điểm build để chuyển hướng các import `react-intl` sang `@intlayer/react-intl`.

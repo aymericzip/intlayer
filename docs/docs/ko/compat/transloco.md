@@ -29,7 +29,7 @@ Angular 애플리케이션이 현재 `@jsverse/transloco`를 사용하는 경우
 프로젝트에서 initialization 명령을 실행하세요:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 필요한 `intlayer.config.ts` 설정이 생성됩니다. 그런 다음 Transloco imports를 `@intlayer/transloco` modules로 바꾸거나 build aliases에 의존할 수 있습니다.

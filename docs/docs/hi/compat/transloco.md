@@ -29,7 +29,7 @@ author: aymericzip
 अपने प्रोजेक्ट में बस initialization command चलाएं:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 यह आवश्यक `intlayer.config.ts` configuration generate करेगा। फिर आप अपने Transloco imports को `@intlayer/transloco` modules के साथ replace कर सकते हैं या build aliases पर निर्भर रह सकते हैं।

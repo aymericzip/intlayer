@@ -29,7 +29,7 @@ author: aymericzip
 Почніть із запуску команди ініціалізації у вашому проекті:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Потім налаштуйте плагін Intlayer Vite або Next.js у вашій конфігурації. Цей плагін вводить alias'и часу збірки для перенаправлення імпортів `react-intl` на `@intlayer/react-intl`.

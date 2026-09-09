@@ -30,7 +30,7 @@ author: aymericzip
 要初始化项目，运行：
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 这将设置 `intlayer.config.ts`。然后，在您的 `nuxt.config.ts` 的模块数组中添加 Intlayer Nuxt 模块（例如 `@intlayer/nuxt-i18n`）。这将自动为您的应用程序应用兼容配置。

@@ -31,7 +31,7 @@ Intlayer gère toutes les implémentations Next.js Pages Router et App Router de
 Pour commencer, exécutez :
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Cela crée le fichier de configuration Intlayer requis. Pour intégrer Intlayer en arrière-plan, mettez à jour votre `next.config.ts` :

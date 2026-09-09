@@ -31,7 +31,7 @@ Việc di chuyển từ `next-intl` sang Intlayer cho phép bạn duy trì routi
 Thực thi lệnh sau trong repository của bạn:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Lệnh này sẽ tạo một `intlayer.config.ts`. Trong `next.config.ts` của bạn, hãy sử dụng wrapper plugin để liền mạch chèn các bí danh `next-intl` hướng đến `@intlayer/next-intl`.

@@ -29,7 +29,7 @@ Nếu ứng dụng Vue của bạn hiện đang sử dụng `vue-i18n`, bạn c�
 Để bắt đầu, chỉ cần chạy lệnh khởi tạo trong dự án của bạn:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Trong quá trình khởi tạo, Intlayer sẽ thiết lập file cấu hình (`intlayer.config.ts`) và chuẩn bị dự án của bạn để di chuyển. Bạn chỉ cần thêm plugin Intlayer vào cấu hình Vite của mình để tự động tạo bí danh cho các import `vue-i18n`.

@@ -29,7 +29,7 @@ author: aymericzip
 अपने प्रोजेक्ट में इनिशियलाइजेशन कमांड चलाकर शुरू करें:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 फिर, अपने कॉन्फ़िगरेशन में Intlayer Vite या Next.js प्लगइन सेट अप करें। यह प्लगइन `react-intl` imports को `@intlayer/react-intl` में रीडायरेक्ट करने के लिए बिल्ड-टाइम aliases इंजेक्ट करता है।

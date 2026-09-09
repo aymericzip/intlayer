@@ -28,7 +28,7 @@ author: aymericzip
 Deponuzda aşağıdaki kurulum komutunu yürütün:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 `intlayer.config.ts` hazırlandığında, bundler konfigürasyonunuza Intlayer'ın takma adını ekleyebilirsiniz, böylece `i18n-js` importlarının herhangi biri uyumluluk paketi `@intlayer/i18n-js`'yi hedefleyebilir.

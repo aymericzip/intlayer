@@ -29,7 +29,7 @@ Angular uygulamanızı `ngx-translate`'den Intlayer'a geçirmek uyumluluk adapt�
 Aşağıdaki komutu çalıştırarak başlayın:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Bu, `intlayer.config.ts` ayarını yapılandırır. `TranslateModule.forRoot()` kurulumlarını ve import takma adlarını `@intlayer/ngx-translate` işaret etmek için uygun şekilde değiştirin.

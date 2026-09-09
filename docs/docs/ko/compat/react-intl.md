@@ -29,7 +29,7 @@ React 애플리케이션이 `react-intl` (FormatJS)를 사용하는 경우 Intla
 프로젝트에서 initialization 명령을 실행하여 시작하세요:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 그런 다음 설정에서 Intlayer Vite 또는 Next.js plugin을 설정하세요. 이 plugin은 `react-intl` imports를 `@intlayer/react-intl`로 리다이렉트할 수 있도록 빌드 타임 aliases를 주입합니다.

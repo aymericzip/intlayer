@@ -31,7 +31,7 @@ author: aymericzip
 Чтобы инициализировать проект, запустите:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Во время инициализации Intlayer установит `@intlayer/react-i18next` и создаст `intlayer.config.ts`. В вашем bundler (например, Vite) примените плагин Intlayer:

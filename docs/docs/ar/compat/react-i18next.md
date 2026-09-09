@@ -31,7 +31,7 @@ author: aymericzip
 لتهيئة المشروع، قم بتشغيل:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 أثناء التهيئة، سيقوم Intlayer بتثبيت `@intlayer/react-i18next` وإنشاء `intlayer.config.ts`. في bundler الخاص بك (مثل Vite)، طبّق مكوّن Intlayer:

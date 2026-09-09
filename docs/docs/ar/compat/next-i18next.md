@@ -31,7 +31,7 @@ author: aymericzip
 للبدء، قم بتشغيل:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 هذا ينشئ ملف الإعداد المطلوب في Intlayer. لللتبديل إلى Intlayer خلف الكواليس، قم بتحديث `next.config.ts`:

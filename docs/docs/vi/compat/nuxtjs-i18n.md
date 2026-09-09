@@ -30,7 +30,7 @@ Việc di chuyển ứng dụng Nuxt của bạn từ `@nuxtjs/i18n` sang Intlay
 Để khởi tạo dự án, hãy chạy:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Lệnh này sẽ thiết lập `intlayer.config.ts`. Sau đó, thêm module Nuxt của Intlayer (ví dụ: `@intlayer/nuxt-i18n`) vào mảng modules trong `nuxt.config.ts` của bạn. Điều này tự động áp dụng cấu hình tương thích cho ứng dụng của bạn.

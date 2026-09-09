@@ -29,7 +29,7 @@ compat adapter를 사용하면 Angular 애플리케이션을 `ngx-translate`에�
 다음을 실행하여 시작하세요:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 `intlayer.config.ts`를 설정합니다. `TranslateModule.forRoot()` setups를 바꾸고 import aliases를 적절하게 업데이트하여 `@intlayer/ngx-translate`를 가리키도록 합니다.

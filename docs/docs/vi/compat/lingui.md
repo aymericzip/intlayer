@@ -28,7 +28,7 @@ Nếu dự án của bạn hiện đang sử dụng quá trình biên dịch d�
 Để bắt đầu, hãy khởi tạo Intlayer trong dự án của bạn:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Lệnh này tạo `intlayer.config.ts` của bạn. Đảm bảo giữ lại `@lingui/babel-plugin-lingui-macro` / `@lingui/swc-plugin` trong bước build để chạy _trước_ trình biên dịch Intlayer. Sau đó, sử dụng bí danh plugin bundler để định tuyến `@lingui/core` và `@lingui/react` sang `@intlayer/lingui`.

@@ -28,7 +28,7 @@ author: aymericzip
 まず、プロジェクトで Intlayer を初期化します:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 これにより `intlayer.config.ts` が作成されます。ビルドステップで `@lingui/babel-plugin-lingui-macro` / `@lingui/swc-plugin` を保持し、Intlayer compiler の _前に_ 実行されることを確認してください。その後、bundler plugin alias を使用して `@lingui/core` と `@lingui/react` を `@intlayer/lingui` にルーティングします。

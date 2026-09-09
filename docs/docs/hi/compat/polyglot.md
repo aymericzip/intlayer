@@ -29,7 +29,7 @@ author: aymericzip
 अपने प्रोजेक्ट में बस इनिशियलाइजेशन कमांड चलाएं:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 यह `intlayer.config.ts` जनरेट करता है। फिर आप bundler plugin alias का उपयोग करके Polyglot imports को `@intlayer/polyglot` पर पारदर्शी रूप से रीडायरेक्ट कर सकते हैं।

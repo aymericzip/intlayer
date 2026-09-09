@@ -30,7 +30,7 @@ author: aymericzip
 Чтобы инициализировать проект, запустите:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Это установит `intlayer.config.ts`. Затем добавьте модуль Intlayer Nuxt (например, `@intlayer/nuxt-i18n`) в массив модулей вашего `nuxt.config.ts`. Это автоматически применяет конфигурацию совместимости для вашего приложения.

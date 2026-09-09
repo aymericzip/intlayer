@@ -33,7 +33,7 @@ author: aymericzip
 للبدء، قم بتهيئة Intlayer في مشروعك:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 إذا كنت تستخدم Vite، فضمّن مكوّن Intlayer لتوجيه الواردات إلى `@intlayer/i18next`:

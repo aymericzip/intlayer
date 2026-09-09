@@ -28,7 +28,7 @@ Si tu proyecto actualmente se basa en la compilación basada en macros de Lingui
 Para comenzar, inicializa Intlayer en tu proyecto:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Esto crea tu `intlayer.config.ts`. Asegúrate de retener `@lingui/babel-plugin-lingui-macro` / `@lingui/swc-plugin` en tu paso de compilación para ejecutarse _antes_ del compilador de Intlayer. Luego, utiliza el alias del plugin del empaquetador para enrutar `@lingui/core` y `@lingui/react` a `@intlayer/lingui`.

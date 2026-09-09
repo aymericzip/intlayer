@@ -31,7 +31,7 @@ Intlayer'ın uyumluluk adaptörünü kullanmak, kaynak kod importlarında hiçbi
 Projeyi başlatmak için şunu çalıştırın:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Başlatma sırasında Intlayer, `@intlayer/react-i18next` yükleyecek ve `intlayer.config.ts` oluşturacaktır. Bundler'da (Vite gibi) Intlayer plugin'ini uygulayın:

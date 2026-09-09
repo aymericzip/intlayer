@@ -29,7 +29,7 @@ author: aymericzip
 للبدء، ما عليك سوى تشغيل أمر التهيئة في مشروعك:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 أثناء التهيئة، سيقوم Intlayer بإعداد ملف التكوين الخاص بك (`intlayer.config.ts`) وتحضير مشروعك للترحيل. ستحتاج فقط إلى إضافة مكوّن Intlayer إلى تكوين Vite لإنشاء اسم مستعار تلقائياً لواردات `vue-i18n`.

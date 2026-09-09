@@ -31,7 +31,7 @@ Migrar de `next-intl` a Intlayer te permite mantener tu enrutamiento y sintaxis 
 Ejecuta el siguiente comando en tu repositorio:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Esto creará un `intlayer.config.ts`. En tu `next.config.ts`, usa el wrapper del plugin para inyectar sin problemas los aliases de `next-intl` hacia `@intlayer/next-intl`.

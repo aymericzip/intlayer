@@ -29,7 +29,7 @@ author: aymericzip
 Почніть з виконання:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Це налаштовує `intlayer.config.ts`. Замініть ваші налаштування `TranslateModule.forRoot()` та імпорт альіасів відповідно, щоб вони вказували на `@intlayer/ngx-translate`.

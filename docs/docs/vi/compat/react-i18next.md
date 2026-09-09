@@ -31,7 +31,7 @@ Việc sử dụng bộ điều hợp tương thích của Intlayer cho phép b�
 Để khởi tạo dự án, hãy chạy:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Trong quá trình khởi tạo, Intlayer sẽ cài đặt `@intlayer/react-i18next` và tạo `intlayer.config.ts`. Trong bundler của bạn (như Vite), hãy áp dụng plugin Intlayer:

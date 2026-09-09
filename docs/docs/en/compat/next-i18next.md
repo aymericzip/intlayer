@@ -31,7 +31,7 @@ Intlayer handles all Next.js Pages Router and App Router implementations transpa
 To begin, run:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 This creates the required Intlayer setup file. To swap to Intlayer behind the scenes, update your `next.config.ts`:

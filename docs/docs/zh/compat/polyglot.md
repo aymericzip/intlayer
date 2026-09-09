@@ -29,7 +29,7 @@ author: aymericzip
 只需在您的项目中运行初始化命令：
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 这将生成 `intlayer.config.ts`。然后，您可以使用 bundler 插件别名将 Polyglot 导入透明地重定向到 `@intlayer/polyglot`。

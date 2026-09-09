@@ -33,7 +33,7 @@ Intlayer replica perfectamente las características de runtime principales de `i
 Para comenzar, inicializa Intlayer en tu proyecto:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Si estás usando Vite, incluye el plugin de Intlayer para enrutar importaciones a `@intlayer/i18next`:

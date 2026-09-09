@@ -30,7 +30,7 @@ Migrar sua aplicação Nuxt de `@nuxtjs/i18n` para Intlayer é um processo perfe
 Para inicializar o projeto, execute:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Isso irá configurar `intlayer.config.ts`. Depois, adicione o módulo Intlayer Nuxt (por exemplo, `@intlayer/nuxt-i18n`) no array de módulos do seu `nuxt.config.ts`. Isso aplica automaticamente a configuração de compatibilidade para sua aplicação.

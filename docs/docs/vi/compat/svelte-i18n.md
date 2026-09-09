@@ -29,7 +29,7 @@ Việc di chuyển ứng dụng Svelte của bạn từ `svelte-i18n` sang Intla
 Chỉ cần chạy lệnh khởi tạo trong dự án của bạn:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Lệnh này tạo `intlayer.config.ts`. Đảm bảo các plugin SvelteKit / Vite của bạn được bao bọc với plugin bí danh của Intlayer để liền mạch ánh xạ `svelte-i18n` sang `@intlayer/svelte-i18n`.

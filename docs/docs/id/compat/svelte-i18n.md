@@ -29,7 +29,7 @@ Memindahkan aplikasi Svelte Anda dari `svelte-i18n` ke Intlayer hanya membutuhka
 Cukup jalankan perintah inisialisasi di proyek Anda:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Ini menghasilkan `intlayer.config.ts`. Pastikan plugin SvelteKit / Vite Anda dibungkus dengan plugin alias Intlayer untuk memetakan `svelte-i18n` ke `@intlayer/svelte-i18n` secara mulus.

@@ -31,7 +31,7 @@ Migrating from `next-intl` to Intlayer allows you to maintain your application r
 Execute the following command in your repository:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 This will create an `intlayer.config.ts`. In your `next.config.ts`, use the plugin wrapper to seamlessly inject the `next-intl` aliases towards `@intlayer/next-intl`.

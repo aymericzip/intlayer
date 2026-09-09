@@ -30,7 +30,7 @@ Nuxt uygulamanızı `@nuxtjs/i18n`'den Intlayer'a geçirmek Nuxt adapter modül�
 Projeyi başlatmak için şunu çalıştırın:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Bu `intlayer.config.ts` ayarını yapılandıracaktır. Ardından Intlayer Nuxt modülünü (örneğin `@intlayer/nuxt-i18n`) `nuxt.config.ts` modules dizisine ekleyin. Bu uygulamanız için uyumluluk konfigürasyonunu otomatik olarak uygular.

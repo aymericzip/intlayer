@@ -29,7 +29,7 @@ Svelte uygulamanızı `svelte-i18n`'den Intlayer'a taşımak uyumluluk adaptör�
 Projede başlatma komutunu çalıştırın:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Bu, `intlayer.config.ts` oluşturur. SvelteKit / Vite plugin'lerinizin `svelte-i18n`'i `@intlayer/svelte-i18n`'ye sorunsuzca eşleyen takma ad plugin'iyle sarmalandığından emin olun.

@@ -30,7 +30,7 @@ author: aymericzip
 لتهيئة المشروع، قم بتشغيل:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 سيؤدي هذا إلى إعداد `intlayer.config.ts`. بعد ذلك، أضف وحدة Intlayer Nuxt (مثل `@intlayer/nuxt-i18n`) في مصفوفة modules في `nuxt.config.ts`. هذا يطبق تلقائياً تكوين التوافق لتطبيقك.

@@ -30,7 +30,7 @@ author: aymericzip
 प्रोजेक्ट को इनिशियलाइज़ करने के लिए, यह चलाएं:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 यह `intlayer.config.ts` को सेट अप करेगा। फिर, अपनी `nuxt.config.ts` modules array में Intlayer Nuxt module (जैसे `@intlayer/nuxt-i18n`) जोड़ें। यह आपके application के लिए compat configuration को automatically apply करता है।

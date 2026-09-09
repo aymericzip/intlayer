@@ -31,7 +31,7 @@ La migrazione da `next-intl` a Intlayer ti consente di mantenere il routing dell
 Esegui il seguente comando nel tuo repository:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Questo creerà un file `intlayer.config.ts`. Nel tuo `next.config.ts`, utilizza il wrapper del plugin per iniettare facilmente gli alias `next-intl` verso `@intlayer/next-intl`.

@@ -29,7 +29,7 @@ Se la tua applicazione Vue attualmente utilizza `vue-i18n`, puoi migrare a Intla
 Per iniziare, esegui semplicemente il comando di inizializzazione nel tuo progetto:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Durante l'inizializzazione, Intlayer configura il file di configurazione (`intlayer.config.ts`) e prepara il tuo progetto per la migrazione. Dovrai solo aggiungere il plugin Intlayer alla tua configurazione Vite per creare automaticamente alias per gli import `vue-i18n`.

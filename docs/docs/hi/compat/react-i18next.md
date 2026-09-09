@@ -31,7 +31,7 @@ Intlayer के compat adapter का उपयोग करके आप अप
 प्रोजेक्ट को शुरू करने के लिए, निम्नलिखित चलाएँ:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 शुरुआत के दौरान, Intlayer `@intlayer/react-i18next` को इंस्टॉल करेगा और `intlayer.config.ts` बनाएगा। आपके bundler (जैसे Vite) में, Intlayer plugin लागू करें:

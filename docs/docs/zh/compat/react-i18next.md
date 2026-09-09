@@ -31,7 +31,7 @@ author: aymericzip
 要初始化项目，运行：
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 在初始化期间，Intlayer 将安装 `@intlayer/react-i18next` 并创建 `intlayer.config.ts`。在您的 bundler（如 Vite）中，应用 Intlayer 插件：

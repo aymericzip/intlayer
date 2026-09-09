@@ -28,7 +28,7 @@ author: aymericzip
 리포지토리에서 다음 설정 명령을 실행하세요:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 `intlayer.config.ts`가 준비되면 bundler 설정에 Intlayer alias를 추가하여 `i18n-js`의 모든 imports가 compat package `@intlayer/i18n-js`를 대상으로 하도록 할 수 있습니다.

@@ -33,7 +33,7 @@ Intlayerは`i18next`のコア実行時特性を完全に複製します。compat
 まず、プロジェクトで Intlayer を初期化します：
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 Vite を使用している場合、Intlayer プラグインを含めて `@intlayer/i18next` へのインポートをルーティングしてください：

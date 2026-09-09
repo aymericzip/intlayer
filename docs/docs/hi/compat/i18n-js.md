@@ -28,7 +28,7 @@ author: aymericzip
 अपने repository में निम्नलिखित setup command को execute करें:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 `intlayer.config.ts` तैयार होने के बाद, आप अपने bundler configuration में Intlayer's alias को जोड़ सकते हैं ताकि `i18n-js` के किसी भी imports को compat package `@intlayer/i18n-js` को target करें।

@@ -29,7 +29,7 @@ Vue アプリケーションが現在 `vue-i18n` を使用している場合、�
 まず、プロジェクトで初期化コマンドを実行してください：
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 初期化中、Intlayer は設定ファイル（`intlayer.config.ts`）をセットアップし、プロジェクトをマイグレーション用に準備します。Vite 設定に Intlayer プラグインを追加するだけで、`vue-i18n` インポートを自動的にエイリアスできます。

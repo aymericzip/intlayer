@@ -29,7 +29,7 @@ React アプリケーションが `react-intl` (FormatJS) を使用している�
 まずプロジェクトで初期化コマンドを実行します：
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 次に、設定で Intlayer Vite または Next.js プラグインをセットアップします。このプラグインは、`react-intl` のインポートを `@intlayer/react-intl` にリダイレクトするためのビルド時エイリアスを注入します。

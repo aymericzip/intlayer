@@ -29,7 +29,7 @@ author: aymericzip
 ابدأ بتشغيل أمر التهيئة في مشروعك:
 
 ```bash
-npx intlayer init
+npx intlayer init --interactive
 ```
 
 بعد ذلك، قم بإعداد مكوّن Intlayer Vite أو Next.js في التكوين الخاص بك. يقوم هذا المكوّن بحقن أسماء مستعارة في وقت البناء لإعادة توجيه واردات `react-intl` إلى `@intlayer/react-intl`.
