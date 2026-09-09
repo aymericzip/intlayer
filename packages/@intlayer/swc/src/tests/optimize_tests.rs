@@ -200,6 +200,31 @@ fn dictionaries_entry_is_emptied() {
 }
 
 #[test]
+fn unmerged_dictionaries_entry_is_left_untouched() {
+    let mut cfg = get_config("static");
+    cfg.replace_dictionary_entry = Some(true);
+
+    test_transform(
+        Syntax::default(),
+        None,
+        |_| TestFolder {
+            cfg: cfg.clone(),
+            filename: "/app/.intlayer/unmerged_dictionaries.mjs".to_string(),
+        },
+        r#"
+        import about from "./unmerged_dictionary/about.json";
+        export default { about };
+        export const getUnmergedDictionaries = () => ({ about });
+        "#,
+        r#"
+        import about from "./unmerged_dictionary/about.json";
+        export default { about };
+        export const getUnmergedDictionaries = () => ({ about });
+        "#,
+    );
+}
+
+#[test]
 fn file_outside_files_list_is_skipped() {
     let mut cfg = get_config("static");
     cfg.files_list = vec!["/app/src/other.tsx".to_string()];
