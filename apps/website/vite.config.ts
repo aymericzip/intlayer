@@ -451,6 +451,21 @@ export default defineConfig(async ({ mode }) => {
           '/logo.svg': { headers: immutableAssetHeaders },
           '/cover.png': { headers: immutableAssetHeaders },
           '/github-social-preview.png': { headers: immutableAssetHeaders },
+          '/thumbnail.jpeg': { headers: immutableAssetHeaders },
+          '/api/og': {
+            headers: {
+              ...headers,
+              'Cross-Origin-Resource-Policy': 'cross-origin',
+              'Access-Control-Allow-Origin': '*',
+            },
+          },
+          '/api/og/**': {
+            headers: {
+              ...headers,
+              'Cross-Origin-Resource-Policy': 'cross-origin',
+              'Access-Control-Allow-Origin': '*',
+            },
+          },
           '/i18n-seo-scanner': {
             headers: {
               ...headers,

@@ -19,7 +19,7 @@ import {
 import { DocumentationRender } from '~/components/DocPage/DocumentationRender';
 import { loadBlogNavData, loadBlogPage } from '~/serverFunctions/blog';
 import { getCanonicalSlugs } from '~/utils/canonicalSlugs';
-import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
+import { getAbsoluteUrl, getHreflangLinks, getOgImageUrl } from '~/utils/seo';
 import {
   getCreativeWorkStructuredData,
   getSiteStructuredData,
@@ -90,11 +90,13 @@ export const Route = createFileRoute('/{-$locale}/_docs/blog/$')({
     const { blogData, locale, siteStructuredData, creativeWorkContent } =
       loaderData as any;
     const absoluteUrl = blogData.url;
+    const pageTitle = `${blogData.title} | Intlayer`;
+    const ogImage = getOgImageUrl(pageTitle);
     const keywords = blogData.keywords;
 
     return {
       meta: [
-        { title: `${blogData.title} | Intlayer` },
+        { title: pageTitle },
         { name: 'description', content: blogData.description },
         {
           name: 'keywords',
@@ -102,9 +104,11 @@ export const Route = createFileRoute('/{-$locale}/_docs/blog/$')({
             ? keywords.join(', ')
             : keywords || '',
         },
-        { property: 'og:url', content: getAbsoluteUrl(absoluteUrl) },
-        { property: 'og:title', content: `${blogData.title} | Intlayer` },
+        { property: 'og:url', content: getAbsoluteUrl(absoluteUrl, locale) },
+        { property: 'og:title', content: pageTitle },
         { property: 'og:description', content: blogData.description },
+        { property: 'og:image', content: ogImage },
+        { name: 'twitter:image', content: ogImage },
       ],
       links: [
         { rel: 'canonical', href: getAbsoluteUrl(absoluteUrl, locale) },

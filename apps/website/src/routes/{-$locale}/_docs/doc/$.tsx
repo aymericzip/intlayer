@@ -19,7 +19,7 @@ import {
 import { DocumentationRender } from '~/components/DocPage/DocumentationRender';
 import { loadDocPage, loadNavData } from '~/serverFunctions/docs';
 import { getCanonicalSlugs } from '~/utils/canonicalSlugs';
-import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
+import { getAbsoluteUrl, getHreflangLinks, getOgImageUrl } from '~/utils/seo';
 import {
   getCreativeWorkStructuredData,
   getSiteStructuredData,
@@ -30,7 +30,7 @@ import {
 export const Route = createFileRoute('/{-$locale}/_docs/doc/$')({
   loader: async ({ params }) => {
     const { locale = defaultLocale } = params;
-    const slugsStr = params['*'] || '';
+    const slugsStr = (params as any)['*'] || '';
     const slugs = getCanonicalSlugs('doc', slugsStr, locale);
 
     const [
@@ -107,10 +107,12 @@ export const Route = createFileRoute('/{-$locale}/_docs/doc/$')({
     } = loaderData;
     const locale = (localeFromLoader as string) ?? defaultLocale;
     const absoluteUrl = docData.url;
+    const pageTitle = `${docData.title} | Intlayer`;
+    const ogImage = getOgImageUrl(pageTitle);
 
     return {
       meta: [
-        { title: `${docData.title} | Intlayer` },
+        { title: pageTitle },
         { name: 'description', content: docData.description },
         {
           name: 'keywords',
@@ -118,9 +120,11 @@ export const Route = createFileRoute('/{-$locale}/_docs/doc/$')({
             ? docData.keywords.join(', ')
             : docData.keywords || '',
         },
-        { property: 'og:url', content: getAbsoluteUrl(absoluteUrl) },
-        { property: 'og:title', content: `${docData.title} | Intlayer` },
+        { property: 'og:url', content: getAbsoluteUrl(absoluteUrl, locale) },
+        { property: 'og:title', content: pageTitle },
         { property: 'og:description', content: docData.description },
+        { property: 'og:image', content: ogImage },
+        { name: 'twitter:image', content: ogImage },
       ],
       links: [
         { rel: 'canonical', href: getAbsoluteUrl(absoluteUrl, locale) },

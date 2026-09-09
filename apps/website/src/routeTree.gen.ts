@@ -20,6 +20,7 @@ import { Route as DotwellKnownApiCatalogRouteImport } from './routes/[.]well-kno
 import { Route as DotwellKnownOauthProtectedResourceRouteImport } from './routes/[.]well-known/oauth-protected-resource'
 import { Route as ApiBaiduPushRouteImport } from './routes/api/baidu-push'
 import { Route as ApiHealthRouteImport } from './routes/api/health'
+import { Route as ApiOgRouteImport } from './routes/api/og'
 import { Route as Char123LocaleChar125IndexRouteImport } from './routes/{-$locale}/index'
 import { Route as Char123LocaleChar125SplatRouteImport } from './routes/{-$locale}/$'
 import { Route as Char123LocaleChar125DocsRouteRouteImport } from './routes/{-$locale}/_docs/route'
@@ -114,6 +115,11 @@ const ApiBaiduPushRoute = ApiBaiduPushRouteImport.update({
 const ApiHealthRoute = ApiHealthRouteImport.update({
   id: '/api/health',
   path: '/api/health',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiOgRoute = ApiOgRouteImport.update({
+  id: '/api/og',
+  path: '/api/og',
   getParentRoute: () => rootRouteImport,
 } as any)
 const Char123LocaleChar125IndexRoute =
@@ -346,6 +352,7 @@ export interface FileRoutesByFullPath {
   '/.well-known/oauth-protected-resource': typeof DotwellKnownOauthProtectedResourceRoute
   '/api/baidu-push': typeof ApiBaiduPushRoute
   '/api/health': typeof ApiHealthRoute
+  '/api/og': typeof ApiOgRoute
   '/{-$locale}/$': typeof Char123LocaleChar125SplatRoute
   '/{-$locale}/cms': typeof Char123LocaleChar125CmsRoute
   '/{-$locale}/contributors': typeof Char123LocaleChar125ContributorsRoute
@@ -394,6 +401,7 @@ export interface FileRoutesByTo {
   '/.well-known/oauth-protected-resource': typeof DotwellKnownOauthProtectedResourceRoute
   '/api/baidu-push': typeof ApiBaiduPushRoute
   '/api/health': typeof ApiHealthRoute
+  '/api/og': typeof ApiOgRoute
   '/{-$locale}/$': typeof Char123LocaleChar125SplatRoute
   '/{-$locale}/cms': typeof Char123LocaleChar125CmsRoute
   '/{-$locale}/contributors': typeof Char123LocaleChar125ContributorsRoute
@@ -444,6 +452,7 @@ export interface FileRoutesById {
   '/.well-known/oauth-protected-resource': typeof DotwellKnownOauthProtectedResourceRoute
   '/api/baidu-push': typeof ApiBaiduPushRoute
   '/api/health': typeof ApiHealthRoute
+  '/api/og': typeof ApiOgRoute
   '/{-$locale}/$': typeof Char123LocaleChar125SplatRoute
   '/{-$locale}/cms': typeof Char123LocaleChar125CmsRoute
   '/{-$locale}/contributors': typeof Char123LocaleChar125ContributorsRoute
@@ -494,6 +503,7 @@ export interface FileRouteTypes {
     | '/.well-known/oauth-protected-resource'
     | '/api/baidu-push'
     | '/api/health'
+    | '/api/og'
     | '/{-$locale}/$'
     | '/{-$locale}/cms'
     | '/{-$locale}/contributors'
@@ -542,6 +552,7 @@ export interface FileRouteTypes {
     | '/.well-known/oauth-protected-resource'
     | '/api/baidu-push'
     | '/api/health'
+    | '/api/og'
     | '/{-$locale}/$'
     | '/{-$locale}/cms'
     | '/{-$locale}/contributors'
@@ -591,6 +602,7 @@ export interface FileRouteTypes {
     | '/.well-known/oauth-protected-resource'
     | '/api/baidu-push'
     | '/api/health'
+    | '/api/og'
     | '/{-$locale}/$'
     | '/{-$locale}/cms'
     | '/{-$locale}/contributors'
@@ -640,6 +652,7 @@ export interface RootRouteChildren {
   DotwellKnownOauthProtectedResourceRoute: typeof DotwellKnownOauthProtectedResourceRoute
   ApiBaiduPushRoute: typeof ApiBaiduPushRoute
   ApiHealthRoute: typeof ApiHealthRoute
+  ApiOgRoute: typeof ApiOgRoute
   DotwellKnownAgentSkillsIndexDotjsonRoute: typeof DotwellKnownAgentSkillsIndexDotjsonRoute
   DotwellKnownMcpServerCardDotjsonRoute: typeof DotwellKnownMcpServerCardDotjsonRoute
   ApiProxyAhrefsAnalyticsRoute: typeof ApiProxyAhrefsAnalyticsRoute
@@ -723,6 +736,13 @@ declare module '@tanstack/react-router' {
       path: '/api/health'
       fullPath: '/api/health'
       preLoaderRoute: typeof ApiHealthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/og': {
+      id: '/api/og'
+      path: '/api/og'
+      fullPath: '/api/og'
+      preLoaderRoute: typeof ApiOgRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/{-$locale}/': {
@@ -1126,6 +1146,7 @@ const rootRouteChildren: RootRouteChildren = {
     DotwellKnownOauthProtectedResourceRoute,
   ApiBaiduPushRoute: ApiBaiduPushRoute,
   ApiHealthRoute: ApiHealthRoute,
+  ApiOgRoute: ApiOgRoute,
   DotwellKnownAgentSkillsIndexDotjsonRoute:
     DotwellKnownAgentSkillsIndexDotjsonRoute,
   DotwellKnownMcpServerCardDotjsonRoute: DotwellKnownMcpServerCardDotjsonRoute,

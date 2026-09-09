@@ -24,6 +24,7 @@ import { AnimatePresenceProvider } from '~/providers/AnimatePresenceProvider';
 import { FirstConsultationProvider } from '~/providers/FirstConsultationProvider';
 import { loadGithubStars } from '~/serverFunctions/githubStars';
 import { hasInlinedStylesheet } from '~/utils/inlinedStylesheet';
+import { toAbsoluteUrl } from '~/utils/seo';
 
 const localeRoute = getRouteApi('/{-$locale}');
 
@@ -117,11 +118,12 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
       },
       { name: 'color-scheme', content: 'light dark' },
       { property: 'og:site_name', content: 'Intlayer' },
+      { property: 'og:locale', content: 'en_US' },
       { name: 'twitter:card', content: 'summary_large_image' },
       { name: 'twitter:site', content: '@Intlayer183096' },
       { name: 'twitter:creator', content: '@aymericzip' },
-      { name: 'twitter:image', content: '/github-social-preview.png' },
-      { property: 'og:image', content: '/github-social-preview.png' },
+      { name: 'twitter:image', content: toAbsoluteUrl('/api/og') },
+      { property: 'og:image', content: toAbsoluteUrl('/api/og') },
       { property: 'og:image:width', content: '1200' },
       { property: 'og:image:height', content: '630' },
       { property: 'og:image:alt', content: 'Intlayer' },

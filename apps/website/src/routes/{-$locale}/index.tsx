@@ -4,7 +4,7 @@ import { createFileRoute } from '@tanstack/react-router';
 import { defaultLocale, getIntlayerAsync } from 'intlayer';
 import { LandingPage as LandingPageContent } from '~/components/LandingPage';
 import { PageLayout } from '~/layouts/PageLayout';
-import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
+import { getAbsoluteUrl, getHreflangLinks, getOgImageUrl } from '~/utils/seo';
 import { formatStructuredDataOffers, getPricing } from '~/utils/stripe';
 import {
   getSiteStructuredData,
@@ -68,6 +68,8 @@ export const Route = createFileRoute('/{-$locale}/')({
         { property: 'og:url', content: getAbsoluteUrl(path, locale) },
         { property: 'og:title', content: title },
         { property: 'og:description', content: description },
+        { property: 'og:image', content: getOgImageUrl(title) },
+        { name: 'twitter:image', content: getOgImageUrl(title) },
       ],
       links: [
         { rel: 'canonical', href: getAbsoluteUrl(path, locale) },

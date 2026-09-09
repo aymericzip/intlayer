@@ -49,3 +49,56 @@ export const getHreflangLinks = (path: string) => [
     href: toAbsoluteUrl(getLocalizedUrl(path, mapLocale)),
   })),
 ];
+
+/**
+ * Generates an absolute URL for the Open Graph image route (/api/og)
+ * with the specified title and optional description.
+ * If no title is provided, it returns the default Open Graph image route (/api/og).
+ */
+export const getOgImageUrl = (title?: string, description?: string): string => {
+  const params = new URLSearchParams();
+  if (title) {
+    params.set('title', title);
+  }
+  if (description) {
+    params.set('description', description);
+  }
+  const query = params.toString();
+  return toAbsoluteUrl(query ? `/api/og?${query}` : '/api/og');
+};
+
+const OG_LOCALE_MAP: Record<string, string> = {
+  en: 'en_US',
+  'en-GB': 'en_GB',
+  fr: 'fr_FR',
+  ru: 'ru_RU',
+  ja: 'ja_JP',
+  ko: 'ko_KR',
+  zh: 'zh_CN',
+  es: 'es_ES',
+  de: 'de_DE',
+  ar: 'ar_AR',
+  it: 'it_IT',
+  pt: 'pt_PT',
+  hi: 'hi_IN',
+  tr: 'tr_TR',
+  pl: 'pl_PL',
+  id: 'id_ID',
+  vi: 'vi_VN',
+  uk: 'uk_UA',
+};
+
+/**
+ * Maps a locale string (e.g. 'en', 'fr', 'en-GB') to the strict Open Graph
+ * language_TERRITORY format required by scrapers (e.g. 'en_US', 'fr_FR', 'en_GB').
+ */
+export const getOgLocale = (locale?: LocalesValues | string): string => {
+  if (!locale) return 'en_US';
+  if (OG_LOCALE_MAP[locale]) return OG_LOCALE_MAP[locale];
+  if (locale.includes('_')) return locale;
+  if (locale.includes('-')) {
+    const [lang, country] = locale.split('-');
+    return `${lang.toLowerCase()}_${country.toUpperCase()}`;
+  }
+  return `${locale.toLowerCase()}_${locale.toUpperCase()}`;
+};

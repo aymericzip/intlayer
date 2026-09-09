@@ -1,5 +1,6 @@
 import { createFileRoute, Outlet, redirect } from '@tanstack/react-router';
-import { getIntlayerAsync, getLocalizedUrl } from 'intlayer';
+import { defaultLocale, getIntlayerAsync, getLocalizedUrl } from 'intlayer';
+import { getOgImageUrl, getOgLocale } from '~/utils/seo';
 
 function getRedirectUrl(_pathname: string): string | null {
   return null;
@@ -29,6 +30,7 @@ export const Route = createFileRoute('/{-$locale}')({
     if (!loaderData) return {};
 
     const { title, description, keywords, openGraph } = loaderData.content;
+    const ogImage = getOgImageUrl(openGraph?.title || title);
 
     return {
       meta: [
@@ -47,16 +49,20 @@ export const Route = createFileRoute('/{-$locale}')({
             ? keywords.join(', ')
             : String(keywords || ''),
         },
+        {
+          property: 'og:locale',
+          content: getOgLocale(params.locale || defaultLocale),
+        },
         { property: 'og:title', content: openGraph.title },
         { property: 'og:description', content: description },
         {
           property: 'og:url',
           content: getLocalizedUrl(import.meta.env.VITE_URL, params.locale),
         },
-        { property: 'og:image', content: '/github-social-preview.png' },
+        { property: 'og:image', content: ogImage },
         { name: 'twitter:title', content: title },
         { name: 'twitter:description', content: description },
-        { name: 'twitter:image', content: '/github-social-preview.png' },
+        { name: 'twitter:image', content: ogImage },
       ],
     };
   },
