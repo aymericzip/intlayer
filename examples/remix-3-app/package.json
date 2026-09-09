@@ -1,0 +1,22 @@
+{
+  "name": "remix-3-app",
+  "version": "9.5.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "intlayer build",
+    "dev": "intlayer build && bun run --watch src/server.ts",
+    "i18n:fill": "intlayer fill",
+    "i18n:test": "intlayer test",
+    "start": "bun run src/server.ts"
+  },
+  "dependencies": {
+    "intlayer": "workspace:*",
+    "remix": "^3.0.0-rc.2"
+  },
+  "devDependencies": {
+    "@types/node": "26.5.0",
+    "@utils/ts-config": "workspace:*",
+    "typescript": "6.0.3"
+  }
+}

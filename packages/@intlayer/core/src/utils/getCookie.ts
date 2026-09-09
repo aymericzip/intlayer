@@ -17,7 +17,7 @@ export const getCookie = (
     const pairs = str.split(';');
 
     for (let i = 0; i < pairs.length; i++) {
-      const part = pairs[i].trim();
+      const part = pairs[i]?.trim();
 
       if (!part) continue;
 

@@ -30,6 +30,7 @@ export type FrameworkLogoKey =
   | 'lit'
   | 'vanilla'
   | 'htmx'
+  | 'remix'
   | 'node';
 
 export type FrameworkEntry = {
@@ -48,6 +49,7 @@ const ALL_ID = null;
 export const frameworks: FrameworkEntry[] = [
   { id: 'nextjs', label: 'Next.js', logoKey: 'nextjs' },
   { id: 'react', label: 'React', logoKey: 'react' },
+  { id: 'remix', label: 'Remix', logoKey: 'remix' },
   { id: 'vite', label: 'Vite', logoKey: 'vite' },
   { id: 'vue', label: 'Vue', logoKey: 'vue' },
   { id: 'nuxt', label: 'Nuxt', logoKey: 'nuxt' },
@@ -73,6 +75,7 @@ export const frameworks: FrameworkEntry[] = [
 const logoMap: Record<FrameworkLogoKey, TechLogoName> = {
   nextjs: 'nextjs',
   react: 'react',
+  remix: 'remix',
   vite: 'vite',
   vue: 'vue',
   nuxt: 'nuxt',

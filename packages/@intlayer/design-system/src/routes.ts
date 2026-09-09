@@ -270,6 +270,8 @@ export const Website_Doc_Environment_Hono_Path =
   '/doc/environment/hono' as const;
 export const Website_Doc_Environment_Htmx_Path =
   '/doc/environment/htmx' as const;
+export const Website_Doc_Environment_Remix_3_Path =
+  '/doc/environment/remix-3' as const;
 
 export const Website_Doc_CLI_Fill_Path = '/doc/concept/cli/fill' as const;
 export const Website_Doc_CLI_Translate_Path =
@@ -413,6 +415,8 @@ export const Website_Doc_Environment_Hono =
   `${Website_Origin}${Website_Doc_Environment_Hono_Path}` as const;
 export const Website_Doc_Environment_Htmx =
   `${Website_Origin}${Website_Doc_Environment_Htmx_Path}` as const;
+export const Website_Doc_Environment_Remix_3 =
+  `${Website_Origin}${Website_Doc_Environment_Remix_3_Path}` as const;
 
 export const Website_Doc_CLI_Fill =
   `${Website_Origin}${Website_Doc_CLI_Fill_Path}` as const;

@@ -1602,6 +1602,18 @@ const docDataContent: Dictionary = {
             },
           },
         },
+        remix: {
+          title: 'Remix',
+          default: getDocMetadata('./docs/en/intlayer_with_remix_3.md'),
+          frameworks: ['remix'],
+          subSections: {
+            'remix-3': {
+              title: 'Remix 3',
+              default: getDocMetadata('./docs/en/intlayer_with_remix_3.md'),
+              frameworks: ['remix'],
+            },
+          },
+        },
 
         'vite-and-react': {
           title: t({
@@ -1866,6 +1878,7 @@ const docDataContent: Dictionary = {
           },
           frameworks: ['angular', 'vite'],
         },
+
         'react-native-and-expo': {
           title: t({
             en: 'React Native and Expo',
@@ -1927,6 +1940,7 @@ const docDataContent: Dictionary = {
             },
           },
         },
+
         other: {
           title: t({
             en: 'Other',

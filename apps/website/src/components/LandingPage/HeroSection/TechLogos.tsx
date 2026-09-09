@@ -10,10 +10,10 @@ import {
   Website_Doc_Environment_NestJS_Path,
   Website_Doc_Environment_NextJS_Path,
   Website_Doc_Environment_NuxtAndVue_Path,
+  Website_Doc_Environment_Remix_3_Path,
   Website_Doc_Environment_Tanstack_Path,
   Website_Doc_Environment_ViteAndPreact_Path,
   Website_Doc_Environment_ViteAndReact_Path,
-  Website_Doc_Environment_ViteAndReact_ReactRouterV7_Path,
   Website_Doc_Environment_ViteAndSolid_Path,
   Website_Doc_Environment_ViteAndSvelte_Path,
   Website_Doc_Environment_ViteAndVue_Path,
@@ -113,7 +113,7 @@ const logos = [
   {
     name: 'remix',
     key: 'remix',
-    route: Website_Doc_Environment_ViteAndReact_ReactRouterV7_Path,
+    route: Website_Doc_Environment_Remix_3_Path,
   },
 ] as const;
 
