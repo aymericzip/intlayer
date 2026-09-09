@@ -1602,17 +1602,11 @@ const docDataContent: Dictionary = {
             },
           },
         },
-        remix: {
-          title: 'Remix',
+
+        'remix-3': {
+          title: 'Remix 3',
           default: getDocMetadata('./docs/en/intlayer_with_remix_3.md'),
           frameworks: ['remix'],
-          subSections: {
-            'remix-3': {
-              title: 'Remix 3',
-              default: getDocMetadata('./docs/en/intlayer_with_remix_3.md'),
-              frameworks: ['remix'],
-            },
-          },
         },
 
         'vite-and-react': {
