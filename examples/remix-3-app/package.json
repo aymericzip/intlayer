@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "intlayer build",
-    "dev": "intlayer build && bun run --watch src/server.ts",
+    "dev": "intlayer watch --with 'bun run --watch src/server.ts'",
     "i18n:fill": "intlayer fill",
     "i18n:test": "intlayer test",
     "start": "bun run src/server.ts"
