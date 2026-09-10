@@ -2,9 +2,9 @@
 createdAt: 2026-09-09
 updatedAt: 2026-09-09
 title: "Remix 3 i18n - Complete guide to translate your app"
-description: "No more i18next. The 2026 guide to building a multilingual (i18n) Remix 3 app. Translate with AI agents and optimize bundle size, SEO and performances."
+description: "No more i18next. The 2026 guide to building a multilingual (i18n) Remix 3 app. Translate with AI agents and optimise bundle size, SEO and performance."
 keywords:
-  - Internationalization
+  - Internationalisation
   - Documentation
   - Intlayer
   - Remix 3
@@ -25,9 +25,9 @@ history:
 author: aymericzip
 ---
 
-# Translate your Remix 3 website using Intlayer | Internationalization (i18n)
+# Translate your Remix 3 website using Intlayer | Internationalisation (i18n)
 
-This guide demonstrates how to integrate **Intlayer** for seamless internationalization in **Remix 3** applications with locale-aware routing, type-safe content declarations, safe HTML templates, and cross-runtime support across Node.js, Bun, Deno, and Cloudflare Workers.
+This guide demonstrates how to integrate **Intlayer** for seamless internationalisation in **Remix 3** applications with locale-aware routing, type-safe content declarations, safe HTML templates, and cross-runtime support across Node.js, Bun, Deno, and Cloudflare Workers.
 
 ## What is Remix 3?
 
@@ -37,9 +37,9 @@ This guide demonstrates how to integrate **Intlayer** for seamless international
 - **`remix/html-template`**: Safe HTML template literals with automatic XSS protection and fragment composition.
 - **`remix/response/html`**: Response helper utilities for serving HTML with standard HTTP semantics.
 - **`remix/node-fetch-server`**: Server adapters for Node.js, while natively supporting Bun, Deno, and edge runtimes.
-- **`remix/cookie`**: Cryptographically secure cookie parsing and serialization.
+- **`remix/cookie`**: Cryptographically secure cookie parsing and serialisation.
 
-Combined with **Intlayer**, you get a complete internationalization system that delivers compile-time safety, automated AI translations, zero-overhead server rendering, and seamless locale routing.
+Combined with **Intlayer**, you get a complete internationalisation system that delivers compile-time safety, automated AI translations, zero-overhead server rendering, and seamless locale routing.
 
 ## Table of Contents
 
@@ -47,7 +47,7 @@ Combined with **Intlayer**, you get a complete internationalization system that 
 
 ## Why Intlayer over alternatives?
 
-Compared to traditional solutions like `i18next` or bespoke translation loaders, Intlayer offers an integrated developer experience optimized for modern web architecture:
+Compared to traditional solutions like `i18next` or bespoke translation loaders, Intlayer offers an integrated developer experience optimised for modern web architecture:
 
 <AccordionGroup>
 <Accordion header="Full Remix 3 & Web Standards Coverage">
@@ -62,7 +62,7 @@ Say goodbye to loose JSON keys and runtime missing-key crashes. Intlayer enforce
 </Accordion>
 <Accordion header="Zero Bundle Overhead on the Server">
 
-When using Remix 3's server-rendered HTML templates (`remix/html-template`), only the resolved text for the requested locale is rendered into the output stream. No client hydration bundles or bulky translation catalogs are needed unless explicitly required.
+When using Remix 3's server-rendered HTML templates (`remix/html-template`), only the resolved text for the requested locale is rendered into the output stream. No client hydration bundles or bulky translation catalogues are needed unless explicitly required.
 
 </Accordion>
 <Accordion header="AI Agent & Automation Ready">
@@ -72,7 +72,7 @@ Intlayer co-locates content declarations (`.content.ts`) with your route logic, 
 </Accordion>
 <Accordion header="Visual Editor & CMS Integration">
 
-Beyond code-first workflows, Intlayer provides a self-hosted [Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) and a [Remote CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) allowing non-technical editors, translators, and copywriters to update content without redeploying code.
+Beyond code-first workflows, Intlayer provides a self-hosted [Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_visual_editor.md) and a [Remote CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_CMS.md) allowing non-technical editors, translators, and copywriters to update content without redeploying code.
 
 </Accordion>
 </AccordionGroup>
@@ -85,7 +85,7 @@ Beyond code-first workflows, Intlayer provides a self-hosted [Visual Editor](htt
 <iframe
   src="https://ide.intlayer.org/aymericzip/intlayer-remix-3-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  title="Demo CodeSandbox - How to Internationalise your application using Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -127,20 +127,25 @@ yarn add intlayer remix@next
 bun add intlayer remix@next
 ```
 
-- **`intlayer`**: Core internationalization engine providing configuration management, dictionary declaration (`t()`, `Dictionary`), CLI tools, and runtime interpreter.
+- **`intlayer`**: Core internationalisation engine providing configuration management, dictionary declaration (`t()`, `Dictionary`), CLI tools, and runtime interpreter.
 - **`remix`**: The unified Remix 3 framework package exporting `remix/router`, `remix/routes`, `remix/html-template`, and `remix/node-fetch-server`.
 
 </Step>
 <Step number={2} title="Configure Intlayer">
 
-Create an `intlayer.config.ts` in the root of your project to declare your supported languages and internationalization settings:
+Create an `intlayer.config.ts` in the root of your project to declare your supported languages and internationalisation settings:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
   internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    locales: [
+      Locales.ENGLISH,
+      Locales.ENGLISH_UNITED_KINGDOM,
+      Locales.FRENCH,
+      Locales.SPANISH,
+    ],
     defaultLocale: Locales.ENGLISH,
   },
 };
@@ -154,7 +159,12 @@ import { Locales } from "intlayer";
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
   internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    locales: [
+      Locales.ENGLISH,
+      Locales.ENGLISH_UNITED_KINGDOM,
+      Locales.FRENCH,
+      Locales.SPANISH,
+    ],
     defaultLocale: Locales.ENGLISH,
   },
 };
@@ -168,7 +178,12 @@ const { Locales } = require("intlayer");
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
   internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    locales: [
+      Locales.ENGLISH,
+      Locales.ENGLISH_UNITED_KINGDOM,
+      Locales.FRENCH,
+      Locales.SPANISH,
+    ],
     defaultLocale: Locales.ENGLISH,
   },
 };
@@ -176,12 +191,12 @@ const config = {
 module.exports = config;
 ```
 
-> For additional configuration settings (such as strict mode or routing storage preferences), refer to the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md).
+> For additional configuration settings, refer to the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md).
 
 </Step>
 <Step number={3} title="Declare Your Multilingual Content">
 
-Declare your localized content in a `.content.ts` file:
+Declare your localised content in a `.content.ts` file:
 
 ```typescript fileName="src/home.content.ts" contentDeclarationFormat={["typescript", "esm"]}
 import { t, type Dictionary } from "intlayer";
@@ -190,16 +205,19 @@ const homeContent = {
   key: "home",
   content: {
     title: t({
+      "en-GB": "Welcome to Remix 3",
       en: "Welcome to Remix 3",
       fr: "Bienvenue sur Remix 3",
       es: "Bienvenido a Remix 3",
     }),
     description: t({
+      "en-GB": "A composable, web-standard application with native i18n.",
       en: "A composable, web-standard application with native i18n.",
       fr: "Une application composable basée sur les standards web avec i18n native.",
       es: "Una aplicación componible basada en estándares web con i18n nativa.",
     }),
     switchLanguage: t({
+      "en-GB": "Switch language:",
       en: "Switch language:",
       fr: "Changer de langue :",
       es: "Cambiar idioma:",
@@ -210,7 +228,7 @@ const homeContent = {
 export default homeContent;
 ```
 
-> Intlayer also supports JSON, YAML, and CommonJS declaration formats. See the [Content Declaration Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md).
+> Intlayer also supports JSON, YAML, and CommonJS declaration formats. See the [Content Declaration Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/content_file.md).
 
 </Step>
 <Step number={4} title="Build Intlayer Dictionaries">
@@ -242,7 +260,7 @@ Remix 3 provides a composable middleware pipeline via `createRouter({ middleware
 
 Create an Intlayer middleware that resolves the locale of each incoming request using:
 
-1. The URL path prefix via Intlayer's `getLocaleFromPath` (e.g. `/fr` or `/es`).
+1. The URL path prefix via Intlayer's `getLocaleFromPath` (e.g. `/en-GB` or `/fr`).
 2. Intlayer's `getLocale` helper, which automatically negotiates across storage cookies (`INTLAYER_LOCALE`), custom headers (`x-intlayer-locale`), standard `Accept-Language` headers, and your configured `defaultLocale`.
 
 ```typescript fileName="src/middleware/intlayer.ts" codeFormat={["typescript", "esm"]}
@@ -264,14 +282,14 @@ export const localeKey = createContextKey<Locale>(defaultLocale);
  * Intlayer middleware for Remix 3.
  *
  * Resolves the request locale following priority:
- * 1. URL path prefix (e.g. `/fr/...`) via `getLocaleFromPath`
+ * 1. URL path prefix (e.g. `/en-GB/...`) via `getLocaleFromPath`
  * 2. Storage & headers negotiation via Intlayer `getLocale` (cookie, custom header, Accept-Language negotiation, fallback defaultLocale)
  *
  * Attaches the resolved locale to the Remix 3 RequestContext.
  */
 export const intlayer = (): Middleware => {
   return async (context, next) => {
-    // Path detection (/fr/about -> "fr", /about -> undefined)
+    // Path detection (/en-GB/about -> "en-GB", /about -> undefined)
     const pathLocale = getLocaleFromPath(context.url.pathname);
 
     if (pathLocale) {
@@ -316,13 +334,13 @@ Using `route()` gives you type-safe URL generation across your application:
 
 ```typescript
 routes.home.href(); // "/"
-routes.localizedHome.href({ locale: "fr" }); // "/fr"
+routes.localizedHome.href({ locale: "en-GB" }); // "/en-GB"
 ```
 
 </Step>
-<Step number={7} title="Render Localized HTML Templates">
+<Step number={7} title="Render Localised HTML Templates">
 
-Remix 3 uses `remix/html-template` for safe, auto-escaped HTML generation. Create a view function that extracts the localized dictionary using `getIntlayer`, sets the `<html lang="..." dir="...">` attributes, and displays a language switcher:
+Remix 3 uses `remix/html-template` for safe, auto-escaped HTML generation. Create a view function that extracts the localised dictionary using `getIntlayer`, sets the `<html lang="..." dir="...">` attributes, and displays a language switcher:
 
 ```typescript fileName="src/views/home.ts" codeFormat={["typescript", "esm"]}
 import { html, type SafeHtml } from "remix/html-template";
@@ -493,4 +511,4 @@ Ensure that your `tsconfig.json` includes the generated `.intlayer` types:
 
 ## Conclusion
 
-With Remix 3 and Intlayer, you have a lean, fully typed, runtime-portable stack that adheres to open web standards. Your application can scale effortlessly from simple localized marketing pages to globally distributed, edge-rendered services.
+With Remix 3 and Intlayer, you have a lean, fully typed, runtime-portable stack that adheres to open web standards. Your application can scale effortlessly from simple localised marketing pages to globally distributed, edge-rendered services.
