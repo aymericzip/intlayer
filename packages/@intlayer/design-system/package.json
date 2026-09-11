@@ -455,8 +455,8 @@
     "typecheck_": "tsc --noEmit --project tsconfig.types.json"
   },
   "dependencies": {
-    "@better-auth/passkey": "1.7.3",
-    "@better-auth/sso": "1.7.3",
+    "@better-auth/passkey": "1.7.4",
+    "@better-auth/sso": "1.7.4",
     "@intlayer/api": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
@@ -471,7 +471,7 @@
     "@tailwindcss/aspect-ratio": "0.4.2",
     "@tanstack/query-async-storage-persister": "5.102.8",
     "@tanstack/react-query-persist-client": "5.102.8",
-    "@tanstack/react-virtual": "3.14.11",
+    "@tanstack/react-virtual": "3.14.12",
     "@tiptap/core": "3.31.3",
     "@tiptap/extension-character-count": "3.31.3",
     "@tiptap/extension-code-block": "3.31.3",
@@ -490,7 +490,7 @@
     "@tiptap/react": "3.31.3",
     "@tiptap/starter-kit": "3.31.3",
     "@tiptap/suggestion": "3.31.3",
-    "better-auth": "1.7.3",
+    "better-auth": "1.7.4",
     "class-variance-authority": "0.7.1",
     "cmdk": "1.1.1",
     "cnfast": "0.2.0",
@@ -502,7 +502,7 @@
     "tiptap-extension-global-drag-handle": "^0.1.18",
     "tiptap-markdown": "^0.9.0",
     "tunnel-rat": "^0.1.2",
-    "zod": "4.6.0"
+    "zod": "4.6.2"
   },
   "devDependencies": {
     "@intlayer/backend": "workspace:*",
@@ -538,7 +538,7 @@
     "storybook": "10.6.0",
     "tsdown": "0.23.0",
     "typescript": "7.0.2",
-    "vite": "8.2.2",
+    "vite": "8.3.0",
     "vite-intlayer": "workspace:*",
     "vite-plugin-dts": "5.1.0",
     "vitest": "5.0.0"
@@ -556,7 +556,7 @@
     "framer-motion": "13.2.0",
     "fuse.js": "7.5.0",
     "intlayer": "workspace:*",
-    "lucide-react": "1.43.0",
+    "lucide-react": "1.45.0",
     "react": ">=16.0.0",
     "react-dom": ">=16.0.0",
     "react-hook-form": "7.87.0",

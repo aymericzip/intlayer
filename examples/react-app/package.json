@@ -33,7 +33,7 @@
     "@types/node": "^22",
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
-    "autoprefixer": "10.5.5",
+    "autoprefixer": "10.5.6",
     "intlayer": "workspace:*",
     "intlayer-cli": "workspace:*",
     "postcss-preset-env": "11.3.2",

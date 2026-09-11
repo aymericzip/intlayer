@@ -1,6 +1,9 @@
 import { describe, expect, it } from 'vitest';
 import { enu, gender, insert, plural } from '../transpiler';
+import { icuToIntlayerFormatter } from './ICU';
+import { i18nextToIntlayerFormatter } from './i18next';
 import {
+  createMessageResolver,
   interpolateMessage,
   parseTaggedMessage,
   resolveMessage,
@@ -172,6 +175,46 @@ describe('resolveMessage', () => {
 
   it('should return plain strings unchanged when no syntax matches', () => {
     expect(resolveMessage('Just text', {}, 'en', 'icu')).toBe('Just text');
+  });
+});
+
+describe('createMessageResolver', () => {
+  it('should resolve strings through the bound converter', () => {
+    const resolveIcuMessage = createMessageResolver(icuToIntlayerFormatter);
+
+    expect(
+      resolveIcuMessage(
+        '{count, plural, one {# item} other {# items}}',
+        { count: 3 },
+        'en'
+      )
+    ).toBe('3 items');
+  });
+
+  it('should match resolveMessage for the same dialect', () => {
+    const resolveI18nextMessage = createMessageResolver(
+      i18nextToIntlayerFormatter
+    );
+    const message = 'Hello {{name}}, you have {{count}} messages';
+    const values = { name: 'John', count: 2 };
+
+    expect(resolveI18nextMessage(message, values, 'en')).toBe(
+      resolveMessage(message, values, 'en', 'i18next')
+    );
+  });
+
+  it('should pass already-converted nodes straight to the resolver', () => {
+    const resolveIcuMessage = createMessageResolver(icuToIntlayerFormatter);
+
+    expect(
+      resolveIcuMessage(insert('Hello {{name}}'), { name: 'John' }, 'en')
+    ).toBe('Hello John');
+  });
+
+  it('should default values and locale', () => {
+    const resolveIcuMessage = createMessageResolver(icuToIntlayerFormatter);
+
+    expect(resolveIcuMessage('Just text')).toBe('Just text');
   });
 });
 

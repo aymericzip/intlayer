@@ -280,18 +280,54 @@ export const resolveMessageNode = (
   return node;
 };
 
-const DIALECT_FORMATTERS: Record<
-  MessageFormatDialect,
-  (message: string) => unknown
-> = {
-  icu: (message) => icuToIntlayerFormatter(message),
-  i18next: (message) => i18nextToIntlayerFormatter(message),
-  'vue-i18n': (message) => vueI18nToIntlayerFormatter(message),
+/** Converts a raw message string of one dialect into an intlayer node tree. */
+export type MessageFormatter = (message: string) => unknown;
+
+/**
+ * Resolves a raw message — string, or an intlayer node tree — into a final
+ * string using interpolation values and locale.
+ */
+export type MessageResolver = (
+  message: unknown,
+  values?: MessageValues,
+  locale?: LocalesValues
+) => string;
+
+/**
+ * Binds {@link resolveMessageNode} to one dialect converter.
+ *
+ * The compat adapters each speak a single dialect, and referencing the
+ * converter directly — rather than picking it from a record keyed by dialect —
+ * is what lets a bundler drop the two parsers the adapter never uses.
+ *
+ * @example
+ * ```ts
+ * const resolveIcuMessage = createMessageResolver(icuToIntlayerFormatter);
+ * resolveIcuMessage('Hello {name}', { name: 'John' }, 'en'); // 'Hello John'
+ * ```
+ */
+export const createMessageResolver =
+  (formatter: MessageFormatter): MessageResolver =>
+  (message, values = {}, locale = 'en' as LocalesValues) => {
+    const node = typeof message === 'string' ? formatter(message) : message;
+
+    const resolved = resolveMessageNode(node, values, locale);
+
+    return typeof resolved === 'string' ? resolved : String(resolved ?? '');
+  };
+
+const DIALECT_FORMATTERS: Record<MessageFormatDialect, MessageFormatter> = {
+  icu: icuToIntlayerFormatter,
+  i18next: i18nextToIntlayerFormatter,
+  'vue-i18n': vueI18nToIntlayerFormatter,
 };
 
 /**
  * Resolves a raw message — string in a library dialect, or an intlayer node
  * tree — into a final string using interpolation values and locale.
+ *
+ * Selecting the dialect at runtime keeps every converter reachable; a package
+ * that only ever needs one should bind it with {@link createMessageResolver}.
  *
  * @example
  * ```ts
@@ -312,16 +348,8 @@ export const resolveMessage = (
   values: MessageValues = {},
   locale: LocalesValues = 'en' as LocalesValues,
   dialect: MessageFormatDialect = 'icu'
-): string => {
-  const node =
-    typeof message === 'string'
-      ? DIALECT_FORMATTERS[dialect](message)
-      : message;
-
-  const resolved = resolveMessageNode(node, values, locale);
-
-  return typeof resolved === 'string' ? resolved : String(resolved ?? '');
-};
+): string =>
+  createMessageResolver(DIALECT_FORMATTERS[dialect])(message, values, locale);
 
 /** A parsed token of a tagged message: plain text or a tag with children. */
 export type TaggedMessageToken =
