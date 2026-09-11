@@ -125,13 +125,29 @@ export type CallerDescriptor = {
    * (`useTranslations()` root scope) — the dictionary key is then the first
    * dot-segment of each message id passed to the returned `t()`.
    *
-   * Analysis-only: the LSP resolves such bindings for go-to-definition, and
-   * the ESLint rule stops reporting the missing argument as a dynamic key.
-   * The optimize passes do **not** honour it — a call with no readable
-   * namespace is left to the runtime registry, so declaring it never changes
-   * the emitted bundle.
+   * The LSP resolves such bindings for go-to-definition, and the ESLint rule
+   * stops reporting the missing argument as a dynamic key.
+   *
+   * The babel optimize pass binds a root-scope call only when the library
+   * also declares `'self'` callers reading a `path-first-segment` namespace
+   * (lingui's `_` / `t` / `<Trans>`): the dictionaries are then the first
+   * segments of every static message id found in the same file, and the call
+   * receives them all. Any dynamic id in the file leaves the call to the
+   * runtime registry. Libraries whose ids only reach a *returned* function
+   * (`const t = useTranslations(); t('a.b')`) are never bound this way.
    */
   allowRootScope?: boolean;
+  /**
+   * Dictionary bound by a root-scope call whose first id segment is not itself
+   * a dictionary — the project keeps one whole-file catalog instead of one
+   * dictionary per prefix. The full id is then left intact, mirroring the
+   * runtime resolver's own fallback.
+   *
+   * lingui's single catalog is named `messages`; without this a lingui app
+   * that has *not* split its catalog would see every root-scope binding
+   * declined.
+   */
+  rootDictionaryKey?: string;
   /** How translated content is obtained from the caller's result. */
   translationFunction: CallerResultShape;
   /**
@@ -147,7 +163,10 @@ export type CallerDescriptor = {
    * it; original-library specifiers are bundler-aliased to the compat package).
    *
    * Only callers with both replacements set — and matched as plain imported
-   * functions (not `matchAsMethod` / JSX) — are rewritten at build time.
+   * functions or as JSX elements (`jsxIdAttribute`), not `matchAsMethod` —
+   * are rewritten at build time. A JSX element is bound by the first segment
+   * of its id attribute and receives the dictionary through a `dictionary`
+   * prop.
    */
   staticReplacement?: string;
   /**

@@ -37,15 +37,16 @@ export type SwcExtraCallerConfig = {
  * Whether the optimize pass can rewrite this caller's call sites at build time.
  *
  * Requires both replacement names and a call shape reachable through an import
- * specifier rename. Method-matched callers (`i18n.getFixedT`, `intl.formatMessage`)
- * and JSX components (`<Trans>`, `<FormattedMessage>`) are excluded — their call
- * sites keep resolving through the runtime dictionary registry.
+ * specifier rename: a plain imported function, or a JSX component whose
+ * element receives the dictionary as a prop (lingui's `<Trans>`).
+ * Method-matched callers (`i18n.getFixedT`, `intl.formatMessage`) are
+ * excluded — their call sites keep resolving through the runtime dictionary
+ * registry.
  */
 export const isRewritableCaller = (descriptor: CallerDescriptor): boolean =>
   descriptor.staticReplacement !== undefined &&
   descriptor.dynamicReplacement !== undefined &&
-  descriptor.matchAsMethod !== true &&
-  descriptor.jsxIdAttribute === undefined;
+  descriptor.matchAsMethod !== true;
 
 /**
  * Returns the callers of a registry slice that the optimize pass can rewrite

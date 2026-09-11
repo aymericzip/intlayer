@@ -12,6 +12,7 @@ import {
   intlayerOptimizeBabelPlugin,
   type OptimizePluginOptions,
 } from './babel-plugin-intlayer-optimize';
+import { BABEL_PARSER_OPTIONS } from './transformers';
 
 // Mock dependencies to avoid esbuild issues
 vi.mock('@intlayer/config/utils', () => ({
@@ -46,6 +47,7 @@ const transform = (
   const result = transformSync(code, {
     filename,
     plugins: [[intlayerOptimizeBabelPlugin, defaultOptions]],
+    parserOpts: BABEL_PARSER_OPTIONS,
     babelrc: false,
     configFile: false,
   });
@@ -220,18 +222,140 @@ describe('babel-plugin-intlayer-optimize — compat callers', () => {
     });
   });
 
-  describe('callers with no readable namespace', () => {
-    // These callers used to bind a dictionary from the first dot-segment of
-    // each message id. That inference is gone: the optimize pass reads a
-    // namespace from an argument, an option property or a fixed value only, so
-    // anything else keeps resolving through the runtime registry.
+  describe('lingui (root scope bound from message ids)', () => {
+    // `useLingui()` names no dictionary itself: the pass reads the first
+    // segment of every static id passed to `_` / `t` / `<Trans>` in the file
+    // and hands all of those dictionaries to the call, ids kept intact.
 
-    it('leaves useLingui() untouched — lingui declares no namespace source', () => {
+    it('binds the dictionary named by the message id prefix', () => {
       const code = `
         import { useLingui } from "@lingui/react";
         const Footer = () => {
           const { i18n } = useLingui();
-          return i18n._("footer.github");
+          return i18n._("footer.github") + i18n._("footer.contact");
+        };
+      `;
+      const output = transform(code, {
+        compatCallers: LINGUI_CALLERS,
+        dictionaryModeMap: { footer: 'static' },
+      });
+
+      expect(output).toContain(
+        'import _dicHash_footer from "../.intlayer/dictionaries/footer.json" with { type: "json" };'
+      );
+      expect(output).toContain(
+        'import { useDictionary as useLingui } from "@lingui/react";'
+      );
+      expect(output).toContain('useLingui(_dicHash_footer);');
+      // Ids stay intact — the runtime picks the dictionary by first segment.
+      expect(output).toContain('i18n._("footer.github")');
+    });
+
+    it('binds every dictionary named in the file to one call', () => {
+      const code = `
+        import { useLingui } from "@lingui/react";
+        const Hero = () => {
+          const { _, t } = useLingui();
+          return _("hero.title") + t({ id: "header.methodology" });
+        };
+      `;
+      const output = transform(code, {
+        compatCallers: LINGUI_CALLERS,
+        dictionaryModeMap: { hero: 'static', header: 'static' },
+      });
+
+      expect(output).toContain('useLingui(_dicHash_hero, _dicHash_header);');
+      expect(output).toContain('_("hero.title")');
+      expect(output).toContain('t({\n    id: "header.methodology"\n  })');
+    });
+
+    it('reads ids from <Trans> and a static-prefix template literal', () => {
+      const code = `
+        import { useLingui, Trans } from "@lingui/react";
+        const Footer = ({ id }) => {
+          const { i18n } = useLingui();
+          return <>{i18n._(\`footer.\${id}\`)}<Trans id="hero.title" /></>;
+        };
+      `;
+      const output = transform(code, {
+        compatCallers: LINGUI_CALLERS,
+        dictionaryModeMap: { footer: 'static', hero: 'static' },
+      });
+
+      expect(output).toContain('useLingui(_dicHash_footer, _dicHash_hero);');
+      expect(output).toContain('i18n._(`footer.${' + 'id}`)');
+    });
+
+    it('binds a dot-less id to the dictionary of the same name', () => {
+      const code = `
+        import { useLingui } from "@lingui/react";
+        const Banner = () => {
+          const { i18n } = useLingui();
+          return i18n._("mockBanner");
+        };
+      `;
+      const output = transform(code, {
+        compatCallers: LINGUI_CALLERS,
+        dictionaryModeMap: { mockBanner: 'static' },
+      });
+
+      expect(output).toContain('useLingui(_dicHash_mockBanner);');
+      expect(output).toContain('i18n._("mockBanner")');
+    });
+
+    it('falls back to the `messages` catalog when it was not split', () => {
+      // A lingui app whose catalog is still one whole-file `messages`
+      // dictionary: no `footer` dictionary exists to bind, so the rewrite
+      // re-points at `messages` and keeps the id intact rather than decline —
+      // declining would leave the call resolving through a registry that
+      // `replaceDictionaryEntry` has emptied.
+      const code = `
+        import { useLingui } from "@lingui/react";
+        const Footer = () => {
+          const { i18n } = useLingui();
+          return i18n._("footer.github") + i18n._("header.blog");
+        };
+      `;
+      const output = transform(code, {
+        compatCallers: LINGUI_CALLERS,
+        dictionaryModeMap: { messages: 'static' },
+      });
+
+      expect(output).toContain(
+        'import _dicHash_messages from "../.intlayer/dictionaries/messages.json" with { type: "json" };'
+      );
+      expect(output).toContain('useLingui(_dicHash_messages);');
+      expect(output).toContain('i18n._("footer.github")');
+    });
+
+    it('rewrites to the dynamic helper with [loader, key] pairs', () => {
+      const code = `
+        import { useLingui } from "@lingui/react";
+        const Hero = () => {
+          const { i18n } = useLingui();
+          return i18n._("hero.title") + i18n._("header.blog");
+        };
+      `;
+      const output = transform(code, {
+        compatCallers: LINGUI_CALLERS,
+        importMode: 'dynamic',
+        dictionaryModeMap: { hero: 'dynamic', header: 'dynamic' },
+      });
+
+      expect(output).toContain(
+        'import { useDictionaryDynamic as useLingui } from "@lingui/react";'
+      );
+      expect(output).toContain(
+        'useLingui([_dicHash_hero_dyn, "hero"], [_dicHash_header_dyn, "header"]);'
+      );
+    });
+
+    it('leaves the call alone when any id in the file is dynamic', () => {
+      const code = `
+        import { useLingui } from "@lingui/react";
+        const Row = ({ key }) => {
+          const { i18n } = useLingui();
+          return i18n._("footer.github") + i18n._(key);
         };
       `;
       const output = transform(code, {
@@ -241,9 +365,240 @@ describe('babel-plugin-intlayer-optimize — compat callers', () => {
 
       expect(output).toContain('import { useLingui } from "@lingui/react";');
       expect(output).toContain('useLingui();');
-      expect(output).toContain('i18n._("footer.github")');
       expect(output).not.toContain('useDictionary');
     });
+
+    it('leaves the call alone when a macro template was not compiled', () => {
+      const code = `
+        import { useLingui } from "@lingui/react";
+        const Row = () => {
+          const { t } = useLingui();
+          return t\`Hello\`;
+        };
+      `;
+      const output = transform(code, {
+        compatCallers: LINGUI_CALLERS,
+        dictionaryModeMap: { messages: 'static' },
+      });
+
+      expect(output).toContain('useLingui();');
+      expect(output).not.toContain('useDictionary');
+    });
+
+    it('leaves the call alone when the file reads no id at all', () => {
+      const code = `
+        import { useLingui } from "@lingui/react";
+        const Provider = ({ children }) => {
+          const { i18n } = useLingui();
+          return <Child i18n={i18n}>{children}</Child>;
+        };
+      `;
+      const output = transform(code, {
+        compatCallers: LINGUI_CALLERS,
+        dictionaryModeMap: { messages: 'static' },
+      });
+
+      expect(output).toContain('useLingui();');
+      expect(output).not.toContain('useDictionary');
+    });
+
+    it('leaves the call alone when the id names no dictionary and there is no catalog', () => {
+      const code = `
+        import { useLingui } from "@lingui/react";
+        const Footer = () => {
+          const { i18n } = useLingui();
+          return i18n._("footer.github");
+        };
+      `;
+      const output = transform(code, {
+        compatCallers: LINGUI_CALLERS,
+        dictionaryModeMap: { hero: 'static' },
+      });
+
+      expect(output).toContain('useLingui();');
+      expect(output).not.toContain('useDictionary');
+    });
+
+    it('binds <Trans> to the dictionary its id names', () => {
+      const code = `
+        import { Trans } from "@lingui/react";
+        const Hero = () => <Trans id="hero.title" message="Welcome" />;
+      `;
+      const output = transform(code, {
+        compatCallers: LINGUI_CALLERS,
+        dictionaryModeMap: { hero: 'static' },
+      });
+
+      expect(output).toContain(
+        'import { TransDictionary as Trans } from "@lingui/react";'
+      );
+      expect(output).toContain(
+        '<Trans id="hero.title" message="Welcome" dictionary={_dicHash_hero} />'
+      );
+    });
+
+    it('binds <Trans> to the dynamic loader pair in dynamic mode', () => {
+      const code = `
+        import { Trans } from "@lingui/react";
+        const Hero = () => <Trans id="hero.title" />;
+      `;
+      const output = transform(code, {
+        compatCallers: LINGUI_CALLERS,
+        importMode: 'dynamic',
+        dictionaryModeMap: { hero: 'dynamic' },
+      });
+
+      expect(output).toContain(
+        'import { TransDictionaryDynamic as Trans } from "@lingui/react";'
+      );
+      expect(output).toContain(
+        '<Trans id="hero.title" dictionary={[_dicHash_hero_dyn, "hero"]} />'
+      );
+    });
+
+    it('binds <Trans> and useLingui() from one import side by side', () => {
+      const code = `
+        import { Trans, useLingui } from "@lingui/react";
+        const Hero = () => {
+          const { i18n } = useLingui();
+          return <p title={i18n._("hero.viewResults")}><Trans id="hero.title" /></p>;
+        };
+      `;
+      const output = transform(code, {
+        compatCallers: LINGUI_CALLERS,
+        dictionaryModeMap: { hero: 'static' },
+      });
+
+      expect(output).toContain(
+        'import { TransDictionary as Trans, useDictionary as useLingui } from "@lingui/react";'
+      );
+      expect(output).toContain('useLingui(_dicHash_hero);');
+      expect(output).toContain('dictionary={_dicHash_hero}');
+    });
+
+    it('binds the compiled jsx(Trans, props) form the React plugin emits', () => {
+      // On Vite the optimize transform runs after `@vitejs/plugin-react`, so
+      // the element usually arrives as the automatic-runtime call.
+      const code = `
+        import { jsx as _jsx } from "react/jsx-runtime";
+        import { Trans } from "@lingui/react";
+        const Hero = () => _jsx(Trans, { id: "hero.title", message: "Welcome" });
+      `;
+      const output = transform(code, {
+        compatCallers: LINGUI_CALLERS,
+        dictionaryModeMap: { hero: 'static' },
+      });
+
+      expect(output).toContain(
+        'import { TransDictionary as Trans } from "@lingui/react";'
+      );
+      expect(output).toContain('dictionary: _dicHash_hero');
+    });
+
+    it('keeps the Trans import when the component is also passed as a value', () => {
+      const code = `
+        import { Trans } from "@lingui/react";
+        const Row = () => <Field label={<Trans id="hero.title" />} component={Trans} />;
+      `;
+      const output = transform(code, {
+        compatCallers: LINGUI_CALLERS,
+        dictionaryModeMap: { hero: 'static' },
+      });
+
+      expect(output).toContain('import { Trans } from "@lingui/react";');
+      expect(output).not.toContain('dictionary=');
+    });
+
+    it('keeps the Trans import when no element of it is seen', () => {
+      const code = `
+        import { Trans } from "@lingui/react";
+        export const renderer = Trans;
+      `;
+      const output = transform(code, {
+        compatCallers: LINGUI_CALLERS,
+        dictionaryModeMap: { hero: 'static' },
+      });
+
+      expect(output).toContain('import { Trans } from "@lingui/react";');
+    });
+
+    it('holds back every <Trans> of the file when one id is dynamic', () => {
+      const code = `
+        import { Trans } from "@lingui/react";
+        const Row = ({ id }) => <><Trans id="hero.title" /><Trans id={id} /></>;
+      `;
+      const output = transform(code, {
+        compatCallers: LINGUI_CALLERS,
+        dictionaryModeMap: { hero: 'static' },
+      });
+
+      expect(output).toContain('import { Trans } from "@lingui/react";');
+      expect(output).not.toContain('dictionary=');
+    });
+
+    it('ignores a local helper named `t` that is not the lingui one', () => {
+      // `const t = (id) => i18n._(\`hero.${id}\`)` is an app wrapper: its
+      // calls carry field names, not ids, so reading them as lingui ids would
+      // decline the binding. Only a `t` imported from lingui or destructured
+      // from `useLingui()` is a message-id site.
+      const code = `
+        import { useLingui } from "@lingui/react";
+        const Hero = () => {
+          const { i18n } = useLingui();
+          const t = (id) => i18n._(\`hero.\${id}\`);
+          return t("viewResults") + i18n._("header.methodology");
+        };
+      `;
+      const output = transform(code, {
+        compatCallers: LINGUI_CALLERS,
+        dictionaryModeMap: { hero: 'static', header: 'static' },
+      });
+
+      expect(output).toContain('useLingui(_dicHash_hero, _dicHash_header);');
+    });
+
+    it('reads a bare `t` imported from a lingui module', () => {
+      const code = `
+        import { useLingui } from "@lingui/react";
+        import { t } from "@lingui/core/macro";
+        const Row = () => {
+          const { i18n } = useLingui();
+          return t({ id: "footer.github" });
+        };
+      `;
+      const output = transform(code, {
+        compatCallers: LINGUI_CALLERS,
+        dictionaryModeMap: { footer: 'static' },
+      });
+
+      expect(output).toContain('useLingui(_dicHash_footer);');
+    });
+
+    it('ignores unrelated methods that read no static string', () => {
+      // `spacing.get("footer")` is not a lingui method name, so it neither
+      // binds nor poisons; a dynamic argument on an unrelated `.t()` would
+      // be treated as unknowable — the safe direction.
+      const code = `
+        import { useLingui } from "@lingui/react";
+        const Row = () => {
+          const { i18n } = useLingui();
+          return i18n._("footer.github") + spacing.get("footer");
+        };
+      `;
+      const output = transform(code, {
+        compatCallers: LINGUI_CALLERS,
+        dictionaryModeMap: { footer: 'static' },
+      });
+
+      expect(output).toContain('useLingui(_dicHash_footer);');
+    });
+  });
+
+  describe('callers with no readable namespace', () => {
+    // The optimize pass reads a namespace from an argument, an option property
+    // or a fixed value; a root-scope call is bound only for libraries whose
+    // ids sit on `'self'` callers (see the lingui block above). Anything else
+    // keeps resolving through the runtime registry.
 
     it('leaves useIntl() untouched — react-intl declares no namespace source', () => {
       const code = `

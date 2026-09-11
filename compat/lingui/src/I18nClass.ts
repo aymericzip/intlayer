@@ -1,6 +1,7 @@
 import {
   createMessageResolver,
   icuToIntlayerFormatter,
+  resolveMessageNodeToString,
 } from '@intlayer/core/messageFormat';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import type {
@@ -21,13 +22,39 @@ import {
 import type { RegistryResolver } from './registryLookup';
 
 /**
- * ICU-bound `resolveMessage`.
+ * ICU-bound `resolveMessage`, for the messages that reach the class as *raw
+ * ICU strings*: catalogs loaded at runtime through `load()` and the
+ * `descriptor.message` source text used when an id is missing.
+ *
+ * Dictionary content never goes through it — the build already converted
+ * every ICU construct into intlayer nodes, which resolve without a parser.
  *
  * Binding the converter here, instead of selecting it by dialect at runtime,
  * leaves the other message-format parsers unreferenced so they tree-shake out
  * of the app bundle.
  */
-const resolveMessage = createMessageResolver(icuToIntlayerFormatter);
+const resolveIcuMessage = createMessageResolver(icuToIntlayerFormatter);
+
+/** First dot-segment of a lingui id and the remainder, e.g. `footer.github`. */
+const splitMessageId = (
+  id: string
+): { dictionaryKey: string; remainder: string } => {
+  const dotPosition = id.indexOf('.');
+  if (dotPosition === -1) return { dictionaryKey: id, remainder: '' };
+  return {
+    dictionaryKey: id.slice(0, dotPosition),
+    remainder: id.slice(dotPosition + 1),
+  };
+};
+
+/**
+ * A message template as it was found, tagged with the way it must be
+ * interpolated: dictionary nodes resolve directly, raw catalog messages are
+ * parsed as ICU first.
+ */
+type ResolvedTemplate =
+  | { kind: 'node'; node: unknown }
+  | { kind: 'icu'; message: string };
 
 /** Mirrors the unexported `Values` type from `@lingui/core`. */
 type Values = Record<string, unknown>;
@@ -81,11 +108,12 @@ export class I18nClass extends EventEmitter<LinguiEvents> {
   private _catalogs: Record<string, Messages> = {};
   private _loadFallbackWarned = false;
   /**
-   * Pre-resolved `messages` dictionary content bound by the build-optimized
-   * `useDictionary` / `useDictionaryDynamic` variants. Checked before the
-   * runtime registry so lookups stay tree-shakeable.
+   * Content of the dictionaries bound by the build-optimized `useDictionary`
+   * / `useDictionaryDynamic` variants, keyed by dictionary key and already
+   * interpreted for the active locale. Checked before the runtime registry so
+   * lookups stay tree-shakeable.
    */
-  private _dictionaryContent: unknown;
+  private _boundDictionaries: Record<string, unknown> = {};
   /**
    * Registry access, when the creator supplied it. Absent for the
    * build-optimized variants — see {@link I18nProps.registry}.
@@ -114,8 +142,8 @@ export class I18nClass extends EventEmitter<LinguiEvents> {
     const dictionary: Messages = {
       ...this._registry?.all(this._locale as LocalesValues),
     };
-    if (this._dictionaryContent !== undefined) {
-      Object.assign(dictionary, unwrapLinguiCatalog(this._dictionaryContent));
+    for (const content of Object.values(this._boundDictionaries)) {
+      Object.assign(dictionary, unwrapLinguiCatalog(content));
     }
     // The compiled dictionaries win over the runtime fallback catalog.
     return { ...(this._catalogs[this._locale] ?? {}), ...dictionary };
@@ -194,14 +222,20 @@ export class I18nClass extends EventEmitter<LinguiEvents> {
   }
 
   /**
-   * Binds pre-resolved `messages` dictionary content, checked before the
-   * runtime registry.
+   * Binds interpreted dictionary content, keyed by dictionary key and checked
+   * before the runtime registry.
+   *
+   * An id is first addressed by its leading dot-segment (`footer.github` →
+   * dictionary `footer`, key `github`, the shape produced by
+   * `syncJSON({ splitKeys: 'key-prefix' })`), then looked up whole in every
+   * bound dictionary — which is how a single un-split `messages` catalog, or
+   * a dot-less id such as `mockBanner`, keeps resolving.
    *
    * @internal Used by the build-optimized `useDictionary` /
    * `useDictionaryDynamic` variants — not part of the lingui API surface.
    */
-  bindDictionaryContent(content: unknown): this {
-    this._dictionaryContent = content;
+  bindDictionaries(dictionaries: Record<string, unknown>): this {
+    this._boundDictionaries = dictionaries;
     return this;
   }
 
@@ -214,30 +248,48 @@ export class I18nClass extends EventEmitter<LinguiEvents> {
     this.emit('change');
   }
 
+  /** Reads an id from the dictionaries bound by the optimized variants. */
+  private lookupBoundDictionaries(id: string): unknown {
+    const { dictionaryKey, remainder } = splitMessageId(id);
+
+    const prefixed = this._boundDictionaries[dictionaryKey];
+    if (prefixed !== undefined) {
+      const value = navigateLinguiCatalog(prefixed, remainder);
+      if (value !== undefined) return value;
+    }
+
+    for (const content of Object.values(this._boundDictionaries)) {
+      const value = navigateLinguiCatalog(content, id);
+      if (value !== undefined) return value;
+    }
+
+    return undefined;
+  }
+
   /**
-   * Resolves the raw message template for an id (before interpolation).
+   * Resolves the message template for an id (before interpolation).
    *
    * Resolution order:
    * 1. dictionary content bound by the build-optimized `useDictionary` variants
    * 2. the runtime dictionary registry, when the creator supplied access to it
    * 3. runtime fallback catalog (constructor / `load()` / `loadAndActivate()`)
    */
-  private resolveTemplate(id: string): string | undefined {
-    if (this._dictionaryContent !== undefined) {
-      const boundValue = navigateLinguiCatalog(this._dictionaryContent, id);
-      if (boundValue !== undefined) return linguiMessageToIcu(boundValue);
-    }
+  private resolveTemplate(id: string): ResolvedTemplate | undefined {
+    const boundNode = this.lookupBoundDictionaries(id);
+    if (boundNode !== undefined) return { kind: 'node', node: boundNode };
 
-    const fromDictionary = this._registry?.lookup(
+    const registryNode = this._registry?.lookup(
       id,
       this._locale as LocalesValues
     );
-    if (fromDictionary !== undefined) return fromDictionary;
+    if (registryNode !== undefined) return { kind: 'node', node: registryNode };
 
     const catalog = this._catalogs[this._locale];
     if (catalog) {
       const raw = navigateLinguiCatalog(catalog, id);
-      if (raw !== undefined) return linguiMessageToIcu(raw);
+      if (raw !== undefined) {
+        return { kind: 'icu', message: linguiMessageToIcu(raw) };
+      }
     }
 
     return undefined;
@@ -274,15 +326,17 @@ export class I18nClass extends EventEmitter<LinguiEvents> {
         }
       : (values ?? {});
 
-    const rawValue = this.resolveTemplate(id);
-    const template = rawValue ?? defaultMessage ?? id;
+    const messageValues = resolvedValues as Record<string, string | number>;
+    const locale = this._locale as LocalesValues;
+    const template = this.resolveTemplate(id) ?? {
+      kind: 'icu',
+      message: defaultMessage ?? id,
+    };
 
     return (
-      resolveMessage(
-        template,
-        resolvedValues as Record<string, string | number>,
-        this._locale as LocalesValues
-      ) ?? id
+      (template.kind === 'node'
+        ? resolveMessageNodeToString(template.node, messageValues, locale)
+        : resolveIcuMessage(template.message, messageValues, locale)) ?? id
     );
   }
 

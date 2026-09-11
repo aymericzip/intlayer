@@ -3,7 +3,10 @@ import type { PluginObject, PluginPass } from '@babel/core';
 import type * as BabelTypes from '@babel/types';
 import type { CallerDescriptor } from '@intlayer/config/callers';
 import { normalizePath } from '@intlayer/config/utils';
-import { createCompatOptimizePass } from './compat/optimizePass';
+import {
+  createCompatOptimizePass,
+  type JsxSiteNode,
+} from './compat/optimizePass';
 import {
   createDictionaryImportRegistry,
   type DictionaryImportRegistry,
@@ -647,10 +650,26 @@ export const intlayerOptimizeBabelPlugin = (babel: {
           //    this point works on the collected arrays.
           const nativeCallNodes: BabelTypes.CallExpression[] = [];
           const compatCallNodes: BabelTypes.CallExpression[] = [];
+          /**
+           * Compat JSX elements bound by their id attribute (`<Trans id>`),
+           * as source JSX or as the `jsx(Trans, …)` call the framework plugin
+           * already compiled them into.
+           */
+          const compatJsxNodes: JsxSiteNode[] = [];
+
+          // A root-scope compat caller (`useLingui()`) names its dictionaries
+          // through the message ids used elsewhere in the file, so those
+          // id-carrying sites are handed to the compat pass from the same walk.
+          const collectMessageIds = compat?.needsMessageIdSites() ?? false;
 
           if (callerMap.size > 0 || compat?.hasCallers()) {
             programPath.traverse({
               CallExpression(path) {
+                if (collectMessageIds) compat?.collectMessageIdSite(path.node);
+                if (compat?.ownsJsxSite(path.node)) {
+                  compatJsxNodes.push(path.node);
+                }
+
                 const callee = path.node.callee;
                 if (!t.isIdentifier(callee)) return;
 
@@ -658,8 +677,46 @@ export const intlayerOptimizeBabelPlugin = (babel: {
                   nativeCallNodes.push(path.node);
                 } else if (compat?.ownsLocalName(callee.name)) {
                   compatCallNodes.push(path.node);
+
+                  // `const { i18n, _, t } = useLingui()` — the destructured
+                  // names are how bare `t('…')` sites are told apart from
+                  // unrelated helpers of the same name.
+                  const declarator = path.parent;
+                  if (
+                    t.isVariableDeclarator(declarator) &&
+                    t.isObjectPattern(declarator.id)
+                  ) {
+                    compat.noteDestructuredResult(
+                      callee.name,
+                      declarator.id.properties.flatMap((property) =>
+                        t.isObjectProperty(property) &&
+                        t.isIdentifier(property.value)
+                          ? [property.value.name]
+                          : []
+                      )
+                    );
+                  }
                 }
               },
+              ...(collectMessageIds
+                ? {
+                    TaggedTemplateExpression(path) {
+                      compat?.collectMessageIdSite(path.node);
+                    },
+                  }
+                : {}),
+              ...(compat
+                ? {
+                    JSXOpeningElement(path) {
+                      if (collectMessageIds) {
+                        compat.collectMessageIdSite(path.node);
+                      }
+                      if (compat.ownsJsxSite(path.node)) {
+                        compatJsxNodes.push(path.node);
+                      }
+                    },
+                  }
+                : {}),
             });
           }
 
@@ -692,7 +749,13 @@ export const intlayerOptimizeBabelPlugin = (babel: {
 
           // The compat half decides its own file-level helper family and drops
           // the callers whose call sites it cannot resolve.
-          compat?.analyzeCalls(compatCallNodes);
+          compat?.analyzeCalls(
+            compatCallNodes,
+            compatJsxNodes,
+            (localName) =>
+              programPath.scope.getBinding(localName)?.referencePaths.length ??
+              0
+          );
 
           const helperPlanCache = new Map<string, PackageHelperPlan>();
 
@@ -796,9 +859,13 @@ export const intlayerOptimizeBabelPlugin = (babel: {
             }
           }
 
-          // ── Step 5 — rewrite the call sites.
+          // ── Step 5 — rewrite the call sites and bound JSX elements.
           for (const callNode of compatCallNodes) {
             compat?.rewriteCall(callNode);
+          }
+
+          for (const jsxNode of compatJsxNodes) {
+            compat?.rewriteJsxSite(jsxNode);
           }
 
           for (const callNode of nativeCallNodes) {

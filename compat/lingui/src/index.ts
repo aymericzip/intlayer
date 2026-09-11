@@ -44,7 +44,10 @@ export type {
 } from '@lingui/react';
 export { I18nProvider } from './I18nProvider';
 export { LinguiContext } from './LinguiContext';
-export { Trans } from './Trans';
+export { Trans, TransDictionary, TransDictionaryDynamic } from './Trans';
 export { useDictionary } from './useDictionary';
-export { useDictionaryDynamic } from './useDictionaryDynamic';
+export {
+  type DynamicDictionaryEntry,
+  useDictionaryDynamic,
+} from './useDictionaryDynamic';
 export { useLingui } from './useLingui';

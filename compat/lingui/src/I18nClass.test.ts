@@ -12,9 +12,19 @@ vi.mock('@intlayer/dictionaries-entry', () => ({
 }));
 
 import { getIntlayer } from '@intlayer/core/interpreter';
+import { icuToIntlayerFormatter } from '@intlayer/core/messageFormat';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
 import { I18nClass } from './I18nClass';
 import { createRegistryResolver } from './registryLookup';
+
+/**
+ * What a built dictionary hands the class: `syncJSON({ format: 'icu' })`
+ * already ran the ICU converter at build time, so plural/select messages
+ * arrive as intlayer nodes — never as raw ICU strings, which is why the
+ * dictionary path ships no parser.
+ */
+const asBuiltContent = (content: Record<string, unknown>): unknown =>
+  icuToIntlayerFormatter(content);
 
 /**
  * Builds the class the way the unoptimized entry points (`setupI18n`,
@@ -42,17 +52,74 @@ describe('I18nClass', () => {
   // ── build-optimized path ───────────────────────────────────────────────────
 
   it('resolves bound dictionary content without consulting the registry', () => {
-    // What `useDictionary(fooDictionary)` constructs: content supplied, no
-    // registry. Reaching for the registry here would mean the optimized chunk
-    // still depends on `@intlayer/dictionaries-entry`, which statically imports
-    // every dictionary — re-leaking the whole catalog into every page.
-    const i18n = new I18nClass({ locale: 'en' }).bindDictionaryContent({
-      github: 'GitHub',
+    // What `useDictionary(messagesDictionary)` constructs: content supplied,
+    // no registry. Reaching for the registry here would mean the optimized
+    // chunk still depends on `@intlayer/dictionaries-entry`, which statically
+    // imports every dictionary — re-leaking the whole catalog into every page.
+    const i18n = new I18nClass({ locale: 'en' }).bindDictionaries({
+      messages: { github: 'GitHub' },
     });
 
     expect(i18n._('github')).toBe('GitHub');
     expect(mockGetDictionaries).not.toHaveBeenCalled();
     expect(mockGetIntlayer).not.toHaveBeenCalled();
+  });
+
+  it('addresses a bound split dictionary by the id prefix', () => {
+    // `syncJSON({ splitKeys: 'key-prefix' })` stores `footer.github` as key
+    // `github` of dictionary `footer`; the id passed by the app is unchanged.
+    const i18n = new I18nClass({ locale: 'en' }).bindDictionaries({
+      footer: { github: 'GitHub' },
+      header: { github: 'Repository' },
+    });
+
+    expect(i18n._('footer.github')).toBe('GitHub');
+    expect(i18n._('header.github')).toBe('Repository');
+  });
+
+  it('resolves a dot-less id from the bound dictionary of the same name', () => {
+    // A dot-less id becomes a dictionary whose content *is* the message.
+    const i18n = new I18nClass({ locale: 'en' }).bindDictionaries({
+      mockBanner: 'Mock data',
+    });
+
+    expect(i18n._('mockBanner')).toBe('Mock data');
+  });
+
+  it('falls back to the whole id in an un-split bound catalog', () => {
+    // The `messages` catalog was not split: `footer` is a group *inside* it,
+    // so the id prefix names no dictionary and the full id is looked up.
+    const i18n = new I18nClass({ locale: 'en' }).bindDictionaries({
+      messages: { messages: { 'footer.github': 'GitHub' } },
+    });
+
+    expect(i18n._('footer.github')).toBe('GitHub');
+  });
+
+  it('resolves bound plural and select nodes without an ICU parser', () => {
+    const i18n = new I18nClass({ locale: 'en' }).bindDictionaries({
+      cart: asBuiltContent({
+        items: '{count, plural, one {# item} other {# items}}',
+        role: '{role, select, admin {Admin} other {User}}',
+      }),
+    });
+
+    expect(i18n._('cart.items', { count: 1 })).toBe('1 item');
+    expect(i18n._('cart.items', { count: 5 })).toBe('5 items');
+    expect(i18n._('cart.role', { role: 'admin' })).toBe('Admin');
+  });
+
+  it('resolves interpreted callables the way getDictionary emits them', () => {
+    // The interpreter exposes plural/insertion content as callables taking
+    // the interpolation values; they must not be stringified as source code.
+    const i18n = new I18nClass({ locale: 'en' }).bindDictionaries({
+      cart: {
+        items: ({ count }: { count: number }) =>
+          count === 1 ? '1 item' : `${count} items`,
+      },
+    });
+
+    expect(i18n._('cart.items', { count: 3 })).toBe('3 items');
   });
 
   it('falls back to the id when unbound and given no registry', () => {
@@ -202,21 +269,41 @@ describe('I18nClass', () => {
   });
 
   it('supports ICU plural syntax', () => {
-    mockGetIntlayer.mockReturnValue({
-      items: '{count, plural, one {# item} other {# items}}',
-    } as never);
+    mockGetIntlayer.mockReturnValue(
+      asBuiltContent({
+        items: '{count, plural, one {# item} other {# items}}',
+      }) as never
+    );
     const i18n = createI18n({ locale: 'en' });
     expect(i18n._('items', { count: 1 })).toBe('1 item');
     expect(i18n._('items', { count: 5 })).toBe('5 items');
   });
 
   it('supports ICU select syntax', () => {
-    mockGetIntlayer.mockReturnValue({
-      role: '{role, select, admin {Admin} other {User}}',
-    } as never);
+    mockGetIntlayer.mockReturnValue(
+      asBuiltContent({
+        role: '{role, select, admin {Admin} other {User}}',
+      }) as never
+    );
     const i18n = createI18n({ locale: 'en' });
     expect(i18n._('role', { role: 'admin' })).toBe('Admin');
     expect(i18n._('role', { role: 'member' })).toBe('User');
+  });
+
+  it('parses ICU in the descriptor.message fallback', () => {
+    mockGetIntlayer.mockImplementation(() => {
+      throw new Error('not found');
+    });
+    const i18n = createI18n({ locale: 'en' });
+    expect(
+      i18n._(
+        {
+          id: 'missing',
+          message: '{count, plural, one {# item} other {# items}}',
+        },
+        { count: 2 }
+      )
+    ).toBe('2 items');
   });
 
   it('falls back to descriptor.message when key is not found', () => {

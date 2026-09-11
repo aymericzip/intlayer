@@ -5,11 +5,7 @@ import type {
   LocalesValues,
 } from '@intlayer/types/module_augmentation';
 import type { Messages } from '@lingui/core';
-import {
-  linguiMessageToIcu,
-  navigateLinguiCatalog,
-  unwrapLinguiCatalog,
-} from './linguiCatalog';
+import { navigateLinguiCatalog, unwrapLinguiCatalog } from './linguiCatalog';
 
 /**
  * Registry-backed message resolution — the fallback used when a call site was
@@ -43,28 +39,45 @@ const getDictionaryKeys = (): DictionaryKeys[] => {
 };
 
 /**
- * Looks up a lingui message across every intlayer dictionary.
+ * Looks up a lingui message across every intlayer dictionary, returning the
+ * interpreted content node (a string, or a callable for plural/select
+ * content) for the caller to resolve.
  *
  * lingui ids are flat, namespace-less keys (`'hero.title'`), but the matching
  * content may live in any dictionary — a single centralized catalog, or one of
  * the per-prefix catalogs produced by
- * `syncJSON({ splitKeys: 'key-prefix' })`. Each dictionary is searched in
- * turn, supporting both the flat/nested key shapes and the lingui
- * `{ messages: {…} }` wrapper. The first match wins.
+ * `syncJSON({ splitKeys: 'key-prefix' })`. The dictionary named by the id's
+ * first segment is tried first with the remainder as key, then every
+ * dictionary with the full id, supporting both the flat/nested key shapes and
+ * the lingui `{ messages: {…} }` wrapper.
  */
 const lookupDictionaryMessage = (
   id: string,
   locale: LocalesValues
-): string | undefined => {
-  for (const key of getDictionaryKeys()) {
-    let dictionary: unknown;
+): unknown => {
+  const dictionaryKeys = getDictionaryKeys();
+  const dotPosition = id.indexOf('.');
+  const prefix = dotPosition === -1 ? id : id.slice(0, dotPosition);
+
+  const readDictionary = (key: DictionaryKeys): unknown => {
     try {
-      dictionary = getIntlayer(key, locale);
+      return getIntlayer(key, locale);
     } catch {
-      continue;
+      return undefined;
     }
-    const value = navigateLinguiCatalog(dictionary, id);
-    if (value !== undefined) return linguiMessageToIcu(value);
+  };
+
+  if (dictionaryKeys.includes(prefix as DictionaryKeys)) {
+    const value = navigateLinguiCatalog(
+      readDictionary(prefix as DictionaryKeys),
+      dotPosition === -1 ? '' : id.slice(dotPosition + 1)
+    );
+    if (value !== undefined) return value;
+  }
+
+  for (const key of dictionaryKeys) {
+    const value = navigateLinguiCatalog(readDictionary(key), id);
+    if (value !== undefined) return value;
   }
   return undefined;
 };
@@ -92,8 +105,11 @@ const collectRegistryMessages = (locale: LocalesValues): Messages => {
  * constructor by the unoptimized entry points only.
  */
 export type RegistryResolver = {
-  /** Resolves one message id, or `undefined` when no dictionary holds it. */
-  lookup: (id: string, locale: LocalesValues) => string | undefined;
+  /**
+   * Resolves one message id to its interpreted content node, or `undefined`
+   * when no dictionary holds it.
+   */
+  lookup: (id: string, locale: LocalesValues) => unknown;
   /** Every message available for a locale, flattened. */
   all: (locale: LocalesValues) => Messages;
 };
