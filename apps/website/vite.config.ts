@@ -1,4 +1,6 @@
 import crypto from 'node:crypto';
+import { copyFileSync, existsSync } from 'node:fs';
+import { createRequire } from 'node:module';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
@@ -255,6 +257,45 @@ const mdRawRewritePlugin = {
   },
 };
 
+/**
+ * Ensures `@vercel/og` has access to `hb.wasm`.
+ * `@vercel/og@1.0.2` bundles HarfBuzz via Satori, but omits `dist/hb.wasm`
+ * in its npm package distribution. This locates `hb.wasm` from HarfBuzz in
+ * node_modules and copies it to `@vercel/og/dist/hb.wasm` if missing.
+ */
+const ensureVercelOgWasm = () => {
+  try {
+    const require = createRequire(import.meta.url);
+    const ogDistDir = dirname(require.resolve('@vercel/og'));
+    const targetWasm = resolve(ogDistDir, 'hb.wasm');
+    if (!existsSync(targetWasm)) {
+      const ogPkg = require.resolve('@vercel/og/package.json');
+      const ogRequire = createRequire(ogPkg);
+      const satoriPkg = ogRequire.resolve('satori/package.json');
+      const satoriRequire = createRequire(satoriPkg);
+      const hbDir = dirname(satoriRequire.resolve('harfbuzzjs/package.json'));
+      const sourceWasm = resolve(hbDir, 'hb.wasm');
+      if (existsSync(sourceWasm)) {
+        copyFileSync(sourceWasm, targetWasm);
+      }
+    }
+  } catch {
+    // Non-fatal if dependencies are not yet installed
+  }
+};
+
+ensureVercelOgWasm();
+
+const vercelOgWasmPlugin = {
+  name: 'vercel-og-wasm',
+  configResolved() {
+    ensureVercelOgWasm();
+  },
+  buildStart() {
+    ensureVercelOgWasm();
+  },
+};
+
 export default defineConfig(async ({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
 
@@ -438,6 +479,7 @@ export default defineConfig(async ({ mode }) => {
       ],
     },
     plugins: [
+      vercelOgWasmPlugin,
       rawMarkdownPlugin,
       mdRawRewritePlugin,
       nitro({
