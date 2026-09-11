@@ -1,5 +1,5 @@
 import { getHTMLTextDir } from '@intlayer/core/localization';
-import { resolveMessage } from '@intlayer/core/messageFormat';
+import { resolveMessageNodeToString } from '@intlayer/core/messageFormat';
 import {
   getInterpolationValues,
   resolveTranslation,
@@ -133,11 +133,10 @@ export const createTranslationApi = ({
 
     const defaultValue = translateOptions.defaultValue;
     if (typeof defaultValue === 'string') {
-      return resolveMessage(
+      return resolveMessageNodeToString(
         defaultValue,
         getInterpolationValues(translateOptions),
-        locale,
-        'i18next'
+        locale
       );
     }
 

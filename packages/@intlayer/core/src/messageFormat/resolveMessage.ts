@@ -108,7 +108,8 @@ const formatArgument = (
  * Interpolates a message template with values.
  *
  * Handles, in order:
- * 1. Intlayer insertions `{{name}}` (whitespace-tolerant, dotted paths)
+ * 1. Intlayer insertions `{{name}}` (whitespace-tolerant, dotted paths),
+ *    optionally formatted the i18next way (`{{price, number}}`)
  * 2. ICU formatted arguments `{value, number}` / `{ts, date, long}`
  * 3. Bare single-brace arguments `{name}` (ICU / vue-i18n simple args)
  */
@@ -118,10 +119,16 @@ export const interpolateMessage = (
   locale: LocalesValues = 'en' as LocalesValues
 ): string =>
   template
-    .replace(/\{\{\s*([^{}]+?)\s*\}\}/g, (match, path: string) => {
-      const value = resolveValuePath(values, path);
-      return value === undefined ? match : String(value);
-    })
+    .replace(
+      /\{\{\s*([^{},]+?)\s*(?:,\s*(\w+)\s*(?:,\s*([^{}]+?)\s*)?)?\}\}/g,
+      (match, path: string, type: string | undefined, style?: string) => {
+        const value = resolveValuePath(values, path);
+        if (value === undefined) return match;
+        return type
+          ? formatArgument(value, type, style, locale)
+          : String(value);
+      }
+    )
     .replace(
       /\{\s*([\w.]+)\s*,\s*(\w+)\s*(?:,\s*([^}]+?)\s*)?\}/g,
       (match, path: string, type: string, style: string | undefined) => {
@@ -280,6 +287,25 @@ export const resolveMessageNode = (
   return node;
 };
 
+/**
+ * {@link resolveMessageNode} coerced to a string.
+ *
+ * This is the whole runtime a compat adapter needs for content that reached
+ * the bundle through a built dictionary: the build already converted every
+ * dialect construct into intlayer nodes, and the interpreter turned those into
+ * callables, so no message parser is involved. Plain strings still get
+ * `{{name}}` / `{name}` / `{value, number}` interpolation.
+ */
+export const resolveMessageNodeToString = (
+  node: unknown,
+  values: MessageValues = {},
+  locale: LocalesValues = 'en' as LocalesValues
+): string => {
+  const resolved = resolveMessageNode(node, values, locale);
+
+  return typeof resolved === 'string' ? resolved : String(resolved ?? '');
+};
+
 /** Converts a raw message string of one dialect into an intlayer node tree. */
 export type MessageFormatter = (message: string) => unknown;
 
@@ -308,13 +334,12 @@ export type MessageResolver = (
  */
 export const createMessageResolver =
   (formatter: MessageFormatter): MessageResolver =>
-  (message, values = {}, locale = 'en' as LocalesValues) => {
-    const node = typeof message === 'string' ? formatter(message) : message;
-
-    const resolved = resolveMessageNode(node, values, locale);
-
-    return typeof resolved === 'string' ? resolved : String(resolved ?? '');
-  };
+  (message, values = {}, locale = 'en' as LocalesValues) =>
+    resolveMessageNodeToString(
+      typeof message === 'string' ? formatter(message) : message,
+      values,
+      locale
+    );
 
 const DIALECT_FORMATTERS: Record<MessageFormatDialect, MessageFormatter> = {
   icu: icuToIntlayerFormatter,

@@ -13,7 +13,8 @@ import type {
   use as _use,
   i18n,
 } from 'i18next';
-import { createInstance, type TypedGetFixedT } from './createInstance';
+import { createInstance } from './createInstance';
+import type { TypedGetFixedT } from './typedTranslation';
 
 export { getDictionary } from './getDictionary';
 export { getDictionaryDynamic } from './getDictionaryDynamic';
@@ -61,7 +62,7 @@ export const changeLanguage: typeof _changeLanguage =
  */
 export const getFixedT: TypedGetFixedT = i18next.getFixedT.bind(
   i18next
-) as TypedGetFixedT;
+) as unknown as TypedGetFixedT;
 
 export const t: typeof _t = i18next.t.bind(i18next);
 export const exists: typeof _exists = i18next.exists.bind(i18next);

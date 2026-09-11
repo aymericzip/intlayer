@@ -2,7 +2,7 @@ import { getIntlayer } from '@intlayer/core/interpreter';
 import {
   type MessageValues,
   navigatePath,
-  resolveMessage,
+  resolveMessageNodeToString,
 } from '@intlayer/core/messageFormat';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
 import type {
@@ -265,11 +265,12 @@ export const resolveTranslation = ({
 
   const values = getInterpolationValues(options);
 
-  let resolved = resolveMessage(
+  // Dictionary content was converted to intlayer nodes at build time, so no
+  // i18next parser is needed here — which keeps it out of the app bundle.
+  let resolved = resolveMessageNodeToString(
     resolvedValue,
     values,
-    ((options?.lng as string) ?? locale) as LocalesValues,
-    'i18next'
+    ((options?.lng as string) ?? locale) as LocalesValues
   );
 
   // `$t(key)` nesting

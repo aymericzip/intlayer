@@ -7,7 +7,7 @@ import { getLocaleFromPath } from '@intlayer/core/localization';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { usePathname } from 'next/navigation';
 import type { NextIntlClientProvider as _NextIntlClientProvider } from 'next-intl';
-import { IntlayerClientProvider } from 'next-intlayer';
+import { IntlayerProvider } from 'next-intlayer';
 import type { ComponentProps } from 'react';
 
 /**
@@ -56,13 +56,13 @@ export const NextIntlClientProvider: typeof _NextIntlClientProvider = ({
   // This re-seeds the client locale context so client components re-render in
   // the new language instead of keeping the previous one.
   return (
-    <IntlayerClientProvider
+    <IntlayerProvider
       key={String(resolvedLocale)}
       locale={resolvedLocale}
       {...rest}
     >
       {children}
-    </IntlayerClientProvider>
+    </IntlayerProvider>
   );
 };
 

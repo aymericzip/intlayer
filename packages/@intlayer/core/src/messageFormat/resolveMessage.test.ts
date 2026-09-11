@@ -8,6 +8,7 @@ import {
   parseTaggedMessage,
   resolveMessage,
   resolveMessageNode,
+  resolveMessageNodeToString,
 } from './resolveMessage';
 
 describe('interpolateMessage', () => {
@@ -38,6 +39,15 @@ describe('interpolateMessage', () => {
   it('should keep unresolved placeholders untouched', () => {
     expect(interpolateMessage('Hello {{name}}!', {})).toBe('Hello {{name}}!');
     expect(interpolateMessage('Hello {name}!', {})).toBe('Hello {name}!');
+  });
+
+  it('should format i18next-style double-brace arguments', () => {
+    expect(
+      interpolateMessage('{{ratio, number, percent}}', { ratio: 0.5 }, 'en')
+    ).toBe('50%');
+    expect(
+      interpolateMessage('Total {{price, number}}', { price: 1234.5 }, 'en')
+    ).toBe('Total 1,234.5');
   });
 
   it('should format ICU number arguments', () => {
@@ -175,6 +185,37 @@ describe('resolveMessage', () => {
 
   it('should return plain strings unchanged when no syntax matches', () => {
     expect(resolveMessage('Just text', {}, 'en', 'icu')).toBe('Just text');
+  });
+});
+
+describe('resolveMessageNodeToString', () => {
+  it('should interpolate plain strings without a parser', () => {
+    expect(
+      resolveMessageNodeToString('Hello {{name}} / {name}', { name: 'John' })
+    ).toBe('Hello John / John');
+  });
+
+  it('should invoke interpreter callables with the values', () => {
+    const insertion = (values: { name: string }) => `Hello ${values.name}`;
+
+    expect(resolveMessageNodeToString(insertion, { name: 'John' })).toBe(
+      'Hello John'
+    );
+  });
+
+  it('should resolve build-converted nodes', () => {
+    expect(
+      resolveMessageNodeToString(
+        plural({ one: '{{count}} item', other: '{{count}} items' }),
+        { count: 2 },
+        'en'
+      )
+    ).toBe('2 items');
+  });
+
+  it('should coerce non-string results', () => {
+    expect(resolveMessageNodeToString(42)).toBe('42');
+    expect(resolveMessageNodeToString(undefined)).toBe('');
   });
 });
 

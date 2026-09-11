@@ -3,7 +3,7 @@ import {
   type MessageValues,
   navigatePath,
   parseTaggedMessage,
-  resolveMessage,
+  resolveMessageNodeToString,
   type TaggedMessageToken,
 } from '@intlayer/core/messageFormat';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
@@ -204,7 +204,9 @@ const createLookupTranslator = (
   ): string | undefined => {
     const rawValue = lookup(key);
     if (rawValue === null || rawValue === undefined) return undefined;
-    return resolveMessage(rawValue, values, locale, 'icu');
+    // Dictionary content was converted to intlayer nodes at build time, so no
+    // ICU parser is needed here — which keeps it out of the client bundle.
+    return resolveMessageNodeToString(rawValue, values, locale);
   };
 
   const translate = (key: string, values?: MessageValues): string =>

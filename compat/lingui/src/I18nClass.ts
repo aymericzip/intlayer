@@ -1,4 +1,7 @@
-import { resolveMessage } from '@intlayer/core/messageFormat';
+import {
+  createMessageResolver,
+  icuToIntlayerFormatter,
+} from '@intlayer/core/messageFormat';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import type {
   AllMessages,
@@ -16,6 +19,15 @@ import {
   unwrapLinguiCatalog,
 } from './linguiCatalog';
 import type { RegistryResolver } from './registryLookup';
+
+/**
+ * ICU-bound `resolveMessage`.
+ *
+ * Binding the converter here, instead of selecting it by dialect at runtime,
+ * leaves the other message-format parsers unreferenced so they tree-shake out
+ * of the app bundle.
+ */
+const resolveMessage = createMessageResolver(icuToIntlayerFormatter);
 
 /** Mirrors the unexported `Values` type from `@lingui/core`. */
 type Values = Record<string, unknown>;
@@ -269,8 +281,7 @@ export class I18nClass extends EventEmitter<LinguiEvents> {
       resolveMessage(
         template,
         resolvedValues as Record<string, string | number>,
-        this._locale as LocalesValues,
-        'icu'
+        this._locale as LocalesValues
       ) ?? id
     );
   }

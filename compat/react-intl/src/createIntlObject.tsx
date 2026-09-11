@@ -1,9 +1,10 @@
 import { getIntlayer } from '@intlayer/core/interpreter';
 import {
+  createMessageResolver,
+  icuToIntlayerFormatter,
   type MessageValues,
   navigatePath,
   parseTaggedMessage,
-  resolveMessage,
   type TaggedMessageToken,
 } from '@intlayer/core/messageFormat';
 import type {
@@ -12,6 +13,15 @@ import type {
 } from '@intlayer/types/module_augmentation';
 import { Fragment, type ReactNode } from 'react';
 import type { IntlShape, MessageDescriptor } from 'react-intl';
+
+/**
+ * ICU-bound `resolveMessage`.
+ *
+ * Binding the converter here, instead of selecting it by dialect at runtime,
+ * leaves the other message-format parsers unreferenced so they tree-shake out
+ * of the app bundle.
+ */
+const resolveMessage = createMessageResolver(icuToIntlayerFormatter);
 
 type RichRenderer = (chunks: ReactNode) => ReactNode;
 
@@ -109,15 +119,13 @@ export const createIntlObject = (
         resolveMessage(
           messageTemplate,
           (values ?? {}) as MessageValues,
-          locale,
-          'icu'
+          locale
         ) ?? id
       );
     }
 
     const { scalarValues, renderers } = splitRichValues(values);
-    const message =
-      resolveMessage(messageTemplate, scalarValues, locale, 'icu') ?? id;
+    const message = resolveMessage(messageTemplate, scalarValues, locale) ?? id;
     return renderRichTokens(parseTaggedMessage(message), renderers);
   };
 

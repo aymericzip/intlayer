@@ -1,7 +1,7 @@
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import type { appWithTranslation as _appWithTranslation } from 'next-i18next/pages';
+import { IntlayerProvider } from 'next-intlayer';
 import type * as React from 'react';
-import { IntlayerProvider } from 'react-intlayer';
 
 /**
  * Drop-in replacement for next-i18next's `appWithTranslation` HOC.

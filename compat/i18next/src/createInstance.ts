@@ -2,7 +2,11 @@ import { internationalization, log } from '@intlayer/config/built';
 import * as ANSIColors from '@intlayer/config/colors';
 import { colorize, getAppLogger } from '@intlayer/config/logger';
 import { getIntlayer } from '@intlayer/core/interpreter';
-import { navigatePath, resolveMessage } from '@intlayer/core/messageFormat';
+import { getHTMLTextDir } from '@intlayer/core/localization';
+import {
+  navigatePath,
+  resolveMessageNodeToString,
+} from '@intlayer/core/messageFormat';
 import type {
   DictionaryKeys,
   LocalesValues,
@@ -18,8 +22,6 @@ import {
   resolveTranslation,
 } from './resolveTranslation';
 import type { TypedGetFixedT } from './typedTranslation';
-
-export type { TypedGetFixedT } from './typedTranslation';
 
 type EventHandler = (...args: unknown[]) => void;
 
@@ -92,11 +94,13 @@ export const createInstance: typeof _createInstance = (
     const defaultValue = (options as Record<string, unknown> | undefined)
       ?.defaultValue;
     if (typeof defaultValue === 'string') {
-      return resolveMessage(
+      // A runtime default gets `{{name}}` / `{{price, number}}` interpolation only;
+      // dialect constructs (`$t()`, plural blocks) belong in dictionaries, where
+      // the build converts them — parsing them here would ship the parser.
+      return resolveMessageNodeToString(
         defaultValue,
         getInterpolationValues(options),
-        lang as LocalesValues,
-        'i18next'
+        lang as LocalesValues
       );
     }
 
@@ -178,23 +182,29 @@ export const createInstance: typeof _createInstance = (
       const defaultValue = (options as Record<string, unknown> | undefined)
         ?.defaultValue;
       if (typeof defaultValue === 'string') {
-        return resolveMessage(
+        // A runtime default gets `{{name}}` / `{{price, number}}` interpolation only;
+        // dialect constructs (`$t()`, plural blocks) belong in dictionaries, where
+        // the build converts them — parsing them here would ship the parser.
+        return resolveMessageNodeToString(
           defaultValue,
           getInterpolationValues(options),
-          currentLanguage as LocalesValues,
-          'i18next'
+          currentLanguage as LocalesValues
         );
       }
 
       return defaultValue ?? (Array.isArray(key) ? key[key.length - 1] : key);
     },
 
-    async changeLanguage(lng?: string, cb?: unknown) {
+    async changeLanguage(language?: string, cb?: unknown) {
       const prev = currentLanguage;
-      if (lng) currentLanguage = lng;
+
+      if (language) currentLanguage = language;
+
       emit('languageChanged', currentLanguage, prev);
       const t = instance.t.bind(instance);
+
       (cb as ((err: unknown, t: unknown) => void) | undefined)?.(null, t);
+
       return t as unknown as Promise<I18nInterface['t']>;
     },
 
@@ -225,14 +235,16 @@ export const createInstance: typeof _createInstance = (
      * ```
      */
     getFixedT: ((
-      lng: string | readonly string[] | null,
+      language: string | readonly string[] | null,
       ns?: string | null,
       keyPrefix?: string
     ) => {
-      const fixedLng = Array.isArray(lng)
-        ? ((lng[0] as string) ?? currentLanguage)
-        : ((lng as string) ?? currentLanguage);
+      const fixedLng = Array.isArray(language)
+        ? ((language[0] as string) ?? currentLanguage)
+        : ((language as string) ?? currentLanguage);
+
       const fixedNS = ns ?? defaultNS;
+
       return (key: string, opts?: TOptions): string => {
         const fullKey = keyPrefix ? `${keyPrefix}.${key}` : key;
         return resolveKey(fixedLng, fixedNS, fullKey, opts);
@@ -278,11 +290,11 @@ export const createInstance: typeof _createInstance = (
       return createInstance({ ...instanceOptions, ...opts });
     },
 
-    dir(lng?: string): 'ltr' | 'rtl' {
-      const rtl = ['ar', 'he', 'fa', 'ur', 'ps', 'yi', 'dv', 'ug'];
-      return rtl.some((l) => (lng ?? currentLanguage).startsWith(l))
-        ? 'rtl'
-        : 'ltr';
+    dir(language?: string): 'ltr' | 'rtl' {
+      const direction = getHTMLTextDir(
+        (language ?? currentLanguage) as LocalesValues
+      );
+      return direction === 'rtl' ? 'rtl' : 'ltr';
     },
 
     setDefaultNamespace(ns: string) {

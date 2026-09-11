@@ -1,22 +1,31 @@
 // @vitest-environment node
 import { describe, expect, it, vi } from 'vitest';
 
-vi.mock('@intlayer/core/interpreter', async (importOriginal) => ({
-  ...(await importOriginal<typeof import('@intlayer/core/interpreter')>()),
-  getIntlayer: vi.fn((dictionaryKey: string, _locale: string) => {
-    if (dictionaryKey === 'about') {
-      return {
-        title: 'About',
-        counter: { label: 'Counter' },
-        items: '{count, plural, one {# item} other {# items}}',
-        greeting: 'Hello {name}',
-        gender: '{gender, select, male {He} female {She} other {They}}',
-        terms: 'Accept the <link>terms</link> now',
-      };
-    }
-    throw new Error('Dictionary not found');
-  }),
-}));
+vi.mock('@intlayer/core/interpreter', async (importOriginal) => {
+  const { icuToIntlayerFormatter } = await import(
+    '@intlayer/core/messageFormat'
+  );
+
+  // What `getIntlayer` hands the translator for an ICU-formatted dictionary:
+  // the build already ran the ICU converter, so the content is intlayer nodes
+  // — never raw ICU strings, which is why the translator ships no parser.
+  const aboutContent = icuToIntlayerFormatter({
+    title: 'About',
+    counter: { label: 'Counter' },
+    items: '{count, plural, one {# item} other {# items}}',
+    greeting: 'Hello {name}',
+    gender: '{gender, select, male {He} female {She} other {They}}',
+    terms: 'Accept the <link>terms</link> now',
+  });
+
+  return {
+    ...(await importOriginal<typeof import('@intlayer/core/interpreter')>()),
+    getIntlayer: vi.fn((dictionaryKey: string, _locale: string) => {
+      if (dictionaryKey === 'about') return aboutContent;
+      throw new Error('Dictionary not found');
+    }),
+  };
+});
 
 import { createNamespaceTranslator } from './namespaceTranslator';
 
