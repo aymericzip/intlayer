@@ -124,6 +124,14 @@ export const installIntlayer = (
       .catch(() => {});
   }
 
+  if (process.env.INTLAYER_DEVTOOLS_ENABLED !== 'false') {
+    import('../devtools')
+      .then(({ enableIntlayerDevtools }) => {
+        enableIntlayerDevtools(app);
+      })
+      .catch(() => {});
+  }
+
   return app;
 };
 
