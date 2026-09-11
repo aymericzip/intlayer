@@ -597,6 +597,30 @@ const blogDataContent: Dictionary = {
           }),
           default: getBlogMetadata('./blog/en/i18n_meaning.md'),
         },
+
+        'history-of-js-i18n': {
+          title: t({
+            en: 'The History of JavaScript i18n: From 2011 to 2026',
+            'en-GB': 'The History of JavaScript i18n: From 2011 to 2026',
+            fr: "L'histoire de l'i18n en JavaScript : de 2011 à 2026",
+            es: 'La historia de i18n en JavaScript: de 2011 a 2026',
+            de: 'Die Geschichte von JavaScript-i18n: Von 2011 bis 2026',
+            ja: 'JavaScript i18nの歴史：2011年から2026年まで',
+            ko: 'JavaScript i18n의 역사: 2011년부터 2026년까지',
+            zh: 'JavaScript i18n 的历史：从 2011 到 2026 年',
+            it: "La storia dell'i18n in JavaScript: dal 2011 al 2026",
+            pt: 'A história do i18n no JavaScript: de 2011 a 2026',
+            hi: 'जावास्क्रिप्ट i18n का इतिहास: 2011 से 2026 तक',
+            ar: 'تاريخ تدويل جافاسكريبت (i18n): من 2011 إلى 2026',
+            ru: 'История JavaScript i18n: с 2011 по 2026 год',
+            tr: "JavaScript i18n'in Tarihi: 2011'den 2026'ya",
+            pl: 'Historia JavaScript i18n: od 2011 do 2026 roku',
+            id: 'Sejarah i18n JavaScript: Dari 2011 hingga 2026',
+            vi: 'Lịch sử i18n trong JavaScript: Từ 2011 đến 2026',
+            uk: 'Історія JavaScript i18n: з 2011 по 2026 рік',
+          }),
+          default: getBlogMetadata('./blog/en/history_of_i18n.md'),
+        },
         'icu-message-format': {
           title: 'ICU Message Format',
           default: getBlogMetadata('./blog/en/icu_message_format.md'),
@@ -948,30 +972,6 @@ const blogDataContent: Dictionary = {
       default: getBlogMetadata(
         './blog/en/transform_existing_vite_react_app_using_compiler.md'
       ),
-    },
-
-    'history-of-js-i18n': {
-      title: t({
-        en: 'The History of JavaScript i18n: From 2011 to 2026',
-        'en-GB': 'The History of JavaScript i18n: From 2011 to 2026',
-        fr: "L'histoire de l'i18n en JavaScript : de 2011 à 2026",
-        es: 'La historia de i18n en JavaScript: de 2011 a 2026',
-        de: 'Die Geschichte von JavaScript-i18n: Von 2011 bis 2026',
-        ja: 'JavaScript i18nの歴史：2011年から2026年まで',
-        ko: 'JavaScript i18n의 역사: 2011년부터 2026년까지',
-        zh: 'JavaScript i18n 的历史：从 2011 到 2026 年',
-        it: "La storia dell'i18n in JavaScript: dal 2011 al 2026",
-        pt: 'A história do i18n no JavaScript: de 2011 a 2026',
-        hi: 'जावास्क्रिप्ट i18n का इतिहास: 2011 से 2026 तक',
-        ar: 'تاريخ تدويل جافاسكريبت (i18n): من 2011 إلى 2026',
-        ru: 'История JavaScript i18n: с 2011 по 2026 год',
-        tr: "JavaScript i18n'in Tarihi: 2011'den 2026'ya",
-        pl: 'Historia JavaScript i18n: od 2011 do 2026 roku',
-        id: 'Sejarah i18n JavaScript: Dari 2011 hingga 2026',
-        vi: 'Lịch sử i18n trong JavaScript: Từ 2011 đến 2026',
-        uk: 'Історія JavaScript i18n: з 2011 по 2026 рік',
-      }),
-      default: getBlogMetadata('./blog/en/history_of_i18n.md'),
     },
   },
 } satisfies Dictionary;
