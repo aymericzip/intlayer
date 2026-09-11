@@ -51,7 +51,6 @@ const getOgBuffer = (
   if (cached) return cached;
 
   const bufferPromise = generateOgImage({ title, description })
-    .arrayBuffer()
     // A failed render must not be cached, or the error is served forever.
     .catch((error: unknown) => {
       ogImageCache.delete(cacheKey);

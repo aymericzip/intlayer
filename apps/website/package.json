@@ -62,12 +62,12 @@
     "@intlayer/editor-react": "workspace:*",
     "@intlayer/types": "workspace:*",
     "@intlayer/unmerged-dictionaries-entry": "workspace:*",
+    "@resvg/resvg-wasm": "2.6.2",
     "@shikijs/transformers": "4.4.3",
     "@tanstack/react-query": "5.102.8",
     "@tanstack/react-router": "1.170.33",
     "@tanstack/react-start": "1.168.50",
     "@tanstack/start-static-server-functions": "1.167.33",
-    "@vercel/og": "1.0.2",
     "chart.js": "4.5.1",
     "defu": "6.1.7",
     "framer-motion": "13.2.0",
@@ -81,6 +81,7 @@
     "react-dom": "19.3.0",
     "react-intlayer": "workspace:*",
     "rss": "1.2.2",
+    "satori": "0.33.4",
     "shiki": "4.4.3",
     "zod": "4.6.0"
   },
@@ -104,7 +105,6 @@
     "typescript": "7.0.2",
     "vite": "8.2.2",
     "vite-intlayer": "workspace:*",
-    "vite-plugin-wasm": "3.6.0",
     "workbox-build": "7.4.1"
   },
   "peerDependencies": {

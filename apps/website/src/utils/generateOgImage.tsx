@@ -1,4 +1,7 @@
-import { ImageResponse } from '@vercel/og';
+import { readFile } from 'node:fs/promises';
+import { createRequire } from 'node:module';
+import { initWasm, Resvg } from '@resvg/resvg-wasm';
+import satori, { type Font } from 'satori';
 import {
   FONT_GEIST_BOLD_BASE64,
   FONT_GEIST_REGULAR_BASE64,
@@ -10,12 +13,10 @@ export const DEFAULT_OG_TITLE =
 
 export const DEFAULT_OG_DESCRIPTION = '';
 
-let cachedFonts:
-  | [
-      { name: string; data: ArrayBuffer; weight: 400; style: 'normal' },
-      { name: string; data: ArrayBuffer; weight: 800; style: 'normal' },
-    ]
-  | null = null;
+const OG_WIDTH = 1200;
+const OG_HEIGHT = 630;
+
+let cachedFonts: Font[] | null = null;
 
 let cachedBackgroundSrc: string | null = null;
 
@@ -24,7 +25,7 @@ const toArrayBuffer = (base64: string): ArrayBuffer => {
   return buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.byteLength);
 };
 
-const getFonts = () => {
+const getFonts = (): Font[] => {
   if (!cachedFonts) {
     cachedFonts = [
       {
@@ -51,15 +52,38 @@ const getBackgroundSrc = () => {
   return cachedBackgroundSrc;
 };
 
+let resvgReady: Promise<void> | null = null;
+
+/**
+ * Loads the resvg WebAssembly binary once. The package ships it as a plain
+ * file, so it is read from wherever the package resolves to at runtime — the
+ * local `node_modules` in dev, the traced copy under `.output/server` in prod.
+ */
+const ensureResvg = (): Promise<void> => {
+  if (!resvgReady) {
+    resvgReady = (async () => {
+      const require = createRequire(import.meta.url);
+      const wasmPath = require.resolve('@resvg/resvg-wasm/index_bg.wasm');
+      await initWasm(readFile(wasmPath));
+    })().catch((error: unknown) => {
+      // A failed load must not be memoised, or every render fails forever.
+      resvgReady = null;
+      throw error;
+    });
+  }
+  return resvgReady;
+};
+
 export type GenerateOgImageOptions = {
   title?: string;
   description?: string;
 };
 
-export const generateOgImage = ({
+/** Renders the Open Graph card to a PNG buffer. */
+export const generateOgImage = async ({
   title = DEFAULT_OG_TITLE,
   description = DEFAULT_OG_DESCRIPTION,
-}: GenerateOgImageOptions = {}): ImageResponse => {
+}: GenerateOgImageOptions = {}): Promise<ArrayBuffer> => {
   const fonts = getFonts();
   const bgSrc = getBackgroundSrc();
 
@@ -79,7 +103,7 @@ export const generateOgImage = ({
     titleFontSize = 56;
   }
 
-  return new ImageResponse(
+  const svg = await satori(
     <div
       style={{
         display: 'flex',
@@ -141,9 +165,28 @@ export const generateOgImage = ({
       </div>
     </div>,
     {
-      width: 1200,
-      height: 630,
+      width: OG_WIDTH,
+      height: OG_HEIGHT,
       fonts,
     }
   );
+
+  await ensureResvg();
+  const renderer = new Resvg(svg, {
+    fitTo: { mode: 'width', value: OG_WIDTH },
+  });
+  try {
+    const png = renderer.render();
+    try {
+      const bytes = png.asPng();
+      return bytes.buffer.slice(
+        bytes.byteOffset,
+        bytes.byteOffset + bytes.byteLength
+      ) as ArrayBuffer;
+    } finally {
+      png.free();
+    }
+  } finally {
+    renderer.free();
+  }
 };

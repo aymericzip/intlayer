@@ -1,6 +1,4 @@
 import crypto from 'node:crypto';
-import { copyFileSync, existsSync } from 'node:fs';
-import { createRequire } from 'node:module';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
@@ -20,7 +18,6 @@ import { nitro } from 'nitro/vite';
 import { visualizer } from 'rollup-plugin-visualizer';
 import { defineConfig, loadEnv } from 'vite';
 import { intlayer } from 'vite-intlayer';
-import wasm from 'vite-plugin-wasm';
 import {
   buildDynamicPrerenderPaths,
   staticPrerenderPaths,
@@ -257,45 +254,6 @@ const mdRawRewritePlugin = {
   },
 };
 
-/**
- * Ensures `@vercel/og` has access to `hb.wasm`.
- * `@vercel/og@1.0.2` bundles HarfBuzz via Satori, but omits `dist/hb.wasm`
- * in its npm package distribution. This locates `hb.wasm` from HarfBuzz in
- * node_modules and copies it to `@vercel/og/dist/hb.wasm` if missing.
- */
-const ensureVercelOgWasm = () => {
-  try {
-    const require = createRequire(import.meta.url);
-    const ogDistDir = dirname(require.resolve('@vercel/og'));
-    const targetWasm = resolve(ogDistDir, 'hb.wasm');
-    if (!existsSync(targetWasm)) {
-      const ogPkg = require.resolve('@vercel/og/package.json');
-      const ogRequire = createRequire(ogPkg);
-      const satoriPkg = ogRequire.resolve('satori/package.json');
-      const satoriRequire = createRequire(satoriPkg);
-      const hbDir = dirname(satoriRequire.resolve('harfbuzzjs/package.json'));
-      const sourceWasm = resolve(hbDir, 'hb.wasm');
-      if (existsSync(sourceWasm)) {
-        copyFileSync(sourceWasm, targetWasm);
-      }
-    }
-  } catch {
-    // Non-fatal if dependencies are not yet installed
-  }
-};
-
-ensureVercelOgWasm();
-
-const vercelOgWasmPlugin = {
-  name: 'vercel-og-wasm',
-  configResolved() {
-    ensureVercelOgWasm();
-  },
-  buildStart() {
-    ensureVercelOgWasm();
-  },
-};
-
 export default defineConfig(async ({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
 
@@ -479,12 +437,12 @@ export default defineConfig(async ({ mode }) => {
       ],
     },
     plugins: [
-      vercelOgWasmPlugin,
       rawMarkdownPlugin,
       mdRawRewritePlugin,
       nitro({
         preset: 'bun',
         serverDir: resolve(__dirname, 'server'),
+        traceDeps: ['harfbuzzjs*', '@resvg/resvg-wasm*'],
         routeRules: {
           '/**': { headers },
           '/assets/**': { headers: immutableAssetHeaders },
@@ -543,14 +501,10 @@ export default defineConfig(async ({ mode }) => {
         pages: isPrerenderDisabled ? [] : localizedPages,
       }),
       react({ compiler: true }),
-      wasm(),
       // visualizer(),
     ],
     build: {
       minify: true,
-      rolldownOptions: {
-        external: ['wasi_snapshot_preview1', 'env'],
-      },
     },
     environments: {
       client: {
