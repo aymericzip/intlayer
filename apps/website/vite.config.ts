@@ -392,7 +392,7 @@ export default defineConfig(async ({ mode }) => {
     'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
     'X-Frame-Options': 'SAMEORIGIN',
     'X-XSS-Protection': '0',
-    'Permissions-Policy': 'fullscreen=(self)',
+    'Permissions-Policy': 'fullscreen=(self "https://www.youtube.com")',
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
     'Access-Control-Allow-Headers':

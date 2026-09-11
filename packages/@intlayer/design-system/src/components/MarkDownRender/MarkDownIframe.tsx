@@ -5,7 +5,7 @@ import { Container } from '@components/Container';
 import { Link } from '@components/Link';
 import { Modal } from '@components/Modal';
 import { cn } from '@utils/cn';
-import { MoveDiagonal, Play } from 'lucide-react';
+import { MoveDiagonal } from 'lucide-react';
 import {
   type ComponentProps,
   type FC,
@@ -13,12 +13,73 @@ import {
   useRef,
   useState,
 } from 'react';
+import {
+  getYoutubeEmbedUrl,
+  getYoutubeVideoId,
+  getYoutubeWatchUrl,
+} from './youtubeUrl';
 
-function embedLinkMeta(src: string | undefined): {
-  href: string;
-  label: string;
-} {
+type FrameProps = Omit<ComponentProps<'iframe'>, 'src' | 'title' | 'className'>;
+
+/**
+ * The features the YouTube player asks for, as shipped by YouTube's own embed code.
+ */
+const YOUTUBE_PLAYER_ALLOW =
+  'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+
+type ResolvedFrame = {
+  src: string | undefined;
+  frameProps: FrameProps;
+  isYoutubeVideo: boolean;
+};
+
+/**
+ * Turns whatever the markdown handed over into what the frame is rendered with.
+ *
+ * A YouTube address, in any of its forms, becomes the player embed carrying
+ * the attributes YouTube's own embed code ships with. Query parameters are
+ * dropped on purpose: docs written for one origin (`origin=…`) break the
+ * player on every other one.
+ *
+ * `referrerPolicy` is the attribute that matters: the player refuses to start
+ * ("Video player configuration error", error 153) unless the request carries
+ * a referrer, and a page served with `Referrer-Policy: same-origin` sends none
+ * to a cross-origin frame. The attribute overrides the page policy for this
+ * frame only.
+ */
+const resolveFrame = (
+  src: string | undefined,
+  frameProps: FrameProps
+): ResolvedFrame => {
+  const youtubeVideoId = getYoutubeVideoId(src);
+
+  if (!youtubeVideoId) return { src, frameProps, isYoutubeVideo: false };
+
+  return {
+    isYoutubeVideo: true,
+    src: getYoutubeEmbedUrl(youtubeVideoId),
+    frameProps: {
+      ...frameProps,
+      allow: YOUTUBE_PLAYER_ALLOW,
+      allowFullScreen: true,
+      referrerPolicy: 'strict-origin-when-cross-origin',
+    },
+  };
+};
+
+const getEmbedLinkMeta = (
+  src: string | undefined
+): { href: string; label: string } => {
   if (!src) return { href: '', label: '' };
+
+  const youtubeVideoId = getYoutubeVideoId(src);
+  if (youtubeVideoId) {
+    return {
+      href: getYoutubeWatchUrl(youtubeVideoId),
+      label: 'youtube.com',
+    };
+  }
+
   if (/^https?:\/\//i.test(src)) {
     try {
       const url = new URL(src);
@@ -27,27 +88,8 @@ function embedLinkMeta(src: string | undefined): {
       return { href: src, label: src };
     }
   }
+
   return { href: src, label: src };
-}
-
-/**
- * Reads the video id out of a YouTube embed address.
- *
- * @returns The video id, or `null` when the address is not a YouTube embed.
- */
-const getYoutubeVideoId = (src: string | undefined): string | null => {
-  if (!src || !/^https?:\/\//i.test(src)) return null;
-
-  try {
-    const url = new URL(src);
-    if (!/(^|\.)youtube(-nocookie)?\.com$/.test(url.hostname)) return null;
-
-    const videoId = url.pathname.replace(/^\/embed\//, '').split('/')[0];
-
-    return videoId || null;
-  } catch {
-    return null;
-  }
 };
 
 /**
@@ -94,19 +136,13 @@ const useHasBecomeVisible = <ElementType extends HTMLElement>() => {
   return { elementRef, hasBecomeVisible };
 };
 
-type EmbeddedFrameProps = {
-  src: string | undefined;
+type EmbeddedFrameProps = Pick<ResolvedFrame, 'src' | 'frameProps'> & {
   title: string | undefined;
   className: string;
-  frameProps: Omit<ComponentProps<'iframe'>, 'src' | 'title' | 'className'>;
 };
 
 /**
- * The embed itself: a poster for YouTube, deferred loading for anything else.
- *
- * A YouTube player pulls well over a megabyte of script before it can show a
- * single frame. Standing in for it with its own thumbnail until the reader
- * presses play keeps that cost on the readers who actually watch the video.
+ * The embed itself, mounted once it comes close to the viewport.
  */
 const EmbeddedFrame: FC<EmbeddedFrameProps> = ({
   src,
@@ -114,74 +150,18 @@ const EmbeddedFrame: FC<EmbeddedFrameProps> = ({
   className,
   frameProps,
 }) => {
-  const [isPlayRequested, setIsPlayRequested] = useState(false);
   const { elementRef, hasBecomeVisible } =
     useHasBecomeVisible<HTMLDivElement>();
-  const youtubeVideoId = getYoutubeVideoId(src);
 
-  if (youtubeVideoId && !isPlayRequested) {
-    return (
-      <button
-        type="button"
-        aria-label={title ?? 'Play video'}
-        onClick={() => setIsPlayRequested(true)}
-        className={cn(
-          'group relative block cursor-pointer border-0 bg-card p-0',
-          className
-        )}
-      >
-        {/*
-         * The poster stands in for the player, so on a page that opens with a
-         * video it is the largest element painted — deferring it would defer
-         * the page's LCP. It is the one image here worth fetching eagerly.
-         */}
-        <picture>
-          {/*
-           * YouTube serves the same poster as WebP under `vi_webp`, at roughly
-           * a third of the JPEG's weight. The `img` below stays as the
-           * fallback for the browsers that cannot decode it.
-           */}
-          <source
-            srcSet={`https://i.ytimg.com/vi_webp/${youtubeVideoId}/hqdefault.webp`}
-            type="image/webp"
-          />
-          <img
-            src={`https://i.ytimg.com/vi/${youtubeVideoId}/hqdefault.jpg`}
-            alt=""
-            width={480}
-            height={360}
-            fetchPriority="high"
-            decoding="async"
-            className="size-full object-cover"
-          />
-        </picture>
-        <span className="absolute inset-0 flex items-center justify-center">
-          <span className="flex size-14 items-center justify-center rounded-full bg-text/70 text-text-opposite transition-transform group-hover:scale-110">
-            <Play className="size-6 translate-x-0.5 fill-current" />
-          </span>
-        </span>
-      </button>
-    );
-  }
-
-  if (!hasBecomeVisible && !isPlayRequested) {
+  if (!hasBecomeVisible) {
     // Same box as the frame it stands in for, so nothing shifts once it loads.
     return <div ref={elementRef} aria-hidden className={className} />;
   }
 
-  const frameSrc = (() => {
-    if (!isPlayRequested || !youtubeVideoId || !src) return src;
-
-    const playbackSrc = new URL(src);
-    playbackSrc.searchParams.set('autoplay', '1');
-
-    return playbackSrc.href;
-  })();
-
   return (
     <iframe
       {...frameProps}
-      src={frameSrc}
+      src={src}
       title={title}
       loading="lazy"
       className={className}
@@ -190,9 +170,10 @@ const EmbeddedFrame: FC<EmbeddedFrameProps> = ({
 };
 
 export const MarkDownIframe: FC<ComponentProps<'iframe'>> = (props) => {
-  const { src, className, title, ...rest } = props;
+  const { src: rawSrc, className, title, ...rest } = props;
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { href, label } = embedLinkMeta(src);
+  const { src, frameProps, isYoutubeVideo } = resolveFrame(rawSrc, rest);
+  const { href, label } = getEmbedLinkMeta(rawSrc);
 
   return (
     <Container
@@ -205,9 +186,10 @@ export const MarkDownIframe: FC<ComponentProps<'iframe'>> = (props) => {
       <EmbeddedFrame
         src={src}
         title={title}
-        frameProps={rest}
+        frameProps={frameProps}
         className={cn(
           'block max-h-[80vh] min-h-[12rem] w-full border-0',
+          isYoutubeVideo && 'aspect-video',
           className
         )}
       />
@@ -252,7 +234,7 @@ export const MarkDownIframe: FC<ComponentProps<'iframe'>> = (props) => {
             gap="none"
           >
             <iframe
-              {...rest}
+              {...frameProps}
               src={src}
               title={title ?? 'Embedded content'}
               allowFullScreen
