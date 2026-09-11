@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-09
-updatedAt: 2026-09-09
+updatedAt: 2026-09-11
 title: "Remix 3 i18n - 完整的应用多语言国际化翻译指南"
 description: "告别 i18next。2026 年构建多语言 (i18n) Remix 3 应用的权威指南。借助 AI 智能体完成翻译，并优化打包体积、SEO 和性能。"
 keywords:
@@ -27,15 +27,15 @@ author: aymericzip
 
 # 使用 Intlayer 翻译您的 Remix 3 网站 | 国际化 (i18n)
 
-本指南演示了如何将 **Intlayer** 集成到 **Remix 3** 应用中以实现无缝的国际化，涵盖基于语言的路由、类型安全的内容声明、安全的 HTML 模板以及对 Node.js、Bun、Deno 和 Cloudflare Workers 的跨运行时支持。
+本指南演示了如何将 **Intlayer** 集成到 **Remix 3** 应用中以实现无缝的国际化，涵盖基于语言的路由、类型安全的内容声明、服务端渲染的 JSX 组件以及对 Node.js、Bun、Deno 和 Cloudflare Workers 的跨运行时支持。
 
 ## 什么是 Remix 3？
 
 **Remix 3** 代表了一次根本性的架构演进，转向**完全构建在 Web 标准之上、可组合且与运行时解耦的 Web 框架**。Remix 3 不再与特定的打包器或专有服务器 API 绑定，而是以单一职责的可组合包形式发布：
 
 - **`remix/fetch-router`** (或 `remix/router`): 基于 Fetch API (`Request` 与 `Response`) 构建的轻量且符合规范的路由。
-- **`remix/html-template`**: 具备自动 XSS 防护与片段组合能力的安全性 HTML 模板字符串。
-- **`remix/response/html`**: 具有标准 HTTP 语义的 HTML 响应辅助函数。
+- **`remix/ui`**: JSX 组件模型 (`jsxImportSource: "remix/ui"`)。组件是一个接收 Handle 并返回渲染函数的设置函数，外观类似 React，但状态保存在纯 JavaScript 闭包中。
+- **`remix/middleware/render`**: 为每个请求挂载 `context.render(<Page />)`，将 JSX 树以流式传输转换为 HTML `Response`。
 - **`remix/node-fetch-server`**: Node.js 服务器适配器，原生支持 Bun、Deno 与边缘运行时。
 - **`remix/cookie`**: 具备加密安全性的 Cookie 解析与序列化工具。
 
@@ -62,7 +62,7 @@ Intlayer 原生适配 Web 标准（`Request`、`Response`、`Headers` 和 `URL`�
 </Accordion>
 <Accordion header="服务端零打包体积开销">
 
-使用 Remix 3 的服务端渲染 HTML 模板 (`remix/html-template`) 时，仅会将对应请求语言解析后的纯文本写入输出流。除非显式需要，否则无需客户端注水包或笨重的翻译字典。
+Remix 3 在服务端渲染 JSX 组件并将 HTML 流式传输至客户端。仅会将对应请求语言解析后的纯文本写入输出流。除非组件被显式标记为 `clientEntry`，否则无需客户端注水包或笨重的翻译字典。
 
 </Accordion>
 <Accordion header="原生支持 AI 智能体与自动化">
@@ -128,7 +128,7 @@ bun add intlayer remix@next
 ```
 
 - **`intlayer`**: 核心国际化引擎，负责配置管理、字典声明 (`t()`, `Dictionary`)、CLI 工具和运行时解释器。
-- **`remix`**: 统一的 Remix 3 框架包，导出 `remix/router`、`remix/routes`、`remix/html-template` 以及 `remix/node-fetch-server`。
+- **`remix`**: 统一的 Remix 3 框架包，导出 `remix/router`、`remix/routes`、`remix/ui`、`remix/middleware/render` 以及 `remix/node-fetch-server`。
 
 </Step>
 <Step number={2} title="配置 Intlayer">
@@ -338,80 +338,108 @@ routes.localizedHome.href({ locale: "zh" }); // "/zh"
 ```
 
 </Step>
-<Step number={7} title="渲染本地化 HTML 模板">
+<Step number={7} title="使用 JSX 渲染本地化页面">
 
-Remix 3 使用 `remix/html-template` 进行安全且自动转义的 HTML 生成。创建视图函数，使用 `getIntlayer` 提取本地化字典，设置 `<html lang="..." dir="...">` 属性并展示语言切换器：
+Remix 3 使用来自 `remix/ui` 的 JSX 组件渲染 UI。组件是一个接收 `Handle` 并返回**渲染函数**的**设置函数**。设置函数每个实例仅执行一次，渲染函数在每次更新时执行，并通过 `handle.props` 读取属性。
 
-```typescript fileName="src/views/home.ts" codeFormat={["typescript", "esm"]}
-import { html, type SafeHtml } from "remix/html-template";
+首先创建一个共享的 `Document` 外壳，根据解析出的语言设置 `<html lang="..." dir="...">` 属性：
+
+```tsx fileName="src/views/document.tsx" codeFormat={["typescript", "esm"]}
+import { getHTMLTextDir, type Locale } from "intlayer";
+import type { Handle, RemixNode } from "remix/ui";
+
+type DocumentProps = {
+  locale: Locale;
+  title: string;
+  children?: RemixNode;
+};
+
+export const Document = (handle: Handle<DocumentProps>) => () => {
+  const { locale, title, children } = handle.props;
+
+  return (
+    <html lang={locale} dir={getHTMLTextDir(locale)}>
+      <head>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>{title}</title>
+      </head>
+      <body>{children}</body>
+    </html>
+  );
+};
+```
+
+接着创建首页。使用 `getIntlayer` 提取本地化字典，并展示语言切换器：
+
+```tsx fileName="src/views/home.tsx" codeFormat={["typescript", "esm"]}
 import {
   getIntlayer,
-  getHTMLTextDir,
   getLocaleName,
   getLocalizedPath,
   type Locale,
   locales,
 } from "intlayer";
+import type { Handle } from "remix/ui";
 import { routes } from "../routes";
+import { Document } from "./document";
 
-export const renderHomePage = (locale: Locale): SafeHtml => {
+type HomePageProps = {
+  locale: Locale;
+};
+
+export const HomePage = (handle: Handle<HomePageProps>) => () => {
+  const { locale } = handle.props;
   const home = getIntlayer("home", locale);
 
-  return html`
-    <!doctype html>
-    <html lang="${locale}" dir="${getHTMLTextDir(locale)}">
-      <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>${home.title}</title>
-      </head>
-      <body>
-        <header>
-          <nav aria-label="Languages">
-            <span>${home.switchLanguage}</span>
-            ${locales.map((loc) => {
-              const href = getLocalizedPath(routes.home.href(), loc);
-              const isActive = loc === locale;
-              return html`
-                <a
-                  href="${href}"
-                  class="${isActive ? "active" : ""}"
-                  aria-current="${isActive ? "true" : "false"}"
-                >
-                  ${getLocaleName(loc, locale)}
-                </a>
-              `;
-            })}
-          </nav>
-        </header>
-        <main>
-          <h1>${home.title}</h1>
-          <p>${home.description}</p>
-        </main>
-      </body>
-    </html>
-  `;
+  return (
+    <Document locale={locale} title={home.title}>
+      <header>
+        <nav aria-label="Languages">
+          <span>{home.switchLanguage}</span>
+          {locales.map((targetLocale) => {
+            const isActive = targetLocale === locale;
+
+            return (
+              <a
+                key={targetLocale}
+                href={getLocalizedPath(routes.home.href(), targetLocale)}
+                class={isActive ? "active" : undefined}
+                aria-current={isActive ? "page" : undefined}
+              >
+                {getLocaleName(targetLocale, locale)}
+              </a>
+            );
+          })}
+        </nav>
+      </header>
+      <main>
+        <h1>{home.title}</h1>
+        <p>{home.description}</p>
+      </main>
+    </Document>
+  );
 };
 ```
 
+> Remix JSX 并非 React：没有 Hook，`class` 直接按原样书写（同时也支持 `className`），且通过 `handle.update()` 显式触发重新渲染。插值内容会自动进行安全转义。
+
 </Step>
-<Step number={8} title="串联服务器应用">
+<Step number={8} title="串联路由器与服务器">
 
-在 `src/server.ts` 中连接路由器、中间件和路由操作：
+在 Intlayer 中间件旁添加来自 `remix/middleware/render` 的 `render()` 中间件。它会在每个请求上挂载 `context.render(node, init)`，将 JSX 树流式转换为 HTML `Response`（在最前添加 `<!DOCTYPE html>` 并设置 `Content-Type` 请求头）：
 
-```typescript fileName="src/server.ts" codeFormat={["typescript", "esm"]}
-import * as http from "node:http";
-import { createRouter } from "remix/router";
-import { createRequestListener } from "remix/node-fetch-server";
-import { createHtmlResponse } from "remix/response/html";
+```tsx fileName="src/router.tsx" codeFormat={["typescript", "esm"]}
 import { isDeclaredLocale } from "intlayer";
+import { render } from "remix/middleware/render";
+import { createRouter } from "remix/router";
 import { intlayer, localeKey } from "./middleware/intlayer";
 import { routes } from "./routes";
-import { renderHomePage } from "./views/home";
+import { HomePage } from "./views/home";
 
-// 1. 使用 Intlayer 中间件初始化路由器
+// 1. 使用 Intlayer + render 中间件初始化路由器
 export const router = createRouter({
-  middleware: [intlayer()],
+  middleware: [intlayer(), render()],
 });
 
 // 2. 映射路由处理函数
@@ -420,7 +448,7 @@ router.map(routes, {
     // 默认语言路由
     home(context) {
       const locale = context.get(localeKey);
-      return createHtmlResponse(renderHomePage(locale));
+      return context.render(<HomePage locale={locale} />);
     },
 
     // 本地化语言路由
@@ -429,13 +457,24 @@ router.map(routes, {
         return new Response("Not Found", { status: 404 });
       }
       const locale = context.get(localeKey);
-      return createHtmlResponse(renderHomePage(locale));
+      return context.render(<HomePage locale={locale} />);
     },
   },
 });
+```
 
-// 3. 启动服务器
+> `context.render` 支持传入可选的 `ResponseInit` 作为第二参数，例如：`context.render(<NotFoundPage locale={locale} />, { status: 404 })`。
+
+最后，通过标准 `fetch` 处理函数暴露路由器。同一个路由器可无缝运行在 Node.js、Bun、Deno 及 Cloudflare Workers 上：
+
+```typescript fileName="src/server.ts" codeFormat={["typescript", "esm"]}
+import * as http from "node:http";
+import { createRequestListener } from "remix/node-fetch-server";
+import { router } from "./router";
+
 const PORT = Number(process.env.PORT || 3000);
+
+// Node.js
 const server = http.createServer(
   createRequestListener((request) => router.fetch(request))
 );
@@ -444,6 +483,7 @@ server.listen(PORT, () => {
   console.log(`服务器运行在 http://localhost:${PORT}`);
 });
 
+// Bun / Deno / Cloudflare Workers
 export default {
   port: PORT,
   fetch(request: Request) {
@@ -494,7 +534,7 @@ bun x intlayer fill
 
 ## TypeScript 配置
 
-请确保您的 `tsconfig.json` 包含生成的 `.intlayer` 类型：
+将 JSX 指向 `remix/ui` 运行时，并确保您的 `tsconfig.json` 包含生成的 `.intlayer` 类型：
 
 ```json fileName="tsconfig.json"
 {
@@ -502,12 +542,16 @@ bun x intlayer fill
     "moduleResolution": "Bundler",
     "module": "ESNext",
     "target": "ESNext",
+    "jsx": "react-jsx",
+    "jsxImportSource": "remix/ui",
     "skipLibCheck": true,
     "strict": true
   },
   "include": ["src/**/*", ".intlayer/**/*.ts"]
 }
 ```
+
+> `jsxImportSource: "remix/ui"` 使得 `<HomePage />` 会被解析为 Remix 的 `createElement` 而非 React 的。
 
 ## 结论
 

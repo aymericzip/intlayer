@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-09
-updatedAt: 2026-09-09
+updatedAt: 2026-09-11
 title: "Remix 3 i18n - 앱 다국어 번역 완벽 가이드"
 description: "더 이상 i18next는 필요 없습니다. 2026년 다국어(i18n) Remix 3 앱 구축 가이드. AI 에이전트로 번역하고 번들 크기, SEO 및 성능을 최적화하세요."
 keywords:
@@ -27,15 +27,15 @@ author: aymericzip
 
 # Intlayer를 사용하여 Remix 3 웹사이트 번역하기 | 국제화 (i18n)
 
-이 가이드에서는 언어 인식 라우팅, 타입 안전한 콘텐츠 선언, 안전한 HTML 템플릿, Node.js, Bun, Deno 및 Cloudflare Workers 전반에 걸친 크로스 런타임 지원을 통해 **Remix 3** 애플리케이션에 **Intlayer**를 원활하게 통합하는 방법을 설명합니다.
+이 가이드에서는 언어 인식 라우팅, 타입 안전한 콘텐츠 선언, 서버 렌더링 JSX 컴포넌트, Node.js, Bun, Deno 및 Cloudflare Workers 전반에 걸친 크로스 런타임 지원을 통해 **Remix 3** 애플리케이션에 **Intlayer**를 원활하게 통합하는 방법을 설명합니다.
 
 ## Remix 3란 무엇인가요?
 
 **Remix 3**는 **완전히 웹 표준을 기반으로 구축된, 조합 가능하고 런타임에 구애받지 않는 웹 프레임워크**로의 근본적인 아키텍처 전환을 의미합니다. 특정 번들러나 독점 서버 API에 종속되지 않고 단일 목적의 모듈형 패키지로 배포됩니다.
 
 - **`remix/fetch-router`** (또는 `remix/router`): Fetch API(`Request` 및 `Response`)를 기반으로 구축된 가볍고 표준을 준수하는 라우팅.
-- **`remix/html-template`**: 자동 XSS 방지 및 조각 구성을 갖춘 안전한 HTML 템플릿 리터럴.
-- **`remix/response/html`**: 표준 HTTP 의미 체계로 HTML을 제공하는 응답 헬퍼 유틸리티.
+- **`remix/ui`**: JSX 컴포넌트 모델(`jsxImportSource: "remix/ui"`). 컴포넌트는 Handle을 받아 렌더 함수를 반환하는 셋업 함수로, React와 유사하지만 상태는 순수 JavaScript 클로저에 유지됩니다.
+- **`remix/middleware/render`**: 모든 요청에 `context.render(<Page />)`를 설치하여 JSX 트리를 HTML `Response`로 스트리밍합니다.
 - **`remix/node-fetch-server`**: Bun, Deno 및 엣지 런타임을 기본 지원하는 Node.js용 서버 어댑터.
 - **`remix/cookie`**: 암호학적으로 안전한 쿠키 파싱 및 직렬화.
 
@@ -62,7 +62,7 @@ Intlayer는 웹 표준(`Request`, `Response`, `Headers`, `URL`)과 완벽하게 
 </Accordion>
 <Accordion header="서버 번들 오버헤드 제로">
 
-Remix 3의 서버 렌더링 HTML 템플릿(`remix/html-template`)을 사용할 때 요청된 언어에 대해 확인된 텍스트만 출력 스트림에 렌더링됩니다. 명시적으로 필요하지 않은 한 클라이언트 하이드레이션 번들이나 무거운 번역 카탈로그가 필요하지 않습니다.
+Remix 3는 서버에서 JSX 컴포넌트를 렌더링하고 HTML을 클라이언트로 스트리밍합니다. 요청된 언어에 대해 확인된 텍스트만 출력 스트림에 렌더링됩니다. 컴포넌트가 명시적으로 `clientEntry`로 표시되지 않는 한 클라이언트 하이드레이션 번들이나 무거운 번역 카탈로그가 필요하지 않습니다.
 
 </Accordion>
 <Accordion header="AI 에이전트 및 자동화 지원">
@@ -128,7 +128,7 @@ bun add intlayer remix@next
 ```
 
 - **`intlayer`**: 구성 관리, 사전 선언(`t()`, `Dictionary`), CLI 도구 및 런타임 인터프리터를 제공하는 핵심 국제화 엔진입니다.
-- **`remix`**: `remix/router`, `remix/routes`, `remix/html-template`, `remix/node-fetch-server`를 내보내는 통합 Remix 3 프레임워크 패키지입니다.
+- **`remix`**: `remix/router`, `remix/routes`, `remix/ui`, `remix/middleware/render`, `remix/node-fetch-server`를 내보내는 통합 Remix 3 프레임워크 패키지입니다.
 
 </Step>
 <Step number={2} title="Intlayer 구성">
@@ -323,80 +323,108 @@ routes.localizedHome.href({ locale: "ko" }); // "/ko"
 ```
 
 </Step>
-<Step number={7} title="지역화된 HTML 템플릿 렌더링">
+<Step number={7} title="JSX를 사용한 지역화된 페이지 렌더링">
 
-Remix 3는 안전하고 자동 이스케이프된 HTML 생성을 위해 `remix/html-template`을 사용합니다. `getIntlayer`로 지역화된 사전을 추출하고 `<html lang="..." dir="...">` 속성을 설정하며 언어 전환기를 표시하는 뷰 함수를 만듭니다.
+Remix 3는 `remix/ui`의 JSX 컴포넌트를 사용하여 UI를 렌더링합니다. 컴포넌트는 `Handle`을 받아 **렌더 함수**를 반환하는 **셋업 함수**입니다. 셋업은 인스턴스당 한 번 실행되고, 렌더는 매 업데이트마다 실행되며, props는 `handle.props`를 통해 읽습니다.
 
-```typescript fileName="src/views/home.ts" codeFormat={["typescript", "esm"]}
-import { html, type SafeHtml } from "remix/html-template";
+확인된 언어로부터 `<html lang="..." dir="...">` 속성을 설정하는 공유 `Document` 셸부터 시작합니다.
+
+```tsx fileName="src/views/document.tsx" codeFormat={["typescript", "esm"]}
+import { getHTMLTextDir, type Locale } from "intlayer";
+import type { Handle, RemixNode } from "remix/ui";
+
+type DocumentProps = {
+  locale: Locale;
+  title: string;
+  children?: RemixNode;
+};
+
+export const Document = (handle: Handle<DocumentProps>) => () => {
+  const { locale, title, children } = handle.props;
+
+  return (
+    <html lang={locale} dir={getHTMLTextDir(locale)}>
+      <head>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>{title}</title>
+      </head>
+      <body>{children}</body>
+    </html>
+  );
+};
+```
+
+그런 다음 홈페이지를 만듭니다. `getIntlayer`로 지역화된 사전을 추출하고 언어 전환기를 렌더링합니다.
+
+```tsx fileName="src/views/home.tsx" codeFormat={["typescript", "esm"]}
 import {
   getIntlayer,
-  getHTMLTextDir,
   getLocaleName,
   getLocalizedPath,
   type Locale,
   locales,
 } from "intlayer";
+import type { Handle } from "remix/ui";
 import { routes } from "../routes";
+import { Document } from "./document";
 
-export const renderHomePage = (locale: Locale): SafeHtml => {
+type HomePageProps = {
+  locale: Locale;
+};
+
+export const HomePage = (handle: Handle<HomePageProps>) => () => {
+  const { locale } = handle.props;
   const home = getIntlayer("home", locale);
 
-  return html`
-    <!doctype html>
-    <html lang="${locale}" dir="${getHTMLTextDir(locale)}">
-      <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>${home.title}</title>
-      </head>
-      <body>
-        <header>
-          <nav aria-label="Languages">
-            <span>${home.switchLanguage}</span>
-            ${locales.map((loc) => {
-              const href = getLocalizedPath(routes.home.href(), loc);
-              const isActive = loc === locale;
-              return html`
-                <a
-                  href="${href}"
-                  class="${isActive ? "active" : ""}"
-                  aria-current="${isActive ? "true" : "false"}"
-                >
-                  ${getLocaleName(loc, locale)}
-                </a>
-              `;
-            })}
-          </nav>
-        </header>
-        <main>
-          <h1>${home.title}</h1>
-          <p>${home.description}</p>
-        </main>
-      </body>
-    </html>
-  `;
+  return (
+    <Document locale={locale} title={home.title}>
+      <header>
+        <nav aria-label="Languages">
+          <span>{home.switchLanguage}</span>
+          {locales.map((targetLocale) => {
+            const isActive = targetLocale === locale;
+
+            return (
+              <a
+                key={targetLocale}
+                href={getLocalizedPath(routes.home.href(), targetLocale)}
+                class={isActive ? "active" : undefined}
+                aria-current={isActive ? "page" : undefined}
+              >
+                {getLocaleName(targetLocale, locale)}
+              </a>
+            );
+          })}
+        </nav>
+      </header>
+      <main>
+        <h1>{home.title}</h1>
+        <p>{home.description}</p>
+      </main>
+    </Document>
+  );
 };
 ```
 
+> Remix JSX는 React가 아닙니다. 훅이 없으며, `class`는 있는 그대로 작성하고(`className`도 허용됨), 재렌더링은 `handle.update()`로 명시적으로 트리거합니다. 보간된 값은 자동으로 이스케이프됩니다.
+
 </Step>
-<Step number={8} title="서버 애플리케이션 연결">
+<Step number={8} title="라우터 및 서버 연결">
 
-`src/server.ts`에서 라우터, 미들웨어 및 라우트 작업을 연결합니다.
+Intlayer 미들웨어 옆에 `remix/middleware/render`의 `render()` 미들웨어를 추가합니다. 모든 요청에 `context.render(node, init)`을 설치하여 JSX 트리를 HTML `Response`로 스트리밍합니다(앞에 `<!DOCTYPE html>`을 추가하고 `Content-Type` 헤더를 설정).
 
-```typescript fileName="src/server.ts" codeFormat={["typescript", "esm"]}
-import * as http from "node:http";
-import { createRouter } from "remix/router";
-import { createRequestListener } from "remix/node-fetch-server";
-import { createHtmlResponse } from "remix/response/html";
+```tsx fileName="src/router.tsx" codeFormat={["typescript", "esm"]}
 import { isDeclaredLocale } from "intlayer";
+import { render } from "remix/middleware/render";
+import { createRouter } from "remix/router";
 import { intlayer, localeKey } from "./middleware/intlayer";
 import { routes } from "./routes";
-import { renderHomePage } from "./views/home";
+import { HomePage } from "./views/home";
 
-// 1. Intlayer 미들웨어로 라우터 초기화
+// 1. Intlayer + render 미들웨어로 라우터 초기화
 export const router = createRouter({
-  middleware: [intlayer()],
+  middleware: [intlayer(), render()],
 });
 
 // 2. 라우트 핸들러 매핑
@@ -405,7 +433,7 @@ router.map(routes, {
     // 기본 로케일 라우트
     home(context) {
       const locale = context.get(localeKey);
-      return createHtmlResponse(renderHomePage(locale));
+      return context.render(<HomePage locale={locale} />);
     },
 
     // 현지화된 라우트
@@ -414,13 +442,24 @@ router.map(routes, {
         return new Response("Not Found", { status: 404 });
       }
       const locale = context.get(localeKey);
-      return createHtmlResponse(renderHomePage(locale));
+      return context.render(<HomePage locale={locale} />);
     },
   },
 });
+```
 
-// 3. 서버 시작
+> `context.render`는 두 번째 인수로 선택적 `ResponseInit`을 받습니다(예: `context.render(<NotFoundPage locale={locale} />, { status: 404 })`).
+
+마지막으로 표준 `fetch` 핸들러를 통해 라우터를 노출합니다. 동일한 라우터가 Node.js, Bun, Deno 및 Cloudflare Workers에서 실행됩니다.
+
+```typescript fileName="src/server.ts" codeFormat={["typescript", "esm"]}
+import * as http from "node:http";
+import { createRequestListener } from "remix/node-fetch-server";
+import { router } from "./router";
+
 const PORT = Number(process.env.PORT || 3000);
+
+// Node.js
 const server = http.createServer(
   createRequestListener((request) => router.fetch(request))
 );
@@ -429,6 +468,7 @@ server.listen(PORT, () => {
   console.log(`서버가 http://localhost:${PORT} 에서 실행 중입니다`);
 });
 
+// Bun / Deno / Cloudflare Workers
 export default {
   port: PORT,
   fetch(request: Request) {
@@ -479,7 +519,7 @@ bun x intlayer fill
 
 ## TypeScript 구성
 
-`tsconfig.json`에 생성된 `.intlayer` 타입이 포함되어 있는지 확인하세요.
+JSX가 `remix/ui` 런타임을 가리키도록 설정하고 `tsconfig.json`에 생성된 `.intlayer` 타입이 포함되어 있는지 확인하세요.
 
 ```json fileName="tsconfig.json"
 {
@@ -487,12 +527,16 @@ bun x intlayer fill
     "moduleResolution": "Bundler",
     "module": "ESNext",
     "target": "ESNext",
+    "jsx": "react-jsx",
+    "jsxImportSource": "remix/ui",
     "skipLibCheck": true,
     "strict": true
   },
   "include": ["src/**/*", ".intlayer/**/*.ts"]
 }
 ```
+
+> `jsxImportSource: "remix/ui"`는 `<HomePage />`가 React 대신 Remix의 `createElement`로 해석되도록 만듭니다.
 
 ## 결론
 

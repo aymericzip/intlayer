@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-09
-updatedAt: 2026-09-09
+updatedAt: 2026-09-11
 title: "Remix 3 i18n - الدليل الكامل لترجمة تطبيقك"
 description: "وداعًا لـ i18next. دليل 2026 لإنشاء تطبيق Remix 3 متعدد اللغات (i18n). ترجم باستخدام وكلاء الذكاء الاصطناعي وحسّن حجم الحزمة و SEO والأداء."
 keywords:
@@ -27,15 +27,15 @@ author: aymericzip
 
 # ترجم موقع Remix 3 الخاص بك باستخدام Intlayer | التدويل (i18n)
 
-يوضح هذا الدليل كيفية دمج **Intlayer** للتدويل السلس في تطبيقات **Remix 3** مع التوجيه المدرك للغة، وتصريحات المحتوى الآمنة من حيث النوع، وقوالب HTML الآمنة، ودعم بيئات التشغيل المتعددة عبر Node.js و Bun و Deno و Cloudflare Workers.
+يوضح هذا الدليل كيفية دمج **Intlayer** للتدويل السلس في تطبيقات **Remix 3** مع التوجيه المدرك للغة، وتصريحات المحتوى الآمنة من حيث النوع، ومكونات JSX المعروضة على الخادم، ودعم بيئات التشغيل المتعددة عبر Node.js و Bun و Deno و Cloudflare Workers.
 
 ## ما هو Remix 3؟
 
 يمثل **Remix 3** تحولاً معماريًا جوهريًا نحو **إطار عمل ويب معياري ومستقل عن بيئة التشغيل ومبني بالكامل على معايير الويب**. بدلاً من الارتباط بحزم برمجية معينة أو واجهات برمجة تطبيقات خادم خاصة، يتم توزيع Remix 3 كحزم تركيبية أحادية الغرض:
 
 - **`remix/fetch-router`** (أو `remix/router`): توجيه خفيف ومتوافق مع المعايير مبني على Fetch API (`Request` و `Response`).
-- **`remix/html-template`**: قوالب HTML نصية آمنة مع حماية تلقائية من ثغرات XSS وتكوين الأجزاء.
-- **`remix/response/html`**: أدوات مساعدة للاستجابة لتقديم HTML وفق دلالات HTTP القياسية.
+- **`remix/ui`**: نموذج مكونات JSX (`jsxImportSource: "remix/ui"`). المكون عبارة عن دالة إعداد تستقبل Handle وتعيد دالة عرض، مما يجعله يشبه React ولكنه يحتفظ بالحالة في نطاقات إغلاق JavaScript عادية.
+- **`remix/middleware/render`**: يثبت `context.render(<Page />)` في كل طلب، مما يرسل شجرة JSX كاستجابة HTML `Response` متدفقة.
 - **`remix/node-fetch-server`**: محولات خادم لـ Node.js، مع دعم أصلي لـ Bun و Deno وبيئات الحافة (edge).
 - **`remix/cookie`**: تحليل وتسلسل ملفات تعريف الارتباط بطريقة مشفرة وآمنة.
 
@@ -62,7 +62,7 @@ author: aymericzip
 </Accordion>
 <Accordion header="لا توجد أعباء حزمة إضافية على الخادم">
 
-عند استخدام قوالب HTML المقدمة من جانب الخادم في Remix 3 (`remix/html-template`)، تتم كتابة النص المحلل للغة المطلوبة فقط في دفق الإخراج. لا حاجة لحزم ترطيب العميل أو كتالوجات الترجمة الضخمة إلا إذا طُلب ذلك صراحة.
+يقوم Remix 3 بعرض مكونات JSX على الخادم وبث HTML إلى العميل. تتم كتابة النص المحلل للغة المطلوبة فقط في دفق الإخراج. لا حاجة لحزم ترطيب العميل أو كتالوجات الترجمة الضخمة إلا إذا تم تمييز المكون صراحةً كـ `clientEntry`.
 
 </Accordion>
 <Accordion header="جاهز لوكلاء الذكاء الاصطناعي والأتمتة">
@@ -128,7 +128,7 @@ bun add intlayer remix@next
 ```
 
 - **`intlayer`**: محرك التدويل الأساسي الذي يوفر إدارة التكوين، والتصريح عن القواميس (`t()`, `Dictionary`)، وأدوات CLI، ومفسر وقت التشغيل.
-- **`remix`**: حزمة إطار عمل Remix 3 الموحدة التي تصدر `remix/router` و `remix/routes` و `remix/html-template` و `remix/node-fetch-server`.
+- **`remix`**: حزمة إطار عمل Remix 3 الموحدة التي تصدر `remix/router` و `remix/routes` و `remix/ui` و `remix/middleware/render` و `remix/node-fetch-server`.
 
 </Step>
 <Step number={2} title="تكوين Intlayer">
@@ -323,80 +323,108 @@ routes.localizedHome.href({ locale: "ar" }); // "/ar"
 ```
 
 </Step>
-<Step number={7} title="عرض قوالب HTML المترجمة">
+<Step number={7} title="عرض الصفحات المترجمة باستخدام JSX">
 
-يستخدم Remix 3 حزمة `remix/html-template` لإنشاء HTML آمن ومُعالج تلقائيًا. قم بإنشاء دالة عرض تستخرج القاموس المترجم باستخدام `getIntlayer`، وتحدد سمات `<html lang="..." dir="...">`، وتعرض مبدل اللغة:
+يقدم Remix 3 واجهة المستخدم باستخدام مكونات JSX من `remix/ui`. المكون عبارة عن **دالة إعداد** تستقبل `Handle` وتعيد **دالة عرض**. يتم تشغيل الإعداد مرة واحدة لكل نسخة، ويعمل العرض مع كل تحديث، وتُقرأ الخصائص عبر `handle.props`.
 
-```typescript fileName="src/views/home.ts" codeFormat={["typescript", "esm"]}
-import { html, type SafeHtml } from "remix/html-template";
+ابدأ بغلاف `Document` مشترك يحدد سمات `<html lang="..." dir="...">` بناءً على اللغة المحددة:
+
+```tsx fileName="src/views/document.tsx" codeFormat={["typescript", "esm"]}
+import { getHTMLTextDir, type Locale } from "intlayer";
+import type { Handle, RemixNode } from "remix/ui";
+
+type DocumentProps = {
+  locale: Locale;
+  title: string;
+  children?: RemixNode;
+};
+
+export const Document = (handle: Handle<DocumentProps>) => () => {
+  const { locale, title, children } = handle.props;
+
+  return (
+    <html lang={locale} dir={getHTMLTextDir(locale)}>
+      <head>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>{title}</title>
+      </head>
+      <body>{children}</body>
+    </html>
+  );
+};
+```
+
+ثم أنشئ الصفحة الرئيسية. حيث تستخرج القاموس المترجم باستخدام `getIntlayer` وتعرض مبدل اللغة:
+
+```tsx fileName="src/views/home.tsx" codeFormat={["typescript", "esm"]}
 import {
   getIntlayer,
-  getHTMLTextDir,
   getLocaleName,
   getLocalizedPath,
   type Locale,
   locales,
 } from "intlayer";
+import type { Handle } from "remix/ui";
 import { routes } from "../routes";
+import { Document } from "./document";
 
-export const renderHomePage = (locale: Locale): SafeHtml => {
+type HomePageProps = {
+  locale: Locale;
+};
+
+export const HomePage = (handle: Handle<HomePageProps>) => () => {
+  const { locale } = handle.props;
   const home = getIntlayer("home", locale);
 
-  return html`
-    <!doctype html>
-    <html lang="${locale}" dir="${getHTMLTextDir(locale)}">
-      <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>${home.title}</title>
-      </head>
-      <body>
-        <header>
-          <nav aria-label="Languages">
-            <span>${home.switchLanguage}</span>
-            ${locales.map((loc) => {
-              const href = getLocalizedPath(routes.home.href(), loc);
-              const isActive = loc === locale;
-              return html`
-                <a
-                  href="${href}"
-                  class="${isActive ? "active" : ""}"
-                  aria-current="${isActive ? "true" : "false"}"
-                >
-                  ${getLocaleName(loc, locale)}
-                </a>
-              `;
-            })}
-          </nav>
-        </header>
-        <main>
-          <h1>${home.title}</h1>
-          <p>${home.description}</p>
-        </main>
-      </body>
-    </html>
-  `;
+  return (
+    <Document locale={locale} title={home.title}>
+      <header>
+        <nav aria-label="Languages">
+          <span>{home.switchLanguage}</span>
+          {locales.map((targetLocale) => {
+            const isActive = targetLocale === locale;
+
+            return (
+              <a
+                key={targetLocale}
+                href={getLocalizedPath(routes.home.href(), targetLocale)}
+                class={isActive ? "active" : undefined}
+                aria-current={isActive ? "page" : undefined}
+              >
+                {getLocaleName(targetLocale, locale)}
+              </a>
+            );
+          })}
+        </nav>
+      </header>
+      <main>
+        <h1>{home.title}</h1>
+        <p>{home.description}</p>
+      </main>
+    </Document>
+  );
 };
 ```
 
+> صيغة JSX في Remix ليست React: لا توجد خطافات (Hooks)، وتُكتب `class` كما هي (تُقبل `className` أيضًا)، ويتم تشغيل إعادة العرض صراحةً باستخدام `handle.update()`. يتم تخطي القيم المضمنة تلقائيًا وبأمان.
+
 </Step>
-<Step number={8} title="ربط تطبيق الخادم">
+<Step number={8} title="ربط الموجه والخادم">
 
-اربط جهاز التوجيه والبرمجيات الوسيطة وإجراءات المسار معًا في `src/server.ts`:
+أضف البرمجية الوسيطة `render()` من `remix/middleware/render` بجانب برمجية Intlayer الوسيطة. حيث تقوم بتثبيت `context.render(node, init)` في كل طلب، مما يرسل شجرة JSX كاستجابة HTML `Response` (مع إضافة `<!DOCTYPE html>` في البداية وتعيين ترويسة `Content-Type`):
 
-```typescript fileName="src/server.ts" codeFormat={["typescript", "esm"]}
-import * as http from "node:http";
-import { createRouter } from "remix/router";
-import { createRequestListener } from "remix/node-fetch-server";
-import { createHtmlResponse } from "remix/response/html";
+```tsx fileName="src/router.tsx" codeFormat={["typescript", "esm"]}
 import { isDeclaredLocale } from "intlayer";
+import { render } from "remix/middleware/render";
+import { createRouter } from "remix/router";
 import { intlayer, localeKey } from "./middleware/intlayer";
 import { routes } from "./routes";
-import { renderHomePage } from "./views/home";
+import { HomePage } from "./views/home";
 
-// 1. تهيئة جهاز التوجيه باستخدام برمجية Intlayer الوسيطة
+// 1. تهيئة الموجه باستخدام برمجيات Intlayer الوسيطة + العرض
 export const router = createRouter({
-  middleware: [intlayer()],
+  middleware: [intlayer(), render()],
 });
 
 // 2. تعيين معالجات المسار
@@ -405,7 +433,7 @@ router.map(routes, {
     // مسار اللغة الافتراضية
     home(context) {
       const locale = context.get(localeKey);
-      return createHtmlResponse(renderHomePage(locale));
+      return context.render(<HomePage locale={locale} />);
     },
 
     // مسار مترجم
@@ -414,13 +442,24 @@ router.map(routes, {
         return new Response("Not Found", { status: 404 });
       }
       const locale = context.get(localeKey);
-      return createHtmlResponse(renderHomePage(locale));
+      return context.render(<HomePage locale={locale} />);
     },
   },
 });
+```
 
-// 3. بدء تشغيل الخادم
+> يقبل `context.render` وسيطًا ثانيًا اختياريًا هو `ResponseInit`، على سبيل المثال: `context.render(<NotFoundPage locale={locale} />, { status: 404 })`.
+
+أخيرًا، قم بإتاحة الموجه من خلال معالج `fetch` قياسي. يعمل نفس الموجه بسلاسة على Node.js و Bun و Deno و Cloudflare Workers:
+
+```typescript fileName="src/server.ts" codeFormat={["typescript", "esm"]}
+import * as http from "node:http";
+import { createRequestListener } from "remix/node-fetch-server";
+import { router } from "./router";
+
 const PORT = Number(process.env.PORT || 3000);
+
+// Node.js
 const server = http.createServer(
   createRequestListener((request) => router.fetch(request))
 );
@@ -429,6 +468,7 @@ server.listen(PORT, () => {
   console.log(`الخادم يعمل على http://localhost:${PORT}`);
 });
 
+// Bun / Deno / Cloudflare Workers
 export default {
   port: PORT,
   fetch(request: Request) {
@@ -479,7 +519,7 @@ bun x intlayer fill
 
 ## تكوين TypeScript
 
-تأكد من أن ملف `tsconfig.json` الخاص بك يتضمن أنواع `.intlayer` التي تم إنشاؤها:
+وجّه JSX نحو بيئة تشغيل `remix/ui` وتأكد من أن ملف `tsconfig.json` الخاص بك يتضمن أنواع `.intlayer` المنشأة:
 
 ```json fileName="tsconfig.json"
 {
@@ -487,12 +527,16 @@ bun x intlayer fill
     "moduleResolution": "Bundler",
     "module": "ESNext",
     "target": "ESNext",
+    "jsx": "react-jsx",
+    "jsxImportSource": "remix/ui",
     "skipLibCheck": true,
     "strict": true
   },
   "include": ["src/**/*", ".intlayer/**/*.ts"]
 }
 ```
+
+> `jsxImportSource: "remix/ui"` هو ما يجعل `<HomePage />` يتم تحليله إلى `createElement` الخاص بـ Remix بدلاً من React.
 
 ## الخاتمة
 

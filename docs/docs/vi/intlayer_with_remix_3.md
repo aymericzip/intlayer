@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-09
-updatedAt: 2026-09-09
+updatedAt: 2026-09-11
 title: "Remix 3 i18n - Hướng dẫn đầy đủ để dịch ứng dụng của bạn"
 description: "Không còn cần đến i18next. Hướng dẫn năm 2026 để xây dựng ứng dụng Remix 3 đa ngôn ngữ (i18n). Dịch bằng các tác tử AI và tối ưu hóa kích thước gói bundle, SEO và hiệu năng."
 keywords:
@@ -27,17 +27,17 @@ author: aymericzip
 
 # Dịch trang web Remix 3 của bạn bằng Intlayer | Quốc tế hóa (i18n)
 
-Hướng dẫn này minh họa cách tích hợp **Intlayer** để quốc tế hóa liền mạch trong các ứng dụng **Remix 3** với định tuyến theo ngôn ngữ, khai báo nội dung an toàn kiểu dữ liệu, mẫu HTML an toàn và hỗ trợ đa môi trường thực thi trên Node.js, Bun, Deno và Cloudflare Workers.
+Hướng dẫn này minh họa cách tích hợp **Intlayer** để quốc tế hóa liền mạch trong các ứng dụng **Remix 3** với định tuyến theo ngôn ngữ, khai báo nội dung an toàn kiểu dữ liệu, các thành phần JSX kết xuất phía máy chủ và hỗ trợ đa môi trường thực thi trên Node.js, Bun, Deno và Cloudflare Workers.
 
 ## Remix 3 là gì?
 
 **Remix 3** đại diện cho một bước chuyển đổi kiến trúc cơ bản hướng tới một **framework web có thể kết hợp, độc lập với môi trường chạy (runtime-agnostic) và được xây dựng hoàn toàn dựa trên các tiêu chuẩn web**. Thay vì gắn liền với các công cụ đóng gói cụ thể hoặc API máy chủ độc quyền, Remix 3 được phân phối dưới dạng các gói đơn nhiệm có thể kết hợp:
 
 - **`remix/fetch-router`** (hoặc `remix/router`): Định tuyến nhẹ, tuân thủ tiêu chuẩn dựa trên Fetch API (`Request` và `Response`).
-- **`remix/html-template`**: Chuỗi mẫu HTML an toàn với tính năng tự động bảo vệ chống XSS và ghép mảnh.
-- **`remix/response/html`**: Các tiện ích phản hồi để phân phối HTML với ngữ nghĩa HTTP tiêu chuẩn.
+- **`remix/ui`**: Mô hình thành phần JSX (`jsxImportSource: "remix/ui"`). Một thành phần là một hàm thiết lập (setup function) trả về một hàm kết xuất (render function), nhận props qua một handle có định kiểu.
+- **`remix/middleware/render`**: Cài đặt `context.render(<Page />)` trên mỗi yêu cầu, truyền phát (streaming) cây JSX sang một `Response` HTML.
 - **`remix/node-fetch-server`**: Bộ điều hợp máy chủ cho Node.js, hỗ trợ nguyên bản cho Bun, Deno và các môi trường edge.
-- **`remix/cookie`**: Phân tích cú pháp và tuần tự hóa cookie an toàn bằng mật mã.
+- **`remix/cookie`**: Phân tích cú pháp và tuần tự hóa cookie được ký bằng mật mã.
 
 Khi kết hợp với **Intlayer**, bạn sẽ có một hệ thống quốc tế hóa hoàn chỉnh mang lại sự an toàn trong thời gian biên dịch, bản dịch tự động bằng AI, kết xuất phía máy chủ không phát sinh phụ phí và định tuyến ngôn ngữ mượt mà.
 
@@ -62,7 +62,7 @@ Tạm biệt các khóa JSON lỏng lẻo và các sự cố thiếu khóa khi c
 </Accordion>
 <Accordion header="Không phát sinh phụ phí gói bundle trên máy chủ">
 
-Khi sử dụng các mẫu HTML kết xuất phía máy chủ của Remix 3 (`remix/html-template`), chỉ văn bản đã phân giải cho ngôn ngữ được yêu cầu mới được đưa vào luồng xuất. Không cần các gói hydrat hóa phía máy khách hoặc các danh mục dịch cồng kềnh trừ khi được yêu cầu rõ ràng.
+Khi sử dụng các thành phần JSX kết xuất phía máy chủ của Remix 3, chỉ văn bản đã phân giải cho ngôn ngữ được yêu cầu mới được ghi vào luồng xuất. Các thành phần chạy hoàn toàn trên máy chủ trừ khi bạn cấu hình rõ ràng việc hydrat hóa phía máy khách thông qua `clientEntry`. Theo mặc định, không có danh mục dịch hay môi trường chạy hydrat hóa nào được gửi tới máy khách.
 
 </Accordion>
 <Accordion header="Sẵn sàng cho AI Agent & Tự động hóa">
@@ -128,7 +128,7 @@ bun add intlayer remix@next
 ```
 
 - **`intlayer`**: Công cụ quốc tế hóa cốt lõi cung cấp quản lý cấu hình, khai báo từ điển (`t()`, `Dictionary`), các công cụ CLI và trình thông dịch lúc chạy.
-- **`remix`**: Gói khung thống nhất Remix 3 xuất ra `remix/router`, `remix/routes`, `remix/html-template` và `remix/node-fetch-server`.
+- **`remix`**: Gói khung thống nhất Remix 3 xuất ra `remix/router`, `remix/routes`, `remix/ui`, `remix/middleware/render` và `remix/node-fetch-server`.
 
 </Step>
 <Step number={2} title="Cấu hình Intlayer">
@@ -338,12 +338,41 @@ routes.localizedHome.href({ locale: "vi" }); // "/vi"
 ```
 
 </Step>
-<Step number={7} title="Hiển thị các mẫu HTML đã được bản địa hóa">
+<Step number={7} title="Kết xuất các trang được bản địa hóa bằng JSX">
 
-Remix 3 sử dụng `remix/html-template` để tạo HTML an toàn và tự động thoát chuỗi nguy hiểm. Tạo một hàm hiển thị để trích xuất từ điển đã dịch bằng `getIntlayer`, thiết lập các thuộc tính `<html lang="..." dir="...">` và hiển thị bộ chọn ngôn ngữ:
+Remix 3 sử dụng `remix/ui` cho các thành phần JSX. Một thành phần là một **hàm thiết lập (setup function)** trả về một **hàm kết xuất (render function)**. Props được truyền qua một `handle` có định kiểu (ví dụ: `handle.props.locale`):
 
-```typescript fileName="src/views/home.ts" codeFormat={["typescript", "esm"]}
-import { html, type SafeHtml } from "remix/html-template";
+Tạo vỏ tài liệu HTML dùng chung:
+
+```tsx fileName="src/views/document.tsx" codeFormat={["typescript", "esm"]}
+import type { SetupFunction } from "remix/ui";
+
+export const Document: SetupFunction<{
+  title: string;
+  lang?: string;
+  dir?: string;
+  children?: any;
+}> = (handle) => {
+  return () => {
+    const { title, lang = "en", dir = "ltr", children } = handle.props;
+
+    return (
+      <html lang={lang} dir={dir}>
+        <head>
+          <meta charSet="utf-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <title>{title}</title>
+        </head>
+        <body>{children}</body>
+      </html>
+    );
+  };
+};
+```
+
+Sau đó tạo khung nhìn trang chủ. Sử dụng `getIntlayer` để lấy nội dung từ điển cho ngôn ngữ đang hoạt động, và hiển thị bộ chuyển đổi ngôn ngữ bằng `getLocalizedPath`:
+
+```tsx fileName="src/views/home.tsx" codeFormat={["typescript", "esm"]}
 import {
   getIntlayer,
   getHTMLTextDir,
@@ -352,90 +381,108 @@ import {
   type Locale,
   locales,
 } from "intlayer";
+import type { SetupFunction } from "remix/ui";
 import { routes } from "../routes";
+import { Document } from "./document";
 
-export const renderHomePage = (locale: Locale): SafeHtml => {
-  const home = getIntlayer("home", locale);
+export const HomePage: SetupFunction<{ locale: Locale }> = (handle) => {
+  return () => {
+    const { locale } = handle.props;
+    const content = getIntlayer("home", locale);
 
-  return html`
-    <!doctype html>
-    <html lang="${locale}" dir="${getHTMLTextDir(locale)}">
-      <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>${home.title}</title>
-      </head>
-      <body>
+    return (
+      <Document
+        title={content.title}
+        lang={locale}
+        dir={getHTMLTextDir(locale)}
+      >
         <header>
           <nav aria-label="Languages">
-            <span>${home.switchLanguage}</span>
-            ${locales.map((loc) => {
+            <span>{content.switchLanguage}</span>
+            {locales.map((loc) => {
               const href = getLocalizedPath(routes.home.href(), loc);
               const isActive = loc === locale;
-              return html`
+              return (
                 <a
-                  href="${href}"
-                  class="${isActive ? "active" : ""}"
-                  aria-current="${isActive ? "true" : "false"}"
+                  href={href}
+                  class={isActive ? "active" : undefined}
+                  aria-current={isActive ? "page" : undefined}
                 >
-                  ${getLocaleName(loc, locale)}
+                  {getLocaleName(loc, locale)}
                 </a>
-              `;
+              );
             })}
           </nav>
         </header>
         <main>
-          <h1>${home.title}</h1>
-          <p>${home.description}</p>
+          <h1>{content.title}</h1>
+          <p>{content.description}</p>
         </main>
-      </body>
-    </html>
-  `;
+      </Document>
+    );
+  };
 };
 ```
 
+> Remix JSX không phải là React: không có hooks, `class` được viết nguyên bản (không phải `className`), và các thành phần được truyền phát trực tiếp đến phản hồi HTML mà không phát sinh bất kỳ chi phí JavaScript nào phía máy khách.
+
 </Step>
-<Step number={8} title="Kết nối ứng dụng máy chủ">
+<Step number={8} title="Kết nối router và máy chủ">
 
-Kết nối router, middleware và các hành động định tuyến lại với nhau trong `src/server.ts`:
+Tạo `src/router.tsx` để đăng ký middleware và định nghĩa các hành động định tuyến. Sử dụng `remix/middleware/render` để cài đặt trình trợ giúp `context.render()`, và truyền trực tiếp thành phần JSX của bạn:
 
-```typescript fileName="src/server.ts" codeFormat={["typescript", "esm"]}
-import * as http from "node:http";
-import { createRouter } from "remix/router";
-import { createRequestListener } from "remix/node-fetch-server";
-import { createHtmlResponse } from "remix/response/html";
+```tsx fileName="src/router.tsx" codeFormat={["typescript", "esm"]}
 import { isDeclaredLocale } from "intlayer";
+import { render } from "remix/middleware/render";
+import { createRouter } from "remix/router";
 import { intlayer, localeKey } from "./middleware/intlayer";
 import { routes } from "./routes";
-import { renderHomePage } from "./views/home";
+import { HomePage } from "./views/home";
 
-// 1. Khởi tạo router với middleware Intlayer
 export const router = createRouter({
-  middleware: [intlayer()],
+  middleware: [intlayer(), render()],
 });
 
-// 2. Ánh xạ các trình xử lý tuyến đường
 router.map(routes, {
   actions: {
-    // Tuyến ngôn ngữ mặc định
+    // Tuyến ngôn ngữ mặc định (ví dụ: /)
     home(context) {
       const locale = context.get(localeKey);
-      return createHtmlResponse(renderHomePage(locale));
+      return context.render(<HomePage locale={locale} />);
     },
 
-    // Tuyến ngôn ngữ được bản địa hóa
+    // Tuyến ngôn ngữ được bản địa hóa (ví dụ: /fr, /es)
     localizedHome(context) {
-      if (!isDeclaredLocale(context.params.locale)) {
+      const { locale } = context.params;
+
+      if (!isDeclaredLocale(locale)) {
         return new Response("Not Found", { status: 404 });
       }
-      const locale = context.get(localeKey);
-      return createHtmlResponse(renderHomePage(locale));
+
+      return context.render(<HomePage locale={locale} />);
     },
   },
 });
+```
 
-// 3. Khởi động máy chủ
+> `context.render` chấp nhận một `ResponseInit` tùy chọn làm đối số thứ hai, cho phép bạn thiết lập các tiêu đề tùy chỉnh (ví dụ: `Content-Language` hoặc `Cache-Control`) cùng với trang được kết xuất:
+>
+> ```typescript
+> return context.render(<HomePage locale={locale} />, {
+>   headers: { "Content-Language": locale },
+> });
+> ```
+
+Bây giờ hãy kết nối `src/server.ts` bằng cách sử dụng `remix/node-fetch-server` cho Node.js (hoặc xuất trình xử lý `fetch` trực tiếp cho Bun, Deno, hoặc Cloudflare Workers):
+
+```typescript fileName="src/server.ts" codeFormat={["typescript", "esm"]}
+import * as http from "node:http";
+import { createRequestListener } from "remix/node-fetch-server";
+import { router } from "./router";
+
 const PORT = Number(process.env.PORT || 3000);
+
+// Máy chủ HTTP Node.js
 const server = http.createServer(
   createRequestListener((request) => router.fetch(request))
 );
@@ -444,6 +491,7 @@ server.listen(PORT, () => {
   console.log(`Máy chủ đang chạy tại http://localhost:${PORT}`);
 });
 
+// Xuất cho Bun / Deno / Cloudflare Workers
 export default {
   port: PORT,
   fetch(request: Request) {
@@ -494,7 +542,7 @@ bun x intlayer fill
 
 ## Cấu hình TypeScript
 
-Đảm bảo rằng `tsconfig.json` của bạn bao gồm các loại `.intlayer` đã tạo:
+Cấu hình `tsconfig.json` để trỏ JSX đến runtime `remix/ui` và bao gồm các kiểu `.intlayer` đã tạo:
 
 ```json fileName="tsconfig.json"
 {
@@ -502,12 +550,16 @@ bun x intlayer fill
     "moduleResolution": "Bundler",
     "module": "ESNext",
     "target": "ESNext",
+    "jsx": "react-jsx",
+    "jsxImportSource": "remix/ui",
     "skipLibCheck": true,
     "strict": true
   },
   "include": ["src/**/*", ".intlayer/**/*.ts"]
 }
 ```
+
+> `jsxImportSource: "remix/ui"` là yếu tố giúp `<HomePage />` phân giải thành hàm `createElement` của Remix thay vì của React. Không có runtime React nào được tải.
 
 ## Kết luận
 

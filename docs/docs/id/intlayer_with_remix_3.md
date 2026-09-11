@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-09
-updatedAt: 2026-09-09
+updatedAt: 2026-09-11
 title: "Remix 3 i18n - Panduan Lengkap Menerjemahkan Aplikasi Anda"
 description: "Lupakan i18next. Panduan 2026 untuk membangun aplikasi Remix 3 multibahasa (i18n). Terjemahkan dengan agen AI dan optimalkan ukuran bundle, SEO, serta performa."
 keywords:
@@ -27,17 +27,17 @@ author: aymericzip
 
 # Terjemahkan Situs Web Remix 3 Anda Menggunakan Intlayer | Internasionalisasi (i18n)
 
-Panduan ini menunjukkan cara mengintegrasikan **Intlayer** untuk internasionalisasi yang mulus dalam aplikasi **Remix 3** dengan perutean berbasis bahasa, deklarasi konten yang aman secara tipe, template HTML yang aman, serta dukungan lintas runtime di Node.js, Bun, Deno, dan Cloudflare Workers.
+Panduan ini menunjukkan cara mengintegrasikan **Intlayer** untuk internasionalisasi yang mulus dalam aplikasi **Remix 3** dengan perutean berbasis bahasa, deklarasi konten yang aman secara tipe, komponen JSX yang dirender di server, serta dukungan lintas runtime di Node.js, Bun, Deno, dan Cloudflare Workers.
 
 ## Apa itu Remix 3?
 
 **Remix 3** mewakili perubahan arsitektur fundamental menuju **kerangka kerja web modular dan agnostik runtime yang dibangun sepenuhnya di atas standar web**. Alih-alih terikat pada bundler tertentu atau API server proprietary, Remix 3 didistribusikan sebagai paket modular serbaguna:
 
 - **`remix/fetch-router`** (atau `remix/router`): Perutean ringan yang mematuhi standar dan dibangun di atas Fetch API (`Request` dan `Response`).
-- **`remix/html-template`**: Literal template HTML aman dengan perlindungan XSS otomatis dan komposisi fragmen.
-- **`remix/response/html`**: Utilitas pembantu respons untuk menyajikan HTML dengan semantik HTTP standar.
+- **`remix/ui`**: Model komponen JSX (`jsxImportSource: "remix/ui"`). Sebuah komponen adalah fungsi setup yang mengembalikan fungsi render, menerima props melalui handle bertipe.
+- **`remix/middleware/render`**: Memasang `context.render(<Page />)` pada setiap permintaan, mengalirkan (streaming) pohon JSX ke HTML `Response`.
 - **`remix/node-fetch-server`**: Adapter server untuk Node.js dengan dukungan bawaan untuk Bun, Deno, dan runtime edge.
-- **`remix/cookie`**: Penguraian dan serialisasi cookie yang aman secara kriptografis.
+- **`remix/cookie`**: Penguraian dan serialisasi cookie yang ditandatangani secara kriptografis.
 
 Dikombinasikan dengan **Intlayer**, Anda mendapatkan sistem internasionalisasi lengkap yang memberikan keamanan waktu kompilasi, terjemahan AI otomatis, rendering server tanpa overhead, dan perutean lokal yang lancar.
 
@@ -62,7 +62,7 @@ Ucapkan selamat tinggal pada kunci JSON yang longgar dan error runtime akibat ku
 </Accordion>
 <Accordion header="Nol Overhead Bundle di Server">
 
-Saat menggunakan template HTML yang dirender di server Remix 3 (`remix/html-template`), hanya teks yang diselesaikan untuk lokalitas yang diminta yang dialirkan ke output. Tidak diperlukan bundle hidrasi klien atau katalog terjemahan yang berat kecuali benar-benar dibutuhkan.
+Saat menggunakan komponen JSX yang dirender di server Remix 3, hanya teks yang diselesaikan untuk lokalitas yang diminta yang dialirkan ke output stream. Komponen berjalan sepenuhnya di server kecuali Anda secara eksplisit mengonfigurasi hidrasi klien melalui `clientEntry`. Secara default, tidak ada katalog terjemahan atau runtime hidrasi yang dikirim ke klien.
 
 </Accordion>
 <Accordion header="Siap untuk Agen AI & Otomasi">
@@ -128,7 +128,7 @@ bun add intlayer remix@next
 ```
 
 - **`intlayer`**: Mesin inti internasionalisasi yang menyediakan manajemen konfigurasi, deklarasi kamus (`t()`, `Dictionary`), alat CLI, dan penerjemah runtime.
-- **`remix`**: Paket kerangka kerja terpadu Remix 3 yang mengekspor `remix/router`, `remix/routes`, `remix/html-template`, dan `remix/node-fetch-server`.
+- **`remix`**: Paket kerangka kerja terpadu Remix 3 yang mengekspor `remix/router`, `remix/routes`, `remix/ui`, `remix/middleware/render`, dan `remix/node-fetch-server`.
 
 </Step>
 <Step number={2} title="Konfigurasikan Intlayer">
@@ -338,12 +338,41 @@ routes.localizedHome.href({ locale: "id" }); // "/id"
 ```
 
 </Step>
-<Step number={7} title="Render Template HTML Terlokalisasi">
+<Step number={7} title="Render Halaman Terlokalisasi dengan JSX">
 
-Remix 3 menggunakan `remix/html-template` untuk pembuatan HTML yang aman dan otomatis di-escape. Buat fungsi view yang mengekstrak kamus terlokalisasi menggunakan `getIntlayer`, menetapkan atribut `<html lang="..." dir="...">`, dan menampilkan pengalih bahasa:
+Remix 3 menggunakan `remix/ui` untuk komponen JSX. Sebuah komponen adalah **fungsi setup** yang mengembalikan **fungsi render**. Props diteruskan melalui `handle` yang bertipe (misalnya, `handle.props.locale`):
 
-```typescript fileName="src/views/home.ts" codeFormat={["typescript", "esm"]}
-import { html, type SafeHtml } from "remix/html-template";
+Buat cangkang dokumen HTML bersama:
+
+```tsx fileName="src/views/document.tsx" codeFormat={["typescript", "esm"]}
+import type { SetupFunction } from "remix/ui";
+
+export const Document: SetupFunction<{
+  title: string;
+  lang?: string;
+  dir?: string;
+  children?: any;
+}> = (handle) => {
+  return () => {
+    const { title, lang = "en", dir = "ltr", children } = handle.props;
+
+    return (
+      <html lang={lang} dir={dir}>
+        <head>
+          <meta charSet="utf-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <title>{title}</title>
+        </head>
+        <body>{children}</body>
+      </html>
+    );
+  };
+};
+```
+
+Kemudian buat tampilan halaman beranda. Gunakan `getIntlayer` untuk mengambil konten kamus untuk lokalitas aktif, dan render pengalih bahasa menggunakan `getLocalizedPath`:
+
+```tsx fileName="src/views/home.tsx" codeFormat={["typescript", "esm"]}
 import {
   getIntlayer,
   getHTMLTextDir,
@@ -352,90 +381,108 @@ import {
   type Locale,
   locales,
 } from "intlayer";
+import type { SetupFunction } from "remix/ui";
 import { routes } from "../routes";
+import { Document } from "./document";
 
-export const renderHomePage = (locale: Locale): SafeHtml => {
-  const home = getIntlayer("home", locale);
+export const HomePage: SetupFunction<{ locale: Locale }> = (handle) => {
+  return () => {
+    const { locale } = handle.props;
+    const content = getIntlayer("home", locale);
 
-  return html`
-    <!doctype html>
-    <html lang="${locale}" dir="${getHTMLTextDir(locale)}">
-      <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>${home.title}</title>
-      </head>
-      <body>
+    return (
+      <Document
+        title={content.title}
+        lang={locale}
+        dir={getHTMLTextDir(locale)}
+      >
         <header>
           <nav aria-label="Languages">
-            <span>${home.switchLanguage}</span>
-            ${locales.map((loc) => {
+            <span>{content.switchLanguage}</span>
+            {locales.map((loc) => {
               const href = getLocalizedPath(routes.home.href(), loc);
               const isActive = loc === locale;
-              return html`
+              return (
                 <a
-                  href="${href}"
-                  class="${isActive ? "active" : ""}"
-                  aria-current="${isActive ? "true" : "false"}"
+                  href={href}
+                  class={isActive ? "active" : undefined}
+                  aria-current={isActive ? "page" : undefined}
                 >
-                  ${getLocaleName(loc, locale)}
+                  {getLocaleName(loc, locale)}
                 </a>
-              `;
+              );
             })}
           </nav>
         </header>
         <main>
-          <h1>${home.title}</h1>
-          <p>${home.description}</p>
+          <h1>{content.title}</h1>
+          <p>{content.description}</p>
         </main>
-      </body>
-    </html>
-  `;
+      </Document>
+    );
+  };
 };
 ```
 
+> Remix JSX bukan React: tidak ada hooks, `class` ditulis sebagaimana adanya (bukan `className`), dan komponen dialirkan langsung ke respons HTML tanpa beban JavaScript sisi klien apa pun.
+
 </Step>
-<Step number={8} title="Hubungkan Aplikasi Server">
+<Step number={8} title="Hubungkan Router dan Server">
 
-Hubungkan router, middleware, dan aksi rute Anda bersama-sama di `src/server.ts`:
+Buat `src/router.tsx` untuk mendaftarkan middleware dan menentukan aksi rute. Gunakan `remix/middleware/render` untuk memasang utilitas `context.render()`, dan teruskan komponen JSX Anda secara langsung:
 
-```typescript fileName="src/server.ts" codeFormat={["typescript", "esm"]}
-import * as http from "node:http";
-import { createRouter } from "remix/router";
-import { createRequestListener } from "remix/node-fetch-server";
-import { createHtmlResponse } from "remix/response/html";
+```tsx fileName="src/router.tsx" codeFormat={["typescript", "esm"]}
 import { isDeclaredLocale } from "intlayer";
+import { render } from "remix/middleware/render";
+import { createRouter } from "remix/router";
 import { intlayer, localeKey } from "./middleware/intlayer";
 import { routes } from "./routes";
-import { renderHomePage } from "./views/home";
+import { HomePage } from "./views/home";
 
-// 1. Inisialisasi router dengan middleware Intlayer
 export const router = createRouter({
-  middleware: [intlayer()],
+  middleware: [intlayer(), render()],
 });
 
-// 2. Petakan penangan rute
 router.map(routes, {
   actions: {
-    // Rute bahasa default
+    // Rute bahasa default (misalnya /)
     home(context) {
       const locale = context.get(localeKey);
-      return createHtmlResponse(renderHomePage(locale));
+      return context.render(<HomePage locale={locale} />);
     },
 
-    // Rute terlokalisasi
+    // Rute terlokalisasi (misalnya /fr, /es)
     localizedHome(context) {
-      if (!isDeclaredLocale(context.params.locale)) {
+      const { locale } = context.params;
+
+      if (!isDeclaredLocale(locale)) {
         return new Response("Not Found", { status: 404 });
       }
-      const locale = context.get(localeKey);
-      return createHtmlResponse(renderHomePage(locale));
+
+      return context.render(<HomePage locale={locale} />);
     },
   },
 });
+```
 
-// 3. Mulai server
+> `context.render` menerima `ResponseInit` opsional sebagai argumen kedua, sehingga Anda dapat menetapkan header kustom (misalnya `Content-Language` atau `Cache-Control`) bersama halaman yang dirender:
+>
+> ```typescript
+> return context.render(<HomePage locale={locale} />, {
+>   headers: { "Content-Language": locale },
+> });
+> ```
+
+Sekarang hubungkan `src/server.ts` menggunakan `remix/node-fetch-server` untuk Node.js (atau ekspor handler `fetch` secara langsung untuk Bun, Deno, atau Cloudflare Workers):
+
+```typescript fileName="src/server.ts" codeFormat={["typescript", "esm"]}
+import * as http from "node:http";
+import { createRequestListener } from "remix/node-fetch-server";
+import { router } from "./router";
+
 const PORT = Number(process.env.PORT || 3000);
+
+// Server HTTP Node.js
 const server = http.createServer(
   createRequestListener((request) => router.fetch(request))
 );
@@ -444,6 +491,7 @@ server.listen(PORT, () => {
   console.log(`Server berjalan di http://localhost:${PORT}`);
 });
 
+// Ekspor Bun / Deno / Cloudflare Workers
 export default {
   port: PORT,
   fetch(request: Request) {
@@ -494,7 +542,7 @@ bun x intlayer fill
 
 ## Konfigurasi TypeScript
 
-Pastikan bahwa `tsconfig.json` Anda menyertakan tipe `.intlayer` yang dihasilkan:
+Konfigurasikan `tsconfig.json` untuk mengarahkan JSX ke runtime `remix/ui` dan menyertakan tipe `.intlayer` yang dihasilkan:
 
 ```json fileName="tsconfig.json"
 {
@@ -502,12 +550,16 @@ Pastikan bahwa `tsconfig.json` Anda menyertakan tipe `.intlayer` yang dihasilkan
     "moduleResolution": "Bundler",
     "module": "ESNext",
     "target": "ESNext",
+    "jsx": "react-jsx",
+    "jsxImportSource": "remix/ui",
     "skipLibCheck": true,
     "strict": true
   },
   "include": ["src/**/*", ".intlayer/**/*.ts"]
 }
 ```
+
+> `jsxImportSource: "remix/ui"` adalah apa yang membuat `<HomePage />` diselesaikan ke `createElement` milik Remix dan bukan React. Tidak ada runtime React yang dimuat.
 
 ## Kesimpulan
 

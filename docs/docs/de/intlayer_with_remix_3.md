@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-09
-updatedAt: 2026-09-09
+updatedAt: 2026-09-11
 title: "Remix 3 i18n - Vollständige Anleitung zur Übersetzung Ihrer App"
 description: "Vergessen Sie i18next. Der Leitfaden 2026 zur Erstellung einer mehrsprachigen (i18n) Remix 3-App. Übersetzen Sie mit KI-Agenten und optimieren Sie Bundle-Größe, SEO und Leistung."
 keywords:
@@ -27,15 +27,15 @@ author: aymericzip
 
 # Übersetzen Sie Ihre Remix 3-Website mit Intlayer | Internationalisierung (i18n)
 
-Dieser Leitfaden zeigt, wie Sie **Intlayer** für eine nahtlose Internationalisierung in **Remix 3**-Anwendungen integrieren, einschließlich sprachsensitiver Routenführung, typsicherer Inhaltsdeklarationen, sicherer HTML-Vorlagen und plattformübergreifender Unterstützung für Node.js, Bun, Deno und Cloudflare Workers.
+Dieser Leitfaden zeigt, wie Sie **Intlayer** für eine nahtlose Internationalisierung in **Remix 3**-Anwendungen integrieren, einschließlich sprachsensitiver Routenführung, typsicherer Inhaltsdeklarationen, serverseitig gerenderter JSX-Komponenten und plattformübergreifender Unterstützung für Node.js, Bun, Deno und Cloudflare Workers.
 
 ## Was ist Remix 3?
 
 **Remix 3** stellt einen grundlegenden architektonischen Wandel hin zu einem **zusammensetzbaren, runtime-agnostischen Web-Framework dar, das vollständig auf Webstandards aufbaut**. Anstatt an bestimmte Bundler oder proprietäre Server-APIs gebunden zu sein, wird Remix 3 in Form von eigenständigen, zusammensetzbaren Paketen bereitgestellt:
 
 - **`remix/fetch-router`** (oder `remix/router`): Schlankes, standardkonformes Routing auf Basis der Fetch-API (`Request` und `Response`).
-- **`remix/html-template`**: Sichere HTML-Template-Literale mit automatischem XSS-Schutz und Fragmentkomposition.
-- **`remix/response/html`**: Antwort-Hilfsfunktionen zum Ausliefern von HTML mit Standard-HTTP-Semantik.
+- **`remix/ui`**: Ein JSX-Komponentenmodell (`jsxImportSource: "remix/ui"`). Eine Komponente ist eine Setup-Funktion, die eine Render-Funktion zurückgibt, ähnlich wie React, aber der Zustand verbleibt in einfachen JavaScript-Closures.
+- **`remix/middleware/render`**: Richtet `context.render(<Page />)` für jeden Request ein und streamt den JSX-Baum in eine HTML-`Response`.
 - **`remix/node-fetch-server`**: Server-Adapter für Node.js mit nativer Unterstützung für Bun, Deno und Edge-Runtimes.
 - **`remix/cookie`**: Kryptografisch sicheres Parsen und Serialisieren von Cookies.
 
@@ -62,7 +62,7 @@ Keine ungetypten JSON-Schlüssel und keine Abstürze zur Laufzeit durch fehlende
 </Accordion>
 <Accordion header="Kein Bundle-Overhead auf dem Server">
 
-Bei der Verwendung der serverseitig gerenderten HTML-Templates von Remix 3 (`remix/html-template`) wird nur der aufgelöste Text für die angeforderte Sprache in den Ausgabestrom geschrieben. Es sind keine Client-Hydration-Bundles oder umfangreichen Übersetzungskataloge erforderlich, es sei denn, Sie fordern dies explizit an.
+Remix 3 rendert JSX-Komponenten auf dem Server und streamt das HTML an den Client. Nur der aufgelöste Text für die angeforderte Sprache wird in den Ausgabestrom geschrieben. Es sind keine Client-Hydration-Bundles oder umfangreichen Übersetzungskataloge erforderlich, es sei denn, eine Komponente ist explizit als `clientEntry` deklariert.
 
 </Accordion>
 <Accordion header="Bereit für KI-Agenten und Automatisierung">
@@ -128,7 +128,7 @@ bun add intlayer remix@next
 ```
 
 - **`intlayer`**: Internationalisierungs-Kernengine für Konfigurationsverwaltung, Wörterbuch-Deklaration (`t()`, `Dictionary`), CLI-Tools und Laufzeit-Interpreter.
-- **`remix`**: Das einheitliche Remix 3 Framework-Paket mit Exporten für `remix/router`, `remix/routes`, `remix/html-template` und `remix/node-fetch-server`.
+- **`remix`**: Das einheitliche Remix 3 Framework-Paket mit Exporten für `remix/router`, `remix/routes`, `remix/ui`, `remix/middleware/render` und `remix/node-fetch-server`.
 
 </Step>
 <Step number={2} title="Intlayer konfigurieren">
@@ -323,80 +323,108 @@ routes.localizedHome.href({ locale: "de" }); // "/de"
 ```
 
 </Step>
-<Step number={7} title="Lokalisierte HTML-Templates rendern">
+<Step number={7} title="Lokalisierte Seiten mit JSX rendern">
 
-Remix 3 verwendet `remix/html-template` für die sichere, automatisch maskierte HTML-Generierung. Erstellen Sie eine View-Funktion, die das lokalisierte Wörterbuch mit `getIntlayer` abruft, die Attribute `<html lang="..." dir="...">` setzt und einen Sprachumschalter anzeigt:
+Remix 3 rendert die Benutzeroberfläche mit JSX-Komponenten aus `remix/ui`. Eine Komponente ist eine **Setup-Funktion**, die ein `Handle` empfängt und eine **Render-Funktion** zurückgibt. Das Setup wird einmal pro Instanz ausgeführt, das Rendering bei jeder Aktualisierung, und Props werden über `handle.props` gelesen.
 
-```typescript fileName="src/views/home.ts" codeFormat={["typescript", "esm"]}
-import { html, type SafeHtml } from "remix/html-template";
+Beginnen Sie mit einer gemeinsamen `Document`-Shell, die die Attribute `<html lang="..." dir="...">` anhand der aufgelösten Sprache festlegt:
+
+```tsx fileName="src/views/document.tsx" codeFormat={["typescript", "esm"]}
+import { getHTMLTextDir, type Locale } from "intlayer";
+import type { Handle, RemixNode } from "remix/ui";
+
+type DocumentProps = {
+  locale: Locale;
+  title: string;
+  children?: RemixNode;
+};
+
+export const Document = (handle: Handle<DocumentProps>) => () => {
+  const { locale, title, children } = handle.props;
+
+  return (
+    <html lang={locale} dir={getHTMLTextDir(locale)}>
+      <head>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>{title}</title>
+      </head>
+      <body>{children}</body>
+    </html>
+  );
+};
+```
+
+Erstellen Sie anschließend die Startseite. Sie liest das lokalisierte Wörterbuch mit `getIntlayer` aus und zeigt einen Sprachumschalter an:
+
+```tsx fileName="src/views/home.tsx" codeFormat={["typescript", "esm"]}
 import {
   getIntlayer,
-  getHTMLTextDir,
   getLocaleName,
   getLocalizedPath,
   type Locale,
   locales,
 } from "intlayer";
+import type { Handle } from "remix/ui";
 import { routes } from "../routes";
+import { Document } from "./document";
 
-export const renderHomePage = (locale: Locale): SafeHtml => {
+type HomePageProps = {
+  locale: Locale;
+};
+
+export const HomePage = (handle: Handle<HomePageProps>) => () => {
+  const { locale } = handle.props;
   const home = getIntlayer("home", locale);
 
-  return html`
-    <!doctype html>
-    <html lang="${locale}" dir="${getHTMLTextDir(locale)}">
-      <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>${home.title}</title>
-      </head>
-      <body>
-        <header>
-          <nav aria-label="Languages">
-            <span>${home.switchLanguage}</span>
-            ${locales.map((loc) => {
-              const href = getLocalizedPath(routes.home.href(), loc);
-              const isActive = loc === locale;
-              return html`
-                <a
-                  href="${href}"
-                  class="${isActive ? "active" : ""}"
-                  aria-current="${isActive ? "true" : "false"}"
-                >
-                  ${getLocaleName(loc, locale)}
-                </a>
-              `;
-            })}
-          </nav>
-        </header>
-        <main>
-          <h1>${home.title}</h1>
-          <p>${home.description}</p>
-        </main>
-      </body>
-    </html>
-  `;
+  return (
+    <Document locale={locale} title={home.title}>
+      <header>
+        <nav aria-label="Languages">
+          <span>{home.switchLanguage}</span>
+          {locales.map((targetLocale) => {
+            const isActive = targetLocale === locale;
+
+            return (
+              <a
+                key={targetLocale}
+                href={getLocalizedPath(routes.home.href(), targetLocale)}
+                class={isActive ? "active" : undefined}
+                aria-current={isActive ? "page" : undefined}
+              >
+                {getLocaleName(targetLocale, locale)}
+              </a>
+            );
+          })}
+        </nav>
+      </header>
+      <main>
+        <h1>{home.title}</h1>
+        <p>{home.description}</p>
+      </main>
+    </Document>
+  );
 };
 ```
 
+> Remix-JSX ist nicht React: Es gibt keine Hooks, `class` wird direkt geschrieben (`className` wird ebenfalls akzeptiert) und erneute Render-Vorgänge werden explizit mit `handle.update()` ausgelöst. Interpolierte Werte werden automatisch maskiert.
+
 </Step>
-<Step number={8} title="Server-Anwendung verbinden">
+<Step number={8} title="Router und Server verbinden">
 
-Verknüpfen Sie Ihren Router, Ihre Middleware und Ihre Routenaktionen in `src/server.ts`:
+Fügen Sie die `render()`-Middleware aus `remix/middleware/render` neben der Intlayer-Middleware hinzu. Sie richtet `context.render(node, init)` für jeden Request ein und streamt den JSX-Baum in eine HTML-`Response` (stellt `<!DOCTYPE html>` voran und setzt den `Content-Type`-Header):
 
-```typescript fileName="src/server.ts" codeFormat={["typescript", "esm"]}
-import * as http from "node:http";
-import { createRouter } from "remix/router";
-import { createRequestListener } from "remix/node-fetch-server";
-import { createHtmlResponse } from "remix/response/html";
+```tsx fileName="src/router.tsx" codeFormat={["typescript", "esm"]}
 import { isDeclaredLocale } from "intlayer";
+import { render } from "remix/middleware/render";
+import { createRouter } from "remix/router";
 import { intlayer, localeKey } from "./middleware/intlayer";
 import { routes } from "./routes";
-import { renderHomePage } from "./views/home";
+import { HomePage } from "./views/home";
 
-// 1. Router mit Intlayer-Middleware initialisieren
+// 1. Router mit Intlayer + render Middleware initialisieren
 export const router = createRouter({
-  middleware: [intlayer()],
+  middleware: [intlayer(), render()],
 });
 
 // 2. Routen-Handler zuordnen
@@ -405,7 +433,7 @@ router.map(routes, {
     // Route für Standard-Sprache
     home(context) {
       const locale = context.get(localeKey);
-      return createHtmlResponse(renderHomePage(locale));
+      return context.render(<HomePage locale={locale} />);
     },
 
     // Lokalisierte Route
@@ -414,13 +442,24 @@ router.map(routes, {
         return new Response("Not Found", { status: 404 });
       }
       const locale = context.get(localeKey);
-      return createHtmlResponse(renderHomePage(locale));
+      return context.render(<HomePage locale={locale} />);
     },
   },
 });
+```
 
-// 3. Server starten
+> `context.render` akzeptiert ein optionales `ResponseInit` als zweites Argument, z. B. `context.render(<NotFoundPage locale={locale} />, { status: 404 })`.
+
+Stellen Sie den Router abschließend über einen standardmäßigen `fetch`-Handler bereit. Derselbe Router läuft auf Node.js, Bun, Deno und Cloudflare Workers:
+
+```typescript fileName="src/server.ts" codeFormat={["typescript", "esm"]}
+import * as http from "node:http";
+import { createRequestListener } from "remix/node-fetch-server";
+import { router } from "./router";
+
 const PORT = Number(process.env.PORT || 3000);
+
+// Node.js
 const server = http.createServer(
   createRequestListener((request) => router.fetch(request))
 );
@@ -429,6 +468,7 @@ server.listen(PORT, () => {
   console.log(`Server läuft unter http://localhost:${PORT}`);
 });
 
+// Bun / Deno / Cloudflare Workers
 export default {
   port: PORT,
   fetch(request: Request) {
@@ -479,7 +519,7 @@ bun x intlayer fill
 
 ## TypeScript-Konfiguration
 
-Stellen Sie sicher, dass Ihre `tsconfig.json` die generierten `.intlayer`-Typen enthält:
+Legen Sie JSX auf die `remix/ui`-Runtime fest und stellen Sie sicher, dass Ihre `tsconfig.json` die generierten `.intlayer`-Typen enthält:
 
 ```json fileName="tsconfig.json"
 {
@@ -487,12 +527,16 @@ Stellen Sie sicher, dass Ihre `tsconfig.json` die generierten `.intlayer`-Typen 
     "moduleResolution": "Bundler",
     "module": "ESNext",
     "target": "ESNext",
+    "jsx": "react-jsx",
+    "jsxImportSource": "remix/ui",
     "skipLibCheck": true,
     "strict": true
   },
   "include": ["src/**/*", ".intlayer/**/*.ts"]
 }
 ```
+
+> `jsxImportSource: "remix/ui"` sorgt dafür, dass `<HomePage />` mit `createElement` von Remix anstelle von React aufgelöst wird.
 
 ## Fazit
 

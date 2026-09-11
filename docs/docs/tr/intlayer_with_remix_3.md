@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-09
-updatedAt: 2026-09-09
+updatedAt: 2026-09-11
 title: "Remix 3 i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
 description: "i18next'i unutun. Çok dilli (i18n) bir Remix 3 uygulaması oluşturmak için 2026 rehberi. Yapay zeka ajanlarıyla çeviri yapın, paket boyutunu, SEO'yu ve performansı optimize edin."
 keywords:
@@ -27,17 +27,17 @@ author: aymericzip
 
 # Intlayer Kullanarak Remix 3 Web Sitenizi Çevirin | Uluslararasılaştırma (i18n)
 
-Bu kılavuz, yerel ayara duyarlı yönlendirme, tip güvenli içerik bildirimleri, güvenli HTML şablonları ve Node.js, Bun, Deno ve Cloudflare Workers üzerinde çoklu çalışma zamanı desteği ile **Remix 3** uygulamalarında sorunsuz uluslararasılaştırma için **Intlayer**'ın nasıl entegre edileceğini göstermektedir.
+Bu kılavuz, yerel ayara duyarlı yönlendirme, tip güvenli içerik bildirimleri, sunucu taraflı işlenen JSX bileşenleri ve Node.js, Bun, Deno ve Cloudflare Workers üzerinde çoklu çalışma zamanı desteği ile **Remix 3** uygulamalarında sorunsuz uluslararasılaştırma için **Intlayer**'ın nasıl entegre edileceğini göstermektedir.
 
 ## Remix 3 Nedir?
 
 **Remix 3**, tamamen web standartları üzerine inşa edilmiş, **çalışma zamanından bağımsız, modüler bir web çatısına doğru temel bir mimari değişimi** temsil eder. Belirli paketleyicilere veya özel sunucu API'lerine bağlı kalmak yerine Remix 3, tek amaçlı modüler paketler olarak dağıtılır:
 
 - **`remix/fetch-router`** (veya `remix/router`): Fetch API (`Request` ve `Response`) üzerine inşa edilmiş hafif, standartlara uygun yönlendirme.
-- **`remix/html-template`**: Otomatik XSS koruması ve parça kompozisyonu ile güvenli HTML şablon değişmezleri.
-- **`remix/response/html`**: Standart HTTP anlambilimiyle HTML sunmaya yarayan yanıt yardımcıları.
+- **`remix/ui`**: Bir JSX bileşen modeli (`jsxImportSource: "remix/ui"`). Bir bileşen, tipli bir tanıtıcı (handle) aracılığıyla propları alan ve bir render işlevi döndüren bir kurulum (setup) işlevidir.
+- **`remix/middleware/render`**: Her istekte `context.render(<Page />)` kurulumu yaparak JSX ağacını bir HTML `Response` nesnesine aktarır (streaming).
 - **`remix/node-fetch-server`**: Node.js için sunucu bağdaştırıcıları ile Bun, Deno ve uç (edge) çalışma zamanları için yerel destek.
-- **`remix/cookie`**: Kriptografik olarak güvenli çerez ayrıştırma ve serileştirme.
+- **`remix/cookie`**: Kriptografik olarak imzalanmış çerez ayrıştırma ve serileştirme.
 
 **Intlayer** ile birleştirildiğinde, derleme zamanı güvenliği, otomatik yapay zeka çevirileri, sıfır ek yüklü sunucu oluşturma ve sorunsuz yerel ayar yönlendirmesi sağlayan eksiksiz bir uluslararasılaştırma sistemine sahip olursunuz.
 
@@ -62,7 +62,7 @@ Gevşek JSON anahtarlarına ve çalışma zamanındaki eksik anahtar çökmeleri
 </Accordion>
 <Accordion header="Sunucuda Sıfır Paket Ek Yükü">
 
-Remix 3'ün sunucu taraflı işlenen HTML şablonlarını (`remix/html-template`) kullanırken, çıktı akışına yalnızca istenen yerel ayar için çözümlenmiş metin yazılır. Açıkça gerekmedikçe istemci hidrasyon paketlerine veya hacimli çeviri kataloglarına ihtiyaç duyulmaz.
+Remix 3'ün sunucu taraflı işlenen JSX bileşenlerini kullanırken, çıktı akışına yalnızca istenen yerel ayar için çözümlenmiş metin yazılır. Bir `clientEntry` aracılığıyla istemci hidrasyonunu açıkça yapılandırmadığınız sürece bileşenler tamamen sunucuda çalışır. Varsayılan olarak istemciye hiçbir çeviri kataloğu veya hidrasyon çalışma zamanı gönderilmez.
 
 </Accordion>
 <Accordion header="Yapay Zeka Ajanları ve Otomasyona Hazır">
@@ -128,7 +128,7 @@ bun add intlayer remix@next
 ```
 
 - **`intlayer`**: Yapılandırma yönetimi, sözlük bildirimi (`t()`, `Dictionary`), CLI araçları ve çalışma zamanı yorumlayıcısı sağlayan çekirdek uluslararasılaştırma motoru.
-- **`remix`**: `remix/router`, `remix/routes`, `remix/html-template` ve `remix/node-fetch-server` dışa aktaran birleşik Remix 3 çatı paketi.
+- **`remix`**: `remix/router`, `remix/routes`, `remix/ui`, `remix/middleware/render` ve `remix/node-fetch-server` dışa aktaran birleşik Remix 3 çatı paketi.
 
 </Step>
 <Step number={2} title="Intlayer'ı Yapılandırın">
@@ -338,12 +338,41 @@ routes.localizedHome.href({ locale: "tr" }); // "/tr"
 ```
 
 </Step>
-<Step number={7} title="Yerelleştirilmiş HTML Şablonlarını İşleyin">
+<Step number={7} title="JSX ile Yerelleştirilmiş Sayfaları İşleyin">
 
-Remix 3, güvenli ve otomatik olarak kaçış karakterleri eklenmiş HTML üretimi için `remix/html-template` kullanır. `getIntlayer` ile yerelleştirilmiş sözlüğü çıkaran, `<html lang="..." dir="...">` niteliklerini ayarlayan ve bir dil değiştirici gösteren bir görünüm işlevi oluşturun:
+Remix 3, JSX bileşenleri için `remix/ui` kullanır. Bir bileşen, bir **render işlevi** döndüren bir **kurulum (setup) işlevidir**. Proplar, tipli bir `handle` aracılığıyla iletilir (örneğin, `handle.props.locale`):
 
-```typescript fileName="src/views/home.ts" codeFormat={["typescript", "esm"]}
-import { html, type SafeHtml } from "remix/html-template";
+Paylaşılan bir HTML belge kabuğu (document shell) oluşturun:
+
+```tsx fileName="src/views/document.tsx" codeFormat={["typescript", "esm"]}
+import type { SetupFunction } from "remix/ui";
+
+export const Document: SetupFunction<{
+  title: string;
+  lang?: string;
+  dir?: string;
+  children?: any;
+}> = (handle) => {
+  return () => {
+    const { title, lang = "en", dir = "ltr", children } = handle.props;
+
+    return (
+      <html lang={lang} dir={dir}>
+        <head>
+          <meta charSet="utf-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <title>{title}</title>
+        </head>
+        <body>{children}</body>
+      </html>
+    );
+  };
+};
+```
+
+Ardından ana sayfa görünümünü oluşturun. Etkin yerel ayar için sözlük içeriğini almak üzere `getIntlayer` kullanın ve `getLocalizedPath` kullanarak bir dil değiştirici işleyin:
+
+```tsx fileName="src/views/home.tsx" codeFormat={["typescript", "esm"]}
 import {
   getIntlayer,
   getHTMLTextDir,
@@ -352,90 +381,108 @@ import {
   type Locale,
   locales,
 } from "intlayer";
+import type { SetupFunction } from "remix/ui";
 import { routes } from "../routes";
+import { Document } from "./document";
 
-export const renderHomePage = (locale: Locale): SafeHtml => {
-  const home = getIntlayer("home", locale);
+export const HomePage: SetupFunction<{ locale: Locale }> = (handle) => {
+  return () => {
+    const { locale } = handle.props;
+    const content = getIntlayer("home", locale);
 
-  return html`
-    <!doctype html>
-    <html lang="${locale}" dir="${getHTMLTextDir(locale)}">
-      <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>${home.title}</title>
-      </head>
-      <body>
+    return (
+      <Document
+        title={content.title}
+        lang={locale}
+        dir={getHTMLTextDir(locale)}
+      >
         <header>
           <nav aria-label="Languages">
-            <span>${home.switchLanguage}</span>
-            ${locales.map((loc) => {
+            <span>{content.switchLanguage}</span>
+            {locales.map((loc) => {
               const href = getLocalizedPath(routes.home.href(), loc);
               const isActive = loc === locale;
-              return html`
+              return (
                 <a
-                  href="${href}"
-                  class="${isActive ? "active" : ""}"
-                  aria-current="${isActive ? "true" : "false"}"
+                  href={href}
+                  class={isActive ? "active" : undefined}
+                  aria-current={isActive ? "page" : undefined}
                 >
-                  ${getLocaleName(loc, locale)}
+                  {getLocaleName(loc, locale)}
                 </a>
-              `;
+              );
             })}
           </nav>
         </header>
         <main>
-          <h1>${home.title}</h1>
-          <p>${home.description}</p>
+          <h1>{content.title}</h1>
+          <p>{content.description}</p>
         </main>
-      </body>
-    </html>
-  `;
+      </Document>
+    );
+  };
 };
 ```
 
+> Remix JSX, React değildir: kancalar (hooks) yoktur, `class` olduğu gibi yazılır (`className` değil) ve bileşenler herhangi bir istemci tarafı JavaScript ek yükü olmadan doğrudan HTML yanıtına aktarılır.
+
 </Step>
-<Step number={8} title="Sunucu Uygulamasını Bağlayın">
+<Step number={8} title="Yönlendiriciyi ve Sunucuyu Bağlayın">
 
-Yönlendiricinizi, ara yazılımlarınızı ve rota eylemlerinizi `src/server.ts` içinde bağlayın:
+Ara yazılımları kaydetmek ve rota eylemlerini tanımlamak için `src/router.tsx` dosyasını oluşturun. `context.render()` yardımcısını yüklemek için `remix/middleware/render` kullanın ve JSX bileşeninizi doğrudan iletin:
 
-```typescript fileName="src/server.ts" codeFormat={["typescript", "esm"]}
-import * as http from "node:http";
-import { createRouter } from "remix/router";
-import { createRequestListener } from "remix/node-fetch-server";
-import { createHtmlResponse } from "remix/response/html";
+```tsx fileName="src/router.tsx" codeFormat={["typescript", "esm"]}
 import { isDeclaredLocale } from "intlayer";
+import { render } from "remix/middleware/render";
+import { createRouter } from "remix/router";
 import { intlayer, localeKey } from "./middleware/intlayer";
 import { routes } from "./routes";
-import { renderHomePage } from "./views/home";
+import { HomePage } from "./views/home";
 
-// 1. Yönlendiriciyi Intlayer ara yazılımı ile başlatın
 export const router = createRouter({
-  middleware: [intlayer()],
+  middleware: [intlayer(), render()],
 });
 
-// 2. Rota işleyicilerini eşleyin
 router.map(routes, {
   actions: {
-    // Varsayılan yerel ayar rotası
+    // Varsayılan yerel ayar rotası (ör. /)
     home(context) {
       const locale = context.get(localeKey);
-      return createHtmlResponse(renderHomePage(locale));
+      return context.render(<HomePage locale={locale} />);
     },
 
-    // Yerelleştirilmiş rota
+    // Yerelleştirilmiş rota (ör. /fr, /es)
     localizedHome(context) {
-      if (!isDeclaredLocale(context.params.locale)) {
+      const { locale } = context.params;
+
+      if (!isDeclaredLocale(locale)) {
         return new Response("Not Found", { status: 404 });
       }
-      const locale = context.get(localeKey);
-      return createHtmlResponse(renderHomePage(locale));
+
+      return context.render(<HomePage locale={locale} />);
     },
   },
 });
+```
 
-// 3. Sunucuyu başlatın
+> `context.render`, ikinci bağımsız değişken olarak isteğe bağlı bir `ResponseInit` kabul eder, böylece işlenen sayfanın yanında özel başlıklar da (örneğin `Content-Language` veya `Cache-Control`) ayarlayabilirsiniz:
+>
+> ```typescript
+> return context.render(<HomePage locale={locale} />, {
+>   headers: { "Content-Language": locale },
+> });
+> ```
+
+Şimdi Node.js için `remix/node-fetch-server` kullanarak `src/server.ts` dosyasını bağlayın (veya Bun, Deno ya da Cloudflare Workers için `fetch` işleyicisini doğrudan dışa aktarın):
+
+```typescript fileName="src/server.ts" codeFormat={["typescript", "esm"]}
+import * as http from "node:http";
+import { createRequestListener } from "remix/node-fetch-server";
+import { router } from "./router";
+
 const PORT = Number(process.env.PORT || 3000);
+
+// Node.js HTTP sunucusu
 const server = http.createServer(
   createRequestListener((request) => router.fetch(request))
 );
@@ -444,6 +491,7 @@ server.listen(PORT, () => {
   console.log(`Sunucu http://localhost:${PORT} adresinde çalışıyor`);
 });
 
+// Bun / Deno / Cloudflare Workers dışa aktarımı
 export default {
   port: PORT,
   fetch(request: Request) {
@@ -494,7 +542,7 @@ bun x intlayer fill
 
 ## TypeScript Yapılandırması
 
-`tsconfig.json` dosyanızın oluşturulan `.intlayer` türlerini içerdiğinden emin olun:
+JSX'i `remix/ui` çalışma zamanına yönlendirmek ve oluşturulan `.intlayer` türlerini dahil etmek için `tsconfig.json` dosyasını yapılandırın:
 
 ```json fileName="tsconfig.json"
 {
@@ -502,12 +550,16 @@ bun x intlayer fill
     "moduleResolution": "Bundler",
     "module": "ESNext",
     "target": "ESNext",
+    "jsx": "react-jsx",
+    "jsxImportSource": "remix/ui",
     "skipLibCheck": true,
     "strict": true
   },
   "include": ["src/**/*", ".intlayer/**/*.ts"]
 }
 ```
+
+> `jsxImportSource: "remix/ui"`, `<HomePage />` ifadesinin React yerine Remix'in `createElement` işlevine çözümlenmesini sağlayan şeydir. Hiçbir React çalışma zamanı yüklenmez.
 
 ## Sonuç
 
