@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-05-18
+updatedAt: 2026-09-11
 title: Najlepsze rozwiązanie i18n dla Solid w 2026 r. - raport z benchmarku
 description: Porównaj biblioteki internacjonalizacji (i18n) dla Solid, takie jak solid-primitives, solid-i18next i Intlayer. Szczegółowy raport wydajności dotyczący rozmiaru paczki, wycieków i reaktywności.
 keywords:
@@ -17,6 +17,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-solid-template
 history:
+  - version: 9.5.1
+    date: 2026-09-11
+    changes: "Aktualizacja wyników benchmarku"
   - version: 8.9.8
     date: 2026-05-18
     changes: "Dodaj porównanie gwiazdek GitHub"
@@ -62,9 +65,9 @@ Innym skutkiem jest wpływ na doświadczenie programisty (DX): sposób deklarowa
 
 ## TL;DR
 
-- **Intlayer**: Zalecany wybór dla profesjonalnych aplikacji Solid wymagających zaawansowanych funkcji i optymalizacji (v8.7.12).
+- **Intlayer**: Zalecany wybór dla profesjonalnych aplikacji Solid wymagających zaawansowanych funkcji i optymalizacji (v9.5.0).
 - **@solid-primitives/i18n**: Doskonała lekka alternatywa dla prostych projektów, choć brakuje jej zaawansowanych funkcji, takich jak lazy loading.
-- **solid-i18next**: Standardowa, ale ciężka opcja (~4.7x Intlayer) z tymi samymi wadami co React i18next.
+- **solid-i18next**: Standardowa, ale ciężka opcja (~3.5x Intlayer) z tymi samymi wadami co React i18next.
 - **Paraglide**: Innowacyjne podejście, ale złożone DX i problemy z tree-shakingiem w niektórych konfiguracjach.
 
 ## Przetestuj swoją aplikację
@@ -97,10 +100,10 @@ Składnie zbudowane wokół `t('a.b.c')` są bardzo wygodne, ale często zachęc
 W tym benchmarku porównaliśmy następujące biblioteki:
 
 - `Base App` (Brak biblioteki i18n)
-- `solid-intlayer` (v8.7.12)
+- `solid-intlayer` (v9.5.0)
 - `@solid-primitives/i18n` (v2.2.1)
-- `solid-i18next` (v17.0.2)
-- `@inlang/paraglide-js` (v2.17.0)
+- `i18next` (v26.0.8) + `@mbarzda/solid-i18next` (v1.4.1)
+- `@inlang/paraglide-js` (v2.25.1)
 
 Framework to `Solid` z aplikacją wielojęzyczną składającą się z **10 stron** i **10 języków**.
 
@@ -154,11 +157,11 @@ Gwiazdki na GitHubie są silnym wskaźnikiem popularności projektu, zaufania sp
 
 ### 2 - Rozwiązania akceptowalne
 
-**(solid-i18next)** (`solid-i18next@17.0.2`):
+**(solid-i18next)** (`i18next@26.0.8`):
 
 `solid-i18next` jest prawdopodobnie najpopularniejszą opcją, ponieważ był jednym z pierwszych rozwiązań zaspokajających potrzeby i18n aplikacji JavaScript. Posiada również szeroki zestaw wtyczek społecznościowych dla konkretnych problemów.
 
-Paczka jest ciężka (~14.6kb, co stanowi około 4.7x `solid-intlayer`).
+Paczka jest ciężka (~14.9kb, co stanowi około 3.5x `solid-intlayer`).
 
 Mimo to dzieli te same główne wady co stosy technologiczne zbudowane na `t('a.b.c')`: optymalizacje są możliwe, ale bardzo czasochłonne, a duże projekty niosą ze sobą ryzyko złych praktyk (przestrzenie nazw + dynamiczne ładowanie + typy).
 
@@ -167,7 +170,7 @@ Mimo to dzieli te same główne wady co stosy technologiczne zbudowane na `t('a.
 Solid primitive jest niezwykle lekki i wydajny. Polecam to rozwiązanie dla lekkich projektów, ale może w nim szybko zabraknąć funkcji dla profesjonalnych rozwiązań, w tym zarządzania plikami cookie, przekierowań proxy, formaterów itp.
 Brakuje mu również lazy loadingu i scopingu przestrzeni nazw w celu optymalizacji rozmiaru strony.
 
-**(Paraglide)** (`@inlang/paraglide-js@2.17.0`):
+**(Paraglide)** (`@inlang/paraglide-js@2.25.1`):
 
 `Paraglide` oferuje innowacyjne, przemyślane podejście. Mimo to w tym benchmarku reklamowany przez nich tree-shaking nie zadziałał w mojej implementacji. Workflow i DX są również bardziej złożone niż w przypadku innych opcji.
 Osobiście nie lubię konieczności regeneracji plików JS przed każdym pushem, co stwarza ciągłe ryzyko konfliktów przy mergowaniu poprzez PR-y.
@@ -175,7 +178,7 @@ Wreszcie, w porównaniu z innymi rozwiązaniami, Paraglide nie używa store'a (n
 
 ### 3 - Rekomendacje
 
-**(Intlayer)** (`solid-intlayer@8.7.12`):
+**(Intlayer)** (`solid-intlayer@9.5.0`):
 
 Nie będę osobiście oceniać `solid-intlayer` ze względu na obiektywizm, ponieważ jest to moje własne rozwiązanie.
 

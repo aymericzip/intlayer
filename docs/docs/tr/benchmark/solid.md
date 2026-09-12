@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-05-18
+updatedAt: 2026-09-11
 title: 2026'da Solid için En İyi i18n Çözümü - Benchmark Raporu
 description: solid-primitives, solid-i18next ve Intlayer gibi Solid uluslararasılaştırma (i18n) kütüphanelerini karşılaştırın. Bundle boyutu, sızıntı ve reaktivite üzerine ayrıntılı performans raporu.
 keywords:
@@ -17,6 +17,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-solid-template
 history:
+  - version: 9.5.1
+    date: 2026-09-11
+    changes: "Benchmark sonuçları güncellendi"
   - version: 8.9.8
     date: 2026-05-18
     changes: "GitHub yıldız karşılaştırması ekle"
@@ -62,9 +65,9 @@ Diğer etki geliştirici deneyimi (DX) üzerindedir: içeriği nasıl tanımlad�
 
 ## TL;DR
 
-- **Intlayer**: Gelişmiş özelliklere ve optimizasyona ihtiyaç duyan profesyonel Solid uygulamaları için önerilen seçim (v8.7.12).
+- **Intlayer**: Gelişmiş özelliklere ve optimizasyona ihtiyaç duyan profesyonel Solid uygulamaları için önerilen seçim (v9.5.0).
 - **@solid-primitives/i18n**: Basit projeler için mükemmel hafif bir alternatif, ancak lazy loading gibi gelişmiş özelliklerden yoksundur.
-- **solid-i18next**: Standart ancak ağır bir seçenek (~4.7x Intlayer), React i18next ile aynı dezavantajlara sahiptir.
+- **solid-i18next**: Standart ancak ağır bir seçenek (~3.5x Intlayer), React i18next ile aynı dezavantajlara sahiptir.
 - **Paraglide**: Yenilikçi yaklaşım ancak karmaşık DX ve bazı kurulumlarda tree-shaking sorunları.
 
 ## Uygulamanızı test edin
@@ -97,10 +100,10 @@ Dinamik yükleme ile bir ödünleşimi kabul edersiniz: daha az başlangıç JS'
 Bu benchmark için aşağıdaki kütüphaneleri karşılaştırdık:
 
 - `Base App` (i18n kütüphanesi yok)
-- `solid-intlayer` (v8.7.12)
+- `solid-intlayer` (v9.5.0)
 - `@solid-primitives/i18n` (v2.2.1)
-- `solid-i18next` (v17.0.2)
-- `@inlang/paraglide-js` (v2.17.0)
+- `i18next` (v26.0.8) + `@mbarzda/solid-i18next` (v1.4.1)
+- `@inlang/paraglide-js` (v2.25.1)
 
 Framework, **10 sayfa** ve **10 dilden** oluşan çok dilli bir uygulamaya sahip `Solid`'dir.
 
@@ -154,11 +157,11 @@ GitHub yıldızları, bir projenin popülerliğinin, topluluk güveninin ve uzun
 
 ### 2 - Kabul edilebilir çözümler
 
-**(solid-i18next)** (`solid-i18next@17.0.2`):
+**(solid-i18next)** (`i18next@26.0.8`):
 
 `solid-i18next` muhtemelen en popüler seçenektir çünkü JavaScript uygulaması i18n ihtiyaçlarını karşılayan ilklerden biriydi. Ayrıca belirli sorunlar için geniş bir topluluk eklentisi setine sahiptir.
 
-Paket ağırdır (~14.6kb, bu da `solid-intlayer`'ın yaklaşık 4.7 katıdır).
+Paket ağırdır (~14.9kb, bu da `solid-intlayer`'ın yaklaşık 3.5 katıdır).
 
 Yine de, `t('a.b.c')` üzerine kurulu yığınlarla aynı ana dezavantajları paylaşır: optimizasyonlar mümkündür ancak çok zaman alıcıdır ve büyük projeler kötü uygulamalar (namespace + dinamik yükleme + tipler) riskiyle karşı karşıyadır.
 
@@ -167,7 +170,7 @@ Yine de, `t('a.b.c')` üzerine kurulu yığınlarla aynı ana dezavantajları pa
 Solid primitive son derece hafif ve verimlidir. Bu çözümü hafif projeler için öneriyorum, ancak çerez yönetimi, proxy yönlendirme, formatlayıcılar vb. dahil profesyonel çözümler için özellikleri hızla yetersiz kalabilir.
 Ayrıca sayfa boyutu optimizasyonu için lazy loading ve kapsamlı namespace özellikleri de eksiktir.
 
-**(Paraglide)** (`@inlang/paraglide-js@2.17.0`):
+**(Paraglide)** (`@inlang/paraglide-js@2.25.1`):
 
 `Paraglide` yenilikçi ve iyi düşünülmüş bir yaklaşım sunuyor. Buna rağmen, bu benchmark'ta şirketlerinin reklamını yaptığı tree-shaking benim uygulamam için çalışmadı. İş akışı ve DX de diğer seçeneklerden daha karmaşıktır.
 Kişisel olarak her push'tan önce JS dosyalarını yeniden oluşturmak zorunda kalmayı sevmiyorum, bu da PR'lar aracılığıyla sürekli bir birleştirme çakışması riski yaratıyor.
@@ -175,7 +178,7 @@ Son olarak, diğer çözümlerle karşılaştırıldığında Paraglide, içeri�
 
 ### 3 - Öneriler
 
-**(Intlayer)** (`solid-intlayer@8.7.12`):
+**(Intlayer)** (`solid-intlayer@9.5.0`):
 
 Kendi çözümüm olduğu için tarafsızlık adına `solid-intlayer`'ı kişisel olarak yargılamayacağım.
 

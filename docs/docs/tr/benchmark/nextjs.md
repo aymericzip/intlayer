@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-05-18
+updatedAt: 2026-09-11
 title: 2026'da Next.js için En İyi i18n Çözümü - Benchmark Raporu
 description: next-intl, next-i18next ve Intlayer gibi Next.js uluslararasılaştırma (i18n) kütüphanelerini karşılaştırın. Bundle boyutu, sızıntı ve reaktivite üzerine ayrıntılı performans raporu.
 keywords:
@@ -17,6 +17,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n
 history:
+  - version: 9.5.1
+    date: 2026-09-11
+    changes: "Benchmark sonuçları güncellendi"
   - version: 8.9.8
     date: 2026-05-18
     changes: "GitHub yıldız karşılaştırması ekle"
@@ -56,7 +59,7 @@ Uluslararasılaştırma kütüphanelerinin uygulamanız üzerinde ağır bir etk
 
 Uygulamanız büyüdükçe, bundle boyutu eksponansiyel olarak artabilir ve bu durum performansı fark edilir şekilde düşürebilir.
 
-Örnek olarak, en kötü durumlarda, uluslararasılaştırıldıktan sonra sayfanız neredeyse 4 kat daha büyük hale gelebilir.
+Örnek olarak, en kötü durumlarda, uluslararasılaştırıldıktan sonra sayfanız neredeyse 2 kat daha büyük hale gelebilir.
 
 i18n kütüphanelerinin bir başka etkisi de geliştirme sürecinin yavaşlamasıdır. Bileşenleri farklı dillerde çok dilli içeriğe dönüştürmek zaman alıcı bir iştir.
 
@@ -68,7 +71,7 @@ Intlayer tüm bu boyutlarda optimizasyon yapmaya çalışır.
 
 - **Intlayer** & **next-translate**: Next.js performansı için en iyi seçimler; en küçük ayak izini ve en iyi statik render desteğini sunarlar.
 - **next-intl**: Şu anki en popüler seçenek ancak ağır ve büyük uygulamalar için optimize edilmesi karmaşık.
-- **next-i18next**: Popüler ve eklenti bakımından zengin ancak önemli bir paket ağırlığı getiriyor (~3× Intlayer).
+- **next-i18next**: Popüler ve eklenti bakımından zengin ancak önemli bir paket ağırlığı getiriyor (~3.5× Intlayer).
 - **Kaçının**: Ciddi performans sorunları, satıcı kısıtlaması (vendor lock-in) ve derlemeyi bozan hatalar nedeniyle **gt-next** ve **lingo.dev**'den kaçının.
 
 ## Uygulamanızı Test Edin
@@ -109,19 +112,21 @@ Son olarak `Intlayer`, build zamanı (build-time) optimizasyonu uygulayarak `use
 Bu benchmark için aşağıdaki kütüphaneleri karşılaştırdık:
 
 - `Base App` (i18n kütüphanesi yok)
-- `next-intlayer` (v8.7.12)
-- `next-i18next` (v16.0.5)
-- `next-intl` (v4.9.1)
-- `@lingui/core` (v5.3.0)
-- `next-translate` (v3.1.2)
+- `next-intlayer` (v9.5.1)
+- [`@intlayer/next-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/next-intl.md) (v9.5.1)
+- [`@intlayer/next-i18next`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/next-i18next.md) (v9.5.1)
+- `next-i18next` (v16.3.0)
+- `next-intl` (v4.14.2)
+- `@lingui/core` (v6.6.0)
+- `next-translate` (v3.2.0)
 - `next-international` (v1.3.1)
 - `@inlang/paraglide-js` (v2.15.1)
-- `@tolgee/react` (v7.0.0)
-- `@lingo.dev/compiler` (v0.4.0)
-- `wuchale` (v0.22.11)
-- `gt-next` (v6.16.5)
+- `@tolgee/react` (v7.2.0)
+- `@lingo.dev/compiler` (v0.4.12)
+- `wuchale` (v0.26.6)
+- `gt-next` (v11.1.24)
 
-Next.js'in `16.2.4` sürümünü App Router ile kullandım.
+Next.js'in `16.3.4` sürümünü App Router ile kullandım.
 
 **10 sayfa** ve **10 dilden** oluşan çok dilli bir uygulama geliştirdim.
 
@@ -175,15 +180,15 @@ GitHub yıldızları, bir projenin popülerliğinin, topluluk güveninin ve uzun
 
 Karşılaşılan sorunlar:
 
-**(General Translation)** (`gt-next@6.16.5`):
+**(General Translation)** (`gt-next@11.1.24`):
 
-- 110kb'lık bir uygulama için `gt-next` 440kb'tan fazla ek veri ekler.
+- 141kb'lık bir uygulama için `gt-next` 50kb'tan fazla ek veri ekler.
 - General Translation ile yapılan ilk derlemede `Quota Exceeded, please upgrade your plan` mesajı.
 - Çeviriler render edilmiyor; kütüphanede bir hata gibi görünen `Error: <T> used on the client-side outside of <GTProvider>` hatası alıyorum.
 - **gt-next** uygulanırken kütüphaneyle ilgili bir [sorun](https://github.com/generaltranslation/gt/issues/1210#event-24510646961) ile de karşılaştım: `does not provide an export named 'printAST' - @formatjs/icu-messageformat-parser` hatası uygulamayı bozdu. Sorun bildirildikten sonra 24 saat içinde düzeltildi.
 - Kütüphane Next.js sayfalarının statik render edilmesini engelliyor.
 
-**(Lingo.dev)** (`@lingo.dev/compiler@0.4.0`):
+**(Lingo.dev)** (`@lingo.dev/compiler@0.4.12`):
 
 - AI kotası aşıldı ve derleme tamamen engellendi; yani ödeme yapmadan doğrudan yayına giremezsiniz.
 - Derleyici, çevrilmiş içeriğin neredeyse %40'ını kaçırıyordu. Çalışması için tüm `.map` yapılarını düz bileşen bloklarına yeniden yazmak zorunda kaldım.
@@ -192,7 +197,7 @@ Karşılaşılan sorunlar:
 
 ### 2 - Deneysel çözümler
 
-**(Wuchale)** (`wuchale@0.22.11`):
+**(Wuchale)** (`wuchale@0.26.6`):
 
 `Wuchale`'nin arkasındaki fikir ilginç ancak henüz uygulanabilir değil. Reaktivite sorunlarıyla karşılaştım ve uygulamayı çalıştırabilmek için sağlayıcının (provider) zorla yeniden render edilmesini gerektirdi. Dokümantasyon da oldukça belirsiz, bu da alışma sürecini zorlaştırıyor.
 
@@ -202,21 +207,21 @@ Karşılaşılan sorunlar:
 Şahsen her push öncesinde JS dosyalarını yeniden oluşturmak zorunda kalmaktan hoşlanmıyorum, bu da PR'ler üzerinden sürekli merge çelişkisi riski yaratıyor. Araç ayrıca Next.js'ten ziyade Vite'e daha fazla odaklanmış gibi görünüyor.
 Son olarak, diğer çözümlerle karşılaştırıldığında Paraglide, içeriği render etmek için mevcut dili almak üzere bir store (örneğin React context) kullanmaz. Ayrıştırılan her düğüm için localStorage / cookie vb. üzerinden dili sorgular. Bu, bileşen reaktivitesini etkileyen gereksiz mantık yürütülmesine yol açar.
 
-> Paraglide üzerine not: Bu çözüm, içe aktarma (import) için kod tabanınıza kod enjekte eder ve sonuç olarak benchmark raporundaki 'kütüphane boyutu' metriği neredeyse 0'dır. Kod oluşturma iyi bir şeydir, çünkü kullanılan fonksiyon yalnızca gerekli mantığı (tüm önekler vs önek yok, çerezler vs depolama vb.) içerecektir. Buna karşılık Intlayer, paketleyiciyi mantığa bağlı olarak içeriği tree-shake yapmaya zorlamak için derlemede ortam değişkeni enjeksiyonları yoluyla bu filtrelemeyi gerçekleştirir. Bu sayede paraglide ve intlayer, i18next veya next-intl'den 6 ila 10 kat daha hafif çözümler haline gelir.
+> Paraglide üzerine not: Bu çözüm, içe aktarma (import) için kod tabanınıza kod enjekte eder ve sonuç olarak benchmark raporundaki 'kütüphane boyutu' metriği neredeyse 0'dır. Kod oluşturma iyi bir şeydir, çünkü kullanılan fonksiyon yalnızca gerekli mantığı (tüm önekler vs önek yok, çerezler vs depolama vb.) içerecektir. Buna karşılık Intlayer, paketleyiciyi mantığa bağlı olarak içeriği tree-shake yapmaya zorlamak için derlemede ortam değişkeni enjeksiyonları yoluyla bu filtrelemeyi gerçekleştirir. Bu sayede paraglide ve intlayer, i18next veya next-intl'den 3 ila 8 kat daha hafif çözümler haline gelir.
 
 ### 3 - Kabul edilebilir çözümler
 
-**(Tolgee)** (`@tolgee/react@7.0.0`):
+**(Tolgee)** (`@tolgee/react@7.2.0`):
 
 `Tolgee` daha önce bahsedilen sorunların çoğunu ele alıyor. Benzer araçlara göre benimsenmesinin daha zor olduğunu gördüm. Tip güvenliği (type safety) sağlamıyor, bu da eksik anahtarların build zamanında yakalanmasını zorlaştırıyor. Eksik anahtar algılama özelliği eklemek için Tolgee'nin fonksiyonlarını kendi fonksiyonlarımla sarmak zorunda kaldım.
 
-**(Next Intl)** (`next-intl@4.9.1`):
+**(Next Intl)** (`next-intl@4.14.2`):
 
-`next-intl` şu anki en popüler seçenek ve AI asistanlarının en çok önerdiği kütüphane; ancak bence performans odaklı bakıldığında bu yanlış bir öneri. Başlamak kolaydır; pratikte sızıntıyı sınırlamak için optimizasyon karmaşıktır. Dinamik yükleme + ad alanı oluşturma + TypeScript tiplerini birleştirmek geliştirmeyi çok yavaşlatır. Paket de oldukça ağırdır ( `NextIntlClientProvider` + `useTranslations` için yaklaşık 13kb, bu `next-intlayer`ın 2 katından fazlasıdır). **next-intl** eskiden Next.js sayfalarının statik render edilmesini engelliyordu. `setRequestLocale()` adında bir yardımcı sunar. Bu, `en.json` / `fr.json` gibi merkezi dosyalar için kısmen çözülmüş gibi görünse de, içerik `en/shared.json` / `fr/shared.json` / `es/shared.json` gibi ad alanlarına bölündüğünde statik render hala bozuluyor.
+`next-intl` şu anki en popüler seçenek ve AI asistanlarının en çok önerdiği kütüphane; ancak bence performans odaklı bakıldığında bu yanlış bir öneri. Başlamak kolaydır; pratikte sızıntıyı sınırlamak için optimizasyon karmaşıktır. Dinamik yükleme + ad alanı oluşturma + TypeScript tiplerini birleştirmek geliştirmeyi çok yavaşlatır. Paket de oldukça ağırdır ( `NextIntlClientProvider` + `useTranslations` için yaklaşık 14.7kb, bu `next-intlayer`ın 2.5 katından fazlasıdır). **next-intl** eskiden Next.js sayfalarının statik render edilmesini engelliyordu. `setRequestLocale()` adında bir yardımcı sunar. Bu, `en.json` / `fr.json` gibi merkezi dosyalar için kısmen çözülmüş gibi görünse de, içerik `en/shared.json` / `fr/shared.json` / `es/shared.json` gibi ad alanlarına bölündüğünde statik render hala bozuluyor.
 
-**(Next I18next)** (`next-i18next@16.0.5`):
+**(Next I18next)** (`next-i18next@16.3.0`):
 
-`next-i18next` muhtemelen en popüler seçenektir çünkü JavaScript uygulama i18n çözümleri arasında ilklerden biridir. Birçok topluluk eklentisine sahiptir. `next-intl` ile aynı büyük dezavantajlara sahiptir. Paket özellikle ağırdır ( `I18nProvider` + `useTranslation` için yaklaşık 18kb, `next-intlayer`ın yaklaşık 3 katı).
+`next-i18next` muhtemelen en popüler seçenektir çünkü JavaScript uygulama i18n çözümleri arasında ilklerden biridir. Birçok topluluk eklentisine sahiptir. `next-intl` ile aynı büyük dezavantajlara sahiptir. Paket özellikle ağırdır ( `I18nProvider` + `useTranslation` için yaklaşık 19.7kb, `next-intlayer`ın yaklaşık 3.5 katı).
 
 Mesaj formatları da farklıdır: `next-intl` ICU MessageFormat kullanırken, `i18next` kendi formatını kullanır.
 
@@ -224,17 +229,17 @@ Mesaj formatları da farklıdır: `next-intl` ICU MessageFormat kullanırken, `i
 
 `next-international` da yukarıdaki sorunları ele alıyor ancak `next-intl` veya `next-i18next`ten çok da farklı değil. Ad alanına özel çeviriler için `scopedT()` içeriyor, ancak bunu kullanmanın bundle boyutu üzerinde neredeyse hiç etkisi yok.
 
-**(Lingui)** (`@lingui/core@5.3.0`):
+**(Lingui)** (`@lingui/core@6.6.0`):
 
 `Lingui` sık sık övülür. Şahsen `lingui extract` / `lingui compile` iş akışını alternatiflerden daha karmaşık buldum ve net bir avantaj göremedim. Ayrıca AI'ları şaşırtan tutarsız sözdizimleri fark ettim (örneğin `t()`, `t''`, `i18n.t()`, `<Trans>`).
 
 ### 4 - Öneriler
 
-**(Next Translate)** (`next-translate@3.1.2`):
+**(Next Translate)** (`next-translate@3.2.0`):
 
-`t()` stili bir API seviyorsanız `next-translate` ana önerimdir. `next-translate-plugin` aracılığıyla zarif bir şekilde çalışır ve Webpack / Turbopack yükleyicisi ile `getStaticProps` üzerinden ad alanlarını yükler. Ayrıca buradaki en hafif seçenektir (~2.5kb). Yapılandırmada sayfa veya rota başına ad alanı tanımlamak iyi düşünülmüştür ve **next-intl** veya **next-i18next** gibi ana alternatiflerden daha kolay bakımı yapılır. `3.1.2` sürümünde statik render'ın çalışmadığını ve Next.js'in dinamik render'a geri döndüğünü fark ettim.
+`t()` stili bir API seviyorsanız `next-translate` ana önerimdir. `next-translate-plugin` aracılığıyla zarif bir şekilde çalışır ve Webpack / Turbopack yükleyicisi ile `getStaticProps` üzerinden ad alanlarını yükler. Ayrıca buradaki en hafif seçeneklerden biridir (~3.5kb). Yapılandırmada sayfa veya rota başına ad alanı tanımlamak iyi düşünülmüştür ve **next-intl** veya **next-i18next** gibi ana alternatiflerden daha kolay bakımı yapılır. `3.1.2` sürümünde statik render'ın çalışmadığını ve Next.js'in dinamik render'a geri döndüğünü fark ettim.
 
-**(Intlayer)** (`next-intlayer@8.7.12`):
+**(Intlayer)** (`next-intlayer@9.5.1`):
 
 Nesnellik adına kendi çözümüm olan `next-intlayer` hakkında kişisel olarak yorum yapmayacağım.
 

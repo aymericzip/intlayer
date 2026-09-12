@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-05-18
+updatedAt: 2026-09-11
 title: أفضل حل i18n لـ Svelte في عام 2026 - تقرير قياسي
 description: قارن بين مكتبات تدويل Svelte (i18n) مثل svelte-i18n وParaglide وIntlayer. تقرير أداء مفصل حول حجم الحزمة والتسرب والتفاعل.
 keywords:
@@ -17,6 +17,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-svelte-template
 history:
+  - version: 9.5.1
+    date: 2026-09-11
+    changes: "تحديث نتائج المقارنة"
   - version: 8.9.8
     date: 2026-05-18
     changes: "إضافة مقارنة نجوم GitHub"
@@ -62,9 +65,9 @@ style="border:none;"
 
 ## TL;DR
 
-- **Intlayer**: الخيار الأكثر كفاءة في الأداء (v8.7.12) مع أصغر بصمة (footprint).
+- **Intlayer**: الخيار الأكثر كفاءة في الأداء (v9.5.0) مع أصغر بصمة (footprint).
 - **Paraglide**: منافس قوي للتخلص من الكود غير المستخدم (tree-shaking) ولكنه يمتلك تجربة مطور أكثر تعقيدًا وعبئًا في التفاعل.
-- **svelte-i18n**: كامل ومعياري لـ Svelte، ولكنه يحمل وزن حزمة أكبر بكثير (~7 أضعاف Intlayer).
+- **svelte-i18n**: كامل ومعياري لـ Svelte، ولكنه يحمل وزن حزمة أكبر بكثير (~4.5 أضعاف Intlayer).
 
 ## اختبر تطبيقك
 
@@ -96,9 +99,9 @@ style="border:none;"
 في هذا التقييم القياسي، قارنا المكتبات التالية:
 
 - `Base App` (بدون مكتبة i18n)
-- `svelte-intlayer` (v8.7.12)
+- `svelte-intlayer` (v9.5.0)
 - `svelte-i18n` (v4.0.1)
-- `@inlang/paraglide-js` (v2.17.0)
+- `@inlang/paraglide-js` (v2.25.1)
 
 الإطار هو `Svelte` مع تطبيق متعدد اللغات يتكون من **10 صفحات** و **10 لغات**.
 
@@ -152,7 +155,7 @@ style="border:none;"
 
 ### 2 - حلول مقبولة
 
-**(Paraglide)** (`@inlang/paraglide-js@2.17.0`):
+**(Paraglide)** (`@inlang/paraglide-js@2.25.1`):
 
 يقدم `Paraglide` نهجًا مبتكرًا ومدروسًا جيدًا. في سياق تطبيق Vite + Svelte، يعمل التخلص من الكود غير المستخدم (tree-shaking) الذي تعلن عنه شركتهم كما هو متوقع، وهو أمر رائع.
 ولكن في حالة React + TanStack Start، لم يعمل tree-shaking كما هو متوقع، والأمر نفسه بالنسبة لـ Next.js. ومع ذلك، فإن استخدام Paraglide في مشروع Svelte و TanStack Start يستحق التدقيق.
@@ -162,13 +165,13 @@ style="border:none;"
 
 > ملاحظة حول paraglide: يقوم الحل بحقن الكود في قاعدة الكود الخاصة بك للاستيراد؛ ونتيجة لذلك، فإن مقياس "حجم المكتبة" في تقرير التقييم القياسي هو 0 تقريبًا. يعد إنشاء الكود (Code generation) أمرًا جيدًا، لأن الوظيفة المستخدمة ستتضمن فقط المنطق الضروري (بادئة في كل مكان مقابل لا بادئة، ملف تعريف ارتباط مقابل تخزين، إلخ). بالمقارنة، تقوم Intlayer بإجراء هذا التصفية عبر حقن متغيرات البيئة أثناء البناء لإجبار أداة التجميع على التخلص من الكود غير المستخدم للمحتوى اعتمادًا على المنطق. بفضل هذا، ينتهي الأمر بـ paraglide و intlayer كحلول أخف بـ 6 إلى 10 مرات من i18next أو next-intl.
 
-**(svelte-i18n)** (`svelte-i18n@3.4.0`):
+**(svelte-i18n)** (`svelte-i18n@4.0.1`):
 
-يلبي هذا الحل جميع احتياجات i18n في مشروع Svelte. ولكن كما هو الحال مع i18next أو غيرها من حلول i18n الرئيسية، فهي ثقيلة بعض الشيء (~15.9kb، أي حوالي 7 أضعاف `svelte-intlayer`).
+يلبي هذا الحل جميع احتياجات i18n في مشروع Svelte. ولكن كما هو الحال مع i18next أو غيرها من حلول i18n الرئيسية، فهي ثقيلة بعض الشيء (~16.6kb، أي حوالي 4.5 أضعاف `svelte-intlayer`).
 
 ### 3 - التوصيات
 
-**(Intlayer)** (`svelte-intlayer@8.7.12`):
+**(Intlayer)** (`svelte-intlayer@9.5.0`):
 
 لن أحكم شخصيًا على `svelte-intlayer` من أجل الموضوعية، لأنه الحل الخاص بي.
 

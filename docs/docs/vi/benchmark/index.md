@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-04-20
+updatedAt: 2026-09-11
 title: Điểm chuẩn các thư viện i18n
 description: Tìm hiểu cách Intlayer so sánh với các thư viện i18n khác về hiệu năng và kích thước bundle bundle.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - doc
   - benchmark
 history:
+  - version: 9.5.1
+    date: 2026-09-11
+    changes: "Cập nhật kết quả benchmark"
   - version: 8.7.5
     date: 2026-01-06
     changes: "Khởi tạo benchmark"

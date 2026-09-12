@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-05-18
+updatedAt: 2026-09-11
 title: 2026 年 Solid 最佳 i18n 解决方案 - 基准报告
 description: 比较 Solid 国际化（i18n）库，如 solid-primitives、solid-i18next 和 Intlayer。关于Bundle 大小、泄漏和反应性的详细性能报告。
 keywords:
@@ -17,6 +17,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-solid-template
 history:
+  - version: 9.5.1
+    date: 2026-09-11
+    changes: "更新基准测试结果"
   - version: 8.9.8
     date: 2026-05-18
     changes: "添加 GitHub 明星对比"
@@ -61,9 +64,9 @@ history:
 
 ## TL;DR
 
-- **Intlayer**: 需要高级功能和优化的专业 Solid 应用的推荐选择（v8.7.12）。
+- **Intlayer**: 需要高级功能和优化的专业 Solid 应用的推荐选择（v9.5.0）。
 - **@solid-primitives/i18n**: 简单项目的绝佳轻量级替代方案，但缺乏延迟加载等高级功能。
-- **solid-i18next**: 标准但沉重的选项（约为 Intlayer 的 4.7 倍），具有与 React i18next 相同的缺点。
+- **solid-i18next**: 标准但沉重的选项（约为 Intlayer 的 3.5 倍），具有与 React i18next 相同的缺点。
 - **Paraglide**: 创新的方法，但在某些设置中 DX 复杂且存在 tree-shaking 问题。
 
 ## 测试您的应用
@@ -96,10 +99,10 @@ history:
 在此基准测试中，我们比较了以下库：
 
 - `Base App`（无 i18n 库）
-- `solid-intlayer` (v8.7.12)
+- `solid-intlayer` (v9.5.0)
 - `@solid-primitives/i18n` (v2.2.1)
-- `solid-i18next` (v17.0.2)
-- `@inlang/paraglide-js` (v2.17.0)
+- `i18next` (v26.0.8) + `@mbarzda/solid-i18next` (v1.4.1)
+- `@inlang/paraglide-js` (v2.25.1)
 
 框架是 `Solid`，应用包含 **10 个页面** 和 **10 种语言**。
 
@@ -153,11 +156,11 @@ GitHub 星数是项目受欢迎程度、社区信任和长期相关性的有力�
 
 ### 2 - 可接受的解决方案
 
-**(solid-i18next)** (`solid-i18next@17.0.2`):
+**(solid-i18next)** (`i18next@26.0.8`):
 
 `solid-i18next` 可能是最受欢迎的选项，因为它是最早满足 JavaScript 应用 i18n 需求的解决方案之一。它还拥有一套广泛的社区插件来解决特定问题。
 
-该包很重（~14.6kb，约为 `solid-intlayer` 的 4.7 倍）。
+该包很重（~14.9kb，约为 `solid-intlayer` 的 3.5 倍）。
 
 尽管如此，它与基于 `t('a.b.c')` 构建的栈具有相同的主要缺点：优化是可能的，但非常耗时，且大型项目面临不良实践（命名空间 + 动态加载 + 类型）的风险。
 
@@ -166,7 +169,7 @@ GitHub 星数是项目受欢迎程度、社区信任和长期相关性的有力�
 Solid primitive 非常轻量且高效，我推荐将其用于轻量级项目，但对于包含 cookie 管理、代理重定向、格式化器等在内的专业解决方案，它可能会迅速显现功能不足。
 它还缺乏延迟加载和分层命名空间以进行页面大小优化。
 
-**(Paraglide)** (`@inlang/paraglide-js@2.17.0`):
+**(Paraglide)** (`@inlang/paraglide-js@2.25.1`):
 
 `Paraglide` 提供了一种创新且深思熟虑的方法。尽管如此，在此基准测试中，他们宣传的 tree-shaking 在我的实现中没有按预期工作。工作流程和 DX 也比其他选项更复杂。
 我个人不喜欢在每次推送前重新生成 JS 文件，这会通过 PR 在开发者之间造成持续的合并冲突风险。
@@ -174,7 +177,7 @@ Solid primitive 非常轻量且高效，我推荐将其用于轻量级项目，�
 
 ### 3 - 建议
 
-**(Intlayer)** (`solid-intlayer@8.7.12`):
+**(Intlayer)** (`solid-intlayer@9.5.0`):
 
 出于客观性考虑，我个人不会对 `solid-intlayer` 做出评价，因为它是我的个人解决方案。
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-05-18
+updatedAt: 2026-09-11
 title: Migliore soluzione i18n per Solid nel 2026 - Rapporto Benchmark
 description: Confronta le librerie di internazionalizzazione (i18n) per Solid come solid-primitives, solid-i18next e Intlayer. Rapporto dettagliato sulle prestazioni in termini di dimensioni del bundle, leak e reattività.
 keywords:
@@ -17,6 +17,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-solid-template
 history:
+  - version: 9.5.1
+    date: 2026-09-11
+    changes: "Aggiornamento dei risultati del benchmark"
   - version: 8.9.8
     date: 2026-05-18
     changes: "Aggiungi comparazione delle stelle di GitHub"
@@ -62,9 +65,9 @@ L'autre impatto riguarda l'esperienza dello sviluppatore (DX): come si dichiara 
 
 ## TL;DR
 
-- **Intlayer**: Scelta consigliata per applicazioni Solid professionali che necessitano di funzionalità avanzate e ottimizzazione (v8.7.12).
+- **Intlayer**: Scelta consigliata per applicazioni Solid professionali che necessitano di funzionalità avanzate e ottimizzazione (v9.5.0).
 - **@solid-primitives/i18n**: Eccellente alternativa leggera per progetti semplici, sebbene manchi di funzionalità avanzate come il lazy loading.
-- **solid-i18next**: Opzione standard ma pesante (~4.7× Intlayer) con gli stessi svantaggi di React i18next.
+- **solid-i18next**: Opzione standard ma pesante (~3.5× Intlayer) con gli stessi svantaggi di React i18next.
 - **Paraglide**: Approccio innovativo ma DX complessa e problemi di tree-shaking in alcune configurazioni.
 
 ## Testa la tua app
@@ -97,10 +100,10 @@ Le sintassi costruite attorno a `t('a.b.c')` sono molto comode ma spesso incorag
 Per questo benchmark, abbiamo confrontato le seguenti librerie:
 
 - `Base App` (Nessuna libreria i18n)
-- `solid-intlayer` (v8.7.12)
+- `solid-intlayer` (v9.5.0)
 - `@solid-primitives/i18n` (v2.2.1)
-- `solid-i18next` (v17.0.2)
-- `@inlang/paraglide-js` (v2.17.0)
+- `i18next` (v26.0.8) + `@mbarzda/solid-i18next` (v1.4.1)
+- `@inlang/paraglide-js` (v2.25.1)
 
 Il framework è `Solid` con un'app multilingue di **10 pagine** e **10 lingue**.
 
@@ -154,11 +157,11 @@ Le stelle di GitHub sono un forte indicatore della popolarità di un progetto, d
 
 ### 2 - Soluzioni accettabili
 
-**(solid-i18next)** (`solid-i18next@17.0.2`):
+**(solid-i18next)** (`i18next@26.0.8`):
 
 `solid-i18next` è probabilmente l'opzione più popolare perché è stata tra le prime a soddisfare le esigenze i18n delle app JavaScript. Dispone inoltre di un ampio set di plugin della comunità per problemi specifici.
 
-Il pacchetto è pesante (~14.6kb, circa 4.7 volte `solid-intlayer`).
+Il pacchetto è pesante (~14.9kb, circa 3.5 volte `solid-intlayer`).
 
 Tuttavia, condivide gli stessi principali svantaggi degli stack costruiti su `t('a.b.c')`: le ottimizzazioni sono possibili ma richiedono molto tempo, e i grandi progetti rischiano cattive pratiche (namespace + caricamento dinamico + tipi).
 
@@ -167,7 +170,7 @@ Tuttavia, condivide gli stessi principali svantaggi degli stack costruiti su `t(
 Solid primitive è estremamente leggero ed efficiente. Consiglio questa soluzione per progetti leggeri, ma può mancare rapidamente di funzionalità per soluzioni professionali incluse la gestione dei cookie, il reindirizzamento proxy, i formattatori ecc.
 Manca inoltre del lazy loading e dello scoping dei namespace per l'ottimizzazione delle dimensioni della pagina.
 
-**(Paraglide)** (`@inlang/paraglide-js@2.17.0`):
+**(Paraglide)** (`@inlang/paraglide-js@2.25.1`):
 
 `Paraglide` offre un approccio innovativo e ben ponderato. Tuttavia, in questo benchmark il tree-shaking pubblicizzato dalla loro azienda non ha funzionato per la mia implementazione. Il workflow e la DX sono inoltre più complessi rispetto ad altre opzioni.
 Personalmente, non amo dover rigenerare file JS prima di ogni push, il che crea un costante rischio di conflitti di merge tramite le PR.
@@ -175,7 +178,7 @@ Infine, rispetto ad altre soluzioni, Paraglide non utilizza uno store (es. Solid
 
 ### 3 - Raccomandazioni
 
-**(Intlayer)** (`solid-intlayer@8.7.12`):
+**(Intlayer)** (`solid-intlayer@9.5.0`):
 
 Non giudicherò personalmente `solid-intlayer` per motivi di obiettività, essendo la mia soluzione.
 

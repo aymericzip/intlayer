@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-05-18
+updatedAt: 2026-09-11
 title: Best i18n solution for Solid in 2026 - Benchmark Report
 description: Compare Solid internationalization libraries like solid-primitives, solid-i18next, and Intlayer. Detailed performance report on bundle size, leakage, and reactivity.
 keywords:
@@ -17,6 +17,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-solid-template
 history:
+  - version: 9.5.1
+    date: 2026-09-11
+    changes: "Update benchmark results"
   - version: 8.9.8
     date: 2026-05-18
     changes: "Add GitHub star comparative"
@@ -62,9 +65,9 @@ The other impact is on developer experience: how you declare content, types, nam
 
 ## TL;DR
 
-- **Intlayer**: Recommended choice for professional Solid applications needing advanced features and optimization (v8.7.12).
+- **Intlayer**: Recommended choice for professional Solid applications needing advanced features and optimization (v9.5.0).
 - **@solid-primitives/i18n**: Excellent lightweight alternative for simple projects, though lacks advanced features like lazy loading.
-- **solid-i18next**: Standard but heavy option (~4.7× Intlayer) with same downsides as React i18next.
+- **solid-i18next**: Standard but heavy option (~3.5× Intlayer) with same downsides as React i18next.
 - **Paraglide**: Innovative approach but complex DX and tree-shaking issues in some setups.
 
 ## Test your app
@@ -97,10 +100,10 @@ Syntaxes built around `t('a.b.c')` are very convenient but often encourage keepi
 For this benchmark, we compared the following libraries:
 
 - `Base App` (No i18n library)
-- `solid-intlayer` (v8.7.12)
+- `solid-intlayer` (v9.5.0)
 - `@solid-primitives/i18n` (v2.2.1)
-- `solid-i18next` (v17.0.2)
-- `@inlang/paraglide-js` (v2.17.0)
+- `i18next` (v26.0.8) + `@mbarzda/solid-i18next` (v1.4.1)
+- `@inlang/paraglide-js` (v2.25.1)
 
 The framework is `Solid` with a multilingual app of **10 pages** and **10 languages**.
 
@@ -154,11 +157,11 @@ GitHub stars are a strong indicator of a project's popularity, community trust, 
 
 ### 2 - Acceptable solutions
 
-**(solid-i18next)** (`solid-i18next@17.0.2`):
+**(solid-i18next)** (`i18next@26.0.8`):
 
 `solid-i18next` is probably the most popular option because it was among the first to serve JavaScript app i18n needs. It also has a wide set of community plugins for specific problems.
 
-The package is heavy (~14.6kb, which is about 4.7× `solid-intlayer`).
+The package is heavy (~14.9kb, which is about 3.5× `solid-intlayer`).
 
 Still, it shares the same major downsides as stacks built on `t('a.b.c')`: optimizations are possible but very time-consuming, and large projects risk bad practices (namespaces + dynamic loading + types).
 
@@ -167,7 +170,7 @@ Still, it shares the same major downsides as stacks built on `t('a.b.c')`: optim
 Solid primitive is extremely light and efficient, I recommend that solution for light projects, but it can quickly become lacking features for professional solutions including cookie management, proxy redirection, formatters etc.
 It also misses lazy loading and scoping namespaces for page size optimization.
 
-**(Paraglide)** (`@inlang/paraglide-js@2.17.0`):
+**(Paraglide)** (`@inlang/paraglide-js@2.25.1`):
 
 `Paraglide` offers an innovative, well-thought-out approach. Even so, in this benchmark the tree-shaking their company advertises did not work for my implementation. The workflow and DX are also more complex than other options.
 Personally I dislike having to regenerate JS files before every push, which creates constant merge conflict risk via PRs.
@@ -175,7 +178,7 @@ Finally, in comparison with other solutions, Paraglide does not use a store (e.g
 
 ### 3 - Recommendations
 
-**(Intlayer)** (`solid-intlayer@8.7.12`):
+**(Intlayer)** (`solid-intlayer@9.5.0`):
 
 I will not personally judge `solid-intlayer` for objectivity’s sake, since it is my own solution.
 

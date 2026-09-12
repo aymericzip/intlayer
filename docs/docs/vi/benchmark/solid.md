@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-05-18
+updatedAt: 2026-09-11
 title: Giải pháp i18n tốt nhất cho Solid năm 2026 - Báo cáo Benchmark
 description: So sánh các thư viện quốc tế hóa (i18n) Solid như solid-primitives, solid-i18next và Intlayer. Báo cáo hiệu suất chi tiết về kích thước bundle, rò rỉ và tính phản ứng.
 keywords:
@@ -17,6 +17,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-solid-template
 history:
+  - version: 9.5.1
+    date: 2026-09-11
+    changes: "Cập nhật kết quả benchmark"
   - version: 8.9.8
     date: 2026-05-18
     changes: "Thêm so sánh sao GitHub"
@@ -62,9 +65,9 @@ Tác động khác là đối với trải nghiệm nhà phát triển (DX): cá
 
 ## TL;DR
 
-- **Intlayer**: Lựa chọn được đề xuất cho các ứng dụng Solid chuyên nghiệp cần các tính năng nâng cao và tối ưu hóa (v8.7.12).
+- **Intlayer**: Lựa chọn được đề xuất cho các ứng dụng Solid chuyên nghiệp cần các tính năng nâng cao và tối ưu hóa (v9.5.0).
 - **@solid-primitives/i18n**: Giải pháp thay thế gọn nhẹ tuyệt vời cho các dự án đơn giản, mặc dù thiếu các tính năng nâng cao như lazy loading.
-- **solid-i18next**: Tùy chọn tiêu chuẩn nhưng nặng (~4.7 lần Intlayer) với các nhược điểm tương tự như React i18next.
+- **solid-i18next**: Tùy chọn tiêu chuẩn nhưng nặng (~3.5 lần Intlayer) với các nhược điểm tương tự như React i18next.
 - **Paraglide**: Cách tiếp cận sáng tạo nhưng DX phức tạp và vấn đề tree-shaking trong một số thiết lập.
 
 ## Kiểm tra ứng dụng của bạn
@@ -97,10 +100,10 @@ Các cú pháp được xây dựng xung quanh `t('a.b.c')` rất tiện lợi n
 Đối với benchmark này, chúng tôi đã so sánh các thư viện sau:
 
 - `Base App` (Không có thư viện i18n)
-- `solid-intlayer` (v8.7.12)
+- `solid-intlayer` (v9.5.0)
 - `@solid-primitives/i18n` (v2.2.1)
-- `solid-i18next` (v17.0.2)
-- `@inlang/paraglide-js` (v2.17.0)
+- `i18next` (v26.0.8) + `@mbarzda/solid-i18next` (v1.4.1)
+- `@inlang/paraglide-js` (v2.25.1)
 
 Framework là `Solid` với một ứng dụng đa ngôn ngữ gồm **10 trang** và **10 ngôn ngữ**.
 
@@ -154,11 +157,11 @@ Sao GitHub là một chỉ số mạnh mẽ về mức độ phổ biến của 
 
 ### 2 - Các giải pháp chấp nhận được
 
-**(solid-i18next)** (`solid-i18next@17.0.2`):
+**(solid-i18next)** (`i18next@26.0.8`):
 
 `solid-i18next` có lẽ là tùy chọn phổ biến nhất vì đây là một trong những giải pháp đầu tiên đáp ứng nhu cầu i18n của các ứng dụng JavaScript. Nó cũng có một bộ plug-in cộng đồng rộng lớn cho các vấn đề cụ thể.
 
-Package này nặng (~14.6kb, gấp khoảng 4.7 lần `solid-intlayer`).
+Package này nặng (~14.9kb, gấp khoảng 3.5 lần `solid-intlayer`).
 
 Tuy nhiên, nó có cùng những nhược điểm chính như các stack được xây dựng trên `t('a.b.c')`: có thể tối ưu hóa nhưng rất tốn thời gian và các dự án lớn có nguy cơ áp dụng các phương pháp không tốt (namespace + tải động + kiểu).
 
@@ -167,7 +170,7 @@ Tuy nhiên, nó có cùng những nhược điểm chính như các stack đư�
 Solid primitive cực kỳ nhẹ và hiệu quả. Tôi khuyên dùng giải pháp đó cho các dự án nhẹ, nhưng nó có thể nhanh chóng thiếu các tính năng cho các giải pháp chuyên nghiệp bao gồm quản lý cookie, chuyển hướng proxy, formatter, v.v.
 Nó cũng thiếu lazy loading và scoping namespace để tối ưu hóa kích thước trang.
 
-**(Paraglide)** (`@inlang/paraglide-js@2.17.0`):
+**(Paraglide)** (`@inlang/paraglide-js@2.25.1`):
 
 `Paraglide` đưa ra một cách tiếp cận sáng tạo, được cân nhắc kỹ lưỡng. Mặc dù vậy, trong benchmark này, tree-shaking mà công ty họ quảng cáo đã không hoạt động cho triển khai của tôi. Workflow và DX cũng phức tạp hơn các tùy chọn khác.
 Cá nhân tôi không thích việc phải tạo lại các file JS trước mỗi lần push, điều này tạo ra rủi ro xung đột merge liên tục thông qua các PR.
@@ -175,7 +178,7 @@ Cuối cùng, so với các giải pháp khác, Paraglide không sử dụng sto
 
 ### 3 - Khuyến nghị
 
-**(Intlayer)** (`solid-intlayer@8.7.12`):
+**(Intlayer)** (`solid-intlayer@9.5.0`):
 
 Tôi sẽ không đích thân đánh giá `solid-intlayer` vì tính khách quan, vì đó là giải pháp của chính tôi.
 

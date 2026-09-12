@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-05-18
+updatedAt: 2026-09-11
 title: 2026년 Vue를 위한 최고의 i18n 솔루션 - 벤치마크 리포트
 description: vue-i18n, fluent-vue, Intlayer와 같은 Vue 국제화(i18n) 라이브러리를 비교합니다. 번들 크기, 누수, 반응성에 관한 상세 성능 리포트.
 keywords:
@@ -17,6 +17,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-vue-template
 history:
+  - version: 9.5.1
+    date: 2026-09-11
+    changes: "벤치마크 결과 업데이트"
   - version: 8.9.8
     date: 2026-05-18
     changes: "GitHub 스타 비교 추가"
@@ -62,7 +65,7 @@ style="border:none;"
 
 ## TL;DR
 
-- **Intlayer**: 내장된 스코핑(scoping)과 동적 로딩을 제공하는 가장 가벼운 솔루션(v8.7.12).
+- **Intlayer**: 내장된 스코핑(scoping)과 동적 로딩을 제공하는 가장 가벼운 솔루션(v9.5.0).
 - **vue-i18n**: 풍부한 에코시스템을 가진 업계 표준이지만, 대규모 애플리케이션에서 코드 분할 최적화가 어렵고 상당히 무거워질 수 있습니다.
 - **fluent-vue**: 혁신적인 메시지 구성을 제공하지만 타입 안전성이 부족하고 극도로 무거운 솔루션입니다.
 
@@ -96,7 +99,8 @@ i18n 누수 문제를 빠르게 파악하기 위해 [여기](https://intlayer.or
 이 벤치마크에서는 다음과 같은 라이브러리를 비교했습니다:
 
 - `Base App` (i18n 라이브러리 없음)
-- `vue-intlayer` (v8.7.12)
+- `vue-intlayer` (v9.5.0)
+- [`@intlayer/vue-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/vue-i18n.md) (v9.5.1)
 - `vue-i18n` (v11.4.0)
 - `fluent-vue` (v3.8.2)
 
@@ -156,14 +160,14 @@ GitHub 스타는 프로젝트의 인기, 커뮤니티 신뢰 및 장기적인 �
 
 - **vue-i18n**은 논쟁의 여지 없이 Vue에서 가장 많이 사용되는 i18n 라이브러리이며, 많은 기능과 거대한 에코시스템을 가지고 있습니다. 하지만 내부적으로 이 솔루션은 상당히 무겁습니다. vue-i18n이 메시지 지연 로딩을 통합하더라도 스코핑(scoping) 기능이 부족합니다. 클래식 Vue SPA 앱의 경우 문제가 없으나, @nuxt/i18n을 사용하는 Nuxt 앱의 경우 모든 페이지의 메시지가 단일 페이지에 포함되는 결과를 초래합니다. 10페이지 이상의 대규모 Nuxt 앱의 경우 이는 정말 문제가 될 수 있습니다.
 
-패키지가 매우 무겁습니다 (~24.3kb, `vue-intlayer`의 약 9배).
+패키지가 매우 무겁습니다 (~24.3kb, `vue-intlayer`의 약 6배).
 
-**(fluent-vue)** (`fluent-vue@0.5.0`):
+**(fluent-vue)** (`fluent-vue@3.8.2`):
 
-- **fluent-vue**는 .ftl 형식을 통해 혁신을 시도합니다. 메시지 구성이 훌륭하고 시작하기 쉽습니다. 하지만 실제로는 타입 안전성의 부재로 오류 위험이 높고 디버깅에 많은 시간이 소요될 수 있습니다. 또한, 이 솔루션은 Vite 플러그인을 사용하여 메시지를 로드하는데, 이는 모든 언어의 모든 콘텐츠를 각 페이지에 강제로 로드하게 만듭니다. 게다가 이는 극도로 무거운 솔루션입니다 (~92.7kb, `vue-intlayer`의 약 34배).
+- **fluent-vue**는 .ftl 형식을 통해 혁신을 시도합니다. 메시지 구성이 훌륭하고 시작하기 쉽습니다. 하지만 실제로는 타입 안전성의 부재로 오류 위험이 높고 디버깅에 많은 시간이 소요될 수 있습니다. 또한, 이 솔루션은 Vite 플러그인을 사용하여 메시지를 로드하는데, 이는 모든 언어의 모든 콘텐츠를 각 페이지에 강제로 로드하게 만듭니다. 게다가 이는 극도로 무거운 솔루션입니다 (~29.7kb, `vue-intlayer`의 약 7.5배).
 
 ### 3 - 추천 사항
 
-**(Intlayer)** (`vue-intlayer@8.7.12`):
+**(Intlayer)** (`vue-intlayer@9.5.0`):
 
 객관성을 위해 나의 솔루션인 `vue-intlayer`에 대해서는 직접 판단하지 않겠습니다.

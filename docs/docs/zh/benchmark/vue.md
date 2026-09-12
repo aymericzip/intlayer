@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-05-18
+updatedAt: 2026-09-11
 title: 2026 年 Vue 最佳 i18n 解决方案 - 基准报告
 description: 比较 Vue 国际化（i18n）库，如 vue-i18n、fluent-vue 和 Intlayer。关于Bundle 大小、泄漏和反应性的详细性能报告。
 keywords:
@@ -17,6 +17,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-vue-template
 history:
+  - version: 9.5.1
+    date: 2026-09-11
+    changes: "更新基准测试结果"
   - version: 8.9.8
     date: 2026-05-18
     changes: "添加 GitHub 明星对比"
@@ -62,7 +65,7 @@ style="border:none;"
 
 ## TL;DR
 
-- **Intlayer**: 最轻量级的解决方案（v8.7.12），内置分层（scoping）和动态加载。
+- **Intlayer**: 最轻量级的解决方案（v9.5.0），内置分层（scoping）和动态加载。
 - **vue-i18n**: 具有丰富生态系统的行业标准，但在大型应用中可能会显著变重且难以进行代码拆分优化。
 - **fluent-vue**: 创新的消息组织方式，但缺乏类型安全且极其沉重。
 
@@ -96,7 +99,8 @@ style="border:none;"
 在此基准测试中，我们比较了以下库：
 
 - `Base App`（无 i18n 库）
-- `vue-intlayer` (v8.7.12)
+- `vue-intlayer` (v9.5.0)
+- [`@intlayer/vue-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/vue-i18n.md) (v9.5.1)
 - `vue-i18n` (v11.4.0)
 - `fluent-vue` (v3.8.2)
 
@@ -156,14 +160,14 @@ GitHub 星数是项目受欢迎程度、社区信任和长期相关性的有力�
 
 - **vue-i18n** 毫无疑问是 Vue 中最常用的 i18n 库，它具有大量功能和庞大的生态系统。但在底层，该解决方案相当沉重。即使 vue-i18n 集成了消息的懒加载，它也缺乏分层（scoping）功能。在经典的 Vue SPA 应用中没有问题，但对于使用 @nuxt/i18n 的 Nuxt 应用，它会导致所有页面的消息都包含在单个页面中。对于包含 10 个以上页面的大型 Nuxt 应用，这可能会变得非常成问题。
 
-该包非常重（~24.3kb，约为 `vue-intlayer` 的 9 倍）。
+该包非常重（~24.3kb，约为 `vue-intlayer` 的 6 倍）。
 
-**(fluent-vue)** (`fluent-vue@0.5.0`):
+**(fluent-vue)** (`fluent-vue@3.8.2`):
 
-- **fluent-vue** 通过 .ftl 格式提供了一种创新尝试。消息组织很棒，更容易上手。但在实践中，缺乏类型安全增加了错误风险，并且调试起来可能很快就会变得耗时。此外，该解决方案使用 vite 插件加载消息，强制将所有语言的所有内容加载到每个页面中。此外，这是一个极其沉重的解决方案（~92.7kb，约为 `vue-intlayer` 的 34 倍）。
+- **fluent-vue** 通过 .ftl 格式提供了一种创新尝试。消息组织很棒，更容易上手。但在实践中，缺乏类型安全增加了错误风险，并且调试起来可能很快就会变得耗时。此外，该解决方案使用 vite 插件加载消息，强制将所有语言的所有内容加载到每个页面中。此外，这是一个极其沉重的解决方案（~29.7kb，约为 `vue-intlayer` 的 7.5 倍）。
 
 ### 3 - 建议
 
-**(Intlayer)** (`vue-intlayer@8.7.12`):
+**(Intlayer)** (`vue-intlayer@9.5.0`):
 
 出于客观性考虑，我个人不会对 `vue-intlayer` 做出评价，因为它是我的个人解决方案。

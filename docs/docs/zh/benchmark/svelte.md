@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-05-18
+updatedAt: 2026-09-11
 title: 2026 年 Svelte 最佳 i18n 解决方案 - 基准报告
 description: 比较 Svelte 国际化（i18n）库，如 svelte-i18n、Paraglide 和 Intlayer。关于Bundle 大小、泄漏和反应性的详细性能报告。
 keywords:
@@ -17,6 +17,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-svelte-template
 history:
+  - version: 9.5.1
+    date: 2026-09-11
+    changes: "更新基准测试结果"
   - version: 8.9.8
     date: 2026-05-18
     changes: "添加 GitHub 明星对比"
@@ -62,9 +65,9 @@ history:
 
 ## TL;DR
 
-- **Intlayer**: 性能最高效的选择（v8.7.12），占用空间最小。
+- **Intlayer**: 性能最高效的选择（v9.5.0），占用空间最小。
 - **Paraglide**: tree-shaking 的有力竞争者，但开发者体验更复杂，且有反应性开销。
-- **svelte-i18n**: 功能完善且是 Svelte 的标准，但包重量大得多（约为 Intlayer 的 7 倍）。
+- **svelte-i18n**: 功能完善且是 Svelte 的标准，但包重量大得多（约为 Intlayer 的 4.5 倍）。
 
 ## 测试您的应用
 
@@ -96,9 +99,9 @@ history:
 在此基准测试中，我们比较了以下库：
 
 - `Base App`（无 i18n 库）
-- `svelte-intlayer` (v8.7.12)
+- `svelte-intlayer` (v9.5.0)
 - `svelte-i18n` (v4.0.1)
-- `@inlang/paraglide-js` (v2.17.0)
+- `@inlang/paraglide-js` (v2.25.1)
 
 框架是 `Svelte`，应用包含 **10 个页面** 和 **10 种语言**。
 
@@ -152,7 +155,7 @@ GitHub 星数是项目受欢迎程度、社区信任和长期相关性的有力�
 
 ### 2 - 可接受的解决方案
 
-**(Paraglide)** (`@inlang/paraglide-js@2.17.0`):
+**(Paraglide)** (`@inlang/paraglide-js@2.25.1`):
 
 `Paraglide` 提供了一种创新且深思熟虑的方法。在 Vite + Svelte 应用中，他们宣传的 tree-shaking 按预期工作，这很棒。
 但在 React + TanStack Start 的情况下，tree-shaking 没有按预期工作，Next.js 也是如此。尽管如此，在 Svelte 和 TanStack Start 项目中使用 Paraglide 还是值得关注的。
@@ -162,13 +165,13 @@ GitHub 星数是项目受欢迎程度、社区信任和长期相关性的有力�
 
 > 关于 paraglide 的说明：该解决方案在您的代码库中注入代码进行导入，因此基准报告中的“库大小”指标几乎为 0。代码生成是一件好事，因为使用的函数将仅包含必要的逻辑（全局前缀 vs 无前缀、cookie vs 存储等）。相比之下，Intlayer 在构建期间通过注入环境变量来进行过滤，以迫使打包器根据逻辑对内容进行 tree-shake。得益于此，paraglide 和 intlayer 最终比 i18next 或 next-intl 轻 6 到 10 倍。
 
-**(svelte-i18n)** (`svelte-i18n@3.4.0`):
+**(svelte-i18n)** (`svelte-i18n@4.0.1`):
 
-此解决方案满足 Svelte 项目中 i18n 的所有需求。但正如 i18next 或其他主流 i18n 解决方案的情况一样，它有点重（~15.9kb，约为 `svelte-intlayer` 的 7 倍）。
+此解决方案满足 Svelte 项目中 i18n 的所有需求。但正如 i18next 或其他主流 i18n 解决方案的情况一样，它有点重（~16.6kb，约为 `svelte-intlayer` 的 4.5 倍）。
 
 ### 3 - 建议
 
-**(Intlayer)** (`svelte-intlayer@8.7.12`):
+**(Intlayer)** (`svelte-intlayer@9.5.0`):
 
 出于客观性考虑，我个人不会对 `svelte-intlayer` 做出评价，因为它是我的个人解决方案。
 

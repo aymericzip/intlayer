@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-05-18
+updatedAt: 2026-09-11
 title: Solusi i18n Terbaik untuk Solid di Tahun 2026 - Laporan Benchmark
 description: Bandingkan pustaka internasionalisasi (i18n) Solid seperti solid-primitives, solid-i18next, dan Intlayer. Laporan performa mendetail tentang ukuran bundle, kebocoran, dan reaktivitas.
 keywords:
@@ -17,6 +17,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-solid-template
 history:
+  - version: 9.5.1
+    date: 2026-09-11
+    changes: "Pembaruan hasil benchmark"
   - version: 8.9.8
     date: 2026-05-18
     changes: "Tambahkan perbandingan bintang GitHub"
@@ -62,9 +65,9 @@ Dampak lainnya adalah pada pengalaman pengembang (DX): bagaimana Anda mendeklara
 
 ## TL;DR
 
-- **Intlayer**: Pilihan yang direkomendasikan untuk aplikasi Solid profesional yang membutuhkan fitur canggih dan optimasi (v8.7.12).
+- **Intlayer**: Pilihan yang direkomendasikan untuk aplikasi Solid profesional yang membutuhkan fitur canggih dan optimasi (v9.5.0).
 - **@solid-primitives/i18n**: Alternatif ringan yang sangat baik untuk proyek sederhana, meskipun tidak memiliki fitur canggih seperti lazy loading.
-- **solid-i18next**: Opsi standar tetapi berat (~4.7× Intlayer) dengan kelemahan yang sama seperti React i18next.
+- **solid-i18next**: Opsi standar tetapi berat (~3.5× Intlayer) dengan kelemahan yang sama seperti React i18next.
 - **Paraglide**: Pendekatan inovatif tetapi DX yang kompleks dan masalah tree-shaking di beberapa pengaturan.
 
 ## Uji aplikasi Anda
@@ -97,10 +100,10 @@ Sintaks yang dibangun di sekitar `t('a.b.c')` sangat nyaman tetapi sering kali m
 Untuk benchmark ini, kami membandingkan pustaka berikut:
 
 - `Base App` (Tanpa pustaka i18n)
-- `solid-intlayer` (v8.7.12)
+- `solid-intlayer` (v9.5.0)
 - `@solid-primitives/i18n` (v2.2.1)
-- `solid-i18next` (v17.0.2)
-- `@inlang/paraglide-js` (v2.17.0)
+- `i18next` (v26.0.8) + `@mbarzda/solid-i18next` (v1.4.1)
+- `@inlang/paraglide-js` (v2.25.1)
 
 Framework yang digunakan adalah `Solid` dengan aplikasi multibahasa yang terdiri dari **10 halaman** dan **10 bahasa**.
 
@@ -154,11 +157,11 @@ Bintang GitHub adalah indikator kuat dari popularitas proyek, kepercayaan komuni
 
 ### 2 - Solusi yang dapat diterima
 
-**(solid-i18next)** (`solid-i18next@17.0.2`):
+**(solid-i18next)** (`i18next@26.0.8`):
 
 `solid-i18next` mungkin merupakan opsi yang paling populer karena merupakan salah satu yang pertama memenuhi kebutuhan i18n aplikasi JavaScript. Ia juga memiliki serangkaian plugin komunitas yang luas untuk masalah tertentu.
 
-Paketnya berat (~14.6kb, yang mana sekitar 4.7× `solid-intlayer`).
+Paketnya berat (~14.9kb, yang mana sekitar 3.5× `solid-intlayer`).
 
 Namun, ia memiliki kelemahan utama yang sama dengan stack yang dibangun di atas `t('a.b.c')`: optimasi dimungkinkan tetapi sangat memakan waktu, dan proyek besar berisiko terkena praktik buruk (namespace + pemuatan dinamis + tipe).
 
@@ -167,7 +170,7 @@ Namun, ia memiliki kelemahan utama yang sama dengan stack yang dibangun di atas 
 Solid primitive sangat ringan dan efisien. Saya merekomendasikan solusi tersebut untuk proyek ringan, tetapi fitur-fiturnya mungkin cepat terasa kurang untuk solusi profesional yang mencakup manajemen cookie, pengalihan proxy, formatter, dll.
 Ia juga tidak memiliki lazy loading dan scoping namespace untuk optimasi ukuran halaman.
 
-**(Paraglide)** (`@inlang/paraglide-js@2.17.0`):
+**(Paraglide)** (`@inlang/paraglide-js@2.25.1`):
 
 `Paraglide` menawarkan pendekatan yang inovatif dan dipikirkan dengan matang. Meskipun demikian, dalam benchmark ini, tree-shaking yang diiklankan perusahaan mereka tidak berhasil untuk implementasi saya. Alur kerja dan DX juga lebih kompleks daripada opsi lainnya.
 Secara pribadi saya tidak suka harus meregenerasi file JS sebelum setiap push, yang menciptakan risiko konflik merge yang konstan melalui PR.
@@ -175,7 +178,7 @@ Terakhir, dibandingkan dengan solusi lain, Paraglide tidak menggunakan store (mi
 
 ### 3 - Rekomendasi
 
-**(Intlayer)** (`solid-intlayer@8.7.12`):
+**(Intlayer)** (`solid-intlayer@9.5.0`):
 
 Saya tidak akan menilai `solid-intlayer` secara pribadi demi objektivitas, karena ini adalah solusi saya sendiri.
 

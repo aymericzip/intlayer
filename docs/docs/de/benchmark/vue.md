@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-05-18
+updatedAt: 2026-09-11
 title: Beste i18n-Lösung für Vue im Jahr 2026 – Benchmark-Bericht
 description: Vergleichen Sie Vue-Internationalisierungsbibliotheken (i18n) wie vue-i18n, fluent-vue und Intlayer. Detaillierter Leistungsbericht zu Bundle-Größe, Leakage und Reaktivität.
 keywords:
@@ -17,6 +17,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-vue-template
 history:
+  - version: 9.5.1
+    date: 2026-09-11
+    changes: "Benchmark-Ergebnisse aktualisiert"
   - version: 8.9.8
     date: 2026-05-18
     changes: "GitHub-Sterne-Vergleich hinzufügen"
@@ -62,7 +65,7 @@ Die andere Auswirkung betrifft die Entwicklererfahrung (DX): Wie Sie Inhalte dek
 
 ## TL;DR
 
-- **Intlayer**: Die leichteste Lösung (v8.7.12) mit nativem Scoping und dynamischem Laden.
+- **Intlayer**: Die leichteste Lösung (v9.5.0) mit nativem Scoping und dynamischem Laden.
 - **vue-i18n**: Der Industriestandard mit einem reichen Ökosystem, kann aber in großen Anwendungen deutlich schwerer und schwieriger für Code-Splitting zu optimieren sein.
 - **fluent-vue**: Innovative Nachrichtenorganisation, aber es mangelt an Typsicherheit und es erweist sich als extrem schwere Lösung.
 
@@ -96,7 +99,8 @@ Syntaxen, die um `const { t } = useI18n()` + `t('a.b.c')` herum aufgebaut sind, 
 Für diesen Benchmark haben wir die folgenden Bibliotheken verglichen:
 
 - `Base App` (Keine i18n-Bibliothek)
-- `vue-intlayer` (v8.7.12)
+- `vue-intlayer` (v9.5.0)
+- [`@intlayer/vue-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compat/vue-i18n.md) (v9.5.1)
 - `vue-i18n` (v11.4.0)
 - `fluent-vue` (v3.8.2)
 
@@ -156,14 +160,14 @@ GitHub-Sterne sind ein starker Indikator für die Popularität eines Projekts, d
 
 - **vue-i18n** ist unbestritten die am häufigsten verwendete i18n-Bibliothek für Vue, sie hat viele Funktionen und ein riesiges Ökosystem. Aber unter der Haube ist die Lösung ziemlich schwer. Selbst wenn vue-i18n Lazy-Loading für Nachrichten integriert, fehlt eine Scoping-Funktion. Bei einer klassischen Vue-SPA-App gibt es kein Problem, aber für eine Nuxt-App, die @nuxt/i18n verwendet, führt dies dazu, dass die Nachrichten aller Seiten in einer einzigen enthalten sind. Für eine große Nuxt-App mit mehr als 10 Seiten kann dies wirklich problematisch werden.
 
-Das Paket ist sehr schwer (~24,3 KB, was etwa das 9-fache von `vue-intlayer` ist).
+Das Paket ist sehr schwer (~24,3 KB, was etwa das 6-fache von `vue-intlayer` ist).
 
-**(fluent-vue)** (`fluent-vue@0.5.0`):
+**(fluent-vue)** (`fluent-vue@3.8.2`):
 
-- **fluent-vue** bietet einen Innovationsversuch durch das .ftl-Format. Die Nachrichtenorganisation ist großartig und der Einstieg einfacher. In der Praxis erhöht jedoch der Mangel an Typsicherheit das Fehlerrisiko und das Debuggen kann schnell zeitaufwendig werden. Darüber hinaus lädt diese Lösung die Nachrichten über ein Vite-Plugin, das das Laden aller Inhalte in allen Sprachen in jede Seite erzwingt. Zusätzlich ist dies eine extrem schwere Lösung (~92,7 KB, was etwa das 34-fache von `vue-intlayer` ist).
+- **fluent-vue** bietet einen Innovationsversuch durch das .ftl-Format. Die Nachrichtenorganisation ist großartig und der Einstieg einfacher. In der Praxis erhöht jedoch der Mangel an Typsicherheit das Fehlerrisiko und das Debuggen kann schnell zeitaufwendig werden. Darüber hinaus lädt diese Lösung die Nachrichten über ein Vite-Plugin, das das Laden aller Inhalte in allen Sprachen in jede Seite erzwingt. Zusätzlich ist dies eine extrem schwere Lösung (~29,7 KB, was etwa das 7,5-fache von `vue-intlayer` ist).
 
 ### 3 - Empfehlungen
 
-**(Intlayer)** (`vue-intlayer@8.7.12`):
+**(Intlayer)** (`vue-intlayer@9.5.0`):
 
 Ich werde `vue-intlayer` aus Gründen der Objektivität nicht persönlich beurteilen, da es meine eigene Lösung ist.

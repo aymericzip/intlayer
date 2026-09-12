@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-05-18
+updatedAt: 2026-09-11
 title: La mejor solución i18n para Next.js en 2026 - Informe de Benchmark
 description: Compara librerías de internacionalización (i18n) para Next.js como next-intl, next-i18next e Intlayer. Informe detallado de rendimiento sobre tamaño del bundle, fugas y reactividad.
 keywords:
@@ -17,6 +17,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n
 history:
+  - version: 9.5.1
+    date: 2026-09-11
+    changes: "Actualización de los resultados del benchmark"
   - version: 8.9.8
     date: 2026-05-18
     changes: "Añadir comparativa de estrellas de GitHub"
@@ -56,7 +59,7 @@ Las librerías de internacionalización tienen un gran impacto en tu aplicación
 
 A medida que tu aplicación crece, el tamaño del bundle puede aumentar exponencialmente, lo que puede perjudicar notablemente el rendimiento.
 
-Como ejemplo, en los peores casos, una vez internacionalizada, tu página puede terminar siendo casi 4 veces más grande.
+Como ejemplo, en los peores casos, una vez internacionalizada, tu página puede terminar siendo casi 2 veces más grande.
 
 Otro impacto de las librerías i18n es la ralentización del desarrollo. Transformar componentes en contenido bilingüe o multilingüe requiere mucho tiempo.
 
@@ -68,7 +71,7 @@ Intlayer intenta optimizar en todas estas dimensiones.
 
 - **Intlayer** y **next-translate**: Las mejores opciones para el rendimiento en Next.js, ofreciendo la menor huella y el mejor soporte para renderizado estático.
 - **next-intl**: La opción más de moda pero pesada y compleja de optimizar para aplicaciones grandes.
-- **next-i18next**: Popular y rica en plugins, pero conlleva un peso de bundle significativo (~3× Intlayer).
+- **next-i18next**: Popular y rica en plugins, pero conlleva un peso de bundle significativo (~3.5× Intlayer).
 - **Evitar**: **gt-next** y **lingo.dev** debido a graves problemas de rendimiento, bloqueo del proveedor (vendor lock-in) y errores que rompen la compilación.
 
 ## Pon a prueba tu aplicación
@@ -109,19 +112,21 @@ Finalmente, `Intlayer` aplica una optimización en tiempo de compilación (build
 Para este benchmark, comparamos las siguientes librerías:
 
 - `Base App` (Sin librería i18n)
-- `next-intlayer` (v8.7.12)
-- `next-i18next` (v16.0.5)
-- `next-intl` (v4.9.1)
-- `@lingui/core` (v5.3.0)
-- `next-translate` (v3.1.2)
+- `next-intlayer` (v9.5.1)
+- [`@intlayer/next-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compat/next-intl.md) (v9.5.1)
+- [`@intlayer/next-i18next`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compat/next-i18next.md) (v9.5.1)
+- `next-i18next` (v16.3.0)
+- `next-intl` (v4.14.2)
+- `@lingui/core` (v6.6.0)
+- `next-translate` (v3.2.0)
 - `next-international` (v1.3.1)
 - `@inlang/paraglide-js` (v2.15.1)
-- `@tolgee/react` (v7.0.0)
-- `@lingo.dev/compiler` (v0.4.0)
-- `wuchale` (v0.22.11)
-- `gt-next` (v6.16.5)
+- `@tolgee/react` (v7.2.0)
+- `@lingo.dev/compiler` (v0.4.12)
+- `wuchale` (v0.26.6)
+- `gt-next` (v11.1.24)
 
-Utilicé la versión `16.2.4` de `Next.js` con el App Router.
+Utilicé la versión `16.3.4` de `Next.js` con el App Router.
 
 Construí una aplicación multilingüe con **10 páginas** y **10 idiomas**.
 
@@ -175,15 +180,15 @@ Algunas soluciones, como `gt-next` o `lingo.dev`, deben evitarse claramente. Com
 
 Problemas encontrados:
 
-**(General Translation)** (`gt-next@6.16.5`):
+**(General Translation)** (`gt-next@11.1.24`):
 
-- Para una aplicación de 110kb, `gt-next` añade más de 440kb extra.
+- Para una aplicación de 141kb, `gt-next` añade más de 50kb extra.
 - `Quota Exceeded, please upgrade your plan` en la primerísima compilación con General Translation.
 - Las traducciones no se renderizan; obtengo el error `Error: <T> used on the client-side outside of <GTProvider>`, lo que parece ser un bug de la librería.
 - Mientras implementaba **gt-next**, también encontré un [problema](https://github.com/generaltranslation/gt/issues/1210#event-24510646961) con la librería: `does not provide an export named 'printAST' - @formatjs/icu-messageformat-parser`, que hacía que la aplicación se rompiera. Tras informar de este problema, el mantenedor lo solucionó en 24 horas.
 - La librería bloquea el renderizado estático de las páginas de Next.js.
 
-**(Lingo.dev)** (`@lingo.dev/compiler@0.4.0`):
+**(Lingo.dev)** (`@lingo.dev/compiler@0.4.12`):
 
 - Cuota de IA excedida, bloqueando la compilación por completo, por lo que no puedes desplegar en producción sin pagar.
 - El compilador omitía casi el 40% del contenido traducido. Tuve que reescribir todos los `.map` en bloques de componentes planos para que funcionara.
@@ -192,7 +197,7 @@ Problemas encontrados:
 
 ### 2 - Soluciones experimentales
 
-**(Wuchale)** (`wuchale@0.22.11`):
+**(Wuchale)** (`wuchale@0.26.6`):
 
 La idea detrás de `Wuchale` es interesante pero aún no es viable. Experimenté problemas de reactividad y tuve que forzar el renderizado del proveedor para que la aplicación funcionara. La documentación también es bastante confusa, lo que dificulta la adopción.
 
@@ -201,21 +206,21 @@ La idea detrás de `Wuchale` es interesante pero aún no es viable. Experimenté
 `Paraglide` ofrece un enfoque innovador y bien pensado. Aun así, en este benchmark, el tree-shaking que su empresa anuncia no funcionó para mis configuraciones de Next.js o TanStack Start. El flujo de trabajo y la DX son más complejos que otras opciones. Personalmente, no me gusta tener que regenerar archivos JS antes de cada push, lo que crea un riesgo constante de conflictos de fusión a través de las PR. La herramienta también parece más enfocada en Vite que en Next.js.
 Finalmente, en comparación con otras soluciones, Paraglide no usa un almacén (ej. contexto de React) para recuperar el idioma actual y renderizar el contenido. Por cada nodo analizado, solicita el idioma al localStorage / cookie, etc. Esto provoca la ejecución de lógica innecesaria que afecta a la reactividad del componente.
 
-> Nota sobre paraglide: la solución inyecta código en tu base de código para importar, como resultado la métrica 'tamaño de la lib' en el informe del benchmark es casi 0. La generación de código es algo bueno, porque la función utilizada incluirá solo la lógica necesaria (prefijo total vs sin prefijo, cookie vs almacenamiento, etc.). En comparación, Intlayer realiza este filtrado mediante inyecciones de variables de entorno en la compilación para forzar al bundler a aplicar tree-shaking al contenido según la lógica. Gracias a esto, paraglide e intlayer terminan siendo soluciones de 6 a 10 veces más ligeras que i18next o next-intl.
+> Nota sobre paraglide: la solución inyecta código en tu base de código para importar, como resultado la métrica 'tamaño de la lib' en el informe del benchmark es casi 0. La generación de código es algo bueno, porque la función utilizada incluirá solo la lógica necesaria (prefijo total vs sin prefijo, cookie vs almacenamiento, etc.). En comparación, Intlayer realiza este filtrado mediante inyecciones de variables de entorno en la compilación para forzar al bundler a aplicar tree-shaking al contenido según la lógica. Gracias a esto, paraglide e intlayer terminan siendo soluciones de 3 a 8 veces más ligeras que i18next o next-intl.
 
 ### 3 - Soluciones aceptables
 
-**(Tolgee)** (`@tolgee/react@7.0.0`):
+**(Tolgee)** (`@tolgee/react@7.2.0`):
 
 `Tolgee` aborda muchos de los problemas mencionados anteriormente. Me resultó más difícil de adoptar que herramientas similares. No proporciona seguridad de tipos (type safety), lo que también dificulta detectar claves faltantes en tiempo de compilación (build time). Tuve que envolver las funciones de Tolgee con las mías propias para añadir la detección de claves faltantes.
 
-**(Next Intl)** (`next-intl@4.9.1`):
+**(Next Intl)** (`next-intl@4.14.2`):
 
-`next-intl` es la opción más de moda y la que más recomiendan los agentes de IA, pero en mi opinión, equivocadamente. Empezar es fácil. En la práctica, optimizar para limitar la fuga es complejo. Combinar carga dinámica + nombres de espacios + tipos de TypeScript ralentiza mucho el desarrollo. El paquete también es bastante pesado (~13kb para `NextIntlClientProvider` + `useTranslations`, que es más del doble de `next-intlayer`). **next-intl** solía bloquear el renderizado estático de las páginas de Next.js. Proporciona un asistente llamado `setRequestLocale()`. Eso parece haberse abordado parcialmente para archivos centralizados como `en.json` / `fr.json`, pero el renderizado estático sigue fallando cuando el contenido se divide en namespaces como `en/shared.json` / `fr/shared.json` / `es/shared.json`.
+`next-intl` es la opción más de moda y la que más recomiendan los agentes de IA, pero en mi opinión, equivocadamente. Empezar es fácil. En la práctica, optimizar para limitar la fuga es complejo. Combinar carga dinámica + nombres de espacios + tipos de TypeScript ralentiza mucho el desarrollo. El paquete también es bastante pesado (~14.7kb para `NextIntlClientProvider` + `useTranslations`, que es más de 2.5 veces `next-intlayer`). **next-intl** solía bloquear el renderizado estático de las páginas de Next.js. Proporciona un asistente llamado `setRequestLocale()`. Eso parece haberse abordado parcialmente para archivos centralizados como `en.json` / `fr.json`, pero el renderizado estático sigue fallando cuando el contenido se divide en namespaces como `en/shared.json` / `fr/shared.json` / `es/shared.json`.
 
-**(Next I18next)** (`next-i18next@16.0.5`):
+**(Next I18next)** (`next-i18next@16.3.0`):
 
-`next-i18next` es probablemente la opción más popular porque fue una de las primeras soluciones i18n para aplicaciones JavaScript. Tiene muchos plugins comunitarios. Comparte las mismas desventajas principales que `next-intl`. El paquete es especialmente pesado (~18kb para `I18nProvider` + `useTranslation`, casi el triple que `next-intlayer`).
+`next-i18next` es probablemente la opción más popular porque fue una de las primeras soluciones i18n para aplicaciones JavaScript. Tiene muchos plugins comunitarios. Comparte las mismas desventajas principales que `next-intl`. El paquete es especialmente pesado (~19.7kb para `I18nProvider` + `useTranslation`, unas 3.5 veces `next-intlayer`).
 
 Los formatos de los mensajes también difieren: `next-intl` usa ICU MessageFormat, mientras que `i18next` usa su propio formato.
 
@@ -223,17 +228,17 @@ Los formatos de los mensajes también difieren: `next-intl` usa ICU MessageForma
 
 `next-international` también aborda los problemas anteriores, pero no difiere mucho de `next-intl` o `next-i18next`. Incluye `scopedT()` para traducciones específicas de un namespace, pero su uso apenas tiene impacto en el tamaño del bundle.
 
-**(Lingui)** (`@lingui/core@5.3.0`):
+**(Lingui)** (`@lingui/core@6.6.0`):
 
 A menudo se elogia a `Lingui`. Personalmente, encontré el flujo de trabajo `lingui extract` / `lingui compile` más complejo que otras alternativas, sin una ventaja clara. También noté sintaxis inconsistentes que confunden a las IAs (ej. `t()`, `t''`, `i18n.t()`, `<Trans>`).
 
 ### 4 - Recomendaciones
 
-**(Next Translate)** (`next-translate@3.1.2`):
+**(Next Translate)** (`next-translate@3.2.0`):
 
-`next-translate` es mi recomendación principal si te gusta una API de estilo `t()`. Es elegante a través de `next-translate-plugin`, cargando namespaces mediante `getStaticProps` con un cargador de Webpack / Turbopack. También es la opción más ligera aquí (~2.5kb). Para la segmentación por espacios de nombres, definirnamespaces por página o ruta en la configuración está bien pensado y es más fácil de mantener que las principales alternativas como **next-intl** o **next-i18next**. En la versión `3.1.2`, noté que el renderizado estático no funcionaba; Next.js recurría al renderizado dinámico.
+`next-translate` es mi recomendación principal si te gusta una API de estilo `t()`. Es elegante a través de `next-translate-plugin`, cargando namespaces mediante `getStaticProps` con un cargador de Webpack / Turbopack. También es una de las opciones más ligeras aquí (~3.5kb). Para la segmentación por espacios de nombres, definirnamespaces por página o ruta en la configuración está bien pensado y es más fácil de mantener que las principales alternativas como **next-intl** o **next-i18next**. En la versión `3.1.2`, noté que el renderizado estático no funcionaba; Next.js recurría al renderizado dinámico.
 
-**(Intlayer)** (`next-intlayer@8.7.12`):
+**(Intlayer)** (`next-intlayer@9.5.1`):
 
 No seré yo quien juzgue personalmente a `next-intlayer` por objetividad, ya que es mi propia solución.
 

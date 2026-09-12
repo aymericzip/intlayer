@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-05-18
+updatedAt: 2026-09-11
 title: Solusi i18n Terbaik untuk Svelte di Tahun 2026 - Laporan Benchmark
 description: Bandingkan pustaka internasionalisasi (i18n) Svelte seperti svelte-i18n, Paraglide, dan Intlayer. Laporan performa mendetail tentang ukuran bundle, kebocoran, dan reaktivitas.
 keywords:
@@ -17,6 +17,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-svelte-template
 history:
+  - version: 9.5.1
+    date: 2026-09-11
+    changes: "Pembaruan hasil benchmark"
   - version: 8.9.8
     date: 2026-05-18
     changes: "Tambahkan perbandingan bintang GitHub"
@@ -62,9 +65,9 @@ Dampak lainnya adalah pada pengalaman pengembang (DX): bagaimana Anda mendeklara
 
 ## TL;DR
 
-- **Intlayer**: Pilihan paling efisien dalam performa (v8.7.12) dengan footprint terkecil.
+- **Intlayer**: Pilihan paling efisien dalam performa (v9.5.0) dengan footprint terkecil.
 - **Paraglide**: Kontender kuat untuk tree-shaking tetapi memiliki pengalaman pengembang yang lebih kompleks dan overhead reaktivitas.
-- **svelte-i18n**: Komprehensif dan standar untuk Svelte, tetapi membawa beban bundle yang jauh lebih besar (~7× Intlayer).
+- **svelte-i18n**: Komprehensif dan standar untuk Svelte, tetapi membawa beban bundle yang jauh lebih besar (~4.5× Intlayer).
 
 ## Uji aplikasi Anda
 
@@ -96,9 +99,9 @@ Sintaks yang dibangun di sekitar `t('a.b.c')` sangat nyaman tetapi sering kali m
 Untuk benchmark ini, kami membandingkan pustaka berikut:
 
 - `Base App` (Tanpa pustaka i18n)
-- `svelte-intlayer` (v8.7.12)
+- `svelte-intlayer` (v9.5.0)
 - `svelte-i18n` (v4.0.1)
-- `@inlang/paraglide-js` (v2.17.0)
+- `@inlang/paraglide-js` (v2.25.1)
 
 Framework yang digunakan adalah `Svelte` dengan aplikasi multibahasa yang terdiri dari **10 halaman** dan **10 bahasa**.
 
@@ -152,7 +155,7 @@ Bintang GitHub adalah indikator kuat dari popularitas proyek, kepercayaan komuni
 
 ### 2 - Solusi yang dapat diterima
 
-**(Paraglide)** (`@inlang/paraglide-js@2.17.0`):
+**(Paraglide)** (`@inlang/paraglide-js@2.25.1`):
 
 `Paraglide` menawarkan pendekatan yang inovatif dan dipikirkan dengan matang. Dalam konteks aplikasi Vite + Svelte, tree-shaking yang diiklankan perusahaan mereka bekerja seperti yang diharapkan, yang mana sangat bagus.
 Tetapi dalam kasus React + TanStack Start, tree-shaking tidak bekerja seperti yang diharapkan, sama halnya untuk Next.js. Karena itu, penggunaan Paraglide dalam proyek Svelte dan TanStack Start layak untuk diperiksa ulang.
@@ -162,13 +165,13 @@ Terakhir, dibandingkan dengan solusi lain, Paraglide tidak menggunakan store (mi
 
 > Catatan tentang paraglide: solusi ini menginjeksi kode ke dalam codebase Anda untuk impor; hasilnya, metrik 'lib size' dalam laporan benchmark hampir 0. Pembuatan kode (Code generation) adalah hal yang baik, karena fungsi yang digunakan hanya akan menyertakan logika yang diperlukan (prefix di mana-mana vs tanpa prefix, cookie vs storage, dll.). Sebagai perbandingan, Intlayer melakukan pemfilteran ini melalui injeksi variabel lingkungan dalam build untuk memaksa bundler melakukan tree-shaking konten tergantung pada logika. Berkat ini, paraglide dan intlayer akhirnya menjadi solusi yang 6 hingga 10 kali lebih ringan daripada i18next atau next-intl.
 
-**(svelte-i18n)** (`svelte-i18n@3.4.0`):
+**(svelte-i18n)** (`svelte-i18n@4.0.1`):
 
-Solusi ini menjawab semua kebutuhan i18n dalam proyek Svelte. Tetapi seperti halnya i18next atau solusi i18n besar lainnya, ia sedikit berat (~15.9kb, yang mana sekitar 7× `svelte-intlayer`).
+Solusi ini menjawab semua kebutuhan i18n dalam proyek Svelte. Tetapi seperti halnya i18next atau solusi i18n besar lainnya, ia sedikit berat (~16.6kb, yang mana sekitar 4.5× `svelte-intlayer`).
 
 ### 3 - Rekomendasi
 
-**(Intlayer)** (`svelte-intlayer@8.7.12`):
+**(Intlayer)** (`svelte-intlayer@9.5.0`):
 
 Saya tidak akan menilai `svelte-intlayer` secara pribadi demi objektivitas, karena ini adalah solusi saya sendiri.
 

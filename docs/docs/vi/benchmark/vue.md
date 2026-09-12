@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-05-18
+updatedAt: 2026-09-11
 title: Giải pháp i18n tốt nhất cho Vue năm 2026 - Báo cáo Benchmark
 description: So sánh các thư viện quốc tế hóa (i18n) Vue như vue-i18n, fluent-vue và Intlayer. Báo cáo hiệu suất chi tiết về kích thước bundle, rò rỉ và tính phản ứng.
 keywords:
@@ -17,6 +17,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-vue-template
 history:
+  - version: 9.5.1
+    date: 2026-09-11
+    changes: "Cập nhật kết quả benchmark"
   - version: 8.9.8
     date: 2026-05-18
     changes: "Thêm so sánh sao GitHub"
@@ -62,7 +65,7 @@ Tác động khác là đối với trải nghiệm nhà phát triển (DX): cá
 
 ## TL;DR
 
-- **Intlayer**: Giải pháp nhẹ nhất (v8.7.12) với tính năng scoping và tải động gốc.
+- **Intlayer**: Giải pháp nhẹ nhất (v9.5.0) với tính năng scoping và tải động gốc.
 - **vue-i18n**: Tiêu chuẩn ngành với hệ sinh thái phong phú, nhưng có thể trở nên nặng hơn đáng kể và khó tối ưu hóa cho code-splitting trong các ứng dụng lớn.
 - **fluent-vue**: Tổ chức thông báo sáng tạo nhưng thiếu an toàn kiểu (type-safety) và hóa ra là một giải pháp cực kỳ nặng.
 
@@ -96,7 +99,8 @@ Các cú pháp được xây dựng xung quanh `const { t } = useI18n()` + `t('a
 Đối với benchmark này, chúng tôi đã so sánh các thư viện sau:
 
 - `Base App` (Không có thư viện i18n)
-- `vue-intlayer` (v8.7.12)
+- `vue-intlayer` (v9.5.0)
+- [`@intlayer/vue-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/vue-i18n.md) (v9.5.1)
 - `vue-i18n` (v11.4.0)
 - `fluent-vue` (v3.8.2)
 
@@ -156,14 +160,14 @@ Sao GitHub là một chỉ số mạnh mẽ về mức độ phổ biến của 
 
 - **vue-i18n** chắc chắn là thư viện i18n được sử dụng nhiều nhất cho Vue, nó có rất nhiều tính năng và một hệ sinh thái khổng lồ. Nhưng thực tế giải pháp này khá nặng. Ngay cả khi vue-i18n tích hợp lazy loading cho các tin nhắn, nó vẫn thiếu tính năng scoping. Trong trường hợp ứng dụng Vue SPA cổ điển thì không có vấn đề gì, nhưng đối với ứng dụng Nuxt, sử dụng @nuxt/i18n, nó dẫn đến việc bao gồm tin nhắn từ tất cả các trang vào một trang duy nhất. Đối với một ứng dụng Nuxt lớn bao gồm hơn 10 trang, nó có thể trở nên thực sự rắc rối.
 
-Package này rất nặng (~24.3kb, gấp khoảng 9 lần `vue-intlayer`).
+Package này rất nặng (~24.3kb, gấp khoảng 6 lần `vue-intlayer`).
 
-**(fluent-vue)** (`fluent-vue@0.5.0`):
+**(fluent-vue)** (`fluent-vue@3.8.2`):
 
-- **fluent-vue** đưa ra một nỗ lực đổi mới thông qua định dạng .ftl. Tổ chức tin nhắn tuyệt vời, dễ dàng bắt đầu hơn. Nhưng trong thực tế, việc thiếu an toàn kiểu làm tăng rủi ro lỗi và có thể nhanh chóng trở nên tốn thời gian để debug. Hơn nữa, giải pháp đó tải các tin nhắn bằng một plugin vite bắt buộc tải tất cả nội dung ở tất cả các ngôn ngữ vào mỗi trang. Ngoài ra, đây là một giải pháp cực kỳ nặng (~92.7kb, gấp khoảng 34 lần `vue-intlayer`).
+- **fluent-vue** đưa ra một nỗ lực đổi mới thông qua định dạng .ftl. Tổ chức tin nhắn tuyệt vời, dễ dàng bắt đầu hơn. Nhưng trong thực tế, việc thiếu an toàn kiểu làm tăng rủi ro lỗi và có thể nhanh chóng trở nên tốn thời gian để debug. Hơn nữa, giải pháp đó tải các tin nhắn bằng một plugin vite bắt buộc tải tất cả nội dung ở tất cả các ngôn ngữ vào mỗi trang. Ngoài ra, đây là một giải pháp cực kỳ nặng (~29.7kb, gấp khoảng 7.5 lần `vue-intlayer`).
 
 ### 3 - Khuyến nghị
 
-**(Intlayer)** (`vue-intlayer@8.7.12`):
+**(Intlayer)** (`vue-intlayer@9.5.0`):
 
 Tôi sẽ không đích thân đánh giá `vue-intlayer` vì tính khách quan, vì đó là giải pháp của chính tôi.

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-05-18
+updatedAt: 2026-09-11
 title: 2026 年 TanStack Start 最佳 i18n 解决方案 - 基准测试报告
 description: 对比 react-i18next、use-intl 和 Intlayer 等 TanStack Start 国际化库。关于打包体积、泄漏和响应性的详细性能报告。
 keywords:
@@ -17,6 +17,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-tanstack-start-template
 history:
+  - version: 9.5.1
+    date: 2026-09-11
+    changes: "更新基准测试结果"
   - version: 8.9.8
     date: 2026-05-18
     changes: "添加 GitHub 明星对比"
@@ -62,7 +65,7 @@ history:
 
 ## TL;DR
 
-- **Intlayer**: 为 TanStack Start 提供最佳性能和最小的打包体积 (v8.7.12)。
+- **Intlayer**: 为 TanStack Start 提供最佳性能和最小的打包体积 (v9.5.1)。
 - **react-i18next** & **use-intl**: 拥有庞大生态系统的成熟替代方案，但体积显著更大且优化更为复杂。
 - **Paraglide**: 创新的 Tree-shaking 理念，但在实际应用中并未生效。在 TanStack Start 中 DX 复杂且存在响应性开销。
 - **应当避免**: **General Translation (GT)** 和 **Lingo.dev**。由于严重的性能问题、AI 配额限制以及供应商锁定 (vendor lock-in)。
@@ -97,16 +100,18 @@ history:
 在此基准测试中，我们对比了以下库：
 
 - `Base App`（无 i18n 库）
-- `react-intlayer` (v8.7.12)
-- `react-i18next` (v17.0.2)
-- `use-intl` (v4.9.1)
-- `@lingui/core` (v5.3.0)
+- `react-intlayer` (v9.5.1)
+- `@intlayer/use-intl` (v9.5.1)
+- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/lingui.md) (v9.5.1)
+- `react-i18next` (v17.0.13)
+- `use-intl` (v4.14.2)
+- `@lingui/core` (v6.6.0)
 - `@inlang/paraglide-js` (v2.15.1)
-- `@tolgee/react` (v7.0.0)
-- `react-intl` (v10.1.1)
-- `wuchale` (v0.22.11)
-- `gt-react` (vlatest)
-- `lingo.dev` (v0.133.9)
+- `@tolgee/react` (v7.2.0)
+- `react-intl` (v10.1.26)
+- `wuchale` (v0.26.6)
+- `gt-react` (v10.18.3)
+- `lingo.dev` (v0.138.7)
 
 框架使用 `TanStack Start`，构建了一个拥有 **10 个页面**和 **10 种语言**的多语言应用。
 
@@ -160,15 +165,15 @@ GitHub 星数是项目受欢迎程度、社区信任和长期相关性的有力�
 
 遇到的问题：
 
-**(General Translation)** (`gt-react@latest`):
+**(General Translation)** (`gt-react@10.18.3`):
 
-- 对于一个约 110kb 的应用，`gt-react` 额外增加了超过 440kb（参考同个基准测试中 Next.js 实现的量级）。
+- 对于一个约 111kb 的应用，`gt-react` 额外增加了超过 170kb（参考同个基准测试中 Next.js 实现的量级）。
 - 第一次使用 General Translation 构建就提示 `Quota Exceeded, please upgrade your plan`。
 - 翻译未渲染；我收到了错误 `Error: <T> used on the client-side outside of <GTProvider>`，这似乎是库的一个 Bug。
 - 在实施 **gt-tanstack-start-react** 时，我还遇到了该库的一个[问题](https://github.com/generaltranslation/gt/issues/1210#event-24510646961)：`does not provide an export named 'printAST' - @formatjs/icu-messageformat-parser`，这导致应用崩溃。在报告此问题后，维护者在 24 小时内修复了它。
 - 这些库通过 `initializeGT()` 函数使用了一种反模式，阻碍了打包包进行干净的 Tree-shaking。
 
-**(Lingo.dev)** (`lingo.dev@0.133.9`):
+**(Lingo.dev)** (`lingo.dev@0.138.7`):
 
 - AI 配额超出（或服务端依赖受阻），使得不付钱的情况下构建或部署极具风险。
 - 编译器丢失了近 40% 的翻译内容。我不得不将所有的 `.map` 重写为扁平的组件块才使其工作。
@@ -178,7 +183,7 @@ GitHub 星数是项目受欢迎程度、社区信任和长期相关性的有力�
 
 ### 2 - 实验性解决方案
 
-**(Wuchale)** (`wuchale@0.22.11`):
+**(Wuchale)** (`wuchale@0.26.6`):
 
 `Wuchale` 背后的想法很有趣，但尚非可行方案。我遇到了该库的响应性问题，不得不强制重新渲染 Provider 才能让应用在 TanStack Start 上运行。文档也相当模糊，增加了上手难度。
 
@@ -188,9 +193,9 @@ GitHub 星数是项目受欢迎程度、社区信任和长期相关性的有力�
 
 `Paraglide` 提供了一种创新且经过深思熟虑的方法。即便如此，在此基准测试中，其公司宣称的 Tree-shaking 在我的 Next.js 实现或 TanStack Start 中并未生效。工作流和 DX 也比其他选项更复杂。就个人而言，我不喜欢每次推送到代码库前都要重新生成 JS 文件，这通过 PR 产生了持续的合并冲突风险。
 
-> 关于 paraglide 的说明：该解决方案通过将代码注入到您的代码库中进行导入，因此基准测试报告中的“库体积”指标几乎为 0。代码生成是一件好事，因为所使用的函数将仅包含必要的逻辑（全部前缀 vs 无前缀、cookie vs 存储等）。相比之下，Intlayer 通过在构建中注入环境变量来进行过滤，以强制打包工具根据逻辑对内容进行 Tree-shake。得益于此，paraglide 和 intlayer 最终成为比 i18next 或 next-intl 轻 6-10 倍的解决方案。
+> 关于 paraglide 的说明：该解决方案通过将代码注入到您的代码库中进行导入，因此基准测试报告中的“库体积”指标几乎为 0。代码生成是一件好事，因为所使用的函数将仅包含必要的逻辑（全部前缀 vs 无前缀、cookie vs 存储等）。相比之下，Intlayer 通过在构建中注入环境变量来进行过滤，以强制打包工具根据逻辑对内容进行 Tree-shake。得益于此，paraglide 和 intlayer 最终成为比 i18next 或 next-intl 轻 3-10 倍的解决方案。
 
-**(Tolgee)** (`@tolgee/react@7.0.0`):
+**(Tolgee)** (`@tolgee/react@7.2.0`):
 
 `Tolgee` 解决了前面提到的许多问题。我发现它比其他采用类似方法的工具更难上手。它不提供类型安全，这极大增加了在编译时捕捉缺失键的难度。我不得不使用自己的 API 封装 Tolgee 的 API 以添加缺失键检测。
 
@@ -198,37 +203,37 @@ GitHub 星数是项目受欢迎程度、社区信任和长期相关性的有力�
 
 在 TanStack Start 上，我也遇到了响应性问题：当locale改变时，我必须强制提供者重新渲染并订阅locale-change事件，以便在另一种语言中加载时行为正确。
 
-**(use-intl)** (`use-intl@4.9.1`):
+**(use-intl)** (`use-intl@4.14.2`):
 
 `use-intl` 是 React 生态中最时髦的“intl”成员（与 `next-intl` 同系），常被 AI Agent 推荐，但在我看来，在性能优先的环境下这是错误的。入门相对简单，但在实践中，优化和限制泄漏的过程相当复杂。同样，结合动态加载 + 命名空间 + TypeScript 类型会极大降低开发速度。
 
 在 TanStack Start 上你可以避开 Next.js 特有的陷阱（`setRequestLocale`、静态渲染），但核心问题是一样的：如果没有严格的规范，打包包很快会承载过多消息，而且维护每条路由的命名空间会变得非常痛苦。
 
-**(react-i18next)** (`react-i18next@17.0.2`):
+**(react-i18next)** (`react-i18next@17.0.13`):
 
 `react-i18next` 可能最受欢迎，因为它是最早满足 JavaScript 应用 i18n 需求的方案之一。它还针对特定问题拥有广泛的社区插件。
 
 尽管如此，它与基于 `t('a.b.c')` 的技术栈有着相同的重大缺点：优化是可能的，但非常耗时，且大型项目容易陷入不良实践（命名空间 + 动态加载 + 类型）。
 
-该 package 特别重（~17.3kb，约为 `react-intlayer` 的 3.5 倍）。
+该 package 特别重（~18.4kb，约为 `react-intlayer` 的 3.5 倍）。
 
 消息格式也不同：`use-intl` 使用 ICU MessageFormat，而 `i18next` 使用自己的格式--如果混合使用它们，会增加工具链或迁移的复杂度。
 
-**(Lingui)** (`@lingui/core@5.3.0`):
+**(Lingui)** (`@lingui/core@6.6.0`):
 
 `Lingui` 常受赞誉。就个人而言，我觉得围绕 `lingui extract` / `lingui compile` 的工作流比其他方案更复杂，且在此 TanStack Start 基准测试中没有明显的优势。我还注意到语法不统一，容易误导 AI（例如 `t()`、`t''`、`i18n.t()`、`<Trans>`）。
 
-**(react-intl)** (`react-intl@10.1.1`):
+**(react-intl)** (`react-intl@10.1.26`):
 
 `react-intl` 是来自 Format.js 团队的高性能实现。但 DX 依然繁琐：`const intl = useIntl()` + `intl.formatMessage({ id: "xx.xx" })` 增加了复杂度和额外的 JavaScript 开销，并将全局 i18n 实例绑定到了 React 树中的许多节点。
 
-该 package 也很重（~14.4kb，大约是 `react-intlayer` 的 3 倍）。
+该 package 也很重（~15.3kb，大约是 `react-intlayer` 的 3 倍）。
 
 ### 4 - 推荐方案
 
 在本次 TanStack Start 基准测试中，没有与 `next-translate`（Next.js 插件 + `getStaticProps`）直接对应的方案。对于那些确实想要 `t()` API 且拥有成熟生态的团队，`react-i18next` 和 `use-intl` 仍是“合理”的选择，但要做好投入大量时间进行优化以避免泄漏的准备。
 
-**(Intlayer)** (`react-intlayer@8.7.12`):
+**(Intlayer)** (`react-intlayer@9.5.1`):
 
 出于客观性考量，我不会亲自评价 `react-intlayer`，因为这是我自己的解决方案。
 

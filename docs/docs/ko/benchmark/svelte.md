@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-05-18
+updatedAt: 2026-09-11
 title: 2026년 Svelte를 위한 최고의 i18n 솔루션 - 벤치마크 리포트
 description: svelte-i18n, Paraglide, Intlayer와 같은 Svelte 국제화(i18n) 라이브러리를 비교합니다. 번들 크기, 누수, 반응성에 관한 상세 성능 리포트.
 keywords:
@@ -17,6 +17,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-svelte-template
 history:
+  - version: 9.5.1
+    date: 2026-09-11
+    changes: "벤치마크 결과 업데이트"
   - version: 8.9.8
     date: 2026-05-18
     changes: "GitHub 스타 비교 추가"
@@ -62,9 +65,9 @@ style="border:none;"
 
 ## TL;DR
 
-- **Intlayer**: 가장 성능 효율적인 선택(v8.7.12)으로, 발자국(footprint)이 가장 작습니다.
+- **Intlayer**: 가장 성능 효율적인 선택(v9.5.0)으로, 발자국(footprint)이 가장 작습니다.
 - **Paraglide**: 트리 쉐이킹(tree-shaking)을 위한 강력한 후보이지만, 개발자 경험이 더 복잡하고 반응성 오버헤드가 있습니다.
-- **svelte-i18n**: Svelte를 위한 표준적이고 기능이 완비된 솔루션이지만, 번들 무게가 훨씬 더 큽니다(Intlayer의 약 7배).
+- **svelte-i18n**: Svelte를 위한 표준적이고 기능이 완비된 솔루션이지만, 번들 무게가 훨씬 더 큽니다(Intlayer의 약 4.5배).
 
 ## 앱 테스트하기
 
@@ -96,9 +99,9 @@ i18n 누수 문제를 빠르게 파악하기 위해 [여기](https://intlayer.or
 이 벤치마크에서는 다음과 같은 라이브러리를 비교했습니다:
 
 - `Base App` (i18n 라이브러리 없음)
-- `svelte-intlayer` (v8.7.12)
+- `svelte-intlayer` (v9.5.0)
 - `svelte-i18n` (v4.0.1)
-- `@inlang/paraglide-js` (v2.17.0)
+- `@inlang/paraglide-js` (v2.25.1)
 
 프레임워크는 `Svelte`이며 **10개의 페이지**와 **10개의 언어**를 가진 다국어 앱을 사용했습니다.
 
@@ -152,7 +155,7 @@ GitHub 스타는 프로젝트의 인기, 커뮤니티 신뢰 및 장기적인 �
 
 ### 2 - 수용 가능한 솔루션
 
-**(Paraglide)** (`@inlang/paraglide-js@2.17.0`):
+**(Paraglide)** (`@inlang/paraglide-js@2.25.1`):
 
 `Paraglide`는 혁신적이고 잘 설계된 접근 방식을 제공합니다. Vite + Svelte 앱의 맥락에서 그들이 홍보하는 트리 쉐이킹은 기대대로 잘 작동합니다.
 하지만 React + TanStack Start의 경우 트리 쉐이킹이 기대대로 작동하지 않았으며 Next.js도 마찬가지였습니다. 그럼에도 불구하고 Svelte 및 TanStack Start 프로젝트에서의 Paraglide 사용은 확인해 볼 가치가 있습니다.
@@ -162,13 +165,13 @@ GitHub 스타는 프로젝트의 인기, 커뮤니티 신뢰 및 장기적인 �
 
 > paraglide에 관한 참고: 이 솔루션은 임포트를 위해 코드베이스에 코드를 주입하므로, 벤치마크 리포트의 'lib size' 메트릭은 거의 0에 가깝습니다. 코드 생성(Code generation)은 사용되는 함수에 필요한 로직(모든 접두사 vs 접두사 없음, 쿠키 vs 스토리지 등)만 포함되므로 좋은 방식입니다. 이에 비해 Intlayer는 빌드 시 환경 변수 주입을 통해 이 필터링을 수행하여 번들러가 로직에 따라 콘텐츠를 트리 쉐이킹하도록 강제합니다. 덕분에 paraglide와 intlayer는 i18next나 next-intl보다 6~10배 더 가벼운 솔루션이 됩니다.
 
-**(svelte-i18n)** (`svelte-i18n@3.4.0`):
+**(svelte-i18n)** (`svelte-i18n@4.0.1`):
 
-이 솔루션은 Svelte 프로젝트의 모든 i18n 요구 사항을 충족합니다. 하지만 i18next나 다른 주요 i18n 솔루션과 마찬가지로 조금 무겁습니다 (~15.9kb, `svelte-intlayer`의 약 7배).
+이 솔루션은 Svelte 프로젝트의 모든 i18n 요구 사항을 충족합니다. 하지만 i18next나 다른 주요 i18n 솔루션과 마찬가지로 조금 무겁습니다 (~16.6kb, `svelte-intlayer`의 약 4.5배).
 
 ### 3 - 추천 사항
 
-**(Intlayer)** (`svelte-intlayer@8.7.12`):
+**(Intlayer)** (`svelte-intlayer@9.5.0`):
 
 객관성을 위해 나의 솔루션인 `svelte-intlayer`에 대해서는 직접 판단하지 않겠습니다.
 

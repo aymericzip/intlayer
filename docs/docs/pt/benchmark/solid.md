@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-05-18
+updatedAt: 2026-09-11
 title: Melhor solução i18n para Solid em 2026 - Relatório de Benchmark
 description: Compare bibliotecas de internacionalização (i18n) para Solid como solid-primitives, solid-i18next e Intlayer. Relatório de desempenho detalhado sobre tamanho do bundle, vazamento e reatividade.
 keywords:
@@ -17,6 +17,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-solid-template
 history:
+  - version: 9.5.1
+    date: 2026-09-11
+    changes: "Atualização dos resultados do benchmark"
   - version: 8.9.8
     date: 2026-05-18
     changes: "Adicionar comparativo de estrelas do GitHub"
@@ -62,9 +65,9 @@ O outro impacto é na experiência do desenvolvedor (DX): como você declara con
 
 ## TL;DR
 
-- **Intlayer**: Escolha recomendada para aplicações Solid profissionais que precisam de recursos avançados e otimização (v8.7.12).
+- **Intlayer**: Escolha recomendada para aplicações Solid profissionais que precisam de recursos avançados e otimização (v9.5.0).
 - **@solid-primitives/i18n**: Excelente alternativa leve para projetos simples, embora careça de recursos avançados como lazy loading.
-- **solid-i18next**: Opção padrão, mas pesada (~4.7× o Intlayer) com os mesmos pontos negativos do React i18next.
+- **solid-i18next**: Opção padrão, mas pesada (~3.5× o Intlayer) com os mesmos pontos negativos do React i18next.
 - **Paraglide**: Abordagem inovadora, mas DX complexa e problemas de tree-shaking em algumas configurações.
 
 ## Teste seu app
@@ -97,10 +100,10 @@ Sintaxes construídas em torno de `t('a.b.c')` são muito convenientes, mas freq
 Para este benchmark, comparamos as seguintes bibliotecas:
 
 - `Base App` (Sem biblioteca i18n)
-- `solid-intlayer` (v8.7.12)
+- `solid-intlayer` (v9.5.0)
 - `@solid-primitives/i18n` (v2.2.1)
-- `solid-i18next` (v17.0.2)
-- `@inlang/paraglide-js` (v2.17.0)
+- `i18next` (v26.0.8) + `@mbarzda/solid-i18next` (v1.4.1)
+- `@inlang/paraglide-js` (v2.25.1)
 
 O framework é `Solid` com um app multilíngue de **10 páginas** e **10 idiomas**.
 
@@ -154,11 +157,11 @@ As estrelas do GitHub são um forte indicador da popularidade de um projeto, da 
 
 ### 2 - Soluções aceitáveis
 
-**(solid-i18next)** (`solid-i18next@17.0.2`):
+**(solid-i18next)** (`i18next@26.0.8`):
 
 O `solid-i18next` é provavelmente a opção mais popular porque foi uma das primeiras a atender às necessidades de i18n de apps JavaScript. Também possui um amplo conjunto de plugins da comunidade para problemas específicos.
 
-O pacote é pesado (~14.6kb, o que é cerca de 4.7× o `solid-intlayer`).
+O pacote é pesado (~14.9kb, o que é cerca de 3.5× o `solid-intlayer`).
 
 Ainda assim, compartilha as mesmas principais desvantagens das stacks construídas sobre o `t('a.b.c')`: otimizações são possíveis, mas consomem muito tempo, e grandes projetos correm o risco de más práticas (namespaces + carregamento dinâmico + tipos).
 
@@ -167,7 +170,7 @@ Ainda assim, compartilha as mesmas principais desvantagens das stacks construíd
 O Solid primitive é extremamente leve e eficiente. Recomendo essa solução para projetos leves, mas pode rapidamente carecer de recursos para soluções profissionais que incluam gerenciamento de cookies, redirecionamento de proxy, formatadores etc.
 Também carece de lazy loading e scoping de namespaces para otimização do tamanho da página.
 
-**(Paraglide)** (`@inlang/paraglide-js@2.17.0`):
+**(Paraglide)** (`@inlang/paraglide-js@2.25.1`):
 
 O `Paraglide` oferece uma abordagem inovadora e bem pensada. Ainda assim, neste benchmark, o tree-shaking que a empresa anuncia não funcionou para minha implementação. O fluxo de trabalho e a DX também são mais complexos do que outras opções.
 Pessoalmente, não gosto de ter que regenerar arquivos JS antes de cada push, o que cria um risco constante de conflito de merge através de PRs.
@@ -175,7 +178,7 @@ Finalmente, em comparação com outras soluções, o Paraglide não usa um store
 
 ### 3 - Recomendações
 
-**(Intlayer)** (`solid-intlayer@8.7.12`):
+**(Intlayer)** (`solid-intlayer@9.5.0`):
 
 Eu não julgarei pessoalmente o `solid-intlayer` por uma questão de objetividade, já que é minha própria solução.
 

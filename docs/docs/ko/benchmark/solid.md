@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-05-18
+updatedAt: 2026-09-11
 title: 2026년 Solid를 위한 최고의 i18n 솔루션 - 벤치마크 리포트
 description: solid-primitives, solid-i18next, Intlayer와 같은 Solid 국제화(i18n) 라이브러리를 비교합니다. 번들 크기, 누수, 반응성에 관한 상세 성능 리포트.
 keywords:
@@ -17,6 +17,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-solid-template
 history:
+  - version: 9.5.1
+    date: 2026-09-11
+    changes: "벤치마크 결과 업데이트"
   - version: 8.9.8
     date: 2026-05-18
     changes: "GitHub 스타 비교 추가"
@@ -62,9 +65,9 @@ style="border:none;"
 
 ## TL;DR
 
-- **Intlayer**: 고급 기능과 최적화가 필요한 전문 Solid 애플리케이션을 위한 추천 선택(v8.7.12).
+- **Intlayer**: 고급 기능과 최적화가 필요한 전문 Solid 애플리케이션을 위한 추천 선택(v9.5.0).
 - **@solid-primitives/i18n**: 단순한 프로젝트를 위한 훌륭한 경량 대안이지만 지연 로딩과 같은 고급 기능이 부족합니다.
-- **solid-i18next**: 표준적이지만 무거운 옵션(Intlayer의 약 4.7배)으로 React i18next와 동일한 단점을 공유합니다.
+- **solid-i18next**: 표준적이지만 무거운 옵션(Intlayer의 약 3.5배)으로 React i18next와 동일한 단점을 공유합니다.
 - **Paraglide**: 혁신적인 접근 방식이지만 DX가 복잡하고 일부 설정에서 트리 쉐이킹 문제가 발생합니다.
 
 ## 앱 테스트하기
@@ -97,10 +100,10 @@ i18n 누수 문제를 빠르게 파악하기 위해 [여기](https://intlayer.or
 이 벤치마크에서는 다음과 같은 라이브러리를 비교했습니다:
 
 - `Base App` (i18n 라이브러리 없음)
-- `solid-intlayer` (v8.7.12)
+- `solid-intlayer` (v9.5.0)
 - `@solid-primitives/i18n` (v2.2.1)
-- `solid-i18next` (v17.0.2)
-- `@inlang/paraglide-js` (v2.17.0)
+- `i18next` (v26.0.8) + `@mbarzda/solid-i18next` (v1.4.1)
+- `@inlang/paraglide-js` (v2.25.1)
 
 프레임워크는 `Solid`이며 **10개의 페이지**와 **10개의 언어**를 가진 다국어 앱을 사용했습니다.
 
@@ -154,11 +157,11 @@ GitHub 스타는 프로젝트의 인기, 커뮤니티 신뢰 및 장기적인 �
 
 ### 2 - 수용 가능한 솔루션
 
-**(solid-i18next)** (`solid-i18next@17.0.2`):
+**(solid-i18next)** (`i18next@26.0.8`):
 
 `solid-i18next`는 JavaScript 앱의 i18n 요구 사항을 충족시킨 초창기 솔루션 중 하나였기 때문에 가장 인기 있는 옵션일 것입니다. 또한 특정 문제를 해결하기 위한 광범위한 커뮤니티 플러그인 세트를 보유하고 있습니다.
 
-패키지가 무겁습니다 (~14.6kb, `solid-intlayer`의 약 4.7배).
+패키지가 무겁습니다 (~14.9kb, `solid-intlayer`의 약 3.5배).
 
 여전히 `t('a.b.c')` 위에 구축된 스택과 동일한 주요 단점을 공유합니다: 최적화는 가능하지만 시간이 매우 많이 소요되며, 대규모 프로젝트는 나쁜 관행(네임스페이스 + 동적 로딩 + 타입)에 빠질 위험이 있습니다.
 
@@ -167,7 +170,7 @@ GitHub 스타는 프로젝트의 인기, 커뮤니티 신뢰 및 장기적인 �
 Solid primitive는 매우 가볍고 효율적입니다. 소규모 프로젝트에는 이 솔루션을 추천하지만 쿠키 관리, 프록시 리다이렉션, 포맷터 등을 포함한 전문 솔루션에는 기능이 부족할 수 있습니다.
 또한 페이지 크기 최적화를 위한 지연 로딩 및 네임스페이스 스코핑 기능도 누락되어 있습니다.
 
-**(Paraglide)** (`@inlang/paraglide-js@2.17.0`):
+**(Paraglide)** (`@inlang/paraglide-js@2.25.1`):
 
 `Paraglide`는 혁신적이고 잘 설계된 접근 방식을 제공합니다. 그럼에도 불구하고 이 벤치마크에서는 광고된 트리 쉐이킹이 나의 구현에서 작동하지 않았습니다. 워크플로우와 DX 또한 다른 옵션보다 복잡합니다.
 개인적으로 푸시할 때마다 JS 파일을 다시 생성해야 하는 것을 선호하지 않으며, 이는 PR을 통한 개발자들 간의 지속적인 머지 충돌 위험을 만듭니다.
@@ -175,7 +178,7 @@ Solid primitive는 매우 가볍고 효율적입니다. 소규모 프로젝트�
 
 ### 3 - 추천 사항
 
-**(Intlayer)** (`solid-intlayer@8.7.12`):
+**(Intlayer)** (`solid-intlayer@9.5.0`):
 
 객관성을 위해 나의 솔루션인 `solid-intlayer`에 대해서는 직접 판단하지 않겠습니다.
 

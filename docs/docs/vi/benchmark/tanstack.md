@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-05-18
+updatedAt: 2026-09-11
 title: Giải pháp i18n tốt nhất cho TanStack Start năm 2026 - Báo cáo Benchmark
 description: So sánh các thư viện quốc tế hóa cho TanStack Start như react-i18next, use-intl và Intlayer. Báo cáo hiệu năng chi tiết về kích thước bundle bundle, rò rỉ dữ liệu và tính phản ứng.
 keywords:
@@ -17,6 +17,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-tanstack-start-template
 history:
+  - version: 9.5.1
+    date: 2026-09-11
+    changes: "Cập nhật kết quả benchmark"
   - version: 8.9.8
     date: 2026-05-18
     changes: "Thêm so sánh sao GitHub"
@@ -62,7 +65,7 @@ Tác động khác là đối với trải nghiệm phát triển (DX): cách b�
 
 ## TL;DR
 
-- **Intlayer**: Cung cấp hiệu năng tốt nhất và kích thước bundle nhỏ nhất (v8.7.12) cho TanStack Start.
+- **Intlayer**: Cung cấp hiệu năng tốt nhất và kích thước bundle nhỏ nhất (v9.5.1) cho TanStack Start.
 - **react-i18next** & **use-intl**: Các lựa chọn thay thế thuần thục với hệ sinh thái lớn, nhưng nặng hơn đáng kể và phức tạp hơn để tối ưu hóa.
 - **Paraglide**: Ý tưởng tree-shaking sáng tạo nhưng không hoạt động trong thực tế. DX phức tạp và chi phí phản ứng trên TanStack Start.
 - **Cần tránh**: **General Translation (GT)** và **Lingo.dev** do các vấn đề hiệu năng nghiêm trọng, giới hạn hạn mức AI và bị ràng buộc vào nhà cung cấp (vendor lock-in).
@@ -97,16 +100,18 @@ Các cú pháp được xây dựng xung quanh `const t = useTranslation()` + `t
 Đối với benchmark này, chúng tôi đã so sánh các thư viện sau:
 
 - `Base App` (Không sử dụng thư viện i18n)
-- `react-intlayer` (v8.7.12)
-- `react-i18next` (v17.0.2)
-- `use-intl` (v4.9.1)
-- `@lingui/core` (v5.3.0)
+- `react-intlayer` (v9.5.1)
+- `@intlayer/use-intl` (v9.5.1)
+- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/lingui.md) (v9.5.1)
+- `react-i18next` (v17.0.13)
+- `use-intl` (v4.14.2)
+- `@lingui/core` (v6.6.0)
 - `@inlang/paraglide-js` (v2.15.1)
-- `@tolgee/react` (v7.0.0)
-- `react-intl` (v10.1.1)
-- `wuchale` (v0.22.11)
-- `gt-react` (vlatest)
-- `lingo.dev` (v0.133.9)
+- `@tolgee/react` (v7.2.0)
+- `react-intl` (v10.1.26)
+- `wuchale` (v0.26.6)
+- `gt-react` (v10.18.3)
+- `lingo.dev` (v0.138.7)
 
 Framework được sử dụng là `TanStack Start` với một ứng dụng đa ngôn ngữ gồm **10 trang** và **10 ngôn ngữ**.
 
@@ -160,15 +165,15 @@ Một số giải pháp, chẳng hạn như `gt-react` hoặc `lingo.dev`, rõ r
 
 Các vấn đề gặp phải:
 
-**(General Translation)** (`gt-react@latest`):
+**(General Translation)** (`gt-react@10.18.3`):
 
-- Đối với một ứng dụng khoảng 110kb, `gt-react` có thể thêm vào hơn 440kb dữ liệu dư thừa (mức độ quan sát được trên triển khai Next.js trong cùng một benchmark).
+- Đối với một ứng dụng khoảng 111kb, `gt-react` có thể thêm vào hơn 170kb dữ liệu dư thừa (mức độ quan sát được trên triển khai Next.js trong cùng một benchmark).
 - Thông báo `Quota Exceeded, please upgrade your plan` ngay trong lần xây dựng đầu tiên với General Translation.
 - Các bản dịch không được render; tôi nhận được lỗi `Error: <T> used on the client-side outside of <GTProvider>`, dường như là một lỗi trong thư viện đó.
 - Trong khi triển khai **gt-tanstack-start-react**, tôi cũng gặp phải một [vấn đề](https://github.com/generaltranslation/gt/issues/1210#event-24510646961) với thư viện: `does not provide an export named 'printAST' - @formatjs/icu-messageformat-parser`, khiến ứng dụng bị hỏng. Sau khi báo cáo, người duy trì đã khắc phục nó trong vòng 24 giờ.
 - Các thư viện này sử dụng một anti-pattern thông qua hàm `initializeGT()`, ngăn cản gói bundle loại bỏ mã thừa một cách sạch sẽ.
 
-**(Lingo.dev)** (`lingo.dev@0.133.9`):
+**(Lingo.dev)** (`lingo.dev@0.138.7`):
 
 - Vượt quá hạn mức AI (hoặc chặn phụ thuộc server), khiến việc xây dựng / production gặp rủi ro nếu không trả tiền.
 - Trình biên dịch đã bỏ sót gần 40% nội dung đã dịch. Tôi đã phải viết lại tất cả các cấu trúc `.map` thành các khối component phẳng để nó hoạt động.
@@ -178,7 +183,7 @@ Các vấn đề gặp phải:
 
 ### 2 - Các giải pháp thử nghiệm
 
-**(Wuchale)** (`wuchale@0.22.11`):
+**(Wuchale)** (`wuchale@0.26.6`):
 
 Ý tưởng đằng sau `Wuchale` rất thú vị nhưng vẫn chưa phải là một giải pháp khả thi. Tôi đã gặp vấn đề về tính phản ứng với thư viện này và phải ép buộc render lại provider để ứng dụng hoạt động trên TanStack Start. Tài liệu cũng khá mơ hồ, khiến việc làm quen khó khăn hơn.
 
@@ -188,9 +193,9 @@ Các vấn đề gặp phải:
 
 `Paraglide` mang đến một phương pháp tiếp cận sáng tạo và được cân nhắc kỹ lưỡng. Dù vậy, trong benchmark này, khả năng loại bỏ mã thừa mà công ty họ quảng cáo đã không hoạt động cho triển khai Next.js hoặc cho TanStack Start của tôi. Quy trình làm việc và trải nghiệm phát triển cũng phức tạp hơn các tùy chọn khác. Cá nhân tôi không phải là fan của việc phải tạo lại các tệp JS trước mỗi lần đẩy mã, điều này tạo ra rủi ro xung đột merge liên tục cho các nhà phát triển qua PR.
 
-> Lưu ý về paraglide: giải pháp này đưa mã vào mã nguồn của bạn cho các lần nhập; kết quả là, chỉ số 'lib size' trong báo cáo benchmark gần như bằng 0. Việc tạo mã (Code generation) là một điều tốt, vì hàm được sử dụng sẽ chỉ bao gồm logic cần thiết (tiền tố ở mọi nơi so với không có tiền tố, cookie so với lưu trữ, v.v.). So với đó, Intlayer thực hiện việc lọc này thông qua việc đưa các biến môi trường vào bản dựng để buộc trình đóng gói (bundler) thực hiện tree-shake nội dung tùy thuộc vào logic. Nhờ đó, paraglide và intlayer cuối cùng là những giải pháp nhẹ hơn từ 6 đến 10 lần so with i18next hoặc next-intl.
+> Lưu ý về paraglide: giải pháp này đưa mã vào mã nguồn của bạn cho các lần nhập; kết quả là, chỉ số 'lib size' trong báo cáo benchmark gần như bằng 0. Việc tạo mã (Code generation) là một điều tốt, vì hàm được sử dụng sẽ chỉ bao gồm logic cần thiết (tiền tố ở mọi nơi so với không có tiền tố, cookie so với lưu trữ, v.v.). So với đó, Intlayer thực hiện việc lọc này thông qua việc đưa các biến môi trường vào bản dựng để buộc trình đóng gói (bundler) thực hiện tree-shake nội dung tùy thuộc vào logic. Nhờ đó, paraglide và intlayer cuối cùng là những giải pháp nhẹ hơn từ 3 đến 10 lần so with i18next hoặc next-intl.
 
-**(Tolgee)** (`@tolgee/react@7.0.0`):
+**(Tolgee)** (`@tolgee/react@7.2.0`):
 
 `Tolgee` giải quyết được nhiều vấn đề đã đề cập trước đó. Tôi thấy việc bắt đầu với Tolgee khó khăn hơn so với các công cụ khác có phương pháp tiếp cận tương tự. Nó không cung cấp tính an toàn kiểu dữ liệu, điều này cũng khiến việc phát hiện các khóa bị thiếu tại thời điểm biên dịch trở nên khó khăn hơn nhiều. Tôi đã phải bao bọc các API của Tolgee bằng các API của riêng mình để thêm tính năng phát hiện khóa bị thiếu.
 
@@ -198,37 +203,37 @@ Package này khá nặng (~11.1kb, gấp hơn 2× `react-intlayer`).
 
 Trên TanStack Start, tôi cũng gặp vấn đề về tính phản ứng: khi ngôn ngữ thay đổi, tôi phải ép buộc provider render lại và đăng ký vào các sự kiện thay đổi ngôn ngữ để việc tải ở một ngôn ngữ khác hoạt động chính xác.
 
-**(use-intl)** (`use-intl@4.9.1`):
+**(use-intl)** (`use-intl@4.14.2`):
 
 `use-intl` là phần "intl" hợp thời nhất trong hệ sinh thái React (cùng họ với `next-intl`) và thường được các trợ lý AI thúc đẩy, nhưng theo quan điểm của tôi thì điều đó là sai lầm trong một thiết lập ưu tiên hiệu năng. Bắt đầu khá đơn giản. Trong thực tế, quá trình tối ưu hóa và hạn chế rò rỉ khá phức tạp. Tương tự, việc kết hợp tải động + tạo namespace + các kiểu dữ liệu TypeScript làm chậm quá trình phát triển rất nhiều.
 
 Trên TanStack Start, bạn tránh được các cạm bẫy đặc thù của Next.js (`setRequestLocale`, render tĩnh), nhưng vấn đề cốt lõi là như nhau: nếu không có kỷ luật nghiêm ngặt, gói bundle sẽ nhanh chóng mang theo quá nhiều thông điệp và việc bảo trì namespace cho từng route trở nên mệt mỏi.
 
-**(react-i18next)** (`react-i18next@17.0.2`):
+**(react-i18next)** (`react-i18next@17.0.13`):
 
 `react-i18next` có lẽ là tùy chọn phổ biến nhất vì nó là một trong những giải pháp đầu tiên phục vụ nhu cầu i18n cho các ứng dụng JavaScript. Nó cũng có một bộ plugin cộng đồng rộng lớn cho các vấn đề cụ thể.
 
 Tuy nhiên, nó có cùng những nhược điểm chính như các ngăn công nghệ được xây dựng trên `t('a.b.c')`: tối ưu hóa là có thể nhưng rất tốn thời gian, và các dự án lớn có rủi ro rơi vào các thực hành xấu (namespace + tải động + kiểu dữ liệu).
 
-Package này đặc biệt nặng (~17.3kb, tức là khoảng 3.5× `react-intlayer`).
+Package này đặc biệt nặng (~18.4kb, tức là khoảng 3.5× `react-intlayer`).
 
 Các định dạng thông báo cũng khác nhau: `use-intl` sử dụng ICU MessageFormat, trong khi `i18next` sử dụng định dạng riêng của mình - điều này làm phức tạp thêm công cụ hoặc quá trình di chuyển nếu bạn trộn lẫn chúng.
 
-**(Lingui)** (`@lingui/core@5.3.0`):
+**(Lingui)** (`@lingui/core@6.6.0`):
 
 `Lingui` thường được khen ngợi. Cá nhân tôi thấy quy trình làm việc xung quanh `lingui extract` / `lingui compile` phức tạp hơn các phương pháp tiếp cận khác, mà không có ưu điểm rõ ràng trong benchmark TanStack Start này. Tôi cũng nhận thấy cú pháp không nhất quán gây nhầm lẫn cho AI (ví dụ: `t()`, `t''`, `i18n.t()`, `<Trans>`).
 
-**(react-intl)** (`react-intl@10.1.1`):
+**(react-intl)** (`react-intl@10.1.26`):
 
 `react-intl` là một triển khai hiệu năng từ nhóm Format.js. Trải nghiệm phát triển vẫn còn rườm rà: `const intl = useIntl()` + `intl.formatMessage({ id: "xx.xx" })` thêm vào sự phức tạp, công việc JavaScript bổ sung và ràng buộc instance i18n toàn cục vào nhiều nút trong cây React.
 
-Package cũng khá nặng (~14.4kb, tức là khoảng 3× `react-intlayer`).
+Package cũng khá nặng (~15.3kb, tức là khoảng 3× `react-intlayer`).
 
 ### 4 - Các khuyến nghị
 
 Benchmark TanStack Start này không có đối trọng trực tiếp cho `next-translate` (Next.js plugin + `getStaticProps`). Đối với các nhóm thực sự muốn một API `t()` với một hệ sinh thái chín muồi, `react-i18next` và `use-intl` vẫn là những lựa chọn "hợp lý", nhưng hãy chuẩn bị đầu tư nhiều thời gian tối ưu hóa để tránh rò rỉ.
 
-**(Intlayer)** (`react-intlayer@8.7.12`):
+**(Intlayer)** (`react-intlayer@9.5.1`):
 
 Tôi sẽ không đích thân đánh giá `react-intlayer` vì tính khách quan, vì đây là giải pháp của riêng tôi.
 

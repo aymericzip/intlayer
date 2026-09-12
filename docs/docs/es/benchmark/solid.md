@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-05-18
+updatedAt: 2026-09-11
 title: La mejor solución i18n para Solid en 2026 - Informe de Benchmark
 description: Compara bibliotecas de internacionalización (i18n) para Solid como solid-primitives, solid-i18next e Intlayer. Informe de rendimiento detallado sobre el tamaño del bundle, fugas y reactividad.
 keywords:
@@ -17,6 +17,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-solid-template
 history:
+  - version: 9.5.1
+    date: 2026-09-11
+    changes: "Actualización de los resultados del benchmark"
   - version: 8.9.8
     date: 2026-05-18
     changes: "Añadir comparativa de estrellas de GitHub"
@@ -62,9 +65,9 @@ El otro impacto es en la experiencia del desarrollador (DX): cómo se declara el
 
 ## TL;DR
 
-- **Intlayer**: Opción recomendada para aplicaciones Solid profesionales que necesitan características avanzadas y optimización (v8.7.12).
+- **Intlayer**: Opción recomendada para aplicaciones Solid profesionales que necesitan características avanzadas y optimización (v9.5.0).
 - **@solid-primitives/i18n**: Excelente alternativa ligera para proyectos simples, aunque carece de características avanzadas como la carga diferida (lazy loading).
-- **solid-i18next**: Opción estándar pero pesada (~4.7× Intlayer) con los mismos inconvenientes que React i18next.
+- **solid-i18next**: Opción estándar pero pesada (~3.5× Intlayer) con los mismos inconvenientes que React i18next.
 - **Paraglide**: Enfoque innovador pero DX compleja y problemas de tree-shaking en algunas configuraciones.
 
 ## Pruebe su aplicación
@@ -97,10 +100,10 @@ Las sintaxis construidas en torno a `t('a.b.c')` son muy convenientes pero a men
 Para este benchmark, comparamos las siguientes bibliotecas:
 
 - `Base App` (Sin biblioteca i18n)
-- `solid-intlayer` (v8.7.12)
+- `solid-intlayer` (v9.5.0)
 - `@solid-primitives/i18n` (v2.2.1)
-- `solid-i18next` (v17.0.2)
-- `@inlang/paraglide-js` (v2.17.0)
+- `i18next` (v26.0.8) + `@mbarzda/solid-i18next` (v1.4.1)
+- `@inlang/paraglide-js` (v2.25.1)
 
 El framework es `Solid` con una aplicación multilingüe de **10 páginas** y **10 idiomas**.
 
@@ -154,11 +157,11 @@ Las estrellas de GitHub son un fuerte indicador de la popularidad de un proyecto
 
 ### 2 - Soluciones aceptables
 
-**(solid-i18next)** (`solid-i18next@17.0.2`):
+**(solid-i18next)** (`i18next@26.0.8`):
 
 `solid-i18next` es probablemente la opción más popular porque fue una de las primeras en satisfacer las necesidades de i18n de las aplicaciones de JavaScript. También cuenta con un amplio conjunto de complementos de la comunidad para problemas específicos.
 
-El paquete es pesado (~14.6kb, aproximadamente 4.7 veces `solid-intlayer`).
+El paquete es pesado (~14.9kb, aproximadamente 3.5 veces `solid-intlayer`).
 
 Aun así, comparte las mismas desventajas principales que las pilas construidas sobre `t('a.b.c')`: las optimizaciones son posibles pero requieren mucho tiempo, y los proyectos grandes corren el riesgo de malas prácticas (namespaces + carga dinámica + tipos).
 
@@ -167,7 +170,7 @@ Aun así, comparte las mismas desventajas principales que las pilas construidas 
 Solid primitive es extremadamente ligero y eficiente. Recomiendo esa solución para proyectos ligeros, pero puede carecer rápidamente de características para soluciones profesionales que incluyan gestión de cookies, redirección de proxy, formateadores, etc.
 También carece de carga diferida (lazy loading) y segmentación de namespaces para la optimización del tamaño de la página.
 
-**(Paraglide)** (`@inlang/paraglide-js@2.17.0`):
+**(Paraglide)** (`@inlang/paraglide-js@2.25.1`):
 
 `Paraglide` ofrece un enfoque innovador y bien pensado. Aun así, en este benchmark, el tree-shaking que su empresa publicita no funcionó para mi implementación. El flujo de trabajo y la DX también son más complejos que en otras opciones.
 Personalmente, no me gusta tener que regenerar archivos JS antes de cada push, lo que genera un riesgo constante de conflictos de fusión a través de los PR.
@@ -175,7 +178,7 @@ Finalmente, en comparación con otras soluciones, Paraglide no utiliza un almac�
 
 ### 3 - Recomendaciones
 
-**(Intlayer)** (`solid-intlayer@8.7.12`):
+**(Intlayer)** (`solid-intlayer@9.5.0`):
 
 No juzgaré personalmente `solid-intlayer` por objetividad, ya que es mi propia solución.
 

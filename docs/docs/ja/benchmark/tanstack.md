@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-05-18
+updatedAt: 2026-09-11
 title: 2026年におけるTanStack Startの最適なi18nソリューション - ベンチマークレポート
 description: react-i18next、use-intl、IntlayerなどのTanStack Start国際化ライブラリを比較。バンドルサイズ、リーク、反応性に関する詳細なパフォーマンスレポート。
 keywords:
@@ -17,6 +17,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-tanstack-start-template
 history:
+  - version: 9.5.1
+    date: 2026-09-11
+    changes: "ベンチマーク結果を更新"
   - version: 8.9.8
     date: 2026-05-18
     changes: "GitHub スター比較を追加"
@@ -62,7 +65,7 @@ history:
 
 ## TL;DR
 
-- **Intlayer**: TanStack Startにおいて最高のパフォーマンスと最小のバンドルサイズ（v8.7.12）を提供します。
+- **Intlayer**: TanStack Startにおいて最高のパフォーマンスと最小のバンドルサイズ（v9.5.1）を提供します。
 - **react-i18next** & **use-intl**: 大規模なエコシステムを持つ成熟した代替案ですが、大幅に重く、最適化がより複雑です。
 - **Paraglide**: 革新的なツリーシェイキングのアイデアですが、実際には機能しません。TanStack StartにおいてはDXが複雑で、反応性のオーバーヘッドがあります。
 - **避けるべき**: **General Translation (GT)** と **Lingo.dev**。深刻なパフォーマンスの問題、AIクォータの制限、およびベンダーロックインのためです。
@@ -97,16 +100,18 @@ i18nのリーク問題を素早く特定するために、無料のスキャナ�
 このベンチマークでは、以下のライブラリを比較しました。
 
 - `Base App`（i18nライブラリなし）
-- `react-intlayer` (v8.7.12)
-- `react-i18next` (v17.0.2)
-- `use-intl` (v4.9.1)
-- `@lingui/core` (v5.3.0)
+- `react-intlayer` (v9.5.1)
+- `@intlayer/use-intl` (v9.5.1)
+- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/lingui.md) (v9.5.1)
+- `react-i18next` (v17.0.13)
+- `use-intl` (v4.14.2)
+- `@lingui/core` (v6.6.0)
 - `@inlang/paraglide-js` (v2.15.1)
-- `@tolgee/react` (v7.0.0)
-- `react-intl` (v10.1.1)
-- `wuchale` (v0.22.11)
-- `gt-react` (vlatest)
-- `lingo.dev` (v0.133.9)
+- `@tolgee/react` (v7.2.0)
+- `react-intl` (v10.1.26)
+- `wuchale` (v0.26.6)
+- `gt-react` (v10.18.3)
+- `lingo.dev` (v0.138.7)
 
 フレームワークは`TanStack Start`で、**10ページ**と**10言語**を持つ多言語アプリを使用しました。
 
@@ -160,15 +165,15 @@ GitHubのスターは、プロジェクトの普及度、コミュニティの�
 
 遭遇した問題：
 
-**(General Translation)** (`gt-react@latest`):
+**(General Translation)** (`gt-react@10.18.3`):
 
-- 約110kbのアプリに対して、`gt-react`は440kb以上の余分なデータを追加することがあります（同ベンチマークのNext.js実装で見られた規模）。
+- 約111kbのアプリに対して、`gt-react`は170kb以上の余分なデータを追加することがあります（同ベンチマークのNext.js実装で見られた規模）。
 - General Translationを使用した最初のビルドで「Quota Exceeded, please upgrade your plan（クォータ超過、プランをアップグレードしてください）」と表示されました。
 - 翻訳がレンダリングされません。`Error: <T> used on the client-side outside of <GTProvider>`というエラーが発生しましたが、これはライブラリのバグのようです。
 - **gt-tanstack-start-react**を実装中、ライブラリの[問題](https://github.com/generaltranslation/gt/issues/1210#event-24510646961)にも遭遇しました。`does not provide an export named 'printAST' - @formatjs/icu-messageformat-parser`というエラーでアプリケーションが壊れました。この問題を報告した後、メンテナは24時間以内に修正しました。
 - これらのライブラリは、`initializeGT()`関数を通じてアンチパターンを使用しており、バンドルがクリーンにツリーシェイキングされるのを妨げています。
 
-**(Lingo.dev)** (`lingo.dev@0.133.9`):
+**(Lingo.dev)** (`lingo.dev@0.138.7`):
 
 - AIのクォータを超過（またはサーバー依存関係のブロック）し、支払いをしない限りビルドやプロダクションへのデプロイがリスクとなります。
 - コンパイラが翻訳コンテンツの約40%を認識していませんでした。動作させるために、すべての`.map`をフラットなコンポーネントブロックに書き換える必要がありました。
@@ -178,7 +183,7 @@ GitHubのスターは、プロジェクトの普及度、コミュニティの�
 
 ### 2 - 実験的なソリューション
 
-**(Wuchale)** (`wuchale@0.22.11`):
+**(Wuchale)** (`wuchale@0.26.6`):
 
 `Wuchale`の背後にあるアイデアは興味深いものですが、まだ実用的ではありません。反応性の問題に遭遇し、TanStack Startでアプリを動作させるためにプロバイダーの強制的な再レンダリングが必要でした。ドキュメントもかなり不明瞭で、導入のハードルが高いです。
 
@@ -188,9 +193,9 @@ GitHubのスターは、プロジェクトの普及度、コミュニティの�
 
 `Paraglide`は革新的でよく考えられたアプローチを提供しています。それにもかかわらず、このベンチマークでは、Next.jsの実装やTanStack Startにおいて、彼らが宣伝していたツリーシェイキングは機能しませんでした。ワークフローとDXも他の選択肢より複雑です。個人的には、プッシュのたびにJSファイルを再生成しなければならないのが好きではありません。これはPRを通じて常にマージ競合のリスクを生み出します。
 
-> paraglideに関する注意：このソリューションはインポートのためにコードベースにコードを注入するため、ベンチマークレポートの「lib size」メトリクスはほぼ0になります。コード生成は、使用される関数に必要なロジック（すべてのプレフィックス対プレフィックスなし、クッキー対ストレージなど）のみが含まれるため、良いことです。対照的に、Intlayerはビルド時に環境変数を注入してこのフィルタリングを行い、ロケールに応じたコンテンツをバンドラーにツリーシェイクさせます。このおかげで、paraglideとintlayerは、i18nextやnext-intlよりも6〜10倍軽量なソリューションとなります。
+> paraglideに関する注意：このソリューションはインポートのためにコードベースにコードを注入するため、ベンチマークレポートの「lib size」メトリクスはほぼ0になります。コード生成は、使用される関数に必要なロジック（すべてのプレフィックス対プレフィックスなし、クッキー対ストレージなど）のみが含まれるため、良いことです。対照的に、Intlayerはビルド時に環境変数を注入してこのフィルタリングを行い、ロケールに応じたコンテンツをバンドラーにツリーシェイクさせます。このおかげで、paraglideとintlayerは、i18nextやnext-intlよりも3〜10倍軽量なソリューションとなります。
 
-**(Tolgee)** (`@tolgee/react@7.0.0`):
+**(Tolgee)** (`@tolgee/react@7.2.0`):
 
 `Tolgee`は前述の問題の多くに対処しています。しかし、同様のアプローチを持つ他のツールよりも導入が難しいと感じました。型安全性が提供されていないため、コンパイル時に紛失したキーを見つけることが非常に困難です。キーの不備を検出するために、TolgeeのAPIを自前のAPIでラップする必要がありました。
 
@@ -198,37 +203,37 @@ TanStack Startでは反応性の問題もありました。ロケール変更時
 
 TanStack Start でも反応性の問題がありました。ロケール変更時にプロバイダーを強制的に再レンダリングし、locale-change イベントをサブスクライブして、別の言語での読み込みが正しく動作するようにする必要がありました。
 
-**(use-intl)** (`use-intl@4.9.1`):
+**(use-intl)** (`use-intl@4.14.2`):
 
 `use-intl`は、Reactエコシステムにおける最もファッショナブルな「intl」の一部であり（`next-intl`と同じファミリー）、AIエージェントによって頻繁に推奨されますが、パフォーマンス重視の設定においては間違いであるというのが私の見解です。導入は比較的簡単です。しかし実際には、リークを最適化し制限するプロセスは非常に複雑です。同様に、動的ロード、ネームスぺーシング、TypeScriptの型を組み合わせると、開発が著しく遅くなります。
 
 TanStack Startでは、Next.js特有の罠（`setRequestLocale`、静的レンダリング）は回避できますが、根本的な問題は同じです。厳格な規律がなければ、バンドルはすぐに大量のメッセージを抱え込み、ルートごとのネームスペースの維持は苦痛になります。
 
-**(react-i18next)** (`react-i18next@17.0.2`):
+**(react-i18next)** (`react-i18next@17.0.13`):
 
 `react-i18next`は、JavaScriptアプリのi18nニーズに応えた初期のソリューションの一つであったため、おそらく最も人気のある選択肢です。特定の課題に対するコミュニティプラグインも豊富です。
 
 それでも、`t('a.b.c')`上に構築されたスタックと同じ大きな欠点を共有しています。最適化は可能ですが非常に時間がかかり、大規模プロジェクトでは悪い習慣（ネームスペース、動的ロード、型）に陥るリスクがあります。
 
-このパッケージは特に重い (~17.3kb、これは `react-intlayer` の約 3.5 倍)。
+このパッケージは特に重い (~18.4kb、これは `react-intlayer` の約 3.5 倍)。
 
 メッセージ形式も異なります。`use-intl`はICU MessageFormatを使用しますが、`i18next`は独自の形式を使用しており、これらを混ぜるとツールや移行が複雑になります。
 
-**(Lingui)** (`@lingui/core@5.3.0`):
+**(Lingui)** (`@lingui/core@6.6.0`):
 
 `Lingui`はしばしば賞賛されます。個人的には、`lingui extract` / `lingui compile`を巡るワークフローが他のアプローチよりも複雑で、このTanStack Startベンチマークにおいて明確な利点が見出せませんでした。また、AIを混乱させる一貫性のない構文（例：`t()`、`t''`、`i18n.t()`、`<Trans>`）も見受けられました。
 
-**(react-intl)** (`react-intl@10.1.1`):
+**(react-intl)** (`react-intl@10.1.26`):
 
 `react-intl`は、Format.jsチームによるパフォーマンス重視の実装です。DXは冗長なままです。`const intl = useIntl()` + `intl.formatMessage({ id: "xx.xx" })`は複雑さを増し、JavaScriptの余分な作業を増やし、グローバルなi18nインスタンスをReactツリーの多くのノードに結びつけます。
 
-このパッケージは重い（~14.4kb で、`react-intlayer` の約 3 倍）です。
+このパッケージは重い（~15.3kb で、`react-intlayer` の約 3 倍）です。
 
 ### 4 - 推奨事項
 
 このTanStack Startベンチマークには、`next-translate`（Next.jsプラグイン + `getStaticProps`）に直接相当するものはありません。成熟したエコシステムと`t()` APIを切望するチームにとって、`react-i18next`や`use-intl`は「妥当な」選択肢であり続けますが、リークを回避するための最適化には多くの時間を投資することを覚悟してください。
 
-**(Intlayer)** (`react-intlayer@8.7.12`):
+**(Intlayer)** (`react-intlayer@9.5.1`):
 
 客観性を保つため、自分自身のソリューションである`react-intlayer`については個人的な判断を控えさせていただきます。
 

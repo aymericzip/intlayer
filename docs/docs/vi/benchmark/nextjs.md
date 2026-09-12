@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-05-18
+updatedAt: 2026-09-11
 title: Giải pháp i18n tốt nhất cho Next.js năm 2026 - Báo cáo Benchmark
 description: So sánh các thư viện quốc tế hóa (i18n) cho Next.js như next-intl, next-i18next và Intlayer. Báo cáo hiệu năng chi tiết về kích thước bundle bundle, rò rỉ dữ liệu và tính phản ứng.
 keywords:
@@ -17,6 +17,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n
 history:
+  - version: 9.5.1
+    date: 2026-09-11
+    changes: "Cập nhật kết quả benchmark"
   - version: 8.9.8
     date: 2026-05-18
     changes: "Thêm so sánh sao GitHub"
@@ -56,7 +59,7 @@ Các thư viện quốc tế hóa có tác động nặng nề đến ứng dụ
 
 Khi ứng dụng của bạn phát triển, kích thước bundle bundle có thể tăng theo cấp số nhân, điều này có thể làm giảm hiệu năng một cách rõ rệt.
 
-Ví dụ, trong những trường hợp xấu nhất, sau khi triển khai đa ngôn ngữ, trang của bạn có thể nặng hơn gần 4 lần.
+Ví dụ, trong những trường hợp xấu nhất, sau khi triển khai đa ngôn ngữ, trang của bạn có thể nặng hơn gần 2 lần.
 
 Một tác động khác của các thư viện i18n là làm chậm quá trình phát triển. Việc chuyển đổi các component thành nội dung đa ngôn ngữ trên nhiều ngôn ngữ khác nhau rất tốn thời gian.
 
@@ -68,7 +71,7 @@ Intlayer cố gắng tối ưu hóa trên tất cả các khía cạnh này.
 
 - **Intlayer** & **next-translate**: Những lựa chọn tốt nhất cho hiệu năng của Next.js, mang lại kích thước nhỏ nhất và hỗ trợ render tĩnh tốt nhất.
 - **next-intl**: Tùy chọn hợp thời nhất, nhưng nặng và phức tạp để tối ưu hóa cho các ứng dụng lớn.
-- **next-i18next**: Phổ biến và giàu plugin, nhưng mang lại gánh nặng bundle đáng kể (~3× Intlayer).
+- **next-i18next**: Phổ biến và giàu plugin, nhưng mang lại gánh nặng bundle đáng kể (~3.5× Intlayer).
 - **Tránh**: **gt-next** và **lingo.dev** do các vấn đề hiệu năng nghiêm trọng, phụ thuộc vào nhà cung cấp (vendor lock-in) và các lỗi gây hỏng build.
 
 ## Kiểm tra ứng dụng của bạn
@@ -109,19 +112,21 @@ Cuối cùng, `Intlayer` áp dụng một tối ưu hóa tại thời điểm bu
 Đối với benchmark này, chúng tôi đã so sánh các thư viện sau:
 
 - `Base App` (Không sử dụng thư viện i18n)
-- `next-intlayer` (v8.7.12)
-- `next-i18next` (v16.0.5)
-- `next-intl` (v4.9.1)
-- `@lingui/core` (v5.3.0)
-- `next-translate` (v3.1.2)
+- `next-intlayer` (v9.5.1)
+- [`@intlayer/next-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/next-intl.md) (v9.5.1)
+- [`@intlayer/next-i18next`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/next-i18next.md) (v9.5.1)
+- `next-i18next` (v16.3.0)
+- `next-intl` (v4.14.2)
+- `@lingui/core` (v6.6.0)
+- `next-translate` (v3.2.0)
 - `next-international` (v1.3.1)
 - `@inlang/paraglide-js` (v2.15.1)
-- `@tolgee/react` (v7.0.0)
-- `@lingo.dev/compiler` (v0.4.0)
-- `wuchale` (v0.22.11)
-- `gt-next` (v6.16.5)
+- `@tolgee/react` (v7.2.0)
+- `@lingo.dev/compiler` (v0.4.12)
+- `wuchale` (v0.26.6)
+- `gt-next` (v11.1.24)
 
-Tôi đã sử dụng phiên bản `Next.js` `16.2.4` với App Router.
+Tôi đã sử dụng phiên bản `Next.js` `16.3.4` với App Router.
 
 Tôi đã xây dựng một ứng dụng đa ngôn ngữ với **10 trang** và **10 ngôn ngữ**.
 
@@ -175,15 +180,15 @@ Một số giải pháp, chẳng hạn như `gt-next` hoặc `lingo.dev`, rõ r�
 
 Các vấn đề gặp phải:
 
-**(General Translation)** (`gt-next@6.16.5`):
+**(General Translation)** (`gt-next@11.1.24`):
 
-- Đối với một ứng dụng 110kb, `gt-next` thêm vào hơn 440kb dữ liệu dư thừa.
+- Đối với một ứng dụng 141kb, `gt-next` thêm vào hơn 50kb dữ liệu dư thừa.
 - Thông báo `Quota Exceeded, please upgrade your plan` ngay trong lần xây dựng đầu tiên với General Translation.
 - Các bản dịch không được hiển trị; tôi nhận được lỗi `Error: <T> used on the client-side outside of <GTProvider>`, dường như là một lỗi trong thư viện.
 - Trong khi triển khai **gt-next**, tôi cũng gặp phải một [vấn đề](https://github.com/generaltranslation/gt/issues/1210#event-24510646961) với thư viện: `does not provide an export named 'printAST' - @formatjs/icu-messageformat-parser`, khiến ứng dụng bị hỏng. Sau khi báo cáo vấn đề này, người duy trì đã khắc phục nó trong vòng 24 giờ.
 - Thư viện ngăn cản việc render tĩnh các trang Next.js.
 
-**(Lingo.dev)** (`@lingo.dev/compiler@0.4.0`):
+**(Lingo.dev)** (`@lingo.dev/compiler@0.4.12`):
 
 - Vượt quá hạn mức AI, khiến việc xây dựng bị đình trệ hoàn toàn - vì vậy bạn không thể đưa lên production nếu không trả tiền.
 - Trình biên dịch đã bỏ sót gần 40% nội dung đã dịch. Tôi đã phải viết lại tất cả các cấu trúc `.map` thành các khối component phẳng để nó hoạt động.
@@ -192,7 +197,7 @@ Các vấn đề gặp phải:
 
 ### 2 - Các giải pháp thử nghiệm
 
-**(Wuchale)** (`wuchale@0.22.11`):
+**(Wuchale)** (`wuchale@0.26.6`):
 
 Ý tưởng đằng sau `Wuchale` rất thú vị nhưng vẫn chưa khả thi. Tôi đã gặp vấn đề về tính phản ứng và phải ép buộc render lại provider để ứng dụng hoạt động. Tài liệu cũng khá mơ hồ, khiến việc làm quen khó khăn hơn.
 
@@ -202,21 +207,21 @@ Các vấn đề gặp phải:
 Cá nhân tôi không thích việc phải tạo lại các tệp JS trước mỗi lần đẩy mã (push), điều này tạo ra rủi ro xung đột merge liên tục qua PR. Công cụ này cũng có vẻ tập trung vào Vite hơn là Next.js.
 Cuối cùng, so với các giải pháp khác, Paraglide không sử dụng store (ví dụ: React context) để lấy ngôn ngữ hiện tại nhằm render nội dung. Đối với mỗi nút (node) được phân tích, nó sẽ yêu cầu ngôn ngữ từ localStorage / cookie v.v. Điều này dẫn đến việc thực thi logic không cần thiết ảnh hưởng đến tính phản ứng của component.
 
-> Ghi chú về paraglide: giải pháp này đưa mã vào cơ sở mã của bạn để import, kết quả là chỉ số 'kích thước thư viện' trong báo cáo benchmark gần bằng 0. Việc tạo mã (code generation) là một điều tốt, vì hàm được sử dụng sẽ chỉ bao gồm logic cần thiết (toàn bộ tiền tố so với không có tiền tố, cookie so với lưu trữ, v.v.). So sánh với điều này, Intlayer thực hiện việc lọc này thông qua các lần chèn biến môi trường trong quá trình build để buộc bundler phải loại bỏ mã thừa (tree-shake) cho nội dung tùy thuộc vào logic. Nhờ đó, paraglide và intlayer cuối cùng trở thành các giải pháp nhẹ hơn từ 6 đến 10 lần so với i18next hoặc next-intl.
+> Ghi chú về paraglide: giải pháp này đưa mã vào cơ sở mã của bạn để import, kết quả là chỉ số 'kích thước thư viện' trong báo cáo benchmark gần bằng 0. Việc tạo mã (code generation) là một điều tốt, vì hàm được sử dụng sẽ chỉ bao gồm logic cần thiết (toàn bộ tiền tố so với không có tiền tố, cookie so với lưu trữ, v.v.). So sánh với điều này, Intlayer thực hiện việc lọc này thông qua các lần chèn biến môi trường trong quá trình build để buộc bundler phải loại bỏ mã thừa (tree-shake) cho nội dung tùy thuộc vào logic. Nhờ đó, paraglide và intlayer cuối cùng trở thành các giải pháp nhẹ hơn từ 3 đến 8 lần so với i18next hoặc next-intl.
 
 ### 3 - Các giải pháp chấp nhận được
 
-**(Tolgee)** (`@tolgee/react@7.0.0`):
+**(Tolgee)** (`@tolgee/react@7.2.0`):
 
 `Tolgee` giải quyết được nhiều vấn đề đã đề cập trước đó. Tôi thấy việc áp dụng nó khó hơn so với các công cụ tương tự. Nó không cung cấp tính an toàn kiểu dữ liệu (type safety), điều này cũng khiến việc phát hiện các khóa bị thiếu tại thời điểm biên dịch trở nên khó khăn hơn. Tôi đã phải bao bọc các hàm của Tolgee bằng các hàm của riêng mình để thêm tính năng phát hiện khóa bị thiếu.
 
-**(Next Intl)** (`next-intl@4.9.1`):
+**(Next Intl)** (`next-intl@4.14.2`):
 
-`next-intl` là tùy chọn hợp thời nhất và là tùy chọn mà các trợ lý AI thúc đẩy nhiều nhất, nhưng theo quan điểm của tôi thì điều đó là sai lầm. Bắt đầu rất dễ dàng. Trong thực tế, việc tối ưu hóa để hạn chế rò rỉ rất phức tạp. Việc kết hợp tải động + tạo namespace + các kiểu dữ liệu TypeScript làm chậm quá trình phát triển rất nhiều. Gói bundle cũng khá nặng (~13kb cho `NextIntlClientProvider` + `useTranslations`, tức là gấp hơn 2 lần `next-intlayer`). **next-intl** từng ngăn cản việc render tĩnh các trang Next.js. Nó cung cấp một trình hỗ trợ mang tên `setRequestLocale()`. Điều đó dường như đã được giải quyết một phần cho các tệp tập trung như `en.json` / `fr.json`, nhưng việc render tĩnh vẫn thất bại khi nội dung được chia thành các namespace như `en/shared.json` / `fr/shared.json` / `es/shared.json`.
+`next-intl` là tùy chọn hợp thời nhất và là tùy chọn mà các trợ lý AI thúc đẩy nhiều nhất, nhưng theo quan điểm của tôi thì điều đó là sai lầm. Bắt đầu rất dễ dàng. Trong thực tế, việc tối ưu hóa để hạn chế rò rỉ rất phức tạp. Việc kết hợp tải động + tạo namespace + các kiểu dữ liệu TypeScript làm chậm quá trình phát triển rất nhiều. Gói bundle cũng khá nặng (~14.7kb cho `NextIntlClientProvider` + `useTranslations`, tức là gấp hơn 2.5 lần `next-intlayer`). **next-intl** từng ngăn cản việc render tĩnh các trang Next.js. Nó cung cấp một trình hỗ trợ mang tên `setRequestLocale()`. Điều đó dường như đã được giải quyết một phần cho các tệp tập trung như `en.json` / `fr.json`, nhưng việc render tĩnh vẫn thất bại khi nội dung được chia thành các namespace như `en/shared.json` / `fr/shared.json` / `es/shared.json`.
 
-**(Next I18next)** (`next-i18next@16.0.5`):
+**(Next I18next)** (`next-i18next@16.3.0`):
 
-`next-i18next` có lẽ là tùy chọn phổ biến nhất vì nó là một trong những giải pháp i18n đầu tiên cho các ứng dụng JavaScript. Nó có nhiều plugin cộng đồng. Nó có cùng những nhược điểm chính như `next-intl`. Gói bundle đặc biệt nặng (~18kb cho `I18nProvider` + `useTranslation`, gấp khoảng 3 lần `next-intlayer`).
+`next-i18next` có lẽ là tùy chọn phổ biến nhất vì nó là một trong những giải pháp i18n đầu tiên cho các ứng dụng JavaScript. Nó có nhiều plugin cộng đồng. Nó có cùng những nhược điểm chính như `next-intl`. Gói bundle đặc biệt nặng (~19.7kb cho `I18nProvider` + `useTranslation`, gấp khoảng 3.5 lần `next-intlayer`).
 
 Các định dạng thông báo cũng khác nhau: `next-intl` sử dụng ICU MessageFormat, trong khi `i18next` sử dụng định dạng riêng của mình.
 
@@ -224,17 +229,17 @@ Các định dạng thông báo cũng khác nhau: `next-intl` sử dụng ICU Me
 
 `next-international` cũng giải quyết các vấn đề trên nhưng không khác nhiều so với `next-intl` hay `next-i18next`. Nó bao gồm `scopedT()` cho các bản dịch cụ thể theo namespace, nhưng việc sử dụng nó về cơ bản không ảnh hưởng đến kích thước bundle bundle.
 
-**(Lingui)** (`@lingui/core@5.3.0`):
+**(Lingui)** (`@lingui/core@6.6.0`):
 
 `Lingui` thường được khen ngợi. Cá nhân tôi thấy quy trình `lingui extract` / `lingui compile` phức tạp hơn các lựa chọn thay thế, mà không có ưu điểm rõ ràng. Tôi cũng nhận thấy cú pháp không nhất quán gây nhầm lẫn cho AI (ví dụ: `t()`, `t''`, `i18n.t()`, `<Trans>`).
 
 ### 4 - Các khuyến nghị
 
-**(Next Translate)** (`next-translate@3.1.2`):
+**(Next Translate)** (`next-translate@3.2.0`):
 
-`next-translate` là khuyến nghị chính của tôi nếu bạn thích một API theo kiểu `t()`. Nó vận hành thanh thoát thông qua `next-translate-plugin`, tải các namespace qua `getStaticProps` với một trình tải Webpack / Turbopack. Nó cũng là tùy chọn nhẹ nhất ở đây (~2.5kb). Đối với việc phân namespace, việc định nghĩa các namespace theo từng trang hoặc route trong cấu hình được cân nhắc kỹ lưỡng và dễ bảo trì hơn so với các lựa chọn thay thế chính như **next-intl** hay **next-i18next**. Ở phiên bản `3.1.2`, tôi nhận thấy rằng việc render tĩnh không hoạt động; Next.js đã quay trở lại việc render động.
+`next-translate` là khuyến nghị chính của tôi nếu bạn thích một API theo kiểu `t()`. Nó vận hành thanh thoát thông qua `next-translate-plugin`, tải các namespace qua `getStaticProps` với một trình tải Webpack / Turbopack. Nó cũng là một trong những tùy chọn nhẹ nhất ở đây (~3.5kb). Đối với việc phân namespace, việc định nghĩa các namespace theo từng trang hoặc route trong cấu hình được cân nhắc kỹ lưỡng và dễ bảo trì hơn so với các lựa chọn thay thế chính như **next-intl** hay **next-i18next**. Ở phiên bản `3.1.2`, tôi nhận thấy rằng việc render tĩnh không hoạt động; Next.js đã quay trở lại việc render động.
 
-**(Intlayer)** (`next-intlayer@8.7.12`):
+**(Intlayer)** (`next-intlayer@9.5.1`):
 
 Tôi sẽ không đích thân đánh giá `next-intlayer` vì tính khách quan, vì đây là giải pháp của riêng tôi.
 

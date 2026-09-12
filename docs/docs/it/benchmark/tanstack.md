@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-05-18
+updatedAt: 2026-09-11
 title: Migliore soluzione i18n per TanStack Start nel 2026 - Rapporto Benchmark
 description: Confronta le librerie di internazionalizzazione per TanStack Start come react-i18next, use-intl e Intlayer. Rapporto dettagliato sulle prestazioni relative a dimensioni del bundle, leakage e reattività.
 keywords:
@@ -17,6 +17,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-tanstack-start-template
 history:
+  - version: 9.5.1
+    date: 2026-09-11
+    changes: "Aggiornamento dei risultati del benchmark"
   - version: 8.9.8
     date: 2026-05-18
     changes: "Aggiungi comparazione delle stelle di GitHub"
@@ -62,7 +65,7 @@ L'altro impatto riguarda la developer experience (DX): come si dichiara il conte
 
 ## TL;DR
 
-- **Intlayer**: Fornisce le migliori prestazioni e la dimensione del bundle più ridotta (v8.7.12) per TanStack Start.
+- **Intlayer**: Fornisce le migliori prestazioni e la dimensione del bundle più ridotta (v9.5.1) per TanStack Start.
 - **react-i18next** & **use-intl**: Alternative mature con ecosistemi ampi, ma significativamente più pesanti e complesse da ottimizzare.
 - **Paraglide**: Idea innovativa di tree-shaking che non funziona nella pratica. DX complessa e sovraccarico di reattività in TanStack Start.
 - **Da evitare**: **General Translation (GT)** e **Lingo.dev** a causa di gravi problemi di prestazioni, limiti di quota AI e vendor lock-in.
@@ -97,16 +100,18 @@ Le sintassi costruite attorno a `const t = useTranslation()` + `t('a.b.c')` sono
 Per questo benchmark, abbiamo confrontato le seguenti librerie:
 
 - `Base App` (Nessuna libreria i18n)
-- `react-intlayer` (v8.7.12)
-- `react-i18next` (v17.0.2)
-- `use-intl` (v4.9.1)
-- `@lingui/core` (v5.3.0)
+- `react-intlayer` (v9.5.1)
+- `@intlayer/use-intl` (v9.5.1)
+- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/compat/lingui.md) (v9.5.1)
+- `react-i18next` (v17.0.13)
+- `use-intl` (v4.14.2)
+- `@lingui/core` (v6.6.0)
 - `@inlang/paraglide-js` (v2.15.1)
-- `@tolgee/react` (v7.0.0)
-- `react-intl` (v10.1.1)
-- `wuchale` (v0.22.11)
-- `gt-react` (vlatest)
-- `lingo.dev` (v0.133.9)
+- `@tolgee/react` (v7.2.0)
+- `react-intl` (v10.1.26)
+- `wuchale` (v0.26.6)
+- `gt-react` (v10.18.3)
+- `lingo.dev` (v0.138.7)
 
 Il framework è `TanStack Start` con un'app multilingue di **10 pagine** e **10 lingue**.
 
@@ -160,15 +165,15 @@ Alcune soluzioni, come `gt-react` o `lingo.dev`, sono chiaramente da evitare. Co
 
 Problemi riscontrati:
 
-**(General Translation)** (`gt-react@latest`):
+**(General Translation)** (`gt-react@10.18.3`):
 
-- Per un'app di circa 110kb, `gt-react` può aggiungere più di 440kb extra (ordine di grandezza osservato sull'implementazione Next.js nello stesso benchmark).
+- Per un'app di circa 111kb, `gt-react` può aggiungere più di 170kb extra (ordine di grandezza osservato sull'implementazione Next.js nello stesso benchmark).
 - `Quota Exceeded, please upgrade your plan` al primissimo build con General Translation.
 - Le traduzioni non vengono renderizzate; ottengo l'errore `Error: <T> used on the client-side outside of <GTProvider>`, che sembra essere un bug nella libreria.
 - Durante l'implementazione di **gt-tanstack-start-react**, ho riscontrato anche un [problema](https://github.com/generaltranslation/gt/issues/1210#event-24510646961) con la libreria: `does not provide an export named 'printAST' - @formatjs/icu-messageformat-parser`, che causava il crash dell'applicazione. Dopo la segnalazione, il manutentore lo ha risolto in 24 ore.
 - Queste librerie usano un anti-pattern tramite la funzione `initializeGT()`, impedendo al bundle di essere ripulito correttamente tramite tree-shaking.
 
-**(Lingo.dev)** (`lingo.dev@0.133.9`):
+**(Lingo.dev)** (`lingo.dev@0.138.7`):
 
 - Quota AI superata (o dipendenza del server bloccata), rendendo build/produzione rischiosi senza pagare.
 - Il compilatore perdeva quasi il 40% del contenuto tradotto. Ho dovuto riscrivere tutti i `.map` in blocchi di componenti piatti per farlo funzionare.
@@ -178,7 +183,7 @@ Problemi riscontrati:
 
 ### 2 - Soluzioni sperimentali
 
-**(Wuchale)** (`wuchale@0.22.11`):
+**(Wuchale)** (`wuchale@0.26.6`):
 
 L'idea alla base di `Wuchale` è interessante ma non ancora una soluzione praticabile. Ho riscontrato problemi di reattività con questa libreria e ho dovuto forzare il re-rendering del provider per far funzionare l'app su TanStack Start. La documentazione è inoltre piuttosto oscura, il che rende difficile l'onboarding.
 
@@ -188,9 +193,9 @@ L'idea alla base di `Wuchale` è interessante ma non ancora una soluzione pratic
 
 `Paraglide` offre un approccio innovativo e ben ponderato. Tuttavia, in questo benchmark il tree-shaking pubblicizzato non ha funzionato per la mia implementazione Next.js o per TanStack Start. Il workflow e la DX sono inoltre più complessi di altre opzioni. Personalmente non sono un fan del dover rigenerare file JS prima di ogni push, il che crea un rischio costante di conflitti di merge per gli sviluppatori tramite PR.
 
-> Nota su paraglide: questa soluzione inietta codice nella tua base di codice per le importazioni; di conseguenza, la metrica 'lib size' nel rapporto benchmark è quasi 0. La generazione del codice è un aspetto positivo, poiché la funzione utilizzata includerà solo la logica necessaria (prefisso ovunque vs nessun prefisso, cookie vs storage, ecc.). Al contrario, Intlayer esegue questo filtraggio tramite iniezioni di variabili d'ambiente nella build per forzare il bundler a eseguire il tree-shaking del contenuto in base alla logica. Grazie a ciò, paraglide e intlayer risultano soluzioni da 6 a 10 volte più leggere rispetto a i18next o next-intl.
+> Nota su paraglide: questa soluzione inietta codice nella tua base di codice per le importazioni; di conseguenza, la metrica 'lib size' nel rapporto benchmark è quasi 0. La generazione del codice è un aspetto positivo, poiché la funzione utilizzata includerà solo la logica necessaria (prefisso ovunque vs nessun prefisso, cookie vs storage, ecc.). Al contrario, Intlayer esegue questo filtraggio tramite iniezioni di variabili d'ambiente nella build per forzare il bundler a eseguire il tree-shaking del contenuto in base alla logica. Grazie a ciò, paraglide e intlayer risultano soluzioni da 3 a 10 volte più leggere rispetto a i18next o next-intl.
 
-**(Tolgee)** (`@tolgee/react@7.0.0`):
+**(Tolgee)** (`@tolgee/react@7.2.0`):
 
 `Tolgee` affronta molti dei problemi menzionati in precedenza. L'ho trovato più difficile da avviare rispetto ad altri strumenti con approcci simili. Non fornisce type safety, il che rende anche molto difficile individuare le chiavi mancanti a compile time. Ho dovuto avvolgere le API di Tolgee con le mie per aggiungere il rilevamento delle chiavi mancanti.
 
@@ -198,37 +203,37 @@ Il package è abbastanza pesante (~11.1kb, che è più di 2× `react-intlayer`).
 
 Su TanStack Start ho avuto anche problemi di reattività: al cambio di lingua, dovevo forzare il provider a rieseguire il rendering e sottoscrivermi agli eventi di cambio lingua in modo che il caricamento in un'altra lingua si comportasse correttamente.
 
-**(use-intl)** (`use-intl@4.9.1`):
+**(use-intl)** (`use-intl@4.14.2`):
 
 `use-intl` è il pezzo "intl" più alla moda nell'ecosistema React (stessa famiglia di `next-intl`) ed è spesso spinto dagli assistenti AI, ma a mio avviso a torto in un contesto orientato alle prestazioni. Iniziare è abbastanza semplice. In pratica, il processo per ottimizzare e limitare i leakage è piuttosto complesso. Allo stesso modo, combinare caricamento dinamico + namespace + tipi TypeScript rallenta molto lo sviluppo.
 
 Su TanStack Start eviti le trappole specifiche di Next.js (`setRequestLocale`, rendering statico), ma il problema di fondo è lo stesso: senza una disciplina rigida, il bundle trasporta rapidamente troppi messaggi e la manutenzione dei namespace per ogni rotta diventa faticosa.
 
-**(react-i18next)** (`react-i18next@17.0.2`):
+**(react-i18next)** (`react-i18next@17.0.13`):
 
 `react-i18next` è probabilmente l'opzione più popolare perché è stata tra le prime a soddisfare le esigenze i18n delle app JavaScript. Ha anche un ampio set di plugin della community per problemi specifici.
 
 Tuttavia, condivide gli stessi svantaggi principali degli stack basati su `t('a.b.c')`: le ottimizzazioni sono possibili ma richiedono molto tempo, e i grandi progetti rischiano cattive pratiche (namespace + caricamento dinamico + tipi).
 
-Il package è particolarmente pesante (~17.3kb, che è circa 3.5× `react-intlayer`).
+Il package è particolarmente pesante (~18.4kb, che è circa 3.5× `react-intlayer`).
 
 I formati dei messaggi divergono inoltre: `use-intl` usa ICU MessageFormat, mentre `i18next` usa il proprio formato - il che complica il tooling o le migrazioni se li mescoli.
 
-**(Lingui)** (`@lingui/core@5.3.0`):
+**(Lingui)** (`@lingui/core@6.6.0`):
 
 `Lingui` è spesso elogiato. Personalmente ho trovato il workflow attorno a `lingui extract` / `lingui compile` più complesso di altri approcci, senza un chiaro vantaggio in questo benchmark su TanStack Start. Ho anche notato sintassi inconsistenti che confondono le AI (es. `t()`, `t''`, `i18n.t()`, `<Trans>`).
 
-**(react-intl)** (`react-intl@10.1.1`):
+**(react-intl)** (`react-intl@10.1.26`):
 
 `react-intl` è un'implementazione performante del team Format.js. La DX rimane prolissa: `const intl = useIntl()` + `intl.formatMessage({ id: "xx.xx" })` aggiunge complessità, lavoro extra JavaScript e lega l'istanza globale i18n a molti nodi nell'albero React.
 
-Il package è anche pesante (~14.4kb, che è circa 3× `react-intlayer`).
+Il package è anche pesante (~15.3kb, che è circa 3× `react-intlayer`).
 
 ### 4 - Raccomandazioni
 
 Questo benchmark su TanStack Start non ha un equivalente diretto di `next-translate` (plugin Next.js + `getStaticProps`). Per i team che vogliono davvero un'API `t()` con un ecosistema maturo, `react-i18next` e `use-intl` rimangono scelte "ragionevoli", ma preparatevi a investire molto tempo nell'ottimizzazione per evitare leakage.
 
-**(Intlayer)** (`react-intlayer@8.7.12`):
+**(Intlayer)** (`react-intlayer@9.5.1`):
 
 Non giudicherò personalmente `react-intlayer` per motivi di obiettività, essendo la mia propria soluzione.
 

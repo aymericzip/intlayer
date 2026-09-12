@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-05-18
+updatedAt: 2026-09-11
 title: La meilleure solution i18n pour Svelte en 2026 - Rapport de Benchmark
 description: Comparez les bibliothèques d'internationalisation (i18n) pour Svelte comme svelte-i18n, Paraglide et Intlayer. Rapport de performance détaillé sur la taille du bundle, les fuites et la réactivité.
 keywords:
@@ -17,6 +17,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-svelte-template
 history:
+  - version: 9.5.1
+    date: 2026-09-11
+    changes: "Mise à jour des résultats du benchmark"
   - version: 8.9.8
     date: 2026-05-18
     changes: "Ajout du comparatif des étoiles GitHub"
@@ -62,9 +65,9 @@ L'autre impact concerne l'expérience développeur (DX) : la façon dont vous d�
 
 ## TL;DR
 
-- **Intlayer** : Le choix le plus performant (v8.7.12) avec l'empreinte la plus faible.
+- **Intlayer** : Le choix le plus performant (v9.5.0) avec l'empreinte la plus faible.
 - **Paraglide** : Candidat sérieux pour le tree-shaking mais possède une expérience développeur plus complexe et un surcoût de réactivité.
-- **svelte-i18n** : Complet et standard pour Svelte, mais transporte un poids de bundle beaucoup plus important (~7× Intlayer).
+- **svelte-i18n** : Complet et standard pour Svelte, mais transporte un poids de bundle beaucoup plus important (~4.5× Intlayer).
 
 ## Testez votre application
 
@@ -96,9 +99,9 @@ Les syntaxes basées sur `t('a.b.c')` sont très pratiques mais encouragent souv
 Pour ce benchmark, nous avons comparé les bibliothèques suivantes :
 
 - `Base App` (Pas de bibliothèque i18n)
-- `svelte-intlayer` (v8.7.12)
+- `svelte-intlayer` (v9.5.0)
 - `svelte-i18n` (v4.0.1)
-- `@inlang/paraglide-js` (v2.17.0)
+- `@inlang/paraglide-js` (v2.25.1)
 
 Le framework utilisé est `Svelte` avec une application multilingue de **10 pages** et **10 langues**.
 
@@ -152,7 +155,7 @@ Les étoiles GitHub sont un indicateur fort de la popularité d'un projet, de la
 
 ### 2 - Solutions acceptables
 
-**(Paraglide)** (`@inlang/paraglide-js@2.17.0`) :
+**(Paraglide)** (`@inlang/paraglide-js@2.25.1`) :
 
 `Paraglide` propose une approche innovante et bien pensée. Dans le contexte d'une application Vite + Svelte, le tree-shaking dont leur entreprise fait la publicité fonctionne comme prévu, ce qui est excellent.
 Mais dans le cas de React + TanStack Start, le tree-shaking n'a pas fonctionné comme prévu, de même pour Next.js. Cela dit, l'usage de Paraglide dans un projet Svelte et TanStack Start mériterait d'être vérifié de près.
@@ -162,13 +165,13 @@ Enfin, par rapport à d'autres solutions, Paraglide n'utilise pas de store (ex: 
 
 > Note sur paraglide : cette solution injecte du code dans votre base de code pour les imports, par conséquent, la métrique 'lib size' dans le rapport de benchmark est presque de 0. La génération de code est une bonne chose, car la fonction utilisée n'inclura que la logique nécessaire (préfixe partout vs pas de préfixe, cookie vs stockage, etc.). En comparaison, Intlayer effectue ce filtrage via des injections de variables d'environnement pendant le build pour forcer le bundler à tree-shaker le contenu en fonction de la logique. Grâce à cela, paraglide et intlayer finissent par être des solutions 6 à 10 fois plus légères qu'i18next ou next-intl.
 
-**(svelte-i18n)** (`svelte-i18n@3.4.0`) :
+**(svelte-i18n)** (`svelte-i18n@4.0.1`) :
 
-Cette solution répond à tous les besoins i18n dans un projet Svelte. Mais comme c'est le cas pour i18next ou d'autres solutions majeures, elle est un peu lourde (~15.9 Ko, soit environ 7× `svelte-intlayer`).
+Cette solution répond à tous les besoins i18n dans un projet Svelte. Mais comme c'est le cas pour i18next ou d'autres solutions majeures, elle est un peu lourde (~16.6 Ko, soit environ 4.5× `svelte-intlayer`).
 
 ### 3 - Recommandations
 
-**(Intlayer)** (`svelte-intlayer@8.7.12`) :
+**(Intlayer)** (`svelte-intlayer@9.5.0`) :
 
 Je ne jugerai pas personnellement `svelte-intlayer` par souci d'objectivité, puisqu'il s'agit de ma propre solution.
 
