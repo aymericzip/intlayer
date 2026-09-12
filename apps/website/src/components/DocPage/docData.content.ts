@@ -203,6 +203,10 @@ const docDataContent: Dictionary = {
               title: 'Scan',
               default: getDocMetadata('./docs/en/cli/scan.md'),
             },
+            ci: {
+              title: 'CI',
+              default: getDocMetadata('./docs/en/cli/ci.md'),
+            },
           },
         },
         editor: {

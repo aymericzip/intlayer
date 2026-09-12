@@ -1052,8 +1052,6 @@ export const setAPI = (): Command => {
     });
   });
 
-  program.parse(process.argv);
-
   /**
    * CI / AUTOMATION
    *
@@ -1069,10 +1067,14 @@ export const setAPI = (): Command => {
       'The intlayer command to execute (e.g., "fill", "push")'
     )
     .allowUnknownOption() // Allows passing flags like --verbose to the subcommand
-    .action(async (args) => {
+    .action(async (args: string[]) => {
       const { runCI } = await import('./ci');
-      runCI(args);
+      await runCI(args);
     });
+
+  // Every command must be registered before parsing: commander dispatches
+  // synchronously, so anything added after this line is an unknown command.
+  program.parse(process.argv);
 
   return program;
 };
