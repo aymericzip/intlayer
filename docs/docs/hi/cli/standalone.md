@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-03-31
+updatedAt: 2026-09-12
 title: स्टैंडअलोन बंडल (Standalone Bundle)
 description: एप्लिकेशन सामग्री का स्टैंडअलोन JavaScript बंडल बनाने का तरीका जानें।
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - cli
   - standalone
 history:
+  - version: 9.5.2
+    date: 2026-09-12
+    changes: "`--ci` फ़्लैग जोड़ा गया"
   - version: 8.6.4
     date: 2026-03-31
     changes: "स्टैंडअलोन कमांड दस्तावेज़ीकरण प्रारंभ"
@@ -61,6 +64,7 @@ bun x intlayer standalone --packages [पैकेज...] [विकल्प]
 - `-e, --env [env]` - पर्यावरण।
 - `--base-dir [baseDir]` - आधार निर्देशिका।
 - `--no-cache` - कैश अक्षम करें।
+- `--ci` - मोनोरेपो के हर Intlayer प्रोजेक्ट में कमांड चलाता है (प्रोजेक्ट डायरेक्टरी से चलाने पर केवल वर्तमान प्रोजेक्ट में)। प्रति-प्रोजेक्ट क्रेडेंशियल `INTLAYER_PROJECT_CREDENTIALS` के माध्यम से इंजेक्ट किए जा सकते हैं, जो प्रोजेक्ट पाथ को `{ "clientId", "clientSecret" }` से मैप करने वाला JSON ऑब्जेक्ट है।
 - `--verbose` - विस्तृत आउटपुट।
 
 ## उदाहरण:

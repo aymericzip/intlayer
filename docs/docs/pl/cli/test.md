@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: Testowanie brakujących tłumaczeń
 description: Dowiedz się, jak testować i identyfikować brakujące tłumaczenia w swoich słownikach.
 keywords:
@@ -69,6 +69,10 @@ Brakujące wymagane lokalizacje: -
 - **`--no-cache`**: Wyłącz pamięć podręczną.
 
   > Przykład: `npx intlayer build --no-cache`
+
+- **`--ci`**: Uruchamia polecenie w każdym projekcie Intlayer w monorepo (lub tylko w bieżącym, gdy uruchomione z katalogu projektu). Dane uwierzytelniające dla poszczególnych projektów można wstrzyknąć przez `INTLAYER_PROJECT_CREDENTIALS` — obiekt JSON mapujący ścieżkę projektu na `{ "clientId", "clientSecret" }`.
+
+  > Przykład: `npx intlayer test --ci`
 
 **Opcje przygotowania:**
 

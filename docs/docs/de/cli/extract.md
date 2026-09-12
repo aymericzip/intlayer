@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: Strings extrahieren
 description: Erfahren Sie, wie Sie Strings aus Ihren Komponenten in eine .content-Datei in der Nähe der Komponente extrahieren.
 keywords:
@@ -69,6 +69,7 @@ Dieser Befehl analysiert Ihre Codedateien, um Strings aus Komponenten in eine .c
 - **`--env`**: Spezifizieren Sie die Umgebung.
 - **`--env-file`**: Geben Sie eine benutzerdefinierte Umgebungsdatei an.
 - **`--verbose`**: Aktivieren Sie die ausführliche Protokollierung (Verbose Logging).
+- **`--ci`**: Führt den Befehl in jedem Intlayer-Projekt des Monorepos aus (oder nur im aktuellen, wenn er aus einem Projektverzeichnis gestartet wird). Projektspezifische Zugangsdaten können über `INTLAYER_PROJECT_CREDENTIALS` eingefügt werden, ein JSON-Objekt, das jedem Projektpfad `{ "clientId", "clientSecret" }` zuordnet.
 
 **Erforderliche Plugins:**
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: Wysyłanie słowników
 description: Dowiedz się, jak wysyłać swoje słowniki do edytora Intlayer i CMS.
 keywords:
@@ -65,6 +65,10 @@ Jeśli [edytor intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/d
 - **`--no-cache`**: Wyłącz pamięć podręczną.
 
   > Przykład: `npx intlayer build --no-cache`
+
+- **`--ci`**: Uruchamia polecenie w każdym projekcie Intlayer w monorepo (lub tylko w bieżącym, gdy uruchomione z katalogu projektu). Dane uwierzytelniające dla poszczególnych projektów można wstrzyknąć przez `INTLAYER_PROJECT_CREDENTIALS` — obiekt JSON mapujący ścieżkę projektu na `{ "clientId", "clientSecret" }`.
+
+  > Przykład: `npx intlayer push --ci`
 
 **Opcje zmiennych środowiskowych:**
 

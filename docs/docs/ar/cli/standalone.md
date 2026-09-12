@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-03-31
+updatedAt: 2026-09-12
 title: الحزمة المستقلة (Standalone Bundle)
 description: تعرف على كيفية إنشاء حزمة JavaScript مستقلة لمحتوى التطبيق.
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - cli
   - standalone
 history:
+  - version: 9.5.2
+    date: 2026-09-12
+    changes: "إضافة العلامة `--ci`"
   - version: 8.6.4
     date: 2026-03-31
     changes: "تهيئة وثائق الأمر المستقل (standalone)"
@@ -61,6 +64,7 @@ bun x intlayer standalone --packages [الحزم...] [الخيارات]
 - `-e, --env [env]` - البيئة.
 - `--base-dir [baseDir]` - الدليل الأساسي.
 - `--no-cache` - تعطيل ذاكرة التخزين المؤقت.
+- `--ci` - ينفّذ الأمر في كل مشروع Intlayer في الـ monorepo (أو في المشروع الحالي فقط عند التشغيل من مجلد مشروع). يمكن حقن بيانات اعتماد لكل مشروع عبر `INTLAYER_PROJECT_CREDENTIALS`، وهو كائن JSON يربط مسار كل مشروع بـ `{ "clientId", "clientSecret" }`.
 - `--verbose` - مخرجات مفصلة.
 
 ## أمثلة:

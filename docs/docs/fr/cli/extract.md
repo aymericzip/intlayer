@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: Extraire des chaînes
 description: Apprenez comment extraire des chaînes depuis vos composants dans un fichier .content proche du composant.
 keywords:
@@ -69,6 +69,7 @@ Cette commande analyse vos fichiers de code pour extraire les chaînes des compo
 - **`--env`**: Spécifie l'environnement.
 - **`--env-file`**: Fournit un fichier d'environnement personnalisé.
 - **`--verbose`**: Active la journalisation détaillée.
+- **`--ci`**: Exécute la commande dans chaque projet Intlayer du monorepo (ou uniquement le projet courant si lancée depuis son répertoire). Des identifiants par projet peuvent être injectés via `INTLAYER_PROJECT_CREDENTIALS`, un objet JSON associant chaque chemin de projet à `{ "clientId", "clientSecret" }`.
 
 **Plugins requis :**
 

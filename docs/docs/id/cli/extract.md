@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: Ekstrak string
 description: Pelajari cara mengekstrak string dari komponen Anda ke file .content yang berada dekat dengan komponen.
 keywords:
@@ -69,6 +69,7 @@ Perintah ini menganalisis berkas kode Anda untuk mengekstrak string dari kompone
 - **`--env`**: Tentukan environment.
 - **`--env-file`**: Sediakan berkas environment kustom.
 - **`--verbose`**: Aktifkan verbose logging.
+- **`--ci`**: Menjalankan perintah di setiap proyek Intlayer dalam monorepo (atau hanya proyek saat ini jika dijalankan dari direktori proyek). Kredensial per proyek dapat disuntikkan melalui `INTLAYER_PROJECT_CREDENTIALS`, sebuah objek JSON yang memetakan path proyek ke `{ "clientId", "clientSecret" }`.
 
 **Plugin yang Diperlukan:**
 

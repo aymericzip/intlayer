@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-11
-updatedAt: 2026-06-11
+updatedAt: 2026-09-12
 title: Scan Website
 description: Learn how to use the Intlayer CLI scan command to measure page size and audit the i18n/SEO health of any website.
 keywords:
@@ -18,6 +18,9 @@ slugs:
   - cli
   - scan
 history:
+  - version: 9.5.2
+    date: 2026-09-12
+    changes: "Add `--ci` flag"
   - version: 9.0.0
     date: 2026-06-11
     changes: "Added scan command"
@@ -112,6 +115,7 @@ Output the full scan result as a JSON object instead of a formatted report. Usef
 - **`-e, --env`** — Target environment (e.g. `development`, `production`).
 - **`--env-file`** — Path to a custom `.env` file.
 - **`--no-cache`** — Disable configuration cache.
+- **`--ci`** — Run the command in every Intlayer project of the monorepo (or only the current one when run from a project directory). Per-project credentials can be injected via `INTLAYER_PROJECT_CREDENTIALS`, a JSON map of project path to `{ "clientId", "clientSecret" }`.
 - **`--verbose`** — Enable verbose logging (default in CLI mode).
 - **`--prefix`** — Custom log prefix.
 

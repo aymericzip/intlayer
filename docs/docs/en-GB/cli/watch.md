@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: Watch Dictionaries
 description: Learn how to watch for changes in your content declaration files and automatically build dictionaries.
 keywords:
@@ -48,3 +48,7 @@ This command is the equivalent of `npx intlayer build --watch --skip-prepare`.
 - **`--with`**: Start command in parallel with the watch.
 
 > Example: `npx intlayer watch --with "next dev --turbopack"`
+
+- **`--ci`**: Run the command in every Intlayer project of the monorepo (or only the current one when run from a project directory). Per-project credentials can be injected via `INTLAYER_PROJECT_CREDENTIALS`, a JSON map of project path to `{ "clientId", "clientSecret" }`.
+
+> Example: `npx intlayer watch --ci`

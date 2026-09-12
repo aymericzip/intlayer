@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: Traduire un document
 description: Apprenez à traduire automatiquement des fichiers de documentation en utilisant des services de traduction IA.
 keywords:
@@ -112,6 +112,10 @@ bun x intlayer doc translate
 - **`--no-cache`** : Désactive le cache.
 
   > Exemple : `npx intlayer doc translate --base-dir ./docs --env-file .env.production.local`
+
+- **`--ci`** : Exécute la commande dans chaque projet Intlayer du monorepo (ou uniquement le projet courant si lancée depuis son répertoire). Des identifiants par projet peuvent être injectés via `INTLAYER_PROJECT_CREDENTIALS`, un objet JSON associant chaque chemin de projet à `{ "clientId", "clientSecret" }`.
+
+  > Exemple : `npx intlayer doc translate --ci`
 
 **Options de journalisation :**
 

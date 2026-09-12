@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-03-31
+updatedAt: 2026-09-12
 title: Samodzielny Pakiet (Standalone Bundle)
 description: Dowiedz się, jak utworzyć samodzielny pakiet JavaScript z treściami aplikacji.
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - cli
   - standalone
 history:
+  - version: 9.5.2
+    date: 2026-09-12
+    changes: "Dodanie flagi `--ci`"
   - version: 8.6.4
     date: 2026-03-31
     changes: "Inicjalizacja dokumentacji polecenia standalone"
@@ -61,6 +64,7 @@ bun x intlayer standalone --packages [pakiety...] [opcje]
 - `-e, --env [env]` - Środowisko.
 - `--base-dir [baseDir]` - Katalog bazowy.
 - `--no-cache` - Wyłącz pamięć podręczną.
+- `--ci` - Uruchamia polecenie w każdym projekcie Intlayer w monorepo (lub tylko w bieżącym, gdy uruchomione z katalogu projektu). Dane uwierzytelniające dla poszczególnych projektów można wstrzyknąć przez `INTLAYER_PROJECT_CREDENTIALS` — obiekt JSON mapujący ścieżkę projektu na `{ "clientId", "clientSecret" }`.
 - `--verbose` - Szczegółowe dane wyjściowe.
 
 ## Przykłady:

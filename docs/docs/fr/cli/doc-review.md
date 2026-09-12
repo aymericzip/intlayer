@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-06-17
+updatedAt: 2026-09-12
 title: Revue de Document
 description: Apprenez comment revoir les fichiers de documentation pour la qualité, la cohérence et l'exhaustivité à travers différentes locales.
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - cli
   - doc-review
 history:
+  - version: 9.5.2
+    date: 2026-09-12
+    changes: "Ajout du drapeau `--ci`"
   - version: 9.0.0
     date: 2026-06-17
     changes: "Ajout de l'option --log"
@@ -135,6 +138,10 @@ Quel que soit le mode, l'exécution se termine par une synthèse listant les doc
 - **`--no-cache`** : Désactive le cache.
 
   > Exemple : `npx intlayer doc review --base-dir ./docs --env-file .env.production.local`
+
+- **`--ci`** : Exécute la commande dans chaque projet Intlayer du monorepo (ou uniquement le projet courant si lancée depuis son répertoire). Des identifiants par projet peuvent être injectés via `INTLAYER_PROJECT_CREDENTIALS`, un objet JSON associant chaque chemin de projet à `{ "clientId", "clientSecret" }`.
+
+  > Exemple : `npx intlayer doc review --ci`
 
 **Options de journalisation :**
 

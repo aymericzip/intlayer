@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-03-31
+updatedAt: 2026-09-12
 title: 独立 Bundle (Standalone Bundle)
 description: 了解如何为应用程序内容创建独立的 JavaScript bundle。
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - cli
   - standalone
 history:
+  - version: 9.5.2
+    date: 2026-09-12
+    changes: "添加 `--ci` 标志"
   - version: 8.6.4
     date: 2026-03-31
     changes: "初始化 standalone 命令文档"
@@ -61,6 +64,7 @@ bun x intlayer standalone --packages [包名...] [选项]
 - `-e, --env [env]` - 环境。
 - `--base-dir [baseDir]` - 基础目录。
 - `--no-cache` - 禁用缓存。
+- `--ci` - 在 monorepo 的每个 Intlayer 项目中执行该命令（在项目目录内运行时仅处理当前项目）。可通过 `INTLAYER_PROJECT_CREDENTIALS`（将项目路径映射到 `{ "clientId", "clientSecret" }` 的 JSON 对象）为每个项目注入凭据。
 - `--verbose` - 详细输出。
 
 ## 示例：

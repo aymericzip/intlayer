@@ -44,7 +44,6 @@ https://app.intlayer.org/
 - [Auto-fill](/doc/concept/auto-fill)
 - [Bundle Optimization](/doc/concept/bundle-optimization)
 - [CLI Build](/doc/concept/cli/build)
-- [CLI CI](/doc/concept/cli/ci)
 - [CLI Configuration](/doc/concept/cli/configuration)
 - [CLI Debug](/doc/concept/cli/debug)
 - [CLI Doc Review](/doc/concept/cli/doc-review)

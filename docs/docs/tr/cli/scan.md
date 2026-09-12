@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-11
-updatedAt: 2026-06-11
+updatedAt: 2026-09-12
 title: Web Sitesini Tara
 description: Herhangi bir web sitesinin sayfa boyutunu ölçmek ve i18n/SEO durumunu denetlemek için Intlayer CLI scan komutunu nasıl kullanacağınızı öğrenin.
 keywords:
@@ -18,6 +18,9 @@ slugs:
   - cli
   - scan
 history:
+  - version: 9.5.2
+    date: 2026-09-12
+    changes: "`--ci` bayrağı eklendi"
   - version: 9.0.0
     date: 2026-06-11
     changes: "Scan komutu eklendi"
@@ -112,6 +115,7 @@ Biçimlendirilmiş bir rapor yerine tarama sonucunun tamamını bir JSON nesnesi
 - **`-e, --env`** — Hedef ortam (örneğin `development`, `production`).
 - **`--env-file`** — Özel bir `.env` dosyasının yolu.
 - **`--no-cache`** — Yapılandırma önbelleğini devre dışı bırakır.
+- **`--ci`** — Komutu monorepo'nun her Intlayer projesinde çalıştırır (bir proje dizininden çalıştırıldığında yalnızca mevcut projede). Proje başına kimlik bilgileri, proje yolunu `{ "clientId", "clientSecret" }` ile eşleyen bir JSON nesnesi olan `INTLAYER_PROJECT_CREDENTIALS` aracılığıyla eklenebilir.
 - **`--verbose`** — Ayrıntılı günlüğe kaydetmeyi etkinleştirir (CLI modunda varsayılan).
 - **`--prefix`** — Özel günlük ön eki.
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: Kelola Konfigurasi
 description: Pelajari cara mendapatkan dan mengirim konfigurasi Intlayer Anda ke CMS.
 keywords:
@@ -51,6 +51,7 @@ bun x intlayer configuration get
 - **`--base-dir`**: Tentukan direktori dasar untuk proyek.
 - **`--verbose`**: Aktifkan logging verbose untuk debugging. (default true menggunakan CLI)
 - **`--no-cache`**: Nonaktifkan cache.
+- **`--ci`**: Menjalankan perintah di setiap proyek Intlayer dalam monorepo (atau hanya proyek saat ini jika dijalankan dari direktori proyek). Kredensial per proyek dapat disuntikkan melalui `INTLAYER_PROJECT_CREDENTIALS`, sebuah objek JSON yang memetakan path proyek ke `{ "clientId", "clientSecret" }`.
 
 ## Kirim Konfigurasi
 
@@ -83,5 +84,6 @@ bun x intlayer configuration push
 - **`--env-file`**: Berikan file environment kustom untuk memuat variabel dari.
 - **`--verbose`**: Aktifkan logging verbose untuk debugging. (default true menggunakan CLI)
 - **`--no-cache`**: Nonaktifkan cache.
+- **`--ci`**: Menjalankan perintah di setiap proyek Intlayer dalam monorepo (atau hanya proyek saat ini jika dijalankan dari direktori proyek). Kredensial per proyek dapat disuntikkan melalui `INTLAYER_PROJECT_CREDENTIALS`, sebuah objek JSON yang memetakan path proyek ke `{ "clientId", "clientSecret" }`.
 
 Dengan mengirim konfigurasi, proyek Anda sepenuhnya terintegrasi dengan Intlayer CMS, memungkinkan manajemen kamus yang mulus di seluruh tim.

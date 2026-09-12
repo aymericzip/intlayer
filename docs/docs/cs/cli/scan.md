@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-11
-updatedAt: 2026-06-11
+updatedAt: 2026-09-12
 title: Scan Website
 description: Naučte se používat příkaz scan v Intlayer CLI pro měření velikosti stránky a audit i18n/SEO zdraví jakéhokoli webu.
 keywords:
@@ -18,6 +18,9 @@ slugs:
   - cli
   - scan
 history:
+  - version: 9.5.2
+    date: 2026-09-12
+    changes: "Přidán příznak `--ci`"
   - version: 9.0.0
     date: 2026-06-11
     changes: "Přidán obsah příkazu scan"
@@ -112,6 +115,7 @@ Vypíše kompletní výsledek scanu jako JSON objekt namísto formátovaného re
 - **`-e, --env`** — Cílové prostředí (např. `development`, `production`).
 - **`--env-file`** — Cesta k vlastnímu souboru `.env`.
 - **`--no-cache`** — Zakáže mezipaměť konfigurace.
+- **`--ci`** — Spustí příkaz v každém projektu Intlayer v monorepu (nebo jen v aktuálním, pokud je spuštěn z adresáře projektu). Přihlašovací údaje pro jednotlivé projekty lze vložit přes `INTLAYER_PROJECT_CREDENTIALS`, JSON objekt mapující cestu projektu na `{ "clientId", "clientSecret" }`.
 - **`--verbose`** — Povolí podrobné protokolování (výchozí v režimu CLI).
 - **`--prefix`** — Vlastní prefix protokolu.
 

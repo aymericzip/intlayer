@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: 拉取词典
 description: 了解如何从 Intlayer 编辑器和 CMS 拉取词典。
 keywords:
@@ -65,6 +65,10 @@ bun x intlayer pull
 - **`--no-cache`**：禁用缓存。
 
   > 示例：`npx intlayer build --no-cache`
+
+- **`--ci`**：在 monorepo 的每个 Intlayer 项目中执行该命令（在项目目录内运行时仅处理当前项目）。可通过 `INTLAYER_PROJECT_CREDENTIALS`（将项目路径映射到 `{ "clientId", "clientSecret" }` 的 JSON 对象）为每个项目注入凭据。
+
+  > 示例：`npx intlayer pull --ci`
 
 **环境变量选项：**
 

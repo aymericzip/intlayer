@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-06-17
+updatedAt: 2026-09-12
 title: Revisar Documento
 description: Aprenda como revisar arquivos de documentação para qualidade, consistência e completude em diferentes locais.
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - cli
   - doc-review
 history:
+  - version: 9.5.2
+    date: 2026-09-12
+    changes: "Adicionar o flag `--ci`"
   - version: 9.0.0
     date: 2026-06-17
     changes: "Adicionar opção --log"
@@ -137,6 +140,10 @@ Seja qual for o modo, a execução termina com uma síntese listando os document
 - **`--no-cache`**: Desativa o cache.
 
   > Exemplo: `npx intlayer doc review --base-dir ./docs --env-file .env.production.local`
+
+- **`--ci`**: Executa o comando em cada projeto Intlayer do monorepo (ou apenas no atual quando executado de dentro de um diretório de projeto). Credenciais por projeto podem ser injetadas via `INTLAYER_PROJECT_CREDENTIALS`, um objeto JSON que associa cada caminho de projeto a `{ "clientId", "clientSecret" }`.
+
+  > Exemplo: `npx intlayer doc review --ci`
 
 **Opções de log:**
 

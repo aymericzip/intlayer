@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: 构建字典
 description: 了解如何从内容声明文件构建您的 Intlayer 字典。
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - cli
   - build
 history:
+  - version: 9.5.2
+    date: 2026-09-12
+    changes: "添加 `--ci` 标志"
   - version: 8.1.5
     date: 2026-02-23
     changes: "添加 checkTypes 选项"
@@ -91,6 +94,10 @@ bun x intlayer build --watch
 - **`--no-cache`**：禁用缓存。
 
   > 示例：`npx intlayer build --no-cache`
+
+- **`--ci`**：在 monorepo 的每个 Intlayer 项目中执行该命令（在项目目录内运行时仅处理当前项目）。可通过 `INTLAYER_PROJECT_CREDENTIALS`（将项目路径映射到 `{ "clientId", "clientSecret" }` 的 JSON 对象）为每个项目注入凭据。
+
+  > 示例：`npx intlayer build --ci`
 
 - **`--check-types`**: 检查内容声明文件的类型。
 

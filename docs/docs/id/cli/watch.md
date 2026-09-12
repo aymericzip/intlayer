@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: Pantau Kamus
 description: Pelajari cara memantau perubahan pada file deklarasi konten Anda dan secara otomatis membangun kamus.
 keywords:
@@ -48,3 +48,7 @@ Perintah ini setara dengan `npx intlayer build --watch --skip-prepare`.
 - **`--with`**: Mulai perintah secara paralel dengan pemantauan.
 
 > Contoh: `npx intlayer watch --with "next dev --turbopack"`
+
+- **`--ci`**: Menjalankan perintah di setiap proyek Intlayer dalam monorepo (atau hanya proyek saat ini jika dijalankan dari direktori proyek). Kredensial per proyek dapat disuntikkan melalui `INTLAYER_PROJECT_CREDENTIALS`, sebuah objek JSON yang memetakan path proyek ke `{ "clientId", "clientSecret" }`.
+
+> Contoh: `npx intlayer watch --ci`

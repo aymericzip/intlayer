@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-11
-updatedAt: 2026-06-11
+updatedAt: 2026-09-12
 title: Website Scannen
 description: Leer hoe u het Intlayer CLI scan-commando gebruikt om de paginagrootte te meten en de i18n/SEO-status van een website te controleren.
 keywords:
@@ -18,6 +18,9 @@ slugs:
   - cli
   - scan
 history:
+  - version: 9.5.2
+    date: 2026-09-12
+    changes: "`--ci`-vlag toegevoegd"
   - version: 9.0.0
     date: 2026-06-11
     changes: "Scan commando toegevoegd"
@@ -112,6 +115,7 @@ Exporteert het volledige scanresultaat als een JSON-object in plaats van een gef
 - **`-e, --env`** — Doelomgeving (bijv. `development`, `production`).
 - **`--env-file`** — Pad naar een aangepast `.env`-bestand.
 - **`--no-cache`** — Configuratiecache uitschakelen.
+- **`--ci`** — Voert het commando uit in elk Intlayer-project van de monorepo (of alleen in het huidige bij uitvoering vanuit een projectmap). Inloggegevens per project kunnen worden geïnjecteerd via `INTLAYER_PROJECT_CREDENTIALS`, een JSON-object dat elk projectpad koppelt aan `{ "clientId", "clientSecret" }`.
 - **`--verbose`** — Gedetailleerde logboekregistratie inschakelen (standaard in CLI-modus).
 - **`--prefix`** — Aangepaste logboekprefix.
 

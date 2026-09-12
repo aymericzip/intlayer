@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-03-31
+updatedAt: 2026-09-12
 title: Standalone Bundle
 description: Узнайте, как создать автономную JavaScript-сборку контента приложения.
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - cli
   - standalone
 history:
+  - version: 9.5.2
+    date: 2026-09-12
+    changes: "Добавлен флаг `--ci`"
   - version: 8.6.4
     date: 2026-03-31
     changes: "Инициализация документации команды standalone"
@@ -61,6 +64,7 @@ bun x intlayer standalone --packages [пакеты...] [опции]
 - `-e, --env [env]` - Окружение.
 - `--base-dir [baseDir]` - Базовая директория.
 - `--no-cache` - Отключить кэш.
+- `--ci` - Выполняет команду в каждом проекте Intlayer монорепозитория (или только в текущем при запуске из директории проекта). Учетные данные для каждого проекта можно подставить через `INTLAYER_PROJECT_CREDENTIALS` — JSON-объект, сопоставляющий путь проекта с `{ "clientId", "clientSecret" }`.
 - `--verbose` - Подробный вывод.
 
 ## Примеры:

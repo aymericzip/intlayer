@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: शब्दकोश भरें
 description: AI का उपयोग करके अपने शब्दकोशों को कैसे भरें, ऑडिट करें, और अनुवाद करें, यह जानें।
 keywords:
@@ -161,6 +161,10 @@ Affected dictionary keys for processing: app, comp-test, hello-world, lang-switc
 - **`--no-cache`**: कैश को अक्षम करें।
 
   > उदाहरण: `npx intlayer build --no-cache`
+
+- **`--ci`**: मोनोरेपो के हर Intlayer प्रोजेक्ट में कमांड चलाता है (प्रोजेक्ट डायरेक्टरी से चलाने पर केवल वर्तमान प्रोजेक्ट में)। प्रति-प्रोजेक्ट क्रेडेंशियल `INTLAYER_PROJECT_CREDENTIALS` के माध्यम से इंजेक्ट किए जा सकते हैं, जो प्रोजेक्ट पाथ को `{ "clientId", "clientSecret" }` से मैप करने वाला JSON ऑब्जेक्ट है।
+
+  > उदाहरण: `npx intlayer fill --ci`
 
 **तैयारी विकल्प:**
 

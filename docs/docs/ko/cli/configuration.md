@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: 구성 관리
 description: Intlayer 구성을 CMS에 가져오고 푸시하는 방법을 알아보세요.
 keywords:
@@ -51,6 +51,7 @@ bun x intlayer configuration get
 - **`--base-dir`**: 프로젝트의 기본 디렉토리를 지정합니다.
 - **`--verbose`**: 디버깅을 위한 자세한 로깅을 활성화합니다. (CLI에서 기본값은 true)
 - **`--no-cache`**: 캐시를 비활성화합니다.
+- **`--ci`**: 모노레포의 모든 Intlayer 프로젝트에서 명령어를 실행합니다(프로젝트 디렉터리 안에서 실행하면 해당 프로젝트만). 프로젝트별 자격 증명은 프로젝트 경로를 `{ "clientId", "clientSecret" }`에 매핑하는 JSON 객체인 `INTLAYER_PROJECT_CREDENTIALS`를 통해 주입할 수 있습니다.
 
 ## 구성 푸시
 
@@ -84,5 +85,6 @@ bun x intlayer configuration push
 - **`--base-dir`**: 프로젝트의 기본 디렉토리를 지정합니다.
 - **`--verbose`**: 디버깅을 위해 자세한 로깅을 활성화합니다. (CLI에서 기본값은 true입니다)
 - **`--no-cache`**: 캐시를 비활성화합니다.
+- **`--ci`**: 모노레포의 모든 Intlayer 프로젝트에서 명령어를 실행합니다(프로젝트 디렉터리 안에서 실행하면 해당 프로젝트만). 프로젝트별 자격 증명은 프로젝트 경로를 `{ "clientId", "clientSecret" }`에 매핑하는 JSON 객체인 `INTLAYER_PROJECT_CREDENTIALS`를 통해 주입할 수 있습니다.
 
 구성을 푸시하면 프로젝트가 Intlayer CMS와 완전히 통합되어 팀 간 원활한 사전 관리를 가능하게 합니다.

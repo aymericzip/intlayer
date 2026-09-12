@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: Construire des Dictionnaires
 description: Apprenez à construire vos dictionnaires Intlayer à partir des fichiers de déclaration de contenu.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - cli
   - build
 history:
+  - version: 9.5.2
+    date: 2026-09-12
+    changes: "Ajout du drapeau `--ci`"
   - version: 8.1.5
     date: 2026-02-23
     changes: "Ajouter l'option checkTypes"
@@ -91,6 +94,10 @@ Cette commande trouvera par défaut vos fichiers de déclaration de contenu sous
 - **`--no-cache`** : Désactiver le cache.
 
   > Exemple : `npx intlayer build --no-cache`
+
+- **`--ci`** : Exécute la commande dans chaque projet Intlayer du monorepo (ou uniquement le projet courant si lancée depuis son répertoire). Des identifiants par projet peuvent être injectés via `INTLAYER_PROJECT_CREDENTIALS`, un objet JSON associant chaque chemin de projet à `{ "clientId", "clientSecret" }`.
+
+  > Exemple : `npx intlayer build --ci`
 
 - **`--check-types`**: Vérifie les types des fichiers de déclaration de contenu.
 

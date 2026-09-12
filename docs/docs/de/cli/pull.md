@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: Wörterbücher herunterladen
 description: Erfahren Sie, wie Sie Wörterbücher aus dem Intlayer-Editor und CMS herunterladen.
 keywords:
@@ -65,6 +65,10 @@ Wenn der [Intlayer Editor](https://github.com/aymericzip/intlayer/blob/main/docs
 - **`--no-cache`**: Deaktiviert den Cache.
 
   > Beispiel: `npx intlayer build --no-cache`
+
+- **`--ci`**: Führt den Befehl in jedem Intlayer-Projekt des Monorepos aus (oder nur im aktuellen, wenn er aus einem Projektverzeichnis gestartet wird). Projektspezifische Zugangsdaten können über `INTLAYER_PROJECT_CREDENTIALS` eingefügt werden, ein JSON-Objekt, das jedem Projektpfad `{ "clientId", "clientSecret" }` zuordnet.
+
+  > Beispiel: `npx intlayer pull --ci`
 
 **Umgebungsvariablen-Optionen:**
 

@@ -39,7 +39,6 @@ npm install intlayer-cli
 ### Concepts
 
 - [Build](references/concept_cli_build.md)
-- [CI](references/concept_cli_ci.md)
 - [CLI Overview](https://intlayer.org/doc/concept/cli.md)
 - [Configuration](references/concept_cli_configuration.md)
 - [Debug](references/concept_cli_debug.md)

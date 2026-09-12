@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-03-31
+updatedAt: 2026-09-12
 title: CLI - आपकी बहुभाषी वेबसाइट के लिए सभी Intlayer CLI कमांड
 description: अपनी बहुभाषी वेबसाइट को प्रबंधित करने के लिए Intlayer CLI का उपयोग करने का तरीका जानें। मिनटों में अपना प्रोजेक्ट सेट करने के लिए इस ऑनलाइन दस्तावेज़ीकरण के चरणों का पालन करें।
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 9.5.2
+    date: 2026-09-12
+    changes: "`ci` कमांड को `--ci` फ़्लैग से बदला गया"
   - version: 9.0.0
     date: 2026-06-11
     changes: "scan कमांड जोड़ा गया"
@@ -159,10 +162,6 @@ Intlayer कई कॉन्फ़िगरेशन फ़ाइल प्र�
 
 - **[Editor Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/editor.md)** - Intlayer संपादक कमांड का उपयोग करें
 - **[Live Sync Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/live.md)** - रनटाइम पर CMS से सामग्री परिवर्तनों को लागू करने के लिए लाइव सिंक का उपयोग करें
-
-### CI/CD और स्वचालन
-
-- **[CI Command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/ci.md)** - CI/CD पाइपलाइनों के लिए स्वचालित रूप से इंजेक्ट किए गए क्रेडेंशियल के साथ Intlayer कमांड निष्पादित करें
 
 ### ऑडिटिंग और डायग्नोस्टिक्स
 

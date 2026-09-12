@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: Заповнення словників
 description: Дізнайтеся, як заповнювати, перевіряти та перекладати ваші словники за допомогою AI.
 keywords:
@@ -161,6 +161,10 @@ Affected dictionary keys for processing: app, comp-test, hello-world, lang-switc
 - **`--no-cache`**: Вимкнути кеш.
 
   > Приклад: `npx intlayer build --no-cache`
+
+- **`--ci`**: Виконує команду в кожному проєкті Intlayer монорепозиторію (або лише в поточному при запуску з директорії проєкту). Облікові дані для кожного проєкту можна підставити через `INTLAYER_PROJECT_CREDENTIALS` — JSON-об'єкт, що зіставляє шлях проєкту з `{ "clientId", "clientSecret" }`.
+
+  > Приклад: `npx intlayer fill --ci`
 
 **Опції підготовки:**
 

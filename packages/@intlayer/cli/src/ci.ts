@@ -125,13 +125,28 @@ export const selectProjectsToRun = (
   };
 };
 
+/** Flag that switches any intlayer command to CI mode. */
+export const CI_FLAG = '--ci';
+
+/**
+ * Strips the CI flag from raw CLI arguments so the command can be re-run as is
+ * inside each project without spawning nested CI runs.
+ */
+export const removeCIFlag = (args: string[]): string[] =>
+  args.filter((argument) => argument !== CI_FLAG);
+
 /**
  * Runs an intlayer command in every Intlayer project of the repository (or
  * only in the current one when invoked from inside a project directory),
  * injecting per-project CMS credentials from `INTLAYER_PROJECT_CREDENTIALS`.
- * Exits with code 1 when the command fails in at least one project.
+ * Backs the `--ci` flag accepted by every command.
+ *
+ * @param commands - The intlayer command and its arguments as typed by the
+ * user, e.g. `['fill', '--git-diff', '--ci']`; the CI flag itself is dropped.
+ * @returns The exit code the CLI must terminate with: `1` when the command
+ * failed in at least one project, `0` otherwise.
  */
-export const runCI = async (commands: string[]) => {
+export const runCI = async (commands: string[]): Promise<number> => {
   const credentialsEnv = process.env.INTLAYER_PROJECT_CREDENTIALS;
   let credentials: CredentialsMap = {};
 
@@ -158,7 +173,7 @@ export const runCI = async (commands: string[]) => {
 
   if (normalizedProjectsPath.length === 0) {
     logger('No Intlayer projects found.', { level: 'warn' });
-    return;
+    return 0;
   }
 
   // Determine Context: Single Project vs All Projects
@@ -169,7 +184,7 @@ export const runCI = async (commands: string[]) => {
   );
 
   const { command, args: pmArgs } = getPackageManagerCommand(searchDir);
-  const finalArgs = [...pmArgs, ...commands];
+  const finalArgs = [...pmArgs, ...removeCIFlag(commands)];
 
   logger(`CI: Using package manager: ${command}`, {
     level: 'info',
@@ -246,6 +261,8 @@ export const runCI = async (commands: string[]) => {
         .join('\n')}`,
       { level: 'error' }
     );
-    process.exit(1);
+    return 1;
   }
+
+  return 0;
 };

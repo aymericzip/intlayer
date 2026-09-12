@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-11
-updatedAt: 2026-06-11
+updatedAt: 2026-09-12
 title: Scanner le site web
 description: Apprenez à utiliser la commande scan du CLI Intlayer pour mesurer la taille de la page et auditer la santé i18n/SEO de n'importe quel site web.
 keywords:
@@ -18,6 +18,9 @@ slugs:
   - cli
   - scan
 history:
+  - version: 9.5.2
+    date: 2026-09-12
+    changes: "Ajout du drapeau `--ci`"
   - version: 9.0.0
     date: 2026-06-11
     changes: "Ajout de la commande scan"
@@ -112,6 +115,7 @@ Affiche le résultat complet du scan sous forme d'objet JSON au lieu d'un rappor
 - **`-e, --env`** — Environnement cible (par exemple, `development`, `production`).
 - **`--env-file`** — Chemin vers un fichier `.env` personnalisé.
 - **`--no-cache`** — Désactiver le cache de configuration.
+- **`--ci`** — Exécute la commande dans chaque projet Intlayer du monorepo (ou uniquement le projet courant si lancée depuis son répertoire). Des identifiants par projet peuvent être injectés via `INTLAYER_PROJECT_CREDENTIALS`, un objet JSON associant chaque chemin de projet à `{ "clientId", "clientSecret" }`.
 - **`--verbose`** — Activer le journal détaillé (par défaut en mode CLI).
 - **`--prefix`** — Préfixe de journal personnalisé.
 

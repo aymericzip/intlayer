@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-06-17
+updatedAt: 2026-09-12
 title: Review Document
 description: Learn how to review documentation files for quality, consistency, and completeness across different locales.
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - cli
   - doc-review
 history:
+  - version: 9.5.2
+    date: 2026-09-12
+    changes: "Add `--ci` flag"
   - version: 9.0.0
     date: 2026-08-06
     changes: "Replace --log by --mode and log a synthesis at the end of the run"
@@ -140,6 +143,10 @@ Whatever the mode, the run ends with a synthesis listing the documents that are 
 - **`--no-cache`**: Disable the cache.
 
   > Example: `npx intlayer doc review --base-dir ./docs --env-file .env.production.local`
+
+- **`--ci`**: Run the command in every Intlayer project of the monorepo (or only the current one when run from a project directory). Per-project credentials can be injected via `INTLAYER_PROJECT_CREDENTIALS`, a JSON map of project path to `{ "clientId", "clientSecret" }`.
+
+  > Example: `npx intlayer doc review --ci`
 
 **Log options:**
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: शब्दकोश पुश करें
 description: जानें कि अपने शब्दकोशों को Intlayer संपादक और CMS में कैसे पुश करें।
 keywords:
@@ -65,6 +65,10 @@ bun x intlayer dictionary push
 - **`--no-cache`**: कैश को अक्षम करें।
 
   > उदाहरण: `npx intlayer build --no-cache`
+
+- **`--ci`**: मोनोरेपो के हर Intlayer प्रोजेक्ट में कमांड चलाता है (प्रोजेक्ट डायरेक्टरी से चलाने पर केवल वर्तमान प्रोजेक्ट में)। प्रति-प्रोजेक्ट क्रेडेंशियल `INTLAYER_PROJECT_CREDENTIALS` के माध्यम से इंजेक्ट किए जा सकते हैं, जो प्रोजेक्ट पाथ को `{ "clientId", "clientSecret" }` से मैप करने वाला JSON ऑब्जेक्ट है।
+
+  > उदाहरण: `npx intlayer push --ci`
 
 **पर्यावरण चर विकल्प:**
 

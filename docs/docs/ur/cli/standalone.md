@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-03-31
+updatedAt: 2026-09-12
 title: اسٹینڈ اکیلے بنڈل (Standalone Bundle)
 description: سیکھیں کہ ایپ کے مواد کے لیے اسٹینڈ اکیلے JavaScript بنڈل کیسے تیار کیا جائے۔
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - cli
   - standalone
 history:
+  - version: 9.5.2
+    date: 2026-09-12
+    changes: "`--ci` فلیگ شامل کیا گیا"
   - version: 8.6.4
     date: 2026-03-31
     changes: "اسٹینڈ اکیلے کمانڈ کی دستاویزات کا آغاز"
@@ -61,6 +64,7 @@ bun x intlayer standalone --packages [پیکیجز...] [اختیارات]
 - `-e, --env [env]` - ماحول۔
 - `--base-dir [baseDir]` - بیس ڈائریکٹری۔
 - `--no-cache` - کیشے کو غیر فعال کریں۔
+- `--ci` - monorepo کے ہر Intlayer پروجیکٹ میں کمانڈ چلاتا ہے (پروجیکٹ ڈائریکٹری سے چلانے پر صرف موجودہ پروجیکٹ میں)۔ ہر پروجیکٹ کی اسناد `INTLAYER_PROJECT_CREDENTIALS` کے ذریعے شامل کی جا سکتی ہیں، جو پروجیکٹ پاتھ کو `{ "clientId", "clientSecret" }` سے نقشہ کرنے والا ایک JSON آبجیکٹ ہے۔
 - `--verbose` - تفصیلی آؤٹ پٹ دکھائیں۔
 
 ## مثالیں:

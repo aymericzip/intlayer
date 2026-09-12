@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-03-31
+updatedAt: 2026-09-12
 title: CLI - جميع أوامر Intlayer CLI لموقعك متعدد اللغات
 description: اكتشف كيفية استخدام Intlayer CLI لإدارة موقعك متعدد اللغات. اتبع الخطوات الواردة في هذه الوثائق عبر الإنترنت لإعداد مشروعك في دقائق معدودة.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 9.5.2
+    date: 2026-09-12
+    changes: "استبدال الأمر `ci` بالعلامة `--ci`"
   - version: 9.0.0
     date: 2026-06-11
     changes: "إضافة أمر scan"
@@ -159,10 +162,6 @@ bun add intlayer-cli -g
 
 - **[Editor Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/editor.md)** - استخدام أوامر محرر Intlayer
 - **[Live Sync Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/live.md)** - استخدام المزامنة المباشرة لتطبيق تغييرات المحتوى من CMS في وقت التشغيل
-
-### CI/CD والأتمتة
-
-- **[CI Command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/ci.md)** - تنفيذ أوامر Intlayer ببيانات اعتماد محقونة تلقائيًا لخطوط أنابيب CI/CD
 
 ### التدقيق والتشخيص
 

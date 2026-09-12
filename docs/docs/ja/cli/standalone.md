@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-03-31
+updatedAt: 2026-09-12
 title: スタンドアロンバンドル
 description: アプリケーションコンテンツのスタンドアロンJavaScriptバンドルを作成する方法。
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - cli
   - standalone
 history:
+  - version: 9.5.2
+    date: 2026-09-12
+    changes: "`--ci` フラグを追加"
   - version: 8.6.4
     date: 2026-03-31
     changes: "スタンドアロンコマンドのドキュメントの初期化"
@@ -61,6 +64,7 @@ bun x intlayer standalone --packages [パッケージ名...] [オプション]
 - `-e, --env [env]` - 環境。
 - `--base-dir [baseDir]` - ベースディレクトリ。
 - `--no-cache` - キャッシュを無効化。
+- `--ci` - モノレポ内のすべての Intlayer プロジェクトでコマンドを実行します（プロジェクトディレクトリ内から実行した場合はそのプロジェクトのみ）。プロジェクトごとの資格情報は、プロジェクトパスを `{ "clientId", "clientSecret" }` に対応付ける JSON オブジェクト `INTLAYER_PROJECT_CREDENTIALS` から挿入できます。
 - `--verbose` - 詳細な出力。
 
 ## 例：

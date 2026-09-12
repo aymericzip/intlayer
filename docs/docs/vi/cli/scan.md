@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-11
-updatedAt: 2026-06-11
+updatedAt: 2026-09-12
 title: Quét trang web
 description: Tìm hiểu cách sử dụng lệnh scan của Intlayer CLI để đo lường kích thước trang và kiểm toán sức khỏe i18n/SEO của bất kỳ trang web nào.
 keywords:
@@ -18,6 +18,9 @@ slugs:
   - cli
   - scan
 history:
+  - version: 9.5.2
+    date: 2026-09-12
+    changes: "Thêm cờ `--ci`"
   - version: 9.0.0
     date: 2026-06-11
     changes: "Thêm nội dung lệnh scan"
@@ -112,6 +115,7 @@ Xuất toàn bộ kết quả quét dưới dạng đối tượng JSON thay vì
 - **`-e, --env`** — Môi trường đích (ví dụ: `development`, `production`).
 - **`--env-file`** — Đường dẫn đến tệp `.env` tùy chỉnh.
 - **`--no-cache`** — Tắt bộ nhớ đệm cấu hình.
+- **`--ci`** — Chạy lệnh trong mọi dự án Intlayer của monorepo (hoặc chỉ dự án hiện tại khi chạy từ thư mục dự án). Thông tin xác thực theo từng dự án có thể được đưa vào qua `INTLAYER_PROJECT_CREDENTIALS`, một đối tượng JSON ánh xạ đường dẫn dự án tới `{ "clientId", "clientSecret" }`.
 - **`--verbose`** — Bật ghi nhật ký chi tiết (mặc định trong chế độ CLI).
 - **`--prefix`** — Tiền tố nhật ký tùy chỉnh.
 

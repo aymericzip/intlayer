@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: Заполнение словарей
 description: Узнайте, как заполнять, проверять и переводить ваши словари с помощью ИИ.
 keywords:
@@ -161,6 +161,10 @@ Affected dictionary keys for processing: app, comp-test, hello-world, lang-switc
 - **`--no-cache`**: Отключить кэш.
 
   > Пример: `npx intlayer build --no-cache`
+
+- **`--ci`**: Выполняет команду в каждом проекте Intlayer монорепозитория (или только в текущем при запуске из директории проекта). Учетные данные для каждого проекта можно подставить через `INTLAYER_PROJECT_CREDENTIALS` — JSON-объект, сопоставляющий путь проекта с `{ "clientId", "clientSecret" }`.
+
+  > Пример: `npx intlayer fill --ci`
 
 **Опции подготовки:**
 

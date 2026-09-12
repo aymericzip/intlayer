@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: Gestire la Configurazione
 description: Scopri come ottenere e inviare la tua configurazione Intlayer al CMS.
 keywords:
@@ -51,6 +51,7 @@ bun x intlayer configuration get
 - **`--base-dir`**: Specifica la directory base per il progetto.
 - **`--verbose`**: Abilita il logging dettagliato per il debug. (impostato di default su true tramite CLI)
 - **`--no-cache`**: Disabilita la cache.
+- **`--ci`**: Esegue il comando in ogni progetto Intlayer del monorepo (o solo in quello corrente se lanciato da una directory di progetto). Le credenziali per progetto possono essere iniettate tramite `INTLAYER_PROJECT_CREDENTIALS`, un oggetto JSON che associa ogni percorso di progetto a `{ "clientId", "clientSecret" }`.
 
 ## Inviare la Configurazione
 
@@ -84,5 +85,6 @@ bun x intlayer configuration push
 - **`--base-dir`**: Specifica la directory base per il progetto.
 - **`--verbose`**: Abilita il logging dettagliato per il debug. (impostato di default su true tramite CLI)
 - **`--no-cache`**: Disabilita la cache.
+- **`--ci`**: Esegue il comando in ogni progetto Intlayer del monorepo (o solo in quello corrente se lanciato da una directory di progetto). Le credenziali per progetto possono essere iniettate tramite `INTLAYER_PROJECT_CREDENTIALS`, un oggetto JSON che associa ogni percorso di progetto a `{ "clientId", "clientSecret" }`.
 
 Spingendo la configurazione, il tuo progetto è completamente integrato con il CMS di Intlayer, permettendo una gestione fluida dei dizionari tra i team.

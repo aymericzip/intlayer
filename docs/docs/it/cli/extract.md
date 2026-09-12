@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: Estrai stringhe
 description: Scopri come estrarre le stringhe dai tuoi componenti in un file .content vicino al componente.
 keywords:
@@ -69,6 +69,7 @@ Questo comando analizza i tuoi file di codice per estrarre le stringhe dai compo
 - **`--env`**: Specifica l'ambiente.
 - **`--env-file`**: Specifica un file di ambiente personalizzato.
 - **`--verbose`**: Abilita il logging dettagliato.
+- **`--ci`**: Esegue il comando in ogni progetto Intlayer del monorepo (o solo in quello corrente se lanciato da una directory di progetto). Le credenziali per progetto possono essere iniettate tramite `INTLAYER_PROJECT_CREDENTIALS`, un oggetto JSON che associa ogni percorso di progetto a `{ "clientId", "clientSecret" }`.
 
 **Plugin richiesti:**
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-12-16
-updatedAt: 2025-12-16
+updatedAt: 2026-09-12
 title: CLI - 登录
 description: 了解如何使用 Intlayer CLI 的 login 命令与 Intlayer CMS 进行身份验证并获取访问凭证。
 keywords:
@@ -142,7 +142,7 @@ Intlayer 强制执行此操作，而不仅仅是记录它：
 
 注释掉 `clientId` 足以禁用每个需要凭证的行为——远程字典获取、CMS 访问、分析——即使环境变量仍然已定义。
 
-对于 CI 管道，推荐使用 [`ci` 命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/ci.md)，它在单次运行期间注入凭证，而不是持久化它们。
+对于 CI 管道，推荐使用 `--ci` 标志，它在单次运行期间注入凭证，而不是持久化它们。
 
 ## 手动配置
 

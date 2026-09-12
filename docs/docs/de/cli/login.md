@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-12-16
-updatedAt: 2025-12-16
+updatedAt: 2026-09-12
 title: CLI - Anmeldung
 description: Erfahren Sie, wie Sie den Intlayer-CLI-Befehl login verwenden, um sich beim Intlayer CMS zu authentifizieren und Zugangsdaten zu erhalten.
 keywords:
@@ -142,7 +142,7 @@ Intlayer erzwingt dies, anstatt es nur zu dokumentieren:
 
 Das Auskommentieren von `clientId` reicht aus, um jedes authentifizierte Verhalten zu deaktivieren — Remote-Wörterbuchabruf, CMS-Zugriff, Analytics — auch wenn die Umgebungsvariablen noch definiert sind.
 
-Für CI-Pipelines bevorzugen Sie den [`ci` Befehl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/ci.md), der die Anmeldedaten für die Dauer eines einzelnen Laufs injiziert, anstatt sie dauerhaft zu speichern.
+Für CI-Pipelines bevorzugen Sie das `--ci` Flag, das die Anmeldedaten für die Dauer eines einzelnen Laufs injiziert, anstatt sie dauerhaft zu speichern.
 
 ## Manuelle Konfiguration
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: 监视字典
 description: 学习如何监视内容声明文件的更改并自动构建字典。
 keywords:
@@ -48,3 +48,7 @@ bun x intlayer watch
 - **`--with`**：与监视命令并行启动其他命令。
 
 > 示例：`npx intlayer watch --with "next dev --turbopack"`
+
+- **`--ci`**：在 monorepo 的每个 Intlayer 项目中执行该命令（在项目目录内运行时仅处理当前项目）。可通过 `INTLAYER_PROJECT_CREDENTIALS`（将项目路径映射到 `{ "clientId", "clientSecret" }` 的 JSON 对象）为每个项目注入凭据。
+
+> 示例：`npx intlayer watch --ci`

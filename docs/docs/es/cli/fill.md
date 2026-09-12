@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: Rellenar Diccionarios
 description: Aprende cómo rellenar, auditar y traducir tus diccionarios usando IA.
 keywords:
@@ -161,6 +161,10 @@ Affected dictionary keys for processing: app, comp-test, hello-world, lang-switc
 - **`--no-cache`**: Deshabilita la caché.
 
   > Ejemplo: `npx intlayer build --no-cache`
+
+- **`--ci`**: Ejecuta el comando en cada proyecto Intlayer del monorepo (o solo en el actual si se ejecuta desde un directorio de proyecto). Se pueden inyectar credenciales por proyecto mediante `INTLAYER_PROJECT_CREDENTIALS`, un objeto JSON que asocia cada ruta de proyecto a `{ "clientId", "clientSecret" }`.
+
+  > Ejemplo: `npx intlayer fill --ci`
 
 **Opciones de preparación:**
 

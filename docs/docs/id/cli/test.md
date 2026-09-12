@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: Uji Terjemahan yang Hilang
 description: Pelajari cara menguji dan mengidentifikasi terjemahan yang hilang dalam kamus Anda.
 keywords:
@@ -69,6 +69,10 @@ Total missing required locales: 0
 - **`--no-cache`**: Nonaktifkan cache.
 
   > Contoh: `npx intlayer build --no-cache`
+
+- **`--ci`**: Menjalankan perintah di setiap proyek Intlayer dalam monorepo (atau hanya proyek saat ini jika dijalankan dari direktori proyek). Kredensial per proyek dapat disuntikkan melalui `INTLAYER_PROJECT_CREDENTIALS`, sebuah objek JSON yang memetakan path proyek ke `{ "clientId", "clientSecret" }`.
+
+  > Contoh: `npx intlayer test --ci`
 
 **Opsi persiapan:**
 

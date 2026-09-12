@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: Osservare i Dizionari
 description: Scopri come osservare le modifiche nei tuoi file di dichiarazione dei contenuti e costruire automaticamente i dizionari.
 keywords:
@@ -48,3 +48,7 @@ Questo comando è l'equivalente di `npx intlayer build --watch --skip-prepare`.
 - **`--with`**: Avvia un comando in parallelo con l'osservazione.
 
   > Esempio: `npx intlayer watch --with "next dev --turbopack"`
+
+- **`--ci`**: Esegue il comando in ogni progetto Intlayer del monorepo (o solo in quello corrente se lanciato da una directory di progetto). Le credenziali per progetto possono essere iniettate tramite `INTLAYER_PROJECT_CREDENTIALS`, un oggetto JSON che associa ogni percorso di progetto a `{ "clientId", "clientSecret" }`.
+
+  > Esempio: `npx intlayer watch --ci`

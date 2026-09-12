@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-12-16
-updatedAt: 2025-12-16
+updatedAt: 2026-09-12
 title: "CLI - लॉगिन"
 description: "Intlayer CLI के `login` कमांड का उपयोग करके Intlayer CMS के साथ प्रमाणीकृत होने और एक्सेस क्रेडेंशियल प्राप्त करने का तरीका जानें।"
 keywords:
@@ -142,7 +142,7 @@ Intlayer इसे केवल दस्तावेज़ित करने �
 
 `clientId` को comment out करना हर प्रमाणित behavior को disable करने के लिए पर्याप्त है — remote dictionary fetching, CMS access, analytics — भले ही environment variables अभी भी परिभाषित हों।
 
-CI pipelines के लिए, [`ci` command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/ci.md) को प्राथमिकता दें, जो एकल run की अवधि के लिए credentials को inject करता है उन्हें persist करने के बजाय।
+CI pipelines के लिए, `--ci` फ़्लैग को प्राथमिकता दें, जो एकल run की अवधि के लिए credentials को inject करता है उन्हें persist करने के बजाय।
 
 ## मैनुअल कॉन्फ़िगरेशन
 

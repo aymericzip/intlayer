@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-12-16
-updatedAt: 2025-12-16
+updatedAt: 2026-09-12
 title: CLI - Inicio de sesión
 description: Aprende a usar el comando login del CLI de Intlayer para autenticarte con el CMS de Intlayer y obtener credenciales de acceso.
 keywords:
@@ -142,7 +142,7 @@ Intlayer lo impone en lugar de solo documentarlo:
 
 Comentar `clientId` es suficiente para desactivar cada comportamiento autenticado — obtención remota de diccionarios, acceso a CMS, análisis — incluso cuando las variables de entorno aún están definidas.
 
-Para pipelines de CI, prefiere el [`comando ci`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/ci.md), que inyecta las credenciales durante la duración de una única ejecución en lugar de persistirlas.
+Para pipelines de CI, prefiere el flag `--ci`, que inyecta las credenciales durante la duración de una única ejecución en lugar de persistirlas.
 
 ## Configuración manual
 

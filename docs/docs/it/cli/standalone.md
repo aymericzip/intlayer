@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-03-31
+updatedAt: 2026-09-12
 title: Bundle Standalone
 description: Impara come creare un bundle JavaScript standalone del contenuto dell'applicazione.
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - cli
   - standalone
 history:
+  - version: 9.5.2
+    date: 2026-09-12
+    changes: "Aggiunto il flag `--ci`"
   - version: 8.6.4
     date: 2026-03-31
     changes: "Inizializzazione della documentazione del comando standalone"
@@ -61,6 +64,7 @@ bun x intlayer standalone --packages [pacchetti...] [opzioni]
 - `-e, --env [env]` - Ambiente.
 - `--base-dir [baseDir]` - Directory di base.
 - `--no-cache` - Disabilita cache.
+- `--ci` - Esegue il comando in ogni progetto Intlayer del monorepo (o solo in quello corrente se lanciato da una directory di progetto). Le credenziali per progetto possono essere iniettate tramite `INTLAYER_PROJECT_CREDENTIALS`, un oggetto JSON che associa ogni percorso di progetto a `{ "clientId", "clientSecret" }`.
 - `--verbose` - Output dettagliato.
 
 ## Esempi:

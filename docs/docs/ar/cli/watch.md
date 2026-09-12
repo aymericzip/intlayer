@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: مراقبة القواميس
 description: تعلّم كيفية مراقبة التغييرات في ملفات إعلان المحتوى الخاصة بك وبناء القواميس تلقائيًا.
 keywords:
@@ -48,3 +48,7 @@ bun x intlayer watch
 - **`--with`**: بدء أمر بالتوازي مع المراقبة.
 
 > مثال: `npx intlayer watch --with "next dev --turbopack"`
+
+- **`--ci`**: ينفّذ الأمر في كل مشروع Intlayer في الـ monorepo (أو في المشروع الحالي فقط عند التشغيل من مجلد مشروع). يمكن حقن بيانات اعتماد لكل مشروع عبر `INTLAYER_PROJECT_CREDENTIALS`، وهو كائن JSON يربط مسار كل مشروع بـ `{ "clientId", "clientSecret" }`.
+
+> مثال: `npx intlayer watch --ci`

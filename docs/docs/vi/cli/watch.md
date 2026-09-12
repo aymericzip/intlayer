@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: Theo dõi Từ điển
 description: Tìm hiểu cách theo dõi các thay đổi trong các tệp khai báo nội dung của bạn và tự động xây dựng từ điển.
 keywords:
@@ -48,3 +48,7 @@ Lệnh này tương đương với `npx intlayer build --watch --skip-prepare`.
 - **`--with`**: Khởi chạy lệnh song song với việc theo dõi.
 
 > Ví dụ: `npx intlayer watch --with "next dev --turbopack"`
+
+- **`--ci`**: Chạy lệnh trong mọi dự án Intlayer của monorepo (hoặc chỉ dự án hiện tại khi chạy từ thư mục dự án). Thông tin xác thực theo từng dự án có thể được đưa vào qua `INTLAYER_PROJECT_CREDENTIALS`, một đối tượng JSON ánh xạ đường dẫn dự án tới `{ "clientId", "clientSecret" }`.
+
+> Ví dụ: `npx intlayer watch --ci`

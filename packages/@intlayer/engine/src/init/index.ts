@@ -501,10 +501,10 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
   // Generate two workflows whose commands match the detected package manager:
   // - intlayer-fill.yml: auto-fills missing translations on pull requests
   // - intlayer-test.yml: fails the PR when required locales are missing
-  // GitHub only triggers workflows stored at the repository root, so in a
-  // monorepo the files are written to the git root and the commands go through
-  // `intlayer ci`, which iterates over every Intlayer project of the
-  // repository (see resolveGithubWorkflowsContext).
+  // Every command runs with `--ci`, which iterates over the Intlayer
+  // project(s) of the repository. GitHub only triggers workflows stored at the
+  // repository root, so in a monorepo the files are written to the git root
+  // (see resolveGithubWorkflowsContext).
   if (!options?.noGithubActions) {
     const workflowsContext = await resolveGithubWorkflowsContext(
       rootDir,

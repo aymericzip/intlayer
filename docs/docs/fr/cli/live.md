@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: Commandes Live Sync
 description: Apprenez à utiliser Live Sync pour refléter les modifications de contenu CMS en temps réel.
 keywords:
@@ -36,6 +36,10 @@ Live Sync permet à votre application de refléter les modifications de contenu 
 - **`--no-cache`** : Désactive le cache.
 
   > Exemple : `npx intlayer dictionary push --env-file .env.production.local`
+
+- **`--ci`** : Exécute la commande dans chaque projet Intlayer du monorepo (ou uniquement le projet courant si lancée depuis son répertoire). Des identifiants par projet peuvent être injectés via `INTLAYER_PROJECT_CREDENTIALS`, un objet JSON associant chaque chemin de projet à `{ "clientId", "clientSecret" }`.
+
+  > Exemple : `npx intlayer live --ci`
 
 **Options de journalisation :**
 

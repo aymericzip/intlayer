@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: Puxar Dicionários
 description: Aprenda como puxar dicionários do editor Intlayer e CMS.
 keywords:
@@ -65,6 +65,10 @@ Se o [editor intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/doc
 - **`--no-cache`**: Desabilita o cache.
 
   > Exemplo: `npx intlayer build --no-cache`
+
+- **`--ci`**: Executa o comando em cada projeto Intlayer do monorepo (ou apenas no atual quando executado de dentro de um diretório de projeto). Credenciais por projeto podem ser injetadas via `INTLAYER_PROJECT_CREDENTIALS`, um objeto JSON que associa cada caminho de projeto a `{ "clientId", "clientSecret" }`.
+
+  > Exemplo: `npx intlayer pull --ci`
 
 **Opções de variáveis de ambiente:**
 

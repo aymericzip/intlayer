@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-03-31
+updatedAt: 2026-09-12
 title: Bağımsız Paket (Standalone Bundle)
 description: Uygulama içeriğinin bağımsız bir JavaScript paketini nasıl oluşturacağınızı öğrenin.
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - cli
   - standalone
 history:
+  - version: 9.5.2
+    date: 2026-09-12
+    changes: "`--ci` bayrağı eklendi"
   - version: 8.6.4
     date: 2026-03-31
     changes: "Standalone komut dokümantasyonu başlatıldı"
@@ -61,6 +64,7 @@ bun x intlayer standalone --packages [paketler...] [seçenekler]
 - `-e, --env [env]` - Ortam.
 - `--base-dir [baseDir]` - Temel dizin.
 - `--no-cache` - Önbelleği devre dışı bırak.
+- `--ci` - Komutu monorepo'nun her Intlayer projesinde çalıştırır (bir proje dizininden çalıştırıldığında yalnızca mevcut projede). Proje başına kimlik bilgileri, proje yolunu `{ "clientId", "clientSecret" }` ile eşleyen bir JSON nesnesi olan `INTLAYER_PROJECT_CREDENTIALS` aracılığıyla eklenebilir.
 - `--verbose` - Ayrıntılı çıktı.
 
 ## Örnekler:

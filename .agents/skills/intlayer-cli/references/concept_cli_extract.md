@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: Extract strings
 description: Learn how to extract strings from your components into a .content file close to the component.
 keywords:
@@ -56,6 +56,7 @@ This command analyzes your code files to extract strings from components into a 
 - **`--env`**: Specify the environment.
 - **`--env-file`**: Provide a custom environment file.
 - **`--verbose`**: Enable verbose logging.
+- **`--ci`**: Run the command in every Intlayer project of the monorepo (or only the current one when run from a project directory). Per-project credentials can be injected via `INTLAYER_PROJECT_CREDENTIALS`, a JSON map of project path to `{ "clientId", "clientSecret" }`.
 
 **Required plugins:**
 

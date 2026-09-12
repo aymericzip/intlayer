@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-06-17
+updatedAt: 2026-09-12
 title: 审核文档
 description: 学习如何审核不同语言版本的文档文件，以确保质量、一致性和完整性。
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - cli
   - doc-review
 history:
+  - version: 9.5.2
+    date: 2026-09-12
+    changes: "添加 `--ci` 标志"
   - version: 9.0.0
     date: 2026-06-17
     changes: "添加 --log 选项"
@@ -135,6 +138,10 @@ bun x intlayer doc review
 - **`--no-cache`**：禁用缓存。
 
   > 示例: `npx intlayer doc review --base-dir ./docs --env-file .env.production.local`
+
+- **`--ci`**：在 monorepo 的每个 Intlayer 项目中执行该命令（在项目目录内运行时仅处理当前项目）。可通过 `INTLAYER_PROJECT_CREDENTIALS`（将项目路径映射到 `{ "clientId", "clientSecret" }` 的 JSON 对象）为每个项目注入凭据。
+
+  > 示例: `npx intlayer doc review --ci`
 
 **日志选项:**
 

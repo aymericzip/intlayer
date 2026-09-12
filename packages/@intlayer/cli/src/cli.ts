@@ -1,7 +1,7 @@
 import { dirname as pathDirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import type { AIOptions as BaseAIOptions } from '@intlayer/api';
-import { setPrefix } from '@intlayer/config/logger';
+import { logger, setPrefix } from '@intlayer/config/logger';
 import {
   type GetConfigurationOptions,
   getConfiguration,
@@ -30,12 +30,20 @@ const logOptions = [
   ['--prefix [prefix]', 'Prefix'],
 ];
 
+const ciOptions = [
+  [
+    '--ci',
+    'CI mode - Run the command in every Intlayer project of the repository (or only the current one), injecting per-project credentials from INTLAYER_PROJECT_CREDENTIALS',
+  ],
+];
+
 const configurationOptions = [
   ['--env-file [envFile]', 'Environment file'],
   ['-e, --env [env]', 'Environment'],
   ['--base-dir [baseDir]', 'Base directory'],
   ['--no-cache [noCache]', 'No cache'],
   ...logOptions,
+  ...ciOptions,
 ];
 
 const aiOptions = [
@@ -1055,21 +1063,34 @@ export const setAPI = (): Command => {
   /**
    * CI / AUTOMATION
    *
-   * Used to iterate over all projects in a monorepo, and help to parse secrets
+   * `--ci` is accepted by every command. It re-runs the same command (flag
+   * stripped) in every Intlayer project of the repository, injecting
+   * per-project credentials from INTLAYER_PROJECT_CREDENTIALS. Handled once at
+   * the program level so no action needs to know about it: the process exits
+   * with the aggregated status once every project has run.
+   */
+  program.hook('preAction', async (_program, actionCommand) => {
+    if (!actionCommand.opts().ci) return;
+
+    const { runCI } = await import('./ci');
+    process.exit(await runCI(process.argv.slice(2)));
+  });
+
+  /**
+   * @deprecated `intlayer ci <command...>` is replaced by `intlayer <command> --ci`.
+   * Kept hidden so workflows scaffolded by older versions keep working.
    */
   program
-    .command('ci')
-    .description(
-      'Run Intlayer commands with auto-injected credentials from INTLAYER_PROJECT_CREDENTIALS. Detects current project or iterates over all projects.'
-    )
-    .argument(
-      '<command...>',
-      'The intlayer command to execute (e.g., "fill", "push")'
-    )
-    .allowUnknownOption() // Allows passing flags like --verbose to the subcommand
+    .command('ci', { hidden: true })
+    .argument('<command...>', 'The intlayer command to execute')
+    .allowUnknownOption() // Forward flags like --verbose to the subcommand
     .action(async (args: string[]) => {
+      logger(
+        '`intlayer ci <command>` is deprecated, use `intlayer <command> --ci` instead.',
+        { level: 'warn' }
+      );
       const { runCI } = await import('./ci');
-      await runCI(args);
+      process.exit(await runCI(args));
     });
 
   // Every command must be registered before parsing: commander dispatches

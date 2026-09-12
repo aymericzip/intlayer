@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: दस्तावेज़ अनुवाद करें
 description: AI अनुवाद सेवाओं का उपयोग करके दस्तावेज़ फ़ाइलों को स्वचालित रूप से अनुवाद करना सीखें।
 keywords:
@@ -112,6 +112,10 @@ bun x intlayer doc translate
 - **`--no-cache`**: कैश को अक्षम करें।
 
   > उदाहरण: `npx intlayer doc translate --base-dir ./docs --env-file .env.production.local`
+
+- **`--ci`**: मोनोरेपो के हर Intlayer प्रोजेक्ट में कमांड चलाता है (प्रोजेक्ट डायरेक्टरी से चलाने पर केवल वर्तमान प्रोजेक्ट में)। प्रति-प्रोजेक्ट क्रेडेंशियल `INTLAYER_PROJECT_CREDENTIALS` के माध्यम से इंजेक्ट किए जा सकते हैं, जो प्रोजेक्ट पाथ को `{ "clientId", "clientSecret" }` से मैप करने वाला JSON ऑब्जेक्ट है।
+
+  > उदाहरण: `npx intlayer doc translate --ci`
 
 **लॉग विकल्प:**
 

@@ -14,14 +14,13 @@ export type GithubWorkflowFile = {
 /** Options controlling how the CI workflows are generated. */
 export type GithubWorkflowsOptions = {
   /**
-   * Route the intlayer commands through `intlayer ci` instead of calling them
-   * directly. The `ci` command discovers every Intlayer project of the
-   * repository (via `listProjects`) and runs the given command inside each of
-   * them, injecting per-project credentials from the
-   * `INTLAYER_PROJECT_CREDENTIALS` secret when provided. Required for
-   * monorepos where a single workflow must cover several projects.
+   * The repository hosts several Intlayer projects. Every scaffolded command
+   * always carries `--ci` (the CLI discovers each Intlayer project of the
+   * repository and runs the command inside it), so this only adds the
+   * `INTLAYER_PROJECT_CREDENTIALS` hint to the workflow env: a JSON map of
+   * project path to CMS access keys injected per project by the CLI.
    */
-  useCiCommand?: boolean;
+  isMonorepo?: boolean;
   /**
    * Repository-relative directory (posix separators) the workflow commands run
    * in. Set when the Intlayer project lives in a subdirectory of the
@@ -75,13 +74,12 @@ const hasWorkspaceManifest = (repositoryRootDir: string): boolean => {
  *
  * - Project at the repository root: workflows are written in place. When the
  *   repository is a monorepo (workspace manifest, or several Intlayer projects
- *   discovered by `listProjects`), the commands go through `intlayer ci` so
- *   every project is covered.
+ *   discovered by `listProjects`), the per-project credentials hint is added.
  * - Project nested in a repository whose root has a `package.json`
  *   (workspace-managed monorepo): workflows are written at the git root —
  *   GitHub ignores `.github/workflows` in subdirectories — dependencies are
- *   installed at the root with the root's package manager, and the commands go
- *   through `intlayer ci` to iterate every Intlayer project.
+ *   installed at the root with the root's package manager, and the per-project
+ *   credentials hint is added.
  * - Project nested in a repository without a root `package.json`: workflows
  *   are written at the git root but run inside the project directory
  *   (`working-directory`), keeping the project's own package manager.
@@ -125,7 +123,7 @@ export const resolveGithubWorkflowsContext = async (
       workflowsRootDir: projectRootDir,
       packageManager: projectPackageManager,
       options: {
-        useCiCommand: isWorkspaceRepository || repositoryProjectCount > 1,
+        isMonorepo: isWorkspaceRepository || repositoryProjectCount > 1,
       },
     };
   }
@@ -134,7 +132,7 @@ export const resolveGithubWorkflowsContext = async (
     return {
       workflowsRootDir: repositoryRootDir,
       packageManager: detectPackageManager(repositoryRootDir),
-      options: { useCiCommand: true },
+      options: { isMonorepo: true },
     };
   }
 
@@ -242,13 +240,13 @@ const getWorkingDirectoryBlock = (workingDirectory?: string): string =>
     : '';
 
 /**
- * Renders the env comment + optional wiring for per-project credentials in
- * monorepo (`intlayer ci`) mode. The `ci` command matches each entry of the
+ * Renders the env comment + optional wiring for per-project credentials in a
+ * monorepo. With `--ci`, the CLI matches each entry of the
  * `INTLAYER_PROJECT_CREDENTIALS` JSON map to a discovered project path and
  * injects its access keys before running the command in that project.
  */
-const getMonorepoCredentialsBlock = (useCiCommand?: boolean): string =>
-  useCiCommand
+const getMonorepoCredentialsBlock = (isMonorepo?: boolean): string =>
+  isMonorepo
     ? `
       #
       # Monorepo — per-project CMS credentials, as a JSON map of project path
@@ -262,6 +260,10 @@ const getMonorepoCredentialsBlock = (useCiCommand?: boolean): string =>
  * missing translations for the changed dictionaries (`--git-diff`) using AI,
  * then commits the result back to the PR branch.
  *
+ * Every intlayer command carries `--ci`: the CLI discovers the Intlayer
+ * project(s) of the repository and runs the command inside each of them, so
+ * the same workflow works for a single project and for a monorepo.
+ *
  * AI access is required for `fill`. The workflow exposes both options:
  * - a provider API key (`AI_API_KEY` secret), forwarded via CLI flags, or
  * - Intlayer CMS access keys (`INTLAYER_CLIENT_ID` / `INTLAYER_CLIENT_SECRET`).
@@ -274,12 +276,6 @@ const generateFillWorkflow = (
     packageManager,
     options.workingDirectory
   );
-
-  // In monorepo mode `intlayer ci <command>` discovers every Intlayer project
-  // of the repository and runs the command inside each of them.
-  const intlayerCommand = options.useCiCommand
-    ? `${execCommand} ci`
-    : execCommand;
 
   return `name: Intlayer Fill
 # Auto-fill missing translations on every pull request.
@@ -311,7 +307,7 @@ jobs:
       # Option 2 — Use Intlayer CMS access keys instead of your own AI key.
       # Wire them in your intlayer.config and uncomment the lines below:
       # INTLAYER_CLIENT_ID: \${{ secrets.INTLAYER_CLIENT_ID }}
-      # INTLAYER_CLIENT_SECRET: \${{ secrets.INTLAYER_CLIENT_SECRET }}${getMonorepoCredentialsBlock(options.useCiCommand)}
+      # INTLAYER_CLIENT_SECRET: \${{ secrets.INTLAYER_CLIENT_SECRET }}${getMonorepoCredentialsBlock(options.isMonorepo)}
     steps:
       - name: ⬇️ Checkout repository
         uses: actions/checkout@v4
@@ -322,12 +318,12 @@ ${setupSteps}
       - name: 📦 Install dependencies
         run: ${installCommand}
       - name: ⚙️ Build dictionaries
-        run: ${intlayerCommand} build
+        run: ${execCommand} build --ci
       - name: 🤖 Fill missing translations
         # Skip when no AI credentials are configured, so the workflow stays green
         # until an \`AI_API_KEY\` (or Intlayer CMS access keys) secret is added.
         if: \${{ env.AI_API_KEY != '' || env.INTLAYER_CLIENT_ID != '' }}
-        run: ${intlayerCommand} fill --git-diff --mode complete --provider $AI_PROVIDER --model $AI_MODEL --api-key $AI_API_KEY
+        run: ${execCommand} fill --ci --git-diff --mode complete --provider $AI_PROVIDER --model $AI_MODEL --api-key $AI_API_KEY
       - name: 📤 Commit and push changes
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
@@ -355,12 +351,6 @@ const generateTestWorkflow = (
     options.workingDirectory
   );
 
-  // In monorepo mode `intlayer ci <command>` discovers every Intlayer project
-  // of the repository and runs the command inside each of them.
-  const intlayerCommand = options.useCiCommand
-    ? `${execCommand} ci`
-    : execCommand;
-
   return `name: Intlayer Test
 # Fail the pull request when required locales are missing translations.
 on:
@@ -382,9 +372,9 @@ ${setupSteps}
       - name: 📦 Install dependencies
         run: ${installCommand}
       - name: ⚙️ Build dictionaries
-        run: ${intlayerCommand} build
+        run: ${execCommand} build --ci
       - name: 🧪 Test for missing translations
-        run: ${intlayerCommand} test
+        run: ${execCommand} test --ci
 `;
 };
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-03-31
+updatedAt: 2026-09-12
 title: CLI - 다국어 웹사이트를 위한 모든 Intlayer CLI 명령어
 description: Intlayer CLI를 사용하여 다국어 웹사이트를 관리하는 방법을 알아보세요. 이 온라인 문서의 단계를 따라 몇 분 만에 프로젝트를 설정하세요.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 9.5.2
+    date: 2026-09-12
+    changes: "`ci` 명령어를 `--ci` 플래그로 대체"
   - version: 9.0.0
     date: 2026-06-11
     changes: "scan 명령어 추가"
@@ -159,10 +162,6 @@ Intlayer는 여러 설정 파일 형식을 허용합니다:
 
 - **[에디터 명령어](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/editor.md)** - Intlayer 에디터 명령어를 사용합니다.
 - **[라이브 동기화 명령어](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/live.md)** - 라이브 동기화를 사용하여 런타임에 CMS의 콘텐츠 변경 사항을 반영합니다.
-
-### CI/CD 및 자동화
-
-- **[CI 명령어](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/ci.md)** - CI/CD 파이프라인을 위해 자동으로 주입된 자격 증명으로 Intlayer 명령어를 실행합니다.
 
 ### 감사 및 진단
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: Push Dizionari
 description: Scopri come inviare i tuoi dizionari all'editor e CMS di Intlayer.
 keywords:
@@ -65,6 +65,10 @@ Se l'[editor di Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/
 - **`--no-cache`**: Disabilita la cache.
 
   > Esempio: `npx intlayer build --no-cache`
+
+- **`--ci`**: Esegue il comando in ogni progetto Intlayer del monorepo (o solo in quello corrente se lanciato da una directory di progetto). Le credenziali per progetto possono essere iniettate tramite `INTLAYER_PROJECT_CREDENTIALS`, un oggetto JSON che associa ogni percorso di progetto a `{ "clientId", "clientSecret" }`.
+
+  > Esempio: `npx intlayer push --ci`
 
 **Opzioni per le variabili d'ambiente:**
 

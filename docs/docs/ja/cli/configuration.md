@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: 設定の管理
 description: Intlayerの設定をCMSに取得およびプッシュする方法を学びます。
 keywords:
@@ -51,6 +51,7 @@ bun x intlayer configuration get
 - **`--base-dir`**: プロジェクトのベースディレクトリを指定します。
 - **`--verbose`**: デバッグのために詳細なログ出力を有効にします。（CLIではデフォルトでtrue）
 - **`--no-cache`**: キャッシュを無効にします。
+- **`--ci`**: モノレポ内のすべての Intlayer プロジェクトでコマンドを実行します（プロジェクトディレクトリ内から実行した場合はそのプロジェクトのみ）。プロジェクトごとの資格情報は、プロジェクトパスを `{ "clientId", "clientSecret" }` に対応付ける JSON オブジェクト `INTLAYER_PROJECT_CREDENTIALS` から挿入できます。
 
 ## 設定のプッシュ
 
@@ -84,5 +85,6 @@ bun x intlayer configuration push
 - **`--base-dir`**: プロジェクトのベースディレクトリを指定します。
 - **`--verbose`**: デバッグのために詳細なログ出力を有効にします。（CLIではデフォルトでtrue）
 - **`--no-cache`**: キャッシュを無効にします。
+- **`--ci`**: モノレポ内のすべての Intlayer プロジェクトでコマンドを実行します（プロジェクトディレクトリ内から実行した場合はそのプロジェクトのみ）。プロジェクトごとの資格情報は、プロジェクトパスを `{ "clientId", "clientSecret" }` に対応付ける JSON オブジェクト `INTLAYER_PROJECT_CREDENTIALS` から挿入できます。
 
 設定をプッシュすることで、プロジェクトはIntlayer CMSと完全に統合され、チーム間での辞書管理がシームレスに行えるようになります。

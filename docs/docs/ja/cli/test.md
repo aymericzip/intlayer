@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: 翻訳の欠落をテストする
 description: 辞書内の翻訳の欠落をテストし特定する方法を学びます。
 keywords:
@@ -69,6 +69,10 @@ Total missing required locales: 0
 - **`--no-cache`**: キャッシュを無効にします。
 
   > 例: `npx intlayer build --no-cache`
+
+- **`--ci`**: モノレポ内のすべての Intlayer プロジェクトでコマンドを実行します（プロジェクトディレクトリ内から実行した場合はそのプロジェクトのみ）。プロジェクトごとの資格情報は、プロジェクトパスを `{ "clientId", "clientSecret" }` に対応付ける JSON オブジェクト `INTLAYER_PROJECT_CREDENTIALS` から挿入できます。
+
+  > 例: `npx intlayer test --ci`
 
 **準備オプション:**
 

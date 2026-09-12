@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-06-17
+updatedAt: 2026-09-12
 title: Przegląd dokumentu
 description: Dowiedz się, jak przeglądać pliki dokumentacji pod kątem jakości, spójności i kompletności w różnych lokalizacjach.
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - cli
   - doc-review
 history:
+  - version: 9.5.2
+    date: 2026-09-12
+    changes: "Dodanie flagi `--ci`"
   - version: 9.0.0
     date: 2026-06-17
     changes: "Dodaj opcję --log"
@@ -137,6 +140,10 @@ Niezależnie od trybu, uruchomienie kończy się synteezą zawierającą listę 
 - **`--no-cache`**: Wyłącz pamięć podręczną.
 
   > Przykład: `npx intlayer doc review --base-dir ./docs --env-file .env.production.local`
+
+- **`--ci`**: Uruchamia polecenie w każdym projekcie Intlayer w monorepo (lub tylko w bieżącym, gdy uruchomione z katalogu projektu). Dane uwierzytelniające dla poszczególnych projektów można wstrzyknąć przez `INTLAYER_PROJECT_CREDENTIALS` — obiekt JSON mapujący ścieżkę projektu na `{ "clientId", "clientSecret" }`.
+
+  > Przykład: `npx intlayer doc review --ci`
 
 **Opcje logowania:**
 

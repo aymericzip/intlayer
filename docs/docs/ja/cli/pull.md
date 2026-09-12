@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: 辞書のプル
 description: IntlayerエディターとCMSから辞書をプルする方法を学びます。
 keywords:
@@ -65,6 +65,10 @@ bun x intlayer pull
 - **`--no-cache`**: キャッシュを無効にします。
 
   > 例: `npx intlayer build --no-cache`
+
+- **`--ci`**: モノレポ内のすべての Intlayer プロジェクトでコマンドを実行します（プロジェクトディレクトリ内から実行した場合はそのプロジェクトのみ）。プロジェクトごとの資格情報は、プロジェクトパスを `{ "clientId", "clientSecret" }` に対応付ける JSON オブジェクト `INTLAYER_PROJECT_CREDENTIALS` から挿入できます。
+
+  > 例: `npx intlayer pull --ci`
 
 **環境変数オプション:**
 

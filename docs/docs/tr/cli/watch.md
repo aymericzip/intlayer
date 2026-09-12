@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: Sözlükleri İzle
 description: İçerik bildirim dosyalarınızdaki değişiklikleri nasıl izleyeceğinizi ve sözlükleri otomatik olarak nasıl oluşturacağınızı öğrenin.
 keywords:
@@ -48,3 +48,7 @@ Bu komut, `npx intlayer build --watch --skip-prepare` komutunun eşdeğeridir.
 - **`--with`**: İzleme ile paralel olarak komutu başlatır.
 
   > Örnek: `npx intlayer watch --with "next dev --turbopack"`
+
+- **`--ci`**: Komutu monorepo'nun her Intlayer projesinde çalıştırır (bir proje dizininden çalıştırıldığında yalnızca mevcut projede). Proje başına kimlik bilgileri, proje yolunu `{ "clientId", "clientSecret" }` ile eşleyen bir JSON nesnesi olan `INTLAYER_PROJECT_CREDENTIALS` aracılığıyla eklenebilir.
+
+  > Örnek: `npx intlayer watch --ci`

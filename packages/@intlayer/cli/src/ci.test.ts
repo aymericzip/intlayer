@@ -1,12 +1,34 @@
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { credentialsKeyMatchesProject, selectProjectsToRun } from './ci';
+import {
+  credentialsKeyMatchesProject,
+  removeCIFlag,
+  selectProjectsToRun,
+} from './ci';
 
 describe('ci', () => {
   const searchDir = resolve('/repo');
   const webProject = resolve('/repo/apps/web');
   const backendProject = resolve('/repo/apps/backend');
   const projectsPath = [searchDir, webProject, backendProject];
+
+  describe('removeCIFlag', () => {
+    it('drops the --ci flag wherever it is placed', () => {
+      expect(removeCIFlag(['fill', '--ci', '--git-diff'])).toEqual([
+        'fill',
+        '--git-diff',
+      ]);
+      expect(removeCIFlag(['build', '--ci'])).toEqual(['build']);
+    });
+
+    it('keeps every other argument untouched', () => {
+      expect(removeCIFlag(['fill', '--mode', 'complete'])).toEqual([
+        'fill',
+        '--mode',
+        'complete',
+      ]);
+    });
+  });
 
   describe('credentialsKeyMatchesProject', () => {
     it('matches an absolute key', () => {

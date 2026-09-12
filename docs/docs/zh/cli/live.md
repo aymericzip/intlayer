@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: 实时同步命令
 description: 了解如何使用实时同步在运行时反映 CMS 内容更改。
 keywords:
@@ -36,6 +36,10 @@ author: aymericzip
 - **`--no-cache`**：禁用缓存。
 
   > 示例：`npx intlayer dictionary push --env-file .env.production.local`
+
+- **`--ci`**：在 monorepo 的每个 Intlayer 项目中执行该命令（在项目目录内运行时仅处理当前项目）。可通过 `INTLAYER_PROJECT_CREDENTIALS`（将项目路径映射到 `{ "clientId", "clientSecret" }` 的 JSON 对象）为每个项目注入凭据。
+
+  > 示例：`npx intlayer live --ci`
 
 **日志选项：**
 

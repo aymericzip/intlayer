@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: Trích xuất chuỗi
 description: Tìm hiểu cách trích xuất chuỗi từ các component của bạn vào một tệp .content nằm gần component.
 keywords:
@@ -69,6 +69,7 @@ Lệnh này phân tích các tệp mã của bạn để trích xuất chuỗi t
 - **`--env`**: Chỉ định môi trường.
 - **`--env-file`**: Cung cấp tệp môi trường tùy chỉnh.
 - **`--verbose`**: Bật ghi nhật ký chi tiết.
+- **`--ci`**: Chạy lệnh trong mọi dự án Intlayer của monorepo (hoặc chỉ dự án hiện tại khi chạy từ thư mục dự án). Thông tin xác thực theo từng dự án có thể được đưa vào qua `INTLAYER_PROJECT_CREDENTIALS`, một đối tượng JSON ánh xạ đường dẫn dự án tới `{ "clientId", "clientSecret" }`.
 
 **Các plugin bắt buộc:**
 

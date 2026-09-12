@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-03-31
+updatedAt: 2026-09-12
 title: CLI - Tất cả các lệnh CLI của Intlayer cho trang web đa ngôn ngữ của bạn
 description: Tìm hiểu cách sử dụng Intlayer CLI để quản lý trang web đa ngôn ngữ của bạn. Làm theo các bước trong tài liệu trực tuyến này để thiết lập dự án của bạn trong vài phút.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 9.5.2
+    date: 2026-09-12
+    changes: "Thay thế lệnh `ci` bằng cờ `--ci`"
   - version: 9.0.0
     date: 2026-06-11
     changes: "Thêm nội dung lệnh scan"
@@ -159,10 +162,6 @@ Intlayer chấp nhận nhiều định dạng tệp cấu hình khác nhau:
 
 - **[Các lệnh trình chỉnh sửa](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/editor.md)** - Sử dụng các lệnh của Trình chỉnh sửa Intlayer
 - **[Các lệnh đồng bộ trực tiếp](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/live.md)** - Sử dụng Live Sync để áp dụng các thay đổi nội dung từ CMS trong thời gian thực
-
-### CI/CD và Tự động hóa
-
-- **[Lệnh CI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/ci.md)** - Thực hiện các lệnh Intlayer với thông tin xác thực được tự động đưa vào cho các luồng CI/CD
 
 ### Kiểm toán & Chẩn đoán
 

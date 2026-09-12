@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: دفع القواميس
 description: تعلّم كيفية دفع القواميس الخاصة بك إلى محرر Intlayer ونظام إدارة المحتوى.
 keywords:
@@ -65,6 +65,10 @@ bun x intlayer dictionary push
 - **`--no-cache`**: تعطيل التخزين المؤقت.
 
   > مثال: `npx intlayer build --no-cache`
+
+- **`--ci`**: ينفّذ الأمر في كل مشروع Intlayer في الـ monorepo (أو في المشروع الحالي فقط عند التشغيل من مجلد مشروع). يمكن حقن بيانات اعتماد لكل مشروع عبر `INTLAYER_PROJECT_CREDENTIALS`، وهو كائن JSON يربط مسار كل مشروع بـ `{ "clientId", "clientSecret" }`.
+
+  > مثال: `npx intlayer push --ci`
 
 **خيارات متغيرات البيئة:**
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-06-17
+updatedAt: 2026-09-12
 title: दस्तावेज़ समीक्षा
 description: विभिन्न लोकलों में गुणवत्ता, संगति, और पूर्णता के लिए दस्तावेज़ फ़ाइलों की समीक्षा कैसे करें, यह जानें।
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - cli
   - doc-review
 history:
+  - version: 9.5.2
+    date: 2026-09-12
+    changes: "`--ci` फ़्लैग जोड़ा गया"
   - version: 9.0.0
     date: 2026-06-17
     changes: "--log विकल्प जोड़ें"
@@ -137,6 +140,10 @@ bun x intlayer doc review
 - **`--no-cache`**: कैश को अक्षम करें।
 
   > उदाहरण: `npx intlayer doc review --base-dir ./docs --env-file .env.production.local`
+
+- **`--ci`**: मोनोरेपो के हर Intlayer प्रोजेक्ट में कमांड चलाता है (प्रोजेक्ट डायरेक्टरी से चलाने पर केवल वर्तमान प्रोजेक्ट में)। प्रति-प्रोजेक्ट क्रेडेंशियल `INTLAYER_PROJECT_CREDENTIALS` के माध्यम से इंजेक्ट किए जा सकते हैं, जो प्रोजेक्ट पाथ को `{ "clientId", "clientSecret" }` से मैप करने वाला JSON ऑब्जेक्ट है।
+
+  > उदाहरण: `npx intlayer doc review --ci`
 
 **लॉग विकल्प:**
 

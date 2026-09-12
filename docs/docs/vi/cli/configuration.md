@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: Quản lý Cấu hình
 description: Tìm hiểu cách lấy và đẩy cấu hình Intlayer của bạn lên CMS.
 keywords:
@@ -51,6 +51,7 @@ bun x intlayer configuration get
 - **`--base-dir`**: Chỉ định thư mục gốc cho dự án.
 - **`--verbose`**: Bật ghi log chi tiết để gỡ lỗi. (mặc định là true khi sử dụng CLI)
 - **`--no-cache`**: Vô hiệu hóa bộ nhớ đệm.
+- **`--ci`**: Chạy lệnh trong mọi dự án Intlayer của monorepo (hoặc chỉ dự án hiện tại khi chạy từ thư mục dự án). Thông tin xác thực theo từng dự án có thể được đưa vào qua `INTLAYER_PROJECT_CREDENTIALS`, một đối tượng JSON ánh xạ đường dẫn dự án tới `{ "clientId", "clientSecret" }`.
 
 ## Đẩy Cấu hình
 
@@ -84,5 +85,6 @@ bun x intlayer configuration push
 - **`--base-dir`**: Chỉ định thư mục gốc cho dự án.
 - **`--verbose`**: Bật ghi log chi tiết để gỡ lỗi. (mặc định là true khi sử dụng CLI)
 - **`--no-cache`**: Vô hiệu hóa bộ nhớ đệm.
+- **`--ci`**: Chạy lệnh trong mọi dự án Intlayer của monorepo (hoặc chỉ dự án hiện tại khi chạy từ thư mục dự án). Thông tin xác thực theo từng dự án có thể được đưa vào qua `INTLAYER_PROJECT_CREDENTIALS`, một đối tượng JSON ánh xạ đường dẫn dự án tới `{ "clientId", "clientSecret" }`.
 
 Bằng cách đẩy cấu hình, dự án của bạn được tích hợp hoàn toàn với Intlayer CMS, cho phép quản lý từ điển liền mạch giữa các nhóm.

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-03-31
+updatedAt: 2026-09-12
 title: Автономна збірка (Standalone Bundle)
 description: Дізнайтеся, як створити автономну JavaScript-збірку для контенту застосунку.
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - cli
   - standalone
 history:
+  - version: 9.5.2
+    date: 2026-09-12
+    changes: "Додано прапорець `--ci`"
   - version: 8.6.4
     date: 2026-03-31
     changes: "Ініціалізація документації команди standalone"
@@ -61,6 +64,7 @@ bun x intlayer standalone --packages [пакети...] [опції]
 - `-e, --env [env]` - Середовище.
 - `--base-dir [baseDir]` - Базова директорія.
 - `--no-cache` - Вимкнути кеш.
+- `--ci` - Виконує команду в кожному проєкті Intlayer монорепозиторію (або лише в поточному при запуску з директорії проєкту). Облікові дані для кожного проєкту можна підставити через `INTLAYER_PROJECT_CREDENTIALS` — JSON-об'єкт, що зіставляє шлях проєкту з `{ "clientId", "clientSecret" }`.
 - `--verbose` - Детальний вивід.
 
 ## Приклади:

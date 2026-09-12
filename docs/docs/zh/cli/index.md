@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-03-31
+updatedAt: 2026-09-12
 title: CLI - 适用于多语言网站的所有 Intlayer CLI 命令
 description: 了解如何使用 Intlayer CLI 管理您的多语言网站。按照此在线文档中的步骤，在几分钟内设置您的项目。
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 9.5.2
+    date: 2026-09-12
+    changes: "用 `--ci` 标志替换 `ci` 命令"
   - version: 9.0.0
     date: 2026-06-11
     changes: "添加 scan 命令"
@@ -159,10 +162,6 @@ Intlayer 接受多种配置文件格式：
 
 - **[Editor Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/editor.md)** - 使用 Intlayer 编辑器命令
 - **[Live Sync Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/live.md)** - 使用 Live Sync 在运行时应用来自 CMS 的内容更改
-
-### CI/CD 与自动化
-
-- **[CI Command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/ci.md)** - 使用自动注入的凭据执行 CI/CD 流水的 Intlayer 命令
 
 ### 审计与诊断
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-03-31
+updatedAt: 2026-09-12
 title: Bản Đóng Gói Độc Lập (Standalone Bundle)
 description: Tìm hiểu cách tạo một bản đóng gói JavaScript độc lập cho nội dung ứng dụng.
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - cli
   - standalone
 history:
+  - version: 9.5.2
+    date: 2026-09-12
+    changes: "Thêm cờ `--ci`"
   - version: 8.6.4
     date: 2026-03-31
     changes: "Khởi tạo tài liệu lệnh standalone"
@@ -61,6 +64,7 @@ bun x intlayer standalone --packages [các gói...] [tùy chọn]
 - `-e, --env [env]` - Môi trường.
 - `--base-dir [baseDir]` - Thư mục gốc.
 - `--no-cache` - Tắt bộ nhớ đệm.
+- `--ci` - Chạy lệnh trong mọi dự án Intlayer của monorepo (hoặc chỉ dự án hiện tại khi chạy từ thư mục dự án). Thông tin xác thực theo từng dự án có thể được đưa vào qua `INTLAYER_PROJECT_CREDENTIALS`, một đối tượng JSON ánh xạ đường dẫn dự án tới `{ "clientId", "clientSecret" }`.
 - `--verbose` - Đầu ra chi tiết.
 
 ## Ví dụ:

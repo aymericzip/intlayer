@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: लाइव सिंक कमांड्स
 description: रनटाइम पर CMS कंटेंट परिवर्तनों को प्रतिबिंबित करने के लिए लाइव सिंक का उपयोग कैसे करें, जानें।
 keywords:
@@ -36,6 +36,10 @@ author: aymericzip
 - **`--no-cache`**: कैश को अक्षम करें।
 
   > उदाहरण: `npx intlayer dictionary push --env-file .env.production.local`
+
+- **`--ci`**: मोनोरेपो के हर Intlayer प्रोजेक्ट में कमांड चलाता है (प्रोजेक्ट डायरेक्टरी से चलाने पर केवल वर्तमान प्रोजेक्ट में)। प्रति-प्रोजेक्ट क्रेडेंशियल `INTLAYER_PROJECT_CREDENTIALS` के माध्यम से इंजेक्ट किए जा सकते हैं, जो प्रोजेक्ट पाथ को `{ "clientId", "clientSecret" }` से मैप करने वाला JSON ऑब्जेक्ट है।
+
+  > उदाहरण: `npx intlayer live --ci`
 
 **लॉग विकल्प:**
 

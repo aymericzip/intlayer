@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: Wypełnianie słowników
 description: Dowiedz się, jak wypełniać, audytować i tłumaczyć swoje słowniki za pomocą AI.
 keywords:
@@ -161,6 +161,10 @@ Affected dictionary keys for processing: app, comp-test, hello-world, lang-switc
 - **`--no-cache`**: Wyłącz pamięć podręczną.
 
   > Przykład: `npx intlayer build --no-cache`
+
+- **`--ci`**: Uruchamia polecenie w każdym projekcie Intlayer w monorepo (lub tylko w bieżącym, gdy uruchomione z katalogu projektu). Dane uwierzytelniające dla poszczególnych projektów można wstrzyknąć przez `INTLAYER_PROJECT_CREDENTIALS` — obiekt JSON mapujący ścieżkę projektu na `{ "clientId", "clientSecret" }`.
+
+  > Przykład: `npx intlayer fill --ci`
 
 **Opcje przygotowania:**
 

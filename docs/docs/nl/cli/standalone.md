@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-03-31
+updatedAt: 2026-09-12
 title: Standalone Bundel
 description: Leer hoe u een zelfstandige JavaScript-bundel van de applicatie-inhoud kunt maken.
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - cli
   - standalone
 history:
+  - version: 9.5.2
+    date: 2026-09-12
+    changes: "`--ci`-vlag toegevoegd"
   - version: 8.6.4
     date: 2026-03-31
     changes: "Initialisatie van de documentatie voor het standalone commando"
@@ -61,6 +64,7 @@ bun x intlayer standalone --packages [pakketten...] [opties]
 - `-e, --env [env]` - Omgeving.
 - `--base-dir [baseDir]` - Basisdirectory.
 - `--no-cache` - Cache uitschakelen.
+- `--ci` - Voert het commando uit in elk Intlayer-project van de monorepo (of alleen in het huidige bij uitvoering vanuit een projectmap). Inloggegevens per project kunnen worden geïnjecteerd via `INTLAYER_PROJECT_CREDENTIALS`, een JSON-object dat elk projectpad koppelt aan `{ "clientId", "clientSecret" }`.
 - `--verbose` - Gedetailleerde uitvoer.
 
 ## Voorbeelden:

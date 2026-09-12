@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-12-16
-updatedAt: 2025-12-16
+updatedAt: 2026-09-12
 title: CLI - Giriş
 description: Intlayer CLI'nin login komutunu kullanarak Intlayer CMS ile nasıl kimlik doğrulaması yapacağınızı ve erişim kimlik bilgileri elde edeceğinizi öğrenin.
 keywords:
@@ -146,7 +146,7 @@ Intlayer bunu yalnızca belgelemek yerine zorunlu kılar:
 
 `clientId` yü açıklama satırına almak, ortam değişkenleri hala tanımlanmış olsa bile her kimlik doğrulamalı davranışı (uzak sözlük getirme, CMS erişimi, analitik) devre dışı bırakmak için yeterlidir.
 
-CI pipeline'ları için, [`ci` komutu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/ci.md)nu tercih edin; bu, kimlik bilgilerini saklamanız yerine tek bir çalıştırmanın süresi boyunca enjekte eder.
+CI pipeline'ları için, `--ci` bayrağını tercih edin; bu, kimlik bilgilerini saklamanız yerine tek bir çalıştırmanın süresi boyunca enjekte eder.
 
 ## Manuel Yapılandırma
 

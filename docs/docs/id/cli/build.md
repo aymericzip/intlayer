@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: Bangun Kamus
 description: Pelajari cara membangun kamus Intlayer Anda dari file deklarasi konten.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - cli
   - build
 history:
+  - version: 9.5.2
+    date: 2026-09-12
+    changes: "Menambahkan flag `--ci`"
   - version: 8.1.5
     date: 2026-02-23
     changes: "Tambahkan opsi checkTypes"
@@ -91,6 +94,10 @@ Perintah ini akan mencari file deklarasi konten Anda secara default di `./src/**
 - **`--no-cache`**: Nonaktifkan cache.
 
   > Contoh: `npx intlayer build --no-cache`
+
+- **`--ci`**: Menjalankan perintah di setiap proyek Intlayer dalam monorepo (atau hanya proyek saat ini jika dijalankan dari direktori proyek). Kredensial per proyek dapat disuntikkan melalui `INTLAYER_PROJECT_CREDENTIALS`, sebuah objek JSON yang memetakan path proyek ke `{ "clientId", "clientSecret" }`.
+
+  > Contoh: `npx intlayer build --ci`
 
 - **`--check-types`**: Memeriksa tipe file deklarasi konten.
 

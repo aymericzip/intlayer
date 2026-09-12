@@ -78,18 +78,21 @@ describe('githubActions', () => {
       expect(bunFill?.content).toContain('oven-sh/setup-bun@v2');
     });
 
-    it('routes the intlayer commands through `intlayer ci` in monorepo mode', () => {
-      const [fillWorkflow, testWorkflow] = getGithubWorkflows('npm', {
-        useCiCommand: true,
-      });
+    it('always appends the `--ci` flag to the intlayer commands', () => {
+      const [fillWorkflow, testWorkflow] = getGithubWorkflows('npm');
 
-      expect(fillWorkflow?.content).toContain('npx intlayer ci build');
+      expect(fillWorkflow?.content).toContain('npx intlayer build --ci');
       expect(fillWorkflow?.content).toContain(
-        'npx intlayer ci fill --git-diff'
+        'npx intlayer fill --ci --git-diff'
       );
+      expect(testWorkflow?.content).toContain('npx intlayer build --ci');
+      expect(testWorkflow?.content).toContain('npx intlayer test --ci');
+    });
+
+    it('mentions per-project credentials in monorepo mode', () => {
+      const [fillWorkflow] = getGithubWorkflows('npm', { isMonorepo: true });
+
       expect(fillWorkflow?.content).toContain('INTLAYER_PROJECT_CREDENTIALS');
-      expect(testWorkflow?.content).toContain('npx intlayer ci build');
-      expect(testWorkflow?.content).toContain('npx intlayer ci test');
     });
 
     it('does not mention per-project credentials in single-project mode', () => {
@@ -98,7 +101,6 @@ describe('githubActions', () => {
       expect(fillWorkflow?.content).not.toContain(
         'INTLAYER_PROJECT_CREDENTIALS'
       );
-      expect(fillWorkflow?.content).not.toContain('intlayer ci');
     });
 
     it('runs the commands inside the project directory when nested', () => {
@@ -156,11 +158,11 @@ describe('githubActions', () => {
 
       expect(context.workflowsRootDir).toBe(projectDir);
       expect(context.packageManager).toBe('npm');
-      expect(context.options.useCiCommand).toBeFalsy();
+      expect(context.options.isMonorepo).toBeFalsy();
       expect(context.options.workingDirectory).toBeUndefined();
     });
 
-    it('uses `intlayer ci` when the root hosts a workspace manifest', async () => {
+    it('detects a monorepo when the root hosts a workspace manifest', async () => {
       const projectDir = createTemporaryDir();
       writeFileSync(
         join(projectDir, 'package.json'),
@@ -170,10 +172,10 @@ describe('githubActions', () => {
       const context = await resolveGithubWorkflowsContext(projectDir, 'npm');
 
       expect(context.workflowsRootDir).toBe(projectDir);
-      expect(context.options.useCiCommand).toBe(true);
+      expect(context.options.isMonorepo).toBe(true);
     });
 
-    it('uses `intlayer ci` when several Intlayer projects are discovered', async () => {
+    it('detects a monorepo when several Intlayer projects are discovered', async () => {
       const rootDir = createTemporaryDir();
       writeFileSync(join(rootDir, 'package.json'), '{}');
 
@@ -185,7 +187,7 @@ describe('githubActions', () => {
 
       const context = await resolveGithubWorkflowsContext(rootDir, 'npm');
 
-      expect(context.options.useCiCommand).toBe(true);
+      expect(context.options.isMonorepo).toBe(true);
     });
   });
 });

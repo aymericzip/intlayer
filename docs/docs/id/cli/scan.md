@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-11
-updatedAt: 2026-06-11
+updatedAt: 2026-09-12
 title: Scan Website
 description: Pelajari cara menggunakan perintah scan pada Intlayer CLI untuk mengukur ukuran halaman dan mengaudit kesehatan i18n/SEO dari situs web mana pun.
 keywords:
@@ -18,6 +18,9 @@ slugs:
   - cli
   - scan
 history:
+  - version: 9.5.2
+    date: 2026-09-12
+    changes: "Menambahkan flag `--ci`"
   - version: 9.0.0
     date: 2026-06-11
     changes: "Menambahkan konten perintah scan"
@@ -112,6 +115,7 @@ Menghasilkan seluruh hasil pemindaian sebagai objek JSON alih-alih laporan terfo
 - **`-e, --env`** — Lingkungan target (misalnya `development`, `production`).
 - **`--env-file`** — Jalur ke file `.env` kustom.
 - **`--no-cache`** — Menonaktifkan cache konfigurasi.
+- **`--ci`** — Menjalankan perintah di setiap proyek Intlayer dalam monorepo (atau hanya proyek saat ini jika dijalankan dari direktori proyek). Kredensial per proyek dapat disuntikkan melalui `INTLAYER_PROJECT_CREDENTIALS`, sebuah objek JSON yang memetakan path proyek ke `{ "clientId", "clientSecret" }`.
 - **`--verbose`** — Mengaktifkan pencatatan detail (default dalam mode CLI).
 - **`--prefix`** — Prefiks pencatatan kustom.
 

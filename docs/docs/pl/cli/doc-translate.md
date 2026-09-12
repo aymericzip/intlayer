@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: Tłumaczenie dokumentu
 description: Dowiedz się, jak automatycznie tłumaczyć pliki dokumentacji za pomocą usług tłumaczenia AI.
 keywords:
@@ -112,6 +112,10 @@ bun x intlayer doc translate
 - **`--no-cache`**: Wyłącz pamięć podręczną.
 
   > Przykład: `npx intlayer doc translate --base-dir ./docs --env-file .env.production.local`
+
+- **`--ci`**: Uruchamia polecenie w każdym projekcie Intlayer w monorepo (lub tylko w bieżącym, gdy uruchomione z katalogu projektu). Dane uwierzytelniające dla poszczególnych projektów można wstrzyknąć przez `INTLAYER_PROJECT_CREDENTIALS` — obiekt JSON mapujący ścieżkę projektu na `{ "clientId", "clientSecret" }`.
+
+  > Przykład: `npx intlayer doc translate --ci`
 
 **Opcje logowania:**
 

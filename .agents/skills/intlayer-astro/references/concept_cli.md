@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-01-06
+updatedAt: 2026-09-12
 title: CLI - All Intlayer CLI commands for your multilingual website
 description: Discover how to use the Intlayer CLI to manage your multilingual website. Follow the steps in this online documentation to set up your project in a few minutes.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 9.5.2
+    date: 2026-09-12
+    changes: Replace the `ci` command by the `--ci` flag
   - version: 7.5.11
     date: 2026-01-06
     changes: Add CI command
@@ -149,10 +152,6 @@ To see how to configure available locales, or other parameters, refer to the [co
 
 - **[Editor Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/editor.md)** - Use the Intlayer editor commands
 - **[Live Sync Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/live.md)** - Use Live Sync to reflect CMS content changes at runtime
-
-### CI/CD & Automation
-
-- **[CI Command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/ci.md)** - Run Intlayer commands with auto-injected credentials for CI/CD pipelines
 
 ### Development Tools
 

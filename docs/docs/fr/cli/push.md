@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: Pousser les dictionnaires
 description: Apprenez comment pousser vos dictionnaires vers l'éditeur Intlayer et le CMS.
 keywords:
@@ -65,6 +65,10 @@ Si [l'éditeur intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/d
 - **`--no-cache`** : Désactive le cache.
 
   > Exemple : `npx intlayer build --no-cache`
+
+- **`--ci`** : Exécute la commande dans chaque projet Intlayer du monorepo (ou uniquement le projet courant si lancée depuis son répertoire). Des identifiants par projet peuvent être injectés via `INTLAYER_PROJECT_CREDENTIALS`, un objet JSON associant chaque chemin de projet à `{ "clientId", "clientSecret" }`.
+
+  > Exemple : `npx intlayer push --ci`
 
 **Options des variables d'environnement :**
 

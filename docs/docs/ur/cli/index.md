@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-03-31
+updatedAt: 2026-09-12
 title: CLI - آپ کی کثیر لسانی ویب سائٹ کے لیے تمام Intlayer CLI کمانڈز
 description: اپنی کثیر لسانی ویب سائٹ کو منظم کرنے کے لیے Intlayer CLI کا استعمال سیکھیں۔ چند منٹوں میں اپنے پروجیکٹ کو ترتیب دینے کے لیے اس آن لائن دستاویزات کے مراحل پر عمل کریں۔
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 9.5.2
+    date: 2026-09-12
+    changes: "`ci` کمانڈ کو `--ci` فلیگ سے بدل دیا گیا"
   - version: 9.0.0
     date: 2026-06-11
     changes: "اسکین (scan) کمانڈ شامل کی گئی"
@@ -157,10 +160,6 @@ Intlayer کئی کنفیگریشن فائل فارمیٹس قبول کرتا ہ�
 
 - **[Editor Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/editor.md)** - Intlayer ایڈیٹر کمانڈز استعمال کریں
 - **[Live Sync Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/live.md)** - CMS سے مواد کی تبدیلیوں کو ریئل ٹائم میں لاگو کرنے کے لیے لائیو سنک کا استعمال کریں
-
-### CI/CD اور خودکاری
-
-- **[CI Command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/ci.md)** - CI/CD پائپ لائنز کے لیے خودکار طور پر شامل اسناد کے ساتھ Intlayer کمانڈز پر عمل کریں
 
 ### آڈٹ اور تشخیصی عمل
 

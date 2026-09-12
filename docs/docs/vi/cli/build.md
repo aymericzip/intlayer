@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: Xây dựng Từ điển
 description: Tìm hiểu cách xây dựng từ điển Intlayer của bạn từ các tệp khai báo nội dung.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - cli
   - build
 history:
+  - version: 9.5.2
+    date: 2026-09-12
+    changes: "Thêm cờ `--ci`"
   - version: 8.1.5
     date: 2026-02-23
     changes: "Thêm tùy chọn checkTypes"
@@ -91,6 +94,10 @@ Lệnh này sẽ tìm các tệp khai báo nội dung của bạn theo mặc đ�
 - **`--no-cache`**: Vô hiệu hóa bộ nhớ đệm.
 
   > Ví dụ: `npx intlayer build --no-cache`
+
+- **`--ci`**: Chạy lệnh trong mọi dự án Intlayer của monorepo (hoặc chỉ dự án hiện tại khi chạy từ thư mục dự án). Thông tin xác thực theo từng dự án có thể được đưa vào qua `INTLAYER_PROJECT_CREDENTIALS`, một đối tượng JSON ánh xạ đường dẫn dự án tới `{ "clientId", "clientSecret" }`.
+
+  > Ví dụ: `npx intlayer build --ci`
 
 - **`--check-types`**: Kiểm tra các kiểu của tệp khai báo nội dung.
 

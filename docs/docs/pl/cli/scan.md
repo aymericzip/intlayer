@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-11
-updatedAt: 2026-06-11
+updatedAt: 2026-09-12
 title: Skanuj stronę internetową
 description: Dowiedz się, jak używać polecenia scan w Intlayer CLI, aby zmierzyć rozmiar strony i przeprowadzić audyt zdrowia i18n/SEO dowolnej witryny.
 keywords:
@@ -18,6 +18,9 @@ slugs:
   - cli
   - scan
 history:
+  - version: 9.5.2
+    date: 2026-09-12
+    changes: "Dodanie flagi `--ci`"
   - version: 9.0.0
     date: 2026-06-11
     changes: "Dodano polecenie scan"
@@ -112,6 +115,7 @@ Wypisuje pełny wynik skanowania jako obiekt JSON zamiast sformatowanego raportu
 - **`-e, --env`** — Środowisko docelowe (np. `development`, `production`).
 - **`--env-file`** — Ścieżka do niestandardowego pliku `.env`.
 - **`--no-cache`** — Wyłącza pamięć podręczną konfiguracji.
+- **`--ci`** — Uruchamia polecenie w każdym projekcie Intlayer w monorepo (lub tylko w bieżącym, gdy uruchomione z katalogu projektu). Dane uwierzytelniające dla poszczególnych projektów można wstrzyknąć przez `INTLAYER_PROJECT_CREDENTIALS` — obiekt JSON mapujący ścieżkę projektu na `{ "clientId", "clientSecret" }`.
 - **`--verbose`** — Włącza pełne logowanie (domyślne w trybie CLI).
 - **`--prefix`** — Niestandardowy prefiks logów.
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: 文字列の抽出
 description: コンポーネントの近くに .content ファイルを作成して、コンポーネントから文字列を抽出する方法を学びます。
 keywords:
@@ -69,6 +69,7 @@ bun x intlayer extract
 - **`--env`**: 環境を指定します。
 - **`--env-file`**: カスタムの環境ファイルを指定します。
 - **`--verbose`**: 詳細なログ出力を有効にします。
+- **`--ci`**: モノレポ内のすべての Intlayer プロジェクトでコマンドを実行します（プロジェクトディレクトリ内から実行した場合はそのプロジェクトのみ）。プロジェクトごとの資格情報は、プロジェクトパスを `{ "clientId", "clientSecret" }` に対応付ける JSON オブジェクト `INTLAYER_PROJECT_CREDENTIALS` から挿入できます。
 
 **必須プラグイン:**
 

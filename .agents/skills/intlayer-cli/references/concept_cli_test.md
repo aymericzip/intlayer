@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: Test Missing Translations
 description: Learn how to test and identify missing translations in your dictionaries.
 keywords:
@@ -57,6 +57,10 @@ Total missing required locales: 0
 - **`--no-cache`**: Disable the cache.
 
   > Example: `npx intlayer build --no-cache`
+
+- **`--ci`**: Run the command in every Intlayer project of the monorepo (or only the current one when run from a project directory). Per-project credentials can be injected via `INTLAYER_PROJECT_CREDENTIALS`, a JSON map of project path to `{ "clientId", "clientSecret" }`.
+
+  > Example: `npx intlayer test --ci`
 
 **Preparation options:**
 

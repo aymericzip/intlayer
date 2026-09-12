@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: Pull Dictionaries
 description: Learn how to pull dictionaries from the Intlayer editor and CMS.
 keywords:
@@ -52,6 +52,10 @@ If [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/
 - **`--no-cache`**: Disable the cache.
 
   > Example: `npx intlayer build --no-cache`
+
+- **`--ci`**: Run the command in every Intlayer project of the monorepo (or only the current one when run from a project directory). Per-project credentials can be injected via `INTLAYER_PROJECT_CREDENTIALS`, a JSON map of project path to `{ "clientId", "clientSecret" }`.
+
+  > Example: `npx intlayer pull --ci`
 
 **Environment variables options:**
 

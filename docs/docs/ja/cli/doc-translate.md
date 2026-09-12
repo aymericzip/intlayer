@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: ドキュメントの翻訳
 description: AI翻訳サービスを使用してドキュメントファイルを自動的に翻訳する方法を学びます。
 keywords:
@@ -112,6 +112,10 @@ bun x intlayer doc translate
 - **`--no-cache`**: キャッシュを無効にします。
 
   > 例: `npx intlayer doc translate --base-dir ./docs --env-file .env.production.local`
+
+- **`--ci`**: モノレポ内のすべての Intlayer プロジェクトでコマンドを実行します（プロジェクトディレクトリ内から実行した場合はそのプロジェクトのみ）。プロジェクトごとの資格情報は、プロジェクトパスを `{ "clientId", "clientSecret" }` に対応付ける JSON オブジェクト `INTLAYER_PROJECT_CREDENTIALS` から挿入できます。
+
+  > 例: `npx intlayer doc translate --ci`
 
 **ログオプション:**
 

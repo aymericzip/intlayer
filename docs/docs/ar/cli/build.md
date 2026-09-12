@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: بناء القواميس
 description: تعلّم كيفية بناء قواميس Intlayer الخاصة بك من ملفات إعلان المحتوى.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - cli
   - build
 history:
+  - version: 9.5.2
+    date: 2026-09-12
+    changes: "إضافة العلامة `--ci`"
   - version: 8.1.5
     date: 2026-02-23
     changes: "إضافة خيار checkTypes"
@@ -91,6 +94,10 @@ bun x intlayer build --watch
 - **`--no-cache`**: تعطيل التخزين المؤقت.
 
   > مثال: `npx intlayer build --no-cache`
+
+- **`--ci`**: ينفّذ الأمر في كل مشروع Intlayer في الـ monorepo (أو في المشروع الحالي فقط عند التشغيل من مجلد مشروع). يمكن حقن بيانات اعتماد لكل مشروع عبر `INTLAYER_PROJECT_CREDENTIALS`، وهو كائن JSON يربط مسار كل مشروع بـ `{ "clientId", "clientSecret" }`.
+
+  > مثال: `npx intlayer build --ci`
 
 - **`--check-types`**: التحقق من أنواع ملفات إعلان المحتوى.
 

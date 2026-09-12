@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-03-31
+updatedAt: 2026-09-12
 title: CLI - Wszystkie polecenia Intlayer CLI dla Twojej wielojęzycznej strony
 description: Dowiedz się, jak używać Intlayer CLI do zarządzania wielojęzyczną stroną internetową. Postępuj zgodnie z krokami w tej dokumentacji online, aby skonfigurować swój projekt w kilka minut.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 9.5.2
+    date: 2026-09-12
+    changes: "Zastąpienie polecenia `ci` flagą `--ci`"
   - version: 9.0.0
     date: 2026-06-11
     changes: "Dodano polecenie scan"
@@ -159,10 +162,6 @@ Aby dowiedzieć się, jak skonfigurować dostępne języki lub inne parametry, z
 
 - **[Polecenia Edytora](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/editor.md)** - Używaj poleceń edytora Intlayer
 - **[Polecenia Live Sync](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/live.md)** - Używaj Live Sync, aby stosować zmiany treści z CMS w czasie rzeczywistym
-
-### CI/CD i Automatyzacja
-
-- **[Polecenie CI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/ci.md)** - Wykonuj polecenia Intlayer z automatycznie wstrzykniętymi danymi uwierzytelniającymi dla potoków CI/CD
 
 ### Audyt i Diagnostyka
 

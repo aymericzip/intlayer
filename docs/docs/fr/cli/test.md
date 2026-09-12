@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: Tester les traductions manquantes
 description: Apprenez à tester et identifier les traductions manquantes dans vos dictionnaires.
 keywords:
@@ -69,6 +69,10 @@ Total des locales requises manquantes : 0
 - **`--no-cache`** : Désactive le cache.
 
   > Exemple : `npx intlayer build --no-cache`
+
+- **`--ci`** : Exécute la commande dans chaque projet Intlayer du monorepo (ou uniquement le projet courant si lancée depuis son répertoire). Des identifiants par projet peuvent être injectés via `INTLAYER_PROJECT_CREDENTIALS`, un objet JSON associant chaque chemin de projet à `{ "clientId", "clientSecret" }`.
+
+  > Exemple : `npx intlayer test --ci`
 
 **Options de préparation :**
 

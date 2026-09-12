@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-06-17
+updatedAt: 2026-09-12
 title: Dokument überprüfen
 description: Erfahren Sie, wie Sie Dokumentationsdateien auf Qualität, Konsistenz und Vollständigkeit in verschiedenen Sprachversionen überprüfen.
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - cli
   - doc-review
 history:
+  - version: 9.5.2
+    date: 2026-09-12
+    changes: "Flag `--ci` hinzugefügt"
   - version: 9.0.0
     date: 2026-06-17
     changes: "Option --log hinzufügen"
@@ -137,6 +140,10 @@ Unabhängig vom Modus endet der Durchlauf mit einer Zusammenfassung, die die Dok
 - **`--no-cache`**: Deaktivieren Sie den Cache.
 
   > Beispiel: `npx intlayer doc review --base-dir ./docs --env-file .env.production.local`
+
+- **`--ci`**: Führt den Befehl in jedem Intlayer-Projekt des Monorepos aus (oder nur im aktuellen, wenn er aus einem Projektverzeichnis gestartet wird). Projektspezifische Zugangsdaten können über `INTLAYER_PROJECT_CREDENTIALS` eingefügt werden, ein JSON-Objekt, das jedem Projektpfad `{ "clientId", "clientSecret" }` zuordnet.
+
+  > Beispiel: `npx intlayer doc review --ci`
 
 **Protokollierungsoptionen:**
 

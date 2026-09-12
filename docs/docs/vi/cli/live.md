@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: Lệnh Live Sync
 description: Tìm hiểu cách sử dụng Live Sync để phản ánh các thay đổi nội dung CMS trong thời gian chạy.
 keywords:
@@ -36,6 +36,10 @@ Live Sync cho phép ứng dụng của bạn phản ánh các thay đổi nội 
 - **`--no-cache`**: Vô hiệu hóa bộ nhớ đệm.
 
   > Ví dụ: `npx intlayer dictionary push --env-file .env.production.local`
+
+- **`--ci`**: Chạy lệnh trong mọi dự án Intlayer của monorepo (hoặc chỉ dự án hiện tại khi chạy từ thư mục dự án). Thông tin xác thực theo từng dự án có thể được đưa vào qua `INTLAYER_PROJECT_CREDENTIALS`, một đối tượng JSON ánh xạ đường dẫn dự án tới `{ "clientId", "clientSecret" }`.
+
+  > Ví dụ: `npx intlayer live --ci`
 
 **Tùy chọn ghi log:**
 

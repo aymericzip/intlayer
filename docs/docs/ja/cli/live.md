@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: ライブ同期コマンド
 description: ランタイムでCMSのコンテンツ変更を反映するためのライブ同期の使い方を学びます。
 keywords:
@@ -36,6 +36,10 @@ author: aymericzip
 - **`--no-cache`**: キャッシュを無効にします。
 
   > 例: `npx intlayer dictionary push --env-file .env.production.local`
+
+- **`--ci`**: モノレポ内のすべての Intlayer プロジェクトでコマンドを実行します（プロジェクトディレクトリ内から実行した場合はそのプロジェクトのみ）。プロジェクトごとの資格情報は、プロジェクトパスを `{ "clientId", "clientSecret" }` に対応付ける JSON オブジェクト `INTLAYER_PROJECT_CREDENTIALS` から挿入できます。
+
+  > 例: `npx intlayer live --ci`
 
 **ログオプション:**
 

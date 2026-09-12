@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: Wörterbücher beobachten
 description: Erfahren Sie, wie Sie Änderungen in Ihren Inhaltsdeklarationsdateien überwachen und Wörterbücher automatisch erstellen.
 keywords:
@@ -48,3 +48,7 @@ Dieser Befehl entspricht `npx intlayer build --watch --skip-prepare`.
 - **`--with`**: Startet einen Befehl parallel zum Watch-Modus.
 
   > Beispiel: `npx intlayer watch --with "next dev --turbopack"`
+
+- **`--ci`**: Führt den Befehl in jedem Intlayer-Projekt des Monorepos aus (oder nur im aktuellen, wenn er aus einem Projektverzeichnis gestartet wird). Projektspezifische Zugangsdaten können über `INTLAYER_PROJECT_CREDENTIALS` eingefügt werden, ein JSON-Objekt, das jedem Projektpfad `{ "clientId", "clientSecret" }` zuordnet.
+
+  > Beispiel: `npx intlayer watch --ci`

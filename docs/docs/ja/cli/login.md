@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-12-16
-updatedAt: 2025-12-16
+updatedAt: 2026-09-12
 title: CLI - ログイン
 description: Intlayer CLI の login コマンドを使用して Intlayer CMS に認証し、アクセス認証情報を取得する方法を学びます。
 keywords:
@@ -142,7 +142,7 @@ Intlayer はこれを単にドキュメント化するのではなく、強制�
 
 `clientId` をコメントアウトするだけで、環境変数がまだ定義されていても、すべての認証済み動作 — リモート辞書フェッチ、CMS アクセス、analytics — を無効にするのに十分です。
 
-CI パイプラインの場合、[`ci` コマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/ci.md) を使用することをお勧めします。これは単一実行の期間中認証情報を注入し、永続化せず代わりに。
+CI パイプラインの場合、`--ci` フラグ を使用することをお勧めします。これは認証情報を永続化する代わりに、単一実行の期間中のみ注入します。
 
 ## 手動設定
 

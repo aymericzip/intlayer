@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-03-31
+updatedAt: 2026-09-12
 title: CLI - 多言語サイトのためのすべてのIntlayer CLIコマンド
 description: 多言語サイトを管理するためのIntlayer CLIの使用方法をご紹介します。このオンラインドキュメントに従って、数分でプロジェクトをセットアップしてください。
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 9.5.2
+    date: 2026-09-12
+    changes: "`ci` コマンドを `--ci` フラグに置き換え"
   - version: 9.0.0
     date: 2026-06-11
     changes: "scanコマンドの追加"
@@ -159,10 +162,6 @@ Intlayerは、複数の設定ファイル形式をサポートしています：
 
 - **[Editor Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/editor.md)** - Intlayerエディターのコマンドを使用します。
 - **[Live Sync Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/live.md)** - Live Syncを使用して、CMSからのコンテンツ変更を実行時に反映させます。
-
-### CI/CDと自動化
-
-- **[CI Command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/ci.md)** - CI/CDパイプライン用に自動的に資格情報を挿入してIntlayerコマンドを実行します。
 
 ### 監査と診断
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: Sözlükleri Oluşturma
 description: İçerik beyan dosyalarından Intlayer sözlüklerinizi nasıl oluşturacağınızı öğrenin.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - cli
   - build
 history:
+  - version: 9.5.2
+    date: 2026-09-12
+    changes: "`--ci` bayrağı eklendi"
   - version: 8.1.5
     date: 2026-02-23
     changes: "checkTypes seçeneği eklendi"
@@ -91,6 +94,10 @@ Bu komut, varsayılan olarak `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx|md|
 - **`--no-cache`**: Önbelleği devre dışı bırakın.
 
   > Örnek: `npx intlayer build --no-cache`
+
+- **`--ci`**: Komutu monorepo'nun her Intlayer projesinde çalıştırır (bir proje dizininden çalıştırıldığında yalnızca mevcut projede). Proje başına kimlik bilgileri, proje yolunu `{ "clientId", "clientSecret" }` ile eşleyen bir JSON nesnesi olan `INTLAYER_PROJECT_CREDENTIALS` aracılığıyla eklenebilir.
+
+  > Örnek: `npx intlayer build --ci`
 
 - **`--check-types`**: İçerik bildirim dosyalarının türlerini kontrol eder.
 

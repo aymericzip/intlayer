@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-03-31
+updatedAt: 2026-09-12
 title: CLI - Semua perintah Intlayer CLI untuk situs web multibahasa Anda
 description: Pelajari cara menggunakan Intlayer CLI untuk mengelola situs web multibahasa Anda. Ikuti langkah-langkah dalam dokumentasi online ini untuk menyiapkan proyek Anda dalam hitungan menit.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 9.5.2
+    date: 2026-09-12
+    changes: "Mengganti perintah `ci` dengan flag `--ci`"
   - version: 9.0.0
     date: 2026-06-11
     changes: "Menambahkan konten perintah scan"
@@ -159,10 +162,6 @@ Untuk mempelajari cara mengonfigurasi bahasa yang tersedia atau parameter lainny
 
 - **[Editor Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/editor.md)** - Gunakan perintah editor Intlayer
 - **[Live Sync Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/live.md)** - Gunakan Live Sync untuk menerapkan perubahan konten dari CMS saat runtime
-
-### CI/CD dan Otomatisasi
-
-- **[CI Command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/ci.md)** - Jalankan perintah Intlayer dengan kredensial yang disuntikkan secara otomatis untuk alur kerja CI/CD
 
 ### Audit & Diagnostik
 

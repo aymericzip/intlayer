@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: Surveiller les dictionnaires
 description: Apprenez à surveiller les modifications dans vos fichiers de déclaration de contenu et à construire automatiquement les dictionnaires.
 keywords:
@@ -48,3 +48,7 @@ Cette commande est l'équivalent de `npx intlayer build --watch --skip-prepare`.
 - **`--with`** : Démarrer une commande en parallèle avec la surveillance.
 
 > Exemple : `npx intlayer watch --with "next dev --turbopack"`
+
+- **`--ci`** : Exécute la commande dans chaque projet Intlayer du monorepo (ou uniquement le projet courant si lancée depuis son répertoire). Des identifiants par projet peuvent être injectés via `INTLAYER_PROJECT_CREDENTIALS`, un objet JSON associant chaque chemin de projet à `{ "clientId", "clientSecret" }`.
+
+> Exemple : `npx intlayer watch --ci`

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: Đẩy Từ Điển
 description: Tìm hiểu cách đẩy từ điển của bạn lên trình chỉnh sửa và CMS của Intlayer.
 keywords:
@@ -65,6 +65,10 @@ Nếu [trình chỉnh sửa intlayer](https://github.com/aymericzip/intlayer/blo
 - **`--no-cache`**: Vô hiệu hóa bộ nhớ đệm.
 
   > Ví dụ: `npx intlayer build --no-cache`
+
+- **`--ci`**: Chạy lệnh trong mọi dự án Intlayer của monorepo (hoặc chỉ dự án hiện tại khi chạy từ thư mục dự án). Thông tin xác thực theo từng dự án có thể được đưa vào qua `INTLAYER_PROJECT_CREDENTIALS`, một đối tượng JSON ánh xạ đường dẫn dự án tới `{ "clientId", "clientSecret" }`.
+
+  > Ví dụ: `npx intlayer push --ci`
 
 **Tùy chọn biến môi trường:**
 

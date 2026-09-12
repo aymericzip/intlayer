@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: Isi Kamus
 description: Pelajari cara mengisi, mengaudit, dan menerjemahkan kamus Anda menggunakan AI.
 keywords:
@@ -161,6 +161,10 @@ Affected dictionary keys for processing: app, comp-test, hello-world, lang-switc
 - **`--no-cache`**: Nonaktifkan cache.
 
   > Contoh: `npx intlayer build --no-cache`
+
+- **`--ci`**: Menjalankan perintah di setiap proyek Intlayer dalam monorepo (atau hanya proyek saat ini jika dijalankan dari direktori proyek). Kredensial per proyek dapat disuntikkan melalui `INTLAYER_PROJECT_CREDENTIALS`, sebuah objek JSON yang memetakan path proyek ke `{ "clientId", "clientSecret" }`.
+
+  > Contoh: `npx intlayer fill --ci`
 
 **Opsi persiapan:**
 

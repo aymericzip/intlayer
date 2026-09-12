@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: 辞書の監視
 description: コンテンツ宣言ファイルの変更を監視し、自動的に辞書をビルドする方法を学びます。
 keywords:
@@ -48,3 +48,7 @@ bun x intlayer watch
 - **`--with`**: 監視と並行してコマンドを開始します。
 
 > 例: `npx intlayer watch --with "next dev --turbopack"`
+
+- **`--ci`**: モノレポ内のすべての Intlayer プロジェクトでコマンドを実行します（プロジェクトディレクトリ内から実行した場合はそのプロジェクトのみ）。プロジェクトごとの資格情報は、プロジェクトパスを `{ "clientId", "clientSecret" }` に対応付ける JSON オブジェクト `INTLAYER_PROJECT_CREDENTIALS` から挿入できます。
+
+> 例: `npx intlayer watch --ci`

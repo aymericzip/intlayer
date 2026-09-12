@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: Kiểm tra bản dịch thiếu
 description: Tìm hiểu cách kiểm tra và xác định các bản dịch thiếu trong từ điển của bạn.
 keywords:
@@ -69,6 +69,10 @@ Total missing required locales: 0
 - **`--no-cache`**: Vô hiệu hóa bộ nhớ đệm.
 
   > Ví dụ: `npx intlayer build --no-cache`
+
+- **`--ci`**: Chạy lệnh trong mọi dự án Intlayer của monorepo (hoặc chỉ dự án hiện tại khi chạy từ thư mục dự án). Thông tin xác thực theo từng dự án có thể được đưa vào qua `INTLAYER_PROJECT_CREDENTIALS`, một đối tượng JSON ánh xạ đường dẫn dự án tới `{ "clientId", "clientSecret" }`.
+
+  > Ví dụ: `npx intlayer test --ci`
 
 **Tùy chọn chuẩn bị:**
 

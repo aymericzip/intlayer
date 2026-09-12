@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-06-17
+updatedAt: 2026-09-12
 title: ドキュメントのレビュー
 description: 異なるロケール間での品質、一貫性、完全性を確認するためのドキュメントファイルのレビュー方法を学びます。
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - cli
   - doc-review
 history:
+  - version: 9.5.2
+    date: 2026-09-12
+    changes: "`--ci` フラグを追加"
   - version: 9.0.0
     date: 2026-06-17
     changes: "--log オプションを追加"
@@ -137,6 +140,10 @@ bun x intlayer doc review
 - **`--no-cache`**: キャッシュを無効にします。
 
   > 例: `npx intlayer doc review --base-dir ./docs --env-file .env.production.local`
+
+- **`--ci`**: モノレポ内のすべての Intlayer プロジェクトでコマンドを実行します（プロジェクトディレクトリ内から実行した場合はそのプロジェクトのみ）。プロジェクトごとの資格情報は、プロジェクトパスを `{ "clientId", "clientSecret" }` に対応付ける JSON オブジェクト `INTLAYER_PROJECT_CREDENTIALS` から挿入できます。
+
+  > 例: `npx intlayer doc review --ci`
 
 **ログオプション:**
 

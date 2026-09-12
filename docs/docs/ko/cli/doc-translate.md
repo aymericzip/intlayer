@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: 문서 번역
 description: AI 번역 서비스를 사용하여 문서 파일을 자동으로 번역하는 방법을 알아보세요.
 keywords:
@@ -112,6 +112,10 @@ bun x intlayer doc translate
 - **`--no-cache`**: 캐시를 비활성화합니다.
 
 > 예시: `npx intlayer doc translate --base-dir ./docs --env-file .env.production.local`
+
+- **`--ci`**: 모노레포의 모든 Intlayer 프로젝트에서 명령어를 실행합니다(프로젝트 디렉터리 안에서 실행하면 해당 프로젝트만). 프로젝트별 자격 증명은 프로젝트 경로를 `{ "clientId", "clientSecret" }`에 매핑하는 JSON 객체인 `INTLAYER_PROJECT_CREDENTIALS`를 통해 주입할 수 있습니다.
+
+> 예시: `npx intlayer doc translate --ci`
 
 **로그 옵션:**
 

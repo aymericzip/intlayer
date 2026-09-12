@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-03-31
+updatedAt: 2026-09-12
 title: CLI - Alle Intlayer CLI-commando's voor uw meertalige website
 description: Ontdek hoe u de Intlayer CLI gebruikt om uw meertalige website te beheren. Volg de stappen in deze online documentatie om uw project in slechts enkele minuten op te zetten.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 9.5.2
+    date: 2026-09-12
+    changes: "Het `ci`-commando vervangen door de `--ci`-vlag"
   - version: 9.0.0
     date: 2026-06-11
     changes: "Scan commando toegevoegd"
@@ -157,10 +160,6 @@ Om te zien hoe u beschikbare talen of andere parameters configureert, raadpleegt
 
 - **[Editor-commando's](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/cli/editor.md)** - Gebruik de Intlayer editor-commando's
 - **[Live Sync-commando's](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/cli/live.md)** - Gebruik Live Sync om inhoudswijzigingen vanuit het CMS tijdens runtime toe te passen
-
-### CI/CD & Automatisering
-
-- **[CI-commando](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/cli/ci.md)** - Voer Intlayer-commando's uit met automatisch geïnjecteerde inloggegevens voor CI/CD-pipelines
 
 ### Audit & Diagnostiek
 

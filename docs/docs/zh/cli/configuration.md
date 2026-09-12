@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: 管理配置
 description: 了解如何获取并推送您的 Intlayer 配置到 CMS。
 keywords:
@@ -51,6 +51,7 @@ bun x intlayer configuration get
 - **`--base-dir`**：指定项目的基础目录。
 - **`--verbose`**：启用详细日志以进行调试。（默认通过 CLI 设置为 true）
 - **`--no-cache`**：禁用缓存。
+- **`--ci`**：在 monorepo 的每个 Intlayer 项目中执行该命令（在项目目录内运行时仅处理当前项目）。可通过 `INTLAYER_PROJECT_CREDENTIALS`（将项目路径映射到 `{ "clientId", "clientSecret" }` 的 JSON 对象）为每个项目注入凭据。
 
 ## 推送配置
 
@@ -84,5 +85,6 @@ bun x intlayer configuration push
 - **`--base-dir`**：指定项目的基础目录。
 - **`--verbose`**：启用详细日志以便调试。（CLI 默认启用）
 - **`--no-cache`**：禁用缓存。
+- **`--ci`**：在 monorepo 的每个 Intlayer 项目中执行该命令（在项目目录内运行时仅处理当前项目）。可通过 `INTLAYER_PROJECT_CREDENTIALS`（将项目路径映射到 `{ "clientId", "clientSecret" }` 的 JSON 对象）为每个项目注入凭据。
 
 通过推送配置，您的项目将完全集成到 Intlayer CMS 中，实现团队间无缝的词典管理。

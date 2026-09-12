@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: 测试缺失的翻译
 description: 学习如何测试并识别字典中缺失的翻译。
 keywords:
@@ -69,6 +69,10 @@ Total missing required locales: 0
 - **`--no-cache`**：禁用缓存。
 
   > 示例：`npx intlayer build --no-cache`
+
+- **`--ci`**：在 monorepo 的每个 Intlayer 项目中执行该命令（在项目目录内运行时仅处理当前项目）。可通过 `INTLAYER_PROJECT_CREDENTIALS`（将项目路径映射到 `{ "clientId", "clientSecret" }` 的 JSON 对象）为每个项目注入凭据。
+
+  > 示例：`npx intlayer test --ci`
 
 **准备选项：**
 

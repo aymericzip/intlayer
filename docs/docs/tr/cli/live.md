@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: Canlı Senkronizasyon Komutları
 description: Canlı Senkronizasyonu kullanarak CMS içerik değişikliklerini çalışma zamanında nasıl yansıtacağınızı öğrenin.
 keywords:
@@ -36,6 +36,10 @@ Canlı Senkronizasyon, uygulamanızın CMS içerik değişikliklerini çalışma
 - **`--no-cache`**: Önbelleği devre dışı bırakır.
 
   > Örnek: `npx intlayer dictionary push --env-file .env.production.local`
+
+- **`--ci`**: Komutu monorepo'nun her Intlayer projesinde çalıştırır (bir proje dizininden çalıştırıldığında yalnızca mevcut projede). Proje başına kimlik bilgileri, proje yolunu `{ "clientId", "clientSecret" }` ile eşleyen bir JSON nesnesi olan `INTLAYER_PROJECT_CREDENTIALS` aracılığıyla eklenebilir.
+
+  > Örnek: `npx intlayer live --ci`
 
 **Günlük seçenekleri:**
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: 辞書のビルド
 description: コンテンツ宣言ファイルからIntlayerの辞書をビルドする方法を学びます。
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - cli
   - build
 history:
+  - version: 9.5.2
+    date: 2026-09-12
+    changes: "`--ci` フラグを追加"
   - version: 8.1.5
     date: 2026-02-23
     changes: "checkTypesオプションを追加"
@@ -91,6 +94,10 @@ bun x intlayer build --watch
 - **`--no-cache`**: キャッシュを無効にします。
 
   > 例: `npx intlayer build --no-cache`
+
+- **`--ci`**: モノレポ内のすべての Intlayer プロジェクトでコマンドを実行します（プロジェクトディレクトリ内から実行した場合はそのプロジェクトのみ）。プロジェクトごとの資格情報は、プロジェクトパスを `{ "clientId", "clientSecret" }` に対応付ける JSON オブジェクト `INTLAYER_PROJECT_CREDENTIALS` から挿入できます。
+
+  > 例: `npx intlayer build --ci`
 
 - **`--check-types`**: コンテンツ宣言ファイルの型をチェックします。
 

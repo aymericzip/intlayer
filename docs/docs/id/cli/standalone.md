@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-03-31
+updatedAt: 2026-09-12
 title: Bundel Mandiri (Standalone Bundle)
 description: Pelajari cara membuat bundel JavaScript mandiri untuk konten aplikasi.
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - cli
   - standalone
 history:
+  - version: 9.5.2
+    date: 2026-09-12
+    changes: "Menambahkan flag `--ci`"
   - version: 8.6.4
     date: 2026-03-31
     changes: "Inisialisasi dokumentasi perintah standalone"
@@ -61,6 +64,7 @@ bun x intlayer standalone --packages [paket...] [opsi]
 - `-e, --env [env]` - Lingkungan.
 - `--base-dir [baseDir]` - Direktori dasar.
 - `--no-cache` - Nonaktifkan cache.
+- `--ci` - Menjalankan perintah di setiap proyek Intlayer dalam monorepo (atau hanya proyek saat ini jika dijalankan dari direktori proyek). Kredensial per proyek dapat disuntikkan melalui `INTLAYER_PROJECT_CREDENTIALS`, sebuah objek JSON yang memetakan path proyek ke `{ "clientId", "clientSecret" }`.
 - `--verbose` - Keluaran mendetail.
 
 ## Contoh:

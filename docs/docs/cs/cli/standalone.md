@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-03-31
+updatedAt: 2026-09-12
 title: Samostatný balíček (Standalone Bundle)
 description: Naučte se, jak vytvořit samostatný balíček JavaScriptu pro obsah aplikace.
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - cli
   - standalone
 history:
+  - version: 9.5.2
+    date: 2026-09-12
+    changes: "Přidán příznak `--ci`"
   - version: 8.6.4
     date: 2026-03-31
     changes: "Inicializace dokumentace příkazu standalone"
@@ -61,6 +64,7 @@ bun x intlayer standalone --packages [balíčky...] [volby]
 - `-e, --env [env]` - Prostředí.
 - `--base-dir [baseDir]` - Základní adresář.
 - `--no-cache` - Zakázat mezipaměť (cache).
+- `--ci` - Spustí příkaz v každém projektu Intlayer v monorepu (nebo jen v aktuálním, pokud je spuštěn z adresáře projektu). Přihlašovací údaje pro jednotlivé projekty lze vložit přes `INTLAYER_PROJECT_CREDENTIALS`, JSON objekt mapující cestu projektu na `{ "clientId", "clientSecret" }`.
 - `--verbose` - Podrobný výstup.
 
 ## Příklady:

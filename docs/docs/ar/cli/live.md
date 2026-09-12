@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: أوامر المزامنة الحية
 description: تعلّم كيفية استخدام المزامنة الحية لعكس تغييرات محتوى CMS أثناء وقت التشغيل.
 keywords:
@@ -36,6 +36,10 @@ author: aymericzip
 - **`--no-cache`**: تعطيل التخزين المؤقت.
 
   > مثال: `npx intlayer dictionary push --env-file .env.production.local`
+
+- **`--ci`**: ينفّذ الأمر في كل مشروع Intlayer في الـ monorepo (أو في المشروع الحالي فقط عند التشغيل من مجلد مشروع). يمكن حقن بيانات اعتماد لكل مشروع عبر `INTLAYER_PROJECT_CREDENTIALS`، وهو كائن JSON يربط مسار كل مشروع بـ `{ "clientId", "clientSecret" }`.
+
+  > مثال: `npx intlayer live --ci`
 
 **خيارات السجل:**
 

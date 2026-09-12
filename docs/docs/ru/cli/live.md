@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: Команды Live Sync
 description: Узнайте, как использовать Live Sync для отражения изменений контента CMS во время выполнения.
 keywords:
@@ -36,6 +36,10 @@ Live Sync позволяет вашему приложению отражать 
 - **`--no-cache`**: Отключить кэш.
 
   > Пример: `npx intlayer dictionary push --env-file .env.production.local`
+
+- **`--ci`**: Выполняет команду в каждом проекте Intlayer монорепозитория (или только в текущем при запуске из директории проекта). Учетные данные для каждого проекта можно подставить через `INTLAYER_PROJECT_CREDENTIALS` — JSON-объект, сопоставляющий путь проекта с `{ "clientId", "clientSecret" }`.
+
+  > Пример: `npx intlayer live --ci`
 
 **Опции логирования:**
 

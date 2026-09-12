@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-06-17
+updatedAt: 2026-09-12
 title: مراجعة المستند
 description: تعلّم كيفية مراجعة ملفات التوثيق من حيث الجودة، الاتساق، والكمال عبر اللغات المختلفة.
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - cli
   - doc-review
 history:
+  - version: 9.5.2
+    date: 2026-09-12
+    changes: "إضافة العلامة `--ci`"
   - version: 9.0.0
     date: 2026-06-17
     changes: "إضافة خيار --log"
@@ -137,6 +140,10 @@ bun x intlayer doc review
 - **`--no-cache`**: تعطيل التخزين المؤقت.
 
   > مثال: `npx intlayer doc review --base-dir ./docs --env-file .env.production.local`
+
+- **`--ci`**: ينفّذ الأمر في كل مشروع Intlayer في الـ monorepo (أو في المشروع الحالي فقط عند التشغيل من مجلد مشروع). يمكن حقن بيانات اعتماد لكل مشروع عبر `INTLAYER_PROJECT_CREDENTIALS`، وهو كائن JSON يربط مسار كل مشروع بـ `{ "clientId", "clientSecret" }`.
+
+  > مثال: `npx intlayer doc review --ci`
 
 **خيارات السجل:**
 

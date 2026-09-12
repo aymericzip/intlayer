@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: Extraer cadenas
 description: Aprende cómo extraer cadenas de tus componentes a un archivo .content ubicado cerca del componente.
 keywords:
@@ -69,6 +69,7 @@ Este comando analiza tus archivos de código para extraer cadenas de los compone
 - **`--env`**: Especificar el entorno.
 - **`--env-file`**: Proporcionar un archivo de entorno personalizado.
 - **`--verbose`**: Habilitar el registro detallado.
+- **`--ci`**: Ejecuta el comando en cada proyecto Intlayer del monorepo (o solo en el actual si se ejecuta desde un directorio de proyecto). Se pueden inyectar credenciales por proyecto mediante `INTLAYER_PROJECT_CREDENTIALS`, un objeto JSON que asocia cada ruta de proyecto a `{ "clientId", "clientSecret" }`.
 
 **Plugins requeridos:**
 

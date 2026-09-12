@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-11
-updatedAt: 2026-06-11
+updatedAt: 2026-09-12
 title: ウェブサイトのスキャン
 description: Intlayer CLIのscanコマンドを使用して、任意のウェブサイトのページサイズを測定し、i18n/SEOの健全性を監査する方法について学びます。
 keywords:
@@ -18,6 +18,9 @@ slugs:
   - cli
   - scan
 history:
+  - version: 9.5.2
+    date: 2026-09-12
+    changes: "`--ci` フラグを追加"
   - version: 9.0.0
     date: 2026-06-11
     changes: "scanコマンドの追加"
@@ -112,6 +115,7 @@ puppeteerが利用可能な場合でも、基本モードを強制するには `
 - **`-e, --env`** — 対象の環境（例：`development`, `production`）。
 - **`--env-file`** — カスタム `.env` ファイルへのパス。
 - **`--no-cache`** — 設定キャッシュを無効にします。
+- **`--ci`** — モノレポ内のすべての Intlayer プロジェクトでコマンドを実行します（プロジェクトディレクトリ内から実行した場合はそのプロジェクトのみ）。プロジェクトごとの資格情報は、プロジェクトパスを `{ "clientId", "clientSecret" }` に対応付ける JSON オブジェクト `INTLAYER_PROJECT_CREDENTIALS` から挿入できます。
 - **`--verbose`** — 詳細ログを有効にします（CLIモードではデフォルト）。
 - **`--prefix`** — カスタムログプレフィックス。
 

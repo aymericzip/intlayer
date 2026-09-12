@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: Stringleri çıkarma
 description: Bileşenlerinizden stringleri bileşene yakın bir .content dosyasına nasıl çıkaracağınızı öğrenin.
 keywords:
@@ -69,6 +69,7 @@ Bu komut, bileşenlerden stringleri bileşene yakın bir .content dosyasına ç�
 - **`--env`**: Ortamı belirtir.
 - **`--env-file`**: Özel bir env dosyası sağlar.
 - **`--verbose`**: Ayrıntılı günlüklemeyi etkinleştirir.
+- **`--ci`**: Komutu monorepo'nun her Intlayer projesinde çalıştırır (bir proje dizininden çalıştırıldığında yalnızca mevcut projede). Proje başına kimlik bilgileri, proje yolunu `{ "clientId", "clientSecret" }` ile eşleyen bir JSON nesnesi olan `INTLAYER_PROJECT_CREDENTIALS` aracılığıyla eklenebilir.
 
 **Gerekli eklentiler:**
 

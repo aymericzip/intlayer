@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: Wörterbücher erstellen
 description: Erfahren Sie, wie Sie Ihre Intlayer-Wörterbücher aus Inhaltsdeklarationsdateien erstellen.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - cli
   - build
 history:
+  - version: 9.5.2
+    date: 2026-09-12
+    changes: "Flag `--ci` hinzugefügt"
   - version: 8.1.5
     date: 2026-02-23
     changes: "checkTypes-Option hinzugefügt"
@@ -91,6 +94,10 @@ Dieser Befehl findet standardmäßig Ihre Deklarations-Inhaltsdateien unter `./s
 - **`--no-cache`**: Deaktivieren Sie den Cache.
 
   > Beispiel: `npx intlayer build --no-cache`
+
+- **`--ci`**: Führt den Befehl in jedem Intlayer-Projekt des Monorepos aus (oder nur im aktuellen, wenn er aus einem Projektverzeichnis gestartet wird). Projektspezifische Zugangsdaten können über `INTLAYER_PROJECT_CREDENTIALS` eingefügt werden, ein JSON-Objekt, das jedem Projektpfad `{ "clientId", "clientSecret" }` zuordnet.
+
+  > Beispiel: `npx intlayer build --ci`
 
 - **`--check-types`**: Überprüft die Typen der Inhaltsdeklarationsdateien.
 

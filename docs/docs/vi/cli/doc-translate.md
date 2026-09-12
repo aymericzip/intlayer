@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: Dịch Tài Liệu
 description: Tìm hiểu cách tự động dịch các tệp tài liệu sử dụng dịch vụ dịch thuật AI.
 keywords:
@@ -111,6 +111,10 @@ bun x intlayer doc translate
 - **`--no-cache`**: Vô hiệu hóa bộ nhớ đệm.
 
   > Ví dụ: `npx intlayer doc translate --base-dir ./docs --env-file .env.production.local`
+
+- **`--ci`**: Chạy lệnh trong mọi dự án Intlayer của monorepo (hoặc chỉ dự án hiện tại khi chạy từ thư mục dự án). Thông tin xác thực theo từng dự án có thể được đưa vào qua `INTLAYER_PROJECT_CREDENTIALS`, một đối tượng JSON ánh xạ đường dẫn dự án tới `{ "clientId", "clientSecret" }`.
+
+  > Ví dụ: `npx intlayer doc translate --ci`
 
 **Tùy chọn ghi log:**
 

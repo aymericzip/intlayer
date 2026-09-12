@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: Gérer la Configuration
 description: Apprenez à récupérer et pousser votre configuration Intlayer vers le CMS.
 keywords:
@@ -51,6 +51,7 @@ bun x intlayer configuration get
 - **`--base-dir`** : Spécifie le répertoire de base pour le projet.
 - **`--verbose`** : Active la journalisation détaillée pour le débogage. (par défaut à true via la CLI)
 - **`--no-cache`** : Désactive le cache.
+- **`--ci`** : Exécute la commande dans chaque projet Intlayer du monorepo (ou uniquement le projet courant si lancée depuis son répertoire). Des identifiants par projet peuvent être injectés via `INTLAYER_PROJECT_CREDENTIALS`, un objet JSON associant chaque chemin de projet à `{ "clientId", "clientSecret" }`.
 
 ## Pousser la Configuration
 
@@ -84,5 +85,6 @@ bun x intlayer configuration push
 - **`--base-dir`** : Spécifie le répertoire de base pour le projet.
 - **`--verbose`** : Active la journalisation détaillée pour le débogage. (par défaut à true via la CLI)
 - **`--no-cache`** : Désactive le cache.
+- **`--ci`** : Exécute la commande dans chaque projet Intlayer du monorepo (ou uniquement le projet courant si lancée depuis son répertoire). Des identifiants par projet peuvent être injectés via `INTLAYER_PROJECT_CREDENTIALS`, un objet JSON associant chaque chemin de projet à `{ "clientId", "clientSecret" }`.
 
 En poussant la configuration, votre projet est entièrement intégré au CMS Intlayer, permettant une gestion fluide des dictionnaires entre les équipes.

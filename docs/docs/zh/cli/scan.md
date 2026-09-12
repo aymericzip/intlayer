@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-11
-updatedAt: 2026-06-11
+updatedAt: 2026-09-12
 title: 扫描网站
 description: 了解如何使用 Intlayer CLI scan 命令测量页面大小并审计任何网站的 i18n/SEO 健康状况。
 keywords:
@@ -18,6 +18,9 @@ slugs:
   - cli
   - scan
 history:
+  - version: 9.5.2
+    date: 2026-09-12
+    changes: "添加 `--ci` 标志"
   - version: 9.0.0
     date: 2026-06-11
     changes: "添加 scan 命令"
@@ -112,6 +115,7 @@ Bundle locale weight:
 - **`-e, --env`** — 目标环境（例如 `development`，`production`）。
 - **`--env-file`** — 自定义 `.env` 文件的路径。
 - **`--no-cache`** — 禁用配置缓存。
+- **`--ci`** — 在 monorepo 的每个 Intlayer 项目中执行该命令（在项目目录内运行时仅处理当前项目）。可通过 `INTLAYER_PROJECT_CREDENTIALS`（将项目路径映射到 `{ "clientId", "clientSecret" }` 的 JSON 对象）为每个项目注入凭据。
 - **`--verbose`** — 启用详细日志记录（CLI 模式下默认开启）。
 - **`--prefix`** — 自定义日志前缀。
 

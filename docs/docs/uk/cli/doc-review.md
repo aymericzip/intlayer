@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-06-17
+updatedAt: 2026-09-12
 title: Перевірка документа
 description: Дізнайтеся, як перевіряти файли документації на предмет якості, узгодженості та повноти для різних локалей.
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - cli
   - doc-review
 history:
+  - version: 9.5.2
+    date: 2026-09-12
+    changes: "Додано прапорець `--ci`"
   - version: 9.0.0
     date: 2026-06-17
     changes: "Додати опцію --log"
@@ -137,6 +140,10 @@ bun x intlayer doc review
 - **`--no-cache`**: Вимкнути кеш.
 
   > Приклад: `npx intlayer doc review --base-dir ./docs --env-file .env.production.local`
+
+- **`--ci`**: Виконує команду в кожному проєкті Intlayer монорепозиторію (або лише в поточному при запуску з директорії проєкту). Облікові дані для кожного проєкту можна підставити через `INTLAYER_PROJECT_CREDENTIALS` — JSON-об'єкт, що зіставляє шлях проєкту з `{ "clientId", "clientSecret" }`.
+
+  > Приклад: `npx intlayer doc review --ci`
 
 **Параметри логування:**
 

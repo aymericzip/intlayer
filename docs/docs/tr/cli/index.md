@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-03-31
+updatedAt: 2026-09-12
 title: CLI - Çok dilli web siteniz için tüm Intlayer CLI komutları
 description: Çok dilli web sitenizi yönetmek için Intlayer CLI'yı nasıl kullanacağınızı keşfedin. Projenizi birkaç dakika içinde kurmak için bu çevrimiçi belgelerdeki adımları izleyin.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 9.5.2
+    date: 2026-09-12
+    changes: "`ci` komutu `--ci` bayrağıyla değiştirildi"
   - version: 9.0.0
     date: 2026-06-11
     changes: "Scan komutu eklendi"
@@ -159,10 +162,6 @@ Mevcut dillerin veya diğer parametrelerin nasıl yapılandırılacağını öğ
 
 - **[Editor Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/editor.md)** - Intlayer düzenleyici komutlarını kullanın
 - **[Live Sync Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/live.md)** - CMS'den gelen içerik değişikliklerini çalışma zamanında uygulamak için Live Sync'i kullanın
-
-### CI/CD ve Otomasyon
-
-- **[CI Command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/ci.md)** - CI/CD hatları için otomatik olarak eklenen kimlik bilgileriyle Intlayer komutlarını çalıştırın
 
 ### Denetim & Teşhis
 

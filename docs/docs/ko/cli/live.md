@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: 라이브 싱크 명령어
 description: 런타임에 CMS 콘텐츠 변경 사항을 반영하기 위해 라이브 싱크를 사용하는 방법을 알아보세요.
 keywords:
@@ -36,6 +36,10 @@ author: aymericzip
 - **`--no-cache`**: 캐시를 비활성화합니다.
 
   > 예시: `npx intlayer dictionary push --env-file .env.production.local`
+
+- **`--ci`**: 모노레포의 모든 Intlayer 프로젝트에서 명령어를 실행합니다(프로젝트 디렉터리 안에서 실행하면 해당 프로젝트만). 프로젝트별 자격 증명은 프로젝트 경로를 `{ "clientId", "clientSecret" }`에 매핑하는 JSON 객체인 `INTLAYER_PROJECT_CREDENTIALS`를 통해 주입할 수 있습니다.
+
+  > 예시: `npx intlayer live --ci`
 
 **로그 옵션:**
 

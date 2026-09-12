@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: Sözlükleri Gönder
 description: Sözlüklerinizi Intlayer editörüne ve CMS'ye nasıl göndereceğinizi öğrenin.
 keywords:
@@ -65,6 +65,10 @@ Eğer [intlayer editörü](https://github.com/aymericzip/intlayer/blob/main/docs
 - **`--no-cache`**: Önbelleği devre dışı bırakır.
 
   > Örnek: `npx intlayer build --no-cache`
+
+- **`--ci`**: Komutu monorepo'nun her Intlayer projesinde çalıştırır (bir proje dizininden çalıştırıldığında yalnızca mevcut projede). Proje başına kimlik bilgileri, proje yolunu `{ "clientId", "clientSecret" }` ile eşleyen bir JSON nesnesi olan `INTLAYER_PROJECT_CREDENTIALS` aracılığıyla eklenebilir.
+
+  > Örnek: `npx intlayer push --ci`
 
 **Ortam değişkenleri seçenekleri:**
 

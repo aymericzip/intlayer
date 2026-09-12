@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: Konfiguration verwalten
 description: Erfahren Sie, wie Sie Ihre Intlayer-Konfiguration abrufen und in das CMS hochladen.
 keywords:
@@ -51,6 +51,7 @@ bun x intlayer configuration get
 - **`--base-dir`**: Gibt das Basisverzeichnis für das Projekt an.
 - **`--verbose`**: Aktiviert ausführliche Protokollierung zur Fehlerbehebung. (Standardmäßig über CLI auf true gesetzt)
 - **`--no-cache`**: Deaktiviert den Cache.
+- **`--ci`**: Führt den Befehl in jedem Intlayer-Projekt des Monorepos aus (oder nur im aktuellen, wenn er aus einem Projektverzeichnis gestartet wird). Projektspezifische Zugangsdaten können über `INTLAYER_PROJECT_CREDENTIALS` eingefügt werden, ein JSON-Objekt, das jedem Projektpfad `{ "clientId", "clientSecret" }` zuordnet.
 
 ## Konfiguration hochladen
 
@@ -84,5 +85,6 @@ bun x intlayer configuration push
 - **`--base-dir`**: Gibt das Basisverzeichnis für das Projekt an.
 - **`--verbose`**: Aktiviert ausführliche Protokollierung zur Fehlerbehebung. (Standardmäßig über CLI auf true gesetzt)
 - **`--no-cache`**: Deaktiviert den Cache.
+- **`--ci`**: Führt den Befehl in jedem Intlayer-Projekt des Monorepos aus (oder nur im aktuellen, wenn er aus einem Projektverzeichnis gestartet wird). Projektspezifische Zugangsdaten können über `INTLAYER_PROJECT_CREDENTIALS` eingefügt werden, ein JSON-Objekt, das jedem Projektpfad `{ "clientId", "clientSecret" }` zuordnet.
 
 Durch das Hochladen der Konfiguration ist Ihr Projekt vollständig in das Intlayer CMS integriert, was eine nahtlose Verwaltung von Wörterbüchern über Teams hinweg ermöglicht.

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-11
-updatedAt: 2026-06-11
+updatedAt: 2026-09-12
 title: 웹사이트 스캔
 description: Intlayer CLI scan 명령어를 사용하여 모든 웹사이트의 페이지 크기를 측정하고 i18n/SEO 상태를 감사하는 방법을 알아봅니다.
 keywords:
@@ -18,6 +18,9 @@ slugs:
   - cli
   - scan
 history:
+  - version: 9.5.2
+    date: 2026-09-12
+    changes: "`--ci` 플래그 추가"
   - version: 9.0.0
     date: 2026-06-11
     changes: "scan 명령어 추가"
@@ -112,6 +115,7 @@ puppeteer가 활성화되어 있어도 기본 모드를 강제하려면 `--no-de
 - **`-e, --env`** — 대상 환경 (예: `development`, `production`).
 - **`--env-file`** — 사용자 지정 `.env` 파일의 경로.
 - **`--no-cache`** — 설정 캐시를 비활성화합니다.
+- **`--ci`** — 모노레포의 모든 Intlayer 프로젝트에서 명령어를 실행합니다(프로젝트 디렉터리 안에서 실행하면 해당 프로젝트만). 프로젝트별 자격 증명은 프로젝트 경로를 `{ "clientId", "clientSecret" }`에 매핑하는 JSON 객체인 `INTLAYER_PROJECT_CREDENTIALS`를 통해 주입할 수 있습니다.
 - **`--verbose`** — 세부 로깅을 활성화합니다 (CLI 모드에서 기본값).
 - **`--prefix`** — 사용자 지정 로그 접두사.
 

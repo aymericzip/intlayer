@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: 提取字符串
 description: 了解如何将组件中的字符串提取到靠近组件的 .content 文件中。
 keywords:
@@ -69,6 +69,7 @@ bun x intlayer extract
 - **`--env`**：指定环境。
 - **`--env-file`**：提供自定义的环境文件。
 - **`--verbose`**：启用详细日志。
+- **`--ci`**：在 monorepo 的每个 Intlayer 项目中执行该命令（在项目目录内运行时仅处理当前项目）。可通过 `INTLAYER_PROJECT_CREDENTIALS`（将项目路径映射到 `{ "clientId", "clientSecret" }` 的 JSON 对象）为每个项目注入凭据。
 
 **必需的插件：**
 

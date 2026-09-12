@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: Obserwuj słowniki
 description: Dowiedz się, jak obserwować zmiany w plikach deklaracji treści i automatycznie budować słowniki.
 keywords:
@@ -48,3 +48,7 @@ Ta komenda jest równoważna z `npx intlayer build --watch --skip-prepare`.
 - **`--with`**: Uruchom komendę równolegle z obserwacją.
 
   > Przykład: `npx intlayer watch --with "next dev --turbopack"`
+
+- **`--ci`**: Uruchamia polecenie w każdym projekcie Intlayer w monorepo (lub tylko w bieżącym, gdy uruchomione z katalogu projektu). Dane uwierzytelniające dla poszczególnych projektów można wstrzyknąć przez `INTLAYER_PROJECT_CREDENTIALS` — obiekt JSON mapujący ścieżkę projektu na `{ "clientId", "clientSecret" }`.
+
+  > Przykład: `npx intlayer watch --ci`

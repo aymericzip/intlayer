@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-12-16
-updatedAt: 2025-12-16
+updatedAt: 2026-09-12
 title: CLI - Masuk
 description: Pelajari cara menggunakan perintah login Intlayer CLI untuk mengautentikasi dengan Intlayer CMS dan memperoleh kredensial akses.
 keywords:
@@ -142,7 +142,7 @@ Intlayer memberlakukan ini daripada hanya mendokumentasikannya:
 
 Mengomentari `clientId` sudah cukup untuk menonaktifkan setiap perilaku terautentikasi — pengambilan kamus jarak jauh, akses CMS, analytics — bahkan ketika variabel lingkungan masih didefinisikan.
 
-Untuk pipeline CI, lebih suka [`ci` command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/ci.md), yang menyuntikkan kredensial untuk durasi satu run alih-alih mempertahankannya.
+Untuk pipeline CI, lebih suka flag `--ci`, yang menyuntikkan kredensial untuk durasi satu run alih-alih mempertahankannya.
 
 ## Konfigurasi Manual
 

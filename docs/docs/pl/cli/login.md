@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-12-16
-updatedAt: 2025-12-16
+updatedAt: 2026-09-12
 title: CLI - Logowanie
 description: Dowiedz się, jak użyć polecenia login w Intlayer CLI, aby uwierzytelnić się w Intlayer CMS i uzyskać dane dostępowe.
 keywords:
@@ -146,7 +146,7 @@ Intlayer wymusza to zamiast tylko tego dokumentować:
 
 Zakomentowanie `clientId` wystarczy, aby wyłączyć każde zachowanie wymagające uwierzytelnienia — pobieranie słowników zdalnych, dostęp do CMS, analizę — nawet gdy zmienne środowiskowe są jeszcze zdefiniowane.
 
-W przypadku potoków CI preferuj [`ci` command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/ci.md), który wstrzykuje poświadczenia na czas pojedynczego uruchomienia zamiast ich utrwalania.
+W przypadku potoków CI preferuj flagę `--ci`, która wstrzykuje poświadczenia na czas pojedynczego uruchomienia zamiast ich utrwalania.
 
 ## Ręczna konfiguracja
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: Побудова словників
 description: Дізнайтеся, як побудувати словники Intlayer зі файлів декларації контенту.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - cli
   - build
 history:
+  - version: 9.5.2
+    date: 2026-09-12
+    changes: "Додано прапорець `--ci`"
   - version: 8.1.5
     date: 2026-02-23
     changes: "Додати опцію checkTypes"
@@ -91,6 +94,10 @@ bun x intlayer build --watch
 - **`--no-cache`**: Вимкнути кеш.
 
   > Приклад: `npx intlayer build --no-cache`
+
+- **`--ci`**: Виконує команду в кожному проєкті Intlayer монорепозиторію (або лише в поточному при запуску з директорії проєкту). Облікові дані для кожного проєкту можна підставити через `INTLAYER_PROJECT_CREDENTIALS` — JSON-об'єкт, що зіставляє шлях проєкту з `{ "clientId", "clientSecret" }`.
+
+  > Приклад: `npx intlayer build --ci`
 
 - **`--check-types`**: Перевіряє типи файлів оголошення контенту.
 

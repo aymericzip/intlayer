@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-12-16
-updatedAt: 2025-12-16
+updatedAt: 2026-09-12
 title: CLI - 로그인
 description: Intlayer CLI의 login 명령을 사용하여 Intlayer CMS에 인증하고 액세스 자격증명을 얻는 방법을 알아보세요.
 keywords:
@@ -146,7 +146,7 @@ Intlayer는 이를 단지 문서화하는 것이 아니라 강제합니다:
 
 `clientId`를 주석 처리하는 것만으로도 환경 변수가 여전히 정의되어 있을 때도 모든 인증된 동작 — 원격 사전 가져오기, CMS 접근, 분석 — 을 비활성화하기에 충분합니다.
 
-CI 파이프라인의 경우, 자격 증명을 유지하는 대신 단일 실행 기간 동안 주입하는 [`ci` 명령어](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/ci.md)를 선호하세요.
+CI 파이프라인의 경우, 자격 증명을 유지하는 대신 단일 실행 기간 동안 주입하는 `--ci` 플래그를 선호하세요.
 
 ## 수동 구성
 

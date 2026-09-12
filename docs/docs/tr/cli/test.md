@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: Eksik Çevirileri Test Etme
 description: Sözlüklerinizdeki eksik çevirileri nasıl test edeceğinizi ve tespit edeceğinizi öğrenin.
 keywords:
@@ -69,6 +69,10 @@ Toplam gerekli eksik yerel sayısı: 0
 - **`--no-cache`**: Önbelleği devre dışı bırakır.
 
   > Örnek: `npx intlayer build --no-cache`
+
+- **`--ci`**: Komutu monorepo'nun her Intlayer projesinde çalıştırır (bir proje dizininden çalıştırıldığında yalnızca mevcut projede). Proje başına kimlik bilgileri, proje yolunu `{ "clientId", "clientSecret" }` ile eşleyen bir JSON nesnesi olan `INTLAYER_PROJECT_CREDENTIALS` aracılığıyla eklenebilir.
+
+  > Örnek: `npx intlayer test --ci`
 
 **Hazırlık seçenekleri:**
 

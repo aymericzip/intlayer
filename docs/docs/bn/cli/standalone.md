@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-03-31
+updatedAt: 2026-09-12
 title: স্ট্যান্ডঅলোন বান্ডল (Standalone Bundle)
 description: অ্যাপ্লিকেশন বিষয়বস্তুর একটি স্ট্যান্ডঅলোন JavaScript বান্ডল কীভাবে তৈরি করবেন তা শিখুন।
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - cli
   - standalone
 history:
+  - version: 9.5.2
+    date: 2026-09-12
+    changes: "`--ci` ফ্ল্যাগ যোগ করা হয়েছে"
   - version: 8.6.4
     date: 2026-03-31
     changes: "স্ট্যান্ডঅলোন কমান্ড ডকুমেন্টেশন শুরু"
@@ -61,6 +64,7 @@ bun x intlayer standalone --packages [প্যাকেজ...] [বিকল্
 - `-e, --env [env]` - পরিবেশ।
 - `--base-dir [baseDir]` - বেস ডিরেক্টরি।
 - `--no-cache` - ক্যাশে নিষ্ক্রিয় করুন।
+- `--ci` - মনোরেপোর প্রতিটি Intlayer প্রজেক্টে কমান্ডটি চালায় (প্রজেক্ট ডিরেক্টরি থেকে চালালে শুধুমাত্র বর্তমান প্রজেক্টে)। প্রজেক্ট-ভিত্তিক ক্রেডেনশিয়াল `INTLAYER_PROJECT_CREDENTIALS`-এর মাধ্যমে ইনজেক্ট করা যায়, যা প্রজেক্ট পাথকে `{ "clientId", "clientSecret" }`-এ ম্যাপ করা একটি JSON অবজেক্ট।
 - `--verbose` - বিস্তারিত আউটপুট দেখান।
 
 ## উদাহরণ:

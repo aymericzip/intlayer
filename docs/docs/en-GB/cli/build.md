@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: Build Dictionaries
 description: Learn how to build your Intlayer dictionaries from content declaration files.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - cli
   - build
 history:
+  - version: 9.5.2
+    date: 2026-09-12
+    changes: "Add `--ci` flag"
   - version: 8.1.5
     date: 2026-02-23
     changes: "Add checkTypes option"
@@ -91,6 +94,10 @@ This command will find your declaration content files by default at `./src/**/*.
 - **`--no-cache`**: Disable the cache.
 
   > Example: `npx intlayer build --no-cache`
+
+- **`--ci`**: Run the command in every Intlayer project of the monorepo (or only the current one when run from a project directory). Per-project credentials can be injected via `INTLAYER_PROJECT_CREDENTIALS`, a JSON map of project path to `{ "clientId", "clientSecret" }`.
+
+  > Example: `npx intlayer build --ci`
 
 - **`--check-types`**: Check types of the content declaration files.
 

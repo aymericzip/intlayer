@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-03-31
+updatedAt: 2026-09-12
 title: CLI - Все команды Intlayer CLI для вашего многоязычного сайта
 description: Узнайте, как использовать Intlayer CLI для управления вашим многоязычным сайтом. Следуйте шагам в этой онлайн-документации, чтобы настроить свой проект за считанные минуты.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 9.5.2
+    date: 2026-09-12
+    changes: "Замена команды `ci` флагом `--ci`"
   - version: 9.0.0
     date: 2026-06-11
     changes: "Добавлена команда scan"
@@ -159,10 +162,6 @@ Intlayer принимает несколько форматов файлов к�
 
 - **[Editor Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/editor.md)** - Использование команд редактора Intlayer
 - **[Live Sync Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/live.md)** - Использование Live Sync для применения изменений контента из CMS во время выполнения
-
-### CI/CD и автоматизация
-
-- **[CI Command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/ci.md)** - Выполнение команд Intlayer с автоматически подставляемыми учетными данными для конвейеров CI/CD
 
 ### Аудит и диагностика
 

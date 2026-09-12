@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: Extrair strings
 description: Aprenda como extrair strings dos seus componentes para um ficheiro .content próximo do componente.
 keywords:
@@ -69,6 +69,7 @@ Este comando analisa os seus ficheiros de código para extrair strings dos compo
 - **`--env`**: Especifica o ambiente.
 - **`--env-file`**: Fornece um ficheiro de ambiente personalizado.
 - **`--verbose`**: Ativa o logging detalhado.
+- **`--ci`**: Executa o comando em cada projeto Intlayer do monorepo (ou apenas no atual quando executado de dentro de um diretório de projeto). Credenciais por projeto podem ser injetadas via `INTLAYER_PROJECT_CREDENTIALS`, um objeto JSON que associa cada caminho de projeto a `{ "clientId", "clientSecret" }`.
 
 **Plugins obrigatórios:**
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: डिक्शनरी देखें
 description: जानें कि अपनी कंटेंट घोषणा फ़ाइलों में परिवर्तनों को कैसे देखें और स्वचालित रूप से डिक्शनरी बनाएं।
 keywords:
@@ -48,3 +48,7 @@ bun x intlayer watch
 - **`--with`**: watch के साथ समानांतर में कमांड शुरू करें।
 
 > उदाहरण: `npx intlayer watch --with "next dev --turbopack"`
+
+- **`--ci`**: मोनोरेपो के हर Intlayer प्रोजेक्ट में कमांड चलाता है (प्रोजेक्ट डायरेक्टरी से चलाने पर केवल वर्तमान प्रोजेक्ट में)। प्रति-प्रोजेक्ट क्रेडेंशियल `INTLAYER_PROJECT_CREDENTIALS` के माध्यम से इंजेक्ट किए जा सकते हैं, जो प्रोजेक्ट पाथ को `{ "clientId", "clientSecret" }` से मैप करने वाला JSON ऑब्जेक्ट है।
+
+> उदाहरण: `npx intlayer watch --ci`

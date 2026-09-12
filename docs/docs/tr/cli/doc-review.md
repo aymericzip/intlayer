@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-06-17
+updatedAt: 2026-09-12
 title: Doküman İncelemesi
 description: Farklı yerellerdeki dokümantasyon dosyalarını kalite, tutarlılık ve tamlık açısından nasıl inceleyeceğinizi öğrenin.
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - cli
   - doc-review
 history:
+  - version: 9.5.2
+    date: 2026-09-12
+    changes: "`--ci` bayrağı eklendi"
   - version: 9.0.0
     date: 2026-06-17
     changes: "--log seçeneği eklendi"
@@ -137,6 +140,10 @@ Hangi mod olursa olsun, çalıştırma, temel belgesiyle hizalı olan belgeleri 
 - **`--no-cache`**: Önbelleği devre dışı bırakın.
 
   > Örnek: `npx intlayer doc review --base-dir ./docs --env-file .env.production.local`
+
+- **`--ci`**: Komutu monorepo'nun her Intlayer projesinde çalıştırır (bir proje dizininden çalıştırıldığında yalnızca mevcut projede). Proje başına kimlik bilgileri, proje yolunu `{ "clientId", "clientSecret" }` ile eşleyen bir JSON nesnesi olan `INTLAYER_PROJECT_CREDENTIALS` aracılığıyla eklenebilir.
+
+  > Örnek: `npx intlayer doc review --ci`
 
 **Günlük seçenekleri:**
 

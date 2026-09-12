@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-11
-updatedAt: 2026-06-11
+updatedAt: 2026-09-12
 title: مسح موقع الويب
 description: تعرف على كيفية استخدام أمر scan في Intlayer CLI لقياس حجم الصفحة وتدقيق صحة i18n/SEO لأي موقع ويب.
 keywords:
@@ -18,6 +18,9 @@ slugs:
   - cli
   - scan
 history:
+  - version: 9.5.2
+    date: 2026-09-12
+    changes: "إضافة العلامة `--ci`"
   - version: 9.0.0
     date: 2026-06-11
     changes: "إضافة أمر scan"
@@ -112,6 +115,7 @@ Bundle locale weight:
 - **`-e, --env`** — البيئة المستهدفة (على سبيل المثال `development` ، `production`).
 - **`--env-file`** — المسار إلى ملف `.env` مخصص.
 - **`--no-cache`** — تعطيل ذاكرة التخزين المؤقت للتكوين.
+- **`--ci`** — ينفّذ الأمر في كل مشروع Intlayer في الـ monorepo (أو في المشروع الحالي فقط عند التشغيل من مجلد مشروع). يمكن حقن بيانات اعتماد لكل مشروع عبر `INTLAYER_PROJECT_CREDENTIALS`، وهو كائن JSON يربط مسار كل مشروع بـ `{ "clientId", "clientSecret" }`.
 - **`--verbose`** — تمكين التسجيل التفصيلي (افتراضي في وضع CLI).
 - **`--prefix`** — بادئة تسجيل مخصصة.
 

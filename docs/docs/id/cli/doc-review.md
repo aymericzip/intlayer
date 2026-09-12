@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-06-17
+updatedAt: 2026-09-12
 title: Tinjau Dokumen
 description: Pelajari cara meninjau file dokumentasi untuk kualitas, konsistensi, dan kelengkapan di berbagai lokal.
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - cli
   - doc-review
 history:
+  - version: 9.5.2
+    date: 2026-09-12
+    changes: "Menambahkan flag `--ci`"
   - version: 9.0.0
     date: 2026-06-17
     changes: "Tambahkan opsi --log"
@@ -137,6 +140,10 @@ Apa pun modusnya, proses run berakhir dengan sintesis yang mencantumkan dokumen 
 - **`--no-cache`**: Nonaktifkan cache.
 
   > Contoh: `npx intlayer doc review --base-dir ./docs --env-file .env.production.local`
+
+- **`--ci`**: Menjalankan perintah di setiap proyek Intlayer dalam monorepo (atau hanya proyek saat ini jika dijalankan dari direktori proyek). Kredensial per proyek dapat disuntikkan melalui `INTLAYER_PROJECT_CREDENTIALS`, sebuah objek JSON yang memetakan path proyek ke `{ "clientId", "clientSecret" }`.
+
+  > Contoh: `npx intlayer doc review --ci`
 
 **Opsi log:**
 

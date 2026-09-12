@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-03-31
+updatedAt: 2026-09-12
 title: CLI - Všechny příkazy Intlayer CLI pro váš vícejazyčný web
 description: Naučte se používat Intlayer CLI pro správu vašeho vícejazyčného webu. Postupujte podle kroků v této online dokumentaci a nastavte svůj projekt během několika minut.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 9.5.2
+    date: 2026-09-12
+    changes: "Nahrazení příkazu `ci` příznakem `--ci`"
   - version: 9.0.0
     date: 2026-06-11
     changes: "Přidán obsah příkazu scan"
@@ -157,10 +160,6 @@ Chcete-li se dozvědět, jak nakonfigurovat dostupné jazyky nebo jiné parametr
 
 - **[Editor Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/editor.md)** - Používejte příkazy editoru Intlayer
 - **[Live Sync Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/live.md)** - Používejte Live Sync k aplikování změn obsahu z CMS v reálném čase
-
-### CI/CD a automatizace
-
-- **[CI Command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/ci.md)** - Provádějte příkazy Intlayer s automaticky vloženými přihlašovacími údaji pro linky CI/CD
 
 ### Audit a diagnostika
 

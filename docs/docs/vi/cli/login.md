@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-12-16
-updatedAt: 2025-12-16
+updatedAt: 2026-09-12
 title: CLI - Đăng nhập
 description: Tìm hiểu cách sử dụng lệnh login của Intlayer CLI để xác thực với Intlayer CMS và lấy thông tin truy cập.
 keywords:
@@ -146,7 +146,7 @@ Intlayer thực thi điều này thay vì chỉ ghi tài liệu:
 
 Chỉ cần comment `clientId` là đủ để vô hiệu hóa mọi hành vi có xác thực — fetching từ điển từ xa, truy cập CMS, analytics — thậm chí khi các biến môi trường vẫn được định nghĩa.
 
-Đối với CI pipelines, hãy ưu tiên [`ci` command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/ci.md), nó chèn các thông tin xác thực trong suốt một lần chạy duy nhất thay vì duy trì chúng.
+Đối với CI pipelines, hãy ưu tiên cờ `--ci`, nó chèn các thông tin xác thực trong suốt một lần chạy duy nhất thay vì duy trì chúng.
 
 ## Cấu hình thủ công
 

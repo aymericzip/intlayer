@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-03-31
+updatedAt: 2026-09-12
 title: Eigenständiges Bundle (Standalone)
 description: Erfahren Sie, wie Sie ein eigenständiges JavaScript-Bundle für Ihren Anwendungsinhalt erstellen.
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - cli
   - standalone
 history:
+  - version: 9.5.2
+    date: 2026-09-12
+    changes: "Flag `--ci` hinzugefügt"
   - version: 8.6.4
     date: 2026-03-31
     changes: "Initialisierung der Dokumentation für den Standalone-Befehl"
@@ -61,6 +64,7 @@ bun x intlayer standalone --packages [pakete...] [optionen]
 - `-e, --env [env]` - Umgebung.
 - `--base-dir [baseDir]` - Basisverzeichnis.
 - `--no-cache` - Cache deaktivieren.
+- `--ci` - Führt den Befehl in jedem Intlayer-Projekt des Monorepos aus (oder nur im aktuellen, wenn er aus einem Projektverzeichnis gestartet wird). Projektspezifische Zugangsdaten können über `INTLAYER_PROJECT_CREDENTIALS` eingefügt werden, ein JSON-Objekt, das jedem Projektpfad `{ "clientId", "clientSecret" }` zuordnet.
 - `--verbose` - Ausführliche Ausgabe.
 
 ## Beispiele:

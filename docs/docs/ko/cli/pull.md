@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-12
 title: 사전 가져오기
 description: Intlayer 에디터와 CMS에서 사전을 가져오는 방법을 알아보세요.
 keywords:
@@ -65,6 +65,10 @@ bun x intlayer pull
 - **`--no-cache`**: 캐시를 비활성화합니다.
 
   > 예시: `npx intlayer build --no-cache`
+
+- **`--ci`**: 모노레포의 모든 Intlayer 프로젝트에서 명령어를 실행합니다(프로젝트 디렉터리 안에서 실행하면 해당 프로젝트만). 프로젝트별 자격 증명은 프로젝트 경로를 `{ "clientId", "clientSecret" }`에 매핑하는 JSON 객체인 `INTLAYER_PROJECT_CREDENTIALS`를 통해 주입할 수 있습니다.
+
+  > 예시: `npx intlayer pull --ci`
 
 **환경 변수 옵션:**
 
