@@ -1,56 +1,74 @@
 import { getRouteApi } from '@tanstack/react-router';
 import { animate, useReducedMotion } from 'framer-motion';
 import type { FC } from 'react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { useNumber } from 'react-intlayer/format';
 import { useRevalidatedGithubStars } from './useRevalidatedGithubStars';
 
 const rootRoute = getRouteApi('__root__');
 
+const compactFormat: Intl.NumberFormatOptions = {
+  notation: 'compact',
+  maximumFractionDigits: 1,
+};
+
+/** Count the first page load counts up from. */
+const COUNT_UP_START = 99;
+
+/** Seconds the count-up lasts on the first page load. */
+const COUNT_UP_DURATION = 2;
+
+/** Expo ease-out: fast start, long settle on the final count. */
+const COUNT_UP_EASE = [0.16, 1, 0.3, 1] as const;
+
 /**
- * Renders the Intlayer repository star count next to the navbar GitHub link.
+ * Count last shown on screen. Kept outside React so the navbar remounted by a
+ * client-side navigation resumes from it instead of counting up again — only
+ * the first page load, and a later revalidation, animate.
+ */
+let lastDisplayedStars = COUNT_UP_START;
+
+/**
+ * Renders the Intlayer repository star count next to the navbar GitHub link,
+ * counting up on the first page load.
  *
- * The initial count comes from the root route loader, so it is already part of
- * the dehydrated router state by the time the navbar hydrates — reading the
- * static server function cache from here instead would open a request that only
- * starts once this chunk has been downloaded and run. Since that value is baked
- * into the prerendered HTML, `useRevalidatedGithubStars` asks the server for
- * the current count, which the server itself refreshes once a day.
+ * The initial count comes from the root route loader, so it is part of the
+ * dehydrated router state by the time the navbar hydrates. Since that value is
+ * baked into the prerendered HTML, `useRevalidatedGithubStars` asks the server
+ * for the current count, which the server itself refreshes once a day.
  *
  * Renders nothing while GitHub could not be reached, so the link keeps its
  * icon-only layout.
  */
 export const GithubStarCount: FC = () => {
   const { githubStars } = rootRoute.useLoaderData();
-
   const stars = useRevalidatedGithubStars(githubStars);
-
   const format = useNumber();
   const reducedMotion = useReducedMotion();
-  // Keep the number hidden until the first animation frame after hydration.
-  const [displayedStars, setDisplayedStars] = useState<number | null>(null);
-  const currentStars = useRef(0);
+  const counterRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
-    if (stars === null) return;
+    const counter = counterRef.current;
+    if (stars === null || !counter) return;
 
-    if (reducedMotion) {
-      currentStars.current = stars;
-      setDisplayedStars(stars);
+    const showStars = (value: number): void => {
+      lastDisplayedStars = value;
+      counter.textContent = format(value, compactFormat);
+    };
+
+    if (reducedMotion || lastDisplayedStars === stars) {
+      showStars(stars);
       return;
     }
 
     let animation: ReturnType<typeof animate> | undefined;
-    // Hydration can block the main thread longer than the animation lasts.
-    // Start its clock on a browser frame, after the effect work has finished.
+    // Hydration can block the main thread longer than the animation lasts, so
+    // its clock only starts on a browser frame, once the effect work is done.
     const frame = requestAnimationFrame(() => {
-      animation = animate(currentStars.current, stars, {
-        duration: 1,
-        ease: 'easeOut',
-        onUpdate: (value) => {
-          currentStars.current = value;
-          setDisplayedStars(Math.round(value));
-        },
+      animation = animate(lastDisplayedStars, stars, {
+        duration: COUNT_UP_DURATION,
+        ease: COUNT_UP_EASE,
+        onUpdate: (value) => showStars(Math.round(value)),
       });
     });
 
@@ -58,16 +76,13 @@ export const GithubStarCount: FC = () => {
       cancelAnimationFrame(frame);
       animation?.stop();
     };
-  }, [stars, reducedMotion]);
+  }, [stars, reducedMotion, format]);
 
   if (stars === null) {
     return <></>;
   }
 
-  const formattedStars = format(stars, {
-    notation: 'compact',
-    maximumFractionDigits: 1,
-  });
+  const formattedStars = format(stars, compactFormat);
 
   return (
     <strong className="relative inline-grid text-right text-xs tabular-nums leading-none">
@@ -84,14 +99,11 @@ export const GithubStarCount: FC = () => {
       </span>
       <span className="sr-only">{formattedStars}</span>
       <span
+        ref={counterRef}
         className="absolute inset-0 motion-reduce:hidden"
         aria-hidden="true"
       >
-        {displayedStars !== null &&
-          format(displayedStars, {
-            notation: 'compact',
-            maximumFractionDigits: 1,
-          })}
+        {format(lastDisplayedStars, compactFormat)}
       </span>
     </strong>
   );
