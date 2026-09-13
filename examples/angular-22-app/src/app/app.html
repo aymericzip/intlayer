@@ -68,9 +68,8 @@
 <section>
   <h2>Markdown (md)</h2>
   <!--
-    Markdown compiles to an HTML string via toString().
-    Note: may briefly show raw markdown until the async markdown parser loads
-    because Angular has no Suspense equivalent for dynamic imports.
+    Markdown compiles to an HTML string via toString(). The markdown renderer is
+    code-split; the content signal re-emits once its chunk has loaded.
   -->
   <div [innerHTML]="content().markdownContent"></div>
 </section>
