@@ -66,7 +66,7 @@ Geçtiğimiz 12 ayın özeti:
 - `amannn/next-intl`: **187 commit** (çoğunlukla sürüm geçişleri ve küçük yamalar).
 - `aymericzip/intlayer`: **4.343 commit** (derleyiciler, IDE eklentileri, MCP sunucuları ve çeviri araçları üzerinde kesintisiz geliştirme).
 
-[![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#amannn/next-intl&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#amannn/next-intl&aymericzip/intlayer)
 
 Kararlı bir kütüphane güven verir. Fakat i18n dünyası evrildi: derleyiciler çağrılmayan çevirileri build aşamasında atıyor, LLM'ler CI süreçlerinde otomatik çeviri sağlıyor ve editörler özel LSP ile yapay zeka asistanlarından yararlanıyor. Sadece runtime'a bağlı bir kütüphanenin bu dönüşüme uyum sağlaması zordur.
 

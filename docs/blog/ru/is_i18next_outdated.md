@@ -70,7 +70,7 @@ author: aymericzip
 | `i18next` core  | 2 626                 | **259**       | Небольшие патчи                         |
 | Intlayer        | 7 156                 | **4 343**     | Компилятор, инструменты IDE и движок ИИ |
 
-[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
 
 Компактная библиотека может быть стабильной, но инструменты локализации не стоят на месте: сборщики удаляют неиспользуемый контент во время сборки, языковые модели переводят прямо в CI, а среды разработки используют Language Server (LSP) и ИИ-агентов. Ограниченная временем выполнения архитектура i18next затрудняет внедрение этих инноваций.
 

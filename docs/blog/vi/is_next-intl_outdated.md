@@ -66,7 +66,7 @@ Tổng kết một năm qua:
 - `amannn/next-intl`: **187 commit** (chủ yếu là cập nhật phụ thuộc và vá lỗi nhỏ).
 - `aymericzip/intlayer`: **4.343 commit** (phát triển tích cực trên trình biên dịch, tiện ích mở rộng IDE, máy chủ MCP và công cụ dịch thuật AI).
 
-[![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#amannn/next-intl&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#amannn/next-intl&aymericzip/intlayer)
 
 Một thư viện đã ổn định mang lại cảm giác an tâm. Tuy nhiên, tiêu chuẩn công cụ i18n đã thay đổi: trình biên dịch loại bỏ văn bản không dùng khi build, LLM dịch tự động trong CI, và lập trình viên được hỗ trợ bởi Language Server (LSP) cùng AI agent. Kiến trúc phụ thuộc hoàn toàn vào runtime khó có thể tận dụng những bước tiến này.
 

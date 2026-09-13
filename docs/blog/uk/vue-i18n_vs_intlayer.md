@@ -236,7 +236,7 @@ const { greeting } = useIntlayer("component-example");
 
 GitHub-зірки, це вагомий індикатор популярності проєкту, довіри спільноти та його довгострокової релевантності. Хоча вони не є прямим показником технічної якості, вони відображають, скільки розробників вважають проєкт корисним, слідкують за його розвитком і, ймовірно, впровадять його. При оцінці вартості проєкту зірки допомагають порівняти динаміку прийняття між альтернативами та дають уявлення про зростання екосистеми.
 
-[![Графік історії зірок](https://api.star-history.com/svg?repos=intlify/vue-i18n&repos=aymericzip/intlayer&type=Date)](https://www.star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
+[![Графік історії зірок](https://api.star-history.com/svg?repos=intlify/vue-i18n&repos=aymericzip/intlayer&type=Date)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
 
 ## Висновок
 

@@ -64,7 +64,7 @@ Catatan selama 12 bulan terakhir:
 - `intlify/vue-i18n`: **259 commit** (perawatan berkala untuk Vue 3 dan Nuxt).
 - `aymericzip/intlayer`: **4.343 commit** (pengembangan berkelanjutan pada optimasi kompiler, LSP, dan integrasi AI agent).
 
-[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
 
 Pustaka yang matang memang menjamin keandalan. Namun paradigma frontend modern kini berpusat pada transformasi AST saat build time, pembersihan dead code, dan otomatisasi AI. Sistem yang terpaku pada eksekusi di browser sulit mengadopsi kemudahan ini.
 

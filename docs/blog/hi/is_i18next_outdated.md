@@ -70,7 +70,7 @@ author: aymericzip
 | `i18next` core  | 2,626            | **259**        | छोटे सुधार                             |
 | Intlayer        | 7,156            | **4,343**      | कंपाइलर, आईडीई टूल्स और एआई इंजन विकास |
 
-[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
 
 एक स्थापित लाइब्रेरी स्थिरता देती है। लेकिन i18n टूल्स का परिदृश्य बदल चुका है: मॉडर्न बंडलर्स बिल्ड के दौरान अप्रयुक्त कंटेंट हटाते हैं, एलएलएम सीधे सीआई में ट्रांसलेट करते हैं, और एडिटर्स लैंग्वेज सर्वर (LSP) और एआई एजेंट्स पर निर्भर हैं। केवल रनटाइम पर आधारित आर्किटेक्चर इन प्रगतियों को आसानी से नहीं अपना सकता।
 

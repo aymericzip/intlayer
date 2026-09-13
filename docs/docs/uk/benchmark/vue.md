@@ -146,7 +146,7 @@ style="border:none;"
 
 Зірки на GitHub є потужним індикатором популярності проекту, довіри спільноти та довгострокової актуальності. Хоча вони не є прямим показником технічної якості, вони відображають, скільки розробників вважають проект корисним, стежать за його розвитком і, ймовірно, впровадять його. Для оцінки цінності проекту зірки допомагають порівняти інтерес до альтернатив і дають уявлення про зростання екосистеми.
 
-[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Cfluent-vue%2Ffluent-vue%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#intlify/vue-i18n&fluent-vue/fluent-vue&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Cfluent-vue%2Ffluent-vue%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&fluent-vue/fluent-vue&aymericzip/intlayer)
 
 ## Результати детально
 

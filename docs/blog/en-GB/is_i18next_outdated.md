@@ -70,7 +70,7 @@ Activity across the trailing twelve months:
 | `i18next` core  | 2,626            | **259**        | Minor patches                             |
 | Intlayer        | 7,156            | **4,343**      | Compiler, IDE tooling & AI engine         |
 
-[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
 
 A small library can be complete and stable. But i18n tooling didn't freeze: modern bundlers now eliminate unreferenced copy at build time, LLMs handle translations instantly in CI, and editors rely on dedicated Language Servers (LSP) and AI agents. Because i18next relies on an open runtime plugin model, compilers cannot inspect it, leaving it stuck in place.
 

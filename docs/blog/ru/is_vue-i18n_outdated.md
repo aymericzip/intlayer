@@ -64,7 +64,7 @@ author: aymericzip
 - `intlify/vue-i18n`: **259 коммитов** (плановые исправления для Vue 3 и Nuxt).
 - `aymericzip/intlayer`: **4 343 коммита** (развитие компилятора, LSP-утилит и интеграций с ИИ-агентами).
 
-[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
 
 Зрелая библиотека гарантирует стабильность. Но современные фронтенды используют AST-преобразования при сборке, удаление мертвого кода и автоматический перевод нейросетями. Системе, работающей исключительно во время выполнения, сложно использовать эти новшества.
 

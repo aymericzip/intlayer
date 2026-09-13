@@ -66,7 +66,7 @@ Histórico recente:
 - `amannn/next-intl`: **187 commits** (ajustes de compatibilidade e pequenos reparos).
 - `aymericzip/intlayer`: **4.343 commits** (evolução ativa em compiladores, extensões de editor, servidores MCP e motores de tradução).
 
-[![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#amannn/next-intl&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#amannn/next-intl&aymericzip/intlayer)
 
 Uma ferramenta consolidada pode ser confiável. Mas o ecossistema de i18n se modernizou: compiladores removem conteúdo sem referência em tempo de build, LLMs automatizam a tradução em CI e editores se integram com Language Servers (LSP) e agentes de IA. Uma arquitetura restrita ao runtime não usufrui plenamente desses avanços.
 

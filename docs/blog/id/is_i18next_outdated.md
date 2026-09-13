@@ -70,7 +70,7 @@ Aktivitas pengembangan selama 12 bulan terakhir:
 | `i18next` core  | 2.626        | **259**           | Patch minor                          |
 | Intlayer        | 7.156        | **4.343**         | Kompiler, perkakas IDE, dan mesin AI |
 
-[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
 
 Pustaka yang matang memang menawarkan stabilitas. Namun standar perkakas i18n telah berubah: bundler modern memangkas teks tak terpakai saat build, model bahasa (LLM) menerjemahkan langsung di pipeline CI, dan editor terintegrasi dengan Language Server (LSP) serta AI agent. Arsitektur i18next yang murni mengandalkan runtime kesulitan mengadopsi kemajuan ini.
 

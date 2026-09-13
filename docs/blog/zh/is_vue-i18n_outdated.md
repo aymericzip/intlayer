@@ -64,7 +64,7 @@ author: aymericzip
 - `intlify/vue-i18n`：**259 次 commit**（Vue 3 与 Nuxt 的例行维护）。
 - `aymericzip/intlayer`：**4,343 次 commit**（持续投入编译器优化、LSP 语言服务以及深度 AI 集成）。
 
-[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
 
 久经考验的库往往代表稳定，但现代化前端开发已全面转向构建期 AST 转换、无用代码精简和 AI 赋能。受制于纯运行时的架构设计，旧模型较难自如融入这些革新。
 

@@ -64,7 +64,7 @@ Histórico do último ano:
 - `intlify/vue-i18n`: **259 commits** (manutenção para Vue 3 e Nuxt).
 - `aymericzip/intlayer`: **4.343 commits** (trabalho contínuo em otimização de compilação, integrações LSP e suporte a IA).
 
-[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
 
 Uma ferramenta estabelecida garante estabilidade. Mas o desenvolvimento atual aproveita transformações AST no build, eliminação de código inativo e tradução por IA. Um modelo focado no navegador tem dificuldade de acompanhar esses padrões.
 

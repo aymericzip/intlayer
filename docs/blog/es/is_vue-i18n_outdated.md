@@ -64,7 +64,7 @@ Historial del último año:
 - `intlify/vue-i18n`: **259 commits** (mantenimiento regular para Vue 3 y Nuxt).
 - `aymericzip/intlayer`: **4.343 commits** (mejoras continuas en optimizaciones de compilación, LSP y herramientas de IA).
 
-[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
 
 Una librería madura puede ser estable. No obstante, las aplicaciones contemporáneas aprovechan el procesado AST durante el build, la eliminación de código en desuso y la traducción con IA. Un esquema vinculado exclusivamente al runtime no asimila fácilmente estas posibilidades.
 

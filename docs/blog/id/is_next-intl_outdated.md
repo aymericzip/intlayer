@@ -66,7 +66,7 @@ Catatan tahun terakhir:
 - `amannn/next-intl`: **187 commit** (sebagian besar adaptasi dependensi dan perbaikan minor).
 - `aymericzip/intlayer`: **4.343 commit** (pengembangan aktif pada kompiler, ekstensi IDE, server MCP, dan mesin terjemahan).
 
-[![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#amannn/next-intl&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#amannn/next-intl&aymericzip/intlayer)
 
 Pustaka yang matang memang memberikan rasa aman. Namun dunia i18n telah berubah: kompiler menghapus teks tak terpakai saat build, LLM menerjemahkan teks di CI, dan pengembang dibantu oleh Language Server (LSP) serta AI agent. Pustaka yang terpaku pada runtime sulit memanfaatkan inovasi ini.
 

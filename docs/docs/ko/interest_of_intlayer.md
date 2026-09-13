@@ -273,7 +273,7 @@ export const ComponentExample = () => {
 
 GitHub Star 수는 프로젝트의 인지도, 커뮤니티의 신뢰도 및 장기적인 생명력을 파악하는 중요한 척도입니다. 이것이 서비스 모듈의 기술적 안전성을 100% 대변하는 절대 지표는 아니지만, 얼마나 많은 실무 개발자들이 해당 솔루션을 검토하고 관심을 가지고 적극적으로 프로젝트 도입을 추진하는지 투명하게 반증합니다. Intlayer의 Star 연혁을 비교해 보면, 타 솔루션 대비 얼마나 빠르게 성장하며 생태계를 확장하고 있는지 그 추세를 정밀히 비교해 보실 수 있습니다.
 
-[![Star History Chart](https://api.star-history.com/chart?repos=aymericzip/intlayer%2Cformatjs/formatjs%2Ci18next/react-i18next%2Ci18next/i18next%2Ci18next/next-i18next%2Clingui/js-lingui%2Camannn/next-intl%2Cintlify/vue-i18n%2Ccodingcommons/typesafe-i18n%2Copral/paraglide-js&type=date&legend=top-left)](https://www.star-history.com/#aymericzip/intlayer&formatjs/formatjs&i18next/react-i18next&i18next/i18next&i18next/next-i18next&lingui/js-lingui&amannn/next-intl&intlify/vue-i18n&codingcommons/typesafe-i18n&opral/paraglide-js)
+[![Star History Chart](https://api.star-history.com/chart?repos=aymericzip/intlayer%2Cformatjs/formatjs%2Ci18next/react-i18next%2Ci18next/i18next%2Ci18next/next-i18next%2Clingui/js-lingui%2Camannn/next-intl%2Cintlify/vue-i18n%2Ccodingcommons/typesafe-i18n%2Copral/paraglide-js&type=date&legend=top-left)](https://star-history.com/#aymericzip/intlayer&formatjs/formatjs&i18next/react-i18next&i18next/i18next&i18next/next-i18next&lingui/js-lingui&amannn/next-intl&intlify/vue-i18n&codingcommons/typesafe-i18n&opral/paraglide-js)
 
 ## 상호 운용성
 

@@ -66,7 +66,7 @@ author: aymericzip
 - `amannn/next-intl`：**187 次 commit**（主要针对 Next.js 更新进行补丁维护）。
 - `aymericzip/intlayer`：**4,343 次 commit**（在编译器、IDE 扩展、MCP Server 及自主 AI 翻译引擎上高频迭代）。
 
-[![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#amannn/next-intl&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#amannn/next-intl&aymericzip/intlayer)
 
 成熟的库通常让人感到放心，但 i18n 技术范式已经发生转变：构建期借助编译器剔除无用文本，CI 阶段自动调用大模型批量翻译，开发者通过 Language Server (LSP) 与 AI Agent 协助编写。纯运行时的设计难以直接消化这些优势。
 

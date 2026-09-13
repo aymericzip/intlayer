@@ -70,7 +70,7 @@ Atividade nos últimos doze meses:
 | `i18next` core  | 2.626              | **259**          | Correções menores                          |
 | Intlayer        | 7.156              | **4.343**        | Compilador, extensões de IDE e motor de IA |
 
-[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
 
 Uma biblioteca enxuta pode ser completa e estável. Contudo, o ferramental de i18n continua a se transformar: bundlers modernos eliminam conteúdo desnecessário em tempo de build, modelos de linguagem traduzem em CI e editores utilizam Language Servers (LSP) e agentes de IA. A dependência exclusiva de plugins em tempo de execução impede que o i18next acompanhe essa evolução.
 

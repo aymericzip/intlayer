@@ -70,7 +70,7 @@ Attività negli ultimi 12 mesi:
 | `i18next` core  | 2.626          | **259**        | Piccoli aggiornamenti                |
 | Intlayer        | 7.156          | **4.343**      | Compilatore, tooling IDE e motore IA |
 
-[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
 
 Una libreria snella può essere solida e affidabile. Ma gli strumenti di i18n progrediscono costantemente: i bundler odierni eliminano i testi inutilizzati durante il build, gli LLM traducono direttamente in CI e gli editor si affidano a server di linguaggio (LSP) e agenti IA. L'architettura puramente a runtime di i18next limita queste possibilità.
 

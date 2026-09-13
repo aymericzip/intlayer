@@ -66,7 +66,7 @@ author: aymericzip
 - `amannn/next-intl`: **187 коммитов** (обновления зависимостей и небольшие патчи).
 - `aymericzip/intlayer`: **4 343 коммита** (активная работа над компилятором, плагинами для IDE, MCP-серверами и алгоритмами перевода).
 
-[![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#amannn/next-intl&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#amannn/next-intl&aymericzip/intlayer)
 
 Стабильная библиотека полезна, но подходы к i18n изменились: компиляторы удаляют неиспользуемые строки при сборке, нейросети переводят тексты в CI, а среды разработки подключают LSP и ИИ-помощников. Архитектура, сосредоточенная на времени выполнения, с трудом использует эти возможности.
 

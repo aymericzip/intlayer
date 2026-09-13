@@ -64,7 +64,7 @@ Ostatnie 12 miesięcy:
 - `intlify/vue-i18n`: **259 commitów** (bieżące wsparcie dla Vue 3 i Nuxt).
 - `aymericzip/intlayer`: **4 343 commity** (prace nad optymalizacjami kompilatora, narzędziami LSP i integracjami AI).
 
-[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
 
 Sprawdzona biblioteka gwarantuje przewidywalność. Jednak nowoczesne technologie opierają się na modyfikacjach AST w trakcie budowania, czyszczeniu nieużywanego kodu i automatycznym tłumaczeniu przez AI. Rozwiązanie zakorzenione wyłącznie w runtime nie wykorzystuje łatwo tych możliwości.
 

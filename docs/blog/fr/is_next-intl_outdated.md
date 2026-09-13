@@ -66,7 +66,7 @@ Activité sur les 12 derniers mois :
 - `amannn/next-intl` : **187 commits** (essentiellement montées de dépendances et correctifs légers).
 - `aymericzip/intlayer` : **4 343 commits** (développement continu sur les compilateurs, extensions IDE, serveurs MCP et moteurs de traduction).
 
-[![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#amannn/next-intl&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#amannn/next-intl&aymericzip/intlayer)
 
 Une bibliothèque établie peut être stable. Mais l'i18n frontend progresse : les compilateurs retirent les traductions non référencées au moment du build, les LLMs automatisent la localisation en CI et les développeurs s'appuient sur des serveurs LSP et des agents IA. Une architecture cantonnée au runtime peine à suivre ce rythme.
 

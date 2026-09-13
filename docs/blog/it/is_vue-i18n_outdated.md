@@ -64,7 +64,7 @@ Attività negli ultimi 12 mesi:
 - `intlify/vue-i18n`: **259 commit** (manutenzione ordinaria per Vue 3 e Nuxt).
 - `aymericzip/intlayer`: **4.343 commit** (ottimizzazioni di compilazione, integrazioni LSP e supporto ad agenti IA).
 
-[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
 
 Una libreria matura assicura affidabilità. Tuttavia le architetture odierne impiegano trasformazioni AST al build, eliminazione di codice morto e automazione con IA. Un'impostazione incentrata unicamente sul runtime fa fatica ad adottare questi paradigmi.
 

@@ -64,7 +64,7 @@ author: aymericzip
 - `intlify/vue-i18n`: **259 комітів** (регулярні виправлення для Vue 3 і Nuxt).
 - `aymericzip/intlayer`: **4 343 коміти** (активна розробка оптимізацій компілятора, LSP-інструментів та інтеграцій для ШІ).
 
-[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
 
 Зріла бібліотека забезпечує передбачуваність. Проте сучасні фронтенд-рішення застосовують AST-трансформації на етапі збірки, очищення мертвого коду та автоматизацію за допомогою ШІ. Системі, орієнтованій виключно на виконання у браузері, складно переймати ці переваги.
 

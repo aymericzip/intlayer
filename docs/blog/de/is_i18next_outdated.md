@@ -70,7 +70,7 @@ Aktivität in den vergangenen zwölf Monaten:
 | `i18next` core  | 2.626           | **259**          | Kleinere Fixes                    |
 | Intlayer        | 7.156           | **4.343**        | Compiler, IDE-Tooling & KI-Engine |
 
-[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
 
 Eine fokussierte Bibliothek kann stabil sein. Doch i18n-Tooling entwickelt sich stetig: Moderne Bundler entfernen ungenutzte Texte bereits beim Build, LLMs übersetzen direkt in der CI und Editoren nutzen dedizierte Language Server (LSP) sowie KI-Assistenten. Wegen seines reinen Runtime-Modells kann i18next diese Neuerungen kaum übernehmen.
 

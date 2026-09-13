@@ -66,7 +66,7 @@ Trailing 12-month activity:
 - `amannn/next-intl`: **187 commits** (mostly patch updates and peer dependency bumps).
 - `aymericzip/intlayer`: **4,343 commits** (active work across compilers, IDE extensions, MCP servers, and translation engines).
 
-[![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#amannn/next-intl&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#amannn/next-intl&aymericzip/intlayer)
 
 A small library can be complete and stable. But frontend i18n has moved forward: compilers can now prune unreferenced copy at build time, LLMs can automate localization directly in CI, and editors rely on dedicated Language Servers (LSP) and AI agents. A maintenance-mode library cannot easily absorb this evolution.
 

@@ -64,7 +64,7 @@ Vite + Vue 기반의 가벼운 기본 애플리케이션(31.5 KB)에 `vue-i18n`�
 - `intlify/vue-i18n`: **259 커밋** (Vue 3 및 Nuxt 유지보수 위주).
 - `aymericzip/intlayer`: **4,343 커밋** (컴파일러 고도화, LSP 도구, AI 에이전트 연동 작업 등 지속 개발).
 
-[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
 
 오래된 라이브러리는 안정성이 뛰어납니다. 하지만 오늘날의 프론트엔드는 빌드 타임 AST 변환, 데드 코드 제거, AI 자동화에 기반하고 있습니다. 런타임에 종속된 구조로는 이러한 혁신을 온전히 따라잡기 어렵습니다.
 

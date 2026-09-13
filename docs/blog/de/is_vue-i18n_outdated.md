@@ -64,7 +64,7 @@ Vergangene zwölf Monate:
 - `intlify/vue-i18n`: **259 Commits** (Pflege für Vue 3 und Nuxt).
 - `aymericzip/intlayer`: **4.343 Commits** (Compiler-Optimierungen, LSP-Erweiterungen und KI-Agenten-Unterstützung).
 
-[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
 
 Eine etablierte Bibliothek bietet Stabilität. Moderne Frontend-Stacks nutzen jedoch AST-Transformationen im Build, Dead-Code-Elimination und KI-Lokalisierung. Eine reine Laufzeitarchitektur kann diese Entwicklungen nur schwer adaptieren.
 

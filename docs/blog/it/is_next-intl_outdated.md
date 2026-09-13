@@ -66,7 +66,7 @@ Attività negli ultimi 12 mesi:
 - `amannn/next-intl`: **187 commit** (aggiornamenti di dipendenze e piccole correzioni).
 - `aymericzip/intlayer`: **4.343 commit** (sviluppo attivo su compilatori, estensioni IDE, server MCP e motori di traduzione).
 
-[![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#amannn/next-intl&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#amannn/next-intl&aymericzip/intlayer)
 
 Una libreria matura può risultare stabile. Tuttavia, l'i18n frontend si è trasformata: i compilatori escludono i testi superflui in fase di build, i modelli LLM automatizzano le traduzioni in CI e gli ambienti di sviluppo sfruttano Language Server (LSP) e agenti intelligenti. Un'architettura basata sul runtime difficilmente recepisce tali vantaggi.
 

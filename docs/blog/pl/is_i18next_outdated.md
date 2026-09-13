@@ -70,7 +70,7 @@ Aktywność w ostatnich dwunastu miesiącach:
 | `i18next` core  | 2 626             | **259**              | Drobne łatki                          |
 | Intlayer        | 7 156             | **4 343**            | Kompilator, narzędzia IDE i silnik AI |
 
-[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
 
 Mniejsza biblioteka może być dojrzała i stabilna. Jednak ekosystem i18n stale się rozwija: współczesne bundlery eliminują nieużywane treści już podczas budowania, modele LLM automatyzują tłumaczenia w CI, a edytory polegają na serwerach językowych (LSP) i agentach AI. Architektura i18next oparta na runtime utrudnia korzystanie z tych innowacji.
 

@@ -273,7 +273,7 @@ Deze benadering stelt u in staat om:
 
 GitHub-sterren zijn een sterke indicator van de populariteit van een project, het vertrouwen van de gemeenschap en de relevantie op de lange termijn. Hoewel ze geen directe meting van de technische kwaliteit zijn, weerspiegelen ze hoeveel ontwikkelaars het project nuttig vinden, de voortgang ervan volgen en het waarschijnlijk zullen adopteren. Om de waarde van een project te schatten, helpen sterren om de tractie tussen alternatieven te vergelijken en bieden ze inzicht in de groei van het ecosysteem.
 
-[![Star History Chart](https://api.star-history.com/chart?repos=aymericzip/intlayer%2Cformatjs/formatjs%2Ci18next/react-i18next%2Ci18next/i18next%2Ci18next/next-i18next%2Clingui/js-lingui%2Camannn/next-intl%2Cintlify/vue-i18n%2Ccodingcommons/typesafe-i18n%2Copral/paraglide-js&type=date&legend=top-left)](https://www.star-history.com/#aymericzip/intlayer&formatjs/formatjs&i18next/react-i18next&i18next/i18next&i18next/next-i18next&lingui/js-lingui&amannn/next-intl&intlify/vue-i18n&codingcommons/typesafe-i18n&opral/paraglide-js)
+[![Star History Chart](https://api.star-history.com/chart?repos=aymericzip/intlayer%2Cformatjs/formatjs%2Ci18next/react-i18next%2Ci18next/i18next%2Ci18next/next-i18next%2Clingui/js-lingui%2Camannn/next-intl%2Cintlify/vue-i18n%2Ccodingcommons/typesafe-i18n%2Copral/paraglide-js&type=date&legend=top-left)](https://star-history.com/#aymericzip/intlayer&formatjs/formatjs&i18next/react-i18next&i18next/i18next&i18next/next-i18next&lingui/js-lingui&amannn/next-intl&intlify/vue-i18n&codingcommons/typesafe-i18n&opral/paraglide-js)
 
 ## Interoperabiliteit
 

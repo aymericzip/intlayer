@@ -70,7 +70,7 @@ author: aymericzip
 | `i18next` core  | 2 626           | **259**            | Невеликі патчі                             |
 | Intlayer        | 7 156           | **4 343**          | Компілятор, інструменти IDE та ШІ-рушій    |
 
-[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
 
 Невелика бібліотека може бути стабільною. Але засоби i18n змінюються: сучасні збирачі видаляють непотрібний контент під час збірки, нейромережі перекладають безпосередньо в CI, а редактори підключають Language Server (LSP) та ШІ-агентів. Модель i18next, побудована виключно на runtime, не дозволяє легко впроваджувати ці рішення.
 

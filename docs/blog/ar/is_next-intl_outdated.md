@@ -66,7 +66,7 @@ author: aymericzip
 - `amannn/next-intl`: **187 تعديلاً** (تحديثات وتعديلات طفيفة).
 - `aymericzip/intlayer`: **4,343 تعديلاً** (تطوير مستمر للمترجم، وإضافات المحررات، وخوادم MCP، ومحركات الترجمة).
 
-[![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#amannn/next-intl&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#amannn/next-intl&aymericzip/intlayer)
 
 الاستقرار ميزة بلا شك، لكن مفاهيم التدويل تغيرت: فالمترجمات أصبحت تتخلص من النصوص غير المطلوبة أثناء التجميع، والذكاء الاصطناعي يتولى الترجمة في مراحل البناء، والمطورون يعتمدون على خوادم اللغات والوكلاء الأذكياء. نموذج يعتمد كلياً على وقت التشغيل يجد صعوبة في الاستفادة من هذه القفزات.
 

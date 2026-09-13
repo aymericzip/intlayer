@@ -64,7 +64,7 @@ Language Server（LSP）、AI向けMCPサーバー、CLIを通じた自動翻訳
 - `intlify/vue-i18n`: **259コミット**（Vue 3およびNuxt向けの定期保守）。
 - `aymericzip/intlayer`: **4,343コミット**（コンパイラ最適化、LSP機能、AI連携ツールの継続開発）。
 
-[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
 
 歴史あるライブラリには安定性の利点があります。しかし近年の開発手法は、ビルド時のAST解析、デッドコード除去、AIによる自動化を前提としています。クライアント上での実行に依存するアーキテクチャでは、こうした進化を取り入れるのが難しくなります。
 

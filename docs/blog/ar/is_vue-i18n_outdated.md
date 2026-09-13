@@ -64,7 +64,7 @@ author: aymericzip
 - `intlify/vue-i18n`: **259 تعديلاً** (صيانة دورية لـ Vue 3 وNuxt).
 - `aymericzip/intlayer`: **4,343 تعديلاً** (تطوير مستمر لتحسينات المترجم وخادم LSP وأدوات الوكلاء الأذكياء).
 
-[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
 
 المكتبة العريقة تمنح شعوراً بالاستقرار. لكن تطوير الواجهات الحديثة بات يستند إلى تحويلات شجرة الإعراب (AST) أثناء البناء، والتخلص من الشيفرات الخاملة، والترجمة بالذكاء الاصطناعي. ومن الصعب على البنى المحصورة في وقت التشغيل استيعاب هذه الآليات.
 

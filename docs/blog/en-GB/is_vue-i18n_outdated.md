@@ -64,7 +64,7 @@ Trailing twelve months:
 - `intlify/vue-i18n`: **259 commits** (routine patches and Vue 3 / Nuxt dependency maintenance).
 - `aymericzip/intlayer`: **4,343 commits** (active work across compiler optimisations, LSP tools, and AI agents).
 
-[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
 
 A mature library can be complete. But modern frontends now leverage build-time AST transformations, bundler dead-code elimination, and AI-driven localisation. A runtime-bound architecture cannot easily adopt these paradigms.
 

@@ -64,7 +64,7 @@ Số liệu 12 tháng qua:
 - `intlify/vue-i18n`: **259 commit** (bảo trì định kỳ cho Vue 3 và Nuxt).
 - `aymericzip/intlayer`: **4.343 commit** (liên tục cải tiến trình biên dịch, công cụ LSP và tích hợp AI agent).
 
-[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
 
 Một thư viện lâu năm luôn có tính ổn định cao. Tuy nhiên, lập trình web ngày nay dựa trên phân tích AST khi build, loại bỏ mã không dùng và dịch tự động bằng AI. Một hệ thống phụ thuộc vào việc thực thi trên trình duyệt khó lòng áp dụng hiệu quả các tiện ích này.
 

@@ -64,7 +64,7 @@ Son on iki ay:
 - `intlify/vue-i18n`: **259 commit** (Vue 3 ve Nuxt için periyodik bakım).
 - `aymericzip/intlayer`: **4.343 commit** (derleyici optimizasyonları, LSP araçları ve yapay zeka entegrasyonları).
 
-[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
 
 Köklü bir kütüphane istikrar sağlar. Fakat günümüz web mimarisi derleme anında AST dönüşümleri, ölü kod temizliği ve yapay zeka destekli yerelleştirme kullanır. Yalnızca çalışma zamanında çalışan bir sistemin bu yenilikleri benimsemesi zordur.
 

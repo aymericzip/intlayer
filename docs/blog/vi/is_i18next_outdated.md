@@ -70,7 +70,7 @@ Hoạt động phát triển trong 12 tháng qua:
 | `i18next` core  | 2.626          | **259**      | Các bản vá nhỏ                            |
 | Intlayer        | 7.156          | **4.343**    | Trình biên dịch, công cụ IDE và AI engine |
 
-[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
 
 Một thư viện trưởng thành mang lại sự an tâm. Tuy nhiên, các tiêu chuẩn của công cụ i18n đã thay đổi: bundler hiện đại loại bỏ nội dung không sử dụng khi build, LLM tự động dịch trên CI, và lập trình viên tận dụng Language Server (LSP) cùng AI agent. Mô hình chỉ dựa vào runtime của i18next gặp khó khăn trong việc đón nhận những tiến bộ này.
 

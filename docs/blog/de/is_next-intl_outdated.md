@@ -66,7 +66,7 @@ Die letzten 12 Monate:
 - `amannn/next-intl`: **187 Commits** (überwiegend Versionsanpassungen und kleinere Patches).
 - `aymericzip/intlayer`: **4.343 Commits** (kontinuierliche Entwicklung an Compilern, IDE-Erweiterungen, MCP-Servern und Übersetzungs-Engines).
 
-[![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#amannn/next-intl&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#amannn/next-intl&aymericzip/intlayer)
 
 Eine fokussierte Bibliothek kann stabil sein. Doch i18n hat sich gewandelt: Compiler bereinigen ungenutzte Texte beim Build, LLMs automatisieren Workflows in der CI und Editoren nutzen Language Server (LSP) sowie KI-Agenten. Eine reine Laufzeit-Architektur kann diese Vorteile kaum ausschöpfen.
 

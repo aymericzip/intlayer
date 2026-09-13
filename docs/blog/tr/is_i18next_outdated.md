@@ -70,7 +70,7 @@ Son on iki ayın geliştirme performansı:
 | `i18next` core  | 2.626         | **259**   | Küçük güncellemeler                          |
 | Intlayer        | 7.156         | **4.343** | Derleyici, IDE araçları ve yapay zeka motoru |
 
-[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
 
 Küçük bir kütüphane kararlı olabilir. Ancak i18n araçları yerinde saymadı: modern paketleyiciler kullanılmayan çevirileri derleme anında temizliyor, LLM'ler doğrudan CI süreçlerinde çeviri yapıyor ve editörler özel Language Server (LSP) ile yapay zeka ajanlarına dayanıyor. i18next'in çalışma zamanı modeli bu ilerlemelere ayak uydurmakta zorlanıyor.
 

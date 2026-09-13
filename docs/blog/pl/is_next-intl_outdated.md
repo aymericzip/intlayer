@@ -66,7 +66,7 @@ Podsumowanie minionego roku:
 - `amannn/next-intl`: **187 commitów** (głównie aktualizacje zależności i drobne poprawki).
 - `aymericzip/intlayer`: **4 343 commity** (ciągłe prace nad kompilatorem, rozszerzeniami IDE, serwerami MCP i narzędziami tłumaczeniowymi).
 
-[![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#amannn/next-intl&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#amannn/next-intl&aymericzip/intlayer)
 
 Stabilna biblioteka bywa wystarczająca. Jednak standardy i18n uległy zmianie: kompilatory eliminują nieodwoływane tłumaczenia na etapie budowania, LLM-y wspierają translację w CI, a programiści korzystają z serwerów językowych (LSP) i asystentów AI. Biblioteka skupiona wyłącznie na czasie wykonywania nie czerpie z tych korzyści.
 

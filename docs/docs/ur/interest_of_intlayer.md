@@ -262,7 +262,7 @@ export const ComponentExample = () => {
 
 گٹ ہب اسٹارز (GitHub stars) کسی پروجیکٹ کی مقبولیت، کمیونٹی کے اعتماد اور طویل مدتی مطابقت کا ایک مضبوط اشارہ ہیں۔ اگرچہ یہ تکنیکی معیار کا براہ راست پیمانہ نہیں ہیں، لیکن یہ ظاہر کرتے ہیں کہ کتنے ڈویلپرز پروجیکٹ کو مفید پاتے ہیں، اس کی پیشرفت پر نظر رکھتے ہیں، اور اسے اپنانے کا احتمال رکھتے ہیں۔ کسی پروجیکٹ کی قدر کا اندازہ لگانے کے لیے، اسٹارز متبادلات کے درمیان کرشن (traction) کا موازنہ کرنے اور ایکو سسٹم کی ترقی کے بارے میں بصیرت فراہم کرنے میں مدد کرتے ہیں۔
 
-[![Star History Chart](https://api.star-history.com/chart?repos=aymericzip/intlayer%2Cformatjs/formatjs%2Ci18next/react-i18next%2Ci18next/i18next%2Ci18next/next-i18next%2Clingui/js-lingui%2Camannn/next-intl%2Cintlify/vue-i18n%2Ccodingcommons/typesafe-i18n%2Copral/paraglide-js&type=date&legend=top-left)](https://www.star-history.com/#aymericzip/intlayer&formatjs/formatjs&i18next/react-i18next&i18next/i18next&i18next/next-i18next&lingui/js-lingui&amannn/next-intl&intlify/vue-i18n&codingcommons/typesafe-i18n&opral/paraglide-js)
+[![Star History Chart](https://api.star-history.com/chart?repos=aymericzip/intlayer%2Cformatjs/formatjs%2Ci18next/react-i18next%2Ci18next/i18next%2Ci18next/next-i18next%2Clingui/js-lingui%2Camannn/next-intl%2Cintlify/vue-i18n%2Ccodingcommons/typesafe-i18n%2Copral/paraglide-js&type=date&legend=top-left)](https://star-history.com/#aymericzip/intlayer&formatjs/formatjs&i18next/react-i18next&i18next/i18next&i18next/next-i18next&lingui/js-lingui&amannn/next-intl&intlify/vue-i18n&codingcommons/typesafe-i18n&opral/paraglide-js)
 
 ## باہمی مطابقت (Interoperability)
 

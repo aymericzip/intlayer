@@ -66,7 +66,7 @@ Crowdin의 공식 파트너이기 때문에, CLI 자체에 무료 로컬 AI 번�
 - `amannn/next-intl`: **187 커밋** (Next.js 호환성 유지 및 소규모 수정).
 - `aymericzip/intlayer`: **4,343 커밋** (컴파일러 최적화, IDE 확장, MCP 서버, AI 번역 엔진 개발 등).
 
-[![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#amannn/next-intl&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#amannn/next-intl&aymericzip/intlayer)
 
 성숙한 라이브러리는 안정감을 줍니다. 하지만 i18n 환경은 달라졌습니다. 빌드 시 미사용 텍스트를 걸러내고, CI에서 LLM이 번역을 수행하며, 에디터는 Language Server (LSP) 및 AI 어시스턴트와 밀접하게 연동됩니다. 런타임 처리에 갇힌 아키텍처는 이러한 진보를 온전히 누리기 어렵습니다.
 

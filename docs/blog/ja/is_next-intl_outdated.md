@@ -66,7 +66,7 @@ Crowdinの公式パートナーであるため、CLIに完全無料で使える�
 - `amannn/next-intl`: **187コミット**（フレームワーク追従と不具合修正）。
 - `aymericzip/intlayer`: **4,343コミット**（コンパイラ機能の拡充、IDE拡張機能、MCPサーバー、翻訳エンジンの開発）。
 
-[![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#amannn/next-intl&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#amannn/next-intl&aymericzip/intlayer)
 
 成熟したライブラリは安心感をもたらします。しかし現在のi18n環境は大きく変化しました。ビルド時に不要文言を自動削除し、CI環境でLLMが翻訳を行い、開発者はLanguage Server（LSP）やAIエージェントの支援を受けます。ランタイムに頼る設計では、こうした新しい恩恵を十分に享受できません。
 

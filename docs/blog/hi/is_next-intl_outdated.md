@@ -66,7 +66,7 @@ Crowdin का आधिकारिक पार्टनर होने क�
 - `amannn/next-intl`: **187 कमिट्स** (मुख्यतः फ्रेमवर्क अपडेट्स और छोटे सुधार)।
 - `aymericzip/intlayer`: **4,343 कमिट्स** (कंपाइलर, आईडीई एक्सटेंशन, एमसीपी सर्वर और एआई ट्रांसलेशन इंजन पर निरंतर विकास)।
 
-[![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#amannn/next-intl&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#amannn/next-intl&aymericzip/intlayer)
 
 एक स्थापित लाइब्रेरी सुरक्षा का अनुभव कराती है। लेकिन आधुनिक i18n की दुनिया बदल चुकी है: कंपाइलर्स अप्रयुक्त टेक्स्ट को बिल्ड के समय हटाते हैं, एलएलएम सीआई पाइपलाइन में अनुवाद करते हैं, और डेवलपर्स लैंग्वेज सर्वर (LSP) और एआई एजेंट्स की मदद लेते हैं। रनटाइम-केंद्रित लाइब्रेरी इन सुविधाओं को आसानी से आत्मसात नहीं कर पाती।
 

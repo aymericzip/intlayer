@@ -64,7 +64,7 @@ Activité sur les douze derniers mois :
 - `intlify/vue-i18n` : **259 commits** (maintenance continue pour Vue 3 et Nuxt).
 - `aymericzip/intlayer` : **4 343 commits** (optimisations de compilation, intégrations LSP et outillage pour agents IA).
 
-[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
 
 Une bibliothèque éprouvée a l'avantage de la maturité. Cependant, les stacks modernes s'appuient sur la transformation AST au build, l'élimination du code mort et la localisation assistée par IA. Un système reposant principalement sur l'exécution dynamique peine à intégrer ces gains.
 

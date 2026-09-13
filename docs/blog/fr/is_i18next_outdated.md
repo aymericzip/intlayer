@@ -70,7 +70,7 @@ Activité sur les douze derniers mois :
 | `i18next` core  | 2 626          | **259**          | Correctifs mineurs                      |
 | Intlayer        | 7 156          | **4 343**        | Compilateur, tooling IDE et moteur d'IA |
 
-[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
 
 Une bibliothèque concise peut être mature et stable. Mais les outils d'i18n évoluent vite : les bundlers modernes éliminent le contenu inutile au build, les LLMs traduisent automatiquement en CI, et les éditeurs reposent sur des serveurs de langage (LSP) et des agents IA. L'architecture runtime d'i18next limite sa capacité à adopter ces nouveautés.
 

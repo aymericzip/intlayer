@@ -64,7 +64,7 @@ Vite + Vue पर आधारित केवल 31.5 KB के बुनिय
 - `intlify/vue-i18n`: **259 कमिट्स** (Vue 3 और Nuxt का नियमित रखरखाव)।
 - `aymericzip/intlayer`: **4,343 कमिट्स** (कंपाइलर ऑप्टिमाइजेशन, LSP टूल्स और एआई इंटीग्रेशन पर सक्रिय विकास)।
 
-[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
 
 एक पुरानी लाइब्रेरी स्थिरता तो देती है, लेकिन आधुनिक फ्रंटएंड अब बिल्ड-टाइम AST ट्रांसफॉर्मेशन, डेड-कोड रिमूवल और एआई ऑटोमेशन पर आधारित है। केवल रनटाइम पर चलने वाली लाइब्रेरी इन आधुनिक तकनीकों को सहजता से नहीं अपना पाती।
 

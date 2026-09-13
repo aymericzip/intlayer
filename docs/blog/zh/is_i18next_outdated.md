@@ -70,7 +70,7 @@ GitHub Stars 仅代表历史上的流行程度，并不代表当下的架构活�
 | `i18next` 核心  | 2,626            | **259**      | 小幅度更新                               |
 | Intlayer        | 7,156            | **4,343**    | 编译器优化、IDE 工具链与 AI 翻译引擎研发 |
 
-[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
 
 成熟的代码库能提供稳定性，但现代 i18n 工具链已经发生质变：现代打包工具在构建期剔除无用文本，CI 阶段借助大语言模型实现自动化翻译，编辑器环境深度融合 Language Server (LSP) 与 AI Agent。纯运行时的架构设计很难融入这些前沿技术。
 

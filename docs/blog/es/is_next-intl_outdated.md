@@ -66,7 +66,7 @@ Historial de los últimos 12 meses:
 - `amannn/next-intl`: **187 commits** (actualizaciones de dependencias y pequeñas correcciones).
 - `aymericzip/intlayer`: **4.343 commits** (desarrollo continuado en compiladores, extensiones de IDE, servidores MCP y motores de traducción).
 
-[![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#amannn/next-intl&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#amannn/next-intl&aymericzip/intlayer)
 
 Una librería específica puede ser estable. No obstante, las prácticas de i18n han progresado: los compiladores descartan textos no referenciados al construir el paquete, los LLM traducen en los pipelines de CI y los editores se coordinan con Language Servers (LSP) y agentes inteligentes. Un modelo centrado en el cliente encuentra dificultades para asumir estas mejoras.
 

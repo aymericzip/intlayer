@@ -70,7 +70,7 @@ author: aymericzip
 | `i18next` core  | 2,626            | **259**      | تحسينات طفيفة                              |
 | Intlayer        | 7,156            | **4,343**    | المترجم، أدوات IDE، ومحرك الذكاء الاصطناعي |
 
-[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
 
 المكتبات المستقرة توفر الأمان البرمجي، لكن أدوات التدويل تشهد تطوراً سريعاً: حزم البناء الحديثة تستبعد النصوص غير المستخدمة وقت البناء، ونماذج الذكاء الاصطناعي تترجم آلياً في مرحلة CI، وبيئات التطوير تستفيد من خوادم اللغات (LSP) والوكلاء الأذكياء. نموذج i18next المعتمد كلياً على وقت التشغيل يواجه صعوبة في مواكبة هذه التحولات.
 

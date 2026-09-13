@@ -66,7 +66,7 @@ author: aymericzip
 - `amannn/next-intl`: **187 комітів** (оновлення залежностей і локальні правки).
 - `aymericzip/intlayer`: **4 343 коміти** (активний розвиток компілятора, розширень для IDE, серверів MCP і механізмів перекладу).
 
-[![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#amannn/next-intl&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#amannn/next-intl&aymericzip/intlayer)
 
 Стабільна бібліотека має свої переваги. Проте підходи до i18n суттєво оновилися: компілятори вилучають невикористані рядки під час збірки, LLM автоматизують локалізацію в CI, а середовища розробки використовують сервери мов (LSP) та розумних помічників. Архітектура, прив'язана до runtime, з труднощами переймає ці можливості.
 
