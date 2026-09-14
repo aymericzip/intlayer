@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/ai",
-  "version": "9.5.2",
+  "version": "9.5.3",
   "private": false,
   "description": "SDK that provides AI capabilities for Intlayer applications",
   "keywords": [
@@ -72,14 +72,14 @@
     "typecheck": "tsc --noEmit --project tsconfig.types.json"
   },
   "dependencies": {
-    "@ai-sdk/anthropic": "4.0.52",
-    "@ai-sdk/openai": "4.0.65",
+    "@ai-sdk/anthropic": "4.0.53",
+    "@ai-sdk/openai": "4.0.66",
     "@intlayer/api": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/types": "workspace:*",
     "@toon-format/toon": "4.1.1",
-    "ai": "7.0.97",
+    "ai": "7.0.99",
     "zod": "4.6.5"
   },
   "devDependencies": {

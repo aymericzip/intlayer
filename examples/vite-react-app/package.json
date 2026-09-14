@@ -27,7 +27,7 @@
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
     "@vitejs/plugin-react": "6.1.1",
-    "autoprefixer": "10.5.6",
+    "autoprefixer": "10.6.0",
     "intlayer-editor": "workspace:*",
     "tailwindcss": "4.3.3",
     "typescript": "7.0.2",

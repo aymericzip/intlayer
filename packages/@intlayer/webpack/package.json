@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/webpack",
-  "version": "9.5.2",
+  "version": "9.5.3",
   "private": false,
   "description": "Webpack plugin for seamless integration with Intlayer, enhancing JavaScript apps built with React, Next.js and more.",
   "keywords": [
@@ -92,7 +92,7 @@
     "tsdown": "0.23.0",
     "typescript": "7.0.2",
     "vitest": "5.0.0",
-    "webpack": "5.110.3",
+    "webpack": "5.111.0",
     "webpack-dev-server": "6.0.0"
   },
   "peerDependencies": {
