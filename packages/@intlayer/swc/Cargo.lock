@@ -677,7 +677,7 @@ dependencies = [
 
 [[package]]
 name = "intlayer-swc-plugin"
-version = "9.0.0-canary.11"
+version = "9.5.2"
 dependencies = [
  "base62",
  "pathdiff",
