@@ -398,6 +398,44 @@ const blogDataContent: Dictionary = {
           title: 'vue-i18n vs Intlayer',
           default: getBlogMetadata('./blog/en/vue-i18n_vs_intlayer.md'),
         },
+        'next-intl-vs-intlayer': {
+          title: 'next-intl vs Intlayer',
+          default: getBlogMetadata('./blog/en/next-intl_vs_intlayer.md'),
+        },
+        'i18next-vs-intlayer': {
+          title: 'i18next vs Intlayer',
+          default: getBlogMetadata('./blog/en/i18next_vs_intlayer.md'),
+        },
+        'lingui-vs-intlayer': {
+          title: 'Lingui vs Intlayer',
+          default: getBlogMetadata('./blog/en/lingui_vs_intlayer.md'),
+        },
+        'vue-i18n-vs-intlayer-benchmark': {
+          title: 'vue-i18n vs Intlayer benchmark',
+          default: getBlogMetadata(
+            './blog/en/vue-i18n_vs_intlayer_benchmark.md'
+          ),
+        },
+        'next-intl-vs-intlayer-next-intl': {
+          title: 'next-intl vs @intlayer/next-intl',
+          default: getBlogMetadata(
+            './blog/en/next-intl_vs_intlayer-next-intl.md'
+          ),
+        },
+        'i18next-vs-intlayer-i18next': {
+          title: 'i18next vs @intlayer/i18next',
+          default: getBlogMetadata('./blog/en/i18next_vs_intlayer-i18next.md'),
+        },
+        'lingui-vs-intlayer-lingui': {
+          title: 'Lingui vs @intlayer/lingui',
+          default: getBlogMetadata('./blog/en/lingui_vs_intlayer-lingui.md'),
+        },
+        'vue-i18n-vs-intlayer-vue-i18n': {
+          title: 'vue-i18n vs @intlayer/vue-i18n',
+          default: getBlogMetadata(
+            './blog/en/vue-i18n_vs_intlayer-vue-i18n.md'
+          ),
+        },
       },
     },
 
