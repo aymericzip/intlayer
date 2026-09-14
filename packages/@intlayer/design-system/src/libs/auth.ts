@@ -5,6 +5,7 @@ import { BACKEND_URL } from '@intlayer/config/defaultValues';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { createAuthClient } from 'better-auth/client';
 import {
+  lastLoginMethodClient,
   magicLinkClient,
   multiSessionClient,
   twoFactorClient,
@@ -30,6 +31,7 @@ const getAuthClient = (backendURL: string) =>
       magicLinkClient() as never,
       ssoClient(),
       multiSessionClient(),
+      lastLoginMethodClient(),
     ],
   });
 

@@ -11,6 +11,7 @@ import type { FC, RefObject } from 'react';
 import { useEffect, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { AlternativeLoginMethods } from '../../AlternativeLoginMethods';
+import { LastUsedIndicator } from '../../LastUsedIndicator';
 import { type SignIn, useSignInSchema } from './useSignInSchema';
 
 type SignInFormProps = {
@@ -124,15 +125,18 @@ export const SignInForm: FC<SignInFormProps> = ({
           inputLabel={rememberMeCheckbox.description}
         />
 
-        <FormButton
-          className="mt-4 w-full"
-          type="submit"
-          color="text"
-          isLoading={isSubmitting || isLoading}
-          label={loginButton.ariaLabel.value}
-        >
-          {loginButton.text}
-        </FormButton>
+        <div className="mt-4 flex flex-col gap-1">
+          <FormButton
+            className="w-full"
+            type="submit"
+            color="text"
+            isLoading={isSubmitting || isLoading}
+            label={loginButton.ariaLabel.value}
+          >
+            {loginButton.text}
+          </FormButton>
+          <LastUsedIndicator method="email" />
+        </div>
 
         <span className="m-auto mt-3 flex w-full items-center justify-center text-neutral text-xs">
           {signUpLink.message}
