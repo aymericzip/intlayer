@@ -80,7 +80,7 @@
     "@intlayer/types": "workspace:*",
     "@toon-format/toon": "4.1.1",
     "ai": "7.0.97",
-    "zod": "4.6.2"
+    "zod": "4.6.5"
   },
   "devDependencies": {
     "@openrouter/ai-sdk-provider": "3.0.0",

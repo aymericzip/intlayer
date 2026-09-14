@@ -471,7 +471,7 @@
     "@tailwindcss/aspect-ratio": "0.4.2",
     "@tanstack/query-async-storage-persister": "5.102.8",
     "@tanstack/react-query-persist-client": "5.102.8",
-    "@tanstack/react-virtual": "3.14.12",
+    "@tanstack/react-virtual": "3.14.13",
     "@tiptap/core": "3.31.3",
     "@tiptap/extension-character-count": "3.31.3",
     "@tiptap/extension-code-block": "3.31.3",
@@ -502,7 +502,7 @@
     "tiptap-extension-global-drag-handle": "^0.1.18",
     "tiptap-markdown": "^0.9.0",
     "tunnel-rat": "^0.1.2",
-    "zod": "4.6.2"
+    "zod": "4.6.5"
   },
   "devDependencies": {
     "@intlayer/backend": "workspace:*",
@@ -553,13 +553,13 @@
     "@shikijs/transformers": "4.4.3",
     "@tanstack/react-query": "5.102.8",
     "@tanstack/react-query-devtools": "5.102.8",
-    "framer-motion": "13.2.0",
+    "framer-motion": "13.3.0",
     "fuse.js": "7.5.0",
     "intlayer": "workspace:*",
-    "lucide-react": "1.45.0",
+    "lucide-react": "1.46.0",
     "react": ">=16.0.0",
     "react-dom": ">=16.0.0",
-    "react-hook-form": "7.87.0",
+    "react-hook-form": "7.88.0",
     "react-intlayer": "workspace:*",
     "shiki": "4.4.3",
     "tailwindcss": "4.3.3"
