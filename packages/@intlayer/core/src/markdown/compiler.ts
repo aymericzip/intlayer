@@ -438,6 +438,29 @@ const createRules = (
    * things only real HTML needs — the never-parse element list, and tracking
    * whether we are inside an anchor.
    */
+  /**
+   * Whether `source` opens an element at the start of a block line, allowing
+   * the up-to-three-space indentation CommonMark grants to HTML blocks.
+   *
+   * The scanner already skips leading spaces, but the dispatch only handed it
+   * sources starting with `<`. An indented `   <Tab>` inside a `<Tabs>` block
+   * then fell through to the paragraph rule, which swallowed the opening tag
+   * as inline HTML and lost every sibling that followed it.
+   */
+  const qualifiesPairedElement = (source: string, state: ParseState) => {
+    if (source.charCodeAt(0) === 60 /* < */) return true;
+
+    const isBlockLineStart =
+      !state.inline && !state.simple && state.prevCaptureIndent !== undefined;
+
+    if (!isBlockLineStart) return false;
+
+    let index = 0;
+    while (index < 3 && source.charCodeAt(index) === 32 /* space */) index++;
+
+    return index > 0 && source.charCodeAt(index) === 60;
+  };
+
   const pairedElementRule = (
     match: (source: string) => RegExpMatchArray | null,
     order: number,
@@ -445,7 +468,8 @@ const createRules = (
     scope: RuleScopeValue = SCOPE_BOTH
   ): Rule<any> => ({
     _scope: scope,
-    _qualify: ['<'],
+    _firstChars: [60 /* < */, 32 /* space */],
+    _qualify: qualifiesPairedElement,
     _match: anyScopeRegex(match),
     _order: order,
     _parse(capture, parse, state) {
