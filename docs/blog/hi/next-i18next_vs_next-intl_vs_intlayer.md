@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-05-31
+updatedAt: 2026-09-16
 title: "next-i18next बनाम next-intl बनाम Intlayer - अनुवाद का पूर्ण गाइड: next-i18next vs next-intl vs Intlayer: 2026 Comparison"
 description: बंडल साइज़, SEO, परफॉर्मेंस & मेंटेनेबिलिटी के लिए सबसे अच्छा समाधान। 2026 में अपने Next.js वेबसाइट को बहुभाषी बनाएं, LLM ट्रांसलेशन, Agent Skills & MCP.
 keywords:
@@ -116,6 +116,10 @@ Next.js आपको अंतर्राष्ट्रीयकृत routing
 - **Locale के आधार पर विभाजन:**
 
   > यदि मैं `/fr/about` पृष्ठ पर हूं, तो मुझे `/en/about` पृष्ठ की सामग्री load नहीं करनी चाहिए
+
+नीचे दिया गया ग्राफ़ एक सैद्धांतिक ऐप के कंटेंट पेलोड का अनुमान देता है, जिसमें 1 से 10 पेज हैं और जिसे 1 से 10 भाषाओं में अनुवादित किया गया है, प्रति पेज लगभग 30 KB टेक्स्ट के साथ। locale के अनुसार कंटेंट को डायनामिक रूप से लोड करने से भाषा वाली धुरी हट जाती है, कंटेंट को कंपोनेंट या रूट तक सीमित करने से पेज वाली धुरी हट जाती है, और केवल दोनों के संयोजन से ही पेलोड स्थिर रहता है।
+
+![आर्किटेक्चर के अनुसार सैद्धांतिक कंटेंट लीकेज](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
 
 फिर से, तीनों solutions इन समस्याओं के बारे में जानते हैं और इन optimizations को manage करने की अनुमति देते हैं। तीनों solutions के बीच अंतर DX (Developer Experience) में है।
 

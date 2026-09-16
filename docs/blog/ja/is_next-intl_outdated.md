@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-16
 title: 2026年においてnext-intlは時代遅れなのか？
 description: next-intlはNext.js App Routerの定番となりました。しかし、ランタイムによるバンドルの肥大化や手動での名前空間管理という課題は残されています。
 keywords:
@@ -126,6 +126,10 @@ export default async function RootLayout({ children, params }) {
 トップレベルで`messages`をクライアントプロバイダーに渡すため、ブラウザはどのページでもアプリ全体の文言一式を受け取ることになります。`/login`を開いたユーザーが、FAQやヘルプ、ダッシュボード専用の文言まで同時にダウンロードしてしまうのです。
 
 JSONファイルを名前空間ごとに分けることで緩和できますが、どのルートにどの名前空間が必要かを人間が管理し続けるのは骨が折れる作業です。
+
+以下のグラフは、1〜10ページを1〜10言語に翻訳した理論上のアプリ（1ページあたり約30KBのテキスト）のコンテンツ量を推定したものです。ロケールごとの動的読み込みは言語の軸を取り除き、コンポーネントやルート単位でコンテンツをスコープすることはページの軸を取り除きます。両方を組み合わせた場合のみ、コンテンツ量は一定に保たれます。
+
+![アーキテクチャ別の理論上のコンテンツリーク](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
 
 Intlayerはこの問題を静的解析で解決します。[Intlayerコンパイラ](https://intlayer.org/ja/doc/compiler)が該当ルートで使用されている文言だけを過不足なく抽出するため、ページ間のデータ漏洩率は**0.0%**となります。
 

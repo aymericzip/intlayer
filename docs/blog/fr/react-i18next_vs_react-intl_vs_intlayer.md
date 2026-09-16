@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-01-02
-updatedAt: 2025-06-29
+updatedAt: 2026-09-16
 title: react-i18next vs react-intl vs Intlayer
 description: Intégrer react-i18next avec next-intl et Intlayer pour l'internationalisation (i18n) d'une application React
 keywords:
@@ -103,6 +103,10 @@ Nous évaluons :
 - **Intlayer** : Effectue un **tree-shaking** des dictionnaires inutilisés et prend en charge le **chargement paresseux par dictionnaire/par langue** prêt à l'emploi.
 
 **Pourquoi c'est important :** Des bundles plus petits et moins de chaînes inutilisées améliorent les performances au démarrage et lors de la navigation.
+
+Le graphique ci-dessous estime le poids du contenu pour une application théorique de 1 à 10 pages traduite en 1 à 10 langues, avec environ 30 Ko de texte par page. Charger le contenu dynamiquement par locale supprime l'axe des langues, scoper le contenu par composant ou par route supprime l'axe des pages, et seule la combinaison des deux garde un poids stable.
+
+![Fuite de contenu théorique selon l'architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
 
 ### 6) DX, outils & maintenance
 

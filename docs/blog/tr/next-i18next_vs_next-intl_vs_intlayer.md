@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-07
-updatedAt: 2026-05-31
+updatedAt: 2026-09-16
 title: "next-i18next vs next-intl vs Intlayer - Eksiksiz çeviri rehberi: next-i18next vs next-intl vs Intlayer: 2026 Comparison"
 description: Bundle boyutu, SEO, performans ve sürdürülebilirlik için en iyi çözüm. Next.js web sitesini'ınızı 2026'da çok dilli yapın, LLM çevirisi, Agent Skills & MCP.
 keywords:
@@ -118,6 +118,10 @@ Bir kullanıcı `/fr/about` sayfasını ziyaret etmek istediğinde, belirli bir 
 - **Locale ile bölme:**
 
   > `/fr/about` sayfasındaysam, `/en/about` sayfasının içeriğini yüklemek istemiyorum
+
+Aşağıdaki grafik, sayfa başına yaklaşık 30 KB metin içeren, 1 ila 10 sayfadan oluşan ve 1 ila 10 dile çevrilmiş teorik bir uygulamanın içerik yükünü tahmin eder. İçeriği locale bazında dinamik yüklemek dil eksenini ortadan kaldırır, içeriği bileşen veya rota bazında sınırlamak sayfa eksenini ortadan kaldırır ve yalnızca ikisinin birleşimi yükü sabit tutar.
+
+![Mimariye göre teorik içerik sızıntısı](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
 
 Yine de, üç çözümün tümü bu sorunlardan haberdar ve bu optimizasyonları yönetmeye izin verir. Üç çözüm arasındaki fark DX (Developer Experience)'dir.
 

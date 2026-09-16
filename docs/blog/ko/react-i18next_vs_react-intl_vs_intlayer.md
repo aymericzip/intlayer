@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-01-02
-updatedAt: 2025-06-29
+updatedAt: 2026-09-16
 title: react-i18next vs react-intl vs Intlayer
 description: React 앱의 국제화(i18n)를 위해 react-i18next를 next-intl 및 Intlayer와 통합하기
 keywords:
@@ -103,6 +103,10 @@ author: aymericzip
 - **Intlayer**: 사용하지 않는 사전을 **트리 쉐이킹**하고 **사전별/로케일별 지연 로딩**을 기본적으로 지원합니다.
 
 **중요한 이유:** 더 작은 번들과 사용하지 않는 문자열 감소는 시작 및 탐색 성능을 향상시킵니다.
+
+아래 그래프는 1~~10개의 페이지를 1~~10개 언어로 번역한 이론상의 앱(페이지당 약 30KB의 텍스트)의 콘텐츠 용량을 추정한 것입니다. 로케일별 동적 로딩은 언어 축을 없애고, 컴포넌트나 라우트 단위로 콘텐츠를 스코프하면 페이지 축이 없어지며, 두 가지를 결합했을 때만 용량이 일정하게 유지됩니다.
+
+![아키텍처별 이론상의 콘텐츠 누수](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
 
 ### 6) 개발자 경험(DX), 도구 및 유지보수
 

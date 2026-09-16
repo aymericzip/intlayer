@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-25
-updatedAt: 2026-08-09
+updatedAt: 2026-09-16
 title: i18n Paket Boyutu ve Performans Optimizasyonu
 description: Uluslararasılaştırma (i18n) içeriğini optimize ederek uygulama paket boyutunuzu küçültün. Intlayer ile sözlükler için tree shaking ve lazy loading'i nasıl kullanacağınızı öğrenin.
 keywords:
@@ -36,6 +36,10 @@ author: aymericzip
 JSON dosyalarına dayanan geleneksel i18n çözümlerinde en yaygın zorluklardan biri içerik boyutunu yönetmektir. Geliştiriciler içeriği manuel olarak isim alanlarına (namespaces) ayırmazlarsa, kullanıcılar genellikle yalnızca tek bir sayfayı görüntülemek için her sayfanın ve potansiyel olarak her dilin çevirilerini indirir.
 
 Örneğin, 10 dilde çevrilmiş 10 sayfalı bir uygulama, bir kullanıcının yalnızca **birine** (geçerli dilde geçerli sayfaya) ihtiyacı olmasına rağmen 100 sayfanın içeriğini indirmesine neden olabilir. Bu da israf edilen bant genişliği ve daha yavaş yükleme süreleri anlamına gelir.
+
+Aşağıdaki grafik, sayfa başına yaklaşık 30 KB metin içeren, 1 ila 10 sayfadan oluşan ve 1 ila 10 dile çevrilmiş teorik bir uygulamanın içerik yükünü tahmin eder. İçeriği locale bazında dinamik yüklemek dil eksenini ortadan kaldırır, içeriği bileşen veya rota bazında sınırlamak sayfa eksenini ortadan kaldırır ve yalnızca ikisinin birleşimi yükü sabit tutar.
+
+![Mimariye göre teorik içerik sızıntısı](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
 
 **Intlayer bu sorunu build zamanı optimizasyonlarıyla çözer.** Kodunuzu analiz ederek her bileşen (component) için gerçekte hangi sözlüklerin kullanıldığını tespit eder ve yalnızca gerekli içeriği paketinizin (bundle) içine yeniden enjekte eder.
 

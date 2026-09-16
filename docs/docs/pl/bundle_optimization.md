@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-25
-updatedAt: 2026-08-09
+updatedAt: 2026-09-16
 title: Optymalizacja Rozmiaru Paczki i Wydajności i18n
 description: Zmniejsz rozmiar paczki swojej aplikacji, optymalizując treści umiędzynarodowienia (i18n). Dowiedz się, jak wykorzystać tree shaking i leniwe ładowanie (lazy loading) dla słowników dzięki Intlayer.
 keywords:
@@ -36,6 +36,10 @@ author: aymericzip
 Jednym z najczęstszych wyzwań w tradycyjnych rozwiązaniach i18n opartych na plikach JSON jest zarządzanie rozmiarem treści. Jeśli programiści nie rozdzielą treści na przestrzenie nazw (namespaces) ręcznie, użytkownicy często pobierają tłumaczenia dla każdej strony i potencjalnie każdego języka, tylko po to, aby wyświetlić pojedynczą stronę.
 
 Na przykład, aplikacja z 10 stronami przetłumaczonymi na 10 języków może spowodować, że użytkownik pobierze zawartość 100 stron, chociaż potrzebuje tylko **jednej** (bieżącej strony w bieżącym języku). Prowadzi to do marnowania przepustowości i wolniejszego ładowania.
+
+Poniższy wykres szacuje rozmiar treści dla teoretycznej aplikacji mającej od 1 do 10 stron, przetłumaczonej na 1 do 10 języków, z około 30 KB tekstu na stronę. Dynamiczne ładowanie treści per locale usuwa oś języków, ograniczenie treści do komponentu lub trasy usuwa oś stron, a tylko połączenie obu utrzymuje rozmiar na stałym poziomie.
+
+![Teoretyczny wyciek treści w zależności od architektury](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
 
 **Intlayer rozwiązuje ten problem poprzez optymalizację w czasie budowania.** Analizuje on Twój kod, aby wykryć, które słowniki są faktycznie używane w poszczególnych komponentach, i wprowadza do paczki (bundle) tylko niezbędne treści.
 

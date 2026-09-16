@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-01-02
-updatedAt: 2025-06-29
+updatedAt: 2026-09-16
 title: react-i18next vs react-intl vs Intlayer
 description: Reactアプリの国際化（i18n）のためにreact-i18nextをnext-intlおよびIntlayerと統合する方法
 keywords:
@@ -103,6 +103,10 @@ author: aymericzip
 - **Intlayer**: 未使用の辞書を**ツリーシェイク**し、**辞書単位・ロケール単位の遅延読み込み**を標準でサポートします。
 
 **なぜ重要か:** バンドルサイズが小さくなり、未使用の文字列が減ることで、起動時間やナビゲーションのパフォーマンスが向上します。
+
+以下のグラフは、1〜10ページを1〜10言語に翻訳した理論上のアプリ（1ページあたり約30KBのテキスト）のコンテンツ量を推定したものです。ロケールごとの動的読み込みは言語の軸を取り除き、コンポーネントやルート単位でコンテンツをスコープすることはページの軸を取り除きます。両方を組み合わせた場合のみ、コンテンツ量は一定に保たれます。
+
+![アーキテクチャ別の理論上のコンテンツリーク](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
 
 ### 6) DX、ツール＆メンテナンス
 

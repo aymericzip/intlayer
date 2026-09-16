@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-25
-updatedAt: 2026-08-09
+updatedAt: 2026-09-16
 title: 优化 i18n 打包体积与性能
 description: 通过优化国际化（i18n）内容来减小应用程序包的大小。了解如何利用 Intlayer 实现字典的 tree shaking 和延迟加载（lazy loading）。
 keywords:
@@ -36,6 +36,10 @@ author: aymericzip
 依赖 JSON 文件的传统 i18n 解决方案中最常见的挑战之一是管理内容体积。如果开发者没有手动将内容拆分到各个命名空间（namespaces），用户通常会为了查看一个页面而下载所有页面、甚至是所有语言的翻译。
 
 例如，一个应用有 10 个页面并被翻译成了 10 种语言，可能导致用户为了这 10 个页面下载所有的内容，尽管他们只想要**一个页面**的内容（当前语言版本的当前页面）。这不仅会造成带宽浪费，也会导致更慢的加载时间。
+
+下图估算了一个理论应用的内容体积：1 到 10 个页面，翻译成 1 到 10 种语言，每页约 30 KB 文本。按 locale 动态加载内容可消除语言维度，按组件或路由划分内容可消除页面维度，只有两者结合才能让体积保持平稳。
+
+![按架构划分的理论内容泄漏](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
 
 **Intlayer 通过在构建时（build-time）进行优化来解决这一问题。** 它可以分析你的代码以检测每个组件实际使用了哪些字典，并只将必要的内容注入到你的打包结果（bundle）中。
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-16
 title: O vue-i18n está obsoleto em 2026?
 description: O vue-i18n tem sido o padrão para Vue e Nuxt há dez anos. Contudo, em nossos benchmarks ele se revelou o runtime de i18n mais pesado da web. Entenda o porquê.
 keywords:
@@ -115,6 +115,12 @@ Por padrão, **90% das traduções transmitidas** para uma rota pertencem a outr
 **Tamanho de componentes isolados:**
 
 Componentes compilados com escopos locais chegaram a uma média de 196 KB no `vue-i18n` devido à duplicação de catálogos, frente a apenas **6.5 KB** no Intlayer.
+
+**Como o vazamento escala:**
+
+O gráfico abaixo estima o peso do conteúdo para uma aplicação teórica de 1 a 10 páginas traduzida para 1 a 10 idiomas, com cerca de 30 KB de texto por página. Carregar o conteúdo dinamicamente por locale remove o eixo dos idiomas, delimitar o conteúdo por componente ou por rota remove o eixo das páginas, e só a combinação dos dois mantém o peso estável.
+
+![Vazamento de conteúdo teórico por arquitetura](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
 
 ## Por que o vue-i18n é pesado?
 

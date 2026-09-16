@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-16
 title: Liệu i18next Đã Lỗi Thời Vào Năm 2026?
 description: i18next đang vận hành hàng triệu trang web, nhưng kiến trúc runtime từ năm 2011 đang bộc lộ giới hạn. Phân tích về dung lượng bundle, hạn chế tree-shaking và tốc độ đổi mới.
 keywords:
@@ -124,6 +124,10 @@ Trên Next.js, `next-i18next` thêm vào **76.7 KB gzipped** so với ứng dụ
 **Rò rỉ nội dung dịch thuật:**
 
 Theo mặc định, khoảng **90% văn bản dịch** gửi tới một route thực chất thuộc về các trang khác. Việc phân chia namespace thủ công tốn nhiều công sức và rất dễ phát sinh lỗi sót từ khóa.
+
+Biểu đồ dưới đây ước tính dung lượng nội dung cho một ứng dụng giả định gồm 1 đến 10 trang, được dịch sang 1 đến 10 ngôn ngữ, với khoảng 30 KB văn bản mỗi trang. Tải nội dung động theo locale loại bỏ trục ngôn ngữ, giới hạn nội dung theo component hoặc route loại bỏ trục trang, và chỉ khi kết hợp cả hai thì dung lượng mới giữ nguyên.
+
+![Rò rỉ nội dung lý thuyết theo kiến trúc](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
 
 **Độ trễ hydration:**
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-16
 title: i18next est-il obsolète en 2026 ?
 description: i18next propulse des millions de sites web, mais son architecture runtime de 2011 accuse son âge. Analyse du surpoids des bundles, des limites de tree-shaking et du manque d'innovations.
 keywords:
@@ -124,6 +124,10 @@ Sur Next.js, `next-i18next` ajoute **76.7 Ko gzippés** par rapport au projet de
 **Fuites de contenu :**
 
 Par défaut, près de **90% des traductions envoyées** sur une page concernent d'autres sections du site. La séparation manuelle par namespaces est fastidieuse et source d'erreurs.
+
+Le graphique ci-dessous estime le poids du contenu pour une application théorique de 1 à 10 pages traduite en 1 à 10 langues, avec environ 30 Ko de texte par page. Charger le contenu dynamiquement par locale supprime l'axe des langues, scoper le contenu par composant ou par route supprime l'axe des pages, et seule la combinaison des deux garde un poids stable.
+
+![Fuite de contenu théorique selon l'architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
 
 **Temps d'hydratation :**
 

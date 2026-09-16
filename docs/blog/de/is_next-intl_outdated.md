@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-16
 title: Ist next-intl im Jahr 2026 veraltet?
 description: next-intl wurde zur Standardlösung für den Next.js App Router. Doch unter der Haube verursacht es Runtime-Bundle-Overhead und aufwendiges manuelles Namespace-Management.
 keywords:
@@ -126,6 +126,10 @@ export default async function RootLayout({ children, params }) {
 Da `messages` global an den Client-Provider übergeben wird, erhält der Browser überall das gesamte Wörterbuch. Beim Aufruf von `/login` lädt der Nutzer FAQ-, Dokumentations- und Dashboard-Inhalte mit.
 
 Dies lässt sich durch manuelles Aufteilen in Namespaces mildern. Das Pflegen solcher Zuweisungen pro Route ist jedoch mühsam und fehleranfällig.
+
+Das folgende Diagramm schätzt die Payload für eine theoretische App mit 1 bis 10 Seiten, übersetzt in 1 bis 10 Sprachen, mit etwa 30 KB Text pro Seite. Dynamisches Laden pro Locale entfernt die Sprachachse, das Scoping des Contents pro Komponente oder Route entfernt die Seitenachse, und nur die Kombination hält die Payload flach.
+
+![Theoretisches Content-Leakage nach Architektur](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
 
 Intlayer löst dies per statischer Analyse: Der [Intlayer-Compiler](https://intlayer.org/de/doc/compiler) bündelt exakt die Texte, die auf der jeweiligen Route benötigt werden. Die Leakage sinkt auf **0.0%**.
 

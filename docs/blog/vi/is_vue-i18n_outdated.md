@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-16
 title: Liệu vue-i18n Đã Lỗi Thời Vào Năm 2026?
 description: vue-i18n là chuẩn mực cho Vue và Nuxt suốt cả thập kỷ. Nhưng trong các bài kiểm tra benchmark, nó lại là runtime i18n nặng nhất trên web. Tìm hiểu nguyên nhân tại đây.
 keywords:
@@ -115,6 +115,12 @@ Theo mặc định, **90% dữ liệu dịch** được gửi tới một route 
 **Độ phình của component có phạm vi riêng:**
 
 Các component có phạm vi dịch cục bộ đạt kích thước trung bình 196 KB ở `vue-i18n` do trùng lặp từ điển, so với chỉ **6.5 KB** khi dùng Intlayer.
+
+**Rò rỉ tăng như thế nào:**
+
+Biểu đồ dưới đây ước tính dung lượng nội dung cho một ứng dụng giả định gồm 1 đến 10 trang, được dịch sang 1 đến 10 ngôn ngữ, với khoảng 30 KB văn bản mỗi trang. Tải nội dung động theo locale loại bỏ trục ngôn ngữ, giới hạn nội dung theo component hoặc route loại bỏ trục trang, và chỉ khi kết hợp cả hai thì dung lượng mới giữ nguyên.
+
+![Rò rỉ nội dung lý thuyết theo kiến trúc](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
 
 ## Tại Sao vue-i18n Lại Nặng?
 

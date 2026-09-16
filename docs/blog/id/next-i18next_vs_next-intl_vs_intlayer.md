@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-05-31
+updatedAt: 2026-09-16
 title: "next-i18next vs next-intl vs Intlayer - Panduan lengkap menerjemahkan next-i18next vs next-intl vs Intlayer: 2026 Comparison"
 description: Solusi terbaik untuk ukuran bundle, SEO, performa & keterpeliharaan. Jadikan Next.js situs web Anda multibahasa di 2026, terjemahan LLM, Agent Skills & MCP.
 keywords:
@@ -125,6 +125,10 @@ Dua masalah penting:
 - **Pemecahan berdasarkan locale:**
 
   > Jika saya berada di halaman `/fr/about`, saya tidak ingin memuat konten dari halaman `/en/about`
+
+Grafik di bawah memperkirakan ukuran konten untuk aplikasi teoretis dengan 1 hingga 10 halaman yang diterjemahkan ke 1 hingga 10 bahasa, dengan sekitar 30 KB teks per halaman. Memuat konten secara dinamis per locale menghilangkan sumbu bahasa, membatasi konten per komponen atau per rute menghilangkan sumbu halaman, dan hanya kombinasi keduanya yang menjaga ukuran tetap datar.
+
+![Kebocoran konten teoretis berdasarkan arsitektur](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
 
 Sekali lagi, ketiga solusi ini menyadari masalah ini dan memungkinkan pengelolaan optimasi tersebut. Perbedaan antara ketiga solusi ini adalah DX (Developer Experience).
 

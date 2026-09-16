@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-16
 title: Apakah vue-i18n Sudah Ketinggalan Zaman di Tahun 2026?
 description: vue-i18n telah menjadi standar untuk Vue dan Nuxt selama satu dekade. Namun dalam pengujian tolok ukur kami, pustaka ini menjadi runtime i18n terberat di web. Simak ulasannya.
 keywords:
@@ -115,6 +115,12 @@ Secara bawaan, **90% terjemahan** yang dikirimkan ke suatu rute sebenarnya adala
 **Ukuran komponen terisolasi:**
 
 Komponen dengan scope lokal mencapai rata-rata 196 KB pada `vue-i18n` akibat duplikasi kamus, berbanding **6.5 KB** pada Intlayer.
+
+**Bagaimana kebocoran berskala:**
+
+Grafik di bawah memperkirakan ukuran konten untuk aplikasi teoretis dengan 1 hingga 10 halaman yang diterjemahkan ke 1 hingga 10 bahasa, dengan sekitar 30 KB teks per halaman. Memuat konten secara dinamis per locale menghilangkan sumbu bahasa, membatasi konten per komponen atau per rute menghilangkan sumbu halaman, dan hanya kombinasi keduanya yang menjaga ukuran tetap datar.
+
+![Kebocoran konten teoretis berdasarkan arsitektur](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
 
 ## Mengapa vue-i18n Begitu Berat?
 

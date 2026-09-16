@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-10
-updatedAt: 2025-09-10
+updatedAt: 2026-09-16
 title: "i18n per componente vs. i18n centralizzato: un nuovo approccio con Intlayer"
 description: "Un'analisi approfondita delle strategie di internazionalizzazione in React, confrontando gli approcci centralizzato, per-key e per-componente, e presentando Intlayer."
 keywords:
@@ -63,6 +63,7 @@ Tuttavia, nel mondo React vediamo principalmente approcci differenti, che raggru
 - dettagliare il recupero dei contenuti per chiave o per componente.
 
   </Column>
+
 </Columns>
 
 > In questo blog non mi concentrerò sulle soluzioni compiler-based, che ho già trattato qui: [Compiler vs Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/compiler_vs_declarative_i18n.md).
@@ -78,6 +79,10 @@ Quindi, in termini generali, la decisione si riduce a:
 - Se hai più lingue che pagine, dovresti orientarti verso un approccio centralizzato.
 
 Naturalmente, gli autori delle librerie sono consapevoli di queste limitazioni e forniscono delle soluzioni. Tra queste: suddividere in namespace, caricare dinamicamente file JSON (`await import()`), o eliminare i contenuti in fase di build.
+
+Il grafico seguente stima il peso del contenuto per un'app teorica da 1 a 10 pagine tradotta in 1 a 10 lingue, con circa 30 KB di testo per pagina. Caricare il contenuto dinamicamente per locale elimina l'asse delle lingue, delimitare il contenuto per componente o per route elimina l'asse delle pagine, e solo la combinazione dei due mantiene il peso stabile.
+
+![Leakage di contenuto teorico per architettura](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
 
 Allo stesso tempo, dovresti sapere che quando carichi dinamicamente i tuoi contenuti, introduci richieste aggiuntive al tuo server. Ogni ulteriore `useState` o hook comporta una richiesta aggiuntiva al server.
 

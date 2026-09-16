@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-16
 title: Apakah i18next Sudah Ketinggalan Zaman di Tahun 2026?
 description: i18next memberdayakan jutaan situs web, tetapi arsitektur runtime buatan 2011 mulai menunjukkan usianya. Analisis ukuran bundle, batas tree-shaking, dan laju inovasi.
 keywords:
@@ -124,6 +124,10 @@ Di Next.js, `next-i18next` menambahkan **76.7 KB gzipped** dibanding aplikasi da
 **Kebocoran konten:**
 
 Secara default, sekitar **90% teks terjemahan** yang dikirim ke suatu rute sebenarnya adalah milik halaman lain. Membagi namespace secara manual memakan waktu dan rawan kelalaian.
+
+Grafik di bawah memperkirakan ukuran konten untuk aplikasi teoretis dengan 1 hingga 10 halaman yang diterjemahkan ke 1 hingga 10 bahasa, dengan sekitar 30 KB teks per halaman. Memuat konten secara dinamis per locale menghilangkan sumbu bahasa, membatasi konten per komponen atau per rute menghilangkan sumbu halaman, dan hanya kombinasi keduanya yang menjaga ukuran tetap datar.
+
+![Kebocoran konten teoretis berdasarkan arsitektur](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
 
 **Waktu hidrasi:**
 

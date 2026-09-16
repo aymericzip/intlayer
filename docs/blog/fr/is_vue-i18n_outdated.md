@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-16
 title: vue-i18n est-il obsolète en 2026 ?
 description: vue-i18n est la référence des applications Vue et Nuxt depuis dix ans. Pourtant, nos benchmarks révèlent qu'il s'agit du runtime i18n le plus lourd du web. Explications.
 keywords:
@@ -115,6 +115,12 @@ Par défaut, **90% des textes traduits** envoyés à une route appartiennent à 
 **Poids des composants isolés :**
 
 Les composants compilés avec des portées locales ont atteint une moyenne de 196 Ko sous `vue-i18n` en raison de catalogues dupliqués, contre seulement **6.5 Ko** avec Intlayer.
+
+**Comment la fuite évolue :**
+
+Le graphique ci-dessous estime le poids du contenu pour une application théorique de 1 à 10 pages traduite en 1 à 10 langues, avec environ 30 Ko de texte par page. Charger le contenu dynamiquement par locale supprime l'axe des langues, scoper le contenu par composant ou par route supprime l'axe des pages, et seule la combinaison des deux garde un poids stable.
+
+![Fuite de contenu théorique selon l'architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
 
 ## Pourquoi vue-i18n est-il lourd ?
 

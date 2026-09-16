@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-16
 title: Czy next-intl jest przestarzały w 2026 roku?
 description: next-intl stał się domyślnym wyborem dla Next.js App Router. Mimo to nadal obciąża bundle narzutem w runtime i wymaga ręcznego dzielenia na namespace'y.
 keywords:
@@ -126,6 +126,10 @@ export default async function RootLayout({ children, params }) {
 Ponieważ `messages` trafia do dostawcy klienta na samym szczycie drzewa, przeglądarka pobiera całą bazę słownikową przy każdym wejściu. Użytkownik wchodzący na `/login` pobiera również treści pomocy, cennika czy panelu użytkownika.
 
 Można temu zapobiegać, wydzielając namespace'y i ładując je warunkowo. Utrzymywanie tej konfiguracji ręcznie bywa jednak czasochłonne i ryzykowne.
+
+Poniższy wykres szacuje rozmiar treści dla teoretycznej aplikacji mającej od 1 do 10 stron, przetłumaczonej na 1 do 10 języków, z około 30 KB tekstu na stronę. Dynamiczne ładowanie treści per locale usuwa oś języków, ograniczenie treści do komponentu lub trasy usuwa oś stron, a tylko połączenie obu utrzymuje rozmiar na stałym poziomie.
+
+![Teoretyczny wyciek treści w zależności od architektury](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
 
 Intlayer rozwiązuje ten problem analizą statyczną: [kompilator Intlayer](https://intlayer.org/pl/doc/compiler) przygotowuje dla każdej trasy wyłącznie te teksty, które faktycznie się na niej znajdują, redukując wyciek do **0.0%**.
 

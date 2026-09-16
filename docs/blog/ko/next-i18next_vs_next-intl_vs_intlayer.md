@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-05-31
+updatedAt: 2026-09-16
 title: "next-i18next vs next-intl vs Intlayer - 완전한 번역 가이드: next-i18next vs next-intl vs Intlayer: 2026 Comparison"
 description: 번들 크기, SEO, 성능 및 유지보수성을 위한 최고의 솔루션. 2026년에 Next.js 웹사이트를 다국어로 만드세요, LLM 번역, Agent Skills & MCP.
 keywords:
@@ -133,6 +133,10 @@ Next.js는 국제화된 라우팅(예: 로케일 세그먼트)을 기본적으�
 - **로케일별 분할:**
 
   > 내가 `/fr/about` 페이지에 있다면, `/en/about` 페이지의 콘텐츠를 로드하고 싶지 않습니다.
+
+아래 그래프는 1~~10개의 페이지를 1~~10개 언어로 번역한 이론상의 앱(페이지당 약 30KB의 텍스트)의 콘텐츠 용량을 추정한 것입니다. 로케일별 동적 로딩은 언어 축을 없애고, 컴포넌트나 라우트 단위로 콘텐츠를 스코프하면 페이지 축이 없어지며, 두 가지를 결합했을 때만 용량이 일정하게 유지됩니다.
+
+![아키텍처별 이론상의 콘텐츠 누수](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
 
 다시 말하지만, 세 가지 솔루션 모두 이러한 문제를 인지하고 있으며 이러한 최적화를 관리할 수 있도록 합니다. 세 솔루션 간의 차이는 DX(개발자 경험)에 있습니다.
 

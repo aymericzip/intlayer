@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-05-31
+updatedAt: 2026-09-16
 title: "next-i18next vs next-intl vs Intlayer - Vollständiger Leitfaden zur Übersetzung next-i18next vs next-intl vs Intlayer: 2026 Comparison"
 description: Beste Lösung für Bundle-Größe, SEO, Performance & Wartbarkeit. Machen Sie Ihre Next.js Website 2026 mehrsprachig, LLM-Übersetzung, Agent Skills & MCP.
 keywords:
@@ -135,6 +135,10 @@ Zwei wichtige Probleme:
 - **Aufteilung nach Sprache:**
 
   > Wenn ich mich auf der Seite `/fr/about` befinde, möchte ich nicht den Inhalt der Seite `/en/about` laden.
+
+Das folgende Diagramm schätzt die Payload für eine theoretische App mit 1 bis 10 Seiten, übersetzt in 1 bis 10 Sprachen, mit etwa 30 KB Text pro Seite. Dynamisches Laden pro Locale entfernt die Sprachachse, das Scoping des Contents pro Komponente oder Route entfernt die Seitenachse, und nur die Kombination hält die Payload flach.
+
+![Theoretisches Content-Leakage nach Architektur](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
 
 Alle drei Lösungen sind sich dieser Probleme bewusst und ermöglichen die Verwaltung dieser Optimierungen. Der Unterschied zwischen den drei Lösungen liegt in der DX (Developer Experience).
 

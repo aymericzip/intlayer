@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-05-31
+updatedAt: 2026-09-16
 title: "next-i18next vs next-intl vs Intlayer: 2026 Comparison"
 description: Best solution for bundle size, SEO, performances & maintainability. Make your Next.js website multilingual in 2026, LLM translation, Agent Skills & MCP.
 keywords:
@@ -125,6 +125,10 @@ Two important issues:
 - **Splitting by locale:**
 
   > If I'm on the `/fr/about` page, I don't want to load the content of the `/en/about` page
+
+The graph below shows how each split plays out on the same 10 pages x 10 languages app, with about 30 KB of text per page. Dynamic import per locale removes the locale axis, splitting content per route or component removes the page axis, and only the combination keeps the payload flat.
+
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
 
 Again, all three solutions are aware of these issues and allow managing these optimizations. The difference between the three solutions is the DX (Developer Experience).
 

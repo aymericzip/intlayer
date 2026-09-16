@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-16
 title: 2026 年，next-intl 已经过时了吗？
 description: next-intl 已成为 Next.js App Router 的主流国际化方案。然而，其运行时打包体积开销以及繁琐的手动命名空间拆分依然是不可忽视的短板。
 keywords:
@@ -126,6 +126,10 @@ export default async function RootLayout({ children, params }) {
 因为 `messages` 在顶层被整体传入客户端 Provider，浏览器在加载任何单页时都必须下载整个词典。哪怕用户仅访问 `/login`，也会连带下载常见问题、使用指南和后台仪表盘等全部翻译。
 
 虽然可以通过划分多个 JSON 命名空间来规避，但手工配置和维护映射关系既费时又极易出错。
+
+下图估算了一个理论应用的内容体积：1 到 10 个页面，翻译成 1 到 10 种语言，每页约 30 KB 文本。按 locale 动态加载内容可消除语言维度，按组件或路由划分内容可消除页面维度，只有两者结合才能让体积保持平稳。
+
+![按架构划分的理论内容泄漏](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
 
 Intlayer 采用静态分析解决该问题：[Intlayer 编译器](https://intlayer.org/zh/doc/compiler)精准提取各个路由实际调用的翻译字段，使跨页面泄漏率直降为 **0.0%**。
 

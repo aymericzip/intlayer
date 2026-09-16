@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-16
 title: i18next 2026'da Güncelliğini Yitirdi mi?
 description: i18next milyonlarca web sitesine güç veriyor, ancak 2011 yapımı çalışma zamanı mimarisi eskimeye başladı. Paket boyutu, tree-shaking sınırları ve duraksayan inovasyon üzerine bir inceleme.
 keywords:
@@ -124,6 +124,10 @@ Next.js'te `next-i18next`, temel projeye kıyasla **76.7 KB gzipped** ek yük ge
 **Veri sızıntısı:**
 
 Varsayılan ayarlarda, bir rotaya iletilen **çevirilerin %90'a yakını** diğer sayfalara aittir. Manuel ad alanı bölme zahmetlidir ve gözden kaçan eksikliklere gebedir.
+
+Aşağıdaki grafik, sayfa başına yaklaşık 30 KB metin içeren, 1 ila 10 sayfadan oluşan ve 1 ila 10 dile çevrilmiş teorik bir uygulamanın içerik yükünü tahmin eder. İçeriği locale bazında dinamik yüklemek dil eksenini ortadan kaldırır, içeriği bileşen veya rota bazında sınırlamak sayfa eksenini ortadan kaldırır ve yalnızca ikisinin birleşimi yükü sabit tutar.
+
+![Mimariye göre teorik içerik sızıntısı](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
 
 **Hidrasyon gecikmesi:**
 

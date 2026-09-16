@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-01-02
-updatedAt: 2025-06-29
+updatedAt: 2026-09-16
 title: react-i18next vs react-intl vs Intlayer
 description: Integracja react-i18next z next-intl i Intlayer dla internacjonalizacji (i18n) aplikacji React
 keywords:
@@ -105,6 +105,10 @@ Oceniamy:
 - **Intlayer**: **Tree-shaking** nieużywanych słowników i obsługuje **leniwe ładowanie na poziomie słownika/locale** od razu po wyjęciu z pudełka.
 
 **Dlaczego to ważne:** Mniejsze paczki i mniej nieużywanych ciągów poprawiają wydajność uruchamiania i nawigacji.
+
+Poniższy wykres szacuje rozmiar treści dla teoretycznej aplikacji mającej od 1 do 10 stron, przetłumaczonej na 1 do 10 języków, z około 30 KB tekstu na stronę. Dynamiczne ładowanie treści per locale usuwa oś języków, ograniczenie treści do komponentu lub trasy usuwa oś stron, a tylko połączenie obu utrzymuje rozmiar na stałym poziomie.
+
+![Teoretyczny wyciek treści w zależności od architektury](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
 
 ### 6) DX, narzędzia i utrzymanie
 

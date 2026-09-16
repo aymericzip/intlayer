@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-16
 title: 2026 年，i18next 已经过时了吗？
 description: i18next 为数百万个网站提供多语言支持，但其始于 2011 年的运行时架构已显老态。本文深入剖析其打包体积膨胀、Tree-shaking 限制与创新停滞问题。
 keywords:
@@ -124,6 +124,10 @@ style="border:none;"
 **翻译内容泄漏：**
 
 在默认设置下，下发到特定路由的内容中约 **90%** 实际上属于其他页面。依靠手动划分命名空间不仅繁琐，而且容易漏配。
+
+下图估算了一个理论应用的内容体积：1 到 10 个页面，翻译成 1 到 10 种语言，每页约 30 KB 文本。按 locale 动态加载内容可消除语言维度，按组件或路由划分内容可消除页面维度，只有两者结合才能让体积保持平稳。
+
+![按架构划分的理论内容泄漏](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
 
 **水合延迟：**
 

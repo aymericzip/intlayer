@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-10
-updatedAt: 2025-09-10
+updatedAt: 2026-09-16
 title: "Per-Komponente vs. Zentralisiertes i18n: Ein neuer Ansatz mit Intlayer"
 description: Eine eingehende Analyse der Internationalisierungsstrategien in React, die zentralisierte, per-key- und per-component-Ansätze vergleicht und Intlayer vorstellt.
 keywords:
@@ -63,6 +63,7 @@ Granularer Ansatz (intlayer, inlang)
 - Feingranulares Abrufen von Inhalten pro Schlüssel oder pro Komponente.
 
   </Column>
+
 </Columns>
 
 > In diesem Blog werde ich mich nicht auf compiler-basierte Lösungen konzentrieren, die ich bereits hier behandelt habe: [Compiler vs deklaratives i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/compiler_vs_declarative_i18n.md).
@@ -78,6 +79,10 @@ Grob gesagt lässt sich die Entscheidung folgendermaßen zusammenfassen:
 - Wenn du mehr Sprachen als Seiten hast, solltest du zu einem zentralisierten Ansatz tendieren.
 
 Natürlich sind die Autor:innen der Bibliotheken sich dieser Einschränkungen bewusst und bieten Workarounds an. Dazu gehören: Aufteilen in Namespaces, dynamisches Laden von JSON-Dateien (`await import()`), oder das Entfernen/Bereinigen von Inhalten zur Build-Zeit.
+
+Das folgende Diagramm schätzt die Payload für eine theoretische App mit 1 bis 10 Seiten, übersetzt in 1 bis 10 Sprachen, mit etwa 30 KB Text pro Seite. Dynamisches Laden pro Locale entfernt die Sprachachse, das Scoping des Contents pro Komponente oder Route entfernt die Seitenachse, und nur die Kombination hält die Payload flach.
+
+![Theoretisches Content-Leakage nach Architektur](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
 
 Gleichzeitig sollten Sie wissen, dass das dynamische Laden Ihrer Inhalte zusätzliche Anfragen an Ihren Server verursacht. Jeder zusätzliche `useState` oder hook bedeutet eine zusätzliche Serveranfrage.
 

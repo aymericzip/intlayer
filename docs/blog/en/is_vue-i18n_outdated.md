@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-16
 title: Is vue-i18n Outdated in 2026?
 description: vue-i18n has been the standard for Vue and Nuxt apps for a decade. But in our benchmarks, it proved to be the heaviest i18n runtime on the web. Here is why.
 keywords:
@@ -115,6 +115,12 @@ By default, **90% of localized text** sent to a route belongs to other pages. In
 **Isolated component weight:**
 
 Components compiled with localized scopes averaged 196 KB with `vue-i18n` because catalogs were duplicated inside them, versus **6.5 KB** with Intlayer.
+
+**How leakage scales:**
+
+The benchmark is a single data point. On a theoretical app of 1 to 10 pages in 1 to 10 locales (about 30 KB of text per page), a centralized catalog with static imports grows with both axes. Lazy-loading per locale removes one axis, scoping content per component removes the other, and only the combination stays flat.
+
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
 
 ## Why Is vue-i18n Heavy?
 

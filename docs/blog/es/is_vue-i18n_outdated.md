@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-16
 title: ¿Está vue-i18n obsoleto en 2026?
 description: vue-i18n ha sido el estándar para aplicaciones Vue y Nuxt durante una década. Sin embargo, en nuestros benchmarks resultó ser el runtime de i18n más pesado de la web. Descubre por qué.
 keywords:
@@ -115,6 +115,12 @@ Por defecto, el **90% del contenido traducido** enviado a una página pertenece 
 **Peso de componentes aislados:**
 
 Los componentes compilados con ámbitos de localización registraron una media de 196 KB en `vue-i18n` debido a la duplicación de catálogos, en comparación con los **6.5 KB** de Intlayer.
+
+**Cómo escala la fuga:**
+
+El gráfico siguiente estima el peso del contenido para una aplicación teórica de 1 a 10 páginas traducida a entre 1 y 10 idiomas, con unos 30 KB de texto por página. Cargar el contenido dinámicamente por locale elimina el eje de idiomas, acotar el contenido por componente o por ruta elimina el eje de páginas, y solo la combinación de ambos mantiene el peso estable.
+
+![Fuga de contenido teórica según la arquitectura](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
 
 ## ¿Por qué vue-i18n es pesado?
 

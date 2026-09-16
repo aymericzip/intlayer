@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-10
-updatedAt: 2025-09-10
+updatedAt: 2026-09-16
 title: "Per-Component vs. Centralized i18n: A New Approach with Intlayer"
 description: A deep dive into internationalization strategies in React, comparing centralized, per-key, and per-component approaches, and introducing Intlayer.
 keywords:
@@ -63,6 +63,7 @@ However, in the React world, we mainly see different approaches, that I will gro
 - fine-grain the content retrieval per key, or per-component.
 
   </Column>
+
 </Columns>
 
 > In this blog, I won't focus on compiler-based solutions, which I already covered here: [Compiler vs Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/compiler_vs_declarative_i18n.md).
@@ -79,6 +80,10 @@ So, broadly speaking, the decision breaks down like this:
 
 Of course, the library authors are aware of these limitations and provide workarounds.
 Among them: splitting into namespaces, dynamically loading JSON files (`await import()`), or purging content at build time.
+
+Here is what each choice costs on a theoretical app of 1 to 10 pages in 1 to 10 locales, with about 30 KB of text per page. Dynamic import cuts the locale axis, scoping cuts the page axis, and only the combination stays flat.
+
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
 
 At the same time, you should know that when you dynamically load your content, you introduce additional requests to your server. Each extra `useState` or hook means an extra server request.
 

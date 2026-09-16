@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-10
-updatedAt: 2025-09-10
+updatedAt: 2026-09-16
 title: "コンポーネント単位 vs 集中型 i18n: Intlayer を用いた新しいアプローチ"
 description: React の国際化戦略を深掘りし、集中型、キー単位（per-key）、コンポーネント単位の各アプローチを比較し、Intlayer を紹介します。
 keywords:
@@ -63,6 +63,7 @@ extension Localization on String {
 - キー単位、またはコンポーネント単位でコンテンツ取得を細分化する。
 
   </Column>
+
 </Columns>
 
 > このブログでは、すでに解説したためコンパイラベースのソリューションには焦点を当てません: [コンパイラ vs 宣言型 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/compiler_vs_declarative_i18n.md).
@@ -79,6 +80,10 @@ extension Localization on String {
 
 もちろん、ライブラリの作者はこれらの制約を認識しており、回避策を提供しています。
 その中には：ネームスペースに分割すること、JSONファイルを動的に読み込むこと（`await import()`）、あるいはビルド時にコンテンツをパージすることなどがあります。
+
+以下のグラフは、1〜10ページを1〜10言語に翻訳した理論上のアプリ（1ページあたり約30KBのテキスト）のコンテンツ量を推定したものです。ロケールごとの動的読み込みは言語の軸を取り除き、コンポーネントやルート単位でコンテンツをスコープすることはページの軸を取り除きます。両方を組み合わせた場合のみ、コンテンツ量は一定に保たれます。
+
+![アーキテクチャ別の理論上のコンテンツリーク](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
 
 同時に、コンテンツを動的に読み込むとサーバーへの追加リクエストが発生することを知っておくべきです。追加の `useState` や他のフックごとに、追加のサーバーリクエストが必要になります。
 

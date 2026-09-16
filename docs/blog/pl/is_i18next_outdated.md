@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-16
 title: Czy i18next jest przestarzały w 2026 roku?
 description: i18next napędza miliony stron internetowych, ale jego architektura runtime z 2011 roku zaczyna odstawać od standardów. Spojrzenie na rozmiar bundle, ograniczenia tree-shakingu i spowolniony rozwój.
 keywords:
@@ -124,6 +124,10 @@ W Next.js `next-i18next` dodaje **76.7 KB gzipped** do projektu bazowego (+50%).
 **Wyciek danych:**
 
 Domyślnie niemal **90% treści tłumaczeń** przesyłanych do danej trasy dotyczy innych podstron. Ręczne dzielenie na namespace'y jest uciążliwe i sprzyja błędom.
+
+Poniższy wykres szacuje rozmiar treści dla teoretycznej aplikacji mającej od 1 do 10 stron, przetłumaczonej na 1 do 10 języków, z około 30 KB tekstu na stronę. Dynamiczne ładowanie treści per locale usuwa oś języków, ograniczenie treści do komponentu lub trasy usuwa oś stron, a tylko połączenie obu utrzymuje rozmiar na stałym poziomie.
+
+![Teoretyczny wyciek treści w zależności od architektury](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
 
 **Opóźnienie hydratacji:**
 

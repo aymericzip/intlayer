@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-16
 title: 2026 年，vue-i18n 已经过时了吗？
 description: vue-i18n 在过去十年中一直是 Vue 和 Nuxt 的标准配置。但在我们的基准测试中，它却是主流框架中最庞大的 i18n 运行时。本文将探讨其深层原因。
 keywords:
@@ -115,6 +115,12 @@ style="border:none;"
 **独立作用域组件体积过大：**
 
 由于词典数据在各个作用域中被重复复制，使用 `vue-i18n` 的局部组件平均体积高达 196 KB，而在 Intlayer 中仅为 **6.5 KB**。
+
+**泄漏如何随规模增长：**
+
+下图估算了一个理论应用的内容体积：1 到 10 个页面，翻译成 1 到 10 种语言，每页约 30 KB 文本。按 locale 动态加载内容可消除语言维度，按组件或路由划分内容可消除页面维度，只有两者结合才能让体积保持平稳。
+
+![按架构划分的理论内容泄漏](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
 
 ## 为什么 vue-i18n 如此沉重？
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-16
 title: Liệu next-intl Đã Lỗi Thời Vào Năm 2026?
 description: next-intl đã trở thành lựa chọn phổ biến cho Next.js App Router. Nhưng nó vẫn mang gánh nặng bundle lúc runtime và yêu cầu quản lý namespace thủ công.
 keywords:
@@ -126,6 +126,10 @@ export default async function RootLayout({ children, params }) {
 Bởi vì `messages` được đưa vào client provider ở cấp cao nhất, trình duyệt buộc phải tải toàn bộ từ điển cho mỗi lần truy cập trang. Một người chỉ xem trang `/login` cũng phải tải luôn cả phần trợ giúp, điều khoản và bảng điều khiển.
 
 Có thể giảm bớt điều này bằng cách chia nhỏ file JSON thành các namespace. Tuy nhiên, việc tự quản lý ánh xạ này tốn nhiều công sức và rất dễ bỏ sót.
+
+Biểu đồ dưới đây ước tính dung lượng nội dung cho một ứng dụng giả định gồm 1 đến 10 trang, được dịch sang 1 đến 10 ngôn ngữ, với khoảng 30 KB văn bản mỗi trang. Tải nội dung động theo locale loại bỏ trục ngôn ngữ, giới hạn nội dung theo component hoặc route loại bỏ trục trang, và chỉ khi kết hợp cả hai thì dung lượng mới giữ nguyên.
+
+![Rò rỉ nội dung lý thuyết theo kiến trúc](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
 
 Intlayer giải quyết vấn đề bằng phân tích tĩnh: [trình biên dịch Intlayer](https://intlayer.org/vi/doc/compiler) chỉ đóng gói những nội dung thực sự được gọi trên route đó, đưa tỷ lệ rò rỉ giữa các trang về mức **0.0%**.
 

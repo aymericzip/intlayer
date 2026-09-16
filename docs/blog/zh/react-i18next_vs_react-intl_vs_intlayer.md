@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-01-02
-updatedAt: 2025-06-29
+updatedAt: 2026-09-16
 title: react-i18next vs react-intl vs Intlayer
 description: 将 react-i18next 与 next-intl 和 Intlayer 集成，用于 React 应用的国际化 (i18n)
 keywords:
@@ -105,6 +105,10 @@ author: aymericzip
 - **Intlayer**：自动**摇树优化**未使用的字典，并开箱即用地支持**按字典/按语言的懒加载**。
 
 **重要性说明：** 更小的包体积和更少的未使用字符串能提升启动和导航性能。
+
+下图估算了一个理论应用的内容体积：1 到 10 个页面，翻译成 1 到 10 种语言，每页约 30 KB 文本。按 locale 动态加载内容可消除语言维度，按组件或路由划分内容可消除页面维度，只有两者结合才能让体积保持平稳。
+
+![按架构划分的理论内容泄漏](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
 
 ### 6) 开发体验（DX）、工具链与维护
 

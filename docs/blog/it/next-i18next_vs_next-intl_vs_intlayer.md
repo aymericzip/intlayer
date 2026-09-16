@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-05-31
+updatedAt: 2026-09-16
 title: "next-i18next vs next-intl vs Intlayer - Guida completa per tradurre next-i18next vs next-intl vs Intlayer: 2026 Comparison"
 description: La migliore soluzione per dimensione del bundle, SEO, prestazioni & manutenibilità. Rendi il tuo Next.js sito web multilingue nel 2026, traduzione LLM, Agent Skills & MCP.
 keywords:
@@ -131,6 +131,10 @@ Due questioni importanti:
 - **Suddivisione per locale:**
 
   > Se sono nella pagina `/fr/about`, non voglio caricare il contenuto della pagina `/en/about`
+
+Il grafico seguente stima il peso del contenuto per un'app teorica da 1 a 10 pagine tradotta in 1 a 10 lingue, con circa 30 KB di testo per pagina. Caricare il contenuto dinamicamente per locale elimina l'asse delle lingue, delimitare il contenuto per componente o per route elimina l'asse delle pagine, e solo la combinazione dei due mantiene il peso stabile.
+
+![Leakage di contenuto teorico per architettura](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
 
 Ancora una volta, tutte e tre le soluzioni sono consapevoli di queste problematiche e permettono di gestire queste ottimizzazioni. La differenza tra le tre soluzioni è l'esperienza dello sviluppatore (DX).
 

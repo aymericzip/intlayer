@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-10
-updatedAt: 2025-09-10
+updatedAt: 2026-09-16
 title: "Per-Komponen vs. i18n Terpusat: Pendekatan Baru dengan Intlayer"
 description: Tinjauan mendalam tentang strategi internasionalisasi di React, membandingkan pendekatan terpusat, per-key, dan per-komponen, serta memperkenalkan Intlayer.
 keywords:
@@ -63,6 +63,7 @@ Namun, di dunia React, kita terutama melihat pendekatan yang berbeda, yang akan 
 - pengambilan konten dilakukan secara granular per key, atau per-komponen.
 
   </Column>
+
 </Columns>
 
 > Dalam blog ini, saya tidak akan fokus pada solusi berbasis compiler, yang sudah saya bahas di sini: [Compiler vs Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/compiler_vs_declarative_i18n.md).
@@ -79,6 +80,10 @@ Jadi, secara garis besar, keputusan dibagi seperti ini:
 
 Tentu saja, penulis pustaka menyadari keterbatasan ini dan menyediakan solusi.
 Di antaranya: memecah menjadi namespaces, memuat file JSON secara dinamis (`await import()`), atau menghapus konten saat build.
+
+Grafik di bawah memperkirakan ukuran konten untuk aplikasi teoretis dengan 1 hingga 10 halaman yang diterjemahkan ke 1 hingga 10 bahasa, dengan sekitar 30 KB teks per halaman. Memuat konten secara dinamis per locale menghilangkan sumbu bahasa, membatasi konten per komponen atau per rute menghilangkan sumbu halaman, dan hanya kombinasi keduanya yang menjaga ukuran tetap datar.
+
+![Kebocoran konten teoretis berdasarkan arsitektur](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
 
 Pada saat yang sama, Anda harus tahu bahwa ketika Anda memuat konten secara dinamis, Anda memperkenalkan permintaan tambahan ke server Anda. Setiap `useState` atau hook tambahan berarti permintaan server tambahan.
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-05-31
+updatedAt: 2026-09-16
 title: "next-i18next vs next-intl vs Intlayer - 完整翻译指南： next-i18next vs next-intl vs Intlayer: 2026 Comparison"
 description: 最佳的包体积、SEO、性能和可维护性解决方案。让您的 Next.js 网站在 2026 年实现多语言化，LLM 翻译，Agent Skills & MCP。
 keywords:
@@ -133,6 +133,10 @@ Next.js 为你内置了国际化路由支持（例如区域段）。但该功能
 - **按语言拆分：**
 
   > 如果我在 `/fr/about` 页面，我不想加载 `/en/about` 页面的内容
+
+下图估算了一个理论应用的内容体积：1 到 10 个页面，翻译成 1 到 10 种语言，每页约 30 KB 文本。按 locale 动态加载内容可消除语言维度，按组件或路由划分内容可消除页面维度，只有两者结合才能让体积保持平稳。
+
+![按架构划分的理论内容泄漏](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
 
 同样，三种解决方案都意识到这些问题，并允许管理这些优化。三者之间的区别在于开发者体验（DX）。
 

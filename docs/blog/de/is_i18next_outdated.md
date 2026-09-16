@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-16
 title: Ist i18next im Jahr 2026 veraltet?
 description: i18next treibt Millionen Websites an, aber seine Runtime-Architektur von 2011 zeigt ihr Alter. Ein Blick auf Bundle-Overhead, Tree-Shaking-Grenzen und verlangsamte Innovation.
 keywords:
@@ -124,6 +124,10 @@ Unter Next.js vergrößert `next-i18next` das Baseline-Bundle um **76.7 KB gzipp
 **Inhalts-Leakage:**
 
 Standardmäßig gehören fast **90% der geladenen Übersetzungen** zu anderen Seiten. Manuelles Namespacing erfordert fehleranfällige Buchführung pro Route.
+
+Das folgende Diagramm schätzt die Payload für eine theoretische App mit 1 bis 10 Seiten, übersetzt in 1 bis 10 Sprachen, mit etwa 30 KB Text pro Seite. Dynamisches Laden pro Locale entfernt die Sprachachse, das Scoping des Contents pro Komponente oder Route entfernt die Seitenachse, und nur die Kombination hält die Payload flach.
+
+![Theoretisches Content-Leakage nach Architektur](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
 
 **Hydration-Verzögerung:**
 

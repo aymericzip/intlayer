@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-01-02
-updatedAt: 2025-06-29
+updatedAt: 2026-09-16
 title: react-i18next vs react-intl vs Intlayer
 description: Tích hợp react-i18next với next-intl và Intlayer cho việc quốc tế hóa (i18n) của ứng dụng React
 keywords:
@@ -105,6 +105,10 @@ Chúng tôi đánh giá:
 - **Intlayer**: **Loại bỏ cây** các từ điển không sử dụng và hỗ trợ **tải chậm theo từng từ điển/từng locale** ngay khi cài đặt.
 
 **Tại sao điều này quan trọng:** Gói nhỏ hơn và ít chuỗi không sử dụng giúp cải thiện hiệu suất khởi động và điều hướng.
+
+Biểu đồ dưới đây ước tính dung lượng nội dung cho một ứng dụng giả định gồm 1 đến 10 trang, được dịch sang 1 đến 10 ngôn ngữ, với khoảng 30 KB văn bản mỗi trang. Tải nội dung động theo locale loại bỏ trục ngôn ngữ, giới hạn nội dung theo component hoặc route loại bỏ trục trang, và chỉ khi kết hợp cả hai thì dung lượng mới giữ nguyên.
+
+![Rò rỉ nội dung lý thuyết theo kiến trúc](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
 
 ### 6) DX, công cụ & bảo trì
 

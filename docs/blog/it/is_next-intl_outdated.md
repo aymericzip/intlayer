@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-16
 title: next-intl è obsoleto nel 2026?
 description: next-intl è diventato il riferimento per Next.js App Router. Tuttavia comporta ancora un aumento del bundle a runtime e la gestione manuale complessa dei namespace.
 keywords:
@@ -126,6 +126,10 @@ export default async function RootLayout({ children, params }) {
 Inviando `messages` al provider del client a monte, l'intero vocabolario viene caricato per ciascuna route. Chi visita `/login` riceve involontariamente anche le traduzioni di FAQ, manuali e area personale.
 
 È possibile ovviare ripartendo i file JSON in più namespace. Mantenere tale mappatura a mano risulta però tedioso e vulnerabile a dimenticanze.
+
+Il grafico seguente stima il peso del contenuto per un'app teorica da 1 a 10 pagine tradotta in 1 a 10 lingue, con circa 30 KB di testo per pagina. Caricare il contenuto dinamicamente per locale elimina l'asse delle lingue, delimitare il contenuto per componente o per route elimina l'asse delle pagine, e solo la combinazione dei due mantiene il peso stabile.
+
+![Leakage di contenuto teorico per architettura](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
 
 Intlayer supera questo limite tramite analisi statica: il [compilatore Intlayer](https://intlayer.org/it/doc/compiler) pacchettizza solo le voci realmente necessarie per ciascuna route, portando la dispersione tra pagine a **0.0%**.
 

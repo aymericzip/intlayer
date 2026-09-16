@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-01-02
-updatedAt: 2025-06-29
+updatedAt: 2026-09-16
 title: react-i18next vs react-intl vs Intlayer
 description: Integrasikan react-i18next dengan next-intl dan Intlayer untuk internasionalisasi (i18n) aplikasi React
 keywords:
@@ -105,6 +105,10 @@ Kami mengevaluasi:
 - **Intlayer**: **Menghilangkan** kamus yang tidak digunakan dan mendukung **lazy loading per-kamus/per-locale** secara langsung.
 
 **Mengapa ini penting:** Bundel yang lebih kecil dan string yang tidak terpakai lebih sedikit meningkatkan performa saat startup dan navigasi.
+
+Grafik di bawah memperkirakan ukuran konten untuk aplikasi teoretis dengan 1 hingga 10 halaman yang diterjemahkan ke 1 hingga 10 bahasa, dengan sekitar 30 KB teks per halaman. Memuat konten secara dinamis per locale menghilangkan sumbu bahasa, membatasi konten per komponen atau per rute menghilangkan sumbu halaman, dan hanya kombinasi keduanya yang menjaga ukuran tetap datar.
+
+![Kebocoran konten teoretis berdasarkan arsitektur](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
 
 ### 6) DX, tooling & maintenance
 

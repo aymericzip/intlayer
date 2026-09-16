@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-01-02
-updatedAt: 2025-06-29
+updatedAt: 2026-09-16
 title: react-i18next vs react-intl vs Intlayer
 description: Integrate react-i18next with next-intl and Intlayer for the internationalization (i18n) of a React app
 keywords:
@@ -105,6 +105,10 @@ We evaluate:
 - **Intlayer**: **Tree-shakes** unused dictionaries and supports **per-dictionary/per-locale lazy loading** out-of-the-box.
 
 **Why it matters:** Smaller bundles and fewer unused strings improve startup and navigation performance.
+
+The graph below estimates the payload for a theoretical app of 1 to 10 pages in 1 to 10 locales, with about 30 KB of text per page. Lazy loading per locale removes the locale axis, scoping content per component removes the page axis, and only the combination stays flat.
+
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
 
 ### 6) DX, tooling & maintenance
 

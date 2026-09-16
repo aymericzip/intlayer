@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-25
-updatedAt: 2026-08-09
+updatedAt: 2026-09-16
 title: Optimasi Ukuran Bundle & Performa i18n
 description: Kurangi ukuran bundle aplikasi Anda dengan mengoptimalkan konten internasionalisasi (i18n). Pelajari cara memanfaatkan tree shaking dan lazy loading untuk kamus menggunakan Intlayer.
 keywords:
@@ -36,6 +36,10 @@ author: aymericzip
 Salah satu tantangan paling umum dari solusi i18n tradisional yang bergantung pada file JSON adalah mengelola ukuran konten. Jika developer tidak secara manual memisahkan konten ke dalam berbagai namespace, sering kali pengguna akan mengunduh terjemahan untuk semua halaman dan berpotensi untuk semua bahasa hanya demi melihat satu halaman saja.
 
 Sebagai contoh, sebuah aplikasi dengan 10 halaman yang diterjemahkan ke dalam 10 bahasa dapat menyebabkan pengguna mengunduh konten yang setara dengan 100 halaman, meskipun mereka sebenarnya hanya membutuhkan **satu** (halaman yang saat ini dibuka dalam bahasa yang sedang digunakan). Hal ini menyebabkan pemborosan bandwidth dan waktu pemuatan (load time) yang lebih lambat.
+
+Grafik di bawah memperkirakan ukuran konten untuk aplikasi teoretis dengan 1 hingga 10 halaman yang diterjemahkan ke 1 hingga 10 bahasa, dengan sekitar 30 KB teks per halaman. Memuat konten secara dinamis per locale menghilangkan sumbu bahasa, membatasi konten per komponen atau per rute menghilangkan sumbu halaman, dan hanya kombinasi keduanya yang menjaga ukuran tetap datar.
+
+![Kebocoran konten teoretis berdasarkan arsitektur](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
 
 **Intlayer menyelesaikan masalah ini melalui optimasi build-time.** Ia menganalisis kode Anda untuk mendeteksi secara pasti kamus mana yang benar-benar digunakan per komponen dan hanya menyuntikkan ulang konten yang diperlukan ke dalam bundle Anda.
 

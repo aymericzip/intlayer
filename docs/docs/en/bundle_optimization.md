@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-25
-updatedAt: 2026-08-09
+updatedAt: 2026-09-16
 title: Optimizing i18n Bundle Size & Performance
 description: Reduce application bundle size by optimizing internationalization (i18n) content. Learn how to leverage tree shaking and lazy loading for dictionaries with Intlayer.
 keywords:
@@ -36,6 +36,10 @@ author: aymericzip
 One of the most common challenges with traditional i18n solutions relying on JSON files is managing content size. If developers do not manually separate content into namespaces, users often end up downloading translations for every page and potentially every language just to view a single page.
 
 For example, an application with 10 pages translated into 10 languages might result in a user downloading the content of 100 pages, even though they only need **one** (the current page in the current language). This leads to wasted bandwidth and slower load times.
+
+The graph below estimates that cost for a theoretical app of 1 to 10 pages translated into 1 to 10 locales, with about 30 KB of text per page. Dynamic imports remove the locale axis, scoping content per component removes the page axis, and only the combination keeps the payload flat.
+
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
 
 **Intlayer solves this problem through build-time optimization.** It analyzes your code to detect which dictionaries are actually used per component and reinjects only the necessary content into your bundle.
 

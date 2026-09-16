@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-25
-updatedAt: 2026-08-09
+updatedAt: 2026-09-16
 title: Optimalizace Velikosti Bundle & Výkonu i18n
 description: Zmenšete velikost svého aplikačního bundlu optimalizací obsahu pro internacionalizaci (i18n). Zjistěte, jak v Intlayer využít tree shaking a líné načítání (lazy loading) pro slovníky.
 keywords:
@@ -36,6 +36,10 @@ author: aymericzip
 Jednou z nejčastějších výzev u tradičních i18n řešení spoléhajících na JSON soubory je správa velikosti obsahu. Pokud vývojáři ručně nerozdělují obsah do jmenných prostorů (namespaces), uživatelé často skončí stahováním překladů pro každou stránku a potenciálně pro každý jazyk, jen aby si prohlédli jednu jedinou stránku.
 
 Například aplikace s 10 stránkami přeloženými do 10 jazyků může vést k tomu, že si uživatel stáhne obsah v rozsahu 100 stránek, i když ve skutečnosti potřebuje pouze **jednu** (aktuální stránku v aktuálním jazyce). To vede k plýtvání šířkou pásma a delším časům načítání.
+
+Graf níže odhaduje velikost obsahu pro teoretickou aplikaci s 1 až 10 stránkami přeloženou do 1 až 10 jazyků, s přibližně 30 KB textu na stránku. Dynamické načítání obsahu podle locale odstraňuje osu jazyků, omezení obsahu na komponentu nebo route odstraňuje osu stránek a pouze jejich kombinace udrží velikost stabilní.
+
+![Teoretický únik obsahu podle architektury](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
 
 **Intlayer řeší tento problém pomocí optimalizace v čase sestavení (build-time).** Analyzuje váš kód, detekuje, které slovníky se skutečně používají u konkrétní komponenty, a vloží do vašeho bundlu pouze tento nezbytný obsah.
 

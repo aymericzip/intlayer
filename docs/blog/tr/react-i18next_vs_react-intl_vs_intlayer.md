@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-07
-updatedAt: 2025-09-07
+updatedAt: 2026-09-16
 title: react-i18next vs react-intl vs Intlayer
 description: react-i18next'i next-intl ve Intlayer ile React uygulamasının uluslararasılaştırması (i18n) için entegre edin
 keywords:
@@ -105,6 +105,10 @@ Bu rehber, **React** için üç yerleşik i18n seçeneğini karşılaştırır: 
 - **Intlayer**: Kullanılmayan sözlükleri **ağaç sallar** ve **sözlük başına/yere göre tembel yükleme** yi kutudan çıkarır.
 
 **Neden önemli:** Daha küçük paketler ve daha az kullanılmayan dize başlatma ve navigasyon performansını iyileştirir.
+
+Aşağıdaki grafik, sayfa başına yaklaşık 30 KB metin içeren, 1 ila 10 sayfadan oluşan ve 1 ila 10 dile çevrilmiş teorik bir uygulamanın içerik yükünü tahmin eder. İçeriği locale bazında dinamik yüklemek dil eksenini ortadan kaldırır, içeriği bileşen veya rota bazında sınırlamak sayfa eksenini ortadan kaldırır ve yalnızca ikisinin birleşimi yükü sabit tutar.
+
+![Mimariye göre teorik içerik sızıntısı](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
 
 ### 6) DX, araçlar ve bakım
 

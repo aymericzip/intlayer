@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-16
 title: Is next-intl Outdated in 2026?
 description: next-intl became the go-to choice for Next.js App Router. But beneath the surface, it still carries runtime bundle bloat and manual namespace overhead.
 keywords:
@@ -126,6 +126,10 @@ export default async function RootLayout({ children, params }) {
 Because `messages` is passed to the client provider at the root, the browser receives the full translation dictionary on every page. Visiting `/login` forces the user to download FAQ, documentation, and dashboard copy as well.
 
 You can prevent this by splitting JSON files into namespaces and loading them conditionally per route. But maintaining that route-to-namespace map manually is tedious and prone to missing keys in production.
+
+The graph below estimates the payload for a theoretical app of 1 to 10 pages in 1 to 10 locales, with about 30 KB of text per page. Loading messages dynamically per locale removes one axis, splitting them per route removes the other, and only the combination keeps the payload flat.
+
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
 
 Intlayer solves this via static analysis: the [Intlayer compiler](https://intlayer.org/doc/compiler) bundles only the copy actually referenced on that route, driving other-page leakage to **0.0%**.
 
