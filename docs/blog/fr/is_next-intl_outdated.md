@@ -129,7 +129,7 @@ Il est possible de contourner cela en découpant les fichiers JSON en plusieurs 
 
 Le graphique ci-dessous estime le poids du contenu pour une application théorique de 1 à 10 pages traduite en 1 à 10 langues, avec environ 30 Ko de texte par page. Charger le contenu dynamiquement par locale supprime l'axe des langues, scoper le contenu par composant ou par route supprime l'axe des pages, et seule la combinaison des deux garde un poids stable.
 
-![Fuite de contenu théorique selon l'architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Fuite de contenu théorique selon l'architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 Intlayer règle ce problème par analyse statique : le [compilateur Intlayer](https://intlayer.org/fr/doc/compiler) inclut exclusivement les textes réellement appelés sur chaque route, ramenant la fuite entre pages à **0.0%**.
 

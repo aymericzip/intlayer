@@ -25,7 +25,7 @@ author: aymericzip
 
 يسلك هذا الدليل الاتجاه المعاكس: أجب عن بعض الأسئلة حول مشروعك أولاً، ثم طابق الإجابات مع المكتبات المناسبة. يركز هذا الدليل على تطبيقات React البسيطة (Vite و React Router و TanStack Start). لدى Next.js قيودها الخاصة، والتي تم تناولها في [مقارنة Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/next-i18next_vs_next-intl_vs_intlayer.md).
 
-![النظام البيئي لمكتبات React i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![النظام البيئي لمكتبات React i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## جدول المحتويات
 
@@ -48,7 +48,7 @@ author: aymericzip
 
 خمسة عشر عاماً من JavaScript i18n تتلخص في أربع موجات معمارية، وتأتي مكتبات React التي ستقارن بينها من موجات مختلفة.
 
-![تاريخ مكتبات JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![تاريخ مكتبات JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 <AccordionGroup>
 <Accordion header="قواميس وقت التشغيل (2011 إلى 2017): i18next و react-intl">
@@ -84,7 +84,7 @@ author: aymericzip
 
 يوضح الرسم البياني أدناه تقديراً للحمولة لتطبيق نظري يتكون من 1 إلى 10 صفحات، مترجم إلى 1 إلى 10 لغات، مع حوالي 30 كيلوبايت من النصوص لكل صفحة.
 
-![تسريب المحتوى النظري حسب البنية المعمارية](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![تسريب المحتوى النظري حسب البنية المعمارية](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 المحتوى المركزي ذو الاستيراد الثابت ينمو مع كلا المحورين: 10 صفحات مضروبة في 10 لغات تعني 300 كيلوبايت من النصوص في كل صفحة. الاستيرادات الديناميكية تلغي محور اللغات، وتحديد النطاق (scoping) يلغي محور الصفحات. الدمج بينهما فقط هو ما يبقي الحجم ثابتاً ومسطحاً.
 
@@ -371,7 +371,7 @@ export const CartSummary: FC<{ count: number }> = ({ count }) => {
 
 المكتبة الأكثر تثبيتاً هي أول مكتبة ظهرت، وليست بالضرورة المكتبة التي تناسب كود React في عام 2026. تقيس التنزيلات التاريخ وليس الملاءمة الحالية.
 
-![تصنيف مكتبات JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.png?raw=true)
+![تصنيف مكتبات JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.webp?raw=true)
 
 **اسأل من يدعم مسؤول الصيانة، وماذا يبيعون.**
 

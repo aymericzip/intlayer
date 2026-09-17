@@ -279,7 +279,7 @@ export default config;
 
 ![자동 완성](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![번역 오류](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![번역 오류](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 자동 생성된 유형(기본적으로 ./types/intlayer.d.ts)이 tsconfig.json 파일에 포함되어 있는지 확인하십시오.
 

@@ -22,7 +22,7 @@ author: aymericzip
 
 <TOC/>
 
-![next-i18next VS next-intl VS intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.png?raw=true)
+![next-i18next VS next-intl VS intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
 Next.js를 위한 세 가지 i18n 옵션인 next-i18next, next-intl, Intlayer의 유사점과 차이점을 살펴보겠습니다.
 
@@ -136,7 +136,7 @@ Next.js는 국제화된 라우팅(예: 로케일 세그먼트)을 기본적으�
 
 아래 그래프는 1~~10개의 페이지를 1~~10개 언어로 번역한 이론상의 앱(페이지당 약 30KB의 텍스트)의 콘텐츠 용량을 추정한 것입니다. 로케일별 동적 로딩은 언어 축을 없애고, 컴포넌트나 라우트 단위로 콘텐츠를 스코프하면 페이지 축이 없어지며, 두 가지를 결합했을 때만 용량이 일정하게 유지됩니다.
 
-![아키텍처별 이론상의 콘텐츠 누수](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![아키텍처별 이론상의 콘텐츠 누수](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 다시 말하지만, 세 가지 솔루션 모두 이러한 문제를 인지하고 있으며 이러한 최적화를 관리할 수 있도록 합니다. 세 솔루션 간의 차이는 DX(개발자 경험)에 있습니다.
 
@@ -160,9 +160,9 @@ Next.js는 국제화된 라우팅(예: 로케일 세그먼트)을 기본적으�
 
 다음은 vite + react 애플리케이션에서 `intlayer`를 사용한 번들 크기 최적화의 영향 예시입니다:
 
-| 최적화된 번들                                                                                      | 최적화되지 않은 번들                                                                                                      |
-| -------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| ![최적화된 번들](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.png?raw=true) | ![최적화되지 않은 번들](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.png?raw=true) |
+| 최적화된 번들                                                                                       | 최적화되지 않은 번들                                                                                                       |
+| --------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| ![최적화된 번들](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.webp?raw=true) | ![최적화되지 않은 번들](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.webp?raw=true) |
 
 ## TypeScript 및 안전성
 

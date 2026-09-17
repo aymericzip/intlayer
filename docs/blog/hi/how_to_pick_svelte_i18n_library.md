@@ -25,7 +25,7 @@ Svelte i18n के लिए कुछ भी इन-बिल्ट प्र�
 
 यह गाइड उन सवालों की सूची देती है जिनका उत्तर पहले दिया जाना चाहिए, फिर उन उत्तरों को `svelte-i18n`, Paraglide, `typesafe-i18n`, `wuchale` और Intlayer से मैप करती है, Vite + Svelte और SvelteKit दोनों के लिए।
 
-![Svelte i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![Svelte i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## विषय सूची
 
@@ -46,7 +46,7 @@ Svelte i18n के लिए कुछ भी इन-बिल्ट प्र�
 
 Svelte i18n, React या Vue की तुलना में बाद में आया, और सीधे compile-time तरंगों पर चला गया।
 
-![History of JavaScript i18n libraries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![History of JavaScript i18n libraries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 <AccordionGroup>
 <Accordion header="Runtime डिक्शनरीज़ (2019 से 2020): svelte-i18n, sveltekit-i18n">
@@ -77,7 +77,7 @@ Paraglide प्रत्येक संदेश को एक exported functi
 
 यह ग्राफ़ 1 से 10 पेजों के एक सैद्धांतिक ऐप के लिए पेलोड का अनुमान लगाता है, जिसका 1 से 10 locales में अनुवाद किया गया है, प्रति पेज लगभग 30 KB टेक्स्ट के साथ।
 
-![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 `svelte-i18n` डिफ़ॉल्ट रूप से ऊपर-बाएँ में बैठता है: `register("fr", () => import("./fr.json"))` आपको प्रति locale dynamic loading देता है, लेकिन एक locale catalog एक सिंगल ऑब्जेक्ट होता है और इसे लोड करने से हर पेज की कॉपी लोड हो जाती है। Paraglide एक दिलचस्प मामला है: क्योंकि हर संदेश का अपना export होता है, tree-shaking आपको पेज का अक्ष मुफ़्त में दे देता है, और [Svelte benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/svelte.md) पुष्टि करता है कि यह Vite + Svelte पर विज्ञापित रूप से काम करता है (यह React और Next.js बेंचमार्क में नहीं हुआ था)। Intlayer प्रति-घटक घोषणाओं के माध्यम से उसी कोने तक पहुँचता है।
 
@@ -288,7 +288,7 @@ export default cartSummaryContent;
 
 सबसे अधिक स्थापित लाइब्रेरी वह है जो पहले शिप की गई थी, वह नहीं जो 2026 Svelte कोडबेस के अनुकूल हो। डाउनलोड इतिहास को मापते हैं, उपयुक्तता को नहीं।
 
-![Tier list of JavaScript i18n libraries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.png?raw=true)
+![Tier list of JavaScript i18n libraries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.webp?raw=true)
 
 **पूछें कि अनुरक्षक को कौन भुगतान करता है, और वे क्या बेचते हैं।**
 

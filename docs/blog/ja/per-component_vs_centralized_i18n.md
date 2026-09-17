@@ -83,7 +83,7 @@ extension Localization on String {
 
 以下のグラフは、1〜10ページを1〜10言語に翻訳した理論上のアプリ（1ページあたり約30KBのテキスト）のコンテンツ量を推定したものです。ロケールごとの動的読み込みは言語の軸を取り除き、コンポーネントやルート単位でコンテンツをスコープすることはページの軸を取り除きます。両方を組み合わせた場合のみ、コンテンツ量は一定に保たれます。
 
-![アーキテクチャ別の理論上のコンテンツリーク](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![アーキテクチャ別の理論上のコンテンツリーク](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 同時に、コンテンツを動的に読み込むとサーバーへの追加リクエストが発生することを知っておくべきです。追加の `useState` や他のフックごとに、追加のサーバーリクエストが必要になります。
 
@@ -117,9 +117,9 @@ extension Localization on String {
 
 最初の例はロケールごとの遅延読み込み（lazy-loaded）翻訳や namespace 分割を含んでいません。2番目の例はコンテンツのパージ（不要な翻訳の削除）と翻訳の動的ロードを含みます。
 
-| 最適化されたバンドル                                                                                                            | 最適化されていないバンドル                                                                                |
-| ------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
-| ![最適化されていないバンドル](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.png?raw=true) | ![最適化されたバンドル](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.png?raw=true) |
+| 最適化されたバンドル                                                                                                             | 最適化されていないバンドル                                                                                 |
+| -------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| ![最適化されていないバンドル](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.webp?raw=true) | ![最適化されたバンドル](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.webp?raw=true) |
 
 名前空間のおかげで、次のような構成から移行しました：
 

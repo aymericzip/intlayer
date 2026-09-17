@@ -39,7 +39,7 @@ Ad esempio, un'applicazione con 10 pagine tradotte in 10 lingue potrebbe far sì
 
 Il grafico seguente stima il peso del contenuto per un'app teorica da 1 a 10 pagine tradotta in 1 a 10 lingue, con circa 30 KB di testo per pagina. Caricare il contenuto dinamicamente per locale elimina l'asse delle lingue, delimitare il contenuto per componente o per route elimina l'asse delle pagine, e solo la combinazione dei due mantiene il peso stabile.
 
-![Leakage di contenuto teorico per architettura](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Leakage di contenuto teorico per architettura](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 **Intlayer risolve questo problema attraverso l'ottimizzazione in fase di compilazione (build).** Analizza il tuo codice per rilevare quali dizionari sono effettivamente utilizzati in ciascun componente e inietta solo il contenuto necessario nel tuo bundle.
 

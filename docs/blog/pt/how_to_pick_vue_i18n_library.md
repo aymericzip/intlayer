@@ -24,7 +24,7 @@ author: aymericzip
 
 Este guia faz essas perguntas primeiro e, em seguida, mapeia as respostas para as bibliotecas mais adequadas, tanto para Vite + Vue puro quanto para Nuxt.
 
-![Ecossistema de bibliotecas Vue i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![Ecossistema de bibliotecas Vue i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## Índice
 
@@ -45,7 +45,7 @@ Anote as respostas. Tudo o que se segue faz referência a elas.
 
 O ecossistema Vue tem menos bibliotecas de i18n do que o React, e elas vêm de diferentes ondas arquiteturais.
 
-![História das bibliotecas JavaScript de i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![História das bibliotecas JavaScript de i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 <AccordionGroup>
 <Accordion header="Dicionários em runtime (2015 a 2019): vue-i18n, @nuxt/i18n">
@@ -76,7 +76,7 @@ Duas escolhas estruturais explicam a maior parte da diferença de bundle entre a
 
 O gráfico estima o payload para uma aplicação teórica de 1 a 10 páginas, traduzida em 1 a 10 locales, com cerca de 30 KB de texto por página.
 
-![Vazamento teórico de conteúdo por arquitetura](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Vazamento teórico de conteúdo por arquitetura](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 O `vue-i18n` suporta o eixo dinâmico: usar `setLocaleMessage` após um `import()` significa que você deixa de enviar nove locales que ninguém lê. O que ele não oferece é o eixo por página. Um catálogo de locale é um objeto único, e carregá-lo carrega os textos de todas as páginas. Em uma SPA, ninguém percebe. No Nuxt, com o `@nuxtjs/i18n` e mais de dez páginas, cada rota carrega as strings de todas as outras rotas duas vezes: no chunk JS e no SSR payload.
 
@@ -298,7 +298,7 @@ Commits, tempo de resposta em issues e se a última release minor foi lançada e
 
 A biblioteca mais instalada é aquela lançada primeiro, não necessariamente a que melhor atende a uma codebase Vue em 2026. Downloads medem histórico, não adequação.
 
-![Tier list de bibliotecas JavaScript de i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.png?raw=true)
+![Tier list de bibliotecas JavaScript de i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.webp?raw=true)
 
 **Pergunte quem financia o mantenedor e o que eles vendem.**
 

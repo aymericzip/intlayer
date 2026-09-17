@@ -398,7 +398,7 @@ Intlayer używa rozszerzania modułów (module augmentation), aby czerpać korzy
 
 ![Autouzupełnianie](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![Błąd tłumaczenia](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![Błąd tłumaczenia](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 Upewnij się, że Twoja konfiguracja TypeScript zawiera automatycznie generowane typy.
 

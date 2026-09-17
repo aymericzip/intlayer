@@ -108,7 +108,7 @@ Kami mengevaluasi:
 
 Grafik di bawah memperkirakan ukuran konten untuk aplikasi teoretis dengan 1 hingga 10 halaman yang diterjemahkan ke 1 hingga 10 bahasa, dengan sekitar 30 KB teks per halaman. Memuat konten secara dinamis per locale menghilangkan sumbu bahasa, membatasi konten per komponen atau per rute menghilangkan sumbu halaman, dan hanya kombinasi keduanya yang menjaga ukuran tetap datar.
 
-![Kebocoran konten teoretis berdasarkan arsitektur](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Kebocoran konten teoretis berdasarkan arsitektur](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 ### 6) DX, tooling & maintenance
 

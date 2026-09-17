@@ -25,7 +25,7 @@ React ships no i18n primitive. The library you pick on day one decides how trans
 
 This guide goes the other way: answer a few questions about your project first, then map the answers to the libraries that fit. It focuses on plain React (Vite, React Router, TanStack Start). Next.js has its own constraints, covered in the [Next.js comparison](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/next-i18next_vs_next-intl_vs_intlayer.md).
 
-![React i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![React i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## Table of Contents
 
@@ -48,7 +48,7 @@ Write the answers down. Everything below refers back to them.
 
 Fifteen years of JavaScript i18n fit in four architectural waves, and the React libraries you will compare come from different ones.
 
-![History of JavaScript i18n libraries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![History of JavaScript i18n libraries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 <AccordionGroup>
 <Accordion header="Runtime dictionaries (2011 to 2017): i18next, react-intl">
@@ -84,7 +84,7 @@ Every React i18n library has the same shape: a store, a provider, a hook. Whatev
 
 The graph below estimates the payload for a theoretical app of 1 to 10 pages, translated into 1 to 10 locales, with about 30 KB of text per page.
 
-![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 Centralised content with static imports grows with both axes: 10 pages times 10 locales is 300 KB of text on every page. Dynamic imports remove the locale axis. Scoping removes the page axis. Only the combination stays flat.
 
@@ -365,7 +365,7 @@ Commits, issue response time, and whether the last minor release was this year. 
 
 The most installed library is the one that shipped first, not the one that fits a 2026 React codebase. Downloads measure history, not fit.
 
-![Tier list of JavaScript i18n libraries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.png?raw=true)
+![Tier list of JavaScript i18n libraries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.webp?raw=true)
 
 **Ask who pays the maintainer, and what they sell.**
 

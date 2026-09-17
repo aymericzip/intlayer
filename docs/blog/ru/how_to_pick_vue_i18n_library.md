@@ -24,7 +24,7 @@ author: aymericzip
 
 Это руководство сначала ставит правильные вопросы, а затем сопоставляет ответы с подходящими библиотеками, как для чистого Vite + Vue, так и для Nuxt.
 
-![Экосистема библиотек i18n для Vue](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![Экосистема библиотек i18n для Vue](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## Table of Contents
 
@@ -45,7 +45,7 @@ author: aymericzip
 
 В экосистеме Vue меньше библиотек i18n, чем в React, и они относятся к разным архитектурным волнам.
 
-![История библиотек i18n в JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![История библиотек i18n в JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 <AccordionGroup>
 <Accordion header="Словари времени выполнения (2015–2019): vue-i18n, @nuxt/i18n">
@@ -76,7 +76,7 @@ Paraglide генерирует отдельную функцию для кажд
 
 На графике показана расчетная нагрузка для теоретического приложения от 1 до 10 страниц, переведенного на 1–10 локалей, при объеме текста около 30 КБ на страницу.
 
-![Теоретическая утечка контента в зависимости от архитектуры](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Теоретическая утечка контента в зависимости от архитектуры](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 `vue-i18n` поддерживает динамическую ось: вызов `setLocaleMessage` после `import()` позволяет не отправлять девять локалей, которые никто не читает. Однако он не дает разделения по страницам. Каталог локали, это один объект, и его загрузка подтягивает текст для всех страниц. В SPA этого никто не заметит. В Nuxt с `@nuxtjs/i18n` и более чем десятью страницами каждый маршрут несет в себе строки всех остальных маршрутов дважды: в JS chunk и в SSR payload.
 
@@ -303,7 +303,7 @@ const { title, items } = useIntlayer("cart-summary");
 
 Самая скачиваемая библиотека, это та, что вышла первой, а не та, которая лучше всего подходит для кодовой базы на Vue в 2026 году. Число загрузок отражает историю, а не соответствие текущим требованиям.
 
-![Рейтинг библиотек i18n для JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.png?raw=true)
+![Рейтинг библиотек i18n для JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.webp?raw=true)
 
 **Узнайте, кто финансирует мейнтейнера и что они продают.**
 

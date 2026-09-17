@@ -127,7 +127,7 @@ Standardmäßig gehören fast **90% der geladenen Übersetzungen** zu anderen Se
 
 Das folgende Diagramm schätzt die Payload für eine theoretische App mit 1 bis 10 Seiten, übersetzt in 1 bis 10 Sprachen, mit etwa 30 KB Text pro Seite. Dynamisches Laden pro Locale entfernt die Sprachachse, das Scoping des Contents pro Komponente oder Route entfernt die Seitenachse, und nur die Kombination hält die Payload flach.
 
-![Theoretisches Content-Leakage nach Architektur](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Theoretisches Content-Leakage nach Architektur](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 **Hydration-Verzögerung:**
 

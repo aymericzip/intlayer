@@ -25,7 +25,7 @@ Svelte 本身没有内置任何 i18n 功能。没有 `$t`，没有 locale 原语
 
 本指南列出了在选型前需要优先厘清的几个问题，然后将答案映射到 `svelte-i18n`、Paraglide、`typesafe-i18n`、`wuchale` 和 Intlayer，涵盖 Vite + Svelte 以及 SvelteKit 场景。
 
-![Svelte i18n 库生态系统](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![Svelte i18n 库生态系统](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## 目录
 
@@ -46,7 +46,7 @@ Svelte 本身没有内置任何 i18n 功能。没有 `$t`，没有 locale 原语
 
 Svelte i18n 出现得比 React 或 Vue 更晚，并直接跳过了早期阶段，迈入了编译时浪潮。
 
-![JavaScript i18n 库发展史](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![JavaScript i18n 库发展史](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 <AccordionGroup>
 <Accordion header="运行时字典（2019 至 2020 年）：svelte-i18n, sveltekit-i18n">
@@ -77,7 +77,7 @@ Paraglide 将每条消息编译为导出的函数，以便打包工具对路由�
 
 下图估算了一个包含 1 到 10 个页面、翻译为 1 到 10 个 locale、每页约 30 KB 文本的理论应用的 payload。
 
-![按架构划分的理论内容泄漏](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![按架构划分的理论内容泄漏](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 `svelte-i18n` 默认位于左上方：`register("fr", () => import("./fr.json"))` 提供了按 locale 的动态加载，但一个 locale catalog 是一个完整对象，加载它就会同时加载所有页面的文案。Paraglide 是一个有趣的案例：因为每条消息都是独立的导出，tree-shaking 免费提供了页面维度的精简，[Svelte 基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/svelte.md) 证实它在 Vite + Svelte 上确实如宣传的那样有效（但在 React 和 Next.js 的基准测试中并未奏效）。Intlayer 则通过按组件声明达到了相同的效果。
 
@@ -294,7 +294,7 @@ export default cartSummaryContent;
 
 安装量最多的库往往是发布最早的库，而不是最适合 2026 年 Svelte 代码库的方案。下载量衡量的是历史沉淀，而不是契合度。
 
-![JavaScript i18n 库梯队排行](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.png?raw=true)
+![JavaScript i18n 库梯队排行](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.webp?raw=true)
 
 **了解谁在资助维护者，以及他们靠什么盈利。**
 

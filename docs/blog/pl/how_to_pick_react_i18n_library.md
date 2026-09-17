@@ -26,7 +26,7 @@ React nie dostarcza żadnego wbudowanego mechanizmu i18n. Biblioteka, którą wy
 
 Ten przewodnik podchodzi do tematu od drugiej strony: najpierw odpowiedz na kilka pytań dotyczących Twojego projektu, a następnie dopasuj odpowiedzi do pasujących bibliotek. Koncentruje się na czystym React (Vite, React Router, TanStack Start). Next.js ma własne ograniczenia, opisane w [porównaniu Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/next-i18next_vs_next-intl_vs_intlayer.md).
 
-![Ekosystem bibliotek React i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![Ekosystem bibliotek React i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## Spis treści
 
@@ -49,7 +49,7 @@ Zapisz swoje odpowiedzi. Wszystko poniżej odnosi się właśnie do nich.
 
 Piętnaście lat JavaScript i18n mieści się w czterech falach architektonicznych, a biblioteki React, które będziesz porównywać, pochodzą z różnych etapów.
 
-![Historia bibliotek JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![Historia bibliotek JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 <AccordionGroup>
 <Accordion header="Słowniki w czasie wykonywania (2011 do 2017): i18next, react-intl">
@@ -85,7 +85,7 @@ Każda biblioteka React i18n ma podobny schemat: store, provider i hook. Cokolwi
 
 Poniższy wykres szacuje rozmiar danych dla teoretycznej aplikacji mającej od 1 do 10 stron, przetłumaczonej na 1 do 10 języków, z około 30 KB tekstu na stronę.
 
-![Teoretyczny wyciek treści według architektury](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Teoretyczny wyciek treści według architektury](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 Scentralizowana treść ze statycznymi importami rośnie wzdłuż obu osi: 10 stron razy 10 języków to 300 KB tekstu na każdej stronie. Dynamiczne importy eliminują oś języków. Modułowość (scoping) eliminuje oś stron. Tylko połączenie obu podejść pozwala zachować stały, niski rozmiar.
 
@@ -372,7 +372,7 @@ Liczba commitów, czas odpowiedzi na zgłoszenia i to, czy ostatnie wydanie mino
 
 Najczęściej instalowana biblioteka to ta, która powstała jako pierwsza, a nie ta, która najlepiej pasuje do bazy kodu React w 2026 roku. Liczba pobrań mierzy historię, a nie dopasowanie do bieżących potrzeb.
 
-![Ranking bibliotek JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.png?raw=true)
+![Ranking bibliotek JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.webp?raw=true)
 
 **Sprawdź, kto finansuje maintainera i co sprzedaje.**
 

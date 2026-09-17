@@ -25,7 +25,7 @@ author: aymericzip
 
 يسرد هذا الدليل الأسئلة التي يجب الإجابة عليها أولاً، ثم يطابق الإجابات مع `svelte-i18n` و Paraglide و `typesafe-i18n` و `wuchale` و Intlayer، لكل من Vite + Svelte و SvelteKit.
 
-![النظام البيئي لمكتبات Svelte i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![النظام البيئي لمكتبات Svelte i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## جدول المحتويات
 
@@ -46,7 +46,7 @@ author: aymericzip
 
 وصل تدويل Svelte لاحقاً مقارنة بـ React أو Vue، وتخطى المراحل الأولى مباشرة إلى موجات وقت التحويل البرمجي (compile-time).
 
-![تاريخ مكتبات JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![تاريخ مكتبات JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 <AccordionGroup>
 <Accordion header="قواميس وقت التشغيل (2019 إلى 2020): svelte-i18n و sveltekit-i18n">
@@ -77,7 +77,7 @@ author: aymericzip
 
 يوضح الرسم البياني التقديري حجم البيانات المنقولة (payload) لتطبيق نظري يحتوي على 1 إلى 10 صفحات، مترجم إلى 1 إلى 10 لغات، مع حوالي 30 كيلوبايت من النصوص لكل صفحة.
 
-![تسرب المحتوى النظري حسب البنية المعمارية](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![تسرب المحتوى النظري حسب البنية المعمارية](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 تقع `svelte-i18n` في أعلى اليسار افتراضياً: يمنحك استخدام `register("fr", () => import("./fr.json"))` تحميلاً ديناميكياً لكل لغة، ولكن كتالوج اللغة هو كائن واحد يؤدي تحميله إلى تحميل نصوص كل الصفحات. تُعد Paraglide حالة مثيرة للاهتمام: نظراً لأن كل رسالة هي تصدير مستقل، فإن الـ tree-shaking يمنحك ميزة التقسيم حسب الصفحة مجاناً، ويؤكد [اختبار أداء Svelte (benchmark)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/svelte.md) أنها تعمل كما هو معلن مع Vite + Svelte (بينما لم تكن كذلك في اختبارات أداء React و Next.js). وتصل Intlayer إلى نفس النتيجة عبر إعلانات المحتوى لكل مكون.
 
@@ -294,7 +294,7 @@ export default cartSummaryContent;
 
 المكتبة الأكثر تنزيلاً هي التي صدرت أولاً، وليست بالضرورة الأنسب لقاعدة شيفرة Svelte في عام 2026. تقيس التنزيلات التاريخ وليس الملاءمة.
 
-![تصنيف مكتبات JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.png?raw=true)
+![تصنيف مكتبات JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.webp?raw=true)
 
 **اسأل من يمول المشرف، وماذا يبيعون.**
 

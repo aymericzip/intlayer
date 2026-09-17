@@ -241,7 +241,7 @@ Per impostazione predefinita, `express-intlayer` interpreta l'intestazione `Acce
 
 ![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 Assicurati che i tipi autogenerati (di default in ./types/intlayer.d.ts) siano inclusi nel tuo file tsconfig.json.
 

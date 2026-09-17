@@ -25,7 +25,7 @@ Svelte tidak menyediakan fitur bawaan untuk i18n. Tidak ada `$t`, tidak ada prim
 
 Panduan ini mencantumkan pertanyaan yang harus dijawab terlebih dahulu, lalu memetakan jawabannya ke `svelte-i18n`, Paraglide, `typesafe-i18n`, `wuchale`, dan Intlayer, untuk Vite + Svelte dan untuk SvelteKit.
 
-![Ekosistem library Svelte i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![Ekosistem library Svelte i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## Daftar Isi
 
@@ -46,7 +46,7 @@ Tuliskan jawabannya. Semua pembahasan di bawah ini merujuk kembali ke jawaban-ja
 
 Svelte i18n hadir lebih lambat daripada React atau Vue, dan langsung melompat ke gelombang compile-time.
 
-![Sejarah library JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![Sejarah library JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 <AccordionGroup>
 <Accordion header="Kamus runtime (2019 hingga 2020): svelte-i18n, sveltekit-i18n">
@@ -77,7 +77,7 @@ Dua pilihan struktural menjelaskan sebagian besar perbedaan bundle antar setup:
 
 Grafik ini memperkirakan payload untuk aplikasi teoritis 1 hingga 10 halaman, diterjemahkan ke dalam 1 hingga 10 locale, dengan sekitar 30 KB teks per halaman.
 
-![Kebocoran konten teoritis berdasarkan arsitektur](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Kebocoran konten teoritis berdasarkan arsitektur](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 `svelte-i18n` berada di kiri atas secara default: `register("fr", () => import("./fr.json"))` memberi Anda pemuatan dinamis per locale, tetapi katalog locale adalah satu objek tunggal dan memuatnya akan memuat salinan teks untuk setiap halaman. Paraglide adalah kasus yang menarik: karena setiap pesan adalah ekspornya sendiri, tree-shaking memberi Anda pemisahan sumbu halaman secara gratis, dan [benchmark Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/svelte.md) mengonfirmasi bahwa ini bekerja seperti yang diiklankan pada Vite + Svelte (namun tidak terjadi pada benchmark React dan Next.js). Intlayer mencapai hasil yang sama melalui deklarasi per komponen.
 
@@ -294,7 +294,7 @@ Commit, waktu respons issue, dan apakah rilis minor terakhir dilakukan tahun ini
 
 Library yang paling banyak diinstal adalah library yang dirilis lebih dulu, bukan yang paling cocok untuk codebase Svelte tahun 2026. Jumlah unduhan mengukur riwayat masa lalu, bukan kesesuaian saat ini.
 
-![Daftar tingkatan library JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.png?raw=true)
+![Daftar tingkatan library JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.webp?raw=true)
 
 **Tanyakan siapa yang mendanai maintainer, dan apa yang mereka jual.**
 

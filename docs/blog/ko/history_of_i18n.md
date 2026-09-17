@@ -49,7 +49,7 @@ author: aymericzip
 
 이 글에서는 2011년부터 2026년까지의 진화 과정을 정리합니다. 각 세대의 도구들이 해결하고자 했던 과제, 성공 요인과 한계, 그리고 프론트엔드 아키텍처의 발전이 오늘날 우리가 i18n을 다루는 방식에 미친 영향을 살펴봅니다.
 
-![JavaScript 국제화 라이브러리 생태계 변천사](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![JavaScript 국제화 라이브러리 생태계 변천사](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## 목차
 
@@ -237,7 +237,7 @@ Jan Mühlemann은 고차 컴포넌트(`withTranslation`)와 React Context를 도
 
 ## JavaScript i18n의 네 가지 아키텍처 시대
 
-![JavaScript i18n 라이브러리 기술 발전도](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![JavaScript i18n 라이브러리 기술 발전도](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 지난 15년간의 기술 흐름을 종합하면, JavaScript 국제화는 크게 네 가지 아키텍처 시대로 구분할 수 있습니다.
 

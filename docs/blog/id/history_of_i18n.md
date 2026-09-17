@@ -49,7 +49,7 @@ Solusinya telah banyak berubah. Kita beralih dari objek global JavaScript dan pe
 
 Artikel ini mengulas evolusi tersebut dari sekitar tahun 2011 hingga 2026: apa yang dicoba diselesaikan oleh setiap generasi alat, apa yang berhasil, apa yang tidak, dan bagaimana arsitektur aplikasi frontend memengaruhi cara kita menangani i18n saat ini.
 
-![Ekosistem Pustaka Internasionalisasi JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![Ekosistem Pustaka Internasionalisasi JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## Daftar Isi
 
@@ -237,7 +237,7 @@ Tab berikut menyajikan bagaimana setiap framework dan ekosistem menjawab tantang
 
 ## Empat Era Arsitektur JavaScript i18n
 
-![Sejarah Pustaka JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![Sejarah Pustaka JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 Melihat kembali perkembangan selama lima belas tahun, kita dapat membagi sejarah internasionalisasi JavaScript ke dalam empat era arsitektur:
 

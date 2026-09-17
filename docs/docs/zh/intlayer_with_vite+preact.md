@@ -1020,7 +1020,7 @@ Intlayer 使用模块增强来利用 TypeScript 的优势，使您的代码库�
 
 ![自动补全](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![翻译错误](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![翻译错误](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 确保您的 TypeScript 配置包含自动生成的类型。
 

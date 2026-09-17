@@ -20,7 +20,7 @@ author: aymericzip
 
 # next-i18next VS next-intl VS intlayer | Next.js Uluslararasılaştırma (i18n)
 
-![next-i18next VS next-intl VS intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.png?raw=true)
+![next-i18next VS next-intl VS intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
 Bu rehber, **Next.js** için yaygın olarak kullanılan üç i18n seçeneğini karşılaştırır: **next-intl**, **next-i18next** ve **Intlayer**.
 **Next.js 13+ App Router**'a (React Server Components ile) odaklanıyoruz ve şunları değerlendiriyoruz:
@@ -121,7 +121,7 @@ Bir kullanıcı `/fr/about` sayfasını ziyaret etmek istediğinde, belirli bir 
 
 Aşağıdaki grafik, sayfa başına yaklaşık 30 KB metin içeren, 1 ila 10 sayfadan oluşan ve 1 ila 10 dile çevrilmiş teorik bir uygulamanın içerik yükünü tahmin eder. İçeriği locale bazında dinamik yüklemek dil eksenini ortadan kaldırır, içeriği bileşen veya rota bazında sınırlamak sayfa eksenini ortadan kaldırır ve yalnızca ikisinin birleşimi yükü sabit tutar.
 
-![Mimariye göre teorik içerik sızıntısı](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Mimariye göre teorik içerik sızıntısı](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 Yine de, üç çözümün tümü bu sorunlardan haberdar ve bu optimizasyonları yönetmeye izin verir. Üç çözüm arasındaki fark DX (Developer Experience)'dir.
 
@@ -147,9 +147,9 @@ Kütüphanenin fallback'leri nasıl işlediği de önemlidir. Uygulamanın varsa
 
 İşte bir vite + react uygulamasında `intlayer` kullanarak bundle boyutu optimizasyonunun etkisine bir örnek:
 
-| Optimize edilmiş bundle                                                                               | Optimize edilmemiş bundle                                                                                                |
-| ----------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| ![optimized bundle](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.png?raw=true) | ![no optimized bundle](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.png?raw=true) |
+| Optimize edilmiş bundle                                                                                | Optimize edilmemiş bundle                                                                                                 |
+| ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------- |
+| ![optimized bundle](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.webp?raw=true) | ![no optimized bundle](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.webp?raw=true) |
 
 ## TypeScript & güvenlik
 

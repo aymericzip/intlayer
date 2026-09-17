@@ -398,7 +398,7 @@ Intlayer는 TypeScript의 이점을 활용하고 코드베이스를 더욱 강�
 
 ![자동 완성](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![번역 오류](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![번역 오류](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 TypeScript 구성에 자동 생성된 타입이 포함되어 있는지 확인하세요.
 

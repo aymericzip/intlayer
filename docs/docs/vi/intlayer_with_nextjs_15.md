@@ -1029,7 +1029,7 @@ Intlayer sử dụng tăng cường mô-đun (module augmentation) để nhận 
 
 ![Tự động hoàn thành](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![Lỗi dịch](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![Lỗi dịch](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 Đảm bảo cấu hình TypeScript của bạn bao gồm các kiểu được tạo tự động.
 

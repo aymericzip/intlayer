@@ -1107,7 +1107,7 @@ Intlayer використовує module augmentation, щоб отримати �
 
 ![Автодоповнення](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![Помилка перекладу](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![Помилка перекладу](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 Переконайтеся, що ваша конфігурація TypeScript включає автогенеровані типи.
 

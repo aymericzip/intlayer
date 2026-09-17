@@ -1100,7 +1100,7 @@ Intlayer sử dụng module augmentation để tận dụng các lợi ích củ
 
 ![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 Đảm bảo cấu hình TypeScript của bạn bao gồm các type được tạo tự động.
 

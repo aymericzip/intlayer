@@ -49,7 +49,7 @@ author: aymericzip
 
 本文梳理了 2011 至 2026 年间的技术变迁：剖析每一代工具所试图攻克的问题、各自的得失，以及前端整体架构演进对当今国际化实现的深远影响。
 
-![JavaScript 国际化库生态演进](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![JavaScript 国际化库生态演进](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## 目录
 
@@ -237,7 +237,7 @@ Jan Mühlemann 为快速成长的 React 社区带来了 `i18next` 适配，早�
 
 ## JavaScript i18n 的四大架构发展阶段
 
-![JavaScript i18n 类库技术演进图谱](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![JavaScript i18n 类库技术演进图谱](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 回顾近十五年的技术探索，JavaScript 国际化的演化路径可划分为四个鲜明的架构纪元：
 

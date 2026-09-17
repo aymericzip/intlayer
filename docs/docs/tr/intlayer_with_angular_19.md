@@ -403,7 +403,7 @@ Intlayer, TypeScript'in avantajlarından yararlanmak ve kod tabanınızı daha g
 
 ![Otomatik Tamamlama](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![Çeviri Hatası](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![Çeviri Hatası](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 TypeScript yapılandırmanızın otomatik olarak oluşturulan türleri içerdiğinden emin olun.
 

@@ -25,7 +25,7 @@ author: aymericzip
 
 Цей посібник перелічує запитання, на які слід відповісти спочатку, а потім зіставляє відповіді з `svelte-i18n`, Paraglide, `typesafe-i18n`, `wuchale` та Intlayer для Vite + Svelte і для SvelteKit.
 
-![Екосистема бібліотек i18n для Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![Екосистема бібліотек i18n для Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## Table of Contents
 
@@ -46,7 +46,7 @@ author: aymericzip
 
 i18n для Svelte з'явився пізніше, ніж для React або Vue, і одразу перейшов до хвиль часу компіляції.
 
-![Історія бібліотек i18n у JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![Історія бібліотек i18n у JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 <AccordionGroup>
 <Accordion header="Словники під час виконання (2019–2020): svelte-i18n, sveltekit-i18n">
@@ -77,7 +77,7 @@ Paraglide компілює кожне повідомлення в окремо �
 
 Графік оцінює обсяг переданих даних для теоретичного застосунку від 1 до 10 сторінок, перекладеного на 1–10 локалей, з приблизно 30 КБ тексту на сторінку.
 
-![Теоретичний витік контенту за архітектурою](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Теоретичний витік контенту за архітектурою](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 `svelte-i18n` за замовчуванням розташовується у верхньому лівому куті: `register("fr", () => import("./fr.json"))` забезпечує динамічне завантаження для кожної локалі, але каталог локалі є єдиним об'єктом, і його завантаження підтягує тексти кожної сторінки. Paraglide є цікавим випадком: оскільки кожне повідомлення є окремим експортом, tree-shaking дає оптимізацію за сторінками безкоштовно, і [бенчмарк Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/svelte.md) підтверджує, що це працює, як заявлено, на Vite + Svelte (на відміну від бенчмарків React і Next.js). Intlayer досягає того ж результату завдяки оголошенням на рівні компонентів.
 
@@ -288,7 +288,7 @@ export default cartSummaryContent;
 
 Найчастіше встановлюють ту бібліотеку, яка з'явилася першою, а не ту, яка підходить для кодової бази Svelte у 2026 році. Кількість завантажень вимірює історію, а не відповідність вимогам.
 
-![Рейтинг бібліотек i18n для JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.png?raw=true)
+![Рейтинг бібліотек i18n для JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.webp?raw=true)
 
 **Дізнайтеся, хто фінансує підтримку і що вони продають.**
 

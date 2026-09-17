@@ -120,7 +120,7 @@ I componenti con ambiti di localizzazione hanno raggiunto una media di 196 KB so
 
 Il grafico seguente stima il peso del contenuto per un'app teorica da 1 a 10 pagine tradotta in 1 a 10 lingue, con circa 30 KB di testo per pagina. Caricare il contenuto dinamicamente per locale elimina l'asse delle lingue, delimitare il contenuto per componente o per route elimina l'asse delle pagine, e solo la combinazione dei due mantiene il peso stabile.
 
-![Leakage di contenuto teorico per architettura](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Leakage di contenuto teorico per architettura](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 ## Perché vue-i18n è pesante?
 

@@ -49,7 +49,7 @@ author: aymericzip
 
 У цій статті проаналізовано цю еволюцію з 2011 по 2026 рік: завдання кожного покоління інструментів, їхні сильні та слабкі сторони, а також вплив архітектури фронтенду на сучасні підходи до i18n.
 
-![Екосистема бібліотек інтернаціоналізації JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![Екосистема бібліотек інтернаціоналізації JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## Зміст
 
@@ -237,7 +237,7 @@ author: aymericzip
 
 ## Чотири архітектурні епохи JavaScript i18n
 
-![Історія бібліотек інтернаціоналізації JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![Історія бібліотек інтернаціоналізації JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 Аналізуючи п'ятнадцять років розвитку, історію інтернаціоналізації в JavaScript можна розділити на чотири ключові періоди:
 

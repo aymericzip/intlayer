@@ -24,7 +24,7 @@ author: aymericzip
 
 本指南将首先梳理这些问题，然后将答案映射到适用于原生 Vite + Vue 以及 Nuxt 的库。
 
-![Vue i18n 库生态系统](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![Vue i18n 库生态系统](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## 目录
 
@@ -45,7 +45,7 @@ author: aymericzip
 
 Vue 生态中的 i18n 库比 React 更少，且它们源于不同的架构发展浪潮。
 
-![JavaScript i18n 库发展历程](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![JavaScript i18n 库发展历程](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 <AccordionGroup>
 <Accordion header="运行时字典（2015 至 2019）：vue-i18n, @nuxt/i18n">
@@ -76,7 +76,7 @@ Paraglide 为每个 message 生成一个独立函数，并交由打包工具（b
 
 下图估算了一个包含 1 到 10 个页面、翻译为 1 到 10 种语言、每页约 30 KB 文本的理论应用的 payload 情况。
 
-![不同架构下的理论内容泄漏情况](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![不同架构下的理论内容泄漏情况](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 `vue-i18n` 支持动态加载维度：在 `import()` 后调用 `setLocaleMessage` 意味着不再需要加载用户不阅读的其他 9 种语言。但它无法做到按页面维度拆分。一个 locale 的 catalog 是一个完整的对象，加载它会同时载入每个页面的文案。在 SPA 中可能不易察觉，但在使用 `@nuxtjs/i18n` 且页面超过 10 个的 Nuxt 应用中，每个路由都会重复携带所有其他路由的文本两次：一次在 JS chunk 中，另一次在 SSR payload 中。
 
@@ -298,7 +298,7 @@ const { title, items } = useIntlayer("cart-summary");
 
 安装量最多的库往往只是因为发布最早，并不代表它适合 2026 年的 Vue codebase。下载量反映的是历史沉淀，而不是契合度。
 
-![JavaScript i18n 库梯队排名](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.png?raw=true)
+![JavaScript i18n 库梯队排名](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.webp?raw=true)
 
 **了解谁在资助维护者，以及他们的盈利模式。**
 

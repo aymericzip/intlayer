@@ -39,7 +39,7 @@ author: aymericzip
 
 下圖估算了一個理論應用程式的內容體積：1 到 10 個頁面，翻譯成 1 到 10 種語言，每頁約 30 KB 文字。依 locale 動態載入內容可消除語言維度，依元件或路由劃分內容可消除頁面維度，只有兩者結合才能讓體積保持平穩。
 
-![依架構劃分的理論內容洩漏](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![依架構劃分的理論內容洩漏](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 **Intlayer 透過在建置時（build-time）進行最佳化來解決這一問題。** 它可以分析您的程式碼以檢測每個元件實際使用了哪些字典，並只將必要的內容注入到您的打包結果（bundle）中。
 

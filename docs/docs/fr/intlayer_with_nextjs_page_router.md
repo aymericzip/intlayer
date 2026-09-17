@@ -801,7 +801,7 @@ Intlayer utilise l'augmentation de module pour bénéficier de TypeScript et ren
 
 ![texte alternatif](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)
 
-![texte alternatif](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png)
+![texte alternatif](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp)
 
 Assurez-vous que votre configuration TypeScript inclut les types générés automatiquement.
 

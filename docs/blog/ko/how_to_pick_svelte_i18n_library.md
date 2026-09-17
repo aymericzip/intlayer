@@ -25,7 +25,7 @@ Svelte는 기본적으로 i18n 관련 기능을 내장하고 있지 않습니다
 
 이 가이드에서는 먼저 답해야 할 질문들을 정리한 다음, 그 답변을 바탕으로 Vite + Svelte 및 SvelteKit 환경에서 `svelte-i18n`, Paraglide, `typesafe-i18n`, `wuchale`, Intlayer를 매핑합니다.
 
-![Svelte i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![Svelte i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## 목차
 
@@ -46,7 +46,7 @@ Svelte는 기본적으로 i18n 관련 기능을 내장하고 있지 않습니다
 
 Svelte i18n은 React나 Vue보다 늦게 등장했으며, 컴파일 타임 흐름으로 곧바로 넘어갔습니다.
 
-![History of JavaScript i18n libraries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![History of JavaScript i18n libraries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 <AccordionGroup>
 <Accordion header="런타임 딕셔너리 (2019 ~ 2020): svelte-i18n, sveltekit-i18n">
@@ -77,7 +77,7 @@ Paraglide는 각 메시지를 export된 함수로 컴파일하여 번들러가 �
 
 아래 그래프는 페이지당 약 30KB의 텍스트를 가진 1~10개 페이지가 1~10개 로케일로 번역된 이론적인 앱의 페이로드를 추정한 것입니다.
 
-![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 `svelte-i18n`은 기본적으로 왼쪽 상단에 위치합니다. `register("fr", () => import("./fr.json"))`은 로케일별 동적 로딩을 제공하지만, 로케일 카탈로그가 하나의 객체이기 때문에 이를 로드하면 모든 페이지의 텍스트가 함께 로드됩니다. Paraglide는 흥미로운 사례입니다. 모든 메시지가 개별 export 함수이므로 tree-shaking을 통해 페이지 축의 최적화를 자동으로 얻을 수 있으며, [Svelte 벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/svelte.md)에서 Vite + Svelte 환경에서 설명대로 잘 작동함을 확인했습니다 (React 및 Next.js 벤치마크에서는 그렇지 않았습니다). Intlayer는 컴포넌트별 선언을 통해 동일한 최적화 영역에 도달합니다.
 
@@ -294,7 +294,7 @@ export default cartSummaryContent;
 
 가장 많이 다운로드된 라이브러리는 가장 먼저 출시된 라이브러리일 뿐, 2026년 Svelte 코드베이스에 가장 적합한 라이브러리가 아닙니다. 다운로드 수는 역사를 측정할 뿐, 적합성을 측정하지 않습니다.
 
-![Tier list of JavaScript i18n libraries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.png?raw=true)
+![Tier list of JavaScript i18n libraries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.webp?raw=true)
 
 **메인테이너를 누가 후원하고 무엇을 판매하는지 살펴보세요.**
 

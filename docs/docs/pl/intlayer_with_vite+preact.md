@@ -983,7 +983,7 @@ Intlayer wykorzystuje moduł augmentacji, aby czerpać korzyści z TypeScript i 
 
 ![Autokompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![Błąd tłumaczenia](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![Błąd tłumaczenia](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 Upewnij się, że konfiguracja TypeScript zawiera autogenerowane typy.
 

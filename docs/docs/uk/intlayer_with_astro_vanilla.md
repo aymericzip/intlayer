@@ -561,7 +561,7 @@ Intlayer використовує розширення модулів (module au
 
 ![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![Translation Error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![Translation Error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 Переконайтеся, що ваша конфігурація TypeScript включає автоматично згенеровані типи.
 

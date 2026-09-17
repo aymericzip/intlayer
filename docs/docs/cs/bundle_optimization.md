@@ -39,7 +39,7 @@ Například aplikace s 10 stránkami přeloženými do 10 jazyků může vést k
 
 Graf níže odhaduje velikost obsahu pro teoretickou aplikaci s 1 až 10 stránkami přeloženou do 1 až 10 jazyků, s přibližně 30 KB textu na stránku. Dynamické načítání obsahu podle locale odstraňuje osu jazyků, omezení obsahu na komponentu nebo route odstraňuje osu stránek a pouze jejich kombinace udrží velikost stabilní.
 
-![Teoretický únik obsahu podle architektury](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Teoretický únik obsahu podle architektury](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 **Intlayer řeší tento problém pomocí optimalizace v čase sestavení (build-time).** Analyzuje váš kód, detekuje, které slovníky se skutečně používají u konkrétní komponenty, a vloží do vašeho bundlu pouze tento nezbytný obsah.
 

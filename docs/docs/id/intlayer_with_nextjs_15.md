@@ -1056,7 +1056,7 @@ Intlayer menggunakan module augmentation untuk mendapatkan manfaat dari TypeScri
 
 ![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![Kesalahan terjemahan](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![Kesalahan terjemahan](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 Pastikan konfigurasi TypeScript Anda menyertakan tipe yang dihasilkan secara otomatis.
 

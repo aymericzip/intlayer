@@ -25,7 +25,7 @@ Svelte ships nothing for i18n. No `$t`, no locale primitive, no message format. 
 
 This guide lists the questions to answer first, then maps the answers to `svelte-i18n`, Paraglide, `typesafe-i18n`, `wuchale` and Intlayer, for Vite + Svelte and for SvelteKit.
 
-![Svelte i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![Svelte i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## Table of Contents
 
@@ -46,7 +46,7 @@ Write the answers down. Everything below refers back to them.
 
 Svelte i18n arrived later than React or Vue, and skipped straight to the compile-time waves.
 
-![History of JavaScript i18n libraries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![History of JavaScript i18n libraries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 <AccordionGroup>
 <Accordion header="Runtime dictionaries (2019 to 2020): svelte-i18n, sveltekit-i18n">
@@ -77,7 +77,7 @@ Two structural choices explain most of the bundle difference between setups:
 
 The graph estimates the payload for a theoretical app of 1 to 10 pages, translated into 1 to 10 locales, with about 30 KB of text per page.
 
-![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 `svelte-i18n` sits in the top-left by default: `register("fr", () => import("./fr.json"))` gives you dynamic loading per locale, but a locale catalogue is one object and loading it loads every page's copy. Paraglide is the interesting case: because every message is its own export, tree-shaking gives you the page axis for free, and the [Svelte benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/benchmark/svelte.md) confirms it works as advertised on Vite + Svelte (it did not in the React and Next.js benchmarks). Intlayer gets to the same corner through per-component declarations.
 
@@ -288,7 +288,7 @@ Commits, issue response time, and whether the last minor release was this year. 
 
 The most installed library is the one that shipped first, not the one that fits a 2026 Svelte codebase. Downloads measure history, not fit.
 
-![Tier list of JavaScript i18n libraries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.png?raw=true)
+![Tier list of JavaScript i18n libraries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.webp?raw=true)
 
 **Ask who pays the maintainer, and what they sell.**
 

@@ -82,7 +82,7 @@ Bien sûr, les auteurs des bibliothèques sont conscients de ces limites et prop
 
 Le graphique ci-dessous estime le poids du contenu pour une application théorique de 1 à 10 pages traduite en 1 à 10 langues, avec environ 30 Ko de texte par page. Charger le contenu dynamiquement par locale supprime l'axe des langues, scoper le contenu par composant ou par route supprime l'axe des pages, et seule la combinaison des deux garde un poids stable.
 
-![Fuite de contenu théorique selon l'architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Fuite de contenu théorique selon l'architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 En même temps, vous devez savoir que lorsque vous chargez dynamiquement votre contenu, vous introduisez des requêtes supplémentaires vers votre serveur. Chaque `useState` supplémentaire ou hook signifie une requête serveur supplémentaire.
 
@@ -116,9 +116,9 @@ Bien sûr, et c'est une avancée majeure. Regardons la comparaison de la taille 
 
 Le premier exemple n'inclut pas de traductions chargées à la demande par locale et aucune séparation en namespaces. Le second inclut une purge du contenu + chargement dynamique des traductions.
 
-| Bundle optimisé                                                                                                          | Bundle non optimisé                                                                                  |
-| ------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------- |
-| ![bundle non optimisé](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.png?raw=true) | ![bundle optimisé](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.png?raw=true) |
+| Bundle optimisé                                                                                                           | Bundle non optimisé                                                                                   |
+| ------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| ![bundle non optimisé](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.webp?raw=true) | ![bundle optimisé](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.webp?raw=true) |
 
 Donc, grâce aux namespaces, nous sommes passés de cette structure :
 

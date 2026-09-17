@@ -24,7 +24,7 @@ author: aymericzip
 
 Bu rehber önce bu soruları sorar, ardından sade Vite + Vue ve Nuxt için yanıtları uygun kütüphanelerle eşleştirir.
 
-![Vue i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![Vue i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## İçindekiler
 
@@ -45,7 +45,7 @@ Yanıtları not edin. Aşağıdaki her şey bunlara atıfta bulunacaktır.
 
 Vue ekosisteminde React'e kıyasla daha az i18n kütüphanesi vardır ve bunlar farklı mimari dalgalardan gelir.
 
-![History of JavaScript i18n libraries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![History of JavaScript i18n libraries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 <AccordionGroup>
 <Accordion header="Runtime sözlükleri (2015 - 2019): vue-i18n, @nuxt/i18n">
@@ -76,7 +76,7 @@ Paraglide mesaj başına bir fonksiyon üretir ve bundler'ın geri kalanını tr
 
 Grafik, sayfa başına yaklaşık 30 KB metin içeren, 1 ila 10 dile çevrilmiş, 1 ila 10 sayfalık teorik bir uygulama için payload'u tahmin etmektedir.
 
-![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 `vue-i18n` dinamik ekseni destekler: bir `import()` sonrasında `setLocaleMessage`, kimsenin okumadığı dokuz dili göndermeyi bıraktığınız anlamına gelir. Size sağlamadığı şey ise sayfa eksenidir. Bir dil kataloğu tek bir nesnedir ve onu yüklemek her sayfanın metnini yükler. Bir SPA'da bunu kimse fark etmez. Nuxt'ta, `@nuxtjs/i18n` ve ondan fazla sayfa ile her route diğer tüm route'ların string'lerini iki kez taşır: JS chunk'ında ve SSR payload'unda.
 
@@ -298,7 +298,7 @@ Commit'ler, issue yanıt süresi ve son minor sürümün bu yıl çıkıp çıkm
 
 En çok yüklenen kütüphane ilk çıkan kütüphanedir, 2026 Vue codebase'ine en uygun olan değil. İndirmeler uyumu değil, geçmişi ölçer.
 
-![Tier list of JavaScript i18n libraries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.png?raw=true)
+![Tier list of JavaScript i18n libraries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.webp?raw=true)
 
 **Bakımını üstlenen kişiye kimin ödeme yaptığını ve ne sattıklarını sorun.**
 

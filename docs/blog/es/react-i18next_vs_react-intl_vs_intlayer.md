@@ -106,7 +106,7 @@ Evaluamos:
 
 El gráfico siguiente estima el peso del contenido para una aplicación teórica de 1 a 10 páginas traducida a entre 1 y 10 idiomas, con unos 30 KB de texto por página. Cargar el contenido dinámicamente por locale elimina el eje de idiomas, acotar el contenido por componente o por ruta elimina el eje de páginas, y solo la combinación de ambos mantiene el peso estable.
 
-![Fuga de contenido teórica según la arquitectura](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Fuga de contenido teórica según la arquitectura](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 ### 6) DX, herramientas y mantenimiento
 

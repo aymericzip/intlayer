@@ -419,7 +419,7 @@ Intlayer tận dụng Module Augmentation để nhận được những lợi í
 
 ![Tự động hoàn thành](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![Lỗi bản dịch](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![Lỗi bản dịch](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 Hãy chắc chắn rằng cấu hình TypeScript của bạn bao gồm các loại (types) được tạo tự động.
 

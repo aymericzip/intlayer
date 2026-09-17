@@ -25,7 +25,7 @@ React tidak menyediakan primitif i18n bawaan. Library yang Anda pilih sejak hari
 
 Panduan ini mengambil pendekatan sebaliknya: jawab beberapa pertanyaan tentang proyek Anda terlebih dahulu, lalu petakan jawabannya ke library yang paling cocok. Panduan ini berfokus pada React murni (Vite, React Router, TanStack Start). Next.js memiliki batasan dan karakteristik tersendiri, yang dibahas dalam [perbandingan Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/next-i18next_vs_next-intl_vs_intlayer.md).
 
-![Ekosistem library React i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![Ekosistem library React i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## Daftar Isi
 
@@ -48,7 +48,7 @@ Tuliskan jawabannya. Semua pembahasan di bawah ini merujuk kembali ke jawaban-ja
 
 Lima belas tahun JavaScript i18n terbagi dalam empat gelombang arsitektur, dan library React yang akan Anda bandingkan berasal dari gelombang yang berbeda.
 
-![Sejarah library JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![Sejarah library JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 <AccordionGroup>
 <Accordion header="Kamus runtime (2011 hingga 2017): i18next, react-intl">
@@ -84,7 +84,7 @@ Setiap library React i18n memiliki bentuk yang serupa: sebuah store, provider, d
 
 Grafik di bawah ini memperkirakan payload untuk aplikasi teoritis 1 hingga 10 halaman, diterjemahkan ke dalam 1 hingga 10 locale, dengan sekitar 30 KB teks per halaman.
 
-![Kebocoran konten teoritis berdasarkan arsitektur](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Kebocoran konten teoritis berdasarkan arsitektur](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 Konten terpusat dengan static import bertambah seiring kedua sumbu: 10 halaman dikali 10 locale berarti 300 KB teks di setiap halaman. Dynamic import menghilangkan sumbu locale. Scoping menghilangkan sumbu halaman. Hanya kombinasinya yang tetap stabil dan datar.
 
@@ -371,7 +371,7 @@ Commit, waktu respons issue, dan apakah rilis minor terakhir dilakukan tahun ini
 
 Library yang paling banyak diunduh adalah yang dirilis paling awal, bukan yang paling cocok untuk codebase React tahun 2026. Jumlah unduhan mengukur riwayat masa lalu, bukan kecocokan saat ini.
 
-![Tier list library JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.png?raw=true)
+![Tier list library JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.webp?raw=true)
 
 **Ketahui siapa yang mendanai pengelola, dan apa yang mereka jual.**
 

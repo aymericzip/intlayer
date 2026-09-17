@@ -980,7 +980,7 @@ Intlayer nutzt module augmentation, um die Vorteile von TypeScript zu nutzen und
 
 ![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 Stelle sicher, dass deine TypeScript-Konfiguration die autogenerierten Typen enthält.
 

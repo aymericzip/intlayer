@@ -20,7 +20,7 @@ author: aymericzip
 
 # next-i18next VS next-intl VS intlayer | Інтернаціоналізація Next.js (i18n)
 
-![next-i18next проти next-intl та intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.png?raw=true)
+![next-i18next проти next-intl та intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
 Розглянемо схожості та відмінності між трьома варіантами i18n для Next.js: next-i18next, next-intl та Intlayer.
 
@@ -139,7 +139,7 @@ Next.js надає вбудовану підтримку інтернаціон�
 
 Графік нижче оцінює обсяг контенту для теоретичного застосунку, в якому від 1 до 10 сторінок і від 1 до 10 мов, приблизно по 30 КБ тексту на сторінку. Динамічне завантаження за локаллю прибирає вісь мов, обмеження контенту компонентом або маршрутом прибирає вісь сторінок, і лише їх поєднання зберігає обсяг стабільним.
 
-![Теоретичний витік контенту за архітектурою](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Теоретичний витік контенту за архітектурою](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 Знову ж таки, усі три рішення усвідомлюють ці проблеми та дозволяють керувати цими оптимізаціями. Різниця між ними, це DX (Developer Experience).
 
@@ -165,9 +165,9 @@ Next.js надає вбудовану підтримку інтернаціон�
 
 Нижче приклад впливу оптимізації розміру бандла за допомогою `intlayer` у застосунку на vite + react:
 
-| Оптимізований бандл                                                                                      | Неоптимізований бандл                                                                                                      |
-| -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| ![оптимізований бандл](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.png?raw=true) | ![неоптимізований бандл](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.png?raw=true) |
+| Оптимізований бандл                                                                                       | Неоптимізований бандл                                                                                                       |
+| --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| ![оптимізований бандл](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.webp?raw=true) | ![неоптимізований бандл](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.webp?raw=true) |
 
 ## TypeScript і безпека
 

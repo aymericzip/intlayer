@@ -82,7 +82,7 @@ Elbette, kütüphane yazarları bu sınırlamaların farkındadır ve çözüm y
 
 Aşağıdaki grafik, sayfa başına yaklaşık 30 KB metin içeren, 1 ila 10 sayfadan oluşan ve 1 ila 10 dile çevrilmiş teorik bir uygulamanın içerik yükünü tahmin eder. İçeriği locale bazında dinamik yüklemek dil eksenini ortadan kaldırır, içeriği bileşen veya rota bazında sınırlamak sayfa eksenini ortadan kaldırır ve yalnızca ikisinin birleşimi yükü sabit tutar.
 
-![Mimariye göre teorik içerik sızıntısı](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Mimariye göre teorik içerik sızıntısı](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 Aynı zamanda, içeriğinizi dinamik olarak yüklediğinizde sunucunuza ek istekler gönderdiğinizi bilmelisiniz. Her ek `useState` veya hook, ekstra bir sunucu isteği anlamına gelir.
 
@@ -113,9 +113,9 @@ Evet, bu büyük bir ilerleme. Vite + React + React Router v7 + Intlayer kurulum
 
 İlk örnek locale başına lazy-loaded çeviriler içermez ve namespace ayrımı yapmaz. İkinci örnek içerik temizleme + çeviriler için dinamik yükleme içerir.
 
-| Optimize edilmiş bundle                                                                                                        | Optimize edilmemiş bundle                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ |
-| ![optimize edilmemiş bundle](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.png?raw=true) | ![optimize edilmiş bundle](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.png?raw=true) |
+| Optimize edilmiş bundle                                                                                                         | Optimize edilmemiş bundle                                                                                     |
+| ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| ![optimize edilmemiş bundle](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.webp?raw=true) | ![optimize edilmiş bundle](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.webp?raw=true) |
 
 Bu nedenle namespaces sayesinde şu yapıdan şu yapıya geçtik:
 

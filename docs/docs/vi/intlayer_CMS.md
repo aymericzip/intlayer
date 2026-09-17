@@ -41,7 +41,7 @@ Intlayer CMS là một ứng dụng cho phép bạn đưa nội dung của dự 
 
 Để làm được điều đó, Intlayer giới thiệu khái niệm 'từ điển từ xa'.
 
-![Giao diện Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/assets/CMS.png)
+![Giao diện Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/assets/CMS.webp)
 
 ## Mục lục
 

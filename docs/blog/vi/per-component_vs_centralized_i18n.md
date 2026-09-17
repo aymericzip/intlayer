@@ -82,7 +82,7 @@ Tất nhiên, các tác giả thư viện nhận thức được những giới 
 
 Biểu đồ dưới đây ước tính dung lượng nội dung cho một ứng dụng giả định gồm 1 đến 10 trang, được dịch sang 1 đến 10 ngôn ngữ, với khoảng 30 KB văn bản mỗi trang. Tải nội dung động theo locale loại bỏ trục ngôn ngữ, giới hạn nội dung theo component hoặc route loại bỏ trục trang, và chỉ khi kết hợp cả hai thì dung lượng mới giữ nguyên.
 
-![Rò rỉ nội dung lý thuyết theo kiến trúc](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Rò rỉ nội dung lý thuyết theo kiến trúc](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 Đồng thời, bạn cần biết rằng khi bạn tải nội dung một cách động, bạn sẽ tạo thêm các yêu cầu tới server. Mỗi `useState` bổ sung hoặc hook đồng nghĩa với một yêu cầu server thêm.
 
@@ -116,9 +116,9 @@ Chắc chắn, và đó là một bước tiến lớn. Hãy xem so sánh kích 
 
 Ví dụ đầu tiên không bao gồm việc lazy-load các bản dịch theo locale và không tách namespace. Ví dụ thứ hai bao gồm content purging + tải động các bản dịch.
 
-| Bundle tối ưu hóa                                                                                                         | Bundle không tối ưu hóa                                                                              |
-| ------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
-| ![gói chưa được tối ưu](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.png?raw=true) | ![gói được tối ưu](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.png?raw=true) |
+| Bundle tối ưu hóa                                                                                                          | Bundle không tối ưu hóa                                                                               |
+| -------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| ![gói chưa được tối ưu](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.webp?raw=true) | ![gói được tối ưu](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.webp?raw=true) |
 
 Nhờ có namespaces, chúng ta đã chuyển từ cấu trúc này:
 

@@ -39,7 +39,7 @@ Por exemplo, um aplicativo com 10 páginas traduzido a título de abranger 10 l�
 
 O gráfico abaixo estima o peso do conteúdo para uma aplicação teórica de 1 a 10 páginas traduzida para 1 a 10 idiomas, com cerca de 30 KB de texto por página. Carregar o conteúdo dinamicamente por locale remove o eixo dos idiomas, delimitar o conteúdo por componente ou por rota remove o eixo das páginas, e só a combinação dos dois mantém o peso estável.
 
-![Vazamento de conteúdo teórico por arquitetura](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Vazamento de conteúdo teórico por arquitetura](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 **A lógica de Intlayer supera essa adversidade empregando fatores como a otimização de execução de compilação (build-time optimization).** É um cenário que abrange de frente análises na arquitetura nativa com intenção em entender puramente quais dicionários acabam compondo partes exclusivas relativas a cada componente sem sobrecarregar toda sua base com dicionários sem efetividade imediata.
 

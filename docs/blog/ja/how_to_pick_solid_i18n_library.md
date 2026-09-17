@@ -25,7 +25,7 @@ Solidのリアクティビティモデルは、i18nライブラリに求めら�
 
 本ガイドでは、まず確認すべき質問事項を整理し、それらに基づいて`@solid-primitives/i18n`、`solid-i18next`、Paraglide、`@lingui/solid`、Intlayerを、Vite + SolidおよびSolidStartの両方の環境で比較・マッピングしていきます。
 
-![Solid i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![Solid i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## 目次
 
@@ -46,7 +46,7 @@ Solidのリアクティビティモデルは、i18nライブラリに求めら�
 
 Solidは比較的新しいエコシステムであり選択肢も少なめですが、大きく3つの波に分かれています。
 
-![History of JavaScript i18n libraries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![History of JavaScript i18n libraries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 <AccordionGroup>
 <Accordion header="ランタイム辞書: solid-i18next">
@@ -77,7 +77,7 @@ Paraglideはメッセージごとに1つの関数を生成します。Intlayer�
 
 以下のグラフは、1〜10ページ、1〜10ロケール、1ページあたり約30 KBのテキストを持つ理論上のアプリにおけるペイロードの推定値を示しています。
 
-![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 `@solid-primitives/i18n`はどちらの軸も自動では対応しません。ロケールごとに辞書を`createResource`することで動的ロードは実現できますが、それ以外の制御は自作する必要があります。`solid-i18next`にはネームスペースと遅延バックエンドがありますが、マッピングが強制されないため、共通コンポーネントが`common`をインポートすると、それがすべてのルートの依存関係になってしまいます。Paraglideはツリーシェイキング（tree-shaking）によってページ単位の最適化を行いますが、[Solidベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/solid.md)の実装では効果が現れませんでした。Intlayerはコンポーネントごとの宣言によってこれを実現します。
 
@@ -300,7 +300,7 @@ export const CartSummary: Component<{ count: number }> = (props) => {
 
 最もインストールされているライブラリは、最初にリリースされたものであり、必ずしも2026年のSolidコードベースに適合しているわけではありません。ダウンロード数は歴史の長さを示すものであり、適合度を示すものではありません。
 
-![Tier list of JavaScript i18n libraries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.png?raw=true)
+![Tier list of JavaScript i18n libraries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.webp?raw=true)
 
 **メンテナーの収益モデルと販売対象を確認する。**
 

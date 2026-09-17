@@ -26,7 +26,7 @@ Svelte non include nulla di nativo per l'i18n. Nessun `$t`, nessuna primitiva di
 
 Questa guida elenca le domande a cui rispondere per prime, quindi mappa le risposte su `svelte-i18n`, Paraglide, `typesafe-i18n`, `wuchale` e Intlayer, sia per Vite + Svelte che per SvelteKit.
 
-![Ecosistema delle librerie i18n per Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![Ecosistema delle librerie i18n per Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## Indice
 
@@ -47,7 +47,7 @@ Scrivete le risposte. Tutto ciò che segue fa riferimento ad esse.
 
 L'i18n per Svelte è arrivata più tardi rispetto a React o Vue, passando direttamente alle ondate basate su compile-time.
 
-![Storia delle librerie i18n JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![Storia delle librerie i18n JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 <AccordionGroup>
 <Accordion header="Dizionari a runtime (dal 2019 al 2020): svelte-i18n, sveltekit-i18n">
@@ -78,7 +78,7 @@ Due scelte architetturali spiegano la maggior parte delle differenze di bundle s
 
 Il grafico stima il payload per un'applicazione teorica da 1 a 10 pagine, tradotta in 1-10 locale, con circa 30 KB di testo per pagina.
 
-![Perdita teorica di contenuti per architettura](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Perdita teorica di contenuti per architettura](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 `svelte-i18n` si posiziona in alto a sinistra per impostazione predefinita: `register("fr", () => import("./fr.json"))` offre il caricamento dinamico per locale, ma il catalogo del locale è un unico oggetto e caricarlo significa caricare il testo di tutte le pagine. Paraglide rappresenta il caso interessante: poiché ogni messaggio è un export a sé stante, il tree-shaking gestisce l'asse delle pagine senza costi aggiuntivi, e il [benchmark per Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/benchmark/svelte.md) conferma che funziona come pubblicizzato su Vite + Svelte (non è stato così nei benchmark di React e Next.js). Intlayer raggiunge lo stesso risultato grazie alle dichiarazioni per componente.
 
@@ -295,7 +295,7 @@ Numero di commit, tempi di risposta alle issue e data dell'ultima release minore
 
 La libreria più scaricata è spesso quella rilasciata per prima, non necessariamente quella più adatta a una codebase Svelte del 2026. I download misurano la storia, non l'aderenza alle esigenze attuali.
 
-![Classifica delle librerie i18n JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.png?raw=true)
+![Classifica delle librerie i18n JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.webp?raw=true)
 
 **Chiedetevi chi finanzia il progetto e qual è il modello di business.**
 

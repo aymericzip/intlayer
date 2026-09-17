@@ -226,7 +226,7 @@ Por defecto, `express-intlayer` interpretará el encabezado `Accept-Language` pa
 
 ![texto alternativo](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)
 
-![texto alternativo](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png)
+![texto alternativo](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp)
 
 Asegúrate de que los tipos autogenerados (por defecto en ./types/intlayer.d.ts) estén incluidos en tu archivo tsconfig.json.
 

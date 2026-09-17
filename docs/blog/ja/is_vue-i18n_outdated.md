@@ -120,7 +120,7 @@ Vue自体のフットプリントが非常に小さいため（約31 KB）、`vu
 
 以下のグラフは、1〜10ページを1〜10言語に翻訳した理論上のアプリ（1ページあたり約30KBのテキスト）のコンテンツ量を推定したものです。ロケールごとの動的読み込みは言語の軸を取り除き、コンポーネントやルート単位でコンテンツをスコープすることはページの軸を取り除きます。両方を組み合わせた場合のみ、コンテンツ量は一定に保たれます。
 
-![アーキテクチャ別の理論上のコンテンツリーク](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![アーキテクチャ別の理論上のコンテンツリーク](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 ## なぜvue-i18nは重いのか？
 

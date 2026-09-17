@@ -419,7 +419,7 @@ export class AppComponent {
 
 ![إكمال تلقائي](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![خطأ ترجمة](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![خطأ ترجمة](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 تأكد من أن تكوين TypeScript الخاص بك يتضمن الأنواع المُنشأة تلقائيًا.
 

@@ -44,7 +44,7 @@ Intlayer CMS একটি অ্যাপ্লিকেশন যা আপন�
 
 এর জন্য, Intlayer 'দূরবর্তী ডিকশনারি' ধারণাটি প্রবর্তন করে।
 
-![Intlayer CMS ইন্টারফেস](https://github.com/aymericzip/intlayer/blob/main/docs/assets/CMS.png)
+![Intlayer CMS ইন্টারফেস](https://github.com/aymericzip/intlayer/blob/main/docs/assets/CMS.webp)
 
 ## বিষয়বস্তু সূচি
 

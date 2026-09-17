@@ -25,7 +25,7 @@ React liefert keine native i18n-Primitive mit. Die Bibliothek, für die Sie sich
 
 Dieser Leitfaden wählt den umgekehrten Weg: Beantworten Sie zuerst einige Fragen zu Ihrem Projekt und ordnen Sie die Antworten dann den passenden Bibliotheken zu. Er konzentriert sich auf reines React (Vite, React Router, TanStack Start). Next.js hat eigene Einschränkungen, die im [Next.js-Vergleich](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/next-i18next_vs_next-intl_vs_intlayer.md) behandelt werden.
 
-![React i18n-Bibliotheken-Ökosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![React i18n-Bibliotheken-Ökosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## Inhaltsverzeichnis
 
@@ -48,7 +48,7 @@ Schreiben Sie die Antworten auf. Alles Folgende bezieht sich darauf.
 
 Fünfzehn Jahre JavaScript-i18n lassen sich in vier architektonische Wellen unterteilen, und die React-Bibliotheken, die Sie vergleichen werden, stammen aus unterschiedlichen Epochen.
 
-![Geschichte der JavaScript i18n-Bibliotheken](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![Geschichte der JavaScript i18n-Bibliotheken](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 <AccordionGroup>
 <Accordion header="Laufzeit-Wörterbücher (2011 bis 2017): i18next, react-intl">
@@ -84,7 +84,7 @@ Jede React i18n-Bibliothek besitzt die gleiche Grundstruktur: ein Store, ein Pro
 
 Die folgende Grafik schätzt den Payload für eine theoretische App mit 1 bis 10 Seiten, übersetzt in 1 bis 10 Sprachen, mit etwa 30 KB Text pro Seite.
 
-![Theoretischer Content-Leakage nach Architektur](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Theoretischer Content-Leakage nach Architektur](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 Zentralisierter Inhalt mit statischen Importen wächst entlang beider Achsen: 10 Seiten mal 10 Sprachen ergeben 300 KB Text auf jeder einzelnen Seite. Dynamische Importe eliminieren die Sprachachse. Scoping eliminiert die Seitenachse. Nur die Kombination aus beidem bleibt konstant flach.
 
@@ -371,7 +371,7 @@ Commits, Antwortzeiten bei Issues und ob das letzte Minor-Release in diesem Jahr
 
 Die am häufigsten installierte Bibliothek ist diejenige, die zuerst veröffentlicht wurde, nicht zwingend diejenige, die zu einer React-Codebase im Jahr 2026 passt. Downloadzahlen spiegeln Historie wider, nicht Passgenauigkeit.
 
-![Tier-Liste der JavaScript i18n-Bibliotheken](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.png?raw=true)
+![Tier-Liste der JavaScript i18n-Bibliotheken](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.webp?raw=true)
 
 **Hinterfragen Sie, wer die Maintainer finanziert und was verkauft wird.**
 

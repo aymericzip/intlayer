@@ -24,7 +24,7 @@ author: aymericzip
 
 يطرح هذا الدليل هذه الأسئلة أولاً، ثم يطابق الإجابات مع المكتبات المناسبة، لكل من تطبيق Vite + Vue البسيط وتطبيق Nuxt.
 
-![منظومة مكتبات Vue i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![منظومة مكتبات Vue i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## جدول المحتويات
 
@@ -45,7 +45,7 @@ author: aymericzip
 
 يحتوي نظام Vue البيئي على عدد أقل من مكتبات i18n مقارنة بـ React، وهي تنتمي إلى موجات معمارية مختلفة.
 
-![تاريخ مكتبات JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![تاريخ مكتبات JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 <AccordionGroup>
 <Accordion header="قواميس وقت التشغيل (2015 إلى 2019): vue-i18n، @nuxt/i18n">
@@ -76,7 +76,7 @@ author: aymericzip
 
 يوضح الرسم البياني التقديري حجم الحمولة لتطبيق نظري يتكون من 1 إلى 10 صفحات، مترجم إلى 1 إلى 10 لغات، مع حوالي 30 كيلوبايت من النصوص لكل صفحة.
 
-![تسريب المحتوى النظري حسب البنية المعمارية](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![تسريب المحتوى النظري حسب البنية المعمارية](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 يدعم `vue-i18n` المحور الديناميكي: استخدام `setLocaleMessage` بعد `import()` يعني التوقف عن إرسال تسع لغات لا يقرأها أحد. ولكن ما لا يوفره لك هو محور الصفحات. يُعد قاموس اللغة كائناً واحداً، وتحميله يعني تحميل نصوص جميع الصفحات. في تطبيق SPA قد لا يلاحظ أحد ذلك. أما في Nuxt، مع استخدام `@nuxtjs/i18n` وأكثر من عشر صفحات، يحمل كل مسار نصوص جميع المسارات الأخرى مرتين: في حزمة JS وفي حمولة SSR.
 
@@ -292,7 +292,7 @@ const { title, items } = useIntlayer("cart-summary");
 
 المكتبة الأكثر تنزيلاً هي التي تم إطلاقها أولاً، وليست بالضرورة الأنسب لـ codebase في Vue لعام 2026. تقيس التنزيلات التاريخ، وليس الملاءمة.
 
-![ترتيب تصنيف مكتبات JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.png?raw=true)
+![ترتيب تصنيف مكتبات JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.webp?raw=true)
 
 **اسأل من يدعم مسؤول الصيانة مالياً، وما الذي يبيعونه.**
 

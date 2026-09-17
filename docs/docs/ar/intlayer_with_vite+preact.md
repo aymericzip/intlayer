@@ -983,7 +983,7 @@ console.log("SEO files generated successfully.");
 
 ![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 تأكد من أن إعدادات TypeScript الخاصة بك تتضمن الأنواع المُنشأة تلقائياً.
 

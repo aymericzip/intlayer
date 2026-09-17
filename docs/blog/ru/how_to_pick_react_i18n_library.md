@@ -25,7 +25,7 @@ React не поставляется со встроенными примитив
 
 Это руководство предлагает пойти от обратного: сначала ответьте на несколько вопросов о вашем проекте, а затем сопоставьте ответы с подходящими библиотеками. Оно ориентировано на чистый React (Vite, React Router, TanStack Start). У Next.js есть свои ограничения, рассмотренные в [сравнении Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/next-i18next_vs_next-intl_vs_intlayer.md).
 
-![Экосистема библиотек i18n для React](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![Экосистема библиотек i18n для React](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## Table of Contents
 
@@ -48,7 +48,7 @@ React не поставляется со встроенными примитив
 
 Пятнадцать лет JavaScript i18n укладываются в четыре архитектурные волны, и сравниваемые библиотеки React относятся к разным из них.
 
-![История библиотек i18n в JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![История библиотек i18n в JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 <AccordionGroup>
 <Accordion header="Словари во время выполнения (2011–2017): i18next, react-intl">
@@ -84,7 +84,7 @@ JSON-каталоги, загружаемые в память, поиск `t("a.
 
 На графике ниже показана расчетная нагрузка для теоретического приложения от 1 до 10 страниц, переведенного на 1–10 локалей, при объеме текста около 30 КБ на страницу.
 
-![Теоретическая утечка контента в зависимости от архитектуры](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Теоретическая утечка контента в зависимости от архитектуры](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 Централизованный контент со статическими импортами растет по обеим осям: 10 страниц, умноженные на 10 локалей, дают 300 КБ текста на каждой странице. Динамические импорты убирают зависимость от локалей. Локальное разделение (scoping) убирает зависимость от страниц. Только их сочетание позволяет графику оставаться плоским.
 
@@ -376,7 +376,7 @@ export const CartSummary: FC<{ count: number }> = ({ count }) => {
 
 Самая скачиваемая библиотека, та, что появилась первой, а не та, которая лучше всего подходит для кодовой базы React в 2026 году. Количество загрузок отражает историю, а не применимость к вашим задачам.
 
-![Рейтинг библиотек i18n для JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.png?raw=true)
+![Рейтинг библиотек i18n для JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.webp?raw=true)
 
 **Узнайте, кто финансирует поддержку и какие услуги продает.**
 

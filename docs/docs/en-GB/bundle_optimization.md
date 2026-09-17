@@ -39,7 +39,7 @@ For example, an application with 10 pages translated into 10 languages could res
 
 The graph below estimates that cost for a theoretical app of 1 to 10 pages translated into 1 to 10 locales, with about 30 KB of text per page. Dynamic imports remove the locale axis, scoping content per component removes the page axis, and only the combination keeps the payload flat.
 
-![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 **Intlayer solves this problem through build-time optimisation.** It analyses your code to detect exactly which dictionaries are actually used per component and re-injects only the necessary content into your bundle.
 

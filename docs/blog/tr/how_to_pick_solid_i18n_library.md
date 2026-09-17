@@ -25,7 +25,7 @@ Solid'in reaktivite modeli, bir i18n kütüphanesinin yapması gerekenleri deği
 
 Bu rehber, önce yanıtlanması gereken soruları listeler, ardından bunları Vite + Solid ve SolidStart için `@solid-primitives/i18n`, `solid-i18next`, Paraglide, `@lingui/solid` ve Intlayer ile eşleştirir.
 
-![Solid i18n kütüphane ekosistemi](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![Solid i18n kütüphane ekosistemi](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## İçindekiler
 
@@ -46,7 +46,7 @@ Yanıtları bir yere not edin. Aşağıdaki her şey bunlara atıfta bulunacakt�
 
 Solid buradaki en genç ekosistemdir ve üç dalgaya yayılmış en az seçeneğe sahiptir.
 
-![JavaScript i18n kütüphanelerinin tarihi](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![JavaScript i18n kütüphanelerinin tarihi](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 <AccordionGroup>
 <Accordion header="Runtime sözlükleri: solid-i18next">
@@ -77,7 +77,7 @@ Kurulumlar arasındaki bundle farkının çoğunu iki yapısal tercih açıklar:
 
 Grafik, sayfa başına yaklaşık 30 KB metin içeren, 1 ila 10 locale'e çevrilmiş 1 ila 10 sayfalık teorik bir uygulama için payload tahminini göstermektedir.
 
-![Mimariye göre teorik içerik sızıntısı](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Mimariye göre teorik içerik sızıntısı](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 `@solid-primitives/i18n` her iki eksende de hiçbir şey yapmaz: locale başına bir sözlüğü `createResource` ile yüklersiniz; bu size dinamik yükleme sağlar, gerisi size kalır. `solid-i18next` namespace'lere ve lazy backend'lere sahiptir, ancak eşlemeyi zorunlu kılan hiçbir şey yoktur; bu nedenle `common` import eden paylaşılan bir bileşen, onu her route'un bir bağımlılığı haline getirir. Paraglide, sayfa eksenini tree-shaking ile çözer; ancak bu durum [Solid benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/solid.md) uygulamasında etkili olmadı. Intlayer ise bunu bileşen başına tanımlamalarla sağlar.
 
@@ -300,7 +300,7 @@ Commit'ler, issue yanıtlama süreleri ve son minör sürümün bu yıl çıkıp
 
 En çok indirilen kütüphane ilk çıkan kütüphanedir, 2026 yılındaki bir Solid projesine en uygun olanı değil. İndirmeler uygunluğu değil, tarihi ölçer.
 
-![JavaScript i18n kütüphaneleri tier listesi](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.png?raw=true)
+![JavaScript i18n kütüphaneleri tier listesi](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.webp?raw=true)
 
 **Geliştiriciyi kimin fonladığını ve ne sattıklarını sorgulayın.**
 

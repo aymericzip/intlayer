@@ -127,7 +127,7 @@ style="border:none;"
 
 يقدّر الرسم البياني أدناه حجم المحتوى لتطبيق نظري يتكوّن من 1 إلى 10 صفحات مترجمة إلى 1 إلى 10 لغات، بنحو 30 كيلوبايت من النص لكل صفحة. التحميل الديناميكي للمحتوى حسب اللغة يزيل محور اللغات، وحصر المحتوى ضمن المكوّن أو المسار يزيل محور الصفحات، ولا يبقى الحجم ثابتًا إلا بالجمع بينهما.
 
-![تسرب المحتوى النظري حسب البنية](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![تسرب المحتوى النظري حسب البنية](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 **تأخير تفاعلية الصفحة (Hydration):**
 

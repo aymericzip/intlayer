@@ -25,7 +25,7 @@ Reactには標準のi18nプリミティブが用意されていません。プ�
 
 本ガイドでは逆のアプローチを取ります。まずプロジェクトに関するいくつかの質問に答え、その回答に合ったライブラリをマッピングしていきます。本記事はプレーンなReact（Vite、React Router、TanStack Start）に焦点を当てています。Next.jsには独自の制約があり、それについては[Next.jsの比較記事](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/next-i18next_vs_next-intl_vs_intlayer.md)で解説しています。
 
-![React i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![React i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## 目次
 
@@ -48,7 +48,7 @@ Reactには標準のi18nプリミティブが用意されていません。プ�
 
 JavaScript i18nの15年の歴史は4つのアーキテクチャの波に分けられ、比較対象となるReactライブラリはそれぞれ異なる世代に属しています。
 
-![History of JavaScript i18n libraries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![History of JavaScript i18n libraries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 <AccordionGroup>
 <Accordion header="ランタイム辞書（2011年〜2017年）: i18next, react-intl">
@@ -84,7 +84,7 @@ SSRおよびServer Componentsを考慮して設計されています。サーバ
 
 下のグラフは、1〜10ページ、1〜10ロケールに翻訳され、1ページあたり約30 KBのテキストを持つ理論上のアプリにおけるペイロードの推定値です。
 
-![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 静的インポートを使用した中央集約型コンテンツは、両方の軸に比例して肥大化します。10ページ × 10ロケールの場合、すべてのページに300 KBのテキストが含まれることになります。動的インポートを採用するとロケール軸の無駄を排除できます。スコープ化を行うとページ軸の無駄を排除できます。この両方を組み合わせて初めて、ペイロードを常にフラットな状態に保つことができます。
 
@@ -365,7 +365,7 @@ export const CartSummary: FC<{ count: number }> = ({ count }) => {
 
 最もインストールされているライブラリは、最初にリリースされたものであり、必ずしも2026年のReactコードベースに適したものであるとは限りません。ダウンロード数は歴史の長さを示しているだけで、現在の適合度を示すものではありません。
 
-![Tier list of JavaScript i18n libraries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.png?raw=true)
+![Tier list of JavaScript i18n libraries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.webp?raw=true)
 
 **メンテナーに誰が資金を提供し、何を販売しているかを確認する。**
 

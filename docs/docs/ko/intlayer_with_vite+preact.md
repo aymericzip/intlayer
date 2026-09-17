@@ -982,7 +982,7 @@ Intlayer는 모듈 augmentation을 사용하여 TypeScript의 이점을 활용�
 
 ![자동완성](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![번역 오류](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![번역 오류](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 TypeScript 설정에 자동 생성된 타입이 포함되어 있는지 확인하세요.
 

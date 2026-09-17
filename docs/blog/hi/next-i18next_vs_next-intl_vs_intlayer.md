@@ -119,7 +119,7 @@ Next.js आपको अंतर्राष्ट्रीयकृत routing
 
 नीचे दिया गया ग्राफ़ एक सैद्धांतिक ऐप के कंटेंट पेलोड का अनुमान देता है, जिसमें 1 से 10 पेज हैं और जिसे 1 से 10 भाषाओं में अनुवादित किया गया है, प्रति पेज लगभग 30 KB टेक्स्ट के साथ। locale के अनुसार कंटेंट को डायनामिक रूप से लोड करने से भाषा वाली धुरी हट जाती है, कंटेंट को कंपोनेंट या रूट तक सीमित करने से पेज वाली धुरी हट जाती है, और केवल दोनों के संयोजन से ही पेलोड स्थिर रहता है।
 
-![आर्किटेक्चर के अनुसार सैद्धांतिक कंटेंट लीकेज](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![आर्किटेक्चर के अनुसार सैद्धांतिक कंटेंट लीकेज](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 फिर से, तीनों solutions इन समस्याओं के बारे में जानते हैं और इन optimizations को manage करने की अनुमति देते हैं। तीनों solutions के बीच अंतर DX (Developer Experience) में है।
 
@@ -145,9 +145,9 @@ Next.js आपको अंतर्राष्ट्रीयकृत routing
 
 यहां एक vite + react application में `intlayer` का उपयोग करके bundle size optimization के प्रभाव का एक उदाहरण दिया गया है:
 
-| Optimized bundle                                                                                      | Bundle not optimized                                                                                                     |
-| ----------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| ![optimized bundle](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.png?raw=true) | ![no optimized bundle](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.png?raw=true) |
+| Optimized bundle                                                                                       | Bundle not optimized                                                                                                      |
+| ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------- |
+| ![optimized bundle](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.webp?raw=true) | ![no optimized bundle](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.webp?raw=true) |
 
 ## TypeScript और सुरक्षा
 

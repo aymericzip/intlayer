@@ -24,7 +24,7 @@ author: aymericzip
 
 이 가이드는 이러한 질문들을 먼저 던진 후, 순수 Vite + Vue 및 Nuxt 환경에 맞는 라이브러리로 답변을 매핑합니다.
 
-![Vue i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![Vue i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## 목차
 
@@ -45,7 +45,7 @@ author: aymericzip
 
 Vue 생태계는 React보다 i18n 라이브러리 수가 적으며, 서로 다른 아키텍처 흐름에서 파생되었습니다.
 
-![History of JavaScript i18n libraries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![History of JavaScript i18n libraries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 <AccordionGroup>
 <Accordion header="런타임 딕셔너리 (2015 ~ 2019): vue-i18n, @nuxt/i18n">
@@ -76,7 +76,7 @@ Paraglide는 메시지당 하나의 함수를 생성하고 번들러가 나머�
 
 아래 그래프는 페이지당 약 30KB의 텍스트가 있는 1~10개 페이지, 1~10개 로케일로 번역된 가상 앱의 페이로드를 추정합니다.
 
-![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 `vue-i18n`은 동적 축을 지원합니다. `import()` 후 `setLocaleMessage`를 사용하면 아무도 읽지 않는 9개 로케일 전송을 방지할 수 있습니다. 하지만 페이지 축은 제공하지 않습니다. 로케일 카탈로그는 하나의 객체이며, 이를 로드하면 모든 페이지의 텍스트가 함께 로드됩니다. SPA에서는 이를 눈치채지 못할 수 있습니다. 하지만 Nuxt에서 `@nuxtjs/i18n`을 사용하고 10개 이상의 페이지가 있는 경우, 모든 라우트가 다른 모든 라우트의 문자열을 JS 청크와 SSR 페이로드에 두 번씩 포함하게 됩니다.
 
@@ -298,7 +298,7 @@ const { title, items } = useIntlayer("cart-summary");
 
 가장 많이 설치된 라이브러리는 2026년의 Vue 코드베이스에 가장 적합한 라이브러리가 아니라 가장 먼저 출시된 라이브러리일 뿐입니다. 다운로드 수는 적합성이 아니라 역사를 측정합니다.
 
-![Tier list of JavaScript i18n libraries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.png?raw=true)
+![Tier list of JavaScript i18n libraries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.webp?raw=true)
 
 **누가 유지보수자에게 비용을 지불하고 무엇을 판매하는지 살펴보세요.**
 

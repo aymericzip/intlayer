@@ -256,7 +256,7 @@ Por defecto, `hono-intlayer` interpretará el encabezado `Accept-Language` para 
 
 ![Autocompletado](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![Error de traducción](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![Error de traducción](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 Asegúrese de que los tipos autogenerados (por defecto en ./types/intlayer.d.ts) se incluyan en su archivo tsconfig.json.
 

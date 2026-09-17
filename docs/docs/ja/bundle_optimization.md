@@ -39,7 +39,7 @@ JSONファイルに依存する従来のi18nソリューションで最も一般
 
 以下のグラフは、1〜10ページを1〜10言語に翻訳した理論上のアプリ（1ページあたり約30KBのテキスト）のコンテンツ量を推定したものです。ロケールごとの動的読み込みは言語の軸を取り除き、コンポーネントやルート単位でコンテンツをスコープすることはページの軸を取り除きます。両方を組み合わせた場合のみ、コンテンツ量は一定に保たれます。
 
-![アーキテクチャ別の理論上のコンテンツリーク](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![アーキテクチャ別の理論上のコンテンツリーク](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 **Intlayerは、ビルド時の最適化によってこの問題を解決します。** コードを分析して各コンポーネントで実際に使用されている辞書を検出し、必要なコンテンツのみをバンドルに再注入します。
 

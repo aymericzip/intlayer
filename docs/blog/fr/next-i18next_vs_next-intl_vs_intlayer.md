@@ -22,7 +22,7 @@ author: aymericzip
 
 <TOC/>
 
-![next-i18next VS next-intl VS intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.png?raw=true)
+![next-i18next VS next-intl VS intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
 Examinons les similitudes et différences entre trois options i18n pour Next.js : next-i18next, next-intl, et Intlayer.
 
@@ -138,7 +138,7 @@ Deux problèmes importants :
 
 Le graphique ci-dessous estime le poids du contenu pour une application théorique de 1 à 10 pages traduite en 1 à 10 langues, avec environ 30 Ko de texte par page. Charger le contenu dynamiquement par locale supprime l'axe des langues, scoper le contenu par composant ou par route supprime l'axe des pages, et seule la combinaison des deux garde un poids stable.
 
-![Fuite de contenu théorique selon l'architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Fuite de contenu théorique selon l'architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 Encore une fois, les trois solutions sont conscientes de ces problèmes et permettent de gérer ces optimisations. La différence entre les trois solutions réside dans l'expérience développeur (DX).
 
@@ -162,9 +162,9 @@ Dans le cas de `next-intl` et `next-i18next`, la bibliothèque nécessite de cha
 
 Voici un exemple de l'impact de l'optimisation de la taille du bundle en utilisant `intlayer` dans une application vite + react :
 
-| Bundle optimisé                                                                                      | Bundle non optimisé                                                                                                      |
-| ---------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| ![bundle optimisé](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.png?raw=true) | ![bundle non optimisé](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.png?raw=true) |
+| Bundle optimisé                                                                                       | Bundle non optimisé                                                                                                       |
+| ----------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| ![bundle optimisé](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.webp?raw=true) | ![bundle non optimisé](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.webp?raw=true) |
 
 ## TypeScript & sécurité
 

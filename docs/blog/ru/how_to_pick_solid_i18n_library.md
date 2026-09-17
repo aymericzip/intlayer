@@ -25,7 +25,7 @@ author: aymericzip
 
 В этом руководстве перечислены вопросы, на которые стоит ответить в первую очередь, а затем они сопоставляются с `@solid-primitives/i18n`, `solid-i18next`, Paraglide, `@lingui/solid` и Intlayer как для связки Vite + Solid, так и для SolidStart.
 
-![Экосистема библиотек i18n для Solid](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![Экосистема библиотек i18n для Solid](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## Table of Contents
 
@@ -46,7 +46,7 @@ author: aymericzip
 
 Solid, самая молодая экосистема в этом ряду, имеет наименьшее количество вариантов, разделенных на три волны.
 
-![История библиотек i18n в JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![История библиотек i18n в JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 <AccordionGroup>
 <Accordion header="Словари во время выполнения: solid-i18next">
@@ -77,7 +77,7 @@ Paraglide генерирует отдельную функцию для кажд
 
 График оценивает объем передаваемых данных для теоретического приложения размером от 1 до 10 страниц, переведенного на 1–10 локалей, с объемом текста около 30 КБ на страницу.
 
-![Теоретическая утечка контента в зависимости от архитектуры](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Теоретическая утечка контента в зависимости от архитектуры](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 `@solid-primitives/i18n` не решает эти задачи из коробки: вы используете `createResource` для словаря каждой локали, что дает динамическую загрузку, а остальное реализуете сами. `solid-i18next` поддерживает namespaces и lazy backends, но ничто не контролирует их разделение: если общий компонент импортирует `common`, он становится зависимостью каждого маршрута. Paraglide оптимизирует разделение по страницам с помощью tree-shaking, хотя в [Solid benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/solid.md) этого эффекта достичь не удалось. Intlayer обеспечивает разделение за счет деклараций на уровне отдельных компонентов.
 
@@ -300,7 +300,7 @@ export const CartSummary: Component<{ count: number }> = (props) => {
 
 Самая скачиваемая библиотека, это та, которая появилась первой, а не та, которая лучше всего подходит для кодовой базы Solid в 2026 году. Количество загрузок отражает историю, а не соответствие текущим задачам.
 
-![Рейтинг библиотек i18n для JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.png?raw=true)
+![Рейтинг библиотек i18n для JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.webp?raw=true)
 
 **Узнайте, кто финансирует мейнтейнера и что они продают.**
 

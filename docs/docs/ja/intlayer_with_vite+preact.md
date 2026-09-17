@@ -997,7 +997,7 @@ Intlayerはモジュール拡張を使用してTypeScriptの利点を活かし�
 
 ![オートコンプリーション](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![翻訳エラー](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![翻訳エラー](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 TypeScript設定に自動生成型が含まれていることを確認してください。
 

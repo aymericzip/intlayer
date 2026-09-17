@@ -25,7 +25,7 @@ React yerleşik bir i18n primitive'i sunmaz. İlk gün seçtiğiniz kütüphane,
 
 Bu rehber tersi bir yaklaşım izler: önce projeniz hakkında birkaç soruyu yanıtlayın, ardından bu yanıtları uygun kütüphanelerle eşleştirin. Bu rehber düz React (Vite, React Router, TanStack Start) projelerine odaklanır. Next.js'in kendine has kısıtlamaları vardır ve bunlar [Next.js karşılaştırması](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/next-i18next_vs_next-intl_vs_intlayer.md) yazısında ele alınmıştır.
 
-![React i18n kütüphane ekosistemi](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![React i18n kütüphane ekosistemi](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## İçindekiler
 
@@ -48,7 +48,7 @@ Yanıtları bir yere not edin. Aşağıdaki her şey bunlara atıfta bulunacakt�
 
 JavaScript i18n dünyasının on beş yılı dört mimari dalgaya sığar ve karşılaştıracağınız React kütüphaneleri bu farklı dalgalardan gelir.
 
-![JavaScript i18n kütüphanelerinin tarihi](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![JavaScript i18n kütüphanelerinin tarihi](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 <AccordionGroup>
 <Accordion header="Runtime sözlükleri (2011 - 2017): i18next, react-intl">
@@ -84,7 +84,7 @@ Her React i18n kütüphanesi aynı yapıya sahiptir: bir store, bir provider, bi
 
 Aşağıdaki grafik, sayfa başına yaklaşık 30 KB metin içeren, 1 ila 10 sayfadan oluşan ve 1 ila 10 dile çevrilmiş teorik bir uygulamanın payload boyutunu tahmin etmektedir.
 
-![Mimariye göre teorik içerik sızıntısı](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Mimariye göre teorik içerik sızıntısı](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 Statik import'lara sahip merkezi içerik her iki eksende de büyür: 10 sayfa çarpı 10 locale, her sayfada 300 KB metin demektir. Dinamik import'lar locale eksenini ortadan kaldırır. Scoping sayfa eksenini ortadan kaldırır. Yalnızca bu ikisinin kombinasyonu grafiği sabit tutar.
 
@@ -371,7 +371,7 @@ Commitler, issue yanıt süreleri ve son minör sürümün bu yıl çıkıp çı
 
 En çok indirilen kütüphane, 2026 React kod tabanına en uygun olan değil, ilk yayınlanan kütüphanedir. İndirmeler uyumu değil, geçmişi ölçer.
 
-![JavaScript i18n kütüphaneleri tier list](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.png?raw=true)
+![JavaScript i18n kütüphaneleri tier list](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.webp?raw=true)
 
 **Kütüphaneyi kimin finanse ettiğini ve ne sattıklarını sorun.**
 

@@ -49,7 +49,7 @@ Odpowiedzi ulegały znacznym zmianom: od obiektów globalnych i wywołań `t('kl
 
 Ten artykuł przedstawia tę ewolucję w latach 2011-2026: co próbowała rozwiązać każda generacja narzędzi, co okazało się sukcesem, gdzie napotkano ograniczenia oraz jak współczesna architektura frontendu wpływa na dzisiejszą obsługę i18n.
 
-![Ekosystem bibliotek internacjonalizacji JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![Ekosystem bibliotek internacjonalizacji JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## Spis treści
 
@@ -237,7 +237,7 @@ Poniższe zakładki ilustrują, jak poszczególne ekosystemy odpowiadały na te 
 
 ## Cztery ery architektoniczne JavaScript i18n
 
-![Historia bibliotek internacjonalizacji JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![Historia bibliotek internacjonalizacji JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 Analizując piętnaście lat innowacji, historię internacjonalizacji w środowisku JavaScript można ująć w czterech etapach architektonicznych:
 

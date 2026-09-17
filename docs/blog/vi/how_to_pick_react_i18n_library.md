@@ -25,7 +25,7 @@ React không đi kèm primitive i18n nào. Thư viện bạn chọn ngay từ ng
 
 Hướng dẫn này tiếp cận theo hướng ngược lại: hãy trả lời vài câu hỏi về dự án của bạn trước, sau đó đối chiếu các câu trả lời với những thư viện phù hợp. Hướng dẫn tập trung vào React thuần (Vite, React Router, TanStack Start). Next.js có những ràng buộc riêng, được đề cập trong [bài so sánh Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/next-i18next_vs_next-intl_vs_intlayer.md).
 
-![Hệ sinh thái thư viện React i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![Hệ sinh thái thư viện React i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## Mục lục
 
@@ -48,7 +48,7 @@ Hãy ghi lại các câu trả lời. Mọi phân tích bên dưới đều sẽ
 
 Mười lăm năm phát triển của JavaScript i18n gói gọn trong bốn làn sóng kiến trúc, và các thư viện React bạn đang so sánh đến từ những làn sóng khác nhau.
 
-![Lịch sử các thư viện JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![Lịch sử các thư viện JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 <AccordionGroup>
 <Accordion header="Runtime dictionary (2011 đến 2017): i18next, react-intl">
@@ -84,7 +84,7 @@ Mọi thư viện React i18n đều có cấu trúc tương tự nhau: một sto
 
 Biểu đồ dưới đây ước tính payload cho một ứng dụng giả định từ 1 đến 10 trang, được dịch sang 1 đến 10 locale, với khoảng 30 KB văn bản trên mỗi trang.
 
-![Hiện tượng rò rỉ nội dung theo từng kiến trúc](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Hiện tượng rò rỉ nội dung theo từng kiến trúc](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 Nội dung tập trung với static import sẽ tăng theo cả hai trục: 10 trang nhân với 10 locale là 300 KB văn bản trên mỗi trang. Dynamic import loại bỏ trục locale. Phân phạm vi (scoping) loại bỏ trục trang. Chỉ khi kết hợp cả hai thì dung lượng mới giữ nguyên không đổi.
 
@@ -371,7 +371,7 @@ Commits, thời gian phản hồi issue, và liệu bản minor release gần nh
 
 Thư viện có lượt tải nhiều nhất là thư viện ra mắt đầu tiên, chứ không hẳn là thư viện phù hợp nhất cho một codebase React năm 2026. Lượt tải phản ánh lịch sử, không phản ánh mức độ tương thích.
 
-![Bảng xếp hạng các thư viện JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.png?raw=true)
+![Bảng xếp hạng các thư viện JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.webp?raw=true)
 
 **Hãy hỏi ai là người trả tiền cho maintainer, và họ kinh doanh cái gì.**
 

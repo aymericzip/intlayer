@@ -586,7 +586,7 @@ Intlayer module augmentation kullanarak TypeScript'in faydalarından yararlanır
 
 ![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![Çeviri hatası](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![Çeviri hatası](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 Intlayer, kod tabanınızı daha sağlam hale getirmek için TypeScript'ten yararlanmak amacıyla modül artırımı (module augmentation) kullanır. TypeScript yapılandırmanızın otomatik olarak oluşturulan türleri içerdiğinden ve Preact için yapılandırıldığından emin olun:
 

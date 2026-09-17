@@ -127,7 +127,7 @@ Di base, quasi il **90% dei testi caricati** su una route appartiene ad altre pa
 
 Il grafico seguente stima il peso del contenuto per un'app teorica da 1 a 10 pagine tradotta in 1 a 10 lingue, con circa 30 KB di testo per pagina. Caricare il contenuto dinamicamente per locale elimina l'asse delle lingue, delimitare il contenuto per componente o per route elimina l'asse delle pagine, e solo la combinazione dei due mantiene il peso stabile.
 
-![Leakage di contenuto teorico per architettura](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Leakage di contenuto teorico per architettura](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 **Tempi di idratazione:**
 

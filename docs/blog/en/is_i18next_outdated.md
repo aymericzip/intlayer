@@ -127,7 +127,7 @@ In default setups, nearly **90% of localized text** sent to a route belongs to o
 
 The graph below generalizes this to a theoretical app of 1 to 10 pages in 1 to 10 locales, with about 30 KB of text per page. Lazy backends remove the locale axis, namespaces scoped per route or component remove the page axis, and only the combination keeps the payload flat.
 
-![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 **Hydration lag:**
 

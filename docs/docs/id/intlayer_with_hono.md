@@ -257,7 +257,7 @@ Secara default, `hono-intlayer` akan menginterpretasikan header `Accept-Language
 
 ![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 Pastikan tipe yang dibuat secara otomatis (secara default di ./types/intlayer.d.ts) disertakan dalam file tsconfig.json Anda.
 

@@ -49,7 +49,7 @@ Các giải pháp đã thay đổi đáng kể. Chúng ta đã đi từ các đ�
 
 Bài viết này xem xét quá trình phát triển đó từ khoảng năm 2011 đến năm 2026: những gì mỗi thế hệ công cụ đã cố gắng giải quyết, những gì hiệu quả, những gì thất bại, và cách kiến trúc ứng dụng frontend đã định hình cách chúng ta xử lý i18n ngày nay.
 
-![Hệ sinh thái thư viện quốc tế hóa JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![Hệ sinh thái thư viện quốc tế hóa JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## Mục lục
 
@@ -237,7 +237,7 @@ Các tab sau đây trình bày cách mỗi framework và hệ sinh thái giải 
 
 ## Bốn kỷ nguyên kiến trúc của JavaScript i18n
 
-![Lịch sử các thư viện JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![Lịch sử các thư viện JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 Nhìn lại mười lăm năm phát triển, chúng ta có thể phân loại lịch sử quốc tế hóa JavaScript thành bốn kỷ nguyên kiến trúc rõ rệt:
 

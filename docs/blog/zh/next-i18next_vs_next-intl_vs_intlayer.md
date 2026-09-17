@@ -22,7 +22,7 @@ author: aymericzip
 
 <TOC/>
 
-![next-i18next VS next-intl VS intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.png?raw=true)
+![next-i18next VS next-intl VS intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
 让我们来看看 Next.js 的三种 i18n 方案：next-i18next、next-intl 和 Intlayer 之间的相似点和差异。
 
@@ -136,7 +136,7 @@ Next.js 为你内置了国际化路由支持（例如区域段）。但该功能
 
 下图估算了一个理论应用的内容体积：1 到 10 个页面，翻译成 1 到 10 种语言，每页约 30 KB 文本。按 locale 动态加载内容可消除语言维度，按组件或路由划分内容可消除页面维度，只有两者结合才能让体积保持平稳。
 
-![按架构划分的理论内容泄漏](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![按架构划分的理论内容泄漏](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 同样，三种解决方案都意识到这些问题，并允许管理这些优化。三者之间的区别在于开发者体验（DX）。
 
@@ -160,9 +160,9 @@ Next.js 为你内置了国际化路由支持（例如区域段）。但该功能
 
 下面是使用 `intlayer` 在 vite + react 应用中进行包大小优化的影响示例：
 
-| 优化后的包                                                                                      | 未优化的包                                                                                                      |
-| ----------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| ![优化后的包](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.png?raw=true) | ![未优化的包](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.png?raw=true) |
+| 优化后的包                                                                                       | 未优化的包                                                                                                       |
+| ------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------- |
+| ![优化后的包](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.webp?raw=true) | ![未优化的包](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.webp?raw=true) |
 
 ## TypeScript 与安全性
 

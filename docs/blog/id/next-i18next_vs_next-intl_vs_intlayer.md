@@ -20,7 +20,7 @@ author: aymericzip
 
 # next-i18next VS next-intl VS intlayer | Internasionalisasi Next.js (i18n)
 
-![next-i18next VS next-intl VS intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.png?raw=true)
+![next-i18next VS next-intl VS intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
 Mari kita lihat persamaan dan perbedaan antara tiga opsi i18n untuk Next.js: next-i18next, next-intl, dan Intlayer.
 
@@ -128,7 +128,7 @@ Dua masalah penting:
 
 Grafik di bawah memperkirakan ukuran konten untuk aplikasi teoretis dengan 1 hingga 10 halaman yang diterjemahkan ke 1 hingga 10 bahasa, dengan sekitar 30 KB teks per halaman. Memuat konten secara dinamis per locale menghilangkan sumbu bahasa, membatasi konten per komponen atau per rute menghilangkan sumbu halaman, dan hanya kombinasi keduanya yang menjaga ukuran tetap datar.
 
-![Kebocoran konten teoretis berdasarkan arsitektur](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Kebocoran konten teoretis berdasarkan arsitektur](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 Sekali lagi, ketiga solusi ini menyadari masalah ini dan memungkinkan pengelolaan optimasi tersebut. Perbedaan antara ketiga solusi ini adalah DX (Developer Experience).
 
@@ -154,9 +154,9 @@ Dalam kasus `next-intl` dan `next-i18next`, perpustakaan mengharuskan memuat JSO
 
 Berikut adalah contoh dampak optimasi ukuran bundle menggunakan `intlayer` dalam aplikasi vite + react:
 
-| Bundle yang dioptimalkan                                                                                      | Bundle yang tidak dioptimalkan                                                                                                      |
-| ------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| ![bundle yang dioptimalkan](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.png?raw=true) | ![bundle yang tidak dioptimalkan](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.png?raw=true) |
+| Bundle yang dioptimalkan                                                                                       | Bundle yang tidak dioptimalkan                                                                                                       |
+| -------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| ![bundle yang dioptimalkan](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.webp?raw=true) | ![bundle yang tidak dioptimalkan](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.webp?raw=true) |
 
 ## TypeScript & keamanan
 

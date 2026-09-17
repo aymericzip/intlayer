@@ -26,7 +26,7 @@ React non include alcuna primitiva nativa per l'i18n. La libreria scelta al prim
 
 Questa guida adotta l'approccio opposto: rispondete prima ad alcune domande sul vostro progetto, poi mappate le risposte sulle librerie più adatte. Si concentra su React puro (Vite, React Router, TanStack Start). Next.js ha vincoli specifici, trattati nel [confronto Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/next-i18next_vs_next-intl_vs_intlayer.md).
 
-![Ecosistema delle librerie i18n per React](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![Ecosistema delle librerie i18n per React](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## Indice
 
@@ -49,7 +49,7 @@ Scrivete le risposte. Tutto ciò che segue fa riferimento ad esse.
 
 Quindici anni di i18n in JavaScript si riassumono in quattro ondate architetturali, e le librerie React che metterete a confronto provengono da ondate diverse.
 
-![Storia delle librerie i18n JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![Storia delle librerie i18n JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 <AccordionGroup>
 <Accordion header="Dizionari a runtime (dal 2011 al 2017): i18next, react-intl">
@@ -85,7 +85,7 @@ Ogni libreria i18n per React ha la stessa struttura: uno store, un provider, un 
 
 Il grafico seguente stima il payload per un'applicazione teorica da 1 a 10 pagine, tradotta in 1 - 10 lingue, con circa 30 KB di testo per pagina.
 
-![Perdita teorica di contenuto per architettura](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Perdita teorica di contenuto per architettura](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 Il contenuto centralizzato con import statici cresce su entrambi gli assi: 10 pagine per 10 lingue equivalgono a 300 KB di testo su ogni pagina. Gli import dinamici eliminano l'asse delle lingue. Lo scoping elimina l'asse delle pagine. Solo la combinazione di entrambi mantiene il payload costante.
 
@@ -372,7 +372,7 @@ Numero di commit, tempi di risposta alle issue e data dell'ultima minor release.
 
 La libreria più scaricata è spesso quella rilasciata per prima, non necessariamente quella più adatta a una codebase React del 2026. I download misurano la storia, non la pertinenza tecnica attuale.
 
-![Tier list delle librerie i18n JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.png?raw=true)
+![Tier list delle librerie i18n JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.webp?raw=true)
 
 **Verificate chi finanzia i manutentori e qual è il loro modello di business.**
 

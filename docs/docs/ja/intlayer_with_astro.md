@@ -567,7 +567,7 @@ Intlayerはモジュール拡張（module augmentation）を使用してTypeScri
 
 ![オートコンプリート](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![翻訳エラー](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![翻訳エラー](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 TypeScriptの設定に自動生成された型が含まれていることを確認してください。
 

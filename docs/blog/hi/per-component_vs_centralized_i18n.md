@@ -83,7 +83,7 @@ extension Localization on String {
 
 नीचे दिया गया ग्राफ़ एक सैद्धांतिक ऐप के कंटेंट पेलोड का अनुमान देता है, जिसमें 1 से 10 पेज हैं और जिसे 1 से 10 भाषाओं में अनुवादित किया गया है, प्रति पेज लगभग 30 KB टेक्स्ट के साथ। locale के अनुसार कंटेंट को डायनामिक रूप से लोड करने से भाषा वाली धुरी हट जाती है, कंटेंट को कंपोनेंट या रूट तक सीमित करने से पेज वाली धुरी हट जाती है, और केवल दोनों के संयोजन से ही पेलोड स्थिर रहता है।
 
-![आर्किटेक्चर के अनुसार सैद्धांतिक कंटेंट लीकेज](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![आर्किटेक्चर के अनुसार सैद्धांतिक कंटेंट लीकेज](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 साथ ही, आपको यह जानना चाहिए कि जब आप अपना कंटेंट डायनामिक रूप से लोड करते हैं, तो आप अपने सर्वर पर अतिरिक्त अनुरोध जोड़ देते हैं। हर अतिरिक्त `useState` या hook का मतलब एक अतिरिक्त सर्वर अनुरोध होता है।
 
@@ -117,9 +117,9 @@ Let me tell you why it can be problematic for your app:
 
 पहला उदाहरण प्रति-लोकल lazy-loaded अनुवाद शामिल नहीं करता है और namespace splitting नहीं है। दूसरा content purging + dynamic loading के साथ अनुवाद दिखाता है।
 
-| ऑप्टिमाइज़्ड बंडल                                                                                                                | अनऑप्टिमाइज़्ड बंडल                                                                                |
-| -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
-| ![अनुकूलित नहीं किया गया बंडल](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.png?raw=true) | ![अनुकूलित बंडल](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.png?raw=true) |
+| ऑप्टिमाइज़्ड बंडल                                                                                                                 | अनऑप्टिमाइज़्ड बंडल                                                                                 |
+| --------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| ![अनुकूलित नहीं किया गया बंडल](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.webp?raw=true) | ![अनुकूलित बंडल](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.webp?raw=true) |
 
 Namespaces के कारण, हम इस संरचना से नीचे दी गई संरचना में आ गए:
 

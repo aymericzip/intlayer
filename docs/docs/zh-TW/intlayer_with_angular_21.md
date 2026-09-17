@@ -388,7 +388,7 @@ Intlayer使用模組擴充（Module Augmentation）來獲得TypeScript的好處�
 
 ![自動補全](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![翻譯錯誤](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![翻譯錯誤](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 請確保您的TypeScript配置包含了自動生成的類型。
 

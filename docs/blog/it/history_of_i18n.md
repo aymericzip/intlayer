@@ -49,7 +49,7 @@ Le soluzioni si sono trasformate radicalmente. Siamo passati da oggetti globali 
 
 Questo articolo ripercorre tale evoluzione tra il 2011 e il 2026: gli obiettivi di ogni generazione di strumenti, i successi, i limiti e l'influenza dell'architettura frontend sul modo in cui gestiamo l'i18n oggi.
 
-![Ecosistema delle librerie di internazionalizzazione JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![Ecosistema delle librerie di internazionalizzazione JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## Sommario
 
@@ -237,7 +237,7 @@ I pannelli seguenti illustrano come ogni ecosistema ha risposto a queste esigenz
 
 ## Le quattro ere architetturali dell'i18n in JavaScript
 
-![La storia delle librerie di internazionalizzazione JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![La storia delle librerie di internazionalizzazione JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 Ripercorrendo quindici anni di sviluppo, la storia dell'internazionalizzazione in JavaScript può essere ricondotta a quattro fasi architetturali distintive:
 

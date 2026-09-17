@@ -24,7 +24,7 @@ author: aymericzip
 
 Ten przewodnik zadaje je w pierwszej kolejności, a następnie dopasowuje odpowiedzi do odpowiednich bibliotek, zarówno dla czystego Vite + Vue, jak i dla Nuxt.
 
-![Ekosystem bibliotek Vue i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![Ekosystem bibliotek Vue i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## Spis treści
 
@@ -45,7 +45,7 @@ Zapisz odpowiedzi. Wszystko poniżej odnosi się bezpośrednio do nich.
 
 Ekosystem Vue ma mniej bibliotek i18n niż React i wywodzą się one z różnych fal architektonicznych.
 
-![Historia bibliotek JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![Historia bibliotek JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 <AccordionGroup>
 <Accordion header="Słowniki runtime (2015 do 2019): vue-i18n, @nuxt/i18n">
@@ -76,7 +76,7 @@ Dwa wybory strukturalne tłumaczą większość różnic w wielkości bundle pom
 
 Wykres szacuje payload dla teoretycznej aplikacji o wielkości od 1 do 10 stron, przetłumaczonej na od 1 do 10 języków, z około 30 KB tekstu na stronę.
 
-![Teoretyczny wyciek treści w zależności od architektury](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Teoretyczny wyciek treści w zależności od architektury](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 `vue-i18n` obsługuje oś dynamiczną: wywołanie `setLocaleMessage` po `import()` oznacza, że przestajesz przesyłać dziewięć wersji językowych, których nikt nie czyta. Nie daje jednak kontroli nad osią podziału na strony. Katalog językowy jest jednym obiektem, a jego załadowanie powoduje wczytanie tekstów dla wszystkich stron. W SPA nikt tego nie zauważa. W Nuxt, z `@nuxtjs/i18n` i ponad dziesięcioma stronami, każda trasa niesie teksty wszystkich innych tras, podwójnie: w JS chunk oraz w SSR payload.
 
@@ -292,7 +292,7 @@ Commity, czas odpowiedzi na issues oraz to, czy ostatnie wydanie minor miało mi
 
 Najczęściej instalowaną biblioteką jest ta, która pojawiła się jako pierwsza, a nie ta, która najlepiej pasuje do bazy kodu Vue w 2026 roku. Liczba pobrań mierzy historię, a nie dopasowanie do projektu.
 
-![Lista rankingowa (tier list) bibliotek JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.png?raw=true)
+![Lista rankingowa (tier list) bibliotek JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.webp?raw=true)
 
 **Zapytaj, kto finansuje maintainera i co sprzedaje.**
 

@@ -129,7 +129,7 @@ export default async function RootLayout({ children, params }) {
 
 Графік нижче оцінює обсяг контенту для теоретичного застосунку, в якому від 1 до 10 сторінок і від 1 до 10 мов, приблизно по 30 КБ тексту на сторінку. Динамічне завантаження за локаллю прибирає вісь мов, обмеження контенту компонентом або маршрутом прибирає вісь сторінок, і лише їх поєднання зберігає обсяг стабільним.
 
-![Теоретичний витік контенту за архітектурою](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Теоретичний витік контенту за архітектурою](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 Intlayer вирішує це статичним аналізом: [компілятор Intlayer](https://intlayer.org/uk/doc/compiler) включає тільки ті тексти, які реально використовуються на поточному маршруті, зводячи витік до **0.0%**.
 

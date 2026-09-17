@@ -49,7 +49,7 @@ The solutions have evolved substantially. We progressed from global objects and 
 
 This article reviews that evolution from roughly 2011 to 2026: the objectives of each tooling generation, what succeeded, what fell short, and how frontend architectural changes continue to define how we handle i18n today.
 
-![JavaScript Internationalisation Library Ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![JavaScript Internationalisation Library Ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## Table of Contents
 
@@ -237,7 +237,7 @@ The tabs below detail how each ecosystem addressed these challenges, highlightin
 
 ## The Four Architectural Eras of JavaScript i18n
 
-![The History of JavaScript i18n Libraries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![The History of JavaScript i18n Libraries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 Looking across fifteen years of development, we can categorise the history of JavaScript internationalisation into four distinct architectural eras:
 

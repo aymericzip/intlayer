@@ -82,7 +82,7 @@ extension Localization on String {
 
 يقدّر الرسم البياني أدناه حجم المحتوى لتطبيق نظري يتكوّن من 1 إلى 10 صفحات مترجمة إلى 1 إلى 10 لغات، بنحو 30 كيلوبايت من النص لكل صفحة. التحميل الديناميكي للمحتوى حسب اللغة يزيل محور اللغات، وحصر المحتوى ضمن المكوّن أو المسار يزيل محور الصفحات، ولا يبقى الحجم ثابتًا إلا بالجمع بينهما.
 
-![تسرب المحتوى النظري حسب البنية](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![تسرب المحتوى النظري حسب البنية](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 في نفس الوقت، يجب أن تعلم أنه عندما تقوم بتحميل المحتوى بشكل ديناميكي، فإنك تُولد طلبات إضافية إلى الخادم. كل `useState` إضافي أو hook يعني طلب خادم إضافي.
 
@@ -116,9 +116,9 @@ extension Localization on String {
 
 المثال الأول لا يتضمن ترجمات تُحمّل عند الطلب لكل لغة ولا تقسيمًا للـ namespaces. المثال الثاني يتضمن تنقية المحتوى (content purging) + التحميل الديناميكي للترجمات.
 
-| حزمة مُحسّنة                                                                                                          | حزمة غير مُحسّنة                                                                                  |
-| --------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
-| ![حزمة غير مُحسّنة](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.png?raw=true) | ![حزمة مُحسّنة](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.png?raw=true) |
+| حزمة مُحسّنة                                                                                                           | حزمة غير مُحسّنة                                                                                   |
+| ---------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| ![حزمة غير مُحسّنة](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.webp?raw=true) | ![حزمة مُحسّنة](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.webp?raw=true) |
 
 إذن، بفضل الـnamespaces، انتقلنا من هذا الهيكل:
 

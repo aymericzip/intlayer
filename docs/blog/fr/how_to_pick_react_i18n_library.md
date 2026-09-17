@@ -25,7 +25,7 @@ React ne fournit aucune primitive i18n. La bibliothèque que vous choisissez dè
 
 Ce guide adopte l'approche inverse : répondez d'abord à quelques questions sur votre projet, puis associez ces réponses aux bibliothèques correspondantes. Il se concentre sur React pur (Vite, React Router, TanStack Start). Next.js a ses propres contraintes, détaillées dans le [comparatif Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/next-i18next_vs_next-intl_vs_intlayer.md).
 
-![Écosystème des bibliothèques i18n pour React](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![Écosystème des bibliothèques i18n pour React](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## Table of Contents
 
@@ -48,7 +48,7 @@ Notez vos réponses. Tout ce qui suit y fait référence.
 
 Quinze ans d'i18n JavaScript se résument en quatre vagues architecturales, et les bibliothèques React que vous allez comparer sont issues de vagues différentes.
 
-![Histoire des bibliothèques i18n JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![Histoire des bibliothèques i18n JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 <AccordionGroup>
 <Accordion header="Dictionnaires au runtime (2011 à 2017) : i18next, react-intl">
@@ -84,7 +84,7 @@ Toutes les bibliothèques React i18n partagent la même structure : un store, un
 
 Le graphique ci-dessous estime le payload pour une application théorique de 1 à 10 pages, traduite en 1 à 10 locales, avec environ 30 Ko de texte par page.
 
-![Fuite de contenu théorique selon l'architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Fuite de contenu théorique selon l'architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 Le contenu centralisé avec imports statiques augmente sur les deux axes : 10 pages multipliées par 10 locales représentent 300 Ko de texte sur chaque page. Les imports dynamiques suppriment l'axe des locales. Le scoping supprime l'axe des pages. Seule la combinaison des deux permet de maintenir un payload constant.
 
@@ -365,7 +365,7 @@ Commits, temps de réponse sur les issues et date de la dernière version mineur
 
 La bibliothèque la plus installée est celle qui est sortie en premier, pas nécessairement celle qui convient à une codebase React en 2026. Les téléchargements mesurent l'antériorité, pas la pertinence.
 
-![Classement des bibliothèques i18n JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.png?raw=true)
+![Classement des bibliothèques i18n JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.webp?raw=true)
 
 **Demandez-vous qui finance le mainteneur et ce qu'il vend.**
 

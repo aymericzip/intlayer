@@ -25,7 +25,7 @@ Svelte, i18n için yerleşik hiçbir şey sunmaz. `$t` yok, locale primitive'i y
 
 Bu rehber önce yanıtlanması gereken soruları listeler, ardından bu yanıtları Vite + Svelte ve SvelteKit için `svelte-i18n`, Paraglide, `typesafe-i18n`, `wuchale` ve Intlayer ile eşleştirir.
 
-![Svelte i18n kütüphane ekosistemi](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![Svelte i18n kütüphane ekosistemi](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## İçindekiler
 
@@ -46,7 +46,7 @@ Yanıtları bir yere not edin. Aşağıdaki her şey bunlara atıfta bulunacakt�
 
 Svelte i18n ekosistemi React veya Vue'dan daha geç ortaya çıktı ve doğrudan compile-time dalgalarına geçti.
 
-![JavaScript i18n kütüphanelerinin tarihi](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![JavaScript i18n kütüphanelerinin tarihi](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 <AccordionGroup>
 <Accordion header="Runtime sözlükleri (2019 - 2020): svelte-i18n, sveltekit-i18n">
@@ -77,7 +77,7 @@ Paraglide, bir route'un asla çağırmadığı mesajların bundler tarafından t
 
 Grafik, 1 ila 10 sayfadan oluşan, 1 ila 10 locale'e çevrilmiş ve sayfa başına yaklaşık 30 KB metin içeren teorik bir uygulama için payload tahminini göstermektedir.
 
-![Mimarilere göre teorik içerik sızıntısı](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Mimarilere göre teorik içerik sızıntısı](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 `svelte-i18n` varsayılan olarak sol üstte yer alır: `register("fr", () => import("./fr.json"))` locale başına dinamik yükleme sağlar, ancak bir locale kataloğu tek bir nesnedir ve onu yüklemek her sayfanın içeriğini yükler. Paraglide ilgi çekici bir örnektir: her mesaj kendi export'una sahip olduğu için tree-shaking size sayfa eksenini ek maliyetsiz sunar ve [Svelte benchmark'ı](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/svelte.md) bunun Vite + Svelte üzerinde vadedildiği gibi çalıştığını doğrular (React ve Next.js benchmark'larında bu gerçekleşmemişti). Intlayer ise bileşen başına deklarasyonlar ile aynı sonuca ulaşır.
 
@@ -294,7 +294,7 @@ Commit'ler, issue yanıtlama süreleri ve son minör sürümün bu yıl çıkıp
 
 En çok indirilen kütüphane ilk çıkan kütüphanedir, 2026 yılındaki bir Svelte projesine en uygun olanı değil. İndirme sayıları uygunluğu değil, geçmişi ölçer.
 
-![JavaScript i18n kütüphaneleri sıralaması](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.png?raw=true)
+![JavaScript i18n kütüphaneleri sıralaması](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.webp?raw=true)
 
 **Geliştiriciyi kimin finanse ettiğini ve ne sattıklarını sorgulayın.**
 

@@ -25,7 +25,7 @@ Solid's reactivity model changes what an i18n library has to do. Components run 
 
 This guide lists the questions to answer first, then maps them to `@solid-primitives/i18n`, `solid-i18next`, Paraglide, `@lingui/solid` and Intlayer, for Vite + Solid and for SolidStart.
 
-![Solid i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![Solid i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## Table of Contents
 
@@ -46,7 +46,7 @@ Write the answers down. Everything below refers back to them.
 
 Solid is the youngest ecosystem here and has the fewest options, spread across three waves.
 
-![History of JavaScript i18n libraries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![History of JavaScript i18n libraries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 <AccordionGroup>
 <Accordion header="Runtime dictionaries: solid-i18next">
@@ -77,7 +77,7 @@ Two structural choices explain most of the bundle difference between setups:
 
 The graph estimates the payload for a theoretical app of 1 to 10 pages, translated into 1 to 10 locales, with about 30 KB of text per page.
 
-![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 `@solid-primitives/i18n` does nothing about either axis: you `createResource` a dictionary per locale, which gets you dynamic loading, and the rest is yours. `solid-i18next` has namespaces and lazy backends, but nothing enforces the mapping, so a shared component importing `common` makes it a dependency of every route. Paraglide gets the page axis through tree-shaking, although it did not take effect in the [Solid benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/solid.md) implementation. Intlayer gets it through per-component declarations.
 
@@ -287,7 +287,7 @@ Commits, issue response time, and whether the last minor release was this year. 
 
 The most installed library is the one that shipped first, not the one that fits a 2026 Solid codebase. Downloads measure history, not fit.
 
-![Tier list of JavaScript i18n libraries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.png?raw=true)
+![Tier list of JavaScript i18n libraries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.webp?raw=true)
 
 **Ask who pays the maintainer, and what they sell.**
 

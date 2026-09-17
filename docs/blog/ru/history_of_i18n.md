@@ -49,7 +49,7 @@ author: aymericzip
 
 В этой статье рассматривается эволюция с 2011 по 2026 год: задачи каждого поколения инструментов, их сильные и слабые стороны, а также влияние архитектуры фронтенда на подходы к i18n сегодня.
 
-![Экосистема библиотек интернационализации JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![Экосистема библиотек интернационализации JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## Содержание
 
@@ -237,7 +237,7 @@ author: aymericzip
 
 ## Четыре архитектурные эпохи JavaScript i18n
 
-![История библиотек интернационализации JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![История библиотек интернационализации JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 Анализируя пятнадцать лет развития, историю интернационализации в JavaScript можно разделить на четыре ключевых этапа:
 

@@ -257,7 +257,7 @@ export default config;
 
 ![Автодополнение](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![Ошибка перевода](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![Ошибка перевода](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 Убедитесь, что автоматически сгенерированные типы (по умолчанию в `./types/intlayer.d.ts`) включены в ваш файл `tsconfig.json`.
 

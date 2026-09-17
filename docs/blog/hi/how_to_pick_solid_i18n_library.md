@@ -25,7 +25,7 @@ Solid का reactivity model यह बदल देता है कि एक
 
 यह गाइड पहले उत्तर देने योग्य प्रश्नों की सूची देता है, फिर Vite + Solid और SolidStart के लिए `@solid-primitives/i18n`, `solid-i18next`, Paraglide, `@lingui/solid` और Intlayer पर उन्हें मैप करता है।
 
-![Solid i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![Solid i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## विषय सूची
 
@@ -46,7 +46,7 @@ Solid का reactivity model यह बदल देता है कि एक
 
 Solid यहाँ सबसे युवा ecosystem है और इसमें तीन तरंगों में फैले सबसे कम विकल्प हैं।
 
-![History of JavaScript i18n libraries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![History of JavaScript i18n libraries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 <AccordionGroup>
 <Accordion header="Runtime dictionaries: solid-i18next">
@@ -77,7 +77,7 @@ Paraglide प्रति संदेश एक फ़ंक्शन generate 
 
 यह ग्राफ 1 से 10 पेजों वाले एक सैद्धांतिक ऐप के लिए पेलोड का अनुमान लगाता है, जिसका 1 से 10 locales में अनुवाद किया गया है, जिसमें प्रति पेज लगभग 30 KB टेक्स्ट है।
 
-![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 `@solid-primitives/i18n` किसी भी अक्ष पर कुछ नहीं करता है: आप प्रति locale एक dictionary `createResource` करते हैं, जिससे आपको dynamic loading मिलती है, और बाकी सब आपके ऊपर है। `solid-i18next` में namespaces और lazy backends हैं, लेकिन कोई भी चीज़ मैपिंग को लागू नहीं करती है, इसलिए `common` को इम्पोर्ट करने वाला एक शेयर्ड कंपोनेंट इसे हर रूट की डिपेंडेंसी बना देता है। Paraglide tree-shaking के माध्यम से पेज अक्ष प्राप्त करता है, हालाँकि यह [Solid बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/solid.md) कार्यान्वयन में प्रभावी नहीं हुआ। Intlayer इसे per-component डिक्लेरेशन के माध्यम से प्राप्त करता है।
 
@@ -300,7 +300,7 @@ export const CartSummary: Component<{ count: number }> = (props) => {
 
 सबसे अधिक इंस्टॉल की गई लाइब्रेरी वह है जिसे पहले शिप किया गया था, वह नहीं जो 2026 Solid कोडबेस में फिट बैठती है। डाउनलोड इतिहास को मापते हैं, उपयुक्तता को नहीं।
 
-![Tier list of JavaScript i18n libraries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.png?raw=true)
+![Tier list of JavaScript i18n libraries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.webp?raw=true)
 
 **पूछें कि अनुरक्षक को कौन भुगतान करता है, और वे क्या बेचते हैं।**
 

@@ -44,7 +44,7 @@ O Intlayer CMS é uma aplicação que permite externalizar o conteúdo de um pro
 
 Para isso, o Intlayer introduz o conceito de 'dicionários distantes'.
 
-![Interface do Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/assets/CMS.png)
+![Interface do Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/assets/CMS.webp)
 
 ## Índice
 

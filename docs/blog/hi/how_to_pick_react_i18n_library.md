@@ -25,7 +25,7 @@ React में कोई इन-बिल्ट i18n primitive नहीं आ
 
 यह गाइड विपरीत दिशा में काम करता है: पहले अपने प्रोजेक्ट के बारे में कुछ सवालों के जवाब दें, और फिर उन जवाबों को उपयुक्त लाइब्रेरी से मिलाएँ। यह सादे React (Vite, React Router, TanStack Start) पर केंद्रित है। Next.js की अपनी बाधाएं हैं, जिन्हें [Next.js तुलना](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/next-i18next_vs_next-intl_vs_intlayer.md) में शामिल किया गया है।
 
-![React i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![React i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## विषय सूची
 
@@ -48,7 +48,7 @@ React में कोई इन-बिल्ट i18n primitive नहीं आ
 
 JavaScript i18n के पंद्रह वर्ष चार वास्तुकला तरंगों में फिट बैठते हैं, और जिन React लाइब्रेरीज़ की आप तुलना करेंगे वे विभिन्न तरंगों से आती हैं।
 
-![History of JavaScript i18n libraries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![History of JavaScript i18n libraries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 <AccordionGroup>
 <Accordion header="रनटाइम डिक्शनरी (2011 से 2017): i18next, react-intl">
@@ -84,7 +84,7 @@ SSR और Server Components के आसपास डिज़ाइन कि
 
 नीचे दिया गया ग्राफ 1 से 10 पृष्ठों के एक सैद्धांतिक ऐप के लिए पेलोड का अनुमान लगाता है, जिसका अनुवाद 1 से 10 लोकेल्स में किया गया है, जिसमें प्रति पृष्ठ लगभग 30 KB टेक्स्ट है।
 
-![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 स्थिर आयातों के साथ केंद्रीकृत सामग्री दोनों अक्षों के साथ बढ़ती है: 10 पृष्ठ गुणा 10 लोकेल्स का अर्थ है प्रत्येक पृष्ठ पर 300 KB टेक्स्ट। गतिशील आयात लोकेल अक्ष को हटा देते हैं। स्कोपिंग पेज अक्ष को हटा देती है। केवल संयोजन ही स्थिर रहता है।
 
@@ -371,7 +371,7 @@ export const CartSummary: FC<{ count: number }> = ({ count }) => {
 
 सबसे अधिक स्थापित लाइब्रेरी वह है जिसे पहले भेजा गया था, वह नहीं जो 2026 React कोडबेस में फिट बैठती है। डाउनलोड इतिहास को मापते हैं, उपयुक्तता को नहीं।
 
-![Tier list of JavaScript i18n libraries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.png?raw=true)
+![Tier list of JavaScript i18n libraries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.webp?raw=true)
 
 **पूछें कि अनुरक्षक को कौन भुगतान करता है, और वे क्या बेचते हैं।**
 

@@ -20,7 +20,7 @@ author: aymericzip
 
 # next-i18next VS next-intl VS intlayer | Quốc tế hóa Next.js (i18n)
 
-![next-i18next VS next-intl VS intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.png?raw=true)
+![next-i18next VS next-intl VS intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
 Hãy cùng xem xét những điểm tương đồng và khác biệt giữa ba lựa chọn i18n cho Next.js: next-i18next, next-intl và Intlayer.
 
@@ -128,7 +128,7 @@ Hai vấn đề quan trọng:
 
 Biểu đồ dưới đây ước tính dung lượng nội dung cho một ứng dụng giả định gồm 1 đến 10 trang, được dịch sang 1 đến 10 ngôn ngữ, với khoảng 30 KB văn bản mỗi trang. Tải nội dung động theo locale loại bỏ trục ngôn ngữ, giới hạn nội dung theo component hoặc route loại bỏ trục trang, và chỉ khi kết hợp cả hai thì dung lượng mới giữ nguyên.
 
-![Rò rỉ nội dung lý thuyết theo kiến trúc](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Rò rỉ nội dung lý thuyết theo kiến trúc](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 Một lần nữa, cả ba giải pháp đều nhận thức được những vấn đề này và cho phép quản lý các tối ưu hóa này. Sự khác biệt giữa ba giải pháp là trải nghiệm nhà phát triển (DX).
 
@@ -154,9 +154,9 @@ Trong trường hợp của `next-intl` và `next-i18next`, thư viện yêu c�
 
 Dưới đây là ví dụ về tác động của việc tối ưu kích thước bundle sử dụng `intlayer` trong ứng dụng vite + react:
 
-| Gói tối ưu hóa                                                                                      | Gói không tối ưu hóa                                                                                                      |
-| --------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| ![gói tối ưu hóa](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.png?raw=true) | ![gói không tối ưu hóa](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.png?raw=true) |
+| Gói tối ưu hóa                                                                                       | Gói không tối ưu hóa                                                                                                       |
+| ---------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| ![gói tối ưu hóa](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.webp?raw=true) | ![gói không tối ưu hóa](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.webp?raw=true) |
 
 ## TypeScript & an toàn
 

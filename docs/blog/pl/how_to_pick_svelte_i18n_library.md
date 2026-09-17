@@ -26,7 +26,7 @@ Svelte nie dostarcza żadnych wbudowanych narzędzi do i18n. Brak `$t`, brak pry
 
 Ten przewodnik wymienia pytania, na które warto odpowiedzieć w pierwszej kolejności, a następnie przypisuje odpowiedzi do `svelte-i18n`, Paraglide, `typesafe-i18n`, `wuchale` i Intlayer, zarówno dla Vite + Svelte, jak i dla SvelteKit.
 
-![Ekosystem bibliotek Svelte i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![Ekosystem bibliotek Svelte i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## Spis treści
 
@@ -47,7 +47,7 @@ Zapisz swoje odpowiedzi. Wszystkie poniższe sekcje będą się do nich odnosić
 
 i18n w Svelte pojawiło się później niż w React czy Vue i od razu przeszło do fal opartych na kompilacji.
 
-![Historia bibliotek JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![Historia bibliotek JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 <AccordionGroup>
 <Accordion header="Słowniki w czasie wykonywania (2019 do 2020): svelte-i18n, sveltekit-i18n">
@@ -78,7 +78,7 @@ Dwa wybory strukturalne odpowiadają za większość różnic w rozmiarze bundle
 
 Wykres szacuje payload dla teoretycznej aplikacji mającej od 1 do 10 podstron, przetłumaczonej na 1 do 10 języków, z około 30 KB tekstu na stronę.
 
-![Teoretyczny wyciek treści w zależności od architektury](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Teoretyczny wyciek treści w zależności od architektury](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 `svelte-i18n` domyślnie znajduje się w lewym górnym rogu: `register("fr", () => import("./fr.json"))` zapewnia dynamiczne ładowanie dla każdego locale, ale katalog danego języka to jeden obiekt i załadowanie go powoduje wczytanie treści wszystkich podstron. Paraglide to interesujący przypadek: ponieważ każda wiadomość jest osobnym exportem, tree-shaking zapewnia podział na poziomie podstron bez dodatkowej pracy, a [benchmark Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/svelte.md) potwierdza, że działa to zgodnie z opisem w Vite + Svelte (w benchmarkach React i Next.js tak nie było). Intlayer osiąga ten sam rezultat dzięki deklaracjom na poziomie pojedynczych komponentów.
 
@@ -300,7 +300,7 @@ Commity, czas odpowiedzi na zgłoszenia (issues) oraz informacja, czy ostatnie w
 
 Najczęściej instalowana biblioteka to ta, która powstała jako pierwsza, a nie ta, która najlepiej pasuje do bazy kodu Svelte w 2026 roku. Liczba pobrań mierzy historię, a nie dopasowanie.
 
-![Ranking bibliotek JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.png?raw=true)
+![Ranking bibliotek JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.webp?raw=true)
 
 **Sprawdź, kto finansuje maintainera i co sprzedaje.**
 

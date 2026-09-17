@@ -1107,7 +1107,7 @@ Intlayer는 TypeScript의 이점을 활용하고 codebase를 더욱 강력하게
 
 ![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 TypeScript 설정에 자동 생성된 타입이 포함되어 있는지 확인하세요.
 

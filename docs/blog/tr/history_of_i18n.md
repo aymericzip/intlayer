@@ -49,7 +49,7 @@ Bu soru, JavaScript i18n ekosistemini on yılı aşkın bir süre boyunca şekil
 
 Bu makale, 2011'den 2026'ya uzanan bu süreci ele almaktadır: her araç neslinin çözmeye çalıştığı sorunlar, nelerin işe yaradığı, nelerin yetersiz kaldığı ve modern frontend mimarilerinin günümüz i18n çözümlerini nasıl etkilediği.
 
-![JavaScript Uluslararasılaştırma Kütüphaneleri Ekosistemi](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![JavaScript Uluslararasılaştırma Kütüphaneleri Ekosistemi](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## İçindekiler
 
@@ -237,7 +237,7 @@ Aşağıdaki sekmeler, farklı ekosistemlerin bu gereksinimlere nasıl yanıt ve
 
 ## JavaScript i18n Alanında Dört Mimari Dönem
 
-![JavaScript i18n Kütüphanelerinin Tarihi](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![JavaScript i18n Kütüphanelerinin Tarihi](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 On beş yıllık gelişimi incelediğimizde JavaScript uluslararasılaştırma tarihini dört belirgin mimari döneme ayırabiliriz:
 

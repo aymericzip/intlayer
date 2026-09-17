@@ -1012,7 +1012,7 @@ Intlayer, TypeScript'ten faydalanmak ve kod tabanınızı daha güçlü hale get
 
 ![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 TypeScript yapılandırmanızın otomatik olarak oluşturulan türleri içerdiğinden emin olun.
 

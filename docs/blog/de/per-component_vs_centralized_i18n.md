@@ -82,7 +82,7 @@ Natürlich sind die Autor:innen der Bibliotheken sich dieser Einschränkungen be
 
 Das folgende Diagramm schätzt die Payload für eine theoretische App mit 1 bis 10 Seiten, übersetzt in 1 bis 10 Sprachen, mit etwa 30 KB Text pro Seite. Dynamisches Laden pro Locale entfernt die Sprachachse, das Scoping des Contents pro Komponente oder Route entfernt die Seitenachse, und nur die Kombination hält die Payload flach.
 
-![Theoretisches Content-Leakage nach Architektur](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Theoretisches Content-Leakage nach Architektur](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 Gleichzeitig sollten Sie wissen, dass das dynamische Laden Ihrer Inhalte zusätzliche Anfragen an Ihren Server verursacht. Jeder zusätzliche `useState` oder hook bedeutet eine zusätzliche Serveranfrage.
 
@@ -116,9 +116,9 @@ Sicher, und das ist ein großer Fortschritt. Schauen wir uns den Vergleich der H
 
 Das erste Beispiel enthält keine pro-Locale lazy geladenen Übersetzungen und keine Namespace-Aufteilung. Das zweite enthält Content-Purging + dynamisches Laden der Übersetzungen.
 
-| Optimiertes Bundle                                                                                                            | Nicht optimiertes Bundle                                                                                |
-| ----------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
-| ![nicht optimiertes Bundle](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.png?raw=true) | ![optimiertes Bundle](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.png?raw=true) |
+| Optimiertes Bundle                                                                                                             | Nicht optimiertes Bundle                                                                                 |
+| ------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------- |
+| ![nicht optimiertes Bundle](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.webp?raw=true) | ![optimiertes Bundle](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.webp?raw=true) |
 
 Also dank Namespaces sind wir von dieser Struktur zu dieser übergegangen:
 

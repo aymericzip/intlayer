@@ -586,7 +586,7 @@ Intlayer nutzt Module Augmentation, um die Vorteile von TypeScript zu nutzen und
 
 ![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 Intlayer verwendet die Modulerweiterung (Module Augmentation), um TypeScript zu nutzen und Ihre Codebasis robuster zu machen. Stellen Sie sicher, dass Ihre TypeScript-Konfiguration die automatisch generierten Typen enthält und für Preact konfiguriert ist:
 

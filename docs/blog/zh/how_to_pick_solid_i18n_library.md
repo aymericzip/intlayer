@@ -25,7 +25,7 @@ Solid 的响应式模型改变了 i18n 库所需承担的工作。组件仅运�
 
 本指南列出了选型前需要明确的核心问题，并将它们映射到适用于 Vite + Solid 及 SolidStart 的 `@solid-primitives/i18n`、`solid-i18next`、Paraglide、`@lingui/solid` 和 Intlayer。
 
-![Solid i18n 库生态系统](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![Solid i18n 库生态系统](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## 目录
 
@@ -46,7 +46,7 @@ Solid 的响应式模型改变了 i18n 库所需承担的工作。组件仅运�
 
 Solid 是这里最年轻的生态系统，可选项也最少，分布在三波演进浪潮中。
 
-![JavaScript i18n 库发展史](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![JavaScript i18n 库发展史](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 <AccordionGroup>
 <Accordion header="运行时字典：solid-i18next">
@@ -77,7 +77,7 @@ Paraglide 为每条消息生成一个独立函数。Intlayer 在 `.content.ts` �
 
 下图估算了一个包含 1 到 10 个页面、翻译为 1 到 10 种语言环境、每页约 30 KB 文本的理论应用的 payload 大小。
 
-![不同架构下的理论内容泄漏对比](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![不同架构下的理论内容泄漏对比](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 `@solid-primitives/i18n` 在这两个维度上都不做处理：你通过 `createResource` 按 locale 加载 dictionary，从而实现动态加载，其余部分完全由你自行实现。`solid-i18next` 支持 namespace 和 lazy backend，但没有强制映射机制，因此一个导入了 `common` 的公共组件会使该文件成为每个路由的依赖项。Paraglide 通过 tree-shaking 实现页面维度的拆分，但在 [Solid 基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/solid.md) 的实现中并未生效。Intlayer 则通过按组件声明来实现这一目标。
 
@@ -300,7 +300,7 @@ export const CartSummary: Component<{ count: number }> = (props) => {
 
 安装量最多的库往往只是最早发布的库，而不一定是契合 2026 年 Solid 代码库的库。下载量衡量的是历史，而不是契合度。
 
-![JavaScript i18n 库天梯图](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.png?raw=true)
+![JavaScript i18n 库天梯图](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.webp?raw=true)
 
 **了解谁在为维护者提供资金支持，以及他们售卖什么。**
 

@@ -24,7 +24,7 @@ author: aymericzip
 
 यह गाइड पहले उन सवालों को पूछती है, फिर उन उत्तरों को उपयुक्त लाइब्रेरीज़ के साथ मैप करती है, प्लेन Vite + Vue और Nuxt दोनों के लिए।
 
-![Vue i18n लाइब्रेरी इकोसिस्टम](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![Vue i18n लाइब्रेरी इकोसिस्टम](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## विषय सूची
 
@@ -45,7 +45,7 @@ author: aymericzip
 
 Vue इकोसिस्टम में React की तुलना में कम i18n लाइब्रेरीज़ हैं, और वे अलग-अलग आर्किटेक्चरल दौर से आती हैं।
 
-![JavaScript i18n लाइब्रेरीज़ का इतिहास](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![JavaScript i18n लाइब्रेरीज़ का इतिहास](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 <AccordionGroup>
 <Accordion header="रनटाइम डिक्शनरीज़ (2015 से 2019): vue-i18n, @nuxt/i18n">
@@ -76,7 +76,7 @@ Paraglide प्रति मैसेज एक फंक्शन जेनर
 
 यह ग्राफ 1 से 10 पेजों के एक सैद्धांतिक ऐप के लिए पेलोड का अनुमान लगाता है, जिसका 1 से 10 लोकेल्स में अनुवाद किया गया है, जिसमें प्रति पेज लगभग 30 KB टेक्स्ट है।
 
-![आर्किटेक्चर द्वारा सैद्धांतिक कंटेंट लीकेज](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![आर्किटेक्चर द्वारा सैद्धांतिक कंटेंट लीकेज](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 `vue-i18n` डायनामिक एक्सिस का समर्थन करता है: `import()` के बाद `setLocaleMessage` का अर्थ है कि आप उन नौ लोकेल्स को भेजना बंद कर देते हैं जिन्हें कोई नहीं पढ़ता। जो यह आपको नहीं देता वह है पेज एक्सिस। एक लोकेल कैटलॉग एक ऑब्जेक्ट होता है, और इसे लोड करने से हर पेज की कॉपी लोड हो जाती है। SPA में कोई ध्यान नहीं देता। Nuxt में, `@nuxtjs/i18n` और दस से अधिक पेजों के साथ, हर रूट हर दूसरे रूट के स्ट्रिंग्स को दो बार ले जाता है: JS चंक में और SSR पेलोड में।
 
@@ -292,7 +292,7 @@ const { title, items } = useIntlayer("cart-summary");
 
 सबसे अधिक इंस्टॉल की गई लाइब्रेरी वह है जो सबसे पहले आई थी, न कि वह जो 2026 के Vue कोडबेस के लिए उपयुक्त है। डाउनलोड्स इतिहास को मापते हैं, उपयुक्तता को नहीं।
 
-![JavaScript i18n लाइब्रेरीज़ की टियर लिस्ट](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.png?raw=true)
+![JavaScript i18n लाइब्रेरीज़ की टियर लिस्ट](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.webp?raw=true)
 
 **पूछें कि मेंटेनर को कौन भुगतान करता है, और वे क्या बेचते हैं।**
 

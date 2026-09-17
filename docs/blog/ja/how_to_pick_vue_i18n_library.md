@@ -24,7 +24,7 @@ author: aymericzip
 
 本ガイドでは、まずこれらの検討すべき質問を整理し、その回答をもとに素のVite + VueおよびNuxtに最適なライブラリをマッピングします。
 
-![Vue i18nライブラリのエコシステム](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![Vue i18nライブラリのエコシステム](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## 目次
 
@@ -45,7 +45,7 @@ author: aymericzip
 
 Vueエコシステムのi18nライブラリはReactよりも数が少なく、それぞれ異なるアーキテクチャの世代から生まれています。
 
-![JavaScript i18nライブラリの歴史](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![JavaScript i18nライブラリの歴史](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 <AccordionGroup>
 <Accordion header="ランタイム辞書方式（2015年〜2019年）: vue-i18n, @nuxt/i18n">
@@ -76,7 +76,7 @@ Paraglideはメッセージごとに1つの関数を生成し、残りはバン�
 
 下のグラフは、ページあたり約30 KBのテキストを持ち、1〜10ページ、1〜10ロケールに翻訳された理論上のアプリにおけるペイロードの推定値です。
 
-![アーキテクチャ別の理論的コンテンツ漏洩](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![アーキテクチャ別の理論的コンテンツ漏洩](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 `vue-i18n` は動的インポートの軸をサポートしています。`import()` の後に `setLocaleMessage` を実行すれば、誰も読まない残り9ロケールの配信を停止できます。しかし、ページ単位の軸は提供されません。ロケールカタログは1つのオブジェクトであるため、それを読み込むとすべてのページのコピーが読み込まれます。SPAでは気づきにくいですが、Nuxtで `@nuxtjs/i18n` を使い10ページを超えると、各ルートが他のすべてのルートの文字列をJSチャンク内とSSRペイロード内の2回抱え込むことになります。
 
@@ -292,7 +292,7 @@ const { title, items } = useIntlayer("cart-summary");
 
 最も多くインストールされているライブラリは、最初にリリースされたものであり、必ずしも2026年のVueコードベースに最も適したものであるとは限りません。ダウンロード数は歴史を測る指標であり、現在の適合度を示すものではありません。
 
-![JavaScript i18nライブラリのランク表](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.png?raw=true)
+![JavaScript i18nライブラリのランク表](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.webp?raw=true)
 
 **誰がメンテナーに出資し、何を販売しているかを確認する。**
 

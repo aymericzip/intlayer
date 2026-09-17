@@ -25,7 +25,7 @@ React 本身并没有提供内置的 i18n 原语。你在项目第一天选择�
 
 本指南采用另一种思路：先回答关于你项目的几个核心问题，然后将答案映射到最契合的库。本文重点关注纯 React 生态（Vite、React Router、TanStack Start）。Next.js 有其专属的约束，已在 [Next.js 对比文章](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/next-i18next_vs_next-intl_vs_intlayer.md) 中详细介绍。
 
-![React i18n 库生态系统](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![React i18n 库生态系统](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## 目录
 
@@ -48,7 +48,7 @@ React 本身并没有提供内置的 i18n 原语。你在项目第一天选择�
 
 十五年的 JavaScript i18n 发展史可以归纳为四波架构浪潮，而你所对比的 React 库正来自于不同的阶段。
 
-![JavaScript i18n 库发展史](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![JavaScript i18n 库发展史](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 <AccordionGroup>
 <Accordion header="运行时字典（2011 至 2017 年）：i18next, react-intl">
@@ -84,7 +84,7 @@ React 本身并没有提供内置的 i18n 原语。你在项目第一天选择�
 
 下图估算了包含 1 到 10 个页面、翻译成 1 到 10 个语言环境、每页约 30 KB 文本的理论应用 payload：
 
-![不同架构下的理论内容泄漏](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![不同架构下的理论内容泄漏](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 采用静态导入的集中式内容会随着两个维度同时膨胀：10 个页面乘以 10 个语言环境，意味着每个页面都要加载 300 KB 的文本。动态导入消除了语言维度的膨胀，组件级作用域消除了页面维度的膨胀，只有两者结合才能让体积保持平稳。
 
@@ -371,7 +371,7 @@ export const CartSummary: FC<{ count: number }> = ({ count }) => {
 
 安装量最大的往往是最早发布的库，而不一定是最适合 2026 年 React 代码库的方案。下载量衡量的是历史沉淀，而不是当下的契合度。
 
-![JavaScript i18n 库评级梯队图](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.png?raw=true)
+![JavaScript i18n 库评级梯队图](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.webp?raw=true)
 
 **了解维护者的资金来源和商业模式。**
 

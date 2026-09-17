@@ -25,7 +25,7 @@ author: aymericzip
 
 Цей посібник перелічує запитання, на які слід відповісти спочатку, а потім зіставляє відповіді з `@solid-primitives/i18n`, `solid-i18next`, Paraglide, `@lingui/solid` та Intlayer для Vite + Solid і для SolidStart.
 
-![Екосистема бібліотек i18n для Solid](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![Екосистема бібліотек i18n для Solid](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## Table of Contents
 
@@ -46,7 +46,7 @@ author: aymericzip
 
 Solid, наймолодша екосистема серед розглянутих, яка має найменше варіантів, розподілених за трьома хвилями.
 
-![Історія бібліотек i18n у JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![Історія бібліотек i18n у JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 <AccordionGroup>
 <Accordion header="Словники під час виконання: solid-i18next">
@@ -77,7 +77,7 @@ Paraglide генерує одну функцію на повідомлення. 
 
 Графік оцінює обсяг даних для теоретичного застосунку від 1 до 10 сторінок, перекладеного від 1 до 10 мовами, з приблизно 30 КБ тексту на сторінку.
 
-![Теоретичний витік контенту залежно від архітектури](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Теоретичний витік контенту залежно від архітектури](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 `@solid-primitives/i18n` не вирішує жодної з цих проблем: ви робите `createResource` для словника на кожну локаль, що дає динамічне завантаження, а решта залишається за вами. `solid-i18next` має namespaces та lazy backends, але ніщо не контролює зв'язки, тому спільний компонент, який імпортує `common`, робить його залежністю для кожного маршруту. Paraglide оптимізує сторінки за допомогою tree-shaking, хоча це не спрацювало в реалізації для [бенчмарку Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/solid.md). Intlayer досягає цього завдяки оголошенням на рівні компонентів.
 
@@ -300,7 +300,7 @@ export const CartSummary: Component<{ count: number }> = (props) => {
 
 Найчастіше встановлюють бібліотеку, яка з'явилася першою, а не ту, що найкраще підходить для кодової бази Solid у 2026 році. Кількість завантажень відображає історію, а не відповідність потребам.
 
-![Рейтинг бібліотек i18n у JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.png?raw=true)
+![Рейтинг бібліотек i18n у JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.webp?raw=true)
 
 **Дізнайтеся, хто фінансує підтримку і що вони продають.**
 

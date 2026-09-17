@@ -108,7 +108,7 @@ We evaluate:
 
 The graph below estimates the payload for a theoretical app of 1 to 10 pages in 1 to 10 locales, with about 30 KB of text per page. Lazy loading per locale removes the locale axis, scoping content per component removes the page axis, and only the combination stays flat.
 
-![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 ### 6) DX, tooling & maintenance
 

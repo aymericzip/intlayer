@@ -129,7 +129,7 @@ JSONファイルを名前空間ごとに分けることで緩和できますが�
 
 以下のグラフは、1〜10ページを1〜10言語に翻訳した理論上のアプリ（1ページあたり約30KBのテキスト）のコンテンツ量を推定したものです。ロケールごとの動的読み込みは言語の軸を取り除き、コンポーネントやルート単位でコンテンツをスコープすることはページの軸を取り除きます。両方を組み合わせた場合のみ、コンテンツ量は一定に保たれます。
 
-![アーキテクチャ別の理論上のコンテンツリーク](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![アーキテクチャ別の理論上のコンテンツリーク](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 Intlayerはこの問題を静的解析で解決します。[Intlayerコンパイラ](https://intlayer.org/ja/doc/compiler)が該当ルートで使用されている文言だけを過不足なく抽出するため、ページ間のデータ漏洩率は**0.0%**となります。
 

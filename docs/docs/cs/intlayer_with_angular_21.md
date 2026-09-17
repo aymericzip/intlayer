@@ -388,7 +388,7 @@ Intlayer používá Module Augmentation, aby získal výhody TypeScriptu a vaše
 
 ![Autodoplnění](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![Chyba překladu](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![Chyba překladu](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 Ujistěte se, že vaše konfigurace TypeScriptu obsahuje automaticky generované typy.
 

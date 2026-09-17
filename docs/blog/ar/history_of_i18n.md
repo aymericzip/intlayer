@@ -49,7 +49,7 @@ author: aymericzip
 
 يستعرض هذا المقال هذا التطور بين عامي 2011 و2026: ما حاولت كل مرحلة حله، وما نجح منها، وما لم ينجح، وكيف أثرت بنية تطبيقات الواجهة الأمامية في أسلوب تعاملنا مع التدويل اليوم.
 
-![منظومة مكتبات تدويل جافاسكريبت](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![منظومة مكتبات تدويل جافاسكريبت](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## جدول المحتويات
 
@@ -237,7 +237,7 @@ author: aymericzip
 
 ## الحقب المعمارية الأربع لتدويل جافاسكريبت
 
-![تاريخ مكتبات تدويل جافاسكريبت](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![تاريخ مكتبات تدويل جافاسكريبت](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 بالنظر إلى خمسة عشر عاماً من التطور، يمكننا تقسيم تاريخ تدويل جافاسكريبت إلى أربع حقب معمارية بارزة:
 

@@ -25,7 +25,7 @@ author: aymericzip
 
 يسرد هذا الدليل الأسئلة التي يجب الإجابة عليها أولاً، ثم يطابقها مع `@solid-primitives/i18n` و `solid-i18next` و Paraglide و `@lingui/solid` و Intlayer، لكل من Vite + Solid و SolidStart.
 
-![النظام البيئي لمكتبات Solid i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![النظام البيئي لمكتبات Solid i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## جدول المحتويات
 
@@ -46,7 +46,7 @@ author: aymericzip
 
 تعد Solid أحدث نظام بيئي هنا ولديها أقل عدد من الخيارات، موزعة عبر ثلاث موجات.
 
-![تاريخ مكتبات JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![تاريخ مكتبات JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 <AccordionGroup>
 <Accordion header="قواميس وقت التشغيل: solid-i18next">
@@ -77,7 +77,7 @@ author: aymericzip
 
 يقدر الرسم البياني الحمولة لتطبيق نظري يتكون من 1 إلى 10 صفحات، مترجم إلى 1 إلى 10 لغات، مع حوالي 30 كيلوبايت من النصوص لكل صفحة.
 
-![تسريب المحتوى النظري حسب البنية المعمارية](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![تسريب المحتوى النظري حسب البنية المعمارية](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 لا تقدم `@solid-primitives/i18n` أي حل مدمج لأي من المحورين: يمكنك استخدام `createResource` لتحميل قاموس لكل لغة، مما يمنحك تحميلاً ديناميكياً، والباقي متروك لك. تمتلك `solid-i18next` مساحات أسماء وخلفيات كسولة (lazy backends)، ولكن لا يوجد ما يفرض هذا التعيين تلقائياً، وبالتالي فإن مكوناً مشتركاً يستورد `common` يجعله اعتمادية لكل مسار. تحقق Paraglide تقسيم الصفحات عبر الـ tree-shaking، على الرغم من أنه لم يكن فعالاً في تطبيق [اختبار أداء Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/solid.md). بينما تحقق Intlayer ذلك من خلال التصريحات الخاصة بكل مكون.
 
@@ -287,7 +287,7 @@ export const CartSummary: Component<{ count: number }> = (props) => {
 
 المكتبة الأكثر تثبيتاً هي أول مكتبة ظهرت، وليست بالضرورة الأنسب لقاعدة كود Solid في عام 2026. تقيس التنزيلات التاريخ وليس الملاءمة.
 
-![قائمة تصنيف مكتبات JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.png?raw=true)
+![قائمة تصنيف مكتبات JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.webp?raw=true)
 
 **اسأل من يدفع للمطور، وماذا يبيعون.**
 

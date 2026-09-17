@@ -25,7 +25,7 @@ Das Reaktivitätsmodell von Solid verändert grundlegend, was eine i18n-Biblioth
 
 Dieser Leitfaden stellt die wichtigsten Fragen vorab zusammen und ordnet sie anschließend `@solid-primitives/i18n`, `solid-i18next`, Paraglide, `@lingui/solid` und Intlayer zu, sowohl für Vite + Solid als auch für SolidStart.
 
-![Solid i18n-Bibliotheken-Ökosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![Solid i18n-Bibliotheken-Ökosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## Inhaltsverzeichnis
 
@@ -46,7 +46,7 @@ Schreiben Sie die Antworten auf. Alles Folgende bezieht sich darauf.
 
 Solid ist das jüngste Ökosystem in diesem Vergleich und bietet die wenigsten Optionen, verteilt auf drei Wellen.
 
-![Geschichte der JavaScript i18n-Bibliotheken](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![Geschichte der JavaScript i18n-Bibliotheken](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 <AccordionGroup>
 <Accordion header="Laufzeit-Dictionaries: solid-i18next">
@@ -77,7 +77,7 @@ Zwei strukturelle Entscheidungen erklären den Großteil der Bundle-Unterschiede
 
 Die Grafik schätzt die Payload für eine theoretische App mit 1 bis 10 Seiten ab, übersetzt in 1 bis 10 Sprachen, mit etwa 30 KB Text pro Seite.
 
-![Theoretischer Content-Leakage nach Architektur](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Theoretischer Content-Leakage nach Architektur](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 `@solid-primitives/i18n` kümmert sich um keine dieser beiden Achsen: Sie laden per `createResource` ein Dictionary pro Locale dynamisch nach, der Rest liegt bei Ihnen. `solid-i18next` bietet Namespaces und Lazy-Backends, erzwingt das Mapping jedoch nicht, sodass eine geteilte Komponente, die `common` importiert, dieses zur Abhängigkeit jeder Route macht. Paraglide deckt die Seiten-Achse über Tree-Shaking ab, auch wenn dies im [Solid-Benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/solid.md) nicht griff. Intlayer löst dies über komponentenbezogene Deklarationen.
 
@@ -300,7 +300,7 @@ Commits, Antwortzeiten bei Issues und ob das letzte Minor-Release in diesem Jahr
 
 Die am häufigsten installierte Bibliothek ist jene, die zuerst da war, nicht diejenige, die am besten zu einer Solid-Codebase im Jahr 2026 passt. Downloads spiegeln Historie wider, nicht Passgenauigkeit.
 
-![Tier-List der JavaScript i18n-Bibliotheken](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.png?raw=true)
+![Tier-List der JavaScript i18n-Bibliotheken](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.webp?raw=true)
 
 **Prüfen Sie das Geschäftsmodell des Anbieters.**
 

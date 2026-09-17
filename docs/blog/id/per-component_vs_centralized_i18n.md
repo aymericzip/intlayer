@@ -83,7 +83,7 @@ Di antaranya: memecah menjadi namespaces, memuat file JSON secara dinamis (`awai
 
 Grafik di bawah memperkirakan ukuran konten untuk aplikasi teoretis dengan 1 hingga 10 halaman yang diterjemahkan ke 1 hingga 10 bahasa, dengan sekitar 30 KB teks per halaman. Memuat konten secara dinamis per locale menghilangkan sumbu bahasa, membatasi konten per komponen atau per rute menghilangkan sumbu halaman, dan hanya kombinasi keduanya yang menjaga ukuran tetap datar.
 
-![Kebocoran konten teoretis berdasarkan arsitektur](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Kebocoran konten teoretis berdasarkan arsitektur](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 Pada saat yang sama, Anda harus tahu bahwa ketika Anda memuat konten secara dinamis, Anda memperkenalkan permintaan tambahan ke server Anda. Setiap `useState` atau hook tambahan berarti permintaan server tambahan.
 
@@ -117,9 +117,9 @@ Tentu, dan itu merupakan langkah maju yang besar. Mari lihat perbandingan ukuran
 
 Contoh pertama tidak memasukkan terjemahan yang dimuat secara lazy per locale dan tidak ada pemecahan namespace. Yang kedua mencakup pembersihan konten + pemuatan dinamis untuk terjemahan.
 
-| Bundle dioptimalkan                                                                                                           | Bundle tidak dioptimalkan                                                                                    |
-| ----------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
-| ![bundle tidak teroptimasi](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.png?raw=true) | ![bundle yang teroptimasi](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.png?raw=true) |
+| Bundle dioptimalkan                                                                                                            | Bundle tidak dioptimalkan                                                                                     |
+| ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------- |
+| ![bundle tidak teroptimasi](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.webp?raw=true) | ![bundle yang teroptimasi](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.webp?raw=true) |
 
 Jadi berkat namespaces, kita berpindah dari struktur ini:
 

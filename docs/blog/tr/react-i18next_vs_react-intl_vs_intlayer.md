@@ -108,7 +108,7 @@ Bu rehber, **React** için üç yerleşik i18n seçeneğini karşılaştırır: 
 
 Aşağıdaki grafik, sayfa başına yaklaşık 30 KB metin içeren, 1 ila 10 sayfadan oluşan ve 1 ila 10 dile çevrilmiş teorik bir uygulamanın içerik yükünü tahmin eder. İçeriği locale bazında dinamik yüklemek dil eksenini ortadan kaldırır, içeriği bileşen veya rota bazında sınırlamak sayfa eksenini ortadan kaldırır ve yalnızca ikisinin birleşimi yükü sabit tutar.
 
-![Mimariye göre teorik içerik sızıntısı](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Mimariye göre teorik içerik sızıntısı](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 ### 6) DX, araçlar ve bakım
 

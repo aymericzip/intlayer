@@ -127,7 +127,7 @@ Domyślnie niemal **90% treści tłumaczeń** przesyłanych do danej trasy dotyc
 
 Poniższy wykres szacuje rozmiar treści dla teoretycznej aplikacji mającej od 1 do 10 stron, przetłumaczonej na 1 do 10 języków, z około 30 KB tekstu na stronę. Dynamiczne ładowanie treści per locale usuwa oś języków, ograniczenie treści do komponentu lub trasy usuwa oś stron, a tylko połączenie obu utrzymuje rozmiar na stałym poziomie.
 
-![Teoretyczny wyciek treści w zależności od architektury](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Teoretyczny wyciek treści w zależności od architektury](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 **Opóźnienie hydratacji:**
 

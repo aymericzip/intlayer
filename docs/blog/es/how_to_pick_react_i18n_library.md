@@ -25,7 +25,7 @@ React no incluye ninguna primitiva de i18n. La librería que elijas el primer d�
 
 Esta guía sigue el camino inverso: responde primero a unas pocas preguntas sobre tu proyecto y luego asigna las respuestas a las librerías adecuadas. Se centra en React puro (Vite, React Router, TanStack Start). Next.js tiene sus propias restricciones, cubiertas en la [comparativa de Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/next-i18next_vs_next-intl_vs_intlayer.md).
 
-![Ecosistema de librerías React i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![Ecosistema de librerías React i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## Tabla de contenidos
 
@@ -48,7 +48,7 @@ Anota las respuestas. Todo lo que sigue hace referencia a ellas.
 
 Quince años de i18n en JavaScript caben en cuatro olas arquitectónicas, y las librerías de React que vas a comparar provienen de diferentes olas.
 
-![Historia de las librerías de i18n en JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![Historia de las librerías de i18n en JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 <AccordionGroup>
 <Accordion header="Diccionarios en tiempo de ejecución (2011 a 2017): i18next, react-intl">
@@ -84,7 +84,7 @@ Cada librería de i18n para React tiene la misma estructura: un store, un provid
 
 El gráfico siguiente estima el payload para una app teórica de 1 a 10 páginas, traducida a entre 1 y 10 locales, con unos 30 KB de texto por página.
 
-![Fuga teórica de contenido por arquitectura](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Fuga teórica de contenido por arquitectura](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 El contenido centralizado con importaciones estáticas crece en ambos ejes: 10 páginas multiplicadas por 10 locales son 300 KB de texto en cada página. Las importaciones dinámicas eliminan el eje de los locales. El scoping elimina el eje de las páginas. Solo la combinación de ambos se mantiene plana.
 
@@ -365,7 +365,7 @@ Commits, tiempo de respuesta a issues y si la última release menor fue este añ
 
 La librería más instalada es la que se publicó primero, no la que mejor encaja en una codebase de React en 2026. Las descargas miden historia, no adecuación.
 
-![Clasificación en tier list de librerías JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.png?raw=true)
+![Clasificación en tier list de librerías JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.webp?raw=true)
 
 **Pregunta quién financia al mantenedor y qué vende.**
 

@@ -25,7 +25,7 @@ Model reaktywności Solid zmienia to, co biblioteka i18n musi robić. Komponenty
 
 Ten przewodnik przedstawia pytania, na które należy odpowiedzieć w pierwszej kolejności, a następnie odnosi je do `@solid-primitives/i18n`, `solid-i18next`, Paraglide, `@lingui/solid` oraz Intlayer, zarówno dla konfiguracji Vite + Solid, jak i SolidStart.
 
-![Ekosystem bibliotek i18n dla Solid](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![Ekosystem bibliotek i18n dla Solid](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## Spis treści
 
@@ -46,7 +46,7 @@ Zapisz odpowiedzi. Wszystko poniżej odnosi się do nich.
 
 Solid jest najmłodszym ekosystemem w tym zestawieniu i ma najmniej opcji, podzielonych na trzy fale.
 
-![Historia bibliotek i18n w JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![Historia bibliotek i18n w JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 <AccordionGroup>
 <Accordion header="Słowniki runtime: solid-i18next">
@@ -77,7 +77,7 @@ Dwa wybory architektoniczne wyjaśniają większość różnic w bundle size pom
 
 Wykres przedstawia szacunkowy payload dla teoretycznej aplikacji posiadającej od 1 do 10 stron, przetłumaczonej na od 1 do 10 locales, z około 30 KB tekstu na stronę.
 
-![Teoretyczny wyciek zawartości w zależności od architektury](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Teoretyczny wyciek zawartości w zależności od architektury](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 `@solid-primitives/i18n` nie narzuca niczego w żadnej z tych osi: używasz `createResource` do załadowania słownika per locale, co daje dynamiczne ładowanie, a reszta leży po Twojej stronie. `solid-i18next` posiada namespaces i lazy backendy, ale nic nie wymusza odpowiedniego mapowania, więc współdzielony komponent importujący `common` sprawia, że staje się on zależnością każdego route'a. Paraglide obsługuje oś podziału na strony dzięki tree-shakingowi, chociaż nie zadziałało to w implementacji [benchmarku Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/solid.md). Intlayer realizuje to poprzez deklaracje per komponent.
 
@@ -287,7 +287,7 @@ Commit'y, czas odpowiedzi na issues oraz to, czy ostatni minor release ukazał s
 
 Najczęściej instalowana biblioteka to ta, która pojawiła się jako pierwsza, a nie ta, która najlepiej pasuje do codebase Solid w 2026 roku. Liczba pobrań mierzy historię, a nie dopasowanie do potrzeb.
 
-![Tier lista bibliotek i18n w JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.png?raw=true)
+![Tier lista bibliotek i18n w JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.webp?raw=true)
 
 **Sprawdź, kto finansuje maintainera i co sprzedaje.**
 

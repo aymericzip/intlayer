@@ -25,7 +25,7 @@ Mô hình phản ứng (reactivity) của Solid làm thay đổi hoàn toàn nh�
 
 Hướng dẫn này liệt kê các câu hỏi cần trả lời trước, sau đó đối chiếu chúng với `@solid-primitives/i18n`, `solid-i18next`, Paraglide, `@lingui/solid` và Intlayer, dành cho Vite + Solid và cho SolidStart.
 
-![Hệ sinh thái thư viện Solid i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![Hệ sinh thái thư viện Solid i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## Mục lục
 
@@ -46,7 +46,7 @@ Hãy ghi lại các câu trả lời. Mọi nội dung bên dưới đều sẽ 
 
 Solid là hệ sinh thái trẻ nhất ở đây và có ít lựa chọn nhất, trải qua ba làn sóng.
 
-![Lịch sử các thư viện JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![Lịch sử các thư viện JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 <AccordionGroup>
 <Accordion header="Runtime dictionaries: solid-i18next">
@@ -77,7 +77,7 @@ Hai lựa chọn mang tính cấu trúc giải thích phần lớn sự khác bi
 
 Biểu đồ dưới đây ước tính payload cho một ứng dụng giả định từ 1 đến 10 trang, được dịch sang 1 đến 10 locale, với khoảng 30 KB văn bản trên mỗi trang.
 
-![Hiện tượng rò rỉ nội dung theo từng kiến trúc](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Hiện tượng rò rỉ nội dung theo từng kiến trúc](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 `@solid-primitives/i18n` không can thiệp vào cả hai trục: bạn dùng `createResource` cho dictionary của từng locale để tải động (dynamic loading), phần còn lại bạn tự xử lý. `solid-i18next` hỗ trợ namespaces và lazy backends, nhưng không có gì đảm bảo sự phân tách này, vì vậy một component dùng chung import `common` sẽ biến nó thành dependency của mọi route. Paraglide xử lý trục trang thông qua tree-shaking, mặc dù điều này chưa phát huy tác dụng trong triển khai [Solid benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/solid.md). Intlayer đạt được điều đó thông qua việc khai báo nội dung theo từng component.
 
@@ -287,7 +287,7 @@ Số lượng commit, thời gian phản hồi issue, và liệu bản minor rel
 
 Thư viện được cài đặt nhiều nhất là thư viện xuất hiện đầu tiên, chứ không phải thư viện phù hợp nhất với một codebase Solid năm 2026. Lượt tải đo lường lịch sử, không đo lường độ tương thích.
 
-![Bảng xếp hạng các thư viện JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.png?raw=true)
+![Bảng xếp hạng các thư viện JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.webp?raw=true)
 
 **Tìm hiểu xem ai tài trợ cho người bảo trì, và họ bán sản phẩm gì.**
 

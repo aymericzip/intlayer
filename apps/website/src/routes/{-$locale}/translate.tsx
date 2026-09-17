@@ -114,7 +114,7 @@ export const Route = createFileRoute('/{-$locale}/translate')({
               name: 'Intlayer Translate',
               description: String(translateProductContent.description),
               imageUrl:
-                'https://raw.githubusercontent.com/aymericzip/intlayer/main/docs/assets/CMS.png',
+                'https://raw.githubusercontent.com/aymericzip/intlayer/main/docs/assets/CMS.webp',
               offers,
             })
           ),

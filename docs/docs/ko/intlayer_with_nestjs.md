@@ -226,7 +226,7 @@ export default config;
 
 ![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 자동 생성된 타입들(기본적으로 ./types/intlayer.d.ts 위치)이 tsconfig.json 파일에 포함되어 있는지 확인하세요.
 

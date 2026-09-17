@@ -24,7 +24,7 @@ author: aymericzip
 
 This guide asks them first, then maps the answers to the libraries that fit, for plain Vite + Vue and for Nuxt.
 
-![Vue i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![Vue i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## Table of Contents
 
@@ -45,7 +45,7 @@ Write the answers down. Everything below refers back to them.
 
 The Vue ecosystem has fewer i18n libraries than React, and they come from different architectural waves.
 
-![History of JavaScript i18n libraries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![History of JavaScript i18n libraries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 <AccordionGroup>
 <Accordion header="Runtime dictionaries (2015 to 2019): vue-i18n, @nuxt/i18n">
@@ -76,7 +76,7 @@ Two structural choices explain most of the bundle difference between setups:
 
 The graph estimates the payload for a theoretical app of 1 to 10 pages, translated into 1 to 10 locales, with about 30 KB of text per page.
 
-![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 `vue-i18n` supports the dynamic axis: `setLocaleMessage` after an `import()` means you stop shipping nine locales nobody reads. What it does not give you is the page axis. A locale catalogue is one object, and loading it loads every page's copy. In an SPA nobody notices. In Nuxt, with `@nuxtjs/i18n` and more than ten pages, every route carries the strings of every other route, twice: in the JS chunk and in the SSR payload.
 
@@ -298,7 +298,7 @@ Commits, issue response time, and whether the last minor release was this year. 
 
 The most installed library is the one that shipped first, not the one that fits a 2026 Vue codebase. Downloads measure history, not fit.
 
-![Tier list of JavaScript i18n libraries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.png?raw=true)
+![Tier list of JavaScript i18n libraries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.webp?raw=true)
 
 **Ask who pays the maintainer, and what they sell.**
 

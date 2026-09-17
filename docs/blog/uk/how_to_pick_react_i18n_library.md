@@ -25,7 +25,7 @@ React не має вбудованих примітивів для i18n. Біб�
 
 Цей посібник пропонує піти від зворотного: спочатку дайте відповідь на кілька запитань про ваш проєкт, а потім зіставте відповіді з бібліотеками, які вам підходять. Він орієнтований на чистий React (Vite, React Router, TanStack Start). Next.js має власні обмеження, розглянуті у [порівнянні Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/next-i18next_vs_next-intl_vs_intlayer.md).
 
-![Екосистема бібліотек i18n для React](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![Екосистема бібліотек i18n для React](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## Table of Contents
 
@@ -48,7 +48,7 @@ React не має вбудованих примітивів для i18n. Біб�
 
 П'ятнадцять років JavaScript i18n укладаються в чотири архітектурні хвилі, і бібліотеки React, які ви порівнюватимете, належать до різних з них.
 
-![Історія бібліотек i18n у JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![Історія бібліотек i18n у JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 <AccordionGroup>
 <Accordion header="Словники під час виконання (2011–2017): i18next, react-intl">
@@ -84,7 +84,7 @@ JSON-каталоги, завантажені в пам'ять, пошук `t("a
 
 Графік нижче оцінює payload для теоретичного застосунку від 1 до 10 сторінок, перекладеного на 1–10 локалей, приблизно по 30 KB тексту на сторінку.
 
-![Теоретичний витік контенту за архітектурою](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Теоретичний витік контенту за архітектурою](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 Централізований контент зі статичними імпортами зростає за обома осями: 10 сторінок, помножені на 10 локалей, дають 300 KB тексту на кожній сторінці. Динамічні імпорти прибирають вісь локалей. Scoping прибирає вісь сторінок. Лише їхня комбінація залишає графік плоским.
 
@@ -365,7 +365,7 @@ export const CartSummary: FC<{ count: number }> = ({ count }) => {
 
 Найбільш встановлювана бібліотека, це та, що з'явилася першою, а не та, яка найкраще підходить для кодової бази React у 2026 році. Кількість завантажень відображає історію, а не відповідність потребам.
 
-![Рейтинг бібліотек i18n у JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.png?raw=true)
+![Рейтинг бібліотек i18n у JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.webp?raw=true)
 
 **Дізнайтеся, хто фінансує підтримку та що саме вони продають.**
 

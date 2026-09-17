@@ -999,7 +999,7 @@ Intlayer utiliza la ampliación de módulos para aprovechar las ventajas de Type
 
 ![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 Asegúrate de que tu configuración de TypeScript incluya los tipos autogenerados.
 

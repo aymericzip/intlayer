@@ -39,7 +39,7 @@ Bijvoorbeeld, een applicatie met 10 pagina's die in 10 talen zijn vertaald, kan 
 
 De onderstaande grafiek schat de payload voor een theoretische app met 1 tot 10 pagina's, vertaald in 1 tot 10 talen, met ongeveer 30 KB tekst per pagina. Content dynamisch laden per locale verwijdert de taal-as, content scopen per component of route verwijdert de pagina-as, en alleen de combinatie houdt de payload vlak.
 
-![Theoretische content leakage per architectuur](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Theoretische content leakage per architectuur](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 **Intlayer lost dit probleem op door build-time optimalisatie.** Het analyseert uw code om te detecteren welke woordenboeken daadwerkelijk per component worden gebruikt en voegt alleen de benodigde content weer in uw bundel in.
 

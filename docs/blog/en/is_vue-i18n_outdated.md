@@ -120,7 +120,7 @@ Components compiled with localized scopes averaged 196 KB with `vue-i18n` becaus
 
 The benchmark is a single data point. On a theoretical app of 1 to 10 pages in 1 to 10 locales (about 30 KB of text per page), a centralized catalog with static imports grows with both axes. Lazy-loading per locale removes one axis, scoping content per component removes the other, and only the combination stays flat.
 
-![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 ## Why Is vue-i18n Heavy?
 

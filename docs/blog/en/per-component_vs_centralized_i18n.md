@@ -83,7 +83,7 @@ Among them: splitting into namespaces, dynamically loading JSON files (`await im
 
 Here is what each choice costs on a theoretical app of 1 to 10 pages in 1 to 10 locales, with about 30 KB of text per page. Dynamic import cuts the locale axis, scoping cuts the page axis, and only the combination stays flat.
 
-![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 At the same time, you should know that when you dynamically load your content, you introduce additional requests to your server. Each extra `useState` or hook means an extra server request.
 
@@ -117,9 +117,9 @@ Sure, and that's an massive move forward. Let's look at the comparison of the ma
 
 The first example does not include lazy-loaded translations per locale and no namespace splitting. The second includes content purging + dynamic loading for translations.
 
-| Optimized bundle                                                                                                         | Bundle not optimized                                                                                  |
-| ------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------- |
-| ![no optimized bundle](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.png?raw=true) | ![optimized bundle](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.png?raw=true) |
+| Optimized bundle                                                                                                          | Bundle not optimized                                                                                   |
+| ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| ![no optimized bundle](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.webp?raw=true) | ![optimized bundle](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.webp?raw=true) |
 
 So thanks for namespaces, we moved from this structure:
 

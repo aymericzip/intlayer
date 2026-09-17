@@ -49,7 +49,7 @@ author: aymericzip
 
 本記事では、2011 年から 2026 年までの技術進化を総括します。各世代のツールが何を解決しようとし、何が成功し、どこで壁にぶつかったのか、そしてフロントエンドアーキテクチャの変遷が現代の i18n にどう結実しているのかを紐解きます。
 
-![JavaScript 国際化ライブラリのエコシステム](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![JavaScript 国際化ライブラリのエコシステム](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## 目次
 
@@ -237,7 +237,7 @@ ICU メッセージ構文の解釈や正規表現による変数展開を実行�
 
 ## JavaScript i18n における 4 つのアーキテクチャ世代
 
-![JavaScript i18n の技術進化マップ](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![JavaScript i18n の技術進化マップ](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 15 年間の進化を鳥瞰すると、JavaScript における国際化のアプローチは大きく 4 つの世代に分類できます。
 

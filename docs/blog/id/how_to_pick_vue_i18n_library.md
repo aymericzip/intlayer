@@ -24,7 +24,7 @@ author: aymericzip
 
 Panduan ini membahas pertanyaan-pertanyaan tersebut terlebih dahulu, lalu memetakan jawabannya ke library yang sesuai, baik untuk Vite + Vue murni maupun untuk Nuxt.
 
-![Ekosistem library Vue i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![Ekosistem library Vue i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## Daftar Isi
 
@@ -45,7 +45,7 @@ Catat jawabannya. Semua pembahasan di bawah ini akan merujuk kembali ke poin-poi
 
 Ekosistem Vue memiliki lebih sedikit library i18n dibandingkan React, dan mereka berasal dari gelombang arsitektur yang berbeda.
 
-![Sejarah library i18n JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![Sejarah library i18n JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 <AccordionGroup>
 <Accordion header="Runtime dictionaries (2015 hingga 2019): vue-i18n, @nuxt/i18n">
@@ -76,7 +76,7 @@ Dua pilihan struktural menjelaskan sebagian besar perbedaan ukuran bundle antar 
 
 Grafik berikut memperkirakan payload untuk aplikasi teoritis dengan 1 hingga 10 halaman, diterjemahkan ke dalam 1 hingga 10 locale, dengan sekitar 30 KB teks per halaman.
 
-![Kebocoran konten teoritis berdasarkan arsitektur](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Kebocoran konten teoritis berdasarkan arsitektur](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 `vue-i18n` mendukung sumbu dinamis: `setLocaleMessage` setelah `import()` berarti Anda berhenti mengirim sembilan locale yang tidak dibaca siapa pun. Namun, yang tidak diberikannya adalah pemisahan berdasarkan halaman. Katalog locale adalah satu objek tunggal, dan memuatnya berarti memuat seluruh teks setiap halaman. Dalam SPA, tidak ada yang menyadarinya. Di Nuxt, dengan `@nuxtjs/i18n` dan lebih dari sepuluh halaman, setiap route membawa string dari setiap route lainnya, dua kali lipat: di dalam chunk JS dan di dalam SSR payload.
 
@@ -292,7 +292,7 @@ Aktivitas commit, waktu respons isu, dan apakah rilis minor terakhir dilakukan p
 
 Library yang paling banyak dipasang adalah library yang dirilis pertama kali, bukan yang paling cocok untuk codebase Vue tahun 2026. Jumlah unduhan mengukur sejarah, bukan kecocokan.
 
-![Tier list library i18n JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.png?raw=true)
+![Tier list library i18n JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.webp?raw=true)
 
 **Ketahui siapa yang mendanai maintainer, dan apa yang mereka jual.**
 

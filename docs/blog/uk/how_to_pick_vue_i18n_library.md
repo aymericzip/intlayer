@@ -25,7 +25,7 @@ author: aymericzip
 
 Цей посібник спочатку розглядає ці запитання, а потім зіставляє відповіді з відповідними бібліотеками як для звичайного Vite + Vue, так і для Nuxt.
 
-![Екосистема бібліотек Vue i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![Екосистема бібліотек Vue i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## Зміст
 
@@ -46,7 +46,7 @@ author: aymericzip
 
 Екосистема Vue має менше бібліотек i18n, ніж React, і вони походять з різних архітектурних хвиль.
 
-![Історія бібліотек JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![Історія бібліотек JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 <AccordionGroup>
 <Accordion header="Словники часу виконання (2015–2019): vue-i18n, @nuxt/i18n">
@@ -77,7 +77,7 @@ Paraglide генерує окрему функцію для кожного по�
 
 Графік оцінює payload для теоретичного додатку від 1 до 10 сторінок, перекладеного на кількість локалей від 1 до 10, із приблизно 30 КБ тексту на сторінку.
 
-![Теоретичний витік контенту за архітектурою](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Теоретичний витік контенту за архітектурою](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 `vue-i18n` підтримує динамічну вісь: виклик `setLocaleMessage` після `import()` дозволяє припинити завантаження дев'яти локалей, які ніхто не читає. Проте він не надає оптимізації за віссю сторінок. Каталог локалі є єдиним об'єктом, і його завантаження підтягує тексти для кожної сторінки. У SPA цього ніхто не помічає. У Nuxt з `@nuxtjs/i18n` за наявності понад десяти сторінок кожен маршрут тягне за собою тексти всіх інших маршрутів двічі: у JS chunk та в SSR payload.
 
@@ -293,7 +293,7 @@ const { title, items } = useIntlayer("cart-summary");
 
 Найчастіше встановлюють бібліотеку, яка з'явилася першою, а не ту, що найкраще підходить для кодової бази Vue у 2026 році. Завантаження відображають історію, а не відповідність вимогам.
 
-![Рейтинг бібліотек JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.png?raw=true)
+![Рейтинг бібліотек JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.webp?raw=true)
 
 **Дізнайтеся, хто фінансує розробку та що вони продають.**
 

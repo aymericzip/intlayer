@@ -49,7 +49,7 @@ Die Lösungen haben sich grundlegend gewandelt: von globalen JavaScript-Objekten
 
 Dieser Artikel beleuchtet diese Entwicklung von 2011 bis 2026: welche Probleme die einzelnen Werkzeuge lösen wollten, was funktionierte, wo Grenzen lagen und wie moderne Frontend-Architekturen die i18n von heute bestimmen.
 
-![JavaScript Internationalisierungs-Ökosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![JavaScript Internationalisierungs-Ökosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## Inhaltsverzeichnis
 
@@ -237,7 +237,7 @@ Die folgenden Tabs zeigen, wie die einzelnen Ökosysteme auf diese Herausforderu
 
 ## Die vier Architektur-Epochen der JavaScript-i18n
 
-![Die Geschichte der JavaScript-i18n-Bibliotheken](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![Die Geschichte der JavaScript-i18n-Bibliotheken](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 Rückblickend auf fünfzehn Jahre Entwicklung lässt sich die Geschichte der JavaScript-Internationalisierung in vier prägende Architektur-Epochen unterteilen:
 

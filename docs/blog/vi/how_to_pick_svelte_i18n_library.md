@@ -25,7 +25,7 @@ Svelte không cung cấp sẵn bất kỳ công cụ nào cho i18n. Không có `
 
 Hướng dẫn này liệt kê các câu hỏi cần trả lời trước tiên, sau đó đối chiếu câu trả lời với `svelte-i18n`, Paraglide, `typesafe-i18n`, `wuchale` và Intlayer, dành cho Vite + Svelte và SvelteKit.
 
-![Hệ sinh thái thư viện Svelte i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![Hệ sinh thái thư viện Svelte i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## Mục lục
 
@@ -46,7 +46,7 @@ Hãy ghi lại các câu trả lời. Mọi nội dung bên dưới đều tham 
 
 Svelte i18n xuất hiện muộn hơn React hoặc Vue, và đã tiến thẳng tới các làn sóng compile-time.
 
-![Lịch sử các thư viện JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![Lịch sử các thư viện JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 <AccordionGroup>
 <Accordion header="Runtime dictionaries (2019 đến 2020): svelte-i18n, sveltekit-i18n">
@@ -77,7 +77,7 @@ Hai lựa chọn về mặt cấu trúc giải thích phần lớn sự khác bi
 
 Biểu đồ ước tính dung lượng payload cho một ứng dụng giả định từ 1 đến 10 trang, được dịch sang 1 đến 10 locale, với khoảng 30 KB văn bản cho mỗi trang.
 
-![Mức độ rò rỉ nội dung theo lý thuyết dựa trên kiến trúc](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Mức độ rò rỉ nội dung theo lý thuyết dựa trên kiến trúc](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 `svelte-i18n` mặc định nằm ở góc trên bên trái: `register("fr", () => import("./fr.json"))` cho phép tải động theo từng locale, nhưng catalog của một locale là một object duy nhất và việc tải nó sẽ tải toàn bộ nội dung của mọi trang. Paraglide là trường hợp thú vị: vì mỗi message là một export riêng biệt, tree-shaking tự động tối ưu theo từng trang, và [Svelte benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/svelte.md) xác nhận nó hoạt động đúng như quảng cáo trên Vite + Svelte (điều này không xảy ra trong các benchmark React và Next.js). Intlayer đạt được kết quả tương tự thông qua việc khai báo theo từng component.
 
@@ -288,7 +288,7 @@ Số lượng commit, thời gian phản hồi issue, và liệu bản minor rel
 
 Thư viện được cài đặt nhiều nhất là thư viện ra mắt đầu tiên, không phải thư viện phù hợp nhất cho codebase Svelte vào năm 2026. Lượt tải phản ánh lịch sử, không phản ánh mức độ phù hợp.
 
-![Bảng xếp hạng các thư viện JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.png?raw=true)
+![Bảng xếp hạng các thư viện JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.webp?raw=true)
 
 **Tìm hiểu ai tài trợ cho maintainer và họ kinh doanh gì.**
 

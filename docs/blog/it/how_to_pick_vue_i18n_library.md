@@ -25,7 +25,7 @@ author: aymericzip
 
 Questa guida le pone per prima, per poi mappare le risposte sulle librerie più adatte, sia per Vite + Vue puro sia per Nuxt.
 
-![Ecosistema delle librerie i18n per Vue](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![Ecosistema delle librerie i18n per Vue](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## Indice
 
@@ -46,7 +46,7 @@ Scrivete le risposte. Tutto ciò che segue fa riferimento ad esse.
 
 L'ecosistema Vue conta meno librerie i18n rispetto a React, e provengono da ondate architetturali differenti.
 
-![Storia delle librerie i18n JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![Storia delle librerie i18n JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 <AccordionGroup>
 <Accordion header="Dizionari a runtime (dal 2015 al 2019): vue-i18n, @nuxt/i18n">
@@ -77,7 +77,7 @@ Due scelte strutturali spiegano la maggior parte delle differenze di bundle tra 
 
 Il grafico stima il payload per un'applicazione teorica da 1 a 10 pagine, tradotta in 1-10 lingue, con circa 30 KB di testo per pagina.
 
-![Perdita teorica di contenuto per architettura](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Perdita teorica di contenuto per architettura](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 `vue-i18n` supporta l'asse dinamico: `setLocaleMessage` dopo un `import()` permette di evitare di distribuire nove lingue che nessuno legge. Ciò che non offre è l'asse delle pagine. Un catalogo per lingua è un unico oggetto, e caricarlo comporta il caricamento dei testi di ogni pagina. In una SPA nessuno se ne accorge. In Nuxt, con `@nuxtjs/i18n` e più di dieci pagine, ogni route trasporta le stringhe di ogni altra route, due volte: nel chunk JS e nel payload SSR.
 
@@ -299,7 +299,7 @@ Commit, tempi di risposta alle issue e se l'ultima minor release risale a quest'
 
 La libreria più installata è quella rilasciata per prima, non necessariamente quella più adatta a un codebase Vue nel 2026. I download misurano la storia, non l'idoneità.
 
-![Classifica tier list delle librerie i18n per JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.png?raw=true)
+![Classifica tier list delle librerie i18n per JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.webp?raw=true)
 
 **Chiedetevi chi finanzia il manutentore e cosa vende.**
 

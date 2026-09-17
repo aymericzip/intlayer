@@ -25,7 +25,7 @@ El modelo de reactividad de Solid cambia lo que una librería de i18n debe hacer
 
 Esta guía enumera las preguntas que debes responder primero, y luego las relaciona con `@solid-primitives/i18n`, `solid-i18next`, Paraglide, `@lingui/solid` e Intlayer, tanto para Vite + Solid como para SolidStart.
 
-![Ecosistema de librerías Solid i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![Ecosistema de librerías Solid i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## Tabla de contenidos
 
@@ -46,7 +46,7 @@ Anota las respuestas. Todo lo que sigue hace referencia a ellas.
 
 Solid es el ecosistema más joven aquí y cuenta con la menor cantidad de opciones, distribuidas en tres olas.
 
-![Historia de las librerías de i18n en JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![Historia de las librerías de i18n en JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 <AccordionGroup>
 <Accordion header="Diccionarios en tiempo de ejecución: solid-i18next">
@@ -77,7 +77,7 @@ Dos decisiones estructurales explican la mayor parte de la diferencia de bundle 
 
 El gráfico estima el payload para una aplicación teórica de 1 a 10 páginas, traducida a 1 a 10 locales, con unos 30 KB de texto por página.
 
-![Fuga teórica de contenido por arquitectura](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Fuga teórica de contenido por arquitectura](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 `@solid-primitives/i18n` no hace nada respecto a ninguno de los dos ejes: utilizas `createResource` para cargar un diccionario por locale, lo que te da carga dinámica, y el resto corre por tu cuenta. `solid-i18next` cuenta con namespaces y backends lazy, pero nada impone el mapeo, por lo que un componente compartido que importa `common` lo convierte en una dependencia de cada ruta. Paraglide aborda el eje de las páginas mediante tree-shaking, aunque no tuvo efecto en la implementación del [benchmark de Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/benchmark/solid.md). Intlayer lo logra mediante declaraciones por componente.
 
@@ -295,7 +295,7 @@ Commits, tiempo de respuesta a issues y si la última versión menor fue este a�
 
 La librería más instalada es la que se lanzó primero, no la que encaja en un codebase de Solid en 2026. Las descargas miden la historia, no el ajuste.
 
-![Clasificación de librerías de i18n en JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.png?raw=true)
+![Clasificación de librerías de i18n en JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.webp?raw=true)
 
 **Pregunta quién paga al mantenedor y qué venden.**
 

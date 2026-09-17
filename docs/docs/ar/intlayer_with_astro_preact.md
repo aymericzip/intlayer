@@ -590,7 +590,7 @@ bun run build # Or bun run dev
 
 ![الإكمال التلقائي](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![خطأ الترجمة](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![خطأ الترجمة](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 تستخدم Intlayer تقنية توسيع الوحدات (module augmentation) للاستفادة من TypeScript، مما يجعل برمجتك أكثر قوة. تأكد من أن تكوين TypeScript يتضمن الأنواع المولدة تلقائيًا ومهيأ لـ Preact:
 

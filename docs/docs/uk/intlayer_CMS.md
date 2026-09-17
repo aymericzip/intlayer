@@ -44,7 +44,7 @@ Intlayer CMS, це застосунок, який дозволяє винест�
 
 Для цього Intlayer вводить поняття «віддалених словників» (distant dictionaries).
 
-![Інтерфейс Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/assets/CMS.png)
+![Інтерфейс Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/assets/CMS.webp)
 
 ## Зміст
 

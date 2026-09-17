@@ -129,7 +129,7 @@ Można temu zapobiegać, wydzielając namespace'y i ładując je warunkowo. Utrz
 
 Poniższy wykres szacuje rozmiar treści dla teoretycznej aplikacji mającej od 1 do 10 stron, przetłumaczonej na 1 do 10 języków, z około 30 KB tekstu na stronę. Dynamiczne ładowanie treści per locale usuwa oś języków, ograniczenie treści do komponentu lub trasy usuwa oś stron, a tylko połączenie obu utrzymuje rozmiar na stałym poziomie.
 
-![Teoretyczny wyciek treści w zależności od architektury](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Teoretyczny wyciek treści w zależności od architektury](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 Intlayer rozwiązuje ten problem analizą statyczną: [kompilator Intlayer](https://intlayer.org/pl/doc/compiler) przygotowuje dla każdej trasy wyłącznie te teksty, które faktycznie się na niej znajdują, redukując wyciek do **0.0%**.
 

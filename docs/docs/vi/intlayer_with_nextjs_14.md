@@ -975,7 +975,7 @@ Intlayer sử dụng module augmentation để tận dụng lợi ích của Typ
 
 ![Tự động hoàn thành](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![Lỗi dịch thuật](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![Lỗi dịch thuật](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 Đảm bảo cấu hình TypeScript của bạn bao gồm các kiểu được tạo tự động.
 

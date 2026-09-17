@@ -25,7 +25,7 @@ Svelteにはi18n用の機能が標準で用意されていません。`$t`も、
 
 本ガイドでは、まず確認すべき質問事項を整理し、それらに基づいて`svelte-i18n`、Paraglide、`typesafe-i18n`、`wuchale`、Intlayerを、Vite + SvelteおよびSvelteKitの両方の環境で比較・マッピングしていきます。
 
-![Svelte i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![Svelte i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## 目次
 
@@ -46,7 +46,7 @@ Svelteにはi18n用の機能が標準で用意されていません。`$t`も、
 
 Svelteのi18nはReactやVueよりも後に登場したため、初期の段階をスキップして直接コンパイル時の波へと進みました。
 
-![History of JavaScript i18n libraries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![History of JavaScript i18n libraries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 <AccordionGroup>
 <Accordion header="ランタイム辞書（2019年〜2020年）: svelte-i18n, sveltekit-i18n">
@@ -77,7 +77,7 @@ Paraglideは各メッセージをエクスポート関数にコンパイルし�
 
 以下のグラフは、1〜10ページ、1〜10ロケール、1ページあたり約30 KBのテキストを持つ理論上のアプリにおけるペイロードの推定値を示しています。
 
-![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 `svelte-i18n`はデフォルトで左上に位置します。`register("fr", () => import("./fr.json"))`によりロケールごとの動的読み込みは可能ですが、ロケールカタログは1つのオブジェクトであるため、それを読み込むと全ページのテキストが読み込まれます。Paraglideは興味深いケースです。すべてのメッセージが個別のエクスポートとなるため、ツリーシェイキングによってページ軸の最適化が無償で得られます。[Svelteベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/svelte.md)でも、Vite + Svelte環境で期待通りに機能することが確認されています（ReactやNext.jsのベンチマークでは機能しませんでした）。Intlayerはコンポーネントごとの宣言によって同じ領域に到達します。
 
@@ -297,7 +297,7 @@ export default cartSummaryContent;
 
 最もインストールされているライブラリは、最初にリリースされたものであり、必ずしも2026年のSvelteコードベースに適合しているわけではありません。ダウンロード数は歴史の長さを示すものであり、適合度を示すものではありません。
 
-![Tier list of JavaScript i18n libraries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.png?raw=true)
+![Tier list of JavaScript i18n libraries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.webp?raw=true)
 
 **メンテナーの収益モデルと販売対象を確認する。**
 

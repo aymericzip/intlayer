@@ -39,7 +39,7 @@ JSON 파일에 의존하는 전통적인 i18n 솔루션에서 가장 일반적�
 
 아래 그래프는 1~~10개의 페이지를 1~~10개 언어로 번역한 이론상의 앱(페이지당 약 30KB의 텍스트)의 콘텐츠 용량을 추정한 것입니다. 로케일별 동적 로딩은 언어 축을 없애고, 컴포넌트나 라우트 단위로 콘텐츠를 스코프하면 페이지 축이 없어지며, 두 가지를 결합했을 때만 용량이 일정하게 유지됩니다.
 
-![아키텍처별 이론상의 콘텐츠 누수](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![아키텍처별 이론상의 콘텐츠 누수](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 **Intlayer는 빌드 시간 최적화를 통해 이 문제를 해결합니다.** 코드를 분석하여 구성 요소(component)당 실제로 사용되는 사전이 무엇인지 감지하고, 필요한 콘텐츠만 번들에 다시 삽입합니다.
 

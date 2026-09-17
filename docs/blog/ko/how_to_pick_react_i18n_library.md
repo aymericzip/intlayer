@@ -25,7 +25,7 @@ React는 기본 i18n 프리미티브를 제공하지 않습니다. 첫날 선택
 
 이 가이드는 반대로 접근합니다. 먼저 프로젝트에 대한 몇 가지 질문에 답한 다음, 해당 답변에 맞는 라이브러리를 매핑합니다. 이 글은 순수 React(Vite, React Router, TanStack Start)에 초점을 맞춥니다. Next.js는 고유한 제약 사항이 있으며, 이는 [Next.js 비교](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/next-i18next_vs_next-intl_vs_intlayer.md)에서 다룹니다.
 
-![React i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![React i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## 목차
 
@@ -48,7 +48,7 @@ React는 기본 i18n 프리미티브를 제공하지 않습니다. 첫날 선택
 
 지난 15년간의 JavaScript i18n 역사는 4개의 아키텍처 흐름으로 나뉘며, 비교 대상 React 라이브러리들도 서로 다른 세대에 속해 있습니다.
 
-![History of JavaScript i18n libraries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![History of JavaScript i18n libraries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 <AccordionGroup>
 <Accordion header="런타임 딕셔너리 (2011 ~ 2017): i18next, react-intl">
@@ -84,7 +84,7 @@ SSR 및 Server Components를 중심으로 설계되었습니다. 서버에서 �
 
 아래 그래프는 페이지당 약 30KB의 텍스트가 포함된 1~10개 페이지와 1~10개 로케일로 번역된 가상 앱의 페이로드를 추정한 것입니다.
 
-![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 정적 import를 사용하는 중앙집중식 콘텐츠는 두 축 모두에서 증가합니다. 10개 페이지 x 10개 로케일은 모든 페이지에서 300KB의 텍스트를 의미합니다. 동적 import는 로케일 축의 부담을 없앱니다. 범위 제한(scoping)은 페이지 축의 부담을 없앱니다. 오직 두 가지를 조합해야만 일정한 크기를 유지할 수 있습니다.
 
@@ -371,7 +371,7 @@ export const CartSummary: FC<{ count: number }> = ({ count }) => {
 
 가장 많이 설치된 라이브러리는 가장 먼저 출시된 라이브러리일 뿐, 2026년 React 코드베이스에 가장 적합한 라이브러리는 아닐 수 있습니다. 다운로드 수는 적합성이 아닌 역사를 나타냅니다.
 
-![Tier list of JavaScript i18n libraries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.png?raw=true)
+![Tier list of JavaScript i18n libraries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.webp?raw=true)
 
 **유지보수 비용을 누가 지원하고, 무엇을 판매하는지 살펴보세요.**
 

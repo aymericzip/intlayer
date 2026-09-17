@@ -129,7 +129,7 @@ Có thể giảm bớt điều này bằng cách chia nhỏ file JSON thành cá
 
 Biểu đồ dưới đây ước tính dung lượng nội dung cho một ứng dụng giả định gồm 1 đến 10 trang, được dịch sang 1 đến 10 ngôn ngữ, với khoảng 30 KB văn bản mỗi trang. Tải nội dung động theo locale loại bỏ trục ngôn ngữ, giới hạn nội dung theo component hoặc route loại bỏ trục trang, và chỉ khi kết hợp cả hai thì dung lượng mới giữ nguyên.
 
-![Rò rỉ nội dung lý thuyết theo kiến trúc](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Rò rỉ nội dung lý thuyết theo kiến trúc](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 Intlayer giải quyết vấn đề bằng phân tích tĩnh: [trình biên dịch Intlayer](https://intlayer.org/vi/doc/compiler) chỉ đóng gói những nội dung thực sự được gọi trên route đó, đưa tỷ lệ rò rỉ giữa các trang về mức **0.0%**.
 

@@ -49,7 +49,7 @@ author: aymericzip
 
 यह लेख 2011 से 2026 तक के इस विकास पर नज़र डालता है: प्रत्येक पीढ़ी के उपकरणों ने क्या हल करने का प्रयास किया, क्या सफल रहा, क्या नहीं, और फ्रंटएंड आर्किटेक्चर ने आज i18n के हमारे तरीके को कैसे प्रभावित किया।
 
-![जावास्क्रिप्ट अंतर्राष्ट्रीयकरण लाइब्रेरी इकोसिस्टम](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![जावास्क्रिप्ट अंतर्राष्ट्रीयकरण लाइब्रेरी इकोसिस्टम](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## विषय सूची
 
@@ -237,7 +237,7 @@ ICU संदेश सिंटैक्स को पार्स करना
 
 ## जावास्क्रिप्ट i18n के चार वास्तुशिल्प युग
 
-![जावास्क्रिप्ट i18n लाइब्रेरीज़ का इतिहास](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![जावास्क्रिप्ट i18n लाइब्रेरीज़ का इतिहास](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 पंद्रह वर्षों के विकास को देखते हुए, हम जावास्क्रिप्ट अंतर्राष्ट्रीयकरण के इतिहास को चार अलग-अलग वास्तुशिल्प युगों में वर्गीकृत कर सकते हैं:
 

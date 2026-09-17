@@ -26,7 +26,7 @@ O React não inclui nenhuma primitiva de i18n. A biblioteca que você escolhe no
 
 Este guia segue o caminho inverso: responda a algumas perguntas sobre o seu projeto primeiro e, em seguida, mapeie as respostas para as bibliotecas mais adequadas. O foco aqui é o React puro (Vite, React Router, TanStack Start). O Next.js tem suas próprias restrições, abordadas na [comparação para Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/next-i18next_vs_next-intl_vs_intlayer.md).
 
-![Ecossistema de bibliotecas de i18n para React](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![Ecossistema de bibliotecas de i18n para React](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## Índice
 
@@ -49,7 +49,7 @@ Anote as respostas. Tudo o que segue faz referência a elas.
 
 Quinze anos de JavaScript i18n cabem em quatro ondas arquiteturais, e as bibliotecas React que você vai comparar vêm de ondas diferentes.
 
-![História das bibliotecas de i18n em JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![História das bibliotecas de i18n em JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 <AccordionGroup>
 <Accordion header="Dicionários em runtime (2011 a 2017): i18next, react-intl">
@@ -85,7 +85,7 @@ Toda biblioteca de i18n para React tem o mesmo formato: uma store, um provider, 
 
 O gráfico abaixo estima o payload para uma aplicação teórica de 1 a 10 páginas, traduzida para 1 a 10 locales, com cerca de 30 KB de texto por página.
 
-![Vazamento de conteúdo teórico por arquitetura](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Vazamento de conteúdo teórico por arquitetura](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 Conteúdo centralizado com imports estáticos cresce em ambos os eixos: 10 páginas vezes 10 locales representam 300 KB de texto em cada página. Imports dinâmicos removem o eixo dos locales. O escopo por componente remove o eixo das páginas. Apenas a combinação de ambos mantém o tamanho estável.
 
@@ -372,7 +372,7 @@ Commits, tempo de resposta a issues e se a última versão minor foi lançada es
 
 A biblioteca mais instalada é a que foi lançada primeiro, não a que melhor se adapta a uma codebase React em 2026. Downloads medem história, não adequação.
 
-![Tier list de bibliotecas de i18n em JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.png?raw=true)
+![Tier list de bibliotecas de i18n em JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.webp?raw=true)
 
 **Pergunte quem financia o mantenedor e o que eles vendem.**
 

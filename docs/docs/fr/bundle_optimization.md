@@ -39,7 +39,7 @@ Par exemple, une application avec 10 pages traduites en 10 langues peut entraîn
 
 Le graphique ci-dessous estime le poids du contenu pour une application théorique de 1 à 10 pages traduite en 1 à 10 langues, avec environ 30 Ko de texte par page. Charger le contenu dynamiquement par locale supprime l'axe des langues, scoper le contenu par composant ou par route supprime l'axe des pages, et seule la combinaison des deux garde un poids stable.
 
-![Fuite de contenu théorique selon l'architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Fuite de contenu théorique selon l'architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 **Intlayer résout ce problème grâce à une optimisation au moment de la compilation.** Il analyse votre code pour détecter quels dictionnaires sont réellement utilisés par composant et réinjecte uniquement le contenu nécessaire dans votre bundle.
 

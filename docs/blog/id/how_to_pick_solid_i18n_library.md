@@ -25,7 +25,7 @@ Model reactivity milik Solid mengubah apa yang perlu dilakukan oleh library i18n
 
 Panduan ini mencantumkan pertanyaan yang harus dijawab terlebih dahulu, lalu memetakannya ke `@solid-primitives/i18n`, `solid-i18next`, Paraglide, `@lingui/solid`, dan Intlayer, untuk Vite + Solid dan untuk SolidStart.
 
-![Ekosistem library Solid i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![Ekosistem library Solid i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## Daftar Isi
 
@@ -46,7 +46,7 @@ Tuliskan jawabannya. Semua pembahasan di bawah ini merujuk kembali ke jawaban-ja
 
 Solid adalah ekosistem termuda di sini dan memiliki opsi paling sedikit, yang terbagi dalam tiga gelombang.
 
-![Sejarah library JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![Sejarah library JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 <AccordionGroup>
 <Accordion header="Kamus runtime: solid-i18next">
@@ -77,7 +77,7 @@ Dua pilihan struktural menjelaskan sebagian besar perbedaan bundle antar setup:
 
 Grafik ini memperkirakan payload untuk aplikasi teoritis berisi 1 hingga 10 halaman, diterjemahkan ke dalam 1 hingga 10 locale, dengan sekitar 30 KB teks per halaman.
 
-![Kebocoran konten teoritis berdasarkan arsitektur](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Kebocoran konten teoritis berdasarkan arsitektur](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 `@solid-primitives/i18n` tidak menangani kedua sumbu tersebut: Anda melakukan `createResource` untuk kamus per locale, yang memberikan pemuatan dinamis, dan sisanya Anda tangani sendiri. `solid-i18next` memiliki namespace dan lazy backend, tetapi tidak ada yang memaksakan pemetaannya, sehingga komponen bersama yang mengimpor `common` menjadikannya dependensi dari setiap route. Paraglide menangani sumbu halaman melalui tree-shaking, meskipun hal tersebut tidak berpengaruh dalam implementasi [benchmark Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/solid.md). Intlayer menanganinya melalui deklarasi per-komponen.
 
@@ -300,7 +300,7 @@ Commit, waktu respons issue, dan apakah rilis minor terakhir dilakukan tahun ini
 
 Library yang paling banyak diunduh adalah yang pertama kali dirilis, bukan yang paling cocok untuk codebase Solid di tahun 2026. Jumlah unduhan mengukur riwayat, bukan kecocokan.
 
-![Daftar peringkat library JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.png?raw=true)
+![Daftar peringkat library JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.webp?raw=true)
 
 **Cari tahu siapa yang mendanai maintainer, dan apa yang mereka jual.**
 

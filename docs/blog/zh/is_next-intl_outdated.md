@@ -129,7 +129,7 @@ export default async function RootLayout({ children, params }) {
 
 下图估算了一个理论应用的内容体积：1 到 10 个页面，翻译成 1 到 10 种语言，每页约 30 KB 文本。按 locale 动态加载内容可消除语言维度，按组件或路由划分内容可消除页面维度，只有两者结合才能让体积保持平稳。
 
-![按架构划分的理论内容泄漏](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![按架构划分的理论内容泄漏](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 Intlayer 采用静态分析解决该问题：[Intlayer 编译器](https://intlayer.org/zh/doc/compiler)精准提取各个路由实际调用的翻译字段，使跨页面泄漏率直降为 **0.0%**。
 

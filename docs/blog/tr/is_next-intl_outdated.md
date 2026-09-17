@@ -129,7 +129,7 @@ Bunu önlemek için JSON dosyalarını ad alanlarına ayırmak mümkündür. Anc
 
 Aşağıdaki grafik, sayfa başına yaklaşık 30 KB metin içeren, 1 ila 10 sayfadan oluşan ve 1 ila 10 dile çevrilmiş teorik bir uygulamanın içerik yükünü tahmin eder. İçeriği locale bazında dinamik yüklemek dil eksenini ortadan kaldırır, içeriği bileşen veya rota bazında sınırlamak sayfa eksenini ortadan kaldırır ve yalnızca ikisinin birleşimi yükü sabit tutar.
 
-![Mimariye göre teorik içerik sızıntısı](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Mimariye göre teorik içerik sızıntısı](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 Intlayer bunu statik analiz ile çözer: [Intlayer derleyicisi](https://intlayer.org/tr/doc/compiler) sadece o rotada çağrılan metinleri paketler, rotalar arası sızıntıyı **%0.0'a** indirir.
 

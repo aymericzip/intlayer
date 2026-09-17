@@ -82,7 +82,7 @@ Oczywiście autorzy bibliotek zdają sobie sprawę z tych ograniczeń i proponuj
 
 Poniższy wykres szacuje rozmiar treści dla teoretycznej aplikacji mającej od 1 do 10 stron, przetłumaczonej na 1 do 10 języków, z około 30 KB tekstu na stronę. Dynamiczne ładowanie treści per locale usuwa oś języków, ograniczenie treści do komponentu lub trasy usuwa oś stron, a tylko połączenie obu utrzymuje rozmiar na stałym poziomie.
 
-![Teoretyczny wyciek treści w zależności od architektury](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Teoretyczny wyciek treści w zależności od architektury](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 Jednocześnie powinieneś wiedzieć, że gdy dynamicznie ładujesz swoją zawartość, wprowadzasz dodatkowe żądania do serwera. Każde dodatkowe `useState` lub hook oznacza dodatkowe żądanie do serwera.
 
@@ -116,9 +116,9 @@ Oczywiście, to ogromny krok naprzód. Przyjrzyjmy się porównaniu rozmiaru gł
 
 Pierwszy przykład nie uwzględnia leniwego ładowania tłumaczeń dla każdego locale i nie stosuje podziału na namespaces. Drugi obejmuje content purging + dynamiczne ładowanie tłumaczeń.
 
-| Zoptymalizowany bundle                                                                                                        | Bundle bez optymalizacji                                                                                    |
-| ----------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
-| ![bundle bez optymalizacji](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.png?raw=true) | ![zoptymalizowany bundle](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.png?raw=true) |
+| Zoptymalizowany bundle                                                                                                         | Bundle bez optymalizacji                                                                                     |
+| ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ |
+| ![bundle bez optymalizacji](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.webp?raw=true) | ![zoptymalizowany bundle](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.webp?raw=true) |
 
 Dzięki namespaces, przeszliśmy z tej struktury:
 

@@ -24,7 +24,7 @@ author: aymericzip
 
 Ce guide pose d'abord ces questions, puis fait correspondre les réponses aux bibliothèques adaptées, pour Vite + Vue standard et pour Nuxt.
 
-![Écosystème des bibliothèques i18n pour Vue](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![Écosystème des bibliothèques i18n pour Vue](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## Table des matières
 
@@ -45,7 +45,7 @@ Notez vos réponses. Tout ce qui suit y fait référence.
 
 L'écosystème Vue compte moins de bibliothèques i18n que React, et elles sont issues de différentes vagues architecturales.
 
-![Histoire des bibliothèques i18n JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![Histoire des bibliothèques i18n JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 <AccordionGroup>
 <Accordion header="Dictionnaires au runtime (2015 à 2019) : vue-i18n, @nuxt/i18n">
@@ -76,7 +76,7 @@ Deux choix structurels expliquent la majeure partie des différences de taille d
 
 Le graphique estime le payload pour une application théorique de 1 à 10 pages, traduite en 1 à 10 locales, avec environ 30 Ko de texte par page.
 
-![Fuite théorique de contenu par architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Fuite théorique de contenu par architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 `vue-i18n` prend en charge l'axe dynamique : appeler `setLocaleMessage` après un `import()` vous évite d'expédier neuf locales que personne ne lit. Ce qu'il ne permet pas, c'est l'axe de la page. Un catalogue de locale est un objet unique, et le charger charge les textes de chaque page. Dans une SPA, personne ne s'en aperçoit. Dans Nuxt, avec `@nuxtjs/i18n` et plus de dix pages, chaque route transporte les chaînes de toutes les autres routes, en double : dans le chunk JS et dans le payload SSR.
 
@@ -292,7 +292,7 @@ Commits, temps de réponse sur les issues, et si la dernière release mineure da
 
 La bibliothèque la plus installée est celle qui est sortie en premier, pas nécessairement celle qui convient à une codebase Vue en 2026. Les téléchargements mesurent l'ancienneté, pas l'adéquation.
 
-![Tier list des bibliothèques i18n JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.png?raw=true)
+![Tier list des bibliothèques i18n JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.webp?raw=true)
 
 **Renseignez-vous sur qui finance le mainteneur et ce qu'il vend.**
 

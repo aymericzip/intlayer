@@ -25,7 +25,7 @@ Solid의 반응성(reactivity) 모델은 i18n 라이브러리가 수행해야 �
 
 이 가이드는 먼저 답해야 할 질문들을 정리한 후, Vite + Solid 및 SolidStart 환경을 기준으로 `@solid-primitives/i18n`, `solid-i18next`, Paraglide, `@lingui/solid`, Intlayer를 비교 매핑합니다.
 
-![Solid i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![Solid i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## 목차
 
@@ -46,7 +46,7 @@ Solid의 반응성(reactivity) 모델은 i18n 라이브러리가 수행해야 �
 
 Solid는 비교적 최신 생태계로 선택지가 적은 편이며, 3세대에 걸쳐 발전해 왔습니다.
 
-![History of JavaScript i18n libraries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![History of JavaScript i18n libraries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 <AccordionGroup>
 <Accordion header="런타임 딕셔너리: solid-i18next">
@@ -77,7 +77,7 @@ Paraglide는 메시지당 하나의 함수를 생성합니다. Intlayer는 컴�
 
 다음 그래프는 페이지당 약 30 KB의 텍스트를 포함하고 1~10개 로케일로 번역된 1~10개 페이지 규모의 가상 앱에 대한 페이로드를 추정한 것입니다.
 
-![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 `@solid-primitives/i18n`은 두 축 모두 기본 제공하지 않습니다. 로케일당 딕셔너리를 `createResource`하여 동적 로딩을 구현할 수 있으며, 나머지는 직접 구현해야 합니다. `solid-i18next`는 네임스페이스와 지연 로딩 백엔드를 갖추고 있지만 매핑을 강제하지 않으므로, `common`을 임포트하는 공통 컴포넌트가 모든 라우트의 의존성이 됩니다. Paraglide는 tree-shaking을 통해 페이지 단위 분할을 달성하지만, [Solid 벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/solid.md) 구현에서는 적용되지 않았습니다. Intlayer는 컴포넌트별 선언을 통해 이를 해결합니다.
 
@@ -300,7 +300,7 @@ export const CartSummary: Component<{ count: number }> = (props) => {
 
 가장 많이 설치된 라이브러리는 가장 먼저 출시된 라이브러리일 뿐, 2026년의 Solid 코드베이스에 가장 적합한 라이브러리가 아닐 수 있습니다. 다운로드 수는 역사를 측정할 뿐 적합성을 측정하지 않습니다.
 
-![Tier list of JavaScript i18n libraries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.png?raw=true)
+![Tier list of JavaScript i18n libraries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.webp?raw=true)
 
 **메인테이너에게 자금을 지원하는 주체와 그들의 비즈니스 모델을 확인하세요.**
 

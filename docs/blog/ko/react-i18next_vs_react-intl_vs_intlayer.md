@@ -106,7 +106,7 @@ author: aymericzip
 
 아래 그래프는 1~~10개의 페이지를 1~~10개 언어로 번역한 이론상의 앱(페이지당 약 30KB의 텍스트)의 콘텐츠 용량을 추정한 것입니다. 로케일별 동적 로딩은 언어 축을 없애고, 컴포넌트나 라우트 단위로 콘텐츠를 스코프하면 페이지 축이 없어지며, 두 가지를 결합했을 때만 용량이 일정하게 유지됩니다.
 
-![아키텍처별 이론상의 콘텐츠 누수](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![아키텍처별 이론상의 콘텐츠 누수](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 ### 6) 개발자 경험(DX), 도구 및 유지보수
 

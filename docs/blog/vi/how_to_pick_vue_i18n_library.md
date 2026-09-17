@@ -24,7 +24,7 @@ author: aymericzip
 
 Hướng dẫn này sẽ đặt ra những câu hỏi đó trước, sau đó ánh xạ các câu trả lời tới những thư viện phù hợp, cho cả Vite + Vue thuần lẫn Nuxt.
 
-![Hệ sinh thái thư viện Vue i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.png?raw=true)
+![Hệ sinh thái thư viện Vue i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## Mục lục
 
@@ -45,7 +45,7 @@ Hãy ghi lại các câu trả lời. Mọi phân tích bên dưới đều sẽ
 
 Hệ sinh thái Vue có ít thư viện i18n hơn React, và chúng đến từ các làn sóng kiến trúc khác nhau.
 
-![Lịch sử các thư viện JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.png?raw=true)
+![Lịch sử các thư viện JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/history_i18n.webp?raw=true)
 
 <AccordionGroup>
 <Accordion header="Runtime dictionary (2015 đến 2019): vue-i18n, @nuxt/i18n">
@@ -76,7 +76,7 @@ Hai lựa chọn mang tính cấu trúc giải thích cho hầu hết sự khác
 
 Biểu đồ ước tính payload cho một ứng dụng trên lý thuyết từ 1 đến 10 trang, được dịch sang 1 đến 10 locale, với khoảng 30 KB văn bản trên mỗi trang.
 
-![Rò rỉ nội dung theo lý thuyết theo từng kiến trúc](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.png?raw=true)
+![Rò rỉ nội dung theo lý thuyết theo từng kiến trúc](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 `vue-i18n` hỗ trợ trục dynamic: gọi `setLocaleMessage` sau một lệnh `import()` đồng nghĩa với việc bạn không còn phải chuyển giao chín locale mà không ai đọc. Điều mà nó không mang lại cho bạn là trục theo trang. Một catalog locale là một đối tượng duy nhất, và việc nạp nó sẽ nạp toàn bộ nội dung của mọi trang. Trong một SPA, không ai nhận ra điều đó. Nhưng trong Nuxt, với `@nuxtjs/i18n` và nhiều hơn mười trang, mỗi route đều phải gánh các chuỗi của mọi route khác hai lần: trong JS chunk và trong SSR payload.
 
@@ -292,7 +292,7 @@ Các commit, thời gian phản hồi issue, và liệu bản phát hành minor 
 
 Thư viện được cài đặt nhiều nhất là thư viện xuất hiện đầu tiên, không phải thư viện phù hợp nhất cho một codebase Vue năm 2026. Lượt tải phản ánh lịch sử, không phản ánh sự phù hợp.
 
-![Bảng xếp hạng các thư viện JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.png?raw=true)
+![Bảng xếp hạng các thư viện JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/alphabet_rank_i18n_lib.webp?raw=true)
 
 **Tìm hiểu xem ai tài trợ cho người duy trì, và họ bán sản phẩm gì.**
 

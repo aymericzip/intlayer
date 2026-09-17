@@ -586,7 +586,7 @@ Intlayer utiliza module augmentation para aproveitar os benefícios do TypeScrip
 
 ![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![Erro de tradução](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![Erro de tradução](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 O Intlayer usa o aumento de módulos (module augmentation) para aproveitar o TypeScript, tornando sua base de código mais robusta. Certifique-se de que sua configuração do TypeScript inclua os tipos gerados automaticamente e esteja configurada para o Preact:
 

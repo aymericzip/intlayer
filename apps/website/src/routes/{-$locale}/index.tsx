@@ -105,7 +105,7 @@ export const Route = createFileRoute('/{-$locale}/')({
               name: 'Intlayer CMS',
               description: productContent.description,
               imageUrl:
-                'https://raw.githubusercontent.com/aymericzip/intlayer/main/docs/assets/CMS.png',
+                'https://raw.githubusercontent.com/aymericzip/intlayer/main/docs/assets/CMS.webp',
               offers,
             })
           ),
