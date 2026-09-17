@@ -77,7 +77,7 @@ export const useScannerWebMCPTools = ({
   isScanning,
 }: UseScannerWebMCPToolsOptions): AnyWebMCPTool[] => {
   const scanWebsite: AnyWebMCPTool = {
-    name: 'scanWebsiteI18n',
+    name: 'createWebsiteI18nScan',
     description:
       'Audit the internationalization and SEO of a public website with the scanner on this page: locales, hreflang, html lang / dir, canonical, localized links, sitemap and robots. Returns a score out of 100 and every check with its status and details. Takes up to a minute; the report also appears on the page.',
     inputSchema: {
@@ -132,7 +132,7 @@ export const useScannerWebMCPTools = ({
       if (Object.keys(snapshot.mergedData).length === 0) {
         return isScanning
           ? 'A scan is in progress; no report yet.'
-          : 'No scan has been run on this page yet. Use `scanWebsiteI18n`.';
+          : 'No scan has been run on this page yet. Use `createWebsiteI18nScan`.';
       }
 
       return describeSnapshot(snapshot);

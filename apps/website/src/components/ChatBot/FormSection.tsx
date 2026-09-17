@@ -141,7 +141,7 @@ export const FormSection: FC<FormSectionProps> = ({
       className="item-end flex h-auto flex-col items-end justify-center gap-3 px-4 py-3"
       schema={schema}
       onSubmitSuccess={handleSubmit}
-      toolName="askIntlayerAssistant"
+      toolName="submitAssistantQuestion"
       toolDescription="Ask the Intlayer documentation assistant a question about Intlayer, internationalization or the CMS; the answer is displayed in the chat."
       toolAutoSubmit
       {...form}

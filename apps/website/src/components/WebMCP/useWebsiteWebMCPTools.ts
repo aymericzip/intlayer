@@ -86,7 +86,7 @@ export const useWebsiteWebMCPTools = (): AnyWebMCPTool[] => {
   const searchDocumentation: AnyWebMCPTool = {
     name: 'searchIntlayerDocumentation',
     description:
-      "Search Intlayer's documentation, blog posts and FAQ by keywords or a question. Returns the most relevant pages with their title, description and path; read a page with `getIntlayerDocumentationPage` or open it with `navigateToPage`.",
+      "Search Intlayer's documentation, blog posts and FAQ by keywords or a question. Returns the most relevant pages with their title, description and path; read a page with `getIntlayerDocumentationPage` or open it with `openPage`.",
     inputSchema: {
       type: 'object',
       properties: {
@@ -227,8 +227,8 @@ export const useWebsiteWebMCPTools = (): AnyWebMCPTool[] => {
     }),
   };
 
-  const navigateToPage: AnyWebMCPTool = {
-    name: 'navigateToPage',
+  const openPage: AnyWebMCPTool = {
+    name: 'openPage',
     description:
       'Navigate the current tab to a page of intlayer.org, given its path (for example `/doc/why`, `/blog`, `/icu-message-formatter`, `/i18n-message-converter`, `/i18n-seo-scanner`). The path is localized to the current locale automatically.',
     inputSchema: {
@@ -256,7 +256,7 @@ export const useWebsiteWebMCPTools = (): AnyWebMCPTool[] => {
   };
 
   const setSiteLocale: AnyWebMCPTool = {
-    name: 'setLocale',
+    name: 'updateLocale',
     description:
       'Switch the language of intlayer.org for the current page and the rest of the visit.',
     inputSchema: {
@@ -294,8 +294,8 @@ export const useWebsiteWebMCPTools = (): AnyWebMCPTool[] => {
     },
   };
 
-  const openAuthentication: AnyWebMCPTool = {
-    name: 'openIntlayerAuthentication',
+  const sendUserToAuthentication: AnyWebMCPTool = {
+    name: 'sendUserToAuthentication',
     description:
       'Send the user to the Intlayer dashboard (app.intlayer.org) to sign in, create an account, or try a read-only demo. An already signed-in user is taken straight to the dashboard. Leaves intlayer.org.',
     inputSchema: {
@@ -347,8 +347,8 @@ export const useWebsiteWebMCPTools = (): AnyWebMCPTool[] => {
     listDocumentation,
     getDocumentationPage,
     getCurrentPage,
-    navigateToPage,
+    openPage,
     setSiteLocale,
-    openAuthentication,
+    sendUserToAuthentication,
   ];
 };

@@ -111,7 +111,7 @@ const CommentForm: FC<CommentFormProps> = ({
       <Form
         schema={commentSchema}
         onSubmitSuccess={handleSubmit}
-        toolName="postBlogComment"
+        toolName="submitBlogComment"
         toolDescription="Post a public comment under this blog post. The user reviews the form before it is sent."
         {...form}
       >

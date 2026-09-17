@@ -65,7 +65,7 @@ export const EmailRegistrationToast: FC = () => {
   const isMounted = useIsMounted();
   const initializedRef = useRef(false);
 
-  const { isPending: isLoading, mutateAsync: subscribeToNewsletter } =
+  const { isPending: isLoading, mutateAsync: submitNewsletterSubscription } =
     useSubscribeToNewsletter();
   const { content, closeLabel, registerLabel, emailInput } = useIntlayer(
     'email-registration-toast'
@@ -161,7 +161,7 @@ export const EmailRegistrationToast: FC = () => {
   // Handle email registration
   const handleRegister = async (data: EmailSchemaValue) => {
     try {
-      await subscribeToNewsletter({
+      await submitNewsletterSubscription({
         email: data.email,
         emailList: NEWS_LETTER_KEY,
       });
@@ -192,7 +192,7 @@ export const EmailRegistrationToast: FC = () => {
           schema={EmailSchema}
           onSubmitSuccess={handleRegister}
           autoComplete
-          toolName="subscribeToNewsletter"
+          toolName="submitNewsletterSubscription"
           toolDescription="Subscribe an email address to the Intlayer newsletter. The user reviews the form before it is sent."
           {...form}
         >

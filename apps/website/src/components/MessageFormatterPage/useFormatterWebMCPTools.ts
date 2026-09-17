@@ -106,7 +106,7 @@ export const useFormatterWebMCPTools = ({
   const toolSegment = DIALECT_TOOL_SEGMENTS[dialect];
 
   const formatMessage: AnyWebMCPTool = {
-    name: `format${toolSegment}Message`,
+    name: `update${toolSegment}FormatterMessage`,
     description: `Load a ${label} message into the formatter on this page, set its test variables and locale, and return the syntax validation, the rendered preview and the equivalent Intlayer content declaration.`,
     inputSchema: {
       type: 'object',
