@@ -154,6 +154,9 @@ Dieselbe Komponente, eine Warenkorbübersicht mit Titel und Plural, umgesetzt mi
 <Tabs defaultTab="vue-i18n">
   <Tab label="vue-i18n" value="vue-i18n">
 
+  <Tabs group="locale">
+  <Tab value="en" label="Englisch">
+
 ```json fileName="src/locales/en.json"
 {
   "cart": {
@@ -162,6 +165,33 @@ Dieselbe Komponente, eine Warenkorbübersicht mit Titel und Plural, umgesetzt mi
   }
 }
 ```
+
+  </Tab>
+  <Tab value="fr" label="Französisch">
+
+```json fileName="src/locales/fr.json"
+{
+  "cart": {
+    "title": "Votre panier",
+    "items": "aucun article | un article | {count} articles"
+  }
+}
+```
+
+  </Tab>
+  <Tab value="es" label="Spanisch">
+
+```json fileName="src/locales/es.json"
+{
+  "cart": {
+    "title": "Tu carrito",
+    "items": "ningún artículo | un artículo | {count} artículos"
+  }
+}
+```
+
+  </Tab>
+  </Tabs>
 
 ```vue fileName="src/components/CartSummary.vue"
 <script setup lang="ts">
@@ -184,6 +214,9 @@ Durch Pipes getrennte Plurale sind das eigene Format von vue-i18n, nicht ICU. `t
   </Tab>
   <Tab label="fluent-vue" value="fluent-vue">
 
+  <Tabs group="locale">
+  <Tab value="en" label="Englisch">
+
 ```ftl fileName="src/locales/en.ftl"
 cart-title = Your cart
 cart-items = { $count ->
@@ -191,6 +224,31 @@ cart-items = { $count ->
    *[other] { $count } items
 }
 ```
+
+  </Tab>
+  <Tab value="fr" label="Französisch">
+
+```ftl fileName="src/locales/fr.ftl"
+cart-title = Votre panier
+cart-items = { $count ->
+    [one] { $count } article
+   *[other] { $count } articles
+}
+```
+
+  </Tab>
+  <Tab value="es" label="Spanisch">
+
+```ftl fileName="src/locales/es.ftl"
+cart-title = Tu carrito
+cart-items = { $count ->
+    [one] { $count } artículo
+   *[other] { $count } artículos
+}
+```
+
+  </Tab>
+  </Tabs>
 
 ```vue fileName="src/components/CartSummary.vue"
 <script setup lang="ts">
@@ -213,12 +271,38 @@ Die Syntax von Fluent handhabt Plurale und grammatikalische Varianten zuverläss
   </Tab>
   <Tab label="Paraglide" value="paraglide">
 
+  <Tabs group="locale">
+  <Tab value="en" label="Englisch">
+
 ```json fileName="messages/en.json"
 {
   "cart_title": "Your cart",
   "cart_items": "{count} items"
 }
 ```
+
+  </Tab>
+  <Tab value="fr" label="Französisch">
+
+```json fileName="messages/fr.json"
+{
+  "cart_title": "Votre panier",
+  "cart_items": "{count} articles"
+}
+```
+
+  </Tab>
+  <Tab value="es" label="Spanisch">
+
+```json fileName="messages/es.json"
+{
+  "cart_title": "Tu carrito",
+  "cart_items": "{count} artículos"
+}
+```
+
+  </Tab>
+  </Tabs>
 
 ```vue fileName="src/components/CartSummary.vue"
 <script setup lang="ts">

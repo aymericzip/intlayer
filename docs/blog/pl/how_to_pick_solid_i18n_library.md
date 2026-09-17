@@ -155,12 +155,43 @@ Ten sam komponent, podsumowanie koszyka z tytułem i liczbą mnogą, napisany pr
 <Tabs defaultTab="solid-primitives">
   <Tab label="@solid-primitives/i18n" value="solid-primitives">
 
-```ts fileName="src/i18n/index.ts"
-import * as i18n from "@solid-primitives/i18n";
+  <Tabs group="locale">
+  <Tab value="en" label="Angielski">
 
+```ts fileName="src/i18n/en.ts"
 export const en = {
   cart: { title: "Your cart", items: "{{ count }} items" },
 };
+```
+
+  </Tab>
+  <Tab value="fr" label="Francuski">
+
+```ts fileName="src/i18n/fr.ts"
+import type { en } from "./en";
+
+export const fr: typeof en = {
+  cart: { title: "Votre panier", items: "{{ count }} articles" },
+};
+```
+
+  </Tab>
+  <Tab value="es" label="Hiszpański">
+
+```ts fileName="src/i18n/es.ts"
+import type { en } from "./en";
+
+export const es: typeof en = {
+  cart: { title: "Tu carrito", items: "{{ count }} artículos" },
+};
+```
+
+  </Tab>
+  </Tabs>
+
+```ts fileName="src/i18n/index.ts"
+import * as i18n from "@solid-primitives/i18n";
+import { en } from "./en";
 
 export const dictionary = () => i18n.flatten(en);
 export const t = i18n.translator(dictionary, i18n.resolveTemplate);
@@ -183,6 +214,9 @@ Klucze są typowane na podstawie obiektu angielskiego bez konieczności generowa
   </Tab>
   <Tab label="solid-i18next" value="solid-i18next">
 
+  <Tabs group="locale">
+  <Tab value="en" label="Angielski">
+
 ```json fileName="public/locales/en/cart.json"
 {
   "title": "Your cart",
@@ -190,6 +224,31 @@ Klucze są typowane na podstawie obiektu angielskiego bez konieczności generowa
   "items_other": "{{count}} items"
 }
 ```
+
+  </Tab>
+  <Tab value="fr" label="Francuski">
+
+```json fileName="public/locales/fr/cart.json"
+{
+  "title": "Votre panier",
+  "items_one": "{{count}} article",
+  "items_other": "{{count}} articles"
+}
+```
+
+  </Tab>
+  <Tab value="es" label="Hiszpański">
+
+```json fileName="public/locales/es/cart.json"
+{
+  "title": "Tu carrito",
+  "items_one": "{{count}} artículo",
+  "items_other": "{{count}} artículos"
+}
+```
+
+  </Tab>
+  </Tabs>
 
 ```tsx fileName="src/components/CartSummary.tsx"
 import { useTransContext } from "@mbarzda/solid-i18next";
@@ -212,12 +271,38 @@ Katalogi, namespaces i pluginy i18next w standardowej postaci. `t` zwraca string
   </Tab>
   <Tab label="Paraglide" value="paraglide">
 
+  <Tabs group="locale">
+  <Tab value="en" label="Angielski">
+
 ```json fileName="messages/en.json"
 {
   "cart_title": "Your cart",
   "cart_items": "{count} items"
 }
 ```
+
+  </Tab>
+  <Tab value="fr" label="Francuski">
+
+```json fileName="messages/fr.json"
+{
+  "cart_title": "Votre panier",
+  "cart_items": "{count} articles"
+}
+```
+
+  </Tab>
+  <Tab value="es" label="Hiszpański">
+
+```json fileName="messages/es.json"
+{
+  "cart_title": "Tu carrito",
+  "cart_items": "{count} artículos"
+}
+```
+
+  </Tab>
+  </Tabs>
 
 ```tsx fileName="src/components/CartSummary.tsx"
 import type { Component } from "solid-js";

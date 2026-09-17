@@ -171,6 +171,9 @@ Komponen yang sama, ringkasan keranjang belanja (cart summary) dengan judul dan 
 <Tabs defaultTab="react-i18next">
   <Tab label="react-i18next" value="react-i18next">
 
+  <Tabs group="locale">
+  <Tab value="en" label="Inggris">
+
 ```json fileName="public/locales/en/cart.json"
 {
   "title": "Your cart",
@@ -178,6 +181,31 @@ Komponen yang sama, ringkasan keranjang belanja (cart summary) dengan judul dan 
   "items_other": "{{count}} items"
 }
 ```
+
+  </Tab>
+  <Tab value="fr" label="Prancis">
+
+```json fileName="public/locales/fr/cart.json"
+{
+  "title": "Votre panier",
+  "items_one": "{{count}} article",
+  "items_other": "{{count}} articles"
+}
+```
+
+  </Tab>
+  <Tab value="es" label="Spanyol">
+
+```json fileName="public/locales/es/cart.json"
+{
+  "title": "Tu carrito",
+  "items_one": "{{count}} artículo",
+  "items_other": "{{count}} artículos"
+}
+```
+
+  </Tab>
+  </Tabs>
 
 ```tsx fileName="src/components/CartSummary.tsx"
 import type { FC } from "react";
@@ -200,12 +228,38 @@ Bentuk jamak (plurals) adalah kunci berakhiran sufiks yang diselesaikan melalui 
   </Tab>
   <Tab label="react-intl" value="react-intl">
 
+  <Tabs group="locale">
+  <Tab value="en" label="Inggris">
+
 ```json fileName="src/locales/en.json"
 {
   "cart.title": "Your cart",
   "cart.items": "{count, plural, one {# item} other {# items}}"
 }
 ```
+
+  </Tab>
+  <Tab value="fr" label="Prancis">
+
+```json fileName="src/locales/fr.json"
+{
+  "cart.title": "Votre panier",
+  "cart.items": "{count, plural, one {# article} other {# articles}}"
+}
+```
+
+  </Tab>
+  <Tab value="es" label="Spanyol">
+
+```json fileName="src/locales/es.json"
+{
+  "cart.title": "Tu carrito",
+  "cart.items": "{count, plural, one {# artículo} other {# artículos}}"
+}
+```
+
+  </Tab>
+  </Tabs>
 
 ```tsx fileName="src/components/CartSummary.tsx"
 import type { FC } from "react";
@@ -230,6 +284,9 @@ ICU dari ujung ke ujung, yang merupakan format standar yang diekspor oleh sebagi
   </Tab>
   <Tab label="use-intl" value="use-intl">
 
+  <Tabs group="locale">
+  <Tab value="en" label="Inggris">
+
 ```json fileName="messages/en.json"
 {
   "Cart": {
@@ -238,6 +295,33 @@ ICU dari ujung ke ujung, yang merupakan format standar yang diekspor oleh sebagi
   }
 }
 ```
+
+  </Tab>
+  <Tab value="fr" label="Prancis">
+
+```json fileName="messages/fr.json"
+{
+  "Cart": {
+    "title": "Votre panier",
+    "items": "{count, plural, one {# article} other {# articles}}"
+  }
+}
+```
+
+  </Tab>
+  <Tab value="es" label="Spanyol">
+
+```json fileName="messages/es.json"
+{
+  "Cart": {
+    "title": "Tu carrito",
+    "items": "{count, plural, one {# artículo} other {# artículos}}"
+  }
+}
+```
+
+  </Tab>
+  </Tabs>
 
 ```tsx fileName="src/components/CartSummary.tsx"
 import type { FC } from "react";
@@ -289,12 +373,38 @@ Bahasa sumber berada di dalam komponen; locale lain berada di dalam file `.po` d
   </Tab>
   <Tab label="Paraglide" value="paraglide">
 
+  <Tabs group="locale">
+  <Tab value="en" label="Inggris">
+
 ```json fileName="messages/en.json"
 {
   "cart_title": "Your cart",
   "cart_items": "{count} items"
 }
 ```
+
+  </Tab>
+  <Tab value="fr" label="Prancis">
+
+```json fileName="messages/fr.json"
+{
+  "cart_title": "Votre panier",
+  "cart_items": "{count} articles"
+}
+```
+
+  </Tab>
+  <Tab value="es" label="Spanyol">
+
+```json fileName="messages/es.json"
+{
+  "cart_title": "Tu carrito",
+  "cart_items": "{count} artículos"
+}
+```
+
+  </Tab>
+  </Tabs>
 
 ```tsx fileName="src/components/CartSummary.tsx"
 import type { FC } from "react";

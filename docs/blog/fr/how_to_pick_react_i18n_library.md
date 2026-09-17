@@ -171,6 +171,9 @@ Le même composant, un récapitulatif de panier avec un titre et un pluriel, éc
 <Tabs defaultTab="react-i18next">
   <Tab label="react-i18next" value="react-i18next">
 
+  <Tabs group="locale">
+  <Tab value="en" label="Anglais">
+
 ```json fileName="public/locales/en/cart.json"
 {
   "title": "Your cart",
@@ -178,6 +181,31 @@ Le même composant, un récapitulatif de panier avec un titre et un pluriel, éc
   "items_other": "{{count}} items"
 }
 ```
+
+  </Tab>
+  <Tab value="fr" label="Français">
+
+```json fileName="public/locales/fr/cart.json"
+{
+  "title": "Votre panier",
+  "items_one": "{{count}} article",
+  "items_other": "{{count}} articles"
+}
+```
+
+  </Tab>
+  <Tab value="es" label="Espagnol">
+
+```json fileName="public/locales/es/cart.json"
+{
+  "title": "Tu carrito",
+  "items_one": "{{count}} artículo",
+  "items_other": "{{count}} artículos"
+}
+```
+
+  </Tab>
+  </Tabs>
 
 ```tsx fileName="src/components/CartSummary.tsx"
 import type { FC } from "react";
@@ -200,12 +228,38 @@ Les pluriels sont des clés suffixées résolues via `Intl.PluralRules`. `t` a p
   </Tab>
   <Tab label="react-intl" value="react-intl">
 
+  <Tabs group="locale">
+  <Tab value="en" label="Anglais">
+
 ```json fileName="src/locales/en.json"
 {
   "cart.title": "Your cart",
   "cart.items": "{count, plural, one {# item} other {# items}}"
 }
 ```
+
+  </Tab>
+  <Tab value="fr" label="Français">
+
+```json fileName="src/locales/fr.json"
+{
+  "cart.title": "Votre panier",
+  "cart.items": "{count, plural, one {# article} other {# articles}}"
+}
+```
+
+  </Tab>
+  <Tab value="es" label="Espagnol">
+
+```json fileName="src/locales/es.json"
+{
+  "cart.title": "Tu carrito",
+  "cart.items": "{count, plural, one {# artículo} other {# artículos}}"
+}
+```
+
+  </Tab>
+  </Tabs>
 
 ```tsx fileName="src/components/CartSummary.tsx"
 import type { FC } from "react";
@@ -230,6 +284,9 @@ ICU de bout en bout, ce que la plupart des plateformes TMS exportent. Les types 
   </Tab>
   <Tab label="use-intl" value="use-intl">
 
+  <Tabs group="locale">
+  <Tab value="en" label="Anglais">
+
 ```json fileName="messages/en.json"
 {
   "Cart": {
@@ -238,6 +295,33 @@ ICU de bout en bout, ce que la plupart des plateformes TMS exportent. Les types 
   }
 }
 ```
+
+  </Tab>
+  <Tab value="fr" label="Français">
+
+```json fileName="messages/fr.json"
+{
+  "Cart": {
+    "title": "Votre panier",
+    "items": "{count, plural, one {# article} other {# articles}}"
+  }
+}
+```
+
+  </Tab>
+  <Tab value="es" label="Espagnol">
+
+```json fileName="messages/es.json"
+{
+  "Cart": {
+    "title": "Tu carrito",
+    "items": "{count, plural, one {# artículo} other {# artículos}}"
+  }
+}
+```
+
+  </Tab>
+  </Tabs>
 
 ```tsx fileName="src/components/CartSummary.tsx"
 import type { FC } from "react";
@@ -289,12 +373,38 @@ La langue source réside dans le composant ; les autres locales se trouvent dans
   </Tab>
   <Tab label="Paraglide" value="paraglide">
 
+  <Tabs group="locale">
+  <Tab value="en" label="Anglais">
+
 ```json fileName="messages/en.json"
 {
   "cart_title": "Your cart",
   "cart_items": "{count} items"
 }
 ```
+
+  </Tab>
+  <Tab value="fr" label="Français">
+
+```json fileName="messages/fr.json"
+{
+  "cart_title": "Votre panier",
+  "cart_items": "{count} articles"
+}
+```
+
+  </Tab>
+  <Tab value="es" label="Espagnol">
+
+```json fileName="messages/es.json"
+{
+  "cart_title": "Tu carrito",
+  "cart_items": "{count} artículos"
+}
+```
+
+  </Tab>
+  </Tabs>
 
 ```tsx fileName="src/components/CartSummary.tsx"
 import type { FC } from "react";

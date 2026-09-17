@@ -155,6 +155,9 @@ El mismo componente, un resumen del carrito con un título y un plural, escrito 
 <Tabs defaultTab="svelte-i18n">
   <Tab label="svelte-i18n" value="svelte-i18n">
 
+  <Tabs group="locale">
+  <Tab value="en" label="Inglés">
+
 ```json fileName="src/locales/en.json"
 {
   "cart": {
@@ -163,6 +166,33 @@ El mismo componente, un resumen del carrito con un título y un plural, escrito 
   }
 }
 ```
+
+  </Tab>
+  <Tab value="fr" label="Francés">
+
+```json fileName="src/locales/fr.json"
+{
+  "cart": {
+    "title": "Votre panier",
+    "items": "{count, plural, one {# article} other {# articles}}"
+  }
+}
+```
+
+  </Tab>
+  <Tab value="es" label="Español">
+
+```json fileName="src/locales/es.json"
+{
+  "cart": {
+    "title": "Tu carrito",
+    "items": "{count, plural, one {# artículo} other {# artículos}}"
+  }
+}
+```
+
+  </Tab>
+  </Tabs>
 
 ```svelte fileName="src/lib/CartSummary.svelte"
 <script lang="ts">
@@ -182,12 +212,38 @@ ICU a través de `intl-messageformat`, locale en un store a nivel de módulo. `$
   </Tab>
   <Tab label="Paraglide" value="paraglide">
 
+  <Tabs group="locale">
+  <Tab value="en" label="Inglés">
+
 ```json fileName="messages/en.json"
 {
   "cart_title": "Your cart",
   "cart_items": "{count} items"
 }
 ```
+
+  </Tab>
+  <Tab value="fr" label="Francés">
+
+```json fileName="messages/fr.json"
+{
+  "cart_title": "Votre panier",
+  "cart_items": "{count} articles"
+}
+```
+
+  </Tab>
+  <Tab value="es" label="Español">
+
+```json fileName="messages/es.json"
+{
+  "cart_title": "Tu carrito",
+  "cart_items": "{count} artículos"
+}
+```
+
+  </Tab>
+  </Tabs>
 
 ```svelte fileName="src/lib/CartSummary.svelte"
 <script lang="ts">
@@ -207,6 +263,9 @@ Cada mensaje es una función tipada generada, eliminada por tree-shaking si nunc
   </Tab>
   <Tab label="typesafe-i18n" value="typesafe-i18n">
 
+  <Tabs group="locale">
+  <Tab value="en" label="Inglés">
+
 ```ts fileName="src/i18n/en/index.ts"
 import type { BaseTranslation } from "../i18n-types";
 
@@ -219,6 +278,41 @@ const en = {
 
 export default en;
 ```
+
+  </Tab>
+  <Tab value="fr" label="Francés">
+
+```ts fileName="src/i18n/fr/index.ts"
+import type { Translation } from "../i18n-types";
+
+const fr = {
+  cart: {
+    title: "Votre panier",
+    items: "{count} article{{s}}",
+  },
+} satisfies Translation;
+
+export default fr;
+```
+
+  </Tab>
+  <Tab value="es" label="Español">
+
+```ts fileName="src/i18n/es/index.ts"
+import type { Translation } from "../i18n-types";
+
+const es = {
+  cart: {
+    title: "Tu carrito",
+    items: "{count} artículo{{s}}",
+  },
+} satisfies Translation;
+
+export default es;
+```
+
+  </Tab>
+  </Tabs>
 
 ```svelte fileName="src/lib/CartSummary.svelte"
 <script lang="ts">
