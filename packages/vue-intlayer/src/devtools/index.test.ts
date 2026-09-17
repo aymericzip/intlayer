@@ -8,6 +8,7 @@ import { createIntlayerClient } from '../client/installIntlayer';
 import { setLocaleInStorage } from '../client/useLocaleStorage';
 import {
   buildLocalesInspectorNode,
+  CURRENT_LOCALE_NODE_ID_SUFFIX,
   LOCALE_NODE_ID_PREFIX,
   LOCALES_GROUP_NODE_ID,
 } from './buildLocalesInspectorNode';
@@ -252,11 +253,13 @@ describe('enableIntlayerDevtools', () => {
       (node) => node.id === LOCALES_GROUP_NODE_ID
     );
 
-    // The current locale is listed first so the moved tag forces a re-render
+    // The current locale is listed first so the moved tag forces a re-render,
+    // and its node id carries the `:current` suffix so devtools frontends
+    // caching the tree by node id invalidate the affected rows
     expect(localesNode?.label).toBe('Locales');
     expect(localesNode?.children).toEqual([
       {
-        id: `${LOCALE_NODE_ID_PREFIX}fr`,
+        id: `${LOCALE_NODE_ID_PREFIX}fr${CURRENT_LOCALE_NODE_ID_SUFFIX}`,
         label: 'fr',
         tags: [
           { label: 'current', textColor: 0xffffff, backgroundColor: 0x42b883 },
@@ -296,6 +299,22 @@ describe('enableIntlayerDevtools', () => {
     });
   });
 
+  it('parses the locale from a node id carrying the current suffix', () => {
+    const { stateHandler } = setupDevtools('fr');
+    const payload = buildStatePayload(
+      `${LOCALE_NODE_ID_PREFIX}fr${CURRENT_LOCALE_NODE_ID_SUFFIX}`
+    );
+
+    stateHandler(payload);
+
+    expect(payload.state).toEqual({
+      Locale: [
+        { key: 'locale', value: 'fr', editable: false },
+        { key: 'current', value: true, editable: false },
+      ],
+    });
+  });
+
   it('switches and persists the locale from the node action', () => {
     const { inspectorOptions, sendInspectorTree, sendInspectorState } =
       setupDevtools();
@@ -315,6 +334,19 @@ describe('enableIntlayerDevtools', () => {
     expect(sendInspectorState).toHaveBeenCalledWith(
       INTLAYER_DICTIONARIES_INSPECTOR_ID
     );
+  });
+
+  it('switches the locale when the node id carries the current suffix', () => {
+    const { inspectorOptions } = setupDevtools('fr');
+
+    // The current row's id carries `:current`; clicking its action again must
+    // still resolve to the right locale
+    inspectorOptions.nodeActions?.[0]?.action(
+      `${LOCALE_NODE_ID_PREFIX}fr${CURRENT_LOCALE_NODE_ID_SUFFIX}`
+    );
+
+    expect(setLocaleMock).toHaveBeenCalledWith('fr');
+    expect(setLocaleInStorageMock).toHaveBeenCalledWith('fr', true);
   });
 
   it('ignores the node action on non-locale nodes', () => {
@@ -359,7 +391,7 @@ describe('enableIntlayerDevtools', () => {
       (node) => node.id === LOCALES_GROUP_NODE_ID
     );
     expect(initialLocalesNode?.children?.[0].id).toBe(
-      `${LOCALE_NODE_ID_PREFIX}en`
+      `${LOCALE_NODE_ID_PREFIX}en${CURRENT_LOCALE_NODE_ID_SUFFIX}`
     );
 
     inspectorOptions.nodeActions?.[0]?.action(`${LOCALE_NODE_ID_PREFIX}fr`);
@@ -374,7 +406,7 @@ describe('enableIntlayerDevtools', () => {
 
     expect(refreshedLocalesNode?.children).toEqual([
       {
-        id: `${LOCALE_NODE_ID_PREFIX}fr`,
+        id: `${LOCALE_NODE_ID_PREFIX}fr${CURRENT_LOCALE_NODE_ID_SUFFIX}`,
         label: 'fr',
         tags: [
           { label: 'current', textColor: 0xffffff, backgroundColor: 0x42b883 },
