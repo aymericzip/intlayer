@@ -54,6 +54,20 @@
       "dependsOn": ["build", "prepublish"],
       "cache": false,
       "outputs": []
+    },
+    "publish:latest:ci": {
+      "dependsOn": ["build", "prepublish"],
+      "cache": false,
+      "outputs": [],
+      "passThroughEnv": [
+        "GITHUB_ACTIONS",
+        "ACTIONS_ID_TOKEN_REQUEST_*",
+        "NODE_AUTH_TOKEN",
+        "NPM_CONFIG_*",
+        "npm_config_*",
+        "PUBLISH_DRY_RUN",
+        "TMPDIR"
+      ]
     }
   }
 }

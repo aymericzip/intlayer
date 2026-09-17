@@ -99,6 +99,7 @@
     "publish": "bun publish || true",
     "publish:canary": "bun publish --access public --tag canary || true",
     "publish:latest": "bun publish --access public --tag latest || true",
+    "publish:latest:ci": "bun ../../../scripts/publish-package.mjs --tag latest",
     "start": "bun start:stdio",
     "start:client": "bun dist/esm/client/sse.mjs",
     "start:docker": "docker run --rm -p 3000:3000 --name intlayer-mcp-app intlayer-mcp",

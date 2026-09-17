@@ -1,0 +1,88 @@
+# Publishes every public workspace package to npm through trusted publishing
+# (OIDC). No npm token or 2FA code is involved: GitHub mints a short-lived
+# identity token that npm exchanges for a single-use publish credential, and
+# provenance attestations are generated automatically.
+#
+# One-time setup on npmjs.com, for each package:
+#   Package → Settings → Trusted Publisher → GitHub Actions
+#     Organization or user: aymericzip
+#     Repository:           intlayer
+#     Workflow filename:    publish.yaml   (must match this file name exactly)
+#     Environment name:     npm
+#
+# The `npm` GitHub environment can require reviewers, which turns the run into
+# a "click to approve" release gate.
+
+name: 📦 Publish to npm
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry-run:
+        description: 'Build and pack everything without publishing'
+        type: boolean
+        default: false
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+permissions:
+  contents: read
+  id-token: write # required for npm trusted publishing (OIDC)
+
+jobs:
+  publish:
+    # Prevents the workflow from running on forks
+    if: ${{ github.repository_owner == 'aymericzip' }}
+
+    name: 📦 Publish
+    runs-on: ubuntu-latest
+    environment: npm
+    env:
+      NODE_OPTIONS: '--max_old_space_size=8192'
+    steps:
+      - name: ⬇️ Checkout
+        uses: actions/checkout@v4
+
+      - name: 🥡 Setup bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          version: 1.4.2
+          run_install: false
+
+      - name: 🟢 Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+
+      # Trusted publishing needs npm >= 11.5.1
+      - name: ⬆️ Update npm
+        run: npm install -g npm@latest && npm --version
+
+      - name: 🦀 Setup rust (swc plugin)
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-wasip1
+
+      - name: 🔆 Cache cargo
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: packages/@intlayer/swc
+
+      - name: 🔆 Cache bun modules
+        uses: actions/cache@v4
+        with:
+          path: ~/.bun/install/cache
+          key: ${{ runner.os }}-bun-store-${{ hashFiles('**/bun.lock*') }}
+          restore-keys: |
+            ${{ runner.os }}-bun-store-
+
+      - name: 🧩 Install Dependencies
+        run: bun install --frozen-lockfile
+
+      - name: 🚀 Publish packages
+        env:
+          PUBLISH_DRY_RUN: ${{ inputs.dry-run }}
+        # turbo builds each package (dependsOn build + prepublish) before
+        # publishing it, in dependency order
+        run: bun run publish:latest:ci

@@ -79,6 +79,7 @@
     "publish": "bun publish || true",
     "publish:canary": "bun publish --access public --tag canary || true",
     "publish:latest": "bun publish --access public --tag latest || true",
+    "publish:latest:ci": "bun ../../scripts/publish-package.mjs --tag latest",
     "start": "bun server/dist/esm/index.mjs",
     "start:client": "bun --bun vite preview --config ./client/vite.config.ts",
     "start:server": "bun --watch  --hot ./server/dist/esm/index.mjs",

@@ -450,6 +450,7 @@
     "publish": "bun publish || true",
     "publish:canary": "bun publish --access public --tag canary || true",
     "publish:latest": "bun publish --access public --tag latest || true",
+    "publish:latest:ci": "bun ../../../scripts/publish-package.mjs --tag latest",
     "start": "bun storybook -p 6006 --no-open --host 0.0.0.0",
     "start:serve": "bun x serve ./storybook-static -l 6006",
     "storybook": "storybook dev -p 6006",
