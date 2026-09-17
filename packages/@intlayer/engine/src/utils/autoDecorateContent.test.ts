@@ -85,6 +85,53 @@ describe('autoDecorateContent', () => {
     expect(output.myInsertion).toEqual(insert('Hi {{name}}'));
   });
 
+  it('should decorate insertion strings containing {{number}}', () => {
+    const input = {
+      count: 'You have {{number}} items',
+      spaced: 'Count: {{ number }}',
+      multiple: 'Total: {{count}} / {{number}}',
+    };
+    const output = autoDecorateContent(input);
+
+    expect(output.count).toEqual(insert('You have {{number}} items'));
+    expect(output.count.fields).toEqual(['number']);
+    expect(output.spaced.fields).toEqual(['number']);
+    expect(output.multiple.fields).toEqual(['count', 'number']);
+  });
+
+  it('should wrap html containing placeholders in insert()', () => {
+    const input = {
+      count: '<b>{{number}}</b> items',
+    };
+    const output = autoDecorateContent(input);
+
+    expect(output.count.nodeType).toBe('insertion');
+    expect(output.count.fields).toEqual(['number']);
+    expect(output.count.insertion).toEqual(html('<b>{{number}}</b> items'));
+  });
+
+  it('should wrap markdown containing placeholders in insert()', () => {
+    const input = {
+      count: '**{{number}}** items',
+    };
+    const output = autoDecorateContent(input);
+
+    expect(output.count.nodeType).toBe('insertion');
+    expect(output.count.fields).toEqual(['number']);
+    expect(output.count.insertion.nodeType).toBe('markdown');
+    expect(output.count.insertion.markdown).toBe('**{{number}}** items');
+    expect(output.count.insertion.metadata).toEqual({});
+  });
+
+  it('should not wrap html/markdown in insert() when insertion is disabled', () => {
+    const input = {
+      count: '<b>{{number}}</b> items',
+    };
+    const output = autoDecorateContent(input, { insertion: false });
+
+    expect(output.count).toEqual(html('<b>{{number}}</b> items'));
+  });
+
   it('should recurse into objects and arrays', () => {
     const input = {
       list: ['## Item 1', 'Item 2'],

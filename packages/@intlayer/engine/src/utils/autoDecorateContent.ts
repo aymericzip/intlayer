@@ -2,6 +2,7 @@ import { getMarkdownMetadata } from '@intlayer/core/markdown';
 import {
   getInsertionValues,
   html,
+  type InsertionContent,
   insert,
   md,
 } from '@intlayer/core/transpiler';
@@ -94,24 +95,25 @@ export const autoDecorateContent = (
   } = typeof options === 'object' ? options : {};
 
   if (typeof content === 'string') {
+    // `html()`/`markdown()` content may itself carry `{{ … }}` placeholders.
+    // Wrap the node in `insert()` so it stays callable with the values.
+    const withInsertion = <Node>(node: Node): Node | InsertionContent<Node> =>
+      insertion && isInsertion(content) ? insert(node) : node;
+
     if (markdown && isMarkdown(content)) {
       const markdownNode = md(content);
 
-      return {
+      return withInsertion({
         ...markdownNode,
         metadata: getMarkdownMetadata(content),
-      };
+      });
     }
 
     if (htmlOption && isHTML(content)) {
-      return html(content);
+      return withInsertion(html(content));
     }
 
-    if (insertion && isInsertion(content)) {
-      return insert(content);
-    }
-
-    return content;
+    return withInsertion(content);
   }
 
   if (Array.isArray(content)) {
