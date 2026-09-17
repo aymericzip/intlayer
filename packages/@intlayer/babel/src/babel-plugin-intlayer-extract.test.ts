@@ -357,6 +357,64 @@ describe('babel-plugin-intlayer-extract', () => {
     expect(matches?.length).toBe(3);
   });
 
+  it('should not extract non-translatable JSX attributes in either form', () => {
+    const code = `
+      function MyComponent() {
+        return (
+          <Form
+            className={"item-end flex"}
+            toolName="askIntlayerAssistant"
+            toolDescription="Ask the Intlayer documentation assistant a question."
+            data-hint={"Machine readable hint"}
+            title={"Visible title"}
+          >
+            <TextArea
+              name="question"
+              toolParamDescription={"The question to ask, in any language."}
+            />
+          </Form>
+        );
+      }
+    `;
+
+    const output = transform(code);
+    expect(output).toContain('className={"item-end flex"}');
+    expect(output).toContain('toolName="askIntlayerAssistant"');
+    expect(output).toContain(
+      'toolDescription="Ask the Intlayer documentation assistant a question."'
+    );
+    expect(output).toContain('data-hint={"Machine readable hint"}');
+    expect(output).toContain(
+      'toolParamDescription={"The question to ask, in any language."}'
+    );
+    // Allowlisted attributes are still extracted in the braced form
+    expect(output).toContain('title={content.visibleTitle.value}');
+  });
+
+  it('should not extract tool metadata object properties', () => {
+    const code = `
+      function MyComponent() {
+        const tool = {
+          toolName: "askIntlayerAssistant",
+          toolDescription: "Ask the assistant a question about Intlayer.",
+          toolParamDescription: "The question to ask, in any language.",
+          label: "Ask a question",
+        };
+        return <div>{tool.label}</div>;
+      }
+    `;
+
+    const output = transform(code);
+    expect(output).toContain('toolName: "askIntlayerAssistant"');
+    expect(output).toContain(
+      'toolDescription: "Ask the assistant a question about Intlayer."'
+    );
+    expect(output).toContain(
+      'toolParamDescription: "The question to ask, in any language."'
+    );
+    expect(output).toContain('label: content.askAQuestion.value');
+  });
+
   it('should not append .value for attributes when getIntlayer is used', () => {
     const code = `
       export function myComponent() {

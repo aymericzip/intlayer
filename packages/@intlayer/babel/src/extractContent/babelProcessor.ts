@@ -93,6 +93,9 @@ const TECHNICAL_KEYS = new Set<string>([
   'endpoint',
   'headers',
   'contentType',
+  'toolName',
+  'toolDescription',
+  'toolParamDescription',
 ]);
 
 const NON_TRANSLATABLE_CALL_METHODS = new Set<string>([
@@ -536,6 +539,23 @@ export const extractBabelContentForComponents = (
         return;
 
       if (parent.isJSXAttribute()) return;
+
+      // A literal wrapped in braces (`title={"Hello"}`) follows the same
+      // attribute allowlist as the plain form handled by `JSXAttribute`.
+      if (parent.isJSXExpressionContainer()) {
+        const attributePath = parent.parentPath;
+        if (attributePath?.isJSXAttribute()) {
+          const attributeName = attributePath.node.name.name;
+          if (
+            typeof attributeName !== 'string' ||
+            !ATTRIBUTES_TO_EXTRACT.includes(
+              attributeName as (typeof ATTRIBUTES_TO_EXTRACT)[number]
+            )
+          ) {
+            return;
+          }
+        }
+      }
 
       // Skip string literals used as comparison operands (e.g. `msg.step === 'ERROR'`).
       // These are code constants / enum values, not translatable display text.
