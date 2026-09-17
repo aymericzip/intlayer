@@ -3,6 +3,7 @@ import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
   LlmsTxt_Path,
+  Mcp_Origin,
   Website_Doc_Root_Path,
   WellKnown_AgentSkillsIndex_Path,
   WellKnown_AiCatalog_Path,
@@ -322,6 +323,7 @@ export default defineConfig(async ({ mode }) => {
       'data:',
       domain ? `*.${domain}` : '',
       backendUrl,
+      Mcp_Origin,
       'static.cloudflareinsights.com',
       '*.google-analytics.com',
       '*.analytics.google.com',

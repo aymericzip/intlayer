@@ -7,6 +7,7 @@ export * from './useItemSelector';
 export * from './useKeyboardDetector';
 export * from './useListKeyboardNavigation';
 export * from './usePersistedStore';
+export * from './useRemoteMcpTools';
 export * from './useScreenWidth';
 export * from './useScrollBlockage';
 export * from './useScrollDetection';
