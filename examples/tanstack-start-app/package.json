@@ -17,12 +17,12 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "4.3.3",
-    "@tanstack/react-query": "5.102.8",
-    "@tanstack/react-router": "1.170.36",
+    "@tanstack/react-query": "5.103.1",
+    "@tanstack/react-router": "1.170.38",
     "@tanstack/react-router-devtools": "1.167.2",
-    "@tanstack/react-router-ssr-query": "1.167.2",
-    "@tanstack/react-start": "1.168.54",
-    "@tanstack/router-plugin": "1.168.38",
+    "@tanstack/react-router-ssr-query": "1.167.3",
+    "@tanstack/react-start": "1.168.56",
+    "@tanstack/router-plugin": "1.168.40",
     "intlayer": "workspace:*",
     "nitro": "latest",
     "react": "19.3.0",
@@ -40,7 +40,7 @@
     "typescript": "7.0.2",
     "vite": "8.3.0",
     "vite-intlayer": "workspace:*",
-    "vitest": "5.0.0",
+    "vitest": "5.0.1",
     "web-vitals": "6.1.0"
   }
 }

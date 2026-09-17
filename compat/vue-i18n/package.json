@@ -92,9 +92,9 @@
     "tsdown": "0.23.0",
     "typescript": "7.0.2",
     "vite": "8.3.0",
-    "vitest": "5.0.0",
+    "vitest": "5.0.1",
     "vue": "3.5.42",
-    "vue-i18n": "11.4.10"
+    "vue-i18n": "11.4.12"
   },
   "peerDependencies": {
     "vite": ">=4.0.0",

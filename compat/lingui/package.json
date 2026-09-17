@@ -83,8 +83,8 @@
     "vite-intlayer": "workspace:*"
   },
   "devDependencies": {
-    "@lingui/core": "^6.3.0",
-    "@lingui/react": "^6.3.0",
+    "@lingui/core": "^6.7.0",
+    "@lingui/react": "^6.7.0",
     "@types/node": "^22",
     "@types/react": "19.3.0",
     "@utils/ts-config": "workspace:*",
@@ -94,7 +94,7 @@
     "tsdown": "0.23.0",
     "typescript": "7.0.2",
     "vite": "8.3.0",
-    "vitest": "5.0.0"
+    "vitest": "5.0.1"
   },
   "peerDependencies": {
     "@lingui/core": ">=6.3.0",

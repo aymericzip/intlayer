@@ -93,7 +93,7 @@
     "tsdown": "0.23.0",
     "typescript": "7.0.2",
     "vite": "8.3.0",
-    "vitest": "5.0.0"
+    "vitest": "5.0.1"
   },
   "peerDependencies": {
     "@ngx-translate/core": ">=18.0.0",
