@@ -86,15 +86,16 @@ The [Vue benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/e
 
 Library sizes are from the [Vue benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/benchmark/vue.md): plugin plus composable in an empty component, after bundling, tree-shaking and minification, on a 10-page, 10-locale app. Content is measured separately.
 
-| Library        | Content model                                               | Types on keys               | Message format     | Per-route splitting | Library size |
-| :------------- | :---------------------------------------------------------- | :-------------------------- | :----------------- | :------------------ | :----------- |
-| `vue-i18n`     | Central catalogues per locale, optional SFC `<i18n>` blocks | Opt-in via a schema generic | Own (pipe plurals) | No                  | ~24.3 kB     |
-| `@nuxtjs/i18n` | Same as `vue-i18n`, plus routing and SEO tags               | Same                        | Same               | No, per locale only | On top       |
-| `fluent-vue`   | `.ftl` files (Mozilla Fluent)                               | None                        | Fluent             | No                  | ~29.7 kB     |
-| Paraglide      | inlang project, generated functions                         | Generated                   | Own                | Via tree-shaking    | Near zero    |
-| Intlayer       | One `.content.ts` per component                             | Generated, on by default    | Helpers (`plural`) | Yes, per component  | Baseline     |
+| Library        | Content model                                               | Type safety                       | Message format                      | Per-route splitting | Library size                                      |
+| :------------- | :---------------------------------------------------------- | :-------------------------------- | :---------------------------------- | :------------------ | :------------------------------------------------ |
+| `vue-i18n`     | Central catalogues per locale, optional SFC `<i18n>` blocks | 2/5 — Opt-in via a schema generic | Own (pipe plurals)                  | No                  | ~24.3 kB                                          |
+| `@nuxtjs/i18n` | Same as `vue-i18n`, plus routing and SEO tags               | 2/5 — Same                        | Same                                | No, per locale only | ~24.3 kB                                          |
+| `fluent-vue`   | `.ftl` files (Mozilla Fluent)                               | 1/5 — None                        | Fluent                              | No                  | ~29.7 kB                                          |
+| Paraglide      | inlang project, generated functions                         | 3.5/5 — Generated                 | Own                                 | Via tree-shaking    | Near zero (due to generated code in the codebase) |
+| Intlayer       | One `.content.ts` per component                             | 5/5 — Generated, on by default    | Intlayer (+ ICU, i18next, vue-i18n) | Yes, per component  | ~3.9 kB                                           |
 
 > Numbers are a snapshot at the benchmark's versions. Run it on your own app before deciding on size alone.
+> Type safety: 5/5 means keys, parameters and every locale are checked without manual setup, including url formater and helpers.
 
 Paraglide's near-zero library size is by construction: the runtime is generated into your repository, which means a regeneration step before every push and merge conflicts on generated files. Intlayer needs `vite-intlayer` (or the Nuxt module), so it cannot run without a build step.
 
@@ -318,7 +319,7 @@ Catalogues only grow. Intlayer's build purges unused fields and logs them (`buil
 
 **Developer experience.**
 
-Setup time to first translated string, an [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/lsp.md) or [VS Code extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/vs_code_extension.md) that shows the translation on hover and jumps to the declaration, a [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/index.md) for fill, test and push, and a way for non-developers to edit content ([visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_visual_editor.md) or [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_CMS.md)) without a pull request.
+Setup time to first translated string, an [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/lsp.md) or [VS Code extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/vs_code_extension.md) that shows the translation on hover and jumps to the declaration, a [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/index.md) for fill, test and push, a [compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compiler.md) or extractor that pulls hard-coded strings out of your components so you do not manage every string key by key, and a way for non-developers to edit content ([visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_visual_editor.md) or [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_CMS.md)) without a pull request.
 
 ## Frequently Asked Questions
 

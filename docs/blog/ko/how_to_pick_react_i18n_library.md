@@ -96,17 +96,18 @@ SSR 및 Server Components를 중심으로 설계되었습니다. 서버에서 �
 
 라이브러리 크기는 [TanStack Start 벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/tanstack.md)를 기준으로 합니다. 빈 컴포넌트에서 provider와 hook을 번들링, 트리 쉐이킹, minification을 거친 후 측정한 수치이며(10개 페이지, 10개 로케일), 콘텐츠 크기는 별도로 측정되었습니다.
 
-| 라이브러리              | 세대         | 콘텐츠 모델                            | 키 타입 지원                 | 메시지 포맷               | 라이브러리 크기 |
-| :---------------------- | :----------- | :------------------------------------- | :--------------------------- | :------------------------ | :-------------- |
-| `react-i18next`         | Runtime      | 중앙 JSON, 네임스페이스                | 옵트인 (`CustomTypeOptions`) | i18next (접미사 복수형)   | ~18.4 kB        |
-| `react-intl` (FormatJS) | Runtime      | 중앙 JSON, ICU                         | 옵트인 (추출 + 유니온)       | ICU                       | ~15.3 kB        |
-| `use-intl`              | Server-first | 중앙 JSON, ICU                         | 옵트인 (declaration merging) | ICU                       | ~14.1 kB        |
-| `@tolgee/react`         | Runtime      | 중앙 집중, 인컨텍스트 편집             | 미지원                       | ICU                       | ~11.1 kB        |
-| Lingui                  | Macro        | 코드 내 소스 텍스트, 컴파일된 카탈로그 | 우수 (컴파일러 지원)         | 매크로를 통한 ICU         | ~11.8 kB        |
-| Paraglide               | Compiler     | inlang 프로젝트, 생성된 함수           | 자동 생성                    | 자체 포맷                 | 거의 0에 가까움 |
-| Intlayer                | Compiler     | 컴포넌트별 `.content.ts`               | 자동 생성, 기본 활성화       | 헬퍼 (`plural`, `enu` 등) | 베이스라인      |
+| 라이브러리              | 세대         | 콘텐츠 모델                            | 타입 안전성                        | 메시지 포맷                   | 라이브러리 크기                                   |
+| :---------------------- | :----------- | :------------------------------------- | :--------------------------------- | :---------------------------- | :------------------------------------------------ |
+| `react-i18next`         | Runtime      | 중앙 JSON, 네임스페이스                | 2/5 — 옵트인 (`CustomTypeOptions`) | i18next (접미사 복수형)       | ~18.4 kB                                          |
+| `react-intl` (FormatJS) | Runtime      | 중앙 JSON, ICU                         | 2/5 — 옵트인 (추출 + 유니온)       | ICU                           | ~15.3 kB                                          |
+| `use-intl`              | Server-first | 중앙 JSON, ICU                         | 2/5 — 옵트인 (declaration merging) | ICU                           | ~14.1 kB                                          |
+| `@tolgee/react`         | Runtime      | 중앙 집중, 인컨텍스트 편집             | 1/5 — 미지원                       | ICU                           | ~11.1 kB                                          |
+| Lingui                  | Macro        | 코드 내 소스 텍스트, 컴파일된 카탈로그 | 2/5 — 우수 (컴파일러 지원)         | 매크로를 통한 ICU             | ~11.8 kB                                          |
+| Paraglide               | Compiler     | inlang 프로젝트, 생성된 함수           | 3.5/5 — 자동 생성                  | 자체 포맷                     | 거의 0에 가까움 (코드베이스에 생성되는 코드 때문) |
+| Intlayer                | Compiler     | 컴포넌트별 `.content.ts`               | 5/5 — 자동 생성, 기본 활성화       | Intlayer (+ ICU, i18next, PO) | ~5.0 kB                                           |
 
 > 수치는 벤치마크 테스트 당시 버전 기준이며 릴리스에 따라 달라집니다. 크기만으로 결정하기 전에 자체 앱에서 직접 벤치마크를 실행해 보세요.
+> 타입 안전성: 5/5는 URL 포맷터와 헬퍼를 포함하여 키, 매개변수, 모든 로케일이 수동 설정 없이 검사됨을 의미합니다.
 
 위 표에 나타나지 않는 두 가지 사항이 있습니다. `Paraglide`는 코드베이스에 코드를 직접 생성하므로 라이브러리 크기가 거의 없지만, 매 커밋 전 재생성 단계가 필요하고 생성된 파일에서 머지 충돌이 발생할 수 있습니다. 그리고 `Intlayer`는 번들러 플러그인(`vite-intlayer` 등)이 필수적이므로 빌드 과정이 없는 환경에서는 사용할 수 없습니다.
 
@@ -391,7 +392,7 @@ AI 에이전트는 여전히 i18n 작업에서 실수를 범합니다. 로케일
 
 **개발자 경험 (DX).**
 
-첫 번역 문자열까지의 설정 시간, 마우스 호버 시 번역을 미리 보여주고 선언 위치로 바로 이동할 수 있는 [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/lsp.md) 또는 [VS Code 확장 프로그램](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/vs_code_extension.md), fill, test, push를 지원하는 [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/index.md), 비개발자가 풀 리퀘스트 없이도 콘텐츠를 편집할 수 있는 도구([비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md) 또는 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md))가 제공되는지 확인하세요.
+첫 번역 문자열까지의 설정 시간, 마우스 호버 시 번역을 미리 보여주고 선언 위치로 바로 이동할 수 있는 [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/lsp.md) 또는 [VS Code 확장 프로그램](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/vs_code_extension.md), fill, test, push를 지원하는 [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/index.md), 컴포넌트에 하드코딩된 문자열을 추출해 키 하나하나를 직접 관리하지 않아도 되게 해주는 [컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md) 또는 추출기, 비개발자가 풀 리퀘스트 없이도 콘텐츠를 편집할 수 있는 도구([비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md) 또는 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md))가 제공되는지 확인하세요.
 
 ## 자주 묻는 질문 (FAQ)
 

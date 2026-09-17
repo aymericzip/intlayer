@@ -96,17 +96,18 @@ Nếu câu trả lời của bạn cho câu hỏi 3 là "nhiều locale, nhiều
 
 Kích thước thư viện được lấy từ [bài benchmark trên TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/tanstack.md): provider kèm hook trong một component trống, sau khi bundling, tree-shaking và minification, với 10 trang và 10 locale. Nội dung được đo lường riêng biệt.
 
-| Thư viện                | Làn sóng        | Mô hình nội dung                               | Type cho key                   | Định dạng message         | Kích thước thư viện  |
-| :---------------------- | :-------------- | :--------------------------------------------- | :----------------------------- | :------------------------ | :------------------- |
-| `react-i18next`         | Runtime         | JSON tập trung, namespace                      | Tùy chọn (`CustomTypeOptions`) | i18next (hậu tố số nhiều) | ~18.4 kB             |
-| `react-intl` (FormatJS) | Runtime         | JSON tập trung, ICU                            | Tùy chọn (trích xuất + union)  | ICU                       | ~15.3 kB             |
-| `use-intl`              | Server-first    | JSON tập trung, ICU                            | Tùy chọn (declaration merging) | ICU                       | ~14.1 kB             |
-| `@tolgee/react`         | Runtime         | Tập trung, chỉnh sửa trực tiếp (in-context)    | Không                          | ICU                       | ~11.1 kB             |
-| Lingui                  | Macro           | Văn bản nguồn trong code, catalog đã biên dịch | Tốt, từ trình biên dịch        | ICU qua macro             | ~11.8 kB             |
-| Paraglide               | Trình biên dịch | Dự án inlang, sinh ra các hàm                  | Tự động tạo                    | Riêng                     | Gần như bằng 0       |
-| Intlayer                | Trình biên dịch | `.content.ts` theo từng component              | Tự động tạo, bật mặc định      | Helper (`plural`, `enu`)  | Mức cơ sở (Baseline) |
+| Thư viện                | Làn sóng        | Mô hình nội dung                               | An toàn kiểu                         | Định dạng message             | Kích thước thư viện                                |
+| :---------------------- | :-------------- | :--------------------------------------------- | :----------------------------------- | :---------------------------- | :------------------------------------------------- |
+| `react-i18next`         | Runtime         | JSON tập trung, namespace                      | 2/5 — Tùy chọn (`CustomTypeOptions`) | i18next (hậu tố số nhiều)     | ~18.4 kB                                           |
+| `react-intl` (FormatJS) | Runtime         | JSON tập trung, ICU                            | 2/5 — Tùy chọn (trích xuất + union)  | ICU                           | ~15.3 kB                                           |
+| `use-intl`              | Server-first    | JSON tập trung, ICU                            | 2/5 — Tùy chọn (declaration merging) | ICU                           | ~14.1 kB                                           |
+| `@tolgee/react`         | Runtime         | Tập trung, chỉnh sửa trực tiếp (in-context)    | 1/5 — Không                          | ICU                           | ~11.1 kB                                           |
+| Lingui                  | Macro           | Văn bản nguồn trong code, catalog đã biên dịch | 2/5 — Tốt, từ trình biên dịch        | ICU qua macro                 | ~11.8 kB                                           |
+| Paraglide               | Trình biên dịch | Dự án inlang, sinh ra các hàm                  | 3.5/5 — Tự động tạo                  | Riêng                         | Gần như bằng 0 (do mã được sinh ra trong codebase) |
+| Intlayer                | Trình biên dịch | `.content.ts` theo từng component              | 5/5 — Tự động tạo, bật mặc định      | Intlayer (+ ICU, i18next, PO) | ~5.0 kB                                            |
 
 > Các con số là ảnh chụp nhanh tại các phiên bản benchmark và có thể thay đổi theo các bản phát hành. Hãy chạy benchmark trên chính ứng dụng của bạn trước khi đưa ra quyết định chỉ dựa vào kích thước.
+> An toàn kiểu: 5/5 nghĩa là khóa, tham số và mọi locale đều được kiểm tra mà không cần thiết lập thủ công, bao gồm cả trình định dạng URL và các helper.
 
 Có hai điều bảng so sánh không thể hiện. `Paraglide` hầu như không có dung lượng thư viện vì nó sinh mã trực tiếp vào repo của bạn, đồng nghĩa với việc cần thêm bước sinh lại mã trước mỗi lần commit và tiềm ẩn nguy cơ merge conflict trên các file được sinh ra. Còn `Intlayer` yêu cầu một plugin bundler (`vite-intlayer` hoặc tương đương), do đó không thể chạy trong môi trường không có bước build (no-build setup).
 
@@ -391,7 +392,7 @@ Các catalog chỉ có xu hướng phình to ra. Quá trình build của Intlaye
 
 **Trải nghiệm lập trình viên (Developer Experience).**
 
-Thời gian thiết lập đến chuỗi dịch đầu tiên, một [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/lsp.md) hoặc [tiện ích mở rộng VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/vs_code_extension.md) hiển thị bản dịch khi hover và nhảy đến phần khai báo, một [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/index.md) để fill, test và push, cùng phương thức cho người không phải lập trình viên chỉnh sửa nội dung ([visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md) hoặc [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md)) mà không cần tạo pull request.
+Thời gian thiết lập đến chuỗi dịch đầu tiên, một [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/lsp.md) hoặc [tiện ích mở rộng VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/vs_code_extension.md) hiển thị bản dịch khi hover và nhảy đến phần khai báo, một [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/index.md) để fill, test và push, một [trình biên dịch](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md) hoặc trình trích xuất lấy các chuỗi hard-code ra khỏi component để bạn không phải quản lý từng chuỗi theo từng khóa, cùng phương thức cho người không phải lập trình viên chỉnh sửa nội dung ([visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md) hoặc [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md)) mà không cần tạo pull request.
 
 ## Câu hỏi thường gặp
 

@@ -88,15 +88,16 @@ Jeśli Twoją odpowiedzią na pytanie 3 było "wiele podstron", potraktuj tę se
 
 Rozmiary bibliotek pochodzą z [benchmarku Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/svelte.md): store wraz z akcesorem w pustym komponencie, po bundle, tree-shakingu i minifikacji, w aplikacji z 10 podstronami i 10 wersjami językowymi. Sama treść jest mierzona osobno.
 
-| Biblioteka      | Gdzie trafiają wiadomości              | Stan locale                                    | Typy na kluczach      | Format wiadomości | Podział per trasa       | Rozmiar biblioteki |
-| :-------------- | :------------------------------------- | :--------------------------------------------- | :-------------------- | :---------------- | :---------------------- | :----------------- |
-| `svelte-i18n`   | Katalogi JSON per locale               | Svelte store na poziomie modułu                | Ręczna unia           | ICU               | Nie                     | ~16.6 kB           |
-| `typesafe-i18n` | Generowane moduły TS                   | Adapter store                                  | Generowane            | Własny            | Częściowy               | Mały               |
-| Paraglide       | Projekt inlang, kompilowany do funkcji | Odczyt per wywołanie z cookie, URL lub storage | Generowane            | Własny            | Tak, przez tree-shaking | Bliski zeru        |
-| `wuchale`       | Ekstrakcja z markup podczas budowania  | Store                                          | N/D (brak kluczy)     | Własny            | Tak                     | Mały               |
-| Intlayer        | `.content.ts` obok komponentu          | Context plus store, obsługa runes              | Generowane, domyślnie | Helpery           | Tak, per komponent      | Linia bazowa       |
+| Biblioteka      | Gdzie trafiają wiadomości              | Stan locale                                    | Bezpieczeństwo typów        | Format wiadomości             | Podział per trasa       | Rozmiar biblioteki                                   |
+| :-------------- | :------------------------------------- | :--------------------------------------------- | :-------------------------- | :---------------------------- | :---------------------- | :--------------------------------------------------- |
+| `svelte-i18n`   | Katalogi JSON per locale               | Svelte store na poziomie modułu                | 2/5 — Ręczna unia           | ICU                           | Nie                     | ~16.6 kB                                             |
+| `typesafe-i18n` | Generowane moduły TS                   | Adapter store                                  | 4/5 — Generowane            | Własny                        | Częściowy               | Mały                                                 |
+| Paraglide       | Projekt inlang, kompilowany do funkcji | Odczyt per wywołanie z cookie, URL lub storage | 3.5/5 — Generowane          | Własny                        | Tak, przez tree-shaking | Bliski zeru (dzięki kodowi generowanemu w projekcie) |
+| `wuchale`       | Ekstrakcja z markup podczas budowania  | Store                                          | N/D (brak kluczy)           | Własny                        | Tak                     | ~30.7 kB                                             |
+| Intlayer        | `.content.ts` obok komponentu          | Context plus store, obsługa runes              | 5/5 — Generowane, domyślnie | Intlayer (+ ICU, i18next, PO) | Tak, per komponent      | ~3.6 kB                                              |
 
 > Liczby są migawką dla wersji z benchmarku. Uruchom go na własnej aplikacji przed podjęciem decyzji opartej wyłącznie na rozmiarze.
+> Bezpieczeństwo typów: 5/5 oznacza, że klucze, parametry i każda lokalizacja są sprawdzane bez ręcznej konfiguracji, w tym formatery URL i helpery.
 
 Rozmiar biblioteki Paraglide bliski zeru wynika z jej konstrukcji: runtime jest generowany bezpośrednio do Twojego repozytorium. Intlayer wymaga wtyczki `vite-intlayer`, więc nie działa bez kroku budowania.
 
@@ -320,7 +321,7 @@ Katalogi mają tendencję wyłącznie do rozrastania się. Build Intlayer usuwa 
 
 **Doświadczenie programisty (Developer Experience).**
 
-Czas od konfiguracji do pierwszego przetłumaczonego tekstu, [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/lsp.md) lub [rozszerzenie do VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/vs_code_extension.md), które wyświetla tłumaczenie po najechaniu kursorem i przenosi do deklaracji, [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/index.md) do uzupełniania, testowania i publikowania oraz sposób na edycję treści dla osób nietechnicznych ([edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md) lub [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md)) bez konieczności tworzenia pull requesta.
+Czas od konfiguracji do pierwszego przetłumaczonego tekstu, [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/lsp.md) lub [rozszerzenie do VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/vs_code_extension.md), które wyświetla tłumaczenie po najechaniu kursorem i przenosi do deklaracji, [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/index.md) do uzupełniania, testowania i publikowania, [kompilator](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compiler.md) lub ekstraktor, który wyciąga zakodowane na stałe ciągi z komponentów, aby nie zarządzać każdym ciągiem klucz po kluczu oraz sposób na edycję treści dla osób nietechnicznych ([edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md) lub [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md)) bez konieczności tworzenia pull requesta.
 
 ## Często zadawane pytania
 

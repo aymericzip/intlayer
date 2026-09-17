@@ -86,15 +86,16 @@ O [benchmark Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/
 
 Os tamanhos das bibliotecas são do [benchmark Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/benchmark/vue.md): plugin mais composable em um componente vazio, após bundling, tree-shaking e minificação, em um app de 10 páginas e 10 locales. O conteúdo é medido separadamente.
 
-| Biblioteca     | Modelo de conteúdo                                           | Tipagem nas chaves             | Formato de mensagem    | Divisão por rota       | Tamanho da biblioteca |
-| :------------- | :----------------------------------------------------------- | :----------------------------- | :--------------------- | :--------------------- | :-------------------- |
-| `vue-i18n`     | Catálogos centrais por locale, blocos `<i18n>` opcionais SFC | Opcional via generic de schema | Próprio (plurais pipe) | Não                    | ~24.3 kB              |
-| `@nuxtjs/i18n` | O mesmo que `vue-i18n`, além de roteamento e tags de SEO     | O mesmo                        | O mesmo                | Não, apenas por locale | Adicional             |
-| `fluent-vue`   | Arquivos `.ftl` (Mozilla Fluent)                             | Nenhuma                        | Fluent                 | Não                    | ~29.7 kB              |
-| Paraglide      | Projeto inlang, funções geradas                              | Gerada                         | Próprio                | Via tree-shaking       | Quase zero            |
-| Intlayer       | Um `.content.ts` por componente                              | Gerada, ativa por padrão       | Helpers (`plural`)     | Sim, por componente    | Linha de base         |
+| Biblioteca     | Modelo de conteúdo                                           | Segurança de tipos                   | Formato de mensagem                 | Divisão por rota       | Tamanho da biblioteca                           |
+| :------------- | :----------------------------------------------------------- | :----------------------------------- | :---------------------------------- | :--------------------- | :---------------------------------------------- |
+| `vue-i18n`     | Catálogos centrais por locale, blocos `<i18n>` opcionais SFC | 2/5 — Opcional via generic de schema | Próprio (plurais pipe)              | Não                    | ~24.3 kB                                        |
+| `@nuxtjs/i18n` | O mesmo que `vue-i18n`, além de roteamento e tags de SEO     | 2/5 — O mesmo                        | O mesmo                             | Não, apenas por locale | ~24.3 kB                                        |
+| `fluent-vue`   | Arquivos `.ftl` (Mozilla Fluent)                             | 1/5 — Nenhuma                        | Fluent                              | Não                    | ~29.7 kB                                        |
+| Paraglide      | Projeto inlang, funções geradas                              | 3.5/5 — Gerada                       | Próprio                             | Via tree-shaking       | Quase zero (devido ao código gerado no projeto) |
+| Intlayer       | Um `.content.ts` por componente                              | 5/5 — Gerada, ativa por padrão       | Intlayer (+ ICU, i18next, vue-i18n) | Sim, por componente    | ~3.9 kB                                         |
 
 > Os números são um retrato nas versões do benchmark. Execute-o em sua própria aplicação antes de decidir apenas pelo tamanho.
+> Segurança de tipos: 5/5 significa que chaves, parâmetros e cada locale são verificados sem configuração manual, incluindo formatadores de URL e helpers.
 
 O tamanho quase zero da biblioteca do Paraglide é por construção: o runtime é gerado dentro do seu repositório, o que significa uma etapa de regeneração antes de cada push e conflitos de merge em arquivos gerados. O Intlayer precisa do `vite-intlayer` (ou do módulo Nuxt), portanto não pode rodar sem uma etapa de build.
 
@@ -318,7 +319,7 @@ Catálogos só crescem. O build do Intlayer remove campos não utilizados e regi
 
 **Experiência de desenvolvimento (Developer Experience).**
 
-Tempo de configuração até a primeira string traduzida, um [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/lsp.md) ou [extensão do VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/vs_code_extension.md) que mostra a tradução ao passar o mouse e navega até a declaração, uma [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/index.md) para preencher, testar e enviar (push), além de uma forma para não desenvolvedores editarem conteúdo ([editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md) ou [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md)) sem a necessidade de um pull request.
+Tempo de configuração até a primeira string traduzida, um [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/lsp.md) ou [extensão do VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/vs_code_extension.md) que mostra a tradução ao passar o mouse e navega até a declaração, uma [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/index.md) para preencher, testar e enviar (push), um [compilador](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/compiler.md) ou extrator que retira as strings fixas dos seus componentes para não gerir cada string chave a chave, além de uma forma para não desenvolvedores editarem conteúdo ([editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md) ou [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md)) sem a necessidade de um pull request.
 
 ## Perguntas Frequentes
 

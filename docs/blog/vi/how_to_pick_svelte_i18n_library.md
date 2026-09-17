@@ -87,15 +87,16 @@ Nếu câu trả lời của bạn cho câu hỏi 3 là "nhiều trang", hãy c�
 
 Kích thước thư viện được lấy từ [Svelte benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/svelte.md): store cùng với accessor trong một component rỗng, sau khi bundle, tree-shaking và minification, trên một ứng dụng 10 trang, 10 locale. Nội dung được đo lường riêng biệt.
 
-| Thư viện        | Nơi lưu trữ message               | Trạng thái locale                           | Type trên key                  | Định dạng message | Tách theo route            | Kích thước thư viện |
-| :-------------- | :-------------------------------- | :------------------------------------------ | :----------------------------- | :---------------- | :------------------------- | :------------------ |
-| `svelte-i18n`   | JSON catalog theo từng locale     | Module-level Svelte store                   | Union thủ công                 | ICU               | Không                      | ~16.6 kB            |
-| `typesafe-i18n` | Module TS được generate           | Store adapter                               | Được generate                  | Riêng             | Một phần                   | Nhỏ                 |
-| Paraglide       | Dự án inlang, biên dịch thành hàm | Đọc mỗi lần gọi từ cookie, URL hoặc storage | Được generate                  | Riêng             | Có, thông qua tree-shaking | Gần như bằng 0      |
-| `wuchale`       | Trích xuất từ markup lúc build    | Store                                       | Không áp dụng (không dùng key) | Riêng             | Có                         | Nhỏ                 |
-| Intlayer        | `.content.ts` đặt cạnh component  | Context kết hợp store, hỗ trợ rune          | Được generate, mặc định        | Helper            | Có, theo component         | Mức chuẩn           |
+| Thư viện        | Nơi lưu trữ message               | Trạng thái locale                           | An toàn kiểu                   | Định dạng message             | Tách theo route            | Kích thước thư viện                                |
+| :-------------- | :-------------------------------- | :------------------------------------------ | :----------------------------- | :---------------------------- | :------------------------- | :------------------------------------------------- |
+| `svelte-i18n`   | JSON catalog theo từng locale     | Module-level Svelte store                   | 2/5 — Union thủ công           | ICU                           | Không                      | ~16.6 kB                                           |
+| `typesafe-i18n` | Module TS được generate           | Store adapter                               | 4/5 — Được generate            | Riêng                         | Một phần                   | Nhỏ                                                |
+| Paraglide       | Dự án inlang, biên dịch thành hàm | Đọc mỗi lần gọi từ cookie, URL hoặc storage | 3.5/5 — Được generate          | Riêng                         | Có, thông qua tree-shaking | Gần như bằng 0 (do mã được sinh ra trong codebase) |
+| `wuchale`       | Trích xuất từ markup lúc build    | Store                                       | Không áp dụng (không dùng key) | Riêng                         | Có                         | ~30.7 kB                                           |
+| Intlayer        | `.content.ts` đặt cạnh component  | Context kết hợp store, hỗ trợ rune          | 5/5 — Được generate, mặc định  | Intlayer (+ ICU, i18next, PO) | Có, theo component         | ~3.6 kB                                            |
 
 > Các con số là ảnh chụp nhanh tại phiên bản của benchmark. Hãy chạy thử trên ứng dụng của riêng bạn trước khi quyết định chỉ dựa trên kích thước.
+> An toàn kiểu: 5/5 nghĩa là khóa, tham số và mọi locale đều được kiểm tra mà không cần thiết lập thủ công, bao gồm cả trình định dạng URL và các helper.
 
 Kích thước thư viện gần như bằng 0 của Paraglide là do cấu trúc: runtime được generate trực tiếp vào repository của bạn. Intlayer cần `vite-intlayer`, vì vậy nó không thể chạy nếu thiếu bước build.
 
@@ -308,7 +309,7 @@ Các catalog chỉ có tăng dần theo thời gian. Quá trình build của Int
 
 **Trải nghiệm lập trình viên (Developer Experience).**
 
-Thời gian thiết lập cho đến chuỗi dịch đầu tiên, [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/lsp.md) hoặc [VS Code extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/vs_code_extension.md) hiển thị bản dịch khi hover và nhảy tới phần khai báo, [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/index.md) để fill, test và push, cùng phương thức cho người không phải developer chỉnh sửa nội dung ([visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md) hoặc [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md)) mà không cần pull request.
+Thời gian thiết lập cho đến chuỗi dịch đầu tiên, [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/lsp.md) hoặc [VS Code extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/vs_code_extension.md) hiển thị bản dịch khi hover và nhảy tới phần khai báo, [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/index.md) để fill, test và push, một [trình biên dịch](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md) hoặc trình trích xuất lấy các chuỗi hard-code ra khỏi component để bạn không phải quản lý từng chuỗi theo từng khóa, cùng phương thức cho người không phải developer chỉnh sửa nội dung ([visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md) hoặc [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md)) mà không cần pull request.
 
 ## Câu hỏi thường gặp
 

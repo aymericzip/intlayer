@@ -86,15 +86,16 @@ Grafik, sayfa başına yaklaşık 30 KB metin içeren, 1 ila 10 dile çevrilmiş
 
 Kütüphane boyutları [Vue benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/vue.md) çalışmasından alınmıştır: 10 sayfalık, 10 dilli bir uygulamada, bundling, tree-shaking ve minification sonrasında boş bir bileşendeki plugin artı composable. İçerik ayrı olarak ölçülür.
 
-| Kütüphane      | İçerik modeli                                                     | Key'lerde Type Desteği    | Mesaj formatı          | Route başına bölme      | Kütüphane boyutu |
-| :------------- | :---------------------------------------------------------------- | :------------------------ | :--------------------- | :---------------------- | :--------------- |
-| `vue-i18n`     | Dil başına merkezi kataloglar, isteğe bağlı SFC `<i18n>` blokları | Schema generic ile opt-in | Kendine ait (pipe)     | Hayır                   | ~24.3 kB         |
-| `@nuxtjs/i18n` | `vue-i18n` ile aynı, artı routing ve SEO etiketleri               | Aynı                      | Aynı                   | Hayır, sadece dile göre | Ek olarak        |
-| `fluent-vue`   | `.ftl` dosyaları (Mozilla Fluent)                                 | Yok                       | Fluent                 | Hayır                   | ~29.7 kB         |
-| Paraglide      | inlang projesi, üretilen fonksiyonlar                             | Üretilen                  | Kendine ait            | Tree-shaking ile        | Sıfıra yakın     |
-| Intlayer       | Bileşen başına bir `.content.ts`                                  | Üretilen, varsayılan açık | Yardımcılar (`plural`) | Evet, bileşen bazlı     | Temel (Baseline) |
+| Kütüphane      | İçerik modeli                                                     | Tip güvenliği                   | Mesaj formatı                       | Route başına bölme      | Kütüphane boyutu                                    |
+| :------------- | :---------------------------------------------------------------- | :------------------------------ | :---------------------------------- | :---------------------- | :-------------------------------------------------- |
+| `vue-i18n`     | Dil başına merkezi kataloglar, isteğe bağlı SFC `<i18n>` blokları | 2/5 — Schema generic ile opt-in | Kendine ait (pipe)                  | Hayır                   | ~24.3 kB                                            |
+| `@nuxtjs/i18n` | `vue-i18n` ile aynı, artı routing ve SEO etiketleri               | 2/5 — Aynı                      | Aynı                                | Hayır, sadece dile göre | ~24.3 kB                                            |
+| `fluent-vue`   | `.ftl` dosyaları (Mozilla Fluent)                                 | 1/5 — Yok                       | Fluent                              | Hayır                   | ~29.7 kB                                            |
+| Paraglide      | inlang projesi, üretilen fonksiyonlar                             | 3.5/5 — Üretilen                | Kendine ait                         | Tree-shaking ile        | Sıfıra yakın (kod tabanında üretilen kod sayesinde) |
+| Intlayer       | Bileşen başına bir `.content.ts`                                  | 5/5 — Üretilen, varsayılan açık | Intlayer (+ ICU, i18next, vue-i18n) | Evet, bileşen bazlı     | ~3.9 kB                                             |
 
 > Rakamlar benchmark sürümlerindeki anlık bir görüntüdür. Yalnızca boyuta göre karar vermeden önce kendi uygulamanızda çalıştırın.
+> Tip güvenliği: 5/5; anahtarların, parametrelerin ve her locale'in, URL biçimlendirici ve yardımcılar (helpers) dahil olmak üzere manuel kurulum olmadan kontrol edildiği anlamına gelir.
 
 Paraglide'ın sıfıra yakın kütüphane boyutu yapısı gereğidir: runtime repository'nizin içine üretilir, bu da her push öncesi yeniden üretim adımı ve üretilen dosyalarda merge conflict anlamına gelir. Intlayer `vite-intlayer`'a (veya Nuxt modülüne) ihtiyaç duyar, bu nedenle build adımı olmadan çalışamaz.
 
@@ -318,7 +319,7 @@ Kataloglar yalnızca büyür. Intlayer'ın build işlemi kullanılmayan alanlar�
 
 **Developer experience (Geliştirici deneyimi).**
 
-İlk çevrilmiş string'e kadar kurulum süresi, hover sırasında çeviriyi gösteren ve tanımlamaya atlayan bir [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/lsp.md) veya [VS Code eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/vs_code_extension.md), doldurma, test etme ve push işlemleri için bir [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/index.md) ve geliştirici olmayanların bir pull request olmadan içeriği düzenlemesinin bir yolu ([görsel editör](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) veya [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)).
+İlk çevrilmiş string'e kadar kurulum süresi, hover sırasında çeviriyi gösteren ve tanımlamaya atlayan bir [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/lsp.md) veya [VS Code eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/vs_code_extension.md), doldurma, test etme ve push işlemleri için bir [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/index.md), bileşenlerinizdeki sabit kodlanmış dizeleri çıkaran ve böylece her dizeyi anahtar anahtar yönetmenizi gerektirmeyen bir [derleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md) veya çıkarıcı ve geliştirici olmayanların bir pull request olmadan içeriği düzenlemesinin bir yolu ([görsel editör](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) veya [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)).
 
 ## Sıkça Sorulan Sorular
 

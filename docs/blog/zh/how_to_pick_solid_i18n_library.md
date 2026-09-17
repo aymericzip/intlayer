@@ -87,15 +87,16 @@ Paraglide 为每条消息生成一个独立函数。Intlayer 在 `.content.ts` �
 
 各库的大小数据来自 [Solid 基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/solid.md)：在包含 10 个页面、10 种语言环境的应用中，空组件内引入 provider 加上 accessor，经过打包、tree-shaking 和压缩（minification）后的体积。翻译内容单独计算。
 
-| 库                       | 内容模型                       | 语言切换时的响应性                   | Key 的类型支持       | Scoping 与 Lazy Loading      | 库体积   |
-| :----------------------- | :----------------------------- | :----------------------------------- | :------------------- | :--------------------------- | :------- |
-| `@solid-primitives/i18n` | 自行维护的扁平 dictionary      | Signal，translator 返回 accessor     | 从源 dictionary 推导 | 无内置支持                   | 极小     |
-| `solid-i18next`          | i18next 目录与 namespace       | Store，通过 provider 触发重新渲染    | 手动声明             | Namespace、lazy backend      | ~14.9 kB |
-| Paraglide                | inlang 项目，自动生成函数      | 每次调用时从 cookie 或 storage 读取  | 自动生成             | Tree-shaking（测试中未生效） | 接近于零 |
-| `@lingui/solid`          | 代码中的源文本，编译生成的目录 | 基于 Signal                          | 来自编译器           | 按 catalog                   | 小       |
-| Intlayer                 | 每个组件对应一个 `.content.ts` | 基于 Signal 的节点，组件无需重新运行 | 自动生成，默认开启   | 支持，按组件划分             | 基准参考 |
+| 库                       | 内容模型                       | 语言切换时的响应性                   | 类型安全                   | Scoping 与 Lazy Loading      | 库体积                             |
+| :----------------------- | :----------------------------- | :----------------------------------- | :------------------------- | :--------------------------- | :--------------------------------- |
+| `@solid-primitives/i18n` | 自行维护的扁平 dictionary      | Signal，translator 返回 accessor     | 3/5 — 从源 dictionary 推导 | 无内置支持                   | ~0.6 kB                            |
+| `solid-i18next`          | i18next 目录与 namespace       | Store，通过 provider 触发重新渲染    | 2/5 — 手动声明             | Namespace、lazy backend      | ~14.9 kB                           |
+| Paraglide                | inlang 项目，自动生成函数      | 每次调用时从 cookie 或 storage 读取  | 3.5/5 — 自动生成           | Tree-shaking（测试中未生效） | 接近于零（因为代码生成到代码库中） |
+| `@lingui/solid`          | 代码中的源文本，编译生成的目录 | 基于 Signal                          | 2/5 — 来自编译器           | 按 catalog                   | ~11.8 kB                           |
+| Intlayer                 | 每个组件对应一个 `.content.ts` | 基于 Signal 的节点，组件无需重新运行 | 5/5 — 自动生成，默认开启   | 支持，按组件划分             | ~4.3 kB                            |
 
-> 数据为基准测试对应版本下的快照。`@lingui/solid` 未包含在该基准测试中。在仅依据体积做决策之前，请先在自己的应用中进行测试。
+> 数据为基准测试对应版本下的快照。`@lingui/solid` 的体积来自 TanStack Start 基准测试。在仅依据体积做决策之前，请先在自己的应用中进行测试。
+> 类型安全：5/5 表示键、参数和每个语言环境均无需手动配置即可得到校验，包括 URL 格式化工具与辅助函数。
 
 Paraglide 接近于零的库体积是由其架构决定的：运行时代码直接生成到你的代码仓库中。Intlayer 依赖 `vite-intlayer`，因此无法脱离构建步骤运行。
 
@@ -320,7 +321,7 @@ AI Agent 在处理 i18n 时仍面临挑战：容易遗漏 locale、凭空捏造 
 
 **开发者体验。**
 
-从开始配置到翻译出第一个字符串所需的时间、能在 hover 时显示翻译并跳转到声明处的 [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md) 或 [VS Code 插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/vs_code_extension.md)、用于填充、测试和推送的 [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)，以及非开发人员无需提交 Pull Request 即可编辑内容的方式（[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md) 或 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)）。
+从开始配置到翻译出第一个字符串所需的时间、能在 hover 时显示翻译并跳转到声明处的 [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md) 或 [VS Code 插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/vs_code_extension.md)、用于填充、测试和推送的 [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)、能把组件中硬编码的字符串提取出来、免去逐个键维护的[编译器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md)或提取工具，以及非开发人员无需提交 Pull Request 即可编辑内容的方式（[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md) 或 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)）。
 
 ## 常见问题解答
 

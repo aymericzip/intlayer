@@ -87,15 +87,16 @@ author: aymericzip
 
 أحجام المكتبات مأخوذة من [اختبار أداء Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/solid.md): الـ provider بالإضافة إلى الـ accessor في مكون فارغ، بعد التجميع والـ tree-shaking والـ minification، في تطبيق مكون من 10 صفحات و10 لغات. يتم قياس المحتوى بشكل منفصل.
 
-| المكتبة                  | نموذج المحتوى                      | التفاعلية عند تغيير اللغة                       | الأنواع على المفاتيح            | تحديد النطاق والتحميل الكسول       | حجم المكتبة          |
-| :----------------------- | :--------------------------------- | :---------------------------------------------- | :------------------------------ | :--------------------------------- | :------------------- |
-| `@solid-primitives/i18n` | قاموس مسطح تملكه                   | Signal، دوال accessors تُرجع من translator      | مستنتجة من قاموس المصدر         | لا يوجد بشكل مدمج                  | صغير جداً            |
-| `solid-i18next`          | كتالوجات ومساحات أسماء i18next     | Store، إعادة تصيير عبر provider                 | تصريح يدوي                      | مساحات أسماء، backends كسولة       | ~14.9 kB             |
-| Paraglide                | مشروع inlang، دوال مولدة           | قراءة عند كل استدعاء من cookie أو storage       | مولدة تلقائياً                  | Tree-shaking (لم يظهر في الاختبار) | شبه معدوم            |
-| `@lingui/solid`          | نص المصدر في الكود، كتالوجات مجمعة | قائمة على Signal                                | من المترجم (compiler)           | لكل كتالوج                         | صغير                 |
-| Intlayer                 | ملف `.content.ts` واحد لكل مكون    | عُقد مدعومة بـ signals، بدون إعادة تشغيل المكون | مولدة تلقائياً، مفعلة افتراضياً | نعم، لكل مكون                      | خط الأساس (Baseline) |
+| المكتبة                  | نموذج المحتوى                      | التفاعلية عند تغيير اللغة                       | أمان الأنواع                          | تحديد النطاق والتحميل الكسول       | حجم المكتبة                                      |
+| :----------------------- | :--------------------------------- | :---------------------------------------------- | :------------------------------------ | :--------------------------------- | :----------------------------------------------- |
+| `@solid-primitives/i18n` | قاموس مسطح تملكه                   | Signal، دوال accessors تُرجع من translator      | 3/5 — مستنتجة من قاموس المصدر         | لا يوجد بشكل مدمج                  | ~0.6 kB                                          |
+| `solid-i18next`          | كتالوجات ومساحات أسماء i18next     | Store، إعادة تصيير عبر provider                 | 2/5 — تصريح يدوي                      | مساحات أسماء، backends كسولة       | ~14.9 kB                                         |
+| Paraglide                | مشروع inlang، دوال مولدة           | قراءة عند كل استدعاء من cookie أو storage       | 3.5/5 — مولدة تلقائياً                | Tree-shaking (لم يظهر في الاختبار) | شبه معدوم (بسبب الكود المولَّد داخل قاعدة الكود) |
+| `@lingui/solid`          | نص المصدر في الكود، كتالوجات مجمعة | قائمة على Signal                                | 2/5 — من المترجم (compiler)           | لكل كتالوج                         | ~11.8 kB                                         |
+| Intlayer                 | ملف `.content.ts` واحد لكل مكون    | عُقد مدعومة بـ signals، بدون إعادة تشغيل المكون | 5/5 — مولدة تلقائياً، مفعلة افتراضياً | نعم، لكل مكون                      | ~4.3 kB                                          |
 
-> الأرقام تمثل لقطة لإصدارات اختبار الأداء. لم تكن `@lingui/solid` مدرجة في الاختبار. اختبرها على تطبيقك الخاص قبل اتخاذ القرار بناءً على الحجم وحده.
+> الأرقام تمثل لقطة لإصدارات اختبار الأداء. حجم `@lingui/solid` مأخوذ من اختبار أداء TanStack Start. اختبرها على تطبيقك الخاص قبل اتخاذ القرار بناءً على الحجم وحده.
+> أمان الأنواع: 5/5 يعني أن المفاتيح والمعاملات وكل لغة يتم التحقق منها دون إعداد يدوي، بما في ذلك منسق العناوين (URL formatter) والدوال المساعدة (helpers).
 
 يأتي حجم مكتبة Paraglide شبه المعدوم نتيجة لطريقة بنائها: يتم توليد وقت التشغيل (runtime) داخل مستودعك. بينما تحتاج Intlayer إلى `vite-intlayer`، لذا لا يمكنها العمل بدون خطوة بناء.
 
@@ -307,7 +308,7 @@ export const CartSummary: Component<{ count: number }> = (props) => {
 
 **تجربة المطور (DX).**
 
-الوقت اللازم من الإعداد إلى أول نص مترجم، ووجود [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/lsp.md) أو [امتداد VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/vs_code_extension.md) يعرض الترجمة عند التمرير وينتقل إلى التصريح، ووجود [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md) للملء والاختبار والنشر، وتوفير طريقة لغير المطورين لتعديل المحتوى ([المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) أو [نظام إدارة المحتوى CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)) دون الحاجة إلى pull request.
+الوقت اللازم من الإعداد إلى أول نص مترجم، ووجود [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/lsp.md) أو [امتداد VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/vs_code_extension.md) يعرض الترجمة عند التمرير وينتقل إلى التصريح، ووجود [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md) للملء والاختبار والنشر، و[مُصرِّف](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md) أو أداة استخراج تستخرج النصوص المكتوبة مباشرة في المكونات حتى لا تضطر إلى إدارة كل نص مفتاحًا بمفتاح، وتوفير طريقة لغير المطورين لتعديل المحتوى ([المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) أو [نظام إدارة المحتوى CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)) دون الحاجة إلى pull request.
 
 ## الأسئلة الشائعة
 

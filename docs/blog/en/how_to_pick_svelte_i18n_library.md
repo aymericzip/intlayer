@@ -87,15 +87,16 @@ If your answer to question 3 was "many pages", weigh this section more than any 
 
 Library sizes are from the [Svelte benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/svelte.md): store plus accessor in an empty component, after bundling, tree-shaking and minification, on a 10-page, 10-locale app. Content is measured separately.
 
-| Library         | Messages live in                      | Locale state                              | Types on keys      | Message format | Per-route splitting   | Library size |
-| :-------------- | :------------------------------------ | :---------------------------------------- | :----------------- | :------------- | :-------------------- | :----------- |
-| `svelte-i18n`   | JSON catalogs per locale              | Module-level Svelte store                 | Manual union       | ICU            | No                    | ~16.6 kB     |
-| `typesafe-i18n` | Generated TS modules                  | Store adapter                             | Generated          | Own            | Partial               | Small        |
-| Paraglide       | inlang project, compiled to functions | Read per call from cookie, URL or storage | Generated          | Own            | Yes, via tree-shaking | Near zero    |
-| `wuchale`       | Extracted from markup at build        | Store                                     | N/A (no keys)      | Own            | Yes                   | Small        |
-| Intlayer        | `.content.ts` next to the component   | Context plus store, rune-aware            | Generated, default | Helpers        | Yes, per component    | Baseline     |
+| Library         | Messages live in                      | Locale state                              | Type safety              | Message format                | Per-route splitting   | Library size                                      |
+| :-------------- | :------------------------------------ | :---------------------------------------- | :----------------------- | :---------------------------- | :-------------------- | :------------------------------------------------ |
+| `svelte-i18n`   | JSON catalogs per locale              | Module-level Svelte store                 | 2/5 — Manual union       | ICU                           | No                    | ~16.6 kB                                          |
+| `typesafe-i18n` | Generated TS modules                  | Store adapter                             | 4/5 — Generated          | Own                           | Partial               | Small                                             |
+| Paraglide       | inlang project, compiled to functions | Read per call from cookie, URL or storage | 3.5/5 — Generated        | Own                           | Yes, via tree-shaking | Near zero (due to generated code in the codebase) |
+| `wuchale`       | Extracted from markup at build        | Store                                     | N/A (no keys)            | Own                           | Yes                   | ~30.7 kB                                          |
+| Intlayer        | `.content.ts` next to the component   | Context plus store, rune-aware            | 5/5 — Generated, default | Intlayer (+ ICU, i18next, PO) | Yes, per component    | ~3.6 kB                                           |
 
 > Numbers are a snapshot at the benchmark's versions. Run it on your own app before deciding on size alone.
+> Type safety: 5/5 means keys, parameters and every locale are checked without manual setup, including url formater and helpers.
 
 Paraglide's near-zero library size is by construction: the runtime is generated into your repository. Intlayer needs `vite-intlayer`, so it cannot run without a build step.
 
@@ -308,7 +309,7 @@ Catalogs only grow. Intlayer's build purges unused fields and logs them (`build.
 
 **Developer experience.**
 
-Setup time to first translated string, an [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md) or [VS Code extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md) that shows the translation on hover and jumps to the declaration, a [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md) for fill, test and push, and a way for non-developers to edit content ([visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) or [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)) without a pull request.
+Setup time to first translated string, an [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md) or [VS Code extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md) that shows the translation on hover and jumps to the declaration, a [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md) for fill, test and push, a [compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compiler.md) or extractor that pulls hard-coded strings out of your components so you do not manage every string key by key, and a way for non-developers to edit content ([visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) or [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)) without a pull request.
 
 ## Frequently Asked Questions
 

@@ -86,15 +86,16 @@ Paraglide는 메시지당 하나의 함수를 생성하고 번들러가 나머�
 
 라이브러리 크기는 10개 페이지, 10개 로케일 앱에서 번들링, 트리 셰이킹, 압축(minification)을 거친 후 빈 컴포넌트 내 플러그인과 composable을 측정한 [Vue 벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/vue.md) 기준입니다. 콘텐츠는 별도로 측정됩니다.
 
-| 라이브러리     | 콘텐츠 모델                                      | 키에 대한 타입                  | 메시지 포맷               | 라우트별 분할                 | 라이브러리 크기 |
-| :------------- | :----------------------------------------------- | :------------------------------ | :------------------------ | :---------------------------- | :-------------- |
-| `vue-i18n`     | 로케일별 중앙 카탈로그, 선택적 SFC `<i18n>` 블록 | 스키마 generic을 통한 선택 적용 | 자체 포맷 (파이프 복수형) | 지원 안 함                    | ~24.3 kB        |
-| `@nuxtjs/i18n` | `vue-i18n`과 동일, 라우팅 및 SEO 태그 추가       | 동일                            | 동일                      | 지원 안 함, 로케일별로만 가능 | 추가 오버헤드   |
-| `fluent-vue`   | `.ftl` 파일 (Mozilla Fluent)                     | 없음                            | Fluent                    | 지원 안 함                    | ~29.7 kB        |
-| Paraglide      | inlang 프로젝트, 생성된 함수                     | 생성됨                          | 자체 포맷                 | 트리 셰이킹을 통해 지원       | 0에 가까움      |
-| Intlayer       | 컴포넌트당 하나의 `.content.ts`                  | 생성됨, 기본 활성화             | 헬퍼 (`plural`)           | 지원 (컴포넌트별)             | 베이스라인      |
+| 라이브러리     | 콘텐츠 모델                                      | 타입 안전성                           | 메시지 포맷                         | 라우트별 분할                 | 라이브러리 크기                              |
+| :------------- | :----------------------------------------------- | :------------------------------------ | :---------------------------------- | :---------------------------- | :------------------------------------------- |
+| `vue-i18n`     | 로케일별 중앙 카탈로그, 선택적 SFC `<i18n>` 블록 | 2/5 — 스키마 generic을 통한 선택 적용 | 자체 포맷 (파이프 복수형)           | 지원 안 함                    | ~24.3 kB                                     |
+| `@nuxtjs/i18n` | `vue-i18n`과 동일, 라우팅 및 SEO 태그 추가       | 2/5 — 동일                            | 동일                                | 지원 안 함, 로케일별로만 가능 | ~24.3 kB                                     |
+| `fluent-vue`   | `.ftl` 파일 (Mozilla Fluent)                     | 1/5 — 없음                            | Fluent                              | 지원 안 함                    | ~29.7 kB                                     |
+| Paraglide      | inlang 프로젝트, 생성된 함수                     | 3.5/5 — 생성됨                        | 자체 포맷                           | 트리 셰이킹을 통해 지원       | 0에 가까움 (코드베이스에 생성되는 코드 때문) |
+| Intlayer       | 컴포넌트당 하나의 `.content.ts`                  | 5/5 — 생성됨, 기본 활성화             | Intlayer (+ ICU, i18next, vue-i18n) | 지원 (컴포넌트별)             | ~3.9 kB                                      |
 
 > 수치는 벤치마크 버전 기준 스냅샷입니다. 크기만으로 결정하기 전에 자체 앱에서 직접 실행해 보세요.
+> 타입 안전성: 5/5는 URL 포맷터와 헬퍼를 포함하여 키, 매개변수, 모든 로케일이 수동 설정 없이 검사됨을 의미합니다.
 
 Paraglide의 0에 가까운 라이브러리 크기는 구조적 특징입니다. 런타임이 리포지토리 내에 생성되므로, 모든 push 전에 재생성 단계가 필요하고 생성된 파일에서 merge conflict가 발생할 수 있습니다. Intlayer는 `vite-intlayer`(또는 Nuxt 모듈)가 필요하므로 빌드 단계 없이 실행할 수 없습니다.
 
@@ -318,7 +319,7 @@ const { title, items } = useIntlayer("cart-summary");
 
 **개발자 경험(DX).**
 
-첫 번째 번역 문자열까지의 설정 시간, 마우스 호버 시 번역을 표시하고 선언으로 이동할 수 있는 [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/lsp.md) 또는 [VS Code 확장 프로그램](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/vs_code_extension.md), 채우기/테스트/푸시를 위한 [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/index.md), 비개발자가 풀 리퀘스트 없이 콘텐츠를 편집할 수 있는 도구([시각적 편집기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md) 또는 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)) 지원 여부를 확인하세요.
+첫 번째 번역 문자열까지의 설정 시간, 마우스 호버 시 번역을 표시하고 선언으로 이동할 수 있는 [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/lsp.md) 또는 [VS Code 확장 프로그램](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/vs_code_extension.md), 채우기/테스트/푸시를 위한 [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/index.md), 컴포넌트에 하드코딩된 문자열을 추출해 키 하나하나를 직접 관리하지 않아도 되게 해주는 [컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md) 또는 추출기, 비개발자가 풀 리퀘스트 없이 콘텐츠를 편집할 수 있는 도구([시각적 편집기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md) 또는 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)) 지원 여부를 확인하세요.
 
 ## 자주 묻는 질문 (FAQ)
 

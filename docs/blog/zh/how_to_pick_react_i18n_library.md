@@ -96,17 +96,18 @@ React 本身并没有提供内置的 i18n 原语。你在项目第一天选择�
 
 各库的体积数据来源于 [TanStack Start 基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md)：空组件中的 provider 加上 hook，在经过打包、tree-shaking 和压缩后的体积（基于 10 个页面和 10 个语言环境）。内容体积单独计算。
 
-| 库                      | 演进浪潮   | 内容模型                                | 键类型支持                   | 消息格式                   | 库体积   |
-| :---------------------- | :--------- | :-------------------------------------- | :--------------------------- | :------------------------- | :------- |
-| `react-i18next`         | 运行时     | 集中式 JSON，namespaces                 | Opt-in (`CustomTypeOptions`) | i18next (后缀复数)         | ~18.4 kB |
-| `react-intl` (FormatJS) | 运行时     | 集中式 JSON，ICU                        | Opt-in (提取 + union)        | ICU                        | ~15.3 kB |
-| `use-intl`              | 服务端优先 | 集中式 JSON，ICU                        | Opt-in (declaration merging) | ICU                        | ~14.1 kB |
-| `@tolgee/react`         | 运行时     | 集中式，上下文内可视化编辑 (in-context) | 无                           | ICU                        | ~11.1 kB |
-| Lingui                  | 宏         | 代码内源码文本，编译后目录              | 良好，由编译器生成           | 基于宏的 ICU               | ~11.8 kB |
-| Paraglide               | 编译器     | inlang 项目，生成函数                   | 自动生成                     | 自研格式                   | 接近于零 |
-| Intlayer                | 编译器     | 单组件 `.content.ts` 声明               | 自动生成，默认开启           | 辅助工具 (`plural`, `enu`) | Baseline |
+| 库                      | 演进浪潮   | 内容模型                                | 类型安全                           | 消息格式                      | 库体积                             |
+| :---------------------- | :--------- | :-------------------------------------- | :--------------------------------- | :---------------------------- | :--------------------------------- |
+| `react-i18next`         | 运行时     | 集中式 JSON，namespaces                 | 2/5 — Opt-in (`CustomTypeOptions`) | i18next (后缀复数)            | ~18.4 kB                           |
+| `react-intl` (FormatJS) | 运行时     | 集中式 JSON，ICU                        | 2/5 — Opt-in (提取 + union)        | ICU                           | ~15.3 kB                           |
+| `use-intl`              | 服务端优先 | 集中式 JSON，ICU                        | 2/5 — Opt-in (declaration merging) | ICU                           | ~14.1 kB                           |
+| `@tolgee/react`         | 运行时     | 集中式，上下文内可视化编辑 (in-context) | 1/5 — 无                           | ICU                           | ~11.1 kB                           |
+| Lingui                  | 宏         | 代码内源码文本，编译后目录              | 2/5 — 良好，由编译器生成           | 基于宏的 ICU                  | ~11.8 kB                           |
+| Paraglide               | 编译器     | inlang 项目，生成函数                   | 3.5/5 — 自动生成                   | 自研格式                      | 接近于零（因为代码生成到代码库中） |
+| Intlayer                | 编译器     | 单组件 `.content.ts` 声明               | 5/5 — 自动生成，默认开启           | Intlayer (+ ICU, i18next, PO) | ~5.0 kB                            |
 
 > 数据为基准测试特定版本时的快照，会随版本更新而变动。在仅凭体积做决定前，建议在自己的应用中运行基准测试。
+> 类型安全：5/5 表示键、参数和每个语言环境均无需手动配置即可得到校验，包括 URL 格式化工具与辅助函数。
 
 表格中未体现的两点细节：`Paraglide` 本身体积接近于零，是因为它将代码直接生成到你的代码库中，这意味着每次 commit 前都需要重新生成，并且生成的文件可能产生 merge conflict；而 `Intlayer` 依赖打包工具插件（`vite-intlayer` 或等效插件），因此无法在无需构建工具（no-build）的环境中运行。
 
@@ -391,7 +392,7 @@ export const CartSummary: FC<{ count: number }> = ({ count }) => {
 
 **开发者体验 (DX)。**
 
-从零配置到渲染出第一条翻译字符串所需的时间、显示悬停翻译并支持跳转到声明的 [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md) 或 [VS Code 插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/vs_code_extension.md)、用于填充、测试和推送的 [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)，以及非开发人员无需提交 PR 即可编辑文案的渠道（[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md) 或 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)）。
+从零配置到渲染出第一条翻译字符串所需的时间、显示悬停翻译并支持跳转到声明的 [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md) 或 [VS Code 插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/vs_code_extension.md)、用于填充、测试和推送的 [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)、能把组件中硬编码的字符串提取出来、免去逐个键维护的[编译器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md)或提取工具，以及非开发人员无需提交 PR 即可编辑文案的渠道（[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md) 或 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)）。
 
 ## 常见问题解答
 

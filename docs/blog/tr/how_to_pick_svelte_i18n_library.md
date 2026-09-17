@@ -87,15 +87,16 @@ Grafik, 1 ila 10 sayfadan oluşan, 1 ila 10 locale'e çevrilmiş ve sayfa başı
 
 Kütüphane boyutları [Svelte benchmark'ından](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/svelte.md) alınmıştır: 10 sayfalık, 10 locale'li bir uygulamada bundling, tree-shaking ve minification sonrasında boş bir bileşendeki store ve accessor boyutu. İçerik boyutu ayrıca ölçülür.
 
-| Kütüphane       | Mesajların konumu                      | Locale state                              | Key'lerde type desteği | Mesaj formatı | Route başına splitting | Kütüphane boyutu    |
-| :-------------- | :------------------------------------- | :---------------------------------------- | :--------------------- | :------------ | :--------------------- | :------------------ |
-| `svelte-i18n`   | Locale başına JSON katalogları         | Module-level Svelte store                 | Manuel union           | ICU           | Hayır                  | ~16.6 kB            |
-| `typesafe-i18n` | Üretilen TS modülleri                  | Store adapter                             | Üretilen               | Özel (Own)    | Kısmi                  | Küçük               |
-| Paraglide       | inlang projesi, fonksiyonlara derlenir | Cookie, URL veya storage'dan çağrı başına | Üretilen               | Özel (Own)    | Evet, tree-shaking ile | Sıfıra yakın        |
-| `wuchale`       | Build sırasında markup'tan çıkarılır   | Store                                     | Yok (key yok)          | Özel (Own)    | Evet                   | Küçük               |
-| Intlayer        | Bileşenin yanındaki `.content.ts`      | Context ve store, rune uyumlu             | Üretilen, varsayılan   | Helper'lar    | Evet, bileşen başına   | Referans (Baseline) |
+| Kütüphane       | Mesajların konumu                      | Locale state                              | Tip güvenliği              | Mesaj formatı                 | Route başına splitting | Kütüphane boyutu                                    |
+| :-------------- | :------------------------------------- | :---------------------------------------- | :------------------------- | :---------------------------- | :--------------------- | :-------------------------------------------------- |
+| `svelte-i18n`   | Locale başına JSON katalogları         | Module-level Svelte store                 | 2/5 — Manuel union         | ICU                           | Hayır                  | ~16.6 kB                                            |
+| `typesafe-i18n` | Üretilen TS modülleri                  | Store adapter                             | 4/5 — Üretilen             | Özel (Own)                    | Kısmi                  | Küçük                                               |
+| Paraglide       | inlang projesi, fonksiyonlara derlenir | Cookie, URL veya storage'dan çağrı başına | 3.5/5 — Üretilen           | Özel (Own)                    | Evet, tree-shaking ile | Sıfıra yakın (kod tabanında üretilen kod sayesinde) |
+| `wuchale`       | Build sırasında markup'tan çıkarılır   | Store                                     | Yok (key yok)              | Özel (Own)                    | Evet                   | ~30.7 kB                                            |
+| Intlayer        | Bileşenin yanındaki `.content.ts`      | Context ve store, rune uyumlu             | 5/5 — Üretilen, varsayılan | Intlayer (+ ICU, i18next, PO) | Evet, bileşen başına   | ~3.6 kB                                             |
 
 > Rakamlar benchmark sırasındaki sürümlerin anlık görüntüsüdür. Yalnızca boyuta göre karar vermeden önce kendi uygulamanızda test edin.
+> Tip güvenliği: 5/5; anahtarların, parametrelerin ve her locale'in, URL biçimlendirici ve yardımcılar (helpers) dahil olmak üzere manuel kurulum olmadan kontrol edildiği anlamına gelir.
 
 Paraglide'ın sıfıra yakın kütüphane boyutu mimari bir sonuçtur: runtime doğrudan reponuzun içinde üretilir. Intlayer ise `vite-intlayer` eklentisine ihtiyaç duyar, bu nedenle bir build adımı olmadan çalışamaz.
 
@@ -314,7 +315,7 @@ Kataloglar yalnızca büyür. Intlayer'ın build işlemi kullanılmayan alanlar�
 
 **Geliştirici deneyimi (Developer experience).**
 
-İlk çevrilmiş string'e kadar geçen kurulum süresi, hover sırasında çeviriyi gösterip deklarasyona atlayan bir [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/lsp.md) veya [VS Code eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/vs_code_extension.md), doldurma, test etme ve push için bir [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/index.md) ve yazılımcı olmayanların pull request açmadan içeriği düzenleyebileceği bir yöntem ([görsel editör](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) veya [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)).
+İlk çevrilmiş string'e kadar geçen kurulum süresi, hover sırasında çeviriyi gösterip deklarasyona atlayan bir [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/lsp.md) veya [VS Code eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/vs_code_extension.md), doldurma, test etme ve push için bir [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/index.md), bileşenlerinizdeki sabit kodlanmış dizeleri çıkaran ve böylece her dizeyi anahtar anahtar yönetmenizi gerektirmeyen bir [derleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md) veya çıkarıcı ve yazılımcı olmayanların pull request açmadan içeriği düzenleyebileceği bir yöntem ([görsel editör](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) veya [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)).
 
 ## Sıkça Sorulan Sorular
 

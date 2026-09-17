@@ -87,15 +87,16 @@ Grafik, sayfa başına yaklaşık 30 KB metin içeren, 1 ila 10 locale'e çevril
 
 Kütüphane boyutları [Solid benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/solid.md) çalışmasından alınmıştır: 10 sayfalık, 10 locale'e sahip bir uygulamada; bundling, tree-shaking ve minification sonrasında boş bir bileşendeki provider artı accessor. İçerik ayrıca ölçülür.
 
-| Kütüphane                | İçerik modeli                                 | Locale değişiminde reaktivite                         | Key'lerde type desteği                       | Scoping ve lazy loading             | Kütüphane boyutu    |
-| :----------------------- | :-------------------------------------------- | :---------------------------------------------------- | :------------------------------------------- | :---------------------------------- | :------------------ |
-| `@solid-primitives/i18n` | Size ait düz sözlük                           | Signal, translator tarafından döndürülen accessor'lar | Kaynak sözlükten infer edilir                | Yerleşik olarak yok                 | Çok küçük           |
-| `solid-i18next`          | i18next katalogları ve namespace'leri         | Store, provider üzerinden re-render                   | Manuel tanımlama                             | Namespace'ler, lazy backend'ler     | ~14.9 kB            |
-| Paraglide                | inlang projesi, üretilen fonksiyonlar         | Cookie veya storage'dan çağrı başına okuma            | Otomatik üretilir (generated)                | Tree-shaking (benchmark'ta etkisiz) | Sıfıra yakın        |
-| `@lingui/solid`          | Kod içinde kaynak metin, derlenmiş kataloglar | Signal tabanlı                                        | Derleyiciden sağlanır                        | Katalog başına                      | Küçük               |
-| Intlayer                 | Bileşen başına bir `.content.ts`              | Signal destekli node'lar, bileşen re-run'ı yok        | Üretilir (generated), varsayılan olarak açık | Evet, bileşen başına                | Referans (Baseline) |
+| Kütüphane                | İçerik modeli                                 | Locale değişiminde reaktivite                         | Tip güvenliği                                      | Scoping ve lazy loading             | Kütüphane boyutu                                    |
+| :----------------------- | :-------------------------------------------- | :---------------------------------------------------- | :------------------------------------------------- | :---------------------------------- | :-------------------------------------------------- |
+| `@solid-primitives/i18n` | Size ait düz sözlük                           | Signal, translator tarafından döndürülen accessor'lar | 3/5 — Kaynak sözlükten infer edilir                | Yerleşik olarak yok                 | ~0.6 kB                                             |
+| `solid-i18next`          | i18next katalogları ve namespace'leri         | Store, provider üzerinden re-render                   | 2/5 — Manuel tanımlama                             | Namespace'ler, lazy backend'ler     | ~14.9 kB                                            |
+| Paraglide                | inlang projesi, üretilen fonksiyonlar         | Cookie veya storage'dan çağrı başına okuma            | 3.5/5 — Otomatik üretilir (generated)              | Tree-shaking (benchmark'ta etkisiz) | Sıfıra yakın (kod tabanında üretilen kod sayesinde) |
+| `@lingui/solid`          | Kod içinde kaynak metin, derlenmiş kataloglar | Signal tabanlı                                        | 2/5 — Derleyiciden sağlanır                        | Katalog başına                      | ~11.8 kB                                            |
+| Intlayer                 | Bileşen başına bir `.content.ts`              | Signal destekli node'lar, bileşen re-run'ı yok        | 5/5 — Üretilir (generated), varsayılan olarak açık | Evet, bileşen başına                | ~4.3 kB                                             |
 
-> Rakamlar, benchmark sırasındaki sürümlerin anlık görüntüsüdür. `@lingui/solid` benchmark'ta yer almamıştır. Yalnızca boyuta göre karar vermeden önce kendi uygulamanızda test edin.
+> Rakamlar, benchmark sırasındaki sürümlerin anlık görüntüsüdür. `@lingui/solid` boyutu TanStack Start benchmark'ından alınmıştır. Yalnızca boyuta göre karar vermeden önce kendi uygulamanızda test edin.
+> Tip güvenliği: 5/5; anahtarların, parametrelerin ve her locale'in, URL biçimlendirici ve yardımcılar (helpers) dahil olmak üzere manuel kurulum olmadan kontrol edildiği anlamına gelir.
 
 Paraglide'ın sıfıra yakın kütüphane boyutu yapısı gereğidir: runtime doğrudan projenize üretilir (generate edilir). Intlayer `vite-intlayer` gerektirir, bu yüzden bir build adımı olmadan çalışamaz.
 
@@ -320,7 +321,7 @@ Kataloglar yalnızca büyür. Intlayer'ın build işlemi kullanılmayan alanlar�
 
 **Geliştirici deneyimi (DX).**
 
-İlk çevrilmiş string'e kadar geçen kurulum süresi, üzerine gelindiğinde (hover) çeviriyi gösteren ve bildirime atlayan bir [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/lsp.md) veya [VS Code eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/vs_code_extension.md), doldurma, test ve push işlemleri için bir [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/index.md) ve yazılımcı olmayan kişilerin bir pull request açmadan içeriği düzenlemesi için bir yol ([görsel editör](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) veya [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)).
+İlk çevrilmiş string'e kadar geçen kurulum süresi, üzerine gelindiğinde (hover) çeviriyi gösteren ve bildirime atlayan bir [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/lsp.md) veya [VS Code eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/vs_code_extension.md), doldurma, test ve push işlemleri için bir [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/index.md), bileşenlerinizdeki sabit kodlanmış dizeleri çıkaran ve böylece her dizeyi anahtar anahtar yönetmenizi gerektirmeyen bir [derleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md) veya çıkarıcı ve yazılımcı olmayan kişilerin bir pull request açmadan içeriği düzenlemesi için bir yol ([görsel editör](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) veya [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)).
 
 ## Sıkça Sorulan Sorular
 

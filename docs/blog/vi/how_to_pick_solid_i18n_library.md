@@ -87,15 +87,16 @@ Nếu câu trả lời của bạn cho câu hỏi 4 là "nhiều trang", hãy c�
 
 Kích thước thư viện được lấy từ [Solid benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/solid.md): provider kèm accessor trong một component trống, sau khi bundling, tree-shaking và minification, trên ứng dụng 10 trang và 10 locale. Nội dung được đo lường riêng biệt.
 
-| Thư viện                 | Mô hình nội dung                           | Tính phản ứng khi đổi locale               | Type cho key                  | Scoping và lazy loading            | Kích thước thư viện         |
-| :----------------------- | :----------------------------------------- | :----------------------------------------- | :---------------------------- | :--------------------------------- | :-------------------------- |
-| `@solid-primitives/i18n` | Dictionary phẳng do bạn làm chủ            | Signal, accessors trả về từ translator     | Suy luận từ source dictionary | Không có sẵn                       | Rất nhỏ                     |
-| `solid-i18next`          | Catalog và namespace của i18next           | Store, re-render qua provider              | Khai báo thủ công             | Namespaces, lazy backends          | ~14.9 kB                    |
-| Paraglide                | inlang project, các hàm được generate      | Đọc mỗi lần gọi từ cookie hoặc storage     | Được generate                 | Tree-shaking (chưa có trong bench) | Gần như bằng 0              |
-| `@lingui/solid`          | Source text trong code, catalog đã compile | Dựa trên signal                            | Từ trình biên dịch            | Theo từng catalog                  | Nhỏ                         |
-| Intlayer                 | Một file `.content.ts` cho mỗi component   | Node hỗ trợ signal, không re-run component | Được generate, bật mặc định   | Có, theo từng component            | Chuẩn tham chiếu (Baseline) |
+| Thư viện                 | Mô hình nội dung                           | Tính phản ứng khi đổi locale               | An toàn kiểu                        | Scoping và lazy loading            | Kích thước thư viện                                |
+| :----------------------- | :----------------------------------------- | :----------------------------------------- | :---------------------------------- | :--------------------------------- | :------------------------------------------------- |
+| `@solid-primitives/i18n` | Dictionary phẳng do bạn làm chủ            | Signal, accessors trả về từ translator     | 3/5 — Suy luận từ source dictionary | Không có sẵn                       | ~0.6 kB                                            |
+| `solid-i18next`          | Catalog và namespace của i18next           | Store, re-render qua provider              | 2/5 — Khai báo thủ công             | Namespaces, lazy backends          | ~14.9 kB                                           |
+| Paraglide                | inlang project, các hàm được generate      | Đọc mỗi lần gọi từ cookie hoặc storage     | 3.5/5 — Được generate               | Tree-shaking (chưa có trong bench) | Gần như bằng 0 (do mã được sinh ra trong codebase) |
+| `@lingui/solid`          | Source text trong code, catalog đã compile | Dựa trên signal                            | 2/5 — Từ trình biên dịch            | Theo từng catalog                  | ~11.8 kB                                           |
+| Intlayer                 | Một file `.content.ts` cho mỗi component   | Node hỗ trợ signal, không re-run component | 5/5 — Được generate, bật mặc định   | Có, theo từng component            | ~4.3 kB                                            |
 
-> Các con số là ảnh chụp nhanh tại các phiên bản của bài benchmark. `@lingui/solid` không có trong benchmark. Hãy chạy thử nghiệm trên ứng dụng của riêng bạn trước khi đưa ra quyết định chỉ dựa vào kích thước.
+> Các con số là ảnh chụp nhanh tại các phiên bản của bài benchmark. Kích thước của `@lingui/solid` lấy từ benchmark TanStack Start. Hãy chạy thử nghiệm trên ứng dụng của riêng bạn trước khi đưa ra quyết định chỉ dựa vào kích thước.
+> An toàn kiểu: 5/5 nghĩa là khóa, tham số và mọi locale đều được kiểm tra mà không cần thiết lập thủ công, bao gồm cả trình định dạng URL và các helper.
 
 Kích thước thư viện gần như bằng 0 của Paraglide là do bản chất thiết kế: runtime được generate trực tiếp vào repository của bạn. Intlayer cần `vite-intlayer`, vì vậy nó không thể chạy nếu không có bước build.
 
@@ -307,7 +308,7 @@ Các catalog chỉ có xu hướng phình to ra. Quá trình build của Intlaye
 
 **Developer experience.**
 
-Thời gian setup cho đến chuỗi dịch đầu tiên, một [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/lsp.md) hoặc [VS Code extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/vs_code_extension.md) hiển thị bản dịch khi hover và nhảy tới khai báo, một [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/index.md) để fill, test và push, cùng cách để người không phải lập trình viên có thể chỉnh sửa nội dung ([visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md) hoặc [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md)) mà không cần tạo pull request.
+Thời gian setup cho đến chuỗi dịch đầu tiên, một [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/lsp.md) hoặc [VS Code extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/vs_code_extension.md) hiển thị bản dịch khi hover và nhảy tới khai báo, một [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/index.md) để fill, test và push, một [trình biên dịch](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md) hoặc trình trích xuất lấy các chuỗi hard-code ra khỏi component để bạn không phải quản lý từng chuỗi theo từng khóa, cùng cách để người không phải lập trình viên có thể chỉnh sửa nội dung ([visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md) hoặc [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md)) mà không cần tạo pull request.
 
 ## Câu hỏi thường gặp
 

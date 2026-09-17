@@ -87,15 +87,16 @@ Wenn Ihre Antwort auf Frage 4 „viele Seiten“ war, gewichten Sie diesen Absch
 
 Die Bibliotheksgrößen stammen aus dem [Solid-Benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/solid.md): Provider plus Accessor in einer leeren Komponente nach Bundling, Tree-Shaking und Minifizierung in einer App mit 10 Seiten und 10 Sprachen. Inhalte werden separat gemessen.
 
-| Bibliothek               | Content-Modell                          | Reaktivität bei Sprachwechsel      | Typisierung von Schlüsseln          | Scoping und Lazy Loading     | Bibliotheksgröße |
-| :----------------------- | :-------------------------------------- | :--------------------------------- | :---------------------------------- | :--------------------------- | :--------------- |
-| `@solid-primitives/i18n` | Flaches, eigenes Dictionary             | Signal, Accessors vom Translator   | Aus dem Quell-Dictionary abgeleitet | Nativ nicht vorhanden        | Sehr klein       |
-| `solid-i18next`          | i18next-Kataloge und Namespaces         | Store, Re-Render über Provider     | Manuelle Deklaration                | Namespaces, Lazy-Backends    | ~14,9 kB         |
-| Paraglide                | inlang-Projekt, generierte Funktionen   | Pro Aufruf aus Cookie oder Storage | Generiert                           | Tree-Shaking (nicht im Test) | Nahe null        |
-| `@lingui/solid`          | Quelltext im Code, kompilierte Kataloge | Signalbasiert                      | Über den Compiler                   | Pro Katalog                  | Klein            |
-| Intlayer                 | Eine `.content.ts` pro Komponente       | Signalbasierte Nodes, kein Re-Run  | Generiert, standardmäßig aktiv      | Ja, pro Komponente           | Baseline         |
+| Bibliothek               | Content-Modell                          | Reaktivität bei Sprachwechsel      | Typsicherheit                             | Scoping und Lazy Loading     | Bibliotheksgröße                              |
+| :----------------------- | :-------------------------------------- | :--------------------------------- | :---------------------------------------- | :--------------------------- | :-------------------------------------------- |
+| `@solid-primitives/i18n` | Flaches, eigenes Dictionary             | Signal, Accessors vom Translator   | 3/5 — Aus dem Quell-Dictionary abgeleitet | Nativ nicht vorhanden        | ~0,6 kB                                       |
+| `solid-i18next`          | i18next-Kataloge und Namespaces         | Store, Re-Render über Provider     | 2/5 — Manuelle Deklaration                | Namespaces, Lazy-Backends    | ~14,9 kB                                      |
+| Paraglide                | inlang-Projekt, generierte Funktionen   | Pro Aufruf aus Cookie oder Storage | 3.5/5 — Generiert                         | Tree-Shaking (nicht im Test) | Nahe null (durch generierten Code im Projekt) |
+| `@lingui/solid`          | Quelltext im Code, kompilierte Kataloge | Signalbasiert                      | 2/5 — Über den Compiler                   | Pro Katalog                  | ~11,8 kB                                      |
+| Intlayer                 | Eine `.content.ts` pro Komponente       | Signalbasierte Nodes, kein Re-Run  | 5/5 — Generiert, standardmäßig aktiv      | Ja, pro Komponente           | ~4,3 kB                                       |
 
-> Die Zahlen sind eine Momentaufnahme der Versionen im Benchmark. `@lingui/solid` war nicht Teil des Benchmarks. Testen Sie dies in Ihrer eigenen App, bevor Sie allein nach der Größe entscheiden.
+> Die Zahlen sind eine Momentaufnahme der Versionen im Benchmark. Die Größe von `@lingui/solid` stammt aus dem TanStack-Start-Benchmark. Testen Sie dies in Ihrer eigenen App, bevor Sie allein nach der Größe entscheiden.
+> Typsicherheit: 5/5 bedeutet, dass Schlüssel, Parameter und jede Locale ohne manuelle Einrichtung geprüft werden, einschließlich URL-Formatierer und Helfer.
 
 Die minimale Bibliotheksgröße von Paraglide resultiert aus dem Konzept: Die Laufzeit wird direkt in Ihr Repository generiert. Intlayer setzt `vite-intlayer` voraus und benötigt daher zwingend einen Build-Schritt.
 
@@ -320,7 +321,7 @@ Kataloge wachsen mit der Zeit immer weiter an. Der Build von Intlayer entfernt u
 
 **Developer Experience.**
 
-Setup-Dauer bis zum ersten übersetzten String, ein [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/lsp.md) oder eine [VS Code-Erweiterung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/vs_code_extension.md), die Übersetzungen beim Hovern anzeigt und zur Deklaration springt, ein [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/index.md) zum Befüllen, Testen und Pushen sowie eine Möglichkeit für Nicht-Entwickler, Inhalte per [visuellem Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md) oder [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md) ohne Pull Request zu bearbeiten.
+Setup-Dauer bis zum ersten übersetzten String, ein [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/lsp.md) oder eine [VS Code-Erweiterung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/vs_code_extension.md), die Übersetzungen beim Hovern anzeigt und zur Deklaration springt, ein [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/index.md) zum Befüllen, Testen und Pushen, ein [Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compiler.md) oder Extraktor, der hartkodierte Strings aus Ihren Komponenten zieht, damit Sie nicht jeden String Schlüssel für Schlüssel verwalten müssen, sowie eine Möglichkeit für Nicht-Entwickler, Inhalte per [visuellem Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md) oder [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md) ohne Pull Request zu bearbeiten.
 
 ## Häufig gestellte Fragen (FAQ)
 

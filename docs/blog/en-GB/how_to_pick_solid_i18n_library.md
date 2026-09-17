@@ -87,15 +87,16 @@ If your answer to question 4 was "many pages", weigh this section more than any 
 
 Library sizes are from the [Solid benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/benchmark/solid.md): provider plus accessor in an empty component, after bundling, tree-shaking and minification, on a 10-page, 10-locale app. Content is measured separately.
 
-| Library                  | Content model                            | Reactivity on locale change              | Types on keys                       | Scoping and lazy loading    | Library size |
-| :----------------------- | :--------------------------------------- | :--------------------------------------- | :---------------------------------- | :-------------------------- | :----------- |
-| `@solid-primitives/i18n` | Flat dictionary you own                  | Signal, accessors returned by translator | Inferred from the source dictionary | None built in               | Very small   |
-| `solid-i18next`          | i18next catalogues and namespaces        | Store, re-render via provider            | Manual declaration                  | Namespaces, lazy backends   | ~14.9 kB     |
-| Paraglide                | inlang project, generated functions      | Read per call from cookie or storage     | Generated                           | Tree-shaking (not in bench) | Near zero    |
-| `@lingui/solid`          | Source text in code, compiled catalogues | Signal-based                             | From the compiler                   | Per catalogue               | Small        |
-| Intlayer                 | One `.content.ts` per component          | Signal-backed nodes, no component re-run | Generated, on by default            | Yes, per component          | Baseline     |
+| Library                  | Content model                            | Reactivity on locale change              | Type safety                               | Scoping and lazy loading    | Library size                                      |
+| :----------------------- | :--------------------------------------- | :--------------------------------------- | :---------------------------------------- | :-------------------------- | :------------------------------------------------ |
+| `@solid-primitives/i18n` | Flat dictionary you own                  | Signal, accessors returned by translator | 3/5 — Inferred from the source dictionary | None built in               | ~0.6 kB                                           |
+| `solid-i18next`          | i18next catalogues and namespaces        | Store, re-render via provider            | 2/5 — Manual declaration                  | Namespaces, lazy backends   | ~14.9 kB                                          |
+| Paraglide                | inlang project, generated functions      | Read per call from cookie or storage     | 3.5/5 — Generated                         | Tree-shaking (not in bench) | Near zero (due to generated code in the codebase) |
+| `@lingui/solid`          | Source text in code, compiled catalogues | Signal-based                             | 2/5 — From the compiler                   | Per catalogue               | ~11.8 kB                                          |
+| Intlayer                 | One `.content.ts` per component          | Signal-backed nodes, no component re-run | 5/5 — Generated, on by default            | Yes, per component          | ~4.3 kB                                           |
 
-> Numbers are a snapshot at the benchmark's versions. `@lingui/solid` was not in the benchmark. Run it on your own app before deciding on size alone.
+> Numbers are a snapshot at the benchmark's versions. `@lingui/solid` size comes from the TanStack Start benchmark. Run it on your own app before deciding on size alone.
+> Type safety: 5/5 means keys, parameters and every locale are checked without manual setup, including url formater and helpers.
 
 Paraglide's near-zero library size is by construction: the runtime is generated into your repository. Intlayer needs `vite-intlayer`, so it cannot run without a build step.
 
@@ -307,7 +308,7 @@ Catalogues only grow. Intlayer's build purges unused fields and logs them (`buil
 
 **Developer experience.**
 
-Setup time to first translated string, an [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/lsp.md) or [VS Code extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/vs_code_extension.md) that shows the translation on hover and jumps to the declaration, a [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/index.md) for fill, test and push, and a way for non-developers to edit content ([visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_visual_editor.md) or [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_CMS.md)) without a pull request.
+Setup time to first translated string, an [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/lsp.md) or [VS Code extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/vs_code_extension.md) that shows the translation on hover and jumps to the declaration, a [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/index.md) for fill, test and push, a [compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compiler.md) or extractor that pulls hard-coded strings out of your components so you do not manage every string key by key, and a way for non-developers to edit content ([visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_visual_editor.md) or [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_CMS.md)) without a pull request.
 
 ## Frequently Asked Questions
 

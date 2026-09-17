@@ -88,15 +88,16 @@ Se la vostra risposta alla domanda 3 è stata "molte pagine", date a questa sezi
 
 Le dimensioni delle librerie provengono dal [benchmark per Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/benchmark/svelte.md): store più accessor in un componente vuoto, dopo bundling, tree-shaking e minificazione, su un'app di 10 pagine e 10 locale. Il contenuto è misurato separatamente.
 
-| Libreria        | Dove risiedono i messaggi             | Stato del locale                            | Types sulle chiavi   | Formato messaggi | Suddivisione per route | Dimensione libreria |
-| :-------------- | :------------------------------------ | :------------------------------------------ | :------------------- | :--------------- | :--------------------- | :------------------ |
-| `svelte-i18n`   | Cataloghi JSON per locale             | Store Svelte a livello di modulo            | Unione manuale       | ICU              | No                     | ~16.6 kB            |
-| `typesafe-i18n` | Moduli TS generati                    | Adattatore store                            | Generati             | Proprietario     | Parziale               | Ridotta             |
-| Paraglide       | Progetto inlang, compilato a funzioni | Letto per chiamata da cookie, URL o storage | Generati             | Proprietario     | Sì, via tree-shaking   | Quasi zero          |
-| `wuchale`       | Estratto dal markup durante la build  | Store                                       | N/A (nessuna chiave) | Proprietario     | Sì                     | Ridotta             |
-| Intlayer        | `.content.ts` accanto al componente   | Context più store, compatibile con rune     | Generati di default  | Helper           | Sì, per componente     | Baseline            |
+| Libreria        | Dove risiedono i messaggi             | Stato del locale                            | Type safety               | Formato messaggi              | Suddivisione per route | Dimensione libreria                              |
+| :-------------- | :------------------------------------ | :------------------------------------------ | :------------------------ | :---------------------------- | :--------------------- | :----------------------------------------------- |
+| `svelte-i18n`   | Cataloghi JSON per locale             | Store Svelte a livello di modulo            | 2/5 — Unione manuale      | ICU                           | No                     | ~16.6 kB                                         |
+| `typesafe-i18n` | Moduli TS generati                    | Adattatore store                            | 4/5 — Generati            | Proprietario                  | Parziale               | Ridotta                                          |
+| Paraglide       | Progetto inlang, compilato a funzioni | Letto per chiamata da cookie, URL o storage | 3.5/5 — Generati          | Proprietario                  | Sì, via tree-shaking   | Quasi zero (per il codice generato nel progetto) |
+| `wuchale`       | Estratto dal markup durante la build  | Store                                       | N/A (nessuna chiave)      | Proprietario                  | Sì                     | ~30.7 kB                                         |
+| Intlayer        | `.content.ts` accanto al componente   | Context più store, compatibile con rune     | 5/5 — Generati di default | Intlayer (+ ICU, i18next, PO) | Sì, per componente     | ~3.6 kB                                          |
 
 > I numeri rappresentano un'istantanea delle versioni usate nel benchmark. Eseguitelo sulla vostra applicazione prima di basare la scelta solo sulla dimensione.
+> Type safety: 5/5 significa che chiavi, parametri e ogni locale vengono verificati senza configurazione manuale, inclusi formattatori di URL e helper.
 
 La dimensione quasi nulla della libreria Paraglide è dovuta alla sua architettura: il runtime viene generato direttamente nel repository. Intlayer richiede `vite-intlayer`, quindi non può funzionare senza una fase di build.
 
@@ -315,7 +316,7 @@ I cataloghi tendono solo a crescere nel tempo. La build di Intlayer elimina i ca
 
 **Developer experience.**
 
-Tempo necessario per configurare la prima stringa tradotta, un [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/lsp.md) o un'[estensione VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/vs_code_extension.md) che mostri la traduzione al passaggio del mouse e porti direttamente alla dichiarazione, una [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/cli/index.md) per riempimento, test e push, e uno strumento per consentire a figure non tecniche di modificare i contenuti ([editor visuale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_visual_editor.md) o [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_CMS.md)) senza aprire una pull request.
+Tempo necessario per configurare la prima stringa tradotta, un [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/lsp.md) o un'[estensione VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/vs_code_extension.md) che mostri la traduzione al passaggio del mouse e porti direttamente alla dichiarazione, una [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/cli/index.md) per riempimento, test e push, un [compilatore](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/compiler.md) o estrattore che estrae le stringhe hard-coded dai componenti per non gestire ogni stringa chiave per chiave, e uno strumento per consentire a figure non tecniche di modificare i contenuti ([editor visuale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_visual_editor.md) o [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_CMS.md)) senza aprire una pull request.
 
 ## Domande Frequenti
 

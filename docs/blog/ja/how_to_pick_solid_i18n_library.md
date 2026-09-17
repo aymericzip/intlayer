@@ -87,15 +87,16 @@ Paraglideはメッセージごとに1つの関数を生成します。Intlayer�
 
 ライブラリのサイズは、10ページ・10ロケールのアプリを対象にした[Solidベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/solid.md)（バンドル、ツリーシェイキング、minify後の空コンポーネントにおけるProvider＋アクセサ）の数値です。コンテンツのサイズは個別に測定しています。
 
-| ライブラリ               | コンテンツモデル                                 | ロケール変更時のリアクティビティ              | キーの型定義               | スコープ管理と遅延ロード         | ライブラリサイズ |
-| :----------------------- | :----------------------------------------------- | :-------------------------------------------- | :------------------------- | :------------------------------- | :--------------- |
-| `@solid-primitives/i18n` | 自身で管理するフラットな辞書                     | シグナル、translatorから返されるアクセサ      | 元の辞書から推論           | 組み込みなし                     | 極めて軽量       |
-| `solid-i18next`          | i18nextのカタログとネームスペース                | Store、Provider経由の再レンダリング           | 手動宣言                   | ネームスペース、遅延バックエンド | 約14.9 kB        |
-| Paraglide                | inlangプロジェクト、生成された関数               | CookieまたはStorageから呼び出しごとに読み取り | 自動生成                   | ツリーシェイキング（ベンチ外）   | ほぼゼロ         |
-| `@lingui/solid`          | コード内のソーステキスト、コンパイル済みカタログ | シグナルベース                                | コンパイラから生成         | カタログ単位                     | 軽量             |
-| Intlayer                 | コンポーネントごとに1つの`.content.ts`           | シグナル対応ノード、コンポーネント再実行なし  | 自動生成、デフォルトで有効 | あり（コンポーネント単位）       | ベースライン     |
+| ライブラリ               | コンテンツモデル                                 | ロケール変更時のリアクティビティ              | 型安全性                         | スコープ管理と遅延ロード         | ライブラリサイズ                                 |
+| :----------------------- | :----------------------------------------------- | :-------------------------------------------- | :------------------------------- | :------------------------------- | :----------------------------------------------- |
+| `@solid-primitives/i18n` | 自身で管理するフラットな辞書                     | シグナル、translatorから返されるアクセサ      | 3/5 — 元の辞書から推論           | 組み込みなし                     | 約0.6 kB                                         |
+| `solid-i18next`          | i18nextのカタログとネームスペース                | Store、Provider経由の再レンダリング           | 2/5 — 手動宣言                   | ネームスペース、遅延バックエンド | 約14.9 kB                                        |
+| Paraglide                | inlangプロジェクト、生成された関数               | CookieまたはStorageから呼び出しごとに読み取り | 3.5/5 — 自動生成                 | ツリーシェイキング（ベンチ外）   | ほぼゼロ（コードベースに生成されるコードのため） |
+| `@lingui/solid`          | コード内のソーステキスト、コンパイル済みカタログ | シグナルベース                                | 2/5 — コンパイラから生成         | カタログ単位                     | 約11.8 kB                                        |
+| Intlayer                 | コンポーネントごとに1つの`.content.ts`           | シグナル対応ノード、コンポーネント再実行なし  | 5/5 — 自動生成、デフォルトで有効 | あり（コンポーネント単位）       | ~4.3 kB                                          |
 
-> 数値はベンチマーク実施バージョンのスナップショットです。`@lingui/solid`はベンチマークに含まれていません。サイズだけで判断する前に、実際のアプリで計測してください。
+> 数値はベンチマーク実施バージョンのスナップショットです。`@lingui/solid`のサイズはTanStack Startベンチマークの値です。サイズだけで判断する前に、実際のアプリで計測してください。
+> 型安全性：5/5は、URLフォーマッターやヘルパーを含め、キー・パラメータ・すべてのロケールが手動設定なしに検証されることを意味します。
 
 Paraglideのライブラリサイズがほぼゼロである理由は構造によるものです。ランタイムがリポジトリ内に直接生成されます。Intlayerは`vite-intlayer`を必要とするため、ビルドステップなしでは動作しません。
 
@@ -320,7 +321,7 @@ AIエージェントは依然としてi18nの扱いに苦労することが多�
 
 **開発者体験（Developer Experience）。**
 
-最初の翻訳文字列を表示するまでのセットアップ時間、ホバー時に翻訳を表示し定義元へジャンプできる[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)や[VS Code拡張機能](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)、補完・テスト・プッシュを行うための[CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md)、そして開発者以外でもプルリクエストなしでコンテンツを編集できる手段（[ビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)や[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)）の有無を確認してください。
+最初の翻訳文字列を表示するまでのセットアップ時間、ホバー時に翻訳を表示し定義元へジャンプできる[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)や[VS Code拡張機能](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)、補完・テスト・プッシュを行うための[CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md)、コンポーネント内のハードコードされた文字列を抽出してキーごとに管理する手間をなくす[コンパイラー](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md)や抽出ツール、そして開発者以外でもプルリクエストなしでコンテンツを編集できる手段（[ビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)や[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)）の有無を確認してください。
 
 ## よくある質問
 

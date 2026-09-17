@@ -96,17 +96,18 @@ Jika jawaban Anda untuk pertanyaan 3 adalah "banyak locale, banyak halaman", per
 
 Ukuran library diambil dari [benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/tanstack.md): provider ditambah hook dalam komponen kosong, setelah bundling, tree-shaking, dan minifikasi, 10 halaman dan 10 locale. Konten diukur secara terpisah.
 
-| Library                 | Gelombang    | Model konten                           | Type pada kunci              | Format pesan             | Ukuran library |
-| :---------------------- | :----------- | :------------------------------------- | :--------------------------- | :----------------------- | :------------- |
-| `react-i18next`         | Runtime      | JSON terpusat, namespace               | Opt-in (`CustomTypeOptions`) | i18next (suffix plurals) | ~18.4 kB       |
-| `react-intl` (FormatJS) | Runtime      | JSON terpusat, ICU                     | Opt-in (ekstraksi + union)   | ICU                      | ~15.3 kB       |
-| `use-intl`              | Server-first | JSON terpusat, ICU                     | Opt-in (declaration merging) | ICU                      | ~14.1 kB       |
-| `@tolgee/react`         | Runtime      | Terpusat, in-context editing           | Tidak                        | ICU                      | ~11.1 kB       |
-| Lingui                  | Makro        | Teks sumber di kode, katalog kompilasi | Bagus, dari compiler         | ICU via makro            | ~11.8 kB       |
-| Paraglide               | Compiler     | Proyek inlang, fungsi ter-generate     | Ter-generate                 | Kustom                   | Hampir nol     |
-| Intlayer                | Compiler     | `.content.ts` per komponen             | Ter-generate, aktif default  | Helper (`plural`, `enu`) | Baseline       |
+| Library                 | Gelombang    | Model konten                           | Keamanan tipe                      | Format pesan                  | Ukuran library                                           |
+| :---------------------- | :----------- | :------------------------------------- | :--------------------------------- | :---------------------------- | :------------------------------------------------------- |
+| `react-i18next`         | Runtime      | JSON terpusat, namespace               | 2/5 — Opt-in (`CustomTypeOptions`) | i18next (suffix plurals)      | ~18.4 kB                                                 |
+| `react-intl` (FormatJS) | Runtime      | JSON terpusat, ICU                     | 2/5 — Opt-in (ekstraksi + union)   | ICU                           | ~15.3 kB                                                 |
+| `use-intl`              | Server-first | JSON terpusat, ICU                     | 2/5 — Opt-in (declaration merging) | ICU                           | ~14.1 kB                                                 |
+| `@tolgee/react`         | Runtime      | Terpusat, in-context editing           | 1/5 — Tidak                        | ICU                           | ~11.1 kB                                                 |
+| Lingui                  | Makro        | Teks sumber di kode, katalog kompilasi | 2/5 — Bagus, dari compiler         | ICU via makro                 | ~11.8 kB                                                 |
+| Paraglide               | Compiler     | Proyek inlang, fungsi ter-generate     | 3.5/5 — Ter-generate               | Kustom                        | Hampir nol (karena kode yang dihasilkan di dalam proyek) |
+| Intlayer                | Compiler     | `.content.ts` per komponen             | 5/5 — Ter-generate, aktif default  | Intlayer (+ ICU, i18next, PO) | ~5.0 kB                                                  |
 
 > Angka-angka ini adalah snapshot pada versi saat benchmark dilakukan dan dapat berubah seiring rilis versi baru. Jalankan benchmark pada aplikasi Anda sendiri sebelum memutuskan hanya berdasarkan ukuran.
+> Keamanan tipe: 5/5 berarti kunci, parameter, dan setiap locale diperiksa tanpa penyiapan manual, termasuk pemformat URL dan pembantu (helpers).
 
 Dua hal yang tidak ditampilkan dalam tabel. `Paraglide` hampir tidak memuat kode library karena men-generate kode langsung ke dalam repo Anda, yang berarti diperlukan langkah regenerasi sebelum setiap commit dan potensi merge conflict pada file yang di-generate. Dan `Intlayer` memerlukan plugin bundler (`vite-intlayer` atau setara), sehingga tidak dapat berjalan dalam setup tanpa proses build.
 
@@ -391,7 +392,7 @@ Katalog terjemahan cenderung terus bertambah. Build Intlayer membersihkan field 
 
 **Pengalaman pengembang (Developer Experience).**
 
-Waktu setup hingga string terjemahan pertama berfungsi, [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/lsp.md) atau [ekstensi VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/vs_code_extension.md) yang menampilkan terjemahan saat kursor diarahkan (hover) dan melompat langsung ke deklarasi, [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md) untuk fill, test, dan push, serta cara bagi non-developer untuk mengedit konten ([editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) atau [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)) tanpa perlu membuka pull request.
+Waktu setup hingga string terjemahan pertama berfungsi, [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/lsp.md) atau [ekstensi VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/vs_code_extension.md) yang menampilkan terjemahan saat kursor diarahkan (hover) dan melompat langsung ke deklarasi, [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md) untuk fill, test, dan push, [compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md) atau ekstraktor yang mengambil string hard-coded dari komponen Anda sehingga tidak perlu mengelola setiap string satu per satu berdasarkan kunci, serta cara bagi non-developer untuk mengedit konten ([editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) atau [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)) tanpa perlu membuka pull request.
 
 ## Pertanyaan yang Sering Diajukan
 

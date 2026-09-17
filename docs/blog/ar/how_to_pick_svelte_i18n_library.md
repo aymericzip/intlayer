@@ -87,15 +87,16 @@ author: aymericzip
 
 أحجام المكتبات مأخوذة من [اختبار أداء Svelte (benchmark)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/svelte.md): حجم الـ store بالإضافة إلى دالة الوصول (accessor) في مكون فارغ، بعد التجميع (bundling) والـ tree-shaking والضغط (minification)، على تطبيق مكون من 10 صفحات و 10 لغات. يتم قياس المحتوى بشكل منفصل.
 
-| المكتبة         | مكان تواجد الرسائل                 | حالة اللغة (Locale state)                     | الأنواع على المفاتيح      | تنسيق الرسائل         | التقسيم لكل مسار (Per-route splitting) | حجم المكتبة          |
-| :-------------- | :--------------------------------- | :-------------------------------------------- | :------------------------ | :-------------------- | :------------------------------------- | :------------------- |
-| `svelte-i18n`   | كتالوجات JSON لكل لغة              | Svelte store على مستوى الوحدة                 | اتحاد يدوي (Manual union) | ICU                   | لا                                     | ~16.6 kB             |
-| `typesafe-i18n` | وحدات TS مُنشأة تلقائياً           | محول Store                                    | مُنشأة تلقائياً           | خاص بها               | جزئي                                   | صغير                 |
-| Paraglide       | مشروع inlang، مترجم إلى دوال       | قراءة لكل استدعاء من cookie أو URL أو storage | مُنشأة تلقائياً           | خاص بها               | نعم، عبر tree-shaking                  | شبه منعدم            |
-| `wuchale`       | مستخرجة من الـ markup أثناء البناء | Store                                         | غير متوفر (بدون مفاتيح)   | خاص بها               | نعم                                    | صغير                 |
-| Intlayer        | ملف `.content.ts` بجانب المكون     | Context بالإضافة إلى store، متوافق مع runes   | مُنشأة تلقائياً افتراضياً | دوال مساعدة (Helpers) | نعم، لكل مكون                          | خط الأساس (Baseline) |
+| المكتبة         | مكان تواجد الرسائل                 | حالة اللغة (Locale state)                     | أمان الأنواع                    | تنسيق الرسائل                 | التقسيم لكل مسار (Per-route splitting) | حجم المكتبة                                      |
+| :-------------- | :--------------------------------- | :-------------------------------------------- | :------------------------------ | :---------------------------- | :------------------------------------- | :----------------------------------------------- |
+| `svelte-i18n`   | كتالوجات JSON لكل لغة              | Svelte store على مستوى الوحدة                 | 2/5 — اتحاد يدوي (Manual union) | ICU                           | لا                                     | ~16.6 kB                                         |
+| `typesafe-i18n` | وحدات TS مُنشأة تلقائياً           | محول Store                                    | 4/5 — مُنشأة تلقائياً           | خاص بها                       | جزئي                                   | صغير                                             |
+| Paraglide       | مشروع inlang، مترجم إلى دوال       | قراءة لكل استدعاء من cookie أو URL أو storage | 3.5/5 — مُنشأة تلقائياً         | خاص بها                       | نعم، عبر tree-shaking                  | شبه منعدم (بسبب الكود المولَّد داخل قاعدة الكود) |
+| `wuchale`       | مستخرجة من الـ markup أثناء البناء | Store                                         | غير متوفر (بدون مفاتيح)         | خاص بها                       | نعم                                    | ~30.7 kB                                         |
+| Intlayer        | ملف `.content.ts` بجانب المكون     | Context بالإضافة إلى store، متوافق مع runes   | 5/5 — مُنشأة تلقائياً افتراضياً | Intlayer (+ ICU, i18next, PO) | نعم، لكل مكون                          | ~3.6 kB                                          |
 
 > الأرقام تمثل لقطة لإصدارات الاختبار. قم بتشغيل الاختبار على تطبيقك الخاص قبل اتخاذ القرار بناءً على الحجم فقط.
+> أمان الأنواع: 5/5 يعني أن المفاتيح والمعاملات وكل لغة يتم التحقق منها دون إعداد يدوي، بما في ذلك منسق العناوين (URL formatter) والدوال المساعدة (helpers).
 
 حجم مكتبة Paraglide الشبه منعدم هو نتيجة لتصميمها: يتم إنشاء وقت التشغيل (runtime) مباشرة داخل مستودعك. وتحتاج Intlayer إلى `vite-intlayer`، لذا لا يمكن تشغيلها بدون خطوة بناء (build step).
 
@@ -314,7 +315,7 @@ export default cartSummaryContent;
 
 **تجربة المطور (Developer experience).**
 
-الوقت المستغرق من التثبيت حتى ظهور أول نص مترجم، ووجود [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/lsp.md) أو [إضافة VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/vs_code_extension.md) تعرض الترجمة عند التمرير وتنتقل إلى الإعلان، و [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md) للملء والاختبار والنشر، وطريقة تتيح لغير المطورين تعديل المحتوى ([المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) أو [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)) بدون الحاجة إلى pull request.
+الوقت المستغرق من التثبيت حتى ظهور أول نص مترجم، ووجود [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/lsp.md) أو [إضافة VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/vs_code_extension.md) تعرض الترجمة عند التمرير وتنتقل إلى الإعلان، و [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md) للملء والاختبار والنشر، و[مُصرِّف](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md) أو أداة استخراج تستخرج النصوص المكتوبة مباشرة في المكونات حتى لا تضطر إلى إدارة كل نص مفتاحًا بمفتاح، وطريقة تتيح لغير المطورين تعديل المحتوى ([المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) أو [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)) بدون الحاجة إلى pull request.
 
 ## الأسئلة الشائعة
 

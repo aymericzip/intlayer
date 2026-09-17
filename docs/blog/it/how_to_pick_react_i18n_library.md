@@ -97,17 +97,18 @@ Se la vostra risposta alla domanda 3 era "molte lingue, molte pagine", date a qu
 
 Le dimensioni delle librerie provengono dal [benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/benchmark/tanstack.md): provider più hook in un componente vuoto, dopo bundling, tree-shaking e minificazione, su 10 pagine e 10 lingue. I contenuti sono misurati separatamente.
 
-| Libreria                | Ondata       | Modello dei contenuti                 | Types sulle chiavi           | Formato dei messaggi      | Dimensione libreria |
-| :---------------------- | :----------- | :------------------------------------ | :--------------------------- | :------------------------ | :------------------ |
-| `react-i18next`         | Runtime      | JSON centralizzato, namespace         | Opt-in (`CustomTypeOptions`) | i18next (plurali a suff.) | ~18.4 kB            |
-| `react-intl` (FormatJS) | Runtime      | JSON centralizzato, ICU               | Opt-in (estrazione + union)  | ICU                       | ~15.3 kB            |
-| `use-intl`              | Server-first | JSON centralizzato, ICU               | Opt-in (declaration merging) | ICU                       | ~14.1 kB            |
-| `@tolgee/react`         | Runtime      | Centralizzato, in-context editing     | No                           | ICU                       | ~11.1 kB            |
-| Lingui                  | Macro        | Testo sorgente nel codice, cat. comp. | Ottimo, dal compiler         | ICU tramite macro         | ~11.8 kB            |
-| Paraglide               | Compiler     | Progetto inlang, funzioni generate    | Generati                     | Proprietario              | Quasi zero          |
-| Intlayer                | Compiler     | `.content.ts` per componente          | Generati, attivi di default  | Helper (`plural`, `enu`)  | Baseline            |
+| Libreria                | Ondata       | Modello dei contenuti                 | Type safety                        | Formato dei messaggi          | Dimensione libreria                              |
+| :---------------------- | :----------- | :------------------------------------ | :--------------------------------- | :---------------------------- | :----------------------------------------------- |
+| `react-i18next`         | Runtime      | JSON centralizzato, namespace         | 2/5 — Opt-in (`CustomTypeOptions`) | i18next (plurali a suff.)     | ~18.4 kB                                         |
+| `react-intl` (FormatJS) | Runtime      | JSON centralizzato, ICU               | 2/5 — Opt-in (estrazione + union)  | ICU                           | ~15.3 kB                                         |
+| `use-intl`              | Server-first | JSON centralizzato, ICU               | 2/5 — Opt-in (declaration merging) | ICU                           | ~14.1 kB                                         |
+| `@tolgee/react`         | Runtime      | Centralizzato, in-context editing     | 1/5 — No                           | ICU                           | ~11.1 kB                                         |
+| Lingui                  | Macro        | Testo sorgente nel codice, cat. comp. | 2/5 — Ottimo, dal compiler         | ICU tramite macro             | ~11.8 kB                                         |
+| Paraglide               | Compiler     | Progetto inlang, funzioni generate    | 3.5/5 — Generati                   | Proprietario                  | Quasi zero (per il codice generato nel progetto) |
+| Intlayer                | Compiler     | `.content.ts` per componente          | 5/5 — Generati, attivi di default  | Intlayer (+ ICU, i18next, PO) | ~5.0 kB                                          |
 
 > I dati rappresentano uno snapshot delle versioni utilizzate nel benchmark e variano con le nuove release. Eseguite il benchmark sulla vostra applicazione prima di basare la decisione solo sulle dimensioni.
+> Type safety: 5/5 significa che chiavi, parametri e ogni locale vengono verificati senza configurazione manuale, inclusi formattatori di URL e helper.
 
 Due aspetti che la tabella non mostra. `Paraglide` non include quasi alcuna libreria a runtime perché genera codice direttamente nella vostra repository, il che implica uno step di rigenerazione prima di ogni commit e possibili conflitti di merge sui file generati. `Intlayer` richiede un plugin per il bundler (`vite-intlayer` o equivalente), quindi non può funzionare in configurazioni prive di build step.
 
@@ -392,7 +393,7 @@ I cataloghi tendono solo a crescere nel tempo. La build di Intlayer elimina i ca
 
 **Developer experience.**
 
-Tempo necessario per configurare la prima stringa tradotta, presenza di un [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/lsp.md) o di un'[estensione VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/vs_code_extension.md) che mostra la traduzione all'hover e porta direttamente alla dichiarazione, una [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/cli/index.md) per completamento, test e push, e uno strumento per consentire a figure non tecniche di modificare i contenuti ([editor visuale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_visual_editor.md) o [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_CMS.md)) senza aprire una pull request.
+Tempo necessario per configurare la prima stringa tradotta, presenza di un [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/lsp.md) o di un'[estensione VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/vs_code_extension.md) che mostra la traduzione all'hover e porta direttamente alla dichiarazione, una [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/cli/index.md) per completamento, test e push, un [compilatore](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/compiler.md) o estrattore che estrae le stringhe hard-coded dai componenti per non gestire ogni stringa chiave per chiave, e uno strumento per consentire a figure non tecniche di modificare i contenuti ([editor visuale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_visual_editor.md) o [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_CMS.md)) senza aprire una pull request.
 
 ## Domande frequenti
 

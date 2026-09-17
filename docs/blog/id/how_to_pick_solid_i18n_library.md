@@ -87,15 +87,16 @@ Jika jawaban Anda untuk pertanyaan 4 adalah "banyak halaman", pertimbangkan bagi
 
 Ukuran library diambil dari [benchmark Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/solid.md): provider ditambah accessor dalam komponen kosong, setelah bundling, tree-shaking, dan minifikasi, pada aplikasi 10 halaman dan 10 locale. Konten diukur secara terpisah.
 
-| Library                  | Model konten                              | Reactivity pada pergantian locale           | Type pada keys                    | Scoping dan lazy loading      | Ukuran library |
-| :----------------------- | :---------------------------------------- | :------------------------------------------ | :-------------------------------- | :---------------------------- | :------------- |
-| `@solid-primitives/i18n` | Kamus flat yang Anda kelola               | Signal, accessor dikembalikan translator    | Di-infer dari kamus sumber        | Tidak ada bawaan              | Sangat kecil   |
-| `solid-i18next`          | Katalog dan namespace i18next             | Store, re-render via provider               | Deklarasi manual                  | Namespace, lazy backend       | ~14.9 kB       |
-| Paraglide                | Proyek inlang, fungsi yang di-generate    | Dibaca per pemanggilan dari cookie/storage  | Di-generate                       | Tree-shaking (tidak di bench) | Hampir nol     |
-| `@lingui/solid`          | Teks sumber dalam kode, katalog kompilasi | Berbasis signal                             | Dari compiler                     | Per katalog                   | Kecil          |
-| Intlayer                 | Satu `.content.ts` per komponen           | Node berbasis signal, tanpa re-run komponen | Di-generate, aktif secara default | Ya, per komponen              | Baseline       |
+| Library                  | Model konten                              | Reactivity pada pergantian locale           | Keamanan tipe                           | Scoping dan lazy loading      | Ukuran library                                           |
+| :----------------------- | :---------------------------------------- | :------------------------------------------ | :-------------------------------------- | :---------------------------- | :------------------------------------------------------- |
+| `@solid-primitives/i18n` | Kamus flat yang Anda kelola               | Signal, accessor dikembalikan translator    | 3/5 — Di-infer dari kamus sumber        | Tidak ada bawaan              | ~0.6 kB                                                  |
+| `solid-i18next`          | Katalog dan namespace i18next             | Store, re-render via provider               | 2/5 — Deklarasi manual                  | Namespace, lazy backend       | ~14.9 kB                                                 |
+| Paraglide                | Proyek inlang, fungsi yang di-generate    | Dibaca per pemanggilan dari cookie/storage  | 3.5/5 — Di-generate                     | Tree-shaking (tidak di bench) | Hampir nol (karena kode yang dihasilkan di dalam proyek) |
+| `@lingui/solid`          | Teks sumber dalam kode, katalog kompilasi | Berbasis signal                             | 2/5 — Dari compiler                     | Per katalog                   | ~11.8 kB                                                 |
+| Intlayer                 | Satu `.content.ts` per komponen           | Node berbasis signal, tanpa re-run komponen | 5/5 — Di-generate, aktif secara default | Ya, per komponen              | ~4.3 kB                                                  |
 
-> Angka-angka tersebut merupakan gambaran pada versi saat benchmark dilakukan. `@lingui/solid` tidak disertakan dalam benchmark. Jalankan pada aplikasi Anda sendiri sebelum memutuskan hanya berdasarkan ukuran.
+> Angka-angka tersebut merupakan gambaran pada versi saat benchmark dilakukan. Ukuran `@lingui/solid` diambil dari benchmark TanStack Start. Jalankan pada aplikasi Anda sendiri sebelum memutuskan hanya berdasarkan ukuran.
+> Keamanan tipe: 5/5 berarti kunci, parameter, dan setiap locale diperiksa tanpa penyiapan manual, termasuk pemformat URL dan pembantu (helpers).
 
 Ukuran library Paraglide yang hampir nol didapat dari rancangannya: runtime di-generate langsung ke dalam repository Anda. Intlayer membutuhkan `vite-intlayer`, sehingga tidak dapat berjalan tanpa build step.
 
@@ -320,7 +321,7 @@ Katalog biasanya hanya akan membesar. Build Intlayer membersihkan field yang tid
 
 **Developer experience.**
 
-Waktu setup hingga string terjemahan pertama, [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/lsp.md) atau [ekstensi VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/vs_code_extension.md) yang menampilkan terjemahan saat kursor diarahkan (hover) dan melompat ke deklarasi, [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md) untuk fill, test, dan push, serta cara bagi non-developer untuk mengedit konten ([visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) atau [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)) tanpa pull request.
+Waktu setup hingga string terjemahan pertama, [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/lsp.md) atau [ekstensi VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/vs_code_extension.md) yang menampilkan terjemahan saat kursor diarahkan (hover) dan melompat ke deklarasi, [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md) untuk fill, test, dan push, [compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md) atau ekstraktor yang mengambil string hard-coded dari komponen Anda sehingga tidak perlu mengelola setiap string satu per satu berdasarkan kunci, serta cara bagi non-developer untuk mengedit konten ([visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) atau [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)) tanpa pull request.
 
 ## Pertanyaan yang Sering Diajukan
 

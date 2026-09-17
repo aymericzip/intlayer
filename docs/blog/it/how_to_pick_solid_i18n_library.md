@@ -87,15 +87,16 @@ Se la risposta alla domanda 4 è stata "molte pagine", date a questa sezione un 
 
 Le dimensioni delle librerie provengono dal [benchmark Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/benchmark/solid.md): provider più accessor in un componente vuoto, dopo bundling, tree-shaking e minificazione, su un'app di 10 pagine e 10 lingue. Il contenuto è misurato separatamente.
 
-| Libreria                 | Modello di contenuto                  | Reattività al cambio di lingua             | Tipi sulle chiavi                 | Scoping e lazy loading       | Dimensione libreria |
-| :----------------------- | :------------------------------------ | :----------------------------------------- | :-------------------------------- | :--------------------------- | :------------------ |
-| `@solid-primitives/i18n` | Dizionario flat gestito autonomamente | Signal, accessor restituiti da translator  | Dedotti dal dizionario sorgente   | Nessuno integrato            | Molto ridotta       |
-| `solid-i18next`          | Cataloghi e namespace i18next         | Store, re-render tramite provider          | Dichiarazione manuale             | Namespace, backend lazy      | ~14,9 kB            |
-| Paraglide                | Progetto inlang, funzioni generate    | Lettura per chiamata da cookie o storage   | Generati                          | Tree-shaking (non nel bench) | Quasi zero          |
-| `@lingui/solid`          | Testo sorgente nel codice, compilato  | Basato su signal                           | Dal compilatore                   | Per catalogo                 | Ridotta             |
-| Intlayer                 | Un file `.content.ts` per componente  | Nodi basati su signal, nessun re-run comp. | Generati, attivi per impostazione | Sì, per componente           | Baseline            |
+| Libreria                 | Modello di contenuto                  | Reattività al cambio di lingua             | Type safety                             | Scoping e lazy loading       | Dimensione libreria                              |
+| :----------------------- | :------------------------------------ | :----------------------------------------- | :-------------------------------------- | :--------------------------- | :----------------------------------------------- |
+| `@solid-primitives/i18n` | Dizionario flat gestito autonomamente | Signal, accessor restituiti da translator  | 3/5 — Dedotti dal dizionario sorgente   | Nessuno integrato            | ~0,6 kB                                          |
+| `solid-i18next`          | Cataloghi e namespace i18next         | Store, re-render tramite provider          | 2/5 — Dichiarazione manuale             | Namespace, backend lazy      | ~14,9 kB                                         |
+| Paraglide                | Progetto inlang, funzioni generate    | Lettura per chiamata da cookie o storage   | 3.5/5 — Generati                        | Tree-shaking (non nel bench) | Quasi zero (per il codice generato nel progetto) |
+| `@lingui/solid`          | Testo sorgente nel codice, compilato  | Basato su signal                           | 2/5 — Dal compilatore                   | Per catalogo                 | ~11,8 kB                                         |
+| Intlayer                 | Un file `.content.ts` per componente  | Nodi basati su signal, nessun re-run comp. | 5/5 — Generati, attivi per impostazione | Sì, per componente           | ~4,3 kB                                          |
 
-> I numeri rappresentano uno snapshot alle versioni del benchmark. `@lingui/solid` non era presente nel benchmark. Eseguite il test sulla vostra applicazione prima di decidere unicamente in base alle dimensioni.
+> I numeri rappresentano uno snapshot alle versioni del benchmark. La dimensione di `@lingui/solid` proviene dal benchmark TanStack Start. Eseguite il test sulla vostra applicazione prima di decidere unicamente in base alle dimensioni.
+> Type safety: 5/5 significa che chiavi, parametri e ogni locale vengono verificati senza configurazione manuale, inclusi formattatori di URL e helper.
 
 La dimensione quasi nulla della libreria Paraglide è dovuta alla sua architettura: il runtime viene generato direttamente nella codebase. Intlayer richiede `vite-intlayer`, pertanto non può essere eseguito senza una fase di build.
 
@@ -320,7 +321,7 @@ I cataloghi tendono solo a crescere. La build di Intlayer rimuove i campi inutil
 
 **Developer experience.**
 
-Tempo di configurazione fino alla prima stringa tradotta, un [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/lsp.md) o un'[estensione VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/vs_code_extension.md) che mostra la traduzione al passaggio del mouse e rimanda alla dichiarazione, una [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/cli/index.md) per completare, testare e sincronizzare, e uno strumento per consentire a figure non tecniche di modificare i contenuti ([editor visuale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_visual_editor.md) o [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_CMS.md)) senza richiedere una pull request.
+Tempo di configurazione fino alla prima stringa tradotta, un [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/lsp.md) o un'[estensione VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/vs_code_extension.md) che mostra la traduzione al passaggio del mouse e rimanda alla dichiarazione, una [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/cli/index.md) per completare, testare e sincronizzare, un [compilatore](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/compiler.md) o estrattore che estrae le stringhe hard-coded dai componenti per non gestire ogni stringa chiave per chiave, e uno strumento per consentire a figure non tecniche di modificare i contenuti ([editor visuale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_visual_editor.md) o [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_CMS.md)) senza richiedere una pull request.
 
 ## Domande Frequenti
 

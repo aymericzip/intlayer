@@ -86,15 +86,16 @@ Grafik berikut memperkirakan payload untuk aplikasi teoritis dengan 1 hingga 10 
 
 Ukuran library diambil dari [benchmark Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/vue.md): plugin ditambah composable dalam komponen kosong, setelah proses bundling, tree-shaking, dan minifikasi, pada aplikasi 10 halaman dan 10 locale. Konten diukur secara terpisah.
 
-| Library        | Model konten                                              | Types pada keys                  | Format pesan          | Splitting per-route     | Ukuran library   |
-| :------------- | :-------------------------------------------------------- | :------------------------------- | :-------------------- | :---------------------- | :--------------- |
-| `vue-i18n`     | Katalog terpusat per locale, opsional SFC `<i18n>` blocks | Opt-in via schema generic        | Khusus (pipe plurals) | Tidak                   | ~24.3 kB         |
-| `@nuxtjs/i18n` | Sama seperti `vue-i18n`, ditambah routing dan tag SEO     | Sama                             | Sama                  | Tidak, hanya per locale | Tambahan di atas |
-| `fluent-vue`   | File `.ftl` (Mozilla Fluent)                              | Tidak ada                        | Fluent                | Tidak                   | ~29.7 kB         |
-| Paraglide      | Project inlang, generated functions                       | Dihasilkan (generated)           | Khusus                | Melalui tree-shaking    | Mendekati nol    |
-| Intlayer       | Satu `.content.ts` per komponen                           | Dihasilkan, aktif secara default | Helper (`plural`)     | Ya, per komponen        | Baseline         |
+| Library        | Model konten                                              | Keamanan tipe                          | Format pesan                        | Splitting per-route     | Ukuran library                                              |
+| :------------- | :-------------------------------------------------------- | :------------------------------------- | :---------------------------------- | :---------------------- | :---------------------------------------------------------- |
+| `vue-i18n`     | Katalog terpusat per locale, opsional SFC `<i18n>` blocks | 2/5 — Opt-in via schema generic        | Khusus (pipe plurals)               | Tidak                   | ~24.3 kB                                                    |
+| `@nuxtjs/i18n` | Sama seperti `vue-i18n`, ditambah routing dan tag SEO     | 2/5 — Sama                             | Sama                                | Tidak, hanya per locale | ~24.3 kB                                                    |
+| `fluent-vue`   | File `.ftl` (Mozilla Fluent)                              | 1/5 — Tidak ada                        | Fluent                              | Tidak                   | ~29.7 kB                                                    |
+| Paraglide      | Project inlang, generated functions                       | 3.5/5 — Dihasilkan (generated)         | Khusus                              | Melalui tree-shaking    | Mendekati nol (karena kode yang dihasilkan di dalam proyek) |
+| Intlayer       | Satu `.content.ts` per komponen                           | 5/5 — Dihasilkan, aktif secara default | Intlayer (+ ICU, i18next, vue-i18n) | Ya, per komponen        | ~3.9 kB                                                     |
 
 > Angka-angka tersebut merupakan gambaran pada versi saat benchmark dilakukan. Jalankan pengujian pada aplikasi Anda sendiri sebelum memutuskan hanya berdasarkan ukuran.
+> Keamanan tipe: 5/5 berarti kunci, parameter, dan setiap locale diperiksa tanpa penyiapan manual, termasuk pemformat URL dan pembantu (helpers).
 
 Ukuran library Paraglide yang mendekati nol dicapai melalui konstruksinya: runtime di-generate langsung ke dalam repositori Anda, yang berarti diperlukan langkah regenerasi sebelum setiap push dan potensi konflik merge pada file yang di-generate. Intlayer memerlukan `vite-intlayer` (atau modul Nuxt), sehingga tidak dapat berjalan tanpa langkah build.
 
@@ -312,7 +313,7 @@ Katalog terjemahan cenderung terus membengkak. Build Intlayer membersihkan field
 
 **Developer experience.**
 
-Waktu setup hingga string terjemahan pertama muncul, dukungan [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/lsp.md) atau [ekstensi VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/vs_code_extension.md) yang menampilkan terjemahan saat hover dan melompat ke deklarasi, [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md) untuk fill, test, dan push, serta cara bagi non-developer untuk mengedit konten ([visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) atau [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)) tanpa perlu membuat pull request.
+Waktu setup hingga string terjemahan pertama muncul, dukungan [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/lsp.md) atau [ekstensi VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/vs_code_extension.md) yang menampilkan terjemahan saat hover dan melompat ke deklarasi, [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md) untuk fill, test, dan push, [compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md) atau ekstraktor yang mengambil string hard-coded dari komponen Anda sehingga tidak perlu mengelola setiap string satu per satu berdasarkan kunci, serta cara bagi non-developer untuk mengedit konten ([visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) atau [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)) tanpa perlu membuat pull request.
 
 ## Pertanyaan yang Sering Diajukan
 

@@ -87,15 +87,16 @@ Jeśli Twoją odpowiedzią na pytanie 4 było "wiele stron", potraktuj tę sekcj
 
 Rozmiary bibliotek pochodzą z [benchmarku Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/solid.md): provider plus akcesor w pustym komponencie, po bundlowaniu, tree-shakingu i minifikacji, dla aplikacji z 10 stronami i 10 locales. Content mierzony jest osobno.
 
-| Biblioteka               | Model contentu                                 | Reaktywność przy zmianie locale                    | Typowanie kluczy                 | Scoping i lazy loading      | Rozmiar biblioteki |
-| :----------------------- | :--------------------------------------------- | :------------------------------------------------- | :------------------------------- | :-------------------------- | :----------------- |
-| `@solid-primitives/i18n` | Płaski słownik pod Twoją kontrolą              | Signal, akcesory zwracane przez translator         | Wnioskowane z obiektu źródłowego | Brak wbudowanego            | Bardzo mały        |
-| `solid-i18next`          | Katalogi i namespaces i18next                  | Store, re-render przez provider                    | Ręczna deklaracja                | Namespaces, lazy backendy   | ~14.9 kB           |
-| Paraglide                | Projekt inlang, wygenerowane funkcje           | Odczyt per call z cookie lub storage               | Wygenerowane                     | Tree-shaking (brak w bench) | Bliski zera        |
-| `@lingui/solid`          | Tekst źródłowy w kodzie, skompilowane katalogi | Oparte na signalach                                | Z kompilatora                    | Per katalog                 | Mały               |
-| Intlayer                 | Jeden `.content.ts` na komponent               | Węzły oparte na signalach, brak re-runu komponentu | Wygenerowane, domyślnie włączone | Tak, per komponent          | Baseline           |
+| Biblioteka               | Model contentu                                 | Reaktywność przy zmianie locale                    | Bezpieczeństwo typów                   | Scoping i lazy loading      | Rozmiar biblioteki                                   |
+| :----------------------- | :--------------------------------------------- | :------------------------------------------------- | :------------------------------------- | :-------------------------- | :--------------------------------------------------- |
+| `@solid-primitives/i18n` | Płaski słownik pod Twoją kontrolą              | Signal, akcesory zwracane przez translator         | 3/5 — Wnioskowane z obiektu źródłowego | Brak wbudowanego            | ~0.6 kB                                              |
+| `solid-i18next`          | Katalogi i namespaces i18next                  | Store, re-render przez provider                    | 2/5 — Ręczna deklaracja                | Namespaces, lazy backendy   | ~14.9 kB                                             |
+| Paraglide                | Projekt inlang, wygenerowane funkcje           | Odczyt per call z cookie lub storage               | 3.5/5 — Wygenerowane                   | Tree-shaking (brak w bench) | Bliski zera (dzięki kodowi generowanemu w projekcie) |
+| `@lingui/solid`          | Tekst źródłowy w kodzie, skompilowane katalogi | Oparte na signalach                                | 2/5 — Z kompilatora                    | Per katalog                 | ~11.8 kB                                             |
+| Intlayer                 | Jeden `.content.ts` na komponent               | Węzły oparte na signalach, brak re-runu komponentu | 5/5 — Wygenerowane, domyślnie włączone | Tak, per komponent          | ~4.3 kB                                              |
 
-> Liczby są migawką dla wersji z benchmarku. `@lingui/solid` nie był uwzględniony w benchmarku. Uruchom testy na własnej aplikacji przed podjęciem decyzji wyłącznie na podstawie rozmiaru.
+> Liczby są migawką dla wersji z benchmarku. Rozmiar `@lingui/solid` pochodzi z benchmarku TanStack Start. Uruchom testy na własnej aplikacji przed podjęciem decyzji wyłącznie na podstawie rozmiaru.
+> Bezpieczeństwo typów: 5/5 oznacza, że klucze, parametry i każda lokalizacja są sprawdzane bez ręcznej konfiguracji, w tym formatery URL i helpery.
 
 Rozmiar biblioteki Paraglide bliski zeru wynika z jej konstrukcji: runtime jest generowany bezpośrednio w Twoim repozytorium. Intlayer wymaga `vite-intlayer`, więc nie może działać bez etapu budowania (build step).
 
@@ -307,7 +308,7 @@ Katalogi z czasem tylko rosną. Build Intlayer usuwa nieużywane pola i loguje j
 
 **Developer experience.**
 
-Czas konfiguracji do pierwszego przetłumaczonego stringa, [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/lsp.md) lub [rozszerzenie VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/vs_code_extension.md) wyświetlające tłumaczenie po najechaniu kursorem (hover) i przenoszące do deklaracji, [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/index.md) do operacji fill, test i push, a także sposób na edycję contentu przez osoby nietechniczne ([edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md) lub [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md)) bez konieczności tworzenia pull requesta.
+Czas konfiguracji do pierwszego przetłumaczonego stringa, [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/lsp.md) lub [rozszerzenie VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/vs_code_extension.md) wyświetlające tłumaczenie po najechaniu kursorem (hover) i przenoszące do deklaracji, [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/index.md) do operacji fill, test i push, [kompilator](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compiler.md) lub ekstraktor, który wyciąga zakodowane na stałe ciągi z komponentów, aby nie zarządzać każdym ciągiem klucz po kluczu, a także sposób na edycję contentu przez osoby nietechniczne ([edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md) lub [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md)) bez konieczności tworzenia pull requesta.
 
 ## Najczęściej zadawane pytania
 

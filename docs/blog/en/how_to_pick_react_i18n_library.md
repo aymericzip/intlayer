@@ -96,17 +96,18 @@ If your answer to question 3 was "many locales, many pages", weigh this section 
 
 Library sizes come from the [TanStack Start benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/tanstack.md): provider plus hook in an empty component, after bundling, tree-shaking and minification, 10 pages and 10 locales. Content is measured separately.
 
-| Library                 | Wave         | Content model                          | Types on keys                | Message format            | Library size |
-| :---------------------- | :----------- | :------------------------------------- | :--------------------------- | :------------------------ | :----------- |
-| `react-i18next`         | Runtime      | Central JSON, namespaces               | Opt-in (`CustomTypeOptions`) | i18next (suffix plurals)  | ~18.4 kB     |
-| `react-intl` (FormatJS) | Runtime      | Central JSON, ICU                      | Opt-in (extraction + union)  | ICU                       | ~15.3 kB     |
-| `use-intl`              | Server-first | Central JSON, ICU                      | Opt-in (declaration merging) | ICU                       | ~14.1 kB     |
-| `@tolgee/react`         | Runtime      | Central, in-context editing            | No                           | ICU                       | ~11.1 kB     |
-| Lingui                  | Macro        | Source text in code, compiled catalogs | Good, from the compiler      | ICU via macros            | ~11.8 kB     |
-| Paraglide               | Compiler     | inlang project, generated functions    | Generated                    | Own                       | Near zero    |
-| Intlayer                | Compiler     | `.content.ts` per component            | Generated, on by default     | Helpers (`plural`, `enu`) | Baseline     |
+| Library                 | Wave         | Content model                          | Type safety                        | Message format                | Library size                                      |
+| :---------------------- | :----------- | :------------------------------------- | :--------------------------------- | :---------------------------- | :------------------------------------------------ |
+| `react-i18next`         | Runtime      | Central JSON, namespaces               | 2/5 — Opt-in (`CustomTypeOptions`) | i18next (suffix plurals)      | ~18.4 kB                                          |
+| `react-intl` (FormatJS) | Runtime      | Central JSON, ICU                      | 2/5 — Opt-in (extraction + union)  | ICU                           | ~15.3 kB                                          |
+| `use-intl`              | Server-first | Central JSON, ICU                      | 2/5 — Opt-in (declaration merging) | ICU                           | ~14.1 kB                                          |
+| `@tolgee/react`         | Runtime      | Central, in-context editing            | 1/5 — No                           | ICU                           | ~11.1 kB                                          |
+| Lingui                  | Macro        | Source text in code, compiled catalogs | 2/5 — Good, from the compiler      | ICU via macros                | ~11.8 kB                                          |
+| Paraglide               | Compiler     | inlang project, generated functions    | 3.5/5 — Generated                  | Own                           | Near zero (due to generated code in the codebase) |
+| Intlayer                | Compiler     | `.content.ts` per component            | 5/5 — Generated, on by default     | Intlayer (+ ICU, i18next, PO) | ~5.0 kB                                           |
 
 > Numbers are a snapshot at the benchmark's versions and change with releases. Run the benchmark on your own app before deciding on size alone.
+> Type safety: 5/5 means keys, parameters and every locale are checked without manual setup, including url formater and helpers.
 
 Two things the table does not show. `Paraglide` ships almost no library because it generates code into your repo, which means a regeneration step before every commit and merge conflicts on generated files. And `Intlayer` requires a bundler plugin (`vite-intlayer` or equivalent), so it cannot run in a no-build setup.
 
@@ -385,7 +386,7 @@ Catalogs only grow. Intlayer's build purges unused fields and logs them (`build.
 
 **Developer experience.**
 
-Setup time to first translated string, an [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md) or [VS Code extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md) that shows the translation on hover and jumps to the declaration, a [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md) for fill, test and push, and a way for non-developers to edit content ([visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) or [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)) without a pull request.
+Setup time to first translated string, an [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md) or [VS Code extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md) that shows the translation on hover and jumps to the declaration, a [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md) for fill, test and push, a [compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compiler.md) or extractor that pulls hard-coded strings out of your components so you do not manage every string key by key, and a way for non-developers to edit content ([visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) or [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)) without a pull request.
 
 ## Frequently Asked Questions
 

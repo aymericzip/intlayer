@@ -87,15 +87,16 @@ Paraglide 将每条消息编译为导出的函数，以便打包工具对路由�
 
 各库的体积数据来源于 [Svelte 基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/svelte.md)：空组件中的 store 加访问器在经过打包、tree-shaking 和压缩后的体积（基于 10 个页面和 10 个 locale 的应用）。内容体积单独计算。
 
-| 库              | 消息存放位置                  | Locale 状态                                | Key 类型支持       | 消息格式 | 按路由代码分割        | 库体积   |
-| :-------------- | :---------------------------- | :----------------------------------------- | :----------------- | :------- | :-------------------- | :------- |
-| `svelte-i18n`   | 每个 locale 一个 JSON catalog | 模块级 Svelte store                        | 手写 union         | ICU      | 否                    | ~16.6 kB |
-| `typesafe-i18n` | 生成的 TS 模块                | Store 适配器                               | 自动生成           | 自定义   | 部分支持              | 较小     |
-| Paraglide       | inlang 项目，编译为函数       | 每次调用时从 cookie、URL 或 storage 中读取 | 自动生成           | 自定义   | 是，通过 tree-shaking | 趋近于零 |
-| `wuchale`       | 构建时从 markup 中提取        | Store                                      | 不适用（无 key）   | 自定义   | 是                    | 较小     |
-| Intlayer        | 组件旁的 `.content.ts`        | Context 加 store，支持 runes               | 自动生成，默认开启 | Helpers  | 是，按组件划分        | 基准线   |
+| 库              | 消息存放位置                  | Locale 状态                                | 类型安全                 | 消息格式                      | 按路由代码分割        | 库体积                             |
+| :-------------- | :---------------------------- | :----------------------------------------- | :----------------------- | :---------------------------- | :-------------------- | :--------------------------------- |
+| `svelte-i18n`   | 每个 locale 一个 JSON catalog | 模块级 Svelte store                        | 2/5 — 手写 union         | ICU                           | 否                    | ~16.6 kB                           |
+| `typesafe-i18n` | 生成的 TS 模块                | Store 适配器                               | 4/5 — 自动生成           | 自定义                        | 部分支持              | 较小                               |
+| Paraglide       | inlang 项目，编译为函数       | 每次调用时从 cookie、URL 或 storage 中读取 | 3.5/5 — 自动生成         | 自定义                        | 是，通过 tree-shaking | 趋近于零（因为代码生成到代码库中） |
+| `wuchale`       | 构建时从 markup 中提取        | Store                                      | 不适用（无 key）         | 自定义                        | 是                    | ~30.7 kB                           |
+| Intlayer        | 组件旁的 `.content.ts`        | Context 加 store，支持 runes               | 5/5 — 自动生成，默认开启 | Intlayer (+ ICU, i18next, PO) | 是，按组件划分        | ~3.6 kB                            |
 
 > 数据为基准测试特定版本下的快照。在仅根据体积做决定之前，请在自己的应用中进行测试。
+> 类型安全：5/5 表示键、参数和每个语言环境均无需手动配置即可得到校验，包括 URL 格式化工具与辅助函数。
 
 Paraglide 趋近于零的库体积是其架构使然：运行时代码直接生成到你的代码库中。Intlayer 需要 `vite-intlayer`，因此无法在没有构建步骤的情况下运行。
 
@@ -314,7 +315,7 @@ Catalog 只会不断增长。Intlayer 的构建流程会清理未使用的字段
 
 **开发者体验。**
 
-从配置到输出第一个翻译字符串所需的时间、能够在 hover 时显示翻译并跳转到声明的 [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md) 或 [VS Code 插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/vs_code_extension.md)、用于 fill、test 和 push 的 [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)，以及非开发人员无需提交 pull request 即可编辑内容的方式（[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md) 或 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)）。
+从配置到输出第一个翻译字符串所需的时间、能够在 hover 时显示翻译并跳转到声明的 [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md) 或 [VS Code 插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/vs_code_extension.md)、用于 fill、test 和 push 的 [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)、能把组件中硬编码的字符串提取出来、免去逐个键维护的[编译器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md)或提取工具，以及非开发人员无需提交 pull request 即可编辑内容的方式（[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md) 或 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)）。
 
 ## 常见问题解答
 

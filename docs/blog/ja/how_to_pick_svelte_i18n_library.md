@@ -87,15 +87,16 @@ Paraglideは各メッセージをエクスポート関数にコンパイルし�
 
 ライブラリのサイズは、10ページ・10ロケールのアプリを対象にした[Svelteベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/svelte.md)（バンドル、ツリーシェイキング、minify後の空コンポーネントにおけるストア＋アクセサ）の数値です。コンテンツのサイズは個別に測定しています。
 
-| ライブラリ      | メッセージの配置場所                 | ロケール状態                               | キーの型定義               | メッセージフォーマット | ルートごとの分割               | ライブラリサイズ |
-| :-------------- | :----------------------------------- | :----------------------------------------- | :------------------------- | :--------------------- | :----------------------------- | :--------------- |
-| `svelte-i18n`   | ロケールごとのJSONカタログ           | モジュールレベルのSvelteストア             | 手動Union型                | ICU                    | なし                           | 約16.6 kB        |
-| `typesafe-i18n` | 生成されたTSモジュール               | ストアアダプター                           | 自動生成                   | 独自構文               | 一部対応                       | 軽量             |
-| Paraglide       | inlangプロジェクト、関数へコンパイル | Cookie、URL、Storageから呼び出しごとに取得 | 自動生成                   | 独自構文               | あり（ツリーシェイキング経由） | ほぼゼロ         |
-| `wuchale`       | ビルド時にマークアップから抽出       | ストア                                     | 該当なし（キーなし）       | 独自構文               | あり                           | 軽量             |
-| Intlayer        | コンポーネント隣の`.content.ts`      | コンテキスト＋ストア、Rune対応             | 自動生成、デフォルトで有効 | ヘルパー               | あり（コンポーネント単位）     | ベースライン     |
+| ライブラリ      | メッセージの配置場所                 | ロケール状態                               | 型安全性                         | メッセージフォーマット        | ルートごとの分割               | ライブラリサイズ                                 |
+| :-------------- | :----------------------------------- | :----------------------------------------- | :------------------------------- | :---------------------------- | :----------------------------- | :----------------------------------------------- |
+| `svelte-i18n`   | ロケールごとのJSONカタログ           | モジュールレベルのSvelteストア             | 2/5 — 手動Union型                | ICU                           | なし                           | 約16.6 kB                                        |
+| `typesafe-i18n` | 生成されたTSモジュール               | ストアアダプター                           | 4/5 — 自動生成                   | 独自構文                      | 一部対応                       | 軽量                                             |
+| Paraglide       | inlangプロジェクト、関数へコンパイル | Cookie、URL、Storageから呼び出しごとに取得 | 3.5/5 — 自動生成                 | 独自構文                      | あり（ツリーシェイキング経由） | ほぼゼロ（コードベースに生成されるコードのため） |
+| `wuchale`       | ビルド時にマークアップから抽出       | ストア                                     | 該当なし（キーなし）             | 独自構文                      | あり                           | 約30.7 kB                                        |
+| Intlayer        | コンポーネント隣の`.content.ts`      | コンテキスト＋ストア、Rune対応             | 5/5 — 自動生成、デフォルトで有効 | Intlayer (+ ICU, i18next, PO) | あり（コンポーネント単位）     | ~3.6 kB                                          |
 
 > 数値はベンチマーク実施バージョンのスナップショットです。サイズだけで判断する前に、実際のアプリで計測してください。
+> 型安全性：5/5は、URLフォーマッターやヘルパーを含め、キー・パラメータ・すべてのロケールが手動設定なしに検証されることを意味します。
 
 Paraglideのライブラリサイズがほぼゼロである理由は構造によるものです。ランタイムがリポジトリ内に直接生成されます。Intlayerは`vite-intlayer`を必要とするため、ビルドステップなしでは動作しません。
 
@@ -317,7 +318,7 @@ AIエージェントは依然としてi18nの扱いに苦労することが多�
 
 **開発者体験（Developer Experience）。**
 
-最初の翻訳文字列を表示するまでのセットアップ時間、ホバー時に翻訳を表示し定義元へジャンプできる[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)や[VS Code拡張機能](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)、補完・テスト・プッシュを行うための[CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md)、そして開発者以外でもプルリクエストなしでコンテンツを編集できる手段（[ビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)や[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)）の有無を確認してください。
+最初の翻訳文字列を表示するまでのセットアップ時間、ホバー時に翻訳を表示し定義元へジャンプできる[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)や[VS Code拡張機能](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)、補完・テスト・プッシュを行うための[CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md)、コンポーネント内のハードコードされた文字列を抽出してキーごとに管理する手間をなくす[コンパイラー](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md)や抽出ツール、そして開発者以外でもプルリクエストなしでコンテンツを編集できる手段（[ビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)や[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)）の有無を確認してください。
 
 ## よくある質問
 

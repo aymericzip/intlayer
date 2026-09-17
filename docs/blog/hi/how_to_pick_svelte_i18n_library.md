@@ -87,15 +87,16 @@ Paraglide प्रत्येक संदेश को एक exported functi
 
 लाइब्रेरी के आकार [Svelte benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/svelte.md) से हैं: 10-पेज, 10-locale ऐप पर बंडलिंग, tree-shaking और minification के बाद एक खाली घटक में store प्लस accessor। सामग्री को अलग से मापा जाता है।
 
-| लाइब्रेरी       | संदेश कहाँ रहते हैं                    | Locale state                                 | Keys पर Types      | Message format | Per-route splitting      | लाइब्रेरी का आकार |
-| :-------------- | :------------------------------------- | :------------------------------------------- | :----------------- | :------------- | :----------------------- | :---------------- |
-| `svelte-i18n`   | प्रति locale JSON कैटलॉग               | Module-level Svelte store                    | Manual union       | ICU            | No                       | ~16.6 kB          |
-| `typesafe-i18n` | Generated TS modules                   | Store adapter                                | Generated          | Own            | Partial                  | Small             |
-| Paraglide       | inlang प्रोजेक्ट, functions में संकलित | Cookie, URL या storage से प्रति कॉल पढ़ा गया | Generated          | Own            | Yes, tree-shaking द्वारा | Near zero         |
-| `wuchale`       | बिल्ड पर मार्कअप से निकाला गया         | Store                                        | N/A (keys नहीं)    | Own            | Yes                      | Small             |
-| Intlayer        | घटक के बगल में `.content.ts`           | Context plus store, rune-aware               | Generated, default | Helpers        | Yes, प्रति घटक           | Baseline          |
+| लाइब्रेरी       | संदेश कहाँ रहते हैं                    | Locale state                                 | टाइप सुरक्षा             | Message format                | Per-route splitting      | लाइब्रेरी का आकार                               |
+| :-------------- | :------------------------------------- | :------------------------------------------- | :----------------------- | :---------------------------- | :----------------------- | :---------------------------------------------- |
+| `svelte-i18n`   | प्रति locale JSON कैटलॉग               | Module-level Svelte store                    | 2/5 — Manual union       | ICU                           | No                       | ~16.6 kB                                        |
+| `typesafe-i18n` | Generated TS modules                   | Store adapter                                | 4/5 — Generated          | Own                           | Partial                  | Small                                           |
+| Paraglide       | inlang प्रोजेक्ट, functions में संकलित | Cookie, URL या storage से प्रति कॉल पढ़ा गया | 3.5/5 — Generated        | Own                           | Yes, tree-shaking द्वारा | Near zero (कोडबेस में जनरेट किए गए कोड के कारण) |
+| `wuchale`       | बिल्ड पर मार्कअप से निकाला गया         | Store                                        | N/A (keys नहीं)          | Own                           | Yes                      | ~30.7 kB                                        |
+| Intlayer        | घटक के बगल में `.content.ts`           | Context plus store, rune-aware               | 5/5 — Generated, default | Intlayer (+ ICU, i18next, PO) | Yes, प्रति घटक           | ~3.6 kB                                         |
 
 > संख्याएं बेंचमार्क के संस्करणों पर एक स्नैपशॉट हैं। अकेले आकार पर निर्णय लेने से पहले इसे अपने ऐप पर चलाएं।
+> टाइप सुरक्षा: 5/5 का अर्थ है कि URL फॉर्मेटर और हेल्पर्स सहित कुंजियाँ, पैरामीटर और हर लोकेल बिना किसी मैन्युअल सेटअप के जाँचे जाते हैं।
 
 Paraglide का शून्य के करीब लाइब्रेरी आकार इसकी संरचना के कारण है: runtime आपके रिपॉजिटरी में उत्पन्न होता है। Intlayer को `vite-intlayer` की आवश्यकता होती है, इसलिए यह बिल्ड चरण के बिना नहीं चल सकता है।
 
@@ -308,7 +309,7 @@ export default cartSummaryContent;
 
 **डेवलपर अनुभव।**
 
-पहली अनुवादित स्ट्रिंग तक सेटअप समय, एक [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/lsp.md) या [VS Code extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/vs_code_extension.md) जो होवर पर अनुवाद दिखाता है और घोषणा पर कूदता है, भरने, परीक्षण करने और पुश करने के लिए एक [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/index.md), और गैर-डेवलपर्स के लिए बिना पुल रिक्वेस्ट के सामग्री संपादित करने का एक तरीका ([visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md) या [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md))।
+पहली अनुवादित स्ट्रिंग तक सेटअप समय, एक [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/lsp.md) या [VS Code extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/vs_code_extension.md) जो होवर पर अनुवाद दिखाता है और घोषणा पर कूदता है, भरने, परीक्षण करने और पुश करने के लिए एक [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/index.md), आपके कंपोनेंट्स से हार्ड-कोडेड स्ट्रिंग्स निकालने वाला एक [कंपाइलर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md) या एक्सट्रैक्टर ताकि हर स्ट्रिंग को कुंजी-दर-कुंजी प्रबंधित न करना पड़े, और गैर-डेवलपर्स के लिए बिना पुल रिक्वेस्ट के सामग्री संपादित करने का एक तरीका ([visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md) या [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md))।
 
 ## अक्सर पूछे जाने वाले प्रश्न
 

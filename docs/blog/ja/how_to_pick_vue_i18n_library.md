@@ -86,15 +86,16 @@ Paraglideはメッセージごとに1つの関数を生成し、残りはバン�
 
 ライブラリのサイズは、10ページ・10ロケールのアプリを対象に、バンドル、Tree-shaking、Minify後の空コンポーネント内のプラグイン＋Composableを測定した[Vueベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/vue.md)の数値です。コンテンツ自体は別途測定されています。
 
-| ライブラリ     | コンテンツモデル                                            | キーの型定義                       | メッセージフォーマット     | ルート単位の分割           | ライブラリサイズ |
-| :------------- | :---------------------------------------------------------- | :--------------------------------- | :------------------------- | :------------------------- | :--------------- |
-| `vue-i18n`     | ロケールごとの中央カタログ、SFCの `<i18n>` ブロック（任意） | スキーマジェネリクス（オプトイン） | 独自（パイプ区切り複数形） | 不可                       | ~24.3 kB         |
-| `@nuxtjs/i18n` | `vue-i18n` と同様＋ルーティングおよびSEOタグ                | 同様                               | 同様                       | 不可（ロケール単位のみ）   | 追加分あり       |
-| `fluent-vue`   | `.ftl` ファイル（Mozilla Fluent）                           | なし                               | Fluent                     | 不可                       | ~29.7 kB         |
-| Paraglide      | inlangプロジェクト、生成された関数                          | 生成される                         | 独自                       | Tree-shaking経由           | ほぼゼロ         |
-| Intlayer       | コンポーネントごとに1つの `.content.ts`                     | 生成される（デフォルトで有効）     | ヘルパー（`plural` など）  | 可能（コンポーネント単位） | ベースライン     |
+| ライブラリ     | コンテンツモデル                                            | 型安全性                                 | メッセージフォーマット              | ルート単位の分割           | ライブラリサイズ                                 |
+| :------------- | :---------------------------------------------------------- | :--------------------------------------- | :---------------------------------- | :------------------------- | :----------------------------------------------- |
+| `vue-i18n`     | ロケールごとの中央カタログ、SFCの `<i18n>` ブロック（任意） | 2/5 — スキーマジェネリクス（オプトイン） | 独自（パイプ区切り複数形）          | 不可                       | ~24.3 kB                                         |
+| `@nuxtjs/i18n` | `vue-i18n` と同様＋ルーティングおよびSEOタグ                | 2/5 — 同様                               | 同様                                | 不可（ロケール単位のみ）   | ~24.3 kB                                         |
+| `fluent-vue`   | `.ftl` ファイル（Mozilla Fluent）                           | 1/5 — なし                               | Fluent                              | 不可                       | ~29.7 kB                                         |
+| Paraglide      | inlangプロジェクト、生成された関数                          | 3.5/5 — 生成される                       | 独自                                | Tree-shaking経由           | ほぼゼロ（コードベースに生成されるコードのため） |
+| Intlayer       | コンポーネントごとに1つの `.content.ts`                     | 5/5 — 生成される（デフォルトで有効）     | Intlayer (+ ICU, i18next, vue-i18n) | 可能（コンポーネント単位） | ~3.9 kB                                          |
 
 > 数値はベンチマーク実施時のバージョンのスナップショットです。サイズだけで判断せず、ご自身のアプリで実際に測定することをおすすめします。
+> 型安全性：5/5は、URLフォーマッターやヘルパーを含め、キー・パラメータ・すべてのロケールが手動設定なしに検証されることを意味します。
 
 Paraglideのライブラリサイズがほぼゼロなのは設計によるものです。ランタイムがリポジトリ内に生成されるため、push前の再生成ステップが必要となり、生成ファイルでのマージコンフリクトが発生する可能性があります。Intlayerには `vite-intlayer`（またはNuxtモジュール）が必要なため、ビルドステップなしで実行することはできません。
 
@@ -312,7 +313,7 @@ const { title, items } = useIntlayer("cart-summary");
 
 **開発者体験（DX）。**
 
-最初の翻訳文字列までのセットアップ時間、ホバー時に翻訳を表示して宣言にジャンプできる[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)または[VS Code拡張機能](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)、補完・テスト・pushを行うための[CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md)、そして開発者以外がPull Requestなしでコンテンツを編集できる手段（[ビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)や[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)）が用意されているかを確認してください。
+最初の翻訳文字列までのセットアップ時間、ホバー時に翻訳を表示して宣言にジャンプできる[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)または[VS Code拡張機能](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)、補完・テスト・pushを行うための[CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md)、コンポーネント内のハードコードされた文字列を抽出してキーごとに管理する手間をなくす[コンパイラー](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md)や抽出ツール、そして開発者以外がPull Requestなしでコンテンツを編集できる手段（[ビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)や[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)）が用意されているかを確認してください。
 
 ## よくある質問
 

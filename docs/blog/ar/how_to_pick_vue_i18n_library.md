@@ -86,15 +86,16 @@ author: aymericzip
 
 أحجام المكتبات مأخوذة من [مقارنة أداء Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/vue.md): الملحق بالإضافة إلى composable في مكون فارغ، بعد التجميع (bundling) وtree-shaking والتصغير (minification)، في تطبيق مكون من 10 صفحات و10 لغات. يتم قياس المحتوى بشكل منفصل.
 
-| المكتبة        | نموذج المحتوى                                    | Types على المفاتيح         | تنسيق الرسائل          | تقسيم حسب المسار (Per-route) | حجم المكتبة |
-| :------------- | :----------------------------------------------- | :------------------------- | :--------------------- | :--------------------------- | :---------- |
-| `vue-i18n`     | قواميس مركزية لكل لغة، كتل SFC `<i18n>` اختيارية | اختياري عبر schema generic | خاص (pipe plurals)     | لا                           | ~24.3 kB    |
-| `@nuxtjs/i18n` | مثل `vue-i18n`، بالإضافة إلى التوجيه ووسوم SEO   | مماثل                      | مماثل                  | لا، لكل لغة فقط              | حجم إضافي   |
-| `fluent-vue`   | ملفات `.ftl` (Mozilla Fluent)                    | لا يوجد                    | Fluent                 | لا                           | ~29.7 kB    |
-| Paraglide      | مشروع inlang، دوال مولدة                         | مولدة                      | خاص                    | عبر tree-shaking             | شبه معدوم   |
-| Intlayer       | ملف `.content.ts` واحد لكل مكون                  | مولدة، ومفعلة افتراضياً    | دوال مساعدة (`plural`) | نعم، لكل مكون                | Baseline    |
+| المكتبة        | نموذج المحتوى                                    | أمان الأنواع                     | تنسيق الرسائل                       | تقسيم حسب المسار (Per-route) | حجم المكتبة                                      |
+| :------------- | :----------------------------------------------- | :------------------------------- | :---------------------------------- | :--------------------------- | :----------------------------------------------- |
+| `vue-i18n`     | قواميس مركزية لكل لغة، كتل SFC `<i18n>` اختيارية | 2/5 — اختياري عبر schema generic | خاص (pipe plurals)                  | لا                           | ~24.3 kB                                         |
+| `@nuxtjs/i18n` | مثل `vue-i18n`، بالإضافة إلى التوجيه ووسوم SEO   | 2/5 — مماثل                      | مماثل                               | لا، لكل لغة فقط              | ~24.3 kB                                         |
+| `fluent-vue`   | ملفات `.ftl` (Mozilla Fluent)                    | 1/5 — لا يوجد                    | Fluent                              | لا                           | ~29.7 kB                                         |
+| Paraglide      | مشروع inlang، دوال مولدة                         | 3.5/5 — مولدة                    | خاص                                 | عبر tree-shaking             | شبه معدوم (بسبب الكود المولَّد داخل قاعدة الكود) |
+| Intlayer       | ملف `.content.ts` واحد لكل مكون                  | 5/5 — مولدة، ومفعلة افتراضياً    | Intlayer (+ ICU, i18next, vue-i18n) | نعم، لكل مكون                | ~3.9 kB                                          |
 
 > الأرقام هي لقطة لإصدارات المقارنة المعيارية. قم بإجراء الاختبار على تطبيقك الخاص قبل اتخاذ القرار بناءً على الحجم وحده.
+> أمان الأنواع: 5/5 يعني أن المفاتيح والمعاملات وكل لغة يتم التحقق منها دون إعداد يدوي، بما في ذلك منسق العناوين (URL formatter) والدوال المساعدة (helpers).
 
 يرجع حجم مكتبة Paraglide الشبه معدوم إلى طبيعة بنائها: يتم توليد runtime مباشرة داخل المستودع الخاص بك، مما يعني خطوة إعادة توليد قبل كل عملية push ومشاكل تضارب الدمج (merge conflicts) في الملفات المولدة. يتطلب Intlayer ملحق `vite-intlayer` (أو وحدة Nuxt)، لذلك لا يمكنه العمل بدون خطوة build.
 
@@ -312,7 +313,7 @@ const { title, items } = useIntlayer("cart-summary");
 
 **تجربة المطور (Developer experience).**
 
-وقت الإعداد حتى الحصول على أول نص مترجم، ووجود [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/lsp.md) أو [إضافة VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/vs_code_extension.md) تعرض الترجمة عند التمرير وتنتقل إلى الإعلان، و[CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md) للملء والاختبار والرفع (push)، وطريقة لغير المطورين لتعديل المحتوى ([محرر مرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) أو [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)) دون الحاجة إلى فتح pull request.
+وقت الإعداد حتى الحصول على أول نص مترجم، ووجود [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/lsp.md) أو [إضافة VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/vs_code_extension.md) تعرض الترجمة عند التمرير وتنتقل إلى الإعلان، و[CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md) للملء والاختبار والرفع (push)، و[مُصرِّف](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md) أو أداة استخراج تستخرج النصوص المكتوبة مباشرة في المكونات حتى لا تضطر إلى إدارة كل نص مفتاحًا بمفتاح، وطريقة لغير المطورين لتعديل المحتوى ([محرر مرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) أو [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)) دون الحاجة إلى فتح pull request.
 
 ## الأسئلة الشائعة
 

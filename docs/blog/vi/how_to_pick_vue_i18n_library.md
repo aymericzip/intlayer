@@ -86,15 +86,16 @@ Bài [benchmark Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/
 
 Kích thước thư viện được lấy từ bài [benchmark Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/vue.md): plugin cộng với composable trong một component rỗng, sau khi bundling, tree-shaking và minification, trên một ứng dụng 10 trang, 10 locale. Nội dung được đo lường riêng biệt.
 
-| Thư viện       | Mô hình nội dung                                           | Type trên key              | Định dạng message   | Phân tách theo route   | Kích thước thư viện |
-| :------------- | :--------------------------------------------------------- | :------------------------- | :------------------ | :--------------------- | :------------------ |
-| `vue-i18n`     | Catalog tập trung theo locale, tùy chọn SFC `<i18n>` block | Opt-in qua schema generic  | Riêng (pipe plural) | Không                  | ~24.3 kB            |
-| `@nuxtjs/i18n` | Tương tự `vue-i18n`, cộng thêm routing và thẻ SEO          | Tương tự                   | Tương tự            | Không, chỉ theo locale | Thêm vào trên đó    |
-| `fluent-vue`   | File `.ftl` (Mozilla Fluent)                               | Không                      | Fluent              | Không                  | ~29.7 kB            |
-| Paraglide      | Project inlang, các hàm được sinh ra                       | Được sinh ra               | Riêng               | Qua tree-shaking       | Gần như bằng 0      |
-| Intlayer       | Một file `.content.ts` cho mỗi component                   | Được sinh ra, bật mặc định | Helper (`plural`)   | Có, theo component     | Baseline            |
+| Thư viện       | Mô hình nội dung                                           | An toàn kiểu                     | Định dạng message                   | Phân tách theo route   | Kích thước thư viện                                |
+| :------------- | :--------------------------------------------------------- | :------------------------------- | :---------------------------------- | :--------------------- | :------------------------------------------------- |
+| `vue-i18n`     | Catalog tập trung theo locale, tùy chọn SFC `<i18n>` block | 2/5 — Opt-in qua schema generic  | Riêng (pipe plural)                 | Không                  | ~24.3 kB                                           |
+| `@nuxtjs/i18n` | Tương tự `vue-i18n`, cộng thêm routing và thẻ SEO          | 2/5 — Tương tự                   | Tương tự                            | Không, chỉ theo locale | ~24.3 kB                                           |
+| `fluent-vue`   | File `.ftl` (Mozilla Fluent)                               | 1/5 — Không                      | Fluent                              | Không                  | ~29.7 kB                                           |
+| Paraglide      | Project inlang, các hàm được sinh ra                       | 3.5/5 — Được sinh ra             | Riêng                               | Qua tree-shaking       | Gần như bằng 0 (do mã được sinh ra trong codebase) |
+| Intlayer       | Một file `.content.ts` cho mỗi component                   | 5/5 — Được sinh ra, bật mặc định | Intlayer (+ ICU, i18next, vue-i18n) | Có, theo component     | ~3.9 kB                                            |
 
 > Các con số là ảnh chụp nhanh tại các phiên bản của bài benchmark. Hãy chạy thử nghiệm trên chính ứng dụng của bạn trước khi đưa ra quyết định chỉ dựa vào kích thước.
+> An toàn kiểu: 5/5 nghĩa là khóa, tham số và mọi locale đều được kiểm tra mà không cần thiết lập thủ công, bao gồm cả trình định dạng URL và các helper.
 
 Kích thước thư viện gần như bằng 0 của Paraglide đạt được nhờ thiết kế: runtime được sinh trực tiếp vào repository của bạn, điều này đồng nghĩa với việc cần một bước sinh lại mã (regeneration) trước mỗi lần push và nguy cơ merge conflict trên các file được sinh ra. Intlayer cần `vite-intlayer` (hoặc Nuxt module), vì vậy nó không thể chạy nếu không có một build step.
 
@@ -312,7 +313,7 @@ Các catalog chỉ có xu hướng phình to. Quá trình build của Intlayer s
 
 **Trải nghiệm lập trình viên (Developer experience).**
 
-Thời gian thiết lập cho đến chuỗi dịch đầu tiên, một [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/lsp.md) hoặc [tiện ích mở rộng VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/vs_code_extension.md) hiển thị bản dịch khi hover và nhảy thẳng tới định nghĩa, một [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/index.md) để fill, test và push, cùng phương thức để người không phải developer có thể chỉnh sửa nội dung ([visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md) hoặc [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md)) mà không cần tạo pull request.
+Thời gian thiết lập cho đến chuỗi dịch đầu tiên, một [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/lsp.md) hoặc [tiện ích mở rộng VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/vs_code_extension.md) hiển thị bản dịch khi hover và nhảy thẳng tới định nghĩa, một [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/index.md) để fill, test và push, một [trình biên dịch](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md) hoặc trình trích xuất lấy các chuỗi hard-code ra khỏi component để bạn không phải quản lý từng chuỗi theo từng khóa, cùng phương thức để người không phải developer có thể chỉnh sửa nội dung ([visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md) hoặc [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md)) mà không cần tạo pull request.
 
 ## Câu hỏi thường gặp
 

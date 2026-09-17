@@ -96,17 +96,18 @@ Bu bir kütüphane özelliği değil, bir disiplin özelliğidir. `react-i18next
 
 Kütüphane boyutları [TanStack Start benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md) çalışmasından alınmıştır: boş bir bileşende provider artı hook, bundling, tree-shaking ve minification sonrası, 10 sayfa ve 10 locale. İçerik ayrıca ölçülür.
 
-| Kütüphane               | Dalga        | İçerik modeli                                 | Anahtar typeları             | Mesaj formatı                | Kütüphane boyutu    |
-| :---------------------- | :----------- | :-------------------------------------------- | :--------------------------- | :--------------------------- | :------------------ |
-| `react-i18next`         | Runtime      | Merkezi JSON, namespace'ler                   | Opt-in (`CustomTypeOptions`) | i18next (suffix çoğullar)    | ~18.4 kB            |
-| `react-intl` (FormatJS) | Runtime      | Merkezi JSON, ICU                             | Opt-in (extraction + union)  | ICU                          | ~15.3 kB            |
-| `use-intl`              | Server-first | Merkezi JSON, ICU                             | Opt-in (declaration merging) | ICU                          | ~14.1 kB            |
-| `@tolgee/react`         | Runtime      | Merkezi, bağlam içi (in-context) düzenleme    | Yok                          | ICU                          | ~11.1 kB            |
-| Lingui                  | Macro        | Kod içinde kaynak metin, derlenmiş kataloglar | İyi, derleyiciden gelir      | Makrolar ile ICU             | ~11.8 kB            |
-| Paraglide               | Compiler     | inlang projesi, üretilen fonksiyonlar         | Üretilmiş (Generated)        | Kendine ait                  | Sıfıra yakın        |
-| Intlayer                | Compiler     | Bileşen başına `.content.ts`                  | Üretilmiş, varsayılan açık   | Helper'lar (`plural`, `enu`) | Referans (Baseline) |
+| Kütüphane               | Dalga        | İçerik modeli                                 | Tip güvenliği                      | Mesaj formatı                 | Kütüphane boyutu                                    |
+| :---------------------- | :----------- | :-------------------------------------------- | :--------------------------------- | :---------------------------- | :-------------------------------------------------- |
+| `react-i18next`         | Runtime      | Merkezi JSON, namespace'ler                   | 2/5 — Opt-in (`CustomTypeOptions`) | i18next (suffix çoğullar)     | ~18.4 kB                                            |
+| `react-intl` (FormatJS) | Runtime      | Merkezi JSON, ICU                             | 2/5 — Opt-in (extraction + union)  | ICU                           | ~15.3 kB                                            |
+| `use-intl`              | Server-first | Merkezi JSON, ICU                             | 2/5 — Opt-in (declaration merging) | ICU                           | ~14.1 kB                                            |
+| `@tolgee/react`         | Runtime      | Merkezi, bağlam içi (in-context) düzenleme    | 1/5 — Yok                          | ICU                           | ~11.1 kB                                            |
+| Lingui                  | Macro        | Kod içinde kaynak metin, derlenmiş kataloglar | 2/5 — İyi, derleyiciden gelir      | Makrolar ile ICU              | ~11.8 kB                                            |
+| Paraglide               | Compiler     | inlang projesi, üretilen fonksiyonlar         | 3.5/5 — Üretilmiş (Generated)      | Kendine ait                   | Sıfıra yakın (kod tabanında üretilen kod sayesinde) |
+| Intlayer                | Compiler     | Bileşen başına `.content.ts`                  | 5/5 — Üretilmiş, varsayılan açık   | Intlayer (+ ICU, i18next, PO) | ~5.0 kB                                             |
 
 > Rakamlar, benchmark sırasındaki sürümlerin anlık bir görüntüsüdür ve yeni sürümlerle değişebilir. Yalnızca boyuta göre karar vermeden önce benchmark'ı kendi uygulamanızda çalıştırın.
+> Tip güvenliği: 5/5; anahtarların, parametrelerin ve her locale'in, URL biçimlendirici ve yardımcılar (helpers) dahil olmak üzere manuel kurulum olmadan kontrol edildiği anlamına gelir.
 
 Tablonun göstermediği iki nokta var. `Paraglide`, kodları doğrudan deponuza (repo) ürettiği için neredeyse hiçbir kütüphane kodu içermez; bu da her commit öncesinde bir yeniden üretim adımı ve üretilen dosyalarda merge conflict'leri anlamına gelir. `Intlayer` ise bir bundler eklentisi (`vite-intlayer` veya eşdeğeri) gerektirir, bu nedenle build adımı olmayan bir kurulumda çalışamaz.
 
@@ -391,7 +392,7 @@ Kataloglar sadece büyür. Intlayer'ın derleme adımı kullanılmayan alanları
 
 **Geliştirici deneyimi (DX).**
 
-İlk çevrilmiş dizeye kadar geçen kurulum süresi, fareyle üzerine gelindiğinde çeviriyi gösteren ve bildirime atlayan bir [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/lsp.md) veya [VS Code eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/vs_code_extension.md), doldurma, test etme ve push için bir [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/index.md) ve geliştirici olmayanların bir pull request açmadan içeriği düzenlemesi için bir yol ([görsel düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) veya [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)).
+İlk çevrilmiş dizeye kadar geçen kurulum süresi, fareyle üzerine gelindiğinde çeviriyi gösteren ve bildirime atlayan bir [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/lsp.md) veya [VS Code eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/vs_code_extension.md), doldurma, test etme ve push için bir [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/index.md), bileşenlerinizdeki sabit kodlanmış dizeleri çıkaran ve böylece her dizeyi anahtar anahtar yönetmenizi gerektirmeyen bir [derleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md) veya çıkarıcı ve geliştirici olmayanların bir pull request açmadan içeriği düzenlemesi için bir yol ([görsel düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) veya [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)).
 
 ## Sıkça Sorulan Sorular
 

@@ -96,17 +96,18 @@ JSON-каталоги, завантажені в пам'ять, пошук `t("a
 
 Розміри бібліотек взяті з [бенчмарку TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/tanstack.md): провайдер плюс хук у порожньому компоненті після збірки, tree-shaking та мініфікації, для 10 сторінок і 10 локалей. Контент вимірюється окремо.
 
-| Бібліотека              | Хвиля        | Модель контенту                               | Типи для ключів                         | Формат повідомлень        | Розмір бібліотеки |
-| :---------------------- | :----------- | :-------------------------------------------- | :-------------------------------------- | :------------------------ | :---------------- |
-| `react-i18next`         | Runtime      | Центральний JSON, namespaces                  | Opt-in (`CustomTypeOptions`)            | i18next (суфікси множини) | ~18.4 kB          |
-| `react-intl` (FormatJS) | Runtime      | Центральний JSON, ICU                         | Opt-in (витяг + union)                  | ICU                       | ~15.3 kB          |
-| `use-intl`              | Server-first | Центральний JSON, ICU                         | Opt-in (declaration merging)            | ICU                       | ~14.1 kB          |
-| `@tolgee/react`         | Runtime      | Центральний, in-context редагування           | Ні                                      | ICU                       | ~11.1 kB          |
-| Lingui                  | Macro        | Вихідний текст у коді, скомпільовані каталоги | Добре, від компілятора                  | ICU через макроси         | ~11.8 kB          |
-| Paraglide               | Compiler     | Проєкт inlang, згенеровані функції            | Згенеровані                             | Власний                   | Майже нульовий    |
-| Intlayer                | Compiler     | `.content.ts` для кожного компонента          | Згенеровані, увімкнені за замовчуванням | Хелпери (`plural`, `enu`) | Базовий           |
+| Бібліотека              | Хвиля        | Модель контенту                               | Типобезпечність                               | Формат повідомлень            | Розмір бібліотеки                                        |
+| :---------------------- | :----------- | :-------------------------------------------- | :-------------------------------------------- | :---------------------------- | :------------------------------------------------------- |
+| `react-i18next`         | Runtime      | Центральний JSON, namespaces                  | 2/5 — Opt-in (`CustomTypeOptions`)            | i18next (суфікси множини)     | ~18.4 kB                                                 |
+| `react-intl` (FormatJS) | Runtime      | Центральний JSON, ICU                         | 2/5 — Opt-in (витяг + union)                  | ICU                           | ~15.3 kB                                                 |
+| `use-intl`              | Server-first | Центральний JSON, ICU                         | 2/5 — Opt-in (declaration merging)            | ICU                           | ~14.1 kB                                                 |
+| `@tolgee/react`         | Runtime      | Центральний, in-context редагування           | 1/5 — Ні                                      | ICU                           | ~11.1 kB                                                 |
+| Lingui                  | Macro        | Вихідний текст у коді, скомпільовані каталоги | 2/5 — Добре, від компілятора                  | ICU через макроси             | ~11.8 kB                                                 |
+| Paraglide               | Compiler     | Проєкт inlang, згенеровані функції            | 3.5/5 — Згенеровані                           | Власний                       | Майже нульовий (за рахунок згенерованого коду в проєкті) |
+| Intlayer                | Compiler     | `.content.ts` для кожного компонента          | 5/5 — Згенеровані, увімкнені за замовчуванням | Intlayer (+ ICU, i18next, PO) | ~5.0 kB                                                  |
 
 > Числа є знімком версій на момент бенчмарку і змінюються з новими релізами. Запустіть бенчмарк на власному застосунку, перш ніж приймати рішення лише на основі розміру.
+> Типобезпечність: 5/5 означає, що ключі, параметри та кожна локаль перевіряються без ручного налаштування, включаючи форматувальники URL та хелпери.
 
 Дві речі, яких немає в таблиці. `Paraglide` майже не постачає бібліотечного коду, оскільки генерує код безпосередньо у ваш репозиторій, що означає крок регенерації перед кожним комітом і конфлікти злиття у згенерованих файлах. А `Intlayer` вимагає плагіна для бандлера (`vite-intlayer` або аналог), тому не може працювати в середовищі без етапу збірки (no-build setup).
 
@@ -385,7 +386,7 @@ export const CartSummary: FC<{ count: number }> = ({ count }) => {
 
 **Досвід розробника (DX).**
 
-Час від налаштування до першого перекладеного рядка, [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/lsp.md) або [розширення VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/vs_code_extension.md), яке показує переклад при наведенні курсора та переходить до декларації, [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/index.md) для заповнення, тестування й публікації, а також можливість редагування контенту для не-розробників ([візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md) або [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)) без відкриття pull request.
+Час від налаштування до першого перекладеного рядка, [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/lsp.md) або [розширення VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/vs_code_extension.md), яке показує переклад при наведенні курсора та переходить до декларації, [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/index.md) для заповнення, тестування й публікації, [компілятор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compiler.md) або екстрактор, який витягує захардкоджені рядки з компонентів, щоб не керувати кожним рядком ключ за ключем, а також можливість редагування контенту для не-розробників ([візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md) або [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)) без відкриття pull request.
 
 ## Поширені запитання
 

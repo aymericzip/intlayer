@@ -86,15 +86,16 @@ Paraglide 为每个 message 生成一个独立函数，并交由打包工具（b
 
 库体积数据来自 [Vue 基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/vue.md)：在包含 10 个页面、10 种语言的应用中，空 component 中引入 plugin 加上 composable，在打包、tree-shaking 和代码压缩后的体积。内容大小单独计算。
 
-| 库             | 内容模型                                            | Key 类型支持             | Message 格式         | 按路由代码拆分        | 库体积   |
-| :------------- | :-------------------------------------------------- | :----------------------- | :------------------- | :-------------------- | :------- |
-| `vue-i18n`     | 每个 locale 集中式 catalog，可选 SFC `<i18n>` block | 通过 schema 泛型手动启用 | 自定义（管道符复数） | 否                    | ~24.3 kB |
-| `@nuxtjs/i18n` | 与 `vue-i18n` 相同，外加路由与 SEO 标签支持         | 相同                     | 相同                 | 否，仅按 locale 拆分  | 额外增加 |
-| `fluent-vue`   | `.ftl` 文件（Mozilla Fluent）                       | 无                       | Fluent               | 否                    | ~29.7 kB |
-| Paraglide      | inlang 项目，自动生成函数                           | 自动生成                 | 自定义               | 通过 tree-shaking     | 接近于 0 |
-| Intlayer       | 每个 component 一个 `.content.ts`                   | 自动生成，默认开启       | Helper（`plural`）   | 是，按 component 拆分 | 基准水平 |
+| 库             | 内容模型                                            | 类型安全                       | Message 格式                        | 按路由代码拆分        | 库体积                             |
+| :------------- | :-------------------------------------------------- | :----------------------------- | :---------------------------------- | :-------------------- | :--------------------------------- |
+| `vue-i18n`     | 每个 locale 集中式 catalog，可选 SFC `<i18n>` block | 2/5 — 通过 schema 泛型手动启用 | 自定义（管道符复数）                | 否                    | ~24.3 kB                           |
+| `@nuxtjs/i18n` | 与 `vue-i18n` 相同，外加路由与 SEO 标签支持         | 2/5 — 相同                     | 相同                                | 否，仅按 locale 拆分  | ~24.3 kB                           |
+| `fluent-vue`   | `.ftl` 文件（Mozilla Fluent）                       | 1/5 — 无                       | Fluent                              | 否                    | ~29.7 kB                           |
+| Paraglide      | inlang 项目，自动生成函数                           | 3.5/5 — 自动生成               | 自定义                              | 通过 tree-shaking     | 接近于 0（因为代码生成到代码库中） |
+| Intlayer       | 每个 component 一个 `.content.ts`                   | 5/5 — 自动生成，默认开启       | Intlayer (+ ICU, i18next, vue-i18n) | 是，按 component 拆分 | ~3.9 kB                            |
 
 > 数据仅代表基准测试当时版本的快照。在仅凭体积做决定之前，建议在自己的应用中进行测试。
+> 类型安全：5/5 表示键、参数和每个语言环境均无需手动配置即可得到校验，包括 URL 格式化工具与辅助函数。
 
 Paraglide 接近于零的运行时体积源于其架构设计：运行时代码直接生成到你的代码库中，这意味着每次 push 前都需要重新生成，并且生成的文件容易引发 merge conflict。Intlayer 需要 `vite-intlayer`（或 Nuxt 模块）支持，因此必须依赖构建步骤。
 
@@ -318,7 +319,7 @@ AI Agent 在处理 i18n 时仍常遇到困难：容易遗漏 locale、捏造 key
 
 **开发者体验。**
 
-从环境配置到输出第一个翻译字符串的时间；是否提供 [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md) 或 [VS Code 插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/vs_code_extension.md)以支持悬停预览翻译和跳转定义；是否包含用于 fill、test 和 push 的 [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)；以及是否为非开发人员提供了无需提交 Pull Request 即可编辑内容的途径（[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)或 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)）。
+从环境配置到输出第一个翻译字符串的时间；是否提供 [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md) 或 [VS Code 插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/vs_code_extension.md)以支持悬停预览翻译和跳转定义；是否包含用于 fill、test 和 push 的 [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)、能把组件中硬编码的字符串提取出来、免去逐个键维护的[编译器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md)或提取工具；以及是否为非开发人员提供了无需提交 Pull Request 即可编辑内容的途径（[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)或 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)）。
 
 ## 常见问题解答
 

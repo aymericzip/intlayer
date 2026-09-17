@@ -87,15 +87,16 @@ Paraglide는 메시지당 하나의 함수를 생성합니다. Intlayer는 컴�
 
 라이브러리 크기는 [Solid 벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/solid.md) 기준입니다. 10개 페이지, 10개 로케일 앱에서 번들링, tree-shaking, minification 후 빈 컴포넌트 내의 provider와 accessor를 측정한 수치입니다. 콘텐츠 크기는 별도로 측정됩니다.
 
-| 라이브러리               | 콘텐츠 모델                            | 로케일 변경 시 반응성                   | 키 타입 지원             | 스코핑 및 지연 로딩          | 라이브러리 크기 |
-| :----------------------- | :------------------------------------- | :-------------------------------------- | :----------------------- | :--------------------------- | :-------------- |
-| `@solid-primitives/i18n` | 직접 관리하는 평면 딕셔너리            | Signal, translator가 반환하는 accessor  | 원본 딕셔너리로부터 추론 | 기본 내장 없음               | 매우 작음       |
-| `solid-i18next`          | i18next 카탈로그 및 네임스페이스       | Store, provider를 통한 리렌더링         | 수동 선언                | 네임스페이스, 지연 백엔드    | ~14.9 kB        |
-| Paraglide                | inlang 프로젝트, 생성된 함수들         | 매 호출마다 쿠키 또는 스토리지에서 읽음 | 생성됨                   | Tree-shaking (벤치마크 제외) | 거의 0에 가까움 |
-| `@lingui/solid`          | 코드 내 소스 텍스트, 컴파일된 카탈로그 | Signal 기반                             | 컴파일러에서 제공        | 카탈로그별                   | 작음            |
-| Intlayer                 | 컴포넌트당 하나의 `.content.ts`        | Signal 기반 노드, 컴포넌트 재실행 없음  | 생성됨, 기본 활성화      | 지원됨, 컴포넌트별           | 기준점          |
+| 라이브러리               | 콘텐츠 모델                            | 로케일 변경 시 반응성                   | 타입 안전성                    | 스코핑 및 지연 로딩          | 라이브러리 크기                                   |
+| :----------------------- | :------------------------------------- | :-------------------------------------- | :----------------------------- | :--------------------------- | :------------------------------------------------ |
+| `@solid-primitives/i18n` | 직접 관리하는 평면 딕셔너리            | Signal, translator가 반환하는 accessor  | 3/5 — 원본 딕셔너리로부터 추론 | 기본 내장 없음               | ~0.6 kB                                           |
+| `solid-i18next`          | i18next 카탈로그 및 네임스페이스       | Store, provider를 통한 리렌더링         | 2/5 — 수동 선언                | 네임스페이스, 지연 백엔드    | ~14.9 kB                                          |
+| Paraglide                | inlang 프로젝트, 생성된 함수들         | 매 호출마다 쿠키 또는 스토리지에서 읽음 | 3.5/5 — 생성됨                 | Tree-shaking (벤치마크 제외) | 거의 0에 가까움 (코드베이스에 생성되는 코드 때문) |
+| `@lingui/solid`          | 코드 내 소스 텍스트, 컴파일된 카탈로그 | Signal 기반                             | 2/5 — 컴파일러에서 제공        | 카탈로그별                   | ~11.8 kB                                          |
+| Intlayer                 | 컴포넌트당 하나의 `.content.ts`        | Signal 기반 노드, 컴포넌트 재실행 없음  | 5/5 — 생성됨, 기본 활성화      | 지원됨, 컴포넌트별           | ~4.3 kB                                           |
 
-> 수치는 벤치마크 당시 버전 기준의 스냅샷입니다. `@lingui/solid`는 벤치마크에 포함되지 않았습니다. 크기만으로 결정하기 전에 직접 앱에서 테스트해보세요.
+> 수치는 벤치마크 당시 버전 기준의 스냅샷입니다. `@lingui/solid` 크기는 TanStack Start 벤치마크 값입니다. 크기만으로 결정하기 전에 직접 앱에서 테스트해보세요.
+> 타입 안전성: 5/5는 URL 포맷터와 헬퍼를 포함하여 키, 매개변수, 모든 로케일이 수동 설정 없이 검사됨을 의미합니다.
 
 Paraglide의 라이브러리 크기가 거의 0에 가까운 것은 구조적 특성 때문입니다. 런타임이 저장소 내에 직접 생성됩니다. Intlayer는 `vite-intlayer`가 필요하므로 빌드 단계 없이 실행할 수 없습니다.
 
@@ -320,7 +321,7 @@ export const CartSummary: Component<{ count: number }> = (props) => {
 
 **개발자 경험(DX).**
 
-첫 번째 번역 문자열까지의 설정 시간, 마우스 호버 시 번역을 보여주고 선언부로 이동할 수 있는 [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/lsp.md) 또는 [VS Code 확장 프로그램](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/vs_code_extension.md), 채우기/테스트/푸시를 위한 [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/index.md), 비개발자가 풀 리퀘스트 없이 콘텐츠를 수정할 수 있는 방법([시각적 편집기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md) 또는 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md))의 유무를 살펴보세요.
+첫 번째 번역 문자열까지의 설정 시간, 마우스 호버 시 번역을 보여주고 선언부로 이동할 수 있는 [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/lsp.md) 또는 [VS Code 확장 프로그램](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/vs_code_extension.md), 채우기/테스트/푸시를 위한 [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/index.md), 컴포넌트에 하드코딩된 문자열을 추출해 키 하나하나를 직접 관리하지 않아도 되게 해주는 [컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md) 또는 추출기, 비개발자가 풀 리퀘스트 없이 콘텐츠를 수정할 수 있는 방법([시각적 편집기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md) 또는 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md))의 유무를 살펴보세요.
 
 ## 자주 묻는 질문
 

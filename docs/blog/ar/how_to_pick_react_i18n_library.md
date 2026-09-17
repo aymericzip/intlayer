@@ -96,17 +96,18 @@ author: aymericzip
 
 أحجام المكتبات مأخوذة من [اختبار أداء TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/tanstack.md): الـ provider بالإضافة إلى الـ hook في مكون فارغ، بعد التجميع والـ tree-shaking والـ minification، لـ 10 صفحات و10 لغات. يتم قياس المحتوى بشكل منفصل.
 
-| المكتبة                 | الموجة       | نموذج المحتوى                         | أمان الأنواع على المفاتيح     | تنسيق الرسائل                 | حجم المكتبة |
-| :---------------------- | :----------- | :------------------------------------ | :---------------------------- | :---------------------------- | :---------- |
-| `react-i18next`         | وقت التشغيل  | JSON مركزي، namespaces                | اختياري (`CustomTypeOptions`) | i18next (لواحق الجمع)         | ~18.4 kB    |
-| `react-intl` (FormatJS) | وقت التشغيل  | JSON مركزي، ICU                       | اختياري (استخراج + union)     | ICU                           | ~15.3 kB    |
-| `use-intl`              | الخادم أولاً | JSON مركزي، ICU                       | اختياري (دمج التصريحات)       | ICU                           | ~14.1 kB    |
-| `@tolgee/react`         | وقت التشغيل  | مركزي، تحرير مباشر في السياق          | لا                            | ICU                           | ~11.1 kB    |
-| Lingui                  | ماكرو        | النص المصدري في الكود، كتالوجات مجمعة | جيد، من المترجم               | ICU عبر الماكرو               | ~11.8 kB    |
-| Paraglide               | مترجم        | مشروع inlang، دوال مولدة              | مُولد                         | خاص                           | يقارب الصفر |
-| Intlayer                | مترجم        | `.content.ts` لكل مكون                | مُولد، مفعّل افتراضياً        | دوال مساعدة (`plural`, `enu`) | الأساس      |
+| المكتبة                 | الموجة       | نموذج المحتوى                         | أمان الأنواع                        | تنسيق الرسائل                 | حجم المكتبة                                        |
+| :---------------------- | :----------- | :------------------------------------ | :---------------------------------- | :---------------------------- | :------------------------------------------------- |
+| `react-i18next`         | وقت التشغيل  | JSON مركزي، namespaces                | 2/5 — اختياري (`CustomTypeOptions`) | i18next (لواحق الجمع)         | ~18.4 kB                                           |
+| `react-intl` (FormatJS) | وقت التشغيل  | JSON مركزي، ICU                       | 2/5 — اختياري (استخراج + union)     | ICU                           | ~15.3 kB                                           |
+| `use-intl`              | الخادم أولاً | JSON مركزي، ICU                       | 2/5 — اختياري (دمج التصريحات)       | ICU                           | ~14.1 kB                                           |
+| `@tolgee/react`         | وقت التشغيل  | مركزي، تحرير مباشر في السياق          | 1/5 — لا                            | ICU                           | ~11.1 kB                                           |
+| Lingui                  | ماكرو        | النص المصدري في الكود، كتالوجات مجمعة | 2/5 — جيد، من المترجم               | ICU عبر الماكرو               | ~11.8 kB                                           |
+| Paraglide               | مترجم        | مشروع inlang، دوال مولدة              | 3.5/5 — مُولد                       | خاص                           | يقارب الصفر (بسبب الكود المولَّد داخل قاعدة الكود) |
+| Intlayer                | مترجم        | `.content.ts` لكل مكون                | 5/5 — مُولد، مفعّل افتراضياً        | Intlayer (+ ICU, i18next, PO) | ~5.0 kB                                            |
 
 > الأرقام تمثل لقطة لإصدارات benchmark وتتغير مع التحديثات. قم بتشغيل اختبار الأداء على تطبيقك الخاص قبل اتخاذ القرار بناءً على الحجم وحده.
+> أمان الأنواع: 5/5 يعني أن المفاتيح والمعاملات وكل لغة يتم التحقق منها دون إعداد يدوي، بما في ذلك منسق العناوين (URL formatter) والدوال المساعدة (helpers).
 
 أمران لا يظهرهما الجدول: لا تشحن `Paraglide` أي مكتبة تقريباً لأنها تولد الكود داخل مستودعك، مما يعني خطوة إعادة توليد قبل كل commit وتعارضات دمج (merge conflicts) محتملة في الملفات المولدة. كما تتطلب `Intlayer` إضافة أداة تجميع (`vite-intlayer` أو ما يعادلها)، لذا لا يمكن تشغيلها في بيئة بدون أدوات بناء (no-build setup).
 
@@ -391,7 +392,7 @@ export const CartSummary: FC<{ count: number }> = ({ count }) => {
 
 **تجربة المطور (DX).**
 
-الوقت المستغرق من الإعداد حتى أول نص مترجم، ووجود [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/lsp.md) أو [إضافة VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/vs_code_extension.md) تعرض الترجمة عند التمرير وتنتقل إلى التصريح مباشرة، و [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md) للملء والاختبار والرفع، وطريقة لغير المطورين لتحرير المحتوى ([المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) أو [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)) بدون طلب سحب (pull request).
+الوقت المستغرق من الإعداد حتى أول نص مترجم، ووجود [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/lsp.md) أو [إضافة VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/vs_code_extension.md) تعرض الترجمة عند التمرير وتنتقل إلى التصريح مباشرة، و [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md) للملء والاختبار والرفع، و[مُصرِّف](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md) أو أداة استخراج تستخرج النصوص المكتوبة مباشرة في المكونات حتى لا تضطر إلى إدارة كل نص مفتاحًا بمفتاح، وطريقة لغير المطورين لتحرير المحتوى ([المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) أو [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)) بدون طلب سحب (pull request).
 
 ## الأسئلة الشائعة
 

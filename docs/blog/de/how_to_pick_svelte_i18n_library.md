@@ -87,15 +87,16 @@ Wenn Ihre Antwort auf Frage 3 "viele Seiten" war, gewichten Sie diesen Abschnitt
 
 Die Bibliotheksgrößen stammen aus dem [Svelte-Benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/svelte.md): Store plus Accessor in einer leeren Komponente nach Bundling, Tree-Shaking und Minifizierung bei einer App mit 10 Seiten und 10 Sprachen. Der Inhalt wird separat gemessen.
 
-| Bibliothek      | Nachrichten liegen in                | Locale-State                               | Typen auf Schlüsseln  | Nachrichtenformat | Per-Route-Splitting  | Bibliotheksgröße |
-| :-------------- | :----------------------------------- | :----------------------------------------- | :-------------------- | :---------------- | :------------------- | :--------------- |
-| `svelte-i18n`   | JSON-Kataloge pro Sprache            | Svelte-Store auf Modulebene                | Manuelle Union        | ICU               | Nein                 | ~16,6 kB         |
-| `typesafe-i18n` | Generierte TS-Module                 | Store-Adapter                              | Generiert             | Eigenes           | Partiell             | Gering           |
-| Paraglide       | inlang-Projekt, kompiliert zu Funkt. | Pro Aufruf aus Cookie, URL/Storage gelesen | Generiert             | Eigenes           | Ja, via Tree-Shaking | Nahezu null      |
-| `wuchale`       | Aus Markup beim Build extrahiert     | Store                                      | N/A (keine Schlüssel) | Eigenes           | Ja                   | Gering           |
-| Intlayer        | `.content.ts` neben der Komponente   | Context plus Store, Rune-kompatibel        | Generiert, Standard   | Helfer            | Ja, pro Komponente   | Basislinie       |
+| Bibliothek      | Nachrichten liegen in                | Locale-State                               | Typsicherheit             | Nachrichtenformat             | Per-Route-Splitting  | Bibliotheksgröße                                |
+| :-------------- | :----------------------------------- | :----------------------------------------- | :------------------------ | :---------------------------- | :------------------- | :---------------------------------------------- |
+| `svelte-i18n`   | JSON-Kataloge pro Sprache            | Svelte-Store auf Modulebene                | 2/5 — Manuelle Union      | ICU                           | Nein                 | ~16,6 kB                                        |
+| `typesafe-i18n` | Generierte TS-Module                 | Store-Adapter                              | 4/5 — Generiert           | Eigenes                       | Partiell             | Gering                                          |
+| Paraglide       | inlang-Projekt, kompiliert zu Funkt. | Pro Aufruf aus Cookie, URL/Storage gelesen | 3.5/5 — Generiert         | Eigenes                       | Ja, via Tree-Shaking | Nahezu null (durch generierten Code im Projekt) |
+| `wuchale`       | Aus Markup beim Build extrahiert     | Store                                      | N/A (keine Schlüssel)     | Eigenes                       | Ja                   | ~30,7 kB                                        |
+| Intlayer        | `.content.ts` neben der Komponente   | Context plus Store, Rune-kompatibel        | 5/5 — Generiert, Standard | Intlayer (+ ICU, i18next, PO) | Ja, pro Komponente   | ~3,6 kB                                         |
 
 > Die Zahlen sind eine Momentaufnahme der Benchmark-Versionen. Führen Sie den Benchmark für Ihre eigene Anwendung aus, bevor Sie sich allein aufgrund der Größe entscheiden.
+> Typsicherheit: 5/5 bedeutet, dass Schlüssel, Parameter und jede Locale ohne manuelle Einrichtung geprüft werden, einschließlich URL-Formatierer und Helfer.
 
 Paraglides Bibliotheksgröße von nahezu null ist konstruktionsbedingt: Die Runtime wird direkt in Ihr Repository generiert. Intlayer benötigt `vite-intlayer`, weshalb es nicht ohne Build-Schritt ausgeführt werden kann.
 
@@ -314,7 +315,7 @@ Kataloge wachsen meist nur an. Der Build von Intlayer bereinigt ungenutzte Felde
 
 **Developer Experience.**
 
-Einrichtungszeit bis zum ersten übersetzten String, ein [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/lsp.md) oder eine [VS Code-Erweiterung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/vs_code_extension.md), die Übersetzungen beim Hovern anzeigt und zur Deklaration springt, eine [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/index.md) zum Befüllen, Testen und Pushen sowie eine Möglichkeit für Nicht-Entwickler, Inhalte über einen [visuellen Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md) oder ein [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md) ohne Pull Request zu bearbeiten.
+Einrichtungszeit bis zum ersten übersetzten String, ein [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/lsp.md) oder eine [VS Code-Erweiterung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/vs_code_extension.md), die Übersetzungen beim Hovern anzeigt und zur Deklaration springt, eine [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/index.md) zum Befüllen, Testen und Pushen, ein [Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compiler.md) oder Extraktor, der hartkodierte Strings aus Ihren Komponenten zieht, damit Sie nicht jeden String Schlüssel für Schlüssel verwalten müssen, sowie eine Möglichkeit für Nicht-Entwickler, Inhalte über einen [visuellen Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md) oder ein [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md) ohne Pull Request zu bearbeiten.
 
 ## Häufig gestellte Fragen (FAQ)
 

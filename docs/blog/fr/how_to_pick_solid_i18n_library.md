@@ -87,15 +87,16 @@ Si votre réponse à la question 4 était « beaucoup de pages », accordez plus
 
 La taille des bibliothèques provient du [benchmark Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/benchmark/solid.md) : provider plus accessor dans un composant vide, après bundling, tree-shaking et minification, sur une application de 10 pages et 10 locales. Le contenu est mesuré séparément.
 
-| Bibliothèque             | Modèle de contenu                              | Réactivité au changement de locale                         | Typage des clés                      | Scoping et lazy loading       | Taille de la bibliothèque |
-| :----------------------- | :--------------------------------------------- | :--------------------------------------------------------- | :----------------------------------- | :---------------------------- | :------------------------ |
-| `@solid-primitives/i18n` | Dictionnaire plat géré par vos soins           | Signal, accessors retournés par translator                 | Inféré depuis le dictionnaire source | Aucun intégré                 | Très légère               |
-| `solid-i18next`          | Catalogues et namespaces i18next               | Store, re-render via le provider                           | Déclaration manuelle                 | Namespaces, backends lazy     | ~14,9 ko                  |
-| Paraglide                | Projet inlang, fonctions générées              | Lecture par appel depuis cookie/storage                    | Généré                               | Tree-shaking (hors benchmark) | Proche de zéro            |
-| `@lingui/solid`          | Texte source dans le code, catalogues compilés | Basé sur des signals                                       | Depuis le compilateur                | Par catalogue                 | Légère                    |
-| Intlayer                 | Un `.content.ts` par composant                 | Nœuds adossés à des signals, pas de re-render du composant | Généré, activé par défaut            | Oui, par composant            | Référence (Baseline)      |
+| Bibliothèque             | Modèle de contenu                              | Réactivité au changement de locale                         | Sûreté des types                           | Scoping et lazy loading       | Taille de la bibliothèque                                  |
+| :----------------------- | :--------------------------------------------- | :--------------------------------------------------------- | :----------------------------------------- | :---------------------------- | :--------------------------------------------------------- |
+| `@solid-primitives/i18n` | Dictionnaire plat géré par vos soins           | Signal, accessors retournés par translator                 | 3/5 — Inféré depuis le dictionnaire source | Aucun intégré                 | ~0,6 ko                                                    |
+| `solid-i18next`          | Catalogues et namespaces i18next               | Store, re-render via le provider                           | 2/5 — Déclaration manuelle                 | Namespaces, backends lazy     | ~14,9 ko                                                   |
+| Paraglide                | Projet inlang, fonctions générées              | Lecture par appel depuis cookie/storage                    | 3.5/5 — Généré                             | Tree-shaking (hors benchmark) | Proche de zéro (grâce au code généré dans la base de code) |
+| `@lingui/solid`          | Texte source dans le code, catalogues compilés | Basé sur des signals                                       | 2/5 — Depuis le compilateur                | Par catalogue                 | ~11,8 ko                                                   |
+| Intlayer                 | Un `.content.ts` par composant                 | Nœuds adossés à des signals, pas de re-render du composant | 5/5 — Généré, activé par défaut            | Oui, par composant            | ~4,3 ko                                                    |
 
-> Ces chiffres sont un instantané basé sur les versions du benchmark. `@lingui/solid` ne figurait pas dans le benchmark. Testez sur votre propre application avant de décider uniquement sur la taille.
+> Ces chiffres sont un instantané basé sur les versions du benchmark. La taille de `@lingui/solid` provient du benchmark TanStack Start. Testez sur votre propre application avant de décider uniquement sur la taille.
+> Sûreté des types : 5/5 signifie que les clés, les paramètres et chaque locale sont vérifiés sans configuration manuelle, y compris le formateur d'URL et les helpers.
 
 La taille quasi nulle de Paraglide s'explique par sa conception : le runtime est généré directement dans votre dépôt. Intlayer nécessite `vite-intlayer`, il ne peut donc pas fonctionner sans étape de build.
 
@@ -307,7 +308,7 @@ Les catalogues ne font que grossir. Le build d'Intlayer purge les champs inutili
 
 **Expérience développeur (DX).**
 
-Le temps de configuration jusqu'à la première chaîne traduite, un [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/lsp.md) ou une [extension VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/vs_code_extension.md) qui affiche la traduction au survol et redirige vers la déclaration, une [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/cli/index.md) pour compléter, tester et synchroniser (push), et un moyen pour les non-développeurs d'éditer le contenu ([éditeur visuel](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md) ou [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md)) sans pull request.
+Le temps de configuration jusqu'à la première chaîne traduite, un [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/lsp.md) ou une [extension VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/vs_code_extension.md) qui affiche la traduction au survol et redirige vers la déclaration, une [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/cli/index.md) pour compléter, tester et synchroniser (push), un [compilateur](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compiler.md) ou extracteur qui extrait les chaînes codées en dur de vos composants pour ne pas tout gérer clé par clé, et un moyen pour les non-développeurs d'éditer le contenu ([éditeur visuel](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md) ou [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md)) sans pull request.
 
 ## Foire aux questions
 

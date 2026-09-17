@@ -97,17 +97,18 @@ Se a sua resposta para a pergunta 3 foi "muitos locales, muitas páginas", dê m
 
 Os tamanhos das bibliotecas vêm do [benchmark no TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/benchmark/tanstack.md): provider mais hook em um componente vazio, após bundling, tree-shaking e minificação, 10 páginas e 10 locales. O conteúdo é medido separadamente.
 
-| Biblioteca              | Onda         | Modelo de conteúdo                              | Tipos nas chaves             | Formato de mensagem       | Tamanho da biblioteca |
-| :---------------------- | :----------- | :---------------------------------------------- | :--------------------------- | :------------------------ | :-------------------- |
-| `react-i18next`         | Runtime      | JSON central, namespaces                        | Opt-in (`CustomTypeOptions`) | i18next (sufixos plurais) | ~18.4 kB              |
-| `react-intl` (FormatJS) | Runtime      | JSON central, ICU                               | Opt-in (extração + union)    | ICU                       | ~15.3 kB              |
-| `use-intl`              | Server-first | JSON central, ICU                               | Opt-in (declaration merging) | ICU                       | ~14.1 kB              |
-| `@tolgee/react`         | Runtime      | Central, edição em contexto                     | Não                          | ICU                       | ~11.1 kB              |
-| Lingui                  | Macro        | Texto de origem no código, catálogos compilados | Bom, a partir do compilador  | ICU via macros            | ~11.8 kB              |
-| Paraglide               | Compilador   | Projeto inlang, funções geradas                 | Gerados                      | Próprio                   | Próximo de zero       |
-| Intlayer                | Compilador   | `.content.ts` por componente                    | Gerados, ativo por padrão    | Helpers (`plural`, `enu`) | Linha de base         |
+| Biblioteca              | Onda         | Modelo de conteúdo                              | Segurança de tipos                 | Formato de mensagem           | Tamanho da biblioteca                                |
+| :---------------------- | :----------- | :---------------------------------------------- | :--------------------------------- | :---------------------------- | :--------------------------------------------------- |
+| `react-i18next`         | Runtime      | JSON central, namespaces                        | 2/5 — Opt-in (`CustomTypeOptions`) | i18next (sufixos plurais)     | ~18.4 kB                                             |
+| `react-intl` (FormatJS) | Runtime      | JSON central, ICU                               | 2/5 — Opt-in (extração + union)    | ICU                           | ~15.3 kB                                             |
+| `use-intl`              | Server-first | JSON central, ICU                               | 2/5 — Opt-in (declaration merging) | ICU                           | ~14.1 kB                                             |
+| `@tolgee/react`         | Runtime      | Central, edição em contexto                     | 1/5 — Não                          | ICU                           | ~11.1 kB                                             |
+| Lingui                  | Macro        | Texto de origem no código, catálogos compilados | 2/5 — Bom, a partir do compilador  | ICU via macros                | ~11.8 kB                                             |
+| Paraglide               | Compilador   | Projeto inlang, funções geradas                 | 3.5/5 — Gerados                    | Próprio                       | Próximo de zero (devido ao código gerado no projeto) |
+| Intlayer                | Compilador   | `.content.ts` por componente                    | 5/5 — Gerados, ativo por padrão    | Intlayer (+ ICU, i18next, PO) | ~5.0 kB                                              |
 
 > Os números são um snapshot das versões do benchmark e mudam com novos lançamentos. Execute o benchmark na sua própria aplicação antes de decidir apenas pelo tamanho.
+> Segurança de tipos: 5/5 significa que chaves, parâmetros e cada locale são verificados sem configuração manual, incluindo formatadores de URL e helpers.
 
 Duas coisas que a tabela não mostra. O `Paraglide` quase não envia biblioteca porque gera código dentro do seu repositório, o que significa uma etapa de regeneração antes de cada commit e conflitos de merge em arquivos gerados. E o `Intlayer` requer um plugin de bundler (`vite-intlayer` ou equivalente), portanto não pode rodar em uma configuração sem build.
 
@@ -392,7 +393,7 @@ Os catálogos só aumentam. O build do Intlayer purga campos não utilizados e r
 
 **Experiência do desenvolvedor (DX).**
 
-Tempo de configuração até a primeira string traduzida, um [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/lsp.md) ou [extensão para VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/vs_code_extension.md) que mostra a tradução ao passar o cursor e navega até a declaração, uma [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/index.md) para preencher, testar e sincronizar (push), e uma forma para não-desenvolvedores editarem conteúdo ([editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md) ou [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md)) sem a necessidade de um pull request.
+Tempo de configuração até a primeira string traduzida, um [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/lsp.md) ou [extensão para VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/vs_code_extension.md) que mostra a tradução ao passar o cursor e navega até a declaração, uma [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/index.md) para preencher, testar e sincronizar (push), um [compilador](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/compiler.md) ou extrator que retira as strings fixas dos seus componentes para não gerir cada string chave a chave, e uma forma para não-desenvolvedores editarem conteúdo ([editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md) ou [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md)) sem a necessidade de um pull request.
 
 ## Perguntas Frequentes
 

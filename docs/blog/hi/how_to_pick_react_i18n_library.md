@@ -96,17 +96,18 @@ SSR और Server Components के आसपास डिज़ाइन कि
 
 लाइब्रेरी के आकार [TanStack Start बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/tanstack.md) से आते हैं: एक खाली घटक में प्रोवाइडर प्लस हुक, बंडलिंग, ट्री-शेकिंग और मिनिफिकेशन के बाद, 10 पेज और 10 लोकेल्स। सामग्री को अलग से मापा जाता है।
 
-| लाइब्रेरी               | तरंग          | सामग्री मॉडल                         | कुंजियों पर प्रकार            | संदेश प्रारूप              | लाइब्रेरी का आकार |
-| :---------------------- | :------------ | :----------------------------------- | :---------------------------- | :------------------------- | :---------------- |
-| `react-i18next`         | रनटाइम        | केंद्रीय JSON, नेमस्पेस              | Opt-in (`CustomTypeOptions`)  | i18next (प्रत्यय बहुवचन)   | ~18.4 kB          |
-| `react-intl` (FormatJS) | रनटाइम        | केंद्रीय JSON, ICU                   | Opt-in (निष्कर्षण + यूनियन)   | ICU                        | ~15.3 kB          |
-| `use-intl`              | सर्वर-फ़र्स्ट | केंद्रीय JSON, ICU                   | Opt-in (घोषणा विलय)           | ICU                        | ~14.1 kB          |
-| `@tolgee/react`         | रनटाइम        | केंद्रीय, इन-कॉन्टेक्स्ट संपादन      | नहीं                          | ICU                        | ~11.1 kB          |
-| Lingui                  | मैक्रो        | कोड में स्रोत टेक्स्ट, संकलित कैटलॉग | अच्छा, कंपाइलर से             | मैक्रोज़ के माध्यम से ICU  | ~11.8 kB          |
-| Paraglide               | कंपाइलर       | inlang प्रोजेक्ट, जनरेटेड फ़ंक्शंस   | जनरेटेड                       | स्वयं का                   | लगभग शून्य        |
-| Intlayer                | कंपाइलर       | प्रति घटक `.content.ts`              | जनरेटेड, डिफ़ॉल्ट रूप से चालू | हेल्पर्स (`plural`, `enu`) | बेसलाइन           |
+| लाइब्रेरी               | तरंग          | सामग्री मॉडल                         | टाइप सुरक्षा                        | संदेश प्रारूप                 | लाइब्रेरी का आकार                                |
+| :---------------------- | :------------ | :----------------------------------- | :---------------------------------- | :---------------------------- | :----------------------------------------------- |
+| `react-i18next`         | रनटाइम        | केंद्रीय JSON, नेमस्पेस              | 2/5 — Opt-in (`CustomTypeOptions`)  | i18next (प्रत्यय बहुवचन)      | ~18.4 kB                                         |
+| `react-intl` (FormatJS) | रनटाइम        | केंद्रीय JSON, ICU                   | 2/5 — Opt-in (निष्कर्षण + यूनियन)   | ICU                           | ~15.3 kB                                         |
+| `use-intl`              | सर्वर-फ़र्स्ट | केंद्रीय JSON, ICU                   | 2/5 — Opt-in (घोषणा विलय)           | ICU                           | ~14.1 kB                                         |
+| `@tolgee/react`         | रनटाइम        | केंद्रीय, इन-कॉन्टेक्स्ट संपादन      | 1/5 — नहीं                          | ICU                           | ~11.1 kB                                         |
+| Lingui                  | मैक्रो        | कोड में स्रोत टेक्स्ट, संकलित कैटलॉग | 2/5 — अच्छा, कंपाइलर से             | मैक्रोज़ के माध्यम से ICU     | ~11.8 kB                                         |
+| Paraglide               | कंपाइलर       | inlang प्रोजेक्ट, जनरेटेड फ़ंक्शंस   | 3.5/5 — जनरेटेड                     | स्वयं का                      | लगभग शून्य (कोडबेस में जनरेट किए गए कोड के कारण) |
+| Intlayer                | कंपाइलर       | प्रति घटक `.content.ts`              | 5/5 — जनरेटेड, डिफ़ॉल्ट रूप से चालू | Intlayer (+ ICU, i18next, PO) | ~5.0 kB                                          |
 
 > संख्याएं बेंचमार्क के संस्करणों का एक स्नैपशॉट हैं और रिलीज के साथ बदलती हैं। केवल आकार पर निर्णय लेने से पहले अपने स्वयं के ऐप पर बेंचमार्क चलाएं।
+> टाइप सुरक्षा: 5/5 का अर्थ है कि URL फॉर्मेटर और हेल्पर्स सहित कुंजियाँ, पैरामीटर और हर लोकेल बिना किसी मैन्युअल सेटअप के जाँचे जाते हैं।
 
 तालिका दो चीजें नहीं दिखाती है। `Paraglide` लगभग कोई लाइब्रेरी शिप नहीं करता क्योंकि यह आपके रिपॉजिटरी में कोड जनरेट करता है, जिसका अर्थ है प्रत्येक कमिट से पहले एक पुनर्जनन चरण और जनरेटेड फ़ाइलों पर मर्ज टकराव। और `Intlayer` को एक बंडलर प्लगइन (`vite-intlayer` या समकक्ष) की आवश्यकता होती है, इसलिए यह नो-बिल्ड सेटअप में नहीं चल सकता।
 
@@ -391,7 +392,7 @@ export const CartSummary: FC<{ count: number }> = ({ count }) => {
 
 **डेवलपर अनुभव (Developer experience)।**
 
-पहले अनुवादित स्ट्रिंग तक सेटअप का समय, एक [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/lsp.md) या [VS Code एक्सटेंशन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/vs_code_extension.md) जो होवर पर अनुवाद दिखाता है और घोषणा पर कूदता है, भरने, परीक्षण करने और पुश करने के लिए एक [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/index.md), और गैर-डेवलपर्स के लिए बिना किसी पुल अनुरोध के सामग्री को संपादित करने का एक तरीका ([विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md) या [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md))।
+पहले अनुवादित स्ट्रिंग तक सेटअप का समय, एक [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/lsp.md) या [VS Code एक्सटेंशन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/vs_code_extension.md) जो होवर पर अनुवाद दिखाता है और घोषणा पर कूदता है, भरने, परीक्षण करने और पुश करने के लिए एक [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/index.md), आपके कंपोनेंट्स से हार्ड-कोडेड स्ट्रिंग्स निकालने वाला एक [कंपाइलर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md) या एक्सट्रैक्टर ताकि हर स्ट्रिंग को कुंजी-दर-कुंजी प्रबंधित न करना पड़े, और गैर-डेवलपर्स के लिए बिना किसी पुल अनुरोध के सामग्री को संपादित करने का एक तरीका ([विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md) या [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md))।
 
 ## अक्सर पूछे जाने वाले प्रश्न
 

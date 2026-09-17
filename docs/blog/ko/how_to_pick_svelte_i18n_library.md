@@ -87,15 +87,16 @@ Paraglide는 각 메시지를 export된 함수로 컴파일하여 번들러가 �
 
 라이브러리 크기는 [Svelte 벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/svelte.md)를 기준으로 합니다. 10개 페이지, 10개 로케일 앱에서 번들링, tree-shaking 및 minification을 거친 빈 컴포넌트 내 store 및 접근자 크기입니다. 콘텐츠는 별도로 측정됩니다.
 
-| 라이브러리      | 메시지 저장 위치                 | 로케일 상태                              | 키 타입 지원        | 메시지 포맷 | 라우트별 분할            | 라이브러리 크기   |
-| :-------------- | :------------------------------- | :--------------------------------------- | :------------------ | :---------- | :----------------------- | :---------------- |
-| `svelte-i18n`   | 로케일별 JSON 카탈로그           | 모듈 수준 Svelte store                   | 수동 union 타입     | ICU         | 지원 안 함               | ~16.6 kB          |
-| `typesafe-i18n` | 생성된 TS 모듈                   | Store 어댑터                             | 생성됨              | 자체 포맷   | 부분 지원                | 작음              |
-| Paraglide       | inlang 프로젝트, 함수로 컴파일됨 | 쿠키, URL, 스토리지에서 호출 시마다 읽음 | 생성됨              | 자체 포맷   | 지원 (tree-shaking 활용) | 0에 가까움        |
-| `wuchale`       | 빌드 시 마크업에서 추출          | Store                                    | 해당 없음 (키 없음) | 자체 포맷   | 지원                     | 작음              |
-| Intlayer        | 컴포넌트 옆 `.content.ts`        | Context 및 store, rune 지원              | 생성됨, 기본 활성화 | 헬퍼 함수   | 지원, 컴포넌트별         | 기준점 (Baseline) |
+| 라이브러리      | 메시지 저장 위치                 | 로케일 상태                              | 타입 안전성               | 메시지 포맷                   | 라우트별 분할            | 라이브러리 크기                              |
+| :-------------- | :------------------------------- | :--------------------------------------- | :------------------------ | :---------------------------- | :----------------------- | :------------------------------------------- |
+| `svelte-i18n`   | 로케일별 JSON 카탈로그           | 모듈 수준 Svelte store                   | 2/5 — 수동 union 타입     | ICU                           | 지원 안 함               | ~16.6 kB                                     |
+| `typesafe-i18n` | 생성된 TS 모듈                   | Store 어댑터                             | 4/5 — 생성됨              | 자체 포맷                     | 부분 지원                | 작음                                         |
+| Paraglide       | inlang 프로젝트, 함수로 컴파일됨 | 쿠키, URL, 스토리지에서 호출 시마다 읽음 | 3.5/5 — 생성됨            | 자체 포맷                     | 지원 (tree-shaking 활용) | 0에 가까움 (코드베이스에 생성되는 코드 때문) |
+| `wuchale`       | 빌드 시 마크업에서 추출          | Store                                    | 해당 없음 (키 없음)       | 자체 포맷                     | 지원                     | ~30.7 kB                                     |
+| Intlayer        | 컴포넌트 옆 `.content.ts`        | Context 및 store, rune 지원              | 5/5 — 생성됨, 기본 활성화 | Intlayer (+ ICU, i18next, PO) | 지원, 컴포넌트별         | ~3.6 kB                                      |
 
 > 수치는 벤치마크 당시 버전의 스냅샷입니다. 크기만으로 결정하기 전에 자체 앱에서 직접 실행해 보세요.
+> 타입 안전성: 5/5는 URL 포맷터와 헬퍼를 포함하여 키, 매개변수, 모든 로케일이 수동 설정 없이 검사됨을 의미합니다.
 
 Paraglide의 0에 가까운 라이브러리 크기는 구조적인 결과입니다. 런타임이 레포지토리 내에 직접 생성되기 때문입니다. Intlayer는 `vite-intlayer`가 필요하므로 빌드 단계 없이 실행할 수 없습니다.
 
@@ -314,7 +315,7 @@ AI 에이전트는 여전히 i18n 처리에 어려움을 겪습니다. 로케일
 
 **개발자 경험 (DX).**
 
-첫 번역 문자열까지의 설정 시간, 마우스 호버 시 번역을 보여주고 선언부로 바로 이동하는 [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/lsp.md) 또는 [VS Code 확장 프로그램](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/vs_code_extension.md), 번역 채우기, 테스트, 푸시를 위한 [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/index.md), 그리고 비개발자가 풀 리퀘스트 없이 콘텐츠를 편집할 수 있는 방법([시각적 편집기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md) 또는 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)).
+첫 번역 문자열까지의 설정 시간, 마우스 호버 시 번역을 보여주고 선언부로 바로 이동하는 [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/lsp.md) 또는 [VS Code 확장 프로그램](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/vs_code_extension.md), 번역 채우기, 테스트, 푸시를 위한 [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/index.md), 컴포넌트에 하드코딩된 문자열을 추출해 키 하나하나를 직접 관리하지 않아도 되게 해주는 [컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md) 또는 추출기, 그리고 비개발자가 풀 리퀘스트 없이 콘텐츠를 편집할 수 있는 방법([시각적 편집기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md) 또는 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)).
 
 ## 자주 묻는 질문
 

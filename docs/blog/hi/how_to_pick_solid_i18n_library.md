@@ -87,15 +87,16 @@ Paraglide प्रति संदेश एक फ़ंक्शन generate 
 
 लाइब्रेरी के आकार [Solid बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/solid.md) से हैं: 10-पेज, 10-लोकेल ऐप पर बंडलिंग, tree-shaking और minification के बाद, एक खाली कंपोनेंट में provider प्लस accessor। सामग्री को अलग से मापा जाता है।
 
-| Library                  | Content model                              | Reactivity on locale change                       | Types on keys                     | Scoping and lazy loading          | Library size |
-| :----------------------- | :----------------------------------------- | :------------------------------------------------ | :-------------------------------- | :-------------------------------- | :----------- |
-| `@solid-primitives/i18n` | Flat dictionary जिसे आप नियंत्रित करते हैं | Signal, accessors translator द्वारा रिटर्न किए गए | Source dictionary से infer किए गए | कुछ भी इन-बिल्ट नहीं              | बहुत छोटा    |
-| `solid-i18next`          | i18next catalogs और namespaces             | Store, provider के माध्यम से re-render            | मैनुअल डिक्लेरेशन                 | Namespaces, lazy backends         | ~14.9 kB     |
-| Paraglide                | inlang प्रोजेक्ट, generated फ़ंक्शंस       | Cookie या storage से प्रति कॉल रीड                | Generated                         | Tree-shaking (बेंचमार्क में नहीं) | लगभग शून्य   |
-| `@lingui/solid`          | कोड में सोर्स टेक्स्ट, compiled catalogs   | Signal-आधारित                                     | कंपाइलर से                        | प्रति catalog                     | छोटा         |
-| Intlayer                 | प्रति कंपोनेंट एक `.content.ts`            | Signal-backed nodes, कोई कंपोनेंट re-run नहीं     | Generated, डिफ़ॉल्ट रूप से चालू   | हाँ, प्रति component              | बेसलाइन      |
+| Library                  | Content model                              | Reactivity on locale change                       | टाइप सुरक्षा                            | Scoping and lazy loading          | Library size                                     |
+| :----------------------- | :----------------------------------------- | :------------------------------------------------ | :-------------------------------------- | :-------------------------------- | :----------------------------------------------- |
+| `@solid-primitives/i18n` | Flat dictionary जिसे आप नियंत्रित करते हैं | Signal, accessors translator द्वारा रिटर्न किए गए | 3/5 — Source dictionary से infer किए गए | कुछ भी इन-बिल्ट नहीं              | ~0.6 kB                                          |
+| `solid-i18next`          | i18next catalogs और namespaces             | Store, provider के माध्यम से re-render            | 2/5 — मैनुअल डिक्लेरेशन                 | Namespaces, lazy backends         | ~14.9 kB                                         |
+| Paraglide                | inlang प्रोजेक्ट, generated फ़ंक्शंस       | Cookie या storage से प्रति कॉल रीड                | 3.5/5 — Generated                       | Tree-shaking (बेंचमार्क में नहीं) | लगभग शून्य (कोडबेस में जनरेट किए गए कोड के कारण) |
+| `@lingui/solid`          | कोड में सोर्स टेक्स्ट, compiled catalogs   | Signal-आधारित                                     | 2/5 — कंपाइलर से                        | प्रति catalog                     | ~11.8 kB                                         |
+| Intlayer                 | प्रति कंपोनेंट एक `.content.ts`            | Signal-backed nodes, कोई कंपोनेंट re-run नहीं     | 5/5 — Generated, डिफ़ॉल्ट रूप से चालू   | हाँ, प्रति component              | ~4.3 kB                                          |
 
-> संख्याएँ बेंचमार्क के वर्ज़न का एक स्नैपशॉट हैं। `@lingui/solid` बेंचमार्क में नहीं था। केवल आकार के आधार पर निर्णय लेने से पहले इसे अपने ऐप पर चलाएं।
+> संख्याएँ बेंचमार्क के वर्ज़न का एक स्नैपशॉट हैं। `@lingui/solid` का आकार TanStack Start बेंचमार्क से लिया गया है। केवल आकार के आधार पर निर्णय लेने से पहले इसे अपने ऐप पर चलाएं।
+> टाइप सुरक्षा: 5/5 का अर्थ है कि URL फॉर्मेटर और हेल्पर्स सहित कुंजियाँ, पैरामीटर और हर लोकेल बिना किसी मैन्युअल सेटअप के जाँचे जाते हैं।
 
 Paraglide का लगभग शून्य लाइब्रेरी आकार निर्माण के आधार पर है: runtime आपके रिपॉजिटरी में generate होता है। Intlayer को `vite-intlayer` की आवश्यकता होती है, इसलिए यह build step के बिना नहीं चल सकता।
 
@@ -320,7 +321,7 @@ export const CartSummary: Component<{ count: number }> = (props) => {
 
 **डेवलपर अनुभव।**
 
-पहली अनुवादित स्ट्रिंग तक सेटअप समय, एक [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/lsp.md) या [VS Code extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/vs_code_extension.md) जो होवर पर अनुवाद दिखाता है और डिक्लेरेशन पर कूदता है, fill, test और push के लिए एक [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/index.md), और गैर-डेवलपर्स के लिए बिना पुल रिक्वेस्ट के सामग्री संपादित करने का एक तरीका ([visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md) या [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md))।
+पहली अनुवादित स्ट्रिंग तक सेटअप समय, एक [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/lsp.md) या [VS Code extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/vs_code_extension.md) जो होवर पर अनुवाद दिखाता है और डिक्लेरेशन पर कूदता है, fill, test और push के लिए एक [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/index.md), आपके कंपोनेंट्स से हार्ड-कोडेड स्ट्रिंग्स निकालने वाला एक [कंपाइलर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md) या एक्सट्रैक्टर ताकि हर स्ट्रिंग को कुंजी-दर-कुंजी प्रबंधित न करना पड़े, और गैर-डेवलपर्स के लिए बिना पुल रिक्वेस्ट के सामग्री संपादित करने का एक तरीका ([visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md) या [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md))।
 
 ## अक्सर पूछे जाने वाले प्रश्न
 

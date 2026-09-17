@@ -96,17 +96,18 @@ SSRおよびServer Componentsを考慮して設計されています。サーバ
 
 ライブラリのサイズは[TanStack Startベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/tanstack.md)に基づいています（空のコンポーネントにおけるプロバイダーとフック、バンドル・ツリーシェイキング・Minify後、10ページ・10ロケール）。コンテンツのサイズは別途測定されています。
 
-| ライブラリ              | 世代（Wave）       | コンテンツモデル                                 | キーの型安全性                    | メッセージフォーマット        | ライブラリサイズ |
-| :---------------------- | :----------------- | :----------------------------------------------- | :-------------------------------- | :---------------------------- | :--------------- |
-| `react-i18next`         | ランタイム         | 中央JSON、名前空間                               | オプトイン（`CustomTypeOptions`） | i18next（サフィックス複数形） | 約18.4 kB        |
-| `react-intl` (FormatJS) | ランタイム         | 中央JSON、ICU                                    | オプトイン（抽出 + union）        | ICU                           | 約15.3 kB        |
-| `use-intl`              | サーバーファースト | 中央JSON、ICU                                    | オプトイン（declaration merging） | ICU                           | 約14.1 kB        |
-| `@tolgee/react`         | ランタイム         | 中央集約、インコンテキスト編集                   | なし                              | ICU                           | 約11.1 kB        |
-| Lingui                  | マクロ             | コード内のソーステキスト、コンパイル済みカタログ | 良好（コンパイラーから）          | マクロ経由のICU               | 約11.8 kB        |
-| Paraglide               | コンパイラー       | inlangプロジェクト、生成された関数               | 自動生成                          | 独自                          | ほぼゼロ         |
-| Intlayer                | コンパイラー       | コンポーネントごとの`.content.ts`                | 自動生成、デフォルトで有効        | ヘルパー（`plural`, `enu`）   | ベースライン     |
+| ライブラリ              | 世代（Wave）       | コンテンツモデル                                 | 型安全性                                | メッセージフォーマット        | ライブラリサイズ                                 |
+| :---------------------- | :----------------- | :----------------------------------------------- | :-------------------------------------- | :---------------------------- | :----------------------------------------------- |
+| `react-i18next`         | ランタイム         | 中央JSON、名前空間                               | 2/5 — オプトイン（`CustomTypeOptions`） | i18next（サフィックス複数形） | 約18.4 kB                                        |
+| `react-intl` (FormatJS) | ランタイム         | 中央JSON、ICU                                    | 2/5 — オプトイン（抽出 + union）        | ICU                           | 約15.3 kB                                        |
+| `use-intl`              | サーバーファースト | 中央JSON、ICU                                    | 2/5 — オプトイン（declaration merging） | ICU                           | 約14.1 kB                                        |
+| `@tolgee/react`         | ランタイム         | 中央集約、インコンテキスト編集                   | 1/5 — なし                              | ICU                           | 約11.1 kB                                        |
+| Lingui                  | マクロ             | コード内のソーステキスト、コンパイル済みカタログ | 2/5 — 良好（コンパイラーから）          | マクロ経由のICU               | 約11.8 kB                                        |
+| Paraglide               | コンパイラー       | inlangプロジェクト、生成された関数               | 3.5/5 — 自動生成                        | 独自                          | ほぼゼロ（コードベースに生成されるコードのため） |
+| Intlayer                | コンパイラー       | コンポーネントごとの`.content.ts`                | 5/5 — 自動生成、デフォルトで有効        | Intlayer (+ ICU, i18next, PO) | ~5.0 kB                                          |
 
 > 数値はベンチマーク実施時のバージョンに基づくスナップショットであり、リリースによって変動します。サイズだけで判断する前に、自身のアプリでベンチマークを実行してください。
+> 型安全性：5/5は、URLフォーマッターやヘルパーを含め、キー・パラメータ・すべてのロケールが手動設定なしに検証されることを意味します。
 
 この表に現れていない点が2つあります。`Paraglide`はコードをリポジトリ内に直接生成するためライブラリサイズがほぼゼロになりますが、コミット前ごとの再生成ステップが必要になり、生成ファイルでマージコンフリクトが発生しやすくなります。また、`Intlayer`はバンドラープラグイン（`vite-intlayer`など）を必須とするため、ビルドステップのない環境（no-build setup）では動作しません。
 
@@ -385,7 +386,7 @@ AIエージェントは依然としてi18nに苦労しています（ロケー�
 
 **開発者体験（DX）。**
 
-最初の翻訳文字列が表示されるまでのセットアップ時間、ホバー時に翻訳を表示して宣言箇所へジャンプできる[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)や[VS Code拡張機能](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)、補完・テスト・プッシュのための[CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md)、そして開発者以外でもプルリクエストなしでコンテンツを編集できる仕組み（[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)や[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)）が用意されているかを確認してください。
+最初の翻訳文字列が表示されるまでのセットアップ時間、ホバー時に翻訳を表示して宣言箇所へジャンプできる[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)や[VS Code拡張機能](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)、補完・テスト・プッシュのための[CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md)、コンポーネント内のハードコードされた文字列を抽出してキーごとに管理する手間をなくす[コンパイラー](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md)や抽出ツール、そして開発者以外でもプルリクエストなしでコンテンツを編集できる仕組み（[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)や[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)）が用意されているかを確認してください。
 
 ## よくある質問（FAQ）
 

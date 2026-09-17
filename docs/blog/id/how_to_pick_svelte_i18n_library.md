@@ -87,15 +87,16 @@ Jika jawaban Anda untuk pertanyaan 3 adalah "banyak halaman", pertimbangkan bagi
 
 Ukuran library diambil dari [benchmark Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/svelte.md): store ditambah accessor dalam komponen kosong, setelah bundling, tree-shaking, dan minifikasi, pada aplikasi 10 halaman dan 10 locale. Konten diukur secara terpisah.
 
-| Library         | Tempat konten berada                 | State locale                                          | Type pada kunci      | Format pesan | Pemisahan per route  | Ukuran library |
-| :-------------- | :----------------------------------- | :---------------------------------------------------- | :------------------- | :----------- | :------------------- | :------------- |
-| `svelte-i18n`   | Katalog JSON per locale              | Store Svelte tingkat modul                            | Union manual         | ICU          | Tidak                | ~16.6 kB       |
-| `typesafe-i18n` | Modul TS yang di-generate            | Adaptor store                                         | Di-generate          | Kustom       | Parsial              | Kecil          |
-| Paraglide       | Proyek inlang, dikompilasi ke fungsi | Dibaca per pemanggilan dari cookie, URL, atau storage | Di-generate          | Kustom       | Ya, via tree-shaking | Hampir nol     |
-| `wuchale`       | Diekstrak dari markup saat build     | Store                                                 | N/A (tanpa kunci)    | Kustom       | Ya                   | Kecil          |
-| Intlayer        | `.content.ts` di samping komponen    | Context ditambah store, mendukung rune                | Di-generate, default | Helper       | Ya, per komponen     | Baseline       |
+| Library         | Tempat konten berada                 | State locale                                          | Keamanan tipe              | Format pesan                  | Pemisahan per route  | Ukuran library                                           |
+| :-------------- | :----------------------------------- | :---------------------------------------------------- | :------------------------- | :---------------------------- | :------------------- | :------------------------------------------------------- |
+| `svelte-i18n`   | Katalog JSON per locale              | Store Svelte tingkat modul                            | 2/5 — Union manual         | ICU                           | Tidak                | ~16.6 kB                                                 |
+| `typesafe-i18n` | Modul TS yang di-generate            | Adaptor store                                         | 4/5 — Di-generate          | Kustom                        | Parsial              | Kecil                                                    |
+| Paraglide       | Proyek inlang, dikompilasi ke fungsi | Dibaca per pemanggilan dari cookie, URL, atau storage | 3.5/5 — Di-generate        | Kustom                        | Ya, via tree-shaking | Hampir nol (karena kode yang dihasilkan di dalam proyek) |
+| `wuchale`       | Diekstrak dari markup saat build     | Store                                                 | N/A (tanpa kunci)          | Kustom                        | Ya                   | ~30.7 kB                                                 |
+| Intlayer        | `.content.ts` di samping komponen    | Context ditambah store, mendukung rune                | 5/5 — Di-generate, default | Intlayer (+ ICU, i18next, PO) | Ya, per komponen     | ~3.6 kB                                                  |
 
 > Angka-angka tersebut merupakan gambaran pada versi saat benchmark dilakukan. Jalankan pada aplikasi Anda sendiri sebelum memutuskan hanya berdasarkan ukuran.
+> Keamanan tipe: 5/5 berarti kunci, parameter, dan setiap locale diperiksa tanpa penyiapan manual, termasuk pemformat URL dan pembantu (helpers).
 
 Ukuran library Paraglide yang hampir nol diperoleh dari rancangannya: runtime di-generate langsung ke dalam repository Anda. Intlayer memerlukan `vite-intlayer`, sehingga tidak dapat berjalan tanpa langkah build.
 
@@ -314,7 +315,7 @@ Katalog hanya akan terus bertambah. Build Intlayer membersihkan field yang tidak
 
 **Pengalaman developer (Developer experience).**
 
-Waktu setup hingga string terjemahan pertama, [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/lsp.md) atau [ekstensi VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/vs_code_extension.md) yang menampilkan terjemahan saat hover dan melompat ke deklarasi, [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md) untuk fill, test, dan push, serta cara bagi non-developer untuk mengedit konten ([visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) atau [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)) tanpa pull request.
+Waktu setup hingga string terjemahan pertama, [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/lsp.md) atau [ekstensi VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/vs_code_extension.md) yang menampilkan terjemahan saat hover dan melompat ke deklarasi, [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md) untuk fill, test, dan push, [compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md) atau ekstraktor yang mengambil string hard-coded dari komponen Anda sehingga tidak perlu mengelola setiap string satu per satu berdasarkan kunci, serta cara bagi non-developer untuk mengedit konten ([visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) atau [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)) tanpa pull request.
 
 ## Pertanyaan yang Sering Diajukan
 
