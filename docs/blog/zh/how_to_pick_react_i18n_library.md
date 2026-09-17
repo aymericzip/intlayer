@@ -102,7 +102,7 @@ React 本身并没有提供内置的 i18n 原语。你在项目第一天选择�
 | `react-intl` (FormatJS) | 运行时     | 集中式 JSON，ICU                        | Opt-in (提取 + union)        | ICU                        | ~15.3 kB |
 | `use-intl`              | 服务端优先 | 集中式 JSON，ICU                        | Opt-in (declaration merging) | ICU                        | ~14.1 kB |
 | `@tolgee/react`         | 运行时     | 集中式，上下文内可视化编辑 (in-context) | 无                           | ICU                        | ~11.1 kB |
-| Lingui                  | 宏         | 代码内源码文本，编译后目录              | 良好，由编译器生成           | 基于宏的 ICU               | 较小     |
+| Lingui                  | 宏         | 代码内源码文本，编译后目录              | 良好，由编译器生成           | 基于宏的 ICU               | ~11.8 kB |
 | Paraglide               | 编译器     | inlang 项目，生成函数                   | 自动生成                     | 自研格式                   | 接近于零 |
 | Intlayer                | 编译器     | 单组件 `.content.ts` 声明               | 自动生成，默认开启           | 辅助工具 (`plural`, `enu`) | Baseline |
 

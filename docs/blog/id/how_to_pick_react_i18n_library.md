@@ -102,7 +102,7 @@ Ukuran library diambil dari [benchmark TanStack Start](https://github.com/aymeri
 | `react-intl` (FormatJS) | Runtime      | JSON terpusat, ICU                     | Opt-in (ekstraksi + union)   | ICU                      | ~15.3 kB       |
 | `use-intl`              | Server-first | JSON terpusat, ICU                     | Opt-in (declaration merging) | ICU                      | ~14.1 kB       |
 | `@tolgee/react`         | Runtime      | Terpusat, in-context editing           | Tidak                        | ICU                      | ~11.1 kB       |
-| Lingui                  | Makro        | Teks sumber di kode, katalog kompilasi | Bagus, dari compiler         | ICU via makro            | Kecil          |
+| Lingui                  | Makro        | Teks sumber di kode, katalog kompilasi | Bagus, dari compiler         | ICU via makro            | ~11.8 kB       |
 | Paraglide               | Compiler     | Proyek inlang, fungsi ter-generate     | Ter-generate                 | Kustom                   | Hampir nol     |
 | Intlayer                | Compiler     | `.content.ts` per komponen             | Ter-generate, aktif default  | Helper (`plural`, `enu`) | Baseline       |
 

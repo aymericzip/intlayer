@@ -103,7 +103,7 @@ Os tamanhos das bibliotecas vêm do [benchmark no TanStack Start](https://github
 | `react-intl` (FormatJS) | Runtime      | JSON central, ICU                               | Opt-in (extração + union)    | ICU                       | ~15.3 kB              |
 | `use-intl`              | Server-first | JSON central, ICU                               | Opt-in (declaration merging) | ICU                       | ~14.1 kB              |
 | `@tolgee/react`         | Runtime      | Central, edição em contexto                     | Não                          | ICU                       | ~11.1 kB              |
-| Lingui                  | Macro        | Texto de origem no código, catálogos compilados | Bom, a partir do compilador  | ICU via macros            | Pequeno               |
+| Lingui                  | Macro        | Texto de origem no código, catálogos compilados | Bom, a partir do compilador  | ICU via macros            | ~11.8 kB              |
 | Paraglide               | Compilador   | Projeto inlang, funções geradas                 | Gerados                      | Próprio                   | Próximo de zero       |
 | Intlayer                | Compilador   | `.content.ts` por componente                    | Gerados, ativo por padrão    | Helpers (`plural`, `enu`) | Linha de base         |
 

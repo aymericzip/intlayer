@@ -102,7 +102,7 @@ JSON-каталоги, завантажені в пам'ять, пошук `t("a
 | `react-intl` (FormatJS) | Runtime      | Центральний JSON, ICU                         | Opt-in (витяг + union)                  | ICU                       | ~15.3 kB          |
 | `use-intl`              | Server-first | Центральний JSON, ICU                         | Opt-in (declaration merging)            | ICU                       | ~14.1 kB          |
 | `@tolgee/react`         | Runtime      | Центральний, in-context редагування           | Ні                                      | ICU                       | ~11.1 kB          |
-| Lingui                  | Macro        | Вихідний текст у коді, скомпільовані каталоги | Добре, від компілятора                  | ICU через макроси         | Невеликий         |
+| Lingui                  | Macro        | Вихідний текст у коді, скомпільовані каталоги | Добре, від компілятора                  | ICU через макроси         | ~11.8 kB          |
 | Paraglide               | Compiler     | Проєкт inlang, згенеровані функції            | Згенеровані                             | Власний                   | Майже нульовий    |
 | Intlayer                | Compiler     | `.content.ts` для кожного компонента          | Згенеровані, увімкнені за замовчуванням | Хелпери (`plural`, `enu`) | Базовий           |
 

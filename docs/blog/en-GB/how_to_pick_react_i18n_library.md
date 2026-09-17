@@ -102,7 +102,7 @@ Library sizes come from the [TanStack Start benchmark](https://github.com/aymeri
 | `react-intl` (FormatJS) | Runtime      | Central JSON, ICU                        | Opt-in (extraction + union)  | ICU                       | ~15.3 kB     |
 | `use-intl`              | Server-first | Central JSON, ICU                        | Opt-in (declaration merging) | ICU                       | ~14.1 kB     |
 | `@tolgee/react`         | Runtime      | Central, in-context editing              | No                           | ICU                       | ~11.1 kB     |
-| Lingui                  | Macro        | Source text in code, compiled catalogues | Good, from the compiler      | ICU via macros            | Small        |
+| Lingui                  | Macro        | Source text in code, compiled catalogues | Good, from the compiler      | ICU via macros            | ~11.8 kB     |
 | Paraglide               | Compiler     | inlang project, generated functions      | Generated                    | Own                       | Near zero    |
 | Intlayer                | Compiler     | `.content.ts` per component              | Generated, on by default     | Helpers (`plural`, `enu`) | Baseline     |
 

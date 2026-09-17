@@ -103,7 +103,7 @@ Rozmiary bibliotek pochodzą z [benchmarku TanStack Start](https://github.com/ay
 | `react-intl` (FormatJS) | Runtime      | Centralny JSON, ICU                            | Opcjonalne (ekstrakcja + unia)   | ICU                                    | ~15.3 kB           |
 | `use-intl`              | Server-first | Centralny JSON, ICU                            | Opcjonalne (declaration merging) | ICU                                    | ~14.1 kB           |
 | `@tolgee/react`         | Runtime      | Centralny, edycja w kontekście                 | Brak                             | ICU                                    | ~11.1 kB           |
-| Lingui                  | Macro        | Tekst źródłowy w kodzie, skompilowane katalogi | Dobre, z kompilatora             | ICU przez makra                        | Mały               |
+| Lingui                  | Macro        | Tekst źródłowy w kodzie, skompilowane katalogi | Dobre, z kompilatora             | ICU przez makra                        | ~11.8 kB           |
 | Paraglide               | Compiler     | Projekt inlang, wygenerowane funkcje           | Generowane                       | Własny                                 | Bliski zeru        |
 | Intlayer                | Compiler     | `.content.ts` per komponent                    | Generowane, domyślnie włączone   | Pomocniki (`plural`, `enu`)            | Linia bazowa       |
 

@@ -102,7 +102,7 @@ Los tamaños de las librerías provienen del [benchmark de TanStack Start](https
 | `react-intl` (FormatJS) | Runtime      | JSON central, ICU                       | Opt-in (extracción + unión)   | ICU                       | ~15.3 kB           |
 | `use-intl`              | Server-first | JSON central, ICU                       | Opt-in (declaration merging)  | ICU                       | ~14.1 kB           |
 | `@tolgee/react`         | Runtime      | Central, edición in-context             | No                            | ICU                       | ~11.1 kB           |
-| Lingui                  | Macro        | Texto fuente en código, catálogos comp. | Bueno, desde el compilador    | ICU vía macros            | Pequeño            |
+| Lingui                  | Macro        | Texto fuente en código, catálogos comp. | Bueno, desde el compilador    | ICU vía macros            | ~11.8 kB           |
 | Paraglide               | Compilador   | Proyecto inlang, funciones generadas    | Generados                     | Propio                    | Casi cero          |
 | Intlayer                | Compilador   | `.content.ts` por componente            | Generados, activo por defecto | Helpers (`plural`, `enu`) | Línea base         |
 

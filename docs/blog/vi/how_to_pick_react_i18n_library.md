@@ -102,7 +102,7 @@ Kích thước thư viện được lấy từ [bài benchmark trên TanStack St
 | `react-intl` (FormatJS) | Runtime         | JSON tập trung, ICU                            | Tùy chọn (trích xuất + union)  | ICU                       | ~15.3 kB             |
 | `use-intl`              | Server-first    | JSON tập trung, ICU                            | Tùy chọn (declaration merging) | ICU                       | ~14.1 kB             |
 | `@tolgee/react`         | Runtime         | Tập trung, chỉnh sửa trực tiếp (in-context)    | Không                          | ICU                       | ~11.1 kB             |
-| Lingui                  | Macro           | Văn bản nguồn trong code, catalog đã biên dịch | Tốt, từ trình biên dịch        | ICU qua macro             | Nhỏ                  |
+| Lingui                  | Macro           | Văn bản nguồn trong code, catalog đã biên dịch | Tốt, từ trình biên dịch        | ICU qua macro             | ~11.8 kB             |
 | Paraglide               | Trình biên dịch | Dự án inlang, sinh ra các hàm                  | Tự động tạo                    | Riêng                     | Gần như bằng 0       |
 | Intlayer                | Trình biên dịch | `.content.ts` theo từng component              | Tự động tạo, bật mặc định      | Helper (`plural`, `enu`)  | Mức cơ sở (Baseline) |
 

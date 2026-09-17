@@ -102,7 +102,7 @@ SSR 및 Server Components를 중심으로 설계되었습니다. 서버에서 �
 | `react-intl` (FormatJS) | Runtime      | 중앙 JSON, ICU                         | 옵트인 (추출 + 유니온)       | ICU                       | ~15.3 kB        |
 | `use-intl`              | Server-first | 중앙 JSON, ICU                         | 옵트인 (declaration merging) | ICU                       | ~14.1 kB        |
 | `@tolgee/react`         | Runtime      | 중앙 집중, 인컨텍스트 편집             | 미지원                       | ICU                       | ~11.1 kB        |
-| Lingui                  | Macro        | 코드 내 소스 텍스트, 컴파일된 카탈로그 | 우수 (컴파일러 지원)         | 매크로를 통한 ICU         | 작음            |
+| Lingui                  | Macro        | 코드 내 소스 텍스트, 컴파일된 카탈로그 | 우수 (컴파일러 지원)         | 매크로를 통한 ICU         | ~11.8 kB        |
 | Paraglide               | Compiler     | inlang 프로젝트, 생성된 함수           | 자동 생성                    | 자체 포맷                 | 거의 0에 가까움 |
 | Intlayer                | Compiler     | 컴포넌트별 `.content.ts`               | 자동 생성, 기본 활성화       | 헬퍼 (`plural`, `enu` 등) | 베이스라인      |
 

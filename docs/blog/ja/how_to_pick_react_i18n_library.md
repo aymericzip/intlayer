@@ -102,7 +102,7 @@ SSRおよびServer Componentsを考慮して設計されています。サーバ
 | `react-intl` (FormatJS) | ランタイム         | 中央JSON、ICU                                    | オプトイン（抽出 + union）        | ICU                           | 約15.3 kB        |
 | `use-intl`              | サーバーファースト | 中央JSON、ICU                                    | オプトイン（declaration merging） | ICU                           | 約14.1 kB        |
 | `@tolgee/react`         | ランタイム         | 中央集約、インコンテキスト編集                   | なし                              | ICU                           | 約11.1 kB        |
-| Lingui                  | マクロ             | コード内のソーステキスト、コンパイル済みカタログ | 良好（コンパイラーから）          | マクロ経由のICU               | 小               |
+| Lingui                  | マクロ             | コード内のソーステキスト、コンパイル済みカタログ | 良好（コンパイラーから）          | マクロ経由のICU               | 約11.8 kB        |
 | Paraglide               | コンパイラー       | inlangプロジェクト、生成された関数               | 自動生成                          | 独自                          | ほぼゼロ         |
 | Intlayer                | コンパイラー       | コンポーネントごとの`.content.ts`                | 自動生成、デフォルトで有効        | ヘルパー（`plural`, `enu`）   | ベースライン     |
 

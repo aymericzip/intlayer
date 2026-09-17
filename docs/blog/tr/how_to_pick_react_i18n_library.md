@@ -102,7 +102,7 @@ Kütüphane boyutları [TanStack Start benchmark](https://github.com/aymericzip/
 | `react-intl` (FormatJS) | Runtime      | Merkezi JSON, ICU                             | Opt-in (extraction + union)  | ICU                          | ~15.3 kB            |
 | `use-intl`              | Server-first | Merkezi JSON, ICU                             | Opt-in (declaration merging) | ICU                          | ~14.1 kB            |
 | `@tolgee/react`         | Runtime      | Merkezi, bağlam içi (in-context) düzenleme    | Yok                          | ICU                          | ~11.1 kB            |
-| Lingui                  | Macro        | Kod içinde kaynak metin, derlenmiş kataloglar | İyi, derleyiciden gelir      | Makrolar ile ICU             | Küçük               |
+| Lingui                  | Macro        | Kod içinde kaynak metin, derlenmiş kataloglar | İyi, derleyiciden gelir      | Makrolar ile ICU             | ~11.8 kB            |
 | Paraglide               | Compiler     | inlang projesi, üretilen fonksiyonlar         | Üretilmiş (Generated)        | Kendine ait                  | Sıfıra yakın        |
 | Intlayer                | Compiler     | Bileşen başına `.content.ts`                  | Üretilmiş, varsayılan açık   | Helper'lar (`plural`, `enu`) | Referans (Baseline) |
 
