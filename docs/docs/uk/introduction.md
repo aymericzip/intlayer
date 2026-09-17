@@ -179,7 +179,6 @@ Intlayer пропонує безліч функцій, адаптованих д
 - **[Intlayer з Tanstack Start + Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_tanstack+solid.md)**
 - **[Intlayer з Vite + React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_vite+react.md)**
 - **[Intlayer з React Router v7](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_react_router_v7.md)**
-- **[Intlayer з React Router v7 (fs-routes)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_react_router_v7_fs_routes.md)**
 - **[Intlayer з React CRA](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_create_react_app.md)**
 - **[Intlayer з React Native та Expo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_react_native+expo.md)**
 - **[Intlayer з Lynx та React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_lynx+react.md)**

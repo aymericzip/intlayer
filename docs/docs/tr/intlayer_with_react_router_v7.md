@@ -43,7 +43,7 @@ author: aymericzip
 
 Bu rehber, React Router v7 projelerinde yerel dil farkındalıklı yönlendirme, TypeScript desteği ve modern geliştirme uygulamaları ile sorunsuz uluslararasılaştırma için **Intlayer**'ın nasıl entegre edileceğini gösterir.
 
-Bu kılavuz ön uç yönlendirmesine odaklanmaktadır. Fs-routes yönlendirmesi için, [Intlayer with React Router v7 File-System Routes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_react_router_v7_fs_routes.md) kılavuzuna başvurun.
+Hem **yapılandırma tabanlı yönlendirmeyi** (`routes.ts`) hem de **dosya sistemi tabanlı yönlendirmeyi** (`@react-router/fs-routes`) kapsar.
 
 ## Table of Contents
 

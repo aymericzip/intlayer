@@ -43,7 +43,7 @@ author: aymericzip
 
 Цей посібник показує, як інтегрувати **Intlayer** для безшовної інтернаціоналізації в проєктах на React Router v7 з маршрутизацією, чутливою до локалі, підтримкою TypeScript та сучасними практиками розробки.
 
-Цей посібник зосереджений на frontend-маршрутизації. Для маршрутизації з fs-routes зверніться до посібника [Intlayer з React Router v7 File-System Routes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_react_router_v7_fs_routes.md).
+Він охоплює як **маршрутизацію на основі конфігурації** (`routes.ts`), так і **маршрутизацію на основі файлової системи** (`@react-router/fs-routes`).
 
 ## Зміст
 

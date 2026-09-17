@@ -43,7 +43,7 @@ author: aymericzip
 
 Ten przewodnik pokazuje, jak zintegrować **Intlayer** dla płynnej internacjonalizacji w projektach React Router v7 z routingiem uwzględniającym lokalizację, wsparciem TypeScript oraz nowoczesnymi praktykami programistycznymi.
 
-Ten przewodnik skupia się na routowaniu frontend. W przypadku routowania fs-routes, zapoznaj się z przewodnikiem [Intlayer with React Router v7 File-System Routes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_react_router_v7_fs_routes.md).
+Obejmuje zarówno **routing oparty na konfiguracji** (`routes.ts`), jak i **routing oparty na systemie plików** (`@react-router/fs-routes`).
 
 ## Table of Contents
 
@@ -1039,7 +1039,7 @@ Pięć narzędzi, wszystkie opcjonalne:
 </Question>
 <Question title="Jak dodać segment lokalizacji do moich tras?">
 
-Zadeklaruj segment `:locale` w drzewie tras i pozwól Intlayer go rozpoznać. `validatePrefix` informuje, czy segment jest zadeklarowaną lokalizacją, dzięki czemu nieznany prefiks zwraca 404 zamiast renderować zduplikowaną stronę, a `getLocalizedUrl` przepisuje dowolną ścieżkę na język docelowy. Jeśli używasz tras opartych na systemie plików, postępuj zgodnie z [wariantem tras z systemem plików](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_react_router_v7_fs_routes.md) tego przewodnika.
+Zadeklaruj segment `:locale` w drzewie tras i pozwól Intlayer go rozpoznać. `validatePrefix` informuje, czy segment jest zadeklarowaną lokalizacją, dzięki czemu nieznany prefiks zwraca 404 zamiast renderować zduplikowaną stronę, a `getLocalizedUrl` przepisuje dowolną ścieżkę na język docelowy. Jeśli używasz tras opartych na systemie plików, dodaj dynamiczny segment `($locale)` na początku nazw plików tras.
 
 </Question>
 <Question title="Czy muszę umieszczać lokalizację w adresie URL?">

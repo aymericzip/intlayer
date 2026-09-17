@@ -43,7 +43,7 @@ author: aymericzip
 
 本指南演示了如何在 React Router v7 项目中集成 **Intlayer**，实现无缝国际化，支持基于区域的路由、TypeScript 支持以及现代开发实践。
 
-本指南重点关注前端路由。对于 fs-routes 路由，请参考 [Intlayer with React Router v7 File-System Routes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_react_router_v7_fs_routes.md) 指南。
+本指南同时涵盖**基于配置的路由**（`routes.ts`）和**基于文件系统的路由**（`@react-router/fs-routes`）。
 
 ## 目录
 
@@ -1048,7 +1048,7 @@ React Router v7 本身不包含消息管理层，因此需要将其与 i18n 库�
 </Question>
 <Question title="如何在路由中添加语言环境段 (locale segment)？">
 
-在您的路由树中声明一个 `:locale` 段，并让 Intlayer 解析它。`validatePrefix` 告诉您该段是否属于已声明的语言环境，从而让未知的前缀返回 404 而不是渲染重复页面，并且 `getLocalizedUrl` 可将任何路径重写为目标语言。如果您使用文件系统路由，请参阅本指南的 [文件系统路由版本](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_react_router_v7_fs_routes.md)。
+在您的路由树中声明一个 `:locale` 段，并让 Intlayer 解析它。`validatePrefix` 告诉您该段是否属于已声明的语言环境，从而让未知的前缀返回 404 而不是渲染重复页面，并且 `getLocalizedUrl` 可将任何路径重写为目标语言。如果您使用文件系统路由，请在路由文件名前加上 `($locale)` 动态段。
 
 </Question>
 <Question title="我必须在 URL 中包含语言环境吗？">

@@ -43,7 +43,7 @@ author: aymericzip
 
 Questa guida dimostra come integrare **Intlayer** per un'internazionalizzazione senza soluzione di continuità nei progetti React Router v7 con routing consapevole della localizzazione, supporto TypeScript e pratiche di sviluppo moderne.
 
-Questa guida si concentra sul routing frontend. Per il routing con fs-routes, consulta la guida [Intlayer with React Router v7 File-System Routes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_react_router_v7_fs_routes.md).
+Copre sia il **routing basato su configurazione** (`routes.ts`) sia il **routing basato sul file system** (`@react-router/fs-routes`).
 
 ## Indice
 
@@ -1036,7 +1036,7 @@ Cinque componenti, tutti opzionali:
 </Question>
 <Question title="Come aggiungo un segmento di locale alle mie rotte?">
 
-Dichiara un segmento `:locale` sul tuo albero delle rotte e lascia che Intlayer lo risolva. `validatePrefix` ti dice se il segmento è una locale dichiarata, così un prefisso sconosciuto ritorna un 404 invece di renderizzare una pagina duplicata, e `getLocalizedUrl` riscrive qualsiasi percorso nella lingua di destinazione. Se usi le rotte del file system, segui la [variante con rotte del file system](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_react_router_v7_fs_routes.md) di questa guida.
+Dichiara un segmento `:locale` sul tuo albero delle rotte e lascia che Intlayer lo risolva. `validatePrefix` ti dice se il segmento è una locale dichiarata, così un prefisso sconosciuto ritorna un 404 invece di renderizzare una pagina duplicata, e `getLocalizedUrl` riscrive qualsiasi percorso nella lingua di destinazione. Se usi le rotte del file system, anteponi il segmento dinamico `($locale)` ai nomi dei file delle rotte.
 
 </Question>
 <Question title="Devo mettere la locale nell'URL?">

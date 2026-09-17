@@ -43,7 +43,7 @@ author: aymericzip
 
 يوضح هذا الدليل كيفية دمج **Intlayer** لتحقيق التدويل السلس في مشاريع React Router v7 مع توجيه يدعم اللغة المحلية، ودعم TypeScript، وممارسات تطوير حديثة.
 
-يركز هذا الدليل على التوجيه من جانب العميل (frontend routing). لمعلومات حول توجيه fs-routes، يرجى الرجوع إلى دليل [Intlayer مع React Router v7 File-System Routes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_react_router_v7_fs_routes.md).
+يغطي هذا الدليل كلاً من **التوجيه المعتمد على الإعدادات** (`routes.ts`) و**التوجيه المعتمد على نظام الملفات** (`@react-router/fs-routes`).
 
 ## Table of Contents
 

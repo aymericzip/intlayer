@@ -153,7 +153,7 @@ export default flatRoutes({
 });
 ```
 
-Both variants are documented in full: [config routes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_react_router_v7.md) and [file-system routes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_react_router_v7_fs_routes.md).
+Both variants are documented in full in the [React Router v7 guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_react_router_v7.md).
 
 ## The hydration mismatch
 
@@ -321,8 +321,7 @@ On an existing `react-i18next` codebase, the [compat adapter](https://github.com
 
 ## Going further
 
-- [Set up Intlayer with React Router v7 config routes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_react_router_v7.md)
-- [The file-system routes variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_react_router_v7_fs_routes.md)
+- [Set up Intlayer with React Router v7 (config and file-system routes)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_react_router_v7.md)
 - [i18n library benchmark: bundle size and locale-switch timings](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/index.md)
 - [Drop-in `react-i18next` compat adapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/react-i18next.md) and the [full migration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/migration_from_react-i18next_to_intlayer.md)
 - [i18n solutions for React, compared](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/frameworks/react.md)

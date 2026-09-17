@@ -43,7 +43,7 @@ author: aymericzip
 
 이 가이드는 React Router v7 프로젝트에서 로케일 인식 라우팅, TypeScript 지원 및 최신 개발 방식을 활용하여 **Intlayer**를 통합해 원활한 국제화(i18n)를 구현하는 방법을 보여줍니다.
 
-이 가이드는 프론트엔드 라우팅에 중점을 둡니다. fs-routes 라우팅의 경우 [Intlayer with React Router v7 File-System Routes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_react_router_v7_fs_routes.md) 가이드를 참조하세요.
+이 가이드는 **설정 기반 라우팅**(`routes.ts`)과 **파일 시스템 기반 라우팅**(`@react-router/fs-routes`)을 모두 다룹니다.
 
 ## 목차
 
@@ -1040,7 +1040,7 @@ React Router v7은 자체 메시지 레이어를 제공하지 않으므로 i18n 
 </Question>
 <Question title="라우트에 로케일 세그먼트를 어떻게 추가하나요?">
 
-라우트 트리에 `:locale` 세그먼트를 선언하고 Intlayer가 이를 확인하도록 합니다. `validatePrefix`는 세그먼트가 유효한 선언 로케일인지 여부를 알려주므로 알 수 없는 접두사는 중복 페이지를 렌더링하는 대신 404를 반환하고, `getLocalizedUrl`은 모든 경로를 대상 언어로 다시 작성합니다. 파일 시스템 라우트를 사용하는 경우 본 가이드의 [파일 시스템 라우트 변형](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_react_router_v7_fs_routes.md)을 참조하세요.
+라우트 트리에 `:locale` 세그먼트를 선언하고 Intlayer가 이를 확인하도록 합니다. `validatePrefix`는 세그먼트가 유효한 선언 로케일인지 여부를 알려주므로 알 수 없는 접두사는 중복 페이지를 렌더링하는 대신 404를 반환하고, `getLocalizedUrl`은 모든 경로를 대상 언어로 다시 작성합니다. 파일 시스템 라우트를 사용하는 경우 라우트 파일 이름 앞에 `($locale)` 동적 세그먼트를 붙이세요.
 
 </Question>
 <Question title="URL에 로케일을 반드시 포함해야 하나요?">

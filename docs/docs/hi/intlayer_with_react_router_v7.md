@@ -43,7 +43,7 @@ author: aymericzip
 
 यह गाइड दिखाता है कि कैसे **Intlayer** को React Router v7 प्रोजेक्ट्स में seamless अंतरराष्ट्रीयकरण के लिए एकीकृत किया जाए, जिसमें locale-aware रूटिंग, TypeScript समर्थन, और आधुनिक विकास प्रथाएँ शामिल हैं।
 
-यह गाइड फ्रंटएंड राउटिंग पर केंद्रित है। fs-routes राउटिंग के लिए, [Intlayer with React Router v7 File-System Routes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_react_router_v7_fs_routes.md) गाइड देखें।
+यह **कॉन्फ़िगरेशन-आधारित राउटिंग** (`routes.ts`) और **फ़ाइल-सिस्टम-आधारित राउटिंग** (`@react-router/fs-routes`) दोनों को कवर करता है।
 
 ## Table of Contents
 

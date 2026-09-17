@@ -43,7 +43,7 @@ author: aymericzip
 
 Panduan ini menunjukkan cara mengintegrasikan **Intlayer** untuk internasionalisasi yang mulus dalam proyek React Router v7 dengan routing yang mendukung locale, dukungan TypeScript, dan praktik pengembangan modern.
 
-Panduan ini fokus pada frontend routing. Untuk routing fs-routes, lihat panduan [Intlayer with React Router v7 File-System Routes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_react_router_v7_fs_routes.md).
+Panduan ini mencakup **routing berbasis konfigurasi** (`routes.ts`) dan **routing berbasis sistem file** (`@react-router/fs-routes`).
 
 ## Table of Contents
 

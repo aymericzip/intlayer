@@ -41,7 +41,7 @@ history:
 
 Este guia demonstra como integrar o **Intlayer** para uma internacionalização perfeita em projetos React Router v7 com roteamento sensível à localidade, suporte a TypeScript e práticas modernas de desenvolvimento.
 
-Este guia se concentra no roteamento de frontend. Para roteamento fs-routes, consulte o guia [Intlayer com React Router v7 File-System Routes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_with_react_router_v7_fs_routes.md).
+Ele cobre tanto o **roteamento baseado em configuração** (`routes.ts`) quanto o **roteamento baseado no sistema de arquivos** (`@react-router/fs-routes`).
 
 ## Table of Contents
 
@@ -1018,7 +1018,7 @@ Cinco ferramentas, todas opcionais:
 </Question>
 <Question title="Como adiciono um segmento de locale às minhas rotas?">
 
-Declare um segmento `:locale` na sua árvore de rotas e deixe o Intlayer resolvê-lo. A função `validatePrefix` informa se o segmento corresponde a um locale declarado, permitindo retornar um 404 para prefixos desconhecidos em vez de renderizar uma página duplicada, e `getLocalizedUrl` reescreve qualquer caminho para o idioma de destino. Se você utiliza rotas baseadas no sistema de arquivos, siga a [variante de rotas por sistema de arquivos](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_with_react_router_v7_fs_routes.md) deste guia.
+Declare um segmento `:locale` na sua árvore de rotas e deixe o Intlayer resolvê-lo. A função `validatePrefix` informa se o segmento corresponde a um locale declarado, permitindo retornar um 404 para prefixos desconhecidos em vez de renderizar uma página duplicada, e `getLocalizedUrl` reescreve qualquer caminho para o idioma de destino. Se você utiliza rotas baseadas no sistema de arquivos, adicione o segmento dinâmico `($locale)` no início dos nomes dos arquivos de rota.
 
 </Question>
 <Question title="Preciso colocar o locale na URL?">

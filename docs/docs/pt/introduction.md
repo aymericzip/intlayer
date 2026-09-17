@@ -179,7 +179,6 @@ Construímos o Intlayer a pensar na flexibilidade, oferecendo integração perfe
 - **[Intlayer com Tanstack Start + Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_with_tanstack+solid.md)**
 - **[Intlayer com Vite + React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_with_vite+react.md)**
 - **[Intlayer com React Router v7](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_with_react_router_v7.md)**
-- **[Intlayer com React Router v7 (fs-routes)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_with_react_router_v7_fs_routes.md)**
 - **[Intlayer com React CRA](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_with_create_react_app.md)**
 - **[Intlayer com React Native e Expo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_with_react_native+expo.md)**
 - **[Intlayer com Lynx e React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_with_lynx+react.md)**

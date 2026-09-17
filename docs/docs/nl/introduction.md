@@ -179,7 +179,6 @@ We hebben Intlayer gebouwd met flexibiliteit in gedachten, en bieden een naadloz
 - **[Intlayer met Tanstack Start + Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_with_tanstack+solid.md)**
 - **[Intlayer met Vite + React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_with_vite+react.md)**
 - **[Intlayer met React Router v7](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_with_react_router_v7.md)**
-- **[Intlayer met React Router v7 (fs-routes)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_with_react_router_v7_fs_routes.md)**
 - **[Intlayer met React CRA](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_with_create_react_app.md)**
 - **[Intlayer met React Native en Expo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_with_react_native+expo.md)**
 - **[Intlayer met Lynx en React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_with_lynx+react.md)**
