@@ -1,0 +1,38 @@
+{
+  "name": "intlayer-next-16",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "bun --bun next build",
+    "build:webpack": "bun --bun next build --webpack",
+    "dev": "bun --bun next dev --turbopack",
+    "dev:webpack": "bun --bun next dev --webpack",
+    "editor": "intlayer-editor start",
+    "lint": "eslint",
+    "start": "bun --bun next start",
+    "start:all": "concurrently \"npm run start\" \"npm run start:editor\"",
+    "start:editor": "intlayer-editor start --with 'bun --bun next dev'"
+  },
+  "dependencies": {
+    "fuse.js": "7.5.0",
+    "intlayer": "workspace:*",
+    "next": "16.3.4",
+    "next-intlayer": "workspace:*",
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
+  },
+  "devDependencies": {
+    "@next/bundle-analyzer": "16.3.4",
+    "@tailwindcss/postcss": "4.3.3",
+    "@types/node": "26.5.0",
+    "@types/react": "19",
+    "@types/react-dom": "19",
+    "eslint": "10.10.0",
+    "eslint-config-next": "16.3.4",
+    "eslint-plugin-intlayer": "workspace:*",
+    "intlayer-editor": "workspace:*",
+    "next-rspack": "16.3.4",
+    "tailwindcss": "4.3.3",
+    "typescript": "6.0.3"
+  }
+}
