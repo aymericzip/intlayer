@@ -1,0 +1,6 @@
+# Pinned: newer stable toolchains fail to link the Wasm plugin (the SWC host
+# imports such as `__set_transform_result` end up as undefined symbols).
+# Bump deliberately, after checking `cargo build-wasip1` still links.
+[toolchain]
+channel = "1.89.0"
+targets = ["wasm32-wasip1", "wasm32-unknown-unknown"]

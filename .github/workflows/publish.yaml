@@ -60,7 +60,7 @@ jobs:
         run: npm install -g npm@latest && npm --version
 
       - name: 🦀 Setup rust (swc plugin)
-        uses: dtolnay/rust-toolchain@stable
+        uses: dtolnay/rust-toolchain@1.89.0
         with:
           targets: wasm32-wasip1
 
