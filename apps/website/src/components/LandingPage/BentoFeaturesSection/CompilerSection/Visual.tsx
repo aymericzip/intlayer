@@ -1,33 +1,46 @@
 import { H3 } from '@intlayer/design-system/headers';
 import { Select } from '@intlayer/design-system/select';
-import { getLocaleName, Locales } from 'intlayer';
-import { type FC, useEffect, useState } from 'react';
+import { getLocaleName } from 'intlayer';
+import { type FC, useState } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
 
-export const VisualEditorSection: FC = () => {
-  const { availableLocales } = useLocale();
-  const [isControlled, setIsControlled] = useState(false);
-  const [manualLocale, setManualLocale] = useState<string>(Locales.ENGLISH);
+type VisualEditorSectionProps = {
+  scrollProgress: number;
+};
 
-  const [locale, setLocale] = useState<string>(Locales.ENGLISH);
+/**
+ * Maps the section's scroll progress onto one of the configured locales, so the
+ * demo cycles through the whole list as it scrolls by.
+ *
+ * Derived from `availableLocales` rather than hardcoded: a dictionary is only
+ * compiled for the locales the app declares, so naming any other one leaves the
+ * dynamic loader with no chunk to import.
+ *
+ * @param scrollProgress - Section progress, 0 at its top and 1 at its bottom.
+ * @param availableLocales - The locales declared by the Intlayer config.
+ */
+const getScrolledLocale = (
+  scrollProgress: number,
+  availableLocales: readonly string[]
+): string | undefined => {
+  const index = Math.floor(scrollProgress * availableLocales.length);
 
-  useEffect(() => {
-    if (isControlled || !availableLocales.length) return;
+  return availableLocales[
+    Math.min(Math.max(index, 0), availableLocales.length - 1)
+  ];
+};
 
-    const interval = setInterval(() => {
-      const randomLocale =
-        availableLocales[Math.floor(Math.random() * availableLocales.length)];
+export const VisualEditorSection: FC<VisualEditorSectionProps> = ({
+  scrollProgress,
+}) => {
+  const { locale: pageLocale, availableLocales } = useLocale();
+  const [manualLocale, setManualLocale] = useState<string>();
 
-      setLocale(randomLocale);
-    }, 2000);
+  const locale =
+    manualLocale ??
+    getScrolledLocale(scrollProgress, availableLocales) ??
+    pageLocale;
 
-    return () => clearInterval(interval);
-  }, [isControlled, availableLocales]);
-
-  /*   if (isControlled) {
-    locale = manualLocale;
-  }
-  */
   const { title, paragraph, selectPlaceholder, localeSelectorTrigger } =
     useIntlayer('compiler-section', locale);
 
@@ -36,13 +49,7 @@ export const VisualEditorSection: FC = () => {
       <H3>{title}</H3>
       <p className="text-muted-foreground text-sm">{paragraph}</p>
       <div className="absolute right-6 bottom-6">
-        <Select
-          value={locale}
-          onValueChange={(value) => {
-            setIsControlled(true);
-            setManualLocale(value);
-          }}
-        >
+        <Select value={locale} onValueChange={setManualLocale}>
           <Select.Trigger
             className="ml-auto py-1 text-sm"
             aria-label={localeSelectorTrigger.value}
