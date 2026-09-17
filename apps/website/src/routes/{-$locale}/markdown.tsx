@@ -8,7 +8,10 @@ import { buildSoftwareApplicationJsonLd } from '@intlayer/design-system/structur
 import { createFileRoute } from '@tanstack/react-router';
 import { defaultLocale, getIntlayerAsync } from 'intlayer';
 import { MarkdownLandingPage } from '~/components/MarkdownLandingPage';
+import { MarkdownPreview } from '~/components/MarkdownPreview';
 import { PageLayout } from '~/layouts/PageLayout';
+import { loadRemoteMarkdown } from '~/serverFunctions/remoteMarkdown';
+import { normalizeUrlQueryValue } from '~/utils/remoteMarkdownUrl';
 import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
 import {
   getSiteStructuredData,
@@ -17,9 +20,36 @@ import {
 } from '~/utils/structuredData';
 import packageJson from '../../../package_mock.json' with { type: 'json' };
 
+type MarkdownSearch = {
+  /** Public https URL of a markdown document to render instead of the landing page. */
+  url?: string;
+};
+
+/**
+ * `/markdown` is the product landing page, and `/markdown?url=…` renders the
+ * remote markdown document at that URL. Both share this route: the search
+ * param decides which one loads.
+ */
 export const Route = createFileRoute('/{-$locale}/markdown')({
-  loader: async ({ params }) => {
+  validateSearch: (search: Record<string, unknown>): MarkdownSearch => {
+    const rawUrl = Array.isArray(search.url) ? search.url[0] : search.url;
+    const url =
+      typeof rawUrl === 'string' ? normalizeUrlQueryValue(rawUrl) : '';
+
+    return url ? { url } : {};
+  },
+  loaderDeps: ({ search: { url } }) => ({ url }),
+  loader: async ({ params, deps: { url } }) => {
     const { locale = defaultLocale } = params;
+
+    if (url) {
+      const [{ title }, result] = await Promise.all([
+        getIntlayerAsync('markdown-preview', locale),
+        loadRemoteMarkdown({ data: { locale, url } }),
+      ]);
+
+      return { mode: 'preview' as const, title: String(title), result };
+    }
 
     const [
       metadata,
@@ -34,6 +64,7 @@ export const Route = createFileRoute('/{-$locale}/markdown')({
     ]);
 
     return {
+      mode: 'landing' as const,
       metadata,
       siteStructuredData,
       softwareStructuredData,
@@ -45,6 +76,16 @@ export const Route = createFileRoute('/{-$locale}/markdown')({
 
     const { locale = defaultLocale } = params;
     const path = Website_Markdown_Path;
+
+    if (loaderData.mode === 'preview') {
+      // Arbitrary third-party documents must not be indexed under this origin.
+      return {
+        meta: [
+          { title: loaderData.title },
+          { name: 'robots', content: 'noindex, nofollow' },
+        ],
+      };
+    }
 
     const {
       metadata,
@@ -100,9 +141,15 @@ export const Route = createFileRoute('/{-$locale}/markdown')({
 });
 
 function MarkdownPage() {
+  const loaderData = Route.useLoaderData();
+
   return (
     <PageLayout>
-      <MarkdownLandingPage />
+      {loaderData.mode === 'preview' ? (
+        <MarkdownPreview result={loaderData.result} />
+      ) : (
+        <MarkdownLandingPage />
+      )}
     </PageLayout>
   );
 }
