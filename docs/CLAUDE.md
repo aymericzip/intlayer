@@ -51,3 +51,4 @@ Structure:
 - `docs/legal/{locale}/**/*.md`
 
 If not explicitly mentioned, never use AI generation for translations using the scripts `translate` or `review` + `MODE = 'apply'`. Those will consume extra token no included in the plan. But you can use `review` + `MODE = 'synthesis' | 'synthesis'` to validate the doc consistency.
+If not mentioned, you should iterate doc by doc and translate manually each doc for each locale without using script.

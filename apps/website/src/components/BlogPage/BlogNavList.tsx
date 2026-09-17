@@ -11,6 +11,11 @@ import { ArrowLeftToLine } from 'lucide-react';
 import { type FC, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { OptionalLink } from '~/components/DocPage/DocNavList';
+import {
+  FrameworkFilter,
+  useFrameworkFilter,
+} from '~/components/DocPage/FrameworkFilter';
+import { filterSectionByFramework } from '~/components/DocPage/FrameworkFilter/filterSectionByFramework';
 import { SearchTrigger } from '~/components/DocPage/Search/SearchTrigger';
 import { useScrollPositionPersistence } from '~/hooks/useScrollPositionPersistence';
 import type { Section } from './types';
@@ -20,13 +25,24 @@ type BlogNavListProps = {
   activeSlugs: string[];
 };
 
-export const BlogNavListContent: FC<BlogNavListProps> = ({
+type BlogNavListContentProps = BlogNavListProps & {
+  /** Selected framework ids (e.g. ['react', 'nextjs']), or null meaning "All". */
+  selectedFramework: string[] | null;
+};
+
+export const BlogNavListContent: FC<BlogNavListContentProps> = ({
   blogData,
   activeSlugs,
+  selectedFramework,
 }) => {
   const { docButton } = useIntlayer('blog-nav-list');
   const navRef = useScrollPositionPersistence<HTMLElement>(
     'blog-nav-scroll-position'
+  );
+
+  const filteredBlogData = filterSectionByFramework(
+    blogData,
+    selectedFramework
   );
 
   return (
@@ -34,8 +50,8 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
       ref={navRef}
       className="m-auto flex max-h-[calc(100vh-8.2rem)] min-w-40 max-w-xl flex-col gap-5 overflow-auto px-3 pt-8 pb-20"
     >
-      {Object.keys(blogData).map((key1) => {
-        const section1Data = blogData[key1];
+      {Object.keys(filteredBlogData).map((key1) => {
+        const section1Data = filteredBlogData[key1];
         const sectionDefault = section1Data.default;
         const subSections = section1Data.subSections;
         const slugs = sectionDefault?.slugs ?? [];
@@ -78,6 +94,7 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
               to={sectionDefault?.relativeUrl ?? ''}
               label={key1}
               isActive={isSelfActive && !isSubSectionActive}
+              frameworks={section1Data.frameworks}
             >
               {section1Data.title}
             </OptionalLink>
@@ -124,6 +141,7 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
                               to={sectionDefault?.relativeUrl ?? ''}
                               isActive={isSelfActive && !isSubSectionActive}
                               className="block w-full flex-row items-center text-nowrap p-2 text-left text-sm transition-colors hover:text-foreground"
+                              frameworks={section2Data?.frameworks}
                             >
                               {section2Data?.title}
                             </OptionalLink>
@@ -158,6 +176,7 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
                                         }
                                         isActive={isActive}
                                         className="block w-full flex-row items-center text-nowrap p-2 text-left text-xs transition-colors hover:text-foreground"
+                                        frameworks={section3Data.frameworks}
                                       >
                                         {section3Data.title}
                                       </OptionalLink>
@@ -173,6 +192,7 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
                           className="block w-full flex-row items-center text-nowrap p-2 text-left text-sm transition-colors hover:text-foreground"
                           label={key2}
                           isActive={isActive}
+                          frameworks={section2Data?.frameworks}
                         >
                           {section2Data?.title}
                         </OptionalLink>
@@ -201,6 +221,7 @@ export const BlogNavList: FC<BlogNavListProps> = ({
   const { isMobile } = useDevice();
   const [isHidden, setIsHidden] = useState(true);
   const { collapseButton } = useIntlayer('blog-nav-list');
+  const [selectedFramework, setSelectedFramework] = useFrameworkFilter();
 
   return (
     <>
@@ -270,6 +291,10 @@ export const BlogNavList: FC<BlogNavListProps> = ({
                   roundedSize="none"
                 >
                   <div className="relative m-auto flex w-full flex-row items-center justify-center gap-2 px-2">
+                    <FrameworkFilter
+                      selected={selectedFramework}
+                      onSelect={setSelectedFramework}
+                    />
                     <SearchTrigger isShortcutDisabled={isHidden} />
                     <PopoverStatic identifier="blog-nav-collapse">
                       <Button
@@ -299,6 +324,7 @@ export const BlogNavList: FC<BlogNavListProps> = ({
                 <BlogNavListContent
                   blogData={blogData}
                   activeSlugs={activeSlugs}
+                  selectedFramework={selectedFramework}
                 />
               </div>
             </div>

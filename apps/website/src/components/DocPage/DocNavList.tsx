@@ -21,7 +21,8 @@ import {
   FrameworkLogo,
   useFrameworkFilter,
 } from './FrameworkFilter';
-import type { NavCategorizedDoc, NavSection } from './types';
+import { filterSectionByFramework } from './FrameworkFilter/filterSectionByFramework';
+import type { NavSection } from './types';
 
 type OptionalLinkProps = ComponentProps<typeof Link> & {
   frameworks?: string[];
@@ -95,111 +96,6 @@ type DocNavListContentProps = DocNavListProps & {
   selectedFramework: string[] | null;
 };
 
-/**
- * Recursively filters a Section map, hiding sections that don't match the
- * active framework filter. Sub-sections are also filtered.
- *
- * It uses contextual inheritance:
- * - If a section has the `frameworks` key, its visibility is determined solely by that field.
- * - If a section LACKS the `frameworks` key, it inherits the visibility state of its parent.
- * - If the parent is hidden, matching child sections are "promoted" to the parent's level.
- */
-const filterSection = (
-  section: NavSection,
-  filter: string[] | null,
-  parentMatches = true,
-  depth = 0,
-  inheritedFrameworks?: string[]
-): NavSection => {
-  if (!filter) return section;
-
-  const entries = Object.entries(section).flatMap(
-    ([key, data]): [string, NavCategorizedDoc][] => {
-      const sectionHasTags = !!data.frameworks;
-      const matchesExplicitly =
-        filter?.every((f) => data.frameworks?.includes(f)) ?? false;
-      const matches = sectionHasTags ? matchesExplicitly : parentMatches;
-
-      // Determine the framework tags to use (original or inherited)
-      const currentFrameworks = sectionHasTags
-        ? data.frameworks
-        : inheritedFrameworks;
-
-      // 1. Skip non-matching section, but promote its children that might match
-      if (!matches) {
-        return data.subSections
-          ? (Object.entries(
-              filterSection(
-                data.subSections,
-                filter,
-                false,
-                depth + 1,
-                currentFrameworks
-              )
-            ) as [string, NavCategorizedDoc][])
-          : [];
-      }
-
-      // 2. Filter subsections
-      const filteredSubSections = data.subSections
-        ? filterSection(
-            data.subSections,
-            filter,
-            true,
-            depth + 1,
-            currentFrameworks
-          )
-        : undefined;
-
-      const hasVisibleContent =
-        Boolean(data.default) ||
-        (filteredSubSections && Object.keys(filteredSubSections).length > 0);
-
-      if (!hasVisibleContent) return [];
-
-      const dataWithFrameworks: NavCategorizedDoc = {
-        ...data,
-        frameworks: currentFrameworks,
-        subSections: filteredSubSections,
-      };
-
-      // 3. Apply flattening and unwrapping
-      // We skip these rules for root categories (depth 0) to maintain top-level structure
-      if (depth > 0) {
-        // Rule A: Flatten categories with no content (promote matching children)
-        // We only flatten if there is exactly ONE sub-section to avoid breaking multiple-item groups (like Releases)
-        if (
-          !data.default &&
-          filteredSubSections &&
-          Object.keys(filteredSubSections).length === 1
-        ) {
-          return Object.entries(filteredSubSections) as [
-            string,
-            NavCategorizedDoc,
-          ][];
-        }
-
-        // Rule B: If this section explicitly matches the framework, unwrap its subsections as siblings
-        // We do this to provide a flat list of pages for the selected framework context
-        if (matchesExplicitly && filteredSubSections) {
-          return [
-            [key, { ...dataWithFrameworks, subSections: undefined }],
-            ...(Object.entries(filteredSubSections) as [
-              string,
-              NavCategorizedDoc,
-            ][]),
-          ];
-        }
-      }
-
-      // Default: Keep the section and its (already populated) sub-sections
-      return [[key, dataWithFrameworks]];
-    }
-  );
-
-  return Object.fromEntries(entries);
-};
-
 export const DocNavListContent: FC<DocNavListContentProps> = ({
   docData,
   activeSlugs,
@@ -211,7 +107,7 @@ export const DocNavListContent: FC<DocNavListContentProps> = ({
     'doc-nav-scroll-position'
   );
 
-  const filteredDocData = filterSection(docData, selectedFramework);
+  const filteredDocData = filterSectionByFramework(docData, selectedFramework);
 
   return (
     <nav
