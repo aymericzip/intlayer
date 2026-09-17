@@ -671,7 +671,7 @@ export class EditorStateManager {
 
   private async _loadDictionaries(): Promise<void> {
     try {
-      const mod = await import('@intlayer/unmerged-dictionaries-entry');
+      const mod = await import('@intlayer/dictionaries-entry/unmerged');
       const unmergedDictionaries = mod.getUnmergedDictionaries();
       const dictionariesList = Object.fromEntries(
         Object.values(unmergedDictionaries)

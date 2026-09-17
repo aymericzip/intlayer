@@ -17,7 +17,7 @@ vi.mock('@intlayer/config/logger', async () => {
   };
 });
 
-vi.mock('@intlayer/unmerged-dictionaries-entry', () => ({
+vi.mock('@intlayer/dictionaries-entry/unmerged', () => ({
   getUnmergedDictionaries: vi.fn().mockReturnValue({}),
 }));
 
@@ -47,7 +47,7 @@ import {
   writeFileSync,
 } from 'node:fs';
 import { getConfiguration } from '@intlayer/config/node';
-import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
+import { getUnmergedDictionaries } from '@intlayer/dictionaries-entry/unmerged';
 import {
   mergeWithExistingMultilingualDictionary,
   mergeWithExistingPerLocaleDictionary,

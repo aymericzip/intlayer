@@ -219,9 +219,9 @@ El paquete `@intlayer/cli` es un paquete de NPM que se utiliza para declarar los
 
 El paquete `@intlayer/mcp` proporciona un servidor MCP (Model Context Protocol) que ofrece asistencia para IDE potenciada por IA, adaptada al ecosistema Intlayer. Carga automáticamente la documentación e integra con la CLI de Intlayer.
 
-### @intlayer/dictionaries-entry & @intlayer/unmerged-dictionaries-entry & @intlayer/dynamic-dictionaries-entry
+### @intlayer/dictionaries-entry
 
-Los paquetes `@intlayer/dictionaries-entry`, `@intlayer/unmerged-dictionaries-entry` y `@intlayer/dynamic-dictionaries-entry` devuelven la ruta de entrada de los diccionarios de Intlayer. Dado que buscar en el sistema de archivos desde el navegador es imposible, no es posible usar empaquetadores como Webpack o Rollup para obtener la ruta de entrada de los diccionarios. Estos paquetes están diseñados para ser aliasados, lo que permite la optimización del empaquetado en varios empaquetadores como Vite, Webpack y Turbopack.
+El paquete `@intlayer/dictionaries-entry` devuelve la ruta de entrada de los diccionarios de Intlayer: los diccionarios fusionados desde su raíz, y los no fusionados, remotos, dinámicos y fetch desde sus subrutas `/unmerged`, `/remote`, `/dynamic` y `/fetch`. Dado que buscar en el sistema de archivos desde el navegador es imposible, no es posible usar empaquetadores como Webpack o Rollup para obtener la ruta de entrada de los diccionarios. El paquete y sus subrutas están diseñados para ser aliasados, lo que permite la optimización del empaquetado en varios empaquetadores como Vite, Webpack y Turbopack.
 
 ### @intlayer/engine
 

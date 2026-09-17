@@ -220,9 +220,9 @@ const MyComponent = () => {
 
 تُوفر حزمة `@intlayer/mcp` خادم MCP (بروتوكول سياق النموذج) الذي يقدم مساعدة IDE مدعومة بالذكاء الاصطناعي مصممة خصيصًا لنظام Intlayer البيئي. يقوم بتحميل الوثائق تلقائيًا ويتكامل مع واجهة سطر الأوامر Intlayer CLI.
 
-### @intlayer/dictionaries-entry & @intlayer/unmerged-dictionaries-entry & @intlayer/dynamic-dictionaries-entry
+### @intlayer/dictionaries-entry
 
-تُعيد حزم `@intlayer/dictionaries-entry` و `@intlayer/unmerged-dictionaries-entry` و `@intlayer/dynamic-dictionaries-entry` مسار الدخول لقواميس Intlayer. نظرًا لأن البحث في نظام الملفات من المتصفح مستحيل، فإن استخدام أدوات التجميع مثل Webpack أو Rollup لاسترجاع مسار الدخول للقواميس غير ممكن. تم تصميم هذه الحزم لتكون قابلة للاختصار (aliased)، مما يسمح بتحسين التجميع عبر أدوات تجميع مختلفة مثل Vite وWebpack وTurbopack.
+تُعيد حزمة `@intlayer/dictionaries-entry` مسار الدخول لقواميس Intlayer: القواميس المدمجة من جذرها، والقواميس غير المدمجة والبعيدة والديناميكية وfetch من مساراتها الفرعية `/unmerged` و`/remote` و`/dynamic` و`/fetch`. نظرًا لأن البحث في نظام الملفات من المتصفح مستحيل، فإن استخدام أدوات التجميع مثل Webpack أو Rollup لاسترجاع مسار الدخول للقواميس غير ممكن. تم تصميم الحزمة ومساراتها الفرعية لتكون قابلة للاختصار (aliased)، مما يسمح بتحسين التجميع عبر أدوات تجميع مختلفة مثل Vite وWebpack وTurbopack.
 
 ### @intlayer/engine
 

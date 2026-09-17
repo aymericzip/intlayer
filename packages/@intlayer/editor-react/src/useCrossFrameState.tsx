@@ -38,6 +38,9 @@ export const useCrossFrameState = <S,>(
 
   useEffect(() => {
     const { emit = true, receive = true } = options ?? {};
+
+    if (!manager?.messenger) return;
+
     const stateManager = new CrossFrameStateManager<S>(
       key,
       manager?.messenger,

@@ -220,9 +220,9 @@ Intlayer состоит из нескольких пакетов, каждый �
 
 Пакет `@intlayer/mcp` предоставляет сервер MCP (Model Context Protocol), который обеспечивает поддержку IDE с ИИ, адаптированную для экосистемы Intlayer. Он автоматически загружает документацию и интегрируется с Intlayer CLI.
 
-### @intlayer/dictionaries-entry & @intlayer/unmerged-dictionaries-entry & @intlayer/dynamic-dictionaries-entry
+### @intlayer/dictionaries-entry
 
-Пакеты `@intlayer/dictionaries-entry`, `@intlayer/unmerged-dictionaries-entry` и `@intlayer/dynamic-dictionaries-entry` возвращают путь к точке входа словарей Intlayer. Поскольку поиск по файловой системе из браузера невозможен, использование сборщиков вроде Webpack или Rollup для получения пути к словарям также невозможно. Эти пакеты предназначены для использования с псевдонимами, что позволяет оптимизировать сборку с различными сборщиками, такими как Vite, Webpack и Turbopack.
+Пакет `@intlayer/dictionaries-entry` возвращает путь к точке входа словарей Intlayer: объединённые словари из корня, а также необъединённые, удалённые, динамические и fetch-словари из подпутей `/unmerged`, `/remote`, `/dynamic` и `/fetch`. Поскольку поиск по файловой системе из браузера невозможен, использование сборщиков вроде Webpack или Rollup для получения пути к словарям также невозможно. Пакет и его подпути предназначены для использования с псевдонимами, что позволяет оптимизировать сборку с различными сборщиками, такими как Vite, Webpack и Turbopack.
 
 ### @intlayer/engine
 

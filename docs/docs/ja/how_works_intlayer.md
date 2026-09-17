@@ -221,9 +221,9 @@ Expressに基づいたサーバーは、ビジュアルエディターのリク�
 `@intlayer/mcp`パッケージは、Intlayerエコシステム向けにAI搭載のIDE支援を提供するMCP（Model Context Protocol）サーバーを提供します。ドキュメントを自動的に読み込み、Intlayer CLIと統合されます。
 `@intlayer/mcp`パッケージは、Intlayerエコシステムに特化したAI搭載のIDE支援を提供するMCP（Model Context Protocol）サーバーを提供します。ドキュメントを自動的に読み込み、Intlayer CLIと統合されます。
 
-### @intlayer/dictionaries-entry & @intlayer/unmerged-dictionaries-entry & @intlayer/dynamic-dictionaries-entry
+### @intlayer/dictionaries-entry
 
-`@intlayer/dictionaries-entry`、`@intlayer/unmerged-dictionaries-entry`、および`@intlayer/dynamic-dictionaries-entry`パッケージは、Intlayer辞書のエントリパスを返します。ブラウザからファイルシステムを検索することは不可能なため、WebpackやRollupのようなバンドラーを使用して辞書のエントリパスを取得することはできません。これらのパッケージはエイリアスとして設計されており、Vite、Webpack、Turbopackなどのさまざまなバンドラーでのバンドル最適化を可能にします。
+`@intlayer/dictionaries-entry`パッケージは、Intlayer辞書のエントリパスを返します。ルートからのマージされた辞書、および`/unmerged`、`/remote`、`/dynamic`、`/fetch`サブパスからの未マージ、リモート、動的、fetchの辞書です。ブラウザからファイルシステムを検索することは不可能なため、WebpackやRollupのようなバンドラーを使用して辞書のエントリパスを取得することはできません。このパッケージとそのサブパスはエイリアスとして設計されており、Vite、Webpack、Turbopackなどのさまざまなバンドラーでのバンドル最適化を可能にします。
 
 ### @intlayer/engine
 

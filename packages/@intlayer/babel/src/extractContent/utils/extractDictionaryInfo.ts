@@ -2,6 +2,7 @@ import { basename, dirname, extname, relative, resolve } from 'node:path';
 import * as ANSIColors from '@intlayer/config/colors';
 import { colorize } from '@intlayer/config/logger';
 import { assertPathWithin, parseStringPattern } from '@intlayer/config/utils';
+import { getUnmergedDictionaries } from '@intlayer/dictionaries-entry/unmerged';
 import {
   getFormatFromExtension,
   resolveRelativePath,
@@ -14,7 +15,6 @@ import type {
   FilePathPatternContext,
   FilePathPatternFunction,
 } from '@intlayer/types/filePathPattern';
-import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import { extractDictionaryKey } from './extractDictionaryKey';
 
 export const getOutput = (

@@ -1,9 +1,9 @@
 import { existsSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { assertPathWithin } from '@intlayer/config/utils';
+import { getUnmergedDictionaries } from '@intlayer/dictionaries-entry/unmerged';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Dictionary } from '@intlayer/types/dictionary';
-import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 
 /**
  * Resolves a unique dictionary key, checking for existing dictionaries and files.

@@ -10,9 +10,9 @@ import {
   getConfiguration,
 } from '@intlayer/config/node';
 import { getProjectRequire } from '@intlayer/config/utils';
+import { getUnmergedDictionaries } from '@intlayer/dictionaries-entry/unmerged';
 import { detectFormatCommand } from '@intlayer/engine/cli';
 import type { IntlayerConfig } from '@intlayer/types/config';
-import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import { extractTsContent } from './babelProcessor';
 import { writeContentHelper } from './contentWriter';
 import { processTsxFile } from './processTsxFile';

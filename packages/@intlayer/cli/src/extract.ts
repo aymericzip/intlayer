@@ -7,11 +7,11 @@ import {
   type GetConfigurationOptions,
   getConfiguration,
 } from '@intlayer/config/node';
+import { getUnmergedDictionaries } from '@intlayer/dictionaries-entry/unmerged';
 import { prepareIntlayer } from '@intlayer/engine/build';
 import { logConfigDetails } from '@intlayer/engine/cli';
 import { buildComponentFilesList, formatPath } from '@intlayer/engine/utils';
 import type { FilePathPattern } from '@intlayer/types/filePathPattern';
-import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import enquirer from 'enquirer';
 
 type ExtractOptions = {

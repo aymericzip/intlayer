@@ -215,9 +215,9 @@ The `@intlayer/cli` package is an NPM package that is used to declare the script
 
 The `@intlayer/mcp` package provides an MCP (Model Context Protocol) server that delivers AI-powered IDE assistance tailored for the Intlayer ecosystem. It automatically loads documentation and integrates with the Intlayer CLI.
 
-### @intlayer/dictionaries-entry & @intlayer/unmerged-dictionaries-entry & @intlayer/dynamic-dictionaries-entry
+### @intlayer/dictionaries-entry
 
-The `@intlayer/dictionaries-entry`, `@intlayer/unmerged-dictionaries-entry` and `@intlayer/dynamic-dictionaries-entry` packages return the entry path of the Intlayer dictionaries. Since searching the filesystem from the browser is impossible, using bundlers like Webpack or Rollup to retrieve the entry path of the dictionaries is not possible. These packages are designed to be aliased, allowing for bundling optimization across various bundlers such as Vite, Webpack, and Turbopack.
+The `@intlayer/dictionaries-entry` package returns the entry path of the Intlayer dictionaries: the merged dictionaries from its root, and the unmerged, remote, dynamic and fetch ones from its `/unmerged`, `/remote`, `/dynamic` and `/fetch` subpaths. Since searching the filesystem from the browser is impossible, using bundlers like Webpack or Rollup to retrieve the entry path of the dictionaries is not possible. The package and its subpaths are designed to be aliased, allowing for bundling optimization across various bundlers such as Vite, Webpack, and Turbopack.
 
 ### @intlayer/engine
 

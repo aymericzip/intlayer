@@ -216,9 +216,9 @@ Gói `@intlayer/cli` là một gói NPM được sử dụng để khai báo cá
 
 Gói `@intlayer/mcp` cung cấp một server MCP (Model Context Protocol) mang đến sự hỗ trợ IDE được trang bị AI, được tùy chỉnh cho hệ sinh thái Intlayer. Nó tự động tải tài liệu và tích hợp với CLI của Intlayer.
 
-### @intlayer/dictionaries-entry & @intlayer/unmerged-dictionaries-entry & @intlayer/dynamic-dictionaries-entry
+### @intlayer/dictionaries-entry
 
-Gói `@intlayer/dictionaries-entry`, `@intlayer/unmerged-dictionaries-entry` và `@intlayer/dynamic-dictionaries-entry` trả về đường dẫn entry của các từ điển Intlayer. Vì việc tìm kiếm hệ thống tập tin từ trình duyệt là không thể, nên việc sử dụng các bundler như Webpack hoặc Rollup để lấy đường dẫn entry của các từ điển cũng không khả thi. Các gói này được thiết kế để được alias, cho phép tối ưu hóa bundling trên nhiều bundler khác nhau như Vite, Webpack và Turbopack.
+Gói `@intlayer/dictionaries-entry` trả về đường dẫn entry của các từ điển Intlayer: các từ điển đã hợp nhất từ thư mục gốc, và các từ điển chưa hợp nhất, từ xa (remote), động (dynamic) và fetch từ các đường dẫn con `/unmerged`, `/remote`, `/dynamic` và `/fetch`. Vì việc tìm kiếm hệ thống tập tin từ trình duyệt là không thể, nên việc sử dụng các bundler như Webpack hoặc Rollup để lấy đường dẫn entry của các từ điển cũng không khả thi. Gói này và các đường dẫn con của nó được thiết kế để được alias, cho phép tối ưu hóa bundling trên nhiều bundler khác nhau như Vite, Webpack và Turbopack.
 
 ### @intlayer/engine
 

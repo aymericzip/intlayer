@@ -220,9 +220,9 @@ Intlayer को [Vite बंडलर](https://vite.dev/guide/why.html#why-bundl
 
 `@intlayer/mcp` पैकेज एक MCP (मॉडल संदर्भ प्रोटोकॉल) सर्वर प्रदान करता है जो Intlayer इकोसिस्टम के लिए अनुकूलित AI-संचालित IDE सहायता प्रदान करता है। यह स्वचालित रूप से दस्तावेज़ीकरण लोड करता है और Intlayer CLI के साथ एकीकृत होता है।
 
-### @intlayer/dictionaries-entry & @intlayer/unmerged-dictionaries-entry & @intlayer/dynamic-dictionaries-entry
+### @intlayer/dictionaries-entry
 
-`@intlayer/dictionaries-entry`, `@intlayer/unmerged-dictionaries-entry` और `@intlayer/dynamic-dictionaries-entry` पैकेज Intlayer शब्दकोशों का एंट्री पथ लौटाते हैं। चूंकि ब्राउज़र से फ़ाइल सिस्टम की खोज असंभव है, इसलिए Webpack या Rollup जैसे बंडलर्स का उपयोग करके शब्दकोशों का एंट्री पथ प्राप्त करना संभव नहीं है। ये पैकेज alias किए जाने के लिए डिज़ाइन किए गए हैं, जिससे Vite, Webpack, और Turbopack जैसे विभिन्न बंडलर्स में बंडलिंग अनुकूलन की अनुमति मिलती है।
+`@intlayer/dictionaries-entry` पैकेज Intlayer शब्दकोशों का एंट्री पथ लौटाता है: इसके रूट से मर्ज किए गए शब्दकोश, और इसके `/unmerged`, `/remote`, `/dynamic` और `/fetch` सबपाथ से अनमर्ज, रिमोट, डायनामिक और fetch शब्दकोश। चूंकि ब्राउज़र से फ़ाइल सिस्टम की खोज असंभव है, इसलिए Webpack या Rollup जैसे बंडलर्स का उपयोग करके शब्दकोशों का एंट्री पथ प्राप्त करना संभव नहीं है। यह पैकेज और इसके सबपाथ alias किए जाने के लिए डिज़ाइन किए गए हैं, जिससे Vite, Webpack, और Turbopack जैसे विभिन्न बंडलर्स में बंडलिंग अनुकूलन की अनुमति मिलती है।
 
 ### @intlayer/engine
 

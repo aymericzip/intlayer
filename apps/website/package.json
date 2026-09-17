@@ -61,7 +61,6 @@
     "@intlayer/docs": "workspace:*",
     "@intlayer/editor-react": "workspace:*",
     "@intlayer/types": "workspace:*",
-    "@intlayer/unmerged-dictionaries-entry": "workspace:*",
     "@resvg/resvg-wasm": "2.6.2",
     "@shikijs/transformers": "4.4.3",
     "@tanstack/react-query": "5.103.1",

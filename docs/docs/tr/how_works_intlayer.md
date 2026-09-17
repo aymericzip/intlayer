@@ -216,9 +216,9 @@ Sunucu, Express tabanlıdır ve görsel düzenleyici isteklerini almak ve içeri
 
 `@intlayer/mcp` paketi, Intlayer ekosistemi için uyarlanmış AI destekli IDE yardımı sağlayan bir MCP (Model Context Protocol) sunucusu sağlar. Dokümantasyonu otomatik olarak yükler ve Intlayer CLI ile entegre olur.
 
-### @intlayer/dictionaries-entry & @intlayer/unmerged-dictionaries-entry & @intlayer/dynamic-dictionaries-entry
+### @intlayer/dictionaries-entry
 
-`@intlayer/dictionaries-entry`, `@intlayer/unmerged-dictionaries-entry` ve `@intlayer/dynamic-dictionaries-entry` paketleri, Intlayer sözlüklerinin giriş yolunu döndürür. Tarayıcıdan dosya sistemini aramak imkansız olduğu için, Webpack veya Rollup gibi paketleyicileri kullanarak sözlüklerin giriş yolunu almak mümkün değildir. Bu paketler, Vite, Webpack ve Turbopack gibi çeşitli paketleyicilerde paketleme optimizasyonuna izin vermek için takma adlandırılmak üzere tasarlanmıştır.
+`@intlayer/dictionaries-entry` paketi, Intlayer sözlüklerinin giriş yolunu döndürür: kökünden birleştirilmiş sözlükleri ve `/unmerged`, `/remote`, `/dynamic` ve `/fetch` alt yollarından birleştirilmemiş, uzak, dinamik ve fetch sözlüklerini. Tarayıcıdan dosya sistemini aramak imkansız olduğu için, Webpack veya Rollup gibi paketleyicileri kullanarak sözlüklerin giriş yolunu almak mümkün değildir. Paket ve alt yolları, Vite, Webpack ve Turbopack gibi çeşitli paketleyicilerde paketleme optimizasyonuna izin vermek için takma adlandırılmak üzere tasarlanmıştır.
 
 ### @intlayer/engine
 

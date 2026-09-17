@@ -16,6 +16,7 @@ import {
   getPerLocaleDictionary,
   insertContentInDictionary,
 } from '@intlayer/core/plugins';
+import { getUnmergedDictionaries } from '@intlayer/dictionaries-entry/unmerged';
 import {
   chunkJSON,
   excludeObjectFormat,
@@ -28,7 +29,6 @@ import {
 import type { Locale } from '@intlayer/types/allLocales';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Dictionary } from '@intlayer/types/dictionary';
-import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import { getAuthenticatedAPI } from '../utils/checkAccess';
 import type { AIClient } from '../utils/setupAI';
 import { deepMergeContent } from './deepMergeContent';
@@ -118,7 +118,7 @@ export const translateDictionary = async (
       const unmergedDictionariesRecord = getUnmergedDictionaries(configuration);
 
       const baseUnmergedDictionary: Dictionary | undefined =
-        unmergedDictionariesRecord[task.dictionaryKey].find(
+        unmergedDictionariesRecord[task.dictionaryKey]?.find(
           (dict) => dict.localId === task.dictionaryLocalId
         );
 

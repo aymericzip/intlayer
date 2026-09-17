@@ -216,9 +216,9 @@ Paket `@intlayer/cli` adalah paket NPM yang digunakan untuk mendeklarasikan skri
 
 Paket `@intlayer/mcp` menyediakan server MCP (Model Context Protocol) yang memberikan bantuan IDE bertenaga AI yang disesuaikan untuk ekosistem Intlayer. Paket ini secara otomatis memuat dokumentasi dan terintegrasi dengan Intlayer CLI.
 
-### @intlayer/dictionaries-entry & @intlayer/unmerged-dictionaries-entry & @intlayer/dynamic-dictionaries-entry
+### @intlayer/dictionaries-entry
 
-Paket `@intlayer/dictionaries-entry`, `@intlayer/unmerged-dictionaries-entry` dan `@intlayer/dynamic-dictionaries-entry` mengembalikan jalur entri dari kamus Intlayer. Karena pencarian sistem berkas dari browser tidak mungkin dilakukan, menggunakan bundler seperti Webpack atau Rollup untuk mengambil jalur entri kamus juga tidak memungkinkan. Paket-paket ini dirancang untuk di-alias-kan, memungkinkan optimasi bundling di berbagai bundler seperti Vite, Webpack, dan Turbopack.
+Paket `@intlayer/dictionaries-entry` mengembalikan jalur entri dari kamus Intlayer: kamus gabungan dari root-nya, dan kamus yang belum digabung, jarak jauh (remote), dinamis, serta fetch dari subpath `/unmerged`, `/remote`, `/dynamic`, dan `/fetch`. Karena pencarian sistem berkas dari browser tidak mungkin dilakukan, menggunakan bundler seperti Webpack atau Rollup untuk mengambil jalur entri kamus juga tidak memungkinkan. Paket dan subpath-nya dirancang untuk di-alias-kan, memungkinkan optimasi bundling di berbagai bundler seperti Vite, Webpack, dan Turbopack.
 
 ### @intlayer/engine
 

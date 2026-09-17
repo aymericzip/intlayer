@@ -48,7 +48,6 @@
     "@intlayer/docs": "workspace:*",
     "@intlayer/editor-react": "workspace:*",
     "@intlayer/types": "workspace:*",
-    "@intlayer/unmerged-dictionaries-entry": "workspace:*",
     "@monaco-editor/react": "4.7.0",
     "@posthog/react": "1.11.0",
     "@stripe/connect-js": "3.4.6",

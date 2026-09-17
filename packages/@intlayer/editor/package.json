@@ -78,8 +78,8 @@
   "dependencies": {
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
-    "@intlayer/types": "workspace:*",
-    "@intlayer/unmerged-dictionaries-entry": "workspace:*"
+    "@intlayer/dictionaries-entry": "workspace:*",
+    "@intlayer/types": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^22",

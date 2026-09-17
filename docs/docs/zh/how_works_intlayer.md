@@ -220,9 +220,9 @@ Intlayer 由多个包组成，每个包在翻译过程中都有特定的角色�
 `@intlayer/mcp` 包提供一个 MCP（模型上下文协议）服务器，提供针对 Intlayer 生态系统的 AI 驱动的 IDE 辅助。它会自动加载文档并与 Intlayer CLI 集成。
 `@intlayer/mcp` 包提供一个 MCP（模型上下文协议）服务器，提供针对 Intlayer 生态系统定制的 AI 驱动的 IDE 辅助。它会自动加载文档并与 Intlayer CLI 集成。
 
-### @intlayer/dictionaries-entry & @intlayer/unmerged-dictionaries-entry & @intlayer/dynamic-dictionaries-entry
+### @intlayer/dictionaries-entry
 
-`@intlayer/dictionaries-entry`、`@intlayer/unmerged-dictionaries-entry` 和 `@intlayer/dynamic-dictionaries-entry` 包返回 Intlayer 字典的入口路径。由于浏览器无法搜索文件系统，因此无法使用像 Webpack 或 Rollup 这样的打包工具来获取字典的入口路径。这些包设计为别名，以便在 Vite、Webpack 和 Turbopack 等各种打包工具中进行打包优化。
+`@intlayer/dictionaries-entry` 包返回 Intlayer 字典的入口路径：来自根目录的合并字典，以及来自 `/unmerged`、`/remote`、`/dynamic` 和 `/fetch` 子路径的未合并、远程、动态和 fetch 字典。由于浏览器无法搜索文件系统，因此无法使用像 Webpack 或 Rollup 这样的打包工具来获取字典的入口路径。该包及其子路径设计为别名，以便在 Vite、Webpack 和 Turbopack 等各种打包工具中进行打包优化。
 
 ### @intlayer/engine
 

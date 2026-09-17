@@ -10,10 +10,10 @@ import {
 import packageJson from '@intlayer/config/package.json' with { type: 'json' };
 import { getLocalizedContent } from '@intlayer/core/plugins';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
+import { getUnmergedDictionaries } from '@intlayer/dictionaries-entry/unmerged';
 import { buildDictionary } from '@intlayer/engine/build';
 import { type ParallelHandle, runParallel } from '@intlayer/engine/utils';
 import type { IntlayerConfig } from '@intlayer/types/config';
-import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import { IntlayerEventListener } from './IntlayerEventListener';
 
 type LiveSyncOptions = {

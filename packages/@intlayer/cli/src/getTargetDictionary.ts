@@ -3,9 +3,9 @@ import {
   type GetConfigurationOptions,
   getConfiguration,
 } from '@intlayer/config/node';
+import { getUnmergedDictionaries } from '@intlayer/dictionaries-entry/unmerged';
 import { type ListGitFilesOptions, listGitFiles } from '@intlayer/engine/cli';
 import type { Dictionary } from '@intlayer/types/dictionary';
-import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 
 export const ensureArray = <T>(value: T | T[]): T[] => [value].flat() as T[];
 

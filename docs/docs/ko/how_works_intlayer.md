@@ -220,9 +220,9 @@ Express를 기반으로 한 서버는 시각적 편집기 요청을 수신하고
 
 `@intlayer/mcp` 패키지는 Intlayer 생태계에 맞춘 AI 기반 IDE 지원을 제공하는 MCP(Model Context Protocol) 서버를 제공합니다. 이 서버는 문서를 자동으로 로드하며 Intlayer CLI와 통합됩니다.
 
-### @intlayer/dictionaries-entry & @intlayer/unmerged-dictionaries-entry & @intlayer/dynamic-dictionaries-entry
+### @intlayer/dictionaries-entry
 
-`@intlayer/dictionaries-entry`, `@intlayer/unmerged-dictionaries-entry` 및 `@intlayer/dynamic-dictionaries-entry` 패키지는 Intlayer 사전의 진입 경로를 반환합니다. 브라우저에서 파일 시스템을 검색하는 것이 불가능하기 때문에, Webpack이나 Rollup과 같은 번들러를 사용하여 사전의 진입 경로를 가져오는 것은 불가능합니다. 이 패키지들은 별칭(alias)으로 설계되어 Vite, Webpack, Turbopack 등 다양한 번들러에서 번들링 최적화를 가능하게 합니다.
+`@intlayer/dictionaries-entry` 패키지는 Intlayer 사전의 진입 경로를 반환합니다. 루트의 병합된 사전과 `/unmerged`, `/remote`, `/dynamic`, `/fetch` 하위 경로의 미병합, 원격, 동적 및 fetch 사전입니다. 브라우저에서 파일 시스템을 검색하는 것이 불가능하기 때문에, Webpack이나 Rollup과 같은 번들러를 사용하여 사전의 진입 경로를 가져오는 것은 불가능합니다. 이 패키지와 해당 하위 경로는 별칭(alias)으로 설계되어 Vite, Webpack, Turbopack 등 다양한 번들러에서 번들링 최적화를 가능하게 합니다.
 
 ### @intlayer/engine
 

@@ -11,23 +11,7 @@
     "experimentalDecorators": true,
     "importHelpers": true,
     "target": "ES2022",
-    "module": "preserve",
-    "paths": {
-      "@intlayer/dictionaries-entry": ["./.intlayer/main/dictionaries.mjs"],
-      "@intlayer/unmerged-dictionaries-entry": [
-        "./.intlayer/main/unmerged_dictionaries.mjs"
-      ],
-      "@intlayer/remote-dictionaries-entry": [
-        "./.intlayer/main/remote_dictionaries.mjs"
-      ],
-      "@intlayer/dynamic-dictionaries-entry": [
-        "./.intlayer/main/dynamic_dictionaries.mjs"
-      ],
-      "@intlayer/fetch-dictionaries-entry": [
-        "./.intlayer/main/fetch_dictionaries.mjs"
-      ],
-      "@intlayer/config/built": ["./.intlayer/config/configuration.mjs"]
-    }
+    "module": "preserve"
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

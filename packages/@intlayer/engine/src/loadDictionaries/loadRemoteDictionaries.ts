@@ -3,7 +3,7 @@ import { dictionaryEndpoint } from '@intlayer/api/dictionary';
 // @ts-ignore @intlayer/backend is not build yet
 import type { DictionaryAPI } from '@intlayer/backend';
 import { getConfiguration } from '@intlayer/config/node';
-import { getRemoteDictionaries } from '@intlayer/remote-dictionaries-entry';
+import { getRemoteDictionaries } from '@intlayer/dictionaries-entry/remote';
 import type {
   Dictionary,
   DictionaryId,

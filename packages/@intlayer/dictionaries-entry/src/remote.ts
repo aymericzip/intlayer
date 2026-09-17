@@ -1,7 +1,9 @@
 /**
- * @intlayer/dynamic-dictionaries-entry is a package that only returns the dynamic dictionary entry file.
- * Using an external package allow to alias it in the bundle configuration (such as webpack).
- * The alias allow hot reload the app (such as nextjs) on any dictionary change.
+ * Returns the remote dictionaries pulled from the Intlayer CMS.
+ *
+ * `@intlayer/dictionaries-entry/remote` is meant to be aliased by the bundler
+ * configuration to the generated `.intlayer/main/remote_dictionaries` entry.
+ * Outside a bundler (Node) this stub reads the entry itself.
  */
 
 import { existsSync } from 'node:fs';
@@ -15,7 +17,7 @@ import type { DictionaryKey } from '@intlayer/types/dictionary';
 export type RemoteDictionaries = Record<DictionaryKey, DictionaryAPI[]>;
 
 type GetRemoteDictionaries = (
-  configuration?: IntlayerConfig
+  configuration?: Pick<IntlayerConfig, 'system' | 'build'>
 ) => RemoteDictionaries;
 
 export const getRemoteDictionaries: GetRemoteDictionaries = (
@@ -25,10 +27,10 @@ export const getRemoteDictionaries: GetRemoteDictionaries = (
 
   // Always use cjs for dictionaries entry as it uses require
   const dictionariesPath = join(system.mainDir, `remote_dictionaries.cjs`);
-  let dictionaries: Record<DictionaryKey, DictionaryAPI[]> = {};
+  let dictionaries: RemoteDictionaries = {};
 
   if (existsSync(dictionariesPath)) {
-    // Clear cache for dynamic_dictionaries.cjs and all its dependencies (JSON files)
+    // Clear cache for remote_dictionaries.cjs and all its dependencies (JSON files)
     clearModuleCache(dictionariesPath);
     dictionaries = (build.require ?? configESMxCJSRequire)(dictionariesPath);
   }
