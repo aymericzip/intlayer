@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { z } from 'zod';
+import { z } from 'zod/mini';
 import { Select } from '../Select';
 import { MultiSelect } from '../Select/Multiselect';
 import {
@@ -47,13 +47,19 @@ export const Default: Story = {
   },
   render: ({ autoComplete, onSubmitSuccess, onSubmitError }) => {
     const Schema = z.object({
-      name: z.string().min(2, 'Name must have at least 2 characters'),
-      email: z.string().email('Enter a valid email'),
-      password: z.string().min(6, 'Password must have at least 6 characters'),
-      bio: z.string().max(200, 'Bio must be 200 characters or less').optional(),
+      name: z
+        .string()
+        .check(z.minLength(2, 'Name must have at least 2 characters')),
+      email: z.email('Enter a valid email'),
+      password: z
+        .string()
+        .check(z.minLength(6, 'Password must have at least 6 characters')),
+      bio: z.optional(
+        z.string().check(z.maxLength(200, 'Bio must be 200 characters or less'))
+      ),
       acceptTerms: z
         .boolean()
-        .refine((v) => v, { message: 'You must accept the terms' }),
+        .check(z.refine((v) => v, { message: 'You must accept the terms' })),
       theme: z.enum(['light', 'dark', 'system']),
     });
 

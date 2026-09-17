@@ -55,6 +55,30 @@ const PRIVATE_PATHS = [
 const getAllUrls = (paths: string[]): string[] =>
   paths.flatMap((path) => Object.values(getMultilingualUrls(path)) as string[]);
 
+/**
+ * Known AI crawler and scraper user agents explicitly allowed to access public content.
+ */
+const AI_BOT_USER_AGENTS = [
+  // OpenAI: training crawler, search index, on-demand fetches for ChatGPT
+  'GPTBot',
+  'OAI-SearchBot',
+  'ChatGPT-User',
+  // Anthropic: training crawler, search index, on-demand fetches for Claude
+  'ClaudeBot',
+  'Claude-SearchBot',
+  'Claude-User',
+  'Claude-Web',
+  // Google (Gemini / AI Overviews training opt-in token)
+  'Google-Extended',
+  // Perplexity: index crawler and on-demand fetches
+  'PerplexityBot',
+  'Perplexity-User',
+  // Apple Intelligence, Meta AI, Common Crawl
+  'Applebot-Extended',
+  'meta-externalagent',
+  'CCBot',
+];
+
 export const Route = createFileRoute('/robots.txt')({
   server: {
     handlers: {
@@ -67,7 +91,14 @@ export const Route = createFileRoute('/robots.txt')({
         // file stays readable next to `PRIVATE_PATHS`.
         const disallowedUrls = [...new Set(getAllUrls(PRIVATE_PATHS))];
 
-        let text = 'User-agent: *\n';
+        let text = '';
+        for (const bot of AI_BOT_USER_AGENTS) {
+          text += `User-agent: ${bot}\n`;
+          text += 'Allow: /\n\n';
+        }
+
+        text += '# General robots rules\n';
+        text += 'User-agent: *\n';
         text += 'Allow: /\n';
         for (const url of disallowedUrls) {
           text += `Disallow: ${url}\n`;

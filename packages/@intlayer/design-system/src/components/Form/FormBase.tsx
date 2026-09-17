@@ -10,16 +10,54 @@ import {
   useForm as useFormReactHookForm,
   useFormState,
 } from 'react-hook-form';
-import type { ZodObject, z } from 'zod';
+import type { ZodMiniObject, z } from 'zod/mini';
 
-type FormProps<T extends ZodObject> = HTMLAttributes<HTMLFormElement> &
-  FormProviderProps<z.infer<T>> & {
+/**
+ * Declarative WebMCP registration: a form carrying `toolname` becomes a tool
+ * browser agents can fill and submit, its controls' `name` attributes forming
+ * the input schema.
+ *
+ * @see https://github.com/webmachinelearning/webmcp/blob/main/declarative-api-explainer.md
+ */
+export type FormWebMCPProps = {
+  /** Tool name exposed to agents (verb + noun, e.g. `subscribeToNewsletter`). */
+  toolName?: string;
+  /** What submitting the form does, for the agent. */
+  toolDescription?: string;
+  /**
+   * Lets an agent submit without the user reviewing the filled form first.
+   * Leave unset for anything consequential (payments, messages, sign-ups).
+   */
+  toolAutoSubmit?: boolean;
+};
+
+type FormProps<T extends ZodMiniObject> = HTMLAttributes<HTMLFormElement> &
+  FormProviderProps<z.infer<T>> &
+  FormWebMCPProps & {
     schema?: T;
     onSubmit?: (data: z.infer<T>) => void | Promise<void>;
     onSubmitSuccess?: (data: z.infer<T>) => void | Promise<void>;
     onSubmitError?: (error: Error) => void | Promise<void>;
     autoComplete?: boolean;
   };
+
+/**
+ * Maps the camelCase props onto the lowercase attributes the browser reads.
+ * Typed as a plain record: React's JSX types do not know these attributes yet.
+ */
+export const getFormWebMCPAttributes = ({
+  toolName,
+  toolDescription,
+  toolAutoSubmit,
+}: FormWebMCPProps): Record<string, string | undefined> =>
+  toolName
+    ? {
+        toolname: toolName,
+        tooldescription: toolDescription,
+        // A boolean attribute: present (empty) when enabled, absent otherwise.
+        toolautosubmit: toolAutoSubmit ? '' : undefined,
+      }
+    : {};
 
 const awaitFunction = async (fn: any) => {
   // Check if result is a Promise (Thenable)
@@ -32,7 +70,7 @@ const awaitFunction = async (fn: any) => {
   return fn;
 };
 
-export const Form = <T extends ZodObject>({
+export const Form = <T extends ZodMiniObject>({
   schema,
   onSubmit: onSubmitProp,
   onSubmitSuccess: onSubmitSuccessProp,
@@ -41,10 +79,13 @@ export const Form = <T extends ZodObject>({
   children,
   autoComplete,
   method,
+  toolName,
+  toolDescription,
+  toolAutoSubmit,
   ...props
 }: FormProps<T> & { method?: string }) => {
   const onSubmit = async (values: z.infer<T>) => {
-    const parsedValues = schema?.safeParse(values) ?? {
+    const parsedValues = schema.safeParse(values) ?? {
       success: true,
       data: undefined,
     };
@@ -91,6 +132,11 @@ export const Form = <T extends ZodObject>({
         autoComplete={autoComplete ? 'on' : 'off'}
         noValidate
         method={method}
+        {...getFormWebMCPAttributes({
+          toolName,
+          toolDescription,
+          toolAutoSubmit,
+        })}
       >
         {children}
       </form>
@@ -98,7 +144,7 @@ export const Form = <T extends ZodObject>({
   );
 };
 
-export const useForm = <T extends ZodObject>(
+export const useForm = <T extends ZodMiniObject>(
   schema: T,
   props?: UseFormProps<z.infer<T>>
 ) => {

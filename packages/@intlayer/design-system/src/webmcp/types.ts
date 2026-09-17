@@ -14,7 +14,13 @@
 /** JSON Schema describing a tool's input object. */
 export type WebMCPJsonSchema = Record<string, unknown>;
 
-/** Hints letting an agent decide whether a call needs user confirmation. */
+/**
+ * Hints letting an agent decide whether a call needs user confirmation.
+ *
+ * `readOnlyHint`, `untrustedContentHint` and `consequentialHint` are the
+ * WebMCP ones; the rest mirror MCP tool annotations so a bridged MCP tool
+ * keeps its hints.
+ */
 export type WebMCPToolAnnotations = {
   /** The tool does not modify anything. */
   readOnlyHint?: boolean;
@@ -22,6 +28,12 @@ export type WebMCPToolAnnotations = {
   untrustedContentHint?: boolean;
   /** The tool performs an action that is hard to undo. */
   consequentialHint?: boolean;
+  /** The tool may delete or irreversibly alter data (MCP). */
+  destructiveHint?: boolean;
+  /** Repeating the call with the same input has no additional effect (MCP). */
+  idempotentHint?: boolean;
+  /** The tool reaches beyond the page, e.g. a third-party website (MCP). */
+  openWorldHint?: boolean;
 };
 
 export type WebMCPToolExecuteOptions = {

@@ -14,6 +14,12 @@ import { useWebsiteWebMCPTools } from './useWebsiteWebMCPTools';
  */
 const REMOTE_TOOL_NAMES = new Set(['fetch-doc-chunks', 'get-doc-by-slug']);
 
+/** `fetch-doc-chunks` → `fetchDocChunks`, matching the page's own tool names. */
+const toCamelCase = (name: string): string =>
+  name.replace(/-(\w)/g, (_match, character: string) =>
+    character.toUpperCase()
+  );
+
 /**
  * Bridges the documentation tools of the Intlayer MCP server, so an agent in
  * the browser gets the same retrieval an IDE agent has, without the page
@@ -31,6 +37,7 @@ const useRemoteMcpTools = (): WebMCPTool[] => {
     createRemoteMcpTools({
       serverUrl: Mcp_Root,
       filter: (tool) => REMOTE_TOOL_NAMES.has(tool.name),
+      renameTool: toCamelCase,
       signal: abortController.signal,
     })
       .then(setRemoteTools)

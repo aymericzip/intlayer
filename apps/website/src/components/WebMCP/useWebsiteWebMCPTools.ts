@@ -84,9 +84,9 @@ export const useWebsiteWebMCPTools = (): AnyWebMCPTool[] => {
     getLocalizedUrl(getPathWithoutLocale(path, availableLocales), locale);
 
   const searchDocumentation: AnyWebMCPTool = {
-    name: 'search_intlayer_documentation',
+    name: 'searchIntlayerDocumentation',
     description:
-      "Search Intlayer's documentation, blog posts and FAQ by keywords or a question. Returns the most relevant pages with their title, description and path; read a page with `get_intlayer_documentation_page` or open it with `navigate_to_page`.",
+      "Search Intlayer's documentation, blog posts and FAQ by keywords or a question. Returns the most relevant pages with their title, description and path; read a page with `getIntlayerDocumentationPage` or open it with `navigateToPage`.",
     inputSchema: {
       type: 'object',
       properties: {
@@ -144,7 +144,7 @@ export const useWebsiteWebMCPTools = (): AnyWebMCPTool[] => {
   };
 
   const listDocumentation: AnyWebMCPTool = {
-    name: 'list_intlayer_documentation',
+    name: 'listIntlayerDocumentation',
     description:
       "List every page of Intlayer's documentation available to agents, as a markdown index of titles and URLs.",
     inputSchema: {
@@ -168,7 +168,7 @@ export const useWebsiteWebMCPTools = (): AnyWebMCPTool[] => {
   };
 
   const getDocumentationPage: AnyWebMCPTool = {
-    name: 'get_intlayer_documentation_page',
+    name: 'getIntlayerDocumentationPage',
     description:
       "Fetch a single page of Intlayer's documentation, blog or FAQ as markdown. Accepts a page path such as `/doc/why`, `/doc/concept/cms` or `/blog/intlayer-with-react-i18next`, with or without a locale prefix or `.md` extension.",
     inputSchema: {
@@ -208,7 +208,7 @@ export const useWebsiteWebMCPTools = (): AnyWebMCPTool[] => {
   };
 
   const getCurrentPage: AnyWebMCPTool = {
-    name: 'get_current_page',
+    name: 'getCurrentPage',
     description:
       'Describe the page the user is currently viewing on intlayer.org: URL, title, locale and the locales the site is available in.',
     inputSchema: {
@@ -228,7 +228,7 @@ export const useWebsiteWebMCPTools = (): AnyWebMCPTool[] => {
   };
 
   const navigateToPage: AnyWebMCPTool = {
-    name: 'navigate_to_page',
+    name: 'navigateToPage',
     description:
       'Navigate the current tab to a page of intlayer.org, given its path (for example `/doc/why`, `/blog`, `/icu-message-formatter`, `/i18n-message-converter`, `/i18n-seo-scanner`). The path is localized to the current locale automatically.',
     inputSchema: {
@@ -239,6 +239,7 @@ export const useWebsiteWebMCPTools = (): AnyWebMCPTool[] => {
       required: ['path'],
       additionalProperties: false,
     },
+    annotations: { readOnlyHint: false, idempotentHint: true },
     execute: async ({ path }: NavigateToPageInput) => {
       const target = resolveSameOriginPath(path);
 
@@ -255,7 +256,7 @@ export const useWebsiteWebMCPTools = (): AnyWebMCPTool[] => {
   };
 
   const setSiteLocale: AnyWebMCPTool = {
-    name: 'set_locale',
+    name: 'setLocale',
     description:
       'Switch the language of intlayer.org for the current page and the rest of the visit.',
     inputSchema: {
@@ -270,6 +271,7 @@ export const useWebsiteWebMCPTools = (): AnyWebMCPTool[] => {
       required: ['locale'],
       additionalProperties: false,
     },
+    annotations: { readOnlyHint: false, idempotentHint: true },
     execute: async ({ locale: requestedLocale }: SetLocaleInput) => {
       const targetLocale = availableLocales.find(
         (candidate) => candidate === requestedLocale
@@ -293,7 +295,7 @@ export const useWebsiteWebMCPTools = (): AnyWebMCPTool[] => {
   };
 
   const openAuthentication: AnyWebMCPTool = {
-    name: 'open_intlayer_authentication',
+    name: 'openIntlayerAuthentication',
     description:
       'Send the user to the Intlayer dashboard (app.intlayer.org) to sign in, create an account, or try a read-only demo. An already signed-in user is taken straight to the dashboard. Leaves intlayer.org.',
     inputSchema: {
@@ -312,6 +314,7 @@ export const useWebsiteWebMCPTools = (): AnyWebMCPTool[] => {
       },
       additionalProperties: false,
     },
+    annotations: { readOnlyHint: false, openWorldHint: true },
     execute: ({ mode = 'login', redirectPath }: OpenAuthenticationInput) => {
       const dashboardUrl = new URL(App_Dashboard);
       const redirectTarget = redirectPath

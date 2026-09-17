@@ -192,6 +192,8 @@ export const EmailRegistrationToast: FC = () => {
           schema={EmailSchema}
           onSubmitSuccess={handleRegister}
           autoComplete
+          toolName="subscribeToNewsletter"
+          toolDescription="Subscribe an email address to the Intlayer newsletter. The user reviews the form before it is sent."
           {...form}
         >
           <span className="font-medium text-sm">{content.value}</span>
@@ -200,6 +202,7 @@ export const EmailRegistrationToast: FC = () => {
               name="email"
               type="email"
               autoComplete="email"
+              toolParamDescription="Email address to subscribe."
               placeholder={emailInput.placeholder.value}
               className="w-full"
               isRequired

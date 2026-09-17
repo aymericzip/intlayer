@@ -8,6 +8,15 @@ import {
 import type { FormatterDialect } from './types';
 import { validateMessageSyntax } from './validation';
 
+/** `vue-i18n` → `VueI18n`, for camelCase tool names. */
+const DIALECT_TOOL_SEGMENTS: Record<FormatterDialect, string> = {
+  intlayer: 'Intlayer',
+  icu: 'Icu',
+  i18next: 'I18next',
+  'vue-i18n': 'VueI18n',
+  po: 'Po',
+};
+
 const DIALECT_LABELS: Record<FormatterDialect, string> = {
   intlayer: 'Intlayer',
   icu: 'ICU MessageFormat',
@@ -94,9 +103,10 @@ export const useFormatterWebMCPTools = ({
   applyMessage,
 }: UseFormatterWebMCPToolsOptions): AnyWebMCPTool[] => {
   const label = DIALECT_LABELS[dialect];
+  const toolSegment = DIALECT_TOOL_SEGMENTS[dialect];
 
   const formatMessage: AnyWebMCPTool = {
-    name: `format_${dialect}_message`,
+    name: `format${toolSegment}Message`,
     description: `Load a ${label} message into the formatter on this page, set its test variables and locale, and return the syntax validation, the rendered preview and the equivalent Intlayer content declaration.`,
     inputSchema: {
       type: 'object',
@@ -122,6 +132,7 @@ export const useFormatterWebMCPTools = ({
       required: ['message'],
       additionalProperties: false,
     },
+    annotations: { readOnlyHint: false, idempotentHint: true },
     execute: ({ message, variables = {}, locale }: FormatMessageInput) => {
       const nextVariables = { ...testVariables, ...toTestVariables(variables) };
       const nextLocale = (locale as LocalesValues | undefined) ?? testLocale;
@@ -137,7 +148,7 @@ export const useFormatterWebMCPTools = ({
   };
 
   const getFormatterState: AnyWebMCPTool = {
-    name: `get_${dialect}_formatter_state`,
+    name: `get${toolSegment}FormatterState`,
     description: `Read the ${label} message currently in the formatter on this page, with its test variables, locale, validation result and rendered preview.`,
     inputSchema: {
       type: 'object',

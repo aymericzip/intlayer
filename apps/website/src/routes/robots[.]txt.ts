@@ -45,6 +45,32 @@ const getContentSignalDirective = (): string =>
     .map(([signal, value]) => `${signal}=${value}`)
     .join(', ')}`;
 
+/**
+ * AI crawler and agent user agents explicitly allowed on public content, so
+ * auditors that look for them by name see the permission stated rather than
+ * inferred from `User-agent: *`.
+ */
+const AI_BOT_USER_AGENTS = [
+  // OpenAI: training crawler, search index, on-demand fetches for ChatGPT
+  'GPTBot',
+  'OAI-SearchBot',
+  'ChatGPT-User',
+  // Anthropic: training crawler, search index, on-demand fetches for Claude
+  'ClaudeBot',
+  'Claude-SearchBot',
+  'Claude-User',
+  'Claude-Web',
+  // Google (Gemini / AI Overviews training opt-in token)
+  'Google-Extended',
+  // Perplexity: index crawler and on-demand fetches
+  'PerplexityBot',
+  'Perplexity-User',
+  // Apple Intelligence, Meta AI, Common Crawl
+  'Applebot-Extended',
+  'meta-externalagent',
+  'CCBot',
+];
+
 export const Route = createFileRoute('/robots.txt')({
   server: {
     handlers: {
@@ -54,7 +80,14 @@ export const Route = createFileRoute('/robots.txt')({
           import.meta.env.VITE_URL ?? import.meta.env.VITE_SITE_URL ?? '';
         const cmsUrl = import.meta.env.VITE_CMS_URL ?? '';
 
-        let text = 'User-agent: *\n';
+        let text = '';
+        for (const bot of AI_BOT_USER_AGENTS) {
+          text += `User-agent: ${bot}\n`;
+          text += 'Allow: /\n\n';
+        }
+
+        text += '# General robots rules\n';
+        text += 'User-agent: *\n';
         // Must sit inside the User-agent block it applies to.
         text += `${getContentSignalDirective()}\n`;
         text += 'Allow: /\n';

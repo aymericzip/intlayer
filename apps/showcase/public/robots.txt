@@ -1,5 +1,17 @@
-# https://www.robotstxt.org/robotstxt.html
+User-agent: GPTBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+# General robots rules
 User-agent: *
-Disallow:
+Allow: /
 
 Sitemap: https://showcase.intlayer.org/sitemap.xml

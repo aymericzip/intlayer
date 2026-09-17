@@ -38,6 +38,11 @@ export type CreateRemoteMcpToolsOptions = {
   filter?: (tool: RemoteMcpToolDescriptor) => boolean;
   /** Prepended to every tool name to avoid collisions with page tools. */
   namePrefix?: string;
+  /**
+   * Rewrites a server tool name before it is exposed, e.g. to camelCase a
+   * kebab-case name. The server still receives the original name.
+   */
+  renameTool?: (name: string) => string;
   /** Aborts the discovery request. */
   signal?: AbortSignal;
   /** Injectable for tests. Defaults to the global `fetch`. */
@@ -116,6 +121,7 @@ export const createRemoteMcpTools = async ({
   serverUrl,
   filter = isReadOnly,
   namePrefix = '',
+  renameTool = (name) => name,
   signal,
   fetch: fetchImplementation = globalThis.fetch,
 }: CreateRemoteMcpToolsOptions): Promise<WebMCPTool[]> => {
@@ -128,7 +134,7 @@ export const createRemoteMcpTools = async ({
   );
 
   return tools.filter(filter).map((tool) => ({
-    name: `${namePrefix}${tool.name}`,
+    name: `${namePrefix}${renameTool(tool.name)}`,
     title: tool.title,
     description: tool.description ?? tool.name,
     inputSchema: tool.inputSchema ?? { type: 'object', properties: {} },

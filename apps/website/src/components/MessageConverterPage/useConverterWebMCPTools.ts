@@ -95,7 +95,7 @@ export const useConverterWebMCPTools = ({
   ...editorState
 }: UseConverterWebMCPToolsOptions): AnyWebMCPTool[] => {
   const convertI18nMessage: AnyWebMCPTool = {
-    name: 'convert_i18n_message',
+    name: 'convertI18nMessage',
     description: `Convert a translation message between i18n formats using the converter on this page, and return the converted output plus the equivalent Intlayer content declaration. Supported dialects: ${DIALECT_SUMMARY}.`,
     inputSchema: {
       type: 'object',
@@ -122,6 +122,7 @@ export const useConverterWebMCPTools = ({
       required: ['input', 'sourceDialect', 'targetDialect'],
       additionalProperties: false,
     },
+    annotations: { readOnlyHint: false, idempotentHint: true },
     execute: ({
       input,
       sourceDialect,
@@ -162,7 +163,7 @@ export const useConverterWebMCPTools = ({
   };
 
   const getConverterState: AnyWebMCPTool = {
-    name: 'get_message_converter_state',
+    name: 'getMessageConverterState',
     description:
       'Read the message currently loaded in the converter on this page, with its source and target dialects, converted output, test variables and rendered preview.',
     inputSchema: {
