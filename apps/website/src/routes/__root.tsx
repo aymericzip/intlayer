@@ -221,8 +221,6 @@ function RootDocument({ children }: { children: React.ReactNode }) {
               <Toaster />
               <ChunkErrorListener />
               <ServiceWorkerSubscriber />
-              {/* Exposes the documentation to agents via the WebMCP browser API */}
-              <WebMCPTools />
               {import.meta.env.VITE_AHREFS_KEY && (
                 <script
                   async
@@ -233,6 +231,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
               {/* Session/OAuth are not needed to render this site, so they
                   wait for the load event instead of competing with hydration. */}
               <DeferredAuthProvider>
+                <WebMCPTools />
                 <FirstConsultationProvider>
                   {children}
                 </FirstConsultationProvider>

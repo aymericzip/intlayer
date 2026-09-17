@@ -549,6 +549,22 @@ export const resolveIntlayerMessage = (
 };
 
 /**
+ * The editors store every test variable as text; numeric strings are
+ * evaluated as numbers so plural and number formats behave.
+ */
+export const parseTestVariables = (
+  testVariables: Record<string, string>
+): Record<string, unknown> => {
+  const parsedValues: Record<string, unknown> = {};
+
+  for (const [key, value] of Object.entries(testVariables)) {
+    parsedValues[key] = /^-?\d+(\.\d+)?$/.test(value) ? Number(value) : value;
+  }
+
+  return parsedValues;
+};
+
+/**
  * Resolves a message using provided interpolation variables and locale.
  */
 export const evaluateMessagePreview = (

@@ -13,3 +13,4 @@ export * from './useScrollDetection';
 export * from './useScrollY';
 export * from './useSearch';
 export * from './useStickToBottom';
+export * from './useWebMCPTools';

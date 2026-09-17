@@ -1,4 +1,5 @@
 import { useSession } from '@intlayer/design-system/api';
+import { useWebMCPTools } from '@intlayer/design-system/hooks';
 import { type FC, useEffect, useMemo, useRef, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { useSearchParamState } from '~/hooks/useSearchParamState';
@@ -8,6 +9,7 @@ import { useAnalyzerUrlSchema } from './Analyzer/Form/useAnalyzerUrlSchema';
 import { AnalyzerResultsSection } from './AnalyzerResultsSection';
 import { useLocalizationScan } from './useLocalizationScan';
 import { useRecursiveScan } from './useRecursiveScan';
+import { useScannerWebMCPTools } from './useScannerWebMCPTools';
 
 export const LocalizationAnalyzer: FC = () => {
   const { session } = useSession();
@@ -64,6 +66,16 @@ export const LocalizationAnalyzer: FC = () => {
     auto_start: { type: 'boolean', fallbackValue: false },
     url: { type: 'string', fallbackValue: '' },
   });
+
+  // Lets a browser agent run the scanner the way a user would
+  useWebMCPTools(
+    useScannerWebMCPTools({
+      urlSchema,
+      scan: handleAnalyze,
+      snapshot: { score, domainData, mergedData },
+      isScanning: isLoading,
+    })
+  );
 
   useEffect(() => {
     if (

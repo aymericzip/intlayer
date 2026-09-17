@@ -6,10 +6,9 @@ import {
 import { useSearch } from '@intlayer/design-system/hooks';
 import { Input } from '@intlayer/design-system/input';
 import { Loader } from '@intlayer/design-system/loader';
-import type { BlogMetadata, DocMetadata } from '@intlayer/docs';
+import type { DocMetadata } from '@intlayer/docs';
+import { useQuery } from '@tanstack/react-query';
 import { useLocation, useNavigate } from '@tanstack/react-router';
-import Fuse, { type IFuseOptions } from 'fuse.js';
-import { getIntlayer } from 'intlayer';
 import { ArrowRight, Search } from 'lucide-react';
 import {
   type FC,
@@ -22,45 +21,9 @@ import {
 } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
 import { Link } from '~/components/Link/Link';
+import { createDocSearchIndex, getSearchableDocs } from './docSearchIndex';
 
-// Fuse.js options
-const fuseOptions: IFuseOptions<DocMetadata> = {
-  keys: [
-    { name: 'title', weight: 0.5 },
-    { name: 'description', weight: 0.25 },
-    { name: 'keywords', weight: 0.15 },
-    { name: 'slugs', weight: 0.1 },
-  ],
-  threshold: 0.3, // Defines how fuzzy the matching should be (lower is more strict)
-  includeScore: true,
-  minMatchCharLength: 2,
-};
-
-const isValidDoc = (doc: DocMetadata) => {
-  try {
-    if (!doc) return false;
-
-    if (typeof doc.title !== 'string') {
-      console.debug('Skipping doc without valid title:', doc.docKey);
-      return false;
-    }
-
-    if (doc.description && typeof doc.description !== 'string') {
-      console.debug('Skipping doc without valid description:', doc.docKey);
-      return false;
-    }
-
-    if (typeof doc.url !== 'string') {
-      console.debug('Skipping doc without valid url:', doc.docKey);
-      return false;
-    }
-
-    return true;
-  } catch (error) {
-    console.debug('Error validating doc:', error);
-    return false;
-  }
-};
+const NO_DOCS: DocMetadata[] = [];
 
 const SearchResultItem: FC<{
   doc: DocMetadata;
@@ -123,23 +86,15 @@ const SearchViewContent: FC<{
   const [frontendResults, setFrontendResults] = useState<DocMetadata[]>([]);
 
   const { locale } = useLocale();
-  const docMetadata = getIntlayer('doc-metadata', locale) as DocMetadata[];
-  const blogMetadata = getIntlayer('blog-metadata', locale) as BlogMetadata[];
-  const frequentQuestionMetadata = getIntlayer(
-    'frequent-question-metadata',
-    locale
-  ) as DocMetadata[];
-
-  const filesData = useMemo(
-    () =>
-      [...docMetadata, ...blogMetadata, ...frequentQuestionMetadata].filter(
-        isValidDoc
-      ),
-    [docMetadata, blogMetadata, frequentQuestionMetadata]
-  );
+  // Metadata dictionaries are loaded on demand rather than bundled with the modal
+  const { data: filesData = NO_DOCS } = useQuery({
+    queryKey: ['searchable-docs', locale],
+    queryFn: () => getSearchableDocs(locale),
+    staleTime: Number.POSITIVE_INFINITY,
+  });
 
   // Create a new Fuse instance with the options and documentation data
-  const fuse = useMemo(() => new Fuse(filesData, fuseOptions), [filesData]);
+  const fuse = useMemo(() => createDocSearchIndex(filesData), [filesData]);
 
   const { search, setSearch } = useSearch({
     defaultValue: searchQueryParam,
@@ -279,7 +234,7 @@ const SearchViewContent: FC<{
   );
 };
 
-const SearchViewWrapper: FC<{
+export const SearchView: FC<{
   onClickLink?: () => void;
   isOpen?: boolean;
 }> = (props) => (
@@ -287,5 +242,3 @@ const SearchViewWrapper: FC<{
     <SearchViewContent {...props} />
   </Suspense>
 );
-
-export { SearchViewWrapper as SearchView };

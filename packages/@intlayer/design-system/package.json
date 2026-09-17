@@ -68,6 +68,11 @@
       "import": "./dist/esm/routes.mjs",
       "default": "./dist/esm/routes.mjs"
     },
+    "./webmcp": {
+      "types": "./dist/types/webmcp/index.d.ts",
+      "import": "./dist/esm/webmcp/index.mjs",
+      "default": "./dist/esm/webmcp/index.mjs"
+    },
     "./structured-data": {
       "types": "./dist/types/structured-data/index.d.ts",
       "import": "./dist/esm/structured-data/index.mjs",

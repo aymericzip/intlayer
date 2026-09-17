@@ -2,6 +2,7 @@ import { Badge } from '@intlayer/design-system/badge';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import { CopyButton } from '@intlayer/design-system/copy-button';
+import { useWebMCPTools } from '@intlayer/design-system/hooks';
 import { CodeBlock, type CodeLanguage } from '@intlayer/design-system/ide';
 import { Input } from '@intlayer/design-system/input';
 import { SwitchSelector } from '@intlayer/design-system/switch-selector';
@@ -31,8 +32,10 @@ import {
   convertMessage,
   evaluateMessagePreview,
   extractVariableNames,
+  parseTestVariables,
 } from './converterUtils';
 import type { MessageDialect, OutputViewMode, PresetExample } from './types';
+import { useConverterWebMCPTools } from './useConverterWebMCPTools';
 
 const COMMON_TEST_LOCALES: { value: LocalesValues; label: string }[] = [
   { value: 'en' as LocalesValues, label: 'en (English)' },
@@ -106,19 +109,9 @@ export const ConverterEditor: FC = () => {
   const evaluatedPreview = useMemo(() => {
     if (!inputContent.trim()) return '';
 
-    // Convert string inputs to proper types if numeric
-    const parsedValues: Record<string, unknown> = {};
-    for (const [key, val] of Object.entries(testVariables)) {
-      if (/^-?\d+(\.\d+)?$/.test(val)) {
-        parsedValues[key] = Number(val);
-      } else {
-        parsedValues[key] = val;
-      }
-    }
-
     return evaluateMessagePreview(
       inputContent,
-      parsedValues,
+      parseTestVariables(testVariables),
       testLocale,
       sourceDialect
     );
@@ -150,6 +143,27 @@ export const ConverterEditor: FC = () => {
       setTestLocale(preset.defaultLocale);
     }
   };
+
+  // Lets a browser agent drive the converter the way a user would
+  useWebMCPTools(
+    useConverterWebMCPTools({
+      inputContent,
+      sourceDialect,
+      targetDialect,
+      testVariables,
+      testLocale,
+      applyConversion: ({ input, source, target, variables, locale }) => {
+        setActivePresetId('');
+        setSourceDialect(source);
+        setTargetDialect(target);
+        setInputContent(input);
+        setTestVariables(variables);
+        if (locale) {
+          setTestLocale(locale);
+        }
+      },
+    })
+  );
 
   // Determine which output string to display based on view mode
   const displayedOutput = useMemo(() => {
