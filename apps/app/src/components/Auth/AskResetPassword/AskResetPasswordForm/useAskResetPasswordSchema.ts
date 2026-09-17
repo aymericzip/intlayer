@@ -1,5 +1,5 @@
 import { useIntlayer } from 'react-intlayer';
-import { z } from 'zod';
+import { z } from 'zod/mini';
 
 export const useAskResetPasswordSchema = () => {
   const { requiredErrorEmail, invalidTypeErrorEmail, invalidLengthErrorEmail } =
@@ -13,7 +13,7 @@ export const useAskResetPasswordSchema = () => {
             ? requiredErrorEmail.value
             : invalidTypeErrorEmail.value,
       })
-      .min(1, { error: invalidLengthErrorEmail.value }),
+      .check(z.minLength(1, { error: invalidLengthErrorEmail.value })),
   });
 };
 

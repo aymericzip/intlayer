@@ -1,5 +1,5 @@
 import { useIntlayer } from 'react-intlayer';
-import { z } from 'zod';
+import { z } from 'zod/mini';
 
 export const useFormSectionSchema = () => {
   const { questionRequiredError, questionInvalidTypeError } = useIntlayer(

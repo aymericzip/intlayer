@@ -1,5 +1,5 @@
 import { findProjects } from '@services/project.service';
-import { z } from 'zod';
+import { z } from 'zod/mini';
 import type { Dictionary } from '@/types/dictionary.types';
 
 export type DictionaryFields = (keyof Dictionary)[];
@@ -18,7 +18,7 @@ const dictionaryZodSchema = z.object({
         message: 'Project id must be a string',
       })
     )
-    .min(1, 'Project id is required'),
+    .check(z.minLength(1, 'Project id is required')),
 });
 
 /**
@@ -45,12 +45,12 @@ export const validateDictionary = async (
     {} as Record<string, true>
   );
 
-  const schema = dictionaryZodSchema.pick(mask as any);
+  const schema = z.pick(dictionaryZodSchema, mask as any);
   const parsed = schema.safeParse(dictionary);
 
   const errors: ValidationErrors = parsed.success
     ? {}
-    : (parsed.error.flatten().fieldErrors as ValidationErrors);
+    : (z.flattenError(parsed.error).fieldErrors as ValidationErrors);
 
   if (
     fieldsToCheck.includes('projectIds') &&

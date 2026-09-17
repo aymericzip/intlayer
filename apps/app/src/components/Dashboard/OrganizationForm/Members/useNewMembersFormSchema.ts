@@ -1,11 +1,11 @@
 import { useIntlayer } from 'react-intlayer';
-import { z } from 'zod';
+import { z } from 'zod/mini';
 
 export const useOrganizationNewMembersSchema = () => {
   const { emailError } = useIntlayer('new-members-form-schema');
 
   return z.object({
-    userEmail: z.string().email({ error: emailError.value }),
+    userEmail: z.email({ error: emailError.value }),
   });
 };
 

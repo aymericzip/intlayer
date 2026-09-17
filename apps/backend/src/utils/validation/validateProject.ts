@@ -1,5 +1,5 @@
 import { getOrganizationById } from '@services/organization.service';
-import { z } from 'zod';
+import { z } from 'zod/mini';
 import type { Project, ProjectAPI } from '@/types/project.types';
 
 export type ProjectFields = (keyof Project)[];
@@ -26,13 +26,15 @@ const projectZodSchema = z.object({
     .string({
       message: 'Name must be a string.',
     })
-    .min(
-      NAME_MIN_LENGTH,
-      `Name must be at least ${NAME_MIN_LENGTH} characters long.`
-    )
-    .max(
-      NAME_MAX_LENGTH,
-      `Name must be at most ${NAME_MAX_LENGTH} characters long.`
+    .check(
+      z.minLength(
+        NAME_MIN_LENGTH,
+        `Name must be at least ${NAME_MIN_LENGTH} characters long.`
+      ),
+      z.maxLength(
+        NAME_MAX_LENGTH,
+        `Name must be at most ${NAME_MAX_LENGTH} characters long.`
+      )
     ),
   organizationId: z.string({
     message: 'Organization id must be a string',
@@ -43,9 +45,11 @@ const projectZodSchema = z.object({
         message: 'Members must contain only string elements.',
       })
     )
-    .min(
-      MEMBERS_MIN_LENGTH,
-      `Members must be at least ${MEMBERS_MIN_LENGTH} items long.`
+    .check(
+      z.minLength(
+        MEMBERS_MIN_LENGTH,
+        `Members must be at least ${MEMBERS_MIN_LENGTH} items long.`
+      )
     ),
   adminsIds: z
     .array(
@@ -53,9 +57,11 @@ const projectZodSchema = z.object({
         message: 'Members must contain only string elements.',
       })
     )
-    .min(
-      MEMBERS_MIN_LENGTH,
-      `Members must be at least ${MEMBERS_MIN_LENGTH} items long.`
+    .check(
+      z.minLength(
+        MEMBERS_MIN_LENGTH,
+        `Members must be at least ${MEMBERS_MIN_LENGTH} items long.`
+      )
     ),
 });
 
@@ -79,12 +85,12 @@ export const validateProject = async (
     {} as Record<string, true>
   );
 
-  const schema = projectZodSchema.pick(mask as any);
+  const schema = z.pick(projectZodSchema, mask as any);
   const parsed = schema.safeParse(project);
 
   const errors: ValidationErrors = parsed.success
     ? {}
-    : (parsed.error.flatten().fieldErrors as ValidationErrors);
+    : (z.flattenError(parsed.error).fieldErrors as ValidationErrors);
 
   // Async validations
   if (

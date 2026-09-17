@@ -25,7 +25,7 @@ import {
 } from 'lucide-react';
 import { type FC, useEffect, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { z } from 'zod';
+import { z } from 'zod/mini';
 import { CIWorkflowModal } from './CIWorkflowModal';
 import { WebhookModal } from './WebhookModal';
 

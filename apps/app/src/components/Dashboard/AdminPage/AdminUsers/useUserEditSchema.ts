@@ -1,36 +1,46 @@
 import { useIntlayer } from 'react-intlayer';
-import { z } from 'zod';
+import { z } from 'zod/mini';
 
 export const useUserEditSchema = () => {
   const { formValidation } = useIntlayer('user-edit-form');
 
   return z.object({
-    name: z
-      .string({
-        error: () => formValidation.nameRequired.value,
-      })
-      .min(1, { error: formValidation.nameRequired.value })
-      .max(100, { error: formValidation.nameTooLong.value })
-      .default(''),
-    email: z
-      .email({
-        error: () => formValidation.emailInvalid.value,
-      })
-      .min(1, { error: formValidation.emailRequired.value })
-      .default(''),
-    role: z
-      .string({
-        error: () => formValidation.roleRequired.value,
-      })
-      .min(1, { error: formValidation.roleRequired.value })
-      .default('user'),
-    lang: z
-      .string({
-        error: () => formValidation.langRequired.value,
-      })
-      .min(1, { error: formValidation.langRequired.value })
-      .default('en'),
-    organizationIds: z.array(z.string()).default([]),
+    name: z._default(
+      z
+        .string({
+          error: () => formValidation.nameRequired.value,
+        })
+        .check(
+          z.minLength(1, { error: formValidation.nameRequired.value }),
+          z.maxLength(100, { error: formValidation.nameTooLong.value })
+        ),
+      ''
+    ),
+    email: z._default(
+      z
+        .email({
+          error: () => formValidation.emailInvalid.value,
+        })
+        .check(z.minLength(1, { error: formValidation.emailRequired.value })),
+      ''
+    ),
+    role: z._default(
+      z
+        .string({
+          error: () => formValidation.roleRequired.value,
+        })
+        .check(z.minLength(1, { error: formValidation.roleRequired.value })),
+      'user'
+    ),
+    lang: z._default(
+      z
+        .string({
+          error: () => formValidation.langRequired.value,
+        })
+        .check(z.minLength(1, { error: formValidation.langRequired.value })),
+      'en'
+    ),
+    organizationIds: z._default(z.array(z.string()), []),
   });
 };
 

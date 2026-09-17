@@ -85,7 +85,7 @@ export const useAppWebMCPTools = (): AnyWebMCPTool[] => {
   const { mutateAsync: selectProject } = useSelectProject();
 
   const getSession: AnyWebMCPTool = {
-    name: 'get_session',
+    name: 'getSession',
     description:
       'Describe the current dashboard session: whether the user is signed in, who they are, and which organization, project and environment are selected. Call it first to know what the other tools can reach.',
     inputSchema: {
@@ -117,7 +117,7 @@ export const useAppWebMCPTools = (): AnyWebMCPTool[] => {
   };
 
   const navigateToPage: AnyWebMCPTool = {
-    name: 'navigate_to_page',
+    name: 'navigateToPage',
     description: `Navigate the current tab to a page of the Intlayer dashboard. Known paths: ${DASHBOARD_PATHS.map((path) => `\`${path}\``).join(', ')}, and \`${App_Dashboard_Dictionaries_Path}/<dictionaryKey>\` to open a dictionary. The path is localized automatically.`,
     inputSchema: {
       type: 'object',
@@ -127,6 +127,7 @@ export const useAppWebMCPTools = (): AnyWebMCPTool[] => {
       required: ['path'],
       additionalProperties: false,
     },
+    annotations: { readOnlyHint: false, idempotentHint: true },
     execute: async ({ path }: NavigateToPageInput) => {
       const target = resolveSameOriginPath(path);
 
@@ -145,7 +146,7 @@ export const useAppWebMCPTools = (): AnyWebMCPTool[] => {
   };
 
   const openAuthentication: AnyWebMCPTool = {
-    name: 'open_authentication',
+    name: 'openAuthentication',
     description:
       'Send the user to the sign-in or sign-up page of the dashboard, optionally returning to a given path afterwards. Does nothing when the user is already signed in.',
     inputSchema: {
@@ -164,6 +165,7 @@ export const useAppWebMCPTools = (): AnyWebMCPTool[] => {
       },
       additionalProperties: false,
     },
+    annotations: { readOnlyHint: false, idempotentHint: true },
     execute: async ({
       mode = 'login',
       redirectPath,
@@ -188,7 +190,7 @@ export const useAppWebMCPTools = (): AnyWebMCPTool[] => {
   };
 
   const signOut: AnyWebMCPTool = {
-    name: 'sign_out',
+    name: 'signOut',
     description:
       'Sign the user out of the Intlayer dashboard and return to its home page.',
     inputSchema: {
@@ -196,7 +198,7 @@ export const useAppWebMCPTools = (): AnyWebMCPTool[] => {
       properties: {},
       additionalProperties: false,
     },
-    annotations: { consequentialHint: true },
+    annotations: { readOnlyHint: false, consequentialHint: true },
     execute: async () => {
       if (!isAuthenticated) {
         return 'Nobody is signed in.';
@@ -211,7 +213,7 @@ export const useAppWebMCPTools = (): AnyWebMCPTool[] => {
   };
 
   const listProjects: AnyWebMCPTool = {
-    name: 'list_projects',
+    name: 'listProjects',
     description:
       'List the projects of the selected organization, with their id and name. Requires a signed-in user with an organization selected.',
     inputSchema: {
@@ -248,9 +250,9 @@ export const useAppWebMCPTools = (): AnyWebMCPTool[] => {
   };
 
   const selectProjectTool: AnyWebMCPTool = {
-    name: 'select_project',
+    name: 'selectProject',
     description:
-      'Make a project the active one for the session, so dictionary tools and dashboard pages show its content. Use `list_projects` to find its id.',
+      'Make a project the active one for the session, so dictionary tools and dashboard pages show its content. Use `listProjects` to find its id.',
     inputSchema: {
       type: 'object',
       properties: {
@@ -259,6 +261,7 @@ export const useAppWebMCPTools = (): AnyWebMCPTool[] => {
       required: ['projectId'],
       additionalProperties: false,
     },
+    annotations: { readOnlyHint: false, idempotentHint: true },
     execute: async ({ projectId }: SelectProjectInput) => {
       const response = await selectProject({ projectId });
 
@@ -267,7 +270,7 @@ export const useAppWebMCPTools = (): AnyWebMCPTool[] => {
   };
 
   const listDictionaries: AnyWebMCPTool = {
-    name: 'list_dictionaries',
+    name: 'listDictionaries',
     description:
       'List the content dictionaries of the selected project, with their key, title, description and tags. Requires a project to be selected.',
     inputSchema: {
@@ -285,7 +288,7 @@ export const useAppWebMCPTools = (): AnyWebMCPTool[] => {
     annotations: { readOnlyHint: true },
     execute: async ({ search, page, pageSize }: ListInput, options) => {
       if (!session?.project) {
-        return 'No project is selected; use `select_project` first.';
+        return 'No project is selected; use `selectProject` first.';
       }
 
       const response = await dictionaryAPI.getDictionaries(
@@ -309,9 +312,9 @@ export const useAppWebMCPTools = (): AnyWebMCPTool[] => {
   };
 
   const getDictionary: AnyWebMCPTool = {
-    name: 'get_dictionary',
+    name: 'getDictionary',
     description:
-      'Read one content dictionary of the selected project by key, including its full multilingual content. Open it for editing with `navigate_to_page`.',
+      'Read one content dictionary of the selected project by key, including its full multilingual content. Open it for editing with `navigateToPage`.',
     inputSchema: {
       type: 'object',
       properties: {
@@ -323,7 +326,7 @@ export const useAppWebMCPTools = (): AnyWebMCPTool[] => {
     annotations: { readOnlyHint: true, untrustedContentHint: true },
     execute: async ({ dictionaryKey }: GetDictionaryInput, options) => {
       if (!session?.project) {
-        return 'No project is selected; use `select_project` first.';
+        return 'No project is selected; use `selectProject` first.';
       }
 
       const response = await dictionaryAPI.getDictionary(

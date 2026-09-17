@@ -1,5 +1,5 @@
 import { useIntlayer } from 'react-intlayer';
-import { z } from 'zod';
+import { z } from 'zod/mini';
 
 export const useSignInSchema = () => {
   const {
@@ -10,25 +10,29 @@ export const useSignInSchema = () => {
   } = useIntlayer('sign-in-schema');
 
   return z.object({
-    email: z
-      .email({
-        error: (issue) =>
-          issue.input === undefined
-            ? requiredErrorEmail.value
-            : invalidTypeErrorEmail.value,
-      })
-      .min(1, { error: invalidTypeErrorEmail.value })
-      .default(''),
-    password: z
-      .string({
-        error: (issue) =>
-          issue.input === undefined
-            ? requiredErrorPassword.value
-            : invalidTypeErrorPassword.value,
-      })
-      .min(1, { error: invalidTypeErrorPassword.value })
-      .default(''),
-    rememberMe: z.boolean().default(false),
+    email: z._default(
+      z
+        .email({
+          error: (issue) =>
+            issue.input === undefined
+              ? requiredErrorEmail.value
+              : invalidTypeErrorEmail.value,
+        })
+        .check(z.minLength(1, { error: invalidTypeErrorEmail.value })),
+      ''
+    ),
+    password: z._default(
+      z
+        .string({
+          error: (issue) =>
+            issue.input === undefined
+              ? requiredErrorPassword.value
+              : invalidTypeErrorPassword.value,
+        })
+        .check(z.minLength(1, { error: invalidTypeErrorPassword.value })),
+      ''
+    ),
+    rememberMe: z._default(z.boolean(), false),
   });
 };
 export type SignIn = z.infer<ReturnType<typeof useSignInSchema>>;

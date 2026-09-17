@@ -1,5 +1,5 @@
 import { useIntlayer } from 'react-intlayer';
-import { z } from 'zod';
+import { z } from 'zod/mini';
 
 export const useSubmitProjectFormSchema = () => {
   const { projectNameRequired, urlInvalid, projectUrlRequired, maxUseCases } =
@@ -14,37 +14,45 @@ export const useSubmitProjectFormSchema = () => {
   };
 
   return z.object({
-    name: z.string().min(1, projectNameRequired.value).max(255),
-    url: z
+    name: z
       .string()
-      .transform(ensureHttps)
-      .pipe(
-        z
-          .url(urlInvalid.value)
-          .refine(
+      .check(z.minLength(1, projectNameRequired.value), z.maxLength(255)),
+    url: z.union([
+      z.pipe(
+        z.pipe(z.string(), z.transform(ensureHttps)),
+        z.url(urlInvalid.value).check(
+          z.refine(
             (val) => !/github\.com|gitlab\.com|bitbucket\.org/.test(val),
             {
               message:
                 'Repository URLs should be placed in the GitHub URL field',
             }
           )
-      )
-      .or(z.string().min(1, projectUrlRequired.value)),
-    githubUrl: z
-      .string()
-      .transform(ensureHttps)
-      .pipe(
-        z
-          .url(urlInvalid.value)
-          .refine(
-            (val) =>
-              /github\.com|gitlab\.com|bitbucket\.org/.test(val) || val === '',
-            { message: 'Must be a GitHub, GitLab, or Bitbucket URL' }
-          )
-      )
-      .optional()
-      .or(z.literal('')),
-    useCases: z.array(z.string()).max(3, maxUseCases.value).optional(),
+        )
+      ),
+      z.string().check(z.minLength(1, projectUrlRequired.value)),
+    ]),
+    githubUrl: z.union([
+      z.optional(
+        z.pipe(
+          z.pipe(z.string(), z.transform(ensureHttps)),
+          z
+            .url(urlInvalid.value)
+            .check(
+              z.refine(
+                (val) =>
+                  /github\.com|gitlab\.com|bitbucket\.org/.test(val) ||
+                  val === '',
+                { message: 'Must be a GitHub, GitLab, or Bitbucket URL' }
+              )
+            )
+        )
+      ),
+      z.literal(''),
+    ]),
+    useCases: z.optional(
+      z.array(z.string()).check(z.maxLength(3, maxUseCases.value))
+    ),
   });
 };
 

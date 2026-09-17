@@ -151,7 +151,6 @@
         "validator": "13.15.35",
         "winston": "3.19.0",
         "zod": "4.6.5",
-        "zod-to-json-schema": "3.25.2",
       },
       "devDependencies": {
         "@intlayer/config": "workspace:*",

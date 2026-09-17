@@ -11,6 +11,7 @@ import {
   type GetConfigurationOptions,
   getConfigurationAndFilePath,
   intlayerConfigSchema,
+  intlayerConfigSchemaParseContext,
 } from '@intlayer/config/node';
 import { formatPath, runOnce } from './utils';
 
@@ -62,7 +63,10 @@ export const logConfigDetails = (options?: GetConfigurationOptions) => {
       }
 
       if (customConfiguration) {
-        const validation = intlayerConfigSchema.safeParse(customConfiguration);
+        const validation = intlayerConfigSchema.safeParse(
+          customConfiguration,
+          intlayerConfigSchemaParseContext
+        );
 
         if (!validation.success) {
           const errorMessages = validation.error.issues

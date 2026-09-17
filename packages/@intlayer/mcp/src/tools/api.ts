@@ -2,24 +2,20 @@ import { getIntlayerAPI } from '@intlayer/api';
 import { editor } from '@intlayer/config/built';
 import { getEditorClientSecret } from '@intlayer/config/secrets';
 import type { ContentNode } from '@intlayer/types/dictionary';
-import z from 'zod';
+import { z } from 'zod/mini';
 import type { McpServer } from './docs';
 
 type LoadAPITools = (server: McpServer) => void;
 
 const authSchema = {
-  clientId: z
-    .string()
-    .optional()
-    .describe(
-      'Intlayer OAuth2 client ID (access key). Falls back to INTLAYER_CLIENT_ID env var.'
-    ),
-  clientSecret: z
-    .string()
-    .optional()
-    .describe(
-      'Intlayer OAuth2 client secret. Falls back to INTLAYER_CLIENT_SECRET env var.'
-    ),
+  clientId: z.optional(z.string()).register(z.globalRegistry, {
+    description:
+      'Intlayer OAuth2 client ID (access key). Falls back to INTLAYER_CLIENT_ID env var.',
+  }),
+  clientSecret: z.optional(z.string()).register(z.globalRegistry, {
+    description:
+      'Intlayer OAuth2 client secret. Falls back to INTLAYER_CLIENT_SECRET env var.',
+  }),
 };
 
 const getAPI = async (clientId?: string, clientSecret?: string) => {
@@ -82,8 +78,12 @@ export const loadAPITools: LoadAPITools = (server) => {
         'List all dictionaries for the selected project. Returns keys, IDs, and metadata.',
       inputSchema: {
         ...authSchema,
-        page: z.number().optional().describe('Page number (1-based)'),
-        pageSize: z.number().optional().describe('Items per page'),
+        page: z
+          .optional(z.number())
+          .register(z.globalRegistry, { description: 'Page number (1-based)' }),
+        pageSize: z
+          .optional(z.number())
+          .register(z.globalRegistry, { description: 'Items per page' }),
       },
       annotations: { readOnlyHint: true },
     },
@@ -108,7 +108,9 @@ export const loadAPITools: LoadAPITools = (server) => {
       description: 'Get a dictionary by its key, including its full content.',
       inputSchema: {
         ...authSchema,
-        dictionaryKey: z.string().describe('The dictionary key'),
+        dictionaryKey: z
+          .string()
+          .register(z.globalRegistry, { description: 'The dictionary key' }),
       },
       annotations: { readOnlyHint: true },
     },
@@ -130,21 +132,24 @@ export const loadAPITools: LoadAPITools = (server) => {
       description: 'Create a new dictionary in the selected project.',
       inputSchema: {
         ...authSchema,
-        projectId: z
-          .string()
-          .describe(
-            'ID of the CMS project owning the dictionary. Must be the currently selected project.'
-          ),
-        key: z.string().describe('Unique key for the dictionary'),
-        title: z.string().optional().describe('Human-readable title'),
-        description: z
-          .string()
-          .optional()
-          .describe('Description of the dictionary'),
+        projectId: z.string().register(z.globalRegistry, {
+          description:
+            'ID of the CMS project owning the dictionary. Must be the currently selected project.',
+        }),
+        key: z.string().register(z.globalRegistry, {
+          description: 'Unique key for the dictionary',
+        }),
+        title: z
+          .optional(z.string())
+          .register(z.globalRegistry, { description: 'Human-readable title' }),
+        description: z.optional(z.string()).register(z.globalRegistry, {
+          description: 'Description of the dictionary',
+        }),
         content: z
-          .record(z.string(), z.unknown())
-          .optional()
-          .describe('Initial content as JSON object'),
+          .optional(z.record(z.string(), z.unknown()))
+          .register(z.globalRegistry, {
+            description: 'Initial content as JSON object',
+          }),
       },
       annotations: { destructiveHint: false },
     },
@@ -182,14 +187,23 @@ export const loadAPITools: LoadAPITools = (server) => {
       description: 'Update an existing dictionary content or metadata.',
       inputSchema: {
         ...authSchema,
-        id: z.string().describe('Dictionary ID'),
-        key: z.string().optional().describe('New key for the dictionary'),
-        title: z.string().optional().describe('New title'),
-        description: z.string().optional().describe('New description'),
+        id: z
+          .string()
+          .register(z.globalRegistry, { description: 'Dictionary ID' }),
+        key: z.optional(z.string()).register(z.globalRegistry, {
+          description: 'New key for the dictionary',
+        }),
+        title: z
+          .optional(z.string())
+          .register(z.globalRegistry, { description: 'New title' }),
+        description: z
+          .optional(z.string())
+          .register(z.globalRegistry, { description: 'New description' }),
         content: z
-          .record(z.string(), z.unknown())
-          .optional()
-          .describe('Updated content as JSON object'),
+          .optional(z.record(z.string(), z.unknown()))
+          .register(z.globalRegistry, {
+            description: 'Updated content as JSON object',
+          }),
       },
       annotations: { destructiveHint: true },
     },
@@ -226,7 +240,9 @@ export const loadAPITools: LoadAPITools = (server) => {
         'Delete a dictionary by its ID. This action is irreversible.',
       inputSchema: {
         ...authSchema,
-        dictionaryId: z.string().describe('Dictionary ID to delete'),
+        dictionaryId: z.string().register(z.globalRegistry, {
+          description: 'Dictionary ID to delete',
+        }),
       },
       annotations: { destructiveHint: true },
     },
@@ -250,8 +266,12 @@ export const loadAPITools: LoadAPITools = (server) => {
       description: 'List all tags for the selected organization.',
       inputSchema: {
         ...authSchema,
-        page: z.number().optional().describe('Page number (1-based)'),
-        pageSize: z.number().optional().describe('Items per page'),
+        page: z
+          .optional(z.number())
+          .register(z.globalRegistry, { description: 'Page number (1-based)' }),
+        pageSize: z
+          .optional(z.number())
+          .register(z.globalRegistry, { description: 'Items per page' }),
       },
       annotations: { readOnlyHint: true },
     },
@@ -274,13 +294,18 @@ export const loadAPITools: LoadAPITools = (server) => {
         'Create a new tag in the organization. Tags can be used to group dictionaries and provide AI context.',
       inputSchema: {
         ...authSchema,
-        key: z.string().describe('Unique tag key'),
-        name: z.string().optional().describe('Display name for the tag'),
-        description: z.string().optional().describe('Description of the tag'),
-        instructions: z
+        key: z
           .string()
-          .optional()
-          .describe('AI instructions to apply when this tag is used'),
+          .register(z.globalRegistry, { description: 'Unique tag key' }),
+        name: z.optional(z.string()).register(z.globalRegistry, {
+          description: 'Display name for the tag',
+        }),
+        description: z.optional(z.string()).register(z.globalRegistry, {
+          description: 'Description of the tag',
+        }),
+        instructions: z.optional(z.string()).register(z.globalRegistry, {
+          description: 'AI instructions to apply when this tag is used',
+        }),
       },
       annotations: { destructiveHint: false },
     },
@@ -314,11 +339,21 @@ export const loadAPITools: LoadAPITools = (server) => {
       description: 'Update an existing tag.',
       inputSchema: {
         ...authSchema,
-        tagId: z.string().describe('Tag ID to update'),
-        key: z.string().optional().describe('New key'),
-        name: z.string().optional().describe('New display name'),
-        description: z.string().optional().describe('New description'),
-        instructions: z.string().optional().describe('New AI instructions'),
+        tagId: z
+          .string()
+          .register(z.globalRegistry, { description: 'Tag ID to update' }),
+        key: z
+          .optional(z.string())
+          .register(z.globalRegistry, { description: 'New key' }),
+        name: z
+          .optional(z.string())
+          .register(z.globalRegistry, { description: 'New display name' }),
+        description: z
+          .optional(z.string())
+          .register(z.globalRegistry, { description: 'New description' }),
+        instructions: z
+          .optional(z.string())
+          .register(z.globalRegistry, { description: 'New AI instructions' }),
       },
       annotations: { destructiveHint: true },
     },
@@ -353,7 +388,9 @@ export const loadAPITools: LoadAPITools = (server) => {
       description: 'Delete a tag by its ID.',
       inputSchema: {
         ...authSchema,
-        tagId: z.string().describe('Tag ID to delete'),
+        tagId: z
+          .string()
+          .register(z.globalRegistry, { description: 'Tag ID to delete' }),
       },
       annotations: { destructiveHint: true },
     },
@@ -377,8 +414,12 @@ export const loadAPITools: LoadAPITools = (server) => {
       description: 'List all organizations the authenticated user belongs to.',
       inputSchema: {
         ...authSchema,
-        page: z.number().optional().describe('Page number (1-based)'),
-        pageSize: z.number().optional().describe('Items per page'),
+        page: z
+          .optional(z.number())
+          .register(z.globalRegistry, { description: 'Page number (1-based)' }),
+        pageSize: z
+          .optional(z.number())
+          .register(z.globalRegistry, { description: 'Items per page' }),
       },
       annotations: { readOnlyHint: true },
     },
@@ -404,7 +445,9 @@ export const loadAPITools: LoadAPITools = (server) => {
         'Select an organization as the current active organization. Required before accessing organization-specific resources.',
       inputSchema: {
         ...authSchema,
-        organizationId: z.string().describe('Organization ID to select'),
+        organizationId: z.string().register(z.globalRegistry, {
+          description: 'Organization ID to select',
+        }),
       },
       annotations: { destructiveHint: false },
     },
@@ -427,7 +470,9 @@ export const loadAPITools: LoadAPITools = (server) => {
       description: 'Update the selected organization name or settings.',
       inputSchema: {
         ...authSchema,
-        name: z.string().optional().describe('New organization name'),
+        name: z
+          .optional(z.string())
+          .register(z.globalRegistry, { description: 'New organization name' }),
       },
       annotations: { destructiveHint: true },
     },
@@ -454,8 +499,12 @@ export const loadAPITools: LoadAPITools = (server) => {
         'List all Intlayer CMS projects for the selected organization. These are server-side projects, not local project directories.',
       inputSchema: {
         ...authSchema,
-        page: z.number().optional().describe('Page number (1-based)'),
-        pageSize: z.number().optional().describe('Items per page'),
+        page: z
+          .optional(z.number())
+          .register(z.globalRegistry, { description: 'Page number (1-based)' }),
+        pageSize: z
+          .optional(z.number())
+          .register(z.globalRegistry, { description: 'Items per page' }),
       },
       annotations: { readOnlyHint: true },
     },
@@ -478,7 +527,9 @@ export const loadAPITools: LoadAPITools = (server) => {
         'Select a CMS project as the current active project. Required before accessing project-specific dictionaries.',
       inputSchema: {
         ...authSchema,
-        projectId: z.string().describe('Project ID to select'),
+        projectId: z
+          .string()
+          .register(z.globalRegistry, { description: 'Project ID to select' }),
       },
       annotations: { destructiveHint: false },
     },
@@ -500,7 +551,9 @@ export const loadAPITools: LoadAPITools = (server) => {
       description: 'Create a new CMS project in the selected organization.',
       inputSchema: {
         ...authSchema,
-        name: z.string().describe('Project name'),
+        name: z
+          .string()
+          .register(z.globalRegistry, { description: 'Project name' }),
       },
       annotations: { destructiveHint: false },
     },
@@ -522,7 +575,9 @@ export const loadAPITools: LoadAPITools = (server) => {
       description: 'Update the selected CMS project settings.',
       inputSchema: {
         ...authSchema,
-        name: z.string().optional().describe('New project name'),
+        name: z
+          .optional(z.string())
+          .register(z.globalRegistry, { description: 'New project name' }),
       },
       annotations: { destructiveHint: true },
     },
@@ -547,7 +602,9 @@ export const loadAPITools: LoadAPITools = (server) => {
         'Select a CMS environment as the current active environment. Required before accessing environment-specific dictionaries.',
       inputSchema: {
         ...authSchema,
-        environmentId: z.string().describe('Environment ID to select'),
+        environmentId: z.string().register(z.globalRegistry, {
+          description: 'Environment ID to select',
+        }),
       },
       annotations: { destructiveHint: false },
     },
@@ -591,7 +648,9 @@ export const loadAPITools: LoadAPITools = (server) => {
       description: 'Create a new CMS environment in the selected project.',
       inputSchema: {
         ...authSchema,
-        name: z.string().describe('Environment name'),
+        name: z
+          .string()
+          .register(z.globalRegistry, { description: 'Environment name' }),
       },
       annotations: { destructiveHint: false },
     },
@@ -613,8 +672,12 @@ export const loadAPITools: LoadAPITools = (server) => {
       description: 'Update the selected CMS environment settings.',
       inputSchema: {
         ...authSchema,
-        environmentId: z.string().describe('Environment ID to update'),
-        name: z.string().optional().describe('New environment name'),
+        environmentId: z.string().register(z.globalRegistry, {
+          description: 'Environment ID to update',
+        }),
+        name: z
+          .optional(z.string())
+          .register(z.globalRegistry, { description: 'New environment name' }),
       },
       annotations: { destructiveHint: true },
     },
@@ -638,7 +701,9 @@ export const loadAPITools: LoadAPITools = (server) => {
       description: 'Delete a CMS environment by its ID.',
       inputSchema: {
         ...authSchema,
-        environmentId: z.string().describe('Environment ID to delete'),
+        environmentId: z.string().register(z.globalRegistry, {
+          description: 'Environment ID to delete',
+        }),
       },
       annotations: { destructiveHint: true },
     },
@@ -661,21 +726,26 @@ export const loadAPITools: LoadAPITools = (server) => {
         'Migrate dictionaries and configuration from one environment to another.',
       inputSchema: {
         ...authSchema,
-        sourceEnvironmentId: z.string().describe('Source environment ID'),
-        targetEnvironmentId: z.string().describe('Target environment ID'),
+        sourceEnvironmentId: z
+          .string()
+          .register(z.globalRegistry, { description: 'Source environment ID' }),
+        targetEnvironmentId: z
+          .string()
+          .register(z.globalRegistry, { description: 'Target environment ID' }),
         strategy: z
           .enum(['overwrite', 'fill-missing'])
-          .describe(
-            'Migration strategy: overwrite existing or only fill missing'
-          ),
-        migrateContent: z
-          .boolean()
-          .optional()
-          .describe('Whether to migrate content (dictionaries)'),
+          .register(z.globalRegistry, {
+            description:
+              'Migration strategy: overwrite existing or only fill missing',
+          }),
+        migrateContent: z.optional(z.boolean()).register(z.globalRegistry, {
+          description: 'Whether to migrate content (dictionaries)',
+        }),
         migrateConfiguration: z
-          .boolean()
-          .optional()
-          .describe('Whether to migrate environment configuration'),
+          .optional(z.boolean())
+          .register(z.globalRegistry, {
+            description: 'Whether to migrate environment configuration',
+          }),
       },
       annotations: { destructiveHint: true },
     },

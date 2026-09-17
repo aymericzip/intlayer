@@ -11,14 +11,14 @@ import {
 import { Modal } from '@intlayer/design-system/modal';
 import { type FC, useEffect } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { z } from 'zod';
+import { z } from 'zod/mini';
 
 const createWebhookSchema = (nameRequired: string, invalidUrl: string) =>
   z.object({
-    name: z.string().min(1, nameRequired),
+    name: z.string().check(z.minLength(1, nameRequired)),
     url: z.url(invalidUrl),
-    secret: z.string().optional(),
-    enabled: z.boolean().default(true),
+    secret: z.optional(z.string()),
+    enabled: z._default(z.boolean(), true),
   });
 
 type WebhookFormData = z.infer<ReturnType<typeof createWebhookSchema>>;

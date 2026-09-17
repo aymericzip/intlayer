@@ -1,5 +1,5 @@
 import { useIntlayer } from 'react-intlayer';
-import { z } from 'zod';
+import { z } from 'zod/mini';
 
 export const useTagSchema = () => {
   const {
@@ -21,39 +21,46 @@ export const useTagSchema = () => {
             ? requiredErrorKey.value
             : invalidTypeErrorKey.value,
       })
-      .min(1, { error: invalidTypeErrorKey.value })
-      .max(20, { error: invalidTypeErrorKey.value }),
+      .check(
+        z.minLength(1, { error: invalidTypeErrorKey.value }),
+        z.maxLength(20, { error: invalidTypeErrorKey.value })
+      ),
 
-    name: z
-      .string({
-        error: (issue) =>
-          issue.input === undefined
-            ? requiredErrorName.value
-            : invalidTypeErrorName.value,
-      })
-      .min(1, { error: invalidTypeErrorName.value })
-      .max(50, { error: invalidTypeErrorName.value })
-      .optional(),
+    name: z.optional(
+      z
+        .string({
+          error: (issue) =>
+            issue.input === undefined
+              ? requiredErrorName.value
+              : invalidTypeErrorName.value,
+        })
+        .check(
+          z.minLength(1, { error: invalidTypeErrorName.value }),
+          z.maxLength(50, { error: invalidTypeErrorName.value })
+        )
+    ),
 
-    description: z
-      .string({
-        error: (issue) =>
-          issue.input === undefined
-            ? requiredErrorDescription.value
-            : invalidTypeErrorDescription.value,
-      })
-      .min(1, { error: invalidTypeErrorDescription.value })
-      .optional(),
+    description: z.optional(
+      z
+        .string({
+          error: (issue) =>
+            issue.input === undefined
+              ? requiredErrorDescription.value
+              : invalidTypeErrorDescription.value,
+        })
+        .check(z.minLength(1, { error: invalidTypeErrorDescription.value }))
+    ),
 
-    instructions: z
-      .string({
-        error: (issue) =>
-          issue.input === undefined
-            ? requiredErrorInstructions.value
-            : invalidTypeErrorInstructions.value,
-      })
-      .min(1, { error: invalidTypeErrorInstructions.value })
-      .optional(),
+    instructions: z.optional(
+      z
+        .string({
+          error: (issue) =>
+            issue.input === undefined
+              ? requiredErrorInstructions.value
+              : invalidTypeErrorInstructions.value,
+        })
+        .check(z.minLength(1, { error: invalidTypeErrorInstructions.value }))
+    ),
   });
 };
 

@@ -1,5 +1,5 @@
 import { useIntlayer } from 'react-intlayer';
-import { z } from 'zod';
+import { z } from 'zod/mini';
 
 export const useOrganizationMembersSchema = () => {
   const { requiredErrorMember, requiredErrorAdmin } = useIntlayer(
@@ -9,8 +9,10 @@ export const useOrganizationMembersSchema = () => {
   return z.object({
     membersIds: z
       .array(z.string())
-      .min(1, { error: requiredErrorMember.value }),
-    adminsIds: z.array(z.string()).min(1, { error: requiredErrorAdmin.value }),
+      .check(z.minLength(1, { error: requiredErrorMember.value })),
+    adminsIds: z
+      .array(z.string())
+      .check(z.minLength(1, { error: requiredErrorAdmin.value })),
   });
 };
 

@@ -1,9 +1,14 @@
 import { jsonSchema, tool } from '@intlayer/ai';
 import { loadAPITools, loadDocsTools } from '@intlayer/mcp/tools';
-import z from 'zod';
-import { zodToJsonSchema } from 'zod-to-json-schema';
+import { z } from 'zod/mini';
 
-type ZodShape = Record<string, z.ZodTypeAny>;
+type ZodShape = Record<string, z.ZodMiniType>;
+
+/** The JSON schema shape `jsonSchema()` accepts (draft-7). */
+type AcceptedJSONSchema = Extract<
+  Parameters<typeof jsonSchema>[0],
+  { type?: unknown }
+>;
 
 type CollectedTool = {
   description: string;
@@ -21,8 +26,8 @@ const createToolCollector = () => {
     registerTool(name: string, config: any, handler: CollectedTool['handler']) {
       const inputShape: ZodShape = {};
       for (const [key, value] of Object.entries(config.inputSchema ?? {})) {
-        if (value instanceof z.ZodType) {
-          inputShape[key] = value as z.ZodTypeAny;
+        if (value instanceof z.ZodMiniType) {
+          inputShape[key] = value as z.ZodMiniType;
         }
       }
       collected[name] = {
@@ -37,10 +42,10 @@ const createToolCollector = () => {
 };
 
 const shapeToJsonSchema = (shape: ZodShape) => {
-  const raw = zodToJsonSchema(z.object(shape) as any, {
-    target: 'jsonSchema7',
-  }) as Record<string, any>;
-  return jsonSchema({ type: 'object', ...raw });
+  const { $schema: _schema, ...raw } = z.toJSONSchema(z.object(shape), {
+    target: 'draft-7',
+  });
+  return jsonSchema({ type: 'object', ...raw } as AcceptedJSONSchema);
 };
 
 const resultToString = (result: {

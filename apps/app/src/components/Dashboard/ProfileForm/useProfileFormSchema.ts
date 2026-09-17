@@ -1,5 +1,5 @@
 import { useIntlayer } from 'react-intlayer';
-import { z } from 'zod';
+import { z } from 'zod/mini';
 
 export const useProfileFormSchema = () => {
   const { requiredErrorName, invalidTypeErrorName } = useIntlayer(
@@ -7,15 +7,17 @@ export const useProfileFormSchema = () => {
   );
 
   return z.object({
-    name: z
-      .string({
-        error: (issue) =>
-          issue.input === undefined
-            ? requiredErrorName.value
-            : invalidTypeErrorName.value,
-      })
-      .min(1, invalidTypeErrorName.value)
-      .default(''),
+    name: z._default(
+      z
+        .string({
+          error: (issue) =>
+            issue.input === undefined
+              ? requiredErrorName.value
+              : invalidTypeErrorName.value,
+        })
+        .check(z.minLength(1, invalidTypeErrorName.value)),
+      ''
+    ),
   });
 };
 export type ProfileFormData = z.infer<ReturnType<typeof useProfileFormSchema>>;

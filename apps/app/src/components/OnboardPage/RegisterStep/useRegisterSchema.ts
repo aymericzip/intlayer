@@ -1,5 +1,5 @@
 import { useIntlayer } from 'react-intlayer';
-import { z } from 'zod';
+import { z } from 'zod/mini';
 
 export const useRegisterSchema = () => {
   const { requiredErrorEmail, invalidTypeErrorEmail } = useIntlayer(
@@ -14,7 +14,7 @@ export const useRegisterSchema = () => {
             ? requiredErrorEmail.value
             : invalidTypeErrorEmail.value,
       })
-      .min(1, { error: invalidTypeErrorEmail.value }),
+      .check(z.minLength(1, { error: invalidTypeErrorEmail.value })),
   });
 };
 

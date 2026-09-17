@@ -1,5 +1,5 @@
 import { installLSP } from '@intlayer/engine/cli';
-import z from 'zod';
+import { z } from 'zod/mini';
 import type { McpServer } from './docs';
 
 export const loadInstallLSPTool = (server: McpServer): void => {
@@ -15,12 +15,12 @@ export const loadInstallLSPTool = (server: McpServer): void => {
         'Returns next-step instructions for installing the `@intlayer/lsp` binary and, optionally, ' +
         'registering the Intlayer Claude Code plugin.',
       inputSchema: {
-        projectRoot: z
-          .string()
-          .describe(
-            'Root directory of the project. Defaults to current working directory.'
-          )
-          .optional(),
+        projectRoot: z.optional(
+          z.string().register(z.globalRegistry, {
+            description:
+              'Root directory of the project. Defaults to current working directory.',
+          })
+        ),
       },
       annotations: {
         destructiveHint: true,

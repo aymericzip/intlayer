@@ -11,7 +11,7 @@ import {
 import { getIntlayer } from 'intlayer';
 import { type FC, useEffect, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { z } from 'zod';
+import { z } from 'zod/mini';
 
 type CommentStatus = 'pending' | 'approved' | 'rejected';
 
@@ -66,9 +66,9 @@ const postComment = async (payload: {
 };
 
 const commentSchema = z.object({
-  authorName: z.string().min(1).max(100),
-  authorEmail: z.email().max(254),
-  content: z.string().min(1).max(5000),
+  authorName: z.string().check(z.minLength(1), z.maxLength(100)),
+  authorEmail: z.email().check(z.maxLength(254)),
+  content: z.string().check(z.minLength(1), z.maxLength(5000)),
 });
 
 type CommentFormData = z.infer<typeof commentSchema>;
@@ -108,11 +108,18 @@ const CommentForm: FC<CommentFormProps> = ({
       borderColor="neutral"
       transparency="sm"
     >
-      <Form schema={commentSchema} onSubmitSuccess={handleSubmit} {...form}>
+      <Form
+        schema={commentSchema}
+        onSubmitSuccess={handleSubmit}
+        toolName="postBlogComment"
+        toolDescription="Post a public comment under this blog post. The user reviews the form before it is sent."
+        {...form}
+      >
         <div className="grid gap-4 sm:grid-cols-2">
           <FormInput
             name="authorName"
             label={content.name.value}
+            toolParamDescription="Display name of the commenter."
             placeholder={content.yourName.value}
             isRequired
           />
@@ -120,6 +127,7 @@ const CommentForm: FC<CommentFormProps> = ({
             name="authorEmail"
             type="email"
             label={content.email.value}
+            toolParamDescription="Email of the commenter (not published)."
             placeholder="your@email.com"
             isRequired
           />
@@ -128,6 +136,7 @@ const CommentForm: FC<CommentFormProps> = ({
         <FormTextArea
           name="content"
           label={content.comment.value}
+          toolParamDescription="The comment text."
           placeholder={content.shareYourThoughts.value}
           rows={4}
           isRequired

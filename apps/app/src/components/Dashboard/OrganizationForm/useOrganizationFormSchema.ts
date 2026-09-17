@@ -1,5 +1,5 @@
 import { useIntlayer } from 'react-intlayer';
-import { z } from 'zod';
+import { z } from 'zod/mini';
 
 export const useOrganizationSchema = () => {
   const { requiredErrorName, invalidTypeErrorName } = useIntlayer(
@@ -7,15 +7,17 @@ export const useOrganizationSchema = () => {
   );
 
   return z.object({
-    name: z
-      .string({
-        error: (issue) =>
-          issue.input === undefined
-            ? requiredErrorName.value
-            : invalidTypeErrorName.value,
-      })
-      .min(1, { error: invalidTypeErrorName.value })
-      .default(''),
+    name: z._default(
+      z
+        .string({
+          error: (issue) =>
+            issue.input === undefined
+              ? requiredErrorName.value
+              : invalidTypeErrorName.value,
+        })
+        .check(z.minLength(1, { error: invalidTypeErrorName.value })),
+      ''
+    ),
   });
 };
 

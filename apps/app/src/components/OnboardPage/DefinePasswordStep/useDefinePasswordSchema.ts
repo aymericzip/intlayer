@@ -1,5 +1,5 @@
 import { useIntlayer } from 'react-intlayer';
-import { z } from 'zod';
+import { z } from 'zod/mini';
 
 export const useDefinePasswordSchema = () => {
   const {
@@ -20,7 +20,7 @@ export const useDefinePasswordSchema = () => {
               ? requiredErrorNewPassword.value
               : invalidTypeErrorNewPassword.value,
         })
-        .min(8, invalidPasswordLengthError.value),
+        .check(z.minLength(8, invalidPasswordLengthError.value)),
       newPasswordConfirmation: z
         .string({
           error: (issue) =>
@@ -28,12 +28,14 @@ export const useDefinePasswordSchema = () => {
               ? requiredErrorNewPasswordConfirmation.value
               : invalidTypeErrorNewPasswordConfirmation.value,
         })
-        .min(8, invalidPasswordLengthError.value),
+        .check(z.minLength(8, invalidPasswordLengthError.value)),
     })
-    .refine((data) => data.newPassword === data.newPasswordConfirmation, {
-      message: passwordNotMatchError.value,
-      path: ['newPasswordConfirmation'], // This specifies which field the error should be associated with
-    });
+    .check(
+      z.refine((data) => data.newPassword === data.newPasswordConfirmation, {
+        message: passwordNotMatchError.value,
+        path: ['newPasswordConfirmation'], // This specifies which field the error should be associated with
+      })
+    );
 };
 
 export type DefinePassword = z.infer<

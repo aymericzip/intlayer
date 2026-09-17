@@ -1,5 +1,5 @@
 import type { AnyWebMCPTool } from '@intlayer/design-system/hooks';
-import type { ZodType } from 'zod';
+import type { ZodMiniType } from 'zod/mini';
 import type { AuditData, AuditStatus } from './Analyzer/Results/types';
 import type { ScanSnapshot } from './useLocalizationScan';
 
@@ -7,7 +7,7 @@ type ScanWebsiteInput = { url: string };
 
 type UseScannerWebMCPToolsOptions = {
   /** Validates and normalizes a URL the way the form does. */
-  urlSchema: ZodType<{ url: string }>;
+  urlSchema: ZodMiniType<{ url: string }>;
   /** Runs a scan and resolves with its outcome. */
   scan: (url: string) => Promise<ScanSnapshot>;
   /** Outcome of the last scan, from a previous visit too. */
@@ -77,7 +77,7 @@ export const useScannerWebMCPTools = ({
   isScanning,
 }: UseScannerWebMCPToolsOptions): AnyWebMCPTool[] => {
   const scanWebsite: AnyWebMCPTool = {
-    name: 'scan_website_i18n',
+    name: 'scanWebsiteI18n',
     description:
       'Audit the internationalization and SEO of a public website with the scanner on this page: locales, hreflang, html lang / dir, canonical, localized links, sitemap and robots. Returns a score out of 100 and every check with its status and details. Takes up to a minute; the report also appears on the page.',
     inputSchema: {
@@ -92,7 +92,11 @@ export const useScannerWebMCPTools = ({
       required: ['url'],
       additionalProperties: false,
     },
-    annotations: { untrustedContentHint: true },
+    annotations: {
+      readOnlyHint: false,
+      untrustedContentHint: true,
+      openWorldHint: true,
+    },
     execute: async ({ url }: ScanWebsiteInput) => {
       const parsed = urlSchema.safeParse({ url });
 
@@ -115,7 +119,7 @@ export const useScannerWebMCPTools = ({
   };
 
   const getScanResults: AnyWebMCPTool = {
-    name: 'get_i18n_scan_results',
+    name: 'getI18nScanResults',
     description:
       'Read the i18n SEO scan report currently displayed on this page, if any.',
     inputSchema: {
@@ -128,7 +132,7 @@ export const useScannerWebMCPTools = ({
       if (Object.keys(snapshot.mergedData).length === 0) {
         return isScanning
           ? 'A scan is in progress; no report yet.'
-          : 'No scan has been run on this page yet. Use `scan_website_i18n`.';
+          : 'No scan has been run on this page yet. Use `scanWebsiteI18n`.';
       }
 
       return describeSnapshot(snapshot);

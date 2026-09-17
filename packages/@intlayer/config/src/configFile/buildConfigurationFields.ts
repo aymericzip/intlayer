@@ -62,7 +62,10 @@ import {
   buildInternationalizationFields,
   buildLogFields,
 } from './buildBrowserConfiguration';
-import { intlayerConfigSchema } from './configurationSchema';
+import {
+  intlayerConfigSchema,
+  intlayerConfigSchemaParseContext,
+} from './configurationSchema';
 
 export {
   type BrowserIntlayerConfig,
@@ -787,7 +790,10 @@ export const buildConfigurationFields = (
   logFunctions?: LogFunctions
 ): IntlayerConfig => {
   if (customConfiguration) {
-    const result = intlayerConfigSchema.safeParse(customConfiguration);
+    const result = intlayerConfigSchema.safeParse(
+      customConfiguration,
+      intlayerConfigSchemaParseContext
+    );
 
     if (!result.success) {
       const logError = logFunctions?.error ?? console.error;
