@@ -562,7 +562,7 @@
     "framer-motion": "13.4.0",
     "fuse.js": "7.5.0",
     "intlayer": "workspace:*",
-    "lucide-react": "1.46.0",
+    "lucide-react": "1.47.0",
     "react": ">=16.0.0",
     "react-dom": ">=16.0.0",
     "react-hook-form": "7.88.0",
