@@ -1,11 +1,26 @@
 import { getDictionaries } from '@intlayer/dictionaries-entry';
-import { setupDevtoolsPlugin } from '@vue/devtools-api';
+import {
+  type PluginDescriptor,
+  type SetupFunction,
+  setupDevtoolsPlugin,
+} from '@vue/devtools-api';
 import type { App } from 'vue';
 import { formatDictionaryForInspector } from './formatDictionaryForInspector';
 
 export const INTLAYER_DEVTOOLS_PLUGIN_ID = 'intlayer';
 export const INTLAYER_DICTIONARIES_INSPECTOR_ID =
   'intlayer-dictionaries-inspector';
+
+/**
+ * `setupDevtoolsPlugin` narrows its descriptor through a recursive mapped
+ * type that walks `app: App` down to DOM `Element`, whose self-referencing
+ * aria properties make TypeScript 7 report a circular reference (TS2615).
+ * Re-typing the function with the plain descriptor type skips that walk.
+ */
+const registerDevtoolsPlugin: (
+  pluginDescriptor: PluginDescriptor,
+  setupFunction: SetupFunction
+) => void = setupDevtoolsPlugin;
 
 /**
  * Register the Intlayer plugin in Vue Devtools with a read-only inspector
@@ -16,7 +31,7 @@ export const INTLAYER_DICTIONARIES_INSPECTOR_ID =
  * no-ops when Vue Devtools is not installed.
  */
 export const enableIntlayerDevtools = (app: App): void => {
-  setupDevtoolsPlugin(
+  registerDevtoolsPlugin(
     {
       id: INTLAYER_DEVTOOLS_PLUGIN_ID,
       label: 'Intlayer',
