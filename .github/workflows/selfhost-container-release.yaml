@@ -10,6 +10,11 @@ name: 🐳 Self-host Container
 # (see docker/selfhost/Dockerfile), so the published image is reached on
 # http://localhost:3000. See docs/docs/en/self_hosting.md for the full flow.
 on:
+  push:
+    branches:
+      - 'main'
+    paths:
+      - 'package.json'
   workflow_dispatch:
     inputs:
       tag:
@@ -31,9 +36,29 @@ env:
   GHCR_IMAGE: ghcr.io/${{ github.repository_owner }}/intlayer-selfhost
 
 jobs:
+  check-version:
+    runs-on: ubuntu-latest
+    outputs:
+      changed: ${{ steps.check.outputs.changed }}
+      version: ${{ steps.check.outputs.version }}
+    steps:
+      - name: ⬇️ Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: 🔎 Check version change
+        id: check
+        run: bash .github/scripts/check-version-change.sh
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          REF_TYPE: ${{ github.ref_type }}
+          BEFORE_SHA: ${{ github.event.before }}
+
   build-and-push:
-    # Prevents the workflow from running on forks
-    if: ${{ github.repository_owner == 'aymericzip' }}
+    # Prevents the workflow from running on forks and only runs when version changed
+    needs: check-version
+    if: ${{ github.repository_owner == 'aymericzip' && needs.check-version.outputs.changed == 'true' }}
 
     name: 🐳 Build & push all-in-one image
     runs-on: ubuntu-latest
@@ -96,6 +121,8 @@ jobs:
           tags: |
             type=raw,value=latest
             type=raw,value=${{ github.event.inputs.tag }},enable=${{ github.event.inputs.tag != '' }}
+            type=raw,value=${{ needs.check-version.outputs.version }},enable=${{ github.event.inputs.tag == '' && needs.check-version.outputs.version != '' }}
+            type=raw,value=v${{ needs.check-version.outputs.version }},enable=${{ github.event.inputs.tag == '' && needs.check-version.outputs.version != '' }}
             type=sha,format=short
 
       - name: 🏗️ Build & push
@@ -103,7 +130,7 @@ jobs:
         with:
           context: .
           file: docker/selfhost/Dockerfile
-          platforms: ${{ github.event.inputs.platforms }}
+          platforms: ${{ github.event.inputs.platforms || 'linux/amd64,linux/arm64' }}
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}

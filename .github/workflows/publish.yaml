@@ -16,6 +16,11 @@
 name: 📦 Publish to npm
 
 on:
+  push:
+    branches:
+      - 'main'
+    paths:
+      - 'package.json'
   workflow_dispatch:
     inputs:
       dry-run:
@@ -30,9 +35,29 @@ permissions:
   id-token: write # required for npm trusted publishing (OIDC)
 
 jobs:
+  check-version:
+    runs-on: ubuntu-latest
+    outputs:
+      changed: ${{ steps.check.outputs.changed }}
+      version: ${{ steps.check.outputs.version }}
+    steps:
+      - name: ⬇️ Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: 🔎 Check version change
+        id: check
+        run: bash .github/scripts/check-version-change.sh
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          REF_TYPE: ${{ github.ref_type }}
+          BEFORE_SHA: ${{ github.event.before }}
+
   publish:
-    # Prevents the workflow from running on forks
-    if: ${{ github.repository_owner == 'aymericzip' }}
+    # Prevents the workflow from running on forks and only runs when version changed
+    needs: check-version
+    if: ${{ github.repository_owner == 'aymericzip' && needs.check-version.outputs.changed == 'true' }}
 
     name: 📦 Publish
     runs-on: ubuntu-latest
@@ -83,7 +108,7 @@ jobs:
       # The dist-tag comes from the version: 9.0.0 → latest, 9.0.0-canary.0 → canary
       - name: 🚀 Publish packages
         env:
-          PUBLISH_DRY_RUN: ${{ inputs.dry-run }}
+          PUBLISH_DRY_RUN: ${{ inputs.dry-run || false }}
         # turbo builds each package (dependsOn build + prepublish) before
         # publishing it, in dependency order
         run: bun run publish:ci
