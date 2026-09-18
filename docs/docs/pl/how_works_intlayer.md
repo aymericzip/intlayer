@@ -151,7 +151,7 @@ Pakiet `nuxt-intlayer` jest modułem Nuxt, który umożliwia korzystanie ze sło
 
 Pakiet `svelte-intlayer` jest używany do interpretacji słowników Intlayer i umożliwia ich użycie w aplikacjach Svelte.
 
-### solid-intlayer (WIP)
+### solid-intlayer
 
 Pakiet `solid-intlayer` jest używany do interpretacji słowników Intlayer i umożliwia ich użycie w aplikacjach Solid.js.
 
@@ -159,7 +159,7 @@ Pakiet `solid-intlayer` jest używany do interpretacji słowników Intlayer i um
 
 Pakiet `preact-intlayer` jest używany do interpretacji słowników Intlayer i umożliwia ich użycie w aplikacjach Preact.
 
-### angular-intlayer (WIP)
+### angular-intlayer
 
 Pakiet `angular-intlayer` jest używany do interpretacji słowników Intlayer i umożliwia ich użycie w aplikacjach Angular.
 

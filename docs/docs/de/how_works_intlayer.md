@@ -155,7 +155,7 @@ Das `nuxt-intlayer`-Paket ist ein Nuxt-Modul, um Intlayer-Wörterbücher in Nuxt
 
 Das `svelte-intlayer`-Paket wird verwendet, um Intlayer-Wörterbücher zu interpretieren und in Svelte-Anwendungen nutzbar zu machen.
 
-### solid-intlayer (WIP)
+### solid-intlayer
 
 Das `solid-intlayer`-Paket wird verwendet, um Intlayer-Wörterbücher zu interpretieren und in Solid.js-Anwendungen nutzbar zu machen.
 
@@ -163,7 +163,7 @@ Das `solid-intlayer`-Paket wird verwendet, um Intlayer-Wörterbücher zu interpr
 
 Das `preact-intlayer`-Paket wird verwendet, um Intlayer-Wörterbücher zu interpretieren und in Preact-Anwendungen nutzbar zu machen.
 
-### angular-intlayer (WIP)
+### angular-intlayer
 
 Das `angular-intlayer`-Paket wird verwendet, um Intlayer-Wörterbücher zu interpretieren und in Angular-Anwendungen nutzbar zu machen.
 

@@ -153,7 +153,7 @@ The `nuxt-intlayer` package is as Nuxt module to make Intlayer dictionaries usab
 
 The `svelte-intlayer` package is used to interpret Intlayer dictionaries and make them usable in Svelte applications.
 
-### solid-intlayer (WIP)
+### solid-intlayer
 
 The `solid-intlayer` package is used to interpret Intlayer dictionaries and make them usable in Solid.js applications.
 
@@ -161,7 +161,7 @@ The `solid-intlayer` package is used to interpret Intlayer dictionaries and make
 
 The `preact-intlayer` package is used to interpret Intlayer dictionaries and make them usable in Preact applications.
 
-### angular-intlayer (WIP)
+### angular-intlayer
 
 Пакет `angular-intlayer` використовується для інтерпретації словників Intlayer та забезпечення їхнього використання в додатках Angular.
 

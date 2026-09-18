@@ -154,7 +154,7 @@ El paquete `nuxt-intlayer` es un módulo de Nuxt para hacer que los diccionarios
 
 El paquete `svelte-intlayer` se utiliza para interpretar los diccionarios de Intlayer y hacerlos utilizables en aplicaciones Svelte.
 
-### solid-intlayer (WIP)
+### solid-intlayer
 
 El paquete `solid-intlayer` se utiliza para interpretar los diccionarios de Intlayer y hacerlos utilizables en aplicaciones Solid.js.
 
@@ -162,7 +162,7 @@ El paquete `solid-intlayer` se utiliza para interpretar los diccionarios de Intl
 
 El paquete `preact-intlayer` se utiliza para interpretar los diccionarios de Intlayer y hacerlos utilizables en aplicaciones Preact.
 
-### angular-intlayer (WIP)
+### angular-intlayer
 
 El paquete `angular-intlayer` se utiliza para interpretar los diccionarios de Intlayer y hacerlos utilizables en aplicaciones Angular.
 

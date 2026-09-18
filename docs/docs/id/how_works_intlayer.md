@@ -151,7 +151,7 @@ Paket `nuxt-intlayer` adalah modul Nuxt untuk membuat kamus Intlayer dapat digun
 
 Paket `svelte-intlayer` digunakan untuk menginterpretasikan kamus Intlayer dan membuatnya dapat digunakan dalam aplikasi Svelte.
 
-### solid-intlayer (WIP)
+### solid-intlayer
 
 Paket `solid-intlayer` digunakan untuk menginterpretasikan kamus Intlayer dan membuatnya dapat digunakan dalam aplikasi Solid.js.
 
@@ -159,7 +159,7 @@ Paket `solid-intlayer` digunakan untuk menginterpretasikan kamus Intlayer dan me
 
 Paket `preact-intlayer` digunakan untuk menginterpretasikan kamus Intlayer dan membuatnya dapat digunakan dalam aplikasi Preact.
 
-### angular-intlayer (WIP)
+### angular-intlayer
 
 Paket `angular-intlayer` digunakan untuk menginterpretasikan kamus Intlayer dan membuatnya dapat digunakan dalam aplikasi Angular.
 

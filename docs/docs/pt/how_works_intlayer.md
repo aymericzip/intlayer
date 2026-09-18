@@ -154,7 +154,7 @@ O pacote `nuxt-intlayer` é um módulo Nuxt para tornar os dicionários do Intla
 
 O pacote `svelte-intlayer` é usado para interpretar os dicionários do Intlayer e torná-los utilizáveis em aplicações Svelte.
 
-### solid-intlayer (WIP)
+### solid-intlayer
 
 O pacote `solid-intlayer` é usado para interpretar os dicionários do Intlayer e torná-los utilizáveis em aplicações Solid.js.
 
@@ -162,7 +162,7 @@ O pacote `solid-intlayer` é usado para interpretar os dicionários do Intlayer 
 
 O pacote `preact-intlayer` é usado para interpretar os dicionários do Intlayer e torná-los utilizáveis em aplicações Preact.
 
-### angular-intlayer (WIP)
+### angular-intlayer
 
 O pacote `angular-intlayer` é usado para interpretar os dicionários do Intlayer e torná-los utilizáveis em aplicações Angular.
 

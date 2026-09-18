@@ -151,7 +151,7 @@ Intlayer, çeviri sürecinde belirli bir rolü olan birkaç paketten oluşur. İ
 
 `svelte-intlayer` paketi, Intlayer sözlüklerini yorumlamak ve Svelte uygulamalarında kullanılabilir hale getirmek için kullanılır.
 
-### solid-intlayer (WIP)
+### solid-intlayer
 
 `solid-intlayer` paketi, Intlayer sözlüklerini yorumlamak ve Solid.js uygulamalarında kullanılabilir hale getirmek için kullanılır.
 
@@ -159,7 +159,7 @@ Intlayer, çeviri sürecinde belirli bir rolü olan birkaç paketten oluşur. İ
 
 `preact-intlayer` paketi, Intlayer sözlüklerini yorumlamak ve Preact uygulamalarında kullanılabilir hale getirmek için kullanılır.
 
-### angular-intlayer (WIP)
+### angular-intlayer
 
 `angular-intlayer` paketi, Intlayer sözlüklerini yorumlamak ve Angular uygulamalarında kullanılabilir hale getirmek için kullanılır.
 
