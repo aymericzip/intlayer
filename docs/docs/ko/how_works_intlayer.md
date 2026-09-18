@@ -175,10 +175,6 @@ Intlayer는 번역 프로세스에서 특정 역할을 하는 여러 패키지�
 
 `react-native-intlayer` 패키지는 Metro 번들러와 함께 작동하도록 Intlayer 플러그인을 통합하는 도구를 제공합니다.
 
-### lynx-intlayer
-
-`lynx-intlayer` 패키지는 Lynx 번들러와 함께 작동하도록 Intlayer 플러그인을 통합하는 도구를 제공합니다.
-
 ### vite-intlayer
 
 [Vite 번들러](https://vite.dev/guide/why.html#why-bundle-for-production)와 Intlayer를 통합하기 위한 Vite 플러그인과 사용자의 선호 로케일 감지, 쿠키 관리, URL 리디렉션 처리를 위한 미들웨어를 포함합니다.

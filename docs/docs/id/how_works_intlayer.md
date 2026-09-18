@@ -171,10 +171,6 @@ Paket `express-intlayer` digunakan untuk menggunakan Intlayer pada backend Expre
 
 Paket `react-native-intlayer` menyediakan alat yang mengintegrasikan plugin agar Intlayer dapat bekerja dengan Metro bundler.
 
-### lynx-intlayer
-
-Paket `lynx-intlayer` menyediakan alat yang mengintegrasikan plugin agar Intlayer dapat bekerja dengan Lynx bundler.
-
 ### vite-intlayer
 
 Menyertakan plugin Vite untuk mengintegrasikan Intlayer dengan [Vite bundler](https://vite.dev/guide/why.html#why-bundle-for-production), serta middleware untuk mendeteksi locale yang dipilih pengguna, mengelola cookie, dan menangani pengalihan URL.

@@ -175,10 +175,6 @@ const MyComponent = () => {
 
 توفر حزمة `react-native-intlayer` أدوات تتكامل مع مكونات إضافية لـ Intlayer للعمل مع Metro bundler.
 
-### lynx-intlayer
-
-توفر حزمة `lynx-intlayer` أدوات تتكامل مع مكونات إضافية لـ Intlayer للعمل مع Lynx bundler.
-
 ### vite-intlayer
 
 تشمل مكون Vite الإضافي لتكامل Intlayer مع [Vite bundler](https://vite.dev/guide/why.html#why-bundle-for-production)، بالإضافة إلى الوسيطات لاكتشاف اللغة المفضلة للمستخدم، إدارة الكوكيز، ومعالجة إعادة توجيه الروابط.

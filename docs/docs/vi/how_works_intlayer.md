@@ -171,10 +171,6 @@ Gói `express-intlayer` được sử dụng để dùng Intlayer trên backend 
 
 Gói `react-native-intlayer` cung cấp các công cụ tích hợp plugin để Intlayer hoạt động với Metro bundler.
 
-### lynx-intlayer
-
-Gói `lynx-intlayer` cung cấp các công cụ tích hợp plugin để Intlayer hoạt động với Lynx bundler.
-
 ### vite-intlayer
 
 Bao gồm plugin Vite để tích hợp Intlayer với [Vite bundler](https://vite.dev/guide/why.html#why-bundle-for-production), cũng như middleware để phát hiện ngôn ngữ ưu tiên của người dùng, quản lý cookie và xử lý chuyển hướng URL.

@@ -173,10 +173,6 @@ The `preact-intlayer` package is used to interpret Intlayer dictionaries and mak
 
 Пакет `react-native-intlayer` надає інструменти для інтеграції плагінів, щоб Intlayer працював з бандлером Metro.
 
-### lynx-intlayer
-
-Пакет `lynx-intlayer` надає інструменти для інтеграції плагінів, щоб Intlayer працював з бандлером Lynx.
-
 ### vite-intlayer
 
 Містить плагін Vite для інтеграції Intlayer з [бандлером Vite](https://vite.dev/guide/why.html#why-bundle-for-production), а також middleware для визначення пріоритетної локалі користувача, керування cookie та обробки перенаправлень URL.

@@ -171,10 +171,6 @@ Intlayer, çeviri sürecinde belirli bir rolü olan birkaç paketten oluşur. İ
 
 `react-native-intlayer` paketi, Intlayer'ı Metro paketleyici ile çalışacak şekilde entegre eden eklentiler sağlar.
 
-### lynx-intlayer
-
-`lynx-intlayer` paketi, Intlayer'ı Lynx paketleyici ile çalışacak şekilde entegre eden araçlar sağlar.
-
 ### vite-intlayer
 
 [Vite paketleyici](https://vite.dev/guide/why.html#why-bundle-for-production) ile Intlayer'ı entegre etmek için Vite eklentisini içerir, ayrıca kullanıcının tercih ettiği yerel ayarı algılayan, çerezleri yöneten ve URL yönlendirmesini işleyen ara yazılım içerir.

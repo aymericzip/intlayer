@@ -175,10 +175,6 @@ Intlayerは、翻訳プロセスにおいて特定の役割を持つ複数のパ
 
 `react-native-intlayer`パッケージは、MetroバンドラーでIntlayerを動作させるためのプラグインを統合するツールを提供します。
 
-### lynx-intlayer
-
-`lynx-intlayer`パッケージは、LynxバンドラーでIntlayerを動作させるためのプラグインを統合するツールを提供します。
-
 ### vite-intlayer
 
 Viteバンドラー([Vite](https://vite.dev/guide/why.html#why-bundle-for-production))とIntlayerを統合するためのViteプラグイン、およびユーザーの優先ロケールを検出し、クッキーを管理し、URLリダイレクトを処理するためのミドルウェアを含みます。

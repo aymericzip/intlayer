@@ -175,10 +175,6 @@ Intlayer कई पैकेजों से बना है, जिनमे�
 
 `react-native-intlayer` पैकेज Intlayer को Metro बंडलर के साथ काम करने के लिए प्लगइन्स को एकीकृत करने वाले उपकरण प्रदान करता है।
 
-### lynx-intlayer
-
-`lynx-intlayer` पैकेज Intlayer को Lynx बंडलर के साथ काम करने के लिए प्लगइन्स को एकीकृत करने वाले उपकरण प्रदान करता है।
-
 ### vite-intlayer
 
 Intlayer को [Vite बंडलर](https://vite.dev/guide/why.html#why-bundle-for-production) के साथ एकीकृत करने के लिए Vite प्लगइन के साथ-साथ उपयोगकर्ता की पसंदीदा लोकेल का पता लगाने, कुकीज़ प्रबंधन, और URL रीडायरेक्शन को संभालने के लिए मिडलवेयर शामिल करता है।

@@ -174,10 +174,6 @@ Intlayer 由多个包组成，每个包在翻译过程中都有特定的角色�
 
 `react-native-intlayer` 包提供了集成插件的工具，使 Intlayer 能够与 Metro 打包器一起工作。
 
-### lynx-intlayer
-
-`lynx-intlayer` 包提供了集成插件的工具，使 Intlayer 能够与 Lynx 打包器一起工作。
-
 ### vite-intlayer
 
 包括用于将 Intlayer 集成到 [Vite 打包器](https://vite.dev/guide/why.html#why-bundle-for-production) 的 Vite 插件，以及用于检测用户首选语言环境、管理 Cookie 和处理 URL 重定向的中间件。

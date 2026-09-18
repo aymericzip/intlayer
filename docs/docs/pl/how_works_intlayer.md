@@ -171,10 +171,6 @@ Pakiet `express-intlayer` jest używany do korzystania z Intlayer na backendzie 
 
 Pakiet `react-native-intlayer` dostarcza narzędzia integrujące pluginy, które umożliwiają działanie Intlayer z bundlerem Metro.
 
-### lynx-intlayer
-
-Pakiet `lynx-intlayer` dostarcza narzędzia integrujące pluginy, które umożliwiają działanie Intlayer z bundlerem Lynx.
-
 ### vite-intlayer
 
 Zawiera plugin Vite do integracji Intlayer z [bundlerem Vite](https://vite.dev/guide/why.html#why-bundle-for-production), a także middleware do wykrywania preferowanego języka użytkownika, zarządzania ciasteczkami oraz obsługi przekierowań URL.

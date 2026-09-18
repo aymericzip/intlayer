@@ -175,10 +175,6 @@ Intlayer состоит из нескольких пакетов, каждый �
 
 Пакет `react-native-intlayer` предоставляет инструменты, которые интегрируют плагины для работы Intlayer с Metro bundler.
 
-### lynx-intlayer
-
-Пакет `lynx-intlayer` предоставляет инструменты, которые интегрируют плагины для работы Intlayer с Lynx bundler.
-
 ### vite-intlayer
 
 Включает плагин Vite для интеграции Intlayer с [Vite bundler](https://vite.dev/guide/why.html#why-bundle-for-production), а также промежуточное ПО для определения предпочтительной локали пользователя, управления cookies и обработки перенаправления URL.
