@@ -5,7 +5,14 @@ import type {
   LocalesValues,
   StrictModeLocaleMap,
 } from '@intlayer/types/module_augmentation';
-import { computed, inject, type MaybeRefOrGetter, ref, watch } from 'vue';
+import {
+  computed,
+  inject,
+  type MaybeRefOrGetter,
+  ref,
+  toValue,
+  watch,
+} from 'vue';
 import { INTLAYER_SYMBOL, type IntlayerProvider } from './installIntlayer';
 import { useDictionary } from './useDictionary';
 
@@ -22,7 +29,9 @@ export const useDictionaryAsync = async <const T extends Dictionary>(
 
   const localeTarget = computed(
     () =>
-      locale ?? intlayer?.locale?.value ?? internationalization.defaultLocale
+      toValue(locale) ??
+      intlayer?.locale?.value ??
+      internationalization.defaultLocale
   );
 
   // A build-tool plugin may have started this locale's chunk while the entry
