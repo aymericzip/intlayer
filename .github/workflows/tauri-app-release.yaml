@@ -38,6 +38,8 @@ jobs:
     if: ${{ github.repository_owner == 'aymericzip' && needs.check-version.outputs.changed == 'true' }}
 
     strategy:
+      # Let the other platforms finish (and publish) when one of them fails.
+      fail-fast: false
       matrix:
         platform: [macos-latest, windows-latest, ubuntu-latest]
     runs-on: ${{ matrix.platform }}
@@ -46,18 +48,18 @@ jobs:
     # resolves to an empty string, and the matching signing step is skipped,
     # so the corresponding artifact is simply built unsigned (green build).
     #
-    # The Apple secrets are deliberately NOT exported here: the Tauri bundler
-    # treats an empty `APPLE_CERTIFICATE` as a certificate to import and fails
-    # with `SecKeychainItemImport`. They are exported by the macOS step below
-    # only when the certificate secret is actually configured.
+    # The Apple secrets and the AppImage `SIGN*` variables are deliberately
+    # NOT exported here: the Tauri bundler treats an empty `APPLE_CERTIFICATE`
+    # as a certificate to import (fails with `SecKeychainItemImport`), and
+    # linuxdeploy-plugin-appimage treats an empty `SIGN` as "sign" (fails with
+    # `failed to run linuxdeploy`). They are exported by the platform steps
+    # below only when the matching secret is actually configured.
     env:
       # --- Windows (code-signing certificate) ---
       WINDOWS_CERTIFICATE: ${{ secrets.WINDOWS_CERTIFICATE }}
       WINDOWS_CERTIFICATE_PASSWORD: ${{ secrets.WINDOWS_CERTIFICATE_PASSWORD }}
       # --- Linux (AppImage GPG signing) ---
       LINUX_SIGN_GPG_PRIVATE_KEY: ${{ secrets.LINUX_SIGN_GPG_PRIVATE_KEY }}
-      LINUX_SIGN_GPG_KEY_ID: ${{ secrets.LINUX_SIGN_GPG_KEY_ID }}
-      APPIMAGETOOL_SIGN_PASSPHRASE: ${{ secrets.LINUX_SIGN_GPG_PASSPHRASE }}
 
     steps:
       - uses: actions/checkout@v4
@@ -169,25 +171,35 @@ jobs:
             fi
           done
 
-      # Linux: import the GPG private key used to sign the AppImage.
+      # Linux: import the GPG private key used to sign the AppImage and enable
+      # signing in linuxdeploy-plugin-appimage / appimagetool. `SIGN` must not
+      # exist at all when unsigned: the plugin only checks that it is set.
       - name: Import GPG signing key (Linux)
         if: matrix.platform == 'ubuntu-latest' && env.LINUX_SIGN_GPG_PRIVATE_KEY != ''
-        run: echo "$LINUX_SIGN_GPG_PRIVATE_KEY" | gpg --batch --import
+        env:
+          LINUX_SIGN_GPG_KEY_ID: ${{ secrets.LINUX_SIGN_GPG_KEY_ID }}
+          LINUX_SIGN_GPG_PASSPHRASE: ${{ secrets.LINUX_SIGN_GPG_PASSPHRASE }}
+        run: |
+          echo "$LINUX_SIGN_GPG_PRIVATE_KEY" | gpg --batch --import
+          {
+            echo "SIGN=1"
+            echo "SIGN_KEY=$LINUX_SIGN_GPG_KEY_ID"
+            echo "APPIMAGETOOL_SIGN_PASSPHRASE=$LINUX_SIGN_GPG_PASSPHRASE"
+            echo "APPIMAGETOOL_FORCE_SIGN=1"
+          } >> "$GITHUB_ENV"
 
       - name: Build and publish Tauri app
         uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # AppImage GPG signing (Linux only; ignored on other platforms).
-          # SIGN=1 is only enabled when the GPG private key secret is present.
-          SIGN: ${{ matrix.platform == 'ubuntu-latest' && env.LINUX_SIGN_GPG_PRIVATE_KEY != '' && '1' || '' }}
-          SIGN_KEY: ${{ env.LINUX_SIGN_GPG_KEY_ID }}
-          APPIMAGETOOL_FORCE_SIGN: '1'
         with:
           projectPath: apps/app
           tauriScript: bunx tauri
-          # Windows signing config merge (empty on other platforms / when unsigned).
-          args: ${{ steps.windows_signing.outputs.args }}
+          # `--verbose` (Linux): at the default log level the bundler discards
+          # linuxdeploy's stderr and only reports "failed to run linuxdeploy".
+          # `--config` (Windows): merges the signing settings when a
+          # certificate is configured; empty otherwise.
+          args: ${{ matrix.platform == 'ubuntu-latest' && '--verbose' || '' }} ${{ steps.windows_signing.outputs.args }}
           tagName: ${{ steps.get_version.outputs.version }}
           releaseName: '${{ steps.get_version.outputs.version }}'
           releaseBody: 'See the assets to download this version and install.'
