@@ -1435,6 +1435,13 @@ Next.js `generateMetadata` 関数を Intlayer の `getMultilingualUrls` と一�
 2つのオプションがあり、どちらも任意です。[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)は独自のインフラストラクチャ上で動作し、サイトのテキストをクリックしてその場で直接編集できます。[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)はコンテンツを外部化し、デプロイなしで更新できるようにし、[live sync](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/live.md)によってランタイムに変更を反映します。
 
 </Question>
+<Question title="ビジュアルエディターのコストはどれくらいですか？不要な場合はオーバースペックですか？">
+
+Intlayerの[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)は、セットアップされていない場合はアプリケーションへの**コストはゼロ**です。追加のロジックは、明示的に有効化され、必要な場合にのみ読み込まれます。
+
+有効にした場合でも、ロジックの大半は[app.intlayer.org](https://app.intlayer.org)のサーバーエディターまたは`intlayer-editor`パッケージによって処理されるため、負荷は極めて軽量です（有効化時に動的に読み込まれる+5 kBのみ）。ビジュアル編集を必要とせず、シンプルな翻訳ソリューションのみが必要な場合、Intlayerがアプリにオーバーヘッドを追加することはありません。
+
+</Question>
 <Question title="リリース前に不足している翻訳をどのように検出しますか？">
 
 CI で `npx intlayer test` を実行します。宣言されたロケールにコンテンツが不足している場合、ビルドを失敗させるため、未翻訳の文字列が本番環境に到達することはありません。[VS Code 拡張機能](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)は入力中に同じエラーを表示し、[ESLint プラグイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/eslint.md)とその `no-raw-text` ルールはハードコードされた文字列をキャッチします。[コンテンツのテスト](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/testing.md)を参照してください。

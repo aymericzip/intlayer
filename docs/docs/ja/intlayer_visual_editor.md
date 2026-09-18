@@ -279,6 +279,13 @@ pnpm intlayer-editor start -e development
 これは開発環境およびステージング環境向けに設計されており、編集後の再ビルドが許容される場合に適しています。デプロイメントなしでライブサイトのコンテンツを編集するには、代わりに[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md) とそのリモート辞書を使用してください。
 
 </Question>
+<Question title="ビジュアルエディターのコストはどれくらいですか？不要な場合はオーバースペックですか？">
+
+Intlayerのビジュアルエディターは、セットアップされていない場合はアプリケーションへの**コストはゼロ**です。追加のロジックは、明示的に有効化され、必要な場合にのみ読み込まれます。
+
+有効にした場合でも、ロジックの大半は[app.intlayer.org](https://app.intlayer.org)のサーバーエディターまたは`intlayer-editor`パッケージによって処理されるため、負荷は極めて軽量です（有効化時に動的に読み込まれる+5 kBのみ）。ビジュアル編集を必要とせず、シンプルな翻訳ソリューションのみが必要な場合、Intlayerがアプリにオーバーヘッドを追加することはありません。
+
+</Question>
 <Question title="ビジュアルエディターは無料ですか？">
 
 はい。ビジュアルエディターはオープンソースプロジェクトの一部であり、Apache 2.0ライセンスの下で提供され、商用利用も含まれます。ホスト型[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md) のみが有料サービスであり、[セルフホスト](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/self_hosting.md) することも可能です。

@@ -279,6 +279,13 @@ Der Editor zeigt Ihre Anwendung in einem iframe an, sodass Ihre Content Security
 Er ist für Entwicklung und Staging ausgelegt, wo ein Neubau nach einer Bearbeitung akzeptabel ist. Um Inhalte auf einer Live-Website ohne Deployment zu bearbeiten, verwenden Sie stattdessen das [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md) und seine entfernten Wörterbücher.
 
 </Question>
+<Question title="Welche Auswirkungen hat der visuelle Editor auf die Performance? Ist er überdimensioniert, wenn ich ihn nicht benötige?">
+
+Der visuelle Editor von Intlayer verursacht **keine Kosten** für Ihre Anwendung, wenn er nicht eingerichtet ist. Die zusätzliche Logik wird nur geladen, wenn sie explizit aktiviert und benötigt wird.
+
+Selbst wenn er aktiviert ist, ist der Overhead extrem gering (+5 KB, wird nur bei Aktivierung dynamisch geladen), da der Großteil der Logik vom Server-Editor auf [app.intlayer.org](https://app.intlayer.org) oder über das Paket `intlayer-editor` verarbeitet wird. Wenn Sie lediglich eine einfache Übersetzungslösung ohne visuelle Bearbeitung benötigen, verursacht Intlayer keinerlei zusätzlichen Aufwand für Ihre App.
+
+</Question>
 <Question title="Ist der visuelle Editor kostenlos?">
 
 Ja. Der visuelle Editor ist Teil des Open-Source-Projekts, unter der Apache-2.0-Lizenz, kommerzielle Nutzung eingeschlossen. Nur das gehostete [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md) ist ein kostenpflichtiger Dienst, und es kann auch [selbst gehostet](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/self_hosting.md) werden.

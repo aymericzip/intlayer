@@ -1441,6 +1441,13 @@ Yes. Content declarations support [plural forms](https://github.com/aymericzip/i
 Two options, both optional. The [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_visual_editor.md) runs on your own infrastructure and lets anyone click on the text of your site to edit it in place. The [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_CMS.md) externalizes the content so it can be updated without a deployment, with [live sync](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/live.md) reflecting changes at runtime.
 
 </Question>
+<Question title="What is the cost of the visual editor? Is it overkill if I don't need it?">
+
+The [Intlayer visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_visual_editor.md) has **zero cost** on your application if it is not set up. The extra logic is only loaded if explicitly enabled and needed.
+
+If enabled, the cost is extremely light (+5 KB, dynamically loaded only when activated) because the main logic is handled by the server editor on [app.intlayer.org](https://app.intlayer.org) or via the `intlayer-editor` package. If you only need a simple translation setup without visual editing, Intlayer adds no overhead to your app.
+
+</Question>
 <Question title="How do I catch missing translations before shipping?">
 
 Run `npx intlayer test` in CI. It fails the build when a declared locale is missing content, so an untranslated string never reaches production. The [VS Code extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/vs_code_extension.md) surfaces the same errors while you type, and the [ESLint plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/eslint.md) and its `no-raw-text` rule catch hardcoded strings. See [testing your content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/testing.md).

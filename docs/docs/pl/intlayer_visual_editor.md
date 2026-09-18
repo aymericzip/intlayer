@@ -288,6 +288,13 @@ Edytor wyświetla aplikację w iframe, więc Twoja Polityka Bezpieczeństwa Tre�
 Jest on zaprojektowany dla środowisk deweloperskich i stagingowych, gdzie przebudowanie po edycji jest akceptowalne. Do edycji treści na działającej stronie produkcyjnej zalecany jest [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md).
 
 </Question>
+<Question title="Jaki jest koszt edytora wizualnego? Czy to przesada, jeśli go nie potrzebuję?">
+
+Edytor wizualny Intlayer generuje **zerowy koszt** dla Twojej aplikacji, jeśli nie jest skonfigurowany. Dodatkowa logika jest ładowana tylko wtedy, gdy jest jawnie włączona i potrzebna.
+
+Nawet po włączeniu narzut jest niezwykle mały (+5 KB, ładowane dynamicznie tylko po aktywacji), ponieważ większość logiki jest obsługiwana przez edytor serwerowy na [app.intlayer.org](https://app.intlayer.org) lub za pośrednictwem pakietu `intlayer-editor`. Jeśli potrzebujesz jedynie prostego rozwiązania do tłumaczenia bez edycji wizualnej, Intlayer nie dodaje żadnego narzutu do Twojej aplikacji.
+
+</Question>
 <Question title="Czy edytor wizualny jest bezpłatny?">
 
 Tak. Edytor wizualny jest częścią projektu open source na licencji Apache 2.0, włączając zastosowania komercyjne.

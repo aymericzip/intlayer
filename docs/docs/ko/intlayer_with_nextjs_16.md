@@ -1435,6 +1435,13 @@ Next.js의 `generateMetadata` 함수를 Intlayer의 `getMultilingualUrls`와 함
 두 가지 옵션이 모두 선택 사항으로 제공됩니다. [비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)는 자체 인프라에서 실행되며 사이트의 텍스트를 직접 클릭하여 수정할 수 있습니다. [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)는 콘텐츠를 외부화하여 배포 없이도 업데이트할 수 있게 하며, [라이브 동기화](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/live.md)를 통해 런타임에 변경 사항을 즉시 반영합니다.
 
 </Question>
+<Question title="비주얼 에디터의 비용은 얼마인가요? 필요하지 않은 경우 과도한가요?">
+
+Intlayer [비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)는 설정되지 않은 경우 애플리케이션에 **비용이 전혀 들지 않습니다**. 추가 로직은 명시적으로 활성화되고 필요할 때만 로드됩니다.
+
+활성화하더라도 대부분의 로직은 [app.intlayer.org](https://app.intlayer.org)의 서버 에디터나 `intlayer-editor` 패키지를 통해 처리되므로 영향은 극히 미미합니다(활성화 시 동적으로 로드되는 +5 kB에 불과함). 비주얼 편집 없이 간단한 번역 솔루션만 필요한 경우 Intlayer는 앱에 어떠한 오버헤드도 추가하지 않습니다.
+
+</Question>
 <Question title="배포 전에 누락된 번역을 어떻게 감지하나요?">
 
 CI에서 `npx intlayer test`를 실행하세요. 선언된 로케일에 콘텐츠가 누락된 경우 빌드를 실패시켜 번역되지 않은 문자열이 프로덕션에 배포되는 것을 방지합니다. [VS Code 확장 프로그램](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/vs_code_extension.md)은 코드를 작성하는 동안 동일한 오류를 화면에 표시하며, [ESLint 플러그인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/eslint.md)과 `no-raw-text` 규칙은 하드코딩된 문자열을 감지합니다. [콘텐츠 테스트](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/testing.md)를 참조하세요.

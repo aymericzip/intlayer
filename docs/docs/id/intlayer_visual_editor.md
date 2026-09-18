@@ -288,6 +288,13 @@ Editor menampilkan aplikasi dalam iframe, sehingga Content Security Policy (CSP)
 Editor dirancang untuk lingkungan development dan staging, di mana rebuild setelah edit dapat diterima. Untuk mengedit konten di situs produksi langsung, disarankan menggunakan [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md).
 
 </Question>
+<Question title="Berapa biaya dari visual editor? Apakah berlebihan jika saya tidak membutuhkannya?">
+
+Visual editor Intlayer memiliki **biaya nol** pada aplikasi Anda jika tidak disiapkan. Logika tambahan hanya dimuat jika diaktifkan secara eksplisit dan dibutuhkan.
+
+Bahkan jika diaktifkan, bebannya sangat ringan (+5 KB, dimuat secara dinamis hanya saat diaktifkan) karena sebagian besar logika ditangani oleh server editor di [app.intlayer.org](https://app.intlayer.org) atau melalui paket `intlayer-editor`. Jika Anda hanya memerlukan solusi terjemahan sederhana tanpa pengeditan visual, Intlayer tidak menambahkan overhead apa pun ke aplikasi Anda.
+
+</Question>
 <Question title="Apakah editor visual gratis?">
 
 Ya. Editor visual adalah bagian dari proyek open source di bawah lisensi Apache 2.0, termasuk untuk penggunaan komersial.

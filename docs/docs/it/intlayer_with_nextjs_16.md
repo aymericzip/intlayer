@@ -1435,6 +1435,13 @@ Sì. Le dichiarazioni di contenuto supportano [forme plurali](https://github.com
 Due opzioni, entrambe opzionali. L'[editor visivo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_visual_editor.md) gira sulla tua infrastruttura e permette a chiunque di cliccare sul testo del tuo sito per modificarlo sul posto. Il [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_CMS.md) esternalizza il contenuto così può essere aggiornato senza un deployment, con la [sincronizzazione live](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/cli/live.md) che riflette le modifiche a runtime.
 
 </Question>
+<Question title="Qual è il costo dell'editor visuale? È eccessivo se non ne ho bisogno?">
+
+L'[editor visuale di Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_visual_editor.md) ha un **costo pari a zero** sulla tua applicazione se non viene configurato. La logica aggiuntiva viene caricata solo se esplicitamente abilitata e necessaria.
+
+Se abilitato, l'impatto è estremamente ridotto (+5 KB, caricato dinamicamente solo quando attivato) poiché la maggior parte della logica è gestita dal server editor su [app.intlayer.org](https://app.intlayer.org) o tramite il pacchetto `intlayer-editor`. Se hai solo bisogno di una soluzione di traduzione semplice senza editing visuale, Intlayer non aggiunge alcun overhead alla tua applicazione.
+
+</Question>
 <Question title="Come individuo le traduzioni mancanti prima del rilascio?">
 
 Esegui `npx intlayer test` in CI. Fa fallire la build quando a una locale dichiarata manca del contenuto, così una stringa non tradotta non raggiunge mai la produzione. L'[estensione VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/vs_code_extension.md) mostra gli stessi errori mentre digiti, e il [plugin ESLint](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/eslint.md) e la sua regola `no-raw-text` individuano le stringhe hardcoded. Vedi [testare i tuoi contenuti](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/testing.md).
