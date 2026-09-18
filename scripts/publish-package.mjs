@@ -70,13 +70,14 @@ const republishPatterns = [
 ];
 
 /**
- * Runs a command, streaming its output while keeping a copy to inspect on
- * failure.
+ * Runs a command, streaming its output (unless `silent`) while keeping a copy
+ * to inspect afterwards.
  * @param {string} command
  * @param {string[]} commandArguments
+ * @param {{ silent?: boolean }} [runOptions]
  * @returns {{ status: number | null; stdout: string; output: string }}
  */
-const run = (command, commandArguments) => {
+const run = (command, commandArguments, { silent = false } = {}) => {
   const result = spawnSync(command, commandArguments, {
     cwd: packageDirectory,
     encoding: 'utf8',
@@ -84,14 +85,41 @@ const run = (command, commandArguments) => {
     stdio: ['inherit', 'pipe', 'pipe'],
   });
 
-  process.stdout.write(result.stdout ?? '');
-  process.stderr.write(result.stderr ?? '');
+  if (!silent) {
+    process.stdout.write(result.stdout ?? '');
+    process.stderr.write(result.stderr ?? '');
+  }
 
   return {
     status: result.status,
     stdout: result.stdout ?? '',
     output: `${result.stdout ?? ''}${result.stderr ?? ''}`,
   };
+};
+
+/**
+ * npm swallows trusted-publishing failures (it silently falls back to the
+ * configured token, and the registry then answers 404). The reason is only
+ * written to the debug log, so surface its OIDC lines.
+ * @param {string} output
+ */
+const printOidcDiagnostics = (output) => {
+  const logPath = /complete log of this run can be found in:\s*(\S+)/.exec(
+    output
+  )?.[1];
+
+  if (!logPath || !existsSync(logPath)) {
+    return;
+  }
+
+  const oidcLines = readFileSync(logPath, 'utf8')
+    .split('\n')
+    .filter((line) => /oidc/i.test(line));
+
+  if (oidcLines.length > 0) {
+    console.error('🔎 OIDC trace from the npm debug log:');
+    console.error(oidcLines.map((line) => `    ${line}`).join('\n'));
+  }
 };
 
 /**
@@ -111,6 +139,7 @@ const toExitCode = ({ status, output }) => {
   }
 
   console.error(`❌ Failed to publish ${packageLabel}`);
+  printOidcDiagnostics(output);
   return status ?? 1;
 };
 
@@ -120,6 +149,21 @@ if (packageJson.private) {
 }
 
 console.log(`📦 ${packageLabel} → tag "${distTag}"`);
+
+// Fail fast when the workflow lacks `permissions: id-token: write` or turbo
+// strips the OIDC variables: npm would otherwise fail later with a 404.
+if (
+  process.env.GITHUB_ACTIONS === 'true' &&
+  !(
+    process.env.ACTIONS_ID_TOKEN_REQUEST_URL &&
+    process.env.ACTIONS_ID_TOKEN_REQUEST_TOKEN
+  )
+) {
+  console.error(
+    '❌ ACTIONS_ID_TOKEN_REQUEST_URL / ACTIONS_ID_TOKEN_REQUEST_TOKEN are not set: trusted publishing cannot run'
+  );
+  process.exit(1);
+}
 
 // `bun pm pack` never runs `prepublishOnly` (the swc wasm build relies on
 // it), so run it explicitly and ignore lifecycle scripts afterwards.
@@ -162,18 +206,43 @@ const publish = () => {
     return 1;
   }
 
-  return toExitCode(
-    run('npm', [
-      'publish',
-      tarballPath,
-      '--access',
-      'public',
-      '--tag',
-      distTag,
-      '--ignore-scripts',
-      ...(isDryRun ? ['--dry-run'] : []),
-    ])
+  const publishArguments = [
+    'publish',
+    tarballPath,
+    '--access',
+    'public',
+    '--tag',
+    distTag,
+    '--ignore-scripts',
+  ];
+
+  if (!isDryRun) {
+    return toExitCode(run('npm', publishArguments));
+  }
+
+  // npm performs the OIDC exchange even in dry-run mode, so a dry run is the
+  // way to validate the trusted-publisher setup: run verbose and only report
+  // the OIDC outcome instead of the whole trace.
+  const dryRunResult = run(
+    'npm',
+    [...publishArguments, '--dry-run', '--loglevel=verbose'],
+    { silent: true }
   );
+  const oidcLines = dryRunResult.output
+    .split('\n')
+    .filter((line) => /oidc/i.test(line));
+
+  console.log(
+    oidcLines.length > 0
+      ? oidcLines.map((line) => `    ${line}`).join('\n')
+      : '    (no OIDC trace: not running on a supported CI)'
+  );
+
+  if (dryRunResult.status !== 0) {
+    process.stderr.write(dryRunResult.output);
+  }
+
+  return toExitCode(dryRunResult);
 };
 
 try {
