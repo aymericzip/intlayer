@@ -131,45 +131,90 @@ Intlayer bao gồm nhiều gói, mỗi gói có một vai trò cụ thể trong 
 
 Gói `intlayer` được sử dụng trong các ứng dụng để khai báo nội dung trong các tệp nội dung.
 
-### react-intlayer
+### Framework Frontend
+
+<Tabs group="framework">
+  <Tab label="React" value="react">
 
 Gói `react-intlayer` được sử dụng để diễn giải các từ điển Intlayer và làm cho chúng có thể sử dụng trong các ứng dụng React.
 
-### next-intlayer
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
 
 Gói `next-intlayer` được sử dụng như một lớp trên `react-intlayer` để làm cho các từ điển Intlayer có thể sử dụng trong các ứng dụng Next.js. Nó tích hợp các tính năng thiết yếu để làm cho Intlayer hoạt động trong môi trường Next.js, chẳng hạn như middleware dịch thuật, định tuyến, hoặc cấu hình tệp `next.config.js`.
 
-### vue-intlayer
+  </Tab>
+  <Tab label="Vue" value="vue">
 
 Gói `vue-intlayer` được sử dụng để diễn giải các từ điển Intlayer và làm cho chúng có thể sử dụng trong các ứng dụng Vue.
 
-### nuxt-intlayer
+  </Tab>
+  <Tab label="Nuxt" value="nuxt">
 
 Gói `nuxt-intlayer` là một module Nuxt để làm cho các từ điển Intlayer có thể sử dụng trong các ứng dụng Nuxt. Nó tích hợp các tính năng thiết yếu để làm cho Intlayer hoạt động trong môi trường Nuxt, chẳng hạn như middleware dịch thuật, định tuyến, hoặc cấu hình tệp `nuxt.config.js`.
 
-### svelte-intlayer (Đang phát triển)
+  </Tab>
+  <Tab label="Svelte" value="svelte">
 
 Gói `svelte-intlayer` được sử dụng để diễn giải các từ điển Intlayer và làm cho chúng có thể sử dụng trong các ứng dụng Svelte.
 
-### solid-intlayer (Đang phát triển)
+  </Tab>
+  <Tab label="Solid" value="solid">
 
 Gói `solid-intlayer` được sử dụng để diễn giải các từ điển Intlayer và làm cho chúng có thể sử dụng trong các ứng dụng Solid.js.
 
-### preact-intlayer
+  </Tab>
+  <Tab label="Preact" value="preact">
 
 Gói `preact-intlayer` được sử dụng để diễn giải các từ điển Intlayer và làm cho chúng có thể sử dụng trong các ứng dụng Preact.
 
-### angular-intlayer (Đang phát triển)
+  </Tab>
+  <Tab label="Angular" value="angular">
 
 Gói `angular-intlayer` được sử dụng để diễn giải các từ điển Intlayer và làm cho chúng có thể sử dụng trong các ứng dụng Angular.
 
-### express-intlayer
+  </Tab>
+  <Tab label="Astro" value="astro">
+
+Gói `astro-intlayer` cung cấp các công cụ cần thiết để tích hợp Intlayer vào các ứng dụng Astro. Nó cấu hình định tuyến theo locale và quản lý từ điển.
+
+  </Tab>
+  <Tab label="React Native" value="react-native">
+
+Gói `react-native-intlayer` cung cấp các công cụ tích hợp plugin để Intlayer hoạt động với Metro bundler.
+
+  </Tab>
+</Tabs>
+
+### Framework Backend
+
+<Tabs group="backend">
+  <Tab label="Express" value="express">
 
 Gói `express-intlayer` được sử dụng để dùng Intlayer trên backend Express.js.
 
-### react-native-intlayer
+  </Tab>
+  <Tab label="Fastify" value="fastify">
 
-Gói `react-native-intlayer` cung cấp các công cụ tích hợp plugin để Intlayer hoạt động với Metro bundler.
+Gói `fastify-intlayer` cung cấp một plugin cho các ứng dụng Fastify để xử lý internationalization. Nó phát hiện locale của người dùng và mở rộng (decorate) đối tượng request.
+
+  </Tab>
+  <Tab label="Hono" value="hono">
+
+Gói `hono-intlayer` cung cấp một middleware cho các ứng dụng Hono để xử lý quốc tế hóa. Nó phát hiện ngôn ngữ của người dùng và điền vào đối tượng ngữ cảnh.
+
+  </Tab>
+  <Tab label="Elysia" value="elysia">
+
+Gói `elysia-intlayer` cung cấp một plugin cho các ứng dụng Elysia để xử lý internationalization. Nó phát hiện locale của người dùng và tiêm một đối tượng `intlayer` vào route context.
+
+  </Tab>
+  <Tab label="AdonisJS" value="adonis">
+
+Gói `adonis-intlayer` cung cấp một middleware cho các ứng dụng AdonisJS để xử lý quốc tế hóa. Nó phát hiện ngôn ngữ của người dùng và cung cấp các hàm dịch.
+
+  </Tab>
+</Tabs>
 
 ### vite-intlayer
 

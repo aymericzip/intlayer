@@ -134,45 +134,90 @@ O Intlayer é composto por vários pacotes, cada um com um papel específico no 
 
 O pacote `intlayer` é usado em aplicações para declarar conteúdo em arquivos de conteúdo.
 
-### react-intlayer
+### Frameworks de Frontend
+
+<Tabs group="framework">
+  <Tab label="React" value="react">
 
 O pacote `react-intlayer` é usado para interpretar os dicionários do Intlayer e torná-los utilizáveis em aplicações React.
 
-### next-intlayer
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
 
 O pacote `next-intlayer` é usado como uma camada sobre o `react-intlayer` para tornar os dicionários do Intlayer utilizáveis em aplicações Next.js. Ele integra recursos essenciais para fazer o Intlayer funcionar em um ambiente Next.js, como middleware de tradução, roteamento ou configuração do arquivo `next.config.js`.
 
-### vue-intlayer
+  </Tab>
+  <Tab label="Vue" value="vue">
 
 O pacote `vue-intlayer` é usado para interpretar os dicionários do Intlayer e torná-los utilizáveis em aplicações Vue.
 
-### nuxt-intlayer
+  </Tab>
+  <Tab label="Nuxt" value="nuxt">
 
 O pacote `nuxt-intlayer` é um módulo Nuxt para tornar os dicionários do Intlayer utilizáveis em aplicações Nuxt. Ele integra recursos essenciais para fazer o Intlayer funcionar em um ambiente Nuxt, como middleware de tradução, roteamento e a configuração do arquivo `nuxt.config.js`.
 
-### svelte-intlayer
+  </Tab>
+  <Tab label="Svelte" value="svelte">
 
 O pacote `svelte-intlayer` é usado para interpretar os dicionários do Intlayer e torná-los utilizáveis em aplicações Svelte.
 
-### solid-intlayer
+  </Tab>
+  <Tab label="Solid" value="solid">
 
 O pacote `solid-intlayer` é usado para interpretar os dicionários do Intlayer e torná-los utilizáveis em aplicações Solid.js.
 
-### preact-intlayer
+  </Tab>
+  <Tab label="Preact" value="preact">
 
 O pacote `preact-intlayer` é usado para interpretar os dicionários do Intlayer e torná-los utilizáveis em aplicações Preact.
 
-### angular-intlayer
+  </Tab>
+  <Tab label="Angular" value="angular">
 
 O pacote `angular-intlayer` é usado para interpretar os dicionários do Intlayer e torná-los utilizáveis em aplicações Angular.
 
-### express-intlayer
+  </Tab>
+  <Tab label="Astro" value="astro">
+
+O pacote `astro-intlayer` fornece as ferramentas necessárias para integrar o Intlayer em aplicações Astro. Ele configura o roteamento baseado em locale e o gerenciamento de dicionários.
+
+  </Tab>
+  <Tab label="React Native" value="react-native">
+
+O pacote `react-native-intlayer` fornece ferramentas que integram plugins para o Intlayer funcionar com o Metro bundler.
+
+  </Tab>
+</Tabs>
+
+### Frameworks de Backend
+
+<Tabs group="backend">
+  <Tab label="Express" value="express">
 
 O pacote `express-intlayer` é usado para utilizar o Intlayer em um backend Express.js.
 
-### react-native-intlayer
+  </Tab>
+  <Tab label="Fastify" value="fastify">
 
-O pacote `react-native-intlayer` fornece ferramentas que integram plugins para o Intlayer funcionar com o Metro bundler.
+O pacote `fastify-intlayer` fornece um plugin para aplicações Fastify para tratar da internacionalização. Ele detecta o locale do utilizador e decora o objeto request.
+
+  </Tab>
+  <Tab label="Hono" value="hono">
+
+O pacote `hono-intlayer` fornece um middleware para aplicações Hono para lidar com a internacionalização. Ele detecta a localidade do usuário e preenche o objeto de contexto.
+
+  </Tab>
+  <Tab label="Elysia" value="elysia">
+
+O pacote `elysia-intlayer` fornece um plugin para aplicações Elysia para tratar da internacionalização. Ele deteta o locale do utilizador e injeta um objeto `intlayer` no contexto da rota.
+
+  </Tab>
+  <Tab label="AdonisJS" value="adonis">
+
+O pacote `adonis-intlayer` fornece um middleware para aplicações AdonisJS para lidar com a internacionalização. Ele detecta o locale do usuário e fornece funções de tradução.
+
+  </Tab>
+</Tabs>
 
 ### vite-intlayer
 

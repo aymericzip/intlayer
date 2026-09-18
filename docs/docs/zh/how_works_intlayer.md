@@ -134,45 +134,90 @@ Intlayer 由多个包组成，每个包在翻译过程中都有特定的角色�
 
 `intlayer` 包用于在应用中声明内容文件中的内容。
 
-### react-intlayer
+### 前端框架
+
+<Tabs group="framework">
+  <Tab label="React" value="react">
 
 `react-intlayer` 包用于解释 Intlayer 字典并使其在 React 应用中可用。
 
-### next-intlayer
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
 
 `next-intlayer` 包作为 `react-intlayer` 的扩展层，用于使 Intlayer 字典在 Next.js 应用中可用。它集成了使 Intlayer 在 Next.js 环境中工作的基本功能，例如翻译中间件、路由或 `next.config.js` 文件配置。
 
-### vue-intlayer
+  </Tab>
+  <Tab label="Vue" value="vue">
 
 `vue-intlayer` 包用于解释 Intlayer 字典并使其在 Vue 应用中可用。
 
-### nuxt-intlayer
+  </Tab>
+  <Tab label="Nuxt" value="nuxt">
 
 `nuxt-intlayer` 包作为 Nuxt 模块，用于使 Intlayer 字典在 Nuxt 应用中可用。它集成了使 Intlayer 能够在 Nuxt 环境中工作的关键功能，例如翻译中间件、路由以及 `nuxt.config.js` 文件配置。
 
-### svelte-intlayer (开发中)
+  </Tab>
+  <Tab label="Svelte" value="svelte">
 
 `svelte-intlayer` 包用于解释 Intlayer 字典并使其在 Svelte 应用中可用。
 
-### solid-intlayer (开发中)
+  </Tab>
+  <Tab label="Solid" value="solid">
 
 `solid-intlayer` 包用于解释 Intlayer 字典并使其在 Solid.js 应用中可用。
 
-### preact-intlayer
+  </Tab>
+  <Tab label="Preact" value="preact">
 
 `preact-intlayer` 包用于解释 Intlayer 字典并使其在 Preact 应用中可用。
 
-### angular-intlayer (开发中)
+  </Tab>
+  <Tab label="Angular" value="angular">
 
 `angular-intlayer` 包用于解释 Intlayer 字典并使其在 Angular 应用中可用。
 
-### express-intlayer
+  </Tab>
+  <Tab label="Astro" value="astro">
+
+`astro-intlayer` 包提供将 Intlayer 集成到 Astro 应用所需的工具。它配置基于区域设置（locale）的路由和字典管理。
+
+  </Tab>
+  <Tab label="React Native" value="react-native">
+
+`react-native-intlayer` 包提供了集成插件的工具，使 Intlayer 能够与 Metro 打包器一起工作。
+
+  </Tab>
+</Tabs>
+
+### 后端框架
+
+<Tabs group="backend">
+  <Tab label="Express" value="express">
 
 `express-intlayer` 包用于在 Express.js 后端中使用 Intlayer。
 
-### react-native-intlayer
+  </Tab>
+  <Tab label="Fastify" value="fastify">
 
-`react-native-intlayer` 包提供了集成插件的工具，使 Intlayer 能够与 Metro 打包器一起工作。
+`fastify-intlayer` 包为 Fastify 应用提供了一个处理国际化的插件。它会检测用户的 locale 并装饰请求对象。
+
+  </Tab>
+  <Tab label="Hono" value="hono">
+
+`hono-intlayer` 包为 Hono 应用程序提供了一个处理国际化的中间件。它检测用户的语言并填充上下文对象。
+
+  </Tab>
+  <Tab label="Elysia" value="elysia">
+
+`elysia-intlayer` 包为 Elysia 应用提供了一个处理国际化的插件。它会检测用户的 locale，并向路由上下文注入一个 `intlayer` 对象。
+
+  </Tab>
+  <Tab label="AdonisJS" value="adonis">
+
+`adonis-intlayer` 包为 AdonisJS 应用程序提供了一个处理国际化的中间件。它检测用户的语言区域并提供翻译函数。
+
+  </Tab>
+</Tabs>
 
 ### vite-intlayer
 

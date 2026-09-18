@@ -135,45 +135,90 @@ Intlayer는 번역 프로세스에서 특정 역할을 하는 여러 패키지�
 
 `intlayer` 패키지는 애플리케이션에서 콘텐츠 파일 내의 콘텐츠를 선언하는 데 사용됩니다.
 
-### react-intlayer
+### 프론트엔드 프레임워크
+
+<Tabs group="framework">
+  <Tab label="React" value="react">
 
 `react-intlayer` 패키지는 Intlayer 사전을 해석하여 React 애플리케이션에서 사용할 수 있도록 합니다.
 
-### next-intlayer
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
 
 `next-intlayer` 패키지는 `react-intlayer` 위에 레이어로 작동하여 Intlayer 사전을 Next.js 애플리케이션에서 사용할 수 있도록 합니다. 번역 미들웨어, 라우팅, 또는 `next.config.js` 파일 구성과 같은 Next.js 환경에서 Intlayer가 작동하도록 필수 기능을 통합합니다.
 
-### vue-intlayer
+  </Tab>
+  <Tab label="Vue" value="vue">
 
 `vue-intlayer` 패키지는 Intlayer 사전을 해석하여 Vue 애플리케이션에서 사용할 수 있도록 합니다.
 
-### nuxt-intlayer
+  </Tab>
+  <Tab label="Nuxt" value="nuxt">
 
 `nuxt-intlayer` 패키지는 Nuxt 모듈로서 Intlayer 사전을 Nuxt 애플리케이션에서 사용할 수 있도록 합니다. 이 패키지는 번역 미들웨어, 라우팅, `nuxt.config.js` 파일 구성 등 Nuxt 환경에서 Intlayer가 작동하는 데 필요한 필수 기능을 통합합니다.
 
-### svelte-intlayer (작업 중)
+  </Tab>
+  <Tab label="Svelte" value="svelte">
 
 `svelte-intlayer` 패키지는 Intlayer 사전을 해석하여 Svelte 애플리케이션에서 사용할 수 있도록 합니다.
 
-### solid-intlayer (작업 중)
+  </Tab>
+  <Tab label="Solid" value="solid">
 
 `solid-intlayer` 패키지는 Intlayer 사전을 해석하여 Solid.js 애플리케이션에서 사용할 수 있도록 합니다.
 
-### preact-intlayer
+  </Tab>
+  <Tab label="Preact" value="preact">
 
 `preact-intlayer` 패키지는 Intlayer 사전을 해석하여 Preact 애플리케이션에서 사용할 수 있도록 합니다.
 
-### angular-intlayer (작업 중)
+  </Tab>
+  <Tab label="Angular" value="angular">
 
 `angular-intlayer` 패키지는 Intlayer 사전을 해석하여 Angular 애플리케이션에서 사용할 수 있도록 합니다.
 
-### express-intlayer
+  </Tab>
+  <Tab label="Astro" value="astro">
+
+`astro-intlayer` 패키지는 Intlayer를 Astro 애플리케이션에 통합하기 위한 필수 도구를 제공합니다. 로케일 기반 라우팅 및 사전 관리(딕셔너리 관리를) 구성합니다.
+
+  </Tab>
+  <Tab label="React Native" value="react-native">
+
+`react-native-intlayer` 패키지는 Metro 번들러와 함께 작동하도록 Intlayer 플러그인을 통합하는 도구를 제공합니다.
+
+  </Tab>
+</Tabs>
+
+### 백엔드 프레임워크
+
+<Tabs group="backend">
+  <Tab label="Express" value="express">
 
 `express-intlayer` 패키지는 Express.js 백엔드에서 Intlayer를 사용할 수 있도록 합니다.
 
-### react-native-intlayer
+  </Tab>
+  <Tab label="Fastify" value="fastify">
 
-`react-native-intlayer` 패키지는 Metro 번들러와 함께 작동하도록 Intlayer 플러그인을 통합하는 도구를 제공합니다.
+`fastify-intlayer` 패키지는 Fastify 애플리케이션에서 국제화를 처리하기 위한 플러그인을 제공합니다. 사용자 로케일을 감지하고 요청(request) 객체에 데코레이터를 추가합니다.
+
+  </Tab>
+  <Tab label="Hono" value="hono">
+
+`hono-intlayer` 패키지는 국제화를 처리하기 위한 Hono 애플리케이션용 미들웨어를 제공합니다. 사용자의 로케일을 감지하고 컨텍스트 객체를 채웁니다.
+
+  </Tab>
+  <Tab label="Elysia" value="elysia">
+
+`elysia-intlayer` 패키지는 Elysia 애플리케이션에서 국제화를 처리하기 위한 플러그인을 제공합니다. 사용자 로케일을 감지하고 라우트 컨텍스트에 `intlayer` 객체를 주입합니다.
+
+  </Tab>
+  <Tab label="AdonisJS" value="adonis">
+
+`adonis-intlayer` 패키지는 AdonisJS 애플리케이션이 국제화를 처리할 수 있도록 미들웨어를 제공합니다. 사용자의 로케일을 감지하고 번역 기능을 제공합니다.
+
+  </Tab>
+</Tabs>
 
 ### vite-intlayer
 

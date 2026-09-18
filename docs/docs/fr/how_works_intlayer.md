@@ -133,45 +133,90 @@ Intlayer est composé de plusieurs packages, chacun ayant un rôle spécifique d
 
 Le package `intlayer` est utilisé dans les applications pour déclarer du contenu dans des fichiers de contenu.
 
-### react-intlayer
+### Frameworks Frontend
+
+<Tabs group="framework">
+  <Tab label="React" value="react">
 
 Le package `react-intlayer` est utilisé pour interpréter les dictionnaires Intlayer et les rendre utilisables dans les applications React.
 
-### next-intlayer
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
 
 Le package `next-intlayer` est utilisé comme une couche au-dessus de `react-intlayer` pour rendre les dictionnaires Intlayer utilisables dans les applications Next.js. Il intègre des fonctionnalités essentielles pour faire fonctionner Intlayer dans un environnement Next.js, telles que le middleware de traduction, le routage ou la configuration du fichier `next.config.js`.
 
-### vue-intlayer
+  </Tab>
+  <Tab label="Vue" value="vue">
 
 Le package `vue-intlayer` est utilisé pour interpréter les dictionnaires Intlayer et les rendre utilisables dans les applications Vue.
 
-### nuxt-intlayer
+  </Tab>
+  <Tab label="Nuxt" value="nuxt">
 
 Le package `nuxt-intlayer` est un module Nuxt permettant de rendre les dictionnaires Intlayer utilisables dans les applications Nuxt. Il intègre des fonctionnalités essentielles pour faire fonctionner Intlayer dans un environnement Nuxt, telles que le middleware de traduction, le routage ou la configuration du fichier `nuxt.config.js`.
 
-### svelte-intlayer
+  </Tab>
+  <Tab label="Svelte" value="svelte">
 
 Le package `svelte-intlayer` est utilisé pour interpréter les dictionnaires Intlayer et les rendre utilisables dans les applications Svelte.
 
-### solid-intlayer
+  </Tab>
+  <Tab label="Solid" value="solid">
 
 Le package `solid-intlayer` est utilisé pour interpréter les dictionnaires Intlayer et les rendre utilisables dans les applications Solid.js.
 
-### preact-intlayer
+  </Tab>
+  <Tab label="Preact" value="preact">
 
 Le package `preact-intlayer` est utilisé pour interpréter les dictionnaires Intlayer et les rendre utilisables dans les applications Preact.
 
-### angular-intlayer
+  </Tab>
+  <Tab label="Angular" value="angular">
 
 Le package `angular-intlayer` est utilisé pour interpréter les dictionnaires Intlayer et les rendre utilisables dans les applications Angular.
 
-### express-intlayer
+  </Tab>
+  <Tab label="Astro" value="astro">
+
+Le paquet `astro-intlayer` fournit les outils nécessaires pour intégrer Intlayer dans des applications Astro. Il configure le routage par locale et la gestion des dictionnaires.
+
+  </Tab>
+  <Tab label="React Native" value="react-native">
+
+Le package `react-native-intlayer` fournit des outils qui intègrent des plugins pour qu'Intlayer fonctionne avec le bundler Metro.
+
+  </Tab>
+</Tabs>
+
+### Frameworks Backend
+
+<Tabs group="backend">
+  <Tab label="Express" value="express">
 
 Le package `express-intlayer` est utilisé pour utiliser Intlayer sur un backend Express.js.
 
-### react-native-intlayer
+  </Tab>
+  <Tab label="Fastify" value="fastify">
 
-Le package `react-native-intlayer` fournit des outils qui intègrent des plugins pour qu'Intlayer fonctionne avec le bundler Metro.
+Le package `fastify-intlayer` fournit un plugin pour les applications Fastify afin de gérer l'internationalisation. Il détecte la locale de l'utilisateur et décore l'objet request.
+
+  </Tab>
+  <Tab label="Hono" value="hono">
+
+Le paquet `hono-intlayer` fournit un middleware pour les applications Hono afin de gérer l'internationalisation. Il détecte la langue de l'utilisateur et remplit l'objet de contexte.
+
+  </Tab>
+  <Tab label="Elysia" value="elysia">
+
+Le package `elysia-intlayer` fournit un plugin pour les applications Elysia afin de gérer l'internationalisation. Il détecte la locale de l'utilisateur et injecte un objet `intlayer` dans le contexte de route.
+
+  </Tab>
+  <Tab label="AdonisJS" value="adonis">
+
+Le package `adonis-intlayer` fournit un middleware pour les applications AdonisJS afin de gérer l'internationalisation. Il détecte la locale de l'utilisateur et fournit des fonctions de traduction.
+
+  </Tab>
+</Tabs>
 
 ### vite-intlayer
 

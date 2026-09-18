@@ -131,45 +131,90 @@ Intlayer terdiri dari beberapa paket, masing-masing dengan peran spesifik dalam 
 
 Paket `intlayer` digunakan dalam aplikasi untuk mendeklarasikan konten dalam file konten.
 
-### react-intlayer
+### Framework Frontend
+
+<Tabs group="framework">
+  <Tab label="React" value="react">
 
 Paket `react-intlayer` digunakan untuk menginterpretasikan kamus Intlayer dan membuatnya dapat digunakan dalam aplikasi React.
 
-### next-intlayer
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
 
 Paket `next-intlayer` digunakan sebagai lapisan di atas `react-intlayer` untuk membuat kamus Intlayer dapat digunakan dalam aplikasi Next.js. Paket ini mengintegrasikan fitur-fitur penting agar Intlayer dapat bekerja di lingkungan Next.js, seperti middleware terjemahan, routing, atau konfigurasi file `next.config.js`.
 
-### vue-intlayer
+  </Tab>
+  <Tab label="Vue" value="vue">
 
 Paket `vue-intlayer` digunakan untuk menginterpretasikan kamus Intlayer dan membuatnya dapat digunakan dalam aplikasi Vue.
 
-### nuxt-intlayer
+  </Tab>
+  <Tab label="Nuxt" value="nuxt">
 
 Paket `nuxt-intlayer` adalah modul Nuxt untuk membuat kamus Intlayer dapat digunakan dalam aplikasi Nuxt. Paket ini mengintegrasikan fitur-fitur penting agar Intlayer dapat bekerja di lingkungan Nuxt, seperti middleware terjemahan, routing, atau konfigurasi file `nuxt.config.js`.
 
-### svelte-intlayer
+  </Tab>
+  <Tab label="Svelte" value="svelte">
 
 Paket `svelte-intlayer` digunakan untuk menginterpretasikan kamus Intlayer dan membuatnya dapat digunakan dalam aplikasi Svelte.
 
-### solid-intlayer
+  </Tab>
+  <Tab label="Solid" value="solid">
 
 Paket `solid-intlayer` digunakan untuk menginterpretasikan kamus Intlayer dan membuatnya dapat digunakan dalam aplikasi Solid.js.
 
-### preact-intlayer
+  </Tab>
+  <Tab label="Preact" value="preact">
 
 Paket `preact-intlayer` digunakan untuk menginterpretasikan kamus Intlayer dan membuatnya dapat digunakan dalam aplikasi Preact.
 
-### angular-intlayer
+  </Tab>
+  <Tab label="Angular" value="angular">
 
 Paket `angular-intlayer` digunakan untuk menginterpretasikan kamus Intlayer dan membuatnya dapat digunakan dalam aplikasi Angular.
 
-### express-intlayer
+  </Tab>
+  <Tab label="Astro" value="astro">
+
+Paket `astro-intlayer` menyediakan alat yang diperlukan untuk mengintegrasikan Intlayer ke dalam aplikasi Astro. Paket ini mengonfigurasi routing berbasis locale dan manajemen kamus.
+
+  </Tab>
+  <Tab label="React Native" value="react-native">
+
+Paket `react-native-intlayer` menyediakan alat yang mengintegrasikan plugin agar Intlayer dapat bekerja dengan Metro bundler.
+
+  </Tab>
+</Tabs>
+
+### Framework Backend
+
+<Tabs group="backend">
+  <Tab label="Express" value="express">
 
 Paket `express-intlayer` digunakan untuk menggunakan Intlayer pada backend Express.js.
 
-### react-native-intlayer
+  </Tab>
+  <Tab label="Fastify" value="fastify">
 
-Paket `react-native-intlayer` menyediakan alat yang mengintegrasikan plugin agar Intlayer dapat bekerja dengan Metro bundler.
+Paket `fastify-intlayer` menyediakan plugin untuk aplikasi Fastify untuk menangani internasionalisasi. Ia mendeteksi locale pengguna dan mendekorasi objek request.
+
+  </Tab>
+  <Tab label="Hono" value="hono">
+
+Paket `hono-intlayer` menyediakan middleware untuk aplikasi Hono untuk menangani internasionalisasi. Paket ini mendeteksi locale pengguna dan mengisi objek konteks.
+
+  </Tab>
+  <Tab label="Elysia" value="elysia">
+
+Paket `elysia-intlayer` menyediakan plugin untuk aplikasi Elysia untuk menangani internasionalisasi. Ia mendeteksi locale pengguna dan menyuntikkan objek `intlayer` ke dalam route context.
+
+  </Tab>
+  <Tab label="AdonisJS" value="adonis">
+
+Paket `adonis-intlayer` menyediakan middleware untuk aplikasi AdonisJS guna menangani internasionalisasi. Ini mendeteksi locale pengguna dan menyediakan fungsi terjemahan.
+
+  </Tab>
+</Tabs>
 
 ### vite-intlayer
 

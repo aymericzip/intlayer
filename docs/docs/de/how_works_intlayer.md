@@ -135,45 +135,90 @@ Intlayer besteht aus mehreren Paketen, die jeweils eine spezifische Rolle im Üb
 
 Das `intlayer`-Paket wird in Anwendungen verwendet, um Inhalte in Inhaltsdateien zu deklarieren.
 
-### react-intlayer
+### Frontend-Frameworks
+
+<Tabs group="framework">
+  <Tab label="React" value="react">
 
 Das `react-intlayer`-Paket wird verwendet, um Intlayer-Wörterbücher zu interpretieren und in React-Anwendungen nutzbar zu machen.
 
-### next-intlayer
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
 
 Das `next-intlayer`-Paket wird als Schicht über `react-intlayer` verwendet, um Intlayer-Wörterbücher in Next.js-Anwendungen nutzbar zu machen. Es integriert wesentliche Funktionen, um Intlayer in einer Next.js-Umgebung zum Laufen zu bringen, wie Übersetzungsmiddleware, Routing oder die Konfiguration der Datei `next.config.js`.
 
-### vue-intlayer
+  </Tab>
+  <Tab label="Vue" value="vue">
 
 Das `vue-intlayer`-Paket wird verwendet, um Intlayer-Wörterbücher zu interpretieren und in Vue-Anwendungen nutzbar zu machen.
 
-### nuxt-intlayer
+  </Tab>
+  <Tab label="Nuxt" value="nuxt">
 
 Das `nuxt-intlayer`-Paket ist ein Nuxt-Modul, um Intlayer-Wörterbücher in Nuxt-Anwendungen nutzbar zu machen. Es integriert wesentliche Funktionen, damit Intlayer in einer Nuxt-Umgebung funktioniert, wie z. B. Übersetzungs-Middleware, Routing oder die Konfiguration der `nuxt.config.js`-Datei.
 
-### svelte-intlayer
+  </Tab>
+  <Tab label="Svelte" value="svelte">
 
 Das `svelte-intlayer`-Paket wird verwendet, um Intlayer-Wörterbücher zu interpretieren und in Svelte-Anwendungen nutzbar zu machen.
 
-### solid-intlayer
+  </Tab>
+  <Tab label="Solid" value="solid">
 
 Das `solid-intlayer`-Paket wird verwendet, um Intlayer-Wörterbücher zu interpretieren und in Solid.js-Anwendungen nutzbar zu machen.
 
-### preact-intlayer
+  </Tab>
+  <Tab label="Preact" value="preact">
 
 Das `preact-intlayer`-Paket wird verwendet, um Intlayer-Wörterbücher zu interpretieren und in Preact-Anwendungen nutzbar zu machen.
 
-### angular-intlayer
+  </Tab>
+  <Tab label="Angular" value="angular">
 
 Das `angular-intlayer`-Paket wird verwendet, um Intlayer-Wörterbücher zu interpretieren und in Angular-Anwendungen nutzbar zu machen.
 
-### express-intlayer
+  </Tab>
+  <Tab label="Astro" value="astro">
+
+Das `astro-intlayer`-Paket stellt die notwendigen Werkzeuge bereit, um Intlayer in Astro-Anwendungen zu integrieren. Es konfiguriert sprachenbasiertes Routing und die Verwaltung von Wörterbüchern.
+
+  </Tab>
+  <Tab label="React Native" value="react-native">
+
+Das `react-native-intlayer`-Paket bietet Tools, die Plugins für Intlayer integrieren, um mit dem Metro-Bundler zu arbeiten.
+
+  </Tab>
+</Tabs>
+
+### Backend-Frameworks
+
+<Tabs group="backend">
+  <Tab label="Express" value="express">
 
 Das `express-intlayer`-Paket wird verwendet, um Intlayer auf einem Express.js-Backend zu nutzen.
 
-### react-native-intlayer
+  </Tab>
+  <Tab label="Fastify" value="fastify">
 
-Das `react-native-intlayer`-Paket bietet Tools, die Plugins für Intlayer integrieren, um mit dem Metro-Bundler zu arbeiten.
+Das `fastify-intlayer`-Paket stellt ein Plugin für Fastify-Anwendungen bereit, um Internationalisierung zu unterstützen. Es erkennt die Locale des Benutzers und erweitert das Request-Objekt.
+
+  </Tab>
+  <Tab label="Hono" value="hono">
+
+Das Paket `hono-intlayer` bietet eine Middleware für Hono-Anwendungen zur Handhabung der Internationalisierung. Sie erkennt die Sprache des Benutzers und füllt das Kontextobjekt.
+
+  </Tab>
+  <Tab label="Elysia" value="elysia">
+
+Das `elysia-intlayer`-Paket stellt ein Plugin für Elysia-Anwendungen bereit, um Internationalisierung zu unterstützen. Es erkennt die Locale des Benutzers und injiziert ein `intlayer`-Objekt in den Route-Kontext.
+
+  </Tab>
+  <Tab label="AdonisJS" value="adonis">
+
+Das Paket `adonis-intlayer` bietet eine Middleware für AdonisJS-Anwendungen zur Handhabung der Internationalisierung. Es erkennt die Locale des Benutzers und stellt Übersetzungsfunktionen bereit.
+
+  </Tab>
+</Tabs>
 
 ### vite-intlayer
 

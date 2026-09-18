@@ -135,45 +135,90 @@ Intlayerは、翻訳プロセスにおいて特定の役割を持つ複数のパ
 
 `intlayer`パッケージは、コンテンツファイル内でコンテンツを宣言するためにアプリケーションで使用されます。
 
-### react-intlayer
+### フロントエンドフレームワーク
+
+<Tabs group="framework">
+  <Tab label="React" value="react">
 
 `react-intlayer`パッケージは、Intlayer辞書を解釈し、Reactアプリケーションで使用可能にします。
 
-### next-intlayer
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
 
 `next-intlayer`パッケージは、`react-intlayer`の上にレイヤーを構築し、Next.jsアプリケーションでIntlayer辞書を使用可能にします。翻訳ミドルウェア、ルーティング、または`next.config.js`ファイルの設定など、Next.js環境でIntlayerを動作させるための重要な機能を統合しています。
 
-### vue-intlayer
+  </Tab>
+  <Tab label="Vue" value="vue">
 
 `vue-intlayer`パッケージは、Intlayer辞書を解釈し、Vueアプリケーションで使用可能にします。
 
-### nuxt-intlayer
+  </Tab>
+  <Tab label="Nuxt" value="nuxt">
 
 `nuxt-intlayer`パッケージは、NuxtモジュールとしてIntlayer辞書をNuxtアプリケーションで使用可能にします。翻訳ミドルウェア、ルーティング、`nuxt.config.js`ファイルの設定など、Nuxt環境でIntlayerを動作させるための重要な機能を統合しています。
 
-### svelte-intlayer (作業中)
+  </Tab>
+  <Tab label="Svelte" value="svelte">
 
 `svelte-intlayer`パッケージは、Intlayer辞書を解釈し、Svelteアプリケーションで使用可能にします。
 
-### solid-intlayer (作業中)
+  </Tab>
+  <Tab label="Solid" value="solid">
 
 `solid-intlayer`パッケージは、Intlayer辞書を解釈し、Solid.jsアプリケーションで使用可能にします。
 
-### preact-intlayer
+  </Tab>
+  <Tab label="Preact" value="preact">
 
 `preact-intlayer`パッケージは、Intlayer辞書を解釈し、Preactアプリケーションで使用可能にします。
 
-### angular-intlayer (作業中)
+  </Tab>
+  <Tab label="Angular" value="angular">
 
 `angular-intlayer`パッケージは、Intlayer辞書を解釈し、Angularアプリケーションで使用可能にします。
 
-### express-intlayer
+  </Tab>
+  <Tab label="Astro" value="astro">
+
+`astro-intlayer` パッケージは、IntlayerをAstroアプリケーションに統合するために必要なツールを提供します。ロケールベースのルーティングと辞書管理を設定します。
+
+  </Tab>
+  <Tab label="React Native" value="react-native">
+
+`react-native-intlayer`パッケージは、MetroバンドラーでIntlayerを動作させるためのプラグインを統合するツールを提供します。
+
+  </Tab>
+</Tabs>
+
+### バックエンドフレームワーク
+
+<Tabs group="backend">
+  <Tab label="Express" value="express">
 
 `express-intlayer`パッケージは、Express.jsバックエンドでIntlayerを使用するために使用されます。
 
-### react-native-intlayer
+  </Tab>
+  <Tab label="Fastify" value="fastify">
 
-`react-native-intlayer`パッケージは、MetroバンドラーでIntlayerを動作させるためのプラグインを統合するツールを提供します。
+`fastify-intlayer` パッケージは Fastify アプリケーション向けのプラグインを提供し、国際化を扱います。ユーザーのロケールを検出し、request オブジェクトをデコレートします。
+
+  </Tab>
+  <Tab label="Hono" value="hono">
+
+`hono-intlayer` パッケージは、国際化を処理するための Hono アプリケーション用ミドルウェアを提供します。ユーザーのロケールを検出し、コンテキスト オブジェクトに入力します。
+
+  </Tab>
+  <Tab label="Elysia" value="elysia">
+
+`elysia-intlayer` パッケージは Elysia アプリケーション向けのプラグインを提供し、国際化を扱います。ユーザーのロケールを検出し、ルートコンテキストに `intlayer` オブジェクトを注入します。
+
+  </Tab>
+  <Tab label="AdonisJS" value="adonis">
+
+`adonis-intlayer` パッケージは、国際化を処理するための AdonisJS アプリケーション用ミドルウェアを提供します。ユーザーのロケールを検出し、翻訳機能を提供します。
+
+  </Tab>
+</Tabs>
 
 ### vite-intlayer
 

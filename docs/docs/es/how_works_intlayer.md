@@ -134,45 +134,90 @@ Intlayer está compuesto por varios paquetes, cada uno con un rol específico en
 
 El paquete `intlayer` se utiliza en aplicaciones para declarar contenido en archivos de contenido.
 
-### react-intlayer
+### Frameworks de Frontend
+
+<Tabs group="framework">
+  <Tab label="React" value="react">
 
 El paquete `react-intlayer` se utiliza para interpretar los diccionarios de Intlayer y hacerlos utilizables en aplicaciones React.
 
-### next-intlayer
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
 
 El paquete `next-intlayer` se utiliza como una capa sobre `react-intlayer` para hacer que los diccionarios de Intlayer sean utilizables en aplicaciones Next.js. Integra características esenciales para que Intlayer funcione en un entorno Next.js, como middleware de traducción, enrutamiento o la configuración del archivo `next.config.js`.
 
-### vue-intlayer
+  </Tab>
+  <Tab label="Vue" value="vue">
 
 El paquete `vue-intlayer` se utiliza para interpretar los diccionarios de Intlayer y hacerlos utilizables en aplicaciones Vue.
 
-### nuxt-intlayer
+  </Tab>
+  <Tab label="Nuxt" value="nuxt">
 
 El paquete `nuxt-intlayer` es un módulo de Nuxt para hacer que los diccionarios de Intlayer sean utilizables en aplicaciones Nuxt. Integra características esenciales para que Intlayer funcione en un entorno Nuxt, como middleware de traducción, enrutamiento o la configuración del archivo `nuxt.config.js`.
 
-### svelte-intlayer
+  </Tab>
+  <Tab label="Svelte" value="svelte">
 
 El paquete `svelte-intlayer` se utiliza para interpretar los diccionarios de Intlayer y hacerlos utilizables en aplicaciones Svelte.
 
-### solid-intlayer
+  </Tab>
+  <Tab label="Solid" value="solid">
 
 El paquete `solid-intlayer` se utiliza para interpretar los diccionarios de Intlayer y hacerlos utilizables en aplicaciones Solid.js.
 
-### preact-intlayer
+  </Tab>
+  <Tab label="Preact" value="preact">
 
 El paquete `preact-intlayer` se utiliza para interpretar los diccionarios de Intlayer y hacerlos utilizables en aplicaciones Preact.
 
-### angular-intlayer
+  </Tab>
+  <Tab label="Angular" value="angular">
 
 El paquete `angular-intlayer` se utiliza para interpretar los diccionarios de Intlayer y hacerlos utilizables en aplicaciones Angular.
 
-### express-intlayer
+  </Tab>
+  <Tab label="Astro" value="astro">
+
+El paquete `astro-intlayer` proporciona las herramientas necesarias para integrar Intlayer en aplicaciones Astro. Configura el enrutamiento basado en locales y la gestión de diccionarios.
+
+  </Tab>
+  <Tab label="React Native" value="react-native">
+
+El paquete `react-native-intlayer` proporciona herramientas que integran plugins para que Intlayer funcione con el empaquetador Metro.
+
+  </Tab>
+</Tabs>
+
+### Frameworks de Backend
+
+<Tabs group="backend">
+  <Tab label="Express" value="express">
 
 El paquete `express-intlayer` se utiliza para usar Intlayer en un backend de Express.js.
 
-### react-native-intlayer
+  </Tab>
+  <Tab label="Fastify" value="fastify">
 
-El paquete `react-native-intlayer` proporciona herramientas que integran plugins para que Intlayer funcione con el empaquetador Metro.
+El paquete `fastify-intlayer` proporciona un plugin para aplicaciones Fastify para gestionar la internacionalización. Detecta el locale del usuario y decora el objeto request.
+
+  </Tab>
+  <Tab label="Hono" value="hono">
+
+El paquete `hono-intlayer` proporciona un middleware para aplicaciones Hono para manejar la internacionalización. Detecta el idioma del usuario y rellena el objeto de contexto.
+
+  </Tab>
+  <Tab label="Elysia" value="elysia">
+
+El paquete `elysia-intlayer` proporciona un plugin para aplicaciones Elysia para gestionar la internacionalización. Detecta el locale del usuario e inyecta un objeto `intlayer` en el contexto de la ruta.
+
+  </Tab>
+  <Tab label="AdonisJS" value="adonis">
+
+El paquete `adonis-intlayer` proporciona un middleware para aplicaciones AdonisJS para manejar la internacionalización. Detecta el locale del usuario y proporciona funciones de traducción.
+
+  </Tab>
+</Tabs>
 
 ### vite-intlayer
 

@@ -133,45 +133,90 @@ Intlayer складається з кількох пакетів, кожен і�
 
 Пакет `intlayer` використовується в застосунках для оголошення контенту у файлах контенту.
 
-### react-intlayer
+### Фронтенд-фреймворки
+
+<Tabs group="framework">
+  <Tab label="React" value="react">
 
 Пакет `react-intlayer` використовується для інтерпретації словників Intlayer і робить їх придатними для використання в React-застосунках.
 
-### next-intlayer
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
 
 Пакет `next-intlayer` використовується як шар поверх `react-intlayer`, щоб зробити словники Intlayer придатними для використання в Next.js-застосунках. Він інтегрує необхідні функції для роботи Intlayer у середовищі Next.js, такі як translation middleware, маршрутизація або конфігурація файлу `next.config.js`.
 
-### vue-intlayer
+  </Tab>
+  <Tab label="Vue" value="vue">
 
 Пакет `vue-intlayer` використовується для інтерпретації словників Intlayer і робить їх придатними для використання у Vue-застосунках.
 
-### nuxt-intlayer
+  </Tab>
+  <Tab label="Nuxt" value="nuxt">
 
 The `nuxt-intlayer` package is as Nuxt module to make Intlayer dictionaries usable in Nuxt applications. It integrates essential features to make Intlayer work in a Nuxt environment, such as translation middleware, routing, or the `nuxt.config.js` file configuration.
 
-### svelte-intlayer
+  </Tab>
+  <Tab label="Svelte" value="svelte">
 
 The `svelte-intlayer` package is used to interpret Intlayer dictionaries and make them usable in Svelte applications.
 
-### solid-intlayer
+  </Tab>
+  <Tab label="Solid" value="solid">
 
 The `solid-intlayer` package is used to interpret Intlayer dictionaries and make them usable in Solid.js applications.
 
-### preact-intlayer
+  </Tab>
+  <Tab label="Preact" value="preact">
 
 The `preact-intlayer` package is used to interpret Intlayer dictionaries and make them usable in Preact applications.
 
-### angular-intlayer
+  </Tab>
+  <Tab label="Angular" value="angular">
 
 Пакет `angular-intlayer` використовується для інтерпретації словників Intlayer та забезпечення їхнього використання в додатках Angular.
 
-### express-intlayer
+  </Tab>
+  <Tab label="Astro" value="astro">
+
+Пакет `astro-intlayer` надає необхідні інструменти для інтеграції Intlayer у додатки Astro. Він налаштовує маршрутизацію на основі локалі та керування словниками.
+
+  </Tab>
+  <Tab label="React Native" value="react-native">
+
+Пакет `react-native-intlayer` надає інструменти для інтеграції плагінів, щоб Intlayer працював з бандлером Metro.
+
+  </Tab>
+</Tabs>
+
+### Бекенд-фреймворки
+
+<Tabs group="backend">
+  <Tab label="Express" value="express">
 
 Пакет `express-intlayer` використовується для застосування Intlayer на бекенді Express.js.
 
-### react-native-intlayer
+  </Tab>
+  <Tab label="Fastify" value="fastify">
 
-Пакет `react-native-intlayer` надає інструменти для інтеграції плагінів, щоб Intlayer працював з бандлером Metro.
+Пакет `fastify-intlayer` надає плагін для додатків на Fastify для роботи з інтернаціоналізацією. Він визначає локаль користувача та декорує об'єкт запиту (request).
+
+  </Tab>
+  <Tab label="Hono" value="hono">
+
+Пакет `hono-intlayer` надає проміжне програмне забезпечення (middleware) для додатків Hono для обробки інтернаціоналізації. Він виявляє локаль користувача та заповнює об'єкт контексту.
+
+  </Tab>
+  <Tab label="Elysia" value="elysia">
+
+Пакет `elysia-intlayer` надає плагін для додатків на Elysia для роботи з інтернаціоналізацією. Він визначає локаль користувача та впроваджує об'єкт `intlayer` у контекст маршруту.
+
+  </Tab>
+  <Tab label="AdonisJS" value="adonis">
+
+Пакет `adonis-intlayer` надає проміжне ПЗ для додатків AdonisJS для обробки інтернаціоналізації. Він визначає локаль користувача та надає функції перекладу.
+
+  </Tab>
+</Tabs>
 
 ### vite-intlayer
 

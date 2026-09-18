@@ -131,45 +131,90 @@ Intlayer, çeviri sürecinde belirli bir rolü olan birkaç paketten oluşur. İ
 
 `intlayer` paketi, içerik dosyalarında içeriği bildirmek için uygulamalarda kullanılır.
 
-### react-intlayer
+### Frontend Framework'leri
+
+<Tabs group="framework">
+  <Tab label="React" value="react">
 
 `react-intlayer` paketi, Intlayer sözlüklerini yorumlamak ve React uygulamalarında kullanılabilir hale getirmek için kullanılır.
 
-### next-intlayer
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
 
 `next-intlayer` paketi, `react-intlayer` üzerine bir katman olarak kullanılır ve Intlayer sözlüklerini Next.js uygulamalarında kullanılabilir hale getirir. Çeviri ara yazılımı, yönlendirme veya `next.config.js` dosyası konfigürasyonu gibi Intlayer'ı bir Next.js ortamında çalışacak şekilde yapmak için gerekli özellikleri entegre eder.
 
-### vue-intlayer
+  </Tab>
+  <Tab label="Vue" value="vue">
 
 `vue-intlayer` paketi, Intlayer sözlüklerini yorumlamak ve Vue uygulamalarında kullanılabilir hale getirmek için kullanılır.
 
-### nuxt-intlayer
+  </Tab>
+  <Tab label="Nuxt" value="nuxt">
 
 `nuxt-intlayer` paketi, Intlayer sözlüklerini Nuxt uygulamalarında kullanılabilir hale getirmek için bir Nuxt modülü olarak kullanılır. Çeviri ara yazılımı, yönlendirme veya `nuxt.config.js` dosyası konfigürasyonu gibi Intlayer'ı bir Nuxt ortamında çalışacak şekilde yapmak için gerekli özellikleri entegre eder.
 
-### svelte-intlayer
+  </Tab>
+  <Tab label="Svelte" value="svelte">
 
 `svelte-intlayer` paketi, Intlayer sözlüklerini yorumlamak ve Svelte uygulamalarında kullanılabilir hale getirmek için kullanılır.
 
-### solid-intlayer
+  </Tab>
+  <Tab label="Solid" value="solid">
 
 `solid-intlayer` paketi, Intlayer sözlüklerini yorumlamak ve Solid.js uygulamalarında kullanılabilir hale getirmek için kullanılır.
 
-### preact-intlayer
+  </Tab>
+  <Tab label="Preact" value="preact">
 
 `preact-intlayer` paketi, Intlayer sözlüklerini yorumlamak ve Preact uygulamalarında kullanılabilir hale getirmek için kullanılır.
 
-### angular-intlayer
+  </Tab>
+  <Tab label="Angular" value="angular">
 
 `angular-intlayer` paketi, Intlayer sözlüklerini yorumlamak ve Angular uygulamalarında kullanılabilir hale getirmek için kullanılır.
 
-### express-intlayer
+  </Tab>
+  <Tab label="Astro" value="astro">
+
+`astro-intlayer` paketi, Intlayer'ı Astro uygulamalarına entegre etmek için gerekli araçları sağlar. Locale tabanlı yönlendirme ve sözlük yönetimini yapılandırır.
+
+  </Tab>
+  <Tab label="React Native" value="react-native">
+
+`react-native-intlayer` paketi, Intlayer'ı Metro paketleyici ile çalışacak şekilde entegre eden eklentiler sağlar.
+
+  </Tab>
+</Tabs>
+
+### Backend Framework'leri
+
+<Tabs group="backend">
+  <Tab label="Express" value="express">
 
 `express-intlayer` paketi, bir Express.js arka ucunda Intlayer kullanmak için kullanılır.
 
-### react-native-intlayer
+  </Tab>
+  <Tab label="Fastify" value="fastify">
 
-`react-native-intlayer` paketi, Intlayer'ı Metro paketleyici ile çalışacak şekilde entegre eden eklentiler sağlar.
+`fastify-intlayer` paketi, Fastify uygulamaları için uluslararasılaştırmayı (internationalization / i18n) yönetmek üzere bir plugin sağlar. Kullanıcının locale'ini algılar ve request nesnesini dekorlar.
+
+  </Tab>
+  <Tab label="Hono" value="hono">
+
+`hono-intlayer` paketi, uluslararasılaştırmayı yönetmek için Hono uygulamaları için bir ara yazılım (middleware) sağlar. Kullanıcının yerel ayarını algılar ve bağlam nesnesini doldurur.
+
+  </Tab>
+  <Tab label="Elysia" value="elysia">
+
+`elysia-intlayer` paketi, Elysia uygulamaları için uluslararasılaştırmayı (internationalization / i18n) yönetmek üzere bir plugin sağlar. Kullanıcının locale'ini algılar ve route context'ine bir `intlayer` nesnesi enjekte eder.
+
+  </Tab>
+  <Tab label="AdonisJS" value="adonis">
+
+`adonis-intlayer` paketi, AdonisJS uygulamalarının uluslararasılaştırmayı yönetmesi için bir middleware sağlar. Kullanıcının yerel ayarını algılar ve çeviri fonksiyonları sağlar.
+
+  </Tab>
+</Tabs>
 
 ### vite-intlayer
 

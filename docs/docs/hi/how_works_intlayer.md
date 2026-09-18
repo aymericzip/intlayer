@@ -135,45 +135,90 @@ Intlayer कई पैकेजों से बना है, जिनमे�
 
 `intlayer` पैकेज का उपयोग एप्लिकेशन में सामग्री फ़ाइलों में सामग्री घोषित करने के लिए किया जाता है।
 
-### react-intlayer
+### फ़्रंटएंड फ़्रेमवर्क
+
+<Tabs group="framework">
+  <Tab label="React" value="react">
 
 `react-intlayer` पैकेज का उपयोग Intlayer डिक्शनरीज़ की व्याख्या करने और उन्हें React एप्लिकेशन में उपयोगी बनाने के लिए किया जाता है।
 
-### next-intlayer
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
 
 `next-intlayer` पैकेज का उपयोग `react-intlayer` के ऊपर एक लेयर के रूप में किया जाता है ताकि Intlayer डिक्शनरीज़ को Next.js एप्लिकेशन में उपयोगी बनाया जा सके। इसमें Next.js वातावरण में Intlayer को काम करने के लिए आवश्यक सुविधाएँ शामिल हैं, जैसे अनुवाद मिडलवेयर, रूटिंग, या `next.config.js` फ़ाइल कॉन्फ़िगरेशन।
 
-### vue-intlayer
+  </Tab>
+  <Tab label="Vue" value="vue">
 
 `vue-intlayer` पैकेज का उपयोग Intlayer डिक्शनरीज़ की व्याख्या करने और उन्हें Vue एप्लिकेशन में उपयोगी बनाने के लिए किया जाता है।
 
-### nuxt-intlayer
+  </Tab>
+  <Tab label="Nuxt" value="nuxt">
 
 `nuxt-intlayer` पैकेज Nuxt मॉड्यूल के रूप में है ताकि Intlayer डिक्शनरीज़ को Nuxt एप्लिकेशन में उपयोगी बनाया जा सके। यह Intlayer को Nuxt वातावरण में काम करने के लिए आवश्यक सुविधाओं को एकीकृत करता है, जैसे अनुवाद मिडलवेयर, रूटिंग, या `nuxt.config.js` फ़ाइल कॉन्फ़िगरेशन।
 
-### svelte-intlayer (कार्य प्रगति पर)
+  </Tab>
+  <Tab label="Svelte" value="svelte">
 
 `svelte-intlayer` पैकेज का उपयोग Intlayer डिक्शनरीज़ की व्याख्या करने और उन्हें Svelte एप्लिकेशन में उपयोगी बनाने के लिए किया जाता है।
 
-### solid-intlayer (कार्य प्रगति पर)
+  </Tab>
+  <Tab label="Solid" value="solid">
 
 `solid-intlayer` पैकेज का उपयोग Intlayer डिक्शनरीज़ की व्याख्या करने और उन्हें Solid.js एप्लिकेशन में उपयोगी बनाने के लिए किया जाता है।
 
-### preact-intlayer
+  </Tab>
+  <Tab label="Preact" value="preact">
 
 `preact-intlayer` पैकेज का उपयोग Intlayer डिक्शनरीज़ की व्याख्या करने और उन्हें Preact एप्लिकेशन में उपयोगी बनाने के लिए किया जाता है।
 
-### angular-intlayer (कार्य प्रगति पर)
+  </Tab>
+  <Tab label="Angular" value="angular">
 
 `angular-intlayer` पैकेज का उपयोग Intlayer डिक्शनरीज़ की व्याख्या करने और उन्हें Angular एप्लिकेशन में उपयोगी बनाने के लिए किया जाता है।
 
-### express-intlayer
+  </Tab>
+  <Tab label="Astro" value="astro">
+
+`astro-intlayer` पैकेज Intlayer को Astro एप्लिकेशनों में इंटीग्रेट करने के लिए आवश्यक टूल प्रदान करता है। यह locale-आधारित राउटिंग और डिक्शनरी प्रबंधन को कॉन्फ़िगर करता है।
+
+  </Tab>
+  <Tab label="React Native" value="react-native">
+
+`react-native-intlayer` पैकेज Intlayer को Metro बंडलर के साथ काम करने के लिए प्लगइन्स को एकीकृत करने वाले उपकरण प्रदान करता है।
+
+  </Tab>
+</Tabs>
+
+### बैकएंड फ़्रेमवर्क
+
+<Tabs group="backend">
+  <Tab label="Express" value="express">
 
 `express-intlayer` पैकेज का उपयोग Express.js बैकएंड पर Intlayer का उपयोग करने के लिए किया जाता है।
 
-### react-native-intlayer
+  </Tab>
+  <Tab label="Fastify" value="fastify">
 
-`react-native-intlayer` पैकेज Intlayer को Metro बंडलर के साथ काम करने के लिए प्लगइन्स को एकीकृत करने वाले उपकरण प्रदान करता है।
+`fastify-intlayer` पैकेज Fastify एप्लिकेशनों के लिए एक प्लगइन प्रदान करता है जो internationalization को संभालता है। यह उपयोगकर्ता की locale का पता लगाता है और request ऑब्जेक्ट को सजाता है।
+
+  </Tab>
+  <Tab label="Hono" value="hono">
+
+`hono-intlayer` पैकेज अंतर्राष्ट्रीयकरण को संभालने के लिए Hono अनुप्रयोगों के लिए एक मिडलवेयर प्रदान करता है। यह उपयोगकर्ता के लोकेल का पता लगाता है और संदर्भ ऑब्जेक्ट को भरता है।
+
+  </Tab>
+  <Tab label="Elysia" value="elysia">
+
+`elysia-intlayer` पैकेज Elysia एप्लिकेशनों के लिए एक प्लगइन प्रदान करता है जो internationalization को संभालता है। यह उपयोगकर्ता की locale का पता लगाता है और route context में एक `intlayer` ऑब्जेक्ट इंजेक्ट करता है।
+
+  </Tab>
+  <Tab label="AdonisJS" value="adonis">
+
+`adonis-intlayer` पैकेज AdonisJS अनुप्रयोगों के लिए अंतर्राष्ट्रीयकरण को संभालने के लिए एक मिडलवेयर प्रदान करता है। यह उपयोगकर्ता के लोकेल का पता लगाता है और अनुवाद फ़ंक्शन प्रदान करता है।
+
+  </Tab>
+</Tabs>
 
 ### vite-intlayer
 

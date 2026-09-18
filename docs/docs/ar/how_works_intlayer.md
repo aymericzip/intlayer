@@ -135,45 +135,90 @@ const MyComponent = () => {
 
 تُستخدم حزمة `intlayer` في التطبيقات لإعلان المحتوى في ملفات المحتوى.
 
-### react-intlayer
+### أطر عمل الواجهة الأمامية (Frontend)
+
+<Tabs group="framework">
+  <Tab label="React" value="react">
 
 تُستخدم حزمة `react-intlayer` لتفسير قواميس Intlayer وجعلها قابلة للاستخدام في تطبيقات React.
 
-### next-intlayer
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
 
 تُستخدم حزمة `next-intlayer` كطبقة فوق `react-intlayer` لجعل قواميس Intlayer قابلة للاستخدام في تطبيقات Next.js. تتكامل مع الميزات الأساسية لجعل Intlayer يعمل في بيئة Next.js، مثل الوسيطات الخاصة بالترجمة، التوجيه، أو تكوين ملف `next.config.js`.
 
-### vue-intlayer
+  </Tab>
+  <Tab label="Vue" value="vue">
 
 تُستخدم حزمة `vue-intlayer` لتفسير قواميس Intlayer وجعلها قابلة للاستخدام في تطبيقات Vue.
 
-### nuxt-intlayer
+  </Tab>
+  <Tab label="Nuxt" value="nuxt">
 
 تُستخدم حزمة `nuxt-intlayer` كوحدة Nuxt لجعل قواميس Intlayer قابلة للاستخدام في تطبيقات Nuxt. تدمج ميزات أساسية لجعل Intlayer يعمل في بيئة Nuxt، مثل وسيط الترجمة، التوجيه، أو تكوين ملف `nuxt.config.js`.
 
-### svelte-intlayer (قيد العمل)
+  </Tab>
+  <Tab label="Svelte" value="svelte">
 
 تُستخدم حزمة `svelte-intlayer` لتفسير قواميس Intlayer وجعلها قابلة للاستخدام في تطبيقات Svelte.
 
-### solid-intlayer (قيد العمل)
+  </Tab>
+  <Tab label="Solid" value="solid">
 
 تُستخدم حزمة `solid-intlayer` لتفسير قواميس Intlayer وجعلها قابلة للاستخدام في تطبيقات Solid.js.
 
-### preact-intlayer
+  </Tab>
+  <Tab label="Preact" value="preact">
 
 تُستخدم حزمة `preact-intlayer` لتفسير قواميس Intlayer وجعلها قابلة للاستخدام في تطبيقات Preact.
 
-### angular-intlayer (قيد العمل)
+  </Tab>
+  <Tab label="Angular" value="angular">
 
 تُستخدم حزمة `angular-intlayer` لتفسير قواميس Intlayer وجعلها قابلة للاستخدام في تطبيقات Angular.
 
-### express-intlayer
+  </Tab>
+  <Tab label="Astro" value="astro">
+
+توفر حزمة `astro-intlayer` الأدوات اللازمة لدمج Intlayer في تطبيقات Astro. تقوم بتكوين التوجيه القائم على اللغة وإدارة القواميس.
+
+  </Tab>
+  <Tab label="React Native" value="react-native">
+
+توفر حزمة `react-native-intlayer` أدوات تتكامل مع مكونات إضافية لـ Intlayer للعمل مع Metro bundler.
+
+  </Tab>
+</Tabs>
+
+### أطر عمل الواجهة الخلفية (Backend)
+
+<Tabs group="backend">
+  <Tab label="Express" value="express">
 
 تُستخدم حزمة `express-intlayer` لاستخدام Intlayer على واجهة خلفية Express.js.
 
-### react-native-intlayer
+  </Tab>
+  <Tab label="Fastify" value="fastify">
 
-توفر حزمة `react-native-intlayer` أدوات تتكامل مع مكونات إضافية لـ Intlayer للعمل مع Metro bundler.
+توفر حزمة `fastify-intlayer` ملحقًا لتطبيقات Fastify للتعامل مع التدويل (internationalization). تقوم باكتشاف الـ locale الخاص بالمستخدم وتزيّن كائن الطلب (request) بخصائص متعلقة بالتدويل.
+
+  </Tab>
+  <Tab label="Hono" value="hono">
+
+توفر حزمة `hono-intlayer` وسيطًا (middleware) لتطبيقات Hono للتعامل مع التدويل. يقوم باكتشاف لغة المستخدم وملء كائن السياق.
+
+  </Tab>
+  <Tab label="Elysia" value="elysia">
+
+توفر حزمة `elysia-intlayer` ملحقًا لتطبيقات Elysia للتعامل مع التدويل (internationalization). تقوم باكتشاف الـ locale الخاص بالمستخدم وتحقن كائن `intlayer` في سياق المسار.
+
+  </Tab>
+  <Tab label="AdonisJS" value="adonis">
+
+توفر حزمة `adonis-intlayer` وسيطًا لتطبيقات AdonisJS للتعامل مع التدويل. تكتشف لغة المستخدم وتوفر وظائف الترجمة.
+
+  </Tab>
+</Tabs>
 
 ### vite-intlayer
 
