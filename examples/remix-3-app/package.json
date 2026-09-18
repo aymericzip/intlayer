@@ -1,6 +1,6 @@
 {
   "name": "remix-3-app",
-  "version": "9.5.3",
+  "version": "9.5.4-canary.0",
   "private": true,
   "type": "module",
   "scripts": {
