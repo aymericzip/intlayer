@@ -188,6 +188,16 @@ Intlayer는 번역 프로세스에서 특정 역할을 하는 여러 패키지�
 `react-native-intlayer` 패키지는 Metro 번들러와 함께 작동하도록 Intlayer 플러그인을 통합하는 도구를 제공합니다.
 
   </Tab>
+  <Tab label="Lit" value="lit">
+
+`lit-intlayer` 패키지는 Lit 애플리케이션에서 Intlayer 사전을 해석하고 사용하기 위한 도구와 컴포넌트를 제공합니다.
+
+  </Tab>
+  <Tab label="Vanilla JS" value="vanilla">
+
+`vanilla-intlayer` 패키지는 Intlayer를 바닐라 JavaScript, HTML 또는 PHP 애플리케이션에 통합하기 위한 도구를 제공합니다.
+
+  </Tab>
 </Tabs>
 
 ### 백엔드 프레임워크
@@ -228,6 +238,10 @@ Intlayer는 번역 프로세스에서 특정 역할을 하는 여러 패키지�
 
 `react-scripts-intlayer` 명령어와 플러그인을 포함하며, Create React App 기반 애플리케이션과 Intlayer를 통합하는 데 사용됩니다. 이 플러그인들은 [craco](https://craco.js.org/)를 기반으로 하며, [Webpack](https://webpack.js.org/) 번들러에 대한 추가 구성을 포함합니다.
 
+### eslint-plugin-intlayer
+
+`eslint-plugin-intlayer` 패키지는 번역되지 않은 문자열을 감지하고 사전 정의를 검증하며 i18n 모범 사례를 적용하기 위한 ESLint 및 oxlint 규칙을 제공합니다.
+
 ### intlayer-editor
 
 `intlayer-editor` 패키지는 시각적 편집기를 사용할 수 있도록 하는 데 사용됩니다. 이 패키지는 선택 사항으로, 애플리케이션에 설치할 수 있으며 `react-intlayer` 패키지에서 사용됩니다.  
@@ -260,6 +274,18 @@ Express를 기반으로 한 서버는 시각적 편집기 요청을 수신하고
 ### @intlayer/mcp
 
 `@intlayer/mcp` 패키지는 Intlayer 생태계에 맞춘 AI 기반 IDE 지원을 제공하는 MCP(Model Context Protocol) 서버를 제공합니다. 이 서버는 문서를 자동으로 로드하며 Intlayer CLI와 통합됩니다.
+
+### @intlayer/lsp
+
+`@intlayer/lsp` 패키지는 Intlayer에 맞춘 Language Server Protocol (LSP) 서버를 제공합니다. 정의로 이동, 모든 참조 찾기, 호버 미리보기, 사전 키 자동 완성 및 진단 경고와 같은 IDE 기능을 지원합니다.
+
+### @intlayer/ai
+
+`@intlayer/ai` 패키지는 Intlayer 애플리케이션을 위한 SDK 기능을 제공하여 자동 번역 및 AI 기반 콘텐츠 생성을 지원합니다.
+
+### @intlayer/analytics
+
+`@intlayer/analytics` 패키지는 콘텐츠 노출 지표, 페이지/로케일 및 노드 수준 분석을 수집하고 콘텐츠 A/B 테스트를 지원하는 도구를 제공합니다.
 
 ### @intlayer/dictionaries-entry
 

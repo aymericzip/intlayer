@@ -184,6 +184,16 @@ Paket `astro-intlayer` menyediakan alat yang diperlukan untuk mengintegrasikan I
 Paket `react-native-intlayer` menyediakan alat yang mengintegrasikan plugin agar Intlayer dapat bekerja dengan Metro bundler.
 
   </Tab>
+  <Tab label="Lit" value="lit">
+
+Paket `lit-intlayer` menyediakan alat dan komponen untuk menginterpretasikan dan menggunakan kamus Intlayer dalam aplikasi Lit.
+
+  </Tab>
+  <Tab label="Vanilla JS" value="vanilla">
+
+Paket `vanilla-intlayer` menyediakan alat untuk mengintegrasikan Intlayer ke dalam aplikasi vanilla JavaScript, HTML, atau PHP.
+
+  </Tab>
 </Tabs>
 
 ### Framework Backend
@@ -224,6 +234,10 @@ Menyertakan plugin Vite untuk mengintegrasikan Intlayer dengan [Vite bundler](ht
 
 Mencakup perintah dan plugin `react-scripts-intlayer` untuk mengintegrasikan Intlayer dengan aplikasi berbasis Create React App. Plugin ini didasarkan pada [craco](https://craco.js.org/) dan mencakup konfigurasi tambahan untuk bundler [Webpack](https://webpack.js.org/).
 
+### eslint-plugin-intlayer
+
+Paket `eslint-plugin-intlayer` menyediakan aturan ESLint dan oxlint untuk mendeteksi string yang belum diterjemahkan, memvalidasi definisi kamus, dan menegakkan praktik terbaik i18n.
+
 ### intlayer-editor
 
 Paket `intlayer-editor` digunakan untuk memungkinkan penggunaan editor visual. Paket ini bersifat opsional, dapat diinstal dalam aplikasi, dan akan digunakan oleh paket `react-intlayer`.
@@ -256,6 +270,18 @@ Paket `@intlayer/cli` adalah paket NPM yang digunakan untuk mendeklarasikan skri
 ### @intlayer/mcp
 
 Paket `@intlayer/mcp` menyediakan server MCP (Model Context Protocol) yang memberikan bantuan IDE bertenaga AI yang disesuaikan untuk ekosistem Intlayer. Paket ini secara otomatis memuat dokumentasi dan terintegrasi dengan Intlayer CLI.
+
+### @intlayer/lsp
+
+Paket `@intlayer/lsp` menyediakan server Language Server Protocol (LSP) yang disesuaikan untuk Intlayer. Paket ini menghadirkan fitur IDE seperti Buka Definisi, Temukan Referensi, pratinjau hover, pelengkapan otomatis kunci kamus, dan peringatan diagnostik.
+
+### @intlayer/ai
+
+Paket `@intlayer/ai` menyediakan kemampuan SDK untuk aplikasi Intlayer, memungkinkan penerjemahan otomatis dan pembuatan konten bertenaga AI.
+
+### @intlayer/analytics
+
+Paket `@intlayer/analytics` menyediakan alat untuk mengumpulkan metrik tayangan konten, analitik tingkat halaman/lokal dan node, serta mendukung pengujian A/B konten.
 
 ### @intlayer/dictionaries-entry
 

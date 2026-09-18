@@ -187,6 +187,16 @@ Intlayer 由多个包组成，每个包在翻译过程中都有特定的角色�
 `react-native-intlayer` 包提供了集成插件的工具，使 Intlayer 能够与 Metro 打包器一起工作。
 
   </Tab>
+  <Tab label="Lit" value="lit">
+
+`lit-intlayer` 包提供在 Lit 应用程序中解析和使用 Intlayer 字典的工具和组件。
+
+  </Tab>
+  <Tab label="Vanilla JS" value="vanilla">
+
+`vanilla-intlayer` 包提供将 Intlayer 集成到原生 JavaScript、HTML 或 PHP 应用程序中的工具。
+
+  </Tab>
 </Tabs>
 
 ### 后端框架
@@ -227,6 +237,10 @@ Intlayer 由多个包组成，每个包在翻译过程中都有特定的角色�
 
 包括用于将 Intlayer 集成到基于 Create React App 的应用程序中的 `react-scripts-intlayer` 命令和插件。这些插件基于 [craco](https://craco.js.org/)，并包含针对 [Webpack](https://webpack.js.org/) 打包器的额外配置。
 
+### eslint-plugin-intlayer
+
+`eslint-plugin-intlayer` 包提供 ESLint 和 oxlint 规则，用于捕获未翻译的字符串、验证字典定义并在代码库中强制执行 i18n 最佳实践。
+
 ### intlayer-editor
 
 `intlayer-editor` 包用于支持可视化编辑器的使用。这个包是可选的，可以安装到应用程序中，并由 `react-intlayer` 包使用。
@@ -260,6 +274,18 @@ Intlayer 由多个包组成，每个包在翻译过程中都有特定的角色�
 
 `@intlayer/mcp` 包提供一个 MCP（模型上下文协议）服务器，提供针对 Intlayer 生态系统的 AI 驱动的 IDE 辅助。它会自动加载文档并与 Intlayer CLI 集成。
 `@intlayer/mcp` 包提供一个 MCP（模型上下文协议）服务器，提供针对 Intlayer 生态系统定制的 AI 驱动的 IDE 辅助。它会自动加载文档并与 Intlayer CLI 集成。
+
+### @intlayer/lsp
+
+`@intlayer/lsp` 包提供专门为 Intlayer 定制的语言服务器协议（LSP）服务。它为支持 LSP 的编辑器带来跳转到定义、查找引用、悬停预览、字典键自动补全和诊断警告等 IDE 功能。
+
+### @intlayer/ai
+
+`@intlayer/ai` 包为 Intlayer 应用程序提供 SDK 功能，实现自动化翻译和 AI 驱动的内容生成。
+
+### @intlayer/analytics
+
+`@intlayer/analytics` 包提供收集内容展示指标、页面/语言环境和节点级别分析的工具，并支持内容 A/B 测试。
 
 ### @intlayer/dictionaries-entry
 

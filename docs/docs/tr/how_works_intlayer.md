@@ -184,6 +184,16 @@ Intlayer, çeviri sürecinde belirli bir rolü olan birkaç paketten oluşur. İ
 `react-native-intlayer` paketi, Intlayer'ı Metro paketleyici ile çalışacak şekilde entegre eden eklentiler sağlar.
 
   </Tab>
+  <Tab label="Lit" value="lit">
+
+`lit-intlayer` paketi, Lit uygulamalarında Intlayer sözlüklerini yorumlamak ve kullanmak için araçlar ve bileşenler sağlar.
+
+  </Tab>
+  <Tab label="Vanilla JS" value="vanilla">
+
+`vanilla-intlayer` paketi, Intlayer'ı vanilla JavaScript, HTML veya PHP uygulamalarına entegre etmek için araçlar sağlar.
+
+  </Tab>
 </Tabs>
 
 ### Backend Framework'leri
@@ -224,6 +234,10 @@ Intlayer, çeviri sürecinde belirli bir rolü olan birkaç paketten oluşur. İ
 
 Create React App tabanlı uygulama ile Intlayer'ı entegre etmek için `react-scripts-intlayer` komutlarını ve eklentileri içerir. Bu eklentiler [craco](https://craco.js.org/) tabanlıdır ve [Webpack](https://webpack.js.org/) paketleyici için ek konfigürasyon içerir.
 
+### eslint-plugin-intlayer
+
+`eslint-plugin-intlayer` paketi, çevrilmemiş dizeleri yakalamak, sözlük tanımlarını doğrulamak ve i18n en iyi uygulamalarını zorunlu kılmak için ESLint ve oxlint kuralları sağlar.
+
 ### intlayer-editor
 
 `intlayer-editor` paketi, görsel düzenleyicinin kullanımına izin vermek için kullanılır. Bu paket, isteğe bağlıdır ve uygulamalarda yüklenebilir ve `react-intlayer` paketi tarafından kullanılacaktır.
@@ -256,6 +270,18 @@ Sunucu, Express tabanlıdır ve görsel düzenleyici isteklerini almak ve içeri
 ### @intlayer/mcp
 
 `@intlayer/mcp` paketi, Intlayer ekosistemi için uyarlanmış AI destekli IDE yardımı sağlayan bir MCP (Model Context Protocol) sunucusu sağlar. Dokümantasyonu otomatik olarak yükler ve Intlayer CLI ile entegre olur.
+
+### @intlayer/lsp
+
+`@intlayer/lsp` paketi, Intlayer için özel olarak tasarlanmış bir Language Server Protocol (LSP) sunucusu sağlar. Tanıma Git, Tüm Referansları Bul, üzerine gelindiğinde önizleme, sözlük anahtarlarını otomatik tamamlama ve tanılama uyarıları gibi IDE özelliklerini getirir.
+
+### @intlayer/ai
+
+`@intlayer/ai` paketi, Intlayer uygulamaları için otomatik çeviri ve yapay zeka destekli içerik üretimini etkinleştiren SDK yetenekleri sağlar.
+
+### @intlayer/analytics
+
+`@intlayer/analytics` paketi, içerik gösterim metriklerini, sayfa/yerel ayar ve düğüm düzeyinde analizleri toplamak ve içerik A/B testlerini desteklemek için araçlar sağlar.
 
 ### @intlayer/dictionaries-entry
 

@@ -188,6 +188,16 @@ Il pacchetto `astro-intlayer` fornisce gli strumenti necessari per integrare Int
 Il pacchetto `react-native-intlayer` fornisce strumenti che integrano plugin per far funzionare Intlayer con il Metro bundler.
 
   </Tab>
+  <Tab label="Lit" value="lit">
+
+Il pacchetto `lit-intlayer` fornisce strumenti e componenti per interpretare e utilizzare i dizionari di Intlayer nelle applicazioni Lit.
+
+  </Tab>
+  <Tab label="Vanilla JS" value="vanilla">
+
+Il pacchetto `vanilla-intlayer` fornisce strumenti per integrare Intlayer in applicazioni JavaScript vanilla, HTML o PHP.
+
+  </Tab>
 </Tabs>
 
 ### Framework Backend
@@ -228,6 +238,10 @@ Include il plugin Vite per integrare Intlayer con il [Vite bundler](https://vite
 
 Include i comandi e i plugin `react-scripts-intlayer` per integrare Intlayer con le applicazioni basate su Create React App. Questi plugin si basano su [craco](https://craco.js.org/) e includono configurazioni aggiuntive per il bundler [Webpack](https://webpack.js.org/).
 
+### eslint-plugin-intlayer
+
+Il pacchetto `eslint-plugin-intlayer` fornisce regole ESLint e oxlint per rilevare stringhe non tradotte, convalidare le definizioni del dizionario e applicare le migliori pratiche di i18n.
+
 ### intlayer-editor
 
 Il pacchetto `intlayer-editor` viene utilizzato per consentire l'uso dell'editor visivo. Questo pacchetto, opzionale, può essere installato nelle applicazioni e sarà utilizzato dal pacchetto `react-intlayer`.
@@ -260,6 +274,18 @@ Il pacchetto `@intlayer/cli` è un pacchetto NPM utilizzato per dichiarare gli s
 ### @intlayer/mcp
 
 Il pacchetto `@intlayer/mcp` fornisce un server MCP (Model Context Protocol) che offre assistenza IDE potenziata dall'IA, specificamente progettata per l'ecosistema Intlayer. Carica automaticamente la documentazione e si integra con la CLI di Intlayer.
+
+### @intlayer/lsp
+
+Il pacchetto `@intlayer/lsp` fornisce un server Language Server Protocol (LSP) su misura per Intlayer. Offre funzionalità per IDE come Vai alla definizione, Trova riferimenti, anteprime al passaggio del mouse, completamento automatico delle chiavi del dizionario e avvisi di diagnostica.
+
+### @intlayer/ai
+
+Il pacchetto `@intlayer/ai` fornisce funzionalità SDK per le applicazioni Intlayer, consentendo la traduzione automatica e la generazione di contenuti tramite intelligenza artificiale.
+
+### @intlayer/analytics
+
+Il pacchetto `@intlayer/analytics` fornisce strumenti per raccogliere metriche sulle impressioni dei contenuti, analisi a livello di pagina/locale e di nodo, e supporta i test A/B dei contenuti.
 
 ### @intlayer/dictionaries-entry
 

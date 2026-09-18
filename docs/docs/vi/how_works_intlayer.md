@@ -184,6 +184,16 @@ Gói `astro-intlayer` cung cấp các công cụ cần thiết để tích hợp
 Gói `react-native-intlayer` cung cấp các công cụ tích hợp plugin để Intlayer hoạt động với Metro bundler.
 
   </Tab>
+  <Tab label="Lit" value="lit">
+
+Gói `lit-intlayer` cung cấp các công cụ và thành phần để diễn giải và sử dụng từ điển Intlayer trong các ứng dụng Lit.
+
+  </Tab>
+  <Tab label="Vanilla JS" value="vanilla">
+
+Gói `vanilla-intlayer` cung cấp các công cụ để tích hợp Intlayer vào các ứng dụng JavaScript thuần, HTML hoặc PHP.
+
+  </Tab>
 </Tabs>
 
 ### Framework Backend
@@ -224,6 +234,10 @@ Bao gồm plugin Vite để tích hợp Intlayer với [Vite bundler](https://vi
 
 Bao gồm các lệnh và plugin `react-scripts-intlayer` để tích hợp Intlayer với ứng dụng dựa trên Create React App. Các plugin này dựa trên [craco](https://craco.js.org/) và bao gồm cấu hình bổ sung cho bundler [Webpack](https://webpack.js.org/).
 
+### eslint-plugin-intlayer
+
+Gói `eslint-plugin-intlayer` cung cấp các quy tắc ESLint và oxlint để phát hiện chuỗi chưa được dịch, xác thực định nghĩa từ điển và thực thi các phương pháp hay nhất về i18n.
+
 ### intlayer-editor
 
 Gói `intlayer-editor` được sử dụng để cho phép sử dụng trình soạn thảo trực quan. Gói này là tùy chọn, có thể được cài đặt trong các ứng dụng và sẽ được gói `react-intlayer` sử dụng.
@@ -256,6 +270,18 @@ Gói `@intlayer/cli` là một gói NPM được sử dụng để khai báo cá
 ### @intlayer/mcp
 
 Gói `@intlayer/mcp` cung cấp một server MCP (Model Context Protocol) mang đến sự hỗ trợ IDE được trang bị AI, được tùy chỉnh cho hệ sinh thái Intlayer. Nó tự động tải tài liệu và tích hợp với CLI của Intlayer.
+
+### @intlayer/lsp
+
+Gói `@intlayer/lsp` cung cấp máy chủ Language Server Protocol (LSP) dành riêng cho Intlayer. Nó mang lại các tính năng IDE như Đi đến định nghĩa, Tìm tham chiếu, xem trước khi di chuột, tự động hoàn thành khóa từ điển và cảnh báo chẩn đoán.
+
+### @intlayer/ai
+
+Gói `@intlayer/ai` cung cấp các khả năng SDK cho các ứng dụng Intlayer, cho phép dịch tự động và tạo nội dung bằng AI.
+
+### @intlayer/analytics
+
+Gói `@intlayer/analytics` cung cấp các công cụ để thu thập số liệu lượt hiển thị nội dung, phân tích cấp độ trang/ngôn ngữ và nút, đồng thời hỗ trợ thử nghiệm A/B nội dung.
 
 ### @intlayer/dictionaries-entry
 

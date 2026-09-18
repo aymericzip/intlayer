@@ -186,6 +186,16 @@ The `preact-intlayer` package is used to interpret Intlayer dictionaries and mak
 Пакет `react-native-intlayer` надає інструменти для інтеграції плагінів, щоб Intlayer працював з бандлером Metro.
 
   </Tab>
+  <Tab label="Lit" value="lit">
+
+Пакет `lit-intlayer` надає інструменти та компоненти для інтерпретації та використання словників Intlayer у програмах Lit.
+
+  </Tab>
+  <Tab label="Vanilla JS" value="vanilla">
+
+Пакет `vanilla-intlayer` надає інструменти для інтеграції Intlayer у програми на чистому JavaScript, HTML або PHP.
+
+  </Tab>
 </Tabs>
 
 ### Бекенд-фреймворки
@@ -226,6 +236,10 @@ The `preact-intlayer` package is used to interpret Intlayer dictionaries and mak
 
 Містить команди та плагіни `react-scripts-intlayer` для інтеграції Intlayer з додатком на базі Create React App. Ці плагіни засновані на [craco](https://craco.js.org/) і включають додаткову конфігурацію для бандлера [Webpack](https://webpack.js.org/).
 
+### eslint-plugin-intlayer
+
+Пакет `eslint-plugin-intlayer` надає правила ESLint та oxlint для виявлення неперекладених рядків, перевірки визначень словників та дотримання найкращих практик i18n.
+
 ### intlayer-editor
 
 Пакет `intlayer-editor` використовується для забезпечення можливості використання візуального редактора. Цей пакет є опціональним, його можна встановити в застосунках, і він буде використовуватися пакетом `react-intlayer`.
@@ -258,6 +272,18 @@ The `@intlayer/webpack` package is used to provide a Webpack configuration to ma
 ### @intlayer/mcp
 
 Пакет `@intlayer/mcp` забезпечує сервер MCP (Model Context Protocol), який надає підтримку IDE на базі ШІ, адаптовану до екосистеми Intlayer. Він автоматично завантажує документацію та інтегрується з Intlayer CLI.
+
+### @intlayer/lsp
+
+Пакет `@intlayer/lsp` надає сервер Language Server Protocol (LSP), адаптований для Intlayer. Він забезпечує функції IDE, такі як перехід до визначення, пошук посилань, попередній перегляд при наведенні, автодоповнення ключів словника та діагностичні попередження.
+
+### @intlayer/ai
+
+Пакет `@intlayer/ai` надає можливості SDK для програм Intlayer, уможливлюючи автоматизований переклад і генерацію контенту за допомогою ШІ.
+
+### @intlayer/analytics
+
+Пакет `@intlayer/analytics` надає інструменти для збору метрик показів контенту, аналітики на рівні сторінок/локалей та вузлів, а також забезпечує A/B-тестування контенту.
 
 ### @intlayer/dictionaries-entry
 

@@ -184,6 +184,16 @@ The `astro-intlayer` package provides the necessary tools to integrate Intlayer 
 The `react-native-intlayer` package provides tools that integrate plugins for Intlayer to work with the Metro bundler.
 
   </Tab>
+  <Tab label="Lit" value="lit">
+
+The `lit-intlayer` package provides tools and components to interpret and use Intlayer dictionaries in Lit applications.
+
+  </Tab>
+  <Tab label="Vanilla JS" value="vanilla">
+
+The `vanilla-intlayer` package provides tools to integrate Intlayer into vanilla JavaScript, HTML, or PHP applications.
+
+  </Tab>
 </Tabs>
 
 ### Backend Frameworks
@@ -224,6 +234,10 @@ Includes the Vite plugin for integrating Intlayer with the [Vite bundler](https:
 
 Includes the `react-scripts-intlayer` commands and plugins for integrating Intlayer with the Create React App based application. These plugins are based on [craco](https://craco.js.org/) and include additional configuration for the [Webpack](https://webpack.js.org/) bundler.
 
+### eslint-plugin-intlayer
+
+The `eslint-plugin-intlayer` package provides ESLint and oxlint rules to catch untranslated strings, validate dictionary definitions, and enforce i18n best practices across your codebase.
+
 ### intlayer-editor
 
 The `intlayer-editor` package is used to allow the use of the visual editor. This package, optional, can be installed in applications and will be used by the `react-intlayer` package.
@@ -256,6 +270,18 @@ The `@intlayer/cli` package is an NPM package that is used to declare the script
 ### @intlayer/mcp
 
 The `@intlayer/mcp` package provides an MCP (Model Context Protocol) server that delivers AI-powered IDE assistance tailored for the Intlayer ecosystem. It automatically loads documentation and integrates with the Intlayer CLI.
+
+### @intlayer/lsp
+
+The `@intlayer/lsp` package provides a Language Server Protocol (LSP) server tailored for Intlayer. It brings IDE features like Go to Definition, Find References, hover previews, autocompletion of dictionary keys, and diagnostic warnings to any editor that speaks LSP.
+
+### @intlayer/ai
+
+The `@intlayer/ai` package provides SDK capabilities for Intlayer applications, enabling automated translation and AI-powered content generation.
+
+### @intlayer/analytics
+
+The `@intlayer/analytics` package provides tools to collect content impression metrics, page/locale and node-level analytics, and powers content A/B testing.
 
 ### @intlayer/dictionaries-entry
 

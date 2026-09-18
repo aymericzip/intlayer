@@ -188,6 +188,16 @@ Intlayerは、翻訳プロセスにおいて特定の役割を持つ複数のパ
 `react-native-intlayer`パッケージは、MetroバンドラーでIntlayerを動作させるためのプラグインを統合するツールを提供します。
 
   </Tab>
+  <Tab label="Lit" value="lit">
+
+`lit-intlayer` パッケージは、Lit アプリケーションで Intlayer 辞書を解釈して使用するためのツールとコンポーネントを提供します。
+
+  </Tab>
+  <Tab label="Vanilla JS" value="vanilla">
+
+`vanilla-intlayer` パッケージは、Intlayer をバニラ JavaScript、HTML、または PHP アプリケーションに統合するためのツールを提供します。
+
+  </Tab>
 </Tabs>
 
 ### バックエンドフレームワーク
@@ -228,6 +238,10 @@ Viteバンドラー([Vite](https://vite.dev/guide/why.html#why-bundle-for-produc
 
 `react-scripts-intlayer`パッケージには、Create React AppベースのアプリケーションとIntlayerを統合するためのコマンドとプラグインが含まれています。これらのプラグインは[craco](https://craco.js.org/)に基づいており、[Webpack](https://webpack.js.org/)バンドラーの追加設定も含まれています。
 
+### eslint-plugin-intlayer
+
+`eslint-plugin-intlayer` パッケージは、未翻訳の文字列の検出、辞書定義の検証、i18n のベストプラクティスの適用を行う ESLint および oxlint ルールを提供します。
+
 ### intlayer-editor
 
 `intlayer-editor`パッケージは、ビジュアルエディターの使用を可能にするために使用されます。このパッケージはオプションであり、アプリケーションにインストールして`react-intlayer`パッケージによって使用されます。
@@ -261,6 +275,18 @@ Expressに基づいたサーバーは、ビジュアルエディターのリク�
 
 `@intlayer/mcp`パッケージは、Intlayerエコシステム向けにAI搭載のIDE支援を提供するMCP（Model Context Protocol）サーバーを提供します。ドキュメントを自動的に読み込み、Intlayer CLIと統合されます。
 `@intlayer/mcp`パッケージは、Intlayerエコシステムに特化したAI搭載のIDE支援を提供するMCP（Model Context Protocol）サーバーを提供します。ドキュメントを自動的に読み込み、Intlayer CLIと統合されます。
+
+### @intlayer/lsp
+
+`@intlayer/lsp` パッケージは、Intlayer 専用にカスタマイズされた Language Server Protocol (LSP) サーバーを提供します。定義への移動、すべての参照の検索、ホバープレビュー、辞書キーの自動補完、診断警告などの IDE 機能をあらゆる LSP 対応エディタにもたらします。
+
+### @intlayer/ai
+
+`@intlayer/ai` パッケージは、Intlayer アプリケーション向けの SDK 機能を提供し、自動翻訳と AI によるコンテンツ生成を可能にします。
+
+### @intlayer/analytics
+
+`@intlayer/analytics` パッケージは、コンテンツのインプレッション指標、ページ/ロケールおよびノードレベルの分析を収集し、コンテンツの A/B テストを支援するツールを提供します。
 
 ### @intlayer/dictionaries-entry
 

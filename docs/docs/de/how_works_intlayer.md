@@ -188,6 +188,16 @@ Das `astro-intlayer`-Paket stellt die notwendigen Werkzeuge bereit, um Intlayer 
 Das `react-native-intlayer`-Paket bietet Tools, die Plugins für Intlayer integrieren, um mit dem Metro-Bundler zu arbeiten.
 
   </Tab>
+  <Tab label="Lit" value="lit">
+
+Das `lit-intlayer`-Paket bietet Tools und Komponenten zur Interpretation und Verwendung von Intlayer-Wörterbüchern in Lit-Anwendungen.
+
+  </Tab>
+  <Tab label="Vanilla JS" value="vanilla">
+
+Das `vanilla-intlayer`-Paket bietet Tools zur Integration von Intlayer in Vanilla-JavaScript-, HTML- oder PHP-Anwendungen.
+
+  </Tab>
 </Tabs>
 
 ### Backend-Frameworks
@@ -228,6 +238,10 @@ Beinhaltet das Vite-Plugin zur Integration von Intlayer mit dem [Vite-Bundler](h
 
 Beinhaltet die `react-scripts-intlayer` Befehle und Plugins zur Integration von Intlayer in Anwendungen, die auf Create React App basieren. Diese Plugins basieren auf [craco](https://craco.js.org/) und enthalten zusätzliche Konfigurationen für den [Webpack](https://webpack.js.org/) Bundler.
 
+### eslint-plugin-intlayer
+
+Das `eslint-plugin-intlayer`-Paket bietet ESLint- und oxlint-Regeln, um unübersetzte Zeichenketten zu erkennen, Wörterbuchdefinitionen zu validieren und i18n-Best-Practices durchzusetzen.
+
 ### intlayer-editor
 
 Das `intlayer-editor` Paket wird verwendet, um die Nutzung des visuellen Editors zu ermöglichen. Dieses optionale Paket kann in Anwendungen installiert werden und wird vom `react-intlayer` Paket verwendet.  
@@ -260,6 +274,18 @@ Das `@intlayer/cli` Paket ist ein NPM-Paket, das verwendet wird, um Skripte im Z
 ### @intlayer/mcp
 
 Das `@intlayer/mcp` Paket stellt einen MCP (Model Context Protocol) Server bereit, der KI-gestützte IDE-Unterstützung speziell für das Intlayer-Ökosystem liefert. Es lädt automatisch die Dokumentation und integriert sich in die Intlayer CLI.
+
+### @intlayer/lsp
+
+Das `@intlayer/lsp`-Paket bietet einen auf Intlayer zugeschnittenen Language Server Protocol (LSP)-Server. Es bringt IDE-Funktionen wie Gehe zu Definition, Referenzen finden, Hover-Vorschauen, Autovervollständigung von Wörterbuchschlüsseln und Diagnosewarnungen.
+
+### @intlayer/ai
+
+Das `@intlayer/ai`-Paket bietet SDK-Funktionen für Intlayer-Anwendungen, die automatisierte Übersetzungen und KI-gestützte Inhaltserstellung ermöglichen.
+
+### @intlayer/analytics
+
+Das `@intlayer/analytics`-Paket bietet Tools zum Sammeln von Metriken zu Inhaltsimpressionen, Seiten-/Locale- und Knotenebenen-Analysen und unterstützt A/B-Tests von Inhalten.
 
 ### @intlayer/dictionaries-entry
 

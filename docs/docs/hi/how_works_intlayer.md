@@ -188,6 +188,16 @@ Intlayer कई पैकेजों से बना है, जिनमे�
 `react-native-intlayer` पैकेज Intlayer को Metro बंडलर के साथ काम करने के लिए प्लगइन्स को एकीकृत करने वाले उपकरण प्रदान करता है।
 
   </Tab>
+  <Tab label="Lit" value="lit">
+
+`lit-intlayer` पैकेज Lit अनुप्रयोगों में Intlayer शब्दकोशों की व्याख्या करने और उनका उपयोग करने के लिए उपकरण और घटक प्रदान करता है।
+
+  </Tab>
+  <Tab label="Vanilla JS" value="vanilla">
+
+`vanilla-intlayer` पैकेज वैनिला JavaScript, HTML या PHP अनुप्रयोगों में Intlayer को एकीकृत करने के लिए उपकरण प्रदान करता है।
+
+  </Tab>
 </Tabs>
 
 ### बैकएंड फ़्रेमवर्क
@@ -228,6 +238,10 @@ Intlayer को [Vite बंडलर](https://vite.dev/guide/why.html#why-bundl
 
 `react-scripts-intlayer` कमांड और प्लगइन्स शामिल करता है जो Create React App आधारित एप्लिकेशन के साथ Intlayer को एकीकृत करने के लिए हैं। ये प्लगइन्स [craco](https://craco.js.org/) पर आधारित हैं और [Webpack](https://webpack.js.org/) बंडलर के लिए अतिरिक्त कॉन्फ़िगरेशन शामिल करते हैं।
 
+### eslint-plugin-intlayer
+
+`eslint-plugin-intlayer` पैकेज अनुवाद न किए गए स्ट्रिंग्स को पकड़ने, शब्दकोश परिभाषाओं को सत्यापित करने और i18n सर्वोत्तम प्रथाओं को लागू करने के लिए ESLint और oxlint नियम प्रदान करता है।
+
 ### intlayer-editor
 
 `intlayer-editor` पैकेज का उपयोग विज़ुअल एडिटर का उपयोग करने की अनुमति देने के लिए किया जाता है। यह पैकेज, वैकल्पिक, एप्लिकेशनों में इंस्टॉल किया जा सकता है और इसे `react-intlayer` पैकेज द्वारा उपयोग किया जाएगा।  
@@ -260,6 +274,18 @@ Intlayer को [Vite बंडलर](https://vite.dev/guide/why.html#why-bundl
 ### @intlayer/mcp
 
 `@intlayer/mcp` पैकेज एक MCP (मॉडल संदर्भ प्रोटोकॉल) सर्वर प्रदान करता है जो Intlayer इकोसिस्टम के लिए अनुकूलित AI-संचालित IDE सहायता प्रदान करता है। यह स्वचालित रूप से दस्तावेज़ीकरण लोड करता है और Intlayer CLI के साथ एकीकृत होता है।
+
+### @intlayer/lsp
+
+`@intlayer/lsp` पैकेज Intlayer के लिए Language Server Protocol (LSP) सर्वर प्रदान करता है। यह परिभाषा पर जाएं, संदर्भ खोजें, होवर पूर्वावलोकन, शब्दकोश कुंजियों का स्वतः-पूर्ण और निदान चेतावनियों जैसी IDE सुविधाएं लाता है।
+
+### @intlayer/ai
+
+`@intlayer/ai` पैकेज Intlayer अनुप्रयोगों के लिए SDK क्षमताएं प्रदान करता है, जो स्वचालित अनुवाद और AI-संचालित सामग्री निर्माण को सक्षम बनाता है।
+
+### @intlayer/analytics
+
+`@intlayer/analytics` पैकेज सामग्री इंप्रेशन मेट्रिक्स, पृष्ठ/लोकेल और नोड-स्तरीय विश्लेषण एकत्र करने के लिए उपकरण प्रदान करता है, और सामग्री A/B परीक्षण को सक्षम करता है।
 
 ### @intlayer/dictionaries-entry
 

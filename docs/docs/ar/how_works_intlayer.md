@@ -188,6 +188,16 @@ const MyComponent = () => {
 توفر حزمة `react-native-intlayer` أدوات تتكامل مع مكونات إضافية لـ Intlayer للعمل مع Metro bundler.
 
   </Tab>
+  <Tab label="Lit" value="lit">
+
+توفر حزمة `lit-intlayer` أدوات ومكونات لتفسير واستخدام قواميس Intlayer في تطبيقات Lit.
+
+  </Tab>
+  <Tab label="Vanilla JS" value="vanilla">
+
+توفر حزمة `vanilla-intlayer` أدوات لدمج Intlayer في تطبيقات JavaScript العادية أو HTML أو PHP.
+
+  </Tab>
 </Tabs>
 
 ### أطر عمل الواجهة الخلفية (Backend)
@@ -228,6 +238,10 @@ const MyComponent = () => {
 
 تتضمن أوامر ومكونات `react-scripts-intlayer` الإضافية لتكامل Intlayer مع التطبيقات المستندة إلى Create React App. هذه المكونات الإضافية مبنية على [craco](https://craco.js.org/) وتشمل تكوينًا إضافيًا لأداة التجميع [Webpack](https://webpack.js.org/).
 
+### eslint-plugin-intlayer
+
+توفر حزمة `eslint-plugin-intlayer` قواعد لـ ESLint وoxlint لاكتشاف النصوص غير المترجمة، والتحقق من تعريفات القواميس، وفرض أفضل ممارسات التدويل.
+
 ### intlayer-editor
 
 تُستخدم حزمة `intlayer-editor` للسماح باستخدام المحرر المرئي. هذه الحزمة اختيارية ويمكن تثبيتها في التطبيقات وسيتم استخدامها بواسطة حزمة `react-intlayer`.  
@@ -260,6 +274,18 @@ const MyComponent = () => {
 ### @intlayer/mcp
 
 تُوفر حزمة `@intlayer/mcp` خادم MCP (بروتوكول سياق النموذج) الذي يقدم مساعدة IDE مدعومة بالذكاء الاصطناعي مصممة خصيصًا لنظام Intlayer البيئي. يقوم بتحميل الوثائق تلقائيًا ويتكامل مع واجهة سطر الأوامر Intlayer CLI.
+
+### @intlayer/lsp
+
+توفر حزمة `@intlayer/lsp` خادم بروتوكول خادم اللغة (LSP) مخصص لـ Intlayer. حيث توفر ميزات بيئة التطوير مثل الانتقال إلى التعريف، والبحث عن المراجع، ومعاينات التمرير، والإكمال التلقائي لمفاتيح القاموس، والتحذيرات التشخيصية.
+
+### @intlayer/ai
+
+توفر حزمة `@intlayer/ai` إمكانيات SDK لتطبيقات Intlayer، مما يتيح الترجمة المؤتمتة وتوليد المحتوى بالذكاء الاصطناعي.
+
+### @intlayer/analytics
+
+توفر حزمة `@intlayer/analytics` أدوات لجمع مقاييس مرات ظهور المحتوى، وتحليلات على مستوى الصفحة/اللغة والعقد، وتدعم اختبار A/B للمحتوى.
 
 ### @intlayer/dictionaries-entry
 
