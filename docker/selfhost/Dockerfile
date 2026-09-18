@@ -1,4 +1,5 @@
 # syntax=docker/dockerfile:1.26.0
+# check=skip=SecretsUsedInArgOrEnv
 #
 # Intlayer self-hosting — single all-in-one image.
 # Bundles the dashboard (app), the API (backend) and the datastores
@@ -58,7 +59,6 @@ COPY \
     --exclude=docs/legal \
     --exclude=examples \
     --exclude=apps/website \
-
     --exclude=apps/showcase \
     --exclude=apps/app \
     --exclude=**/*.stories.* \
@@ -124,7 +124,6 @@ COPY \
     --exclude=packages/adonis-intlayer \
     --exclude=packages/eslint-plugin-intlayer \
     --exclude=apps/website \
-
     --exclude=apps/showcase \
     --exclude=docs/assets \
     --exclude=examples \
@@ -193,8 +192,8 @@ RUN set -eux; \
       arm64) MINIO_ARCH=arm64 ;; \
       *) echo "unsupported arch"; exit 1 ;; \
     esac; \
-    curl -fsSL "https://dl.min.io/server/minio/release/linux-${MINIO_ARCH}/archive/minio.${MINIO_RELEASE}" -o /usr/local/bin/minio; \
-    curl -fsSL "https://dl.min.io/client/mc/release/linux-${MINIO_ARCH}/archive/mc.${MC_RELEASE}" -o /usr/local/bin/mc; \
+    curl -fsSL "https://github.com/minio/minio/releases/download/${MINIO_RELEASE}/minio.linux-${MINIO_ARCH}.${MINIO_RELEASE}" -o /usr/local/bin/minio; \
+    curl -fsSL "https://github.com/minio/mc/releases/download/${MC_RELEASE}/mc.linux-${MINIO_ARCH}.${MC_RELEASE}" -o /usr/local/bin/mc; \
     chmod +x /usr/local/bin/minio /usr/local/bin/mc
 
 # s6-overlay (multi-process supervisor), arch-aware
