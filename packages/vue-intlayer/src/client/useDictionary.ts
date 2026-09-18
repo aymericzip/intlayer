@@ -147,8 +147,8 @@ export const useDictionary = <
   // split the (possibly reactive) second argument into selector + locale,
   // layering the provider's ambient variant under it
   const resolvedArg = computed<{
-    selector: DictionarySelector | undefined;
-    locale: LocalesValues | undefined;
+    selector?: DictionarySelector;
+    locale?: LocalesValues;
   }>(() => {
     const value =
       localeOrSelector !== undefined ? toValue(localeOrSelector) : undefined;
