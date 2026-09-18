@@ -75,7 +75,7 @@
     "lucide-react": "1.47.0",
     "nitro": "latest",
     "oxc-transform-react": "^0.150.0",
-    "posthog-js": "1.434.0",
+    "posthog-js": "1.434.2",
     "react": "19.3.0",
     "react-dom": "19.3.0",
     "react-intlayer": "workspace:*",
