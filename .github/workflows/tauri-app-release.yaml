@@ -132,6 +132,35 @@ jobs:
             echo "APPLE_CERTIFICATE secret is not set: building the macOS app unsigned"
             exit 0
           fi
+
+          # Preflight: run the exact `security import` the Tauri bundler runs, so
+          # a broken certificate fails here instead of after the Rust compile.
+          # Observed `security import` messages:
+          #  - "One or more parameters ... not valid": the decoded .p12 is empty
+          #  - "MAC verification failed": wrong APPLE_CERTIFICATE_PASSWORD, or the
+          #    .p12 was exported with OpenSSL 3 defaults (re-export with
+          #    `openssl pkcs12 -export -legacy` or from Keychain Access)
+          #  - "Unknown format in import": not a .p12 (e.g. a .cer) or truncated
+          preflight_dir="$(mktemp -d)"
+          preflight_keychain="$preflight_dir/preflight.keychain-db"
+          if ! printf '%s' "$APPLE_CERTIFICATE" | tr -d '[:space:]' | base64 -d -o "$preflight_dir/cert.p12"; then
+            echo "::error::APPLE_CERTIFICATE is not valid base64"
+            exit 1
+          fi
+          if [ ! -s "$preflight_dir/cert.p12" ]; then
+            echo "::error::APPLE_CERTIFICATE decodes to an empty file: the secret is blank or whitespace-only"
+            exit 1
+          fi
+          security create-keychain -p preflight "$preflight_keychain"
+          if ! security import "$preflight_dir/cert.p12" -P "$APPLE_CERTIFICATE_PASSWORD" -k "$preflight_keychain" -T /usr/bin/codesign; then
+            echo "::error::macOS cannot import the APPLE_CERTIFICATE .p12 (see the security message above). 'MAC verification failed' = wrong APPLE_CERTIFICATE_PASSWORD or a .p12 exported by OpenSSL 3 (re-export with 'openssl pkcs12 -export -legacy'); 'Unknown format' = not a .p12 or truncated base64."
+            security delete-keychain "$preflight_keychain"
+            rm -rf "$preflight_dir"
+            exit 1
+          fi
+          security delete-keychain "$preflight_keychain"
+          rm -rf "$preflight_dir"
+
           for name in APPLE_CERTIFICATE APPLE_CERTIFICATE_PASSWORD APPLE_SIGNING_IDENTITY APPLE_ID APPLE_PASSWORD APPLE_TEAM_ID; do
             value="${!name}"
             if [ -n "$value" ]; then
