@@ -45,14 +45,12 @@ jobs:
     # Code-signing secrets. When a secret is not configured in the repo it
     # resolves to an empty string, and the matching signing step is skipped,
     # so the corresponding artifact is simply built unsigned (green build).
+    #
+    # The Apple secrets are deliberately NOT exported here: the Tauri bundler
+    # treats an empty `APPLE_CERTIFICATE` as a certificate to import and fails
+    # with `SecKeychainItemImport`. They are exported by the macOS step below
+    # only when the certificate secret is actually configured.
     env:
-      # --- macOS (Apple Developer ID signing + notarization) ---
-      APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
-      APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
-      APPLE_SIGNING_IDENTITY: ${{ secrets.APPLE_SIGNING_IDENTITY }}
-      APPLE_ID: ${{ secrets.APPLE_ID }}
-      APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
-      APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
       # --- Windows (code-signing certificate) ---
       WINDOWS_CERTIFICATE: ${{ secrets.WINDOWS_CERTIFICATE }}
       WINDOWS_CERTIFICATE_PASSWORD: ${{ secrets.WINDOWS_CERTIFICATE_PASSWORD }}
@@ -116,6 +114,31 @@ jobs:
           Remove-Item -Path certificate/tempCert.txt
           Import-PfxCertificate -FilePath certificate/certificate.pfx -CertStoreLocation Cert:\CurrentUser\My -Password (ConvertTo-SecureString -String $env:WINDOWS_CERTIFICATE_PASSWORD -Force -AsPlainText)
           "args=--config src-tauri/tauri.windows.conf.json" >> $env:GITHUB_OUTPUT
+
+      # macOS: expose the Apple Developer ID signing + notarization secrets to
+      # the Tauri bundler only when the certificate is configured. Without it
+      # the app is built unsigned instead of failing on the keychain import.
+      - name: Export Apple signing secrets (macOS)
+        if: matrix.platform == 'macos-latest'
+        env:
+          APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
+          APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+          APPLE_SIGNING_IDENTITY: ${{ secrets.APPLE_SIGNING_IDENTITY }}
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+        run: |
+          if [ -z "$APPLE_CERTIFICATE" ]; then
+            echo "APPLE_CERTIFICATE secret is not set: building the macOS app unsigned"
+            exit 0
+          fi
+          for name in APPLE_CERTIFICATE APPLE_CERTIFICATE_PASSWORD APPLE_SIGNING_IDENTITY APPLE_ID APPLE_PASSWORD APPLE_TEAM_ID; do
+            value="${!name}"
+            if [ -n "$value" ]; then
+              delimiter="EOF_$(openssl rand -hex 8)"
+              printf '%s<<%s\n%s\n%s\n' "$name" "$delimiter" "$value" "$delimiter" >> "$GITHUB_ENV"
+            fi
+          done
 
       # Linux: import the GPG private key used to sign the AppImage.
       - name: Import GPG signing key (Linux)
