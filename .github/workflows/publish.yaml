@@ -80,9 +80,10 @@ jobs:
       - name: 🧩 Install Dependencies
         run: bun install --frozen-lockfile
 
+      # The dist-tag comes from the version: 9.0.0 → latest, 9.0.0-canary.0 → canary
       - name: 🚀 Publish packages
         env:
           PUBLISH_DRY_RUN: ${{ inputs.dry-run }}
         # turbo builds each package (dependsOn build + prepublish) before
         # publishing it, in dependency order
-        run: bun run publish:latest:ci
+        run: bun run publish:ci

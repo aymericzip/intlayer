@@ -51,8 +51,8 @@
     "prepublishOnly": "cargo build-wasip1 --release",
     "publish": "bun publish || true",
     "publish:canary": "bun publish --access public --tag canary || true",
+    "publish:ci": "bun ../../../scripts/publish-package.mjs",
     "publish:latest": "bun publish --access public --tag latest || true",
-    "publish:latest:ci": "bun ../../../scripts/publish-package.mjs --tag latest",
     "reset": "",
     "test": ""
   },

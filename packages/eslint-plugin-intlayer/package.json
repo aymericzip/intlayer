@@ -70,8 +70,8 @@
     "lint:fix": "bun --bun biome lint --write .",
     "publish": "bun publish || true",
     "publish:canary": "bun publish --access public --tag canary || true",
+    "publish:ci": "bun ../../scripts/publish-package.mjs",
     "publish:latest": "bun publish --access public --tag latest || true",
-    "publish:latest:ci": "bun ../../scripts/publish-package.mjs --tag latest",
     "test": "bun --bun vitest run",
     "test:watch": "bun --bun vitest",
     "typecheck": "tsc --noEmit --project tsconfig.types.json"

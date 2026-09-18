@@ -2,9 +2,11 @@
 
 /**
  * Publishes the package of the current working directory to npm through
- * **trusted publishing** (OIDC). Invoked by every workspace's
- * `publish:latest:ci` script (through turbo) from the GitHub Actions
- * `publish.yaml` workflow.
+ * **trusted publishing** (OIDC). Invoked by every workspace's `publish:ci`
+ * script (through turbo) from the GitHub Actions `publish.yaml` workflow.
+ *
+ * The dist-tag is derived from the version unless `--tag` is given:
+ * `9.0.0` → `latest`, `9.0.0-canary.0` → `canary`, `9.0.0-rc.1` → `rc`.
  *
  * No npm token nor 2FA code is involved: GitHub mints a short-lived identity
  * token that `npm publish` exchanges for a single-use credential, and npm
@@ -17,7 +19,7 @@
  * Republishing an already published version is tolerated so that a partially
  * failed release can simply be re-run.
  *
- * Usage: bun scripts/publish-package.mjs [--tag latest] [--dry-run]
+ * Usage: bun scripts/publish-package.mjs [--tag <dist-tag>] [--dry-run]
  * (`PUBLISH_DRY_RUN=true` also enables the dry run, for CI inputs.)
  */
 
@@ -29,7 +31,7 @@ import { parseArgs } from 'node:util';
 
 const { values: options } = parseArgs({
   options: {
-    tag: { type: 'string', default: 'latest' },
+    tag: { type: 'string' },
     'dry-run': { type: 'boolean', default: false },
   },
 });
@@ -41,6 +43,25 @@ const packageJson = JSON.parse(
 const packageLabel = `${packageJson.name}@${packageJson.version}`;
 
 const isDryRun = options['dry-run'] || process.env.PUBLISH_DRY_RUN === 'true';
+
+/**
+ * Picks the npm dist-tag matching a semver version: the first prerelease
+ * identifier when there is one (`canary`, `beta`, `rc`...), `next` when the
+ * prerelease is purely numeric, `latest` for a stable version.
+ * @param {string} version
+ * @returns {string}
+ */
+const getDistTagFromVersion = (version) => {
+  const prerelease = /^\d+\.\d+\.\d+-([^.+]+)/.exec(version)?.[1];
+
+  if (!prerelease) {
+    return 'latest';
+  }
+
+  return /^\d+$/.test(prerelease) ? 'next' : prerelease;
+};
+
+const distTag = options.tag ?? getDistTagFromVersion(packageJson.version);
 
 /** Messages npm prints when the version is already on the registry. */
 const republishPatterns = [
@@ -98,6 +119,8 @@ if (packageJson.private) {
   process.exit(0);
 }
 
+console.log(`📦 ${packageLabel} → tag "${distTag}"`);
+
 // `bun pm pack` never runs `prepublishOnly` (the swc wasm build relies on
 // it), so run it explicitly and ignore lifecycle scripts afterwards.
 if (packageJson.scripts?.prepublishOnly) {
@@ -146,7 +169,7 @@ const publish = () => {
       '--access',
       'public',
       '--tag',
-      options.tag,
+      distTag,
       '--ignore-scripts',
       ...(isDryRun ? ['--dry-run'] : []),
     ])

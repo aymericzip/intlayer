@@ -55,7 +55,7 @@
       "cache": false,
       "outputs": []
     },
-    "publish:latest:ci": {
+    "publish:ci": {
       "dependsOn": ["build", "prepublish"],
       "cache": false,
       "outputs": [],
