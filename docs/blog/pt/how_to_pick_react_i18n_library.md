@@ -345,6 +345,20 @@ Mesmo formato do `next-intl` sem os bindings do Next.js. Chaves são tipadas dep
   </Tab>
   <Tab label="Lingui" value="lingui">
 
+  <Tabs group="locale">
+  <Tab value="en" label="Inglês">
+
+```po fileName="src/locales/en/messages.po"
+msgid "Your cart"
+msgstr "Your cart"
+
+msgid "{count, plural, one {# item} other {# items}}"
+msgstr "{count, plural, one {# item} other {# items}}"
+```
+
+  </Tab>
+  <Tab value="fr" label="Francês">
+
 ```po fileName="src/locales/fr/messages.po"
 msgid "Your cart"
 msgstr "Votre panier"
@@ -352,6 +366,20 @@ msgstr "Votre panier"
 msgid "{count, plural, one {# item} other {# items}}"
 msgstr "{count, plural, one {# article} other {# articles}}"
 ```
+
+  </Tab>
+  <Tab value="es" label="Espanhol">
+
+```po fileName="src/locales/es/messages.po"
+msgid "Your cart"
+msgstr "Tu carrito"
+
+msgid "{count, plural, one {# item} other {# items}}"
+msgstr "{count, plural, one {# artículo} other {# artículos}}"
+```
+
+  </Tab>
+  </Tabs>
 
 ```tsx fileName="src/components/CartSummary.tsx"
 import type { FC } from "react";

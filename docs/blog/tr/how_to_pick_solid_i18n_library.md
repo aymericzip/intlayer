@@ -162,15 +162,17 @@ Her adayla yazılmış aynı bileşen: başlık ve çoğul içeren bir sepet öz
 export const en = {
   cart: { title: "Your cart", items: "{{ count }} items" },
 };
+
+export type Dict = typeof en;
 ```
 
   </Tab>
   <Tab value="fr" label="Fransızca">
 
 ```ts fileName="src/i18n/fr.ts"
-import type { en } from "./en";
+import type { Dict } from "./en";
 
-export const fr: typeof en = {
+export const fr: Dict = {
   cart: { title: "Votre panier", items: "{{ count }} articles" },
 };
 ```
@@ -179,9 +181,9 @@ export const fr: typeof en = {
   <Tab value="es" label="İspanyolca">
 
 ```ts fileName="src/i18n/es.ts"
-import type { en } from "./en";
+import type { Dict } from "./en";
 
-export const es: typeof en = {
+export const es: Dict = {
   cart: { title: "Tu carrito", items: "{{ count }} artículos" },
 };
 ```
@@ -190,10 +192,22 @@ export const es: typeof en = {
   </Tabs>
 
 ```ts fileName="src/i18n/index.ts"
+import { createSignal } from "solid-js";
 import * as i18n from "@solid-primitives/i18n";
 import { en } from "./en";
+import { fr } from "./fr";
+import { es } from "./es";
 
-export const dictionary = () => i18n.flatten(en);
+export type Locale = "en" | "fr" | "es";
+
+const dictionaries = {
+  en: i18n.flatten(en),
+  fr: i18n.flatten(fr),
+  es: i18n.flatten(es),
+};
+
+export const [locale, setLocale] = createSignal<Locale>("en");
+export const dictionary = () => dictionaries[locale()];
 export const t = i18n.translator(dictionary, i18n.resolveTemplate);
 ```
 

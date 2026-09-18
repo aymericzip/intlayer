@@ -344,6 +344,20 @@ Next.js 바인딩이 제외된 `next-intl`과 동일한 구조입니다. `AppCon
   </Tab>
   <Tab label="Lingui" value="lingui">
 
+  <Tabs group="locale">
+  <Tab value="en" label="영어">
+
+```po fileName="src/locales/en/messages.po"
+msgid "Your cart"
+msgstr "Your cart"
+
+msgid "{count, plural, one {# item} other {# items}}"
+msgstr "{count, plural, one {# item} other {# items}}"
+```
+
+  </Tab>
+  <Tab value="fr" label="프랑스어">
+
 ```po fileName="src/locales/fr/messages.po"
 msgid "Your cart"
 msgstr "Votre panier"
@@ -351,6 +365,20 @@ msgstr "Votre panier"
 msgid "{count, plural, one {# item} other {# items}}"
 msgstr "{count, plural, one {# article} other {# articles}}"
 ```
+
+  </Tab>
+  <Tab value="es" label="스페인어">
+
+```po fileName="src/locales/es/messages.po"
+msgid "Your cart"
+msgstr "Tu carrito"
+
+msgid "{count, plural, one {# item} other {# items}}"
+msgstr "{count, plural, one {# artículo} other {# artículos}}"
+```
+
+  </Tab>
+  </Tabs>
 
 ```tsx fileName="src/components/CartSummary.tsx"
 import type { FC } from "react";
