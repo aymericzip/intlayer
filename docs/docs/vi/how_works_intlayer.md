@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-12
-updatedAt: 2025-06-29
+updatedAt: 2026-09-19
 title: Cách Thức Hoạt Động của Intlayer
 description: Tìm hiểu cách Intlayer hoạt động bên trong. Hiểu kiến trúc và các thành phần làm cho Intlayer mạnh mẽ.
 keywords:
@@ -177,6 +177,11 @@ Gói `angular-intlayer` được sử dụng để diễn giải các từ đi�
   <Tab label="Astro" value="astro">
 
 Gói `astro-intlayer` cung cấp các công cụ cần thiết để tích hợp Intlayer vào các ứng dụng Astro. Nó cấu hình định tuyến theo locale và quản lý từ điển.
+
+  </Tab>
+  <Tab label="Remix" value="remix">
+
+Gói `remix-intlayer` cung cấp các công cụ cần thiết để tích hợp Intlayer vào các ứng dụng Remix. Nó cấu hình định tuyến theo locale, ngữ cảnh phía máy chủ và quản lý từ điển.
 
   </Tab>
   <Tab label="React Native" value="react-native">

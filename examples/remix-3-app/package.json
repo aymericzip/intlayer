@@ -12,7 +12,8 @@
   },
   "dependencies": {
     "intlayer": "workspace:*",
-    "remix": "^3.0.0-rc.2"
+    "remix": "^3.0.0-rc.2",
+    "remix-intlayer": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^22",

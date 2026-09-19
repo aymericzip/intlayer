@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-08-30
+updatedAt: 2026-09-19
 title: "Astro i18n - 翻译你的应用的完整指南"
 description: "告别 i18next。2026 年构建多语言 (i18n) Astro 应用的完整指南。使用 AI 代理翻译并优化包体积、SEO 和性能。"
 keywords:
@@ -18,6 +18,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 applicationShowcase: https://intlayer-astro-template.vercel.app
 history:
+  - version: 9.5.5
+    date: 2026-09-19
+    changes: "为 astro-intlayer 添加 useIntlayer / useLocale 钩子和 Astro.locals 中间件"
   - version: 8.9.0
     date: 2026-05-04
     changes: "更新 Solid useIntlayer API 用法以直接访问属性"
@@ -152,7 +155,7 @@ bun add intlayer astro-intlayer
   核心软件包，提供用于配置管理、翻译、[内容声明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)、编译和 [CLI 命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)的国际化工具。
 
 - **astro-intlayer**
-  包含将 Intlayer 与 [Vite 构建器](https://vite.dev/guide/why.html#why-bundle-for-production)集成的 Astro 集成插件，以及用于检测用户首选语言、管理 Cookie 和处理 URL 重定向的中间件。
+  包含用于将 Intlayer 与 [Vite 打包器](https://vite.dev/guide/why.html#why-bundle-for-production) 集成的 Astro 集成插件、将每个请求的语言环境解析到 `Astro.locals.intlayer` 的中间件，以及 `useIntlayer` / `useDictionary` / `useLocale` 钩子。相同的导入路径在 `.astro` frontmatter 中解析为服务端实现，在 `<script>` 块中解析为客户端实现（由 `vanilla-intlayer` 支持）。
 
 </Step>
 <Step number={2} title="配置您的项目">
@@ -229,26 +232,28 @@ export default appContent;
 </Step>
 <Step number={5} title="在 Astro 中使用内容">
 
-您可以使用 `intlayer` 导出的核心辅助函数直接在 `.astro` 文件中消费词典。您还应该向每个页面添加 SEO 元数据（如 hreflang 和规范链接），并包含一个语言切换器以允许用户更改语言。
+使用 `astro-intlayer` 导出的钩子在 `.astro` 文件中使用你的字典。它们与 `react-intlayer` 具有相同的签名：`useIntlayer("key")` 返回字典内容，`useLocale()` 返回当前语言环境，无需传递参数。
+
+语言环境来自 `astro-intlayer` 中间件，集成会自动在你的 `src/middleware.ts` 之前注册该中间件。它会依次从 URL 前缀、客户端持久化的语言环境（Cookie 或标头）、`Accept-Language` 解析每个请求的语言环境，并将其存储在 `Astro.locals.intlayer` 中。预渲染页面仅使用 URL，因为它们只为每个访客渲染一次。
+
+你还应该向每个页面添加 hreflang 和规范链接等 SEO 元数据，并包含一个语言切换器以允许用户切换语言。
 
 ```astro fileName="src/pages/index.astro"
 ---
+import { useIntlayer, useLocale } from "astro-intlayer";
 import {
-  getIntlayer,
-  getLocaleFromPath,
   getLocalizedUrl,
   defaultLocale,
   localeMap,
   getHTMLTextDir,
-  type LocalesValues,
 } from "intlayer";
 import LocaleSwitcher from "../components/LocaleSwitcher.astro";
 
-// Get the current locale from the URL (e.g. /es/about -> 'es')
-const locale = getLocaleFromPath(Astro.url.pathname) as LocalesValues;
+// 中间件解析的语言环境（例如 /zh/about -> 'zh'）
+const { locale } = useLocale();
 
-// Get the content for the 'app' dictionary
-const { title } = getIntlayer("app", locale);
+// 该语言环境的 'app' 字典内容
+const { title } = useIntlayer("app");
 ---
 
 <!doctype html>
@@ -300,6 +305,8 @@ const { title } = getIntlayer("app", locale);
 </html>
 ```
 
+> `Astro.locals.intlayer` 还向你自己的中间件和端点公开 `locale`、`defaultLocale` 和 `availableLocales`。将语言环境或选择器作为第二个参数传递（`useIntlayer("app", "fr")`、`useIntlayer("faq", { item: 2 })`）可在单次调用中覆盖请求语言环境。
+
 </Step>
 <Step number={6} title="本地化路由">
 
@@ -325,44 +332,51 @@ Astro 集成添加了一个 Vite 中间件，有助于在开发期间进行语�
 
 ```astro fileName="src/components/LocaleSwitcher.astro"
 ---
-import {
-  locales,
-  getLocaleName,
-  getLocalizedUrl,
-  getLocaleFromPath,
-  getPathWithoutLocale,
-  type LocalesValues,
-} from "intlayer";
+import { useLocale } from "astro-intlayer";
+import { getLocaleName, getLocalizedUrl, getPathWithoutLocale } from "intlayer";
 
-const locale = getLocaleFromPath(Astro.url.pathname) as LocalesValues;
+const { locale, availableLocales } = useLocale();
 const pathWithoutLocale = getPathWithoutLocale(Astro.url.pathname);
 ---
 
-<nav>
-  {
-    locales.map((localeItem) => (
-      <a
-        href={getLocalizedUrl(pathWithoutLocale, localeItem)}
-        data-locale={localeItem}
-        aria-current={localeItem === locale ? "page" : undefined}
-      >
-        {getLocaleName(localeItem)}
-      </a>
-    ))
-  }
+<nav aria-label="Languages">
+  <ul>
+    {
+      availableLocales.map((localeItem) => (
+        <li key={localeItem} class="p-1">
+          <a
+            href={getLocalizedUrl(pathWithoutLocale, localeItem)}
+            data-locale={localeItem}
+            aria-current={localeItem === locale ? "page" : undefined}
+          >
+            {getLocaleName(localeItem)}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
 </nav>
 
 <script>
-  import { setLocaleInStorageClient, getLocalizedUrl, type LocalesValues } from "intlayer";
+  // 在浏览器中，相同的导入解析为客户端实现
+  import { useLocale } from "astro-intlayer";
+  import { getLocalizedUrl, type LocalesValues } from "intlayer";
+
+  // 将选择持久化到语言环境 Cookie 中，然后导航到本地化 URL
+  const { setLocale } = useLocale({
+    onLocaleChange: (newLocale) => {
+      window.location.href = getLocalizedUrl(window.location.pathname, newLocale);
+    },
+  });
 
   const localeLinks = document.querySelectorAll("[data-locale]");
 
   localeLinks.forEach((link) => {
-    link.addEventListener("click", (e) => {
+    link.addEventListener("click", (event) => {
       const locale = link.getAttribute("data-locale") as LocalesValues;
 
-      // Update the locale cookie
-      setLocaleInStorageClient(locale);
+      event.preventDefault();
+      setLocale(locale);
     });
   });
 </script>
@@ -372,6 +386,13 @@ const pathWithoutLocale = getPathWithoutLocale(Astro.url.pathname);
     display: flex;
     gap: 1rem;
   }
+  ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: 0.5rem;
+  }
   a[aria-current="page"] {
     font-weight: bold;
     text-decoration: underline;
@@ -379,8 +400,11 @@ const pathWithoutLocale = getPathWithoutLocale(Astro.url.pathname);
 </style>
 ```
 
-> **关于持久化的注意：**
-> 在客户端脚本中使用 `setLocaleInStorageClient` 可确保将用户的语言偏好保存在 Cookie 中。这允许 Intlayer 中间件记住该选择，并在以后的访问中自动将用户重定向到其偏好的语言。
+> **持久化注意事项：**
+> 客户端 `useLocale` 中的 `setLocale` 将用户的语言偏好保存在 Cookie 中。这允许 Intlayer 中间件记住该选择，并在将来的访问中自动将用户重定向到其首选语言。
+>
+> **服务端 / 客户端互兼容性：**
+> `astro-intlayer` 在 frontmatter 中解析为服务端钩子（读取 `Astro.locals`），在 `<script>` 块和孤岛（islands）中解析为 `vanilla-intlayer` 的客户端钩子，具有相同的名称和内容结构。`setLocale` 和 `onChange` 仅在客户端起作用，在客户端调用一次 `installIntlayer()` 以初始化客户端存储。`astro-intlayer/client` 显式公开客户端入口。
 
 </Step>
 <Step number={8} title="站点地图和 Robots.txt">

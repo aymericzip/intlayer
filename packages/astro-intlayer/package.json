@@ -41,8 +41,70 @@
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
+      "node": {
+        "require": "./dist/cjs/index.cjs",
+        "import": "./dist/esm/index.mjs"
+      },
+      "bun": {
+        "require": "./dist/cjs/index.cjs",
+        "import": "./dist/esm/index.mjs"
+      },
+      "deno": {
+        "require": "./dist/cjs/index.cjs",
+        "import": "./dist/esm/index.mjs"
+      },
+      "workerd": {
+        "require": "./dist/cjs/index.cjs",
+        "import": "./dist/esm/index.mjs"
+      },
+      "worker": {
+        "require": "./dist/cjs/index.cjs",
+        "import": "./dist/esm/index.mjs"
+      },
+      "edge-light": {
+        "require": "./dist/cjs/index.cjs",
+        "import": "./dist/esm/index.mjs"
+      },
+      "browser": {
+        "require": "./dist/cjs/client/index.cjs",
+        "import": "./dist/esm/client/index.mjs"
+      },
       "require": "./dist/cjs/index.cjs",
       "import": "./dist/esm/index.mjs"
+    },
+    "./client": {
+      "types": "./dist/types/client/index.d.ts",
+      "require": "./dist/cjs/client/index.cjs",
+      "import": "./dist/esm/client/index.mjs"
+    },
+    "./integration": {
+      "types": "./dist/types/integration.d.ts",
+      "require": "./dist/cjs/integration.cjs",
+      "import": "./dist/esm/integration.mjs"
+    },
+    "./middleware": {
+      "types": "./dist/types/middleware.d.ts",
+      "require": "./dist/cjs/middleware.cjs",
+      "import": "./dist/esm/middleware.mjs"
+    },
+    "./format": {
+      "types": "./dist/types/format/index.d.ts",
+      "browser": {
+        "require": "./dist/cjs/client/format/index.cjs",
+        "import": "./dist/esm/client/format/index.mjs"
+      },
+      "require": "./dist/cjs/format/index.cjs",
+      "import": "./dist/esm/format/index.mjs"
+    },
+    "./html": {
+      "types": "./dist/types/html/index.d.ts",
+      "require": "./dist/cjs/html/index.cjs",
+      "import": "./dist/esm/html/index.mjs"
+    },
+    "./markdown": {
+      "types": "./dist/types/markdown/index.d.ts",
+      "require": "./dist/cjs/markdown/index.cjs",
+      "import": "./dist/esm/markdown/index.mjs"
     },
     "./package.json": "./package.json"
   },
@@ -51,8 +113,26 @@
   "types": "dist/types/index.d.ts",
   "typesVersions": {
     "*": {
+      "client": [
+        "./dist/types/client/index.d.ts"
+      ],
+      "format": [
+        "./dist/types/format/index.d.ts"
+      ],
+      "html": [
+        "./dist/types/html/index.d.ts"
+      ],
+      "markdown": [
+        "./dist/types/markdown/index.d.ts"
+      ],
+      "middleware": [
+        "./dist/types/middleware.d.ts"
+      ],
       "package.json": [
         "./package.json"
+      ],
+      "integration": [
+        "./dist/types/integration.d.ts"
       ]
     }
   },
@@ -83,9 +163,11 @@
     "@intlayer/core": "workspace:*",
     "@intlayer/engine": "workspace:*",
     "@intlayer/types": "workspace:*",
+    "vanilla-intlayer": "workspace:*",
     "vite-intlayer": "workspace:*"
   },
   "devDependencies": {
+    "@intlayer/dictionaries-entry": "workspace:*",
     "@types/node": "^22",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",

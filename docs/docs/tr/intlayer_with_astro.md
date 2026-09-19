@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-06-23
+updatedAt: 2026-09-19
 title: "Astro i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
 description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) Astro uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
 keywords:
@@ -18,6 +18,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 applicationShowcase: https://intlayer-astro-template.vercel.app
 history:
+  - version: 9.5.5
+    date: 2026-09-19
+    changes: "astro-intlayer'a useIntlayer / useLocale hook'ları ve Astro.locals ara yazılımı eklendi"
   - version: 8.9.0
     date: 2026-05-04
     changes: "Solid useIntlayer API kullanımını doğrudan özellik erişimine güncelle"
@@ -152,7 +155,7 @@ bun add intlayer astro-intlayer
   Konfigürasyon yönetimi, çeviriler, [içerik deklarasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md), transpilasyon ve [CLI komutları](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/index.md) için i18n araçları sağlayan temel paket.
 
 - **astro-intlayer**
-  Intlayer'ı [Vite paketleyici](https://vite.dev/guide/why.html#why-bundle-for-production) ile bağlamak için Astro entegrasyon eklentisi; ayrıca kullanıcının tercih ettiği dili algılamak, çerezleri yönetmek ve URL yönlendirmelerini işlemek için ara yazılım (middleware) içerir.
+  Intlayer'ı [Vite paketleyicisi](https://vite.dev/guide/why.html#why-bundle-for-production) ile entegre etmek için Astro entegrasyon eklentisini, her isteğin yerel ayarını `Astro.locals.intlayer` içine çözümleyen bir ara yazılımı ve `useIntlayer` / `useDictionary` / `useLocale` hook'larını içerir. Aynı içe aktarma yolu, `.astro` frontmatter'ında sunucu uygulamasına ve `<script>` bloklarında istemci uygulamasına (`vanilla-intlayer` destekli) çözümlenir.
 
 </Step>
 <Step number={2} title="Projenizi Yapılandırın">
@@ -230,26 +233,28 @@ export default appContent;
 </Step>
 <Step number={5} title="Astro'da İçeriği Kullanma">
 
-Sözlükleri doğrudan `.astro` dosyalarınızda, `intlayer`'dan dışa aktarılan temel yardımcıları kullanarak tüketebilirsiniz.
+`astro-intlayer` tarafından dışa aktarılan hook'ları kullanarak sözlüklerinizi `.astro` dosyalarında kullanın. Bunlar `react-intlayer` ile aynı imzaları paylaşır: `useIntlayer("key")` bir sözlüğün içeriğini ve `useLocale()` herhangi bir argüman geçirmeden geçerli yerel ayarı döndürür.
+
+Yerel ayar, entegrasyonun kendi `src/middleware.ts` dosyanızın önünde sizin için kaydettiği `astro-intlayer` ara yazılımından gelir. Her istek için yerel ayarı sırasıyla URL ön ekinden, ardından istemci tarafından saklanan yerel ayardan (çerez veya başlık), ardından `Accept-Language` başlığından çözümler ve `Astro.locals.intlayer` içinde saklar. Önceden oluşturulmuş sayfalar her ziyaretçi için bir kez oluşturulduğundan yalnızca URL'yi kullanır.
+
+Ayrıca her sayfaya hreflang ve kurallı (canonical) bağlantılar gibi SEO meta verilerini eklemeli ve kullanıcıların dil değiştirmesine izin vermek için bir dil değiştirici eklemelisiniz.
 
 ```astro fileName="src/pages/index.astro"
 ---
+import { useIntlayer, useLocale } from "astro-intlayer";
 import {
-  getIntlayer,
-  getLocaleFromPath,
   getLocalizedUrl,
   defaultLocale,
   localeMap,
   getHTMLTextDir,
-  type LocalesValues,
 } from "intlayer";
 import LocaleSwitcher from "../components/LocaleSwitcher.astro";
 
-// Get the current locale from the URL (e.g. /es/about -> 'es')
-const locale = getLocaleFromPath(Astro.url.pathname) as LocalesValues;
+// Ara yazılım tarafından çözümlenen yerel ayar (ör. /tr/about -> 'tr')
+const { locale } = useLocale();
 
-// Get the content for the 'app' dictionary
-const { title } = getIntlayer("app", locale);
+// Bu yerel ayar için 'app' sözlüğünün içeriği
+const { title } = useIntlayer("app");
 ---
 
 <!doctype html>
@@ -301,6 +306,8 @@ const { title } = getIntlayer("app", locale);
 </html>
 ```
 
+> `Astro.locals.intlayer` ayrıca `locale`, `defaultLocale` ve `availableLocales` değerlerini kendi ara yazılımlarınıza ve uç noktalarınıza sunar. İstek yerel ayarını tek bir çağrı için geçersiz kılmak üzere ikinci argüman olarak bir yerel ayar veya seçici iletin (`useIntlayer("app", "fr")`, `useIntlayer("faq", { item: 2 })`).
+
 </Step>
 <Step number={6} title="Yerelleştirilmiş Yönlendirme">
 
@@ -325,44 +332,51 @@ Kullanıcıların diller arasında geçiş yapabilmesi için bir `LocaleSwitcher
 
 ```astro fileName="src/components/LocaleSwitcher.astro"
 ---
-import {
-  locales,
-  getLocaleName,
-  getLocalizedUrl,
-  getLocaleFromPath,
-  getPathWithoutLocale,
-  type LocalesValues,
-} from "intlayer";
+import { useLocale } from "astro-intlayer";
+import { getLocaleName, getLocalizedUrl, getPathWithoutLocale } from "intlayer";
 
-const locale = getLocaleFromPath(Astro.url.pathname) as LocalesValues;
+const { locale, availableLocales } = useLocale();
 const pathWithoutLocale = getPathWithoutLocale(Astro.url.pathname);
 ---
 
-<nav>
-  {
-    locales.map((localeItem) => (
-      <a
-        href={getLocalizedUrl(pathWithoutLocale, localeItem)}
-        data-locale={localeItem}
-        aria-current={localeItem === locale ? "page" : undefined}
-      >
-        {getLocaleName(localeItem)}
-      </a>
-    ))
-  }
+<nav aria-label="Languages">
+  <ul>
+    {
+      availableLocales.map((localeItem) => (
+        <li key={localeItem} class="p-1">
+          <a
+            href={getLocalizedUrl(pathWithoutLocale, localeItem)}
+            data-locale={localeItem}
+            aria-current={localeItem === locale ? "page" : undefined}
+          >
+            {getLocaleName(localeItem)}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
 </nav>
 
 <script>
-  import { setLocaleInStorageClient, getLocalizedUrl, type LocalesValues } from "intlayer";
+  // Tarayıcıda aynı içe aktarma istemci uygulamasına çözümlenir
+  import { useLocale } from "astro-intlayer";
+  import { getLocalizedUrl, type LocalesValues } from "intlayer";
+
+  // Seçimi yerel ayar çerezinde saklar, ardından yerelleştirilmiş URL'ye gider
+  const { setLocale } = useLocale({
+    onLocaleChange: (newLocale) => {
+      window.location.href = getLocalizedUrl(window.location.pathname, newLocale);
+    },
+  });
 
   const localeLinks = document.querySelectorAll("[data-locale]");
 
   localeLinks.forEach((link) => {
-    link.addEventListener("click", (e) => {
+    link.addEventListener("click", (event) => {
       const locale = link.getAttribute("data-locale") as LocalesValues;
 
-      // Update the locale cookie
-      setLocaleInStorageClient(locale);
+      event.preventDefault();
+      setLocale(locale);
     });
   });
 </script>
@@ -372,6 +386,13 @@ const pathWithoutLocale = getPathWithoutLocale(Astro.url.pathname);
     display: flex;
     gap: 1rem;
   }
+  ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: 0.5rem;
+  }
   a[aria-current="page"] {
     font-weight: bold;
     text-decoration: underline;
@@ -380,7 +401,10 @@ const pathWithoutLocale = getPathWithoutLocale(Astro.url.pathname);
 ```
 
 > **Kalıcılık Hakkında Not:**
-> İstemci tarafı betiğinde `setLocaleInStorageClient` kullanılması, kullanıcının dil tercihinin bir çerezde saklanmasını sağlar. Bu, Intlayer ara yazılımının seçimi hatırlamasına ve gelecekteki ziyaretlerde kullanıcıyı tercih ettiği dile otomatik olarak yönlendirmesine olanak tanır.
+> İstemci tarafındaki `useLocale` hook'undan `setLocale`, kullanıcının dil tercihini bir çerezde kaydeder. Bu, Intlayer ara yazılımının seçimi hatırlamasını ve gelecekteki ziyaretlerde kullanıcıyı otomatik olarak tercih ettiği dile yönlendirmesini sağlar.
+>
+> **Sunucu / İstemci Birlikte Çalışabilirliği:**
+> `astro-intlayer`, frontmatter'da sunucu hook'larına (`Astro.locals` okuyarak) ve `<script>` blokları ile adalarda (islands) `vanilla-intlayer`'ın istemci hook'larına aynı adlar ve içerik yapısıyla çözümlenir. `setLocale` ve `onChange` yalnızca istemcide etki eder; istemci deposunu başlatmak için orada bir kez `installIntlayer()` çağırın. `astro-intlayer/client`, istemci girişini açıkça sunar.
 
 </Step>
 <Step number={8} title="Sitemap ve Robots.txt">

@@ -1120,6 +1120,77 @@ const docDataContent: Dictionary = {
                 './docs/en/packages/astro-intlayer/exports.md'
               ),
               frameworks: ['astro'],
+              subSections: {
+                intlayer: {
+                  title: 'intlayer',
+                  default: getDocMetadata(
+                    './docs/en/packages/astro-intlayer/intlayer.md'
+                  ),
+                },
+                onRequest: {
+                  title: 'onRequest',
+                  default: getDocMetadata(
+                    './docs/en/packages/astro-intlayer/onRequest.md'
+                  ),
+                },
+                useDictionary: {
+                  title: 'useDictionary',
+                  default: getDocMetadata(
+                    './docs/en/packages/astro-intlayer/useDictionary.md'
+                  ),
+                },
+                useIntlayer: {
+                  title: 'useIntlayer',
+                  default: getDocMetadata(
+                    './docs/en/packages/astro-intlayer/useIntlayer.md'
+                  ),
+                },
+                useLocale: {
+                  title: 'useLocale',
+                  default: getDocMetadata(
+                    './docs/en/packages/astro-intlayer/useLocale.md'
+                  ),
+                },
+              },
+            },
+            'remix-intlayer': {
+              title: 'remix-intlayer',
+              default: getDocMetadata(
+                './docs/en/packages/remix-intlayer/exports.md'
+              ),
+              frameworks: ['remix', 'react'],
+              subSections: {
+                intlayerMiddleware: {
+                  title: 'intlayer',
+                  default: getDocMetadata(
+                    './docs/en/packages/remix-intlayer/intlayerMiddleware.md'
+                  ),
+                },
+                Intlayer: {
+                  title: 'Intlayer',
+                  default: getDocMetadata(
+                    './docs/en/packages/remix-intlayer/Intlayer.md'
+                  ),
+                },
+                useDictionary: {
+                  title: 'useDictionary',
+                  default: getDocMetadata(
+                    './docs/en/packages/remix-intlayer/useDictionary.md'
+                  ),
+                },
+                useIntlayer: {
+                  title: 'useIntlayer',
+                  default: getDocMetadata(
+                    './docs/en/packages/remix-intlayer/useIntlayer.md'
+                  ),
+                },
+                useLocale: {
+                  title: 'useLocale',
+                  default: getDocMetadata(
+                    './docs/en/packages/remix-intlayer/useLocale.md'
+                  ),
+                },
+              },
             },
             'vite-intlayer': {
               title: 'vite-intlayer',

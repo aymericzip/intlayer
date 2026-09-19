@@ -1,11 +1,12 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import { getIntlayer, getLocaleFromPath, getPrefix, localeMap, getLocalizedUrl, Locales } from "intlayer";
+import { getPrefix, localeMap, getLocalizedUrl } from "intlayer";
+import { useIntlayer, useLocale } from "astro-intlayer";
 
 export const getStaticPaths = () => localeMap(({locale} )=> ( { params: { locale: getPrefix(locale).localePrefix } }))
 
-const locale = getLocaleFromPath(Astro.url.pathname);
-const { title, subtitle, description, exploreFrameworks, metadata } = getIntlayer("home", locale);
+const { locale } = useLocale();
+const { title, subtitle, description, exploreFrameworks, metadata } = useIntlayer("home");
 
 const frameworks = [
   { slug: "react",   name: "React",      pkg: "react-intlayer",   logo: "/frameworks/Reactjs.svg", color: "#61dafb" },

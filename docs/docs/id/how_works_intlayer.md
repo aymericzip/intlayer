@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-12
-updatedAt: 2025-06-29
+updatedAt: 2026-09-19
 title: Cara Kerja Intlayer
 description: Pelajari bagaimana Intlayer beroperasi secara internal. Pahami arsitektur dan komponen yang membuat Intlayer kuat.
 keywords:
@@ -177,6 +177,11 @@ Paket `angular-intlayer` digunakan untuk menginterpretasikan kamus Intlayer dan 
   <Tab label="Astro" value="astro">
 
 Paket `astro-intlayer` menyediakan alat yang diperlukan untuk mengintegrasikan Intlayer ke dalam aplikasi Astro. Paket ini mengonfigurasi routing berbasis locale dan manajemen kamus.
+
+  </Tab>
+  <Tab label="Remix" value="remix">
+
+Paket `remix-intlayer` menyediakan alat yang diperlukan untuk mengintegrasikan Intlayer ke dalam aplikasi Remix. Paket ini mengonfigurasi perutean berbasis locale, konteks sisi server, dan manajemen kamus.
 
   </Tab>
   <Tab label="React Native" value="react-native">

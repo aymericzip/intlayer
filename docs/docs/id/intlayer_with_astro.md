@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-06-23
+updatedAt: 2026-09-19
 title: "Astro i18n - Panduan lengkap menerjemahkan aplikasi Anda"
 description: "Tidak ada lagi i18next. Panduan 2026 untuk membangun aplikasi Astro multibahasa (i18n). Terjemahkan dengan agen AI dan optimalkan ukuran bundle, SEO, dan performa."
 keywords:
@@ -18,6 +18,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 applicationShowcase: https://intlayer-astro-template.vercel.app
 history:
+  - version: 9.5.5
+    date: 2026-09-19
+    changes: "Menambahkan hook useIntlayer / useLocale dan middleware Astro.locals ke astro-intlayer"
   - version: 8.9.0
     date: 2026-05-04
     changes: "Perbarui penggunaan API useIntlayer Solid ke akses properti langsung"
@@ -152,7 +155,7 @@ bun add intlayer astro-intlayer
   Paket inti yang menyediakan alat i18n untuk manajemen konfigurasi, terjemahan, [deklarasi konten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md), transpilasi, dan [perintah CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md).
 
 - **astro-intlayer**
-  Plugin integrasi Astro untuk menghubungkan Intlayer dengan [bundler Vite](https://vite.dev/guide/why.html#why-bundle-for-production); juga mencakup middleware untuk mendeteksi bahasa pilihan pengguna, mengelola cookie, dan menangani pengalihan URL.
+  Menyertakan plugin integrasi Astro untuk mengintegrasikan Intlayer dengan [bundler Vite](https://vite.dev/guide/why.html#why-bundle-for-production), middleware yang menyelesaikan lokal setiap permintaan ke dalam `Astro.locals.intlayer`, dan hook `useIntlayer` / `useDictionary` / `useLocale`. Jalur impor yang sama menyelesaikan ke implementasi server di frontmatter `.astro` Anda dan ke implementasi klien (didukung oleh `vanilla-intlayer`) di blok `<script>`.
 
 </Step>
 <Step number={2} title="Konfigurasikan Proyek Anda">
@@ -230,26 +233,28 @@ export default appContent;
 </Step>
 <Step number={5} title="Menggunakan Konten di Astro">
 
-Anda dapat mengonsumsi kamus langsung di file `.astro` menggunakan pembantu inti yang diekspor dari `intlayer`.
+Gunakan kamus Anda dalam file `.astro` dengan hook yang diekspor oleh `astro-intlayer`. Mereka memiliki tanda tangan yang sama dengan `react-intlayer`: `useIntlayer("key")` mengembalikan konten kamus dan `useLocale()` mengembalikan lokal saat ini, tanpa argumen yang perlu diteruskan.
+
+Lokal berasal dari middleware `astro-intlayer`, yang didaftarkan oleh integrasi sebelum `src/middleware.ts` Anda sendiri. Ini menyelesaikannya untuk setiap permintaan, dari awalan URL, kemudian lokal yang disimpan oleh klien (cookie atau header), lalu `Accept-Language`, dan menyimpannya di `Astro.locals.intlayer`. Halaman yang dirender sebelumnya hanya menggunakan URL, karena halaman tersebut dirender sekali untuk setiap pengunjung.
+
+Anda juga harus menambahkan metadata SEO seperti hreflang dan tautan kanonikal ke setiap halaman dan menyertakan pengalih lokal agar pengguna dapat mengubah bahasa.
 
 ```astro fileName="src/pages/index.astro"
 ---
+import { useIntlayer, useLocale } from "astro-intlayer";
 import {
-  getIntlayer,
-  getLocaleFromPath,
   getLocalizedUrl,
   defaultLocale,
   localeMap,
   getHTMLTextDir,
-  type LocalesValues,
 } from "intlayer";
 import LocaleSwitcher from "../components/LocaleSwitcher.astro";
 
-// Get the current locale from the URL (e.g. /es/about -> 'es')
-const locale = getLocaleFromPath(Astro.url.pathname) as LocalesValues;
+// Lokal diselesaikan oleh middleware (mis. /id/about -> 'id')
+const { locale } = useLocale();
 
-// Get the content for the 'app' dictionary
-const { title } = getIntlayer("app", locale);
+// Konten kamus 'app' untuk lokal tersebut
+const { title } = useIntlayer("app");
 ---
 
 <!doctype html>
@@ -301,6 +306,8 @@ const { title } = getIntlayer("app", locale);
 </html>
 ```
 
+> `Astro.locals.intlayer` juga mengekspos `locale`, `defaultLocale`, dan `availableLocales` ke middleware dan endpoint Anda sendiri. Teruskan lokal atau pemilih sebagai argumen kedua (`useIntlayer("app", "fr")`, `useIntlayer("faq", { item: 2 })`) untuk mengganti lokal permintaan untuk satu panggilan.
+
 </Step>
 <Step number={6} title="Perutean yang Dilokalkan">
 
@@ -325,44 +332,51 @@ Untuk memungkinkan pengguna beralih antar bahasa, Anda dapat membuat komponen `L
 
 ```astro fileName="src/components/LocaleSwitcher.astro"
 ---
-import {
-  locales,
-  getLocaleName,
-  getLocalizedUrl,
-  getLocaleFromPath,
-  getPathWithoutLocale,
-  type LocalesValues,
-} from "intlayer";
+import { useLocale } from "astro-intlayer";
+import { getLocaleName, getLocalizedUrl, getPathWithoutLocale } from "intlayer";
 
-const locale = getLocaleFromPath(Astro.url.pathname) as LocalesValues;
+const { locale, availableLocales } = useLocale();
 const pathWithoutLocale = getPathWithoutLocale(Astro.url.pathname);
 ---
 
-<nav>
-  {
-    locales.map((localeItem) => (
-      <a
-        href={getLocalizedUrl(pathWithoutLocale, localeItem)}
-        data-locale={localeItem}
-        aria-current={localeItem === locale ? "page" : undefined}
-      >
-        {getLocaleName(localeItem)}
-      </a>
-    ))
-  }
+<nav aria-label="Languages">
+  <ul>
+    {
+      availableLocales.map((localeItem) => (
+        <li key={localeItem} class="p-1">
+          <a
+            href={getLocalizedUrl(pathWithoutLocale, localeItem)}
+            data-locale={localeItem}
+            aria-current={localeItem === locale ? "page" : undefined}
+          >
+            {getLocaleName(localeItem)}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
 </nav>
 
 <script>
-  import { setLocaleInStorageClient, getLocalizedUrl, type LocalesValues } from "intlayer";
+  // Di peramban, impor yang sama diselesaikan ke implementasi klien
+  import { useLocale } from "astro-intlayer";
+  import { getLocalizedUrl, type LocalesValues } from "intlayer";
+
+  // Menyimpan pilihan dalam cookie lokal, lalu menavigasi ke URL yang dilokalkan
+  const { setLocale } = useLocale({
+    onLocaleChange: (newLocale) => {
+      window.location.href = getLocalizedUrl(window.location.pathname, newLocale);
+    },
+  });
 
   const localeLinks = document.querySelectorAll("[data-locale]");
 
   localeLinks.forEach((link) => {
-    link.addEventListener("click", (e) => {
+    link.addEventListener("click", (event) => {
       const locale = link.getAttribute("data-locale") as LocalesValues;
 
-      // Update the locale cookie
-      setLocaleInStorageClient(locale);
+      event.preventDefault();
+      setLocale(locale);
     });
   });
 </script>
@@ -372,6 +386,13 @@ const pathWithoutLocale = getPathWithoutLocale(Astro.url.pathname);
     display: flex;
     gap: 1rem;
   }
+  ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: 0.5rem;
+  }
   a[aria-current="page"] {
     font-weight: bold;
     text-decoration: underline;
@@ -380,7 +401,10 @@ const pathWithoutLocale = getPathWithoutLocale(Astro.url.pathname);
 ```
 
 > **Catatan tentang Persistensi:**
-> Menggunakan `setLocaleInStorageClient` dalam skrip sisi klien memastikan bahwa preferensi bahasa pengguna disimpan dalam cookie. Hal ini memungkinkan middleware Intlayer mengingat pilihan tersebut dan secara otomatis mengarahkan pengguna ke bahasa pilihan mereka pada kunjungan berikutnya.
+> `setLocale` dari `useLocale` sisi klien menyimpan preferensi bahasa pengguna dalam cookie. Hal ini memungkinkan middleware Intlayer untuk mengingat pilihan dan secara otomatis mengarahkan pengguna ke bahasa pilihan mereka pada kunjungan berikutnya.
+>
+> **Kompatibilitas Server / Klien:**
+> `astro-intlayer` menyelesaikan ke hook server di frontmatter (membaca `Astro.locals`) dan ke hook klien `vanilla-intlayer` di blok `<script>` dan pulau (islands), dengan nama dan bentuk konten yang sama. `setLocale` dan `onChange` hanya bertindak di klien, panggil `installIntlayer()` sekali di sana untuk menginisialisasi penyimpanan klien. `astro-intlayer/client` mengekspos entri klien secara eksplisit.
 
 </Step>
 <Step number={8} title="Sitemap dan Robots.txt">

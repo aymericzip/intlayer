@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-12
-updatedAt: 2026-08-30
+updatedAt: 2026-09-19
 title: Wie Intlayer funktioniert
 description: Erfahren Sie, wie Intlayer intern funktioniert. Verstehen Sie die Architektur und die Komponenten, die Intlayer leistungsstark machen.
 keywords:
@@ -181,6 +181,11 @@ Das `angular-intlayer`-Paket wird verwendet, um Intlayer-Wörterbücher zu inter
   <Tab label="Astro" value="astro">
 
 Das `astro-intlayer`-Paket stellt die notwendigen Werkzeuge bereit, um Intlayer in Astro-Anwendungen zu integrieren. Es konfiguriert sprachenbasiertes Routing und die Verwaltung von Wörterbüchern.
+
+  </Tab>
+  <Tab label="Remix" value="remix">
+
+Das `remix-intlayer`-Paket stellt die notwendigen Werkzeuge bereit, um Intlayer in Remix-Anwendungen zu integrieren. Es konfiguriert sprachenbasiertes Routing, serverseitigen Kontext und die Verwaltung von Wörterbüchern.
 
   </Tab>
   <Tab label="React Native" value="react-native">

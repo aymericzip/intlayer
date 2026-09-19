@@ -16,6 +16,8 @@ export { getCanonicalPath } from './getCanonicalPath';
 export { getHTMLTextDir } from './getHTMLTextDir';
 export { getLocale } from './getLocale';
 export { getLocaleFromPath } from './getLocaleFromPath';
+export type { LocaleRequest } from './getLocaleFromRequest';
+export { getLocaleFromRequest } from './getLocaleFromRequest';
 export { getLocaleLang } from './getLocaleLang';
 export { getLocaleName } from './getLocaleName';
 export { getLocalizedPath } from './getLocalizedPath';

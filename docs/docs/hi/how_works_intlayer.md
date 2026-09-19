@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-12
-updatedAt: 2025-06-29
+updatedAt: 2026-09-19
 title: Intlayer कैसे काम करता है
 description: जानें कि Intlayer आंतरिक रूप से कैसे काम करता है। समझें कि Intlayer को शक्तिशाली बनाने वाली संरचना और घटक क्या हैं।
 keywords:
@@ -181,6 +181,11 @@ Intlayer कई पैकेजों से बना है, जिनमे�
   <Tab label="Astro" value="astro">
 
 `astro-intlayer` पैकेज Intlayer को Astro एप्लिकेशनों में इंटीग्रेट करने के लिए आवश्यक टूल प्रदान करता है। यह locale-आधारित राउटिंग और डिक्शनरी प्रबंधन को कॉन्फ़िगर करता है।
+
+  </Tab>
+  <Tab label="Remix" value="remix">
+
+`remix-intlayer` पैकेज Intlayer को Remix एप्लिकेशनों में इंटीग्रेट करने के लिए आवश्यक टूल प्रदान करता है। यह locale-आधारित राउटिंग, सर्वर-साइड संदर्भ और डिक्शनरी प्रबंधन को कॉन्फ़िगर करता है।
 
   </Tab>
   <Tab label="React Native" value="react-native">

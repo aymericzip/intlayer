@@ -1,15 +1,18 @@
 import * as http from 'node:http';
-import { getIntlayer, isDeclaredLocale } from 'intlayer';
 import { createRequestListener } from 'remix/node-fetch-server';
 import { createHtmlResponse } from 'remix/response/html';
 import { createRouter } from 'remix/router';
-import { intlayer, localeKey } from './middleware/intlayer';
+import { intlayer, useIntlayer, useLocale } from 'remix-intlayer';
 import { routes } from './routes';
 import { renderAboutPage } from './views/about';
 import { renderHomePage } from './views/home';
 
 /**
- * Initialize Remix 3 router with Intlayer internationalization middleware.
+ * Initialize Remix 3 router with the Intlayer middleware.
+ *
+ * The middleware handles the locale routing (`/about` → `/fr/about` redirect
+ * for a French visitor, `/fr/about` served from the `about` route, `/en/about`
+ * → `/about`) and exposes the resolved locale to the hooks below.
  */
 export const router = createRouter({
   middleware: [intlayer()],
@@ -20,47 +23,15 @@ export const router = createRouter({
  */
 router.map(routes, {
   actions: {
-    home(context) {
-      const locale = context.get(localeKey);
-      return createHtmlResponse(renderHomePage(locale));
+    home() {
+      return createHtmlResponse(renderHomePage());
     },
-    about(context) {
-      const locale = context.get(localeKey);
-      return createHtmlResponse(renderAboutPage(locale));
+    about() {
+      return createHtmlResponse(renderAboutPage());
     },
-    localizedHome(context) {
-      if (!isDeclaredLocale(context.params.locale)) {
-        return new Response('Not Found', { status: 404 });
-      }
-      const locale = context.get(localeKey);
-      return createHtmlResponse(renderHomePage(locale));
-    },
-    localizedAbout(context) {
-      if (!isDeclaredLocale(context.params.locale)) {
-        return new Response('Not Found', { status: 404 });
-      }
-      const locale = context.get(localeKey);
-      return createHtmlResponse(renderAboutPage(locale));
-    },
-    apiGreeting(context) {
-      const locale = context.get(localeKey);
-      const home = getIntlayer('home', locale);
-      return Response.json({
-        success: true,
-        locale,
-        message: home.title,
-        timestamp: new Date().toISOString(),
-      });
-    },
-    localizedApiGreeting(context) {
-      if (!isDeclaredLocale(context.params.locale)) {
-        return Response.json(
-          { success: false, error: 'Not Found' },
-          { status: 404 }
-        );
-      }
-      const locale = context.get(localeKey);
-      const home = getIntlayer('home', locale);
+    apiGreeting() {
+      const { locale } = useLocale();
+      const home = useIntlayer('home');
       return Response.json({
         success: true,
         locale,

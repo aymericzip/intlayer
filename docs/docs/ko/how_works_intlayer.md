@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-12
-updatedAt: 2026-08-30
+updatedAt: 2026-09-19
 title: Intlayer 작동 방식
 description: Intlayer가 내부적으로 어떻게 작동하는지 알아보세요. Intlayer를 강력하게 만드는 아키텍처와 구성 요소를 이해하십시오.
 keywords:
@@ -181,6 +181,11 @@ Intlayer는 번역 프로세스에서 특정 역할을 하는 여러 패키지�
   <Tab label="Astro" value="astro">
 
 `astro-intlayer` 패키지는 Intlayer를 Astro 애플리케이션에 통합하기 위한 필수 도구를 제공합니다. 로케일 기반 라우팅 및 사전 관리(딕셔너리 관리를) 구성합니다.
+
+  </Tab>
+  <Tab label="Remix" value="remix">
+
+`remix-intlayer` 패키지는 Intlayer를 Remix 애플리케이션에 통합하기 위한 필수 도구를 제공합니다. 로케일 기반 라우팅, 서버 측 컨텍스트 및 사전 관리를 구성합니다.
 
   </Tab>
   <Tab label="React Native" value="react-native">

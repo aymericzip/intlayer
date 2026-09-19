@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-12
-updatedAt: 2026-08-30
+updatedAt: 2026-09-19
 title: Intlayer 的工作原理
 description: 了解Intlayer的内部运作方式。理解使Intlayer强大的架构和组件。
 keywords:
@@ -180,6 +180,11 @@ Intlayer 由多个包组成，每个包在翻译过程中都有特定的角色�
   <Tab label="Astro" value="astro">
 
 `astro-intlayer` 包提供将 Intlayer 集成到 Astro 应用所需的工具。它配置基于区域设置（locale）的路由和字典管理。
+
+  </Tab>
+  <Tab label="Remix" value="remix">
+
+`remix-intlayer` 包提供将 Intlayer 集成到 Remix 应用所需的工具。它配置基于区域设置（locale）的路由、服务端上下文和字典管理。
 
   </Tab>
   <Tab label="React Native" value="react-native">

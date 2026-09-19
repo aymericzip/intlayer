@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-06-23
+updatedAt: 2026-09-19
 title: "Astro i18n - अपने ऐप को अनुवाद करने का पूर्ण गाइड"
 description: "अब i18next की जरूरत नहीं। 2026 में Astro ऐप को बहुभाषी (i18n) बनाने का गाइड। AI एजेंट्स से अनुवाद करें और बंडल साइज़, SEO और परफॉर्मेंस ऑप्टिमाइज़ करें।"
 keywords:
@@ -18,6 +18,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 applicationShowcase: https://intlayer-astro-template.vercel.app
 history:
+  - version: 9.5.5
+    date: 2026-09-19
+    changes: "astro-intlayer में useIntlayer / useLocale हुक्स और Astro.locals मिडलवेयर जोड़ा गया"
   - version: 8.9.0
     date: 2026-05-04
     changes: "सॉलिड useIntlayer API उपयोग को सीधे प्रॉपर्टी एक्सेस में अपडेट करें"
@@ -152,7 +155,7 @@ bun add intlayer astro-intlayer
   मुख्य पैकेज जो कॉन्फ़िगरेशन प्रबंधन, अनुवाद, [सामग्री घोषणा](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/content_file.md), ट्रांसपाइलेशन और [CLI कमांड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/index.md) के लिए i18n टूल प्रदान करता है।
 
 - **astro-intlayer**
-  Intlayer को [Vite बंडलर](https://vite.dev/guide/why.html#why-bundle-for-production) के साथ जोड़ने के लिए Astro एकीकरण प्लगइन, साथ ही उपयोगकर्ता की पसंदीदा भाषा का पता लगाने, कुकीज़ प्रबंधित करने और URL रीडायरेक्ट को संभालने के लिए मिडलवेयर शामिल है।
+  Intlayer को [Vite बंडलर](https://vite.dev/guide/why.html#why-bundle-for-production) के साथ एकीकृत करने के लिए Astro एकीकरण प्लगइन, प्रत्येक अनुरोध के लोकेल को `Astro.locals.intlayer` में हल करने वाला एक मिडलवेयर, और `useIntlayer` / `useDictionary` / `useLocale` हुक्स शामिल हैं। वही आयात पथ आपके `.astro` फ्रंटमैट में सर्वर कार्यान्वयन और `<script>` ब्लॉक में क्लाइंट कार्यान्वयन (`vanilla-intlayer` द्वारा समर्थित) को हल करता है।
 
 </Step>
 <Step number={2} title="अपना प्रोजेक्ट कॉन्फ़िगर करें">
@@ -230,26 +233,28 @@ export default appContent;
 </Step>
 <Step number={5} title="Astro में सामग्री का उपयोग करना">
 
-आप सीधे अपने `.astro` फ़ाइलों में `intlayer` से निर्यात किए गए मुख्य सहायकों का उपयोग करके शब्दकोशों का उपयोग कर सकते हैं।
+`astro-intlayer` द्वारा निर्यात किए गए हुक्स के साथ `.astro` फ़ाइलों में अपने शब्दकोशों का उपयोग करें। वे `react-intlayer` के समान हस्ताक्षर साझा करते हैं: `useIntlayer("key")` एक शब्दकोश की सामग्री लौटाता है और `useLocale()` बिना किसी तर्क के वर्तमान लोकेल लौटाता है।
+
+लोकेल `astro-intlayer` मिडलवेयर से आता है, जिसे एकीकरण आपके अपने `src/middleware.ts` से पहले पंजीकृत करता है। यह प्रत्येक अनुरोध के लिए इसे URL उपसर्ग, फिर क्लाइंट द्वारा सहेजे गए लोकेल (कुकी या हेडर), फिर `Accept-Language` से हल करता है, और इसे `Astro.locals.intlayer` में संग्रहीत करता है। प्री-रेंडर किए गए पृष्ठ केवल URL का उपयोग करते हैं, क्योंकि वे प्रत्येक आगंतुक के लिए एक बार रेंडर होते हैं।
+
+आपको प्रत्येक पृष्ठ पर hreflang और विहित (canonical) लिंक जैसे SEO मेटाडेटा भी जोड़ना चाहिए और उपयोगकर्ताओं को भाषा बदलने की अनुमति देने के लिए एक भाषा स्विचर शामिल करना चाहिए।
 
 ```astro fileName="src/pages/index.astro"
 ---
+import { useIntlayer, useLocale } from "astro-intlayer";
 import {
-  getIntlayer,
-  getLocaleFromPath,
   getLocalizedUrl,
   defaultLocale,
   localeMap,
   getHTMLTextDir,
-  type LocalesValues,
 } from "intlayer";
 import LocaleSwitcher from "../components/LocaleSwitcher.astro";
 
-// Get the current locale from the URL (e.g. /es/about -> 'es')
-const locale = getLocaleFromPath(Astro.url.pathname) as LocalesValues;
+// मिडलवेयर द्वारा हल किया गया लोकेल (उदा. /hi/about -> 'hi')
+const { locale } = useLocale();
 
-// Get the content for the 'app' dictionary
-const { title } = getIntlayer("app", locale);
+// उस लोकेल के लिए 'app' शब्दकोश की सामग्री
+const { title } = useIntlayer("app");
 ---
 
 <!doctype html>
@@ -301,6 +306,8 @@ const { title } = getIntlayer("app", locale);
 </html>
 ```
 
+> `Astro.locals.intlayer` आपके अपने मिडलवेयर और एंडपॉइंट्स के लिए `locale`, `defaultLocale` और `availableLocales` भी प्रदर्शित करता है। एक कॉल के लिए अनुरोध लोकेल को ओवरराइड करने के लिए दूसरे तर्क के रूप में एक लोकेल या चयनकर्ता पास करें (`useIntlayer("app", "fr")`, `useIntlayer("faq", { item: 2 })`)।
+
 </Step>
 <Step number={6} title="स्थानीयकृत रूटिंग">
 
@@ -325,44 +332,51 @@ Astro एकीकरण एक Vite मिडलवेयर जोड़ता
 
 ```astro fileName="src/components/LocaleSwitcher.astro"
 ---
-import {
-  locales,
-  getLocaleName,
-  getLocalizedUrl,
-  getLocaleFromPath,
-  getPathWithoutLocale,
-  type LocalesValues,
-} from "intlayer";
+import { useLocale } from "astro-intlayer";
+import { getLocaleName, getLocalizedUrl, getPathWithoutLocale } from "intlayer";
 
-const locale = getLocaleFromPath(Astro.url.pathname) as LocalesValues;
+const { locale, availableLocales } = useLocale();
 const pathWithoutLocale = getPathWithoutLocale(Astro.url.pathname);
 ---
 
-<nav>
-  {
-    locales.map((localeItem) => (
-      <a
-        href={getLocalizedUrl(pathWithoutLocale, localeItem)}
-        data-locale={localeItem}
-        aria-current={localeItem === locale ? "page" : undefined}
-      >
-        {getLocaleName(localeItem)}
-      </a>
-    ))
-  }
+<nav aria-label="Languages">
+  <ul>
+    {
+      availableLocales.map((localeItem) => (
+        <li key={localeItem} class="p-1">
+          <a
+            href={getLocalizedUrl(pathWithoutLocale, localeItem)}
+            data-locale={localeItem}
+            aria-current={localeItem === locale ? "page" : undefined}
+          >
+            {getLocaleName(localeItem)}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
 </nav>
 
 <script>
-  import { setLocaleInStorageClient, getLocalizedUrl, type LocalesValues } from "intlayer";
+  // ब्राउज़र में, वही आयात क्लाइंट कार्यान्वयन को हल करता है
+  import { useLocale } from "astro-intlayer";
+  import { getLocalizedUrl, type LocalesValues } from "intlayer";
+
+  // विकल्प को लोकेल कुकी में सहेजता है, फिर स्थानीयकृत URL पर नेविगेट करता है
+  const { setLocale } = useLocale({
+    onLocaleChange: (newLocale) => {
+      window.location.href = getLocalizedUrl(window.location.pathname, newLocale);
+    },
+  });
 
   const localeLinks = document.querySelectorAll("[data-locale]");
 
   localeLinks.forEach((link) => {
-    link.addEventListener("click", (e) => {
+    link.addEventListener("click", (event) => {
       const locale = link.getAttribute("data-locale") as LocalesValues;
 
-      // Update the locale cookie
-      setLocaleInStorageClient(locale);
+      event.preventDefault();
+      setLocale(locale);
     });
   });
 </script>
@@ -372,6 +386,13 @@ const pathWithoutLocale = getPathWithoutLocale(Astro.url.pathname);
     display: flex;
     gap: 1rem;
   }
+  ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: 0.5rem;
+  }
   a[aria-current="page"] {
     font-weight: bold;
     text-decoration: underline;
@@ -379,8 +400,11 @@ const pathWithoutLocale = getPathWithoutLocale(Astro.url.pathname);
 </style>
 ```
 
-> **स्थिरता पर ध्यान दें:**
-> क्लाइंट-साइड स्क्रिप्ट में `setLocaleInStorageClient` का उपयोग यह सुनिश्चित करता है कि उपयोगकर्ता की भाषा प्राथमिकता कुकी में सहेजी गई है। यह Intlayer मिडलवेयर को विकल्प याद रखने और भविष्य की यात्राओं पर उपयोगकर्ता को स्वचालित रूप से उनकी पसंदीदा भाषा में रीडायरेक्ट करने की अनुमति देता है।
+> **स्थिरता पर नोट:**
+> क्लाइंट-साइड `useLocale` से `setLocale` उपयोगकर्ता की भाषा प्राथमिकता को कुकी में सहेजता है। यह Intlayer मिडलवेयर को विकल्प याद रखने और भविष्य की यात्राओं पर उपयोगकर्ता को उनकी पसंदीदा भाषा में स्वचालित रूप से पुनर्निर्देशित करने की अनुमति देता है।
+>
+> **सर्वर / क्लाइंट अंतर-संगतता:**
+> `astro-intlayer` फ्रंटमैट में अपने सर्वर हुक्स (`Astro.locals` पढ़ना) और `<script>` ब्लॉक और आइलैंड्स में `vanilla-intlayer` के क्लाइंट हुक्स को समान नाम और सामग्री संरचना के साथ हल करता है। `setLocale` और `onChange` केवल क्लाइंट पर कार्य करते हैं, क्लाइंट स्टोर को इनिशियलाइज़ करने के लिए वहां एक बार `installIntlayer()` को कॉल करें। `astro-intlayer/client` क्लाइंट प्रविष्टि को स्पष्ट रूप से प्रदर्शित करता है।
 
 </Step>
 <Step number={8} title="Sitemap और Robots.txt">

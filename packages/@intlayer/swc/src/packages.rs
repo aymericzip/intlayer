@@ -24,6 +24,8 @@ pub const PACKAGE_LIST: &[&str] = &[
     "solid-intlayer",
     "lit-intlayer",
     "vanilla-intlayer",
+    "astro-intlayer",
+    "remix-intlayer",
 ];
 
 /// Subset of [`PACKAGE_LIST`] that exports a `useDictionaryDynamic` helper.

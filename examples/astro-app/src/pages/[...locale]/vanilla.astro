@@ -1,13 +1,14 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import { getIntlayer, getLocaleFromPath, getPrefix, localeMap, getLocalizedUrl, getLocaleName, getPathWithoutLocale, locales, Locales, type LocalesValues } from "intlayer";
+import { getPrefix, localeMap, getLocalizedUrl, getLocaleName, getPathWithoutLocale } from "intlayer";
+import { useIntlayer, useLocale } from "astro-intlayer";
 
 export const getStaticPaths = () => localeMap(({locale} )=> ( { params: { locale: getPrefix(locale).localePrefix } }))
 
-const locale = getLocaleFromPath(Astro.url.pathname) as LocalesValues;
+const { locale, availableLocales } = useLocale();
 const pathWithoutLocale = getPathWithoutLocale(Astro.url.pathname);
-const { backHome, metadata } = getIntlayer("framework-page", locale);
-const { greeting, description, increment, switchLocale } = getIntlayer("vanilla-demo", locale);
+const { backHome, metadata } = useIntlayer("framework-page");
+const { greeting, description, increment, switchLocale } = useIntlayer("vanilla-demo");
 ---
 
 <Layout
@@ -34,7 +35,7 @@ const { greeting, description, increment, switchLocale } = getIntlayer("vanilla-
       <span class="switcher-label">{switchLocale}</span>
       <div class="locale-buttons">
         {
-          locales.map((localeItem) => (
+          availableLocales.map((localeItem) => (
             <a
               href={getLocalizedUrl(pathWithoutLocale, localeItem)}
               class={`locale-btn ${localeItem === locale ? "active" : ""}`}
@@ -50,7 +51,7 @@ const { greeting, description, increment, switchLocale } = getIntlayer("vanilla-
 </Layout>
 
 <script>
-  import { installIntlayer, useLocale } from "vanilla-intlayer";
+  import { installIntlayer, useLocale } from "astro-intlayer";
   import { getLocaleFromPath, getLocalizedUrl, type LocalesValues } from "intlayer";
 
   // Bootstrap Intlayer on the client based on the current path

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-08-30
+updatedAt: 2026-09-19
 title: "Astro i18n - Complete guide to translate your app"
 description: "No more i18next. The 2026 guide to building a multilingual (i18n) Astro app. Translate with AI agents and optimise bundle size, SEO and performances."
 keywords:
@@ -18,6 +18,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 applicationShowcase: https://intlayer-astro-template.vercel.app
 history:
+  - version: 9.5.5
+    date: 2026-09-19
+    changes: "Add useIntlayer / useLocale hooks and the Astro.locals middleware to astro-intlayer"
   - version: 8.9.0
     date: 2026-05-04
     changes: "Update Solid useIntlayer API usage to direct property access"
@@ -152,7 +155,7 @@ bun add intlayer astro-intlayer
   The core package that provides i18n tools for configuration management, translations, [content declaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/content_file.md), transpilation, and [CLI commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/index.md).
 
 - **astro-intlayer**
-  Includes the Astro integration plugin to link Intlayer with the [Vite bundler](https://vite.dev/guide/why.html#why-bundle-for-production), as well as the middleware to detect the user's preferred language, manage cookies, and handle URL redirects.
+  Includes the Astro integration plugin for integrating Intlayer with the [Vite bundler](https://vite.dev/guide/why.html#why-bundle-for-production), a middleware that resolves the locale of every request into `Astro.locals.intlayer`, and the `useIntlayer` / `useDictionary` / `useLocale` hooks. The same import path resolves to the server implementation in your `.astro` frontmatter and to the client one (backed by `vanilla-intlayer`) in `<script>` blocks.
 
 </Step>
 <Step number={2} title="Configure Your Project">
@@ -230,26 +233,28 @@ export default appContent;
 </Step>
 <Step number={5} title="Using Content in Astro">
 
-You can consume the dictionaries directly in your `.astro` files using the core helpers exported from `intlayer`.
+Consume your dictionaries in `.astro` files with the hooks exported by `astro-intlayer`. They share the signatures of `react-intlayer`: `useIntlayer("key")` returns the content of a dictionary and `useLocale()` the current locale, with no argument to pass around.
+
+The locale comes from the `astro-intlayer` middleware, which the integration registers for you ahead of your own `src/middleware.ts`. It resolves it for every request, from the URL prefix, then the locale persisted by the client (cookie or header), then `Accept-Language`, and stores it in `Astro.locals.intlayer`. Prerendered pages only use the URL, since they are rendered once for every visitor.
+
+You should also add SEO metadata like hreflang and canonical links to each page and include a locale switcher to allow users to change languages.
 
 ```astro fileName="src/pages/index.astro"
 ---
+import { useIntlayer, useLocale } from "astro-intlayer";
 import {
-  getIntlayer,
-  getLocaleFromPath,
   getLocalizedUrl,
   defaultLocale,
   localeMap,
   getHTMLTextDir,
-  type LocalesValues,
 } from "intlayer";
 import LocaleSwitcher from "../components/LocaleSwitcher.astro";
 
-// Get the current locale from the URL (e.g. /es/about -> 'es')
-const locale = getLocaleFromPath(Astro.url.pathname) as LocalesValues;
+// Locale resolved by the middleware (e.g. /es/about -> 'es')
+const { locale } = useLocale();
 
-// Get the content for the 'app' dictionary
-const { title } = getIntlayer("app", locale);
+// Content of the 'app' dictionary for that locale
+const { title } = useIntlayer("app");
 ---
 
 <!doctype html>
@@ -301,6 +306,8 @@ const { title } = getIntlayer("app", locale);
 </html>
 ```
 
+> `Astro.locals.intlayer` also exposes `locale`, `defaultLocale` and `availableLocales` to your own middleware and endpoints. Pass a locale or a selector as second argument (`useIntlayer("app", "fr")`, `useIntlayer("faq", { item: 2 })`) to override the request locale for one call.
+
 </Step>
 <Step number={6} title="Localised Routing">
 
@@ -325,44 +332,51 @@ To allow users to switch between languages, you can create a `LocaleSwitcher` co
 
 ```astro fileName="src/components/LocaleSwitcher.astro"
 ---
-import {
-  locales,
-  getLocaleName,
-  getLocalizedUrl,
-  getLocaleFromPath,
-  getPathWithoutLocale,
-  type LocalesValues,
-} from "intlayer";
+import { useLocale } from "astro-intlayer";
+import { getLocaleName, getLocalizedUrl, getPathWithoutLocale } from "intlayer";
 
-const locale = getLocaleFromPath(Astro.url.pathname) as LocalesValues;
+const { locale, availableLocales } = useLocale();
 const pathWithoutLocale = getPathWithoutLocale(Astro.url.pathname);
 ---
 
-<nav>
-  {
-    locales.map((localeItem) => (
-      <a
-        href={getLocalizedUrl(pathWithoutLocale, localeItem)}
-        data-locale={localeItem}
-        aria-current={localeItem === locale ? "page" : undefined}
-      >
-        {getLocaleName(localeItem)}
-      </a>
-    ))
-  }
+<nav aria-label="Languages">
+  <ul>
+    {
+      availableLocales.map((localeItem) => (
+        <li key={localeItem} class="p-1">
+          <a
+            href={getLocalizedUrl(pathWithoutLocale, localeItem)}
+            data-locale={localeItem}
+            aria-current={localeItem === locale ? "page" : undefined}
+          >
+            {getLocaleName(localeItem)}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
 </nav>
 
 <script>
-  import { setLocaleInStorageClient, getLocalizedUrl, type LocalesValues } from "intlayer";
+  // In the browser, the same import resolves to the client implementation
+  import { useLocale } from "astro-intlayer";
+  import { getLocalizedUrl, type LocalesValues } from "intlayer";
+
+  // Persists the choice in the locale cookie, then navigates to the localised URL
+  const { setLocale } = useLocale({
+    onLocaleChange: (newLocale) => {
+      window.location.href = getLocalizedUrl(window.location.pathname, newLocale);
+    },
+  });
 
   const localeLinks = document.querySelectorAll("[data-locale]");
 
   localeLinks.forEach((link) => {
-    link.addEventListener("click", (e) => {
+    link.addEventListener("click", (event) => {
       const locale = link.getAttribute("data-locale") as LocalesValues;
 
-      // Update the locale cookie
-      setLocaleInStorageClient(locale);
+      event.preventDefault();
+      setLocale(locale);
     });
   });
 </script>
@@ -372,6 +386,13 @@ const pathWithoutLocale = getPathWithoutLocale(Astro.url.pathname);
     display: flex;
     gap: 1rem;
   }
+  ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: 0.5rem;
+  }
   a[aria-current="page"] {
     font-weight: bold;
     text-decoration: underline;
@@ -380,7 +401,10 @@ const pathWithoutLocale = getPathWithoutLocale(Astro.url.pathname);
 ```
 
 > **Note on Persistence:**
-> Using `setLocaleInStorageClient` in the client-side script ensures that the user's language preference is saved in a cookie. This allows the Intlayer middleware to remember the choice and automatically redirect the user to their preferred language on future visits.
+> `setLocale` from the client-side `useLocale` saves the user's language preference in a cookie. This allows the Intlayer middleware to remember the choice and automatically redirect the user to their preferred language on future visits.
+>
+> **Server / client intercompatibility:**
+> `astro-intlayer` resolves to its server hooks in the frontmatter (reading `Astro.locals`) and to the client hooks of `vanilla-intlayer` in `<script>` blocks and islands, with the same names and content shape. `setLocale` and `onChange` only act on the client, call `installIntlayer()` there once to seed the client store. `astro-intlayer/client` exposes the client entry explicitly.
 
 </Step>
 <Step number={8} title="Sitemap and Robots.txt">

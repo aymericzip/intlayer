@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-12
-updatedAt: 2025-06-29
+updatedAt: 2026-09-19
 title: كيف يعمل Intlayer
 description: تعلم كيف يعمل Intlayer داخليًا. افهم البنية والمكونات التي تجعل Intlayer قويًا.
 keywords:
@@ -181,6 +181,11 @@ const MyComponent = () => {
   <Tab label="Astro" value="astro">
 
 توفر حزمة `astro-intlayer` الأدوات اللازمة لدمج Intlayer في تطبيقات Astro. تقوم بتكوين التوجيه القائم على اللغة وإدارة القواميس.
+
+  </Tab>
+  <Tab label="Remix" value="remix">
+
+توفر حزمة `remix-intlayer` الأدوات اللازمة لدمج Intlayer في تطبيقات Remix. تقوم بتكوين التوجيه القائم على اللغة وسياق جانب الخادم وإدارة القواميس.
 
   </Tab>
   <Tab label="React Native" value="react-native">

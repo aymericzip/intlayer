@@ -27,6 +27,7 @@ export const packageBuildOrder = [
   'packages/elysia-intlayer',
   'packages/lit-intlayer',
   'packages/vanilla-intlayer',
+  'packages/remix-intlayer',
   'packages/react-intlayer',
   'packages/next-intlayer',
   'packages/react-scripts-intlayer',

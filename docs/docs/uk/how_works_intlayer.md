@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-12
-updatedAt: 2025-06-29
+updatedAt: 2026-09-19
 title: Як працює Intlayer
 description: Дізнайтеся, як Intlayer працює всередині. Зрозумійте архітектуру та компоненти, що роблять Intlayer потужним.
 keywords:
@@ -179,6 +179,11 @@ The `preact-intlayer` package is used to interpret Intlayer dictionaries and mak
   <Tab label="Astro" value="astro">
 
 Пакет `astro-intlayer` надає необхідні інструменти для інтеграції Intlayer у додатки Astro. Він налаштовує маршрутизацію на основі локалі та керування словниками.
+
+  </Tab>
+  <Tab label="Remix" value="remix">
+
+Пакет `remix-intlayer` надає необхідні інструменти для інтеграції Intlayer у додатки Remix. Він налаштовує маршрутизацію на основі локалі, контекст на стороні сервера та керування словниками.
 
   </Tab>
   <Tab label="React Native" value="react-native">

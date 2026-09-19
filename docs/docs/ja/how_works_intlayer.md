@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-12
-updatedAt: 2026-08-30
+updatedAt: 2026-09-19
 title: Intlayerの仕組み
 description: Intlayerが内部でどのように機能するかを学びます。Intlayerを強力にするアーキテクチャとコンポーネントを理解しましょう。
 keywords:
@@ -181,6 +181,11 @@ Intlayerは、翻訳プロセスにおいて特定の役割を持つ複数のパ
   <Tab label="Astro" value="astro">
 
 `astro-intlayer` パッケージは、IntlayerをAstroアプリケーションに統合するために必要なツールを提供します。ロケールベースのルーティングと辞書管理を設定します。
+
+  </Tab>
+  <Tab label="Remix" value="remix">
+
+`remix-intlayer` パッケージは、IntlayerをRemixアプリケーションに統合するために必要なツールを提供します。ロケールベースのルーティング、サーバー側のコンテキスト、辞書管理を設定します。
 
   </Tab>
   <Tab label="React Native" value="react-native">

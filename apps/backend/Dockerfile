@@ -58,6 +58,7 @@ COPY \
     --exclude=packages/express-intlayer \
     --exclude=packages/hono-intlayer \
     --exclude=packages/elysia-intlayer \
+    --exclude=packages/remix-intlayer \
     --exclude=packages/adonis-intlayer \
     --exclude=packages/eslint-plugin-intlayer \
     --exclude=plugins \
@@ -68,7 +69,6 @@ COPY \
     --exclude=docs/legal \
     --exclude=examples \
     --exclude=apps/website \
-
     --exclude=apps/showcase \
     --exclude=apps/app \
     --exclude=**/*.stories.* \

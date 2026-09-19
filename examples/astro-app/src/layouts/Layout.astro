@@ -1,7 +1,7 @@
 ---
-import { getLocaleFromPath, getLocalizedUrl, type LocalesValues } from "intlayer";
+import { getHTMLTextDir, getLocalizedUrl } from "intlayer";
+import { useLocale } from "astro-intlayer";
 import LocaleSwitcher from "../components/LocaleSwitcher/LocaleSwitcher.astro";
-import { getHTMLTextDir } from "intlayer";
 
 interface Props {
   title?: string;
@@ -10,7 +10,7 @@ interface Props {
 }
 
 const { title, description, keywords } = Astro.props;
-const locale = getLocaleFromPath(Astro.url.pathname);
+const { locale } = useLocale();
 const homeUrl = getLocalizedUrl("/", locale);
 ---
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-09
-updatedAt: 2026-09-11
+updatedAt: 2026-09-19
 title: "Remix 3 i18n - Повний посібник з перекладу вашого застосунку"
 description: "Забудьте про i18next. Посібник 2026 року зі створення багатомовного (i18n) застосунку Remix 3. Перекладайте за допомогою агентів ШІ та оптимізуйте розмір бандла, SEO та продуктивність."
 keywords:
@@ -19,6 +19,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-remix-3-template
 applicationShowcase: https://intlayer-remix-3-template.vercel.app
 history:
+  - version: 9.5.5
+    date: 2026-09-19
+    changes: "Використання middleware та хуків remix-intlayer"
   - version: 9.5.0
     date: 2026-09-09
     changes: "Початкова документація для Remix 3"
@@ -39,7 +42,7 @@ author: aymericzip
 - **`remix/node-fetch-server`**: Серверні адаптери для Node.js із нативною підтримкою Bun, Deno та edge-середовищ.
 - **`remix/cookie`**: Криптографічно підписаний парсинг і серіалізація файлів cookie.
 
-У поєднанні з **Intlayer** ви отримуєте повноцінну систему інтернаціоналізації, що гарантує безпеку під час компіляції, автоматизовані переклади за допомогою ШІ, серверний рендеринг без додаткових накладних витрат та зручну маршрутизацію локалей.
+У поєднанні з **Intlayer** та пакетом **`remix-intlayer`**, middleware локалі плюс ті самі хуки `useIntlayer` / `useDictionary` / `useLocale`, що й у `react-intlayer`, прив'язані до контексту запиту Remix, ви отримуєте повноцінну систему інтернаціоналізації, що забезпечує безпеку типів під час компіляції, автоматичні переклади за допомогою ШІ, серверний рендеринг без накладних витрат та безшовну маршрутизацію локалей.
 
 ## Зміст
 
@@ -52,7 +55,7 @@ author: aymericzip
 <AccordionGroup>
 <Accordion header="Повне охоплення Remix 3 та веб-стандартів">
 
-Intlayer розроблений для бездоганної роботи з веб-стандартами (`Request`, `Response`, `Headers` та `URL`). Він легко інтегрується у Fetch-роутер Remix 3 через легке middleware, витягуючи локалі зі шляхів URL, cookie або заголовків `Accept-Language` без прив'язки до певного рантайму.
+Intlayer розроблений для природної роботи з веб-стандартами (`Request`, `Response`, `Headers` і `URL`). `remix-intlayer` підключається до маршрутизатора Fetch Remix 3 як легке middleware, витягуючи локаль зі шляхів URL, cookie або заголовків `Accept-Language` та надаючи її решті запиту, обробникам, представленням і компонентам `remix/ui`, без необхідності передавати її вручну чи прив'язуватися до конкретного середовища виконання.
 
 </Accordion>
 <Accordion header="Типобезпечні оголошення вмісту">
@@ -109,25 +112,26 @@ Intlayer розміщує оголошення контенту (`.content.ts`) 
 <Steps>
 <Step number={1} title="Встановлення залежностей">
 
-Встановіть `intlayer` та `remix` (версії 3) за допомогою обраного пакетного менеджера:
+Встановіть `intlayer`, `remix-intlayer` та `remix` (версія 3) за допомогою обраного менеджера пакетів:
 
 ```bash packageManager="npm"
-npm install intlayer remix@next
+npm install intlayer remix-intlayer remix@next
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer remix@next
+pnpm add intlayer remix-intlayer remix@next
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer remix@next
+yarn add intlayer remix-intlayer remix@next
 ```
 
 ```bash packageManager="bun"
-bun add intlayer remix@next
+bun add intlayer remix-intlayer remix@next
 ```
 
 - **`intlayer`**: Основний рушій інтернаціоналізації для керування конфігурацією, оголошення словників (`t()`, `Dictionary`), утиліт CLI та рантайм-інтерпретатора.
+- **`remix-intlayer`**: Інтеграція з Remix 3: middleware маршрутизатора `intlayer()`, що визначає локаль кожного запиту, та хуки `useIntlayer`, `useDictionary` і `useLocale`, які зчитують її далі в коді.
 - **`remix`**: Уніфікований пакет фреймворку Remix 3, що експортує `remix/router`, `remix/routes`, `remix/ui`, `remix/middleware/render` та `remix/node-fetch-server`.
 
 </Step>
@@ -254,64 +258,29 @@ bun x intlayer build
 Ця команда компілює ваш контент у каталог артефактів `.intlayer`, надаючи автодоповнення TypeScript та швидкий доступ до словників.
 
 </Step>
-<Step number={5} title="Реалізація middleware Intlayer">
+<Step number={5} title="Додавання middleware Intlayer">
 
-Remix 3 надає конвеєр middleware через `createRouter({ middleware: [...] })`.
+Remix 3 надає компонований конвеєр middleware через `createRouter({ middleware: [...] })`.
 
-Створіть middleware Intlayer для визначення мови кожного вхідного запиту за:
+`remix-intlayer` постачає middleware `intlayer()`. Для кожного вхідного запиту воно визначає локаль за допомогою:
 
-1. Префіксом шляху URL через `getLocaleFromPath` (наприклад, `/uk` або `/fr`).
-2. Допоміжною функцією `getLocale`, яка узгоджує мову через cookie (`INTLAYER_LOCALE`), власні заголовки (`x-intlayer-locale`), стандартні заголовки `Accept-Language` та значення `defaultLocale`.
+1. URL, у всіх режимах маршрутизації, крім `no-prefix`: префікса шляху (напр. `/uk` або `/en`) або пошукового параметра `?locale=`.
+2. Локалі, збереженої клієнтом: cookie сховища (`INTLAYER_LOCALE`) або спеціального заголовка (`x-intlayer-locale`).
+3. Стандартного узгодження `Accept-Language` із поверненням до налаштованої `defaultLocale`.
 
-```typescript fileName="src/middleware/intlayer.ts" codeFormat={["typescript", "esm"]}
-import {
-  defaultLocale,
-  getCookie,
-  getLocale,
-  getLocaleFromPath,
-  type Locale,
-} from "intlayer";
-import { createContextKey, type Middleware } from "remix/router";
+Результат зберігається в контексті запиту Remix як `context.intlayer` (або `context.get(Intlayer)`), з полями `locale`, `defaultLocale` та `availableLocales`. Потім middleware виконує решту запиту всередині області `AsyncLocalStorage`, прив'язаної до цього контексту, що дозволяє хукам пакета зчитувати локаль без аргументів, в обробниках маршрутів, представленнях і компонентах `remix/ui`:
 
-/**
- * Типобезпечний ключ контексту для отримання визначеної локалі з RequestContext Remix 3.
- */
-export const localeKey = createContextKey<Locale>(defaultLocale);
+```typescript
+import { useIntlayer, useLocale } from "remix-intlayer";
 
-/**
- * Middleware Intlayer для Remix 3.
- *
- * Визначає локаль запиту за таким пріоритетом:
- * 1. Префікс шляху URL (напр. `/uk/...`) через `getLocaleFromPath`
- * 2. Узгодження заголовків і сховища через `getLocale` (cookie, власний заголовок, Accept-Language, fallback defaultLocale)
- *
- * Прикріплює визначену локаль до RequestContext Remix 3.
- */
-export const intlayer = (): Middleware => {
-  return async (context, next) => {
-    // Визначення шляху (/uk/about -> "uk", /about -> undefined)
-    const pathLocale = getLocaleFromPath(context.url.pathname);
-
-    if (pathLocale) {
-      // Додати визначену локаль до контексту запиту Remix 3
-      context.set(localeKey, pathLocale);
-
-      return next();
-    }
-
-    const storedLocale = await getLocale({
-      getHeader: (name) => context.headers.get(name),
-      getCookie: (name) =>
-        getCookie(name, context.headers.get("cookie") ?? undefined),
-    });
-
-    // Додати визначену локаль до контексту запиту Remix 3
-    context.set(localeKey, storedLocale ?? defaultLocale);
-
-    return next();
-  };
-};
+// У будь-якому місці після middleware
+const { locale, availableLocales } = useLocale();
+const { title } = useIntlayer("home");
 ```
+
+`useIntlayer("home", "fr")` або `useIntlayer("faq", { item: 2 })` перевизначають локаль запиту для одного виклику, а `useDictionary(homeContent)` зчитує імпортований словник замість ключа. Поза межами запиту хуки повертаються до стандартної локалі.
+
+> Middleware також готує словники Intlayer під час запуску сервера, тому відсутність `intlayer build` не залишить реєстр порожнім.
 
 </Step>
 <Step number={6} title="Визначення типобезпечних маршрутів">
@@ -342,89 +311,81 @@ routes.localizedHome.href({ locale: "uk" }); // "/uk"
 
 Remix 3 використовує `remix/ui` для компонентів JSX. Компонент є **функцією налаштування (setup function)**, яка повертає **функцію рендерингу (render function)**. Пропси передаються через типізований `handle` (наприклад, `handle.props.locale`):
 
-Створіть спільну оболонку HTML-документа:
+Почніть зі спільної оболонки `Document`, яка встановлює атрибути `<html lang="..." dir="...">` на основі локалі, визначеної middleware:
 
 ```tsx fileName="src/views/document.tsx" codeFormat={["typescript", "esm"]}
-import type { SetupFunction } from "remix/ui";
+import { getHTMLTextDir } from "intlayer";
+import { useLocale } from "remix-intlayer";
+import type { Handle, RemixNode } from "remix/ui";
 
-export const Document: SetupFunction<{
+type DocumentProps = {
   title: string;
-  lang?: string;
-  dir?: string;
-  children?: any;
-}> = (handle) => {
-  return () => {
-    const { title, lang = "en", dir = "ltr", children } = handle.props;
+  children?: RemixNode;
+};
 
-    return (
-      <html lang={lang} dir={dir}>
-        <head>
-          <meta charSet="utf-8" />
-          <meta name="viewport" content="width=device-width, initial-scale=1" />
-          <title>{title}</title>
-        </head>
-        <body>{children}</body>
-      </html>
-    );
-  };
+export const Document = (handle: Handle<DocumentProps>) => () => {
+  const { title, children } = handle.props;
+  const { locale } = useLocale();
+
+  return (
+    <html lang={locale} dir={getHTMLTextDir(locale)}>
+      <head>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>{title}</title>
+      </head>
+      <body>{children}</body>
+    </html>
+  );
 };
 ```
 
-Потім створіть відображення головної сторінки. Використовуйте `getIntlayer` для отримання вмісту словника для активної локалі та відобразіть перемикач мов за допомогою `getLocalizedPath`:
+Потім створіть головну сторінку. Вона зчитує локалізований словник за допомогою `useIntlayer` та відображає перемикач мов:
 
 ```tsx fileName="src/views/home.tsx" codeFormat={["typescript", "esm"]}
-import {
-  getIntlayer,
-  getHTMLTextDir,
-  getLocaleName,
-  getLocalizedPath,
-  type Locale,
-  locales,
-} from "intlayer";
-import type { SetupFunction } from "remix/ui";
-import { routes } from "../routes";
+import { getLocaleName, getLocalizedUrl, getPathWithoutLocale } from "intlayer";
+import { useIntlayer, useLocale } from "remix-intlayer";
 import { Document } from "./document";
 
-export const HomePage: SetupFunction<{ locale: Locale }> = (handle) => {
-  return () => {
-    const { locale } = handle.props;
-    const content = getIntlayer("home", locale);
+export const HomePage = () => () => {
+  const { locale, availableLocales } = useLocale();
+  const home = useIntlayer("home");
+  const pathWithoutLocale = getPathWithoutLocale();
 
-    return (
-      <Document
-        title={content.title}
-        lang={locale}
-        dir={getHTMLTextDir(locale)}
-      >
-        <header>
-          <nav aria-label="Languages">
-            <span>{content.switchLanguage}</span>
-            {locales.map((loc) => {
-              const href = getLocalizedPath(routes.home.href(), loc);
-              const isActive = loc === locale;
+  return (
+    <Document title={home.title}>
+      <header>
+        <nav aria-label="Languages">
+          <span>{home.switchLanguage}</span>
+          <ul>
+            {availableLocales.map((localeItem) => {
+              const isActive = localeItem === locale;
+
               return (
-                <a
-                  href={href}
-                  class={isActive ? "active" : undefined}
-                  aria-current={isActive ? "page" : undefined}
-                >
-                  {getLocaleName(loc, locale)}
-                </a>
+                <li key={localeItem} class="p-1">
+                  <a
+                    href={getLocalizedUrl(pathWithoutLocale, localeItem)}
+                    class={isActive ? "active" : undefined}
+                    aria-current={isActive ? "page" : undefined}
+                  >
+                    {getLocaleName(localeItem, locale)}
+                  </a>
+                </li>
               );
             })}
-          </nav>
-        </header>
-        <main>
-          <h1>{content.title}</h1>
-          <p>{content.description}</p>
-        </main>
-      </Document>
-    );
-  };
+          </ul>
+        </nav>
+      </header>
+      <main>
+        <h1>{home.title}</h1>
+        <p>{home.description}</p>
+      </main>
+    </Document>
+  );
 };
 ```
 
-> Remix JSX не є React: тут немає хуків, `class` пишеться як є (не `className`), а компоненти транслюються безпосередньо в HTML-відповідь без будь-яких накладних витрат JavaScript на стороні клієнта.
+> JSX у Remix — це не React: `class` пишеться як є (`className` також підтримується), а повторні рендери викликаються явно через `handle.update()`. Інтерпольовані значення екрануються автоматично. Хуки Intlayer є звичайними функціями, що зчитують область запиту, тому їх можна викликати як із функції setup, так і з функції рендерингу.
 
 </Step>
 <Step number={8} title="Підключення маршрутизатора та сервера">
@@ -433,45 +394,37 @@ export const HomePage: SetupFunction<{ locale: Locale }> = (handle) => {
 
 ```tsx fileName="src/router.tsx" codeFormat={["typescript", "esm"]}
 import { isDeclaredLocale } from "intlayer";
+import { intlayer } from "remix-intlayer";
 import { render } from "remix/middleware/render";
 import { createRouter } from "remix/router";
-import { intlayer, localeKey } from "./middleware/intlayer";
 import { routes } from "./routes";
 import { HomePage } from "./views/home";
 
+// 1. Initialize router with Intlayer + render middleware
 export const router = createRouter({
   middleware: [intlayer(), render()],
 });
 
+// 2. Map route handlers
 router.map(routes, {
   actions: {
-    // Маршрут мови за замовчуванням (наприклад /)
+    // Default locale route
     home(context) {
-      const locale = context.get(localeKey);
-      return context.render(<HomePage locale={locale} />);
+      return context.render(<HomePage />);
     },
 
-    // Локалізований маршрут (наприклад /fr, /es)
+    // Localized route
     localizedHome(context) {
-      const { locale } = context.params;
-
-      if (!isDeclaredLocale(locale)) {
+      if (!isDeclaredLocale(context.params.locale)) {
         return new Response("Not Found", { status: 404 });
       }
-
-      return context.render(<HomePage locale={locale} />);
+      return context.render(<HomePage />);
     },
   },
 });
 ```
 
-> `context.render` приймає необов'язковий `ResponseInit` другим аргументом, що дозволяє встановлювати власні заголовки (наприклад `Content-Language` або `Cache-Control`) поруч із відрендереною сторінкою:
->
-> ```typescript
-> return context.render(<HomePage locale={locale} />, {
->   headers: { "Content-Language": locale },
-> });
-> ```
+> `context.render` приймає необов'язковий `ResponseInit` як другий аргумент, наприклад `context.render(<NotFoundPage />, { status: 404 })`. Визначена локаль залишається доступною з обробника як `context.intlayer.locale`, наприклад для формування відповіді `Response.json`.
 
 Тепер підключіть `src/server.ts`, використовуючи `remix/node-fetch-server` для Node.js (або експортуйте обробник `fetch` напряму для Bun, Deno або Cloudflare Workers):
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-07
-updatedAt: 2025-09-07
+updatedAt: 2026-09-19
 title: Intlayer Nasıl Çalışır
 description: Intlayer'ın dahili olarak nasıl çalıştığını öğrenin. Intlayer'ı güçlü kılan mimari ve bileşenleri anlayın.
 keywords:
@@ -177,6 +177,11 @@ Intlayer, çeviri sürecinde belirli bir rolü olan birkaç paketten oluşur. İ
   <Tab label="Astro" value="astro">
 
 `astro-intlayer` paketi, Intlayer'ı Astro uygulamalarına entegre etmek için gerekli araçları sağlar. Locale tabanlı yönlendirme ve sözlük yönetimini yapılandırır.
+
+  </Tab>
+  <Tab label="Remix" value="remix">
+
+`remix-intlayer` paketi, Intlayer'ı Remix uygulamalarına entegre etmek için gerekli araçları sağlar. Locale tabanlı yönlendirme, sunucu tarafı bağlamı ve sözlük yönetimini yapılandırır.
 
   </Tab>
   <Tab label="React Native" value="react-native">
