@@ -97,11 +97,10 @@ export const AnalyzerSiteResults: FC<AnalyzerSiteResultsProps> = ({
         >
           {domainData?.image && (
             <Container
-              className="max-w-[30vw] bg-background"
+              className="max-w-[30vw] overflow-hidden bg-background"
               border
               borderColor="neutral"
             >
-              {' '}
               <img
                 src={domainData?.image}
                 alt={messages?.websitePreview?.value}
