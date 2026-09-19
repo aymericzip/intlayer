@@ -5,6 +5,7 @@ import {
   type GetConfigurationOptions,
   getConfiguration,
 } from '@intlayer/config/node';
+import { normalizePath } from '@intlayer/config/utils';
 import {
   formatProxyEnabledMessage,
   isProxyStorageLocaleEnabled,
@@ -141,6 +142,21 @@ export const createIntlayerProxyHandler = (
  *
  * @deprecated Since Intlayer v9, `intlayerProxy()` is bundled directly into the `intlayer()` plugin and enabled by default through the `routing.enableProxy` option (unset by default, which selects auto mode). Registering it separately as shown below is now optional.
  */
+/**
+ * Absolute path of the built Nitro middleware, relative to this module.
+ *
+ * Nitro inlines the path as an import specifier in its virtual routing module,
+ * so Windows backslashes must become forward slashes or the import breaks.
+ *
+ * @param moduleUrl - `import.meta.url` of the calling module
+ * @param toPath - `file:` URL to path converter (overridable for tests)
+ */
+export const resolveNitroHandlerPath = (
+  moduleUrl: string,
+  toPath: (url: URL) => string = fileURLToPath
+): string =>
+  normalizePath(toPath(new URL('./intlayerNitroHandler.mjs', moduleUrl)));
+
 export const intlayerProxy = (options?: IntlayerProxyPluginOptions): Plugin => {
   // Dev and preview servers run the same handler; both are "dev servers" as far
   // as auto mode is concerned, so a single instance covers both hooks.
@@ -202,9 +218,7 @@ export const intlayerProxy = (options?: IntlayerProxyPluginOptions): Plugin => {
       // Only inject for production builds where Nitro is the actual HTTP server.
       if (nitro.options.dev) return;
 
-      const handlerPath = fileURLToPath(
-        new URL('./intlayerNitroHandler.mjs', import.meta.url)
-      );
+      const handlerPath = resolveNitroHandlerPath(import.meta.url);
 
       // Skip if an identical handler was already registered by another instance
       // (e.g. both `intlayer()` and a manual `intlayerProxy()`).

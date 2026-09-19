@@ -555,6 +555,46 @@ describe('intlayerProxy (preview server registration)', () => {
   });
 });
 
+describe('intlayerProxy (Nitro middleware registration)', () => {
+  it('resolves the handler path with forward slashes on Windows', async () => {
+    // Nitro inlines the handler path as an import specifier in its virtual
+    // routing module, where a Windows backslash would be read as an escape.
+    const { resolveNitroHandlerPath } = await import('./intlayerProxyPlugin');
+    const windowsFileURLToPath = () =>
+      'D:\\a\\intlayer\\packages\\vite-intlayer\\dist\\esm\\intlayerNitroHandler.mjs';
+
+    expect(
+      resolveNitroHandlerPath(
+        'file:///D:/a/intlayer/packages/vite-intlayer/dist/esm/intlayerProxyPlugin.mjs',
+        windowsFileURLToPath
+      )
+    ).toBe(
+      'D:/a/intlayer/packages/vite-intlayer/dist/esm/intlayerNitroHandler.mjs'
+    );
+  });
+
+  it('resolves the handler next to the calling module', async () => {
+    const { resolveNitroHandlerPath } = await import('./intlayerProxyPlugin');
+
+    expect(
+      resolveNitroHandlerPath('file:///repo/dist/esm/intlayerProxyPlugin.mjs')
+    ).toBe('/repo/dist/esm/intlayerNitroHandler.mjs');
+  });
+
+  it('does not register the handler for the Nitro dev server', async () => {
+    vi.resetModules();
+    const mod = await import('./intlayerProxyPlugin');
+    const plugin = mod.intlayerProxy() as unknown as {
+      nitro: { setup: (nitroInstance: unknown) => void };
+    };
+    const nitro = { options: { dev: true, handlers: [] as unknown[] } };
+
+    plugin.nitro.setup(nitro);
+
+    expect(nitro.options.handlers).toHaveLength(0);
+  });
+});
+
 describe('createIntlayerProxyHandler (search-params)', () => {
   let handler: (
     req: IncomingMessage,
