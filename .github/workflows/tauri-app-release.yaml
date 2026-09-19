@@ -104,7 +104,9 @@ jobs:
 
       # Windows: decode the base64 .pfx from the secret and import it into the
       # current-user certificate store so signtool can find it by thumbprint.
-      # Emits the `--config` arg that merges the Windows signing settings.
+      # The thumbprint is read from the imported certificate and written into a
+      # generated copy of `tauri.windows.conf.json`, so the committed file keeps
+      # its placeholder. Emits the `--config` arg that merges those settings.
       - name: Import Windows signing certificate
         id: windows_signing
         if: matrix.platform == 'windows-latest' && env.WINDOWS_CERTIFICATE != ''
@@ -114,8 +116,18 @@ jobs:
           Set-Content -Path certificate/tempCert.txt -Value $env:WINDOWS_CERTIFICATE
           certutil -decode certificate/tempCert.txt certificate/certificate.pfx
           Remove-Item -Path certificate/tempCert.txt
-          Import-PfxCertificate -FilePath certificate/certificate.pfx -CertStoreLocation Cert:\CurrentUser\My -Password (ConvertTo-SecureString -String $env:WINDOWS_CERTIFICATE_PASSWORD -Force -AsPlainText)
-          "args=--config src-tauri/tauri.windows.conf.json" >> $env:GITHUB_OUTPUT
+          $importedCertificates = Import-PfxCertificate -FilePath certificate/certificate.pfx -CertStoreLocation Cert:\CurrentUser\My -Password (ConvertTo-SecureString -String $env:WINDOWS_CERTIFICATE_PASSWORD -Force -AsPlainText)
+          $signingCertificate = @($importedCertificates | Where-Object { $_.HasPrivateKey }) | Select-Object -First 1
+          if (-not $signingCertificate) {
+            Write-Output "::error::WINDOWS_CERTIFICATE contains no certificate with a private key; signtool cannot sign with it"
+            exit 1
+          }
+          Write-Output "Signing with certificate '$($signingCertificate.Subject)' (thumbprint $($signingCertificate.Thumbprint))"
+          $signingConfig = Get-Content -Path apps/app/src-tauri/tauri.windows.conf.json -Raw | ConvertFrom-Json
+          $signingConfig.bundle.windows.certificateThumbprint = $signingCertificate.Thumbprint
+          $signingConfigPath = Join-Path $env:RUNNER_TEMP 'tauri.windows.conf.json'
+          $signingConfig | ConvertTo-Json -Depth 10 | Set-Content -Path $signingConfigPath
+          "args=--config $signingConfigPath" >> $env:GITHUB_OUTPUT
 
       # macOS: expose the Apple Developer ID signing + notarization secrets to
       # the Tauri bundler only when the certificate is configured. Without it
