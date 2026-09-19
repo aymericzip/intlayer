@@ -16,7 +16,7 @@ describe('generateOgImage', () => {
 
   it('generates an OG image with custom title and description', async () => {
     const buffer = await generateOgImage({
-      title: 'Per-component i18n for React, Next.js, Vue, Svelte | Intlayer',
+      title: 'Colocated i18n for React, Next.js, Vue, Svelte | Intlayer',
       description:
         'Boost your app scalability with Intlayer: an internationalization (i18n) and content management solution powered by AI.',
     });

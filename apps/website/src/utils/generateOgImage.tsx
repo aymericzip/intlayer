@@ -9,7 +9,7 @@ import {
 } from './ogAssets';
 
 export const DEFAULT_OG_TITLE =
-  'Per-component i18n for React, Next.js, Vue, Svelte | Intlayer';
+  'Colocated i18n for React, Next.js, Vue, Svelte | Intlayer';
 
 export const DEFAULT_OG_DESCRIPTION = '';
 
