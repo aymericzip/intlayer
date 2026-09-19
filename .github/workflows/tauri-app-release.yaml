@@ -104,9 +104,11 @@ jobs:
 
       # Windows: decode the base64 .pfx from the secret and import it into the
       # current-user certificate store so signtool can find it by thumbprint.
-      # The thumbprint is read from the imported certificate and written into a
-      # generated copy of `tauri.windows.conf.json`, so the committed file keeps
-      # its placeholder. Emits the `--config` arg that merges those settings.
+      # The thumbprint is read from the imported certificate and written to a
+      # generated config passed via `--config`. Tauri auto-merges the committed
+      # `tauri.windows.conf.json` (digest algorithm, timestamp URL); that file
+      # must NOT set `certificateThumbprint`, otherwise Tauri tries to sign
+      # even when no certificate is configured and signtool fails.
       - name: Import Windows signing certificate
         id: windows_signing
         if: matrix.platform == 'windows-latest' && env.WINDOWS_CERTIFICATE != ''
@@ -123,9 +125,8 @@ jobs:
             exit 1
           }
           Write-Output "Signing with certificate '$($signingCertificate.Subject)' (thumbprint $($signingCertificate.Thumbprint))"
-          $signingConfig = Get-Content -Path apps/app/src-tauri/tauri.windows.conf.json -Raw | ConvertFrom-Json
-          $signingConfig.bundle.windows.certificateThumbprint = $signingCertificate.Thumbprint
-          $signingConfigPath = Join-Path $env:RUNNER_TEMP 'tauri.windows.conf.json'
+          $signingConfig = @{ bundle = @{ windows = @{ certificateThumbprint = $signingCertificate.Thumbprint } } }
+          $signingConfigPath = Join-Path $env:RUNNER_TEMP 'tauri.windows.signing.conf.json'
           $signingConfig | ConvertTo-Json -Depth 10 | Set-Content -Path $signingConfigPath
           "args=--config $signingConfigPath" >> $env:GITHUB_OUTPUT
 
