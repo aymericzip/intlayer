@@ -1,6 +1,6 @@
 import { internationalization } from '@intlayer/config/built';
 import type { DeclaredLocales } from '@intlayer/types/module_augmentation';
-import { getIntlayerState, getRequestLocale } from './requestStorage';
+import { getIntlayerState } from './requestStorage';
 
 export type UseLocaleResult = {
   locale: DeclaredLocales;
