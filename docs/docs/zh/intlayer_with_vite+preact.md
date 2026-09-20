@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-08-30
+updatedAt: 2026-09-20
 title: "Vite + Preact i18n - 翻译你的应用的完整指南"
 description: "告别 i18next。2026 年构建多语言 (i18n) Vite + Preact 应用的完整指南。使用 AI 代理翻译并优化包体积、SEO 和性能。"
 keywords:
@@ -887,7 +887,13 @@ bun x intlayer extract
  </Tab>
  <Tab value='Babel compiler'>
 
+ <Tabs>
+ <Tab value='intlayer >= 9'>
+
 > 从 v9 起，`intlayerCompiler` 已包含在 `intlayer` 插件中。所以您不需要手动添加它。
+
+ </Tab>
+ <Tab value='intlayer < 9'>
 
 更新您的 `vite.config.ts` 以包含 `intlayerCompiler` 插件：
 
@@ -902,6 +908,11 @@ export default defineConfig({
   ],
 });
 ```
+
+ </Tab>
+ </Tabs>
+
+构建你的应用程序来转换你的组件并提取内容
 
 ```bash packageManager="npm"
 npm run build # 或 npm run dev
@@ -964,7 +975,9 @@ const pathList = [
 ];
 
 // 生成 sitemap.xml
-const sitemapXml = generateSitemap(pathList, { siteUrl: SITE_URL });
+const sitemapXml = generateSitemap(pathList, {
+  siteUrl: "https://example.com",
+});
 fs.writeFileSync(path.join(__dirname, "public", "sitemap.xml"), sitemapXml);
 
 // 获取所有多语言 URL
@@ -980,7 +993,7 @@ const robotsTxt = [
   "Allow: /",
   ...disallowedPaths.map((path) => `Disallow: ${path}`),
   "",
-  `Sitemap: ${SITE_URL}/sitemap.xml`,
+  `Sitemap: https://example.com/sitemap.xml`,
 ].join("\n");
 
 fs.writeFileSync(path.join(__dirname, "public", "robots.txt"), robotsTxt);

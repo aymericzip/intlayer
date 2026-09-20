@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-09-19
+updatedAt: 2026-09-20
 title: "تدويل Astro - الدليل الكامل لترجمة تطبيقك"
 description: "لا مزيد من i18next. دليل 2026 لبناء تطبيق Astro متعدد اللغات (i18n). ترجم باستخدام وكلاء الذكاء الاصطناعي وحسّن حجم الحزمة وتحسين محركات البحث والأداء."
 keywords:
@@ -400,7 +400,7 @@ const pathWithoutLocale = getPathWithoutLocale(Astro.url.pathname);
 ```
 
 > **ملاحظة حول الاستمرارية:**
-> يحفظ `setLocale` من `useLocale` من جانب العميل تفضيل لغة المستخدم في ملف تعريف ارتباط. يسمح هذا للوسيط البرمجي Intlayer بتذكر الاختيار وإعادة توجيه المستخدم تلقائياً إلى لغته المفضلة في الزيارات المستقبلية.
+> يحفظ `setLocale` من `useLocale` من جانب العميل تفضيل لغة المستخدم في ملف تعريف ارتباط. يتيح ذلك لـ Intlayer تذكر الاختيار وإعادة توجيه المستخدم تلقائياً إلى لغته المفضلة في الزيارات المستقبلية: تتم إعادة توجيه الصفحات المعروضة عند الطلب (باستخدام محول مع `output: 'server'` أو `prerender = false`) بواسطة وسيط Intlayer البرمجي قبل إرسال أي HTML، بينما تتم إعادة توجيه الصفحات المعروضة مسبقاً، والتي تُقدم كملفات ثابتة، بواسطة سكريبت صغير يحقنه التكامل في كل صفحة. عيّن `routing.enableProxy` إلى `false` لإيقاف تشغيل كليهما. في `astro dev`، يتم تجاهل ملف تعريف الارتباط كمصدر لإعادة التوجيه ما لم يتم تعيين `routing.enableProxy` إلى `true`، حتى لا يختطف ملف تعريف ارتباط قديم الصفحات التي تعمل عليها.
 >
 > **التوافق المتبادل بين الخادم والعميل:**
 > يحل `astro-intlayer` إلى خطافات الخادم في الواجهة الأمامية (بقراءة `Astro.locals`) وإلى خطافات العميل لـ `vanilla-intlayer` في كتل `<script>` والجزر (islands)، بنفس الأسماء وهيكل المحتوى. يعمل `setLocale` و `onChange` على العميل فقط، استدعِ `installIntlayer()` هناك مرة واحدة لتهيئة مخزن العميل. يكشف `astro-intlayer/client` نقطة إدخال العميل بشكل صريح.
@@ -412,9 +412,9 @@ const pathWithoutLocale = getPathWithoutLocale(Astro.url.pathname);
 
 #### خريطة الموقع (Sitemap)
 
-Intlayer comes with a built-in sitemap generator to help you create a sitemap for your application easily. It handles localized routes and adds the necessary metadata for search engines.
+يأتي Intlayer مع مولد خريطة موقع مدمج لمساعدتك في إنشاء خريطة موقع لتطبيقك بسهولة. يتعامل مع المسارات المترجمة ويضيف البيانات الوصفية اللازمة لمحركات البحث.
 
-> The Intlayer generated sitemap supports the `xhtml:link` namespace (Hreflang XML Extensions). Unlike the default sitemap generators that only list raw URLs, Intlayer automatically creates the required bidirectional links between all language versions of a page (e.g., `/about`, `/about?lang=fr`, and `/about?lang=es`). This ensures search engines correctly index and serve the right language version to the right audience.
+> تدعم خريطة الموقع المُنشأة من قِبل Intlayer مساحة الأسماء `xhtml:link` (Hreflang XML Extensions). على عكس مولدات خرائط الموقع الافتراضية التي تُدرج عناوين URL الخام فقط، ينشئ Intlayer تلقائياً الروابط ثنائية الاتجاه المطلوبة بين جميع إصدارات الصفحة باللغات المختلفة (على سبيل المثال، `/about` و `/about?lang=fr` و `/about?lang=es`). هذا يضمن أن محركات البحث تفهرس بشكل صحيح وتقدم النسخة الصحيحة من اللغة للجمهور المناسب.
 
 أنشئ `src/pages/sitemap.xml.ts` لإنشاء خريطة موقع تتضمن جميع مساراتك المترجمة.
 
@@ -427,10 +427,10 @@ const pathList: SitemapUrlEntry[] = [
   { path: "/about", changefreq: "monthly", priority: 0.7 },
 ];
 
-const SITE_URL = import.meta.env.SITE ?? "http://localhost:4321";
-
 export const GET: APIRoute = async ({ site }) => {
-  const xmlOutput = generateSitemap(pathList, { siteUrl: SITE_URL });
+  const xmlOutput = generateSitemap(pathList, {
+    siteUrl: "https://example.com",
+  });
 
   return new Response(xmlOutput, {
     headers: { "Content-Type": "application/xml" },
@@ -471,20 +471,21 @@ export const GET: APIRoute = ({ site }) => {
 
 استمر في بناء تطبيقك باستخدام إطار العمل الذي تختاره.
 
-- Intlayer + React: [Intlayer مع React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vite+react.md)
-- Intlayer + Vue: [Intlayer مع Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vite+vue.md)
-- Intlayer + Svelte: [Intlayer مع Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vite+svelte.md)
-- Intlayer + Solid: [Intlayer مع Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vite+solid.md)
-- Intlayer + Preact: [Intlayer مع Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vite+preact.md)
+- Intlayer + React: [Intlayer مع React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_astro_react.md)
+- Intlayer + Vue: [Intlayer مع Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_astro_vue.md)
+- Intlayer + Svelte: [Intlayer مع Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_astro_svelte.md)
+- Intlayer + Solid: [Intlayer مع Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_astro_solid.md)
+- Intlayer + Preact: [Intlayer مع Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_astro_preact.md)
+- Intlayer + Lit: [Intlayer مع Lit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_astro_lit.md)
 </Step>
 
-<Step number={15} title="Extract the content of your components" isOptional={true}>
+<Step number={15} title="استخراج محتوى مكوناتك" isOptional={true}>
 
-If you have an existing codebase, transforming thousands of files can be time-consuming.
+إذا كان لديك كود برمجي موجود بالفعل، فقد يستغرق تحويل آلاف الملفات وقتاً طويلاً.
 
-To ease this process, Intlayer propose a [compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md) / [extractor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/extract.md) to transform your components and extract the content.
+لتسهيل هذه العملية، يقترح Intlayer [مترجمًا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md) / [مستخرجًا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/extract.md) لتحويل مكوناتك واستخراج المحتوى.
 
-To set it up, you can add a `compiler` section in your `intlayer.config.ts` file:
+لإعداده، يمكنك إضافة قسم `compiler` في ملف `intlayer.config.ts` الخاص بك:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig } from "intlayer";
@@ -524,7 +525,7 @@ export default config;
 <Tabs>
  <Tab value='Extract command'>
 
-Run the extractor to transform your components and extract the content
+قم بتشغيل المستخرج لتحويل مكوناتك واستخراج المحتوى
 
 ```bash packageManager="npm"
 npx intlayer extract
@@ -545,21 +546,7 @@ bun x intlayer extract
  </Tab>
  <Tab value='Babel compiler'>
 
-> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
-
-Update your `vite.config.ts` to include the `intlayerCompiler` plugin:
-
-```ts fileName="vite.config.ts"
-import { defineConfig } from "vite";
-import { intlayer, intlayerCompiler } from "vite-intlayer";
-
-export default defineConfig({
-  plugins: [
-    intlayer(),
-    intlayerCompiler(), // Adds the compiler plugin
-  ],
-});
-```
+قم ببناء تطبيقك لتحويل مكوناتك واستخراج المحتوى
 
 ```bash packageManager="npm"
 npm run build # Or npm run dev

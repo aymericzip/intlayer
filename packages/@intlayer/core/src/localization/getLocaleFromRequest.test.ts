@@ -76,6 +76,32 @@ describe('getLocaleFromRequest', () => {
     expect(await getLocaleFromRequest(request('/about'))).toBe(Locales.ENGLISH);
   });
 
+  it('reads the locale from the search param in search-params mode', async () => {
+    mockConfig.routing.mode = 'search-params';
+
+    expect(
+      await getLocaleFromRequest(
+        request('/about?locale=fr', { cookie: 'INTLAYER_LOCALE=en' })
+      )
+    ).toBe(Locales.FRENCH);
+  });
+
+  it('falls back to the stored locale when the search param is missing or unknown', async () => {
+    mockConfig.routing.mode = 'search-params';
+
+    expect(
+      await getLocaleFromRequest(
+        request('/about', { cookie: 'INTLAYER_LOCALE=fr' })
+      )
+    ).toBe(Locales.FRENCH);
+    expect(
+      await getLocaleFromRequest(
+        request('/about?locale=de', { 'accept-language': 'fr' })
+      )
+    ).toBe(Locales.FRENCH);
+    expect(await getLocaleFromRequest(request('/about'))).toBe(Locales.ENGLISH);
+  });
+
   it('ignores the URL in no-prefix mode', async () => {
     mockConfig.routing.mode = 'no-prefix';
 

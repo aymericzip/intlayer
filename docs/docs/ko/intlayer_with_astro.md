@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-09-19
+updatedAt: 2026-09-20
 title: "Astro i18n - 앱을 번역하는 완전 가이드"
 description: "i18next는 이제 그만. 2026년 다국어 (i18n) Astro 앱 구축 가이드. AI 에이전트로 번역하고 번들 크기, SEO, 성능을 최적화하세요."
 keywords:
@@ -401,7 +401,7 @@ const pathWithoutLocale = getPathWithoutLocale(Astro.url.pathname);
 ```
 
 > **영속성에 대한 참고 사항:**
-> 클라이언트 측 `useLocale`의 `setLocale`은 사용자의 언어 설정을 쿠키에 저장합니다. 이를 통해 Intlayer 미들웨어는 선택 항목을 기억하고 향후 방문 시 사용자를 선호하는 언어로 자동 리디렉션할 수 있습니다.
+> 클라이언트 측 `useLocale`의 `setLocale`은 사용자의 언어 설정을 쿠키에 저장합니다. 이를 통해 Intlayer는 선택 사항을 기억하고 향후 방문 시 사용자를 선호하는 언어로 자동 리디렉션할 수 있습니다. 온디맨드 렌더링 페이지(`output: 'server'` 또는 `prerender = false`인 어댑터)는 HTML이 전송되기 전에 Intlayer 미들웨어에 의해 리디렉션되며, 정적 파일로 제공되는 사전 렌더링 페이지는 통합 플러그인이 모든 페이지에 삽입하는 작은 스크립트에 의해 리디렉션됩니다. 둘 다 끄려면 `routing.enableProxy`를 `false`로 설정하세요. `astro dev`에서는 `routing.enableProxy`가 `true`로 설정되지 않는 한 쿠키가 리디렉션 소스로 무시되므로 오래된 쿠키가 작업 중인 페이지를 가로채지 않습니다.
 >
 > **서버 / 클라이언트 상호 호환성:**
 > `astro-intlayer`는 프론트매터에서는 서버 훅(`Astro.locals` 읽기)으로 확인되고, `<script>` 블록과 아일랜드에서는 `vanilla-intlayer`의 클라이언트 훅으로 확인되며 동일한 이름과 데이터 구조를 가집니다. `setLocale`과 `onChange`는 클라이언트에서만 동작하므로, 클라이언트 스토어를 초기화하려면 클라이언트에서 `installIntlayer()`를 한 번 호출하세요. `astro-intlayer/client`는 클라이언트 엔트리를 명시적으로 노출합니다.
@@ -428,10 +428,10 @@ const pathList: SitemapUrlEntry[] = [
   { path: "/about", changefreq: "monthly", priority: 0.7 },
 ];
 
-const SITE_URL = import.meta.env.SITE ?? "http://localhost:4321";
-
 export const GET: APIRoute = async ({ site }) => {
-  const xmlOutput = generateSitemap(pathList, { siteUrl: SITE_URL });
+  const xmlOutput = generateSitemap(pathList, {
+    siteUrl: "https://example.com",
+  });
 
   return new Response(xmlOutput, {
     headers: { "Content-Type": "application/xml" },
@@ -478,7 +478,6 @@ export const GET: APIRoute = ({ site }) => {
 - Intlayer + Solid: [Intlayer with Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_astro_solid.md)
 - Intlayer + Preact: [Intlayer with Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_astro_preact.md)
 - Intlayer + Lit: [Intlayer with Lit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_astro_lit.md)
-- Intlayer + Vanilla JS: [Intlayer with Vanilla JS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_astro_vanilla.md)
 </Step>
 
 <Step number={15} title="컴포넌트에서 콘텐츠 추출" isOptional={true}>
@@ -548,21 +547,7 @@ bun x intlayer extract
  </Tab>
  <Tab value='Babel compiler'>
 
-> v9 이후로, `intlayerCompiler`는 `intlayer` 플러그인에 포함되어 있습니다. 따라서 수동으로 추가할 필요가 없습니다.
-
-`vite.config.ts`를 업데이트하여 `intlayerCompiler` 플러그인을 포함시키세요:
-
-```ts fileName="vite.config.ts"
-import { defineConfig } from "vite";
-import { intlayer, intlayerCompiler } from "vite-intlayer";
-
-export default defineConfig({
-  plugins: [
-    intlayer(),
-    intlayerCompiler(), // 컴파일러 플러그인 추가
-  ],
-});
-```
+애플리케이션을 빌드하여 컴포넌트를 변환하고 콘텐츠를 추출합니다.
 
 ```bash packageManager="npm"
 npm run build # 또는 npm run dev

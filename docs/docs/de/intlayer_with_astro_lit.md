@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-08-30
+updatedAt: 2026-09-20
 title: "Astro + Lit i18n - Vollständiger Leitfaden zur Übersetzung Ihrer App"
 description: "Kein i18next mehr. Der 2026-Leitfaden zum Erstellen einer mehrsprachigen (i18n) Astro + Lit-App. Übersetzen Sie mit KI-Agenten und optimieren Sie Bundle-Größe, SEO und Performance."
 keywords:
@@ -20,6 +20,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 applicationShowcase: https://intlayer-astro-template.vercel.app
 history:
+  - version: 9.5.5
+    date: 2026-09-19
+    changes: "Verwendung der useIntlayer / useLocale Hooks von astro-intlayer in der Astro-Seite"
   - version: 8.9.0
     date: 2026-05-04
     changes: "Aktualisieren der Solid useIntlayer API-Nutzung auf direkten Eigenschaftszugriff"
@@ -151,7 +154,7 @@ bun add intlayer astro-intlayer lit lit-intlayer @astrojs/lit
   Das Kernpaket, das i18n-Tools für Konfigurationsmanagement, Übersetzungen, [Inhaltsdeklaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/content_file.md), Transpilation und [CLI-Befehle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/index.md) bereitstellt.
 
 - **astro-intlayer**
-  Enthält das Astro-Integrations-Plugin, um Intlayer mit dem [Vite-Bundler](https://vite.dev/guide/why.html#why-bundle-for-production) zu verbinden, sowie die Middleware zur Erkennung der bevorzugten Sprache des Benutzers, zur Verwaltung von Cookies und zur Handhabung von URL-Weiterleitungen.
+  Enthält das Astro-Integrations-Plugin zur Einbindung von Intlayer in den [Vite-Bundler](https://vite.dev/guide/why.html#why-bundle-for-production), eine Middleware, die das Gebietsschema jeder Anfrage in `Astro.locals.intlayer` auflöst, sowie die Hooks `useIntlayer` / `useDictionary` / `useLocale`. Derselbe Importpfad löst im `.astro`-Frontmatter zur Server-Implementierung und in `<script>`-Blöcken zur Client-Implementierung (unterstützt durch `vanilla-intlayer`) auf.
 
 - **lit**
   Das Kern-Lit-Paket zum Erstellen schneller und leichter Web Components.
@@ -246,19 +249,21 @@ export default litDemoContent;
 </Step>
 <Step number={5} title="Inhalt in Astro verwenden">
 
-Sie können die Wörterbücher direkt in Ihren `.astro`-Dateien verwenden, indem Sie die von `intlayer` exportierten Kern-Helfer nutzen. Sie sollten außerdem SEO-Metadaten (wie hreflang und Canonical-Links) zu jeder Seite hinzufügen. Lit-Custom-Elements werden über ein Client-`<script>` importiert und im Body platziert.
+Verwenden Sie Ihre Wörterbücher in `.astro`-Dateien mit den von `astro-intlayer` exportierten Hooks. Sie teilen die Signaturen von `react-intlayer`: `useIntlayer("key")` gibt den Inhalt eines Wörterbuchs zurück und `useLocale()` das aktuelle Gebietsschema, ohne dass Argumente übergeben werden müssen.
+
+Das Gebietsschema stammt von der `astro-intlayer`-Middleware, die die Integration vor Ihrer eigenen `src/middleware.ts` registriert. Sie löst es für jede Anfrage auf, aus dem URL-Präfix, dann dem vom Client gespeicherten Gebietsschema (Cookie oder Header), dann `Accept-Language`, und speichert es in `Astro.locals.intlayer`. Vorgerenderte Seiten verwenden nur die URL, da sie einmal für jeden Besucher gerendert werden.
+
+Lit-Custom-Elements werden über ein Client-`<script>` importiert und im Body platziert.
 
 ```astro fileName="src/pages/[...locale]/index.astro"
 ---
+import { useIntlayer, useLocale } from "astro-intlayer";
 import {
-  getIntlayer,
-  getLocaleFromPath,
   getLocalizedUrl,
-  getHTMLTextDir,
   getPrefix,
   localeMap,
   defaultLocale,
-  type LocalesValues,
+  getHTMLTextDir,
 } from "intlayer";
 
 export const getStaticPaths = () => {
@@ -267,8 +272,11 @@ export const getStaticPaths = () => {
   }));
 };
 
-const locale = getLocaleFromPath(Astro.url.pathname) as LocalesValues;
-const { greeting } = getIntlayer("lit-demo", locale);
+// Vom Middleware aufgelöstes Gebietsschema (z. B. /de/about -> 'de')
+const { locale } = useLocale();
+
+// Inhalt des 'lit-demo'-Wörterbuchs für dieses Gebietsschema
+const { greeting } = useIntlayer("lit-demo");
 ---
 
 <!doctype html>
@@ -326,6 +334,8 @@ const { greeting } = getIntlayer("lit-demo", locale);
 > <img src={content.image.src.toString()} alt={content.image.toString()} />
 > <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
+
+> `Astro.locals.intlayer` stellt auch `locale`, `defaultLocale` und `availableLocales` für Ihre eigenen Middlewares und Endpunkte bereit. Übergeben Sie ein Gebietsschema oder einen Selektor als zweites Argument (`useIntlayer("app", "fr")`, `useIntlayer("faq", { item: 2 })`), um das Anfrage-Gebietsschema für einen Aufruf zu überschreiben.
 
 > **Hinweis zum Routing-Setup:**
 > Die von Ihnen verwendete Verzeichnisstruktur hängt von der Einstellung `middleware.routing` in `intlayer.config.ts` ab:
@@ -483,10 +493,10 @@ const pathList: SitemapUrlEntry[] = [
   { path: "/about", changefreq: "monthly", priority: 0.7 },
 ];
 
-const SITE_URL = import.meta.env.SITE ?? "http://localhost:4321";
-
 export const GET: APIRoute = async ({ site }) => {
-  const xmlOutput = generateSitemap(pathList, { siteUrl: SITE_URL });
+  const xmlOutput = generateSitemap(pathList, {
+    siteUrl: "https://example.com",
+  });
 
   return new Response(xmlOutput, {
     headers: { "Content-Type": "application/xml" },
@@ -586,21 +596,7 @@ bun x intlayer extract
  </Tab>
  <Tab value='Babel-Compiler'>
 
-> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
-
-Aktualisieren Sie Ihre `vite.config.ts`, um das `intlayerCompiler`-Plugin aufzunehmen:
-
-```ts fileName="vite.config.ts"
-import { defineConfig } from "vite";
-import { intlayer, intlayerCompiler } from "vite-intlayer";
-
-export default defineConfig({
-  plugins: [
-    intlayer(),
-    intlayerCompiler(), // Adds the compiler plugin
-  ],
-});
-```
+Bauen Sie Ihre Anwendung, um Ihre Komponenten zu transformieren und den Inhalt zu extrahieren
 
 ```bash packageManager="npm"
 npm run build # Oder npm run dev

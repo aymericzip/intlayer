@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-06
-updatedAt: 2026-08-06
+updatedAt: 2026-09-20
 title: "Solid Start i18n - Hướng dẫn đầy đủ để dịch ứng dụng của bạn"
 description: "Không còn i18next nữa. Hướng dẫn 2026 để xây dựng ứng dụng SolidStart đa ngôn ngữ (i18n). Định tuyến locale được render trên server, hreflang, sitemap và dịch thuật với sự hỗ trợ của AI."
 keywords:
@@ -748,15 +748,13 @@ SolidStart chuyển đổi một tệp xuất ra phương thức HTTP thành m�
 import type { APIEvent } from "@solidjs/start/server";
 import { generateSitemap } from "intlayer";
 
-const SITE_URL = process.env.SITE_URL ?? "http://localhost:3000";
-
 export const GET = (_event: APIEvent) => {
   const sitemap = generateSitemap(
     [
       { path: "/", changefreq: "daily", priority: 1.0 },
       { path: "/about", changefreq: "monthly", priority: 0.8 },
     ],
-    { siteUrl: SITE_URL }
+    { siteUrl: "https://example.com" }
   );
 
   return new Response(sitemap, {
@@ -790,8 +788,6 @@ Bạn có thể xây dựng `robots.txt` theo cách tương tự với `getMulti
 ```typescript fileName="src/routes/robots.txt.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { getMultilingualUrls } from "intlayer";
 
-const SITE_URL = process.env.SITE_URL ?? "http://localhost:3000";
-
 const disallowedPaths = ["/admin", "/private"].flatMap((path) =>
   Object.values(getMultilingualUrls(path))
 );
@@ -803,7 +799,7 @@ export const GET = () =>
       "Allow: /",
       ...disallowedPaths.map((path) => `Disallow: ${path}`),
       "",
-      `Sitemap: ${SITE_URL}/sitemap.xml`,
+      `Sitemap: https://example.com/sitemap.xml`,
     ].join("\n"),
     { headers: { "Content-Type": "text/plain" } }
   );
@@ -922,7 +918,13 @@ bun x intlayer extract
  </Tab>
  <Tab value='Babel compiler'>
 
+ <Tabs>
+ <Tab value='intlayer >= 9'>
+
 > Kể từ v9, `intlayerCompiler` được bao gồm trong plugin `intlayer`. Vì vậy bạn không cần thêm nó thủ công.
+
+ </Tab>
+ <Tab value='intlayer < 9'>
 
 Cập nhật `vite.config.ts` của bạn để bao gồm plugin `intlayerCompiler`:
 
@@ -941,6 +943,11 @@ export default defineConfig({
   ],
 });
 ```
+
+ </Tab>
+ </Tabs>
+
+Build ứng dụng của bạn để chuyển đổi các thành phần và trích xuất nội dung
 
 ```bash packageManager="npm"
 npm run build # Hoặc npm run dev

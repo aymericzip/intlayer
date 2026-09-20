@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-08-30
+updatedAt: 2026-09-20
 title: "TanStack Start i18n - あなたのアプリを翻訳する完全ガイド"
 description: "i18nextはもう不要。2026年に多言語（i18n）TanStack Startアプリを構築するためのガイド。AIエージェントで翻訳し、バンドルサイズ、SEO、パフォーマンスを最適化します。"
 keywords:
@@ -1080,7 +1080,13 @@ bun x intlayer extract
  </Tab>
  <Tab value="Babelコンパイラ">
 
+ <Tabs>
+ <Tab value='intlayer >= 9'>
+
 > v9 以降、`intlayerCompiler` は `intlayer` プラグインに含まれています。そのため、手動で追加する必要はありません。
+
+ </Tab>
+ <Tab value='intlayer < 9'>
 
 `vite.config.ts` を更新して `intlayerCompiler` プラグインを含めます：
 
@@ -1095,6 +1101,11 @@ export default defineConfig({
   ],
 });
 ```
+
+ </Tab>
+ </Tabs>
+
+アプリケーションをビルドしてコンポーネントを変換し、コンテンツを抽出します。
 
 ```bash packageManager="npm"
 npm run build # または npm run dev
@@ -1164,10 +1175,6 @@ export default defineConfig({
 import { createFileRoute } from "@tanstack/react-router";
 import { generateSitemap } from "intlayer";
 
-const SITE_URL = (
-  import.meta.env.VITE_SITE_URL ?? "http://localhost:3000"
-).replace(/\/$/, "");
-
 export const Route = createFileRoute("/sitemap.xml")({
   server: {
     handlers: {
@@ -1177,7 +1184,7 @@ export const Route = createFileRoute("/sitemap.xml")({
             { path: "/", changefreq: "daily", priority: 1.0 },
             { path: "/about", changefreq: "monthly", priority: 0.8 },
           ],
-          { siteUrl: SITE_URL }
+          { siteUrl: "https://example.com" }
         );
 
         return new Response(sitemap, {

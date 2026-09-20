@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-03-23
-updatedAt: 2026-05-31
+updatedAt: 2026-09-20
 title: "Vite + Vanilla JS i18n - Volledige gids voor het vertalen van uw app"
 description: "Geen i18next meer. De 2026-gids voor het bouwen van een meertalige (i18n) Vite + Vanilla JS-app. Vertaal met AI-agenten en optimaliseer bundelgrootte, SEO en prestaties."
 keywords:
@@ -559,7 +559,13 @@ bun x intlayer extract
  </Tab>
  <Tab value='Babel-compiler'>
 
+ <Tabs>
+ <Tab value='intlayer >= 9'>
+
 > Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
+
+ </Tab>
+ <Tab value='intlayer < 9'>
 
 Werk uw `vite.config.ts` bij om de `intlayerCompiler`-plugin op te nemen:
 
@@ -574,6 +580,11 @@ export default defineConfig({
   ],
 });
 ```
+
+ </Tab>
+ </Tabs>
+
+Bouw uw applicatie om uw componenten te transformeren en de inhoud te extraheren
 
 ```bash packageManager="npm"
 npm run build # Of npm run dev
@@ -631,7 +642,9 @@ const pathList = [
   { path: "/about", changefreq: "monthly", priority: 0.7 },
 ];
 
-const sitemapXml = generateSitemap(pathList, { siteUrl: SITE_URL });
+const sitemapXml = generateSitemap(pathList, {
+  siteUrl: "https://example.com",
+});
 fs.writeFileSync(path.join(__dirname, "public", "sitemap.xml"), sitemapXml);
 
 const getAllMultilingualUrls = (urls) =>
@@ -644,7 +657,7 @@ const robotsTxt = [
   "Allow: /",
   ...disallowedPaths.map((path) => `Disallow: ${path}`),
   "",
-  `Sitemap: ${SITE_URL}/sitemap.xml`,
+  `Sitemap: https://example.com/sitemap.xml`,
 ].join("\n");
 
 fs.writeFileSync(path.join(__dirname, "public", "robots.txt"), robotsTxt);

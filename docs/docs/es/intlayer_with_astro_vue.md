@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-08-30
+updatedAt: 2026-09-20
 title: "Astro + Vue i18n - Guía completa para traducir tu aplicación"
 description: "Sin más i18next. La guía 2026 para crear una aplicación Astro + Vue multilingüe (i18n). Traduce con agentes de IA y optimiza el tamaño del bundle, SEO y rendimiento."
 keywords:
@@ -19,6 +19,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 applicationShowcase: https://intlayer-astro-template.vercel.app
 history:
+  - version: 9.5.5
+    date: 2026-09-19
+    changes: "Uso de los hooks useIntlayer / useLocale de astro-intlayer en la página de Astro"
   - version: 8.9.0
     date: 2026-05-04
     changes: "Actualizar el uso de la API useIntlayer de Solid para el acceso directo a las propiedades"
@@ -150,7 +153,7 @@ bun add intlayer astro-intlayer vue vue-intlayer @astrojs/vue
   El paquete core que proporciona herramientas de i18n para la gestión de la configuración, traducciones, [declaración de contenidos](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/content_file.md), transpilación y [comandos CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/index.md).
 
 - **astro-intlayer**
-  Incluye el plugin de integración de Astro para conectar Intlayer con el [bundler Vite](https://vite.dev/guide/why.html#why-bundle-for-production), así como el middleware para detectar el idioma preferido del usuario, gestionar cookies y manejar redirecciones de URL.
+  Incluye el plugin de integración de Astro para integrar Intlayer con el [empaquetador Vite](https://vite.dev/guide/why.html#why-bundle-for-production), un middleware que resuelve el idioma de cada solicitud en `Astro.locals.intlayer`, y los hooks `useIntlayer` / `useDictionary` / `useLocale`. La misma ruta de importación resuelve a la implementación de servidor en tu frontmatter `.astro` y a la de cliente (respaldada por `vanilla-intlayer`) en bloques `<script>`.
 
 - **vue**
   El paquete core de Vue.
@@ -237,19 +240,21 @@ export default appContent;
 </Step>
 <Step number={5} title="Usar el contenido en Astro">
 
-Puedes consumir los diccionarios directamente en tus archivos `.astro` utilizando los helpers core exportados por `intlayer`. También deberías añadir metadatos SEO (como hreflang y enlaces canónicos) a cada página e introducir una isla de Vue para el contenido interactivo del lado del cliente.
+Consume tus diccionarios en archivos `.astro` con los hooks exportados por `astro-intlayer`. Comparten las firmas de `react-intlayer`: `useIntlayer("key")` devuelve el contenido de un diccionario y `useLocale()` el idioma actual, sin necesidad de pasar argumentos.
+
+El idioma proviene del middleware `astro-intlayer`, que la integración registra automáticamente antes de tu propio `src/middleware.ts`. Lo resuelve para cada solicitud, a partir del prefijo de URL, luego del idioma guardado por el cliente (cookie o encabezado), luego de `Accept-Language`, y lo almacena en `Astro.locals.intlayer`. Las páginas pre-renderizadas solo usan la URL, ya que se renderizan una vez para cada visitante.
+
+También deberías añadir metadatos SEO (como hreflang y enlaces canónicos) a cada página e introducir una isla de Vue para el contenido interactivo del lado del cliente.
 
 ```astro fileName="src/pages/[...locale]/index.astro"
 ---
+import { useIntlayer, useLocale } from "astro-intlayer";
 import {
-  getIntlayer,
-  getLocaleFromPath,
   getLocalizedUrl,
-  getHTMLTextDir,
   getPrefix,
   localeMap,
   defaultLocale,
-  type LocalesValues,
+  getHTMLTextDir,
 } from "intlayer";
 import VueIsland from "../../components/vue/VueIsland.vue";
 
@@ -259,8 +264,11 @@ export const getStaticPaths = () => {
   }));
 };
 
-const locale = getLocaleFromPath(Astro.url.pathname) as LocalesValues;
-const { title } = getIntlayer("app", locale);
+// Idioma resuelto por el middleware (ej. /es/about -> 'es')
+const { locale } = useLocale();
+
+// Contenido del diccionario 'app' para ese idioma
+const { title } = useIntlayer("app");
 ---
 
 <!doctype html>
@@ -307,6 +315,8 @@ const { title } = getIntlayer("app", locale);
   </body>
 </html>
 ```
+
+> `Astro.locals.intlayer` también expone `locale`, `defaultLocale` y `availableLocales` a tus propios middlewares y endpoints. Pasa un idioma o un selector como segundo argumento (`useIntlayer("app", "fr")`, `useIntlayer("faq", { item: 2 })`) para anular el idioma de la solicitud en una llamada.
 
 > **Nota sobre la configuración de rutas:**
 > La estructura de directorios que utilices depende del ajuste `middleware.routing` en `intlayer.config.ts`:
@@ -446,10 +456,10 @@ const pathList: SitemapUrlEntry[] = [
   { path: "/about", changefreq: "monthly", priority: 0.7 },
 ];
 
-const SITE_URL = import.meta.env.SITE ?? "http://localhost:4321";
-
 export const GET: APIRoute = async ({ site }) => {
-  const xmlOutput = generateSitemap(pathList, { siteUrl: SITE_URL });
+  const xmlOutput = generateSitemap(pathList, {
+    siteUrl: "https://example.com",
+  });
 
   return new Response(xmlOutput, {
     headers: { "Content-Type": "application/xml" },
@@ -549,21 +559,7 @@ bun x intlayer extract
  </Tab>
  <Tab value='Compilador Babel'>
 
-> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
-
-Actualiza tu archivo `vite.config.ts` para incluir el plugin `intlayerCompiler` :
-
-```ts fileName="vite.config.ts"
-import { defineConfig } from "vite";
-import { intlayer, intlayerCompiler } from "vite-intlayer";
-
-export default defineConfig({
-  plugins: [
-    intlayer(),
-    intlayerCompiler(), // Adds the compiler plugin
-  ],
-});
-```
+Compila tu aplicación para transformar tus componentes y extraer el contenido
 
 ```bash packageManager="npm"
 npm run build # O npm run dev

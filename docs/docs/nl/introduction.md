@@ -189,7 +189,6 @@ We hebben Intlayer gebouwd met flexibiliteit in gedachten, en bieden een naadloz
 - **[Intlayer met Astro + Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_with_astro_solid.md)**
 - **[Intlayer met Astro + Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_with_astro_preact.md)**
 - **[Intlayer met Astro + Lit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_with_astro_lit.md)**
-- **[Intlayer met Astro + Vanilla JS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_with_astro_vanilla.md)**
 - **[Intlayer met Vite + Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_with_vite+vue.md)**
 - **[Intlayer met Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_with_nuxt.md)**
 - **[Intlayer met Vite + Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_with_vite+svelte.md)**

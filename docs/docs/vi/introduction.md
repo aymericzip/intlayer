@@ -189,7 +189,6 @@ Chúng tôi đã xây dựng Intlayer với tính linh hoạt cao, cung cấp kh
 - **[Intlayer với Astro + Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_astro_solid.md)**
 - **[Intlayer với Astro + Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_astro_preact.md)**
 - **[Intlayer với Astro + Lit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_astro_lit.md)**
-- **[Intlayer với Astro + Vanilla JS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_astro_vanilla.md)**
 - **[Intlayer với Vite + Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_vite+vue.md)**
 - **[Intlayer với Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nuxt.md)**
 - **[Intlayer với Vite + Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_vite+svelte.md)**

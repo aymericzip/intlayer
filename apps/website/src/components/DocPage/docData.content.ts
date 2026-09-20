@@ -1645,32 +1645,6 @@ const docDataContent: Dictionary = {
               default: getDocMetadata('./docs/en/intlayer_with_astro_lit.md'),
               frameworks: ['lit', 'astro', 'vite'],
             },
-            'astro-and-vanilla-js': {
-              title: t({
-                en: 'Astro and Vanilla JS',
-                fr: 'Astro et Vanilla JS',
-                es: 'Astro y Vanilla JS',
-                'en-GB': 'Astro and Vanilla JS',
-                de: 'Astro und Vanilla JS',
-                ja: 'AstroおよびVanilla JS',
-                ko: 'Astro 및 Vanilla JS',
-                zh: 'Astro和Vanilla JS',
-                it: 'Astro e Vanilla JS',
-                pt: 'Astro e Vanilla JS',
-                hi: 'Astro और Vanilla JS',
-                ar: 'Astro و Vanilla JS',
-                uk: 'Astro та Vanilla JS',
-                ru: 'Astro и Vanilla JS',
-                tr: 'Astro ve Vanilla JS',
-                pl: 'Astro dan Vanilla JS',
-                id: 'Astro dan Vanilla JS',
-                vi: 'Astro và Vanilla JS',
-              }),
-              default: getDocMetadata(
-                './docs/en/intlayer_with_astro_vanilla.md'
-              ),
-              frameworks: ['vanilla', 'astro', 'vite'],
-            },
           },
         },
 

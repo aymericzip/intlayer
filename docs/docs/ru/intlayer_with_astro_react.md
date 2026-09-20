@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-08-30
+updatedAt: 2026-09-20
 title: "Astro + React i18n - Полное руководство по переводу вашего приложения"
 description: "Больше никакого i18next. Руководство 2026 по созданию многоязычного (i18n) приложения Astro + React. Переводите с помощью ИИ-агентов и оптимизируйте размер бандла, SEO и производительность."
 keywords:
@@ -19,6 +19,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 applicationShowcase: https://intlayer-astro-template.vercel.app
 history:
+  - version: 9.5.5
+    date: 2026-09-19
+    changes: "Использование хуков useIntlayer / useLocale из astro-intlayer на странице Astro"
   - version: 8.9.0
     date: 2026-05-04
     changes: "Обновление использования API useIntlayer в Solid для прямого доступа к свойствам"
@@ -165,7 +168,7 @@ bun x intlayer init
   Основной пакет, предоставляющий инструменты интернационализации для управления конфигурацией, переводами, [объявлением контента](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/content_file.md), транспиляцией и [командами CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/index.md).
 
 - **astro-intlayer**
-  Включает плагин интеграции для Astro для интеграции Intlayer с [бандлером Vite](https://vite.dev/guide/why.html#why-bundle-for-production), а также промежуточное ПО для определения предпочтительной локали пользователя, управления куки и обработки перенаправлений URL.
+  Включает плагин интеграции Astro для интеграции Intlayer с [бандлером Vite](https://vite.dev/guide/why.html#why-bundle-for-production), middleware, разрешающее локаль каждого запроса в `Astro.locals.intlayer`, и хуки `useIntlayer` / `useDictionary` / `useLocale`. Тот же путь импорта разрешается в серверную реализацию во фронтматтере `.astro` и в клиентскую (на базе `vanilla-intlayer`) в блоках `<script>`.
 
 - **react**, **react-dom**
   Основные пакеты React, необходимые для отрисовки компонентов React в браузере.
@@ -254,19 +257,21 @@ export default appContent;
 </Step>
 <Step number={5} title="Использование контента в Astro">
 
-Вы можете использовать словари напрямую в файлах `.astro`, используя основные хелперы, экспортируемые из `intlayer`. Вам также следует добавить SEO-метаданные, такие как hreflang и канонические ссылки, на каждую страницу и встроить остров React для интерактивного контента на стороне клиента.
+Используйте ваши словари в файлах `.astro` с помощью хуков, экспортируемых `astro-intlayer`. Они имеют те же сигнатуры, что и `react-intlayer`: `useIntlayer("key")` возвращает содержимое словаря, а `useLocale()` текущую локаль, без необходимости передавать аргументы.
+
+Локаль поступает из middleware `astro-intlayer`, которое интеграция регистрирует автоматически перед вашим собственным `src/middleware.ts`. Оно разрешает ее для каждого запроса, на основе префикса URL, затем сохраненной клиентом локали (cookie или заголовок), затем `Accept-Language`, и сохраняет в `Astro.locals.intlayer`. Предварительно отрендеренные страницы используют только URL, так как рендерятся один раз для каждого посетителя.
+
+Вам также следует добавить SEO-метаданные, такие как hreflang и канонические ссылки, на каждую страницу и встроить остров React для интерактивного контента на стороне клиента.
 
 ```astro fileName="src/pages/[...locale]/index.astro"
 ---
+import { useIntlayer, useLocale } from "astro-intlayer";
 import {
-  getIntlayer,
-  getLocaleFromPath,
   getLocalizedUrl,
-  getHTMLTextDir,
   getPrefix,
   localeMap,
   defaultLocale,
-  type LocalesValues,
+  getHTMLTextDir,
 } from "intlayer";
 import { ReactIsland } from "../../components/react/ReactIsland";
 
@@ -276,8 +281,11 @@ export const getStaticPaths = () => {
   }));
 };
 
-const locale = getLocaleFromPath(Astro.url.pathname) as LocalesValues;
-const { title } = getIntlayer("app", locale);
+// Локаль, разрешенная middleware (напр. /ru/about -> 'ru')
+const { locale } = useLocale();
+
+// Содержимое словаря 'app' для этой локали
+const { title } = useIntlayer("app");
 ---
 
 <!doctype html>
@@ -332,6 +340,8 @@ const { title } = getIntlayer("app", locale);
 > <img src={content.image.src.toString()} alt={content.image.toString()} />
 > <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
+
+> `Astro.locals.intlayer` также предоставляет доступ к `locale`, `defaultLocale` и `availableLocales` в ваших собственных middleware и эндпоинтах. Передайте локаль или селектор вторым аргументом (`useIntlayer("app", "fr")`, `useIntlayer("faq", { item: 2 })`), чтобы переопределить локаль запроса для одного вызова.
 
 > **Примечание по конфигурации маршрутизации:**
 > Структура каталогов, которую вы используете, зависит от настройки `middleware.routing` в вашем `intlayer.config.ts`:
@@ -445,10 +455,10 @@ const pathList: SitemapUrlEntry[] = [
   { path: "/about", changefreq: "monthly", priority: 0.7 },
 ];
 
-const SITE_URL = import.meta.env.SITE ?? "http://localhost:4321";
-
 export const GET: APIRoute = async ({ site }) => {
-  const xmlOutput = generateSitemap(pathList, { siteUrl: SITE_URL });
+  const xmlOutput = generateSitemap(pathList, {
+    siteUrl: "https://example.com",
+  });
 
   return new Response(xmlOutput, {
     headers: { "Content-Type": "application/xml" },
@@ -548,21 +558,7 @@ bun x intlayer extract
  </Tab>
  <Tab value='Компилятор Babel'>
 
-> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
-
-Обновите ваш `vite.config.ts`, чтобы включить плагин `intlayerCompiler`:
-
-```ts fileName="vite.config.ts"
-import { defineConfig } from "vite";
-import { intlayer, intlayerCompiler } from "vite-intlayer";
-
-export default defineConfig({
-  plugins: [
-    intlayer(),
-    intlayerCompiler(), // Adds the compiler plugin
-  ],
-});
-```
+Соберите приложение, чтобы преобразовать ваши компоненты и извлечь контент
 
 ```bash packageManager="npm"
 npm run build # Или npm run dev

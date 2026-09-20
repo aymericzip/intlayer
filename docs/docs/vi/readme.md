@@ -212,7 +212,6 @@ Khám phá tài liệu toàn diện của chúng tôi để bắt đầu với I
       <li><a href="https://intlayer.org/doc/environment/astro/vue" rel=''>Vue</a></li>
       <li><a href="https://intlayer.org/doc/environment/astro/svelte" rel=''>Svelte</a></li>
       <li><a href="https://intlayer.org/doc/environment/astro/solid" rel=''>Solid</a></li>
-      <li><a href="https://intlayer.org/doc/environment/astro/vanilla" rel=''>Vanilla JS</a></li>
       <li><a href="https://intlayer.org/doc/environment/astro/lit" rel=''>Lit</a></li>
     </ul>
   </li>

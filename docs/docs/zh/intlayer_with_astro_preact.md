@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-08-30
+updatedAt: 2026-09-20
 title: "Astro + Preact i18n - 翻译你的应用的完整指南"
 description: "告别 i18next。2026 年构建多语言 (i18n) Astro + Preact 应用的完整指南。使用 AI 代理翻译并优化包体积、SEO 和性能。"
 keywords:
@@ -19,6 +19,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 applicationShowcase: https://intlayer-astro-template.vercel.app
 history:
+  - version: 9.5.5
+    date: 2026-09-19
+    changes: "在 Astro 页面中使用 astro-intlayer 的 useIntlayer / useLocale 钩子"
   - version: 8.9.0
     date: 2026-05-04
     changes: "更新 Solid useIntlayer API 用法以直接访问属性"
@@ -150,7 +153,7 @@ bun add intlayer astro-intlayer preact preact-intlayer @astrojs/preact
   核心软件包，提供用于配置管理、翻译、[内容声明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)、编译和 [CLI 命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)的国际化工具。
 
 - **astro-intlayer**
-  包含将 Intlayer 与 [Vite 构建器](https://vite.dev/guide/why.html#why-bundle-for-production)集成的 Astro 集成插件，以及用于检测用户首选语言、管理 Cookie 和处理 URL 重定向的中间件。
+  包含用于将 Intlayer 与 [Vite 打包器](https://vite.dev/guide/why.html#why-bundle-for-production) 集成的 Astro 集成插件、将每个请求的语言环境解析到 `Astro.locals.intlayer` 的中间件，以及 `useIntlayer` / `useDictionary` / `useLocale` 钩子。相同的导入路径在 `.astro` frontmatter 中解析为服务端实现，在 `<script>` 块中解析为客户端实现（由 `vanilla-intlayer` 支持）。
 
 - **preact**
   核心 Preact 软件包 - React 的快速且轻量级的替代方案。
@@ -242,19 +245,21 @@ export default appContent;
 </Step>
 <Step number={5} title="在 Astro 中使用内容">
 
-您可以使用 `intlayer` 导出的核心辅助函数直接在 `.astro` 文件中消费词典。您还应在每个页面添加 SEO 元数据（如 hreflang 和规范链接），并为客户端交互内容引入 Preact 岛。
+使用 `astro-intlayer` 导出的钩子在 `.astro` 文件中使用你的字典。它们与 `react-intlayer` 具有相同的签名：`useIntlayer("key")` 返回字典内容，`useLocale()` 返回当前语言环境，无需传递参数。
+
+语言环境来自 `astro-intlayer` 中间件，集成会自动在你的 `src/middleware.ts` 之前注册该中间件。它会依次从 URL 前缀、客户端持久化的语言环境（Cookie 或标头）、`Accept-Language` 解析每个请求的语言环境，并将其存储在 `Astro.locals.intlayer` 中。预渲染页面仅使用 URL，因为它们只为每个访客渲染一次。
+
+您还应在每个页面添加 SEO 元数据（如 hreflang 和规范链接），并为客户端交互内容引入 Preact 岛。
 
 ```astro fileName="src/pages/[...locale]/index.astro"
 ---
+import { useIntlayer, useLocale } from "astro-intlayer";
 import {
-  getIntlayer,
-  getLocaleFromPath,
   getLocalizedUrl,
-  getHTMLTextDir,
   getPrefix,
   localeMap,
   defaultLocale,
-  type LocalesValues,
+  getHTMLTextDir,
 } from "intlayer";
 import { PreactIsland } from "../../components/preact/PreactIsland";
 
@@ -264,8 +269,11 @@ export const getStaticPaths = () => {
   }));
 };
 
-const locale = getLocaleFromPath(Astro.url.pathname) as LocalesValues;
-const { title } = getIntlayer("app", locale);
+// 中间件解析的语言环境（例如 /zh/about -> 'zh'）
+const { locale } = useLocale();
+
+// 该语言环境的 'app' 字典内容
+const { title } = useIntlayer("app");
 ---
 
 <!doctype html>
@@ -320,6 +328,8 @@ const { title } = getIntlayer("app", locale);
 > <img src={content.image.src.toString()} alt={content.image.toString()} />
 > <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
+
+> `Astro.locals.intlayer` 还向你自己的中间件和端点公开 `locale`、`defaultLocale` 和 `availableLocales`。将语言环境或选择器作为第二个参数传递（`useIntlayer("app", "fr")`、`useIntlayer("faq", { item: 2 })`）可在单次调用中覆盖请求语言环境。
 
 > **关于路由设置的说明：**
 > 您使用的目录结构取决于 `intlayer.config.ts` 中的 `middleware.routing` 设置：
@@ -437,10 +447,10 @@ const pathList: SitemapUrlEntry[] = [
   { path: "/about", changefreq: "monthly", priority: 0.7 },
 ];
 
-const SITE_URL = import.meta.env.SITE ?? "http://localhost:4321";
-
 export const GET: APIRoute = async ({ site }) => {
-  const xmlOutput = generateSitemap(pathList, { siteUrl: SITE_URL });
+  const xmlOutput = generateSitemap(pathList, {
+    siteUrl: "https://example.com",
+  });
 
   return new Response(xmlOutput, {
     headers: { "Content-Type": "application/xml" },
@@ -540,21 +550,7 @@ bun x intlayer extract
  </Tab>
  <Tab value='Babel 编译器'>
 
-> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
-
-更新您的 `vite.config.ts` 以包含 `intlayerCompiler` 插件：
-
-```ts fileName="vite.config.ts"
-import { defineConfig } from "vite";
-import { intlayer, intlayerCompiler } from "vite-intlayer";
-
-export default defineConfig({
-  plugins: [
-    intlayer(),
-    intlayerCompiler(), // Adds the compiler plugin
-  ],
-});
-```
+构建你的应用程序来转换你的组件并提取内容
 
 ```bash packageManager="npm"
 npm run build # 或 npm run dev

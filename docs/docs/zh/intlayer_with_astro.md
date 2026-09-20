@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-09-19
+updatedAt: 2026-09-20
 title: "Astro i18n - 翻译你的应用的完整指南"
 description: "告别 i18next。2026 年构建多语言 (i18n) Astro 应用的完整指南。使用 AI 代理翻译并优化包体积、SEO 和性能。"
 keywords:
@@ -401,7 +401,7 @@ const pathWithoutLocale = getPathWithoutLocale(Astro.url.pathname);
 ```
 
 > **持久化注意事项：**
-> 客户端 `useLocale` 中的 `setLocale` 将用户的语言偏好保存在 Cookie 中。这允许 Intlayer 中间件记住该选择，并在将来的访问中自动将用户重定向到其首选语言。
+> 客户端 `useLocale` 中的 `setLocale` 将用户的语言偏好保存在 cookie 中。这使 Intlayer 能够记住该选择，并在将来的访问中自动将用户重定向到其首选语言：按需渲染的页面（带有 `output: 'server'` 或 `prerender = false` 的适配器）在发送任何 HTML 之前由 Intlayer 中间件重定向，而作为静态文件提供的预渲染页面则由集成注入每个页面的小脚本重定向。将 `routing.enableProxy` 设置为 `false` 可同时关闭两者。在 `astro dev` 中，除非将 `routing.enableProxy` 设置为 `true`，否则 cookie 将被忽略作为重定向来源，因此过期的 cookie 不会劫持你正在处理的页面。
 >
 > **服务端 / 客户端互兼容性：**
 > `astro-intlayer` 在 frontmatter 中解析为服务端钩子（读取 `Astro.locals`），在 `<script>` 块和孤岛（islands）中解析为 `vanilla-intlayer` 的客户端钩子，具有相同的名称和内容结构。`setLocale` 和 `onChange` 仅在客户端起作用，在客户端调用一次 `installIntlayer()` 以初始化客户端存储。`astro-intlayer/client` 显式公开客户端入口。
@@ -428,10 +428,10 @@ const pathList: SitemapUrlEntry[] = [
   { path: "/about", changefreq: "monthly", priority: 0.7 },
 ];
 
-const SITE_URL = import.meta.env.SITE ?? "http://localhost:4321";
-
 export const GET: APIRoute = async ({ site }) => {
-  const xmlOutput = generateSitemap(pathList, { siteUrl: SITE_URL });
+  const xmlOutput = generateSitemap(pathList, {
+    siteUrl: "https://example.com",
+  });
 
   return new Response(xmlOutput, {
     headers: { "Content-Type": "application/xml" },
@@ -478,7 +478,6 @@ export const GET: APIRoute = ({ site }) => {
 - Intlayer + Solid: [Intlayer with Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_astro_solid.md)
 - Intlayer + Preact: [Intlayer with Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_astro_preact.md)
 - Intlayer + Lit: [Intlayer with Lit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_astro_lit.md)
-- Intlayer + Vanilla JS: [Intlayer with Vanilla JS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_astro_vanilla.md)
 </Step>
 
 <Step number={15} title="提取组件中的内容" isOptional={true}>
@@ -544,21 +543,7 @@ bun x intlayer extract
  </Tab>
  <Tab value='Babel 编译器'>
 
-> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
-
-更新您的 `vite.config.ts` 以包含 `intlayerCompiler` 插件：
-
-```ts fileName="vite.config.ts"
-import { defineConfig } from "vite";
-import { intlayer, intlayerCompiler } from "vite-intlayer";
-
-export default defineConfig({
-  plugins: [
-    intlayer(),
-    intlayerCompiler(), // Adds the compiler plugin
-  ],
-});
-```
+构建你的应用程序来转换你的组件并提取内容
 
 ```bash packageManager="npm"
 npm run build # 或 npm run dev

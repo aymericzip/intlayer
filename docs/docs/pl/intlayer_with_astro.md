@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-09-19
+updatedAt: 2026-09-20
 title: "Astro i18n - Kompletny przewodnik po tłumaczeniu swojej aplikacji"
 description: "Koniec z i18next. Przewodnik 2026 do budowania wielojęzycznej (i18n) aplikacji Astro. Tłumacz z agentami AI i optymalizuj rozmiar bundle, SEO i wydajność."
 keywords:
@@ -406,7 +406,7 @@ const pathWithoutLocale = getPathWithoutLocale(Astro.url.pathname);
 ```
 
 > **Uwaga dotycząca trwałości:**
-> `setLocale` z klienckiego `useLocale` zapisuje preferencje językowe użytkownika w pliku cookie. Dzięki temu middleware Intlayer zapamiętuje wybór i automatycznie przekierowuje użytkownika do preferowanego języka przy kolejnych wizytach.
+> `setLocale` z klienckiego `useLocale` zapisuje preferencje językowe użytkownika w pliku cookie. Pozwala to Intlayer zapamiętać wybór i automatycznie przekierować użytkownika na preferowany język podczas kolejnych wizyt: strony renderowane na żądanie (adapter z `output: 'server'` lub `prerender = false`) są przekierowywane przez middleware Intlayer przed wysłaniem jakiegokolwiek kodu HTML, podczas gdy strony wstępnie wyrenderowane, serwowane jako pliki statyczne, są przekierowywane przez niewielki skrypt wstrzykiwany przez integrację na każdej stronie. Ustaw `routing.enableProxy` na `false`, aby wyłączyć oba mechanizmy. W środowisku `astro dev` plik cookie jest ignorowany jako źródło przekierowania, chyba że `routing.enableProxy` jest ustawione na `true`, dzięki czemu nieaktualny plik cookie nie przejmie stron, nad którymi pracujesz.
 >
 > **Wzajemna kompatybilność serwer / klient:**
 > `astro-intlayer` prowadzi do swoich hooków serwerowych w nagłówku frontmatter (odczytując `Astro.locals`) oraz do hooków klienckich `vanilla-intlayer` w blokach `<script>` i wyspach (islands), z tymi samymi nazwami i strukturą zawartości. `setLocale` i `onChange` działają tylko na kliencie, wywołaj tam raz `installIntlayer()`, aby zainicjalizować magazyn klienta. `astro-intlayer/client` jawnie udostępnia punkt wejścia klienta.
@@ -433,10 +433,10 @@ const pathList: SitemapUrlEntry[] = [
   { path: "/about", changefreq: "monthly", priority: 0.7 },
 ];
 
-const SITE_URL = import.meta.env.SITE ?? "http://localhost:4321";
-
 export const GET: APIRoute = async ({ site }) => {
-  const xmlOutput = generateSitemap(pathList, { siteUrl: SITE_URL });
+  const xmlOutput = generateSitemap(pathList, {
+    siteUrl: "https://example.com",
+  });
 
   return new Response(xmlOutput, {
     headers: { "Content-Type": "application/xml" },
@@ -483,7 +483,6 @@ Kontynuuj używanie swojej ulubionej frameworku do budowania aplikacji.
 - Intlayer + Solid: [Intlayer with Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_astro_solid.md)
 - Intlayer + Preact: [Intlayer with Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_astro_preact.md)
 - Intlayer + Lit: [Intlayer with Lit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_astro_lit.md)
-- Intlayer + Vanilla JS: [Intlayer with Vanilla JS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_astro_vanilla.md)
 </Step>
 
 <Step number={15} title="Wyodrębnij treść swoich komponentów" isOptional={true}>
@@ -553,21 +552,7 @@ bun x intlayer extract
  </Tab>
  <Tab value='Babel compiler'>
 
-> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
-
-Zaktualizuj `vite.config.ts` aby dodać plugin `intlayerCompiler`:
-
-```ts fileName="vite.config.ts"
-import { defineConfig } from "vite";
-import { intlayer, intlayerCompiler } from "vite-intlayer";
-
-export default defineConfig({
-  plugins: [
-    intlayer(),
-    intlayerCompiler(), // Adds the compiler plugin
-  ],
-});
-```
+Zbuduj aplikację, aby przekształcić komponenty i wyodrębnić treść
 
 ```bash packageManager="npm"
 npm run build # Lub npm run dev

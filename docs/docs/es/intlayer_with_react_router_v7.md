@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-04
-updatedAt: 2026-09-06
+updatedAt: 2026-09-20
 title: "React Router v7 i18n - Guía completa para traducir tu aplicación"
 description: "Sin más i18next. La guía 2026 para construir una aplicación React Router v7 multilingüe (i18n). Traduce con agentes de IA y optimiza el tamaño del bundle, SEO y rendimiento."
 keywords:
@@ -889,7 +889,13 @@ bun x intlayer extract
  </Tab>
  <Tab value='Babel compiler'>
 
+ <Tabs>
+ <Tab value='intlayer >= 9'>
+
 > Desde v9, el `intlayerCompiler` está incluido en el plugin `intlayer`. Por lo tanto, no necesitas agregarlo manualmente.
+
+ </Tab>
+ <Tab value='intlayer < 9'>
 
 Actualiza tu `vite.config.ts` para incluir el plugin `intlayerCompiler`:
 
@@ -904,6 +910,11 @@ export default defineConfig({
   ],
 });
 ```
+
+ </Tab>
+ </Tabs>
+
+Compila tu aplicación para transformar tus componentes y extraer el contenido
 
 ```bash packageManager="npm"
 npm run build # O npm run dev

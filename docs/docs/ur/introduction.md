@@ -189,7 +189,6 @@ Intlayer جدید ویب ڈیولپمنٹ کی ضروریات کو پورا کر
 - **[Astro + Solid کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_astro_solid.md)**
 - **[Astro + Preact کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_astro_preact.md)**
 - **[Astro + Lit کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_astro_lit.md)**
-- **[Astro + Vanilla JS کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_astro_vanilla.md)**
 - **[Vite + Vue کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_vite+vue.md)**
 - **[Nuxt کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_nuxt.md)**
 - **[Vite + Svelte کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_vite+svelte.md)**

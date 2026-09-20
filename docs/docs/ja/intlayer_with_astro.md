@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-09-19
+updatedAt: 2026-09-20
 title: "Astro i18n - あなたのアプリを翻訳する完全ガイド"
 description: "i18nextはもう不要。2026年に多言語（i18n）Astroアプリを構築するためのガイド。AIエージェントで翻訳し、バンドルサイズ、SEO、パフォーマンスを最適化します。"
 keywords:
@@ -401,7 +401,7 @@ const pathWithoutLocale = getPathWithoutLocale(Astro.url.pathname);
 ```
 
 > **永続化に関する注意:**
-> クライアント側の `useLocale` から提供される `setLocale` は、ユーザーの言語設定を Cookie に保存します。これにより、Intlayer ミドルウェアは選択を記憶し、次回のアクセス時にユーザーを優先言語に自動的にリダイレクトできます。
+> クライアント側の `useLocale` による `setLocale` は、ユーザーの言語設定を cookie に保存します。これにより、Intlayer は選択を記憶し、今後のアクセス時にユーザーを希望する言語に自動的にリダイレクトできます。オンデマンドレンダリングされたページ（`output: 'server'` または `prerender = false` のアダプター）は HTML が送信される前に Intlayer ミドルウェアによってリダイレクトされ、静的ファイルとして提供される事前レンダリングされたページは、統合機能が各ページに注入する小さなスクリプトによってリダイレクトされます。両方を無効にするには `routing.enableProxy` を `false` に設定します。`astro dev` では、`routing.enableProxy` が `true` に設定されていない限り cookie はリダイレクト元として無視されるため、古い cookie が作業中のページをハイジャックすることはありません。
 >
 > **サーバー / クライアント間の相互互換性:**
 > `astro-intlayer` は、フロントマター内ではサーバーフック（`Astro.locals` の読み取り）に、`<script>` ブロックおよびアイランド内では `vanilla-intlayer` のクライアントフックに解決され、同じ名前とデータ構造を持ちます。`setLocale` と `onChange` はクライアント上でのみ動作します。クライアントストアを初期化するために、クライアント側で一度 `installIntlayer()` を呼び出してください。`astro-intlayer/client` はクライアントエントリを明示的に公開します。
@@ -428,10 +428,10 @@ const pathList: SitemapUrlEntry[] = [
   { path: "/about", changefreq: "monthly", priority: 0.7 },
 ];
 
-const SITE_URL = import.meta.env.SITE ?? "http://localhost:4321";
-
 export const GET: APIRoute = async ({ site }) => {
-  const xmlOutput = generateSitemap(pathList, { siteUrl: SITE_URL });
+  const xmlOutput = generateSitemap(pathList, {
+    siteUrl: "https://example.com",
+  });
 
   return new Response(xmlOutput, {
     headers: { "Content-Type": "application/xml" },
@@ -472,11 +472,12 @@ export const GET: APIRoute = ({ site }) => {
 
 お好みのフレームワークを使用してアプリケーションを構築し続けましょう。
 
-- Intlayer + React: [Intlayer with React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_vite+react.md)
-- Intlayer + Vue: [Intlayer with Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_vite+vue.md)
-- Intlayer + Svelte: [Intlayer with Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_vite+svelte.md)
-- Intlayer + Solid: [Intlayer with Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_vite+solid.md)
-- Intlayer + Preact: [Intlayer with Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_vite+preact.md)
+- Intlayer + React: [Intlayer with React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_astro_react.md)
+- Intlayer + Vue: [Intlayer with Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_astro_vue.md)
+- Intlayer + Svelte: [Intlayer with Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_astro_svelte.md)
+- Intlayer + Solid: [Intlayer with Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_astro_solid.md)
+- Intlayer + Preact: [Intlayer with Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_astro_preact.md)
+- Intlayer + Lit: [Intlayer with Lit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_astro_lit.md)
 </Step>
 
 <Step number={15} title="Extract the content of your components" isOptional={true}>
@@ -546,21 +547,7 @@ bun x intlayer extract
  </Tab>
  <Tab value='Babel compiler'>
 
-> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
-
-Update your `vite.config.ts` to include the `intlayerCompiler` plugin:
-
-```ts fileName="vite.config.ts"
-import { defineConfig } from "vite";
-import { intlayer, intlayerCompiler } from "vite-intlayer";
-
-export default defineConfig({
-  plugins: [
-    intlayer(),
-    intlayerCompiler(), // Adds the compiler plugin
-  ],
-});
-```
+アプリケーションをビルドしてコンポーネントを変換し、コンテンツを抽出します。
 
 ```bash packageManager="npm"
 npm run build # Or npm run dev

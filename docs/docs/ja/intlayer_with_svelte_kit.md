@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-20
-updatedAt: 2026-08-30
+updatedAt: 2026-09-20
 title: "SvelteKit i18n - あなたのアプリを翻訳する完全ガイド"
 description: "i18nextはもう不要。2026年に多言語（i18n）SvelteKitアプリを構築するためのガイド。AIエージェントで翻訳し、バンドルサイズ、SEO、パフォーマンスを最適化します。"
 keywords:
@@ -709,26 +709,32 @@ bun x intlayer extract
  </Tab>
  <Tab value='Babelコンパイラ'>
 
+ <Tabs>
+ <Tab value='intlayer >= 9'>
+
 > Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
 
-```bash packageManager="bun"
-bun add @intlayer/babel --dev
-```
+ </Tab>
+ <Tab value='intlayer < 9'>
 
-```js fileName="babel.config.js"
-const {
-  intlayerExtractBabelPlugin,
-  getExtractPluginOptions,
-} = require("@intlayer/babel");
+`intlayerCompiler` プラグインを含めるように `vite.config.ts` を更新します：
 
-module.exports = {
-  presets: ["next/babel"],
+```ts fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import { intlayer, intlayerCompiler } from "vite-intlayer";
+
+export default defineConfig({
   plugins: [
-    // コンポーネントから辞書へコンテンツを抽出する
-    [intlayerExtractBabelPlugin, getExtractPluginOptions()],
+    intlayer(),
+    intlayerCompiler(), // Adds the compiler plugin
   ],
-};
+});
 ```
+
+ </Tab>
+ </Tabs>
+
+アプリケーションをビルドしてコンポーネントを変換し、コンテンツを抽出します。
 
 ```bash packageManager="npm"
 npm run build # または npm run dev
@@ -743,7 +749,7 @@ yarn build # または yarn dev
 ```
 
 ```bash packageManager="bun"
-bun run build # Or bun run dev
+bun run build # または bun run dev
 ```
 
  </Tab>

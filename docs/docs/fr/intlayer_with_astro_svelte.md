@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-08-29
+updatedAt: 2026-09-20
 title: "Astro + Svelte i18n - Guide complet pour traduire votre application"
 description: "Oubliez i18next. Le guide 2026 pour créer une application Astro + Svelte multilingue (i18n). Traduisez avec des agents IA et optimisez la taille du bundle, le SEO et les performances."
 keywords:
@@ -19,6 +19,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 applicationShowcase: https://intlayer-astro-template.vercel.app
 history:
+  - version: 9.5.5
+    date: 2026-09-19
+    changes: "Utilisation des hooks useIntlayer / useLocale d'astro-intlayer dans la page Astro"
   - version: 8.9.0
     date: 2026-05-04
     changes: "Mettre à jour l'utilisation de l'API useIntlayer de Solid pour un accès direct aux propriétés"
@@ -150,7 +153,7 @@ bun add intlayer astro-intlayer svelte svelte-intlayer @astrojs/svelte
   Le package de base qui fournit des outils d’internationalisation pour la gestion de la configuration, les traductions, la [déclaration de contenu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/content_file.md), la transpilation et les [commandes CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/cli/index.md).
 
 - **astro-intlayer**
-  Inclut le plugin d’intégration pour Astro pour intégrer Intlayer avec le [bundler Vite](https://vite.dev/guide/why.html#why-bundle-for-production), ainsi qu’un middleware pour détecter la locale préférée de l’utilisateur, gérer les cookies et traiter les redirections d’URL.
+  Inclut le plugin d'intégration pour Astro pour intégrer Intlayer avec le [bundler Vite](https://vite.dev/guide/why.html#why-bundle-for-production), un middleware qui résout la locale de chaque requête dans `Astro.locals.intlayer`, ainsi que les hooks `useIntlayer` / `useDictionary` / `useLocale`. Le même chemin d'importation résout vers l'implémentation serveur dans votre frontmatter `.astro` et vers l'implémentation client (basée sur `vanilla-intlayer`) dans les blocs `<script>`.
 
 - **svelte**
   Le package Svelte de base.
@@ -237,19 +240,21 @@ export default appContent;
 </Step>
 <Step number={5} title="Utiliser le contenu dans Astro">
 
-Vous pouvez consommer les dictionnaires directement dans vos fichiers `.astro` en utilisant les helpers de base exportés par `intlayer`. Vous devez également ajouter des métadonnées SEO, telles que hreflang et des liens canoniques, sur chaque page et intégrer une île Svelte pour le contenu interactif côté client.
+Consommez vos dictionnaires dans les fichiers `.astro` avec les hooks exportés par `astro-intlayer`. Ils partagent les signatures de `react-intlayer` : `useIntlayer("key")` renvoie le contenu d'un dictionnaire et `useLocale()` la locale actuelle, sans aucun argument à transmettre.
+
+La locale provient du middleware `astro-intlayer`, que l'intégration enregistre pour vous en amont de votre propre `src/middleware.ts`. Il la résout pour chaque requête, à partir du préfixe d'URL, puis de la locale persistée par le client (cookie ou en-tête), puis de `Accept-Language`, et la stocke dans `Astro.locals.intlayer`. Les pages pré-rendues utilisent uniquement l'URL, car elles sont générées une seule fois pour chaque visiteur.
+
+Vous devez également ajouter des métadonnées SEO, telles que hreflang et des liens canoniques, sur chaque page et intégrer une île Svelte pour le contenu interactif côté client.
 
 ```astro fileName="src/pages/[...locale]/index.astro"
 ---
+import { useIntlayer, useLocale } from "astro-intlayer";
 import {
-  getIntlayer,
-  getLocaleFromPath,
   getLocalizedUrl,
-  getHTMLTextDir,
   getPrefix,
   localeMap,
   defaultLocale,
-  type LocalesValues,
+  getHTMLTextDir,
 } from "intlayer";
 import SvelteIsland from "../../components/svelte/SvelteIsland.svelte";
 
@@ -259,8 +264,11 @@ export const getStaticPaths = () => {
   }));
 };
 
-const locale = getLocaleFromPath(Astro.url.pathname) as LocalesValues;
-const { title } = getIntlayer("app", locale);
+// Locale résolue par le middleware (ex. /es/about -> 'es')
+const { locale } = useLocale();
+
+// Contenu du dictionnaire 'app' pour cette locale
+const { title } = useIntlayer("app");
 ---
 
 <!doctype html>
@@ -315,6 +323,8 @@ const { title } = getIntlayer("app", locale);
 > <img src={content.image.src.toString()} alt={content.image.toString()} />
 > <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
+
+> `Astro.locals.intlayer` expose également `locale`, `defaultLocale` et `availableLocales` à vos propres middlewares et points de terminaison. Passez une locale ou un sélecteur en second argument (`useIntlayer("app", "fr")`, `useIntlayer("faq", { item: 2 })`) pour surcharger la locale de la requête pour un appel.
 
 > **Note sur la configuration du routage :**
 > La structure de répertoire que vous utilisez dépend du paramètre `middleware.routing` dans votre `intlayer.config.ts` :
@@ -436,10 +446,10 @@ const pathList: SitemapUrlEntry[] = [
   { path: "/about", changefreq: "monthly", priority: 0.7 },
 ];
 
-const SITE_URL = import.meta.env.SITE ?? "http://localhost:4321";
-
 export const GET: APIRoute = async ({ site }) => {
-  const xmlOutput = generateSitemap(pathList, { siteUrl: SITE_URL });
+  const xmlOutput = generateSitemap(pathList, {
+    siteUrl: "https://example.com",
+  });
 
   return new Response(xmlOutput, {
     headers: { "Content-Type": "application/xml" },
@@ -516,7 +526,7 @@ export default config;
 ```
 
 <Tabs>
- <Tab value='Commande d'extraction'>
+ <Tab value="Commande d'extraction">
 
 Exécutez l'extracteur pour transformer vos composants et extraire le contenu
 
@@ -539,21 +549,7 @@ bun x intlayer extract
  </Tab>
  <Tab value='Compilateur Babel'>
 
-> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
-
-Mettez à jour votre fichier `vite.config.ts` pour inclure le plugin `intlayerCompiler` :
-
-```ts fileName="vite.config.ts"
-import { defineConfig } from "vite";
-import { intlayer, intlayerCompiler } from "vite-intlayer";
-
-export default defineConfig({
-  plugins: [
-    intlayer(),
-    intlayerCompiler(), // Adds the compiler plugin
-  ],
-});
-```
+Buildez votre application pour transformer vos composants et extraire le contenu
 
 ```bash packageManager="npm"
 npm run build # Ou npm run dev

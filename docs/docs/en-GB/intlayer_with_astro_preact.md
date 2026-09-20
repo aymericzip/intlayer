@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-08-30
+updatedAt: 2026-09-20
 title: "Astro + Preact i18n - Complete guide to translate your app"
 description: "No more i18next. The 2026 guide to building a multilingual (i18n) Astro + Preact app. Translate with AI agents and optimise bundle size, SEO and performances."
 keywords:
@@ -19,6 +19,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 applicationShowcase: https://intlayer-astro-template.vercel.app
 history:
+  - version: 9.5.5
+    date: 2026-09-19
+    changes: "Use the useIntlayer / useLocale hooks of astro-intlayer in the Astro page"
   - version: 8.9.0
     date: 2026-05-04
     changes: "Update Solid useIntlayer API usage to direct property access"
@@ -150,7 +153,7 @@ bun add intlayer astro-intlayer preact preact-intlayer @astrojs/preact
   The core package that provides i18n tools for configuration management, translations, [content declaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/content_file.md), transpilation, and [CLI commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/index.md).
 
 - **astro-intlayer**
-  Includes the Astro integration plugin to link Intlayer with the [Vite bundler](https://vite.dev/guide/why.html#why-bundle-for-production), as well as the middleware to detect the user's preferred language, manage cookies, and handle URL redirects.
+  Includes the Astro integration plugin for integrating Intlayer with the [Vite bundler](https://vite.dev/guide/why.html#why-bundle-for-production), a middleware that resolves the locale of every request into `Astro.locals.intlayer`, and the `useIntlayer` / `useDictionary` / `useLocale` hooks. The same import path resolves to the server implementation in your `.astro` frontmatter and to the client one (backed by `vanilla-intlayer`) in `<script>` blocks.
 
 - **preact**
   Core Preact package - a fast, lightweight alternative to React.
@@ -243,19 +246,21 @@ export default appContent;
 </Step>
 <Step number={5} title="Using Content in Astro">
 
-You can consume the dictionaries directly in your `.astro` files using the core helpers exported from `intlayer`. You should also add SEO metadata (such as hreflang and canonical links) to every page and introduce a Preact island for interactive client-side content.
+Consume your dictionaries in `.astro` files with the hooks exported by `astro-intlayer`. They share the signatures of `react-intlayer`: `useIntlayer("key")` returns the content of a dictionary and `useLocale()` the current locale, with no argument to pass around.
+
+The locale comes from the `astro-intlayer` middleware, which the integration registers for you ahead of your own `src/middleware.ts`. It resolves it for every request, from the URL prefix, then the locale persisted by the client (cookie or header), then `Accept-Language`, and stores it in `Astro.locals.intlayer`. Prerendered pages only use the URL, since they are rendered once for every visitor.
+
+You should also add SEO metadata (such as hreflang and canonical links) to every page and introduce a Preact island for interactive client-side content.
 
 ```astro fileName="src/pages/[...locale]/index.astro"
 ---
+import { useIntlayer, useLocale } from "astro-intlayer";
 import {
-  getIntlayer,
-  getLocaleFromPath,
   getLocalizedUrl,
-  getHTMLTextDir,
   getPrefix,
   localeMap,
   defaultLocale,
-  type LocalesValues,
+  getHTMLTextDir,
 } from "intlayer";
 import { PreactIsland } from "../../components/preact/ReactIsland";
 
@@ -265,8 +270,11 @@ export const getStaticPaths = () => {
   }));
 };
 
-const locale = getLocaleFromPath(Astro.url.pathname) as LocalesValues;
-const { title } = getIntlayer("app", locale);
+// Locale resolved by the middleware (e.g. /es/about -> 'es')
+const { locale } = useLocale();
+
+// Content of the 'app' dictionary for that locale
+const { title } = useIntlayer("app");
 ---
 
 <!doctype html>
@@ -321,6 +329,8 @@ const { title } = getIntlayer("app", locale);
 > <img src={content.image.src.toString()} alt={content.image.toString()} />
 > <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
+
+> `Astro.locals.intlayer` also exposes `locale`, `defaultLocale` and `availableLocales` to your own middleware and endpoints. Pass a locale or a selector as second argument (`useIntlayer("app", "fr")`, `useIntlayer("faq", { item: 2 })`) to override the request locale for one call.
 
 > **Note on routing setup:**
 > The directory structure you use depends on the `middleware.routing` setting in `intlayer.config.ts`:
@@ -438,10 +448,10 @@ const pathList: SitemapUrlEntry[] = [
   { path: "/about", changefreq: "monthly", priority: 0.7 },
 ];
 
-const SITE_URL = import.meta.env.SITE ?? "http://localhost:4321";
-
 export const GET: APIRoute = async ({ site }) => {
-  const xmlOutput = generateSitemap(pathList, { siteUrl: SITE_URL });
+  const xmlOutput = generateSitemap(pathList, {
+    siteUrl: "https://example.com",
+  });
 
   return new Response(xmlOutput, {
     headers: { "Content-Type": "application/xml" },
@@ -545,21 +555,7 @@ bun x intlayer extract
  </Tab>
  <Tab value='Babel compiler'>
 
-> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
-
-Update your `vite.config.ts` to include the `intlayerCompiler` plugin:
-
-```ts fileName="vite.config.ts"
-import { defineConfig } from "vite";
-import { intlayer, intlayerCompiler } from "vite-intlayer";
-
-export default defineConfig({
-  plugins: [
-    intlayer(),
-    intlayerCompiler(), // Adds the compiler plugin
-  ],
-});
-```
+Build your application to transform your components and extract the content
 
 ```bash packageManager="npm"
 npm run build # Or npm run dev

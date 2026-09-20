@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-08-30
+updatedAt: 2026-09-20
 title: "Astro + Vue i18n - あなたのアプリを翻訳する完全ガイド"
 description: "i18nextはもう不要。2026年に多言語（i18n）Astro + Vueアプリを構築するためのガイド。AIエージェントで翻訳し、バンドルサイズ、SEO、パフォーマンスを最適化します。"
 keywords:
@@ -19,6 +19,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 applicationShowcase: https://intlayer-astro-template.vercel.app
 history:
+  - version: 9.5.5
+    date: 2026-09-19
+    changes: "Astro ページでの astro-intlayer の useIntlayer / useLocale フックの使用"
   - version: 8.9.0
     date: 2026-05-04
     changes: "Solid の useIntlayer API の使用法を直接プロパティアクセスに更新"
@@ -150,7 +153,7 @@ bun add intlayer astro-intlayer vue vue-intlayer @astrojs/vue
   設定管理、翻訳、[コンテンツ宣言](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)、トランスパイル、および[CLIコマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md)のための国際化ツールを提供するコアパッケージ。
 
 - **astro-intlayer**
-  Intlayerを[Viteバンドラー](https://vite.dev/guide/why.html#why-bundle-for-production)と統合するためのAstro統合プラグイン、およびユーザーの優先ロケールの検出、クッキーの管理、URLリダイレクトの処理を行うミドルウェアが含まれています。
+  Intlayer を [Vite バンドラー](https://vite.dev/guide/why.html#why-bundle-for-production) と統合する Astro 統合プラグイン、各リクエストのロケールを `Astro.locals.intlayer` に解決するミドルウェア、および `useIntlayer` / `useDictionary` / `useLocale` フックが含まれています。同じインポートパスが `.astro` フロントマターのサーバー実装と `<script>` ブロック内のクライアント実装（`vanilla-intlayer` ベース）に解決されます。
 
 - **vue**
   コアVueパッケージ。
@@ -238,19 +241,21 @@ export default appContent;
 </Step>
 <Step number={5} title="Astroでのコンテンツの使用">
 
-`intlayer`からエクスポートされたコアヘルパーを使用して、`.astro`ファイル内で直接辞書を消費できます。また、各ページにhreflangや正規リンクなどのSEOメタデータを追加し、クライアントサイドのインタラクティブなコンテンツのためにVueアイランドを組み込む必要があります。
+`astro-intlayer` がエクスポートするフックを使用して、`.astro` ファイルで辞書を利用します。これらは `react-intlayer` と同じシグネチャを共有しており、`useIntlayer("key")` は辞書の内容を返し、`useLocale()` は現在のロケールを引数なしで返します。
+
+ロケールは `astro-intlayer` ミドルウェアから取得されます。このミドルウェアは独自の `src/middleware.ts` の前に登録され、各リクエストについて URL プレフィックス、クライアントが保持するロケール（Cookie またはヘッダー）、`Accept-Language` の順に解決し、`Astro.locals.intlayer` に保存します。事前レンダリングされたページは訪問者ごとに一度だけレンダリングされるため、URL のみを使用します。
+
+また、各ページにhreflangや正規リンクなどのSEOメタデータを追加し、クライアントサイドのインタラクティブなコンテンツのためにVueアイランドを組み込む必要があります。
 
 ```astro fileName="src/pages/[...locale]/index.astro"
 ---
+import { useIntlayer, useLocale } from "astro-intlayer";
 import {
-  getIntlayer,
-  getLocaleFromPath,
   getLocalizedUrl,
-  getHTMLTextDir,
   getPrefix,
   localeMap,
   defaultLocale,
-  type LocalesValues,
+  getHTMLTextDir,
 } from "intlayer";
 import VueIsland from "../../components/vue/VueIsland.vue";
 
@@ -260,8 +265,11 @@ export const getStaticPaths = () => {
   }));
 };
 
-const locale = getLocaleFromPath(Astro.url.pathname) as LocalesValues;
-const { title } = getIntlayer("app", locale);
+// ミドルウェアによって解決されたロケール（例: /ja/about -> 'ja'）
+const { locale } = useLocale();
+
+// そのロケールの 'app' 辞書の内容
+const { title } = useIntlayer("app");
 ---
 
 <!doctype html>
@@ -308,6 +316,8 @@ const { title } = getIntlayer("app", locale);
   </body>
 </html>
 ```
+
+> `Astro.locals.intlayer` は、独自のミドルウェアやエンドポイントにも `locale`、`defaultLocale`、`availableLocales` を公開します。第2引数としてロケールまたはセレクターを渡すことで（`useIntlayer("app", "fr")`、`useIntlayer("faq", { item: 2 })`）、1回の呼び出しに対してリクエストロケールを上書きできます。
 
 > **ルーティング設定に関する注意:**
 > 使用するディレクトリ構造は、`intlayer.config.ts` の `middleware.routing` 設定によります：
@@ -447,10 +457,10 @@ const pathList: SitemapUrlEntry[] = [
   { path: "/about", changefreq: "monthly", priority: 0.7 },
 ];
 
-const SITE_URL = import.meta.env.SITE ?? "http://localhost:4321";
-
 export const GET: APIRoute = async ({ site }) => {
-  const xmlOutput = generateSitemap(pathList, { siteUrl: SITE_URL });
+  const xmlOutput = generateSitemap(pathList, {
+    siteUrl: "https://example.com",
+  });
 
   return new Response(xmlOutput, {
     headers: { "Content-Type": "application/xml" },
@@ -554,21 +564,7 @@ bun x intlayer extract
  </Tab>
  <Tab value='Babel compiler'>
 
-> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
-
-Update your `vite.config.ts` to include the `intlayerCompiler` plugin:
-
-```ts fileName="vite.config.ts"
-import { defineConfig } from "vite";
-import { intlayer, intlayerCompiler } from "vite-intlayer";
-
-export default defineConfig({
-  plugins: [
-    intlayer(),
-    intlayerCompiler(), // Adds the compiler plugin
-  ],
-});
-```
+アプリケーションをビルドしてコンポーネントを変換し、コンテンツを抽出します。
 
 ```bash packageManager="npm"
 npm run build # Or npm run dev

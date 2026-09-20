@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-09-19
+updatedAt: 2026-09-20
 title: "Astro i18n - अपने ऐप को अनुवाद करने का पूर्ण गाइड"
 description: "अब i18next की जरूरत नहीं। 2026 में Astro ऐप को बहुभाषी (i18n) बनाने का गाइड। AI एजेंट्स से अनुवाद करें और बंडल साइज़, SEO और परफॉर्मेंस ऑप्टिमाइज़ करें।"
 keywords:
@@ -401,7 +401,7 @@ const pathWithoutLocale = getPathWithoutLocale(Astro.url.pathname);
 ```
 
 > **स्थिरता पर नोट:**
-> क्लाइंट-साइड `useLocale` से `setLocale` उपयोगकर्ता की भाषा प्राथमिकता को कुकी में सहेजता है। यह Intlayer मिडलवेयर को विकल्प याद रखने और भविष्य की यात्राओं पर उपयोगकर्ता को उनकी पसंदीदा भाषा में स्वचालित रूप से पुनर्निर्देशित करने की अनुमति देता है।
+> क्लाइंट-साइड `useLocale` से `setLocale` उपयोगकर्ता की भाषा प्राथमिकता को कुकी में सहेजता है। यह Intlayer को पसंद याद रखने और भविष्य की यात्राओं पर उपयोगकर्ता को उनकी पसंदीदा भाषा में स्वचालित रूप से पुनर्निर्देशित करने की अनुमति देता है: ऑन-डिमांड रेंडर किए गए पेज (`output: 'server'` या `prerender = false` वाला एडेप्टर) किसी भी HTML को भेजे जाने से पहले Intlayer मिडलवेयर द्वारा पुनर्निर्देशित किए जाते हैं, जबकि प्री-रेंडर किए गए पेज, जो स्थिर फ़ाइलों के रूप में प्रस्तुत किए जाते हैं, एक छोटी स्क्रिप्ट द्वारा पुनर्निर्देशित किए जाते हैं जिसे एकीकरण प्रत्येक पेज में इंजेक्ट करता है। दोनों को बंद करने के लिए `routing.enableProxy` को `false` पर सेट करें। `astro dev` में, कुकी को पुनर्निर्देशन स्रोत के रूप में तब तक अनदेखा किया जाता है जब तक कि `routing.enableProxy` को `true` पर सेट न किया गया हो, ताकि कोई पुरानी कुकी उन पेजों को हाईजैक न कर सके जिन पर आप काम कर रहे हैं।
 >
 > **सर्वर / क्लाइंट अंतर-संगतता:**
 > `astro-intlayer` फ्रंटमैट में अपने सर्वर हुक्स (`Astro.locals` पढ़ना) और `<script>` ब्लॉक और आइलैंड्स में `vanilla-intlayer` के क्लाइंट हुक्स को समान नाम और सामग्री संरचना के साथ हल करता है। `setLocale` और `onChange` केवल क्लाइंट पर कार्य करते हैं, क्लाइंट स्टोर को इनिशियलाइज़ करने के लिए वहां एक बार `installIntlayer()` को कॉल करें। `astro-intlayer/client` क्लाइंट प्रविष्टि को स्पष्ट रूप से प्रदर्शित करता है।
@@ -428,10 +428,10 @@ const pathList: SitemapUrlEntry[] = [
   { path: "/about", changefreq: "monthly", priority: 0.7 },
 ];
 
-const SITE_URL = import.meta.env.SITE ?? "http://localhost:4321";
-
 export const GET: APIRoute = async ({ site }) => {
-  const xmlOutput = generateSitemap(pathList, { siteUrl: SITE_URL });
+  const xmlOutput = generateSitemap(pathList, {
+    siteUrl: "https://example.com",
+  });
 
   return new Response(xmlOutput, {
     headers: { "Content-Type": "application/xml" },
@@ -472,11 +472,12 @@ export const GET: APIRoute = ({ site }) => {
 
 अपनी पसंद के फ्रेमवर्क का उपयोग करके अपना एप्लिकेशन बनाना जारी रखें।
 
-- Intlayer + React: [React के साथ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_vite+react.md)
-- Intlayer + Vue: [Vue के साथ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_vite+vue.md)
-- Intlayer + Svelte: [Svelte के साथ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_vite+svelte.md)
-- Intlayer + Solid: [Solid के साथ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_vite+solid.md)
-- Intlayer + Preact: [Preact के साथ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_vite+preact.md)
+- Intlayer + React: [React के साथ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_astro_react.md)
+- Intlayer + Vue: [Vue के साथ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_astro_vue.md)
+- Intlayer + Svelte: [Svelte के साथ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_astro_svelte.md)
+- Intlayer + Solid: [Solid के साथ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_astro_solid.md)
+- Intlayer + Preact: [Preact के साथ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_astro_preact.md)
+- Intlayer + Lit: [Intlayer के साथ Lit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_astro_lit.md)
 </Step>
 
 <Step number={15} title="अपने घटकों की सामग्री निकालें" isOptional={true}>
@@ -542,39 +543,22 @@ bun x intlayer extract
  </Tab>
  <Tab value='बैबेल कंपाइलर'>
 
-> v9 के बाद से, `intlayerCompiler` को `intlayer` plugin में शामिल किया गया है। इसलिए आपको इसे मैन्युअल रूप से जोड़ने की आवश्यकता नहीं है।
-
-intlayerCompiler प्लगइन शामिल करने के लिए अपनी `vite.config.ts` अपडेट करें:
-
-```ts fileName="vite.config.ts"
-import { defineConfig } from "vite";
-import { intlayer } from "vite-intlayer";
-
-export default defineConfig({
-  plugins: [
-    intlayer({
-      proxy: {
-        ignore: (req) => req.url?.startsWith("/api"),
-      },
-    }),
-  ],
-});
-```
+अपने घटकों को बदलने और सामग्री निकालने के लिए अपना एप्लिकेशन बिल्ड करें
 
 ```bash packageManager="npm"
 npm run build # या npm run dev
 ```
 
 ```bash packageManager="pnpm"
-pnpm run build # Or pnpm run dev
+pnpm run build # या pnpm run dev
 ```
 
 ```bash packageManager="yarn"
-yarn build # Or yarn dev
+yarn build # या yarn dev
 ```
 
 ```bash packageManager="bun"
-bun run build # Or bun run dev
+bun run build # या bun run dev
 ```
 
  </Tab>

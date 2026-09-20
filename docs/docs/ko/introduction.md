@@ -189,7 +189,6 @@ Intlayer는 현대 웹 개발의 요구를 충족하도록 설계된 다양한 �
 - **[Intlayer와 Astro + Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_astro_solid.md)**
 - **[Intlayer와 Astro + Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_astro_preact.md)**
 - **[Intlayer와 Astro + Lit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_astro_lit.md)**
-- **[Intlayer와 Astro + Vanilla JS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_astro_vanilla.md)**
 - **[Intlayer와 Vite + Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_vite+vue.md)**
 - **[Intlayer와 Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nuxt.md)**
 - **[Intlayer와 Vite + Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_vite+svelte.md)**

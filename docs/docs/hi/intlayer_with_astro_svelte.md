@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-06-23
+updatedAt: 2026-09-20
 title: "Astro + Svelte i18n - अपने ऐप को अनुवाद करने का पूर्ण गाइड"
 description: "अब i18next की जरूरत नहीं। 2026 में Astro + Svelte ऐप को बहुभाषी (i18n) बनाने का गाइड। AI एजेंट्स से अनुवाद करें और बंडल साइज़, SEO और परफॉर्मेंस ऑप्टिमाइज़ करें।"
 keywords:
@@ -19,6 +19,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 applicationShowcase: https://intlayer-astro-template.vercel.app
 history:
+  - version: 9.5.5
+    date: 2026-09-19
+    changes: "Astro पेज में astro-intlayer के useIntlayer / useLocale हुक्स का उपयोग"
   - version: 8.9.0
     date: 2026-05-04
     changes: "सॉलिड useIntlayer API उपयोग को सीधे प्रॉपर्टी एक्सेस में अपडेट करें"
@@ -162,7 +165,7 @@ bun x intlayer init
   मुख्य पैकेज जो कॉन्फ़िगरेशन प्रबंधन, अनुवाद, [सामग्री घोषणा](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/content_file.md), ट्रांसपाइलेशन और [CLI कमांड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/index.md) के लिए i18n टूल प्रदान करता है।
 
 - **astro-intlayer**
-  Intlayer को [Vite बंडलर](https://vite.dev/guide/why.html#why-bundle-for-production) के साथ जोड़ने के लिए Astro एकीकरण प्लगइन, साथ ही उपयोगकर्ता की पसंदीदा भाषा का पता लगाने, कुकीज़ प्रबंधित करने और URL रीडायरेक्ट को संभालने के लिए मिडलवेयर शामिल है।
+  Intlayer को [Vite बंडलर](https://vite.dev/guide/why.html#why-bundle-for-production) के साथ एकीकृत करने के लिए Astro एकीकरण प्लगइन, प्रत्येक अनुरोध के लोकेल को `Astro.locals.intlayer` में हल करने वाला एक मिडलवेयर, और `useIntlayer` / `useDictionary` / `useLocale` हुक्स शामिल हैं। वही आयात पथ आपके `.astro` फ्रंटमैट में सर्वर कार्यान्वयन और `<script>` ब्लॉक में क्लाइंट कार्यान्वयन (`vanilla-intlayer` द्वारा समर्थित) को हल करता है।
 
 - **svelte**
   मुख्य Svelte पैकेज।
@@ -251,19 +254,21 @@ export default appContent;
 </Step>
 <Step number={5} title="Astro में सामग्री का उपयोग करना">
 
-आप सीधे अपने `.astro` फ़ाइलों में `intlayer` से निर्यात किए गए मुख्य सहायकों का उपयोग करके शब्दकोशों का उपयोग कर सकते हैं। आपको हर पृष्ठ पर SEO मेटाडेटा (जैसे hreflang और कैनोनिकल लिंक) भी जोड़ना चाहिए और इंटरैक्टिव क्लाइंट-साइड सामग्री के लिए एक Svelte island पेश करना चाहिए।
+`astro-intlayer` द्वारा निर्यात किए गए हुक्स के साथ `.astro` फ़ाइलों में अपने शब्दकोशों का उपयोग करें। वे `react-intlayer` के समान हस्ताक्षर साझा करते हैं: `useIntlayer("key")` एक शब्दकोश की सामग्री लौटाता है और `useLocale()` बिना किसी तर्क के वर्तमान लोकेल लौटाता है।
+
+लोकेल `astro-intlayer` मिडलवेयर से आता है, जिसे एकीकरण आपके अपने `src/middleware.ts` से पहले पंजीकृत करता है। यह प्रत्येक अनुरोध के लिए इसे URL उपसर्ग, फिर क्लाइंट द्वारा सहेजे गए लोकेल (कुकी या हेडर), फिर `Accept-Language` से हल करता है, और इसे `Astro.locals.intlayer` में संग्रहीत करता है। प्री-रेंडर किए गए पृष्ठ केवल URL का उपयोग करते हैं, क्योंकि वे प्रत्येक आगंतुक के लिए एक बार रेंडर होते हैं।
+
+आपको हर पृष्ठ पर SEO मेटाडेटा (जैसे hreflang और कैनोनिकल लिंक) भी जोड़ना चाहिए और इंटरैक्टिव क्लाइंट-साइड सामग्री के लिए एक Svelte island पेश करना चाहिए।
 
 ```astro fileName="src/pages/[...locale]/index.astro"
 ---
+import { useIntlayer, useLocale } from "astro-intlayer";
 import {
-  getIntlayer,
-  getLocaleFromPath,
   getLocalizedUrl,
-  getHTMLTextDir,
   getPrefix,
   localeMap,
   defaultLocale,
-  type LocalesValues,
+  getHTMLTextDir,
 } from "intlayer";
 import SvelteIsland from "../../components/svelte/SvelteIsland.svelte";
 
@@ -273,8 +278,11 @@ export const getStaticPaths = () => {
   }));
 };
 
-const locale = getLocaleFromPath(Astro.url.pathname) as LocalesValues;
-const { title } = getIntlayer("app", locale);
+// मिडलवेयर द्वारा हल किया गया लोकेल (उदा. /hi/about -> 'hi')
+const { locale } = useLocale();
+
+// उस लोकेल के लिए 'app' शब्दकोश की सामग्री
+const { title } = useIntlayer("app");
 ---
 
 <!doctype html>
@@ -329,6 +337,8 @@ const { title } = getIntlayer("app", locale);
 > <img src={content.image.src.toString()} alt={content.image.toString()} />
 > <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
+
+> `Astro.locals.intlayer` आपके अपने मिडलवेयर और एंडपॉइंट्स के लिए `locale`, `defaultLocale` और `availableLocales` भी प्रदर्शित करता है। एक कॉल के लिए अनुरोध लोकेल को ओवरराइड करने के लिए दूसरे तर्क के रूप में एक लोकेल या चयनकर्ता पास करें (`useIntlayer("app", "fr")`, `useIntlayer("faq", { item: 2 })`)।
 
 > **रूटिंग सेटअप पर नोट:**
 > आपके द्वारा उपयोग की जाने वाली निर्देशिका संरचना `intlayer.config.ts` में `middleware.routing` सेटिंग पर निर्भर करती है:
@@ -450,10 +460,10 @@ const pathList: SitemapUrlEntry[] = [
   { path: "/about", changefreq: "monthly", priority: 0.7 },
 ];
 
-const SITE_URL = import.meta.env.SITE ?? "http://localhost:4321";
-
 export const GET: APIRoute = async ({ site }) => {
-  const xmlOutput = generateSitemap(pathList, { siteUrl: SITE_URL });
+  const xmlOutput = generateSitemap(pathList, {
+    siteUrl: "https://example.com",
+  });
 
   return new Response(xmlOutput, {
     headers: { "Content-Type": "application/xml" },
@@ -553,39 +563,22 @@ bun x intlayer extract
  </Tab>
  <Tab value='बैबेल कंपाइलर'>
 
-> v9 के बाद से, `intlayerCompiler` को `intlayer` plugin में शामिल किया गया है। इसलिए आपको इसे manually add करने की आवश्यकता नहीं है।
-
-intlayerCompiler प्लगइन शामिल करने के लिए अपनी `vite.config.ts` अपडेट करें:
-
-```ts fileName="vite.config.ts"
-import { defineConfig } from "vite";
-import { intlayer } from "vite-intlayer";
-
-export default defineConfig({
-  plugins: [
-    intlayer({
-      proxy: {
-        ignore: (req) => req.url?.startsWith("/api"),
-      },
-    }),
-  ],
-});
-```
+अपने घटकों को बदलने और सामग्री निकालने के लिए अपना एप्लिकेशन बिल्ड करें
 
 ```bash packageManager="npm"
 npm run build # या npm run dev
 ```
 
 ```bash packageManager="pnpm"
-pnpm run build # Or pnpm run dev
+pnpm run build # या pnpm run dev
 ```
 
 ```bash packageManager="yarn"
-yarn build # Or yarn dev
+yarn build # या yarn dev
 ```
 
 ```bash packageManager="bun"
-bun run build # Or bun run dev
+bun run build # या bun run dev
 ```
 
  </Tab>

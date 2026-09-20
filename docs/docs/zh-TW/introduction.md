@@ -191,7 +191,6 @@ Intlayer 提供了多種功能，旨在滿足現代 Web 開發的需求。以下
 - **[Intlayer 與 Astro + Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/intlayer_with_astro_solid.md)**
 - **[Intlayer 與 Astro + Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/intlayer_with_astro_preact.md)**
 - **[Intlayer 與 Astro + Lit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/intlayer_with_astro_lit.md)**
-- **[Intlayer 與 Astro + Vanilla JS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/intlayer_with_astro_vanilla.md)**
 - **[Intlayer 與 Vite + Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/intlayer_with_vite+vue.md)**
 - **[Intlayer 與 Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/intlayer_with_nuxt.md)**
 - **[Intlayer 與 Vite + Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/intlayer_with_vite+svelte.md)**

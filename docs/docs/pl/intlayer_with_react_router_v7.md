@@ -1,7 +1,7 @@
 ---
 title: Jak umiędzynarodowić (i18n) aplikację React Router v7 za pomocą Intlayer
 createdAt: 2025-02-07
-updatedAt: 2026-08-30
+updatedAt: 2026-09-20
 description: Zintegruj Intlayer z React Router v7, aby stworzyć w pełni wielojęzyczną aplikację z optymalnym SEO i routingiem.
 keywords:
   - Internacjonalizacja
@@ -891,7 +891,13 @@ bun x intlayer extract
  </Tab>
  <Tab value='Kompilator Babel'>
 
+ <Tabs>
+ <Tab value='intlayer >= 9'>
+
 > Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
+
+ </Tab>
+ <Tab value='intlayer < 9'>
 
 Zaktualizuj `vite.config.ts`, aby dołączyć wtyczkę `intlayerCompiler`:
 
@@ -906,6 +912,11 @@ export default defineConfig({
   ],
 });
 ```
+
+ </Tab>
+ </Tabs>
+
+Zbuduj aplikację, aby przekształcić komponenty i wyodrębnić treść
 
 ```bash packageManager="npm"
 npm run build # Lub npm run dev

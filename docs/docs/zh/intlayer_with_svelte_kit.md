@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-20
-updatedAt: 2026-08-30
+updatedAt: 2026-09-20
 title: "SvelteKit i18n - 翻译你的应用的完整指南"
 description: "告别 i18next。2026 年构建多语言 (i18n) SvelteKit 应用的完整指南。使用 AI 代理翻译并优化包体积、SEO 和性能。"
 keywords:
@@ -713,7 +713,13 @@ bun x intlayer extract
  </Tab>
  <Tab value='Babel 编译器'>
 
+ <Tabs>
+ <Tab value='intlayer >= 9'>
+
 > 自 v9 起，`intlayerCompiler` 包含在 `intlayer` 插件中。所以你不需要手动添加它。
+
+ </Tab>
+ <Tab value='intlayer < 9'>
 
 更新你的 `vite.config.ts` 以包含 `intlayerCompiler` 插件：
 
@@ -728,6 +734,11 @@ export default defineConfig({
   ],
 });
 ```
+
+ </Tab>
+ </Tabs>
+
+构建你的应用程序来转换你的组件并提取内容
 
 ```bash packageManager="npm"
 npm run build # 或 npm run dev

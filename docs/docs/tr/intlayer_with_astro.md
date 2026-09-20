@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-09-19
+updatedAt: 2026-09-20
 title: "Astro i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
 description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) Astro uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
 keywords:
@@ -401,7 +401,7 @@ const pathWithoutLocale = getPathWithoutLocale(Astro.url.pathname);
 ```
 
 > **Kalıcılık Hakkında Not:**
-> İstemci tarafındaki `useLocale` hook'undan `setLocale`, kullanıcının dil tercihini bir çerezde kaydeder. Bu, Intlayer ara yazılımının seçimi hatırlamasını ve gelecekteki ziyaretlerde kullanıcıyı otomatik olarak tercih ettiği dile yönlendirmesini sağlar.
+> İstemci tarafındaki `useLocale` içinden `setLocale`, kullanıcının dil tercihini bir tanımlama bilgisine (cookie) kaydeder. Bu, Intlayer'ın seçimi hatırlamasına ve gelecekteki ziyaretlerde kullanıcıyı otomatik olarak tercih ettiği dile yönlendirmesine olanak tanır: isteğe bağlı olarak oluşturulan sayfalar (`output: 'server'` veya `prerender = false` içeren bir bağdaştırıcı), herhangi bir HTML gönderilmeden önce Intlayer ara yazılımı (middleware) tarafından yönlendirilir; statik dosyalar olarak sunulan önceden oluşturulmuş sayfalar ise entegrasyonun her sayfaya eklediği küçük bir komut dosyası tarafından yönlendirilir. Her ikisini de kapatmak için `routing.enableProxy` değerini `false` olarak ayarlayın. `astro dev` modunda, `routing.enableProxy` değeri `true` olarak ayarlanmadığı sürece tanımlama bilgisi bir yönlendirme kaynağı olarak yoksayılır, böylece eski bir tanımlama bilgisi üzerinde çalıştığınız sayfaları ele geçiremez.
 >
 > **Sunucu / İstemci Birlikte Çalışabilirliği:**
 > `astro-intlayer`, frontmatter'da sunucu hook'larına (`Astro.locals` okuyarak) ve `<script>` blokları ile adalarda (islands) `vanilla-intlayer`'ın istemci hook'larına aynı adlar ve içerik yapısıyla çözümlenir. `setLocale` ve `onChange` yalnızca istemcide etki eder; istemci deposunu başlatmak için orada bir kez `installIntlayer()` çağırın. `astro-intlayer/client`, istemci girişini açıkça sunar.
@@ -428,10 +428,10 @@ const pathList: SitemapUrlEntry[] = [
   { path: "/about", changefreq: "monthly", priority: 0.7 },
 ];
 
-const SITE_URL = import.meta.env.SITE ?? "http://localhost:4321";
-
 export const GET: APIRoute = async ({ site }) => {
-  const xmlOutput = generateSitemap(pathList, { siteUrl: SITE_URL });
+  const xmlOutput = generateSitemap(pathList, {
+    siteUrl: "https://example.com",
+  });
 
   return new Response(xmlOutput, {
     headers: { "Content-Type": "application/xml" },
@@ -472,11 +472,12 @@ export const GET: APIRoute = ({ site }) => {
 
 Seçtiğiniz framework'ü kullanarak uygulamanızı oluşturmaya devam edin.
 
-- Intlayer + React: [React ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_vite+react.md)
-- Intlayer + Vue: [Vue ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_vite+vue.md)
-- Intlayer + Svelte: [Svelte ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_vite+svelte.md)
-- Intlayer + Solid: [Solid ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_vite+solid.md)
-- Intlayer + Preact: [Preact ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_vite+preact.md)
+- Intlayer + React: [React ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_astro_react.md)
+- Intlayer + Vue: [Vue ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_astro_vue.md)
+- Intlayer + Svelte: [Svelte ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_astro_svelte.md)
+- Intlayer + Solid: [Solid ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_astro_solid.md)
+- Intlayer + Preact: [Preact ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_astro_preact.md)
+- Intlayer + Lit: [Lit ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_astro_lit.md)
 </Step>
 
 <Step number={15} title="Bağımlılıkları Yükleyin">
@@ -546,21 +547,7 @@ bun x intlayer extract
  </Tab>
  <Tab value='Babel compiler'>
 
-> v9 sürümünden itibaren, `intlayerCompiler` `intlayer` eklentisine dahil edilmiştir. Bu nedenle bunu manuel olarak eklemeniz gerekmez.
-
-Tercih ettiğiniz paket yöneticisini kullanarak gerekli paketleri yükleyin:
-
-```ts fileName="vite.config.ts"
-import { defineConfig } from "vite";
-import { intlayer, intlayerCompiler } from "vite-intlayer";
-
-export default defineConfig({
-  plugins: [
-    intlayer(),
-    intlayerCompiler(), // Compiler eklentisini ekler
-  ],
-});
-```
+Bileşenlerinizi dönüştürmek ve içeriği ayıklamak için uygulamanızı derleyin
 
 ```bash packageManager="npm"
 npm run build # Veya npm run dev

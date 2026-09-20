@@ -118,7 +118,7 @@ export const getLocaleFromStorageClient = (
   if (!TREE_SHAKE_STORAGE_COOKIES) {
     for (let i = 0; i < (routing.storage.cookies ?? []).length; i++) {
       try {
-        const value = options?.getCookie?.(routing.storage.cookies![i].name);
+        const value = options?.getCookie?.(routing.storage.cookies![i]!.name);
         if (isValidLocale(value)) return value;
       } catch {}
     }
@@ -128,7 +128,7 @@ export const getLocaleFromStorageClient = (
     for (let i = 0; i < (routing.storage.localStorage ?? []).length; i++) {
       try {
         const value = options?.getLocaleStorage?.(
-          routing.storage.localStorage![i].name
+          routing.storage.localStorage![i]!.name
         );
         if (isValidLocale(value)) return value;
       } catch {}
@@ -139,7 +139,7 @@ export const getLocaleFromStorageClient = (
     for (let i = 0; i < routing.storage.sessionStorage.length; i++) {
       try {
         const value = options?.getSessionStorage?.(
-          routing.storage.sessionStorage[i].name
+          routing.storage.sessionStorage[i]!.name
         );
         if (isValidLocale(value)) return value;
       } catch {}
@@ -160,7 +160,7 @@ export const setLocaleInStorageClient = (
 
   if (!TREE_SHAKE_STORAGE_COOKIES && routing.storage.cookies) {
     for (let i = 0; i < routing.storage.cookies.length; i++) {
-      const { name, attributes } = routing.storage.cookies[i];
+      const { name, attributes } = routing.storage.cookies[i]!;
       try {
         if (options?.setCookieStore) {
           options.setCookieStore(name, locale, {
@@ -187,7 +187,7 @@ export const setLocaleInStorageClient = (
     options?.setLocaleStorage
   ) {
     for (let i = 0; i < routing.storage.localStorage.length; i++) {
-      const { name } = routing.storage.localStorage[i];
+      const { name } = routing.storage.localStorage[i]!;
       try {
         if (!(options?.overwrite ?? true) && options?.getLocaleStorage) {
           if (options.getLocaleStorage(name)) continue;
@@ -203,7 +203,7 @@ export const setLocaleInStorageClient = (
     options?.setSessionStorage
   ) {
     for (let i = 0; i < routing.storage.sessionStorage.length; i++) {
-      const { name } = routing.storage.sessionStorage[i];
+      const { name } = routing.storage.sessionStorage[i]!;
       try {
         if (!(options?.overwrite ?? true) && options?.getSessionStorage) {
           if (options.getSessionStorage(name)) continue;
@@ -269,7 +269,7 @@ export const getLocaleFromStorageServer = (
   if (!TREE_SHAKE_STORAGE_COOKIES && routing.storage.cookies) {
     for (let i = 0; i < routing.storage.cookies.length; i++) {
       try {
-        const value = options?.getCookie?.(routing.storage.cookies[i].name);
+        const value = options?.getCookie?.(routing.storage.cookies[i]!.name);
         if (isValidLocale(value)) return value;
       } catch {}
     }
@@ -278,7 +278,7 @@ export const getLocaleFromStorageServer = (
   if (!TREE_SHAKE_STORAGE_HEADERS && routing.storage.headers) {
     for (let i = 0; i < routing.storage.headers.length; i++) {
       try {
-        const value = options?.getHeader?.(routing.storage.headers[i].name);
+        const value = options?.getHeader?.(routing.storage.headers[i]!.name);
         if (isValidLocale(value)) return value;
       } catch {}
     }
@@ -297,7 +297,7 @@ export const setLocaleInStorageServer = (
 
   if (!TREE_SHAKE_STORAGE_COOKIES && routing.storage.cookies) {
     for (let i = 0; i < routing.storage.cookies.length; i++) {
-      const { name, attributes } = routing.storage.cookies[i];
+      const { name, attributes } = routing.storage.cookies[i]!;
 
       try {
         if (options?.setCookieStore) {
@@ -326,7 +326,7 @@ export const setLocaleInStorageServer = (
   ) {
     for (let i = 0; i < routing.storage.headers.length; i++) {
       try {
-        options.setHeader(routing.storage.headers[i].name, locale);
+        options.setHeader(routing.storage.headers[i]!.name, locale);
       } catch {}
     }
   }
@@ -401,7 +401,7 @@ export const getLocaleFromStorage = (
 
   if (!TREE_SHAKE_STORAGE_COOKIES && routing.storage.cookies) {
     for (let i = 0; i < routing.storage.cookies.length; i++) {
-      const value = readCookie(routing.storage.cookies[i].name);
+      const value = readCookie(routing.storage.cookies[i]!.name);
       if (isValidLocale(value)) return value;
     }
   }
@@ -410,7 +410,7 @@ export const getLocaleFromStorage = (
     for (let i = 0; i < routing.storage.localStorage.length; i++) {
       try {
         const value = options?.getLocaleStorage?.(
-          routing.storage.localStorage[i].name
+          routing.storage.localStorage[i]!.name
         );
         if (isValidLocale(value)) return value;
       } catch {}
@@ -421,7 +421,7 @@ export const getLocaleFromStorage = (
     for (let i = 0; i < routing.storage.sessionStorage.length; i++) {
       try {
         const value = options?.getSessionStorage?.(
-          routing.storage.sessionStorage[i].name
+          routing.storage.sessionStorage[i]!.name
         );
         if (isValidLocale(value)) return value;
       } catch {}
@@ -431,7 +431,7 @@ export const getLocaleFromStorage = (
   if (!TREE_SHAKE_STORAGE_HEADERS && routing.storage.headers) {
     for (let i = 0; i < routing.storage.headers.length; i++) {
       try {
-        const value = options?.getHeader?.(routing.storage.headers[i].name);
+        const value = options?.getHeader?.(routing.storage.headers[i]!.name);
         if (isValidLocale(value)) return value;
       } catch {}
     }
@@ -453,7 +453,7 @@ export const setLocaleInStorage = (
 
   if (!TREE_SHAKE_STORAGE_COOKIES && routing.storage.cookies) {
     for (let i = 0; i < routing.storage.cookies.length; i++) {
-      const { name, attributes } = routing.storage.cookies[i];
+      const { name, attributes } = routing.storage.cookies[i]!;
       try {
         if (options?.setCookieStore) {
           options.setCookieStore(name, locale, {
@@ -480,7 +480,7 @@ export const setLocaleInStorage = (
     options?.setLocaleStorage
   ) {
     for (let i = 0; i < routing.storage.localStorage.length; i++) {
-      const { name } = routing.storage.localStorage[i];
+      const { name } = routing.storage.localStorage[i]!;
       try {
         if (!(options?.overwrite ?? true) && options?.getLocaleStorage) {
           if (options.getLocaleStorage(name)) continue;
@@ -496,7 +496,7 @@ export const setLocaleInStorage = (
     options?.setSessionStorage
   ) {
     for (let i = 0; i < routing.storage.sessionStorage.length; i++) {
-      const { name } = routing.storage.sessionStorage[i];
+      const { name } = routing.storage.sessionStorage[i]!;
       try {
         if (!(options?.overwrite ?? true) && options?.getSessionStorage) {
           if (options.getSessionStorage(name)) continue;
@@ -513,7 +513,7 @@ export const setLocaleInStorage = (
   ) {
     for (let i = 0; i < routing.storage.headers.length; i++) {
       try {
-        options.setHeader(routing.storage.headers[i].name, locale);
+        options.setHeader(routing.storage.headers[i]!.name, locale);
       } catch {}
     }
   }

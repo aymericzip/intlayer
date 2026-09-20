@@ -189,7 +189,6 @@ Kami membangun Intlayer dengan mempertimbangkan fleksibilitas, menawarkan integr
 - **[Intlayer dengan Astro + Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_astro_solid.md)**
 - **[Intlayer dengan Astro + Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_astro_preact.md)**
 - **[Intlayer dengan Astro + Lit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_astro_lit.md)**
-- **[Intlayer dengan Astro + Vanilla JS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_astro_vanilla.md)**
 - **[Intlayer dengan Vite + Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_vite+vue.md)**
 - **[Intlayer dengan Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nuxt.md)**
 - **[Intlayer dengan Vite + Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_vite+svelte.md)**

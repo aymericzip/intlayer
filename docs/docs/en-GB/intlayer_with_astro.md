@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-09-19
+updatedAt: 2026-09-20
 title: "Astro i18n - Complete guide to translate your app"
 description: "No more i18next. The 2026 guide to building a multilingual (i18n) Astro app. Translate with AI agents and optimise bundle size, SEO and performances."
 keywords:
@@ -401,7 +401,7 @@ const pathWithoutLocale = getPathWithoutLocale(Astro.url.pathname);
 ```
 
 > **Note on Persistence:**
-> `setLocale` from the client-side `useLocale` saves the user's language preference in a cookie. This allows the Intlayer middleware to remember the choice and automatically redirect the user to their preferred language on future visits.
+> `setLocale` from the client-side `useLocale` saves the user's language preference in a cookie. This allows Intlayer to remember the choice and automatically redirect the user to their preferred language on future visits: on-demand rendered pages (an adapter with `output: 'server'` or `prerender = false`) are redirected by the Intlayer middleware before any HTML is sent, while prerendered pages, served as static files, are redirected by a small script the integration injects in every page. Set `routing.enableProxy` to `false` to turn both off. In `astro dev`, the cookie is ignored as a redirect source unless `routing.enableProxy` is set to `true`, so a stale cookie cannot hijack the pages you are working on.
 >
 > **Server / client intercompatibility:**
 > `astro-intlayer` resolves to its server hooks in the frontmatter (reading `Astro.locals`) and to the client hooks of `vanilla-intlayer` in `<script>` blocks and islands, with the same names and content shape. `setLocale` and `onChange` only act on the client, call `installIntlayer()` there once to seed the client store. `astro-intlayer/client` exposes the client entry explicitly.
@@ -428,10 +428,10 @@ const pathList: SitemapUrlEntry[] = [
   { path: "/about", changefreq: "monthly", priority: 0.7 },
 ];
 
-const SITE_URL = import.meta.env.SITE ?? "http://localhost:4321";
-
 export const GET: APIRoute = async ({ site }) => {
-  const xmlOutput = generateSitemap(pathList, { siteUrl: SITE_URL });
+  const xmlOutput = generateSitemap(pathList, {
+    siteUrl: "https://example.com",
+  });
 
   return new Response(xmlOutput, {
     headers: { "Content-Type": "application/xml" },
@@ -472,11 +472,12 @@ export const GET: APIRoute = ({ site }) => {
 
 Keep building your application using the framework of your choice.
 
-- Intlayer + React: [Intlayer with React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_vite+react.md)
-- Intlayer + Vue: [Intlayer with Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_vite+vue.md)
-- Intlayer + Svelte: [Intlayer with Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_vite+svelte.md)
-- Intlayer + Solid: [Intlayer with Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_vite+solid.md)
-- Intlayer + Preact: [Intlayer with Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_vite+preact.md)
+- Intlayer + React: [Intlayer with React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_astro_react.md)
+- Intlayer + Vue: [Intlayer with Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_astro_vue.md)
+- Intlayer + Svelte: [Intlayer with Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_astro_svelte.md)
+- Intlayer + Solid: [Intlayer with Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_astro_solid.md)
+- Intlayer + Preact: [Intlayer with Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_astro_preact.md)
+- Intlayer + Lit: [Intlayer with Lit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_astro_lit.md)
 </Step>
 
 <Step number={15} title="Extract the content of your components" isOptional={true}>
@@ -546,21 +547,7 @@ bun x intlayer extract
  </Tab>
  <Tab value='Babel compiler'>
 
-> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
-
-Update your `vite.config.ts` to include the `intlayerCompiler` plugin:
-
-```ts fileName="vite.config.ts"
-import { defineConfig } from "vite";
-import { intlayer, intlayerCompiler } from "vite-intlayer";
-
-export default defineConfig({
-  plugins: [
-    intlayer(),
-    intlayerCompiler(), // Adds the compiler plugin
-  ],
-});
-```
+Build your application to transform your components and extract the content
 
 ```bash packageManager="npm"
 npm run build # Or npm run dev

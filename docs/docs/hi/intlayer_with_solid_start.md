@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-06
-updatedAt: 2026-08-06
+updatedAt: 2026-09-20
 title: "Solid Start i18n - अपने ऐप का अनुवाद करने का पूर्ण गाइड"
 description: "अब i18next की आवश्यकता नहीं। 2026 में बहुभाषी (i18n) SolidStart ऐप बनाने की गाइड। सर्वर-रेंडर्ड लोकेल रूटिंग, hreflang, साइटमैप और AI-सहायता प्राप्त अनुवाद।"
 keywords:
@@ -747,15 +747,13 @@ SolidStart HTTP विधि को निर्यात करने वाल
 import type { APIEvent } from "@solidjs/start/server";
 import { generateSitemap } from "intlayer";
 
-const SITE_URL = process.env.SITE_URL ?? "http://localhost:3000";
-
 export const GET = (_event: APIEvent) => {
   const sitemap = generateSitemap(
     [
       { path: "/", changefreq: "daily", priority: 1.0 },
       { path: "/about", changefreq: "monthly", priority: 0.8 },
     ],
-    { siteUrl: SITE_URL }
+    { siteUrl: "https://example.com" }
   );
 
   return new Response(sitemap, {
@@ -789,8 +787,6 @@ export const GET = (_event: APIEvent) => {
 ```typescript fileName="src/routes/robots.txt.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { getMultilingualUrls } from "intlayer";
 
-const SITE_URL = process.env.SITE_URL ?? "http://localhost:3000";
-
 const disallowedPaths = ["/admin", "/private"].flatMap((path) =>
   Object.values(getMultilingualUrls(path))
 );
@@ -802,7 +798,7 @@ export const GET = () =>
       "Allow: /",
       ...disallowedPaths.map((path) => `Disallow: ${path}`),
       "",
-      `Sitemap: ${SITE_URL}/sitemap.xml`,
+      `Sitemap: https://example.com/sitemap.xml`,
     ].join("\n"),
     { headers: { "Content-Type": "text/plain" } }
   );
@@ -921,7 +917,13 @@ bun x intlayer extract
  </Tab>
  <Tab value='बैबेल कंपाइलर'>
 
+ <Tabs>
+ <Tab value='intlayer >= 9'>
+
 > v9 से, `intlayerCompiler` को `intlayer` प्लगइन में शामिल किया गया है। इसलिए आपको इसे मैन्युअल रूप से जोड़ने की आवश्यकता नहीं है।
+
+ </Tab>
+ <Tab value='intlayer < 9'>
 
 `intlayerCompiler` प्लगइन को शामिल करने के लिए अपना `vite.config.ts` अपडेट करें:
 
@@ -940,6 +942,11 @@ export default defineConfig({
   ],
 });
 ```
+
+ </Tab>
+ </Tabs>
+
+अपने घटकों को बदलने और सामग्री निकालने के लिए अपना एप्लिकेशन बिल्ड करें
 
 ```bash packageManager="npm"
 npm run build # या npm run dev
