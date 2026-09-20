@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "bun --bun vite dev --port 3000",
-    "start": "node .output/server/index.mjs",
+    "start": "bun .output/server/index.mjs",
     "build": "bun --bun vite build",
     "serve": "bun --bun vite preview",
     "test": "bun --bun vitest run",

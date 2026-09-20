@@ -118,7 +118,7 @@ export const liveSync = async (options?: LiveSyncOptions) => {
     }
   } else if (!configuration.editor.liveSync) {
     appLogger(
-      `Hot reload is ${colorize('disabled', ANSIColors.RED)}. Please enable it in the configuration (editor.liveSync).`
+      `Hot reload is ${colorize('disabled', ANSIColors.RED)}. Please enable it in the configuration (${colorize('editor.liveSync', ANSIColors.BLUE)}).`
     );
   } else if (
     !configuration.editor.clientId ||

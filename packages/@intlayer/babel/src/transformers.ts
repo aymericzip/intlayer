@@ -27,6 +27,8 @@ import { extractScriptBlocks, injectScriptBlocks } from './extractScriptBlocks';
 export const BABEL_PARSER_OPTIONS: ParserOptions = {
   sourceType: 'module',
   allowImportExportEverywhere: true,
+  // Astro frontmatter may `return new Response(...)` at the top level.
+  allowReturnOutsideFunction: true,
   plugins: [
     'typescript',
     'jsx',

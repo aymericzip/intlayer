@@ -10,6 +10,13 @@ vi.mock('@intlayer/engine/build', () => ({
   prepareIntlayer: vi.fn().mockResolvedValue(undefined),
 }));
 
+const mockLogger = vi.hoisted(() => vi.fn());
+
+vi.mock('@intlayer/config/logger', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('@intlayer/config/logger')>()),
+  getAppLogger: () => mockLogger,
+}));
+
 vi.mock('vite-intlayer', async () => {
   const { INTLAYER_NO_EXTERNAL_PATTERN } =
     await vi.importActual<typeof import('vite-intlayer')>('vite-intlayer');
@@ -24,16 +31,28 @@ vi.mock('vite-intlayer', async () => {
  * Runs `astro:config:setup` and returns the Vite config the integration
  * pushed through `updateConfig`.
  */
-const runConfigSetup = async () => {
+const runConfigSetup = async (
+  command: 'dev' | 'build' | 'preview' | 'sync' = 'build'
+) => {
   const updateConfig = vi.fn();
   const addMiddleware = vi.fn();
+  const injectScript = vi.fn();
   const hook = intlayer().hooks['astro:config:setup'];
 
-  await hook?.({ updateConfig, addMiddleware } as unknown as Parameters<
+  await hook?.({
+    command,
+    updateConfig,
+    addMiddleware,
+    injectScript,
+  } as unknown as Parameters<
     NonNullable<AstroIntegration['hooks']['astro:config:setup']>
   >[0]);
 
-  return { vite: updateConfig.mock.calls[0][0].vite, addMiddleware };
+  return {
+    vite: updateConfig.mock.calls[0][0].vite,
+    addMiddleware,
+    injectScript,
+  };
 };
 
 describe('astro-intlayer entry point', () => {
@@ -72,6 +91,37 @@ describe('astro-intlayer middleware registration', () => {
       entrypoint: 'astro-intlayer/middleware',
       order: 'pre',
     });
+  });
+
+  // Prerendered pages are served as static files, where only the browser can
+  // read the stored locale and send the visitor to the matching URL.
+  it('injects the client-side locale redirect on every page', async () => {
+    const { injectScript } = await runConfigSetup();
+
+    expect(injectScript).toHaveBeenCalledWith(
+      'page',
+      expect.stringContaining('redirectToStoredLocale()')
+    );
+  });
+
+  // `astro preview` runs no Vite plugin, so the integration announces the
+  // proxy there; `dev` and `build` are announced by the bundled Vite plugin.
+  it('announces the proxy for preview only', async () => {
+    mockLogger.mockClear();
+
+    await runConfigSetup('preview');
+    expect(mockLogger).toHaveBeenCalledTimes(1);
+    expect(mockLogger).toHaveBeenCalledWith(
+      expect.stringMatching(/^Intlayer proxy .*enabled.*$/),
+      { level: 'info' }
+    );
+    expect(mockLogger.mock.calls[0][0]).not.toContain('disabled');
+
+    mockLogger.mockClear();
+    await runConfigSetup('dev');
+    await runConfigSetup('build');
+    await runConfigSetup('sync');
+    expect(mockLogger).not.toHaveBeenCalled();
   });
 });
 

@@ -28,6 +28,40 @@ const PROXY_PLUGIN_NAME = 'vite-intlayer-middleware-plugin';
  */
 const NITRO_PREVIEW_PLUGIN_NAME = 'nitro:preview';
 
+/**
+ * Server config of a Vite dev server, narrowed to the fields inspected below.
+ */
+type DevServerLike = {
+  config: { server: { middlewareMode?: unknown; hmr?: unknown; ws?: unknown } };
+};
+
+/**
+ * Detects a throwaway Vite server that never receives a browser request.
+ *
+ * Astro's `sync` step (run by `astro build`) boots a middleware-mode server
+ * with HMR and its WebSocket server disabled, only to load the content config,
+ * and tears it down right after. Announcing the proxy there reads as if the
+ * static build were locale-routed, so the banner is skipped for such servers.
+ */
+const isThrowawayServer = ({ config: { server } }: DevServerLike): boolean =>
+  Boolean(server.middlewareMode) && server.hmr === false && server.ws === false;
+
+/**
+ * Restricts a proxy middleware to its redirects: a request the proxy lets
+ * through continues with the URL the browser sent, any internal rewrite
+ * undone, for a downstream server that runs the full proxy itself.
+ */
+export const createRedirectOnlyMiddleware =
+  (handler: NodeMiddleware): NodeMiddleware =>
+  (req, res, next) => {
+    const originalUrl = req.url;
+
+    handler(req, res, () => {
+      req.url = originalUrl;
+      next();
+    });
+  };
+
 export type IntlayerProxyPluginOptions = {
   /**
    * A function that allows you to ignore specific requests from the intlayer proxy.
@@ -55,12 +89,15 @@ export type IntlayerProxyPluginOptions = {
    */
   configOptions?: GetConfigurationOptions;
   /**
-   * Whether a development or preview server is serving the app.
+   * Whether a development server is serving the app.
    *
-   * Set internally by the plugin from `configureServer` /
-   * `configurePreviewServer`. It only matters in the proxy's auto mode, where
-   * a dev server keeps locale routing URL-driven by ignoring the stored locale
-   * as a redirect source.
+   * Set internally by the plugin from `configureServer`. It only matters in
+   * the proxy's auto mode, where a dev server keeps locale routing URL-driven
+   * by ignoring the stored locale as a redirect source.
+   *
+   * A preview server (`vite preview`) serves the production build, so it is
+   * *not* a dev server: the stored locale drives redirects there, as it does
+   * on the deployed app.
    *
    * Defaults to `false` so that mounting `createIntlayerProxyHandler()`
    * manually — the documented production Nitro setup — keeps full behaviour.
@@ -158,26 +195,33 @@ export const resolveNitroHandlerPath = (
   normalizePath(toPath(new URL('./intlayerNitroHandler.mjs', moduleUrl)));
 
 export const intlayerProxy = (options?: IntlayerProxyPluginOptions): Plugin => {
-  // Dev and preview servers run the same handler; both are "dev servers" as far
-  // as auto mode is concerned, so a single instance covers both hooks.
-  const handler = createIntlayerProxyHandler({ ...options, isDevServer: true });
   const intlayerConfig = getConfiguration(options?.configOptions);
   const logger = getAppLogger(intlayerConfig);
+  const proxyMode = resolveProxyMode(intlayerConfig.routing.enableProxy);
 
-  // Both hooks below serve a dev or preview server, hence the hard-coded true.
-  const isStorageLocaleSuppressed = !isProxyStorageLocaleEnabled(
-    resolveProxyMode(intlayerConfig.routing.enableProxy),
-    true
-  );
+  // The dev server is the only place auto mode suppresses the stored locale.
+  // The preview server serves the production build (`vite build` output), so
+  // it runs the production handler: a locale cookie must redirect there
+  // exactly as it will once deployed, otherwise `vite preview` cannot be used
+  // to check that behaviour. Built on demand: a build mounts neither.
+  const createHandler = (isDevServer: boolean): NodeMiddleware =>
+    createProxyHandler({
+      configuration: intlayerConfig,
+      ignore: options?.ignore,
+      isDevServer,
+    });
 
   /**
    * Logs that the proxy is serving requests, spelling out when auto mode has
    * suppressed the stored locale so the reported state matches the behaviour.
    */
-  const logProxyEnabled = () =>
-    logger(formatProxyEnabledMessage(isStorageLocaleSuppressed), {
-      level: 'info',
-    });
+  const logProxyEnabled = (isDevServer: boolean) =>
+    logger(
+      formatProxyEnabledMessage(
+        !isProxyStorageLocaleEnabled(proxyMode, isDevServer)
+      ),
+      { level: 'info' }
+    );
 
   // Ensures the proxy registers its middleware only once, even when it is
   // registered both via `intlayer()` (which now bundles it) and a manual
@@ -235,15 +279,38 @@ export const intlayerProxy = (options?: IntlayerProxyPluginOptions): Plugin => {
     },
   };
 
+  // `configResolved` runs once per Vite build the plugin instance takes part
+  // in (Astro runs a server and a client build from the same instances).
+  let hasAnnouncedBuild = false;
+
+  /**
+   * Announces the proxy at build time. A build never reads the stored locale:
+   * it only prerenders pages served to every visitor, and a static output has
+   * no server to redirect from until `preview` or a host mounts the handler.
+   */
+  const announceBuild = () => {
+    if (hasAnnouncedBuild) return;
+    hasAnnouncedBuild = true;
+    logger(formatProxyEnabledMessage(true, 'build'), { level: 'info' });
+  };
+
   const plugin = {
     name: PROXY_PLUGIN_NAME,
+    // The preview layer must be mounted ahead of the `nitro:preview`
+    // middleware, which answers every request itself, whatever the order of
+    // the plugins in the user's Vite config.
+    enforce: 'pre',
     // Decide whether this is the primary instance before registering middleware.
-    configResolved: (config: { plugins: readonly { name: string }[] }) => {
+    configResolved: (config: {
+      command: 'build' | 'serve';
+      plugins: readonly { name: string }[];
+    }) => {
       guard.resolve(config);
       isNitroServingPreview = config.plugins.some(
         (registeredPlugin) =>
           registeredPlugin.name === NITRO_PREVIEW_PLUGIN_NAME
       );
+      if (guard.isPrimary && config.command === 'build') announceBuild();
     },
     // Injected into nitroConfig.modules by the `nitro/vite` plugin so the
     // locale-routing middleware is registered in the production Nitro server.
@@ -252,22 +319,34 @@ export const intlayerProxy = (options?: IntlayerProxyPluginOptions): Plugin => {
     // Vite dev server
     configureServer: (server) => {
       if (!guard.isPrimary) return;
-      logProxyEnabled();
-      server.middlewares.use(handler);
+      if (!isThrowawayServer(server)) logProxyEnabled(true);
+      server.middlewares.use(createHandler(true));
     },
     // Vite preview server
     configurePreviewServer: (server) => {
       if (!guard.isPrimary) return;
+
+      const previewHandler = createHandler(false);
+
+      if (!isNitroServingPreview) {
+        logProxyEnabled(false);
+        server.middlewares.use(previewHandler);
+        return;
+      }
+
+      // The built Nitro server announces the proxy itself when it loads, so
+      // nothing is logged here.
+      //
       // With Nitro, the preview server forwards every request to the built
-      // Nitro server, whose pipeline already starts with this proxy. Adding a
-      // second layer here would run locale resolution twice on the same
-      // request: the first pass rewrites `req.url` (and the locale request
-      // header), the second pass reads that rewritten URL as if it came from
-      // the browser and can redirect it back — the redirect ping-pong that
-      // shows up as "max redirects reached" while prerendering.
-      if (isNitroServingPreview) return;
-      logProxyEnabled();
-      server.middlewares.use(handler);
+      // Nitro server, whose pipeline already starts with this proxy — but
+      // Nitro's preview serves the prerendered pages straight from disk,
+      // ahead of that pipeline, so a stored locale would be ignored on exactly
+      // the pages a visitor lands on. Redirects are therefore decided here,
+      // and everything else reaches Nitro with its URL untouched: letting a
+      // rewrite through would make the Nitro pass read `/en/about` as if the
+      // browser had sent it and redirect it back to `/about` — the ping-pong
+      // that shows up as "max redirects reached" while prerendering.
+      server.middlewares.use(createRedirectOnlyMiddleware(previewHandler));
     },
   } as Plugin;
 

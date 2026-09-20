@@ -126,7 +126,7 @@ const generateEmbedding = async (text: string): Promise<number[]> => {
       input: text,
     });
 
-    return response.data[0].embedding;
+    return response.data[0]?.embedding ?? [];
   } catch (error) {
     logger.error('Error generating embedding:', error);
     return [];

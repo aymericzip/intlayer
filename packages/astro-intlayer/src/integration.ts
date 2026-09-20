@@ -1,6 +1,11 @@
 import { resolve } from 'node:path';
+import { getAppLogger } from '@intlayer/config/logger';
 import { getConfiguration } from '@intlayer/config/node';
 import { getAlias } from '@intlayer/config/utils';
+import {
+  formatProxyEnabledMessage,
+  resolveProxyMode,
+} from '@intlayer/core/localization';
 import { prepareIntlayer } from '@intlayer/engine/build';
 import type { AstroIntegration } from 'astro';
 import type { PluginOption } from 'vite';
@@ -50,7 +55,11 @@ type BuildDoneOptions = Parameters<
  *    optimizations (prune).
  * 3. Configures the Vite aliases for dictionary access.
  * 4. Registers the `astro-intlayer/middleware`, which resolves the request
- *    locale into `Astro.locals.intlayer` for the hooks.
+ *    locale into `Astro.locals.intlayer` for the hooks and redirects
+ *    server-rendered requests to the visitor's locale.
+ * 5. Injects the client-side locale redirect, which does the same for
+ *    prerendered pages: served as static files, nothing else can read the
+ *    stored locale there.
  *
  * The dev-time content watcher is not started here: the bundled
  * `vite-intlayer` plugin already starts one from `configureServer`, and
@@ -58,8 +67,10 @@ type BuildDoneOptions = Parameters<
  * content edit twice.
  */
 export const configSetup = async ({
+  command,
   updateConfig,
   addMiddleware,
+  injectScript,
 }: ConfigSetupOptions): Promise<void> => {
   const configuration = getConfiguration();
 
@@ -72,6 +83,26 @@ export const configSetup = async ({
     entrypoint: 'astro-intlayer/middleware',
     order: 'pre',
   });
+
+  const proxyMode = resolveProxyMode(configuration.routing.enableProxy);
+
+  if (proxyMode !== 'disabled') {
+    injectScript(
+      'page',
+      `import { redirectToStoredLocale } from 'astro-intlayer/client/locale-redirect';\nredirectToStoredLocale();`
+    );
+
+    // `dev` and `build` are announced by the bundled `vite-intlayer` plugin.
+    // `astro preview` runs no Vite plugin, so the served output is announced
+    // here: the stored locale drives redirects again once the output is
+    // served — by the middleware on server-rendered pages, by the injected
+    // script on static ones.
+    if (command === 'preview') {
+      getAppLogger(configuration)(formatProxyEnabledMessage(false), {
+        level: 'info',
+      });
+    }
+  }
 
   updateConfig({
     vite: {

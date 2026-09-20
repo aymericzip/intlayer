@@ -1,4 +1,3 @@
-import type { IncomingMessage, ServerResponse } from 'node:http';
 /**
  * The configuration as a plain JSON object.
  *
@@ -13,7 +12,8 @@ import * as builtConfiguration from '@intlayer/config/built';
 import { getAppLogger } from '@intlayer/config/logger';
 import { formatProxyEnabledMessage } from '@intlayer/core/localization';
 import type { IntlayerConfig } from '@intlayer/types/config';
-import { createProxyHandler } from './intlayerProxyHandler';
+import { createProxyHandler, isPrerenderProcess } from './intlayerProxyHandler';
+import { runProxyOnWebRequest } from './intlayerWebProxyHandler';
 
 /**
  * Minimal duck-type for h3 v2's H3Event.
@@ -24,11 +24,6 @@ import { createProxyHandler } from './intlayerProxyHandler';
  * works with any h3 v2-compatible runtime (Bun, Deno, Node).
  */
 type H3EventLike = {
-  /**
-   * pathname + search — a computed getter on H3Event:
-   * `return this.url.pathname + this.url.search`
-   */
-  readonly path: string;
   /**
    * Full URL object — a **plain property** (not a getter) on H3Event, safe to
    * replace for internal URL rewrites. After assignment, `event.path` will
@@ -51,13 +46,14 @@ type H3EventLike = {
 
 const intlayerConfig = builtConfiguration as unknown as IntlayerConfig;
 const logger = getAppLogger(intlayerConfig);
-// A Nitro server is a production server, so the stored locale always drives
-// redirects here — hence the `false`. This runs once per server process; the
-// Vite preview server deliberately does not add a second proxy layer on top of
-// this one (see `configurePreviewServer` in `intlayerProxyPlugin`).
-logger(formatProxyEnabledMessage(false), {
-  level: 'info',
-});
+// A Nitro server is a production server, so the stored locale drives redirects
+// here — hence the `false`. Announced once per server process, except while a
+// build prerenders through this server: the build already announced the proxy
+// (see `announceBuild` in `intlayerProxyPlugin`), and every request of that
+// pass is a prerender request anyway.
+if (!isPrerenderProcess()) {
+  logger(formatProxyEnabledMessage(false), { level: 'info' });
+}
 
 const nodeMiddleware = createProxyHandler({ configuration: intlayerConfig });
 
@@ -69,8 +65,8 @@ const nodeMiddleware = createProxyHandler({ configuration: intlayerConfig });
  * and Deno — where `event.node` is `undefined` and `fromNodeMiddleware` crashes with
  * "undefined is not an object (evaluating 'event.node.req')".
  *
- * It bridges h3 v2 events to the Node.js-style proxy middleware
- * via lightweight IncomingMessage / ServerResponse shims:
+ * It bridges h3 v2 events to the Node.js-style proxy middleware through
+ * `runProxyOnWebRequest`:
  *
  * - **Redirect** (301 / 5xx): builds a Web API `Response` and returns it — Nitro sends
  *   the correct HTTP response to the browser.
@@ -80,134 +76,33 @@ const nodeMiddleware = createProxyHandler({ configuration: intlayerConfig });
  * - **Pass-through** (`next()`, URL unchanged): returns `undefined` — Nitro proceeds to
  *   the next handler / route.
  */
-export default async (event: H3EventLike): Promise<Response | void> =>
-  new Promise<Response | void>((resolve) => {
-    const initialPath = event.path;
-
-    /**
-     * Minimal IncomingMessage shim.
-     *
-     * Only the fields actually read by the proxy middleware are populated:
-     *   - url            : the current pathname + search, modified for rewrites
-     *   - headers.cookie : locale cookie detection
-     *   - headers.host   : domain-based locale routing
-     *   - headers.accept-language : browser Accept-Language fallback
-     *   - headers.x-forwarded-* : forwarded host/proto for reverse-proxy setups
-     *   - headers.x-nitro-prerender : marks a request issued by Nitro's
-     *     prerenderer, which keeps the generated page URL-driven
-     *
-     * headers must be a mutable plain object because setLocaleInStorageServer
-     * writes Set-Cookie back via req.headers[name] = value.
-     */
-    const fakeReq = {
-      url: initialPath,
-      method: 'GET',
-      headers: {
-        cookie: event.headers.get('cookie') ?? '',
-        host: event.headers.get('host') ?? '',
-        'accept-language': event.headers.get('accept-language') ?? '',
-        'x-forwarded-host': event.headers.get('x-forwarded-host') ?? '',
-        'x-forwarded-proto': event.headers.get('x-forwarded-proto') ?? '',
-        'x-nitro-prerender': event.headers.get('x-nitro-prerender') ?? '',
-      } as Record<string, string>,
-    } as unknown as IncomingMessage;
-
-    let responseStatusCode = 200;
-    const accumulatedHeaders: Record<string, string> = {};
-
-    /**
-     * Minimal ServerResponse shim.
-     *
-     * Implements only the methods that the proxy middleware invokes:
-     *   writeHead() — status + Location header for 301 redirects
-     *   setHeader() — Set-Cookie written by setLocaleInStorageServer
-     *   getHeader() — defensive read-back (not strictly required but safe)
-     *   end()       — finalises the response; for redirects this returns a
-     *                 Web API Response object that Nitro sends to the client
-     */
-    const fakeRes = {
-      writeHead(
-        statusCode: number,
-        headersArg?: Record<string, string | string[] | number> | string
-      ) {
-        // Capture the status code and any headers supplied alongside writeHead.
-        responseStatusCode = statusCode;
-        if (headersArg && typeof headersArg === 'object') {
-          for (const [key, value] of Object.entries(headersArg)) {
-            accumulatedHeaders[key.toLowerCase()] = Array.isArray(value)
-              ? (value[0] ?? '')
-              : String(value);
-          }
-        }
-        return fakeRes;
-      },
-      setHeader(name: string, value: string | number | string[]) {
-        // Capture Set-Cookie and other outgoing headers.
-        accumulatedHeaders[name.toLowerCase()] = Array.isArray(value)
-          ? (value[0] ?? '')
-          : String(value);
-        return fakeRes;
-      },
-      getHeader(name: string) {
-        return accumulatedHeaders[name.toLowerCase()];
-      },
-      getHeaders() {
-        return { ...accumulatedHeaders };
-      },
-      end(body?: string | Buffer | null) {
-        // Build a Web API Response from accumulated status + headers + body.
-        // For 3xx redirects the body is intentionally null.
-        const webHeaders = new Headers();
-        for (const [key, value] of Object.entries(accumulatedHeaders)) {
-          webHeaders.set(key, value);
-        }
-        const isRedirect =
-          responseStatusCode >= 300 && responseStatusCode < 400;
-        resolve(
-          new Response(
-            isRedirect ? null : typeof body === 'string' ? body : null,
-            {
-              status: responseStatusCode,
-              headers: webHeaders,
-            }
-          )
-        );
-        return fakeRes;
-      },
-      headersSent: false,
-    } as unknown as ServerResponse<IncomingMessage>;
-
-    nodeMiddleware(fakeReq, fakeRes, () => {
-      // Middleware called next() — either a URL rewrite or a true pass-through.
-      const rewrittenPath = fakeReq.url as string;
-
-      if (rewrittenPath !== initialPath) {
-        // The middleware rewrote the URL (e.g. /about → /en/about for locale prefix).
-        // Replace event.url so that event.path (the getter: url.pathname + url.search)
-        // returns the new path and the Nitro router matches the correct route.
-        //
-        // event.url is a plain property on h3 v2's H3Event (not a getter), so direct
-        // assignment is safe. We use event.url.origin as the base so relative paths
-        // resolve correctly; for path-only requests origin defaults to http://localhost.
-        try {
-          event.url = new URL(rewrittenPath, event.url.origin);
-        } catch {
-          console.error(
-            '[intlayer-proxy] URL rewrite failed — invalid path:',
-            rewrittenPath
-          );
-        }
-      }
-
-      // Forward any Set-Cookie or custom headers set by setLocaleInStorageServer to
-      // the h3 v2 response object so they are included in the outgoing HTTP response.
-      // Accessing event.res lazily creates the H3EventResponse (no cost if empty).
-      if (Object.keys(accumulatedHeaders).length > 0) {
-        for (const [key, value] of Object.entries(accumulatedHeaders)) {
-          event.res.headers.set(key, value);
-        }
-      }
-
-      resolve(undefined);
-    });
+export default (event: H3EventLike): Response | undefined => {
+  const outcome = runProxyOnWebRequest(nodeMiddleware, {
+    url: event.url,
+    headers: event.headers,
   });
+
+  if (outcome.kind === 'response') return outcome.response;
+
+  if (outcome.rewrittenPath) {
+    // Replace event.url so that event.path (the getter: url.pathname +
+    // url.search) returns the new path and the Nitro router matches the
+    // correct route. event.url is a plain property on h3 v2's H3Event (not a
+    // getter), so direct assignment is safe.
+    try {
+      event.url = new URL(outcome.rewrittenPath, event.url.origin);
+    } catch {
+      console.error(
+        '[intlayer-proxy] URL rewrite failed — invalid path:',
+        outcome.rewrittenPath
+      );
+    }
+  }
+
+  // Forward Set-Cookie / custom headers written by setLocaleInStorageServer to
+  // the h3 v2 response. Accessing event.res lazily creates the H3EventResponse
+  // (no cost if empty).
+  for (const [name, value] of outcome.headers) {
+    event.res.headers.append(name, value);
+  }
+};

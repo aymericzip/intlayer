@@ -458,7 +458,7 @@ const pathWithoutLocale = getPathWithoutLocale(Astro.url.pathname);
 ```
 
 > **Note on Persistence:**
-> `setLocale` from the client-side `useLocale` saves the user's language preference in a cookie. This allows the Intlayer middleware to remember the choice and automatically redirect the user to their preferred language on future visits.
+> `setLocale` from the client-side `useLocale` saves the user's language preference in a cookie. This allows Intlayer to remember the choice and automatically redirect the user to their preferred language on future visits: on-demand rendered pages (an adapter with `output: 'server'` or `prerender = false`) are redirected by the Intlayer middleware before any HTML is sent, while prerendered pages, served as static files, are redirected by a small script the integration injects in every page. Set `routing.enableProxy` to `false` to turn both off. In `astro dev`, the cookie is ignored as a redirect source unless `routing.enableProxy` is set to `true`, so a stale cookie cannot hijack the pages you are working on.
 >
 > **Server / client intercompatibility:**
 > `astro-intlayer` resolves to its server hooks in the frontmatter (reading `Astro.locals`) and to the client hooks of `vanilla-intlayer` in `<script>` blocks and islands, with the same names and content shape. `setLocale` and `onChange` only act on the client — call `installIntlayer()` there once to seed the client store. `astro-intlayer/client` exposes the client entry explicitly.

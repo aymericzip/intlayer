@@ -47,6 +47,11 @@
       "import": "./dist/esm/intlayerNitroHandler.mjs",
       "default": "./dist/esm/intlayerNitroHandler.mjs"
     },
+    "./web-proxy-handler": {
+      "types": "./dist/types/intlayerWebProxyHandler.d.ts",
+      "import": "./dist/esm/intlayerWebProxyHandler.mjs",
+      "default": "./dist/esm/intlayerWebProxyHandler.mjs"
+    },
     "./package.json": "./package.json"
   },
   "main": "./dist/esm/index.mjs",

@@ -77,6 +77,11 @@
       "require": "./dist/cjs/client/index.cjs",
       "import": "./dist/esm/client/index.mjs"
     },
+    "./client/locale-redirect": {
+      "types": "./dist/types/client/localeRedirect.d.ts",
+      "require": "./dist/cjs/client/localeRedirect.cjs",
+      "import": "./dist/esm/client/localeRedirect.mjs"
+    },
     "./integration": {
       "types": "./dist/types/integration.d.ts",
       "require": "./dist/cjs/integration.cjs",
@@ -115,6 +120,9 @@
     "*": {
       "client": [
         "./dist/types/client/index.d.ts"
+      ],
+      "client/locale-redirect": [
+        "./dist/types/client/localeRedirect.d.ts"
       ],
       "format": [
         "./dist/types/format/index.d.ts"

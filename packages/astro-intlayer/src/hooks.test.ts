@@ -29,6 +29,7 @@ vi.mock('@intlayer/dictionaries-entry', () => ({
 type RenderResult = {
   locals: { intlayer: IntlayerLocals };
   rendered: string;
+  response: Response;
 };
 
 /**
@@ -56,7 +57,7 @@ const render = async (
 
   let rendered = '';
 
-  await onRequest(context, async () => {
+  const response = await onRequest(context, async () => {
     await Promise.resolve();
     const { locale } = useLocale();
     rendered = `<p lang="${locale}">${useIntlayer('greeting').title.value}</p>`;
@@ -64,7 +65,11 @@ const render = async (
     return new Response(rendered);
   });
 
-  return { locals: context.locals as RenderResult['locals'], rendered };
+  return {
+    locals: context.locals as RenderResult['locals'],
+    rendered,
+    response,
+  };
 };
 
 describe('astro-intlayer middleware', () => {
@@ -83,10 +88,26 @@ describe('astro-intlayer middleware', () => {
 
   it('treats an unprefixed path as the default locale', async () => {
     const { locals, rendered } = await render('/about', {
-      'accept-language': 'fr',
+      'accept-language': 'en',
     });
 
     expect(locals.intlayer.locale).toBe('en');
+    expect(rendered).toBe('<p lang="en">Hello</p>');
+  });
+
+  // Same redirect as the Intlayer proxy on a server-rendered request: the
+  // negotiated locale is not the default one, so the URL must name it.
+  it('redirects a server-rendered request to its negotiated locale', async () => {
+    const { response } = await render('/about', { 'accept-language': 'fr' });
+
+    expect(response.status).toBe(302);
+    expect(response.headers.get('location')).toBe('/fr/about');
+  });
+
+  it('never redirects a prerendered page', async () => {
+    const { response, rendered } = await render('/about', {}, true);
+
+    expect(response.status).toBe(200);
     expect(rendered).toBe('<p lang="en">Hello</p>');
   });
 
@@ -97,7 +118,7 @@ describe('astro-intlayer middleware', () => {
   });
 
   it('isolates concurrent renders', async () => {
-    const [french, english] = await Promise.all([render('/fr'), render('/en')]);
+    const [french, english] = await Promise.all([render('/fr'), render('/')]);
 
     expect(french.rendered).toBe('<p lang="fr">Bonjour</p>');
     expect(english.rendered).toBe('<p lang="en">Hello</p>');

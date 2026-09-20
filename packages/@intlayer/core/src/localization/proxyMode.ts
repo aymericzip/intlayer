@@ -77,6 +77,15 @@ export const isProxyStorageLocaleEnabled = (
 ): boolean => !(proxyMode === 'auto' && isDevServer);
 
 /**
+ * Why the stored locale is not driving redirects while a process runs.
+ *
+ * - `'dev'` — a development or preview server keeps routing URL-driven.
+ * - `'build'` — a build only prerenders pages, which are served to every
+ *   visitor and therefore never read a cookie.
+ */
+export type ProxyStorageSuppressionPurpose = 'dev' | 'build';
+
+/**
  * Builds the line announcing that a server has mounted the locale-routing
  * proxy.
  *
@@ -92,24 +101,28 @@ export const isProxyStorageLocaleEnabled = (
  *
  * @param isStorageLocaleSuppressed - Whether the stored locale is barred from
  *   driving redirects, i.e. the negation of {@link isProxyStorageLocaleEnabled}.
+ * @param purpose - What the running process is, named in the suppression note.
  * @returns An ANSI-coloured, ready-to-log message.
  *
  * @example
  * ```ts
  * formatProxyEnabledMessage(true);
  * // Intlayer proxy enabled - storage redirection disabled for dev purpose
+ * formatProxyEnabledMessage(true, 'build');
+ * // Intlayer proxy enabled - storage redirection disabled for build purpose
  * formatProxyEnabledMessage(false);
  * // Intlayer proxy enabled
  * ```
  */
 export const formatProxyEnabledMessage = (
-  isStorageLocaleSuppressed: boolean
+  isStorageLocaleSuppressed: boolean,
+  purpose: ProxyStorageSuppressionPurpose = 'dev'
 ): string =>
   [
     `Intlayer proxy ${colorize('enabled', ANSIColors.GREEN)}`,
     isStorageLocaleSuppressed &&
       colorize(
-        '- storage redirection disabled for dev purpose',
+        `- storage redirection disabled for ${purpose} purpose`,
         ANSIColors.GREY
       ),
   ]
