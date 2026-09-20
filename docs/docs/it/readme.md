@@ -199,7 +199,8 @@ Esplora la nostra documentazione esaustiva per iniziare con Intlayer e imparare 
   <li><a href="https://intlayer.org/doc/environment/create-react-app" rel=''>React CRA</a></li>
   <li><a href="https://intlayer.org/doc/environment/vite-and-react" rel=''>Vite + React</a></li>
   <li><a href="https://intlayer.org/doc/environment/vite-and-react" rel=''>Vite + React utilizzando il compilatore</a></li>
-  <li><a href="https://intlayer.org/doc/environment/vite-and-react/compiler" rel=''>React-router-v7</a></li>
+  <li><a href="https://intlayer.org/doc/environment/vite-and-react/react-router-v7" rel=''>React-router-v7</a></li>
+  <li><a href="https://intlayer.org/doc/environment/remix-3" rel=''>Remix 3</a></li>
   <li><a href="https://intlayer.org/doc/environment/tanstack-start" rel=''>Tanstack start</a>
     <ul>
       <li><a href="https://intlayer.org/doc/environment/tanstack-start/solid" rel=''>Solid</a></li>
