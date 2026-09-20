@@ -30,7 +30,7 @@
     "@intlayer/core": "workspace:*",
     "@intlayer/design-system": "workspace:*",
     "@intlayer/types": "workspace:*",
-    "@posthog/react": "1.11.0",
+    "@posthog/react": "1.11.1",
     "@tailwindcss/aspect-ratio": "0.4.2",
     "@tailwindcss/vite": "4.3.3",
     "@tanstack/match-sorter-utils": "9.1.2",

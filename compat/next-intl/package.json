@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/next-intl",
-  "version": "9.5.5",
+  "version": "9.5.6",
   "private": false,
   "description": "next-intl API adapter for intlayer — useTranslations, useLocale, getTranslations, getLocale, NextIntlClientProvider backed by next-intlayer",
   "keywords": [

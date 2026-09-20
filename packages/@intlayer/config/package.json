@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/config",
-  "version": "9.5.5",
+  "version": "9.5.6",
   "private": false,
   "description": "Retrieve Intlayer configurations and manage environment variables for both server-side and client-side environments.",
   "keywords": [
@@ -192,7 +192,7 @@
   "dependencies": {
     "@intlayer/types": "workspace:*",
     "defu": "6.1.7",
-    "dotenv": "18.0.0",
+    "dotenv": "18.0.1",
     "esbuild": "0.28.2",
     "json5": "2.2.3",
     "zod": "4.6.5"
