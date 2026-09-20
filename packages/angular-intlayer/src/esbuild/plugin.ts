@@ -274,6 +274,20 @@ export const intlayerEsbuildPlugin = (
         ...getConfigEnvVars(config, wrapKey, wrapValue),
       };
 
+      // Dictionaries must exist on disk before the tree-shaking flags below
+      // are derived from them: on a clean checkout (CI, Vercel…) nothing is
+      // generated yet, so reading them first reports every node type as
+      // unused and strips the translation plugin from the production bundle.
+      if (!preparePromise) {
+        preparePromise = prepareIntlayer(config, {
+          clean: isProduction,
+          cacheTimeoutMs: isProduction ? 1000 * 30 : 1000 * 60 * 60,
+          env: isProduction ? 'prod' : 'dev',
+        });
+      }
+
+      await preparePromise;
+
       if (isProduction) {
         const dictionaries = getDictionaries(config);
         if (Object.keys(dictionaries).length === 0) {
@@ -408,16 +422,6 @@ export const intlayerEsbuildPlugin = (
           }
         );
       }
-
-      if (!preparePromise) {
-        preparePromise = prepareIntlayer(config, {
-          clean: isProduction,
-          cacheTimeoutMs: isProduction ? 1000 * 30 : 1000 * 60 * 60,
-          env: isProduction ? 'prod' : 'dev',
-        });
-      }
-
-      await preparePromise;
 
       build.onStart(async () => {
         // `@angular/core` is always installed and never worth excluding from
