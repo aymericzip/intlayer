@@ -20,7 +20,8 @@
  */
 
 import { spawnSync } from 'node:child_process';
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync, rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
 import { dirname, join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseArgs } from 'node:util';
@@ -80,19 +81,46 @@ const listPublishedPackages = () => {
 };
 
 /**
- * Runs an npm command, letting the user interact with npm's authentication
- * prompts (stdin/stderr are inherited) while capturing stdout for inspection.
+ * Runs an npm command with the terminal fully attached, so npm can drive its
+ * web authentication (2FA) prompt.
  * @param {string[]} args
- * @returns {{ status: number | null; stdout: string }}
+ * @returns {number | null}
  */
-const runNpm = (args) => {
-  const result = spawnSync('npm', args, {
+const runNpm = (args) =>
+  spawnSync('npm', args, { cwd: rootDirectory, stdio: 'inherit' }).status;
+
+/**
+ * Runs an npm command and captures its output while keeping the terminal
+ * attached. npm refuses to start its web authentication (2FA) flow when stdout
+ * is not a TTY, so the command runs inside a pseudo-terminal allocated by
+ * `script` (macOS / Linux), which mirrors the output into a transcript file.
+ * Windows has no `script`; npm then falls back to its non-interactive
+ * behaviour there.
+ * @param {string[]} args
+ * @returns {{ status: number | null; output: string }}
+ */
+const runNpmCapturingOutput = (args) => {
+  const transcriptPath = join(tmpdir(), `npm-trust-${process.pid}.log`);
+  const npmCommand = ['npm', ...args];
+  const [command, commandArgs, stdout] =
+    process.platform === 'darwin'
+      ? ['script', ['-q', transcriptPath, ...npmCommand], 'inherit']
+      : process.platform === 'linux'
+        ? ['script', ['-qec', npmCommand.join(' '), transcriptPath], 'inherit']
+        : ['npm', args, 'pipe'];
+
+  const result = spawnSync(command, commandArgs, {
     cwd: rootDirectory,
-    stdio: ['inherit', 'pipe', 'inherit'],
+    stdio: ['inherit', stdout, 'inherit'],
     encoding: 'utf8',
   });
 
-  return { status: result.status, stdout: result.stdout ?? '' };
+  const output = existsSync(transcriptPath)
+    ? readFileSync(transcriptPath, 'utf8')
+    : (result.stdout ?? '');
+  rmSync(transcriptPath, { force: true });
+
+  return { status: result.status, output };
 };
 
 /**
@@ -101,13 +129,17 @@ const runNpm = (args) => {
  * @returns {boolean}
  */
 const isAlreadyTrusted = (packageName) => {
-  const { status, stdout } = runNpm(['trust', 'list', packageName]);
+  const { status, output } = runNpmCapturingOutput([
+    'trust',
+    'list',
+    packageName,
+  ]);
 
   if (status !== 0) {
     throw new Error(`npm trust list failed for ${packageName}`);
   }
 
-  return !stdout.includes('No trust configurations found');
+  return !output.includes('No trust configurations found');
 };
 
 /**
@@ -134,10 +166,7 @@ const trustPackage = (packageName) => {
     return;
   }
 
-  const { status, stdout } = runNpm(args);
-  process.stdout.write(stdout);
-
-  if (status !== 0) {
+  if (runNpm(args) !== 0) {
     throw new Error(`npm trust github failed for ${packageName}`);
   }
 };
