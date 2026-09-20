@@ -12,6 +12,16 @@
 #
 # The `npm` GitHub environment can require reviewers, which turns the run into
 # a "click to approve" release gate.
+#
+# The `intlayer-swc-plugin` crate is published to crates.io the same way
+# (trusted publishing through OIDC, no `CARGO_REGISTRY_TOKEN` secret).
+#
+# One-time setup on crates.io:
+#   Crate → Settings → Trusted Publishing → Add GitHub
+#     Repository owner:     aymericzip
+#     Repository name:      intlayer
+#     Workflow filename:    publish.yaml
+#     Environment:          crates-io
 
 name: 📦 Publish to npm
 
@@ -112,3 +122,65 @@ jobs:
         # turbo builds each package (dependsOn build + prepublish) before
         # publishing it, in dependency order
         run: bun run publish:ci
+
+  publish-crate:
+    needs: check-version
+    if: ${{ github.repository_owner == 'aymericzip' && needs.check-version.outputs.changed == 'true' }}
+
+    name: 🦀 Publish to crates.io
+    runs-on: ubuntu-latest
+    environment: crates-io
+    defaults:
+      run:
+        working-directory: packages/@intlayer/swc
+    steps:
+      - name: ⬇️ Checkout
+        uses: actions/checkout@v4
+
+      - name: 🥡 Setup bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          version: 1.4.2
+          run_install: false
+
+      - name: 🦀 Setup rust
+        uses: dtolnay/rust-toolchain@1.89.0
+
+      - name: 🔆 Cache cargo
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: packages/@intlayer/swc
+
+      # The version bump only touches package.json files: align the crate
+      # manifest with the npm version being released.
+      - name: 🔁 Sync crate version
+        run: bun ../../../scripts/sync-crate-version.mjs
+
+      # Republishing an existing version is an error for cargo, so skip it to
+      # let a partially failed release be re-run, like the npm job does.
+      - name: 🔎 Check crates.io
+        id: registry
+        run: |
+          VERSION=$(bun -e 'console.log(require("./package.json").version)')
+          STATUS=$(curl -s -o /dev/null -w '%{http_code}' \
+            -H 'User-Agent: intlayer publish workflow (https://github.com/aymericzip/intlayer)' \
+            "https://crates.io/api/v1/crates/intlayer-swc-plugin/$VERSION")
+          if [ "$STATUS" = "200" ]; then
+            echo "⚠️  intlayer-swc-plugin@$VERSION is already published, skipping"
+            echo "published=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "📦 intlayer-swc-plugin@$VERSION"
+            echo "published=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: 🔐 Authenticate to crates.io
+        if: ${{ steps.registry.outputs.published == 'false' && !inputs.dry-run }}
+        id: auth
+        uses: rust-lang/crates-io-auth-action@v1
+
+      # `--allow-dirty`: the synced manifest is not committed on the runner.
+      - name: 🚀 Publish crate
+        if: ${{ steps.registry.outputs.published == 'false' }}
+        env:
+          CARGO_REGISTRY_TOKEN: ${{ steps.auth.outputs.token }}
+        run: cargo publish --allow-dirty ${{ inputs.dry-run && '--dry-run' || '' }}
