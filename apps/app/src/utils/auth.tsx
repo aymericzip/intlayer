@@ -13,6 +13,7 @@ import {
   type LocalesValues,
 } from 'intlayer';
 import { accessValidation } from '#components/Auth/AuthenticationBarrier/accessValidation';
+import { IS_PRERENDERING } from '#utils/selfHosted';
 
 interface ValidateAuthProps {
   queryClient: QueryClient;
@@ -41,6 +42,11 @@ const SESSION_FETCH_TIMEOUT_MS = 5_000;
 const safeGetSession = async (query?: {
   disableCookieCache?: boolean;
 }): Promise<SessionAPI | null> => {
+  // The prerender is SSR without cookies, so there is never a session to
+  // fetch — and at image-build time no backend is listening anyway. Skip the
+  // round-trip (and its 5 s timeout) instead of logging a failure per page.
+  if (IS_PRERENDERING) return null;
+
   const intlayerAPI = getAuthAPI();
   const headers = await getSafeHeaders();
   try {

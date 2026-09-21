@@ -1,5 +1,5 @@
 import { getStatusAPI } from '@intlayer/api/status';
-import { IS_SELF_HOSTED } from '#utils/selfHosted';
+import { IS_PRERENDERING, IS_SELF_HOSTED } from '#utils/selfHosted';
 
 /**
  * Fetches whether the instance still needs its initial setup, i.e. whether the
@@ -15,6 +15,9 @@ import { IS_SELF_HOSTED } from '#utils/selfHosted';
  */
 const safeGetSetupStatus = async (): Promise<boolean> => {
   if (!IS_SELF_HOSTED) return false;
+  // No backend is reachable while TanStack Start prerenders the image; the
+  // status is re-checked on the first real request.
+  if (IS_PRERENDERING) return false;
 
   try {
     const statusAPI = getStatusAPI();

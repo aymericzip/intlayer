@@ -2,6 +2,16 @@ import { redirect } from '@tanstack/react-router';
 import type { LocalesValues } from 'intlayer';
 
 /**
+ * Whether the current server process is TanStack Start's build-time prerender.
+ *
+ * The prerender is SSR without cookies and, in the Docker image, without any
+ * backend listening — loaders that would hit the API should short-circuit.
+ * Always `false` in the browser, where `process` is not defined.
+ */
+export const IS_PRERENDERING: boolean =
+  typeof process !== 'undefined' && process.env?.TSS_PRERENDERING === 'true';
+
+/**
  * Whether the dashboard is running in self-hosted mode.
  *
  * In self-hosted mode every cloud-only / monetization feature is disabled:
