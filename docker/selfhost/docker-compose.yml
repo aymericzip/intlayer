@@ -1,0 +1,163 @@
+# Intlayer self-hosting — one process per container.
+#
+# The scalable counterpart of the all-in-one image: the dashboard, the API and
+# each datastore run in their own container, so they can be sized, replaced
+# (managed MongoDB / Redis / S3) or scaled independently.
+#
+#   cp .env.template .env      # then fill in the values marked TODO
+#   docker compose up -d
+#   open http://localhost:3000
+#
+# Images are pulled from GHCR. To build them from a checkout of the monorepo
+# instead, layer the build override on top:
+#   docker compose -f docker-compose.yml -f docker-compose.build.yml up -d --build
+#
+# Reference: https://intlayer.org/doc/self-hosting
+
+name: intlayer
+
+services:
+  # ------------------------------------------------------------------ dashboard
+  app:
+    image: ghcr.io/aymericzip/intlayer-app:${INTLAYER_IMAGE_TAG:-latest}
+    restart: unless-stopped
+    ports:
+      - '${INTLAYER_APP_PORT:-3000}:3000'
+    depends_on:
+      backend:
+        condition: service_healthy
+    healthcheck:
+      test:
+        [
+          'CMD',
+          'bun',
+          '-e',
+          "const r = await fetch('http://localhost:3000/healthz'); process.exit(r.ok ? 0 : 1)",
+        ]
+      interval: 30s
+      timeout: 10s
+      start_period: 15s
+      retries: 3
+
+  # ------------------------------------------------------------------------ api
+  backend:
+    image: ghcr.io/aymericzip/intlayer-backend:${INTLAYER_IMAGE_TAG:-latest}
+    restart: unless-stopped
+    ports:
+      - '${INTLAYER_API_PORT:-3100}:3100'
+    # Secrets and optional integrations come from .env; the service wiring below
+    # is fixed by this file and takes precedence over anything set there.
+    env_file: .env
+    environment:
+      NODE_ENV: production
+      PORT: 3100
+      SELF_HOSTED: 'true'
+      DOMAIN: localhost
+      APP_URL: http://localhost:${INTLAYER_APP_PORT:-3000}
+      BACKEND_URL: http://localhost:${INTLAYER_API_PORT:-3100}
+      MONGODB_URI: mongodb://mongo:27017/intlayer?replicaSet=rs0
+      REDIS_URL: redis://redis:6379
+      S3_ENDPOINT: http://minio:9000
+      S3_PUBLIC_URL: http://localhost:${INTLAYER_S3_PORT:-9000}/${S3_BUCKET_NAME:-intlayer}
+      S3_BUCKET_NAME: ${S3_BUCKET_NAME:-intlayer}
+      S3_ACCESS_KEY_ID: ${S3_ACCESS_KEY_ID:-intlayer}
+      S3_SECRET_ACCESS_KEY: ${S3_SECRET_ACCESS_KEY:?set S3_SECRET_ACCESS_KEY in .env}
+      BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET:?set BETTER_AUTH_SECRET in .env}
+    depends_on:
+      mongo:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      minio-init:
+        condition: service_completed_successfully
+    healthcheck:
+      test:
+        [
+          'CMD',
+          'bun',
+          '-e',
+          "const r = await fetch('http://localhost:3100/health'); process.exit(r.ok ? 0 : 1)",
+        ]
+      interval: 10s
+      timeout: 5s
+      start_period: 30s
+      retries: 5
+
+  # -------------------------------------------------------------------- mongodb
+  # Single-node replica set: transactions and `w=majority` writes need one.
+  # The healthcheck initiates the set on first boot and only reports healthy
+  # once the node is a writable primary, which is what gates the backend.
+  mongo:
+    image: mongo:7
+    restart: unless-stopped
+    command: ['mongod', '--replSet', 'rs0', '--bind_ip_all']
+    volumes:
+      - mongo-data:/data/db
+    healthcheck:
+      test:
+        [
+          'CMD-SHELL',
+          "mongosh --quiet --eval \"try { rs.status() } catch (e) { rs.initiate({ _id: 'rs0', members: [{ _id: 0, host: 'mongo:27017' }] }) }; db.hello().isWritablePrimary ? quit(0) : quit(1)\"",
+        ]
+      interval: 5s
+      timeout: 10s
+      start_period: 10s
+      retries: 30
+
+  # ---------------------------------------------------------------------- redis
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: ['redis-server', '--appendonly', 'yes']
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # ---------------------------------------------------------------------- minio
+  # S3-compatible storage for avatars and screenshots. Port 9000 must be
+  # reachable by the browser: assets are loaded straight from S3_PUBLIC_URL.
+  minio:
+    image: minio/minio:RELEASE.2025-04-22T22-12-26Z
+    restart: unless-stopped
+    command: ['server', '/data', '--console-address', ':9001']
+    environment:
+      MINIO_ROOT_USER: ${S3_ACCESS_KEY_ID:-intlayer}
+      MINIO_ROOT_PASSWORD: ${S3_SECRET_ACCESS_KEY:?set S3_SECRET_ACCESS_KEY in .env}
+    ports:
+      - '${INTLAYER_S3_PORT:-9000}:9000'
+      - '${INTLAYER_CONSOLE_PORT:-9001}:9001'
+    volumes:
+      - minio-data:/data
+    healthcheck:
+      test: ['CMD', 'mc', 'ready', 'local']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # One-shot: create the bucket and allow anonymous downloads. Idempotent.
+  minio-init:
+    image: minio/mc:RELEASE.2025-04-16T18-13-26Z
+    depends_on:
+      minio:
+        condition: service_healthy
+    environment:
+      S3_BUCKET_NAME: ${S3_BUCKET_NAME:-intlayer}
+      S3_ACCESS_KEY_ID: ${S3_ACCESS_KEY_ID:-intlayer}
+      S3_SECRET_ACCESS_KEY: ${S3_SECRET_ACCESS_KEY:?set S3_SECRET_ACCESS_KEY in .env}
+    entrypoint:
+      - sh
+      - -ec
+      - |
+        mc alias set local http://minio:9000 "$$S3_ACCESS_KEY_ID" "$$S3_SECRET_ACCESS_KEY"
+        mc mb --ignore-existing "local/$$S3_BUCKET_NAME"
+        mc anonymous set download "local/$$S3_BUCKET_NAME"
+        echo "bucket '$$S3_BUCKET_NAME' ready"
+
+volumes:
+  mongo-data:
+  redis-data:
+  minio-data:

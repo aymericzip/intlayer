@@ -1,64 +1,95 @@
-# Intlayer self-host — all-in-one image
+# Intlayer self-host images
 
-A single container bundling the **dashboard (app)**, the **API (backend)** and the
-supporting **datastores it can host locally (Redis, MinIO)**, supervised by
-[s6-overlay](https://github.com/just-containers/s6-overlay).
+Everything needed to run Intlayer on your own infrastructure, built from one
+Dockerfile with three targets:
 
-> This is the quick-trial "one box" image, meant to be reached from the **same
-> host** on `http://localhost:3000`. For production, prefer one process per
-> container — see [`___self-hosting-plan.md`](../../___self-hosting-plan.md).
+| Image               | Target       | Contents                                                       | Use it for                               |
+| ------------------- | ------------ | -------------------------------------------------------------- | ---------------------------------------- |
+| `intlayer-selfhost` | `all-in-one` | app + backend + **MongoDB** + **Redis** + **MinIO** + Chromium | quick trials, single-box installs        |
+| `intlayer-app`      | `app`        | dashboard (TanStack Start on Bun)                              | `docker-compose.yml`, Kubernetes, Swarm… |
+| `intlayer-backend`  | `backend`    | API (Fastify on Bun) + Chromium                                | `docker-compose.yml`, Kubernetes, Swarm… |
 
-## What you need to provide
+Published on every version bump to `ghcr.io/aymericzip/<image>` (and mirrored on
+Docker Hub) by `.github/workflows/selfhost-container-release.yaml`.
 
-The image is batteries-included **except for MongoDB**: the backend connects to a
-MongoDB **Atlas** cluster over `mongodb+srv://` (see
-`apps/backend/src/utils/mongoDB/connectDB.ts`). Create a free cluster at
-[mongodb.com/atlas](https://www.mongodb.com/atlas) and provide its credentials via
-`DB_ID` / `DB_MDP` / `DB_CLUSTER`.
+- **All-in-one** — one container, one volume, supervised by
+  [s6-overlay](https://github.com/just-containers/s6-overlay). Nothing external
+  to provision.
+- **Compose** — one process per container. Each service can be sized, scaled or
+  swapped for a managed offering (Atlas, ElastiCache, S3…) independently.
 
-You also need:
-
-- `BETTER_AUTH_SECRET` — 32-byte secret for session signing.
-- `S3_SECRET_ACCESS_KEY` — secret for the bundled MinIO.
-- `RESEND_API_KEY` — required to complete first-run setup, because account
-  creation sends a **mandatory** email-verification link
-  (`requireEmailVerification: true`). Get a key at
-  [resend.com](https://resend.com). After the first admin signs in, each
-  organization can switch to its own SMTP/Resend mailer from the dashboard.
+User-facing guide: [`docs/docs/en/self_hosting.md`](../../docs/docs/en/self_hosting.md).
 
 ## Build
 
-Build from the **monorepo root** (the build context must be the repo root):
+The build context must be the **monorepo root**:
 
 ```sh
-docker build -f docker/selfhost/Dockerfile -t intlayer/selfhost .
+docker build -f docker/selfhost/Dockerfile                    -t intlayer/selfhost .
+docker build -f docker/selfhost/Dockerfile --target app       -t intlayer/app .
+docker build -f docker/selfhost/Dockerfile --target backend   -t intlayer/backend .
 ```
 
-> The browser-facing `VITE_*` values are inlined at **build time** and default to
-> `localhost`. The published image is therefore only reachable from the same host —
-> see [Limitations](#limitations).
+The `app-builder` / `backend-builder` stages are shared, so the three builds hit
+the same BuildKit cache and compile each app once.
 
-## Run
+> The browser-facing `VITE_*` values are inlined at **build time** and default to
+> `localhost`. Pass `--build-arg VITE_BACKEND_URL=… VITE_SITE_URL=… VITE_DOMAIN=…`
+> to target another host — see [Limitations](#limitations).
+
+## Run — all-in-one
 
 ```sh
 docker run -d --name intlayer \
-  -p 3000:3000 \
-  -p 3100:3100 \
-  -p 9000:9000 \
-  -p 9001:9001 \
+  --restart unless-stopped \
+  -p 3000:3000 -p 3100:3100 -p 9000:9000 -p 9001:9001 \
   -v intlayer-data:/data \
-  -e DB_ID="<atlas-user>" \
-  -e DB_MDP="<atlas-password>" \
-  -e DB_CLUSTER="<cluster>.xxxxx.mongodb.net" \
   -e BETTER_AUTH_SECRET="$(openssl rand -hex 32)" \
   -e S3_SECRET_ACCESS_KEY="$(openssl rand -hex 16)" \
   -e RESEND_API_KEY="<your-resend-key>" \
-  intlayer/selfhost
+  ghcr.io/aymericzip/intlayer-selfhost
 ```
 
-Then open **http://localhost:3000**. On a fresh instance you are redirected to the
-`/init` page to create the first account, which is automatically promoted to super
-admin. Confirm the verification email (delivered via Resend), then sign in.
+Open **http://localhost:3000**. A fresh instance redirects to `/init` to create the
+first account, which is promoted to super admin.
+
+`/data` holds every datastore (`/data/mongo`, `/data/redis`, `/data/minio`) —
+mount a volume there to persist across container recreation.
+
+Boot order is enforced through s6 dependencies:
+
+```
+mongod ─▶ init-mongo (rs.initiate) ─┐
+redis ──────────────────────────────┼─▶ backend ─▶ app
+minio ──▶ init-minio (bucket) ──────┘
+```
+
+Long-running services auto-restart on exit, so the backend recovers if a
+datastore is briefly unavailable on first boot.
+
+## Run — Docker Compose
+
+```sh
+cd docker/selfhost
+cp .env.template .env      # fill in the values marked TODO
+docker compose up -d
+```
+
+Services: `app`, `backend`, `mongo` (single-node replica set, initiated by its own
+healthcheck), `redis`, `minio` + `minio-init` (bucket + anonymous download policy).
+Data lives in the `mongo-data`, `redis-data` and `minio-data` volumes.
+
+The service wiring (`MONGODB_URI`, `REDIS_URL`, `S3_ENDPOINT`…) is fixed in the
+compose file and takes precedence over `.env`; `.env` carries the secrets, the
+mailer and the optional integrations.
+
+To build the images from a checkout instead of pulling them:
+
+```sh
+docker compose -f docker-compose.yml -f docker-compose.build.yml up -d --build
+```
+
+## Ports
 
 | Port | Service           |
 | ---- | ----------------- |
@@ -67,47 +98,27 @@ admin. Confirm the verification email (delivered via Resend), then sign in.
 | 9000 | MinIO S3 endpoint |
 | 9001 | MinIO console     |
 
-Local state (Redis, MinIO) lives under `/data` (`/data/redis`, `/data/minio`) —
-mount a volume there to persist across container recreation. MongoDB state lives in
-your Atlas cluster, not in the container.
-
-## Supervised services (s6)
-
-Boot order is enforced through s6 dependencies:
-
-```
-redis ──────────────────────────┐
-minio ─▶ init-minio (bucket) ────┴─▶ backend ─▶ app
-```
-
-Long-running services (`redis`, `minio`, `backend`, `app`) auto-restart on exit, so
-the backend recovers if a datastore is briefly unavailable on first boot.
-
-> The image also starts a local `mongod` (`/data/mongo`) for convenience, but the
-> backend does **not** use it — it connects to your Atlas cluster via `DB_*`. See
-> [Limitations](#limitations).
+MinIO `9000` must be reachable by the browser — avatars and screenshots are loaded
+straight from `S3_PUBLIC_URL`.
 
 ## Configuration
 
-Local datastore wiring is baked in (`REDIS_URL`, `S3_ENDPOINT`, …) and points at the
-in-container services. Override any of them, plus the optional integrations, with
-`-e` at `docker run`:
+- **Required:** `BETTER_AUTH_SECRET`, `S3_SECRET_ACCESS_KEY`, and a mailer
+  (`RESEND_API_KEY`, or `MAIL_SMTP_*` which takes over as soon as
+  `MAIL_SMTP_HOST` is set) — first-run setup
+  enforces email verification.
+- **External datastores:** `MONGODB_URI` (any `mongodb://` or `mongodb+srv://`
+  string), `REDIS_URL`, `S3_ENDPOINT` / `S3_PUBLIC_URL` / `S3_ACCESS_KEY_ID`.
+- **Optional features (blank ⇒ disabled):** `OPENAI_API_KEY`, OAuth
+  (`GITHUB_*`, `GOOGLE_*`, …).
 
-- **Required:** `DB_ID`, `DB_MDP`, `DB_CLUSTER`, `BETTER_AUTH_SECRET`,
-  `S3_SECRET_ACCESS_KEY`, `RESEND_API_KEY`.
-- **Optional features (blank ⇒ disabled):** `OPENAI_API_KEY`, `STRIPE_*`,
-  OAuth (`GITHUB_*`, `GOOGLE_*`, …).
+`SELF_HOSTED=true` (API) and `VITE_SELF_HOSTED=true` (dashboard) are baked into the
+images and disable the cloud-only features (billing, marketplace, analytics).
 
 ## Limitations
 
-- **MongoDB is not self-contained.** The backend only speaks `mongodb+srv://`
-  (Atlas), so you must supply an external cluster via `DB_*`. The bundled `mongod`
-  is currently unused; a future change to `connectDB` (accepting a plain
-  `mongodb://` URI) would let the in-container Mongo be used and make the image
-  fully offline.
-- **No custom domain.** All `VITE_*` browser URLs are inlined at build time and the
-  published image ships with `localhost` values, so the dashboard must be reached at
-  `http://localhost:3000`. Serving it on a public domain would require rebuilding the
-  image with the target URLs baked in and is not supported out of the box.
-- **Email delivery depends on Resend.** Without `RESEND_API_KEY`, the mandatory
-  first-run verification email is never delivered and setup cannot be completed.
+- **No custom domain from the published images.** `VITE_*` browser URLs are
+  inlined at build time with `localhost` values, so the dashboard must be reached
+  at `http://localhost:3000`. Serving it on a public domain requires rebuilding
+  the images with the target URLs as build args.
+- **Email delivery must work** before the first admin can sign in.

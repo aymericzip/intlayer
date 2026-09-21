@@ -1252,6 +1252,29 @@ export const parseMailFrom = (
 };
 
 /**
+ * Picks the global mailer provider from the environment.
+ *
+ * An explicit `MAIL_PROVIDER` wins. Without one, a configured `MAIL_SMTP_HOST`
+ * selects SMTP; otherwise there is no global mailer.
+ *
+ * @returns `'smtp'`, `'resend'`, or `null` when nothing (or an unrecognized
+ *   `MAIL_PROVIDER`) is configured.
+ */
+const resolveGlobalMailerProvider = (): 'smtp' | 'resend' | null => {
+  const explicitProvider = process.env.MAIL_PROVIDER?.trim().toLowerCase();
+
+  if (explicitProvider === 'smtp' || explicitProvider === 'resend') {
+    return explicitProvider;
+  }
+
+  if (explicitProvider) {
+    return null;
+  }
+
+  return process.env.MAIL_SMTP_HOST?.trim() ? 'smtp' : null;
+};
+
+/**
  * Resolves a global mailer from environment variables.
  *
  * Deployments (e.g. self-hosting) can configure a single mailer for *all*
@@ -1259,21 +1282,24 @@ export const parseMailFrom = (
  * to an organization (password resets, magic links), which would otherwise
  * always fall back to the default Intlayer Resend mailer.
  *
- * Activated by `MAIL_PROVIDER`:
- * - `smtp` → nodemailer using `MAIL_SMTP_HOST` / `MAIL_SMTP_PORT` /
- *   `MAIL_SMTP_SECURE` / `MAIL_SMTP_USER` / `MAIL_SMTP_PASSWORD`.
- * - `resend` → Resend using `RESEND_API_KEY`.
+ * Provider selection:
+ * - `MAIL_PROVIDER=smtp` → nodemailer using `MAIL_SMTP_HOST` / `MAIL_SMTP_PORT`
+ *   / `MAIL_SMTP_SECURE` / `MAIL_SMTP_USER` / `MAIL_SMTP_PASSWORD`.
+ * - `MAIL_PROVIDER=resend` → Resend using `RESEND_API_KEY`.
+ * - `MAIL_PROVIDER` unset → `smtp` whenever `MAIL_SMTP_HOST` is set, so an SMTP
+ *   relay takes over from `RESEND_API_KEY` without any extra switch.
  *
  * The sender is taken from `MAIL_FROM`. Env-provided secrets are already
  * plaintext, matching what `sendViaSmtp` and the Resend branch expect.
  *
- * @returns The env-derived mailer configuration, or `null` when `MAIL_PROVIDER`
- *   is unset/unrecognized, so the default Intlayer Resend mailer is used.
+ * @returns The env-derived mailer configuration, or `null` when no provider is
+ *   selected (or `MAIL_PROVIDER` is unrecognized), so the default Intlayer
+ *   Resend mailer is used.
  */
 export const resolveGlobalMailer = (): OrganizationMailerConfig | null => {
-  const provider = process.env.MAIL_PROVIDER?.trim().toLowerCase();
+  const provider = resolveGlobalMailerProvider();
 
-  if (provider !== 'smtp' && provider !== 'resend') {
+  if (!provider) {
     return null;
   }
 
@@ -1345,8 +1371,9 @@ const sendViaSmtp = async (
  * Mailer resolution, in order of precedence:
  * 1. The organization's active mailer, when `organizationId` is provided and
  *    that organization has one configured (Resend or SMTP).
- * 2. The global env mailer (`MAIL_PROVIDER` + `MAIL_SMTP_*` / `MAIL_FROM`),
- *    which also covers non-org emails such as password resets and magic links.
+ * 2. The global env mailer (`MAIL_SMTP_*` / `MAIL_FROM`, or an explicit
+ *    `MAIL_PROVIDER`), which also covers non-org emails such as password
+ *    resets and magic links.
  * 3. The default Intlayer Resend mailer (from `RESEND_API_KEY`).
  */
 export const sendEmail = async <T extends EmailType>({

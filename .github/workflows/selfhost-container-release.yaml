@@ -1,14 +1,21 @@
 name: 🐳 Self-host Container
 
-# Builds the all-in-one self-hosting image (app + backend + redis + minio, plus a
-# bundled Chromium for screenshots) and pushes it to GHCR and Docker Hub. Manual
-# only — triggered from the Actions tab.
+# Builds the three self-hosting images from docker/selfhost/Dockerfile and pushes
+# them to GHCR and Docker Hub:
 #
-# NOTE: MongoDB is NOT bundled for use — the backend connects to an external
-# MongoDB Atlas cluster via DB_ID / DB_MDP / DB_CLUSTER at runtime. The browser
-# facing VITE_* URLs are inlined at build time and left at their localhost defaults
-# (see docker/selfhost/Dockerfile), so the published image is reached on
-# http://localhost:3000. See docs/docs/en/self_hosting.md for the full flow.
+#   intlayer-app       dashboard only                 (--target app)
+#   intlayer-backend   API only, with Chromium        (--target backend)
+#   intlayer-selfhost  app + backend + MongoDB + Redis + MinIO in one box
+#                                                     (--target all-in-one)
+#
+# `intlayer-app` + `intlayer-backend` are what docker/selfhost/docker-compose.yml
+# runs, one process per container; `intlayer-selfhost` is the single-container
+# quick start. Runs on every version bump of the root package.json, or manually
+# from the Actions tab.
+#
+# The browser-facing VITE_* URLs are inlined at build time and left at their
+# localhost defaults (see docker/selfhost/Dockerfile), so the published images
+# are reached on http://localhost:3000. See docs/docs/en/self_hosting.md.
 on:
   push:
     branches:
@@ -29,11 +36,6 @@ on:
         default: 'linux/amd64,linux/arm64'
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
-
-env:
-  # GHCR repo follows the GitHub owner. The Docker Hub repo (when configured) is
-  # derived from DOCKERHUB_USERNAME in the "Resolve target registries" step.
-  GHCR_IMAGE: ghcr.io/${{ github.repository_owner }}/intlayer-selfhost
 
 jobs:
   check-version:
@@ -60,21 +62,32 @@ jobs:
     needs: check-version
     if: ${{ github.repository_owner == 'aymericzip' && needs.check-version.outputs.changed == 'true' }}
 
-    name: 🐳 Build ${{ matrix.platform }}
-    # One job per platform, each on a runner of that architecture. Building
-    # arm64 through QEMU on an amd64 runner emulates the whole toolchain (bun
-    # install, turbo, the Vite build and the prerender crawl) and takes hours;
-    # a native arm64 runner builds it in about the same time as amd64.
+    name: 🐳 Build ${{ matrix.image }} ${{ matrix.platform }}
+    # One job per image and platform, each on a runner of that architecture.
+    # Building arm64 through QEMU on an amd64 runner emulates the whole toolchain
+    # (bun install, turbo, the Vite build and the prerender crawl) and takes
+    # hours; a native arm64 runner builds it in about the same time as amd64.
     strategy:
       fail-fast: false
       matrix:
+        image: [app, backend, selfhost]
+        platform: [linux/amd64, linux/arm64]
         include:
           - platform: linux/amd64
             runner: ubuntu-latest
-            artifact: linux-amd64
+            arch: linux-amd64
           - platform: linux/arm64
             runner: ubuntu-24.04-arm
-            artifact: linux-arm64
+            arch: linux-arm64
+          - image: app
+            target: app
+            image_name: intlayer-app
+          - image: backend
+            target: backend
+            image_name: intlayer-backend
+          - image: selfhost
+            target: all-in-one
+            image_name: intlayer-selfhost
     runs-on: ${{ matrix.runner }}
     permissions:
       contents: read
@@ -107,6 +120,7 @@ jobs:
         if: steps.requested.outputs.enabled == 'true'
         run: bash .github/scripts/resolve-selfhost-images.sh
         env:
+          IMAGE_NAME: ${{ matrix.image_name }}
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
           DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
 
@@ -141,12 +155,19 @@ jobs:
         with:
           context: .
           file: docker/selfhost/Dockerfile
+          target: ${{ matrix.target }}
           platforms: ${{ matrix.platform }}
           labels: ${{ steps.meta.outputs.labels }}
           outputs: type=image,"name=${{ steps.registries.outputs.images }}",push-by-digest=true,name-canonical=true,push=true
           provenance: false
-          cache-from: type=gha,scope=${{ matrix.artifact }}
-          cache-to: type=gha,mode=max,scope=${{ matrix.artifact }}
+          # The builder stages are identical across the three targets, so every
+          # image of a platform reads the caches written by the other two.
+          cache-from: |
+            type=gha,scope=${{ matrix.image }}-${{ matrix.arch }}
+            type=gha,scope=app-${{ matrix.arch }}
+            type=gha,scope=backend-${{ matrix.arch }}
+            type=gha,scope=selfhost-${{ matrix.arch }}
+          cache-to: type=gha,mode=max,scope=${{ matrix.image }}-${{ matrix.arch }}
 
       - name: 📤 Export digest
         if: steps.requested.outputs.enabled == 'true'
@@ -160,15 +181,25 @@ jobs:
         if: steps.requested.outputs.enabled == 'true'
         uses: actions/upload-artifact@v4
         with:
-          name: digests-${{ matrix.artifact }}
+          name: digests-${{ matrix.image }}-${{ matrix.arch }}
           path: ${{ runner.temp }}/digests/*
           if-no-files-found: error
           retention-days: 1
 
   merge:
-    name: 🐳 Publish multi-arch manifest
+    name: 🐳 Publish ${{ matrix.image_name }} manifest
     needs: [check-version, build]
     if: ${{ github.repository_owner == 'aymericzip' && needs.check-version.outputs.changed == 'true' }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - image: app
+            image_name: intlayer-app
+          - image: backend
+            image_name: intlayer-backend
+          - image: selfhost
+            image_name: intlayer-selfhost
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -184,7 +215,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           path: ${{ runner.temp }}/digests
-          pattern: digests-*
+          pattern: digests-${{ matrix.image }}-*
           merge-multiple: true
 
       - name: 🛠️ Set up Docker Buildx
@@ -194,6 +225,7 @@ jobs:
         id: registries
         run: bash .github/scripts/resolve-selfhost-images.sh
         env:
+          IMAGE_NAME: ${{ matrix.image_name }}
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
           DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
 
@@ -227,10 +259,14 @@ jobs:
       # list can be assembled from the GHCR copies and tagged into each of them.
       - name: 🧩 Create manifest list & push
         working-directory: ${{ runner.temp }}/digests
+        env:
+          GHCR_IMAGE: ${{ steps.registries.outputs.ghcr_image }}
         run: |
           docker buildx imagetools create \
             $(jq -cr '.tags | map("-t " + .) | join(" ")' <<< "$DOCKER_METADATA_OUTPUT_JSON") \
             $(printf "${GHCR_IMAGE}@sha256:%s " *)
 
       - name: 🔍 Inspect published image
+        env:
+          GHCR_IMAGE: ${{ steps.registries.outputs.ghcr_image }}
         run: docker buildx imagetools inspect "${GHCR_IMAGE}:latest"

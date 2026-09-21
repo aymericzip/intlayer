@@ -14,6 +14,7 @@ import enquirer from 'enquirer';
 import { login } from './auth/login';
 import { initBuildOptimization } from './initBuildOptimization';
 import { initCompiler } from './initCompiler';
+import { initInfra } from './initInfra';
 import { initMCP } from './initMCP';
 import {
   getDetectedPlatform,
@@ -48,7 +49,8 @@ type InitStep =
   | 'skills'
   | 'mcp'
   | 'compiler'
-  | 'buildOptimization';
+  | 'buildOptimization'
+  | 'infra';
 
 const BASE_INIT_STEP_OPTIONS: Array<{
   value: InitStep;
@@ -94,6 +96,23 @@ const BASE_INIT_STEP_OPTIONS: Array<{
     value: 'mcp',
     label: 'MCP server',
     hint: 'configure the Intlayer MCP server',
+  },
+];
+
+/**
+ * Steps that are opt-in: offered in the checkbox but not pre-selected. The
+ * infrastructure installer touches the machine (downloads an app, pulls
+ * Docker images) rather than the project, so it must be an explicit choice.
+ */
+const OPT_IN_INIT_STEP_OPTIONS: Array<{
+  value: InitStep;
+  label: string;
+  hint: string;
+}> = [
+  {
+    value: 'infra',
+    label: 'Infrastructure (desktop app / self-hosting)',
+    hint: 'install the desktop app, or self-host with Docker (all-in-one or Compose)',
   },
 ];
 
@@ -234,6 +253,8 @@ const runInteractiveInit = async (
     });
   }
 
+  stepOptions.push(...OPT_IN_INIT_STEP_OPTIONS);
+
   const selected = await p.multiselect<InitStep>({
     message: 'Select what you want to set up:',
     options: stepOptions,
@@ -370,6 +391,11 @@ const runInteractiveInit = async (
 
   if (steps.includes('buildOptimization')) {
     await initBuildOptimization(root);
+  }
+
+  // Delegated to the hosted install script, which owns its own menu.
+  if (steps.includes('infra')) {
+    await initInfra();
   }
 
   // CMS / visual editor is the last step: an opt-in browser login that

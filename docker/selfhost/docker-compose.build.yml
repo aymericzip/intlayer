@@ -1,0 +1,17 @@
+# Override that builds the images from the monorepo instead of pulling them.
+# Requires a checkout of the repository (build context is the repo root):
+#
+#   docker compose -f docker-compose.yml -f docker-compose.build.yml up -d --build
+
+services:
+  app:
+    build:
+      context: ../..
+      dockerfile: docker/selfhost/Dockerfile
+      target: app
+
+  backend:
+    build:
+      context: ../..
+      dockerfile: docker/selfhost/Dockerfile
+      target: backend

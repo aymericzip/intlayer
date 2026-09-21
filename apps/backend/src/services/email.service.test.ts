@@ -59,14 +59,46 @@ describe('parseMailFrom', () => {
 });
 
 describe('resolveGlobalMailer', () => {
-  it('returns null when MAIL_PROVIDER is unset', () => {
+  it('returns null when neither MAIL_PROVIDER nor MAIL_SMTP_HOST is set', () => {
+    process.env.RESEND_API_KEY = 're_default';
+
     expect(resolveGlobalMailer()).toBeNull();
   });
 
   it('returns null for an unrecognized MAIL_PROVIDER', () => {
     process.env.MAIL_PROVIDER = 'sendgrid';
+    process.env.MAIL_SMTP_HOST = 'smtp.acme.com';
 
     expect(resolveGlobalMailer()).toBeNull();
+  });
+
+  it('infers SMTP from MAIL_SMTP_HOST when MAIL_PROVIDER is unset', () => {
+    process.env.MAIL_SMTP_HOST = 'smtp.acme.com';
+    process.env.MAIL_SMTP_PORT = '587';
+    process.env.RESEND_API_KEY = 're_default';
+
+    expect(resolveGlobalMailer()).toMatchObject({
+      isActive: true,
+      provider: 'smtp',
+      smtp: { host: 'smtp.acme.com', port: 587 },
+    });
+  });
+
+  it('ignores a blank MAIL_SMTP_HOST', () => {
+    process.env.MAIL_SMTP_HOST = '   ';
+
+    expect(resolveGlobalMailer()).toBeNull();
+  });
+
+  it('lets an explicit MAIL_PROVIDER=resend override a configured SMTP host', () => {
+    process.env.MAIL_PROVIDER = 'resend';
+    process.env.MAIL_SMTP_HOST = 'smtp.acme.com';
+    process.env.RESEND_API_KEY = 're_default';
+
+    expect(resolveGlobalMailer()).toMatchObject({
+      provider: 'resend',
+      resend: { apiKey: 're_default' },
+    });
   });
 
   it('builds an active SMTP config from env vars', () => {

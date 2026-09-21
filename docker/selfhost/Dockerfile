@@ -1,18 +1,27 @@
 # syntax=docker/dockerfile:1.26.0
 # check=skip=SecretsUsedInArgOrEnv
 #
-# Intlayer self-hosting — single all-in-one image.
-# Bundles the dashboard (app), the API (backend) and the datastores
-# (MongoDB, Redis, MinIO) into one container, supervised by s6-overlay.
+# Intlayer self-hosting images. One Dockerfile, three build targets:
+#
+#   --target backend     API only (Fastify + Bun + Chromium)         -> intlayer-backend
+#   --target app         dashboard only (TanStack Start + Bun)       -> intlayer-app
+#   --target all-in-one  app + backend + MongoDB + Redis + MinIO,    -> intlayer-selfhost
+#                        supervised by s6-overlay (default target)
+#
+# `backend` and `app` are the building blocks of docker/selfhost/docker-compose.yml,
+# where every process (and datastore) runs in its own container and can be scaled
+# independently. `all-in-one` is the "one box" image for quick trials.
 #
 # Build context MUST be the monorepo root:
 #   docker build -f docker/selfhost/Dockerfile -t intlayer/selfhost .
+#   docker build -f docker/selfhost/Dockerfile --target backend -t intlayer/backend .
+#   docker build -f docker/selfhost/Dockerfile --target app     -t intlayer/app .
 #
-# NOTE: this is a "batteries-included, one box" image meant for quick self-host
-# trials. For production prefer one-process-per-container (see ___self-hosting-plan.md).
+# The builder stages are shared by every target, so building the three images
+# from the same BuildKit cache only compiles the app and the backend once.
 
 # ---------------------------------------------------------------------------
-# Stage 1 — backend builder (mirrors apps/backend/Dockerfile build logic)
+# backend-builder — mirrors apps/backend/Dockerfile build logic
 # ---------------------------------------------------------------------------
 FROM node:26-alpine AS backend-builder
 
@@ -77,7 +86,7 @@ RUN bun x turbo run build:ci --filter=./apps/backend
 RUN find . -path "*/src/*" -type f \( -name "*.ts" -o -name "*.tsx" -o -name "*.map" \) -not -path "*/node_modules/*" -delete
 
 # ---------------------------------------------------------------------------
-# Stage 2 — app builder (mirrors apps/app/Dockerfile build logic)
+# app-builder — mirrors apps/app/Dockerfile build logic
 # ---------------------------------------------------------------------------
 FROM node:26-alpine AS app-builder
 
@@ -86,8 +95,9 @@ RUN apk add --no-cache build-base zlib-dev autoconf automake
 
 WORKDIR /workspace
 
-# VITE_* vars are inlined at build time. Defaults target the all-in-one image
-# reached on localhost; override with --build-arg for a custom host/domain.
+# VITE_* vars are inlined at build time. Defaults target a stack reached on
+# localhost (all-in-one image or the Compose file); override with --build-arg
+# for a custom host/domain.
 ARG VITE_BACKEND_URL=http://localhost:3100
 ARG VITE_DOMAIN=localhost
 ARG VITE_SITE_URL=http://localhost:3000
@@ -148,9 +158,77 @@ ENV NODE_ENV=production
 RUN bun run build && bun scripts/generate-sw.ts
 
 # ---------------------------------------------------------------------------
-# Stage 3 — runtime: glibc base with mongo + redis + minio + bun + chromium + s6
+# backend — standalone API image (target for docker-compose / orchestrators)
 # ---------------------------------------------------------------------------
-FROM debian:bookworm-slim AS runner
+FROM oven/bun:1.4.2-alpine AS backend
+
+# System deps for headless Chromium (Puppeteer screenshots)
+RUN apk add --no-cache \
+  chromium \
+  nss \
+  freetype \
+  harfbuzz \
+  ca-certificates \
+  ttf-freefont \
+  font-noto-emoji \
+  fontconfig \
+  udev
+
+# SELF_HOSTED disables the cloud-only API endpoints (billing, marketplace…).
+ENV NODE_ENV=production \
+    PORT=3100 \
+    SELF_HOSTED=true \
+    PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser \
+    PUPPETEER_SKIP_DOWNLOAD=true \
+    PUPPETEER_CACHE_DIR=/home/app/.cache/puppeteer \
+    TMPDIR=/workspace/apps/backend/tmp
+
+RUN addgroup -S app && adduser -S app -G app \
+    && mkdir -p /workspace/apps/backend/tmp /home/app/.cache/puppeteer \
+    && chown -R app:app /workspace /home/app/.cache
+
+COPY --from=backend-builder --chown=app:app /workspace /workspace
+
+WORKDIR /workspace/apps/backend
+
+USER app
+
+EXPOSE 3100
+
+HEALTHCHECK --interval=10s --timeout=5s --start-period=30s --retries=5 \
+  CMD bun -e "const r = await fetch('http://localhost:3100/health'); process.exit(r.ok ? 0 : 1)"
+
+CMD ["bun", "dist/esm/index.mjs"]
+
+# ---------------------------------------------------------------------------
+# app — standalone dashboard image (target for docker-compose / orchestrators)
+# ---------------------------------------------------------------------------
+FROM oven/bun:1.4.2-alpine AS app
+
+ENV NODE_ENV=production \
+    PORT=3000 \
+    VITE_SELF_HOSTED=true
+
+RUN addgroup -S app && adduser -S app -G app
+
+WORKDIR /app
+
+COPY --from=app-builder --chown=app:app /workspace/apps/app/.output ./.output
+
+USER app
+
+EXPOSE 3000
+
+HEALTHCHECK --interval=30s --timeout=10s --start-period=15s --retries=3 \
+  CMD bun -e "const r = await fetch('http://localhost:3000/healthz'); process.exit(r.ok ? 0 : 1)"
+
+CMD ["bun", "run", ".output/server/index.mjs"]
+
+# ---------------------------------------------------------------------------
+# all-in-one — glibc base with mongo + redis + minio + bun + chromium + s6.
+# Last stage, so it is what `docker build` produces without `--target`.
+# ---------------------------------------------------------------------------
+FROM debian:bookworm-slim AS all-in-one
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -217,8 +295,11 @@ ENV PUPPETEER_SKIP_DOWNLOAD=true
 ENV PUPPETEER_CACHE_DIR=/root/.cache/puppeteer
 
 # ---- Runtime configuration (override at `docker run` with -e) ----------------
+# Every datastore is the in-container one. MONGODB_URI points at the bundled
+# single-node replica set; point it at an external cluster to leave that unused.
 ENV NODE_ENV=production \
     VITE_SELF_HOSTED=true \
+    SELF_HOSTED=true \
     DOMAIN=localhost \
     APP_URL=http://localhost:3000 \
     BACKEND_URL=http://localhost:3100 \

@@ -13,15 +13,14 @@ import { ShowcaseProjectModel } from '@schemas/showcaseProject.schema';
 import { TagModel } from '@schemas/tag.schema';
 import { UserModel } from '@schemas/user.schema';
 import { connect, type mongo } from 'mongoose';
+import { getMongoDBUri } from './getMongoDBUri';
 
 // Store the DB client singleton
 let dbClientInstance: mongo.MongoClient | null = null;
 
 export const connectDB = async (): Promise<mongo.MongoClient> => {
   try {
-    const client = await connect(
-      `mongodb+srv://${process.env.DB_ID}:${process.env.DB_MDP}@${process.env.DB_CLUSTER}/?retryWrites=true&w=majority&appName=Cluster0`
-    );
+    const client = await connect(getMongoDBUri());
 
     logger.info('MongoDB connected');
 

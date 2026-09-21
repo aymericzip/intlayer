@@ -347,6 +347,19 @@ export const setAPI = (): Command => {
     });
 
   initCmd
+    .command('infra')
+    .description(
+      'Set up the Intlayer infrastructure: desktop app, all-in-one Docker container or Docker Compose stack (runs https://intlayer.org/install.sh)'
+    )
+    .option('-m, --mode <mode>', 'Skip the menu: desktop | docker | compose')
+    .action(async (options) => {
+      const { initInfra, parseInfraMode } = await import('./initInfra');
+      return initInfra({
+        mode: options.mode ? parseInfraMode(options.mode) : undefined,
+      });
+    });
+
+  initCmd
     .command('build-optimization')
     .description(
       'Configure build optimization for Next.js (@intlayer/swc or @intlayer/babel)'
