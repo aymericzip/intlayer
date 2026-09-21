@@ -3,33 +3,19 @@
 import { useUser } from '@intlayer/design-system/api';
 import { Avatar } from '@intlayer/design-system/avatar';
 import { Button } from '@intlayer/design-system/button';
-import { getAuthAPI } from '@intlayer/design-system/libs';
 import { Loader } from '@intlayer/design-system/loader';
 import { App_Auth_SignIn_Path } from '@intlayer/design-system/routes';
 import { cn } from '@intlayer/design-system/utils';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Check, LogOut, Plus } from 'lucide-react';
 import type { FC, KeyboardEvent } from 'react';
 import { useCallback } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { Link } from '#components/Link/Link';
-import { deviceSessionsQueryOptions, refetchFreshSession } from '#utils/auth';
-
-/**
- * Represents one signed-in session on this device.
- * Mirrors the shape returned by better-auth's `multiSession.listDeviceSessions`.
- */
-export type DeviceSession = {
-  /** The session's token identifier */
-  token: string;
-  /** User associated with this session */
-  user: {
-    id: string;
-    name?: string | null;
-    email: string;
-    image?: string | null;
-  };
-};
+import {
+  useDeviceSessions,
+  useRevokeDeviceSession,
+  useSwitchDeviceSession,
+} from '#hooks/useDeviceSessions';
 
 /**
  * Props for the AccountSwitcher component
@@ -46,31 +32,10 @@ export type AccountSwitcherProps = {
  */
 export const AccountSwitcher: FC<AccountSwitcherProps> = ({ className }) => {
   const { user } = useUser();
-  const queryClient = useQueryClient();
 
-  const { data: fetchedDeviceSessions } = useQuery(deviceSessionsQueryOptions);
-
-  const switchAccountMutation = useMutation({
-    mutationFn: async (sessionToken: string) => {
-      const intlayerAPI = getAuthAPI();
-      await intlayerAPI.setActiveSession({ sessionToken });
-      await refetchFreshSession(queryClient);
-      await queryClient.invalidateQueries({
-        queryKey: deviceSessionsQueryOptions.queryKey,
-      });
-    },
-  });
-
-  const signOutAccountMutation = useMutation({
-    mutationFn: async (sessionToken: string) => {
-      const authAPI = getAuthAPI();
-      await authAPI.revokeDeviceSession({ sessionToken });
-      await refetchFreshSession(queryClient);
-      await queryClient.invalidateQueries({
-        queryKey: deviceSessionsQueryOptions.queryKey,
-      });
-    },
-  });
+  const { data: sessions = [] } = useDeviceSessions();
+  const switchAccountMutation = useSwitchDeviceSession();
+  const signOutAccountMutation = useRevokeDeviceSession();
 
   const {
     accountSwitcherAriaLabel,
@@ -80,19 +45,6 @@ export const AccountSwitcher: FC<AccountSwitcherProps> = ({ className }) => {
     switchToAriaLabel,
     signOutAriaLabel,
   } = useIntlayer('account-switcher');
-
-  const sessions: DeviceSession[] = (fetchedDeviceSessions ?? []).map(
-    (session: any) =>
-      ({
-        token: session.session?.token ?? session.token,
-        user: {
-          id: session.user?.id ?? '',
-          name: session.user?.name ?? null,
-          email: session.user?.email ?? '',
-          image: session.user?.image ?? null,
-        },
-      }) satisfies DeviceSession
-  );
 
   const activeSessionToken = sessions.find(
     (session) => session.user.id === user?.id

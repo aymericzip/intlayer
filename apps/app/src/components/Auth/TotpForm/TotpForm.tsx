@@ -9,7 +9,7 @@ import { useSearch } from '@tanstack/react-router';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { z } from 'zod/mini';
-import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
+import { useNavigateToRedirectUrl } from '#hooks/useNavigateToRedirectUrl.ts';
 
 const totpSchema = z.object({
   code: z.string().check(z.length(6)),
@@ -19,7 +19,7 @@ type TotpFormData = z.infer<typeof totpSchema>;
 
 export const TotpForm: FC = () => {
   const { codeLabel, codePlaceholder, verifyButton } = useIntlayer('totp-form');
-  const navigate = useLocalizedNavigate();
+  const navigateToRedirectUrl = useNavigateToRedirectUrl();
   const search = useSearch({ strict: false }) as any;
 
   const { revalidateSession } = useSession();
@@ -37,8 +37,9 @@ export const TotpForm: FC = () => {
         revalidateSession();
 
         // Redirect to the original destination or home
-        const redirectUrl = search.redirect_url;
-        navigate({ to: (redirectUrl ?? '/') as any });
+        const redirectUrl =
+          typeof search.redirect_url === 'string' ? search.redirect_url : '/';
+        navigateToRedirectUrl(redirectUrl, { replace: true });
       },
     });
   };

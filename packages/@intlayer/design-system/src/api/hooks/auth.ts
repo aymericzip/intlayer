@@ -13,6 +13,10 @@ export const useLogin = () => {
     mutationFn: (args: Parameters<AuthAPI['signInEmail']>[0]) =>
       intlayerAuth.signInEmail(args),
     onSuccess: (data) => {
+      // better-auth resolves (never throws) on a failed sign-in, with
+      // `data: null` and `error` set; the global mutation cache toasts it.
+      if (!data.data?.user) return;
+
       const session = queryClient.getQueryData(['session']);
 
       queryClient.setQueryData(['session'], {

@@ -1,5 +1,5 @@
 import { getIntlayerAPI } from '@intlayer/api';
-import type { OAuth2AccessAPI } from '@intlayer/backend';
+import type { OAuth2AccessAPI, OrganizationAPI } from '@intlayer/backend';
 import { editor } from '@intlayer/config/built';
 import { useSelectOrganization, useSession } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
@@ -10,8 +10,8 @@ import { HideShow } from '@intlayer/design-system/hide-show';
 import { LanguageBackground } from '@intlayer/design-system/language-background';
 import { Loader } from '@intlayer/design-system/loader';
 import { Modal } from '@intlayer/design-system/modal';
-import { Check, Clock, KeyRound, Plus } from 'lucide-react';
-import { type FC, useState } from 'react';
+import { ArrowLeft, Check, Clock, KeyRound, Plus } from 'lucide-react';
+import { type FC, useEffect, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { OrganizationDropdown } from '#components/Dashboard/DashboardNavbar/OrganizationDropdown';
 import { ProjectDropdown } from '#components/Dashboard/DashboardNavbar/ProjectDropdown';
@@ -19,6 +19,7 @@ import { OrganizationList } from '#components/Dashboard/OrganizationForm/Organiz
 import { AccessKeyCreationForm } from '#components/Dashboard/ProjectForm/AccessKey/AccessKeyCreationForm';
 import { ProjectList } from '#components/Dashboard/ProjectForm/ProjectList';
 import { SignInForm } from '../SignIn';
+import { CliAccountSelector } from './CliAccountSelector';
 
 type CliLoginFlowProps = {
   port?: string;
@@ -223,6 +224,27 @@ const SessionAuthSelector: FC<{
   );
 };
 
+type CliLoginStep = 'login' | 'account' | 'org' | 'project' | 'key';
+
+/**
+ * Builds the URL the auth providers send the browser back to, so the user
+ * lands on this same CLI login page with the CLI context preserved.
+ */
+const buildCallbackUrl = ({
+  port,
+  state,
+  backendUrl,
+}: CliLoginFlowProps): string | undefined => {
+  if (typeof window === 'undefined') return undefined;
+
+  const searchParams = new URLSearchParams();
+  if (port) searchParams.set('port', port);
+  if (state) searchParams.set('state', state);
+  if (backendUrl) searchParams.set('backendUrl', backendUrl);
+
+  return `${window.location.pathname}?${searchParams.toString()}`;
+};
+
 export const CliLoginFlow: FC<CliLoginFlowProps> = ({
   port,
   state,
@@ -235,31 +257,72 @@ export const CliLoginFlow: FC<CliLoginFlowProps> = ({
     selectOrganization: selectOrganizationText,
     selectProject: selectProjectText,
     context,
+    accountSelector,
   } = useIntlayer('cli-login-flow');
 
-  // Construct callback URL to stay on the CLI login page after authentication
-  const callbackUrl =
-    typeof window !== 'undefined'
-      ? `${window.location.origin}${window.location.pathname}${port ? `?port=${port}` : ''}${state ? `${port ? '&' : '?'}state=${state}` : ''}`
-      : undefined;
+  const userId = session?.user ? String(session.user.id) : undefined;
+  const sessionId = session?.session?.id
+    ? String(session.session.id)
+    : undefined;
 
-  const isLoading = session === undefined;
-  // Steps: 'login', 'org', 'project', 'key'
-  const currentStep = !session?.user
-    ? 'login'
-    : !session?.organization
-      ? 'org'
-      : !session?.project
-        ? 'project'
-        : 'key';
+  // Whether a session already existed when the page loaded. In that case the
+  // user must confirm (or switch) the account before the CLI is bound to it.
+  const [hasLandedWithSession, setHasLandedWithSession] = useState<
+    boolean | null
+  >(null);
+  // User id the CLI login was explicitly confirmed for.
+  const [confirmedUserId, setConfirmedUserId] = useState<string | null>(null);
+  // Session id the user was holding when asking to sign in with another
+  // account. Any new session (even for the same user) clears it.
+  const [signInFromSessionId, setSignInFromSessionId] = useState<string | null>(
+    null
+  );
 
-  const handleOrganizationSelect = (org: any) => {
-    selectOrganization(org.id);
+  useEffect(() => {
+    if (session !== undefined && hasLandedWithSession === null) {
+      setHasLandedWithSession(Boolean(session?.user));
+    }
+  }, [session, hasLandedWithSession]);
+
+  // A successful sign-in with another account is an explicit choice: skip the
+  // account confirmation for it.
+  useEffect(() => {
+    if (
+      signInFromSessionId !== null &&
+      userId &&
+      sessionId &&
+      sessionId !== signInFromSessionId
+    ) {
+      setConfirmedUserId(userId);
+      setSignInFromSessionId(null);
+    }
+  }, [signInFromSessionId, sessionId, userId]);
+
+  const callbackUrl = buildCallbackUrl({ port, state, backendUrl });
+
+  const isLoading = session === undefined || hasLandedWithSession === null;
+
+  const isSigningInAnotherAccount =
+    signInFromSessionId !== null && sessionId === signInFromSessionId;
+  const needsAccountConfirmation =
+    hasLandedWithSession === true && confirmedUserId !== userId;
+
+  const currentStep: CliLoginStep =
+    !userId || isSigningInAnotherAccount
+      ? 'login'
+      : needsAccountConfirmation
+        ? 'account'
+        : !session?.organization
+          ? 'org'
+          : !session?.project
+            ? 'project'
+            : 'key';
+
+  const handleOrganizationSelect = (organization: OrganizationAPI) => {
+    selectOrganization(organization.id);
   };
 
   const handleKeySelect = async (key: OAuth2AccessAPI) => {
-    console.log({ key, port });
-
     if (!port) return;
 
     // Redirect the browser to the local CLI server to complete the login
@@ -283,31 +346,53 @@ export const CliLoginFlow: FC<CliLoginFlowProps> = ({
             className="w-full max-w-2xl"
             roundedSize="4xl"
             padding="xl"
+            border
+            borderColor="neutral"
           >
-            {(session?.organization || session?.project) && (
-              <div className="z-10 mb-6 border-neutral/20 border-b border-dotted p-2 pb-6">
-                <H2 className="mb-5">{context}</H2>
-                <Container
-                  className="z-10 mr-auto w-fit flex-row items-center gap-2 p-2"
-                  border
-                  borderColor="text"
-                  roundedSize="2xl"
-                >
-                  {session?.organization && <OrganizationDropdown />}
-                  {session?.project && (
-                    <>
-                      <span className="text-neutral">/</span>
-                      <ProjectDropdown />
-                    </>
-                  )}
-                </Container>
-              </div>
-            )}
+            {currentStep !== 'login' &&
+              currentStep !== 'account' &&
+              (session?.organization || session?.project) && (
+                <div className="z-10 mb-6 border-neutral/20 border-b border-dotted p-2 pb-6">
+                  <H2 className="mb-5">{context}</H2>
+                  <Container
+                    className="z-10 mr-auto w-fit flex-row items-center gap-2 p-2"
+                    border
+                    borderColor="text"
+                    roundedSize="2xl"
+                  >
+                    {session?.organization && <OrganizationDropdown />}
+                    {session?.project && (
+                      <>
+                        <span className="text-neutral">/</span>
+                        <ProjectDropdown />
+                      </>
+                    )}
+                  </Container>
+                </div>
+              )}
             {currentStep === 'login' && (
               <>
                 <H2 className="mb-5">{loginTitle}</H2>
                 <SignInForm callbackUrl={callbackUrl} />
+                {isSigningInAnotherAccount && (
+                  <Button
+                    className="mt-4 w-full"
+                    color="text"
+                    variant="link"
+                    Icon={ArrowLeft}
+                    label={accountSelector.backToAccounts.value}
+                    onClick={() => setSignInFromSessionId(null)}
+                  >
+                    {accountSelector.backToAccounts}
+                  </Button>
+                )}
               </>
+            )}
+            {currentStep === 'account' && userId && sessionId && (
+              <CliAccountSelector
+                onConfirm={() => setConfirmedUserId(userId)}
+                onUseAnotherAccount={() => setSignInFromSessionId(sessionId)}
+              />
             )}
             {currentStep === 'org' && (
               <div className="flex flex-col gap-5">

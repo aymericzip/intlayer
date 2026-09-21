@@ -7,12 +7,14 @@ import {
 import { useRouter, useSearch } from '@tanstack/react-router';
 import { type FC, useEffect, useRef } from 'react';
 import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
+import { useNavigateToRedirectUrl } from '#hooks/useNavigateToRedirectUrl.ts';
 import { type SignIn, SignInForm as SignInFormUI } from './SignInForm/index';
 
 export const SignInForm: FC<{
   callbackUrl?: string;
 }> = ({ callbackUrl }) => {
   const navigate = useLocalizedNavigate();
+  const navigateToRedirectUrl = useNavigateToRedirectUrl();
   const router = useRouter();
   const { mutateAsync: login, isPending } = useLogin();
   const search = useSearch({ strict: false }) as any;
@@ -40,11 +42,15 @@ export const SignInForm: FC<{
     // browser back to /login, racing the session cache and triggering a
     // login → / → /organization → /login bounce. Instead we let useLogin
     // refresh the session cache, then SPA-navigate ourselves.
-    await login({ email, password, rememberMe });
+    const result = await login({ email, password, rememberMe });
+
+    // Failed sign-in (e.g. 401): better-auth resolves with `data: null` and
+    // the error is already toasted by the mutation cache — stay on the form.
+    if (result.error || !result.data?.user) return;
 
     await router.invalidate();
 
-    navigate({ to: getTarget() as any, replace: true });
+    await navigateToRedirectUrl(getTarget(), { replace: true });
   };
 
   const getEmailContext = () => {
