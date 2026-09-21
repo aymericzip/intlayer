@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-20
-updatedAt: 2026-01-22
+updatedAt: 2026-09-21
 title: HTML सामग्री
 description: जानें कि Intlayer में कस्टम कॉम्पोनेंट्स के साथ HTML सामग्री कैसे घोषित और उपयोग की जाती है। अपनी अंतर्राष्ट्रीयकृत परियोजना में गतिशील कॉम्पोनेंट प्रतिस्थापन के साथ समृद्ध HTML-जैसी सामग्री एम्बेड करने के लिए इस दस्तावेज़ का पालन करें।
 keywords:
@@ -13,6 +13,8 @@ keywords:
   - React
   - Vue
   - Svelte
+  - Remix
+  - Astro
 slugs:
   - doc
   - concept
@@ -233,6 +235,83 @@ HTML नोड पर `.use()` विधि का उपयोग करते 
       p: { class: "prose" },
       CustomLink: { href: "/details" },
     })
+    ```
+
+  </Tab>
+  <Tab label="Remix" value="remix">
+    Remix 3 में, HTML नोड्स एक HTML स्ट्रिंग में हल होते हैं। इसे Remix JSX के `innerHTML` प्रॉप के साथ, या `html-template` दृश्य में `html.raw` के साथ इंजेक्ट करें।
+
+    ```tsx fileName="src/views/home.tsx"
+    import { useIntlayer } from "remix-intlayer";
+
+    export const HomePage = () => () => {
+      const { myHtmlContent } = useIntlayer("app");
+
+      return <div innerHTML={myHtmlContent.value} />;
+    };
+    ```
+
+    ```ts fileName="src/views/home.ts"
+    import { html } from "remix/html-template";
+    import { useIntlayer } from "remix-intlayer";
+
+    export const renderHomePage = () => {
+      const { myHtmlContent } = useIntlayer("app");
+
+      return html.raw`<div>${myHtmlContent.value}</div>`;
+    };
+    ```
+
+    > Remix डिफ़ॉल्ट रूप से इंटरपोलेटेड मानों को एस्केप करता है। `innerHTML` और `html.raw` दो ऑप्ट-आउट हैं, जो एक HTML स्ट्रिंग की आवश्यकता है।
+
+    टैग को ओवरराइड करने या कस्टम घटकों को मैप करने के लिए `.use()` विधि का उपयोग करें। ओवरराइड ऐसे फ़ंक्शन हैं जो एक HTML स्ट्रिंग लौटाते हैं:
+
+    ```tsx
+    <div
+      innerHTML={myHtmlContent.use({
+        p: ({ children }) => `<p class="prose">${children}</p>`,
+        CustomLink: ({ children }) => `<a href="/details">${children}</a>`,
+      })}
+    />
+    ```
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+    Astro में, HTML नोड्स एक HTML स्ट्रिंग में हल होते हैं। इसे टेम्पलेट में `set:html` निर्देश के साथ, या क्लाइंट `<script>` में `innerHTML` के साथ इंजेक्ट करें।
+
+    ```astro fileName="src/pages/index.astro"
+    ---
+    import { useIntlayer } from "astro-intlayer";
+
+    const { myHtmlContent } = useIntlayer("app");
+    ---
+
+    <div set:html={myHtmlContent.value} />
+    ```
+
+    ```astro fileName="src/components/Content.astro"
+    <div id="content"></div>
+
+    <script>
+      import { useIntlayer } from "astro-intlayer";
+
+      const { myHtmlContent } = useIntlayer("app");
+
+      document.querySelector("#content")!.innerHTML = myHtmlContent.value;
+    </script>
+    ```
+
+    > Astro डिफ़ॉल्ट रूप से `{अभिव्यक्तियों}` को एस्केप करता है। `set:html` ऑप्ट-आउट है, जो एक HTML स्ट्रिंग की आवश्यकता है।
+
+    टैग को ओवरराइड करने या कस्टम घटकों को मैप करने के लिए `.use()` विधि का उपयोग करें। ओवरराइड ऐसे फ़ंक्शन हैं जो एक HTML स्ट्रिंग लौटाते हैं:
+
+    ```astro
+    <div
+      set:html={myHtmlContent.use({
+        p: ({ children }) => `<p class="prose">${children}</p>`,
+        CustomLink: ({ children }) => `<a href="/details">${children}</a>`,
+      })}
+    />
     ```
 
   </Tab>
@@ -471,6 +550,41 @@ HTML नोड पर `.use()` विधि का उपयोग करते 
     > अपने HTML renderer को dynamically import करना आपके application के bundle size को कम करने का एक अच्छा तरीका है।
 
   </Tab>
+  <Tab label="Remix" value="remix">
+
+    Remix में प्रोवाइडर रखने के लिए कोई कंपोनेंट ट्री नहीं है, इसलिए सर्वर प्रारंभ होने पर कॉन्फ़िगरेशन एक सिंगलटन के रूप में एक बार स्थापित होता है। यह `useHTMLRenderer()` द्वारा लौटाए गए रेंडरर को कॉन्फ़िगर करता है। `useIntlayer` द्वारा लौटाए गए `html` नोड्स यथावत प्रस्तुत किए जाते हैं; प्रति नोड उनके टैग को `.use()` के साथ ओवरराइड करें।
+
+    ```typescript fileName="src/router.ts"
+    import { installIntlayerHTML } from "remix-intlayer/html";
+
+    installIntlayerHTML({
+      renderHTML: (html) => html.replaceAll("<p>", '<p class="prose">'),
+    });
+    ```
+
+    > रेंडरर को लेज़ी लोड करने के लिए `installIntlayerHTMLDynamic(async () => …)` का उपयोग करें; लोडर केवल पहले कॉल पर चलता है।
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+
+    Astro में प्रोवाइडर रखने के लिए कोई कंपोनेंट ट्री नहीं है, इसलिए कॉन्फ़िगरेशन मिडलवेयर (सर्वर) और क्लाइंट `<script>` (ब्राउज़र) में सिंगलटन के रूप में एक बार स्थापित होता है। यह `useHTMLRenderer()` द्वारा लौटाए गए रेंडरर को कॉन्फ़िगर करता है। `useIntlayer` द्वारा लौटाए गए `html` नोड्स यथावत प्रस्तुत किए जाते हैं; प्रति नोड उनके टैग को `.use()` के साथ ओवरराइड करें।
+
+    ```typescript fileName="src/middleware.ts"
+    import { installIntlayerHTML } from "astro-intlayer/html";
+    import { defineMiddleware } from "astro:middleware";
+
+    // सर्वर प्रारंभ होने पर एक बार चलता है; Intlayer मिडलवेयर स्वयं इस फ़ाइल से
+    // पहले एकीकरण द्वारा पंजीकृत होता है।
+    installIntlayerHTML({
+      renderHTML: (html) => html.replaceAll("<p>", '<p class="prose">'),
+    });
+
+    export const onRequest = defineMiddleware((_context, next) => next());
+    ```
+
+    > रेंडरर को लेज़ी लोड करने के लिए `installIntlayerHTMLDynamic(async () => …)` का उपयोग करें; लोडर केवल पहले कॉल पर चलता है।
+
+  </Tab>
 </Tabs>
 
 ### मैनुअल रेंडरिंग और उन्नत टूल्स
@@ -643,15 +757,69 @@ HTML नोड पर `.use()` विधि का उपयोग करते 
     ```
 
   </Tab>
+  <Tab label="Remix" value="remix">
+    #### `useHTMLRenderer()` हुक
+
+    `installIntlayerHTML()` द्वारा पूर्व-कॉन्फ़िगर किया गया रेंडरर फ़ंक्शन प्राप्त करें। यह एक HTML स्ट्रिंग लौटाता है।
+
+    ```tsx
+    import { useHTMLRenderer } from "remix-intlayer/html";
+
+    const renderHTML = useHTMLRenderer();
+
+    return <div innerHTML={renderHTML("<p>Hello <strong>World</strong></p>")} />;
+    ```
+
+    #### `renderHTML()` यूटिलिटी
+
+    स्टैंडअलोन यूटिलिटी जो वैश्विक कॉन्फ़िगरेशन को अनदेखा करती है।
+
+    ```tsx
+    import { renderHTML } from "remix-intlayer/html";
+
+    const html = renderHTML("<p>Hello</p>");
+    ```
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+    #### `useHTMLRenderer()` हुक
+
+    `installIntlayerHTML()` द्वारा पूर्व-कॉन्फ़िगर किया गया रेंडरर फ़ंक्शन प्राप्त करें। यह एक HTML स्ट्रिंग लौटाता है।
+
+    ```astro
+    ---
+    import { useHTMLRenderer } from "astro-intlayer/html";
+
+    const renderHTML = useHTMLRenderer();
+    ---
+
+    <div set:html={renderHTML("<p>Hello <strong>World</strong></p>")} />
+    ```
+
+    #### `renderHTML()` यूटिलिटी
+
+    स्टैंडअलोन यूटिलिटी जो वैश्विक कॉन्फ़िगरेशन को अनदेखा करती है।
+
+    ```astro
+    ---
+    import { renderHTML } from "astro-intlayer/html";
+
+    const html = renderHTML("<p>Hello</p>");
+    ---
+
+    <div set:html={html} />
+    ```
+
+  </Tab>
 </Tabs>
 
 ## विकल्प संदर्भ
 
 इन विकल्पों को `HTMLProvider`, `HTMLRenderer`, `useHTMLRenderer`, और `renderHTML` को पास किया जा सकता है।
 
-| विकल्प       | प्रकार                | डिफ़ॉल्ट | विवरण                                                                                                          |
-| :----------- | :-------------------- | :------- | :------------------------------------------------------------------------------------------------------------- |
-| `components` | `Record<string, any>` | `{}`     | HTML टैग्स या कस्टम कॉम्पोनेंट नामों को कॉम्पोनेंट्स से मैप करने वाला ऑब्जेक्ट।                                |
-| `renderHTML` | `Function`            | `null`   | डिफ़ॉल्ट HTML पार्सर को पूरी तरह से बदलने के लिए एक कस्टम रेंडरिंग फ़ंक्शन (केवल Vue/Svelte providers के लिए)। |
+| विकल्प       | प्रकार                | डिफ़ॉल्ट | विवरण                                                                                                             |
+| :----------- | :-------------------- | :------- | :---------------------------------------------------------------------------------------------------------------- |
+| `components` | `Record<string, any>` | `{}`     | HTML टैग्स या कस्टम कॉम्पोनेंट नामों को कॉम्पोनेंट्स से मैप करने वाला ऑब्जेक्ट।                                   |
+| `renderHTML` | `Function`            | `null`   | डिफ़ॉल्ट HTML पार्सर को पूरी तरह से बदलने के लिए एक कस्टम रेंडरिंग फ़ंक्शन (Vue, Svelte, Remix और Astro प्रदाता)। |
 
 > नोट: React और Preact के लिए, मानक HTML टैग्स स्वतः प्रदान किए जाते हैं। केवल तभी आपको `components` prop पास करने की आवश्यकता होती है जब आप उन्हें ओवरराइड करना या कस्टम कॉम्पोनेंट जोड़ना चाहें।

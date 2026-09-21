@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-05-19
+updatedAt: 2026-09-21
 title: Markdown
 description: Aprenda como declarar e usar conteúdo Markdown em seu site multilíngue com o Intlayer. Siga os passos nesta documentação online para integrar o Markdown de forma nativa ao seu projeto.
 keywords:
@@ -11,6 +11,8 @@ keywords:
   - Next.js
   - JavaScript
   - React
+  - Remix
+  - Astro
 slugs:
   - doc
   - concept
@@ -487,6 +489,111 @@ A renderização do Markdown suporta **MDX** — use qualquer componente JSX/fra
     ```
 
   </Tab>
+  <Tab label="Remix" value="remix">
+    No Remix 3, os nós Markdown são renderizados no servidor em uma string HTML. Injete-a com a prop `innerHTML` do Remix JSX ou com `html.raw` em uma visualização `html-template`.
+
+    ```tsx fileName="src/views/home.tsx"
+    import { useIntlayer } from "remix-intlayer";
+
+    export const HomePage = () => () => {
+      const { myMarkdownContent } = useIntlayer("app");
+
+      return <div innerHTML={myMarkdownContent.value} />;
+    };
+    ```
+
+    ```ts fileName="src/views/home.ts"
+    import { html } from "remix/html-template";
+    import { useIntlayer } from "remix-intlayer";
+
+    export const renderHomePage = () => {
+      const { myMarkdownContent } = useIntlayer("app");
+
+      return html.raw`<div>${myMarkdownContent.value}</div>`;
+    };
+    ```
+
+    > O Remix escapa valores interpolados por padrão. `innerHTML` e `html.raw` são as duas exceções, que é o que uma string Markdown renderizada precisa.
+
+    Você também pode fornecer substituições locais para tags específicas usando o método `.use()`. As substituições são funções que retornam uma string HTML:
+
+    ```tsx
+    <div
+      innerHTML={myMarkdownContent.use({
+        h1: ({ children }) => `<h1 class="text-3xl font-bold">${children}</h1>`,
+      })}
+    />
+    ```
+
+    `.value` é a string HTML renderizada, enquanto `String()` / `.toString()` retornam a fonte Markdown bruta:
+
+    ```tsx
+    myMarkdownContent.value // "<h1>…</h1>"
+    String(myMarkdownContent) // "# …"
+    myMarkdownContent.toString() // "# …"
+    ```
+
+    E você pode acessar os metadados do seu markdown assim:
+
+    ```tsx
+    myMarkdownContent.metadata
+    myMarkdownContent.metadata.title
+    ```
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+    No Astro, os nós Markdown são renderizados em uma string HTML. Injete-a com a diretiva `set:html` no template ou com `innerHTML` em um `<script>` do cliente.
+
+    ```astro fileName="src/pages/index.astro"
+    ---
+    import { useIntlayer } from "astro-intlayer";
+
+    const { myMarkdownContent } = useIntlayer("app");
+    ---
+
+    <div set:html={myMarkdownContent.value} />
+    ```
+
+    ```astro fileName="src/components/Content.astro"
+    <div id="content"></div>
+
+    <script>
+      import { useIntlayer } from "astro-intlayer";
+
+      const { myMarkdownContent } = useIntlayer("app");
+
+      document.querySelector("#content")!.innerHTML = myMarkdownContent.value;
+    </script>
+    ```
+
+    > O Astro escapa `{expressões}` por padrão. `set:html` é a exceção, que é o que uma string Markdown renderizada precisa.
+
+    Você também pode fornecer substituições locais para tags específicas usando o método `.use()`. As substituições são funções que retornam uma string HTML:
+
+    ```astro
+    <div
+      set:html={myMarkdownContent.use({
+        h1: ({ children }) => `<h1 class="text-3xl font-bold">${children}</h1>`,
+      })}
+    />
+    ```
+
+    `.value` é a string HTML renderizada, enquanto `String()` / `.toString()` retornam a fonte Markdown bruta:
+
+    ```astro
+    myMarkdownContent.value // "<h1>…</h1>"
+    String(myMarkdownContent) // "# …"
+    myMarkdownContent.toString() // "# …"
+    ```
+
+    E você pode acessar os metadados do seu markdown assim:
+
+    ```astro
+    myMarkdownContent.metadata
+    myMarkdownContent.metadata.title
+    ```
+
+  </Tab>
 </Tabs>
 
 ### 2. Utilitários auxiliares (Somente Strings Markdown)
@@ -695,6 +802,60 @@ Estes utilitários renderizam **apenas strings Markdown brutas** e são independ
         return this.markdownService.renderMarkdown(markdown);
       }
     }
+    ```
+
+  </Tab>
+  <Tab label="Remix" value="remix">
+    #### Hook `useMarkdownRenderer()`
+
+    Obtenha uma função de renderização pré-configurada por `installIntlayerMarkdown()`. Ela retorna uma string HTML.
+
+    ```tsx
+    import { useMarkdownRenderer } from "remix-intlayer/markdown";
+
+    const renderMarkdown = useMarkdownRenderer({ forceBlock: true });
+
+    return <div innerHTML={renderMarkdown("# My Title")} />;
+    ```
+
+    #### Utilitário `renderMarkdown()`
+
+    Utilitário independente que ignora a configuração global.
+
+    ```tsx
+    import { renderMarkdown } from "remix-intlayer/markdown";
+
+    const html = renderMarkdown("# My Title", { forceBlock: true });
+    ```
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+    #### Hook `useMarkdownRenderer()`
+
+    Obtenha uma função de renderização pré-configurada por `installIntlayerMarkdown()`. Ela retorna uma string HTML.
+
+    ```astro
+    ---
+    import { useMarkdownRenderer } from "astro-intlayer/markdown";
+
+    const renderMarkdown = useMarkdownRenderer({ forceBlock: true });
+    ---
+
+    <div set:html={renderMarkdown("# My Title")} />
+    ```
+
+    #### Utilitário `renderMarkdown()`
+
+    Utilitário independente que ignora a configuração global.
+
+    ```astro
+    ---
+    import { renderMarkdown } from "astro-intlayer/markdown";
+
+    const html = renderMarkdown("# My Title", { forceBlock: true });
+    ---
+
+    <div set:html={html} />
     ```
 
   </Tab>
@@ -995,6 +1156,73 @@ O `MarkdownProvider` (ou o seu equivalente do framework) configura o pipeline de
     ```
 
     > Importar dinamicamente o seu renderizador de Markdown é uma ótima maneira de reduzir o tamanho do bundle da sua aplicação.
+
+  </Tab>
+  <Tab label="Remix" value="remix">
+
+    O Remix não possui uma árvore de componentes para manter um provider, portanto, a configuração é instalada uma vez, como um singleton, na inicialização do servidor. Ela configura o renderizador retornado por `useMarkdownRenderer()`. Os nós `md` retornados por `useIntlayer` são renderizados com o compilador padrão; substitua suas tags por nó com `.use()`.
+
+    ```typescript fileName="src/router.ts"
+    import { installIntlayerMarkdown } from "remix-intlayer/markdown";
+
+    installIntlayerMarkdown({
+      forceBlock: true,
+      components: {
+        h1: ({ children }) => `<h1 class="text-2xl font-bold">${children}</h1>`,
+      },
+    });
+    ```
+
+    Você também pode usar seu próprio renderizador de markdown:
+
+    ```typescript fileName="src/router.ts"
+    import { installIntlayerMarkdown } from "remix-intlayer/markdown";
+
+    installIntlayerMarkdown({
+      renderMarkdown: async (md) => {
+        const { marked } = await import("marked");
+        return marked(md) as string;
+      },
+    });
+    ```
+
+    > Use `installIntlayerMarkdownDynamic(async () => …)` para carregar o renderizador de forma preguiçosa; o carregador é executado apenas na primeira chamada.
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+
+    O Astro não possui uma árvore de componentes para manter um provider, portanto, a configuração é instalada uma vez, como um singleton, no middleware (servidor) e em um `<script>` do cliente (navegador). Ela configura o renderizador retornado por `useMarkdownRenderer()`. Os nós `md` retornados por `useIntlayer` são renderizados com o compilador padrão; substitua suas tags por nó com `.use()`.
+
+    ```typescript fileName="src/middleware.ts"
+    import { installIntlayerMarkdown } from "astro-intlayer/markdown";
+    import { defineMiddleware } from "astro:middleware";
+
+    // Executa uma vez quando o servidor inicia; o próprio middleware do Intlayer é
+    // registrado pela integração, antes deste arquivo.
+    installIntlayerMarkdown({
+      forceBlock: true,
+      components: {
+        h1: ({ children }) => `<h1 class="text-2xl font-bold">${children}</h1>`,
+      },
+    });
+
+    export const onRequest = defineMiddleware((_context, next) => next());
+    ```
+
+    Você também pode usar seu próprio renderizador de markdown:
+
+    ```typescript fileName="src/middleware.ts"
+    import { installIntlayerMarkdown } from "astro-intlayer/markdown";
+
+    installIntlayerMarkdown({
+      renderMarkdown: async (md) => {
+        const { marked } = await import("marked");
+        return marked(md) as string;
+      },
+    });
+    ```
+
+    > Use `installIntlayerMarkdownDynamic(async () => …)` para carregar o renderizador de forma preguiçosa; o carregador é executado apenas na primeira chamada.
 
   </Tab>
 </Tabs>
@@ -1322,6 +1550,40 @@ Você pode usar a função `parseMarkdown` do pacote Intlayer do seu framework n
         });
       }
     }
+    ```
+
+  </Tab>
+  <Tab label="Remix" value="remix">
+
+    O Remix 3 renderiza no servidor e transmite HTML, portanto, nenhuma AST precisa ser transferida para o cliente. Analise uma vez e renderize a AST onde quer que a página seja construída:
+
+    ```tsx fileName="src/views/article.tsx"
+    import { parseMarkdown, renderMarkdown } from "remix-intlayer/markdown";
+
+    // 1. Analisar o markdown em uma AST serializável (por exemplo, uma vez, no carregamento do módulo)
+    const ast = parseMarkdown("## My title \n\nLorem Ipsum");
+
+    export const ArticlePage = () => () => (
+      // 2. Renderizar a AST: o renderizador aceita uma string bruta ou a AST analisada
+      <article innerHTML={renderMarkdown(ast)} />
+    );
+    ```
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+
+    As páginas do Astro são renderizadas no servidor, portanto, nenhuma AST precisa ser transferida para o cliente. Analise o Markdown no frontmatter e renderize-o com `set:html`:
+
+    ```astro fileName="src/pages/article.astro"
+    ---
+    import { parseMarkdown, renderMarkdown } from "astro-intlayer/markdown";
+
+    // 1. Analisar o markdown em uma AST serializável
+    const ast = parseMarkdown("## My title \n\nLorem Ipsum");
+    ---
+
+    <!-- 2. Renderizar a AST: o renderizador aceita uma string bruta ou a AST analisada -->
+    <article set:html={renderMarkdown(ast)} />
     ```
 
   </Tab>

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-05-19
+updatedAt: 2026-09-21
 title: Markdown
 description: Intlayerを使用して多言語Webサイトでマークダウンコンテンツを宣言および使用する方法を学びます。このオンラインドキュメントの手順に従って、マークダウンをプロジェクトにシームレスに統合します。
 keywords:
@@ -11,6 +11,8 @@ keywords:
   - Next.js
   - JavaScript
   - React
+  - Remix
+  - Astro
 slugs:
   - doc
   - concept
@@ -489,6 +491,111 @@ Markdown レンダリングは **MDX** をサポートしています — Markdo
     ```
 
   </Tab>
+  <Tab label="Remix" value="remix">
+    Remix 3 では、Markdown ノードはサーバー上で HTML 文字列にレンダリングされます。Remix JSX の `innerHTML` プロパティ、または `html-template` ビューの `html.raw` を使用して挿入します。
+
+    ```tsx fileName="src/views/home.tsx"
+    import { useIntlayer } from "remix-intlayer";
+
+    export const HomePage = () => () => {
+      const { myMarkdownContent } = useIntlayer("app");
+
+      return <div innerHTML={myMarkdownContent.value} />;
+    };
+    ```
+
+    ```ts fileName="src/views/home.ts"
+    import { html } from "remix/html-template";
+    import { useIntlayer } from "remix-intlayer";
+
+    export const renderHomePage = () => {
+      const { myMarkdownContent } = useIntlayer("app");
+
+      return html.raw`<div>${myMarkdownContent.value}</div>`;
+    };
+    ```
+
+    > Remix はデフォルトで補間された値をエスケープします。`innerHTML` と `html.raw` はエスケープを回避する2つの方法であり、レンダリングされた Markdown 文字列に必要なものです。
+
+    `.use()` メソッドを使用して、特定のタグのローカルオーバーライドを指定することもできます。オーバーライドは HTML 文字列を返す関数です:
+
+    ```tsx
+    <div
+      innerHTML={myMarkdownContent.use({
+        h1: ({ children }) => `<h1 class="text-3xl font-bold">${children}</h1>`,
+      })}
+    />
+    ```
+
+    `.value` はレンダリングされたHTML文字列であり、`String()` / `.toString()` は生のMarkdownソースを返します:
+
+    ```tsx
+    myMarkdownContent.value // "<h1>…</h1>"
+    String(myMarkdownContent) // "# …"
+    myMarkdownContent.toString() // "# …"
+    ```
+
+    また、次のようにMarkdownメタデータにアクセスできます:
+
+    ```tsx
+    myMarkdownContent.metadata
+    myMarkdownContent.metadata.title
+    ```
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+    Astro では、Markdown ノードは HTML 文字列にレンダリングされます。テンプレート内の `set:html` ディレクティブ、またはクライアントの `<script>` 内の `innerHTML` を使用して挿入します。
+
+    ```astro fileName="src/pages/index.astro"
+    ---
+    import { useIntlayer } from "astro-intlayer";
+
+    const { myMarkdownContent } = useIntlayer("app");
+    ---
+
+    <div set:html={myMarkdownContent.value} />
+    ```
+
+    ```astro fileName="src/components/Content.astro"
+    <div id="content"></div>
+
+    <script>
+      import { useIntlayer } from "astro-intlayer";
+
+      const { myMarkdownContent } = useIntlayer("app");
+
+      document.querySelector("#content")!.innerHTML = myMarkdownContent.value;
+    </script>
+    ```
+
+    > Astro はデフォルトで `{式}` をエスケープします。`set:html` はエスケープを回避する方法であり、レンダリングされた Markdown 文字列に必要なものです。
+
+    `.use()` メソッドを使用して、特定のタグのローカルオーバーライドを指定することもできます。オーバーライドは HTML 文字列を返す関数です:
+
+    ```astro
+    <div
+      set:html={myMarkdownContent.use({
+        h1: ({ children }) => `<h1 class="text-3xl font-bold">${children}</h1>`,
+      })}
+    />
+    ```
+
+    `.value` はレンダリングされたHTML文字列であり、`String()` / `.toString()` は生のMarkdownソースを返します:
+
+    ```astro
+    myMarkdownContent.value // "<h1>…</h1>"
+    String(myMarkdownContent) // "# …"
+    myMarkdownContent.toString() // "# …"
+    ```
+
+    また、次のようにMarkdownメタデータにアクセスできます:
+
+    ```astro
+    myMarkdownContent.metadata
+    myMarkdownContent.metadata.title
+    ```
+
+  </Tab>
 </Tabs>
 
 ### 2. ヘルパーユーティリティ（Markdown文字列のみ）
@@ -697,6 +804,60 @@ Markdown レンダリングは **MDX** をサポートしています — Markdo
         return this.markdownService.renderMarkdown(markdown);
       }
     }
+    ```
+
+  </Tab>
+  <Tab label="Remix" value="remix">
+    #### `useMarkdownRenderer()` フック
+
+    `installIntlayerMarkdown()` によって事前設定されたレンダラー関数を取得します。HTML 文字列を返します。
+
+    ```tsx
+    import { useMarkdownRenderer } from "remix-intlayer/markdown";
+
+    const renderMarkdown = useMarkdownRenderer({ forceBlock: true });
+
+    return <div innerHTML={renderMarkdown("# My Title")} />;
+    ```
+
+    #### `renderMarkdown()` ユーティリティ
+
+    グローバル設定を無視するスタンドアロンユーティリティ。
+
+    ```tsx
+    import { renderMarkdown } from "remix-intlayer/markdown";
+
+    const html = renderMarkdown("# My Title", { forceBlock: true });
+    ```
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+    #### `useMarkdownRenderer()` フック
+
+    `installIntlayerMarkdown()` によって事前設定されたレンダラー関数を取得します。HTML 文字列を返します。
+
+    ```astro
+    ---
+    import { useMarkdownRenderer } from "astro-intlayer/markdown";
+
+    const renderMarkdown = useMarkdownRenderer({ forceBlock: true });
+    ---
+
+    <div set:html={renderMarkdown("# My Title")} />
+    ```
+
+    #### `renderMarkdown()` ユーティリティ
+
+    グローバル設定を無視するスタンドアロンユーティリティ。
+
+    ```astro
+    ---
+    import { renderMarkdown } from "astro-intlayer/markdown";
+
+    const html = renderMarkdown("# My Title", { forceBlock: true });
+    ---
+
+    <div set:html={html} />
     ```
 
   </Tab>
@@ -997,6 +1158,73 @@ Markdown レンダリングは **MDX** をサポートしています — Markdo
     ```
 
     > Markdown レンダラーを動的にインポートすることは、アプリケーションのバンドルサイズを削減するためのよい方法です。
+
+  </Tab>
+  <Tab label="Remix" value="remix">
+
+    Remix にはプロバイダーを保持するコンポーネントツリーがないため、設定はサーバー起動時にシングルトンとして一度だけインストールされます。`useMarkdownRenderer()` によって返されるレンダラーを設定します。`useIntlayer` によって返される `md` ノードはデフォルトのコンパイラでレンダリングされます。ノードごとに `.use()` でタグをオーバーライドします。
+
+    ```typescript fileName="src/router.ts"
+    import { installIntlayerMarkdown } from "remix-intlayer/markdown";
+
+    installIntlayerMarkdown({
+      forceBlock: true,
+      components: {
+        h1: ({ children }) => `<h1 class="text-2xl font-bold">${children}</h1>`,
+      },
+    });
+    ```
+
+    独自のMarkdownレンダラーを使用することもできます:
+
+    ```typescript fileName="src/router.ts"
+    import { installIntlayerMarkdown } from "remix-intlayer/markdown";
+
+    installIntlayerMarkdown({
+      renderMarkdown: async (md) => {
+        const { marked } = await import("marked");
+        return marked(md) as string;
+      },
+    });
+    ```
+
+    > レンダラー自体を遅延読み込みするには `installIntlayerMarkdownDynamic(async () => …)` を使用します。ローダーは最初の呼び出し時にのみ実行されます。
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+
+    Astro にはプロバイダーを保持するコンポーネントツリーがないため、設定はミドルウェア（サーバー）およびクライアント `<script>`（ブラウザ）でシングルトンとして一度だけインストールされます。`useMarkdownRenderer()` によって返されるレンダラーを設定します。`useIntlayer` によって返される `md` ノードはデフォルトのコンパイラでレンダリングされます。ノードごとに `.use()` でタグをオーバーライドします。
+
+    ```typescript fileName="src/middleware.ts"
+    import { installIntlayerMarkdown } from "astro-intlayer/markdown";
+    import { defineMiddleware } from "astro:middleware";
+
+    // サーバー起動時に1回実行されます。Intlayerミドルウェア自体は、
+    // このファイルより前にインテグレーションによって登録されます。
+    installIntlayerMarkdown({
+      forceBlock: true,
+      components: {
+        h1: ({ children }) => `<h1 class="text-2xl font-bold">${children}</h1>`,
+      },
+    });
+
+    export const onRequest = defineMiddleware((_context, next) => next());
+    ```
+
+    独自のMarkdownレンダラーを使用することもできます:
+
+    ```typescript fileName="src/middleware.ts"
+    import { installIntlayerMarkdown } from "astro-intlayer/markdown";
+
+    installIntlayerMarkdown({
+      renderMarkdown: async (md) => {
+        const { marked } = await import("marked");
+        return marked(md) as string;
+      },
+    });
+    ```
+
+    > レンダラー自体を遅延読み込みするには `installIntlayerMarkdownDynamic(async () => …)` を使用します。ローダーは最初の呼び出し時にのみ実行されます。
 
   </Tab>
 </Tabs>
@@ -1324,6 +1552,40 @@ remark / rehype などの他の Markdown パーサーと比較して、Intlayer 
         });
       }
     }
+    ```
+
+  </Tab>
+  <Tab label="Remix" value="remix">
+
+    Remix 3 はサーバー上でレンダリングして HTML をストリーミングするため、AST をクライアントに送信する必要はありません。一度パースし、ページが構築される場所で AST をレンダリングします:
+
+    ```tsx fileName="src/views/article.tsx"
+    import { parseMarkdown, renderMarkdown } from "remix-intlayer/markdown";
+
+    // 1. Markdownをシリアライズ可能なASTにパースする（例: モジュール読み込み時に1回）
+    const ast = parseMarkdown("## My title \n\nLorem Ipsum");
+
+    export const ArticlePage = () => () => (
+      // 2. ASTをレンダリングする: レンダラーは生の文字列またはパースされたASTを受け入れます
+      <article innerHTML={renderMarkdown(ast)} />
+    );
+    ```
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+
+    Astro ページはサーバー上でレンダリングされるため、AST をクライアントに送信する必要はありません。frontmatter で Markdown をパースし、`set:html` でレンダリングします:
+
+    ```astro fileName="src/pages/article.astro"
+    ---
+    import { parseMarkdown, renderMarkdown } from "astro-intlayer/markdown";
+
+    // 1. Markdownをシリアライズ可能なASTにパースする
+    const ast = parseMarkdown("## My title \n\nLorem Ipsum");
+    ---
+
+    <!-- 2. ASTをレンダリングする: レンダラーは生の文字列またはパースされたASTを受け入れます -->
+    <article set:html={renderMarkdown(ast)} />
     ```
 
   </Tab>

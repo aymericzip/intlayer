@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-05-19
+updatedAt: 2026-09-21
 title: Markdown
 description: تعرف على كيفية الإعلان عن واستخدام محتوى Markdown في موقعك متعدد اللغات باستخدام Intlayer. اتبع الخطوات في هذه الوثائق عبر الإنترنت لدمج Markdown بسلاسة في مشروعك.
 keywords:
@@ -11,6 +11,8 @@ keywords:
   - Next.js
   - JavaScript
   - React
+  - Remix
+  - Astro
 slugs:
   - doc
   - concept
@@ -487,6 +489,111 @@ author: aymericzip
     ```
 
   </Tab>
+  <Tab label="Remix" value="remix">
+    في Remix 3، يتم عرض عقد Markdown على الخادم في سلسلة HTML. قم بحقنها باستخدام خاصية `innerHTML` في Remix JSX، أو باستخدام `html.raw` في عرض `html-template`.
+
+    ```tsx fileName="src/views/home.tsx"
+    import { useIntlayer } from "remix-intlayer";
+
+    export const HomePage = () => () => {
+      const { myMarkdownContent } = useIntlayer("app");
+
+      return <div innerHTML={myMarkdownContent.value} />;
+    };
+    ```
+
+    ```ts fileName="src/views/home.ts"
+    import { html } from "remix/html-template";
+    import { useIntlayer } from "remix-intlayer";
+
+    export const renderHomePage = () => {
+      const { myMarkdownContent } = useIntlayer("app");
+
+      return html.raw`<div>${myMarkdownContent.value}</div>`;
+    };
+    ```
+
+    > يقوم Remix بتهريب القيم المدرجة افتراضيًا. `innerHTML` و `html.raw` هما خيارا إلغاء الاشتراك، وهو ما تحتاجه سلسلة Markdown المعروضة.
+
+    يمكنك أيضًا توفير تجاوزات محلية لعلامات معينة باستخدام طريقة `.use()`. التجاوزات هي دوال تُرجع سلسلة HTML:
+
+    ```tsx
+    <div
+      innerHTML={myMarkdownContent.use({
+        h1: ({ children }) => `<h1 class="text-3xl font-bold">${children}</h1>`,
+      })}
+    />
+    ```
+
+    `.value` هي سلسلة HTML المعروضة، بينما `String()` / `.toString()` تعيد مصدر Markdown الخام:
+
+    ```tsx
+    myMarkdownContent.value // "<h1>…</h1>"
+    String(myMarkdownContent) // "# …"
+    myMarkdownContent.toString() // "# …"
+    ```
+
+    ويمكنك الوصول إلى بيانات تعريف markdown الخاصة بك مثل:
+
+    ```tsx
+    myMarkdownContent.metadata
+    myMarkdownContent.metadata.title
+    ```
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+    في Astro، يتم عرض عقد Markdown في سلسلة HTML. قم بحقنها باستخدام توجيه `set:html` في القالب، أو باستخدام `innerHTML` في `<script>` من جانب العميل.
+
+    ```astro fileName="src/pages/index.astro"
+    ---
+    import { useIntlayer } from "astro-intlayer";
+
+    const { myMarkdownContent } = useIntlayer("app");
+    ---
+
+    <div set:html={myMarkdownContent.value} />
+    ```
+
+    ```astro fileName="src/components/Content.astro"
+    <div id="content"></div>
+
+    <script>
+      import { useIntlayer } from "astro-intlayer";
+
+      const { myMarkdownContent } = useIntlayer("app");
+
+      document.querySelector("#content")!.innerHTML = myMarkdownContent.value;
+    </script>
+    ```
+
+    > يقوم Astro بتهريب `{التعبيرات}` افتراضيًا. `set:html` هو خيار إلغاء الاشتراك، وهو ما تحتاجه سلسلة Markdown المعروضة.
+
+    يمكنك أيضًا توفير تجاوزات محلية لعلامات معينة باستخدام طريقة `.use()`. التجاوزات هي دوال تُرجع سلسلة HTML:
+
+    ```astro
+    <div
+      set:html={myMarkdownContent.use({
+        h1: ({ children }) => `<h1 class="text-3xl font-bold">${children}</h1>`,
+      })}
+    />
+    ```
+
+    `.value` هي سلسلة HTML المعروضة، بينما `String()` / `.toString()` تعيد مصدر Markdown الخام:
+
+    ```astro
+    myMarkdownContent.value // "<h1>…</h1>"
+    String(myMarkdownContent) // "# …"
+    myMarkdownContent.toString() // "# …"
+    ```
+
+    ويمكنك الوصول إلى بيانات تعريف markdown الخاصة بك مثل:
+
+    ```astro
+    myMarkdownContent.metadata
+    myMarkdownContent.metadata.title
+    ```
+
+  </Tab>
 </Tabs>
 
 ### 2. الأدوات المساعدة (سلاسل Markdown فقط)
@@ -695,6 +802,60 @@ author: aymericzip
         return this.markdownService.renderMarkdown(markdown);
       }
     }
+    ```
+
+  </Tab>
+  <Tab label="Remix" value="remix">
+    #### Hook `useMarkdownRenderer()`
+
+    احصل على دالة عرض مهيأة مسبقًا بواسطة `installIntlayerMarkdown()`. تُرجع سلسلة HTML.
+
+    ```tsx
+    import { useMarkdownRenderer } from "remix-intlayer/markdown";
+
+    const renderMarkdown = useMarkdownRenderer({ forceBlock: true });
+
+    return <div innerHTML={renderMarkdown("# My Title")} />;
+    ```
+
+    #### أداة `renderMarkdown()`
+
+    أداة قائمة بذاتها تتجاهل التكوين العام.
+
+    ```tsx
+    import { renderMarkdown } from "remix-intlayer/markdown";
+
+    const html = renderMarkdown("# My Title", { forceBlock: true });
+    ```
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+    #### Hook `useMarkdownRenderer()`
+
+    احصل على دالة عرض مهيأة مسبقًا بواسطة `installIntlayerMarkdown()`. تُرجع سلسلة HTML.
+
+    ```astro
+    ---
+    import { useMarkdownRenderer } from "astro-intlayer/markdown";
+
+    const renderMarkdown = useMarkdownRenderer({ forceBlock: true });
+    ---
+
+    <div set:html={renderMarkdown("# My Title")} />
+    ```
+
+    #### أداة `renderMarkdown()`
+
+    أداة قائمة بذاتها تتجاهل التكوين العام.
+
+    ```astro
+    ---
+    import { renderMarkdown } from "astro-intlayer/markdown";
+
+    const html = renderMarkdown("# My Title", { forceBlock: true });
+    ---
+
+    <div set:html={html} />
     ```
 
   </Tab>
@@ -996,6 +1157,73 @@ author: aymericzip
     ```
 
     > الاستيراد الديناميكي لعارض Markdown الخاص بك هو طريقة رائعة لتقليل حجم حزمة تطبيقك.
+
+  </Tab>
+  <Tab label="Remix" value="remix">
+
+    لا يحتوي Remix على شجرة مكونات للاحتفاظ بمزود، لذلك يتم تثبيت التكوين مرة واحدة، كعنصر فريد (singleton)، عند بدء تشغيل الخادم. يقوم بتكوين أداة العرض التي تُرجعها `useMarkdownRenderer()`. يتم عرض عقد `md` التي تُرجعها `useIntlayer` باستخدام المترجم الافتراضي؛ قم بتجاوز علاماتها لكل عقدة باستخدام `.use()`.
+
+    ```typescript fileName="src/router.ts"
+    import { installIntlayerMarkdown } from "remix-intlayer/markdown";
+
+    installIntlayerMarkdown({
+      forceBlock: true,
+      components: {
+        h1: ({ children }) => `<h1 class="text-2xl font-bold">${children}</h1>`,
+      },
+    });
+    ```
+
+    يمكنك أيضًا استخدام أداة عرض markdown الخاصة بك:
+
+    ```typescript fileName="src/router.ts"
+    import { installIntlayerMarkdown } from "remix-intlayer/markdown";
+
+    installIntlayerMarkdown({
+      renderMarkdown: async (md) => {
+        const { marked } = await import("marked");
+        return marked(md) as string;
+      },
+    });
+    ```
+
+    > استخدم `installIntlayerMarkdownDynamic(async () => …)` لتحميل أداة العرض بشكل متكاسل؛ يتم تشغيل أداة التحميل عند الاستدعاء الأول فقط.
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+
+    لا يحتوي Astro على شجرة مكونات للاحتفاظ بمزود، لذلك يتم تثبيت التكوين مرة واحدة، كعنصر فريد (singleton)، في البرمجيات الوسيطة (الخادم) وفي `<script>` من جانب العميل (المتصفح). يقوم بتكوين أداة العرض التي تُرجعها `useMarkdownRenderer()`. يتم عرض عقد `md` التي تُرجعها `useIntlayer` باستخدام المترجم الافتراضي؛ قم بتجاوز علاماتها لكل عقدة باستخدام `.use()`.
+
+    ```typescript fileName="src/middleware.ts"
+    import { installIntlayerMarkdown } from "astro-intlayer/markdown";
+    import { defineMiddleware } from "astro:middleware";
+
+    // يتم التشغيل مرة واحدة عند بدء تشغيل الخادم؛ يتم تسجيل برمجية Intlayer الوسيطة نفسها
+    // بواسطة التكامل قبل هذا الملف.
+    installIntlayerMarkdown({
+      forceBlock: true,
+      components: {
+        h1: ({ children }) => `<h1 class="text-2xl font-bold">${children}</h1>`,
+      },
+    });
+
+    export const onRequest = defineMiddleware((_context, next) => next());
+    ```
+
+    يمكنك أيضًا استخدام أداة عرض markdown الخاصة بك:
+
+    ```typescript fileName="src/middleware.ts"
+    import { installIntlayerMarkdown } from "astro-intlayer/markdown";
+
+    installIntlayerMarkdown({
+      renderMarkdown: async (md) => {
+        const { marked } = await import("marked");
+        return marked(md) as string;
+      },
+    });
+    ```
+
+    > استخدم `installIntlayerMarkdownDynamic(async () => …)` لتحميل أداة العرض بشكل متكاسل؛ يتم تشغيل أداة التحميل عند الاستدعاء الأول فقط.
 
   </Tab>
 </Tabs>
@@ -1323,6 +1551,40 @@ export class MyComponent {
         });
       }
     }
+    ```
+
+  </Tab>
+  <Tab label="Remix" value="remix">
+
+    يقوم Remix 3 بالعرض على الخادم وبث HTML، لذلك لا يلزم عبور أي AST إلى العميل. قم بالتحليل مرة واحدة، واعرض AST أينما تم بناء الصفحة:
+
+    ```tsx fileName="src/views/article.tsx"
+    import { parseMarkdown, renderMarkdown } from "remix-intlayer/markdown";
+
+    // 1. تحليل markdown إلى AST قابل للتسلسل (على سبيل المثال مرة واحدة عند تحميل الوحدة)
+    const ast = parseMarkdown("## My title \n\nLorem Ipsum");
+
+    export const ArticlePage = () => () => (
+      // 2. عرض AST: يقبل العارض سلسلة خام أو AST الذي تم تحليله
+      <article innerHTML={renderMarkdown(ast)} />
+    );
+    ```
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+
+    يتم عرض صفحات Astro على الخادم، لذلك لا يلزم عبور أي AST إلى العميل. قم بتحليل Markdown في frontmatter واعرضه باستخدام `set:html`:
+
+    ```astro fileName="src/pages/article.astro"
+    ---
+    import { parseMarkdown, renderMarkdown } from "astro-intlayer/markdown";
+
+    // 1. تحليل markdown إلى AST قابل للتسلسل
+    const ast = parseMarkdown("## My title \n\nLorem Ipsum");
+    ---
+
+    <!-- 2. عرض AST: يقبل العارض سلسلة خام أو AST الذي تم تحليله -->
+    <article set:html={renderMarkdown(ast)} />
     ```
 
   </Tab>

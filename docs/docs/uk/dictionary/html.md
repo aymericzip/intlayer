@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-20
-updatedAt: 2026-01-22
+updatedAt: 2026-09-21
 title: Вміст HTML
 description: Дізнайтеся, як оголошувати та використовувати HTML-контент із користувацькими компонентами в Intlayer. Дотримуйтесь цієї документації, щоб вбудувати багатий вміст, схожий на HTML, з динамічною заміною компонентів у вашому інтернаціоналізованому проєкті.
 keywords:
@@ -13,6 +13,8 @@ keywords:
   - React
   - Vue
   - Svelte
+  - Remix
+  - Astro
 slugs:
   - doc
   - concept
@@ -233,6 +235,83 @@ const myContent = html(
       p: { class: "prose" },
       CustomLink: { href: "/details" },
     })
+    ```
+
+  </Tab>
+  <Tab label="Remix" value="remix">
+    У Remix 3 вузли HTML перетворюються на рядок HTML. Вставте його за допомогою пропу `innerHTML` у Remix JSX або за допомогою `html.raw` у поданні `html-template`.
+
+    ```tsx fileName="src/views/home.tsx"
+    import { useIntlayer } from "remix-intlayer";
+
+    export const HomePage = () => () => {
+      const { myHtmlContent } = useIntlayer("app");
+
+      return <div innerHTML={myHtmlContent.value} />;
+    };
+    ```
+
+    ```ts fileName="src/views/home.ts"
+    import { html } from "remix/html-template";
+    import { useIntlayer } from "remix-intlayer";
+
+    export const renderHomePage = () => {
+      const { myHtmlContent } = useIntlayer("app");
+
+      return html.raw`<div>${myHtmlContent.value}</div>`;
+    };
+    ```
+
+    > Remix екранує інтерпольовані значення за замовчуванням. `innerHTML` та `html.raw` — це два способи відмови від екранування, що й потрібно для рядка HTML.
+
+    Використовуйте метод `.use()` для перевизначення тегів або зіставлення користувацьких компонентів. Перевизначення — це функції, які повертають рядок HTML:
+
+    ```tsx
+    <div
+      innerHTML={myHtmlContent.use({
+        p: ({ children }) => `<p class="prose">${children}</p>`,
+        CustomLink: ({ children }) => `<a href="/details">${children}</a>`,
+      })}
+    />
+    ```
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+    В Astro вузли HTML перетворюються на рядок HTML. Вставте його за допомогою директиви `set:html` у шаблоні або за допомогою `innerHTML` у клієнтському тегу `<script>`.
+
+    ```astro fileName="src/pages/index.astro"
+    ---
+    import { useIntlayer } from "astro-intlayer";
+
+    const { myHtmlContent } = useIntlayer("app");
+    ---
+
+    <div set:html={myHtmlContent.value} />
+    ```
+
+    ```astro fileName="src/components/Content.astro"
+    <div id="content"></div>
+
+    <script>
+      import { useIntlayer } from "astro-intlayer";
+
+      const { myHtmlContent } = useIntlayer("app");
+
+      document.querySelector("#content")!.innerHTML = myHtmlContent.value;
+    </script>
+    ```
+
+    > Astro екранує `{вирази}` за замовчуванням. `set:html` — це спосіб відмови від екранування, що й потрібно для рядка HTML.
+
+    Використовуйте метод `.use()` для перевизначення тегів або зіставлення користувацьких компонентів. Перевизначення — це функції, які повертають рядок HTML:
+
+    ```astro
+    <div
+      set:html={myHtmlContent.use({
+        p: ({ children }) => `<p class="prose">${children}</p>`,
+        CustomLink: ({ children }) => `<a href="/details">${children}</a>`,
+      })}
+    />
     ```
 
   </Tab>
@@ -471,6 +550,41 @@ const myContent = html(
     > Динамічний імпорт вашого HTML-рендерера — це гарний спосіб зменшити розмір бандла вашого застосунку.
 
   </Tab>
+  <Tab label="Remix" value="remix">
+
+    У Remix немає дерева компонентів для розміщення провайдера, тому конфігурація встановлюється один раз як синглтон під час запуску сервера. Вона налаштовує рендерер, що повертається `useHTMLRenderer()`. Вузли `html`, що повертаються `useIntlayer`, відображаються як є; перевизначайте їхні теги для кожного вузла за допомогою `.use()`.
+
+    ```typescript fileName="src/router.ts"
+    import { installIntlayerHTML } from "remix-intlayer/html";
+
+    installIntlayerHTML({
+      renderHTML: (html) => html.replaceAll("<p>", '<p class="prose">'),
+    });
+    ```
+
+    > Використовуйте `installIntlayerHTMLDynamic(async () => …)` для відкладеного завантаження самого рендерера; завантажувач виконується лише під час першого виклику.
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+
+    В Astro немає дерева компонентів для розміщення провайдера, тому конфігурація встановлюється один раз як синглтон у middleware (сервер) та в клієнтському тегу `<script>` (браузер). Вона налаштовує рендерер, що повертається `useHTMLRenderer()`. Вузли `html`, що повертаються `useIntlayer`, відображаються як є; перевизначайте їхні теги для кожного вузла за допомогою `.use()`.
+
+    ```typescript fileName="src/middleware.ts"
+    import { installIntlayerHTML } from "astro-intlayer/html";
+    import { defineMiddleware } from "astro:middleware";
+
+    // Запускається один раз під час запуску сервера; сам middleware Intlayer
+    // реєструється інтеграцією перед цим файлом.
+    installIntlayerHTML({
+      renderHTML: (html) => html.replaceAll("<p>", '<p class="prose">'),
+    });
+
+    export const onRequest = defineMiddleware((_context, next) => next());
+    ```
+
+    > Використовуйте `installIntlayerHTMLDynamic(async () => …)` для відкладеного завантаження самого рендерера; завантажувач виконується лише під час першого виклику.
+
+  </Tab>
 </Tabs>
 
 ### Ручне відтворення та розширені інструменти
@@ -643,15 +757,69 @@ const myContent = html(
     ```
 
   </Tab>
+  <Tab label="Remix" value="remix">
+    #### Хук `useHTMLRenderer()`
+
+    Отримайте функцію відтворення, попередньо налаштовану за допомогою `installIntlayerHTML()`. Вона повертає рядок HTML.
+
+    ```tsx
+    import { useHTMLRenderer } from "remix-intlayer/html";
+
+    const renderHTML = useHTMLRenderer();
+
+    return <div innerHTML={renderHTML("<p>Hello <strong>World</strong></p>")} />;
+    ```
+
+    #### Утиліта `renderHTML()`
+
+    Автономна утиліта, яка ігнорує глобальну конфігурацію.
+
+    ```tsx
+    import { renderHTML } from "remix-intlayer/html";
+
+    const html = renderHTML("<p>Hello</p>");
+    ```
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+    #### Хук `useHTMLRenderer()`
+
+    Отримайте функцію відтворення, попередньо налаштовану за допомогою `installIntlayerHTML()`. Вона повертає рядок HTML.
+
+    ```astro
+    ---
+    import { useHTMLRenderer } from "astro-intlayer/html";
+
+    const renderHTML = useHTMLRenderer();
+    ---
+
+    <div set:html={renderHTML("<p>Hello <strong>World</strong></p>")} />
+    ```
+
+    #### Утиліта `renderHTML()`
+
+    Автономна утиліта, яка ігнорує глобальну конфігурацію.
+
+    ```astro
+    ---
+    import { renderHTML } from "astro-intlayer/html";
+
+    const html = renderHTML("<p>Hello</p>");
+    ---
+
+    <div set:html={html} />
+    ```
+
+  </Tab>
 </Tabs>
 
 ## Довідник опцій
 
 Ці опції можна передавати в `HTMLProvider`, `HTMLRenderer`, `useHTMLRenderer` та `renderHTML`.
 
-| Опція        | Тип                   | Типово | Опис                                                                                                               |
-| :----------- | :-------------------- | :----- | :----------------------------------------------------------------------------------------------------------------- |
-| `components` | `Record<string, any>` | `{}`   | Мапа HTML-тегів або назв користувацьких компонентів до компонентів.                                                |
-| `renderHTML` | `Function`            | `null` | Користувацька функція відтворення для повної заміни стандартного HTML-парсера (Тільки для провайдерів Vue/Svelte). |
+| Опція        | Тип                   | Типово | Опис                                                                                                                    |
+| :----------- | :-------------------- | :----- | :---------------------------------------------------------------------------------------------------------------------- |
+| `components` | `Record<string, any>` | `{}`   | Мапа HTML-тегів або назв користувацьких компонентів до компонентів.                                                     |
+| `renderHTML` | `Function`            | `null` | Користувацька функція відтворення для повної заміни стандартного HTML-парсера (провайдери Vue, Svelte, Remix та Astro). |
 
 > Примітка: Для React та Preact стандартні HTML-теги надаються автоматично. Вам потрібно передавати проп `components`, лише якщо ви хочете перевизначити їх або додати власні компоненти.

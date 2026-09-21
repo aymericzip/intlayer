@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-20
-updatedAt: 2026-01-22
+updatedAt: 2026-09-21
 title: Konten HTML
 description: Pelajari cara mendeklarasikan dan menggunakan konten HTML dengan komponen kustom di Intlayer. Ikuti dokumentasi ini untuk menyematkan konten mirip HTML yang kaya dengan penggantian komponen dinamis dalam proyek yang di-internasionalisasi.
 keywords:
@@ -13,6 +13,8 @@ keywords:
   - React
   - Vue
   - Svelte
+  - Remix
+  - Astro
 slugs:
   - doc
   - concept
@@ -232,6 +234,83 @@ Saat Anda mengakses konten melalui `useIntlayer`, node HTML sudah disiapkan untu
       p: { class: "prose" },
       CustomLink: { href: "/details" },
     })
+    ```
+
+  </Tab>
+  <Tab label="Remix" value="remix">
+    Di Remix 3, node HTML diselesaikan menjadi string HTML. Sisipkan dengan prop `innerHTML` dari Remix JSX, atau dengan `html.raw` dalam tampilan `html-template`.
+
+    ```tsx fileName="src/views/home.tsx"
+    import { useIntlayer } from "remix-intlayer";
+
+    export const HomePage = () => () => {
+      const { myHtmlContent } = useIntlayer("app");
+
+      return <div innerHTML={myHtmlContent.value} />;
+    };
+    ```
+
+    ```ts fileName="src/views/home.ts"
+    import { html } from "remix/html-template";
+    import { useIntlayer } from "remix-intlayer";
+
+    export const renderHomePage = () => {
+      const { myHtmlContent } = useIntlayer("app");
+
+      return html.raw`<div>${myHtmlContent.value}</div>`;
+    };
+    ```
+
+    > Remix secara default menghindari nilai yang diinterpolasi. `innerHTML` dan `html.raw` adalah dua pengecualian, yang dibutuhkan oleh string HTML.
+
+    Gunakan metode `.use()` untuk mengganti tag atau memetakan komponen kustom. Penggantian adalah fungsi yang mengembalikan string HTML:
+
+    ```tsx
+    <div
+      innerHTML={myHtmlContent.use({
+        p: ({ children }) => `<p class="prose">${children}</p>`,
+        CustomLink: ({ children }) => `<a href="/details">${children}</a>`,
+      })}
+    />
+    ```
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+    Di Astro, node HTML diselesaikan menjadi string HTML. Sisipkan dengan direktif `set:html` dalam template, atau dengan `innerHTML` dalam `<script>` klien.
+
+    ```astro fileName="src/pages/index.astro"
+    ---
+    import { useIntlayer } from "astro-intlayer";
+
+    const { myHtmlContent } = useIntlayer("app");
+    ---
+
+    <div set:html={myHtmlContent.value} />
+    ```
+
+    ```astro fileName="src/components/Content.astro"
+    <div id="content"></div>
+
+    <script>
+      import { useIntlayer } from "astro-intlayer";
+
+      const { myHtmlContent } = useIntlayer("app");
+
+      document.querySelector("#content")!.innerHTML = myHtmlContent.value;
+    </script>
+    ```
+
+    > Astro secara default menghindari `{ekspresi}`. `set:html` adalah pengecualian, yang dibutuhkan oleh string HTML.
+
+    Gunakan metode `.use()` untuk mengganti tag atau memetakan komponen kustom. Penggantian adalah fungsi yang mengembalikan string HTML:
+
+    ```astro
+    <div
+      set:html={myHtmlContent.use({
+        p: ({ children }) => `<p class="prose">${children}</p>`,
+        CustomLink: ({ children }) => `<a href="/details">${children}</a>`,
+      })}
+    />
     ```
 
   </Tab>
@@ -470,6 +549,41 @@ Anda dapat mengonfigurasi rendering HTML secara global untuk seluruh aplikasi An
     > Mengimpor renderer HTML Anda secara dinamis adalah cara yang baik untuk mengurangi ukuran bundle aplikasi Anda.
 
   </Tab>
+  <Tab label="Remix" value="remix">
+
+    Remix tidak memiliki pohon komponen untuk menampung provider, sehingga konfigurasi diinstal sekali, sebagai singleton, saat server dimulai. Ini mengonfigurasi renderer yang dikembalikan oleh `useHTMLRenderer()`. Node `html` yang dikembalikan oleh `useIntlayer` dirender apa adanya; ganti tag per node dengan `.use()`.
+
+    ```typescript fileName="src/router.ts"
+    import { installIntlayerHTML } from "remix-intlayer/html";
+
+    installIntlayerHTML({
+      renderHTML: (html) => html.replaceAll("<p>", '<p class="prose">'),
+    });
+    ```
+
+    > Gunakan `installIntlayerHTMLDynamic(async () => …)` untuk memuat renderer secara lazy; loader hanya berjalan pada panggilan pertama.
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+
+    Astro tidak memiliki pohon komponen untuk menampung provider, sehingga konfigurasi diinstal sekali, sebagai singleton, di middleware (server) dan dalam `<script>` klien (browser). Ini mengonfigurasi renderer yang dikembalikan oleh `useHTMLRenderer()`. Node `html` yang dikembalikan oleh `useIntlayer` dirender apa adanya; ganti tag per node dengan `.use()`.
+
+    ```typescript fileName="src/middleware.ts"
+    import { installIntlayerHTML } from "astro-intlayer/html";
+    import { defineMiddleware } from "astro:middleware";
+
+    // Berjalan sekali saat server dimulai; middleware Intlayer itu sendiri
+    // didaftarkan oleh integrasi, sebelum file ini.
+    installIntlayerHTML({
+      renderHTML: (html) => html.replaceAll("<p>", '<p class="prose">'),
+    });
+
+    export const onRequest = defineMiddleware((_context, next) => next());
+    ```
+
+    > Gunakan `installIntlayerHTMLDynamic(async () => …)` untuk memuat renderer secara lazy; loader hanya berjalan pada panggilan pertama.
+
+  </Tab>
 </Tabs>
 
 ### Merender Manual & Alat Lanjutan
@@ -642,15 +756,69 @@ Jika Anda perlu merender string HTML mentah atau memiliki kontrol lebih atas pem
     ```
 
   </Tab>
+  <Tab label="Remix" value="remix">
+    #### `useHTMLRenderer()` Hook
+
+    Dapatkan fungsi renderer yang telah dikonfigurasi sebelumnya oleh `installIntlayerHTML()`. Ini mengembalikan string HTML.
+
+    ```tsx
+    import { useHTMLRenderer } from "remix-intlayer/html";
+
+    const renderHTML = useHTMLRenderer();
+
+    return <div innerHTML={renderHTML("<p>Hello <strong>World</strong></p>")} />;
+    ```
+
+    #### Utilitas `renderHTML()`
+
+    Utilitas mandiri yang mengabaikan konfigurasi global.
+
+    ```tsx
+    import { renderHTML } from "remix-intlayer/html";
+
+    const html = renderHTML("<p>Hello</p>");
+    ```
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+    #### `useHTMLRenderer()` Hook
+
+    Dapatkan fungsi renderer yang telah dikonfigurasi sebelumnya oleh `installIntlayerHTML()`. Ini mengembalikan string HTML.
+
+    ```astro
+    ---
+    import { useHTMLRenderer } from "astro-intlayer/html";
+
+    const renderHTML = useHTMLRenderer();
+    ---
+
+    <div set:html={renderHTML("<p>Hello <strong>World</strong></p>")} />
+    ```
+
+    #### Utilitas `renderHTML()`
+
+    Utilitas mandiri yang mengabaikan konfigurasi global.
+
+    ```astro
+    ---
+    import { renderHTML } from "astro-intlayer/html";
+
+    const html = renderHTML("<p>Hello</p>");
+    ---
+
+    <div set:html={html} />
+    ```
+
+  </Tab>
 </Tabs>
 
 ## Referensi Opsi
 
 Opsi-opsi ini dapat diteruskan ke `HTMLProvider`, `HTMLRenderer`, `useHTMLRenderer`, dan `renderHTML`.
 
-| Opsi         | Tipe                  | Default | Deskripsi                                                                                                 |
-| :----------- | :-------------------- | :------ | :-------------------------------------------------------------------------------------------------------- |
-| `components` | `Record<string, any>` | `{}`    | Peta dari tag HTML atau nama komponen kustom ke komponen.                                                 |
-| `renderHTML` | `Function`            | `null`  | Fungsi render kustom untuk menggantikan sepenuhnya parser HTML default (Hanya untuk provider Vue/Svelte). |
+| Opsi         | Tipe                  | Default | Deskripsi                                                                                                           |
+| :----------- | :-------------------- | :------ | :------------------------------------------------------------------------------------------------------------------ |
+| `components` | `Record<string, any>` | `{}`    | Peta dari tag HTML atau nama komponen kustom ke komponen.                                                           |
+| `renderHTML` | `Function`            | `null`  | Fungsi rendering kustom untuk sepenuhnya menggantikan parser HTML default (penyedia Vue, Svelte, Remix, dan Astro). |
 
 > Catatan: Untuk React dan Preact, tag HTML standar disediakan secara otomatis. Anda hanya perlu meneruskan prop `components` jika ingin menimpanya atau menambahkan komponen kustom.

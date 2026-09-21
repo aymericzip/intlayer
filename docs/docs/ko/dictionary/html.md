@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-20
-updatedAt: 2026-03-24
+updatedAt: 2026-09-21
 title: HTML 콘텐츠
 description: Intlayer에서 커스텀 컴포넌트를 사용하여 HTML 콘텐츠를 선언하고 사용하는 방법을 알아보세요. 이 문서를 따라 국제화된 프로젝트에서 동적인 컴포넌트 교체와 함께 풍부한 HTML 유사 콘텐츠를 임베드하세요.
 keywords:
@@ -13,6 +13,8 @@ keywords:
   - React
   - Vue
   - Svelte
+  - Remix
+  - Astro
 slugs:
   - doc
   - concept
@@ -232,6 +234,83 @@ HTML 노드에서 `.use()` 메서드를 사용할 때, 제공하는 컴포넌트
       p: { class: "prose" },
       CustomLink: { href: "/details" },
     })
+    ```
+
+  </Tab>
+  <Tab label="Remix" value="remix">
+    Remix 3에서 HTML 노드는 HTML 문자열로 확인됩니다. Remix JSX의 `innerHTML` prop 또는 `html-template` 뷰의 `html.raw`를 사용하여 삽입하세요.
+
+    ```tsx fileName="src/views/home.tsx"
+    import { useIntlayer } from "remix-intlayer";
+
+    export const HomePage = () => () => {
+      const { myHtmlContent } = useIntlayer("app");
+
+      return <div innerHTML={myHtmlContent.value} />;
+    };
+    ```
+
+    ```ts fileName="src/views/home.ts"
+    import { html } from "remix/html-template";
+    import { useIntlayer } from "remix-intlayer";
+
+    export const renderHomePage = () => {
+      const { myHtmlContent } = useIntlayer("app");
+
+      return html.raw`<div>${myHtmlContent.value}</div>`;
+    };
+    ```
+
+    > Remix는 기본적으로 보간된 값을 이스케이프합니다. `innerHTML`과 `html.raw`는 HTML 문자열에 필요한 두 가지 이스케이프 제외 방법입니다.
+
+    태그를 재정의하거나 커스텀 컴포넌트를 매핑하려면 `.use()` 메서드를 사용하세요. 재정의는 HTML 문자열을 반환하는 함수입니다:
+
+    ```tsx
+    <div
+      innerHTML={myHtmlContent.use({
+        p: ({ children }) => `<p class="prose">${children}</p>`,
+        CustomLink: ({ children }) => `<a href="/details">${children}</a>`,
+      })}
+    />
+    ```
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+    Astro에서 HTML 노드는 HTML 문자열로 확인됩니다. 템플릿의 `set:html` 디렉티브 또는 클라이언트 `<script>`의 `innerHTML`을 사용하여 삽입하세요.
+
+    ```astro fileName="src/pages/index.astro"
+    ---
+    import { useIntlayer } from "astro-intlayer";
+
+    const { myHtmlContent } = useIntlayer("app");
+    ---
+
+    <div set:html={myHtmlContent.value} />
+    ```
+
+    ```astro fileName="src/components/Content.astro"
+    <div id="content"></div>
+
+    <script>
+      import { useIntlayer } from "astro-intlayer";
+
+      const { myHtmlContent } = useIntlayer("app");
+
+      document.querySelector("#content")!.innerHTML = myHtmlContent.value;
+    </script>
+    ```
+
+    > Astro는 기본적으로 `{표현식}`을 이스케이프합니다. `set:html`은 HTML 문자열에 필요한 이스케이프 제외 방법입니다.
+
+    태그를 재정의하거나 커스텀 컴포넌트를 매핑하려면 `.use()` 메서드를 사용하세요. 재정의는 HTML 문자열을 반환하는 함수입니다:
+
+    ```astro
+    <div
+      set:html={myHtmlContent.use({
+        p: ({ children }) => `<p class="prose">${children}</p>`,
+        CustomLink: ({ children }) => `<a href="/details">${children}</a>`,
+      })}
+    />
     ```
 
   </Tab>
@@ -470,6 +549,41 @@ HTML 노드에서 `.use()` 메서드를 사용할 때, 제공하는 컴포넌트
     > HTML 렌더러를 동적으로 가져오는 것은 애플리케이션의 번들 크기를 줄이는 좋은 방법입니다.
 
   </Tab>
+  <Tab label="Remix" value="remix">
+
+    Remix에는 프로바이더를 담을 컴포넌트 트리가 없으므로 설정은 서버 시작 시 싱글톤으로 한 번 설치됩니다. `useHTMLRenderer()`가 반환하는 렌더러를 구성합니다. `useIntlayer`가 반환하는 `html` 노드는 있는 그대로 렌더링되며, 노드별로 `.use()`를 사용하여 태그를 재정의하세요.
+
+    ```typescript fileName="src/router.ts"
+    import { installIntlayerHTML } from "remix-intlayer/html";
+
+    installIntlayerHTML({
+      renderHTML: (html) => html.replaceAll("<p>", '<p class="prose">'),
+    });
+    ```
+
+    > 렌더러 자체를 지연 로드하려면 `installIntlayerHTMLDynamic(async () => …)`를 사용하세요. 로더는 첫 번째 호출 시에만 실행됩니다.
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+
+    Astro에는 프로바이더를 담을 컴포넌트 트리가 없으므로 설정은 미들웨어(서버) 및 클라이언트 `<script>`(브라우저)에서 싱글톤으로 한 번 설치됩니다. `useHTMLRenderer()`가 반환하는 렌더러를 구성합니다. `useIntlayer`가 반환하는 `html` 노드는 있는 그대로 렌더링되며, 노드별로 `.use()`를 사용하여 태그를 재정의하세요.
+
+    ```typescript fileName="src/middleware.ts"
+    import { installIntlayerHTML } from "astro-intlayer/html";
+    import { defineMiddleware } from "astro:middleware";
+
+    // 서버 시작 시 한 번 실행됩니다. Intlayer 미들웨어 자체는
+    // 이 파일보다 앞서 통합에 의해 등록됩니다.
+    installIntlayerHTML({
+      renderHTML: (html) => html.replaceAll("<p>", '<p class="prose">'),
+    });
+
+    export const onRequest = defineMiddleware((_context, next) => next());
+    ```
+
+    > 렌더러 자체를 지연 로드하려면 `installIntlayerHTMLDynamic(async () => …)`를 사용하세요. 로더는 첫 번째 호출 시에만 실행됩니다.
+
+  </Tab>
 </Tabs>
 
 ### 수동 렌더링 및 고급 도구
@@ -643,15 +757,69 @@ HTML 노드에서 `.use()` 메서드를 사용할 때, 제공하는 컴포넌트
     ```
 
   </Tab>
+  <Tab label="Remix" value="remix">
+    #### `useHTMLRenderer()` 훅
+
+    `installIntlayerHTML()`로 사전 구성된 렌더러 함수를 가져옵니다. HTML 문자열을 반환합니다.
+
+    ```tsx
+    import { useHTMLRenderer } from "remix-intlayer/html";
+
+    const renderHTML = useHTMLRenderer();
+
+    return <div innerHTML={renderHTML("<p>Hello <strong>World</strong></p>")} />;
+    ```
+
+    #### `renderHTML()` 유틸리티
+
+    전역 구성을 무시하는 독립형 유틸리티입니다.
+
+    ```tsx
+    import { renderHTML } from "remix-intlayer/html";
+
+    const html = renderHTML("<p>Hello</p>");
+    ```
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+    #### `useHTMLRenderer()` 훅
+
+    `installIntlayerHTML()`로 사전 구성된 렌더러 함수를 가져옵니다. HTML 문자열을 반환합니다.
+
+    ```astro
+    ---
+    import { useHTMLRenderer } from "astro-intlayer/html";
+
+    const renderHTML = useHTMLRenderer();
+    ---
+
+    <div set:html={renderHTML("<p>Hello <strong>World</strong></p>")} />
+    ```
+
+    #### `renderHTML()` 유틸리티
+
+    전역 구성을 무시하는 독립형 유틸리티입니다.
+
+    ```astro
+    ---
+    import { renderHTML } from "astro-intlayer/html";
+
+    const html = renderHTML("<p>Hello</p>");
+    ---
+
+    <div set:html={html} />
+    ```
+
+  </Tab>
 </Tabs>
 
 ## 옵션 참조
 
 이 옵션들은 `HTMLProvider`, `HTMLRenderer`, `useHTMLRenderer`, 및 `renderHTML`에 전달할 수 있습니다.
 
-| 옵션         | 타입                  | 기본값 | 설명                                                                                  |
-| :----------- | :-------------------- | :----- | :------------------------------------------------------------------------------------ |
-| `components` | `Record<string, any>` | `{}`   | HTML 태그 또는 커스텀 컴포넌트 이름을 컴포넌트에 매핑한 맵.                           |
-| `renderHTML` | `Function`            | `null` | 기본 HTML 파서를 완전히 대체하는 커스텀 렌더링 함수 (Vue/Svelte 프로바이더에만 해당). |
+| 옵션         | 타입                  | 기본값 | 설명                                                                                           |
+| :----------- | :-------------------- | :----- | :--------------------------------------------------------------------------------------------- |
+| `components` | `Record<string, any>` | `{}`   | HTML 태그 또는 커스텀 컴포넌트 이름을 컴포넌트에 매핑한 맵.                                    |
+| `renderHTML` | `Function`            | `null` | 기본 HTML 파서를 완전히 대체하기 위한 커스텀 렌더링 함수 (Vue, Svelte, Remix 및 Astro 제공자). |
 
 > 참고: React 및 Preact의 경우 표준 HTML 태그가 자동으로 제공됩니다. 태그를 재정의하거나 커스텀 컴포넌트를 추가하려는 경우에만 `components` prop을 전달하면 됩니다.

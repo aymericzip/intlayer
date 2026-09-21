@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-20
-updatedAt: 2026-03-24
+updatedAt: 2026-09-21
 title: HTML-Inhalte
 description: Erfahren Sie, wie Sie HTML-Inhalte deklarieren und mit benutzerdefinierten Komponenten in Intlayer verwenden. Folgen Sie dieser Dokumentation, um reichhaltige HTML-ähnliche Inhalte mit dynamischem Komponentenersatz in Ihrem internationalisierten Projekt einzubetten.
 keywords:
@@ -13,6 +13,8 @@ keywords:
   - React
   - Vue
   - Svelte
+  - Remix
+  - Astro
 slugs:
   - doc
   - concept
@@ -232,6 +234,83 @@ Wenn Sie auf Inhalte über `useIntlayer` zugreifen, sind HTML-Knoten bereits fü
       p: { class: "prose" },
       CustomLink: { href: "/details" },
     })
+    ```
+
+  </Tab>
+  <Tab label="Remix" value="remix">
+    In Remix 3 werden HTML-Knoten zu einem HTML-String aufgelöst. Fügen Sie ihn mit der `innerHTML`-Prop von Remix JSX oder mit `html.raw` in einer `html-template`-Ansicht ein.
+
+    ```tsx fileName="src/views/home.tsx"
+    import { useIntlayer } from "remix-intlayer";
+
+    export const HomePage = () => () => {
+      const { myHtmlContent } = useIntlayer("app");
+
+      return <div innerHTML={myHtmlContent.value} />;
+    };
+    ```
+
+    ```ts fileName="src/views/home.ts"
+    import { html } from "remix/html-template";
+    import { useIntlayer } from "remix-intlayer";
+
+    export const renderHomePage = () => {
+      const { myHtmlContent } = useIntlayer("app");
+
+      return html.raw`<div>${myHtmlContent.value}</div>`;
+    };
+    ```
+
+    > Remix maskiert interpolierte Werte standardmäßig. `innerHTML` und `html.raw` sind die beiden Ausnahmen, die ein HTML-String benötigt.
+
+    Verwenden Sie die Methode `.use()`, um Tags zu überschreiben oder benutzerdefinierte Komponenten zuzuordnen. Überschreibungen sind Funktionen, die einen HTML-String zurückgeben:
+
+    ```tsx
+    <div
+      innerHTML={myHtmlContent.use({
+        p: ({ children }) => `<p class="prose">${children}</p>`,
+        CustomLink: ({ children }) => `<a href="/details">${children}</a>`,
+      })}
+    />
+    ```
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+    In Astro werden HTML-Knoten zu einem HTML-String aufgelöst. Fügen Sie ihn mit der `set:html`-Direktive im Template oder mit `innerHTML` in einem clientseitigen `<script>` ein.
+
+    ```astro fileName="src/pages/index.astro"
+    ---
+    import { useIntlayer } from "astro-intlayer";
+
+    const { myHtmlContent } = useIntlayer("app");
+    ---
+
+    <div set:html={myHtmlContent.value} />
+    ```
+
+    ```astro fileName="src/components/Content.astro"
+    <div id="content"></div>
+
+    <script>
+      import { useIntlayer } from "astro-intlayer";
+
+      const { myHtmlContent } = useIntlayer("app");
+
+      document.querySelector("#content")!.innerHTML = myHtmlContent.value;
+    </script>
+    ```
+
+    > Astro maskiert `{Ausdrücke}` standardmäßig. `set:html` ist die Ausnahme, die ein HTML-String benötigt.
+
+    Verwenden Sie die Methode `.use()`, um Tags zu überschreiben oder benutzerdefinierte Komponenten zuzuordnen. Überschreibungen sind Funktionen, die einen HTML-String zurückgeben:
+
+    ```astro
+    <div
+      set:html={myHtmlContent.use({
+        p: ({ children }) => `<p class="prose">${children}</p>`,
+        CustomLink: ({ children }) => `<a href="/details">${children}</a>`,
+      })}
+    />
     ```
 
   </Tab>
@@ -470,6 +549,41 @@ Sie können das HTML-Rendering global für Ihre gesamte Anwendung konfigurieren.
     > Das dynamische Importieren Ihres HTML-Renderers ist eine gute Möglichkeit, die Bundle-Größe Ihrer Anwendung zu reduzieren.
 
   </Tab>
+  <Tab label="Remix" value="remix">
+
+    Remix verfügt über keinen Komponentenbaum, der einen Provider aufnehmen könnte, daher wird die Konfiguration einmalig als Singleton beim Serverstart installiert. Sie konfiguriert den von `useHTMLRenderer()` zurückgegebenen Renderer. Die von `useIntlayer` zurückgegebenen `html`-Knoten werden unverändert gerendert; überschreiben Sie deren Tags pro Knoten mit `.use()`.
+
+    ```typescript fileName="src/router.ts"
+    import { installIntlayerHTML } from "remix-intlayer/html";
+
+    installIntlayerHTML({
+      renderHTML: (html) => html.replaceAll("<p>", '<p class="prose">'),
+    });
+    ```
+
+    > Verwenden Sie `installIntlayerHTMLDynamic(async () => …)`, um den Renderer selbst träge zu laden; der Loader wird nur beim ersten Aufruf ausgeführt.
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+
+    Astro verfügt über keinen Komponentenbaum, der einen Provider aufnehmen könnte, daher wird die Konfiguration einmalig als Singleton in der Middleware (Server) und in einem clientseitigen `<script>` (Browser) installiert. Sie konfiguriert den von `useHTMLRenderer()` zurückgegebenen Renderer. Die von `useIntlayer` zurückgegebenen `html`-Knoten werden unverändert gerendert; überschreiben Sie deren Tags pro Knoten mit `.use()`.
+
+    ```typescript fileName="src/middleware.ts"
+    import { installIntlayerHTML } from "astro-intlayer/html";
+    import { defineMiddleware } from "astro:middleware";
+
+    // Wird einmal beim Serverstart ausgeführt; die Intlayer-Middleware selbst wird
+    // vor dieser Datei durch die Integration registriert.
+    installIntlayerHTML({
+      renderHTML: (html) => html.replaceAll("<p>", '<p class="prose">'),
+    });
+
+    export const onRequest = defineMiddleware((_context, next) => next());
+    ```
+
+    > Verwenden Sie `installIntlayerHTMLDynamic(async () => …)`, um den Renderer selbst träge zu laden; der Loader wird nur beim ersten Aufruf ausgeführt.
+
+  </Tab>
 </Tabs>
 
 ### Manuelles Rendering & Erweiterte Tools
@@ -642,15 +756,69 @@ Wenn Sie rohe HTML-Strings rendern müssen oder mehr Kontrolle über die Kompone
     ```
 
   </Tab>
+  <Tab label="Remix" value="remix">
+    #### `useHTMLRenderer()` Hook
+
+    Holen Sie sich eine von `installIntlayerHTML()` vorkonfigurierte Renderer-Funktion. Sie gibt einen HTML-String zurück.
+
+    ```tsx
+    import { useHTMLRenderer } from "remix-intlayer/html";
+
+    const renderHTML = useHTMLRenderer();
+
+    return <div innerHTML={renderHTML("<p>Hello <strong>World</strong></p>")} />;
+    ```
+
+    #### `renderHTML()` Utility
+
+    Eigenständiges Dienstprogramm, das die globale Konfiguration ignoriert.
+
+    ```tsx
+    import { renderHTML } from "remix-intlayer/html";
+
+    const html = renderHTML("<p>Hello</p>");
+    ```
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+    #### `useHTMLRenderer()` Hook
+
+    Holen Sie sich eine von `installIntlayerHTML()` vorkonfigurierte Renderer-Funktion. Sie gibt einen HTML-String zurück.
+
+    ```astro
+    ---
+    import { useHTMLRenderer } from "astro-intlayer/html";
+
+    const renderHTML = useHTMLRenderer();
+    ---
+
+    <div set:html={renderHTML("<p>Hello <strong>World</strong></p>")} />
+    ```
+
+    #### `renderHTML()` Utility
+
+    Eigenständiges Dienstprogramm, das die globale Konfiguration ignoriert.
+
+    ```astro
+    ---
+    import { renderHTML } from "astro-intlayer/html";
+
+    const html = renderHTML("<p>Hello</p>");
+    ---
+
+    <div set:html={html} />
+    ```
+
+  </Tab>
 </Tabs>
 
 ## Optionen-Referenz
 
 Diese Optionen können an `HTMLProvider`, `HTMLRenderer`, `useHTMLRenderer` und `renderHTML` übergeben werden.
 
-| Option       | Typ                   | Standard | Beschreibung                                                                                                                   |
-| :----------- | :-------------------- | :------- | :----------------------------------------------------------------------------------------------------------------------------- |
-| `components` | `Record<string, any>` | `{}`     | Eine Map von HTML-Tags oder benutzerdefinierten Komponentennamen zu Komponenten.                                               |
-| `renderHTML` | `Function`            | `null`   | Eine benutzerdefinierte Rendering-Funktion, um den Standard-HTML-Parser vollständig zu ersetzen (Nur für Vue/Svelte Provider). |
+| Option       | Typ                   | Standard | Beschreibung                                                                                                                             |
+| :----------- | :-------------------- | :------- | :--------------------------------------------------------------------------------------------------------------------------------------- |
+| `components` | `Record<string, any>` | `{}`     | Eine Map von HTML-Tags oder benutzerdefinierten Komponentennamen zu Komponenten.                                                         |
+| `renderHTML` | `Function`            | `null`   | Eine benutzerdefinierte Rendering-Funktion, um den Standard-HTML-Parser vollständig zu ersetzen (Vue, Svelte, Remix und Astro Provider). |
 
 > Hinweis: Für React und Preact werden Standard-HTML-Tags automatisch bereitgestellt. Sie müssen das `components`-Prop nur übergeben, wenn Sie sie überschreiben oder benutzerdefinierte Komponenten hinzufügen möchten.

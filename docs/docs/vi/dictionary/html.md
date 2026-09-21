@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-20
-updatedAt: 2026-01-22
+updatedAt: 2026-09-21
 title: Nội dung HTML
 description: Tìm hiểu cách khai báo và sử dụng nội dung HTML với các component tùy chỉnh trong Intlayer. Theo dõi tài liệu này để nhúng nội dung giống HTML phong phú với việc thay thế component động trong dự án quốc tế hóa của bạn.
 keywords:
@@ -13,6 +13,8 @@ keywords:
   - React
   - Vue
   - Svelte
+  - Remix
+  - Astro
 slugs:
   - doc
   - concept
@@ -232,6 +234,83 @@ Khi bạn truy cập nội dung qua `useIntlayer`, các nút HTML đã được 
       p: { class: "prose" },
       CustomLink: { href: "/details" },
     })
+    ```
+
+  </Tab>
+  <Tab label="Remix" value="remix">
+    Trong Remix 3, các nút HTML giải quyết thành một chuỗi HTML. Chèn chuỗi đó bằng prop `innerHTML` của Remix JSX hoặc với `html.raw` trong chế độ xem `html-template`.
+
+    ```tsx fileName="src/views/home.tsx"
+    import { useIntlayer } from "remix-intlayer";
+
+    export const HomePage = () => () => {
+      const { myHtmlContent } = useIntlayer("app");
+
+      return <div innerHTML={myHtmlContent.value} />;
+    };
+    ```
+
+    ```ts fileName="src/views/home.ts"
+    import { html } from "remix/html-template";
+    import { useIntlayer } from "remix-intlayer";
+
+    export const renderHomePage = () => {
+      const { myHtmlContent } = useIntlayer("app");
+
+      return html.raw`<div>${myHtmlContent.value}</div>`;
+    };
+    ```
+
+    > Remix mặc định thoát các giá trị được nội suy. `innerHTML` và `html.raw` là hai cách từ chối thoát, đây là điều mà một chuỗi HTML cần.
+
+    Sử dụng phương thức `.use()` để ghi đè các thẻ hoặc ánh xạ các thành phần tùy chỉnh. Các ghi đè là các hàm trả về một chuỗi HTML:
+
+    ```tsx
+    <div
+      innerHTML={myHtmlContent.use({
+        p: ({ children }) => `<p class="prose">${children}</p>`,
+        CustomLink: ({ children }) => `<a href="/details">${children}</a>`,
+      })}
+    />
+    ```
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+    Trong Astro, các nút HTML giải quyết thành một chuỗi HTML. Chèn chuỗi đó bằng chỉ thị `set:html` trong mẫu hoặc với `innerHTML` trong `<script>` phía client.
+
+    ```astro fileName="src/pages/index.astro"
+    ---
+    import { useIntlayer } from "astro-intlayer";
+
+    const { myHtmlContent } = useIntlayer("app");
+    ---
+
+    <div set:html={myHtmlContent.value} />
+    ```
+
+    ```astro fileName="src/components/Content.astro"
+    <div id="content"></div>
+
+    <script>
+      import { useIntlayer } from "astro-intlayer";
+
+      const { myHtmlContent } = useIntlayer("app");
+
+      document.querySelector("#content")!.innerHTML = myHtmlContent.value;
+    </script>
+    ```
+
+    > Astro mặc định thoát `{biểu thức}`. `set:html` là cách từ chối thoát, đây là điều mà một chuỗi HTML cần.
+
+    Sử dụng phương thức `.use()` để ghi đè các thẻ hoặc ánh xạ các thành phần tùy chỉnh. Các ghi đè là các hàm trả về một chuỗi HTML:
+
+    ```astro
+    <div
+      set:html={myHtmlContent.use({
+        p: ({ children }) => `<p class="prose">${children}</p>`,
+        CustomLink: ({ children }) => `<a href="/details">${children}</a>`,
+      })}
+    />
     ```
 
   </Tab>
@@ -470,6 +549,41 @@ Bạn có thể cấu hình cách render HTML ở mức toàn cục cho toàn b�
     > Import trình render HTML của bạn theo cách động là một cách tốt để giảm kích thước bundle của ứng dụng.
 
   </Tab>
+  <Tab label="Remix" value="remix">
+
+    Remix không có cây thành phần để chứa provider, do đó cấu hình được cài đặt một lần, dưới dạng singleton, khi máy chủ khởi động. Nó cấu hình renderer được trả về bởi `useHTMLRenderer()`. Các nút `html` được trả về bởi `useIntlayer` được kết xuất nguyên trạng; ghi đè các thẻ của chúng trên mỗi nút bằng `.use()`.
+
+    ```typescript fileName="src/router.ts"
+    import { installIntlayerHTML } from "remix-intlayer/html";
+
+    installIntlayerHTML({
+      renderHTML: (html) => html.replaceAll("<p>", '<p class="prose">'),
+    });
+    ```
+
+    > Sử dụng `installIntlayerHTMLDynamic(async () => …)` để tải chậm chính renderer; trình tải chỉ chạy trong lần gọi đầu tiên.
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+
+    Astro không có cây thành phần để chứa provider, do đó cấu hình được cài đặt một lần, dưới dạng singleton, trong middleware (máy chủ) và trong `<script>` phía client (trình duyệt). Nó cấu hình renderer được trả về bởi `useHTMLRenderer()`. Các nút `html` được trả về bởi `useIntlayer` được kết xuất nguyên trạng; ghi đè các thẻ của chúng trên mỗi nút bằng `.use()`.
+
+    ```typescript fileName="src/middleware.ts"
+    import { installIntlayerHTML } from "astro-intlayer/html";
+    import { defineMiddleware } from "astro:middleware";
+
+    // Chạy một lần khi máy chủ khởi động; bản thân middleware Intlayer
+    // được đăng ký bởi tích hợp, trước tệp này.
+    installIntlayerHTML({
+      renderHTML: (html) => html.replaceAll("<p>", '<p class="prose">'),
+    });
+
+    export const onRequest = defineMiddleware((_context, next) => next());
+    ```
+
+    > Sử dụng `installIntlayerHTMLDynamic(async () => …)` để tải chậm chính renderer; trình tải chỉ chạy trong lần gọi đầu tiên.
+
+  </Tab>
 </Tabs>
 
 ### Kết xuất Thủ công & Công cụ Nâng cao
@@ -642,15 +756,69 @@ Nếu bạn cần kết xuất chuỗi HTML thô hoặc muốn kiểm soát nhi�
     ```
 
   </Tab>
+  <Tab label="Remix" value="remix">
+    #### Hook `useHTMLRenderer()`
+
+    Lấy một hàm renderer được cấu hình sẵn bởi `installIntlayerHTML()`. Nó trả về một chuỗi HTML.
+
+    ```tsx
+    import { useHTMLRenderer } from "remix-intlayer/html";
+
+    const renderHTML = useHTMLRenderer();
+
+    return <div innerHTML={renderHTML("<p>Hello <strong>World</strong></p>")} />;
+    ```
+
+    #### Tiện ích `renderHTML()`
+
+    Tiện ích độc lập bỏ qua cấu hình toàn cục.
+
+    ```tsx
+    import { renderHTML } from "remix-intlayer/html";
+
+    const html = renderHTML("<p>Hello</p>");
+    ```
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+    #### Hook `useHTMLRenderer()`
+
+    Lấy một hàm renderer được cấu hình sẵn bởi `installIntlayerHTML()`. Nó trả về một chuỗi HTML.
+
+    ```astro
+    ---
+    import { useHTMLRenderer } from "astro-intlayer/html";
+
+    const renderHTML = useHTMLRenderer();
+    ---
+
+    <div set:html={renderHTML("<p>Hello <strong>World</strong></p>")} />
+    ```
+
+    #### Tiện ích `renderHTML()`
+
+    Tiện ích độc lập bỏ qua cấu hình toàn cục.
+
+    ```astro
+    ---
+    import { renderHTML } from "astro-intlayer/html";
+
+    const html = renderHTML("<p>Hello</p>");
+    ---
+
+    <div set:html={html} />
+    ```
+
+  </Tab>
 </Tabs>
 
 ## Tham chiếu Tùy chọn
 
 Các tùy chọn này có thể được truyền cho `HTMLProvider`, `HTMLRenderer`, `useHTMLRenderer`, và `renderHTML`.
 
-| Tùy chọn     | Kiểu                  | Mặc định | Mô tả                                                                                                                |
-| :----------- | :-------------------- | :------- | :------------------------------------------------------------------------------------------------------------------- |
-| `components` | `Record<string, any>` | `{}`     | Bản đồ các thẻ HTML hoặc tên component tùy chỉnh tới các component tương ứng.                                        |
-| `renderHTML` | `Function`            | `null`   | Một hàm render/kết xuất tùy chỉnh để thay thế hoàn toàn bộ parser HTML mặc định (Chỉ dành cho Vue/Svelte providers). |
+| Tùy chọn     | Kiểu                  | Mặc định | Mô tả                                                                                                                          |
+| :----------- | :-------------------- | :------- | :----------------------------------------------------------------------------------------------------------------------------- |
+| `components` | `Record<string, any>` | `{}`     | Bản đồ các thẻ HTML hoặc tên component tùy chỉnh tới các component tương ứng.                                                  |
+| `renderHTML` | `Function`            | `null`   | Hàm hiển thị tùy chỉnh để thay thế hoàn toàn trình phân tích cú pháp HTML mặc định (nhà cung cấp Vue, Svelte, Remix và Astro). |
 
 > Lưu ý: Đối với React và Preact, các thẻ HTML chuẩn được cung cấp tự động. Bạn chỉ cần truyền prop `components` nếu bạn muốn ghi đè chúng hoặc thêm các component tùy chỉnh.

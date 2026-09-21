@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-05-19
+updatedAt: 2026-09-21
 title: Markdown
 description: 了解如何使用 Intlayer 在您的多语言网站中声明和使用 Markdown 内容。按照本在线文档中的步骤将 Markdown 无缝集成到您的项目中。
 keywords:
@@ -11,6 +11,8 @@ keywords:
   - Next.js
   - JavaScript
   - React
+  - Remix
+  - Astro
 slugs:
   - doc
   - concept
@@ -487,6 +489,111 @@ Markdown 渲染支持 **MDX** — 在您的 Markdown 中直接按名称使用任
     ```
 
   </Tab>
+  <Tab label="Remix" value="remix">
+    在 Remix 3 中，Markdown 节点在服务器端渲染为 HTML 字符串。使用 Remix JSX 的 `innerHTML` 属性注入它，或在 `html-template` 视图中使用 `html.raw`。
+
+    ```tsx fileName="src/views/home.tsx"
+    import { useIntlayer } from "remix-intlayer";
+
+    export const HomePage = () => () => {
+      const { myMarkdownContent } = useIntlayer("app");
+
+      return <div innerHTML={myMarkdownContent.value} />;
+    };
+    ```
+
+    ```ts fileName="src/views/home.ts"
+    import { html } from "remix/html-template";
+    import { useIntlayer } from "remix-intlayer";
+
+    export const renderHomePage = () => {
+      const { myMarkdownContent } = useIntlayer("app");
+
+      return html.raw`<div>${myMarkdownContent.value}</div>`;
+    };
+    ```
+
+    > Remix 默认会转义插值。`innerHTML` 和 `html.raw` 是两个例外选项，这正是渲染后的 Markdown 字符串所需要的。
+
+    你还可以使用 `.use()` 方法为特定标签提供本地覆盖。覆盖是返回 HTML 字符串的函数：
+
+    ```tsx
+    <div
+      innerHTML={myMarkdownContent.use({
+        h1: ({ children }) => `<h1 class="text-3xl font-bold">${children}</h1>`,
+      })}
+    />
+    ```
+
+    `.value` 是渲染后的 HTML 字符串，而 `String()` / `.toString()` 返回原始 Markdown 源码：
+
+    ```tsx
+    myMarkdownContent.value // "<h1>…</h1>"
+    String(myMarkdownContent) // "# …"
+    myMarkdownContent.toString() // "# …"
+    ```
+
+    你还可以像这样访问 Markdown 元数据：
+
+    ```tsx
+    myMarkdownContent.metadata
+    myMarkdownContent.metadata.title
+    ```
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+    在 Astro 中，Markdown 节点渲染为 HTML 字符串。使用模板中的 `set:html` 指令注入它，或在客户端 `<script>` 中使用 `innerHTML`。
+
+    ```astro fileName="src/pages/index.astro"
+    ---
+    import { useIntlayer } from "astro-intlayer";
+
+    const { myMarkdownContent } = useIntlayer("app");
+    ---
+
+    <div set:html={myMarkdownContent.value} />
+    ```
+
+    ```astro fileName="src/components/Content.astro"
+    <div id="content"></div>
+
+    <script>
+      import { useIntlayer } from "astro-intlayer";
+
+      const { myMarkdownContent } = useIntlayer("app");
+
+      document.querySelector("#content")!.innerHTML = myMarkdownContent.value;
+    </script>
+    ```
+
+    > Astro 默认会转义 `{表达式}`。`set:html` 是例外选项，这正是渲染后的 Markdown 字符串所需要的。
+
+    你还可以使用 `.use()` 方法为特定标签提供本地覆盖。覆盖是返回 HTML 字符串的函数：
+
+    ```astro
+    <div
+      set:html={myMarkdownContent.use({
+        h1: ({ children }) => `<h1 class="text-3xl font-bold">${children}</h1>`,
+      })}
+    />
+    ```
+
+    `.value` 是渲染后的 HTML 字符串，而 `String()` / `.toString()` 返回原始 Markdown 源码：
+
+    ```astro
+    myMarkdownContent.value // "<h1>…</h1>"
+    String(myMarkdownContent) // "# …"
+    myMarkdownContent.toString() // "# …"
+    ```
+
+    你还可以像这样访问 Markdown 元数据：
+
+    ```astro
+    myMarkdownContent.metadata
+    myMarkdownContent.metadata.title
+    ```
+
+  </Tab>
 </Tabs>
 
 ### 2. 辅助实用程序（仅限 Markdown 字符串）
@@ -695,6 +802,60 @@ Markdown 渲染支持 **MDX** — 在您的 Markdown 中直接按名称使用任
         return this.markdownService.renderMarkdown(markdown);
       }
     }
+    ```
+
+  </Tab>
+  <Tab label="Remix" value="remix">
+    #### `useMarkdownRenderer()` Hook
+
+    获取由 `installIntlayerMarkdown()` 预配置的渲染器函数。它返回一个 HTML 字符串。
+
+    ```tsx
+    import { useMarkdownRenderer } from "remix-intlayer/markdown";
+
+    const renderMarkdown = useMarkdownRenderer({ forceBlock: true });
+
+    return <div innerHTML={renderMarkdown("# My Title")} />;
+    ```
+
+    #### `renderMarkdown()` 实用工具
+
+    忽略全局配置的独立实用工具。
+
+    ```tsx
+    import { renderMarkdown } from "remix-intlayer/markdown";
+
+    const html = renderMarkdown("# My Title", { forceBlock: true });
+    ```
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+    #### `useMarkdownRenderer()` Hook
+
+    获取由 `installIntlayerMarkdown()` 预配置的渲染器函数。它返回一个 HTML 字符串。
+
+    ```astro
+    ---
+    import { useMarkdownRenderer } from "astro-intlayer/markdown";
+
+    const renderMarkdown = useMarkdownRenderer({ forceBlock: true });
+    ---
+
+    <div set:html={renderMarkdown("# My Title")} />
+    ```
+
+    #### `renderMarkdown()` 实用工具
+
+    忽略全局配置的独立实用工具。
+
+    ```astro
+    ---
+    import { renderMarkdown } from "astro-intlayer/markdown";
+
+    const html = renderMarkdown("# My Title", { forceBlock: true });
+    ---
+
+    <div set:html={html} />
     ```
 
   </Tab>
@@ -996,6 +1157,72 @@ Markdown 渲染支持 **MDX** — 在您的 Markdown 中直接按名称使用任
     ```
 
     > 动态导入您的 Markdown 渲染器是减少应用程序Bundle 大小的好方法。
+
+  </Tab>
+  <Tab label="Remix" value="remix">
+
+    Remix 没有组件树来承载 provider，因此配置在服务器启动时作为单例安装一次。它配置由 `useMarkdownRenderer()` 返回的渲染器。由 `useIntlayer` 返回的 `md` 节点使用默认编译器渲染；通过 `.use()` 为每个节点覆盖其标签。
+
+    ```typescript fileName="src/router.ts"
+    import { installIntlayerMarkdown } from "remix-intlayer/markdown";
+
+    installIntlayerMarkdown({
+      forceBlock: true,
+      components: {
+        h1: ({ children }) => `<h1 class="text-2xl font-bold">${children}</h1>`,
+      },
+    });
+    ```
+
+    你也可以使用自己的 markdown 渲染器：
+
+    ```typescript fileName="src/router.ts"
+    import { installIntlayerMarkdown } from "remix-intlayer/markdown";
+
+    installIntlayerMarkdown({
+      renderMarkdown: async (md) => {
+        const { marked } = await import("marked");
+        return marked(md) as string;
+      },
+    });
+    ```
+
+    > 使用 `installIntlayerMarkdownDynamic(async () => …)` 延迟加载渲染器本身；加载器仅在第一次调用时运行。
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+
+    Astro 没有组件树来承载 provider，因此配置在中间件（服务器）和客户端 `<script>`（浏览器）中作为单例安装一次。它配置由 `useMarkdownRenderer()` 返回的渲染器。由 `useIntlayer` 返回的 `md` 节点使用默认编译器渲染；通过 `.use()` 为每个节点覆盖其标签。
+
+    ```typescript fileName="src/middleware.ts"
+    import { installIntlayerMarkdown } from "astro-intlayer/markdown";
+    import { defineMiddleware } from "astro:middleware";
+
+    // 服务器启动时运行一次；Intlayer 中间件本身由集成在此文件之前注册。
+    installIntlayerMarkdown({
+      forceBlock: true,
+      components: {
+        h1: ({ children }) => `<h1 class="text-2xl font-bold">${children}</h1>`,
+      },
+    });
+
+    export const onRequest = defineMiddleware((_context, next) => next());
+    ```
+
+    你也可以使用自己的 markdown 渲染器：
+
+    ```typescript fileName="src/middleware.ts"
+    import { installIntlayerMarkdown } from "astro-intlayer/markdown";
+
+    installIntlayerMarkdown({
+      renderMarkdown: async (md) => {
+        const { marked } = await import("marked");
+        return marked(md) as string;
+      },
+    });
+    ```
+
+    > 使用 `installIntlayerMarkdownDynamic(async () => …)` 延迟加载渲染器本身；加载器仅在第一次调用时运行。
 
   </Tab>
 </Tabs>
@@ -1323,6 +1550,40 @@ Intlayer 允许您在服务端将 Markdown 预解析为抽象语法树 (AST)，�
         });
       }
     }
+    ```
+
+  </Tab>
+  <Tab label="Remix" value="remix">
+
+    Remix 3 在服务器端渲染并流式传输 HTML，因此无需将 AST 传递给客户端。解析一次，并在构建页面的任何位置渲染 AST：
+
+    ```tsx fileName="src/views/article.tsx"
+    import { parseMarkdown, renderMarkdown } from "remix-intlayer/markdown";
+
+    // 1. 将 Markdown 解析为可序列化的 AST（例如在模块加载时解析一次）
+    const ast = parseMarkdown("## My title \n\nLorem Ipsum");
+
+    export const ArticlePage = () => () => (
+      // 2. 渲染 AST：渲染器接受原始字符串或解析后的 AST
+      <article innerHTML={renderMarkdown(ast)} />
+    );
+    ```
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+
+    Astro 页面在服务器端渲染，因此无需将 AST 传递给客户端。在 frontmatter 中解析 Markdown 并使用 `set:html` 渲染：
+
+    ```astro fileName="src/pages/article.astro"
+    ---
+    import { parseMarkdown, renderMarkdown } from "astro-intlayer/markdown";
+
+    // 1. 将 Markdown 解析为可序列化的 AST
+    const ast = parseMarkdown("## My title \n\nLorem Ipsum");
+    ---
+
+    <!-- 2. 渲染 AST：渲染器接受原始字符串或解析后的 AST -->
+    <article set:html={renderMarkdown(ast)} />
     ```
 
   </Tab>

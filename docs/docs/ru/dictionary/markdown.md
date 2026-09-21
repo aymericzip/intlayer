@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-05-19
+updatedAt: 2026-09-21
 title: Markdown
 description: Узнайте, как объявлять и использовать Markdown-контент на вашем многоязычном сайте с помощью Intlayer. Следуйте инструкциям в этой документации, чтобы легко интегрировать Markdown в ваш проект.
 keywords:
@@ -11,6 +11,8 @@ keywords:
   - Next.js
   - JavaScript
   - React
+  - Remix
+  - Astro
 slugs:
   - doc
   - concept
@@ -494,6 +496,111 @@ Intlayer предоставляет два независимых способа
     ```
 
   </Tab>
+  <Tab label="Remix" value="remix">
+    В Remix 3 узлы Markdown рендерятся на сервере в строку HTML. Внедрите ее с помощью пропа `innerHTML` в Remix JSX или с помощью `html.raw` в представлении `html-template`.
+
+    ```tsx fileName="src/views/home.tsx"
+    import { useIntlayer } from "remix-intlayer";
+
+    export const HomePage = () => () => {
+      const { myMarkdownContent } = useIntlayer("app");
+
+      return <div innerHTML={myMarkdownContent.value} />;
+    };
+    ```
+
+    ```ts fileName="src/views/home.ts"
+    import { html } from "remix/html-template";
+    import { useIntlayer } from "remix-intlayer";
+
+    export const renderHomePage = () => {
+      const { myMarkdownContent } = useIntlayer("app");
+
+      return html.raw`<div>${myMarkdownContent.value}</div>`;
+    };
+    ```
+
+    > Remix экранирует интерполированные значения по умолчанию. `innerHTML` и `html.raw` — это два способа отказа от экранирования, что и требуется для отрендеренной строки Markdown.
+
+    Вы также можете предоставить локальные переопределения для определенных тегов с помощью метода `.use()`. Переопределения — это функции, возвращающие строку HTML:
+
+    ```tsx
+    <div
+      innerHTML={myMarkdownContent.use({
+        h1: ({ children }) => `<h1 class="text-3xl font-bold">${children}</h1>`,
+      })}
+    />
+    ```
+
+    `.value` — это отрендеренная HTML-строка, в то время как `String()` / `.toString()` возвращают исходный код Markdown:
+
+    ```tsx
+    myMarkdownContent.value // "<h1>…</h1>"
+    String(myMarkdownContent) // "# …"
+    myMarkdownContent.toString() // "# …"
+    ```
+
+    И вы можете получить доступ к метаданным markdown следующим образом:
+
+    ```tsx
+    myMarkdownContent.metadata
+    myMarkdownContent.metadata.title
+    ```
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+    В Astro узлы Markdown рендерятся в строку HTML. Внедрите ее с помощью директивы `set:html` в шаблоне или с помощью `innerHTML` в клиентском теге `<script>`.
+
+    ```astro fileName="src/pages/index.astro"
+    ---
+    import { useIntlayer } from "astro-intlayer";
+
+    const { myMarkdownContent } = useIntlayer("app");
+    ---
+
+    <div set:html={myMarkdownContent.value} />
+    ```
+
+    ```astro fileName="src/components/Content.astro"
+    <div id="content"></div>
+
+    <script>
+      import { useIntlayer } from "astro-intlayer";
+
+      const { myMarkdownContent } = useIntlayer("app");
+
+      document.querySelector("#content")!.innerHTML = myMarkdownContent.value;
+    </script>
+    ```
+
+    > Astro экранирует `{выражения}` по умолчанию. `set:html` — это способ отказа от экранирования, что и требуется для отрендеренной строки Markdown.
+
+    Вы также можете предоставить локальные переопределения для определенных тегов с помощью метода `.use()`. Переопределения — это функции, возвращающие строку HTML:
+
+    ```astro
+    <div
+      set:html={myMarkdownContent.use({
+        h1: ({ children }) => `<h1 class="text-3xl font-bold">${children}</h1>`,
+      })}
+    />
+    ```
+
+    `.value` — это отрендеренная HTML-строка, в то время как `String()` / `.toString()` возвращают исходный код Markdown:
+
+    ```astro
+    myMarkdownContent.value // "<h1>…</h1>"
+    String(myMarkdownContent) // "# …"
+    myMarkdownContent.toString() // "# …"
+    ```
+
+    И вы можете получить доступ к метаданным markdown следующим образом:
+
+    ```astro
+    myMarkdownContent.metadata
+    myMarkdownContent.metadata.title
+    ```
+
+  </Tab>
 </Tabs>
 
 ### 2. Вспомогательные утилиты (только строки Markdown)
@@ -702,6 +809,60 @@ Intlayer предоставляет два независимых способа
         return this.markdownService.renderMarkdown(markdown);
       }
     }
+    ```
+
+  </Tab>
+  <Tab label="Remix" value="remix">
+    #### Хук `useMarkdownRenderer()`
+
+    Получите функцию рендеринга, предварительно настроенную с помощью `installIntlayerMarkdown()`. Она возвращает строку HTML.
+
+    ```tsx
+    import { useMarkdownRenderer } from "remix-intlayer/markdown";
+
+    const renderMarkdown = useMarkdownRenderer({ forceBlock: true });
+
+    return <div innerHTML={renderMarkdown("# My Title")} />;
+    ```
+
+    #### Утилита `renderMarkdown()`
+
+    Автономная утилита, игнорирующая глобальную конфигурацию.
+
+    ```tsx
+    import { renderMarkdown } from "remix-intlayer/markdown";
+
+    const html = renderMarkdown("# My Title", { forceBlock: true });
+    ```
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+    #### Хук `useMarkdownRenderer()`
+
+    Получите функцию рендеринга, предварительно настроенную с помощью `installIntlayerMarkdown()`. Она возвращает строку HTML.
+
+    ```astro
+    ---
+    import { useMarkdownRenderer } from "astro-intlayer/markdown";
+
+    const renderMarkdown = useMarkdownRenderer({ forceBlock: true });
+    ---
+
+    <div set:html={renderMarkdown("# My Title")} />
+    ```
+
+    #### Утилита `renderMarkdown()`
+
+    Автономная утилита, игнорирующая глобальную конфигурацию.
+
+    ```astro
+    ---
+    import { renderMarkdown } from "astro-intlayer/markdown";
+
+    const html = renderMarkdown("# My Title", { forceBlock: true });
+    ---
+
+    <div set:html={html} />
     ```
 
   </Tab>
@@ -1002,6 +1163,73 @@ Intlayer предоставляет два независимых способа
     ```
 
     > Динамический импорт вашего renderer Markdown — это хороший способ уменьшить размер bundle приложения.
+
+  </Tab>
+  <Tab label="Remix" value="remix">
+
+    В Remix нет дерева компонентов для размещения провайдера, поэтому конфигурация устанавливается один раз как синглтон при запуске сервера. Она настраивает рендерер, возвращаемый `useMarkdownRenderer()`. Узлы `md`, возвращаемые `useIntlayer`, рендерятся с помощью компилятора по умолчанию; переопределяйте их теги для каждого узла с помощью `.use()`.
+
+    ```typescript fileName="src/router.ts"
+    import { installIntlayerMarkdown } from "remix-intlayer/markdown";
+
+    installIntlayerMarkdown({
+      forceBlock: true,
+      components: {
+        h1: ({ children }) => `<h1 class="text-2xl font-bold">${children}</h1>`,
+      },
+    });
+    ```
+
+    Вы также можете использовать собственный рендерер markdown:
+
+    ```typescript fileName="src/router.ts"
+    import { installIntlayerMarkdown } from "remix-intlayer/markdown";
+
+    installIntlayerMarkdown({
+      renderMarkdown: async (md) => {
+        const { marked } = await import("marked");
+        return marked(md) as string;
+      },
+    });
+    ```
+
+    > Используйте `installIntlayerMarkdownDynamic(async () => …)` для отложенной загрузки самого рендерера; загрузчик выполняется только при первом вызове.
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+
+    В Astro нет дерева компонентов для размещения провайдера, поэтому конфигурация устанавливается один раз как синглтон в middleware (сервер) и в клиентском теге `<script>` (браузер). Она настраивает рендерер, возвращаемый `useMarkdownRenderer()`. Узлы `md`, возвращаемые `useIntlayer`, рендерятся с помощью компилятора по умолчанию; переопределяйте их теги для каждого узла с помощью `.use()`.
+
+    ```typescript fileName="src/middleware.ts"
+    import { installIntlayerMarkdown } from "astro-intlayer/markdown";
+    import { defineMiddleware } from "astro:middleware";
+
+    // Запускается один раз при старте сервера; сам middleware Intlayer
+    // регистрируется интеграцией перед этим файлом.
+    installIntlayerMarkdown({
+      forceBlock: true,
+      components: {
+        h1: ({ children }) => `<h1 class="text-2xl font-bold">${children}</h1>`,
+      },
+    });
+
+    export const onRequest = defineMiddleware((_context, next) => next());
+    ```
+
+    Вы также можете использовать собственный рендерер markdown:
+
+    ```typescript fileName="src/middleware.ts"
+    import { installIntlayerMarkdown } from "astro-intlayer/markdown";
+
+    installIntlayerMarkdown({
+      renderMarkdown: async (md) => {
+        const { marked } = await import("marked");
+        return marked(md) as string;
+      },
+    });
+    ```
+
+    > Используйте `installIntlayerMarkdownDynamic(async () => …)` для отложенной загрузки самого рендерера; загрузчик выполняется только при первом вызове.
 
   </Tab>
 </Tabs>
@@ -1329,6 +1557,40 @@ export class MyComponent {
         });
       }
     }
+    ```
+
+  </Tab>
+  <Tab label="Remix" value="remix">
+
+    Remix 3 выполняет рендеринг на сервере и передает HTML потоком, поэтому AST не требуется передавать клиенту. Выполните парсинг один раз и рендерите AST везде, где строится страница:
+
+    ```tsx fileName="src/views/article.tsx"
+    import { parseMarkdown, renderMarkdown } from "remix-intlayer/markdown";
+
+    // 1. Парсинг markdown в сериализуемый AST (например, один раз при загрузке модуля)
+    const ast = parseMarkdown("## My title \n\nLorem Ipsum");
+
+    export const ArticlePage = () => () => (
+      // 2. Рендеринг AST: рендерер принимает исходную строку или спарсенный AST
+      <article innerHTML={renderMarkdown(ast)} />
+    );
+    ```
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+
+    Страницы Astro рендерятся на сервере, поэтому AST не требуется передавать клиенту. Выполните парсинг Markdown во frontmatter и отрендерите его с помощью `set:html`:
+
+    ```astro fileName="src/pages/article.astro"
+    ---
+    import { parseMarkdown, renderMarkdown } from "astro-intlayer/markdown";
+
+    // 1. Парсинг markdown в сериализуемый AST
+    const ast = parseMarkdown("## My title \n\nLorem Ipsum");
+    ---
+
+    <!-- 2. Рендеринг AST: рендерер принимает исходную строку или спарсенный AST -->
+    <article set:html={renderMarkdown(ast)} />
     ```
 
   </Tab>

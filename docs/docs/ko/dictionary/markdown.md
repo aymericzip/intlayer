@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-05-19
+updatedAt: 2026-09-21
 title: Markdown
 description: Intlayer를 사용하여 다국어 웹사이트에서 Markdown 콘텐츠를 선언하고 사용하는 방법을 알아보세요. 이 온라인 문서의 단계를 따라 Markdown을 프로젝트에 원활하게 통합하세요.
 keywords:
@@ -11,6 +11,8 @@ keywords:
   - Next.js
   - JavaScript
   - React
+  - Remix
+  - Astro
 slugs:
   - doc
   - concept
@@ -487,6 +489,111 @@ Markdown 렌더링은 **MDX**를 지원합니다 — Markdown 내에서 이름�
     ```
 
   </Tab>
+  <Tab label="Remix" value="remix">
+    Remix 3에서 마크다운 노드는 서버에서 HTML 문자열로 렌더링됩니다. Remix JSX의 `innerHTML` prop 또는 `html-template` 뷰의 `html.raw`를 사용하여 삽입하세요.
+
+    ```tsx fileName="src/views/home.tsx"
+    import { useIntlayer } from "remix-intlayer";
+
+    export const HomePage = () => () => {
+      const { myMarkdownContent } = useIntlayer("app");
+
+      return <div innerHTML={myMarkdownContent.value} />;
+    };
+    ```
+
+    ```ts fileName="src/views/home.ts"
+    import { html } from "remix/html-template";
+    import { useIntlayer } from "remix-intlayer";
+
+    export const renderHomePage = () => {
+      const { myMarkdownContent } = useIntlayer("app");
+
+      return html.raw`<div>${myMarkdownContent.value}</div>`;
+    };
+    ```
+
+    > Remix는 기본적으로 보간된 값을 이스케이프합니다. `innerHTML`과 `html.raw`는 렌더링된 마크다운 문자열에 필요한 두 가지 이스케이프 제외 방법입니다.
+
+    `.use()` 메서드를 사용하여 특정 태그에 대한 로컬 재정의를 제공할 수도 있습니다. 재정의는 HTML 문자열을 반환하는 함수입니다:
+
+    ```tsx
+    <div
+      innerHTML={myMarkdownContent.use({
+        h1: ({ children }) => `<h1 class="text-3xl font-bold">${children}</h1>`,
+      })}
+    />
+    ```
+
+    `.value`는 렌더링된 HTML 문자열이며, `String()` / `.toString()`은 원시 Markdown 소스를 반환합니다:
+
+    ```tsx
+    myMarkdownContent.value // "<h1>…</h1>"
+    String(myMarkdownContent) // "# …"
+    myMarkdownContent.toString() // "# …"
+    ```
+
+    그리고 다음과 같이 마크다운 메타데이터에 액세스할 수 있습니다:
+
+    ```tsx
+    myMarkdownContent.metadata
+    myMarkdownContent.metadata.title
+    ```
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+    Astro에서 마크다운 노드는 HTML 문자열로 렌더링됩니다. 템플릿의 `set:html` 디렉티브 또는 클라이언트 `<script>`의 `innerHTML`을 사용하여 삽입하세요.
+
+    ```astro fileName="src/pages/index.astro"
+    ---
+    import { useIntlayer } from "astro-intlayer";
+
+    const { myMarkdownContent } = useIntlayer("app");
+    ---
+
+    <div set:html={myMarkdownContent.value} />
+    ```
+
+    ```astro fileName="src/components/Content.astro"
+    <div id="content"></div>
+
+    <script>
+      import { useIntlayer } from "astro-intlayer";
+
+      const { myMarkdownContent } = useIntlayer("app");
+
+      document.querySelector("#content")!.innerHTML = myMarkdownContent.value;
+    </script>
+    ```
+
+    > Astro는 기본적으로 `{표현식}`을 이스케이프합니다. `set:html`은 렌더링된 마크다운 문자열에 필요한 이스케이프 제외 방법입니다.
+
+    `.use()` 메서드를 사용하여 특정 태그에 대한 로컬 재정의를 제공할 수도 있습니다. 재정의는 HTML 문자열을 반환하는 함수입니다:
+
+    ```astro
+    <div
+      set:html={myMarkdownContent.use({
+        h1: ({ children }) => `<h1 class="text-3xl font-bold">${children}</h1>`,
+      })}
+    />
+    ```
+
+    `.value`는 렌더링된 HTML 문자열이며, `String()` / `.toString()`은 원시 Markdown 소스를 반환합니다:
+
+    ```astro
+    myMarkdownContent.value // "<h1>…</h1>"
+    String(myMarkdownContent) // "# …"
+    myMarkdownContent.toString() // "# …"
+    ```
+
+    그리고 다음과 같이 마크다운 메타데이터에 액세스할 수 있습니다:
+
+    ```astro
+    myMarkdownContent.metadata
+    myMarkdownContent.metadata.title
+    ```
+
+  </Tab>
 </Tabs>
 
 ### 2. 도우미 유틸리티 (Markdown 문자열 전용)
@@ -695,6 +802,60 @@ Markdown 렌더링은 **MDX**를 지원합니다 — Markdown 내에서 이름�
         return this.markdownService.renderMarkdown(markdown);
       }
     }
+    ```
+
+  </Tab>
+  <Tab label="Remix" value="remix">
+    #### `useMarkdownRenderer()` 훅
+
+    `installIntlayerMarkdown()`으로 사전 구성된 렌더러 함수를 가져옵니다. HTML 문자열을 반환합니다.
+
+    ```tsx
+    import { useMarkdownRenderer } from "remix-intlayer/markdown";
+
+    const renderMarkdown = useMarkdownRenderer({ forceBlock: true });
+
+    return <div innerHTML={renderMarkdown("# My Title")} />;
+    ```
+
+    #### `renderMarkdown()` 유틸리티
+
+    전역 구성을 무시하는 독립형 유틸리티입니다.
+
+    ```tsx
+    import { renderMarkdown } from "remix-intlayer/markdown";
+
+    const html = renderMarkdown("# My Title", { forceBlock: true });
+    ```
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+    #### `useMarkdownRenderer()` 훅
+
+    `installIntlayerMarkdown()`으로 사전 구성된 렌더러 함수를 가져옵니다. HTML 문자열을 반환합니다.
+
+    ```astro
+    ---
+    import { useMarkdownRenderer } from "astro-intlayer/markdown";
+
+    const renderMarkdown = useMarkdownRenderer({ forceBlock: true });
+    ---
+
+    <div set:html={renderMarkdown("# My Title")} />
+    ```
+
+    #### `renderMarkdown()` 유틸리티
+
+    전역 구성을 무시하는 독립형 유틸리티입니다.
+
+    ```astro
+    ---
+    import { renderMarkdown } from "astro-intlayer/markdown";
+
+    const html = renderMarkdown("# My Title", { forceBlock: true });
+    ---
+
+    <div set:html={html} />
     ```
 
   </Tab>
@@ -996,6 +1157,73 @@ Markdown 렌더링은 **MDX**를 지원합니다 — Markdown 내에서 이름�
     ```
 
     > Markdown 렌더러를 동적으로 가져오는 것은 애플리케이션 번들 크기를 줄이는 좋은 방법입니다.
+
+  </Tab>
+  <Tab label="Remix" value="remix">
+
+    Remix에는 프로바이더를 담을 컴포넌트 트리가 없으므로 설정은 서버 시작 시 싱글톤으로 한 번 설치됩니다. `useMarkdownRenderer()`가 반환하는 렌더러를 구성합니다. `useIntlayer`가 반환하는 `md` 노드는 기본 컴파일러로 렌더링되며, 노드별로 `.use()`를 사용하여 태그를 재정의하세요.
+
+    ```typescript fileName="src/router.ts"
+    import { installIntlayerMarkdown } from "remix-intlayer/markdown";
+
+    installIntlayerMarkdown({
+      forceBlock: true,
+      components: {
+        h1: ({ children }) => `<h1 class="text-2xl font-bold">${children}</h1>`,
+      },
+    });
+    ```
+
+    자체 마크다운 렌더러를 사용할 수도 있습니다:
+
+    ```typescript fileName="src/router.ts"
+    import { installIntlayerMarkdown } from "remix-intlayer/markdown";
+
+    installIntlayerMarkdown({
+      renderMarkdown: async (md) => {
+        const { marked } = await import("marked");
+        return marked(md) as string;
+      },
+    });
+    ```
+
+    > 렌더러 자체를 지연 로드하려면 `installIntlayerMarkdownDynamic(async () => …)`를 사용하세요. 로더는 첫 번째 호출 시에만 실행됩니다.
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+
+    Astro에는 프로바이더를 담을 컴포넌트 트리가 없으므로 설정은 미들웨어(서버) 및 클라이언트 `<script>`(브라우저)에서 싱글톤으로 한 번 설치됩니다. `useMarkdownRenderer()`가 반환하는 렌더러를 구성합니다. `useIntlayer`가 반환하는 `md` 노드는 기본 컴파일러로 렌더링되며, 노드별로 `.use()`를 사용하여 태그를 재정의하세요.
+
+    ```typescript fileName="src/middleware.ts"
+    import { installIntlayerMarkdown } from "astro-intlayer/markdown";
+    import { defineMiddleware } from "astro:middleware";
+
+    // 서버 시작 시 한 번 실행됩니다. Intlayer 미들웨어 자체는
+    // 이 파일보다 앞서 통합에 의해 등록됩니다.
+    installIntlayerMarkdown({
+      forceBlock: true,
+      components: {
+        h1: ({ children }) => `<h1 class="text-2xl font-bold">${children}</h1>`,
+      },
+    });
+
+    export const onRequest = defineMiddleware((_context, next) => next());
+    ```
+
+    자체 마크다운 렌더러를 사용할 수도 있습니다:
+
+    ```typescript fileName="src/middleware.ts"
+    import { installIntlayerMarkdown } from "astro-intlayer/markdown";
+
+    installIntlayerMarkdown({
+      renderMarkdown: async (md) => {
+        const { marked } = await import("marked");
+        return marked(md) as string;
+      },
+    });
+    ```
+
+    > 렌더러 자체를 지연 로드하려면 `installIntlayerMarkdownDynamic(async () => …)`를 사용하세요. 로더는 첫 번째 호출 시에만 실행됩니다.
 
   </Tab>
 </Tabs>
@@ -1323,6 +1551,40 @@ remark / rehype와 같은 다른 마크다운 파서와 비교할 때, Intlayer 
         });
       }
     }
+    ```
+
+  </Tab>
+  <Tab label="Remix" value="remix">
+
+    Remix 3는 서버에서 렌더링하고 HTML을 스트리밍하므로 AST가 클라이언트로 전달될 필요가 없습니다. 한 번 파싱하고 페이지가 빌드되는 곳에서 AST를 렌더링하세요:
+
+    ```tsx fileName="src/views/article.tsx"
+    import { parseMarkdown, renderMarkdown } from "remix-intlayer/markdown";
+
+    // 1. 마크다운을 직렬화 가능한 AST로 파싱 (예: 모듈 로드 시 한 번)
+    const ast = parseMarkdown("## My title \n\nLorem Ipsum");
+
+    export const ArticlePage = () => () => (
+      // 2. AST 렌더링: 렌더러는 원시 문자열 또는 파싱된 AST를 허용합니다
+      <article innerHTML={renderMarkdown(ast)} />
+    );
+    ```
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+
+    Astro 페이지는 서버에서 렌더링되므로 AST가 클라이언트로 전달될 필요가 없습니다. 프론트매터에서 Markdown을 파싱하고 `set:html`로 렌더링하세요:
+
+    ```astro fileName="src/pages/article.astro"
+    ---
+    import { parseMarkdown, renderMarkdown } from "astro-intlayer/markdown";
+
+    // 1. 마크다운을 직렬화 가능한 AST로 파싱
+    const ast = parseMarkdown("## My title \n\nLorem Ipsum");
+    ---
+
+    <!-- 2. AST 렌더링: 렌더러는 원시 문자열 또는 파싱된 AST를 허용합니다 -->
+    <article set:html={renderMarkdown(ast)} />
     ```
 
   </Tab>

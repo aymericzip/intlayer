@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-20
-updatedAt: 2026-03-24
+updatedAt: 2026-09-21
 title: HTML 内容
 description: 了解如何在 Intlayer 中声明和使用带有自定义组件的 HTML 内容。按照本指南在你的国际化项目中嵌入具有动态组件替换功能的丰富类 HTML 内容。
 keywords:
@@ -13,6 +13,8 @@ keywords:
   - React
   - Vue
   - Svelte
+  - Remix
+  - Astro
 slugs:
   - doc
   - concept
@@ -232,6 +234,83 @@ const myContent = html(
       p: { class: "prose" },
       CustomLink: { href: "/details" },
     })
+    ```
+
+  </Tab>
+  <Tab label="Remix" value="remix">
+    在 Remix 3 中，HTML 节点解析为 HTML 字符串。使用 Remix JSX 的 `innerHTML` 属性注入它，或在 `html-template` 视图中使用 `html.raw`。
+
+    ```tsx fileName="src/views/home.tsx"
+    import { useIntlayer } from "remix-intlayer";
+
+    export const HomePage = () => () => {
+      const { myHtmlContent } = useIntlayer("app");
+
+      return <div innerHTML={myHtmlContent.value} />;
+    };
+    ```
+
+    ```ts fileName="src/views/home.ts"
+    import { html } from "remix/html-template";
+    import { useIntlayer } from "remix-intlayer";
+
+    export const renderHomePage = () => {
+      const { myHtmlContent } = useIntlayer("app");
+
+      return html.raw`<div>${myHtmlContent.value}</div>`;
+    };
+    ```
+
+    > Remix 默认会转义插值。`innerHTML` 和 `html.raw` 是两个例外选项，这正是 HTML 字符串所需要的。
+
+    使用 `.use()` 方法覆盖标签或映射自定义组件。覆盖是返回 HTML 字符串的函数：
+
+    ```tsx
+    <div
+      innerHTML={myHtmlContent.use({
+        p: ({ children }) => `<p class="prose">${children}</p>`,
+        CustomLink: ({ children }) => `<a href="/details">${children}</a>`,
+      })}
+    />
+    ```
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+    在 Astro 中，HTML 节点解析为 HTML 字符串。使用模板中的 `set:html` 指令注入它，或在客户端 `<script>` 中使用 `innerHTML`。
+
+    ```astro fileName="src/pages/index.astro"
+    ---
+    import { useIntlayer } from "astro-intlayer";
+
+    const { myHtmlContent } = useIntlayer("app");
+    ---
+
+    <div set:html={myHtmlContent.value} />
+    ```
+
+    ```astro fileName="src/components/Content.astro"
+    <div id="content"></div>
+
+    <script>
+      import { useIntlayer } from "astro-intlayer";
+
+      const { myHtmlContent } = useIntlayer("app");
+
+      document.querySelector("#content")!.innerHTML = myHtmlContent.value;
+    </script>
+    ```
+
+    > Astro 默认会转义 `{表达式}`。`set:html` 是例外选项，这正是 HTML 字符串所需要的。
+
+    使用 `.use()` 方法覆盖标签或映射自定义组件。覆盖是返回 HTML 字符串的函数：
+
+    ```astro
+    <div
+      set:html={myHtmlContent.use({
+        p: ({ children }) => `<p class="prose">${children}</p>`,
+        CustomLink: ({ children }) => `<a href="/details">${children}</a>`,
+      })}
+    />
     ```
 
   </Tab>
@@ -470,6 +549,40 @@ const myContent = html(
     > 动态导入 HTML 渲染器是减小应用程序Bundle 大小的好方法。
 
   </Tab>
+  <Tab label="Remix" value="remix">
+
+    Remix 没有组件树来承载 provider，因此配置在服务器启动时作为单例安装一次。它配置由 `useHTMLRenderer()` 返回的渲染器。由 `useIntlayer` 返回的 `html` 节点按原样渲染；通过 `.use()` 为每个节点覆盖其标签。
+
+    ```typescript fileName="src/router.ts"
+    import { installIntlayerHTML } from "remix-intlayer/html";
+
+    installIntlayerHTML({
+      renderHTML: (html) => html.replaceAll("<p>", '<p class="prose">'),
+    });
+    ```
+
+    > 使用 `installIntlayerHTMLDynamic(async () => …)` 延迟加载渲染器本身；加载器仅在第一次调用时运行。
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+
+    Astro 没有组件树来承载 provider，因此配置在中间件（服务器）和客户端 `<script>`（浏览器）中作为单例安装一次。它配置由 `useHTMLRenderer()` 返回的渲染器。由 `useIntlayer` 返回的 `html` 节点按原样渲染；通过 `.use()` 为每个节点覆盖其标签。
+
+    ```typescript fileName="src/middleware.ts"
+    import { installIntlayerHTML } from "astro-intlayer/html";
+    import { defineMiddleware } from "astro:middleware";
+
+    // 服务器启动时运行一次；Intlayer 中间件本身由集成在此文件之前注册。
+    installIntlayerHTML({
+      renderHTML: (html) => html.replaceAll("<p>", '<p class="prose">'),
+    });
+
+    export const onRequest = defineMiddleware((_context, next) => next());
+    ```
+
+    > 使用 `installIntlayerHTMLDynamic(async () => …)` 延迟加载渲染器本身；加载器仅在第一次调用时运行。
+
+  </Tab>
 </Tabs>
 
 ### 手动渲染与高级工具
@@ -642,15 +755,69 @@ const myContent = html(
     ```
 
   </Tab>
+  <Tab label="Remix" value="remix">
+    #### `useHTMLRenderer()` Hook
+
+    获取由 `installIntlayerHTML()` 预配置的渲染器函数。它返回一个 HTML 字符串。
+
+    ```tsx
+    import { useHTMLRenderer } from "remix-intlayer/html";
+
+    const renderHTML = useHTMLRenderer();
+
+    return <div innerHTML={renderHTML("<p>Hello <strong>World</strong></p>")} />;
+    ```
+
+    #### `renderHTML()` 实用工具
+
+    忽略全局配置的独立实用工具。
+
+    ```tsx
+    import { renderHTML } from "remix-intlayer/html";
+
+    const html = renderHTML("<p>Hello</p>");
+    ```
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+    #### `useHTMLRenderer()` Hook
+
+    获取由 `installIntlayerHTML()` 预配置的渲染器函数。它返回一个 HTML 字符串。
+
+    ```astro
+    ---
+    import { useHTMLRenderer } from "astro-intlayer/html";
+
+    const renderHTML = useHTMLRenderer();
+    ---
+
+    <div set:html={renderHTML("<p>Hello <strong>World</strong></p>")} />
+    ```
+
+    #### `renderHTML()` 实用工具
+
+    忽略全局配置的独立实用工具。
+
+    ```astro
+    ---
+    import { renderHTML } from "astro-intlayer/html";
+
+    const html = renderHTML("<p>Hello</p>");
+    ---
+
+    <div set:html={html} />
+    ```
+
+  </Tab>
 </Tabs>
 
 ## 选项参考
 
 这些选项可以传递给 `HTMLProvider`、`HTMLRenderer`、`useHTMLRenderer` 和 `renderHTML`。
 
-| 选项         | 类型                  | 默认   | 说明                                                                               |
-| :----------- | :-------------------- | :----- | :--------------------------------------------------------------------------------- |
-| `components` | `Record<string, any>` | `{}`   | 一个将 HTML 标签或自定义组件名称映射到对应组件的映射表。                           |
-| `renderHTML` | `Function`            | `null` | 一个自定义渲染函数，用于完全替换默认的 HTML 解析器（仅适用于 Vue/Svelte 提供器）。 |
+| 选项         | 类型                  | 默认   | 说明                                                                             |
+| :----------- | :-------------------- | :----- | :------------------------------------------------------------------------------- |
+| `components` | `Record<string, any>` | `{}`   | 一个将 HTML 标签或自定义组件名称映射到对应组件的映射表。                         |
+| `renderHTML` | `Function`            | `null` | 完全替换默认 HTML 解析器的自定义渲染函数（Vue、Svelte、Remix 和 Astro 提供者）。 |
 
 > 注意：对于 React 和 Preact，标准 HTML 标签会自动提供。只有当你想覆盖它们或添加自定义组件时，才需要传入 `components` prop。

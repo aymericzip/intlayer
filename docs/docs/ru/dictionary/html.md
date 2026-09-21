@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-20
-updatedAt: 2026-03-24
+updatedAt: 2026-09-21
 title: HTML-контент
 description: Узнайте, как объявлять и использовать HTML-контент с пользовательскими компонентами в Intlayer. Следуйте этой документации, чтобы встроить богатый HTML-подобный контент с динамической заменой компонентов в ваш проект с поддержкой интернационализации.
 keywords:
@@ -13,6 +13,8 @@ keywords:
   - React
   - Vue
   - Svelte
+  - Remix
+  - Astro
   - Solid
   - Angular
 slugs:
@@ -235,6 +237,83 @@ const myContent = html(
       p: { class: "prose" },
       CustomLink: { href: "/details" },
     })
+    ```
+
+  </Tab>
+  <Tab label="Remix" value="remix">
+    В Remix 3 узлы HTML преобразуются в строку HTML. Внедрите ее с помощью пропа `innerHTML` в Remix JSX или с помощью `html.raw` в представлении `html-template`.
+
+    ```tsx fileName="src/views/home.tsx"
+    import { useIntlayer } from "remix-intlayer";
+
+    export const HomePage = () => () => {
+      const { myHtmlContent } = useIntlayer("app");
+
+      return <div innerHTML={myHtmlContent.value} />;
+    };
+    ```
+
+    ```ts fileName="src/views/home.ts"
+    import { html } from "remix/html-template";
+    import { useIntlayer } from "remix-intlayer";
+
+    export const renderHomePage = () => {
+      const { myHtmlContent } = useIntlayer("app");
+
+      return html.raw`<div>${myHtmlContent.value}</div>`;
+    };
+    ```
+
+    > Remix экранирует интерполированные значения по умолчанию. `innerHTML` и `html.raw` — это два способа отказа от экранирования, что и требуется для строки HTML.
+
+    Используйте метод `.use()` для переопределения тегов или сопоставления пользовательских компонентов. Переопределения — это функции, возвращающие строку HTML:
+
+    ```tsx
+    <div
+      innerHTML={myHtmlContent.use({
+        p: ({ children }) => `<p class="prose">${children}</p>`,
+        CustomLink: ({ children }) => `<a href="/details">${children}</a>`,
+      })}
+    />
+    ```
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+    В Astro узлы HTML преобразуются в строку HTML. Внедрите ее с помощью директивы `set:html` в шаблоне или с помощью `innerHTML` в клиентском теге `<script>`.
+
+    ```astro fileName="src/pages/index.astro"
+    ---
+    import { useIntlayer } from "astro-intlayer";
+
+    const { myHtmlContent } = useIntlayer("app");
+    ---
+
+    <div set:html={myHtmlContent.value} />
+    ```
+
+    ```astro fileName="src/components/Content.astro"
+    <div id="content"></div>
+
+    <script>
+      import { useIntlayer } from "astro-intlayer";
+
+      const { myHtmlContent } = useIntlayer("app");
+
+      document.querySelector("#content")!.innerHTML = myHtmlContent.value;
+    </script>
+    ```
+
+    > Astro экранирует `{выражения}` по умолчанию. `set:html` — это способ отказа от экранирования, что и требуется для строки HTML.
+
+    Используйте метод `.use()` для переопределения тегов или сопоставления пользовательских компонентов. Переопределения — это функции, возвращающие строку HTML:
+
+    ```astro
+    <div
+      set:html={myHtmlContent.use({
+        p: ({ children }) => `<p class="prose">${children}</p>`,
+        CustomLink: ({ children }) => `<a href="/details">${children}</a>`,
+      })}
+    />
     ```
 
   </Tab>
@@ -473,6 +552,41 @@ const myContent = html(
     > Динамический импорт рендерера HTML - хороший способ уменьшить размер бандла вашего приложения.
 
   </Tab>
+  <Tab label="Remix" value="remix">
+
+    В Remix нет дерева компонентов для размещения провайдера, поэтому конфигурация устанавливается один раз как синглтон при запуске сервера. Она настраивает рендерер, возвращаемый `useHTMLRenderer()`. Узлы `html`, возвращаемые `useIntlayer`, отображаются как есть; переопределяйте их теги для каждого узла с помощью `.use()`.
+
+    ```typescript fileName="src/router.ts"
+    import { installIntlayerHTML } from "remix-intlayer/html";
+
+    installIntlayerHTML({
+      renderHTML: (html) => html.replaceAll("<p>", '<p class="prose">'),
+    });
+    ```
+
+    > Используйте `installIntlayerHTMLDynamic(async () => …)` для отложенной загрузки самого рендерера; загрузчик выполняется только при первом вызове.
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+
+    В Astro нет дерева компонентов для размещения провайдера, поэтому конфигурация устанавливается один раз как синглтон в middleware (сервер) и в клиентском теге `<script>` (браузер). Она настраивает рендерер, возвращаемый `useHTMLRenderer()`. Узлы `html`, возвращаемые `useIntlayer`, отображаются как есть; переопределяйте их теги для каждого узла с помощью `.use()`.
+
+    ```typescript fileName="src/middleware.ts"
+    import { installIntlayerHTML } from "astro-intlayer/html";
+    import { defineMiddleware } from "astro:middleware";
+
+    // Запускается один раз при старте сервера; сам middleware Intlayer
+    // регистрируется интеграцией перед этим файлом.
+    installIntlayerHTML({
+      renderHTML: (html) => html.replaceAll("<p>", '<p class="prose">'),
+    });
+
+    export const onRequest = defineMiddleware((_context, next) => next());
+    ```
+
+    > Используйте `installIntlayerHTMLDynamic(async () => …)` для отложенной загрузки самого рендерера; загрузчик выполняется только при первом вызове.
+
+  </Tab>
 </Tabs>
 
 ### Ручной рендеринг и расширенные инструменты
@@ -646,15 +760,69 @@ const myContent = html(
     ```
 
   </Tab>
+  <Tab label="Remix" value="remix">
+    #### Хук `useHTMLRenderer()`
+
+    Получите функцию рендеринга, предварительно настроенную с помощью `installIntlayerHTML()`. Она возвращает строку HTML.
+
+    ```tsx
+    import { useHTMLRenderer } from "remix-intlayer/html";
+
+    const renderHTML = useHTMLRenderer();
+
+    return <div innerHTML={renderHTML("<p>Hello <strong>World</strong></p>")} />;
+    ```
+
+    #### Утилита `renderHTML()`
+
+    Автономная утилита, игнорирующая глобальную конфигурацию.
+
+    ```tsx
+    import { renderHTML } from "remix-intlayer/html";
+
+    const html = renderHTML("<p>Hello</p>");
+    ```
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+    #### Хук `useHTMLRenderer()`
+
+    Получите функцию рендеринга, предварительно настроенную с помощью `installIntlayerHTML()`. Она возвращает строку HTML.
+
+    ```astro
+    ---
+    import { useHTMLRenderer } from "astro-intlayer/html";
+
+    const renderHTML = useHTMLRenderer();
+    ---
+
+    <div set:html={renderHTML("<p>Hello <strong>World</strong></p>")} />
+    ```
+
+    #### Утилита `renderHTML()`
+
+    Автономная утилита, игнорирующая глобальную конфигурацию.
+
+    ```astro
+    ---
+    import { renderHTML } from "astro-intlayer/html";
+
+    const html = renderHTML("<p>Hello</p>");
+    ---
+
+    <div set:html={html} />
+    ```
+
+  </Tab>
 </Tabs>
 
 ## Справочник опций
 
 Эти опции могут быть переданы в `HTMLProvider`, `HTMLRenderer`, `useHTMLRenderer` и `renderHTML`.
 
-| Опция        | Тип                   | По умолчанию | Описание                                                                                                             |
-| :----------- | :-------------------- | :----------- | :------------------------------------------------------------------------------------------------------------------- |
-| `components` | `Record<string, any>` | `{}`         | Отображение HTML-тегов или имён пользовательских компонентов на соответствующие компоненты.                          |
-| `renderHTML` | `Function`            | `null`       | Пользовательская функция рендеринга для полной замены стандартного HTML-парсера (только для провайдеров Vue/Svelte). |
+| Опция        | Тип                   | По умолчанию | Описание                                                                                                                 |
+| :----------- | :-------------------- | :----------- | :----------------------------------------------------------------------------------------------------------------------- |
+| `components` | `Record<string, any>` | `{}`         | Отображение HTML-тегов или имён пользовательских компонентов на соответствующие компоненты.                              |
+| `renderHTML` | `Function`            | `null`       | Пользовательская функция рендеринга для полной замены стандартного HTML-парсера (провайдеры Vue, Svelte, Remix и Astro). |
 
 > Примечание: для React и Preact стандартные HTML-теги предоставляются автоматически. Вам нужно передавать проп `components` только если вы хотите переопределить их или добавить пользовательские компоненты.

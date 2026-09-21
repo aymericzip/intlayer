@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-05-19
+updatedAt: 2026-09-21
 title: Markdown
 description: Tìm hiểu cách khai báo và sử dụng nội dung Markdown trong trang web đa ngôn ngữ của bạn với Intlayer. Làm theo các bước trong tài liệu trực tuyến này để tích hợp Markdown một cách liền mạch vào dự án của bạn.
 keywords:
@@ -11,6 +11,8 @@ keywords:
   - Next.js
   - JavaScript
   - React
+  - Remix
+  - Astro
 slugs:
   - doc
   - concept
@@ -487,6 +489,111 @@ Render Markdown hỗ trợ **MDX** — sử dụng bất kỳ component JSX/fram
     ```
 
   </Tab>
+  <Tab label="Remix" value="remix">
+    Trong Remix 3, các nút Markdown được hiển thị trên máy chủ thành một chuỗi HTML. Chèn chuỗi đó bằng prop `innerHTML` của Remix JSX hoặc với `html.raw` trong chế độ xem `html-template`.
+
+    ```tsx fileName="src/views/home.tsx"
+    import { useIntlayer } from "remix-intlayer";
+
+    export const HomePage = () => () => {
+      const { myMarkdownContent } = useIntlayer("app");
+
+      return <div innerHTML={myMarkdownContent.value} />;
+    };
+    ```
+
+    ```ts fileName="src/views/home.ts"
+    import { html } from "remix/html-template";
+    import { useIntlayer } from "remix-intlayer";
+
+    export const renderHomePage = () => {
+      const { myMarkdownContent } = useIntlayer("app");
+
+      return html.raw`<div>${myMarkdownContent.value}</div>`;
+    };
+    ```
+
+    > Remix mặc định thoát các giá trị được nội suy. `innerHTML` và `html.raw` là hai cách từ chối thoát, đây là điều mà một chuỗi Markdown được hiển thị cần.
+
+    Bạn cũng có thể cung cấp các ghi đè cục bộ cho các thẻ cụ thể bằng phương thức `.use()`. Các ghi đè là các hàm trả về một chuỗi HTML:
+
+    ```tsx
+    <div
+      innerHTML={myMarkdownContent.use({
+        h1: ({ children }) => `<h1 class="text-3xl font-bold">${children}</h1>`,
+      })}
+    />
+    ```
+
+    `.value` là chuỗi HTML đã hiển thị, trong khi `String()` / `.toString()` trả về nguồn Markdown thô:
+
+    ```tsx
+    myMarkdownContent.value // "<h1>…</h1>"
+    String(myMarkdownContent) // "# …"
+    myMarkdownContent.toString() // "# …"
+    ```
+
+    Và bạn có thể truy cập siêu dữ liệu markdown của mình như sau:
+
+    ```tsx
+    myMarkdownContent.metadata
+    myMarkdownContent.metadata.title
+    ```
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+    Trong Astro, các nút Markdown được hiển thị thành một chuỗi HTML. Chèn chuỗi đó bằng chỉ thị `set:html` trong mẫu hoặc với `innerHTML` trong `<script>` phía client.
+
+    ```astro fileName="src/pages/index.astro"
+    ---
+    import { useIntlayer } from "astro-intlayer";
+
+    const { myMarkdownContent } = useIntlayer("app");
+    ---
+
+    <div set:html={myMarkdownContent.value} />
+    ```
+
+    ```astro fileName="src/components/Content.astro"
+    <div id="content"></div>
+
+    <script>
+      import { useIntlayer } from "astro-intlayer";
+
+      const { myMarkdownContent } = useIntlayer("app");
+
+      document.querySelector("#content")!.innerHTML = myMarkdownContent.value;
+    </script>
+    ```
+
+    > Astro mặc định thoát `{biểu thức}`. `set:html` là cách từ chối thoát, đây là điều mà một chuỗi Markdown được hiển thị cần.
+
+    Bạn cũng có thể cung cấp các ghi đè cục bộ cho các thẻ cụ thể bằng phương thức `.use()`. Các ghi đè là các hàm trả về một chuỗi HTML:
+
+    ```astro
+    <div
+      set:html={myMarkdownContent.use({
+        h1: ({ children }) => `<h1 class="text-3xl font-bold">${children}</h1>`,
+      })}
+    />
+    ```
+
+    `.value` là chuỗi HTML đã hiển thị, trong khi `String()` / `.toString()` trả về nguồn Markdown thô:
+
+    ```astro
+    myMarkdownContent.value // "<h1>…</h1>"
+    String(myMarkdownContent) // "# …"
+    myMarkdownContent.toString() // "# …"
+    ```
+
+    Và bạn có thể truy cập siêu dữ liệu markdown của mình như sau:
+
+    ```astro
+    myMarkdownContent.metadata
+    myMarkdownContent.metadata.title
+    ```
+
+  </Tab>
 </Tabs>
 
 ### 2. Các tiện ích hỗ trợ (Chỉ Chuỗi Markdown)
@@ -695,6 +802,60 @@ Các tiện ích này **chỉ render các chuỗi Markdown thô** và độc l�
         return this.markdownService.renderMarkdown(markdown);
       }
     }
+    ```
+
+  </Tab>
+  <Tab label="Remix" value="remix">
+    #### Hook `useMarkdownRenderer()`
+
+    Lấy một hàm renderer được cấu hình sẵn bởi `installIntlayerMarkdown()`. Nó trả về một chuỗi HTML.
+
+    ```tsx
+    import { useMarkdownRenderer } from "remix-intlayer/markdown";
+
+    const renderMarkdown = useMarkdownRenderer({ forceBlock: true });
+
+    return <div innerHTML={renderMarkdown("# My Title")} />;
+    ```
+
+    #### Tiện ích `renderMarkdown()`
+
+    Tiện ích độc lập bỏ qua cấu hình toàn cục.
+
+    ```tsx
+    import { renderMarkdown } from "remix-intlayer/markdown";
+
+    const html = renderMarkdown("# My Title", { forceBlock: true });
+    ```
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+    #### Hook `useMarkdownRenderer()`
+
+    Lấy một hàm renderer được cấu hình sẵn bởi `installIntlayerMarkdown()`. Nó trả về một chuỗi HTML.
+
+    ```astro
+    ---
+    import { useMarkdownRenderer } from "astro-intlayer/markdown";
+
+    const renderMarkdown = useMarkdownRenderer({ forceBlock: true });
+    ---
+
+    <div set:html={renderMarkdown("# My Title")} />
+    ```
+
+    #### Tiện ích `renderMarkdown()`
+
+    Tiện ích độc lập bỏ qua cấu hình toàn cục.
+
+    ```astro
+    ---
+    import { renderMarkdown } from "astro-intlayer/markdown";
+
+    const html = renderMarkdown("# My Title", { forceBlock: true });
+    ---
+
+    <div set:html={html} />
     ```
 
   </Tab>
@@ -995,6 +1156,73 @@ Các tiện ích này **chỉ render các chuỗi Markdown thô** và độc l�
     ```
 
     > Việc nhập trình render Markdown của bạn một cách động là một cách tuyệt vời để giảm dung lượng bundle của ứng dụng.
+
+  </Tab>
+  <Tab label="Remix" value="remix">
+
+    Remix không có cây thành phần để chứa provider, do đó cấu hình được cài đặt một lần, dưới dạng singleton, khi máy chủ khởi động. Nó cấu hình renderer được trả về bởi `useMarkdownRenderer()`. Các nút `md` được trả về bởi `useIntlayer` được hiển thị bằng trình biên dịch mặc định; ghi đè các thẻ của chúng trên mỗi nút bằng `.use()`.
+
+    ```typescript fileName="src/router.ts"
+    import { installIntlayerMarkdown } from "remix-intlayer/markdown";
+
+    installIntlayerMarkdown({
+      forceBlock: true,
+      components: {
+        h1: ({ children }) => `<h1 class="text-2xl font-bold">${children}</h1>`,
+      },
+    });
+    ```
+
+    Bạn cũng có thể sử dụng trình hiển thị markdown của riêng mình:
+
+    ```typescript fileName="src/router.ts"
+    import { installIntlayerMarkdown } from "remix-intlayer/markdown";
+
+    installIntlayerMarkdown({
+      renderMarkdown: async (md) => {
+        const { marked } = await import("marked");
+        return marked(md) as string;
+      },
+    });
+    ```
+
+    > Sử dụng `installIntlayerMarkdownDynamic(async () => …)` để tải chậm chính renderer; trình tải chỉ chạy trong lần gọi đầu tiên.
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+
+    Astro không có cây thành phần để chứa provider, do đó cấu hình được cài đặt một lần, dưới dạng singleton, trong middleware (máy chủ) và trong `<script>` phía client (trình duyệt). Nó cấu hình renderer được trả về bởi `useMarkdownRenderer()`. Các nút `md` được trả về bởi `useIntlayer` được hiển thị bằng trình biên dịch mặc định; ghi đè các thẻ của chúng trên mỗi nút bằng `.use()`.
+
+    ```typescript fileName="src/middleware.ts"
+    import { installIntlayerMarkdown } from "astro-intlayer/markdown";
+    import { defineMiddleware } from "astro:middleware";
+
+    // Chạy một lần khi máy chủ khởi động; bản thân middleware Intlayer
+    // được đăng ký bởi tích hợp, trước tệp này.
+    installIntlayerMarkdown({
+      forceBlock: true,
+      components: {
+        h1: ({ children }) => `<h1 class="text-2xl font-bold">${children}</h1>`,
+      },
+    });
+
+    export const onRequest = defineMiddleware((_context, next) => next());
+    ```
+
+    Bạn cũng có thể sử dụng trình hiển thị markdown của riêng mình:
+
+    ```typescript fileName="src/middleware.ts"
+    import { installIntlayerMarkdown } from "astro-intlayer/markdown";
+
+    installIntlayerMarkdown({
+      renderMarkdown: async (md) => {
+        const { marked } = await import("marked");
+        return marked(md) as string;
+      },
+    });
+    ```
+
+    > Sử dụng `installIntlayerMarkdownDynamic(async () => …)` để tải chậm chính renderer; trình tải chỉ chạy trong lần gọi đầu tiên.
 
   </Tab>
 </Tabs>
@@ -1322,6 +1550,40 @@ Bạn có thể sử dụng hàm `parseMarkdown` từ gói Intlayer của framew
         });
       }
     }
+    ```
+
+  </Tab>
+  <Tab label="Remix" value="remix">
+
+    Remix 3 hiển thị trên máy chủ và phát trực tuyến HTML, vì vậy không có AST nào cần truyền sang máy khách. Phân tích cú pháp một lần và hiển thị AST ở bất kỳ nơi nào trang được xây dựng:
+
+    ```tsx fileName="src/views/article.tsx"
+    import { parseMarkdown, renderMarkdown } from "remix-intlayer/markdown";
+
+    // 1. Phân tích cú pháp markdown thành AST có thể tuần tự hóa (ví dụ: một lần khi tải mô-đun)
+    const ast = parseMarkdown("## My title \n\nLorem Ipsum");
+
+    export const ArticlePage = () => () => (
+      // 2. Hiển thị AST: trình hiển thị chấp nhận chuỗi thô hoặc AST đã được phân tích cú pháp
+      <article innerHTML={renderMarkdown(ast)} />
+    );
+    ```
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+
+    Các trang Astro được hiển thị trên máy chủ, vì vậy không có AST nào cần truyền sang máy khách. Phân tích cú pháp Markdown trong frontmatter và hiển thị nó bằng `set:html`:
+
+    ```astro fileName="src/pages/article.astro"
+    ---
+    import { parseMarkdown, renderMarkdown } from "astro-intlayer/markdown";
+
+    // 1. Phân tích cú pháp markdown thành AST có thể tuần tự hóa
+    const ast = parseMarkdown("## My title \n\nLorem Ipsum");
+    ---
+
+    <!-- 2. Hiển thị AST: trình hiển thị chấp nhận chuỗi thô hoặc AST đã được phân tích cú pháp -->
+    <article set:html={renderMarkdown(ast)} />
     ```
 
   </Tab>

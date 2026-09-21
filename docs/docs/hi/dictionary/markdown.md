@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-05-19
+updatedAt: 2026-09-21
 title: Markdown
 description: Intlayer के साथ अपनी बहुभाषी वेबसाइट में Markdown सामग्री घोषित करने और उसका उपयोग करने का तरीका जानें। अपने प्रोजेक्ट में Markdown को समेकित रूप से एकीकृत करने के लिए इस ऑनलाइन दस्तावेज़ में दिए गए चरणों का पालन करें।
 keywords:
@@ -11,6 +11,8 @@ keywords:
   - Next.js
   - JavaScript
   - React
+  - Remix
+  - Astro
 slugs:
   - doc
   - concept
@@ -487,6 +489,111 @@ Markdown रेंडरिंग **MDX** का समर्थन करता
     ```
 
   </Tab>
+  <Tab label="Remix" value="remix">
+    Remix 3 में, Markdown नोड्स सर्वर पर एक HTML स्ट्रिंग में रेंडर होते हैं। इसे Remix JSX के `innerHTML` प्रॉप के साथ, या `html-template` दृश्य में `html.raw` के साथ इंजेक्ट करें।
+
+    ```tsx fileName="src/views/home.tsx"
+    import { useIntlayer } from "remix-intlayer";
+
+    export const HomePage = () => () => {
+      const { myMarkdownContent } = useIntlayer("app");
+
+      return <div innerHTML={myMarkdownContent.value} />;
+    };
+    ```
+
+    ```ts fileName="src/views/home.ts"
+    import { html } from "remix/html-template";
+    import { useIntlayer } from "remix-intlayer";
+
+    export const renderHomePage = () => {
+      const { myMarkdownContent } = useIntlayer("app");
+
+      return html.raw`<div>${myMarkdownContent.value}</div>`;
+    };
+    ```
+
+    > Remix डिफ़ॉल्ट रूप से इंटरपोलेटेड मानों को एस्केप करता है। `innerHTML` और `html.raw` दो ऑप्ट-आउट हैं, जो एक रेंडर किए गए Markdown स्ट्रिंग की आवश्यकता है।
+
+    आप `.use()` विधि का उपयोग करके विशिष्ट टैग के लिए स्थानीय ओवरराइड भी प्रदान कर सकते हैं। ओवरराइड ऐसे फ़ंक्शन हैं जो एक HTML स्ट्रिंग लौटाते हैं:
+
+    ```tsx
+    <div
+      innerHTML={myMarkdownContent.use({
+        h1: ({ children }) => `<h1 class="text-3xl font-bold">${children}</h1>`,
+      })}
+    />
+    ```
+
+    `.value` रेंडर किया गया HTML स्ट्रिंग है, जबकि `String()` / `.toString()` कच्चा Markdown स्रोत वापस देते हैं:
+
+    ```tsx
+    myMarkdownContent.value // "<h1>…</h1>"
+    String(myMarkdownContent) // "# …"
+    myMarkdownContent.toString() // "# …"
+    ```
+
+    और आप अपने markdown मेटाडेटा को इस तरह एक्सेस कर सकते हैं:
+
+    ```tsx
+    myMarkdownContent.metadata
+    myMarkdownContent.metadata.title
+    ```
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+    Astro में, Markdown नोड्स एक HTML स्ट्रिंग में रेंडर होते हैं। इसे टेम्पलेट में `set:html` निर्देश के साथ, या क्लाइंट `<script>` में `innerHTML` के साथ इंजेक्ट करें।
+
+    ```astro fileName="src/pages/index.astro"
+    ---
+    import { useIntlayer } from "astro-intlayer";
+
+    const { myMarkdownContent } = useIntlayer("app");
+    ---
+
+    <div set:html={myMarkdownContent.value} />
+    ```
+
+    ```astro fileName="src/components/Content.astro"
+    <div id="content"></div>
+
+    <script>
+      import { useIntlayer } from "astro-intlayer";
+
+      const { myMarkdownContent } = useIntlayer("app");
+
+      document.querySelector("#content")!.innerHTML = myMarkdownContent.value;
+    </script>
+    ```
+
+    > Astro डिफ़ॉल्ट रूप से `{अभिव्यक्तियों}` को एस्केप करता है। `set:html` ऑप्ट-आउट है, जो एक रेंडर किए गए Markdown स्ट्रिंग की आवश्यकता है।
+
+    आप `.use()` विधि का उपयोग करके विशिष्ट टैग के लिए स्थानीय ओवरराइड भी प्रदान कर सकते हैं। ओवरराइड ऐसे फ़ंक्शन हैं जो एक HTML स्ट्रिंग लौटाते हैं:
+
+    ```astro
+    <div
+      set:html={myMarkdownContent.use({
+        h1: ({ children }) => `<h1 class="text-3xl font-bold">${children}</h1>`,
+      })}
+    />
+    ```
+
+    `.value` रेंडर किया गया HTML स्ट्रिंग है, जबकि `String()` / `.toString()` कच्चा Markdown स्रोत वापस देते हैं:
+
+    ```astro
+    myMarkdownContent.value // "<h1>…</h1>"
+    String(myMarkdownContent) // "# …"
+    myMarkdownContent.toString() // "# …"
+    ```
+
+    और आप अपने markdown मेटाडेटा को इस तरह एक्सेस कर सकते हैं:
+
+    ```astro
+    myMarkdownContent.metadata
+    myMarkdownContent.metadata.title
+    ```
+
+  </Tab>
 </Tabs>
 
 ### 2. हेल्पर यूटिलिटीज (केवल Markdown स्ट्रिंग्स)
@@ -695,6 +802,60 @@ Markdown रेंडरिंग **MDX** का समर्थन करता
         return this.markdownService.renderMarkdown(markdown);
       }
     }
+    ```
+
+  </Tab>
+  <Tab label="Remix" value="remix">
+    #### `useMarkdownRenderer()` हुक
+
+    `installIntlayerMarkdown()` द्वारा पूर्व-कॉन्फ़िगर किया गया रेंडरर फ़ंक्शन प्राप्त करें। यह एक HTML स्ट्रिंग लौटाता है।
+
+    ```tsx
+    import { useMarkdownRenderer } from "remix-intlayer/markdown";
+
+    const renderMarkdown = useMarkdownRenderer({ forceBlock: true });
+
+    return <div innerHTML={renderMarkdown("# My Title")} />;
+    ```
+
+    #### `renderMarkdown()` यूटिलिटी
+
+    स्टैंडअलोन यूटिलिटी जो वैश्विक कॉन्फ़िगरेशन को अनदेखा करती है।
+
+    ```tsx
+    import { renderMarkdown } from "remix-intlayer/markdown";
+
+    const html = renderMarkdown("# My Title", { forceBlock: true });
+    ```
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+    #### `useMarkdownRenderer()` हुक
+
+    `installIntlayerMarkdown()` द्वारा पूर्व-कॉन्फ़िगर किया गया रेंडरर फ़ंक्शन प्राप्त करें। यह एक HTML स्ट्रिंग लौटाता है।
+
+    ```astro
+    ---
+    import { useMarkdownRenderer } from "astro-intlayer/markdown";
+
+    const renderMarkdown = useMarkdownRenderer({ forceBlock: true });
+    ---
+
+    <div set:html={renderMarkdown("# My Title")} />
+    ```
+
+    #### `renderMarkdown()` यूटिलिटी
+
+    स्टैंडअलोन यूटिलिटी जो वैश्विक कॉन्फ़िगरेशन को अनदेखा करती है।
+
+    ```astro
+    ---
+    import { renderMarkdown } from "astro-intlayer/markdown";
+
+    const html = renderMarkdown("# My Title", { forceBlock: true });
+    ---
+
+    <div set:html={html} />
     ```
 
   </Tab>
@@ -995,6 +1156,73 @@ Markdown रेंडरिंग **MDX** का समर्थन करता
     ```
 
     > अपने Markdown रेंडरर को गतिशील रूप से आयात करना आपके एप्लिकेशन के बंडल आकार को कम करने का एक शानदार तरीका है।
+
+  </Tab>
+  <Tab label="Remix" value="remix">
+
+    Remix में प्रोवाइडर रखने के लिए कोई कंपोनेंट ट्री नहीं है, इसलिए सर्वर प्रारंभ होने पर कॉन्फ़िगरेशन एक सिंगलटन के रूप में एक बार स्थापित होता है। यह `useMarkdownRenderer()` द्वारा लौटाए गए रेंडरर को कॉन्फ़िगर करता है। `useIntlayer` द्वारा लौटाए गए `md` नोड्स डिफ़ॉल्ट कंपाइलर के साथ रेंडर किए जाते हैं; प्रति नोड उनके टैग को `.use()` के साथ ओवरराइड करें।
+
+    ```typescript fileName="src/router.ts"
+    import { installIntlayerMarkdown } from "remix-intlayer/markdown";
+
+    installIntlayerMarkdown({
+      forceBlock: true,
+      components: {
+        h1: ({ children }) => `<h1 class="text-2xl font-bold">${children}</h1>`,
+      },
+    });
+    ```
+
+    आप अपने स्वयं के markdown रेंडरर का भी उपयोग कर सकते हैं:
+
+    ```typescript fileName="src/router.ts"
+    import { installIntlayerMarkdown } from "remix-intlayer/markdown";
+
+    installIntlayerMarkdown({
+      renderMarkdown: async (md) => {
+        const { marked } = await import("marked");
+        return marked(md) as string;
+      },
+    });
+    ```
+
+    > रेंडरर को लेज़ी लोड करने के लिए `installIntlayerMarkdownDynamic(async () => …)` का उपयोग करें; लोडर केवल पहले कॉल पर चलता है।
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+
+    Astro में प्रोवाइडर रखने के लिए कोई कंपोनेंट ट्री नहीं है, इसलिए कॉन्फ़िगरेशन मिडलवेयर (सर्वर) और क्लाइंट `<script>` (ब्राउज़र) में सिंगलटन के रूप में एक बार स्थापित होता है। यह `useMarkdownRenderer()` द्वारा लौटाए गए रेंडरर को कॉन्फ़िगर करता है। `useIntlayer` द्वारा लौटाए गए `md` नोड्स डिफ़ॉल्ट कंपाइलर के साथ रेंडर किए जाते हैं; प्रति नोड उनके टैग को `.use()` के साथ ओवरराइड करें।
+
+    ```typescript fileName="src/middleware.ts"
+    import { installIntlayerMarkdown } from "astro-intlayer/markdown";
+    import { defineMiddleware } from "astro:middleware";
+
+    // सर्वर प्रारंभ होने पर एक बार चलता है; Intlayer मिडलवेयर स्वयं इस फ़ाइल से
+    // पहले एकीकरण द्वारा पंजीकृत होता है।
+    installIntlayerMarkdown({
+      forceBlock: true,
+      components: {
+        h1: ({ children }) => `<h1 class="text-2xl font-bold">${children}</h1>`,
+      },
+    });
+
+    export const onRequest = defineMiddleware((_context, next) => next());
+    ```
+
+    आप अपने स्वयं के markdown रेंडरर का भी उपयोग कर सकते हैं:
+
+    ```typescript fileName="src/middleware.ts"
+    import { installIntlayerMarkdown } from "astro-intlayer/markdown";
+
+    installIntlayerMarkdown({
+      renderMarkdown: async (md) => {
+        const { marked } = await import("marked");
+        return marked(md) as string;
+      },
+    });
+    ```
+
+    > रेंडरर को लेज़ी लोड करने के लिए `installIntlayerMarkdownDynamic(async () => …)` का उपयोग करें; लोडर केवल पहले कॉल पर चलता है।
 
   </Tab>
 </Tabs>
@@ -1322,6 +1550,40 @@ export class MyComponent {
         });
       }
     }
+    ```
+
+  </Tab>
+  <Tab label="Remix" value="remix">
+
+    Remix 3 सर्वर पर रेंडर करता है और HTML स्ट्रीम करता है, इसलिए किसी भी AST को क्लाइंट में जाने की आवश्यकता नहीं होती है। एक बार पार्स करें, और पृष्ठ जहां भी बनाया गया है वहां AST रेंडर करें:
+
+    ```tsx fileName="src/views/article.tsx"
+    import { parseMarkdown, renderMarkdown } from "remix-intlayer/markdown";
+
+    // 1. मार्कडाउन को क्रमबद्ध करने योग्य AST में पार्स करें (उदा. मॉड्यूल लोड होने पर एक बार)
+    const ast = parseMarkdown("## My title \n\nLorem Ipsum");
+
+    export const ArticlePage = () => () => (
+      // 2. AST रेंडर करें: रेंडरर कच्चा स्ट्रिंग या पार्स किया गया AST स्वीकार करता है
+      <article innerHTML={renderMarkdown(ast)} />
+    );
+    ```
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+
+    Astro पृष्ठ सर्वर पर रेंडर किए जाते हैं, इसलिए किसी भी AST को क्लाइंट में जाने की आवश्यकता नहीं होती है। फ्रंटमैटर में Markdown को पार्स करें और इसे `set:html` के साथ रेंडर करें:
+
+    ```astro fileName="src/pages/article.astro"
+    ---
+    import { parseMarkdown, renderMarkdown } from "astro-intlayer/markdown";
+
+    // 1. मार्कडाउन को क्रमबद्ध करने योग्य AST में पार्स करें
+    const ast = parseMarkdown("## My title \n\nLorem Ipsum");
+    ---
+
+    <!-- 2. AST रेंडर करें: रेंडरर कच्चा स्ट्रिंग या पार्स किया गया AST स्वीकार करता है -->
+    <article set:html={renderMarkdown(ast)} />
     ```
 
   </Tab>

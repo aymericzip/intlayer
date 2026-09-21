@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-20
-updatedAt: 2026-03-24
+updatedAt: 2026-09-21
 title: HTMLコンテンツ
 description: IntlayerでHTMLコンテンツを宣言し、カスタムコンポーネントとともに使用する方法を学びます。このドキュメントに従い、国際化されたプロジェクト内で動的にコンポーネントを置換可能なリッチなHTMLライクコンテンツを埋め込む方法を解説します。
 keywords:
@@ -13,6 +13,8 @@ keywords:
   - React
   - Vue
   - Svelte
+  - Remix
+  - Astro
 slugs:
   - doc
   - concept
@@ -232,6 +234,83 @@ HTML ノードで `.use()` メソッドを使用する場合、提供された�
       p: { class: "prose" },
       CustomLink: { href: "/details" },
     })
+    ```
+
+  </Tab>
+  <Tab label="Remix" value="remix">
+    Remix 3 では、HTML ノードは HTML 文字列に解決されます。Remix JSX の `innerHTML` プロパティ、または `html-template` ビューの `html.raw` を使用して挿入します。
+
+    ```tsx fileName="src/views/home.tsx"
+    import { useIntlayer } from "remix-intlayer";
+
+    export const HomePage = () => () => {
+      const { myHtmlContent } = useIntlayer("app");
+
+      return <div innerHTML={myHtmlContent.value} />;
+    };
+    ```
+
+    ```ts fileName="src/views/home.ts"
+    import { html } from "remix/html-template";
+    import { useIntlayer } from "remix-intlayer";
+
+    export const renderHomePage = () => {
+      const { myHtmlContent } = useIntlayer("app");
+
+      return html.raw`<div>${myHtmlContent.value}</div>`;
+    };
+    ```
+
+    > Remix はデフォルトで補間された値をエスケープします。`innerHTML` と `html.raw` はエスケープを回避する2つの方法であり、HTML 文字列に必要なものです。
+
+    タグをオーバーライドしたりカスタムコンポーネントをマッピングするには、`.use()` メソッドを使用します。オーバーライドは HTML 文字列を返す関数です:
+
+    ```tsx
+    <div
+      innerHTML={myHtmlContent.use({
+        p: ({ children }) => `<p class="prose">${children}</p>`,
+        CustomLink: ({ children }) => `<a href="/details">${children}</a>`,
+      })}
+    />
+    ```
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+    Astro では、HTML ノードは HTML 文字列に解決されます。テンプレート内の `set:html` ディレクティブ、またはクライアントの `<script>` 内の `innerHTML` を使用して挿入します。
+
+    ```astro fileName="src/pages/index.astro"
+    ---
+    import { useIntlayer } from "astro-intlayer";
+
+    const { myHtmlContent } = useIntlayer("app");
+    ---
+
+    <div set:html={myHtmlContent.value} />
+    ```
+
+    ```astro fileName="src/components/Content.astro"
+    <div id="content"></div>
+
+    <script>
+      import { useIntlayer } from "astro-intlayer";
+
+      const { myHtmlContent } = useIntlayer("app");
+
+      document.querySelector("#content")!.innerHTML = myHtmlContent.value;
+    </script>
+    ```
+
+    > Astro はデフォルトで `{式}` をエスケープします。`set:html` はエスケープを回避する方法であり、HTML 文字列に必要なものです。
+
+    タグをオーバーライドしたりカスタムコンポーネントをマッピングするには、`.use()` メソッドを使用します。オーバーライドは HTML 文字列を返す関数です:
+
+    ```astro
+    <div
+      set:html={myHtmlContent.use({
+        p: ({ children }) => `<p class="prose">${children}</p>`,
+        CustomLink: ({ children }) => `<a href="/details">${children}</a>`,
+      })}
+    />
     ```
 
   </Tab>
@@ -470,6 +549,41 @@ HTML ノードで `.use()` メソッドを使用する場合、提供された�
     > HTML レンダラーを動的にインポートすることは、アプリケーションのバンドルサイズを削減するための良い方法です。
 
   </Tab>
+  <Tab label="Remix" value="remix">
+
+    Remix にはプロバイダーを保持するコンポーネントツリーがないため、設定はサーバー起動時にシングルトンとして一度だけインストールされます。`useHTMLRenderer()` によって返されるレンダラーを設定します。`useIntlayer` によって返される `html` ノードはそのままレンダリングされます。ノードごとに `.use()` でタグをオーバーライドします。
+
+    ```typescript fileName="src/router.ts"
+    import { installIntlayerHTML } from "remix-intlayer/html";
+
+    installIntlayerHTML({
+      renderHTML: (html) => html.replaceAll("<p>", '<p class="prose">'),
+    });
+    ```
+
+    > レンダラー自体を遅延読み込みするには `installIntlayerHTMLDynamic(async () => …)` を使用します。ローダーは最初の呼び出し時にのみ実行されます。
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+
+    Astro にはプロバイダーを保持するコンポーネントツリーがないため、設定はミドルウェア（サーバー）およびクライアント `<script>`（ブラウザ）でシングルトンとして一度だけインストールされます。`useHTMLRenderer()` によって返されるレンダラーを設定します。`useIntlayer` によって返される `html` ノードはそのままレンダリングされます。ノードごとに `.use()` でタグをオーバーライドします。
+
+    ```typescript fileName="src/middleware.ts"
+    import { installIntlayerHTML } from "astro-intlayer/html";
+    import { defineMiddleware } from "astro:middleware";
+
+    // サーバー起動時に1回実行されます。Intlayerミドルウェア自体は、
+    // このファイルより前にインテグレーションによって登録されます。
+    installIntlayerHTML({
+      renderHTML: (html) => html.replaceAll("<p>", '<p class="prose">'),
+    });
+
+    export const onRequest = defineMiddleware((_context, next) => next());
+    ```
+
+    > レンダラー自体を遅延読み込みするには `installIntlayerHTMLDynamic(async () => …)` を使用します。ローダーは最初の呼び出し時にのみ実行されます。
+
+  </Tab>
 </Tabs>
 
 ### 手動レンダリングと高度なツール
@@ -643,15 +757,69 @@ HTML ノードで `.use()` メソッドを使用する場合、提供された�
     ```
 
   </Tab>
+  <Tab label="Remix" value="remix">
+    #### `useHTMLRenderer()` フック
+
+    `installIntlayerHTML()` によって事前設定されたレンダラー関数を取得します。HTML 文字列を返します。
+
+    ```tsx
+    import { useHTMLRenderer } from "remix-intlayer/html";
+
+    const renderHTML = useHTMLRenderer();
+
+    return <div innerHTML={renderHTML("<p>Hello <strong>World</strong></p>")} />;
+    ```
+
+    #### `renderHTML()` ユーティリティ
+
+    グローバル設定を無視するスタンドアロンユーティリティ。
+
+    ```tsx
+    import { renderHTML } from "remix-intlayer/html";
+
+    const html = renderHTML("<p>Hello</p>");
+    ```
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+    #### `useHTMLRenderer()` フック
+
+    `installIntlayerHTML()` によって事前設定されたレンダラー関数を取得します。HTML 文字列を返します。
+
+    ```astro
+    ---
+    import { useHTMLRenderer } from "astro-intlayer/html";
+
+    const renderHTML = useHTMLRenderer();
+    ---
+
+    <div set:html={renderHTML("<p>Hello <strong>World</strong></p>")} />
+    ```
+
+    #### `renderHTML()` ユーティリティ
+
+    グローバル設定を無視するスタンドアロンユーティリティ。
+
+    ```astro
+    ---
+    import { renderHTML } from "astro-intlayer/html";
+
+    const html = renderHTML("<p>Hello</p>");
+    ---
+
+    <div set:html={html} />
+    ```
+
+  </Tab>
 </Tabs>
 
 ## オプションリファレンス
 
 これらのオプションは `HTMLProvider`、`HTMLRenderer`、`useHTMLRenderer`、および `renderHTML` に渡すことができます。
 
-| オプション   | 型                    | デフォルト | 説明                                                                                             |
-| :----------- | :-------------------- | :--------- | :----------------------------------------------------------------------------------------------- |
-| `components` | `Record<string, any>` | `{}`       | HTMLタグまたはカスタムコンポーネント名をコンポーネントにマッピングするオブジェクト。             |
-| `renderHTML` | `Function`            | `null`     | デフォルトのHTMLパーサを完全に置き換えるカスタムレンダリング関数（Vue/Svelteプロバイダーのみ）。 |
+| オプション   | 型                    | デフォルト | 説明                                                                                                          |
+| :----------- | :-------------------- | :--------- | :------------------------------------------------------------------------------------------------------------ |
+| `components` | `Record<string, any>` | `{}`       | HTMLタグまたはカスタムコンポーネント名をコンポーネントにマッピングするオブジェクト。                          |
+| `renderHTML` | `Function`            | `null`     | デフォルトのHTMLパーサーを完全に置き換えるカスタムレンダリング関数（Vue、Svelte、Remix、Astroプロバイダー）。 |
 
 > 注: ReactおよびPreactでは、標準のHTMLタグが自動的に提供されます。これらを上書きしたりカスタムコンポーネントを追加したい場合にのみ、`components`プロップを渡してください。

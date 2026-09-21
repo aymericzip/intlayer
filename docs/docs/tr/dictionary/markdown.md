@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-05-19
+updatedAt: 2026-09-21
 title: Markdown
 description: Intlayer ile çok dilli web sitenizde Markdown içeriğini nasıl bildireceğinizi ve kullanacağınızı öğrenin. Projenize Markdown'ı sorunsuz bir şekilde entegre etmek için bu çevrimiçi belgelerdeki adımları izleyin.
 keywords:
@@ -11,6 +11,8 @@ keywords:
   - Next.js
   - JavaScript
   - React
+  - Remix
+  - Astro
 slugs:
   - doc
   - concept
@@ -487,6 +489,111 @@ Markdown oluşturma **MDX**'i destekler — Markdown'ınızın içinde doğrudan
     ```
 
   </Tab>
+  <Tab label="Remix" value="remix">
+    Remix 3'te Markdown düğümleri sunucuda bir HTML dizesine işlenir. Bunu Remix JSX'in `innerHTML` özelliğiyle veya bir `html-template` görünümünde `html.raw` ile enjekte edin.
+
+    ```tsx fileName="src/views/home.tsx"
+    import { useIntlayer } from "remix-intlayer";
+
+    export const HomePage = () => () => {
+      const { myMarkdownContent } = useIntlayer("app");
+
+      return <div innerHTML={myMarkdownContent.value} />;
+    };
+    ```
+
+    ```ts fileName="src/views/home.ts"
+    import { html } from "remix/html-template";
+    import { useIntlayer } from "remix-intlayer";
+
+    export const renderHomePage = () => {
+      const { myMarkdownContent } = useIntlayer("app");
+
+      return html.raw`<div>${myMarkdownContent.value}</div>`;
+    };
+    ```
+
+    > Remix varsayılan olarak enterpole edilmiş değerleri kaçırır. `innerHTML` ve `html.raw`, işlenmiş bir Markdown dizesinin ihtiyaç duyduğu iki istisnadır.
+
+    Ayrıca `.use()` yöntemini kullanarak belirli etiketler için yerel geçersiz kılmalar sağlayabilirsiniz. Geçersiz kılmalar, bir HTML dizesi döndüren fonksiyonlardır:
+
+    ```tsx
+    <div
+      innerHTML={myMarkdownContent.use({
+        h1: ({ children }) => `<h1 class="text-3xl font-bold">${children}</h1>`,
+      })}
+    />
+    ```
+
+    `.value` işlenmiş HTML dizesidir, `String()` / `.toString()` ise ham Markdown kaynağını döndürür:
+
+    ```tsx
+    myMarkdownContent.value // "<h1>…</h1>"
+    String(myMarkdownContent) // "# …"
+    myMarkdownContent.toString() // "# …"
+    ```
+
+    Ve markdown meta verilerinize şu şekilde erişebilirsiniz:
+
+    ```tsx
+    myMarkdownContent.metadata
+    myMarkdownContent.metadata.title
+    ```
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+    Astro'da Markdown düğümleri bir HTML dizesine işlenir. Bunu şablondaki `set:html` yönergesiyle veya bir istemci `<script>` içindeki `innerHTML` ile enjekte edin.
+
+    ```astro fileName="src/pages/index.astro"
+    ---
+    import { useIntlayer } from "astro-intlayer";
+
+    const { myMarkdownContent } = useIntlayer("app");
+    ---
+
+    <div set:html={myMarkdownContent.value} />
+    ```
+
+    ```astro fileName="src/components/Content.astro"
+    <div id="content"></div>
+
+    <script>
+      import { useIntlayer } from "astro-intlayer";
+
+      const { myMarkdownContent } = useIntlayer("app");
+
+      document.querySelector("#content")!.innerHTML = myMarkdownContent.value;
+    </script>
+    ```
+
+    > Astro varsayılan olarak `{ifadeler}`i kaçırır. `set:html`, işlenmiş bir Markdown dizesinin ihtiyaç duyduğu istisnadır.
+
+    Ayrıca `.use()` yöntemini kullanarak belirli etiketler için yerel geçersiz kılmalar sağlayabilirsiniz. Geçersiz kılmalar, bir HTML dizesi döndüren fonksiyonlardır:
+
+    ```astro
+    <div
+      set:html={myMarkdownContent.use({
+        h1: ({ children }) => `<h1 class="text-3xl font-bold">${children}</h1>`,
+      })}
+    />
+    ```
+
+    `.value` işlenmiş HTML dizesidir, `String()` / `.toString()` ise ham Markdown kaynağını döndürür:
+
+    ```astro
+    myMarkdownContent.value // "<h1>…</h1>"
+    String(myMarkdownContent) // "# …"
+    myMarkdownContent.toString() // "# …"
+    ```
+
+    Ve markdown meta verilerinize şu şekilde erişebilirsiniz:
+
+    ```astro
+    myMarkdownContent.metadata
+    myMarkdownContent.metadata.title
+    ```
+
+  </Tab>
 </Tabs>
 
 ### 2. Yardımcı Araçlar (Yalnızca Markdown Dizeleri)
@@ -695,6 +802,60 @@ Bu yardımcı programlar **yalnızca ham Markdown dizelerini** oluşturur ve `us
         return this.markdownService.renderMarkdown(markdown);
       }
     }
+    ```
+
+  </Tab>
+  <Tab label="Remix" value="remix">
+    #### `useMarkdownRenderer()` Hook
+
+    `installIntlayerMarkdown()` tarafından önceden yapılandırılmış bir işleyici fonksiyonu alın. Bir HTML dizesi döndürür.
+
+    ```tsx
+    import { useMarkdownRenderer } from "remix-intlayer/markdown";
+
+    const renderMarkdown = useMarkdownRenderer({ forceBlock: true });
+
+    return <div innerHTML={renderMarkdown("# My Title")} />;
+    ```
+
+    #### `renderMarkdown()` Yardımcı Aracı
+
+    Genel yapılandırmayı yok sayan bağımsız yardımcı araç.
+
+    ```tsx
+    import { renderMarkdown } from "remix-intlayer/markdown";
+
+    const html = renderMarkdown("# My Title", { forceBlock: true });
+    ```
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+    #### `useMarkdownRenderer()` Hook
+
+    `installIntlayerMarkdown()` tarafından önceden yapılandırılmış bir işleyici fonksiyonu alın. Bir HTML dizesi döndürür.
+
+    ```astro
+    ---
+    import { useMarkdownRenderer } from "astro-intlayer/markdown";
+
+    const renderMarkdown = useMarkdownRenderer({ forceBlock: true });
+    ---
+
+    <div set:html={renderMarkdown("# My Title")} />
+    ```
+
+    #### `renderMarkdown()` Yardımcı Aracı
+
+    Genel yapılandırmayı yok sayan bağımsız yardımcı araç.
+
+    ```astro
+    ---
+    import { renderMarkdown } from "astro-intlayer/markdown";
+
+    const html = renderMarkdown("# My Title", { forceBlock: true });
+    ---
+
+    <div set:html={html} />
     ```
 
   </Tab>
@@ -995,6 +1156,73 @@ Bu yardımcı programlar **yalnızca ham Markdown dizelerini** oluşturur ve `us
     ```
 
     > Markdown oluşturucunuzu dinamik olarak içe aktarmak, uygulamanızın bundle boyutunu azaltmanın harika bir yoludur.
+
+  </Tab>
+  <Tab label="Remix" value="remix">
+
+    Remix'in bir sağlayıcı tutacak bileşen ağacı yoktur, bu nedenle yapılandırma sunucu başlangıcında tekil (singleton) olarak bir kez kurulur. `useMarkdownRenderer()` tarafından döndürülen oluşturucuyu yapılandırır. `useIntlayer` tarafından döndürülen `md` düğümleri varsayılan derleyiciyle işlenir; düğüm başına etiketlerini `.use()` ile geçersiz kılın.
+
+    ```typescript fileName="src/router.ts"
+    import { installIntlayerMarkdown } from "remix-intlayer/markdown";
+
+    installIntlayerMarkdown({
+      forceBlock: true,
+      components: {
+        h1: ({ children }) => `<h1 class="text-2xl font-bold">${children}</h1>`,
+      },
+    });
+    ```
+
+    Ayrıca kendi markdown işleyicinizi de kullanabilirsiniz:
+
+    ```typescript fileName="src/router.ts"
+    import { installIntlayerMarkdown } from "remix-intlayer/markdown";
+
+    installIntlayerMarkdown({
+      renderMarkdown: async (md) => {
+        const { marked } = await import("marked");
+        return marked(md) as string;
+      },
+    });
+    ```
+
+    > Oluşturucunun kendisini tembelce yüklemek için `installIntlayerMarkdownDynamic(async () => …)` kullanın; yükleyici yalnızca ilk çağrıda çalışır.
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+
+    Astro'nun bir sağlayıcı tutacak bileşen ağacı yoktur, bu nedenle yapılandırma ara yazılımda (sunucu) ve bir istemci `<script>` (tarayıcı) içinde tekil (singleton) olarak bir kez kurulur. `useMarkdownRenderer()` tarafından döndürülen oluşturucuyu yapılandırır. `useIntlayer` tarafından döndürülen `md` düğümleri varsayılan derleyiciyle işlenir; düğüm başına etiketlerini `.use()` ile geçersiz kılın.
+
+    ```typescript fileName="src/middleware.ts"
+    import { installIntlayerMarkdown } from "astro-intlayer/markdown";
+    import { defineMiddleware } from "astro:middleware";
+
+    // Sunucu başladığında bir kez çalışır; Intlayer ara yazılımının kendisi
+    // bu dosyadan önce entegrasyon tarafından kaydedilir.
+    installIntlayerMarkdown({
+      forceBlock: true,
+      components: {
+        h1: ({ children }) => `<h1 class="text-2xl font-bold">${children}</h1>`,
+      },
+    });
+
+    export const onRequest = defineMiddleware((_context, next) => next());
+    ```
+
+    Ayrıca kendi markdown işleyicinizi de kullanabilirsiniz:
+
+    ```typescript fileName="src/middleware.ts"
+    import { installIntlayerMarkdown } from "astro-intlayer/markdown";
+
+    installIntlayerMarkdown({
+      renderMarkdown: async (md) => {
+        const { marked } = await import("marked");
+        return marked(md) as string;
+      },
+    });
+    ```
+
+    > Oluşturucunun kendisini tembelce yüklemek için `installIntlayerMarkdownDynamic(async () => …)` kullanın; yükleyici yalnızca ilk çağrıda çalışır.
 
   </Tab>
 </Tabs>
@@ -1322,6 +1550,40 @@ Serileştirilebilir bir AST (`ParsedMarkdown` nesnesi) oluşturmak için sunucu 
         });
       }
     }
+    ```
+
+  </Tab>
+  <Tab label="Remix" value="remix">
+
+    Remix 3 sunucuda işler ve HTML akışı sağlar, bu nedenle istemciye hiçbir AST'nin geçmesi gerekmez. Bir kez ayrıştırın ve sayfanın oluşturulduğu her yerde AST'yi işleyin:
+
+    ```tsx fileName="src/views/article.tsx"
+    import { parseMarkdown, renderMarkdown } from "remix-intlayer/markdown";
+
+    // 1. Markdown'ı serileştirilebilir bir AST'ye ayrıştırın (örneğin modül yüklenirken bir kez)
+    const ast = parseMarkdown("## My title \n\nLorem Ipsum");
+
+    export const ArticlePage = () => () => (
+      // 2. AST'yi işleyin: işleyici ham bir dizeyi veya ayrıştırılmış AST'yi kabul eder
+      <article innerHTML={renderMarkdown(ast)} />
+    );
+    ```
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+
+    Astro sayfaları sunucuda işlenir, bu nedenle istemciye hiçbir AST'nin geçmesi gerekmez. Frontmatter'daki Markdown'ı ayrıştırın ve `set:html` ile işleyin:
+
+    ```astro fileName="src/pages/article.astro"
+    ---
+    import { parseMarkdown, renderMarkdown } from "astro-intlayer/markdown";
+
+    // 1. Markdown'ı serileştirilebilir bir AST'ye ayrıştırın
+    const ast = parseMarkdown("## My title \n\nLorem Ipsum");
+    ---
+
+    <!-- 2. AST'yi işleyin: işleyici ham bir dizeyi veya ayrıştırılmış AST'yi kabul eder -->
+    <article set:html={renderMarkdown(ast)} />
     ```
 
   </Tab>

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-20
-updatedAt: 2026-01-22
+updatedAt: 2026-09-21
 title: محتوى HTML
 description: تعلّم كيفية إعلان واستخدام محتوى HTML مع مكونات مخصصة في Intlayer. اتبع هذه الوثائق لتضمين محتوى غني يشبه HTML مع استبدال المكونات ديناميكيًا في مشروعك متعدد اللغات.
 keywords:
@@ -13,6 +13,8 @@ keywords:
   - React
   - Vue
   - Svelte
+  - Remix
+  - Astro
 slugs:
   - doc
   - concept
@@ -233,6 +235,83 @@ const myContent = html(
       p: { class: "prose" },
       CustomLink: { href: "/details" },
     })
+    ```
+
+  </Tab>
+  <Tab label="Remix" value="remix">
+    في Remix 3، يتم تحليل عقد HTML إلى سلسلة HTML. قم بحقنها باستخدام خاصية `innerHTML` في Remix JSX، أو باستخدام `html.raw` في عرض `html-template`.
+
+    ```tsx fileName="src/views/home.tsx"
+    import { useIntlayer } from "remix-intlayer";
+
+    export const HomePage = () => () => {
+      const { myHtmlContent } = useIntlayer("app");
+
+      return <div innerHTML={myHtmlContent.value} />;
+    };
+    ```
+
+    ```ts fileName="src/views/home.ts"
+    import { html } from "remix/html-template";
+    import { useIntlayer } from "remix-intlayer";
+
+    export const renderHomePage = () => {
+      const { myHtmlContent } = useIntlayer("app");
+
+      return html.raw`<div>${myHtmlContent.value}</div>`;
+    };
+    ```
+
+    > يقوم Remix بتهريب القيم المدرجة افتراضيًا. `innerHTML` و `html.raw` هما خيارا إلغاء الاشتراك، وهو ما تحتاجه سلسلة HTML.
+
+    استخدم طريقة `.use()` لتجاوز العلامات أو تعيين المكونات المخصصة. التجاوزات هي دوال تُرجع سلسلة HTML:
+
+    ```tsx
+    <div
+      innerHTML={myHtmlContent.use({
+        p: ({ children }) => `<p class="prose">${children}</p>`,
+        CustomLink: ({ children }) => `<a href="/details">${children}</a>`,
+      })}
+    />
+    ```
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+    في Astro، يتم تحليل عقد HTML إلى سلسلة HTML. قم بحقنها باستخدام توجيه `set:html` في القالب، أو باستخدام `innerHTML` في `<script>` من جانب العميل.
+
+    ```astro fileName="src/pages/index.astro"
+    ---
+    import { useIntlayer } from "astro-intlayer";
+
+    const { myHtmlContent } = useIntlayer("app");
+    ---
+
+    <div set:html={myHtmlContent.value} />
+    ```
+
+    ```astro fileName="src/components/Content.astro"
+    <div id="content"></div>
+
+    <script>
+      import { useIntlayer } from "astro-intlayer";
+
+      const { myHtmlContent } = useIntlayer("app");
+
+      document.querySelector("#content")!.innerHTML = myHtmlContent.value;
+    </script>
+    ```
+
+    > يقوم Astro بتهريب `{التعبيرات}` افتراضيًا. `set:html` هو خيار إلغاء الاشتراك، وهو ما تحتاجه سلسلة HTML.
+
+    استخدم طريقة `.use()` لتجاوز العلامات أو تعيين المكونات المخصصة. التجاوزات هي دوال تُرجع سلسلة HTML:
+
+    ```astro
+    <div
+      set:html={myHtmlContent.use({
+        p: ({ children }) => `<p class="prose">${children}</p>`,
+        CustomLink: ({ children }) => `<a href="/details">${children}</a>`,
+      })}
+    />
     ```
 
   </Tab>
@@ -471,6 +550,41 @@ const myContent = html(
     > استيراد محرك HTML الخاص بك ديناميكيًا هو طريقة جيدة لتقليل حجم حزمة تطبيقك.
 
   </Tab>
+  <Tab label="Remix" value="remix">
+
+    لا يحتوي Remix على شجرة مكونات للاحتفاظ بمزود، لذلك يتم تثبيت التكوين مرة واحدة، كعنصر فريد (singleton)، عند بدء تشغيل الخادم. يقوم بتكوين أداة العرض التي تُرجعها `useHTMLRenderer()`. يتم عرض عقد `html` التي تُرجعها `useIntlayer` كما هي؛ قم بتجاوز علاماتها لكل عقدة باستخدام `.use()`.
+
+    ```typescript fileName="src/router.ts"
+    import { installIntlayerHTML } from "remix-intlayer/html";
+
+    installIntlayerHTML({
+      renderHTML: (html) => html.replaceAll("<p>", '<p class="prose">'),
+    });
+    ```
+
+    > استخدم `installIntlayerHTMLDynamic(async () => …)` لتحميل أداة العرض بشكل متكاسل؛ يتم تشغيل أداة التحميل عند الاستدعاء الأول فقط.
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+
+    لا يحتوي Astro على شجرة مكونات للاحتفاظ بمزود، لذلك يتم تثبيت التكوين مرة واحدة، كعنصر فريد (singleton)، في البرمجيات الوسيطة (الخادم) وفي `<script>` من جانب العميل (المتصفح). يقوم بتكوين أداة العرض التي تُرجعها `useHTMLRenderer()`. يتم عرض عقد `html` التي تُرجعها `useIntlayer` كما هي؛ قم بتجاوز علاماتها لكل عقدة باستخدام `.use()`.
+
+    ```typescript fileName="src/middleware.ts"
+    import { installIntlayerHTML } from "astro-intlayer/html";
+    import { defineMiddleware } from "astro:middleware";
+
+    // يتم التشغيل مرة واحدة عند بدء تشغيل الخادم؛ يتم تسجيل برمجية Intlayer الوسيطة نفسها
+    // بواسطة التكامل قبل هذا الملف.
+    installIntlayerHTML({
+      renderHTML: (html) => html.replaceAll("<p>", '<p class="prose">'),
+    });
+
+    export const onRequest = defineMiddleware((_context, next) => next());
+    ```
+
+    > استخدم `installIntlayerHTMLDynamic(async () => …)` لتحميل أداة العرض بشكل متكاسل؛ يتم تشغيل أداة التحميل عند الاستدعاء الأول فقط.
+
+  </Tab>
 </Tabs>
 
 ### التصيير اليدوي والأدوات المتقدمة
@@ -643,15 +757,69 @@ const myContent = html(
     ```
 
   </Tab>
+  <Tab label="Remix" value="remix">
+    #### Hook `useHTMLRenderer()`
+
+    احصل على دالة عرض مهيأة مسبقًا بواسطة `installIntlayerHTML()`. تُرجع سلسلة HTML.
+
+    ```tsx
+    import { useHTMLRenderer } from "remix-intlayer/html";
+
+    const renderHTML = useHTMLRenderer();
+
+    return <div innerHTML={renderHTML("<p>Hello <strong>World</strong></p>")} />;
+    ```
+
+    #### أداة `renderHTML()`
+
+    أداة قائمة بذاتها تتجاهل التكوين العام.
+
+    ```tsx
+    import { renderHTML } from "remix-intlayer/html";
+
+    const html = renderHTML("<p>Hello</p>");
+    ```
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+    #### Hook `useHTMLRenderer()`
+
+    احصل على دالة عرض مهيأة مسبقًا بواسطة `installIntlayerHTML()`. تُرجع سلسلة HTML.
+
+    ```astro
+    ---
+    import { useHTMLRenderer } from "astro-intlayer/html";
+
+    const renderHTML = useHTMLRenderer();
+    ---
+
+    <div set:html={renderHTML("<p>Hello <strong>World</strong></p>")} />
+    ```
+
+    #### أداة `renderHTML()`
+
+    أداة قائمة بذاتها تتجاهل التكوين العام.
+
+    ```astro
+    ---
+    import { renderHTML } from "astro-intlayer/html";
+
+    const html = renderHTML("<p>Hello</p>");
+    ---
+
+    <div set:html={html} />
+    ```
+
+  </Tab>
 </Tabs>
 
 ## مرجع الخيارات
 
 يمكن تمرير هذه الخيارات إلى `HTMLProvider` و`HTMLRenderer` و`useHTMLRenderer` و`renderHTML`.
 
-| الخيار       | النوع                 | الافتراضي | الوصف                                                                         |
-| :----------- | :-------------------- | :-------- | :---------------------------------------------------------------------------- |
-| `components` | `Record<string, any>` | `{}`      | خريطة تربط علامات HTML أو أسماء المكونات المخصصة بالمكونات.                   |
-| `renderHTML` | `Function`            | `null`    | دالة عرض مخصصة لاستبدال محلل HTML الافتراضي بالكامل (لمزودات Vue/Svelte فقط). |
+| الخيار       | النوع                 | الافتراضي | الوصف                                                                                  |
+| :----------- | :-------------------- | :-------- | :------------------------------------------------------------------------------------- |
+| `components` | `Record<string, any>` | `{}`      | خريطة تربط علامات HTML أو أسماء المكونات المخصصة بالمكونات.                            |
+| `renderHTML` | `Function`            | `null`    | دالة عرض مخصصة لاستبدال محلل HTML الافتراضي بالكامل (موفرو Vue وSvelte وRemix وAstro). |
 
 > ملاحظة: بالنسبة لـ React و Preact، يتم توفير علامات HTML القياسية تلقائيًا. تحتاج فقط إلى تمرير الخاصية `components` إذا أردت تجاوزها أو إضافة مكونات مخصصة.

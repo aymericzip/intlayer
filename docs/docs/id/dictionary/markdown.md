@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-05-19
+updatedAt: 2026-09-21
 title: Markdown
 description: Pelajari cara mendeklarasikan dan menggunakan konten Markdown di situs web multibahasa Anda dengan Intlayer. Ikuti langkah-langkah dalam dokumentasi online ini untuk mengintegrasikan Markdown dengan mulus ke dalam proyek Anda.
 keywords:
@@ -11,6 +11,8 @@ keywords:
   - Next.js
   - JavaScript
   - React
+  - Remix
+  - Astro
 slugs:
   - doc
   - concept
@@ -487,6 +489,111 @@ Rendering Markdown mendukung **MDX** — gunakan komponen JSX/kerangka kerja apa
     ```
 
   </Tab>
+  <Tab label="Remix" value="remix">
+    Di Remix 3, node Markdown dirender di server menjadi string HTML. Sisipkan dengan prop `innerHTML` dari Remix JSX, atau dengan `html.raw` dalam tampilan `html-template`.
+
+    ```tsx fileName="src/views/home.tsx"
+    import { useIntlayer } from "remix-intlayer";
+
+    export const HomePage = () => () => {
+      const { myMarkdownContent } = useIntlayer("app");
+
+      return <div innerHTML={myMarkdownContent.value} />;
+    };
+    ```
+
+    ```ts fileName="src/views/home.ts"
+    import { html } from "remix/html-template";
+    import { useIntlayer } from "remix-intlayer";
+
+    export const renderHomePage = () => {
+      const { myMarkdownContent } = useIntlayer("app");
+
+      return html.raw`<div>${myMarkdownContent.value}</div>`;
+    };
+    ```
+
+    > Remix secara default menghindari nilai yang diinterpolasi. `innerHTML` dan `html.raw` adalah dua pengecualian, yang dibutuhkan oleh string Markdown yang dirender.
+
+    Anda juga dapat memberikan penggantian lokal untuk tag tertentu menggunakan metode `.use()`. Penggantian adalah fungsi yang mengembalikan string HTML:
+
+    ```tsx
+    <div
+      innerHTML={myMarkdownContent.use({
+        h1: ({ children }) => `<h1 class="text-3xl font-bold">${children}</h1>`,
+      })}
+    />
+    ```
+
+    `.value` adalah string HTML yang dirender, sedangkan `String()` / `.toString()` mengembalikan sumber Markdown mentah:
+
+    ```tsx
+    myMarkdownContent.value // "<h1>…</h1>"
+    String(myMarkdownContent) // "# …"
+    myMarkdownContent.toString() // "# …"
+    ```
+
+    Dan Anda dapat mengakses metadata markdown Anda seperti:
+
+    ```tsx
+    myMarkdownContent.metadata
+    myMarkdownContent.metadata.title
+    ```
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+    Di Astro, node Markdown dirender menjadi string HTML. Sisipkan dengan direktif `set:html` dalam template, atau dengan `innerHTML` dalam `<script>` klien.
+
+    ```astro fileName="src/pages/index.astro"
+    ---
+    import { useIntlayer } from "astro-intlayer";
+
+    const { myMarkdownContent } = useIntlayer("app");
+    ---
+
+    <div set:html={myMarkdownContent.value} />
+    ```
+
+    ```astro fileName="src/components/Content.astro"
+    <div id="content"></div>
+
+    <script>
+      import { useIntlayer } from "astro-intlayer";
+
+      const { myMarkdownContent } = useIntlayer("app");
+
+      document.querySelector("#content")!.innerHTML = myMarkdownContent.value;
+    </script>
+    ```
+
+    > Astro secara default menghindari `{ekspresi}`. `set:html` adalah pengecualian, yang dibutuhkan oleh string Markdown yang dirender.
+
+    Anda juga dapat memberikan penggantian lokal untuk tag tertentu menggunakan metode `.use()`. Penggantian adalah fungsi yang mengembalikan string HTML:
+
+    ```astro
+    <div
+      set:html={myMarkdownContent.use({
+        h1: ({ children }) => `<h1 class="text-3xl font-bold">${children}</h1>`,
+      })}
+    />
+    ```
+
+    `.value` adalah string HTML yang dirender, sedangkan `String()` / `.toString()` mengembalikan sumber Markdown mentah:
+
+    ```astro
+    myMarkdownContent.value // "<h1>…</h1>"
+    String(myMarkdownContent) // "# …"
+    myMarkdownContent.toString() // "# …"
+    ```
+
+    Dan Anda dapat mengakses metadata markdown Anda seperti:
+
+    ```astro
+    myMarkdownContent.metadata
+    myMarkdownContent.metadata.title
+    ```
+
+  </Tab>
 </Tabs>
 
 ### 2. Utilitas Pembantu (Hanya String Markdown)
@@ -695,6 +802,60 @@ Utilitas ini merender **hanya string Markdown mentah** dan independen dari `useI
         return this.markdownService.renderMarkdown(markdown);
       }
     }
+    ```
+
+  </Tab>
+  <Tab label="Remix" value="remix">
+    #### `useMarkdownRenderer()` Hook
+
+    Dapatkan fungsi renderer yang telah dikonfigurasi sebelumnya oleh `installIntlayerMarkdown()`. Ini mengembalikan string HTML.
+
+    ```tsx
+    import { useMarkdownRenderer } from "remix-intlayer/markdown";
+
+    const renderMarkdown = useMarkdownRenderer({ forceBlock: true });
+
+    return <div innerHTML={renderMarkdown("# My Title")} />;
+    ```
+
+    #### Utilitas `renderMarkdown()`
+
+    Utilitas mandiri yang mengabaikan konfigurasi global.
+
+    ```tsx
+    import { renderMarkdown } from "remix-intlayer/markdown";
+
+    const html = renderMarkdown("# My Title", { forceBlock: true });
+    ```
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+    #### `useMarkdownRenderer()` Hook
+
+    Dapatkan fungsi renderer yang telah dikonfigurasi sebelumnya oleh `installIntlayerMarkdown()`. Ini mengembalikan string HTML.
+
+    ```astro
+    ---
+    import { useMarkdownRenderer } from "astro-intlayer/markdown";
+
+    const renderMarkdown = useMarkdownRenderer({ forceBlock: true });
+    ---
+
+    <div set:html={renderMarkdown("# My Title")} />
+    ```
+
+    #### Utilitas `renderMarkdown()`
+
+    Utilitas mandiri yang mengabaikan konfigurasi global.
+
+    ```astro
+    ---
+    import { renderMarkdown } from "astro-intlayer/markdown";
+
+    const html = renderMarkdown("# My Title", { forceBlock: true });
+    ---
+
+    <div set:html={html} />
     ```
 
   </Tab>
@@ -995,6 +1156,73 @@ Utilitas ini merender **hanya string Markdown mentah** dan independen dari `useI
     ```
 
     > Mengimpor perender Markdown Anda secara dinamis adalah cara yang bagus untuk mengurangi ukuran bundel aplikasi Anda.
+
+  </Tab>
+  <Tab label="Remix" value="remix">
+
+    Remix tidak memiliki pohon komponen untuk menampung provider, sehingga konfigurasi diinstal sekali, sebagai singleton, saat server dimulai. Ini mengonfigurasi renderer yang dikembalikan oleh `useMarkdownRenderer()`. Node `md` yang dikembalikan oleh `useIntlayer` dirender dengan kompiler default; ganti tag per node dengan `.use()`.
+
+    ```typescript fileName="src/router.ts"
+    import { installIntlayerMarkdown } from "remix-intlayer/markdown";
+
+    installIntlayerMarkdown({
+      forceBlock: true,
+      components: {
+        h1: ({ children }) => `<h1 class="text-2xl font-bold">${children}</h1>`,
+      },
+    });
+    ```
+
+    Anda juga dapat menggunakan renderer markdown Anda sendiri:
+
+    ```typescript fileName="src/router.ts"
+    import { installIntlayerMarkdown } from "remix-intlayer/markdown";
+
+    installIntlayerMarkdown({
+      renderMarkdown: async (md) => {
+        const { marked } = await import("marked");
+        return marked(md) as string;
+      },
+    });
+    ```
+
+    > Gunakan `installIntlayerMarkdownDynamic(async () => …)` untuk memuat renderer secara lazy; loader hanya berjalan pada panggilan pertama.
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+
+    Astro tidak memiliki pohon komponen untuk menampung provider, sehingga konfigurasi diinstal sekali, sebagai singleton, di middleware (server) dan dalam `<script>` klien (browser). Ini mengonfigurasi renderer yang dikembalikan oleh `useMarkdownRenderer()`. Node `md` yang dikembalikan oleh `useIntlayer` dirender dengan kompiler default; ganti tag per node dengan `.use()`.
+
+    ```typescript fileName="src/middleware.ts"
+    import { installIntlayerMarkdown } from "astro-intlayer/markdown";
+    import { defineMiddleware } from "astro:middleware";
+
+    // Berjalan sekali saat server dimulai; middleware Intlayer itu sendiri
+    // didaftarkan oleh integrasi, sebelum file ini.
+    installIntlayerMarkdown({
+      forceBlock: true,
+      components: {
+        h1: ({ children }) => `<h1 class="text-2xl font-bold">${children}</h1>`,
+      },
+    });
+
+    export const onRequest = defineMiddleware((_context, next) => next());
+    ```
+
+    Anda juga dapat menggunakan renderer markdown Anda sendiri:
+
+    ```typescript fileName="src/middleware.ts"
+    import { installIntlayerMarkdown } from "astro-intlayer/markdown";
+
+    installIntlayerMarkdown({
+      renderMarkdown: async (md) => {
+        const { marked } = await import("marked");
+        return marked(md) as string;
+      },
+    });
+    ```
+
+    > Gunakan `installIntlayerMarkdownDynamic(async () => …)` untuk memuat renderer secara lazy; loader hanya berjalan pada panggilan pertama.
 
   </Tab>
 </Tabs>
@@ -1322,6 +1550,40 @@ Anda dapat menggunakan fungsi `parseMarkdown` dari paket Intlayer framework Anda
         });
       }
     }
+    ```
+
+  </Tab>
+  <Tab label="Remix" value="remix">
+
+    Remix 3 merender di server dan mengalirkan HTML, sehingga tidak ada AST yang perlu dikirim ke klien. Parse sekali, dan render AST di mana pun halaman dibangun:
+
+    ```tsx fileName="src/views/article.tsx"
+    import { parseMarkdown, renderMarkdown } from "remix-intlayer/markdown";
+
+    // 1. Parse markdown menjadi AST yang dapat diserialisasi (misalnya sekali, saat pemuatan modul)
+    const ast = parseMarkdown("## My title \n\nLorem Ipsum");
+
+    export const ArticlePage = () => () => (
+      // 2. Render AST: renderer menerima string mentah atau AST yang telah diparse
+      <article innerHTML={renderMarkdown(ast)} />
+    );
+    ```
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+
+    Halaman Astro dirender di server, sehingga tidak ada AST yang perlu dikirim ke klien. Parse Markdown di frontmatter dan render dengan `set:html`:
+
+    ```astro fileName="src/pages/article.astro"
+    ---
+    import { parseMarkdown, renderMarkdown } from "astro-intlayer/markdown";
+
+    // 1. Parse markdown menjadi AST yang dapat diserialisasi
+    const ast = parseMarkdown("## My title \n\nLorem Ipsum");
+    ---
+
+    <!-- 2. Render AST: renderer menerima string mentah atau AST yang telah diparse -->
+    <article set:html={renderMarkdown(ast)} />
     ```
 
   </Tab>

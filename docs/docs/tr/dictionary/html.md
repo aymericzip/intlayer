@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-20
-updatedAt: 2026-03-24
+updatedAt: 2026-09-21
 title: HTML İçeriği
 description: Intlayer içinde HTML içeriğini nasıl tanımlayıp özel bileşenlerle kullanacağınızı öğrenin. Bu dokümantasyonu izleyerek çok dilli projenizde dinamik bileşen değiştirme ile zengin HTML benzeri içeriği entegre edin.
 keywords:
@@ -13,6 +13,8 @@ keywords:
   - React
   - Vue
   - Svelte
+  - Remix
+  - Astro
   - Solid
   - Angular
 slugs:
@@ -235,6 +237,83 @@ Render işlemi Intlayer'ın içerik sistemi tarafından otomatik olarak veya öz
       p: { class: "prose" },
       CustomLink: { href: "/details" },
     })
+    ```
+
+  </Tab>
+  <Tab label="Remix" value="remix">
+    Remix 3'te, HTML düğümleri bir HTML dizesine çözümlenir. Bunu Remix JSX'in `innerHTML` özelliğiyle veya bir `html-template` görünümünde `html.raw` ile enjekte edin.
+
+    ```tsx fileName="src/views/home.tsx"
+    import { useIntlayer } from "remix-intlayer";
+
+    export const HomePage = () => () => {
+      const { myHtmlContent } = useIntlayer("app");
+
+      return <div innerHTML={myHtmlContent.value} />;
+    };
+    ```
+
+    ```ts fileName="src/views/home.ts"
+    import { html } from "remix/html-template";
+    import { useIntlayer } from "remix-intlayer";
+
+    export const renderHomePage = () => {
+      const { myHtmlContent } = useIntlayer("app");
+
+      return html.raw`<div>${myHtmlContent.value}</div>`;
+    };
+    ```
+
+    > Remix varsayılan olarak enterpole edilmiş değerleri kaçırır. `innerHTML` ve `html.raw`, bir HTML dizesinin ihtiyaç duyduğu iki istisnadır.
+
+    Etiketleri geçersiz kılmak veya özel bileşenleri eşlemek için `.use()` yöntemini kullanın. Geçersiz kılmalar, bir HTML dizesi döndüren fonksiyonlardır:
+
+    ```tsx
+    <div
+      innerHTML={myHtmlContent.use({
+        p: ({ children }) => `<p class="prose">${children}</p>`,
+        CustomLink: ({ children }) => `<a href="/details">${children}</a>`,
+      })}
+    />
+    ```
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+    Astro'da HTML düğümleri bir HTML dizesine çözümlenir. Bunu şablondaki `set:html` yönergesiyle veya bir istemci `<script>` içindeki `innerHTML` ile enjekte edin.
+
+    ```astro fileName="src/pages/index.astro"
+    ---
+    import { useIntlayer } from "astro-intlayer";
+
+    const { myHtmlContent } = useIntlayer("app");
+    ---
+
+    <div set:html={myHtmlContent.value} />
+    ```
+
+    ```astro fileName="src/components/Content.astro"
+    <div id="content"></div>
+
+    <script>
+      import { useIntlayer } from "astro-intlayer";
+
+      const { myHtmlContent } = useIntlayer("app");
+
+      document.querySelector("#content")!.innerHTML = myHtmlContent.value;
+    </script>
+    ```
+
+    > Astro varsayılan olarak `{ifadeler}`i kaçırır. `set:html`, bir HTML dizesinin ihtiyaç duyduğu istisnadır.
+
+    Etiketleri geçersiz kılmak veya özel bileşenleri eşlemek için `.use()` yöntemini kullanın. Geçersiz kılmalar, bir HTML dizesi döndüren fonksiyonlardır:
+
+    ```astro
+    <div
+      set:html={myHtmlContent.use({
+        p: ({ children }) => `<p class="prose">${children}</p>`,
+        CustomLink: ({ children }) => `<a href="/details">${children}</a>`,
+      })}
+    />
     ```
 
   </Tab>
@@ -473,6 +552,41 @@ HTML render'lamasını tüm uygulamanız için global olarak yapılandırabilirs
     > HTML oluşturucunuzu dinamik olarak içe aktarmak, uygulamanızın bundle boyutunu azaltmanın iyi bir yoludur.
 
   </Tab>
+  <Tab label="Remix" value="remix">
+
+    Remix'in bir sağlayıcı tutacak bileşen ağacı yoktur, bu nedenle yapılandırma sunucu başlangıcında tekil (singleton) olarak bir kez kurulur. `useHTMLRenderer()` tarafından döndürülen oluşturucuyu yapılandırır. `useIntlayer` tarafından döndürülen `html` düğümleri olduğu gibi işlenir; düğüm başına etiketlerini `.use()` ile geçersiz kılın.
+
+    ```typescript fileName="src/router.ts"
+    import { installIntlayerHTML } from "remix-intlayer/html";
+
+    installIntlayerHTML({
+      renderHTML: (html) => html.replaceAll("<p>", '<p class="prose">'),
+    });
+    ```
+
+    > Oluşturucunun kendisini tembelce yüklemek için `installIntlayerHTMLDynamic(async () => …)` kullanın; yükleyici yalnızca ilk çağrıda çalışır.
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+
+    Astro'nun bir sağlayıcı tutacak bileşen ağacı yoktur, bu nedenle yapılandırma ara yazılımda (sunucu) ve bir istemci `<script>` (tarayıcı) içinde tekil (singleton) olarak bir kez kurulur. `useHTMLRenderer()` tarafından döndürülen oluşturucuyu yapılandırır. `useIntlayer` tarafından döndürülen `html` düğümleri olduğu gibi işlenir; düğüm başına etiketlerini `.use()` ile geçersiz kılın.
+
+    ```typescript fileName="src/middleware.ts"
+    import { installIntlayerHTML } from "astro-intlayer/html";
+    import { defineMiddleware } from "astro:middleware";
+
+    // Sunucu başladığında bir kez çalışır; Intlayer ara yazılımının kendisi
+    // bu dosyadan önce entegrasyon tarafından kaydedilir.
+    installIntlayerHTML({
+      renderHTML: (html) => html.replaceAll("<p>", '<p class="prose">'),
+    });
+
+    export const onRequest = defineMiddleware((_context, next) => next());
+    ```
+
+    > Oluşturucunun kendisini tembelce yüklemek için `installIntlayerHTMLDynamic(async () => …)` kullanın; yükleyici yalnızca ilk çağrıda çalışır.
+
+  </Tab>
 </Tabs>
 
 ### Manuel Renderlama ve Gelişmiş Araçlar
@@ -645,15 +759,69 @@ Belirli bileşenlerle bir HTML dizesi oluşturun.
     ```
 
   </Tab>
+  <Tab label="Remix" value="remix">
+    #### `useHTMLRenderer()` Hook
+
+    `installIntlayerHTML()` tarafından önceden yapılandırılmış bir işleyici fonksiyonu alın. Bir HTML dizesi döndürür.
+
+    ```tsx
+    import { useHTMLRenderer } from "remix-intlayer/html";
+
+    const renderHTML = useHTMLRenderer();
+
+    return <div innerHTML={renderHTML("<p>Hello <strong>World</strong></p>")} />;
+    ```
+
+    #### `renderHTML()` Yardımcı Aracı
+
+    Genel yapılandırmayı yok sayan bağımsız yardımcı araç.
+
+    ```tsx
+    import { renderHTML } from "remix-intlayer/html";
+
+    const html = renderHTML("<p>Hello</p>");
+    ```
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+    #### `useHTMLRenderer()` Hook
+
+    `installIntlayerHTML()` tarafından önceden yapılandırılmış bir işleyici fonksiyonu alın. Bir HTML dizesi döndürür.
+
+    ```astro
+    ---
+    import { useHTMLRenderer } from "astro-intlayer/html";
+
+    const renderHTML = useHTMLRenderer();
+    ---
+
+    <div set:html={renderHTML("<p>Hello <strong>World</strong></p>")} />
+    ```
+
+    #### `renderHTML()` Yardımcı Aracı
+
+    Genel yapılandırmayı yok sayan bağımsız yardımcı araç.
+
+    ```astro
+    ---
+    import { renderHTML } from "astro-intlayer/html";
+
+    const html = renderHTML("<p>Hello</p>");
+    ---
+
+    <div set:html={html} />
+    ```
+
+  </Tab>
 </Tabs>
 
 ## Seçenekler Referansı
 
 Bu seçenekler `HTMLProvider`, `HTMLRenderer`, `useHTMLRenderer` ve `renderHTML`'e iletilebilir.
 
-| Seçenek      | Tür                   | Varsayılan | Açıklama                                                                                                                    |
-| :----------- | :-------------------- | :--------- | :-------------------------------------------------------------------------------------------------------------------------- |
-| `components` | `Record<string, any>` | `{}`       | HTML etiketlerini veya özel bileşen isimlerini bileşenlere eşleyen bir harita.                                              |
-| `renderHTML` | `Function`            | `null`     | Varsayılan HTML ayrıştırıcısını tamamen değiştirmek için özel bir render fonksiyonu (Sadece Vue/Svelte sağlayıcıları için). |
+| Seçenek      | Tür                   | Varsayılan | Açıklama                                                                                                                         |
+| :----------- | :-------------------- | :--------- | :------------------------------------------------------------------------------------------------------------------------------- |
+| `components` | `Record<string, any>` | `{}`       | HTML etiketlerini veya özel bileşen isimlerini bileşenlere eşleyen bir harita.                                                   |
+| `renderHTML` | `Function`            | `null`     | Varsayılan HTML ayrıştırıcısını tamamen değiştirmek için özel bir render fonksiyonu (Vue, Svelte, Remix ve Astro sağlayıcıları). |
 
 > Not: React ve Preact için standart HTML etiketleri otomatik olarak sağlanır. Bunları geçersiz kılmak veya özel bileşenler eklemek istiyorsanız yalnızca `components` prop'unu geçirmeniz yeterlidir.
